@@ -125,15 +125,21 @@
   shouldLog = [v3 shouldLog];
   if ([v3 shouldLogToDisk])
   {
-    v5 = shouldLog | 2;
+    LODWORD(v5) = shouldLog | 2;
   }
 
   else
   {
-    v5 = shouldLog;
+    LODWORD(v5) = shouldLog;
   }
 
-  if (!os_log_type_enabled([v3 OSLogObject], OS_LOG_TYPE_INFO))
+  oSLogObject = [v3 OSLogObject];
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+  {
+    v5 = v5;
+  }
+
+  else
   {
     v5 &= 2u;
   }
@@ -142,20 +148,18 @@
   {
     v11 = 138412290;
     v12 = objc_opt_class();
-    LODWORD(v10) = 12;
-    v9 = &v11;
-    v6 = _os_log_send_and_compose_impl();
-    if (v6)
+    v7 = _os_log_send_and_compose_impl(v5, 0, 0, 0, &_mh_execute_header, oSLogObject, 1, "%@: Deleting all OTA tracks", &v11, 12);
+    if (v7)
     {
-      v7 = v6;
-      v8 = [NSString stringWithCString:v6 encoding:4, &v11, v10];
-      free(v7);
-      v9 = v8;
+      v8 = v7;
+      v9 = [NSString stringWithCString:v7 encoding:4];
+      free(v8);
+      v10 = v9;
       SSFileLog();
     }
   }
 
-  [(IPodLibrary *)self _dispatchAsync:&stru_100329DA8, v9];
+  [(IPodLibrary *)self _dispatchAsync:&stru_100329DA8, v10];
 }
 
 - (void)removeDownloadsWithIdentifiers:(id)identifiers canceled:(BOOL)canceled
@@ -201,15 +205,21 @@
     shouldLog = [v5 shouldLog];
     if ([v5 shouldLogToDisk])
     {
-      v7 = shouldLog | 2;
+      LODWORD(v7) = shouldLog | 2;
     }
 
     else
     {
-      v7 = shouldLog;
+      LODWORD(v7) = shouldLog;
     }
 
-    if (!os_log_type_enabled([v5 OSLogObject], OS_LOG_TYPE_INFO))
+    oSLogObject = [v5 OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+    {
+      v7 = v7;
+    }
+
+    else
     {
       v7 &= 2u;
     }
@@ -220,15 +230,13 @@
       v15 = objc_opt_class();
       v16 = 2048;
       v17 = [items count];
-      LODWORD(v12) = 22;
-      v11 = &v14;
-      v8 = _os_log_send_and_compose_impl();
-      if (v8)
+      v9 = _os_log_send_and_compose_impl(v7, 0, 0, 0, &_mh_execute_header, oSLogObject, 1, "%@: Scheduling %lu iPod library items", &v14, 22);
+      if (v9)
       {
-        v9 = v8;
-        v10 = [NSString stringWithCString:v8 encoding:4, &v14, v12];
-        free(v9);
-        v11 = v10;
+        v10 = v9;
+        v11 = [NSString stringWithCString:v9 encoding:4];
+        free(v10);
+        v12 = v11;
         SSFileLog();
       }
     }
@@ -239,7 +247,7 @@
     v13[3] = &unk_100327350;
     v13[4] = self;
     v13[5] = items;
-    [(IPodLibrary *)self _dispatchAsync:v13, v11];
+    [(IPodLibrary *)self _dispatchAsync:v13, v12];
   }
 }
 
@@ -267,27 +275,27 @@
 - (BOOL)_addLibraryItems:(id)items toMusicLibrary:(id)library itemPids:(int64_t *)pids error:(id *)error
 {
   itemsCopy = items;
-  v130 = +[NSMutableArray arrayWithCapacity:](NSMutableArray, "arrayWithCapacity:", [items count]);
-  v135 = 0u;
-  v136 = 0u;
-  v137 = 0u;
-  v138 = 0u;
-  v7 = [itemsCopy countByEnumeratingWithState:&v135 objects:v143 count:16];
+  v140 = +[NSMutableArray arrayWithCapacity:](NSMutableArray, "arrayWithCapacity:", [items count]);
+  v145 = 0u;
+  v146 = 0u;
+  v147 = 0u;
+  v148 = 0u;
+  v7 = [itemsCopy countByEnumeratingWithState:&v145 objects:v153 count:16];
   obj = itemsCopy;
   if (v7)
   {
     v8 = v7;
-    v9 = *v136;
+    v9 = *v146;
     do
     {
       for (i = 0; i != v8; i = i + 1)
       {
-        if (*v136 != v9)
+        if (*v146 != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v135 + 1) + 8 * i);
+        v11 = *(*(&v145 + 1) + 8 * i);
         v12 = +[IPodLibraryItem mediaTypeForStoreDownload:](IPodLibraryItem, "mediaTypeForStoreDownload:", [v11 itemMetadata]);
         libraryPersistentIdentifier = [v11 libraryPersistentIdentifier];
         v14 = +[SSLogConfig sharedDaemonConfig];
@@ -296,82 +304,92 @@
           v14 = +[SSLogConfig sharedConfig];
         }
 
-        shouldLog = [v14 shouldLog];
+        LODWORD(v15) = [v14 shouldLog];
         if ([v14 shouldLogToDisk])
         {
-          shouldLog |= 2u;
+          LODWORD(v15) = v15 | 2;
         }
 
-        if (!os_log_type_enabled([v14 OSLogObject], OS_LOG_TYPE_INFO))
+        oSLogObject = [v14 OSLogObject];
+        if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
         {
-          shouldLog &= 2u;
+          v15 = v15;
         }
 
-        if (shouldLog)
+        else
         {
-          v16 = objc_opt_class();
-          v139 = 138412546;
-          v140 = v16;
-          v141 = 2048;
-          *v142 = libraryPersistentIdentifier;
-          LODWORD(v120) = 22;
-          v112 = &v139;
-          v17 = _os_log_send_and_compose_impl();
-          if (v17)
+          v15 &= 2u;
+        }
+
+        if (v15)
+        {
+          v17 = objc_opt_class();
+          v149 = 138412546;
+          v150 = v17;
+          v151 = 2048;
+          *v152 = libraryPersistentIdentifier;
+          LODWORD(v130) = 22;
+          v18 = _os_log_send_and_compose_impl(v15, 0, 0, 0, &_mh_execute_header, oSLogObject, 1, "%@: importing item with existing library pid %lld", &v149, v130);
+          if (v18)
           {
-            v18 = v17;
-            v120 = [NSString stringWithCString:v17 encoding:4, &v139, v120];
-            free(v18);
-            v112 = v120;
+            v19 = v18;
+            v20 = [NSString stringWithCString:v18 encoding:4];
+            free(v19);
+            v122 = v20;
             SSFileLog();
           }
         }
 
         if (libraryPersistentIdentifier)
         {
-          v20 = v12 == 8;
+          v21 = v12 == 8;
         }
 
         else
         {
-          v20 = 0;
+          v21 = 0;
         }
 
-        if (v20)
+        if (v21)
         {
-          v21 = +[SSLogConfig sharedDaemonConfig];
-          if (!v21)
+          v22 = +[SSLogConfig sharedDaemonConfig];
+          if (!v22)
           {
-            v21 = +[SSLogConfig sharedConfig];
+            v22 = +[SSLogConfig sharedConfig];
           }
 
-          shouldLog2 = [v21 shouldLog];
-          if ([v21 shouldLogToDisk])
+          LODWORD(v23) = [v22 shouldLog];
+          if ([v22 shouldLogToDisk])
           {
-            shouldLog2 |= 2u;
+            LODWORD(v23) = v23 | 2;
           }
 
-          if (!os_log_type_enabled([v21 OSLogObject], OS_LOG_TYPE_INFO))
+          oSLogObject2 = [v22 OSLogObject];
+          if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_INFO))
           {
-            shouldLog2 &= 2u;
+            v23 = v23;
           }
 
-          if (shouldLog2)
+          else
           {
-            v23 = objc_opt_class();
-            v139 = 138412546;
-            v140 = v23;
-            v141 = 2048;
-            *v142 = libraryPersistentIdentifier;
-            LODWORD(v120) = 22;
-            v112 = &v139;
-            v24 = _os_log_send_and_compose_impl();
-            if (v24)
+            v23 &= 2u;
+          }
+
+          if (v23)
+          {
+            v25 = objc_opt_class();
+            v149 = 138412546;
+            v150 = v25;
+            v151 = 2048;
+            *v152 = libraryPersistentIdentifier;
+            LODWORD(v130) = 22;
+            v26 = _os_log_send_and_compose_impl(v23, 0, 0, 0, &_mh_execute_header, oSLogObject2, 1, "%@: skipping import of item with existing library pid %lld", &v149, v130);
+            if (v26)
             {
-              v25 = v24;
-              v1202 = [NSString stringWithCString:v24 encoding:4, &v139, v120];
-              free(v25);
-              v112 = v1202;
+              v27 = v26;
+              v28 = [NSString stringWithCString:v26 encoding:4];
+              free(v27);
+              v122 = v28;
               SSFileLog();
             }
           }
@@ -379,302 +397,322 @@
 
         else
         {
-          [(NSMutableArray *)v130 addObject:v11];
+          [(NSMutableArray *)v140 addObject:v11];
         }
       }
 
       itemsCopy = obj;
-      v8 = [obj countByEnumeratingWithState:&v135 objects:v143 count:16];
+      v8 = [obj countByEnumeratingWithState:&v145 objects:v153 count:16];
     }
 
     while (v8);
   }
 
-  if ([(NSMutableArray *)v130 count])
+  if ([(NSMutableArray *)v140 count])
   {
-    v27 = +[NSMutableArray arrayWithCapacity:](NSMutableArray, "arrayWithCapacity:", [itemsCopy count]);
-    v128 = objc_alloc_init(IPodLibraryML3TrackImporter);
-    v28 = [(IPodLibraryML3TrackImporter *)v128 importLibraryItems:v130 toMusicLibrary:library importedItemPids:v27];
-    v29 = +[SSLogConfig sharedDaemonConfig];
-    if (!v29)
+    v29 = +[NSMutableArray arrayWithCapacity:](NSMutableArray, "arrayWithCapacity:", [itemsCopy count]);
+    v138 = objc_alloc_init(IPodLibraryML3TrackImporter);
+    v30 = [(IPodLibraryML3TrackImporter *)v138 importLibraryItems:v140 toMusicLibrary:library importedItemPids:v29];
+    v31 = +[SSLogConfig sharedDaemonConfig];
+    if (!v31)
     {
-      v29 = +[SSLogConfig sharedConfig];
+      v31 = +[SSLogConfig sharedConfig];
     }
 
-    shouldLog3 = [v29 shouldLog];
-    if ([v29 shouldLogToDisk])
+    shouldLog = [v31 shouldLog];
+    if ([v31 shouldLogToDisk])
     {
-      shouldLog3 |= 2u;
+      shouldLog |= 2u;
     }
 
-    if (os_log_type_enabled([v29 OSLogObject], OS_LOG_TYPE_INFO))
+    oSLogObject3 = [v31 OSLogObject];
+    if (os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_INFO))
     {
-      v31 = shouldLog3;
+      v34 = shouldLog;
     }
 
     else
     {
-      v31 = shouldLog3 & 2;
+      v34 = shouldLog & 2;
     }
 
-    if (v31)
+    if (v34)
     {
-      v32 = objc_opt_class();
-      v33 = "failed";
-      if (v28)
+      v35 = objc_opt_class();
+      v36 = "failed";
+      if (v30)
       {
-        v33 = "succeeded";
+        v36 = "succeeded";
       }
 
-      v139 = 138412546;
-      v140 = v32;
-      v141 = 2080;
-      *v142 = v33;
-      LODWORD(v120) = 22;
-      v113 = &v139;
-      v34 = _os_log_send_and_compose_impl();
-      if (v34)
+      v149 = 138412546;
+      v150 = v35;
+      v151 = 2080;
+      *v152 = v36;
+      LODWORD(v130) = 22;
+      v37 = _os_log_send_and_compose_impl(v34, 0, 0, 0, &_mh_execute_header, oSLogObject3, 1, "%@: import %s", &v149, v130);
+      if (v37)
       {
-        v35 = v34;
-        v1203 = [NSString stringWithCString:v34 encoding:4, &v139, v120];
-        free(v35);
-        v113 = v1203;
+        v38 = v37;
+        v39 = [NSString stringWithCString:v37 encoding:4];
+        free(v38);
+        v123 = v39;
         SSFileLog();
       }
     }
 
-    if (!v28)
+    if (!v30)
     {
-      v110 = 0;
-      goto LABEL_151;
+      v120 = 0;
+      goto LABEL_159;
     }
 
-    if ([(NSMutableArray *)v130 count])
+    if ([(NSMutableArray *)v140 count])
     {
-      v37 = 0;
+      v40 = 0;
       do
       {
-        [-[NSMutableArray objectAtIndex:](v130 objectAtIndex:{v37, v113), "setLibraryPersistentIdentifier:", objc_msgSend(-[NSMutableArray objectAtIndex:](v27, "objectAtIndex:", v37), "longLongValue")}];
-        ++v37;
+        [-[NSMutableArray objectAtIndex:](v140 objectAtIndex:{v40, v123), "setLibraryPersistentIdentifier:", objc_msgSend(-[NSMutableArray objectAtIndex:](v29, "objectAtIndex:", v40), "longLongValue")}];
+        ++v40;
       }
 
-      while ([(NSMutableArray *)v130 count]> v37);
+      while ([(NSMutableArray *)v140 count]> v40);
     }
 
     itemsCopy = obj;
   }
 
-  v127 = objc_opt_new();
-  v128 = objc_opt_new();
+  v137 = objc_opt_new();
+  v138 = objc_opt_new();
   if ([itemsCopy count])
   {
-    v38 = 0;
-    v123 = ML3TrackPropertyBaseLocationID;
-    v124 = ML3TrackPropertyLocationFileName;
-    v122 = ML3TrackPropertyStoreFamilyAccountID;
+    v41 = 0;
+    v133 = ML3TrackPropertyBaseLocationID;
+    v134 = ML3TrackPropertyLocationFileName;
+    v132 = ML3TrackPropertyStoreFamilyAccountID;
     do
     {
-      v39 = [itemsCopy objectAtIndex:{v38, v113}];
-      itemMediaPath = [v39 itemMediaPath];
-      v131 = v39;
-      libraryPersistentIdentifier2 = [v39 libraryPersistentIdentifier];
-      v42 = libraryPersistentIdentifier2;
+      v42 = [itemsCopy objectAtIndex:{v41, v123}];
+      itemMediaPath = [v42 itemMediaPath];
+      v141 = v42;
+      libraryPersistentIdentifier2 = [v42 libraryPersistentIdentifier];
+      v45 = libraryPersistentIdentifier2;
       if (pids)
       {
-        pids[v38] = libraryPersistentIdentifier2;
+        pids[v41] = libraryPersistentIdentifier2;
       }
 
-      v43 = +[SSLogConfig sharedDaemonConfig];
-      if (!v43)
+      v46 = +[SSLogConfig sharedDaemonConfig];
+      if (!v46)
       {
-        v43 = +[SSLogConfig sharedConfig];
+        v46 = +[SSLogConfig sharedConfig];
       }
 
-      shouldLog4 = [v43 shouldLog];
-      if ([v43 shouldLogToDisk])
+      LODWORD(v47) = [v46 shouldLog];
+      if ([v46 shouldLogToDisk])
       {
-        shouldLog4 |= 2u;
+        LODWORD(v47) = v47 | 2;
       }
 
-      if (!os_log_type_enabled([v43 OSLogObject], OS_LOG_TYPE_INFO))
+      oSLogObject4 = [v46 OSLogObject];
+      if (os_log_type_enabled(oSLogObject4, OS_LOG_TYPE_INFO))
       {
-        shouldLog4 &= 2u;
+        v47 = v47;
       }
 
-      if (shouldLog4)
+      else
       {
-        v45 = objc_opt_class();
-        v139 = 138412802;
-        v140 = v45;
-        v141 = 1024;
-        *v142 = v38;
-        *&v142[4] = 2048;
-        *&v142[6] = v42;
-        LODWORD(v120) = 28;
-        v114 = &v139;
-        v46 = _os_log_send_and_compose_impl();
-        if (v46)
+        v47 &= 2u;
+      }
+
+      if (v47)
+      {
+        v49 = objc_opt_class();
+        v149 = 138412802;
+        v150 = v49;
+        v151 = 1024;
+        *v152 = v41;
+        *&v152[4] = 2048;
+        *&v152[6] = v45;
+        LODWORD(v130) = 28;
+        v50 = _os_log_send_and_compose_impl(v47, 0, 0, 0, &_mh_execute_header, oSLogObject4, 1, "%@: post process item %d. pid=%lld", &v149, v130);
+        if (v50)
         {
-          v47 = v46;
-          v1204 = [NSString stringWithCString:v46 encoding:4, &v139, v120];
-          free(v47);
-          v114 = v1204;
+          v51 = v50;
+          v52 = [NSString stringWithCString:v50 encoding:4];
+          free(v51);
+          v124 = v52;
           SSFileLog();
         }
       }
 
-      v49 = v42;
-      v50 = [[ML3Track alloc] initWithPersistentID:v42 inLibrary:library];
-      v129 = [v50 valueForProperty:v124];
-      v51 = [objc_msgSend(v50 valueForProperty:{v123), "longLongValue"}];
-      v133 = itemMediaPath;
+      v53 = v45;
+      v54 = [[ML3Track alloc] initWithPersistentID:v45 inLibrary:library];
+      v139 = [v54 valueForProperty:v134];
+      v55 = [objc_msgSend(v54 valueForProperty:{v133), "longLongValue"}];
+      v143 = itemMediaPath;
       [objc_msgSend(itemMediaPath "stringByDeletingLastPathComponent")];
-      v52 = ML3BaseLocationIDFromMediaRelativePathInLibrary();
-      v53 = [v50 valueForProperty:v122];
-      longLongValue = [v53 longLongValue];
-      v55 = +[SSLogConfig sharedDaemonConfig];
-      if (!v55)
+      v56 = ML3BaseLocationIDFromMediaRelativePathInLibrary();
+      v57 = [v54 valueForProperty:v132];
+      longLongValue = [v57 longLongValue];
+      v59 = +[SSLogConfig sharedDaemonConfig];
+      if (!v59)
       {
-        v55 = +[SSLogConfig sharedConfig];
+        v59 = +[SSLogConfig sharedConfig];
       }
 
-      shouldLog5 = [v55 shouldLog];
-      if ([v55 shouldLogToDisk])
+      LODWORD(v60) = [v59 shouldLog];
+      if ([v59 shouldLogToDisk])
       {
-        shouldLog5 |= 2u;
+        LODWORD(v60) = v60 | 2;
       }
 
-      if (!os_log_type_enabled([v55 OSLogObject], OS_LOG_TYPE_INFO))
+      oSLogObject5 = [v59 OSLogObject];
+      if (os_log_type_enabled(oSLogObject5, OS_LOG_TYPE_INFO))
       {
-        shouldLog5 &= 2u;
+        v60 = v60;
       }
 
-      if (shouldLog5)
+      else
       {
-        v57 = objc_opt_class();
-        v139 = 138412802;
-        v140 = v57;
-        v141 = 2112;
-        *v142 = v129;
-        *&v142[8] = 2112;
-        *&v142[10] = v53;
-        LODWORD(v120) = 32;
-        v115 = &v139;
-        v58 = _os_log_send_and_compose_impl();
-        if (v58)
+        v60 &= 2u;
+      }
+
+      if (v60)
+      {
+        v62 = objc_opt_class();
+        v149 = 138412802;
+        v150 = v62;
+        v151 = 2112;
+        *v152 = v139;
+        *&v152[8] = 2112;
+        *&v152[10] = v57;
+        LODWORD(v130) = 32;
+        v63 = _os_log_send_and_compose_impl(v60, 0, 0, 0, &_mh_execute_header, oSLogObject5, 1, "%@: existingPath=%@, existingFamilyAccoundID=%@", &v149, v130);
+        if (v63)
         {
-          v59 = v58;
-          v1205 = [NSString stringWithCString:v58 encoding:4, &v139, v120];
-          free(v59);
-          v115 = v1205;
+          v64 = v63;
+          v65 = [NSString stringWithCString:v63 encoding:4];
+          free(v64);
+          v125 = v65;
           SSFileLog();
         }
       }
 
-      if (v133)
+      if (v143)
       {
-        v61 = +[SSLogConfig sharedDaemonConfig];
-        v62 = v61;
-        if (v51 <= v52 || longLongValue)
+        v66 = +[SSLogConfig sharedDaemonConfig];
+        v67 = v66;
+        if (v55 <= v56 || longLongValue)
         {
-          if (!v61)
+          if (!v66)
           {
-            v62 = +[SSLogConfig sharedConfig];
+            v67 = +[SSLogConfig sharedConfig];
           }
 
-          shouldLog6 = [v62 shouldLog];
-          if ([v62 shouldLogToDisk])
+          shouldLog2 = [v67 shouldLog];
+          if ([v67 shouldLogToDisk])
           {
-            v77 = shouldLog6 | 2;
+            LODWORD(v84) = shouldLog2 | 2;
           }
 
           else
           {
-            v77 = shouldLog6;
+            LODWORD(v84) = shouldLog2;
           }
 
-          if (!os_log_type_enabled([v62 OSLogObject], OS_LOG_TYPE_INFO))
+          oSLogObject6 = [v67 OSLogObject];
+          if (os_log_type_enabled(oSLogObject6, OS_LOG_TYPE_INFO))
           {
-            v77 &= 2u;
+            v84 = v84;
+          }
+
+          else
+          {
+            v84 &= 2u;
           }
 
           itemsCopy = obj;
-          if (v77)
+          if (v84)
           {
-            v78 = objc_opt_class();
-            persistentID = [v50 persistentID];
-            v139 = 138412546;
-            v140 = v78;
-            v141 = 2048;
-            *v142 = persistentID;
-            LODWORD(v120) = 22;
-            v118 = &v139;
-            v80 = _os_log_send_and_compose_impl();
-            if (v80)
+            v86 = objc_opt_class();
+            persistentID = [v54 persistentID];
+            v149 = 138412546;
+            v150 = v86;
+            v151 = 2048;
+            *v152 = persistentID;
+            LODWORD(v130) = 22;
+            v88 = _os_log_send_and_compose_impl(v84, 0, 0, 0, &_mh_execute_header, oSLogObject6, 1, "%@: Defering populating artwork for %lld", &v149, v130);
+            if (v88)
             {
-              v81 = v80;
-              v1206 = [NSString stringWithCString:v80 encoding:4, &v139, v120];
-              free(v81);
-              v118 = v1206;
+              v89 = v88;
+              v90 = [NSString stringWithCString:v88 encoding:4];
+              free(v89);
+              v128 = v90;
               SSFileLog();
             }
           }
 
-          [v127 addObject:{v131, v118}];
-          [(IPodLibraryML3TrackImporter *)v128 addObject:v50];
+          [v137 addObject:{v141, v128}];
+          [(IPodLibraryML3TrackImporter *)v138 addObject:v54];
         }
 
         else
         {
-          if (!v61)
+          if (!v66)
           {
-            v62 = +[SSLogConfig sharedConfig];
+            v67 = +[SSLogConfig sharedConfig];
           }
 
-          shouldLog7 = [v62 shouldLog];
-          if ([v62 shouldLogToDisk])
+          shouldLog3 = [v67 shouldLog];
+          if ([v67 shouldLogToDisk])
           {
-            v64 = shouldLog7 | 2;
+            LODWORD(v69) = shouldLog3 | 2;
           }
 
           else
           {
-            v64 = shouldLog7;
+            LODWORD(v69) = shouldLog3;
           }
 
-          if (!os_log_type_enabled([v62 OSLogObject], OS_LOG_TYPE_INFO))
+          oSLogObject7 = [v67 OSLogObject];
+          if (os_log_type_enabled(oSLogObject7, OS_LOG_TYPE_INFO))
           {
-            v64 &= 2u;
+            v69 = v69;
           }
 
-          if (v64)
+          else
           {
-            v65 = objc_opt_class();
-            v139 = 138412802;
-            v140 = v65;
-            v141 = 2048;
-            *v142 = v49;
-            *&v142[8] = 2112;
-            *&v142[10] = v129;
-            LODWORD(v120) = 32;
-            v116 = &v139;
-            v66 = _os_log_send_and_compose_impl();
-            if (v66)
+            v69 &= 2u;
+          }
+
+          if (v69)
+          {
+            v71 = objc_opt_class();
+            v149 = 138412802;
+            v150 = v71;
+            v151 = 2048;
+            *v152 = v53;
+            *&v152[8] = 2112;
+            *&v152[10] = v139;
+            LODWORD(v130) = 32;
+            v72 = _os_log_send_and_compose_impl(v69, 0, 0, 0, &_mh_execute_header, oSLogObject7, 1, "%@: Skipping existing track with location data: %lld: %@", &v149, v130);
+            if (v72)
             {
-              v67 = v66;
-              v1207 = [NSString stringWithCString:v66 encoding:4, &v139, v120];
-              free(v67);
-              v116 = v1207;
+              v73 = v72;
+              v74 = [NSString stringWithCString:v72 encoding:4];
+              free(v73);
+              v126 = v74;
               SSFileLog();
             }
           }
 
-          if ([v131 isDownloading])
+          if ([v141 isDownloading])
           {
-            [(IPodLibrary *)self _setDownloadPropertiesForTrack:v50 usingLibraryItem:v131];
+            [(IPodLibrary *)self _setDownloadPropertiesForTrack:v54 usingLibraryItem:v141];
           }
 
-          [NSSet setWithObject:v133];
+          [NSSet setWithObject:v143];
           ML3DeleteAssetsAtPaths();
           itemsCopy = obj;
         }
@@ -682,213 +720,222 @@
 
       else
       {
-        v69 = +[SSLogConfig sharedDaemonConfig];
+        v75 = +[SSLogConfig sharedDaemonConfig];
         itemsCopy = obj;
-        if (!v69)
+        if (!v75)
         {
-          v69 = +[SSLogConfig sharedConfig];
+          v75 = +[SSLogConfig sharedConfig];
         }
 
-        shouldLog8 = [v69 shouldLog];
-        if ([v69 shouldLogToDisk])
+        shouldLog4 = [v75 shouldLog];
+        if ([v75 shouldLogToDisk])
         {
-          v71 = shouldLog8 | 2;
+          LODWORD(v77) = shouldLog4 | 2;
         }
 
         else
         {
-          v71 = shouldLog8;
+          LODWORD(v77) = shouldLog4;
         }
 
-        if (!os_log_type_enabled([v69 OSLogObject], OS_LOG_TYPE_INFO))
+        oSLogObject8 = [v75 OSLogObject];
+        if (os_log_type_enabled(oSLogObject8, OS_LOG_TYPE_INFO))
         {
-          v71 &= 2u;
+          v77 = v77;
         }
 
-        if (v71)
+        else
         {
-          v72 = objc_opt_class();
-          v139 = 138412546;
-          v140 = v72;
-          v141 = 2048;
-          *v142 = v49;
-          LODWORD(v120) = 22;
-          v117 = &v139;
-          v73 = _os_log_send_and_compose_impl();
-          if (v73)
+          v77 &= 2u;
+        }
+
+        if (v77)
+        {
+          v79 = objc_opt_class();
+          v149 = 138412546;
+          v150 = v79;
+          v151 = 2048;
+          *v152 = v53;
+          LODWORD(v130) = 22;
+          v80 = _os_log_send_and_compose_impl(v77, 0, 0, 0, &_mh_execute_header, oSLogObject8, 1, "%@: Skipping existing track, no location data: %lld", &v149, v130);
+          if (v80)
           {
-            v74 = v73;
-            v1208 = [NSString stringWithCString:v73 encoding:4, &v139, v120];
-            free(v74);
-            v117 = v1208;
+            v81 = v80;
+            v82 = [NSString stringWithCString:v80 encoding:4];
+            free(v81);
+            v127 = v82;
             SSFileLog();
           }
         }
 
-        if ([v131 isDownloading])
+        if ([v141 isDownloading])
         {
-          [(IPodLibrary *)self _setDownloadPropertiesForTrack:v50 usingLibraryItem:v131];
+          [(IPodLibrary *)self _setDownloadPropertiesForTrack:v54 usingLibraryItem:v141];
         }
 
-        else if ([v131 updateType] == 2)
+        else if ([v141 updateType] == 2)
         {
-          itemArtworkData = [v131 itemArtworkData];
+          itemArtworkData = [v141 itemArtworkData];
           if ([itemArtworkData length])
           {
-            [v50 populateArtworkCacheWithArtworkData:itemArtworkData];
+            [v54 populateArtworkCacheWithArtworkData:itemArtworkData];
           }
         }
       }
 
-      v84 = +[SSLogConfig sharedDaemonConfig];
-      if (!v84)
+      v92 = +[SSLogConfig sharedDaemonConfig];
+      if (!v92)
       {
-        v84 = +[SSLogConfig sharedConfig];
+        v92 = +[SSLogConfig sharedConfig];
       }
 
-      shouldLog9 = [v84 shouldLog];
-      if ([v84 shouldLogToDisk])
+      shouldLog5 = [v92 shouldLog];
+      if ([v92 shouldLogToDisk])
       {
-        v86 = shouldLog9 | 2;
-      }
-
-      else
-      {
-        v86 = shouldLog9;
-      }
-
-      if (os_log_type_enabled([v84 OSLogObject], OS_LOG_TYPE_INFO))
-      {
-        v87 = v86;
+        v94 = shouldLog5 | 2;
       }
 
       else
       {
-        v87 = v86 & 2;
+        v94 = shouldLog5;
       }
 
-      if (v87)
+      oSLogObject9 = [v92 OSLogObject];
+      if (os_log_type_enabled(oSLogObject9, OS_LOG_TYPE_INFO))
       {
-        v139 = 134217984;
-        v140 = v49;
-        LODWORD(v120) = 12;
-        v113 = &v139;
-        v88 = _os_log_send_and_compose_impl();
-        if (v88)
+        v96 = v94;
+      }
+
+      else
+      {
+        v96 = v94 & 2;
+      }
+
+      if (v96)
+      {
+        v149 = 134217984;
+        v150 = v53;
+        v97 = _os_log_send_and_compose_impl(v96, 0, 0, 0, &_mh_execute_header, oSLogObject9, 1, "inserted track id %lld", &v149);
+        if (v97)
         {
-          v89 = v88;
-          v1209 = [NSString stringWithCString:v88 encoding:4, &v139, v120];
-          free(v89);
-          v113 = v1209;
+          v98 = v97;
+          v99 = [NSString stringWithCString:v97 encoding:4];
+          free(v98);
+          v123 = v99;
           SSFileLog();
         }
       }
 
-      ++v38;
+      ++v41;
     }
 
-    while ([itemsCopy count] > v38);
+    while ([itemsCopy count] > v41);
   }
 
-  v91 = v127;
-  if ([v127 count])
+  v100 = v137;
+  if ([v137 count])
   {
-    v92 = 0;
-    v93 = ML3TrackPropertyStoreFamilyAccountID;
+    v101 = 0;
+    v102 = ML3TrackPropertyStoreFamilyAccountID;
     do
     {
-      v94 = [v91 objectAtIndex:v92];
-      v95 = [(IPodLibraryML3TrackImporter *)v128 objectAtIndex:v92];
-      v96 = +[SSLogConfig sharedDaemonConfig];
-      if (!v96)
+      v103 = [v100 objectAtIndex:v101];
+      v104 = [(IPodLibraryML3TrackImporter *)v138 objectAtIndex:v101];
+      v105 = +[SSLogConfig sharedDaemonConfig];
+      if (!v105)
       {
-        v96 = +[SSLogConfig sharedConfig];
+        v105 = +[SSLogConfig sharedConfig];
       }
 
-      shouldLog10 = [v96 shouldLog];
-      if ([v96 shouldLogToDisk])
+      LODWORD(v106) = [v105 shouldLog];
+      if ([v105 shouldLogToDisk])
       {
-        shouldLog10 |= 2u;
+        LODWORD(v106) = v106 | 2;
       }
 
-      if (!os_log_type_enabled([v96 OSLogObject], OS_LOG_TYPE_INFO))
+      oSLogObject10 = [v105 OSLogObject];
+      if (os_log_type_enabled(oSLogObject10, OS_LOG_TYPE_INFO))
       {
-        shouldLog10 &= 2u;
+        v106 = v106;
       }
 
-      if (shouldLog10)
+      else
       {
-        v98 = objc_opt_class();
-        persistentID2 = [v95 persistentID];
-        v139 = 138412546;
-        v140 = v98;
-        v141 = 2048;
-        *v142 = persistentID2;
-        LODWORD(v120) = 22;
-        v119 = &v139;
-        v100 = _os_log_send_and_compose_impl();
-        if (v100)
+        v106 &= 2u;
+      }
+
+      if (v106)
+      {
+        v108 = objc_opt_class();
+        persistentID2 = [v104 persistentID];
+        v149 = 138412546;
+        v150 = v108;
+        v151 = 2048;
+        *v152 = persistentID2;
+        LODWORD(v130) = 22;
+        v110 = _os_log_send_and_compose_impl(v106, 0, 0, 0, &_mh_execute_header, oSLogObject10, 1, "%@: Setting location data for track: %lld", &v149, v130);
+        if (v110)
         {
-          v101 = v100;
-          v12010 = [NSString stringWithCString:v100 encoding:4, &v139, v120];
-          free(v101);
-          v119 = v12010;
+          v111 = v110;
+          v112 = [NSString stringWithCString:v110 encoding:4];
+          free(v111);
+          v129 = v112;
           SSFileLog();
         }
       }
 
-      itemArtworkData2 = [v94 itemArtworkData];
+      itemArtworkData2 = [v103 itemArtworkData];
       if ([itemArtworkData2 length])
       {
-        [v95 populateArtworkCacheWithArtworkData:itemArtworkData2];
+        [v104 populateArtworkCacheWithArtworkData:itemArtworkData2];
       }
 
-      protectionType = [v94 protectionType];
-      v105 = protectionType;
+      protectionType = [v103 protectionType];
+      v115 = protectionType;
       if (protectionType != 2 && protectionType != 1)
       {
-        if (!protectionType && (v106 = [objc_msgSend(v94 "itemMetadata")], objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0) && objc_msgSend(v106, "count"))
+        if (!protectionType && (v116 = [objc_msgSend(v103 "itemMetadata")], objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0) && objc_msgSend(v116, "count"))
         {
-          v107 = [[DownloadDRM alloc] initWithSinfArray:v106];
-          v105 = ([(DownloadDRM *)v107 isDRMFree]^ 1);
+          v117 = [[DownloadDRM alloc] initWithSinfArray:v116];
+          v115 = ([(DownloadDRM *)v117 isDRMFree]^ 1);
         }
 
         else
         {
-          v105 = 0;
+          v115 = 0;
         }
       }
 
-      [v95 populateLocationPropertiesWithPath:objc_msgSend(v94 protectionType:{"itemMediaPath"), v105}];
-      v108 = [objc_msgSend(v94 "itemMetadata")];
-      if (v108)
+      [v104 populateLocationPropertiesWithPath:objc_msgSend(v103 protectionType:{"itemMediaPath"), v115}];
+      v118 = [objc_msgSend(v103 "itemMetadata")];
+      if (v118)
       {
-        v109 = v108;
+        v119 = v118;
       }
 
       else
       {
-        v109 = &off_10034BEB0;
+        v119 = &off_10034BEB0;
       }
 
-      [v95 setValue:v109 forProperty:v93];
-      [(IPodLibrary *)self _setDownloadPropertiesForTrack:v95 usingLibraryItem:0];
-      ++v92;
-      v91 = v127;
+      [v104 setValue:v119 forProperty:v102];
+      [(IPodLibrary *)self _setDownloadPropertiesForTrack:v104 usingLibraryItem:0];
+      ++v101;
+      v100 = v137;
     }
 
-    while (v92 < [v127 count]);
+    while (v101 < [v137 count]);
   }
 
-  v110 = 1;
-LABEL_151:
+  v120 = 1;
+LABEL_159:
 
   if (error)
   {
     *error = 0;
   }
 
-  return v110;
+  return v120;
 }
 
 - (void)_commitScheduledLibraryItems
@@ -904,41 +951,45 @@ LABEL_151:
     shouldLog = [v3 shouldLog];
     if ([v3 shouldLogToDisk])
     {
-      v5 = shouldLog | 2;
+      LODWORD(v5) = shouldLog | 2;
     }
 
     else
     {
-      v5 = shouldLog;
+      LODWORD(v5) = shouldLog;
     }
 
-    if (!os_log_type_enabled([v3 OSLogObject], OS_LOG_TYPE_INFO))
+    oSLogObject = [v3 OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+    {
+      v5 = v5;
+    }
+
+    else
     {
       v5 &= 2u;
     }
 
     if (v5)
     {
-      v6 = objc_opt_class();
-      v7 = [(NSMutableArray *)self->_scheduledItems count];
+      v7 = objc_opt_class();
+      v8 = [(NSMutableArray *)self->_scheduledItems count];
       v14 = 138412546;
-      v15 = v6;
+      v15 = v7;
       v16 = 2048;
-      v17 = v7;
-      LODWORD(v13) = 22;
-      v12 = &v14;
-      v8 = _os_log_send_and_compose_impl();
-      if (v8)
+      v17 = v8;
+      v9 = _os_log_send_and_compose_impl(v5, 0, 0, 0, &_mh_execute_header, oSLogObject, 1, "%@: Adding %lu scheduled iPod library items", &v14, 22);
+      if (v9)
       {
-        v9 = v8;
-        v10 = [NSString stringWithCString:v8 encoding:4, &v14, v13];
-        free(v9);
-        v12 = v10;
+        v10 = v9;
+        v11 = [NSString stringWithCString:v9 encoding:4];
+        free(v10);
+        v13 = v11;
         SSFileLog();
       }
     }
 
-    [(IPodLibrary *)self addLibraryItems:self->_scheduledItems error:0, v12];
+    [(IPodLibrary *)self addLibraryItems:self->_scheduledItems error:0, v13];
     [(NSMutableArray *)self->_scheduledItems removeAllObjects];
     [+[Daemon daemon](Daemon "daemon")];
   }
@@ -972,26 +1023,26 @@ LABEL_151:
   v9 = [ML3Track anyInLibrary:library predicate:[ML3ComparisonPredicate predicateWithProperty:ML3TrackPropertyDownloadIdentifier equalToValue:identifier]];
   if (!v9)
   {
-LABEL_25:
+LABEL_26:
     deleteFromLibrary = 1;
-    goto LABEL_26;
+    goto LABEL_27;
   }
 
   v10 = v9;
-  v35[0] = ML3TrackPropertyLocationFileName;
-  v35[1] = ML3TrackPropertyStoreSagaID;
-  v35[2] = ML3TrackPropertyPurchaseHistoryID;
-  v35[3] = ML3TrackPropertyStoreIsSubscription;
-  v35[4] = ML3TrackPropertyIsRental;
-  [v9 getValues:&v30 forProperties:v35 count:5];
-  v11 = v34;
+  v36[0] = ML3TrackPropertyLocationFileName;
+  v36[1] = ML3TrackPropertyStoreSagaID;
+  v36[2] = ML3TrackPropertyPurchaseHistoryID;
+  v36[3] = ML3TrackPropertyStoreIsSubscription;
+  v36[4] = ML3TrackPropertyIsRental;
+  [v9 getValues:&v31 forProperties:v36 count:5];
+  v11 = v35;
   if ((objc_opt_respondsToSelector() & 1) != 0 && [v11 BOOLValue])
   {
     [v10 setValue:&__kCFBooleanFalse forProperty:ML3TrackPropertyIsOTAPurchased];
   }
 
   objc_opt_class();
-  if (objc_opt_isKindOfClass() & 1) != 0 && [v30 length] || v31 && objc_msgSend(v31, "longLongValue") || v32 && objc_msgSend(v32, "longLongValue") || v33 && (objc_msgSend(v33, "BOOLValue"))
+  if (objc_opt_isKindOfClass() & 1) != 0 && [v31 length] || v32 && objc_msgSend(v32, "longLongValue") || v33 && objc_msgSend(v33, "longLongValue") || v34 && (objc_msgSend(v34, "BOOLValue"))
   {
     v12 = +[SSLogConfig sharedDaemonConfig];
     if (!v12)
@@ -1002,93 +1053,101 @@ LABEL_25:
     shouldLog = [v12 shouldLog];
     if ([v12 shouldLogToDisk])
     {
-      v14 = shouldLog | 2;
+      LODWORD(v14) = shouldLog | 2;
     }
 
     else
     {
-      v14 = shouldLog;
+      LODWORD(v14) = shouldLog;
     }
 
-    if (!os_log_type_enabled([v12 OSLogObject], OS_LOG_TYPE_INFO))
+    oSLogObject = [v12 OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+    {
+      v14 = v14;
+    }
+
+    else
     {
       v14 &= 2u;
     }
 
     if (v14)
     {
-      *v29 = 138412546;
-      *&v29[4] = objc_opt_class();
-      *&v29[12] = 2048;
-      *&v29[14] = [v10 persistentID];
-      LODWORD(v27) = 22;
-      v26 = v29;
-      v15 = _os_log_send_and_compose_impl();
-      if (v15)
+      *v30 = 138412546;
+      *&v30[4] = objc_opt_class();
+      *&v30[12] = 2048;
+      *&v30[14] = [v10 persistentID];
+      v16 = _os_log_send_and_compose_impl(v14, 0, 0, 0, &_mh_execute_header, oSLogObject, 1, "%@: Removing download properties from iPod library: %lld", v30, 22);
+      if (v16)
       {
-        v16 = v15;
-        v17 = [NSString stringWithCString:v15 encoding:4, v29, v27];
-        free(v16);
-        v26 = v17;
+        v17 = v16;
+        v18 = [NSString stringWithCString:v16 encoding:4];
+        free(v17);
+        v28 = v18;
         SSFileLog();
       }
     }
 
-    *v29 = v8;
-    *&v29[8] = ML3TrackPropertyNeedsRestore;
-    v28 = unk_100329E68;
-    [v10 setValues:&v28 forProperties:v29 count:{2, v26}];
+    *v30 = v8;
+    *&v30[8] = ML3TrackPropertyNeedsRestore;
+    v29 = unk_100329E68;
+    [v10 setValues:&v29 forProperties:v30 count:{2, v28}];
     if (canceledCopy)
     {
       [v10 setValue:&off_10034BEC8 forProperty:ML3EntityPropertyKeepLocal];
     }
 
-    goto LABEL_25;
+    goto LABEL_26;
   }
 
-  v20 = +[SSLogConfig sharedDaemonConfig];
-  if (!v20)
+  v21 = +[SSLogConfig sharedDaemonConfig];
+  if (!v21)
   {
-    v20 = +[SSLogConfig sharedConfig];
+    v21 = +[SSLogConfig sharedConfig];
   }
 
-  shouldLog2 = [v20 shouldLog];
-  if ([v20 shouldLogToDisk])
+  shouldLog2 = [v21 shouldLog];
+  if ([v21 shouldLogToDisk])
   {
-    v22 = shouldLog2 | 2;
+    LODWORD(v23) = shouldLog2 | 2;
   }
 
   else
   {
-    v22 = shouldLog2;
+    LODWORD(v23) = shouldLog2;
   }
 
-  if (!os_log_type_enabled([v20 OSLogObject], OS_LOG_TYPE_INFO))
+  oSLogObject2 = [v21 OSLogObject];
+  if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_INFO))
   {
-    v22 &= 2u;
+    v23 = v23;
   }
 
-  if (v22)
+  else
   {
-    *v29 = 138412546;
-    *&v29[4] = objc_opt_class();
-    *&v29[12] = 2048;
-    *&v29[14] = [v10 persistentID];
-    LODWORD(v27) = 22;
-    v26 = v29;
-    v23 = _os_log_send_and_compose_impl();
-    if (v23)
+    v23 &= 2u;
+  }
+
+  if (v23)
+  {
+    *v30 = 138412546;
+    *&v30[4] = objc_opt_class();
+    *&v30[12] = 2048;
+    *&v30[14] = [v10 persistentID];
+    v25 = _os_log_send_and_compose_impl(v23, 0, 0, 0, &_mh_execute_header, oSLogObject2, 1, "%@: Deleting download from iPod library: %lld", v30, 22);
+    if (v25)
     {
-      v24 = v23;
-      v25 = [NSString stringWithCString:v23 encoding:4, v29, v27];
-      free(v24);
       v26 = v25;
+      v27 = [NSString stringWithCString:v25 encoding:4];
+      free(v26);
+      v28 = v27;
       SSFileLog();
     }
   }
 
   deleteFromLibrary = [v10 deleteFromLibrary];
-LABEL_26:
+LABEL_27:
 
   return deleteFromLibrary;
 }

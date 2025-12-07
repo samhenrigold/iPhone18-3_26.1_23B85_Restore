@@ -23,6 +23,7 @@
 - (void)xpc_getSessionStatusWithSession:(id)session;
 - (void)xpc_gotDeviceUpdate:(id)update;
 - (void)xpc_hasActiveSession:(id)session;
+- (void)xpc_hasActiveSessionReply:(id)reply isActive:(BOOL)active;
 - (void)xpc_hasCollected:(id)collected isCollecting:(id)collecting inSession:(id)session;
 - (void)xpc_hasCollected:(id)collected isCollecting:(id)collecting withIdentifiers:(id)identifiers inSession:(id)session;
 - (void)xpc_listAvailableExtensionsForSession:(id)session;
@@ -96,32 +97,32 @@
 
 - (void)xpc_didDiscoverDevices:(id)devices
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   devicesCopy = devices;
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
-  v5 = [devicesCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v5 = [devicesCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v12;
+    v7 = *v11;
     do
     {
       v8 = 0;
       do
       {
-        if (*v12 != v7)
+        if (*v11 != v7)
         {
           objc_enumerationMutation(devicesCopy);
         }
 
-        [*(*(&v11 + 1) + 8 * v8++) setTransport:2];
+        [*(*(&v10 + 1) + 8 * v8++) setTransport:2];
       }
 
       while (v6 != v8);
-      v6 = [devicesCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v6 = [devicesCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v6);
@@ -129,8 +130,6 @@
 
   delegate = [(DEDXPCInbound *)self delegate];
   [delegate xpcInbound_didDiscoverDevices:devicesCopy];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)xpc_gotDeviceUpdate:(id)update
@@ -185,19 +184,19 @@
 - (void)xpc_didStartBugSessionWithInfo:(id)info
 {
   infoCopy = info;
-  v5 = DEDSessionStartLog();
+  v5 = DEDSessionStartLog(infoCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    *v9 = 0;
-    _os_log_impl(&dword_248AD7000, v5, OS_LOG_TYPE_DEFAULT, "(DEDXPCInbound) didStartBugSessionWithInfo", v9, 2u);
+    *v10 = 0;
+    _os_log_impl(&dword_248AD7000, v5, OS_LOG_TYPE_DEFAULT, "(DEDXPCInbound) didStartBugSessionWithInfo", v10, 2u);
   }
 
   delegate = [(DEDXPCInbound *)self delegate];
 
   if (!delegate)
   {
-    v7 = DEDSessionStartLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = DEDSessionStartLog(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       [DEDXPCInbound xpc_didStartBugSessionWithInfo:];
     }
@@ -212,6 +211,14 @@
   sessionCopy = session;
   delegate = [(DEDXPCInbound *)self delegate];
   [delegate xpcInbound_hasActiveSession:sessionCopy fromInbound:self];
+}
+
+- (void)xpc_hasActiveSessionReply:(id)reply isActive:(BOOL)active
+{
+  activeCopy = active;
+  replyCopy = reply;
+  delegate = [(DEDXPCInbound *)self delegate];
+  [delegate xpcInbound_hasActiveSessionReply:replyCopy isActive:activeCopy];
 }
 
 - (void)xpc_didCancelSession:(id)session
@@ -289,7 +296,7 @@
 
 - (void)xpc_deviceSupportsDiagnosticExtensions:(id)extensions session:(id)session
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   extensionsCopy = extensions;
   sessionCopy = session;
   delegate = [(DEDXPCInbound *)self delegate];
@@ -297,34 +304,34 @@
   if (delegate)
   {
     v9 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(extensionsCopy, "count")}];
+    v19 = 0u;
     v20 = 0u;
     v21 = 0u;
     v22 = 0u;
-    v23 = 0u;
     v10 = extensionsCopy;
-    v11 = [v10 countByEnumeratingWithState:&v20 objects:v24 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v19 objects:v23 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v21;
+      v13 = *v20;
       do
       {
         v14 = 0;
         do
         {
-          if (*v21 != v13)
+          if (*v20 != v13)
           {
             objc_enumerationMutation(v10);
           }
 
-          v15 = [DEDExtension extensionWithDictionary:*(*(&v20 + 1) + 8 * v14), v20];
+          v15 = [DEDExtension extensionWithDictionary:*(*(&v19 + 1) + 8 * v14), v19];
           [v9 addObject:v15];
 
           ++v14;
         }
 
         while (v12 != v14);
-        v12 = [v10 countByEnumeratingWithState:&v20 objects:v24 count:16];
+        v12 = [v10 countByEnumeratingWithState:&v19 objects:v23 count:16];
       }
 
       while (v12);
@@ -335,8 +342,6 @@
     v18 = [delegate2 xpcInbound_sessionForIdentifier:sessionCopy];
     [v18 supportsDiagnostics:v16];
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)xpc_startDiagnosticWithIdentifier:(id)identifier parameters:(id)parameters session:(id)session
@@ -443,7 +448,7 @@
 
 - (void)xpc_getSessionStateWithSession:(id)session
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   sessionCopy = session;
   delegate = [(DEDXPCInbound *)self delegate];
 
@@ -462,9 +467,9 @@
       v8 = [(DEDXPCInbound *)self log];
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
-        v10 = 138543362;
-        v11 = sessionCopy;
-        _os_log_impl(&dword_248AD7000, v8, OS_LOG_TYPE_DEFAULT, "no session found for identifier [%{public}@]. Cannot get state.", &v10, 0xCu);
+        v9 = 138543362;
+        v10 = sessionCopy;
+        _os_log_impl(&dword_248AD7000, v8, OS_LOG_TYPE_DEFAULT, "no session found for identifier [%{public}@]. Cannot get state.", &v9, 0xCu);
       }
     }
   }
@@ -477,13 +482,11 @@
       [DEDXPCInbound xpc_getSessionStateWithSession:];
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)xpc_didGetState:(int64_t)state info:(id)info sessionID:(id)d
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   infoCopy = info;
   dCopy = d;
   delegate = [(DEDXPCInbound *)self delegate];
@@ -503,9 +506,9 @@
       v13 = [(DEDXPCInbound *)self log];
       if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
-        v15 = 138543362;
-        v16 = dCopy;
-        _os_log_impl(&dword_248AD7000, v13, OS_LOG_TYPE_DEFAULT, "no session found for identifier [%{public}@]. Cannot reply with state", &v15, 0xCu);
+        v14 = 138543362;
+        v15 = dCopy;
+        _os_log_impl(&dword_248AD7000, v13, OS_LOG_TYPE_DEFAULT, "no session found for identifier [%{public}@]. Cannot reply with state", &v14, 0xCu);
       }
     }
   }
@@ -518,8 +521,6 @@
       [DEDXPCInbound xpc_didGetState:info:sessionID:];
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)xpc_getSessionStatusWithSession:(id)session
@@ -733,7 +734,7 @@ DEDExtensionIdentifier *__73__DEDXPCInbound_xpc_hasCollected_isCollecting_withId
 
 - (void)xpc_addData:(id)data withFilename:(id)filename forSession:(id)session
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   filenameCopy = filename;
   sessionCopy = session;
@@ -754,9 +755,9 @@ DEDExtensionIdentifier *__73__DEDXPCInbound_xpc_hasCollected_isCollecting_withId
       v14 = [(DEDXPCInbound *)self log];
       if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
-        v16 = 138543362;
-        v17 = sessionCopy;
-        _os_log_impl(&dword_248AD7000, v14, OS_LOG_TYPE_DEFAULT, "no session found for identifier [%{public}@]. Cannot send data.", &v16, 0xCu);
+        v15 = 138543362;
+        v16 = sessionCopy;
+        _os_log_impl(&dword_248AD7000, v14, OS_LOG_TYPE_DEFAULT, "no session found for identifier [%{public}@]. Cannot send data.", &v15, 0xCu);
       }
     }
   }
@@ -769,8 +770,6 @@ DEDExtensionIdentifier *__73__DEDXPCInbound_xpc_hasCollected_isCollecting_withId
       [DEDXPCInbound xpc_addData:withFilename:forSession:];
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)xpc_loadTextDataForExtensions:(id)extensions localization:(id)localization sessionID:(id)d
@@ -804,11 +803,10 @@ DEDExtensionIdentifier *__73__DEDXPCInbound_xpc_hasCollected_isCollecting_withId
 
 - (void)xpc_terminateExtension:(uint64_t)a1 info:(NSObject *)a2 session:.cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_248AD7000, a2, OS_LOG_TYPE_ERROR, "no session found for identifier [%{public}@]", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_248AD7000, a2, OS_LOG_TYPE_ERROR, "no session found for identifier [%{public}@]", &v2, 0xCu);
 }
 
 @end

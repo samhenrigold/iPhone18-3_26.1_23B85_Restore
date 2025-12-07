@@ -71,7 +71,7 @@
   [v17 setTimeRangeInTrack:&duration];
   if (v17)
   {
-    [v17 timeRangeInTrack];
+    objc_msgSend_timeRangeInTrack(v17);
   }
 
   else

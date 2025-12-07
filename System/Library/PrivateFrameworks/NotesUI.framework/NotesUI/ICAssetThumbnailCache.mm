@@ -10,7 +10,7 @@
 
 + (NSDate)currentVersionDate
 {
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC7C98F0);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC7C98F0, &unk_1D4436E80);
   v3 = MEMORY[0x1EEE9AC00](v2);
   v5 = &v14 - v4;
   if (qword_1EDE331D0 != -1)
@@ -59,7 +59,7 @@
 
 - (id)creationDateFor:(id)for
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC7C98F0);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC7C98F0, &unk_1D4436E80);
   v4 = MEMORY[0x1EEE9AC00](v3);
   v6 = &v15 - v5;
   if (qword_1EDE331D0 != -1)

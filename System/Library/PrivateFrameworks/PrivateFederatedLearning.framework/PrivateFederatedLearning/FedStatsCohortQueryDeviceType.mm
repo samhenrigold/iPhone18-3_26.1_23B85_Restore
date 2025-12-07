@@ -39,16 +39,14 @@
 
 void __47__FedStatsCohortQueryDeviceType_cohortInstance__block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  memset(&v7, 0, 512);
-  uname(&v7);
+  v7 = *MEMORY[0x277D85DE8];
+  memset(&v6, 0, 512);
+  uname(&v6);
   v2 = objc_alloc(*(a1 + 32));
-  v3 = [MEMORY[0x277CCACA8] stringWithCString:v7.machine encoding:4];
+  v3 = [MEMORY[0x277CCACA8] stringWithCString:v6.machine encoding:4];
   v4 = [v2 initWithDeviceType:v3];
   v5 = cohortInstance_cohortInstance;
   cohortInstance_cohortInstance = v4;
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

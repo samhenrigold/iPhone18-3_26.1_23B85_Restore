@@ -573,7 +573,7 @@ void __59__VKCTextRecognitionResult_normalizedTextLineBoundingBoxes__block_invok
   return rangeArray;
 }
 
-uint64_t __67__VKCTextRecognitionResult_containsRichPasteboardElementsForRange___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__67__VKCTextRecognitionResult_containsRichPasteboardElementsForRange___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   v6 = *(a1 + 32);
   v7 = [a2 nsRange];

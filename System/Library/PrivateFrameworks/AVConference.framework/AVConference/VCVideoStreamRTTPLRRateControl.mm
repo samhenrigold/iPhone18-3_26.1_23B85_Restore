@@ -110,7 +110,13 @@ LABEL_14:
 {
   if (dump)
   {
-    VRLogfilePrintWithTimestamp(dump, "%8.3f/%04X:\t%.4f\t%.4f\t%.4f\t%.4f %c\tRTT:%-4u\tPLR:%4.2f@%.1f\tRRx:0\tMBL:0\t%3u/%3u\t 0:0/0  0:0/0 CS: 0 0 0 BB: 0\t0\t0\t UAT S _\t%d\n", dump, stall, *&bitrate, v7, v8, v9, SLOBYTE(time));
+    v7 = 88;
+    if (stall)
+    {
+      v7 = 79;
+    }
+
+    VRLogfilePrintWithTimestamp(dump, "%8.3f/%04X:\t%.4f\t%.4f\t%.4f\t%.4f %c\tRTT:%-4u\tPLR:%4.2f@%.1f\tRRx:0\tMBL:0\t%3u/%3u\t 0:0/0  0:0/0 CS: 0 0 0 BB: 0\t0\t0\t UAT S _\t%d\n", time, 255, self->_roundTripTime, self->_roundTripTime, self->_roundTripTime, self->_rampDownRoundTripTime, v7, (self->_roundTripTime * 1000.0), self->_packetLossRate * 100.0, duration, bitrate / 0x3E8, self->_targetBitrate / 0x3E8, self->_state);
   }
 }
 

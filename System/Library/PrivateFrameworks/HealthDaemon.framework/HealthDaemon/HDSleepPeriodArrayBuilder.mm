@@ -85,7 +85,7 @@ uint64_t __68__HDSleepPeriodArrayBuilder__segmentIsPartOfCurrentUserSetSchedule_
 {
   segmentCopy = segment;
   _createPeriodAndReset = segmentCopy;
-  v28 = segmentCopy;
+  v26 = segmentCopy;
   if (self)
   {
     _createPeriodAndReset = segmentCopy;
@@ -96,31 +96,31 @@ uint64_t __68__HDSleepPeriodArrayBuilder__segmentIsPartOfCurrentUserSetSchedule_
       [startDate timeIntervalSinceDate:self->_currentPeriodEndDate];
       v9 = v8;
 
-      _createPeriodAndReset = v28;
+      _createPeriodAndReset = v26;
       if (v9 >= 3600.0)
       {
         if ((self->_options & 4) != 0)
         {
-          _createPeriodAndReset = v28;
+          _createPeriodAndReset = v26;
           currentDateInterval = [(HDDateIntervalIterator *)self->_userSetScheduleIterator currentDateInterval];
           if (currentDateInterval)
           {
             v11 = currentDateInterval;
             userSetScheduleIterator = self->_userSetScheduleIterator;
-            v29 = MEMORY[0x277D85DD0];
-            v30 = 3221225472;
-            v31 = __68__HDSleepPeriodArrayBuilder__segmentIsPartOfCurrentUserSetSchedule___block_invoke;
-            v32 = &unk_278630048;
+            v27 = MEMORY[0x277D85DD0];
+            v28 = 3221225472;
+            v29 = __68__HDSleepPeriodArrayBuilder__segmentIsPartOfCurrentUserSetSchedule___block_invoke;
+            v30 = &unk_278630048;
             _createPeriodAndReset = _createPeriodAndReset;
-            v33 = _createPeriodAndReset;
-            v13 = [(HDDateIntervalIterator *)userSetScheduleIterator nextDateIntervalPassingTest:&v29];
+            v31 = _createPeriodAndReset;
+            v13 = [(HDDateIntervalIterator *)userSetScheduleIterator nextDateIntervalPassingTest:&v27];
             v14 = v13;
             if (v11 == v13)
             {
               _currentPeriodInterval = [(HDSleepPeriodArrayBuilder *)self _currentPeriodInterval];
-              v27 = [_currentPeriodInterval intersectsDateInterval:v11];
+              v25 = [_currentPeriodInterval intersectsDateInterval:v11];
 
-              if (v27)
+              if (v25)
               {
                 goto LABEL_10;
               }
@@ -141,23 +141,21 @@ LABEL_9:
 
 LABEL_10:
 
-  dateInterval2 = [v28 dateInterval];
+  dateInterval2 = [v26 dateInterval];
   endDate = [dateInterval2 endDate];
+  v18 = HKDateMax();
   currentPeriodEndDate = self->_currentPeriodEndDate;
-  v19 = HKDateMax();
-  v20 = self->_currentPeriodEndDate;
-  self->_currentPeriodEndDate = v19;
+  self->_currentPeriodEndDate = v18;
 
-  dateInterval3 = [v28 dateInterval];
+  dateInterval3 = [v26 dateInterval];
   startDate2 = [dateInterval3 startDate];
+  v22 = HKDateMin();
   currentPeriodStartDate = self->_currentPeriodStartDate;
-  v24 = HKDateMin();
-  v25 = self->_currentPeriodStartDate;
-  self->_currentPeriodStartDate = v24;
+  self->_currentPeriodStartDate = v22;
 
-  if ([v28 category] != 2 || (self->_options & 1) != 0)
+  if ([v26 category] != 2 || (self->_options & 1) != 0)
   {
-    [(NSMutableArray *)self->_currentPeriodSegments addObject:v28, v28, v29, v30, v31, v32];
+    [(NSMutableArray *)self->_currentPeriodSegments addObject:v26, v26, v27, v28, v29, v30];
   }
 }
 
@@ -258,7 +256,7 @@ LABEL_10:
   _createPeriodAndReset = [(HDSleepPeriodArrayBuilder *)self _createPeriodAndReset];
   [(NSMutableArray *)periods hk_addNonNilObject:_createPeriodAndReset];
 
-  v5 = [(NSMutableArray *)self->_periods copy];
+  v5 = objc_msgSend_copy(self->_periods);
 
   return v5;
 }

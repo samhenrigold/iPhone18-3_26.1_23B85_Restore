@@ -27,7 +27,7 @@
 
 - (void)dealloc
 {
-  v3 = xpcLogHandle();
+  v3 = xpcLogHandle(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
@@ -42,56 +42,55 @@
 
 - (void)setListeningPort:(const char *)port
 {
-  v21 = *MEMORY[0x277D85DE8];
-  v5 = xpcLogHandle();
+  v22 = *MEMORY[0x277D85DE8];
+  v5 = xpcLogHandle(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v19 = 136315138;
+    v20 = 136315138;
     portCopy3 = port;
-    _os_log_impl(&dword_241804000, v5, OS_LOG_TYPE_DEFAULT, "DiagCollectionTransport started for service %s", &v19, 0xCu);
+    _os_log_impl(&dword_241804000, v5, OS_LOG_TYPE_DEFAULT, "DiagCollectionTransport started for service %s", &v20, 0xCu);
   }
 
   if (self->listener)
   {
-    v6 = xpcLogHandle();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+    v7 = xpcLogHandle(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
       listener = self->listener;
-      v19 = 134217984;
+      v20 = 134217984;
       portCopy3 = listener;
-      v8 = "listener already initialized: %p";
-      v9 = v6;
-      v10 = OS_LOG_TYPE_INFO;
+      v9 = "listener already initialized: %p";
+      v10 = v7;
+      v11 = OS_LOG_TYPE_INFO;
 LABEL_12:
-      _os_log_impl(&dword_241804000, v9, v10, v8, &v19, 0xCu);
+      _os_log_impl(&dword_241804000, v10, v11, v9, &v20, 0xCu);
     }
   }
 
   else
   {
-    v11 = objc_alloc(MEMORY[0x277CCAE98]);
-    v12 = [MEMORY[0x277CCACA8] stringWithUTF8String:port];
-    v13 = [v11 initWithMachServiceName:v12];
-    v14 = self->listener;
-    self->listener = v13;
+    v12 = objc_alloc(MEMORY[0x277CCAE98]);
+    v13 = [MEMORY[0x277CCACA8] stringWithUTF8String:port];
+    v14 = [v12 initWithMachServiceName:v13];
+    v15 = self->listener;
+    self->listener = v14;
 
-    v15 = [[DiagCollectionServiceImpl alloc] initWithQueue:self->transport_queue];
+    v16 = [[DiagCollectionServiceImpl alloc] initWithQueue:self->transport_queue];
     service = self->service;
-    self->service = v15;
+    self->service = v16;
 
-    v17 = self->listener;
-    if (v17 && self->service)
+    v18 = self->listener;
+    if (v18 && self->service)
     {
-      [(NSXPCListener *)v17 setDelegate:?];
-      [(NSXPCListener *)self->listener resume];
-      v6 = xpcLogHandle();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      [(NSXPCListener *)v18 setDelegate:?];
+      v7 = xpcLogHandle([(NSXPCListener *)self->listener resume]);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
-        v19 = 136315138;
+        v20 = 136315138;
         portCopy3 = port;
-        v8 = "started listener for service %s";
-        v9 = v6;
-        v10 = OS_LOG_TYPE_DEFAULT;
+        v9 = "started listener for service %s";
+        v10 = v7;
+        v11 = OS_LOG_TYPE_DEFAULT;
         goto LABEL_12;
       }
     }
@@ -100,27 +99,25 @@ LABEL_12:
     {
       self->listener = 0;
 
-      v6 = xpcLogHandle();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+      v7 = xpcLogHandle(v19);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
-        v19 = 136315138;
+        v20 = 136315138;
         portCopy3 = port;
-        v8 = "failed to create listener for service %s";
-        v9 = v6;
-        v10 = OS_LOG_TYPE_ERROR;
+        v9 = "failed to create listener for service %s";
+        v10 = v7;
+        v11 = OS_LOG_TYPE_ERROR;
         goto LABEL_12;
       }
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)shutdown
 {
   if (self->listener)
   {
-    v3 = xpcLogHandle();
+    v3 = xpcLogHandle(self);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       *v6 = 0;

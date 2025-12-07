@@ -33,7 +33,7 @@
 
 - (void)_updateTopics
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   v3 = objc_autoreleasePoolPush();
   [(NSRecursiveLock *)self->_recursiveLock lock];
   if (self->_shouldWaitToSetTopics)
@@ -50,11 +50,11 @@
       opportunisticTopicsCache = self->_opportunisticTopicsCache;
       nonWakingTopicsCache = self->_nonWakingTopicsCache;
       *buf = 138412802;
-      v16 = wakingTopicsCache;
-      v17 = 2112;
-      v18 = opportunisticTopicsCache;
-      v19 = 2112;
-      v20 = nonWakingTopicsCache;
+      v23 = wakingTopicsCache;
+      v24 = 2112;
+      v25 = opportunisticTopicsCache;
+      v26 = 2112;
+      v27 = nonWakingTopicsCache;
       _os_log_impl(&dword_1A7AD9000, v4, OS_LOG_TYPE_DEFAULT, "Updating waking topics to: %@ opportunistic topics to: %@ nonWaking topics to: %@", buf, 0x20u);
     }
 
@@ -62,25 +62,21 @@
     {
       if (_IDSShouldLogTransport())
       {
-        v14 = self->_nonWakingTopicsCache;
-        v13 = *&self->_wakingTopicsCache;
-        _IDSLogTransport(@"IDSPushHandler", @"IDS", @"Updating waking topics to: %@ opportunistic topics to: %@ nonWaking topics to: %@");
-        if (_IDSShouldLog())
+        _IDSLogTransport(@"IDSPushHandler", @"IDS", @"Updating waking topics to: %@ opportunistic topics to: %@ nonWaking topics to: %@", v8, v9, v10, v11, v12, self->_wakingTopicsCache);
+        if (_IDSShouldLog(0))
         {
-          v14 = self->_nonWakingTopicsCache;
-          v13 = *&self->_wakingTopicsCache;
-          _IDSLogV(0, @"IDSFoundation", @"IDSPushHandler", @"Updating waking topics to: %@ opportunistic topics to: %@ nonWaking topics to: %@");
+          _IDSLogV(0, @"IDSFoundation", @"IDSPushHandler", @"Updating waking topics to: %@ opportunistic topics to: %@ nonWaking topics to: %@", v13, v14, v15, v16, self->_wakingTopicsCache);
         }
       }
     }
 
-    v8 = [(NSMutableSet *)self->_wakingTopicsCache allObjects:v13];
-    allObjects = [(NSMutableSet *)self->_opportunisticTopicsCache allObjects];
-    allObjects2 = [(NSMutableSet *)self->_nonWakingTopicsCache allObjects];
+    allObjects = [(NSMutableSet *)self->_wakingTopicsCache allObjects];
+    allObjects2 = [(NSMutableSet *)self->_opportunisticTopicsCache allObjects];
+    allObjects3 = [(NSMutableSet *)self->_nonWakingTopicsCache allObjects];
     array = [MEMORY[0x1E695DEC8] array];
     [(NSRecursiveLock *)self->_recursiveLock unlock];
     apsConnection = [(IDSPushHandler *)self apsConnection];
-    [apsConnection setEnabledTopics:v8 ignoredTopics:array opportunisticTopics:allObjects nonWakingTopics:allObjects2];
+    [apsConnection setEnabledTopics:allObjects ignoredTopics:array opportunisticTopics:allObjects2 nonWakingTopics:allObjects3];
   }
 
   objc_autoreleasePoolPop(v3);
@@ -88,7 +84,7 @@
 
 - (APSConnection)apsConnection
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   if (_os_feature_enabled_impl())
   {
     [(NSRecursiveLock *)self->_recursiveLock lock];
@@ -110,26 +106,25 @@
       {
         publicToken = [(APSConnection *)self->_apsConnection publicToken];
         *buf = 138412546;
-        v17 = publicToken;
-        v18 = 2112;
-        v19 = apsEnvironmentName;
+        v20 = publicToken;
+        v21 = 2112;
+        v22 = apsEnvironmentName;
         _os_log_impl(&dword_1A7AD9000, v10, OS_LOG_TYPE_DEFAULT, "Cached push token: %@   Environment: %@", buf, 0x16u);
       }
 
-      if (os_log_shim_legacy_logging_enabled() && _IDSShouldLog())
+      if (os_log_shim_legacy_logging_enabled() && _IDSShouldLog(0))
       {
         publicToken2 = [(APSConnection *)self->_apsConnection publicToken];
-        v15 = apsEnvironmentName;
-        _IDSLogV(0, @"IDSFoundation", @"IDSPushHandler", @"Cached push token: %@   Environment: %@");
+        _IDSLogV(0, @"IDSFoundation", @"IDSPushHandler", @"Cached push token: %@   Environment: %@", v13, v14, v15, v16, publicToken2);
       }
     }
 
-    [(NSRecursiveLock *)self->_recursiveLock unlock:publicToken2];
+    [(NSRecursiveLock *)self->_recursiveLock unlock];
   }
 
-  v12 = self->_apsConnection;
+  v17 = self->_apsConnection;
 
-  return v12;
+  return v17;
 }
 
 + (id)sharedInstance
@@ -233,66 +228,62 @@
       _os_log_impl(&dword_1A7AD9000, v15, OS_LOG_TYPE_DEFAULT, "No incoming push handler for selector: %@    topic: %@   command: %@   context: %@", buf, 0x2Au);
     }
 
-    if (!os_log_shim_legacy_logging_enabled() || !_IDSShouldLog())
+    if (!os_log_shim_legacy_logging_enabled() || !_IDSShouldLog(0))
     {
       weakToStrongObjectsMapTable = 0;
       goto LABEL_22;
     }
 
     v9 = NSStringFromSelector(sel_handler_pushTokenChanged_);
-    v28 = 0;
-    v29 = 0;
-    v26 = v9;
-    v27 = 0;
-    _IDSLogV(0, @"IDSFoundation", @"IDSPushHandler", @"No incoming push handler for selector: %@    topic: %@   command: %@   context: %@");
+    _IDSLogV(0, @"IDSFoundation", @"IDSPushHandler", @"No incoming push handler for selector: %@    topic: %@   command: %@   context: %@", v17, v18, v19, v20, v9);
     weakToStrongObjectsMapTable = 0;
   }
 
 LABEL_22:
-  [(NSRecursiveLock *)self->_recursiveLock unlock:v26];
+  [(NSRecursiveLock *)self->_recursiveLock unlock];
   v33 = 0u;
   v34 = 0u;
   v31 = 0u;
   v32 = 0u;
-  v17 = weakToStrongObjectsMapTable;
-  v18 = [v17 countByEnumeratingWithState:&v31 objects:v45 count:16];
-  if (v18)
+  v21 = weakToStrongObjectsMapTable;
+  v22 = [v21 countByEnumeratingWithState:&v31 objects:v45 count:16];
+  if (v22)
   {
-    v19 = *v32;
+    v23 = *v32;
     do
     {
-      for (j = 0; j != v18; ++j)
+      for (j = 0; j != v22; ++j)
       {
-        if (*v32 != v19)
+        if (*v32 != v23)
         {
-          objc_enumerationMutation(v17);
+          objc_enumerationMutation(v21);
         }
 
-        v21 = *(*(&v31 + 1) + 8 * j);
-        v22 = [(NSMapTable *)self->_handlerMap objectForKey:v21];
-        queue = [v22 queue];
+        v25 = *(*(&v31 + 1) + 8 * j);
+        v26 = [(NSMapTable *)self->_handlerMap objectForKey:v25];
+        queue = [v26 queue];
         block[0] = MEMORY[0x1E69E9820];
         block[1] = 3221225472;
         block[2] = sub_1A7BD7518;
         block[3] = &unk_1E77E0AF8;
-        block[4] = v21;
+        block[4] = v25;
         block[5] = self;
         block[6] = &v39;
         dispatch_async(queue, block);
       }
 
-      v18 = [v17 countByEnumeratingWithState:&v31 objects:v45 count:16];
+      v22 = [v21 countByEnumeratingWithState:&v31 objects:v45 count:16];
     }
 
-    while (v18);
+    while (v22);
   }
 
-  [v17 count];
+  [v21 count];
 LABEL_30:
-  v24 = v40[5];
+  v28 = v40[5];
   _Block_object_dispose(&v39, 8);
 
-  return v24;
+  return v28;
 }
 
 + (id)sharedInstanceWithPortName:(id)name
@@ -328,11 +319,11 @@ LABEL_30:
 
 - (IDSPushHandler)initWithPort:(id)port
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   portCopy = port;
-  v19.receiver = self;
-  v19.super_class = IDSPushHandler;
-  v5 = [(IDSPushHandler *)&v19 init];
+  v23.receiver = self;
+  v23.super_class = IDSPushHandler;
+  v5 = [(IDSPushHandler *)&v23 init];
   if (v5)
   {
     v6 = objc_alloc_init(MEMORY[0x1E696AE68]);
@@ -363,16 +354,16 @@ LABEL_30:
       {
         publicToken = [(APSConnection *)v5->_apsConnection publicToken];
         *buf = 138412546;
-        v21 = publicToken;
-        v22 = 2112;
-        v23 = namedDelegatePort;
+        v25 = publicToken;
+        v26 = 2112;
+        v27 = namedDelegatePort;
         _os_log_impl(&dword_1A7AD9000, v15, OS_LOG_TYPE_DEFAULT, "Cached push token: %@   Environment: %@", buf, 0x16u);
       }
 
-      if (os_log_shim_legacy_logging_enabled() && _IDSShouldLog())
+      if (os_log_shim_legacy_logging_enabled() && _IDSShouldLog(0))
       {
         publicToken2 = [(APSConnection *)v5->_apsConnection publicToken];
-        _IDSLogV(0, @"IDSFoundation", @"IDSPushHandler", @"Cached push token: %@   Environment: %@");
+        _IDSLogV(0, @"IDSFoundation", @"IDSPushHandler", @"Cached push token: %@   Environment: %@", v18, v19, v20, v21, publicToken2);
       }
     }
   }
@@ -390,7 +381,7 @@ LABEL_30:
 
 - (void)_powerLogIncomingMessage:(id)message command:(id)command topic:(id)topic
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   messageCopy = message;
   commandCopy = command;
   topicCopy = topic;
@@ -461,17 +452,16 @@ LABEL_14:
   if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v26 = v12;
+    v29 = v12;
     _os_log_impl(&dword_1A7AD9000, v23, OS_LOG_TYPE_DEFAULT, "Logging incoming push power event: %@", buf, 0xCu);
   }
 
-  if (os_log_shim_legacy_logging_enabled() && _IDSShouldLog())
+  if (os_log_shim_legacy_logging_enabled() && _IDSShouldLog(0))
   {
-    v24 = v12;
-    _IDSLogV(0, @"IDSFoundation", @"IDSPushHandler", @"Logging incoming push power event: %@");
+    _IDSLogV(0, @"IDSFoundation", @"IDSPushHandler", @"Logging incoming push power event: %@", v24, v25, v26, v27, v12);
   }
 
-  [(IDSPushHandler *)self _powerLogEvent:@"IDS IncomingPushReceived" dictionary:v12, v24];
+  [(IDSPushHandler *)self _powerLogEvent:@"IDS IncomingPushReceived" dictionary:v12];
 
 LABEL_24:
 }
@@ -585,32 +575,32 @@ LABEL_21:
 
 - (id)_getValidPushHandlersWithSelector:(SEL)selector topic:(id)topic command:(id)command
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   topicCopy = topic;
   commandCopy = command;
   [(NSRecursiveLock *)self->_recursiveLock lock];
   if ([(NSMapTable *)self->_handlerMap count])
   {
     weakToStrongObjectsMapTable = [MEMORY[0x1E696AD18] weakToStrongObjectsMapTable];
-    v24 = 0u;
     v25 = 0u;
-    v22 = 0u;
+    v26 = 0u;
     v23 = 0u;
+    v24 = 0u;
     v9 = self->_handlerMap;
-    v10 = [(NSMapTable *)v9 countByEnumeratingWithState:&v22 objects:v26 count:16];
+    v10 = [(NSMapTable *)v9 countByEnumeratingWithState:&v23 objects:v27 count:16];
     if (v10)
     {
-      v11 = *v23;
+      v11 = *v24;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v23 != v11)
+          if (*v24 != v11)
           {
             objc_enumerationMutation(v9);
           }
 
-          v13 = *(*(&v22 + 1) + 8 * i);
+          v13 = *(*(&v23 + 1) + 8 * i);
           if ([(IDSPushHandler *)self _validateHandler:v13 withSelector:sel_selector topic:topicCopy command:commandCopy])
           {
             v14 = [(NSMapTable *)self->_handlerMap objectForKey:v13];
@@ -618,7 +608,7 @@ LABEL_21:
           }
         }
 
-        v10 = [(NSMapTable *)v9 countByEnumeratingWithState:&v22 objects:v26 count:16];
+        v10 = [(NSMapTable *)v9 countByEnumeratingWithState:&v23 objects:v27 count:16];
       }
 
       while (v10);
@@ -632,21 +622,18 @@ LABEL_21:
   {
     v16 = NSStringFromSelector(sel_selector);
     *buf = 138412802;
-    v28 = v16;
-    v29 = 2112;
-    v30 = topicCopy;
-    v31 = 2112;
-    v32 = commandCopy;
+    v29 = v16;
+    v30 = 2112;
+    v31 = topicCopy;
+    v32 = 2112;
+    v33 = commandCopy;
     _os_log_impl(&dword_1A7AD9000, v15, OS_LOG_TYPE_DEFAULT, "No incoming push handler for selector: %@    topic: %@   command: %@", buf, 0x20u);
   }
 
-  if (os_log_shim_legacy_logging_enabled() && _IDSShouldLog())
+  if (os_log_shim_legacy_logging_enabled() && _IDSShouldLog(0))
   {
     v9 = NSStringFromSelector(sel_selector);
-    v19 = topicCopy;
-    v20 = commandCopy;
-    v18 = v9;
-    _IDSLogV(0, @"IDSFoundation", @"IDSPushHandler", @"No incoming push handler for selector: %@    topic: %@   command: %@");
+    _IDSLogV(0, @"IDSFoundation", @"IDSPushHandler", @"No incoming push handler for selector: %@    topic: %@   command: %@", v17, v18, v19, v20, v9);
     weakToStrongObjectsMapTable = 0;
 LABEL_11:
 
@@ -655,7 +642,7 @@ LABEL_11:
 
   weakToStrongObjectsMapTable = 0;
 LABEL_18:
-  [(NSRecursiveLock *)self->_recursiveLock unlock:v18];
+  [(NSRecursiveLock *)self->_recursiveLock unlock];
 
   return weakToStrongObjectsMapTable;
 }
@@ -724,7 +711,7 @@ LABEL_18:
 
 - (void)addListener:(id)listener wakingTopics:(id)topics opportunisticTopics:(id)opportunisticTopics nonWakingTopics:(id)wakingTopics commands:(id)commands queue:(id)queue
 {
-  v82 = *MEMORY[0x1E69E9840];
+  v83 = *MEMORY[0x1E69E9840];
   listenerCopy = listener;
   topicsCopy = topics;
   opportunisticTopicsCopy = opportunisticTopics;
@@ -738,59 +725,51 @@ LABEL_18:
   }
 
   [(NSRecursiveLock *)self->_recursiveLock lock];
-  v58 = [(NSMapTable *)self->_handlerMap objectForKey:listenerCopy];
+  v59 = [(NSMapTable *)self->_handlerMap objectForKey:listenerCopy];
   v18 = OSLogHandleForIDSCategory();
   if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
   {
-    wakingTopics = [v58 wakingTopics];
-    opportunisticTopics = [v58 opportunisticTopics];
-    nonWakingTopics = [v58 nonWakingTopics];
-    commands = [v58 commands];
+    wakingTopics = [v59 wakingTopics];
+    opportunisticTopics = [v59 opportunisticTopics];
+    nonWakingTopics = [v59 nonWakingTopics];
+    commands = [v59 commands];
     *buf = 138414338;
-    v65 = listenerCopy;
-    v66 = 2112;
-    v67 = wakingTopics;
-    v68 = 2112;
-    v69 = topicsCopy;
-    v70 = 2112;
-    v71 = opportunisticTopics;
-    v72 = 2112;
-    v73 = opportunisticTopicsCopy;
-    v74 = 2112;
-    v75 = nonWakingTopics;
-    v76 = 2112;
-    v77 = wakingTopicsCopy;
-    v78 = 2112;
-    v79 = commands;
-    v80 = 2112;
-    v81 = commandsCopy;
+    v66 = listenerCopy;
+    v67 = 2112;
+    v68 = wakingTopics;
+    v69 = 2112;
+    v70 = topicsCopy;
+    v71 = 2112;
+    v72 = opportunisticTopics;
+    v73 = 2112;
+    v74 = opportunisticTopicsCopy;
+    v75 = 2112;
+    v76 = nonWakingTopics;
+    v77 = 2112;
+    v78 = wakingTopicsCopy;
+    v79 = 2112;
+    v80 = commands;
+    v81 = 2112;
+    v82 = commandsCopy;
     _os_log_impl(&dword_1A7AD9000, v18, OS_LOG_TYPE_DEFAULT, "Updating push topics for listener %@   | waking topics were %@ becoming %@ opportunistic topics were %@ becoming %@ nonwaking topics were %@ becoming %@ commands were %@ becoming %@", buf, 0x5Cu);
   }
 
-  if (os_log_shim_legacy_logging_enabled() && _IDSShouldLog())
+  if (os_log_shim_legacy_logging_enabled() && _IDSShouldLog(0))
   {
-    wakingTopics2 = [v58 wakingTopics];
-    opportunisticTopics2 = [v58 opportunisticTopics];
-    nonWakingTopics2 = [v58 nonWakingTopics];
-    commands2 = [v58 commands];
-    v53 = commandsCopy;
-    v50 = nonWakingTopics2;
-    v51 = wakingTopicsCopy;
-    v48 = opportunisticTopics2;
-    v49 = opportunisticTopicsCopy;
-    v46 = wakingTopics2;
-    v47 = topicsCopy;
-    v45 = listenerCopy;
-    _IDSLogV(0, @"IDSFoundation", @"IDSPushHandler", @"Updating push topics for listener %@   | waking topics were %@ becoming %@ opportunistic topics were %@ becoming %@ nonwaking topics were %@ becoming %@ commands were %@ becoming %@");
+    wakingTopics2 = [v59 wakingTopics];
+    opportunisticTopics2 = [v59 opportunisticTopics];
+    nonWakingTopics2 = [v59 nonWakingTopics];
+    commands2 = [v59 commands];
+    _IDSLogV(0, @"IDSFoundation", @"IDSPushHandler", @"Updating push topics for listener %@   | waking topics were %@ becoming %@ opportunistic topics were %@ becoming %@ nonwaking topics were %@ becoming %@ commands were %@ becoming %@", v26, v27, v28, v29, listenerCopy);
   }
 
-  v26 = v58;
+  v30 = v59;
   if (self->_handlerMap)
   {
     if (opportunisticTopicsCopy)
     {
 LABEL_10:
-      v54 = opportunisticTopicsCopy;
+      v55 = opportunisticTopicsCopy;
       goto LABEL_13;
     }
   }
@@ -801,114 +780,114 @@ LABEL_10:
     handlerMap = self->_handlerMap;
     self->_handlerMap = weakToStrongObjectsMapTable;
 
-    v26 = v58;
+    v30 = v59;
     if (opportunisticTopicsCopy)
     {
       goto LABEL_10;
     }
   }
 
-  v54 = [MEMORY[0x1E695DFD8] set];
-  v26 = v58;
+  v55 = [MEMORY[0x1E695DFD8] set];
+  v30 = v59;
 LABEL_13:
-  v29 = wakingTopicsCopy;
+  v33 = wakingTopicsCopy;
   if (!topicsCopy)
   {
-    v55 = [MEMORY[0x1E695DFD8] set];
-    v26 = v58;
-    v29 = wakingTopicsCopy;
+    v56 = [MEMORY[0x1E695DFD8] set];
+    v30 = v59;
+    v33 = wakingTopicsCopy;
     if (wakingTopicsCopy)
     {
       goto LABEL_15;
     }
 
 LABEL_17:
-    v30 = [MEMORY[0x1E695DFD8] set];
-    v26 = v58;
+    v34 = [MEMORY[0x1E695DFD8] set];
+    v30 = v59;
     goto LABEL_18;
   }
 
-  v55 = topicsCopy;
+  v56 = topicsCopy;
   if (!wakingTopicsCopy)
   {
     goto LABEL_17;
   }
 
 LABEL_15:
-  v30 = v29;
+  v34 = v33;
 LABEL_18:
-  v31 = [[IDSPushHandlerContext alloc] initWithQueue:v17 wakingTopics:v55 opportunisticTopics:opportunisticTopicsCopy nonWakingTopics:v30 commands:commandsCopy];
-  [(NSMapTable *)self->_handlerMap setObject:v31 forKey:listenerCopy];
-  if (v26)
+  v35 = [[IDSPushHandlerContext alloc] initWithQueue:v17 wakingTopics:v56 opportunisticTopics:opportunisticTopicsCopy nonWakingTopics:v34 commands:commandsCopy];
+  [(NSMapTable *)self->_handlerMap setObject:v35 forKey:listenerCopy];
+  if (v30)
   {
     [(IDSPushHandler *)self _recalculateTopicsCache];
   }
 
-  else if (!self->_wakingTopicsCache || !self->_opportunisticTopicsCache || !self->_nonWakingTopicsCache || ![v55 isSubsetOfSet:?] || !objc_msgSend(v54, "isSubsetOfSet:", self->_opportunisticTopicsCache) || (objc_msgSend(v30, "isSubsetOfSet:", self->_nonWakingTopicsCache) & 1) == 0)
+  else if (!self->_wakingTopicsCache || !self->_opportunisticTopicsCache || !self->_nonWakingTopicsCache || ![v56 isSubsetOfSet:?] || !objc_msgSend(v55, "isSubsetOfSet:", self->_opportunisticTopicsCache) || (objc_msgSend(v34, "isSubsetOfSet:", self->_nonWakingTopicsCache) & 1) == 0)
   {
     opportunisticTopicsCache = self->_opportunisticTopicsCache;
     if (!opportunisticTopicsCache)
     {
-      v33 = objc_alloc_init(MEMORY[0x1E695DFA8]);
-      v34 = self->_opportunisticTopicsCache;
-      self->_opportunisticTopicsCache = v33;
+      v37 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+      v38 = self->_opportunisticTopicsCache;
+      self->_opportunisticTopicsCache = v37;
 
       opportunisticTopicsCache = self->_opportunisticTopicsCache;
     }
 
-    [(NSMutableSet *)opportunisticTopicsCache unionSet:v54, v45, v46, v47, v48, v49, v50, v51, commands2, v53];
+    [(NSMutableSet *)opportunisticTopicsCache unionSet:v55];
     wakingTopicsCache = self->_wakingTopicsCache;
     if (!wakingTopicsCache)
     {
-      v36 = objc_alloc_init(MEMORY[0x1E695DFA8]);
-      v37 = self->_wakingTopicsCache;
-      self->_wakingTopicsCache = v36;
+      v40 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+      v41 = self->_wakingTopicsCache;
+      self->_wakingTopicsCache = v40;
 
       wakingTopicsCache = self->_wakingTopicsCache;
     }
 
-    [(NSMutableSet *)wakingTopicsCache unionSet:v55];
+    [(NSMutableSet *)wakingTopicsCache unionSet:v56];
     nonWakingTopicsCache = self->_nonWakingTopicsCache;
     if (!nonWakingTopicsCache)
     {
-      v39 = objc_alloc_init(MEMORY[0x1E695DFA8]);
-      v40 = self->_nonWakingTopicsCache;
-      self->_nonWakingTopicsCache = v39;
+      v43 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+      v44 = self->_nonWakingTopicsCache;
+      self->_nonWakingTopicsCache = v43;
 
       nonWakingTopicsCache = self->_nonWakingTopicsCache;
     }
 
-    [(NSMutableSet *)nonWakingTopicsCache unionSet:v30];
+    [(NSMutableSet *)nonWakingTopicsCache unionSet:v34];
     [(IDSPushHandler *)self _updateTopics];
   }
 
-  v41 = [(NSData *)self->_cachedPushToken copy:v45];
+  v45 = [(NSData *)self->_cachedPushToken copy];
   [(NSRecursiveLock *)self->_recursiveLock unlock];
-  if (v41)
+  if (v45)
   {
-    v42 = OSLogHandleForIDSCategory();
-    if (os_log_type_enabled(v42, OS_LOG_TYPE_DEBUG))
+    v46 = OSLogHandleForIDSCategory();
+    if (os_log_type_enabled(v46, OS_LOG_TYPE_DEBUG))
     {
       *buf = 0;
-      _os_log_impl(&dword_1A7AD9000, v42, OS_LOG_TYPE_DEBUG, "Alerting delegate with our cached token", buf, 2u);
+      _os_log_impl(&dword_1A7AD9000, v46, OS_LOG_TYPE_DEBUG, "Alerting delegate with our cached token", buf, 2u);
     }
 
-    if (os_log_shim_legacy_logging_enabled() && _IDSShouldLog())
+    if (os_log_shim_legacy_logging_enabled() && _IDSShouldLog(2))
     {
-      _IDSLogV(2, @"IDSFoundation", @"IDSPushHandler", @"Alerting delegate with our cached token");
+      _IDSLogV(2, @"IDSFoundation", @"IDSPushHandler", @"Alerting delegate with our cached token", v47, v48, v49, v50, v53);
     }
 
     if ([(IDSPushHandler *)self _validateHandler:listenerCopy withSelector:sel_handler_pushTokenChanged_ topic:0 command:0])
     {
-      v43 = [(NSMapTable *)self->_handlerMap objectForKey:listenerCopy];
-      queue = [v43 queue];
+      v51 = [(NSMapTable *)self->_handlerMap objectForKey:listenerCopy];
+      queue = [v51 queue];
       block[0] = MEMORY[0x1E69E9820];
       block[1] = 3221225472;
       block[2] = sub_1A7BD6CD4;
       block[3] = &unk_1E77E0E18;
-      v61 = listenerCopy;
+      v62 = listenerCopy;
       selfCopy = self;
-      v63 = v41;
+      v64 = v45;
       dispatch_async(queue, block);
     }
   }
@@ -1039,7 +1018,7 @@ LABEL_20:
 
 - (void)setCommands:(id)commands forListener:(id)listener
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   commandsCopy = commands;
   listenerCopy = listener;
   if (listenerCopy)
@@ -1070,7 +1049,7 @@ LABEL_17:
       if (v13)
       {
 LABEL_16:
-        [v9 setCommands:{commandsCopy, v16, commands4, v18}];
+        [v9 setCommands:commandsCopy];
         [(NSRecursiveLock *)self->_recursiveLock unlock];
         goto LABEL_17;
       }
@@ -1085,20 +1064,18 @@ LABEL_16:
     {
       commands3 = [v9 commands];
       *buf = 138412802;
-      v20 = listenerCopy;
-      v21 = 2112;
-      v22 = commands3;
+      v22 = listenerCopy;
       v23 = 2112;
-      v24 = commandsCopy;
+      v24 = commands3;
+      v25 = 2112;
+      v26 = commandsCopy;
       _os_log_impl(&dword_1A7AD9000, v14, OS_LOG_TYPE_DEBUG, "Updating push commands for listener %@ from %@ to %@", buf, 0x20u);
     }
 
-    if (os_log_shim_legacy_logging_enabled() && _IDSShouldLog())
+    if (os_log_shim_legacy_logging_enabled() && _IDSShouldLog(1))
     {
       commands4 = [v9 commands];
-      v18 = commandsCopy;
-      v16 = listenerCopy;
-      _IDSLogV(1, @"IDSFoundation", @"IDSPushHandler", @"Updating push commands for listener %@ from %@ to %@");
+      _IDSLogV(1, @"IDSFoundation", @"IDSPushHandler", @"Updating push commands for listener %@ from %@ to %@", v16, v17, v18, v19, listenerCopy);
     }
 
     goto LABEL_16;
@@ -1162,7 +1139,7 @@ LABEL_18:
 
 - (void)connection:(id)connection didReceivePublicToken:(id)token
 {
-  v61 = *MEMORY[0x1E69E9840];
+  v63 = *MEMORY[0x1E69E9840];
   connectionCopy = connection;
   tokenCopy = token;
   [(NSRecursiveLock *)self->_recursiveLock lock];
@@ -1170,7 +1147,7 @@ LABEL_18:
   cachedPushToken = self->_cachedPushToken;
   if (cachedPushToken == tokenCopy)
   {
-    v38 = 0;
+    v40 = 0;
     v9 = tokenCopy;
   }
 
@@ -1182,12 +1159,12 @@ LABEL_18:
     if ([(NSData *)tokenCopy length])
     {
       objc_storeStrong(&self->_cachedPushToken, token);
-      v38 = *p_cachedPushToken;
+      v40 = *p_cachedPushToken;
     }
 
     else
     {
-      v38 = 0;
+      v40 = 0;
     }
 
     v10 = OSLogHandleForIDSCategory();
@@ -1196,152 +1173,146 @@ LABEL_18:
       v11 = self->_cachedPushToken;
       *buf = 138412546;
       selfCopy = self;
-      v55 = 2112;
-      v56 = v11;
+      v57 = 2112;
+      v58 = v11;
       _os_log_impl(&dword_1A7AD9000, v10, OS_LOG_TYPE_DEFAULT, "%@ Received push token: %@", buf, 0x16u);
     }
 
-    if (os_log_shim_legacy_logging_enabled() && _IDSShouldLog())
+    if (os_log_shim_legacy_logging_enabled() && _IDSShouldLog(0))
     {
-      selfCopy2 = self;
-      v32 = self->_cachedPushToken;
-      _IDSLogV(0, @"IDSFoundation", @"IDSPushHandler", @"%@ Received push token: %@");
+      _IDSLogV(0, @"IDSFoundation", @"IDSPushHandler", @"%@ Received push token: %@", v12, v13, v14, v15, self);
     }
   }
 
-  v36 = v9;
-  [(NSRecursiveLock *)self->_recursiveLock unlock:selfCopy2];
-  v12 = v38;
-  if (v38)
+  v38 = v9;
+  [(NSRecursiveLock *)self->_recursiveLock unlock];
+  v16 = v40;
+  if (v40)
   {
-    v13 = cachedPushToken == v9;
+    v17 = cachedPushToken == v9;
   }
 
   else
   {
-    v13 = 1;
+    v17 = 1;
   }
 
-  if (!v13)
+  if (!v17)
   {
-    v40 = [v38 copy];
+    v42 = [v40 copy];
     [(NSRecursiveLock *)self->_recursiveLock lock];
     if ([(NSMapTable *)self->_handlerMap count])
     {
       weakToStrongObjectsMapTable = [MEMORY[0x1E696AD18] weakToStrongObjectsMapTable];
-      v49 = 0u;
+      v51 = 0u;
+      v52 = 0u;
       v50 = 0u;
-      v48 = 0u;
-      v47 = 0u;
-      v15 = self->_handlerMap;
-      v16 = [(NSMapTable *)v15 countByEnumeratingWithState:&v47 objects:v52 count:16];
-      if (v16)
+      v49 = 0u;
+      v19 = self->_handlerMap;
+      v20 = [(NSMapTable *)v19 countByEnumeratingWithState:&v49 objects:v54 count:16];
+      if (v20)
       {
-        v17 = *v48;
+        v21 = *v50;
         do
         {
-          for (i = 0; i != v16; ++i)
+          for (i = 0; i != v20; ++i)
           {
-            if (*v48 != v17)
+            if (*v50 != v21)
             {
-              objc_enumerationMutation(v15);
+              objc_enumerationMutation(v19);
             }
 
-            v19 = *(*(&v47 + 1) + 8 * i);
-            if ([(IDSPushHandler *)self _validateHandler:v19 withSelector:sel_handler_pushTokenChanged_ topic:0 command:0])
+            v23 = *(*(&v49 + 1) + 8 * i);
+            if ([(IDSPushHandler *)self _validateHandler:v23 withSelector:sel_handler_pushTokenChanged_ topic:0 command:0])
             {
-              v20 = [(NSMapTable *)self->_handlerMap objectForKey:v19];
-              [weakToStrongObjectsMapTable setObject:v20 forKey:v19];
+              v24 = [(NSMapTable *)self->_handlerMap objectForKey:v23];
+              [weakToStrongObjectsMapTable setObject:v24 forKey:v23];
             }
           }
 
-          v16 = [(NSMapTable *)v15 countByEnumeratingWithState:&v47 objects:v52 count:16];
+          v20 = [(NSMapTable *)v19 countByEnumeratingWithState:&v49 objects:v54 count:16];
         }
 
-        while (v16);
+        while (v20);
       }
     }
 
     else
     {
-      v21 = OSLogHandleForIDSCategory();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+      v25 = OSLogHandleForIDSCategory();
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
       {
-        v22 = NSStringFromSelector(sel_handler_pushTokenChanged_);
+        v26 = NSStringFromSelector(sel_handler_pushTokenChanged_);
         *buf = 138413058;
-        selfCopy = v22;
-        v55 = 2112;
-        v56 = 0;
+        selfCopy = v26;
         v57 = 2112;
         v58 = 0;
         v59 = 2112;
         v60 = 0;
-        _os_log_impl(&dword_1A7AD9000, v21, OS_LOG_TYPE_DEFAULT, "No incoming push handler for selector: %@    topic: %@   command: %@   context: %@", buf, 0x2Au);
+        v61 = 2112;
+        v62 = 0;
+        _os_log_impl(&dword_1A7AD9000, v25, OS_LOG_TYPE_DEFAULT, "No incoming push handler for selector: %@    topic: %@   command: %@   context: %@", buf, 0x2Au);
       }
 
-      if (!os_log_shim_legacy_logging_enabled() || !_IDSShouldLog())
+      if (!os_log_shim_legacy_logging_enabled() || !_IDSShouldLog(0))
       {
         weakToStrongObjectsMapTable = 0;
         goto LABEL_32;
       }
 
-      v15 = NSStringFromSelector(sel_handler_pushTokenChanged_);
-      v34 = 0;
-      v35 = 0;
-      v31 = v15;
-      v33 = 0;
-      _IDSLogV(0, @"IDSFoundation", @"IDSPushHandler", @"No incoming push handler for selector: %@    topic: %@   command: %@   context: %@");
+      v19 = NSStringFromSelector(sel_handler_pushTokenChanged_);
+      _IDSLogV(0, @"IDSFoundation", @"IDSPushHandler", @"No incoming push handler for selector: %@    topic: %@   command: %@   context: %@", v27, v28, v29, v30, v19);
       weakToStrongObjectsMapTable = 0;
     }
 
 LABEL_32:
-    [(NSRecursiveLock *)self->_recursiveLock unlock:v31];
+    [(NSRecursiveLock *)self->_recursiveLock unlock];
+    v47 = 0u;
+    v48 = 0u;
     v45 = 0u;
     v46 = 0u;
-    v43 = 0u;
-    v44 = 0u;
     obj = weakToStrongObjectsMapTable;
-    v23 = [obj countByEnumeratingWithState:&v43 objects:v51 count:16];
-    if (v23)
+    v31 = [obj countByEnumeratingWithState:&v45 objects:v53 count:16];
+    if (v31)
     {
-      v24 = *v44;
-      v25 = MEMORY[0x1E69E9820];
+      v32 = *v46;
+      v33 = MEMORY[0x1E69E9820];
       do
       {
-        for (j = 0; j != v23; ++j)
+        for (j = 0; j != v31; ++j)
         {
-          if (*v44 != v24)
+          if (*v46 != v32)
           {
             objc_enumerationMutation(obj);
           }
 
-          v27 = *(*(&v43 + 1) + 8 * j);
-          v28 = [(NSMapTable *)self->_handlerMap objectForKey:v27];
-          queue = [v28 queue];
-          block[0] = v25;
+          v35 = *(*(&v45 + 1) + 8 * j);
+          v36 = [(NSMapTable *)self->_handlerMap objectForKey:v35];
+          queue = [v36 queue];
+          block[0] = v33;
           block[1] = 3221225472;
           block[2] = sub_1A7BD7DFC;
           block[3] = &unk_1E77E0E18;
-          block[4] = v27;
+          block[4] = v35;
           block[5] = self;
-          v42 = v40;
+          v44 = v42;
           dispatch_async(queue, block);
         }
 
-        v23 = [obj countByEnumeratingWithState:&v43 objects:v51 count:16];
+        v31 = [obj countByEnumeratingWithState:&v45 objects:v53 count:16];
       }
 
-      while (v23);
+      while (v31);
     }
 
     [obj count];
-    v12 = v38;
+    v16 = v40;
   }
 }
 
 - (void)writePushPayloadToDiskIfEnabled:(id)enabled topic:(id)topic
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v55 = *MEMORY[0x1E69E9840];
   enabledCopy = enabled;
   topicCopy = topic;
   if (CUTIsInternalInstall() && [MEMORY[0x1E69A6180] isWritePushPayloadsToDiskEnabled])
@@ -1362,93 +1333,94 @@ LABEL_32:
     v9 = sub_1A7B0A150(v8, enabledCopy, @"c");
     v10 = MEMORY[0x1E696AEC0];
     uUID = [MEMORY[0x1E696AFB0] UUID];
-    uUIDString = [uUID UUIDString];
-    v13 = [v10 stringWithFormat:@"%@-push-%@.data", v9, uUIDString];
+    [uUID UUIDString];
+    v46 = v45 = v9;
+    v12 = [v10 stringWithFormat:@"%@-push-%@.data"];
 
-    v14 = MEMORY[0x1E695DFF8];
-    v15 = [(__CFString *)writePushPayloadsToDiskPath2 stringByAppendingPathComponent:v13];
-    v16 = [v14 fileURLWithPath:v15];
+    v13 = MEMORY[0x1E695DFF8];
+    v14 = [(__CFString *)writePushPayloadsToDiskPath2 stringByAppendingPathComponent:v12];
+    v15 = [v13 fileURLWithPath:v14];
 
-    v17 = OSLogHandleForIDSCategory();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+    v16 = OSLogHandleForIDSCategory();
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
-      absoluteString = [v16 absoluteString];
+      absoluteString = [v15 absoluteString];
       *buf = 138412290;
-      v37 = absoluteString;
-      _os_log_impl(&dword_1A7AD9000, v17, OS_LOG_TYPE_DEFAULT, "Writing payload to disk: {%@}", buf, 0xCu);
+      v54 = absoluteString;
+      _os_log_impl(&dword_1A7AD9000, v16, OS_LOG_TYPE_DEFAULT, "Writing payload to disk: {%@}", buf, 0xCu);
     }
 
-    if (os_log_shim_legacy_logging_enabled() && _IDSShouldLog())
+    if (os_log_shim_legacy_logging_enabled() && _IDSShouldLog(0))
     {
-      absoluteString2 = [v16 absoluteString];
-      _IDSLogV(0, @"IDSFoundation", @"IDSPushHandler", @"Writing payload to disk: {%@}");
+      absoluteString2 = [v15 absoluteString];
+      _IDSLogV(0, @"IDSFoundation", @"IDSPushHandler", @"Writing payload to disk: {%@}", v19, v20, v21, v22, absoluteString2);
     }
 
-    v34[0] = @"t";
-    v34[1] = @"p";
-    v35[0] = topicCopy;
-    v35[1] = enabledCopy;
-    v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v35 forKeys:v34 count:{2, absoluteString2}];
-    v33 = 0;
-    v20 = [MEMORY[0x1E696AE40] dataWithPropertyList:v19 format:100 options:0 error:&v33];
-    v21 = v33;
-    if (v21)
+    v51[0] = @"t";
+    v51[1] = @"p";
+    v52[0] = topicCopy;
+    v52[1] = enabledCopy;
+    v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v52 forKeys:v51 count:2];
+    v50 = 0;
+    v24 = [MEMORY[0x1E696AE40] dataWithPropertyList:v23 format:100 options:0 error:&v50];
+    v25 = v50;
+    if (v25)
     {
-      v22 = v21;
-      v23 = OSLogHandleForIDSCategory();
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+      v26 = v25;
+      v27 = OSLogHandleForIDSCategory();
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v37 = v22;
-        _os_log_impl(&dword_1A7AD9000, v23, OS_LOG_TYPE_DEFAULT, "Error while serializing payload %@", buf, 0xCu);
+        v54 = v26;
+        _os_log_impl(&dword_1A7AD9000, v27, OS_LOG_TYPE_DEFAULT, "Error while serializing payload %@", buf, 0xCu);
       }
 
-      if (os_log_shim_legacy_logging_enabled() && _IDSShouldLog())
+      if (os_log_shim_legacy_logging_enabled() && _IDSShouldLog(0))
       {
-        _IDSLogV(0, @"IDSFoundation", @"IDSPushHandler", @"Error while serializing payload %@");
+        _IDSLogV(0, @"IDSFoundation", @"IDSPushHandler", @"Error while serializing payload %@", v28, v29, v30, v31, v26);
       }
     }
 
     else
     {
       defaultManager = [MEMORY[0x1E696AC08] defaultManager];
-      uRLByDeletingLastPathComponent = [v16 URLByDeletingLastPathComponent];
-      v32 = 0;
-      [defaultManager createDirectoryAtURL:uRLByDeletingLastPathComponent withIntermediateDirectories:1 attributes:0 error:&v32];
-      v26 = v32;
+      uRLByDeletingLastPathComponent = [v15 URLByDeletingLastPathComponent];
+      v49 = 0;
+      [defaultManager createDirectoryAtURL:uRLByDeletingLastPathComponent withIntermediateDirectories:1 attributes:0 error:&v49];
+      v34 = v49;
 
-      v31 = v26;
-      LODWORD(uRLByDeletingLastPathComponent) = [v20 writeToURL:v16 options:1 error:&v31];
-      v22 = v31;
+      v48 = v34;
+      LODWORD(uRLByDeletingLastPathComponent) = [v24 writeToURL:v15 options:1 error:&v48];
+      v26 = v48;
 
       if (uRLByDeletingLastPathComponent)
       {
-        v27 = OSLogHandleForIDSCategory();
-        if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+        v35 = OSLogHandleForIDSCategory();
+        if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&dword_1A7AD9000, v27, OS_LOG_TYPE_DEFAULT, "Write to disk: Successful", buf, 2u);
+          _os_log_impl(&dword_1A7AD9000, v35, OS_LOG_TYPE_DEFAULT, "Write to disk: Successful", buf, 2u);
         }
 
-        if (os_log_shim_legacy_logging_enabled() && _IDSShouldLog())
+        if (os_log_shim_legacy_logging_enabled() && _IDSShouldLog(0))
         {
-          _IDSLogV(0, @"IDSFoundation", @"IDSPushHandler", @"Write to disk: Successful");
+          _IDSLogV(0, @"IDSFoundation", @"IDSPushHandler", @"Write to disk: Successful", v36, v37, v38, v39, v45);
         }
       }
 
       else
       {
-        v28 = OSLogHandleForIDSCategory();
-        if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+        v40 = OSLogHandleForIDSCategory();
+        if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v37 = v22;
-          _os_log_impl(&dword_1A7AD9000, v28, OS_LOG_TYPE_DEFAULT, "Write to disk: Unsuccessful with error: %@", buf, 0xCu);
+          v54 = v26;
+          _os_log_impl(&dword_1A7AD9000, v40, OS_LOG_TYPE_DEFAULT, "Write to disk: Unsuccessful with error: %@", buf, 0xCu);
         }
 
-        if (os_log_shim_legacy_logging_enabled() && _IDSShouldLog())
+        if (os_log_shim_legacy_logging_enabled() && _IDSShouldLog(0))
         {
-          _IDSLogV(0, @"IDSFoundation", @"IDSPushHandler", @"Write to disk: Unsuccessful with error: %@");
+          _IDSLogV(0, @"IDSFoundation", @"IDSPushHandler", @"Write to disk: Unsuccessful with error: %@", v41, v42, v43, v44, v26);
         }
       }
     }
@@ -1482,26 +1454,26 @@ LABEL_32:
 
 - (void)connectionDidReconnect:(id)reconnect
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   reconnectCopy = reconnect;
   v4 = OSLogHandleForIDSCategory();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v6 = reconnectCopy;
+    v10 = reconnectCopy;
     _os_log_impl(&dword_1A7AD9000, v4, OS_LOG_TYPE_DEFAULT, "APS Connection did reconnect: %@", buf, 0xCu);
   }
 
-  if (os_log_shim_legacy_logging_enabled() && _IDSShouldLog())
+  if (os_log_shim_legacy_logging_enabled() && _IDSShouldLog(0))
   {
-    _IDSLogV(0, @"IDSFoundation", @"IDSPushHandler", @"APS Connection did reconnect: %@");
+    _IDSLogV(0, @"IDSFoundation", @"IDSPushHandler", @"APS Connection did reconnect: %@", v5, v6, v7, v8, reconnectCopy);
   }
 }
 
 - (void)connection:(id)connection didChangeConnectedStatus:(BOOL)status
 {
   statusCopy = status;
-  v52 = *MEMORY[0x1E69E9840];
+  v55 = *MEMORY[0x1E69E9840];
   connectionCopy = connection;
   v5 = OSLogHandleForIDSCategory();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
@@ -1513,84 +1485,79 @@ LABEL_32:
     }
 
     *buf = 138412290;
-    v45 = v6;
+    v48 = v6;
     _os_log_impl(&dword_1A7AD9000, v5, OS_LOG_TYPE_DEFAULT, "APS Connection status did change to connected: %@", buf, 0xCu);
   }
 
-  if (os_log_shim_legacy_logging_enabled() && _IDSShouldLog())
+  if (os_log_shim_legacy_logging_enabled() && _IDSShouldLog(0))
   {
-    v7 = @"NO";
+    v11 = @"NO";
     if (statusCopy)
     {
-      v7 = @"YES";
+      v11 = @"YES";
     }
 
-    v24 = v7;
-    _IDSLogV(0, @"IDSFoundation", @"IDSPushHandler", @"APS Connection status did change to connected: %@");
+    _IDSLogV(0, @"IDSFoundation", @"IDSPushHandler", @"APS Connection status did change to connected: %@", v7, v8, v9, v10, v11);
   }
 
   [(NSRecursiveLock *)self->_recursiveLock lock];
   if ([(NSMapTable *)self->_handlerMap count])
   {
     weakToStrongObjectsMapTable = [MEMORY[0x1E696AD18] weakToStrongObjectsMapTable];
-    v40 = 0u;
+    v43 = 0u;
+    v44 = 0u;
+    v42 = 0u;
     v41 = 0u;
-    v39 = 0u;
-    v38 = 0u;
-    v9 = self->_handlerMap;
-    v10 = [(NSMapTable *)v9 countByEnumeratingWithState:&v38 objects:v43 count:16];
-    if (v10)
+    v13 = self->_handlerMap;
+    v14 = [(NSMapTable *)v13 countByEnumeratingWithState:&v41 objects:v46 count:16];
+    if (v14)
     {
-      v11 = *v39;
+      v15 = *v42;
       do
       {
-        for (i = 0; i != v10; ++i)
+        for (i = 0; i != v14; ++i)
         {
-          if (*v39 != v11)
+          if (*v42 != v15)
           {
-            objc_enumerationMutation(v9);
+            objc_enumerationMutation(v13);
           }
 
-          v13 = *(*(&v38 + 1) + 8 * i);
-          if ([(IDSPushHandler *)self _validateHandler:v13 withSelector:sel_handler_isConnectedChanged_ topic:0 command:0])
+          v17 = *(*(&v41 + 1) + 8 * i);
+          if ([(IDSPushHandler *)self _validateHandler:v17 withSelector:sel_handler_isConnectedChanged_ topic:0 command:0])
           {
-            v14 = [(NSMapTable *)self->_handlerMap objectForKey:v13];
-            [weakToStrongObjectsMapTable setObject:v14 forKey:v13];
+            v18 = [(NSMapTable *)self->_handlerMap objectForKey:v17];
+            [weakToStrongObjectsMapTable setObject:v18 forKey:v17];
           }
         }
 
-        v10 = [(NSMapTable *)v9 countByEnumeratingWithState:&v38 objects:v43 count:16];
+        v14 = [(NSMapTable *)v13 countByEnumeratingWithState:&v41 objects:v46 count:16];
       }
 
-      while (v10);
+      while (v14);
     }
 
     goto LABEL_20;
   }
 
-  v15 = OSLogHandleForIDSCategory();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+  v19 = OSLogHandleForIDSCategory();
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
   {
-    v16 = NSStringFromSelector(sel_handler_isConnectedChanged_);
+    v20 = NSStringFromSelector(sel_handler_isConnectedChanged_);
     *buf = 138413058;
-    v45 = v16;
-    v46 = 2112;
-    v47 = 0;
-    v48 = 2112;
-    v49 = 0;
-    v50 = 2112;
-    v51 = 0;
-    _os_log_impl(&dword_1A7AD9000, v15, OS_LOG_TYPE_DEFAULT, "No incoming push handler for selector: %@    topic: %@   command: %@   context: %@", buf, 0x2Au);
+    v48 = v20;
+    v49 = 2112;
+    v50 = 0;
+    v51 = 2112;
+    v52 = 0;
+    v53 = 2112;
+    v54 = 0;
+    _os_log_impl(&dword_1A7AD9000, v19, OS_LOG_TYPE_DEFAULT, "No incoming push handler for selector: %@    topic: %@   command: %@   context: %@", buf, 0x2Au);
   }
 
-  if (os_log_shim_legacy_logging_enabled() && _IDSShouldLog())
+  if (os_log_shim_legacy_logging_enabled() && _IDSShouldLog(0))
   {
-    v9 = NSStringFromSelector(sel_handler_isConnectedChanged_);
-    v27 = 0;
-    v28 = 0;
-    v25 = v9;
-    v26 = 0;
-    _IDSLogV(0, @"IDSFoundation", @"IDSPushHandler", @"No incoming push handler for selector: %@    topic: %@   command: %@   context: %@");
+    v13 = NSStringFromSelector(sel_handler_isConnectedChanged_);
+    _IDSLogV(0, @"IDSFoundation", @"IDSPushHandler", @"No incoming push handler for selector: %@    topic: %@   command: %@   context: %@", v21, v22, v23, v24, v13);
     weakToStrongObjectsMapTable = 0;
 LABEL_20:
 
@@ -1599,43 +1566,43 @@ LABEL_20:
 
   weakToStrongObjectsMapTable = 0;
 LABEL_27:
-  [(NSRecursiveLock *)self->_recursiveLock unlock:v25];
-  v36 = 0u;
+  [(NSRecursiveLock *)self->_recursiveLock unlock];
+  v39 = 0u;
+  v40 = 0u;
   v37 = 0u;
-  v34 = 0u;
-  v35 = 0u;
+  v38 = 0u;
   obj = weakToStrongObjectsMapTable;
-  v17 = [obj countByEnumeratingWithState:&v34 objects:v42 count:16];
-  if (v17)
+  v25 = [obj countByEnumeratingWithState:&v37 objects:v45 count:16];
+  if (v25)
   {
-    v18 = *v35;
-    v19 = MEMORY[0x1E69E9820];
+    v26 = *v38;
+    v27 = MEMORY[0x1E69E9820];
     do
     {
-      for (j = 0; j != v17; ++j)
+      for (j = 0; j != v25; ++j)
       {
-        if (*v35 != v18)
+        if (*v38 != v26)
         {
           objc_enumerationMutation(obj);
         }
 
-        v21 = *(*(&v34 + 1) + 8 * j);
-        v22 = [(NSMapTable *)self->_handlerMap objectForKey:v21];
-        queue = [v22 queue];
-        block[0] = v19;
+        v29 = *(*(&v37 + 1) + 8 * j);
+        v30 = [(NSMapTable *)self->_handlerMap objectForKey:v29];
+        queue = [v30 queue];
+        block[0] = v27;
         block[1] = 3221225472;
         block[2] = sub_1A7BDAC58;
         block[3] = &unk_1E77E1620;
-        block[4] = v21;
+        block[4] = v29;
         block[5] = self;
-        v33 = statusCopy;
+        v36 = statusCopy;
         dispatch_async(queue, block);
       }
 
-      v17 = [obj countByEnumeratingWithState:&v34 objects:v42 count:16];
+      v25 = [obj countByEnumeratingWithState:&v37 objects:v45 count:16];
     }
 
-    while (v17);
+    while (v25);
   }
 
   [obj count];

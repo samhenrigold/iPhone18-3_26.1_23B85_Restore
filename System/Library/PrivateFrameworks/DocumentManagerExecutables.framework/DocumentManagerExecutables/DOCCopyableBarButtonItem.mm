@@ -11,20 +11,22 @@
   v4 = *(self + OBJC_IVAR____TtC26DocumentManagerExecutables24DOCCopyableBarButtonItem_creator);
   if (v4)
   {
+    v5 = v3[1];
     selfCopy = self;
-    v6 = outlined copy of (@escaping @callee_guaranteed () -> (@owned DOCCopyableBarButtonItem))?(v4);
-    v7 = v4(v6);
-    outlined consume of (@escaping @callee_guaranteed () -> (@owned DOCCopyableBarButtonItem))?(v4);
-    v8 = *v3;
-    v9 = v3[1];
-    outlined copy of (@escaping @callee_guaranteed () -> (@owned DOCCopyableBarButtonItem))?(*v3);
+    v7 = outlined copy of (@escaping @callee_guaranteed () -> (@owned DOCCopyableBarButtonItem))?(v4, v5);
+    v8 = v4(v7);
+    outlined consume of (@escaping @callee_guaranteed () -> (@owned DOCCopyableBarButtonItem))?(v4, v5);
+    v9 = *v3;
+    v10 = v3[1];
+    outlined copy of (@escaping @callee_guaranteed () -> (@owned DOCCopyableBarButtonItem))?(*v3, v10);
 
-    v10 = &v7[OBJC_IVAR____TtC26DocumentManagerExecutables24DOCCopyableBarButtonItem_creator];
-    v11 = *&v7[OBJC_IVAR____TtC26DocumentManagerExecutables24DOCCopyableBarButtonItem_creator];
-    *v10 = v8;
-    v10[1] = v9;
-    outlined consume of (@escaping @callee_guaranteed () -> (@owned DOCCopyableBarButtonItem))?(v11);
-    return v7;
+    v11 = &v8[OBJC_IVAR____TtC26DocumentManagerExecutables24DOCCopyableBarButtonItem_creator];
+    v12 = *&v8[OBJC_IVAR____TtC26DocumentManagerExecutables24DOCCopyableBarButtonItem_creator];
+    v13 = *&v8[OBJC_IVAR____TtC26DocumentManagerExecutables24DOCCopyableBarButtonItem_creator + 8];
+    *v11 = v9;
+    v11[1] = v10;
+    outlined consume of (@escaping @callee_guaranteed () -> (@owned DOCCopyableBarButtonItem))?(v12, v13);
+    return v8;
   }
 
   else

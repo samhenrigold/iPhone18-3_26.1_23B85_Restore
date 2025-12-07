@@ -18,16 +18,16 @@
 
 - (NSQueryGenerationToken)initWithCoder:(id)coder
 {
-  objc_opt_class();
-  NSRequestConcreteImplementation();
+  v5 = objc_opt_class();
+  NSRequestConcreteImplementation(self, a2, v5, v6, v7, v8, v9, v10);
   return 0;
 }
 
 - (void)encodeWithCoder:(id)coder
 {
-  objc_opt_class();
+  v5 = objc_opt_class();
 
-  NSRequestConcreteImplementation();
+  NSRequestConcreteImplementation(self, a2, v5, v6, v7, v8, v9, v10);
 }
 
 @end

@@ -21,52 +21,52 @@
 - (id)_allPossibleTitlesWithMomentNodes:(id)nodes forHighlight:(BOOL)highlight argumentEvaluationContext:(id)context
 {
   highlightCopy = highlight;
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   nodesCopy = nodes;
   contextCopy = context;
   v10 = [MEMORY[0x277CBEB58] set];
+  v28 = 0u;
   v29 = 0u;
   v30 = 0u;
   v31 = 0u;
-  v32 = 0u;
   obj = self->_specPools;
-  v24 = [(NSArray *)obj countByEnumeratingWithState:&v29 objects:v34 count:16];
-  if (v24)
+  v23 = [(NSArray *)obj countByEnumeratingWithState:&v28 objects:v33 count:16];
+  if (v23)
   {
-    v23 = *v30;
+    v22 = *v29;
     do
     {
-      for (i = 0; i != v24; ++i)
+      for (i = 0; i != v23; ++i)
       {
-        if (*v30 != v23)
+        if (*v29 != v22)
         {
           objc_enumerationMutation(obj);
         }
 
-        v12 = *(*(&v29 + 1) + 8 * i);
+        v12 = *(*(&v28 + 1) + 8 * i);
+        v24 = 0u;
         v25 = 0u;
         v26 = 0u;
         v27 = 0u;
-        v28 = 0u;
         specs = [v12 specs];
-        v14 = [specs countByEnumeratingWithState:&v25 objects:v33 count:16];
+        v14 = [specs countByEnumeratingWithState:&v24 objects:v32 count:16];
         if (v14)
         {
           v15 = v14;
-          v16 = *v26;
+          v16 = *v25;
           do
           {
             for (j = 0; j != v15; ++j)
             {
-              if (*v26 != v16)
+              if (*v25 != v16)
               {
                 objc_enumerationMutation(specs);
               }
 
-              v18 = *(*(&v25 + 1) + 8 * j);
+              v18 = *(*(&v24 + 1) + 8 * j);
               if (highlightCopy)
               {
-                [*(*(&v25 + 1) + 8 * j) setInsertNonBreakableSpace:1];
+                [*(*(&v24 + 1) + 8 * j) setInsertNonBreakableSpace:1];
               }
 
               v19 = [v18 titleWithMomentNodes:nodesCopy argumentEvaluationContext:contextCopy];
@@ -76,20 +76,18 @@
               }
             }
 
-            v15 = [specs countByEnumeratingWithState:&v25 objects:v33 count:16];
+            v15 = [specs countByEnumeratingWithState:&v24 objects:v32 count:16];
           }
 
           while (v15);
         }
       }
 
-      v24 = [(NSArray *)obj countByEnumeratingWithState:&v29 objects:v34 count:16];
+      v23 = [(NSArray *)obj countByEnumeratingWithState:&v28 objects:v33 count:16];
     }
 
-    while (v24);
+    while (v23);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 
   return v10;
 }

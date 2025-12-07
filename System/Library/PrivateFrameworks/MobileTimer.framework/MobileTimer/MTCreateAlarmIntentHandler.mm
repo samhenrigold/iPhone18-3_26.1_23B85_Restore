@@ -96,7 +96,7 @@ LABEL_9:
 
 - (void)resolveRepeatScheduleForMTCreateAlarm:(id)alarm withCompletion:(id)completion
 {
-  v14[1] = *MEMORY[0x1E69E9840];
+  v13[1] = *MEMORY[0x1E69E9840];
   alarmCopy = alarm;
   completionCopy = completion;
   repeatSchedule = [alarmCopy repeatSchedule];
@@ -113,12 +113,10 @@ LABEL_9:
   else
   {
     v11 = +[MTIntentRepeatDayResolutionResult notRequired];
-    v14[0] = v11;
-    v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:1];
+    v13[0] = v11;
+    v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:1];
     completionCopy[2](completionCopy, v12);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)provideRepeatScheduleOptionsForMTCreateAlarm:(id)alarm withCompletion:(id)completion
@@ -155,7 +153,7 @@ LABEL_9:
 
 - (void)handleMTCreateAlarm:(id)alarm completion:(id)completion
 {
-  v57 = *MEMORY[0x1E69E9840];
+  v56 = *MEMORY[0x1E69E9840];
   alarmCopy = alarm;
   completionCopy = completion;
   time = [alarmCopy time];
@@ -215,31 +213,31 @@ LABEL_3:
         }
 
 LABEL_11:
-        v54 = 0u;
-        v55 = 0u;
         v53 = 0u;
+        v54 = 0u;
         v52 = 0u;
+        v51 = 0u;
         repeatSchedule = [alarmCopy repeatSchedule];
-        v22 = [repeatSchedule countByEnumeratingWithState:&v52 objects:v56 count:16];
+        v22 = [repeatSchedule countByEnumeratingWithState:&v51 objects:v55 count:16];
         if (v22)
         {
           v23 = v22;
           v24 = 0;
-          v25 = *v53;
+          v25 = *v52;
           do
           {
             for (i = 0; i != v23; ++i)
             {
-              if (*v53 != v25)
+              if (*v52 != v25)
               {
                 objc_enumerationMutation(repeatSchedule);
               }
 
-              value = [*(*(&v52 + 1) + 8 * i) value];
+              value = [*(*(&v51 + 1) + 8 * i) value];
               v24 |= [value integerValue];
             }
 
-            v23 = [repeatSchedule countByEnumeratingWithState:&v52 objects:v56 count:16];
+            v23 = [repeatSchedule countByEnumeratingWithState:&v51 objects:v55 count:16];
           }
 
           while (v23);
@@ -259,27 +257,27 @@ LABEL_11:
         alarmManager = [(MTAlarmIntentHandler *)self alarmManager];
         v32 = [alarmManager addAlarm:v30];
 
-        v48[0] = MEMORY[0x1E69E9820];
-        v48[1] = 3221225472;
-        v48[2] = __61__MTCreateAlarmIntentHandler_handleMTCreateAlarm_completion___block_invoke;
-        v48[3] = &unk_1E7B0D6A0;
-        v48[4] = self;
+        v47[0] = MEMORY[0x1E69E9820];
+        v47[1] = 3221225472;
+        v47[2] = __61__MTCreateAlarmIntentHandler_handleMTCreateAlarm_completion___block_invoke;
+        v47[3] = &unk_1E7B0D6A0;
+        v47[4] = self;
         v33 = alarmCopy;
-        v49 = v33;
-        v50 = v30;
-        completionCopy = v44;
-        v34 = v44;
-        v51 = v34;
+        v48 = v33;
+        v49 = v30;
+        completionCopy = v43;
+        v34 = v43;
+        v50 = v34;
         v35 = v30;
-        v36 = [v32 addSuccessBlock:v48];
-        v45[0] = MEMORY[0x1E69E9820];
-        v45[1] = 3221225472;
-        v45[2] = __61__MTCreateAlarmIntentHandler_handleMTCreateAlarm_completion___block_invoke_2;
-        v45[3] = &unk_1E7B0D6C8;
-        v45[4] = self;
-        v46 = v33;
-        v47 = v34;
-        v37 = [v32 addFailureBlock:v45];
+        v36 = [v32 addSuccessBlock:v47];
+        v44[0] = MEMORY[0x1E69E9820];
+        v44[1] = 3221225472;
+        v44[2] = __61__MTCreateAlarmIntentHandler_handleMTCreateAlarm_completion___block_invoke_2;
+        v44[3] = &unk_1E7B0D6C8;
+        v44[4] = self;
+        v45 = v33;
+        v46 = v34;
+        v37 = [v32 addFailureBlock:v44];
 
         goto LABEL_25;
       }
@@ -298,8 +296,6 @@ LABEL_11:
 
   completionCopy[2](completionCopy, v35);
 LABEL_25:
-
-  v43 = *MEMORY[0x1E69E9840];
 }
 
 void __61__MTCreateAlarmIntentHandler_handleMTCreateAlarm_completion___block_invoke(uint64_t a1)
@@ -343,11 +339,10 @@ void __61__MTCreateAlarmIntentHandler_handleMTCreateAlarm_completion___block_inv
 
 - (void)handleMTCreateAlarm:(uint64_t)a1 completion:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_1B1F9F000, a2, OS_LOG_TYPE_ERROR, "%{public}@ createAlarm requested without time", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_1B1F9F000, a2, OS_LOG_TYPE_ERROR, "%{public}@ createAlarm requested without time", &v2, 0xCu);
 }
 
 @end

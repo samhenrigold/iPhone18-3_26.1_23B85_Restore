@@ -7,7 +7,7 @@
 
 + (void)getTrialIdsForAssetType:()Trial withCompletion:
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v5 = a4;
   if (a3 == 3)
   {
@@ -29,11 +29,11 @@
     v6 = 0;
     if (v9)
     {
-      v12 = 136315394;
-      v13 = "+[CSUtils(Trial) getTrialIdsForAssetType:withCompletion:]";
-      v14 = 2050;
-      v15 = a3;
-      _os_log_impl(&dword_222E4D000, v8, OS_LOG_TYPE_DEFAULT, "%s Unknown namespaceId for assetType %{public}lu ", &v12, 0x16u);
+      v11 = 136315394;
+      v12 = "+[CSUtils(Trial) getTrialIdsForAssetType:withCompletion:]";
+      v13 = 2050;
+      v14 = a3;
+      _os_log_impl(&dword_222E4D000, v8, OS_LOG_TYPE_DEFAULT, "%s Unknown namespaceId for assetType %{public}lu ", &v11, 0x16u);
       v7 = 0;
       v6 = 0;
     }
@@ -44,8 +44,6 @@
     v10 = [MEMORY[0x277D73B50] namespaceNameFromId:v7];
     v5[2](v5, v6, v10);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 + (uint64_t)getAssetTypeForNamespace:()Trial

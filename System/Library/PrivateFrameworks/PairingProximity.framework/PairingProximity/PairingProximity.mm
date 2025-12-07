@@ -1,13 +1,13 @@
-id pbb_mobileasset_log()
+id pbb_mobileasset_log(uint64_t a1)
 {
   if (pbb_mobileasset_log_onceToken != -1)
   {
     pbb_mobileasset_log_cold_1();
   }
 
-  v1 = pbb_mobileasset_log___logger;
+  v2 = pbb_mobileasset_log___logger;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __pbb_mobileasset_log_block_invoke()
@@ -25,16 +25,16 @@ void sub_25DF4B67C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-id pbb_bridge_log()
+id pbb_bridge_log(uint64_t a1)
 {
   if (pbb_bridge_log_onceToken != -1)
   {
     pbb_bridge_log_cold_1();
   }
 
-  v1 = pbb_bridge_log___logger;
+  v2 = pbb_bridge_log___logger;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __pbb_bridge_log_block_invoke()
@@ -44,16 +44,16 @@ uint64_t __pbb_bridge_log_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id pbb_setup_log()
+id pbb_setup_log(uint64_t a1)
 {
   if (pbb_setup_log_onceToken != -1)
   {
     pbb_setup_log_cold_1();
   }
 
-  v1 = pbb_setup_log___logger;
+  v2 = pbb_setup_log___logger;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __pbb_setup_log_block_invoke()
@@ -63,16 +63,16 @@ uint64_t __pbb_setup_log_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id pbb_shared_log()
+id pbb_shared_log(uint64_t a1)
 {
   if (pbb_shared_log_onceToken != -1)
   {
     pbb_shared_log_cold_1();
   }
 
-  v1 = pbb_shared_log___logger;
+  v2 = pbb_shared_log___logger;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __pbb_shared_log_block_invoke()
@@ -82,16 +82,16 @@ uint64_t __pbb_shared_log_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id pbb_activation_log()
+id pbb_activation_log(uint64_t a1)
 {
   if (pbb_activation_log_onceToken != -1)
   {
     pbb_activation_log_cold_1();
   }
 
-  v1 = pbb_activation_log___logger;
+  v2 = pbb_activation_log___logger;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __pbb_activation_log_block_invoke()
@@ -101,16 +101,16 @@ uint64_t __pbb_activation_log_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id pbb_accountsignin_log()
+id pbb_accountsignin_log(uint64_t a1)
 {
   if (pbb_accountsignin_log_onceToken != -1)
   {
     pbb_accountsignin_log_cold_1();
   }
 
-  v1 = pbb_accountsignin_log___logger;
+  v2 = pbb_accountsignin_log___logger;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __pbb_accountsignin_log_block_invoke()
@@ -120,16 +120,16 @@ uint64_t __pbb_accountsignin_log_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id pbb_setupflow_log()
+id pbb_setupflow_log(uint64_t a1)
 {
   if (pbb_setupflow_log_onceToken != -1)
   {
     pbb_setupflow_log_cold_1();
   }
 
-  v1 = pbb_setupflow_log___logger;
+  v2 = pbb_setupflow_log___logger;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __pbb_setupflow_log_block_invoke()
@@ -139,16 +139,16 @@ uint64_t __pbb_setupflow_log_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id pbb_manualunpairing_log()
+id pbb_manualunpairing_log(uint64_t a1)
 {
   if (pbb_manualunpairing_log_onceToken != -1)
   {
     pbb_manualunpairing_log_cold_1();
   }
 
-  v1 = pbb_manualunpairing_log___logger;
+  v2 = pbb_manualunpairing_log___logger;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __pbb_manualunpairing_log_block_invoke()
@@ -158,16 +158,16 @@ uint64_t __pbb_manualunpairing_log_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id pbb_discover_log()
+id pbb_discover_log(uint64_t a1)
 {
   if (pbb_discover_log_onceToken != -1)
   {
     pbb_discover_log_cold_1();
   }
 
-  v1 = pbb_discover_log___logger;
+  v2 = pbb_discover_log___logger;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __pbb_discover_log_block_invoke()
@@ -177,16 +177,16 @@ uint64_t __pbb_discover_log_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id pbb_proxcard_log()
+id pbb_proxcard_log(uint64_t a1)
 {
   if (pbb_proxcard_log_onceToken != -1)
   {
     pbb_proxcard_log_cold_1();
   }
 
-  v1 = pbb_proxcard_log___logger;
+  v2 = pbb_proxcard_log___logger;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __pbb_proxcard_log_block_invoke()
@@ -196,16 +196,16 @@ uint64_t __pbb_proxcard_log_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id pbb_devicemanagement_log()
+id pbb_devicemanagement_log(uint64_t a1)
 {
   if (pbb_devicemanagement_log_onceToken != -1)
   {
     pbb_devicemanagement_log_cold_1();
   }
 
-  v1 = pbb_devicemanagement_log___logger;
+  v2 = pbb_devicemanagement_log___logger;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __pbb_devicemanagement_log_block_invoke()

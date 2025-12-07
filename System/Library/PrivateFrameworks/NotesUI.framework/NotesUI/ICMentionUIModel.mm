@@ -54,7 +54,7 @@
   return labelColor;
 }
 
-uint64_t __30__ICMentionUIModel_labelColor__block_invoke(uint64_t a1)
+void *__30__ICMentionUIModel_labelColor__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) isUnsupported];
   *(*(*(a1 + 40) + 8) + 24) = result;

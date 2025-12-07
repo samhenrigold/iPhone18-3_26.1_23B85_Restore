@@ -2,6 +2,7 @@
 - (BOOL)_getUncanonicalizedPath:(_BOOL8)result;
 - (BOOL)enqueueNewKey:(id)key value:(id)value encoding:(int)encoding inBatch:(BOOL)batch fromMessage:(id)message;
 - (BOOL)getUncanonicalizedPath:(uint64_t)path;
+- (BOOL)isEmpty;
 - (BOOL)shouldBePurgable;
 - (BOOL)validateSandboxForWrite:(const char *)write containerPath:;
 - (CFPDSource)initWithDomain:(__CFString *)domain userName:(__CFString *)name byHost:(BOOL)host managed:(BOOL)managed shmemIndex:(signed __int16)index daemon:(id)daemon;
@@ -12,6 +13,7 @@
 - (const)endHandlingRequest;
 - (const)hasObservers;
 - (id)acceptMessage:(id)message;
+- (id)copyPropertyListValidatingPlist:(BOOL)plist;
 - (id)copyPropertyListWithoutDrainingPendingChangesValidatingPlist:(BOOL)plist andReturnFileUID:(unsigned int *)d andMode:(unsigned __int16 *)mode;
 - (id)createDiskWrite;
 - (id)description;
@@ -20,18 +22,14 @@
 - (uint64_t)approximatePlistSizeIncludingPendingChanges;
 - (uint64_t)beginHandlingRequest;
 - (uint64_t)closeFileDescriptors;
-- (uint64_t)handleDeviceUnlock;
-- (uint64_t)isEmpty;
-- (uint64_t)markNeedsToReloadFromDiskDueToFailedWrite;
 - (uint64_t)openActualPath;
 - (uint64_t)openPropertyListWithoutDrainingPendingChangesOrValidatingPlistAndReturnFileUID:(mode_t *)d andMode:;
-- (uint64_t)shouldStayDirtyAfterOpenForWritingFailureWithErrno:(void *)errno;
+- (uint64_t)shouldStayDirtyAfterOpenForWritingFailureWithErrno:(uint64_t)errno;
 - (uint64_t)tryEndAccessingPlist;
 - (uint64_t)validateAccessToken:(int)token accessType:;
-- (uint64_t)validatePOSIXPermissionsForMessage:(int)message accessType:(int)type fileUID:(int)d mode:(char *)mode fullyValidated:;
+- (uint64_t)validatePOSIXPermissionsForMessage:(uint64_t)message accessType:(int)type fileUID:(int)d mode:(char *)mode fullyValidated:;
 - (uint64_t)validateSandboxForRead:(const char *)read containerPath:;
 - (uint64_t)validateSandboxPermissionsForMessage:(const char *)message containerPath:(int)path accessType:;
-- (void)asyncNotifyObserversOfWriteFromConnection:(id)connection message:(id)message;
 - (void)attachSizeWarningsToReply:(unint64_t)reply forByteCount:;
 - (void)beginHandlingRequest;
 - (void)cleanUpIfNecessaryAfterCreatingPlist;
@@ -42,6 +40,7 @@
 - (void)drainPendingChanges;
 - (void)finishedNonRequestWriteWithResult:(__CFDictionary *)result;
 - (void)handleAvoidCache;
+- (void)handleDeviceUnlock;
 - (void)handleEUIDorEGIDMismatch;
 - (void)handleNeverCache;
 - (void)handleNoPlistFound;
@@ -49,7 +48,7 @@
 - (void)handleWritingResult:(__CFDictionary *)result;
 - (void)lockedAsync:(id)async;
 - (void)lockedSync:(id)sync;
-- (void)observingConnectionWasInvalidated:(id)invalidated;
+- (void)markNeedsToReloadFromDiskDueToFailedWrite;
 - (void)observingConnectionsLockedSync:(uint64_t)sync;
 - (void)processEndOfMessageIntendingToRemoveSource:(BOOL *)source replacingWithTombstone:(id *)tombstone;
 - (void)respondToFileWrittenToBehindOurBack;
@@ -91,11 +90,9 @@
 
 - (void)drainPendingChanges
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_9_0();
   OUTLINED_FUNCTION_8_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)clearPlist
@@ -131,24 +128,18 @@ CFDictionaryRef __29__CFPDSource_createDiskWrite__block_invoke(uint64_t a1)
   free(*(a1 + 56));
   free(*(a1 + 64));
 
-  if (v2)
+  if (!v2)
   {
-    values[0] = v2;
-    result = CFDictionaryCreate(&__kCFAllocatorSystemDefault, (a1 + 40), values, 1, 0, 0);
+    return 0;
   }
 
-  else
-  {
-    result = 0;
-  }
-
-  v5 = *MEMORY[0x1E69E9840];
-  return result;
+  values[0] = v2;
+  return CFDictionaryCreate(&__kCFAllocatorSystemDefault, (a1 + 40), values, 1, 0, 0);
 }
 
 - (id)createDiskWrite
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   os_unfair_lock_assert_owner(&self->_lock);
   if ([(CFPDDataBuffer *)self->_plist purgable])
   {
@@ -160,9 +151,7 @@ CFDictionaryRef __29__CFPDSource_createDiskWrite__block_invoke(uint64_t a1)
   if ((*(self + 142) & 2) == 0 || !self->_plist || self->_parentFD == -1 || (actualPath = self->_actualPath) == 0)
   {
     os_unfair_lock_unlock(&self->_writeLock);
-LABEL_16:
-    result = 0;
-    goto LABEL_17;
+    return 0;
   }
 
   v4 = strlen(self->_actualPath);
@@ -183,13 +172,12 @@ LABEL_16:
     }
   }
 
-  fileProtectionClass = self->_fileProtectionClass;
-  v10 = _CFPrefsTemporaryFDToWriteTo(v5, lastEuid);
+  v9 = _CFPrefsTemporaryFDToWriteTo(v5, lastEuid, lastEgid);
   CFRelease(v5);
-  if (v10 < 0)
+  if (v9 < 0)
   {
     [CFPDSource createDiskWrite];
-    goto LABEL_16;
+    return 0;
   }
 
   memcpy(__dst, "CFPrefs domain writing: ", sizeof(__dst));
@@ -198,44 +186,41 @@ LABEL_16:
     __strncat_chk();
   }
 
-  v11 = os_transaction_create();
-  v12 = self->_plist;
-  v13 = (*(self + 142) >> 6) & 1;
+  v10 = os_transaction_create();
+  v11 = self->_plist;
+  v12 = (*(self + 142) >> 6) & 1;
   parentFD = self->_parentFD;
-  v21 = v11;
-  v15 = lastEgid;
+  v19 = v10;
+  v14 = lastEgid;
   if (parentFD == -2)
   {
-    v16 = -2;
+    v15 = -2;
   }
 
   else
   {
-    v16 = dup(parentFD);
+    v15 = dup(parentFD);
   }
 
-  v19 = strdup(self->_fileName);
-  v20 = strdup(self->_actualPath);
+  v17 = strdup(self->_fileName);
+  v18 = strdup(self->_actualPath);
   [(CFPDSource *)self setDirty:0];
-  v22[0] = MEMORY[0x1E69E9820];
-  v22[1] = 3221225472;
-  v22[2] = __29__CFPDSource_createDiskWrite__block_invoke;
-  v22[3] = &unk_1E6DD19E8;
-  v23 = v10;
-  v24 = lastEuid;
-  v27 = v8;
-  v28 = v13;
-  v25 = v15;
-  v26 = v16;
-  v22[7] = v19;
-  v22[8] = v20;
-  v22[4] = v12;
-  v22[5] = self;
-  v22[6] = v21;
-  result = [v22 copy];
-LABEL_17:
-  v18 = *MEMORY[0x1E69E9840];
-  return result;
+  v20[0] = MEMORY[0x1E69E9820];
+  v20[1] = 3221225472;
+  v20[2] = __29__CFPDSource_createDiskWrite__block_invoke;
+  v20[3] = &unk_1E6DD19E8;
+  v21 = v9;
+  v22 = lastEuid;
+  v25 = v8;
+  v26 = v12;
+  v23 = v14;
+  v24 = v15;
+  v20[7] = v17;
+  v20[8] = v18;
+  v20[4] = v11;
+  v20[5] = self;
+  v20[6] = v19;
+  return [v20 copy];
 }
 
 - (__CFString)copyUncanonicalizedPath
@@ -262,7 +247,7 @@ LABEL_17:
 
 - (CFStringRef)_copyUncanonicalizedPath
 {
-  v5 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
   if (result)
   {
     v1 = result;
@@ -270,28 +255,24 @@ LABEL_17:
     if ([CFPDSource _getUncanonicalizedPath:v1])
     {
       v2 = CFStringFileSystemEncoding();
-      result = CFStringCreateWithCString(&__kCFAllocatorSystemDefault, cStr, v2);
+      return CFStringCreateWithCString(&__kCFAllocatorSystemDefault, cStr, v2);
     }
 
     else
     {
-      result = 0;
+      return 0;
     }
   }
 
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 - (void)beginHandlingRequest
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v2 = *(self + 40);
-  v1 = *(self + 48);
+  v4 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_17();
-  v7 = v3;
-  _os_log_debug_impl(&dword_1830E6000, v4, OS_LOG_TYPE_DEBUG, "Data for { %@, %@ } was purged due to memory pressure", v6, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
+  v3 = v0;
+  _os_log_debug_impl(&dword_1830E6000, v1, OS_LOG_TYPE_DEBUG, "Data for { %@, %@ } was purged due to memory pressure", v2, 0x16u);
 }
 
 - (uint64_t)beginHandlingRequest
@@ -312,40 +293,36 @@ LABEL_17:
 
 - (uint64_t)approximatePlistSizeIncludingPendingChanges
 {
-  v10 = *MEMORY[0x1E69E9840];
-  if (self)
+  v9 = *MEMORY[0x1E69E9840];
+  if (!self)
   {
-    v2 = *(self + 32);
-    v3 = *(self + 16);
-    if (v3)
-    {
-      v2 += [v3 length];
-    }
+    return 0;
+  }
 
-    else
-    {
-      v4 = *(self + 128);
-      if (v4 != -1)
-      {
-        bzero(&v9, 0x90uLL);
-        v5 = fstatat(v4, *(self + 64), &v9, 0);
-        st_size = v9.st_size;
-        if (v5)
-        {
-          st_size = 0;
-        }
-
-        v2 += st_size;
-      }
-    }
+  v2 = *(self + 32);
+  v3 = *(self + 16);
+  if (v3)
+  {
+    v2 += [v3 length];
   }
 
   else
   {
-    v2 = 0;
+    v4 = *(self + 128);
+    if (v4 != -1)
+    {
+      bzero(&v8, 0x90uLL);
+      v5 = fstatat(v4, *(self + 64), &v8, 0);
+      st_size = v8.st_size;
+      if (v5)
+      {
+        st_size = 0;
+      }
+
+      v2 += st_size;
+    }
   }
 
-  v7 = *MEMORY[0x1E69E9840];
   return v2;
 }
 
@@ -395,45 +372,34 @@ LABEL_17:
   return result;
 }
 
-- (uint64_t)isEmpty
+- (BOOL)isEmpty
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   if (result)
   {
     v1 = result;
     v2 = *(result + 24);
     if (v2 && xpc_array_get_count(v2) || [*(v1 + 16) length])
     {
-      result = 0;
+      return 0;
     }
 
     else
     {
-      v4 = *(v1 + 128);
-      if (v4 == -1)
+      v3 = *(v1 + 128);
+      if (v3 == -1)
       {
-        result = 1;
+        return 1;
       }
 
       else
       {
-        bzero(&v6, 0x90uLL);
-        if (fstatat(v4, *(v1 + 64), &v6, 0))
-        {
-          v5 = 1;
-        }
-
-        else
-        {
-          v5 = v6.st_size < 1;
-        }
-
-        result = v5;
+        bzero(&v5, 0x90uLL);
+        return fstatat(v3, *(v1 + 64), &v5, 0) || v5.st_size < 1;
       }
     }
   }
 
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -443,12 +409,12 @@ LABEL_17:
   {
     v1 = result;
     os_unfair_lock_assert_owner(result + 27);
-    if ((*(v1 + 142) & 1) == 0)
+    if ((v1[35]._os_unfair_lock_opaque & 0x10000) == 0)
     {
       [CFPDSource endHandlingRequest];
     }
 
-    *(v1 + 142) &= ~1u;
+    BYTE2(v1[35]._os_unfair_lock_opaque) &= ~1u;
 
     return [(CFPDSource *)v1 tryEndAccessingPlist];
   }
@@ -483,7 +449,7 @@ LABEL_17:
 
 - (void)dealloc
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   observingConnections = self->_observingConnections;
   if (observingConnections)
   {
@@ -504,10 +470,9 @@ LABEL_17:
     close(parentFD);
   }
 
-  v7.receiver = self;
-  v7.super_class = CFPDSource;
-  [(CFPDSource *)&v7 dealloc];
-  v6 = *MEMORY[0x1E69E9840];
+  v6.receiver = self;
+  v6.super_class = CFPDSource;
+  [(CFPDSource *)&v6 dealloc];
 }
 
 - (uint64_t)openActualPath
@@ -565,11 +530,11 @@ LABEL_17:
 
 - (int)cacheFileInfoForWriting:(BOOL)writing euid:(unsigned int)euid egid:(unsigned int)egid didCreate:(BOOL *)create
 {
-  v6 = MEMORY[0x1EEE9AC00](self, a2);
+  v6 = MEMORY[0x1EEE9AC00](self, a2, writing);
   v8 = v7;
   v10 = v9;
   v11 = v6;
-  v64 = *MEMORY[0x1E69E9840];
+  v80 = *MEMORY[0x1E69E9840];
   os_unfair_lock_assert_owner(v6 + 27);
   free(*(v11 + 56));
   *(v11 + 56) = 0;
@@ -591,33 +556,34 @@ LABEL_17:
 
   *(v11 + 128) = -1;
   bzero(__s2, 0x402uLL);
-  if (![CFPDSource getUncanonicalizedPath:v11])
+  v14 = [CFPDSource getUncanonicalizedPath:v11];
+  if (!v14)
   {
-    v18 = _CFPrefsDaemonLog();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    v22 = _CFPrefsDaemonLog(v14, v15);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
-      [CFPDSource cacheFileInfoForWriting:v11 euid:? egid:? didCreate:?];
+      [CFPDSource cacheFileInfoForWriting:euid:egid:didCreate:];
     }
 
-    goto LABEL_79;
+    return 7;
   }
 
-  v52 = -1;
+  v68 = -1;
   bzero(__s1, 0x402uLL);
-  bzero(&v60, 0x402uLL);
+  bzero(&v76, 0x402uLL);
   if (v10)
   {
-    v14 = atomic_load(&dword_1EA84A4FC);
-    if (v14 == 3)
+    v18 = atomic_load(&dword_1EA84A4FC);
+    if (v18 == 3)
     {
-      v15 = _CFPrefsDaemonLog();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+      v19 = _CFPrefsDaemonLog(v16, v17);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
       {
-        [CFPDSource cacheFileInfoForWriting:v15 euid:? egid:? didCreate:?];
+        [CFPDSource cacheFileInfoForWriting:v19 euid:? egid:? didCreate:?];
       }
 
-      v16 = 0;
-      v17 = 0;
+      v20 = 0;
+      v21 = 0;
       *__error() = 28;
       goto LABEL_70;
     }
@@ -626,41 +592,42 @@ LABEL_17:
   IsCFPrefsD = _CFPrefsCurrentProcessIsCFPrefsD();
   if (byte_1EA84A4F6)
   {
-    v20 = 1;
+    v24 = 1;
   }
 
   else
   {
-    v20 = IsCFPrefsD;
+    v24 = IsCFPrefsD;
   }
 
-  if (v20 == 1)
+  if (v24 == 1)
   {
-    if (dirname_r(__s2, &v60))
+    if (dirname_r(__s2, &v76))
     {
       if (basename_r(__s2, __s1))
       {
-        v21 = open(&v60, 1074790400);
-        v52 = v21;
-        if (v21 != -1)
+        v27 = open(&v76, 1074790400);
+        v68 = v27;
+        if (v27 != -1)
         {
           goto LABEL_25;
         }
 
-        v22 = *__error();
-        v23 = _CFPrefsDaemonLog();
-        if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
+        v28 = __error();
+        v29 = *v28;
+        v31 = _CFPrefsDaemonLog(v28, v30);
+        if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
         {
           [CFPDSource cacheFileInfoForWriting:euid:egid:didCreate:];
         }
 
-        *__error() = v22;
+        *__error() = v29;
       }
 
       else
       {
-        v27 = _CFPrefsDaemonLog();
-        if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+        v35 = _CFPrefsDaemonLog(0, v26);
+        if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
         {
           [CFPDSource cacheFileInfoForWriting:euid:egid:didCreate:];
         }
@@ -669,8 +636,8 @@ LABEL_17:
 
     else
     {
-      v26 = _CFPrefsDaemonLog();
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+      v34 = _CFPrefsDaemonLog(0, v25);
+      if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
       {
         [CFPDSource cacheFileInfoForWriting:euid:egid:didCreate:];
       }
@@ -679,23 +646,23 @@ LABEL_17:
 
   else
   {
-    v52 = -2;
+    v68 = -2;
     __strlcpy_chk();
   }
 
-  v21 = v52;
-  if (v52 == -1)
+  v27 = v68;
+  if (v68 == -1)
   {
 LABEL_32:
-    v17 = 0;
-    v24 = -1;
+    v21 = 0;
+    v32 = -1;
     goto LABEL_39;
   }
 
 LABEL_25:
-  v24 = openat(v21, __s1, 0);
-  v17 = 0;
-  if (v24 != -1 || !v10)
+  v32 = openat(v27, __s1, 0);
+  v21 = 0;
+  if (v32 != -1 || !v10)
   {
     goto LABEL_39;
   }
@@ -707,80 +674,86 @@ LABEL_25:
 
   if ((*(v11 + 142) & 0x10) != 0)
   {
-    v25 = 384;
+    v33 = 384;
   }
 
   else if (CFEqual(*(v11 + 40), @"kCFPreferencesAnyUser"))
   {
-    v25 = 420;
+    v33 = 420;
   }
 
   else
   {
-    v25 = 384;
+    v33 = 384;
   }
 
-  v24 = openat(v52, __s1, 512, v25);
-  v17 = 1;
+  v32 = openat(v68, __s1, 512, v33);
+  v21 = 1;
 LABEL_39:
-  if (v24 < 0)
+  if (v32 < 0)
   {
-    v28 = v10;
+    v36 = v10;
   }
 
   else
   {
-    v28 = 0;
+    v36 = 0;
   }
 
-  if (v28 != 1)
+  if (v36 != 1)
   {
     goto LABEL_65;
   }
 
-  if (*__error() != 2 && *__error() != 20)
+  v37 = __error();
+  if (*v37 != 2)
   {
-    goto LABEL_69;
+    v37 = __error();
+    if (*v37 != 20)
+    {
+      goto LABEL_69;
+    }
   }
 
-  if (v60 == 0x7972617262694C2FLL && v61[0] == 0x657265666572502FLL && *(v61 + 5) == 0x7365636E657265)
+  if (v76 == 0x7972617262694C2FLL && v77[0] == 0x657265666572502FLL && *(v77 + 5) == 0x7365636E657265)
   {
-    if (!_CFPrefsCreatePreferencesDirectory(&v60))
+    if (!_CFPrefsCreatePreferencesDirectory(&v76, 493, 0, 80, &v68))
     {
       goto LABEL_69;
     }
 
+    v45 = v68;
     if ((*(v11 + 142) & 0x10) != 0)
     {
-      v35 = 384;
+      v46 = 384;
     }
 
     else if (CFEqual(*(v11 + 40), @"kCFPreferencesAnyUser"))
     {
-      v35 = 420;
+      v46 = 420;
     }
 
     else
     {
-      v35 = 384;
+      v46 = 384;
     }
 
-    v24 = openat(v52, __s1, 512, v35);
-    v17 = 1;
+    v32 = openat(v45, __s1, 512, v46);
+    v21 = 1;
 LABEL_65:
-    if ((v24 & 0x80000000) == 0)
+    if ((v32 & 0x80000000) == 0)
     {
       bzero(buf, 0x402uLL);
-      if (fcntl(v24, 50, buf) == -1)
+      if (fcntl(v32, 50, buf) == -1)
       {
-        if ((v52 & 0x80000000) == 0)
+        if ((v68 & 0x80000000) == 0)
         {
-          close(v52);
+          close(v68);
         }
 
-        close(v24);
-        v42 = _CFPrefsDaemonLog();
-        if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
+        v54 = close(v32);
+        v56 = _CFPrefsDaemonLog(v54, v55);
+        if (os_log_type_enabled(v56, OS_LOG_TYPE_ERROR))
         {
           [CFPDSource cacheFileInfoForWriting:euid:egid:didCreate:];
         }
@@ -788,159 +761,157 @@ LABEL_65:
 
       else
       {
-        *(v11 + 128) = v52;
+        *(v11 + 128) = v68;
         *(v11 + 64) = strdup(__s1);
         *(v11 + 56) = strdup(buf);
         if (_canDup())
         {
-          *(v11 + 132) = v24;
+          *(v11 + 132) = v32;
         }
 
         else
         {
-          close(v24);
+          close(v32);
         }
 
         if (!strcmp(buf, __s2))
         {
-          v46 = *(v11 + 143) & 0xFD;
+          v60 = *(v11 + 143) & 0xFD;
         }
 
         else
         {
           memset(&out_token, 0, sizeof(out_token));
-          v43 = lstat(__s2, &out_token);
-          if ((out_token.st_mode & 0xF000) == 0xA000 && v43 == 0)
+          v57 = lstat(__s2, &out_token);
+          if ((out_token.st_mode & 0xF000) == 0xA000 && v57 == 0)
           {
-            v45 = 2;
+            v59 = 2;
           }
 
           else
           {
-            v45 = 0;
+            v59 = 0;
           }
 
-          v46 = v45 | *(v11 + 143) & 0xFD;
+          v60 = v59 | *(v11 + 143) & 0xFD;
         }
 
-        *(v11 + 143) = v46;
-        if (((v28 | v10 ^ 1) & 1) != 0 || !sandbox_passthrough_access())
+        *(v11 + 143) = v60;
+        if (((v36 | v10 ^ 1) & 1) != 0 || (v61 = sandbox_passthrough_access(), !v61))
         {
-          v16 = 0;
-          if (!v17)
+          v20 = 0;
+          if (!v21)
           {
-            goto LABEL_80;
+            return v20;
           }
 
           goto LABEL_102;
         }
 
-        v47 = _CFPrefsDaemonLog();
-        if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
+        v63 = _CFPrefsDaemonLog(v61, v62);
+        if (os_log_type_enabled(v63, OS_LOG_TYPE_ERROR))
         {
           [CFPDSource cacheFileInfoForWriting:euid:egid:didCreate:];
         }
       }
 
-      v16 = 7;
-      if (!v17)
+      v20 = 7;
+      if (!v21)
       {
-        goto LABEL_80;
+        return v20;
       }
 
 LABEL_102:
       *v8 = 1;
-      goto LABEL_80;
+      return v20;
     }
 
 LABEL_69:
-    v16 = 0;
+    v20 = 0;
 LABEL_70:
-    v34 = 1;
+    v44 = 1;
     goto LABEL_71;
   }
 
-  v31 = _CFPrefsDaemonLog();
-  if (os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
+  v41 = _CFPrefsDaemonLog(v37, v38);
+  if (os_log_type_enabled(v41, OS_LOG_TYPE_INFO))
   {
-    if (v17)
+    if (v21)
     {
-      v32 = "create";
+      v42 = "create";
     }
 
     else
     {
-      v32 = "open";
+      v42 = "open";
     }
 
-    v33 = *__error();
+    v43 = *__error();
     *buf = 136446723;
-    v55 = v32;
-    v56 = 2081;
-    v57 = __s2;
-    v58 = 1024;
-    LODWORD(v59) = v33;
-    _os_log_impl(&dword_1830E6000, v31, OS_LOG_TYPE_INFO, "Couldn't %{public}s %{private}s due to %{darwin.errno}d. Asking client to create directory.", buf, 0x1Cu);
+    v71 = v42;
+    v72 = 2081;
+    v73 = __s2;
+    v74 = 1024;
+    LODWORD(v75) = v43;
+    _os_log_impl(&dword_1830E6000, v41, OS_LOG_TYPE_INFO, "Couldn't %{public}s %{private}s due to %{darwin.errno}d. Asking client to create directory.", buf, 0x1Cu);
   }
 
-  v34 = 0;
-  v16 = 5;
+  v44 = 0;
+  v20 = 5;
 LABEL_71:
-  if ((v52 & 0x80000000) == 0)
+  if ((v68 & 0x80000000) == 0)
   {
-    close(v52);
+    close(v68);
   }
 
-  if (v34)
+  if (v44)
   {
-    v36 = *__error();
-    v37 = _CFPrefsDaemonLog();
-    if (os_log_type_enabled(v37, OS_LOG_TYPE_DEBUG))
+    v47 = __error();
+    v48 = *v47;
+    v50 = _CFPrefsDaemonLog(v47, v49);
+    if (os_log_type_enabled(v50, OS_LOG_TYPE_DEBUG))
     {
-      if (v17)
+      if (v21)
       {
-        v48 = "create";
+        v64 = "create";
       }
 
       else
       {
-        v48 = "open";
+        v64 = "open";
       }
 
-      v49 = strerror(v36);
+      v65 = strerror(v48);
       *buf = 136446723;
-      v55 = v48;
-      v56 = 2081;
-      v57 = __s2;
-      v58 = 2082;
-      v59 = v49;
-      _os_log_debug_impl(&dword_1830E6000, v37, OS_LOG_TYPE_DEBUG, "Couldn't %{public}s %{private}s due to %{public}s", buf, 0x20u);
+      v71 = v64;
+      v72 = 2081;
+      v73 = __s2;
+      v74 = 2082;
+      v75 = v65;
+      _os_log_debug_impl(&dword_1830E6000, v50, OS_LOG_TYPE_DEBUG, "Couldn't %{public}s %{private}s due to %{public}s", buf, 0x20u);
     }
 
-    if (v36 == 1 && (cacheFileInfoForWriting_euid_egid_didCreate__deviceEverUnlocked & 1) == 0 && (*(v11 + 142) & 0x20) == 0)
+    if (v48 == 1 && (cacheFileInfoForWriting_euid_egid_didCreate__deviceEverUnlocked & 1) == 0 && (*(v11 + 142) & 0x20) == 0)
     {
       *(v11 + 142) |= 0x20u;
       out_token.st_dev = 0;
       objc_initWeak(buf, v11);
-      v38 = qos_class_main();
-      global_queue = dispatch_get_global_queue(v38, 2uLL);
+      v51 = qos_class_main();
+      global_queue = dispatch_get_global_queue(v51, 2uLL);
       handler[0] = MEMORY[0x1E69E9820];
       handler[1] = 3221225472;
       handler[2] = __58__CFPDSource_cacheFileInfoForWriting_euid_egid_didCreate___block_invoke;
       handler[3] = &unk_1E6DD19C0;
-      objc_copyWeak(&v51, buf);
+      objc_copyWeak(&v67, buf);
       notify_register_dispatch("com.apple.mobile.keybagd.lock_status", &out_token.st_dev, global_queue, handler);
-      objc_destroyWeak(&v51);
+      objc_destroyWeak(&v67);
       objc_destroyWeak(buf);
     }
 
-LABEL_79:
-    v16 = 7;
+    return 7;
   }
 
-LABEL_80:
-  v40 = *MEMORY[0x1E69E9840];
-  return v16;
+  return v20;
 }
 
 - (void)setUncanonicalizedPathCached:(BOOL)cached
@@ -977,10 +948,10 @@ LABEL_7:
 
 - (CFPDSource)initWithDomain:(__CFString *)domain userName:(__CFString *)name byHost:(BOOL)host managed:(BOOL)managed shmemIndex:(signed __int16)index daemon:(id)daemon
 {
-  v19 = *MEMORY[0x1E69E9840];
-  v18.receiver = self;
-  v18.super_class = CFPDSource;
-  v14 = [(CFPDSource *)&v18 init];
+  v18 = *MEMORY[0x1E69E9840];
+  v17.receiver = self;
+  v17.super_class = CFPDSource;
+  v14 = [(CFPDSource *)&v17 init];
   v15 = v14;
   if (v14)
   {
@@ -996,20 +967,18 @@ LABEL_7:
     *&v15->_parentFD = -1;
   }
 
-  v16 = *MEMORY[0x1E69E9840];
   return v15;
 }
 
 - (void)respondToFileWrittenToBehindOurBack
 {
-  v3[5] = *MEMORY[0x1E69E9840];
-  v3[0] = MEMORY[0x1E69E9820];
-  v3[1] = 3221225472;
-  v3[2] = __49__CFPDSource_respondToFileWrittenToBehindOurBack__block_invoke;
-  v3[3] = &unk_1E6D81EC0;
-  v3[4] = self;
-  [(CFPDSource *)self lockedSync:v3];
-  v2 = *MEMORY[0x1E69E9840];
+  v2[5] = *MEMORY[0x1E69E9840];
+  v2[0] = MEMORY[0x1E69E9820];
+  v2[1] = 3221225472;
+  v2[2] = __49__CFPDSource_respondToFileWrittenToBehindOurBack__block_invoke;
+  v2[3] = &unk_1E6D81EC0;
+  v2[4] = self;
+  [(CFPDSource *)self lockedSync:v2];
 }
 
 uint64_t __49__CFPDSource_respondToFileWrittenToBehindOurBack__block_invoke(uint64_t a1)
@@ -1091,7 +1060,7 @@ LABEL_4:
       self->_fileName = 0;
     }
 
-    goto LABEL_13;
+    return;
   }
 
   Value = CFDictionaryGetValue(result, self);
@@ -1099,14 +1068,14 @@ LABEL_4:
   {
     if (Value)
     {
-      goto LABEL_13;
+      return;
     }
 
     goto LABEL_4;
   }
 
-  v8 = _CFPrefsDaemonLog();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+  v9 = _CFPrefsDaemonLog(28, v6);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
     userName = self->_userName;
     domain = self->_domain;
@@ -1114,12 +1083,10 @@ LABEL_4:
     v13 = domain;
     v14 = 2112;
     v15 = userName;
-    _os_log_impl(&dword_1830E6000, v8, OS_LOG_TYPE_INFO, "Re-marking { %@, %@ } as dirty because previous write failed with ENOSPC", &v12, 0x16u);
+    _os_log_impl(&dword_1830E6000, v9, OS_LOG_TYPE_INFO, "Re-marking { %@, %@ } as dirty because previous write failed with ENOSPC", &v12, 0x16u);
   }
 
   [(CFPDSource *)self setDirty:1];
-LABEL_13:
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setPlist:(int)plist owner:(unsigned int)owner mode:
@@ -1159,36 +1126,34 @@ uint64_t __55__CFPDSource_markNeedsToReloadFromDiskDueToFailedWrite__block_invok
   return [v2 updateShmemEntry];
 }
 
-uint64_t __32__CFPDSource_handleDeviceUnlock__block_invoke(uint64_t a1)
+uint64_t __32__CFPDSource_handleDeviceUnlock__block_invoke(uint64_t a1, uint64_t a2)
 {
   v14 = *MEMORY[0x1E69E9840];
-  v2 = _CFPrefsDaemonLog();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+  v3 = _CFPrefsDaemonLog(a1, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
-    v3 = *(a1 + 32);
-    v5 = v3[5];
-    v4 = v3[6];
+    v4 = *(a1 + 32);
+    v6 = v4[5];
+    v5 = v4[6];
     v8 = 138412802;
-    v9 = v4;
+    v9 = v5;
     v10 = 2112;
-    v11 = v5;
+    v11 = v6;
     v12 = 2112;
-    v13 = [v3 container];
-    _os_log_impl(&dword_1830E6000, v2, OS_LOG_TYPE_INFO, "Responding to device unlock to refresh preferences reads previously denied by data protection { %@, %@, %@ }", &v8, 0x20u);
+    v13 = [v4 container];
+    _os_log_impl(&dword_1830E6000, v3, OS_LOG_TYPE_INFO, "Responding to device unlock to refresh preferences reads previously denied by data protection { %@, %@, %@ }", &v8, 0x20u);
   }
 
   *(*(a1 + 32) + 142) &= ~0x20u;
   [*(a1 + 32) syncWriteToDiskAndFlushCacheForReason:@"device was unlocked"];
   [*(a1 + 32) updateShmemEntry];
-  result = [*(a1 + 32) asyncNotifyObserversOfWriteFromConnection:0 message:0];
-  v7 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*(a1 + 32) asyncNotifyObserversOfWriteFromConnection:0 message:0];
 }
 
 - (id)copyPropertyListWithoutDrainingPendingChangesValidatingPlist:(BOOL)plist andReturnFileUID:(unsigned int *)d andMode:(unsigned __int16 *)mode
 {
   plistCopy = plist;
-  v48 = *MEMORY[0x1E69E9840];
+  v53 = *MEMORY[0x1E69E9840];
   os_unfair_lock_assert_owner(&self->_lock);
   if ([(CFPDDataBuffer *)self->_plist purgable])
   {
@@ -1213,22 +1178,23 @@ uint64_t __32__CFPDSource_handleDeviceUnlock__block_invoke(uint64_t a1)
       goto LABEL_22;
     }
 
-    v42[0] = MEMORY[0x1E69E9820];
-    v42[1] = 3221225472;
-    v42[2] = __100__CFPDSource_copyPropertyListWithoutDrainingPendingChangesValidatingPlist_andReturnFileUID_andMode___block_invoke;
-    v42[3] = &unk_1E6D81EC0;
-    v42[4] = self;
-    [(CFPDDataBuffer *)plist quicklyValidatePlistAndOnFailureInvokeBlock:v42];
+    v47[0] = MEMORY[0x1E69E9820];
+    v47[1] = 3221225472;
+    v47[2] = __100__CFPDSource_copyPropertyListWithoutDrainingPendingChangesValidatingPlist_andReturnFileUID_andMode___block_invoke;
+    v47[3] = &unk_1E6D81EC0;
+    v47[4] = self;
+    [(CFPDDataBuffer *)plist quicklyValidatePlistAndOnFailureInvokeBlock:v47];
   }
 
   else
   {
     validatePlist = [(CFPDDataBuffer *)plist validatePlist];
-    v12 = _CFPrefsDaemonLog();
-    v13 = v12;
-    if (validatePlist)
+    v12 = validatePlist;
+    v14 = _CFPrefsDaemonLog(validatePlist, v13);
+    v15 = v14;
+    if (v12)
     {
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
       {
         userName = self->_userName;
         domain = self->_domain;
@@ -1236,23 +1202,23 @@ uint64_t __32__CFPDSource_handleDeviceUnlock__block_invoke(uint64_t a1)
         *&buf.st_mode = domain;
         WORD2(buf.st_ino) = 2112;
         *(&buf.st_ino + 6) = userName;
-        _os_log_impl(&dword_1830E6000, v13, OS_LOG_TYPE_INFO, "Validation of pre-existing plist succeeded. {%@ %@}", &buf, 0x16u);
+        _os_log_impl(&dword_1830E6000, v15, OS_LOG_TYPE_INFO, "Validation of pre-existing plist succeeded. {%@ %@}", &buf, 0x16u);
       }
     }
 
     else
     {
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
-        [CFPDSource copyPropertyListWithoutDrainingPendingChangesValidatingPlist:? andReturnFileUID:? andMode:?];
+        [CFPDSource copyPropertyListWithoutDrainingPendingChangesValidatingPlist:andReturnFileUID:andMode:];
       }
 
       [(CFPDSource *)self clearCacheForReason:@"cached plist is invalid"];
     }
   }
 
-  v16 = self->_plist;
-  if (v16)
+  v18 = self->_plist;
+  if (v18)
   {
 LABEL_16:
     if (d)
@@ -1262,232 +1228,229 @@ LABEL_16:
 
     if (!mode)
     {
-      goto LABEL_37;
+      return v18;
     }
 
-    v17 = *(self + 142) & 0x80;
-    v18 = v17 >> 7;
-    v19 = 2 * v17;
+    v19 = *(self + 142) & 0x80;
+    v20 = v19 >> 7;
+    v21 = 2 * v19;
     if (*(self + 143))
     {
-      v20 = ((v18 & 1) << 8) | 4;
+      v22 = ((v20 & 1) << 8) | 4;
     }
 
     else
     {
-      v20 = v19;
+      v22 = v21;
     }
 
     goto LABEL_36;
   }
 
 LABEL_22:
-  if (self->_managed && !CFPreferencesIsManaged([(CFPDSource *)self user], self->_managedUsesContainer))
+  if (!self->_managed || CFPreferencesIsManaged([(CFPDSource *)self user], self->_managedUsesContainer))
   {
-    result = 0;
-    goto LABEL_38;
-  }
-
-  os_unfair_lock_lock(&self->_writeLock);
-  if (self->_parentFD == -1)
-  {
-    [(CFPDSource *)self cacheFileInfo];
+    os_unfair_lock_lock(&self->_writeLock);
     if (self->_parentFD == -1)
     {
-      goto LABEL_26;
-    }
-  }
-
-  actualPath = self->_actualPath;
-  v24 = _CFPrefsDaemonLog();
-  if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
-  {
-    *&buf.st_dev = MEMORY[0x1E69E9820];
-    buf.st_ino = 3221225472;
-    *&buf.st_uid = __DEBUG_CACHE_MISS_block_invoke;
-    *&buf.st_rdev = &__block_descriptor_40_e29_v64__0i8_12_20_28_36_44_52B60l;
-    buf.st_atimespec.tv_sec = actualPath;
-    _extractCFPDBits(0, 0, self, &buf);
-  }
-
-  v25 = *(self + 142);
-  if ((v25 & 8) == 0)
-  {
-    if (!strstr(self->_actualPath, "Preferences/"))
-    {
-      copyUncanonicalizedPath = [(CFPDSource *)self copyUncanonicalizedPath];
-      if (copyUncanonicalizedPath && (v27 = copyUncanonicalizedPath, v49.length = CFStringGetLength(copyUncanonicalizedPath), v49.location = 0, v28 = CFStringFindWithOptions(v27, @"Preferences/", v49, 0, 0), CFRelease(v27), v28))
+      cacheFileInfo = [(CFPDSource *)self cacheFileInfo];
+      if (self->_parentFD == -1)
       {
-        v25 = *(self + 142);
-      }
-
-      else
-      {
-        v25 = *(self + 142) | 4;
+        goto LABEL_26;
       }
     }
 
-    *(self + 142) = v25 | 8;
-  }
-
-  openActualPath = [(CFPDSource *)self openActualPath];
-  if ((openActualPath & 0x80000000) != 0)
-  {
-LABEL_26:
-    os_unfair_lock_unlock(&self->_writeLock);
-  }
-
-  else
-  {
-    v30 = openActualPath;
-    v31 = !self->_managed && (*(self + 142) & 4) == 0;
-    v16 = [CFPDDataBuffer newBufferFromFile:openActualPath allowMappingIfSafe:v31];
-    memset(&buf, 0, sizeof(buf));
-    if (v16)
+    actualPath = self->_actualPath;
+    v27 = _CFPrefsDaemonLog(cacheFileInfo, v24);
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
     {
-      v32 = fstat(v30, &buf);
-      if (v32)
-      {
-        st_uid = 0;
-      }
+      *&buf.st_dev = MEMORY[0x1E69E9820];
+      buf.st_ino = 3221225472;
+      *&buf.st_uid = __DEBUG_CACHE_MISS_block_invoke;
+      *&buf.st_rdev = &__block_descriptor_40_e29_v64__0i8_12_20_28_36_44_52B60l;
+      buf.st_atimespec.tv_sec = actualPath;
+      _extractCFPDBits(0, 0, self, &buf);
+    }
 
-      else
+    v28 = *(self + 142);
+    if ((v28 & 8) == 0)
+    {
+      if (!strstr(self->_actualPath, "Preferences/"))
       {
-        st_uid = buf.st_uid;
-      }
-
-      if (v32)
-      {
-        st_mode = 0;
-      }
-
-      else
-      {
-        st_mode = buf.st_mode;
-      }
-
-      [(CFPDSource *)self setPlist:v16 owner:st_uid mode:st_mode];
-
-      if (plistCopy)
-      {
-        validatePlist2 = [(CFPDDataBuffer *)v16 validatePlist];
-        v36 = _CFPrefsDaemonLog();
-        v37 = v36;
-        if (validatePlist2)
+        copyUncanonicalizedPath = [(CFPDSource *)self copyUncanonicalizedPath];
+        if (copyUncanonicalizedPath && (v30 = copyUncanonicalizedPath, v54.length = CFStringGetLength(copyUncanonicalizedPath), v54.location = 0, v31 = CFStringFindWithOptions(v30, @"Preferences/", v54, 0, 0), CFRelease(v30), v31))
         {
-          if (os_log_type_enabled(v36, OS_LOG_TYPE_INFO))
+          v28 = *(self + 142);
+        }
+
+        else
+        {
+          v28 = *(self + 142) | 4;
+        }
+      }
+
+      *(self + 142) = v28 | 8;
+    }
+
+    openActualPath = [(CFPDSource *)self openActualPath];
+    if ((openActualPath & 0x80000000) != 0)
+    {
+LABEL_26:
+      os_unfair_lock_unlock(&self->_writeLock);
+    }
+
+    else
+    {
+      v33 = openActualPath;
+      v34 = !self->_managed && (*(self + 142) & 4) == 0;
+      v18 = [CFPDDataBuffer newBufferFromFile:openActualPath allowMappingIfSafe:v34];
+      memset(&buf, 0, sizeof(buf));
+      if (v18)
+      {
+        v35 = fstat(v33, &buf);
+        if (v35)
+        {
+          st_uid = 0;
+        }
+
+        else
+        {
+          st_uid = buf.st_uid;
+        }
+
+        if (v35)
+        {
+          st_mode = 0;
+        }
+
+        else
+        {
+          st_mode = buf.st_mode;
+        }
+
+        [(CFPDSource *)self setPlist:v18 owner:st_uid mode:st_mode];
+
+        if (plistCopy)
+        {
+          validatePlist2 = [(CFPDDataBuffer *)v18 validatePlist];
+          v39 = validatePlist2;
+          v41 = _CFPrefsDaemonLog(validatePlist2, v40);
+          v42 = v41;
+          if (v39)
           {
-            v39 = self->_userName;
-            v38 = self->_domain;
-            *v43 = 138412546;
-            v44 = v38;
-            v45 = 2112;
-            v46 = v39;
-            _os_log_impl(&dword_1830E6000, v37, OS_LOG_TYPE_INFO, "Validation of plist read from disk succeeded. {%@ %@}", v43, 0x16u);
+            if (os_log_type_enabled(v41, OS_LOG_TYPE_INFO))
+            {
+              v44 = self->_userName;
+              v43 = self->_domain;
+              *v48 = 138412546;
+              v49 = v43;
+              v50 = 2112;
+              v51 = v44;
+              _os_log_impl(&dword_1830E6000, v42, OS_LOG_TYPE_INFO, "Validation of plist read from disk succeeded. {%@ %@}", v48, 0x16u);
+            }
+          }
+
+          else
+          {
+            if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
+            {
+              [CFPDSource copyPropertyListWithoutDrainingPendingChangesValidatingPlist:andReturnFileUID:andMode:];
+            }
+
+            unlinkat(self->_parentFD, self->_fileName, 0);
+            [(CFPDSource *)self clearCacheForReason:@"plist on disk is invalid"];
+            v18 = 0;
           }
         }
 
         else
         {
-          if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
-          {
-            [CFPDSource copyPropertyListWithoutDrainingPendingChangesValidatingPlist:? andReturnFileUID:? andMode:?];
-          }
-
-          unlinkat(self->_parentFD, self->_fileName, 0);
-          [(CFPDSource *)self clearCacheForReason:@"plist on disk is invalid"];
-          v16 = 0;
+          v45 = self->_plist;
+          v46[0] = MEMORY[0x1E69E9820];
+          v46[1] = 3221225472;
+          v46[2] = __100__CFPDSource_copyPropertyListWithoutDrainingPendingChangesValidatingPlist_andReturnFileUID_andMode___block_invoke_70;
+          v46[3] = &unk_1E6D81EC0;
+          v46[4] = self;
+          [(CFPDDataBuffer *)v45 quicklyValidatePlistAndOnFailureInvokeBlock:v46];
         }
       }
 
       else
       {
-        v40 = self->_plist;
-        v41[0] = MEMORY[0x1E69E9820];
-        v41[1] = 3221225472;
-        v41[2] = __100__CFPDSource_copyPropertyListWithoutDrainingPendingChangesValidatingPlist_andReturnFileUID_andMode___block_invoke_70;
-        v41[3] = &unk_1E6D81EC0;
-        v41[4] = self;
-        [(CFPDDataBuffer *)v40 quicklyValidatePlistAndOnFailureInvokeBlock:v41];
+        [(CFPDSource *)self setPlist:0 owner:0 mode:?];
+      }
+
+      close(v33);
+      os_unfair_lock_unlock(&self->_writeLock);
+      if (v18)
+      {
+        goto LABEL_16;
       }
     }
 
-    else
+    if (d)
     {
-      [(CFPDSource *)self setPlist:0 owner:0 mode:?];
+      *d = self->_lastEuid;
     }
 
-    close(v30);
-    os_unfair_lock_unlock(&self->_writeLock);
-    if (v16)
+    if (!mode)
     {
-      goto LABEL_16;
+      v18 = 0;
+      return v18;
     }
-  }
 
-  if (d)
-  {
-    *d = self->_lastEuid;
-  }
-
-  if (mode)
-  {
-    v20 = 384;
+    v22 = 384;
     if ((*(self + 142) & 0x10) != 0)
     {
-      v16 = 0;
+      v18 = 0;
     }
 
     else
     {
-      v16 = 0;
+      v18 = 0;
       if (CFEqual(self->_userName, @"kCFPreferencesAnyUser"))
       {
-        v20 = 420;
+        v22 = 420;
       }
 
       else
       {
-        v20 = 384;
+        v22 = 384;
       }
     }
 
 LABEL_36:
-    *mode = v20;
-    goto LABEL_37;
+    *mode = v22;
+    return v18;
   }
 
-  v16 = 0;
-LABEL_37:
-  result = v16;
-LABEL_38:
-  v22 = *MEMORY[0x1E69E9840];
-  return result;
+  return 0;
 }
 
-void __100__CFPDSource_copyPropertyListWithoutDrainingPendingChangesValidatingPlist_andReturnFileUID_andMode___block_invoke(uint64_t a1)
+void __100__CFPDSource_copyPropertyListWithoutDrainingPendingChangesValidatingPlist_andReturnFileUID_andMode___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = _CFPrefsDaemonLog();
+  v2 = _CFPrefsDaemonLog(a1, a2);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
-    __100__CFPDSource_copyPropertyListWithoutDrainingPendingChangesValidatingPlist_andReturnFileUID_andMode___block_invoke_cold_1(a1);
+    __100__CFPDSource_copyPropertyListWithoutDrainingPendingChangesValidatingPlist_andReturnFileUID_andMode___block_invoke_cold_1();
   }
 }
 
-void __100__CFPDSource_copyPropertyListWithoutDrainingPendingChangesValidatingPlist_andReturnFileUID_andMode___block_invoke_70(uint64_t a1)
+void __100__CFPDSource_copyPropertyListWithoutDrainingPendingChangesValidatingPlist_andReturnFileUID_andMode___block_invoke_70(uint64_t a1, uint64_t a2)
 {
-  v2 = _CFPrefsDaemonLog();
+  v2 = _CFPrefsDaemonLog(a1, a2);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
-    __100__CFPDSource_copyPropertyListWithoutDrainingPendingChangesValidatingPlist_andReturnFileUID_andMode___block_invoke_70_cold_1(a1);
+    __100__CFPDSource_copyPropertyListWithoutDrainingPendingChangesValidatingPlist_andReturnFileUID_andMode___block_invoke_70_cold_1();
   }
 }
 
-- (void)asyncNotifyObserversOfWriteFromConnection:(id)connection message:(id)message
+- (id)copyPropertyListValidatingPlist:(BOOL)plist
 {
-  v5 = *MEMORY[0x1E69E9840];
-  [CFPDSource observingConnectionsLockedSync:?];
-  v4 = *MEMORY[0x1E69E9840];
+  [(CFPDSource *)self drainPendingChanges];
+  plist = self->_plist;
+
+  return plist;
 }
 
 void __64__CFPDSource_asyncNotifyObserversOfWriteFromConnection_message___block_invoke(uint64_t a1)
@@ -1540,42 +1503,40 @@ void __64__CFPDSource_asyncNotifyObserversOfWriteFromConnection_message___block_
     values[5] = v7;
     *&context = v8;
     v9 = xpc_dictionary_create(_CFPrefsNotifyFuncKeys, values, 6uLL);
-    v10 = 0;
-    v11 = *(a1 + 40);
+    v11 = 0;
+    v12 = *(a1 + 40);
     *(&context + 1) = v9;
-    *&v19 = v11;
+    *&v19 = v12;
     do
     {
-      v12 = values[v10];
-      if (v12)
+      v13 = values[v11];
+      if (v13)
       {
-        xpc_release(v12);
+        xpc_release(v13);
       }
 
-      ++v10;
+      ++v11;
     }
 
-    while (v10 != 6);
-    v13 = *(a1 + 32);
-    v14 = _CFPrefsDaemonLog();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+    while (v11 != 6);
+    v14 = *(a1 + 32);
+    v15 = _CFPrefsDaemonLog(v13, v10);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
     {
-      _extractCFPDBits(0, 0, v13, &__block_literal_global_389);
+      _extractCFPDBits(0, 0, v14, &__block_literal_global_389);
     }
 
     CFSetApplyFunction(*(*(a1 + 32) + 72), notifyFunc, &context);
     xpc_release(*(&context + 1));
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
-void __33__CFPDSource_drainPendingChanges__block_invoke(uint64_t a1)
+void __33__CFPDSource_drainPendingChanges__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = _CFPrefsDaemonLog();
+  v2 = _CFPrefsDaemonLog(a1, a2);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
-    __33__CFPDSource_drainPendingChanges__block_invoke_cold_1(a1);
+    __33__CFPDSource_drainPendingChanges__block_invoke_cold_1();
   }
 }
 
@@ -1661,7 +1622,6 @@ LABEL_11:
     self->_pendingChangesSize = 0;
   }
 
-  v24 = *MEMORY[0x1E69E9840];
   return 1;
 }
 
@@ -1719,8 +1679,6 @@ uint64_t __63__CFPDSource_enqueueNewKey_value_encoding_inBatch_fromMessage___blo
   v4 = qos_class_self();
   global_queue = dispatch_get_global_queue(v4, 0);
   dispatch_async(global_queue, v3);
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __26__CFPDSource_lockedAsync___block_invoke(uint64_t a1)
@@ -1747,14 +1705,14 @@ uint64_t __26__CFPDSource_lockedAsync___block_invoke(uint64_t a1)
 
 - (BOOL)validateSandboxForWrite:(const char *)write containerPath:
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   if (result)
   {
     v5 = result;
     os_unfair_lock_assert_owner((result + 108));
     if (*(v5 + 128) == -1)
     {
-      result = 0;
+      return 0;
     }
 
     else
@@ -1771,15 +1729,15 @@ uint64_t __26__CFPDSource_lockedAsync___block_invoke(uint64_t a1)
 
       length[0] = 0;
       length[1] = length;
-      *&v37 = 0x2020000000;
-      BYTE8(v37) = 1;
-      *&v32 = MEMORY[0x1E69E9820];
-      *(&v32 + 1) = 3221225472;
-      *&v33 = ___CFPrefsMessageSenderIsSandboxed_block_invoke;
-      *(&v33 + 1) = &unk_1E6DD1E80;
-      v34 = a2;
-      v35 = length;
-      withClientContext(remote_connection, &v32);
+      *&v35 = 0x2020000000;
+      BYTE8(v35) = 1;
+      *&v30 = MEMORY[0x1E69E9820];
+      *(&v30 + 1) = 3221225472;
+      *&v31 = ___CFPrefsMessageSenderIsSandboxed_block_invoke;
+      *(&v31 + 1) = &unk_1E6DD1E80;
+      v32 = a2;
+      v33 = length;
+      withClientContext(remote_connection, &v30);
       v8 = *(length[1] + 24);
       _Block_object_dispose(length, 8);
       if (v8 == 1)
@@ -1801,14 +1759,14 @@ uint64_t __26__CFPDSource_lockedAsync___block_invoke(uint64_t a1)
         {
           v13 = copySanitizedDomain(string);
           length[0] = 0;
-          v32 = 0u;
-          v33 = 0u;
+          v30 = 0u;
+          v31 = 0u;
           data = xpc_dictionary_get_data(a2, "CFPreferencesAuditToken", length);
           if (data && length[0] == 32)
           {
             v15 = data[1];
-            v32 = *data;
-            v33 = v15;
+            v30 = *data;
+            v31 = v15;
           }
 
           else
@@ -1826,41 +1784,40 @@ uint64_t __26__CFPDSource_lockedAsync___block_invoke(uint64_t a1)
           }
 
           v19 = *MEMORY[0x1E69E9BD0];
-          v20 = (*MEMORY[0x1E69E9BD0] | *MEMORY[0x1E69E9BB8]);
-          *length = v32;
-          v37 = v33;
+          *length = v30;
+          v35 = v31;
           if (sandbox_check_by_audit_token())
           {
-            v21 = *(v5 + 128);
-            v23 = *(v5 + 56);
-            v22 = *(v5 + 64);
+            v20 = *(v5 + 128);
+            v22 = *(v5 + 56);
+            v21 = *(v5 + 64);
             if ((*(v5 + 142) & 0x10) != 0)
             {
-              v24 = 384;
+              v23 = 384;
             }
 
             else if (CFEqual(*(v5 + 40), @"kCFPreferencesAnyUser"))
             {
-              v24 = 420;
+              v23 = 420;
             }
 
             else
             {
-              v24 = 384;
+              v23 = 384;
             }
 
-            *length = v32;
-            v37 = v33;
-            v30 = checkFileWriteData(length, v23, v21, v22, v24, v19);
-            if (v30)
+            *length = v30;
+            v35 = v31;
+            v29 = checkFileWriteData(length, v22, v20, v21, v23, v19);
+            if (v29)
             {
-              _CFPrefsSandboxCheckForMessage(a2);
+              _CFPrefsSandboxCheckForMessage(a2, "user-preference-write", 6);
             }
           }
 
           else
           {
-            v30 = 0;
+            v29 = 0;
           }
 
           free(v13);
@@ -1869,22 +1826,22 @@ uint64_t __26__CFPDSource_lockedAsync___block_invoke(uint64_t a1)
         else
         {
           length[0] = 0;
-          v32 = 0u;
-          v33 = 0u;
+          v30 = 0u;
+          v31 = 0u;
           v16 = xpc_dictionary_get_data(a2, "CFPreferencesAuditToken", length);
           if (v16 && length[0] == 32)
           {
             v17 = v16[1];
-            v32 = *v16;
-            v33 = v17;
+            v30 = *v16;
+            v31 = v17;
           }
 
           else
           {
             if (!xpc_dictionary_get_remote_connection(a2))
             {
-              v25 = xpc_dictionary_get_value(a2, "connection");
-              if (!v25 || object_getClass(v25) != MEMORY[0x1E69E9E68])
+              v24 = xpc_dictionary_get_value(a2, "connection");
+              if (!v24 || object_getClass(v24) != MEMORY[0x1E69E9E68])
               {
                 [CFPDSource validateSandboxForWrite:containerPath:];
               }
@@ -1893,46 +1850,45 @@ uint64_t __26__CFPDSource_lockedAsync___block_invoke(uint64_t a1)
             xpc_connection_get_audit_token();
           }
 
-          v26 = *(v5 + 128);
-          v28 = *(v5 + 56);
-          v27 = *(v5 + 64);
+          v25 = *(v5 + 128);
+          v27 = *(v5 + 56);
+          v26 = *(v5 + 64);
           if ((*(v5 + 142) & 0x10) != 0)
           {
-            v29 = 384;
+            v28 = 384;
           }
 
           else if (CFEqual(*(v5 + 40), @"kCFPreferencesAnyUser"))
           {
-            v29 = 420;
+            v28 = 420;
           }
 
           else
           {
-            v29 = 384;
+            v28 = 384;
           }
 
-          *length = v32;
-          v37 = v33;
-          v30 = checkFileWriteData(length, v28, v26, v27, v29, 0);
+          *length = v30;
+          v35 = v31;
+          v29 = checkFileWriteData(length, v27, v25, v26, v28, 0);
         }
 
-        result = v30 == 0;
+        return v29 == 0;
       }
 
       else
       {
-        result = 1;
+        return 1;
       }
     }
   }
 
-  v31 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 - (uint64_t)validateSandboxForRead:(const char *)read containerPath:
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   if (result)
   {
     if (!xdict)
@@ -1957,41 +1913,40 @@ LABEL_8:
 
       length[0] = 0;
       length[1] = length;
-      *&v38 = 0x2020000000;
-      BYTE8(v38) = 1;
-      *&v33 = MEMORY[0x1E69E9820];
-      *(&v33 + 1) = 3221225472;
-      *&v34 = ___CFPrefsMessageSenderIsSandboxed_block_invoke;
-      *(&v34 + 1) = &unk_1E6DD1E80;
-      v35 = xdict;
-      v36 = length;
-      withClientContext(remote_connection, &v33);
-      v12 = *(length[1] + 24);
+      *&v31 = 0x2020000000;
+      BYTE8(v31) = 1;
+      *&v26 = MEMORY[0x1E69E9820];
+      *(&v26 + 1) = 3221225472;
+      *&v27 = ___CFPrefsMessageSenderIsSandboxed_block_invoke;
+      *(&v27 + 1) = &unk_1E6DD1E80;
+      v28 = xdict;
+      v29 = length;
+      withClientContext(remote_connection, &v26);
+      v13 = *(length[1] + 24);
       _Block_object_dispose(length, 8);
-      if (v12 != 1)
+      if (v13 != 1)
       {
-        result = 1;
-        goto LABEL_43;
+        return 1;
       }
 
       string = xpc_dictionary_get_string(xdict, "CFPreferencesDomain");
       length[0] = 0;
-      v33 = 0u;
-      v34 = 0u;
+      v26 = 0u;
+      v27 = 0u;
       data = xpc_dictionary_get_data(xdict, "CFPreferencesAuditToken", length);
       if (data && length[0] == 32)
       {
-        v15 = data[1];
-        v33 = *data;
-        v34 = v15;
+        v16 = data[1];
+        v26 = *data;
+        v27 = v16;
       }
 
       else
       {
         if (!xpc_dictionary_get_remote_connection(xdict))
         {
-          v16 = xpc_dictionary_get_value(xdict, "connection");
-          if (!v16 || object_getClass(v16) != MEMORY[0x1E69E9E68])
+          v17 = xpc_dictionary_get_value(xdict, "connection");
+          if (!v17 || object_getClass(v17) != MEMORY[0x1E69E9E68])
           {
             [CFPDSource validateSandboxForRead:containerPath:];
           }
@@ -2004,37 +1959,34 @@ LABEL_8:
       {
         if (!xpc_dictionary_get_remote_connection(xdict))
         {
-          v17 = xpc_dictionary_get_value(xdict, "connection");
-          if (!v17 || object_getClass(v17) != MEMORY[0x1E69E9E68])
+          v18 = xpc_dictionary_get_value(xdict, "connection");
+          if (!v18 || object_getClass(v18) != MEMORY[0x1E69E9E68])
           {
             [CFPDSource validateSandboxForRead:containerPath:];
           }
         }
 
-        v18 = xpc_connection_copy_bundle_id();
-        v19 = v18;
-        if (!v18 || strcmp(v18, string))
+        v19 = xpc_connection_copy_bundle_id();
+        v20 = v19;
+        if (!v19 || strcmp(v19, string))
         {
-          v20 = copySanitizedDomain(string);
-          v21 = (*MEMORY[0x1E69E9BD0] | *MEMORY[0x1E69E9BB8]);
-          *length = v33;
-          v38 = v34;
+          v21 = copySanitizedDomain(string);
+          *length = v26;
+          v31 = v27;
           v22 = sandbox_check_by_audit_token();
-          free(v20);
+          free(v21);
 LABEL_39:
-          free(v19);
+          free(v20);
 LABEL_40:
           if (v22)
           {
-            result = 2;
+            return 2;
           }
 
           else
           {
-            result = 1;
+            return 1;
           }
-
-          goto LABEL_43;
         }
       }
 
@@ -2054,30 +2006,24 @@ LABEL_40:
         v25 = strchr(string, 47) == 0;
         if ((v24 & !xpc_dictionary_get_BOOL(xdict, "CFPreferencesHasFixedUpContainer") & v25) != 1)
         {
-          v30 = (*MEMORY[0x1E69E9BC0] | *MEMORY[0x1E69E9BB8]);
-          v31 = *(v5 + 56);
-          *length = v33;
-          v38 = v34;
+          *length = v26;
+          v31 = v27;
           v22 = sandbox_check_by_audit_token();
           goto LABEL_40;
         }
 
-        v19 = copySanitizedDomain(string);
-        v26 = *MEMORY[0x1E69E9BD0];
-        v27 = *MEMORY[0x1E69E9BB8];
-        *length = v33;
-        v38 = v34;
+        v20 = copySanitizedDomain(string);
+        *length = v26;
+        v31 = v27;
         if (sandbox_check_by_audit_token())
         {
-          v28 = v26 | *MEMORY[0x1E69E9BC0] | v27;
-          v29 = *(v5 + 56);
-          *length = v33;
-          v38 = v34;
+          *length = v26;
+          v31 = v27;
           v22 = sandbox_check_by_audit_token();
           if (v22)
           {
-            *length = v33;
-            v38 = v34;
+            *length = v26;
+            v31 = v27;
             sandbox_check_by_audit_token();
           }
 
@@ -2092,11 +2038,11 @@ LABEL_40:
     [result cacheFileInfo];
     v6 = *(v5 + 56);
     v7 = MEMORY[0x1865E4620](xdict);
-    v8 = _CFPrefsDaemonLog();
-    v9 = os_log_type_enabled(v8, OS_LOG_TYPE_ERROR);
+    v9 = _CFPrefsDaemonLog(v7, v8);
+    v10 = os_log_type_enabled(v9, OS_LOG_TYPE_ERROR);
     if (v6)
     {
-      if (v9)
+      if (v10)
       {
         [CFPDSource validateSandboxForRead:containerPath:];
       }
@@ -2105,27 +2051,26 @@ LABEL_40:
       goto LABEL_8;
     }
 
-    if (v9)
+    if (v10)
     {
       [CFPDSource validateSandboxForRead:containerPath:];
     }
 
     free(v7);
-    result = 9;
+    return 9;
   }
 
-LABEL_43:
-  v32 = *MEMORY[0x1E69E9840];
   return result;
 }
 
-- (uint64_t)validatePOSIXPermissionsForMessage:(int)message accessType:(int)type fileUID:(int)d mode:(char *)mode fullyValidated:
+- (uint64_t)validatePOSIXPermissionsForMessage:(uint64_t)message accessType:(int)type fileUID:(int)d mode:(char *)mode fullyValidated:
 {
   if (!self)
   {
     return 0;
   }
 
+  messageCopy = message;
   os_unfair_lock_assert_owner(self + 27);
   remote_connection = xpc_dictionary_get_remote_connection(a2);
   if (!remote_connection)
@@ -2141,9 +2086,9 @@ LABEL_43:
   v15 = cfprefsdEuid();
   if (euid && v15 != euid)
   {
-    if (message == 1 || (euid != type ? (v16 = 4) : (v16 = 256), (v16 & d) == 0))
+    if (messageCopy == 1 || (euid != type ? (v16 = 4) : (v16 = 256), (v16 & d) == 0))
     {
-      if (([CFPDSource validatePOSIXPermissionsForMessage:self accessType:message fileUID:euid mode:mode fullyValidated:?]& 1) == 0)
+      if (([CFPDSource validatePOSIXPermissionsForMessage:self accessType:messageCopy fileUID:euid mode:mode fullyValidated:?]& 1) == 0)
       {
         return 1;
       }
@@ -2157,7 +2102,7 @@ LABEL_43:
   {
 LABEL_18:
     v20 = xpc_dictionary_dup_fd(a2, "CFPreferencesAccessToken");
-    v18 = [(CFPDSource *)self validateAccessToken:v20 accessType:message];
+    v18 = [(CFPDSource *)self validateAccessToken:v20 accessType:messageCopy];
     if ((v20 & 0x80000000) == 0)
     {
       close(v20);
@@ -2176,7 +2121,7 @@ LABEL_14:
 - (int)validateMessage:(id)message withNewKey:(id)key newValue:(id)value plistIsAvailableToRead:(BOOL)read containerPath:(const char *)path fileUID:(unsigned int)d mode:(unsigned __int16)mode diagnosticMessage:(const char *)self0
 {
   readCopy = read;
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   v17 = key != 0;
   if (!eduModeEnabled() || !xpc_dictionary_get_BOOL(message, "AllowWritingSpecialKeysToGlobalPreferences"))
   {
@@ -2185,60 +2130,60 @@ LABEL_14:
       goto LABEL_11;
     }
 
-LABEL_8:
-    result = 1;
-    goto LABEL_27;
+    return 1;
   }
 
   if (!key)
   {
-    goto LABEL_8;
+    return 1;
   }
 
-  v24 = 0;
-  v25 = &v24;
-  v26 = 0x2020000000;
-  v27 = 0;
+  v23 = 0;
+  v24 = &v23;
+  v25 = 0x2020000000;
+  v26 = 0;
   if (xpc_dictionary_get_BOOL(message, "MultiKeySet"))
   {
-    v23[0] = MEMORY[0x1E69E9820];
-    v23[1] = 3221225472;
-    v23[2] = __118__CFPDSource_validateMessage_withNewKey_newValue_plistIsAvailableToRead_containerPath_fileUID_mode_diagnosticMessage___block_invoke;
-    v23[3] = &unk_1E6D7DAB0;
-    v23[4] = &v24;
-    xpc_dictionary_apply(value, v23);
-    v18 = *(v25 + 24);
+    v22[0] = MEMORY[0x1E69E9820];
+    v22[1] = 3221225472;
+    v22[2] = __118__CFPDSource_validateMessage_withNewKey_newValue_plistIsAvailableToRead_containerPath_fileUID_mode_diagnosticMessage___block_invoke;
+    v22[3] = &unk_1E6D7DAB0;
+    v22[4] = &v23;
+    xpc_dictionary_apply(value, v22);
+    v18 = *(v24 + 24);
   }
 
   else
   {
     string_ptr = xpc_string_get_string_ptr(key);
     v18 = isSpecialKey(string_ptr);
-    *(v25 + 24) = v18;
+    *(v24 + 24) = v18;
   }
 
-  _Block_object_dispose(&v24, 8);
+  _Block_object_dispose(&v23, 8);
   if (v18)
   {
-    goto LABEL_8;
+    return 1;
   }
 
 LABEL_11:
-  LOBYTE(v24) = 0;
-  result = [(CFPDSource *)self validatePOSIXPermissionsForMessage:message accessType:v17 fileUID:d mode:mode fullyValidated:&v24];
-  if (v24 == 1)
+  LOBYTE(v23) = 0;
+  result = [(CFPDSource *)self validatePOSIXPermissionsForMessage:message accessType:v17 fileUID:d mode:mode fullyValidated:&v23];
+  if (v23 == 1)
   {
     if (result == 3)
     {
       v21 = "writing to another user's preferences requires sufficient permissions to write to the file";
-      goto LABEL_26;
     }
 
-    if (result == 2)
+    else
     {
+      if (result != 2)
+      {
+        return result;
+      }
+
       v21 = "accessing another user's preferences requires sufficient permissions to be able to read the file";
-LABEL_26:
-      *diagnosticMessage = v21;
     }
   }
 
@@ -2250,34 +2195,36 @@ LABEL_26:
       if (result == 3)
       {
         v21 = "setting preferences outside an application's container requires user-preference-write or file-write-data sandbox access";
-        goto LABEL_26;
       }
 
-      if (result == 2)
+      else
       {
+        if (result != 2)
+        {
+          return result;
+        }
+
         v21 = "accessing preferences outside an application's container requires user-preference-read or file-read-data sandbox access";
-        goto LABEL_26;
       }
+    }
+
+    else if (result == 3)
+    {
+      v21 = "setting these preferences requires user-preference-write or file-write-data sandbox access";
     }
 
     else
     {
-      if (result == 3)
+      if (result != 2)
       {
-        v21 = "setting these preferences requires user-preference-write or file-write-data sandbox access";
-        goto LABEL_26;
+        return result;
       }
 
-      if (result == 2)
-      {
-        v21 = "accessing these preferences requires user-preference-read or file-read-data sandbox access";
-        goto LABEL_26;
-      }
+      v21 = "accessing these preferences requires user-preference-read or file-read-data sandbox access";
     }
   }
 
-LABEL_27:
-  v22 = *MEMORY[0x1E69E9840];
+  *diagnosticMessage = v21;
   return result;
 }
 
@@ -2291,7 +2238,7 @@ uint64_t __118__CFPDSource_validateMessage_withNewKey_newValue_plistIsAvailableT
 
 - (void)setObserved:(void *)observed bySenderOfMessage:
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   if (self)
   {
     os_unfair_lock_assert_owner(self + 27);
@@ -2305,42 +2252,40 @@ uint64_t __118__CFPDSource_validateMessage_withNewKey_newValue_plistIsAvailableT
       }
     }
 
-    v11[0] = MEMORY[0x1E69E9820];
-    v11[1] = 3221225472;
-    v11[2] = __44__CFPDSource_setObserved_bySenderOfMessage___block_invoke;
-    v11[3] = &unk_1E6DD1AB8;
-    v12 = a2;
-    v11[4] = self;
-    if (withClientContext(remote_connection, v11))
+    v10[0] = MEMORY[0x1E69E9820];
+    v10[1] = 3221225472;
+    v10[2] = __44__CFPDSource_setObserved_bySenderOfMessage___block_invoke;
+    v10[3] = &unk_1E6DD1AB8;
+    v11 = a2;
+    v10[4] = self;
+    if (withClientContext(remote_connection, v10))
     {
-      v9[0] = MEMORY[0x1E69E9820];
-      v9[1] = 3221225472;
-      v9[2] = __44__CFPDSource_setObserved_bySenderOfMessage___block_invoke_2;
-      v9[3] = &unk_1E6DD1AE0;
-      v10 = a2;
-      v9[4] = self;
-      v9[5] = observed;
-      v9[6] = remote_connection;
+      v8[0] = MEMORY[0x1E69E9820];
+      v8[1] = 3221225472;
+      v8[2] = __44__CFPDSource_setObserved_bySenderOfMessage___block_invoke_2;
+      v8[3] = &unk_1E6DD1AE0;
+      v9 = a2;
+      v8[4] = self;
+      v8[5] = observed;
+      v8[6] = remote_connection;
       os_unfair_lock_lock(self + 25);
-      __44__CFPDSource_setObserved_bySenderOfMessage___block_invoke_2(v9);
+      (__44__CFPDSource_setObserved_bySenderOfMessage___block_invoke_2)(v8);
       os_unfair_lock_unlock(self + 25);
     }
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __44__CFPDSource_setObserved_bySenderOfMessage___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v4 = *(a1 + 40);
   v5 = *(a2 + 24);
   if (v4 == 1)
   {
     if (!v5)
     {
-      v7 = *byte_1EF0680C8;
-      *(a2 + 24) = CFSetCreateMutable(&__kCFAllocatorSystemDefault, 0, &v7);
+      v6 = *byte_1EF0680C8;
+      *(a2 + 24) = CFSetCreateMutable(&__kCFAllocatorSystemDefault, 0, &v6);
       v5 = *(a2 + 24);
     }
 
@@ -2356,92 +2301,85 @@ void __44__CFPDSource_setObserved_bySenderOfMessage___block_invoke(uint64_t a1, 
       *(a2 + 24) = 0;
     }
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
-void __44__CFPDSource_setObserved_bySenderOfMessage___block_invoke_2(uint64_t a1)
+void __44__CFPDSource_setObserved_bySenderOfMessage___block_invoke_2(uint64_t *Mutable, uint64_t a2)
 {
-  v23 = *MEMORY[0x1E69E9840];
-  v2 = *(a1 + 32);
-  v3 = v2[9];
-  if (*(a1 + 56) == 1)
+  v2 = Mutable;
+  v22 = *MEMORY[0x1E69E9840];
+  v3 = Mutable[4];
+  v4 = v3[9];
+  if (*(Mutable + 56) == 1)
   {
-    if (!v3)
+    if (!v4)
     {
-      *(*(a1 + 32) + 72) = CFSetCreateMutable(&__kCFAllocatorSystemDefault, 0, &kCFTypeSetCallBacks);
-      v2 = *(a1 + 32);
+      Mutable = CFSetCreateMutable(&__kCFAllocatorSystemDefault, 0, &kCFTypeSetCallBacks);
+      *(v2[4] + 72) = Mutable;
+      v3 = v2[4];
     }
 
-    v4 = *(a1 + 40);
-    v5 = _CFPrefsDaemonLog();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+    v5 = v2[5];
+    v6 = _CFPrefsDaemonLog(Mutable, a2);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
-      _extractCFPDBits(v4, 0, v2, &__block_literal_global_407);
+      _extractCFPDBits(v5, 0, v3, &__block_literal_global_407);
     }
 
-    v6 = *(*(a1 + 32) + 72);
-    v7 = *(a1 + 48);
-    v8 = *MEMORY[0x1E69E9840];
+    v7 = *(v2[4] + 72);
+    v8 = v2[6];
 
-    CFSetAddValue(v6, v7);
+    CFSetAddValue(v7, v8);
   }
 
-  else
+  else if (v4)
   {
-    if (v3)
+    v9 = Mutable[5];
+    length = 0;
+    v18 = 0u;
+    v19 = 0u;
+    data = xpc_dictionary_get_data(v9, "CFPreferencesAuditToken", &length);
+    if (data && length == 32)
     {
-      v10 = *(a1 + 40);
-      length = 0;
-      v19 = 0u;
-      v20 = 0u;
-      data = xpc_dictionary_get_data(v10, "CFPreferencesAuditToken", &length);
-      if (data && length == 32)
-      {
-        v12 = data[1];
-        v19 = *data;
-        v20 = v12;
-      }
-
-      else
-      {
-        if (!xpc_dictionary_get_remote_connection(v10))
-        {
-          value = xpc_dictionary_get_value(v10, "connection");
-          if (!value || object_getClass(value) != MEMORY[0x1E69E9E68])
-          {
-            __44__CFPDSource_setObserved_bySenderOfMessage___block_invoke_2_cold_1();
-          }
-        }
-
-        xpc_connection_get_audit_token();
-      }
-
-      v14 = DWORD1(v20);
-      v15 = *(a1 + 32);
-      v16 = _CFPrefsDaemonLog();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
-      {
-        *&v19 = MEMORY[0x1E69E9820];
-        *(&v19 + 1) = 3221225472;
-        *&v20 = __DEBUG_STOPPED_OBSERVING_block_invoke;
-        *(&v20 + 1) = &unk_1E6DD1EA8;
-        v21 = v10;
-        v22 = v14;
-        _extractCFPDBits(v10, 0, v15, &v19);
-      }
-
-      v17 = *(a1 + 48);
-      [CFPDSource stopNotifyingObserver:?];
+      v12 = data[1];
+      v18 = *data;
+      v19 = v12;
     }
 
-    v9 = *MEMORY[0x1E69E9840];
+    else
+    {
+      if (!xpc_dictionary_get_remote_connection(v9))
+      {
+        value = xpc_dictionary_get_value(v9, "connection");
+        if (!value || object_getClass(value) != MEMORY[0x1E69E9E68])
+        {
+          __44__CFPDSource_setObserved_bySenderOfMessage___block_invoke_2_cold_1();
+        }
+      }
+
+      data = xpc_connection_get_audit_token();
+    }
+
+    v14 = DWORD1(v19);
+    v15 = v2[4];
+    v16 = _CFPrefsDaemonLog(data, v11);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+    {
+      *&v18 = MEMORY[0x1E69E9820];
+      *(&v18 + 1) = 3221225472;
+      *&v19 = __DEBUG_STOPPED_OBSERVING_block_invoke;
+      *(&v19 + 1) = &unk_1E6DD1EA8;
+      v20 = v9;
+      v21 = v14;
+      _extractCFPDBits(v9, 0, v15, &v18);
+    }
+
+    [CFPDSource stopNotifyingObserver:?];
   }
 }
 
 - (id)acceptMessage:(id)message
 {
-  v81 = *MEMORY[0x1E69E9840];
+  v93 = *MEMORY[0x1E69E9840];
   os_unfair_lock_assert_owner(&self->_lock);
   if ([(CFPDDataBuffer *)self->_plist purgable])
   {
@@ -2449,28 +2387,30 @@ void __44__CFPDSource_setObserved_bySenderOfMessage___block_invoke_2(uint64_t a1
   }
 
   reply = xpc_dictionary_create_reply(message);
+  v7 = reply;
   if (!reply)
   {
     reply = xpc_dictionary_create(0, 0, 0);
+    v7 = reply;
   }
 
-  v6 = _CFPrefsDaemonLog();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+  v8 = _CFPrefsDaemonLog(reply, v6);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
-    v78[0] = MEMORY[0x1E69E9820];
-    v78[1] = 3221225472;
-    v78[2] = __DEBUG_REQUEST_block_invoke;
-    v78[3] = &unk_1E6DD1ED0;
-    v78[4] = self;
-    _extractCFPDBits(message, 0, self, v78);
+    v90[0] = MEMORY[0x1E69E9820];
+    v90[1] = 3221225472;
+    v90[2] = __DEBUG_REQUEST_block_invoke;
+    v90[3] = &unk_1E6DD1ED0;
+    v90[4] = self;
+    _extractCFPDBits(message, 0, self, v90);
   }
 
-  v68 = 0;
-  v69 = 0;
-  v67 = 0;
+  v80 = 0;
+  v81 = 0;
+  v79 = 0;
   int64 = xpc_dictionary_get_int64(message, "CFPreferencesOperation");
-  v8 = _CFPrefsDecodeKeyValuePairFromXPCMessage(message, &v69, &v68, &v67);
-  v66 = 0;
+  v10 = _CFPrefsDecodeKeyValuePairFromXPCMessage(message, &v81, &v80, &v79);
+  v78 = 0;
   if (xpc_dictionary_get_BOOL(message, "CFPreferencesAvoidCache"))
   {
     [(CFPDSource *)self syncWriteToDiskAndFlushCacheForReason:@"we're avoiding the cache"];
@@ -2503,23 +2443,23 @@ void __44__CFPDSource_setObserved_bySenderOfMessage___block_invoke_2(uint64_t a1
     }
   }
 
-  v78[0] = 0;
-  v79 = 0u;
-  v80 = 0u;
-  data = xpc_dictionary_get_data(message, "CFPreferencesAuditToken", v78);
-  if (data && v78[0] == 32)
+  v90[0] = 0;
+  v91 = 0u;
+  v92 = 0u;
+  data = xpc_dictionary_get_data(message, "CFPreferencesAuditToken", v90);
+  if (data && v90[0] == 32)
   {
-    v12 = data[1];
-    v79 = *data;
-    v80 = v12;
+    v14 = data[1];
+    v91 = *data;
+    v92 = v14;
   }
 
   else
   {
     if (!xpc_dictionary_get_remote_connection(message))
     {
-      v13 = xpc_dictionary_get_value(message, "connection");
-      if (!v13 || object_getClass(v13) != MEMORY[0x1E69E9E68])
+      v15 = xpc_dictionary_get_value(message, "connection");
+      if (!v15 || object_getClass(v15) != MEMORY[0x1E69E9E68])
       {
         [CFPDSource acceptMessage:];
       }
@@ -2528,11 +2468,11 @@ void __44__CFPDSource_setObserved_bySenderOfMessage___block_invoke_2(uint64_t a1
     xpc_connection_get_audit_token();
   }
 
-  bzero(v78, 0x400uLL);
-  v75 = v79;
-  v76 = v80;
+  bzero(v90, 0x400uLL);
+  v87 = v91;
+  v88 = v92;
   sandbox_container_path_for_audit_token();
-  if (!v8)
+  if (!v10)
   {
     goto LABEL_39;
   }
@@ -2543,20 +2483,20 @@ void __44__CFPDSource_setObserved_bySenderOfMessage___block_invoke_2(uint64_t a1
     {
       Length = CFStringGetLength(self->_userName);
       MaximumSizeForEncoding = CFStringGetMaximumSizeForEncoding(Length, 0x8000100u);
-      v18 = MEMORY[0x1EEE9AC00](MaximumSizeForEncoding, v17);
-      v20 = &v59 - v19;
-      bzero(&v59 - v19, v18 + 1);
-      CFStringGetCString(self->_userName, v20, MaximumSizeForEncoding + 1, 0x8000100u);
-      v21 = getpwnam(v20);
-      if (v21)
+      v21 = MEMORY[0x1EEE9AC00](MaximumSizeForEncoding, v19, v20);
+      v23 = &v71 - v22;
+      bzero(&v71 - v22, v21 + 1);
+      CFStringGetCString(self->_userName, v23, MaximumSizeForEncoding + 1, 0x8000100u);
+      v24 = getpwnam(v23);
+      if (v24)
       {
-        pw_uid = v21->pw_uid;
-        pw_gid = v21->pw_gid;
+        pw_uid = v24->pw_uid;
+        pw_gid = v24->pw_gid;
         goto LABEL_34;
       }
 
-      v22 = _CFPrefsDaemonLog();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_FAULT))
+      v26 = _CFPrefsDaemonLog(0, v25);
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_FAULT))
       {
         [CFPDSource acceptMessage:];
       }
@@ -2574,27 +2514,27 @@ LABEL_34:
     self->_lastEgid = pw_gid;
     if (self->_parentFD == -1)
     {
-      v14 = [(CFPDSource *)self cacheFileInfoForWriting:1 euid:pw_uid egid:pw_gid didCreate:&v66];
+      v16 = [(CFPDSource *)self cacheFileInfoForWriting:1 euid:pw_uid egid:pw_gid didCreate:&v78];
       goto LABEL_40;
     }
 
 LABEL_39:
-    v14 = 0;
+    v16 = 0;
     goto LABEL_40;
   }
 
-  v14 = 8;
+  v16 = 8;
 LABEL_40:
-  v65 = 0;
-  v64 = 0;
-  v63 = 0;
-  v25 = xpc_dictionary_get_BOOL(message, "ValidatePlist");
-  if ((v8 & 1) != 0 || (v30 = v25, !self->_plist) && self->_parentFD == -1 && ([(CFPDSource *)self cacheFileInfo], self->_parentFD == -1))
+  v77 = 0;
+  v76 = 0;
+  v75 = 0;
+  v29 = xpc_dictionary_get_BOOL(message, "ValidatePlist");
+  if ((v10 & 1) != 0 || (v34 = v29, !self->_plist) && self->_parentFD == -1 && ([(CFPDSource *)self cacheFileInfo], self->_parentFD == -1))
   {
-    v26 = 0;
-    v27 = 0;
-    v28 = -1;
-    if (v14)
+    v30 = 0;
+    v31 = 0;
+    v32 = -1;
+    if (v16)
     {
       goto LABEL_43;
     }
@@ -2612,85 +2552,85 @@ LABEL_40:
     if (acceptMessage___CFMKBDeviceUnlockedSinceBoot && !acceptMessage___CFMKBDeviceUnlockedSinceBoot())
     {
       actualPath = self->_actualPath;
-      *&v75 = MEMORY[0x1E69E9820];
-      *(&v75 + 1) = 3221225472;
-      *&v76 = __ERROR_LOG_PREUNLOCK_ACCESS_block_invoke;
-      *(&v76 + 1) = &__block_descriptor_40_e29_v64__0i8_12_20_28_36_44_52B60l;
-      v77 = actualPath;
-      _extractCFPDBits(message, 0, self, &v75);
+      *&v87 = MEMORY[0x1E69E9820];
+      *(&v87 + 1) = 3221225472;
+      *&v88 = __ERROR_LOG_PREUNLOCK_ACCESS_block_invoke;
+      *(&v88 + 1) = &__block_descriptor_40_e29_v64__0i8_12_20_28_36_44_52B60l;
+      v89 = actualPath;
+      _extractCFPDBits(message, 0, self, &v87);
     }
   }
 
-  if (v30 || self->_plist || (v32 = [(CFPDSource *)self openPropertyListWithoutDrainingPendingChangesOrValidatingPlistAndReturnFileUID:&v64 andMode:?], v32 == -1))
+  if (v34 || self->_plist || (v36 = [(CFPDSource *)self openPropertyListWithoutDrainingPendingChangesOrValidatingPlistAndReturnFileUID:&v76 andMode:?], v36 == -1))
   {
-    v27 = [(CFPDSource *)self copyPropertyListWithoutDrainingPendingChangesValidatingPlist:v30 andReturnFileUID:&v63 andMode:&v64];
-    v28 = -1;
+    v31 = [(CFPDSource *)self copyPropertyListWithoutDrainingPendingChangesValidatingPlist:v34 andReturnFileUID:&v75 andMode:&v76];
+    v32 = -1;
   }
 
   else
   {
-    v28 = v32;
-    v27 = 0;
+    v32 = v36;
+    v31 = 0;
   }
 
-  v26 = v28 != -1 || v27 != 0;
-  if (!v14)
+  v30 = v32 != -1 || v31 != 0;
+  if (!v16)
   {
 LABEL_42:
-    LOWORD(v58) = v64;
-    v14 = [(CFPDSource *)self validateMessage:message withNewKey:v69 newValue:v68 plistIsAvailableToRead:v26 containerPath:v78 fileUID:v63 mode:v58 diagnosticMessage:&v65];
+    LOWORD(v70) = v76;
+    v16 = [(CFPDSource *)self validateMessage:message withNewKey:v81 newValue:v80 plistIsAvailableToRead:v30 containerPath:v90 fileUID:v75 mode:v70 diagnosticMessage:&v77];
   }
 
 LABEL_43:
-  if (v14 > 4)
+  if (v16 > 4)
   {
-    if (v14 <= 6)
+    if (v16 <= 6)
     {
-      if (v14 == 5)
+      if (v16 == 5)
       {
         [CFPDSource acceptMessage:];
         goto LABEL_90;
       }
 
-      v29 = "Invalid plist data";
-      v34 = reply;
-      v35 = 1;
+      v33 = "Invalid plist data";
+      v38 = v7;
+      v39 = 1;
       goto LABEL_89;
     }
 
-    if (v14 != 7)
+    if (v16 != 7)
     {
-      if (v14 == 8)
+      if (v16 == 8)
       {
-        v29 = "Writing has been disabled";
+        v33 = "Writing has been disabled";
       }
 
       else
       {
-        if (v14 != 9)
+        if (v16 != 9)
         {
           goto LABEL_90;
         }
 
-        v29 = "Unable to determine access";
+        v33 = "Unable to determine access";
       }
 
       goto LABEL_88;
     }
 
 LABEL_81:
-    v29 = "Path not accessible";
+    v33 = "Path not accessible";
 LABEL_88:
-    v34 = reply;
-    v35 = 0;
+    v38 = v7;
+    v39 = 0;
 LABEL_89:
-    populateErrorReply(v29, v34, v35);
+    populateErrorReply(v33, v38, v39);
     goto LABEL_90;
   }
 
-  if (v14 > 2)
+  if (v16 > 2)
   {
-    if (v14 == 3)
+    if (v16 == 3)
     {
       goto LABEL_82;
     }
@@ -2704,19 +2644,19 @@ LABEL_89:
       }
     }
 
-    populateErrorReply("Access token needed", reply, 3u);
-    v47 = self->_actualPath;
-    v48 = "CFPreferencesAccessToken";
+    populateErrorReply("Access token needed", v7, 3u);
+    v59 = self->_actualPath;
+    v60 = "CFPreferencesAccessToken";
 LABEL_146:
-    xpc_dictionary_set_string(reply, v48, v47);
+    xpc_dictionary_set_string(v7, v60, v59);
     goto LABEL_90;
   }
 
-  if (v14 != 1)
+  if (v16 != 1)
   {
-    if (v14 != 2)
+    if (v16 != 2)
     {
-      if (!v14)
+      if (!v16)
       {
         [CFPDSource acceptMessage:];
       }
@@ -2725,22 +2665,22 @@ LABEL_146:
     }
 
 LABEL_82:
-    if (v65)
+    if (v77)
     {
-      v36 = v65;
+      v40 = v77;
     }
 
     else
     {
-      v36 = "Operation not allowed";
+      v40 = "Operation not allowed";
     }
 
-    populateErrorReply(v36, reply, 0);
-    xpc_dictionary_set_BOOL(reply, "CFPreferencesErrorClientFault", 1);
+    populateErrorReply(v40, v7, 0);
+    xpc_dictionary_set_BOOL(v7, "CFPreferencesErrorClientFault", 1);
     goto LABEL_90;
   }
 
-  if (!v8)
+  if (!v10)
   {
     if ((int64 - 7) <= 1)
     {
@@ -2748,162 +2688,163 @@ LABEL_82:
       goto LABEL_90;
     }
 
-    if (v28 != -1 || v27 || (v49 = self->_pendingChangesQueue) != 0 && xpc_array_get_count(v49))
+    if (v32 != -1 || v31 || (v61 = self->_pendingChangesQueue) != 0 && xpc_array_get_count(v61))
     {
-      v62[0] = MEMORY[0x1E69E9820];
-      v62[1] = 3221225472;
-      v62[2] = __28__CFPDSource_acceptMessage___block_invoke_2;
-      v62[3] = &unk_1E6D81EC0;
-      v62[4] = self;
-      [v27 quicklyValidatePlistAndOnFailureInvokeBlock:v62];
-      copyXPCData = [v27 copyXPCData];
+      v74[0] = MEMORY[0x1E69E9820];
+      v74[1] = 3221225472;
+      v74[2] = __28__CFPDSource_acceptMessage___block_invoke_2;
+      v74[3] = &unk_1E6D81EC0;
+      v74[4] = self;
+      [v31 quicklyValidatePlistAndOnFailureInvokeBlock:v74];
+      copyXPCData = [v31 copyXPCData];
       if (copyXPCData)
       {
-        xpc_dictionary_set_value(reply, "CFPreferencesPropertyList", copyXPCData);
+        xpc_dictionary_set_value(v7, "CFPreferencesPropertyList", copyXPCData);
         xpc_release(copyXPCData);
       }
 
-      if (v28 != -1)
+      if (v32 != -1)
       {
-        xpc_dictionary_set_fd(reply, "PlistFD", v28);
+        xpc_dictionary_set_fd(v7, "PlistFD", v32);
       }
 
       pendingChangesQueue = self->_pendingChangesQueue;
       if (pendingChangesQueue && xpc_array_get_count(pendingChangesQueue))
       {
-        v52 = xpc_array_create(0, 0);
-        v53 = self->_pendingChangesQueue;
-        v61[0] = MEMORY[0x1E69E9820];
-        v61[1] = 3221225472;
-        v61[2] = __28__CFPDSource_acceptMessage___block_invoke_143;
-        v61[3] = &unk_1E6DD1B08;
-        v61[4] = v52;
-        xpc_array_apply(v53, v61);
-        xpc_dictionary_set_value(reply, "PlistDiff", v52);
-        xpc_release(v52);
+        v64 = xpc_array_create(0, 0);
+        v65 = self->_pendingChangesQueue;
+        v73[0] = MEMORY[0x1E69E9820];
+        v73[1] = 3221225472;
+        v73[2] = __28__CFPDSource_acceptMessage___block_invoke_143;
+        v73[3] = &unk_1E6DD1B08;
+        v73[4] = v64;
+        xpc_array_apply(v65, v73);
+        xpc_dictionary_set_value(v7, "PlistDiff", v64);
+        xpc_release(v64);
       }
 
-      v54 = self->_actualPath;
+      v66 = self->_actualPath;
       if (copyXPCData)
       {
-        DEBUG_READ(message, self, v54);
+        DEBUG_READ(message, self, v66);
       }
 
       else
       {
-        DEBUG_READ_EMPTY(message, self, v54);
+        DEBUG_READ_EMPTY(message, self, v66);
       }
     }
 
-    xpc_dictionary_set_int64(reply, "CFPreferencesShmemIndex", self->_generationShmemIndex);
-    bzero(&v75, 0x400uLL);
+    xpc_dictionary_set_int64(v7, "CFPreferencesShmemIndex", self->_generationShmemIndex);
+    bzero(&v87, 0x400uLL);
     [CFPrefsDaemon getShmemName:? bufLen:?];
-    v48 = "CFPreferencesShmemName";
-    v47 = &v75;
+    v60 = "CFPreferencesShmemName";
+    v59 = &v87;
     goto LABEL_146;
   }
 
   approximatePlistSizeIncludingPendingChanges = [(CFPDSource *)self approximatePlistSizeIncludingPendingChanges];
-  if (![(CFPDSource *)self enqueueNewKey:v69 value:v68 encoding:v67 inBatch:0 fromMessage:message])
+  if (![(CFPDSource *)self enqueueNewKey:v81 value:v80 encoding:v79 inBatch:0 fromMessage:message])
   {
-    v29 = "Couldn't enqueue updated values";
-    v34 = reply;
-    v35 = 2;
+    v33 = "Couldn't enqueue updated values";
+    v38 = v7;
+    v39 = 2;
     goto LABEL_89;
   }
 
   approximatePlistSizeIncludingPendingChanges2 = [(CFPDSource *)self approximatePlistSizeIncludingPendingChanges];
   if (approximatePlistSizeIncludingPendingChanges2 > approximatePlistSizeIncludingPendingChanges)
   {
-    [(CFPDSource *)self attachSizeWarningsToReply:approximatePlistSizeIncludingPendingChanges2 forByteCount:?];
+    [(CFPDSource *)self attachSizeWarningsToReply:v7 forByteCount:approximatePlistSizeIncludingPendingChanges2];
   }
 
-  if (xpc_dictionary_get_BOOL(message, "CFPreferencesShouldWriteSynchronously") || v66 == 1)
+  syncWriteToDisk = xpc_dictionary_get_BOOL(message, "CFPreferencesShouldWriteSynchronously");
+  if (syncWriteToDisk || v78 == 1)
   {
-    [(CFPDSource *)self syncWriteToDisk];
+    syncWriteToDisk = [(CFPDSource *)self syncWriteToDisk];
   }
 
-  v60 = v67;
-  v55 = v68;
-  v59 = v69;
-  v56 = _CFPrefsDaemonLog();
-  if (os_log_type_enabled(v56, OS_LOG_TYPE_DEBUG))
+  v72 = v79;
+  v67 = v80;
+  v71 = v81;
+  v68 = _CFPrefsDaemonLog(syncWriteToDisk, v58);
+  if (os_log_type_enabled(v68, OS_LOG_TYPE_DEBUG))
   {
-    if (v60)
+    if (v72)
     {
-      v57 = v55;
+      v69 = v67;
     }
 
     else
     {
-      v57 = v59;
+      v69 = v71;
     }
 
-    _extractCFPDBits(message, v57, self, &__block_literal_global_409);
+    _extractCFPDBits(message, v69, self, &__block_literal_global_409);
   }
 
   [(CFPDSource *)self asyncNotifyObserversOfWriteFromConnection:remote_connection message:message];
 LABEL_90:
-  xpc_dictionary_set_int64(reply, "CFPreferencesShmemIndex", self->_generationShmemIndex);
-  bzero(&v75, 0x400uLL);
+  xpc_dictionary_set_int64(v7, "CFPreferencesShmemIndex", self->_generationShmemIndex);
+  bzero(&v87, 0x400uLL);
   [CFPrefsDaemon getShmemName:? bufLen:?];
-  xpc_dictionary_set_string(reply, "CFPreferencesShmemName", &v75);
-  v37 = atomic_load(([(CFPrefsDaemon *)self->_cfprefsd shmem]+ 4 * self->_generationShmemIndex));
-  xpc_dictionary_set_uint64(reply, "CFPreferencesShmemState", v37);
-  if (v14 == 1)
+  xpc_dictionary_set_string(v7, "CFPreferencesShmemName", &v87);
+  v46 = atomic_load(([(CFPrefsDaemon *)self->_cfprefsd shmem:v41]+ 4 * self->_generationShmemIndex));
+  xpc_dictionary_set_uint64(v7, "CFPreferencesShmemState", v46);
+  if (v16 == 1)
   {
     goto LABEL_101;
   }
 
-  if (v14 == 4)
+  if (v16 == 4)
   {
-    v38 = _CFPrefsDaemonLog();
-    if (!os_log_type_enabled(v38, OS_LOG_TYPE_DEBUG))
+    v49 = _CFPrefsDaemonLog(v47, v48);
+    if (!os_log_type_enabled(v49, OS_LOG_TYPE_DEBUG))
     {
       goto LABEL_101;
     }
 
-    v70 = MEMORY[0x1E69E9820];
-    v71 = 3221225472;
-    v72 = __DEBUG_NEEDS_TOKEN_block_invoke;
-    v73 = &__block_descriptor_33_e29_v64__0i8_12_20_28_36_44_52B60l;
-    LOBYTE(v74) = v8;
+    v82 = MEMORY[0x1E69E9820];
+    v83 = 3221225472;
+    v84 = __DEBUG_NEEDS_TOKEN_block_invoke;
+    v85 = &__block_descriptor_33_e29_v64__0i8_12_20_28_36_44_52B60l;
+    LOBYTE(v86) = v10;
   }
 
   else
   {
-    string = xpc_dictionary_get_string(reply, "CFPreferencesErrorDescription");
-    if (v8)
+    string = xpc_dictionary_get_string(v7, "CFPreferencesErrorDescription");
+    if (v10)
     {
-      v40 = &v68;
-      if (!v67)
+      v51 = &v80;
+      if (!v79)
       {
-        v40 = &v69;
+        v51 = &v81;
       }
 
-      v41 = *v40;
-      v70 = MEMORY[0x1E69E9820];
-      v71 = 3221225472;
-      v72 = __ERROR_WRITE_REJECTED_block_invoke;
-      v73 = &__block_descriptor_40_e29_v64__0i8_12_20_28_36_44_52B60l;
-      v74 = string;
+      v52 = *v51;
+      v82 = MEMORY[0x1E69E9820];
+      v83 = 3221225472;
+      v84 = __ERROR_WRITE_REJECTED_block_invoke;
+      v85 = &__block_descriptor_40_e29_v64__0i8_12_20_28_36_44_52B60l;
+      v86 = string;
       messageCopy2 = message;
       goto LABEL_100;
     }
 
-    v70 = MEMORY[0x1E69E9820];
-    v71 = 3221225472;
-    v72 = __ERROR_READ_REJECTED_block_invoke;
-    v73 = &__block_descriptor_40_e29_v64__0i8_12_20_28_36_44_52B60l;
-    v74 = string;
+    v82 = MEMORY[0x1E69E9820];
+    v83 = 3221225472;
+    v84 = __ERROR_READ_REJECTED_block_invoke;
+    v85 = &__block_descriptor_40_e29_v64__0i8_12_20_28_36_44_52B60l;
+    v86 = string;
   }
 
   messageCopy2 = message;
-  v41 = 0;
+  v52 = 0;
 LABEL_100:
-  _extractCFPDBits(messageCopy2, v41, self, &v70);
+  _extractCFPDBits(messageCopy2, v52, self, &v82);
 LABEL_101:
-  if (v66 == 1)
+  if (v78 == 1)
   {
     [(CFPDSource *)self cleanUpIfNecessaryAfterCreatingPlist];
   }
@@ -2914,23 +2855,22 @@ LABEL_101:
   }
 
   [(CFPDSource *)self closeFileDescriptors];
-  if (v69)
+  if (v81)
   {
-    xpc_release(v69);
+    xpc_release(v81);
   }
 
-  if (v68)
+  if (v80)
   {
-    xpc_release(v68);
+    xpc_release(v80);
   }
 
-  if (v28 != -1)
+  if (v32 != -1)
   {
-    close(v28);
+    close(v32);
   }
 
-  v43 = *MEMORY[0x1E69E9840];
-  return reply;
+  return v7;
 }
 
 uint64_t (*__28__CFPDSource_acceptMessage___block_invoke())(void)
@@ -2941,18 +2881,18 @@ uint64_t (*__28__CFPDSource_acceptMessage___block_invoke())(void)
   return result;
 }
 
-void __28__CFPDSource_acceptMessage___block_invoke_2(uint64_t a1)
+void __28__CFPDSource_acceptMessage___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v2 = _CFPrefsDaemonLog();
+  v2 = _CFPrefsDaemonLog(a1, a2);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
-    __28__CFPDSource_acceptMessage___block_invoke_2_cold_1(a1);
+    __28__CFPDSource_acceptMessage___block_invoke_2_cold_1();
   }
 }
 
 - (void)processEndOfMessageIntendingToRemoveSource:(BOOL *)source replacingWithTombstone:(id *)tombstone
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   os_unfair_lock_assert_owner(&self->_lock);
   if (*source)
   {
@@ -2963,7 +2903,7 @@ void __28__CFPDSource_acceptMessage___block_invoke_2(uint64_t a1)
 
     else
     {
-      [(CFPDSource *)self processEndOfMessageIntendingToRemoveSource:v22 replacingWithTombstone:tombstone, source];
+      [(CFPDSource *)self processEndOfMessageIntendingToRemoveSource:v21 replacingWithTombstone:tombstone, source];
     }
   }
 
@@ -2996,9 +2936,9 @@ void __28__CFPDSource_acceptMessage___block_invoke_2(uint64_t a1)
                 if (Value)
                 {
                   v14 = Value;
-                  v24.length = CFArrayGetCount(Value);
-                  v24.location = 0;
-                  FirstIndexOfValue = CFArrayGetFirstIndexOfValue(v14, v24, self);
+                  v23.length = CFArrayGetCount(Value);
+                  v23.location = 0;
+                  FirstIndexOfValue = CFArrayGetFirstIndexOfValue(v14, v23, self);
                   if (FirstIndexOfValue != -1)
                   {
                     CFArrayRemoveValueAtIndex(v14, FirstIndexOfValue);
@@ -3008,9 +2948,9 @@ void __28__CFPDSource_acceptMessage___block_invoke_2(uint64_t a1)
                   {
                     CFDictionaryRemoveValue(dirWatcherTargets, v11);
                     v16 = watchedDirs;
-                    v25.length = CFArrayGetCount(watchedDirs);
-                    v25.location = 0;
-                    v17 = CFArrayGetFirstIndexOfValue(v16, v25, v11);
+                    v24.length = CFArrayGetCount(watchedDirs);
+                    v24.location = 0;
+                    v17 = CFArrayGetFirstIndexOfValue(v16, v24, v11);
                     if (v17 != -1)
                     {
                       CFArrayRemoveValueAtIndex(watchedDirs, v17);
@@ -3031,7 +2971,7 @@ LABEL_34:
               {
 LABEL_31:
                 CFRelease(v11);
-                goto LABEL_32;
+                return;
               }
 
               if (initializeFSEvents_predicate != -1)
@@ -3060,17 +3000,17 @@ LABEL_31:
                   }
                 }
 
-                v26.length = CFArrayGetCount(Mutable);
-                v26.location = 0;
-                if (!CFArrayContainsValue(Mutable, v26, self))
+                v25.length = CFArrayGetCount(Mutable);
+                v25.location = 0;
+                if (!CFArrayContainsValue(Mutable, v25, self))
                 {
                   CFArrayAppendValue(Mutable, self);
                 }
 
                 v20 = watchedDirs;
-                v27.length = CFArrayGetCount(watchedDirs);
-                v27.location = 0;
-                if (!CFArrayContainsValue(v20, v27, v18))
+                v26.length = CFArrayGetCount(watchedDirs);
+                v26.location = 0;
+                if (!CFArrayContainsValue(v20, v26, v18))
                 {
                   CFArrayAppendValue(watchedDirs, v18);
                   goto LABEL_34;
@@ -3085,9 +3025,6 @@ LABEL_31:
       }
     }
   }
-
-LABEL_32:
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)getUncanonicalizedPath:(uint64_t)path
@@ -3115,7 +3052,6 @@ LABEL_32:
 
 id __58__CFPDSource_cacheFileInfoForWriting_euid_egid_didCreate___block_invoke(uint64_t a1, int token)
 {
-  v6 = *MEMORY[0x1E69E9840];
   notify_cancel(token);
   cacheFileInfoForWriting_euid_egid_didCreate__deviceEverUnlocked = 1;
   result = objc_loadWeak((a1 + 32));
@@ -3124,25 +3060,22 @@ id __58__CFPDSource_cacheFileInfoForWriting_euid_egid_didCreate___block_invoke(u
     OUTLINED_FUNCTION_0_24();
     OUTLINED_FUNCTION_3_5();
     OUTLINED_FUNCTION_18();
-    result = [v4 lockedSync:?];
+    return [v4 lockedSync:?];
   }
 
-  v5 = *MEMORY[0x1E69E9840];
   return result;
 }
 
-- (uint64_t)handleDeviceUnlock
+- (void)handleDeviceUnlock
 {
-  v3 = *MEMORY[0x1E69E9840];
   if (result)
   {
     OUTLINED_FUNCTION_0_24();
     OUTLINED_FUNCTION_3_5();
     OUTLINED_FUNCTION_18();
-    result = [v1 lockedSync:?];
+    return [v1 lockedSync:?];
   }
 
-  v2 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -3164,109 +3097,105 @@ id __58__CFPDSource_cacheFileInfoForWriting_euid_egid_didCreate___block_invoke(u
   return result;
 }
 
-- (uint64_t)shouldStayDirtyAfterOpenForWritingFailureWithErrno:(void *)errno
+- (uint64_t)shouldStayDirtyAfterOpenForWritingFailureWithErrno:(uint64_t)errno
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   if (!errno)
   {
-LABEL_7:
-    v6 = 0;
-    goto LABEL_8;
+    return 0;
   }
 
-  v4 = _CFPrefsDaemonLog();
+  v2 = a2;
+  v4 = _CFPrefsDaemonLog(errno, a2);
   v5 = v4;
-  if (a2 != 28)
+  if (v2 != 28)
   {
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v12 = errno[7];
-      strerror(a2);
-      v18 = 136380931;
-      v19 = v12;
+      v9 = *(errno + 56);
+      strerror(v2);
+      v15 = 136380931;
+      v16 = v9;
       OUTLINED_FUNCTION_5_3();
       OUTLINED_FUNCTION_7_1();
-      _os_log_error_impl(v13, v14, v15, v16, v17, 0x16u);
+      _os_log_error_impl(v10, v11, v12, v13, v14, 0x16u);
     }
 
-    goto LABEL_7;
+    return 0;
   }
 
   v6 = 1;
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
-    v8 = errno[5];
-    v7 = errno[6];
     OUTLINED_FUNCTION_1_17();
-    v20 = v9;
-    _os_log_impl(&dword_1830E6000, v5, OS_LOG_TYPE_INFO, "Re-marking { %@, %@ } as dirty because attempt to open temporary path failed with ENOSPC", &v18, 0x16u);
+    v17 = v7;
+    _os_log_impl(&dword_1830E6000, v5, OS_LOG_TYPE_INFO, "Re-marking { %@, %@ } as dirty because attempt to open temporary path failed with ENOSPC", &v15, 0x16u);
   }
 
-LABEL_8:
-  v10 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
 - (void)cleanUpIfNecessaryAfterCreatingPlist
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   if (self)
   {
     os_unfair_lock_assert_owner((self + 108));
-    bzero(&v13, 0x90uLL);
+    bzero(&v16, 0x90uLL);
     v2 = OUTLINED_FUNCTION_15_0();
     if (!v3)
     {
-      if (fstatat(v2, *(self + 64), &v13, 32))
+      if (fstatat(v2, *(self + 64), &v16, 32))
       {
-        if (*__error() != 2)
+        v4 = __error();
+        if (*v4 != 2)
         {
-          v4 = _CFPrefsDaemonLog();
-          if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+          v6 = _CFPrefsDaemonLog(v4, v5);
+          if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
           {
-            v5 = *(self + 56);
-            v6 = __error();
-            strerror(*v6);
-            v11 = 136380931;
-            v12 = v5;
+            v7 = *(self + 56);
+            v8 = __error();
+            strerror(*v8);
+            v14 = 136380931;
+            v15 = v7;
             OUTLINED_FUNCTION_5_3();
-            _os_log_error_impl(&dword_1830E6000, v4, OS_LOG_TYPE_ERROR, "couldn't stat file at %{private}s due to %{public}s", &v11, 0x16u);
+            _os_log_error_impl(&dword_1830E6000, v6, OS_LOG_TYPE_ERROR, "couldn't stat file at %{private}s due to %{public}s", &v14, 0x16u);
           }
         }
       }
 
-      else if (!v13.st_size && (v13.st_mode & 0xF000) == 0x8000 && unlinkat(*(self + 128), *(self + 64), 0) == -1)
+      else if (!v16.st_size && (v16.st_mode & 0xF000) == 0x8000)
       {
-        v7 = _CFPrefsDaemonLog();
-        if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
+        v9 = unlinkat(*(self + 128), *(self + 64), 0);
+        if (v9 == -1)
         {
-          v9 = *(self + 56);
-          v10 = __error();
-          strerror(*v10);
-          v11 = 136380931;
-          v12 = v9;
-          OUTLINED_FUNCTION_5_3();
-          _os_log_fault_impl(&dword_1830E6000, v7, OS_LOG_TYPE_FAULT, "couldn't delete temporary file at %{private}s due to %{public}s", &v11, 0x16u);
+          v11 = _CFPrefsDaemonLog(v9, v10);
+          if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
+          {
+            v12 = *(self + 56);
+            v13 = __error();
+            strerror(*v13);
+            v14 = 136380931;
+            v15 = v12;
+            OUTLINED_FUNCTION_5_3();
+            _os_log_fault_impl(&dword_1830E6000, v11, OS_LOG_TYPE_FAULT, "couldn't delete temporary file at %{private}s due to %{public}s", &v14, 0x16u);
+          }
         }
       }
     }
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
-- (uint64_t)markNeedsToReloadFromDiskDueToFailedWrite
+- (void)markNeedsToReloadFromDiskDueToFailedWrite
 {
-  v3 = *MEMORY[0x1E69E9840];
   if (result)
   {
     OUTLINED_FUNCTION_0_24();
     OUTLINED_FUNCTION_4_3();
     OUTLINED_FUNCTION_18();
-    result = [v1 lockedAsync:?];
+    return [v1 lockedAsync:?];
   }
 
-  v2 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -3281,49 +3210,44 @@ LABEL_8:
 
 - (uint64_t)openPropertyListWithoutDrainingPendingChangesOrValidatingPlistAndReturnFileUID:(mode_t *)d andMode:
 {
-  v12 = *MEMORY[0x1E69E9840];
-  if (self)
+  v11 = *MEMORY[0x1E69E9840];
+  if (!self)
   {
-    os_unfair_lock_lock((self + 104));
-    v6 = OUTLINED_FUNCTION_15_0();
-    if (v7 && ([self cacheFileInfo], v6 = OUTLINED_FUNCTION_15_0(), v7))
-    {
-      v8 = 0xFFFFFFFFLL;
-    }
+    return 0;
+  }
 
-    else
-    {
-      v8 = openat(v6, *(self + 64), 256);
-      if (v8 != -1)
-      {
-        bzero(&v11, 0x90uLL);
-        if (fstat(v8, &v11) || v11.st_size < 0x100000)
-        {
-          close(v8);
-          v8 = 0xFFFFFFFFLL;
-        }
-
-        if (a2)
-        {
-          *a2 = v11.st_uid;
-        }
-
-        if (d)
-        {
-          *d = v11.st_mode;
-        }
-      }
-    }
-
-    os_unfair_lock_unlock((self + 104));
+  os_unfair_lock_lock((self + 104));
+  v6 = OUTLINED_FUNCTION_15_0();
+  if (v7 && ([self cacheFileInfo], v6 = OUTLINED_FUNCTION_15_0(), v7))
+  {
+    v8 = 0xFFFFFFFFLL;
   }
 
   else
   {
-    v8 = 0;
+    v8 = openat(v6, *(self + 64), 256);
+    if (v8 != -1)
+    {
+      bzero(&v10, 0x90uLL);
+      if (fstat(v8, &v10) || v10.st_size < 0x100000)
+      {
+        close(v8);
+        v8 = 0xFFFFFFFFLL;
+      }
+
+      if (a2)
+      {
+        *a2 = v10.st_uid;
+      }
+
+      if (d)
+      {
+        *d = v10.st_mode;
+      }
+    }
   }
 
-  v9 = *MEMORY[0x1E69E9840];
+  os_unfair_lock_unlock((self + 104));
   return v8;
 }
 
@@ -3337,13 +3261,6 @@ LABEL_8:
 
     os_unfair_lock_unlock(v1 + 25);
   }
-}
-
-- (void)observingConnectionWasInvalidated:(id)invalidated
-{
-  v4 = *MEMORY[0x1E69E9840];
-  [CFPDSource observingConnectionsLockedSync:?];
-  v3 = *MEMORY[0x1E69E9840];
 }
 
 - (void)stopNotifyingObserver:(uint64_t)observer
@@ -3367,16 +3284,16 @@ LABEL_8:
 
 - (void)clearCacheForReason:(__CFString *)reason
 {
-  v9[5] = *MEMORY[0x1E69E9840];
-  v5 = _CFPrefsDaemonLog();
+  v8[5] = *MEMORY[0x1E69E9840];
+  v5 = _CFPrefsDaemonLog(self, a2);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     OUTLINED_FUNCTION_0_24();
-    v9[1] = 3221225472;
-    v9[2] = __DEBUG_CACHE_EVICT_block_invoke;
-    v9[3] = &__block_descriptor_40_e29_v64__0i8_12_20_28_36_44_52B60l;
-    v9[4] = reason;
-    _extractCFPDBits(0, 0, self, v9);
+    v8[1] = 3221225472;
+    v8[2] = __DEBUG_CACHE_EVICT_block_invoke;
+    v8[3] = &__block_descriptor_40_e29_v64__0i8_12_20_28_36_44_52B60l;
+    v8[4] = reason;
+    _extractCFPDBits(0, 0, self, v8);
   }
 
   [(CFPDSource *)self setDirty:0];
@@ -3401,21 +3318,19 @@ LABEL_8:
   }
 
   self->_parentFD = -1;
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (uint64_t)validateAccessToken:(int)token accessType:
 {
-  v59 = *MEMORY[0x1E69E9840];
+  v75 = *MEMORY[0x1E69E9840];
   if (!self)
   {
-    v6 = 0;
-    goto LABEL_28;
+    return 0;
   }
 
   if (a2 == -1)
   {
-    goto LABEL_27;
+    return 4;
   }
 
   if (token)
@@ -3431,84 +3346,90 @@ LABEL_8:
   bzero(__s2, 0x400uLL);
   if (a2 < 0)
   {
-    v8 = _CFPrefsDaemonLog();
-    if (OUTLINED_FUNCTION_12_0(v8))
+    v12 = _CFPrefsDaemonLog(v7, v8);
+    if (OUTLINED_FUNCTION_12_0(v12))
     {
       *buf = 67109120;
-      LODWORD(v53) = a2;
+      LODWORD(v69) = a2;
 LABEL_12:
       OUTLINED_FUNCTION_13_0();
-      v14 = 8;
+      v18 = 8;
 LABEL_13:
-      _os_log_impl(v9, v10, v11, v12, v13, v14);
-      goto LABEL_28;
+      _os_log_impl(v13, v14, v15, v16, v17, v18);
+      return v6;
     }
 
-    goto LABEL_28;
+    return v6;
   }
 
-  bzero(&v57, 0x90uLL);
-  if (!fstat(a2, &v57))
+  bzero(&v73, 0x90uLL);
+  v9 = fstat(a2, &v73);
+  if (!v9)
   {
-    if (fcntl(a2, 50, __s2) == -1)
+    v19 = fcntl(a2, 50, __s2);
+    if (v19 == -1)
     {
-      v17 = _CFPrefsDaemonLog();
-      if (!OUTLINED_FUNCTION_12_0(v17))
+      v23 = _CFPrefsDaemonLog(v19, v20);
+      if (!OUTLINED_FUNCTION_12_0(v23))
       {
-        goto LABEL_28;
+        return v6;
       }
 
       goto LABEL_41;
     }
 
-    v15 = *(self + 56);
-    if (v15)
+    v21 = *(self + 56);
+    if (v21)
     {
-      v16 = strdup(v15);
+      v22 = strdup(v21);
     }
 
     else
     {
-      v16 = 0;
+      v22 = 0;
     }
 
     if (*(self + 128) == -1)
     {
-      [self cacheFileInfo];
+      cacheFileInfo = [self cacheFileInfo];
       if (*(self + 128) == -1)
       {
-        v22 = _CFPrefsDaemonLog();
-        if (OUTLINED_FUNCTION_12_0(v22))
+        v31 = _CFPrefsDaemonLog(cacheFileInfo, v25);
+        if (OUTLINED_FUNCTION_12_0(v31))
         {
           *buf = 0;
           OUTLINED_FUNCTION_13_0();
-          _os_log_impl(v23, v24, v25, v26, v27, 2u);
+          _os_log_impl(v32, v33, v34, v35, v36, 2u);
         }
 
-        free(v16);
-        goto LABEL_28;
+        free(v22);
+        return v6;
       }
     }
 
-    if (v16 && strcmp(*(self + 56), v16))
+    if (v22)
     {
-      v18 = _CFPrefsDaemonLog();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
+      v26 = strcmp(*(self + 56), v22);
+      if (v26)
       {
-        v19 = *(self + 56);
-        *buf = 136315394;
-        v53 = v16;
-        v54 = 2080;
-        v55 = v19;
-        _os_log_impl(&dword_1830E6000, v18, OS_LOG_TYPE_INFO, "Failed access token check because _actualPath has changed since the last-known path (%s vs %s)", buf, 0x16u);
-      }
+        v28 = _CFPrefsDaemonLog(v26, v27);
+        if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
+        {
+          v29 = *(self + 56);
+          *buf = 136315394;
+          v69 = v22;
+          v70 = 2080;
+          v71 = v29;
+          _os_log_impl(&dword_1830E6000, v28, OS_LOG_TYPE_INFO, "Failed access token check because _actualPath has changed since the last-known path (%s vs %s)", buf, 0x16u);
+        }
 
-      [self clearCacheForReason:@"observed actual path changed"];
-      free(v16);
-      goto LABEL_27;
+        [self clearCacheForReason:@"observed actual path changed"];
+        free(v22);
+        return 4;
+      }
     }
 
-    free(v16);
+    free(v22);
     if (byte_1EA84A4F9)
     {
       [self setDirty:1];
@@ -3520,162 +3441,187 @@ LABEL_13:
     openActualPath = [(CFPDSource *)self openActualPath];
     if (openActualPath == -1)
     {
-      v37 = _CFPrefsDaemonLog();
-      if (!OUTLINED_FUNCTION_12_0(v37))
+      v48 = _CFPrefsDaemonLog(openActualPath, v38);
+      if (!OUTLINED_FUNCTION_12_0(v48))
       {
-        goto LABEL_28;
+        return v6;
       }
 
       goto LABEL_41;
     }
 
-    v29 = openActualPath;
-    bzero(&v56, 0x90uLL);
-    if (fstat(v29, &v56))
+    v39 = openActualPath;
+    bzero(&v72, 0x90uLL);
+    v40 = fstat(v39, &v72);
+    if (v40)
     {
-      v30 = _CFPrefsDaemonLog();
-      if (!OUTLINED_FUNCTION_12_0(v30))
+      v42 = _CFPrefsDaemonLog(v40, v41);
+      if (!OUTLINED_FUNCTION_12_0(v42))
       {
 LABEL_39:
-        close(v29);
-        goto LABEL_28;
+        close(v39);
+        return v6;
       }
 
-      v31 = *__error();
+      __error();
       OUTLINED_FUNCTION_17_0();
 LABEL_38:
       OUTLINED_FUNCTION_13_0();
-      _os_log_impl(v32, v33, v34, v35, v36, 8u);
+      _os_log_impl(v43, v44, v45, v46, v47, 8u);
       goto LABEL_39;
     }
 
     bzero(buf, 0x400uLL);
-    if (fcntl(v29, 50, buf) == -1)
+    v49 = fcntl(v39, 50, buf);
+    if (v49 == -1)
     {
-      v40 = _CFPrefsDaemonLog();
-      if (!OUTLINED_FUNCTION_12_0(v40))
+      v54 = _CFPrefsDaemonLog(v49, v50);
+      if (!OUTLINED_FUNCTION_12_0(v54))
       {
         goto LABEL_39;
       }
 
-      v41 = *__error();
-      *v48 = 67109120;
-      LODWORD(v49) = v41;
+      v55 = *__error();
+      *v64 = 67109120;
+      LODWORD(v65) = v55;
       goto LABEL_38;
     }
 
-    close(v29);
-    if (strcmp(buf, __s2))
+    close(v39);
+    v51 = strcmp(buf, __s2);
+    if (v51)
     {
-      v39 = _CFPrefsDaemonLog();
-      if (!OUTLINED_FUNCTION_12_0(v39))
+      v53 = _CFPrefsDaemonLog(v51, v52);
+      if (!OUTLINED_FUNCTION_12_0(v53))
       {
-        goto LABEL_28;
+        return v6;
       }
 
-      *v48 = 136315394;
-      v49 = __s2;
-      v50 = 2080;
-      v51 = buf;
+      *v64 = 136315394;
+      v65 = __s2;
+      v66 = 2080;
+      v67 = buf;
       OUTLINED_FUNCTION_13_0();
-      v14 = 22;
+      v18 = 22;
       goto LABEL_13;
     }
 
-    v42 = *(self + 56);
-    if (!v42 || strcmp(buf, v42))
+    v56 = *(self + 56);
+    if (!v56 || (v51 = strcmp(buf, v56), v51))
     {
-      v43 = _CFPrefsDaemonLog();
-      if (os_log_type_enabled(v43, OS_LOG_TYPE_INFO))
+      v57 = _CFPrefsDaemonLog(v51, v56);
+      if (os_log_type_enabled(v57, OS_LOG_TYPE_INFO))
       {
-        v44 = *(self + 56);
-        *v48 = 136315394;
-        v49 = __s2;
-        v50 = 2080;
-        v51 = v44;
-        _os_log_impl(&dword_1830E6000, v43, OS_LOG_TYPE_INFO, "Failed access token check because verification path doesn't match known actual path (%s vs %s)", v48, 0x16u);
+        v58 = *(self + 56);
+        *v64 = 136315394;
+        v65 = __s2;
+        v66 = 2080;
+        v67 = v58;
+        _os_log_impl(&dword_1830E6000, v57, OS_LOG_TYPE_INFO, "Failed access token check because verification path doesn't match known actual path (%s vs %s)", v64, 0x16u);
       }
 
       [self clearCacheForReason:@"observed actual path changed"];
-      goto LABEL_28;
+      return v6;
     }
 
-    if (v56.st_dev == v57.st_dev && v56.st_ino == v57.st_ino)
+    if (v72.st_dev == v73.st_dev && v72.st_ino == v73.st_ino)
     {
-      if (v56.st_nlink)
+      if (v72.st_nlink)
       {
-        if (token != 1 || (fcntl(a2, 3, 0) & 3) == 2)
+        if (token != 1)
         {
-          v6 = 1;
-          goto LABEL_28;
+          return 1;
         }
 
-        v47 = _CFPrefsDaemonLog();
-        if (!OUTLINED_FUNCTION_12_0(v47))
+        v59 = fcntl(a2, 3, 0);
+        if ((v59 & 3) == 2)
         {
-          goto LABEL_28;
+          return 1;
         }
 
-        *v48 = 0;
+        v63 = _CFPrefsDaemonLog(v59, v60);
+        if (!OUTLINED_FUNCTION_12_0(v63))
+        {
+          return v6;
+        }
+
+        *v64 = 0;
         OUTLINED_FUNCTION_13_0();
-        v14 = 2;
+        v18 = 2;
         goto LABEL_13;
       }
 
-      v45 = _CFPrefsDaemonLog();
-      if (os_log_type_enabled(v45, OS_LOG_TYPE_INFO))
+      v61 = _CFPrefsDaemonLog(v51, v56);
+      if (os_log_type_enabled(v61, OS_LOG_TYPE_INFO))
       {
-        *v48 = 0;
-        v46 = "Failed access token check because the file it references has been unlinked";
+        *v64 = 0;
+        v62 = "Failed access token check because the file it references has been unlinked";
         goto LABEL_61;
       }
     }
 
     else
     {
-      v45 = _CFPrefsDaemonLog();
-      if (os_log_type_enabled(v45, OS_LOG_TYPE_INFO))
+      v61 = _CFPrefsDaemonLog(v51, v56);
+      if (os_log_type_enabled(v61, OS_LOG_TYPE_INFO))
       {
-        *v48 = 0;
-        v46 = "Failed access token check because inode of token doesn't match verification inode";
+        *v64 = 0;
+        v62 = "Failed access token check because inode of token doesn't match verification inode";
 LABEL_61:
-        _os_log_impl(&dword_1830E6000, v45, OS_LOG_TYPE_INFO, v46, v48, 2u);
+        _os_log_impl(&dword_1830E6000, v61, OS_LOG_TYPE_INFO, v62, v64, 2u);
       }
     }
 
-LABEL_27:
-    v6 = 4;
-    goto LABEL_28;
+    return 4;
   }
 
-  v7 = _CFPrefsDaemonLog();
-  if (OUTLINED_FUNCTION_12_0(v7))
+  v11 = _CFPrefsDaemonLog(v9, v10);
+  if (OUTLINED_FUNCTION_12_0(v11))
   {
 LABEL_41:
-    v38 = *__error();
+    __error();
     OUTLINED_FUNCTION_17_0();
     goto LABEL_12;
   }
 
-LABEL_28:
-  v20 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
 - (__CFString)_canTrustUserPropertyForPOSIXPermissionCheckForAccessType:(__CFString *)result
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   if (result)
   {
     v2 = result;
     result = result[1].data;
     if (result)
     {
-      result = (!CFStringHasPrefix(result, @"/") && (data = v2[1].data, v11.length = CFStringGetLength(data), v11.location = 0, !CFStringFindWithOptions(data, @"..", v11, 0, 0)) && ((v6 = [(__CFString *)v2 container]) == 0 || CFStringGetFileSystemRepresentation(v6, buffer, 1024) && (getpid(), v7 = *MEMORY[0x1E69E9BD0], !sandbox_check())) && ((v2[4].info & 0x200000000000000) == 0 || a2 != 0));
+      if (CFStringHasPrefix(result, @"/"))
+      {
+        return 0;
+      }
+
+      data = v2[1].data;
+      v9.length = CFStringGetLength(data);
+      v9.location = 0;
+      if (CFStringFindWithOptions(data, @"..", v9, 0, 0))
+      {
+        return 0;
+      }
+
+      container = [(__CFString *)v2 container];
+      if (container && (!CFStringGetFileSystemRepresentation(container, buffer, 1024) || (getpid(), sandbox_check())))
+      {
+        return 0;
+      }
+
+      else
+      {
+        return ((v2[4].info & 0x200000000000000) == 0 || a2 != 0);
+      }
     }
   }
 
-  v5 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -3781,75 +3727,56 @@ const os_unfair_lock *__80__CFPDSource_processEndOfMessageIntendingToRemoveSourc
   return result;
 }
 
-- (void)cacheFileInfoForWriting:(uint64_t)a1 euid:egid:didCreate:.cold.1(uint64_t a1)
-{
-  v8 = *MEMORY[0x1E69E9840];
-  v7 = *(a1 + 48);
-  OUTLINED_FUNCTION_8_1();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
 - (void)cacheFileInfoForWriting:euid:egid:didCreate:.cold.2()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_9_0();
-  v4 = 1024;
-  v5 = v0;
-  _os_log_debug_impl(&dword_1830E6000, v1, OS_LOG_TYPE_DEBUG, "Couldn't open parent path %{private}s due to %{darwin.errno}d", v3, 0x12u);
-  v2 = *MEMORY[0x1E69E9840];
+  v3 = 1024;
+  v4 = v0;
+  _os_log_debug_impl(&dword_1830E6000, v1, OS_LOG_TYPE_DEBUG, "Couldn't open parent path %{private}s due to %{darwin.errno}d", v2, 0x12u);
 }
 
 - (void)cacheFileInfoForWriting:euid:egid:didCreate:.cold.3()
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v6 = *__error();
+  __error();
   OUTLINED_FUNCTION_7_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)cacheFileInfoForWriting:euid:egid:didCreate:.cold.4()
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v6 = *__error();
+  __error();
   OUTLINED_FUNCTION_7_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)cacheFileInfoForWriting:euid:egid:didCreate:.cold.5()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_9_0();
   OUTLINED_FUNCTION_8_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)cacheFileInfoForWriting:euid:egid:didCreate:.cold.6()
 {
   OUTLINED_FUNCTION_14_0();
-  v7 = *MEMORY[0x1E69E9840];
   v0 = __error();
   strerror(*v0);
   OUTLINED_FUNCTION_5_3();
   OUTLINED_FUNCTION_7_1();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)cacheFileInfoForWriting:(os_log_t)log euid:egid:didCreate:.cold.7(os_log_t log)
 {
-  v3 = *MEMORY[0x1E69E9840];
-  *v2 = 0;
-  _os_log_debug_impl(&dword_1830E6000, log, OS_LOG_TYPE_DEBUG, "Simulating ENOSPC in cacheFileInfo for testing", v2, 2u);
-  v1 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
+  *v1 = 0;
+  _os_log_debug_impl(&dword_1830E6000, log, OS_LOG_TYPE_DEBUG, "Simulating ENOSPC in cacheFileInfo for testing", v1, 2u);
 }
 
 - (uint64_t)setDirty:(uint64_t)a1 .cold.1(uint64_t a1)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v2 = +[_CFPrefsSynchronizer sharedInstance];
   [_CFPrefsSynchronizer noteDirtySource:v2];
   memcpy(__dst, "CFPrefs domain dirty: ", sizeof(__dst));
@@ -3860,7 +3787,6 @@ const os_unfair_lock *__80__CFPDSource_processEndOfMessageIntendingToRemoveSourc
 
   result = os_transaction_create();
   *(a1 + 80) = result;
-  v4 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -3873,88 +3799,59 @@ const os_unfair_lock *__80__CFPDSource_processEndOfMessageIntendingToRemoveSourc
   os_unfair_lock_unlock(v0);
 }
 
-uint64_t __29__CFPDSource_createDiskWrite__block_invoke_cold_1(uint64_t a1)
+void *__29__CFPDSource_createDiskWrite__block_invoke_cold_1(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
   result = *(a1 + 40);
   if (result)
   {
     OUTLINED_FUNCTION_0_24();
     OUTLINED_FUNCTION_4_3();
     OUTLINED_FUNCTION_18();
-    result = [v2 lockedAsync:?];
+    return [v2 lockedAsync:?];
   }
 
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
-- (void)copyPropertyListWithoutDrainingPendingChangesValidatingPlist:(uint64_t)a1 andReturnFileUID:andMode:.cold.1(uint64_t a1)
+- (void)copyPropertyListWithoutDrainingPendingChangesValidatingPlist:andReturnFileUID:andMode:.cold.1()
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v2 = *(a1 + 40);
-  v1 = *(a1 + 48);
   OUTLINED_FUNCTION_1_17();
   OUTLINED_FUNCTION_8_1();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
-  v8 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-- (void)copyPropertyListWithoutDrainingPendingChangesValidatingPlist:(uint64_t)a1 andReturnFileUID:andMode:.cold.2(uint64_t a1)
+- (void)copyPropertyListWithoutDrainingPendingChangesValidatingPlist:andReturnFileUID:andMode:.cold.2()
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v2 = *(a1 + 40);
-  v1 = *(a1 + 48);
   OUTLINED_FUNCTION_1_17();
   OUTLINED_FUNCTION_8_1();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
-  v8 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void __100__CFPDSource_copyPropertyListWithoutDrainingPendingChangesValidatingPlist_andReturnFileUID_andMode___block_invoke_cold_1(uint64_t a1)
+void __100__CFPDSource_copyPropertyListWithoutDrainingPendingChangesValidatingPlist_andReturnFileUID_andMode___block_invoke_cold_1()
 {
-  OUTLINED_FUNCTION_6_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_6_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_2_7();
   OUTLINED_FUNCTION_8_1();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void __100__CFPDSource_copyPropertyListWithoutDrainingPendingChangesValidatingPlist_andReturnFileUID_andMode___block_invoke_70_cold_1(uint64_t a1)
+void __100__CFPDSource_copyPropertyListWithoutDrainingPendingChangesValidatingPlist_andReturnFileUID_andMode___block_invoke_70_cold_1()
 {
-  OUTLINED_FUNCTION_6_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_6_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_2_7();
   OUTLINED_FUNCTION_8_1();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void __33__CFPDSource_drainPendingChanges__block_invoke_cold_1(uint64_t a1)
+void __33__CFPDSource_drainPendingChanges__block_invoke_cold_1()
 {
-  OUTLINED_FUNCTION_6_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_6_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_2_7();
   OUTLINED_FUNCTION_8_1();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-- (void)validateSandboxForRead:containerPath:.cold.1()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_9_0();
-  OUTLINED_FUNCTION_10_0(&dword_1830E6000, v0, v1, "Initial attempt to validate sandbox access of message %{private}s in container %{private}s due to no plist path, but we recovered successfully by recalculating the path.");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-- (void)validateSandboxForRead:containerPath:.cold.5()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_9_0();
-  OUTLINED_FUNCTION_10_0(&dword_1830E6000, v0, v1, "unable to validate sandbox access of message %{private}s in container %{private}s due to no plist path, conservatively assuming not allowed.");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-- (uint64_t)validatePOSIXPermissionsForMessage:(uid_t)a3 accessType:(_BYTE *)a4 fileUID:mode:fullyValidated:.cold.1(uint64_t a1, int a2, uid_t a3, _BYTE *a4)
+- (uint64_t)validatePOSIXPermissionsForMessage:(uint64_t)a3 accessType:(_BYTE *)a4 fileUID:mode:fullyValidated:.cold.1(uint64_t a1, int a2, uint64_t a3, _BYTE *a4)
 {
   if (![(CFPDSource *)a1 _canTrustUserPropertyForPOSIXPermissionCheckForAccessType:a2])
   {
@@ -3985,33 +3882,29 @@ void __33__CFPDSource_drainPendingChanges__block_invoke_cold_1(uint64_t a1)
 
 - (void)acceptMessage:.cold.2()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_9_0();
-  _os_log_fault_impl(&dword_1830E6000, v0, OS_LOG_TYPE_FAULT, "unable to find user information for requested user %s", v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_fault_impl(&dword_1830E6000, v0, OS_LOG_TYPE_FAULT, "unable to find user information for requested user %s", v1, 0xCu);
 }
 
 - (void)acceptMessage:.cold.4()
 {
   OUTLINED_FUNCTION_11_0();
-  v4 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
   populateErrorReply("Directory needed", v0, 4u);
   bzero(string, 0x402uLL);
   if ([CFPDSource getUncanonicalizedPath:v1])
   {
     xpc_dictionary_set_string(v0, "CFPreferencesUncanonicalizedPath", string);
   }
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
-void __28__CFPDSource_acceptMessage___block_invoke_2_cold_1(uint64_t a1)
+void __28__CFPDSource_acceptMessage___block_invoke_2_cold_1()
 {
-  OUTLINED_FUNCTION_6_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_6_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_2_7();
   OUTLINED_FUNCTION_8_1();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 - (void)processEndOfMessageIntendingToRemoveSource:(uint64_t)a3 replacingWithTombstone:(_BYTE *)a4 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)

@@ -21,21 +21,19 @@
 
 void __39__HMDHomeMediaSettingsModel_properties__block_invoke()
 {
-  v7[3] = *MEMORY[0x277D85DE8];
-  v6[0] = @"minimumMediaUserPrivilege";
+  v6[3] = *MEMORY[0x277D85DE8];
+  v5[0] = @"minimumMediaUserPrivilege";
   v0 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v7[0] = v0;
-  v6[1] = @"mediaPeerToPeerEnabled";
+  v6[0] = v0;
+  v5[1] = @"mediaPeerToPeerEnabled";
   v1 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v7[1] = v1;
-  v6[2] = @"mediaPassword";
+  v6[1] = v1;
+  v5[2] = @"mediaPassword";
   v2 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v7[2] = v2;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:v6 count:3];
+  v6[2] = v2;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:v5 count:3];
   v4 = properties__properties_267;
   properties__properties_267 = v3;
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 + (id)defaultModelForHomeUUID:(id)d

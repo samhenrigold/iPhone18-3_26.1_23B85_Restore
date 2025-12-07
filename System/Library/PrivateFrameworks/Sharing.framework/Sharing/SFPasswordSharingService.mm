@@ -8,6 +8,7 @@
 - (id)messageForDisplayName:(id)name deviceName:(id)deviceName info:(id)info;
 - (int)_runServiceStart;
 - (uint64_t)_sendPasswordReceived;
+- (void)__testReceivedObject:(id)object withFlags:(unsigned int)flags;
 - (void)_cleanup;
 - (void)_handleReceivedPassword:(id)password;
 - (void)_handleSessionStarted:(id)started;
@@ -16,6 +17,7 @@
 - (void)_promptUserWithInfo:(id)info message:(id)message;
 - (void)_receivedObject:(id)object flags:(unsigned int)flags;
 - (void)_run;
+- (void)_sendPasswordDeclinedWithError:(int)error;
 - (void)_sendPasswordReceived;
 - (void)activate;
 - (void)dealloc;
@@ -54,7 +56,7 @@
   {
     if (gLogCategory_SFPasswordSharingService <= 60 && (gLogCategory_SFPasswordSharingService != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&gLogCategory_SFPasswordSharingService, "+[SFPasswordSharingService passwordSharingAvailability]", 60, "Availability check timed out\n");
     }
 
     v7 = 1;
@@ -80,7 +82,7 @@ void __55__SFPasswordSharingService_passwordSharingAvailability__block_invoke(ui
   v6 = v5;
   if (v5 && gLogCategory_SFPasswordSharingService <= 60 && (gLogCategory_SFPasswordSharingService != -1 || _LogCategory_Initialize()))
   {
-    __55__SFPasswordSharingService_passwordSharingAvailability__block_invoke_cold_1();
+    __55__SFPasswordSharingService_passwordSharingAvailability__block_invoke_cold_1(v6);
   }
 
   dispatch_semaphore_signal(*(a1 + 32));
@@ -88,27 +90,26 @@ void __55__SFPasswordSharingService_passwordSharingAvailability__block_invoke(ui
 
 - (SFPasswordSharingService)init
 {
-  v7.receiver = self;
-  v7.super_class = SFPasswordSharingService;
-  v2 = [(SFPasswordSharingService *)&v7 init];
-  v3 = v2;
+  v6.receiver = self;
+  v6.super_class = SFPasswordSharingService;
+  v2 = [(SFPasswordSharingService *)&v6 init];
   if (v2)
   {
-    v4 = SFMainQueue(v2);
-    dispatchQueue = v3->_dispatchQueue;
-    v3->_dispatchQueue = v4;
+    v3 = SFMainQueue();
+    dispatchQueue = v2->_dispatchQueue;
+    v2->_dispatchQueue = v3;
 
-    v3->_shareTime = -1.0;
+    v2->_shareTime = -1.0;
   }
 
-  return v3;
+  return v2;
 }
 
 - (void)dealloc
 {
   if (self->_activateCalled && !self->_invalidateCalled)
   {
-    v3 = [SFRemoteAutoFillService dealloc];
+    [SFRemoteAutoFillService dealloc];
     [(SFPasswordSharingService *)v3 _cleanup];
   }
 
@@ -188,29 +189,29 @@ uint64_t __36__SFPasswordSharingService_activate__block_invoke(uint64_t a1)
 
 uint64_t __38__SFPasswordSharingService_invalidate__block_invoke(uint64_t a1)
 {
-  v19[4] = *MEMORY[0x1E69E9840];
+  v18[4] = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
   v3 = (*(v2 + 64) * 1000.0);
-  v18[0] = @"_cat";
-  v18[1] = @"_op";
-  v19[0] = @"PasswordSharing";
-  v19[1] = @"ServiceInvalidate";
-  v18[2] = @"serviceState";
+  v17[0] = @"_cat";
+  v17[1] = @"_op";
+  v18[0] = @"PasswordSharing";
+  v18[1] = @"ServiceInvalidate";
+  v17[2] = @"serviceState";
   v4 = [MEMORY[0x1E696AD98] numberWithInt:*(v2 + 48)];
-  v19[2] = v4;
-  v18[3] = @"durationMS";
+  v18[2] = v4;
+  v17[3] = @"durationMS";
   v5 = [MEMORY[0x1E696AD98] numberWithInteger:v3];
-  v19[3] = v5;
-  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:v18 count:4];
+  v18[3] = v5;
+  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:v17 count:4];
   SFDashboardLogJSON(v6);
 
-  v16[0] = @"serviceState";
+  v15[0] = @"serviceState";
   v7 = [MEMORY[0x1E696AD98] numberWithInt:*(*(a1 + 32) + 48)];
-  v16[1] = @"durationMS";
-  v17[0] = v7;
+  v15[1] = @"durationMS";
+  v16[0] = v7;
   v8 = [MEMORY[0x1E696AD98] numberWithInteger:v3];
-  v17[1] = v8;
-  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:v16 count:2];
+  v16[1] = v8;
+  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:v15 count:2];
   SFMetricsLog(@"com.apple.sharing.PasswordSharingServiceInvalidate", v9);
 
   if ((*(*(a1 + 32) + 9) & 1) == 0 && gLogCategory_SFPasswordSharingService <= 30 && (gLogCategory_SFPasswordSharingService != -1 || _LogCategory_Initialize()))
@@ -229,26 +230,27 @@ uint64_t __38__SFPasswordSharingService_invalidate__block_invoke(uint64_t a1)
   v13 = *(v12 + 40);
   *(v12 + 40) = 0;
 
-  result = [*(a1 + 32) _cleanup];
-  v15 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*(a1 + 32) _cleanup];
 }
 
 - (int)_runServiceStart
 {
-  result = self->_serviceState;
-  if (!result)
+  serviceState = self->_serviceState;
+  if (!serviceState)
   {
-    if (gLogCategory_SFPasswordSharingService <= 30 && (gLogCategory_SFPasswordSharingService != -1 || _LogCategory_Initialize()))
+    if (gLogCategory_SFPasswordSharingService <= 30)
     {
-      [SFPasswordSharingService _runServiceStart];
+      if (gLogCategory_SFPasswordSharingService != -1 || (serviceState = _LogCategory_Initialize(), serviceState))
+      {
+        [(SFPasswordSharingService *)serviceState _runServiceStart];
+      }
     }
 
     self->_serviceState = 1;
     [(SFService *)self->_service invalidate];
-    v4 = objc_alloc_init(SFService);
+    v5 = objc_alloc_init(SFService);
     service = self->_service;
-    self->_service = v4;
+    self->_service = v5;
 
     [(SFService *)self->_service setAdvertiseRate:50];
     [(SFService *)self->_service setDeviceActionType:8];
@@ -262,58 +264,58 @@ uint64_t __38__SFPasswordSharingService_invalidate__block_invoke(uint64_t a1)
     [(SFService *)self->_service setInterruptionHandler:&__block_literal_global_60];
     [(SFService *)self->_service setInvalidationHandler:&__block_literal_global_176_0];
     [(SFService *)self->_service setPeerDisconnectedHandler:&__block_literal_global_180];
+    v14[0] = MEMORY[0x1E69E9820];
+    v14[1] = 3221225472;
+    v14[2] = __44__SFPasswordSharingService__runServiceStart__block_invoke_4;
+    v14[3] = &unk_1E788FAA0;
+    v14[4] = self;
+    [(SFService *)self->_service setReceivedObjectHandler:v14];
+    v13[0] = MEMORY[0x1E69E9820];
+    v13[1] = 3221225472;
+    v13[2] = __44__SFPasswordSharingService__runServiceStart__block_invoke_5;
+    v13[3] = &unk_1E788CA68;
+    v13[4] = self;
+    [(SFService *)self->_service setSessionStartedHandler:v13];
     v12[0] = MEMORY[0x1E69E9820];
     v12[1] = 3221225472;
-    v12[2] = __44__SFPasswordSharingService__runServiceStart__block_invoke_4;
-    v12[3] = &unk_1E788FAA0;
+    v12[2] = __44__SFPasswordSharingService__runServiceStart__block_invoke_6;
+    v12[3] = &unk_1E788CA90;
     v12[4] = self;
-    [(SFService *)self->_service setReceivedObjectHandler:v12];
+    [(SFService *)self->_service setSessionEndedHandler:v12];
     v11[0] = MEMORY[0x1E69E9820];
     v11[1] = 3221225472;
-    v11[2] = __44__SFPasswordSharingService__runServiceStart__block_invoke_5;
+    v11[2] = __44__SFPasswordSharingService__runServiceStart__block_invoke_7;
     v11[3] = &unk_1E788CA68;
     v11[4] = self;
-    [(SFService *)self->_service setSessionStartedHandler:v11];
+    [(SFService *)self->_service setSessionSecuredHandler:v11];
+    v7 = self->_service;
     v10[0] = MEMORY[0x1E69E9820];
     v10[1] = 3221225472;
-    v10[2] = __44__SFPasswordSharingService__runServiceStart__block_invoke_6;
-    v10[3] = &unk_1E788CA90;
+    v10[2] = __44__SFPasswordSharingService__runServiceStart__block_invoke_8;
+    v10[3] = &unk_1E788B238;
     v10[4] = self;
-    [(SFService *)self->_service setSessionEndedHandler:v10];
-    v9[0] = MEMORY[0x1E69E9820];
-    v9[1] = 3221225472;
-    v9[2] = __44__SFPasswordSharingService__runServiceStart__block_invoke_7;
-    v9[3] = &unk_1E788CA68;
-    v9[4] = self;
-    [(SFService *)self->_service setSessionSecuredHandler:v9];
-    v6 = self->_service;
-    v8[0] = MEMORY[0x1E69E9820];
-    v8[1] = 3221225472;
-    v8[2] = __44__SFPasswordSharingService__runServiceStart__block_invoke_8;
-    v8[3] = &unk_1E788B238;
-    v8[4] = self;
-    [(SFService *)v6 activateWithCompletion:v8];
-    result = self->_serviceState;
+    [(SFService *)v7 activateWithCompletion:v10];
+    LODWORD(serviceState) = self->_serviceState;
   }
 
-  if (result == 4)
+  if (serviceState == 4)
   {
-    return 4;
+    LODWORD(serviceState) = 4;
   }
 
-  if (gLogCategory_SFPasswordSharingService <= 30)
+  else if (gLogCategory_SFPasswordSharingService <= 30)
   {
-    if (gLogCategory_SFPasswordSharingService != -1 || (v7 = _LogCategory_Initialize(), result = self->_serviceState, v7))
+    if (gLogCategory_SFPasswordSharingService != -1 || (v8 = _LogCategory_Initialize(), LODWORD(serviceState) = self->_serviceState, v8))
     {
-      LogPrintF();
-      return self->_serviceState;
+      LogPrintF(&gLogCategory_SFPasswordSharingService, "[SFPasswordSharingService _runServiceStart]", 30, "SFService hasn't succeeded yet (%d)", serviceState);
+      LODWORD(serviceState) = self->_serviceState;
     }
   }
 
-  return result;
+  return serviceState;
 }
 
-void __44__SFPasswordSharingService__runServiceStart__block_invoke()
+void __44__SFPasswordSharingService__runServiceStart__block_invoke(uint64_t result, uint64_t a2)
 {
   if (gLogCategory_SFPasswordSharingService <= 50 && (gLogCategory_SFPasswordSharingService != -1 || _LogCategory_Initialize()))
   {
@@ -321,12 +323,23 @@ void __44__SFPasswordSharingService__runServiceStart__block_invoke()
   }
 }
 
-void __44__SFPasswordSharingService__runServiceStart__block_invoke_2()
+uint64_t __44__SFPasswordSharingService__runServiceStart__block_invoke_2(uint64_t result, uint64_t a2, uint64_t a3)
 {
-  if (gLogCategory_SFPasswordSharingService <= 30 && (gLogCategory_SFPasswordSharingService != -1 || _LogCategory_Initialize()))
+  if (gLogCategory_SFPasswordSharingService <= 30)
   {
-    __44__SFPasswordSharingService__runServiceStart__block_invoke_2_cold_1();
+    if (gLogCategory_SFPasswordSharingService != -1)
+    {
+      return __44__SFPasswordSharingService__runServiceStart__block_invoke_2_cold_1(result, a2, a3);
+    }
+
+    result = _LogCategory_Initialize();
+    if (result)
+    {
+      return __44__SFPasswordSharingService__runServiceStart__block_invoke_2_cold_1(result, a2, a3);
+    }
   }
+
+  return result;
 }
 
 void __44__SFPasswordSharingService__runServiceStart__block_invoke_3(uint64_t a1, void *a2, void *a3)
@@ -335,7 +348,7 @@ void __44__SFPasswordSharingService__runServiceStart__block_invoke_3(uint64_t a1
   v4 = a3;
   if (gLogCategory_SFPasswordSharingService <= 50 && (gLogCategory_SFPasswordSharingService != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_SFPasswordSharingService, "[SFPasswordSharingService _runServiceStart]_block_invoke_3", 50, "Peer disconnected %@: %{error}\n", v5, v4);
   }
 }
 
@@ -345,7 +358,7 @@ void __44__SFPasswordSharingService__runServiceStart__block_invoke_6(uint64_t a1
   v5 = a3;
   if (gLogCategory_SFPasswordSharingService <= 30 && (gLogCategory_SFPasswordSharingService != -1 || _LogCategory_Initialize()))
   {
-    __44__SFPasswordSharingService__runServiceStart__block_invoke_6_cold_1(v10);
+    __44__SFPasswordSharingService__runServiceStart__block_invoke_6_cold_1(v10, v5);
   }
 
   v6 = *(*(a1 + 32) + 24);
@@ -389,13 +402,16 @@ void __44__SFPasswordSharingService__runServiceStart__block_invoke_7(uint64_t a1
 void __44__SFPasswordSharingService__runServiceStart__block_invoke_8(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = v3;
+  v5 = v3;
   if (!v3)
   {
-    v6 = 0;
-    if (gLogCategory_SFPasswordSharingService <= 30 && (gLogCategory_SFPasswordSharingService != -1 || _LogCategory_Initialize()))
+    v7 = 0;
+    if (gLogCategory_SFPasswordSharingService <= 30)
     {
-      __44__SFPasswordSharingService__runServiceStart__block_invoke_8_cold_2();
+      if (gLogCategory_SFPasswordSharingService != -1 || (v3 = _LogCategory_Initialize(), v3))
+      {
+        __44__SFPasswordSharingService__runServiceStart__block_invoke_8_cold_2(v3, v5, v4);
+      }
     }
 
     *(*(a1 + 32) + 48) = 4;
@@ -405,19 +421,19 @@ void __44__SFPasswordSharingService__runServiceStart__block_invoke_8(uint64_t a1
 
   if (gLogCategory_SFPasswordSharingService <= 90)
   {
-    v6 = v3;
-    if (gLogCategory_SFPasswordSharingService != -1 || (v5 = _LogCategory_Initialize(), v4 = v6, v5))
+    v7 = v3;
+    if (gLogCategory_SFPasswordSharingService != -1 || (v6 = _LogCategory_Initialize(), v5 = v7, v6))
     {
-      __44__SFPasswordSharingService__runServiceStart__block_invoke_8_cold_1();
+      __44__SFPasswordSharingService__runServiceStart__block_invoke_8_cold_1(v5);
 LABEL_10:
-      v4 = v6;
+      v5 = v7;
     }
   }
 }
 
 - (void)_handleReceivedPassword:(id)password
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   passwordCopy = password;
   if (gLogCategory_SFPasswordSharingService <= 50 && (gLogCategory_SFPasswordSharingService != -1 || _LogCategory_Initialize()))
   {
@@ -457,8 +473,6 @@ LABEL_10:
 
     [(SFPasswordSharingService *)self _sendPasswordDeclinedWithError:4294960554];
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_handleSessionStarted:(id)started
@@ -517,7 +531,7 @@ LABEL_10:
 
   else if (gLogCategory_SFPasswordSharingService <= 60 && (gLogCategory_SFPasswordSharingService != -1 || _LogCategory_Initialize()))
   {
-    [SFPasswordSharingService _receivedObject:Int64Ranged flags:?];
+    [(SFPasswordSharingService *)Int64Ranged _receivedObject:Int64Ranged flags:?];
   }
 }
 
@@ -525,7 +539,45 @@ LABEL_10:
 {
   if (gLogCategory_SFPasswordSharingService <= 60 && (gLogCategory_SFPasswordSharingService != -1 || _LogCategory_Initialize()))
   {
-    OUTLINED_FUNCTION_1_16();
+    OUTLINED_FUNCTION_1_16(&gLogCategory_SFPasswordSharingService, "[SFPasswordSharingService _sendPasswordReceived]", a3, "### Trying to send message without service?\n");
+  }
+}
+
+- (void)_sendPasswordDeclinedWithError:(int)error
+{
+  v10[3] = *MEMORY[0x1E69E9840];
+  if (self->_service)
+  {
+    if (self->_peer)
+    {
+      v4 = *&error;
+      if (gLogCategory_SFPasswordSharingService <= 30 && (gLogCategory_SFPasswordSharingService != -1 || _LogCategory_Initialize()))
+      {
+        [SFPasswordSharingService _sendPasswordDeclinedWithError:v4];
+      }
+
+      service = self->_service;
+      peer = self->_peer;
+      v10[0] = MEMORY[0x1E695E110];
+      v9[0] = @"re";
+      v9[1] = @"er";
+      v7 = [MEMORY[0x1E696AD98] numberWithInt:v4];
+      v9[2] = @"op";
+      v10[1] = v7;
+      v10[2] = &unk_1F1D7D060;
+      v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:v9 count:3];
+      [(SFService *)service sendToPeer:peer flags:1 object:v8];
+    }
+
+    else
+    {
+      [gLogCategory_SFPasswordSharingService _sendPasswordDeclinedWithError:a2, *&error];
+    }
+  }
+
+  else
+  {
+    [(SFPasswordSharingService *)self _sendPasswordDeclinedWithError:a2, *&error];
   }
 }
 
@@ -533,14 +585,18 @@ LABEL_10:
 {
   delegateCopy = delegate;
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
+  v7 = WeakRetained;
   if (WeakRetained)
   {
-    if (gLogCategory_SFPasswordSharingService <= 30 && (gLogCategory_SFPasswordSharingService != -1 || _LogCategory_Initialize()))
+    if (gLogCategory_SFPasswordSharingService <= 30)
     {
-      [SFPasswordSharingService _passInfoToDelegate:];
+      if (gLogCategory_SFPasswordSharingService != -1 || (WeakRetained = _LogCategory_Initialize(), WeakRetained))
+      {
+        [(SFPasswordSharingService *)WeakRetained _passInfoToDelegate:v5, v6];
+      }
     }
 
-    [WeakRetained service:self receivedNetworkInfo:delegateCopy];
+    [v7 service:self receivedNetworkInfo:delegateCopy];
   }
 }
 
@@ -548,62 +604,72 @@ LABEL_10:
 {
   infoCopy = info;
   messageCopy = message;
-  v8 = SFIsGreenTeaDevice();
-  v9 = @"PASSWORD_ACCEPT_PROMPT_TITLE";
-  if (v8)
+  v9 = SFIsGreenTeaDevice(messageCopy, v8);
+  v10 = @"PASSWORD_ACCEPT_PROMPT_TITLE";
+  if (v9)
   {
-    v9 = @"PASSWORD_ACCEPT_PROMPT_TITLE_WLAN";
+    v10 = @"PASSWORD_ACCEPT_PROMPT_TITLE_WLAN";
   }
 
-  v10 = v9;
-  if (gLogCategory_SFPasswordSharingService <= 30 && (gLogCategory_SFPasswordSharingService != -1 || _LogCategory_Initialize()))
+  v11 = v10;
+  v14 = v11;
+  if (gLogCategory_SFPasswordSharingService <= 30)
   {
-    [SFPasswordSharingService _promptUserWithInfo:message:];
+    if (gLogCategory_SFPasswordSharingService != -1 || (v11 = _LogCategory_Initialize(), v11))
+    {
+      [(SFPasswordSharingService *)v11 _promptUserWithInfo:v12 message:v13];
+    }
   }
 
   [(SFUserAlert *)self->_notification invalidate];
-  v11 = objc_alloc_init(SFUserAlert);
+  v15 = objc_alloc_init(SFUserAlert);
   notification = self->_notification;
-  self->_notification = v11;
+  self->_notification = v15;
 
-  v13 = SFLocalizedStringForKey(@"PASSWORD_ACCEPT_PROMPT_OTHER_BUTTON");
-  [(SFUserAlert *)self->_notification setAlternateButtonTitle:v13];
+  v17 = SFLocalizedStringForKey(@"PASSWORD_ACCEPT_PROMPT_OTHER_BUTTON");
+  [(SFUserAlert *)self->_notification setAlternateButtonTitle:v17];
 
-  v14 = SFLocalizedStringForKey(@"PASSWORD_ACCEPT_PROMPT_DEFAULT_BUTTON");
-  [(SFUserAlert *)self->_notification setDefaultButtonTitle:v14];
+  v18 = SFLocalizedStringForKey(@"PASSWORD_ACCEPT_PROMPT_DEFAULT_BUTTON");
+  [(SFUserAlert *)self->_notification setDefaultButtonTitle:v18];
 
   [(SFUserAlert *)self->_notification setDispatchQueue:self->_dispatchQueue];
   [(SFUserAlert *)self->_notification setMessage:messageCopy];
 
-  v15 = SFLocalizedStringForKey(v10);
-  [(SFUserAlert *)self->_notification setTitle:v15];
+  v19 = SFLocalizedStringForKey(v14);
+  [(SFUserAlert *)self->_notification setTitle:v19];
 
-  v18[0] = MEMORY[0x1E69E9820];
-  v18[1] = 3221225472;
-  v18[2] = __56__SFPasswordSharingService__promptUserWithInfo_message___block_invoke;
-  v18[3] = &unk_1E788CB60;
-  v18[4] = self;
-  [(SFUserAlert *)self->_notification setResponseHandler:v18];
+  v22[0] = MEMORY[0x1E69E9820];
+  v22[1] = 3221225472;
+  v22[2] = __56__SFPasswordSharingService__promptUserWithInfo_message___block_invoke;
+  v22[3] = &unk_1E788CB60;
+  v22[4] = self;
+  [(SFUserAlert *)self->_notification setResponseHandler:v22];
   promptedInfo = self->_promptedInfo;
   self->_promptedInfo = infoCopy;
-  v17 = infoCopy;
+  v21 = infoCopy;
 
   [(SFUserAlert *)self->_notification present];
 }
 
 - (BOOL)disabledViaConfig
 {
-  if (gLogCategory_SFPasswordSharingService <= 30 && (gLogCategory_SFPasswordSharingService != -1 || _LogCategory_Initialize()))
+  if (gLogCategory_SFPasswordSharingService <= 30)
   {
-    [SFPasswordSharingService disabledViaConfig];
+    if (gLogCategory_SFPasswordSharingService != -1 || (self = _LogCategory_Initialize(), self))
+    {
+      [(SFPasswordSharingService *)self disabledViaConfig];
+    }
   }
 
   mEMORY[0x1E69ADFB8] = [MEMORY[0x1E69ADFB8] sharedConnection];
   isPasswordProximityAutoFillRequestingAllowed = [mEMORY[0x1E69ADFB8] isPasswordProximityAutoFillRequestingAllowed];
 
-  if ((isPasswordProximityAutoFillRequestingAllowed & 1) == 0 && gLogCategory_SFPasswordSharingService <= 30 && (gLogCategory_SFPasswordSharingService != -1 || _LogCategory_Initialize()))
+  if ((isPasswordProximityAutoFillRequestingAllowed & 1) == 0 && gLogCategory_SFPasswordSharingService <= 30)
   {
-    [SFPasswordSharingService disabledViaConfig];
+    if (gLogCategory_SFPasswordSharingService != -1 || (v5 = _LogCategory_Initialize(), v5))
+    {
+      [(SFPasswordSharingService *)v5 disabledViaConfig];
+    }
   }
 
   return isPasswordProximityAutoFillRequestingAllowed ^ 1;
@@ -614,85 +680,110 @@ LABEL_10:
   nameCopy = name;
   deviceNameCopy = deviceName;
   infoCopy = info;
+  v11 = infoCopy;
   if (nameCopy)
   {
-    if (SFIsGreenTeaDevice())
+    if (SFIsGreenTeaDevice(infoCopy, v10))
     {
-      v10 = @"PASSWORD_ACCEPT_PROMPT_MESSAGE_WLAN";
+      v12 = @"PASSWORD_ACCEPT_PROMPT_MESSAGE_WLAN";
     }
 
     else
     {
-      v10 = @"PASSWORD_ACCEPT_PROMPT_MESSAGE";
+      v12 = @"PASSWORD_ACCEPT_PROMPT_MESSAGE";
     }
 
-    v11 = MEMORY[0x1E696AEC0];
-    v12 = SFLocalizedStringForKey(v10);
-    networkName = [infoCopy networkName];
-    [v11 stringWithFormat:v12, nameCopy, networkName];
+    v13 = MEMORY[0x1E696AEC0];
+    v14 = SFLocalizedStringForKey(v12);
+    networkName = [v11 networkName];
+    [v13 stringWithFormat:v14, nameCopy, networkName];
   }
 
   else
   {
-    v14 = SFIsGreenTeaDevice();
-    v15 = MEMORY[0x1E696AEC0];
+    v16 = SFIsGreenTeaDevice(infoCopy, v10);
+    v17 = MEMORY[0x1E696AEC0];
     if (deviceNameCopy)
     {
-      if (v14)
+      if (v16)
       {
-        v16 = @"PASSWORD_ACCEPT_PROMPT_MESSAGE_DEVICE_WLAN";
+        v18 = @"PASSWORD_ACCEPT_PROMPT_MESSAGE_DEVICE_WLAN";
       }
 
       else
       {
-        v16 = @"PASSWORD_ACCEPT_PROMPT_MESSAGE_DEVICE";
+        v18 = @"PASSWORD_ACCEPT_PROMPT_MESSAGE_DEVICE";
       }
 
-      v12 = SFLocalizedStringForKey(v16);
-      networkName = [infoCopy networkName];
-      [v15 stringWithFormat:v12, deviceNameCopy, networkName];
+      v14 = SFLocalizedStringForKey(v18);
+      networkName = [v11 networkName];
+      [v17 stringWithFormat:v14, deviceNameCopy, networkName];
     }
 
     else
     {
-      if (v14)
+      if (v16)
       {
-        v17 = @"PASSWORD_ACCEPT_PROMPT_MESSAGE_GENERIC_WLAN";
+        v19 = @"PASSWORD_ACCEPT_PROMPT_MESSAGE_GENERIC_WLAN";
       }
 
       else
       {
-        v17 = @"PASSWORD_ACCEPT_PROMPT_MESSAGE_GENERIC";
+        v19 = @"PASSWORD_ACCEPT_PROMPT_MESSAGE_GENERIC";
       }
 
-      v12 = SFLocalizedStringForKey(v17);
-      networkName = [infoCopy networkName];
-      [v15 stringWithFormat:v12, networkName, v20];
+      v14 = SFLocalizedStringForKey(v19);
+      networkName = [v11 networkName];
+      [v17 stringWithFormat:v14, networkName, v22];
     }
   }
-  v18 = ;
+  v20 = ;
 
-  return v18;
+  return v20;
 }
 
 - (BOOL)__activateCalled
 {
-  if (gLogCategory_SFPasswordSharingService <= 30 && (gLogCategory_SFPasswordSharingService != -1 || _LogCategory_Initialize()))
+  selfCopy = self;
+  if (gLogCategory_SFPasswordSharingService <= 30)
   {
-    [SFPasswordSharingService __activateCalled];
+    if (gLogCategory_SFPasswordSharingService != -1 || (self = _LogCategory_Initialize(), self))
+    {
+      [(SFPasswordSharingService *)self __activateCalled];
+    }
   }
 
-  return self->_activateCalled;
+  return selfCopy->_activateCalled;
 }
 
 - (BOOL)__invalidateCalled
 {
-  if (gLogCategory_SFPasswordSharingService <= 30 && (gLogCategory_SFPasswordSharingService != -1 || _LogCategory_Initialize()))
+  selfCopy = self;
+  if (gLogCategory_SFPasswordSharingService <= 30)
   {
-    [SFPasswordSharingService __invalidateCalled];
+    if (gLogCategory_SFPasswordSharingService != -1 || (self = _LogCategory_Initialize(), self))
+    {
+      [(SFPasswordSharingService *)self __invalidateCalled];
+    }
   }
 
-  return self->_invalidateCalled;
+  return selfCopy->_invalidateCalled;
+}
+
+- (void)__testReceivedObject:(id)object withFlags:(unsigned int)flags
+{
+  v4 = *&flags;
+  objectCopy = object;
+  v9 = objectCopy;
+  if (gLogCategory_SFPasswordSharingService <= 30)
+  {
+    if (gLogCategory_SFPasswordSharingService != -1 || (objectCopy = _LogCategory_Initialize(), objectCopy))
+    {
+      [(SFPasswordSharingService *)objectCopy __testReceivedObject:v7 withFlags:v8];
+    }
+  }
+
+  [(SFPasswordSharingService *)self _receivedObject:v9 flags:v4];
 }
 
 - (SFPasswordSharingServiceDelegate)delegate
@@ -712,45 +803,45 @@ LABEL_10:
   }
 }
 
-void __44__SFPasswordSharingService__runServiceStart__block_invoke_6_cold_1(void *a1)
+void __44__SFPasswordSharingService__runServiceStart__block_invoke_6_cold_1(void *a1, uint64_t a2)
 {
-  v1 = [a1 peer];
-  LogPrintF();
+  v3 = [a1 peer];
+  LogPrintF(&gLogCategory_SFPasswordSharingService, "[SFPasswordSharingService _runServiceStart]_block_invoke_6", 30, "Session ended with %@: %{error}\n", v3, a2);
 }
 
 void __44__SFPasswordSharingService__runServiceStart__block_invoke_7_cold_1(void *a1)
 {
   v1 = [a1 peer];
-  LogPrintF();
+  LogPrintF(&gLogCategory_SFPasswordSharingService, "[SFPasswordSharingService _runServiceStart]_block_invoke_7", 30, "Session secured with %@\n", v1);
 }
 
 - (void)_handleReceivedPassword:(uint64_t)a1 .cold.1(uint64_t a1)
 {
-  v2 = [MEMORY[0x1E695DF00] date];
-  [v2 timeIntervalSinceDate:*(a1 + 56)];
-  LogPrintF();
+  v3 = [MEMORY[0x1E695DF00] date];
+  [v3 timeIntervalSinceDate:*(a1 + 56)];
+  LogPrintF(&gLogCategory_SFPasswordSharingService, "[SFPasswordSharingService _handleReceivedPassword:]", 50, "Received password: %f\n", v2);
 }
 
 - (void)_handleSessionStarted:(void *)a1 .cold.1(void *a1)
 {
   v1 = [a1 peer];
-  LogPrintF();
+  LogPrintF(&gLogCategory_SFPasswordSharingService, "[SFPasswordSharingService _handleSessionStarted:]", 30, "Session started with %@\n", v1);
 }
 
-- (uint64_t)_receivedObject:(uint64_t)result flags:(unsigned int *)a2 .cold.1(uint64_t result, unsigned int *a2)
+- (uint64_t)_receivedObject:(uint64_t)a3 flags:.cold.1(uint64_t result, unsigned int *a2, uint64_t a3)
 {
   if (result <= 90)
   {
     if (result != -1)
     {
-      return LogPrintF();
+      return LogPrintF(&gLogCategory_SFPasswordSharingService, "[SFPasswordSharingService _receivedObject:flags:]", 90, "### No request opcode %#m\n", a3);
     }
 
     result = _LogCategory_Initialize();
     if (result)
     {
-      v3 = *a2;
-      return LogPrintF();
+      a3 = *a2;
+      return LogPrintF(&gLogCategory_SFPasswordSharingService, "[SFPasswordSharingService _receivedObject:flags:]", 90, "### No request opcode %#m\n", a3);
     }
   }
 
@@ -759,22 +850,32 @@ void __44__SFPasswordSharingService__runServiceStart__block_invoke_7_cold_1(void
 
 - (uint64_t)_receivedObject:(unsigned __int8)a1 flags:(char)a2 .cold.2(unsigned __int8 a1, char a2)
 {
-  if (a1 <= 6u)
+  if (a1 > 6u)
+  {
+    v2 = "?";
+  }
+
+  else
   {
     v2 = off_1E7890280[a2 & 7];
   }
 
-  return LogPrintF();
+  return LogPrintF(&gLogCategory_SFPasswordSharingService, "[SFPasswordSharingService _receivedObject:flags:]", 50, "Received object. %s\n", v2);
 }
 
-- (uint64_t)_receivedObject:(unsigned __int8)a1 flags:(char)a2 .cold.3(unsigned __int8 a1, char a2)
+- (uint64_t)_receivedObject:(uint64_t)a3 flags:.cold.3(unsigned __int8 a1, char a2, uint64_t a3)
 {
-  if (a1 <= 6u)
+  if (a1 > 6u)
   {
-    v2 = off_1E7890280[a2 & 7];
+    v3 = "?";
   }
 
-  return LogPrintF();
+  else
+  {
+    v3 = off_1E7890280[a2 & 7];
+  }
+
+  return LogPrintF(&gLogCategory_SFPasswordSharingService, "[SFPasswordSharingService _receivedObject:flags:]", 60, "Unsupported opCode: %s (%ld)", v3, a3);
 }
 
 - (uint64_t)_sendPasswordReceived
@@ -783,43 +884,43 @@ void __44__SFPasswordSharingService__runServiceStart__block_invoke_7_cold_1(void
   {
     if (result != -1)
     {
-      return OUTLINED_FUNCTION_1_16();
+      return OUTLINED_FUNCTION_1_16(&gLogCategory_SFPasswordSharingService, "[SFPasswordSharingService _sendPasswordReceived]", a3, "### Trying to send message without peer ID?\n");
     }
 
     result = _LogCategory_Initialize();
     if (result)
     {
-      return OUTLINED_FUNCTION_1_16();
+      return OUTLINED_FUNCTION_1_16(&gLogCategory_SFPasswordSharingService, "[SFPasswordSharingService _sendPasswordReceived]", a3, "### Trying to send message without peer ID?\n");
     }
   }
 
   return result;
 }
 
-- (uint64_t)_sendPasswordDeclinedWithError:(uint64_t)result .cold.2(uint64_t result)
+- (uint64_t)_sendPasswordDeclinedWithError:(uint64_t)a3 .cold.2(uint64_t result, uint64_t a2, uint64_t a3)
 {
   if (result <= 60)
   {
     if (result != -1)
     {
-      return OUTLINED_FUNCTION_1_16();
+      return OUTLINED_FUNCTION_1_16(&gLogCategory_SFPasswordSharingService, "[SFPasswordSharingService _sendPasswordDeclinedWithError:]", a3, "### Trying to send message without peer ID?\n");
     }
 
     result = _LogCategory_Initialize();
     if (result)
     {
-      return OUTLINED_FUNCTION_1_16();
+      return OUTLINED_FUNCTION_1_16(&gLogCategory_SFPasswordSharingService, "[SFPasswordSharingService _sendPasswordDeclinedWithError:]", a3, "### Trying to send message without peer ID?\n");
     }
   }
 
   return result;
 }
 
-- (void)_sendPasswordDeclinedWithError:.cold.3()
+- (void)_sendPasswordDeclinedWithError:(uint64_t)a3 .cold.3(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (gLogCategory_SFPasswordSharingService <= 60 && (gLogCategory_SFPasswordSharingService != -1 || _LogCategory_Initialize()))
   {
-    OUTLINED_FUNCTION_1_16();
+    OUTLINED_FUNCTION_1_16(&gLogCategory_SFPasswordSharingService, "[SFPasswordSharingService _sendPasswordDeclinedWithError:]", a3, "### Trying to send message without service?\n");
   }
 }
 

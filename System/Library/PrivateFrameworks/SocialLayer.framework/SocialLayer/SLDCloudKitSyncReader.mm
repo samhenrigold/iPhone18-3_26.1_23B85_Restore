@@ -94,14 +94,11 @@ void __39__SLDCloudKitSyncReader_sharedInstance__block_invoke()
 
 - (void)invalidateAppsInternal
 {
-  v9 = *MEMORY[0x277D85DE8];
   persistence = [self persistence];
   v2 = [persistence objectForKeyedSubscript:@"myAppsRecordID"];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_1_1();
   _os_log_debug_impl(v3, v4, v5, v6, v7, 0xCu);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (id)apps
@@ -135,7 +132,7 @@ void __39__SLDCloudKitSyncReader_sharedInstance__block_invoke()
       }
     }
 
-    v8 = SLDaemonLogHandle();
+    v8 = SLDaemonLogHandle(v5);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       [(SLDCloudKitSyncReader *)stringCopy _validateRecordIDString:v4];
@@ -197,41 +194,39 @@ LABEL_7:
   queue = [(SLDCloudKitSyncBase *)self queue];
   dispatch_assert_queue_V2(queue);
 
-  v6 = SLDaemonLogHandle();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+  v7 = SLDaemonLogHandle(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     [SLDCloudKitSyncReader addApplicationIdentifierInternal:];
   }
 
   persistence = [(SLDCloudKitSyncBase *)self persistence];
-  v8 = [persistence objectForKeyedSubscript:@"appIDToTimestamp"];
-  v9 = v8;
-  if (!v8)
+  v9 = [persistence objectForKeyedSubscript:@"appIDToTimestamp"];
+  v10 = v9;
+  if (!v9)
   {
-    v8 = MEMORY[0x277CBEC10];
+    v9 = MEMORY[0x277CBEC10];
   }
 
-  v10 = [v8 mutableCopy];
+  v11 = [v9 mutableCopy];
 
-  v11 = MEMORY[0x277CCABB0];
+  v12 = MEMORY[0x277CCABB0];
   date = [MEMORY[0x277CBEAA8] date];
   [date timeIntervalSinceReferenceDate];
-  v13 = [v11 numberWithDouble:?];
-  [v10 setObject:v13 forKeyedSubscript:internalCopy];
+  v14 = [v12 numberWithDouble:?];
+  [v11 setObject:v14 forKeyedSubscript:internalCopy];
 
   persistence2 = [(SLDCloudKitSyncBase *)self persistence];
-  [persistence2 setObject:v10 forKeyedSubscript:@"appIDToTimestamp"];
+  [persistence2 setObject:v11 forKeyedSubscript:@"appIDToTimestamp"];
 
   [(SLDCloudKitSyncReader *)self updateServerAppsIfNecessary];
 }
 
 - (void)updateServerAppsIfNecessary
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)garbageCollect
@@ -475,141 +470,142 @@ LABEL_29:
       goto LABEL_30;
     }
 
-    v65 = v10;
-    v66 = v8;
+    v66 = v10;
+    v67 = v8;
     v12 = objc_alloc(MEMORY[0x277D3A4D0]);
     encryptedValues = [v11 encryptedValues];
     v14 = [encryptedValues objectForKeyedSubscript:@"handle"];
     encryptedValues2 = [v11 encryptedValues];
     v16 = [encryptedValues2 objectForKeyedSubscript:@"displayName"];
-    v68 = [v12 initWithHandle:v14 displayName:v16];
+    v69 = [v12 initWithHandle:v14 displayName:v16];
 
     encryptedValues3 = [v11 encryptedValues];
     v18 = [encryptedValues3 objectForKeyedSubscript:@"groupPhoto"];
 
-    v60 = v6;
+    v61 = v6;
     if (v18 && ([v11 encryptedValues], v19 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v19, "objectForKeyedSubscript:", @"groupPhoto"), v20 = objc_claimAutoreleasedReturnValue(), v21 = -[SLDCloudKitSyncReader _validateRecordIDString:](self, "_validateRecordIDString:", v20), v20, v19, v21))
     {
-      v22 = [(SLDCloudKitSyncReader *)self _syncDirectoryForWriter:v66];
+      v22 = [(SLDCloudKitSyncReader *)self _syncDirectoryForWriter:v67];
       encryptedValues4 = [v11 encryptedValues];
       v24 = [encryptedValues4 objectForKeyedSubscript:@"groupPhoto"];
-      v69 = [v22 URLByAppendingPathComponent:v24];
+      v70 = [v22 URLByAppendingPathComponent:v24];
     }
 
     else
     {
-      v69 = 0;
+      v70 = 0;
     }
 
     v25 = objc_alloc(MEMORY[0x277D3A4B0]);
     encryptedValues5 = [v11 encryptedValues];
     v26 = [encryptedValues5 objectForKeyedSubscript:@"identifier"];
     encryptedValues6 = [v11 encryptedValues];
-    v56 = [encryptedValues6 objectForKeyedSubscript:@"sourceAppDisplayName"];
+    v57 = [encryptedValues6 objectForKeyedSubscript:@"sourceAppDisplayName"];
     encryptedValues7 = [v11 encryptedValues];
-    v55 = [encryptedValues7 objectForKeyedSubscript:@"groupDisplayName"];
+    v56 = [encryptedValues7 objectForKeyedSubscript:@"groupDisplayName"];
     v27 = MEMORY[0x277CBEAA8];
     encryptedValues8 = [v11 encryptedValues];
-    v57 = [encryptedValues8 objectForKeyedSubscript:@"timestamp"];
-    [v57 doubleValue];
-    v53 = [v27 dateWithTimeIntervalSinceReferenceDate:?];
+    v58 = [encryptedValues8 objectForKeyedSubscript:@"timestamp"];
+    [v58 doubleValue];
+    v54 = [v27 dateWithTimeIntervalSinceReferenceDate:?];
     encryptedValues9 = [v11 encryptedValues];
     v28 = [encryptedValues9 objectForKeyedSubscript:@"starred"];
     bOOLValue = [v28 BOOLValue];
-    v67 = v11;
+    v68 = v11;
     encryptedValues10 = [v11 encryptedValues];
     v31 = [encryptedValues10 objectForKeyedSubscript:@"fromMe"];
-    BYTE1(v51) = [v31 BOOLValue];
-    LOBYTE(v51) = bOOLValue;
-    v32 = [v25 initWithIdentifier:v26 sourceAppDisplayName:v56 conversationIdentifier:@"c" groupPhotoPath:v69 groupDisplayName:v55 relatedPeople:MEMORY[0x277CBEBF8] sender:v68 timestamp:v53 collaborationMetadata:0 starred:v51 fromMe:?];
+    BYTE1(v52) = [v31 BOOLValue];
+    LOBYTE(v52) = bOOLValue;
+    v32 = [v25 initWithIdentifier:v26 sourceAppDisplayName:v57 conversationIdentifier:@"c" groupPhotoPath:v70 groupDisplayName:v56 relatedPeople:MEMORY[0x277CBEBF8] sender:v69 timestamp:v54 collaborationMetadata:0 starred:v52 fromMe:?];
 
-    v33 = v69;
+    v33 = v70;
     if (!v32)
     {
       v9 = 0;
-      v10 = v65;
-      v8 = v66;
-      v11 = v67;
-      v6 = v60;
+      v10 = v66;
+      v8 = v67;
+      v11 = v68;
+      v6 = v61;
 LABEL_28:
 
       goto LABEL_29;
     }
 
-    v70[0] = 0;
-    v9 = [[SLAttribution alloc] initWithPortraitAttribution:v32 error:v70];
-    v64 = v70[0];
-    v10 = v65;
-    v6 = v60;
-    v52 = v32;
+    v71[0] = 0;
+    v9 = [[SLAttribution alloc] initWithPortraitAttribution:v32 error:v71];
+    v34 = v71[0];
+    v65 = v34;
+    v10 = v66;
+    v6 = v61;
+    v53 = v32;
     if (v9)
     {
-      v34 = v67;
-      encryptedValues11 = [v67 encryptedValues];
-      v36 = [encryptedValues11 objectForKeyedSubscript:@"shortDisplayName"];
+      v35 = v68;
+      encryptedValues11 = [v68 encryptedValues];
+      v37 = [encryptedValues11 objectForKeyedSubscript:@"shortDisplayName"];
 
-      v8 = v66;
-      if (v36)
+      v8 = v67;
+      if (v37)
       {
-        encryptedValues12 = [v67 encryptedValues];
-        v37 = [encryptedValues12 objectForKeyedSubscript:@"shortDisplayName"];
+        encryptedValues12 = [v68 encryptedValues];
+        v38 = [encryptedValues12 objectForKeyedSubscript:@"shortDisplayName"];
         sender = [(SLAttribution *)v9 sender];
-        [sender setShortDisplayName:v37];
+        [sender setShortDisplayName:v38];
 
-        v34 = v67;
+        v35 = v68;
       }
 
-      encryptedValues13 = [v34 encryptedValues];
-      v40 = [encryptedValues13 objectForKeyedSubscript:@"contactPhoto"];
+      encryptedValues13 = [v35 encryptedValues];
+      v41 = [encryptedValues13 objectForKeyedSubscript:@"contactPhoto"];
 
-      v11 = v34;
-      if (!v40)
+      v11 = v35;
+      if (!v41)
       {
         goto LABEL_27;
       }
 
-      encryptedValues14 = [v34 encryptedValues];
-      v42 = [encryptedValues14 objectForKeyedSubscript:@"contactPhoto"];
-      v43 = [(SLDCloudKitSyncReader *)self _validateRecordIDString:v42];
+      encryptedValues14 = [v35 encryptedValues];
+      v43 = [encryptedValues14 objectForKeyedSubscript:@"contactPhoto"];
+      v44 = [(SLDCloudKitSyncReader *)self _validateRecordIDString:v43];
 
-      v11 = v67;
-      if (!v43)
+      v11 = v68;
+      if (!v44)
       {
         goto LABEL_27;
       }
 
-      v44 = [(SLDCloudKitSyncReader *)self _syncDirectoryForWriter:v66];
-      encryptedValues15 = [v67 encryptedValues];
-      v46 = [encryptedValues15 objectForKeyedSubscript:@"contactPhoto"];
-      v47 = [v44 URLByAppendingPathComponent:v46];
+      v45 = [(SLDCloudKitSyncReader *)self _syncDirectoryForWriter:v67];
+      encryptedValues15 = [v68 encryptedValues];
+      v47 = [encryptedValues15 objectForKeyedSubscript:@"contactPhoto"];
+      v48 = [v45 URLByAppendingPathComponent:v47];
 
-      if (v47)
+      if (v48)
       {
-        v48 = [objc_alloc(MEMORY[0x277CBEA90]) initWithContentsOfURL:v47 options:8 error:0];
-        if (v48)
+        v49 = [objc_alloc(MEMORY[0x277CBEA90]) initWithContentsOfURL:v48 options:8 error:0];
+        if (v49)
         {
           sender2 = [(SLAttribution *)v9 sender];
-          [sender2 setThumbnailImageData:v48];
+          [sender2 setThumbnailImageData:v49];
         }
       }
 
-      v11 = v67;
+      v11 = v68;
     }
 
     else
     {
-      v47 = SLDaemonLogHandle();
-      v8 = v66;
-      v11 = v67;
-      if (os_log_type_enabled(v47, OS_LOG_TYPE_FAULT))
+      v48 = SLDaemonLogHandle(v34);
+      v8 = v67;
+      v11 = v68;
+      if (os_log_type_enabled(v48, OS_LOG_TYPE_FAULT))
       {
         [SLDCloudKitSyncReader _fetchAttributionInternal:];
       }
     }
 
 LABEL_27:
-    v33 = v69;
-    v32 = v52;
+    v33 = v70;
+    v32 = v53;
     goto LABEL_28;
   }
 
@@ -623,7 +619,7 @@ LABEL_32:
 
 - (id)getHighlightsInternalForApplicationIdentifier:(id)identifier
 {
-  v195 = *MEMORY[0x277D85DE8];
+  v197 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   queue = [(SLDCloudKitSyncBase *)self queue];
   dispatch_assert_queue_V2(queue);
@@ -634,53 +630,53 @@ LABEL_32:
   persistence2 = [(SLDCloudKitSyncBase *)self persistence];
   v9 = [persistence2 objectForKeyedSubscript:@"files"];
 
-  v128 = 0;
-  v124 = v7;
+  v130 = 0;
+  v126 = v7;
   if (v7 && v9)
   {
-    v154 = objc_opt_new();
-    v128 = objc_opt_new();
-    v178 = 0u;
-    v179 = 0u;
+    v156 = objc_opt_new();
+    v130 = objc_opt_new();
     v180 = 0u;
     v181 = 0u;
+    v182 = 0u;
+    v183 = 0u;
     v10 = v7;
-    v133 = [v10 countByEnumeratingWithState:&v178 objects:v194 count:16];
-    if (v133)
+    v135 = [v10 countByEnumeratingWithState:&v180 objects:v196 count:16];
+    if (v135)
     {
-      v132 = *v179;
-      v138 = identifierCopy;
+      v134 = *v181;
+      v140 = identifierCopy;
       selfCopy = self;
-      v130 = v10;
-      v131 = v9;
+      v132 = v10;
+      v133 = v9;
       do
       {
         v11 = 0;
         do
         {
-          if (*v179 != v132)
+          if (*v181 != v134)
           {
             v12 = v11;
             objc_enumerationMutation(v10);
             v11 = v12;
           }
 
-          v136 = v11;
-          v13 = *(*(&v178 + 1) + 8 * v11);
+          v138 = v11;
+          v13 = *(*(&v180 + 1) + 8 * v11);
           v14 = [v10 objectForKeyedSubscript:v13];
-          v156 = [v9 objectForKeyedSubscript:v13];
-          if (v156)
+          v158 = [v9 objectForKeyedSubscript:v13];
+          if (v158)
           {
+            v178 = 0u;
+            v179 = 0u;
             v176 = 0u;
             v177 = 0u;
-            v174 = 0u;
-            v175 = 0u;
             v15 = v14;
-            v16 = [v15 countByEnumeratingWithState:&v174 objects:v193 count:16];
+            v16 = [v15 countByEnumeratingWithState:&v176 objects:v195 count:16];
             if (!v16)
             {
               v18 = v15;
-              identifierCopy = v138;
+              identifierCopy = v140;
 LABEL_101:
 
               goto LABEL_102;
@@ -688,55 +684,55 @@ LABEL_101:
 
             v17 = v16;
             v18 = 0;
-            v19 = *v175;
-            v148 = v14;
-            v149 = *v175;
-            v155 = v13;
+            v19 = *v177;
+            v150 = v14;
+            v151 = *v177;
+            v157 = v13;
             do
             {
               v20 = 0;
-              v152 = v17;
+              v154 = v17;
               do
               {
-                if (*v175 != v19)
+                if (*v177 != v19)
                 {
                   objc_enumerationMutation(v15);
                 }
 
-                v21 = *(*(&v174 + 1) + 8 * v20);
-                v22 = [v156 objectForKeyedSubscript:v21];
-                v23 = [v156 objectForKeyedSubscript:v18];
+                v21 = *(*(&v176 + 1) + 8 * v20);
+                v22 = [v158 objectForKeyedSubscript:v21];
+                v23 = [v158 objectForKeyedSubscript:v18];
                 v24 = [v23 compare:v22];
 
                 if (v24 == 1)
                 {
-                  v25 = v155;
+                  v25 = v157;
                 }
 
                 else
                 {
                   v26 = v18;
+                  v174 = 0u;
+                  v175 = 0u;
                   v172 = 0u;
                   v173 = 0u;
-                  v170 = 0u;
-                  v171 = 0u;
                   v27 = v15;
                   v28 = [v15 objectForKeyedSubscript:v21];
-                  v29 = [v28 countByEnumeratingWithState:&v170 objects:v192 count:16];
+                  v29 = [v28 countByEnumeratingWithState:&v172 objects:v194 count:16];
                   if (v29)
                   {
                     v30 = v29;
-                    v31 = *v171;
+                    v31 = *v173;
                     while (2)
                     {
                       for (i = 0; i != v30; ++i)
                       {
-                        if (*v171 != v31)
+                        if (*v173 != v31)
                         {
                           objc_enumerationMutation(v28);
                         }
 
-                        v33 = [v156 objectForKeyedSubscript:*(*(&v170 + 1) + 8 * i)];
+                        v33 = [v158 objectForKeyedSubscript:*(*(&v172 + 1) + 8 * i)];
 
                         if (!v33)
                         {
@@ -745,7 +741,7 @@ LABEL_101:
                         }
                       }
 
-                      v30 = [v28 countByEnumeratingWithState:&v170 objects:v192 count:16];
+                      v30 = [v28 countByEnumeratingWithState:&v172 objects:v194 count:16];
                       if (v30)
                       {
                         continue;
@@ -759,29 +755,29 @@ LABEL_101:
                   v28 = v26;
 LABEL_26:
 
-                  v14 = v148;
-                  v19 = v149;
-                  v25 = v155;
+                  v14 = v150;
+                  v19 = v151;
+                  v25 = v157;
                   v15 = v27;
-                  v17 = v152;
+                  v17 = v154;
                 }
 
                 ++v20;
               }
 
               while (v20 != v17);
-              v17 = [v15 countByEnumeratingWithState:&v174 objects:v193 count:16];
+              v17 = [v15 countByEnumeratingWithState:&v176 objects:v195 count:16];
             }
 
             while (v17);
 
-            identifierCopy = v138;
-            v10 = v130;
-            v9 = v131;
+            identifierCopy = v140;
+            v10 = v132;
+            v9 = v133;
             if (v18)
             {
               v34 = objc_alloc(MEMORY[0x277CBEAA8]);
-              v35 = [v156 objectForKeyedSubscript:v18];
+              v35 = [v158 objectForKeyedSubscript:v18];
               [v35 doubleValue];
               v36 = [v34 initWithTimeIntervalSinceReferenceDate:?];
 
@@ -794,7 +790,7 @@ LABEL_26:
                   v39 = [(SLDCloudKitSyncReader *)selfCopy recordForDevice:v25 fileName:v18];
                   if (v39)
                   {
-                    v129 = v36;
+                    v131 = v36;
                     v40 = v39;
                     persistence3 = [(SLDCloudKitSyncBase *)selfCopy persistence];
                     v42 = [persistence3 objectForKeyedSubscript:@"retainUntilExpirationFiles"];
@@ -807,7 +803,7 @@ LABEL_26:
                     v44 = [v42 mutableCopy];
 
                     v45 = objc_opt_new();
-                    v126 = v44;
+                    v128 = v44;
                     v46 = [v44 objectForKeyedSubscript:v25];
                     v47 = v46;
                     if (v46)
@@ -822,108 +818,92 @@ LABEL_26:
 
                     [v45 addObjectsFromArray:v48];
 
+                    v170 = 0u;
+                    v171 = 0u;
                     v168 = 0u;
                     v169 = 0u;
-                    v166 = 0u;
-                    v167 = 0u;
-                    v127 = v40;
+                    v129 = v40;
                     encryptedValues = [v40 encryptedValues];
                     v50 = [encryptedValues objectForKeyedSubscript:@"recordIDs"];
 
-                    v51 = [v50 countByEnumeratingWithState:&v166 objects:v191 count:16];
+                    v51 = [v50 countByEnumeratingWithState:&v168 objects:v193 count:16];
                     if (v51)
                     {
                       v52 = v51;
-                      v53 = *v167;
+                      v53 = *v169;
                       do
                       {
                         for (j = 0; j != v52; ++j)
                         {
-                          if (*v167 != v53)
+                          if (*v169 != v53)
                           {
                             objc_enumerationMutation(v50);
                           }
 
-                          [v45 addObject:*(*(&v166 + 1) + 8 * j)];
+                          [v45 addObject:*(*(&v168 + 1) + 8 * j)];
                         }
 
-                        v52 = [v50 countByEnumeratingWithState:&v166 objects:v191 count:16];
+                        v52 = [v50 countByEnumeratingWithState:&v168 objects:v193 count:16];
                       }
 
                       while (v52);
                     }
 
-                    v125 = v45;
+                    v127 = v45;
                     if ([v45 count])
                     {
                       allObjects = [v45 allObjects];
-                      v56 = v126;
-                      [v126 setObject:allObjects forKeyedSubscript:v25];
+                      v56 = v128;
+                      [v128 setObject:allObjects forKeyedSubscript:v25];
                     }
 
                     else
                     {
-                      v56 = v126;
-                      [v126 setObject:0 forKeyedSubscript:v25];
+                      v56 = v128;
+                      [v128 setObject:0 forKeyedSubscript:v25];
                     }
 
                     v57 = selfCopy;
                     persistence4 = [(SLDCloudKitSyncBase *)selfCopy persistence];
                     [persistence4 setObject:v56 forKeyedSubscript:@"retainUntilExpirationFiles"];
 
+                    v166 = 0u;
+                    v167 = 0u;
                     v164 = 0u;
                     v165 = 0u;
-                    v162 = 0u;
-                    v163 = 0u;
-                    encryptedValues2 = [v127 encryptedValues];
+                    encryptedValues2 = [v129 encryptedValues];
                     v60 = [encryptedValues2 objectForKeyedSubscript:@"highlights"];
 
                     obj = v60;
-                    v61 = [v60 countByEnumeratingWithState:&v162 objects:v190 count:16];
-                    v14 = v148;
-                    v147 = v61;
+                    v61 = [v60 countByEnumeratingWithState:&v164 objects:v192 count:16];
+                    v14 = v150;
+                    v149 = v61;
                     if (v61)
                     {
-                      v144 = *v163;
-                      v137 = v18;
+                      v146 = *v165;
+                      v139 = v18;
                       do
                       {
                         v62 = 0;
                         do
                         {
-                          if (*v163 != v144)
+                          if (*v165 != v146)
                           {
                             objc_enumerationMutation(obj);
                           }
 
-                          v63 = *(*(&v162 + 1) + 8 * v62);
+                          v63 = *(*(&v164 + 1) + 8 * v62);
                           v64 = objc_autoreleasePoolPush();
-                          v145 = v63;
+                          v147 = v63;
                           v65 = [(SLDCloudKitSyncReader *)v57 recordForDevice:v25 fileName:v63];
                           v66 = v65;
                           if (v65)
                           {
-                            if (!identifierCopy)
+                            if (!identifierCopy || ([v65 encryptedValues], v67 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v67, "objectForKeyedSubscript:", @"applicationIdentifier"), v68 = v66, v69 = v64, v70 = v62, v71 = objc_claimAutoreleasedReturnValue(), v67, LODWORD(v67) = objc_msgSend(v71, "isEqual:", identifierCopy), v71, v62 = v70, v64 = v69, v66 = v68, v67))
                             {
-                              goto LABEL_57;
-                            }
-
-                            encryptedValues3 = [v65 encryptedValues];
-                            [encryptedValues3 objectForKeyedSubscript:@"applicationIdentifier"];
-                            v68 = v66;
-                            v69 = v64;
-                            v71 = v70 = v62;
-
-                            LODWORD(encryptedValues3) = [v71 isEqual:identifierCopy];
-                            v62 = v70;
-                            v64 = v69;
-                            v66 = v68;
-                            if (encryptedValues3)
-                            {
-LABEL_57:
-                              v143 = v62;
-                              encryptedValues4 = [v66 encryptedValues];
-                              v73 = [encryptedValues4 objectForKeyedSubscript:@"entity"];
+                              v145 = v62;
+                              encryptedValues3 = [v66 encryptedValues];
+                              v73 = [encryptedValues3 objectForKeyedSubscript:@"entity"];
                               v74 = [(SLDCloudKitSyncReader *)v57 recordForDevice:v25 fileName:v73];
 
                               if (!v74)
@@ -931,14 +911,14 @@ LABEL_57:
                                 goto LABEL_95;
                               }
 
-                              encryptedValues5 = [v74 encryptedValues];
-                              v76 = [encryptedValues5 objectForKeyedSubscript:@"identifier"];
+                              encryptedValues4 = [v74 encryptedValues];
+                              v76 = [encryptedValues4 objectForKeyedSubscript:@"identifier"];
 
-                              v153 = v76;
+                              v155 = v76;
                               if (!v76)
                               {
-                                v150 = SLDaemonLogHandle();
-                                if (os_log_type_enabled(v150, OS_LOG_TYPE_FAULT))
+                                v152 = SLDaemonLogHandle(v77);
+                                if (os_log_type_enabled(v152, OS_LOG_TYPE_FAULT))
                                 {
                                   [SLDCloudKitSyncReader getHighlightsInternalForApplicationIdentifier:];
                                 }
@@ -946,119 +926,119 @@ LABEL_57:
                                 goto LABEL_94;
                               }
 
-                              v140 = v74;
-                              v141 = v64;
-                              v77 = objc_alloc(MEMORY[0x277CBEB18]);
-                              encryptedValues6 = [v66 encryptedValues];
-                              v79 = [encryptedValues6 objectForKeyedSubscript:@"attributions"];
-                              v150 = [v77 initWithCapacity:{objc_msgSend(v79, "count")}];
+                              v142 = v74;
+                              v143 = v64;
+                              v78 = objc_alloc(MEMORY[0x277CBEB18]);
+                              encryptedValues5 = [v66 encryptedValues];
+                              v80 = [encryptedValues5 objectForKeyedSubscript:@"attributions"];
+                              v152 = [v78 initWithCapacity:{objc_msgSend(v80, "count")}];
 
+                              v162 = 0u;
+                              v163 = 0u;
                               v160 = 0u;
                               v161 = 0u;
-                              v158 = 0u;
-                              v159 = 0u;
-                              v139 = v66;
-                              encryptedValues7 = [v66 encryptedValues];
-                              v81 = [encryptedValues7 objectForKeyedSubscript:@"attributions"];
+                              v141 = v66;
+                              encryptedValues6 = [v66 encryptedValues];
+                              v82 = [encryptedValues6 objectForKeyedSubscript:@"attributions"];
 
-                              v82 = [v81 countByEnumeratingWithState:&v158 objects:v189 count:16];
-                              if (v82)
+                              v83 = [v82 countByEnumeratingWithState:&v160 objects:v191 count:16];
+                              if (v83)
                               {
-                                v83 = v82;
-                                v84 = *v159;
+                                v84 = v83;
+                                v85 = *v161;
                                 do
                                 {
-                                  for (k = 0; k != v83; ++k)
+                                  for (k = 0; k != v84; ++k)
                                   {
-                                    if (*v159 != v84)
+                                    if (*v161 != v85)
                                     {
-                                      objc_enumerationMutation(v81);
+                                      objc_enumerationMutation(v82);
                                     }
 
-                                    v86 = *(*(&v158 + 1) + 8 * k);
-                                    v87 = objc_autoreleasePoolPush();
-                                    v188[0] = v25;
-                                    v188[1] = v86;
-                                    v88 = [MEMORY[0x277CBEA60] arrayWithObjects:v188 count:2];
-                                    v89 = [v88 componentsJoinedByString:@"/"];
+                                    v87 = *(*(&v160 + 1) + 8 * k);
+                                    v88 = objc_autoreleasePoolPush();
+                                    v190[0] = v25;
+                                    v190[1] = v87;
+                                    v89 = [MEMORY[0x277CBEA60] arrayWithObjects:v190 count:2];
+                                    v90 = [v89 componentsJoinedByString:@"/"];
 
-                                    v90 = [(SLDCloudKitSyncReader *)v57 _fetchAttributionInternal:v89];
-                                    v91 = v90;
-                                    if (v90)
+                                    v91 = [(SLDCloudKitSyncReader *)v57 _fetchAttributionInternal:v90];
+                                    v92 = v91;
+                                    if (v91)
                                     {
-                                      sender = [v90 sender];
+                                      sender = [v91 sender];
                                       handle = [sender handle];
 
                                       if (handle)
                                       {
-                                        v187[0] = v153;
-                                        v187[1] = handle;
-                                        v94 = [MEMORY[0x277CBEA60] arrayWithObjects:v187 count:2];
-                                        v95 = [v94 componentsJoinedByString:@"\n"];
+                                        v189[0] = v155;
+                                        v189[1] = handle;
+                                        v95 = [MEMORY[0x277CBEA60] arrayWithObjects:v189 count:2];
+                                        v96 = [v95 componentsJoinedByString:@"\n"];
 
-                                        if (([v154 containsObject:v95] & 1) == 0)
+                                        if (([v156 containsObject:v96] & 1) == 0)
                                         {
-                                          [v154 addObject:v95];
-                                          [v150 addObject:v89];
+                                          [v156 addObject:v96];
+                                          [v152 addObject:v90];
                                         }
 
                                         v57 = selfCopy;
                                       }
 
-                                      v25 = v155;
+                                      v25 = v157;
                                     }
 
-                                    objc_autoreleasePoolPop(v87);
+                                    objc_autoreleasePoolPop(v88);
                                   }
 
-                                  v83 = [v81 countByEnumeratingWithState:&v158 objects:v189 count:16];
+                                  v84 = [v82 countByEnumeratingWithState:&v160 objects:v191 count:16];
                                 }
 
-                                while (v83);
+                                while (v84);
                               }
 
-                              v96 = SLDaemonLogHandle();
-                              if (os_log_type_enabled(v96, OS_LOG_TYPE_DEBUG))
+                              v98 = SLDaemonLogHandle(v97);
+                              if (os_log_type_enabled(v98, OS_LOG_TYPE_DEBUG))
                               {
-                                v182[0] = v25;
-                                v182[1] = v145;
-                                v121 = [MEMORY[0x277CBEA60] arrayWithObjects:v182 count:2];
+                                v184[0] = v25;
+                                v184[1] = v147;
+                                v124 = [MEMORY[0x277CBEA60] arrayWithObjects:v184 count:2];
                                 *buf = 138412546;
-                                v184 = v121;
-                                v185 = 2112;
-                                v186 = v150;
-                                _os_log_debug_impl(&dword_231772000, v96, OS_LOG_TYPE_DEBUG, "#SLDCK %@ device scoped attributions: %@", buf, 0x16u);
+                                v186 = v124;
+                                v187 = 2112;
+                                v188 = v152;
+                                _os_log_debug_impl(&dword_231772000, v98, OS_LOG_TYPE_DEBUG, "#SLDCK %@ device scoped attributions: %@", buf, 0x16u);
                               }
 
-                              v18 = v137;
-                              identifierCopy = v138;
-                              v14 = v148;
-                              v74 = v140;
-                              v64 = v141;
-                              v66 = v139;
-                              if (![v150 count])
+                              v18 = v139;
+                              identifierCopy = v140;
+                              v14 = v150;
+                              v74 = v142;
+                              v64 = v143;
+                              v66 = v141;
+                              if (![v152 count])
                               {
                                 v57 = selfCopy;
                                 goto LABEL_94;
                               }
 
-                              v97 = [v140 objectForKeyedSubscript:@"version"];
-                              unsignedIntegerValue = [v97 unsignedIntegerValue];
+                              v99 = [v142 objectForKeyedSubscript:@"version"];
+                              unsignedIntegerValue = [v99 unsignedIntegerValue];
 
                               if (unsignedIntegerValue <= 1)
                               {
-                                encryptedValues8 = [v140 encryptedValues];
-                                v111 = [encryptedValues8 objectForKeyedSubscript:@"supplementaryData"];
-                                v112 = MEMORY[0x277CBEC10];
-                                if (!v111)
+                                encryptedValues7 = [v142 encryptedValues];
+                                v114 = [encryptedValues7 objectForKeyedSubscript:@"supplementaryData"];
+                                v115 = MEMORY[0x277CBEC10];
+                                if (!v114)
                                 {
-                                  v112 = 0;
+                                  v115 = 0;
                                 }
 
-                                v106 = v112;
+                                v108 = v115;
 
                                 v57 = selfCopy;
-                                if (!v106)
+                                if (!v108)
                                 {
                                   goto LABEL_89;
                                 }
@@ -1066,30 +1046,30 @@ LABEL_57:
 
                               else
                               {
-                                v99 = MEMORY[0x277CCAAC8];
-                                v100 = MEMORY[0x277CBEB98];
-                                v101 = objc_opt_class();
-                                v102 = objc_opt_class();
-                                v103 = [v100 setWithObjects:{v101, v102, objc_opt_class(), 0}];
-                                encryptedValues9 = [v140 encryptedValues];
-                                v105 = [encryptedValues9 objectForKeyedSubscript:@"supplementaryData"];
-                                v157 = 0;
-                                v106 = [v99 unarchivedObjectOfClasses:v103 fromData:v105 error:&v157];
-                                v107 = v157;
+                                v101 = MEMORY[0x277CCAAC8];
+                                v102 = MEMORY[0x277CBEB98];
+                                v103 = objc_opt_class();
+                                v104 = objc_opt_class();
+                                v105 = [v102 setWithObjects:{v103, v104, objc_opt_class(), 0}];
+                                encryptedValues8 = [v142 encryptedValues];
+                                v107 = [encryptedValues8 objectForKeyedSubscript:@"supplementaryData"];
+                                v159 = 0;
+                                v108 = [v101 unarchivedObjectOfClasses:v105 fromData:v107 error:&v159];
+                                v109 = v159;
 
-                                if (v107)
+                                if (v109)
                                 {
-                                  v108 = SLDaemonLogHandle();
+                                  v111 = SLDaemonLogHandle(v110);
                                   v57 = selfCopy;
-                                  v74 = v140;
-                                  if (os_log_type_enabled(v108, OS_LOG_TYPE_FAULT))
+                                  v74 = v142;
+                                  if (os_log_type_enabled(v111, OS_LOG_TYPE_FAULT))
                                   {
-                                    v109 = [v140 objectForKeyedSubscript:@"version"];
+                                    v112 = [v142 objectForKeyedSubscript:@"version"];
                                     *buf = 138412546;
-                                    v184 = v109;
-                                    v185 = 2112;
-                                    v186 = v107;
-                                    _os_log_fault_impl(&dword_231772000, v108, OS_LOG_TYPE_FAULT, "#SLDCK unable to decode supplementary data from record with version %@: %@", buf, 0x16u);
+                                    v186 = v112;
+                                    v187 = 2112;
+                                    v188 = v109;
+                                    _os_log_fault_impl(&dword_231772000, v111, OS_LOG_TYPE_FAULT, "#SLDCK unable to decode supplementary data from record with version %@: %@", buf, 0x16u);
 
                                     v57 = selfCopy;
                                   }
@@ -1099,55 +1079,55 @@ LABEL_87:
 LABEL_92:
 LABEL_93:
 
-                                  identifierCopy = v138;
-                                  v64 = v141;
+                                  identifierCopy = v140;
+                                  v64 = v143;
 LABEL_94:
 
 LABEL_95:
-                                  v62 = v143;
+                                  v62 = v145;
                                   goto LABEL_96;
                                 }
 
                                 v57 = selfCopy;
-                                v74 = v140;
-                                if (!v106)
+                                v74 = v142;
+                                if (!v108)
                                 {
 LABEL_89:
-                                  v107 = SLDaemonLogHandle();
-                                  if (os_log_type_enabled(v107, OS_LOG_TYPE_FAULT))
+                                  v109 = SLDaemonLogHandle(v110);
+                                  if (os_log_type_enabled(v109, OS_LOG_TYPE_FAULT))
                                   {
                                     [SLDCloudKitSyncReader getHighlightsInternalForApplicationIdentifier:];
                                   }
 
-                                  v106 = 0;
+                                  v108 = 0;
                                   goto LABEL_92;
                                 }
                               }
 
-                              if (SLDValidateSupplementaryData(v106))
+                              if (SLDValidateSupplementaryData(v108))
                               {
-                                v134 = objc_alloc(MEMORY[0x277D3A4C0]);
-                                v113 = MEMORY[0x277CBEBC0];
-                                encryptedValues10 = [v74 encryptedValues];
-                                v135 = [encryptedValues10 objectForKeyedSubscript:@"resourceURL"];
-                                v114 = [v113 URLWithString:v135];
-                                v115 = MEMORY[0x277CBEAA8];
-                                encryptedValues11 = [v139 encryptedValues];
-                                v117 = [encryptedValues11 objectForKeyedSubscript:@"timestamp"];
-                                [v117 doubleValue];
-                                v118 = [v115 dateWithTimeIntervalSinceReferenceDate:?];
-                                encryptedValues12 = [v139 encryptedValues];
-                                v120 = [encryptedValues12 objectForKeyedSubscript:@"score"];
-                                v107 = [v134 initWithIdentifier:v153 resourceURL:v114 timestamp:v118 attributionIdentifiers:v150 supplementaryData:v106 score:v120];
+                                v136 = objc_alloc(MEMORY[0x277D3A4C0]);
+                                v116 = MEMORY[0x277CBEBC0];
+                                encryptedValues9 = [v74 encryptedValues];
+                                v137 = [encryptedValues9 objectForKeyedSubscript:@"resourceURL"];
+                                v117 = [v116 URLWithString:v137];
+                                v118 = MEMORY[0x277CBEAA8];
+                                encryptedValues10 = [v141 encryptedValues];
+                                v120 = [encryptedValues10 objectForKeyedSubscript:@"timestamp"];
+                                [v120 doubleValue];
+                                v121 = [v118 dateWithTimeIntervalSinceReferenceDate:?];
+                                encryptedValues11 = [v141 encryptedValues];
+                                v123 = [encryptedValues11 objectForKeyedSubscript:@"score"];
+                                v109 = [v136 initWithIdentifier:v155 resourceURL:v117 timestamp:v121 attributionIdentifiers:v152 supplementaryData:v108 score:v123];
 
-                                v74 = v140;
+                                v74 = v142;
                                 v57 = selfCopy;
 
-                                v25 = v155;
-                                v66 = v139;
+                                v25 = v157;
+                                v66 = v141;
 
-                                v108 = [objc_alloc(MEMORY[0x277D3A508]) initWithHighlight:v107 rankingDate:v129 originatingDeviceId:v155];
-                                [v128 addObject:v108];
+                                v111 = [objc_alloc(MEMORY[0x277D3A508]) initWithHighlight:v109 rankingDate:v131 originatingDeviceId:v157];
+                                [v130 addObject:v111];
                                 goto LABEL_87;
                               }
 
@@ -1161,47 +1141,45 @@ LABEL_96:
                           ++v62;
                         }
 
-                        while (v62 != v147);
-                        v147 = [obj countByEnumeratingWithState:&v162 objects:v190 count:16];
+                        while (v62 != v149);
+                        v149 = [obj countByEnumeratingWithState:&v164 objects:v192 count:16];
                       }
 
-                      while (v147);
+                      while (v149);
                     }
 
-                    v36 = v129;
-                    v39 = v127;
+                    v36 = v131;
+                    v39 = v129;
                   }
                 }
               }
 
-              v10 = v130;
-              v9 = v131;
+              v10 = v132;
+              v9 = v133;
               goto LABEL_101;
             }
           }
 
 LABEL_102:
 
-          v11 = v136 + 1;
+          v11 = v138 + 1;
         }
 
-        while (v136 + 1 != v133);
-        v133 = [v10 countByEnumeratingWithState:&v178 objects:v194 count:16];
+        while (v138 + 1 != v135);
+        v135 = [v10 countByEnumeratingWithState:&v180 objects:v196 count:16];
       }
 
-      while (v133);
+      while (v135);
     }
   }
 
-  v122 = *MEMORY[0x277D85DE8];
-
-  return v128;
+  return v130;
 }
 
 - (void)syncEngine:(id)engine didSaveRecordZone:(id)zone
 {
   zoneCopy = zone;
-  v5 = SLDaemonLogHandle();
+  v5 = SLDaemonLogHandle(zoneCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     [SLDCloudKitSyncReader syncEngine:zoneCopy didSaveRecordZone:?];
@@ -1212,7 +1190,7 @@ LABEL_102:
 {
   zoneCopy = zone;
   errorCopy = error;
-  v8 = SLDaemonLogHandle();
+  v8 = SLDaemonLogHandle(errorCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
   {
     [SLDCloudKitSyncReader syncEngine:failedToSaveRecordZone:error:];
@@ -1255,19 +1233,18 @@ void __60__SLDCloudKitSyncReader_syncEngine_recordToSaveForRecordID___block_invo
 
   if (v2 == v3)
   {
-    v4 = (a1 + 48);
-    v5 = [*(a1 + 48) zoneID];
-    v6 = [v5 zoneName];
-    v7 = [@"readers" isEqual:v6];
+    v4 = [*(a1 + 48) zoneID];
+    v5 = [v4 zoneName];
+    v6 = [@"readers" isEqual:v5];
 
-    if (v7)
+    if (v6)
     {
-      v8 = [*(a1 + 40) persistence];
-      v9 = [v8 objectForKeyedSubscript:@"myAppsRecordID"];
-      v10 = [*(a1 + 48) recordName];
-      v11 = [v9 isEqual:v10];
+      v7 = [*(a1 + 40) persistence];
+      v8 = [v7 objectForKeyedSubscript:@"myAppsRecordID"];
+      v9 = [*(a1 + 48) recordName];
+      v10 = [v8 isEqual:v9];
 
-      if (v11)
+      if (v10)
       {
         v12 = [objc_alloc(MEMORY[0x277CBC5A0]) initWithRecordType:@"reader" recordID:*(a1 + 48)];
         v14 = *(a1 + 56);
@@ -1281,19 +1258,19 @@ void __60__SLDCloudKitSyncReader_syncEngine_recordToSaveForRecordID___block_invo
         v18 = [*(*(*v13 + 8) + 40) encryptedValues];
         [v18 setObject:v17 forKeyedSubscript:@"applicationIdentifiers"];
 
-        v19 = SLDaemonLogHandle();
-        if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+        v20 = SLDaemonLogHandle(v19);
+        if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
         {
-          __60__SLDCloudKitSyncReader_syncEngine_recordToSaveForRecordID___block_invoke_cold_2(v4);
+          __60__SLDCloudKitSyncReader_syncEngine_recordToSaveForRecordID___block_invoke_cold_2();
         }
       }
 
       else
       {
-        v19 = SLDaemonLogHandle();
-        if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+        v20 = SLDaemonLogHandle(v11);
+        if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
         {
-          __60__SLDCloudKitSyncReader_syncEngine_recordToSaveForRecordID___block_invoke_cold_1((a1 + 48));
+          __60__SLDCloudKitSyncReader_syncEngine_recordToSaveForRecordID___block_invoke_cold_1();
         }
       }
     }
@@ -1303,7 +1280,7 @@ void __60__SLDCloudKitSyncReader_syncEngine_recordToSaveForRecordID___block_invo
 - (void)syncEngine:(id)engine didSaveRecord:(id)record
 {
   recordCopy = record;
-  v5 = SLDaemonLogHandle();
+  v5 = SLDaemonLogHandle(recordCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     [SLDCloudKitSyncReader syncEngine:recordCopy didSaveRecord:?];
@@ -1342,28 +1319,28 @@ void __61__SLDCloudKitSyncReader_syncEngine_failedToSaveRecord_error___block_inv
     v6 = [v5 zoneName];
     v7 = [@"readers" isEqual:v6];
 
-    v8 = SLDaemonLogHandle();
-    v9 = v8;
+    v9 = SLDaemonLogHandle(v8);
+    v10 = v9;
     if (v7)
     {
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         __61__SLDCloudKitSyncReader_syncEngine_failedToSaveRecord_error___block_invoke_cold_2();
       }
 
-      v10 = [*(a1 + 40) persistence];
-      v11 = [v10 objectForKeyedSubscript:@"myAppsRecordID"];
-      v12 = [*(a1 + 48) recordID];
-      v13 = [v12 recordName];
-      v14 = [v11 isEqual:v13];
+      v11 = [*(a1 + 40) persistence];
+      v12 = [v11 objectForKeyedSubscript:@"myAppsRecordID"];
+      v13 = [*(a1 + 48) recordID];
+      v14 = [v13 recordName];
+      v15 = [v12 isEqual:v14];
 
-      if (v14)
+      if (v15)
       {
-        v15 = [*(a1 + 40) persistence];
-        [v15 setObject:0 forKeyedSubscript:@"appListLastUploaded"];
-
         v16 = [*(a1 + 40) persistence];
-        [v16 setObject:0 forKeyedSubscript:@"appListOnServer"];
+        [v16 setObject:0 forKeyedSubscript:@"appListLastUploaded"];
+
+        v17 = [*(a1 + 40) persistence];
+        [v17 setObject:0 forKeyedSubscript:@"appListOnServer"];
 
         [*(a1 + 40) checkForAccountChanges];
       }
@@ -1371,9 +1348,9 @@ void __61__SLDCloudKitSyncReader_syncEngine_failedToSaveRecord_error___block_inv
 
     else
     {
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
       {
-        __61__SLDCloudKitSyncReader_syncEngine_failedToSaveRecord_error___block_invoke_cold_1((a1 + 48));
+        __61__SLDCloudKitSyncReader_syncEngine_failedToSaveRecord_error___block_invoke_cold_1();
       }
     }
   }
@@ -1382,7 +1359,7 @@ void __61__SLDCloudKitSyncReader_syncEngine_failedToSaveRecord_error___block_inv
 - (void)syncEngine:(id)engine didDeleteRecordWithID:(id)d
 {
   dCopy = d;
-  v5 = SLDaemonLogHandle();
+  v5 = SLDaemonLogHandle(dCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     [SLDCloudKitSyncReader syncEngine:didDeleteRecordWithID:];
@@ -1490,10 +1467,11 @@ void __51__SLDCloudKitSyncReader_syncEngine_didFetchRecord___block_invoke(uint64
   if (v2 == v3)
   {
     v4 = (a1 + 48);
-    if (([*(a1 + 40) recordSupportsOurVersion:*(a1 + 48)] & 1) == 0)
+    v5 = [*(a1 + 40) recordSupportsOurVersion:*(a1 + 48)];
+    if ((v5 & 1) == 0)
     {
-      v9 = SLDaemonLogHandle();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+      v11 = SLDaemonLogHandle(v5);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
       {
         __51__SLDCloudKitSyncReader_syncEngine_didFetchRecord___block_invoke_cold_1(a1 + 48);
       }
@@ -1501,16 +1479,16 @@ void __51__SLDCloudKitSyncReader_syncEngine_didFetchRecord___block_invoke(uint64
       goto LABEL_55;
     }
 
-    v5 = [*v4 recordID];
-    v6 = [v5 zoneID];
-    v7 = [v6 zoneName];
-    v8 = [v7 hasPrefix:@"writer!"];
+    v6 = [*v4 recordID];
+    v7 = [v6 zoneID];
+    v8 = [v7 zoneName];
+    v9 = [v8 hasPrefix:@"writer!"];
 
-    v9 = SLDaemonLogHandle();
-    v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG);
-    if ((v8 & 1) == 0)
+    v11 = SLDaemonLogHandle(v10);
+    v12 = os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG);
+    if ((v9 & 1) == 0)
     {
-      if (v10)
+      if (v12)
       {
         __51__SLDCloudKitSyncReader_syncEngine_didFetchRecord___block_invoke_cold_2((a1 + 48));
       }
@@ -1518,36 +1496,36 @@ void __51__SLDCloudKitSyncReader_syncEngine_didFetchRecord___block_invoke(uint64
       goto LABEL_55;
     }
 
-    if (v10)
+    if (v12)
     {
       __51__SLDCloudKitSyncReader_syncEngine_didFetchRecord___block_invoke_cold_3(a1 + 48);
     }
 
-    v11 = *(a1 + 40);
-    v12 = [*(a1 + 48) recordID];
-    v13 = [v12 zoneID];
-    v14 = [v13 zoneName];
-    LODWORD(v11) = [v11 _validateRecordIDString:v14];
+    v13 = *(a1 + 40);
+    v14 = [*(a1 + 48) recordID];
+    v15 = [v14 zoneID];
+    v16 = [v15 zoneName];
+    LODWORD(v13) = [v13 _validateRecordIDString:v16];
 
-    if (v11)
+    if (v13)
     {
-      v15 = *(a1 + 40);
-      v16 = [*(a1 + 48) recordID];
-      v17 = [v16 recordName];
-      LODWORD(v15) = [v15 _validateRecordIDString:v17];
+      v17 = *(a1 + 40);
+      v18 = [*(a1 + 48) recordID];
+      v19 = [v18 recordName];
+      LODWORD(v17) = [v17 _validateRecordIDString:v19];
 
-      if (v15)
+      if (v17)
       {
-        v18 = *(a1 + 40);
-        v19 = [*(a1 + 48) recordID];
-        v20 = [v19 zoneID];
-        v21 = [v20 zoneName];
-        v9 = [v18 _syncDirectoryForWriter:v21];
+        v20 = *(a1 + 40);
+        v21 = [*(a1 + 48) recordID];
+        v22 = [v21 zoneID];
+        v23 = [v22 zoneName];
+        v11 = [v20 _syncDirectoryForWriter:v23];
 
-        if (!v9)
+        if (!v11)
         {
-          v26 = SLDaemonLogHandle();
-          if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+          v29 = SLDaemonLogHandle(v24);
+          if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
           {
             __51__SLDCloudKitSyncReader_syncEngine_didFetchRecord___block_invoke_cold_13();
           }
@@ -1555,37 +1533,37 @@ void __51__SLDCloudKitSyncReader_syncEngine_didFetchRecord___block_invoke(uint64
           goto LABEL_54;
         }
 
-        v22 = [*(a1 + 40) persistence];
-        v23 = [v22 objectForKeyedSubscript:@"files"];
-        v24 = v23;
-        v25 = MEMORY[0x277CBEC10];
-        if (!v23)
+        v25 = [*(a1 + 40) persistence];
+        v26 = [v25 objectForKeyedSubscript:@"files"];
+        v27 = v26;
+        v28 = MEMORY[0x277CBEC10];
+        if (!v26)
         {
-          v23 = MEMORY[0x277CBEC10];
+          v26 = MEMORY[0x277CBEC10];
         }
 
-        v26 = [v23 mutableCopy];
+        v29 = [v26 mutableCopy];
 
-        v27 = [*(a1 + 48) recordID];
-        v28 = [v27 zoneID];
-        v29 = [v28 zoneName];
-        v30 = [v26 objectForKeyedSubscript:v29];
-        v31 = v30;
-        if (!v30)
+        v30 = [*(a1 + 48) recordID];
+        v31 = [v30 zoneID];
+        v32 = [v31 zoneName];
+        v33 = [v29 objectForKeyedSubscript:v32];
+        v34 = v33;
+        if (!v33)
         {
-          v30 = v25;
+          v33 = v28;
         }
 
-        v32 = [v30 mutableCopy];
+        v35 = [v33 mutableCopy];
 
-        v33 = [*(a1 + 48) recordID];
-        v34 = [v33 recordName];
-        v35 = [v32 objectForKeyedSubscript:v34];
+        v36 = [*(a1 + 48) recordID];
+        v37 = [v36 recordName];
+        v38 = [v35 objectForKeyedSubscript:v37];
 
-        if (v35)
+        if (v38)
         {
-          v36 = SLDaemonLogHandle();
-          if (os_log_type_enabled(v36, OS_LOG_TYPE_DEBUG))
+          v40 = SLDaemonLogHandle(v39);
+          if (os_log_type_enabled(v40, OS_LOG_TYPE_DEBUG))
           {
             __51__SLDCloudKitSyncReader_syncEngine_didFetchRecord___block_invoke_cold_4();
           }
@@ -1593,15 +1571,15 @@ void __51__SLDCloudKitSyncReader_syncEngine_didFetchRecord___block_invoke(uint64
           goto LABEL_53;
         }
 
-        v37 = [MEMORY[0x277CCAA00] defaultManager];
-        v86 = 0;
-        v38 = [v37 createDirectoryAtURL:v9 withIntermediateDirectories:1 attributes:0 error:&v86];
-        v36 = v86;
+        v41 = [MEMORY[0x277CCAA00] defaultManager];
+        v97 = 0;
+        v42 = [v41 createDirectoryAtURL:v11 withIntermediateDirectories:1 attributes:0 error:&v97];
+        v40 = v97;
 
-        if ((v38 & 1) == 0)
+        if ((v42 & 1) == 0)
         {
-          v68 = SLDaemonLogHandle();
-          if (os_log_type_enabled(v68, OS_LOG_TYPE_ERROR))
+          v74 = SLDaemonLogHandle(v43);
+          if (os_log_type_enabled(v74, OS_LOG_TYPE_ERROR))
           {
             __51__SLDCloudKitSyncReader_syncEngine_didFetchRecord___block_invoke_cold_5();
           }
@@ -1609,106 +1587,107 @@ void __51__SLDCloudKitSyncReader_syncEngine_didFetchRecord___block_invoke(uint64
           goto LABEL_52;
         }
 
-        v39 = [*v4 objectForKeyedSubscript:@"recordTimestamp"];
-        v40 = [*v4 recordID];
-        v41 = [v40 recordName];
-        [v32 setObject:v39 forKeyedSubscript:v41];
+        v44 = [*v4 objectForKeyedSubscript:@"recordTimestamp"];
+        v45 = [*v4 recordID];
+        v46 = [v45 recordName];
+        [v35 setObject:v44 forKeyedSubscript:v46];
 
-        v42 = [*v4 recordType];
-        LODWORD(v40) = [@"index" isEqual:v42];
+        v47 = [*v4 recordType];
+        LODWORD(v45) = [@"index" isEqual:v47];
 
-        if (v40)
+        if (v45)
         {
-          v82 = v36;
-          v43 = v25;
-          v44 = SLDaemonLogHandle();
-          if (os_log_type_enabled(v44, OS_LOG_TYPE_DEBUG))
+          v93 = v40;
+          v49 = v28;
+          v50 = SLDaemonLogHandle(v48);
+          if (os_log_type_enabled(v50, OS_LOG_TYPE_DEBUG))
           {
             __51__SLDCloudKitSyncReader_syncEngine_didFetchRecord___block_invoke_cold_6();
           }
 
-          v45 = [*(a1 + 40) persistence];
-          v46 = [v45 objectForKeyedSubscript:@"rankings"];
-          v47 = v46;
-          if (!v46)
+          v51 = [*(a1 + 40) persistence];
+          v52 = [v51 objectForKeyedSubscript:@"rankings"];
+          v53 = v52;
+          if (!v52)
           {
-            v46 = v43;
+            v52 = v49;
           }
 
-          v80 = [v46 mutableCopy];
+          v91 = [v52 mutableCopy];
 
-          v48 = [*(a1 + 48) recordID];
-          v49 = [v48 zoneID];
-          v50 = [v49 zoneName];
-          v51 = [v80 objectForKeyedSubscript:v50];
-          v52 = v51;
-          if (!v51)
+          v54 = [*(a1 + 48) recordID];
+          v55 = [v54 zoneID];
+          v56 = [v55 zoneName];
+          v57 = [v91 objectForKeyedSubscript:v56];
+          v58 = v57;
+          if (!v57)
           {
-            v51 = MEMORY[0x277CBEC10];
+            v57 = MEMORY[0x277CBEC10];
           }
 
-          v53 = [v51 mutableCopy];
+          v59 = [v57 mutableCopy];
 
-          v54 = [*(a1 + 48) encryptedValues];
-          v55 = [v54 objectForKeyedSubscript:@"recordIDs"];
-          v56 = [*(a1 + 48) recordID];
-          v57 = [v56 recordName];
-          [v53 setObject:v55 forKeyedSubscript:v57];
+          v60 = [*(a1 + 48) encryptedValues];
+          v61 = [v60 objectForKeyedSubscript:@"recordIDs"];
+          v62 = [*(a1 + 48) recordID];
+          v63 = [v62 recordName];
+          [v59 setObject:v61 forKeyedSubscript:v63];
 
-          v58 = [*(a1 + 48) recordID];
-          v59 = [v58 zoneID];
-          v60 = [v59 zoneName];
-          [v81 setObject:v53 forKeyedSubscript:v60];
+          v64 = [*(a1 + 48) recordID];
+          v65 = [v64 zoneID];
+          v66 = [v65 zoneName];
+          [v92 setObject:v59 forKeyedSubscript:v66];
 
-          v61 = [*(a1 + 40) persistence];
-          [v61 setObject:v81 forKeyedSubscript:@"rankings"];
+          v67 = [*(a1 + 40) persistence];
+          [v67 setObject:v92 forKeyedSubscript:@"rankings"];
 
-          v36 = v82;
+          v40 = v93;
         }
 
-        v62 = [*(a1 + 48) recordID];
-        v63 = [v62 zoneID];
-        v64 = [v63 zoneName];
-        [v26 setObject:v32 forKeyedSubscript:v64];
+        v68 = [*(a1 + 48) recordID];
+        v69 = [v68 zoneID];
+        v70 = [v69 zoneName];
+        [v29 setObject:v35 forKeyedSubscript:v70];
 
-        v65 = [*(a1 + 40) persistence];
-        [v65 setObject:v26 forKeyedSubscript:@"files"];
+        v71 = [*(a1 + 40) persistence];
+        [v71 setObject:v29 forKeyedSubscript:@"files"];
 
-        v66 = [*(a1 + 48) recordID];
-        v67 = [v66 recordName];
-        v68 = [v9 URLByAppendingPathComponent:v67];
+        v72 = [*(a1 + 48) recordID];
+        v73 = [v72 recordName];
+        v74 = [v11 URLByAppendingPathComponent:v73];
 
-        v69 = SLDaemonLogHandle();
-        if (os_log_type_enabled(v69, OS_LOG_TYPE_DEBUG))
+        v76 = SLDaemonLogHandle(v75);
+        if (os_log_type_enabled(v76, OS_LOG_TYPE_DEBUG))
         {
           __51__SLDCloudKitSyncReader_syncEngine_didFetchRecord___block_invoke_cold_7();
         }
 
-        v70 = [*v4 recordType];
-        v71 = [@"image" isEqual:v70];
+        v77 = [*v4 recordType];
+        v78 = [@"image" isEqual:v77];
 
-        v72 = SLDaemonLogHandle();
-        v73 = os_log_type_enabled(v72, OS_LOG_TYPE_DEBUG);
-        if (v71)
+        v80 = SLDaemonLogHandle(v79);
+        v81 = os_log_type_enabled(v80, OS_LOG_TYPE_DEBUG);
+        if (v78)
         {
-          if (v73)
+          if (v81)
           {
             __51__SLDCloudKitSyncReader_syncEngine_didFetchRecord___block_invoke_cold_11();
           }
 
-          v74 = [*v4 encryptedValues];
-          v75 = [v74 objectForKeyedSubscript:@"compressed"];
+          v82 = [*v4 encryptedValues];
+          v83 = [v82 objectForKeyedSubscript:@"compressed"];
 
-          v85 = 0;
-          [v75 writeToURL:v68 options:0 error:&v85];
-          v76 = v85;
-          if (!v76)
+          v96 = 0;
+          [v83 writeToURL:v74 options:0 error:&v96];
+          v84 = v96;
+          v85 = v84;
+          if (!v84)
           {
             goto LABEL_51;
           }
 
-          v77 = SLDaemonLogHandle();
-          if (os_log_type_enabled(v77, OS_LOG_TYPE_ERROR))
+          v86 = SLDaemonLogHandle(v84);
+          if (os_log_type_enabled(v86, OS_LOG_TYPE_ERROR))
           {
             __51__SLDCloudKitSyncReader_syncEngine_didFetchRecord___block_invoke_cold_12();
           }
@@ -1716,24 +1695,26 @@ void __51__SLDCloudKitSyncReader_syncEngine_didFetchRecord___block_invoke(uint64
 
         else
         {
-          if (v73)
+          if (v81)
           {
             __51__SLDCloudKitSyncReader_syncEngine_didFetchRecord___block_invoke_cold_8();
           }
 
-          v78 = *v4;
-          v84 = 0;
-          v76 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v78 requiringSecureCoding:1 error:&v84];
-          v75 = v84;
-          if (v76)
+          v87 = *v4;
+          v95 = 0;
+          v85 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v87 requiringSecureCoding:1 error:&v95];
+          v88 = v95;
+          v83 = v88;
+          if (v85)
           {
-            v83 = 0;
-            [v76 writeToURL:v68 options:0 error:&v83];
-            v77 = v83;
-            if (v77)
+            v94 = 0;
+            [v85 writeToURL:v74 options:0 error:&v94];
+            v89 = v94;
+            v86 = v89;
+            if (v89)
             {
-              v79 = SLDaemonLogHandle();
-              if (os_log_type_enabled(v79, OS_LOG_TYPE_ERROR))
+              v90 = SLDaemonLogHandle(v89);
+              if (os_log_type_enabled(v90, OS_LOG_TYPE_ERROR))
               {
                 __51__SLDCloudKitSyncReader_syncEngine_didFetchRecord___block_invoke_cold_9();
               }
@@ -1742,8 +1723,8 @@ void __51__SLDCloudKitSyncReader_syncEngine_didFetchRecord___block_invoke(uint64
 
           else
           {
-            v77 = SLDaemonLogHandle();
-            if (os_log_type_enabled(v77, OS_LOG_TYPE_ERROR))
+            v86 = SLDaemonLogHandle(v88);
+            if (os_log_type_enabled(v86, OS_LOG_TYPE_ERROR))
             {
               __51__SLDCloudKitSyncReader_syncEngine_didFetchRecord___block_invoke_cold_10();
             }
@@ -1778,7 +1759,7 @@ void __45__SLDCloudKitSyncReader_notifyChangeCallback__block_invoke(uint64_t a1)
   {
     *(WeakRetained + 72) = 0;
     v3 = _Block_copy(WeakRetained[8]);
-    v4 = SLDaemonLogHandle();
+    v4 = SLDaemonLogHandle(v3);
     v5 = os_log_type_enabled(v4, OS_LOG_TYPE_INFO);
     if (v3)
     {
@@ -1822,21 +1803,21 @@ void __45__SLDCloudKitSyncReader_notifyChangeCallback__block_invoke(uint64_t a1)
 
 void __78__SLDCloudKitSyncReader_syncEngine_failedToFetchChangesForRecordZoneID_error___block_invoke(uint64_t a1)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = [*(a1 + 40) syncEngine];
 
   if (v2 == v3)
   {
-    v5 = SLDaemonLogHandle();
+    v5 = SLDaemonLogHandle(v4);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       v6 = *(a1 + 48);
       v7 = *(a1 + 56);
       *buf = 138412546;
-      v18 = v6;
-      v19 = 2112;
-      v20 = v7;
+      v19 = v6;
+      v20 = 2112;
+      v21 = v7;
       _os_log_impl(&dword_231772000, v5, OS_LOG_TYPE_DEFAULT, "#SLDCK Failed to fetch changes for zone %@: %@", buf, 0x16u);
     }
 
@@ -1852,7 +1833,7 @@ void __78__SLDCloudKitSyncReader_syncEngine_failedToFetchChangesForRecordZoneID_
 
       if (!v10)
       {
-        goto LABEL_2;
+        return;
       }
     }
 
@@ -1863,22 +1844,19 @@ void __78__SLDCloudKitSyncReader_syncEngine_failedToFetchChangesForRecordZoneID_
 
       if ((v12 & 1) == 0)
       {
-        v13 = SLDaemonLogHandle();
-        if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+        v14 = SLDaemonLogHandle(v13);
+        if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
         {
-          __78__SLDCloudKitSyncReader_syncEngine_failedToFetchChangesForRecordZoneID_error___block_invoke_cold_1((a1 + 48));
+          __78__SLDCloudKitSyncReader_syncEngine_failedToFetchChangesForRecordZoneID_error___block_invoke_cold_1();
         }
 
-        v14 = [*(a1 + 40) syncEngine];
-        v16 = *(a1 + 48);
-        v15 = [MEMORY[0x277CBEA60] arrayWithObjects:&v16 count:1];
-        [v14 addRecordZonesToSave:0 recordZoneIDsToDelete:v15];
+        v15 = [*(a1 + 40) syncEngine];
+        v17 = *(a1 + 48);
+        v16 = [MEMORY[0x277CBEA60] arrayWithObjects:&v17 count:1];
+        [v15 addRecordZonesToSave:0 recordZoneIDsToDelete:v16];
       }
     }
   }
-
-LABEL_2:
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)invalidateApps
@@ -1980,12 +1958,12 @@ void __63__SLDCloudKitSyncReader_getHighlightsForApplicationIdentifier___block_i
 
         else
         {
-          v16 = SLDaemonLogHandle();
-          if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
+          v17 = SLDaemonLogHandle(v16);
+          if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
           {
             *buf = 138412290;
             v27 = v15;
-            _os_log_fault_impl(&dword_231772000, v16, OS_LOG_TYPE_FAULT, "couldn't convert portrait highlight to sl highlight: %@", buf, 0xCu);
+            _os_log_fault_impl(&dword_231772000, v17, OS_LOG_TYPE_FAULT, "couldn't convert portrait highlight to sl highlight: %@", buf, 0xCu);
           }
         }
       }
@@ -1996,11 +1974,9 @@ void __63__SLDCloudKitSyncReader_getHighlightsForApplicationIdentifier___block_i
     while (v5);
   }
 
-  v17 = *(*(a1 + 48) + 8);
-  v18 = *(v17 + 40);
-  *(v17 + 40) = v2;
-
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *(*(a1 + 48) + 8);
+  v19 = *(v18 + 40);
+  *(v18 + 40) = v2;
 }
 
 - (id)getSyncableHighlightsForApplicationIdentifier:(id)identifier
@@ -2108,31 +2084,25 @@ uint64_t __43__SLDCloudKitSyncReader_setChangeCallback___block_invoke(uint64_t a
 
 - (void)_validateRecordIDString:(void *)a1 .cold.1(void *a1, uint64_t a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
   v2 = [a1 substringWithRange:{a2, 1}];
   OUTLINED_FUNCTION_6_0();
   OUTLINED_FUNCTION_4();
   _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addApplicationIdentifierInternal:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_fetchAttributionInternal:.cold.1()
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_11();
-  v4 = v0;
-  _os_log_fault_impl(&dword_231772000, v1, OS_LOG_TYPE_FAULT, "#SLDCK cannot make SLAttribution for %@: %@", v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = v0;
+  _os_log_fault_impl(&dword_231772000, v1, OS_LOG_TYPE_FAULT, "#SLDCK cannot make SLAttribution for %@: %@", v2, 0x16u);
 }
 
 - (void)getHighlightsInternalForApplicationIdentifier:.cold.1()
@@ -2153,140 +2123,102 @@ uint64_t __43__SLDCloudKitSyncReader_setChangeCallback___block_invoke(uint64_t a
 
 - (void)syncEngine:(void *)a1 didSaveRecordZone:.cold.1(void *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   v1 = [a1 zoneID];
   v2 = [v1 zoneName];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_1_1();
   _os_log_debug_impl(v3, v4, v5, v6, v7, 0xCu);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)syncEngine:failedToSaveRecordZone:error:.cold.1()
 {
   OUTLINED_FUNCTION_14();
-  v9 = *MEMORY[0x277D85DE8];
   v1 = [v0 zoneID];
   v2 = [v1 zoneName];
   OUTLINED_FUNCTION_0_11();
   OUTLINED_FUNCTION_4();
   _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
-void __60__SLDCloudKitSyncReader_syncEngine_recordToSaveForRecordID___block_invoke_cold_1(uint64_t *a1)
+void __60__SLDCloudKitSyncReader_syncEngine_recordToSaveForRecordID___block_invoke_cold_1()
 {
-  OUTLINED_FUNCTION_12(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_12(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_2_2();
   OUTLINED_FUNCTION_0_0();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void __60__SLDCloudKitSyncReader_syncEngine_recordToSaveForRecordID___block_invoke_cold_2(uint64_t *a1)
+void __60__SLDCloudKitSyncReader_syncEngine_recordToSaveForRecordID___block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_12(a1, *MEMORY[0x277D85DE8]);
-  v2 = *(*(*v1 + 8) + 40);
+  OUTLINED_FUNCTION_12(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_2_2();
   OUTLINED_FUNCTION_6_0();
-  OUTLINED_FUNCTION_0_4(&dword_231772000, v3, v4, "#SLDCK giving sync engine contents for record id %@: %@");
-  v5 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_4(&dword_231772000, v0, v1, "#SLDCK giving sync engine contents for record id %@: %@");
 }
 
 - (void)syncEngine:(void *)a1 didSaveRecord:.cold.1(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 recordID];
   OUTLINED_FUNCTION_0_11();
   OUTLINED_FUNCTION_1_1();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
-void __61__SLDCloudKitSyncReader_syncEngine_failedToSaveRecord_error___block_invoke_cold_1(uint64_t *a1)
+void __61__SLDCloudKitSyncReader_syncEngine_failedToSaveRecord_error___block_invoke_cold_1()
 {
-  OUTLINED_FUNCTION_12(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_12(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_2_2();
   OUTLINED_FUNCTION_16();
-  _os_log_fault_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_fault_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void __61__SLDCloudKitSyncReader_syncEngine_failedToSaveRecord_error___block_invoke_cold_2()
 {
   OUTLINED_FUNCTION_14();
-  v1 = *MEMORY[0x277D85DE8];
-  v3 = [OUTLINED_FUNCTION_8(v2) recordID];
-  v4 = *(v0 + 56);
+  v1 = [OUTLINED_FUNCTION_8(v0) recordID];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_4();
-  _os_log_error_impl(v5, v6, v7, v8, v9, 0x16u);
-
-  v10 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
 }
 
 - (void)syncEngine:didDeleteRecordWithID:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __51__SLDCloudKitSyncReader_syncEngine_didFetchRecord___block_invoke_cold_1(uint64_t a1)
 {
-  v1 = *MEMORY[0x277D85DE8];
-  v2 = [OUTLINED_FUNCTION_8(a1) recordID];
+  v1 = [OUTLINED_FUNCTION_8(a1) recordID];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_1_1();
-  _os_log_debug_impl(v3, v4, v5, v6, v7, 0xCu);
-
-  v8 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
 }
 
 void __51__SLDCloudKitSyncReader_syncEngine_didFetchRecord___block_invoke_cold_2(id *a1)
 {
-  v2 = *MEMORY[0x277D85DE8];
-  v3 = [OUTLINED_FUNCTION_8(a1) recordID];
-  v4 = [*a1 recordID];
-  v5 = [v4 zoneID];
+  v2 = [OUTLINED_FUNCTION_8(a1) recordID];
+  v3 = [*a1 recordID];
+  v4 = [v3 zoneID];
   OUTLINED_FUNCTION_6_0();
   OUTLINED_FUNCTION_1_1();
-  _os_log_debug_impl(v6, v7, v8, v9, v10, 0x16u);
-
-  v11 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v5, v6, v7, v8, v9, 0x16u);
 }
 
 void __51__SLDCloudKitSyncReader_syncEngine_didFetchRecord___block_invoke_cold_3(uint64_t a1)
 {
-  v1 = *MEMORY[0x277D85DE8];
-  v2 = [OUTLINED_FUNCTION_8(a1) recordID];
+  v1 = [OUTLINED_FUNCTION_8(a1) recordID];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_1_1();
-  _os_log_debug_impl(v3, v4, v5, v6, v7, 0xCu);
-
-  v8 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
 }
 
 void __51__SLDCloudKitSyncReader_syncEngine_didFetchRecord___block_invoke_cold_4()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __51__SLDCloudKitSyncReader_syncEngine_didFetchRecord___block_invoke_cold_5()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_1_0(&dword_231772000, v0, v1, "#SLDCK couldn't make writer dir for %@ due to error %@");
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 void __51__SLDCloudKitSyncReader_syncEngine_didFetchRecord___block_invoke_cold_6()
@@ -2298,57 +2230,32 @@ void __51__SLDCloudKitSyncReader_syncEngine_didFetchRecord___block_invoke_cold_6
 
 void __51__SLDCloudKitSyncReader_syncEngine_didFetchRecord___block_invoke_cold_7()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __51__SLDCloudKitSyncReader_syncEngine_didFetchRecord___block_invoke_cold_8()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __51__SLDCloudKitSyncReader_syncEngine_didFetchRecord___block_invoke_cold_9()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_1_0(&dword_231772000, v0, v1, "#SLDCK failed to write ckrecord archive to %@: %@");
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 void __51__SLDCloudKitSyncReader_syncEngine_didFetchRecord___block_invoke_cold_10()
 {
   OUTLINED_FUNCTION_14();
-  v0 = *MEMORY[0x277D85DE8];
-  v2 = [OUTLINED_FUNCTION_8(v1) recordID];
+  v1 = [OUTLINED_FUNCTION_8(v0) recordID];
   OUTLINED_FUNCTION_0_11();
   OUTLINED_FUNCTION_4();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
 }
 
 void __51__SLDCloudKitSyncReader_syncEngine_didFetchRecord___block_invoke_cold_11()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __51__SLDCloudKitSyncReader_syncEngine_didFetchRecord___block_invoke_cold_12()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_1_0(&dword_231772000, v0, v1, "#SLDCK error writing image to %@: %@");
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 void __51__SLDCloudKitSyncReader_syncEngine_didFetchRecord___block_invoke_cold_13()
@@ -2358,13 +2265,12 @@ void __51__SLDCloudKitSyncReader_syncEngine_didFetchRecord___block_invoke_cold_1
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __78__SLDCloudKitSyncReader_syncEngine_failedToFetchChangesForRecordZoneID_error___block_invoke_cold_1(uint64_t *a1)
+void __78__SLDCloudKitSyncReader_syncEngine_failedToFetchChangesForRecordZoneID_error___block_invoke_cold_1()
 {
-  OUTLINED_FUNCTION_12(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_12(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_2_2();
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 @end

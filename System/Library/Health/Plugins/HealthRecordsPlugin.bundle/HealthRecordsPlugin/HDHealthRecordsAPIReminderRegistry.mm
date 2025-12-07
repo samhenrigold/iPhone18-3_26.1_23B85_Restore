@@ -751,20 +751,20 @@ LABEL_11:
   source = [reminder source];
   name = [source name];
   v10 = [NSString alloc];
-  v11 = HDHealthRecordsPluginBundle();
+  v11 = HDHealthRecordsPluginBundle(v10);
   v12 = [v11 localizedStringForKey:@"UNLIMITED_AUTHORIZATION_REMINDER_TITLE_APP_%@" value:&stru_1090E8 table:@"HealthRecordsPlugin-Localizable"];
   v13 = [v10 initWithFormat:v12, name];
 
   v14 = [NSString alloc];
-  v15 = HDHealthRecordsPluginBundle();
+  v15 = HDHealthRecordsPluginBundle(v14);
   v16 = [v15 localizedStringForKey:@"UNLIMITED_AUTHORIZATION_REMINDER_BODY_APP_%@" value:&stru_1090E8 table:@"HealthRecordsPlugin-Localizable"];
   v17 = [v14 initWithFormat:v16, name];
 
-  v18 = HDHealthRecordsPluginBundle();
-  v19 = [v18 localizedStringForKey:@"UNLIMITED_AUTHORIZATION_REMINDER_BUTTON_KEEP" value:&stru_1090E8 table:@"HealthRecordsPlugin-Localizable"];
-  v20 = HDHealthRecordsPluginBundle();
-  v21 = [v20 localizedStringForKey:@"UNLIMITED_AUTHORIZATION_REMINDER_BUTTON_MANAGE_ACCESS" value:&stru_1090E8 table:@"HealthRecordsPlugin-Localizable"];
-  [(HDHealthRecordsAPIReminderRegistry *)self _displayStopAlertForPendingReminderID:dCopy transaction:transactionCopy title:v13 body:v17 defaultButtonTitle:v19 alternateButtonTitle:v21];
+  v19 = HDHealthRecordsPluginBundle(v18);
+  v20 = [v19 localizedStringForKey:@"UNLIMITED_AUTHORIZATION_REMINDER_BUTTON_KEEP" value:&stru_1090E8 table:@"HealthRecordsPlugin-Localizable"];
+  v21 = HDHealthRecordsPluginBundle(v20);
+  v22 = [v21 localizedStringForKey:@"UNLIMITED_AUTHORIZATION_REMINDER_BUTTON_MANAGE_ACCESS" value:&stru_1090E8 table:@"HealthRecordsPlugin-Localizable"];
+  [(HDHealthRecordsAPIReminderRegistry *)self _displayStopAlertForPendingReminderID:dCopy transaction:transactionCopy title:v13 body:v17 defaultButtonTitle:v20 alternateButtonTitle:v22];
 }
 
 - (int64_t)_authorizationModeForRecordsByType:(id)type

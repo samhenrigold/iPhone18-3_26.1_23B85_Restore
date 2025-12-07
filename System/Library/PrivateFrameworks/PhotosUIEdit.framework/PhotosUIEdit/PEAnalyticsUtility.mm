@@ -224,7 +224,7 @@ BOOL __58__PEAnalyticsUtility_analyticPayloadForCopyEditsSettings___block_invoke
             isKindOfClass = objc_opt_isKindOfClass();
             v21 = [analyticsPayload objectForKeyedSubscript:v17];
             v22 = [v31 objectForKeyedSubscript:v17];
-            v23 = (isKindOfClass & 1) != 0 ? [v21 isEqualToString:v22] : objc_msgSend(v21, "isEqual:", v22);
+            v23 = (isKindOfClass & 1) != 0 ? objc_msgSend_isEqualToString_(v21) : [v21 isEqual:v22];
             v24 = v23;
 
             v19 = v32;
@@ -432,7 +432,7 @@ LABEL_7:
     effect3DAdjustmentController2 = [controllerCopy effect3DAdjustmentController];
     kind = [effect3DAdjustmentController2 kind];
 
-    if (kind && ([kind isEqualToString:&stru_2870659C0] & 1) == 0)
+    if (kind && (objc_msgSend_isEqualToString_(kind) & 1) == 0)
     {
       [v6 setObject:kind forKeyedSubscript:@"filter"];
     }
@@ -453,7 +453,7 @@ LABEL_7:
     effectAdjustmentController2 = [controllerCopy effectAdjustmentController];
     kind = [effectAdjustmentController2 kind];
 
-    if (kind && ([kind isEqualToString:&stru_2870659C0] & 1) == 0)
+    if (kind && (objc_msgSend_isEqualToString_(kind) & 1) == 0)
     {
       [v6 setObject:kind forKeyedSubscript:@"filter"];
     }
@@ -481,7 +481,7 @@ LABEL_34:
     portraitAdjustmentController2 = [controllerCopy portraitAdjustmentController];
     kind2 = [portraitAdjustmentController2 kind];
 
-    if (kind2 && ([kind2 isEqualToString:&stru_2870659C0] & 1) == 0)
+    if (kind2 && (objc_msgSend_isEqualToString_(kind2) & 1) == 0)
     {
       [v6 setObject:kind2 forKeyedSubscript:@"portrait_effect"];
     }
@@ -496,7 +496,7 @@ LABEL_34:
 
 + (id)diffKeysFromInitialComposition:(id)composition toFinalComposition:(id)finalComposition
 {
-  v137[1] = *MEMORY[0x277D85DE8];
+  v136[1] = *MEMORY[0x277D85DE8];
   compositionCopy = composition;
   finalCompositionCopy = finalComposition;
   v7 = objc_alloc(MEMORY[0x277D3A870]);
@@ -506,7 +506,7 @@ LABEL_34:
   v9 = objc_alloc_init(MEMORY[0x277CBEB38]);
   v10 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v11 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v116 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v115 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v12 = [objc_alloc(MEMORY[0x277D3A870]) initWithComposition:compositionCopy];
   semanticStyleAdjustmentController = [v12 semanticStyleAdjustmentController];
 
@@ -516,8 +516,8 @@ LABEL_34:
   {
     v15 = MEMORY[0x277D3AC20];
     v16 = *MEMORY[0x277D3AB10];
-    v137[0] = *MEMORY[0x277D3AB10];
-    v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v137 count:1];
+    v136[0] = *MEMORY[0x277D3AB10];
+    v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v136 count:1];
     LODWORD(v15) = [v15 isIdentityCompositionController:v12 forKeys:v17];
 
     if (v15)
@@ -532,47 +532,46 @@ LABEL_34:
   composition2 = [v109 composition];
   v110 = [PEAutoAdjustmentController isAutoEnhanceEnabledForCompositionController:v109];
   [v109 differingAdjustmentsWithComposition:compositionCopy];
+  v129 = 0u;
   v130 = 0u;
   v131 = 0u;
-  v132 = 0u;
-  obj = v133 = 0u;
-  v121 = [obj countByEnumeratingWithState:&v130 objects:v136 count:16];
-  if (v121)
+  obj = v132 = 0u;
+  v120 = [obj countByEnumeratingWithState:&v129 objects:v135 count:16];
+  if (v120)
   {
-    v114 = v10;
-    v115 = v11;
+    v113 = v10;
+    v114 = v11;
     v105 = v9;
     v106 = finalCompositionCopy;
     v107 = 0;
-    v118 = 0;
-    v119 = *v131;
+    v117 = 0;
+    v118 = *v130;
     v19 = *MEMORY[0x277D3ABB8];
-    v125 = *MEMORY[0x277D3ABC0];
-    v123 = *MEMORY[0x277D3AA08];
-    v124 = *MEMORY[0x277D3ABE8];
-    v122 = *MEMORY[0x277D3AA20];
-    v120 = *MEMORY[0x277D3AA68];
-    v111 = *MEMORY[0x277D3ABB0];
+    v124 = *MEMORY[0x277D3ABC0];
+    v122 = *MEMORY[0x277D3AA08];
+    v123 = *MEMORY[0x277D3ABE8];
+    v121 = *MEMORY[0x277D3AA20];
+    v119 = *MEMORY[0x277D3AA68];
     v20 = v109;
-    v21 = v116;
+    v21 = v115;
     while (1)
     {
-      for (i = 0; i != v121; ++i)
+      for (i = 0; i != v120; ++i)
       {
-        if (*v131 != v119)
+        if (*v130 != v118)
         {
           objc_enumerationMutation(obj);
         }
 
-        v23 = *(*(&v130 + 1) + 8 * i);
-        v135[0] = v19;
-        v135[1] = v125;
-        v135[2] = v124;
-        v135[3] = v123;
-        v135[4] = v122;
-        v135[5] = v120;
+        v23 = *(*(&v129 + 1) + 8 * i);
+        v134[0] = v19;
+        v134[1] = v124;
+        v134[2] = v123;
+        v134[3] = v122;
+        v134[4] = v121;
+        v134[5] = v119;
         v24 = v14;
-        v25 = [*(v14 + 2656) arrayWithObjects:v135 count:6];
+        v25 = [*(v14 + 2656) arrayWithObjects:v134 count:6];
         v26 = [v25 containsObject:v23];
 
         if (v26)
@@ -584,9 +583,9 @@ LABEL_34:
             v27 = [v20 adjustmentControllerForKey:v23];
           }
 
-          v28 = [v23 isEqualToString:v19];
+          isEqualToString = objc_msgSend_isEqualToString_(v23);
           v29 = 0x277D3A988;
-          if ((v28 & 1) != 0 || (v30 = [v23 isEqualToString:v125], v29 = 0x277D3A9A0, v30))
+          if ((isEqualToString & 1) != 0 || (v30 = objc_msgSend_isEqualToString_(v23), v29 = 0x277D3A9A0, v30))
           {
             v31 = objc_alloc(*v29);
             v32 = [compositionCopy objectForKeyedSubscript:v23];
@@ -598,9 +597,9 @@ LABEL_34:
             v33 = 0;
           }
 
-          v46 = [v23 isEqualToString:v111];
+          v46 = objc_msgSend_isEqualToString_(v23);
           v47 = 0x277D3A980;
-          if (v46 & 1) != 0 || (v48 = [v23 isEqualToString:v124], v47 = 0x277D3A9B0, (v48) || (v49 = objc_msgSend(v23, "isEqualToString:", v123), v47 = 0x277D3A8B0, (v49) || (v50 = objc_msgSend(v23, "isEqualToString:", v122), v47 = 0x277D3A8C8, (v50) || (v51 = objc_msgSend(v23, "isEqualToString:", v120), v47 = 0x277D3A8F0, v51))
+          if (v46 & 1) != 0 || (v48 = objc_msgSend_isEqualToString_(v23), v47 = 0x277D3A9B0, (v48) || (v49 = objc_msgSend_isEqualToString_(v23), v47 = 0x277D3A8B0, (v49) || (v50 = objc_msgSend_isEqualToString_(v23), v47 = 0x277D3A8C8, (v50) || (v51 = objc_msgSend_isEqualToString_(v23), v47 = 0x277D3A8F0, v51))
           {
             v52 = objc_alloc(*v47);
             v53 = [compositionCopy objectForKeyedSubscript:v23];
@@ -611,20 +610,20 @@ LABEL_34:
 
           v55 = [self diffFromAdjustmentController:v33 toAdjustmentController:v27];
           v56 = [v55 objectForKeyedSubscript:kDiffAddedKey];
-          [v115 addObjectsFromArray:v56];
+          [v114 addObjectsFromArray:v56];
 
           v57 = [v55 objectForKeyedSubscript:kDiffModifiedKey];
-          [v114 addObjectsFromArray:v57];
+          [v113 addObjectsFromArray:v57];
 
           v58 = [v55 objectForKeyedSubscript:kDiffRemovedKey];
           [v21 addObjectsFromArray:v58];
 
-          if ((v118 & 1) == 0)
+          if ((v117 & 1) == 0)
           {
             if (v110)
             {
               v107 = 1;
-              v59 = v115;
+              v59 = v114;
               goto LABEL_35;
             }
 
@@ -637,7 +636,7 @@ LABEL_35:
             }
           }
 
-          v118 = 1;
+          v117 = 1;
           goto LABEL_63;
         }
 
@@ -655,9 +654,9 @@ LABEL_35:
             v20 = v109;
             if (bOOLValue)
             {
-              [v114 addObject:v23];
+              [v113 addObject:v23];
 LABEL_62:
-              v21 = v116;
+              v21 = v115;
               goto LABEL_63;
             }
           }
@@ -686,7 +685,7 @@ LABEL_46:
 
             if (bOOLValue2)
             {
-              [v115 addObject:v23];
+              [v114 addObject:v23];
               v20 = v109;
               goto LABEL_62;
             }
@@ -711,9 +710,9 @@ LABEL_51:
                 stringValue2 = [v82 stringValue];
 
                 v20 = v109;
-                if (([stringValue isEqualToString:stringValue2] & 1) == 0)
+                if ((objc_msgSend_isEqualToString_(stringValue) & 1) == 0)
                 {
-                  [v114 addObject:v23];
+                  [v113 addObject:v23];
                 }
 
 LABEL_61:
@@ -749,7 +748,7 @@ LABEL_61:
                 v14 = v24;
                 if (v91 != v95)
                 {
-                  v67 = v114;
+                  v67 = v113;
 LABEL_43:
                   [v67 addObject:v23];
                 }
@@ -772,8 +771,8 @@ LABEL_43:
             goto LABEL_46;
           }
 
-          v21 = v116;
-          [v116 addObject:v23];
+          v21 = v115;
+          [v115 addObject:v23];
           v20 = v109;
         }
 
@@ -790,60 +789,60 @@ LABEL_43:
               v14 = v24;
               if (v66)
               {
-                v67 = v115;
+                v67 = v114;
                 goto LABEL_43;
               }
 
 LABEL_44:
-              v21 = v116;
+              v21 = v115;
               continue;
             }
 
             goto LABEL_62;
           }
 
-          v21 = v116;
-          [v116 addObject:v23];
+          v21 = v115;
+          [v115 addObject:v23];
         }
 
 LABEL_63:
         v14 = v24;
       }
 
-      v121 = [obj countByEnumeratingWithState:&v130 objects:v136 count:16];
-      if (!v121)
+      v120 = [obj countByEnumeratingWithState:&v129 objects:v135 count:16];
+      if (!v120)
       {
         v9 = v105;
         finalCompositionCopy = v106;
-        v10 = v114;
-        v11 = v115;
+        v10 = v113;
+        v11 = v114;
         if (v107)
         {
-          v128 = 0u;
-          v129 = 0u;
-          v126 = 0u;
           v127 = 0u;
-          v96 = [&unk_28706EF98 countByEnumeratingWithState:&v126 objects:v134 count:16];
+          v128 = 0u;
+          v125 = 0u;
+          v126 = 0u;
+          v96 = [&unk_28706EF98 countByEnumeratingWithState:&v125 objects:v133 count:16];
           if (v96)
           {
             v97 = v96;
-            v98 = *v127;
+            v98 = *v126;
             do
             {
               for (j = 0; j != v97; ++j)
               {
-                if (*v127 != v98)
+                if (*v126 != v98)
                 {
                   objc_enumerationMutation(&unk_28706EF98);
                 }
 
-                v100 = *(*(&v126 + 1) + 8 * j);
-                [v115 removeObject:v100];
+                v100 = *(*(&v125 + 1) + 8 * j);
                 [v114 removeObject:v100];
-                [v116 removeObject:v100];
+                [v113 removeObject:v100];
+                [v115 removeObject:v100];
               }
 
-              v97 = [&unk_28706EF98 countByEnumeratingWithState:&v126 objects:v134 count:16];
+              v97 = [&unk_28706EF98 countByEnumeratingWithState:&v125 objects:v133 count:16];
             }
 
             while (v97);
@@ -855,9 +854,9 @@ LABEL_63:
     }
   }
 
-  if ([v116 count])
+  if ([v115 count])
   {
-    v101 = [v116 componentsJoinedByString:{@", "}];
+    v101 = [v115 componentsJoinedByString:{@", "}];
     [v9 setObject:v101 forKeyedSubscript:@"adjustments_removed"];
   }
 

@@ -399,7 +399,7 @@ void __95__AXMPhotoVisionSupport_findLeastCommonAncestorForSceneClassIds_withKno
 
 void __61__AXMPhotoVisionSupport__validatePhotosFormatSoftLinkSymbols__block_invoke()
 {
-  if (!PhotosFormatsLibraryCore())
+  if (!PhotosFormatsLibraryCore(0))
   {
     v0 = AXMediaLogCommon();
     if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))

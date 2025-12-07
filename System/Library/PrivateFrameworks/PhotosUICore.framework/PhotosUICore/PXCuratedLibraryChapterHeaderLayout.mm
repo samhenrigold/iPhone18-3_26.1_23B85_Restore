@@ -452,7 +452,7 @@ LABEL_5:
   return v15;
 }
 
-void __109__PXCuratedLibraryChapterHeaderLayout__createAttributedTitleWithEmphasizedAttributes_deemphasizedAttributes___block_invoke(uint64_t a1, void *a2, unint64_t a3)
+void __109__PXCuratedLibraryChapterHeaderLayout__createAttributedTitleWithEmphasizedAttributes_deemphasizedAttributes___block_invoke(uint64_t a1, void *a2, char *a3)
 {
   v5 = *(a1 + 32);
   v6 = MEMORY[0x1E696AAB0];
@@ -528,11 +528,11 @@ void __109__PXCuratedLibraryChapterHeaderLayout__createAttributedTitleWithEmphas
   }
 }
 
-uint64_t __71__PXCuratedLibraryChapterHeaderLayout__handleAsyncRawTitle_generation___block_invoke(uint64_t result)
+id *__71__PXCuratedLibraryChapterHeaderLayout__handleAsyncRawTitle_generation___block_invoke(id *result)
 {
-  if (*(result + 48) == *(*(result + 32) + 936))
+  if (result[6] == *(result[4] + 117))
   {
-    return [*(result + 32) setRawTitle:*(result + 40)];
+    return [result[4] setRawTitle:result[5]];
   }
 
   return result;
@@ -844,7 +844,7 @@ LABEL_10:
 
 - (void)_updateSprites
 {
-  [(PXCuratedLibraryChapterHeaderLayout *)self sectionIndexPath];
+  objc_msgSend_sectionIndexPath(self, a2);
   [(PXCuratedLibraryChapterHeaderLayout *)self referenceSize];
   [(PXCuratedLibraryChapterHeaderLayout *)self displayScale];
   [(PXCuratedLibraryChapterHeaderLayout *)self spec];

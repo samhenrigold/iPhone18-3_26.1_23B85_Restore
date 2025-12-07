@@ -44,7 +44,7 @@
 
 - (BOOL)isUsingVerticalLanguage
 {
-  v2 = PRBundle();
+  v2 = PRBundle(self);
   v3 = [v2 localizedStringForKey:@"POSTER_LAYOUT_VERTICAL" value:&stru_1F1C13D90 table:@"PosterKit"];
   pr_isSuitableForVerticalLayout = [v3 pr_isSuitableForVerticalLayout];
 
@@ -77,46 +77,47 @@
 
 - (id)cellViewFor:(unint64_t)for largestItemHeight:(double *)height
 {
-  v31[1] = *MEMORY[0x1E69E9840];
+  v32[1] = *MEMORY[0x1E69E9840];
   if ([(PREditingTitleLayoutPickerComponentViewController *)self isUsingVerticalLanguage])
   {
     v6 = [MEMORY[0x1E69DB878] preferredFontForTextStyle:*MEMORY[0x1E69DDD40]];
     IsVertical = PRPosterTitleLayoutIsVertical(for);
-    v8 = PRBundle();
-    v9 = v8;
-    if (IsVertical)
+    v8 = IsVertical;
+    v9 = PRBundle(IsVertical);
+    v10 = v9;
+    if (v8)
     {
-      v10 = @"POSTER_LAYOUT_VERTICAL";
+      v11 = @"POSTER_LAYOUT_VERTICAL";
     }
 
     else
     {
-      v10 = @"POSTER_LAYOUT_HORIZONTAL";
+      v11 = @"POSTER_LAYOUT_HORIZONTAL";
     }
 
-    v11 = [v8 localizedStringForKey:v10 value:&stru_1F1C13D90 table:@"PosterKit"];
+    v12 = [v9 localizedStringForKey:v11 value:&stru_1F1C13D90 table:@"PosterKit"];
 
-    v12 = objc_alloc(MEMORY[0x1E696AD40]);
-    v30 = *MEMORY[0x1E69DB648];
-    v31[0] = v6;
-    v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v31 forKeys:&v30 count:1];
-    v14 = [v12 initWithString:v11 attributes:v13];
+    v13 = objc_alloc(MEMORY[0x1E696AD40]);
+    v31 = *MEMORY[0x1E69DB648];
+    v32[0] = v6;
+    v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v32 forKeys:&v31 count:1];
+    v15 = [v13 initWithString:v12 attributes:v14];
 
-    v15 = PRPosterTitleLayoutIsVertical(for);
-    [v14 size];
+    v16 = PRPosterTitleLayoutIsVertical(for);
+    [v15 size];
     if (height)
     {
-      if (!v15)
+      if (!v16)
       {
-        v16 = v17;
+        v17 = v18;
       }
 
-      if (*height >= v16)
+      if (*height >= v17)
       {
-        v16 = *height;
+        v17 = *height;
       }
 
-      *height = v16;
+      *height = v17;
     }
 
     forCopy2 = for;
@@ -133,58 +134,58 @@
       }
     }
 
-    v19 = objc_alloc_init(PREditingTitleLayoutPickerCellView);
-    [(PREditingTitleLayoutPickerCellView *)v19 setFont:v6];
-    [(PREditingTitleLayoutPickerCellView *)v19 setLayout:forCopy2];
-    [(PREditingTitleLayoutPickerCellView *)v19 setText:v11];
-    [(PREditingTitleLayoutPickerCellView *)v19 setTag:for];
+    v20 = objc_alloc_init(PREditingTitleLayoutPickerCellView);
+    [(PREditingTitleLayoutPickerCellView *)v20 setFont:v6];
+    [(PREditingTitleLayoutPickerCellView *)v20 setLayout:forCopy2];
+    [(PREditingTitleLayoutPickerCellView *)v20 setText:v12];
+    [(PREditingTitleLayoutPickerCellView *)v20 setTag:for];
   }
 
   else
   {
-    v19 = objc_alloc_init(PREditingPickerImageCellView);
-    contentImageView = [(PREditingTitleLayoutPickerCellView *)v19 contentImageView];
+    v20 = objc_alloc_init(PREditingPickerImageCellView);
+    contentImageView = [(PREditingTitleLayoutPickerCellView *)v20 contentImageView];
     blackColor = [MEMORY[0x1E69DC888] blackColor];
     [contentImageView setTintColor:blackColor];
 
-    contentImageView2 = [(PREditingTitleLayoutPickerCellView *)v19 contentImageView];
+    contentImageView2 = [(PREditingTitleLayoutPickerCellView *)v20 contentImageView];
     [contentImageView2 setContentMode:1];
 
-    [(PREditingTitleLayoutPickerCellView *)v19 setTag:for];
+    [(PREditingTitleLayoutPickerCellView *)v20 setTag:for];
     v6 = [MEMORY[0x1E69DCAD8] configurationWithScale:3];
     if (PRPosterTitleLayoutIsVertical(for))
     {
-      v23 = @"textbox.vertical.filled.topright.iphone";
+      v24 = @"textbox.vertical.filled.topright.iphone";
     }
 
     else
     {
-      v23 = @"textbox.horizontal.filled.top.iphone";
+      v24 = @"textbox.horizontal.filled.top.iphone";
     }
 
-    [(PREditingTitleLayoutPickerCellView *)v19 configureWithSystemImageNamed:v23 configuration:v6];
+    [(PREditingTitleLayoutPickerCellView *)v20 configureWithSystemImageNamed:v24 configuration:v6];
     if (height)
     {
-      v24 = *height;
-      contentImageView3 = [(PREditingTitleLayoutPickerCellView *)v19 contentImageView];
+      v25 = *height;
+      contentImageView3 = [(PREditingTitleLayoutPickerCellView *)v20 contentImageView];
       [contentImageView3 frame];
-      v27 = v26;
+      v28 = v27;
 
-      if (v24 >= v27)
+      if (v25 >= v28)
       {
-        v28 = v24;
+        v29 = v25;
       }
 
       else
       {
-        v28 = v27;
+        v29 = v28;
       }
 
-      *height = v28;
+      *height = v29;
     }
   }
 
-  return v19;
+  return v20;
 }
 
 - (void)loadView

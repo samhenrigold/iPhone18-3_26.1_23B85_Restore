@@ -83,137 +83,138 @@
   __asm { FMOV            V2.2D, #-1.0 }
 
   *&v19.u32[2] = vrndp_f32(vcvt_f32_f64(vaddq_f64(v20, _Q2)));
-  v58 = vcvtq_s32_f32(v19);
-  v59 = v15;
-  v62 = 0uLL;
-  v63 = 0;
-  sub_2C578(&v62);
-  sub_2C590(&v62, image, row, v59, v58, v11, v12, v13, v14);
-  v60 = v62;
+  v59 = vcvtq_s32_f32(v19);
+  v60 = v15;
+  v63 = 0uLL;
+  v64 = 0;
+  sub_2C578(&v63);
+  v26.n128_u64[0] = v13;
+  sub_2C590(&v63, image, row, v60, v59, v11, v12, v26, v14);
   v61 = v63;
-  sub_2C85C(&v60, v8 + 1, v62, v26, v27);
-  sub_2C8F4(image, row, p_tempColorCube, v59, v58, v8[1], v8[2], v11, v12, v13, v14);
+  v62 = v64;
+  sub_2C85C(&v61, v8 + 1, v63, v27, v28);
+  sub_2C8F4(image, row, p_tempColorCube, v60, v59, v8[1], v8[2], v11, v12, v13, v14);
   if (v8[3].i32[0] < 1)
   {
-    v37 = p_colorCube;
+    v38 = p_colorCube;
   }
 
   else
   {
-    v36 = 0;
+    v37 = 0;
     do
     {
-      v37 = p_tempColorCube;
-      sub_2CB74(p_tempColorCube, p_colorCube, v28, v29, v30, v31, v32.n128_f64[0], v33.n128_f64[0], v34);
-      ++v36;
+      v38 = p_tempColorCube;
+      sub_2CB74(p_tempColorCube, p_colorCube, v29, v30, v31, v32, v33.n128_f64[0], v34.n128_f64[0], v35);
+      ++v37;
       p_tempColorCube = p_colorCube;
-      p_colorCube = v37;
+      p_colorCube = v38;
     }
 
-    while (v36 < v8[3].i32[0]);
+    while (v37 < v8[3].i32[0]);
   }
 
-  v38 = v8[3].i32[2];
-  v39 = v8[3].i32[3];
-  _VF = __OFSUB__(v38, v39);
-  v41 = v38 - v39;
-  v40 = (v41 < 0) ^ _VF | (v41 == 0);
-  v42 = v41 + 1;
-  *&v28 = v42;
-  LODWORD(v29) = 1.0;
-  if (v40)
+  v39 = v8[3].i32[2];
+  v40 = v8[3].i32[3];
+  _VF = __OFSUB__(v39, v40);
+  v42 = v39 - v40;
+  v41 = (v42 < 0) ^ _VF | (v42 == 0);
+  v43 = v42 + 1;
+  *&v29 = v43;
+  LODWORD(v30) = 1.0;
+  if (v41)
   {
-    v43 = 1.0;
-  }
-
-  else
-  {
-    v43 = v42;
-  }
-
-  if (v38 < 1)
-  {
-    v45 = v37;
+    v44 = 1.0;
   }
 
   else
   {
-    v44 = 0;
+    v44 = v43;
+  }
+
+  if (v39 < 1)
+  {
+    v46 = v38;
+  }
+
+  else
+  {
+    v45 = 0;
     do
     {
-      v45 = p_tempColorCube;
-      v46 = v8[3].i32[3];
-      v47 = -1.0;
-      _VF = __OFSUB__(v44, v46);
-      v48 = v44 - v46;
-      if (v48 < 0 == _VF)
+      v46 = p_tempColorCube;
+      v47 = v8[3].i32[3];
+      v48 = -1.0;
+      _VF = __OFSUB__(v45, v47);
+      v49 = v45 - v47;
+      if (v49 < 0 == _VF)
       {
-        v47 = (v48 + 1) / v43;
+        v48 = (v49 + 1) / v44;
       }
 
-      NSLog(@"ChromaDilation %d: minDilateLuma=%f", v44, v47);
-      v51 = v8[1];
-      v52 = v8[2];
-      if (v44)
+      NSLog(@"ChromaDilation %d: minDilateLuma=%f", v45, v48);
+      v52 = v8[1];
+      v53 = v8[2];
+      if (v45)
       {
-        sub_2CF84(p_tempColorCube, v37, v51.f32[0], v52.f32[0], v47, v49, v50);
+        sub_2CF84(p_tempColorCube, v38, v52.f32[0], v53.f32[0], v48, v50, v51);
       }
 
       else
       {
-        sub_2CD1C(p_tempColorCube, v37, v51.f32[0], v52.f32[0], v47);
+        sub_2CD1C(p_tempColorCube, v38, v52.f32[0], v53.f32[0], v48);
       }
 
-      v44 = (v44 + 1);
-      p_tempColorCube = v37;
-      v37 = v45;
+      v45 = (v45 + 1);
+      p_tempColorCube = v38;
+      v38 = v46;
     }
 
-    while (v44 < v8[3].i32[2]);
+    while (v45 < v8[3].i32[2]);
   }
 
   if (v8[3].i32[1] < 1)
   {
-    v54 = v45;
+    v55 = v46;
   }
 
   else
   {
-    v53 = 0;
+    v54 = 0;
     do
     {
-      v54 = p_tempColorCube;
-      sub_2D104(p_tempColorCube, v45, v28, v29, v30, v31, v32.n128_f64[0], v33);
-      ++v53;
-      p_tempColorCube = v45;
-      v45 = v54;
+      v55 = p_tempColorCube;
+      sub_2D104(p_tempColorCube, v46, v29, v30, v31, v32, v33.n128_f64[0], v34);
+      ++v54;
+      p_tempColorCube = v46;
+      v46 = v55;
     }
 
-    while (v53 < v8[3].i32[1]);
+    while (v54 < v8[3].i32[1]);
   }
 
   if (v8[3].i32[3] >= 1)
   {
-    v55 = 0;
+    v56 = 0;
     do
     {
-      v56 = p_tempColorCube;
-      if (v55)
+      v57 = p_tempColorCube;
+      if (v56)
       {
-        sub_2D3D0(p_tempColorCube, v54, v28, v29, v30, v31, v32);
+        sub_2D3D0(p_tempColorCube, v55, v29, v30, v31, v32, v33);
       }
 
       else
       {
-        sub_2D234(p_tempColorCube, v54, v28, v29, v30, v31, v32.n128_f64[0], v33.n128_f64[0], v34.n128_f64[0], v35);
+        sub_2D234(p_tempColorCube, v55, v29, v30, v31, v32, v33.n128_f64[0], v34.n128_f64[0], v35.n128_f64[0], v36);
       }
 
-      ++v55;
-      p_tempColorCube = v54;
-      v54 = v56;
+      ++v56;
+      p_tempColorCube = v55;
+      v55 = v57;
     }
 
-    while (v55 < v8[3].i32[3]);
+    while (v56 < v8[3].i32[3]);
   }
 
   return 0;
@@ -237,7 +238,7 @@
     sub_4ABB0();
   }
 
-  v25 = self + 4096;
+  v25 = &self[4096];
   a2.f64[1] = image;
   row.f64[1] = region;
   v26 = vcvt_s32_f32(vrndm_f32(vcvt_f32_f64(a2)));
@@ -254,7 +255,7 @@
   v35 = malloc_type_calloc(1uLL, 0x11FFECuLL, 0x10000404F4CB0CBuLL);
   v36 = malloc_type_calloc(v34, 2uLL, 0x1000040BDFB0063uLL);
   sub_2D4D0(v35);
-  sub_2D4D8(v35, v36, &self->i64[1], seedPoints, value, v53, v52, v25[1], v25[2]);
+  sub_2D4D8(v35, v36, &self->n128_i64[1], seedPoints, value, v53, v52, v25[1], v25[2]);
   sub_2DDBC(v35, v36);
   if (v34 >= 2)
   {

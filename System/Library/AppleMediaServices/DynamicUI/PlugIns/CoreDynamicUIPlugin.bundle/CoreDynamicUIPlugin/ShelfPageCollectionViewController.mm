@@ -16,31 +16,33 @@
 - (void)loadView
 {
   selfCopy = self;
-  sub_68938();
+  sub_68938(selfCopy);
 }
 
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_68A18();
+  sub_68A18(selfCopy);
 }
 
 - (void)viewDidLayoutSubviews
 {
   selfCopy = self;
-  sub_68A98();
+  sub_68A98(selfCopy);
 }
 
 - (void)viewDidAppear:(BOOL)appear
 {
+  appearCopy = appear;
   selfCopy = self;
-  sub_68BB4(appear, &selRef_viewDidAppear_);
+  sub_68BB4(appearCopy, &selRef_viewDidAppear_, 1);
 }
 
 - (void)viewDidDisappear:(BOOL)disappear
 {
+  disappearCopy = disappear;
   selfCopy = self;
-  sub_68BB4(disappear, &selRef_viewDidDisappear_);
+  sub_68BB4(disappearCopy, &selRef_viewDidDisappear_, 0);
 }
 
 - (_TtC19CoreDynamicUIPlugin33ShelfPageCollectionViewController)initWithNibName:(id)name bundle:(id)bundle
@@ -70,7 +72,7 @@
   sub_8E154();
   viewCopy = view;
   selfCopy = self;
-  sub_6B610(viewCopy);
+  sub_6B610(viewCopy, v9);
 
   (*(v7 + 8))(v9, v6);
 }

@@ -72,7 +72,7 @@
 
 - (void)readDataOfLength:(unint64_t)length completion:(id)completion
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   v6 = [completion copy];
   if ([(SYCompressedFileInputStream *)self->_stream streamStatus]== 5)
   {
@@ -93,9 +93,9 @@
     block[1] = 3221225472;
     block[2] = __48___SYInputStreamer_readDataOfLength_completion___block_invoke;
     block[3] = &unk_1E86CAA90;
-    v25 = v6;
+    v24 = v6;
     dispatch_async(callbackQueue, block);
-    v9 = v25;
+    v9 = v24;
 LABEL_13:
 
     goto LABEL_22;
@@ -116,13 +116,13 @@ LABEL_13:
     }
 
     v11 = self->_callbackQueue;
-    v22[0] = MEMORY[0x1E69E9820];
-    v22[1] = 3221225472;
-    v22[2] = __48___SYInputStreamer_readDataOfLength_completion___block_invoke_172;
-    v22[3] = &unk_1E86CAA90;
-    v23 = v6;
-    dispatch_async(v11, v22);
-    v9 = v23;
+    v21[0] = MEMORY[0x1E69E9820];
+    v21[1] = 3221225472;
+    v21[2] = __48___SYInputStreamer_readDataOfLength_completion___block_invoke_172;
+    v21[3] = &unk_1E86CAA90;
+    v22 = v6;
+    dispatch_async(v11, v21);
+    v9 = v22;
     goto LABEL_13;
   }
 
@@ -140,19 +140,19 @@ LABEL_13:
       v14 = v13;
       v15 = _SYObfuscate(streamError);
       *buf = 138543362;
-      v27 = v15;
+      v26 = v15;
       _os_log_impl(&dword_1DF835000, v14, OS_LOG_TYPE_DEFAULT, "Stream is in error state: %{public}@", buf, 0xCu);
     }
 
     v16 = self->_callbackQueue;
-    v19[0] = MEMORY[0x1E69E9820];
-    v19[1] = 3221225472;
-    v19[2] = __48___SYInputStreamer_readDataOfLength_completion___block_invoke_173;
-    v19[3] = &unk_1E86CAAB8;
-    v20 = streamError;
-    v21 = v6;
+    v18[0] = MEMORY[0x1E69E9820];
+    v18[1] = 3221225472;
+    v18[2] = __48___SYInputStreamer_readDataOfLength_completion___block_invoke_173;
+    v18[3] = &unk_1E86CAAB8;
+    v19 = streamError;
+    v20 = v6;
     v17 = streamError;
-    dispatch_async(v16, v19);
+    dispatch_async(v16, v18);
   }
 
   else
@@ -163,12 +163,11 @@ LABEL_13:
   }
 
 LABEL_22:
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_tryToReadData
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   firstObject = [(NSMutableArray *)self->_items firstObject];
   if (!firstObject)
   {
@@ -290,7 +289,7 @@ LABEL_37:
       block[1] = 3221225472;
       block[2] = __34___SYInputStreamer__tryToReadData__block_invoke;
       block[3] = &unk_1E86C9FB0;
-      v21 = firstObject;
+      v20 = firstObject;
       dispatch_async(callbackQueue, block);
       dispatch_source_merge_data(self->_source, 1uLL);
     }
@@ -310,13 +309,11 @@ LABEL_37:
 
   [(_SYInputStreamer *)self _completeAllItemsWithError:0];
 LABEL_39:
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_completeAllItemsWithError:(id)error
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   errorCopy = error;
   if (_sync_log_facilities_pred != -1)
   {
@@ -329,43 +326,43 @@ LABEL_39:
     v6 = v5;
     v7 = _SYObfuscate(errorCopy);
     *buf = 138543362;
-    v27 = v7;
+    v26 = v7;
     _os_log_impl(&dword_1DF835000, v6, OS_LOG_TYPE_DEFAULT, "Completing all stream read items with error '%{public}@'", buf, 0xCu);
   }
 
   v8 = [(NSMutableArray *)self->_items copy];
   [(NSMutableArray *)self->_items removeAllObjects];
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
   v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   v9 = v8;
-  v10 = [v9 countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v22;
+    v12 = *v21;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v22 != v12)
+        if (*v21 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = *(*(&v21 + 1) + 8 * i);
+        v14 = *(*(&v20 + 1) + 8 * i);
         callbackQueue = self->_callbackQueue;
-        v19[0] = MEMORY[0x1E69E9820];
-        v19[1] = 3221225472;
-        v19[2] = __47___SYInputStreamer__completeAllItemsWithError___block_invoke;
-        v19[3] = &unk_1E86C9E90;
-        v19[4] = v14;
-        v20 = errorCopy;
-        dispatch_async(callbackQueue, v19);
+        v18[0] = MEMORY[0x1E69E9820];
+        v18[1] = 3221225472;
+        v18[2] = __47___SYInputStreamer__completeAllItemsWithError___block_invoke;
+        v18[3] = &unk_1E86C9E90;
+        v18[4] = v14;
+        v19 = errorCopy;
+        dispatch_async(callbackQueue, v18);
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v11);
@@ -378,8 +375,6 @@ LABEL_39:
     v17 = self->_onComplete;
     self->_onComplete = 0;
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (void)whenComplete:(id)complete
@@ -458,12 +453,11 @@ LABEL_39:
 
 - (void)stream:(void *)a1 handleEvent:(void *)a2 .cold.3(void *a1, void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
   v3 = a1;
   v4 = [a2 streamError];
-  OUTLINED_FUNCTION_4_2(&dword_1DF835000, v5, v6, "Input stream encountered error: %{public}@", v7, v8, v9, v10, 2u);
-
-  v11 = *MEMORY[0x1E69E9840];
+  LODWORD(v11) = 138543362;
+  *(&v11 + 4) = v4;
+  OUTLINED_FUNCTION_4_2(&dword_1DF835000, v5, v6, "Input stream encountered error: %{public}@", v7, v8, v9, v10, v11, DWORD2(v11));
 }
 
 @end

@@ -209,7 +209,7 @@ id __48__NSParagraphArbitrator__shouldUseOptimalLayout__block_invoke()
   return result;
 }
 
-uint64_t __48__NSParagraphArbitrator__hyphenatesAsLastResort__block_invoke()
+void *__48__NSParagraphArbitrator__hyphenatesAsLastResort__block_invoke()
 {
   result = [objc_msgSend(MEMORY[0x1E695E000] "standardUserDefaults")];
   _hyphenatesAsLastResort_result = result;
@@ -237,7 +237,7 @@ uint64_t __48__NSParagraphArbitrator__hyphenatesAsLastResort__block_invoke()
   return _shouldUseCFStringTokenizerForLineBreaks_result;
 }
 
-uint64_t __65__NSParagraphArbitrator__shouldUseCFStringTokenizerForLineBreaks__block_invoke()
+void *__65__NSParagraphArbitrator__shouldUseCFStringTokenizerForLineBreaks__block_invoke()
 {
   result = [objc_msgSend(MEMORY[0x1E695E000] "standardUserDefaults")];
   _shouldUseCFStringTokenizerForLineBreaks_result = result;
@@ -449,8 +449,7 @@ IMP __72__NSParagraphArbitrator__attributedStringOverridesLineBreakBeforeIndex__
   if (!self->_breaker || (breakerLanguage = self->_breakerLanguage, breakerLanguage != v7) && ([(NSString *)breakerLanguage isEqual:v7]& 1) == 0)
   {
     [(NSParagraphArbitrator *)self resetBreaker];
-    [(NSParagraphArbitrator *)self lineBreakStrategy];
-    self->_breaker = _NSCopyBreakIterator(v7, 0, 0, 0);
+    self->_breaker = _NSCopyBreakIterator(v7, 0, 0, 0, [(NSParagraphArbitrator *)self lineBreakStrategy]);
 
     self->_breakerLanguage = v7;
   }
@@ -535,7 +534,7 @@ LABEL_16:
   return v5;
 }
 
-uint64_t __62__NSParagraphArbitrator_prepareTokenizerForPreferredLanguage___block_invoke()
+void *__62__NSParagraphArbitrator_prepareTokenizerForPreferredLanguage___block_invoke()
 {
   result = __NSShouldUseTokenizerForPushOut([objc_msgSend(MEMORY[0x1E695DF58] "preferredLanguages")]);
   prepareTokenizerForPreferredLanguage__shouldUseTokenizerForSystemLanguage = result;
@@ -1066,7 +1065,7 @@ id __86__NSParagraphArbitrator__firstFitLineBreakContextBeforeIndex_lineFragment
           optimalLineBreaker = self->_optimalLineBreaker;
           if (optimalLineBreaker)
           {
-            [(_NSOptimalLineBreaker *)optimalLineBreaker lineBreakAtIndex:v12];
+            objc_msgSend_lineBreakAtIndex_(optimalLineBreaker);
           }
 
           ++v12;
@@ -1493,7 +1492,7 @@ LABEL_9:
   return result;
 }
 
-uint64_t __63__NSParagraphArbitrator__preferredLanguageForCharacterAtIndex___block_invoke()
+void *__63__NSParagraphArbitrator__preferredLanguageForCharacterAtIndex___block_invoke()
 {
   result = [objc_msgSend(objc_msgSend(MEMORY[0x1E695DF58] "preferredLanguages")];
   _preferredLanguageForCharacterAtIndex__globalPreferredLanguage = result;
@@ -1638,7 +1637,7 @@ LABEL_16:
   return 1;
 }
 
-uint64_t __65__NSParagraphArbitrator__lineBreakStyleForLastResortHyphenation___block_invoke()
+void *__65__NSParagraphArbitrator__lineBreakStyleForLastResortHyphenation___block_invoke()
 {
   result = [objc_msgSend(MEMORY[0x1E695E000] "standardUserDefaults")];
   _lineBreakStyleForLastResortHyphenation__enabled = result;
@@ -1702,7 +1701,7 @@ LABEL_10:
   return v8;
 }
 
-uint64_t __64__NSParagraphArbitrator_adjustedLineBreakIndexForProposedIndex___block_invoke()
+void *__64__NSParagraphArbitrator_adjustedLineBreakIndexForProposedIndex___block_invoke()
 {
   v0 = [MEMORY[0x1E696AD48] whitespaceCharacterSet];
   [v0 removeCharactersInRange:{9, 1}];

@@ -12,9 +12,17 @@
 - (void)buttonPressedWithIdentifier:(id)identifier completionHandler:(id)handler;
 - (void)imageAnalysisInteractionDidDismissVisualSearchController;
 - (void)imageAnalysisInteractionWillPresentVisualSearchController;
+- (void)imageAnalyzerWantsUpdateInfoButtonWithAnimation:(BOOL)animation;
 - (void)loadPreviewControllerWithContents:(id)contents context:(id)context completionHandler:(id)handler;
 - (void)performFirstTimeAppearanceActions:(unint64_t)actions;
 - (void)presentationControllerDidDismiss:(id)dismiss;
+- (void)previewBecameFullScreen:(BOOL)screen animated:(BOOL)animated;
+- (void)previewDidAppear:(BOOL)appear;
+- (void)previewDidDisappear:(BOOL)disappear;
+- (void)previewWillDisappear:(BOOL)disappear;
+- (void)setAppearance:(id)appearance animated:(BOOL)animated;
+- (void)transitionDidFinish:(BOOL)finish didComplete:(BOOL)complete;
+- (void)transitionDidStart:(BOOL)start;
 - (void)updatePreferredDynamicRangeForced:(BOOL)forced;
 - (void)viewDidLayoutSubviews;
 @end
@@ -93,6 +101,105 @@ void __89__QLImageItemViewController_loadPreviewControllerWithContents_context_c
   }
 }
 
+- (void)previewDidAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  if (self->_imageIsAnimated)
+  {
+    v5 = +[QLImageAnimationTimer sharedTimer];
+    [v5 addAnimationTimerObserver:self];
+  }
+
+  else if (_os_feature_enabled_impl())
+  {
+    appearance = [(QLItemViewController *)self appearance];
+    v7 = +[QLImageAnalysisManager shouldStartImageAnalysisForPresentationMode:](QLImageAnalysisManager, "shouldStartImageAnalysisForPresentationMode:", [appearance presentationMode]);
+
+    if (v7)
+    {
+      [(QLImageItemViewController *)self _setupAndStartImageAnalysisIfNeeded];
+    }
+  }
+
+  v8.receiver = self;
+  v8.super_class = QLImageItemViewController;
+  [(QLScrollableContentItemViewController *)&v8 previewDidAppear:appearCopy];
+}
+
+- (void)previewWillDisappear:(BOOL)disappear
+{
+  v4.receiver = self;
+  v4.super_class = QLImageItemViewController;
+  [(QLItemViewController *)&v4 previewWillDisappear:disappear];
+  [(QLImageAnalysisManager *)self->_imageAnalysisManager shouldHideInteraction:1 animated:0];
+}
+
+- (void)previewDidDisappear:(BOOL)disappear
+{
+  disappearCopy = disappear;
+  if (self->_imageIsAnimated)
+  {
+    self->_initialTimeStamp = 1.79769313e308;
+    v5 = +[QLImageAnimationTimer sharedTimer];
+    [v5 removeAnimationTimerObserver:self];
+  }
+
+  else
+  {
+    [(QLImageAnalysisManager *)self->_imageAnalysisManager stopImageAnalysis];
+  }
+
+  v6.receiver = self;
+  v6.super_class = QLImageItemViewController;
+  [(QLScrollableContentItemViewController *)&v6 previewDidDisappear:disappearCopy];
+}
+
+- (void)setAppearance:(id)appearance animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  appearanceCopy = appearance;
+  appearance = [(QLItemViewController *)self appearance];
+  v21.receiver = self;
+  v21.super_class = QLImageItemViewController;
+  [(QLScrollableContentItemViewController *)&v21 setAppearance:appearanceCopy animated:animatedCopy];
+  if ([(QLScrollableContentItemViewController *)self shouldLayoutContentBasedOnPeripheryInsets])
+  {
+    [appearanceCopy peripheryInsets];
+    v9 = v8;
+    v11 = v10;
+    v13 = v12;
+    v15 = v14;
+  }
+
+  else
+  {
+    v9 = *MEMORY[0x277D768C8];
+    v11 = *(MEMORY[0x277D768C8] + 8);
+    v13 = *(MEMORY[0x277D768C8] + 16);
+    v15 = *(MEMORY[0x277D768C8] + 24);
+  }
+
+  scrollView = [(QLScrollableContentItemViewController *)self scrollView];
+  [scrollView setContentInset:{v9, v11, v13, v15}];
+
+  [(QLImageItemViewController *)self updatePreferredDynamicRangeForced:0];
+  v17 = _os_feature_enabled_impl();
+  if (!self->_imageIsAnimated)
+  {
+    if (v17)
+    {
+      presentationMode = [appearance presentationMode];
+      appearance2 = [(QLItemViewController *)self appearance];
+      presentationMode2 = [appearance2 presentationMode];
+
+      if (presentationMode != presentationMode2 && [QLImageAnalysisManager shouldStartImageAnalysisForPresentationMode:presentationMode2]&& ([(QLItemViewController *)self didAppearOnce]|| [(QLImageAnalysisManager *)self->_imageAnalysisManager hasAnalysis]))
+      {
+        [(QLImageItemViewController *)self _setupAndStartImageAnalysisIfNeeded];
+      }
+    }
+  }
+}
+
 - (void)viewDidLayoutSubviews
 {
   v5.receiver = self;
@@ -130,7 +237,7 @@ void __89__QLImageItemViewController_loadPreviewControllerWithContents_context_c
     }
 
     v6 = fired - initialTimeStamp;
-    [(QLAnimatedImage *)self->_animatedImage duration];
+    objc_msgSend_duration(self->_animatedImage, a2);
     self->_currentPlaybackTime = fmod(v6, v7);
     v8 = [(QLAnimatedImage *)self->_animatedImage frameAtTime:?];
     v9 = v8;
@@ -143,6 +250,22 @@ void __89__QLImageItemViewController_loadPreviewControllerWithContents_context_c
 
     MEMORY[0x2821F96F8](v8, v9);
   }
+}
+
+- (void)transitionDidStart:(BOOL)start
+{
+  self->_HDRTransitionInProgress = 1;
+  if (self->_imageView)
+  {
+    [(QLImageItemViewController *)self animateToPreferredDynamicRange];
+  }
+}
+
+- (void)transitionDidFinish:(BOOL)finish didComplete:(BOOL)complete
+{
+  v4.receiver = self;
+  v4.super_class = QLImageItemViewController;
+  [(QLItemViewController *)&v4 transitionDidFinish:finish didComplete:complete];
 }
 
 - (id)toolbarButtonsForTraitCollection:(id)collection
@@ -248,6 +371,13 @@ void __89__QLImageItemViewController_loadPreviewControllerWithContents_context_c
   return clientPreviewOptions;
 }
 
+- (void)imageAnalyzerWantsUpdateInfoButtonWithAnimation:(BOOL)animation
+{
+  animationCopy = animation;
+  delegate = [(QLItemViewController *)self delegate];
+  [delegate previewItemViewControllerWantsUpdateOverlay:self animated:animationCopy];
+}
+
 - (void)imageAnalysisInteractionWillPresentVisualSearchController
 {
   v3 = [MEMORY[0x277CCABB0] numberWithBool:self->_isFullScreen];
@@ -311,6 +441,17 @@ void __89__QLImageItemViewController_loadPreviewControllerWithContents_context_c
   v8 = [(QLImageAnalysisManager *)v7 initWithDelegate:self presentingView:view];
   v9 = self->_imageAnalysisManager;
   self->_imageAnalysisManager = v8;
+}
+
+- (void)previewBecameFullScreen:(BOOL)screen animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  screenCopy = screen;
+  v7.receiver = self;
+  v7.super_class = QLImageItemViewController;
+  [QLItemViewController previewBecameFullScreen:sel_previewBecameFullScreen_animated_ animated:?];
+  self->_isFullScreen = screenCopy;
+  [(QLImageAnalysisManager *)self->_imageAnalysisManager updateForFullScreen:screenCopy animated:animatedCopy];
 }
 
 - (BOOL)shouldDetectMachineReadableCode

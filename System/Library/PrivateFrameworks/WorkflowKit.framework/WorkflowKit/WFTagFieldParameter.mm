@@ -14,19 +14,19 @@
   v6 = v5;
   if (v4 == v5)
   {
-    v7 = 1;
+    isEqualToString = 1;
   }
 
   else
   {
-    v7 = 0;
+    isEqualToString = 0;
     if (v4 && v5)
     {
-      v7 = [v4 isEqualToString:v5];
+      isEqualToString = objc_msgSend_isEqualToString_(v4);
     }
   }
 
-  return v7;
+  return isEqualToString;
 }
 
 - (WFTagFieldParameter)initWithDefinition:(id)definition

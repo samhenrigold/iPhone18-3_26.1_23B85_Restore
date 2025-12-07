@@ -533,36 +533,36 @@ void __62__DNDLifetimeDetailsProvider__requestRelevantLocationMetadata__block_in
 
 - (void)_eventStoreQueue_requestRelevantEvent
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_eventStoreQueue);
   date = [MEMORY[0x277CBEAA8] date];
   v4 = [date dateByAddingTimeInterval:900.0];
   visibleCalendars = [(EKCalendarVisibilityManager *)self->_calendarVisibilityManager visibleCalendars];
-  v26 = v4;
-  v24 = [(EKEventStore *)self->_eventStore predicateForEventsWithStartDate:date endDate:v4 calendars:?];
-  v23 = [(EKEventStore *)self->_eventStore eventsMatchingPredicate:?];
-  v5 = [v23 bs_filter:&__block_literal_global_30];
+  v25 = v4;
+  v23 = [(EKEventStore *)self->_eventStore predicateForEventsWithStartDate:date endDate:v4 calendars:?];
+  v22 = [(EKEventStore *)self->_eventStore eventsMatchingPredicate:?];
+  v5 = [v22 bs_filter:&__block_literal_global_30];
   firstObject = [v5 firstObject];
+  v28 = 0u;
   v29 = 0u;
   v30 = 0u;
   v31 = 0u;
-  v32 = 0u;
   v7 = v5;
-  v8 = [v7 countByEnumeratingWithState:&v29 objects:v33 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v28 objects:v32 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v30;
+    v10 = *v29;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v30 != v10)
+        if (*v29 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v29 + 1) + 8 * i);
+        v12 = *(*(&v28 + 1) + 8 * i);
         startDate = [v12 startDate];
         [startDate timeIntervalSinceDate:date];
         v15 = fabs(v14);
@@ -578,7 +578,7 @@ void __62__DNDLifetimeDetailsProvider__requestRelevantLocationMetadata__block_in
         }
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v29 objects:v33 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v28 objects:v32 count:16];
     }
 
     while (v9);
@@ -590,11 +590,9 @@ void __62__DNDLifetimeDetailsProvider__requestRelevantLocationMetadata__block_in
   block[2] = __67__DNDLifetimeDetailsProvider__eventStoreQueue_requestRelevantEvent__block_invoke_2;
   block[3] = &unk_278F88500;
   block[4] = self;
-  v28 = firstObject;
+  v27 = firstObject;
   v21 = firstObject;
   dispatch_async(queue, block);
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 BOOL __67__DNDLifetimeDetailsProvider__eventStoreQueue_requestRelevantEvent__block_invoke(uint64_t a1, void *a2)
@@ -765,11 +763,10 @@ LABEL_7:
 
 void __62__DNDLifetimeDetailsProvider__requestRelevantLocationMetadata__block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_249121000, a2, OS_LOG_TYPE_ERROR, "Error determining location: %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_249121000, a2, OS_LOG_TYPE_ERROR, "Error determining location: %{public}@", &v2, 0xCu);
 }
 
 @end

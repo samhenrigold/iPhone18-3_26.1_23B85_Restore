@@ -3,11 +3,13 @@
 + (BOOL)closeFD:(int)d path:(id)path error:(id *)error;
 + (BOOL)createDirectories:(int)directories destinationBasePath:(id)path destinationRpath:(id)rpath permissions:(unsigned __int16)permissions error:(id *)error;
 + (BOOL)crossVolumeCopyFrom:(const char *)from toDestination:(const char *)destination shouldDeleteSource:(BOOL)source error:(id *)error;
++ (BOOL)crossVolumeCopyFromSource:(id)source toDestination:(id)destination shouldDeleteSource:(BOOL)deleteSource error:(id *)error;
 + (BOOL)crossVolumeMoveFrom:(id)from intoDir:(id)dir toFileNamed:(id)named error:(id *)error;
 + (BOOL)exists:(BOOL *)exists atBasePath:(id)path baseFD:(int)d rpath:(id)rpath error:(id *)error;
 + (BOOL)hardlink:(int)hardlink sourceRpath:(id)rpath destinationBasePath:(id)path destinationBaseFD:(int)d destinationRpath:(id)destinationRpath error:(id *)error;
 + (BOOL)openFD:(int *)d baseFD:(int)fD rpath:(id)rpath flags:(int)flags error:(id *)error;
 + (BOOL)openFD:(int *)d path:(id)path flags:(int)flags error:(id *)error;
++ (BOOL)rename:(int)rename sourceRpath:(id)rpath destinationBasePath:(id)path destinationBaseFD:(int)d destinationRpath:(id)destinationRpath flags:(int)flags error:(id *)error;
 + (BOOL)unlink:(int)unlink targetBasePath:(id)path targetRpath:(id)rpath error:(id *)error;
 + (id)createPathInDirectory:(id)directory fileName:(id)name;
 + (id)symbolicLinkTargetWithPath:(id)path error:(id *)error;
@@ -169,6 +171,50 @@
   }
 
   return error;
+}
+
++ (BOOL)rename:(int)rename sourceRpath:(id)rpath destinationBasePath:(id)path destinationBaseFD:(int)d destinationRpath:(id)destinationRpath flags:(int)flags error:(id *)error
+{
+  v9 = *&flags;
+  rpathCopy = rpath;
+  pathCopy = path;
+  destinationRpathCopy = destinationRpath;
+  if (rename == -1)
+  {
+    __assert_rtn("+[MBFileOperation rename:sourceRpath:destinationBasePath:destinationBaseFD:destinationRpath:flags:error:]", "MBFileOperation.m", 93, "sourceBaseFD != -1");
+  }
+
+  if (!rpathCopy)
+  {
+    __assert_rtn("+[MBFileOperation rename:sourceRpath:destinationBasePath:destinationBaseFD:destinationRpath:flags:error:]", "MBFileOperation.m", 94, "sourceRpath");
+  }
+
+  if (!pathCopy)
+  {
+    __assert_rtn("+[MBFileOperation rename:sourceRpath:destinationBasePath:destinationBaseFD:destinationRpath:flags:error:]", "MBFileOperation.m", 95, "destinationBasePath");
+  }
+
+  if (d == -1)
+  {
+    __assert_rtn("+[MBFileOperation rename:sourceRpath:destinationBasePath:destinationBaseFD:destinationRpath:flags:error:]", "MBFileOperation.m", 96, "destinationBaseFD != -1");
+  }
+
+  v17 = destinationRpathCopy;
+  if (!destinationRpathCopy)
+  {
+    __assert_rtn("+[MBFileOperation rename:sourceRpath:destinationBasePath:destinationBaseFD:destinationRpath:flags:error:]", "MBFileOperation.m", 97, "destinationRpath");
+  }
+
+  v18 = renameatx_np(rename, [rpathCopy fileSystemRepresentation], d, objc_msgSend(destinationRpathCopy, "fileSystemRepresentation"), v9);
+  v19 = v18;
+  if (error && v18)
+  {
+    v20 = *__error();
+    v21 = [pathCopy stringByAppendingPathComponent:v17];
+    *error = [MBError errorWithErrno:v20 path:v21 format:@"renameatx_np() flags:0x%x failure %d", v9, v20];
+  }
+
+  return v19 == 0;
 }
 
 + (BOOL)hardlink:(int)hardlink sourceRpath:(id)rpath destinationBasePath:(id)path destinationBaseFD:(int)d destinationRpath:(id)destinationRpath error:(id *)error
@@ -384,6 +430,32 @@
   return v13;
 }
 
++ (BOOL)crossVolumeCopyFromSource:(id)source toDestination:(id)destination shouldDeleteSource:(BOOL)deleteSource error:(id *)error
+{
+  deleteSourceCopy = deleteSource;
+  sourceCopy = source;
+  destinationCopy = destination;
+  if (!sourceCopy)
+  {
+    __assert_rtn("+[MBFileOperation crossVolumeCopyFromSource:toDestination:shouldDeleteSource:error:]", "MBFileOperation.m", 231, "src");
+  }
+
+  v12 = destinationCopy;
+  if (!destinationCopy)
+  {
+    __assert_rtn("+[MBFileOperation crossVolumeCopyFromSource:toDestination:shouldDeleteSource:error:]", "MBFileOperation.m", 232, "dst");
+  }
+
+  if (!error)
+  {
+    __assert_rtn("+[MBFileOperation crossVolumeCopyFromSource:toDestination:shouldDeleteSource:error:]", "MBFileOperation.m", 233, "error");
+  }
+
+  v13 = [self crossVolumeCopyFrom:objc_msgSend(sourceCopy toDestination:"fileSystemRepresentation") shouldDeleteSource:objc_msgSend(destinationCopy error:{"fileSystemRepresentation"), deleteSourceCopy, error}];
+
+  return v13;
+}
+
 + (BOOL)crossVolumeCopyFrom:(const char *)from toDestination:(const char *)destination shouldDeleteSource:(BOOL)source error:(id *)error
 {
   if (!from)
@@ -443,7 +515,7 @@
       v24 = 1024;
       v25 = v12;
       _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_ERROR, "copyfile(%s, %s) failed (%d): %{errno}d", buf, 0x22u);
-      _MBLog();
+      _MBLog(@"E ", "copyfile(%s, %s) failed (%d): %{errno}d", from, destination, v11, v12);
     }
   }
 
@@ -489,9 +561,9 @@
     v21 = v20 == 0;
     if (v20)
     {
-      v27 = *__error();
+      v26 = *__error();
       v22 = [NSString stringWithUTF8String:fileSystemRepresentation];
-      *error = [MBError errorWithErrno:v27 path:v22 format:@"renamex_np() from %s to %s failed", fileSystemRepresentation, fileSystemRepresentation3];
+      *error = [MBError errorWithErrno:v26 path:v22 format:@"renamex_np() from %s to %s failed", fileSystemRepresentation, fileSystemRepresentation3];
     }
   }
 
@@ -502,14 +574,13 @@
     {
       v24 = *error;
       *buf = 136315650;
-      v29 = fileSystemRepresentation;
-      v30 = 2080;
-      v31 = fileSystemRepresentation2;
-      v32 = 2112;
-      v33 = v24;
+      v28 = fileSystemRepresentation;
+      v29 = 2080;
+      v30 = fileSystemRepresentation2;
+      v31 = 2112;
+      v32 = v24;
       _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_ERROR, "could not copy across volumes from %s to %s: %@", buf, 0x20u);
-      v26 = *error;
-      _MBLog();
+      _MBLog(@"E ", "could not copy across volumes from %s to %s: %@", fileSystemRepresentation, fileSystemRepresentation2, *error);
     }
 
     v21 = 0;
@@ -573,7 +644,7 @@
     *buf = 136315138;
     rCopy = r;
     _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_ERROR, "Failed to convert filesystem representation %s", buf, 0xCu);
-    _MBLog();
+    _MBLog(@"E ", "Failed to convert filesystem representation %s", r);
   }
 
   if (error)

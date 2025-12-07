@@ -22,8 +22,8 @@
 - (id)_transitionCoordinator
 {
   systemApertureElementContextPrivate = [self systemApertureElementContextPrivate];
-  transitionContext = [systemApertureElementContextPrivate transitionContext];
-  transitionCoordinator = [transitionContext transitionCoordinator];
+  v4 = objc_msgSend_transitionContext(systemApertureElementContextPrivate);
+  transitionCoordinator = [v4 transitionCoordinator];
   v6 = transitionCoordinator;
   if (transitionCoordinator)
   {
@@ -633,12 +633,26 @@ void __81__SBUIBannerClientContainerViewController_acquireAssertionForButtonEven
   [v0 handleFailureInMethod:@"reason" object:? file:? lineNumber:? description:?];
 }
 
+- (void)acquireTransitionDismissalPreventionAssertionForReason:(uint64_t)a3 .cold.2(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_1(&dword_1A9A79000, a2, a3, "Already acquired a banner transition dismissal prevention assertion: %{public}@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
 - (void)acquireGestureRecognizerDefaultPriorityAssertionForReason:.cold.1()
 {
   OUTLINED_FUNCTION_2_0();
   v1 = [MEMORY[0x1E696AAA8] currentHandler];
   OUTLINED_FUNCTION_1_0();
   [v0 handleFailureInMethod:@"reason" object:? file:? lineNumber:? description:?];
+}
+
+- (void)acquireGestureRecognizerDefaultPriorityAssertionForReason:(uint64_t)a3 .cold.2(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_1(&dword_1A9A79000, a2, a3, "Already acquired a gesture recognizer priority assertion: %{public}@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)acquireAssertionForButtonEvent:(uint64_t)a3 reason:.cold.1(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -653,6 +667,13 @@ void __81__SBUIBannerClientContainerViewController_acquireAssertionForButtonEven
   v1 = [MEMORY[0x1E696AAA8] currentHandler];
   OUTLINED_FUNCTION_1_0();
   [v0 handleFailureInMethod:@"reason" object:? file:? lineNumber:? description:?];
+}
+
+- (void)acquireAssertionForButtonEvent:(uint64_t)a3 reason:(uint64_t)a4 .cold.3(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = *(*a1 + 40);
+  OUTLINED_FUNCTION_0_1(&dword_1A9A79000, a2, a3, "Already acquired a button event assertion: %{public}@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)systemApertureElementContextPresentationDidBecomePossible:.cold.1()

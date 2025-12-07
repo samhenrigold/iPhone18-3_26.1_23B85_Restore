@@ -85,7 +85,7 @@
 
 + (BOOL)validateDictionary:(id)dictionary error:(id *)error
 {
-  v20[1] = *MEMORY[0x277D85DE8];
+  v19[1] = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
   v6 = [dictionaryCopy objectForKeyedSubscript:@"url"];
 
@@ -99,9 +99,9 @@
       {
         v12 = MEMORY[0x277CCA9B8];
         v13 = *MEMORY[0x277CCA050];
-        v17 = *MEMORY[0x277CCA068];
-        v18 = @"Passing <= 0 maximum size is unsupported, instead do not pass maximum value";
-        v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v18 forKeys:&v17 count:1];
+        v16 = *MEMORY[0x277CCA068];
+        v17 = @"Passing <= 0 maximum size is unsupported, instead do not pass maximum value";
+        v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v17 forKeys:&v16 count:1];
         *error = [v12 errorWithDomain:v13 code:3328 userInfo:v14];
       }
 
@@ -124,15 +124,14 @@
 
     v10 = MEMORY[0x277CCA9B8];
     v11 = *MEMORY[0x277CCA738];
-    v19 = *MEMORY[0x277CCA068];
-    v20[0] = @"Artwork cannot be constructed without a URL";
-    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:&v19 count:1];
+    v18 = *MEMORY[0x277CCA068];
+    v19[0] = @"Artwork cannot be constructed without a URL";
+    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:&v18 count:1];
     [v10 errorWithDomain:v11 code:-1000 userInfo:v7];
     *error = v9 = 0;
   }
 
 LABEL_14:
-  v15 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -164,7 +163,7 @@ LABEL_14:
 
 - (CGColor)newColorWithKind:(id)kind
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   kindCopy = kind;
   artworkDictionary = [(SHArtwork *)self artworkDictionary];
   v6 = [artworkDictionary objectForKeyedSubscript:kindCopy];
@@ -172,11 +171,11 @@ LABEL_14:
   if (v6)
   {
     v7 = strtoul([v6 UTF8String], 0, 16);
-    v12 = vcvtq_f64_f32(vdiv_f32(vcvt_f32_u32(vand_s8(vshl_u32(vdup_n_s32(v7), 0xFFFFFFF8FFFFFFF0), 0xFF000000FFLL)), vdup_n_s32(0x437F0000u)));
-    v13 = (v7 / 255.0);
-    v14 = 0x3FF0000000000000;
+    v11 = vcvtq_f64_f32(vdiv_f32(vcvt_f32_u32(vand_s8(vshl_u32(vdup_n_s32(v7), 0xFFFFFFF8FFFFFFF0), 0xFF000000FFLL)), vdup_n_s32(0x437F0000u)));
+    v12 = (v7 / 255.0);
+    v13 = 0x3FF0000000000000;
     DeviceRGB = CGColorSpaceCreateDeviceRGB();
-    v9 = CGColorCreate(DeviceRGB, v12.f64);
+    v9 = CGColorCreate(DeviceRGB, v11.f64);
     if (DeviceRGB)
     {
       CGColorSpaceRelease(DeviceRGB);
@@ -188,7 +187,6 @@ LABEL_14:
     v9 = 0;
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -261,19 +259,18 @@ LABEL_14:
 
 - (SHArtwork)initWithCoder:(id)coder
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v4 = MEMORY[0x277CBEB98];
   coderCopy = coder;
+  v11 = objc_opt_class();
   v12 = objc_opt_class();
   v13 = objc_opt_class();
-  v14 = objc_opt_class();
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:&v12 count:3];
-  v7 = [v4 setWithArray:{v6, v12, v13}];
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:&v11 count:3];
+  v7 = [v4 setWithArray:{v6, v11, v12}];
 
   v8 = [coderCopy decodeObjectOfClasses:v7 forKey:@"artworkDictionary"];
 
   v9 = [(SHArtwork *)self initWithDictionary:v8 error:0];
-  v10 = *MEMORY[0x277D85DE8];
   return v9;
 }
 

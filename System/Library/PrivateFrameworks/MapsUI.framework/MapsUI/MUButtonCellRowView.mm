@@ -10,21 +10,20 @@
 
 - (void)_setupAccessibilityIdentifier
 {
-  viewModel = self->_viewModel;
-  v4 = objc_opt_respondsToSelector();
+  v3 = objc_opt_respondsToSelector();
   contentView = self->_contentView;
-  if (v4)
+  if (v3)
   {
     accessibilityIdentifierForAction = [(MUDynamicButtonCellModel *)self->_viewModel accessibilityIdentifierForAction];
-    v6 = [@"ButtonCellType" stringByAppendingString:accessibilityIdentifierForAction];
-    [(MUGridButtonCell *)contentView setAccessibilityIdentifier:v6];
+    v5 = [@"ButtonCellType" stringByAppendingString:accessibilityIdentifierForAction];
+    [(MUGridButtonCell *)contentView setAccessibilityIdentifier:v5];
   }
 
   else
   {
-    v7 = self->_contentView;
+    v6 = self->_contentView;
 
-    [(MUGridButtonCell *)v7 setAccessibilityIdentifier:@"ButtonCellTypeUnknown"];
+    [(MUGridButtonCell *)v6 setAccessibilityIdentifier:@"ButtonCellTypeUnknown"];
   }
 }
 

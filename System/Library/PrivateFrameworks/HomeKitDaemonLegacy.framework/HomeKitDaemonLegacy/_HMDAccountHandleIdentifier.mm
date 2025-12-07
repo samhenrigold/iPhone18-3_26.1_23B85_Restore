@@ -94,7 +94,7 @@
 
     if (v7)
     {
-      v8 = [v5 copy];
+      v8 = objc_msgSend_copy(v5);
       accountHandle = v7->_accountHandle;
       v7->_accountHandle = v8;
     }

@@ -43,7 +43,7 @@
 
 void __80__HDWorkoutCondenserDiagnosticOperation__reportCondensedWorkoutsWithTaskClient___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = *(a1 + 32);
   if (v5)
@@ -56,31 +56,31 @@ void __80__HDWorkoutCondenserDiagnosticOperation__reportCondensedWorkoutsWithTas
     if (v8)
     {
       v9 = [MEMORY[0x277CCDA90] formatterForCodableCondensedWorkouts];
+      v17 = 0u;
       v18 = 0u;
       v19 = 0u;
       v20 = 0u;
-      v21 = 0u;
       v10 = [v5 workouts];
-      v11 = [v10 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v11 = [v10 countByEnumeratingWithState:&v17 objects:v21 count:16];
       if (v11)
       {
         v12 = v11;
-        v13 = *v19;
+        v13 = *v18;
         do
         {
           v14 = 0;
           do
           {
-            if (*v19 != v13)
+            if (*v18 != v13)
             {
               objc_enumerationMutation(v10);
             }
 
-            [v9 appendWorkout:*(*(&v18 + 1) + 8 * v14++)];
+            [v9 appendWorkout:*(*(&v17 + 1) + 8 * v14++)];
           }
 
           while (v12 != v14);
-          v12 = [v10 countByEnumeratingWithState:&v18 objects:v22 count:16];
+          v12 = [v10 countByEnumeratingWithState:&v17 objects:v21 count:16];
         }
 
         while (v12);
@@ -106,8 +106,6 @@ void __80__HDWorkoutCondenserDiagnosticOperation__reportCondensedWorkoutsWithTas
   }
 
   dispatch_semaphore_signal(*(a1 + 40));
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_reportCondensableWorkoutsWithTaskClient:(id)client
@@ -132,7 +130,7 @@ void __80__HDWorkoutCondenserDiagnosticOperation__reportCondensedWorkoutsWithTas
 
 void __82__HDWorkoutCondenserDiagnosticOperation__reportCondensableWorkoutsWithTaskClient___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = *(a1 + 32);
   if (v5)
@@ -145,31 +143,31 @@ void __82__HDWorkoutCondenserDiagnosticOperation__reportCondensableWorkoutsWithT
     if (v8)
     {
       v9 = [MEMORY[0x277CCDA90] formatterForCodableCondensedWorkouts];
+      v17 = 0u;
       v18 = 0u;
       v19 = 0u;
       v20 = 0u;
-      v21 = 0u;
       v10 = [v5 workouts];
-      v11 = [v10 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v11 = [v10 countByEnumeratingWithState:&v17 objects:v21 count:16];
       if (v11)
       {
         v12 = v11;
-        v13 = *v19;
+        v13 = *v18;
         do
         {
           v14 = 0;
           do
           {
-            if (*v19 != v13)
+            if (*v18 != v13)
             {
               objc_enumerationMutation(v10);
             }
 
-            [v9 appendWorkout:*(*(&v18 + 1) + 8 * v14++)];
+            [v9 appendWorkout:*(*(&v17 + 1) + 8 * v14++)];
           }
 
           while (v12 != v14);
-          v12 = [v10 countByEnumeratingWithState:&v18 objects:v22 count:16];
+          v12 = [v10 countByEnumeratingWithState:&v17 objects:v21 count:16];
         }
 
         while (v12);
@@ -195,8 +193,6 @@ void __82__HDWorkoutCondenserDiagnosticOperation__reportCondensableWorkoutsWithT
   }
 
   dispatch_semaphore_signal(*(a1 + 40));
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_reportWorkoutCondenserTTRValuesWithDatabase:(id)database

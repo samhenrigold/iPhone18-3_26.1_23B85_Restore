@@ -32,7 +32,7 @@
 
 - (void)processInput:(id)input parameters:(id)parameters completionHandler:(id)handler
 {
-  v65 = *MEMORY[0x1E69E9840];
+  v64 = *MEMORY[0x1E69E9840];
   inputCopy = input;
   parametersCopy = parameters;
   handlerCopy = handler;
@@ -40,91 +40,91 @@
   strongToStrongObjectsMapTable = [MEMORY[0x1E696AD18] strongToStrongObjectsMapTable];
   v10 = objc_opt_new();
   v11 = objc_opt_new();
-  v62[0] = 0;
-  v62[1] = v62;
-  v62[2] = 0x2020000000;
+  v61[0] = 0;
+  v61[1] = v61;
+  v61[2] = 0x2020000000;
   v12 = [parametersCopy objectForKey:@"DisableCallback"];
   bOOLValue = [v12 BOOLValue];
 
-  v63 = bOOLValue;
-  v60[0] = 0;
-  v60[1] = v60;
-  v60[2] = 0x3032000000;
-  v60[3] = __Block_byref_object_copy__42658;
-  v60[4] = __Block_byref_object_dispose__42659;
-  v61 = 0;
+  v62 = bOOLValue;
+  v59[0] = 0;
+  v59[1] = v59;
+  v59[2] = 0x3032000000;
+  v59[3] = __Block_byref_object_copy__42658;
+  v59[4] = __Block_byref_object_dispose__42659;
+  v60 = 0;
   aBlock[0] = MEMORY[0x1E69E9820];
   aBlock[1] = 3221225472;
   aBlock[2] = __75__WFInterchangeActionDefinition_processInput_parameters_completionHandler___block_invoke;
   aBlock[3] = &unk_1E8379DB8;
-  v29 = v11;
-  v55 = v29;
-  v58 = v60;
-  v31 = strongToStrongObjectsMapTable;
-  v56 = v31;
-  v30 = v10;
-  v57 = v30;
-  v59 = v62;
+  v28 = v11;
+  v54 = v28;
+  v57 = v59;
+  v30 = strongToStrongObjectsMapTable;
+  v55 = v30;
+  v29 = v10;
+  v56 = v29;
+  v58 = v61;
   v14 = _Block_copy(aBlock);
-  v52[0] = 0;
-  v52[1] = v52;
-  v52[2] = 0x3032000000;
-  v52[3] = __Block_byref_object_copy__42658;
-  v52[4] = __Block_byref_object_dispose__42659;
-  v53 = 0;
+  v51[0] = 0;
+  v51[1] = v51;
+  v51[2] = 0x3032000000;
+  v51[3] = __Block_byref_object_copy__42658;
+  v51[4] = __Block_byref_object_dispose__42659;
+  v52 = 0;
+  v47 = 0u;
   v48 = 0u;
   v49 = 0u;
   v50 = 0u;
-  v51 = 0u;
   inputMapping = [(WFInterchangeActionDefinition *)self inputMapping];
-  v16 = [inputMapping countByEnumeratingWithState:&v48 objects:v64 count:16];
+  v16 = [inputMapping countByEnumeratingWithState:&v47 objects:v63 count:16];
   if (v16)
   {
-    v17 = *v49;
+    v17 = *v48;
     do
     {
       for (i = 0; i != v16; ++i)
       {
-        if (*v49 != v17)
+        if (*v48 != v17)
         {
           objc_enumerationMutation(inputMapping);
         }
 
-        v19 = *(*(&v48 + 1) + 8 * i);
+        v19 = *(*(&v47 + 1) + 8 * i);
         destinationType = [v19 destinationType];
-        v21 = [destinationType isEqualToString:@"Clipboard"];
+        isEqualToString = objc_msgSend_isEqualToString_(destinationType);
         dispatch_group_enter(v8);
-        if (v21)
+        if (isEqualToString)
         {
-          v45[0] = MEMORY[0x1E69E9820];
-          v45[1] = 3221225472;
-          v45[2] = __75__WFInterchangeActionDefinition_processInput_parameters_completionHandler___block_invoke_2;
-          v45[3] = &unk_1E8379E10;
-          v47[0] = v14;
-          v45[4] = v19;
-          v46 = v8;
-          v47[1] = v52;
-          [v19 getContentCollection:v45 withInput:inputCopy parameters:parametersCopy];
-          v22 = &v46;
-          v23 = v47;
+          v44[0] = MEMORY[0x1E69E9820];
+          v44[1] = 3221225472;
+          v44[2] = __75__WFInterchangeActionDefinition_processInput_parameters_completionHandler___block_invoke_2;
+          v44[3] = &unk_1E8379E10;
+          v46[0] = v14;
+          v44[4] = v19;
+          v45 = v8;
+          v46[1] = v51;
+          [v19 getContentCollection:v44 withInput:inputCopy parameters:parametersCopy];
+          v22 = &v45;
+          v23 = v46;
         }
 
         else
         {
-          v42[0] = MEMORY[0x1E69E9820];
-          v42[1] = 3221225472;
-          v42[2] = __75__WFInterchangeActionDefinition_processInput_parameters_completionHandler___block_invoke_5;
-          v42[3] = &unk_1E8379E38;
-          v44 = v14;
-          v42[4] = v19;
-          v43 = v8;
-          [v19 getStringRepresentation:v42 withInput:inputCopy parameters:parametersCopy];
-          v22 = &v43;
-          v23 = &v44;
+          v41[0] = MEMORY[0x1E69E9820];
+          v41[1] = 3221225472;
+          v41[2] = __75__WFInterchangeActionDefinition_processInput_parameters_completionHandler___block_invoke_5;
+          v41[3] = &unk_1E8379E38;
+          v43 = v14;
+          v41[4] = v19;
+          v42 = v8;
+          [v19 getStringRepresentation:v41 withInput:inputCopy parameters:parametersCopy];
+          v22 = &v42;
+          v23 = &v43;
         }
       }
 
-      v16 = [inputMapping countByEnumeratingWithState:&v48 objects:v64 count:16];
+      v16 = [inputMapping countByEnumeratingWithState:&v47 objects:v63 count:16];
     }
 
     while (v16);
@@ -135,22 +135,21 @@
   block[1] = 3221225472;
   block[2] = __75__WFInterchangeActionDefinition_processInput_parameters_completionHandler___block_invoke_6;
   block[3] = &unk_1E8379E60;
-  v38 = handlerCopy;
-  v39 = v52;
-  v36 = v31;
-  v37 = v30;
-  v40 = v60;
-  v41 = v62;
-  v25 = v30;
-  v26 = v31;
+  v37 = handlerCopy;
+  v38 = v51;
+  v35 = v30;
+  v36 = v29;
+  v39 = v59;
+  v40 = v61;
+  v25 = v29;
+  v26 = v30;
   v27 = handlerCopy;
   dispatch_group_notify(v8, v24, block);
 
-  _Block_object_dispose(v52, 8);
-  _Block_object_dispose(v60, 8);
+  _Block_object_dispose(v51, 8);
+  _Block_object_dispose(v59, 8);
 
-  _Block_object_dispose(v62, 8);
-  v28 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(v61, 8);
 }
 
 void __75__WFInterchangeActionDefinition_processInput_parameters_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3, void *a4, void *a5)
@@ -182,7 +181,7 @@ void __75__WFInterchangeActionDefinition_processInput_parameters_completionHandl
   v17 = v16;
 
   v18 = [v9 destinationType];
-  if ([v18 isEqualToString:@"URLSubstitution"])
+  if (objc_msgSend_isEqualToString_(v18))
   {
     if (([v9 skipURLEncoding] & 1) == 0)
     {
@@ -210,7 +209,7 @@ void __75__WFInterchangeActionDefinition_processInput_parameters_completionHandl
     goto LABEL_12;
   }
 
-  if ([v18 isEqualToString:@"URLQueryValue"])
+  if (objc_msgSend_isEqualToString_(v18))
   {
     v25 = [(__CFString *)v17 length];
     if (v13)
@@ -238,7 +237,7 @@ LABEL_26:
     goto LABEL_27;
   }
 
-  if ([v18 isEqualToString:@"URLQueryFlag"])
+  if (objc_msgSend_isEqualToString_(v18))
   {
     if (![(__CFString *)v17 BOOLValue])
     {
@@ -251,7 +250,7 @@ LABEL_26:
     goto LABEL_26;
   }
 
-  if ([v18 isEqualToString:@"DisableCallback"])
+  if (objc_msgSend_isEqualToString_(v18))
   {
     if ([(__CFString *)v17 BOOLValue])
     {
@@ -259,7 +258,7 @@ LABEL_26:
     }
   }
 
-  else if ([v18 isEqualToString:@"ExtensionItemUserInfo"])
+  else if (objc_msgSend_isEqualToString_(v18))
   {
     v23 = *(a1 + 48);
     if (v17)
@@ -339,22 +338,15 @@ void __75__WFInterchangeActionDefinition_processInput_parameters_completionHandl
   dispatch_group_leave(v10);
 }
 
-void __75__WFInterchangeActionDefinition_processInput_parameters_completionHandler___block_invoke_6(void *a1)
+void __75__WFInterchangeActionDefinition_processInput_parameters_completionHandler___block_invoke_6(uint64_t a1)
 {
   aBlock[0] = MEMORY[0x1E69E9820];
   aBlock[1] = 3221225472;
   aBlock[2] = __75__WFInterchangeActionDefinition_processInput_parameters_completionHandler___block_invoke_7;
   aBlock[3] = &unk_1E837FAC0;
-  aBlock[4] = a1[7];
+  aBlock[4] = *(a1 + 56);
   v2 = _Block_copy(aBlock);
-  if (!*(*(a1[8] + 8) + 40))
-  {
-    v3 = a1[4];
-    v4 = a1[5];
-    v5 = *(*(a1[9] + 8) + 24);
-  }
-
-  (*(a1[6] + 16))();
+  (*(*(a1 + 48) + 16))();
 }
 
 void __75__WFInterchangeActionDefinition_processInput_parameters_completionHandler___block_invoke_7(uint64_t a1)
@@ -382,22 +374,20 @@ void __75__WFInterchangeActionDefinition_processInput_parameters_completionHandl
 
 void __75__WFInterchangeActionDefinition_processInput_parameters_completionHandler___block_invoke_8(uint64_t a1)
 {
-  v8[1] = *MEMORY[0x1E69E9840];
+  v7[1] = *MEMORY[0x1E69E9840];
   v2 = [(objc_class *)getUIPasteboardClass_42662() generalPasteboard];
   v3 = *(*(*(a1 + 32) + 8) + 40);
   v4 = getUIPasteboardOptionLocalOnly();
-  v7 = v4;
-  v8[0] = MEMORY[0x1E695E118];
-  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:&v7 count:1];
+  v6 = v4;
+  v7[0] = MEMORY[0x1E695E118];
+  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:&v6 count:1];
   [v2 setItems:v3 options:v5];
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __75__WFInterchangeActionDefinition_processInput_parameters_completionHandler___block_invoke_3(uint64_t a1)
 {
-  v14[1] = *MEMORY[0x1E69E9840];
-  v2 = [getUIPasteboardClass_42662() generalPasteboard];
+  v13[1] = *MEMORY[0x1E69E9840];
+  v2 = [(objc_class *)getUIPasteboardClass_42662() generalPasteboard];
   v3 = v2;
   if (!*(*(*(a1 + 48) + 8) + 40))
   {
@@ -408,19 +398,17 @@ void __75__WFInterchangeActionDefinition_processInput_parameters_completionHandl
   }
 
   v7 = getUIPasteboardOptionLocalOnly();
-  v13 = v7;
-  v14[0] = MEMORY[0x1E695E118];
-  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:&v13 count:1];
+  v12 = v7;
+  v13[0] = MEMORY[0x1E695E118];
+  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:&v12 count:1];
 
-  v11[0] = MEMORY[0x1E69E9820];
-  v11[1] = 3221225472;
-  v11[2] = __75__WFInterchangeActionDefinition_processInput_parameters_completionHandler___block_invoke_4;
-  v11[3] = &unk_1E8379DE8;
+  v10[0] = MEMORY[0x1E69E9820];
+  v10[1] = 3221225472;
+  v10[2] = __75__WFInterchangeActionDefinition_processInput_parameters_completionHandler___block_invoke_4;
+  v10[3] = &unk_1E8379DE8;
   v9 = *(a1 + 32);
-  v12 = *(a1 + 40);
-  [v9 copyToPasteboard:v3 options:v8 completionHandler:v11];
-
-  v10 = *MEMORY[0x1E69E9840];
+  v11 = *(a1 + 40);
+  [v9 copyToPasteboard:v3 options:v8 completionHandler:v10];
 }
 
 - (id)description
@@ -528,42 +516,42 @@ void __75__WFInterchangeActionDefinition_processInput_parameters_completionHandl
 
 - (NSArray)outputContentClasses
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   outputContentClasses = self->_outputContentClasses;
   if (!outputContentClasses)
   {
     v4 = objc_opt_new();
+    v17 = 0u;
     v18 = 0u;
     v19 = 0u;
     v20 = 0u;
-    v21 = 0u;
     outputMapping = [(WFInterchangeActionDefinition *)self outputMapping];
-    v6 = [outputMapping countByEnumeratingWithState:&v18 objects:v22 count:16];
+    v6 = [outputMapping countByEnumeratingWithState:&v17 objects:v21 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v19;
+      v8 = *v18;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v19 != v8)
+          if (*v18 != v8)
           {
             objc_enumerationMutation(outputMapping);
           }
 
-          v10 = *(*(&v18 + 1) + 8 * i);
+          v10 = *(*(&v17 + 1) + 8 * i);
           destinationType = [v10 destinationType];
-          v12 = [destinationType isEqualToString:@"Output"];
+          isEqualToString = objc_msgSend_isEqualToString_(destinationType);
 
-          if (v12)
+          if (isEqualToString)
           {
             contentItemClasses = [v10 contentItemClasses];
             [v4 unionOrderedSet:contentItemClasses];
           }
         }
 
-        v7 = [outputMapping countByEnumeratingWithState:&v18 objects:v22 count:16];
+        v7 = [outputMapping countByEnumeratingWithState:&v17 objects:v21 count:16];
       }
 
       while (v7);
@@ -576,49 +564,47 @@ void __75__WFInterchangeActionDefinition_processInput_parameters_completionHandl
     outputContentClasses = self->_outputContentClasses;
   }
 
-  v16 = *MEMORY[0x1E69E9840];
-
   return outputContentClasses;
 }
 
 - (NSArray)inputContentClasses
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   inputContentClasses = self->_inputContentClasses;
   if (!inputContentClasses)
   {
     v4 = objc_opt_new();
+    v17 = 0u;
     v18 = 0u;
     v19 = 0u;
     v20 = 0u;
-    v21 = 0u;
     inputMapping = [(WFInterchangeActionDefinition *)self inputMapping];
-    v6 = [inputMapping countByEnumeratingWithState:&v18 objects:v22 count:16];
+    v6 = [inputMapping countByEnumeratingWithState:&v17 objects:v21 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v19;
+      v8 = *v18;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v19 != v8)
+          if (*v18 != v8)
           {
             objc_enumerationMutation(inputMapping);
           }
 
-          v10 = *(*(&v18 + 1) + 8 * i);
+          v10 = *(*(&v17 + 1) + 8 * i);
           sourceType = [v10 sourceType];
-          v12 = [sourceType isEqualToString:@"Input"];
+          isEqualToString = objc_msgSend_isEqualToString_(sourceType);
 
-          if (v12)
+          if (isEqualToString)
           {
             contentItemClasses = [v10 contentItemClasses];
             [v4 unionOrderedSet:contentItemClasses];
           }
         }
 
-        v7 = [inputMapping countByEnumeratingWithState:&v18 objects:v22 count:16];
+        v7 = [inputMapping countByEnumeratingWithState:&v17 objects:v21 count:16];
       }
 
       while (v7);
@@ -631,45 +617,43 @@ void __75__WFInterchangeActionDefinition_processInput_parameters_completionHandl
     inputContentClasses = self->_inputContentClasses;
   }
 
-  v16 = *MEMORY[0x1E69E9840];
-
   return inputContentClasses;
 }
 
 - (BOOL)outputsMultipleItems
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   outputMapping = [(WFInterchangeActionDefinition *)self outputMapping];
-  v3 = [outputMapping countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v3 = [outputMapping countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v3)
   {
     v4 = v3;
     v5 = 0;
-    v6 = *v14;
+    v6 = *v13;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v14 != v6)
+        if (*v13 != v6)
         {
           objc_enumerationMutation(outputMapping);
         }
 
-        v8 = *(*(&v13 + 1) + 8 * i);
+        v8 = *(*(&v12 + 1) + 8 * i);
         sourceType = [v8 sourceType];
-        v10 = [sourceType isEqualToString:@"Output"];
+        isEqualToString = objc_msgSend_isEqualToString_(sourceType);
 
-        if (v10)
+        if (isEqualToString)
         {
           v5 |= [v8 supportsMultipleItems];
         }
       }
 
-      v4 = [outputMapping countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v4 = [outputMapping countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v4);
@@ -680,44 +664,43 @@ void __75__WFInterchangeActionDefinition_processInput_parameters_completionHandl
     LOBYTE(v5) = 0;
   }
 
-  v11 = *MEMORY[0x1E69E9840];
   return v5 & 1;
 }
 
 - (BOOL)inputsMultipleItems
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   inputMapping = [(WFInterchangeActionDefinition *)self inputMapping];
-  v3 = [inputMapping countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v3 = [inputMapping countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v3)
   {
     v4 = v3;
     v5 = 0;
-    v6 = *v14;
+    v6 = *v13;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v14 != v6)
+        if (*v13 != v6)
         {
           objc_enumerationMutation(inputMapping);
         }
 
-        v8 = *(*(&v13 + 1) + 8 * i);
+        v8 = *(*(&v12 + 1) + 8 * i);
         sourceType = [v8 sourceType];
-        v10 = [sourceType isEqualToString:@"Input"];
+        isEqualToString = objc_msgSend_isEqualToString_(sourceType);
 
-        if (v10)
+        if (isEqualToString)
         {
           v5 |= [v8 supportsMultipleItems];
         }
       }
 
-      v4 = [inputMapping countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v4 = [inputMapping countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v4);
@@ -728,44 +711,43 @@ void __75__WFInterchangeActionDefinition_processInput_parameters_completionHandl
     LOBYTE(v5) = 0;
   }
 
-  v11 = *MEMORY[0x1E69E9840];
   return v5 & 1;
 }
 
 - (BOOL)inputRequired
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   inputMapping = [(WFInterchangeActionDefinition *)self inputMapping];
-  v3 = [inputMapping countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v3 = [inputMapping countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v3)
   {
     v4 = v3;
     v5 = 0;
-    v6 = *v14;
+    v6 = *v13;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v14 != v6)
+        if (*v13 != v6)
         {
           objc_enumerationMutation(inputMapping);
         }
 
-        v8 = *(*(&v13 + 1) + 8 * i);
+        v8 = *(*(&v12 + 1) + 8 * i);
         sourceType = [v8 sourceType];
-        v10 = [sourceType isEqualToString:@"Input"];
+        isEqualToString = objc_msgSend_isEqualToString_(sourceType);
 
-        if (v10)
+        if (isEqualToString)
         {
           v5 |= [v8 inputRequired];
         }
       }
 
-      v4 = [inputMapping countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v4 = [inputMapping countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v4);
@@ -776,7 +758,6 @@ void __75__WFInterchangeActionDefinition_processInput_parameters_completionHandl
     LOBYTE(v5) = 0;
   }
 
-  v11 = *MEMORY[0x1E69E9840];
   return v5 & 1;
 }
 
@@ -942,7 +923,7 @@ void __75__WFInterchangeActionDefinition_processInput_parameters_completionHandl
 
 - (WFInterchangeActionDefinition)initWithDefinition:(id)definition app:(id)app
 {
-  v60 = *MEMORY[0x1E69E9840];
+  v59 = *MEMORY[0x1E69E9840];
   definitionCopy = definition;
   appCopy = app;
   v8 = [definitionCopy objectForKey:@"ActionClass"];
@@ -955,36 +936,36 @@ void __75__WFInterchangeActionDefinition_processInput_parameters_completionHandl
   else
   {
     obj = app;
-    v45 = v9;
-    v46 = appCopy;
+    v44 = v9;
+    v45 = appCopy;
     v10 = [definitionCopy objectForKey:@"InputMapping"];
     v11 = 0x1E695D000uLL;
     selfCopy = self;
-    v49 = definitionCopy;
-    v47 = v10;
+    v48 = definitionCopy;
+    v46 = v10;
     if ([v10 count])
     {
       v12 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v10, "count")}];
+      v53 = 0u;
       v54 = 0u;
       v55 = 0u;
       v56 = 0u;
-      v57 = 0u;
       v13 = v10;
-      v14 = [v13 countByEnumeratingWithState:&v54 objects:v59 count:16];
+      v14 = [v13 countByEnumeratingWithState:&v53 objects:v58 count:16];
       if (v14)
       {
         v15 = v14;
-        v16 = *v55;
+        v16 = *v54;
         while (2)
         {
           for (i = 0; i != v15; ++i)
           {
-            if (*v55 != v16)
+            if (*v54 != v16)
             {
               objc_enumerationMutation(v13);
             }
 
-            v18 = *(*(&v54 + 1) + 8 * i);
+            v18 = *(*(&v53 + 1) + 8 * i);
             v19 = [v18 objectForKey:@"ContentMappingClass"];
             v20 = NSClassFromString(v19);
             if (!v20)
@@ -997,8 +978,8 @@ void __75__WFInterchangeActionDefinition_processInput_parameters_completionHandl
             {
               selfCopy2 = 0;
               self = selfCopy;
-              definitionCopy = v49;
-              v10 = v47;
+              definitionCopy = v48;
+              v10 = v46;
               goto LABEL_36;
             }
 
@@ -1006,7 +987,7 @@ void __75__WFInterchangeActionDefinition_processInput_parameters_completionHandl
             [v12 addObject:v21];
           }
 
-          v15 = [v13 countByEnumeratingWithState:&v54 objects:v59 count:16];
+          v15 = [v13 countByEnumeratingWithState:&v53 objects:v58 count:16];
           if (v15)
           {
             continue;
@@ -1017,8 +998,8 @@ void __75__WFInterchangeActionDefinition_processInput_parameters_completionHandl
       }
 
       self = selfCopy;
-      definitionCopy = v49;
-      v10 = v47;
+      definitionCopy = v48;
+      v10 = v46;
       v11 = 0x1E695D000;
     }
 
@@ -1031,27 +1012,27 @@ void __75__WFInterchangeActionDefinition_processInput_parameters_completionHandl
     if ([v24 count])
     {
       v13 = [objc_alloc(*(v11 + 3952)) initWithCapacity:{objc_msgSend(v24, "count")}];
+      v49 = 0u;
       v50 = 0u;
       v51 = 0u;
       v52 = 0u;
-      v53 = 0u;
-      v43 = v24;
+      v42 = v24;
       v25 = v24;
-      v26 = [v25 countByEnumeratingWithState:&v50 objects:v58 count:16];
+      v26 = [v25 countByEnumeratingWithState:&v49 objects:v57 count:16];
       if (v26)
       {
         v27 = v26;
-        v28 = *v51;
+        v28 = *v50;
         while (2)
         {
           for (j = 0; j != v27; ++j)
           {
-            if (*v51 != v28)
+            if (*v50 != v28)
             {
               objc_enumerationMutation(v25);
             }
 
-            v30 = *(*(&v50 + 1) + 8 * j);
+            v30 = *(*(&v49 + 1) + 8 * j);
             v31 = [v30 objectForKey:@"ContentMappingClass"];
             v32 = NSClassFromString(v31);
             if (!v32)
@@ -1065,9 +1046,9 @@ void __75__WFInterchangeActionDefinition_processInput_parameters_completionHandl
 
               selfCopy2 = 0;
               self = selfCopy;
-              definitionCopy = v49;
-              v10 = v47;
-              v24 = v43;
+              definitionCopy = v48;
+              v10 = v46;
+              v24 = v42;
               goto LABEL_35;
             }
 
@@ -1075,7 +1056,7 @@ void __75__WFInterchangeActionDefinition_processInput_parameters_completionHandl
             [v13 addObject:v33];
           }
 
-          v27 = [v25 countByEnumeratingWithState:&v50 objects:v58 count:16];
+          v27 = [v25 countByEnumeratingWithState:&v49 objects:v57 count:16];
           if (v27)
           {
             continue;
@@ -1086,9 +1067,9 @@ void __75__WFInterchangeActionDefinition_processInput_parameters_completionHandl
       }
 
       self = selfCopy;
-      definitionCopy = v49;
-      v10 = v47;
-      v24 = v43;
+      definitionCopy = v48;
+      v10 = v46;
+      v24 = v42;
     }
 
     else
@@ -1124,11 +1105,10 @@ void __75__WFInterchangeActionDefinition_processInput_parameters_completionHandl
 LABEL_35:
 
 LABEL_36:
-    v9 = v45;
-    appCopy = v46;
+    v9 = v44;
+    appCopy = v45;
   }
 
-  v41 = *MEMORY[0x1E69E9840];
   return selfCopy2;
 }
 

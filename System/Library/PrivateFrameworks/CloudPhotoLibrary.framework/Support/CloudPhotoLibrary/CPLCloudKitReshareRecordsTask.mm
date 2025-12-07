@@ -267,8 +267,8 @@ LABEL_14:
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v21 = sub_100003854();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+      v23 = sub_100003854(v15);
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
       {
         currentSourceScopedIdentifier = self->_currentSourceScopedIdentifier;
         scopedIdentifier = [(CPLRecordChange *)self->_currentSharedRecord scopedIdentifier];
@@ -276,13 +276,13 @@ LABEL_14:
         recordType4 = [v11 recordType];
         *buf = 138413058;
         *&buf[4] = currentSourceScopedIdentifier;
-        v36 = 2112;
-        v37 = scopedIdentifier;
         v38 = 2112;
-        v39 = recordType3;
+        v39 = scopedIdentifier;
         v40 = 2112;
-        v41 = recordType4;
-        _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_ERROR, "Trying to move %@ to %@ but source is %@ while destination is %@", buf, 0x2Au);
+        v41 = recordType3;
+        v42 = 2112;
+        v43 = recordType4;
+        _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_ERROR, "Trying to move %@ to %@ but source is %@ while destination is %@", buf, 0x2Au);
       }
     }
 
@@ -290,26 +290,26 @@ LABEL_14:
   }
 
   recordID = [v11 recordID];
-  v16 = [recordID isEqual:dCopy];
+  v17 = [recordID isEqual:dCopy];
 
-  if ((v16 & 1) == 0 && (_CPLSilentLogging & 1) == 0)
+  if ((v17 & 1) == 0 && (_CPLSilentLogging & 1) == 0)
   {
-    v17 = sub_100003854();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v19 = sub_100003854(v18);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
-      v33 = self->_currentSourceScopedIdentifier;
+      v35 = self->_currentSourceScopedIdentifier;
       scopedIdentifier2 = [(CPLRecordChange *)self->_currentSharedRecord scopedIdentifier];
       recordID2 = [recordCopy recordID];
       recordID3 = [v11 recordID];
       *buf = 138413058;
-      *&buf[4] = v33;
-      v36 = 2112;
-      v37 = scopedIdentifier2;
+      *&buf[4] = v35;
       v38 = 2112;
-      v39 = recordID2;
+      v39 = scopedIdentifier2;
       v40 = 2112;
-      v41 = recordID3;
-      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_ERROR, "Trying to move %@ to %@ but proposed record ID is %@ while expected record ID is %@", buf, 0x2Au);
+      v41 = recordID2;
+      v42 = 2112;
+      v43 = recordID3;
+      _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_ERROR, "Trying to move %@ to %@ but proposed record ID is %@ while expected record ID is %@", buf, 0x2Au);
     }
   }
 
@@ -317,21 +317,21 @@ LABEL_15:
   sourceRelatedRecordName = self->_sourceRelatedRecordName;
   self->_sourceRelatedRecordName = 0;
 
-  v26 = [-[CPLRecordChange recordClass](self->_currentSharedRecord "recordClass")];
-  if (!v26)
+  v28 = [-[CPLRecordChange recordClass](self->_currentSharedRecord "recordClass")];
+  if (!v28)
   {
     goto LABEL_23;
   }
 
-  v27 = [recordCopy objectForKeyedSubscript:v26];
-  if (v27)
+  v29 = [recordCopy objectForKeyedSubscript:v28];
+  if (v29)
   {
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v28 = v27;
+      v30 = v29;
       recordID4 = self->_sourceRelatedRecordName;
-      self->_sourceRelatedRecordName = v28;
+      self->_sourceRelatedRecordName = v30;
 LABEL_21:
 
       goto LABEL_22;
@@ -340,9 +340,9 @@ LABEL_21:
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      recordID4 = [v27 recordID];
+      recordID4 = [v29 recordID];
       recordName = [recordID4 recordName];
-      v31 = self->_sourceRelatedRecordName;
+      v33 = self->_sourceRelatedRecordName;
       self->_sourceRelatedRecordName = recordName;
 
       goto LABEL_21;

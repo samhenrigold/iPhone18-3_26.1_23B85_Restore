@@ -101,7 +101,6 @@
   selector = self->_selector;
   if (selector)
   {
-    v4 = self->_selector;
     [target selector];
   }
 

@@ -33,7 +33,7 @@
 
 - (void)scheduleRequest:(id)request
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   if (*MEMORY[0x277CBC880] != -1)
   {
@@ -44,7 +44,7 @@
   if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412290;
-    v14 = requestCopy;
+    v13 = requestCopy;
     _os_log_debug_impl(&dword_22506F000, v5, OS_LOG_TYPE_DEBUG, "Starting lookup for request %@", buf, 0xCu);
   }
 
@@ -61,11 +61,9 @@
     block[1] = 3221225472;
     block[2] = sub_2253AD958;
     block[3] = &unk_278545A00;
-    v12 = requestCopy;
+    v11 = requestCopy;
     dispatch_async(queue, block);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)configureRequest:(id)request
@@ -92,28 +90,28 @@
 
 - (void)removeCacheForLookupInfos:(id)infos
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   infosCopy = infos;
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
-  v6 = objc_msgSend_countByEnumeratingWithState_objects_count_(infosCopy, v5, &v16, v20, 16);
+  v6 = objc_msgSend_countByEnumeratingWithState_objects_count_(infosCopy, v5, &v15, v19, 16);
   if (v6)
   {
     v7 = v6;
-    v8 = *v17;
+    v8 = *v16;
     do
     {
       v9 = 0;
       do
       {
-        if (*v17 != v8)
+        if (*v16 != v8)
         {
           objc_enumerationMutation(infosCopy);
         }
 
-        v10 = *(*(&v16 + 1) + 8 * v9);
+        v10 = *(*(&v15 + 1) + 8 * v9);
         cache = self->_cache;
         WeakRetained = objc_loadWeakRetained(&self->_container);
         objc_msgSend_removeCachedValueForLookupInfo_container_(cache, v13, v10, WeakRetained);
@@ -122,13 +120,11 @@
       }
 
       while (v7 != v9);
-      v7 = objc_msgSend_countByEnumeratingWithState_objects_count_(infosCopy, v14, &v16, v20, 16);
+      v7 = objc_msgSend_countByEnumeratingWithState_objects_count_(infosCopy, v14, &v15, v19, 16);
     }
 
     while (v7);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (CKDContainer)container

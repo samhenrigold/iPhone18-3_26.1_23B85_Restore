@@ -7,8 +7,8 @@
 
 - (CGSize)sourceImageSizeWithDocument:(id)document
 {
-  v22[3] = *MEMORY[0x277D85DE8];
-  *v20 = *MEMORY[0x277CBF3A8];
+  v21[3] = *MEMORY[0x277D85DE8];
+  *v19 = *MEMORY[0x277CBF3A8];
   v4 = [(TDAsset *)self fileURLWithDocument:document];
   if ([(TDAsset *)self scaleFactor]< 1)
   {
@@ -23,14 +23,14 @@
   valuePtr = v5;
   v6 = CFNumberCreate(*MEMORY[0x277CBECE8], kCFNumberSInt32Type, &valuePtr);
   v7 = *MEMORY[0x277CD3618];
-  v21[0] = *MEMORY[0x277CD35D0];
-  v21[1] = v7;
+  v20[0] = *MEMORY[0x277CD35D0];
+  v20[1] = v7;
   v8 = *MEMORY[0x277CBED10];
-  v22[0] = v6;
-  v22[1] = v8;
-  v21[2] = *MEMORY[0x277CD3648];
-  v22[2] = *MEMORY[0x277CBED28];
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:v21 count:3];
+  v21[0] = v6;
+  v21[1] = v8;
+  v20[2] = *MEMORY[0x277CD3648];
+  v21[2] = *MEMORY[0x277CBED28];
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:v20 count:3];
   CFRelease(v6);
   v10 = CGImageSourceCreateWithURL(v4, 0);
   if (v10)
@@ -44,8 +44,8 @@
       value = 0;
       if (CFDictionaryGetValueIfPresent(v12, *MEMORY[0x277CD3450], &value) && CFDictionaryGetValueIfPresent(v13, *MEMORY[0x277CD3448], &number))
       {
-        CFNumberGetValue(value, kCFNumberCGFloatType, v20);
-        CFNumberGetValue(number, kCFNumberCGFloatType, &v20[1]);
+        CFNumberGetValue(value, kCFNumberCGFloatType, v19);
+        CFNumberGetValue(number, kCFNumberCGFloatType, &v19[1]);
       }
 
       CFRelease(v13);
@@ -59,9 +59,8 @@
     -[TDTextureAsset _logError:](self, "_logError:", [MEMORY[0x277CCACA8] stringWithFormat:@"Unable to get image dimensions for %@", v4]);
   }
 
-  v15 = v20[1];
-  v14 = v20[0];
-  v16 = *MEMORY[0x277D85DE8];
+  v14 = v19[0];
+  v15 = v19[1];
   result.height = v15;
   result.width = v14;
   return result;
@@ -69,12 +68,12 @@
 
 - (id)sourceImageWithDocument:(id)document
 {
-  v22[1] = *MEMORY[0x277D85DE8];
+  v21[1] = *MEMORY[0x277D85DE8];
   v4 = [(TDAsset *)self fileURLWithDocument:document];
   v5 = CGImageSourceCreateWithURL(v4, 0);
-  v21 = *MEMORY[0x277CD3648];
-  v22[0] = *MEMORY[0x277CBED28];
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:&v21 count:1];
+  v20 = *MEMORY[0x277CD3648];
+  v21[0] = *MEMORY[0x277CBED28];
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:&v20 count:1];
   if (!v5)
   {
     goto LABEL_17;
@@ -87,8 +86,7 @@
     CFRelease(v5);
 LABEL_17:
     -[TDTextureAsset _logError:](self, "_logError:", [MEMORY[0x277CCACA8] stringWithFormat:@"CoreThemeDefinition: Unable to create image for %@", v4]);
-    v17 = 0;
-    goto LABEL_18;
+    return 0;
   }
 
   v9 = ImageAtIndex;
@@ -137,8 +135,6 @@ LABEL_17:
   v17 = [MEMORY[0x277D02678] imageWithCGImage:v9];
   CGImageRelease(v9);
   CFRelease(v5);
-LABEL_18:
-  v18 = *MEMORY[0x277D85DE8];
   return v17;
 }
 

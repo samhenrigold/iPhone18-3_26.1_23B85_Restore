@@ -27,13 +27,13 @@
 - (id)pipelineForPropertyName:(id)name
 {
   nameCopy = name;
-  v5 = [(NSMutableDictionary *)self->_pipelines objectForKeyedSubscript:nameCopy];
+  v5 = [(NSMutableDictionary *)self->_pipelines objectForKeyedSubscript:?];
   if (!v5)
   {
-    nameCopy = [MEMORY[0x1E696AEC0] stringWithFormat:@"compositor_%@", nameCopy];
-    v7 = [(AVTMetalHelper *)self->_helper functionNamed:nameCopy];
-    v5 = [[AVTCompositorPipeline alloc] initWithFunction:v7];
-    [(NSMutableDictionary *)self->_pipelines setObject:v5 forKeyedSubscript:nameCopy];
+    v6 = [MEMORY[0x1E696AEC0] stringWithFormat:nameCopy];
+    v7 = [(AVTMetalHelper *)self->_helper functionNamed:v6];
+    v5 = [[AVTCompositorPipeline alloc] initWithFunction:?];
+    [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
   }
 
   return v5;
@@ -51,19 +51,21 @@
     pipelineForPropertyName_device__cachePerDevice = v7;
   }
 
-  v9 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:{objc_msgSend(deviceCopy, "registryID")}];
-  v10 = [pipelineForPropertyName_device__cachePerDevice objectForKeyedSubscript:v9];
-  if (!v10)
+  v9 = MEMORY[0x1E696AD98];
+  [deviceCopy registryID];
+  v10 = [v9 numberWithUnsignedLongLong:?];
+  v11 = [pipelineForPropertyName_device__cachePerDevice objectForKeyedSubscript:?];
+  if (!v11)
   {
-    v11 = [AVTMetalHelper helperForDevice:deviceCopy];
-    v10 = [[AVTCompositorPipelineCache alloc] initWithMetalHelper:v11];
-    [pipelineForPropertyName_device__cachePerDevice setObject:v10 forKeyedSubscript:v9];
+    v12 = [AVTMetalHelper helperForDevice:deviceCopy];
+    v11 = [[AVTCompositorPipelineCache alloc] initWithMetalHelper:?];
+    [pipelineForPropertyName_device__cachePerDevice setObject:? forKeyedSubscript:?];
   }
 
-  v12 = [(AVTCompositorPipelineCache *)v10 pipelineForPropertyName:nameCopy];
+  v13 = [(AVTCompositorPipelineCache *)v11 pipelineForPropertyName:?];
   os_unfair_lock_unlock(&pipelineForPropertyName_device__lock);
 
-  return v12;
+  return v13;
 }
 
 @end

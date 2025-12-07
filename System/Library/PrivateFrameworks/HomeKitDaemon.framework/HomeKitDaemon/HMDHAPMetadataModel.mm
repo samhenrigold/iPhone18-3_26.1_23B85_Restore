@@ -10,25 +10,23 @@
 
 - (id)metadataDictionary
 {
-  v12[5] = *MEMORY[0x277D85DE8];
-  v11[0] = *MEMORY[0x277CFEDF0];
+  v11[5] = *MEMORY[0x277D85DE8];
+  v10[0] = *MEMORY[0x277CFEDF0];
   metadataVersion = [(HMDHAPMetadataModel *)self metadataVersion];
-  v12[0] = metadataVersion;
-  v11[1] = *MEMORY[0x277CFEDC0];
+  v11[0] = metadataVersion;
+  v10[1] = *MEMORY[0x277CFEDC0];
   schemaVersion = [(HMDHAPMetadataModel *)self schemaVersion];
-  v12[1] = schemaVersion;
-  v11[2] = *MEMORY[0x277CFEDA0];
+  v11[1] = schemaVersion;
+  v10[2] = *MEMORY[0x277CFEDA0];
   rawPlist = [(HMDHAPMetadataModel *)self rawPlist];
-  v12[2] = rawPlist;
-  v11[3] = *MEMORY[0x277CFED80];
+  v11[2] = rawPlist;
+  v10[3] = *MEMORY[0x277CFED80];
   legacyIDSData = [(HMDHAPMetadataModel *)self legacyIDSData];
-  v12[3] = legacyIDSData;
-  v11[4] = *MEMORY[0x277CFED78];
+  v11[3] = legacyIDSData;
+  v10[4] = *MEMORY[0x277CFED78];
   legacyCloudData = [(HMDHAPMetadataModel *)self legacyCloudData];
-  v12[4] = legacyCloudData;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:5];
-
-  v9 = *MEMORY[0x277D85DE8];
+  v11[4] = legacyCloudData;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:5];
 
   return v8;
 }
@@ -47,19 +45,17 @@
 
 void __35__HMDHAPMetadataModel_allowedTypes__block_invoke()
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v0 = MEMORY[0x277CBEB98];
+  v4 = objc_opt_class();
   v5 = objc_opt_class();
   v6 = objc_opt_class();
   v7 = objc_opt_class();
   v8 = objc_opt_class();
-  v9 = objc_opt_class();
-  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:&v5 count:5];
-  v2 = [v0 setWithArray:{v1, v5, v6, v7, v8}];
+  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:&v4 count:5];
+  v2 = [v0 setWithArray:{v1, v4, v5, v6, v7}];
   v3 = allowedTypes__allowedTypes;
   allowedTypes__allowedTypes = v2;
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 + (id)modelWithDictionary:(id)dictionary
@@ -140,27 +136,25 @@ void __46__HMDHAPMetadataModel_metadataModelObjectUUID__block_invoke()
 
 void __33__HMDHAPMetadataModel_properties__block_invoke()
 {
-  v9[5] = *MEMORY[0x277D85DE8];
-  v8[0] = @"metadataVersion";
+  v8[5] = *MEMORY[0x277D85DE8];
+  v7[0] = @"metadataVersion";
   v0 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v9[0] = v0;
-  v8[1] = @"schemaVersion";
+  v8[0] = v0;
+  v7[1] = @"schemaVersion";
   v1 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v9[1] = v1;
-  v8[2] = @"rawPlist";
+  v8[1] = v1;
+  v7[2] = @"rawPlist";
   v2 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v9[2] = v2;
-  v8[3] = @"legacyIDSData";
+  v8[2] = v2;
+  v7[3] = @"legacyIDSData";
   v3 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v9[3] = v3;
-  v8[4] = @"legacyCloudData";
+  v8[3] = v3;
+  v7[4] = @"legacyCloudData";
   v4 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v9[4] = v4;
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:5];
+  v8[4] = v4;
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:5];
   v6 = properties__properties_26484;
   properties__properties_26484 = v5;
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 @end

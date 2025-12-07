@@ -3,7 +3,7 @@
 
 @implementation AXSGrayscaleEnabled
 
-uint64_t ___AXSGrayscaleEnabled_block_invoke()
+void *___AXSGrayscaleEnabled_block_invoke()
 {
   v1 = 1;
   result = _getBooleanPreference(kAXSGrayscaleEnabledPreference, &v1);

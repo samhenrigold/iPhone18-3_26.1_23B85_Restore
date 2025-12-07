@@ -1,24 +1,26 @@
 @interface NSAttributedStringKey:
-- (uint64_t)Any;
+- (double)Any;
 - (void)Any;
 @end
 
 @implementation NSAttributedStringKey:
 
-- (uint64_t)Any
+- (double)Any
 {
   v8 = *(self + 32);
   type metadata accessor for NSAttributedStringKey(0);
-  lazy protocol witness table accessor for type CFStringRef and conformance CFStringRef(&lazy protocol witness table cache variable for type NSAttributedStringKey and conformance NSAttributedStringKey, type metadata accessor for NSAttributedStringKey);
+  lazy protocol witness table accessor for type CFStringRef and conformance CFStringRef(&lazy protocol witness table cache variable for type NSAttributedStringKey and conformance NSAttributedStringKey, type metadata accessor for NSAttributedStringKey, &protocol conformance descriptor for NSAttributedStringKey);
   v9 = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
   v8(v9, a3, a4, a5);
+
+  return result;
 }
 
 - (void)Any
 {
   v8 = *(self + 32);
   type metadata accessor for NSAttributedStringKey(0);
-  lazy protocol witness table accessor for type Text.Effect.BaseContent and conformance Text.Effect.BaseContent(&lazy protocol witness table cache variable for type NSAttributedStringKey and conformance NSAttributedStringKey, type metadata accessor for NSAttributedStringKey);
+  lazy protocol witness table accessor for type Text.Effect.BaseContent and conformance Text.Effect.BaseContent(&lazy protocol witness table cache variable for type NSAttributedStringKey and conformance NSAttributedStringKey, type metadata accessor for NSAttributedStringKey, &protocol conformance descriptor for NSAttributedStringKey);
   v9 = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
   v11 = a2;
   v10 = a4;

@@ -7,7 +7,7 @@
 - (id)songsProducerForConfiguration:(id)configuration
 {
   configurationCopy = configuration;
-  if (([configurationCopy options] & 2) != 0 || (objc_msgSend(configurationCopy, "isAllowedToPlayAnyMusicOrSound") & 1) == 0)
+  if ((objc_msgSend_options(configurationCopy) & 2) != 0 || ([configurationCopy isAllowedToPlayAnyMusicOrSound] & 1) == 0)
   {
     v8 = objc_alloc_init(PXStoryPassthroughSongsProducer);
     goto LABEL_20;

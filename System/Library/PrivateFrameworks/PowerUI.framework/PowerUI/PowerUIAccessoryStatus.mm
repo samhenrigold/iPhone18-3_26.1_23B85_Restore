@@ -47,10 +47,9 @@
   v5 = [MEMORY[0x277CCABB0] numberWithBool:self->_enabled];
   disabledUntilDate = self->_disabledUntilDate;
   v7 = [MEMORY[0x277CCABB0] numberWithBool:self->_temporarilyDisabled];
-  lastTimeseriesDate = self->_lastTimeseriesDate;
-  v9 = [v3 stringWithFormat:@"AccessoryStatus: currentState=%@ enabled=%@ disabledUntilDate=%@ temporarilyDisabled=%@ lastSentDate=%@ lastSeenDate=%@ lastTimeseriesDate=%@ expectedhash=%@", v4, v5, disabledUntilDate, v7, self->_lastSentDate, self->_lastSeenDate, lastTimeseriesDate, self->_expectedHash];
+  v8 = [v3 stringWithFormat:@"AccessoryStatus: currentState=%@ enabled=%@ disabledUntilDate=%@ temporarilyDisabled=%@ lastSentDate=%@ lastSeenDate=%@ lastTimeseriesDate=%@ expectedhash=%@", v4, v5, disabledUntilDate, v7, self->_lastSentDate, self->_lastSeenDate, self->_lastTimeseriesDate, self->_expectedHash];
 
-  return v9;
+  return v8;
 }
 
 @end

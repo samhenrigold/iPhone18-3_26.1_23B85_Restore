@@ -1,4 +1,4 @@
-uint64_t gcs_isInternalBuild()
+uint64_t gcs_isInternalBuild(uint64_t a1, uint64_t a2)
 {
   if (gcs_isInternalBuild_onceToken != -1)
   {
@@ -15,16 +15,16 @@ uint64_t __gcs_isInternalBuild_block_invoke()
   return result;
 }
 
-id getGCSLogger()
+id getGCSLogger(uint64_t a1)
 {
   if (getGCSLogger_onceToken != -1)
   {
     getGCSLogger_cold_1();
   }
 
-  v1 = gcLogger;
+  v2 = gcLogger;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __getGCSLogger_block_invoke()

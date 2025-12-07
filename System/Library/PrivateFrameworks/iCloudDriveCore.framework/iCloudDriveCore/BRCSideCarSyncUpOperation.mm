@@ -60,40 +60,39 @@ void __49__BRCSideCarSyncUpOperation__markItemsFailedSync__block_invoke(uint64_t
 
 uint64_t __49__BRCSideCarSyncUpOperation__markItemsFailedSync__block_invoke_2(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   v2 = [*(*(a1 + 32) + 256) itemFetcher];
   v3 = [v2 itemsWithSideCarInFlightDiffsEnumeratorWithDBFacade:*(a1 + 40)];
 
-  v4 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v12;
+    v6 = *v11;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v12 != v6)
+        if (*v11 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v11 + 1) + 8 * i);
+        v8 = *(*(&v10 + 1) + 8 * i);
         [v8 markLatestSyncRequestFailedInZone:&unk_2837B00E8];
         [v8 saveToDBForServerEdit:1 keepAliases:1];
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v5);
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
@@ -160,7 +159,7 @@ uint64_t __49__BRCSideCarSyncUpOperation__markItemsFailedSync__block_invoke_2(ui
 
 void __112__BRCSideCarSyncUpOperation__syncUpRecordBatchWithModifiedRecords_deletedRecordIDs_recordIDToZoneMap_requestID___block_invoke(id *a1, void *a2, void *a3, void *a4)
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = a4;
@@ -173,34 +172,34 @@ void __112__BRCSideCarSyncUpOperation__syncUpRecordBatchWithModifiedRecords_dele
     {
       *location = 138412802;
       *&location[4] = WeakRetained;
-      v34 = 2112;
-      v35 = v9;
-      v36 = 2112;
-      v37 = v11;
+      v33 = 2112;
+      v34 = v9;
+      v35 = 2112;
+      v36 = v11;
       _os_log_debug_impl(&dword_223E7A000, v12, OS_LOG_TYPE_DEBUG, "[DEBUG] We need to create the side car zone on %@ - %@%@", location, 0x20u);
     }
 
     v13 = [MEMORY[0x277CBC5F8] brc_sideCarZoneID];
     objc_initWeak(location, a1[4]);
     v14 = [[BRCCreateZoneAndSubscribeOperation alloc] initWithSessionContext:*(a1[4] + 32) zoneID:v13];
-    v29[0] = MEMORY[0x277D85DD0];
-    v29[1] = 3221225472;
-    v29[2] = __112__BRCSideCarSyncUpOperation__syncUpRecordBatchWithModifiedRecords_deletedRecordIDs_recordIDToZoneMap_requestID___block_invoke_7;
-    v29[3] = &unk_278500F58;
-    objc_copyWeak(v32, location);
-    v25 = *(a1 + 2);
-    v15 = *(&v25 + 1);
+    v28[0] = MEMORY[0x277D85DD0];
+    v28[1] = 3221225472;
+    v28[2] = __112__BRCSideCarSyncUpOperation__syncUpRecordBatchWithModifiedRecords_deletedRecordIDs_recordIDToZoneMap_requestID___block_invoke_7;
+    v28[3] = &unk_278500F58;
+    objc_copyWeak(v31, location);
+    v24 = *(a1 + 2);
+    v15 = *(&v24 + 1);
     v16 = a1[6];
     v17 = a1[7];
     *&v18 = v16;
     *(&v18 + 1) = v17;
-    v30 = v25;
-    v31 = v18;
-    v32[1] = a1[9];
-    [(BRCCreateZoneAndSubscribeOperation *)v14 setCreateZoneAndSubscribeCompletionBlock:v29];
+    v29 = v24;
+    v30 = v18;
+    v31[1] = a1[9];
+    [(BRCCreateZoneAndSubscribeOperation *)v14 setCreateZoneAndSubscribeCompletionBlock:v28];
     [a1[4] addSubOperation:v14];
 
-    objc_destroyWeak(v32);
+    objc_destroyWeak(v31);
     objc_destroyWeak(location);
   }
 
@@ -214,10 +213,10 @@ void __112__BRCSideCarSyncUpOperation__syncUpRecordBatchWithModifiedRecords_dele
       {
         *location = 138412802;
         *&location[4] = WeakRetained;
-        v34 = 2112;
-        v35 = v9;
-        v36 = 2112;
-        v37 = v19;
+        v33 = 2112;
+        v34 = v9;
+        v35 = 2112;
+        v36 = v19;
         _os_log_error_impl(&dword_223E7A000, v20, 0x90u, "[ERROR] Failed syncing up side cars on %@ - %@%@", location, 0x20u);
       }
 
@@ -232,10 +231,10 @@ void __112__BRCSideCarSyncUpOperation__syncUpRecordBatchWithModifiedRecords_dele
       {
         *location = 138412802;
         *&location[4] = v7;
-        v34 = 2112;
-        v35 = WeakRetained;
-        v36 = 2112;
-        v37 = v21;
+        v33 = 2112;
+        v34 = WeakRetained;
+        v35 = 2112;
+        v36 = v21;
         _os_log_debug_impl(&dword_223E7A000, v22, OS_LOG_TYPE_DEBUG, "[DEBUG] finished side car sync up: %@, op: %@%@", location, 0x20u);
       }
 
@@ -244,15 +243,13 @@ void __112__BRCSideCarSyncUpOperation__syncUpRecordBatchWithModifiedRecords_dele
       block[1] = 3221225472;
       block[2] = __112__BRCSideCarSyncUpOperation__syncUpRecordBatchWithModifiedRecords_deletedRecordIDs_recordIDToZoneMap_requestID___block_invoke_10;
       block[3] = &unk_2784FF478;
-      v27 = v7;
-      v28 = a1[7];
+      v26 = v7;
+      v27 = a1[7];
       dispatch_async_and_wait(v23, block);
     }
 
     [a1[4] completedWithResult:0 error:v9];
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 void __112__BRCSideCarSyncUpOperation__syncUpRecordBatchWithModifiedRecords_deletedRecordIDs_recordIDToZoneMap_requestID___block_invoke_7(uint64_t a1, void *a2)
@@ -273,48 +270,46 @@ void __112__BRCSideCarSyncUpOperation__syncUpRecordBatchWithModifiedRecords_dele
 
 void __112__BRCSideCarSyncUpOperation__syncUpRecordBatchWithModifiedRecords_deletedRecordIDs_recordIDToZoneMap_requestID___block_invoke_10(uint64_t a1)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v13 objects:v20 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v12 objects:v19 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v14;
+    v5 = *v13;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v14 != v5)
+        if (*v13 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v13 + 1) + 8 * i);
+        v7 = *(*(&v12 + 1) + 8 * i);
         v8 = *(a1 + 40);
         v9 = [v7 recordID];
         v10 = [v8 objectForKeyedSubscript:v9];
 
         if (!v10)
         {
-          __112__BRCSideCarSyncUpOperation__syncUpRecordBatchWithModifiedRecords_deletedRecordIDs_recordIDToZoneMap_requestID___block_invoke_10_cold_1(&v18, &v19);
+          __112__BRCSideCarSyncUpOperation__syncUpRecordBatchWithModifiedRecords_deletedRecordIDs_recordIDToZoneMap_requestID___block_invoke_10_cold_1(&v17, &v18);
         }
 
-        v17 = v7;
-        v11 = [MEMORY[0x277CBEA60] arrayWithObjects:&v17 count:1];
+        v16 = v7;
+        v11 = [MEMORY[0x277CBEA60] arrayWithObjects:&v16 count:1];
         [v10 learnCKInfosFromSavedRecords:v11 isOutOfBandModifyRecords:0];
       }
 
-      v4 = [v2 countByEnumeratingWithState:&v13 objects:v20 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v12 objects:v19 count:16];
     }
 
     while (v4);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __112__BRCSideCarSyncUpOperation__syncUpRecordBatchWithModifiedRecords_deletedRecordIDs_recordIDToZoneMap_requestID___block_invoke_14(uint64_t a1)
@@ -372,22 +367,22 @@ void __33__BRCSideCarSyncUpOperation_main__block_invoke(uint64_t a1)
 
 uint64_t __33__BRCSideCarSyncUpOperation_main__block_invoke_2(uint64_t a1, void *a2)
 {
-  v88 = *MEMORY[0x277D85DE8];
-  v74 = a2;
+  v87 = *MEMORY[0x277D85DE8];
+  v73 = a2;
   v3 = [*(a1 + 32) _itemsNeedingSyncUpEnumerator];
-  v76 = +[BRCUserDefaults defaultsForSideCar];
-  v4 = [v76 maxRecordCountInModifyRecordsOperation];
+  v75 = +[BRCUserDefaults defaultsForSideCar];
+  v4 = [v75 maxRecordCountInModifyRecordsOperation];
   v5 = objc_opt_new();
   v6 = objc_opt_new();
-  v77 = objc_opt_new();
+  v76 = objc_opt_new();
   *(*(a1 + 32) + 512) = 1;
   v7 = [v5 count];
-  v81 = v6;
+  v80 = v6;
   if ([v6 count] + v7 < v4)
   {
-    v80 = v4;
-    v73 = a1;
-    v79 = v5;
+    v79 = v4;
+    v72 = a1;
+    v78 = v5;
     do
     {
       v8 = objc_autoreleasePoolPush();
@@ -418,7 +413,7 @@ uint64_t __33__BRCSideCarSyncUpOperation_main__block_invoke_2(uint64_t a1, void 
           if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
           {
             *buf = 138412290;
-            v85 = v28;
+            v84 = v28;
             _os_log_debug_impl(&dword_223E7A000, v29, OS_LOG_TYPE_DEBUG, "[DEBUG] Faking sync for side car info delete which isn't known to the server%@", buf, 0xCu);
           }
 
@@ -431,9 +426,9 @@ uint64_t __33__BRCSideCarSyncUpOperation_main__block_invoke_2(uint64_t a1, void 
         if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412546;
-          v85 = v10;
-          v86 = 2112;
-          v87 = v18;
+          v84 = v10;
+          v85 = 2112;
+          v86 = v18;
           _os_log_debug_impl(&dword_223E7A000, v19, OS_LOG_TYPE_DEBUG, "[DEBUG] Deleting side-car record for %@%@", buf, 0x16u);
         }
 
@@ -452,24 +447,24 @@ uint64_t __33__BRCSideCarSyncUpOperation_main__block_invoke_2(uint64_t a1, void 
       {
         v25 = [v17 intAtIndex:0];
         v26 = [v17 objectOfClass:objc_opt_class() atIndex:1];
-        v78 = [v17 unsignedLongLongAtIndex:2];
+        v77 = [v17 unsignedLongLongAtIndex:2];
         v27 = [v26 etag];
 
         [v17 close];
         if (([v11 hasfieldsToSync] & 1) == 0)
         {
-          v5 = v79;
+          v5 = v78;
 LABEL_27:
-          v39 = v78;
+          v39 = v77;
 LABEL_29:
           v40 = brc_bread_crumbs();
           v41 = brc_default_log();
           if (os_log_type_enabled(v41, OS_LOG_TYPE_DEBUG))
           {
             *buf = 138412546;
-            v85 = v10;
-            v86 = 2112;
-            v87 = v40;
+            v84 = v10;
+            v85 = 2112;
+            v86 = v40;
             _os_log_debug_impl(&dword_223E7A000, v41, OS_LOG_TYPE_DEBUG, "[DEBUG] Faking sync of side-car record for %@%@", buf, 0x16u);
           }
 
@@ -477,7 +472,7 @@ LABEL_29:
           goto LABEL_32;
         }
 
-        v5 = v79;
+        v5 = v78;
         if (v25 == 1 && ([v10 isKnownByServer] & 1) != 0)
         {
           goto LABEL_27;
@@ -489,7 +484,7 @@ LABEL_29:
           goto LABEL_24;
         }
 
-        v75 = 1;
+        v74 = 1;
       }
 
       else
@@ -507,20 +502,20 @@ LABEL_29:
         if (![v11 hasfieldsToSync])
         {
           v39 = 0;
-          v5 = v79;
+          v5 = v78;
           goto LABEL_29;
         }
 
         v20 = [v10 baseSideCarRecord];
-        v78 = 0;
+        v77 = 0;
         if (v36)
         {
-          v5 = v79;
+          v5 = v78;
 LABEL_24:
           v37 = [v11 ckInfo];
           v38 = [v37 etag];
 
-          v75 = 0;
+          v74 = 0;
           if (v38)
           {
             goto LABEL_40;
@@ -529,21 +524,21 @@ LABEL_24:
           goto LABEL_34;
         }
 
-        v75 = 1;
-        v5 = v79;
+        v74 = 1;
+        v5 = v78;
       }
 
 LABEL_34:
-      v42 = [v76 useShareReferenceOnSideCar];
+      v42 = [v75 useShareReferenceOnSideCar];
       v43 = [MEMORY[0x277CBC5D0] brc_fetchShareIDWithSharedItem:v10];
       v44 = v43;
       if ((v42 & 1) == 0)
       {
-        v72 = v3;
+        v71 = v3;
         v45 = [v43 brc_shareItemID];
         if (!v45)
         {
-          __33__BRCSideCarSyncUpOperation_main__block_invoke_2_cold_1(&v82, &v83);
+          __33__BRCSideCarSyncUpOperation_main__block_invoke_2_cold_1(&v81, &v82);
         }
 
         v46 = [v10 serverZone];
@@ -553,12 +548,12 @@ LABEL_34:
         v49 = [v10 appLibrary];
         v50 = [v49 defaultClientZone];
         [v50 serverZone];
-        v51 = v71 = v45;
-        v70 = [v48 structureRecordIDForItemType:3 zone:v51 aliasTargetZoneIsShared:1];
+        v51 = v70 = v45;
+        v69 = [v48 structureRecordIDForItemType:3 zone:v51 aliasTargetZoneIsShared:1];
 
-        v44 = v70;
-        v3 = v72;
-        v5 = v79;
+        v44 = v69;
+        v3 = v71;
+        v5 = v78;
       }
 
       if (v44)
@@ -573,26 +568,26 @@ LABEL_40:
         if (os_log_type_enabled(v55, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412546;
-          v85 = v10;
-          v86 = 2112;
-          v87 = v54;
+          v84 = v10;
+          v85 = 2112;
+          v86 = v54;
           _os_log_debug_impl(&dword_223E7A000, v55, OS_LOG_TYPE_DEBUG, "[DEBUG] Syncing up side-car record for %@%@", buf, 0x16u);
         }
 
         v56 = [v10 st];
         v57 = [v56 logicalName];
         v58 = [v57 br_pathExtension];
-        [v20 serializeSideCarInfo:v11 filenameExtension:v58 diffs:objc_msgSend(v10 deadInServerTruth:{"localDiffs"), v75}];
+        [v20 serializeSideCarInfo:v11 filenameExtension:v58 diffs:objc_msgSend(v10 deadInServerTruth:{"localDiffs"), v74}];
 
-        [v81 addObject:v20];
+        [v80 addObject:v20];
         v59 = [v10 clientZone];
         v60 = [v59 asSharedClientZone];
         v61 = [v20 recordID];
-        [v77 setObject:v60 forKeyedSubscript:v61];
+        [v76 setObject:v60 forKeyedSubscript:v61];
 
         v3 = v53;
-        a1 = v73;
-        v5 = v79;
+        a1 = v72;
+        v5 = v78;
 LABEL_43:
 
         [v10 prepareForSyncUpSideCarZone];
@@ -605,14 +600,14 @@ LABEL_43:
       if (os_log_type_enabled(v64, OS_LOG_TYPE_FAULT))
       {
         *buf = 138412546;
-        v85 = v10;
-        v86 = 2112;
-        v87 = v63;
+        v84 = v10;
+        v85 = 2112;
+        v86 = v63;
         _os_log_fault_impl(&dword_223E7A000, v64, OS_LOG_TYPE_FAULT, "[CRIT] Unable to compute reference recordID for %@%@", buf, 0x16u);
       }
 
-      a1 = v73;
-      [*(v73 + 32) fakeSyncForItem:v10 itemRank:v78];
+      a1 = v72;
+      [*(v72 + 32) fakeSyncForItem:v10 itemRank:v77];
 
 LABEL_32:
 LABEL_44:
@@ -621,7 +616,7 @@ LABEL_44:
       v62 = [v5 count];
     }
 
-    while ([v81 count] + v62 < v80);
+    while ([v80 count] + v62 < v79);
   }
 
   v65 = [*(*(a1 + 32) + 248) session];
@@ -633,9 +628,8 @@ LABEL_44:
     __33__BRCSideCarSyncUpOperation_main__block_invoke_2_cold_2();
   }
 
-  [*(a1 + 32) _syncUpRecordBatchWithModifiedRecords:v81 deletedRecordIDs:v5 recordIDToZoneMap:v77 requestID:{objc_msgSend(v67, "allocateNextRequestID")}];
+  [*(a1 + 32) _syncUpRecordBatchWithModifiedRecords:v80 deletedRecordIDs:v5 recordIDToZoneMap:v76 requestID:{objc_msgSend(v67, "allocateNextRequestID")}];
 
-  v68 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
@@ -666,28 +660,26 @@ id __58__BRCSideCarSyncUpOperation__itemsNeedingSyncUpEnumerator__block_invoke(u
 
 - (void)_syncUpRecordBatchWithModifiedRecords:deletedRecordIDs:recordIDToZoneMap:requestID:.cold.1()
 {
-  v9 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
   v1 = brc_default_log();
   if (os_log_type_enabled(v1, OS_LOG_TYPE_FAULT))
   {
-    OUTLINED_FUNCTION_0(&dword_223E7A000, v2, v3, "[CRIT] Assertion failed: requestID%@", v4, v5, v6, v7, 2u);
+    LODWORD(v8) = 138412290;
+    *(&v8 + 4) = v0;
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v2, v3, "[CRIT] Assertion failed: requestID%@", v4, v5, v6, v7, v8, DWORD2(v8));
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_syncUpRecordBatchWithModifiedRecords:(os_log_t)log deletedRecordIDs:recordIDToZoneMap:requestID:.cold.2(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 134218242;
-  v5 = a2;
-  v6 = 2112;
-  v7 = a1;
-  _os_log_debug_impl(&dword_223E7A000, log, OS_LOG_TYPE_DEBUG, "[DEBUG] Syncing up side car records with request %llu%@", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 134218242;
+  v4 = a2;
+  v5 = 2112;
+  v6 = a1;
+  _os_log_debug_impl(&dword_223E7A000, log, OS_LOG_TYPE_DEBUG, "[DEBUG] Syncing up side car records with request %llu%@", &v3, 0x16u);
 }
 
 void __112__BRCSideCarSyncUpOperation__syncUpRecordBatchWithModifiedRecords_deletedRecordIDs_recordIDToZoneMap_requestID___block_invoke_10_cold_1(_DWORD *a1, void *a2)
@@ -720,17 +712,16 @@ void __33__BRCSideCarSyncUpOperation_main__block_invoke_2_cold_1(_DWORD *a1, voi
 
 void __33__BRCSideCarSyncUpOperation_main__block_invoke_2_cold_2()
 {
-  v9 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
   v1 = brc_default_log();
   if (os_log_type_enabled(v1, OS_LOG_TYPE_FAULT))
   {
-    OUTLINED_FUNCTION_0(&dword_223E7A000, v2, v3, "[CRIT] Assertion failed: state%@", v4, v5, v6, v7, 2u);
+    LODWORD(v8) = 138412290;
+    *(&v8 + 4) = v0;
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v2, v3, "[CRIT] Assertion failed: state%@", v4, v5, v6, v7, v8, DWORD2(v8));
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 @end

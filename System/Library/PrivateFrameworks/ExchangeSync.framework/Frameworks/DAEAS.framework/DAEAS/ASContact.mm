@@ -28,6 +28,8 @@
 - (BOOL)deleteFromAddressBook;
 - (BOOL)loadABRecord;
 - (BOOL)saveServerIDToContact;
+- (BOOL)saveToAddressBookWithExistingRecord:(void *)record inSource:(void *)source shouldMergeProperties:(BOOL)properties outMergeDidChooseLocalProperties:(BOOL *)localProperties storeExternalRep:(BOOL)rep;
+- (BOOL)saveWithLocalObject:(void *)object toContainer:(void *)container shouldMergeProperties:(BOOL)properties outMergeDidChooseLocalProperties:(BOOL *)localProperties account:(id)account;
 - (NSString)description;
 - (id)_transformedDateForABFramework:(id)framework;
 - (id)bestEmailFromAppData:(int)data;
@@ -664,15 +666,15 @@ LABEL_13:
 
 - (BOOL)_setExternalRepWithExistingRecord:(void *)record
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   v4 = ABRecordCopyValue(record, *MEMORY[0x277CE98A0]);
   if (v4)
   {
     v5 = MEMORY[0x277CCAAC8];
     v6 = +[ASContact externalRepClasses];
-    v28 = 0;
-    v7 = [v5 unarchivedObjectOfClasses:v6 fromData:v4 error:&v28];
-    v8 = v28;
+    v27 = 0;
+    v7 = [v5 unarchivedObjectOfClasses:v6 fromData:v4 error:&v27];
+    v8 = v27;
 
     objc_opt_class();
     if (objc_opt_isKindOfClass())
@@ -688,9 +690,9 @@ LABEL_13:
       if (os_log_type_enabled(v11, v12))
       {
         *buf = 138412546;
-        v30 = v8;
-        v31 = 2112;
-        v32 = v7;
+        v29 = v8;
+        v30 = 2112;
+        v31 = v7;
         _os_log_impl(&dword_24A0AC000, v11, v12, "Unable to decode existing object: %@. (Actually decoded %@)", buf, 0x16u);
       }
 
@@ -755,7 +757,6 @@ LABEL_13:
     self->_fileAsAutoConstruction = 1;
   }
 
-  v26 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
@@ -1104,7 +1105,7 @@ LABEL_32:
 
 - (void)_loadAttributesFromABRecord:(void *)record
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   if (record)
   {
     v5 = [MEMORY[0x277CCACA8] stringWithFormat:@"%d", ABRecordGetRecordID(record)];
@@ -1160,7 +1161,7 @@ LABEL_32:
         if (os_log_type_enabled(v23, v24))
         {
           *buf = 138412290;
-          v32 = v22;
+          v31 = v22;
           _os_log_impl(&dword_24A0AC000, v23, v24, "Could not convert the phonetic first name %@ to Katakana", buf, 0xCu);
         }
       }
@@ -1180,7 +1181,7 @@ LABEL_32:
         if (os_log_type_enabled(v28, v29))
         {
           *buf = 138412290;
-          v32 = v27;
+          v31 = v27;
           _os_log_impl(&dword_24A0AC000, v28, v29, "Could not convert the phonetic last name %@ to Katakana", buf, 0xCu);
         }
       }
@@ -1199,8 +1200,6 @@ LABEL_32:
     [(ASContact *)self _setExternalRepWithExistingRecord:record];
     [(ASContact *)self _reconstructFileAsField];
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 - (ASContact)initWithABRecord:(void *)record serverID:(id)d
@@ -1448,7 +1447,7 @@ LABEL_33:
 - (BOOL)_savePhoneNumbersToAddressBookWithExistingRecord:(void *)record shouldMergeProperties:(BOOL)properties
 {
   propertiesCopy = properties;
-  v112 = *MEMORY[0x277D85DE8];
+  v111 = *MEMORY[0x277D85DE8];
   Mutable = ABMultiValueCreateMutable(1u);
   v8 = *MEMORY[0x277CE9AE8];
   businessTelephoneNumber = [(ASContact *)self businessTelephoneNumber];
@@ -1470,7 +1469,7 @@ LABEL_33:
     ABMultiValueAddValueAndLabel(Mutable, businessFaxNumber, v11, 0);
   }
 
-  v98 = v11;
+  v97 = v11;
 
   v13 = *MEMORY[0x277CE9800];
   homeTelephoneNumber = [(ASContact *)self homeTelephoneNumber];
@@ -1492,7 +1491,7 @@ LABEL_33:
     ABMultiValueAddValueAndLabel(Mutable, homeFaxNumber, v16, 0);
   }
 
-  v97 = v16;
+  v96 = v16;
 
   v18 = *MEMORY[0x277CE9A08];
   mobileTelephoneNumber = [(ASContact *)self mobileTelephoneNumber];
@@ -1508,7 +1507,7 @@ LABEL_33:
     ABMultiValueAddValueAndLabel(Mutable, pagerNumber, v20, 0);
   }
 
-  v95 = v20;
+  v94 = v20;
 
   v22 = *MEMORY[0x277CE99D8];
   assistantTelephoneNumber = [(ASContact *)self assistantTelephoneNumber];
@@ -1517,8 +1516,8 @@ LABEL_33:
     ABMultiValueAddValueAndLabel(Mutable, assistantTelephoneNumber, v22, 0);
   }
 
-  v99 = v8;
-  v94 = v22;
+  v98 = v8;
+  v93 = v22;
 
   v24 = *MEMORY[0x277CE99E0];
   carTelephoneNumber = [(ASContact *)self carTelephoneNumber];
@@ -1541,7 +1540,7 @@ LABEL_33:
     ABMultiValueAddValueAndLabel(Mutable, companyMainPhone, v28, 0);
   }
 
-  v93 = v28;
+  v92 = v28;
 
   v30 = *MEMORY[0x277CE9A18];
   if (!propertiesCopy)
@@ -1550,13 +1549,13 @@ LABEL_33:
     goto LABEL_125;
   }
 
-  v90 = v24;
-  v91 = v18;
+  v89 = v24;
+  v90 = v18;
   recordCopy2 = record;
   property = *MEMORY[0x277CE9A18];
   v32 = ABRecordCopyValue(record, v30);
   v33 = [objc_alloc(MEMORY[0x277CBEB58]) initWithCapacity:4];
-  v101 = [objc_alloc(MEMORY[0x277CBEB58]) initWithCapacity:4];
+  v100 = [objc_alloc(MEMORY[0x277CBEB58]) initWithCapacity:4];
   homeTelephoneNumber2 = [(ASContact *)self homeTelephoneNumber];
 
   if (homeTelephoneNumber2)
@@ -1578,7 +1577,7 @@ LABEL_33:
   if (businessTelephoneNumber2)
   {
     businessTelephoneNumber3 = [(ASContact *)self businessTelephoneNumber];
-    [v101 addObject:businessTelephoneNumber3];
+    [v100 addObject:businessTelephoneNumber3];
   }
 
   business2TelephoneNumber2 = [(ASContact *)self business2TelephoneNumber];
@@ -1586,16 +1585,16 @@ LABEL_33:
   if (business2TelephoneNumber2)
   {
     business2TelephoneNumber3 = [(ASContact *)self business2TelephoneNumber];
-    [v101 addObject:business2TelephoneNumber3];
+    [v100 addObject:business2TelephoneNumber3];
   }
 
-  v100 = v33;
+  v99 = v33;
   if (v32)
   {
     if (ABMultiValueGetCount(v32) >= 1 && (MutableCopy = ABMultiValueCreateMutableCopy(v32)) != 0)
     {
       v43 = MutableCopy;
-      v87 = v32;
+      v86 = v32;
       recordCopy3 = record;
       if (ABMultiValueGetCount(MutableCopy) >= 1)
       {
@@ -1603,7 +1602,7 @@ LABEL_33:
         if (Count >= 1)
         {
           v45 = Count;
-          v96 = 0;
+          v95 = 0;
           v46 = 0;
           while (1)
           {
@@ -1616,22 +1615,9 @@ LABEL_33:
 
             else
             {
-              if (![(__CFString *)v99 isEqualToString:v47])
+              if (![(__CFString *)v98 isEqualToString:v47])
               {
-                if ([(__CFString *)v98 isEqualToString:v47]&& ([(ASContact *)self businessFaxNumber], v50 = objc_claimAutoreleasedReturnValue(), v50, !v50))
-                {
-                  v48 = ABMultiValueCopyValueAtIndex(v43, v46);
-                  if (!v48)
-                  {
-                    goto LABEL_78;
-                  }
-
-                  v58 = Mutable;
-                  v59 = v48;
-                  v60 = v98;
-                }
-
-                else if ([(__CFString *)v97 isEqualToString:v47]&& ([(ASContact *)self homeFaxNumber], v51 = objc_claimAutoreleasedReturnValue(), v51, !v51))
+                if ([(__CFString *)v97 isEqualToString:v47]&& ([(ASContact *)self businessFaxNumber], v50 = objc_claimAutoreleasedReturnValue(), v50, !v50))
                 {
                   v48 = ABMultiValueCopyValueAtIndex(v43, v46);
                   if (!v48)
@@ -1644,7 +1630,7 @@ LABEL_33:
                   v60 = v97;
                 }
 
-                else if ([(__CFString *)v91 isEqualToString:v47]&& ([(ASContact *)self mobileTelephoneNumber], v52 = objc_claimAutoreleasedReturnValue(), v52, !v52))
+                else if ([(__CFString *)v96 isEqualToString:v47]&& ([(ASContact *)self homeFaxNumber], v51 = objc_claimAutoreleasedReturnValue(), v51, !v51))
                 {
                   v48 = ABMultiValueCopyValueAtIndex(v43, v46);
                   if (!v48)
@@ -1654,36 +1640,10 @@ LABEL_33:
 
                   v58 = Mutable;
                   v59 = v48;
-                  v60 = v91;
+                  v60 = v96;
                 }
 
-                else if ([(__CFString *)v95 isEqualToString:v47]&& ([(ASContact *)self pagerNumber], v53 = objc_claimAutoreleasedReturnValue(), v53, !v53))
-                {
-                  v48 = ABMultiValueCopyValueAtIndex(v43, v46);
-                  if (!v48)
-                  {
-                    goto LABEL_78;
-                  }
-
-                  v58 = Mutable;
-                  v59 = v48;
-                  v60 = v95;
-                }
-
-                else if ([(__CFString *)v94 isEqualToString:v47]&& ([(ASContact *)self assistantTelephoneNumber], v54 = objc_claimAutoreleasedReturnValue(), v54, !v54))
-                {
-                  v48 = ABMultiValueCopyValueAtIndex(v43, v46);
-                  if (!v48)
-                  {
-                    goto LABEL_78;
-                  }
-
-                  v58 = Mutable;
-                  v59 = v48;
-                  v60 = v94;
-                }
-
-                else if ([(__CFString *)v90 isEqualToString:v47]&& ([(ASContact *)self carTelephoneNumber], v55 = objc_claimAutoreleasedReturnValue(), v55, !v55))
+                else if ([(__CFString *)v90 isEqualToString:v47]&& ([(ASContact *)self mobileTelephoneNumber], v52 = objc_claimAutoreleasedReturnValue(), v52, !v52))
                 {
                   v48 = ABMultiValueCopyValueAtIndex(v43, v46);
                   if (!v48)
@@ -1696,11 +1656,50 @@ LABEL_33:
                   v60 = v90;
                 }
 
+                else if ([(__CFString *)v94 isEqualToString:v47]&& ([(ASContact *)self pagerNumber], v53 = objc_claimAutoreleasedReturnValue(), v53, !v53))
+                {
+                  v48 = ABMultiValueCopyValueAtIndex(v43, v46);
+                  if (!v48)
+                  {
+                    goto LABEL_78;
+                  }
+
+                  v58 = Mutable;
+                  v59 = v48;
+                  v60 = v94;
+                }
+
+                else if ([(__CFString *)v93 isEqualToString:v47]&& ([(ASContact *)self assistantTelephoneNumber], v54 = objc_claimAutoreleasedReturnValue(), v54, !v54))
+                {
+                  v48 = ABMultiValueCopyValueAtIndex(v43, v46);
+                  if (!v48)
+                  {
+                    goto LABEL_78;
+                  }
+
+                  v58 = Mutable;
+                  v59 = v48;
+                  v60 = v93;
+                }
+
+                else if ([(__CFString *)v89 isEqualToString:v47]&& ([(ASContact *)self carTelephoneNumber], v55 = objc_claimAutoreleasedReturnValue(), v55, !v55))
+                {
+                  v48 = ABMultiValueCopyValueAtIndex(v43, v46);
+                  if (!v48)
+                  {
+                    goto LABEL_78;
+                  }
+
+                  v58 = Mutable;
+                  v59 = v48;
+                  v60 = v89;
+                }
+
                 else
                 {
                   if (![(__CFString *)v26 isEqualToString:v47]|| ([(ASContact *)self radioTelephoneNumber], v56 = objc_claimAutoreleasedReturnValue(), v56, v56))
                   {
-                    if (![(__CFString *)v93 isEqualToString:v47])
+                    if (![(__CFString *)v92 isEqualToString:v47])
                     {
                       goto LABEL_80;
                     }
@@ -1717,12 +1716,12 @@ LABEL_33:
                     {
                       v58 = Mutable;
                       v59 = v48;
-                      v60 = v93;
+                      v60 = v92;
                       goto LABEL_77;
                     }
 
 LABEL_78:
-                    v96 = 1;
+                    v95 = 1;
                     goto LABEL_79;
                   }
 
@@ -1743,7 +1742,7 @@ LABEL_77:
               }
 
               v48 = ABMultiValueCopyValueAtIndex(v43, v46);
-              v49 = v101;
+              v49 = v100;
             }
 
             [v49 addObject:v48];
@@ -1758,16 +1757,16 @@ LABEL_80:
         }
       }
 
-      v96 = 0;
+      v95 = 0;
 LABEL_86:
       CFRelease(v43);
-      v32 = v87;
+      v32 = v86;
       recordCopy2 = recordCopy3;
     }
 
     else
     {
-      v96 = 0;
+      v95 = 0;
     }
 
     CFRelease(v32);
@@ -1775,7 +1774,7 @@ LABEL_86:
 
   else
   {
-    v96 = 0;
+    v95 = 0;
   }
 
   homeTelephoneNumber4 = [(ASContact *)self homeTelephoneNumber];
@@ -1808,29 +1807,29 @@ LABEL_86:
     v63 = 1;
   }
 
-  v108 = 0u;
-  v109 = 0u;
-  v106 = 0u;
   v107 = 0u;
+  v108 = 0u;
+  v105 = 0u;
+  v106 = 0u;
   v66 = v33;
-  v67 = [v66 countByEnumeratingWithState:&v106 objects:v111 count:16];
+  v67 = [v66 countByEnumeratingWithState:&v105 objects:v110 count:16];
   if (v67)
   {
     v68 = v67;
-    v89 = recordCopy2;
+    v88 = recordCopy2;
     v69 = 0;
-    v70 = *v107;
+    v70 = *v106;
 LABEL_96:
     v71 = 0;
     v72 = v69;
     while (1)
     {
-      if (*v107 != v70)
+      if (*v106 != v70)
       {
         objc_enumerationMutation(v66);
       }
 
-      v69 = *(*(&v106 + 1) + 8 * v71);
+      v69 = *(*(&v105 + 1) + 8 * v71);
 
       if (v69)
       {
@@ -1847,7 +1846,7 @@ LABEL_96:
       v72 = v69;
       if (v68 == v71)
       {
-        v68 = [v66 countByEnumeratingWithState:&v106 objects:v111 count:16];
+        v68 = [v66 countByEnumeratingWithState:&v105 objects:v110 count:16];
         if (v68)
         {
           goto LABEL_96;
@@ -1857,8 +1856,8 @@ LABEL_96:
       }
     }
 
-    recordCopy2 = v89;
-    v33 = v100;
+    recordCopy2 = v88;
+    v33 = v99;
   }
 
 LABEL_106:
@@ -1867,7 +1866,7 @@ LABEL_106:
   if (businessTelephoneNumber4)
   {
     businessTelephoneNumber5 = [(ASContact *)self businessTelephoneNumber];
-    [v101 removeObject:businessTelephoneNumber5];
+    [v100 removeObject:businessTelephoneNumber5];
 
     v75 = 1;
   }
@@ -1885,38 +1884,38 @@ LABEL_106:
   }
 
   business2TelephoneNumber5 = [(ASContact *)self business2TelephoneNumber];
-  [v101 removeObject:business2TelephoneNumber5];
+  [v100 removeObject:business2TelephoneNumber5];
 
   if (!businessTelephoneNumber4)
   {
     v75 = 1;
 LABEL_112:
-    v104 = 0u;
-    v105 = 0u;
-    v102 = 0u;
     v103 = 0u;
-    v78 = v101;
-    v79 = [v78 countByEnumeratingWithState:&v102 objects:v110 count:16];
+    v104 = 0u;
+    v101 = 0u;
+    v102 = 0u;
+    v78 = v100;
+    v79 = [v78 countByEnumeratingWithState:&v101 objects:v109 count:16];
     if (v79)
     {
       v80 = v79;
       v81 = 0;
-      v82 = *v103;
+      v82 = *v102;
 LABEL_114:
       v83 = 0;
       v84 = v81;
       while (1)
       {
-        if (*v103 != v82)
+        if (*v102 != v82)
         {
           objc_enumerationMutation(v78);
         }
 
-        v81 = *(*(&v102 + 1) + 8 * v83);
+        v81 = *(*(&v101 + 1) + 8 * v83);
 
         if (v81)
         {
-          ABMultiValueAddValueAndLabel(Mutable, v81, v99, 0);
+          ABMultiValueAddValueAndLabel(Mutable, v81, v98, 0);
         }
 
         if (v75)
@@ -1929,7 +1928,7 @@ LABEL_114:
         v84 = v81;
         if (v80 == v83)
         {
-          v80 = [v78 countByEnumeratingWithState:&v102 objects:v110 count:16];
+          v80 = [v78 countByEnumeratingWithState:&v101 objects:v109 count:16];
           if (v80)
           {
             goto LABEL_114;
@@ -1939,12 +1938,12 @@ LABEL_114:
         }
       }
 
-      v33 = v100;
+      v33 = v99;
     }
   }
 
   v30 = property;
-  LOBYTE(propertiesCopy) = v96;
+  LOBYTE(propertiesCopy) = v95;
 LABEL_125:
   ABRecordSetValue(recordCopy2, v30, Mutable, 0);
   if (Mutable)
@@ -1952,7 +1951,6 @@ LABEL_125:
     CFRelease(Mutable);
   }
 
-  v85 = *MEMORY[0x277D85DE8];
   return propertiesCopy;
 }
 
@@ -2192,7 +2190,7 @@ LABEL_66:
 
 - (BOOL)_saveEmailsToAddressBookWithExistingRecord:(void *)record shouldMergeProperties:(BOOL)properties
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   Mutable = ABMultiValueCreateMutable(1u);
   v8 = *MEMORY[0x277CBEEE8];
   email1Address = [(ASContact *)self email1Address];
@@ -2255,7 +2253,7 @@ LABEL_66:
       if (MutableCopy)
       {
         v23 = MutableCopy;
-        v46 = v19;
+        v45 = v19;
         recordCopy = record;
         if (ABMultiValueGetCount(MutableCopy) >= 1)
         {
@@ -2273,7 +2271,7 @@ LABEL_66:
 
         CFRelease(v23);
         record = recordCopy;
-        v19 = v46;
+        v19 = v45;
       }
     }
 
@@ -2319,30 +2317,30 @@ LABEL_66:
   {
     ++v31;
 LABEL_32:
-    v50 = 0u;
-    v51 = 0u;
-    v48 = 0u;
     v49 = 0u;
+    v50 = 0u;
+    v47 = 0u;
+    v48 = 0u;
     v36 = v12;
-    v37 = [v36 countByEnumeratingWithState:&v48 objects:v52 count:16];
+    v37 = [v36 countByEnumeratingWithState:&v47 objects:v51 count:16];
     if (v37)
     {
       v38 = v37;
-      v47 = v19;
+      v46 = v19;
       recordCopy2 = record;
       v39 = 0;
-      v40 = *v49;
+      v40 = *v48;
 LABEL_34:
       v41 = 0;
       v42 = v39;
       while (1)
       {
-        if (*v49 != v40)
+        if (*v48 != v40)
         {
           objc_enumerationMutation(v36);
         }
 
-        v39 = *(*(&v48 + 1) + 8 * v41);
+        v39 = *(*(&v47 + 1) + 8 * v41);
 
         if (v39)
         {
@@ -2359,7 +2357,7 @@ LABEL_34:
         v42 = v39;
         if (v38 == v41)
         {
-          v38 = [v36 countByEnumeratingWithState:&v48 objects:v52 count:16];
+          v38 = [v36 countByEnumeratingWithState:&v47 objects:v51 count:16];
           if (v38)
           {
             goto LABEL_34;
@@ -2370,7 +2368,7 @@ LABEL_34:
       }
 
       record = recordCopy2;
-      v19 = v47;
+      v19 = v46;
     }
   }
 
@@ -2381,7 +2379,6 @@ LABEL_45:
     CFRelease(Mutable);
   }
 
-  v43 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
@@ -2464,7 +2461,7 @@ LABEL_45:
 
 - (BOOL)_saveIMsToAddressBookWithExistingRecord:(void *)record shouldMergeProperties:(BOOL)properties
 {
-  v57 = *MEMORY[0x277D85DE8];
+  v56 = *MEMORY[0x277D85DE8];
   Mutable = ABMultiValueCreateMutable(1u);
   v8 = *MEMORY[0x277CE9808];
   im1Address = [(ASContact *)self im1Address];
@@ -2518,9 +2515,9 @@ LABEL_45:
       if (MutableCopy)
       {
         v23 = MutableCopy;
-        v47 = v21;
+        v46 = v21;
         recordCopy = record;
-        v50 = v19;
+        v49 = v19;
         v24 = v12;
         if (ABMultiValueGetCount(MutableCopy) >= 1)
         {
@@ -2544,10 +2541,10 @@ LABEL_45:
         }
 
         CFRelease(v23);
-        v21 = v47;
+        v21 = v46;
         record = recordCopy;
         v12 = v24;
-        v19 = v50;
+        v19 = v49;
       }
     }
 
@@ -2593,30 +2590,30 @@ LABEL_45:
   {
     ++v33;
 LABEL_26:
-    v54 = 0u;
-    v55 = 0u;
-    v52 = 0u;
     v53 = 0u;
+    v54 = 0u;
+    v51 = 0u;
+    v52 = 0u;
     v38 = v12;
-    v39 = [v38 countByEnumeratingWithState:&v52 objects:v56 count:16];
+    v39 = [v38 countByEnumeratingWithState:&v51 objects:v55 count:16];
     if (v39)
     {
       v40 = v39;
-      v51 = v19;
-      v49 = v12;
+      v50 = v19;
+      v48 = v12;
       v41 = 0;
-      v42 = *v53;
+      v42 = *v52;
 LABEL_28:
       v43 = 0;
       v44 = v41;
       while (1)
       {
-        if (*v53 != v42)
+        if (*v52 != v42)
         {
           objc_enumerationMutation(v38);
         }
 
-        v41 = *(*(&v52 + 1) + 8 * v43);
+        v41 = *(*(&v51 + 1) + 8 * v43);
 
         addIMUserNameToMultiValue(Mutable, v8, v41);
         if (v33 == 2)
@@ -2629,7 +2626,7 @@ LABEL_28:
         v44 = v41;
         if (v40 == v43)
         {
-          v40 = [v38 countByEnumeratingWithState:&v52 objects:v56 count:16];
+          v40 = [v38 countByEnumeratingWithState:&v51 objects:v55 count:16];
           if (v40)
           {
             goto LABEL_28;
@@ -2639,8 +2636,8 @@ LABEL_28:
         }
       }
 
-      v12 = v49;
-      v19 = v51;
+      v12 = v48;
+      v19 = v50;
     }
   }
 
@@ -2651,7 +2648,6 @@ LABEL_37:
     CFRelease(Mutable);
   }
 
-  v45 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
@@ -2659,16 +2655,16 @@ LABEL_37:
 {
   repCopy = rep;
   propertiesCopy = properties;
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   v8 = *MEMORY[0x277CE98A0];
   v9 = ABRecordCopyValue(record, *MEMORY[0x277CE98A0]);
   if (v9)
   {
     v10 = MEMORY[0x277CCAAC8];
     v11 = +[ASContact externalRepClasses];
-    v32 = 0;
-    v12 = [v10 unarchivedObjectOfClasses:v11 fromData:v9 error:&v32];
-    v13 = v32;
+    v31 = 0;
+    v12 = [v10 unarchivedObjectOfClasses:v11 fromData:v9 error:&v31];
+    v13 = v31;
 
     objc_opt_class();
     if (objc_opt_isKindOfClass())
@@ -2688,9 +2684,9 @@ LABEL_37:
       if (os_log_type_enabled(v15, v16))
       {
         *buf = 138412546;
-        v34 = v13;
-        v35 = 2112;
-        v36 = v12;
+        v33 = v13;
+        v34 = 2112;
+        v35 = v12;
         _os_log_impl(&dword_24A0AC000, v15, v16, "Unable to decode existing object: %@ (Actually decoded %@)", buf, 0x16u);
       }
     }
@@ -2762,7 +2758,231 @@ LABEL_9:
   v28 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v14];
   ABRecordSetValue(record, v8, v28, 0);
 
-  v29 = *MEMORY[0x277D85DE8];
+  return 1;
+}
+
+- (BOOL)saveToAddressBookWithExistingRecord:(void *)record inSource:(void *)source shouldMergeProperties:(BOOL)properties outMergeDidChooseLocalProperties:(BOOL *)localProperties storeExternalRep:(BOOL)rep
+{
+  repCopy = rep;
+  propertiesCopy = properties;
+  v93 = *MEMORY[0x277D85DE8];
+  v12 = +[ASLocalDBHelper sharedInstance];
+  abDB = [v12 abDB];
+
+  if (!abDB)
+  {
+    v27 = DALoggingwithCategory();
+    v28 = *(MEMORY[0x277D03988] + 3);
+    if (!os_log_type_enabled(v27, v28))
+    {
+LABEL_8:
+
+      return 0;
+    }
+
+    *buf = 0;
+    v29 = "Couldn't get address book";
+LABEL_7:
+    _os_log_impl(&dword_24A0AC000, v27, v28, v29, buf, 2u);
+    goto LABEL_8;
+  }
+
+  recordCopy = record;
+  if (record)
+  {
+    goto LABEL_3;
+  }
+
+  v31 = ABPersonCreateInSource(source);
+  if (!v31)
+  {
+    v27 = DALoggingwithCategory();
+    v28 = *(MEMORY[0x277D03988] + 3);
+    if (!os_log_type_enabled(v27, v28))
+    {
+      goto LABEL_8;
+    }
+
+    *buf = 0;
+    v29 = "Could not create a new AB person record";
+    goto LABEL_7;
+  }
+
+  recordCopy = v31;
+  if (!ABAddressBookAddRecord(abDB, v31, 0))
+  {
+    v32 = DALoggingwithCategory();
+    v33 = *(MEMORY[0x277D03988] + 3);
+    if (os_log_type_enabled(v32, v33))
+    {
+      *buf = 0;
+      _os_log_impl(&dword_24A0AC000, v32, v33, "Could not add new person record to AB", buf, 2u);
+    }
+
+    CFRelease(recordCopy);
+    return 0;
+  }
+
+LABEL_3:
+  recordCopy2 = record;
+  v15 = *MEMORY[0x277CE9890];
+  serverID = [(ASChangedCollectionLeaf *)self serverID];
+  ABRecordSetValue(recordCopy, v15, serverID, 0);
+
+  v17 = *MEMORY[0x277CE9858];
+  birthday = [(ASContact *)self birthday];
+  v19 = [(ASContact *)self _transformedDateForABFramework:birthday];
+  v86 = setAttributeOnPerson(recordCopy, v17, v19, propertiesCopy);
+
+  v20 = *MEMORY[0x277CE99B8];
+  body = [(ASContact *)self body];
+  v85 = setAttributeOnPerson(recordCopy, v20, body, propertiesCopy);
+
+  v22 = *MEMORY[0x277CE99C0];
+  companyName = [(ASContact *)self companyName];
+  v84 = setAttributeOnPerson(recordCopy, v22, companyName, propertiesCopy);
+
+  v24 = *MEMORY[0x277CE9878];
+  department = [(ASContact *)self department];
+  v83 = setAttributeOnPerson(recordCopy, v24, department, propertiesCopy);
+
+  v26 = *MEMORY[0x277CE9880];
+  if (self->_fileAsAutoConstruction)
+  {
+    v82 = setAttributeOnPerson(recordCopy, *MEMORY[0x277CE9880], 0, propertiesCopy);
+  }
+
+  else
+  {
+    fileAs = [(ASContact *)self fileAs];
+    v82 = setAttributeOnPerson(recordCopy, v26, fileAs, propertiesCopy);
+  }
+
+  v35 = *MEMORY[0x277CE98C0];
+  firstName = [(ASContact *)self firstName];
+  v81 = setAttributeOnPerson(recordCopy, v35, firstName, propertiesCopy);
+
+  v37 = *MEMORY[0x277CE9958];
+  jobTitle = [(ASContact *)self jobTitle];
+  v80 = setAttributeOnPerson(recordCopy, v37, jobTitle, propertiesCopy);
+
+  v39 = *MEMORY[0x277CE9980];
+  lastName = [(ASContact *)self lastName];
+  v79 = setAttributeOnPerson(recordCopy, v39, lastName, propertiesCopy);
+
+  v41 = *MEMORY[0x277CE99A0];
+  middleName = [(ASContact *)self middleName];
+  v78 = setAttributeOnPerson(recordCopy, v41, middleName, propertiesCopy);
+
+  v43 = *MEMORY[0x277CE9A50];
+  suffix = [(ASContact *)self suffix];
+  v77 = setAttributeOnPerson(recordCopy, v43, suffix, propertiesCopy);
+
+  v45 = *MEMORY[0x277CE9A30];
+  title = [(ASContact *)self title];
+  v76 = setAttributeOnPerson(recordCopy, v45, title, propertiesCopy);
+
+  v47 = *MEMORY[0x277CE99B0];
+  nickName = [(ASContact *)self nickName];
+  v75 = setAttributeOnPerson(recordCopy, v47, nickName, propertiesCopy);
+
+  yomiFirstName = [(ASContact *)self yomiFirstName];
+  v50 = [yomiFirstName mutableCopy];
+
+  yomiLastName = [(ASContact *)self yomiLastName];
+  v52 = [yomiLastName mutableCopy];
+
+  v53 = MEMORY[0x277CBF0B0];
+  if (v50 && !CFStringTransform(v50, 0, *MEMORY[0x277CBF0B0], 1u))
+  {
+    v54 = DALoggingwithCategory();
+    v55 = *(MEMORY[0x277D03988] + 4);
+    if (os_log_type_enabled(v54, v55))
+    {
+      *buf = 138412290;
+      v92 = v50;
+      _os_log_impl(&dword_24A0AC000, v54, v55, "Could not convert the phonetic first name %@ to Hiragana", buf, 0xCu);
+    }
+  }
+
+  if (v52 && !CFStringTransform(v52, 0, *v53, 1u))
+  {
+    v56 = DALoggingwithCategory();
+    v57 = *(MEMORY[0x277D03988] + 4);
+    if (os_log_type_enabled(v56, v57))
+    {
+      *buf = 138412290;
+      v92 = v52;
+      _os_log_impl(&dword_24A0AC000, v56, v57, "Could not convert the phonetic last name %@ to Hiragana", buf, 0xCu);
+    }
+  }
+
+  v74 = setAttributeOnPerson(recordCopy, *MEMORY[0x277CE98B8], v50, propertiesCopy);
+  v73 = setAttributeOnPerson(recordCopy, *MEMORY[0x277CE9978], v52, propertiesCopy);
+  picture = [(ASContact *)self picture];
+  v87 = v52;
+  v88 = v50;
+  if ([picture length])
+  {
+    v59 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBase64EncodedString:picture options:0];
+    if (v59)
+    {
+      v60 = ABPersonCopyImageDataWithFormat(recordCopy, 5u);
+      v61 = v60;
+      if (v60 && [(__CFData *)v60 isEqualToData:v59])
+      {
+        v62 = DALoggingwithCategory();
+        v63 = *(MEMORY[0x277D03988] + 7);
+        if (os_log_type_enabled(v62, v63))
+        {
+          *buf = 0;
+          _os_log_impl(&dword_24A0AC000, v62, v63, "Not setting image on person, as it hasn't changed", buf, 2u);
+        }
+      }
+
+      else
+      {
+        ABPersonSetImageData(recordCopy, v59, 0);
+        ABPersonSetImageDataAndCropRect();
+      }
+    }
+
+    goto LABEL_40;
+  }
+
+  if (!propertiesCopy && ABPersonHasImageData(recordCopy))
+  {
+    ABPersonRemoveImageData(recordCopy, 0);
+LABEL_40:
+    HasImageData = 0;
+    goto LABEL_41;
+  }
+
+  HasImageData = ABPersonHasImageData(recordCopy);
+LABEL_41:
+
+  v71 = [(ASContact *)self _saveDatesToAddressBookWithExistingRecord:recordCopy shouldMergeProperties:propertiesCopy];
+  v64 = [(ASContact *)self _saveRelatedNamesToAddressBookWithExistingRecord:recordCopy shouldMergeProperties:propertiesCopy];
+  v65 = [(ASContact *)self _savePhoneNumbersToAddressBookWithExistingRecord:recordCopy shouldMergeProperties:propertiesCopy];
+  v66 = [(ASContact *)self _saveStreetAddressesToAddressBookWithExistingRecord:recordCopy shouldMergeProperties:propertiesCopy];
+  v67 = [(ASContact *)self _saveEmailsToAddressBookWithExistingRecord:recordCopy shouldMergeProperties:propertiesCopy];
+  v68 = [(ASContact *)self _saveURLsToAddressBookWithExistingRecord:recordCopy shouldMergeProperties:propertiesCopy];
+  v69 = [(ASContact *)self _saveIMsToAddressBookWithExistingRecord:recordCopy shouldMergeProperties:propertiesCopy];
+  [(ASContact *)self _saveExternalRepToAddressBookWithExistingRecord:recordCopy shouldMergeProperties:propertiesCopy storeExternalRep:repCopy];
+  v70 = [MEMORY[0x277CCACA8] stringWithFormat:@"%d", ABRecordGetRecordID(recordCopy)];
+  [(ASChangedCollectionLeaf *)self setClientID:v70];
+
+  [(ASContact *)self setABRecord:recordCopy];
+  if (!recordCopy2)
+  {
+    CFRelease(recordCopy);
+  }
+
+  if (localProperties)
+  {
+    *localProperties = (v86 | v85 | v84 | v83 | v82 | v81 | v80 | v79 | v78 | v77 | v76 | v75 | v74 | v73 | (HasImageData || v71 || v64 || v65 || v66 || v67 || v68 || v69)) & 1;
+  }
+
   return 1;
 }
 
@@ -2881,7 +3101,7 @@ LABEL_10:
 
 - (void)appendActiveSyncDataForTask:(id)task toWBXMLData:(id)data
 {
-  v124 = *MEMORY[0x277D85DE8];
+  v123 = *MEMORY[0x277D85DE8];
   taskCopy = task;
   dataCopy = data;
   taskManager = [taskCopy taskManager];
@@ -3221,8 +3441,8 @@ LABEL_10:
         {
           *buf = 138412546;
           selfCopy = self;
-          v122 = 2048;
-          v123 = [v69 length];
+          v121 = 2048;
+          v122 = [v69 length];
           _os_log_impl(&dword_24A0AC000, v70, v71, "Ignoring photo for %@, as it's bigger than our limit of 36.6k, length: %lu", buf, 0x16u);
         }
       }
@@ -3298,29 +3518,29 @@ LABEL_10:
     if ([(NSArray *)self->_categories count])
     {
       [dataCopy openTag:21];
-      v116 = 0u;
-      v117 = 0u;
-      v114 = 0u;
       v115 = 0u;
+      v116 = 0u;
+      v113 = 0u;
+      v114 = 0u;
       v81 = self->_categories;
-      v82 = [(NSArray *)v81 countByEnumeratingWithState:&v114 objects:v119 count:16];
+      v82 = [(NSArray *)v81 countByEnumeratingWithState:&v113 objects:v118 count:16];
       if (v82)
       {
         v83 = v82;
-        v84 = *v115;
+        v84 = *v114;
         do
         {
           for (i = 0; i != v83; ++i)
           {
-            if (*v115 != v84)
+            if (*v114 != v84)
             {
               objc_enumerationMutation(v81);
             }
 
-            [dataCopy appendTag:22 withStringContent:*(*(&v114 + 1) + 8 * i)];
+            [dataCopy appendTag:22 withStringContent:*(*(&v113 + 1) + 8 * i)];
           }
 
-          v83 = [(NSArray *)v81 countByEnumeratingWithState:&v114 objects:v119 count:16];
+          v83 = [(NSArray *)v81 countByEnumeratingWithState:&v113 objects:v118 count:16];
         }
 
         while (v83);
@@ -3332,29 +3552,29 @@ LABEL_10:
     if ([(NSArray *)self->_children count])
     {
       [dataCopy openTag:23];
-      v112 = 0u;
-      v113 = 0u;
-      v110 = 0u;
       v111 = 0u;
+      v112 = 0u;
+      v109 = 0u;
+      v110 = 0u;
       v86 = self->_children;
-      v87 = [(NSArray *)v86 countByEnumeratingWithState:&v110 objects:v118 count:16];
+      v87 = [(NSArray *)v86 countByEnumeratingWithState:&v109 objects:v117 count:16];
       if (v87)
       {
         v88 = v87;
-        v89 = *v111;
+        v89 = *v110;
         do
         {
           for (j = 0; j != v88; ++j)
           {
-            if (*v111 != v89)
+            if (*v110 != v89)
             {
               objc_enumerationMutation(v86);
             }
 
-            [dataCopy appendTag:24 withStringContent:{*(*(&v110 + 1) + 8 * j), v110}];
+            [dataCopy appendTag:24 withStringContent:{*(*(&v109 + 1) + 8 * j), v109}];
           }
 
-          v88 = [(NSArray *)v86 countByEnumeratingWithState:&v110 objects:v118 count:16];
+          v88 = [(NSArray *)v86 countByEnumeratingWithState:&v109 objects:v117 count:16];
         }
 
         while (v88);
@@ -3400,23 +3620,16 @@ LABEL_10:
   }
 
   im1Address = [(ASContact *)self im1Address];
-  if (im1Address)
+  if (im1Address || ([(ASContact *)self im2Address], (im1Address = objc_claimAutoreleasedReturnValue()) != 0) || ([(ASContact *)self im3Address], (im1Address = objc_claimAutoreleasedReturnValue()) != 0) || ([(ASContact *)self managerName], (im1Address = objc_claimAutoreleasedReturnValue()) != 0) || ([(ASContact *)self companyMainPhone], (im1Address = objc_claimAutoreleasedReturnValue()) != 0))
   {
-    goto LABEL_156;
-  }
-
-  im1Address = [(ASContact *)self im2Address];
-  if (im1Address || ([(ASContact *)self im3Address], (im1Address = objc_claimAutoreleasedReturnValue()) != 0) || ([(ASContact *)self managerName], (im1Address = objc_claimAutoreleasedReturnValue()) != 0) || ([(ASContact *)self companyMainPhone], (im1Address = objc_claimAutoreleasedReturnValue()) != 0))
-  {
-LABEL_156:
   }
 
   else
   {
     nickName = [(ASContact *)self nickName];
-    v109 = nickName != 0 || v92;
+    v108 = nickName != 0 || v92;
 
-    if (!v109)
+    if (!v108)
     {
       goto LABEL_183;
     }
@@ -3493,8 +3706,6 @@ LABEL_156:
   }
 
 LABEL_183:
-
-  v107 = *MEMORY[0x277D85DE8];
 }
 
 - (id)bestEmailFromAppData:(int)data
@@ -4406,23 +4617,22 @@ LABEL_183:
   v3 = objc_alloc(MEMORY[0x277CCACA8]);
   v4 = objc_opt_class();
   v5 = NSStringFromClass(v4);
-  firstName = self->_firstName;
-  v7 = [v3 initWithFormat:@"<%@: First Name: %@ Last Name: %@", v5, firstName, self->_lastName];
+  v6 = [v3 initWithFormat:@"<%@: First Name: %@ Last Name: %@", v5, self->_firstName, self->_lastName];
 
   fileAsAutoConstruction = self->_fileAsAutoConstruction;
   if (fileAsAutoConstruction > 0xD)
   {
-    v9 = @"Out-of-bounds!";
+    v8 = @"Out-of-bounds!";
   }
 
   else
   {
-    v9 = off_278FC7E68[fileAsAutoConstruction];
+    v8 = off_278FC7E68[fileAsAutoConstruction];
   }
 
-  v10 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@ fileAs: %@>", v7, v9];
+  v9 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@ fileAs: %@>", v6, v8];
 
-  return v10;
+  return v9;
 }
 
 - (void)setBody:(id)body
@@ -4449,6 +4659,16 @@ LABEL_183:
 {
   currentHandler = [MEMORY[0x277CCA890] currentHandler];
   [currentHandler handleFailureInMethod:a2 object:self file:@"ASContact.m" lineNumber:1740 description:{@"Yes, I know ASContact is a subclass of ASChangedCollectionLeaf, and should handle encodeWithCoder:.  But I'm lazy, and no one needs this yet"}];
+}
+
+- (BOOL)saveWithLocalObject:(void *)object toContainer:(void *)container shouldMergeProperties:(BOOL)properties outMergeDidChooseLocalProperties:(BOOL *)localProperties account:(id)account
+{
+  propertiesCopy = properties;
+  taskManager = [account taskManager];
+  protocol = [taskManager protocol];
+  shouldSendFullContactInfo = [protocol shouldSendFullContactInfo];
+
+  return [(ASContact *)self saveToAddressBookWithExistingRecord:object inSource:container shouldMergeProperties:propertiesCopy outMergeDidChooseLocalProperties:localProperties storeExternalRep:shouldSendFullContactInfo];
 }
 
 - (void)loadABRecord

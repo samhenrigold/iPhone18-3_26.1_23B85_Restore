@@ -187,9 +187,9 @@ LABEL_9:
   progressCopy = progress;
   completionCopy = completion;
   v75 = objectsCopy;
-  v74 = [objectsCopy count];
+  v74 = objc_msgSend_count(objectsCopy);
   v65 = identifiersCopy;
-  v73 = [identifiersCopy count];
+  v73 = objc_msgSend_count(identifiersCopy);
   v19 = PLSearchBackendIndexingEngineGetLog();
   if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
   {
@@ -251,7 +251,7 @@ LABEL_9:
           }
 
           v32 = [byEntityCopy objectForKeyedSubscript:*(*(&v104 + 1) + 8 * i)];
-          v33 = [v32 count];
+          v33 = objc_msgSend_count(v32);
 
           v27 += v33;
         }
@@ -468,7 +468,7 @@ void __180__PLSearchIndexingEngine__inLibraryPerform_donateManagedObjects_partia
     {
       [*(a1 + 80) _pl_safeAddObject:v21 toMutableArrayForKey:v22];
       v23 = +[PLSpotlightDonationUtilities photosBundleIdentifier];
-      if ([v22 isEqualToString:v23])
+      if (objc_msgSend_isEqualToString_(v22))
       {
         v24 = *(*(*(a1 + 88) + 8) + 40);
 
@@ -635,7 +635,7 @@ void __180__PLSearchIndexingEngine__inLibraryPerform_donateManagedObjects_partia
   }
 
   [*(*(a1 + 64) + 88) insertObject:v13 atIndex:0];
-  if ([*(*(a1 + 64) + 88) count] >= 6)
+  if (objc_msgSend_count(*(*(a1 + 64) + 88)) >= 6)
   {
     [*(*(a1 + 64) + 88) removeLastObject];
   }
@@ -1071,7 +1071,7 @@ void __80__PLSearchIndexingEngine__inq_dropSearchIndexWithSourceName_reasons_com
 
     else
     {
-      v72 = [identifiersCopy count];
+      v72 = objc_msgSend_count(identifiersCopy);
       *&buf = 0;
       *(&buf + 1) = &buf;
       v124 = 0x2020000000;
@@ -1099,7 +1099,7 @@ void __80__PLSearchIndexingEngine__inq_dropSearchIndexWithSourceName_reasons_com
       if ([(PLSearchIndexingEngine *)self supportsPSI])
       {
         v38 = [typeCopy objectForKeyedSubscript:&unk_1F0FBCE68];
-        if ([v38 count])
+        if (objc_msgSend_count(v38))
         {
           v39 = [(PLTimedDispatchGroup *)v76 enterWithName:@"psi assets"];
           queue_psiDatabase = self->_queue_psiDatabase;
@@ -1113,9 +1113,9 @@ void __80__PLSearchIndexingEngine__inq_dropSearchIndexWithSourceName_reasons_com
           [(PSIDatabase *)queue_psiDatabase addAssets:v38 deferRemovingUnusedGroups:1 withCompletion:v111];
         }
 
-        v71 = [v38 count];
+        v71 = objc_msgSend_count(v38);
         v42 = [typeCopy objectForKeyedSubscript:&unk_1F0FBCE80];
-        if ([v42 count])
+        if (objc_msgSend_count(v42))
         {
           v43 = [(PLTimedDispatchGroup *)v76 enterWithName:@"psi collections"];
           v44 = self->_queue_psiDatabase;
@@ -1129,9 +1129,9 @@ void __80__PLSearchIndexingEngine__inq_dropSearchIndexWithSourceName_reasons_com
           [(PSIDatabase *)v44 addCollections:v42 deferRemovingUnusedGroups:1 withCompletion:v108];
         }
 
-        v70 = [v42 count];
+        v70 = objc_msgSend_count(v42);
         v46 = [typeCopy objectForKeyedSubscript:&unk_1F0FBCE98];
-        if ([v46 count])
+        if (objc_msgSend_count(v46))
         {
           v47 = [(PLTimedDispatchGroup *)v76 enterWithName:@"psi groups"];
           v48 = self->_queue_psiDatabase;
@@ -1145,8 +1145,8 @@ void __80__PLSearchIndexingEngine__inq_dropSearchIndexWithSourceName_reasons_com
           [(PSIDatabase *)v48 updateRankingScoreForGroups:v46 withCompletion:v105];
         }
 
-        v69 = [v46 count];
-        if ([identifiersCopy count])
+        v69 = objc_msgSend_count(v46);
+        if (objc_msgSend_count(identifiersCopy))
         {
           v68 = v38;
           v50 = [(PLTimedDispatchGroup *)v76 enterWithName:@"psi delete assets"];
@@ -1184,7 +1184,7 @@ void __80__PLSearchIndexingEngine__inq_dropSearchIndexWithSourceName_reasons_com
       }
 
       v57 = objc_alloc_init(MEMORY[0x1E695DF70]);
-      if (-[PLSearchIndexingEngine supportsSpotlightDonate](self, "supportsSpotlightDonate") && [dCopy count])
+      if ([(PLSearchIndexingEngine *)self supportsSpotlightDonate]&& objc_msgSend_count(dCopy))
       {
         v92[0] = MEMORY[0x1E69E9820];
         v92[1] = 3221225472;
@@ -1199,12 +1199,12 @@ void __80__PLSearchIndexingEngine__inq_dropSearchIndexWithSourceName_reasons_com
         [dCopy enumerateKeysAndObjectsUsingBlock:v92];
       }
 
-      if (-[PLSearchIndexingEngine supportsSpotlightDelete](self, "supportsSpotlightDelete") && [identifiersCopy count])
+      if ([(PLSearchIndexingEngine *)self supportsSpotlightDelete]&& objc_msgSend_count(identifiersCopy))
       {
         v58 = PLSearchBackendIndexingEngineGetLog();
         if (os_log_type_enabled(v58, OS_LOG_TYPE_DEFAULT))
         {
-          v59 = [identifiersCopy count];
+          v59 = objc_msgSend_count(identifiersCopy);
           v60 = +[PLSpotlightDonationUtilities photosBundleIdentifier];
           *v119 = 134218242;
           v120 = v59;
@@ -1340,7 +1340,7 @@ void __129__PLSearchIndexingEngine__inq_donatePSIObjectsByType_spotlightItemsByB
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134218242;
-    v20 = [v6 count];
+    v20 = objc_msgSend_count(v6);
     v21 = 2114;
     v22 = v5;
     _os_log_impl(&dword_19BF1F000, v7, OS_LOG_TYPE_DEFAULT, "Donating %tu items to Spotlight for bundleID: %{public}@", buf, 0x16u);
@@ -1352,7 +1352,7 @@ void __129__PLSearchIndexingEngine__inq_donatePSIObjectsByType_spotlightItemsByB
 
   [*(a1 + 40) addObject:v10];
   v11 = +[PLSpotlightDonationUtilities photosBundleIdentifier];
-  if (![v5 isEqualToString:v11])
+  if (!objc_msgSend_isEqualToString_(v5))
   {
     v12 = 0;
 LABEL_8:
@@ -1386,7 +1386,7 @@ LABEL_9:
   v18 = v10;
   v15 = v10;
   [v14 indexSearchableItems:v6 deleteSearchableItemsWithIdentifiers:0 clientState:v12 protectionClass:0 forBundleID:v5 options:32 completionHandler:v16];
-  *(*(*(a1 + 72) + 8) + 24) += [v6 count];
+  *(*(*(a1 + 72) + 8) + 24) += objc_msgSend_count(v6);
 }
 
 void __129__PLSearchIndexingEngine__inq_donatePSIObjectsByType_spotlightItemsByBundleID_deleteIdentifiers_spotlightClientState_completion___block_invoke_315(uint64_t a1, void *a2)
@@ -1673,9 +1673,9 @@ void __97__PLSearchIndexingEngine__inq_validateSpotlightClientStateAgainstExpect
 {
   errorCopy = error;
   domain = [errorCopy domain];
-  v7 = [domain isEqualToString:*MEMORY[0x1E6963AD8]];
+  isEqualToString = objc_msgSend_isEqualToString_(domain);
 
-  if (!v7)
+  if (!isEqualToString)
   {
     v11 = MEMORY[0x1E696AEC0];
     domain2 = [errorCopy domain];
@@ -1976,9 +1976,9 @@ void __35__PLSearchIndexingEngine__inq_open__block_invoke_216(uint64_t a1, void 
   {
     v4 = [v3 error];
     v5 = [v4 domain];
-    v6 = [v5 isEqualToString:@"PLSearchIndexSpotlightClientStateErrorDomain"];
+    isEqualToString = objc_msgSend_isEqualToString_(v5);
 
-    if (v6)
+    if (isEqualToString)
     {
       v7 = +[PLConcurrencyLimiter sharedLimiter];
       v8 = *(a1 + 32);
@@ -3005,11 +3005,11 @@ LABEL_6:
 
 void __78__PLSearchIndexingEngine_indexAssetsIfNeededWithObjectIDs_library_completion___block_invoke(uint64_t a1)
 {
-  v51 = *MEMORY[0x1E69E9840];
+  v52 = *MEMORY[0x1E69E9840];
   v2 = PLSearchBackendIndexingEngineGetLog();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = [*(a1 + 32) count];
+    v3 = objc_msgSend_count(*(a1 + 32));
     v4 = *(*(a1 + 40) + 8);
     *buf = 134218242;
     *&buf[4] = v3;
@@ -3021,33 +3021,33 @@ void __78__PLSearchIndexingEngine_indexAssetsIfNeededWithObjectIDs_library_compl
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x2020000000;
-  v50 = 0;
-  v47[0] = 0;
-  v47[1] = v47;
-  v47[2] = 0x2020000000;
-  v47[3] = 0;
+  v51 = 0;
+  v48[0] = 0;
+  v48[1] = v48;
+  v48[2] = 0x2020000000;
+  v48[3] = 0;
   [*(*(a1 + 40) + 16) addUser];
   v5 = objc_alloc_init(MEMORY[0x1E695DF70]);
   v6 = [objc_alloc(MEMORY[0x1E695DFA8]) initWithArray:*(a1 + 32)];
-  v45 = 0u;
   v46 = 0u;
-  v43 = 0u;
+  v47 = 0u;
   v44 = 0u;
+  v45 = 0u;
   v7 = *(a1 + 32);
-  v8 = [v7 countByEnumeratingWithState:&v43 objects:v48 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v44 objects:v49 count:16];
   if (v8)
   {
-    v9 = *v44;
+    v9 = *v45;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v44 != v9)
+        if (*v45 != v9)
         {
           objc_enumerationMutation(v7);
         }
 
-        v11 = *(*(&v43 + 1) + 8 * i);
+        v11 = *(*(&v44 + 1) + 8 * i);
         if (([v11 isTemporaryID] & 1) != 0 || PLSearchIndexObjectIDRequiresRebuildPass(v11, *(a1 + 48)))
         {
           [v5 addObject:v11];
@@ -3055,76 +3055,77 @@ void __78__PLSearchIndexingEngine_indexAssetsIfNeededWithObjectIDs_library_compl
         }
       }
 
-      v8 = [v7 countByEnumeratingWithState:&v43 objects:v48 count:16];
+      v8 = [v7 countByEnumeratingWithState:&v44 objects:v49 count:16];
     }
 
     while (v8);
   }
 
   v12 = [[PLTimedDispatchGroup alloc] initWithQueue:*(*(a1 + 40) + 24) name:@"indexAssetsIfNeeded"];
-  [*(a1 + 56) setTotalUnitCount:{objc_msgSend(v6, "count") + objc_msgSend(v5, "count")}];
-  if ([v5 count])
+  v13 = objc_msgSend_count(v5);
+  [*(a1 + 56) setTotalUnitCount:objc_msgSend_count(v6) + v13];
+  if (objc_msgSend_count(v5))
   {
-    v13 = [(PLTimedDispatchGroup *)v12 enterWithName:@"assetsNeverIndexed"];
-    v14 = *(a1 + 48);
-    v36[0] = MEMORY[0x1E69E9820];
-    v36[1] = 3221225472;
-    v36[2] = __78__PLSearchIndexingEngine_indexAssetsIfNeededWithObjectIDs_library_completion___block_invoke_158;
-    v36[3] = &unk_1E756DE60;
-    v37 = v5;
-    v38 = *(a1 + 48);
-    v15 = *(a1 + 56);
-    v16 = *(a1 + 40);
-    v39 = v15;
+    v14 = [(PLTimedDispatchGroup *)v12 enterWithName:@"assetsNeverIndexed"];
+    v15 = *(a1 + 48);
+    v37[0] = MEMORY[0x1E69E9820];
+    v37[1] = 3221225472;
+    v37[2] = __78__PLSearchIndexingEngine_indexAssetsIfNeededWithObjectIDs_library_completion___block_invoke_158;
+    v37[3] = &unk_1E756DE60;
+    v38 = v5;
+    v39 = *(a1 + 48);
+    v16 = *(a1 + 56);
+    v17 = *(a1 + 40);
     v40 = v16;
-    v42 = buf;
-    v17 = v13;
     v41 = v17;
-    [v14 performBlockAndWait:v36];
+    v43 = buf;
+    v18 = v14;
+    v42 = v18;
+    [v15 performBlockAndWait:v37];
   }
 
-  if ([v6 count])
+  if (objc_msgSend_count(v6))
   {
-    v18 = [(PLTimedDispatchGroup *)v12 enterWithName:@"assetsIncrementalUpdates"];
-    v19 = *(a1 + 48);
-    v29[0] = MEMORY[0x1E69E9820];
-    v29[1] = 3221225472;
-    v29[2] = __78__PLSearchIndexingEngine_indexAssetsIfNeededWithObjectIDs_library_completion___block_invoke_3;
-    v29[3] = &unk_1E756DE60;
-    v30 = v6;
-    v31 = *(a1 + 48);
-    v20 = v18;
-    v21 = *(a1 + 40);
-    v32 = v20;
+    v19 = [(PLTimedDispatchGroup *)v12 enterWithName:@"assetsIncrementalUpdates"];
+    v20 = *(a1 + 48);
+    v30[0] = MEMORY[0x1E69E9820];
+    v30[1] = 3221225472;
+    v30[2] = __78__PLSearchIndexingEngine_indexAssetsIfNeededWithObjectIDs_library_completion___block_invoke_3;
+    v30[3] = &unk_1E756DE60;
+    v31 = v6;
+    v32 = *(a1 + 48);
+    v21 = v19;
+    v22 = *(a1 + 40);
     v33 = v21;
-    v35 = v47;
-    v34 = *(a1 + 56);
-    [v19 performBlockAndWait:v29];
+    v34 = v22;
+    v36 = v48;
+    v35 = *(a1 + 56);
+    [v20 performBlockAndWait:v30];
   }
 
-  v23[0] = MEMORY[0x1E69E9820];
-  v23[1] = 3221225472;
-  v23[2] = __78__PLSearchIndexingEngine_indexAssetsIfNeededWithObjectIDs_library_completion___block_invoke_7;
-  v23[3] = &unk_1E7572F58;
-  v23[4] = *(a1 + 40);
-  v26 = *(a1 + 64);
-  v22 = v12;
-  v24 = v22;
-  v27 = buf;
-  v28 = v47;
-  v25 = *(a1 + 48);
-  [(PLTimedDispatchGroup *)v22 notify:v23];
+  v24[0] = MEMORY[0x1E69E9820];
+  v24[1] = 3221225472;
+  v24[2] = __78__PLSearchIndexingEngine_indexAssetsIfNeededWithObjectIDs_library_completion___block_invoke_7;
+  v24[3] = &unk_1E7572F58;
+  v24[4] = *(a1 + 40);
+  v27 = *(a1 + 64);
+  v23 = v12;
+  v25 = v23;
+  v28 = buf;
+  v29 = v48;
+  v26 = *(a1 + 48);
+  [(PLTimedDispatchGroup *)v23 notify:v24];
 
-  _Block_object_dispose(v47, 8);
+  _Block_object_dispose(v48, 8);
   _Block_object_dispose(buf, 8);
 }
 
 void __78__PLSearchIndexingEngine_indexAssetsIfNeededWithObjectIDs_library_completion___block_invoke_158(uint64_t a1)
 {
   v2 = [PLManagedAsset assetsWithObjectIDs:*(a1 + 32) inLibrary:*(a1 + 40)];
-  v3 = [v2 count];
+  v3 = objc_msgSend_count(v2);
   v4 = [MEMORY[0x1E696AE38] discreteProgressWithTotalUnitCount:v3];
-  [*(a1 + 48) addChild:v4 withPendingUnitCount:{objc_msgSend(*(a1 + 32), "count")}];
+  [*(a1 + 48) addChild:v4 withPendingUnitCount:objc_msgSend_count(*(a1 + 32))];
   if ([*(a1 + 48) isCancelled])
   {
     [v4 cancel];
@@ -3167,7 +3168,7 @@ void __78__PLSearchIndexingEngine_indexAssetsIfNeededWithObjectIDs_library_compl
     v9 = [*(a1 + 40) managedObjectContext];
     v10 = [PLBackgroundJobWorkItem searchIndexWorkItemManagedObjectIDsForIdentifiers:v8 managedObjectContext:v9];
 
-    if ([v10 isSuccess] && (objc_msgSend(v10, "result"), v11 = objc_claimAutoreleasedReturnValue(), v12 = objc_msgSend(v11, "count"), v11, v12))
+    if ([v10 isSuccess] && (objc_msgSend(v10, "result"), v11 = objc_claimAutoreleasedReturnValue(), v12 = objc_msgSend_count(v11), v11, v12))
     {
       v13 = +[PLConcurrencyLimiter sharedLimiter];
       v14 = *(a1 + 56);
@@ -3248,7 +3249,7 @@ void __78__PLSearchIndexingEngine_indexAssetsIfNeededWithObjectIDs_library_compl
   v8 = *(a1 + 56);
   v5 = [v2 processJobObjectIDs:v3 entity:1 library:v4 completion:v6];
 
-  [*(a1 + 64) addChild:v5 withPendingUnitCount:{objc_msgSend(*(a1 + 72), "count")}];
+  [*(a1 + 64) addChild:v5 withPendingUnitCount:objc_msgSend_count(*(a1 + 72))];
   if ([*(a1 + 64) isCancelled])
   {
     [v5 cancel];
@@ -3261,7 +3262,7 @@ void __78__PLSearchIndexingEngine_indexAssetsIfNeededWithObjectIDs_library_compl
   if ([v4 isSuccess])
   {
     v3 = [*(a1 + 32) result];
-    *(*(*(a1 + 48) + 8) + 24) = [v3 count];
+    *(*(*(a1 + 48) + 8) + 24) = objc_msgSend_count(v3);
   }
 
   [*(a1 + 40) leaveWithResult:v4];
@@ -3282,7 +3283,7 @@ void __78__PLSearchIndexingEngine_indexAssetsIfNeededWithObjectIDs_library_compl
 {
   dsCopy = ds;
   completionCopy = completion;
-  v9 = [MEMORY[0x1E696AE38] discreteProgressWithTotalUnitCount:{objc_msgSend(dsCopy, "count")}];
+  v9 = [MEMORY[0x1E696AE38] discreteProgressWithTotalUnitCount:objc_msgSend_count(dsCopy)];
   v16[0] = MEMORY[0x1E69E9820];
   v16[1] = 3221225472;
   v16[2] = __76__PLSearchIndexingEngine_indexAssetsWithUUIDs_partialUpdateMask_completion___block_invoke;
@@ -3307,7 +3308,7 @@ void __76__PLSearchIndexingEngine_indexAssetsWithUUIDs_partialUpdateMask_complet
   v2 = PLSearchBackendIndexingEngineGetLog();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = [*(a1 + 32) count];
+    v3 = objc_msgSend_count(*(a1 + 32));
     v4 = *(*(a1 + 40) + 8);
     *buf = 134218242;
     v17 = v3;

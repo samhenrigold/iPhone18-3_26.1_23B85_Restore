@@ -31,7 +31,7 @@
   v10 = *(v4 + 1);
   if (!v10)
   {
-    v13 = 0;
+    var1 = 0;
     goto LABEL_7;
   }
 
@@ -40,9 +40,9 @@
   {
     v11 = v10;
     v12 = v10;
-    v13 = *(v3 + 1);
+    var1 = v3->var1;
 LABEL_7:
-    CFRelease(v13);
+    CFRelease(var1);
     return v10;
   }
 

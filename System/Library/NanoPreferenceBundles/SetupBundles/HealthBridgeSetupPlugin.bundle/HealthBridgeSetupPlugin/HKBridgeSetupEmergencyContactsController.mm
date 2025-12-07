@@ -7,7 +7,6 @@
 - (void)_addEmergencyContactToData:(id)data;
 - (void)_presentEmergencyContactPicker;
 - (void)emergencyContactFlow:(id)flow didSelectContact:(id)contact;
-- (void)emergencyContactFlowDidCancel:(id)cancel;
 - (void)emergencyContactRelationshipPicker:(id)picker didChooseRelationshipNamed:(id)named;
 - (void)emergencyContactRelationshipPickerDidCancel:(id)cancel;
 - (void)suggestedButtonPressed:(id)pressed;
@@ -263,13 +262,6 @@
   [(HKBridgeSetupEmergencyContactsController *)self _addEmergencyContactToData:contact];
   selectedContact = self->_selectedContact;
   self->_selectedContact = 0;
-}
-
-- (void)emergencyContactFlowDidCancel:(id)cancel
-{
-  selectedContact = self->_selectedContact;
-  self->_selectedContact = 0;
-  _objc_release_x1();
 }
 
 - (void)updateTableViewHeight

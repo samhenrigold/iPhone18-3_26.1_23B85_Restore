@@ -24,7 +24,7 @@
 
   selfCopy = self;
   sub_17A0(v6, v8, v5, v9);
-  sub_1D64(v5);
+  sub_1D64(v5, v9);
 }
 
 - (_TtC29MindRelevanceEngineDataSource14DemoDataSource)init

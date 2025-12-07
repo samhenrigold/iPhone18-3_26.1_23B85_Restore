@@ -11,7 +11,7 @@ int vfscanf_l(FILE *a1, locale_t a2, const char *a3, va_list a4)
 
   else
   {
-    a2 = &__c_locale;
+    a2 = __c_locale;
   }
 
   flockfile(a1);
@@ -500,7 +500,7 @@ int vfwprintf_l(FILE *a1, locale_t a2, const __int32 *a3, __darwin_va_list a4)
 
   else
   {
-    v8 = &__c_locale;
+    v8 = __c_locale;
   }
 
   flockfile(a1);
@@ -3166,7 +3166,7 @@ LABEL_439:
         v270 = (v308 - i + 128) >> 2;
         if (v270 >= 33)
         {
-          abort_report_np("%s:%s:%u: size (%zd) > BUF (%d)");
+          abort_report_np("%s:%s:%u: size (%zd) > BUF (%d)", "vfwprintf.c", "__vfwprintf", 1061, v270, 32);
         }
 
         if ((v293 & 0x200) != 0 && v270)
@@ -3241,7 +3241,7 @@ uint64_t io_print_0(uint64_t a1, uint64_t a2, int a3, _xlocale *a4)
   }
 }
 
-__int32 *__mbsconv(const char *a1, int a2, _xlocale *a3)
+__int32 *__mbsconv(char *a1, int a2, _xlocale *a3)
 {
   memset(&__b, 0, sizeof(__b));
   v4 = *(*(a3 + 166) + 64);
@@ -3423,7 +3423,7 @@ _DWORD *__ultoa_0(unint64_t a1, _DWORD *a2, int a3, int a4, uint64_t a5)
   {
     if (a3 != 16)
     {
-      abort_report_np("%s:%s:%u: __ultoa: invalid base=%d");
+      abort_report_np("%s:%s:%u: __ultoa: invalid base=%d", "printfcommon.h", "__ultoa", 208, a3);
     }
 
     do
@@ -4808,7 +4808,7 @@ int vfwscanf_l(FILE *a1, locale_t a2, const __int32 *a3, __darwin_va_list a4)
 
   else
   {
-    v8 = &__c_locale;
+    v8 = __c_locale;
   }
 
   flockfile(a1);
@@ -5065,7 +5065,7 @@ LABEL_72:
 
       if (v18 != 9)
       {
-        abort_report_np("%s:%s:%u: unknown state %d");
+        abort_report_np("%s:%s:%u: unknown state %d", "vfwscanf.c", "parsefloat", 922, v18);
       }
 
       if (!iswdigit_l(v17, v23))
@@ -5170,7 +5170,7 @@ int vscanf_l(locale_t a1, const char *a2, va_list a3)
 
   else
   {
-    v7 = &__c_locale;
+    v7 = __c_locale;
   }
 
   flockfile(__stdinp);
@@ -5369,7 +5369,7 @@ int vswprintf_l(__int32 *a1, size_t n, locale_t a3, const __int32 *a4, __darwin_
 
   else
   {
-    v13 = &__c_locale;
+    v13 = __c_locale;
   }
 
   if (v14)
@@ -5450,69 +5450,69 @@ int vswprintf(__int32 *a1, size_t a2, const __int32 *a3, __darwin_va_list a4)
 
 int vswscanf_l(const __int32 *a1, locale_t a2, const __int32 *a3, __darwin_va_list a4)
 {
-  v14 = a1;
-  v13 = a2;
-  v12 = a3;
-  v11 = a4;
+  v13 = a1;
+  v12 = a2;
+  v11 = a3;
+  v10 = a4;
   memset(&__b, 0, sizeof(__b));
-  memset(v10, 0, sizeof(v10));
-  v9 = 0;
+  memset(v9, 0, sizeof(v9));
   v8 = 0;
   v7 = 0;
   v6 = 0;
-  memset(v17, 0, sizeof(v17));
-  v10[13] = v17;
-  v17[0] = 0;
+  v5 = 0;
   memset(v16, 0, sizeof(v16));
-  v16[0] = 850045858;
-  memcpy(&v17[1], v16, 0x40uLL);
-  LOBYTE(v17[9]) &= 0xF8u;
-  memset(&v17[10], 0, 0x80uLL);
-  LOBYTE(v17[9]) &= ~8u;
-  if (v13)
+  v9[13] = v16;
+  v16[0] = 0;
+  memset(v15, 0, sizeof(v15));
+  v15[0] = 850045858;
+  memcpy(&v16[1], v15, 0x40uLL);
+  LOBYTE(v16[9]) &= 0xF8u;
+  memset(&v16[10], 0, 0x80uLL);
+  LOBYTE(v16[9]) &= ~8u;
+  if (v12)
   {
-    if (v13 == -1)
+    if (v12 == -1)
     {
-      v13 = __global_locale;
+      v12 = __global_locale;
     }
   }
 
   else
   {
-    v13 = &__c_locale;
+    v12 = __c_locale;
   }
 
-  v4 = wcslen(v14) * *(*(v13 + 166) + 64);
-  v9 = malloc_type_malloc();
-  if (!v9)
+  wcslen(v13);
+  v8 = malloc_type_malloc();
+  if (!v8)
   {
     return -1;
   }
 
   memcpy(&__b, &vswscanf_l_initial, sizeof(__b));
-  v6 = v14;
-  v8 = wcsrtombs_l(v9, &v6, 0xFFFFFFFFFFFFFFFFLL, &__b, v13);
-  if (v8 == -1)
+  v5 = v13;
+  v7 = wcsrtombs_l(v8, &v5, 0xFFFFFFFFFFFFFFFFLL, &__b, v12);
+  if (v7 == -1)
   {
-    free(v9);
+    free(v8);
     return -1;
   }
 
   else
   {
-    LODWORD(v10[2]) = -65532;
-    v10[0] = v9;
-    v10[3] = v9;
-    LODWORD(v10[1]) = v8;
-    LODWORD(v10[4]) = v8;
-    v10[8] = eofread_0;
-    v10[11] = 0;
-    v10[15] = 0;
-    *(v10[13] + 72) &= 0xF8u;
-    memset((v10[13] + 80), 0, 0x80uLL);
-    v7 = __vfwscanf(v10, v13, v12, v11);
-    free(v9);
-    return v7;
+    LODWORD(v9[2]) = -65532;
+    v9[0] = v8;
+    v9[3] = v8;
+    LODWORD(v9[1]) = v7;
+    LODWORD(v9[4]) = v7;
+    v9[8] = eofread_0;
+    v9[11] = 0;
+    v9[15] = 0;
+    *(v9[13] + 72) &= 0xF8u;
+    memset((v9[13] + 80), 0, 0x80uLL);
+    v6 = __vfwscanf(v9, v12, v11, v10);
+    free(v8);
+    return v6;
   }
 }
 
@@ -5951,29 +5951,28 @@ uint64_t wmemstream_grow(uint64_t **a1, unint64_t a2)
 {
   if ((a2 & 0x8000000000000000) != 0 || a2 >= 0x1FFFFFFFFFFFFFFFLL)
   {
-    v4 = 0x1FFFFFFFFFFFFFFELL;
+    v3 = 0x1FFFFFFFFFFFFFFELL;
   }
 
   else
   {
-    v4 = a2;
+    v3 = a2;
   }
 
-  if (v4 <= a1[2])
+  if (v3 <= a1[2])
   {
     return 1;
   }
 
   else
   {
-    v2 = **a1;
-    v5 = reallocarray_DARWIN_EXTSN();
-    if (v5)
+    v4 = reallocarray_DARWIN_EXTSN();
+    if (v4)
     {
-      fprintf(__stderrp, "WMS: %p growing from %zd to %zd\n", a1, a1[2], v4);
-      wmemset((v5 + 4 * a1[2] + 4), 0, v4 - a1[2]);
-      **a1 = v5;
-      a1[2] = v4;
+      fprintf(__stderrp, "WMS: %p growing from %zd to %zd\n", a1, a1[2], v3);
+      wmemset((v4 + 4 * a1[2] + 4), 0, v3 - a1[2]);
+      **a1 = v4;
+      a1[2] = v3;
       return 1;
     }
 
@@ -6018,7 +6017,7 @@ char *__cdecl asctime_r(const tm *a1, char *a2)
   }
 
   sprintf(__src, v2, v5, v4, a1->tm_mday, a1->tm_hour, a1->tm_min, a1->tm_sec, v10);
-  if (strlen(__src) < 0x1A || a2 == &buf_asctime)
+  if (strlen(__src) < 0x1A || a2 == buf_asctime)
   {
     strcpy(a2, __src);
     return a2;
@@ -6163,7 +6162,7 @@ void _st_tzset_basic(int a1)
   }
 }
 
-uint64_t tzload(const char *a1, uint64_t a2, int a3)
+uint64_t tzload(char *a1, uint64_t a2, int a3)
 {
   v43 = a1;
   v42 = a2;
@@ -6498,11 +6497,10 @@ LABEL_22:
 
 uint64_t tzparse(char *a1, uint64_t a2, int a3)
 {
-  v39 = a1;
-  v38 = a2;
-  v37 = a3;
-  v36 = 0;
-  v34 = 0;
+  v38 = a1;
+  v37 = a2;
+  v36 = a3;
+  v35 = 0;
   v33 = 0;
   v32 = 0;
   v31 = 0;
@@ -6510,148 +6508,149 @@ uint64_t tzparse(char *a1, uint64_t a2, int a3)
   v29 = 0;
   v28 = 0;
   v27 = 0;
-  v35 = 0;
+  v26 = 0;
+  v34 = 0;
   if (a3)
   {
-    v36 = v39;
-    v34 = strlen(v39);
-    v39 += v34;
-    if (v34 >= 0x200)
+    v35 = v38;
+    v33 = strlen(v38);
+    v38 += v33;
+    if (v33 >= 0x200)
     {
-      v34 = 511;
+      v33 = 511;
     }
 
-    v32 = 0;
+    v31 = 0;
   }
 
   else
   {
-    v39 = getzname(v39, &v36, &v34);
-    if (!*v39)
+    v38 = getzname(v38, &v35, &v33);
+    if (!*v38)
     {
       return -1;
     }
 
-    v39 = getoffset(v39, &v32);
-    if (!v39)
+    v38 = getoffset(v38, &v31);
+    if (!v38)
     {
       return -1;
     }
   }
 
-  v27 = tzload("posixrules", v38, 0);
-  if (v27)
+  v26 = tzload("posixrules", v37, 0);
+  if (v26)
   {
-    *v38 = 0;
+    *v37 = 0;
   }
 
-  if (*v39)
+  if (*v38)
   {
-    if (*v39 == 60)
+    if (*v38 == 60)
     {
-      v35 = ++v39;
-      v39 = getqzname(v39, 62);
-      if (*v39 != 62)
+      v34 = ++v38;
+      v38 = getqzname(v38, 62);
+      if (*v38 != 62)
       {
         return -1;
       }
 
-      v33 = v39 - v35;
-      ++v39;
+      v32 = v38 - v34;
+      ++v38;
     }
 
     else
     {
-      v35 = v39;
-      v39 = getzname(v39, &v35, &v33);
+      v34 = v38;
+      v38 = getzname(v38, &v34, &v32);
     }
 
-    if (!*v39 || *v39 == 44 || *v39 == 59)
+    if (!*v38 || *v38 == 44 || *v38 == 59)
     {
-      v31 = v32 - 3600;
+      v30 = v31 - 3600;
     }
 
     else
     {
-      v39 = getoffset(v39, &v31);
-      if (!v39)
+      v38 = getoffset(v38, &v30);
+      if (!v38)
       {
         return -1;
       }
     }
 
-    if (!*v39 && v27)
+    if (!*v38 && v26)
     {
-      v39 = ",M4.1.0,M10.5.0";
+      v38 = ",M4.1.0,M10.5.0";
     }
 
-    if (*v39 == 44 || *v39 == 59)
+    if (*v38 == 44 || *v38 == 59)
     {
-      memset(v26, 0, sizeof(v26));
       memset(v25, 0, sizeof(v25));
-      ++v39;
-      v39 = getrule(v39, v26);
-      if (!v39)
+      memset(v24, 0, sizeof(v24));
+      ++v38;
+      v38 = getrule(v38, v25);
+      if (!v38)
       {
         return -1;
       }
 
-      v3 = v39++;
+      v3 = v38++;
       if (*v3 != 44)
       {
         return -1;
       }
 
-      v39 = getrule(v39, v25);
-      if (!v39)
+      v38 = getrule(v38, v24);
+      if (!v38)
       {
         return -1;
       }
 
-      if (*v39)
+      if (*v38)
       {
         return -1;
       }
 
-      *(v38 + 8) = 2;
-      *(v38 + 10824) = -v31;
-      *(v38 + 10832) = 1;
-      *(v38 + 10836) = v34 + 1;
-      *(v38 + 10848) = -v32;
-      *(v38 + 10856) = 0;
-      *(v38 + 10860) = 0;
-      v30 = (v38 + 24);
-      v29 = (v38 + 9624);
-      v23 = 0;
-      *(v38 + 4) = 0;
-      for (i = 1970; *(v38 + 4) + 2 <= 1200; ++i)
+      *(v37 + 8) = 2;
+      *(v37 + 10824) = -v30;
+      *(v37 + 10832) = 1;
+      *(v37 + 10836) = v33 + 1;
+      *(v37 + 10848) = -v31;
+      *(v37 + 10856) = 0;
+      *(v37 + 10860) = 0;
+      v29 = (v37 + 24);
+      v28 = (v37 + 9624);
+      v22 = 0;
+      *(v37 + 4) = 0;
+      for (i = 1970; *(v37 + 4) + 2 <= 1200; ++i)
       {
-        v22 = transtime(v23, i, v26, v32);
-        v21 = transtime(v23, i, v25, v31);
-        v4 = v30++;
-        if (v22 <= v21)
+        v21 = transtime(v22, i, v25, v31);
+        v20 = transtime(v22, i, v24, v30);
+        v4 = v29++;
+        if (v21 <= v20)
         {
-          *v4 = v22;
-          v8 = v29++;
+          *v4 = v21;
+          v8 = v28++;
           *v8 = 0;
-          v9 = v30++;
-          *v9 = v21;
-          v10 = v29++;
+          v9 = v29++;
+          *v9 = v20;
+          v10 = v28++;
           *v10 = 1;
         }
 
         else
         {
-          *v4 = v21;
-          v5 = v29++;
+          *v4 = v20;
+          v5 = v28++;
           *v5 = 1;
-          v6 = v30++;
-          *v6 = v22;
-          v7 = v29++;
+          v6 = v29++;
+          *v6 = v21;
+          v7 = v28++;
           *v7 = 0;
         }
 
-        *(v38 + 4) += 2;
+        *(v37 + 4) += 2;
         v14 = 0;
         if (!(i % 4))
         {
@@ -6664,98 +6663,92 @@ uint64_t tzparse(char *a1, uint64_t a2, int a3)
           v14 = v13;
         }
 
-        if (v23 + 86400 * *(&year_lengths + v14) <= v23)
+        if (v22 + 86400 * year_lengths[v14] <= v22)
         {
           break;
         }
 
-        v23 += 86400 * *(&year_lengths + v14);
+        v22 += 86400 * year_lengths[v14];
       }
     }
 
     else
     {
-      if (*v39)
+      if (*v38)
       {
         return -1;
       }
 
-      v20 = 0;
-      for (j = 0; j < *(v38 + 4); ++j)
+      v19 = 0;
+      for (j = 0; j < *(v37 + 4); ++j)
       {
-        if (!*(v38 + 10824 + 24 * *(v38 + 9624 + j) + 8))
+        if (!*(v37 + 10824 + 24 * *(v37 + 9624 + j) + 8))
         {
-          v20 = -*(v38 + 10824 + 24 * *(v38 + 9624 + j));
+          v19 = -*(v37 + 10824 + 24 * *(v37 + 9624 + j));
           break;
         }
       }
 
-      for (k = 0; k < *(v38 + 4); ++k)
+        ;
+      }
+
+      for (m = 0; m < *(v37 + 4); ++m)
       {
-        if (*(v38 + 10824 + 24 * *(v38 + 9624 + k) + 8))
+        v15 = *(v37 + 9624 + m);
+        *(v37 + 9624 + m) = *(v37 + 10824 + 24 * *(v37 + 9624 + m) + 8);
+        if (!*(v37 + 10824 + 24 * v15 + 20))
         {
-          v19 = -*(v38 + 10824 + 24 * *(v38 + 9624 + k));
-          break;
+          *(v37 + 24 + 8 * m) += v31 - v19;
+        }
+
+        if (!*(v37 + 10824 + 24 * v15 + 8))
+        {
+          v19 = -*(v37 + 10824 + 24 * v15);
         }
       }
 
-      for (m = 0; m < *(v38 + 4); ++m)
-      {
-        v15 = *(v38 + 9624 + m);
-        *(v38 + 9624 + m) = *(v38 + 10824 + 24 * *(v38 + 9624 + m) + 8);
-        if (!*(v38 + 10824 + 24 * v15 + 20))
-        {
-          *(v38 + 24 + 8 * m) += v32 - v20;
-        }
-
-        if (!*(v38 + 10824 + 24 * v15 + 8))
-        {
-          v20 = -*(v38 + 10824 + 24 * v15);
-        }
-      }
-
-      *(v38 + 10824) = -v32;
-      *(v38 + 10832) = 0;
-      *(v38 + 10836) = 0;
-      *(v38 + 10848) = -v31;
-      *(v38 + 10856) = 1;
-      *(v38 + 10860) = v34 + 1;
-      *(v38 + 8) = 2;
+      *(v37 + 10824) = -v31;
+      *(v37 + 10832) = 0;
+      *(v37 + 10836) = 0;
+      *(v37 + 10848) = -v30;
+      *(v37 + 10856) = 1;
+      *(v37 + 10860) = v33 + 1;
+      *(v37 + 8) = 2;
     }
   }
 
   else
   {
-    v33 = 0;
-    *(v38 + 8) = 1;
-    *(v38 + 4) = 0;
-    *(v38 + 10824) = -v32;
-    *(v38 + 10832) = 0;
-    *(v38 + 10836) = 0;
+    v32 = 0;
+    *(v37 + 8) = 1;
+    *(v37 + 4) = 0;
+    *(v37 + 10824) = -v31;
+    *(v37 + 10832) = 0;
+    *(v37 + 10836) = 0;
   }
 
-  *(v38 + 12) = v34 + 1;
-  if (v33)
+  *(v37 + 12) = v33 + 1;
+  if (v32)
   {
-    *(v38 + 12) += v33 + 1;
+    *(v37 + 12) += v32 + 1;
   }
 
-  if (*(v38 + 12) > 0x200)
+  if (*(v37 + 12) > 0x200)
   {
     return -1;
   }
 
   else
   {
-    v28 = (v38 + 16968);
-    strncpy((v38 + 16968), v36, v34);
-    v28 += v34;
-    v11 = v28++;
+    v27 = (v37 + 16968);
+    strncpy((v37 + 16968), v35, v33);
+    v27 += v33;
+    v11 = v27++;
     *v11 = 0;
-    if (v33)
+    if (v32)
     {
-      strncpy(v28, v35, v33);
-      v28[v33] = 0;
+      strncpy(v27, v34, v32);
+      v27[v32] = 0;
     }
 
     return 0;
@@ -7078,7 +7071,7 @@ uint64_t timesub(void *a1, uint64_t a2, int *a3, uint64_t a4)
       }
 
       v17 = v8;
-      v9 = v22 >= *(&year_lengths + v8);
+      v9 = v22 >= year_lengths[v8];
     }
 
     if (!v9)
@@ -7308,7 +7301,7 @@ uint64_t _st_time1(_DWORD *a1, uint64_t (*a2)(uint64_t *a1, uint64_t a2, uint64_
       v4 = &lclmem;
       if (v19 != _st_localsub)
       {
-        v4 = &gmtmem;
+        v4 = gmtmem;
       }
 
       v15 = v4;
@@ -7433,9 +7426,9 @@ uint64_t leapcorr(void *a1)
   v2 = lclmem;
   while ((--v2 & 0x80000000) == 0)
   {
-    if (*a1 >= qword_DC960[2 * v2])
+    if (*a1 >= *&byte_DC760[16 * v2 + 512])
     {
-      return qword_DC960[2 * v2 + 1];
+      return *&byte_DC760[16 * v2 + 520];
     }
   }
 
@@ -8124,7 +8117,7 @@ uint64_t time2sub(const void *a1, uint64_t (*a2)(uint64_t *a1, uint64_t a2, uint
   v8 = &lclmem;
   if (v33 != _st_localsub)
   {
-    v8 = &gmtmem;
+    v8 = gmtmem;
   }
 
   v28 = v8;
@@ -8287,7 +8280,7 @@ size_t strftime_l(char *a1, size_t a2, const char *a3, const tm *a4, locale_t a5
 
   else
   {
-    v10 = &__c_locale;
+    v10 = __c_locale;
   }
 
   tzset();
@@ -8345,7 +8338,7 @@ size_t strftime_l(char *a1, size_t a2, const char *a3, const tm *a4, locale_t a5
   return v9 - v14;
 }
 
-_BYTE *_st_fmt(char *a1, int *a2, _BYTE *a3, _BYTE *a4, int *a5, uint64_t a6, _xlocale *a7)
+char *_st_fmt(char *a1, int *a2, char *a3, char *a4, int *a5, char **a6, _xlocale *a7)
 {
   v49 = a1;
   v48 = a2;
@@ -8372,7 +8365,7 @@ _BYTE *_st_fmt(char *a1, int *a2, _BYTE *a3, _BYTE *a4, int *a5, uint64_t a6, _x
             --v49;
             goto LABEL_138;
           case 43:
-            v47 = _st_fmt(*(v44 + 344), v48, v47, v46, v45, v44, v43);
+            v47 = _st_fmt(v44[43], v48, v47, v46, v45, v44, v43);
             goto LABEL_140;
           case 45:
             if (v40)
@@ -8398,7 +8391,7 @@ _BYTE *_st_fmt(char *a1, int *a2, _BYTE *a3, _BYTE *a4, int *a5, uint64_t a6, _x
 
             else
             {
-              v7 = _add(*(v44 + 248 + 8 * v48[6]), v47, v46);
+              v7 = _add(v44[v48[6] + 31], v47, v46);
             }
 
             v47 = v7;
@@ -8413,15 +8406,15 @@ _BYTE *_st_fmt(char *a1, int *a2, _BYTE *a3, _BYTE *a4, int *a5, uint64_t a6, _x
             {
               if (v41)
               {
-                v26 = v44 + 352;
+                v26 = v44 + 44;
               }
 
               else
               {
-                v26 = v44 + 96;
+                v26 = v44 + 12;
               }
 
-              v9 = _add(*(v26 + 8 * v48[4]), v47, v46);
+              v9 = _add(v26[v48[4]], v47, v46);
             }
 
             v47 = v9;
@@ -8509,7 +8502,7 @@ _BYTE *_st_fmt(char *a1, int *a2, _BYTE *a3, _BYTE *a4, int *a5, uint64_t a6, _x
             v47 = _conv((v48[7] + 7 - v21) / 7, fmt_padding[v40], v47, v46, v43);
             goto LABEL_140;
           case 88:
-            v47 = _st_fmt(*(v44 + 304), v48, v47, v46, v45, v44, v43);
+            v47 = _st_fmt(v44[38], v48, v47, v46, v45, v44, v43);
             goto LABEL_140;
           case 89:
             v47 = _yconv(v48[5], 1900, 1, 1, v47, v46, v43);
@@ -8542,7 +8535,7 @@ _BYTE *_st_fmt(char *a1, int *a2, _BYTE *a3, _BYTE *a4, int *a5, uint64_t a6, _x
 
             else
             {
-              v8 = _add(*(v44 + 192 + 8 * v48[6]), v47, v46);
+              v8 = _add(v44[v48[6] + 24], v47, v46);
             }
 
             v47 = v8;
@@ -8556,14 +8549,14 @@ _BYTE *_st_fmt(char *a1, int *a2, _BYTE *a3, _BYTE *a4, int *a5, uint64_t a6, _x
 
             else
             {
-              v10 = _add(*(v44 + 8 * v48[4]), v47, v46);
+              v10 = _add(v44[v48[4]], v47, v46);
             }
 
             v47 = v10;
             goto LABEL_140;
           case 99:
             v39 = 1;
-            v47 = _st_fmt(*(v44 + 320), v48, v47, v46, &v39, v44, v43);
+            v47 = _st_fmt(v44[40], v48, v47, v46, &v39, v44, v43);
             if (v39 == 3)
             {
               v39 = 2;
@@ -8609,18 +8602,18 @@ _BYTE *_st_fmt(char *a1, int *a2, _BYTE *a3, _BYTE *a4, int *a5, uint64_t a6, _x
           case 112:
             if (v48[2] < 12)
             {
-              v13 = _add(*(v44 + 328), v47, v46);
+              v13 = _add(v44[41], v47, v46);
             }
 
             else
             {
-              v13 = _add(*(v44 + 336), v47, v46);
+              v13 = _add(v44[42], v47, v46);
             }
 
             v47 = v13;
             goto LABEL_140;
           case 114:
-            v47 = _st_fmt(*(v44 + 456), v48, v47, v46, v45, v44, v43);
+            v47 = _st_fmt(v44[57], v48, v47, v46, v45, v44, v43);
             goto LABEL_140;
           case 115:
             memset(&__b, 0, sizeof(__b));
@@ -8654,7 +8647,7 @@ _BYTE *_st_fmt(char *a1, int *a2, _BYTE *a3, _BYTE *a4, int *a5, uint64_t a6, _x
             goto LABEL_140;
           case 120:
             v28 = 1;
-            v47 = _st_fmt(*(v44 + 312), v48, v47, v46, &v28, v44, v43);
+            v47 = _st_fmt(v44[39], v48, v47, v46, &v28, v44, v43);
             if (v28 == 3)
             {
               v28 = 2;
@@ -8937,7 +8930,7 @@ char *__cdecl strptime_l(const char *a1, const char *a2, tm *a3, locale_t a4)
 
   else
   {
-    v9 = &__c_locale;
+    v9 = __c_locale;
   }
 
   v7 = 0;

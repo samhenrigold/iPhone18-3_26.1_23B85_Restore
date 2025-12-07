@@ -1480,7 +1480,7 @@ double CMMsl::SteadinessModelHarmonicFeatures::SteadinessModelHarmonicFeatures(u
   return result;
 }
 
-CMMsl *CMMsl::SteadinessModelHarmonicFeatures::operator=(CMMsl *a1, uint64_t a2)
+CMMsl *CMMsl::SteadinessModelHarmonicFeatures::operator=(CMMsl *a1, CMMsl *a2)
 {
   if (a1 != a2)
   {
@@ -5708,7 +5708,7 @@ double CMMsl::SteadinessModelTemporalEntropyFeatures::SteadinessModelTemporalEnt
   return result;
 }
 
-CMMsl *CMMsl::SteadinessModelTemporalEntropyFeatures::operator=(CMMsl *a1, uint64_t a2)
+CMMsl *CMMsl::SteadinessModelTemporalEntropyFeatures::operator=(CMMsl *a1, CMMsl *a2)
 {
   if (a1 != a2)
   {
@@ -8081,20 +8081,20 @@ void CMMsl::StepCountEntry::~StepCountEntry(CMMsl::StepCountEntry *this)
   operator delete();
 }
 
-uint64_t CMMsl::StepCountEntry::StepCountEntry(uint64_t this, const CMMsl::StepCountEntry *a2)
+CMMsl::StepCountEntry *CMMsl::StepCountEntry::StepCountEntry(CMMsl::StepCountEntry *this, const CMMsl::StepCountEntry *a2)
 {
   *this = off_100422248;
-  *(this + 8) = 0;
-  *(this + 56) = 0;
-  *(this + 72) = 0;
-  *(this + 152) = 0;
+  *(this + 1) = 0;
+  *(this + 7) = 0;
+  *(this + 9) = 0;
+  *(this + 38) = 0;
   v2 = *(a2 + 38);
   if ((v2 & 0x80) != 0)
   {
     v4 = *(a2 + 11);
     v3 = 128;
-    *(this + 152) = 128;
-    *(this + 88) = v4;
+    *(this + 38) = 128;
+    *(this + 11) = v4;
     v2 = *(a2 + 38);
     if ((v2 & 0x40) == 0)
     {
@@ -8110,8 +8110,8 @@ uint64_t CMMsl::StepCountEntry::StepCountEntry(uint64_t this, const CMMsl::StepC
 LABEL_5:
     v5 = *(a2 + 10);
     v3 |= 0x40u;
-    *(this + 152) = v3;
-    *(this + 80) = v5;
+    *(this + 38) = v3;
+    *(this + 10) = v5;
     v2 = *(a2 + 38);
   }
 
@@ -8120,8 +8120,8 @@ LABEL_6:
   {
     v7 = *(a2 + 6);
     v3 |= 0x10u;
-    *(this + 152) = v3;
-    *(this + 48) = v7;
+    *(this + 38) = v3;
+    *(this + 6) = v7;
     v2 = *(a2 + 38);
     if ((v2 & 0x100) == 0)
     {
@@ -8142,8 +8142,8 @@ LABEL_8:
 
   v8 = *(a2 + 24);
   v3 |= 0x100u;
-  *(this + 152) = v3;
-  *(this + 96) = v8;
+  *(this + 38) = v3;
+  *(this + 24) = v8;
   v2 = *(a2 + 38);
   if ((v2 & 8) == 0)
   {
@@ -8159,8 +8159,8 @@ LABEL_9:
 LABEL_21:
   v9 = *(a2 + 5);
   v3 |= 8u;
-  *(this + 152) = v3;
-  *(this + 40) = v9;
+  *(this + 38) = v3;
+  *(this + 5) = v9;
   v2 = *(a2 + 38);
   if ((v2 & 0x20) == 0)
   {
@@ -8176,8 +8176,8 @@ LABEL_10:
 LABEL_22:
   v10 = *(a2 + 8);
   v3 |= 0x20u;
-  *(this + 152) = v3;
-  *(this + 64) = v10;
+  *(this + 38) = v3;
+  *(this + 8) = v10;
   v2 = *(a2 + 38);
   if ((v2 & 0x4000) == 0)
   {
@@ -8193,8 +8193,8 @@ LABEL_11:
 LABEL_23:
   v11 = *(a2 + 30);
   v3 |= 0x4000u;
-  *(this + 152) = v3;
-  *(this + 120) = v11;
+  *(this + 38) = v3;
+  *(this + 30) = v11;
   v2 = *(a2 + 38);
   if ((v2 & 0x8000) == 0)
   {
@@ -8210,8 +8210,8 @@ LABEL_12:
 LABEL_24:
   v12 = *(a2 + 31);
   v3 |= 0x8000u;
-  *(this + 152) = v3;
-  *(this + 124) = v12;
+  *(this + 38) = v3;
+  *(this + 31) = v12;
   v2 = *(a2 + 38);
   if ((v2 & 4) == 0)
   {
@@ -8227,8 +8227,8 @@ LABEL_13:
 LABEL_25:
   v13 = *(a2 + 4);
   v3 |= 4u;
-  *(this + 152) = v3;
-  *(this + 32) = v13;
+  *(this + 38) = v3;
+  *(this + 4) = v13;
   v2 = *(a2 + 38);
   if ((v2 & 2) == 0)
   {
@@ -8244,8 +8244,8 @@ LABEL_14:
 LABEL_26:
   v14 = *(a2 + 3);
   v3 |= 2u;
-  *(this + 152) = v3;
-  *(this + 24) = v14;
+  *(this + 38) = v3;
+  *(this + 3) = v14;
   v2 = *(a2 + 38);
   if ((v2 & 1) == 0)
   {
@@ -8261,14 +8261,14 @@ LABEL_15:
 LABEL_27:
   v15 = *(a2 + 2);
   v3 |= 1u;
-  *(this + 152) = v3;
-  *(this + 16) = v15;
+  *(this + 38) = v3;
+  *(this + 2) = v15;
   if ((*(a2 + 38) & 0x80000) != 0)
   {
 LABEL_16:
     v6 = *(a2 + 35);
-    *(this + 152) = v3 | 0x80000;
-    *(this + 140) = v6;
+    *(this + 38) = v3 | 0x80000;
+    *(this + 35) = v6;
   }
 
 LABEL_17:
@@ -8281,7 +8281,7 @@ LABEL_17:
   if ((v16 & 0x200000) != 0)
   {
     v17 = *(a2 + 148);
-    *(this + 152) |= 0x200000u;
+    *(this + 38) |= 0x200000u;
     *(this + 148) = v17;
     v16 = *(a2 + 38);
   }
@@ -8289,7 +8289,7 @@ LABEL_17:
   if ((v16 & 0x400000) != 0)
   {
     v18 = *(a2 + 149);
-    *(this + 152) |= 0x400000u;
+    *(this + 38) |= 0x400000u;
     *(this + 149) = v18;
   }
 
@@ -8302,8 +8302,8 @@ LABEL_17:
   if ((v19 & 0x40000) != 0)
   {
     v22 = *(a2 + 34);
-    *(this + 152) |= 0x40000u;
-    *(this + 136) = v22;
+    *(this + 38) |= 0x40000u;
+    *(this + 34) = v22;
     v19 = *(a2 + 38);
     if ((v19 & 0x100000) == 0)
     {
@@ -8323,8 +8323,8 @@ LABEL_37:
   }
 
   v23 = *(a2 + 36);
-  *(this + 152) |= 0x100000u;
-  *(this + 144) = v23;
+  *(this + 38) |= 0x100000u;
+  *(this + 36) = v23;
   v19 = *(a2 + 38);
   if ((v19 & 0x20000) == 0)
   {
@@ -8339,8 +8339,8 @@ LABEL_38:
 
 LABEL_51:
   v24 = *(a2 + 33);
-  *(this + 152) |= 0x20000u;
-  *(this + 132) = v24;
+  *(this + 38) |= 0x20000u;
+  *(this + 33) = v24;
   v19 = *(a2 + 38);
   if ((v19 & 0x400) == 0)
   {
@@ -8355,8 +8355,8 @@ LABEL_39:
 
 LABEL_52:
   v25 = *(a2 + 26);
-  *(this + 152) |= 0x400u;
-  *(this + 104) = v25;
+  *(this + 38) |= 0x400u;
+  *(this + 26) = v25;
   v19 = *(a2 + 38);
   if ((v19 & 0x800) == 0)
   {
@@ -8371,8 +8371,8 @@ LABEL_40:
 
 LABEL_53:
   v26 = *(a2 + 27);
-  *(this + 152) |= 0x800u;
-  *(this + 108) = v26;
+  *(this + 38) |= 0x800u;
+  *(this + 27) = v26;
   v19 = *(a2 + 38);
   if ((v19 & 0x2000) == 0)
   {
@@ -8387,8 +8387,8 @@ LABEL_41:
 
 LABEL_54:
   v27 = *(a2 + 29);
-  *(this + 152) |= 0x2000u;
-  *(this + 116) = v27;
+  *(this + 38) |= 0x2000u;
+  *(this + 29) = v27;
   v19 = *(a2 + 38);
   if ((v19 & 0x200) == 0)
   {
@@ -8403,14 +8403,14 @@ LABEL_42:
 
 LABEL_55:
   v28 = *(a2 + 25);
-  *(this + 152) |= 0x200u;
-  *(this + 100) = v28;
+  *(this + 38) |= 0x200u;
+  *(this + 25) = v28;
   if ((*(a2 + 38) & 0x1000) != 0)
   {
 LABEL_43:
     v20 = *(a2 + 28);
-    *(this + 152) |= 0x1000u;
-    *(this + 112) = v20;
+    *(this + 38) |= 0x1000u;
+    *(this + 28) = v20;
   }
 
 LABEL_44:
@@ -8422,8 +8422,8 @@ LABEL_44:
   if (*(a2 + 154))
   {
     v21 = *(a2 + 32);
-    *(this + 152) |= 0x10000u;
-    *(this + 128) = v21;
+    *(this + 38) |= 0x10000u;
+    *(this + 32) = v21;
   }
 
   return this;
@@ -8589,7 +8589,7 @@ uint64_t CMMsl::StepCountEntry::StepCountEntry(uint64_t a1, uint64_t a2)
   return a1;
 }
 
-CMMsl *CMMsl::StepCountEntry::operator=(CMMsl *a1, uint64_t a2)
+CMMsl *CMMsl::StepCountEntry::operator=(CMMsl *a1, CMMsl *a2)
 {
   if (a1 != a2)
   {

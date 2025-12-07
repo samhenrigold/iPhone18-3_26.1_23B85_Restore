@@ -11,7 +11,9 @@
 - (CAFInt32Characteristic)heatingCoolingLevelCharacteristic;
 - (CAFInt32Range)heatingCoolingLevelRange;
 - (int)heatingCoolingLevel;
+- (void)_characteristicDidUpdate:(id)update fromGroupUpdate:(BOOL)groupUpdate;
 - (void)registerObserver:(id)observer;
+- (void)setHeatingCoolingLevel:(int)level;
 - (void)unregisterObserver:(id)observer;
 @end
 
@@ -94,6 +96,13 @@
   return int32Value;
 }
 
+- (void)setHeatingCoolingLevel:(int)level
+{
+  v3 = *&level;
+  heatingCoolingLevelCharacteristic = [(CAFSteeringWheelHeatingCooling *)self heatingCoolingLevelCharacteristic];
+  [heatingCoolingLevelCharacteristic setInt32Value:v3];
+}
+
 - (CAFInt32Range)heatingCoolingLevelRange
 {
   heatingCoolingLevelCharacteristic = [(CAFSteeringWheelHeatingCooling *)self heatingCoolingLevelCharacteristic];
@@ -166,6 +175,56 @@
   v3 = autoModeCharacteristic != 0;
 
   return v3;
+}
+
+- (void)_characteristicDidUpdate:(id)update fromGroupUpdate:(BOOL)groupUpdate
+{
+  groupUpdateCopy = groupUpdate;
+  updateCopy = update;
+  characteristicType = [updateCopy characteristicType];
+  if ([characteristicType isEqual:@"0x0000000031000021"])
+  {
+    uniqueIdentifier = [updateCopy uniqueIdentifier];
+    heatingCoolingLevelCharacteristic = [(CAFSteeringWheelHeatingCooling *)self heatingCoolingLevelCharacteristic];
+    uniqueIdentifier2 = [heatingCoolingLevelCharacteristic uniqueIdentifier];
+    v11 = [uniqueIdentifier isEqual:uniqueIdentifier2];
+
+    if (v11)
+    {
+      observers = [(CAFService *)self observers];
+      [observers steeringWheelHeatingCoolingService:self didUpdateHeatingCoolingLevel:{-[CAFSteeringWheelHeatingCooling heatingCoolingLevel](self, "heatingCoolingLevel")}];
+LABEL_8:
+
+      goto LABEL_9;
+    }
+  }
+
+  else
+  {
+  }
+
+  observers = [updateCopy characteristicType];
+  if (![observers isEqual:@"0x000000003000005F"])
+  {
+    goto LABEL_8;
+  }
+
+  uniqueIdentifier3 = [updateCopy uniqueIdentifier];
+  autoModeCharacteristic = [(CAFSteeringWheelHeatingCooling *)self autoModeCharacteristic];
+  uniqueIdentifier4 = [autoModeCharacteristic uniqueIdentifier];
+  v16 = [uniqueIdentifier3 isEqual:uniqueIdentifier4];
+
+  if (v16)
+  {
+    observers = [(CAFService *)self observers];
+    [observers steeringWheelHeatingCoolingService:self didUpdateAutoMode:{-[CAFSteeringWheelHeatingCooling autoMode](self, "autoMode")}];
+    goto LABEL_8;
+  }
+
+LABEL_9:
+  v17.receiver = self;
+  v17.super_class = CAFSteeringWheelHeatingCooling;
+  [(CAFService *)&v17 _characteristicDidUpdate:updateCopy fromGroupUpdate:groupUpdateCopy];
 }
 
 - (BOOL)registeredForHeatingCoolingLevel

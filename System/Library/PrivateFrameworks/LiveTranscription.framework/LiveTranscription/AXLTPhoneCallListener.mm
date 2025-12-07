@@ -82,7 +82,7 @@ uint64_t __39__AXLTPhoneCallListener_sharedInstance__block_invoke()
 
 - (BOOL)isCallActive
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   if (self->_utilityType)
   {
     currentCalls = [(TUCallCenter *)self->_callCenter currentCalls];
@@ -100,37 +100,36 @@ uint64_t __39__AXLTPhoneCallListener_sharedInstance__block_invoke()
 
   else
   {
-    v17 = 0u;
-    v18 = 0u;
-    v15 = 0u;
     v16 = 0u;
+    v17 = 0u;
+    v14 = 0u;
+    v15 = 0u;
     callObserver = [(AXLTPhoneCallListener *)self callObserver];
     calls = [callObserver calls];
 
-    v7 = [calls countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v7 = [calls countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v16;
+      v9 = *v15;
       while (2)
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v16 != v9)
+          if (*v15 != v9)
           {
             objc_enumerationMutation(calls);
           }
 
-          v11 = *(*(&v15 + 1) + 8 * i);
+          v11 = *(*(&v14 + 1) + 8 * i);
           if ([v11 hasConnected] && !objc_msgSend(v11, "hasEnded"))
           {
 
-            v4 = 1;
-            goto LABEL_17;
+            return 1;
           }
         }
 
-        v8 = [calls countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v8 = [calls countByEnumeratingWithState:&v14 objects:v18 count:16];
         if (v8)
         {
           continue;
@@ -140,11 +139,9 @@ uint64_t __39__AXLTPhoneCallListener_sharedInstance__block_invoke()
       }
     }
 
-    v4 = 0;
+    return 0;
   }
 
-LABEL_17:
-  v13 = *MEMORY[0x277D85DE8];
   return v4;
 }
 

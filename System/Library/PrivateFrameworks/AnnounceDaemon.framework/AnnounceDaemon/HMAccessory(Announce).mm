@@ -6,7 +6,7 @@
 
 - (id)an_announceSettingFromAccessorySettings
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   settings = [self settings];
   rootGroup = [settings rootGroup];
   groups = [rootGroup groups];
@@ -38,17 +38,15 @@
     v9 = ANLogHandleAccessory_Announce_logger;
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      v12 = 138412546;
-      v13 = &stru_2851BDB18;
-      v14 = 2112;
+      v11 = 138412546;
+      v12 = &stru_2851BDB18;
+      v13 = 2112;
       selfCopy = self;
-      _os_log_impl(&dword_23F525000, v9, OS_LOG_TYPE_ERROR, "%@Failed to find Announce Setting Group in Accessory Settings %@", &v12, 0x16u);
+      _os_log_impl(&dword_23F525000, v9, OS_LOG_TYPE_ERROR, "%@Failed to find Announce Setting Group in Accessory Settings %@", &v11, 0x16u);
     }
 
     value = 0;
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return value;
 }

@@ -74,28 +74,28 @@
 
 - (id)brc_containerMetadataIconNames
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   array = [MEMORY[0x277CBEB18] array];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v3 = BRContainerIconCKAssetKeys();
-  v4 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v13;
+    v6 = *v12;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v13 != v6)
+        if (*v12 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = [self objectForKeyedSubscript:{*(*(&v12 + 1) + 8 * i), v12}];
+        v8 = [self objectForKeyedSubscript:{*(*(&v11 + 1) + 8 * i), v11}];
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -104,41 +104,39 @@
         }
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v5);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return array;
 }
 
 - (id)brc_containerMetadataIconPaths
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   dictionary = [MEMORY[0x277CBEB38] dictionary];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v2 = BRContainerIconCKAssetKeys();
-  v3 = [v2 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v15;
+    v5 = *v14;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v15 != v5)
+        if (*v14 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = [self objectForKeyedSubscript:*(*(&v14 + 1) + 8 * i)];
+        v7 = [self objectForKeyedSubscript:*(*(&v13 + 1) + 8 * i)];
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -152,20 +150,17 @@
         }
       }
 
-      v4 = [v2 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v4);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return dictionary;
 }
 
 + (void)brc_containerMetadataRecordWithContainer:()BRCContainerMetadataAdditions .cold.1()
 {
-  v9 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
@@ -174,10 +169,8 @@
   {
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_3_2();
-    _os_log_fault_impl(v4, v5, v6, v7, v8, 0xCu);
+    _os_log_fault_impl(v3, v4, v5, v6, v7, 0xCu);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 @end

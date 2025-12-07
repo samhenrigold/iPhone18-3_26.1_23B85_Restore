@@ -82,24 +82,24 @@ void __67__WFMediaRoutePickerParameter_routePickerDidUpdateAvailableRoutes___blo
 
 - (id)sortedStatesForAvailableRoutes:(id)routes
 {
-  v23[1] = *MEMORY[0x277D85DE8];
+  v22[1] = *MEMORY[0x277D85DE8];
   routesCopy = routes;
-  v17 = 0;
-  v18 = &v17;
-  v19 = 0x3032000000;
-  v20 = __Block_byref_object_copy__19998;
-  v21 = __Block_byref_object_dispose__19999;
-  v22 = 0;
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = __62__WFMediaRoutePickerParameter_sortedStatesForAvailableRoutes___block_invoke;
-  v16[3] = &unk_278C1BEC8;
-  v16[4] = self;
-  v16[5] = &v17;
-  v5 = [routesCopy if_compactMap:v16];
+  v16 = 0;
+  v17 = &v16;
+  v18 = 0x3032000000;
+  v19 = __Block_byref_object_copy__19998;
+  v20 = __Block_byref_object_dispose__19999;
+  v21 = 0;
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __62__WFMediaRoutePickerParameter_sortedStatesForAvailableRoutes___block_invoke;
+  v15[3] = &unk_278C1BEC8;
+  v15[4] = self;
+  v15[5] = &v16;
+  v5 = [routesCopy if_compactMap:v15];
   v6 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"value.routeName" ascending:1];
-  v23[0] = v6;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:1];
+  v22[0] = v6;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:1];
   v8 = [v5 sortedArrayUsingDescriptors:v7];
 
   if ([(WFMediaRoutePickerParameter *)self routeType]== 3)
@@ -111,19 +111,19 @@ void __67__WFMediaRoutePickerParameter_routePickerDidUpdateAvailableRoutes___blo
   {
     v10 = [v8 mutableCopy];
     v9 = v10;
-    if (v18[5])
+    if (v17[5])
     {
       [v10 removeObject:?];
-      [v9 insertObject:v18[5] atIndex:0];
+      [v9 insertObject:v17[5] atIndex:0];
     }
 
     else
     {
       v11 = WFGetLocalDeviceMediaRoute();
-      v12 = v18[5];
-      v18[5] = v11;
+      v12 = v17[5];
+      v17[5] = v11;
 
-      v13 = v18[5];
+      v13 = v17[5];
       if (v13)
       {
         [v9 insertObject:v13 atIndex:0];
@@ -131,8 +131,7 @@ void __67__WFMediaRoutePickerParameter_routePickerDidUpdateAvailableRoutes___blo
     }
   }
 
-  _Block_object_dispose(&v17, 8);
-  v14 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v16, 8);
 
   return v9;
 }
@@ -277,7 +276,7 @@ LABEL_9:
 
 - (int64_t)routeType
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   definition = [(WFMediaRoutePickerParameter *)self definition];
   v3 = [definition objectForKey:@"RouteType"];
   v4 = objc_opt_class();
@@ -287,16 +286,16 @@ LABEL_9:
     v7 = getWFGeneralLogObject();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
     {
-      v12 = 136315906;
-      v13 = "WFEnforceClass";
-      v14 = 2114;
-      v15 = v5;
-      v16 = 2114;
-      v17 = objc_opt_class();
-      v18 = 2114;
-      v19 = v4;
-      v8 = v17;
-      _os_log_impl(&dword_23DE30000, v7, OS_LOG_TYPE_FAULT, "%s Warning: %{public}@ is of type %{public}@, not %{public}@! Falling back to nil.", &v12, 0x2Au);
+      v11 = 136315906;
+      v12 = "WFEnforceClass";
+      v13 = 2114;
+      v14 = v5;
+      v15 = 2114;
+      v16 = objc_opt_class();
+      v17 = 2114;
+      v18 = v4;
+      v8 = v16;
+      _os_log_impl(&dword_23DE30000, v7, OS_LOG_TYPE_FAULT, "%s Warning: %{public}@ is of type %{public}@, not %{public}@! Falling back to nil.", &v11, 0x2Au);
     }
 
     v6 = 0;
@@ -327,7 +326,6 @@ LABEL_9:
     v9 = 0;
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return v9;
 }
 

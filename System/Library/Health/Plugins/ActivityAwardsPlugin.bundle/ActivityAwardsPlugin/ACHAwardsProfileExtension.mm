@@ -3,6 +3,7 @@
 - (BOOL)earnedInstanceEntityDidReceiveSyncedEarnedInstances:(id)instances provenance:(int64_t)provenance;
 - (HDProfile)profile;
 - (void)daemonReady:(id)ready;
+- (void)database:(id)database protectedDataDidBecomeAvailable:(BOOL)available;
 - (void)earnedInstanceEntityDidApplyJournalEntriesInsertedEarnedInstances:(id)instances removedEarnedInstances:(id)earnedInstances;
 - (void)keyValuePairsDidUpdate:(id)update;
 - (void)templateEntityDidReceiveSyncedTemplates:(id)templates provenance:(int64_t)provenance;
@@ -54,50 +55,49 @@
 
 - (BOOL)earnedInstanceEntityDidReceiveSyncedEarnedInstances:(id)instances provenance:(int64_t)provenance
 {
-  v32 = *MEMORY[0x29EDCA608];
+  v31 = *MEMORY[0x29EDCA608];
   instancesCopy = instances;
-  v24 = 0;
-  v25 = &v24;
-  v26 = 0x3032000000;
-  v27 = sub_29E9F58A4;
-  v28 = sub_29E9F58B4;
-  v29 = 0;
-  v20 = 0;
-  v21 = &v20;
-  v22 = 0x2020000000;
-  v23 = 1;
+  v23 = 0;
+  v24 = &v23;
+  v25 = 0x3032000000;
+  v26 = sub_29E9F58A4;
+  v27 = sub_29E9F58B4;
+  v28 = 0;
+  v19 = 0;
+  v20 = &v19;
+  v21 = 0x2020000000;
+  v22 = 1;
   databaseQueue = [(ACHAwardsProfileExtension *)self databaseQueue];
   block[0] = MEMORY[0x29EDCA5F8];
   block[1] = 3221225472;
   block[2] = sub_29E9F58BC;
   block[3] = &unk_29F376C60;
-  v17 = &v20;
+  v16 = &v19;
   v8 = instancesCopy;
-  v15 = v8;
+  v14 = v8;
   selfCopy = self;
-  v18 = &v24;
+  v17 = &v23;
   provenanceCopy = provenance;
   dispatch_sync(databaseQueue, block);
 
-  if (v25[5] || (v21[3] & 1) == 0)
+  if (v24[5] || (v20[3] & 1) == 0)
   {
     v9 = ACHLogDatabase();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = v25[5];
+      v10 = v24[5];
       *buf = 138412290;
-      v31 = v10;
+      v30 = v10;
       _os_log_impl(&dword_29E9F4000, v9, OS_LOG_TYPE_DEFAULT, "Error inserting synced earned instances: %@", buf, 0xCu);
     }
   }
 
   notify_post([*MEMORY[0x29EDBE010] UTF8String]);
-  v11 = *(v21 + 24);
+  v11 = *(v20 + 24);
 
-  _Block_object_dispose(&v20, 8);
-  _Block_object_dispose(&v24, 8);
+  _Block_object_dispose(&v19, 8);
+  _Block_object_dispose(&v23, 8);
 
-  v12 = *MEMORY[0x29EDCA608];
   return v11 & 1;
 }
 
@@ -110,54 +110,59 @@
 
 - (void)templateEntityDidReceiveSyncedTemplates:(id)templates provenance:(int64_t)provenance
 {
-  v30 = *MEMORY[0x29EDCA608];
+  v29 = *MEMORY[0x29EDCA608];
   templatesCopy = templates;
-  v22 = 0;
-  v23 = &v22;
-  v24 = 0x3032000000;
-  v25 = sub_29E9F58A4;
-  v26 = sub_29E9F58B4;
-  v27 = 0;
-  v18 = 0;
-  v19 = &v18;
-  v20 = 0x2020000000;
-  v21 = 1;
+  v21 = 0;
+  v22 = &v21;
+  v23 = 0x3032000000;
+  v24 = sub_29E9F58A4;
+  v25 = sub_29E9F58B4;
+  v26 = 0;
+  v17 = 0;
+  v18 = &v17;
+  v19 = 0x2020000000;
+  v20 = 1;
   databaseQueue = [(ACHAwardsProfileExtension *)self databaseQueue];
   block[0] = MEMORY[0x29EDCA5F8];
   block[1] = 3221225472;
   block[2] = sub_29E9F5BE4;
   block[3] = &unk_29F376C60;
-  v15 = &v18;
+  v14 = &v17;
   v8 = templatesCopy;
-  v13 = v8;
+  v12 = v8;
   selfCopy = self;
-  v16 = &v22;
+  v15 = &v21;
   provenanceCopy = provenance;
   dispatch_sync(databaseQueue, block);
 
-  if (v23[5] || (v19[3] & 1) == 0)
+  if (v22[5] || (v18[3] & 1) == 0)
   {
     v9 = ACHLogDatabase();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = v23[5];
+      v10 = v22[5];
       *buf = 138412290;
-      v29 = v10;
+      v28 = v10;
       _os_log_impl(&dword_29E9F4000, v9, OS_LOG_TYPE_DEFAULT, "Error inserting synced templates: %@", buf, 0xCu);
     }
   }
 
   notify_post([*MEMORY[0x29EDBE020] UTF8String]);
 
-  _Block_object_dispose(&v18, 8);
-  _Block_object_dispose(&v22, 8);
-
-  v11 = *MEMORY[0x29EDCA608];
+  _Block_object_dispose(&v17, 8);
+  _Block_object_dispose(&v21, 8);
 }
 
 - (void)keyValuePairsDidUpdate:(id)update
 {
   uTF8String = [*MEMORY[0x29EDBE018] UTF8String];
+
+  notify_post(uTF8String);
+}
+
+- (void)database:(id)database protectedDataDidBecomeAvailable:(BOOL)available
+{
+  uTF8String = [*MEMORY[0x29EDBE038] UTF8String];
 
   notify_post(uTF8String);
 }

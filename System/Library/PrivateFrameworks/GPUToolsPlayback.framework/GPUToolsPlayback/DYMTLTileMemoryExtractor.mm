@@ -18,6 +18,7 @@
 - (id)harvestThreadgroupAtIndex:(unint64_t)index size:(unint64_t)size;
 - (void)_createDataTypeToStringDictionary;
 - (void)harvestImageBlockData:(void *)data;
+- (void)processReflection:(id)reflection isDrawCall:(BOOL)call;
 @end
 
 @implementation DYMTLTileMemoryExtractor
@@ -46,6 +47,67 @@
   }
 
   return v14;
+}
+
+- (void)processReflection:(id)reflection isDrawCall:(BOOL)call
+{
+  callCopy = call;
+  reflectionCopy = reflection;
+  self->_imageBlockArgumentsFromFragment.__end_ = self->_imageBlockArgumentsFromFragment.__begin_;
+  self->_imageBlockArgumentsFromTile.__end_ = self->_imageBlockArgumentsFromTile.__begin_;
+  self->_fragmentMemberIndex = 0;
+  v7 = [(DYMTLTileMemoryExtractor *)self encodeImageBlockDataReturn:reflectionCopy isDrawCall:callCopy];
+  fragmentBindings = [reflectionCopy fragmentBindings];
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 3221225472;
+  v18[2] = __57__DYMTLTileMemoryExtractor_processReflection_isDrawCall___block_invoke;
+  v18[3] = &unk_27930F5F8;
+  v18[4] = self;
+  [fragmentBindings enumerateObjectsUsingBlock:v18];
+
+  tileBindings = [reflectionCopy tileBindings];
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __57__DYMTLTileMemoryExtractor_processReflection_isDrawCall___block_invoke_2;
+  v16[3] = &unk_27930F510;
+  v16[4] = self;
+  v10 = reflectionCopy;
+  v17 = v10;
+  [tileBindings enumerateObjectsUsingBlock:v16];
+
+  if (v7)
+  {
+    vertexBuiltInArguments = [v10 vertexBuiltInArguments];
+    if (![vertexBuiltInArguments count])
+    {
+      vertexBindings = [v10 vertexBindings];
+      if (![vertexBindings count])
+      {
+        fragmentBindings2 = [v10 fragmentBindings];
+        v15 = [fragmentBindings2 count];
+
+        if (!v15)
+        {
+          self->_imageBlockStatus = 2;
+          imageBlockDataReturn = [v10 imageBlockDataReturn];
+          [(DYMTLTileMemoryExtractor *)self _processArgument:imageBlockDataReturn WithImageBlockVector:&self->_imageBlockArgumentsFromTile];
+          goto LABEL_7;
+        }
+
+LABEL_6:
+        self->_imageBlockStatus = 1;
+        imageBlockDataReturn = [v10 imageBlockDataReturn];
+        [(DYMTLTileMemoryExtractor *)self _processArgument:imageBlockDataReturn WithImageBlockVector:&self->_imageBlockArgumentsFromFragment];
+LABEL_7:
+
+        goto LABEL_8;
+      }
+    }
+
+    goto LABEL_6;
+  }
+
+LABEL_8:
 }
 
 void __57__DYMTLTileMemoryExtractor_processReflection_isDrawCall___block_invoke(uint64_t a1, void *a2)
@@ -157,7 +219,7 @@ void __57__DYMTLTileMemoryExtractor_processReflection_isDrawCall___block_invoke_
   return v9 & 1;
 }
 
-uint64_t __66__DYMTLTileMemoryExtractor_encodeImageBlockDataReturn_isDrawCall___block_invoke(uint64_t a1)
+void *__66__DYMTLTileMemoryExtractor_encodeImageBlockDataReturn_isDrawCall___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) isArgumentExplicitImageBlock:*(a1 + 40)];
   if (result)
@@ -168,7 +230,7 @@ uint64_t __66__DYMTLTileMemoryExtractor_encodeImageBlockDataReturn_isDrawCall___
   return result;
 }
 
-uint64_t __66__DYMTLTileMemoryExtractor_encodeImageBlockDataReturn_isDrawCall___block_invoke_2(uint64_t a1)
+void *__66__DYMTLTileMemoryExtractor_encodeImageBlockDataReturn_isDrawCall___block_invoke_2(uint64_t a1)
 {
   result = [*(a1 + 32) isArgumentExplicitImageBlock:*(a1 + 40)];
   if (result)
@@ -307,18 +369,18 @@ uint64_t __66__DYMTLTileMemoryExtractor_encodeImageBlockDataReturn_isDrawCall___
 
 - (id)_processStructType:(id)type WithProcessedArgument:(void *)argument WithMemberName:(id)name WithIndent:(unint64_t)indent
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   nameCopy = name;
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   members = [type members];
   obj = members;
-  v11 = [members countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v11 = [members countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v11)
   {
-    v12 = *v22;
+    v12 = *v21;
     v13 = &stru_2860B3350;
     do
     {
@@ -326,12 +388,12 @@ uint64_t __66__DYMTLTileMemoryExtractor_encodeImageBlockDataReturn_isDrawCall___
       v15 = v13;
       do
       {
-        if (*v22 != v12)
+        if (*v21 != v12)
         {
           objc_enumerationMutation(obj);
         }
 
-        v16 = [(DYMTLTileMemoryExtractor *)self _processStructMember:*(*(&v21 + 1) + 8 * v14) WithProcessedArgument:argument WithMemberName:nameCopy WithIndent:indent];
+        v16 = [(DYMTLTileMemoryExtractor *)self _processStructMember:*(*(&v20 + 1) + 8 * v14) WithProcessedArgument:argument WithMemberName:nameCopy WithIndent:indent];
         v13 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@%@", v15, v16];
 
         ++v14;
@@ -340,7 +402,7 @@ uint64_t __66__DYMTLTileMemoryExtractor_encodeImageBlockDataReturn_isDrawCall___
 
       while (v11 != v14);
       members = obj;
-      v11 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v11 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v11);
@@ -350,8 +412,6 @@ uint64_t __66__DYMTLTileMemoryExtractor_encodeImageBlockDataReturn_isDrawCall___
   {
     v13 = &stru_2860B3350;
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
@@ -410,7 +470,7 @@ uint64_t __66__DYMTLTileMemoryExtractor_encodeImageBlockDataReturn_isDrawCall___
         v33 = v21;
 
         objc_storeStrong(v34, currentName);
-        std::vector<DYMTLImageBlockMember>::push_back[abi:ne200100](argument + 72, &v33);
+        std::vector<DYMTLImageBlockMember>::push_back[abi:ne200100](argument + 9, &v33);
         v23 = MEMORY[0x277CCACA8];
         fragmentMemberIndex = self->_fragmentMemberIndex;
         self->_fragmentMemberIndex = fragmentMemberIndex + 1;
@@ -425,7 +485,7 @@ uint64_t __66__DYMTLTileMemoryExtractor_encodeImageBlockDataReturn_isDrawCall___
         v28 = v33;
         v33 = currentNameCopy;
 
-        std::vector<DYMTLImageBlockMember>::push_back[abi:ne200100](argument + 72, &v33);
+        std::vector<DYMTLImageBlockMember>::push_back[abi:ne200100](argument + 9, &v33);
         v7 = [(DYMTLTileMemoryExtractor *)self _generateImageBlockStructMember:&v33 WithCurrentName:currentNameCopy WithIndent:indent];
       }
     }
@@ -483,7 +543,7 @@ uint64_t __66__DYMTLTileMemoryExtractor_encodeImageBlockDataReturn_isDrawCall___
         v32 = v37;
         v37 = name4;
 
-        std::vector<DYMTLImageBlockMember>::push_back[abi:ne200100](argument + 72, &v36);
+        std::vector<DYMTLImageBlockMember>::push_back[abi:ne200100](argument + 9, &v36);
       }
 
       else
@@ -493,7 +553,7 @@ uint64_t __66__DYMTLTileMemoryExtractor_encodeImageBlockDataReturn_isDrawCall___
         v35 = v36;
         v36 = v34;
 
-        std::vector<DYMTLImageBlockMember>::push_back[abi:ne200100](argument + 72, &v36);
+        std::vector<DYMTLImageBlockMember>::push_back[abi:ne200100](argument + 9, &v36);
         ++self->_fragmentMemberIndex;
         fragmentMemberIndex = [memberCopy name];
       }
@@ -691,7 +751,7 @@ LABEL_6:
     v20 = nameCopy;
   }
 
-  if ([member->var1 isEqualToString:&stru_2860B3350])
+  if (objc_msgSend_isEqualToString_(member->var1))
   {
     [MEMORY[0x277CCACA8] stringWithFormat:@"%@;\n", v20];
   }
@@ -736,9 +796,9 @@ LABEL_7:
     v30 = [(NSDictionary *)dataTypeToTextureComponentTypeStringMap objectForKeyedSubscript:v29];
     v14 = [v10 stringWithFormat:@"                               texture2d<%@, access::write> imageBlockData [[ texture(0) ]]\n"], v30);
 
-    v31 = [member->var1 isEqualToString:&stru_2860B3350];
+    isEqualToString = objc_msgSend_isEqualToString_(member->var1);
     v32 = MEMORY[0x277CCACA8];
-    if ((v31 & 1) == 0)
+    if ((isEqualToString & 1) == 0)
     {
       index = [MEMORY[0x277CCACA8] stringWithFormat:@"fragmentMember%ld", index];
       v36 = MEMORY[0x277CCACA8];
@@ -820,348 +880,346 @@ LABEL_17:
 
 - (void)_createDataTypeToStringDictionary
 {
-  v23[36] = *MEMORY[0x277D85DE8];
-  v22[0] = &unk_2860B9AA8;
-  v22[1] = &unk_2860B9AC0;
-  v23[0] = @"float";
-  v23[1] = @"float";
-  v22[2] = &unk_2860B9AD8;
-  v22[3] = &unk_2860B9AF0;
-  v23[2] = @"float";
-  v23[3] = @"float";
-  v22[4] = &unk_2860B9B08;
-  v22[5] = &unk_2860B9B20;
-  v23[4] = @"half";
-  v23[5] = @"half";
-  v22[6] = &unk_2860B9B38;
-  v22[7] = &unk_2860B9B50;
-  v23[6] = @"half";
-  v23[7] = @"half";
-  v22[8] = &unk_2860B9B68;
-  v22[9] = &unk_2860B9B80;
-  v23[8] = @"int";
-  v23[9] = @"int";
-  v22[10] = &unk_2860B9B98;
-  v22[11] = &unk_2860B9BB0;
-  v23[10] = @"int";
-  v23[11] = @"int";
-  v22[12] = &unk_2860B9BC8;
-  v22[13] = &unk_2860B9BE0;
-  v23[12] = @"uint";
-  v23[13] = @"uint";
-  v22[14] = &unk_2860B9BF8;
-  v22[15] = &unk_2860B9C10;
-  v23[14] = @"uint";
-  v23[15] = @"uint";
-  v22[16] = &unk_2860B9C28;
-  v22[17] = &unk_2860B9C40;
-  v23[16] = @"short";
-  v23[17] = @"short";
-  v22[18] = &unk_2860B9C58;
-  v22[19] = &unk_2860B9C70;
-  v23[18] = @"short";
-  v23[19] = @"short";
-  v22[20] = &unk_2860B9C88;
-  v22[21] = &unk_2860B9CA0;
-  v23[20] = @"ushort";
-  v23[21] = @"ushort";
-  v22[22] = &unk_2860B9CB8;
-  v22[23] = &unk_2860B9CD0;
-  v23[22] = @"ushort";
-  v23[23] = @"ushort";
-  v22[24] = &unk_2860B9CE8;
-  v22[25] = &unk_2860B9D00;
-  v23[24] = @"int";
-  v23[25] = @"int";
-  v22[26] = &unk_2860B9D18;
-  v22[27] = &unk_2860B9D30;
-  v23[26] = @"int";
-  v23[27] = @"int";
-  v22[28] = &unk_2860B9D48;
-  v22[29] = &unk_2860B9D60;
-  v23[28] = @"uint";
-  v23[29] = @"uint";
-  v22[30] = &unk_2860B9D78;
-  v22[31] = &unk_2860B9D90;
-  v23[30] = @"uint";
-  v23[31] = @"uint";
-  v22[32] = &unk_2860B9DA8;
-  v22[33] = &unk_2860B9DC0;
-  v23[32] = @"uint";
-  v23[33] = @"uint";
-  v22[34] = &unk_2860B9DD8;
-  v22[35] = &unk_2860B9DF0;
-  v23[34] = @"uint";
-  v23[35] = @"uint";
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:v22 count:36];
+  v22[36] = *MEMORY[0x277D85DE8];
+  v21[0] = &unk_2860B9AA8;
+  v21[1] = &unk_2860B9AC0;
+  v22[0] = @"float";
+  v22[1] = @"float";
+  v21[2] = &unk_2860B9AD8;
+  v21[3] = &unk_2860B9AF0;
+  v22[2] = @"float";
+  v22[3] = @"float";
+  v21[4] = &unk_2860B9B08;
+  v21[5] = &unk_2860B9B20;
+  v22[4] = @"half";
+  v22[5] = @"half";
+  v21[6] = &unk_2860B9B38;
+  v21[7] = &unk_2860B9B50;
+  v22[6] = @"half";
+  v22[7] = @"half";
+  v21[8] = &unk_2860B9B68;
+  v21[9] = &unk_2860B9B80;
+  v22[8] = @"int";
+  v22[9] = @"int";
+  v21[10] = &unk_2860B9B98;
+  v21[11] = &unk_2860B9BB0;
+  v22[10] = @"int";
+  v22[11] = @"int";
+  v21[12] = &unk_2860B9BC8;
+  v21[13] = &unk_2860B9BE0;
+  v22[12] = @"uint";
+  v22[13] = @"uint";
+  v21[14] = &unk_2860B9BF8;
+  v21[15] = &unk_2860B9C10;
+  v22[14] = @"uint";
+  v22[15] = @"uint";
+  v21[16] = &unk_2860B9C28;
+  v21[17] = &unk_2860B9C40;
+  v22[16] = @"short";
+  v22[17] = @"short";
+  v21[18] = &unk_2860B9C58;
+  v21[19] = &unk_2860B9C70;
+  v22[18] = @"short";
+  v22[19] = @"short";
+  v21[20] = &unk_2860B9C88;
+  v21[21] = &unk_2860B9CA0;
+  v22[20] = @"ushort";
+  v22[21] = @"ushort";
+  v21[22] = &unk_2860B9CB8;
+  v21[23] = &unk_2860B9CD0;
+  v22[22] = @"ushort";
+  v22[23] = @"ushort";
+  v21[24] = &unk_2860B9CE8;
+  v21[25] = &unk_2860B9D00;
+  v22[24] = @"int";
+  v22[25] = @"int";
+  v21[26] = &unk_2860B9D18;
+  v21[27] = &unk_2860B9D30;
+  v22[26] = @"int";
+  v22[27] = @"int";
+  v21[28] = &unk_2860B9D48;
+  v21[29] = &unk_2860B9D60;
+  v22[28] = @"uint";
+  v22[29] = @"uint";
+  v21[30] = &unk_2860B9D78;
+  v21[31] = &unk_2860B9D90;
+  v22[30] = @"uint";
+  v22[31] = @"uint";
+  v21[32] = &unk_2860B9DA8;
+  v21[33] = &unk_2860B9DC0;
+  v22[32] = @"uint";
+  v22[33] = @"uint";
+  v21[34] = &unk_2860B9DD8;
+  v21[35] = &unk_2860B9DF0;
+  v22[34] = @"uint";
+  v22[35] = @"uint";
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:v21 count:36];
   dataTypeToTextureComponentTypeStringMap = self->_dataTypeToTextureComponentTypeStringMap;
   self->_dataTypeToTextureComponentTypeStringMap = v3;
 
-  v21[0] = @"float";
-  v21[1] = @"float2";
-  v21[2] = @"float3";
-  v21[3] = @"float4";
-  v21[4] = @"half";
-  v21[5] = @"half2";
-  v21[6] = @"half3";
-  v21[7] = @"half4";
-  v21[8] = @"int";
-  v21[9] = @"int2";
-  v21[10] = @"int3";
-  v21[11] = @"int4";
-  v21[12] = @"uint";
-  v21[13] = @"uint2";
-  v21[14] = @"uint3";
-  v21[15] = @"uint4";
-  v21[16] = @"short";
-  v21[17] = @"short2";
-  v21[18] = @"short3";
-  v21[19] = @"short4";
-  v21[20] = @"ushort";
-  v21[21] = @"ushort2";
-  v21[22] = @"ushort3";
-  v21[23] = @"ushort4";
-  v21[24] = @"char";
-  v21[25] = @"char2";
-  v21[26] = @"char3";
-  v21[27] = @"char4";
-  v21[28] = @"uchar";
-  v21[29] = @"uchar2";
-  v21[30] = @"uchar3";
-  v21[31] = @"uchar4";
-  v21[32] = @"BOOL";
-  v21[33] = @"BOOL2";
-  v21[34] = @"BOOL3";
-  v20[0] = &unk_2860B9AA8;
-  v20[1] = &unk_2860B9AC0;
-  v20[2] = &unk_2860B9AD8;
-  v20[3] = &unk_2860B9AF0;
-  v20[4] = &unk_2860B9B08;
-  v20[5] = &unk_2860B9B20;
-  v20[6] = &unk_2860B9B38;
-  v20[7] = &unk_2860B9B50;
-  v20[8] = &unk_2860B9B68;
-  v20[9] = &unk_2860B9B80;
-  v20[10] = &unk_2860B9B98;
-  v20[11] = &unk_2860B9BB0;
-  v20[12] = &unk_2860B9BC8;
-  v20[13] = &unk_2860B9BE0;
-  v20[14] = &unk_2860B9BF8;
-  v20[15] = &unk_2860B9C10;
-  v20[16] = &unk_2860B9C28;
-  v20[17] = &unk_2860B9C40;
-  v20[18] = &unk_2860B9C58;
-  v20[19] = &unk_2860B9C70;
-  v20[20] = &unk_2860B9C88;
-  v20[21] = &unk_2860B9CA0;
-  v20[22] = &unk_2860B9CB8;
-  v20[23] = &unk_2860B9CD0;
-  v20[24] = &unk_2860B9CE8;
-  v20[25] = &unk_2860B9D00;
-  v20[26] = &unk_2860B9D18;
-  v20[27] = &unk_2860B9D30;
-  v20[28] = &unk_2860B9D48;
-  v20[29] = &unk_2860B9D60;
-  v20[30] = &unk_2860B9D78;
-  v20[31] = &unk_2860B9D90;
-  v20[32] = &unk_2860B9DA8;
-  v20[33] = &unk_2860B9DC0;
-  v20[34] = &unk_2860B9DD8;
-  v20[35] = &unk_2860B9DF0;
-  v21[35] = @"BOOL4";
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:v20 count:36];
+  v20[0] = @"float";
+  v20[1] = @"float2";
+  v20[2] = @"float3";
+  v20[3] = @"float4";
+  v20[4] = @"half";
+  v20[5] = @"half2";
+  v20[6] = @"half3";
+  v20[7] = @"half4";
+  v20[8] = @"int";
+  v20[9] = @"int2";
+  v20[10] = @"int3";
+  v20[11] = @"int4";
+  v20[12] = @"uint";
+  v20[13] = @"uint2";
+  v20[14] = @"uint3";
+  v20[15] = @"uint4";
+  v20[16] = @"short";
+  v20[17] = @"short2";
+  v20[18] = @"short3";
+  v20[19] = @"short4";
+  v20[20] = @"ushort";
+  v20[21] = @"ushort2";
+  v20[22] = @"ushort3";
+  v20[23] = @"ushort4";
+  v20[24] = @"char";
+  v20[25] = @"char2";
+  v20[26] = @"char3";
+  v20[27] = @"char4";
+  v20[28] = @"uchar";
+  v20[29] = @"uchar2";
+  v20[30] = @"uchar3";
+  v20[31] = @"uchar4";
+  v20[32] = @"BOOL";
+  v20[33] = @"BOOL2";
+  v20[34] = @"BOOL3";
+  v19[0] = &unk_2860B9AA8;
+  v19[1] = &unk_2860B9AC0;
+  v19[2] = &unk_2860B9AD8;
+  v19[3] = &unk_2860B9AF0;
+  v19[4] = &unk_2860B9B08;
+  v19[5] = &unk_2860B9B20;
+  v19[6] = &unk_2860B9B38;
+  v19[7] = &unk_2860B9B50;
+  v19[8] = &unk_2860B9B68;
+  v19[9] = &unk_2860B9B80;
+  v19[10] = &unk_2860B9B98;
+  v19[11] = &unk_2860B9BB0;
+  v19[12] = &unk_2860B9BC8;
+  v19[13] = &unk_2860B9BE0;
+  v19[14] = &unk_2860B9BF8;
+  v19[15] = &unk_2860B9C10;
+  v19[16] = &unk_2860B9C28;
+  v19[17] = &unk_2860B9C40;
+  v19[18] = &unk_2860B9C58;
+  v19[19] = &unk_2860B9C70;
+  v19[20] = &unk_2860B9C88;
+  v19[21] = &unk_2860B9CA0;
+  v19[22] = &unk_2860B9CB8;
+  v19[23] = &unk_2860B9CD0;
+  v19[24] = &unk_2860B9CE8;
+  v19[25] = &unk_2860B9D00;
+  v19[26] = &unk_2860B9D18;
+  v19[27] = &unk_2860B9D30;
+  v19[28] = &unk_2860B9D48;
+  v19[29] = &unk_2860B9D60;
+  v19[30] = &unk_2860B9D78;
+  v19[31] = &unk_2860B9D90;
+  v19[32] = &unk_2860B9DA8;
+  v19[33] = &unk_2860B9DC0;
+  v19[34] = &unk_2860B9DD8;
+  v19[35] = &unk_2860B9DF0;
+  v20[35] = @"BOOL4";
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:36];
   dataTypeToImageBlockTypeStringMap = self->_dataTypeToImageBlockTypeStringMap;
   self->_dataTypeToImageBlockTypeStringMap = v5;
 
-  v18[0] = &unk_2860B9E08;
-  v18[1] = &unk_2860B9E20;
-  v19[0] = @"r8unorm";
-  v19[1] = @"r8snorm";
-  v18[2] = &unk_2860B9E38;
-  v18[3] = &unk_2860B9E50;
-  v19[2] = @"r16unorm";
-  v19[3] = @"r16snorm";
-  v18[4] = &unk_2860B9B80;
-  v18[5] = &unk_2860B9BB0;
-  v19[4] = @"rg8unorm";
-  v19[5] = @"rg8snorm";
-  v18[6] = &unk_2860B9E68;
-  v18[7] = &unk_2860B9E80;
-  v19[6] = @"rg16unorm";
-  v19[7] = @"rg16snorm";
-  v18[8] = &unk_2860B9E98;
-  v18[9] = &unk_2860B9EB0;
-  v19[8] = @"rgba8unorm";
-  v19[9] = @"srgba8unorm";
-  v18[10] = &unk_2860B9EC8;
-  v18[11] = &unk_2860B9EE0;
-  v19[10] = @"rgba8snorm";
-  v19[11] = @"rgba16unorm";
-  v18[12] = &unk_2860B9EF8;
-  v18[13] = &unk_2860B9F10;
-  v19[12] = @"rgba16snorm";
-  v19[13] = @"rgb10a2";
-  v18[14] = &unk_2860B9F28;
-  v18[15] = &unk_2860B9F40;
-  v19[14] = @"rg11b10f";
-  v19[15] = @"rgb9e5";
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:16];
+  v17[0] = &unk_2860B9E08;
+  v17[1] = &unk_2860B9E20;
+  v18[0] = @"r8unorm";
+  v18[1] = @"r8snorm";
+  v17[2] = &unk_2860B9E38;
+  v17[3] = &unk_2860B9E50;
+  v18[2] = @"r16unorm";
+  v18[3] = @"r16snorm";
+  v17[4] = &unk_2860B9B80;
+  v17[5] = &unk_2860B9BB0;
+  v18[4] = @"rg8unorm";
+  v18[5] = @"rg8snorm";
+  v17[6] = &unk_2860B9E68;
+  v17[7] = &unk_2860B9E80;
+  v18[6] = @"rg16unorm";
+  v18[7] = @"rg16snorm";
+  v17[8] = &unk_2860B9E98;
+  v17[9] = &unk_2860B9EB0;
+  v18[8] = @"rgba8unorm";
+  v18[9] = @"srgba8unorm";
+  v17[10] = &unk_2860B9EC8;
+  v17[11] = &unk_2860B9EE0;
+  v18[10] = @"rgba8snorm";
+  v18[11] = @"rgba16unorm";
+  v17[12] = &unk_2860B9EF8;
+  v17[13] = &unk_2860B9F10;
+  v18[12] = @"rgba16snorm";
+  v18[13] = @"rgb10a2";
+  v17[14] = &unk_2860B9F28;
+  v17[15] = &unk_2860B9F40;
+  v18[14] = @"rg11b10f";
+  v18[15] = @"rgb9e5";
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:16];
   pixelFormatToDataTypeStringMap = self->_pixelFormatToDataTypeStringMap;
   self->_pixelFormatToDataTypeStringMap = v7;
 
-  v17[1] = &unk_2860B9F58;
-  v17[2] = &unk_2860B9F70;
-  v17[3] = &unk_2860B9F70;
-  v17[5] = &unk_2860B9F88;
-  v17[6] = &unk_2860B9FA0;
-  v17[7] = &unk_2860B9FA0;
-  v17[9] = &unk_2860B9FB8;
-  v17[10] = &unk_2860B9FD0;
-  v17[11] = &unk_2860B9FD0;
-  v17[12] = &unk_2860B9FE8;
-  v17[13] = &unk_2860BA000;
-  v17[14] = &unk_2860BA018;
-  v17[15] = &unk_2860BA018;
-  v17[16] = &unk_2860BA030;
-  v17[17] = &unk_2860BA048;
-  v17[18] = &unk_2860BA060;
-  v17[19] = &unk_2860BA060;
-  v17[20] = &unk_2860BA078;
-  v17[0] = &unk_2860B9DC0;
-  v17[4] = &unk_2860B9DA8;
-  v17[8] = &unk_2860B9DD8;
-  v16[0] = &unk_2860B9B68;
-  v16[1] = &unk_2860B9B80;
-  v16[2] = &unk_2860B9B98;
-  v16[3] = &unk_2860B9BB0;
-  v16[4] = &unk_2860B9BC8;
-  v16[5] = &unk_2860B9BE0;
-  v16[6] = &unk_2860B9BF8;
-  v16[7] = &unk_2860B9C10;
-  v16[8] = &unk_2860B9AA8;
-  v16[9] = &unk_2860B9AC0;
-  v16[10] = &unk_2860B9AD8;
-  v16[11] = &unk_2860B9AF0;
-  v16[12] = &unk_2860B9B08;
-  v16[13] = &unk_2860B9B20;
-  v16[14] = &unk_2860B9B38;
-  v16[15] = &unk_2860B9B50;
-  v16[16] = &unk_2860B9C28;
-  v16[17] = &unk_2860B9C40;
-  v16[18] = &unk_2860B9C58;
-  v16[19] = &unk_2860B9C70;
-  v16[20] = &unk_2860B9C88;
-  v16[21] = &unk_2860B9CA0;
-  v17[21] = &unk_2860BA090;
-  v16[22] = &unk_2860B9CB8;
-  v16[23] = &unk_2860B9CD0;
-  v17[22] = &unk_2860BA0A8;
-  v17[23] = &unk_2860BA0A8;
-  v16[24] = &unk_2860B9CE8;
-  v16[25] = &unk_2860B9D00;
-  v17[24] = &unk_2860BA0C0;
-  v17[25] = &unk_2860B9BE0;
-  v16[26] = &unk_2860B9D18;
-  v16[27] = &unk_2860B9D30;
-  v17[26] = &unk_2860BA0D8;
-  v17[27] = &unk_2860BA0D8;
-  v16[28] = &unk_2860B9D48;
-  v16[29] = &unk_2860B9D60;
-  v17[28] = &unk_2860BA0F0;
-  v17[29] = &unk_2860B9BC8;
-  v17[32] = &unk_2860BA0F0;
-  v16[30] = &unk_2860B9D78;
-  v16[31] = &unk_2860B9D90;
-  v17[30] = &unk_2860BA108;
-  v17[31] = &unk_2860BA108;
-  v16[32] = &unk_2860B9DA8;
-  v16[33] = &unk_2860B9DC0;
-  v17[33] = &unk_2860B9BC8;
-  v16[34] = &unk_2860B9DD8;
-  v16[35] = &unk_2860B9DF0;
-  v17[34] = &unk_2860BA108;
-  v17[35] = &unk_2860BA108;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:36];
+  v16[1] = &unk_2860B9F58;
+  v16[2] = &unk_2860B9F70;
+  v16[3] = &unk_2860B9F70;
+  v16[5] = &unk_2860B9F88;
+  v16[6] = &unk_2860B9FA0;
+  v16[7] = &unk_2860B9FA0;
+  v16[9] = &unk_2860B9FB8;
+  v16[10] = &unk_2860B9FD0;
+  v16[11] = &unk_2860B9FD0;
+  v16[12] = &unk_2860B9FE8;
+  v16[13] = &unk_2860BA000;
+  v16[14] = &unk_2860BA018;
+  v16[15] = &unk_2860BA018;
+  v16[16] = &unk_2860BA030;
+  v16[17] = &unk_2860BA048;
+  v16[18] = &unk_2860BA060;
+  v16[19] = &unk_2860BA060;
+  v16[20] = &unk_2860BA078;
+  v16[0] = &unk_2860B9DC0;
+  v16[4] = &unk_2860B9DA8;
+  v16[8] = &unk_2860B9DD8;
+  v15[0] = &unk_2860B9B68;
+  v15[1] = &unk_2860B9B80;
+  v15[2] = &unk_2860B9B98;
+  v15[3] = &unk_2860B9BB0;
+  v15[4] = &unk_2860B9BC8;
+  v15[5] = &unk_2860B9BE0;
+  v15[6] = &unk_2860B9BF8;
+  v15[7] = &unk_2860B9C10;
+  v15[8] = &unk_2860B9AA8;
+  v15[9] = &unk_2860B9AC0;
+  v15[10] = &unk_2860B9AD8;
+  v15[11] = &unk_2860B9AF0;
+  v15[12] = &unk_2860B9B08;
+  v15[13] = &unk_2860B9B20;
+  v15[14] = &unk_2860B9B38;
+  v15[15] = &unk_2860B9B50;
+  v15[16] = &unk_2860B9C28;
+  v15[17] = &unk_2860B9C40;
+  v15[18] = &unk_2860B9C58;
+  v15[19] = &unk_2860B9C70;
+  v15[20] = &unk_2860B9C88;
+  v15[21] = &unk_2860B9CA0;
+  v16[21] = &unk_2860BA090;
+  v15[22] = &unk_2860B9CB8;
+  v15[23] = &unk_2860B9CD0;
+  v16[22] = &unk_2860BA0A8;
+  v16[23] = &unk_2860BA0A8;
+  v15[24] = &unk_2860B9CE8;
+  v15[25] = &unk_2860B9D00;
+  v16[24] = &unk_2860BA0C0;
+  v16[25] = &unk_2860B9BE0;
+  v15[26] = &unk_2860B9D18;
+  v15[27] = &unk_2860B9D30;
+  v16[26] = &unk_2860BA0D8;
+  v16[27] = &unk_2860BA0D8;
+  v15[28] = &unk_2860B9D48;
+  v15[29] = &unk_2860B9D60;
+  v16[28] = &unk_2860BA0F0;
+  v16[29] = &unk_2860B9BC8;
+  v16[32] = &unk_2860BA0F0;
+  v15[30] = &unk_2860B9D78;
+  v15[31] = &unk_2860B9D90;
+  v16[30] = &unk_2860BA108;
+  v16[31] = &unk_2860BA108;
+  v15[32] = &unk_2860B9DA8;
+  v15[33] = &unk_2860B9DC0;
+  v16[33] = &unk_2860B9BC8;
+  v15[34] = &unk_2860B9DD8;
+  v15[35] = &unk_2860B9DF0;
+  v16[34] = &unk_2860BA108;
+  v16[35] = &unk_2860BA108;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:36];
   dataTypeToTextureTypeForInvalidPixelFormatMap = self->_dataTypeToTextureTypeForInvalidPixelFormatMap;
   self->_dataTypeToTextureTypeForInvalidPixelFormatMap = v9;
 
-  v14[0] = &unk_2860B9AA8;
-  v14[1] = &unk_2860B9AC0;
-  v14[2] = &unk_2860B9AD8;
-  v14[3] = &unk_2860B9AF0;
-  v14[4] = &unk_2860B9B68;
-  v14[5] = &unk_2860B9B80;
-  v14[6] = &unk_2860B9B98;
-  v14[7] = &unk_2860B9BB0;
-  v15[0] = &unk_2860BA120;
-  v15[1] = &unk_2860BA138;
-  v14[8] = &unk_2860B9B08;
-  v14[9] = &unk_2860B9B20;
-  v15[2] = &unk_2860BA150;
-  v15[3] = &unk_2860BA168;
-  v15[4] = &unk_2860BA120;
-  v15[5] = &unk_2860BA138;
-  v15[6] = &unk_2860BA150;
-  v15[7] = &unk_2860BA168;
-  v15[8] = &unk_2860BA120;
-  v15[9] = &unk_2860BA138;
-  v14[10] = &unk_2860B9B38;
-  v14[11] = &unk_2860B9B50;
-  v15[10] = &unk_2860BA150;
-  v15[11] = &unk_2860BA168;
-  v14[12] = &unk_2860B9BC8;
-  v14[13] = &unk_2860B9BE0;
-  v15[12] = &unk_2860BA120;
-  v15[13] = &unk_2860BA138;
-  v14[14] = &unk_2860B9BF8;
-  v14[15] = &unk_2860B9C10;
-  v15[14] = &unk_2860BA150;
-  v15[15] = &unk_2860BA168;
-  v14[16] = &unk_2860B9C28;
-  v14[17] = &unk_2860B9C40;
-  v15[16] = &unk_2860BA120;
-  v15[17] = &unk_2860BA138;
-  v14[18] = &unk_2860B9C58;
-  v14[19] = &unk_2860B9C70;
-  v15[18] = &unk_2860BA150;
-  v15[19] = &unk_2860BA168;
-  v14[20] = &unk_2860B9C88;
-  v14[21] = &unk_2860B9CA0;
-  v15[20] = &unk_2860BA120;
-  v15[21] = &unk_2860BA138;
-  v14[22] = &unk_2860B9CB8;
-  v14[23] = &unk_2860B9CD0;
-  v15[22] = &unk_2860BA150;
-  v15[23] = &unk_2860BA168;
-  v14[24] = &unk_2860B9CE8;
-  v14[25] = &unk_2860B9D00;
-  v15[24] = &unk_2860BA120;
-  v15[25] = &unk_2860BA138;
-  v14[26] = &unk_2860B9D18;
-  v14[27] = &unk_2860B9D30;
-  v15[26] = &unk_2860BA150;
-  v15[27] = &unk_2860BA168;
-  v14[28] = &unk_2860B9D48;
-  v14[29] = &unk_2860B9D60;
-  v15[28] = &unk_2860BA120;
-  v15[29] = &unk_2860BA138;
-  v14[30] = &unk_2860B9D78;
-  v14[31] = &unk_2860B9D90;
-  v15[30] = &unk_2860BA150;
-  v15[31] = &unk_2860BA168;
-  v14[32] = &unk_2860B9DA8;
-  v14[33] = &unk_2860B9DC0;
-  v15[32] = &unk_2860BA120;
-  v15[33] = &unk_2860BA138;
-  v14[34] = &unk_2860B9DD8;
-  v14[35] = &unk_2860B9DF0;
-  v15[34] = &unk_2860BA150;
-  v15[35] = &unk_2860BA168;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:36];
+  v13[0] = &unk_2860B9AA8;
+  v13[1] = &unk_2860B9AC0;
+  v13[2] = &unk_2860B9AD8;
+  v13[3] = &unk_2860B9AF0;
+  v13[4] = &unk_2860B9B68;
+  v13[5] = &unk_2860B9B80;
+  v13[6] = &unk_2860B9B98;
+  v13[7] = &unk_2860B9BB0;
+  v14[0] = &unk_2860BA120;
+  v14[1] = &unk_2860BA138;
+  v13[8] = &unk_2860B9B08;
+  v13[9] = &unk_2860B9B20;
+  v14[2] = &unk_2860BA150;
+  v14[3] = &unk_2860BA168;
+  v14[4] = &unk_2860BA120;
+  v14[5] = &unk_2860BA138;
+  v14[6] = &unk_2860BA150;
+  v14[7] = &unk_2860BA168;
+  v14[8] = &unk_2860BA120;
+  v14[9] = &unk_2860BA138;
+  v13[10] = &unk_2860B9B38;
+  v13[11] = &unk_2860B9B50;
+  v14[10] = &unk_2860BA150;
+  v14[11] = &unk_2860BA168;
+  v13[12] = &unk_2860B9BC8;
+  v13[13] = &unk_2860B9BE0;
+  v14[12] = &unk_2860BA120;
+  v14[13] = &unk_2860BA138;
+  v13[14] = &unk_2860B9BF8;
+  v13[15] = &unk_2860B9C10;
+  v14[14] = &unk_2860BA150;
+  v14[15] = &unk_2860BA168;
+  v13[16] = &unk_2860B9C28;
+  v13[17] = &unk_2860B9C40;
+  v14[16] = &unk_2860BA120;
+  v14[17] = &unk_2860BA138;
+  v13[18] = &unk_2860B9C58;
+  v13[19] = &unk_2860B9C70;
+  v14[18] = &unk_2860BA150;
+  v14[19] = &unk_2860BA168;
+  v13[20] = &unk_2860B9C88;
+  v13[21] = &unk_2860B9CA0;
+  v14[20] = &unk_2860BA120;
+  v14[21] = &unk_2860BA138;
+  v13[22] = &unk_2860B9CB8;
+  v13[23] = &unk_2860B9CD0;
+  v14[22] = &unk_2860BA150;
+  v14[23] = &unk_2860BA168;
+  v13[24] = &unk_2860B9CE8;
+  v13[25] = &unk_2860B9D00;
+  v14[24] = &unk_2860BA120;
+  v14[25] = &unk_2860BA138;
+  v13[26] = &unk_2860B9D18;
+  v13[27] = &unk_2860B9D30;
+  v14[26] = &unk_2860BA150;
+  v14[27] = &unk_2860BA168;
+  v13[28] = &unk_2860B9D48;
+  v13[29] = &unk_2860B9D60;
+  v14[28] = &unk_2860BA120;
+  v14[29] = &unk_2860BA138;
+  v13[30] = &unk_2860B9D78;
+  v13[31] = &unk_2860B9D90;
+  v14[30] = &unk_2860BA150;
+  v14[31] = &unk_2860BA168;
+  v13[32] = &unk_2860B9DA8;
+  v13[33] = &unk_2860B9DC0;
+  v14[32] = &unk_2860BA120;
+  v14[33] = &unk_2860BA138;
+  v13[34] = &unk_2860B9DD8;
+  v13[35] = &unk_2860B9DF0;
+  v14[34] = &unk_2860BA150;
+  v14[35] = &unk_2860BA168;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:36];
   dataTypeToChannelCount = self->_dataTypeToChannelCount;
   self->_dataTypeToChannelCount = v11;
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (id).cxx_construct

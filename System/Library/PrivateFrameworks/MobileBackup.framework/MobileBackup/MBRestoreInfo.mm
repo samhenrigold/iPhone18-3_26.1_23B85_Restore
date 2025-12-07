@@ -89,27 +89,21 @@
 
 - (void)setDate:(id)date
 {
-  v4 = [date copy];
-  date = self->_date;
-  self->_date = v4;
+  self->_date = [date copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setDeviceBuildVersion:(id)version
 {
-  v4 = [version copy];
-  deviceBuildVersion = self->_deviceBuildVersion;
-  self->_deviceBuildVersion = v4;
+  self->_deviceBuildVersion = [version copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setBackupBuildVersion:(id)version
 {
-  v4 = [version copy];
-  backupBuildVersion = self->_backupBuildVersion;
-  self->_backupBuildVersion = v4;
+  self->_backupBuildVersion = [version copy];
 
   MEMORY[0x1EEE66BB8]();
 }

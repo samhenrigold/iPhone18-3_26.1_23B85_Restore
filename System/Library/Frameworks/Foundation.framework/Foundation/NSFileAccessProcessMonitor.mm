@@ -107,7 +107,7 @@ uint64_t __35__NSFileAccessProcessMonitor__init__block_invoke_2(uint64_t a1, voi
   return [a2 setStateDescriptor:{-[objc_class descriptor](objc_lookUpClass("RBSProcessStateDescriptor"), "descriptor")}];
 }
 
-uint64_t __44__NSFileAccessProcessMonitor_sharedInstance__block_invoke(uint64_t a1)
+void *__44__NSFileAccessProcessMonitor_sharedInstance__block_invoke(uint64_t a1)
 {
   result = [objc_alloc(*(a1 + 32)) _init];
   qword_1ED440010 = result;

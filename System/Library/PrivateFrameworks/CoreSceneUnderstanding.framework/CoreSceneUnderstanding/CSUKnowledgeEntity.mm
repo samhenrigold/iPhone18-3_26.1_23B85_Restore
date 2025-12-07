@@ -57,13 +57,13 @@
 
 - (NSDictionary)dictionary
 {
-  v18[4] = *MEMORY[0x1E69E9840];
-  v17[0] = @"QID";
-  v17[1] = @"humanReadableLabel";
+  v17[4] = *MEMORY[0x1E69E9840];
+  v16[0] = @"QID";
+  v16[1] = @"humanReadableLabel";
   humanReadableLabel = self->_humanReadableLabel;
-  v18[0] = self->_QID;
-  v18[1] = humanReadableLabel;
-  v17[2] = @"humanReadableSynonyms";
+  v17[0] = self->_QID;
+  v17[1] = humanReadableLabel;
+  v16[2] = @"humanReadableSynonyms";
   humanReadableSynonyms = self->_humanReadableSynonyms;
   if (humanReadableSynonyms)
   {
@@ -75,13 +75,11 @@
     objc_msgSend_null(MEMORY[0x1E695DFB0], a2, v2, v3, v4);
   }
   v8 = ;
-  v18[2] = v8;
-  v17[3] = @"version";
+  v17[2] = v8;
+  v16[3] = @"version";
   v12 = objc_msgSend_numberWithInt_(MEMORY[0x1E696AD98], v9, self->_version, v10, v11);
-  v18[3] = v12;
-  v14 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v13, v18, v17, 4);
-
-  v15 = *MEMORY[0x1E69E9840];
+  v17[3] = v12;
+  v14 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v13, v17, v16, 4);
 
   return v14;
 }

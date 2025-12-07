@@ -44,27 +44,27 @@ void __33__JFXAnalyticsKeys_allEventNames__block_invoke()
 
 void __44__JFXAnalyticsKeys_allIncrementScalarEvents__block_invoke()
 {
-  v6[11] = *MEMORY[0x277D85DE8];
-  v6[0] = @"thermalnominaltolight";
-  v6[1] = @"thermallighttomoderate";
-  v6[2] = @"thermalmoderatetoheavy";
-  v6[3] = @"thermalheavytotrapping";
-  v6[4] = @"thermaltrappingtosleeping";
-  v6[5] = @"thermalsleepingtotrapping";
-  v6[6] = @"thermaltrappingtoheavy";
-  v6[7] = @"thermalheavytomoderate";
-  v6[8] = @"thermalmoderatetolight";
-  v6[9] = @"thermallighttonominal";
-  v6[10] = @"facetrackedoverlaychangedplanes";
-  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:11];
+  v7[11] = *MEMORY[0x277D85DE8];
+  v7[0] = @"thermalnominaltolight";
+  v7[1] = @"thermallighttomoderate";
+  v7[2] = @"thermalmoderatetoheavy";
+  v7[3] = @"thermalheavytotrapping";
+  v7[4] = @"thermaltrappingtosleeping";
+  v7[5] = @"thermalsleepingtotrapping";
+  v7[6] = @"thermaltrappingtoheavy";
+  v7[7] = @"thermalheavytomoderate";
+  v7[8] = @"thermalmoderatetolight";
+  v7[9] = @"thermallighttonominal";
+  v7[10] = @"facetrackedoverlaychangedplanes";
+  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:11];
   v1 = allIncrementScalarEvents_allIncrementScalarEvents_1;
   allIncrementScalarEvents_allIncrementScalarEvents_1 = v0;
 
   v2 = allIncrementScalarEvents_allIncrementScalarEvents_1;
-  v3 = JFX_CaptureSessionInterruptionReasonsList();
-  v4 = [v2 arrayByAddingObjectsFromArray:v3];
-  v5 = allIncrementScalarEvents_allIncrementScalarEvents_1;
-  allIncrementScalarEvents_allIncrementScalarEvents_1 = v4;
+  v4 = JFX_CaptureSessionInterruptionReasonsList(v3);
+  v5 = [v2 arrayByAddingObjectsFromArray:v4];
+  v6 = allIncrementScalarEvents_allIncrementScalarEvents_1;
+  allIncrementScalarEvents_allIncrementScalarEvents_1 = v5;
 }
 
 @end

@@ -29,7 +29,7 @@
 
 - (id)generateSQLStringInContext:(id)context
 {
-  v90[1] = *MEMORY[0x1E69E9840];
+  v89[1] = *MEMORY[0x1E69E9840];
   sqlEntity = [(NSSQLIndex *)self->_index sqlEntity];
   v6 = objc_alloc(MEMORY[0x1E696AD60]);
   if ([(NSSQLIndex *)self->_index isUnique])
@@ -46,11 +46,11 @@
   obj = [(NSFetchIndexDescription *)[(NSSQLIndex *)self->_index indexDescription] elements];
   selfCopy = self;
   self->_isHandlingExpressions = 1;
+  v63 = 0u;
   v64 = 0u;
   v65 = 0u;
   v66 = 0u;
-  v67 = 0u;
-  v9 = [(NSArray *)obj countByEnumeratingWithState:&v64 objects:v80 count:16];
+  v9 = [(NSArray *)obj countByEnumeratingWithState:&v63 objects:v79 count:16];
   if (!v9)
   {
     goto LABEL_64;
@@ -58,19 +58,19 @@
 
   v10 = v9;
   v11 = 0;
-  v12 = *v65;
-  v61 = *MEMORY[0x1E695D940];
+  v12 = *v64;
+  v60 = *MEMORY[0x1E695D940];
   contextCopy = context;
 LABEL_6:
   v13 = 0;
   while (1)
   {
-    if (*v65 != v12)
+    if (*v64 != v12)
     {
       objc_enumerationMutation(obj);
     }
 
-    v14 = *(*(&v64 + 1) + 8 * v13);
+    v14 = *(*(&v63 + 1) + 8 * v13);
     property = [v14 property];
     _propertyType = [property _propertyType];
     if (_propertyType > 5)
@@ -79,9 +79,9 @@ LABEL_6:
       {
 LABEL_57:
         v44 = MEMORY[0x1E695DF30];
-        v76 = @"property";
-        v77 = property;
-        v45 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v77 forKeys:&v76 count:1];
+        v75 = @"property";
+        v76 = property;
+        v45 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v76 forKeys:&v75 count:1];
         v46 = @"Unsupported property in index";
         goto LABEL_59;
       }
@@ -132,11 +132,11 @@ LABEL_21:
       if (v28)
       {
         v29 = MEMORY[0x1E695DF30];
-        v89 = @"expression";
-        v90[0] = expression;
-        v30 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v90 forKeys:&v89 count:1];
+        v88 = @"expression";
+        v89[0] = expression;
+        v30 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v89 forKeys:&v88 count:1];
         v31 = v29;
-        v32 = v61;
+        v32 = v60;
         v33 = @"Joins not supported in index";
         goto LABEL_35;
       }
@@ -160,11 +160,11 @@ LABEL_53:
         }
 
         v40 = MEMORY[0x1E695DF30];
-        v87 = @"expression";
-        v88 = expression;
-        v30 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v88 forKeys:&v87 count:1];
+        v86 = @"expression";
+        v87 = expression;
+        v30 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v87 forKeys:&v86 count:1];
         v31 = v40;
-        v32 = v61;
+        v32 = v60;
         v33 = @"Can't find property for keypath";
 LABEL_35:
         v34 = [v31 exceptionWithName:v32 reason:v33 userInfo:v30];
@@ -180,11 +180,11 @@ LABEL_38:
       if ([v37 _propertyType] == 4 && objc_msgSend(v37, "isToMany"))
       {
         v39 = MEMORY[0x1E695DF30];
-        v85 = @"property";
-        v86 = v37;
-        v30 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v86 forKeys:&v85 count:1];
+        v84 = @"property";
+        v85 = v37;
+        v30 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v85 forKeys:&v84 count:1];
         v31 = v39;
-        v32 = v61;
+        v32 = v60;
         v33 = @"Indexes cannot contain to many relationships";
         goto LABEL_35;
       }
@@ -192,11 +192,11 @@ LABEL_38:
       if (_propertyType2 > 7 || ((1 << _propertyType2) & 0xD4) == 0)
       {
         v42 = MEMORY[0x1E695DF30];
-        v83 = @"property";
-        v84 = v37;
-        v30 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v84 forKeys:&v83 count:1];
+        v82 = @"property";
+        v83 = v37;
+        v30 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v83 forKeys:&v82 count:1];
         v31 = v42;
-        v32 = v61;
+        v32 = v60;
         v33 = @"Indexes can only contain attribute/relationship properties";
         goto LABEL_35;
       }
@@ -209,9 +209,9 @@ LABEL_38:
 
     if (expressionType != 1)
     {
-      v81 = @"expression";
-      v82 = expression;
-      v34 = [MEMORY[0x1E695DF30] exceptionWithName:v61 reason:@"Unsupported expression type in index" userInfo:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", &v82, &v81, 1)}];
+      v80 = @"expression";
+      v81 = expression;
+      v34 = [MEMORY[0x1E695DF30] exceptionWithName:v60 reason:@"Unsupported expression type in index" userInfo:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", &v81, &v80, 1)}];
       goto LABEL_38;
     }
 
@@ -243,7 +243,7 @@ LABEL_22:
     v11 = 1;
     if (v10 == v13)
     {
-      v43 = [(NSArray *)obj countByEnumeratingWithState:&v64 objects:v80 count:16];
+      v43 = [(NSArray *)obj countByEnumeratingWithState:&v63 objects:v79 count:16];
       v10 = v43;
       if (!v43)
       {
@@ -266,20 +266,20 @@ LABEL_22:
   }
 
   v44 = MEMORY[0x1E695DF30];
-  v78 = @"relationship";
-  v79 = property;
-  v45 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v79 forKeys:&v78 count:1];
+  v77 = @"relationship";
+  v78 = property;
+  v45 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v78 forKeys:&v77 count:1];
   v46 = @"Indexes cannot contain to many relationships";
 LABEL_59:
-  [context setObject:objc_msgSend(v44 forKey:{"exceptionWithName:reason:userInfo:", v61, v46, v45), @"NSUnderlyingException"}];
+  [context setObject:objc_msgSend(v44 forKey:{"exceptionWithName:reason:userInfo:", v60, v46, v45), @"NSUnderlyingException"}];
 
   v8 = 0;
 LABEL_60:
   if (![context objectForKey:@"NSUnderlyingException"])
   {
-    v74 = @"property";
-    v75 = property;
-    [context setObject:objc_msgSend(MEMORY[0x1E695DF30] forKey:{"exceptionWithName:reason:userInfo:", v61, @"SQL generation failure for property", objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", &v75, &v74, 1)), @"NSUnderlyingException"}];
+    v73 = @"property";
+    v74 = property;
+    [context setObject:objc_msgSend(MEMORY[0x1E695DF30] forKey:{"exceptionWithName:reason:userInfo:", v60, @"SQL generation failure for property", objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", &v74, &v73, 1)), @"NSUnderlyingException"}];
   }
 
   v8 = 0;
@@ -295,9 +295,9 @@ LABEL_64:
   {
     v47 = MEMORY[0x1E695DF30];
     v48 = *MEMORY[0x1E695D940];
-    v72 = @"indexDescription";
+    v71 = @"indexDescription";
     indexDescription = [(NSSQLIndex *)selfCopy->_index indexDescription];
-    [context setObject:objc_msgSend(v47 forKey:{"exceptionWithName:reason:userInfo:", v48, @"SQL generation failure for index", objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", &indexDescription, &v72, 1)), @"NSUnderlyingException"}];
+    [context setObject:objc_msgSend(v47 forKey:{"exceptionWithName:reason:userInfo:", v48, @"SQL generation failure for index", objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", &indexDescription, &v71, 1)), @"NSUnderlyingException"}];
   }
 
   v8 = 0;
@@ -322,10 +322,10 @@ LABEL_67:
 
         v54 = MEMORY[0x1E695DF30];
         v55 = *MEMORY[0x1E695D940];
-        v70 = @"predicate";
+        v69 = @"predicate";
         partialIndexPredicate2 = [(NSFetchIndexDescription *)[(NSSQLIndex *)selfCopy->_index indexDescription] partialIndexPredicate];
-        [context setObject:objc_msgSend(v54 forKey:{"exceptionWithName:reason:userInfo:", v55, @"SQL generation failure for index with predicate (1)", objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", &partialIndexPredicate2, &v70, 1)), @"NSUnderlyingException"}];
-        goto LABEL_80;
+        [context setObject:objc_msgSend(v54 forKey:{"exceptionWithName:reason:userInfo:", v55, @"SQL generation failure for index with predicate (1)", objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", &partialIndexPredicate2, &v69, 1)), @"NSUnderlyingException"}];
+        return 0;
       }
 
       v51 = [[NSSQLSimpleWhereIntermediate alloc] initWithPredicate:v50 inScope:selfCopy];
@@ -339,26 +339,23 @@ LABEL_73:
         {
           [v8 appendFormat:@" WHERE %@", v53];
 
-          goto LABEL_81;
+          return v8;
         }
 
         if (![context objectForKey:@"NSUnderlyingException"])
         {
           v56 = MEMORY[0x1E695DF30];
           v57 = *MEMORY[0x1E695D940];
-          v68 = @"predicate";
+          v67 = @"predicate";
           partialIndexPredicate3 = [(NSFetchIndexDescription *)[(NSSQLIndex *)selfCopy->_index indexDescription] partialIndexPredicate];
-          [context setObject:objc_msgSend(v56 forKey:{"exceptionWithName:reason:userInfo:", v57, @"SQL generation failure for index with predicate (2)", objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", &partialIndexPredicate3, &v68, 1)), @"NSUnderlyingException"}];
+          [context setObject:objc_msgSend(v56 forKey:{"exceptionWithName:reason:userInfo:", v57, @"SQL generation failure for index with predicate (2)", objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", &partialIndexPredicate3, &v67, 1)), @"NSUnderlyingException"}];
         }
 
-LABEL_80:
-        v8 = 0;
+        return 0;
       }
     }
   }
 
-LABEL_81:
-  v58 = *MEMORY[0x1E69E9840];
   return v8;
 }
 

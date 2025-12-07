@@ -28,17 +28,18 @@
 
 - (void)triggerABCWithSubtype:(id)subtype
 {
-  sub_24AB6016C();
+  v4 = sub_24AB6016C();
   selfCopy = self;
-  sub_24AB45C8C();
+  sub_24AB45C8C(v4);
 }
 
 - (void)triggerABCWithSubtype:(id)subtype additionalEventName:(id)name
 {
-  sub_24AB6016C();
-  sub_24AB6016C();
+  v5 = sub_24AB6016C();
+  v7 = v6;
+  v8 = sub_24AB6016C();
   selfCopy = self;
-  sub_24AB45E04();
+  sub_24AB45E04(v5, v7, v8);
 }
 
 @end

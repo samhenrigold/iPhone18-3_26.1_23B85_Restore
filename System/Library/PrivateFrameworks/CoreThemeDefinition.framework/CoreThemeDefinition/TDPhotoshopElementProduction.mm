@@ -26,6 +26,7 @@
 - (void)copyAttributesInto:(id)into;
 - (void)dealloc;
 - (void)deleteRenditionsInDocument:(id)document shouldDeleteAssetFiles:(BOOL)files;
+- (void)fillIterationKeyAttribute:(id)attribute iteration:(int)iteration rowOrColumn:(int)column document:(id)document;
 - (void)getDrawingLayerIndices:(id *)indices themeLayers:(id *)layers lowestIndex:(int64_t *)index;
 - (void)setAttributesFromCopyData:(id)data;
 - (void)setAttributesFromData:(id)data;
@@ -218,40 +219,73 @@
 
 - (void)getDrawingLayerIndices:(id *)indices themeLayers:(id *)layers lowestIndex:(int64_t *)index
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   *index = 0x7FFFFFFFFFFFFFFFLL;
   layerMappings = [(TDPhotoshopElementProduction *)self layerMappings];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
-  v10 = [layerMappings countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v10 = [layerMappings countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v16;
+    v12 = *v15;
     do
     {
       v13 = 0;
       do
       {
-        if (*v16 != v12)
+        if (*v15 != v12)
         {
           objc_enumerationMutation(layerMappings);
         }
 
-        -[TDPhotoshopElementProduction addDrawingLayerIndex:themeLayer:toIndices:layers:lowestIndex:](self, "addDrawingLayerIndex:themeLayer:toIndices:layers:lowestIndex:", [*(*(&v15 + 1) + 8 * v13) photoshopLayerIndex], objc_msgSend(*(*(&v15 + 1) + 8 * v13), "themeDrawingLayer"), *indices, *layers, index);
+        -[TDPhotoshopElementProduction addDrawingLayerIndex:themeLayer:toIndices:layers:lowestIndex:](self, "addDrawingLayerIndex:themeLayer:toIndices:layers:lowestIndex:", [*(*(&v14 + 1) + 8 * v13) photoshopLayerIndex], objc_msgSend(*(*(&v14 + 1) + 8 * v13), "themeDrawingLayer"), *indices, *layers, index);
         ++v13;
       }
 
       while (v11 != v13);
-      v11 = [layerMappings countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v11 = [layerMappings countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v11);
   }
+}
 
-  v14 = *MEMORY[0x277D85DE8];
+- (void)fillIterationKeyAttribute:(id)attribute iteration:(int)iteration rowOrColumn:(int)column document:(id)document
+{
+  if (iteration > 1)
+  {
+    if (iteration == 3)
+    {
+
+      [attribute setDimension2:*&column];
+    }
+
+    else if (iteration == 2)
+    {
+
+      [attribute setDimension1:*&column];
+    }
+  }
+
+  else if (iteration)
+  {
+    if (iteration == 1)
+    {
+      v7 = [document presentationStateWithIdentifier:column];
+
+      [attribute setPresentationState:v7];
+    }
+  }
+
+  else
+  {
+    v8 = [document valueWithIdentifier:column];
+
+    [attribute setValue:v8];
+  }
 }
 
 - (id)psdImageRefWithDocument:(id)document
@@ -764,7 +798,7 @@ LABEL_23:
 
 - (id)dataFromAttributes
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:7];
   renditionType = [(TDPhotoshopElementProduction *)self renditionType];
   if (renditionType)
@@ -787,40 +821,38 @@ LABEL_23:
   }
 
   layerMappings = [(TDPhotoshopElementProduction *)self layerMappings];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
-  v8 = [layerMappings countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v8 = [layerMappings countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v15;
+    v10 = *v14;
     do
     {
       v11 = 0;
       do
       {
-        if (*v15 != v10)
+        if (*v14 != v10)
         {
           objc_enumerationMutation(layerMappings);
         }
 
-        [v3 setObject:objc_msgSend(*(*(&v14 + 1) + 8 * v11) forKey:{"photoshopLayerIndex"), objc_msgSend(objc_msgSend(*(*(&v14 + 1) + 8 * v11), "themeDrawingLayer"), "constantName")}];
+        [v3 setObject:objc_msgSend(*(*(&v13 + 1) + 8 * v11) forKey:{"photoshopLayerIndex"), objc_msgSend(objc_msgSend(*(*(&v13 + 1) + 8 * v11), "themeDrawingLayer"), "constantName")}];
         ++v11;
       }
 
       while (v9 != v11);
-      v9 = [layerMappings countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v9 = [layerMappings countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v9);
   }
 
   [v3 setObject:objc_msgSend(-[TDPhotoshopElementProduction baseKeySpec](self forKey:{"baseKeySpec"), "dataFromAttributes"), @"baseKeySpec"}];
-  result = [MEMORY[0x277CCAC58] dataWithPropertyList:v3 format:200 options:0 error:0];
-  v13 = *MEMORY[0x277D85DE8];
-  return result;
+  return [MEMORY[0x277CCAC58] dataWithPropertyList:v3 format:200 options:0 error:0];
 }
 
 - (id)_layerMappingForPhotoshopLayer:(int64_t)layer drawingLayer:(int64_t)drawingLayer
@@ -964,7 +996,7 @@ LABEL_23:
 
 - (id)copyDataFromAttributes
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:14];
   v4 = [(TDPhotoshopElementProduction *)self valueForKey:@"columnCount"];
   if (v4)
@@ -1042,31 +1074,31 @@ LABEL_23:
   if ([v16 count])
   {
     v17 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v16, "count")}];
+    v35 = 0u;
     v36 = 0u;
     v37 = 0u;
     v38 = 0u;
-    v39 = 0u;
     allObjects = [v16 allObjects];
-    v19 = [allObjects countByEnumeratingWithState:&v36 objects:v41 count:16];
+    v19 = [allObjects countByEnumeratingWithState:&v35 objects:v40 count:16];
     if (v19)
     {
       v20 = v19;
-      v21 = *v37;
+      v21 = *v36;
       do
       {
         v22 = 0;
         do
         {
-          if (*v37 != v21)
+          if (*v36 != v21)
           {
             objc_enumerationMutation(allObjects);
           }
 
-          [v17 addObject:{objc_msgSend(*(*(&v36 + 1) + 8 * v22++), "copyDataFromAttributes")}];
+          [v17 addObject:{objc_msgSend(*(*(&v35 + 1) + 8 * v22++), "copyDataFromAttributes")}];
         }
 
         while (v20 != v22);
-        v20 = [allObjects countByEnumeratingWithState:&v36 objects:v41 count:16];
+        v20 = [allObjects countByEnumeratingWithState:&v35 objects:v40 count:16];
       }
 
       while (v20);
@@ -1079,31 +1111,31 @@ LABEL_23:
   if ([v23 count])
   {
     v24 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v23, "count")}];
+    v31 = 0u;
     v32 = 0u;
     v33 = 0u;
     v34 = 0u;
-    v35 = 0u;
     allObjects2 = [v23 allObjects];
-    v26 = [allObjects2 countByEnumeratingWithState:&v32 objects:v40 count:16];
+    v26 = [allObjects2 countByEnumeratingWithState:&v31 objects:v39 count:16];
     if (v26)
     {
       v27 = v26;
-      v28 = *v33;
+      v28 = *v32;
       do
       {
         v29 = 0;
         do
         {
-          if (*v33 != v28)
+          if (*v32 != v28)
           {
             objc_enumerationMutation(allObjects2);
           }
 
-          [v24 addObject:{objc_msgSend(*(*(&v32 + 1) + 8 * v29++), "copyDataFromAttributes")}];
+          [v24 addObject:{objc_msgSend(*(*(&v31 + 1) + 8 * v29++), "copyDataFromAttributes")}];
         }
 
         while (v27 != v29);
-        v27 = [allObjects2 countByEnumeratingWithState:&v32 objects:v40 count:16];
+        v27 = [allObjects2 countByEnumeratingWithState:&v31 objects:v39 count:16];
       }
 
       while (v27);
@@ -1112,9 +1144,7 @@ LABEL_23:
     [v3 setObject:v24 forKey:@"renditions"];
   }
 
-  result = [objc_msgSend(MEMORY[0x277CCAC58] dataWithPropertyList:v3 format:200 options:0 error:{0), "copy"}];
-  v31 = *MEMORY[0x277D85DE8];
-  return result;
+  return [objc_msgSend(MEMORY[0x277CCAC58] dataWithPropertyList:v3 format:200 options:0 error:{0), "copy"}];
 }
 
 - (void)setAttributesFromCopyData:(id)data

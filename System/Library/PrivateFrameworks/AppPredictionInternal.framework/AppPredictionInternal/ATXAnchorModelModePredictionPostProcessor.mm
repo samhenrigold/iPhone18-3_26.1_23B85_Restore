@@ -81,7 +81,7 @@ LABEL_12:
 
 - (NSArray)serializedTriggers
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   candidateClassifier = [(ATXAnchorModelPrediction *)self->_anchorModelPrediction candidateClassifier];
   classifierType = [candidateClassifier classifierType];
 
@@ -92,13 +92,13 @@ LABEL_12:
 
     if (tree)
     {
-      v7 = __atxlog_handle_modes();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+      v9 = __atxlog_handle_modes(v8);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        v8 = "ATXAnchorModelModePredictionPostProcessor: GamePlayKitDecisionTree is not empty, not creating any triggers";
+        v10 = "ATXAnchorModelModePredictionPostProcessor: GamePlayKitDecisionTree is not empty, not creating any triggers";
 LABEL_11:
-        _os_log_impl(&dword_2263AA000, v7, OS_LOG_TYPE_DEFAULT, v8, buf, 2u);
+        _os_log_impl(&dword_2263AA000, v9, OS_LOG_TYPE_DEFAULT, v10, buf, 2u);
       }
     }
 
@@ -106,64 +106,62 @@ LABEL_11:
     {
       offsetFromAnchorToShowPrediction = [(ATXAnchorModelPrediction *)self->_anchorModelPrediction offsetFromAnchorToShowPrediction];
       [offsetFromAnchorToShowPrediction startSecondsAfterAnchor];
-      v12 = v11;
+      v14 = v13;
 
-      if (v12 <= 900.0)
+      if (v14 <= 900.0)
       {
         _triggerForAnchorType = [(ATXAnchorModelModePredictionPostProcessor *)self _triggerForAnchorType];
-        v7 = _triggerForAnchorType;
+        v9 = _triggerForAnchorType;
         if (_triggerForAnchorType)
         {
-          v18 = _triggerForAnchorType;
-          v16 = [MEMORY[0x277CBEA60] arrayWithObjects:&v18 count:1];
-          v9 = ATXSerializeTriggers();
+          v20 = _triggerForAnchorType;
+          v18 = [MEMORY[0x277CBEA60] arrayWithObjects:&v20 count:1];
+          v11 = ATXSerializeTriggers();
         }
 
         else
         {
-          v16 = __atxlog_handle_modes();
-          if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+          v18 = __atxlog_handle_modes(0);
+          if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
           {
             anchorType = [(ATXAnchorModelPrediction *)self->_anchorModelPrediction anchorType];
             *buf = 138412290;
-            v20 = anchorType;
-            _os_log_impl(&dword_2263AA000, v16, OS_LOG_TYPE_DEFAULT, "ATXAnchorModelModePredictionPostProcessor: No valid trigger for anchor type: %@", buf, 0xCu);
+            v22 = anchorType;
+            _os_log_impl(&dword_2263AA000, v18, OS_LOG_TYPE_DEFAULT, "ATXAnchorModelModePredictionPostProcessor: No valid trigger for anchor type: %@", buf, 0xCu);
           }
 
-          v9 = 0;
+          v11 = 0;
         }
 
         goto LABEL_13;
       }
 
-      v7 = __atxlog_handle_modes();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+      v9 = __atxlog_handle_modes(v15);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        v8 = "ATXAnchorModelModePredictionPostProcessor: AnchorModelPrediction offset startSecondsAfterAnchor is too long after anchor, not creating any triggers";
+        v10 = "ATXAnchorModelModePredictionPostProcessor: AnchorModelPrediction offset startSecondsAfterAnchor is too long after anchor, not creating any triggers";
         goto LABEL_11;
       }
     }
 
-    v9 = 0;
+    v11 = 0;
 LABEL_13:
 
     goto LABEL_14;
   }
 
-  candidateClassifier2 = __atxlog_handle_modes();
+  candidateClassifier2 = __atxlog_handle_modes(v5);
   if (os_log_type_enabled(candidateClassifier2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
     _os_log_impl(&dword_2263AA000, candidateClassifier2, OS_LOG_TYPE_DEFAULT, "ATXAnchorModelModePredictionPostProcessor: classifier is not of type GamePlayKitDecisionTree, not creating any triggers", buf, 2u);
   }
 
-  v9 = 0;
+  v11 = 0;
 LABEL_14:
 
-  v13 = *MEMORY[0x277D85DE8];
-
-  return v9;
+  return v11;
 }
 
 - (id)_triggerForAnchorType

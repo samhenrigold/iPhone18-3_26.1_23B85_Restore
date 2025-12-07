@@ -1,16 +1,22 @@
-void sub_100000C68(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+void sub_100000C68(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
-  v9 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"libMobileGestalt %s:%d: %@", a1, a2, a3, 0);
-  v10 = CFStringCreateWithFormatAndArguments(kCFAllocatorDefault, 0, v9, &a9);
-  Length = CFStringGetLength(v10);
+  va_start(va, a8);
+  v8 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"libMobileGestalt %s:%d: %@", a4, a5, a6, a7, a8, a1, a2, a3, 0);
+  v9 = CFStringCreateWithFormatAndArguments(kCFAllocatorDefault, 0, v8, va);
+  Length = CFStringGetLength(v9);
   MaximumSizeForEncoding = CFStringGetMaximumSizeForEncoding(Length, 0x8000100u);
-  v13 = malloc_type_calloc(1uLL, MaximumSizeForEncoding + 1, 0x100004077774924uLL);
-  if (v13)
+  v12 = malloc_type_calloc(1uLL, MaximumSizeForEncoding + 1, 0x100004077774924uLL);
+  if (v12)
   {
-    if (CFStringGetCString(v10, v13, MaximumSizeForEncoding + 1, 0x8000100u) == 1 && off_100008598 != 0)
+    if (CFStringGetCString(v9, v12, MaximumSizeForEncoding + 1, 0x8000100u) == 1 && off_100008598 != 0)
     {
-      off_100008598(v13);
+      off_100008598(v12);
     }
+  }
+
+  if (v8)
+  {
+    CFRelease(v8);
   }
 
   if (v9)
@@ -18,12 +24,7 @@ void sub_100000C68(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
     CFRelease(v9);
   }
 
-  if (v10)
-  {
-    CFRelease(v10);
-  }
-
-  free(v13);
+  free(v12);
 }
 
 uint64_t start()

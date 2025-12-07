@@ -67,7 +67,7 @@
 - (void)registerWithIDSWithCompletionHandler:(id)handler
 {
   handlerCopy = handler;
-  v5 = sub_100004778();
+  v5 = sub_100004778(handlerCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     identifier = [(CSDConversationProvider *)self identifier];

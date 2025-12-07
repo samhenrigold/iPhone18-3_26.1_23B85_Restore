@@ -60,16 +60,21 @@
   shouldLog = [v3 shouldLog];
   if ([v3 shouldLogToDisk])
   {
-    v5 = shouldLog | 2;
+    LODWORD(v5) = shouldLog | 2;
   }
 
   else
   {
-    v5 = shouldLog;
+    LODWORD(v5) = shouldLog;
   }
 
   oSLogObject = [v3 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+  {
+    v5 = v5;
+  }
+
+  else
   {
     v5 &= 2u;
   }
@@ -78,51 +83,49 @@
   {
     v7 = objc_opt_class();
     bundleID = self->_bundleID;
-    v25 = 138412546;
-    v26 = v7;
-    v27 = 2112;
-    v28 = bundleID;
+    v24 = 138412546;
+    v25 = v7;
+    v26 = 2112;
+    v27 = bundleID;
     v9 = v7;
-    LODWORD(v21) = 22;
-    v20 = &v25;
-    v10 = _os_log_send_and_compose_impl();
+    v10 = _os_log_send_and_compose_impl(v5, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%@: Preparing to rescue application with bundleID: %@", &v24, 22);
 
     if (!v10)
     {
-      goto LABEL_12;
+      goto LABEL_13;
     }
 
-    oSLogObject = [NSString stringWithCString:v10 encoding:4, &v25, v21];
+    oSLogObject = [NSString stringWithCString:v10 encoding:4];
     free(v10);
     v20 = oSLogObject;
     SSFileLog();
   }
 
-LABEL_12:
+LABEL_13:
   v11 = self->_bundleID;
   if (v11)
   {
-    v24 = 0;
-    v12 = [(RescueAbandonedPlaceholderOperation *)self _fetchAppProxyForBundleID:v11 error:&v24];
-    v13 = v24;
+    v23 = 0;
+    v12 = [(RescueAbandonedPlaceholderOperation *)self _fetchAppProxyForBundleID:v11 error:&v23];
+    v13 = v23;
     v14 = 0;
     if (!v13)
     {
       if (v12)
       {
         v15 = self->_bundleID;
-        v23 = 0;
-        v16 = [(RescueAbandonedPlaceholderOperation *)self _canRescueInstallTypeForBundleID:v15 proxy:v12 error:&v23];
-        v13 = v23;
+        v22 = 0;
+        v16 = [(RescueAbandonedPlaceholderOperation *)self _canRescueInstallTypeForBundleID:v15 proxy:v12 error:&v22];
+        v13 = v22;
         v14 = 0;
         if (!v13)
         {
           if (v16)
           {
             v17 = self->_bundleID;
-            v22 = 0;
-            v14 = [(RescueAbandonedPlaceholderOperation *)self _attemptRescueForBundleID:v17 error:&v22];
-            v13 = v22;
+            v21 = 0;
+            v14 = [(RescueAbandonedPlaceholderOperation *)self _attemptRescueForBundleID:v17 error:&v21];
+            v13 = v21;
           }
         }
       }
@@ -159,16 +162,21 @@ LABEL_12:
   shouldLog = [v7 shouldLog];
   if ([v7 shouldLogToDisk])
   {
-    v9 = shouldLog | 2;
+    LODWORD(v9) = shouldLog | 2;
   }
 
   else
   {
-    v9 = shouldLog;
+    LODWORD(v9) = shouldLog;
   }
 
   oSLogObject = [v7 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+  {
+    v9 = v9;
+  }
+
+  else
   {
     v9 &= 2u;
   }
@@ -180,20 +188,19 @@ LABEL_12:
     v29 = 2112;
     v30 = dCopy;
     v11 = v28;
-    LODWORD(v25) = 22;
-    v12 = _os_log_send_and_compose_impl();
+    v12 = _os_log_send_and_compose_impl(v9, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%@: Attempting rescue restore for bundleID: %@", &v27, 22);
 
     if (!v12)
     {
-      goto LABEL_12;
+      goto LABEL_13;
     }
 
-    oSLogObject = [NSString stringWithCString:v12 encoding:4, &v27, v25];
+    oSLogObject = [NSString stringWithCString:v12 encoding:4];
     free(v12);
     SSFileLog();
   }
 
-LABEL_12:
+LABEL_13:
   v13 = [[NSArray alloc] initWithObjects:{dCopy, 0}];
   v14 = [[RestoreDemotedApplicationsOperation alloc] initWithBundleIdentifiers:v13 options:0];
   v26 = 0;
@@ -201,7 +208,7 @@ LABEL_12:
   v15 = v26;
   if (!v15)
   {
-    goto LABEL_25;
+    goto LABEL_27;
   }
 
   v16 = +[SSLogConfig sharedDaemonConfig];
@@ -213,23 +220,28 @@ LABEL_12:
   shouldLog2 = [v16 shouldLog];
   if ([v16 shouldLogToDisk])
   {
-    v18 = shouldLog2 | 2;
+    LODWORD(v18) = shouldLog2 | 2;
   }
 
   else
   {
-    v18 = shouldLog2;
+    LODWORD(v18) = shouldLog2;
   }
 
   oSLogObject2 = [v16 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEFAULT))
+  {
+    v18 = v18;
+  }
+
+  else
   {
     v18 &= 2u;
   }
 
   if (!v18)
   {
-    goto LABEL_23;
+    goto LABEL_25;
   }
 
   v20 = objc_opt_class();
@@ -241,17 +253,17 @@ LABEL_12:
   v32 = v15;
   v21 = v20;
   LODWORD(v25) = 32;
-  v22 = _os_log_send_and_compose_impl();
+  v22 = _os_log_send_and_compose_impl(v18, 0, 0, 0, &_mh_execute_header, oSLogObject2, 0, "%@: Rescue restore attempt for bundleID: %@ failed due to error: %@", &v27, v25);
 
   if (v22)
   {
-    oSLogObject2 = [NSString stringWithCString:v22 encoding:4, &v27, v25];
+    oSLogObject2 = [NSString stringWithCString:v22 encoding:4];
     free(v22);
     SSFileLog();
-LABEL_23:
+LABEL_25:
   }
 
-LABEL_25:
+LABEL_27:
   if (error)
   {
     v23 = v15;
@@ -265,9 +277,9 @@ LABEL_25:
 {
   dCopy = d;
   installType = [proxy installType];
-  if (installType != 2)
+  if (installType == 2)
   {
-    if (installType == 4)
+    if ([(RescueAbandonedPlaceholderOperation *)self _isRestoreRunning])
     {
       v10 = +[SSLogConfig sharedDaemonConfig];
       if (!v10)
@@ -278,42 +290,53 @@ LABEL_25:
       shouldLog = [v10 shouldLog];
       if ([v10 shouldLogToDisk])
       {
-        v12 = shouldLog | 2;
+        LODWORD(v17) = shouldLog | 2;
       }
 
       else
       {
-        v12 = shouldLog;
+        LODWORD(v17) = shouldLog;
       }
 
       oSLogObject = [v10 OSLogObject];
-      if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
       {
-        v12 &= 2u;
+        v17 = v17;
       }
 
-      if (!v12)
+      else
       {
-        goto LABEL_23;
+        v17 &= 2u;
       }
 
-      goto LABEL_21;
+      if (!v17)
+      {
+        goto LABEL_26;
+      }
+
+      *v22 = 138412546;
+      *&v22[4] = objc_opt_class();
+      *&v22[12] = 2112;
+      *&v22[14] = dCopy;
+      v14 = *&v22[4];
+      v15 = _os_log_send_and_compose_impl(v17, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%@: Restore in progress for bundleID: %@", v22, 22, *v22, *&v22[8]);
+      goto LABEL_24;
     }
 
-LABEL_27:
-    v18 = 0;
-    v19 = 1;
+LABEL_30:
+    v19 = 0;
+    v20 = 1;
     if (!error)
     {
-      goto LABEL_26;
+      goto LABEL_29;
     }
 
-    goto LABEL_25;
+    goto LABEL_28;
   }
 
-  if (![(RescueAbandonedPlaceholderOperation *)self _isRestoreRunning])
+  if (installType != 4)
   {
-    goto LABEL_27;
+    goto LABEL_30;
   }
 
   v10 = +[SSLogConfig sharedDaemonConfig];
@@ -325,57 +348,62 @@ LABEL_27:
   shouldLog2 = [v10 shouldLog];
   if ([v10 shouldLogToDisk])
   {
-    v15 = shouldLog2 | 2;
+    LODWORD(v12) = shouldLog2 | 2;
   }
 
   else
   {
-    v15 = shouldLog2;
+    LODWORD(v12) = shouldLog2;
   }
 
   oSLogObject = [v10 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
   {
-    v15 &= 2u;
+    v12 = v12;
   }
 
-  if (!v15)
+  else
   {
-    goto LABEL_23;
+    v12 &= 2u;
   }
 
-LABEL_21:
+  if (!v12)
+  {
+    goto LABEL_26;
+  }
+
   *v22 = 138412546;
   *&v22[4] = objc_opt_class();
   *&v22[12] = 2112;
   *&v22[14] = dCopy;
-  v16 = *&v22[4];
-  LODWORD(v21) = 22;
-  v17 = _os_log_send_and_compose_impl();
-
-  if (!v17)
-  {
-    goto LABEL_24;
-  }
-
-  oSLogObject = [NSString stringWithCString:v17 encoding:4, v22, v21, *v22, *&v22[16]];
-  free(v17);
-  SSFileLog();
-LABEL_23:
-
+  v14 = *&v22[4];
+  v15 = _os_log_send_and_compose_impl(v12, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%@: iTunes sync in progress for bundleID: %@", v22, 22, *v22, *&v22[8]);
 LABEL_24:
-  v18 = SSError();
-  v19 = 0;
-  if (error)
+  v18 = v15;
+
+  if (!v18)
   {
-LABEL_25:
-    v18 = v18;
-    *error = v18;
+    goto LABEL_27;
   }
 
+  oSLogObject = [NSString stringWithCString:v18 encoding:4];
+  free(v18);
+  SSFileLog();
 LABEL_26:
 
-  return v19;
+LABEL_27:
+  v19 = SSError();
+  v20 = 0;
+  if (error)
+  {
+LABEL_28:
+    v19 = v19;
+    *error = v19;
+  }
+
+LABEL_29:
+
+  return v20;
 }
 
 - (id)_fetchAppProxyForBundleID:(id)d error:(id *)error
@@ -393,44 +421,48 @@ LABEL_26:
     shouldLog = [v9 shouldLog];
     if ([v9 shouldLogToDisk])
     {
-      v11 = shouldLog | 2;
+      LODWORD(v11) = shouldLog | 2;
     }
 
     else
     {
-      v11 = shouldLog;
+      LODWORD(v11) = shouldLog;
     }
 
     oSLogObject = [v9 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    {
+      v11 = v11;
+    }
+
+    else
     {
       v11 &= 2u;
     }
 
     if (v11)
     {
-      *v24 = 138412546;
-      *&v24[4] = objc_opt_class();
-      *&v24[12] = 2112;
-      *&v24[14] = dCopy;
-      v13 = *&v24[4];
-      LODWORD(v23) = 22;
-      v14 = _os_log_send_and_compose_impl();
+      v23 = 138412546;
+      v24 = objc_opt_class();
+      v25 = 2112;
+      v26 = dCopy;
+      v13 = v24;
+      v14 = _os_log_send_and_compose_impl(v11, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%@: Cannot find application with bundleID: %@", &v23, 22);
 
       if (!v14)
       {
-LABEL_17:
+LABEL_18:
 
         v8 = SSError();
-        goto LABEL_30;
+        goto LABEL_32;
       }
 
-      oSLogObject = [NSString stringWithCString:v14 encoding:4, v24, v23, *v24, *&v24[16]];
+      oSLogObject = [NSString stringWithCString:v14 encoding:4];
       free(v14);
       SSFileLog();
     }
 
-    goto LABEL_17;
+    goto LABEL_18;
   }
 
   v7 = v6;
@@ -445,63 +477,67 @@ LABEL_17:
     shouldLog2 = [v15 shouldLog];
     if ([v15 shouldLogToDisk])
     {
-      v17 = shouldLog2 | 2;
+      LODWORD(v17) = shouldLog2 | 2;
     }
 
     else
     {
-      v17 = shouldLog2;
+      LODWORD(v17) = shouldLog2;
     }
 
     oSLogObject2 = [v15 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEFAULT))
+    {
+      v17 = v17;
+    }
+
+    else
     {
       v17 &= 2u;
     }
 
     if (v17)
     {
-      *v24 = 138412546;
-      *&v24[4] = objc_opt_class();
-      *&v24[12] = 2112;
-      *&v24[14] = dCopy;
-      v19 = *&v24[4];
-      LODWORD(v23) = 22;
-      v20 = _os_log_send_and_compose_impl();
+      v23 = 138412546;
+      v24 = objc_opt_class();
+      v25 = 2112;
+      v26 = dCopy;
+      v19 = v24;
+      v20 = _os_log_send_and_compose_impl(v17, 0, 0, 0, &_mh_execute_header, oSLogObject2, 0, "%@: Application does not need rescue, bundleID: %@ is already installed!", &v23, 22);
 
       if (!v20)
       {
-LABEL_29:
+LABEL_31:
 
         v8 = SSError();
 
-LABEL_30:
+LABEL_32:
         v7 = 0;
         if (!error)
         {
-          goto LABEL_32;
+          goto LABEL_34;
         }
 
-        goto LABEL_31;
+        goto LABEL_33;
       }
 
-      oSLogObject2 = [NSString stringWithCString:v20 encoding:4, v24, v23, *v24, *&v24[8]];
+      oSLogObject2 = [NSString stringWithCString:v20 encoding:4];
       free(v20);
       SSFileLog();
     }
 
-    goto LABEL_29;
+    goto LABEL_31;
   }
 
   v8 = 0;
   if (error)
   {
-LABEL_31:
+LABEL_33:
     v21 = v8;
     *error = v8;
   }
 
-LABEL_32:
+LABEL_34:
 
   return v7;
 }

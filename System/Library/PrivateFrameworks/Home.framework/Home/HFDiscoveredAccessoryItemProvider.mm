@@ -108,7 +108,7 @@ HFDiscoveredAccessory *__48__HFDiscoveredAccessoryItemProvider_reloadItems__bloc
 
 HFDiscoveredAccessory *__48__HFDiscoveredAccessoryItemProvider_reloadItems__block_invoke_3(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = [v2 deviceActionType];
   v4 = v3 == 33 || v3 == 11;
@@ -122,15 +122,13 @@ HFDiscoveredAccessory *__48__HFDiscoveredAccessoryItemProvider_reloadItems__bloc
     v6 = HFLogForCategory(0x3FuLL);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = 138412290;
-      v10 = v2;
-      _os_log_impl(&dword_20D9BF000, v6, OS_LOG_TYPE_DEFAULT, "Not showing SFDevice because it doesn't have the right type, or it doesn't need setup: %@", &v9, 0xCu);
+      v8 = 138412290;
+      v9 = v2;
+      _os_log_impl(&dword_20D9BF000, v6, OS_LOG_TYPE_DEFAULT, "Not showing SFDevice because it doesn't have the right type, or it doesn't need setup: %@", &v8, 0xCu);
     }
 
     v5 = 0;
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v5;
 }

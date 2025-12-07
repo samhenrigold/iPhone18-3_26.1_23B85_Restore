@@ -297,74 +297,48 @@
 
 - (id)descriptionWithLevel:(int)level
 {
-  v78 = [objc_opt_class() description];
-  NSAppendPrintF_safe();
-  v5 = 0;
+  v113 = 0;
+  v5 = [objc_opt_class() description];
+  NSAppendPrintF_safe(&v113, "%@", v5);
+  v6 = v113;
 
   amplification = self->_amplification;
   if (amplification)
   {
-    v78 = amplification;
-    NSAppendPrintF_safe();
-    v7 = v5;
+    v112 = v6;
+    v8 = amplification;
+    NSAppendPrintF_safe(&v112, ", Amp %@", v8);
+    v9 = v112;
 
-    v5 = v7;
+    v6 = v9;
   }
 
   balance = self->_balance;
   if (balance)
   {
-    v78 = balance;
-    NSAppendPrintF_safe();
-    v9 = v5;
+    v111 = v6;
+    v11 = balance;
+    NSAppendPrintF_safe(&v111, ", Bal %@", v11);
+    v12 = v111;
 
-    v5 = v9;
+    v6 = v12;
   }
 
   beamFormer = self->_beamFormer;
   if (beamFormer)
   {
-    v78 = beamFormer;
-    NSAppendPrintF_safe();
-    v11 = v5;
+    v110 = v6;
+    v14 = beamFormer;
+    NSAppendPrintF_safe(&v110, ", BmFm %@", v14);
+    v15 = v110;
 
-    v5 = v11;
+    v6 = v15;
   }
 
   enableHearingAid = self->_enableHearingAid;
   if (self->_enableHearingAid)
   {
     if (enableHearingAid == 1)
-    {
-      v13 = "Yes";
-    }
-
-    else
-    {
-      v13 = "?";
-    }
-
-    if (enableHearingAid == 2)
-    {
-      v14 = "No";
-    }
-
-    else
-    {
-      v14 = v13;
-    }
-
-    v78 = v14;
-    NSAppendPrintF_safe();
-    v15 = v5;
-
-    v5 = v15;
-  }
-
-  enableHearingAssist = self->_enableHearingAssist;
-  if (self->_enableHearingAssist)
-  {
-    if (enableHearingAssist == 1)
     {
       v17 = "Yes";
     }
@@ -374,7 +348,7 @@
       v17 = "?";
     }
 
-    if (enableHearingAssist == 2)
+    if (enableHearingAid == 2)
     {
       v18 = "No";
     }
@@ -384,17 +358,17 @@
       v18 = v17;
     }
 
-    v78 = v18;
-    NSAppendPrintF_safe();
-    v19 = v5;
+    v109 = v6;
+    NSAppendPrintF_safe(&v109, ", En Hr Aid %s", v18);
+    v19 = v109;
 
-    v5 = v19;
+    v6 = v19;
   }
 
-  enableHearingProtection = self->_enableHearingProtection;
-  if (self->_enableHearingProtection)
+  enableHearingAssist = self->_enableHearingAssist;
+  if (self->_enableHearingAssist)
   {
-    if (enableHearingProtection == 1)
+    if (enableHearingAssist == 1)
     {
       v21 = "Yes";
     }
@@ -404,7 +378,7 @@
       v21 = "?";
     }
 
-    if (enableHearingProtection == 2)
+    if (enableHearingAssist == 2)
     {
       v22 = "No";
     }
@@ -414,17 +388,17 @@
       v22 = v21;
     }
 
-    v78 = v22;
-    NSAppendPrintF_safe();
-    v23 = v5;
+    v108 = v6;
+    NSAppendPrintF_safe(&v108, ", En HA %s", v22);
+    v23 = v108;
 
-    v5 = v23;
+    v6 = v23;
   }
 
-  enableHearingProtectionPPE = self->_enableHearingProtectionPPE;
-  if (self->_enableHearingProtectionPPE)
+  enableHearingProtection = self->_enableHearingProtection;
+  if (self->_enableHearingProtection)
   {
-    if (enableHearingProtectionPPE == 1)
+    if (enableHearingProtection == 1)
     {
       v25 = "Yes";
     }
@@ -434,7 +408,7 @@
       v25 = "?";
     }
 
-    if (enableHearingProtectionPPE == 2)
+    if (enableHearingProtection == 2)
     {
       v26 = "No";
     }
@@ -444,17 +418,17 @@
       v26 = v25;
     }
 
-    v78 = v26;
-    NSAppendPrintF_safe();
-    v27 = v5;
+    v107 = v6;
+    NSAppendPrintF_safe(&v107, ", En HP %s", v26);
+    v27 = v107;
 
-    v5 = v27;
+    v6 = v27;
   }
 
-  enableMediaAssist = self->_enableMediaAssist;
-  if (self->_enableMediaAssist)
+  enableHearingProtectionPPE = self->_enableHearingProtectionPPE;
+  if (self->_enableHearingProtectionPPE)
   {
-    if (enableMediaAssist == 1)
+    if (enableHearingProtectionPPE == 1)
     {
       v29 = "Yes";
     }
@@ -464,7 +438,7 @@
       v29 = "?";
     }
 
-    if (enableMediaAssist == 2)
+    if (enableHearingProtectionPPE == 2)
     {
       v30 = "No";
     }
@@ -474,17 +448,17 @@
       v30 = v29;
     }
 
-    v78 = v30;
-    NSAppendPrintF_safe();
-    v31 = v5;
+    v106 = v6;
+    NSAppendPrintF_safe(&v106, ", En HPPPE %s", v30);
+    v31 = v106;
 
-    v5 = v31;
+    v6 = v31;
   }
 
-  enablePMEMedia = self->_enablePMEMedia;
-  if (self->_enablePMEMedia)
+  enableMediaAssist = self->_enableMediaAssist;
+  if (self->_enableMediaAssist)
   {
-    if (enablePMEMedia == 1)
+    if (enableMediaAssist == 1)
     {
       v33 = "Yes";
     }
@@ -494,7 +468,7 @@
       v33 = "?";
     }
 
-    if (enablePMEMedia == 2)
+    if (enableMediaAssist == 2)
     {
       v34 = "No";
     }
@@ -504,17 +478,17 @@
       v34 = v33;
     }
 
-    v78 = v34;
-    NSAppendPrintF_safe();
-    v35 = v5;
+    v105 = v6;
+    NSAppendPrintF_safe(&v105, ", En MA %s", v34);
+    v35 = v105;
 
-    v5 = v35;
+    v6 = v35;
   }
 
-  enablePMEVoice = self->_enablePMEVoice;
-  if (self->_enablePMEVoice)
+  enablePMEMedia = self->_enablePMEMedia;
+  if (self->_enablePMEMedia)
   {
-    if (enablePMEVoice == 1)
+    if (enablePMEMedia == 1)
     {
       v37 = "Yes";
     }
@@ -524,7 +498,7 @@
       v37 = "?";
     }
 
-    if (enablePMEVoice == 2)
+    if (enablePMEMedia == 2)
     {
       v38 = "No";
     }
@@ -534,17 +508,17 @@
       v38 = v37;
     }
 
-    v78 = v38;
-    NSAppendPrintF_safe();
-    v39 = v5;
+    v104 = v6;
+    NSAppendPrintF_safe(&v104, ", En PME Media %s", v38);
+    v39 = v104;
 
-    v5 = v39;
+    v6 = v39;
   }
 
-  enableSwipeGain = self->_enableSwipeGain;
-  if (self->_enableSwipeGain)
+  enablePMEVoice = self->_enablePMEVoice;
+  if (self->_enablePMEVoice)
   {
-    if (enableSwipeGain == 1)
+    if (enablePMEVoice == 1)
     {
       v41 = "Yes";
     }
@@ -554,7 +528,7 @@
       v41 = "?";
     }
 
-    if (enableSwipeGain == 2)
+    if (enablePMEVoice == 2)
     {
       v42 = "No";
     }
@@ -564,17 +538,17 @@
       v42 = v41;
     }
 
-    v78 = v42;
-    NSAppendPrintF_safe();
-    v43 = v5;
+    v103 = v6;
+    NSAppendPrintF_safe(&v103, ", En PME Voice %s", v42);
+    v43 = v103;
 
-    v5 = v43;
+    v6 = v43;
   }
 
-  enrollHearingAssist = self->_enrollHearingAssist;
-  if (self->_enrollHearingAssist)
+  enableSwipeGain = self->_enableSwipeGain;
+  if (self->_enableSwipeGain)
   {
-    if (enrollHearingAssist == 1)
+    if (enableSwipeGain == 1)
     {
       v45 = "Yes";
     }
@@ -584,7 +558,7 @@
       v45 = "?";
     }
 
-    if (enrollHearingAssist == 2)
+    if (enableSwipeGain == 2)
     {
       v46 = "No";
     }
@@ -594,17 +568,17 @@
       v46 = v45;
     }
 
-    v78 = v46;
-    NSAppendPrintF_safe();
-    v47 = v5;
+    v102 = v6;
+    NSAppendPrintF_safe(&v102, ", En Swp Gn %s", v46);
+    v47 = v102;
 
-    v5 = v47;
+    v6 = v47;
   }
 
-  enrollPMEVoice = self->_enrollPMEVoice;
-  if (self->_enrollPMEVoice)
+  enrollHearingAssist = self->_enrollHearingAssist;
+  if (self->_enrollHearingAssist)
   {
-    if (enrollPMEVoice == 1)
+    if (enrollHearingAssist == 1)
     {
       v49 = "Yes";
     }
@@ -614,7 +588,7 @@
       v49 = "?";
     }
 
-    if (enrollPMEVoice == 2)
+    if (enrollHearingAssist == 2)
     {
       v50 = "No";
     }
@@ -624,17 +598,17 @@
       v50 = v49;
     }
 
-    v78 = v50;
-    NSAppendPrintF_safe();
-    v51 = v5;
+    v101 = v6;
+    NSAppendPrintF_safe(&v101, ", Enroll HA %s", v50);
+    v51 = v101;
 
-    v5 = v51;
+    v6 = v51;
   }
 
-  allowListeningModeOff = self->_allowListeningModeOff;
-  if (self->_allowListeningModeOff)
+  enrollPMEVoice = self->_enrollPMEVoice;
+  if (self->_enrollPMEVoice)
   {
-    if (allowListeningModeOff == 1)
+    if (enrollPMEVoice == 1)
     {
       v53 = "Yes";
     }
@@ -644,7 +618,7 @@
       v53 = "?";
     }
 
-    if (allowListeningModeOff == 2)
+    if (enrollPMEVoice == 2)
     {
       v54 = "No";
     }
@@ -654,106 +628,145 @@
       v54 = v53;
     }
 
-    v78 = v54;
-    NSAppendPrintF_safe();
-    v55 = v5;
+    v100 = v6;
+    NSAppendPrintF_safe(&v100, ", Enroll PME Voice %s", v54);
+    v55 = v100;
 
-    v5 = v55;
+    v6 = v55;
+  }
+
+  allowListeningModeOff = self->_allowListeningModeOff;
+  if (self->_allowListeningModeOff)
+  {
+    if (allowListeningModeOff == 1)
+    {
+      v57 = "Yes";
+    }
+
+    else
+    {
+      v57 = "?";
+    }
+
+    if (allowListeningModeOff == 2)
+    {
+      v58 = "No";
+    }
+
+    else
+    {
+      v58 = v57;
+    }
+
+    v99 = v6;
+    NSAppendPrintF_safe(&v99, ", LsMd Off %s", v58);
+    v59 = v99;
+
+    v6 = v59;
   }
 
   mediaLossArrayLeft = self->_mediaLossArrayLeft;
   if (mediaLossArrayLeft)
   {
-    v57 = mediaLossArrayLeft;
-    firstObject = [(NSArray *)v57 firstObject];
-    NSAppendPrintF_safe();
-    v58 = v5;
+    v98 = v6;
+    v61 = mediaLossArrayLeft;
+    firstObject = [(NSArray *)v61 firstObject];
+    NSAppendPrintF_safe(&v98, ", Media Loss Left loss_01_dbHL %@", firstObject);
+    v63 = v98;
 
-    v5 = v58;
+    v6 = v63;
   }
 
   mediaLossArrayRight = self->_mediaLossArrayRight;
   if (mediaLossArrayRight)
   {
-    v60 = mediaLossArrayRight;
-    firstObject2 = [(NSArray *)v60 firstObject];
-    NSAppendPrintF_safe();
-    v61 = v5;
+    v97 = v6;
+    v65 = mediaLossArrayRight;
+    firstObject2 = [(NSArray *)v65 firstObject];
+    NSAppendPrintF_safe(&v97, ", Media Loss Right loss_01_dbHL %@", firstObject2);
+    v67 = v97;
 
-    v5 = v61;
+    v6 = v67;
   }
 
   noiseSuppression = self->_noiseSuppression;
   if (noiseSuppression)
   {
-    v81 = noiseSuppression;
-    NSAppendPrintF_safe();
-    v63 = v5;
+    v96 = v6;
+    v69 = noiseSuppression;
+    NSAppendPrintF_safe(&v96, ", Noise Sup %@", v69);
+    v70 = v96;
 
-    v5 = v63;
+    v6 = v70;
   }
 
   ownVoiceLevelGain = self->_ownVoiceLevelGain;
   if (ownVoiceLevelGain)
   {
-    v82 = ownVoiceLevelGain;
-    NSAppendPrintF_safe();
-    v65 = v5;
+    v95 = v6;
+    v72 = ownVoiceLevelGain;
+    NSAppendPrintF_safe(&v95, ", Own Vc LG %@", v72);
+    v73 = v95;
 
-    v5 = v65;
+    v6 = v73;
   }
 
   selectedAudiogram = self->_selectedAudiogram;
   if (selectedAudiogram)
   {
-    v83 = selectedAudiogram;
-    NSAppendPrintF_safe();
-    v67 = v5;
+    v94 = v6;
+    v75 = selectedAudiogram;
+    NSAppendPrintF_safe(&v94, ", Selected Audiogram %@", v75);
+    v76 = v94;
 
-    v5 = v67;
+    v6 = v76;
   }
 
   tone = self->_tone;
   if (tone)
   {
-    v84 = tone;
-    NSAppendPrintF_safe();
-    v69 = v5;
+    v93 = v6;
+    v78 = tone;
+    NSAppendPrintF_safe(&v93, ", Tone %@", v78);
+    v79 = v93;
 
-    v5 = v69;
+    v6 = v79;
   }
 
   voiceLossArrayLeft = self->_voiceLossArrayLeft;
   if (voiceLossArrayLeft)
   {
-    v71 = voiceLossArrayLeft;
-    firstObject3 = [(NSArray *)v71 firstObject];
-    NSAppendPrintF_safe();
-    v72 = v5;
+    v92 = v6;
+    v81 = voiceLossArrayLeft;
+    firstObject3 = [(NSArray *)v81 firstObject];
+    NSAppendPrintF_safe(&v92, ", Voice Loss Left loss_01_dbHL %@", firstObject3);
+    v83 = v92;
 
-    v5 = v72;
+    v6 = v83;
   }
 
   voiceLossArrayRight = self->_voiceLossArrayRight;
   if (voiceLossArrayRight)
   {
-    v74 = voiceLossArrayRight;
-    firstObject4 = [(NSArray *)v74 firstObject];
-    NSAppendPrintF_safe();
-    v75 = v5;
+    v91 = v6;
+    v85 = voiceLossArrayRight;
+    firstObject4 = [(NSArray *)v85 firstObject];
+    NSAppendPrintF_safe(&v91, ", Voice Loss Right loss_01_dbHL %@", firstObject4);
+    v87 = v91;
 
-    v5 = v75;
+    v6 = v87;
   }
 
   if (level < 21)
   {
-    NSAppendPrintF_safe();
-    v76 = v5;
+    v90 = v6;
+    NSAppendPrintF_safe(&v90, "\n");
+    v88 = v90;
 
-    v5 = v76;
+    v6 = v88;
   }
 
-  return v5;
+  return v6;
 }
 
 - (BOOL)needsUpdateToAHPSConnectionManagerForDevice:(id)device
@@ -1100,9 +1113,12 @@ LABEL_5:
     {
     }
 
-    if (gLogCategory_HMDeviceConfigurations <= 30 && (gLogCategory_HMDeviceConfigurations != -1 || _LogCategory_Initialize()))
+    if (gLogCategory_HMDeviceConfigurations <= 30)
     {
-      [HMDeviceConfigurations needsUpdateToPMEConfigurationForDevice:];
+      if (gLogCategory_HMDeviceConfigurations != -1 || (v16 = _LogCategory_Initialize(), v16))
+      {
+        [(HMDeviceConfigurations *)v16 needsUpdateToPMEConfigurationForDevice:v17, v18];
+      }
     }
 
     v6 = 1;
@@ -1116,20 +1132,20 @@ LABEL_37:
   }
 
   pmeMediaLossDataRight = [deviceCopy pmeMediaLossDataRight];
-  v18 = mediaLossDataRight;
-  v19 = pmeMediaLossDataRight;
-  v20 = v19;
-  if (v18 == v19)
+  v21 = mediaLossDataRight;
+  v22 = pmeMediaLossDataRight;
+  v23 = v22;
+  if (v21 == v22)
   {
 
     goto LABEL_48;
   }
 
-  if (v19)
+  if (v22)
   {
-    v21 = [(NSData *)v18 isEqual:v19];
+    v24 = [(NSData *)v21 isEqual:v22];
 
-    if (v21)
+    if (v24)
     {
       goto LABEL_48;
     }
@@ -1139,9 +1155,12 @@ LABEL_37:
   {
   }
 
-  if (gLogCategory_HMDeviceConfigurations <= 30 && (gLogCategory_HMDeviceConfigurations != -1 || _LogCategory_Initialize()))
+  if (gLogCategory_HMDeviceConfigurations <= 30)
   {
-    [HMDeviceConfigurations needsUpdateToPMEConfigurationForDevice:];
+    if (gLogCategory_HMDeviceConfigurations != -1 || (v25 = _LogCategory_Initialize(), v25))
+    {
+      [(HMDeviceConfigurations *)v25 needsUpdateToPMEConfigurationForDevice:v26, v27];
+    }
   }
 
   v6 = 1;
@@ -1153,20 +1172,20 @@ LABEL_48:
   }
 
   pmeVoiceLossDataLeft = [deviceCopy pmeVoiceLossDataLeft];
-  v24 = voiceLossDataLeft;
-  v25 = pmeVoiceLossDataLeft;
-  v26 = v25;
-  if (v24 == v25)
+  v30 = voiceLossDataLeft;
+  v31 = pmeVoiceLossDataLeft;
+  v32 = v31;
+  if (v30 == v31)
   {
 
     goto LABEL_59;
   }
 
-  if (v25)
+  if (v31)
   {
-    v27 = [(NSData *)v24 isEqual:v25];
+    v33 = [(NSData *)v30 isEqual:v31];
 
-    if (v27)
+    if (v33)
     {
       goto LABEL_59;
     }
@@ -1176,9 +1195,12 @@ LABEL_48:
   {
   }
 
-  if (gLogCategory_HMDeviceConfigurations <= 30 && (gLogCategory_HMDeviceConfigurations != -1 || _LogCategory_Initialize()))
+  if (gLogCategory_HMDeviceConfigurations <= 30)
   {
-    [HMDeviceConfigurations needsUpdateToPMEConfigurationForDevice:];
+    if (gLogCategory_HMDeviceConfigurations != -1 || (v34 = _LogCategory_Initialize(), v34))
+    {
+      [(HMDeviceConfigurations *)v34 needsUpdateToPMEConfigurationForDevice:v35, v36];
+    }
   }
 
   v6 = 1;
@@ -1187,20 +1209,20 @@ LABEL_59:
   if (voiceLossDataRight)
   {
     pmeVoiceLossDataRight = [deviceCopy pmeVoiceLossDataRight];
-    v30 = voiceLossDataRight;
-    v31 = pmeVoiceLossDataRight;
-    v32 = v31;
-    if (v30 == v31)
+    v39 = voiceLossDataRight;
+    v40 = pmeVoiceLossDataRight;
+    v41 = v40;
+    if (v39 == v40)
     {
     }
 
     else
     {
-      if (v31)
+      if (v40)
       {
-        v33 = [(NSData *)v30 isEqual:v31];
+        v42 = [(NSData *)v39 isEqual:v40];
 
-        if (v33)
+        if (v42)
         {
           goto LABEL_70;
         }
@@ -1210,9 +1232,12 @@ LABEL_59:
       {
       }
 
-      if (gLogCategory_HMDeviceConfigurations <= 30 && (gLogCategory_HMDeviceConfigurations != -1 || _LogCategory_Initialize()))
+      if (gLogCategory_HMDeviceConfigurations <= 30)
       {
-        [HMDeviceConfigurations needsUpdateToPMEConfigurationForDevice:];
+        if (gLogCategory_HMDeviceConfigurations != -1 || (v43 = _LogCategory_Initialize(), v43))
+        {
+          [(HMDeviceConfigurations *)v43 needsUpdateToPMEConfigurationForDevice:v44, v45];
+        }
       }
 
       v6 = 1;
@@ -1271,7 +1296,7 @@ LABEL_70:
 LABEL_21:
         if (gLogCategory_HMDeviceConfigurations <= 30 && (gLogCategory_HMDeviceConfigurations != -1 || _LogCategory_Initialize()))
         {
-          [HMDeviceConfigurations restoreConfigsFromCloudRecordIfNeeded:];
+          [HMDeviceConfigurations restoreConfigsFromCloudRecordIfNeeded:?];
         }
 
         LOBYTE(v6) = 1;
@@ -1427,7 +1452,7 @@ LABEL_13:
   *&v11 = v18;
   if (v18 <= 0.5)
   {
-    [HMDeviceConfigurations updateVolumeIOS:completionCopy completion:&v18];
+    [(HMDeviceConfigurations *)completionCopy updateVolumeIOS:v18 completion:?];
     goto LABEL_14;
   }
 
@@ -1487,7 +1512,7 @@ uint64_t __53__HMDeviceConfigurations_updateVolumeIOS_completion___block_invoke(
   [a1 amplification];
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_1_0();
-  LogPrintF();
+  LogPrintF(&gLogCategory_HMDeviceConfigurations, "[HMDeviceConfigurations needsUpdateToAHPSConnectionManagerForDevice:]", 30, "changing amplification %@ --> %@");
 }
 
 - (void)needsUpdateToAHPSConnectionManagerForDevice:(void *)a1 .cold.2(void *a1)
@@ -1495,7 +1520,7 @@ uint64_t __53__HMDeviceConfigurations_updateVolumeIOS_completion___block_invoke(
   [a1 balance];
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_1_0();
-  LogPrintF();
+  LogPrintF(&gLogCategory_HMDeviceConfigurations, "[HMDeviceConfigurations needsUpdateToAHPSConnectionManagerForDevice:]", 30, "changing balance %@ --> %@");
 }
 
 - (void)needsUpdateToAHPSConnectionManagerForDevice:(void *)a1 .cold.3(void *a1)
@@ -1503,7 +1528,7 @@ uint64_t __53__HMDeviceConfigurations_updateVolumeIOS_completion___block_invoke(
   [a1 beamFormer];
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_1_0();
-  LogPrintF();
+  LogPrintF(&gLogCategory_HMDeviceConfigurations, "[HMDeviceConfigurations needsUpdateToAHPSConnectionManagerForDevice:]", 30, "changing beam former %@ --> %@");
 }
 
 - (void)needsUpdateToAHPSConnectionManagerForDevice:(void *)a1 .cold.4(void *a1)
@@ -1511,7 +1536,7 @@ uint64_t __53__HMDeviceConfigurations_updateVolumeIOS_completion___block_invoke(
   [a1 noiseSuppression];
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_1_0();
-  LogPrintF();
+  LogPrintF(&gLogCategory_HMDeviceConfigurations, "[HMDeviceConfigurations needsUpdateToAHPSConnectionManagerForDevice:]", 30, "changing noise suppression %@ --> %@");
 }
 
 - (void)needsUpdateToAHPSConnectionManagerForDevice:(void *)a1 .cold.5(void *a1)
@@ -1519,7 +1544,7 @@ uint64_t __53__HMDeviceConfigurations_updateVolumeIOS_completion___block_invoke(
   [a1 ownVoiceLevelGain];
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_1_0();
-  LogPrintF();
+  LogPrintF(&gLogCategory_HMDeviceConfigurations, "[HMDeviceConfigurations needsUpdateToAHPSConnectionManagerForDevice:]", 30, "changing ownVoiceLevelGain %@ --> %@");
 }
 
 - (void)needsUpdateToAHPSConnectionManagerForDevice:(void *)a1 .cold.6(void *a1)
@@ -1527,211 +1552,211 @@ uint64_t __53__HMDeviceConfigurations_updateVolumeIOS_completion___block_invoke(
   [a1 tone];
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_1_0();
-  LogPrintF();
+  LogPrintF(&gLogCategory_HMDeviceConfigurations, "[HMDeviceConfigurations needsUpdateToAHPSConnectionManagerForDevice:]", 30, "changing tone %@ --> %@");
 }
 
 - (uint64_t)needsUpdateToDeviceManagerForDevice:(void *)a1 .cold.1(void *a1)
 {
-  v1 = [a1 listeningModeOffAllowed];
-  if (v1 <= 2)
-  {
-    v2 = off_2796EE718[v1];
-  }
-
+  [a1 listeningModeOffAllowed];
   OUTLINED_FUNCTION_2();
-  if (!(!v6 & v5))
+  if (!v5 & v4)
   {
-    v7 = *(v3 + 8 * v4);
+    v6 = "?";
   }
 
-  return LogPrintF();
+  else
+  {
+    v6 = *(v2 + 8 * v3);
+  }
+
+  return LogPrintF(&gLogCategory_HMDeviceConfigurations, "[HMDeviceConfigurations needsUpdateToDeviceManagerForDevice:]", 30, "changing allow OFF listening mode %s --> %s", v1, v6);
 }
 
 - (uint64_t)needsUpdateToDeviceManagerForDevice:(void *)a1 .cold.2(void *a1)
 {
-  v1 = [a1 hearingAssistEnrolled];
-  if (v1 <= 2)
-  {
-    v2 = off_2796EE718[v1];
-  }
-
+  [a1 hearingAssistEnrolled];
   OUTLINED_FUNCTION_2();
-  if (!(!v6 & v5))
+  if (!v5 & v4)
   {
-    v7 = *(v3 + 8 * v4);
+    v6 = "?";
   }
 
-  return LogPrintF();
+  else
+  {
+    v6 = *(v2 + 8 * v3);
+  }
+
+  return LogPrintF(&gLogCategory_HMDeviceConfigurations, "[HMDeviceConfigurations needsUpdateToDeviceManagerForDevice:]", 30, "changing HearingAssist enroll %s --> %s", v1, v6);
 }
 
 - (uint64_t)needsUpdateToDeviceManagerForDevice:(void *)a1 .cold.3(void *a1)
 {
-  v1 = [a1 hearingAidEnabled];
-  if (v1 <= 2)
-  {
-    v2 = off_2796EE718[v1];
-  }
-
+  [a1 hearingAidEnabled];
   OUTLINED_FUNCTION_2();
-  if (!(!v6 & v5))
+  if (!v5 & v4)
   {
-    v7 = *(v3 + 8 * v4);
+    v6 = "?";
   }
 
-  return LogPrintF();
+  else
+  {
+    v6 = *(v2 + 8 * v3);
+  }
+
+  return LogPrintF(&gLogCategory_HMDeviceConfigurations, "[HMDeviceConfigurations needsUpdateToDeviceManagerForDevice:]", 30, "changing HearingAid enable %s --> %s", v1, v6);
 }
 
 - (uint64_t)needsUpdateToDeviceManagerForDevice:(void *)a1 .cold.4(void *a1)
 {
-  v1 = [a1 swipeGainEnabled];
-  if (v1 <= 2)
-  {
-    v2 = off_2796EE718[v1];
-  }
-
+  [a1 swipeGainEnabled];
   OUTLINED_FUNCTION_2();
-  if (!(!v6 & v5))
+  if (!v5 & v4)
   {
-    v7 = *(v3 + 8 * v4);
+    v6 = "?";
   }
 
-  return LogPrintF();
+  else
+  {
+    v6 = *(v2 + 8 * v3);
+  }
+
+  return LogPrintF(&gLogCategory_HMDeviceConfigurations, "[HMDeviceConfigurations needsUpdateToDeviceManagerForDevice:]", 30, "changing Swipe Gain enable %s --> %s", v1, v6);
 }
 
 - (void)needsUpdateToDeviceManagerForDevice:(void *)a1 .cold.5(void *a1, id *a2)
 {
   v4 = [a1 audiogramEnrolledTimestamp];
   v3 = [*a2 startDate];
-  LogPrintF();
+  LogPrintF(&gLogCategory_HMDeviceConfigurations, "[HMDeviceConfigurations needsUpdateToDeviceManagerForDevice:]", 30, "changing audiogram enrolled time %@ --> %@", v4, v3);
 }
 
 - (uint64_t)needsUpdateToDeviceManagerForDevice:(void *)a1 .cold.6(void *a1)
 {
-  v1 = [a1 hearingProtectionPPEEnabled];
-  if (v1 <= 2)
-  {
-    v2 = off_2796EE718[v1];
-  }
-
+  [a1 hearingProtectionPPEEnabled];
   OUTLINED_FUNCTION_2();
-  if (!(!v6 & v5))
+  if (!v5 & v4)
   {
-    v7 = *(v3 + 8 * v4);
+    v6 = "?";
   }
 
-  return LogPrintF();
+  else
+  {
+    v6 = *(v2 + 8 * v3);
+  }
+
+  return LogPrintF(&gLogCategory_HMDeviceConfigurations, "[HMDeviceConfigurations needsUpdateToDeviceManagerForDevice:]", 30, "changing enable Hearing Protection PPE mode %s --> %s", v1, v6);
 }
 
 - (uint64_t)needsUpdateToPMEConfigurationForDevice:(void *)a1 .cold.1(void *a1)
 {
-  v1 = [a1 mediaAssistEnabled];
-  if (v1 <= 2)
-  {
-    v2 = off_2796EE718[v1];
-  }
-
+  [a1 mediaAssistEnabled];
   OUTLINED_FUNCTION_2();
-  if (!(!v6 & v5))
+  if (!v5 & v4)
   {
-    v7 = *(v3 + 8 * v4);
+    v6 = "?";
   }
 
-  return LogPrintF();
+  else
+  {
+    v6 = *(v2 + 8 * v3);
+  }
+
+  return LogPrintF(&gLogCategory_HMDeviceConfigurations, "[HMDeviceConfigurations needsUpdateToPMEConfigurationForDevice:]", 30, "changing MediaAssist enable %s --> %s", v1, v6);
 }
 
 - (uint64_t)needsUpdateToPMEConfigurationForDevice:(void *)a1 .cold.2(void *a1)
 {
-  v1 = [a1 pmeMediaEnabled];
-  if (v1 <= 2)
-  {
-    v2 = off_2796EE718[v1];
-  }
-
+  [a1 pmeMediaEnabled];
   OUTLINED_FUNCTION_2();
-  if (!(!v6 & v5))
+  if (!v5 & v4)
   {
-    v7 = *(v3 + 8 * v4);
+    v6 = "?";
   }
 
-  return LogPrintF();
+  else
+  {
+    v6 = *(v2 + 8 * v3);
+  }
+
+  return LogPrintF(&gLogCategory_HMDeviceConfigurations, "[HMDeviceConfigurations needsUpdateToPMEConfigurationForDevice:]", 30, "changing PME Media enable %s --> %s", v1, v6);
 }
 
 - (uint64_t)needsUpdateToPMEConfigurationForDevice:(void *)a1 .cold.3(void *a1)
 {
-  v1 = [a1 pmeVoiceEnabled];
-  if (v1 <= 2)
-  {
-    v2 = off_2796EE718[v1];
-  }
-
+  [a1 pmeVoiceEnabled];
   OUTLINED_FUNCTION_2();
-  if (!(!v6 & v5))
+  if (!v5 & v4)
   {
-    v7 = *(v3 + 8 * v4);
+    v6 = "?";
   }
 
-  return LogPrintF();
+  else
+  {
+    v6 = *(v2 + 8 * v3);
+  }
+
+  return LogPrintF(&gLogCategory_HMDeviceConfigurations, "[HMDeviceConfigurations needsUpdateToPMEConfigurationForDevice:]", 30, "changing PME Voice enable %s --> %s", v1, v6);
 }
 
 - (uint64_t)needsUpdateToPMEConfigurationForDevice:(void *)a1 .cold.4(void *a1)
 {
-  v1 = [a1 pmeVoiceEnrolled];
-  if (v1 <= 2)
-  {
-    v2 = off_2796EE718[v1];
-  }
-
+  [a1 pmeVoiceEnrolled];
   OUTLINED_FUNCTION_2();
-  if (!(!v6 & v5))
+  if (!v5 & v4)
   {
-    v7 = *(v3 + 8 * v4);
+    v6 = "?";
   }
 
-  return LogPrintF();
+  else
+  {
+    v6 = *(v2 + 8 * v3);
+  }
+
+  return LogPrintF(&gLogCategory_HMDeviceConfigurations, "[HMDeviceConfigurations needsUpdateToPMEConfigurationForDevice:]", 30, "changing PME Voice enroll %s --> %s", v1, v6);
 }
 
 - (void)setupConfigsForPPEIfNeeded:(void *)a1 completion:.cold.1(void *a1)
 {
   v1 = [a1 bluetoothUUID];
-  LogPrintF();
+  LogPrintF(&gLogCategory_HMDeviceConfigurations, "[HMDeviceConfigurations setupConfigsForPPEIfNeeded:completion:]", 30, "Setup PPE Configs for UUID: %@ - Enable LSR and Disable OFF", v1);
 }
 
 - (void)restoreConfigsFromCloudRecordIfNeeded:(void *)a1 .cold.2(void *a1)
 {
   v1 = [a1 bluetoothUUID];
-  LogPrintF();
+  LogPrintF(&gLogCategory_HMDeviceConfigurations, "[HMDeviceConfigurations restoreConfigsFromCloudRecordIfNeeded:]", 90, "## Restoring HMDeviceConfigurations UUID: %@ failed, cloud record not found", v1);
 }
 
 - (uint64_t)setEnableHearingAssistIfNeeded:(void *)a1 .cold.1(void *a1)
 {
-  v1 = [a1 hearingAssistEnabled];
-  if (v1 <= 2)
-  {
-    v2 = off_2796EE718[v1];
-  }
-
+  [a1 hearingAssistEnabled];
   OUTLINED_FUNCTION_2();
-  if (!(!v6 & v5))
+  if (!v5 & v4)
   {
-    v7 = *(v3 + 8 * v4);
+    v6 = "?";
   }
 
-  return LogPrintF();
+  else
+  {
+    v6 = *(v2 + 8 * v3);
+  }
+
+  return LogPrintF(&gLogCategory_HMDeviceConfigurations, "[HMDeviceConfigurations setEnableHearingAssistIfNeeded:]", 30, "changing HearingAssist enable %s --> %s", v1, v6);
 }
 
 - (void)updateVolumeIOS:(uint64_t)a1 completion:(void *)a2 .cold.1(uint64_t a1, void *a2)
 {
   if (gLogCategory_HMDeviceConfigurations <= 90 && (gLogCategory_HMDeviceConfigurations != -1 || _LogCategory_Initialize()))
   {
-    v5 = [a2 bluetoothUUID];
-    LogPrintF();
+    v4 = [a2 bluetoothUUID];
+    LogPrintF(&gLogCategory_HMDeviceConfigurations, "[HMDeviceConfigurations updateVolumeIOS:completion:]", 90, "### Error %@ is not routed. System volume not updated.", v4);
   }
 
   if (a1)
   {
-    v4 = *(a1 + 16);
+    v5 = *(a1 + 16);
 
-    v4(a1);
+    v5(a1);
   }
 }
 
@@ -1742,7 +1767,7 @@ uint64_t __53__HMDeviceConfigurations_updateVolumeIOS_completion___block_invoke(
   {
     if (gLogCategory_HMDeviceConfigurations != -1 || (result = _LogCategory_Initialize(), result))
     {
-      result = LogPrintF();
+      result = LogPrintF(&gLogCategory_HMDeviceConfigurations, "[HMDeviceConfigurations updateVolumeIOS:completion:]", 90, "### Error fetching current volume. System volume not updated.");
     }
   }
 
@@ -1754,27 +1779,25 @@ uint64_t __53__HMDeviceConfigurations_updateVolumeIOS_completion___block_invoke(
   return result;
 }
 
-- (void)updateVolumeIOS:(int *)a1 completion:(void *)a2 .cold.3(int *a1, void *a2)
+- (void)updateVolumeIOS:(uint64_t)a1 completion:(void *)a2 .cold.3(uint64_t a1, void *a2)
 {
-  v3 = *a1;
   [a2 bluetoothUUID];
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_3();
-  LogPrintF();
+  LogPrintF(&gLogCategory_HMDeviceConfigurations, "[HMDeviceConfigurations updateVolumeIOS:completion:]", 90, "### Error updating system volume: %f -> %f, for currently routed %@");
 }
 
-- (void)updateVolumeIOS:(int *)a1 completion:(void *)a2 .cold.4(int *a1, void *a2)
+- (void)updateVolumeIOS:(uint64_t)a1 completion:(void *)a2 .cold.4(uint64_t a1, void *a2)
 {
-  v3 = *a1;
   [a2 bluetoothUUID];
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_3();
-  LogPrintF();
+  LogPrintF(&gLogCategory_HMDeviceConfigurations, "[HMDeviceConfigurations updateVolumeIOS:completion:]", 30, "Updated system volume: %f -> %f, for currently routed %@");
 }
 
-- (uint64_t)updateVolumeIOS:(uint64_t)result completion:(int *)a2 .cold.5(uint64_t result, int *a2)
+- (uint64_t)updateVolumeIOS:(float)a3 completion:.cold.5(uint64_t result, float *a2, float a3)
 {
-  v2 = result;
+  v3 = result;
   if (gLogCategory_HMDeviceConfigurations > 30)
   {
     goto LABEL_5;
@@ -1788,15 +1811,15 @@ uint64_t __53__HMDeviceConfigurations_updateVolumeIOS_completion___block_invoke(
   result = _LogCategory_Initialize();
   if (result)
   {
-    v4 = *a2;
+    a3 = *a2;
 LABEL_3:
-    result = LogPrintF();
+    result = LogPrintF(&gLogCategory_HMDeviceConfigurations, "[HMDeviceConfigurations updateVolumeIOS:completion:]", 30, "No need to update system volume: %f", a3);
   }
 
 LABEL_5:
-  if (v2)
+  if (v3)
   {
-    return (*(v2 + 16))(v2);
+    return (*(v3 + 16))(v3);
   }
 
   return result;

@@ -19,14 +19,13 @@
 
 - (id)activitiesExceedingReducedPushBudget
 {
-  v2 = *(&self->super.isa + OBJC_IVAR____TtC11SessionCore36PushFrequentUpdatesObservationServer_pushServer);
   selfCopy = self;
-  v4 = sub_22D015EAC();
-  sub_22CEECE5C(v4);
+  v3 = sub_22D015EAC();
+  sub_22CEECE5C(v3);
 
-  v5 = sub_22D01684C();
+  v4 = sub_22D01684C();
 
-  return v5;
+  return v4;
 }
 
 - (_TtC11SessionCore36PushFrequentUpdatesObservationServer)init

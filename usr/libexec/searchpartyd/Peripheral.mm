@@ -22,7 +22,7 @@
   sub_1000076D4(v4, qword_10177CEA8);
   sub_100A245E8(0x74696E696564, 0xE600000000000000);
   v5.receiver = selfCopy;
-  v5.super_class = type metadata accessor for Peripheral();
+  v5.super_class = type metadata accessor for Peripheral(0);
   [(Peripheral *)&v5 dealloc];
 }
 
@@ -48,7 +48,7 @@
   peripheralCopy = peripheral;
   selfCopy = self;
   servicesCopy = services;
-  sub_100A25B7C(peripheralCopy);
+  sub_100A25B7C(peripheralCopy, services);
 }
 
 - (void)peripheral:(id)peripheral didUpdateNotificationStateForCharacteristic:(id)characteristic error:(id)error

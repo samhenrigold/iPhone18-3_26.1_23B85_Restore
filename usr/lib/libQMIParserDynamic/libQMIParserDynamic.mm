@@ -84,22 +84,21 @@ LABEL_5:
 LABEL_7:
   *v8 = *this;
   *(v8 + 1) = v9 - v8 - 4;
-  v10 = *(this + 8);
-  v11 = *(this + 2);
-  v12 = *(this + 1);
-  if (v12 != v11)
+  v10 = *(this + 2);
+  v11 = *(this + 1);
+  if (v11 != v10)
   {
-    v13 = v8 + 4;
+    v12 = v8 + 4;
     do
     {
-      (*(**v12 + 24))(*v12, &v13);
-      ++v12;
+      (*(**v11 + 24))(*v11, &v12);
+      ++v11;
     }
 
-    while (v12 != v11);
-    if (v13 != v9)
+    while (v11 != v10);
+    if (v12 != v9)
     {
-      qmi::MutableMessageBase::sWriteErrorHandler(*this, a2, v13 - v8);
+      qmi::MutableMessageBase::sWriteErrorHandler(*this, a2, v12 - v8);
     }
   }
 }
@@ -1250,10 +1249,10 @@ void *std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v
   MEMORY[0x29C27F700](v14, a1);
   if (LOBYTE(v14[0]) == 1)
   {
-    v6 = a1 + *(*a1 - 24);
-    v7 = *(v6 + 40);
-    v8 = *(v6 + 8);
-    v9 = *(v6 + 144);
+    v6 = (a1 + *(*a1 - 24));
+    rdbuf = v6->__rdbuf_;
+    fmtflags = v6->__fmtflags_;
+    v9 = v6[1].__fmtflags_;
     if (v9 == -1)
     {
       v10 = (a1 + *(*a1 - 24));
@@ -1265,7 +1264,7 @@ void *std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v
       v10[1].__fmtflags_ = v9;
     }
 
-    if ((v8 & 0xB0) == 0x20)
+    if ((fmtflags & 0xB0) == 0x20)
     {
       v12 = a2 + a3;
     }
@@ -1275,7 +1274,7 @@ void *std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v
       v12 = a2;
     }
 
-    if (!std::__pad_and_output[abi:ne200100]<char,std::char_traits<char>>(v7, a2, v12, a2 + a3, v6, v9))
+    if (!std::__pad_and_output[abi:ne200100]<char,std::char_traits<char>>(rdbuf, a2, v12, a2 + a3, v6, v9))
     {
       std::ios_base::clear((a1 + *(*a1 - 24)), *(a1 + *(*a1 - 24) + 32) | 5);
     }
@@ -1285,9 +1284,9 @@ void *std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v
   return a1;
 }
 
-void sub_29806E24C(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, std::locale a12)
+void sub_29806E24C(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, std::locale a12)
 {
-  MEMORY[0x29C27F710](&a10);
+  MEMORY[0x29C27F710](&a10, a2, a3, a4, a5, a6, a7, a8);
   __cxa_begin_catch(a1);
   std::ios_base::__set_badbit_and_consider_rethrow((v12 + *(*v12 - 24)));
   __cxa_end_catch();
@@ -1446,67 +1445,67 @@ uint64_t qmi::RandomMessageContext::generateRandomChars(uint64_t this, char *a2,
 
 void qmi::sCreateRandomMessageContext(qmi *this@<X0>, const char *a2@<X1>, void *a3@<X8>)
 {
-  v5 = this;
-  v7 = operator new(0x10uLL);
-  *v7 = &unk_2A1E9B820;
-  v7[2] = 1;
-  v8 = strlen(a2);
-  if (v8 >= 0x7FFFFFFFFFFFFFF8)
+  v4 = this;
+  v6 = operator new(0x10uLL);
+  *v6 = &unk_2A1E9B820;
+  v6[2] = 1;
+  v7 = strlen(a2);
+  if (v7 >= 0x7FFFFFFFFFFFFFF8)
   {
     std::string::__throw_length_error[abi:ne200100]();
   }
 
-  v9 = v8;
-  if (v8 >= 0x17)
+  v8 = v7;
+  if (v7 >= 0x17)
   {
-    if ((v8 | 7) == 0x17)
+    if ((v7 | 7) == 0x17)
     {
-      v11 = 25;
+      v10 = 25;
     }
 
     else
     {
-      v11 = (v8 | 7) + 1;
+      v10 = (v7 | 7) + 1;
     }
 
-    p_dst = operator new(v11);
-    v20 = v9;
-    v21 = v11 | 0x8000000000000000;
+    p_dst = operator new(v10);
+    v19 = v8;
+    v20 = v10 | 0x8000000000000000;
     __dst = p_dst;
     goto LABEL_9;
   }
 
-  HIBYTE(v21) = v8;
+  HIBYTE(v20) = v7;
   p_dst = &__dst;
-  if (v8)
+  if (v7)
   {
 LABEL_9:
-    memcpy(p_dst, a2, v9);
+    memcpy(p_dst, a2, v8);
   }
 
-  *(p_dst + v9) = 0;
-  v12 = HIBYTE(v21);
-  v13 = &__dst;
-  if (v21 < 0)
+  *(p_dst + v8) = 0;
+  v11 = HIBYTE(v20);
+  v12 = &__dst;
+  if (v20 < 0)
   {
-    v13 = __dst;
-    v12 = v20;
+    v12 = __dst;
+    v11 = v19;
   }
 
-  if (v12)
+  if (v11)
   {
-    v14 = 0;
+    v13 = 0;
     do
     {
-      v15 = *v13;
-      v13 = (v13 + 1);
-      v14 = 0xC6A4A7935BD1E995 * ((0xC6A4A7935BD1E995 * ((0xC6A4A7935BD1E995 * v15) ^ ((0xC6A4A7935BD1E995 * v15) >> 47))) ^ v14) + 3864292196u;
-      --v12;
+      v14 = *v12;
+      v12 = (v12 + 1);
+      v13 = 0xC6A4A7935BD1E995 * ((0xC6A4A7935BD1E995 * ((0xC6A4A7935BD1E995 * v14) ^ ((0xC6A4A7935BD1E995 * v14) >> 47))) ^ v13) + 3864292196u;
+      --v11;
     }
 
-    while (v12);
-    v16 = 0xC6A4A7935BD1E995 * v14;
-    if (SHIBYTE(v21) < 0)
+    while (v11);
+    v15 = 0xC6A4A7935BD1E995 * v13;
+    if (SHIBYTE(v20) < 0)
     {
       goto LABEL_16;
     }
@@ -1514,23 +1513,23 @@ LABEL_9:
 
   else
   {
-    v16 = 0;
-    if (SHIBYTE(v21) < 0)
+    v15 = 0;
+    if (SHIBYTE(v20) < 0)
     {
 LABEL_16:
       operator delete(__dst);
     }
   }
 
-  v17 = 1540483477 * ((1540483477 * ((v16 >> 47) ^ v16)) ^ (678072505 * ((((0xC6A4A7935BD1E995 * v5) >> 32) >> 15) ^ (1540483477 * v5)) - 430675100)) - 430675100;
-  v18 = v17 + (((((v17 + 2 * v17) >> 32) + ((v17 - ((v17 + 2 * v17) >> 32)) >> 1)) >> 30) | ((((v17 + 2 * v17) >> 32) + ((v17 - ((v17 + 2 * v17) >> 32)) >> 1)) >> 30 << 31));
-  if (v18 <= 1)
+  v16 = 1540483477 * ((1540483477 * ((v15 >> 47) ^ v15)) ^ (678072505 * ((((0xC6A4A7935BD1E995 * v4) >> 32) >> 15) ^ (1540483477 * v4)) - 430675100)) - 430675100;
+  v17 = v16 + (((((v16 + 2 * v16) >> 32) + ((v16 - ((v16 + 2 * v16) >> 32)) >> 1)) >> 30) | ((((v16 + 2 * v16) >> 32) + ((v16 - ((v16 + 2 * v16) >> 32)) >> 1)) >> 30 << 31));
+  if (v17 <= 1)
   {
-    v18 = 1;
+    v17 = 1;
   }
 
-  v7[2] = v18;
-  *a3 = v7;
+  v6[2] = v17;
+  *a3 = v6;
 }
 
 void *qmi::sCreateAlwaysZeroRandomMessageContext@<X0>(void *a1@<X8>)
@@ -3756,11 +3755,11 @@ LABEL_6:
   goto LABEL_6;
 }
 
-void qmi::RandomMessageReporter::reportMismatch(std::string **a1, uint64_t a2)
+void qmi::RandomMessageReporter::reportMismatch(void *a1, uint64_t a2)
 {
   memset(&__p, 170, sizeof(__p));
   ctu::join<std::__wrap_iter<char const**>>(a1[1], a1[2], "::", 2uLL, &__p);
-  ((*a1)->__r_.__value_.__r.__words[2])(a1, &__p, a2);
+  (*(*a1 + 16))(a1, &__p, a2);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
@@ -4501,8 +4500,7 @@ void sub_2980716C8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 std::string *ctu::join<std::__wrap_iter<char const**>>@<X0>(std::string *result@<X0>, std::string *a2@<X1>, const void *a3@<X2>, size_t a4@<X3>, std::string *a5@<X8>)
 {
-  a5->__r_.__value_.__r.__words[0] = 0;
-  a5->__r_.__value_.__l.__size_ = 0;
+  *&a5->__r_.__value_.__l.__data_ = 0uLL;
   a5->__r_.__value_.__r.__words[2] = 0;
   if (result != a2)
   {
@@ -4524,7 +4522,7 @@ std::string *ctu::join<std::__wrap_iter<char const**>>@<X0>(std::string *result@
       {
         if (a4 >= 0x17)
         {
-          for (i = &v8->__r_.__value_.__l.__size_; i != a2; ++i)
+          for (i = &v8->__r_.__value_.__r.__words[1]; i != a2; i = (i + 8))
           {
             v20 = operator new(v10);
             v27 = a4;
@@ -4534,7 +4532,7 @@ std::string *ctu::join<std::__wrap_iter<char const**>>@<X0>(std::string *result@
             v20[a4] = 0;
             std::string::append(a5, v20, a4);
             operator delete(v20);
-            v21 = *i;
+            v21 = i->__r_.__value_.__r.__words[0];
             v22 = strlen(v21);
             result = std::string::append(a5, v21, v22);
           }
@@ -4542,7 +4540,7 @@ std::string *ctu::join<std::__wrap_iter<char const**>>@<X0>(std::string *result@
 
         else if (a4)
         {
-          for (j = &v8->__r_.__value_.__l.__size_; j != a2; ++j)
+          for (j = &v8->__r_.__value_.__r.__words[1]; j != a2; j = (j + 8))
           {
             HIBYTE(v28) = a4;
             memmove(&__dst, a3, a4);
@@ -4573,7 +4571,7 @@ std::string *ctu::join<std::__wrap_iter<char const**>>@<X0>(std::string *result@
               operator delete(__dst);
             }
 
-            v15 = *j;
+            v15 = j->__r_.__value_.__r.__words[0];
             v16 = strlen(v15);
             result = std::string::append(a5, v15, v16);
           }
@@ -4581,7 +4579,7 @@ std::string *ctu::join<std::__wrap_iter<char const**>>@<X0>(std::string *result@
 
         else
         {
-          for (k = &v8->__r_.__value_.__l.__size_; k != a2; ++k)
+          for (k = &v8->__r_.__value_.__r.__words[1]; k != a2; k = (k + 8))
           {
             HIBYTE(v28) = 0;
             LOBYTE(__dst) = 0;
@@ -4591,7 +4589,7 @@ std::string *ctu::join<std::__wrap_iter<char const**>>@<X0>(std::string *result@
               operator delete(__dst);
             }
 
-            v24 = *k;
+            v24 = k->__r_.__value_.__r.__words[0];
             v25 = strlen(v24);
             result = std::string::append(a5, v24, v25);
           }
@@ -4606,9 +4604,9 @@ std::string *ctu::join<std::__wrap_iter<char const**>>@<X0>(std::string *result@
 
     else
     {
-      for (m = &v8->__r_.__value_.__l.__size_; m != a2; ++m)
+      for (m = &v8->__r_.__value_.__r.__words[1]; m != a2; m = (m + 8))
       {
-        v12 = *m;
+        v12 = m->__r_.__value_.__r.__words[0];
         v13 = strlen(v12);
         result = std::string::append(a5, v12, v13);
       }
@@ -4743,7 +4741,7 @@ std::string *__cdecl std::string::__assign_external(std::string *this, const std
   return std::string::__assign_external(this, __s, v4);
 }
 
-_DWORD *sInitializeAtcsQmiMessageDefinitions(uint64_t **a1)
+_DWORD *sInitializeAtcsQmiMessageDefinitions(uint64_t ***a1)
 {
   if ((atomic_load_explicit(&_MergedGlobals, memory_order_acquire) & 1) == 0)
   {
@@ -4760,116 +4758,116 @@ _DWORD *sInitializeAtcsQmiMessageDefinitions(uint64_t **a1)
   }
 
   v7 = -86;
-  v10 = -86;
+  v9[1] = -86;
   v6 = byte_2A1899620;
   v8 = word_2A1899622;
-  v9 = byte_2A1899624;
+  v9[0] = byte_2A1899624;
   v5 = &qword_2A1899610;
   v1 = a1;
   std::__tree<std::__value_type<std::tuple<qmi::ServiceType,unsigned short,qmi::MessageType>,QmiMessageDefinition const*>,std::__map_value_compare<std::tuple<qmi::ServiceType,unsigned short,qmi::MessageType>,std::__value_type<std::tuple<qmi::ServiceType,unsigned short,qmi::MessageType>,QmiMessageDefinition const*>,std::less<std::tuple<qmi::ServiceType,unsigned short,qmi::MessageType>>,true>,std::allocator<std::__value_type<std::tuple<qmi::ServiceType,unsigned short,qmi::MessageType>,QmiMessageDefinition const*>>>::__emplace_multi<std::tuple<qmi::ServiceType,unsigned short,qmi::MessageType> const&,QmiMessageDefinition const*>(a1, &v6, &v5);
   v7 = -86;
-  v10 = -86;
+  v9[1] = -86;
   v6 = byte_2A1899658;
   v8 = word_2A189965A;
-  v9 = byte_2A189965C;
+  v9[0] = byte_2A189965C;
   v5 = &qword_2A1899648;
   std::__tree<std::__value_type<std::tuple<qmi::ServiceType,unsigned short,qmi::MessageType>,QmiMessageDefinition const*>,std::__map_value_compare<std::tuple<qmi::ServiceType,unsigned short,qmi::MessageType>,std::__value_type<std::tuple<qmi::ServiceType,unsigned short,qmi::MessageType>,QmiMessageDefinition const*>,std::less<std::tuple<qmi::ServiceType,unsigned short,qmi::MessageType>>,true>,std::allocator<std::__value_type<std::tuple<qmi::ServiceType,unsigned short,qmi::MessageType>,QmiMessageDefinition const*>>>::__emplace_multi<std::tuple<qmi::ServiceType,unsigned short,qmi::MessageType> const&,QmiMessageDefinition const*>(v1, &v6, &v5);
   v7 = -86;
-  v10 = -86;
+  v9[1] = -86;
   v6 = byte_2A1899680;
   v8 = word_2A1899682;
-  v9 = byte_2A1899684;
+  v9[0] = byte_2A1899684;
   v5 = &qword_2A1899670;
   std::__tree<std::__value_type<std::tuple<qmi::ServiceType,unsigned short,qmi::MessageType>,QmiMessageDefinition const*>,std::__map_value_compare<std::tuple<qmi::ServiceType,unsigned short,qmi::MessageType>,std::__value_type<std::tuple<qmi::ServiceType,unsigned short,qmi::MessageType>,QmiMessageDefinition const*>,std::less<std::tuple<qmi::ServiceType,unsigned short,qmi::MessageType>>,true>,std::allocator<std::__value_type<std::tuple<qmi::ServiceType,unsigned short,qmi::MessageType>,QmiMessageDefinition const*>>>::__emplace_multi<std::tuple<qmi::ServiceType,unsigned short,qmi::MessageType> const&,QmiMessageDefinition const*>(v1, &v6, &v5);
   v7 = -86;
-  v10 = -86;
+  v9[1] = -86;
   v6 = byte_2A18996B8;
   v8 = word_2A18996BA;
-  v9 = byte_2A18996BC;
+  v9[0] = byte_2A18996BC;
   v5 = &qword_2A18996A8;
   std::__tree<std::__value_type<std::tuple<qmi::ServiceType,unsigned short,qmi::MessageType>,QmiMessageDefinition const*>,std::__map_value_compare<std::tuple<qmi::ServiceType,unsigned short,qmi::MessageType>,std::__value_type<std::tuple<qmi::ServiceType,unsigned short,qmi::MessageType>,QmiMessageDefinition const*>,std::less<std::tuple<qmi::ServiceType,unsigned short,qmi::MessageType>>,true>,std::allocator<std::__value_type<std::tuple<qmi::ServiceType,unsigned short,qmi::MessageType>,QmiMessageDefinition const*>>>::__emplace_multi<std::tuple<qmi::ServiceType,unsigned short,qmi::MessageType> const&,QmiMessageDefinition const*>(v1, &v6, &v5);
   v7 = -86;
-  v10 = -86;
+  v9[1] = -86;
   v6 = byte_2A18996E0;
   v8 = word_2A18996E2;
-  v9 = byte_2A18996E4;
+  v9[0] = byte_2A18996E4;
   v5 = &qword_2A18996D0;
   std::__tree<std::__value_type<std::tuple<qmi::ServiceType,unsigned short,qmi::MessageType>,QmiMessageDefinition const*>,std::__map_value_compare<std::tuple<qmi::ServiceType,unsigned short,qmi::MessageType>,std::__value_type<std::tuple<qmi::ServiceType,unsigned short,qmi::MessageType>,QmiMessageDefinition const*>,std::less<std::tuple<qmi::ServiceType,unsigned short,qmi::MessageType>>,true>,std::allocator<std::__value_type<std::tuple<qmi::ServiceType,unsigned short,qmi::MessageType>,QmiMessageDefinition const*>>>::__emplace_multi<std::tuple<qmi::ServiceType,unsigned short,qmi::MessageType> const&,QmiMessageDefinition const*>(v1, &v6, &v5);
   v7 = -86;
-  v10 = -86;
+  v9[1] = -86;
   v6 = byte_2A1899708;
   v8 = word_2A189970A;
-  v9 = byte_2A189970C;
+  v9[0] = byte_2A189970C;
   v5 = &qword_2A18996F8;
   std::__tree<std::__value_type<std::tuple<qmi::ServiceType,unsigned short,qmi::MessageType>,QmiMessageDefinition const*>,std::__map_value_compare<std::tuple<qmi::ServiceType,unsigned short,qmi::MessageType>,std::__value_type<std::tuple<qmi::ServiceType,unsigned short,qmi::MessageType>,QmiMessageDefinition const*>,std::less<std::tuple<qmi::ServiceType,unsigned short,qmi::MessageType>>,true>,std::allocator<std::__value_type<std::tuple<qmi::ServiceType,unsigned short,qmi::MessageType>,QmiMessageDefinition const*>>>::__emplace_multi<std::tuple<qmi::ServiceType,unsigned short,qmi::MessageType> const&,QmiMessageDefinition const*>(v1, &v6, &v5);
   v7 = -86;
-  v10 = -86;
+  v9[1] = -86;
   v6 = byte_2A1899740;
   v8 = word_2A1899742;
-  v9 = byte_2A1899744;
+  v9[0] = byte_2A1899744;
   v5 = &qword_2A1899730;
   std::__tree<std::__value_type<std::tuple<qmi::ServiceType,unsigned short,qmi::MessageType>,QmiMessageDefinition const*>,std::__map_value_compare<std::tuple<qmi::ServiceType,unsigned short,qmi::MessageType>,std::__value_type<std::tuple<qmi::ServiceType,unsigned short,qmi::MessageType>,QmiMessageDefinition const*>,std::less<std::tuple<qmi::ServiceType,unsigned short,qmi::MessageType>>,true>,std::allocator<std::__value_type<std::tuple<qmi::ServiceType,unsigned short,qmi::MessageType>,QmiMessageDefinition const*>>>::__emplace_multi<std::tuple<qmi::ServiceType,unsigned short,qmi::MessageType> const&,QmiMessageDefinition const*>(v1, &v6, &v5);
   v7 = -86;
-  v10 = -86;
+  v9[1] = -86;
   v6 = byte_2A1899768;
   v8 = word_2A189976A;
-  v9 = byte_2A189976C;
+  v9[0] = byte_2A189976C;
   v5 = &qword_2A1899758;
   std::__tree<std::__value_type<std::tuple<qmi::ServiceType,unsigned short,qmi::MessageType>,QmiMessageDefinition const*>,std::__map_value_compare<std::tuple<qmi::ServiceType,unsigned short,qmi::MessageType>,std::__value_type<std::tuple<qmi::ServiceType,unsigned short,qmi::MessageType>,QmiMessageDefinition const*>,std::less<std::tuple<qmi::ServiceType,unsigned short,qmi::MessageType>>,true>,std::allocator<std::__value_type<std::tuple<qmi::ServiceType,unsigned short,qmi::MessageType>,QmiMessageDefinition const*>>>::__emplace_multi<std::tuple<qmi::ServiceType,unsigned short,qmi::MessageType> const&,QmiMessageDefinition const*>(v1, &v6, &v5);
   v7 = -86;
-  v10 = -86;
+  v9[1] = -86;
   v6 = byte_2A18997A0;
   v8 = word_2A18997A2;
-  v9 = byte_2A18997A4;
+  v9[0] = byte_2A18997A4;
   v5 = &qword_2A1899790;
   std::__tree<std::__value_type<std::tuple<qmi::ServiceType,unsigned short,qmi::MessageType>,QmiMessageDefinition const*>,std::__map_value_compare<std::tuple<qmi::ServiceType,unsigned short,qmi::MessageType>,std::__value_type<std::tuple<qmi::ServiceType,unsigned short,qmi::MessageType>,QmiMessageDefinition const*>,std::less<std::tuple<qmi::ServiceType,unsigned short,qmi::MessageType>>,true>,std::allocator<std::__value_type<std::tuple<qmi::ServiceType,unsigned short,qmi::MessageType>,QmiMessageDefinition const*>>>::__emplace_multi<std::tuple<qmi::ServiceType,unsigned short,qmi::MessageType> const&,QmiMessageDefinition const*>(v1, &v6, &v5);
   v7 = -86;
-  v10 = -86;
+  v9[1] = -86;
   v6 = byte_2A18997C8;
   v8 = word_2A18997CA;
-  v9 = byte_2A18997CC;
+  v9[0] = byte_2A18997CC;
   v5 = &qword_2A18997B8;
   std::__tree<std::__value_type<std::tuple<qmi::ServiceType,unsigned short,qmi::MessageType>,QmiMessageDefinition const*>,std::__map_value_compare<std::tuple<qmi::ServiceType,unsigned short,qmi::MessageType>,std::__value_type<std::tuple<qmi::ServiceType,unsigned short,qmi::MessageType>,QmiMessageDefinition const*>,std::less<std::tuple<qmi::ServiceType,unsigned short,qmi::MessageType>>,true>,std::allocator<std::__value_type<std::tuple<qmi::ServiceType,unsigned short,qmi::MessageType>,QmiMessageDefinition const*>>>::__emplace_multi<std::tuple<qmi::ServiceType,unsigned short,qmi::MessageType> const&,QmiMessageDefinition const*>(v1, &v6, &v5);
   v7 = -86;
-  v10 = -86;
+  v9[1] = -86;
   v6 = byte_2A1899800;
   v8 = word_2A1899802;
-  v9 = byte_2A1899804;
+  v9[0] = byte_2A1899804;
   v5 = &qword_2A18997F0;
   std::__tree<std::__value_type<std::tuple<qmi::ServiceType,unsigned short,qmi::MessageType>,QmiMessageDefinition const*>,std::__map_value_compare<std::tuple<qmi::ServiceType,unsigned short,qmi::MessageType>,std::__value_type<std::tuple<qmi::ServiceType,unsigned short,qmi::MessageType>,QmiMessageDefinition const*>,std::less<std::tuple<qmi::ServiceType,unsigned short,qmi::MessageType>>,true>,std::allocator<std::__value_type<std::tuple<qmi::ServiceType,unsigned short,qmi::MessageType>,QmiMessageDefinition const*>>>::__emplace_multi<std::tuple<qmi::ServiceType,unsigned short,qmi::MessageType> const&,QmiMessageDefinition const*>(v1, &v6, &v5);
   v7 = -86;
-  v10 = -86;
+  v9[1] = -86;
   v6 = byte_2A1899838;
   v8 = word_2A189983A;
-  v9 = byte_2A189983C;
+  v9[0] = byte_2A189983C;
   v5 = &qword_2A1899828;
   std::__tree<std::__value_type<std::tuple<qmi::ServiceType,unsigned short,qmi::MessageType>,QmiMessageDefinition const*>,std::__map_value_compare<std::tuple<qmi::ServiceType,unsigned short,qmi::MessageType>,std::__value_type<std::tuple<qmi::ServiceType,unsigned short,qmi::MessageType>,QmiMessageDefinition const*>,std::less<std::tuple<qmi::ServiceType,unsigned short,qmi::MessageType>>,true>,std::allocator<std::__value_type<std::tuple<qmi::ServiceType,unsigned short,qmi::MessageType>,QmiMessageDefinition const*>>>::__emplace_multi<std::tuple<qmi::ServiceType,unsigned short,qmi::MessageType> const&,QmiMessageDefinition const*>(v1, &v6, &v5);
   v7 = -86;
-  v10 = -86;
+  v9[1] = -86;
   v6 = byte_2A1899860;
   v8 = word_2A1899862;
-  v9 = byte_2A1899864;
+  v9[0] = byte_2A1899864;
   v5 = &qword_2A1899850;
   std::__tree<std::__value_type<std::tuple<qmi::ServiceType,unsigned short,qmi::MessageType>,QmiMessageDefinition const*>,std::__map_value_compare<std::tuple<qmi::ServiceType,unsigned short,qmi::MessageType>,std::__value_type<std::tuple<qmi::ServiceType,unsigned short,qmi::MessageType>,QmiMessageDefinition const*>,std::less<std::tuple<qmi::ServiceType,unsigned short,qmi::MessageType>>,true>,std::allocator<std::__value_type<std::tuple<qmi::ServiceType,unsigned short,qmi::MessageType>,QmiMessageDefinition const*>>>::__emplace_multi<std::tuple<qmi::ServiceType,unsigned short,qmi::MessageType> const&,QmiMessageDefinition const*>(v1, &v6, &v5);
   v7 = -86;
-  v10 = -86;
+  v9[1] = -86;
   v6 = byte_2A1899888;
   v8 = word_2A189988A;
-  v9 = byte_2A189988C;
+  v9[0] = byte_2A189988C;
   v5 = &qword_2A1899878;
   std::__tree<std::__value_type<std::tuple<qmi::ServiceType,unsigned short,qmi::MessageType>,QmiMessageDefinition const*>,std::__map_value_compare<std::tuple<qmi::ServiceType,unsigned short,qmi::MessageType>,std::__value_type<std::tuple<qmi::ServiceType,unsigned short,qmi::MessageType>,QmiMessageDefinition const*>,std::less<std::tuple<qmi::ServiceType,unsigned short,qmi::MessageType>>,true>,std::allocator<std::__value_type<std::tuple<qmi::ServiceType,unsigned short,qmi::MessageType>,QmiMessageDefinition const*>>>::__emplace_multi<std::tuple<qmi::ServiceType,unsigned short,qmi::MessageType> const&,QmiMessageDefinition const*>(v1, &v6, &v5);
   v7 = -86;
-  v10 = -86;
+  v9[1] = -86;
   v6 = byte_2A18998A0;
   v8 = word_2A18998A2;
-  v9 = byte_2A18998A4;
+  v9[0] = byte_2A18998A4;
   v5 = &qword_2A1899890;
   std::__tree<std::__value_type<std::tuple<qmi::ServiceType,unsigned short,qmi::MessageType>,QmiMessageDefinition const*>,std::__map_value_compare<std::tuple<qmi::ServiceType,unsigned short,qmi::MessageType>,std::__value_type<std::tuple<qmi::ServiceType,unsigned short,qmi::MessageType>,QmiMessageDefinition const*>,std::less<std::tuple<qmi::ServiceType,unsigned short,qmi::MessageType>>,true>,std::allocator<std::__value_type<std::tuple<qmi::ServiceType,unsigned short,qmi::MessageType>,QmiMessageDefinition const*>>>::__emplace_multi<std::tuple<qmi::ServiceType,unsigned short,qmi::MessageType> const&,QmiMessageDefinition const*>(v1, &v6, &v5);
   v7 = -86;
-  v10 = -86;
+  v9[1] = -86;
   v6 = byte_2A18998B8;
   v8 = word_2A18998BA;
-  v9 = byte_2A18998BC;
+  v9[0] = byte_2A18998BC;
   v5 = &qword_2A18998A8;
   return std::__tree<std::__value_type<std::tuple<qmi::ServiceType,unsigned short,qmi::MessageType>,QmiMessageDefinition const*>,std::__map_value_compare<std::tuple<qmi::ServiceType,unsigned short,qmi::MessageType>,std::__value_type<std::tuple<qmi::ServiceType,unsigned short,qmi::MessageType>,QmiMessageDefinition const*>,std::less<std::tuple<qmi::ServiceType,unsigned short,qmi::MessageType>>,true>,std::allocator<std::__value_type<std::tuple<qmi::ServiceType,unsigned short,qmi::MessageType>,QmiMessageDefinition const*>>>::__emplace_multi<std::tuple<qmi::ServiceType,unsigned short,qmi::MessageType> const&,QmiMessageDefinition const*>(v1, &v6, &v5);
 }
@@ -5132,48 +5130,48 @@ LABEL_9:
   xpc_release(v3);
 }
 
-void TlvDefinitionImpl<ctl::tlv::IndicationSet,(unsigned char)17>::parse(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
+void TlvDefinitionImpl<ctl::tlv::IndicationSet,(unsigned char)17>::parse(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a4@<X8>)
 {
-  v7 = *a2;
-  v6 = *(a2 + 8);
-  v15 = 0;
+  v8 = *a2;
+  v7 = *(a2 + 8);
   v16 = 0;
   v17 = 0;
-  tlv::throwIfNotAligned(v7, v6, 2uLL);
-  v8 = v6 - v7;
-  if ((v6 - v7) >= 2)
+  v18 = 0;
+  tlv::throwIfNotAligned(v8, v7, 2uLL);
+  v9 = v7 - v8;
+  if ((v7 - v8) >= 2)
   {
-    v9 = operator new(v8 & 0xFFFFFFFFFFFFFFFELL);
-    bzero(v9, v8 & 0xFFFFFFFFFFFFFFFELL);
-    v15 = v9;
-    v16 = (v9 + (v8 & 0xFFFFFFFFFFFFFFFELL));
-    v17 = &v9[v8 >> 1];
+    v10 = operator new(v9 & 0xFFFFFFFFFFFFFFFELL);
+    bzero(v10, v9 & 0xFFFFFFFFFFFFFFFELL);
+    v16 = v10;
+    v17 = (v10 + (v9 & 0xFFFFFFFFFFFFFFFELL));
+    v18 = &v10[v9 >> 1];
   }
 
   else
   {
-    v9 = 0;
+    v10 = 0;
   }
 
-  memcpy(v9, v7, v8);
-  *(a3 + 32) = 0xAAAAAAAAAAAAAAAALL;
-  *&v10 = 0xAAAAAAAAAAAAAAAALL;
-  *(&v10 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  *a3 = v10;
-  *(a3 + 16) = v10;
-  TlvAnnotation::TlvAnnotation(a3);
-  std::string::__assign_external(v11, *(a1 + 8));
-  if (v7)
+  memcpy(v10, v8, v9);
+  *(a4 + 32) = 0xAAAAAAAAAAAAAAAALL;
+  *&v11 = 0xAAAAAAAAAAAAAAAALL;
+  *(&v11 + 1) = 0xAAAAAAAAAAAAAAAALL;
+  *a4 = v11;
+  *(a4 + 16) = v11;
+  TlvAnnotation::TlvAnnotation(a4);
+  std::string::__assign_external(v12, *(a1 + 8));
+  if (v8)
   {
-    ctl::tlv::print_tlv_field(&v15, &object);
-    v12 = object;
+    ctl::tlv::print_tlv_field(&v16, &object);
+    v13 = object;
     object = xpc_null_create();
-    v13 = *(a3 + 32);
-    *(a3 + 32) = v12;
-    xpc_release(v13);
+    v14 = *(a4 + 32);
+    *(a4 + 32) = v13;
+    xpc_release(v14);
     xpc_release(object);
-    v9 = v15;
-    if (!v15)
+    v10 = v16;
+    if (!v16)
     {
       return;
     }
@@ -5181,15 +5179,15 @@ void TlvDefinitionImpl<ctl::tlv::IndicationSet,(unsigned char)17>::parse(uint64_
 
   else
   {
-    TlvDefinition::sFillInParseFailure(a3, a2);
-    if (!v9)
+    TlvDefinition::sFillInParseFailure(a4, a2);
+    if (!v10)
     {
       return;
     }
   }
 
-  v16 = v9;
-  operator delete(v9);
+  v17 = v10;
+  operator delete(v10);
 }
 
 void sub_298072BC4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11)
@@ -5218,7 +5216,7 @@ void TlvDefinitionImpl<ctl::tlv::IndicationSet,(unsigned char)17>::build(xpc_obj
   v6 = 0;
   v7 = 0;
   v8 = 0;
-  extract_tlv_field(a1, "fEnabledIndSet", 0, &object);
+  extract_tlv_field(&object, a1, "fEnabledIndSet", 0);
   tlv::build_tlv_field<unsigned short>(&object, &v6);
   xpc_release(object);
   v3 = v6;
@@ -5368,7 +5366,7 @@ void TlvDefinitionImpl<ctl::tlv::IndicationSetExt,(unsigned char)16>::build(xpc_
   v9 = 0;
   v10 = 0;
   v11 = 0;
-  extract_tlv_field(a1, "fEnabledIndSet", 0, &object);
+  extract_tlv_field(&object, a1, "fEnabledIndSet", 0);
   tlv::build_tlv_field<unsigned short>(&object, &v9);
   xpc_release(object);
   v3 = v9;
@@ -5470,7 +5468,7 @@ _BYTE *TlvDefinitionImpl<ctl::tlv::ServiceType,(unsigned char)1>::build@<X0>(xpc
   *a2 = 0;
   a2[1] = 0;
   a2[2] = 0;
-  extract_tlv_field(a1, "fSvcType", 0, &object);
+  extract_tlv_field(&object, a1, "fSvcType", 0);
   v3 = sAttemptDecodeNumber(&object, &v7);
   xpc_release(object);
   v4 = operator new(1uLL);
@@ -5605,7 +5603,7 @@ _BYTE *TlvDefinitionImpl<ctl::tlv::DataFormat,(unsigned char)1>::build@<X0>(xpc_
   *a2 = 0;
   a2[1] = 0;
   a2[2] = 0;
-  extract_tlv_field(a1, "fFormat", 0, &object);
+  extract_tlv_field(&object, a1, "fFormat", 0);
   v3 = sAttemptDecodeNumber(&object, &v7);
   xpc_release(object);
   v4 = operator new(1uLL);
@@ -5672,7 +5670,7 @@ _WORD *TlvDefinitionImpl<ctl::tlv::LinkLayerProtocol,(unsigned char)16>::build@<
   *a2 = 0;
   a2[1] = 0;
   a2[2] = 0;
-  extract_tlv_field(a1, "fProtocol", 0, &object);
+  extract_tlv_field(&object, a1, "fProtocol", 0);
   v3 = sAttemptDecodeNumber(&object, &v7);
   xpc_release(object);
   v4 = operator new(2uLL);
@@ -5740,7 +5738,7 @@ _DWORD *TlvDefinitionImpl<ctl::tlv::PowerSaveState,(unsigned char)1>::build@<X0>
   a2[1] = 0;
   a2[2] = 0;
   v5 = 0;
-  extract_tlv_field(a1, "fHandle", 0, &object);
+  extract_tlv_field(&object, a1, "fHandle", 0);
   tlv::build_tlv_field(&object, &v5);
   xpc_release(object);
   v3 = operator new(4uLL);
@@ -6563,7 +6561,7 @@ LABEL_9:
     operator delete(__p[0]);
   }
 
-  print_char_type(a1[1], __p);
+  print_char_type(__p, a1[1]);
   if (v15 >= 0)
   {
     v11 = __p;
@@ -6674,17 +6672,17 @@ void sub_298073E84(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 uint64_t ctl::tlv::build_tlv_field(xpc_object_t *a1, _BYTE *a2)
 {
-  extract_tlv_field(a1, "fSvcType", 0, &object);
+  extract_tlv_field(&object, a1, "fSvcType", 0);
   *a2 = sAttemptDecodeNumber(&object, &v6);
   xpc_release(object);
-  extract_tlv_field(a1, "fClientId", 1uLL, &object);
+  extract_tlv_field(&object, a1, "fClientId", 1uLL);
   tlv::build_tlv_field(&object, a2 + 1);
   xpc_release(object);
   return 2;
 }
 
 {
-  extract_tlv_field(a1, "fSvcType", 0, &object);
+  extract_tlv_field(&object, a1, "fSvcType", 0);
   *a2 = sAttemptDecodeNumber(&object, &v5);
   xpc_release(object);
   return 1;
@@ -7109,21 +7107,21 @@ void sub_29807417C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 uint64_t ctl::tlv::build_tlv_field(xpc_object_t *a1, _DWORD *a2)
 {
-  extract_tlv_field(a1, "fProtocol", 0, &object);
+  extract_tlv_field(&object, a1, "fProtocol", 0);
   *a2 = sAttemptDecodeNumber(&object, &v5);
   xpc_release(object);
   return 1;
 }
 
 {
-  extract_tlv_field(a1, "fFormat", 0, &object);
+  extract_tlv_field(&object, a1, "fFormat", 0);
   *a2 = sAttemptDecodeNumber(&object, &v5);
   xpc_release(object);
   return 1;
 }
 
 {
-  extract_tlv_field(a1, "fHandle", 0, &object);
+  extract_tlv_field(&object, a1, "fHandle", 0);
   tlv::build_tlv_field(&object, a2);
   xpc_release(object);
   return 1;
@@ -7146,10 +7144,10 @@ void sub_298074448(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 uint64_t ctl::tlv::build_tlv_field(xpc_object_t *a1, uint64_t a2)
 {
-  extract_tlv_field(a1, "fHandle", 0, &object);
+  extract_tlv_field(&object, a1, "fHandle", 0);
   tlv::build_tlv_field(&object, a2);
   xpc_release(object);
-  extract_tlv_field(a1, "fSvcType", 1uLL, &object);
+  extract_tlv_field(&object, a1, "fSvcType", 1uLL);
   *(a2 + 4) = sAttemptDecodeNumber(&object, &v6);
   xpc_release(object);
   return 2;
@@ -7364,14 +7362,14 @@ void sub_298074888(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 uint64_t ctl::tlv::build_tlv_field(xpc_object_t *a1, void **a2)
 {
-  extract_tlv_field(a1, "fEnabledIndSet", 0, &object);
+  extract_tlv_field(&object, a1, "fEnabledIndSet", 0);
   tlv::build_tlv_field<unsigned short>(&object, a2);
   xpc_release(object);
   return 1;
 }
 
 {
-  extract_tlv_field(a1, "fEnabledIndSet", 0, &object);
+  extract_tlv_field(&object, a1, "fEnabledIndSet", 0);
   tlv::build_tlv_field<unsigned short>(&object, a2);
   xpc_release(object);
   return 1;
@@ -7551,7 +7549,7 @@ LABEL_24:
       else
       {
         *v21 = 0;
-        v22 = v21 + 1;
+        v22 = v21 + 2;
       }
 
       a2[1] = v22;
@@ -7956,7 +7954,7 @@ LABEL_6:
   return result;
 }
 
-uint64_t tlv::tryParseNumber(xpc_object_t *a1, unint64_t *a2)
+BOOL tlv::tryParseNumber(xpc_object_t *a1, unint64_t *a2)
 {
   if (MEMORY[0x29C27FAF0](*a1) == MEMORY[0x29EDCAA40])
   {
@@ -8031,32 +8029,6 @@ uint64_t tlv::tryParseNumber(xpc_object_t *a1, unint64_t *a2)
   }
 }
 
-void sub_2980765A8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
-{
-  if (a15 < 0)
-  {
-    operator delete(__p);
-    _Unwind_Resume(exception_object);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-BOOL sAttemptDecodeNumber(uint64_t a1, unint64_t *a2, _BYTE *a3)
-{
-  __idx = 0;
-  *a2 = std::stoull(a1, &__idx, 0);
-  *a3 = 1;
-  v5 = *(a1 + 23);
-  if ((v5 & 0x80u) != 0)
-  {
-    v5 = *(a1 + 8);
-  }
-
-  return __idx == v5;
-}
-
-uint64_t tlv::tryParseNumber(xpc_object_t *a1, void *a2)
 {
   if (MEMORY[0x29C27FAF0](*a1) == MEMORY[0x29EDCAA40])
   {
@@ -8128,6 +8100,31 @@ uint64_t tlv::tryParseNumber(xpc_object_t *a1, void *a2)
       return 0;
     }
   }
+}
+
+void sub_2980765A8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
+{
+  if (a15 < 0)
+  {
+    operator delete(__p);
+    _Unwind_Resume(exception_object);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+BOOL sAttemptDecodeNumber(uint64_t a1, unint64_t *a2, _BYTE *a3)
+{
+  __idx = 0;
+  *a2 = std::stoull(a1, &__idx, 0);
+  *a3 = 1;
+  v5 = *(a1 + 23);
+  if ((v5 & 0x80u) != 0)
+  {
+    v5 = *(a1 + 8);
+  }
+
+  return __idx == v5;
 }
 
 void sub_2980768B0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17)
@@ -8853,7 +8850,7 @@ LABEL_61:
   *a1 = 0;
   a1[1] = 0;
   a1[2] = 0;
-  ctu::parse_hex_impl(v18, v19, 1, 0, &v39);
+  ctu::parse_hex_impl(&v39, v18, v19, 1, 0);
   v20 = v39;
   *a1 = v39;
   v21 = v40;
@@ -8971,7 +8968,7 @@ LABEL_38:
     goto LABEL_56;
   }
 
-  ctu::parse_hex_impl((v24 + v29 + 3), (v23 - v29 - 3), 1, 0, &v39);
+  ctu::parse_hex_impl(&v39, (v24 + v29 + 3), (v23 - v29 - 3), 1, 0);
   v30 = v39;
   v31 = v40;
   if (v20)
@@ -9209,7 +9206,7 @@ void sub_298078168(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-uint64_t print_char_type@<X0>(uint64_t a1@<X0>, _BYTE *a2@<X8>)
+uint64_t *print_char_type@<X0>(uint64_t *__return_ptr a1@<X8>, uint64_t a2@<X0>)
 {
   v27 = 0xAAAAAAAAAAAAAAAALL;
   *&v4 = 0xAAAAAAAAAAAAAAAALL;
@@ -9232,7 +9229,7 @@ uint64_t print_char_type@<X0>(uint64_t a1@<X0>, _BYTE *a2@<X8>)
   v20 = v4;
   std::ostringstream::basic_ostringstream[abi:ne200100](&v19);
   *(&v19 + *(v19 - 24) + 8) = *(&v19 + *(v19 - 24) + 8) & 0xFFFFFFB5 | 2;
-  v5 = MEMORY[0x29C27F750](&v19, a1);
+  v5 = MEMORY[0x29C27F750](&v19, a2);
   v6 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v5, " (0x", 4);
   v7 = v6;
   v8 = *v6;
@@ -9249,7 +9246,7 @@ uint64_t print_char_type@<X0>(uint64_t a1@<X0>, _BYTE *a2@<X8>)
   }
 
   *(v9 + 36) = 48;
-  v12 = MEMORY[0x29C27F760](v7, a1);
+  v12 = MEMORY[0x29C27F760](v7, a2);
   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v12, ")", 1);
   if ((BYTE8(v25) & 0x10) != 0)
   {
@@ -9273,7 +9270,7 @@ uint64_t print_char_type@<X0>(uint64_t a1@<X0>, _BYTE *a2@<X8>)
     if ((BYTE8(v25) & 8) == 0)
     {
       v13 = 0;
-      a2[23] = 0;
+      *(a1 + 23) = 0;
       goto LABEL_17;
     }
 
@@ -9299,22 +9296,22 @@ LABEL_21:
     }
 
     v17 = operator new(v16);
-    *(a2 + 1) = v13;
-    *(a2 + 2) = v16 | 0x8000000000000000;
-    *a2 = v17;
-    a2 = v17;
+    a1[1] = v13;
+    a1[2] = v16 | 0x8000000000000000;
+    *a1 = v17;
+    a1 = v17;
     goto LABEL_16;
   }
 
-  a2[23] = v13;
+  *(a1 + 23) = v13;
   if (v13)
   {
 LABEL_16:
-    memmove(a2, v15, v13);
+    memmove(a1, v15, v13);
   }
 
 LABEL_17:
-  a2[v13] = 0;
+  *(a1 + v13) = 0;
   *&v19 = *MEMORY[0x29EDC9538];
   *(&v19 + *(v19 - 24)) = *(MEMORY[0x29EDC9538] + 24);
   *(&v19 + 1) = MEMORY[0x29EDC9570] + 16;
@@ -9631,7 +9628,7 @@ const char *asString(unsigned int a1)
   }
 }
 
-std::string *string_with_quotes<std::string>(std::string *__dst, uint64_t a2, unsigned int a3)
+std::string *string_with_quotes<std::string>(std::string *__dst, std::string **a2, unsigned int a3)
 {
   memset(__dst, 170, sizeof(std::string));
   *(&__dst->__r_.__value_.__s + 23) = 1;
@@ -9644,10 +9641,10 @@ std::string *string_with_quotes<std::string>(std::string *__dst, uint64_t a2, un
 
   else
   {
-    v5 = *(a2 + 8);
+    v5 = a2[1];
   }
 
-  v6 = v5 + 2;
+  v6 = v5->__r_.__value_.__r.__words + 2;
   if (v6 > 0x7FFFFFFFFFFFFFF7)
   {
     std::string::__throw_length_error[abi:ne200100]();
@@ -9674,7 +9671,7 @@ std::string *string_with_quotes<std::string>(std::string *__dst, uint64_t a2, un
 
     else
     {
-      v14 = *(a2 + 8);
+      v14 = a2[1];
     }
 
     if (!v14)
@@ -9716,7 +9713,7 @@ std::string *string_with_quotes<std::string>(std::string *__dst, uint64_t a2, un
 
     else
     {
-      v14 = *(a2 + 8);
+      v14 = a2[1];
     }
 
     if (!v14)
@@ -9741,7 +9738,7 @@ std::string *string_with_quotes<std::string>(std::string *__dst, uint64_t a2, un
     v16 = __dst;
   }
 
-  if (v16 > v13 || (&v16->__r_.__value_.__l.__data_ + v15 + 1) <= v13)
+  if (v16 > v13 || &v16->__r_.__value_.__l.__data_ + v15 + 1 <= v13)
   {
     std::string::__insert_from_safe_copy[abi:ne200100]<std::__wrap_iter<char const*>,std::__wrap_iter<char const*>>(__dst, v14, v15, v13, v13 + v14);
     goto LABEL_68;
@@ -9757,7 +9754,7 @@ std::string *string_with_quotes<std::string>(std::string *__dst, uint64_t a2, un
   {
     while (1)
     {
-      v20 = v13->__r_.__value_.__s.__data_[v18];
+      v20 = *(v13 + v18);
       v21 = HIBYTE(v40);
       if (SHIBYTE(v40) < 0)
       {

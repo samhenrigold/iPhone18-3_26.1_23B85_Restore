@@ -15,151 +15,152 @@
 - (id)archivedUILayoutInContext:(id)context
 {
   contextCopy = context;
-  v5 = [KNMacArchivedUILayout alloc];
-  v7 = objc_msgSend_initWithUILayout_context_(v5, v6, self, contextCopy);
+  v5 = [[KNMacArchivedUILayout alloc] initWithUILayout:self context:contextCopy];
 
-  return v7;
+  return v5;
 }
 
 + (id)uiLayoutFromArchive:(const void *)archive unarchiver:(id)unarchiver context:(id)context
 {
   v6 = objc_alloc_init(KNMacMutableUILayout);
-  v8 = v6;
-  v9 = *(archive + 4);
-  if ((v9 & 2) != 0)
+  v7 = v6;
+  v8 = *(archive + 4);
+  if ((v8 & 2) != 0)
   {
-    objc_msgSend_setShowingSidebar_(v6, v7, *(archive + 28));
+    [(KNMacMutableUILayout *)v6 setShowingSidebar:*(archive + 28)];
+    v8 = *(archive + 4);
+  }
+
+  if (v8)
+  {
+    [(KNMacMutableUILayout *)v7 setSidebarViewMode:*(archive + 6) != 0];
+  }
+
+  v9 = *(archive + 4);
+  if ((v9 & 4) != 0)
+  {
+    [(KNMacMutableUILayout *)v7 setShowingPresenterNotes:*(archive + 29)];
     v9 = *(archive + 4);
   }
 
-  if (v9)
+  if ((v9 & 8) != 0)
   {
-    objc_msgSend_setSidebarViewMode_(v8, v7, *(archive + 6) != 0);
+    [(KNMacMutableUILayout *)v7 setShowingLightTable:*(archive + 30)];
+    v9 = *(archive + 4);
   }
 
-  v10 = *(archive + 4);
-  if ((v10 & 4) != 0)
+  if ((v9 & 0x400) != 0)
   {
-    objc_msgSend_setShowingPresenterNotes_(v8, v7, *(archive + 29));
-    v10 = *(archive + 4);
+    [(KNMacUILayout *)v7 setShowingInspectorPane:*(archive + 40)];
+    v9 = *(archive + 4);
   }
 
-  if ((v10 & 8) != 0)
+  if ((v9 & 0x40) != 0)
   {
-    objc_msgSend_setShowingLightTable_(v8, v7, *(archive + 30));
-    v10 = *(archive + 4);
+    [(KNMacUILayout *)v7 setInspectorPaneAutoHidden:*(archive + 36)];
+    v9 = *(archive + 4);
   }
 
-  if ((v10 & 0x400) != 0)
+  if ((v9 & 0x20) != 0)
   {
-    objc_msgSend_setShowingInspectorPane_(v8, v7, *(archive + 40));
-    v10 = *(archive + 4);
-  }
-
-  if ((v10 & 0x40) != 0)
-  {
-    objc_msgSend_setInspectorPaneAutoHidden_(v8, v7, *(archive + 36));
-    v10 = *(archive + 4);
-  }
-
-  if ((v10 & 0x20) != 0)
-  {
-    v11 = *(archive + 8);
-    if (v11 == 2)
+    v10 = *(archive + 8);
+    if (v10 == 2)
     {
-      objc_msgSend_setInspectorPaneViewMode_(v8, v7, 2);
+      v11 = 2;
     }
 
     else
     {
-      objc_msgSend_setInspectorPaneViewMode_(v8, v7, v11 == 1);
+      v11 = v10 == 1;
     }
+
+    [(KNMacMutableUILayout *)v7 setInspectorPaneViewMode:v11];
   }
 
   v12 = *(archive + 4);
   if ((v12 & 0x10) != 0)
   {
-    objc_msgSend_setShowingTemplateSlides_(v8, v7, *(archive + 31));
+    [(KNMacMutableUILayout *)v7 setShowingTemplateSlides:*(archive + 31)];
     v12 = *(archive + 4);
   }
 
   if ((v12 & 0x80) != 0)
   {
-    objc_msgSend_setShowingElementList_(v8, v7, *(archive + 37));
+    [(KNMacMutableUILayout *)v7 setShowingElementList:*(archive + 37)];
     v12 = *(archive + 4);
   }
 
   if ((v12 & 0x100) != 0)
   {
-    objc_msgSend_setShowingActivityStream_(v8, v7, *(archive + 38));
+    [(KNMacMutableUILayout *)v7 setShowingActivityStream:*(archive + 38)];
     v12 = *(archive + 4);
   }
 
   if ((v12 & 0x200) != 0)
   {
-    objc_msgSend_setActivityStreamWasShown_(v8, v7, *(archive + 39));
+    [(KNMacMutableUILayout *)v7 setActivityStreamWasShown:*(archive + 39)];
   }
 
-  return v8;
+  return v7;
 }
 
 - (void)saveToArchive:(void *)archive archiver:(id)archiver
 {
-  isShowingSidebar = objc_msgSend_isShowingSidebar(self, a2, archive, archiver);
+  v6 = [(KNMacUILayout *)self isShowingSidebar:archive];
   *(archive + 4) |= 2u;
-  *(archive + 28) = isShowingSidebar;
-  v9 = objc_msgSend_sidebarViewMode(self, v7, v8) != 0;
+  *(archive + 28) = v6;
+  v7 = [(KNMacUILayout *)self sidebarViewMode]!= 0;
   *(archive + 4) |= 1u;
-  *(archive + 6) = v9;
-  isShowingPresenterNotes = objc_msgSend_isShowingPresenterNotes(self, v10, v11);
+  *(archive + 6) = v7;
+  isShowingPresenterNotes = [(KNMacUILayout *)self isShowingPresenterNotes];
   *(archive + 4) |= 4u;
   *(archive + 29) = isShowingPresenterNotes;
-  isShowingLightTable = objc_msgSend_isShowingLightTable(self, v13, v14);
+  isShowingLightTable = [(KNMacUILayout *)self isShowingLightTable];
   *(archive + 4) |= 8u;
   *(archive + 30) = isShowingLightTable;
-  v18 = objc_msgSend_showingInspectorPane(self, v16, v17);
+  showingInspectorPane = [(KNMacUILayout *)self showingInspectorPane];
   *(archive + 4) |= 0x400u;
-  *(archive + 40) = v18;
-  v21 = objc_msgSend_inspectorPaneAutoHidden(self, v19, v20);
+  *(archive + 40) = showingInspectorPane;
+  inspectorPaneAutoHidden = [(KNMacUILayout *)self inspectorPaneAutoHidden];
   *(archive + 4) |= 0x40u;
-  *(archive + 36) = v21;
-  v24 = objc_msgSend_inspectorPaneViewMode(self, v22, v23);
-  if (v24 == 2)
+  *(archive + 36) = inspectorPaneAutoHidden;
+  inspectorPaneViewMode = [(KNMacUILayout *)self inspectorPaneViewMode];
+  if (inspectorPaneViewMode == 2)
   {
-    v27 = 2;
+    v13 = 2;
   }
 
   else
   {
-    v27 = v24 == 1;
+    v13 = inspectorPaneViewMode == 1;
   }
 
   *(archive + 4) |= 0x20u;
-  *(archive + 8) = v27;
-  isShowingTemplateSlides = objc_msgSend_isShowingTemplateSlides(self, v25, v26);
+  *(archive + 8) = v13;
+  isShowingTemplateSlides = [(KNMacUILayout *)self isShowingTemplateSlides];
   *(archive + 4) |= 0x10u;
   *(archive + 31) = isShowingTemplateSlides;
-  isShowingElementList = objc_msgSend_isShowingElementList(self, v29, v30);
+  isShowingElementList = [(KNMacUILayout *)self isShowingElementList];
   *(archive + 4) |= 0x80u;
   *(archive + 37) = isShowingElementList;
-  isShowingActivityStream = objc_msgSend_isShowingActivityStream(self, v32, v33);
+  isShowingActivityStream = [(KNMacUILayout *)self isShowingActivityStream];
   *(archive + 4) |= 0x100u;
   *(archive + 38) = isShowingActivityStream;
-  v37 = objc_msgSend_activityStreamWasShown(self, v35, v36);
+  activityStreamWasShown = [(KNMacUILayout *)self activityStreamWasShown];
   *(archive + 4) |= 0x200u;
-  *(archive + 39) = v37;
+  *(archive + 39) = activityStreamWasShown;
 }
 
 - (BOOL)currentViewModeSupportsActivityStream
 {
-  if (objc_msgSend_sidebarViewMode(self, a2, v2) == 1)
+  if ([(KNMacUILayout *)self sidebarViewMode]== 1)
   {
     return 0;
   }
 
   else
   {
-    return objc_msgSend_isShowingLightTable(self, v4, v5) ^ 1;
+    return ![(KNMacUILayout *)self isShowingLightTable];
   }
 }
 
@@ -170,97 +171,96 @@
   if (objc_opt_isKindOfClass())
   {
     v5 = equalCopy;
-    isShowingSidebar = objc_msgSend_isShowingSidebar(self, v6, v7);
-    if (isShowingSidebar == objc_msgSend_isShowingSidebar(v5, v9, v10) && (isShowingNavigatorViewInSidebar = objc_msgSend_p_isShowingNavigatorViewInSidebar(self, v11, v12), isShowingNavigatorViewInSidebar == objc_msgSend_p_isShowingNavigatorViewInSidebar(v5, v14, v15)) && (isShowingPresenterNotes = objc_msgSend_isShowingPresenterNotes(self, v16, v17), isShowingPresenterNotes == objc_msgSend_isShowingPresenterNotes(v5, v19, v20)) && (isShowingLightTable = objc_msgSend_isShowingLightTable(self, v21, v22), isShowingLightTable == objc_msgSend_isShowingLightTable(v5, v24, v25)) && (v28 = objc_msgSend_inspectorPaneHiddenState(self, v26, v27), v28 == objc_msgSend_inspectorPaneHiddenState(v5, v29, v30)) && (v33 = objc_msgSend_inspectorPaneViewMode(self, v31, v32), v33 == objc_msgSend_inspectorPaneViewMode(v5, v34, v35)) && (isShowingTemplateSlides = objc_msgSend_isShowingTemplateSlides(self, v36, v37), isShowingTemplateSlides == objc_msgSend_isShowingTemplateSlides(v5, v39, v40)) && (isShowingElementList = objc_msgSend_isShowingElementList(self, v41, v42), isShowingElementList == objc_msgSend_isShowingElementList(v5, v44, v45)) && (isShowingActivityStream = objc_msgSend_isShowingActivityStream(self, v46, v47), isShowingActivityStream == objc_msgSend_isShowingActivityStream(v5, v49, v50)))
+    isShowingSidebar = [(KNMacUILayout *)self isShowingSidebar];
+    if (isShowingSidebar == [v5 isShowingSidebar] && (v7 = -[KNMacUILayout p_isShowingNavigatorViewInSidebar](self, "p_isShowingNavigatorViewInSidebar"), v7 == objc_msgSend(v5, "p_isShowingNavigatorViewInSidebar")) && (v8 = -[KNMacUILayout isShowingPresenterNotes](self, "isShowingPresenterNotes"), v8 == objc_msgSend(v5, "isShowingPresenterNotes")) && (v9 = -[KNMacUILayout isShowingLightTable](self, "isShowingLightTable"), v9 == objc_msgSend(v5, "isShowingLightTable")) && (v10 = -[KNMacUILayout inspectorPaneHiddenState](self, "inspectorPaneHiddenState"), v10 == objc_msgSend(v5, "inspectorPaneHiddenState")) && (v11 = -[KNMacUILayout inspectorPaneViewMode](self, "inspectorPaneViewMode"), v11 == objc_msgSend(v5, "inspectorPaneViewMode")) && (v12 = -[KNMacUILayout isShowingTemplateSlides](self, "isShowingTemplateSlides"), v12 == objc_msgSend(v5, "isShowingTemplateSlides")) && (v13 = -[KNMacUILayout isShowingElementList](self, "isShowingElementList"), v13 == objc_msgSend(v5, "isShowingElementList")) && (v14 = -[KNMacUILayout isShowingActivityStream](self, "isShowingActivityStream"), v14 == objc_msgSend(v5, "isShowingActivityStream")))
     {
-      v55 = objc_msgSend_activityStreamWasShown(self, v51, v52);
-      v53 = v55 ^ objc_msgSend_activityStreamWasShown(v5, v56, v57) ^ 1;
+      activityStreamWasShown = [(KNMacUILayout *)self activityStreamWasShown];
+      v15 = activityStreamWasShown ^ [v5 activityStreamWasShown] ^ 1;
     }
 
     else
     {
-      LOBYTE(v53) = 0;
+      LOBYTE(v15) = 0;
     }
   }
 
   else
   {
-    LOBYTE(v53) = 0;
+    LOBYTE(v15) = 0;
   }
 
-  return v53;
+  return v15;
 }
 
 - (unint64_t)hash
 {
-  isShowingSidebar = objc_msgSend_isShowingSidebar(self, a2, v2);
-  isShowingNavigatorViewInSidebar = objc_msgSend_p_isShowingNavigatorViewInSidebar(self, v5, v6);
-  v10 = 2;
-  if (!isShowingNavigatorViewInSidebar)
+  isShowingSidebar = [(KNMacUILayout *)self isShowingSidebar];
+  p_isShowingNavigatorViewInSidebar = [(KNMacUILayout *)self p_isShowingNavigatorViewInSidebar];
+  v5 = 2;
+  if (!p_isShowingNavigatorViewInSidebar)
   {
-    v10 = 0;
+    v5 = 0;
   }
 
-  v11 = v10 | isShowingSidebar;
-  if (objc_msgSend_isShowingPresenterNotes(self, v8, v9))
+  v6 = v5 | isShowingSidebar;
+  if ([(KNMacUILayout *)self isShowingPresenterNotes])
   {
-    v14 = 4;
+    v7 = 4;
   }
 
   else
+  {
+    v7 = 0;
+  }
+
+  isShowingLightTable = [(KNMacUILayout *)self isShowingLightTable];
+  v9 = 16;
+  if (!isShowingLightTable)
+  {
+    v9 = 0;
+  }
+
+  v10 = v6 | v7 | v9 | (32 * [(KNMacUILayout *)self inspectorPaneHiddenState]);
+  v11 = v10 | ([(KNMacUILayout *)self inspectorPaneViewMode]<< 7);
+  if ([(KNMacUILayout *)self isShowingTemplateSlides])
+  {
+    v12 = 512;
+  }
+
+  else
+  {
+    v12 = 0;
+  }
+
+  isShowingElementList = [(KNMacUILayout *)self isShowingElementList];
+  v14 = 1024;
+  if (!isShowingElementList)
   {
     v14 = 0;
   }
 
-  isShowingLightTable = objc_msgSend_isShowingLightTable(self, v12, v13);
-  v18 = 16;
-  if (!isShowingLightTable)
-  {
-    v18 = 0;
-  }
-
-  v19 = v11 | v14 | v18 | (32 * objc_msgSend_inspectorPaneHiddenState(self, v16, v17));
-  v22 = v19 | (objc_msgSend_inspectorPaneViewMode(self, v20, v21) << 7);
-  if (objc_msgSend_isShowingTemplateSlides(self, v23, v24))
-  {
-    v27 = 512;
-  }
-
-  else
-  {
-    v27 = 0;
-  }
-
-  isShowingElementList = objc_msgSend_isShowingElementList(self, v25, v26);
-  v31 = 1024;
-  if (!isShowingElementList)
-  {
-    v31 = 0;
-  }
-
-  v32 = v27 | v31;
-  isShowingActivityStream = objc_msgSend_isShowingActivityStream(self, v29, v30);
-  v36 = 2048;
+  v15 = v12 | v14;
+  isShowingActivityStream = [(KNMacUILayout *)self isShowingActivityStream];
+  v17 = 2048;
   if (!isShowingActivityStream)
   {
-    v36 = 0;
+    v17 = 0;
   }
 
-  v37 = v32 | v36;
-  v38 = objc_msgSend_activityStreamWasShown(self, v34, v35);
-  v39 = 4096;
-  if (!v38)
+  v18 = v15 | v17;
+  activityStreamWasShown = [(KNMacUILayout *)self activityStreamWasShown];
+  v20 = 4096;
+  if (!activityStreamWasShown)
   {
-    v39 = 0;
+    v20 = 0;
   }
 
-  return v22 | v37 | v39;
+  return v11 | v18 | v20;
 }
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v4 = objc_msgSend_allocWithZone_(KNMacUILayout, a2, zone);
-  result = objc_msgSend_init(v4, v5, v6);
+  result = [[KNMacUILayout allocWithZone:?]];
   *(result + 10) = self->_showingSidebar;
   *(result + 11) = self->_showingNavigatorViewInSidebar;
   *(result + 12) = self->_showingPresenterNotes;
@@ -277,29 +277,18 @@
 
 - (id)mutableCopyWithZone:(_NSZone *)zone
 {
-  v4 = objc_msgSend_allocWithZone_(KNMacMutableUILayout, a2, zone);
-  v7 = objc_msgSend_init(v4, v5, v6);
-  isShowingSidebar = objc_msgSend_isShowingSidebar(self, v8, v9);
-  objc_msgSend_setShowingSidebar_(v7, v11, isShowingSidebar);
-  v14 = objc_msgSend_sidebarViewMode(self, v12, v13);
-  objc_msgSend_setSidebarViewMode_(v7, v15, v14);
-  isShowingPresenterNotes = objc_msgSend_isShowingPresenterNotes(self, v16, v17);
-  objc_msgSend_setShowingPresenterNotes_(v7, v19, isShowingPresenterNotes);
-  isShowingLightTable = objc_msgSend_isShowingLightTable(self, v20, v21);
-  objc_msgSend_setShowingLightTable_(v7, v23, isShowingLightTable);
-  v26 = objc_msgSend_inspectorPaneHiddenState(self, v24, v25);
-  objc_msgSend_setInspectorPaneHiddenState_(v7, v27, v26);
-  v30 = objc_msgSend_inspectorPaneViewMode(self, v28, v29);
-  objc_msgSend_setInspectorPaneViewMode_(v7, v31, v30);
-  isShowingTemplateSlides = objc_msgSend_isShowingTemplateSlides(self, v32, v33);
-  objc_msgSend_setShowingTemplateSlides_(v7, v35, isShowingTemplateSlides);
-  isShowingElementList = objc_msgSend_isShowingElementList(self, v36, v37);
-  objc_msgSend_setShowingElementList_(v7, v39, isShowingElementList);
-  isShowingActivityStream = objc_msgSend_isShowingActivityStream(self, v40, v41);
-  objc_msgSend_setShowingActivityStream_(v7, v43, isShowingActivityStream);
-  v46 = objc_msgSend_activityStreamWasShown(self, v44, v45);
-  objc_msgSend_setActivityStreamWasShown_(v7, v47, v46);
-  return v7;
+  v4 = [[KNMacMutableUILayout allocWithZone:?]];
+  [(KNMacMutableUILayout *)v4 setShowingSidebar:[(KNMacUILayout *)self isShowingSidebar]];
+  [(KNMacMutableUILayout *)v4 setSidebarViewMode:[(KNMacUILayout *)self sidebarViewMode]];
+  [(KNMacMutableUILayout *)v4 setShowingPresenterNotes:[(KNMacUILayout *)self isShowingPresenterNotes]];
+  [(KNMacMutableUILayout *)v4 setShowingLightTable:[(KNMacUILayout *)self isShowingLightTable]];
+  [(KNMacMutableUILayout *)v4 setInspectorPaneHiddenState:[(KNMacUILayout *)self inspectorPaneHiddenState]];
+  [(KNMacMutableUILayout *)v4 setInspectorPaneViewMode:[(KNMacUILayout *)self inspectorPaneViewMode]];
+  [(KNMacMutableUILayout *)v4 setShowingTemplateSlides:[(KNMacUILayout *)self isShowingTemplateSlides]];
+  [(KNMacMutableUILayout *)v4 setShowingElementList:[(KNMacUILayout *)self isShowingElementList]];
+  [(KNMacMutableUILayout *)v4 setShowingActivityStream:[(KNMacUILayout *)self isShowingActivityStream]];
+  [(KNMacMutableUILayout *)v4 setActivityStreamWasShown:[(KNMacUILayout *)self activityStreamWasShown]];
+  return v4;
 }
 
 - (int64_t)inspectorPaneHiddenState

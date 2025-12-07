@@ -1,97 +1,3 @@
-uint64_t __os_log_helper_16_0_5_4_0_4_0_4_0_4_0_4_0(uint64_t result, int a2, int a3, int a4, int a5, int a6)
-{
-  *result = 0;
-  *(result + 1) = 5;
-  *(result + 2) = 0;
-  *(result + 3) = 4;
-  *(result + 4) = a2;
-  *(result + 8) = 0;
-  *(result + 9) = 4;
-  *(result + 10) = a3;
-  *(result + 14) = 0;
-  *(result + 15) = 4;
-  *(result + 16) = a4;
-  *(result + 20) = 0;
-  *(result + 21) = 4;
-  *(result + 22) = a5;
-  *(result + 26) = 0;
-  *(result + 27) = 4;
-  *(result + 28) = a6;
-  return result;
-}
-
-uint64_t __os_log_helper_16_2_2_8_0_8_34(uint64_t result, uint64_t a2, uint64_t a3)
-{
-  *result = 2;
-  *(result + 1) = 2;
-  *(result + 2) = 0;
-  *(result + 3) = 8;
-  *(result + 4) = a2;
-  *(result + 12) = 34;
-  *(result + 13) = 8;
-  *(result + 14) = a3;
-  return result;
-}
-
-uint64_t __os_log_helper_16_0_4_4_0_8_0_4_0_4_0(uint64_t result, int a2, uint64_t a3, int a4, int a5)
-{
-  *result = 0;
-  *(result + 1) = 4;
-  *(result + 2) = 0;
-  *(result + 3) = 4;
-  *(result + 4) = a2;
-  *(result + 8) = 0;
-  *(result + 9) = 8;
-  *(result + 10) = a3;
-  *(result + 18) = 0;
-  *(result + 19) = 4;
-  *(result + 20) = a4;
-  *(result + 24) = 0;
-  *(result + 25) = 4;
-  *(result + 26) = a5;
-  return result;
-}
-
-void *AABC::SetUpdateStrategy(AABC *this, AAB::UpdateCurveStrategy *a2)
-{
-  v12 = *MEMORY[0x1E69E9840];
-  if (_logHandle)
-  {
-    v8 = _logHandle;
-  }
-
-  else
-  {
-    if (_COREBRIGHTNESS_LOG_DEFAULT)
-    {
-      inited = _COREBRIGHTNESS_LOG_DEFAULT;
-    }
-
-    else
-    {
-      inited = init_default_corebrightness_log();
-    }
-
-    v8 = inited;
-  }
-
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
-  {
-    v4 = (*(**(this + 8) + 104))(*(this + 8));
-    v5 = (*(*a2 + 104))(a2);
-    v6 = (*(**(this + 8) + 112))(*(this + 8));
-    v2 = (*(*a2 + 112))(a2);
-    __os_log_helper_16_0_4_4_0_4_0_4_0_4_0(v11, v4, v5, v6, v2);
-    _os_log_impl(&dword_1DE8E5000, v8, OS_LOG_TYPE_DEFAULT, "Change curve update strategies! Curve type: %d => %d, Alternative curve type: %d => %d", v11, 0x1Au);
-  }
-
-  AAB::SetUpdateStrategy(this, a2);
-  AABC::AlignCurveTypeWithStrategy(this, this + 264, this + 752);
-  result = AABC::AlignCurveTypeWithStrategy(this, this + 726, this + 778);
-  *MEMORY[0x1E69E9840];
-  return result;
-}
-
 uint64_t __os_log_helper_16_0_3_4_0_8_0_4_0(uint64_t result, int a2, uint64_t a3, int a4)
 {
   *result = 0;
@@ -141,7 +47,6 @@ uint64_t ___ZN4AABC20InitializeCPMSModuleEv_block_invoke_2()
   v4[0] = v2;
   v1 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v4 forKeys:&v3 count:1];
   MEMORY[0x1E69E5920](v2);
-  *MEMORY[0x1E69E9840];
   return v1;
 }
 
@@ -529,49 +434,54 @@ void AABC::handleAODStateUpdate(uint64_t a1, uint64_t a2, void *a3, float a4)
   {
     DisplaySetState(*(a1 + 400), v57 == 0);
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
-void AABC::logAODCurveToPowerLog(AABC *this)
+double AABC::logAODCurveToPowerLog(AABC *this)
 {
-  v17 = *MEMORY[0x1E69E9840];
-  v15 = this;
+  v18 = *MEMORY[0x1E69E9840];
+  v16 = this;
   memset(__b, 0, sizeof(__b));
   AAB::curveToCustomCurve(this, this + 1056, __b);
-  memset(&v13, 0, sizeof(v13));
+  memset(&v14, 0, sizeof(v14));
   memcpy(__dst, __b, sizeof(__dst));
-  memcpy(&v11, this + 2548, sizeof(v11));
-  AAB::findDarkerCurve(__dst, &v11, &v13, v1);
-  v10 = 0;
-  if (v13.size == *(this + 718))
+  memcpy(&v12, this + 2548, sizeof(v12));
+  AAB::findDarkerCurve(__dst, &v12, &v14, v1);
+  v11 = 0;
+  if (v14.size == *(this + 718))
   {
-    for (i = 0; i < v13.size; ++i)
+    for (i = 0; i < v14.size; ++i)
     {
-      if (COERCE_INT(v13._E[i] * 1000.0) != COERCE_INT(*(this + i + 678) * 1000.0) || COERCE_INT(v13._L[i] * 1000.0) != COERCE_INT(*(this + i + 698) * 1000.0))
+      *&result = *(this + i + 678) * 1000.0;
+      if (COERCE_INT(v14._E[i] * 1000.0) == SLODWORD(result))
       {
-        v10 = 1;
-        break;
+        *&result = *(this + i + 698) * 1000.0;
+        if (COERCE_INT(v14._L[i] * 1000.0) == SLODWORD(result))
+        {
+          continue;
+        }
       }
+
+      v11 = 1;
+      break;
     }
   }
 
   else
   {
-    v10 = 1;
+    v11 = 1;
   }
 
-  if ((v10 & 1) != 0 && *(this + 43))
+  if ((v11 & 1) != 0 && *(this + 43))
   {
-    memcpy(&v7, &v13, sizeof(v7));
-    v8 = dictionaryForCustomCurve(&v7);
-    v6 = [objc_alloc(MEMORY[0x1E695DF20]) initWithObjectsAndKeys:{v8, @"CurveLevelHigh", 0}];
-    (*(this + 43))(*(this + 44), @"AODCurveUpdate", v6);
-    for (j = 0; j < v13.size; ++j)
+    memcpy(&v8, &v14, sizeof(v8));
+    v9 = dictionaryForCustomCurve(&v8);
+    v7 = [objc_alloc(MEMORY[0x1E695DF20]) initWithObjectsAndKeys:{v9, @"CurveLevelHigh", 0}];
+    (*(this + 43))(*(this + 44), @"AODCurveUpdate", v7);
+    for (j = 0; j < v14.size; ++j)
     {
       if (_logHandle)
       {
-        v3 = _logHandle;
+        v4 = _logHandle;
       }
 
       else
@@ -586,22 +496,22 @@ void AABC::logAODCurveToPowerLog(AABC *this)
           inited = init_default_corebrightness_log();
         }
 
-        v3 = inited;
+        v4 = inited;
       }
 
-      if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
       {
-        __os_log_helper_16_0_3_4_0_8_0_8_0(v16, j, COERCE__INT64(v13._E[j]), COERCE__INT64(v13._L[j]));
-        _os_log_impl(&dword_1DE8E5000, v3, OS_LOG_TYPE_DEFAULT, "AOD Darker Curve[%d] = (%f;%f)", v16, 0x1Cu);
+        __os_log_helper_16_0_3_4_0_8_0_8_0(v17, j, COERCE__INT64(v14._E[j]), COERCE__INT64(v14._L[j]));
+        _os_log_impl(&dword_1DE8E5000, v4, OS_LOG_TYPE_DEFAULT, "AOD Darker Curve[%d] = (%f;%f)", v17, 0x1Cu);
       }
     }
 
-    memcpy(this + 2712, &v13, 0xA4uLL);
-    MEMORY[0x1E69E5920](v8);
-    MEMORY[0x1E69E5920](v6);
+    memcpy(this + 2712, &v14, 0xA4uLL);
+    MEMORY[0x1E69E5920](v9);
+    *&result = MEMORY[0x1E69E5920](v7).n128_u64[0];
   }
 
-  *MEMORY[0x1E69E9840];
+  return result;
 }
 
 uint64_t dictionaryForCustomCurve(CustomCurve *a1)
@@ -641,7 +551,7 @@ uint64_t ___ZN4AABC24sendCrossTalkConfigToDCPEv_block_invoke(uint64_t a1, void *
   return result;
 }
 
-uint64_t ___ZN4AABC24sendCrossTalkConfigToDCPEv_block_invoke_2(uint64_t a1, void *a2, uint64_t a3)
+void *___ZN4AABC24sendCrossTalkConfigToDCPEv_block_invoke_2(uint64_t a1, void *a2, uint64_t a3)
 {
   result = [a2 unsignedIntValue];
   *(*(a1 + 32) + 4 * a3) = result;
@@ -706,7 +616,7 @@ void sub_1DEA65C88(uint64_t a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, u
   _Unwind_Resume(*(v10 - 16));
 }
 
-void *std::vector<float>::vector[abi:de200100](void *a1, unint64_t a2)
+uint64_t *std::vector<float>::vector[abi:de200100](uint64_t *a1, uint64_t a2)
 {
   std::vector<float>::vector[abi:de200100](a1, a2);
   return a1;
@@ -733,7 +643,7 @@ void *std::vector<float>::vector[abi:de200100](void *a1, unint64_t a2)
   return v8;
 }
 
-void std::vector<float>::__vallocate[abi:de200100](void *a1, unint64_t a2)
+void std::vector<float>::__vallocate[abi:de200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 > std::vector<float>::max_size[abi:de200100](a1))
   {
@@ -846,7 +756,7 @@ void *std::__split_buffer<float>::_ConstructTransaction::_ConstructTransaction[a
   return result;
 }
 
-uint64_t std::vector<float>::__init_with_size[abi:de200100]<float *,float *>(void *a1, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t std::vector<float>::__init_with_size[abi:de200100]<float *,float *>(uint64_t *a1, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   v11 = a1;
   v10 = a2;
@@ -868,21 +778,21 @@ uint64_t std::__uninitialized_allocator_copy[abi:de200100]<std::allocator<float>
 {
   v9 = std::__unwrap_range[abi:de200100]<float *,float *>(a2, a3);
   v8 = v4;
-  std::__unwrap_iter[abi:de200100]<float *,std::__unwrap_iter_impl<float *,true>,0>();
+  std::__unwrap_iter[abi:de200100]<float *,std::__unwrap_iter_impl<float *,true>,0>(a4);
   v6 = std::__uninitialized_allocator_copy_impl[abi:de200100]<std::allocator<float>,float,float,0>(a1, v9, v8, v5);
   return std::__rewrap_iter[abi:de200100]<float *,float *,std::__unwrap_iter_impl<float *,true>>(a4, v6);
 }
 
 uint64_t std::__unwrap_range_impl<float *,float *>::__unwrap[abi:de200100](uint64_t a1, uint64_t a2)
 {
-  v6[2] = a1;
-  v6[1] = a2;
-  std::__unwrap_iter[abi:de200100]<float *,std::__unwrap_iter_impl<float *,true>,0>();
-  v6[0] = v2;
-  std::__unwrap_iter[abi:de200100]<float *,std::__unwrap_iter_impl<float *,true>,0>();
+  v8 = a1;
+  v7 = a2;
+  std::__unwrap_iter[abi:de200100]<float *,std::__unwrap_iter_impl<float *,true>,0>(a1);
+  v6 = v2;
+  std::__unwrap_iter[abi:de200100]<float *,std::__unwrap_iter_impl<float *,true>,0>(v7);
   v5 = v3;
-  std::pair<float *,float *>::pair[abi:de200100]<float *,float *,0>(&v7, v6, &v5);
-  return v7;
+  std::pair<float *,float *>::pair[abi:de200100]<float *,float *,0>(&v9, &v6, &v5);
+  return v9;
 }
 
 void *std::pair<float *,float *>::pair[abi:de200100]<float *,float *,0>(void *result, void *a2, void *a3)
@@ -900,7 +810,7 @@ uint64_t std::__copy_move_unwrap_iters[abi:de200100]<std::__copy_impl,float *,fl
   v13 = std::__unwrap_range[abi:de200100]<float *,float *>(a1, a2);
   v14 = v3;
   v7 = v3;
-  std::__unwrap_iter[abi:de200100]<float *,std::__unwrap_iter_impl<float *,true>,0>();
+  std::__unwrap_iter[abi:de200100]<float *,std::__unwrap_iter_impl<float *,true>,0>(v15);
   v11 = std::__copy_impl::operator()[abi:de200100]<float,float,0>(&v10, v13, v7, v4);
   v12 = v5;
   v9 = std::__rewrap_range[abi:de200100]<float *,float *,float *>(v17, v11);
@@ -947,12 +857,13 @@ void std::__sort_impl[abi:de200100]<std::_ClassicAlgPolicy,std::__wrap_iter<floa
 {
   std::__debug_randomize_range[abi:de200100]<std::_ClassicAlgPolicy,std::__wrap_iter<float *>,std::__wrap_iter<float *>>();
   std::__unwrap_iter[abi:de200100]<std::__wrap_iter<float *>,std::__unwrap_iter_impl<std::__wrap_iter<float *>,true>,0>(a1);
+  v7 = v3;
   std::__unwrap_iter[abi:de200100]<std::__wrap_iter<float *>,std::__unwrap_iter_impl<std::__wrap_iter<float *>,true>,0>(a2);
-  std::__sort_dispatch[abi:de200100]<std::_ClassicAlgPolicy,float,0>();
+  std::__sort_dispatch[abi:de200100]<std::_ClassicAlgPolicy,float,0>(v7, v4, a3);
   std::__unwrap_iter[abi:de200100]<std::__wrap_iter<float *>,std::__unwrap_iter_impl<std::__wrap_iter<float *>,true>,0>(a1);
-  v5 = v3;
+  v8 = v5;
   std::__unwrap_iter[abi:de200100]<std::__wrap_iter<float *>,std::__unwrap_iter_impl<std::__wrap_iter<float *>,true>,0>(a2);
-  std::__check_strict_weak_ordering_sorted[abi:de200100]<float *,std::__less<void,void>>(v5, v4, a3);
+  std::__check_strict_weak_ordering_sorted[abi:de200100]<float *,std::__less<void,void>>(v8, v6, a3);
 }
 
 void std::__check_strict_weak_ordering_sorted[abi:de200100]<float *,std::__less<void,void>>(float *a1, float *a2, uint64_t a3)
@@ -2565,15 +2476,13 @@ void CBAuroraParams::loadFromCapabilities(CBAuroraParams *this, NSDictionary *a2
       }
     }
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 uint64_t *std::vector<float>::operator=[abi:de200100](uint64_t *a1, uint64_t *a2)
 {
   if (a1 != a2)
   {
-    std::vector<float>::__copy_assign_alloc[abi:de200100]();
+    std::vector<float>::__copy_assign_alloc[abi:de200100](a1, a2);
     std::vector<float>::assign[abi:de200100]<float *,0>(a1, *a2, a2[1]);
   }
 
@@ -2937,53 +2846,45 @@ float std::construct_at[abi:de200100]<float,float,float *>(_DWORD *a1, float *a2
   return result;
 }
 
-void std::vector<float>::__copy_assign_alloc[abi:de200100]()
-{
-  std::vector<float>::__copy_assign_alloc[abi:de200100]();
-}
-
-{
-  ;
-}
-
 void std::vector<float>::__assign_with_size[abi:de200100]<float *,float *>(uint64_t *a1, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   if (a4 > std::vector<float>::capacity[abi:de200100](a1))
   {
     std::vector<float>::__vdeallocate(a1);
-    v6 = std::vector<float>::__recommend[abi:de200100](a1, a4);
-    std::vector<float>::__vallocate[abi:de200100](a1, v6);
+    v8 = std::vector<float>::__recommend[abi:de200100](a1, a4);
+    std::vector<float>::__vallocate[abi:de200100](a1, v8);
     std::vector<float>::__construct_at_end<float *,float *>(a1, a2, a3, a4);
   }
 
   else if (a4 <= std::vector<float>::size[abi:de200100](a1))
   {
     std::__copy[abi:de200100]<float *,float *,float *>(a2, a3, *a1);
-    std::vector<float>::__destruct_at_end[abi:de200100](a1, v5);
+    std::vector<float>::__destruct_at_end[abi:de200100](a1, v7);
   }
 
   else
   {
-    std::vector<float>::size[abi:de200100](a1);
-    std::next[abi:de200100]<float *,0>();
-    std::copy[abi:de200100]<float *,float *>(a2, a2, *a1);
     v4 = std::vector<float>::size[abi:de200100](a1);
-    std::vector<float>::__construct_at_end<float *,float *>(a1, a2, a3, a4 - v4);
+    std::next[abi:de200100]<float *,0>(a2, v4);
+    v10 = v5;
+    std::copy[abi:de200100]<float *,float *>(a2, v5, *a1);
+    v6 = std::vector<float>::size[abi:de200100](a1);
+    std::vector<float>::__construct_at_end<float *,float *>(a1, v10, a3, a4 - v6);
   }
 }
 
-void std::vector<float>::__vdeallocate(uint64_t *a1)
+void std::vector<float>::__vdeallocate(uint64_t *result)
 {
-  if (*a1)
+  if (*result)
   {
-    std::vector<float>::clear[abi:de200100](a1);
+    std::vector<float>::clear[abi:de200100](result);
     std::vector<float>::__annotate_delete[abi:de200100]();
-    v2 = *a1;
-    v1 = std::vector<float>::capacity[abi:de200100](a1);
-    std::allocator_traits<std::allocator<float>>::deallocate[abi:de200100](a1, v2, v1);
-    a1[2] = 0;
-    a1[1] = 0;
-    *a1 = 0;
+    v2 = *result;
+    v1 = std::vector<float>::capacity[abi:de200100](result);
+    std::allocator_traits<std::allocator<float>>::deallocate[abi:de200100](result, v2, v1);
+    result[2] = 0;
+    result[1] = 0;
+    *result = 0;
   }
 }
 
@@ -3011,18 +2912,18 @@ uint64_t std::map<void *,void({block_pointer})(PMMitigationLevel),std::less<void
   return a1;
 }
 
-uint64_t std::map<void *,void({block_pointer})(PMMitigationLevel),std::less<void *>,std::allocator<std::pair<void * const,void({block_pointer})(PMMitigationLevel)>>>::begin[abi:de200100]()
+uint64_t std::map<void *,void({block_pointer})(PMMitigationLevel),std::less<void *>,std::allocator<std::pair<void * const,void({block_pointer})(PMMitigationLevel)>>>::begin[abi:de200100](uint64_t a1)
 {
-  v1 = std::__tree<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::__map_value_compare<void *,std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::less<void *>,true>,std::allocator<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>>>::begin[abi:de200100]();
-  std::__map_iterator<std::__tree_iterator<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::__tree_node<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,void *> *,long>>::__map_iterator[abi:de200100](&v2, v1);
-  return v2;
+  v2 = std::__tree<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::__map_value_compare<void *,std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::less<void *>,true>,std::allocator<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>>>::begin[abi:de200100]();
+  std::__map_iterator<std::__tree_iterator<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::__tree_node<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,void *> *,long>>::__map_iterator[abi:de200100](&v3, v2);
+  return v3;
 }
 
-uint64_t std::map<void *,void({block_pointer})(PMMitigationLevel),std::less<void *>,std::allocator<std::pair<void * const,void({block_pointer})(PMMitigationLevel)>>>::end[abi:de200100]()
+uint64_t std::map<void *,void({block_pointer})(PMMitigationLevel),std::less<void *>,std::allocator<std::pair<void * const,void({block_pointer})(PMMitigationLevel)>>>::end[abi:de200100](uint64_t a1)
 {
-  v1 = std::__tree<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::__map_value_compare<void *,std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::less<void *>,true>,std::allocator<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>>>::end[abi:de200100]();
-  std::__map_iterator<std::__tree_iterator<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::__tree_node<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,void *> *,long>>::__map_iterator[abi:de200100](&v2, v1);
-  return v2;
+  v2 = std::__tree<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::__map_value_compare<void *,std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::less<void *>,true>,std::allocator<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>>>::end[abi:de200100](a1);
+  std::__map_iterator<std::__tree_iterator<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::__tree_node<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,void *> *,long>>::__map_iterator[abi:de200100](&v3, v2);
+  return v3;
 }
 
 uint64_t std::map<void *,void({block_pointer})(PMMitigationLevel),std::less<void *>,std::allocator<std::pair<void * const,void({block_pointer})(PMMitigationLevel)>>>::find[abi:de200100](uint64_t a1, void *a2)
@@ -3035,7 +2936,7 @@ uint64_t std::map<void *,void({block_pointer})(PMMitigationLevel),std::less<void
 void std::__map_iterator<std::__tree_iterator<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::__tree_node<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,void *> *,long>>::operator->[abi:de200100](uint64_t a1)
 {
   std::__tree_iterator<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::__tree_node<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,void *> *,long>::operator->[abi:de200100](a1);
-  std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>::__get_value[abi:de200100]();
+  std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>::__get_value[abi:de200100](v1);
   std::pointer_traits<std::pair<void * const,void({block_pointer})(PMMitigationLevel)> *>::pointer_to[abi:de200100]();
 }
 
@@ -3067,7 +2968,6 @@ uint64_t std::map<void *,void({block_pointer})(PMMitigationLevel),std::less<void
   v4 = v9;
   v5 = v2;
   std::pair<std::__map_iterator<std::__tree_iterator<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::__tree_node<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,void *> *,long>>,BOOL>::pair[abi:de200100]<std::__tree_iterator<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::__tree_node<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,void *> *,long>,BOOL,0>(&v8, &v4);
-  *MEMORY[0x1E69E9840];
   return v8;
 }
 
@@ -3088,7 +2988,7 @@ uint64_t std::__tree<std::__value_type<void *,void({block_pointer})(PMMitigation
   std::__tree_end_node<std::__tree_node_base<void *> *>::__tree_end_node[abi:de200100]((a1 + 8));
   std::allocator<std::__tree_node<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,void *>>::allocator[abi:de200100](a1);
   *(a1 + 16) = 0;
-  std::__tree<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::__map_value_compare<void *,std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::less<void *>,true>,std::allocator<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>>>::__end_node[abi:de200100]();
+  std::__tree<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::__map_value_compare<void *,std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::less<void *>,true>,std::allocator<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>>>::__end_node[abi:de200100](a1);
   v5 = v1;
   std::__tree<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::__map_value_compare<void *,std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::less<void *>,true>,std::allocator<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>>>::__begin_node[abi:de200100]();
   v3 = v2;
@@ -3108,15 +3008,6 @@ uint64_t std::allocator<std::__tree_node<std::__value_type<void *,void({block_po
   return a1;
 }
 
-void std::__tree<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::__map_value_compare<void *,std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::less<void *>,true>,std::allocator<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>>>::__end_node[abi:de200100]()
-{
-  std::pointer_traits<std::__tree_end_node<std::__tree_node_base<void *> *> *>::pointer_to[abi:de200100]();
-}
-
-{
-  std::pointer_traits<std::__tree_end_node<std::__tree_node_base<void *> *> *>::pointer_to[abi:de200100]();
-}
-
 uint64_t std::__tree<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::__map_value_compare<void *,std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::less<void *>,true>,std::allocator<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>>>::~__tree(uint64_t a1)
 {
   std::__tree<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::__map_value_compare<void *,std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::less<void *>,true>,std::allocator<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>>>::~__tree(a1);
@@ -3124,21 +3015,21 @@ uint64_t std::__tree<std::__value_type<void *,void({block_pointer})(PMMitigation
 }
 
 {
-  v1 = std::__tree<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::__map_value_compare<void *,std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::less<void *>,true>,std::allocator<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>>>::__root[abi:de200100]();
+  v1 = std::__tree<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::__map_value_compare<void *,std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::less<void *>,true>,std::allocator<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>>>::__root[abi:de200100](a1);
   std::__tree<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::__map_value_compare<void *,std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::less<void *>,true>,std::allocator<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>>>::destroy(a1, v1);
   return a1;
 }
 
-void std::__tree<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::__map_value_compare<void *,std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::less<void *>,true>,std::allocator<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>>>::destroy(uint64_t a1, void *a2)
+void std::__tree<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::__map_value_compare<void *,std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::less<void *>,true>,std::allocator<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>>>::destroy(uint64_t result, void *a2)
 {
   if (a2)
   {
-    std::__tree<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::__map_value_compare<void *,std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::less<void *>,true>,std::allocator<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>>>::destroy(a1, *a2);
-    std::__tree<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::__map_value_compare<void *,std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::less<void *>,true>,std::allocator<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>>>::destroy(a1, a2[1]);
+    std::__tree<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::__map_value_compare<void *,std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::less<void *>,true>,std::allocator<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>>>::destroy(result, *a2);
+    std::__tree<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::__map_value_compare<void *,std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::less<void *>,true>,std::allocator<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>>>::destroy(result, a2[1]);
     std::__tree<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::__map_value_compare<void *,std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::less<void *>,true>,std::allocator<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>>>::__node_alloc[abi:de200100]();
     v6 = v2;
     v4 = v2;
-    std::__tree_key_value_types<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>>::__get_ptr[abi:de200100]();
+    std::__tree_key_value_types<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>>::__get_ptr[abi:de200100]((a2 + 4));
     std::allocator_traits<std::allocator<std::__tree_node<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,void *>>>::destroy[abi:de200100]<std::pair<void * const,void({block_pointer})(PMMitigationLevel)>,void,0>(v4, v3);
     std::allocator_traits<std::allocator<std::__tree_node<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,void *>>>::deallocate[abi:de200100](v6, a2, 1);
   }
@@ -3152,13 +3043,13 @@ void std::__destroy_at[abi:de200100]<std::pair<void * const,void({block_pointer}
   }
 }
 
-void std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>::__get_value[abi:de200100]()
+void std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>::__get_value[abi:de200100](uint64_t a1)
 {
-  std::launder[abi:de200100]<std::pair<void * const,void({block_pointer})(PMMitigationLevel)>>();
+  std::launder[abi:de200100]<std::pair<void * const,void({block_pointer})(PMMitigationLevel)>>(a1);
 }
 
 {
-  std::launder[abi:de200100]<std::pair<void * const,void({block_pointer})(PMMitigationLevel)> const>();
+  std::launder[abi:de200100]<std::pair<void * const,void({block_pointer})(PMMitigationLevel)> const>(a1);
 }
 
 void std::__libcpp_deallocate[abi:de200100]<std::__tree_node<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,void *>>(void *a1, uint64_t a2, unint64_t a3)
@@ -3176,23 +3067,23 @@ void std::__libcpp_deallocate[abi:de200100]<std::__tree_node<std::__value_type<v
 
 void *std::__tree<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::__map_value_compare<void *,std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::less<void *>,true>,std::allocator<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>>>::__move_assign(void *a1, void *a2)
 {
-  std::__tree<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::__map_value_compare<void *,std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::less<void *>,true>,std::allocator<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>>>::__end_node[abi:de200100]();
+  std::__tree<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::__map_value_compare<void *,std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::less<void *>,true>,std::allocator<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>>>::__end_node[abi:de200100](a1);
   std::__tree<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::__map_value_compare<void *,std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::less<void *>,true>,std::allocator<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>>>::destroy(a1, *v2);
   *a1 = *a2;
   a1[1] = a2[1];
-  std::__tree<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::__map_value_compare<void *,std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::less<void *>,true>,std::allocator<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>>>::__move_assign_alloc[abi:de200100]();
+  std::__tree<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::__map_value_compare<void *,std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::less<void *>,true>,std::allocator<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>>>::__move_assign_alloc[abi:de200100](a1, a2);
   a1[2] = a2[2];
   if (*std::__tree<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::__map_value_compare<void *,std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::less<void *>,true>,std::allocator<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>>>::size[abi:de200100](a1))
   {
-    std::__tree<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::__map_value_compare<void *,std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::less<void *>,true>,std::allocator<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>>>::__end_node[abi:de200100]();
+    std::__tree<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::__map_value_compare<void *,std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::less<void *>,true>,std::allocator<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>>>::__end_node[abi:de200100](a1);
     v12 = v7;
-    std::__tree<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::__map_value_compare<void *,std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::less<void *>,true>,std::allocator<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>>>::__end_node[abi:de200100]();
+    std::__tree<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::__map_value_compare<void *,std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::less<void *>,true>,std::allocator<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>>>::__end_node[abi:de200100](a1);
     *(*v8 + 16) = v12;
-    std::__tree<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::__map_value_compare<void *,std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::less<void *>,true>,std::allocator<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>>>::__end_node[abi:de200100]();
+    std::__tree<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::__map_value_compare<void *,std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::less<void *>,true>,std::allocator<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>>>::__end_node[abi:de200100](a2);
     v13 = v9;
     std::__tree<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::__map_value_compare<void *,std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::less<void *>,true>,std::allocator<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>>>::__begin_node[abi:de200100]();
     *v10 = v13;
-    std::__tree<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::__map_value_compare<void *,std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::less<void *>,true>,std::allocator<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>>>::__end_node[abi:de200100]();
+    std::__tree<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::__map_value_compare<void *,std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::less<void *>,true>,std::allocator<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>>>::__end_node[abi:de200100](a2);
     *v11 = 0;
     result = std::__tree<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::__map_value_compare<void *,std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::less<void *>,true>,std::allocator<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>>>::size[abi:de200100](a2);
     *result = 0;
@@ -3200,7 +3091,7 @@ void *std::__tree<std::__value_type<void *,void({block_pointer})(PMMitigationLev
 
   else
   {
-    std::__tree<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::__map_value_compare<void *,std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::less<void *>,true>,std::allocator<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>>>::__end_node[abi:de200100]();
+    std::__tree<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::__map_value_compare<void *,std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::less<void *>,true>,std::allocator<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>>>::__end_node[abi:de200100](a1);
     v14 = v3;
     std::__tree<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::__map_value_compare<void *,std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::less<void *>,true>,std::allocator<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>>>::__begin_node[abi:de200100]();
     v5 = v4;
@@ -3209,16 +3100,6 @@ void *std::__tree<std::__value_type<void *,void({block_pointer})(PMMitigationLev
   }
 
   return result;
-}
-
-void std::__tree<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::__map_value_compare<void *,std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::less<void *>,true>,std::allocator<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>>>::__move_assign_alloc[abi:de200100]()
-{
-  std::__tree<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::__map_value_compare<void *,std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::less<void *>,true>,std::allocator<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>>>::__move_assign_alloc[abi:de200100]();
-}
-
-{
-  std::__tree<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::__map_value_compare<void *,std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::less<void *>,true>,std::allocator<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>>>::__node_alloc[abi:de200100]();
-  std::__tree<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::__map_value_compare<void *,std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::less<void *>,true>,std::allocator<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>>>::__node_alloc[abi:de200100]();
 }
 
 uint64_t std::__tree<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::__map_value_compare<void *,std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::less<void *>,true>,std::allocator<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>>>::size[abi:de200100](uint64_t a1)
@@ -3259,11 +3140,11 @@ void *std::__tree_iterator<std::__value_type<void *,void({block_pointer})(PMMiti
   return result;
 }
 
-uint64_t std::__tree<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::__map_value_compare<void *,std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::less<void *>,true>,std::allocator<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>>>::end[abi:de200100]()
+uint64_t std::__tree<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::__map_value_compare<void *,std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::less<void *>,true>,std::allocator<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>>>::end[abi:de200100](uint64_t a1)
 {
-  std::__tree<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::__map_value_compare<void *,std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::less<void *>,true>,std::allocator<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>>>::__end_node[abi:de200100]();
-  std::__tree_iterator<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::__tree_node<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,void *> *,long>::__tree_iterator[abi:de200100](&v2, v0);
-  return v2;
+  std::__tree<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::__map_value_compare<void *,std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::less<void *>,true>,std::allocator<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>>>::__end_node[abi:de200100](a1);
+  std::__tree_iterator<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::__tree_node<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,void *> *,long>::__tree_iterator[abi:de200100](&v3, v1);
+  return v3;
 }
 
 uint64_t *std::__tree_iterator<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::__tree_node<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,void *> *,long>::operator++[abi:de200100](uint64_t *a1)
@@ -3313,34 +3194,34 @@ void *std::__tree_min[abi:de200100]<std::__tree_node_base<void *> *>(void *a1)
 
 uint64_t std::__tree<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::__map_value_compare<void *,std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::less<void *>,true>,std::allocator<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>>>::find<void *>(uint64_t a1, void *a2)
 {
-  v14 = a1;
-  v13 = a2;
-  v8 = std::__tree<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::__map_value_compare<void *,std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::less<void *>,true>,std::allocator<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>>>::__root[abi:de200100]();
-  std::__tree<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::__map_value_compare<void *,std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::less<void *>,true>,std::allocator<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>>>::__end_node[abi:de200100]();
-  v12 = std::__tree<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::__map_value_compare<void *,std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::less<void *>,true>,std::allocator<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>>>::__lower_bound<void *>(a1, a2, v8, v2);
-  v11 = std::__tree<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::__map_value_compare<void *,std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::less<void *>,true>,std::allocator<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>>>::end[abi:de200100]();
-  LOBYTE(v10) = 0;
-  if (std::operator!=[abi:de200100](&v12, &v11))
+  v15 = a1;
+  v14 = a2;
+  v9 = std::__tree<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::__map_value_compare<void *,std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::less<void *>,true>,std::allocator<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>>>::__root[abi:de200100](a1);
+  std::__tree<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::__map_value_compare<void *,std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::less<void *>,true>,std::allocator<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>>>::__end_node[abi:de200100](a1);
+  v13 = std::__tree<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::__map_value_compare<void *,std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::less<void *>,true>,std::allocator<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>>>::__lower_bound<void *>(a1, a2, v9, v2);
+  v12 = std::__tree<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::__map_value_compare<void *,std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::less<void *>,true>,std::allocator<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>>>::end[abi:de200100](a1);
+  LOBYTE(v11) = 0;
+  if (std::operator!=[abi:de200100](&v13, &v12))
   {
     std::__tree<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::__map_value_compare<void *,std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::less<void *>,true>,std::allocator<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>>>::value_comp[abi:de200100]();
-    v6 = v3;
-    v5 = v13;
-    std::__tree_iterator<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::__tree_node<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,void *> *,long>::operator*[abi:de200100](&v12);
-    v10 = !std::__map_value_compare<void *,std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::less<void *>,true>::operator()[abi:de200100](v6, v5);
+    v7 = v3;
+    v6 = v14;
+    v4 = std::__tree_iterator<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::__tree_node<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,void *> *,long>::operator*[abi:de200100](&v13);
+    v11 = !std::__map_value_compare<void *,std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::less<void *>,true>::operator()[abi:de200100](v7, v6, v4);
   }
 
-  if (v10)
+  if (v11)
   {
-    return v12;
+    return v13;
   }
 
   else
   {
-    return std::__tree<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::__map_value_compare<void *,std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::less<void *>,true>,std::allocator<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>>>::end[abi:de200100]();
+    return std::__tree<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::__map_value_compare<void *,std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::less<void *>,true>,std::allocator<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>>>::end[abi:de200100](a1);
   }
 }
 
-uint64_t std::__tree<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::__map_value_compare<void *,std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::less<void *>,true>,std::allocator<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>>>::__lower_bound<void *>(uint64_t a1, void *a2, void *a3, uint64_t a4)
+uint64_t std::__tree<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::__map_value_compare<void *,std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::less<void *>,true>,std::allocator<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>>>::__lower_bound<void *>(uint64_t a1, void *a2, void *a3, void *a4)
 {
   while (a3)
   {
@@ -3363,17 +3244,17 @@ uint64_t std::__tree<std::__value_type<void *,void({block_pointer})(PMMitigation
 
 uint64_t std::__tree<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::__map_value_compare<void *,std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::less<void *>,true>,std::allocator<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>>>::erase(uint64_t a1, uint64_t a2)
 {
-  v9 = a2;
-  v8 = std::__tree_const_iterator<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::__tree_node<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,void *> *,long>::__get_np[abi:de200100](&v9);
-  v10 = std::__tree<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::__map_value_compare<void *,std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::less<void *>,true>,std::allocator<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>>>::__remove_node_pointer(a1, v8);
+  v10 = a2;
+  v9 = std::__tree_const_iterator<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::__tree_node<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,void *> *,long>::__get_np[abi:de200100](&v10);
+  v11 = std::__tree<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::__map_value_compare<void *,std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::less<void *>,true>,std::allocator<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>>>::__remove_node_pointer(a1, v9);
   std::__tree<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::__map_value_compare<void *,std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::less<void *>,true>,std::allocator<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>>>::__node_alloc[abi:de200100]();
+  v8 = v2;
   v7 = v2;
-  v6 = v2;
-  std::__tree_const_iterator<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::__tree_node<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,void *> *,long>::operator*[abi:de200100](&v9);
-  std::__tree_key_value_types<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>>::__get_ptr[abi:de200100]();
-  std::allocator_traits<std::allocator<std::__tree_node<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,void *>>>::destroy[abi:de200100]<std::pair<void * const,void({block_pointer})(PMMitigationLevel)>,void,0>(v6, v3);
-  std::allocator_traits<std::allocator<std::__tree_node<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,void *>>>::deallocate[abi:de200100](v7, v8, 1);
-  return v10;
+  v3 = std::__tree_const_iterator<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::__tree_node<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,void *> *,long>::operator*[abi:de200100](&v10);
+  std::__tree_key_value_types<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>>::__get_ptr[abi:de200100](v3);
+  std::allocator_traits<std::allocator<std::__tree_node<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,void *>>>::destroy[abi:de200100]<std::pair<void * const,void({block_pointer})(PMMitigationLevel)>,void,0>(v7, v4);
+  std::allocator_traits<std::allocator<std::__tree_node<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,void *>>>::deallocate[abi:de200100](v8, v9, 1);
+  return v11;
 }
 
 uint64_t std::__tree<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::__map_value_compare<void *,std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::less<void *>,true>,std::allocator<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>>>::__remove_node_pointer(uint64_t a1, uint64_t a2)
@@ -3390,7 +3271,7 @@ uint64_t std::__tree<std::__value_type<void *,void({block_pointer})(PMMitigation
 
   v4 = std::__tree<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::__map_value_compare<void *,std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::less<void *>,true>,std::allocator<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>>>::size[abi:de200100](a1);
   --*v4;
-  std::__tree<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::__map_value_compare<void *,std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::less<void *>,true>,std::allocator<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>>>::__end_node[abi:de200100]();
+  std::__tree<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::__map_value_compare<void *,std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::less<void *>,true>,std::allocator<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>>>::__end_node[abi:de200100](a1);
   std::__tree_remove[abi:de200100]<std::__tree_node_base<void *> *>(*v5, a2);
   return v10;
 }
@@ -3795,15 +3676,6 @@ uint64_t std::__tree_sub_invariant<std::__tree_node_base<void *> *>(void *a1)
   }
 }
 
-uint64_t std::__tree<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::__map_value_compare<void *,std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::less<void *>,true>,std::allocator<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>>>::__insert_unique[abi:de200100](uint64_t a1, __n128 *a2)
-{
-  v6 = *MEMORY[0x1E69E9840];
-  std::__tree_key_value_types<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>>::__get_key[abi:de200100]<std::pair<void * const,void({block_pointer})(PMMitigationLevel)>,0>();
-  result = std::__tree<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::__map_value_compare<void *,std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::less<void *>,true>,std::allocator<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>>>::__emplace_unique_key_args<void *,std::pair<void * const,void({block_pointer})(PMMitigationLevel)>>(a1, v2, a2);
-  *MEMORY[0x1E69E9840];
-  return result;
-}
-
 uint64_t std::pair<std::__map_iterator<std::__tree_iterator<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::__tree_node<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,void *> *,long>>,BOOL>::pair[abi:de200100]<std::__tree_iterator<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::__tree_node<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,void *> *,long>,BOOL,0>(uint64_t a1, uint64_t a2)
 {
   std::pair<std::__map_iterator<std::__tree_iterator<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::__tree_node<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,void *> *,long>>,BOOL>::pair[abi:de200100]<std::__tree_iterator<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::__tree_node<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,void *> *,long>,BOOL,0>(a1, a2);
@@ -3844,54 +3716,54 @@ uint64_t std::__tree<std::__value_type<void *,void({block_pointer})(PMMitigation
 
 void *std::__tree<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::__map_value_compare<void *,std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::less<void *>,true>,std::allocator<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>>>::__find_equal<void *>(uint64_t a1, uint64_t a2, void *a3)
 {
-  v9 = std::__tree<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::__map_value_compare<void *,std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::less<void *>,true>,std::allocator<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>>>::__root[abi:de200100]();
+  v10 = std::__tree<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::__map_value_compare<void *,std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::less<void *>,true>,std::allocator<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>>>::__root[abi:de200100](a1);
   std::__tree<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::__map_value_compare<void *,std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::less<void *>,true>,std::allocator<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>>>::__root_ptr[abi:de200100]();
-  v8 = v3;
-  if (v9)
+  v9 = v3;
+  if (v10)
   {
     while (1)
     {
       while (1)
       {
         std::__tree<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::__map_value_compare<void *,std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::less<void *>,true>,std::allocator<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>>>::value_comp[abi:de200100]();
-        if (!std::__map_value_compare<void *,std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::less<void *>,true>::operator()[abi:de200100](v4, a3))
+        if (!std::__map_value_compare<void *,std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::less<void *>,true>::operator()[abi:de200100](v4, a3, (v10 + 4)))
         {
           break;
         }
 
-        if (!*v9)
+        if (!*v10)
         {
-          *a2 = v9;
+          *a2 = v10;
           return *a2;
         }
 
-        v8 = v9;
-        v9 = *v9;
+        v9 = v10;
+        v10 = *v10;
       }
 
       std::__tree<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::__map_value_compare<void *,std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::less<void *>,true>,std::allocator<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>>>::value_comp[abi:de200100]();
-      if (!std::__map_value_compare<void *,std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::less<void *>,true>::operator()[abi:de200100](v5, (v9 + 4), a3))
+      if (!std::__map_value_compare<void *,std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::less<void *>,true>::operator()[abi:de200100](v5, (v10 + 4), a3))
       {
         break;
       }
 
-      if (!v9[1])
+      if (!v10[1])
       {
-        *a2 = v9;
-        return v9 + 1;
+        *a2 = v10;
+        return v10 + 1;
       }
 
-      v8 = v9 + 1;
-      v9 = v9[1];
+      v9 = v10 + 1;
+      v10 = v10[1];
     }
 
-    *a2 = v9;
-    return v8;
+    *a2 = v10;
+    return v9;
   }
 
   else
   {
-    std::__tree<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::__map_value_compare<void *,std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::less<void *>,true>,std::allocator<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>>>::__end_node[abi:de200100]();
+    std::__tree<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::__map_value_compare<void *,std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::less<void *>,true>,std::allocator<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>>>::__end_node[abi:de200100](a1);
     *a2 = v6;
     return *a2;
   }
@@ -3899,19 +3771,19 @@ void *std::__tree<std::__value_type<void *,void({block_pointer})(PMMitigationLev
 
 uint64_t std::__tree<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::__map_value_compare<void *,std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::less<void *>,true>,std::allocator<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>>>::__construct_node<std::pair<void * const,void({block_pointer})(PMMitigationLevel)>>@<X0>(uint64_t a1@<X0>, __n128 *a2@<X1>, uint64_t a3@<X8>)
 {
-  v14 = a3;
-  v13 = a1;
-  v12 = a2;
+  v15 = a3;
+  v14 = a1;
+  v13 = a2;
   std::__tree<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::__map_value_compare<void *,std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::less<void *>,true>,std::allocator<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>>>::__node_alloc[abi:de200100]();
-  v11 = v3;
-  v10 = 0;
-  v6 = std::allocator_traits<std::allocator<std::__tree_node<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,void *>>>::allocate[abi:de200100](v3, 1uLL);
-  std::__tree_node_destructor<std::allocator<std::__tree_node<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,void *>>>::__tree_node_destructor[abi:de200100](&v9, v11, 0);
-  std::unique_ptr<std::__tree_node<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,void *>,std::__tree_node_destructor<std::allocator<std::__tree_node<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,void *>>>>::unique_ptr[abi:de200100]<true,void>(a3, v6, &v9);
-  v8 = v11;
-  std::unique_ptr<std::__tree_node<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,void *>,std::__tree_node_destructor<std::allocator<std::__tree_node<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,void *>>>>::operator->[abi:de200100](a3);
-  std::__tree_key_value_types<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>>::__get_ptr[abi:de200100]();
-  std::allocator_traits<std::allocator<std::__tree_node<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,void *>>>::construct[abi:de200100]<std::pair<void * const,void({block_pointer})(PMMitigationLevel)>,std::pair<void * const,void({block_pointer})(PMMitigationLevel)>,void,0>(v8, v4, v12);
+  v12 = v3;
+  v11 = 0;
+  v7 = std::allocator_traits<std::allocator<std::__tree_node<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,void *>>>::allocate[abi:de200100](v3, 1uLL);
+  std::__tree_node_destructor<std::allocator<std::__tree_node<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,void *>>>::__tree_node_destructor[abi:de200100](&v10, v12, 0);
+  std::unique_ptr<std::__tree_node<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,void *>,std::__tree_node_destructor<std::allocator<std::__tree_node<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,void *>>>>::unique_ptr[abi:de200100]<true,void>(a3, v7, &v10);
+  v9 = v12;
+  v4 = std::unique_ptr<std::__tree_node<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,void *>,std::__tree_node_destructor<std::allocator<std::__tree_node<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,void *>>>>::operator->[abi:de200100](a3);
+  std::__tree_key_value_types<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>>::__get_ptr[abi:de200100](v4 + 32);
+  std::allocator_traits<std::allocator<std::__tree_node<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,void *>>>::construct[abi:de200100]<std::pair<void * const,void({block_pointer})(PMMitigationLevel)>,std::pair<void * const,void({block_pointer})(PMMitigationLevel)>,void,0>(v9, v5, v13);
   result = std::unique_ptr<std::__tree_node<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,void *>,std::__tree_node_destructor<std::allocator<std::__tree_node<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,void *>>>>::get_deleter[abi:de200100](a3);
   *(result + 8) = 1;
   return result;
@@ -3932,7 +3804,7 @@ void *std::__tree<std::__value_type<void *,void({block_pointer})(PMMitigationLev
     *v6 = v9;
   }
 
-  std::__tree<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::__map_value_compare<void *,std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::less<void *>,true>,std::allocator<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>>>::__end_node[abi:de200100]();
+  std::__tree<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::__map_value_compare<void *,std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::less<void *>,true>,std::allocator<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>>>::__end_node[abi:de200100](a1);
   std::__tree_balance_after_insert[abi:de200100]<std::__tree_node_base<void *> *>(*v7, *a3);
   result = std::__tree<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::__map_value_compare<void *,std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::less<void *>,true>,std::allocator<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>>>::size[abi:de200100](a1);
   ++*result;
@@ -3985,7 +3857,7 @@ void *std::__libcpp_allocate[abi:de200100]<std::__tree_node<std::__value_type<vo
   v3 = 48 * a1;
   if (!std::__is_overaligned_for_new[abi:de200100](a2))
   {
-    std::__libcpp_operator_new[abi:de200100]<std::__tree_node<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,void *>>();
+    std::__libcpp_operator_new[abi:de200100]<std::__tree_node<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,void *>>(v3);
   }
 
   return std::__libcpp_operator_new[abi:de200100]<std::__tree_node<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,void *>,unsigned long,std::align_val_t>(v3, a2);
@@ -4104,28 +3976,28 @@ void std::__tree_balance_after_insert[abi:de200100]<std::__tree_node_base<void *
   }
 }
 
-void std::unique_ptr<std::__tree_node<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,void *>,std::__tree_node_destructor<std::allocator<std::__tree_node<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,void *>>>>::reset[abi:de200100](void **a1, void *a2)
+void std::unique_ptr<std::__tree_node<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,void *>,std::__tree_node_destructor<std::allocator<std::__tree_node<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,void *>>>>::reset[abi:de200100](void **result, void *a2)
 {
-  v2 = *a1;
-  *a1 = a2;
+  v2 = *result;
+  *result = a2;
   if (v2)
   {
-    std::__tree_node_destructor<std::allocator<std::__tree_node<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,void *>>>::operator()[abi:de200100]((a1 + 1), v2);
+    std::__tree_node_destructor<std::allocator<std::__tree_node<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,void *>>>::operator()[abi:de200100]((result + 1), v2);
   }
 }
 
-void std::__tree_node_destructor<std::allocator<std::__tree_node<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,void *>>>::operator()[abi:de200100](uint64_t a1, void *a2)
+void std::__tree_node_destructor<std::allocator<std::__tree_node<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,void *>>>::operator()[abi:de200100](uint64_t result, void *a2)
 {
-  if (*(a1 + 8))
+  if (*(result + 8))
   {
-    v3 = *a1;
-    std::__tree_key_value_types<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>>::__get_ptr[abi:de200100]();
+    v3 = *result;
+    std::__tree_key_value_types<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>>::__get_ptr[abi:de200100](a2 + 32);
     std::allocator_traits<std::allocator<std::__tree_node<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,void *>>>::destroy[abi:de200100]<std::pair<void * const,void({block_pointer})(PMMitigationLevel)>,void,0>(v3, v2);
   }
 
   if (a2)
   {
-    std::allocator_traits<std::allocator<std::__tree_node<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,void *>>>::deallocate[abi:de200100](*a1, a2, 1);
+    std::allocator_traits<std::allocator<std::__tree_node<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,void *>>>::deallocate[abi:de200100](*result, a2, 1);
   }
 }
 

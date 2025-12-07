@@ -105,9 +105,7 @@ uint64_t __31__SUUIUserDefaults_allDefaults__block_invoke()
   MEMORY[0x277D82BD8](v10);
   MEMORY[0x277D82BD8](v11);
   MEMORY[0x277D82BD8](v12);
-  result = MEMORY[0x277D82BD8](v13);
-  *MEMORY[0x277D85DE8];
-  return result;
+  return MEMORY[0x277D82BD8](v13);
 }
 
 - (BOOL)shouldBypassSystemRootWarning

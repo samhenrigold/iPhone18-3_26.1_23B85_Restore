@@ -74,19 +74,19 @@
 {
   editingCopy = editing;
   selfCopy = self;
-  specialized PlatformTextFieldCoordinator.textFieldDidBeginEditing(_:)(closure #1 in PlatformTextFieldCoordinator.didBeginEditing()partial apply);
+  specialized PlatformTextFieldCoordinator.textFieldDidBeginEditing(_:)(closure #1 in PlatformTextFieldCoordinator.didBeginEditing()partial apply, closure #1 in PlatformViewCoordinator.dispatchUpdate(reason:_:)partial apply);
 }
 
 - (void)textFieldDidEndEditing:(id)editing reason:(int64_t)reason
 {
   editingCopy = editing;
   selfCopy = self;
-  specialized PlatformTextFieldCoordinator.textFieldDidEndEditing(_:reason:)(closure #1 in PlatformTextFieldCoordinator.didEndEditing()partial apply);
+  specialized PlatformTextFieldCoordinator.textFieldDidEndEditing(_:reason:)(closure #1 in PlatformTextFieldCoordinator.didEndEditing()partial apply, closure #1 in PlatformViewCoordinator.dispatchUpdate(reason:_:)partial apply);
 }
 
 - (id)textField:(id)field editMenuForCharactersInRange:(_NSRange)range suggestedActions:(id)actions
 {
-  type metadata accessor for NSObject(0, &lazy cache variable for type metadata for UIMenuElement);
+  type metadata accessor for NSObject(0, &lazy cache variable for type metadata for UIMenuElement, 0x1E69DCC78);
   v6 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   selfCopy = self;
   PlatformTextFieldCoordinator.presentEditMenu(with:)(v8, v6);
@@ -124,14 +124,14 @@
 {
   editingCopy = editing;
   selfCopy = self;
-  specialized PlatformTextFieldCoordinator.textFieldDidBeginEditing(_:)(partial apply for closure #1 in PlatformTextFieldCoordinator.didBeginEditing());
+  specialized PlatformTextFieldCoordinator.textFieldDidBeginEditing(_:)(partial apply for closure #1 in PlatformTextFieldCoordinator.didBeginEditing(), closure #1 in PlatformViewCoordinator.dispatchUpdate(reason:_:)partial apply);
 }
 
 - (void)textViewDidEndEditing:(id)editing
 {
   editingCopy = editing;
   selfCopy = self;
-  specialized PlatformTextFieldCoordinator.textFieldDidEndEditing(_:reason:)(partial apply for closure #1 in PlatformTextFieldCoordinator.didEndEditing());
+  specialized PlatformTextFieldCoordinator.textFieldDidEndEditing(_:reason:)(partial apply for closure #1 in PlatformTextFieldCoordinator.didEndEditing(), partial apply for thunk for @callee_guaranteed () -> ());
 }
 
 @end

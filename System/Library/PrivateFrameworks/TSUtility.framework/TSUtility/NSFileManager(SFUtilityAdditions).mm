@@ -2,15 +2,15 @@
 - (uint64_t)_changeFileProtectionAtURL:()SFUtilityAdditions fromProtection:toProtection:recursively:error:;
 - (uint64_t)_fileProtection:()SFUtilityAdditions isGreaterThan:;
 - (uint64_t)_fileProtectionAtURL:()SFUtilityAdditions recursively:passesTest:;
-- (uint64_t)_logFileProtectionAtURL:()SFUtilityAdditions recursively:indent:;
 - (uint64_t)_setAttributes:()SFUtilityAdditions ofItemAtURL:recursively:error:shouldUpdateAttributesHandler:;
 - (uint64_t)applyFileAttributesFromDocumentAtURL:()SFUtilityAdditions toDocumentAtURL:error:;
-- (uint64_t)changeFileProtectionAtURL:()SFUtilityAdditions fromProtection:toProtection:recursively:error:;
 - (uint64_t)directoryUsage:()SFUtilityAdditions;
 - (uint64_t)hasAtLeastFileProtection:()SFUtilityAdditions atURL:recursively:;
 - (uint64_t)hasAtMostFileProtection:()SFUtilityAdditions atURL:recursively:;
 - (uint64_t)pathUsage:()SFUtilityAdditions;
 - (uint64_t)setAttributes:()SFUtilityAdditions ofItemAtURL:recursively:error:;
+- (void)_logFileProtectionAtURL:()SFUtilityAdditions recursively:indent:;
+- (void)changeFileProtectionAtURL:()SFUtilityAdditions fromProtection:toProtection:recursively:error:;
 @end
 
 @implementation NSFileManager(SFUtilityAdditions)
@@ -366,11 +366,11 @@ LABEL_32:
   return [self _setAttributes:v13 ofItemAtURL:a3 recursively:a6 error:a7 shouldUpdateAttributesHandler:v15];
 }
 
-- (uint64_t)changeFileProtectionAtURL:()SFUtilityAdditions fromProtection:toProtection:recursively:error:
+- (void)changeFileProtectionAtURL:()SFUtilityAdditions fromProtection:toProtection:recursively:error:
 {
   if (!a5)
   {
-    v15 = +[TSUAssertionHandler currentHandler];
+    v15 = [TSUAssertionHandler currentHandler:a3];
     v16 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[NSFileManager(SFUtilityAdditions) changeFileProtectionAtURL:fromProtection:toProtection:recursively:error:]"];
     [v15 handleFailureInFunction:v16 file:objc_msgSend(MEMORY[0x277CCACA8] lineNumber:"stringWithUTF8String:" description:{"/Library/Caches/com.apple.xbs/Sources/AlderShared/utility/sf/NSFileManager_SFUAdditions.mm"), 240, @"No file protection specified."}];
     if (a3)
@@ -390,14 +390,15 @@ LABEL_9:
     goto LABEL_9;
   }
 
-  result = [self _changeFileProtectionAtURL:a3 fromProtection:? toProtection:? recursively:? error:?];
+  v9 = a6;
+  result = [self _changeFileProtectionAtURL:a3 fromProtection:a4 toProtection:? recursively:? error:?];
   if (a7 && (result & 1) == 0)
   {
     v11 = +[TSUAssertionHandler currentHandler];
     v12 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[NSFileManager(SFUtilityAdditions) changeFileProtectionAtURL:fromProtection:toProtection:recursively:error:]"];
     v13 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/AlderShared/utility/sf/NSFileManager_SFUAdditions.mm"];
     v14 = &stru_287DDF830;
-    if (a6)
+    if (v9)
     {
       v14 = @" recursively";
     }
@@ -553,7 +554,7 @@ LABEL_12:
   return [self _fileProtectionAtURL:a4 recursively:a5 passesTest:v6];
 }
 
-- (uint64_t)_logFileProtectionAtURL:()SFUtilityAdditions recursively:indent:
+- (void)_logFileProtectionAtURL:()SFUtilityAdditions recursively:indent:
 {
   v22 = *MEMORY[0x277D85DE8];
   result = [objc_msgSend(self attributesOfItemAtPath:objc_msgSend(a3 error:{"path"), 0), "fileType"}];
@@ -595,7 +596,8 @@ LABEL_12:
                   objc_enumerationMutation(v12);
                 }
 
-                [self _logFileProtectionAtURL:*(*(&v17 + 1) + 8 * v16++) recursively:1 indent:v13];
+                [self _logFileProtectionAtURL:*(*(&v17 + 1) + 8 * v16) recursively:1 indent:v13];
+                v16 = v16 + 1;
               }
 
               while (v14 != v16);

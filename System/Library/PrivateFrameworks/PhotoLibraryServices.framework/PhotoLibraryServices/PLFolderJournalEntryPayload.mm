@@ -64,7 +64,7 @@
 
   else
   {
-    if (![v11 count])
+    if (!objc_msgSend_count(v11))
     {
       goto LABEL_6;
     }
@@ -72,7 +72,7 @@
     v16 = PLMigrationGetLog();
     if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
-      v17 = [v11 count];
+      v17 = objc_msgSend_count(v11);
       uuid2 = [v12 uuid];
       *buf = 67109378;
       *v24 = v17;
@@ -228,7 +228,7 @@ uint64_t __46__PLFolderJournalEntryPayload_modelProperties__block_invoke(uint64_
       while (v15);
     }
 
-    v20 = [v12 count];
+    v20 = objc_msgSend_count(v12);
     if (valueCopy || v20)
     {
       v21 = [v12 isEqualToOrderedSet:valueCopy];
@@ -377,7 +377,7 @@ LABEL_12:
   keyCopy = key;
   builderCopy = builder;
   valueCopy = value;
-  if ([keyCopy isEqualToString:@"childCollections"])
+  if (objc_msgSend_isEqualToString_(keyCopy))
   {
     v11 = [(PLManagedObjectJournalEntryPayload *)self orderedSetForUUIDEncodedData:valueCopy];
 

@@ -12,7 +12,7 @@
 
 - (id)serialize
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   type = [(HAPBTLEControlPacket *)self type];
   transactionIdentifier = [(HAPBTLEControlPacket *)self transactionIdentifier];
   unsignedCharValue = [transactionIdentifier unsignedCharValue];
@@ -26,8 +26,8 @@
     v9 = (2 * type) | 0x80;
   }
 
-  v19 = v9;
-  [v7 appendBytes:&v19 length:1];
+  v18 = v9;
+  [v7 appendBytes:&v18 length:1];
   if (isContinuationPacket)
   {
     [v8 appendBytes:buf length:1];
@@ -51,19 +51,17 @@
       v15 = HMFGetLogIdentifier();
       shortDescription = [(HAPBTLEControlPacket *)self shortDescription];
       *buf = 138543874;
-      v21 = v15;
-      v22 = 2112;
-      v23 = shortDescription;
-      v24 = 2112;
-      v25 = 0;
+      v20 = v15;
+      v21 = 2112;
+      v22 = shortDescription;
+      v23 = 2112;
+      v24 = 0;
       _os_log_impl(&dword_22AADC000, v14, OS_LOG_TYPE_ERROR, "%{public}@[%@] Failed to create control header with error: %@", buf, 0x20u);
     }
 
     objc_autoreleasePoolPop(v13);
     v12 = 0;
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
@@ -118,12 +116,12 @@
 - (HAPBTLEControlPacket)initWithControlType:(unsigned __int8)type transactionIdentifier:(id)identifier continuationPacket:(BOOL)packet packetPayload:(id)payload maximumLength:(unint64_t)length
 {
   packetCopy = packet;
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   payloadCopy = payload;
-  v29.receiver = self;
-  v29.super_class = HAPBTLEControlPacket;
-  v15 = [(HAPBTLEControlPacket *)&v29 init];
+  v28.receiver = self;
+  v28.super_class = HAPBTLEControlPacket;
+  v15 = [(HAPBTLEControlPacket *)&v28 init];
   v16 = v15;
   if (!v15)
   {
@@ -168,11 +166,11 @@ LABEL_12:
     v22 = HMFGetLogIdentifier();
     shortDescription = [(HAPBTLEControlPacket *)v16 shortDescription];
     *buf = 138543874;
-    v31 = v22;
-    v32 = 2112;
-    v33 = shortDescription;
-    v34 = 2048;
-    v35 = v17;
+    v30 = v22;
+    v31 = 2112;
+    v32 = shortDescription;
+    v33 = 2048;
+    v34 = v17;
     _os_log_impl(&dword_22AADC000, v21, OS_LOG_TYPE_ERROR, "%{public}@[%@] The maximum packet length must be greater than the header length: %tu", buf, 0x20u);
   }
 
@@ -180,7 +178,6 @@ LABEL_12:
   v24 = 0;
 LABEL_13:
 
-  v27 = *MEMORY[0x277D85DE8];
   return v24;
 }
 
@@ -206,7 +203,7 @@ LABEL_13:
 
 + (id)packetWithSerializedData:(id)data error:(id *)error
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   if (![dataCopy length])
   {
@@ -243,10 +240,10 @@ LABEL_9:
   v10 = (buf[0] >> 1) & 7;
   if (v10 > 1)
   {
-    v25 = MEMORY[0x277CCA9B8];
-    v26 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid control type: %u.", v10];
-    v8 = [v25 hapErrorWithCode:9 description:@"Failed to parse control field." reason:v26 suggestion:0 underlyingError:0];
-    v27 = v8;
+    v24 = MEMORY[0x277CCA9B8];
+    v25 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid control type: %u.", v10];
+    v8 = [v24 hapErrorWithCode:9 description:@"Failed to parse control field." reason:v25 suggestion:0 underlyingError:0];
+    v26 = v8;
 
     goto LABEL_8;
   }
@@ -256,15 +253,15 @@ LABEL_9:
     if ([dataCopy length] <= 1)
     {
       v8 = [MEMORY[0x277CCA9B8] hapErrorWithCode:9 description:@"Failed to parse control field." reason:@"The control field length is invalid for a continuation payload." suggestion:0 underlyingError:0];
-      v28 = v8;
+      v27 = v8;
       goto LABEL_9;
     }
 
-    v29 = 0;
+    v28 = 0;
     v11 = 1;
-    [dataCopy getBytes:&v29 range:{1, 1}];
+    [dataCopy getBytes:&v28 range:{1, 1}];
     v8 = 0;
-    v12 = v29;
+    v12 = v28;
     v13 = 2;
   }
 
@@ -295,11 +292,11 @@ LABEL_10:
       v20 = HMFGetLogIdentifier();
       v21 = +[HAPBTLEControlPacket shortDescription];
       *buf = 138543874;
-      v31 = v20;
-      v32 = 2112;
-      v33 = v21;
-      v34 = 2112;
-      v35 = v14;
+      v30 = v20;
+      v31 = 2112;
+      v32 = v21;
+      v33 = 2112;
+      v34 = v14;
       _os_log_impl(&dword_22AADC000, v19, OS_LOG_TYPE_ERROR, "%{public}@[%@] Failed to parse control field with error: %@", buf, 0x20u);
     }
 
@@ -316,8 +313,6 @@ LABEL_10:
       v17 = 0;
     }
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 
   return v17;
 }

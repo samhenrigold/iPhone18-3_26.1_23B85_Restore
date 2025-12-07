@@ -29,11 +29,12 @@
   v3 = *(&self->super.super.super.super.super.isa + OBJC_IVAR____TtC8AppStore38AppEventSearchResultCollectionViewCell_appEventViewTappedAction);
   if (v3)
   {
+    v4 = *&self->lockupView[OBJC_IVAR____TtC8AppStore38AppEventSearchResultCollectionViewCell_appEventViewTappedAction];
     selfCopy = self;
-    v5 = sub_10000827C(v3);
-    v3(v5);
+    v6 = sub_10000827C(v3, v4);
+    v3(v6);
 
-    sub_10001F63C(v3);
+    sub_10001F63C(v3, v4);
   }
 }
 
@@ -44,13 +45,13 @@
   selfCopy = self;
   v9 = sub_1007723C8(touchCopy);
 
-  return v9 & 1;
+  return v9;
 }
 
 - (void)prepareForReuse
 {
   selfCopy = self;
-  sub_1007703C4();
+  sub_1007703C4(selfCopy);
 }
 
 @end

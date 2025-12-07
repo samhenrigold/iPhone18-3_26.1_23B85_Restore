@@ -7,8 +7,8 @@
 - (_TtC15ControlCenterUI22IconListLayoutProvider)initWithListLayouts:(id)layouts defaultLayout:(id)layout
 {
   type metadata accessor for SBIconLocation(0);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27CEDDC18);
-  sub_21EA95240(&qword_28125B820, type metadata accessor for SBIconLocation);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27CEDDC18, &qword_21EAB76A0);
+  sub_21EA95240(&qword_28125B820, type metadata accessor for SBIconLocation, &unk_21EAB5F78);
   sub_21EAA8DB0();
   swift_unknownObjectRetain();
   v6 = sub_21EAA8DA0();

@@ -107,33 +107,33 @@ void __61__PUSharingHeaderController__linkPresentationImageForPerson___block_inv
 
 - (id)_sharingHeaderStatus
 {
-  v128[2] = *MEMORY[0x1E69E9840];
+  v176[2] = *MEMORY[0x1E69E9840];
   v3 = [MEMORY[0x1E695DF70] arrayWithCapacity:3];
   dataProvider = [(PUSharingHeaderController *)self dataProvider];
   orderedSelectedAssets = [dataProvider orderedSelectedAssets];
 
-  v126 = 0;
-  v124 = 0u;
-  v125 = 0u;
-  v122 = 0u;
-  v123 = 0u;
+  v174 = 0;
+  v172 = 0u;
+  v173 = 0u;
+  v170 = 0u;
+  v171 = 0u;
   dataProvider2 = [(PUSharingHeaderController *)self dataProvider];
   v7 = dataProvider2;
   if (dataProvider2)
   {
-    [dataProvider2 assetTypeCount];
+    objc_msgSend_assetTypeCount(dataProvider2);
   }
 
   else
   {
-    v126 = 0;
-    v124 = 0u;
-    v125 = 0u;
-    v122 = 0u;
-    v123 = 0u;
+    v174 = 0;
+    v172 = 0u;
+    v173 = 0u;
+    v170 = 0u;
+    v171 = 0u;
   }
 
-  v114 = *(&v124 + 1);
+  v162 = *(&v172 + 1);
   dataProvider3 = [(PUSharingHeaderController *)self dataProvider];
   preferredExportFormat = [dataProvider3 preferredExportFormat];
 
@@ -185,10 +185,10 @@ LABEL_13:
 
     if (showSingleVideoDurationInShareSheetHeader)
     {
-      if ([orderedSelectedAssets count] == 1 && *(&v122 + 1) && !v123)
+      if ([orderedSelectedAssets count] == 1 && *(&v170 + 1) && !v171)
       {
         firstObject = [orderedSelectedAssets firstObject];
-        [firstObject duration];
+        objc_msgSend_duration(firstObject);
         v21 = PXLocalizedVideoDuration();
 
         [v3 addObject:v21];
@@ -198,7 +198,7 @@ LABEL_13:
 
   dataProvider7 = [(PUSharingHeaderController *)self dataProvider];
   excludeCaption = [dataProvider7 excludeCaption];
-  if (*(&v125 + 1))
+  if (*(&v173 + 1))
   {
     v24 = excludeCaption;
   }
@@ -232,7 +232,7 @@ LABEL_13:
   }
 
   v35 = preferredExportFormat;
-  if (!*(&v124 + 1))
+  if (!*(&v172 + 1))
   {
     goto LABEL_47;
   }
@@ -253,14 +253,14 @@ LABEL_13:
       librarySpecificFetchOptions = [photoLibrary librarySpecificFetchOptions];
 
       v46 = [MEMORY[0x1E696AEB0] sortDescriptorWithKey:@"startDate" ascending:1];
-      v128[0] = v46;
+      v176[0] = v46;
       v47 = [MEMORY[0x1E696AEB0] sortDescriptorWithKey:@"endDate" ascending:1];
-      v128[1] = v47;
-      v48 = [MEMORY[0x1E695DEC8] arrayWithObjects:v128 count:2];
+      v176[1] = v47;
+      v48 = [MEMORY[0x1E695DEC8] arrayWithObjects:v176 count:2];
 
       [librarySpecificFetchOptions setSortDescriptors:v48];
-      v109 = librarySpecificFetchOptions;
-      v110 = orderedSelectedAssets;
+      v157 = librarySpecificFetchOptions;
+      v158 = orderedSelectedAssets;
       v49 = [MEMORY[0x1E6978650] fetchAssetCollectionsContainingAssets:orderedSelectedAssets withType:3 options:librarySpecificFetchOptions];
       orderedSet = [MEMORY[0x1E695DFA0] orderedSet];
       mEMORY[0x1E69C3A18]2 = [MEMORY[0x1E69C3A18] sharedInstance];
@@ -269,7 +269,7 @@ LABEL_13:
       if (!sharingHeaderLocationDisplayStyle)
       {
 LABEL_49:
-        if (v114 == 1)
+        if (v162 == 1)
         {
           v65 = @"SHARING_HEADER_LOCATION_ON";
         }
@@ -280,42 +280,42 @@ LABEL_49:
         }
 
         v39 = PULocalizedString(v65);
-        orderedSelectedAssets = v110;
+        orderedSelectedAssets = v158;
         goto LABEL_68;
       }
 
-      v106 = v48;
-      v107 = firstObject3;
-      v108 = v26;
-      v120 = 0u;
-      v121 = 0u;
-      v118 = 0u;
-      v119 = 0u;
+      v154 = v48;
+      v155 = firstObject3;
+      v156 = v26;
+      v168 = 0u;
+      v169 = 0u;
+      v166 = 0u;
+      v167 = 0u;
       obj = v49;
-      v53 = [obj countByEnumeratingWithState:&v118 objects:v127 count:16];
+      v53 = [obj countByEnumeratingWithState:&v166 objects:v175 count:16];
       if (v53)
       {
         v54 = v53;
-        v55 = *v119;
+        v55 = *v167;
         while (2)
         {
           for (i = 0; i != v54; ++i)
           {
             v57 = v3;
-            if (*v119 != v55)
+            if (*v167 != v55)
             {
               objc_enumerationMutation(obj);
             }
 
-            localizedLocationNames = [*(*(&v118 + 1) + 8 * i) localizedLocationNames];
+            localizedLocationNames = [*(*(&v166 + 1) + 8 * i) localizedLocationNames];
             [orderedSet addObjectsFromArray:localizedLocationNames];
             if ([orderedSet count] >= 2 && sharingHeaderLocationDisplayStyle == 1)
             {
 
               v35 = preferredExportFormat;
-              firstObject3 = v107;
-              v48 = v106;
-              v26 = v108;
+              firstObject3 = v155;
+              v48 = v154;
+              v26 = v156;
               goto LABEL_49;
             }
 
@@ -331,7 +331,7 @@ LABEL_49:
             }
           }
 
-          v54 = [obj countByEnumeratingWithState:&v118 objects:v127 count:16];
+          v54 = [obj countByEnumeratingWithState:&v166 objects:v175 count:16];
           if (v54)
           {
             continue;
@@ -354,7 +354,7 @@ LABEL_45:
         v63 = 0;
       }
 
-      orderedSelectedAssets = v110;
+      orderedSelectedAssets = v158;
       v35 = preferredExportFormat;
       if ([orderedSet count] < 2)
       {
@@ -366,8 +366,8 @@ LABEL_45:
         v66 = [orderedSet objectAtIndexedSubscript:1];
       }
 
-      v26 = v108;
-      v115 = v63;
+      v26 = v156;
+      v163 = v63;
       if (v62 == 1)
       {
         if (v63)
@@ -375,13 +375,13 @@ LABEL_45:
           v67 = v66;
           PULocalizedString(@"SHARING_HEADER_ONE_LOCATION");
           v69 = v68 = v49;
-          v39 = PUStringWithValidatedFormat();
+          v39 = PUStringWithValidatedFormat(v69, @"%@", v70, v71, v72, v73, v74, v75, v63);
 
           v66 = v67;
           v49 = v68;
 LABEL_66:
-          v48 = v106;
-          firstObject3 = v107;
+          v48 = v154;
+          firstObject3 = v155;
           goto LABEL_67;
         }
       }
@@ -390,18 +390,18 @@ LABEL_66:
       {
         if (v62 == 2)
         {
-          v26 = v108;
-          v48 = v106;
+          v26 = v156;
+          v48 = v154;
           if (v63 && v66)
           {
-            v70 = v66;
+            v76 = v66;
             PULocalizedString(@"SHARING_HEADER_TWO_LOCATIONS");
-            v71 = v117 = v49;
-            v39 = PUStringWithValidatedFormat();
+            v77 = v165 = v49;
+            v39 = PUStringWithValidatedFormat(v77, @"%@ %@", v78, v79, v80, v81, v82, v83, v63);
 
-            v66 = v70;
-            v49 = v117;
-            firstObject3 = v107;
+            v66 = v76;
+            v49 = v165;
+            firstObject3 = v155;
 LABEL_67:
 
 LABEL_68:
@@ -412,30 +412,36 @@ LABEL_68:
           obja = v66;
           if (v63)
           {
-            v96 = v63;
+            v120 = v63;
           }
 
           else
           {
-            v96 = v66;
+            v120 = v66;
           }
 
-          v97 = v96;
-          if (!v97)
+          v121 = v120;
+          if (v121)
+          {
+            v122 = PULocalizedString(@"SHARING_HEADER_ONE_LOCATION_AND_MORE");
+            PUStringWithValidatedFormat(v122, @"%@", v123, v124, v125, v126, v127, v128, v121);
+          }
+
+          else
           {
             [MEMORY[0x1E696AAA8] currentHandler];
-            v103 = v102 = v49;
-            [v103 handleFailureInMethod:a2 object:self file:@"PUSharingHeaderController.m" lineNumber:314 description:{@"Invalid parameter not satisfying: %@", @"locationName"}];
+            v139 = v138 = v49;
+            [v139 handleFailureInMethod:a2 object:self file:@"PUSharingHeaderController.m" lineNumber:314 description:{@"Invalid parameter not satisfying: %@", @"locationName"}];
 
-            v49 = v102;
+            v49 = v138;
+            v122 = PULocalizedString(@"SHARING_HEADER_ONE_LOCATION_AND_MORE");
+            PUStringWithValidatedFormat(v122, @"%@", v140, v141, v142, v143, v144, v145, 0);
           }
-
-          v98 = PULocalizedString(@"SHARING_HEADER_ONE_LOCATION_AND_MORE");
-          v39 = PUStringWithValidatedFormat();
+          v39 = ;
 
           v35 = preferredExportFormat;
-          firstObject3 = v107;
-          v26 = v108;
+          firstObject3 = v155;
+          v26 = v156;
         }
 
         else
@@ -443,58 +449,64 @@ LABEL_68:
           if (v62 < 3)
           {
             v39 = 0;
-            v26 = v108;
+            v26 = v156;
             goto LABEL_66;
           }
 
-          firstObject3 = v107;
+          firstObject3 = v155;
           if (v63 && v66)
           {
-            v93 = v66;
+            v111 = v66;
             PULocalizedString(@"SHARING_HEADER_TWO_LOCATIONS_AND_N_MORE");
-            v95 = v94 = v49;
-            v39 = PUStringWithValidatedFormat();
+            v113 = v112 = v49;
+            v39 = PUStringWithValidatedFormat(v113, @"%@ %@ %ld", v114, v115, v116, v117, v118, v119, v63);
 
-            v66 = v93;
-            v49 = v94;
-            v26 = v108;
-            v48 = v106;
+            v66 = v111;
+            v49 = v112;
+            v26 = v156;
+            v48 = v154;
             goto LABEL_67;
           }
 
-          v99 = v63;
+          v129 = v63;
           obja = v66;
           if (!v63)
           {
-            v99 = v66;
+            v129 = v66;
           }
 
-          v100 = v99;
-          if (!v100)
+          v130 = v129;
+          if (v130)
+          {
+            v131 = PULocalizedString(@"SHARING_HEADER_ONE_LOCATION_AND_N_MORE");
+            PUStringWithValidatedFormat(v131, @"%@ %ld", v132, v133, v134, v135, v136, v137, v130);
+          }
+
+          else
           {
             [MEMORY[0x1E696AAA8] currentHandler];
-            v105 = v104 = v49;
-            [v105 handleFailureInMethod:a2 object:self file:@"PUSharingHeaderController.m" lineNumber:322 description:{@"Invalid parameter not satisfying: %@", @"locationName"}];
+            v147 = v146 = v49;
+            [v147 handleFailureInMethod:a2 object:self file:@"PUSharingHeaderController.m" lineNumber:322 description:{@"Invalid parameter not satisfying: %@", @"locationName"}];
 
-            v49 = v104;
+            v49 = v146;
+            v131 = PULocalizedString(@"SHARING_HEADER_ONE_LOCATION_AND_N_MORE");
+            PUStringWithValidatedFormat(v131, @"%@ %ld", v148, v149, v150, v151, v152, v153, 0);
           }
-
-          v101 = PULocalizedString(@"SHARING_HEADER_ONE_LOCATION_AND_N_MORE");
-          v39 = PUStringWithValidatedFormat();
-          v26 = v108;
+          v39 = ;
+          v26 = v156;
 
           v35 = preferredExportFormat;
-          v48 = v106;
-          firstObject3 = v107;
+          v48 = v154;
+          firstObject3 = v155;
         }
 
         v66 = obja;
         goto LABEL_67;
       }
 
-      v72 = v66;
+      v84 = v66;
       v39 = PULocalizedString(@"SHARING_HEADER_LOCATION_ON");
-      v66 = v72;
+      v66 = v84;
       goto LABEL_66;
     }
 
@@ -516,27 +528,27 @@ LABEL_47:
   v39 = PULocalizedString(v38);
   v40 = @"location.slash";
 LABEL_69:
-  v73 = PULocalizedString(@"SHARING_HEADER_LOCATION_STRING_WITH_LOCATION_ICON_PREFIX");
-  v74 = PUStringWithValidatedFormat();
+  v85 = PULocalizedString(@"SHARING_HEADER_LOCATION_STRING_WITH_LOCATION_ICON_PREFIX");
+  v92 = PUStringWithValidatedFormat(v85, @"%@ %@", v86, v87, v88, v89, v90, v91, @"{LocationIcon}");
 
-  v75 = [(PUSharingHeaderController *)self createTextAttachmentForGlyphImageWithName:v40, @"{LocationIcon}", v39];
-  image2 = [v75 image];
+  v93 = [(PUSharingHeaderController *)self createTextAttachmentForGlyphImageWithName:v40];
+  image2 = [v93 image];
   [image2 alignmentRectInsets];
-  v78 = v77;
-  [v75 bounds];
+  v96 = v95;
+  [v93 bounds];
   [image2 size];
-  [v75 setBounds:{0.0, v78, v79, v80}];
-  v64 = [MEMORY[0x1E696AAB0] attributedStringWithAttachment:v75];
+  [v93 setBounds:{0.0, v96, v97, v98}];
+  v64 = [MEMORY[0x1E696AAB0] attributedStringWithAttachment:v93];
 
-  if (v74)
+  if (v92)
   {
-    [v3 addObject:v74];
+    [v3 addObject:v92];
   }
 
 LABEL_71:
   if (v35 == 2)
   {
-    v81 = @"SHARING_HEADER_FORMAT_COMPATIBLE";
+    v99 = @"SHARING_HEADER_FORMAT_COMPATIBLE";
   }
 
   else
@@ -546,42 +558,42 @@ LABEL_71:
       goto LABEL_76;
     }
 
-    v81 = @"SHARING_HEADER_FORMAT_CURRENT";
+    v99 = @"SHARING_HEADER_FORMAT_CURRENT";
   }
 
-  v82 = PULocalizedString(v81);
-  [v3 addObject:v82];
+  v100 = PULocalizedString(v99);
+  [v3 addObject:v100];
 
 LABEL_76:
   if ([v3 count])
   {
-    v83 = PULocalizedString(@"SHARING_HEADER_SUBTITLE_SEPARATOR");
-    v84 = [v3 componentsJoinedByString:v83];
-    v85 = [objc_alloc(MEMORY[0x1E696AD40]) initWithString:v84];
+    v101 = PULocalizedString(@"SHARING_HEADER_SUBTITLE_SEPARATOR");
+    v102 = [v3 componentsJoinedByString:v101];
+    v103 = [objc_alloc(MEMORY[0x1E696AD40]) initWithString:v102];
     if (v26)
     {
-      v86 = [v84 rangeOfString:@"{CaptionIcon}"];
-      [v85 replaceCharactersInRange:v86 withAttributedString:{v87, v26}];
-      v88 = [v84 stringByReplacingOccurrencesOfString:@"{CaptionIcon}" withString:@" "];
+      v104 = [v102 rangeOfString:@"{CaptionIcon}"];
+      [v103 replaceCharactersInRange:v104 withAttributedString:{v105, v26}];
+      v106 = [v102 stringByReplacingOccurrencesOfString:@"{CaptionIcon}" withString:@" "];
 
-      v84 = v88;
+      v102 = v106;
     }
 
     if (v64)
     {
-      v89 = [v84 rangeOfString:@"{LocationIcon}"];
-      [v85 replaceCharactersInRange:v89 withAttributedString:{v90, v64}];
+      v107 = [v102 rangeOfString:@"{LocationIcon}"];
+      [v103 replaceCharactersInRange:v107 withAttributedString:{v108, v64}];
     }
   }
 
   else
   {
-    v85 = v26;
+    v103 = v26;
   }
 
-  v91 = v85;
+  v109 = v103;
 
-  return v91;
+  return v109;
 }
 
 - (void)updateIfNeeded

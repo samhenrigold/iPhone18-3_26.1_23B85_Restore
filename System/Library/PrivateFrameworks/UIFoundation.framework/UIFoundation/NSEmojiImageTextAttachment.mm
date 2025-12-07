@@ -54,9 +54,11 @@ void __79__NSEmojiImageTextAttachment__readsEmojiImageTextAttachmentFromDocument
 
 uint64_t __47__NSEmojiImageTextAttachment__UTIForEmojiImage__block_invoke()
 {
-  _UTIForEmojiImage_utType = [MEMORY[0x1E6982C40] exportedTypeWithIdentifier:@"com.apple.emojiimage" conformingToType:*MEMORY[0x1E6982E00]];
+  v0 = [MEMORY[0x1E6982C40] exportedTypeWithIdentifier:@"com.apple.emojiimage" conformingToType:*MEMORY[0x1E6982E00]];
+  v1 = _UTIForEmojiImage_utType;
+  _UTIForEmojiImage_utType = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (void)initialize

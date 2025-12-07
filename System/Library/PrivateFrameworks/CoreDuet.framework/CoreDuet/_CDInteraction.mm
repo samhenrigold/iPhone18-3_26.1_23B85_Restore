@@ -16,6 +16,7 @@
 - (_CDInteraction)initWithCoder:(id)coder;
 - (_CDInteraction)initWithINInteraction:(id)interaction bundleID:(id)d nsUserName:(id)name;
 - (id)dateInterval;
+- (id)descriptionRedacted:(BOOL)redacted;
 - (id)metadataFromFeedbackEvent:(id)event;
 - (unint64_t)hash;
 - (unint64_t)recipientsCount;
@@ -88,7 +89,7 @@
 
 - (NSArray)recipients
 {
-  v7[1] = *MEMORY[0x1E69E9840];
+  v6[1] = *MEMORY[0x1E69E9840];
   if (self->_recipients)
   {
     objc_opt_class();
@@ -100,8 +101,8 @@
     else
     {
       v4 = objc_autoreleasePoolPush();
-      v7[0] = self->_recipients;
-      v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:1];
+      v6[0] = self->_recipients;
+      v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:1];
       objc_autoreleasePoolPop(v4);
     }
   }
@@ -110,8 +111,6 @@
   {
     v3 = MEMORY[0x1E695E0F0];
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
@@ -312,16 +311,15 @@ LABEL_19:
 
 - (unint64_t)recipientsCount
 {
-  recipients = self->_recipients;
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
     return 1;
   }
 
-  v4 = self->_recipients;
+  recipients = self->_recipients;
 
-  return [v4 count];
+  return [recipients count];
 }
 
 - (void)setBundleId:(id)id
@@ -522,6 +520,106 @@ LABEL_19:
   }
 }
 
+- (id)descriptionRedacted:(BOOL)redacted
+{
+  redactedCopy = redacted;
+  v5 = objc_alloc_init(MEMORY[0x1E696AD60]);
+  [v5 appendString:@"Interaction { \n"];
+  startDate = [(_CDInteraction *)self startDate];
+  [v5 appendFormat:@"                startDate: %@\n", startDate];
+
+  updateDate = [(_CDInteraction *)self updateDate];
+  [v5 appendFormat:@"               updateDate: %@\n", updateDate];
+
+  endDate = [(_CDInteraction *)self endDate];
+  [v5 appendFormat:@"                  endDate: %@\n", endDate];
+
+  uuid = [(_CDInteraction *)self uuid];
+  [v5 appendFormat:@"                     uuid: %@\n", uuid];
+
+  if (redactedCopy)
+  {
+    [v5 appendFormat:@"             locationUUID: %@\n", @"redacted"];
+  }
+
+  else
+  {
+    locationUUID = [(_CDInteraction *)self locationUUID];
+    [v5 appendFormat:@"             locationUUID: %@\n", locationUUID];
+  }
+
+  v11 = mechanismToString([(_CDInteraction *)self mechanism]);
+  [v5 appendFormat:@"                mechanism: %@ (%ld)\n", v11, -[_CDInteraction mechanism](self, "mechanism")];
+
+  v12 = [(_CDInteraction *)self direction]- 1;
+  if (v12 > 3)
+  {
+    v13 = @"Incoming";
+  }
+
+  else
+  {
+    v13 = off_1E7368258[v12];
+  }
+
+  [v5 appendFormat:@"                direction: %@ (%ld)\n", v13, -[_CDInteraction direction](self, "direction")];
+  [v5 appendFormat:@"               isResponse: %d\n", -[_CDInteraction isResponse](self, "isResponse")];
+  bundleId = [(_CDInteraction *)self bundleId];
+  [v5 appendFormat:@"                 bundleId: %@\n", bundleId];
+
+  targetBundleId = [(_CDInteraction *)self targetBundleId];
+  [v5 appendFormat:@"           targetBundleId: %@\n", targetBundleId];
+
+  groupName = [(_CDInteraction *)self groupName];
+  v17 = [_CDLogging descriptionOfObject:groupName redacted:redactedCopy];
+  [v5 appendFormat:@"                groupName: %@\n", v17];
+
+  contentURL = [(_CDInteraction *)self contentURL];
+  v19 = [_CDLogging descriptionOfObject:contentURL redacted:redactedCopy];
+  [v5 appendFormat:@"               contentURL: %@\n", v19];
+
+  derivedIntentIdentifier = [(_CDInteraction *)self derivedIntentIdentifier];
+  v21 = [_CDLogging descriptionOfObject:derivedIntentIdentifier redacted:redactedCopy];
+  [v5 appendFormat:@"  derivedIntentIdentifier: %@\n", v21];
+
+  domainIdentifier = [(_CDInteraction *)self domainIdentifier];
+  v23 = [_CDLogging descriptionOfObject:domainIdentifier redacted:redactedCopy];
+  [v5 appendFormat:@"         domainIdentifier: %@\n", v23];
+
+  account = [(_CDInteraction *)self account];
+  v25 = [_CDLogging descriptionOfObject:account redacted:redactedCopy];
+  [v5 appendFormat:@"                  account: %@\n", v25];
+
+  sender = [(_CDInteraction *)self sender];
+  v27 = [_CDLogging descriptionOfObject:sender redacted:redactedCopy];
+  [v5 appendFormat:@"                   sender: %@\n", v27];
+
+  recipients = [(_CDInteraction *)self recipients];
+  v29 = [_CDLogging descriptionOfArray:recipients redacted:redactedCopy];
+  [v5 appendFormat:@"               recipients: %@\n", v29];
+
+  keywords = [(_CDInteraction *)self keywords];
+  v31 = [_CDLogging descriptionOfArray:keywords redacted:redactedCopy];
+  [v5 appendFormat:@"                 keywords: %@\n", v31];
+
+  attachments = [(_CDInteraction *)self attachments];
+  v33 = [_CDLogging descriptionOfArray:attachments redacted:redactedCopy];
+  [v5 appendFormat:@"              attachments: %@\n", v33];
+
+  if ([(_CDInteraction *)self mechanism]== 5)
+  {
+    v34 = meetingStatusToString([(_CDInteraction *)self selfParticipantStatus]);
+    [v5 appendFormat:@"    selfParticipantStatus: %@\n", v34];
+  }
+
+  nsUserName = [(_CDInteraction *)self nsUserName];
+  [v5 appendFormat:@"               nsUserName: %@\n", nsUserName];
+
+  [v5 appendString:@"}\n"];
+
+  return v5;
+}
+
 - (unint64_t)hash
 {
   uuid = [(_CDInteraction *)self uuid];
@@ -629,15 +727,15 @@ LABEL_19:
 
 + (id)generateConversationIdFromObjectsWithIdentifiers:(id)identifiers
 {
-  v38[1] = *MEMORY[0x1E69E9840];
+  v39[1] = *MEMORY[0x1E69E9840];
   identifiersCopy = identifiers;
   v4 = [identifiersCopy count];
   v5 = v4 - 1;
   if (v4 == 1)
   {
-    v26 = [identifiersCopy objectAtIndexedSubscript:0];
-    identifier = [v26 identifier];
-    v25 = [_CDInteraction generateConversationIdFromHandle:identifier];
+    v28 = [identifiersCopy objectAtIndexedSubscript:0];
+    identifier = [v28 identifier];
+    v27 = [_CDInteraction generateConversationIdFromHandle:identifier];
 
     goto LABEL_29;
   }
@@ -645,127 +743,128 @@ LABEL_19:
   v6 = v4;
   if (!v4)
   {
-    v25 = &stru_1F05B9908;
+    v27 = &stru_1F05B9908;
     goto LABEL_29;
   }
 
-  v36 = 0;
+  v7 = objc_autoreleasePoolPush();
   v37 = 0;
-  v32 = (8 * v4) | 7;
-  v33 = objc_autoreleasePoolPush();
-  if (((8 * v6) | 7) > 0x400)
+  v38 = 0;
+  v33 = (8 * v6) | 7;
+  v34 = v7;
+  if (v33 > 0x400)
   {
-    [(_CDInteraction *)&v36 generateConversationIdFromObjectsWithIdentifiers:v38];
-    v8 = v38[0];
+    [(_CDInteraction *)&v37 generateConversationIdFromObjectsWithIdentifiers:v39];
+    v9 = v39[0];
   }
 
   else
   {
-    MEMORY[0x1EEE9AC00]();
-    v8 = &v30 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-    bzero(v8, v7);
+    MEMORY[0x1EEE9AC00](v7);
+    v9 = &v31 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+    bzero(v9, v8);
   }
 
-  v34 = identifiersCopy;
-  [identifiersCopy getObjects:v8 range:{0, v6}];
-  qsort_b(v8, v6, 8uLL, &__block_literal_global_757);
-  v9 = 0;
+  v35 = identifiersCopy;
+  [identifiersCopy getObjects:v9 range:{0, v6}];
+  qsort_b(v9, v6, 8uLL, &__block_literal_global_757);
   v10 = 0;
+  v11 = 0;
   do
   {
-    v11 = v5;
-    identifier2 = [*&v8[8 * v10] identifier];
-    v13 = [_CDInteraction generateConversationIdFromHandle:identifier2];
-    v14 = v13;
-    if (identifier2 != v13)
+    v12 = v5;
+    identifier2 = [*&v9[8 * v11] identifier];
+    v14 = [_CDInteraction generateConversationIdFromHandle:identifier2];
+    v15 = v14;
+    if (identifier2 != v14)
     {
-      v9 = 1;
+      v10 = 1;
     }
 
-    v15 = [v13 length];
-    v5 += v15;
+    v16 = [v14 length];
+    v5 += v16;
 
-    ++v10;
+    ++v11;
   }
 
-  while (v6 != v10);
-  v35 = v6;
-  v36 = 0;
+  while (v6 != v11);
+  v36 = v6;
   v37 = 0;
-  v30 = 2 * v5;
+  v38 = 0;
+  v31 = 2 * v5;
   if (((2 * v5) | 1uLL) >= 0x401)
   {
-    [(_CDInteraction *)&v36 generateConversationIdFromObjectsWithIdentifiers:v38];
-    v17 = v38[0];
+    [(_CDInteraction *)&v37 generateConversationIdFromObjectsWithIdentifiers:v39];
+    v19 = v39[0];
   }
 
   else
   {
-    MEMORY[0x1EEE9AC00]();
-    v17 = &v30 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
-    bzero(v17, v16);
-    v36 = v17;
-    LOBYTE(v37) = 1;
+    MEMORY[0x1EEE9AC00](v17);
+    v19 = &v31 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
+    bzero(v19, v18);
+    v37 = v19;
+    LOBYTE(v38) = 1;
   }
 
-  v18 = 0;
-  v19 = 0;
-  v31 = v37;
+  v20 = 0;
+  v21 = 0;
+  v32 = v38;
   do
   {
-    if (v18)
+    if (v20)
     {
-      *&v17[2 * v19++] = 10;
+      *&v19[2 * v21++] = 10;
     }
 
-    if (v9)
+    if (v10)
     {
-      [(_CDInteraction *)v8 generateConversationIdFromObjectsWithIdentifiers:v18, &v36];
-      identifier3 = v36;
+      [(_CDInteraction *)v9 generateConversationIdFromObjectsWithIdentifiers:v20, &v37];
+      identifier3 = v37;
     }
 
     else
     {
-      identifier3 = [*&v8[8 * v18] identifier];
+      identifier3 = [*&v9[8 * v20] identifier];
     }
 
-    v21 = [identifier3 length];
-    [identifier3 getCharacters:&v17[2 * v19] range:{0, v21}];
-    v19 += v21;
+    v23 = [identifier3 length];
+    [identifier3 getCharacters:&v19[2 * v21] range:{0, v23}];
+    v21 += v23;
 
-    ++v18;
+    ++v20;
   }
 
-  while (v35 != v18);
-  if (v32 >= 0x401)
+  while (v36 != v20);
+  if (v33 >= 0x401)
   {
-    free(v8);
+    free(v9);
     if (v5)
     {
 LABEL_21:
-      v22 = v15 + v11;
-      v23 = v17;
+      v24 = v16 + v12;
+      v25 = v19;
       do
       {
-        v24 = *v23;
-        v23 += 2;
-        if (v24 >= 0x80)
+        v26 = *v25;
+        v25 += 2;
+        if (v26 >= 0x80)
         {
-          v25 = [MEMORY[0x1E696AEC0] _pas_stringWithConsumedAllocaDescrNoCopy:v17 bufferSize:v31 encoding:v30 nullTerminated:2483028224 isExternalRepresentation:{0, 0}];
+          v27 = [MEMORY[0x1E696AEC0] _pas_stringWithConsumedAllocaDescrNoCopy:v19 bufferSize:v32 encoding:v31 nullTerminated:2483028224 isExternalRepresentation:{0, 0}];
           goto LABEL_27;
         }
 
-        --v22;
+        --v24;
       }
 
-      while (v22);
+      while (v24);
       do
       {
-        v17[v22] = *&v17[2 * v22];
-        ++v22;
+        v19[v24] = *&v19[2 * v24];
+        ++v24;
       }
 
-      while (v15 + v11 != v22);
+      while (v16 + v12 != v24);
     }
   }
 
@@ -774,20 +873,18 @@ LABEL_21:
     goto LABEL_21;
   }
 
-  v25 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithBytes:v17 length:v5 encoding:1];
-  if ((v31 & 1) == 0)
+  v27 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithBytes:v19 length:v5 encoding:1];
+  if ((v32 & 1) == 0)
   {
-    free(v17);
+    free(v19);
   }
 
 LABEL_27:
-  identifiersCopy = v34;
-  objc_autoreleasePoolPop(v33);
+  identifiersCopy = v35;
+  objc_autoreleasePoolPop(v34);
 LABEL_29:
 
-  v28 = *MEMORY[0x1E69E9840];
-
-  return v25;
+  return v27;
 }
 
 + (id)generateConversationIdFromHandle:(id)handle
@@ -1001,7 +1098,7 @@ LABEL_29:
 
 - (void)fetchAndAddShareSheetContentToInteractionWithKnowledgeStore:(id)store
 {
-  v147 = *MEMORY[0x1E69E9840];
+  v146 = *MEMORY[0x1E69E9840];
   storeCopy = store;
   selfCopy = self;
   if (self->_mechanism == 13)
@@ -1015,7 +1112,7 @@ LABEL_29:
     {
       v7 = +[_CDConstants mobileMessagesBundleId];
 
-      v98 = 1;
+      v97 = 1;
       v6 = v7;
       goto LABEL_6;
     }
@@ -1026,33 +1123,33 @@ LABEL_29:
     v6 = self->_bundleId;
   }
 
-  v98 = 0;
+  v97 = 0;
 LABEL_6:
   v8 = [objc_alloc(MEMORY[0x1E695DFA8]) initWithObjects:{v6, 0}];
-  v108 = v6;
-  v109 = [MEMORY[0x1E6963618] bundleProxyForIdentifier:v6];
+  v107 = v6;
+  v108 = [MEMORY[0x1E6963618] bundleProxyForIdentifier:v6];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v141 = 0u;
-    v142 = 0u;
-    v139 = 0u;
     v140 = 0u;
-    plugInKitPlugins = [v109 plugInKitPlugins];
-    v10 = [plugInKitPlugins countByEnumeratingWithState:&v139 objects:v146 count:16];
+    v141 = 0u;
+    v138 = 0u;
+    v139 = 0u;
+    plugInKitPlugins = [v108 plugInKitPlugins];
+    v10 = [plugInKitPlugins countByEnumeratingWithState:&v138 objects:v145 count:16];
     if (v10)
     {
-      v11 = *v140;
+      v11 = *v139;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v140 != v11)
+          if (*v139 != v11)
           {
             objc_enumerationMutation(plugInKitPlugins);
           }
 
-          v13 = *(*(&v139 + 1) + 8 * i);
+          v13 = *(*(&v138 + 1) + 8 * i);
           bundleIdentifier = [v13 bundleIdentifier];
           if (bundleIdentifier)
           {
@@ -1066,7 +1163,7 @@ LABEL_6:
           }
         }
 
-        v10 = [plugInKitPlugins countByEnumeratingWithState:&v139 objects:v146 count:16];
+        v10 = [plugInKitPlugins countByEnumeratingWithState:&v138 objects:v145 count:16];
       }
 
       while (v10);
@@ -1074,7 +1171,7 @@ LABEL_6:
   }
 
   v17 = +[_CDConstants mobileMessagesBundleId];
-  v18 = [(NSString *)v108 isEqualToString:v17];
+  v18 = [(NSString *)v107 isEqualToString:v17];
 
   if (v18)
   {
@@ -1092,37 +1189,37 @@ LABEL_6:
   v25 = [startDate2 dateByAddingTimeInterval:-60.0];
   v26 = [v22 initWithStartDate:startDate endDate:v25 maxEvents:0 lastN:0 reversed:1];
 
-  v106 = [feedback publisherWithUseCase:@"ShareSheetFeedback" options:v26];
+  v105 = [feedback publisherWithUseCase:@"ShareSheetFeedback" options:v26];
 
-  v133 = 0;
-  v134 = &v133;
-  v135 = 0x3032000000;
-  v136 = __Block_byref_object_copy__6;
-  v137 = __Block_byref_object_dispose__6;
-  v138 = 0;
-  v129[0] = MEMORY[0x1E69E9820];
-  v129[1] = 3221225472;
-  v129[2] = __78___CDInteraction_fetchAndAddShareSheetContentToInteractionWithKnowledgeStore___block_invoke_780;
-  v129[3] = &unk_1E7368190;
-  v100 = v8;
-  v130 = v100;
-  v131 = selfCopy;
-  v132 = &v133;
-  v27 = [v106 sinkWithCompletion:&__block_literal_global_779 shouldContinue:v129];
-  v28 = v134[5];
+  v132 = 0;
+  v133 = &v132;
+  v134 = 0x3032000000;
+  v135 = __Block_byref_object_copy__6;
+  v136 = __Block_byref_object_dispose__6;
+  v137 = 0;
+  v128[0] = MEMORY[0x1E69E9820];
+  v128[1] = 3221225472;
+  v128[2] = __78___CDInteraction_fetchAndAddShareSheetContentToInteractionWithKnowledgeStore___block_invoke_780;
+  v128[3] = &unk_1E7368190;
+  v99 = v8;
+  v129 = v99;
+  v130 = selfCopy;
+  v131 = &v132;
+  v27 = [v105 sinkWithCompletion:&__block_literal_global_779 shouldContinue:v128];
+  v28 = v133[5];
   if (v28)
   {
     source = [v28 source];
     bundleID = [source bundleID];
 
-    metadata = [v134[5] metadata];
+    metadata = [v133[5] metadata];
     v31 = +[_DKShareSheetFeedbackMetadataKey targetBundleID];
-    v102 = [metadata objectForKeyedSubscript:v31];
+    v101 = [metadata objectForKeyedSubscript:v31];
 
-    if (!v102 || ![v102 length] || !bundleID || !-[NSObject length](bundleID, "length"))
+    if (!v101 || ![v101 length] || !bundleID || !-[NSObject length](bundleID, "length"))
     {
-      v99 = +[_CDLogging interactionChannel];
-      if (os_log_type_enabled(v99, OS_LOG_TYPE_ERROR))
+      v98 = +[_CDLogging interactionChannel];
+      if (os_log_type_enabled(v98, OS_LOG_TYPE_ERROR))
       {
         [_CDInteraction fetchAndAddShareSheetContentToInteractionWithKnowledgeStore:];
       }
@@ -1130,11 +1227,11 @@ LABEL_6:
       goto LABEL_44;
     }
 
-    metadata2 = [v134[5] metadata];
+    metadata2 = [v133[5] metadata];
     v33 = +[_DKShareSheetFeedbackMetadataKey attachments];
-    v99 = [metadata2 objectForKeyedSubscript:v33];
+    v98 = [metadata2 objectForKeyedSubscript:v33];
 
-    if (v99)
+    if (v98)
     {
       get_PSAttachmentClass();
       v34 = objc_opt_class();
@@ -1150,9 +1247,9 @@ LABEL_6:
       }
 
       [MEMORY[0x1E695DFD8] setWithObjects:{objc_opt_class(), v34, 0}];
-      v94 = v128 = 0;
-      v35 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClasses:v94 fromData:v99 error:&v128];
-      v36 = v128;
+      v93 = v127 = 0;
+      v35 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClasses:v93 fromData:v98 error:&v127];
+      v36 = v127;
       if (v36)
       {
         v37 = v36;
@@ -1163,193 +1260,193 @@ LABEL_6:
         }
 
 LABEL_42:
-        v114 = 0;
+        v113 = 0;
 LABEL_43:
 
 LABEL_44:
         goto LABEL_45;
       }
 
-      v114 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v35, "count")}];
-      v126 = 0u;
-      v127 = 0u;
-      v124 = 0u;
+      v113 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v35, "count")}];
       v125 = 0u;
+      v126 = 0u;
+      v123 = 0u;
+      v124 = 0u;
       obj = v35;
-      v97 = [obj countByEnumeratingWithState:&v124 objects:v145 count:16];
-      if (v97)
+      v96 = [obj countByEnumeratingWithState:&v123 objects:v144 count:16];
+      if (v96)
       {
-        v96 = *v125;
+        v95 = *v124;
         do
         {
-          for (j = 0; j != v97; ++j)
+          for (j = 0; j != v96; ++j)
           {
-            if (*v125 != v96)
+            if (*v124 != v95)
             {
               objc_enumerationMutation(obj);
             }
 
-            v45 = *(*(&v124 + 1) + 8 * j);
-            v46 = [_CDAttachment alloc];
-            identifier = [v45 identifier];
-            cloudIdentifier = [v45 cloudIdentifier];
-            photoLocalIdentifier = [v45 photoLocalIdentifier];
-            v50 = [v45 UTI];
-            creationDate = [v45 creationDate];
-            contentURL = [v45 contentURL];
-            contentText = [v45 contentText];
-            v104 = [(_CDAttachment *)v46 initWithIdentifier:identifier cloudIdentifier:cloudIdentifier photoLocalIdentifier:photoLocalIdentifier type:v50 sizeInBytes:0 creationDate:creationDate contentURL:contentURL contentText:contentText photoSceneDescriptor:0 personInPhoto:0];
-            v115 = v45;
+            v44 = *(*(&v123 + 1) + 8 * j);
+            v45 = [_CDAttachment alloc];
+            identifier = [v44 identifier];
+            cloudIdentifier = [v44 cloudIdentifier];
+            photoLocalIdentifier = [v44 photoLocalIdentifier];
+            v49 = [v44 UTI];
+            creationDate = [v44 creationDate];
+            contentURL = [v44 contentURL];
+            contentText = [v44 contentText];
+            v103 = [(_CDAttachment *)v45 initWithIdentifier:identifier cloudIdentifier:cloudIdentifier photoLocalIdentifier:photoLocalIdentifier type:v49 sizeInBytes:0 creationDate:creationDate contentURL:contentURL contentText:contentText photoSceneDescriptor:0 personInPhoto:0];
+            v114 = v44;
 
-            [v114 addObject:v104];
-            peopleInPhoto = [v45 peopleInPhoto];
+            [v113 addObject:v103];
+            peopleInPhoto = [v44 peopleInPhoto];
 
             if (peopleInPhoto)
             {
-              v122 = 0u;
-              v123 = 0u;
-              v120 = 0u;
               v121 = 0u;
-              peopleInPhoto2 = [v45 peopleInPhoto];
-              v56 = [peopleInPhoto2 countByEnumeratingWithState:&v120 objects:v144 count:16];
-              if (v56)
+              v122 = 0u;
+              v119 = 0u;
+              v120 = 0u;
+              peopleInPhoto2 = [v44 peopleInPhoto];
+              v55 = [peopleInPhoto2 countByEnumeratingWithState:&v119 objects:v143 count:16];
+              if (v55)
               {
-                v57 = *v121;
+                v56 = *v120;
                 do
                 {
-                  for (k = 0; k != v56; ++k)
+                  for (k = 0; k != v55; ++k)
                   {
-                    if (*v121 != v57)
+                    if (*v120 != v56)
                     {
                       objc_enumerationMutation(peopleInPhoto2);
                     }
 
-                    v59 = *(*(&v120 + 1) + 8 * k);
-                    v60 = [_CDAttachment alloc];
-                    identifier2 = [v115 identifier];
-                    cloudIdentifier2 = [v115 cloudIdentifier];
-                    photoLocalIdentifier2 = [v115 photoLocalIdentifier];
-                    v64 = [v115 UTI];
-                    v65 = [(_CDAttachment *)v60 initWithIdentifier:identifier2 cloudIdentifier:cloudIdentifier2 photoLocalIdentifier:photoLocalIdentifier2 type:v64 sizeInBytes:0 creationDate:0 contentURL:0 contentText:0 photoSceneDescriptor:0 personInPhoto:v59];
+                    v58 = *(*(&v119 + 1) + 8 * k);
+                    v59 = [_CDAttachment alloc];
+                    identifier2 = [v114 identifier];
+                    cloudIdentifier2 = [v114 cloudIdentifier];
+                    photoLocalIdentifier2 = [v114 photoLocalIdentifier];
+                    v63 = [v114 UTI];
+                    v64 = [(_CDAttachment *)v59 initWithIdentifier:identifier2 cloudIdentifier:cloudIdentifier2 photoLocalIdentifier:photoLocalIdentifier2 type:v63 sizeInBytes:0 creationDate:0 contentURL:0 contentText:0 photoSceneDescriptor:0 personInPhoto:v58];
 
-                    [v114 addObject:v65];
+                    [v113 addObject:v64];
                   }
 
-                  v56 = [peopleInPhoto2 countByEnumeratingWithState:&v120 objects:v144 count:16];
+                  v55 = [peopleInPhoto2 countByEnumeratingWithState:&v119 objects:v143 count:16];
                 }
 
-                while (v56);
+                while (v55);
               }
             }
 
-            photoSceneDescriptors = [v115 photoSceneDescriptors];
+            photoSceneDescriptors = [v114 photoSceneDescriptors];
 
             if (photoSceneDescriptors)
             {
-              v118 = 0u;
-              v119 = 0u;
-              v116 = 0u;
               v117 = 0u;
-              photoSceneDescriptors2 = [v115 photoSceneDescriptors];
-              v68 = [photoSceneDescriptors2 countByEnumeratingWithState:&v116 objects:v143 count:16];
-              if (v68)
+              v118 = 0u;
+              v115 = 0u;
+              v116 = 0u;
+              photoSceneDescriptors2 = [v114 photoSceneDescriptors];
+              v67 = [photoSceneDescriptors2 countByEnumeratingWithState:&v115 objects:v142 count:16];
+              if (v67)
               {
-                v111 = photoSceneDescriptors2;
-                v112 = *v117;
+                v110 = photoSceneDescriptors2;
+                v111 = *v116;
                 do
                 {
-                  v113 = v68;
-                  for (m = 0; m != v113; ++m)
+                  v112 = v67;
+                  for (m = 0; m != v112; ++m)
                   {
-                    if (*v117 != v112)
+                    if (*v116 != v111)
                     {
-                      objc_enumerationMutation(v111);
+                      objc_enumerationMutation(v110);
                     }
 
-                    v70 = *(*(&v116 + 1) + 8 * m);
-                    v71 = [_CDAttachment alloc];
-                    identifier3 = [v115 identifier];
-                    cloudIdentifier3 = [v115 cloudIdentifier];
-                    photoLocalIdentifier3 = [v115 photoLocalIdentifier];
-                    v75 = [v115 UTI];
-                    creationDate2 = [v115 creationDate];
-                    contentURL2 = [v115 contentURL];
-                    contentText2 = [v115 contentText];
-                    v79 = [(_CDAttachment *)v71 initWithIdentifier:identifier3 cloudIdentifier:cloudIdentifier3 photoLocalIdentifier:photoLocalIdentifier3 type:v75 sizeInBytes:0 creationDate:creationDate2 contentURL:contentURL2 contentText:contentText2 photoSceneDescriptor:v70 personInPhoto:0];
+                    v69 = *(*(&v115 + 1) + 8 * m);
+                    v70 = [_CDAttachment alloc];
+                    identifier3 = [v114 identifier];
+                    cloudIdentifier3 = [v114 cloudIdentifier];
+                    photoLocalIdentifier3 = [v114 photoLocalIdentifier];
+                    v74 = [v114 UTI];
+                    creationDate2 = [v114 creationDate];
+                    contentURL2 = [v114 contentURL];
+                    contentText2 = [v114 contentText];
+                    v78 = [(_CDAttachment *)v70 initWithIdentifier:identifier3 cloudIdentifier:cloudIdentifier3 photoLocalIdentifier:photoLocalIdentifier3 type:v74 sizeInBytes:0 creationDate:creationDate2 contentURL:contentURL2 contentText:contentText2 photoSceneDescriptor:v69 personInPhoto:0];
 
-                    [v114 addObject:v79];
+                    [v113 addObject:v78];
                   }
 
-                  photoSceneDescriptors2 = v111;
-                  v68 = [v111 countByEnumeratingWithState:&v116 objects:v143 count:16];
+                  photoSceneDescriptors2 = v110;
+                  v67 = [v110 countByEnumeratingWithState:&v115 objects:v142 count:16];
                 }
 
-                while (v68);
+                while (v67);
               }
             }
 
-            contentURL3 = [v115 contentURL];
+            contentURL3 = [v114 contentURL];
             host = [contentURL3 host];
 
-            contentURL4 = [v115 contentURL];
+            contentURL4 = [v114 contentURL];
             if (contentURL4)
             {
-              v83 = host == 0;
+              v82 = host == 0;
             }
 
             else
             {
-              v83 = 1;
+              v82 = 1;
             }
 
-            v84 = !v83;
+            v83 = !v82;
 
-            if (v84)
+            if (v83)
             {
-              v85 = [_CDAttachment alloc];
-              identifier4 = [v115 identifier];
-              cloudIdentifier4 = [v115 cloudIdentifier];
-              photoLocalIdentifier4 = [v115 photoLocalIdentifier];
-              v89 = [v115 UTI];
-              creationDate3 = [v115 creationDate];
-              v91 = [objc_alloc(MEMORY[0x1E695DFF8]) initWithString:host];
-              contentText3 = [v115 contentText];
-              v93 = [(_CDAttachment *)v85 initWithIdentifier:identifier4 cloudIdentifier:cloudIdentifier4 photoLocalIdentifier:photoLocalIdentifier4 type:v89 sizeInBytes:0 creationDate:creationDate3 contentURL:v91 contentText:contentText3];
+              v84 = [_CDAttachment alloc];
+              identifier4 = [v114 identifier];
+              cloudIdentifier4 = [v114 cloudIdentifier];
+              photoLocalIdentifier4 = [v114 photoLocalIdentifier];
+              v88 = [v114 UTI];
+              creationDate3 = [v114 creationDate];
+              v90 = [objc_alloc(MEMORY[0x1E695DFF8]) initWithString:host];
+              contentText3 = [v114 contentText];
+              v92 = [(_CDAttachment *)v84 initWithIdentifier:identifier4 cloudIdentifier:cloudIdentifier4 photoLocalIdentifier:photoLocalIdentifier4 type:v88 sizeInBytes:0 creationDate:creationDate3 contentURL:v90 contentText:contentText3];
 
-              [v114 addObject:v93];
+              [v113 addObject:v92];
             }
           }
 
-          v97 = [obj countByEnumeratingWithState:&v124 objects:v145 count:16];
+          v96 = [obj countByEnumeratingWithState:&v123 objects:v144 count:16];
         }
 
-        while (v97);
+        while (v96);
       }
     }
 
     else
     {
-      v114 = 0;
+      v113 = 0;
     }
 
     v39 = +[_CDConstants shareSheetTargetBundleIdMessages];
-    v40 = [v39 isEqualToString:v102];
+    v40 = [v39 isEqualToString:v101];
 
     if (v40)
     {
       [(_CDInteraction *)selfCopy setDerivedIntentIdentifier:0];
     }
 
-    v41 = [v114 copy];
+    v41 = [v113 copy];
     [(_CDInteraction *)selfCopy setAttachments:v41];
 
-    source2 = [v134[5] source];
+    source2 = [v133[5] source];
     bundleID2 = [source2 bundleID];
     [(_CDInteraction *)selfCopy setBundleId:bundleID2];
 
-    if ((v98 & 1) == 0)
+    if ((v97 & 1) == 0)
     {
-      [(_CDInteraction *)selfCopy setTargetBundleId:v102];
+      [(_CDInteraction *)selfCopy setTargetBundleId:v101];
     }
 
     goto LABEL_43;
@@ -1363,37 +1460,36 @@ LABEL_44:
 
 LABEL_45:
 
-  _Block_object_dispose(&v133, 8);
-  v44 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v132, 8);
 }
 
 - (NSArray)peopleIdentifiers
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E695DF70];
   recipients = [(_CDInteraction *)self recipients];
   v5 = [v3 arrayWithCapacity:{objc_msgSend(recipients, "count") + 1}];
 
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
   v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   recipients2 = [(_CDInteraction *)self recipients];
-  v7 = [recipients2 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v7 = [recipients2 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v21;
+    v9 = *v20;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v21 != v9)
+        if (*v20 != v9)
         {
           objc_enumerationMutation(recipients2);
         }
 
-        v11 = *(*(&v20 + 1) + 8 * i);
+        v11 = *(*(&v19 + 1) + 8 * i);
         identifier = [v11 identifier];
         v13 = [identifier length];
 
@@ -1404,7 +1500,7 @@ LABEL_45:
         }
       }
 
-      v8 = [recipients2 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v8 = [recipients2 countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v8);
@@ -1427,7 +1523,6 @@ LABEL_45:
   }
 
 LABEL_14:
-  v18 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
@@ -1442,7 +1537,7 @@ LABEL_14:
 
 - (_CDInteraction)initWithINInteraction:(id)interaction bundleID:(id)d nsUserName:(id)name
 {
-  v82 = *MEMORY[0x1E69E9840];
+  v79 = *MEMORY[0x1E69E9840];
   interactionCopy = interaction;
   dCopy = d;
   nameCopy = name;
@@ -1522,8 +1617,8 @@ LABEL_10:
     v27 = [intent imageForParameterNamed:@"speakableGroupName"];
     _uri = [v27 _uri];
 
-    v76 = identifier;
-    v74 = v27;
+    v73 = identifier;
+    v71 = v27;
     if (_uri)
     {
       _uri2 = [v27 _uri];
@@ -1556,15 +1651,15 @@ LABEL_10:
           goto LABEL_27;
         }
 
-        v69 = MEMORY[0x1E695DFF8];
+        v66 = MEMORY[0x1E695DFF8];
         _uri2 = [intent _keyImage];
         _identifier3 = [_uri2 _identifier];
-        v71 = [v69 URLWithString:_identifier3];
-        [(_CDInteraction *)self setContentURL:v71];
+        v68 = [v66 URLWithString:_identifier3];
+        [(_CDInteraction *)self setContentURL:v68];
 
 LABEL_26:
 LABEL_27:
-        v75 = nameCopy;
+        v72 = nameCopy;
         groupIdentifier = [interactionCopy groupIdentifier];
         [(_CDInteraction *)self setDomainIdentifier:groupIdentifier];
 
@@ -1576,58 +1671,55 @@ LABEL_27:
 
         v40 = [MEMORY[0x1E695E0F0] mutableCopy];
         _className = [intent _className];
-        v42 = 0x1E696E000uLL;
-        v43 = objc_opt_class();
-        v44 = NSStringFromClass(v43);
-        if ([_className isEqualToString:v44] && objc_msgSend(interactionCopy, "direction") == 2)
+        v42 = objc_opt_class();
+        v43 = NSStringFromClass(v42);
+        if ([_className isEqualToString:v43] && objc_msgSend(interactionCopy, "direction") == 2)
         {
           cd_recipients = [intent cd_recipients];
-          v46 = [cd_recipients count];
+          v45 = [cd_recipients count];
 
-          v42 = 0x1E696E000;
-          if (v46 == 1)
+          if (v45 == 1)
           {
-            v47 = [_CDContact alloc];
+            v46 = [_CDContact alloc];
             cd_sender = [intent cd_sender];
-            v49 = [(_CDContact *)v47 initWithINPerson:cd_sender];
-            [(_CDInteraction *)self setSender:v49];
+            v48 = [(_CDContact *)v46 initWithINPerson:cd_sender];
+            [(_CDInteraction *)self setSender:v48];
 
 LABEL_42:
             _className2 = [intent _className];
-            v56 = *(v42 + 2656);
-            v57 = objc_opt_class();
-            v58 = NSStringFromClass(v57);
-            v59 = [_className2 isEqualToString:v58];
+            v55 = objc_opt_class();
+            v56 = NSStringFromClass(v55);
+            v57 = [_className2 isEqualToString:v56];
 
-            nameCopy = v75;
-            if ((v59 & 1) == 0)
+            nameCopy = v72;
+            if ((v57 & 1) == 0)
             {
-              v60 = [_CDContact alloc];
+              v58 = [_CDContact alloc];
               cd_sender2 = [intent cd_sender];
-              v62 = [(_CDContact *)v60 initWithINPerson:cd_sender2];
-              [(_CDInteraction *)self setSender:v62];
+              v60 = [(_CDContact *)v58 initWithINPerson:cd_sender2];
+              [(_CDInteraction *)self setSender:v60];
             }
 
             [(_CDInteraction *)self setRecipients:v40];
             direction = [interactionCopy direction];
-            v64 = 3;
+            v62 = 3;
             if (direction == 1)
             {
-              v64 = 1;
+              v62 = 1;
             }
 
             if (direction == 2)
             {
-              v65 = 0;
+              v63 = 0;
             }
 
             else
             {
-              v65 = v64;
+              v63 = v62;
             }
 
-            [(_CDInteraction *)self setDirection:v65];
-            [(_CDInteraction *)self setNsUserName:v75];
+            [(_CDInteraction *)self setDirection:v63];
+            [(_CDInteraction *)self setNsUserName:v72];
             selfCopy = self;
 
             goto LABEL_50;
@@ -1638,41 +1730,40 @@ LABEL_42:
         {
         }
 
-        v79 = 0u;
-        v80 = 0u;
+        v76 = 0u;
         v77 = 0u;
-        v78 = 0u;
+        v74 = 0u;
+        v75 = 0u;
         cd_sender = [intent cd_recipients];
-        v50 = [cd_sender countByEnumeratingWithState:&v77 objects:v81 count:16];
-        if (v50)
+        v49 = [cd_sender countByEnumeratingWithState:&v74 objects:v78 count:16];
+        if (v49)
         {
-          v51 = v50;
-          v72 = dCopy;
-          v73 = interactionCopy;
-          v52 = *v78;
+          v50 = v49;
+          v69 = dCopy;
+          v70 = interactionCopy;
+          v51 = *v75;
           do
           {
-            for (i = 0; i != v51; ++i)
+            for (i = 0; i != v50; ++i)
             {
-              if (*v78 != v52)
+              if (*v75 != v51)
               {
                 objc_enumerationMutation(cd_sender);
               }
 
-              v54 = [[_CDContact alloc] initWithINPerson:*(*(&v77 + 1) + 8 * i)];
-              if (v54)
+              v53 = [[_CDContact alloc] initWithINPerson:*(*(&v74 + 1) + 8 * i)];
+              if (v53)
               {
-                [v40 addObject:v54];
+                [v40 addObject:v53];
               }
             }
 
-            v51 = [cd_sender countByEnumeratingWithState:&v77 objects:v81 count:16];
+            v50 = [cd_sender countByEnumeratingWithState:&v74 objects:v78 count:16];
           }
 
-          while (v51);
-          dCopy = v72;
-          interactionCopy = v73;
-          v42 = 0x1E696E000uLL;
+          while (v50);
+          dCopy = v69;
+          interactionCopy = v70;
         }
 
         goto LABEL_42;
@@ -1690,7 +1781,6 @@ LABEL_42:
   selfCopy = 0;
 LABEL_51:
 
-  v66 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
@@ -1726,119 +1816,100 @@ LABEL_51:
 - (void)setBundleId:.cold.1()
 {
   OUTLINED_FUNCTION_6();
-  v9 = *MEMORY[0x1E69E9840];
   objc_opt_class();
+  v8 = 136446979;
   OUTLINED_FUNCTION_1_7();
   v1 = OUTLINED_FUNCTION_0_7(v0);
-  OUTLINED_FUNCTION_2_1(&dword_191750000, v2, v3, "%{public}s expected %{public}s, got %{public}@, ignoring assignment: %{sensitive}@", v4, v5, v6, v7, 3u);
-
-  v8 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_2_1(&dword_191750000, v2, v3, "%{public}s expected %{public}s, got %{public}@, ignoring assignment: %{sensitive}@", v4, v5, v6, v7, v8);
 }
 
 - (void)setTargetBundleId:.cold.1()
 {
   OUTLINED_FUNCTION_6();
-  v9 = *MEMORY[0x1E69E9840];
   objc_opt_class();
+  v8 = 136446979;
   OUTLINED_FUNCTION_1_7();
   v1 = OUTLINED_FUNCTION_0_7(v0);
-  OUTLINED_FUNCTION_2_1(&dword_191750000, v2, v3, "%{public}s expected %{public}s, got %{public}@, ignoring assignment: %{sensitive}@", v4, v5, v6, v7, 3u);
-
-  v8 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_2_1(&dword_191750000, v2, v3, "%{public}s expected %{public}s, got %{public}@, ignoring assignment: %{sensitive}@", v4, v5, v6, v7, v8);
 }
 
 - (void)setAccount:.cold.1()
 {
   OUTLINED_FUNCTION_6();
-  v9 = *MEMORY[0x1E69E9840];
   objc_opt_class();
+  v8 = 136446979;
   OUTLINED_FUNCTION_1_7();
   v1 = OUTLINED_FUNCTION_0_7(v0);
-  OUTLINED_FUNCTION_2_1(&dword_191750000, v2, v3, "%{public}s expected %{public}s, got %{public}@, ignoring assignment: %{sensitive}@", v4, v5, v6, v7, 3u);
-
-  v8 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_2_1(&dword_191750000, v2, v3, "%{public}s expected %{public}s, got %{public}@, ignoring assignment: %{sensitive}@", v4, v5, v6, v7, v8);
 }
 
 - (void)setDerivedIntentIdentifier:.cold.1()
 {
   OUTLINED_FUNCTION_6();
-  v9 = *MEMORY[0x1E69E9840];
   objc_opt_class();
+  v8 = 136446979;
   OUTLINED_FUNCTION_1_7();
   v1 = OUTLINED_FUNCTION_0_7(v0);
-  OUTLINED_FUNCTION_2_1(&dword_191750000, v2, v3, "%{public}s expected %{public}s, got %{public}@, ignoring assignment: %{sensitive}@", v4, v5, v6, v7, 3u);
-
-  v8 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_2_1(&dword_191750000, v2, v3, "%{public}s expected %{public}s, got %{public}@, ignoring assignment: %{sensitive}@", v4, v5, v6, v7, v8);
 }
 
 - (void)setDomainIdentifier:.cold.1()
 {
   OUTLINED_FUNCTION_6();
-  v9 = *MEMORY[0x1E69E9840];
   objc_opt_class();
+  v8 = 136446979;
   OUTLINED_FUNCTION_1_7();
   v1 = OUTLINED_FUNCTION_0_7(v0);
-  OUTLINED_FUNCTION_2_1(&dword_191750000, v2, v3, "%{public}s expected %{public}s, got %{public}@, ignoring assignment: %{sensitive}@", v4, v5, v6, v7, 3u);
-
-  v8 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_2_1(&dword_191750000, v2, v3, "%{public}s expected %{public}s, got %{public}@, ignoring assignment: %{sensitive}@", v4, v5, v6, v7, v8);
 }
 
 - (void)setGroupName:.cold.1()
 {
   OUTLINED_FUNCTION_6();
-  v9 = *MEMORY[0x1E69E9840];
   objc_opt_class();
+  v8 = 136446979;
   OUTLINED_FUNCTION_1_7();
   v1 = OUTLINED_FUNCTION_0_7(v0);
-  OUTLINED_FUNCTION_2_1(&dword_191750000, v2, v3, "%{public}s expected %{public}s, got %{public}@, ignoring assignment: %{sensitive}@", v4, v5, v6, v7, 3u);
-
-  v8 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_2_1(&dword_191750000, v2, v3, "%{public}s expected %{public}s, got %{public}@, ignoring assignment: %{sensitive}@", v4, v5, v6, v7, v8);
 }
 
 - (void)setSender:.cold.1()
 {
   OUTLINED_FUNCTION_6();
-  v9 = *MEMORY[0x1E69E9840];
   objc_opt_class();
+  v8 = 136446979;
   OUTLINED_FUNCTION_1_7();
   v1 = OUTLINED_FUNCTION_0_7(v0);
-  OUTLINED_FUNCTION_2_1(&dword_191750000, v2, v3, "%{public}s expected %{public}s, got %{public}@, ignoring assignment: %{sensitive}@", v4, v5, v6, v7, 3u);
-
-  v8 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_2_1(&dword_191750000, v2, v3, "%{public}s expected %{public}s, got %{public}@, ignoring assignment: %{sensitive}@", v4, v5, v6, v7, v8);
 }
 
 - (void)setContentURL:.cold.1()
 {
   OUTLINED_FUNCTION_6();
-  v9 = *MEMORY[0x1E69E9840];
   objc_opt_class();
+  v8 = 136446979;
   OUTLINED_FUNCTION_1_7();
   v1 = OUTLINED_FUNCTION_0_7(v0);
-  OUTLINED_FUNCTION_2_1(&dword_191750000, v2, v3, "%{public}s expected %{public}s, got %{public}@, ignoring assignment: %{sensitive}@", v4, v5, v6, v7, 3u);
-
-  v8 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_2_1(&dword_191750000, v2, v3, "%{public}s expected %{public}s, got %{public}@, ignoring assignment: %{sensitive}@", v4, v5, v6, v7, v8);
 }
 
 - (void)setNsUserName:.cold.1()
 {
   OUTLINED_FUNCTION_6();
-  v9 = *MEMORY[0x1E69E9840];
   objc_opt_class();
+  v8 = 136446979;
   OUTLINED_FUNCTION_1_7();
   v1 = OUTLINED_FUNCTION_0_7(v0);
-  OUTLINED_FUNCTION_2_1(&dword_191750000, v2, v3, "%{public}s expected %{public}s, got %{public}@, ignoring assignment: %{sensitive}@", v4, v5, v6, v7, 3u);
-
-  v8 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_2_1(&dword_191750000, v2, v3, "%{public}s expected %{public}s, got %{public}@, ignoring assignment: %{sensitive}@", v4, v5, v6, v7, v8);
 }
 
 - (void)isValidInteraction
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
-  v4 = 2112;
-  v5 = v0;
-  _os_log_fault_impl(&dword_191750000, v1, OS_LOG_TYPE_FAULT, "Not recording %{sensitive}@ as it is not a valid interaction, error: %@", v3, 0x16u);
-  v2 = *MEMORY[0x1E69E9840];
+  v3 = 2112;
+  v4 = v0;
+  _os_log_fault_impl(&dword_191750000, v1, OS_LOG_TYPE_FAULT, "Not recording %{sensitive}@ as it is not a valid interaction, error: %@", v2, 0x16u);
 }
 
 + (uint64_t)generateConversationIdFromObjectsWithIdentifiers:(void *)a3 .cold.1(uint64_t a1, size_t size, void *a3)
@@ -1873,30 +1944,6 @@ LABEL_51:
 {
   v4 = [*(a1 + 8 * a2) identifier];
   *a3 = [_CDInteraction generateConversationIdFromHandle:v4];
-}
-
-- (void)fetchAndAddShareSheetContentToInteractionWithKnowledgeStore:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_2(&dword_191750000, v0, v1, "Error unarchiving share sheet attachments: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)fetchAndAddShareSheetContentToInteractionWithKnowledgeStore:.cold.3()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_2(&dword_191750000, v0, v1, "Missing sharingSourceBundleID or targetBundleID on share sheet feedback for interaction %{sensitive}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)fetchAndAddShareSheetContentToInteractionWithKnowledgeStore:.cold.4()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_2(&dword_191750000, v0, v1, "No corresponding share sheet feedback for interaction %{sensitive}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 @end

@@ -4,18 +4,17 @@
 + (id)fetchCTSubscriptionsInUse;
 + (id)fetchLocalizedPhoneNumberForContext:(id)context;
 + (id)fetchShortLabelForContext:(id)context;
-+ (void)fetchCTSubscriptionsInUse;
 @end
 
 @implementation SHSDualSIMToneHelper
 
 + (id)fetchCTSubscriptionsInUse
 {
-  v26 = *MEMORY[0x277D85DE8];
-  v2 = _SHSCTClient();
-  v20 = 0;
-  v3 = [v2 getSubscriptionInfoWithError:&v20];
-  v4 = v20;
+  v25 = *MEMORY[0x277D85DE8];
+  v2 = _SHSCTClient(self);
+  v19 = 0;
+  v3 = [v2 getSubscriptionInfoWithError:&v19];
+  v4 = v19;
 
   v5 = SHSLogForCategory(0);
   subscriptionsInUse2 = v5;
@@ -35,59 +34,57 @@
     {
       subscriptionsInUse = [v3 subscriptionsInUse];
       *buf = 136315394;
-      v23 = "+[SHSDualSIMToneHelper fetchCTSubscriptionsInUse]";
-      v24 = 2112;
-      v25 = subscriptionsInUse;
+      v22 = "+[SHSDualSIMToneHelper fetchCTSubscriptionsInUse]";
+      v23 = 2112;
+      v24 = subscriptionsInUse;
       _os_log_impl(&dword_265896000, subscriptionsInUse2, OS_LOG_TYPE_DEFAULT, "%s: Received subscriptionsInUse: %@", buf, 0x16u);
     }
 
     v7 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v15 = 0u;
     v16 = 0u;
     v17 = 0u;
     v18 = 0u;
-    v19 = 0u;
     subscriptionsInUse2 = [v3 subscriptionsInUse];
-    v9 = [subscriptionsInUse2 countByEnumeratingWithState:&v16 objects:v21 count:16];
+    v9 = [subscriptionsInUse2 countByEnumeratingWithState:&v15 objects:v20 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v17;
+      v11 = *v16;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v17 != v11)
+          if (*v16 != v11)
           {
             objc_enumerationMutation(subscriptionsInUse2);
           }
 
-          v13 = *(*(&v16 + 1) + 8 * i);
+          v13 = *(*(&v15 + 1) + 8 * i);
           if (([v13 isSimHidden] & 1) == 0 && (objc_msgSend(v13, "isSimDataOnly") & 1) == 0)
           {
             [v7 addObject:v13];
           }
         }
 
-        v10 = [subscriptionsInUse2 countByEnumeratingWithState:&v16 objects:v21 count:16];
+        v10 = [subscriptionsInUse2 countByEnumeratingWithState:&v15 objects:v20 count:16];
       }
 
       while (v10);
     }
   }
 
-  v14 = *MEMORY[0x277D85DE8];
-
   return v7;
 }
 
 + (id)fetchShortLabelForContext:(id)context
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   contextCopy = context;
-  v4 = _SHSCTClient();
-  v11 = 0;
-  v5 = [v4 getShortLabel:contextCopy error:&v11];
-  v6 = v11;
+  v4 = _SHSCTClient(contextCopy);
+  v10 = 0;
+  v5 = [v4 getShortLabel:contextCopy error:&v10];
+  v6 = v10;
 
   v7 = 0;
   if (!v6)
@@ -96,18 +93,16 @@
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315650;
-      v13 = "+[SHSDualSIMToneHelper fetchShortLabelForContext:]";
-      v14 = 2112;
-      v15 = v5;
-      v16 = 2112;
-      v17 = contextCopy;
+      v12 = "+[SHSDualSIMToneHelper fetchShortLabelForContext:]";
+      v13 = 2112;
+      v14 = v5;
+      v15 = 2112;
+      v16 = contextCopy;
       _os_log_impl(&dword_265896000, v8, OS_LOG_TYPE_DEFAULT, "%s: Received shortLabel: %@ for Context: %@", buf, 0x20u);
     }
 
     v7 = v5;
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -115,10 +110,10 @@
 + (id)fetchLocalizedPhoneNumberForContext:(id)context
 {
   contextCopy = context;
-  v4 = _SHSCTClient();
-  v25 = 0;
-  v5 = [v4 getPhoneNumber:contextCopy error:&v25];
-  v6 = v25;
+  v4 = _SHSCTClient(contextCopy);
+  v24 = 0;
+  v5 = [v4 getPhoneNumber:contextCopy error:&v24];
+  v6 = v24;
 
   if (v5)
   {
@@ -148,10 +143,10 @@
   }
 
   v8 = number;
-  v11 = _SHSCTClient();
-  v24 = 0;
-  v12 = [v11 getMobileSubscriberHomeCountryList:contextCopy error:&v24];
-  v13 = v24;
+  v11 = _SHSCTClient(v8);
+  v23 = 0;
+  v12 = [v11 getMobileSubscriberHomeCountryList:contextCopy error:&v23];
+  v13 = v23;
 
   firstObject = &stru_28772CD00;
   if (!v13)
@@ -159,29 +154,28 @@
     firstObject = [v12 firstObject];
   }
 
-  v15 = *MEMORY[0x277CBECE8];
-  v16 = CFPhoneNumberCreate();
-  if (v16)
+  v15 = CFPhoneNumberCreate();
+  if (v15)
   {
-    v17 = v16;
+    v16 = v15;
     String = CFPhoneNumberCreateString();
 
     if (!String)
     {
-      v19 = SHSLogForCategory(0);
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+      v18 = SHSLogForCategory(0);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
         +[SHSDualSIMToneHelper fetchLocalizedPhoneNumberForContext:];
       }
     }
 
-    CFRelease(v17);
+    CFRelease(v16);
   }
 
   else
   {
-    v20 = SHSLogForCategory(0);
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    v19 = SHSLogForCategory(0);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
       +[SHSDualSIMToneHelper fetchLocalizedPhoneNumberForContext:];
     }
@@ -189,23 +183,23 @@
     String = v8;
   }
 
-  v21 = [(__CFString *)String length];
+  v20 = [(__CFString *)String length];
   if (v8)
   {
-    v22 = v8;
+    v21 = v8;
   }
 
   else
   {
-    v22 = &stru_28772CD00;
+    v21 = &stru_28772CD00;
   }
 
-  if (v21)
+  if (v20)
   {
-    v22 = String;
+    v21 = String;
   }
 
-  v9 = v22;
+  v9 = v21;
 
 LABEL_26:
 
@@ -230,46 +224,6 @@ LABEL_26:
   v3 = [fetchCTSubscriptionsInUse count] > 1;
 
   return v3;
-}
-
-+ (void)fetchCTSubscriptionsInUse
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-+ (void)fetchLocalizedPhoneNumberForContext:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-+ (void)fetchLocalizedPhoneNumberForContext:.cold.2()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-+ (void)fetchLocalizedPhoneNumberForContext:.cold.3()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-+ (void)fetchLocalizedPhoneNumberForContext:.cold.4()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

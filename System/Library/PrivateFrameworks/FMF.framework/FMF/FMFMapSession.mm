@@ -3,6 +3,9 @@
 + (id)sharedInstance;
 - (void)gridImageForScreenRatio:(double)ratio andCompletion:(id)completion;
 - (void)gridImageForWidth:(double)width height:(double)height cache:(BOOL)cache andCompletion:(id)completion;
+- (void)mapImageForLocation:(id)location isShifted:(BOOL)shifted altitude:(double)altitude pitch:(double)pitch screenRatio:(double)ratio andCompletion:(id)completion;
+- (void)mapImageForLocation:(id)location isShifted:(BOOL)shifted altitude:(double)altitude pitch:(double)pitch width:(double)width height:(double)height cache:(BOOL)cache andCompletion:(id)self0;
+- (void)mapImageForLocation:(id)location isShifted:(BOOL)shifted radius:(double)radius width:(double)width height:(double)height cache:(BOOL)cache andCompletion:(id)completion;
 - (void)mapImageForRequest:(id)request andCompletion:(id)completion;
 - (void)noLocationImageForScreenRatio:(double)ratio andCompletion:(id)completion;
 - (void)noLocationImageForWidth:(double)width height:(double)height cache:(BOOL)cache andCompletion:(id)completion;
@@ -29,13 +32,12 @@
 
 void __31__FMFMapSession_sharedInstance__block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
-  v2 = objc_alloc_init(objc_opt_class());
-  v3 = sharedInstance__instance;
-  sharedInstance__instance = v2;
+  v1 = objc_alloc_init(objc_opt_class());
+  v2 = sharedInstance__instance;
+  sharedInstance__instance = v1;
 
-  v4 = objc_opt_new();
-  [sharedInstance__instance setMapCache:v4];
+  v3 = objc_opt_new();
+  [sharedInstance__instance setMapCache:v3];
 }
 
 + (id)newConnection
@@ -121,6 +123,17 @@ void __62__FMFMapSession_gridImageForWidth_height_cache_andCompletion___block_in
   (*(*(a1 + 40) + 16))();
 }
 
+- (void)mapImageForLocation:(id)location isShifted:(BOOL)shifted radius:(double)radius width:(double)width height:(double)height cache:(BOOL)cache andCompletion:(id)completion
+{
+  cacheCopy = cache;
+  shiftedCopy = shifted;
+  completionCopy = completion;
+  locationCopy = location;
+  v18 = [[FMFMapImageRequest alloc] initWithLocation:locationCopy isShifted:shiftedCopy radius:cacheCopy width:radius height:width andCachingEnabled:height];
+
+  [(FMFMapSession *)self mapImageForRequest:v18 andCompletion:completionCopy];
+}
+
 - (void)noLocationImageForWidth:(double)width height:(double)height cache:(BOOL)cache andCompletion:(id)completion
 {
   cacheCopy = cache;
@@ -194,11 +207,22 @@ void __68__FMFMapSession_noLocationImageForWidth_height_cache_andCompletion___bl
   (*(*(a1 + 40) + 16))();
 }
 
+- (void)mapImageForLocation:(id)location isShifted:(BOOL)shifted altitude:(double)altitude pitch:(double)pitch width:(double)width height:(double)height cache:(BOOL)cache andCompletion:(id)self0
+{
+  cacheCopy = cache;
+  shiftedCopy = shifted;
+  completionCopy = completion;
+  locationCopy = location;
+  v20 = [[FMFMapImageRequest alloc] initWithLocation:locationCopy isShifted:shiftedCopy altitude:cacheCopy pitch:altitude width:pitch height:width andCachingEnabled:height];
+
+  [(FMFMapSession *)self mapImageForRequest:v20 andCompletion:completionCopy];
+}
+
 - (void)mapImageForRequest:(id)request andCompletion:(id)completion
 {
   requestCopy = request;
   completionCopy = completion;
-  v8 = LogCategory_FMFMapXPC();
+  v8 = LogCategory_FMFMapXPC(completionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     [FMFMapSession mapImageForRequest:andCompletion:];
@@ -207,20 +231,20 @@ void __68__FMFMapSession_noLocationImageForWidth_height_cache_andCompletion___bl
   selfCopy = self;
   if (![requestCopy cachingEnabled] || (-[FMFMapSession mapCache](selfCopy, "mapCache"), v10 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v10, "cachedMapImageForRequest:", requestCopy), v11 = objc_claimAutoreleasedReturnValue(), v10, !v11))
   {
-    v24 = 0;
-    v25 = &v24;
-    v26 = 0x3032000000;
-    v27 = __Block_byref_object_copy__0;
-    v28 = __Block_byref_object_dispose__0;
-    v29 = 0;
-    v13 = +[FMFMapSession newConnection];
-    v23[0] = MEMORY[0x277D85DD0];
-    v23[1] = 3221225472;
-    v23[2] = __50__FMFMapSession_mapImageForRequest_andCompletion___block_invoke;
-    v23[3] = &unk_278FDE180;
-    v23[4] = &v24;
-    v14 = [v13 remoteObjectProxyWithErrorHandler:v23];
-    if (completionCopy && v25[5])
+    v26 = 0;
+    v27 = &v26;
+    v28 = 0x3032000000;
+    v29 = __Block_byref_object_copy__0;
+    v30 = __Block_byref_object_dispose__0;
+    v31 = 0;
+    v14 = +[FMFMapSession newConnection];
+    v25[0] = MEMORY[0x277D85DD0];
+    v25[1] = 3221225472;
+    v25[2] = __50__FMFMapSession_mapImageForRequest_andCompletion___block_invoke;
+    v25[3] = &unk_278FDE180;
+    v25[4] = &v26;
+    v15 = [v14 remoteObjectProxyWithErrorHandler:v25];
+    if (completionCopy && v27[5])
     {
       completionCopy[2](completionCopy, 0);
     }
@@ -228,48 +252,48 @@ void __68__FMFMapSession_noLocationImageForWidth_height_cache_andCompletion___bl
     else
     {
       mapCache = [(FMFMapSession *)selfCopy mapCache];
-      v16 = [mapCache pendingMapImageForRequest:requestCopy];
+      v17 = [mapCache pendingMapImageForRequest:requestCopy];
 
-      v17 = LogCategory_FMFMapXPC();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+      v19 = LogCategory_FMFMapXPC(v18);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
       {
         [FMFMapSession mapImageForRequest:andCompletion:];
       }
 
-      if (v16 && [requestCopy priority] < 1)
+      if (v17 && [requestCopy priority] < 1)
       {
         if (!completionCopy)
         {
           goto LABEL_17;
         }
 
-        v18 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"FMFMapXPCService" code:206 userInfo:0];
-        (completionCopy[2])(completionCopy, 0, v18);
+        v20 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"FMFMapXPCService" code:206 userInfo:0];
+        (completionCopy[2])(completionCopy, 0, v20);
       }
 
       else
       {
-        v19[0] = MEMORY[0x277D85DD0];
-        v19[1] = 3221225472;
-        v19[2] = __50__FMFMapSession_mapImageForRequest_andCompletion___block_invoke_66;
-        v19[3] = &unk_278FDE1D0;
-        v20 = requestCopy;
-        v21 = selfCopy;
-        v22 = completionCopy;
-        [v14 mapImageForRequest:v20 andCompletion:v19];
+        v21[0] = MEMORY[0x277D85DD0];
+        v21[1] = 3221225472;
+        v21[2] = __50__FMFMapSession_mapImageForRequest_andCompletion___block_invoke_66;
+        v21[3] = &unk_278FDE1D0;
+        v22 = requestCopy;
+        v23 = selfCopy;
+        v24 = completionCopy;
+        [v15 mapImageForRequest:v22 andCompletion:v21];
 
-        v18 = v20;
+        v20 = v22;
       }
     }
 
 LABEL_17:
 
-    _Block_object_dispose(&v24, 8);
+    _Block_object_dispose(&v26, 8);
     goto LABEL_18;
   }
 
-  v12 = LogCategory_FMFMapXPC();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+  v13 = LogCategory_FMFMapXPC(v12);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
   {
     [FMFMapSession mapImageForRequest:andCompletion:];
   }
@@ -293,23 +317,24 @@ void __50__FMFMapSession_mapImageForRequest_andCompletion___block_invoke_66(uint
 {
   v5 = a2;
   v6 = a3;
-  if ([*(a1 + 32) cachingEnabled])
+  v7 = [*(a1 + 32) cachingEnabled];
+  if (v7)
   {
-    v7 = [*(a1 + 40) mapCache];
-    [v7 cacheMapImage:v5 forRequest:*(a1 + 32)];
+    v8 = [*(a1 + 40) mapCache];
+    [v8 cacheMapImage:v5 forRequest:*(a1 + 32)];
   }
 
-  v8 = LogCategory_FMFMapXPC();
-  v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG);
+  v9 = LogCategory_FMFMapXPC(v7);
+  v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG);
   if (v6)
   {
-    if (v9)
+    if (v10)
     {
-      __50__FMFMapSession_mapImageForRequest_andCompletion___block_invoke_66_cold_1(v6, v8);
+      __50__FMFMapSession_mapImageForRequest_andCompletion___block_invoke_66_cold_1(v6, v9);
     }
   }
 
-  else if (v9)
+  else if (v10)
   {
     __50__FMFMapSession_mapImageForRequest_andCompletion___block_invoke_66_cold_2();
   }
@@ -407,6 +432,42 @@ void __61__FMFMapSession_noLocationImageForScreenRatio_andCompletion___block_inv
   }
 }
 
+- (void)mapImageForLocation:(id)location isShifted:(BOOL)shifted altitude:(double)altitude pitch:(double)pitch screenRatio:(double)ratio andCompletion:(id)completion
+{
+  shiftedCopy = shifted;
+  locationCopy = location;
+  completionCopy = completion;
+  v20 = 0;
+  v21 = &v20;
+  v22 = 0x3032000000;
+  v23 = __Block_byref_object_copy__0;
+  v24 = __Block_byref_object_dispose__0;
+  v25 = 0;
+  v15 = +[FMFMapSession newConnection];
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = __88__FMFMapSession_mapImageForLocation_isShifted_altitude_pitch_screenRatio_andCompletion___block_invoke;
+  v19[3] = &unk_278FDE180;
+  v19[4] = &v20;
+  v16 = [v15 remoteObjectProxyWithErrorHandler:v19];
+  if (completionCopy && v21[5])
+  {
+    completionCopy[2](completionCopy, 0);
+  }
+
+  else
+  {
+    v17[0] = MEMORY[0x277D85DD0];
+    v17[1] = 3221225472;
+    v17[2] = __88__FMFMapSession_mapImageForLocation_isShifted_altitude_pitch_screenRatio_andCompletion___block_invoke_2;
+    v17[3] = &unk_278FDE1F8;
+    v18 = completionCopy;
+    [v16 mapImageForLocation:locationCopy isShifted:shiftedCopy altitude:v17 pitch:altitude screenRatio:pitch andCompletion:ratio];
+  }
+
+  _Block_object_dispose(&v20, 8);
+}
+
 void __88__FMFMapSession_mapImageForLocation_isShifted_altitude_pitch_screenRatio_andCompletion___block_invoke(uint64_t a1, void *a2)
 {
   v4 = a2;
@@ -420,11 +481,10 @@ void __88__FMFMapSession_mapImageForLocation_isShifted_altitude_pitch_screenRati
 
 void __50__FMFMapSession_mapImageForRequest_andCompletion___block_invoke_66_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_debug_impl(&dword_24A33F000, a2, OS_LOG_TYPE_DEBUG, "Error generating maps %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_debug_impl(&dword_24A33F000, a2, OS_LOG_TYPE_DEBUG, "Error generating maps %@", &v2, 0xCu);
 }
 
 @end

@@ -16,7 +16,7 @@
 
 - (void)addRecipientDetailsFromOriginatingMessageEntity:()Internal entity:store:
 {
-  v33[1] = *MEMORY[0x277D85DE8];
+  v32[1] = *MEMORY[0x277D85DE8];
   v8 = a4;
   v9 = a5;
   v10 = MEMORY[0x277D01FA0];
@@ -66,23 +66,21 @@
     v23 = *v22;
 LABEL_10:
     v24 = objc_alloc(MEMORY[0x277CC3450]);
-    v33[0] = emailAddress;
-    v25 = [MEMORY[0x277CBEA60] arrayWithObjects:v33 count:1];
+    v32[0] = emailAddress;
+    v25 = [MEMORY[0x277CBEA60] arrayWithObjects:v32 count:1];
     v26 = [v24 initWithDisplayName:title handles:v25 handleIdentifier:v23];
 
-    v32 = v26;
-    v27 = [MEMORY[0x277CBEA60] arrayWithObjects:&v32 count:1];
+    v31 = v26;
+    v27 = [MEMORY[0x277CBEA60] arrayWithObjects:&v31 count:1];
     v28 = *MEMORY[0x277D02190];
     v29 = *(self + v28);
     *(self + v28) = v27;
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addSnippetIfNotExistsFromContentOfEntity:()Internal
 {
-  v24[2] = *MEMORY[0x277D85DE8];
+  v23[2] = *MEMORY[0x277D85DE8];
   v4 = a3;
   v5 = v4;
   if (v4)
@@ -97,9 +95,9 @@ LABEL_10:
         v10 = objc_autoreleasePoolPush();
         v11 = MEMORY[0x277CCACA8];
         v12 = [v8 substringToIndex:1999];
-        v24[0] = v12;
-        v24[1] = @"…";
-        v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:2];
+        v23[0] = v12;
+        v23[1] = @"…";
+        v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:2];
         v9 = [v11 _pas_proxyStringByConcatenatingStrings:v13];
 
         objc_autoreleasePoolPop(v10);
@@ -132,8 +130,6 @@ LABEL_10:
       *(self + *MEMORY[0x277D02180]) = showOperatingSystemVersionInSnippets;
     }
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addDetailsFromOriginatingInteractionEntity:()Internal

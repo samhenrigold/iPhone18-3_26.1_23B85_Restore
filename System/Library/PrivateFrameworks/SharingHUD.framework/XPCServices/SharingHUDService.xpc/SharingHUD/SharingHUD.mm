@@ -159,10 +159,11 @@ id sub_100002B04(uint64_t a1)
   return [*(a1 + 32) dismissBanner];
 }
 
-void sub_100002D10(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100002D10(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x16u);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
 }
 
 id createNewHUDTransaction()
@@ -307,38 +308,38 @@ void sub_100003D38(uint64_t a1, void *a2)
   }
 }
 
-void sub_100003E54(uint64_t a1)
+void sub_100003E54(uint64_t a1, uint64_t a2)
 {
-  v2 = b332_log();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = b332_log();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(*(a1 + 32) + 72);
-    v10 = 134217984;
-    v11 = v3;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "set orientation (%li)...", &v10, 0xCu);
+    v4 = *(*(a1 + 32) + 72);
+    v11 = 134217984;
+    v12 = v4;
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "set orientation (%li)...", &v11, 0xCu);
   }
 
-  v4 = *(a1 + 32);
-  v5 = *(v4 + 16);
-  if (v5)
+  v5 = *(a1 + 32);
+  v6 = *(v5 + 16);
+  if (v6)
   {
-    [v5 _setRotatableViewOrientation:*(v4 + 72) duration:0 force:*(v4 + 88)];
-    v6 = b332_log();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    [v6 _setRotatableViewOrientation:*(v5 + 72) duration:0 force:*(v5 + 88)];
+    v7 = b332_log();
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = [*(*(a1 + 32) + 16) interfaceOrientation];
-      v10 = 134217984;
-      v11 = v7;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "orientation (%li)...", &v10, 0xCu);
+      v8 = [*(*(a1 + 32) + 16) interfaceOrientation];
+      v11 = 134217984;
+      v12 = v8;
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "orientation (%li)...", &v11, 0xCu);
     }
 
-    v8 = b332_log();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = b332_log();
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = [*(*(a1 + 32) + 16) _windowInterfaceOrientation];
-      v10 = 134217984;
-      v11 = v9;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "window orientation (%li)...", &v10, 0xCu);
+      v10 = [*(*(a1 + 32) + 16) _windowInterfaceOrientation];
+      v11 = 134217984;
+      v12 = v10;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "window orientation (%li)...", &v11, 0xCu);
     }
   }
 }
@@ -377,9 +378,9 @@ id sub_100004608()
   return v1;
 }
 
-void sub_1000046D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000046D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -394,9 +395,9 @@ void sub_1000046E8(id a1)
   }
 }
 
-void sub_10000516C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10000516C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -447,7 +448,7 @@ void sub_100005D2C()
   v0 = v1[0];
   if (!qword_10001C290)
   {
-    v0 = abort_report_np();
+    v0 = abort_report_np("%s", v1[0]);
     goto LABEL_7;
   }
 
@@ -460,7 +461,6 @@ LABEL_7:
 
 uint64_t sub_100005E28(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_10001C290 = result;
   return result;
@@ -547,9 +547,9 @@ id sub_100006378()
   return v1;
 }
 
-void sub_100006440(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100006440(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -578,9 +578,9 @@ id sub_1000068F4()
   return v1;
 }
 
-void sub_1000069BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000069BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -619,7 +619,7 @@ void sub_1000087B0()
   v0 = v1[0];
   if (!qword_10001C2B8)
   {
-    v0 = abort_report_np();
+    v0 = abort_report_np("%s", v1[0]);
     goto LABEL_7;
   }
 
@@ -632,7 +632,6 @@ LABEL_7:
 
 uint64_t sub_1000088AC(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_10001C2B8 = result;
   return result;
@@ -650,7 +649,7 @@ Class sub_100008920(uint64_t a1)
 
   else
   {
-    v3 = sub_100009558();
+    sub_100009558();
     return main(v3, v4, v5);
   }
 
@@ -727,9 +726,9 @@ void sub_100008D78(id a1, NSError *a2)
   }
 }
 
-void sub_100008EB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100008EB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -761,12 +760,12 @@ void sub_1000092FC(uint64_t a1)
 {
   v1 = [SFHUDBannerModel descriptionForType:*(a1 + 40)];
   sub_100002CF8();
-  sub_100002D10(&_mh_execute_header, v2, v3, "Could not post banner of type %@: %@", v4, v5, v6, v7, v8);
+  sub_100002D10(&_mh_execute_header, v2, v3, "Could not post banner of type %@: %@", v4, v5, v6, v7);
 }
 
 void sub_10000939C(uint64_t a1)
 {
   v1 = [SFHUDBannerModel descriptionForType:a1];
   sub_100002CF8();
-  sub_100002D10(&_mh_execute_header, v2, v3, "Could not dismiss banner of type %@: %@", v4, v5, v6, v7, v8);
+  sub_100002D10(&_mh_execute_header, v2, v3, "Could not dismiss banner of type %@: %@", v4, v5, v6, v7);
 }

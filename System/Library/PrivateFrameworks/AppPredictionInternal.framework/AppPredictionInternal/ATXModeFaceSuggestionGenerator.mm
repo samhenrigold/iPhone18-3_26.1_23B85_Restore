@@ -30,30 +30,30 @@
 
 - (id)generateFacesFromDescriptors:(id)descriptors
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   descriptorsCopy = descriptors;
   v4 = objc_opt_new();
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
-  v5 = [&unk_283A58C40 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v5 = [&unk_283A58C40 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v5)
   {
     v6 = v5;
     v7 = 0;
-    v8 = *v19;
+    v8 = *v18;
     v9 = 1;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v19 != v8)
+        if (*v18 != v8)
         {
           objc_enumerationMutation(&unk_283A58C40);
         }
 
-        v11 = [objc_alloc(MEMORY[0x277CEB538]) initWithType:objc_msgSend(*(*(&v18 + 1) + 8 * i) uuid:{"integerValue"), 0}];
+        v11 = [objc_alloc(MEMORY[0x277CEB538]) initWithType:objc_msgSend(*(*(&v17 + 1) + 8 * i) uuid:{"integerValue"), 0}];
         v12 = [(ATXModeFaceSuggestionGenerator *)self facesForMode:v11 allDescriptors:descriptorsCopy];
         v13 = [v12 bs_firstObjectPassingTest:&__block_literal_global_245];
         if (v13 || ([v12 lastObject], (v13 = objc_claimAutoreleasedReturnValue()) != 0))
@@ -80,52 +80,48 @@
         }
       }
 
-      v6 = [&unk_283A58C40 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v6 = [&unk_283A58C40 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v6);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
 
 - (void)generateAndCacheFacesFromDescriptors:(id)descriptors
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   descriptorsCopy = descriptors;
   Current = CFAbsoluteTimeGetCurrent();
-  v6 = __atxlog_handle_lock_screen();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = __atxlog_handle_lock_screen(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_2263AA000, v6, OS_LOG_TYPE_DEFAULT, "ATXModeFaceSuggestionGenerator: starting generation of mode faces", buf, 2u);
+    _os_log_impl(&dword_2263AA000, v7, OS_LOG_TYPE_DEFAULT, "ATXModeFaceSuggestionGenerator: starting generation of mode faces", buf, 2u);
   }
 
-  v7 = objc_alloc_init(MEMORY[0x277CEB6B0]);
-  [v7 evictCachedSuggestedFaces];
+  v8 = objc_alloc_init(MEMORY[0x277CEB6B0]);
+  [v8 evictCachedSuggestedFaces];
   mEMORY[0x277CEB440] = [MEMORY[0x277CEB440] sharedInstance];
   configuredModes = [mEMORY[0x277CEB440] configuredModes];
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __71__ATXModeFaceSuggestionGenerator_generateAndCacheFacesFromDescriptors___block_invoke;
-  v14[3] = &unk_2785A1790;
-  v14[4] = self;
-  v15 = descriptorsCopy;
-  v10 = descriptorsCopy;
-  [configuredModes enumerateKeysAndObjectsUsingBlock:v14];
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __71__ATXModeFaceSuggestionGenerator_generateAndCacheFacesFromDescriptors___block_invoke;
+  v15[3] = &unk_2785A1790;
+  v15[4] = self;
+  v16 = descriptorsCopy;
+  v11 = descriptorsCopy;
+  [configuredModes enumerateKeysAndObjectsUsingBlock:v15];
 
-  v11 = __atxlog_handle_lock_screen();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  v13 = __atxlog_handle_lock_screen(v12);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = CFAbsoluteTimeGetCurrent();
+    v14 = CFAbsoluteTimeGetCurrent();
     *buf = 134217984;
-    v17 = v12 - Current;
-    _os_log_impl(&dword_2263AA000, v11, OS_LOG_TYPE_DEFAULT, "ATXModeFaceSuggestionGenerator: finished generation of mode faces in %f seconds", buf, 0xCu);
+    v18 = v14 - Current;
+    _os_log_impl(&dword_2263AA000, v13, OS_LOG_TYPE_DEFAULT, "ATXModeFaceSuggestionGenerator: finished generation of mode faces in %f seconds", buf, 0xCu);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __71__ATXModeFaceSuggestionGenerator_generateAndCacheFacesFromDescriptors___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -154,7 +150,7 @@ void __71__ATXModeFaceSuggestionGenerator_generateAndCacheFacesFromDescriptors__
     if (v10)
     {
 LABEL_11:
-      v16 = [(ATXModeFaceSuggestionGenerator *)self _facesForModeType:type modeUUID:uuid allDescriptors:descriptorsCopy];
+      v17 = [(ATXModeFaceSuggestionGenerator *)self _facesForModeType:type modeUUID:uuid allDescriptors:descriptorsCopy];
       goto LABEL_16;
     }
 
@@ -190,22 +186,22 @@ LABEL_9:
       goto LABEL_9;
     }
 
-    v17 = __atxlog_handle_modes();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v18 = __atxlog_handle_modes(v16);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      [ATXModeFaceSuggestionGenerator facesForMode:uuid allDescriptors:v17];
+      [ATXModeFaceSuggestionGenerator facesForMode:uuid allDescriptors:v18];
     }
   }
 
-  v16 = 0;
+  v17 = 0;
 LABEL_16:
 
-  return v16;
+  return v17;
 }
 
 - (id)_facesForModeType:(int64_t)type modeUUID:(id)d allDescriptors:(id)descriptors
 {
-  v49[5] = *MEMORY[0x277D85DE8];
+  v48[5] = *MEMORY[0x277D85DE8];
   dCopy = d;
   descriptorsCopy = descriptors;
   if (!dCopy)
@@ -214,23 +210,23 @@ LABEL_16:
   }
 
   v10 = objc_alloc_init(ATXModeFaceComplicationsAggregator);
-  v35 = [(ATXModeFaceComplicationsAggregator *)v10 provideComplicationsForSuggestedFaceType:type environment:self];
-  v34 = [(ATXModeFaceComplicationsAggregator *)v10 provideLandscapeComplicationsForSuggestedFaceType:type environment:self];
-  v48[0] = 0;
-  v48[1] = v48;
-  v48[2] = 0x2020000000;
-  v48[3] = 0;
+  v34 = [(ATXModeFaceComplicationsAggregator *)v10 provideComplicationsForSuggestedFaceType:type environment:self];
+  v33 = [(ATXModeFaceComplicationsAggregator *)v10 provideLandscapeComplicationsForSuggestedFaceType:type environment:self];
+  v47[0] = 0;
+  v47[1] = v47;
+  v47[2] = 0x2020000000;
+  v47[3] = 0;
   v11 = objc_opt_new();
-  v49[0] = v11;
+  v48[0] = v11;
   v12 = objc_opt_new();
-  v49[1] = v12;
+  v48[1] = v12;
   v13 = objc_opt_new();
-  v49[2] = v13;
+  v48[2] = v13;
   v14 = objc_opt_new();
-  v49[3] = v14;
+  v48[3] = v14;
   v15 = objc_opt_new();
-  v49[4] = v15;
-  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v49 count:5];
+  v48[4] = v15;
+  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v48 count:5];
 
   v17 = DNDModeSemanticTypeFromSuggestedFaceType(type);
   v18 = [(ATXModeFaceSuggestionGenerator *)self _posterCandidatesForModeType:v17 allDescriptors:descriptorsCopy];
@@ -240,26 +236,26 @@ LABEL_16:
     v20 = [MEMORY[0x277CF0BC8] colorWithRed:0.0 green:0.0 blue:0.0 alpha:1.0];
     v21 = objc_opt_new();
     v22 = objc_opt_new();
-    v37[0] = MEMORY[0x277D85DD0];
-    v37[1] = 3221225472;
-    v37[2] = __76__ATXModeFaceSuggestionGenerator__facesForModeType_modeUUID_allDescriptors___block_invoke;
-    v37[3] = &unk_2785A17B8;
+    v36[0] = MEMORY[0x277D85DD0];
+    v36[1] = 3221225472;
+    v36[2] = __76__ATXModeFaceSuggestionGenerator__facesForModeType_modeUUID_allDescriptors___block_invoke;
+    v36[3] = &unk_2785A17B8;
     v23 = v22;
-    v38 = v23;
+    v37 = v23;
     v24 = v21;
-    v39 = v24;
-    v46 = v48;
-    v40 = v16;
-    v47 = v17;
+    v38 = v24;
+    v45 = v47;
+    v39 = v16;
+    v46 = v17;
     v25 = v20;
-    v41 = v25;
+    v40 = v25;
     v26 = dCopy;
-    v42 = v26;
+    v41 = v26;
     v27 = v19;
-    v43 = v27;
+    v42 = v27;
+    v43 = v33;
     v44 = v34;
-    v45 = v35;
-    [v18 enumerateObjectsWithOptions:2 usingBlock:v37];
+    [v18 enumerateObjectsWithOptions:2 usingBlock:v36];
     if ([v24 count])
     {
       v28 = objc_alloc_init(MEMORY[0x277CEB6B0]);
@@ -267,7 +263,7 @@ LABEL_16:
       [v28 cacheSuggestedFaces:v24 forModeUUID:v29];
     }
 
-    v30 = v45;
+    v30 = v44;
     v31 = v24;
   }
 
@@ -276,8 +272,7 @@ LABEL_16:
     v31 = 0;
   }
 
-  _Block_object_dispose(v48, 8);
-  v32 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(v47, 8);
 
   return v31;
 }
@@ -388,28 +383,28 @@ LABEL_18:
 
 - (id)_firstDescriptorWithExtension:(id)extension identifier:(id)identifier allDescriptors:(id)descriptors
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   extensionCopy = extension;
   identifierCopy = identifier;
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
   descriptorsCopy = descriptors;
-  v10 = [descriptorsCopy countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v10 = [descriptorsCopy countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (v10)
   {
-    v11 = *v24;
+    v11 = *v23;
     while (2)
     {
       for (i = 0; i != v10; i = i + 1)
       {
-        if (*v24 != v11)
+        if (*v23 != v11)
         {
           objc_enumerationMutation(descriptorsCopy);
         }
 
-        v13 = *(*(&v23 + 1) + 8 * i);
+        v13 = *(*(&v22 + 1) + 8 * i);
         galleryOptions = [v13 galleryOptions];
         isHero = [galleryOptions isHero];
 
@@ -449,7 +444,7 @@ LABEL_17:
         }
       }
 
-      v10 = [descriptorsCopy countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v10 = [descriptorsCopy countByEnumeratingWithState:&v22 objects:v26 count:16];
       if (v10)
       {
         continue;
@@ -461,38 +456,36 @@ LABEL_17:
 
 LABEL_18:
 
-  v21 = *MEMORY[0x277D85DE8];
-
   return v10;
 }
 
 - (id)_firstDescriptorWithExtension:(id)extension focus:(int64_t)focus allDescriptors:(id)descriptors
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   extensionCopy = extension;
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   descriptorsCopy = descriptors;
-  v8 = [descriptorsCopy countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v8 = [descriptorsCopy countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (!v8)
   {
     goto LABEL_14;
   }
 
   v9 = v8;
-  v10 = *v22;
+  v10 = *v21;
   do
   {
     for (i = 0; i != v9; ++i)
     {
-      if (*v22 != v10)
+      if (*v21 != v10)
       {
         objc_enumerationMutation(descriptorsCopy);
       }
 
-      v12 = *(*(&v21 + 1) + 8 * i);
+      v12 = *(*(&v20 + 1) + 8 * i);
       extensionBundleIdentifier = [v12 extensionBundleIdentifier];
       if (![extensionBundleIdentifier isEqualToString:extensionCopy])
       {
@@ -517,15 +510,13 @@ LABEL_11:
       }
     }
 
-    v9 = [descriptorsCopy countByEnumeratingWithState:&v21 objects:v25 count:16];
+    v9 = [descriptorsCopy countByEnumeratingWithState:&v20 objects:v24 count:16];
   }
 
   while (v9);
 LABEL_14:
   v17 = 0;
 LABEL_15:
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return v17;
 }
@@ -593,38 +584,38 @@ uint64_t __87__ATXModeFaceSuggestionGenerator__firstPhotosDescriptorMatchingSubt
   aBlock[2] = __78__ATXModeFaceSuggestionGenerator__posterCandidatesForModeType_allDescriptors___block_invoke;
   aBlock[3] = &unk_2785A1800;
   v8 = v7;
-  v41 = v8;
+  v42 = v8;
   v9 = _Block_copy(aBlock);
-  v37[0] = MEMORY[0x277D85DD0];
-  v37[1] = 3221225472;
-  v37[2] = __78__ATXModeFaceSuggestionGenerator__posterCandidatesForModeType_allDescriptors___block_invoke_2;
-  v37[3] = &unk_2785A1828;
+  v38[0] = MEMORY[0x277D85DD0];
+  v38[1] = 3221225472;
+  v38[2] = __78__ATXModeFaceSuggestionGenerator__posterCandidatesForModeType_allDescriptors___block_invoke_2;
+  v38[3] = &unk_2785A1828;
   v10 = v9;
-  v39 = v10;
-  v37[4] = self;
+  v40 = v10;
+  v38[4] = self;
   v11 = descriptorsCopy;
-  v38 = v11;
-  v12 = _Block_copy(v37);
-  v34[0] = MEMORY[0x277D85DD0];
-  v34[1] = 3221225472;
-  v34[2] = __78__ATXModeFaceSuggestionGenerator__posterCandidatesForModeType_allDescriptors___block_invoke_3;
-  v34[3] = &unk_2785A1850;
+  v39 = v11;
+  v12 = _Block_copy(v38);
+  v35[0] = MEMORY[0x277D85DD0];
+  v35[1] = 3221225472;
+  v35[2] = __78__ATXModeFaceSuggestionGenerator__posterCandidatesForModeType_allDescriptors___block_invoke_3;
+  v35[3] = &unk_2785A1850;
   v13 = v10;
-  v36 = v13;
-  v34[4] = self;
+  v37 = v13;
+  v35[4] = self;
   v14 = v11;
-  v35 = v14;
-  v15 = _Block_copy(v34);
-  v27 = MEMORY[0x277D85DD0];
-  v28 = 3221225472;
-  v29 = __78__ATXModeFaceSuggestionGenerator__posterCandidatesForModeType_allDescriptors___block_invoke_4;
-  v30 = &unk_2785A1878;
+  v36 = v14;
+  v15 = _Block_copy(v35);
+  v28 = MEMORY[0x277D85DD0];
+  v29 = 3221225472;
+  v30 = __78__ATXModeFaceSuggestionGenerator__posterCandidatesForModeType_allDescriptors___block_invoke_4;
+  v31 = &unk_2785A1878;
   v16 = v13;
-  v33 = v16;
+  v34 = v16;
   selfCopy = self;
   v17 = v14;
-  v32 = v17;
-  v18 = _Block_copy(&v27);
+  v33 = v17;
+  v18 = _Block_copy(&v28);
   v19 = v18;
   v20 = 0;
   if (type > 4)
@@ -705,16 +696,20 @@ uint64_t __87__ATXModeFaceSuggestionGenerator__firstPhotosDescriptorMatchingSubt
 LABEL_41:
         v12[2](v12, @"com.apple.GradientPoster.GradientPosterExtension", @"cyan", &stru_2839A6058, 0);
 LABEL_56:
-        if (![v8 count] && objc_msgSend(v17, "count"))
+        if (![v8 count])
         {
-          v23 = __atxlog_handle_modes();
-          if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+          v23 = [v17 count];
+          if (v23)
           {
-            [ATXModeFaceSuggestionGenerator _posterCandidatesForModeType:v23 allDescriptors:?];
-          }
+            v24 = __atxlog_handle_modes(v23);
+            if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+            {
+              [ATXModeFaceSuggestionGenerator _posterCandidatesForModeType:v24 allDescriptors:?];
+            }
 
-          anyObject = [v17 anyObject];
-          (*(v16 + 2))(v16, anyObject, &stru_2839A6058, 0);
+            anyObject = [v17 anyObject];
+            (*(v16 + 2))(v16, anyObject, &stru_2839A6058, 0);
+          }
         }
 
         v20 = v8;
@@ -795,10 +790,10 @@ LABEL_56:
     }
   }
 
-  v26 = __atxlog_handle_modes();
-  if (os_log_type_enabled(v26, OS_LOG_TYPE_FAULT))
+  v27 = __atxlog_handle_modes(v18);
+  if (os_log_type_enabled(v27, OS_LOG_TYPE_FAULT))
   {
-    DNDModeSemanticTypeToSuggestedFaceType_cold_1(type, v26);
+    DNDModeSemanticTypeToSuggestedFaceType_cold_1(type, v27);
   }
 
   v20 = 0;
@@ -865,11 +860,10 @@ uint64_t __78__ATXModeFaceSuggestionGenerator__posterCandidatesForModeType_allDe
 
 - (void)facesForMode:(uint64_t)a1 allDescriptors:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "ATXModeFaceSuggestionGenerator: could not look up mode semantic type for UUID: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "ATXModeFaceSuggestionGenerator: could not look up mode semantic type for UUID: %@", &v2, 0xCu);
 }
 
 - (void)_facesForModeType:(uint64_t)a1 modeUUID:(uint64_t)a2 allDescriptors:.cold.1(uint64_t a1, uint64_t a2)

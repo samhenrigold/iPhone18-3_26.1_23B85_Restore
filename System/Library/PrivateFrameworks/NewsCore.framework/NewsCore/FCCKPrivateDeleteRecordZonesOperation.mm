@@ -8,39 +8,28 @@
 
 - (BOOL)validateOperation
 {
-  v18 = *MEMORY[0x1E69E9840];
-  v9.receiver = self;
-  v9.super_class = FCCKPrivateDeleteRecordZonesOperation;
-  validateOperation = [(FCCKPrivateDatabaseOperation *)&v9 validateOperation];
+  v17 = *MEMORY[0x1E69E9840];
+  v8.receiver = self;
+  v8.super_class = FCCKPrivateDeleteRecordZonesOperation;
+  validateOperation = [(FCCKPrivateDatabaseOperation *)&v8 validateOperation];
   recordZoneIDsToDelete = [(FCCKPrivateDeleteRecordZonesOperation *)self recordZoneIDsToDelete];
   v5 = [recordZoneIDsToDelete count];
 
   if (!v5 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v8 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"can't delete zones without zone IDs to delete"];
+    v7 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"can't delete zones without zone IDs to delete"];
     *buf = 136315906;
-    v11 = "[FCCKPrivateDeleteRecordZonesOperation validateOperation]";
-    v12 = 2080;
-    v13 = "FCCKPrivateDeleteRecordZonesOperation.m";
-    v14 = 1024;
-    v15 = 27;
-    v16 = 2114;
-    v17 = v8;
+    v10 = "[FCCKPrivateDeleteRecordZonesOperation validateOperation]";
+    v11 = 2080;
+    v12 = "FCCKPrivateDeleteRecordZonesOperation.m";
+    v13 = 1024;
+    v14 = 27;
+    v15 = 2114;
+    v16 = v7;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
-  if (v5)
-  {
-    result = validateOperation;
-  }
-
-  else
-  {
-    result = 0;
-  }
-
-  v7 = *MEMORY[0x1E69E9840];
-  return result;
+  return v5 && validateOperation;
 }
 
 - (void)performOperation
@@ -79,7 +68,7 @@
 
 void __57__FCCKPrivateDeleteRecordZonesOperation_performOperation__block_invoke(uint64_t a1, void *a2)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if ([*(a1 + 32) secureDatabaseOnly])
   {
@@ -94,15 +83,15 @@ LABEL_8:
 
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v11 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"this delete-zones operation should only go to the secure database"];
+      v10 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"this delete-zones operation should only go to the secure database"];
       *buf = 136315906;
-      v19 = "[FCCKPrivateDeleteRecordZonesOperation performOperation]_block_invoke";
-      v20 = 2080;
-      v21 = "FCCKPrivateDeleteRecordZonesOperation.m";
-      v22 = 1024;
-      v23 = 54;
-      v24 = 2114;
-      v25 = v11;
+      v18 = "[FCCKPrivateDeleteRecordZonesOperation performOperation]_block_invoke";
+      v19 = 2080;
+      v20 = "FCCKPrivateDeleteRecordZonesOperation.m";
+      v21 = 1024;
+      v22 = 54;
+      v23 = 2114;
+      v24 = v10;
       _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
     }
   }
@@ -120,14 +109,14 @@ LABEL_9:
   [v4 setRecordZoneIDsToDelete:v7];
 
   [*(a1 + 40) operationWillStart];
-  v12 = MEMORY[0x1E69E9820];
-  v13 = 3221225472;
-  v14 = __57__FCCKPrivateDeleteRecordZonesOperation_performOperation__block_invoke_7;
-  v15 = &unk_1E7C39650;
-  v16 = *(a1 + 40);
-  v17 = v3;
+  v11 = MEMORY[0x1E69E9820];
+  v12 = 3221225472;
+  v13 = __57__FCCKPrivateDeleteRecordZonesOperation_performOperation__block_invoke_7;
+  v14 = &unk_1E7C39650;
+  v15 = *(a1 + 40);
+  v16 = v3;
   v8 = v3;
-  [v4 setModifyRecordZonesCompletionBlock:&v12];
+  [v4 setModifyRecordZonesCompletionBlock:&v11];
   if (v5)
   {
     v9 = 0;
@@ -138,28 +127,26 @@ LABEL_9:
     v9 = v8[5];
   }
 
-  [*(a1 + 32) runChildCKOperation:v4 destination:{v9, v12, v13, v14, v15}];
-
-  v10 = *MEMORY[0x1E69E9840];
+  [*(a1 + 32) runChildCKOperation:v4 destination:{v9, v11, v12, v13, v14}];
 }
 
 void __57__FCCKPrivateDeleteRecordZonesOperation_performOperation__block_invoke_7(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v7 = a4;
   v8 = a3;
   if ([a2 count] && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v13 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"shouldn't have any saved zones when deleting zones"];
-    v14 = 136315906;
-    v15 = "[FCCKPrivateDeleteRecordZonesOperation performOperation]_block_invoke";
-    v16 = 2080;
-    v17 = "FCCKPrivateDeleteRecordZonesOperation.m";
-    v18 = 1024;
-    v19 = 63;
-    v20 = 2114;
-    v21 = v13;
-    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v14, 0x26u);
+    v12 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"shouldn't have any saved zones when deleting zones"];
+    v13 = 136315906;
+    v14 = "[FCCKPrivateDeleteRecordZonesOperation performOperation]_block_invoke";
+    v15 = 2080;
+    v16 = "FCCKPrivateDeleteRecordZonesOperation.m";
+    v17 = 1024;
+    v18 = 63;
+    v19 = 2114;
+    v20 = v12;
+    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v13, 0x26u);
   }
 
   v10 = *(a1 + 32);
@@ -171,8 +158,6 @@ void __57__FCCKPrivateDeleteRecordZonesOperation_performOperation__block_invoke_
 
   v11 = v9;
   [v10 operationDidFinishWithItemIDs:v11 resultItems:v8 error:v7];
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __57__FCCKPrivateDeleteRecordZonesOperation_performOperation__block_invoke_13(uint64_t a1, uint64_t a2, void *a3)

@@ -27,7 +27,7 @@
   return v3;
 }
 
-uint64_t __37__NUStorageImageBuffer_CVPixelBuffer__block_invoke(uint64_t a1, void *a2)
+void *__37__NUStorageImageBuffer_CVPixelBuffer__block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 CVPixelBuffer];
   *(*(*(a1 + 32) + 8) + 24) = result;

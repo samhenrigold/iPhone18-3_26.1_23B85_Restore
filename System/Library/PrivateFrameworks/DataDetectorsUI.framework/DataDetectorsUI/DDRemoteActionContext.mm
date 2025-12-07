@@ -126,17 +126,17 @@ LABEL_9:
 
 - (DDRemoteActionContext)initWithCoder:(id)coder
 {
-  v55 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v53.receiver = self;
-  v53.super_class = DDRemoteActionContext;
-  v6 = [(DDRemoteActionContext *)&v53 init];
+  v49.receiver = self;
+  v49.super_class = DDRemoteActionContext;
+  v6 = [(DDRemoteActionContext *)&v49 init];
   if (!v6)
   {
     goto LABEL_19;
   }
 
-  v48 = a2;
+  v44 = a2;
   v7 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"url"];
   [(DDRemoteActionContext *)v6 setURL:v7];
 
@@ -154,8 +154,8 @@ LABEL_9:
 
   if ([coderCopy containsValueForKey:@"result"])
   {
-    v25 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"result"];
-    -[DDRemoteActionContext setResult:](v6, "setResult:", CFRetain([v25 coreResult]));
+    v22 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"result"];
+    -[DDRemoteActionContext setResult:](v6, "setResult:", CFRetain([v22 coreResult]));
 
     if (![coderCopy containsValueForKey:@"associatedResults"])
     {
@@ -166,15 +166,14 @@ LABEL_4:
       }
 
 LABEL_21:
-      v42 = MEMORY[0x277CBEB98];
-      v43 = objc_opt_class();
-      v44 = objc_opt_class();
-      v45 = [v42 setWithObjects:{v43, v44, objc_opt_class(), 0}];
-      v46 = [coderCopy decodeObjectOfClasses:v45 forKey:@"associatedVisualResults"];
+      v38 = MEMORY[0x277CBEB98];
+      v39 = objc_opt_class();
+      v40 = objc_opt_class();
+      v41 = [v38 setWithObjects:{v39, v40, objc_opt_class(), 0}];
+      v42 = [coderCopy decodeObjectOfClasses:v41 forKey:@"associatedVisualResults"];
       associatedVisualResults = v6->_associatedVisualResults;
-      v6->_associatedVisualResults = v46;
+      v6->_associatedVisualResults = v42;
 
-      v18 = 0x277CCA000;
       if (![coderCopy containsValueForKey:@"contactHandle"])
       {
         goto LABEL_7;
@@ -189,45 +188,45 @@ LABEL_21:
     goto LABEL_4;
   }
 
-  v26 = MEMORY[0x277CBEB98];
-  v27 = objc_opt_class();
-  v28 = objc_opt_class();
-  v29 = [v26 setWithObjects:{v27, v28, objc_opt_class(), 0}];
-  v30 = [coderCopy decodeObjectOfClasses:v29 forKey:@"associatedResults"];
+  v23 = MEMORY[0x277CBEB98];
+  v24 = objc_opt_class();
+  v25 = objc_opt_class();
+  v26 = [v23 setWithObjects:{v24, v25, objc_opt_class(), 0}];
+  v27 = [coderCopy decodeObjectOfClasses:v26 forKey:@"associatedResults"];
 
-  v31 = objc_opt_new();
-  v49 = 0u;
-  v50 = 0u;
-  v51 = 0u;
-  v52 = 0u;
-  v32 = v30;
-  v33 = [v32 countByEnumeratingWithState:&v49 objects:v54 count:16];
-  if (v33)
+  v28 = objc_opt_new();
+  v45 = 0u;
+  v46 = 0u;
+  v47 = 0u;
+  v48 = 0u;
+  v29 = v27;
+  v30 = [v29 countByEnumeratingWithState:&v45 objects:v50 count:16];
+  if (v30)
   {
-    v34 = v33;
-    v35 = *v50;
+    v31 = v30;
+    v32 = *v46;
     do
     {
-      v36 = 0;
+      v33 = 0;
       do
       {
-        if (*v50 != v35)
+        if (*v46 != v32)
         {
-          objc_enumerationMutation(v32);
+          objc_enumerationMutation(v29);
         }
 
-        -[NSArray addObject:](v31, "addObject:", [*(*(&v49 + 1) + 8 * v36++) coreResult]);
+        -[NSArray addObject:](v28, "addObject:", [*(*(&v45 + 1) + 8 * v33++) coreResult]);
       }
 
-      while (v34 != v36);
-      v34 = [v32 countByEnumeratingWithState:&v49 objects:v54 count:16];
+      while (v31 != v33);
+      v31 = [v29 countByEnumeratingWithState:&v45 objects:v50 count:16];
     }
 
-    while (v34);
+    while (v31);
   }
 
   associatedResults = v6->_associatedResults;
-  v6->_associatedResults = v31;
+  v6->_associatedResults = v28;
 
   if ([coderCopy containsValueForKey:@"associatedVisualResults"])
   {
@@ -235,35 +234,31 @@ LABEL_21:
   }
 
 LABEL_5:
-  v18 = 0x277CCA000uLL;
   if ([coderCopy containsValueForKey:@"contactHandle"])
   {
 LABEL_6:
-    v19 = *(v18 + 3240);
-    v20 = [MEMORY[0x277CBEB98] setWithObjects:{objc_opt_class(), 0}];
-    v21 = [coderCopy decodeObjectOfClasses:v20 forKey:@"contactHandle"];
+    v18 = [MEMORY[0x277CBEB98] setWithObjects:{objc_opt_class(), 0}];
+    v19 = [coderCopy decodeObjectOfClasses:v18 forKey:@"contactHandle"];
     contactHandle = v6->_contactHandle;
-    v6->_contactHandle = v21;
+    v6->_contactHandle = v19;
   }
 
 LABEL_7:
-  v23 = *(v18 + 3240);
-  v24 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"actionClass"];
-  if ([DDRemoteActionContext isClassAllowedFromString:v24])
+  v21 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"actionClass"];
+  if ([DDRemoteActionContext isClassAllowedFromString:v21])
   {
-    [(DDRemoteActionContext *)v6 setActionClass:v24];
+    [(DDRemoteActionContext *)v6 setActionClass:v21];
   }
 
   else
   {
     currentHandler = [MEMORY[0x277CCA890] currentHandler];
-    [currentHandler handleFailureInMethod:v48 object:v6 file:@"DDRemoteAction.m" lineNumber:901 description:@"Trying to create a context with an invalid preview action class or an empty class."];
+    [currentHandler handleFailureInMethod:v44 object:v6 file:@"DDRemoteAction.m" lineNumber:901 description:@"Trying to create a context with an invalid preview action class or an empty class."];
   }
 
-  v38 = v6;
+  v35 = v6;
 
 LABEL_19:
-  v39 = *MEMORY[0x277D85DE8];
   return v6;
 }
 

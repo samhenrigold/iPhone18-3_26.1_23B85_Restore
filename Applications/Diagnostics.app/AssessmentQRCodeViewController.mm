@@ -12,7 +12,7 @@
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_1000B5DCC();
+  sub_1000B5DCC(v2);
 }
 
 - (void)viewWillAppear:(BOOL)appear
@@ -31,7 +31,7 @@
 {
   disappearCopy = disappear;
   v5.receiver = self;
-  v5.super_class = type metadata accessor for AssessmentQRCodeViewController();
+  v5.super_class = type metadata accessor for AssessmentQRCodeViewController(0);
   v4 = v5.receiver;
   [(AssessmentQRCodeViewController *)&v5 viewWillDisappear:disappearCopy];
   if (qword_1001FC6B8 != -1)

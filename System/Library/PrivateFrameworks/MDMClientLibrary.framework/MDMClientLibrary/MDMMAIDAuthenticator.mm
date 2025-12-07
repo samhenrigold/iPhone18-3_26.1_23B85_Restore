@@ -24,7 +24,7 @@
 
 - (BOOL)authenticateRequest:(id)request error:(id *)error
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   rmAccountID = [(MDMMAIDAuthenticator *)self rmAccountID];
   v7 = [MDMAccountUtilities maidPropertiesForRMAccountID:rmAccountID];
@@ -35,8 +35,8 @@
   *buf = MEMORY[0x277D85DD0];
   *&buf[8] = 3221225472;
   *&buf[16] = __sortKeysAndMakeCommaSeparatedString_block_invoke;
-  v41 = &unk_2788570C0;
-  v42 = v10;
+  v40 = &unk_2788570C0;
+  v41 = v10;
   v11 = v10;
   [v9 enumerateKeysAndObjectsUsingBlock:buf];
 
@@ -167,7 +167,7 @@
   v26 = v25;
   if (v24 && v25)
   {
-    v39 = MEMORY[0x277CCACA8];
+    v38 = MEMORY[0x277CCACA8];
     v27 = v24;
     if (coerceIntoString_onceToken != -1)
     {
@@ -262,7 +262,7 @@
 
     v33 = stringValue4;
 
-    v34 = [v39 stringWithFormat:@"%@:%@", v30, v33];
+    v34 = [v38 stringWithFormat:@"%@:%@", v30, v33];
 
     v35 = [v34 dataUsingEncoding:4];
     v36 = [v35 base64EncodedStringWithOptions:0];
@@ -282,7 +282,6 @@
     }
   }
 
-  v37 = *MEMORY[0x277D85DE8];
   return 1;
 }
 

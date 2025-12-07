@@ -299,14 +299,12 @@ LABEL_15:
   has = self->_has;
   if (has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
   }
 
   if ((has & 2) != 0)
   {
-    accountType = self->_accountType;
     PBDataWriterWriteInt32Field();
   }
 
@@ -315,16 +313,15 @@ LABEL_15:
     PBDataWriterWriteStringField();
   }
 
-  v7 = self->_has;
-  if ((v7 & 4) != 0)
+  v5 = self->_has;
+  if ((v5 & 4) != 0)
   {
-    doesExist = self->_doesExist;
     PBDataWriterWriteUint32Field();
-    v7 = self->_has;
-    if ((v7 & 8) == 0)
+    v5 = self->_has;
+    if ((v5 & 8) == 0)
     {
 LABEL_9:
-      if ((v7 & 0x10) == 0)
+      if ((v5 & 0x10) == 0)
       {
         goto LABEL_10;
       }
@@ -333,18 +330,17 @@ LABEL_9:
     }
   }
 
-  else if ((v7 & 8) == 0)
+  else if ((v5 & 8) == 0)
   {
     goto LABEL_9;
   }
 
-  isEnabled = self->_isEnabled;
   PBDataWriterWriteUint32Field();
-  v7 = self->_has;
-  if ((v7 & 0x10) == 0)
+  v5 = self->_has;
+  if ((v5 & 0x10) == 0)
   {
 LABEL_10:
-    if ((v7 & 0x20) == 0)
+    if ((v5 & 0x20) == 0)
     {
       goto LABEL_11;
     }
@@ -353,13 +349,12 @@ LABEL_10:
   }
 
 LABEL_18:
-  isUserDisabled = self->_isUserDisabled;
   PBDataWriterWriteUint32Field();
-  v7 = self->_has;
-  if ((v7 & 0x20) == 0)
+  v5 = self->_has;
+  if ((v5 & 0x20) == 0)
   {
 LABEL_11:
-    if ((v7 & 0x200) == 0)
+    if ((v5 & 0x200) == 0)
     {
       goto LABEL_12;
     }
@@ -368,13 +363,12 @@ LABEL_11:
   }
 
 LABEL_19:
-  isiCloudSignedIn = self->_isiCloudSignedIn;
   PBDataWriterWriteUint32Field();
-  v7 = self->_has;
-  if ((v7 & 0x200) == 0)
+  v5 = self->_has;
+  if ((v5 & 0x200) == 0)
   {
 LABEL_12:
-    if ((v7 & 0x80) == 0)
+    if ((v5 & 0x80) == 0)
     {
       goto LABEL_13;
     }
@@ -383,19 +377,17 @@ LABEL_12:
   }
 
 LABEL_20:
-  registrationStatus = self->_registrationStatus;
   PBDataWriterWriteInt32Field();
-  v7 = self->_has;
-  if ((v7 & 0x80) == 0)
+  v5 = self->_has;
+  if ((v5 & 0x80) == 0)
   {
 LABEL_13:
-    if ((v7 & 0x100) == 0)
+    if ((v5 & 0x100) == 0)
     {
       goto LABEL_14;
     }
 
 LABEL_22:
-    registrationErrorReason = self->_registrationErrorReason;
     PBDataWriterWriteInt32Field();
     if ((*&self->_has & 0x40) == 0)
     {
@@ -406,22 +398,20 @@ LABEL_22:
   }
 
 LABEL_21:
-  registrationError = self->_registrationError;
   PBDataWriterWriteInt32Field();
-  v7 = self->_has;
-  if ((v7 & 0x100) != 0)
+  v5 = self->_has;
+  if ((v5 & 0x100) != 0)
   {
     goto LABEL_22;
   }
 
 LABEL_14:
-  if ((v7 & 0x40) == 0)
+  if ((v5 & 0x40) == 0)
   {
     return;
   }
 
 LABEL_23:
-  isiTunesSignedIn = self->_isiTunesSignedIn;
 
   PBDataWriterWriteUint32Field();
 }

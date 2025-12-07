@@ -77,122 +77,122 @@
 
   if (text)
   {
-    v15 = AXCaptionFonts();
-    v46 = 0u;
-    v47 = 0u;
+    v17 = AXCaptionFonts(v15, v16);
     v48 = 0u;
     v49 = 0u;
-    v16 = [v15 countByEnumeratingWithState:&v46 objects:v50 count:16];
-    if (v16)
+    v50 = 0u;
+    v51 = 0u;
+    v18 = [v17 countByEnumeratingWithState:&v48 objects:v52 count:16];
+    if (v18)
     {
-      v17 = v16;
-      v44 = selfCopy;
-      v45 = textLabel;
-      v18 = *v47;
-      v19 = 17.0;
+      v19 = v18;
+      v46 = selfCopy;
+      v47 = textLabel;
+      v20 = *v49;
+      v21 = 17.0;
       do
       {
-        for (i = 0; i != v17; i = i + 1)
+        for (i = 0; i != v19; i = i + 1)
         {
-          if (*v47 != v18)
+          if (*v49 != v20)
           {
-            objc_enumerationMutation(v15);
+            objc_enumerationMutation(v17);
           }
 
-          v21 = *(*(&v46 + 1) + 8 * i);
-          v22 = [v21 objectForKeyedSubscript:@"name"];
-          v23 = [v22 isEqualToString:v4];
+          v23 = *(*(&v48 + 1) + 8 * i);
+          v24 = [v23 objectForKeyedSubscript:@"name"];
+          v25 = [v24 isEqualToString:v4];
 
-          if (v23)
+          if (v25)
           {
-            v24 = [v21 objectForKeyedSubscript:@"size"];
-            [v24 floatValue];
-            v19 = v25;
+            v26 = [v23 objectForKeyedSubscript:@"size"];
+            [v26 floatValue];
+            v21 = v27;
           }
         }
 
-        v17 = [v15 countByEnumeratingWithState:&v46 objects:v50 count:16];
+        v19 = [v17 countByEnumeratingWithState:&v48 objects:v52 count:16];
       }
 
-      while (v17);
-      v26 = v19;
-      selfCopy = v44;
-      textLabel = v45;
+      while (v19);
+      v28 = v21;
+      selfCopy = v46;
+      textLabel = v47;
     }
 
     else
     {
-      v26 = 17.0;
+      v28 = 17.0;
     }
 
     specifier5 = [(AXCaptionFontCell *)selfCopy specifier];
-    v28 = [specifier5 propertyForKey:@"isBold"];
-    bOOLValue = [v28 BOOLValue];
+    v30 = [specifier5 propertyForKey:@"isBold"];
+    bOOLValue = [v30 BOOLValue];
 
     if (bOOLValue)
     {
-      v30 = 2;
+      v32 = 2;
     }
 
     else
     {
-      v30 = 0;
+      v32 = 0;
     }
 
-    v31 = _CTFontCreateWithNameAndSymbolicTraits();
-    v32 = CTFontCopyCharacterSet(v31);
+    v33 = _CTFontCreateWithNameAndSymbolicTraits();
+    v34 = CTFontCopyCharacterSet(v33);
     text2 = [textLabel text];
-    v34 = CFCharacterSetCreateWithCharactersInString(kCFAllocatorDefault, text2);
+    v36 = CFCharacterSetCreateWithCharactersInString(kCFAllocatorDefault, text2);
 
-    if (v32 && v34)
+    if (v34 && v36)
     {
-      if (CFCharacterSetIsSupersetOfSet(v32, v34))
+      if (CFCharacterSetIsSupersetOfSet(v34, v36))
       {
-        v35 = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
-        [v35 _scaledValueForValue:v26];
-        v37 = v36;
+        v37 = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
+        [v37 _scaledValueForValue:v28];
+        v39 = v38;
 
-        v38 = [v4 isEqualToString:MACaptionAppearanceSystemFontIdentifier];
-        v39 = [v4 isEqual:MACaptionAppearanceMonoSystemFontIdentifier];
-        v40 = [v4 isEqual:MACaptionAppearanceMediumSystemFontIdentifier];
-        v41 = v37;
-        if (v39)
+        v40 = [v4 isEqualToString:MACaptionAppearanceSystemFontIdentifier];
+        v41 = [v4 isEqual:MACaptionAppearanceMonoSystemFontIdentifier];
+        v42 = [v4 isEqual:MACaptionAppearanceMediumSystemFontIdentifier];
+        v43 = v39;
+        if (v41)
         {
-          v42 = [UIFont monospacedSystemFontOfSize:v41 weight:UIFontWeightRegular];
+          v44 = [UIFont monospacedSystemFontOfSize:v43 weight:UIFontWeightRegular];
         }
 
-        else if (v38)
+        else if (v40)
         {
-          v42 = [UIFont systemFontOfSize:v41];
+          v44 = [UIFont systemFontOfSize:v43];
         }
 
         else
         {
-          if (v40)
+          if (v42)
           {
-            [UIFont systemFontOfSize:v41 weight:UIFontWeightMedium];
+            [UIFont systemFontOfSize:v43 weight:UIFontWeightMedium];
           }
 
           else
           {
-            [UIFont fontWithName:v4 size:v30 traits:v41];
+            [UIFont fontWithName:v4 size:v32 traits:v43];
           }
-          v42 = ;
+          v44 = ;
         }
 
-        v43 = v42;
-        [textLabel setFont:v42];
+        v45 = v44;
+        [textLabel setFont:v44];
       }
     }
 
-    else if (!v32)
+    else if (!v34)
     {
-      if (!v34)
+      if (!v36)
       {
 LABEL_29:
-        if (v31)
+        if (v33)
         {
-          CFRelease(v31);
+          CFRelease(v33);
         }
 
         [textLabel sizeToFit];
@@ -201,12 +201,12 @@ LABEL_29:
       }
 
 LABEL_28:
-      CFRelease(v34);
+      CFRelease(v36);
       goto LABEL_29;
     }
 
-    CFRelease(v32);
-    if (!v34)
+    CFRelease(v34);
+    if (!v36)
     {
       goto LABEL_29;
     }

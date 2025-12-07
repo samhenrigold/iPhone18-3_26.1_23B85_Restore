@@ -204,20 +204,20 @@ LABEL_9:
 
 - (id)perform
 {
-  v38[1] = *MEMORY[0x277D85DE8];
+  v37[1] = *MEMORY[0x277D85DE8];
   v4 = objc_msgSend_me(self, a2, v2);
   v7 = objc_msgSend_BOOLValue(v4, v5, v6);
 
   if (v7)
   {
-    v37 = 0;
-    v10 = objc_msgSend_meContact_(self, v8, &v37);
-    v11 = v37;
+    v36 = 0;
+    v10 = objc_msgSend_meContact_(self, v8, &v36);
+    v11 = v36;
     v14 = v11;
     if (v10)
     {
-      v38[0] = v10;
-      v15 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v12, v38, 1);
+      v37[0] = v10;
+      v15 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v12, v37, 1);
     }
 
     else
@@ -244,9 +244,9 @@ LABEL_9:
 
     if (isEqualToString)
     {
-      v36 = 0;
-      v15 = objc_msgSend_searchLocal_(self, v19, &v36);
-      v21 = v36;
+      v35 = 0;
+      v15 = objc_msgSend_searchLocal_(self, v19, &v35);
+      v21 = v35;
     }
 
     else
@@ -260,9 +260,9 @@ LABEL_9:
         goto LABEL_16;
       }
 
-      v35 = 0;
-      v15 = objc_msgSend_searchRemote_(self, v25, &v35);
-      v21 = v35;
+      v34 = 0;
+      v15 = objc_msgSend_searchRemote_(self, v25, &v34);
+      v21 = v34;
     }
 
     v14 = v21;
@@ -281,8 +281,6 @@ LABEL_16:
   v31 = objc_alloc(MEMORY[0x277D47100]);
   v30 = objc_msgSend_initWithResults_(v31, v32, v15);
 LABEL_17:
-
-  v33 = *MEMORY[0x277D85DE8];
 
   return v30;
 }

@@ -29,19 +29,19 @@
   networksCopy = networks;
   if (networks)
   {
-    sub_100014C84(0, &unk_101917480);
+    sub_100014C84(0, &unk_101917480, VGChargingNetwork_ptr);
     sub_10029BDD8();
     networksCopy = static Set._unconditionallyBridgeFromObjectiveC(_:)();
   }
 
   swift_unknownObjectRetain();
-  return sub_100524044(networksCopy);
+  return sub_100524044(networksCopy, delegate);
 }
 
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_100524348();
+  sub_100524348(selfCopy);
 }
 
 - (void)didSelectNetwork:(id)network isSuggested:(BOOL)suggested

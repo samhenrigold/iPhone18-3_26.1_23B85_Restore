@@ -2,6 +2,7 @@
 + (BOOL)isValidAppPathPlist:(id)plist writersID:(id)d uniquePaths:(id)paths sharedPaths:(id)sharedPaths;
 + (BOOL)isValidAppPathPlistArray:(id)array;
 + (BOOL)validatePaths:(id)paths;
++ (SAAppPath)appPathWithRecord:(id)record identifier:(id)identifier dataContainerPath:(id)path personaUniqueString:(id)string isPlugin:(BOOL)plugin isGroup:(BOOL)group;
 + (id)newFromPlist:(id)plist;
 - (BOOL)forceHidden;
 - (BOOL)forceVisible;
@@ -116,31 +117,30 @@
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v15 = 0u;
-      v16 = 0u;
-      v13 = 0u;
       v14 = 0u;
+      v15 = 0u;
+      v12 = 0u;
+      v13 = 0u;
       v4 = arrayCopy;
-      v5 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v5 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
       if (v5)
       {
         v6 = v5;
-        v7 = *v14;
+        v7 = *v13;
         while (2)
         {
-          for (i = 0; i != v6; i = i + 1)
+          for (i = 0; i != v6; ++i)
           {
-            if (*v14 != v7)
+            if (*v13 != v7)
             {
               objc_enumerationMutation(v4);
             }
 
-            v9 = *(*(&v13 + 1) + 8 * i);
             objc_opt_class();
             if ((objc_opt_isKindOfClass() & 1) == 0)
             {
-              v11 = SALog();
-              if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+              v10 = SALog();
+              if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
               {
                 sub_10003C7B4();
               }
@@ -149,8 +149,8 @@
             }
           }
 
-          v6 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
-          v10 = 1;
+          v6 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+          v9 = 1;
           if (v6)
           {
             continue;
@@ -162,7 +162,7 @@
 
       else
       {
-        v10 = 1;
+        v9 = 1;
       }
     }
 
@@ -175,16 +175,16 @@
       }
 
 LABEL_18:
-      v10 = 0;
+      v9 = 0;
     }
   }
 
   else
   {
-    v10 = 1;
+    v9 = 1;
   }
 
-  return v10;
+  return v9;
 }
 
 + (BOOL)isValidAppPathPlist:(id)plist writersID:(id)d uniquePaths:(id)paths sharedPaths:(id)sharedPaths
@@ -1116,9 +1116,9 @@ LABEL_27:
   recordCopy = record;
   identifierCopy = identifier;
   pathCopy = path;
-  v77.receiver = self;
-  v77.super_class = SAAppPath;
-  v16 = [(SAAppPath *)&v77 init];
+  v75.receiver = self;
+  v75.super_class = SAAppPath;
+  v16 = [(SAAppPath *)&v75 init];
   v17 = v16;
   if (!v16)
   {
@@ -1129,7 +1129,6 @@ LABEL_27:
   {
     objc_storeStrong(&v16->_dataContainerPath, path);
     objc_storeStrong(&v17->identifier, identifier);
-    v18 = &SBSCopyDisplayIdentifiers_ptr;
     if (v17->_dataContainerPath)
     {
       if (group)
@@ -1139,46 +1138,45 @@ LABEL_34:
         groupContainerIdentifiers = [recordCopy groupContainerIdentifiers];
         [(SAAppPath *)v17 addGroupContainerIDs:groupContainerIdentifiers];
 
-        v47 = v18[221];
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
           pluginCopy = plugin;
-          v71 = 0u;
-          v72 = 0u;
           v69 = 0u;
           v70 = 0u;
+          v67 = 0u;
+          v68 = 0u;
           applicationExtensionRecords = [recordCopy applicationExtensionRecords];
-          v49 = [applicationExtensionRecords countByEnumeratingWithState:&v69 objects:v78 count:16];
-          if (v49)
+          v47 = [applicationExtensionRecords countByEnumeratingWithState:&v67 objects:v76 count:16];
+          if (v47)
           {
-            v50 = v49;
-            v51 = *v70;
+            v48 = v47;
+            v49 = *v68;
             do
             {
-              for (i = 0; i != v50; i = i + 1)
+              for (i = 0; i != v48; i = i + 1)
               {
-                if (*v70 != v51)
+                if (*v68 != v49)
                 {
                   objc_enumerationMutation(applicationExtensionRecords);
                 }
 
-                groupContainerIdentifiers2 = [*(*(&v69 + 1) + 8 * i) groupContainerIdentifiers];
+                groupContainerIdentifiers2 = [*(*(&v67 + 1) + 8 * i) groupContainerIdentifiers];
                 [(SAAppPath *)v17 addGroupContainerIDs:groupContainerIdentifiers2];
               }
 
-              v50 = [applicationExtensionRecords countByEnumeratingWithState:&v69 objects:v78 count:16];
+              v48 = [applicationExtensionRecords countByEnumeratingWithState:&v67 objects:v76 count:16];
             }
 
-            while (v50);
+            while (v48);
           }
 
           plugin = pluginCopy;
         }
 
-        v54 = [NSNumber numberWithBool:[(SAAppPath *)v17 isAppRecordUserVisible:recordCopy]];
+        v52 = [NSNumber numberWithBool:[(SAAppPath *)v17 isAppRecordUserVisible:recordCopy]];
         isAppRecordUserVisible = v17->_isAppRecordUserVisible;
-        v17->_isAppRecordUserVisible = v54;
+        v17->_isAppRecordUserVisible = v52;
 
         v17->_isPlugin = plugin;
         v17->_isGroup = group;
@@ -1196,104 +1194,103 @@ LABEL_34:
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v20 = sub_10000185C(recordCopy);
-      allKeys = [v20 allKeys];
-      v22 = recordCopy;
-      bundleContainerURL = [v22 bundleContainerURL];
-      v61 = pathCopy;
-      v62 = identifierCopy;
+      v19 = sub_10000185C(recordCopy);
+      allKeys = [v19 allKeys];
+      v21 = recordCopy;
+      bundleContainerURL = [v21 bundleContainerURL];
+      v59 = pathCopy;
+      v60 = identifierCopy;
       if (bundleContainerURL)
       {
         goto LABEL_17;
       }
 
-      executableURL = [v22 executableURL];
-      v65 = sub_100001A5C([executableURL fileSystemRepresentation]);
+      executableURL = [v21 executableURL];
+      v63 = sub_100001A5C([executableURL fileSystemRepresentation]);
 
-      v25 = SALog();
-      if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
+      v24 = SALog();
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
       {
         sub_10003CC2C();
       }
 
-      bundleContainerURL = v65;
-      if (v65)
+      bundleContainerURL = v63;
+      if (v63)
       {
 LABEL_17:
-        v66 = bundleContainerURL;
+        v64 = bundleContainerURL;
         path = [bundleContainerURL path];
         [(SAAppPath *)v17 addBinaryPath:path];
 
-        v68 = 1;
+        v66 = 1;
       }
 
       else
       {
-        v68 = 0;
         v66 = 0;
+        v64 = 0;
       }
 
-      v57 = v22;
+      v55 = v21;
       pluginCopy2 = plugin;
       groupCopy = group;
       if (allKeys)
       {
-        v27 = [NSMutableSet setWithArray:allKeys];
-        [(SAAppPath *)v17 addWriterIDs:v27];
+        v26 = [NSMutableSet setWithArray:allKeys];
+        [(SAAppPath *)v17 addWriterIDs:v26];
       }
 
-      v58 = allKeys;
-      v59 = v20;
-      v75 = 0u;
-      v76 = 0u;
+      v56 = allKeys;
+      v57 = v19;
       v73 = 0u;
       v74 = 0u;
-      obj = [v20 allValues];
-      v28 = [obj countByEnumeratingWithState:&v73 objects:v79 count:16];
-      if (v28)
+      v71 = 0u;
+      v72 = 0u;
+      obj = [v19 allValues];
+      v27 = [obj countByEnumeratingWithState:&v71 objects:v77 count:16];
+      if (v27)
       {
-        v29 = v28;
-        v30 = *v74;
+        v28 = v27;
+        v29 = *v72;
         do
         {
-          for (j = 0; j != v29; j = j + 1)
+          for (j = 0; j != v28; j = j + 1)
           {
-            if (*v74 != v30)
+            if (*v72 != v29)
             {
               objc_enumerationMutation(obj);
             }
 
-            v32 = *(*(&v73 + 1) + 8 * j);
-            v33 = [v32 objectForKeyedSubscript:@"CONTAINER_CLASS_APPLICATION"];
-            v34 = sub_10000CA38(v33);
+            v31 = *(*(&v71 + 1) + 8 * j);
+            v32 = [v31 objectForKeyedSubscript:@"CONTAINER_CLASS_APPLICATION"];
+            v33 = sub_10000CA38(v32);
 
-            if (v34)
+            if (v33)
             {
-              if (!v68 || (+[NSString stringWithUTF8String:](NSString, "stringWithUTF8String:", [v34 fileSystemRepresentation]), v35 = objc_claimAutoreleasedReturnValue(), +[NSString stringWithUTF8String:](NSString, "stringWithUTF8String:", objc_msgSend(v66, "fileSystemRepresentation")), v36 = objc_claimAutoreleasedReturnValue(), v37 = objc_msgSend(v35, "hasPrefix:", v36), v36, v35, (v37 & 1) == 0))
+              if (!v66 || (+[NSString stringWithUTF8String:](NSString, "stringWithUTF8String:", [v33 fileSystemRepresentation]), v34 = objc_claimAutoreleasedReturnValue(), +[NSString stringWithUTF8String:](NSString, "stringWithUTF8String:", objc_msgSend(v64, "fileSystemRepresentation")), v35 = objc_claimAutoreleasedReturnValue(), v36 = objc_msgSend(v34, "hasPrefix:", v35), v35, v34, (v36 & 1) == 0))
               {
-                path2 = [v34 path];
+                path2 = [v33 path];
                 [(SAAppPath *)v17 addBinaryPath:path2];
               }
             }
 
-            v39 = [v32 objectForKeyedSubscript:@"CONTAINER_CLASS_APPLICATION_DATA"];
-            v40 = sub_10000CA38(v39);
+            v38 = [v31 objectForKeyedSubscript:@"CONTAINER_CLASS_APPLICATION_DATA"];
+            v39 = sub_10000CA38(v38);
 
-            path3 = [v40 path];
+            path3 = [v39 path];
             [(SAAppPath *)v17 addUniquePath:path3];
           }
 
-          v29 = [obj countByEnumeratingWithState:&v73 objects:v79 count:16];
+          v28 = [obj countByEnumeratingWithState:&v71 objects:v77 count:16];
         }
 
-        while (v29);
+        while (v28);
       }
 
-      identifierCopy = v62;
-      pathCopy = v61;
+      identifierCopy = v60;
+      pathCopy = v59;
       group = groupCopy;
       plugin = pluginCopy2;
-      v18 = &SBSCopyDisplayIdentifiers_ptr;
     }
 
     else
@@ -1303,8 +1300,8 @@ LABEL_17:
       if (executableURL2)
       {
         executableURL3 = [recordCopy executableURL];
-        v44 = sub_100001A5C([executableURL3 fileSystemRepresentation]);
-        path4 = [v44 path];
+        v43 = sub_100001A5C([executableURL3 fileSystemRepresentation]);
+        path4 = [v43 path];
         [(SAAppPath *)v17 addBinaryPath:path4];
       }
     }
@@ -1312,8 +1309,8 @@ LABEL_17:
     goto LABEL_34;
   }
 
-  v19 = SALog();
-  if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+  v18 = SALog();
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
   {
     sub_10003CCA0();
   }
@@ -1646,6 +1643,45 @@ LABEL_44:
   }
 
   return v4;
+}
+
++ (SAAppPath)appPathWithRecord:(id)record identifier:(id)identifier dataContainerPath:(id)path personaUniqueString:(id)string isPlugin:(BOOL)plugin isGroup:(BOOL)group
+{
+  groupCopy = group;
+  pluginCopy = plugin;
+  recordCopy = record;
+  identifierCopy = identifier;
+  pathCopy = path;
+  stringCopy = string;
+  if (identifierCopy)
+  {
+    v17 = [[SAAppPath alloc] initWithBundleRecord:recordCopy identifier:identifierCopy dataContainerPath:pathCopy personaUniqueString:stringCopy isPlugin:pluginCopy isGroup:groupCopy];
+    if (v17)
+    {
+      goto LABEL_9;
+    }
+
+    v18 = SALog();
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    {
+      sub_10003CE80();
+    }
+  }
+
+  else
+  {
+    v18 = SALog();
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    {
+      sub_10003CEF0();
+    }
+
+    v17 = 0;
+  }
+
+LABEL_9:
+
+  return v17;
 }
 
 - (void)getAppCacheInfo:(id)info

@@ -50,10 +50,7 @@
 
 - (void)setServerName:(id)name
 {
-  v4 = [name copy];
-  sslServerTrustPolicyInternal = self->_sslServerTrustPolicyInternal;
-  v6 = sslServerTrustPolicyInternal[1];
-  sslServerTrustPolicyInternal[1] = v4;
+  *(self->_sslServerTrustPolicyInternal + 1) = [name copy];
 
   MEMORY[0x2821F96F8]();
 }

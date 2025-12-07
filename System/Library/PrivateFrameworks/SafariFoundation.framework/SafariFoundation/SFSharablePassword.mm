@@ -133,27 +133,27 @@
 {
   v3 = MEMORY[0x277CCAAC8];
   dataCopy = data;
-  v11 = 0;
-  v5 = [v3 unarchivedObjectOfClass:objc_opt_class() fromData:dataCopy error:&v11];
+  v12 = 0;
+  v5 = [v3 unarchivedObjectOfClass:objc_opt_class() fromData:dataCopy error:&v12];
 
-  v6 = v11;
-  v7 = v6;
+  v6 = v12;
+  v8 = v6;
   if (v5)
   {
-    v8 = 1;
+    v9 = 1;
   }
 
   else
   {
-    v8 = v6 == 0;
+    v9 = v6 == 0;
   }
 
-  if (!v8)
+  if (!v9)
   {
-    v9 = WBS_LOG_CHANNEL_PREFIXPasswordSharing();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = WBS_LOG_CHANNEL_PREFIXPasswordSharing(v6, v7);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      [SFSharablePassword sharablePasswordFromData:v9];
+      [SFSharablePassword sharablePasswordFromData:v10];
     }
   }
 
@@ -162,63 +162,63 @@
 
 + (id)sharablePasswordFromURL:(id)l
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   lCopy = l;
   scheme = [lCopy scheme];
   v6 = [scheme isEqualToString:@"safaricredential"];
 
   if ((v6 & 1) == 0)
   {
-    v25 = WBS_LOG_CHANNEL_PREFIXPasswordSharing();
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+    v29 = WBS_LOG_CHANNEL_PREFIXPasswordSharing(v7, v8);
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
     {
       +[SFSharablePassword sharablePasswordFromURL:];
     }
 
-    v24 = 0;
+    v28 = 0;
     goto LABEL_26;
   }
 
-  v33 = 0u;
+  v36 = 0u;
+  v37 = 0u;
   v34 = 0u;
-  v31 = 0u;
-  v32 = 0u;
-  v7 = [MEMORY[0x277CCACE0] componentsWithURL:lCopy resolvingAgainstBaseURL:0];
-  queryItems = [v7 queryItems];
+  v35 = 0u;
+  v9 = [MEMORY[0x277CCACE0] componentsWithURL:lCopy resolvingAgainstBaseURL:0];
+  queryItems = [v9 queryItems];
 
-  v9 = [queryItems countByEnumeratingWithState:&v31 objects:v35 count:16];
-  if (!v9)
+  v11 = [queryItems countByEnumeratingWithState:&v34 objects:v38 count:16];
+  if (!v11)
   {
 
-    v12 = 0;
-    v11 = 0;
+    v14 = 0;
+    v13 = 0;
     goto LABEL_22;
   }
 
-  v10 = v9;
+  v12 = v11;
   selfCopy = self;
-  v30 = lCopy;
-  v11 = 0;
-  v12 = 0;
-  v13 = *v32;
+  v33 = lCopy;
+  v13 = 0;
+  v14 = 0;
+  v15 = *v35;
   do
   {
-    for (i = 0; i != v10; ++i)
+    for (i = 0; i != v12; ++i)
     {
-      if (*v32 != v13)
+      if (*v35 != v15)
       {
         objc_enumerationMutation(queryItems);
       }
 
-      v15 = *(*(&v31 + 1) + 8 * i);
-      name = [v15 name];
+      v17 = *(*(&v34 + 1) + 8 * i);
+      name = [v17 name];
       if ([name isEqualToString:@"data"])
       {
-        v17 = objc_alloc(MEMORY[0x277CBEA90]);
-        value = [v15 value];
-        v19 = [v17 initWithBase64EncodedString:value options:0];
-        v20 = v12;
-        v12 = v19;
+        v19 = objc_alloc(MEMORY[0x277CBEA90]);
+        value = [v17 value];
+        v21 = [v19 initWithBase64EncodedString:value options:0];
+        v22 = v14;
+        v14 = v21;
       }
 
       else
@@ -228,28 +228,28 @@
           goto LABEL_12;
         }
 
-        v21 = objc_alloc(MEMORY[0x277CBEA90]);
-        value = [v15 value];
-        v22 = [v21 initWithBase64EncodedString:value options:0];
-        v20 = v11;
-        v11 = v22;
+        v23 = objc_alloc(MEMORY[0x277CBEA90]);
+        value = [v17 value];
+        v24 = [v23 initWithBase64EncodedString:value options:0];
+        v22 = v13;
+        v13 = v24;
       }
 
 LABEL_12:
     }
 
-    v10 = [queryItems countByEnumeratingWithState:&v31 objects:v35 count:16];
+    v12 = [queryItems countByEnumeratingWithState:&v34 objects:v38 count:16];
   }
 
-  while (v10);
+  while (v12);
 
-  if (v12)
+  if (v14)
   {
-    lCopy = v30;
-    if (v11)
+    lCopy = v33;
+    if (v13)
     {
-      v23 = [selfCopy _decryptedDataForEncryptedData:v12 encryptionKeyReference:v11];
-      v24 = [SFSharablePassword sharablePasswordFromData:v23];
+      v27 = [selfCopy _decryptedDataForEncryptedData:v14 encryptionKeyReference:v13];
+      v28 = [SFSharablePassword sharablePasswordFromData:v27];
 
       goto LABEL_25;
     }
@@ -257,45 +257,42 @@ LABEL_12:
 
   else
   {
-    lCopy = v30;
+    lCopy = v33;
   }
 
 LABEL_22:
-  v26 = WBS_LOG_CHANNEL_PREFIXPasswordSharing();
-  if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+  v30 = WBS_LOG_CHANNEL_PREFIXPasswordSharing(v25, v26);
+  if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
   {
     +[SFSharablePassword sharablePasswordFromURL:];
   }
 
-  v24 = 0;
+  v28 = 0;
 LABEL_25:
 
 LABEL_26:
-  v27 = *MEMORY[0x277D85DE8];
 
-  return v24;
+  return v28;
 }
 
 - (NSURL)passwordManagerURL
 {
-  v13[3] = *MEMORY[0x277D85DE8];
+  v12[3] = *MEMORY[0x277D85DE8];
   _encryptionInformationWithNewKey = [(SFSharablePassword *)self _encryptionInformationWithNewKey];
-  v12[0] = *MEMORY[0x277D49C78];
+  v11[0] = *MEMORY[0x277D49C78];
   encryptedPasswordData = [_encryptionInformationWithNewKey encryptedPasswordData];
   v4 = [encryptedPasswordData base64EncodedStringWithOptions:0];
-  v13[0] = v4;
-  v12[1] = *MEMORY[0x277D49C80];
+  v12[0] = v4;
+  v11[1] = *MEMORY[0x277D49C80];
   encryptionKeyReference = [_encryptionInformationWithNewKey encryptionKeyReference];
   v6 = [encryptionKeyReference base64EncodedStringWithOptions:0];
-  v12[2] = *MEMORY[0x277D49C60];
+  v11[2] = *MEMORY[0x277D49C60];
   v7 = *MEMORY[0x277D49C58];
-  v13[1] = v6;
-  v13[2] = v7;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:3];
+  v12[1] = v6;
+  v12[2] = v7;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:3];
 
   v9 = [MEMORY[0x277D49A98] passwordManagerURLWithDictionary:v8];
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
@@ -318,7 +315,7 @@ LABEL_26:
   equalCopy = equal;
   if (self == equalCopy)
   {
-    v25 = 1;
+    v18 = 1;
   }
 
   else
@@ -343,112 +340,105 @@ LABEL_26:
             highLevelDomain = [(SFSharablePassword *)v5 highLevelDomain];
             if ([(NSString *)highLevelDomain isEqualToString:highLevelDomain])
             {
-              additionalSites = self->_additionalSites;
               additionalSites = [(SFSharablePassword *)v5 additionalSites];
               if (WBSIsEqual())
               {
-                otpAuthURL = self->_otpAuthURL;
                 otpAuthURL = [(SFSharablePassword *)v5 otpAuthURL];
                 if (WBSIsEqual())
                 {
-                  notesEntry = self->_notesEntry;
                   notesEntry = [(SFSharablePassword *)v5 notesEntry];
                   if (WBSIsEqual())
                   {
-                    customTitle = self->_customTitle;
                     customTitle = [(SFSharablePassword *)v5 customTitle];
                     if (WBSIsEqual())
                     {
-                      passkeyCredentialID = self->_passkeyCredentialID;
                       passkeyCredentialID = [(SFSharablePassword *)v5 passkeyCredentialID];
                       if (WBSIsEqual())
                       {
-                        passkeyCredential = self->_passkeyCredential;
                         passkeyCredential = [(SFSharablePassword *)v5 passkeyCredential];
                         if (WBSIsEqual())
                         {
-                          passkeyRelyingPartyID = self->_passkeyRelyingPartyID;
                           passkeyRelyingPartyID = [(SFSharablePassword *)v5 passkeyRelyingPartyID];
                           if (WBSIsEqual())
                           {
                             protectionSpaces = self->_protectionSpaces;
                             protectionSpaces = [(SFSharablePassword *)v5 protectionSpaces];
-                            v25 = [(NSArray *)protectionSpaces isEqual:protectionSpaces];
+                            v18 = [(NSArray *)protectionSpaces isEqual:protectionSpaces];
                           }
 
                           else
                           {
-                            v25 = 0;
+                            v18 = 0;
                           }
                         }
 
                         else
                         {
-                          v25 = 0;
+                          v18 = 0;
                         }
                       }
 
                       else
                       {
-                        v25 = 0;
+                        v18 = 0;
                       }
                     }
 
                     else
                     {
-                      v25 = 0;
+                      v18 = 0;
                     }
                   }
 
                   else
                   {
-                    v25 = 0;
+                    v18 = 0;
                   }
                 }
 
                 else
                 {
-                  v25 = 0;
+                  v18 = 0;
                 }
               }
 
               else
               {
-                v25 = 0;
+                v18 = 0;
               }
             }
 
             else
             {
-              v25 = 0;
+              v18 = 0;
             }
           }
 
           else
           {
-            v25 = 0;
+            v18 = 0;
           }
         }
 
         else
         {
-          v25 = 0;
+          v18 = 0;
         }
       }
 
       else
       {
-        v25 = 0;
+        v18 = 0;
       }
     }
 
     else
     {
-      v25 = 0;
+      v18 = 0;
     }
   }
 
-  return v25;
+  return v18;
 }
 
 - (unint64_t)hash
@@ -512,16 +502,16 @@ uint64_t __52__SFSharablePassword_safariCredentialURLHasPasskey___block_invoke(u
 
 - (SFSharablePassword)initWithCoder:(id)coder
 {
-  v38[2] = *MEMORY[0x277D85DE8];
+  v37[2] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"username"];
   v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"password"];
   v7 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"displayName"];
   v8 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"highLevelDomain"];
   v9 = MEMORY[0x277CBEB98];
-  v38[0] = objc_opt_class();
-  v38[1] = objc_opt_class();
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v38 count:2];
+  v37[0] = objc_opt_class();
+  v37[1] = objc_opt_class();
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v37 count:2];
   v11 = [v9 setWithArray:v10];
   v12 = [coderCopy decodeObjectOfClasses:v11 forKey:@"protectionSpaces"];
 
@@ -532,12 +522,12 @@ uint64_t __52__SFSharablePassword_safariCredentialURLHasPasskey___block_invoke(u
     v15 = [coderCopy decodeArrayOfObjectsOfClass:objc_opt_class() forKey:@"additionalSites"];
     additionalSites = v14->_additionalSites;
     v14->_additionalSites = v15;
-    v37 = v15;
+    v36 = v15;
 
     v17 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"otp"];
     otpAuthURL = v14->_otpAuthURL;
     v14->_otpAuthURL = v17;
-    v36 = v17;
+    v35 = v17;
 
     v19 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"notes"];
     v20 = v12;
@@ -547,7 +537,7 @@ uint64_t __52__SFSharablePassword_safariCredentialURLHasPasskey___block_invoke(u
     v24 = v5;
     notesEntry = v14->_notesEntry;
     v14->_notesEntry = v19;
-    v35 = v19;
+    v34 = v19;
 
     v5 = v24;
     v6 = v23;
@@ -569,7 +559,6 @@ uint64_t __52__SFSharablePassword_safariCredentialURLHasPasskey___block_invoke(u
     v32 = v14;
   }
 
-  v33 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
@@ -593,7 +582,7 @@ uint64_t __52__SFSharablePassword_safariCredentialURLHasPasskey___block_invoke(u
 
 - (id)_encryptionInformationWithNewKey
 {
-  v40[4] = *MEMORY[0x277D85DE8];
+  v44[4] = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CCACA8];
   date = [MEMORY[0x277CBEAA8] date];
   [date timeIntervalSinceReferenceDate];
@@ -602,64 +591,65 @@ uint64_t __52__SFSharablePassword_safariCredentialURLHasPasskey___block_invoke(u
   v7 = [v6 dataUsingEncoding:4];
   v8 = *MEMORY[0x277CDC060];
   v9 = *MEMORY[0x277CDC018];
-  v39[0] = *MEMORY[0x277CDC028];
-  v39[1] = v9;
-  v40[0] = v8;
-  v40[1] = &unk_287602130;
+  v43[0] = *MEMORY[0x277CDC028];
+  v43[1] = v9;
+  v44[0] = v8;
+  v44[1] = &unk_287602130;
   v10 = MEMORY[0x277CBEC38];
   v11 = *MEMORY[0x277CDC5C8];
-  v40[2] = MEMORY[0x277CBEC38];
+  v44[2] = MEMORY[0x277CBEC38];
   v12 = *MEMORY[0x277CDC4F0];
-  v39[2] = v11;
-  v39[3] = v12;
+  v43[2] = v11;
+  v43[3] = v12;
   v13 = *MEMORY[0x277CDBF30];
-  v37[0] = *MEMORY[0x277CDBFD0];
-  v37[1] = v13;
-  v38[0] = MEMORY[0x277CBEC38];
-  v38[1] = v7;
+  v41[0] = *MEMORY[0x277CDBFD0];
+  v41[1] = v13;
+  v42[0] = MEMORY[0x277CBEC38];
+  v42[1] = v7;
   v14 = *MEMORY[0x277CDBEC8];
-  v37[2] = *MEMORY[0x277CDC140];
-  v37[3] = v14;
-  v38[2] = MEMORY[0x277CBEC28];
-  v38[3] = @"com.apple.sharing.safaripasswordsharing";
-  v37[4] = *MEMORY[0x277CDBFB0];
+  v41[2] = *MEMORY[0x277CDC140];
+  v41[3] = v14;
+  v42[2] = MEMORY[0x277CBEC28];
+  v42[3] = @"com.apple.sharing.safaripasswordsharing";
+  v41[4] = *MEMORY[0x277CDBFB0];
   v15 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceNow:86400.0];
-  v38[4] = v15;
-  v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v38 forKeys:v37 count:5];
-  v40[3] = v16;
-  v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v40 forKeys:v39 count:4];
+  v42[4] = v15;
+  v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v42 forKeys:v41 count:5];
+  v44[3] = v16;
+  v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v44 forKeys:v43 count:4];
 
   error = 0;
   v18 = SecKeyCreateRandomKey(v17, &error);
   if (v18)
   {
-    v19 = v18;
-    v20 = SecKeyCopyPublicKey(v18);
-    v21 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:self requiringSecureCoding:1 error:0];
-    v22 = SecKeyCreateEncryptedData(v20, *MEMORY[0x277CDC360], v21, &error);
-    CFRelease(v19);
+    v20 = v18;
+    v21 = SecKeyCopyPublicKey(v18);
+    v22 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:self requiringSecureCoding:1 error:0];
+    v23 = SecKeyCreateEncryptedData(v21, *MEMORY[0x277CDC360], v22, &error);
     CFRelease(v20);
-    if (v22)
+    CFRelease(v21);
+    if (v23)
     {
       result = 0;
-      v23 = *MEMORY[0x277CDC228];
-      v35[0] = *MEMORY[0x277CDC560];
-      v35[1] = v23;
-      v24 = *MEMORY[0x277CDC250];
-      v36[0] = v10;
-      v36[1] = v24;
-      v35[2] = v13;
-      v36[2] = v7;
-      if (!SecItemCopyMatching([MEMORY[0x277CBEAC0] dictionaryWithObjects:v36 forKeys:v35 count:3], &result))
+      v26 = *MEMORY[0x277CDC228];
+      v39[0] = *MEMORY[0x277CDC560];
+      v39[1] = v26;
+      v27 = *MEMORY[0x277CDC250];
+      v40[0] = v10;
+      v40[1] = v27;
+      v39[2] = v13;
+      v40[2] = v7;
+      v28 = SecItemCopyMatching([MEMORY[0x277CBEAC0] dictionaryWithObjects:v40 forKeys:v39 count:3], &result);
+      if (!v28)
       {
-        v30 = result;
-        v27 = [[_SFSharablePasswordEncryptionInformation alloc] initWithEncryptedPasswordData:v22 encryptionKeyReference:result];
+        v35 = result;
+        v32 = [[_SFSharablePasswordEncryptionInformation alloc] initWithEncryptedPasswordData:v23 encryptionKeyReference:result];
 
         goto LABEL_14;
       }
 
-      v25 = WBS_LOG_CHANNEL_PREFIXPasswordSharing();
-      if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+      v30 = WBS_LOG_CHANNEL_PREFIXPasswordSharing(v28, v29);
+      if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
       {
         [SFSharablePassword _encryptionInformationWithNewKey];
       }
@@ -667,84 +657,81 @@ uint64_t __52__SFSharablePassword_safariCredentialURLHasPasskey___block_invoke(u
 
     else
     {
-      v28 = error;
-      v29 = WBS_LOG_CHANNEL_PREFIXPasswordSharing();
-      if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+      v33 = error;
+      v34 = WBS_LOG_CHANNEL_PREFIXPasswordSharing(v24, v25);
+      if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
       {
-        [(SFSharablePassword *)v29 _encryptionInformationWithNewKey];
+        [(SFSharablePassword *)v34 _encryptionInformationWithNewKey];
       }
     }
 
-    v27 = 0;
+    v32 = 0;
 LABEL_14:
 
     goto LABEL_15;
   }
 
-  v21 = error;
-  v26 = WBS_LOG_CHANNEL_PREFIXPasswordSharing();
-  if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+  v22 = error;
+  v31 = WBS_LOG_CHANNEL_PREFIXPasswordSharing(0, v19);
+  if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
   {
-    [(SFSharablePassword *)v26 _encryptionInformationWithNewKey];
+    [(SFSharablePassword *)v31 _encryptionInformationWithNewKey];
   }
 
-  v27 = 0;
+  v32 = 0;
 LABEL_15:
 
-  v31 = *MEMORY[0x277D85DE8];
-
-  return v27;
+  return v32;
 }
 
 + (id)_decryptedDataForEncryptedData:(id)data encryptionKeyReference:(id)reference
 {
-  v19[3] = *MEMORY[0x277D85DE8];
+  v22[3] = *MEMORY[0x277D85DE8];
   dataCopy = data;
   referenceCopy = reference;
   result = 0;
   v7 = *MEMORY[0x277CDC228];
-  v18[0] = *MEMORY[0x277CDC5F0];
-  v18[1] = v7;
+  v21[0] = *MEMORY[0x277CDC5F0];
+  v21[1] = v7;
   v8 = *MEMORY[0x277CDC250];
-  v19[0] = referenceCopy;
-  v19[1] = v8;
-  v18[2] = *MEMORY[0x277CDC568];
-  v19[2] = MEMORY[0x277CBEC38];
-  if (SecItemCopyMatching([MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:3], &result))
+  v22[0] = referenceCopy;
+  v22[1] = v8;
+  v21[2] = *MEMORY[0x277CDC568];
+  v22[2] = MEMORY[0x277CBEC38];
+  v9 = SecItemCopyMatching([MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:v21 count:3], &result);
+  if (v9)
   {
-    v9 = WBS_LOG_CHANNEL_PREFIXPasswordSharing();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v11 = WBS_LOG_CHANNEL_PREFIXPasswordSharing(v9, v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       +[SFSharablePassword _decryptedDataForEncryptedData:encryptionKeyReference:];
     }
 
-    v10 = 0;
+    v12 = 0;
   }
 
   else
   {
     error = 0;
-    v10 = SecKeyCreateDecryptedData(result, *MEMORY[0x277CDC360], dataCopy, &error);
+    v12 = SecKeyCreateDecryptedData(result, *MEMORY[0x277CDC360], dataCopy, &error);
     CFRelease(result);
-    if (v10)
+    if (v12)
     {
-      v11 = v10;
+      v15 = v12;
     }
 
     else
     {
-      v12 = error;
-      v13 = WBS_LOG_CHANNEL_PREFIXPasswordSharing();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      v16 = error;
+      v17 = WBS_LOG_CHANNEL_PREFIXPasswordSharing(v13, v14);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
-        [SFSharablePassword _decryptedDataForEncryptedData:v13 encryptionKeyReference:?];
+        [SFSharablePassword _decryptedDataForEncryptedData:v17 encryptionKeyReference:?];
       }
     }
   }
 
-  v14 = *MEMORY[0x277D85DE8];
-
-  return v10;
+  return v12;
 }
 
 - (BOOL)hasAnyCredentialData
@@ -759,7 +746,7 @@ LABEL_15:
 
 - (BOOL)hasPasswordWithConflicts
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   if ([(SFSharablePassword *)self _hasPasswordData])
   {
     mEMORY[0x277D49B58] = [MEMORY[0x277D49B58] sharedStore];
@@ -768,33 +755,33 @@ LABEL_15:
     highLevelDomain = [(SFSharablePassword *)self highLevelDomain];
     notesEntry = [(SFSharablePassword *)self notesEntry];
     customTitle = [(SFSharablePassword *)self customTitle];
+    v15 = 0u;
     v16 = 0u;
     v17 = 0u;
     v18 = 0u;
-    v19 = 0u;
     obj = [(SFSharablePassword *)self protectionSpaces];
-    v9 = [obj countByEnumeratingWithState:&v16 objects:v20 count:16];
+    v9 = [obj countByEnumeratingWithState:&v15 objects:v19 count:16];
     if (v9)
     {
-      v10 = *v17;
+      v10 = *v16;
       v11 = *MEMORY[0x277D49C38];
       while (2)
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v17 != v10)
+          if (*v16 != v10)
           {
             objc_enumerationMutation(obj);
           }
 
-          if (![mEMORY[0x277D49B58] canSaveUser:_usernameOrEmptyString password:password forProtectionSpace:*(*(&v16 + 1) + 8 * i) highLevelDomain:highLevelDomain notes:notesEntry customTitle:customTitle groupID:v11 error:0])
+          if (![mEMORY[0x277D49B58] canSaveUser:_usernameOrEmptyString password:password forProtectionSpace:*(*(&v15 + 1) + 8 * i) highLevelDomain:highLevelDomain notes:notesEntry customTitle:customTitle groupID:v11 error:0])
           {
             LOBYTE(v9) = 1;
             goto LABEL_13;
           }
         }
 
-        v9 = [obj countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v9 = [obj countByEnumeratingWithState:&v15 objects:v19 count:16];
         if (v9)
         {
           continue;
@@ -812,7 +799,6 @@ LABEL_13:
     LOBYTE(v9) = 0;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -973,24 +959,24 @@ LABEL_13:
 
 - (id)_savePasswordAccount
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   if ([(SFSharablePassword *)self _hasPasswordData])
   {
     mEMORY[0x277D49B58] = [MEMORY[0x277D49B58] sharedStore];
     _usernameOrEmptyString = [(SFSharablePassword *)self _usernameOrEmptyString];
     password = [(SFSharablePassword *)self password];
     highLevelDomain = [(SFSharablePassword *)self highLevelDomain];
+    v16 = 0u;
     v17 = 0u;
     v18 = 0u;
     v19 = 0u;
-    v20 = 0u;
     obj = [(SFSharablePassword *)self protectionSpaces];
-    v7 = [obj countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v7 = [obj countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v7)
     {
       v8 = v7;
       v9 = 0;
-      v10 = *v18;
+      v10 = *v17;
       v11 = *MEMORY[0x277D49C38];
       do
       {
@@ -998,19 +984,19 @@ LABEL_13:
         v13 = v9;
         do
         {
-          if (*v18 != v10)
+          if (*v17 != v10)
           {
             objc_enumerationMutation(obj);
           }
 
-          v9 = [mEMORY[0x277D49B58] saveUser:_usernameOrEmptyString password:password forProtectionSpace:*(*(&v17 + 1) + 8 * v12) highLevelDomain:highLevelDomain groupID:v11];
+          v9 = [mEMORY[0x277D49B58] saveUser:_usernameOrEmptyString password:password forProtectionSpace:*(*(&v16 + 1) + 8 * v12) highLevelDomain:highLevelDomain groupID:v11];
 
           ++v12;
           v13 = v9;
         }
 
         while (v8 != v12);
-        v8 = [obj countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v8 = [obj countByEnumeratingWithState:&v16 objects:v20 count:16];
       }
 
       while (v8);
@@ -1026,8 +1012,6 @@ LABEL_13:
   {
     v9 = 0;
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
@@ -1127,43 +1111,26 @@ LABEL_13:
 
 + (void)sharablePasswordFromData:(void *)a1 .cold.1(void *a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_1() safari_privacyPreservingDescription];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_0(&dword_26450F000, v4, v5, "Failed to unarchive sharable password with error %{public}@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_0(&dword_26450F000, v4, v5, "Failed to unarchive sharable password with error %{public}@", v6, v7, v8, v9);
 }
 
 - (void)_encryptionInformationWithNewKey
 {
-  v12 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   safari_privacyPreservingDescription = [OUTLINED_FUNCTION_1() safari_privacyPreservingDescription];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_0(&dword_26450F000, v4, v5, "Failed to create private key with error: %{public}@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
-}
-
-+ (void)_decryptedDataForEncryptedData:encryptionKeyReference:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_0(&dword_26450F000, v4, v5, "Failed to create private key with error: %{public}@", v6, v7, v8, v9);
 }
 
 + (void)_decryptedDataForEncryptedData:(void *)a1 encryptionKeyReference:.cold.2(void *a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_1() safari_privacyPreservingDescription];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_0(&dword_26450F000, v4, v5, "Failed to decrypt password data with error %{public}@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_0(&dword_26450F000, v4, v5, "Failed to decrypt password data with error %{public}@", v6, v7, v8, v9);
 }
 
 @end

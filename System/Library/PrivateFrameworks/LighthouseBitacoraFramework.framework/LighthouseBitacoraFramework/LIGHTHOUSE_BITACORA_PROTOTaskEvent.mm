@@ -30,61 +30,59 @@
 - (id)description
 {
   v3 = MEMORY[0x277CCACA8];
-  v15.receiver = self;
-  v15.super_class = LIGHTHOUSE_BITACORA_PROTOTaskEvent;
-  v4 = [(LIGHTHOUSE_BITACORA_PROTOTaskEvent *)&v15 description];
-  v9 = objc_msgSend_dictionaryRepresentation(self, v5, v6, v7, v8);
-  v13 = objc_msgSend_stringWithFormat_(v3, v10, @"%@ %@", v11, v12, v4, v9);
+  v13.receiver = self;
+  v13.super_class = LIGHTHOUSE_BITACORA_PROTOTaskEvent;
+  v4 = [(LIGHTHOUSE_BITACORA_PROTOTaskEvent *)&v13 description];
+  v8 = objc_msgSend_dictionaryRepresentation(self, v5, v7, v6);
+  v11 = objc_msgSend_stringWithFormat_(v3, v9, v10, @"%@ %@", v4, v8);
 
-  return v13;
+  return v11;
 }
 
 - (id)dictionaryRepresentation
 {
-  v9 = objc_msgSend_dictionary(MEMORY[0x277CBEB38], a2, v2, v3, v4);
+  v6 = objc_msgSend_dictionary(MEMORY[0x277CBEB38], a2, v3, v2);
   if ((*&self->_has & 2) != 0)
   {
-    v10 = objc_msgSend_numberWithBool_(MEMORY[0x277CCABB0], v6, self->_succeeded, v7, v8);
-    objc_msgSend_setObject_forKey_(v9, v11, v10, @"succeeded", v12);
+    v8 = objc_msgSend_numberWithBool_(MEMORY[0x277CCABB0], v5, v7, self->_succeeded);
+    objc_msgSend_setObject_forKey_(v6, v9, v10, v8, @"succeeded");
   }
 
   errorDomain = self->_errorDomain;
   if (errorDomain)
   {
-    objc_msgSend_setObject_forKey_(v9, v6, errorDomain, @"errorDomain", v8);
+    objc_msgSend_setObject_forKey_(v6, v5, v7, errorDomain, @"errorDomain");
   }
 
   if (*&self->_has)
   {
-    v14 = objc_msgSend_numberWithInt_(MEMORY[0x277CCABB0], v6, self->_errorCode, v7, v8);
-    objc_msgSend_setObject_forKey_(v9, v15, v14, @"errorCode", v16);
+    v12 = objc_msgSend_numberWithInt_(MEMORY[0x277CCABB0], v5, v7, self->_errorCode);
+    objc_msgSend_setObject_forKey_(v6, v13, v14, v12, @"errorCode");
   }
 
-  return v9;
+  return v6;
 }
 
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v7 = toCopy;
+  v5 = toCopy;
   if ((*&self->_has & 2) != 0)
   {
-    succeeded = self->_succeeded;
     PBDataWriterWriteBOOLField();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (self->_errorDomain)
   {
     PBDataWriterWriteStringField();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (*&self->_has)
   {
-    errorCode = self->_errorCode;
     PBDataWriterWriteInt32Field();
-    toCopy = v7;
+    toCopy = v5;
   }
 }
 
@@ -100,9 +98,9 @@
   errorDomain = self->_errorDomain;
   if (errorDomain)
   {
-    v9 = toCopy;
-    objc_msgSend_setErrorDomain_(toCopy, v5, errorDomain, v6, v7);
-    toCopy = v9;
+    v8 = toCopy;
+    objc_msgSend_setErrorDomain_(toCopy, v5, v6, errorDomain);
+    toCopy = v8;
   }
 
   if (*&self->_has)
@@ -115,39 +113,38 @@
 - (id)copyWithZone:(_NSZone *)zone
 {
   v5 = objc_opt_class();
-  v9 = objc_msgSend_allocWithZone_(v5, v6, zone, v7, v8);
-  v14 = objc_msgSend_init(v9, v10, v11, v12, v13);
-  v18 = v14;
+  v8 = objc_msgSend_allocWithZone_(v5, v6, v7, zone);
+  v12 = objc_msgSend_init(v8, v9, v11, v10);
+  v15 = v12;
   if ((*&self->_has & 2) != 0)
   {
-    *(v14 + 24) = self->_succeeded;
-    *(v14 + 28) |= 2u;
+    *(v12 + 24) = self->_succeeded;
+    *(v12 + 28) |= 2u;
   }
 
-  v19 = objc_msgSend_copyWithZone_(self->_errorDomain, v15, zone, v16, v17);
-  v20 = *(v18 + 16);
-  *(v18 + 16) = v19;
+  v16 = objc_msgSend_copyWithZone_(self->_errorDomain, v13, v14, zone);
+  v17 = *(v15 + 16);
+  *(v15 + 16) = v16;
 
   if (*&self->_has)
   {
-    *(v18 + 8) = self->_errorCode;
-    *(v18 + 28) |= 1u;
+    *(v15 + 8) = self->_errorCode;
+    *(v15 + 28) |= 1u;
   }
 
-  return v18;
+  return v15;
 }
 
 - (BOOL)isEqual:(id)equal
 {
   equalCopy = equal;
   v5 = objc_opt_class();
-  if (!objc_msgSend_isMemberOfClass_(equalCopy, v6, v5, v7, v8))
+  if (!objc_msgSend_isMemberOfClass_(equalCopy, v6, v7, v5))
   {
     goto LABEL_12;
   }
 
   has = self->_has;
-  v13 = *(equalCopy + 28);
   if ((has & 2) != 0)
   {
     if ((*(equalCopy + 28) & 2) == 0)
@@ -155,7 +152,6 @@
       goto LABEL_12;
     }
 
-    v18 = *(equalCopy + 24);
     if (self->_succeeded)
     {
       if ((equalCopy[3] & 1) == 0)
@@ -176,10 +172,10 @@
   }
 
   errorDomain = self->_errorDomain;
-  v15 = equalCopy[2];
-  if (errorDomain | v15)
+  v12 = equalCopy[2];
+  if (errorDomain | v12)
   {
-    if (!objc_msgSend_isEqual_(errorDomain, v9, v15, v10, v11))
+    if (!objc_msgSend_isEqual_(errorDomain, v8, v9, v12))
     {
       goto LABEL_12;
     }
@@ -187,48 +183,48 @@
     has = self->_has;
   }
 
-  v16 = (*(equalCopy + 28) & 1) == 0;
+  v13 = (*(equalCopy + 28) & 1) == 0;
   if (has)
   {
     if ((*(equalCopy + 28) & 1) != 0 && self->_errorCode == *(equalCopy + 2))
     {
-      v16 = 1;
+      v13 = 1;
       goto LABEL_13;
     }
 
 LABEL_12:
-    v16 = 0;
+    v13 = 0;
   }
 
 LABEL_13:
 
-  return v16;
+  return v13;
 }
 
 - (unint64_t)hash
 {
   if ((*&self->_has & 2) != 0)
   {
-    v6 = 2654435761 * self->_succeeded;
+    v5 = 2654435761 * self->_succeeded;
   }
 
   else
   {
-    v6 = 0;
+    v5 = 0;
   }
 
-  v7 = objc_msgSend_hash(self->_errorDomain, a2, v2, v3, v4);
+  v6 = objc_msgSend_hash(self->_errorDomain, a2, v3, v2);
   if (*&self->_has)
   {
-    v8 = 2654435761 * self->_errorCode;
+    v7 = 2654435761 * self->_errorCode;
   }
 
   else
   {
-    v8 = 0;
+    v7 = 0;
   }
 
-  return v7 ^ v6 ^ v8;
+  return v6 ^ v5 ^ v7;
 }
 
 - (void)mergeFrom:(id)from
@@ -240,12 +236,12 @@ LABEL_13:
     *&self->_has |= 2u;
   }
 
-  v8 = *(fromCopy + 2);
-  if (v8)
+  v7 = *(fromCopy + 2);
+  if (v7)
   {
-    v9 = fromCopy;
-    objc_msgSend_setErrorDomain_(self, v5, v8, v6, v7);
-    fromCopy = v9;
+    v8 = fromCopy;
+    objc_msgSend_setErrorDomain_(self, v5, v6, v7);
+    fromCopy = v8;
   }
 
   if (*(fromCopy + 28))

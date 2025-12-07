@@ -168,7 +168,7 @@ LABEL_34:
     }
   }
 
-  v6 = __atxlog_handle_home_screen();
+  v6 = __atxlog_handle_home_screen(self);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
   {
     [ATXHomeScreenLogEngagementKeyTracker keyTrackerForStackEngagementStatus:v6];

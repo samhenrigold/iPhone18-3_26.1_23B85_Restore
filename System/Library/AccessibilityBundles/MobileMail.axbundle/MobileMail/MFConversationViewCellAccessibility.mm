@@ -144,35 +144,8 @@ void __69__MFConversationViewCellAccessibility__accessibilityMailSwipeActions__b
   _Block_object_dispose(&v16, 8);
   v3 = __UIAccessibilityCastAsClass();
 
-  if (v22 == 1)
+  if (v22 == 1 || (v4 = *(a1 + 56), [v3 actions], v5 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v4, "axSafelyAddObjectsFromArray:", v5), v5, v22 = 0, objc_opt_class(), v16 = 0, v17 = &v16, v18 = 0x3032000000, v19 = __Block_byref_object_copy__0, v20 = __Block_byref_object_dispose__0, v21 = 0, v10 = *(a1 + 32), v11 = *(a1 + 40), v12 = *(a1 + 48), AXPerformSafeBlock(), v6 = v17[5], v12, v11, v10, _Block_object_dispose(&v16, 8), v21, __UIAccessibilityCastAsClass(), v7 = objc_claimAutoreleasedReturnValue(), v6, v22 == 1))
   {
-    goto LABEL_4;
-  }
-
-  v4 = *(a1 + 56);
-  v5 = [v3 actions];
-  [v4 axSafelyAddObjectsFromArray:v5];
-
-  v22 = 0;
-  objc_opt_class();
-  v16 = 0;
-  v17 = &v16;
-  v18 = 0x3032000000;
-  v19 = __Block_byref_object_copy__0;
-  v20 = __Block_byref_object_dispose__0;
-  v21 = 0;
-  v10 = *(a1 + 32);
-  v11 = *(a1 + 40);
-  v12 = *(a1 + 48);
-  AXPerformSafeBlock();
-  v6 = v17[5];
-
-  _Block_object_dispose(&v16, 8);
-  v7 = __UIAccessibilityCastAsClass();
-
-  if (v22 == 1)
-  {
-LABEL_4:
     abort();
   }
 
@@ -183,20 +156,14 @@ LABEL_4:
 
 uint64_t __69__MFConversationViewCellAccessibility__accessibilityMailSwipeActions__block_invoke_374(uint64_t a1)
 {
-  v2 = [*(a1 + 32) swipeActionController:*(a1 + 40) trailingSwipeConfigurationForItemAtIndexPath:*(a1 + 48)];
-  v3 = *(*(a1 + 56) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 56) + 8) + 40) = [*(a1 + 32) swipeActionController:*(a1 + 40) trailingSwipeConfigurationForItemAtIndexPath:*(a1 + 48)];
 
   return MEMORY[0x2A1C71028]();
 }
 
 uint64_t __69__MFConversationViewCellAccessibility__accessibilityMailSwipeActions__block_invoke_2(uint64_t a1)
 {
-  v2 = [*(a1 + 32) swipeActionController:*(a1 + 40) leadingSwipeConfigurationForItemAtIndexPath:*(a1 + 48)];
-  v3 = *(*(a1 + 56) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 56) + 8) + 40) = [*(a1 + 32) swipeActionController:*(a1 + 40) leadingSwipeConfigurationForItemAtIndexPath:*(a1 + 48)];
 
   return MEMORY[0x2A1C71028]();
 }
@@ -233,7 +200,6 @@ void __76__MFConversationViewCellAccessibility__accessibilityPerformMailSwipeAct
   if (v9)
   {
     v10 = v6;
-    v11 = *(a1 + 40);
     AXPerformSafeBlock();
     *a4 = 1;
   }

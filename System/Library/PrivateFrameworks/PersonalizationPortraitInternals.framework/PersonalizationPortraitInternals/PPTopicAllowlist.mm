@@ -15,7 +15,7 @@
 
 - (id)filterTopicDictionary:(id)dictionary clientProcess:(id)process
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
   processCopy = process;
   allowlistTrie = self->_allowlistTrie;
@@ -30,47 +30,45 @@
   else
   {
     allKeys = [dictionaryCopy allKeys];
-    v26[0] = MEMORY[0x277D85DD0];
-    v26[1] = 3221225472;
-    v26[2] = __56__PPTopicAllowlist_filterTopicDictionary_clientProcess___block_invoke;
-    v26[3] = &unk_2789717F8;
-    v26[4] = self;
-    v27 = processCopy;
-    v12 = [allKeys _pas_filteredArrayWithTest:v26];
+    v25[0] = MEMORY[0x277D85DD0];
+    v25[1] = 3221225472;
+    v25[2] = __56__PPTopicAllowlist_filterTopicDictionary_clientProcess___block_invoke;
+    v25[3] = &unk_2789717F8;
+    v25[4] = self;
+    v26 = processCopy;
+    v12 = [allKeys _pas_filteredArrayWithTest:v25];
 
     v10 = objc_opt_new();
+    v21 = 0u;
     v22 = 0u;
     v23 = 0u;
     v24 = 0u;
-    v25 = 0u;
     v13 = v12;
-    v14 = [v13 countByEnumeratingWithState:&v22 objects:v28 count:16];
+    v14 = [v13 countByEnumeratingWithState:&v21 objects:v27 count:16];
     if (v14)
     {
       v15 = v14;
-      v16 = *v23;
+      v16 = *v22;
       do
       {
         for (i = 0; i != v15; ++i)
         {
-          if (*v23 != v16)
+          if (*v22 != v16)
           {
             objc_enumerationMutation(v13);
           }
 
-          v18 = *(*(&v22 + 1) + 8 * i);
-          v19 = [dictionaryCopy objectForKeyedSubscript:{v18, v22}];
+          v18 = *(*(&v21 + 1) + 8 * i);
+          v19 = [dictionaryCopy objectForKeyedSubscript:{v18, v21}];
           [v10 setObject:v19 forKeyedSubscript:v18];
         }
 
-        v15 = [v13 countByEnumeratingWithState:&v22 objects:v28 count:16];
+        v15 = [v13 countByEnumeratingWithState:&v21 objects:v27 count:16];
       }
 
       while (v15);
     }
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -241,14 +239,14 @@ BOOL __70__PPTopicAllowlist_indicesOfAllowedTopicsInRecordArray_clientProcess___
 
 - (void)_loadAssetData
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v2 = [*(self + 16) filepathForFactor:@"topicAllowlist.trie" namespaceName:@"PERSONALIZATION_PORTRAIT_TOPICS"];
   v3 = pp_topics_log_handle();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
-    v11 = 138412290;
-    v12 = v2;
-    _os_log_impl(&dword_23224A000, v3, OS_LOG_TYPE_INFO, "Loading topic allowlist from %@.", &v11, 0xCu);
+    v10 = 138412290;
+    v11 = v2;
+    _os_log_impl(&dword_23224A000, v3, OS_LOG_TYPE_INFO, "Loading topic allowlist from %@.", &v10, 0xCu);
   }
 
   if (!v2)
@@ -256,7 +254,7 @@ BOOL __70__PPTopicAllowlist_indicesOfAllowedTopicsInRecordArray_clientProcess___
     v6 = pp_default_log_handle();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
     {
-      LOWORD(v11) = 0;
+      LOWORD(v10) = 0;
       v7 = "Failed to read path for topic allowlist.";
       v8 = v6;
       v9 = 2;
@@ -277,13 +275,13 @@ LABEL_8:
     v6 = pp_default_log_handle();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
     {
-      v11 = 138412290;
-      v12 = v2;
+      v10 = 138412290;
+      v11 = v2;
       v7 = "Failed to initialize topic allowlist trie from file at %@";
       v8 = v6;
       v9 = 12;
 LABEL_11:
-      _os_log_fault_impl(&dword_23224A000, v8, OS_LOG_TYPE_FAULT, v7, &v11, v9);
+      _os_log_fault_impl(&dword_23224A000, v8, OS_LOG_TYPE_FAULT, v7, &v10, v9);
       goto LABEL_8;
     }
 
@@ -291,8 +289,6 @@ LABEL_11:
   }
 
 LABEL_9:
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __41__PPTopicAllowlist_initWithTrialWrapper___block_invoke(uint64_t a1)

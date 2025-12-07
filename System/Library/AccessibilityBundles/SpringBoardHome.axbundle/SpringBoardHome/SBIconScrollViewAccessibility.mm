@@ -64,7 +64,7 @@
   return v3;
 }
 
-uint64_t __57__SBIconScrollViewAccessibility_accessibilityViewIsModal__block_invoke(uint64_t a1)
+void *__57__SBIconScrollViewAccessibility_accessibilityViewIsModal__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) isDisplayingWidgetIntroductionOnPage:*(a1 + 48)];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -144,42 +144,42 @@ uint64_t __72__SBIconScrollViewAccessibility__accessibilityCurrentFolderIconForP
 
   if (statusCopy)
   {
-    v7 = [v4 safeValueForKey:@"_accessibilityIconListCount"];
-    v8 = [v7 intValue] - 1;
+    v9 = [v4 safeValueForKey:@"_accessibilityIconListCount"];
+    v10 = [v9 intValue] - 1;
 
-    if (intValue < v8)
+    if (intValue < v10)
     {
-      v9 = 1;
+      v11 = 1;
 LABEL_7:
-      v11 = v9 + intValue;
-      v12 = AXSBHIconManagerFromSharedIconController();
-      v13 = [v12 safeBoolForKey:@"isShowingLeadingCustomView"];
+      v13 = v11 + intValue;
+      v14 = AXSBHIconManagerFromSharedIconController(v7, v8);
+      v15 = [v14 safeBoolForKey:@"isShowingLeadingCustomView"];
 
-      if (v13)
+      if (v15)
       {
-        v14 = -1;
+        v16 = -1;
       }
 
       else
       {
-        v14 = v11;
+        v16 = v13;
       }
 
-      v10 = AXSBScrollDescriptionForCurrentPage(v14);
+      v12 = AXSBScrollDescriptionForCurrentPage(v16);
       goto LABEL_11;
     }
   }
 
   else if (intValue >= 2)
   {
-    v9 = -1;
+    v11 = -1;
     goto LABEL_7;
   }
 
-  v10 = 0;
+  v12 = 0;
 LABEL_11:
 
-  return v10;
+  return v12;
 }
 
 - (id)automationElements
@@ -216,7 +216,7 @@ LABEL_11:
 
 - (BOOL)accessibilityScrollUpPageSupported
 {
-  v2 = AXSBHIconManagerFromSharedIconController();
+  v2 = AXSBHIconManagerFromSharedIconController(self, a2);
   v3 = [v2 safeBoolForKey:@"isShowingSpotlightOrLeadingCustomView"];
 
   return v3 ^ 1;
@@ -224,15 +224,16 @@ LABEL_11:
 
 - (BOOL)accessibilityScrollUpPage
 {
-  if ([(SBIconScrollViewAccessibility *)self _axIsControlCenter])
+  _axIsControlCenter = [(SBIconScrollViewAccessibility *)self _axIsControlCenter];
+  if (_axIsControlCenter)
   {
     return 0;
   }
 
-  v3 = AXSBHIconManagerFromSharedIconController();
-  v4 = [v3 safeBoolForKey:@"isShowingSpotlightOrLeadingCustomView"];
+  v5 = AXSBHIconManagerFromSharedIconController(_axIsControlCenter, v4);
+  v6 = [v5 safeBoolForKey:@"isShowingSpotlightOrLeadingCustomView"];
 
-  if (v4)
+  if (v6)
   {
     return 0;
   }
@@ -475,7 +476,7 @@ void __65__SBIconScrollViewAccessibility__accessibilityCCScrollToNextPage__block
   return v5;
 }
 
-uint64_t __69__SBIconScrollViewAccessibility__accessibilityCCScrollToPreviousPage__block_invoke(uint64_t a1)
+void *__69__SBIconScrollViewAccessibility__accessibilityCCScrollToPreviousPage__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _isValidPageIndex:*(a1 + 48)];
   *(*(*(a1 + 40) + 8) + 24) = result;

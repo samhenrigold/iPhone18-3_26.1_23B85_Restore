@@ -68,9 +68,10 @@
 {
   Width = CGImageGetWidth(self->_image);
   Height = CGImageGetHeight(self->_image);
-  v5 = Width;
+  v7 = Width;
 
-  return PVCanCreateCVPixelBuffer(*&v5);
+  v6 = Height;
+  return PVCanCreateCVPixelBuffer(*&v7, Height, v5);
 }
 
 - (HGRef<HGCVPixelBuffer>)cvPixelBufferWithColorSpace:(id)space
@@ -152,7 +153,7 @@ LABEL_9:
 
     if (v29)
     {
-      ((*v29)[3])(v29);
+      (*(*v29 + 3))(v29);
     }
   }
 
@@ -172,7 +173,7 @@ LABEL_9:
       {
         if (v18)
         {
-          ((*v29)[3])(v29);
+          (*(*v29 + 3))(v29);
         }
       }
 
@@ -180,7 +181,7 @@ LABEL_9:
       {
         if (v18)
         {
-          ((*v18)[3])(v18);
+          (*(*v18 + 3))(v18);
           v19 = v29;
         }
 
@@ -207,7 +208,7 @@ LABEL_9:
       {
         if (v21)
         {
-          ((*v29)[3])(v29);
+          (*(*v29 + 3))(v29);
         }
       }
 
@@ -215,7 +216,7 @@ LABEL_9:
       {
         if (v21)
         {
-          ((*v21)[3])(v21);
+          (*(*v21 + 3))(v21);
           v22 = v29;
         }
 

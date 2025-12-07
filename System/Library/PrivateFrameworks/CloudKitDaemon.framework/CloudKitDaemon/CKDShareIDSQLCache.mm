@@ -86,23 +86,23 @@
 
 + (id)shareIDSQLCacheForContainerID:(id)d dbPath:(id)path registryDatabase:(id)database groupName:(id)name error:(id *)error
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   dCopy = d;
   pathCopy = path;
   databaseCopy = database;
   nameCopy = name;
   if (objc_msgSend_length(pathCopy, v16, v17))
   {
-    v36 = 0;
-    v19 = &v36;
-    v20 = objc_msgSend_databaseInDirectory_registryDatabase_options_error_(MEMORY[0x277CBC658], v18, pathCopy, databaseCopy, 0, &v36);
+    v35 = 0;
+    v19 = &v35;
+    v20 = objc_msgSend_databaseInDirectory_registryDatabase_options_error_(MEMORY[0x277CBC658], v18, pathCopy, databaseCopy, 0, &v35);
   }
 
   else
   {
-    v35 = 0;
-    v19 = &v35;
-    v20 = objc_msgSend_newInMemoryDatabase_(MEMORY[0x277CBC658], v18, &v35);
+    v34 = 0;
+    v19 = &v34;
+    v20 = objc_msgSend_newInMemoryDatabase_(MEMORY[0x277CBC658], v18, &v34);
   }
 
   v21 = v20;
@@ -119,9 +119,9 @@
     if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_ERROR))
     {
       *buf = 138412546;
-      v38 = dCopy;
-      v39 = 2112;
-      v40 = v24;
+      v37 = dCopy;
+      v38 = 2112;
+      v39 = v24;
       _os_log_error_impl(&dword_22506F000, v28, OS_LOG_TYPE_ERROR, "Failed to create share ID Cache for containerID: %@, error: %@", buf, 0x16u);
       if (error)
       {
@@ -143,9 +143,9 @@ LABEL_19:
     goto LABEL_22;
   }
 
-  v34 = 0;
-  v25 = objc_msgSend_tableGroupInDatabase_withName_error_(self, v23, v21, nameCopy, &v34);
-  v26 = v34;
+  v33 = 0;
+  v25 = objc_msgSend_tableGroupInDatabase_withName_error_(self, v23, v21, nameCopy, &v33);
+  v26 = v33;
   v24 = v26;
   if (v25 && !v26)
   {
@@ -170,9 +170,9 @@ LABEL_19:
   }
 
   *buf = 138412546;
-  v38 = dCopy;
-  v39 = 2112;
-  v40 = v24;
+  v37 = dCopy;
+  v38 = 2112;
+  v39 = v24;
   _os_log_error_impl(&dword_22506F000, v30, OS_LOG_TYPE_ERROR, "Failed to create share ID Cache for containerID: %@, error: %@", buf, 0x16u);
   if (error)
   {
@@ -182,8 +182,6 @@ LABEL_18:
   }
 
 LABEL_22:
-
-  v32 = *MEMORY[0x277D85DE8];
 
   return v25;
 }
@@ -237,23 +235,23 @@ LABEL_22:
 
 - (id)shareIDForRecordID:(id)d
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   dCopy = d;
-  v15 = 0;
-  v16 = &v15;
-  v17 = 0x3032000000;
-  v18 = sub_225073F10;
-  v19 = sub_225073514;
-  v20 = 0;
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = sub_225151F04;
-  v12[3] = &unk_278545CE0;
-  v12[4] = self;
+  v14 = 0;
+  v15 = &v14;
+  v16 = 0x3032000000;
+  v17 = sub_225073F10;
+  v18 = sub_225073514;
+  v19 = 0;
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = sub_225151F04;
+  v11[3] = &unk_278545CE0;
+  v11[4] = self;
   v5 = dCopy;
-  v13 = v5;
-  v14 = &v15;
-  v7 = objc_msgSend_performTransaction_(self, v6, v12);
+  v12 = v5;
+  v13 = &v14;
+  v7 = objc_msgSend_performTransaction_(self, v6, v11);
   if (v7)
   {
     if (*MEMORY[0x277CBC880] != -1)
@@ -266,39 +264,38 @@ LABEL_22:
     {
       *buf = 138412546;
       selfCopy = self;
-      v23 = 2112;
-      v24 = v7;
+      v22 = 2112;
+      v23 = v7;
       _os_log_error_impl(&dword_22506F000, v8, OS_LOG_TYPE_ERROR, "(%@) shareIDForRecordID failed with SQLite database error: %@", buf, 0x16u);
     }
   }
 
-  v9 = v16[5];
+  v9 = v15[5];
 
-  _Block_object_dispose(&v15, 8);
-  v10 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v14, 8);
 
   return v9;
 }
 
 - (id)zoneShareIDForZoneID:(id)d
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   dCopy = d;
-  v15 = 0;
-  v16 = &v15;
-  v17 = 0x3032000000;
-  v18 = sub_225073F10;
-  v19 = sub_225073514;
-  v20 = 0;
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = sub_225152204;
-  v12[3] = &unk_278545CE0;
-  v12[4] = self;
+  v14 = 0;
+  v15 = &v14;
+  v16 = 0x3032000000;
+  v17 = sub_225073F10;
+  v18 = sub_225073514;
+  v19 = 0;
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = sub_225152204;
+  v11[3] = &unk_278545CE0;
+  v11[4] = self;
   v5 = dCopy;
-  v13 = v5;
-  v14 = &v15;
-  v7 = objc_msgSend_performTransaction_(self, v6, v12);
+  v12 = v5;
+  v13 = &v14;
+  v7 = objc_msgSend_performTransaction_(self, v6, v11);
   if (v7)
   {
     if (*MEMORY[0x277CBC880] != -1)
@@ -311,39 +308,38 @@ LABEL_22:
     {
       *buf = 138412546;
       selfCopy = self;
-      v23 = 2112;
-      v24 = v7;
+      v22 = 2112;
+      v23 = v7;
       _os_log_error_impl(&dword_22506F000, v8, OS_LOG_TYPE_ERROR, "(%@) zoneShareIDForZoneID failed with SQLite database error: %@", buf, 0x16u);
     }
   }
 
-  v9 = v16[5];
+  v9 = v15[5];
 
-  _Block_object_dispose(&v15, 8);
-  v10 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v14, 8);
 
   return v9;
 }
 
 - (id)shareIDsForZoneID:(id)d
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   dCopy = d;
-  v15 = 0;
-  v16 = &v15;
-  v17 = 0x3032000000;
-  v18 = sub_225073F10;
-  v19 = sub_225073514;
-  v20 = objc_opt_new();
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = sub_2251524A8;
-  v12[3] = &unk_278545CE0;
-  v12[4] = self;
+  v14 = 0;
+  v15 = &v14;
+  v16 = 0x3032000000;
+  v17 = sub_225073F10;
+  v18 = sub_225073514;
+  v19 = objc_opt_new();
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = sub_2251524A8;
+  v11[3] = &unk_278545CE0;
+  v11[4] = self;
   v5 = dCopy;
-  v13 = v5;
-  v14 = &v15;
-  v7 = objc_msgSend_performTransaction_(self, v6, v12);
+  v12 = v5;
+  v13 = &v14;
+  v7 = objc_msgSend_performTransaction_(self, v6, v11);
   if (v7)
   {
     if (*MEMORY[0x277CBC880] != -1)
@@ -356,35 +352,34 @@ LABEL_22:
     {
       *buf = 138412546;
       selfCopy = self;
-      v23 = 2112;
-      v24 = v7;
+      v22 = 2112;
+      v23 = v7;
       _os_log_error_impl(&dword_22506F000, v8, OS_LOG_TYPE_ERROR, "(%@) shareIDsForZoneID failed with SQLite database error: %@", buf, 0x16u);
     }
   }
 
-  v9 = v16[5];
+  v9 = v15[5];
 
-  _Block_object_dispose(&v15, 8);
-  v10 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v14, 8);
 
   return v9;
 }
 
 - (void)addOrUpdateRecordID:(id)d withParentID:(id)iD
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   dCopy = d;
   iDCopy = iD;
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = sub_225152740;
-  v14[3] = &unk_278546800;
-  v14[4] = self;
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = sub_225152740;
+  v13[3] = &unk_278546800;
+  v13[4] = self;
   v8 = dCopy;
-  v15 = v8;
+  v14 = v8;
   v9 = iDCopy;
-  v16 = v9;
-  v11 = objc_msgSend_performTransaction_(self, v10, v14);
+  v15 = v9;
+  v11 = objc_msgSend_performTransaction_(self, v10, v13);
   if (v11)
   {
     if (*MEMORY[0x277CBC880] != -1)
@@ -397,27 +392,25 @@ LABEL_22:
     {
       *buf = 138412546;
       selfCopy = self;
-      v19 = 2112;
-      v20 = v11;
+      v18 = 2112;
+      v19 = v11;
       _os_log_error_impl(&dword_22506F000, v12, OS_LOG_TYPE_ERROR, "(%@) addOrUpdateRecordID failed with SQLite database error: %@", buf, 0x16u);
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeRecordID:(id)d
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   dCopy = d;
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = sub_22515297C;
-  v10[3] = &unk_278546180;
-  v10[4] = self;
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = sub_22515297C;
+  v9[3] = &unk_278546180;
+  v9[4] = self;
   v5 = dCopy;
-  v11 = v5;
-  v7 = objc_msgSend_performTransaction_(self, v6, v10);
+  v10 = v5;
+  v7 = objc_msgSend_performTransaction_(self, v6, v9);
   if (v7)
   {
     if (*MEMORY[0x277CBC880] != -1)
@@ -430,27 +423,25 @@ LABEL_22:
     {
       *buf = 138412546;
       selfCopy = self;
-      v14 = 2112;
-      v15 = v7;
+      v13 = 2112;
+      v14 = v7;
       _os_log_error_impl(&dword_22506F000, v8, OS_LOG_TYPE_ERROR, "(%@) removeRecordID failed with SQLite database error: %@", buf, 0x16u);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addZoneShareID:(id)d
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   dCopy = d;
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = sub_225152BC4;
-  v10[3] = &unk_278546180;
-  v10[4] = self;
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = sub_225152BC4;
+  v9[3] = &unk_278546180;
+  v9[4] = self;
   v5 = dCopy;
-  v11 = v5;
-  v7 = objc_msgSend_performTransaction_(self, v6, v10);
+  v10 = v5;
+  v7 = objc_msgSend_performTransaction_(self, v6, v9);
   if (v7)
   {
     if (*MEMORY[0x277CBC880] != -1)
@@ -463,30 +454,28 @@ LABEL_22:
     {
       *buf = 138412546;
       selfCopy = self;
-      v14 = 2112;
-      v15 = v7;
+      v13 = 2112;
+      v14 = v7;
       _os_log_error_impl(&dword_22506F000, v8, OS_LOG_TYPE_ERROR, "(%@) addZoneShareID failed with SQLite database error: %@", buf, 0x16u);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addHierarchicalShareID:(id)d forRootRecordID:(id)iD
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   dCopy = d;
   iDCopy = iD;
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = sub_225152EF0;
-  v14[3] = &unk_278546800;
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = sub_225152EF0;
+  v13[3] = &unk_278546800;
   v8 = dCopy;
-  v15 = v8;
+  v14 = v8;
   selfCopy = self;
   v9 = iDCopy;
-  v17 = v9;
-  v11 = objc_msgSend_performTransaction_(self, v10, v14);
+  v16 = v9;
+  v11 = objc_msgSend_performTransaction_(self, v10, v13);
   if (v11)
   {
     if (*MEMORY[0x277CBC880] != -1)
@@ -499,27 +488,25 @@ LABEL_22:
     {
       *buf = 138412546;
       selfCopy2 = self;
-      v20 = 2112;
-      v21 = v11;
+      v19 = 2112;
+      v20 = v11;
       _os_log_error_impl(&dword_22506F000, v12, OS_LOG_TYPE_ERROR, "(%@) addHierarchicalShareID failed with SQLite database error: %@", buf, 0x16u);
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeShareID:(id)d
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   dCopy = d;
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = sub_225153284;
-  v10[3] = &unk_278546180;
-  v10[4] = self;
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = sub_225153284;
+  v9[3] = &unk_278546180;
+  v9[4] = self;
   v5 = dCopy;
-  v11 = v5;
-  v7 = objc_msgSend_performTransaction_(self, v6, v10);
+  v10 = v5;
+  v7 = objc_msgSend_performTransaction_(self, v6, v9);
   if (v7)
   {
     if (*MEMORY[0x277CBC880] != -1)
@@ -532,27 +519,25 @@ LABEL_22:
     {
       *buf = 138412546;
       selfCopy = self;
-      v14 = 2112;
-      v15 = v7;
+      v13 = 2112;
+      v14 = v7;
       _os_log_error_impl(&dword_22506F000, v8, OS_LOG_TYPE_ERROR, "(%@) removeShareID failed with SQLite database error: %@", buf, 0x16u);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeZoneShareForZoneID:(id)d
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   dCopy = d;
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = sub_2251534A0;
-  v10[3] = &unk_278546180;
-  v10[4] = self;
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = sub_2251534A0;
+  v9[3] = &unk_278546180;
+  v9[4] = self;
   v5 = dCopy;
-  v11 = v5;
-  v7 = objc_msgSend_performTransaction_(self, v6, v10);
+  v10 = v5;
+  v7 = objc_msgSend_performTransaction_(self, v6, v9);
   if (v7)
   {
     if (*MEMORY[0x277CBC880] != -1)
@@ -565,27 +550,25 @@ LABEL_22:
     {
       *buf = 138412546;
       selfCopy = self;
-      v14 = 2112;
-      v15 = v7;
+      v13 = 2112;
+      v14 = v7;
       _os_log_error_impl(&dword_22506F000, v8, OS_LOG_TYPE_ERROR, "(%@) removeZoneShareForZoneID failed with SQLite database error: %@", buf, 0x16u);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeZoneWithID:(id)d
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   dCopy = d;
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = sub_225153734;
-  v10[3] = &unk_278546180;
-  v10[4] = self;
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = sub_225153734;
+  v9[3] = &unk_278546180;
+  v9[4] = self;
   v5 = dCopy;
-  v11 = v5;
-  v7 = objc_msgSend_performTransaction_(self, v6, v10);
+  v10 = v5;
+  v7 = objc_msgSend_performTransaction_(self, v6, v9);
   if (v7)
   {
     if (*MEMORY[0x277CBC880] != -1)
@@ -598,13 +581,11 @@ LABEL_22:
     {
       *buf = 138412546;
       selfCopy = self;
-      v14 = 2112;
-      v15 = v7;
+      v13 = 2112;
+      v14 = v7;
       _os_log_error_impl(&dword_22506F000, v8, OS_LOG_TYPE_ERROR, "(%@) removeZoneWithID failed with SQLite database error: %@", buf, 0x16u);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 @end

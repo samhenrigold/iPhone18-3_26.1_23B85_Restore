@@ -362,7 +362,7 @@ void __43__OKClickWheelView_updateMusicInformation___block_invoke(uint64_t a1)
   dispatch_async(MEMORY[0x277D85CD0], v1);
 }
 
-uint64_t __43__OKClickWheelView_updateMusicInformation___block_invoke_2(uint64_t a1)
+void *__43__OKClickWheelView_updateMusicInformation___block_invoke_2(uint64_t a1)
 {
   v2 = *(*(a1 + 32) + 536);
   if ([objc_msgSend(*(a1 + 40) "metadata")])
@@ -417,7 +417,7 @@ void __43__OKClickWheelView_updateMusicInformation___block_invoke_3(uint64_t a1,
   dispatch_async(MEMORY[0x277D85CD0], v4);
 }
 
-uint64_t __43__OKClickWheelView_updateMusicInformation___block_invoke_4(uint64_t a1)
+void *__43__OKClickWheelView_updateMusicInformation___block_invoke_4(uint64_t a1)
 {
   if (*(a1 + 32))
   {

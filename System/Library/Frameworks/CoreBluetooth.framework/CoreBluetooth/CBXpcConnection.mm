@@ -2,6 +2,8 @@
 - (CBXpcConnection)initWithDelegate:(id)delegate queue:(id)queue options:(id)options sessionType:(int)type;
 - (CBXpcConnectionDelegate)delegate;
 - (id)_allocXpcMsg:(unsigned __int16)msg args:(id)args;
+- (id)_nameForMessage:(unsigned __int16)message;
+- (id)sendSyncMsg:(unsigned __int16)msg args:(id)args;
 - (void)_checkIn;
 - (void)_handleConnectionEvent:(id)event;
 - (void)_handleFinalized;
@@ -13,7 +15,10 @@
 - (void)didReceiveForwardedDelegateCallbackMessage:(id)message;
 - (void)didReceiveForwardedMessage:(id)message;
 - (void)disconnect;
+- (void)forwardWhbMsg:(unsigned __int16)msg args:(id)args cnx:(id)cnx;
 - (void)removeWhbRemoteId:(id)id;
+- (void)sendMsg:(unsigned __int16)msg args:(id)args;
+- (void)sendMsgWithReply:(unsigned __int16)reply args:(id)args replyBlock:(id)block;
 - (void)setTargetQueue:(id)queue;
 - (void)setWhbLocalId:(id)id forRemoteId:(id)remoteId;
 - (void)setWhbReplyHandler:(id)handler;
@@ -81,7 +86,7 @@ void __33__CBXpcConnection__handleInvalid__block_invoke(uint64_t a1)
 
 - (void)_checkIn
 {
-  v13[4] = *MEMORY[0x1E69E9840];
+  v12[4] = *MEMORY[0x1E69E9840];
   mainBundle = [MEMORY[0x1E696AAE8] mainBundle];
   bundleIdentifier = [mainBundle bundleIdentifier];
   v5 = bundleIdentifier;
@@ -98,19 +103,17 @@ void __33__CBXpcConnection__handleInvalid__block_invoke(uint64_t a1)
   v7 = v6;
 
   options = self->_options;
-  v12[0] = @"kCBMsgArgOptions";
-  v12[1] = @"kCBMsgArgName";
-  v13[0] = options;
-  v13[1] = v7;
-  v12[2] = @"kCBMsgArgType";
+  v11[0] = @"kCBMsgArgOptions";
+  v11[1] = @"kCBMsgArgName";
+  v12[0] = options;
+  v12[1] = v7;
+  v11[2] = @"kCBMsgArgType";
   v9 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:self->_sessionType];
-  v12[3] = @"kCBMsgArgVersion";
-  v13[2] = v9;
-  v13[3] = &unk_1F40209D8;
-  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:v12 count:4];
+  v11[3] = @"kCBMsgArgVersion";
+  v12[2] = v9;
+  v12[3] = &unk_1F40209D8;
+  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:4];
   [(CBXpcConnection *)self sendMsg:1 args:v10];
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (CBXpcConnection)initWithDelegate:(id)delegate queue:(id)queue options:(id)options sessionType:(int)type
@@ -249,6 +252,197 @@ void __62__CBXpcConnection_initWithDelegate_queue_options_sessionType___block_in
   [v1 xpcConnectionIsInvalid];
 }
 
+- (void)sendMsg:(unsigned __int16)msg args:(id)args
+{
+  msgCopy = msg;
+  v15 = *MEMORY[0x1E69E9840];
+  argsCopy = args;
+  v7 = [(CBXpcConnection *)self _allocXpcMsg:msgCopy args:argsCopy];
+  if (CBLogInitOnce != -1)
+  {
+    [CBClassicPeer dealloc];
+  }
+
+  v8 = CBLogComponent;
+  if (os_log_type_enabled(CBLogComponent, OS_LOG_TYPE_DEBUG))
+  {
+    v9 = v8;
+    v10 = [(CBXpcConnection *)self _nameForMessage:msgCopy];
+    v11 = 138412546;
+    v12 = v10;
+    v13 = 2112;
+    v14 = argsCopy;
+    _os_log_debug_impl(&dword_1C0AC1000, v9, OS_LOG_TYPE_DEBUG, "Sending XPC message %@: %@", &v11, 0x16u);
+
+    xpc_connection_send_message(self->_xpcConnection, v7);
+    if (!self->_uiAppIsBackgrounded)
+    {
+      goto LABEL_6;
+    }
+
+    goto LABEL_5;
+  }
+
+  xpc_connection_send_message(self->_xpcConnection, v7);
+  if (self->_uiAppIsBackgrounded)
+  {
+LABEL_5:
+    [(CBXpcConnection *)self _sendBarrier];
+  }
+
+LABEL_6:
+}
+
+- (id)sendSyncMsg:(unsigned __int16)msg args:(id)args
+{
+  msgCopy = msg;
+  v26 = *MEMORY[0x1E69E9840];
+  argsCopy = args;
+  v7 = [(CBXpcConnection *)self _allocXpcMsg:msgCopy args:argsCopy];
+  if (msgCopy != 69)
+  {
+    if (CBLogInitOnce == -1)
+    {
+      v12 = CBLogComponent;
+      if (!os_log_type_enabled(CBLogComponent, OS_LOG_TYPE_DEBUG))
+      {
+        goto LABEL_8;
+      }
+    }
+
+    else
+    {
+      [CBClassicPeer dealloc];
+      v12 = CBLogComponent;
+      if (!os_log_type_enabled(CBLogComponent, OS_LOG_TYPE_DEBUG))
+      {
+        goto LABEL_8;
+      }
+    }
+
+    v9 = v12;
+    v10 = [(CBXpcConnection *)self _nameForMessage:msgCopy];
+    v20 = 138412546;
+    v21 = v10;
+    v22 = 2112;
+    v23 = argsCopy;
+    _os_log_debug_impl(&dword_1C0AC1000, v9, OS_LOG_TYPE_DEBUG, "Sending synchronous XPC message %@: %@", &v20, 0x16u);
+    goto LABEL_5;
+  }
+
+  if (CBLogInitOnce == -1)
+  {
+    v8 = CBLogComponent;
+    if (!os_log_type_enabled(CBLogComponent, OS_LOG_TYPE_DEFAULT))
+    {
+      goto LABEL_8;
+    }
+
+    goto LABEL_4;
+  }
+
+  [CBClassicPeer dealloc];
+  v8 = CBLogComponent;
+  if (os_log_type_enabled(CBLogComponent, OS_LOG_TYPE_DEFAULT))
+  {
+LABEL_4:
+    v9 = v8;
+    v10 = [(CBXpcConnection *)self _nameForMessage:69];
+    xpcQueue = self->_xpcQueue;
+    v20 = 138412803;
+    v21 = v10;
+    v22 = 2112;
+    v23 = xpcQueue;
+    v24 = 2113;
+    v25 = argsCopy;
+    _os_log_impl(&dword_1C0AC1000, v9, OS_LOG_TYPE_DEFAULT, "Sending synchronous XPC message %@ : on %@ with args: %{private}@", &v20, 0x20u);
+LABEL_5:
+  }
+
+LABEL_8:
+  v13 = xpc_connection_send_message_with_reply_sync(self->_xpcConnection, v7);
+  v14 = v13;
+  if (v13)
+  {
+    v15 = CBXpcCreateNSDictionaryWithXpcDictionary(v13);
+    if (CBLogInitOnce == -1)
+    {
+      goto LABEL_10;
+    }
+
+LABEL_15:
+    [CBClassicPeer handlePeerUpdated:];
+    v16 = CBLogComponent;
+    if (!os_log_type_enabled(CBLogComponent, OS_LOG_TYPE_DEBUG))
+    {
+      goto LABEL_11;
+    }
+
+    goto LABEL_16;
+  }
+
+  v15 = 0;
+  if (CBLogInitOnce != -1)
+  {
+    goto LABEL_15;
+  }
+
+LABEL_10:
+  v16 = CBLogComponent;
+  if (!os_log_type_enabled(CBLogComponent, OS_LOG_TYPE_DEBUG))
+  {
+    goto LABEL_11;
+  }
+
+LABEL_16:
+  v18 = v16;
+  v19 = [(CBXpcConnection *)self _nameForMessage:msgCopy];
+  v20 = 138412546;
+  v21 = v19;
+  v22 = 2112;
+  v23 = v15;
+  _os_log_debug_impl(&dword_1C0AC1000, v18, OS_LOG_TYPE_DEBUG, "Received synchronous XPC reply %@: %@", &v20, 0x16u);
+
+LABEL_11:
+
+  return v15;
+}
+
+- (void)sendMsgWithReply:(unsigned __int16)reply args:(id)args replyBlock:(id)block
+{
+  replyCopy = reply;
+  v23 = *MEMORY[0x1E69E9840];
+  argsCopy = args;
+  blockCopy = block;
+  v10 = [(CBXpcConnection *)self _allocXpcMsg:replyCopy args:argsCopy];
+  if (CBLogInitOnce != -1)
+  {
+    [CBClassicPeer dealloc];
+  }
+
+  v11 = CBLogComponent;
+  if (os_log_type_enabled(CBLogComponent, OS_LOG_TYPE_DEBUG))
+  {
+    v15 = v11;
+    v16 = [(CBXpcConnection *)self _nameForMessage:replyCopy];
+    *buf = 138412546;
+    v20 = v16;
+    v21 = 2112;
+    v22 = argsCopy;
+    _os_log_debug_impl(&dword_1C0AC1000, v15, OS_LOG_TYPE_DEBUG, "Sending XPC message w/ reply %@: %@", buf, 0x16u);
+  }
+
+  xpcConnection = self->_xpcConnection;
+  eventQueue = self->_eventQueue;
+  handler[0] = MEMORY[0x1E69E9820];
+  handler[1] = 3221225472;
+  handler[2] = __52__CBXpcConnection_sendMsgWithReply_args_replyBlock___block_invoke;
+  handler[3] = &unk_1E811D1B0;
+  v18 = blockCopy;
+  v14 = blockCopy;
+  xpc_connection_send_message_with_reply(xpcConnection, v10, eventQueue, handler);
+}
+
 void __52__CBXpcConnection_sendMsgWithReply_args_replyBlock___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
@@ -259,15 +453,79 @@ void __52__CBXpcConnection_sendMsgWithReply_args_replyBlock___block_invoke(uint6
   (*(v4 + 16))(v4, v5, v6);
 }
 
+- (void)forwardWhbMsg:(unsigned __int16)msg args:(id)args cnx:(id)cnx
+{
+  msgCopy = msg;
+  v24 = *MEMORY[0x1E69E9840];
+  argsCopy = args;
+  cnxCopy = cnx;
+  v9 = xpc_dictionary_create(0, 0, 0);
+  if (_MergedGlobals_2 != -1)
+  {
+    [CBXpcConnection forwardWhbMsg:args:cnx:];
+  }
+
+  v10 = MEMORY[0x1E696AD98];
+  v11 = qword_1ED7C1FD0;
+  v12 = [v10 numberWithUnsignedShort:msgCopy];
+  v13 = [v11 objectForKeyedSubscript:v12];
+
+  if (v13 && (v14 = [v13 unsignedShortValue], v13, v14))
+  {
+    xpc_dictionary_set_int64(v9, "kCBMsgId", v14);
+    if (argsCopy)
+    {
+      v15 = [MEMORY[0x1E695DF90] dictionaryWithDictionary:argsCopy];
+      [v15 removeObjectForKey:@"kCBMsgArgDeviceUUID"];
+      peerDevice = [cnxCopy peerDevice];
+      identifier = [peerDevice identifier];
+      [v15 setValue:identifier forKey:@"kCBMsgArgDeviceUUID"];
+
+      v18 = CBXpcCreateXPCDictionaryWithNSDictionary(v15);
+      xpc_dictionary_set_value(v9, "kCBMsgArgs", v18);
+    }
+
+    if (CBLogInitOnce != -1)
+    {
+      [CBClassicPeer dealloc];
+    }
+
+    v19 = CBLogComponent;
+    if (os_log_type_enabled(CBLogComponent, OS_LOG_TYPE_DEFAULT))
+    {
+      v20 = 138412546;
+      v21 = v9;
+      v22 = 2112;
+      v23 = argsCopy;
+      _os_log_impl(&dword_1C0AC1000, v19, OS_LOG_TYPE_DEFAULT, "Forwarding WHB XPC message %@: %@", &v20, 0x16u);
+    }
+
+    [cnxCopy xpcForwardMessage:v9];
+  }
+
+  else
+  {
+    if (CBLogInitOnce != -1)
+    {
+      [CBClassicPeer dealloc];
+    }
+
+    if (os_log_type_enabled(CBLogComponent, OS_LOG_TYPE_ERROR))
+    {
+      [CBXpcConnection forwardWhbMsg:args:cnx:];
+    }
+  }
+}
+
 - (void)didReceiveForwardedMessage:(id)message
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   messageCopy = message;
   int64 = xpc_dictionary_get_int64(messageCopy, "kCBMsgId");
-  v21 = 0;
-  v22 = &v21;
-  v23 = 0x2020000000;
-  v24 = 0;
+  v20 = 0;
+  v21 = &v20;
+  v22 = 0x2020000000;
+  v23 = 0;
   if (_MergedGlobals_2 != -1)
   {
     [CBXpcConnection didReceiveForwardedMessage:];
@@ -277,13 +535,13 @@ void __52__CBXpcConnection_sendMsgWithReply_args_replyBlock___block_invoke(uint6
   *buf = MEMORY[0x1E69E9820];
   *&buf[8] = 3221225472;
   *&buf[16] = __convertToCBMsgId_block_invoke;
-  v26 = &unk_1E8120770;
-  v28 = int64;
-  v27 = &v21;
-  [v6 enumerateKeysAndObjectsUsingBlock:{buf, v21}];
-  v7 = *(v22 + 12);
+  v25 = &unk_1E8120770;
+  v27 = int64;
+  v26 = &v20;
+  [v6 enumerateKeysAndObjectsUsingBlock:{buf, v20}];
+  v7 = *(v21 + 12);
 
-  _Block_object_dispose(&v21, 8);
+  _Block_object_dispose(&v20, 8);
   if (v7)
   {
     v8 = xpc_dictionary_get_value(messageCopy, "kCBMsgArgs");
@@ -328,13 +586,13 @@ void __52__CBXpcConnection_sendMsgWithReply_args_replyBlock___block_invoke(uint6
     v17 = CBLogComponent;
     if (os_log_type_enabled(CBLogComponent, OS_LOG_TYPE_DEBUG))
     {
-      v19 = v17;
-      v20 = [(CBXpcConnection *)self _nameForMessage:v7];
+      v18 = v17;
+      v19 = [(CBXpcConnection *)self _nameForMessage:v7];
       *buf = 138412546;
-      *&buf[4] = v20;
+      *&buf[4] = v19;
       *&buf[12] = 2112;
       *&buf[14] = v16;
-      _os_log_debug_impl(&dword_1C0AC1000, v19, OS_LOG_TYPE_DEBUG, "WHB forwarded (Initiator->Receiver bluetoothd) msg %@, args %@", buf, 0x16u);
+      _os_log_debug_impl(&dword_1C0AC1000, v18, OS_LOG_TYPE_DEBUG, "WHB forwarded (Initiator->Receiver bluetoothd) msg %@, args %@", buf, 0x16u);
     }
 
     [(CBXpcConnection *)self sendMsg:v7 args:v16];
@@ -352,20 +610,18 @@ void __52__CBXpcConnection_sendMsgWithReply_args_replyBlock___block_invoke(uint6
       [CBXpcConnection didReceiveForwardedMessage:];
     }
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (void)didReceiveForwardedDelegateCallbackMessage:(id)message
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   messageCopy = message;
   v5 = xpc_dictionary_create(0, 0, 0);
   int64 = xpc_dictionary_get_int64(messageCopy, "kCBMsgId");
-  v20 = 0;
-  v21 = &v20;
-  v22 = 0x2020000000;
-  v23 = 0;
+  v19 = 0;
+  v20 = &v19;
+  v21 = 0x2020000000;
+  v22 = 0;
   if (_MergedGlobals_2 != -1)
   {
     [CBXpcConnection didReceiveForwardedMessage:];
@@ -375,13 +631,13 @@ void __52__CBXpcConnection_sendMsgWithReply_args_replyBlock___block_invoke(uint6
   *buf = MEMORY[0x1E69E9820];
   *&buf[8] = 3221225472;
   *&buf[16] = __convertToCBMsgId_block_invoke;
-  v25 = &unk_1E8120770;
-  v27 = int64;
-  v26 = &v20;
+  v24 = &unk_1E8120770;
+  v26 = int64;
+  v25 = &v19;
   [v7 enumerateKeysAndObjectsUsingBlock:buf];
-  v8 = *(v21 + 12);
+  v8 = *(v20 + 12);
 
-  _Block_object_dispose(&v20, 8);
+  _Block_object_dispose(&v19, 8);
   if (v8)
   {
     xpc_dictionary_set_int64(v5, "kCBMsgId", v8);
@@ -390,8 +646,8 @@ void __52__CBXpcConnection_sendMsgWithReply_args_replyBlock___block_invoke(uint6
     if (v9)
     {
       v11 = CBXpcCreateNSDictionaryWithXpcDictionary(v9);
-      v19 = [v11 valueForKey:@"kCBMsgArgDeviceUUID"];
-      v12 = [(CBXpcConnection *)self getWhbLocalIdForRemoteId:v19];
+      v18 = [v11 valueForKey:@"kCBMsgArgDeviceUUID"];
+      v12 = [(CBXpcConnection *)self getWhbLocalIdForRemoteId:v18];
       v13 = [v11 mutableCopy];
       [v13 removeObjectForKey:@"kCBMsgArgDeviceUUID"];
       [v13 setValue:v12 forKey:@"kCBMsgArgDeviceUUID"];
@@ -405,13 +661,13 @@ void __52__CBXpcConnection_sendMsgWithReply_args_replyBlock___block_invoke(uint6
       v15 = CBLogComponent;
       if (os_log_type_enabled(CBLogComponent, OS_LOG_TYPE_DEBUG))
       {
-        v17 = v15;
-        v18 = [(CBXpcConnection *)self _nameForMessage:v8];
+        v16 = v15;
+        v17 = [(CBXpcConnection *)self _nameForMessage:v8];
         *buf = 138412546;
-        *&buf[4] = v18;
+        *&buf[4] = v17;
         *&buf[12] = 2112;
         *&buf[14] = v13;
-        _os_log_debug_impl(&dword_1C0AC1000, v17, OS_LOG_TYPE_DEBUG, "WHB reply (Receiver->Initiator) msg %@ %@", buf, 0x16u);
+        _os_log_debug_impl(&dword_1C0AC1000, v16, OS_LOG_TYPE_DEBUG, "WHB reply (Receiver->Initiator) msg %@ %@", buf, 0x16u);
       }
     }
 
@@ -430,8 +686,6 @@ void __52__CBXpcConnection_sendMsgWithReply_args_replyBlock___block_invoke(uint6
       [CBXpcConnection didReceiveForwardedDelegateCallbackMessage:];
     }
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setWhbReplyHandler:(id)handler
@@ -455,7 +709,7 @@ void __52__CBXpcConnection_sendMsgWithReply_args_replyBlock___block_invoke(uint6
 
 void __38__CBXpcConnection_setWhbReplyHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = xpc_dictionary_create(0, 0, 0);
   int64 = xpc_dictionary_get_int64(v3, "kCBMsgId");
@@ -510,14 +764,14 @@ void __38__CBXpcConnection_setWhbReplyHandler___block_invoke(uint64_t a1, void *
       v21 = CBLogComponent;
       if (os_log_type_enabled(CBLogComponent, OS_LOG_TYPE_DEBUG))
       {
-        v23 = v21;
+        v22 = v21;
         WeakRetained = objc_loadWeakRetained((a1 + 40));
-        v25 = [WeakRetained _nameForMessage:v10];
-        v26 = 138412546;
-        v27 = v25;
-        v28 = 2112;
-        v29 = v13;
-        _os_log_debug_impl(&dword_1C0AC1000, v23, OS_LOG_TYPE_DEBUG, "WhbReplyHandler w/ msgId %@ args %@", &v26, 0x16u);
+        v24 = [WeakRetained _nameForMessage:v10];
+        v25 = 138412546;
+        v26 = v24;
+        v27 = 2112;
+        v28 = v13;
+        _os_log_debug_impl(&dword_1C0AC1000, v22, OS_LOG_TYPE_DEBUG, "WhbReplyHandler w/ msgId %@ args %@", &v25, 0x16u);
       }
     }
 
@@ -541,13 +795,11 @@ void __38__CBXpcConnection_setWhbReplyHandler___block_invoke(uint64_t a1, void *
       __38__CBXpcConnection_setWhbReplyHandler___block_invoke_cold_4();
     }
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setWhbLocalId:(id)id forRemoteId:(id)remoteId
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   idCopy = id;
   remoteIdCopy = remoteId;
   if (!self->_whbRemoteToLocalUuidMap)
@@ -565,21 +817,19 @@ void __38__CBXpcConnection_setWhbReplyHandler___block_invoke(uint64_t a1, void *
   v10 = CBLogComponent;
   if (os_log_type_enabled(CBLogComponent, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = 138412546;
-    v13 = idCopy;
-    v14 = 2112;
-    v15 = remoteIdCopy;
-    _os_log_impl(&dword_1C0AC1000, v10, OS_LOG_TYPE_DEFAULT, "Started tracking Whb localId %@ with remoteId %@", &v12, 0x16u);
+    v11 = 138412546;
+    v12 = idCopy;
+    v13 = 2112;
+    v14 = remoteIdCopy;
+    _os_log_impl(&dword_1C0AC1000, v10, OS_LOG_TYPE_DEFAULT, "Started tracking Whb localId %@ with remoteId %@", &v11, 0x16u);
   }
 
   [(NSMutableDictionary *)self->_whbRemoteToLocalUuidMap setValue:idCopy forKey:remoteIdCopy];
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)removeWhbRemoteId:(id)id
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   idCopy = id;
   if (CBLogInitOnce != -1)
   {
@@ -589,14 +839,12 @@ void __38__CBXpcConnection_setWhbReplyHandler___block_invoke(uint64_t a1, void *
   v5 = CBLogComponent;
   if (os_log_type_enabled(CBLogComponent, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
-    v8 = idCopy;
-    _os_log_impl(&dword_1C0AC1000, v5, OS_LOG_TYPE_DEFAULT, "Removing tracking of remoteId %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = idCopy;
+    _os_log_impl(&dword_1C0AC1000, v5, OS_LOG_TYPE_DEFAULT, "Removing tracking of remoteId %@", &v6, 0xCu);
   }
 
   [(NSMutableDictionary *)self->_whbRemoteToLocalUuidMap removeObjectForKey:idCopy];
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setTargetQueue:(id)queue
@@ -636,17 +884,25 @@ void __38__CBXpcConnection_setWhbReplyHandler___block_invoke(uint64_t a1, void *
   dispatch_semaphore_wait(v5, 0xFFFFFFFFFFFFFFFFLL);
 }
 
+- (id)_nameForMessage:(unsigned __int16)message
+{
+  v3 = [MEMORY[0x1E696AD98] numberWithUnsignedShort:message];
+  stringValue = [v3 stringValue];
+
+  return stringValue;
+}
+
 - (id)_allocXpcMsg:(unsigned __int16)msg args:(id)args
 {
   msgCopy = msg;
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   argsCopy = args;
   *keys = xmmword_1E8120730;
-  v11 = 0;
-  v10 = xpc_int64_create(msgCopy);
+  v10 = 0;
+  v9 = xpc_int64_create(msgCopy);
   if (argsCopy)
   {
-    v11 = CBXpcCreateXPCDictionaryWithNSDictionary(argsCopy);
+    v10 = CBXpcCreateXPCDictionaryWithNSDictionary(argsCopy);
     v6 = 2;
   }
 
@@ -655,15 +911,14 @@ void __38__CBXpcConnection_setWhbReplyHandler___block_invoke(uint64_t a1, void *
     v6 = 1;
   }
 
-  v7 = xpc_dictionary_create(keys, &v10, v6);
+  v7 = xpc_dictionary_create(keys, &v9, v6);
 
-  v8 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
 - (void)_handleMsg:(id)msg
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   msgCopy = msg;
   int64 = xpc_dictionary_get_int64(msgCopy, "kCBMsgId");
   v6 = xpc_dictionary_get_value(msgCopy, "kCBMsgArgs");
@@ -697,9 +952,9 @@ void __38__CBXpcConnection_setWhbReplyHandler___block_invoke(uint64_t a1, void *
     v10 = v9;
     v11 = [(CBXpcConnection *)self _nameForMessage:int64];
     *buf = 138412546;
-    v19 = v11;
-    v20 = 2112;
-    v21 = v8;
+    v18 = v11;
+    v19 = 2112;
+    v20 = v8;
     _os_log_debug_impl(&dword_1C0AC1000, v10, OS_LOG_TYPE_DEBUG, "Received XPC message %@: %@", buf, 0x16u);
 
     if (int64 == 5)
@@ -709,15 +964,15 @@ void __38__CBXpcConnection_setWhbReplyHandler___block_invoke(uint64_t a1, void *
 
 LABEL_11:
     eventQueue = self->_eventQueue;
-    v14[0] = MEMORY[0x1E69E9820];
-    v14[1] = 3221225472;
-    v14[2] = __30__CBXpcConnection__handleMsg___block_invoke;
-    v14[3] = &unk_1E8120748;
-    v14[4] = self;
-    v17 = int64;
-    v15 = v8;
-    v16 = msgCopy;
-    dispatch_async(eventQueue, v14);
+    v13[0] = MEMORY[0x1E69E9820];
+    v13[1] = 3221225472;
+    v13[2] = __30__CBXpcConnection__handleMsg___block_invoke;
+    v13[3] = &unk_1E8120748;
+    v13[4] = self;
+    v16 = int64;
+    v14 = v8;
+    v15 = msgCopy;
+    dispatch_async(eventQueue, v13);
 
     goto LABEL_12;
   }
@@ -731,8 +986,6 @@ LABEL_8:
 LABEL_9:
   [(CBXpcConnection *)self _handleFinalized];
 LABEL_12:
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __30__CBXpcConnection__handleMsg___block_invoke(uint64_t a1)
@@ -743,10 +996,9 @@ uint64_t __30__CBXpcConnection__handleMsg___block_invoke(uint64_t a1)
   result = *(*(a1 + 32) + 56);
   if (result)
   {
-    v4 = *(a1 + 48);
-    v5 = *(result + 16);
+    v4 = *(result + 16);
 
-    return v5();
+    return v4();
   }
 
   return result;
@@ -835,54 +1087,30 @@ LABEL_6:
 
 - (void)forwardWhbMsg:args:cnx:.cold.4()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_4_4();
   OUTLINED_FUNCTION_5_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)didReceiveForwardedMessage:.cold.4()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_4_4();
   OUTLINED_FUNCTION_5_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)didReceiveForwardedDelegateCallbackMessage:.cold.4()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_4_4();
   OUTLINED_FUNCTION_5_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __38__CBXpcConnection_setWhbReplyHandler___block_invoke_cold_4()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_4_4();
   OUTLINED_FUNCTION_5_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-- (void)_handleConnectionEvent:.cold.2()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_5_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-- (void)_handleConnectionEvent:.cold.4()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_5_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 @end

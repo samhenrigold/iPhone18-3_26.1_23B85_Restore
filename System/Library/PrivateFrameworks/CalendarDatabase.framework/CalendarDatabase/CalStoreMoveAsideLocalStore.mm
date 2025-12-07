@@ -5,7 +5,7 @@
 
 uint64_t ___CalStoreMoveAsideLocalStore_block_invoke(uint64_t a1, uint64_t a2)
 {
-  *&v21[5] = *MEMORY[0x1E69E9840];
+  *&v20[5] = *MEMORY[0x1E69E9840];
   v3 = [MEMORY[0x1E696AEC0] stringWithValidatedFormat:a2 validFormatSpecifiers:@"%i%i" error:0, *(a1 + 40), 1];
   v4 = *(a1 + 32);
   if (CDBLockingAssertionsEnabled == 1 && v4 != 0)
@@ -86,9 +86,9 @@ uint64_t ___CalStoreMoveAsideLocalStore_block_invoke(uint64_t a1, uint64_t a2)
         if (os_log_type_enabled(CDBLogHandle, OS_LOG_TYPE_ERROR))
         {
           *buf = 67109378;
-          v21[0] = v11;
-          LOWORD(v21[1]) = 2114;
-          *(&v21[1] + 2) = v3;
+          v20[0] = v11;
+          LOWORD(v20[1]) = 2114;
+          *(&v20[1] + 2) = v3;
           _os_log_impl(&dword_1DEBB1000, v16, OS_LOG_TYPE_ERROR, "Unexpected result %i for sql %{public}@", buf, 0x12u);
         }
       }
@@ -101,14 +101,13 @@ uint64_t ___CalStoreMoveAsideLocalStore_block_invoke(uint64_t a1, uint64_t a2)
     if (os_log_type_enabled(CDBLogHandle, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      *v21 = v3;
+      *v20 = v3;
       _os_log_impl(&dword_1DEBB1000, v17, OS_LOG_TYPE_ERROR, "Couldn't get statement for sql %{public}@", buf, 0xCu);
     }
 
     v15 = 0;
   }
 
-  v18 = *MEMORY[0x1E69E9840];
   return v15;
 }
 

@@ -947,11 +947,13 @@ LABEL_14:
 {
   if (VRTraceGetErrorLogLevelForModule() >= 3)
   {
-    VRTraceErrorLogLevelToCSTR();
+    v2 = VRTraceErrorLogLevelToCSTR();
     if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR))
     {
+      LODWORD(v9) = 136315650;
+      *(&v9 + 4) = v2;
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_3_4(&dword_1DB56E000, v2, v3, " [%s] %s:%d newPackedMessageFromDictionaryV2 tuples must not be nil", v4, v5, v6, v7, 2u);
+      OUTLINED_FUNCTION_3_4(&dword_1DB56E000, v3, v4, " [%s] %s:%d newPackedMessageFromDictionaryV2 tuples must not be nil", v5, v6, v7, v8, v9, DWORD2(v9));
     }
   }
 
@@ -1006,11 +1008,13 @@ LABEL_14:
 {
   if (VRTraceGetErrorLogLevelForModule() >= 3)
   {
-    VRTraceErrorLogLevelToCSTR();
+    v2 = VRTraceErrorLogLevelToCSTR();
     if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR))
     {
+      LODWORD(v9) = 136315650;
+      *(&v9 + 4) = v2;
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_3_4(&dword_1DB56E000, v2, v3, " [%s] %s:%d newDictionaryFromUnpackedMessageV2 message must not be nil", v4, v5, v6, v7, 2u);
+      OUTLINED_FUNCTION_3_4(&dword_1DB56E000, v3, v4, " [%s] %s:%d newDictionaryFromUnpackedMessageV2 message must not be nil", v5, v6, v7, v8, v9, DWORD2(v9));
     }
   }
 

@@ -14,9 +14,9 @@
     +[NSItemProvider(SafariExtras) safari_timeoutQueue];
   }
 
-  v1 = safari_timeoutQueue_queue;
+  v2 = safari_timeoutQueue_queue;
 
-  return v1;
+  return v2;
 }
 
 + (id)safari_itemProviderForTabDocument:()SafariExtras

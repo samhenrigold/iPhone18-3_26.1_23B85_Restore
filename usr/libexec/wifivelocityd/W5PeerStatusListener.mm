@@ -10,9 +10,9 @@
 {
   interfaceCopy = interface;
   managerCopy = manager;
-  v13.receiver = self;
-  v13.super_class = W5PeerStatusListener;
-  v9 = [(W5PeerStatusListener *)&v13 init];
+  v14.receiver = self;
+  v14.super_class = W5PeerStatusListener;
+  v9 = [(W5PeerStatusListener *)&v14 init];
   v10 = v9;
   if (!v9 || (objc_storeStrong(&v9->_interface, interface), !v10->_interface) || (objc_storeStrong(&v10->_statusManager, manager), !v10->_statusManager))
   {
@@ -20,13 +20,14 @@
     v11 = sub_100098A04();
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      v14 = 136315650;
-      v15 = "[W5PeerStatusListener initWithInterface:statusManager:]";
-      v16 = 2080;
-      v17 = "W5PeerStatusListener.m";
-      v18 = 1024;
-      v19 = 42;
-      _os_log_send_and_compose_impl();
+      v15 = 136315650;
+      v16 = "[W5PeerStatusListener initWithInterface:statusManager:]";
+      v17 = 2080;
+      v18 = "W5PeerStatusListener.m";
+      v19 = 1024;
+      v20 = 42;
+      LODWORD(v13) = 28;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v11, 0, "[wifivelocity] %s (%s:%u) init error!", &v15, v13, LODWORD(v14.receiver));
     }
 
     v10 = 0;
@@ -46,21 +47,19 @@
     v8 = sub_100098A04();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v19 = 136316418;
-      v20 = "[W5PeerStatusListener handleClientRequest:]";
-      v21 = 2080;
-      v22 = "W5PeerStatusListener.m";
-      v23 = 1024;
-      v24 = 53;
+      v17 = 136316418;
+      v18 = "[W5PeerStatusListener handleClientRequest:]";
+      v19 = 2080;
+      v20 = "W5PeerStatusListener.m";
+      v21 = 1024;
+      v22 = 53;
+      v23 = 2114;
+      v24 = requestCopy;
       v25 = 2114;
-      v26 = requestCopy;
+      v26 = v6;
       v27 = 2114;
-      v28 = v6;
-      v29 = 2114;
-      v30 = version;
-      LODWORD(v18) = 58;
-      v17 = &v19;
-      _os_log_send_and_compose_impl();
+      v28 = version;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v8, 0, "[wifivelocity] %s (%s:%u) incoming request='%{public}@', payload='%{public}@' version='%{public}@'", &v17, 58);
     }
 
     v9 = objc_alloc_init(W5PeerStatusResponsePayload);

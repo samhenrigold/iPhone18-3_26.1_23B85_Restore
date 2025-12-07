@@ -99,16 +99,16 @@
 
 - (void)actionCompleted:(id)completed completionHandler:(id)handler
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   completedCopy = completed;
   handlerCopy = handler;
-  v8 = CXDefaultLog();
+  v8 = CXDefaultLog(handlerCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v40 = "[CXAbstractProviderSource actionCompleted:completionHandler:]";
-    v41 = 2112;
-    v42 = completedCopy;
+    v41 = "[CXAbstractProviderSource actionCompleted:completionHandler:]";
+    v42 = 2112;
+    v43 = completedCopy;
     _os_log_impl(&dword_1B47F3000, v8, OS_LOG_TYPE_DEFAULT, "Received %s with action: %@", buf, 0x16u);
   }
 
@@ -116,7 +116,8 @@
   {
     if (completedCopy)
     {
-      if ([(CXAbstractProviderSource *)self isPermittedToUsePublicAPI])
+      isPermittedToUsePublicAPI = [(CXAbstractProviderSource *)self isPermittedToUsePublicAPI];
+      if (isPermittedToUsePublicAPI)
       {
         if (![(CXAbstractProviderSource *)self isPermittedToUsePrivateAPI])
         {
@@ -133,49 +134,47 @@
 
       else
       {
-        v27 = CXDefaultLog();
-        if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+        v29 = CXDefaultLog(isPermittedToUsePublicAPI);
+        if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
         {
-          [(CXAbstractProviderSource *)self actionCompleted:v27 completionHandler:v28, v29, v30, v31, v32, v33];
+          [(CXAbstractProviderSource *)self actionCompleted:v29 completionHandler:v30, v31, v32, v33, v34, v35];
         }
 
-        v35[0] = MEMORY[0x1E69E9820];
-        v35[1] = 3221225472;
-        v35[2] = __62__CXAbstractProviderSource_actionCompleted_completionHandler___block_invoke_60;
-        v35[3] = &unk_1E7C07388;
-        v36 = handlerCopy;
-        __62__CXAbstractProviderSource_actionCompleted_completionHandler___block_invoke_60(v35);
+        v36[0] = MEMORY[0x1E69E9820];
+        v36[1] = 3221225472;
+        v36[2] = __62__CXAbstractProviderSource_actionCompleted_completionHandler___block_invoke_60;
+        v36[3] = &unk_1E7C07388;
+        v37 = handlerCopy;
+        __62__CXAbstractProviderSource_actionCompleted_completionHandler___block_invoke_60(v36);
       }
     }
 
     else
     {
-      v19 = CXDefaultLog();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+      v21 = CXDefaultLog(v9);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
       {
-        [(CXCallSource *)v19 actionCompleted:v20 completionHandler:v21, v22, v23, v24, v25, v26];
+        [(CXCallSource *)v21 actionCompleted:v22 completionHandler:v23, v24, v25, v26, v27, v28];
       }
 
-      v37[0] = MEMORY[0x1E69E9820];
-      v37[1] = 3221225472;
-      v37[2] = __62__CXAbstractProviderSource_actionCompleted_completionHandler___block_invoke_59;
-      v37[3] = &unk_1E7C07388;
-      v38 = handlerCopy;
-      __62__CXAbstractProviderSource_actionCompleted_completionHandler___block_invoke_59(v37);
-      completedCopy = v38;
+      v38[0] = MEMORY[0x1E69E9820];
+      v38[1] = 3221225472;
+      v38[2] = __62__CXAbstractProviderSource_actionCompleted_completionHandler___block_invoke_59;
+      v38[3] = &unk_1E7C07388;
+      v39 = handlerCopy;
+      __62__CXAbstractProviderSource_actionCompleted_completionHandler___block_invoke_59(v38);
+      completedCopy = v39;
     }
   }
 
   else
   {
-    v11 = CXDefaultLog();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v13 = CXDefaultLog(v9);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      [(CXCallSource *)v11 requestTransaction:v12 completionHandler:v13, v14, v15, v16, v17, v18];
+      [(CXCallSource *)v13 requestTransaction:v14 completionHandler:v15, v16, v17, v18, v19, v20];
     }
   }
-
-  v34 = *MEMORY[0x1E69E9840];
 }
 
 void __62__CXAbstractProviderSource_actionCompleted_completionHandler___block_invoke_59(uint64_t a1)
@@ -194,16 +193,16 @@ void __62__CXAbstractProviderSource_actionCompleted_completionHandler___block_in
 
 - (void)requestTransaction:(id)transaction completionHandler:(id)handler
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   transactionCopy = transaction;
   handlerCopy = handler;
-  v8 = CXDefaultLog();
+  v8 = CXDefaultLog(handlerCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v38 = "[CXAbstractProviderSource requestTransaction:completionHandler:]";
-    v39 = 2112;
-    v40 = transactionCopy;
+    v39 = "[CXAbstractProviderSource requestTransaction:completionHandler:]";
+    v40 = 2112;
+    v41 = transactionCopy;
     _os_log_impl(&dword_1B47F3000, v8, OS_LOG_TYPE_DEFAULT, "Received %s with transaction: %@", buf, 0x16u);
   }
 
@@ -211,7 +210,8 @@ void __62__CXAbstractProviderSource_actionCompleted_completionHandler___block_in
   {
     if (transactionCopy)
     {
-      if ([(CXAbstractProviderSource *)self isPermittedToUsePrivateAPI])
+      isPermittedToUsePrivateAPI = [(CXAbstractProviderSource *)self isPermittedToUsePrivateAPI];
+      if (isPermittedToUsePrivateAPI)
       {
         delegate = [(CXAbstractProviderSource *)self delegate];
         [delegate providerSource:self requestedTransaction:transactionCopy completionHandler:handlerCopy];
@@ -219,50 +219,48 @@ void __62__CXAbstractProviderSource_actionCompleted_completionHandler___block_in
 
       else
       {
-        v25 = CXDefaultLog();
-        if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+        v27 = CXDefaultLog(isPermittedToUsePrivateAPI);
+        if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
         {
-          [(CXAbstractProviderSource *)self requestTransaction:v25 completionHandler:v26, v27, v28, v29, v30, v31];
+          [(CXAbstractProviderSource *)self requestTransaction:v27 completionHandler:v28, v29, v30, v31, v32, v33];
         }
 
-        v33[0] = MEMORY[0x1E69E9820];
-        v33[1] = 3221225472;
-        v33[2] = __65__CXAbstractProviderSource_requestTransaction_completionHandler___block_invoke_67;
-        v33[3] = &unk_1E7C07388;
-        v34 = handlerCopy;
-        __65__CXAbstractProviderSource_requestTransaction_completionHandler___block_invoke_67(v33);
-        delegate = v34;
+        v34[0] = MEMORY[0x1E69E9820];
+        v34[1] = 3221225472;
+        v34[2] = __65__CXAbstractProviderSource_requestTransaction_completionHandler___block_invoke_67;
+        v34[3] = &unk_1E7C07388;
+        v35 = handlerCopy;
+        __65__CXAbstractProviderSource_requestTransaction_completionHandler___block_invoke_67(v34);
+        delegate = v35;
       }
     }
 
     else
     {
-      v17 = CXDefaultLog();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+      v19 = CXDefaultLog(v9);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
       {
-        [(CXCallSource *)v17 requestTransaction:v18 completionHandler:v19, v20, v21, v22, v23, v24];
+        [(CXCallSource *)v19 requestTransaction:v20 completionHandler:v21, v22, v23, v24, v25, v26];
       }
 
-      v35[0] = MEMORY[0x1E69E9820];
-      v35[1] = 3221225472;
-      v35[2] = __65__CXAbstractProviderSource_requestTransaction_completionHandler___block_invoke_66;
-      v35[3] = &unk_1E7C07388;
-      v36 = handlerCopy;
-      __65__CXAbstractProviderSource_requestTransaction_completionHandler___block_invoke_66(v35);
-      delegate = v36;
+      v36[0] = MEMORY[0x1E69E9820];
+      v36[1] = 3221225472;
+      v36[2] = __65__CXAbstractProviderSource_requestTransaction_completionHandler___block_invoke_66;
+      v36[3] = &unk_1E7C07388;
+      v37 = handlerCopy;
+      __65__CXAbstractProviderSource_requestTransaction_completionHandler___block_invoke_66(v36);
+      delegate = v37;
     }
   }
 
   else
   {
-    delegate = CXDefaultLog();
+    delegate = CXDefaultLog(v9);
     if (os_log_type_enabled(delegate, OS_LOG_TYPE_ERROR))
     {
-      [(CXCallSource *)delegate requestTransaction:v10 completionHandler:v11, v12, v13, v14, v15, v16];
+      [(CXCallSource *)delegate requestTransaction:v12 completionHandler:v13, v14, v15, v16, v17, v18];
     }
   }
-
-  v32 = *MEMORY[0x1E69E9840];
 }
 
 void __65__CXAbstractProviderSource_requestTransaction_completionHandler___block_invoke_66(uint64_t a1)
@@ -295,23 +293,21 @@ void __65__CXAbstractProviderSource_requestTransaction_completionHandler___block
 
 void __46__CXAbstractProviderSource_commitTransaction___block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
-  v2 = CXDefaultLog();
+  v10 = *MEMORY[0x1E69E9840];
+  v2 = CXDefaultLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
-    v7 = 136315394;
-    v8 = "[CXAbstractProviderSource commitTransaction:]_block_invoke";
-    v9 = 2112;
-    v10 = v3;
-    _os_log_impl(&dword_1B47F3000, v2, OS_LOG_TYPE_DEFAULT, "Sending %s with transaction: %@", &v7, 0x16u);
+    v6 = 136315394;
+    v7 = "[CXAbstractProviderSource commitTransaction:]_block_invoke";
+    v8 = 2112;
+    v9 = v3;
+    _os_log_impl(&dword_1B47F3000, v2, OS_LOG_TYPE_DEFAULT, "Sending %s with transaction: %@", &v6, 0x16u);
   }
 
   v4 = [*(a1 + 40) vendorProtocolDelegate];
   v5 = [*(a1 + 32) copy];
   [v4 commitTransaction:v5];
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)handleActionTimeout:(id)timeout
@@ -330,23 +326,21 @@ void __46__CXAbstractProviderSource_commitTransaction___block_invoke(uint64_t a1
 
 void __48__CXAbstractProviderSource_handleActionTimeout___block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
-  v2 = CXDefaultLog();
+  v10 = *MEMORY[0x1E69E9840];
+  v2 = CXDefaultLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
-    v7 = 136315394;
-    v8 = "[CXAbstractProviderSource handleActionTimeout:]_block_invoke";
-    v9 = 2112;
-    v10 = v3;
-    _os_log_impl(&dword_1B47F3000, v2, OS_LOG_TYPE_DEFAULT, "Sending %s with action: %@", &v7, 0x16u);
+    v6 = 136315394;
+    v7 = "[CXAbstractProviderSource handleActionTimeout:]_block_invoke";
+    v8 = 2112;
+    v9 = v3;
+    _os_log_impl(&dword_1B47F3000, v2, OS_LOG_TYPE_DEFAULT, "Sending %s with action: %@", &v6, 0x16u);
   }
 
   v4 = [*(a1 + 40) vendorProtocolDelegate];
   v5 = [*(a1 + 32) copy];
   [v4 handleActionTimeout:v5];
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (NSString)description
@@ -386,16 +380,16 @@ void __48__CXAbstractProviderSource_handleActionTimeout___block_invoke(uint64_t 
 
 - (void)actionCompleted:(uint64_t)a3 completionHandler:(uint64_t)a4 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0(&dword_1B47F3000, a2, a3, "Provider source is not entitled to use public API: %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0(&dword_1B47F3000, a2, a3, "Provider source is not entitled to use public API: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)requestTransaction:(uint64_t)a3 completionHandler:(uint64_t)a4 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0(&dword_1B47F3000, a2, a3, "Provider source is not entitled to use private API: %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0(&dword_1B47F3000, a2, a3, "Provider source is not entitled to use private API: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

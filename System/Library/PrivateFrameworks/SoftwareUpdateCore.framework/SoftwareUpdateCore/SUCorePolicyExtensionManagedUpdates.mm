@@ -40,7 +40,7 @@
 
 - (void)extendMASoftwareUpdateCatalogDownloadOptions:(id)options
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   optionsCopy = options;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -116,8 +116,8 @@
     {
       *buf = 138543618;
       selfCopy = self;
-      v28 = 2114;
-      v29 = v7;
+      v27 = 2114;
+      v28 = v7;
       _os_log_impl(&dword_23193C000, oslog, OS_LOG_TYPE_DEFAULT, "%{public}@ downloading software update catalog with extended download options: %{public}@", buf, 0x16u);
     }
   }
@@ -135,13 +135,11 @@
 
     v7 = @"|";
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (void)extendMADocumentationCatalogDownloadOptions:(id)options descriptor:(id)descriptor
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   optionsCopy = options;
   descriptorCopy = descriptor;
   objc_opt_class();
@@ -192,8 +190,8 @@
     {
       *buf = 138543618;
       selfCopy = self;
-      v29 = 2114;
-      v30 = v22;
+      v28 = 2114;
+      v29 = v22;
       _os_log_impl(&dword_23193C000, oslog, OS_LOG_TYPE_DEFAULT, "%{public}@ downloading documentation catalog with extended download options: %{public}@", buf, 0x16u);
     }
   }
@@ -211,13 +209,11 @@
 
     v22 = @"|";
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (void)extendMASoftwareUpdateAssetDownloadOptions:(id)options
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   optionsCopy = options;
   requestedPMV = [(SUCorePolicyExtensionManagedUpdates *)self requestedPMV];
 
@@ -316,17 +312,15 @@
   {
     *buf = 138543618;
     selfCopy = self;
-    v40 = 2114;
-    v41 = v34;
+    v39 = 2114;
+    v40 = v34;
     _os_log_impl(&dword_23193C000, oslog, OS_LOG_TYPE_DEFAULT, "%{public}@ downloading software update asset with extended download options: %{public}@", buf, 0x16u);
   }
-
-  v37 = *MEMORY[0x277D85DE8];
 }
 
 - (void)extendMSUApplyOptions:(id)options
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   optionsCopy = options;
   if ([(SUCorePolicyExtensionManagedUpdates *)self supervised])
   {
@@ -345,14 +339,12 @@
 
   if (os_log_type_enabled(oslog, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 138543618;
+    v9 = 138543618;
     selfCopy = self;
-    v12 = 2114;
-    v13 = v6;
-    _os_log_impl(&dword_23193C000, oslog, OS_LOG_TYPE_DEFAULT, "%{public}@ MSU apply options with extended options: %{public}@", &v10, 0x16u);
+    v11 = 2114;
+    v12 = v6;
+    _os_log_impl(&dword_23193C000, oslog, OS_LOG_TYPE_DEFAULT, "%{public}@ MSU apply options with extended options: %{public}@", &v9, 0x16u);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isRequestedPMVSupervisedPolicy

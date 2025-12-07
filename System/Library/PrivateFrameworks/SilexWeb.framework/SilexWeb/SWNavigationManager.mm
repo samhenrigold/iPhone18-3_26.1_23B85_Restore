@@ -42,7 +42,7 @@
 
 - (unint64_t)actionForRequest:(id)request
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   requestCopy = request;
   v5 = [requestCopy URL];
   pathExtension = [v5 pathExtension];
@@ -79,27 +79,27 @@ LABEL_7:
   if (v11)
   {
 LABEL_18:
-    v30 = 0u;
-    v31 = 0u;
-    v28 = 0u;
     v29 = 0u;
+    v30 = 0u;
+    v27 = 0u;
+    v28 = 0u;
     observers = [(SWNavigationManager *)self observers];
-    v20 = [observers countByEnumeratingWithState:&v28 objects:v36 count:16];
+    v20 = [observers countByEnumeratingWithState:&v27 objects:v35 count:16];
     if (v20)
     {
       v21 = v20;
-      v22 = *v29;
+      v22 = *v28;
       do
       {
         v23 = 0;
         do
         {
-          if (*v29 != v22)
+          if (*v28 != v22)
           {
             objc_enumerationMutation(observers);
           }
 
-          v24 = *(*(&v28 + 1) + 8 * v23);
+          v24 = *(*(&v27 + 1) + 8 * v23);
           v25 = [requestCopy URL];
           [v24 handledNavigationWithURL:v25];
 
@@ -107,7 +107,7 @@ LABEL_18:
         }
 
         while (v21 != v23);
-        v21 = [observers countByEnumeratingWithState:&v28 objects:v36 count:16];
+        v21 = [observers countByEnumeratingWithState:&v27 objects:v35 count:16];
       }
 
       while (v21);
@@ -116,27 +116,27 @@ LABEL_18:
 
   else
   {
-    v34 = 0u;
-    v35 = 0u;
-    v32 = 0u;
     v33 = 0u;
+    v34 = 0u;
+    v31 = 0u;
+    v32 = 0u;
     observers = [(SWNavigationManager *)self handlers];
-    v15 = [observers countByEnumeratingWithState:&v32 objects:v37 count:16];
+    v15 = [observers countByEnumeratingWithState:&v31 objects:v36 count:16];
     if (v15)
     {
       v16 = v15;
-      v17 = *v33;
+      v17 = *v32;
       while (2)
       {
         v18 = 0;
         do
         {
-          if (*v33 != v17)
+          if (*v32 != v17)
           {
             objc_enumerationMutation(observers);
           }
 
-          v19 = [*(*(&v32 + 1) + 8 * v18) handleRequest:requestCopy];
+          v19 = [*(*(&v31 + 1) + 8 * v18) handleRequest:requestCopy];
           if (v19)
           {
             v11 = v19;
@@ -148,7 +148,7 @@ LABEL_18:
         }
 
         while (v16 != v18);
-        v16 = [observers countByEnumeratingWithState:&v32 objects:v37 count:16];
+        v16 = [observers countByEnumeratingWithState:&v31 objects:v36 count:16];
         if (v16)
         {
           continue;
@@ -161,13 +161,12 @@ LABEL_18:
     v11 = 0;
   }
 
-  v26 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
 - (BOOL)shouldPreviewRequest:(id)request
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   requestCopy = request;
   v5 = [requestCopy URL];
   pathExtension = [v5 pathExtension];
@@ -239,37 +238,36 @@ LABEL_18:
 LABEL_18:
   if (!v13)
   {
-    v33 = 0u;
-    v34 = 0u;
     v31 = 0u;
     v32 = 0u;
+    v29 = 0u;
+    v30 = 0u;
     handlers = [(SWNavigationManager *)self handlers];
-    v13 = [handlers countByEnumeratingWithState:&v31 objects:v35 count:16];
+    v13 = [handlers countByEnumeratingWithState:&v29 objects:v33 count:16];
     if (v13)
     {
-      v29 = pathExtension;
-      v30 = scheme;
-      v18 = *v32;
+      v27 = pathExtension;
+      v28 = scheme;
+      v18 = *v30;
       while (2)
       {
         v19 = 0;
         v20 = v9;
-        v21 = v9[394];
         do
         {
-          if (*v32 != v18)
+          if (*v30 != v18)
           {
             objc_enumerationMutation(handlers);
           }
 
-          v22 = *(*(&v31 + 1) + 8 * v19);
+          v21 = *(*(&v29 + 1) + 8 * v19);
           if (objc_opt_respondsToSelector())
           {
-            v23 = [v22 previewViewControllerForRequest:requestCopy];
-            if (v23)
+            v22 = [v21 previewViewControllerForRequest:requestCopy];
+            if (v22)
             {
-              v24 = v23;
-              v13 = [[SWNavigationPreview alloc] initWithViewController:v23 navigationHandler:v22 URLRequest:requestCopy];
+              v23 = v22;
+              v13 = [[SWNavigationPreview alloc] initWithViewController:v22 navigationHandler:v21 URLRequest:requestCopy];
 
               goto LABEL_30;
             }
@@ -279,7 +277,7 @@ LABEL_18:
         }
 
         while (v13 != v19);
-        v13 = [handlers countByEnumeratingWithState:&v31 objects:v35 count:16];
+        v13 = [handlers countByEnumeratingWithState:&v29 objects:v33 count:16];
         v9 = v20;
         if (v13)
         {
@@ -290,17 +288,16 @@ LABEL_18:
       }
 
 LABEL_30:
-      pathExtension = v29;
-      scheme = v30;
+      pathExtension = v27;
+      scheme = v28;
     }
   }
 
-  [(SWNavigationManager *)self setCurrentPreview:v13, v29, v30];
+  [(SWNavigationManager *)self setCurrentPreview:v13, v27, v28];
   currentPreview = [(SWNavigationManager *)self currentPreview];
-  v26 = currentPreview != 0;
+  v25 = currentPreview != 0;
 
-  v27 = *MEMORY[0x1E69E9840];
-  return v26;
+  return v25;
 }
 
 - (id)previewViewControllerForRequest:(id)request
@@ -322,7 +319,7 @@ LABEL_30:
 
 - (void)commitViewController:(id)controller
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   controllerCopy = controller;
   currentPreview = [(SWNavigationManager *)self currentPreview];
   v6 = currentPreview;
@@ -337,27 +334,27 @@ LABEL_30:
       request = [v6 request];
       [navigationHandler commitViewController:controllerCopy URLRequest:request];
 
-      v21 = 0u;
-      v22 = 0u;
-      v19 = 0u;
       v20 = 0u;
+      v21 = 0u;
+      v18 = 0u;
+      v19 = 0u;
       observers = [(SWNavigationManager *)self observers];
-      v11 = [observers countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v11 = [observers countByEnumeratingWithState:&v18 objects:v22 count:16];
       if (v11)
       {
         v12 = v11;
-        v13 = *v20;
+        v13 = *v19;
         do
         {
           v14 = 0;
           do
           {
-            if (*v20 != v13)
+            if (*v19 != v13)
             {
               objc_enumerationMutation(observers);
             }
 
-            v15 = *(*(&v19 + 1) + 8 * v14);
+            v15 = *(*(&v18 + 1) + 8 * v14);
             request2 = [v6 request];
             v17 = [request2 URL];
             [v15 handledNavigationWithURL:v17];
@@ -366,15 +363,13 @@ LABEL_30:
           }
 
           while (v12 != v14);
-          v12 = [observers countByEnumeratingWithState:&v19 objects:v23 count:16];
+          v12 = [observers countByEnumeratingWithState:&v18 objects:v22 count:16];
         }
 
         while (v12);
       }
     }
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (void)registerHandler:(id)handler

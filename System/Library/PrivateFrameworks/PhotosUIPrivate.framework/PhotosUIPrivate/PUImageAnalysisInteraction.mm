@@ -662,7 +662,7 @@ LABEL_5:
     v11 = videoSession2;
     if (videoSession2)
     {
-      [videoSession2 preferredTransform];
+      objc_msgSend_preferredTransform(videoSession2);
     }
 
     v12 = PXVKImageOrientationFromPreferredTransform();

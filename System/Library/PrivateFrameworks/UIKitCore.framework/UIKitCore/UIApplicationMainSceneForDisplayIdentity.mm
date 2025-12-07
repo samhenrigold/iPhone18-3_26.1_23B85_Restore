@@ -12,7 +12,7 @@ void ___UIApplicationMainSceneForDisplayIdentity_block_invoke(void *a1, void *a2
   v8 = a1[4];
   if (v8)
   {
-    if (([v8 isEqual:v7] & 1) == 0)
+    if ((objc_msgSend_isEqual_(v8) & 1) == 0)
     {
       goto LABEL_13;
     }
@@ -33,7 +33,7 @@ void ___UIApplicationMainSceneForDisplayIdentity_block_invoke(void *a1, void *a2
   if (v11)
   {
     v12 = [v16 identityToken];
-    if ([v11 isEqual:v12])
+    if (objc_msgSend_isEqual_(v11))
     {
       v13 = v16;
     }

@@ -438,7 +438,7 @@ void __39__CAMLivePhotoBloomView_layoutSubviews__block_invoke(uint64_t a1, void 
 
   [v89 setToValue:&unk_1F16C7C10];
   [v89 setBeginTime:1.0];
-  [animation4 duration];
+  objc_msgSend_duration(animation4);
   [v89 setDuration:v98 + -1.0];
   v99 = [MEMORY[0x1E6979390] animationWithKeyPath:@"opacity"];
   [v99 setCalculationMode:v118];

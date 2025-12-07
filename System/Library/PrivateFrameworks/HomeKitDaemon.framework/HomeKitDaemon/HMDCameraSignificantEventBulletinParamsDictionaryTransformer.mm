@@ -7,7 +7,7 @@
 
 + (id)reverseTransformedValue:(id)value error:(id *)error
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   valueCopy = value;
   v6 = valueCopy;
   if (valueCopy)
@@ -32,50 +32,50 @@
             if (v15)
             {
               v16 = [v6 valueForKey:@"HMDCSEBP.ck.faceClassifications"];
-              v34 = v16;
+              v33 = v16;
               if (v16)
               {
                 v17 = v16;
-                v29 = unsignedIntegerValue2;
-                v30 = v15;
-                v31 = unsignedIntegerValue;
-                v32 = v13;
-                v33 = v9;
+                v28 = unsignedIntegerValue2;
+                v29 = v15;
+                v30 = unsignedIntegerValue;
+                v31 = v13;
+                v32 = v9;
                 v18 = objc_alloc_init(MEMORY[0x277CBEB58]);
+                v34 = 0u;
                 v35 = 0u;
                 v36 = 0u;
                 v37 = 0u;
-                v38 = 0u;
                 v19 = v17;
-                v20 = [v19 countByEnumeratingWithState:&v35 objects:v39 count:16];
+                v20 = [v19 countByEnumeratingWithState:&v34 objects:v38 count:16];
                 if (v20)
                 {
                   v21 = v20;
-                  v22 = *v36;
+                  v22 = *v35;
                   do
                   {
                     for (i = 0; i != v21; ++i)
                     {
-                      if (*v36 != v22)
+                      if (*v35 != v22)
                       {
                         objc_enumerationMutation(v19);
                       }
 
-                      v24 = [HMDCameraSignificantEventFaceClassificationDictionaryTransformer reverseTransformedValue:*(*(&v35 + 1) + 8 * i) error:error];
+                      v24 = [HMDCameraSignificantEventFaceClassificationDictionaryTransformer reverseTransformedValue:*(*(&v34 + 1) + 8 * i) error:error];
                       [v18 addObject:v24];
                     }
 
-                    v21 = [v19 countByEnumeratingWithState:&v35 objects:v39 count:16];
+                    v21 = [v19 countByEnumeratingWithState:&v34 objects:v38 count:16];
                   }
 
                   while (v21);
                 }
 
-                v9 = v33;
-                unsignedIntegerValue = v31;
-                v13 = v32;
-                v25 = v29;
-                v15 = v30;
+                v9 = v32;
+                unsignedIntegerValue = v30;
+                v13 = v31;
+                v25 = v28;
+                v15 = v29;
               }
 
               else
@@ -122,14 +122,12 @@
     v26 = 0;
   }
 
-  v27 = *MEMORY[0x277D85DE8];
-
   return v26;
 }
 
 + (id)transformedValue:(id)value error:(id *)error
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   valueCopy = value;
   if (valueCopy)
   {
@@ -152,47 +150,45 @@
     [dictionary setValue:uUIDString2 forKey:@"HMDCSEBP.ck.cameraProfileUUID"];
 
     array = [MEMORY[0x277CBEB18] array];
+    v24 = 0u;
     v25 = 0u;
     v26 = 0u;
     v27 = 0u;
-    v28 = 0u;
     faceClassifications = [valueCopy faceClassifications];
-    v16 = [faceClassifications countByEnumeratingWithState:&v25 objects:v29 count:16];
+    v16 = [faceClassifications countByEnumeratingWithState:&v24 objects:v28 count:16];
     if (v16)
     {
       v17 = v16;
-      v18 = *v26;
+      v18 = *v25;
       do
       {
         for (i = 0; i != v17; ++i)
         {
-          if (*v26 != v18)
+          if (*v25 != v18)
           {
             objc_enumerationMutation(faceClassifications);
           }
 
-          v20 = [HMDCameraSignificantEventFaceClassificationDictionaryTransformer transformedValue:*(*(&v25 + 1) + 8 * i) error:error];
+          v20 = [HMDCameraSignificantEventFaceClassificationDictionaryTransformer transformedValue:*(*(&v24 + 1) + 8 * i) error:error];
           [array addObject:v20];
         }
 
-        v17 = [faceClassifications countByEnumeratingWithState:&v25 objects:v29 count:16];
+        v17 = [faceClassifications countByEnumeratingWithState:&v24 objects:v28 count:16];
       }
 
       while (v17);
     }
 
-    v21 = [array copy];
+    v21 = objc_msgSend_copy(array);
     [dictionary setValue:v21 forKey:@"HMDCSEBP.ck.faceClassifications"];
 
-    v22 = [dictionary copy];
+    v22 = objc_msgSend_copy(dictionary);
   }
 
   else
   {
     v22 = 0;
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 
   return v22;
 }

@@ -5,8 +5,8 @@
 - (SBRecordingIndicatorManager)initWithWindowScene:(id)scene;
 - (SBWindowScene)windowScene;
 - (id)_indicatorIdentifierForSensorType:(int64_t)type;
-- (uint64_t)_configureSupportForRotatingIndicator;
 - (unint64_t)_indicatorTypeForSensorType:(int64_t)type;
+- (void)_configureSupportForRotatingIndicator;
 - (void)_createRecordingIndicatorForStandaloneLocation:(BOOL)location;
 - (void)_createRecordingIndicatorForStatusBarLocation;
 - (void)_createRecordingIndicatorForSystemApertureLocation;
@@ -1006,14 +1006,14 @@ LABEL_5:
   return WeakRetained;
 }
 
-- (uint64_t)_configureSupportForRotatingIndicator
+- (void)_configureSupportForRotatingIndicator
 {
   if (result)
   {
     v1 = result;
     [SBApp addActiveOrientationObserver:result];
     activeInterfaceOrientation = [SBApp activeInterfaceOrientation];
-    v3 = *(v1 + 32);
+    v3 = v1[4];
 
     return [v3 setActiveInterfaceOrientation:activeInterfaceOrientation withDuration:0.0];
   }

@@ -1,4 +1,5 @@
 @interface HMDAccessoryNetworkProtectionGroupRecord
++ (id)recordWithGroup:(id)group active:(BOOL)active persisted:(BOOL)persisted;
 - (HMDAccessoryNetworkProtectionGroupRecord)initWithGroup:(id)group active:(BOOL)active persisted:(BOOL)persisted;
 @end
 
@@ -19,6 +20,16 @@
   }
 
   return v11;
+}
+
++ (id)recordWithGroup:(id)group active:(BOOL)active persisted:(BOOL)persisted
+{
+  persistedCopy = persisted;
+  activeCopy = active;
+  groupCopy = group;
+  v8 = [[HMDAccessoryNetworkProtectionGroupRecord alloc] initWithGroup:groupCopy active:activeCopy persisted:persistedCopy];
+
+  return v8;
 }
 
 @end

@@ -755,23 +755,29 @@ LABEL_103:
   }
 
   [(UITransitionView *)self->_transitionView setShouldNotifyDidCompleteImmediately:1];
-  switch(v44)
+  if (v44 == 1)
   {
-    case 1:
-      v93 = 0.0;
-      break;
-    case 3:
-      v93 = 1.57079633;
-      break;
-    case 4:
-      v93 = -1.57079633;
-      break;
-    case 2:
-      v93 = 3.14159265;
-      break;
-    default:
-      v93 = 0.0;
-      break;
+    v93 = 0.0;
+  }
+
+  else if (v44 == 3)
+  {
+    v93 = 1.57079633;
+  }
+
+  else if (v44 == 4)
+  {
+    v93 = -1.57079633;
+  }
+
+  else if (v44 == 2)
+  {
+    v93 = 3.14159265;
+  }
+
+  else
+  {
+    v93 = 0.0;
   }
 
   CGAffineTransformMakeRotation(&v235, v93);
@@ -789,7 +795,7 @@ LABEL_103:
   if (!(v179 & 1 | ((v103 & 1) == 0)))
   {
     memset(&v235, 0, sizeof(v235));
-    [UIScreen transformForScreenOriginRotation:v93];
+    objc_msgSend_transformForScreenOriginRotation_(UIScreen, v93);
     v234 = v235;
     v239.origin.x = v96;
     v239.origin.y = v98;
@@ -1750,13 +1756,13 @@ LABEL_35:
 
   if (completeCopy)
   {
-    [completeCopy transform];
+    objc_msgSend_transform(completeCopy);
     if (CGAffineTransformIsIdentity(&v49))
     {
       goto LABEL_12;
     }
 
-    [completeCopy transform];
+    objc_msgSend_transform(completeCopy);
   }
 
   else
@@ -1820,7 +1826,7 @@ LABEL_18:
 
       if (completeCopy)
       {
-        [completeCopy transform];
+        objc_msgSend_transform(completeCopy);
       }
 
       else

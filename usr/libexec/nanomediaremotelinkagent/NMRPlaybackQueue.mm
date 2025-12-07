@@ -218,9 +218,9 @@
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134218240;
-    v14 = observedRange;
-    v15 = 2048;
-    v16 = v7;
+    v13 = observedRange;
+    v14 = 2048;
+    v15 = v7;
     _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Requesting playback queue information for range: %ld -> %ld", buf, 0x16u);
   }
 
@@ -229,8 +229,7 @@
   MRPlaybackQueueRequestSetIncludeMetadata();
   [(NMROrigin *)self->_origin mediaRemoteOrigin];
   v10 = MRNowPlayingPlayerPathCreate();
-  serialQueue = self->_serialQueue;
-  v12 = completionCopy;
+  v11 = completionCopy;
   MRMediaRemoteRequestNowPlayingPlaybackQueueForPlayerSync();
   CFRelease(v9);
   CFRelease(v10);
@@ -281,7 +280,7 @@
   if (self->_nowPlayingInfo)
   {
     contentItems = [(_NMRPlaybackQueue *)self->_upNextPlaybackQueue contentItems];
-    v23 = objc_opt_new();
+    v22 = objc_opt_new();
     location = [(_NMRPlaybackQueue *)self->_upNextPlaybackQueue location];
     v9 = [contentItems count];
     if (var1 >= 1)
@@ -304,13 +303,12 @@
           v16 = sub_100010E64(var0, metadataCopy);
           if (!var0)
           {
-            nowPlayingInfo = self->_nowPlayingInfo;
             MRContentItemSetNowPlayingInfo();
           }
 
           if (v16)
           {
-            [v23 addObject:v16];
+            [v22 addObject:v16];
             CFRelease(v16);
             if (var0 < v13)
             {
@@ -328,17 +326,17 @@
       while (var1);
     }
 
-    [v23 count];
-    v18 = MRPlaybackQueueCreate();
-    v19 = sub_10002C180(2);
-    v20 = os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG);
+    [v22 count];
+    v17 = MRPlaybackQueueCreate();
+    v18 = sub_10002C180(2);
+    v19 = os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG);
 
-    if (v20)
+    if (v19)
     {
-      v21 = sub_10002C180(2);
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
+      v20 = sub_10002C180(2);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
       {
-        sub_100030F18(v18, v21);
+        sub_100030F18(v17, v20);
       }
     }
   }
@@ -352,10 +350,10 @@
       _os_log_impl(&_mh_execute_header, contentItems, OS_LOG_TYPE_DEFAULT, "No now playing info yet, returning nil queue representation.", buf, 2u);
     }
 
-    v18 = 0;
+    v17 = 0;
   }
 
-  return v18;
+  return v17;
 }
 
 - (void)_updateWithMediaRemoteQueue:(void *)queue
@@ -366,16 +364,16 @@
     Range = MRPlaybackQueueGetRange();
     v6 = objc_opt_new();
     v7 = MRPlaybackQueueCopyContentItems();
-    v14 = _NSConcreteStackBlock;
-    v15 = 3221225472;
-    v16 = sub_1000118AC;
-    v17 = &unk_100048EE0;
+    v12 = _NSConcreteStackBlock;
+    v13 = 3221225472;
+    v14 = sub_1000118AC;
+    v15 = &unk_100048EE0;
     selfCopy = self;
     v8 = v6;
-    v19 = v8;
-    [v7 enumerateObjectsUsingBlock:&v14];
+    v17 = v8;
+    [v7 enumerateObjectsUsingBlock:&v12];
     v9 = objc_opt_new();
-    [v9 setLocation:{Range, v14, v15, v16, v17, selfCopy}];
+    [v9 setLocation:{Range, v12, v13, v14, v15, selfCopy}];
     [v9 setContentItems:v8];
     objc_storeStrong(&self->_upNextPlaybackQueue, v9);
     v10 = sub_10002C180(2);
@@ -383,16 +381,14 @@
     {
       v11 = sub_100010700(self->_upNextPlaybackQueue);
       *buf = 138412290;
-      v21 = v11;
+      v19 = v11;
       _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_INFO, "Updated with new mediaRemote info, queue is now %@", buf, 0xCu);
     }
   }
 
   else
   {
-    v12 = objc_opt_new();
-    upNextPlaybackQueue = self->_upNextPlaybackQueue;
-    self->_upNextPlaybackQueue = v12;
+    self->_upNextPlaybackQueue = objc_opt_new();
 
     _objc_release_x1();
   }

@@ -7,14 +7,13 @@
 - (void)dealloc
 {
   ObjectType = swift_getObjectType();
-  v4 = *(&self->super.isa + OBJC_IVAR____TtC17HealthAppServices28HealthAppOrchestrationClient_clientProxy);
   swift_unknownObjectWeakAssign();
-  v5 = *(&self->super.isa + OBJC_IVAR____TtC17HealthAppServices28HealthAppOrchestrationClient_connection);
+  v4 = *(&self->super.isa + OBJC_IVAR____TtC17HealthAppServices28HealthAppOrchestrationClient_connection);
   selfCopy = self;
-  [v5 invalidate];
-  v7.receiver = selfCopy;
-  v7.super_class = ObjectType;
-  [(HealthAppOrchestrationClient *)&v7 dealloc];
+  [v4 invalidate];
+  v6.receiver = selfCopy;
+  v6.super_class = ObjectType;
+  [(HealthAppOrchestrationClient *)&v6 dealloc];
 }
 
 @end

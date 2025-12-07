@@ -29,7 +29,7 @@
 
 - (void)addToWTR:(Class)r priceTrackingOptInTypeWithCompletion:(id)completion
 {
-  v7 = sub_1001F1160(&qword_100AD67D0);
+  v7 = sub_1001F1160(&qword_100AD67D0, &qword_100814660);
   __chkstk_darwin(v7 - 8);
   v9 = &v16 - v8;
   v10 = _Block_copy(completion);
@@ -55,7 +55,7 @@
 
 - (void)addToWTR:(Class)r didShowPriceTrackingOptInWithCompletion:(id)completion
 {
-  v7 = sub_1001F1160(&qword_100AD67D0);
+  v7 = sub_1001F1160(&qword_100AD67D0, &qword_100814660);
   __chkstk_darwin(v7 - 8);
   v9 = &v16 - v8;
   v10 = _Block_copy(completion);
@@ -81,7 +81,7 @@
 
 - (void)addToWTR:(Class)r didAcceptPriceTrackingOptInWithCompletion:(id)completion
 {
-  v7 = sub_1001F1160(&qword_100AD67D0);
+  v7 = sub_1001F1160(&qword_100AD67D0, &qword_100814660);
   __chkstk_darwin(v7 - 8);
   v9 = &v16 - v8;
   v10 = _Block_copy(completion);

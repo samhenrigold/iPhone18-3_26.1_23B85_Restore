@@ -1781,8 +1781,8 @@ LABEL_55:
   v9 = [(UIImage *)self->_tipMaskImage hash];
   v10 = [(UIImage *)self->_tipContourImage hash];
   v11 = [(NSDictionary *)self->_strokeWeightsToButtonImages hash];
-  v12 = PKHashBytes(&self->_minimumBandThickness, 8);
-  v13 = PKHashBytes(&self->_maximumBandThickness, 8);
+  v12 = PKHashBytes(&self->_minimumBandThickness, 8u);
+  v13 = PKHashBytes(&self->_maximumBandThickness, 8u);
   v14 = 0xBF58476D1CE4E5B9 * (self->_inkVersion ^ (self->_inkVersion >> 30));
   v15 = (0x94D049BB133111EBLL * ((0xBF58476D1CE4E5B9 * self->_isEraserTool) ^ ((0xBF58476D1CE4E5B9 * self->_isEraserTool) >> 27))) ^ (0x94D049BB133111EBLL * ((0xBF58476D1CE4E5B9 * self->_supportsLassoToolEditingView) ^ ((0xBF58476D1CE4E5B9 * self->_supportsLassoToolEditingView) >> 27))) ^ (0x94D049BB133111EBLL * ((0xBF58476D1CE4E5B9 * self->_wantsStrokeWeightControl) ^ ((0xBF58476D1CE4E5B9 * self->_wantsStrokeWeightControl) >> 27))) ^ (0x94D049BB133111EBLL * ((0xBF58476D1CE4E5B9 * self->_wantsTopLevelOpacityControl) ^ ((0xBF58476D1CE4E5B9 * self->_wantsTopLevelOpacityControl) >> 27))) ^ (0x94D049BB133111EBLL * (v14 ^ (v14 >> 27)));
   return v15 ^ v20 ^ v21 ^ v18 ^ (v19 >> 31) ^ v17 ^ (v4 >> 31) ^ v9 ^ (v6 >> 31) ^ v10 ^ v11 ^ v12 ^ (v8 >> 31) ^ v13 ^ (v15 >> 31) ^ v19 ^ v4 ^ v6 ^ v8;

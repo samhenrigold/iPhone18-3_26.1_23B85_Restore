@@ -369,14 +369,16 @@
 
   else
   {
-    v13 = v4;
+    v15 = v4;
     MRMatrix_SetDiagonal(matrix, 1.0, 1.0 / *v4.i32, 1.0);
-    v11 = self->_rotationAngle * 57.2957764;
-    MRMatrix_SetRotationFromAnglesYXZDeg(matrix, 0.0, 0.0, v11);
-    v12 = vdiv_f32(*(matrix + 4), vdup_lane_s32(v13, 0));
-    *(matrix + 2) = v12;
-    v12.f32[0] = v9;
-    MRMatrix_Scale(matrix, v12, v9 * v10, 1.0);
+    v11.n128_f32[0] = self->_rotationAngle * 57.2957764;
+    v12.n128_u64[0] = 0;
+    v13.n128_u64[0] = 0;
+    MRMatrix_SetRotationFromAnglesYXZDeg(v12, v13, v11, matrix);
+    v14 = vdiv_f32(*(matrix + 4), vdup_lane_s32(v15, 0));
+    *(matrix + 2) = v14;
+    v14.f32[0] = v9;
+    MRMatrix_Scale(matrix, v14, v9 * v10, 1.0);
   }
 
   *(matrix + 6) = vcvt_f32_f64(vaddq_f64(*&self->_centerX, vcvtq_f64_f32(*(matrix + 12))));

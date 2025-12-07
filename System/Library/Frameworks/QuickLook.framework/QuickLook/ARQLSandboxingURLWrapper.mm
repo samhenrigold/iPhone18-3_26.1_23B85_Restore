@@ -1,7 +1,9 @@
 @interface ARQLSandboxingURLWrapper
++ (id)wrapperWithURL:(id)l extensionClass:(const char *)class report:(BOOL)report error:(id *)error;
 + (id)wrapperWithURL:(id)l readonly:(BOOL)readonly error:(id *)error;
 + (void)assembleURL:(id)l sandbox:(id)sandbox physicalURL:(id)rL physicalSandbox:(id)physicalSandbox;
 - (ARQLSandboxingURLWrapper)initWithCoder:(id)coder;
+- (ARQLSandboxingURLWrapper)initWithURL:(id)l extensionClass:(const char *)class report:(BOOL)report error:(id *)error;
 - (id)issueSandboxExtensionForURL:(id)l extensionClass:(const char *)class report:(BOOL)report error:(id *)error;
 - (void)encodeWithCoder:(id)coder;
 @end
@@ -19,6 +21,92 @@
   return [self wrapperWithURL:l extensionClass:*v5 error:error];
 }
 
++ (id)wrapperWithURL:(id)l extensionClass:(const char *)class report:(BOOL)report error:(id *)error
+{
+  reportCopy = report;
+  lCopy = l;
+  v11 = [[self alloc] initWithURL:lCopy extensionClass:class report:reportCopy error:error];
+
+  return v11;
+}
+
+- (ARQLSandboxingURLWrapper)initWithURL:(id)l extensionClass:(const char *)class report:(BOOL)report error:(id *)error
+{
+  reportCopy = report;
+  lCopy = l;
+  v28.receiver = self;
+  v28.super_class = ARQLSandboxingURLWrapper;
+  v12 = [(ARQLSandboxingURLWrapper *)&v28 init];
+  v13 = v12;
+  if (!v12)
+  {
+    v18 = 0;
+LABEL_14:
+    v23 = v13;
+    goto LABEL_19;
+  }
+
+  objc_storeStrong(&v12->_url, l);
+  v14 = _CFURLPromiseCopyPhysicalURL();
+  if (([lCopy isEqual:v14] & 1) == 0)
+  {
+    objc_storeStrong(&v13->_promiseURL, v14);
+  }
+
+  startAccessingSecurityScopedResource = [lCopy startAccessingSecurityScopedResource];
+  startAccessingSecurityScopedResource2 = [v14 startAccessingSecurityScopedResource];
+  v27 = 0;
+  v17 = [(ARQLSandboxingURLWrapper *)v13 issueSandboxExtensionForURL:lCopy extensionClass:class report:reportCopy error:&v27];
+  v18 = v27;
+  scope = v13->_scope;
+  v13->_scope = v17;
+
+  if (v13->_scope)
+  {
+    if (!v14)
+    {
+LABEL_8:
+      if (startAccessingSecurityScopedResource)
+      {
+        [lCopy stopAccessingSecurityScopedResource];
+      }
+
+      if (startAccessingSecurityScopedResource2)
+      {
+        [v14 stopAccessingSecurityScopedResource];
+      }
+
+      goto LABEL_14;
+    }
+
+    v26 = v18;
+    v20 = [(ARQLSandboxingURLWrapper *)v13 issueSandboxExtensionForURL:v14 extensionClass:class report:reportCopy error:&v26];
+    v21 = v26;
+
+    promiseScope = v13->_promiseScope;
+    v13->_promiseScope = v20;
+
+    if (v13->_promiseScope)
+    {
+      v18 = v21;
+      goto LABEL_8;
+    }
+
+    v18 = v21;
+  }
+
+  if (error)
+  {
+    v24 = v18;
+    *error = v18;
+  }
+
+  v23 = 0;
+LABEL_19:
+
+  return v23;
+}
+
 - (id)issueSandboxExtensionForURL:(id)l extensionClass:(const char *)class report:(BOOL)report error:(id *)error
 {
   lCopy = l;
@@ -32,27 +120,25 @@
     path = v10;
   }
 
-  v11 = *MEMORY[0x277D861F0];
-  v12 = *MEMORY[0x277D861F8];
   [path fileSystemRepresentation];
-  v13 = sandbox_extension_issue_file();
-  if (v13)
+  v11 = sandbox_extension_issue_file();
+  if (v11)
   {
-    v14 = [MEMORY[0x277CBEA90] dataWithBytesNoCopy:v13 length:strlen(v13) + 1 freeWhenDone:1];
+    v12 = [MEMORY[0x277CBEA90] dataWithBytesNoCopy:v11 length:strlen(v11) + 1 freeWhenDone:1];
   }
 
   else if (error)
   {
     [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.AssetViewer.ARQLSandboxingURLWrapper" code:1 userInfo:0];
-    *error = v14 = 0;
+    *error = v12 = 0;
   }
 
   else
   {
-    v14 = 0;
+    v12 = 0;
   }
 
-  return v14;
+  return v12;
 }
 
 - (void)encodeWithCoder:(id)coder

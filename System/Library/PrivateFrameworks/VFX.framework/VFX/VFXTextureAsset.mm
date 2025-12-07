@@ -6,9 +6,9 @@
 
 - (void)_forceSynchronousLoading
 {
-  v4 = objc_msgSend_entityObject(self, a2, v2, v3);
+  v3 = objc_msgSend_entityObject(self, a2, v2);
 
-  MEMORY[0x1EEE66B58](v4, sel_makeTextureLoadingSynchronous, v5, v6);
+  MEMORY[0x1EEE66B58](v3, sel_makeTextureLoadingSynchronous, v4);
 }
 
 @end

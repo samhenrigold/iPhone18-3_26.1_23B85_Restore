@@ -29,7 +29,7 @@
 
 - (uint64_t)isValidForContext:()RBProcessState withError:
 {
-  v45[2] = *MEMORY[0x277D85DE8];
+  v44[2] = *MEMORY[0x277D85DE8];
   v6 = a3;
   if ([v6 targetIsSystem])
   {
@@ -38,15 +38,15 @@
       v7 = MEMORY[0x277CCA9B8];
       v8 = *MEMORY[0x277D47050];
       v9 = *MEMORY[0x277CCA470];
-      v45[0] = @"Hereditary grants may not target the system";
+      v44[0] = @"Hereditary grants may not target the system";
       v10 = *MEMORY[0x277D47048];
-      v44[0] = v9;
-      v44[1] = v10;
+      v43[0] = v9;
+      v43[1] = v10;
       originatorEntitlements = [self description];
-      v45[1] = originatorEntitlements;
+      v44[1] = originatorEntitlements;
       v12 = MEMORY[0x277CBEAC0];
-      v13 = v45;
-      v14 = v44;
+      v13 = v44;
+      v14 = v43;
 LABEL_18:
       attributes = [v12 dictionaryWithObjects:v13 forKeys:v14 count:2];
       [v7 errorWithDomain:v8 code:2 userInfo:attributes];
@@ -75,24 +75,24 @@ LABEL_18:
         v28 = MEMORY[0x277CCA9B8];
         v29 = *MEMORY[0x277D47050];
         v30 = *MEMORY[0x277CCA470];
-        v41[0] = @"Required client entitlement is missing";
+        v40[0] = @"Required client entitlement is missing";
         v31 = *MEMORY[0x277D47048];
-        v40[0] = v30;
-        v40[1] = v31;
+        v39[0] = v30;
+        v39[1] = v31;
         attributes = [self description];
-        v41[1] = attributes;
-        v32 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v41 forKeys:v40 count:2];
+        v40[1] = attributes;
+        v32 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v40 forKeys:v39 count:2];
         *a4 = [v28 errorWithDomain:v29 code:2 userInfo:v32];
       }
 
       else
       {
-        v37 = 0u;
-        v38 = 0u;
-        v35 = 0u;
         v36 = 0u;
+        v37 = 0u;
+        v34 = 0u;
+        v35 = 0u;
         attributes = [self attributes];
-        v21 = [attributes countByEnumeratingWithState:&v35 objects:v39 count:16];
+        v21 = [attributes countByEnumeratingWithState:&v34 objects:v38 count:16];
         if (!v21)
         {
           v25 = 1;
@@ -100,24 +100,24 @@ LABEL_18:
         }
 
         v22 = v21;
-        v23 = *v36;
+        v23 = *v35;
 LABEL_9:
         v24 = 0;
         while (1)
         {
-          if (*v36 != v23)
+          if (*v35 != v23)
           {
             objc_enumerationMutation(attributes);
           }
 
-          if (![*(*(&v35 + 1) + 8 * v24) isValidForContext:v6 withError:a4])
+          if (![*(*(&v34 + 1) + 8 * v24) isValidForContext:v6 withError:a4])
           {
             break;
           }
 
           if (v22 == ++v24)
           {
-            v22 = [attributes countByEnumeratingWithState:&v35 objects:v39 count:16];
+            v22 = [attributes countByEnumeratingWithState:&v34 objects:v38 count:16];
             v25 = 1;
             if (v22)
             {
@@ -141,15 +141,15 @@ LABEL_25:
       v7 = MEMORY[0x277CCA9B8];
       v8 = *MEMORY[0x277D47050];
       v26 = *MEMORY[0x277CCA470];
-      v43[0] = @"Hereditary grants must specify a target environment";
+      v42[0] = @"Hereditary grants must specify a target environment";
       v27 = *MEMORY[0x277D47048];
-      v42[0] = v26;
-      v42[1] = v27;
+      v41[0] = v26;
+      v41[1] = v27;
       originatorEntitlements = [self description];
-      v43[1] = originatorEntitlements;
+      v42[1] = originatorEntitlements;
       v12 = MEMORY[0x277CBEAC0];
-      v13 = v43;
-      v14 = v42;
+      v13 = v42;
+      v14 = v41;
       goto LABEL_18;
     }
   }
@@ -157,7 +157,6 @@ LABEL_25:
   v25 = 0;
 LABEL_26:
 
-  v33 = *MEMORY[0x277D85DE8];
   return v25;
 }
 

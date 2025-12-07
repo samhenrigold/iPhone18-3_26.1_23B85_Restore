@@ -65,7 +65,6 @@
     v4 = 0;
     do
     {
-      v5 = p_embeddings->list[v4];
       PBDataWriterWriteFloatField();
       ++v4;
     }

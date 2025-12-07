@@ -44,7 +44,7 @@
   v6 = __biome_log_for_category();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
-    [_BPSTimerInner receiveCompletion:];
+    [_BPSTimerInner receiveCompletion:selfCopy];
   }
 
   downstream = [(_BPSTimerInner *)selfCopy downstream];
@@ -53,7 +53,7 @@
 
 - (int64_t)receiveInput:(id)input
 {
-  *&v20[5] = *MEMORY[0x1E69E9840];
+  *&v19[5] = *MEMORY[0x1E69E9840];
   inputCopy = input;
   selfCopy = self;
   os_unfair_lock_lock(&selfCopy->_lock);
@@ -85,7 +85,7 @@
       v13 = __biome_log_for_category();
       if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
       {
-        [(_BPSTimerInner *)v19 receiveInput:v20, v13];
+        [(_BPSTimerInner *)v18 receiveInput:v19, v13];
       }
 
       downstream = [(_BPSTimerInner *)selfCopy downstream];
@@ -102,7 +102,6 @@
 
   os_unfair_lock_unlock(&selfCopy->_lock);
 
-  v17 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
@@ -115,22 +114,18 @@
 
 - (void)cancel
 {
-  v6 = *MEMORY[0x1E69E9840];
   objc_opt_class();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
 }
 
-- (void)receiveCompletion:.cold.1()
+- (void)receiveCompletion:(uint64_t)a1 .cold.1(uint64_t a1)
 {
-  v6 = *MEMORY[0x1E69E9840];
   objc_opt_class();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
 }
 
 - (void)receiveInput:(void *)a3 .cold.2(uint8_t *a1, id *a2, void *a3, NSObject *a4)

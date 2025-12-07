@@ -3,7 +3,7 @@
 
 @implementation MFAutocompleteResultsTableViewModel
 
-uint64_t __64___MFAutocompleteResultsTableViewModel_numberOfNonEmptySections__block_invoke(uint64_t a1, uint64_t a2, void *a3)
+void *__64___MFAutocompleteResultsTableViewModel_numberOfNonEmptySections__block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
   result = [a3 count];
   if (result)

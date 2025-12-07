@@ -114,15 +114,15 @@ LABEL_19:
       v19 = v18;
       if (v10 == v18)
       {
-        LOBYTE(v11) = 1;
+        LOBYTE(isEqualToString) = 1;
       }
 
       else
       {
-        LOBYTE(v11) = 0;
+        LOBYTE(isEqualToString) = 0;
         if (v10 && v18)
         {
-          LOBYTE(v11) = [(NSString *)v10 isEqualToString:v18];
+          LOBYTE(isEqualToString) = objc_msgSend_isEqualToString_(v10);
         }
       }
 
@@ -132,12 +132,12 @@ LABEL_19:
       goto LABEL_25;
     }
 
-    LOBYTE(v11) = 0;
+    LOBYTE(isEqualToString) = 0;
     if (v8 && v9)
     {
-      v11 = [(NSString *)v8 isEqualToString:v9];
+      isEqualToString = objc_msgSend_isEqualToString_(v8);
 
-      if (!v11)
+      if (!isEqualToString)
       {
         goto LABEL_26;
       }
@@ -169,15 +169,15 @@ LABEL_26:
 
     else
     {
-      LOBYTE(v11) = 0;
+      LOBYTE(isEqualToString) = 0;
       if (!v8 || !v14)
       {
         goto LABEL_14;
       }
 
-      v11 = [(NSString *)v8 isEqualToString:v14];
+      isEqualToString = objc_msgSend_isEqualToString_(v8);
 
-      if (!v11)
+      if (!isEqualToString)
       {
         goto LABEL_26;
       }
@@ -187,10 +187,10 @@ LABEL_26:
     goto LABEL_19;
   }
 
-  LOBYTE(v11) = 0;
+  LOBYTE(isEqualToString) = 0;
 LABEL_27:
 
-  return v11;
+  return isEqualToString;
 }
 
 - (BOOL)representsPass:(id)pass
@@ -220,9 +220,9 @@ LABEL_27:
       goto LABEL_18;
     }
 
-    v10 = [(NSString *)v7 isEqualToString:v8];
+    isEqualToString = objc_msgSend_isEqualToString_(v7);
 
-    if (!v10)
+    if (!isEqualToString)
     {
       goto LABEL_19;
     }
@@ -241,9 +241,9 @@ LABEL_27:
 
   if (v9 && v14)
   {
-    v16 = [(NSString *)v9 isEqualToString:v14];
+    v16 = objc_msgSend_isEqualToString_(v9);
 
-    if (!v16)
+    if ((v16 & 1) == 0)
     {
       goto LABEL_20;
     }
@@ -302,7 +302,7 @@ LABEL_38:
 
             if (v30)
             {
-              v32 = [(NSString *)v29 isEqualToString:v30];
+              v32 = objc_msgSend_isEqualToString_(v29);
 
               if (v32)
               {

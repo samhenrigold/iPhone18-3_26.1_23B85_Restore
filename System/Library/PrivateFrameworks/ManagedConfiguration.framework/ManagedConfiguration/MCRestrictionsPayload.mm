@@ -19,6 +19,7 @@
 - (id)installationWarnings;
 - (id)localizedRestrictionStrings;
 - (id)stubDictionary;
+- (void)_insertRestrictedBoolForKey:(id)key value:(id)value preferenc:(BOOL)preferenc;
 @end
 
 @implementation MCRestrictionsPayload
@@ -147,71 +148,74 @@ void __56__MCRestrictionsPayload_userEnrollmentAllowedKeysFilter__block_invoke()
 
 void __58__MCRestrictionsPayload__ephemeralMultiUserOnlyKeysFilter__block_invoke()
 {
-  v4[1] = *MEMORY[0x1E69E9840];
-  v3 = @"restrictedBool";
-  v4[0] = &unk_1F1AA5980;
-  v0 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v4 forKeys:&v3 count:1];
+  v3[1] = *MEMORY[0x1E69E9840];
+  v2 = @"restrictedBool";
+  v3[0] = &unk_1F1AA5980;
+  v0 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v3 forKeys:&v2 count:1];
   v1 = _ephemeralMultiUserOnlyKeysFilter_dict;
   _ephemeralMultiUserOnlyKeysFilter_dict = v0;
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 + (id)_platformSpecificKeyFilter
 {
-  if (MCGestaltIsAppleTV())
+  IsAppleTV = MCGestaltIsAppleTV(self, a2);
+  if (IsAppleTV)
   {
     if (_AppleTVAllowedKeysFilter_onceToken != -1)
     {
       +[MCRestrictionsPayload _platformSpecificKeyFilter];
     }
 
-    v2 = &_AppleTVAllowedKeysFilter_dict;
-  }
-
-  else if (MCGestaltIsWatch())
-  {
-    if (_WatchAllowedKeysFilter_onceToken != -1)
-    {
-      +[MCRestrictionsPayload _platformSpecificKeyFilter];
-    }
-
-    v2 = &_WatchAllowedKeysFilter_dict;
-  }
-
-  else if (MCGestaltIsVisionDevice())
-  {
-    if (_VisionProAllowedKeysFilter_onceToken != -1)
-    {
-      +[MCRestrictionsPayload _platformSpecificKeyFilter];
-    }
-
-    v2 = &_VisionProAllowedKeysFilter_dict;
-  }
-
-  else if ([MEMORY[0x1E6999800] isSharediPad])
-  {
-    if (_ephemeralMultiUserAllowedKeysFilter_onceToken != -1)
-    {
-      +[MCRestrictionsPayload _platformSpecificKeyFilter];
-    }
-
-    v2 = &_ephemeralMultiUserAllowedKeysFilter_dict;
+    v4 = &_AppleTVAllowedKeysFilter_dict;
   }
 
   else
   {
-    if (_singleUserAllowedKeysFilter_onceToken != -1)
+    IsWatch = MCGestaltIsWatch(IsAppleTV, v3);
+    if (IsWatch)
     {
-      +[MCRestrictionsPayload _platformSpecificKeyFilter];
+      if (_WatchAllowedKeysFilter_onceToken != -1)
+      {
+        +[MCRestrictionsPayload _platformSpecificKeyFilter];
+      }
+
+      v4 = &_WatchAllowedKeysFilter_dict;
     }
 
-    v2 = &_singleUserAllowedKeysFilter_dict;
+    else if (MCGestaltIsVisionDevice(IsWatch, v6))
+    {
+      if (_VisionProAllowedKeysFilter_onceToken != -1)
+      {
+        +[MCRestrictionsPayload _platformSpecificKeyFilter];
+      }
+
+      v4 = &_VisionProAllowedKeysFilter_dict;
+    }
+
+    else if ([MEMORY[0x1E6999800] isSharediPad])
+    {
+      if (_ephemeralMultiUserAllowedKeysFilter_onceToken != -1)
+      {
+        +[MCRestrictionsPayload _platformSpecificKeyFilter];
+      }
+
+      v4 = &_ephemeralMultiUserAllowedKeysFilter_dict;
+    }
+
+    else
+    {
+      if (_singleUserAllowedKeysFilter_onceToken != -1)
+      {
+        +[MCRestrictionsPayload _platformSpecificKeyFilter];
+      }
+
+      v4 = &_singleUserAllowedKeysFilter_dict;
+    }
   }
 
-  v3 = *v2;
+  v7 = *v4;
 
-  return v3;
+  return v7;
 }
 
 - (id)_invalidFieldErrorWithFieldName:(id)name
@@ -225,13 +229,13 @@ void __58__MCRestrictionsPayload__ephemeralMultiUserOnlyKeysFilter__block_invoke
 
 - (MCRestrictionsPayload)initWithDictionary:(id)dictionary profile:(id)profile outError:(id *)error
 {
-  v252 = *MEMORY[0x1E69E9840];
+  v247 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   profileCopy = profile;
-  v233.receiver = self;
-  v233.super_class = MCRestrictionsPayload;
-  v197 = dictionaryCopy;
-  v10 = [(MCPayload *)&v233 initWithDictionary:dictionaryCopy profile:profileCopy outError:error];
+  v228.receiver = self;
+  v228.super_class = MCRestrictionsPayload;
+  v192 = dictionaryCopy;
+  v10 = [(MCPayload *)&v228 initWithDictionary:dictionaryCopy profile:profileCopy outError:error];
   if (!v10)
   {
     v15 = 0;
@@ -240,13 +244,13 @@ void __58__MCRestrictionsPayload__ephemeralMultiUserOnlyKeysFilter__block_invoke
 
   p_isa = &v10->super.super.isa;
   errorCopy = error;
-  v174 = profileCopy;
+  v169 = profileCopy;
   v12 = +[MCRestrictionManager sharedManager];
   defaultRestrictions = [v12 defaultRestrictions];
 
-  v195 = [defaultRestrictions objectForKeyedSubscript:@"restrictedBool"];
-  v170 = defaultRestrictions;
-  v193 = [defaultRestrictions objectForKeyedSubscript:@"restrictedValue"];
+  v190 = [defaultRestrictions objectForKeyedSubscript:@"restrictedBool"];
+  v165 = defaultRestrictions;
+  v188 = [defaultRestrictions objectForKeyedSubscript:@"restrictedValue"];
   mEMORY[0x1E69AD420] = [MEMORY[0x1E69AD420] sharedConfiguration];
   if ([mEMORY[0x1E69AD420] isSupervised])
   {
@@ -265,9 +269,9 @@ LABEL_6:
   }
 
   buf[0] = 0;
-  v75 = objc_opt_class();
-  signerCertificates = [v174 signerCertificates];
-  [v75 evaluateTrustOfCertificateChain:signerCertificates signatureVersion:0 outIsAllowedToInstallUnsupportedPayloads:0 outIsAllowedToWriteDefaults:0 outIsAllowedToInstallSupervisedRestrictionsOnUnsupervisedDevices:buf];
+  v74 = objc_opt_class();
+  signerCertificates = [v169 signerCertificates];
+  [v74 evaluateTrustOfCertificateChain:signerCertificates signatureVersion:0 outIsAllowedToInstallUnsupportedPayloads:0 outIsAllowedToWriteDefaults:0 outIsAllowedToInstallSupervisedRestrictionsOnUnsupervisedDevices:buf];
 
   if (buf[0])
   {
@@ -279,7 +283,7 @@ LABEL_7:
   v19 = v18;
   v20 = [v18 mutableCopy];
 
-  v168 = +[MCRestrictionsPayload _platformSpecificKeyFilter];
+  v163 = +[MCRestrictionsPayload _platformSpecificKeyFilter];
   [v20 MCFilterRestrictionPayloadKeys:?];
   mEMORY[0x1E69AD420]2 = [MEMORY[0x1E69AD420] sharedConfiguration];
   if ([mEMORY[0x1E69AD420]2 userMode] == 1)
@@ -299,13 +303,13 @@ LABEL_10:
   }
 
 LABEL_11:
-  v169 = v20;
+  v164 = v20;
   v23 = [v20 copy];
-  v190 = [v23 objectForKeyedSubscript:@"restrictedBool"];
-  v175 = [v23 objectForKeyedSubscript:@"restrictedValue"];
-  v173 = [v23 objectForKeyedSubscript:@"intersection"];
-  v167 = v23;
-  v172 = [v23 objectForKeyedSubscript:@"union"];
+  v185 = [v23 objectForKeyedSubscript:@"restrictedBool"];
+  v170 = [v23 objectForKeyedSubscript:@"restrictedValue"];
+  v168 = [v23 objectForKeyedSubscript:@"intersection"];
+  v162 = v23;
+  v167 = [v23 objectForKeyedSubscript:@"union"];
   v24 = objc_alloc_init(MEMORY[0x1E695DF90]);
   v25 = p_isa[11];
   p_isa[11] = v24;
@@ -314,42 +318,42 @@ LABEL_11:
   dictionary2 = [MEMORY[0x1E695DF90] dictionary];
   dictionary3 = [MEMORY[0x1E695DF90] dictionary];
   dictionary4 = [MEMORY[0x1E695DF90] dictionary];
-  v194 = dictionary;
+  v189 = dictionary;
   [p_isa[11] setObject:dictionary forKeyedSubscript:@"restrictedBool"];
-  v192 = dictionary2;
+  v187 = dictionary2;
   [p_isa[11] setObject:dictionary2 forKeyedSubscript:@"restrictedValue"];
-  v185 = dictionary3;
+  v180 = dictionary3;
   [p_isa[11] setObject:dictionary3 forKeyedSubscript:@"intersection"];
-  v196 = p_isa;
-  v176 = dictionary4;
+  v191 = p_isa;
+  v171 = dictionary4;
   [p_isa[11] setObject:dictionary4 forKeyedSubscript:@"union"];
-  v231 = 0u;
-  v232 = 0u;
-  v229 = 0u;
-  v230 = 0u;
-  v30 = v190;
-  v31 = [v30 countByEnumeratingWithState:&v229 objects:v251 count:16];
-  v191 = v30;
+  v226 = 0u;
+  v227 = 0u;
+  v224 = 0u;
+  v225 = 0u;
+  v30 = v185;
+  v31 = [v30 countByEnumeratingWithState:&v224 objects:v246 count:16];
+  v186 = v30;
   if (v31)
   {
     v32 = v31;
-    v33 = *v230;
+    v33 = *v225;
     while (2)
     {
       for (i = 0; i != v32; ++i)
       {
-        if (*v230 != v33)
+        if (*v225 != v33)
         {
           objc_enumerationMutation(v30);
         }
 
-        v35 = *(*(&v229 + 1) + 8 * i);
-        v36 = [v197 objectForKey:v35];
+        v35 = *(*(&v224 + 1) + 8 * i);
+        v36 = [v192 objectForKey:v35];
         if (v36)
         {
           if (objc_opt_respondsToSelector())
           {
-            v37 = [v195 objectForKey:v35];
+            v37 = [v190 objectForKey:v35];
             mCMutableDeepCopy = [v37 MCMutableDeepCopy];
 
             if (!mCMutableDeepCopy)
@@ -358,24 +362,24 @@ LABEL_11:
             }
 
             [mCMutableDeepCopy setObject:v36 forKey:@"value"];
-            [v194 setObject:mCMutableDeepCopy forKey:v35];
+            [v189 setObject:mCMutableDeepCopy forKey:v35];
           }
 
           else
           {
-            profile2 = [(MCPayload *)v196 profile];
+            profile2 = [(MCPayload *)v191 profile];
             isStub2 = [profile2 isStub];
 
             if (!isStub2)
             {
-              v41 = [(MCRestrictionsPayload *)v196 _invalidFieldErrorWithFieldName:v35];
+              v41 = [(MCRestrictionsPayload *)v191 _invalidFieldErrorWithFieldName:v35];
 
               if (v41)
               {
-                v15 = v196;
+                v15 = v191;
 LABEL_71:
-                v77 = errorCopy;
-                v78 = v185;
+                v76 = errorCopy;
+                v77 = v180;
                 goto LABEL_135;
               }
 
@@ -385,7 +389,7 @@ LABEL_71:
         }
       }
 
-      v32 = [v30 countByEnumeratingWithState:&v229 objects:v251 count:16];
+      v32 = [v30 countByEnumeratingWithState:&v224 objects:v246 count:16];
       if (v32)
       {
         continue;
@@ -396,33 +400,33 @@ LABEL_71:
   }
 
 LABEL_27:
-  v227 = 0u;
-  v228 = 0u;
-  v225 = 0u;
-  v226 = 0u;
-  v42 = v175;
-  v43 = [v42 countByEnumeratingWithState:&v225 objects:v250 count:16];
+  v222 = 0u;
+  v223 = 0u;
+  v220 = 0u;
+  v221 = 0u;
+  v42 = v170;
+  v43 = [v42 countByEnumeratingWithState:&v220 objects:v245 count:16];
   if (v43)
   {
     v44 = v43;
-    v45 = *v226;
+    v45 = *v221;
     while (2)
     {
       for (j = 0; j != v44; ++j)
       {
-        if (*v226 != v45)
+        if (*v221 != v45)
         {
           objc_enumerationMutation(v42);
         }
 
-        v47 = *(*(&v225 + 1) + 8 * j);
-        v48 = [v197 objectForKey:v47];
+        v47 = *(*(&v220 + 1) + 8 * j);
+        v48 = [v192 objectForKey:v47];
         if (v48)
         {
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v49 = [v193 objectForKey:v47];
+            v49 = [v188 objectForKey:v47];
             mCMutableDeepCopy2 = [v49 MCMutableDeepCopy];
 
             if (!mCMutableDeepCopy2)
@@ -431,25 +435,25 @@ LABEL_27:
             }
 
             [mCMutableDeepCopy2 setObject:v48 forKey:@"value"];
-            [v192 setObject:mCMutableDeepCopy2 forKey:v47];
+            [v187 setObject:mCMutableDeepCopy2 forKey:v47];
           }
 
           else
           {
-            profile3 = [(MCPayload *)v196 profile];
+            profile3 = [(MCPayload *)v191 profile];
             isStub3 = [profile3 isStub];
 
             if (!isStub3)
             {
-              v15 = v196;
-              v41 = [(MCRestrictionsPayload *)v196 _invalidFieldErrorWithFieldName:v47];
+              v15 = v191;
+              v41 = [(MCRestrictionsPayload *)v191 _invalidFieldErrorWithFieldName:v47];
 
               if (v41)
               {
 LABEL_96:
-                v77 = errorCopy;
-                v78 = v185;
-                v30 = v191;
+                v76 = errorCopy;
+                v77 = v180;
+                v30 = v186;
                 goto LABEL_135;
               }
 
@@ -459,7 +463,7 @@ LABEL_96:
         }
       }
 
-      v44 = [v42 countByEnumeratingWithState:&v225 objects:v250 count:16];
+      v44 = [v42 countByEnumeratingWithState:&v220 objects:v245 count:16];
       if (v44)
       {
         continue;
@@ -469,63 +473,62 @@ LABEL_96:
     }
   }
 
-  v15 = v196;
+  v15 = v191;
 LABEL_42:
-  v223 = 0u;
-  v224 = 0u;
-  v221 = 0u;
-  v222 = 0u;
-  obj = v173;
-  v53 = [obj countByEnumeratingWithState:&v221 objects:v249 count:16];
-  v30 = v191;
+  v218 = 0u;
+  v219 = 0u;
+  v216 = 0u;
+  v217 = 0u;
+  obj = v168;
+  v53 = [obj countByEnumeratingWithState:&v216 objects:v244 count:16];
+  v30 = v186;
   if (!v53)
   {
     goto LABEL_67;
   }
 
   v54 = v53;
-  v55 = *v222;
-  v178 = *v222;
+  v55 = *v217;
+  v173 = *v217;
 LABEL_44:
   v56 = 0;
-  v181 = v54;
+  v176 = v54;
   while (1)
   {
-    if (*v222 != v55)
+    if (*v217 != v55)
     {
       objc_enumerationMutation(obj);
     }
 
-    v57 = *(*(&v221 + 1) + 8 * v56);
-    v58 = [v197 objectForKeyedSubscript:v57];
+    v57 = *(*(&v216 + 1) + 8 * v56);
+    v58 = [v192 objectForKeyedSubscript:v57];
     if (v58)
     {
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v219 = 0u;
-        v220 = 0u;
-        v217 = 0u;
-        v218 = 0u;
+        v214 = 0u;
+        v215 = 0u;
+        v212 = 0u;
+        v213 = 0u;
         v59 = v58;
-        v60 = [v59 countByEnumeratingWithState:&v217 objects:v248 count:16];
+        v60 = [v59 countByEnumeratingWithState:&v212 objects:v243 count:16];
         if (!v60)
         {
           goto LABEL_57;
         }
 
         v61 = v60;
-        v62 = *v218;
+        v62 = *v213;
 LABEL_51:
         v63 = 0;
         while (1)
         {
-          if (*v218 != v62)
+          if (*v213 != v62)
           {
             objc_enumerationMutation(v59);
           }
 
-          v64 = *(*(&v217 + 1) + 8 * v63);
           objc_opt_class();
           if ((objc_opt_isKindOfClass() & 1) == 0)
           {
@@ -534,7 +537,7 @@ LABEL_51:
 
           if (v61 == ++v63)
           {
-            v61 = [v59 countByEnumeratingWithState:&v217 objects:v248 count:16];
+            v61 = [v59 countByEnumeratingWithState:&v212 objects:v243 count:16];
             if (!v61)
             {
 LABEL_57:
@@ -555,37 +558,37 @@ LABEL_57:
         }
 
 LABEL_61:
-        v67 = [MCRestrictionUtilities intersectionFeatureForPayloadRestrictionKey:v57];
-        v68 = [v185 objectForKeyedSubscript:v67];
-        if (v68)
+        v66 = [MCRestrictionUtilities intersectionFeatureForPayloadRestrictionKey:v57];
+        v67 = [v180 objectForKeyedSubscript:v66];
+        if (v67)
         {
-          v69 = objc_alloc(MEMORY[0x1E695DFA8]);
-          v70 = [v68 objectForKeyedSubscript:@"values"];
-          v71 = [v69 initWithArray:v70];
+          v68 = objc_alloc(MEMORY[0x1E695DFA8]);
+          v69 = [v67 objectForKeyedSubscript:@"values"];
+          v70 = [v68 initWithArray:v69];
 
-          v72 = [objc_alloc(MEMORY[0x1E695DFD8]) initWithArray:v59];
-          [v71 intersectSet:v72];
-          v246 = @"values";
-          allObjects = [v71 allObjects];
-          v247 = allObjects;
-          v74 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v247 forKeys:&v246 count:1];
-          [v185 setObject:v74 forKeyedSubscript:v67];
+          v71 = [objc_alloc(MEMORY[0x1E695DFD8]) initWithArray:v59];
+          [v70 intersectSet:v71];
+          v241 = @"values";
+          allObjects = [v70 allObjects];
+          v242 = allObjects;
+          v73 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v242 forKeys:&v241 count:1];
+          [v180 setObject:v73 forKeyedSubscript:v66];
 
-          v15 = v196;
+          v15 = v191;
         }
 
         else
         {
-          v244 = @"values";
-          v245 = v59;
-          v71 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v245 forKeys:&v244 count:1];
-          [v185 setObject:v71 forKeyedSubscript:v67];
+          v239 = @"values";
+          v240 = v59;
+          v70 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v240 forKeys:&v239 count:1];
+          [v180 setObject:v70 forKeyedSubscript:v66];
         }
 
-        v55 = v178;
+        v55 = v173;
 
-        v30 = v191;
-        v54 = v181;
+        v30 = v186;
+        v54 = v176;
         goto LABEL_65;
       }
 
@@ -602,7 +605,7 @@ LABEL_65:
 
     if (++v56 == v54)
     {
-      v54 = [obj countByEnumeratingWithState:&v221 objects:v249 count:16];
+      v54 = [obj countByEnumeratingWithState:&v216 objects:v244 count:16];
       if (!v54)
       {
 LABEL_67:
@@ -622,70 +625,67 @@ LABEL_67:
   }
 
 LABEL_72:
-  v215 = 0u;
-  v216 = 0u;
-  v213 = 0u;
-  v214 = 0u;
-  obja = v172;
-  v79 = [obja countByEnumeratingWithState:&v213 objects:v243 count:16];
-  if (!v79)
+  v210 = 0u;
+  v211 = 0u;
+  v208 = 0u;
+  v209 = 0u;
+  obja = v167;
+  v78 = [obja countByEnumeratingWithState:&v208 objects:v238 count:16];
+  if (!v78)
   {
     v41 = 0;
     goto LABEL_101;
   }
 
-  v80 = v79;
-  v81 = *v214;
-  v182 = *v214;
-  v82 = 0x1E695D000uLL;
+  v79 = v78;
+  v80 = *v209;
+  v177 = *v209;
   while (2)
   {
-    v83 = 0;
+    v81 = 0;
     while (2)
     {
-      if (*v214 != v81)
+      if (*v209 != v80)
       {
         objc_enumerationMutation(obja);
       }
 
-      v84 = *(*(&v213 + 1) + 8 * v83);
-      v85 = [v197 objectForKeyedSubscript:v84];
-      if (v85)
+      v82 = *(*(&v208 + 1) + 8 * v81);
+      v83 = [v192 objectForKeyedSubscript:v82];
+      if (v83)
       {
-        v86 = *(v82 + 3784);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v211 = 0u;
-          v212 = 0u;
-          v209 = 0u;
-          v210 = 0u;
-          v87 = v85;
-          v88 = [v87 countByEnumeratingWithState:&v209 objects:v242 count:16];
-          if (v88)
+          v206 = 0u;
+          v207 = 0u;
+          v204 = 0u;
+          v205 = 0u;
+          v84 = v83;
+          v85 = [v84 countByEnumeratingWithState:&v204 objects:v237 count:16];
+          if (v85)
           {
-            v89 = v88;
-            v90 = *v210;
+            v86 = v85;
+            v87 = *v205;
 LABEL_81:
-            v91 = 0;
+            v88 = 0;
             while (1)
             {
-              if (*v210 != v90)
+              if (*v205 != v87)
               {
-                objc_enumerationMutation(v87);
+                objc_enumerationMutation(v84);
               }
 
-              v92 = *(*(&v209 + 1) + 8 * v91);
               objc_opt_class();
               if ((objc_opt_isKindOfClass() & 1) == 0)
               {
                 break;
               }
 
-              if (v89 == ++v91)
+              if (v86 == ++v88)
               {
-                v89 = [v87 countByEnumeratingWithState:&v209 objects:v242 count:16];
-                if (v89)
+                v86 = [v84 countByEnumeratingWithState:&v204 objects:v237 count:16];
+                if (v86)
                 {
                   goto LABEL_81;
                 }
@@ -694,38 +694,37 @@ LABEL_81:
               }
             }
 
-            v41 = [(MCRestrictionsPayload *)v196 _invalidFieldErrorWithFieldName:v84];
+            v41 = [(MCRestrictionsPayload *)v191 _invalidFieldErrorWithFieldName:v82];
 
             if (!v41)
             {
               goto LABEL_91;
             }
 
-            v30 = v191;
+            v30 = v186;
             goto LABEL_99;
           }
 
 LABEL_87:
 
 LABEL_91:
-          v240 = @"values";
-          v241 = v87;
-          v95 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v241 forKeys:&v240 count:1];
-          [v176 setObject:v95 forKeyedSubscript:v84];
+          v235 = @"values";
+          v236 = v84;
+          v91 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v236 forKeys:&v235 count:1];
+          [v171 setObject:v91 forKeyedSubscript:v82];
 
-          v30 = v191;
-          v81 = v182;
-          v82 = 0x1E695D000;
+          v30 = v186;
+          v80 = v177;
         }
 
         else
         {
-          profile5 = [(MCPayload *)v196 profile];
+          profile5 = [(MCPayload *)v191 profile];
           isStub5 = [profile5 isStub];
 
           if ((isStub5 & 1) == 0)
           {
-            v41 = [(MCRestrictionsPayload *)v196 _invalidFieldErrorWithFieldName:v84];
+            v41 = [(MCRestrictionsPayload *)v191 _invalidFieldErrorWithFieldName:v82];
 LABEL_99:
 
             goto LABEL_100;
@@ -733,7 +732,7 @@ LABEL_99:
         }
       }
 
-      if (++v83 != v80)
+      if (++v81 != v79)
       {
         continue;
       }
@@ -741,8 +740,8 @@ LABEL_99:
       break;
     }
 
-    v80 = [obja countByEnumeratingWithState:&v213 objects:v243 count:16];
-    if (v80)
+    v79 = [obja countByEnumeratingWithState:&v208 objects:v238 count:16];
+    if (v79)
     {
       continue;
     }
@@ -752,67 +751,66 @@ LABEL_99:
 
   v41 = 0;
 LABEL_100:
-  v15 = v196;
+  v15 = v191;
 LABEL_101:
-  v77 = errorCopy;
-  v78 = v185;
+  v76 = errorCopy;
+  v77 = v180;
 
-  if ([v174 isStub])
+  if ([v169 isStub])
   {
     goto LABEL_134;
   }
 
-  restrictions = v15->_restrictions;
   [MCRestrictionManager unionValuesForFeature:"unionValuesForFeature:withRestrictionsDictionary:" withRestrictionsDictionary:?];
-  v205 = 0u;
-  v206 = 0u;
-  v207 = 0u;
-  v97 = v208 = 0u;
-  v98 = [v97 countByEnumeratingWithState:&v205 objects:v239 count:16];
-  if (v98)
+  v200 = 0u;
+  v201 = 0u;
+  v202 = 0u;
+  v92 = v203 = 0u;
+  v93 = [v92 countByEnumeratingWithState:&v200 objects:v234 count:16];
+  if (v93)
   {
-    v99 = v98;
-    objb = *v206;
-    v179 = v97;
-    v183 = *MEMORY[0x1E6963570];
+    v94 = v93;
+    objb = *v201;
+    v174 = v92;
+    v178 = *MEMORY[0x1E6963570];
     while (2)
     {
-      for (k = 0; k != v99; ++k)
+      for (k = 0; k != v94; ++k)
       {
-        if (*v206 != objb)
+        if (*v201 != objb)
         {
-          objc_enumerationMutation(v179);
+          objc_enumerationMutation(v174);
         }
 
-        v101 = *(*(&v205 + 1) + 8 * k);
-        v102 = [objc_alloc(MEMORY[0x1E69635F8]) initWithBundleIdentifier:v101 allowPlaceholder:1 error:0];
-        appTags = [v102 appTags];
-        v104 = [appTags containsObject:@"hidden"];
+        v96 = *(*(&v200 + 1) + 8 * k);
+        v97 = [objc_alloc(MEMORY[0x1E69635F8]) initWithBundleIdentifier:v96 allowPlaceholder:1 error:0];
+        appTags = [v97 appTags];
+        v99 = [appTags containsObject:@"hidden"];
 
-        compatibilityObject = [v102 compatibilityObject];
+        compatibilityObject = [v97 compatibilityObject];
         bundleType = [compatibilityObject bundleType];
-        v107 = [bundleType isEqualToString:v183];
+        v102 = [bundleType isEqualToString:v178];
 
-        applicationState = [v102 applicationState];
+        applicationState = [v97 applicationState];
         LODWORD(compatibilityObject) = [applicationState isAlwaysAvailable];
 
-        if (compatibilityObject && (v104 & 1) == 0 && !v107 || (MCUnrestrictableApps(), v109 = objc_claimAutoreleasedReturnValue(), v110 = [v109 containsObject:v101], v109, v110))
+        if (compatibilityObject && (v99 & 1) == 0 && !v102 || (MCUnrestrictableApps(v104), v105 = objc_claimAutoreleasedReturnValue(), v106 = [v105 containsObject:v96], v105, v106))
         {
-          v138 = v101;
+          v134 = v96;
 
-          v97 = v179;
-          v139 = MEMORY[0x1E696ABC0];
-          v112 = MCErrorArray(@"ERROR_PROFILE_FIELD_INVALID_VALUE_P_FIELD_P_VALUE", v140, v141, v142, v143, v144, v145, v146, @"blacklistedAppBundleIDs");
-          v135 = [v139 MCErrorWithDomain:@"MCPayloadErrorDomain" code:2004 descriptionArray:v112 errorType:@"MCFatalError"];
-          v15 = v196;
+          v92 = v174;
+          v135 = MEMORY[0x1E696ABC0];
+          v107 = MCErrorArray(@"ERROR_PROFILE_FIELD_INVALID_VALUE_P_FIELD_P_VALUE", v136, v137, v138, v139, v140, v141, v142, @"blacklistedAppBundleIDs");
+          v131 = [v135 MCErrorWithDomain:@"MCPayloadErrorDomain" code:2004 descriptionArray:v107 errorType:@"MCFatalError"];
+          v15 = v191;
           goto LABEL_133;
         }
       }
 
-      v97 = v179;
-      v99 = [v179 countByEnumeratingWithState:&v205 objects:v239 count:16];
-      v15 = v196;
-      if (v99)
+      v92 = v174;
+      v94 = [v174 countByEnumeratingWithState:&v200 objects:v234 count:16];
+      v15 = v191;
+      if (v94)
       {
         continue;
       }
@@ -821,59 +819,58 @@ LABEL_101:
     }
   }
 
-  v111 = v15->_restrictions;
   [MCRestrictionManager unionValuesForFeature:"unionValuesForFeature:withRestrictionsDictionary:" withRestrictionsDictionary:?];
-  v201 = 0u;
-  v202 = 0u;
-  v203 = 0u;
-  v112 = v204 = 0u;
-  objc = [v112 countByEnumeratingWithState:&v201 objects:v238 count:16];
+  v196 = 0u;
+  v197 = 0u;
+  v198 = 0u;
+  v107 = v199 = 0u;
+  objc = [v107 countByEnumeratingWithState:&v196 objects:v233 count:16];
   if (objc)
   {
-    v184 = *v202;
-    v177 = *MEMORY[0x1E6963570];
-    v180 = v97;
+    v179 = *v197;
+    v172 = *MEMORY[0x1E6963570];
+    v175 = v92;
     while (2)
     {
       for (m = 0; m != objc; m = m + 1)
       {
-        if (*v202 != v184)
+        if (*v197 != v179)
         {
-          objc_enumerationMutation(v112);
+          objc_enumerationMutation(v107);
         }
 
-        v114 = v112;
-        v115 = *(*(&v201 + 1) + 8 * m);
-        v116 = [objc_alloc(MEMORY[0x1E69635F8]) initWithBundleIdentifier:v115 allowPlaceholder:1 error:0];
-        appTags2 = [v116 appTags];
-        v118 = [appTags2 containsObject:@"hidden"];
+        v109 = v107;
+        v110 = *(*(&v196 + 1) + 8 * m);
+        v111 = [objc_alloc(MEMORY[0x1E69635F8]) initWithBundleIdentifier:v110 allowPlaceholder:1 error:0];
+        appTags2 = [v111 appTags];
+        v113 = [appTags2 containsObject:@"hidden"];
 
-        compatibilityObject2 = [v116 compatibilityObject];
+        compatibilityObject2 = [v111 compatibilityObject];
         bundleType2 = [compatibilityObject2 bundleType];
-        v121 = [bundleType2 isEqualToString:v177];
+        v116 = [bundleType2 isEqualToString:v172];
 
-        applicationState2 = [v116 applicationState];
+        applicationState2 = [v111 applicationState];
         LODWORD(compatibilityObject2) = [applicationState2 isAlwaysAvailable];
 
-        if (compatibilityObject2 && (v118 & 1) == 0 && !v121 || (MCUnrestrictableApps(), v123 = objc_claimAutoreleasedReturnValue(), v124 = [v123 containsObject:v115], v123, v124))
+        if (compatibilityObject2 && (v113 & 1) == 0 && !v116 || (MCUnrestrictableApps(v118), v119 = objc_claimAutoreleasedReturnValue(), v120 = [v119 containsObject:v110], v119, v120))
         {
-          v138 = v115;
+          v134 = v110;
 
-          v112 = v114;
-          v147 = MEMORY[0x1E696ABC0];
-          v126 = MCErrorArray(@"ERROR_PROFILE_FIELD_INVALID_VALUE_P_FIELD_P_VALUE", v148, v149, v150, v151, v152, v153, v154, @"blockedAppBundleIDs");
-          v135 = [v147 MCErrorWithDomain:@"MCPayloadErrorDomain" code:2004 descriptionArray:v126 errorType:@"MCFatalError"];
-          v15 = v196;
-          v97 = v180;
+          v107 = v109;
+          v143 = MEMORY[0x1E696ABC0];
+          v122 = MCErrorArray(@"ERROR_PROFILE_FIELD_INVALID_VALUE_P_FIELD_P_VALUE", v144, v145, v146, v147, v148, v149, v150, @"blockedAppBundleIDs");
+          v131 = [v143 MCErrorWithDomain:@"MCPayloadErrorDomain" code:2004 descriptionArray:v122 errorType:@"MCFatalError"];
+          v15 = v191;
+          v92 = v175;
           goto LABEL_131;
         }
 
-        v112 = v114;
+        v107 = v109;
       }
 
-      v15 = v196;
-      v97 = v180;
-      objc = [v114 countByEnumeratingWithState:&v201 objects:v238 count:16];
+      v15 = v191;
+      v92 = v175;
+      objc = [v109 countByEnumeratingWithState:&v196 objects:v233 count:16];
       if (objc)
       {
         continue;
@@ -883,120 +880,119 @@ LABEL_101:
     }
   }
 
-  v125 = [MCRestrictionManager intersectedValuesForFeature:@"appLockBundleIDs" withRestrictionsDictionary:v15->_restrictions];
-  v126 = v125;
-  if (v125 && ![v125 count])
+  v121 = [MCRestrictionManager intersectedValuesForFeature:@"appLockBundleIDs" withRestrictionsDictionary:v15->_restrictions];
+  v122 = v121;
+  if (v121 && ![v121 count])
   {
-    v165 = MEMORY[0x1E696ABC0];
-    v166 = MCErrorArray(@"ERROR_PROFILE_FIELD_INVALID_VALUE_P_FIELD", v127, v128, v129, v130, v131, v132, v133, @"allowListedAppBundleIDs");
-    v135 = [v165 MCErrorWithDomain:@"MCPayloadErrorDomain" code:2004 descriptionArray:v166 errorType:@"MCFatalError"];
+    v160 = MEMORY[0x1E696ABC0];
+    v161 = MCErrorArray(@"ERROR_PROFILE_FIELD_INVALID_VALUE_P_FIELD", v123, v124, v125, v126, v127, v128, v129, @"allowListedAppBundleIDs");
+    v131 = [v160 MCErrorWithDomain:@"MCPayloadErrorDomain" code:2004 descriptionArray:v161 errorType:@"MCFatalError"];
 
-    v138 = 0;
-    v41 = v166;
+    v134 = 0;
+    v41 = v161;
 LABEL_131:
 
     goto LABEL_132;
   }
 
-  v200 = v41;
-  v134 = [(MCRestrictionsPayload *)v15 _verifyIntersectionMaxCount:1 forFeature:@"allowedExternalIntelligenceWorkspaceIDs" error:&v200];
-  v135 = v200;
+  v195 = v41;
+  v130 = [(MCRestrictionsPayload *)v15 _verifyIntersectionMaxCount:1 forFeature:@"allowedExternalIntelligenceWorkspaceIDs" error:&v195];
+  v131 = v195;
 
-  if (!v134)
+  if (!v130)
   {
-    v138 = 0;
+    v134 = 0;
 LABEL_132:
-    v41 = v126;
+    v41 = v122;
     goto LABEL_133;
   }
 
-  v199 = v135;
-  v136 = [(MCRestrictionsPayload *)v15 _verifyUnionMaxCount:4 forFeature:@"deniedICCIDsForRCS" error:&v199];
-  v137 = v199;
+  v194 = v131;
+  v132 = [(MCRestrictionsPayload *)v15 _verifyUnionMaxCount:4 forFeature:@"deniedICCIDsForRCS" error:&v194];
+  v133 = v194;
 
-  if (v136)
+  if (v132)
   {
-    v198 = v137;
-    [(MCRestrictionsPayload *)v15 _verifyUnionMaxCount:4 forFeature:@"deniedICCIDsForiMessageFaceTime" error:&v198];
-    v135 = v198;
-    v138 = 0;
-    v41 = v137;
+    v193 = v133;
+    [(MCRestrictionsPayload *)v15 _verifyUnionMaxCount:4 forFeature:@"deniedICCIDsForiMessageFaceTime" error:&v193];
+    v131 = v193;
+    v134 = 0;
+    v41 = v133;
     goto LABEL_131;
   }
 
-  v138 = 0;
-  v41 = v126;
-  v135 = v137;
+  v134 = 0;
+  v41 = v122;
+  v131 = v133;
 LABEL_133:
 
-  v41 = v135;
-  v77 = errorCopy;
-  v78 = v185;
+  v41 = v131;
+  v76 = errorCopy;
+  v77 = v180;
 LABEL_134:
   if (v41)
   {
 LABEL_135:
-    v155 = [(MCPayload *)v15 malformedPayloadErrorWithError:v41];
-    v156 = v155;
-    if (v77)
+    v151 = [(MCPayload *)v15 malformedPayloadErrorWithError:v41];
+    v152 = v151;
+    if (v76)
     {
-      v157 = v155;
-      *v77 = v156;
+      v153 = v151;
+      *v76 = v152;
     }
 
-    v158 = _MCLogObjects;
+    v154 = _MCLogObjects;
     if (os_log_type_enabled(_MCLogObjects, OS_LOG_TYPE_ERROR))
     {
-      v159 = v158;
-      v160 = objc_opt_class();
-      v161 = v160;
-      mCVerboseDescription = [v156 MCVerboseDescription];
+      v155 = v154;
+      v156 = objc_opt_class();
+      v157 = v156;
+      mCVerboseDescription = [v152 MCVerboseDescription];
       *buf = 138543618;
-      v235 = v160;
-      v78 = v185;
-      v236 = 2114;
-      v237 = mCVerboseDescription;
-      v30 = v191;
-      _os_log_impl(&dword_1A795B000, v159, OS_LOG_TYPE_ERROR, "%{public}@ Can't parse payload: %{public}@", buf, 0x16u);
+      v230 = v156;
+      v77 = v180;
+      v231 = 2114;
+      v232 = mCVerboseDescription;
+      v30 = v186;
+      _os_log_impl(&dword_1A795B000, v155, OS_LOG_TYPE_ERROR, "%{public}@ Can't parse payload: %{public}@", buf, 0x16u);
     }
 
     v15 = 0;
   }
 
-  profileCopy = v174;
+  profileCopy = v169;
 LABEL_141:
 
-  v163 = *MEMORY[0x1E69E9840];
   return v15;
 }
 
 - (id)stubDictionary
 {
-  v63 = *MEMORY[0x1E69E9840];
-  v58.receiver = self;
-  v58.super_class = MCRestrictionsPayload;
-  stubDictionary = [(MCPayload *)&v58 stubDictionary];
+  v62 = *MEMORY[0x1E69E9840];
+  v57.receiver = self;
+  v57.super_class = MCRestrictionsPayload;
+  stubDictionary = [(MCPayload *)&v57 stubDictionary];
   selfCopy = self;
   [(NSMutableDictionary *)self->_restrictions objectForKey:@"restrictedBool"];
+  v53 = 0u;
   v54 = 0u;
   v55 = 0u;
-  v56 = 0u;
-  obj = v57 = 0u;
-  v4 = [obj countByEnumeratingWithState:&v54 objects:v62 count:16];
+  obj = v56 = 0u;
+  v4 = [obj countByEnumeratingWithState:&v53 objects:v61 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v55;
+    v6 = *v54;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v55 != v6)
+        if (*v54 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v54 + 1) + 8 * i);
+        v8 = *(*(&v53 + 1) + 8 * i);
         v9 = [obj objectForKey:v8];
         v10 = [v9 objectForKey:@"value"];
         bOOLValue = [v10 BOOLValue];
@@ -1005,109 +1001,107 @@ LABEL_141:
         [stubDictionary setObject:v12 forKey:v8];
       }
 
-      v5 = [obj countByEnumeratingWithState:&v54 objects:v62 count:16];
+      v5 = [obj countByEnumeratingWithState:&v53 objects:v61 count:16];
     }
 
     while (v5);
   }
 
   v13 = [(NSMutableDictionary *)selfCopy->_restrictions objectForKey:@"restrictedValue"];
+  v49 = 0u;
   v50 = 0u;
   v51 = 0u;
   v52 = 0u;
-  v53 = 0u;
-  v14 = [v13 countByEnumeratingWithState:&v50 objects:v61 count:16];
+  v14 = [v13 countByEnumeratingWithState:&v49 objects:v60 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v51;
+    v16 = *v50;
     do
     {
       for (j = 0; j != v15; ++j)
       {
-        if (*v51 != v16)
+        if (*v50 != v16)
         {
           objc_enumerationMutation(v13);
         }
 
-        v18 = *(*(&v50 + 1) + 8 * j);
+        v18 = *(*(&v49 + 1) + 8 * j);
         v19 = [v13 objectForKey:v18];
         v20 = [v19 objectForKey:@"value"];
 
         [stubDictionary setObject:v20 forKey:v18];
       }
 
-      v15 = [v13 countByEnumeratingWithState:&v50 objects:v61 count:16];
+      v15 = [v13 countByEnumeratingWithState:&v49 objects:v60 count:16];
     }
 
     while (v15);
   }
 
   v21 = [(NSMutableDictionary *)selfCopy->_restrictions objectForKeyedSubscript:@"intersection", v13];
+  v45 = 0u;
   v46 = 0u;
   v47 = 0u;
   v48 = 0u;
-  v49 = 0u;
-  v22 = [v21 countByEnumeratingWithState:&v46 objects:v60 count:16];
+  v22 = [v21 countByEnumeratingWithState:&v45 objects:v59 count:16];
   if (v22)
   {
     v23 = v22;
-    v24 = *v47;
+    v24 = *v46;
     do
     {
       for (k = 0; k != v23; ++k)
       {
-        if (*v47 != v24)
+        if (*v46 != v24)
         {
           objc_enumerationMutation(v21);
         }
 
-        v26 = *(*(&v46 + 1) + 8 * k);
+        v26 = *(*(&v45 + 1) + 8 * k);
         v27 = [v21 objectForKeyedSubscript:v26];
         v28 = [v27 objectForKeyedSubscript:@"values"];
 
         [stubDictionary setObject:v28 forKeyedSubscript:v26];
       }
 
-      v23 = [v21 countByEnumeratingWithState:&v46 objects:v60 count:16];
+      v23 = [v21 countByEnumeratingWithState:&v45 objects:v59 count:16];
     }
 
     while (v23);
   }
 
   v29 = [(NSMutableDictionary *)selfCopy->_restrictions objectForKeyedSubscript:@"union"];
+  v41 = 0u;
   v42 = 0u;
   v43 = 0u;
   v44 = 0u;
-  v45 = 0u;
-  v30 = [v29 countByEnumeratingWithState:&v42 objects:v59 count:16];
+  v30 = [v29 countByEnumeratingWithState:&v41 objects:v58 count:16];
   if (v30)
   {
     v31 = v30;
-    v32 = *v43;
+    v32 = *v42;
     do
     {
       for (m = 0; m != v31; ++m)
       {
-        if (*v43 != v32)
+        if (*v42 != v32)
         {
           objc_enumerationMutation(v29);
         }
 
-        v34 = *(*(&v42 + 1) + 8 * m);
+        v34 = *(*(&v41 + 1) + 8 * m);
         v35 = [v29 objectForKeyedSubscript:v34];
         v36 = [v35 objectForKeyedSubscript:@"values"];
 
         [stubDictionary setObject:v36 forKeyedSubscript:v34];
       }
 
-      v31 = [v29 countByEnumeratingWithState:&v42 objects:v59 count:16];
+      v31 = [v29 countByEnumeratingWithState:&v41 objects:v58 count:16];
     }
 
     while (v31);
   }
-
-  v37 = *MEMORY[0x1E69E9840];
 
   return stubDictionary;
 }
@@ -1160,525 +1154,529 @@ LABEL_141:
 
 void __50__MCRestrictionsPayload__restrictedFeatureStrings__block_invoke()
 {
-  v165[152] = *MEMORY[0x1E69E9840];
-  v164[0] = @"allowExplicitContent";
-  v163 = MCLocalizedString(@"EXPLICIT_CONTENT");
-  v165[0] = v163;
-  v164[1] = @"allowSafari";
-  v162 = MCLocalizedString(@"SAFARI");
-  v165[1] = v162;
-  v164[2] = @"allowiTunes";
-  v161 = MCLocalizedString(@"ITUNES");
-  v165[2] = v161;
-  v164[3] = @"allowAppInstallation";
-  v160 = MCLocalizedString(@"APP_INSTALL");
-  v165[3] = v160;
-  v164[4] = @"allowUIAppInstallation";
-  v159 = MCLocalizedString(@"UI_APP_INSTALL");
-  v165[4] = v159;
-  v164[5] = @"allowAppClips";
-  v158 = MCLocalizedString(@"FEATURE_APP_CLIP");
-  v165[5] = v158;
-  v164[6] = @"allowAppRemoval";
-  v157 = MCLocalizedString(@"APP_REMOVAL");
-  v165[6] = v157;
-  v164[7] = @"allowSystemAppRemoval";
-  v156 = MCLocalizedString(@"SYSTEM_APP_REMOVAL");
-  v165[7] = v156;
-  v164[8] = @"allowCamera";
-  v155 = MCLocalizedString(@"CAMERA");
-  v165[8] = v155;
-  v164[9] = @"allowVideoConferencing";
-  v154 = MCLocalizedString(@"FACETIME");
-  v165[9] = v154;
-  v164[10] = @"allowScreenShot";
-  v153 = MCLocalizedString(@"SCREEN_SHOT");
-  v165[10] = v153;
-  v164[11] = @"allowRemoteScreenObservation";
-  v152 = MCLocalizedString(@"REMOTE_SCREEN_OBSERVATION");
-  v165[11] = v152;
-  v164[12] = @"allowVoiceDialing";
-  v151 = MCLocalizedString(@"VOICE_DIALING");
-  v165[12] = v151;
-  v164[13] = @"allowGlobalBackgroundFetchWhenRoaming";
-  v150 = MCLocalizedString(@"ROAMING_FETCH");
-  v165[13] = v150;
-  v164[14] = @"allowMultiplayerGaming";
-  v149 = MCLocalizedString(@"MULTIPLAYER");
-  v165[14] = v149;
-  v164[15] = @"allowAddingGameCenterFriends";
-  v148 = MCLocalizedString(@"FEATURE_ADD_GC_FRIENDS");
-  v165[15] = v148;
-  v164[16] = @"allowCellularHDUploads";
-  v147 = MCLocalizedString(@"FEATURE_HD_VIDEO_OVER_3G");
-  v165[16] = v147;
-  v164[17] = @"allowAccountModification";
-  v146 = MCLocalizedString(@"FEATURE_ACCOUNT_MODIFICATION");
-  v165[17] = v146;
-  v164[18] = @"allowFindMyFriendsModification";
-  v145 = MCLocalizedString(@"FEATURE_FMF_MODIFICATION");
-  v165[18] = v145;
-  v164[19] = @"allowAssistant";
-  v144 = MCLocalizedString(@"FEATURE_ASSISTANT");
-  v165[19] = v144;
-  v164[20] = @"allowGameCenter";
-  v143 = MCLocalizedString(@"FEATURE_GAME_CENTER");
-  v165[20] = v143;
-  v164[21] = @"allowChat";
-  v142 = MCLocalizedString(@"FEATURE_CHAT");
-  v165[21] = v142;
-  v164[22] = @"allowRCSMessaging";
-  v141 = MCLocalizedString(@"FEATURE_RCS_MESSAGING");
-  v165[22] = v141;
-  v164[23] = @"allowCloudBackup";
-  v140 = MCLocalizedString(@"FEATURE_CLOUD_BACKUP");
-  v165[23] = v140;
-  v164[24] = @"allowPhotoStream";
-  v139 = MCLocalizedString(@"FEATURE_PHOTO_STREAM");
-  v165[24] = v139;
-  v164[25] = @"allowCloudPhotoLibrary";
-  v138 = MCLocalizedString(@"FEATURE_CLOUD_PHOTO_LIBRARY");
-  v165[25] = v138;
-  v164[26] = @"allowDiagnosticSubmission";
-  v137 = MCLocalizedString(@"FEATURE_DIAGNOSTIC_SUB");
-  v165[26] = v137;
-  v164[27] = @"allowDiagnosticSubmissionModification";
-  v136 = MCLocalizedString(@"FEATURE_DIAGNOSTIC_SUB_MODIFICATION");
-  v165[27] = v136;
-  v164[28] = @"allowSiriServerLogging";
-  v135 = MCLocalizedString(@"FEATURE_SIRI_SERVER_LOGGING");
-  v165[28] = v135;
-  v164[29] = @"allowUntrustedTLSPrompt";
-  v134 = MCLocalizedString(@"FEATURE_UNTRUSTED_TLS");
-  v165[29] = v134;
-  v164[30] = @"allowInAppPurchases";
-  v133 = MCLocalizedString(@"FEATURE_IN_APP_PURCHASE");
-  v165[30] = v133;
-  v164[31] = @"allowCloudDocumentSync";
-  v132 = MCLocalizedString(@"FEATURE_DOCUMENT_SYNC");
-  v165[31] = v132;
-  v164[32] = @"allowAssistantWhileLocked";
-  v131 = MCLocalizedString(@"FEATURE_ASSISTANT_WHILE_LOCKED");
-  v165[32] = v131;
-  v164[33] = @"safariAllowAutoFill";
-  v130 = MCLocalizedString(@"FEATURE_SAFARI_AUTO_FILL");
-  v165[33] = v130;
-  v164[34] = @"allowPasswordAutoFill";
-  v129 = MCLocalizedString(@"FEATURE_PASSWORD_AUTO_FILL");
-  v165[34] = v129;
-  v164[35] = @"allowPasswordSharing";
-  v128 = MCLocalizedString(@"FEATURE_PASSWORD_SHARING");
-  v165[35] = v128;
-  v164[36] = @"allowPasswordProximityRequests";
-  v127 = MCLocalizedString(@"FEATURE_PASSWORD_PROXIMITY_REQUESTS");
-  v165[36] = v127;
-  v164[37] = @"allowDefaultBrowserModification";
-  v126 = MCLocalizedString(@"FEATURE_DEFAULT_BROWSER_MODIFICATION");
-  v165[37] = v126;
-  v164[38] = @"allowDefaultCallingAppModification";
-  v125 = MCLocalizedString(@"FEATURE_DEFAULT_CALLING_APP_MODIFICATION");
-  v165[38] = v125;
-  v164[39] = @"allowDefaultMessagingAppModification";
-  v124 = MCLocalizedString(@"FEATURE_DEFAULT_MESSAGING_APP_MODIFICATION");
-  v165[39] = v124;
-  v164[40] = @"safariAllowJavaScript";
-  v123 = MCLocalizedString(@"FEATURE_SAFARI_JAVASCRIPT");
-  v165[40] = v123;
-  v164[41] = @"safariAllowPopups";
-  v122 = MCLocalizedString(@"FEATURE_SAFARI_POPUPS");
-  v165[41] = v122;
-  v164[42] = @"allowBookstore";
-  v121 = MCLocalizedString(@"FEATURE_BOOKSTORE");
-  v165[42] = v121;
-  v164[43] = @"allowBookstoreErotica";
-  v120 = MCLocalizedString(@"FEATURE_BOOKSTORE_EROTICA");
-  v165[43] = v120;
-  v164[44] = @"allowPassbookWhileLocked";
-  v119 = MCLocalizedString(@"FEATURE_PASSBOOK");
-  v165[44] = v119;
-  v164[45] = @"allowSharedStream";
-  v118 = MCLocalizedString(@"FEATURE_SHARED_STREAM");
-  v165[45] = v118;
-  v164[46] = @"allowUIConfigurationProfileInstallation";
-  v117 = MCLocalizedString(@"FEATURE_UI_INSTALLATION");
-  v165[46] = v117;
-  v164[47] = @"allowHostPairing";
-  v116 = MCLocalizedString(@"FEATURE_HOST_PAIRING");
-  v165[47] = v116;
-  v164[48] = @"allowEraseContentAndSettings";
-  v115 = MCLocalizedString(@"FEATURE_ERASE_CONTENT_AND_SETTINGS");
-  v165[48] = v115;
-  v164[49] = @"allowHealth";
-  v114 = MCLocalizedString(@"FEATURE_HEALTH");
-  v165[49] = v114;
-  v164[50] = @"allowInstalledAppNearMeSuggestions";
-  v113 = MCLocalizedString(@"FEATURE_INSTALLED_APP_NEAR_ME_SUGGESTIONS");
-  v165[50] = v113;
-  v164[51] = @"allowUninstalledAppNearMeSuggestions";
-  v112 = MCLocalizedString(@"FEATURE_UNINSTALLED_APP_NEAR_ME_SUGGESTIONS");
-  v165[51] = v112;
-  v164[52] = @"allowPodcasts";
-  v111 = MCLocalizedString(@"FEATURE_PODCASTS");
-  v165[52] = v111;
-  v164[53] = @"allowFindMyDevice";
-  v110 = MCLocalizedString(@"FEATURE_FIND_MY_DEVICE");
-  v165[53] = v110;
-  v164[54] = @"allowFindMyFriends";
-  v109 = MCLocalizedString(@"FEATURE_FIND_MY_FRIENDS");
-  v165[54] = v109;
-  v164[55] = @"allowHome";
-  v108 = MCLocalizedString(@"FEATURE_HOME");
-  v165[55] = v108;
-  v164[56] = @"allowEnablingRestrictions";
-  v107 = MCLocalizedString(@"FEATURE_ENABLING_RESTRICTIONS");
-  v165[56] = v107;
-  v164[57] = @"allowAppCellularDataModification";
-  v106 = MCLocalizedString(@"FEATURE_APP_CELLULAR_MODIFY");
-  v165[57] = v106;
-  v164[58] = @"allowCellularPlanModification";
-  v105 = MCLocalizedString(@"FEATURE_CELLULAR_PLAN_MODIFY");
-  v165[58] = v105;
-  v164[59] = @"allowVoiceConferencing";
-  v104 = MCLocalizedString(@"FEATURE_AUDIO_CONFERENCE");
-  v165[59] = v104;
-  v164[60] = @"allowOpenFromManagedToUnmanaged";
-  v103 = MCLocalizedString(@"FEATURE_OPEN_IN_MANAGED_TO_UNMANAGED");
-  v165[60] = v103;
-  v164[61] = @"allowOpenFromUnmanagedToManaged";
-  v102 = MCLocalizedString(@"FEATURE_OPEN_IN_UNMANAGED_TO_MANAGED");
-  v165[61] = v102;
-  v164[62] = @"allowCloudKeychainSync";
-  v101 = MCLocalizedString(@"FEATURE_KEYCHAIN_SYNC");
-  v165[62] = v101;
-  v164[63] = @"allowCloudPrivateRelay";
-  v100 = MCLocalizedString(@"FEATURE_CLOUD_PRIVATE_RELAY");
-  v165[63] = v100;
-  v164[64] = @"allowOTAPKIUpdates";
-  v99 = MCLocalizedString(@"FEATURE_OTA_PKI_UPDATES");
-  v165[64] = v99;
-  v164[65] = @"allowAutomaticAppDownloads";
-  v98 = MCLocalizedString(@"FEATURE_AUTOMATIC_APP_DOWNLOADS");
-  v165[65] = v98;
-  v164[66] = @"allowLockScreenTodayView";
-  v97 = MCLocalizedString(@"FEATURE_LOCKSCREEN_TODAY_VIEW");
-  v165[66] = v97;
-  v164[67] = @"allowLockScreenNotificationsView";
-  v96 = MCLocalizedString(@"FEATURE_LOCKSCREEN_NOTIFICATIONS");
-  v165[67] = v96;
-  v164[68] = @"allowLockScreenControlCenter";
-  v95 = MCLocalizedString(@"FEATURE_LOCKSCREEN_CONTROL_CENTER");
-  v165[68] = v95;
-  v164[69] = @"allowAirDrop";
-  v94 = MCLocalizedString(@"FEATURE_AIRDROP");
-  v165[69] = v94;
-  v164[70] = @"allowAirPrint";
-  v93 = MCLocalizedString(@"FEATURE_AIRPRINT");
-  v165[70] = v93;
-  v164[71] = @"allowAirPrintiBeaconDiscovery";
-  v92 = MCLocalizedString(@"FEATURE_AIRPRINT_IBEACON_DISCOVERY");
-  v165[71] = v92;
-  v164[72] = @"allowAirPrintCredentialsStorage";
-  v91 = MCLocalizedString(@"FEATURE_AIRPRINT_CREDENTIALS_STORAGE");
-  v165[72] = v91;
-  v164[73] = @"allowAssistantUserGeneratedContent";
-  v90 = MCLocalizedString(@"FEATURE_ASSISTANT_UNCURATED");
-  v165[73] = v90;
-  v164[74] = @"allowFingerprintModification";
+  v164[152] = *MEMORY[0x1E69E9840];
+  v163[0] = @"allowExplicitContent";
+  v162 = MCLocalizedString(@"EXPLICIT_CONTENT");
+  v164[0] = v162;
+  v163[1] = @"allowSafari";
+  v161 = MCLocalizedString(@"SAFARI");
+  v164[1] = v161;
+  v163[2] = @"allowiTunes";
+  v160 = MCLocalizedString(@"ITUNES");
+  v164[2] = v160;
+  v163[3] = @"allowAppInstallation";
+  v159 = MCLocalizedString(@"APP_INSTALL");
+  v164[3] = v159;
+  v163[4] = @"allowUIAppInstallation";
+  v158 = MCLocalizedString(@"UI_APP_INSTALL");
+  v164[4] = v158;
+  v163[5] = @"allowAppClips";
+  v157 = MCLocalizedString(@"FEATURE_APP_CLIP");
+  v164[5] = v157;
+  v163[6] = @"allowAppRemoval";
+  v156 = MCLocalizedString(@"APP_REMOVAL");
+  v164[6] = v156;
+  v163[7] = @"allowSystemAppRemoval";
+  v155 = MCLocalizedString(@"SYSTEM_APP_REMOVAL");
+  v164[7] = v155;
+  v163[8] = @"allowCamera";
+  v154 = MCLocalizedString(@"CAMERA");
+  v164[8] = v154;
+  v163[9] = @"allowVideoConferencing";
+  v153 = MCLocalizedString(@"FACETIME");
+  v164[9] = v153;
+  v163[10] = @"allowScreenShot";
+  v152 = MCLocalizedString(@"SCREEN_SHOT");
+  v164[10] = v152;
+  v163[11] = @"allowRemoteScreenObservation";
+  v151 = MCLocalizedString(@"REMOTE_SCREEN_OBSERVATION");
+  v164[11] = v151;
+  v163[12] = @"allowVoiceDialing";
+  v150 = MCLocalizedString(@"VOICE_DIALING");
+  v164[12] = v150;
+  v163[13] = @"allowGlobalBackgroundFetchWhenRoaming";
+  v149 = MCLocalizedString(@"ROAMING_FETCH");
+  v164[13] = v149;
+  v163[14] = @"allowMultiplayerGaming";
+  v148 = MCLocalizedString(@"MULTIPLAYER");
+  v164[14] = v148;
+  v163[15] = @"allowAddingGameCenterFriends";
+  v147 = MCLocalizedString(@"FEATURE_ADD_GC_FRIENDS");
+  v164[15] = v147;
+  v163[16] = @"allowCellularHDUploads";
+  v146 = MCLocalizedString(@"FEATURE_HD_VIDEO_OVER_3G");
+  v164[16] = v146;
+  v163[17] = @"allowAccountModification";
+  v145 = MCLocalizedString(@"FEATURE_ACCOUNT_MODIFICATION");
+  v164[17] = v145;
+  v163[18] = @"allowFindMyFriendsModification";
+  v144 = MCLocalizedString(@"FEATURE_FMF_MODIFICATION");
+  v164[18] = v144;
+  v163[19] = @"allowAssistant";
+  v143 = MCLocalizedString(@"FEATURE_ASSISTANT");
+  v164[19] = v143;
+  v163[20] = @"allowGameCenter";
+  v142 = MCLocalizedString(@"FEATURE_GAME_CENTER");
+  v164[20] = v142;
+  v163[21] = @"allowChat";
+  v141 = MCLocalizedString(@"FEATURE_CHAT");
+  v164[21] = v141;
+  v163[22] = @"allowRCSMessaging";
+  v140 = MCLocalizedString(@"FEATURE_RCS_MESSAGING");
+  v164[22] = v140;
+  v163[23] = @"allowCloudBackup";
+  v139 = MCLocalizedString(@"FEATURE_CLOUD_BACKUP");
+  v164[23] = v139;
+  v163[24] = @"allowPhotoStream";
+  v138 = MCLocalizedString(@"FEATURE_PHOTO_STREAM");
+  v164[24] = v138;
+  v163[25] = @"allowCloudPhotoLibrary";
+  v137 = MCLocalizedString(@"FEATURE_CLOUD_PHOTO_LIBRARY");
+  v164[25] = v137;
+  v163[26] = @"allowDiagnosticSubmission";
+  v136 = MCLocalizedString(@"FEATURE_DIAGNOSTIC_SUB");
+  v164[26] = v136;
+  v163[27] = @"allowDiagnosticSubmissionModification";
+  v135 = MCLocalizedString(@"FEATURE_DIAGNOSTIC_SUB_MODIFICATION");
+  v164[27] = v135;
+  v163[28] = @"allowSiriServerLogging";
+  v134 = MCLocalizedString(@"FEATURE_SIRI_SERVER_LOGGING");
+  v164[28] = v134;
+  v163[29] = @"allowUntrustedTLSPrompt";
+  v133 = MCLocalizedString(@"FEATURE_UNTRUSTED_TLS");
+  v164[29] = v133;
+  v163[30] = @"allowInAppPurchases";
+  v132 = MCLocalizedString(@"FEATURE_IN_APP_PURCHASE");
+  v164[30] = v132;
+  v163[31] = @"allowCloudDocumentSync";
+  v131 = MCLocalizedString(@"FEATURE_DOCUMENT_SYNC");
+  v164[31] = v131;
+  v163[32] = @"allowAssistantWhileLocked";
+  v130 = MCLocalizedString(@"FEATURE_ASSISTANT_WHILE_LOCKED");
+  v164[32] = v130;
+  v163[33] = @"safariAllowAutoFill";
+  v129 = MCLocalizedString(@"FEATURE_SAFARI_AUTO_FILL");
+  v164[33] = v129;
+  v163[34] = @"allowPasswordAutoFill";
+  v128 = MCLocalizedString(@"FEATURE_PASSWORD_AUTO_FILL");
+  v164[34] = v128;
+  v163[35] = @"allowPasswordSharing";
+  v127 = MCLocalizedString(@"FEATURE_PASSWORD_SHARING");
+  v164[35] = v127;
+  v163[36] = @"allowPasswordProximityRequests";
+  v126 = MCLocalizedString(@"FEATURE_PASSWORD_PROXIMITY_REQUESTS");
+  v164[36] = v126;
+  v163[37] = @"allowDefaultBrowserModification";
+  v125 = MCLocalizedString(@"FEATURE_DEFAULT_BROWSER_MODIFICATION");
+  v164[37] = v125;
+  v163[38] = @"allowDefaultCallingAppModification";
+  v124 = MCLocalizedString(@"FEATURE_DEFAULT_CALLING_APP_MODIFICATION");
+  v164[38] = v124;
+  v163[39] = @"allowDefaultMessagingAppModification";
+  v123 = MCLocalizedString(@"FEATURE_DEFAULT_MESSAGING_APP_MODIFICATION");
+  v164[39] = v123;
+  v163[40] = @"safariAllowJavaScript";
+  v122 = MCLocalizedString(@"FEATURE_SAFARI_JAVASCRIPT");
+  v164[40] = v122;
+  v163[41] = @"safariAllowPopups";
+  v121 = MCLocalizedString(@"FEATURE_SAFARI_POPUPS");
+  v164[41] = v121;
+  v163[42] = @"allowBookstore";
+  v120 = MCLocalizedString(@"FEATURE_BOOKSTORE");
+  v164[42] = v120;
+  v163[43] = @"allowBookstoreErotica";
+  v119 = MCLocalizedString(@"FEATURE_BOOKSTORE_EROTICA");
+  v164[43] = v119;
+  v163[44] = @"allowPassbookWhileLocked";
+  v118 = MCLocalizedString(@"FEATURE_PASSBOOK");
+  v164[44] = v118;
+  v163[45] = @"allowSharedStream";
+  v117 = MCLocalizedString(@"FEATURE_SHARED_STREAM");
+  v164[45] = v117;
+  v163[46] = @"allowUIConfigurationProfileInstallation";
+  v116 = MCLocalizedString(@"FEATURE_UI_INSTALLATION");
+  v164[46] = v116;
+  v163[47] = @"allowHostPairing";
+  v115 = MCLocalizedString(@"FEATURE_HOST_PAIRING");
+  v164[47] = v115;
+  v163[48] = @"allowEraseContentAndSettings";
+  v114 = MCLocalizedString(@"FEATURE_ERASE_CONTENT_AND_SETTINGS");
+  v164[48] = v114;
+  v163[49] = @"allowHealth";
+  v113 = MCLocalizedString(@"FEATURE_HEALTH");
+  v164[49] = v113;
+  v163[50] = @"allowInstalledAppNearMeSuggestions";
+  v112 = MCLocalizedString(@"FEATURE_INSTALLED_APP_NEAR_ME_SUGGESTIONS");
+  v164[50] = v112;
+  v163[51] = @"allowUninstalledAppNearMeSuggestions";
+  v111 = MCLocalizedString(@"FEATURE_UNINSTALLED_APP_NEAR_ME_SUGGESTIONS");
+  v164[51] = v111;
+  v163[52] = @"allowPodcasts";
+  v110 = MCLocalizedString(@"FEATURE_PODCASTS");
+  v164[52] = v110;
+  v163[53] = @"allowFindMyDevice";
+  v109 = MCLocalizedString(@"FEATURE_FIND_MY_DEVICE");
+  v164[53] = v109;
+  v163[54] = @"allowFindMyFriends";
+  v108 = MCLocalizedString(@"FEATURE_FIND_MY_FRIENDS");
+  v164[54] = v108;
+  v163[55] = @"allowHome";
+  v107 = MCLocalizedString(@"FEATURE_HOME");
+  v164[55] = v107;
+  v163[56] = @"allowEnablingRestrictions";
+  v106 = MCLocalizedString(@"FEATURE_ENABLING_RESTRICTIONS");
+  v164[56] = v106;
+  v163[57] = @"allowAppCellularDataModification";
+  v105 = MCLocalizedString(@"FEATURE_APP_CELLULAR_MODIFY");
+  v164[57] = v105;
+  v163[58] = @"allowCellularPlanModification";
+  v104 = MCLocalizedString(@"FEATURE_CELLULAR_PLAN_MODIFY");
+  v164[58] = v104;
+  v163[59] = @"allowVoiceConferencing";
+  v103 = MCLocalizedString(@"FEATURE_AUDIO_CONFERENCE");
+  v164[59] = v103;
+  v163[60] = @"allowOpenFromManagedToUnmanaged";
+  v102 = MCLocalizedString(@"FEATURE_OPEN_IN_MANAGED_TO_UNMANAGED");
+  v164[60] = v102;
+  v163[61] = @"allowOpenFromUnmanagedToManaged";
+  v101 = MCLocalizedString(@"FEATURE_OPEN_IN_UNMANAGED_TO_MANAGED");
+  v164[61] = v101;
+  v163[62] = @"allowCloudKeychainSync";
+  v100 = MCLocalizedString(@"FEATURE_KEYCHAIN_SYNC");
+  v164[62] = v100;
+  v163[63] = @"allowCloudPrivateRelay";
+  v99 = MCLocalizedString(@"FEATURE_CLOUD_PRIVATE_RELAY");
+  v164[63] = v99;
+  v163[64] = @"allowOTAPKIUpdates";
+  v98 = MCLocalizedString(@"FEATURE_OTA_PKI_UPDATES");
+  v164[64] = v98;
+  v163[65] = @"allowAutomaticAppDownloads";
+  v97 = MCLocalizedString(@"FEATURE_AUTOMATIC_APP_DOWNLOADS");
+  v164[65] = v97;
+  v163[66] = @"allowLockScreenTodayView";
+  v96 = MCLocalizedString(@"FEATURE_LOCKSCREEN_TODAY_VIEW");
+  v164[66] = v96;
+  v163[67] = @"allowLockScreenNotificationsView";
+  v95 = MCLocalizedString(@"FEATURE_LOCKSCREEN_NOTIFICATIONS");
+  v164[67] = v95;
+  v163[68] = @"allowLockScreenControlCenter";
+  v94 = MCLocalizedString(@"FEATURE_LOCKSCREEN_CONTROL_CENTER");
+  v164[68] = v94;
+  v163[69] = @"allowAirDrop";
+  v93 = MCLocalizedString(@"FEATURE_AIRDROP");
+  v164[69] = v93;
+  v163[70] = @"allowAirPrint";
+  v92 = MCLocalizedString(@"FEATURE_AIRPRINT");
+  v164[70] = v92;
+  v163[71] = @"allowAirPrintiBeaconDiscovery";
+  v91 = MCLocalizedString(@"FEATURE_AIRPRINT_IBEACON_DISCOVERY");
+  v164[71] = v91;
+  v163[72] = @"allowAirPrintCredentialsStorage";
+  v90 = MCLocalizedString(@"FEATURE_AIRPRINT_CREDENTIALS_STORAGE");
+  v164[72] = v90;
+  v163[73] = @"allowAssistantUserGeneratedContent";
+  v89 = MCLocalizedString(@"FEATURE_ASSISTANT_UNCURATED");
+  v164[73] = v89;
+  v163[74] = @"allowFingerprintModification";
   HasOysterCapability = MCGestaltHasOysterCapability();
   if (HasOysterCapability)
   {
     v0 = MCLocalizedString(@"FEATURE_OPTICDATA_MODIFICATION");
-    v87 = 0;
+    v86 = 0;
   }
 
   else if (MCGestaltHasPearlIDCapability())
   {
     v0 = MCLocalizedString(@"FEATURE_FACEDATA_MODIFICATION");
-    v87 = 0x100000000;
+    v86 = 0x100000000;
   }
 
   else
   {
     v0 = MCLocalizedString(@"FEATURE_FINGERPRINT_MODIFICATION");
-    v87 = 1;
+    v86 = 1;
   }
 
-  v165[74] = v0;
-  v164[75] = @"allowFingerprintForUnlock";
-  v86 = MCGestaltHasOysterCapability();
-  if (v86)
+  v164[74] = v0;
+  v163[75] = @"allowFingerprintForUnlock";
+  v85 = MCGestaltHasOysterCapability();
+  if (v85)
   {
     v1 = MCLocalizedString(@"FEATURE_OPTICDATA_UNLOCK");
-    v84 = 0;
+    v83 = 0;
   }
 
   else if (MCGestaltHasPearlIDCapability())
   {
     v1 = MCLocalizedString(@"FEATURE_FACEDATA_UNLOCK");
-    v84 = 0x100000000;
+    v83 = 0x100000000;
   }
 
   else
   {
     v1 = MCLocalizedString(@"FEATURE_FINGERPRINT_UNLOCK");
-    v84 = 1;
+    v83 = 1;
   }
 
-  v165[75] = v1;
-  v164[76] = @"allowFingerprintForContactlessPayment";
-  v83 = MCGestaltHasOysterCapability();
-  v88 = v0;
-  v85 = v1;
-  if (v83)
+  v164[75] = v1;
+  v163[76] = @"allowFingerprintForContactlessPayment";
+  v82 = MCGestaltHasOysterCapability();
+  v87 = v0;
+  v84 = v1;
+  if (v82)
   {
     v2 = MCLocalizedString(@"FEATURE_OPTICDATA_INAPP_PAYMENT");
-    v82 = 0;
     v81 = 0;
+    v80 = 0;
   }
 
   else if (MCGestaltHasPearlIDCapability())
   {
     v2 = MCLocalizedString(@"FEATURE_FACEDATA_INAPP_PAYMENT");
-    v81 = 0;
-    v82 = 1;
+    v80 = 0;
+    v81 = 1;
   }
 
   else
   {
     v2 = MCLocalizedString(@"FEATURE_FINGERPRINT_INAPP_PAYMENT");
-    v82 = 0;
-    v81 = 1;
+    v81 = 0;
+    v80 = 1;
   }
 
-  v165[76] = v2;
-  v164[77] = @"allowAutoUnlock";
-  v80 = MCLocalizedString(@"FEATURE_AUTO_UNLOCK");
-  v165[77] = v80;
-  v164[78] = @"allowManagedAppsCloudSync";
-  v79 = MCLocalizedString(@"FEATURE_MANAGED_APPS_CLOUD_SYNC");
-  v165[78] = v79;
-  v164[79] = @"allowGeotagSharing";
-  v78 = MCLocalizedString(@"FEATURE_GEOTAG_SHARING");
-  v165[79] = v78;
-  v164[80] = @"allowSpotlightInternetResults";
-  v77 = MCLocalizedString(@"FEATURE_SPOTLIGHT_INTERNET_RESULTS");
-  v165[80] = v77;
-  v164[81] = @"allowActivityContinuation";
-  v76 = MCLocalizedString(@"FEATURE_ACTIVITY_CONTINUATION");
-  v165[81] = v76;
-  v164[82] = @"allowEnterpriseBookBackup";
-  v75 = MCLocalizedString(@"FEATURE_ENTERPRISE_BOOK_BACKUP");
-  v165[82] = v75;
-  v164[83] = @"allowEnterpriseBookMetadataSync";
-  v74 = MCLocalizedString(@"FEATURE_ENTERPRISE_BOOK_METADATA_SYNC");
-  v165[83] = v74;
-  v164[84] = @"allowPredictiveKeyboard";
-  v73 = MCLocalizedString(@"FEATURE_PREDICTIVE_KEYBOARD");
-  v165[84] = v73;
-  v164[85] = @"allowContinuousPathKeyboard";
-  v72 = MCLocalizedString(@"FEATURE_CONTINUOUS_PATH_KEYBOARD");
-  v165[85] = v72;
-  v164[86] = @"allowKeyboardShortcuts";
-  v71 = MCLocalizedString(@"FEATURE_KEYBOARD_SHORTCUTS");
-  v165[86] = v71;
-  v164[87] = @"allowSpellCheck";
-  v70 = MCLocalizedString(@"FEATURE_SPELL_CHECK");
-  v165[87] = v70;
-  v164[88] = @"allowAutoCorrection";
-  v69 = MCLocalizedString(@"FEATURE_AUTOCORRECTION");
-  v165[88] = v69;
-  v164[89] = @"allowDefinitionLookup";
-  v68 = MCLocalizedString(@"FEATURE_DEFINITION_LOOKUP");
-  v165[89] = v68;
-  v164[90] = @"allowSelectedTextSharing";
-  v67 = MCLocalizedString(@"FEATURE_SELECTED_TEXT_SHARING");
-  v165[90] = v67;
-  v164[91] = @"allowPairedWatch";
-  v66 = MCLocalizedString(@"FEATURE_PAIRED_WATCH");
-  v165[91] = v66;
-  v164[92] = @"allowPasscodeModification";
-  v65 = MCLocalizedString(@"FEATURE_PASSCODE_MODIFICATION");
-  v165[92] = v65;
-  v164[93] = @"allowDeviceNameModification";
-  v64 = MCLocalizedString(@"FEATURE_DEVICE_NAME_MODIFICATION");
-  v165[93] = v64;
-  v164[94] = @"allowWallpaperModification";
-  v63 = MCLocalizedString(@"FEATURE_WALLPAPER_MODIFICATION");
-  v165[94] = v63;
-  v164[95] = @"allowEnterpriseAppTrust";
-  v62 = MCLocalizedString(@"FEATURE_ENTERPRISE_APP_TRUST");
-  v165[95] = v62;
-  v164[96] = @"allowNews";
-  v61 = MCLocalizedString(@"FEATURE_NEWS_APP");
-  v165[96] = v61;
-  v164[97] = @"allowMusicService";
-  v60 = MCLocalizedString(@"FEATURE_MUSIC_SERVICE");
-  v165[97] = v60;
-  v164[98] = @"allowRadioService";
-  v59 = MCLocalizedString(@"FEATURE_RADIO_SERVICE");
-  v165[98] = v59;
-  v164[99] = @"allowBluetoothModification";
-  v58 = MCLocalizedString(@"FEATURE_BLUETOOTH_MODIFICATION");
-  v165[99] = v58;
-  v164[100] = @"allowPersonalHotspotModification";
-  v57 = MCLocalizedString(@"FEATURE_PERSONALHOTSPOT_MODIFICATION");
-  v165[100] = v57;
-  v164[101] = @"allowNFC";
-  v56 = MCLocalizedString(@"FEATURE_NFC_ALLOWED");
-  v165[101] = v56;
-  v164[102] = @"allowNotificationsModification";
-  v55 = MCLocalizedString(@"FEATURE_NOTIFICATIONS_MODIFICATION");
-  v165[102] = v55;
-  v164[103] = @"allowTodayView";
-  v54 = MCLocalizedString(@"FEATURE_TODAY_VIEW");
-  v165[103] = v54;
-  v164[104] = @"allowTodayViewModification";
-  v53 = MCLocalizedString(@"FEATURE_TODAY_VIEW_MODIFICATION");
-  v165[104] = v53;
-  v164[105] = @"allowDictation";
-  v52 = MCLocalizedString(@"FEATURE_DICTATION");
-  v165[105] = v52;
-  v164[106] = @"allowRemoteAppPairing";
-  v51 = MCLocalizedString(@"FEATURE_REMOTE_APP_PAIRING");
-  v165[106] = v51;
-  v164[107] = @"allowAirPlayIncomingRequests";
-  v50 = MCLocalizedString(@"FEATURE_AIRPLAY_INCOMING_REQUESTS_ALLOWED");
-  v165[107] = v50;
-  v164[108] = @"allowVPNCreation";
-  v49 = MCLocalizedString(@"FEATURE_VPN_CREATION");
-  v165[108] = v49;
-  v164[109] = @"allowDriverDoNotDisturbModifications";
-  v48 = MCLocalizedString(@"FEATURE_DRIVER_DO_NOT_DISTURB_MODIFICATIONS");
-  v165[109] = v48;
-  v164[110] = @"allowProximitySetupToNewDevice";
-  v47 = MCLocalizedString(@"FEATURE_PROXIMITY_SET_UP");
-  v165[110] = v47;
-  v164[111] = @"allowUSBRestrictedMode";
-  v46 = MCLocalizedString(@"FEATURE_USB_RESTRICTED_MODE");
-  v165[111] = v46;
-  v164[112] = @"allowESIMModification";
-  v45 = MCLocalizedString(@"FEATURE_ESIM_MODIFICATION");
-  v165[112] = v45;
-  v164[113] = @"allowFilesUSBDriveAccess";
-  v44 = MCLocalizedString(@"FEATURE_USB_DRIVE_ACCESS_IN_FILES");
-  v165[113] = v44;
-  v164[114] = @"allowUSBDriveAccess";
-  v43 = MCLocalizedString(@"FEATURE_USB_DRIVE_ACCESS");
-  v165[114] = v43;
-  v164[115] = @"allowFilesNetworkDriveAccess";
-  v42 = MCLocalizedString(@"FEATURE_NETWORK_DRIVE_ACCESS_IN_FILES");
-  v165[115] = v42;
-  v164[116] = @"allowDeviceSleep";
-  v41 = MCLocalizedString(@"FEATURE_DEVICE_SLEEP");
-  v165[116] = v41;
-  v164[117] = @"allowAutomaticScreenSaver";
-  v40 = MCLocalizedString(@"FEATURE_AUTOMATIC_SCREEN_SAVER");
-  v165[117] = v40;
-  v164[118] = @"allowSharedDeviceTemporarySession";
-  v39 = MCLocalizedString(@"FEATURE_SHARED_DEVICE_TEMPORARY_SESSION");
-  v165[118] = v39;
-  v164[119] = @"allowApplePersonalizedAdvertising";
-  v38 = MCLocalizedString(@"FEATURE_APPLE_PERSONALIZED_ADVERTISING");
-  v165[119] = v38;
-  v164[120] = @"allowMailPrivacyProtection";
-  v37 = MCLocalizedString(@"FEATURE_MAIL_PRIVACY_PROTECTION");
-  v165[120] = v37;
-  v164[121] = @"allowRapidSecurityResponseInstallation";
-  v36 = MCLocalizedString(@"FEATURE_RAPID_SECURITY_RESPONSE_INSTALLATION");
-  v165[121] = v36;
-  v164[122] = @"allowRapidSecurityResponseRemoval";
-  v35 = MCLocalizedString(@"FEATURE_RAPID_SECURITY_RESPONSE_REMOVAL");
-  v165[122] = v35;
-  v164[123] = @"allowiPhoneWidgetsOnMac";
-  v34 = MCLocalizedString(@"FEATURE_IPHONE_WIDGETS_ON_MAC");
-  v165[123] = v34;
-  v164[124] = @"allowAppsToBeHidden";
-  v33 = MCLocalizedString(@"FEATURE_HIDDEN_APPS");
-  v165[124] = v33;
-  v164[125] = @"allowAppsToBeLocked";
-  v32 = MCLocalizedString(@"FEATURE_LOCKED_APPS");
-  v165[125] = v32;
-  v164[126] = @"allowLiveVoicemail";
-  v31 = MCLocalizedString(@"FEATURE_LIVE_VOICEMAIL");
-  v165[126] = v31;
-  v164[127] = @"allowCallRecording";
-  v30 = MCLocalizedString(@"FEATURE_CALL_RECORDING");
-  v165[127] = v30;
-  v164[128] = @"allowMarketplaceAppInstallation";
-  v29 = MCLocalizedString(@"FEATURE_MARKETPLACE_APP_INSTALLATION");
-  v165[128] = v29;
-  v164[129] = @"allowWebDistributionAppInstallation";
-  v28 = MCLocalizedString(@"FEATURE_WEB_APP_INSTALLATION");
-  v165[129] = v28;
-  v164[130] = @"allowAutoDim";
-  v27 = MCLocalizedString(@"FEATURE_AUTO_DIM");
-  v165[130] = v27;
-  v164[131] = @"allowESIMOutgoingTransfers";
-  v26 = MCLocalizedString(@"FEATURE_ESIM_OUTGOING_TRANSFER");
-  v165[131] = v26;
-  v164[132] = @"allowExternalIntelligenceIntegrations";
-  v25 = MCLocalizedString(@"FEATURE_EXTERNAL_INTELLIGENCE");
-  v165[132] = v25;
-  v164[133] = @"allowExternalIntelligenceIntegrationsSignIn";
-  v24 = MCLocalizedString(@"FEATURE_EXTERNAL_INTELLIGENCE_SIGN_IN");
-  v165[133] = v24;
-  v164[134] = @"allowiPhoneMirroring";
-  v23 = MCLocalizedString(@"FEATURE_IPHONE_MIRRORING");
-  v165[134] = v23;
-  v164[135] = @"allowPersonalizedHandwritingResults";
-  v22 = MCLocalizedString(@"FEATURE_PERSONALIZED_HANDWRITING");
-  v165[135] = v22;
-  v164[136] = @"allowGenmoji";
-  v21 = MCLocalizedString(@"FEATURE_GENMOJI");
-  v165[136] = v21;
-  v164[137] = @"allowImagePlayground";
-  v20 = MCLocalizedString(@"FEATURE_IMAGE_PLAYGROUND");
-  v165[137] = v20;
-  v164[138] = @"allowImageWand";
-  v19 = MCLocalizedString(@"FEATURE_IMAGE_WAND");
-  v165[138] = v19;
-  v164[139] = @"allowiPhoneMirroring";
-  v18 = MCLocalizedString(@"FEATURE_FEATURE3");
-  v165[139] = v18;
-  v164[140] = @"allowVideoConferencingRemoteControl";
-  v17 = MCLocalizedString(@"FEATURE_VIDEO_CONFERENCING_REMOTE_CONTROL");
-  v165[140] = v17;
-  v164[141] = @"allowWritingTools";
-  v16 = MCLocalizedString(@"FEATURE_WRITING_TOOLS");
-  v165[141] = v16;
-  v164[142] = @"allowMailSummary";
-  v15 = MCLocalizedString(@"FEATURE_MAIL_SUMMARY");
-  v165[142] = v15;
-  v164[143] = @"allowMailSmartReplies";
+  v164[76] = v2;
+  v163[77] = @"allowAutoUnlock";
+  v79 = MCLocalizedString(@"FEATURE_AUTO_UNLOCK");
+  v164[77] = v79;
+  v163[78] = @"allowManagedAppsCloudSync";
+  v78 = MCLocalizedString(@"FEATURE_MANAGED_APPS_CLOUD_SYNC");
+  v164[78] = v78;
+  v163[79] = @"allowGeotagSharing";
+  v77 = MCLocalizedString(@"FEATURE_GEOTAG_SHARING");
+  v164[79] = v77;
+  v163[80] = @"allowSpotlightInternetResults";
+  v76 = MCLocalizedString(@"FEATURE_SPOTLIGHT_INTERNET_RESULTS");
+  v164[80] = v76;
+  v163[81] = @"allowActivityContinuation";
+  v75 = MCLocalizedString(@"FEATURE_ACTIVITY_CONTINUATION");
+  v164[81] = v75;
+  v163[82] = @"allowEnterpriseBookBackup";
+  v74 = MCLocalizedString(@"FEATURE_ENTERPRISE_BOOK_BACKUP");
+  v164[82] = v74;
+  v163[83] = @"allowEnterpriseBookMetadataSync";
+  v73 = MCLocalizedString(@"FEATURE_ENTERPRISE_BOOK_METADATA_SYNC");
+  v164[83] = v73;
+  v163[84] = @"allowPredictiveKeyboard";
+  v72 = MCLocalizedString(@"FEATURE_PREDICTIVE_KEYBOARD");
+  v164[84] = v72;
+  v163[85] = @"allowContinuousPathKeyboard";
+  v71 = MCLocalizedString(@"FEATURE_CONTINUOUS_PATH_KEYBOARD");
+  v164[85] = v71;
+  v163[86] = @"allowKeyboardShortcuts";
+  v70 = MCLocalizedString(@"FEATURE_KEYBOARD_SHORTCUTS");
+  v164[86] = v70;
+  v163[87] = @"allowSpellCheck";
+  v69 = MCLocalizedString(@"FEATURE_SPELL_CHECK");
+  v164[87] = v69;
+  v163[88] = @"allowAutoCorrection";
+  v68 = MCLocalizedString(@"FEATURE_AUTOCORRECTION");
+  v164[88] = v68;
+  v163[89] = @"allowDefinitionLookup";
+  v67 = MCLocalizedString(@"FEATURE_DEFINITION_LOOKUP");
+  v164[89] = v67;
+  v163[90] = @"allowSelectedTextSharing";
+  v66 = MCLocalizedString(@"FEATURE_SELECTED_TEXT_SHARING");
+  v164[90] = v66;
+  v163[91] = @"allowPairedWatch";
+  v65 = MCLocalizedString(@"FEATURE_PAIRED_WATCH");
+  v164[91] = v65;
+  v163[92] = @"allowPasscodeModification";
+  v64 = MCLocalizedString(@"FEATURE_PASSCODE_MODIFICATION");
+  v164[92] = v64;
+  v163[93] = @"allowDeviceNameModification";
+  v63 = MCLocalizedString(@"FEATURE_DEVICE_NAME_MODIFICATION");
+  v164[93] = v63;
+  v163[94] = @"allowWallpaperModification";
+  v62 = MCLocalizedString(@"FEATURE_WALLPAPER_MODIFICATION");
+  v164[94] = v62;
+  v163[95] = @"allowEnterpriseAppTrust";
+  v61 = MCLocalizedString(@"FEATURE_ENTERPRISE_APP_TRUST");
+  v164[95] = v61;
+  v163[96] = @"allowNews";
+  v60 = MCLocalizedString(@"FEATURE_NEWS_APP");
+  v164[96] = v60;
+  v163[97] = @"allowMusicService";
+  v59 = MCLocalizedString(@"FEATURE_MUSIC_SERVICE");
+  v164[97] = v59;
+  v163[98] = @"allowRadioService";
+  v58 = MCLocalizedString(@"FEATURE_RADIO_SERVICE");
+  v164[98] = v58;
+  v163[99] = @"allowBluetoothModification";
+  v57 = MCLocalizedString(@"FEATURE_BLUETOOTH_MODIFICATION");
+  v164[99] = v57;
+  v163[100] = @"allowPersonalHotspotModification";
+  v56 = MCLocalizedString(@"FEATURE_PERSONALHOTSPOT_MODIFICATION");
+  v164[100] = v56;
+  v163[101] = @"allowNFC";
+  v55 = MCLocalizedString(@"FEATURE_NFC_ALLOWED");
+  v164[101] = v55;
+  v163[102] = @"allowNotificationsModification";
+  v54 = MCLocalizedString(@"FEATURE_NOTIFICATIONS_MODIFICATION");
+  v164[102] = v54;
+  v163[103] = @"allowTodayView";
+  v53 = MCLocalizedString(@"FEATURE_TODAY_VIEW");
+  v164[103] = v53;
+  v163[104] = @"allowTodayViewModification";
+  v52 = MCLocalizedString(@"FEATURE_TODAY_VIEW_MODIFICATION");
+  v164[104] = v52;
+  v163[105] = @"allowDictation";
+  v51 = MCLocalizedString(@"FEATURE_DICTATION");
+  v164[105] = v51;
+  v163[106] = @"allowRemoteAppPairing";
+  v50 = MCLocalizedString(@"FEATURE_REMOTE_APP_PAIRING");
+  v164[106] = v50;
+  v163[107] = @"allowAirPlayIncomingRequests";
+  v49 = MCLocalizedString(@"FEATURE_AIRPLAY_INCOMING_REQUESTS_ALLOWED");
+  v164[107] = v49;
+  v163[108] = @"allowVPNCreation";
+  v48 = MCLocalizedString(@"FEATURE_VPN_CREATION");
+  v164[108] = v48;
+  v163[109] = @"allowDriverDoNotDisturbModifications";
+  v47 = MCLocalizedString(@"FEATURE_DRIVER_DO_NOT_DISTURB_MODIFICATIONS");
+  v164[109] = v47;
+  v163[110] = @"allowProximitySetupToNewDevice";
+  v46 = MCLocalizedString(@"FEATURE_PROXIMITY_SET_UP");
+  v164[110] = v46;
+  v163[111] = @"allowUSBRestrictedMode";
+  v45 = MCLocalizedString(@"FEATURE_USB_RESTRICTED_MODE");
+  v164[111] = v45;
+  v163[112] = @"allowESIMModification";
+  v44 = MCLocalizedString(@"FEATURE_ESIM_MODIFICATION");
+  v164[112] = v44;
+  v163[113] = @"allowFilesUSBDriveAccess";
+  v43 = MCLocalizedString(@"FEATURE_USB_DRIVE_ACCESS_IN_FILES");
+  v164[113] = v43;
+  v163[114] = @"allowUSBDriveAccess";
+  v42 = MCLocalizedString(@"FEATURE_USB_DRIVE_ACCESS");
+  v164[114] = v42;
+  v163[115] = @"allowFilesNetworkDriveAccess";
+  v41 = MCLocalizedString(@"FEATURE_NETWORK_DRIVE_ACCESS_IN_FILES");
+  v164[115] = v41;
+  v163[116] = @"allowDeviceSleep";
+  v40 = MCLocalizedString(@"FEATURE_DEVICE_SLEEP");
+  v164[116] = v40;
+  v163[117] = @"allowAutomaticScreenSaver";
+  v39 = MCLocalizedString(@"FEATURE_AUTOMATIC_SCREEN_SAVER");
+  v164[117] = v39;
+  v163[118] = @"allowSharedDeviceTemporarySession";
+  v38 = MCLocalizedString(@"FEATURE_SHARED_DEVICE_TEMPORARY_SESSION");
+  v164[118] = v38;
+  v163[119] = @"allowApplePersonalizedAdvertising";
+  v37 = MCLocalizedString(@"FEATURE_APPLE_PERSONALIZED_ADVERTISING");
+  v164[119] = v37;
+  v163[120] = @"allowMailPrivacyProtection";
+  v36 = MCLocalizedString(@"FEATURE_MAIL_PRIVACY_PROTECTION");
+  v164[120] = v36;
+  v163[121] = @"allowRapidSecurityResponseInstallation";
+  v35 = MCLocalizedString(@"FEATURE_RAPID_SECURITY_RESPONSE_INSTALLATION");
+  v164[121] = v35;
+  v163[122] = @"allowRapidSecurityResponseRemoval";
+  v34 = MCLocalizedString(@"FEATURE_RAPID_SECURITY_RESPONSE_REMOVAL");
+  v164[122] = v34;
+  v163[123] = @"allowiPhoneWidgetsOnMac";
+  v33 = MCLocalizedString(@"FEATURE_IPHONE_WIDGETS_ON_MAC");
+  v164[123] = v33;
+  v163[124] = @"allowAppsToBeHidden";
+  v32 = MCLocalizedString(@"FEATURE_HIDDEN_APPS");
+  v164[124] = v32;
+  v163[125] = @"allowAppsToBeLocked";
+  v31 = MCLocalizedString(@"FEATURE_LOCKED_APPS");
+  v164[125] = v31;
+  v163[126] = @"allowLiveVoicemail";
+  v30 = MCLocalizedString(@"FEATURE_LIVE_VOICEMAIL");
+  v164[126] = v30;
+  v163[127] = @"allowCallRecording";
+  v29 = MCLocalizedString(@"FEATURE_CALL_RECORDING");
+  v164[127] = v29;
+  v163[128] = @"allowMarketplaceAppInstallation";
+  v28 = MCLocalizedString(@"FEATURE_MARKETPLACE_APP_INSTALLATION");
+  v164[128] = v28;
+  v163[129] = @"allowWebDistributionAppInstallation";
+  v27 = MCLocalizedString(@"FEATURE_WEB_APP_INSTALLATION");
+  v164[129] = v27;
+  v163[130] = @"allowAutoDim";
+  v26 = MCLocalizedString(@"FEATURE_AUTO_DIM");
+  v164[130] = v26;
+  v163[131] = @"allowESIMOutgoingTransfers";
+  v25 = MCLocalizedString(@"FEATURE_ESIM_OUTGOING_TRANSFER");
+  v164[131] = v25;
+  v163[132] = @"allowExternalIntelligenceIntegrations";
+  v24 = MCLocalizedString(@"FEATURE_EXTERNAL_INTELLIGENCE");
+  v164[132] = v24;
+  v163[133] = @"allowExternalIntelligenceIntegrationsSignIn";
+  v23 = MCLocalizedString(@"FEATURE_EXTERNAL_INTELLIGENCE_SIGN_IN");
+  v164[133] = v23;
+  v163[134] = @"allowiPhoneMirroring";
+  v22 = MCLocalizedString(@"FEATURE_IPHONE_MIRRORING");
+  v164[134] = v22;
+  v163[135] = @"allowPersonalizedHandwritingResults";
+  v21 = MCLocalizedString(@"FEATURE_PERSONALIZED_HANDWRITING");
+  v164[135] = v21;
+  v163[136] = @"allowGenmoji";
+  v20 = MCLocalizedString(@"FEATURE_GENMOJI");
+  v164[136] = v20;
+  v163[137] = @"allowImagePlayground";
+  v19 = MCLocalizedString(@"FEATURE_IMAGE_PLAYGROUND");
+  v164[137] = v19;
+  v163[138] = @"allowImageWand";
+  v18 = MCLocalizedString(@"FEATURE_IMAGE_WAND");
+  v164[138] = v18;
+  v163[139] = @"allowiPhoneMirroring";
+  v17 = MCLocalizedString(@"FEATURE_FEATURE3");
+  v164[139] = v17;
+  v163[140] = @"allowVideoConferencingRemoteControl";
+  v16 = MCLocalizedString(@"FEATURE_VIDEO_CONFERENCING_REMOTE_CONTROL");
+  v164[140] = v16;
+  v163[141] = @"allowWritingTools";
+  v15 = MCLocalizedString(@"FEATURE_WRITING_TOOLS");
+  v164[141] = v15;
+  v163[142] = @"allowMailSummary";
+  v14 = MCLocalizedString(@"FEATURE_MAIL_SUMMARY");
+  v164[142] = v14;
+  v163[143] = @"allowMailSmartReplies";
   v3 = MCLocalizedString(@"FEATURE_MAIL_SMART_REPLIES");
-  v165[143] = v3;
-  v164[144] = @"allowSafariSummary";
+  v164[143] = v3;
+  v163[144] = @"allowSafariSummary";
   v4 = MCLocalizedString(@"FEATURE_SAFARI_SUMMARY");
-  v165[144] = v4;
-  v164[145] = @"allowNotesTranscription";
+  v164[144] = v4;
+  v163[145] = @"allowNotesTranscription";
   v5 = MCLocalizedString(@"FEATURE_NOTES_TRANSCRIPTION");
-  v165[145] = v5;
-  v164[146] = @"allowNotesTranscriptionSummary";
+  v164[145] = v5;
+  v163[146] = @"allowNotesTranscriptionSummary";
   v6 = MCLocalizedString(@"FEATURE_NOTES_TRANSCRIPTION_SUMMARY");
-  v165[146] = v6;
-  v164[147] = @"allowVisualIntelligenceSummary";
+  v164[146] = v6;
+  v163[147] = @"allowVisualIntelligenceSummary";
   v7 = MCLocalizedString(@"FEATURE_VISUAL_INTELLIGENCE_SUMMARY");
-  v165[147] = v7;
-  v164[148] = @"allowSatelliteConnection";
+  v164[147] = v7;
+  v163[148] = @"allowSatelliteConnection";
   v8 = MCLocalizedString(@"FEATURE_SATELLITE_CONNECTION");
-  v165[148] = v8;
-  v164[149] = @"allowAppleIntelligenceReport";
+  v164[148] = v8;
+  v163[149] = @"allowAppleIntelligenceReport";
   v9 = MCLocalizedString(@"FEATURE_APPLE_INTELLIGENCE_REPORT");
-  v165[149] = v9;
-  v164[150] = @"allowSafariPrivateBrowsing";
+  v164[149] = v9;
+  v163[150] = @"allowSafariPrivateBrowsing";
   v10 = MCLocalizedString(@"FEATURE_SAFARI_PRIVATE_BROWSING");
-  v165[150] = v10;
-  v164[151] = @"allowSafariHistoryClearing";
+  v164[150] = v10;
+  v163[151] = @"allowSafariHistoryClearing";
   v11 = MCLocalizedString(@"FEATURE_SAFARI_HISTORY_CLEARING");
-  v165[151] = v11;
-  v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v165 forKeys:v164 count:152];
+  v164[151] = v11;
+  v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v164 forKeys:v163 count:152];
   v13 = _restrictedFeatureStrings_sStrings;
   _restrictedFeatureStrings_sStrings = v12;
+
+  if (v80)
+  {
+  }
 
   if (v81)
   {
@@ -1692,11 +1690,11 @@ void __50__MCRestrictionsPayload__restrictedFeatureStrings__block_invoke()
   {
   }
 
-  if (v84)
+  if (HIDWORD(v83))
   {
   }
 
-  if (HIDWORD(v84))
+  if (v85)
   {
   }
 
@@ -1704,19 +1702,13 @@ void __50__MCRestrictionsPayload__restrictedFeatureStrings__block_invoke()
   {
   }
 
-  if (v87)
-  {
-  }
-
-  if (HIDWORD(v87))
+  if (HIDWORD(v86))
   {
   }
 
   if (HasOysterCapability)
   {
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_enforcedFeatureStrings
@@ -1733,108 +1725,106 @@ void __50__MCRestrictionsPayload__restrictedFeatureStrings__block_invoke()
 
 void __48__MCRestrictionsPayload__enforcedFeatureStrings__block_invoke()
 {
-  v38[31] = *MEMORY[0x1E69E9840];
-  v37[0] = @"forceITunesStorePasswordEntry";
-  v36 = MCLocalizedString(@"FEATURE_ENTER_ITUNES_PASSWORD");
-  v38[0] = v36;
-  v37[1] = @"forceFIPSVerification";
-  v35 = MCLocalizedString(@"FEATURE_FIPS");
-  v38[1] = v35;
-  v37[2] = @"forceAssistantProfanityFilter";
-  v34 = MCLocalizedString(@"FEATURE_ASSISTANT_PROF_FILTER");
-  v38[2] = v34;
-  v37[3] = @"forceAuthenticationBeforeAutoFill";
-  v33 = MCLocalizedString(@"FEATURE_AUTHENTICATE_BEFORE_AUTO_FILL");
-  v38[3] = v33;
-  v37[4] = @"forceEncryptedBackup";
-  v32 = MCLocalizedString(@"FEATURE_ENCRYPTED_BACKUPS");
-  v38[4] = v32;
-  v37[5] = @"safariForceFraudWarning";
-  v31 = MCLocalizedString(@"FEATURE_SAFARI_FRAUD_WARNING");
-  v38[5] = v31;
-  v37[6] = @"forceLimitAdTracking";
-  v30 = MCLocalizedString(@"FEATURE_FORCE_LIMIT_AD_TRACKING");
-  v38[6] = v30;
-  v37[7] = @"forceAirPlayOutgoingRequestsPairingPassword";
-  v29 = MCLocalizedString(@"FEATURE_AIRPLAY_OUTGOING_REQUESTS_PAIRING_PASSWORD");
-  v38[7] = v29;
-  v37[8] = @"forceAirPlayIncomingRequestsPairingPassword";
-  v28 = MCLocalizedString(@"FEATURE_AIRPLAY_INCOMING_REQUESTS_PAIRING_PASSWORD");
-  v38[8] = v28;
-  v37[9] = @"forceWatchWristDetection";
-  v27 = MCLocalizedString(@"FEATURE_WATCH_WRIST_DETECT");
-  v38[9] = v27;
-  v37[10] = @"forceConferenceRoomDisplay";
-  v26 = MCLocalizedString(@"FEATURE_CONFERENCE_ROOM_MODE");
-  v38[10] = v26;
-  v37[11] = @"forceAirDropUnmanaged";
-  v25 = MCLocalizedString(@"FEATURE_AIRDROP_UNMANAGED");
-  v38[11] = v25;
-  v37[12] = @"forceDelayedSoftwareUpdates";
-  v24 = MCLocalizedString(@"FEATURE_DELAYED_SOFTWARE_UPDATES");
-  v38[12] = v24;
-  v37[13] = @"forceWiFiWhitelisting";
-  v23 = [@"FEATURE_WIFI_ALLOW_LIST" MCAppendGreenteaSuffix];
-  v22 = MCLocalizedString(v23);
-  v38[13] = v22;
-  v37[14] = @"forceWiFiToAllowedNetworksOnly";
-  v21 = [@"FEATURE_WIFI_ALLOWED_NETWORKS_ONLY" MCAppendGreenteaSuffix];
-  v20 = MCLocalizedString(v21);
-  v38[14] = v20;
-  v37[15] = @"forceWiFiPowerOn";
-  v19 = [@"FEATURE_WIFI_POWER_MODIFICATION" MCAppendGreenteaSuffix];
-  v18 = MCLocalizedString(v19);
-  v38[15] = v18;
-  v37[16] = @"forceAutomaticDateAndTime";
-  v17 = MCLocalizedString(@"FEATURE_AUTOMATIC_DATE_TIME");
-  v38[16] = v17;
-  v37[17] = @"forceAirPrintTrustedTLSRequirement";
-  v16 = MCLocalizedString(@"FEATURE_AIRPRINT_TRUSTED_TLS_REQUIREMENT");
-  v38[17] = v16;
-  v37[18] = @"forceClassroomUnpromptedScreenObservation";
-  v15 = MCLocalizedString(@"FEATURE_CLASSROOM_UNPROMPTED_SCREEN_OBSERVATION");
-  v38[18] = v15;
-  v37[19] = @"forceUnpromptedManagedClassroomScreenObservation";
+  v37[31] = *MEMORY[0x1E69E9840];
+  v36[0] = @"forceITunesStorePasswordEntry";
+  v35 = MCLocalizedString(@"FEATURE_ENTER_ITUNES_PASSWORD");
+  v37[0] = v35;
+  v36[1] = @"forceFIPSVerification";
+  v34 = MCLocalizedString(@"FEATURE_FIPS");
+  v37[1] = v34;
+  v36[2] = @"forceAssistantProfanityFilter";
+  v33 = MCLocalizedString(@"FEATURE_ASSISTANT_PROF_FILTER");
+  v37[2] = v33;
+  v36[3] = @"forceAuthenticationBeforeAutoFill";
+  v32 = MCLocalizedString(@"FEATURE_AUTHENTICATE_BEFORE_AUTO_FILL");
+  v37[3] = v32;
+  v36[4] = @"forceEncryptedBackup";
+  v31 = MCLocalizedString(@"FEATURE_ENCRYPTED_BACKUPS");
+  v37[4] = v31;
+  v36[5] = @"safariForceFraudWarning";
+  v30 = MCLocalizedString(@"FEATURE_SAFARI_FRAUD_WARNING");
+  v37[5] = v30;
+  v36[6] = @"forceLimitAdTracking";
+  v29 = MCLocalizedString(@"FEATURE_FORCE_LIMIT_AD_TRACKING");
+  v37[6] = v29;
+  v36[7] = @"forceAirPlayOutgoingRequestsPairingPassword";
+  v28 = MCLocalizedString(@"FEATURE_AIRPLAY_OUTGOING_REQUESTS_PAIRING_PASSWORD");
+  v37[7] = v28;
+  v36[8] = @"forceAirPlayIncomingRequestsPairingPassword";
+  v27 = MCLocalizedString(@"FEATURE_AIRPLAY_INCOMING_REQUESTS_PAIRING_PASSWORD");
+  v37[8] = v27;
+  v36[9] = @"forceWatchWristDetection";
+  v26 = MCLocalizedString(@"FEATURE_WATCH_WRIST_DETECT");
+  v37[9] = v26;
+  v36[10] = @"forceConferenceRoomDisplay";
+  v25 = MCLocalizedString(@"FEATURE_CONFERENCE_ROOM_MODE");
+  v37[10] = v25;
+  v36[11] = @"forceAirDropUnmanaged";
+  v24 = MCLocalizedString(@"FEATURE_AIRDROP_UNMANAGED");
+  v37[11] = v24;
+  v36[12] = @"forceDelayedSoftwareUpdates";
+  v23 = MCLocalizedString(@"FEATURE_DELAYED_SOFTWARE_UPDATES");
+  v37[12] = v23;
+  v36[13] = @"forceWiFiWhitelisting";
+  v22 = [@"FEATURE_WIFI_ALLOW_LIST" MCAppendGreenteaSuffix];
+  v21 = MCLocalizedString(v22);
+  v37[13] = v21;
+  v36[14] = @"forceWiFiToAllowedNetworksOnly";
+  v20 = [@"FEATURE_WIFI_ALLOWED_NETWORKS_ONLY" MCAppendGreenteaSuffix];
+  v19 = MCLocalizedString(v20);
+  v37[14] = v19;
+  v36[15] = @"forceWiFiPowerOn";
+  v18 = [@"FEATURE_WIFI_POWER_MODIFICATION" MCAppendGreenteaSuffix];
+  v17 = MCLocalizedString(v18);
+  v37[15] = v17;
+  v36[16] = @"forceAutomaticDateAndTime";
+  v16 = MCLocalizedString(@"FEATURE_AUTOMATIC_DATE_TIME");
+  v37[16] = v16;
+  v36[17] = @"forceAirPrintTrustedTLSRequirement";
+  v15 = MCLocalizedString(@"FEATURE_AIRPRINT_TRUSTED_TLS_REQUIREMENT");
+  v37[17] = v15;
+  v36[18] = @"forceClassroomUnpromptedScreenObservation";
   v14 = MCLocalizedString(@"FEATURE_CLASSROOM_UNPROMPTED_SCREEN_OBSERVATION");
-  v38[19] = v14;
-  v37[20] = @"forceClassroomAutomaticallyJoinClasses";
-  v13 = MCLocalizedString(@"FEATURE_CLASSROOM_AUTOMATICALLY_JOIN_CLASSES");
-  v38[20] = v13;
-  v37[21] = @"forceClassroomUnpromptedAppAndDeviceLock";
+  v37[18] = v14;
+  v36[19] = @"forceUnpromptedManagedClassroomScreenObservation";
+  v13 = MCLocalizedString(@"FEATURE_CLASSROOM_UNPROMPTED_SCREEN_OBSERVATION");
+  v37[19] = v13;
+  v36[20] = @"forceClassroomAutomaticallyJoinClasses";
+  v12 = MCLocalizedString(@"FEATURE_CLASSROOM_AUTOMATICALLY_JOIN_CLASSES");
+  v37[20] = v12;
+  v36[21] = @"forceClassroomUnpromptedAppAndDeviceLock";
   v0 = MCLocalizedString(@"FEATURE_CLASSROOM_UNPROMPTED_APP_AND_DEVICE_LOCK");
-  v38[21] = v0;
-  v37[22] = @"forceClassroomRequestPermissionToLeaveClasses";
+  v37[21] = v0;
+  v36[22] = @"forceClassroomRequestPermissionToLeaveClasses";
   v1 = MCLocalizedString(@"FEATURE_CLASSROOM_REQUEST_PERMISSION_TO_LEAVE_CLASSES");
-  v38[22] = v1;
-  v37[23] = @"allowManagedToWriteUnmanagedContacts";
+  v37[22] = v1;
+  v36[23] = @"allowManagedToWriteUnmanagedContacts";
   v2 = MCLocalizedString(@"FEATURE_MANAGED_WRITE_UNMANAGED_CONTACTS");
-  v38[23] = v2;
-  v37[24] = @"allowUnmanagedToReadManagedContacts";
+  v37[23] = v2;
+  v36[24] = @"allowUnmanagedToReadManagedContacts";
   v3 = MCLocalizedString(@"FEATURE_UNMANAGED_READ_MANAGED_CONTACTS");
-  v38[24] = v3;
-  v37[25] = @"requireManagedPasteboard";
+  v37[24] = v3;
+  v36[25] = @"requireManagedPasteboard";
   v4 = MCLocalizedString(@"FEATURE_MANAGED_PASTEBOARD_REQUIRED");
-  v38[25] = v4;
-  v37[26] = @"allowDeprecatedWebKitTLS";
+  v37[25] = v4;
+  v36[26] = @"allowDeprecatedWebKitTLS";
   v5 = MCLocalizedString(@"FEATURE_WEBKIT_DEPRECATED_TLS");
-  v38[26] = v5;
-  v37[27] = @"allowUnpairedExternalBootToRecovery";
+  v37[26] = v5;
+  v36[27] = @"allowUnpairedExternalBootToRecovery";
   v6 = MCLocalizedString(@"FEATURE_UNPAIRED_EXTERNAL_BOOT_TO_RECOVERY");
-  v38[27] = v6;
-  v37[28] = @"forceOnDeviceOnlyDictation";
+  v37[27] = v6;
+  v36[28] = @"forceOnDeviceOnlyDictation";
   v7 = MCLocalizedStringByDevice(@"FEATURE_ON_DEVICE_ONLY_DICTATION");
-  v38[28] = v7;
-  v37[29] = @"forceOnDeviceOnlyTranslation";
+  v37[28] = v7;
+  v36[29] = @"forceOnDeviceOnlyTranslation";
   v8 = MCLocalizedStringByDevice(@"FEATURE_ON_DEVICE_ONLY_TRANSLATION");
-  v38[29] = v8;
-  v37[30] = @"forcePreserveESIMOnErase";
+  v37[29] = v8;
+  v36[30] = @"forcePreserveESIMOnErase";
   v9 = MCLocalizedString(@"FEATURE_PRESERVE_ESIM_ON_ERASE");
-  v38[30] = v9;
-  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v38 forKeys:v37 count:31];
+  v37[30] = v9;
+  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v37 forKeys:v36 count:31];
   v11 = _enforcedFeatureStrings_sStrings;
   _enforcedFeatureStrings_sStrings = v10;
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_intersectionStrings
@@ -1851,30 +1841,28 @@ void __48__MCRestrictionsPayload__enforcedFeatureStrings__block_invoke()
 
 void __45__MCRestrictionsPayload__intersectionStrings__block_invoke()
 {
-  v10[6] = *MEMORY[0x1E69E9840];
-  v9[0] = @"autonomousSingleAppModePermittedAppIDs";
+  v9[6] = *MEMORY[0x1E69E9840];
+  v8[0] = @"autonomousSingleAppModePermittedAppIDs";
   v0 = MCLocalizedString(@"FEATURE_AUTONOMOUS_SAM_ALLOW_LIST");
-  v10[0] = v0;
-  v9[1] = @"appLockBundleIDs";
+  v9[0] = v0;
+  v8[1] = @"appLockBundleIDs";
   v1 = MCLocalizedString(@"FEATURE_APP_ALLOW_LIST");
-  v10[1] = v1;
-  v9[2] = @"allowedExternalIntelligenceAccountDomains";
+  v9[1] = v1;
+  v8[2] = @"allowedExternalIntelligenceAccountDomains";
   v2 = MCLocalizedString(@"FEATURE_EXTERNAL_INTELLIGENCE_DOMAIN_LIST");
-  v10[2] = v2;
-  v9[3] = @"allowedExternalIntelligenceWorkspaceIDs";
+  v9[2] = v2;
+  v8[3] = @"allowedExternalIntelligenceWorkspaceIDs";
   v3 = MCLocalizedString(@"FEATURE_EXTERNAL_INTELLIGENCE_WORKSPACE_IDS");
-  v10[3] = v3;
-  v9[4] = @"allowedCameraRestrictionBundleIDs";
+  v9[3] = v3;
+  v8[4] = @"allowedCameraRestrictionBundleIDs";
   v4 = MCLocalizedString(@"FEATURE_CAMERA_RESTRICTION_BUNDLE_IDS");
-  v10[4] = v4;
-  v9[5] = @"ratingAppsExemptedBundleIDs";
+  v9[4] = v4;
+  v8[5] = @"ratingAppsExemptedBundleIDs";
   v5 = MCLocalizedString(@"FEATURE_APPS_RATING_EXEMPTED");
-  v10[5] = v5;
-  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:v9 count:6];
+  v9[5] = v5;
+  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:v8 count:6];
   v7 = _intersectionStrings_sStrings;
   _intersectionStrings_sStrings = v6;
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_unionStrings
@@ -1891,118 +1879,113 @@ void __45__MCRestrictionsPayload__intersectionStrings__block_invoke()
 
 void __38__MCRestrictionsPayload__unionStrings__block_invoke()
 {
-  v8[4] = *MEMORY[0x1E69E9840];
-  v7[0] = @"blacklistedAppBundleIDs";
+  v7[4] = *MEMORY[0x1E69E9840];
+  v6[0] = @"blacklistedAppBundleIDs";
   v0 = MCLocalizedString(@"FEATURE_PROHIBITED_APPS");
-  v8[0] = v0;
-  v7[1] = @"blockedAppBundleIDs";
+  v7[0] = v0;
+  v6[1] = @"blockedAppBundleIDs";
   v1 = MCLocalizedString(@"FEATURE_PROHIBITED_APPS");
-  v8[1] = v1;
-  v7[2] = @"deniedICCIDsForRCS";
+  v7[1] = v1;
+  v6[2] = @"deniedICCIDsForRCS";
   v2 = MCLocalizedString(@"FEATURE_RCS_ICCIDS");
-  v8[2] = v2;
-  v7[3] = @"deniedICCIDsForiMessageFaceTime";
+  v7[2] = v2;
+  v6[3] = @"deniedICCIDsForiMessageFaceTime";
   v3 = MCLocalizedString(@"FEATURE_IMESSAGE_ICCIDS");
-  v8[3] = v3;
-  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:v7 count:4];
+  v7[3] = v3;
+  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:v6 count:4];
   v5 = _unionStrings_sStrings;
   _unionStrings_sStrings = v4;
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_defaultValueRestrictions
 {
-  v20[3] = *MEMORY[0x1E69E9840];
+  v19[3] = *MEMORY[0x1E69E9840];
   if (_defaultValueRestrictions_once != -1)
   {
     [MCRestrictionsPayload _defaultValueRestrictions];
   }
 
-  v19[0] = @"normalMax";
+  v18[0] = @"normalMax";
   v2 = [MCRestrictionManager maximumValueForSetting:@"enforcedSoftwareUpdateDelay"];
-  v20[0] = v2;
-  v19[1] = @"normalMin";
+  v19[0] = v2;
+  v18[1] = @"normalMin";
   v3 = [MCRestrictionManager minimumValueForSetting:@"enforcedSoftwareUpdateDelay"];
-  v20[1] = v3;
-  v19[2] = @"localizedString";
+  v19[1] = v3;
+  v18[2] = @"localizedString";
   v4 = +[MCRestrictionManager sharedManager];
   v5 = [v4 effectiveValueForSetting:@"enforcedSoftwareUpdateDelay"];
   unsignedIntValue = [v5 unsignedIntValue];
   v14 = MCLocalizedFormat(@"FEATURE_SOFTWARE_UPDATE_DELAY", v7, v8, v9, v10, v11, v12, v13, unsignedIntValue);
-  v20[2] = v14;
-  v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:v19 count:3];
+  v19[2] = v14;
+  v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:v18 count:3];
   [_defaultValueRestrictions_dict setObject:v15 forKeyedSubscript:@"enforcedSoftwareUpdateDelay"];
 
   v16 = _defaultValueRestrictions_dict;
-  v17 = *MEMORY[0x1E69E9840];
 
   return v16;
 }
 
 void __50__MCRestrictionsPayload__defaultValueRestrictions__block_invoke()
 {
-  v29[4] = *MEMORY[0x1E69E9840];
-  v28[0] = @"ratingMovies";
-  v26[0] = @"normalMax";
-  v19 = [MCRestrictionManager maximumValueForSetting:@"ratingMovies"];
-  v27[0] = v19;
-  v26[1] = @"normalMin";
-  v18 = [MCRestrictionManager minimumValueForSetting:@"ratingMovies"];
-  v27[1] = v18;
-  v26[2] = @"localizedString";
-  v17 = MCLocalizedString(@"MOVIE_RATING");
-  v27[2] = v17;
-  v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v27 forKeys:v26 count:3];
-  v29[0] = v16;
-  v28[1] = @"ratingTVShows";
-  v24[0] = @"normalMax";
-  v15 = [MCRestrictionManager maximumValueForSetting:@"ratingTVShows"];
-  v25[0] = v15;
-  v24[1] = @"normalMin";
-  v14 = [MCRestrictionManager minimumValueForSetting:@"ratingTVShows"];
-  v25[1] = v14;
-  v24[2] = @"localizedString";
-  v13 = MCLocalizedString(@"TV_SHOW_RATING");
-  v25[2] = v13;
-  v0 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v25 forKeys:v24 count:3];
-  v29[1] = v0;
-  v28[2] = @"ratingApps";
-  v22[0] = @"normalMax";
+  v28[4] = *MEMORY[0x1E69E9840];
+  v27[0] = @"ratingMovies";
+  v25[0] = @"normalMax";
+  v18 = [MCRestrictionManager maximumValueForSetting:@"ratingMovies"];
+  v26[0] = v18;
+  v25[1] = @"normalMin";
+  v17 = [MCRestrictionManager minimumValueForSetting:@"ratingMovies"];
+  v26[1] = v17;
+  v25[2] = @"localizedString";
+  v16 = MCLocalizedString(@"MOVIE_RATING");
+  v26[2] = v16;
+  v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v26 forKeys:v25 count:3];
+  v28[0] = v15;
+  v27[1] = @"ratingTVShows";
+  v23[0] = @"normalMax";
+  v14 = [MCRestrictionManager maximumValueForSetting:@"ratingTVShows"];
+  v24[0] = v14;
+  v23[1] = @"normalMin";
+  v13 = [MCRestrictionManager minimumValueForSetting:@"ratingTVShows"];
+  v24[1] = v13;
+  v23[2] = @"localizedString";
+  v12 = MCLocalizedString(@"TV_SHOW_RATING");
+  v24[2] = v12;
+  v0 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v24 forKeys:v23 count:3];
+  v28[1] = v0;
+  v27[2] = @"ratingApps";
+  v21[0] = @"normalMax";
   v1 = [MCRestrictionManager maximumValueForSetting:@"ratingApps"];
-  v23[0] = v1;
-  v22[1] = @"normalMin";
+  v22[0] = v1;
+  v21[1] = @"normalMin";
   v2 = [MCRestrictionManager minimumValueForSetting:@"ratingApps"];
-  v23[1] = v2;
-  v22[2] = @"localizedString";
+  v22[1] = v2;
+  v21[2] = @"localizedString";
   v3 = MCLocalizedString(@"APP_RATING");
-  v23[2] = v3;
-  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:v22 count:3];
-  v29[2] = v4;
-  v28[3] = @"safariAcceptCookies";
-  v20[0] = @"normalMax";
+  v22[2] = v3;
+  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:v21 count:3];
+  v28[2] = v4;
+  v27[3] = @"safariAcceptCookies";
+  v19[0] = @"normalMax";
   v5 = [MCRestrictionManager maximumValueForSetting:@"safariAcceptCookies"];
-  v21[0] = v5;
-  v20[1] = @"normalMin";
+  v20[0] = v5;
+  v19[1] = @"normalMin";
   v6 = [MCRestrictionManager minimumValueForSetting:@"safariAcceptCookies"];
-  v21[1] = v6;
-  v20[2] = @"localizedString";
+  v20[1] = v6;
+  v19[2] = @"localizedString";
   v7 = MCLocalizedString(@"FEATURE_SAFARI_ACCEPT_COOKIES");
-  v21[2] = v7;
-  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v21 forKeys:v20 count:3];
-  v29[3] = v8;
-  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v29 forKeys:v28 count:4];
+  v20[2] = v7;
+  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:v19 count:3];
+  v28[3] = v8;
+  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v28 forKeys:v27 count:4];
   v10 = [v9 mutableCopy];
   v11 = _defaultValueRestrictions_dict;
   _defaultValueRestrictions_dict = v10;
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (id)localizedRestrictionStrings
 {
-  v99 = *MEMORY[0x1E69E9840];
-  v76 = objc_opt_new();
+  v98 = *MEMORY[0x1E69E9840];
+  v75 = objc_opt_new();
   v3 = self->_restrictions;
   mEMORY[0x1E69AD420] = [MEMORY[0x1E69AD420] sharedConfiguration];
   isSupervised = [mEMORY[0x1E69AD420] isSupervised];
@@ -2013,7 +1996,7 @@ void __50__MCRestrictionsPayload__defaultValueRestrictions__block_invoke()
     if (os_log_type_enabled(_MCLogObjects, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v98 = "[MCRestrictionsPayload localizedRestrictionStrings]";
+      v97 = "[MCRestrictionsPayload localizedRestrictionStrings]";
       _os_log_impl(&dword_1A795B000, v6, OS_LOG_TYPE_DEFAULT, "%s, Filter grandfathered restrictions", buf, 0xCu);
     }
 
@@ -2027,8 +2010,8 @@ void __50__MCRestrictionsPayload__defaultValueRestrictions__block_invoke()
 
   v10 = [(NSMutableDictionary *)v3 objectForKeyedSubscript:@"restrictedValue"];
   v11 = [(NSMutableDictionary *)v3 objectForKeyedSubscript:@"intersection"];
-  v69 = v3;
-  v74 = [(NSMutableDictionary *)v3 objectForKeyedSubscript:@"union"];
+  v68 = v3;
+  v73 = [(NSMutableDictionary *)v3 objectForKeyedSubscript:@"union"];
   v12 = [v9 objectForKey:@"allowCamera"];
   v13 = [v12 objectForKey:@"value"];
 
@@ -2048,7 +2031,7 @@ void __50__MCRestrictionsPayload__defaultValueRestrictions__block_invoke()
   v16 = [v9 objectForKey:@"allowAirPrint"];
   v17 = [v16 objectForKey:@"value"];
 
-  v73 = v17;
+  v72 = v17;
   if (v17 && ([v17 BOOLValue] & 1) == 0)
   {
     [v9 removeObjectForKey:@"forceAirPrintTrustedTLSRequirement"];
@@ -2056,41 +2039,41 @@ void __50__MCRestrictionsPayload__defaultValueRestrictions__block_invoke()
     [v9 removeObjectForKey:@"allowAirPrintCredentialsStorage"];
   }
 
-  v68 = v13;
+  v67 = v13;
   if (([MEMORY[0x1E6999800] isSharediPad] & 1) == 0)
   {
     [v9 removeObjectForKey:@"allowSharedDeviceTemporarySession"];
   }
 
-  v71 = v10;
-  v72 = v9;
-  v70 = v11;
+  v70 = v10;
+  v71 = v9;
+  v69 = v11;
   if ([v9 count])
   {
     selfCopy = self;
-    v91 = 0u;
-    v92 = 0u;
-    v89 = 0u;
     v90 = 0u;
+    v91 = 0u;
+    v88 = 0u;
+    v89 = 0u;
     v19 = v9;
-    v20 = [v19 countByEnumeratingWithState:&v89 objects:v96 count:16];
+    v20 = [v19 countByEnumeratingWithState:&v88 objects:v95 count:16];
     if (!v20)
     {
       goto LABEL_32;
     }
 
     v21 = v20;
-    v22 = *v90;
+    v22 = *v89;
     while (1)
     {
       for (i = 0; i != v21; ++i)
       {
-        if (*v90 != v22)
+        if (*v89 != v22)
         {
           objc_enumerationMutation(v19);
         }
 
-        v24 = *(*(&v89 + 1) + 8 * i);
+        v24 = *(*(&v88 + 1) + 8 * i);
         v25 = [v19 objectForKey:v24];
         v26 = [v25 objectForKey:@"value"];
 
@@ -2116,22 +2099,22 @@ void __50__MCRestrictionsPayload__defaultValueRestrictions__block_invoke()
 
           if (v29)
           {
-            [v76 addObject:v29];
+            [v75 addObject:v29];
           }
         }
 
 LABEL_30:
       }
 
-      v21 = [v19 countByEnumeratingWithState:&v89 objects:v96 count:16];
+      v21 = [v19 countByEnumeratingWithState:&v88 objects:v95 count:16];
       if (!v21)
       {
 LABEL_32:
 
         self = selfCopy;
-        v10 = v71;
-        v9 = v72;
-        v11 = v70;
+        v10 = v70;
+        v9 = v71;
+        v11 = v69;
         break;
       }
     }
@@ -2139,26 +2122,26 @@ LABEL_32:
 
   if ([v10 count])
   {
-    v87 = 0u;
-    v88 = 0u;
-    v85 = 0u;
     v86 = 0u;
+    v87 = 0u;
+    v84 = 0u;
+    v85 = 0u;
     v30 = v10;
-    v31 = [v30 countByEnumeratingWithState:&v85 objects:v95 count:16];
+    v31 = [v30 countByEnumeratingWithState:&v84 objects:v94 count:16];
     if (v31)
     {
       v32 = v31;
-      v75 = *v86;
+      v74 = *v85;
       do
       {
         for (j = 0; j != v32; ++j)
         {
-          if (*v86 != v75)
+          if (*v85 != v74)
           {
             objc_enumerationMutation(v30);
           }
 
-          v34 = *(*(&v85 + 1) + 8 * j);
+          v34 = *(*(&v84 + 1) + 8 * j);
           _defaultValueRestrictions = [(MCRestrictionsPayload *)self _defaultValueRestrictions];
           v36 = [_defaultValueRestrictions objectForKey:v34];
 
@@ -2192,7 +2175,7 @@ LABEL_32:
               if (v43 == v45)
               {
                 v46 = [v36 objectForKey:@"localizedString"];
-                [v76 addObject:v46];
+                [v75 addObject:v46];
               }
             }
 
@@ -2200,106 +2183,122 @@ LABEL_32:
           }
         }
 
-        v32 = [v30 countByEnumeratingWithState:&v85 objects:v95 count:16];
+        v32 = [v30 countByEnumeratingWithState:&v84 objects:v94 count:16];
       }
 
       while (v32);
     }
 
-    v10 = v71;
-    v9 = v72;
-    v11 = v70;
+    v10 = v70;
+    v9 = v71;
+    v11 = v69;
   }
 
   if ([v11 count])
   {
-    v83 = 0u;
-    v84 = 0u;
-    v81 = 0u;
     v82 = 0u;
+    v83 = 0u;
+    v80 = 0u;
+    v81 = 0u;
     v47 = v11;
-    v48 = [v47 countByEnumeratingWithState:&v81 objects:v94 count:16];
+    v48 = [v47 countByEnumeratingWithState:&v80 objects:v93 count:16];
     if (v48)
     {
       v49 = v48;
-      v50 = *v82;
+      v50 = *v81;
       do
       {
         for (k = 0; k != v49; ++k)
         {
-          if (*v82 != v50)
+          if (*v81 != v50)
           {
             objc_enumerationMutation(v47);
           }
 
-          v52 = *(*(&v81 + 1) + 8 * k);
+          v52 = *(*(&v80 + 1) + 8 * k);
           _intersectionStrings = [(MCRestrictionsPayload *)self _intersectionStrings];
           v54 = [_intersectionStrings objectForKeyedSubscript:v52];
 
           if (v54)
           {
-            [v76 addObject:v54];
+            [v75 addObject:v54];
           }
         }
 
-        v49 = [v47 countByEnumeratingWithState:&v81 objects:v94 count:16];
+        v49 = [v47 countByEnumeratingWithState:&v80 objects:v93 count:16];
       }
 
       while (v49);
     }
   }
 
-  v55 = v74;
-  if ([v74 count])
+  v55 = v73;
+  if ([v73 count])
   {
-    v79 = 0u;
-    v80 = 0u;
-    v77 = 0u;
     v78 = 0u;
-    v56 = v74;
-    v57 = [v56 countByEnumeratingWithState:&v77 objects:v93 count:16];
+    v79 = 0u;
+    v76 = 0u;
+    v77 = 0u;
+    v56 = v73;
+    v57 = [v56 countByEnumeratingWithState:&v76 objects:v92 count:16];
     if (v57)
     {
       v58 = v57;
-      v59 = *v78;
+      v59 = *v77;
       do
       {
         for (m = 0; m != v58; ++m)
         {
-          if (*v78 != v59)
+          if (*v77 != v59)
           {
             objc_enumerationMutation(v56);
           }
 
-          v61 = *(*(&v77 + 1) + 8 * m);
+          v61 = *(*(&v76 + 1) + 8 * m);
           _unionStrings = [(MCRestrictionsPayload *)self _unionStrings];
           v63 = [_unionStrings objectForKeyedSubscript:v61];
 
           if (v63)
           {
-            [v76 addObject:v63];
+            [v75 addObject:v63];
           }
         }
 
-        v58 = [v56 countByEnumeratingWithState:&v77 objects:v93 count:16];
+        v58 = [v56 countByEnumeratingWithState:&v76 objects:v92 count:16];
       }
 
       while (v58);
     }
 
-    v55 = v74;
+    v55 = v73;
   }
 
-  v64 = [v76 copy];
-
-  v65 = *MEMORY[0x1E69E9840];
+  v64 = [v75 copy];
 
   return v64;
 }
 
+- (void)_insertRestrictedBoolForKey:(id)key value:(id)value preferenc:(BOOL)preferenc
+{
+  preferencCopy = preferenc;
+  v14[2] = *MEMORY[0x1E69E9840];
+  restrictions = self->_restrictions;
+  valueCopy = value;
+  keyCopy = key;
+  v10 = [(NSMutableDictionary *)restrictions objectForKey:@"restrictedBool"];
+  v13[0] = @"value";
+  v13[1] = @"preference";
+  v14[0] = valueCopy;
+  v11 = [MEMORY[0x1E696AD98] numberWithBool:preferencCopy];
+  v14[1] = v11;
+  v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:v13 count:2];
+
+  [v10 setObject:v12 forKeyedSubscript:keyCopy];
+}
+
 - (id)installationWarnings
 {
-  v65 = *MEMORY[0x1E69E9840];
+  v66 = *MEMORY[0x1E69E9840];
   array = [MEMORY[0x1E695DF70] array];
   v4 = +[MCRestrictionManager sharedManager];
   v5 = [v4 restrictedBoolForFeature:@"allowPhotoStream"];
@@ -2309,44 +2308,44 @@ LABEL_32:
 
   if (v5 != 2 && v7 == 2)
   {
-    v9 = MCPLPhotoLibraryClass();
-    if (v9)
+    v10 = MCPLPhotoLibraryClass(v8);
+    if (v10)
     {
-      sharedPhotoLibrary = [v9 sharedPhotoLibrary];
+      sharedPhotoLibrary = [v10 sharedPhotoLibrary];
       [sharedPhotoLibrary photoStreamAlbums];
-      v54 = 0u;
       v55 = 0u;
       v56 = 0u;
-      v11 = v57 = 0u;
-      v12 = [v11 countByEnumeratingWithState:&v54 objects:v64 count:16];
-      v13 = v11;
-      if (v12)
+      v57 = 0u;
+      v12 = v58 = 0u;
+      v13 = [v12 countByEnumeratingWithState:&v55 objects:v65 count:16];
+      v14 = v12;
+      if (v13)
       {
-        v14 = v12;
-        v15 = *v55;
+        v15 = v13;
+        v16 = *v56;
         while (2)
         {
-          for (i = 0; i != v14; ++i)
+          for (i = 0; i != v15; ++i)
           {
-            if (*v55 != v15)
+            if (*v56 != v16)
             {
-              objc_enumerationMutation(v11);
+              objc_enumerationMutation(v12);
             }
 
-            if (![*(*(&v54 + 1) + 8 * i) isEmpty])
+            if (![*(*(&v55 + 1) + 8 * i) isEmpty])
             {
 
-              v13 = MCLocalizedString(@"INSTALL_WARNING_PHOTO_STREAM_RESTRICTION");
-              v17 = MCLocalizedStringByDevice(@"INSTALL_WARNING_PHOTO_STREAM");
-              v18 = [MCProfileWarning warningWithLocalizedTitle:v13 localizedBody:v17 isLongForm:0];
-              [array addObject:v18];
+              v14 = MCLocalizedString(@"INSTALL_WARNING_PHOTO_STREAM_RESTRICTION");
+              v18 = MCLocalizedStringByDevice(@"INSTALL_WARNING_PHOTO_STREAM");
+              v19 = [MCProfileWarning warningWithLocalizedTitle:v14 localizedBody:v18 isLongForm:0];
+              [array addObject:v19];
 
               goto LABEL_17;
             }
           }
 
-          v14 = [v11 countByEnumeratingWithState:&v54 objects:v64 count:16];
-          if (v14)
+          v15 = [v12 countByEnumeratingWithState:&v55 objects:v65 count:16];
+          if (v15)
           {
             continue;
           }
@@ -2354,7 +2353,7 @@ LABEL_32:
           break;
         }
 
-        v13 = v11;
+        v14 = v12;
       }
 
 LABEL_17:
@@ -2362,121 +2361,119 @@ LABEL_17:
 
     else
     {
-      v19 = _MCLogObjects;
+      v20 = _MCLogObjects;
       if (os_log_type_enabled(_MCLogObjects, OS_LOG_TYPE_DEBUG))
       {
         *buf = 0;
-        _os_log_impl(&dword_1A795B000, v19, OS_LOG_TYPE_DEBUG, "Cannot load PLPhotoLibrary class. Not creating Photo Stream warning.", buf, 2u);
+        _os_log_impl(&dword_1A795B000, v20, OS_LOG_TYPE_DEBUG, "Cannot load PLPhotoLibrary class. Not creating Photo Stream warning.", buf, 2u);
       }
     }
   }
 
-  v20 = +[MCRestrictionManager sharedManager];
-  v21 = [v20 restrictedBoolForFeature:@"allowCloudPhotoLibrary"];
+  v21 = +[MCRestrictionManager sharedManager];
+  v22 = [v21 restrictedBoolForFeature:@"allowCloudPhotoLibrary"];
 
   restrictions2 = [(MCRestrictionsPayload *)self restrictions];
-  v23 = [MCRestrictionManager restrictedBoolForFeature:@"allowCloudPhotoLibrary" withRestrictionsDictionary:restrictions2];
+  v24 = [MCRestrictionManager restrictedBoolForFeature:@"allowCloudPhotoLibrary" withRestrictionsDictionary:restrictions2];
 
-  if (v21 != 2 && v23 == 2)
+  if (v22 != 2 && v24 == 2)
   {
-    v52 = 0;
     v53 = 0;
-    v51 = 0;
-    v25 = MCPLManagedAssetClass();
-    v26 = MCPLPhotoLibraryClass();
-    if (v25 && v26)
+    v54 = 0;
+    v52 = 0;
+    v27 = MCPLManagedAssetClass(v25);
+    v28 = MCPLPhotoLibraryClass(v27);
+    if (v27 && v28)
     {
-      sharedPhotoLibrary2 = [v26 sharedPhotoLibrary];
-      [v25 countOfAssetsWithRequiredResourcesNotLocallyAvailableInLibrary:sharedPhotoLibrary2 outCount:&v53 photoCount:&v52 videoCount:&v51];
+      sharedPhotoLibrary2 = [v28 sharedPhotoLibrary];
+      [v27 countOfAssetsWithRequiredResourcesNotLocallyAvailableInLibrary:sharedPhotoLibrary2 outCount:&v54 photoCount:&v53 videoCount:&v52];
 
-      v28 = _MCLogObjects;
+      v30 = _MCLogObjects;
       if (os_log_type_enabled(_MCLogObjects, OS_LOG_TYPE_DEBUG))
       {
         *buf = 134218496;
-        v59 = v53;
-        v60 = 2048;
-        v61 = v52;
-        v62 = 2048;
-        v63 = v51;
-        _os_log_impl(&dword_1A795B000, v28, OS_LOG_TYPE_DEBUG, "Photo library non-local assets: count:%lu photo:%lu video:%lu]", buf, 0x20u);
+        v60 = v54;
+        v61 = 2048;
+        v62 = v53;
+        v63 = 2048;
+        v64 = v52;
+        _os_log_impl(&dword_1A795B000, v30, OS_LOG_TYPE_DEBUG, "Photo library non-local assets: count:%lu photo:%lu video:%lu]", buf, 0x20u);
       }
 
-      if (v53 < 2)
+      if (v54 < 2)
       {
-        if (v52 == 1)
+        if (v53 == 1)
         {
-          v38 = @"INSTALL_WARNING_CLOUD_PHOTO_LIBRARY_PHOTO_SINGULAR_DESTRUCTIVE";
+          v40 = @"INSTALL_WARNING_CLOUD_PHOTO_LIBRARY_PHOTO_SINGULAR_DESTRUCTIVE";
         }
 
-        else if (v51 == 1)
+        else if (v52 == 1)
         {
-          v38 = @"INSTALL_WARNING_CLOUD_PHOTO_LIBRARY_VIDEO_SINGULAR_DESTRUCTIVE";
+          v40 = @"INSTALL_WARNING_CLOUD_PHOTO_LIBRARY_VIDEO_SINGULAR_DESTRUCTIVE";
         }
 
         else
         {
-          v38 = @"INSTALL_WARNING_CLOUD_PHOTO_LIBRARY";
+          v40 = @"INSTALL_WARNING_CLOUD_PHOTO_LIBRARY";
         }
 
-        v36 = MCLocalizedStringByDevice(v38);
+        v38 = MCLocalizedStringByDevice(v40);
       }
 
       else
       {
-        v36 = MCLocalizedFormatByDevice(@"INSTALL_WARNING_CLOUD_PHOTO_LIBRARY_PHOTOS_VIDEOS_DESTRUCTIVE", v29, v30, v31, v32, v33, v34, v35, v53);
+        v38 = MCLocalizedFormatByDevice(@"INSTALL_WARNING_CLOUD_PHOTO_LIBRARY_PHOTOS_VIDEOS_DESTRUCTIVE", v31, v32, v33, v34, v35, v36, v37, v54);
       }
 
-      v39 = v36;
-      v40 = MCLocalizedString(@"INSTALL_WARNING_CLOUD_PHOTO_LIBRARY_RESTRICTION");
-      v41 = [MCProfileWarning warningWithLocalizedTitle:v40 localizedBody:v39 isLongForm:0];
-      [array addObject:v41];
+      v41 = v38;
+      v42 = MCLocalizedString(@"INSTALL_WARNING_CLOUD_PHOTO_LIBRARY_RESTRICTION");
+      v43 = [MCProfileWarning warningWithLocalizedTitle:v42 localizedBody:v41 isLongForm:0];
+      [array addObject:v43];
     }
 
     else
     {
-      v37 = _MCLogObjects;
+      v39 = _MCLogObjects;
       if (os_log_type_enabled(_MCLogObjects, OS_LOG_TYPE_DEBUG))
       {
         *buf = 0;
-        _os_log_impl(&dword_1A795B000, v37, OS_LOG_TYPE_DEBUG, "Cannot load PLManagedAssetClass or PLPhotoLibraryClass. Not creating Cloud Photo Library warning.", buf, 2u);
+        _os_log_impl(&dword_1A795B000, v39, OS_LOG_TYPE_DEBUG, "Cannot load PLManagedAssetClass or PLPhotoLibraryClass. Not creating Cloud Photo Library warning.", buf, 2u);
       }
     }
   }
 
-  v42 = +[MCRestrictionManager sharedManager];
-  v43 = [v42 restrictedBoolForFeature:@"allowPairedWatch"];
+  v44 = +[MCRestrictionManager sharedManager];
+  v45 = [v44 restrictedBoolForFeature:@"allowPairedWatch"];
 
   restrictions3 = [(MCRestrictionsPayload *)self restrictions];
-  v45 = [MCRestrictionManager restrictedBoolForFeature:@"allowPairedWatch" withRestrictionsDictionary:restrictions3];
+  v47 = [MCRestrictionManager restrictedBoolForFeature:@"allowPairedWatch" withRestrictionsDictionary:restrictions3];
 
-  if (v43 != 2 && v45 == 2)
+  if (v45 != 2 && v47 == 2)
   {
-    v46 = MCLocalizedString(@"INSTALL_WARNING_PAIRED_WATCH_RESTRICTION");
-    v47 = MCLocalizedStringByDevice(@"INSTALL_WARNING_PAIRED_WATCH");
-    v48 = [MCProfileWarning warningWithLocalizedTitle:v46 localizedBody:v47 isLongForm:0];
-    [array addObject:v48];
+    v48 = MCLocalizedString(@"INSTALL_WARNING_PAIRED_WATCH_RESTRICTION");
+    v49 = MCLocalizedStringByDevice(@"INSTALL_WARNING_PAIRED_WATCH");
+    v50 = [MCProfileWarning warningWithLocalizedTitle:v48 localizedBody:v49 isLongForm:0];
+    [array addObject:v50];
   }
-
-  v49 = *MEMORY[0x1E69E9840];
 
   return array;
 }
 
 - (id)filterForUserEnrollmentOutError:(id *)error
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v4 = +[MCRestrictionsPayload userEnrollmentAllowedKeysFilter];
   array = [MEMORY[0x1E695DF70] array];
   restrictions = self->_restrictions;
-  v14 = MEMORY[0x1E69E9820];
-  v15 = 3221225472;
-  v16 = __57__MCRestrictionsPayload_filterForUserEnrollmentOutError___block_invoke;
-  v17 = &unk_1E77D25A8;
+  v13 = MEMORY[0x1E69E9820];
+  v14 = 3221225472;
+  v15 = __57__MCRestrictionsPayload_filterForUserEnrollmentOutError___block_invoke;
+  v16 = &unk_1E77D25A8;
   v7 = v4;
-  v18 = v7;
+  v17 = v7;
   v8 = array;
-  v19 = v8;
-  [(NSMutableDictionary *)restrictions enumerateKeysAndObjectsUsingBlock:&v14];
+  v18 = v8;
+  [(NSMutableDictionary *)restrictions enumerateKeysAndObjectsUsingBlock:&v13];
   if ([v8 count])
   {
     [v8 sortUsingComparator:&__block_literal_global_745];
@@ -2486,14 +2483,13 @@ LABEL_17:
       v10 = v9;
       friendlyName = [(MCPayload *)self friendlyName];
       *buf = 138543618;
-      v21 = friendlyName;
-      v22 = 2114;
-      v23 = v8;
+      v20 = friendlyName;
+      v21 = 2114;
+      v22 = v8;
       _os_log_impl(&dword_1A795B000, v10, OS_LOG_TYPE_INFO, "Payload “%{public}@” has restrictions that we are ignoring. They are: %{public}@", buf, 0x16u);
     }
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return 0;
 }
 

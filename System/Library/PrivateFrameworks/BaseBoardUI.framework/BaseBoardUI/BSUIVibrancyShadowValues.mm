@@ -13,39 +13,40 @@
 {
   configurationCopy = configuration;
   v5 = *(MEMORY[0x1E6979280] + 48);
-  v25 = *(MEMORY[0x1E6979280] + 32);
-  v26 = v5;
-  v27 = *(MEMORY[0x1E6979280] + 64);
+  v24 = *(MEMORY[0x1E6979280] + 32);
+  v25 = v5;
+  v26 = *(MEMORY[0x1E6979280] + 64);
   v6 = *(MEMORY[0x1E6979280] + 16);
-  v23 = *MEMORY[0x1E6979280];
-  v24 = v6;
+  v22 = *MEMORY[0x1E6979280];
+  v23 = v6;
   if (configurationCopy)
   {
     v7 = configurationCopy;
     v8 = 1.0;
     do
     {
-      v21 = 0u;
-      v22 = 0u;
-      v19 = 0u;
       v20 = 0u;
+      v21 = 0u;
       v18 = 0u;
-      effectType = [v7 effectType];
+      v19 = 0u;
+      v17 = 0u;
+      [v7 effectType];
       color = [v7 color];
-      +[BSUIVibrancyShadowValues _shadowColorMatrixForType:heroColor:backgroundType:](BSUIVibrancyShadowValues, "_shadowColorMatrixForType:heroColor:backgroundType:", effectType, color, [v7 backgroundType]);
+      [v7 backgroundType];
+      objc_msgSend__shadowColorMatrixForType_heroColor_backgroundType_(BSUIVibrancyShadowValues);
 
-      v17[2] = v25;
-      v17[3] = v26;
-      v17[4] = v27;
-      v17[0] = v23;
-      v17[1] = v24;
-      v16[2] = v20;
-      v16[3] = v21;
-      v16[4] = v22;
-      v16[0] = v18;
-      v16[1] = v19;
+      v16[2] = v24;
+      v16[3] = v25;
+      v16[4] = v26;
+      v16[0] = v22;
+      v16[1] = v23;
+      v15[2] = v19;
+      v15[3] = v20;
+      v15[4] = v21;
+      v15[0] = v17;
+      v15[1] = v18;
       [v7 blendAmount];
-      v12 = v11;
+      v11 = v10;
       blendConfiguration = [v7 blendConfiguration];
 
       if (!blendConfiguration)
@@ -53,26 +54,26 @@
         break;
       }
 
-      v8 = v8 * v12;
+      v8 = v8 * v11;
       v7 = blendConfiguration;
     }
 
     while (v8 > 0.00000011920929);
   }
 
-  v14 = v26;
-  *&self->_vibrantColorMatrix.m24 = v25;
-  *&self->_vibrantColorMatrix.m33 = v14;
-  *&self->_vibrantColorMatrix.m42 = v27;
-  v15 = v24;
-  *&self->_vibrantColorMatrix.m11 = v23;
-  *&self->_vibrantColorMatrix.m15 = v15;
+  v13 = v25;
+  *&self->_vibrantColorMatrix.m24 = v24;
+  *&self->_vibrantColorMatrix.m33 = v13;
+  *&self->_vibrantColorMatrix.m42 = v26;
+  v14 = v23;
+  *&self->_vibrantColorMatrix.m11 = v22;
+  *&self->_vibrantColorMatrix.m15 = v14;
 }
 
 - (id)transformShadowColor:(id)color
 {
   colorCopy = color;
-  [(BSUIVibrancyShadowValues *)self vibrantColorMatrix];
+  objc_msgSend_vibrantColorMatrix(self);
   v5 = _transformUIColor(colorCopy, &v7);
 
   return v5;
@@ -119,13 +120,13 @@
 LABEL_7:
     if (!a6 || a6 == 2)
     {
-      [a2 _darkeningShadowMatrix];
+      objc_msgSend__darkeningShadowMatrix(a2);
       goto LABEL_14;
     }
 
     if (a6 == 1)
     {
-      [a2 _lighteningShadowMatrix];
+      objc_msgSend__lighteningShadowMatrix(a2);
       goto LABEL_14;
     }
 
@@ -182,13 +183,13 @@ LABEL_14:
   v29 = 0u;
   v30 = 0u;
   v28 = 0u;
-  [a2 _lighteningShadowMatrix];
+  objc_msgSend__lighteningShadowMatrix(a2);
   v26 = 0u;
   v27 = 0u;
   v24 = 0u;
   v25 = 0u;
   v23 = 0u;
-  [a2 _darkeningShadowMatrix];
+  objc_msgSend__darkeningShadowMatrix(a2);
   v22[2] = v25;
   v22[3] = v26;
   v22[4] = v27;

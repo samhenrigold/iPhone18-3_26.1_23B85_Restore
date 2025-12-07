@@ -56,7 +56,7 @@
 
 - (void)_queue_start
 {
-  v148 = *MEMORY[0x277D85DE8];
+  v146 = *MEMORY[0x277D85DE8];
   configuration = [(HDQueryServer *)self configuration];
   debugIdentifier = [configuration debugIdentifier];
 
@@ -73,39 +73,39 @@
     _os_log_impl(&dword_228986000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@:%{public}@] Query Started", buf, 0x16u);
   }
 
-  v120.receiver = self;
-  v120.super_class = HDSleepDaySummaryQueryServer;
-  [(HDQueryServer *)&v120 _queue_start];
+  v118.receiver = self;
+  v118.super_class = HDSleepDaySummaryQueryServer;
+  [(HDQueryServer *)&v118 _queue_start];
   clientProxy = [(HDQueryServer *)self clientProxy];
   remoteObjectProxy = [clientProxy remoteObjectProxy];
 
   client = [(HDQueryServer *)self client];
   authorizationOracle = [client authorizationOracle];
   objectTypes = [(HDSleepDaySummaryQueryServer *)self objectTypes];
-  v119 = 0;
-  v114 = [authorizationOracle authorizationStatusRecordsForTypes:objectTypes error:&v119];
-  v111 = v119;
+  v117 = 0;
+  v112 = [authorizationOracle authorizationStatusRecordsForTypes:objectTypes error:&v117];
+  v109 = v117;
 
-  if (!v114)
+  if (!v112)
   {
     _HKInitializeLogging();
     v24 = *MEMORY[0x277CCC320];
     if (os_log_type_enabled(*MEMORY[0x277CCC320], OS_LOG_TYPE_ERROR))
     {
-      v93 = v24;
-      v94 = objc_opt_class();
+      v91 = v24;
+      v92 = objc_opt_class();
       *buf = 138543874;
-      *&buf[4] = v94;
+      *&buf[4] = v92;
       *&buf[12] = 2114;
       *&buf[14] = debugIdentifier;
       *&buf[22] = 2114;
-      v140 = v111;
-      v95 = v94;
-      _os_log_error_impl(&dword_228986000, v93, OS_LOG_TYPE_ERROR, "[%{public}@:%{public}@] Unable to read authorization status due to error %{public}@", buf, 0x20u);
+      v138 = v109;
+      v93 = v92;
+      _os_log_error_impl(&dword_228986000, v91, OS_LOG_TYPE_ERROR, "[%{public}@:%{public}@] Unable to read authorization status due to error %{public}@", buf, 0x20u);
     }
 
     queryUUID = [(HDQueryServer *)self queryUUID];
-    [remoteObjectProxy client_deliverError:v111 forQuery:queryUUID];
+    [remoteObjectProxy client_deliverError:v109 forQuery:queryUUID];
     goto LABEL_56;
   }
 
@@ -115,28 +115,28 @@
 
   if ((clientHasAuthorizationForAllTypes & 1) == 0)
   {
-    v117 = 0u;
-    v118 = 0u;
     v115 = 0u;
     v116 = 0u;
-    allValues = [v114 allValues];
-    v15 = [allValues countByEnumeratingWithState:&v115 objects:v138 count:16];
+    v113 = 0u;
+    v114 = 0u;
+    allValues = [v112 allValues];
+    v15 = [allValues countByEnumeratingWithState:&v113 objects:v136 count:16];
     if (v15)
     {
-      v16 = *v116;
+      v16 = *v114;
       canRead = 1;
       do
       {
         for (i = 0; i != v15; ++i)
         {
-          if (*v116 != v16)
+          if (*v114 != v16)
           {
             objc_enumerationMutation(allValues);
           }
 
           if (canRead)
           {
-            canRead = [*(*(&v115 + 1) + 8 * i) canRead];
+            canRead = [*(*(&v113 + 1) + 8 * i) canRead];
           }
 
           else
@@ -145,7 +145,7 @@
           }
         }
 
-        v15 = [allValues countByEnumeratingWithState:&v115 objects:v138 count:16];
+        v15 = [allValues countByEnumeratingWithState:&v113 objects:v136 count:16];
       }
 
       while (v15);
@@ -163,7 +163,7 @@
           *&buf[12] = 2114;
           *&buf[14] = debugIdentifier;
           *&buf[22] = 2114;
-          v140 = v114;
+          v138 = v112;
           v22 = v21;
           _os_log_impl(&dword_228986000, v20, OS_LOG_TYPE_DEFAULT, "[%{public}@:%{public}@] Avoiding exposing health data due to missing authorization: %{public}@", buf, 0x20u);
         }
@@ -181,48 +181,47 @@ LABEL_56:
     }
   }
 
-  v25 = *MEMORY[0x277CCC320];
   spid = _HKLogSignpostIDGenerate();
   _HKInitializeLogging();
-  v26 = *MEMORY[0x277CCC320];
+  v25 = *MEMORY[0x277CCC320];
   if (os_signpost_enabled(*MEMORY[0x277CCC320]))
   {
+    v26 = v25;
     v27 = v26;
-    v28 = v27;
-    if ((spid - 1) <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v27))
+    if ((spid - 1) <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v26))
     {
       *buf = 138543362;
       *&buf[4] = debugIdentifier;
-      _os_signpost_emit_with_name_impl(&dword_228986000, v28, OS_SIGNPOST_INTERVAL_BEGIN, spid, "sleep-day-summary-query", "name=%{public}@", buf, 0xCu);
+      _os_signpost_emit_with_name_impl(&dword_228986000, v27, OS_SIGNPOST_INTERVAL_BEGIN, spid, "sleep-day-summary-query", "name=%{public}@", buf, 0xCu);
     }
   }
 
   if (self)
   {
-    v132 = 0;
-    v133 = &v132;
-    v134 = 0x3032000000;
-    v135 = __Block_byref_object_copy__23;
-    v136 = __Block_byref_object_dispose__23;
-    v137 = objc_alloc_init(MEMORY[0x277CBEB18]);
-    v128 = 0;
-    v129 = &v128;
-    v130 = 0x2020000000;
-    v131 = 1;
-    v124 = 0;
-    v125 = &v124;
-    v126 = 0x2020000000;
-    v127 = 0;
-    v123[0] = 0;
-    v123[1] = v123;
-    v123[2] = 0x2020000000;
-    v123[3] = 0;
+    v130 = 0;
+    v131 = &v130;
+    v132 = 0x3032000000;
+    v133 = __Block_byref_object_copy__23;
+    v134 = __Block_byref_object_dispose__23;
+    v135 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v126 = 0;
+    v127 = &v126;
+    v128 = 0x2020000000;
+    v129 = 1;
+    v122 = 0;
+    v123 = &v122;
+    v124 = 0x2020000000;
+    v125 = 0;
+    v121[0] = 0;
+    v121[1] = v121;
+    v121[2] = 0x2020000000;
+    v121[3] = 0;
     limit = [(HKSleepDaySummaryQueryConfiguration *)self->_configuration limit];
     _newGregorianCalendar = [(HDSleepDaySummaryQueryServer *)self _newGregorianCalendar];
     calendarOverrides = [(HKSleepDaySummaryQueryConfiguration *)self->_configuration calendarOverrides];
-    v30 = calendarOverrides == 0;
+    v29 = calendarOverrides == 0;
 
-    if (!v30)
+    if (!v29)
     {
       calendarOverrides2 = [(HKSleepDaySummaryQueryConfiguration *)self->_configuration calendarOverrides];
       [_newGregorianCalendar setFirstWeekday:{objc_msgSend(calendarOverrides2, "firstWeekday")}];
@@ -233,115 +232,115 @@ LABEL_56:
 
     profile = [(HDQueryServer *)self profile];
     sourceManager = [profile sourceManager];
-    v122 = 0;
-    v110 = [sourceManager localDeviceSourceWithError:&v122];
-    v35 = v122;
+    v120 = 0;
+    v108 = [sourceManager localDeviceSourceWithError:&v120];
+    v34 = v120;
 
-    if (!v110)
+    if (!v108)
     {
       queryUUID2 = [(HDQueryServer *)self queryUUID];
-      [remoteObjectProxy2 client_deliverError:v35 forQuery:queryUUID2];
+      [remoteObjectProxy2 client_deliverError:v34 forQuery:queryUUID2];
 LABEL_49:
 
-      _Block_object_dispose(v123, 8);
-      _Block_object_dispose(&v124, 8);
-      _Block_object_dispose(&v128, 8);
-      _Block_object_dispose(&v132, 8);
+      _Block_object_dispose(v121, 8);
+      _Block_object_dispose(&v122, 8);
+      _Block_object_dispose(&v126, 8);
+      _Block_object_dispose(&v130, 8);
 
       goto LABEL_50;
     }
 
     profile2 = [(HDQueryServer *)self profile];
     configuration = self->_configuration;
-    v38 = profile2;
-    v39 = configuration;
-    v40 = v110;
-    v41 = _newGregorianCalendar;
-    debugIdentifier2 = [(HKSleepDaySummaryQueryConfiguration *)v39 debugIdentifier];
-    daemon = [v38 daemon];
+    v37 = profile2;
+    v38 = configuration;
+    v39 = v108;
+    v40 = _newGregorianCalendar;
+    debugIdentifier2 = [(HKSleepDaySummaryQueryConfiguration *)v38 debugIdentifier];
+    daemon = [v37 daemon];
     behavior = [daemon behavior];
     supportsCachedSleepDaySummaryQueries = [behavior supportsCachedSleepDaySummaryQueries];
 
     if (supportsCachedSleepDaySummaryQueries)
     {
-      cacheSettings = [(HKSleepDaySummaryQueryConfiguration *)v39 cacheSettings];
-      v46 = cacheSettings == 0;
+      cacheSettings = [(HKSleepDaySummaryQueryConfiguration *)v38 cacheSettings];
+      v45 = cacheSettings == 0;
 
-      if (v46)
+      if (v45)
       {
         _HKInitializeLogging();
-        v58 = *MEMORY[0x277CCC320];
+        v57 = *MEMORY[0x277CCC320];
         if (os_log_type_enabled(*MEMORY[0x277CCC320], OS_LOG_TYPE_DEBUG))
         {
-          v96 = v58;
-          v97 = objc_opt_class();
+          v94 = v57;
+          v95 = objc_opt_class();
           *buf = 138543618;
-          *&buf[4] = v97;
+          *&buf[4] = v95;
           *&buf[12] = 2114;
           *&buf[14] = debugIdentifier2;
-          v98 = v97;
-          _os_log_debug_impl(&dword_228986000, v96, OS_LOG_TYPE_DEBUG, "[%{public}@:%{public}@] Query caching settings not provided; caching disabled", buf, 0x16u);
+          v96 = v95;
+          _os_log_debug_impl(&dword_228986000, v94, OS_LOG_TYPE_DEBUG, "[%{public}@:%{public}@] Query caching settings not provided; caching disabled", buf, 0x16u);
         }
       }
 
       else
       {
-        cacheSettings2 = [(HKSleepDaySummaryQueryConfiguration *)v39 cacheSettings];
-        v48 = [cacheSettings2 mode] == 1;
+        cacheSettings2 = [(HKSleepDaySummaryQueryConfiguration *)v38 cacheSettings];
+        v47 = [cacheSettings2 mode] == 1;
 
-        if (!v48)
+        if (!v47)
         {
-          v83 = MEMORY[0x277CCA970];
-          morningIndexRange = [(HKSleepDaySummaryQueryConfiguration *)v39 morningIndexRange];
-          v102 = [v83 hk_sleepDayIntervalForMorningIndexRange:morningIndexRange calendar:{v85, v41}];
-          v103 = objc_alloc_init(MEMORY[0x277CBEAB8]);
-          [v103 setDay:1];
-          cacheIdentifier = [(HKSleepDaySummaryQueryConfiguration *)v39 cacheIdentifier];
+          v81 = MEMORY[0x277CCA970];
+          morningIndexRange = [(HKSleepDaySummaryQueryConfiguration *)v38 morningIndexRange];
+          v100 = [v81 hk_sleepDayIntervalForMorningIndexRange:morningIndexRange calendar:{v83, v40}];
+          v101 = objc_alloc_init(MEMORY[0x277CBEAB8]);
+          [v101 setDay:1];
+          cacheIdentifier = [(HKSleepDaySummaryQueryConfiguration *)v38 cacheIdentifier];
           _HKInitializeLogging();
-          v86 = *MEMORY[0x277CCC320];
+          v84 = *MEMORY[0x277CCC320];
           if (os_log_type_enabled(*MEMORY[0x277CCC320], OS_LOG_TYPE_DEFAULT))
           {
-            v87 = v86;
-            v88 = objc_opt_class();
+            v85 = v84;
+            v86 = objc_opt_class();
             *buf = 138543874;
-            *&buf[4] = v88;
+            *&buf[4] = v86;
             *&buf[12] = 2114;
             *&buf[14] = debugIdentifier2;
             *&buf[22] = 2114;
-            v140 = cacheIdentifier;
-            v89 = v88;
-            _os_log_impl(&dword_228986000, v87, OS_LOG_TYPE_DEFAULT, "[%{public}@:%{public}@] Creating caching session with ID: %{public}@", buf, 0x20u);
+            v138 = cacheIdentifier;
+            v87 = v86;
+            _os_log_impl(&dword_228986000, v85, OS_LOG_TYPE_DEFAULT, "[%{public}@:%{public}@] Creating caching session with ID: %{public}@", buf, 0x20u);
           }
 
           *buf = MEMORY[0x277D85DD0];
           *&buf[8] = 3221225472;
           *&buf[16] = __118__HDSleepDaySummaryQueryServer__newCachingSessionWithProfile_configuration_localDeviceSource_gregorianCalendar_error___block_invoke;
-          v140 = &unk_2786163E8;
-          selfCopy = v41;
-          v100 = _Block_copy(buf);
-          v99 = [HDSleepDaySummaryEnumerator sleepAnalysisQueryDescriptorForDateInterval:0 options:[(HKSleepDaySummaryQueryConfiguration *)v39 options]];
-          v90 = objc_opt_class();
-          startDate = [v102 startDate];
-          v106 = [(HDSleepDaySummaryQueryServer *)self _newCachingSessionWithProfile:v38 cachingIdentifier:cacheIdentifier sourceEntity:v40 queryDescriptor:v99 cachedClass:v90 queryInterval:v102 anchorDate:startDate intervalComponents:v103 timeIntervalToBucketIndex:v100];
+          v138 = &unk_2786163E8;
+          selfCopy = v40;
+          v98 = _Block_copy(buf);
+          v97 = [HDSleepDaySummaryEnumerator sleepAnalysisQueryDescriptorForDateInterval:0 options:[(HKSleepDaySummaryQueryConfiguration *)v38 options]];
+          v88 = objc_opt_class();
+          startDate = [v100 startDate];
+          v104 = [(HDSleepDaySummaryQueryServer *)self _newCachingSessionWithProfile:v37 cachingIdentifier:cacheIdentifier sourceEntity:v39 queryDescriptor:v97 cachedClass:v88 queryInterval:v100 anchorDate:startDate intervalComponents:v101 timeIntervalToBucketIndex:v98];
 
-          v92 = [HDSleepDaySummaryEnumerator sleepTypesQueryDescriptorsForDateInterval:0 options:[(HKSleepDaySummaryQueryConfiguration *)v39 options]];
-          [v106 setInvalidationQueryDescriptors:v92];
+          v90 = [HDSleepDaySummaryEnumerator sleepTypesQueryDescriptorsForDateInterval:0 options:[(HKSleepDaySummaryQueryConfiguration *)v38 options]];
+          [v104 setInvalidationQueryDescriptors:v90];
 
           goto LABEL_43;
         }
 
         _HKInitializeLogging();
-        v49 = *MEMORY[0x277CCC320];
+        v48 = *MEMORY[0x277CCC320];
         if (os_log_type_enabled(*MEMORY[0x277CCC320], OS_LOG_TYPE_DEBUG))
         {
-          v50 = v49;
-          v51 = objc_opt_class();
+          v49 = v48;
+          v50 = objc_opt_class();
           *buf = 138543618;
-          *&buf[4] = v51;
+          *&buf[4] = v50;
           *&buf[12] = 2114;
           *&buf[14] = debugIdentifier2;
-          v52 = v51;
-          _os_log_debug_impl(&dword_228986000, v50, OS_LOG_TYPE_DEBUG, "[%{public}@:%{public}@] Query caching settings specified user interactive mode; caching disabled", buf, 0x16u);
+          v51 = v50;
+          _os_log_debug_impl(&dword_228986000, v49, OS_LOG_TYPE_DEBUG, "[%{public}@:%{public}@] Query caching settings specified user interactive mode; caching disabled", buf, 0x16u);
         }
       }
     }
@@ -349,94 +348,94 @@ LABEL_49:
     else
     {
       _HKInitializeLogging();
-      v54 = *MEMORY[0x277CCC320];
+      v53 = *MEMORY[0x277CCC320];
       if (os_log_type_enabled(*MEMORY[0x277CCC320], OS_LOG_TYPE_DEBUG))
       {
-        v55 = v54;
-        v56 = objc_opt_class();
+        v54 = v53;
+        v55 = objc_opt_class();
         *buf = 138543618;
-        *&buf[4] = v56;
+        *&buf[4] = v55;
         *&buf[12] = 2114;
         *&buf[14] = debugIdentifier2;
-        v57 = v56;
-        _os_log_debug_impl(&dword_228986000, v55, OS_LOG_TYPE_DEBUG, "[%{public}@:%{public}@] Query caching feature flag not enabled; caching disabled", buf, 0x16u);
+        v56 = v55;
+        _os_log_debug_impl(&dword_228986000, v54, OS_LOG_TYPE_DEBUG, "[%{public}@:%{public}@] Query caching feature flag not enabled; caching disabled", buf, 0x16u);
       }
     }
 
-    v106 = 0;
+    v104 = 0;
 LABEL_43:
 
-    v59 = v35;
-    v60 = v41;
-    v61 = [HDSleepDaySummaryEnumerator alloc];
+    v58 = v34;
+    v59 = v40;
+    v60 = [HDSleepDaySummaryEnumerator alloc];
     profile3 = [(HDQueryServer *)self profile];
     morningIndexRange2 = [(HKSleepDaySummaryQueryConfiguration *)self->_configuration morningIndexRange];
-    v65 = v64;
+    v64 = v63;
     ascending = [(HKSleepDaySummaryQueryConfiguration *)self->_configuration ascending];
     options = [(HKSleepDaySummaryQueryConfiguration *)self->_configuration options];
     debugIdentifier3 = [(HKSleepDaySummaryQueryConfiguration *)self->_configuration debugIdentifier];
-    v69 = [(HDSleepDaySummaryEnumerator *)v61 initWithProfile:profile3 cachingSession:v106 gregorianCalendar:v60 morningIndexRange:morningIndexRange2 ascending:v65 options:ascending debugIdentifier:options, debugIdentifier3];
+    v68 = [(HDSleepDaySummaryEnumerator *)v60 initWithProfile:profile3 cachingSession:v104 gregorianCalendar:v59 morningIndexRange:morningIndexRange2 ascending:v64 options:ascending debugIdentifier:options, debugIdentifier3];
 
-    v121 = v59;
+    v119 = v58;
     *buf = MEMORY[0x277D85DD0];
     *&buf[8] = 3221225472;
     *&buf[16] = __58__HDSleepDaySummaryQueryServer__queue_surfaceDaySummaries__block_invoke;
-    v140 = &unk_2786163C0;
+    v138 = &unk_2786163C0;
     selfCopy = self;
-    v143 = &v124;
-    v144 = &v132;
-    v70 = remoteObjectProxy2;
-    v142 = v70;
-    v145 = &v128;
-    v146 = v123;
-    v147 = limit;
-    v71 = [(HDSleepDaySummaryEnumerator *)v69 enumerateWithError:&v121 handler:buf];
-    v72 = v121;
+    v141 = &v122;
+    v142 = &v130;
+    v69 = remoteObjectProxy2;
+    v140 = v69;
+    v143 = &v126;
+    v144 = v121;
+    v145 = limit;
+    v70 = [(HDSleepDaySummaryEnumerator *)v68 enumerateWithError:&v119 handler:buf];
+    v71 = v119;
 
-    if ((v125[3] & 1) == 0)
+    if ((v123[3] & 1) == 0)
     {
-      if (v71)
+      if (v70)
       {
-        v73 = v133[5];
-        v74 = *(v129 + 24);
+        v72 = v131[5];
+        v73 = *(v127 + 24);
         queryUUID3 = [(HDQueryServer *)self queryUUID];
-        [v70 client_deliverDaySummaries:v73 clearPending:v74 isFinalBatch:1 queryUUID:queryUUID3];
+        [v69 client_deliverDaySummaries:v72 clearPending:v73 isFinalBatch:1 queryUUID:queryUUID3];
       }
 
       else
       {
         queryUUID3 = [(HDQueryServer *)self queryUUID];
-        [v70 client_deliverError:v72 forQuery:queryUUID3];
+        [v69 client_deliverError:v71 forQuery:queryUUID3];
       }
     }
 
-    v35 = v72;
-    queryUUID2 = v106;
+    v34 = v71;
+    queryUUID2 = v104;
     goto LABEL_49;
   }
 
 LABEL_50:
   _HKInitializeLogging();
-  v76 = *MEMORY[0x277CCC320];
+  v75 = *MEMORY[0x277CCC320];
   if (os_log_type_enabled(*MEMORY[0x277CCC320], OS_LOG_TYPE_DEFAULT))
   {
-    v77 = v76;
-    v78 = objc_opt_class();
+    v76 = v75;
+    v77 = objc_opt_class();
     *buf = 138543618;
-    *&buf[4] = v78;
+    *&buf[4] = v77;
     *&buf[12] = 2114;
     *&buf[14] = debugIdentifier;
-    v79 = v78;
-    _os_log_impl(&dword_228986000, v77, OS_LOG_TYPE_DEFAULT, "[%{public}@:%{public}@] Query complete", buf, 0x16u);
+    v78 = v77;
+    _os_log_impl(&dword_228986000, v76, OS_LOG_TYPE_DEFAULT, "[%{public}@:%{public}@] Query complete", buf, 0x16u);
   }
 
   _HKInitializeLogging();
-  v80 = *MEMORY[0x277CCC320];
+  v79 = *MEMORY[0x277CCC320];
   if (os_signpost_enabled(*MEMORY[0x277CCC320]))
   {
-    v81 = v80;
-    queryUUID = v81;
-    if ((spid - 1) <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v81))
+    v80 = v79;
+    queryUUID = v80;
+    if ((spid - 1) <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v80))
     {
       *buf = 138543362;
       *&buf[4] = debugIdentifier;
@@ -447,8 +446,6 @@ LABEL_50:
   }
 
 LABEL_57:
-
-  v82 = *MEMORY[0x277D85DE8];
 }
 
 void __58__HDSleepDaySummaryQueryServer__queue_surfaceDaySummaries__block_invoke(uint64_t a1, void *a2, _BYTE *a3)

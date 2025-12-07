@@ -219,8 +219,7 @@
   layer = [v2 layer];
   [layer setCornerRadius:v11];
 
-  [v2 setShowsLargeContentViewer:1];
-  v13 = CKFrameworkBundle();
+  v13 = CKFrameworkBundle([v2 setShowsLargeContentViewer:1]);
   v14 = [v13 localizedStringForKey:@"COMPOSE" value:&stru_1F04268F8 table:@"ChatKit"];
   [v2 setLargeContentTitle:v14];
 
@@ -267,8 +266,7 @@
   layer = [v2 layer];
   [layer setCornerRadius:v11];
 
-  [v2 setShowsLargeContentViewer:1];
-  v13 = CKFrameworkBundle();
+  v13 = CKFrameworkBundle([v2 setShowsLargeContentViewer:1]);
   v14 = [v13 localizedStringForKey:@"MORE" value:&stru_1F04268F8 table:@"ChatKit"];
   [v2 setLargeContentTitle:v14];
 

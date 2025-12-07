@@ -837,7 +837,7 @@ void __60__SUUIExploreDocumentViewController__pageComponentsAtIndex___block_invo
 {
   if (!self->_locationManager)
   {
-    v3 = SUUICoreLocationFramework();
+    v3 = SUUICoreLocationFramework(self, a2);
     v4 = objc_alloc_init(SUUIWeakLinkedClassForString(&cfstr_Cllocationmana.isa, v3));
     locationManager = self->_locationManager;
     self->_locationManager = v4;
@@ -1012,7 +1012,7 @@ void __60__SUUIExploreDocumentViewController__pageComponentsAtIndex___block_invo
 {
   if (!self->_locationManager)
   {
-    v3 = SUUICoreLocationFramework();
+    v3 = SUUICoreLocationFramework(self, a2);
     v4 = objc_alloc_init(SUUIWeakLinkedClassForString(&cfstr_Cllocationmana.isa, v3));
     locationManager = self->_locationManager;
     self->_locationManager = v4;

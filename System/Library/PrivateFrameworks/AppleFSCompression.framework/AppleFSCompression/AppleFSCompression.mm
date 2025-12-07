@@ -1,17 +1,17 @@
 ssize_t catFile()
 {
   v0 = MEMORY[0x28223BE20]();
-  v25 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   if (v1 && (v2 = sub_24051DC54(), v2 != 93))
   {
     if (v2)
     {
-      v5 = 0xFFFFFFFFLL;
+      return 0xFFFFFFFFLL;
     }
 
     else
     {
-      v5 = 0;
+      return 0;
     }
   }
 
@@ -20,10 +20,10 @@ ssize_t catFile()
     v3 = open(v0, 0);
     if (v3 == -1)
     {
-      v14 = __error();
-      strerror(*v14);
-      sub_24051EB50(@"%s:%d: open(%s): %s\n", v15, v16, v17, v18, v19, v20, v21, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Libraries/CompressData/CompressData.c");
-      v5 = 0xFFFFFFFFLL;
+      v15 = __error();
+      v16 = strerror(*v15);
+      sub_24051EB50(@"%s:%d: open(%s): %s\n", v17, v18, v19, v20, v21, v22, v23, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Libraries/CompressData/CompressData.c", 137, v0, v16);
+      return 0xFFFFFFFFLL;
     }
 
     else
@@ -41,8 +41,8 @@ ssize_t catFile()
         if (write(1, __b, v5) != v5)
         {
           v6 = __error();
-          strerror(*v6);
-          sub_24051EB50(@"%s:%d: write: %s\n", v7, v8, v9, v10, v11, v12, v13, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Libraries/CompressData/CompressData.c");
+          v7 = strerror(*v6);
+          sub_24051EB50(@"%s:%d: write: %s\n", v8, v9, v10, v11, v12, v13, v14, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Libraries/CompressData/CompressData.c", 146, v7);
           v5 = 0xFFFFFFFFLL;
           break;
         }
@@ -52,11 +52,10 @@ ssize_t catFile()
     }
   }
 
-  v22 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
-uint64_t queryCompressionInfo(char *a1, int *a2)
+uint64_t queryCompressionInfo(char *a1, unsigned int *a2)
 {
   if (a1 && a2)
   {
@@ -97,8 +96,8 @@ _DWORD *sub_24051DAAC(char *path, int fd)
     if (*__error() != 93)
     {
       v13 = __error();
-      strerror(*v13);
-      sub_24051EB50(@"%s:%d: getxattr(%s): %s\n", v14, v15, v16, v17, v18, v19, v20, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Libraries/CompressData/CompressData.c");
+      v32 = strerror(*v13);
+      sub_24051EB50(@"%s:%d: getxattr(%s): %s\n", v14, v15, v16, v17, v18, v19, v20, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Libraries/CompressData/CompressData.c", 43, path, v32);
     }
 
     return 0;
@@ -106,13 +105,13 @@ _DWORD *sub_24051DAAC(char *path, int fd)
 
   if (v4 <= 0xF)
   {
-    sub_24051EB50(@"%s:%d: Error: size of %s EA is too small (%zd < %zu)\n", v5, v6, v7, v8, v9, v10, v11, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Libraries/CompressData/CompressData.c");
+    sub_24051EB50(@"%s:%d: Error: size of %s EA is too small (%zd < %zu)\n", v5, v6, v7, v8, v9, v10, v11, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Libraries/CompressData/CompressData.c", 48, path, v4, 16);
     return 0;
   }
 
   if (v4 >= 0x100000000)
   {
-    sub_24051EB50(@"%s:%d: Error: size of %s EA is too big (%zd)\n", v5, v6, v7, v8, v9, v10, v11, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Libraries/CompressData/CompressData.c");
+    sub_24051EB50(@"%s:%d: Error: size of %s EA is too big (%zd)\n", v5, v6, v7, v8, v9, v10, v11, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Libraries/CompressData/CompressData.c", 52, path, v4);
     return 0;
   }
 
@@ -130,7 +129,7 @@ _DWORD *sub_24051DAAC(char *path, int fd)
 
   if (v23 != v12)
   {
-    sub_24051EB50(@"%s:%d: Error: size of %s EA changed\n", v24, v25, v26, v27, v28, v29, v30, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Libraries/CompressData/CompressData.c");
+    sub_24051EB50(@"%s:%d: Error: size of %s EA changed\n", v24, v25, v26, v27, v28, v29, v30, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Libraries/CompressData/CompressData.c", 59, path);
     return 0;
   }
 
@@ -143,61 +142,59 @@ uint64_t sub_24051DC54()
   v0 = MEMORY[0x28223BE20]();
   v2 = v1;
   v3 = v0;
-  v101 = *MEMORY[0x277D85DE8];
+  v94 = *MEMORY[0x277D85DE8];
   v4 = sub_24051DAAC(v0, -1);
   if (v4)
   {
     v11 = v4;
-    v94[0] = 0;
-    v94[1] = v3;
-    v94[2] = v4;
-    sub_240523E4C(&v95, v94, v5, v6, v7, v8, v9, v10);
-    if (HIDWORD(v96) != 196608 && HIDWORD(v96) != 0x20000)
+    v87[0] = 0;
+    v87[1] = v3;
+    v87[2] = v4;
+    sub_240523E4C(&v88, v87, v5, v6, v7, v8, v9, v10);
+    if (HIDWORD(v89) != 196608 && HIDWORD(v89) != 0x20000)
     {
-      if (HIDWORD(v96) == 0x10000)
+      if (HIDWORD(v89) == 0x10000)
       {
         goto LABEL_5;
       }
 
-      v86 = v95[1];
-      sub_24051EB50(@"%s:%d: %s: unknown chunking scheme %llu\n", v12, v13, v14, v15, v16, v17, v18, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/ChunkCompression.cpp");
+      sub_24051EB50(@"%s:%d: %s: unknown chunking scheme %llu\n", v12, v13, v14, v15, v16, v17, v18, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/ChunkCompression.cpp", 435, v88[1], HIDWORD(v89));
       goto LABEL_25;
     }
 
-    v98 = 0;
+    v91 = 0;
     LOWORD(__b[3]) = -21846;
     *&v26 = 0xAAAAAAAAAAAAAAAALL;
     *(&v26 + 1) = 0xAAAAAAAAAAAAAAAALL;
     __b[1] = v26;
     __b[2] = v26;
     __b[0] = v26;
-    if (HIDWORD(v96) == 0x20000)
+    if (HIDWORD(v89) == 0x20000)
     {
-      v27 = 8 * v97 + 314;
+      v27 = 8 * v90 + 314;
     }
 
     else
     {
-      v27 = 4 * (v97 + 1);
+      v27 = 4 * (v90 + 1);
     }
 
-    v28 = *v95;
-    if (*v95)
+    v28 = *v88;
+    if (*v88)
     {
       value = 0;
       v29 = (*(v28 + 16))(v28, 0, 0, 0, &value);
-      v98 = v29;
+      v91 = v29;
       if (v29)
       {
         v25 = v29;
-        v85 = v95[1];
-        sub_24051EB50(@"%s:%d: %s: readRscData: (0, 0), returned error [%d]", v30, v31, v32, v33, v34, v35, v36, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/ChunkCompression.cpp");
+        sub_24051EB50(@"%s:%d: %s: readRscData: (0, 0), returned error [%d]", v30, v31, v32, v33, v34, v35, v36, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/ChunkCompression.cpp", 301, v88[1], v29);
 LABEL_26:
-        strerror(v25);
-        sub_24051EB50(@"%s:%d: validate(%s): %s\n", v55, v56, v57, v58, v59, v60, v61, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Libraries/CompressData/CompressData.c");
+        v86 = strerror(v25);
+        sub_24051EB50(@"%s:%d: validate(%s): %s\n", v55, v56, v57, v58, v59, v60, v61, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Libraries/CompressData/CompressData.c", 84, v3, v86);
 LABEL_27:
         free(v11);
-        goto LABEL_28;
+        return v25;
       }
 
       v37 = value;
@@ -208,14 +205,14 @@ LABEL_5:
         {
           value = 0;
           memset(__b, 170, sizeof(__b));
-          v95 = __b;
-          v96 = 4096;
-          v22 = sub_240524720(v94, i, 4096, 1, &v95, &value, v20, v21);
+          v88 = __b;
+          v89 = 4096;
+          v22 = sub_240524720(v87, i, 4096, 1, &v88, &value, v20, v21);
           if (v22)
           {
             v25 = v22;
-            strerror(v22);
-            sub_24051EB50(@"%s:%d: decompress: %s\n", v47, v48, v49, v50, v51, v52, v53, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Libraries/CompressData/CompressData.c");
+            v84 = strerror(v22);
+            sub_24051EB50(@"%s:%d: decompress: %s\n", v48, v49, v50, v51, v52, v53, v54, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Libraries/CompressData/CompressData.c", 96, v84, v85);
             goto LABEL_27;
           }
 
@@ -240,13 +237,13 @@ LABEL_5:
 
     else
     {
-      v37 = getxattr(v95[1], "com.apple.ResourceFork", 0, 0, 0, 32);
+      v37 = getxattr(v88[1], "com.apple.ResourceFork", 0, 0, 0, 32);
       if (v37 == -1)
       {
-        v38 = v95[1];
+        v38 = v88[1];
         v39 = __error();
-        strerror(*v39);
-        sub_24051EB50(@"%s:%d: %s: fgetxattr: %s\n", v40, v41, v42, v43, v44, v45, v46, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/ChunkCompression.cpp");
+        v40 = strerror(*v39);
+        sub_24051EB50(@"%s:%d: %s: fgetxattr: %s\n", v41, v42, v43, v44, v45, v46, v47, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/ChunkCompression.cpp", 308, v38, v40);
         v25 = *__error();
         goto LABEL_42;
       }
@@ -254,38 +251,31 @@ LABEL_5:
 
     if (v37 < v27)
     {
-      v54 = v95[2];
-      v92 = v54[2];
-      v93 = *(v54 + 3);
-      v91 = *v54;
-      v87 = v95[1];
-      sub_24051EB50(@"%s:%d: %s: resource fork is too small (actual size: %llu < expected min size: %llu) header: (attr_size %u, compression_type %u, uncompressed_size %llu)\n", v30, v31, v32, v33, v34, v35, v36, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/ChunkCompression.cpp");
+      sub_24051EB50(@"%s:%d: %s: resource fork is too small (actual size: %llu < expected min size: %llu) header: (attr_size %u, compression_type %u, uncompressed_size %llu)\n", v30, v31, v32, v33, v34, v35, v36, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/ChunkCompression.cpp", 392, v88[1], v37, v27, *v88[2], *(v88[2] + 8), *(v88[2] + 12));
 LABEL_25:
       v25 = 22;
       goto LABEL_26;
     }
 
-    if (HIDWORD(v96) == 0x20000)
+    if (HIDWORD(v89) == 0x20000)
     {
-      if (sub_240523F28(&v95, __b, 0x32uLL, v37 - 50, &v98, v34, v35, v36))
+      if (sub_240523F28(&v88, __b, 0x32uLL, v37 - 50, &v91, v34, v35, v36))
       {
         if (memcmp(__b, &unk_240525D98, 0x32uLL))
         {
-          v88 = v95[1];
-          sub_24051EB50(@"%s:%d: %s: invalid resource map\n", v64, v65, v66, v67, v68, v69, v70, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/ChunkCompression.cpp");
+          sub_24051EB50(@"%s:%d: %s: invalid resource map\n", v63, v64, v65, v66, v67, v68, v69, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/ChunkCompression.cpp", 402, v88[1]);
           goto LABEL_25;
         }
 
         LODWORD(value) = -1431655766;
-        if (sub_240523F28(&v95, &value, 4uLL, 260, &v98, v68, v69, v70))
+        if (sub_240523F28(&v88, &value, 4uLL, 260, &v91, v67, v68, v69))
         {
-          if (value == v97)
+          if (value == v90)
           {
             goto LABEL_5;
           }
 
-          v90 = v95[1];
-          sub_24051EB50(@"%s:%d: %s: expected chunk count %u, found %u\n", v78, v79, v80, v81, v82, v83, v84, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/ChunkCompression.cpp");
+          sub_24051EB50(@"%s:%d: %s: expected chunk count %u, found %u\n", v77, v78, v79, v80, v81, v82, v83, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/ChunkCompression.cpp", 415, v88[1], v90, value);
           goto LABEL_37;
         }
       }
@@ -294,22 +284,21 @@ LABEL_25:
     else
     {
       LODWORD(value) = -1431655766;
-      if (sub_240523F28(&v95, &value, 4uLL, 4 * v97, &v98, v34, v35, v36))
+      if (sub_240523F28(&v88, &value, 4uLL, 4 * v90, &v91, v34, v35, v36))
       {
         if (v37 == value)
         {
           goto LABEL_5;
         }
 
-        v89 = v95[1];
-        sub_24051EB50(@"%s:%d: %s: expected size %u, found %llu\n", v71, v72, v73, v74, v75, v76, v77, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/ChunkCompression.cpp");
+        sub_24051EB50(@"%s:%d: %s: expected size %u, found %llu\n", v70, v71, v72, v73, v74, v75, v76, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/ChunkCompression.cpp", 427, v88[1], value, v37);
 LABEL_37:
         v25 = 22;
         goto LABEL_42;
       }
     }
 
-    v25 = v98;
+    v25 = v91;
 LABEL_42:
     if (v25)
     {
@@ -319,10 +308,7 @@ LABEL_42:
     goto LABEL_5;
   }
 
-  v25 = 93;
-LABEL_28:
-  v62 = *MEMORY[0x277D85DE8];
-  return v25;
+  return 93;
 }
 
 uint64_t sub_24051E0C8(uint64_t a1, const void *a2, size_t a3)
@@ -333,206 +319,201 @@ uint64_t sub_24051E0C8(uint64_t a1, const void *a2, size_t a3)
   }
 
   v4 = __error();
-  strerror(*v4);
-  sub_24051EB50(@"%s:%d: write: %s\n", v5, v6, v7, v8, v9, v10, v11, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Libraries/CompressData/CompressData.c");
+  v5 = strerror(*v4);
+  sub_24051EB50(@"%s:%d: write: %s\n", v6, v7, v8, v9, v10, v11, v12, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Libraries/CompressData/CompressData.c", 121, v5);
   return *__error();
 }
 
 uint64_t decompressFile(char *a1, int a2, int a3)
 {
-  v66 = *MEMORY[0x277D85DE8];
-  v61 = 0;
+  v77 = *MEMORY[0x277D85DE8];
+  v72 = 0;
   v6.tv_sec = 0xAAAAAAAAAAAAAAAALL;
   v6.tv_nsec = 0xAAAAAAAAAAAAAAAALL;
-  *&v60.st_blksize = v6;
-  *v60.st_qspare = v6;
-  v60.st_birthtimespec = v6;
-  *&v60.st_size = v6;
-  v60.st_mtimespec = v6;
-  v60.st_ctimespec = v6;
-  *&v60.st_uid = v6;
-  v60.st_atimespec = v6;
-  *&v60.st_dev = v6;
-  if (stat(a1, &v60) == -1)
+  *&v71.st_blksize = v6;
+  *v71.st_qspare = v6;
+  v71.st_birthtimespec = v6;
+  *&v71.st_size = v6;
+  v71.st_mtimespec = v6;
+  v71.st_ctimespec = v6;
+  *&v71.st_uid = v6;
+  v71.st_atimespec = v6;
+  *&v71.st_dev = v6;
+  if (stat(a1, &v71) == -1)
   {
     v8 = *__error();
     v17 = __error();
-    strerror(*v17);
-    sub_24051EB50(@"%s:%d: stat %s: %s\n", v18, v19, v20, v21, v22, v23, v24, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Libraries/CompressData/CompressData.c");
-    goto LABEL_33;
+    v18 = strerror(*v17);
+    sub_24051EB50(@"%s:%d: stat %s: %s\n", v19, v20, v21, v22, v23, v24, v25, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Libraries/CompressData/CompressData.c", 200, a1, v18);
+    goto LABEL_32;
   }
 
-  if ((v60.st_flags & 0x20) == 0)
+  if ((v71.st_flags & 0x20) == 0)
   {
-    goto LABEL_35;
+    return 0;
   }
 
-  if (a2)
-  {
-    v7 = sub_24051E5A8();
-    if (a3)
-    {
-      goto LABEL_5;
-    }
-  }
-
-  else
+  if (!a2)
   {
     v7 = 0;
     if (a3)
     {
-LABEL_5:
-      if (!a1 || sub_24051EE1C(a1, -1, 1))
-      {
-        v8 = *__error();
-        v9 = __error();
-        strerror(*v9);
-        sub_24051EB50(@"%s:%d: unsetBsdflags %s: %s\n", v10, v11, v12, v13, v14, v15, v16, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Libraries/CompressData/CompressData.c");
-        goto LABEL_22;
-      }
-
-      v59[0] = MEMORY[0x277D85DD0];
-      v59[1] = 0x40000000;
-      v59[2] = sub_24051E72C;
-      v59[3] = &unk_278CA90B0;
-      v59[4] = a1;
-      v27 = sub_24051ECE0(-1, a1, a1, &v61, v59);
-      if (v27 != -1)
-      {
-        v26 = v27;
-        v57[5] = MEMORY[0x277D85DD0];
-        v57[6] = 0x40000000;
-        v57[7] = sub_24051E738;
-        v57[8] = &unk_278CA90D0;
-        v58 = v27;
-        v57[9] = a1;
-        v28 = sub_24051DC54();
-        v8 = v28;
-        if (v28)
-        {
-          strerror(v28);
-          sub_24051EB50(@"%s:%d: Error: processFileData %s: %s\n", v29, v30, v31, v32, v33, v34, v35, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Libraries/CompressData/CompressData.c");
-          ftruncate(v26, 0);
-          sub_24051EE1C(a1, -1, 0);
-        }
-
-        else
-        {
-          fremovexattr(v26, "com.apple.decmpfs", 0);
-          fremovexattr(v26, "com.apple.ResourceFork", 0);
-        }
-
-LABEL_12:
-        fsync(v26);
-        close(v26);
-        v62.tv_sec = v60.st_atimespec.tv_sec;
-        *(&v62.tv_usec + 1) = -1431655766;
-        v62.tv_usec = SLODWORD(v60.st_atimespec.tv_nsec) / 1000;
-        tv_sec = v60.st_mtimespec.tv_sec;
-        v65 = -1431655766;
-        v64 = SLODWORD(v60.st_mtimespec.tv_nsec) / 1000;
-        if (v61 == 1)
-        {
-          lchmod(a1, v60.st_mode);
-        }
-
-        utimes(a1, &v62);
-        if (!v7)
-        {
-          goto LABEL_27;
-        }
-
-        goto LABEL_23;
-      }
-
-      v8 = *__error();
-      v44 = __error();
-      strerror(*v44);
-      goto LABEL_21;
+      goto LABEL_5;
     }
-  }
 
-  v57[0] = MEMORY[0x277D85DD0];
-  v57[1] = 0x40000000;
-  v57[2] = sub_24051E7B4;
-  v57[3] = &unk_278CA90F0;
-  v57[4] = a1;
-  v25 = sub_24051ECE0(-1, a1, a1, &v61, v57);
-  if (v25 != -1)
-  {
-    v26 = v25;
-    v8 = 0;
-    goto LABEL_12;
-  }
+LABEL_10:
+    v68[0] = MEMORY[0x277D85DD0];
+    v68[1] = 0x40000000;
+    v68[2] = sub_24051E7B4;
+    v68[3] = &unk_278CA90F0;
+    v68[4] = a1;
+    v26 = sub_24051ECE0(-1, a1, a1, &v72, v68);
+    if (v26 != -1)
+    {
+      v27 = v26;
+      v8 = 0;
+      goto LABEL_12;
+    }
 
-  v8 = *__error();
-  v36 = __error();
-  strerror(*v36);
+    v8 = *__error();
+    v38 = __error();
+    v66 = strerror(*v38);
+    sub_24051EB50(@"%s:%d: open %s: %s\n", v39, v40, v41, v42, v43, v44, v45, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Libraries/CompressData/CompressData.c", 255, a1, v66);
 LABEL_21:
-  sub_24051EB50(@"%s:%d: open %s: %s\n", v37, v38, v39, v40, v41, v42, v43, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Libraries/CompressData/CompressData.c");
-LABEL_22:
-  if (!v7)
-  {
-LABEL_27:
     if (!v7)
     {
-      goto LABEL_33;
+      goto LABEL_26;
     }
 
-    v54 = v7;
-LABEL_32:
-    CFRelease(v54);
-LABEL_33:
-    if (v8)
+    goto LABEL_22;
+  }
+
+  v7 = sub_24051E5A8();
+  if (!a3)
+  {
+    goto LABEL_10;
+  }
+
+LABEL_5:
+  if (!a1 || sub_24051EE1C(a1, -1, 1))
+  {
+    v8 = *__error();
+    v9 = __error();
+    v65 = strerror(*v9);
+    sub_24051EB50(@"%s:%d: unsetBsdflags %s: %s\n", v10, v11, v12, v13, v14, v15, v16, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Libraries/CompressData/CompressData.c", 218, a1, v65);
+    goto LABEL_21;
+  }
+
+  v70[0] = MEMORY[0x277D85DD0];
+  v70[1] = 0x40000000;
+  v70[2] = sub_24051E72C;
+  v70[3] = &unk_278CA90B0;
+  v70[4] = a1;
+  v28 = sub_24051ECE0(-1, a1, a1, &v72, v70);
+  if (v28 == -1)
+  {
+    v8 = *__error();
+    v46 = __error();
+    v67 = strerror(*v46);
+    sub_24051EB50(@"%s:%d: open %s: %s\n", v47, v48, v49, v50, v51, v52, v53, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Libraries/CompressData/CompressData.c", 226, a1, v67);
+    goto LABEL_21;
+  }
+
+  v27 = v28;
+  v68[5] = MEMORY[0x277D85DD0];
+  v68[6] = 0x40000000;
+  v68[7] = sub_24051E738;
+  v68[8] = &unk_278CA90D0;
+  v69 = v28;
+  v68[9] = a1;
+  v29 = sub_24051DC54();
+  v8 = v29;
+  if (v29)
+  {
+    v30 = strerror(v29);
+    sub_24051EB50(@"%s:%d: Error: processFileData %s: %s\n", v31, v32, v33, v34, v35, v36, v37, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Libraries/CompressData/CompressData.c", 237, a1, v30);
+    ftruncate(v27, 0);
+    sub_24051EE1C(a1, -1, 0);
+  }
+
+  else
+  {
+    fremovexattr(v27, "com.apple.decmpfs", 0);
+    fremovexattr(v27, "com.apple.ResourceFork", 0);
+  }
+
+LABEL_12:
+  fsync(v27);
+  close(v27);
+  v73.tv_sec = v71.st_atimespec.tv_sec;
+  *(&v73.tv_usec + 1) = -1431655766;
+  v73.tv_usec = SLODWORD(v71.st_atimespec.tv_nsec) / 1000;
+  tv_sec = v71.st_mtimespec.tv_sec;
+  v76 = -1431655766;
+  v75 = SLODWORD(v71.st_mtimespec.tv_nsec) / 1000;
+  if (v72 == 1)
+  {
+    lchmod(a1, v71.st_mode);
+  }
+
+  utimes(a1, &v73);
+  if (!v7)
+  {
+    goto LABEL_26;
+  }
+
+LABEL_22:
+  if (!v8)
+  {
+    v54 = sub_24051E5A8();
+    if (!v54)
     {
-      goto LABEL_34;
+      CFRelease(v7);
+      v8 = 5;
+LABEL_33:
+      *__error() = v8;
+      return 0xFFFFFFFFLL;
     }
 
-LABEL_35:
-    result = 0;
-    goto LABEL_36;
-  }
-
-LABEL_23:
-  if (v8)
-  {
-    goto LABEL_27;
-  }
-
-  v45 = sub_24051E5A8();
-  if (v45)
-  {
-    v46 = v45;
-    if (CFEqual(v7, v45))
+    v55 = v54;
+    if (CFEqual(v7, v54))
     {
       v8 = 0;
     }
 
     else
     {
-      sub_24051EB50(@"%s:%d: Error: decompressing %s changed its data!\n", v47, v48, v49, v50, v51, v52, v53, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Libraries/CompressData/CompressData.c");
+      sub_24051EB50(@"%s:%d: Error: decompressing %s changed its data!\n", v56, v57, v58, v59, v60, v61, v62, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Libraries/CompressData/CompressData.c", 278, a1);
       v8 = 5;
     }
 
     CFRelease(v7);
-    v54 = v46;
+    v63 = v55;
+    goto LABEL_31;
+  }
+
+LABEL_26:
+  if (!v7)
+  {
     goto LABEL_32;
   }
 
-  CFRelease(v7);
-  v8 = 5;
-LABEL_34:
-  *__error() = v8;
-  result = 0xFFFFFFFFLL;
-LABEL_36:
-  v56 = *MEMORY[0x277D85DE8];
-  return result;
+  v63 = v7;
+LABEL_31:
+  CFRelease(v63);
+LABEL_32:
+  if (v8)
+  {
+    goto LABEL_33;
+  }
+
+  return 0;
 }
 
 CFDataRef sub_24051E5A8()
 {
   v0 = MEMORY[0x28223BE20]();
-  v28 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v1 = open(v0, 0);
   *&c.wbuf[14] = 0xAAAAAAAAAAAAAAAALL;
   *&v2 = 0xAAAAAAAAAAAAAAAALL;
@@ -544,13 +525,13 @@ CFDataRef sub_24051E5A8()
   *c.count = v2;
   *&c.hash[2] = v2;
   *md = v2;
-  v27 = v2;
+  v28 = v2;
   if (v1 == -1)
   {
     v5 = __error();
-    strerror(*v5);
-    sub_24051EB50(@"%s:%d: open %s: %s\n", v6, v7, v8, v9, v10, v11, v12, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Libraries/CompressData/CompressData.c");
-    v13 = 0;
+    v6 = strerror(*v5);
+    sub_24051EB50(@"%s:%d: open %s: %s\n", v7, v8, v9, v10, v11, v12, v13, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Libraries/CompressData/CompressData.c", 163, v0, v6, *c.count, *c.hash, *&c.hash[2], *&c.hash[4], *&c.hash[6], *c.wbuf, *&c.wbuf[2], *&c.wbuf[4], *&c.wbuf[6], *&c.wbuf[8], *&c.wbuf[10], *&c.wbuf[12], *&c.wbuf[14]);
+    return 0;
   }
 
   else
@@ -568,10 +549,10 @@ CFDataRef sub_24051E5A8()
 
       if (v4 == -1)
       {
-        v14 = __error();
-        strerror(*v14);
-        sub_24051EB50(@"%s:%d: read %s: %s\n", v15, v16, v17, v18, v19, v20, v21, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Libraries/CompressData/CompressData.c");
-        v13 = 0;
+        v15 = __error();
+        v16 = strerror(*v15);
+        sub_24051EB50(@"%s:%d: read %s: %s\n", v17, v18, v19, v20, v21, v22, v23, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Libraries/CompressData/CompressData.c", 172, v0, v16, *c.count, *c.hash, *&c.hash[2], *&c.hash[4], *&c.hash[6], *c.wbuf, *&c.wbuf[2], *&c.wbuf[4], *&c.wbuf[6], *&c.wbuf[8], *&c.wbuf[10], *&c.wbuf[12], *&c.wbuf[14]);
+        v14 = 0;
         goto LABEL_9;
       }
 
@@ -579,13 +560,12 @@ CFDataRef sub_24051E5A8()
     }
 
     CC_SHA256_Final(md, &c);
-    v13 = CFDataCreate(0, md, 32);
+    v14 = CFDataCreate(0, md, 32);
 LABEL_9:
     close(v3);
   }
 
-  v22 = *MEMORY[0x277D85DE8];
-  return v13;
+  return v14;
 }
 
 uint64_t sub_24051E738(uint64_t a1, const void *a2, size_t a3)
@@ -597,39 +577,39 @@ uint64_t sub_24051E738(uint64_t a1, const void *a2, size_t a3)
 
   v5 = *(a1 + 32);
   v6 = __error();
-  strerror(*v6);
-  sub_24051EB50(@"%s:%d: write %s: %s\n", v7, v8, v9, v10, v11, v12, v13, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Libraries/CompressData/CompressData.c");
+  v7 = strerror(*v6);
+  sub_24051EB50(@"%s:%d: write %s: %s\n", v8, v9, v10, v11, v12, v13, v14, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Libraries/CompressData/CompressData.c", 231, v5, v7);
   return *__error();
 }
 
-uint64_t sub_24051E7C0(char *a1, int a2, int *a3, int *a4)
+uint64_t sub_24051E7C0(char *a1, int a2, unsigned int *a3, _DWORD *a4)
 {
   v8.tv_sec = 0xAAAAAAAAAAAAAAAALL;
   v8.tv_nsec = 0xAAAAAAAAAAAAAAAALL;
-  *&v43.st_blksize = v8;
-  *v43.st_qspare = v8;
-  v43.st_birthtimespec = v8;
-  *&v43.st_size = v8;
-  v43.st_mtimespec = v8;
-  v43.st_ctimespec = v8;
-  *&v43.st_uid = v8;
-  v43.st_atimespec = v8;
-  *&v43.st_dev = v8;
+  *&v42.st_blksize = v8;
+  *v42.st_qspare = v8;
+  v42.st_birthtimespec = v8;
+  *&v42.st_size = v8;
+  v42.st_mtimespec = v8;
+  v42.st_ctimespec = v8;
+  *&v42.st_uid = v8;
+  v42.st_atimespec = v8;
+  *&v42.st_dev = v8;
   if (a2 == -1)
   {
-    result = stat(a1, &v43);
+    result = stat(a1, &v42);
   }
 
   else
   {
-    result = fstat(a2, &v43);
+    result = fstat(a2, &v42);
   }
 
   if (result != -1)
   {
     if (a3)
     {
-      st_size = v43.st_size;
+      st_size = v42.st_size;
       *a3 = 0;
       *(a3 + 1) = 0;
       *(a3 + 2) = st_size;
@@ -641,7 +621,7 @@ uint64_t sub_24051E7C0(char *a1, int a2, int *a3, int *a4)
       *a4 = 0;
     }
 
-    if ((v43.st_flags & 0x20) == 0)
+    if ((v42.st_flags & 0x20) == 0)
     {
       return 0;
     }
@@ -663,15 +643,15 @@ uint64_t sub_24051E7C0(char *a1, int a2, int *a3, int *a4)
           *a3 = v20;
           v21 = *(v19 + 3);
           *(a3 + 2) = v21;
-          if (v21 != v43.st_size)
+          if (v21 != v42.st_size)
           {
-            sub_24051EB50(@"%s:%d: Error: Uncompressed size for path '%s' as reported by stat did not match size in disk header!\n", v12, v13, v14, v15, v16, v17, v18, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Libraries/CompressData/CompressData.c");
+            sub_24051EB50(@"%s:%d: Error: Uncompressed size for path '%s' as reported by stat did not match size in disk header!\n", v12, v13, v14, v15, v16, v17, v18, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Libraries/CompressData/CompressData.c", 334, a1);
             v20 = *a3;
           }
 
-          v42 = 0;
-          sub_240523CD0(v20, 0, &v42, v14, v15, v16, v17, v18);
-          if (v42 == 196608 || v42 == 0x20000)
+          v41 = 0;
+          sub_240523CD0(v20, 0, &v41, v14, v15, v16, v17, v18);
+          if (v41 == 196608 || v41 == 0x20000)
           {
             if (a2 == -1)
             {
@@ -685,8 +665,7 @@ uint64_t sub_24051E7C0(char *a1, int a2, int *a3, int *a4)
 
             if (v30 == -1)
             {
-              v41 = *a3;
-              sub_24051EB50(@"%s:%d: Error: Type %d compressed file at path '%s' did not have a resource fork\n", v31, v32, v33, v34, v35, v36, v37, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Libraries/CompressData/CompressData.c");
+              sub_24051EB50(@"%s:%d: Error: Type %d compressed file at path '%s' did not have a resource fork\n", v31, v32, v33, v34, v35, v36, v37, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Libraries/CompressData/CompressData.c", 352, *a3, a1);
               LODWORD(v38) = *v19;
             }
 
@@ -695,7 +674,7 @@ uint64_t sub_24051E7C0(char *a1, int a2, int *a3, int *a4)
               v38 = *v19;
               *(a3 + 1) = v30 + v38;
               v39 = 2;
-              if (v42 == 0x20000)
+              if (v41 == 0x20000)
               {
                 v39 = 3;
                 v40 = 314;
@@ -717,7 +696,7 @@ uint64_t sub_24051E7C0(char *a1, int a2, int *a3, int *a4)
             goto LABEL_13;
           }
 
-          if (v42 == 0x10000)
+          if (v41 == 0x10000)
           {
             *(a3 + 1) = *v19;
             v29 = 16;
@@ -727,7 +706,7 @@ uint64_t sub_24051E7C0(char *a1, int a2, int *a3, int *a4)
           {
             if (*a3 != 5)
             {
-              sub_24051EB50(@"%s:%d: Error: Unknown compression scheme encountered for file '%s'\n", v22, v23, v24, v25, v26, v27, v28, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Libraries/CompressData/CompressData.c");
+              sub_24051EB50(@"%s:%d: Error: Unknown compression scheme encountered for file '%s'\n", v22, v23, v24, v25, v26, v27, v28, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Libraries/CompressData/CompressData.c", 377, a1);
               goto LABEL_13;
             }
 
@@ -743,7 +722,7 @@ LABEL_13:
         return 0;
       }
 
-      sub_24051EB50(@"%s:%d: Error: Compressed file at path '%s' had incorrect magic in disk header\n", v12, v13, v14, v15, v16, v17, v18, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Libraries/CompressData/CompressData.c");
+      sub_24051EB50(@"%s:%d: Error: Compressed file at path '%s' had incorrect magic in disk header\n", v12, v13, v14, v15, v16, v17, v18, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Libraries/CompressData/CompressData.c", 319, a1);
       free(v19);
     }
 
@@ -753,7 +732,7 @@ LABEL_13:
   return result;
 }
 
-uint64_t queryCompressionType(char *a1, int *a2)
+uint64_t queryCompressionType(char *a1, _DWORD *a2)
 {
   if (a1 && a2)
   {
@@ -768,7 +747,7 @@ uint64_t queryCompressionType(char *a1, int *a2)
   }
 }
 
-uint64_t fqueryCompressionInfo(int a1, int *a2)
+uint64_t fqueryCompressionInfo(int a1, unsigned int *a2)
 {
   if (a1 < 0 || !a2)
   {
@@ -783,7 +762,7 @@ uint64_t fqueryCompressionInfo(int a1, int *a2)
   }
 }
 
-uint64_t fqueryCompressionType(int a1, int *a2)
+uint64_t fqueryCompressionType(int a1, _DWORD *a2)
 {
   if (a1 < 0 || !a2)
   {
@@ -798,64 +777,65 @@ uint64_t fqueryCompressionType(int a1, int *a2)
   }
 }
 
-int *sub_24051EB50(const __CFString *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+int *sub_24051EB50(const __CFString *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
-  v10 = *__error();
+  va_start(va, a8);
+  v9 = *__error();
   if (qword_27E4B5920 != -1)
   {
     dispatch_once(&qword_27E4B5920, &unk_28525D508);
   }
 
-  v11 = CFStringCreateWithFormatAndArguments(0, 0, a1, &a9);
-  if (v11)
+  v10 = CFStringCreateWithFormatAndArguments(0, 0, a1, va);
+  if (v10)
   {
-    v12 = v11;
-    Length = CFStringGetLength(v11);
+    v11 = v10;
+    Length = CFStringGetLength(v10);
     MaximumSizeForEncoding = CFStringGetMaximumSizeForEncoding(Length, 0x8000100u);
-    v15 = malloc(MaximumSizeForEncoding + 1);
-    v16 = "failed to convert string\n";
-    if (v15 && CFStringGetCString(v12, v15, MaximumSizeForEncoding + 1, 0x8000100u))
+    v14 = malloc(MaximumSizeForEncoding + 1);
+    v15 = "failed to convert string\n";
+    if (v14 && CFStringGetCString(v11, v14, MaximumSizeForEncoding + 1, 0x8000100u))
     {
-      v16 = v15;
+      v15 = v14;
     }
 
-    CFRelease(v12);
+    CFRelease(v11);
   }
 
   else
   {
-    v15 = 0;
-    v16 = "failed to convert string\n";
+    v14 = 0;
+    v15 = "failed to convert string\n";
   }
 
   if (byte_27E4B5918 != 1)
   {
-    syslog(3, "%s", v16);
-    if (!v15)
+    syslog(3, "%s", v15);
+    if (!v14)
     {
       goto LABEL_16;
     }
 
 LABEL_15:
-    free(v15);
+    free(v14);
     goto LABEL_16;
   }
 
-  v17 = strlen(v16);
-  if (v16[v17 - 1] != 10)
+  v16 = strlen(v15);
+  if (v15[v16 - 1] != 10)
   {
-    *&v16[v17] = 10;
+    *&v15[v16] = 10;
   }
 
-  fputs(v16, *MEMORY[0x277D85DF8]);
-  if (v15)
+  fputs(v15, *MEMORY[0x277D85DF8]);
+  if (v14)
   {
     goto LABEL_15;
   }
 
 LABEL_16:
   result = __error();
-  *result = v10;
+  *result = v9;
   return result;
 }
 
@@ -880,25 +860,25 @@ uint64_t sub_24051ECE0(int a1, const char *a2, uint64_t a3, _BYTE *a4, uint64_t 
     {
       if (lchmod(a2, 0x180u) == -1)
       {
-        v10 = __error();
-        strerror(*v10);
-        sub_24051EB50(@"%s:%d: lchmod %s (%s): %s\n", v11, v12, v13, v14, v15, v16, v17, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/commonUtilsUser.c");
+        v11 = __error();
+        v29 = strerror(*v11);
+        sub_24051EB50(@"%s:%d: lchmod %s (%s): %s\n", v12, v13, v14, v15, v16, v17, v18, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/commonUtilsUser.c", 93, a3, a2, v29);
         return 0xFFFFFFFFLL;
       }
     }
 
     else if (fchmod(a1, 0x180u) == -1)
     {
-      v19 = __error();
-      strerror(*v19);
-      sub_24051EB50(@"%s:%d: fchmod %s: %s\n", v20, v21, v22, v23, v24, v25, v26, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/commonUtilsUser.c");
+      v20 = __error();
+      v28 = strerror(*v20);
+      sub_24051EB50(@"%s:%d: fchmod %s: %s\n", v21, v22, v23, v24, v25, v26, v27, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/commonUtilsUser.c", 98, a3, v28);
       return 0xFFFFFFFFLL;
     }
 
     *a4 = 1;
-    v18 = *(a5 + 16);
+    v19 = *(a5 + 16);
 
-    return v18(a5);
+    return v19(a5);
   }
 
   return result;
@@ -988,7 +968,7 @@ LABEL_17:
   return v9;
 }
 
-unsigned int *CreateStreamCompressorQueueWithOptions(const __CFDictionary *a1)
+char *CreateStreamCompressorQueueWithOptions(const __CFDictionary *a1)
 {
   v130 = *MEMORY[0x277D85DE8];
   v2 = calloc(1uLL, 0x60uLL);
@@ -1001,7 +981,7 @@ unsigned int *CreateStreamCompressorQueueWithOptions(const __CFDictionary *a1)
   v2[5] = v18;
   if (v18 - 101 <= 0xFFFFFF9B)
   {
-    sub_24051EB50(@"%s:%d: Error: compression ratio needs to be between 1 and 100\n", v19, v20, v21, v22, v23, v24, v25, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/StreamCompressorQueue.c");
+    sub_24051EB50(@"%s:%d: Error: compression ratio needs to be between 1 and 100\n", v19, v20, v21, v22, v23, v24, v25, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/StreamCompressorQueue.c", 200);
     goto LABEL_50;
   }
 
@@ -1031,7 +1011,7 @@ unsigned int *CreateStreamCompressorQueueWithOptions(const __CFDictionary *a1)
 
 LABEL_49:
       *(v2 + 10) = 0;
-      sub_24051EB50(@"%s:%d: Error: _InitCompressionRules failed (malformed plist?)\n", v29, v30, v31, v32, v33, v34, v35, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/StreamCompressorQueue.c");
+      sub_24051EB50(@"%s:%d: Error: _InitCompressionRules failed (malformed plist?)\n", v29, v30, v31, v32, v33, v34, v35, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/StreamCompressorQueue.c", 208);
       goto LABEL_50;
     }
   }
@@ -1134,25 +1114,25 @@ LABEL_53:
     if (v2[16])
     {
 LABEL_54:
-      v77 = CFDictionaryGetValue(a1, @"SkipMachOOverridePaths");
-      if (v77)
+      v76 = CFDictionaryGetValue(a1, @"SkipMachOOverridePaths");
+      if (v76)
       {
-        v78 = v77;
-        v79 = CFGetTypeID(v77);
-        if (v79 == CFArrayGetTypeID())
+        v77 = v76;
+        v78 = CFGetTypeID(v76);
+        if (v78 == CFArrayGetTypeID())
         {
-          Count = CFArrayGetCount(v78);
-          v81 = MEMORY[0x28223BE20]();
-          v83 = &v128[-((v82 + 15) & 0xFFFFFFFFFFFFFFF0)];
-          if (v81)
+          Count = CFArrayGetCount(v77);
+          v80 = MEMORY[0x28223BE20]();
+          v82 = &v128[-((v81 + 15) & 0xFFFFFFFFFFFFFFF0)];
+          if (v80)
           {
-            memset(&v128[-((v82 + 15) & 0xFFFFFFFFFFFFFFF0)], 170, v82);
+            memset(&v128[-((v81 + 15) & 0xFFFFFFFFFFFFFFF0)], 170, v81);
           }
 
           v131.location = 0;
           v131.length = Count;
-          CFArrayGetValues(v78, v131, v83);
-          *(v2 + 9) = CFSetCreate(0, v83, Count, MEMORY[0x277CBF158]);
+          CFArrayGetValues(v77, v131, v82);
+          *(v2 + 9) = CFSetCreate(0, v82, Count, MEMORY[0x277CBF158]);
         }
       }
     }
@@ -1165,22 +1145,22 @@ LABEL_59:
 
     else
     {
-      v84 = sub_24051F7AC(a1, @"DispatchQueuePriority", 2);
-      global_queue = dispatch_get_global_queue(v84, 0);
+      v83 = sub_24051F7AC(a1, @"DispatchQueuePriority", 2);
+      global_queue = dispatch_get_global_queue(v83, 0);
       *(v2 + 5) = global_queue;
       if (!global_queue)
       {
-        sub_24051EB50(@"%s:%d: Error: invalid kAFSCDispatchQueuePriority value %d\n", v86, v87, v88, v89, v90, v91, v92, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/StreamCompressorQueue.c");
+        sub_24051EB50(@"%s:%d: Error: invalid kAFSCDispatchQueuePriority value %d\n", v85, v86, v87, v88, v89, v90, v91, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/StreamCompressorQueue.c", 233, v83, v127);
         goto LABEL_50;
       }
     }
 
-    v93 = dispatch_queue_create("ioqueue", 0);
-    *(v2 + 6) = v93;
+    v92 = dispatch_queue_create("ioqueue", 0);
+    *(v2 + 6) = v92;
+    dispatch_set_target_queue(v92, *(v2 + 5));
+    v93 = dispatch_queue_create("borrowed buffer queue", 0);
+    *(v2 + 7) = v93;
     dispatch_set_target_queue(v93, *(v2 + 5));
-    v94 = dispatch_queue_create("borrowed buffer queue", 0);
-    *(v2 + 7) = v94;
-    dispatch_set_target_queue(v94, *(v2 + 5));
     v2[4] = 0;
     valuePtr = 0;
     if (!a1)
@@ -1188,37 +1168,37 @@ LABEL_59:
       goto LABEL_76;
     }
 
-    v100 = CFDictionaryGetValue(a1, @"CompressionTypes");
-    if (v100)
+    v99 = CFDictionaryGetValue(a1, @"CompressionTypes");
+    if (v99)
     {
-      v101 = v100;
-      v102 = CFGetTypeID(v100);
-      if (v102 == CFNumberGetTypeID())
+      v100 = v99;
+      v101 = CFGetTypeID(v99);
+      if (v101 == CFNumberGetTypeID())
       {
-        if (CFNumberGetValue(v101, kCFNumberIntType, &valuePtr))
+        if (CFNumberGetValue(v100, kCFNumberIntType, &valuePtr))
         {
           IntValue = valuePtr;
           goto LABEL_70;
         }
 
-        sub_24051EB50(@"%s:%d: Error: value %@ for %@ could not be parsed\n", v103, v104, v105, v106, v107, v108, v109, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/StreamCompressorQueue.c");
+        sub_24051EB50(@"%s:%d: Error: value %@ for %@ could not be parsed\n", v102, v103, v104, v105, v106, v107, v108, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/StreamCompressorQueue.c", 152, v100, @"CompressionTypes");
       }
 
       else
       {
-        v111 = CFGetTypeID(v101);
-        if (v111 == CFStringGetTypeID())
+        v110 = CFGetTypeID(v100);
+        if (v110 == CFStringGetTypeID())
         {
-          IntValue = CFStringGetIntValue(v101);
+          IntValue = CFStringGetIntValue(v100);
           valuePtr = IntValue;
 LABEL_70:
-          if (sub_240523CD0(IntValue, v2 + 6, v2 + 7, v105, v106, v107, v108, v109))
+          if (sub_240523CD0(IntValue, v2 + 6, v2 + 7, v104, v105, v106, v107, v108))
           {
-            v119 = valuePtr;
+            v118 = valuePtr;
             if (v2[7] != 0x10000)
             {
               v2[4] = valuePtr;
-              if (v119)
+              if (v118)
               {
                 goto LABEL_77;
               }
@@ -1226,16 +1206,16 @@ LABEL_70:
               goto LABEL_76;
             }
 
-            v2[4] = valuePtr + 1;
-            sub_240523CD0(v119 + 1, v2 + 6, v2 + 7, v95, v96, v97, v98, v99);
-            v127 = v2[4];
-            sub_24051EB50(@"%s:%d: Error: shouldn't use compressor type %d since it is a single chunk compressor, using %d instead\n", v120, v121, v122, v123, v124, v125, v126, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/StreamCompressorQueue.c");
+            v119 = valuePtr + 1;
+            v2[4] = v119;
+            sub_240523CD0(v119, v2 + 6, v2 + 7, v94, v95, v96, v97, v98);
+            sub_24051EB50(@"%s:%d: Error: shouldn't use compressor type %d since it is a single chunk compressor, using %d instead\n", v120, v121, v122, v123, v124, v125, v126, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/StreamCompressorQueue.c", 168, valuePtr, v2[4]);
           }
 
           goto LABEL_75;
         }
 
-        sub_24051EB50(@"%s:%d: Error: value for %@ is not a string or number\n", v112, v113, v114, v115, v116, v117, v118, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/StreamCompressorQueue.c");
+        sub_24051EB50(@"%s:%d: Error: value for %@ is not a string or number\n", v111, v112, v113, v114, v115, v116, v117, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/StreamCompressorQueue.c", 158, @"CompressionTypes", v127);
       }
     }
 
@@ -1244,13 +1224,13 @@ LABEL_75:
     {
 LABEL_77:
       *(v2 + 32) = v2[6];
-      *(v2 + 88) = sub_24051F6FC(a1, @"Synchronous", 0, v95, v96, v97, v98, v99);
-      goto LABEL_51;
+      *(v2 + 88) = sub_24051F6FC(a1, @"Synchronous", 0, v94, v95, v96, v97, v98);
+      return v2;
     }
 
 LABEL_76:
     v2[4] = 8;
-    sub_240523CD0(8, v2 + 6, v2 + 7, v95, v96, v97, v98, v99);
+    sub_240523CD0(8, v2 + 6, v2 + 7, v94, v95, v96, v97, v98);
     goto LABEL_77;
   }
 
@@ -1258,7 +1238,7 @@ LABEL_76:
   v51 = CFGetTypeID(v49);
   if (v51 != CFArrayGetTypeID())
   {
-    sub_24051EB50(@"%s:%d: Error: SkipMachOFileTypes value is not an array\n", v52, v53, v54, v55, v56, v57, v58, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/StreamCompressorQueue.c");
+    sub_24051EB50(@"%s:%d: Error: SkipMachOFileTypes value is not an array\n", v52, v53, v54, v55, v56, v57, v58, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/StreamCompressorQueue.c", 55);
     goto LABEL_53;
   }
 
@@ -1297,7 +1277,7 @@ LABEL_40:
 
     if (v67 - 1 >= 0x1F)
     {
-      sub_24051EB50(@"%s:%d: Error: invalid item '%@' at index %ld in SkipMachOFileTypes dictionary\n", v65, v66, v31, v32, v33, v34, v35, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/StreamCompressorQueue.c");
+      sub_24051EB50(@"%s:%d: Error: invalid item '%@' at index %ld in SkipMachOFileTypes dictionary\n", v65, v66, v31, v32, v33, v34, v35, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/StreamCompressorQueue.c", 89, v63, v61);
       goto LABEL_50;
     }
 
@@ -1321,13 +1301,10 @@ LABEL_43:
     goto LABEL_40;
   }
 
-  sub_24051EB50(@"%s:%d: Error: SkipMachOFileTypes value at index %lu is not a number or string\n", v68, v69, v70, v71, v72, v73, v74, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/StreamCompressorQueue.c");
+  sub_24051EB50(@"%s:%d: Error: SkipMachOFileTypes value at index %lu is not a number or string\n", v68, v69, v70, v71, v72, v73, v74, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/StreamCompressorQueue.c", 74, v61);
 LABEL_50:
   FinishStreamCompressorQueue(v2);
-  v2 = 0;
-LABEL_51:
-  v75 = *MEMORY[0x277D85DE8];
-  return v2;
+  return 0;
 }
 
 uint64_t sub_24051F6FC(const __CFDictionary *Value, void *key, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
@@ -1350,7 +1327,13 @@ uint64_t sub_24051F6FC(const __CFDictionary *Value, void *key, uint64_t a3, uint
 
   if (Value)
   {
-    sub_24051EB50(@"%s:%d: Error: value for %@ is not a BOOLean, using default value (%s)\n", key, a3, a4, a5, a6, a7, a8, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/StreamCompressorQueue.c");
+    v10 = "false";
+    if (v8)
+    {
+      v10 = "true";
+    }
+
+    sub_24051EB50(@"%s:%d: Error: value for %@ is not a BOOLean, using default value (%s)\n", key, a3, a4, a5, a6, a7, a8, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/StreamCompressorQueue.c", 109, key, v10);
   }
 
   return v8;
@@ -1363,25 +1346,25 @@ uint64_t sub_24051F7AC(const __CFDictionary *a1, const void *a2, uint64_t a3)
     Value = CFDictionaryGetValue(a1, a2);
     if (Value)
     {
-      v5 = Value;
-      v6 = CFGetTypeID(Value);
-      if (v6 == CFNumberGetTypeID())
+      v6 = Value;
+      v7 = CFGetTypeID(Value);
+      if (v7 == CFNumberGetTypeID())
       {
         valuePtr = -1431655766;
-        if (CFNumberGetValue(v5, kCFNumberIntType, &valuePtr))
+        if (CFNumberGetValue(v6, kCFNumberIntType, &valuePtr))
         {
           return valuePtr;
         }
 
         else
         {
-          sub_24051EB50(@"%s:%d: Error: invalid %@ value %@, assuming %d\n", v14, v15, v16, v17, v18, v19, v20, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/StreamCompressorQueue.c");
+          sub_24051EB50(@"%s:%d: Error: invalid %@ value %@, assuming %d\n", v15, v16, v17, v18, v19, v20, v21, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/StreamCompressorQueue.c", 130, a2, v6, a3);
         }
       }
 
       else
       {
-        sub_24051EB50(@"%s:%d: Error: value for %@ is not a number, assuming %d\n", v7, v8, v9, v10, v11, v12, v13, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/StreamCompressorQueue.c");
+        sub_24051EB50(@"%s:%d: Error: value for %@ is not a number, assuming %d\n", v8, v9, v10, v11, v12, v13, v14, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/StreamCompressorQueue.c", 124, a2, a3);
       }
     }
   }
@@ -1453,11 +1436,11 @@ uint64_t DrainStreamCompressorQueue(uint64_t a1)
   dispatch_group_wait(*a1, 0xFFFFFFFFFFFFFFFFLL);
   if (*(a1 + 8))
   {
-    v11 = *(a1 + 8);
-    strerror(*(a1 + 8));
-    sub_24051EB50(@"%s:%d: Error: returning errno %d (%s) from DrainStreamCompressorQueue\n", v2, v3, v4, v5, v6, v7, v8, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/StreamCompressorQueue.c");
-    v9 = *(a1 + 8);
-    *__error() = v9;
+    v2 = *(a1 + 8);
+    v3 = strerror(*(a1 + 8));
+    sub_24051EB50(@"%s:%d: Error: returning errno %d (%s) from DrainStreamCompressorQueue\n", v4, v5, v6, v7, v8, v9, v10, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/StreamCompressorQueue.c", 416, v2, v3);
+    LODWORD(v2) = *(a1 + 8);
+    *__error() = v2;
     *(a1 + 8) = 0;
     return 0xFFFFFFFFLL;
   }
@@ -1484,12 +1467,12 @@ void sub_24051F9B4()
   CFDictionarySetValue(v0, @"MH_KEXT_BUNDLE", 0xB);
 }
 
-unsigned int *CreateCompressionQueue(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, const __CFDictionary *a5)
+char *CreateCompressionQueue(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, const __CFDictionary *a5)
 {
   result = CreateStreamCompressorQueueWithOptions(a5);
   if (result)
   {
-    *(result + 12) = 1;
+    result[12] = 1;
   }
 
   return result;
@@ -1504,48 +1487,48 @@ BOOL CompressFile(uint64_t a1, char *a2, char *a3)
 
   v6.tv_sec = 0xAAAAAAAAAAAAAAAALL;
   v6.tv_nsec = 0xAAAAAAAAAAAAAAAALL;
-  *&v63.st_blksize = v6;
-  *v63.st_qspare = v6;
-  v63.st_birthtimespec = v6;
-  *&v63.st_size = v6;
-  v63.st_mtimespec = v6;
-  v63.st_ctimespec = v6;
-  *&v63.st_uid = v6;
-  v63.st_atimespec = v6;
-  *&v63.st_dev = v6;
+  *&v67.st_blksize = v6;
+  *v67.st_qspare = v6;
+  v67.st_birthtimespec = v6;
+  *&v67.st_size = v6;
+  v67.st_mtimespec = v6;
+  v67.st_ctimespec = v6;
+  *&v67.st_uid = v6;
+  v67.st_atimespec = v6;
+  *&v67.st_dev = v6;
   v7 = qword_27E4B5978;
   dispatch_semaphore_wait(qword_27E4B5978, 0xFFFFFFFFFFFFFFFFLL);
   v8 = open(a2, 2);
   if (v8 == -1)
   {
     v31 = __error();
-    strerror(*v31);
-    sub_24051EB50(@"%s:%d: open '%s': %s\n", v32, v33, v34, v35, v36, v37, v38, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Libraries/CompressionQueue/CompressionQueue.c");
+    v32 = strerror(*v31);
+    sub_24051EB50(@"%s:%d: open '%s': %s\n", v33, v34, v35, v36, v37, v38, v39, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Libraries/CompressionQueue/CompressionQueue.c", 37, a2, v32, *&v67.st_dev, v67.st_ino, *&v67.st_uid, *&v67.st_rdev, v67.st_atimespec.tv_sec, v67.st_atimespec.tv_nsec, v67.st_mtimespec.tv_sec, v67.st_mtimespec.tv_nsec, v67.st_ctimespec.tv_sec, v67.st_ctimespec.tv_nsec, v67.st_birthtimespec.tv_sec, v67.st_birthtimespec.tv_nsec);
     v11 = 0;
   }
 
   else
   {
     v9 = v8;
-    v10 = fstat(v8, &v63);
+    v10 = fstat(v8, &v67);
     v11 = v10 != -1;
     if (v10 == -1)
     {
-      v39 = __error();
-      strerror(*v39);
-      sub_24051EB50(@"%s:%d: open '%s': %s\n", v40, v41, v42, v43, v44, v45, v46, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Libraries/CompressionQueue/CompressionQueue.c");
+      v40 = __error();
+      v41 = strerror(*v40);
+      sub_24051EB50(@"%s:%d: open '%s': %s\n", v42, v43, v44, v45, v46, v47, v48, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Libraries/CompressionQueue/CompressionQueue.c", 42, a2, v41, *&v67.st_dev, v67.st_ino, *&v67.st_uid, *&v67.st_rdev, v67.st_atimespec.tv_sec, v67.st_atimespec.tv_nsec, v67.st_mtimespec.tv_sec, v67.st_mtimespec.tv_nsec, v67.st_ctimespec.tv_sec, v67.st_ctimespec.tv_nsec, v67.st_birthtimespec.tv_sec, v67.st_birthtimespec.tv_nsec);
     }
 
     else
     {
-      StreamCompressor = CreateStreamCompressor(v9, a2, a3, a1, v63.st_size);
+      StreamCompressor = CreateStreamCompressor(v9, a2, a3, a1, v67.st_size);
       if (StreamCompressor)
       {
         v13 = StreamCompressor;
         v14 = *(StreamCompressor + 244);
         v15 = malloc(0x10000uLL);
         v16 = 0;
-        while (v16 < v63.st_size)
+        while (v16 < v67.st_size)
         {
           v17 = pread(v14, v15, 0x10000uLL, v16);
           if (!v17)
@@ -1555,9 +1538,9 @@ BOOL CompressFile(uint64_t a1, char *a2, char *a3)
 
           if (v17 == -1)
           {
-            v47 = __error();
-            strerror(*v47);
-            sub_24051EB50(@"%s:%d: pread(%s): %s\n", v48, v49, v50, v51, v52, v53, v54, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Libraries/CompressionQueue/CompressionQueue.c");
+            v49 = __error();
+            v66 = strerror(*v49);
+            sub_24051EB50(@"%s:%d: pread(%s): %s\n", v50, v51, v52, v53, v54, v55, v56, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Libraries/CompressionQueue/CompressionQueue.c", 65, a2, v66, *&v67.st_dev, v67.st_ino, *&v67.st_uid, *&v67.st_rdev, v67.st_atimespec.tv_sec, v67.st_atimespec.tv_nsec, v67.st_mtimespec.tv_sec, v67.st_mtimespec.tv_nsec, v67.st_ctimespec.tv_sec, v67.st_ctimespec.tv_nsec, v67.st_birthtimespec.tv_sec, v67.st_birthtimespec.tv_nsec);
             break;
           }
 
@@ -1567,8 +1550,8 @@ BOOL CompressFile(uint64_t a1, char *a2, char *a3)
             if (*__error() != 28)
             {
               v23 = __error();
-              strerror(*v23);
-              sub_24051EB50(@"%s:%d: WriteToStreamCompressor(%s): %s\n", v24, v25, v26, v27, v28, v29, v30, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Libraries/CompressionQueue/CompressionQueue.c");
+              v65 = strerror(*v23);
+              sub_24051EB50(@"%s:%d: WriteToStreamCompressor(%s): %s\n", v24, v25, v26, v27, v28, v29, v30, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Libraries/CompressionQueue/CompressionQueue.c", 74, a2, v65, *&v67.st_dev, v67.st_ino, *&v67.st_uid, *&v67.st_rdev, v67.st_atimespec.tv_sec, v67.st_atimespec.tv_nsec, v67.st_mtimespec.tv_sec, v67.st_mtimespec.tv_nsec, v67.st_ctimespec.tv_sec, v67.st_ctimespec.tv_nsec, v67.st_birthtimespec.tv_sec, v67.st_birthtimespec.tv_nsec);
             }
 
             break;
@@ -1576,7 +1559,7 @@ BOOL CompressFile(uint64_t a1, char *a2, char *a3)
         }
 
         free(v15);
-        CloseStreamCompressor(v13, v55, v56, v57, v58, v59, v60, v61);
+        CloseStreamCompressor(v13, v57, v58, v59, v60, v61, v62, v63);
       }
     }
 
@@ -1593,8 +1576,8 @@ int *FinishCompressionAndCleanUp(uint64_t a1)
   if (result)
   {
     v2 = __error();
-    strerror(*v2);
-    return sub_24051EB50(@"%s:%d: FinishStreamCompressorQueue: %s\n", v3, v4, v5, v6, v7, v8, v9, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Libraries/CompressionQueue/CompressionQueue.c");
+    v3 = strerror(*v2);
+    return sub_24051EB50(@"%s:%d: FinishStreamCompressorQueue: %s\n", v4, v5, v6, v7, v8, v9, v10, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Libraries/CompressionQueue/CompressionQueue.c", 98, v3);
   }
 
   return result;
@@ -1873,19 +1856,20 @@ LABEL_61:
   return v10;
 }
 
-void sub_240520244(uint64_t a1, unsigned int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void sub_240520244(uint64_t a1, unsigned int a2, NSObject *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   if (*(a1 + 321) == 1)
   {
     sub_24052046C(a1, "scheduling %s task after finish", a3, a4, a5, a6, a7, a8, off_278CA9208[a2]);
   }
 
-  if (*(a1 + 168) != -208193560 || *(a1 + 236) != -208193560)
+  v10 = *(a1 + 236);
+  if (*(a1 + 168) != -208193560 || v10 != -208193560)
   {
-    sub_24052046C(a1, "magic numbers have been clobbered (0x%08x 0x%08x)", a3, a4, a5, a6, a7, a8, *(a1 + 168));
+    sub_24052046C(a1, "magic numbers have been clobbered (0x%08x 0x%08x)", a3, a4, a5, a6, a7, a8, *(a1 + 168), v10);
   }
 
-  v12 = a3;
+  v13 = a3;
   if (a3)
   {
     if (a2)
@@ -1896,7 +1880,7 @@ void sub_240520244(uint64_t a1, unsigned int a2, uint64_t a3, uint64_t a4, uint6
 
   else
   {
-    v12 = *(a1 + 8 * a2 + 176);
+    v13 = *(a1 + 8 * a2 + 176);
     if (a2)
     {
       goto LABEL_13;
@@ -1910,33 +1894,33 @@ void sub_240520244(uint64_t a1, unsigned int a2, uint64_t a3, uint64_t a4, uint6
 
   dispatch_group_enter(*(a1 + 224));
 LABEL_13:
-  v13 = *(a1 + 160);
-  v14 = *(a1 + 216);
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 1107296256;
-  v18 = sub_2405205A4;
-  v19 = &unk_28525D548;
-  v22 = a2;
-  v20 = a4;
-  v21 = a1;
-  v15 = sub_240520690();
-  v16 = v15;
-  if (*(v13 + 88) == 1)
+  v14 = *(a1 + 160);
+  v15 = *(a1 + 216);
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 1107296256;
+  v19 = sub_2405205A4;
+  v20 = &unk_28525D548;
+  v23 = a2;
+  v21 = a4;
+  v22 = a1;
+  v16 = sub_240520690();
+  v17 = v16;
+  if (*(v14 + 88) == 1)
   {
     if (qword_27E4B5940 != -1)
     {
       dispatch_once(&qword_27E4B5940, &unk_28525D6C8);
     }
 
-    pthread_setspecific(qword_27E4B5948, v16);
-    (v18)(v17);
+    pthread_setspecific(qword_27E4B5948, v17);
+    (v19)(v18);
     if (qword_27E4B5940 != -1)
     {
       dispatch_once(&qword_27E4B5940, &unk_28525D6C8);
     }
 
     pthread_setspecific(qword_27E4B5948, 0);
-    CFRelease(v16);
+    CFRelease(v17);
   }
 
   else
@@ -1945,45 +1929,42 @@ LABEL_13:
     block[1] = 1107296256;
     block[2] = sub_240520790;
     block[3] = &unk_28525D698;
-    block[4] = v17;
-    block[5] = v15;
-    dispatch_group_async(v14, v12, block);
+    block[4] = v18;
+    block[5] = v16;
+    dispatch_group_async(v15, v13, block);
   }
 }
 
-void sub_24052046C(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+void sub_24052046C(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
-  v47[0] = 0;
-  v47[1] = &a9;
-  vasprintf(v47, a2, &a9);
-  v44 = a1;
-  v45 = v47[0];
-  v43 = 502;
-  sub_24051EB50(@"%s:%d: Error: StreamCompressor %p %s. PLEASE FILE A BUG AGAINST AppleFSCompression/X", v10, v11, v12, v13, v14, v15, v16, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/StreamCompressor.cpp");
-  v17 = sub_240520690();
-  Count = CFArrayGetCount(v17);
+  va_start(va, a8);
+  v43[0] = 0;
+  va_copy(&v43[1], va);
+  vasprintf(v43, a2, va);
+  sub_24051EB50(@"%s:%d: Error: StreamCompressor %p %s. PLEASE FILE A BUG AGAINST AppleFSCompression/X", v9, v10, v11, v12, v13, v14, v15, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/StreamCompressor.cpp", 502, a1, v43[0]);
+  v16 = sub_240520690();
+  Count = CFArrayGetCount(v16);
   Mutable = CFStringCreateMutable(0, 0);
   if (Count >= 1)
   {
     for (i = 0; i != Count; ++i)
     {
-      ValueAtIndex = CFArrayGetValueAtIndex(v17, i);
-      CFStringAppendFormat(Mutable, 0, @"%p ", ValueAtIndex, v43, v44, v45);
+      ValueAtIndex = CFArrayGetValueAtIndex(v16, i);
+      CFStringAppendFormat(Mutable, 0, @"%p ", ValueAtIndex);
     }
   }
 
-  CFRelease(v17);
-  sub_24051EB50(@"%s:%d: Error: StreamCompressor %p stack: %@", v22, v23, v24, v25, v26, v27, v28, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/StreamCompressor.cpp");
-  dispatch_queue_get_label(0);
-  sub_24051EB50(@"%s:%d: Error: StreamCompressor %p queue: %s", v29, v30, v31, v32, v33, v34, v35, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/StreamCompressor.cpp");
-  v46 = *(a1 + 8);
-  sub_24051EB50(@"%s:%d: Error: StreamCompressor %p path: %s", v36, v37, v38, v39, v40, v41, v42, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/StreamCompressor.cpp");
+  CFRelease(v16);
+  sub_24051EB50(@"%s:%d: Error: StreamCompressor %p stack: %@", v21, v22, v23, v24, v25, v26, v27, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/StreamCompressor.cpp", 504, a1, Mutable);
+  label = dispatch_queue_get_label(0);
+  sub_24051EB50(@"%s:%d: Error: StreamCompressor %p queue: %s", v29, v30, v31, v32, v33, v34, v35, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/StreamCompressor.cpp", 505, a1, label);
+  sub_24051EB50(@"%s:%d: Error: StreamCompressor %p path: %s", v36, v37, v38, v39, v40, v41, v42, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/StreamCompressor.cpp", 506, a1, *(a1 + 8));
   if (Mutable)
   {
     CFRelease(Mutable);
   }
 
-  free(v47[0]);
+  free(v43[0]);
   abort();
 }
 
@@ -2001,13 +1982,12 @@ void sub_2405205A4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
     sub_24052046C(v8, "running %s task after compression finished", a3, a4, a5, a6, a7, a8, "compression");
   }
 
-  if (*(v8 + 168) != -208193560 || *(v8 + 236) != -208193560)
+  v11 = *(v8 + 236);
+  if (*(v8 + 168) != -208193560 || v11 != -208193560)
   {
-    v14 = *(v8 + 236);
-    sub_24052046C(v8, "magic numbers have been clobbered (0x%08x 0x%08x)", a3, a4, a5, a6, a7, a8, *(v8 + 168));
+    sub_24052046C(v8, "magic numbers have been clobbered (0x%08x 0x%08x)", a3, a4, a5, a6, a7, a8, *(v8 + 168), v11);
   }
 
-  v12 = *(a1 + 32);
   (*(*(a1 + 32) + 16))();
   if (!*(a1 + 48))
   {
@@ -2054,7 +2034,6 @@ __CFArray *sub_240520690()
   }
 
   CFArrayAppendValue(v2, 0);
-  v7 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
@@ -2186,62 +2165,66 @@ void sub_240520B90(uint64_t a1)
   CFRelease(v2);
 }
 
-int *sub_240520C44(int *result, unsigned int a2)
+int *sub_240520C44(int *result, uint64_t a2)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   if (a2)
   {
-    v2 = *(result + 20);
-    if (*(v2 + 12) == 1)
+    v3 = *(result + 20);
+    if (*(v3 + 12) == 1)
     {
-      v3 = 0;
-      atomic_compare_exchange_strong_explicit(result + 60, &v3, a2, memory_order_relaxed, memory_order_relaxed);
-      if (!v3)
+      v4 = 0;
+      atomic_compare_exchange_strong_explicit(result + 60, &v4, a2, memory_order_relaxed, memory_order_relaxed);
+      if (!v4)
       {
-        *&v4 = 0xAAAAAAAAAAAAAAAALL;
-        *(&v4 + 1) = 0xAAAAAAAAAAAAAAAALL;
-        v22 = v4;
-        v23 = v4;
-        v20 = v4;
-        v21 = v4;
-        *v19 = v4;
-        backtrace(v19, 10);
-        v5 = __error();
-        strerror(*v5);
-        v13 = "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/StreamCompressor.cpp";
-        v14 = @"%s:%d: %p %p %p %p %p %p %p %p %p %p: Error: setting compressor error to %d (%s)\n";
-LABEL_8:
-        result = sub_24051EB50(v14, v6, v7, v8, v9, v10, v11, v12, v13);
+        *&v5 = 0xAAAAAAAAAAAAAAAALL;
+        *(&v5 + 1) = 0xAAAAAAAAAAAAAAAALL;
+        v39 = v5;
+        v40 = v5;
+        v37 = v5;
+        v38 = v5;
+        *v36 = v5;
+        backtrace(v36, 10);
+        v32 = v37;
+        v34 = *v36;
+        v30 = v38;
+        v6 = v39;
+        v7 = *(&v40 + 1);
+        v8 = __error();
+        v28 = strerror(*v8);
+        return sub_24051EB50(@"%s:%d: %p %p %p %p %p %p %p %p %p %p: Error: setting compressor error to %d (%s)\n", v9, v10, v11, v12, v13, v14, v15, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/StreamCompressor.cpp", 529, v34, v32, v30, v6, *(&v6 + 1), v7, a2, v28);
       }
     }
 
     else
     {
-      v15 = *(v2 + 8);
-      if (!v15)
+      v16 = *(v3 + 8);
+      if (!v16)
       {
-        atomic_compare_exchange_strong_explicit((v2 + 8), &v15, a2, memory_order_relaxed, memory_order_relaxed);
-        if (!v15)
+        atomic_compare_exchange_strong_explicit((v3 + 8), &v16, a2, memory_order_relaxed, memory_order_relaxed);
+        if (!v16)
         {
-          *&v16 = 0xAAAAAAAAAAAAAAAALL;
-          *(&v16 + 1) = 0xAAAAAAAAAAAAAAAALL;
-          v22 = v16;
-          v23 = v16;
-          v20 = v16;
-          v21 = v16;
-          *v19 = v16;
-          backtrace(v19, 10);
-          v17 = __error();
-          strerror(*v17);
-          v13 = "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/StreamCompressorQueue.c";
-          v14 = @"%s:%d: %p %p %p %p %p %p %p %p %p %p: Error: setting queue error to %d (%s)\n";
-          goto LABEL_8;
+          *&v17 = 0xAAAAAAAAAAAAAAAALL;
+          *(&v17 + 1) = 0xAAAAAAAAAAAAAAAALL;
+          v39 = v17;
+          v40 = v17;
+          v37 = v17;
+          v38 = v17;
+          *v36 = v17;
+          backtrace(v36, 10);
+          v33 = v37;
+          v35 = *v36;
+          v31 = v38;
+          v18 = v39;
+          v19 = *(&v40 + 1);
+          v20 = __error();
+          v29 = strerror(*v20);
+          return sub_24051EB50(@"%s:%d: %p %p %p %p %p %p %p %p %p %p: Error: setting queue error to %d (%s)\n", v21, v22, v23, v24, v25, v26, v27, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/StreamCompressorQueue.c", 390, v35, v33, v31, v18, *(&v18 + 1), v19, a2, v29);
         }
       }
     }
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -2326,13 +2309,13 @@ void sub_240520E98(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
     {
       switch(v23)
       {
-        case 774:
+        case 0x306:
           v24 = 2304;
           goto LABEL_22;
-        case 1535:
+        case 0x5FF:
           v24 = 1794;
           goto LABEL_22;
-        case 1279:
+        case 0x4FF:
           v24 = 2049;
 LABEL_22:
           v26 = v12;
@@ -2384,7 +2367,7 @@ LABEL_32:
       }
     }
 
-    sub_24051EB50(@"%s:%d: Error: unknown compression scheme %llu\n", v16, a3, a4, v13, a6, a7, a8, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/ChunkCompression.cpp");
+    sub_24051EB50(@"%s:%d: Error: unknown compression scheme %llu\n", v16, a3, a4, v13, a6, a7, a8, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/ChunkCompression.cpp", 168, v23);
     goto LABEL_32;
   }
 
@@ -2444,115 +2427,116 @@ void sub_24052115C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
     v13 = (v12 + 8);
   }
 
-  if (*v13)
+  v14 = *v13;
+  if (v14)
   {
-    sub_240520C44(v8, *v13);
-    v14 = v8;
-    v15 = 3;
+    sub_240520C44(v8, v14);
+    v15 = v8;
+    v16 = 3;
 LABEL_10:
-    sub_24052109C(v14, v15, a3, a4, a5, a6, a7, a8);
+    sub_24052109C(v15, v16, a3, a4, a5, a6, a7, a8);
     goto LABEL_28;
   }
 
   if (!v10 && v9 <= 0xECA && !*(v8 + 280) && *(v12 + 14) == 1 && (*(v8 + 253) & 1) == 0)
   {
-    v14 = v8;
-    v15 = 2;
+    v15 = v8;
+    v16 = 2;
     goto LABEL_10;
   }
 
-  v16 = *(v8 + 336);
-  if (v16)
+  v17 = *(v8 + 336);
+  if (v17)
   {
-    v17 = (8 * v11) | 4;
-    v18 = v9 + v17;
-    *v16 = 0x10000;
-    *(v16 + 4) = vrev32_s8(vadd_s32(vdup_n_s32(v9 + v17), 0x400000104));
-    *(v16 + 12) = 838860800;
-    v19 = v9 + v17 + 314;
-    *(v16 + 16) = 0u;
-    *(v16 + 32) = 0u;
-    *(v16 + 48) = 0u;
-    *(v16 + 64) = 0u;
-    *(v16 + 80) = 0u;
-    *(v16 + 96) = 0u;
-    *(v16 + 112) = 0u;
-    *(v16 + 128) = 0u;
-    *(v16 + 144) = 0u;
-    *(v16 + 160) = 0u;
-    *(v16 + 176) = 0u;
-    *(v16 + 192) = 0u;
-    *(v16 + 208) = 0u;
-    *(v16 + 224) = 0u;
-    *(v16 + 240) = 0u;
-    v20 = *(v8 + 336);
-    v20[64] = bswap32(v18);
-    v21 = *(v8 + 288);
-    v20[65] = v21;
-    if (v21)
+    v18 = (8 * v11) | 4;
+    v19 = v9 + v18;
+    *v17 = 0x10000;
+    *(v17 + 4) = vrev32_s8(vadd_s32(vdup_n_s32(v9 + v18), 0x400000104));
+    *(v17 + 12) = 838860800;
+    v20 = v9 + v18 + 314;
+    *(v17 + 16) = 0u;
+    *(v17 + 32) = 0u;
+    *(v17 + 48) = 0u;
+    *(v17 + 64) = 0u;
+    *(v17 + 80) = 0u;
+    *(v17 + 96) = 0u;
+    *(v17 + 112) = 0u;
+    *(v17 + 128) = 0u;
+    *(v17 + 144) = 0u;
+    *(v17 + 160) = 0u;
+    *(v17 + 176) = 0u;
+    *(v17 + 192) = 0u;
+    *(v17 + 208) = 0u;
+    *(v17 + 224) = 0u;
+    *(v17 + 240) = 0u;
+    v21 = *(v8 + 336);
+    v21[64] = bswap32(v19);
+    v22 = *(v8 + 288);
+    v21[65] = v22;
+    if (v22)
     {
-      v22 = *(v8 + 408);
-      v23 = v20 + 67;
+      v23 = *(v8 + 408);
+      v24 = v21 + 67;
       do
       {
-        v24 = *v22++;
-        *(v23 - 1) = v17;
-        *v23 = v24;
-        v17 += v24;
-        v23 += 2;
-        --v21;
+        v25 = *v23++;
+        *(v24 - 1) = v18;
+        *v24 = v25;
+        v18 += v25;
+        v24 += 2;
+        --v22;
       }
 
-      while (v21);
+      while (v22);
     }
   }
 
   else
   {
-    v19 = *(v8 + 344);
-    v25 = *(v8 + 352);
+    v20 = *(v8 + 344);
+    v26 = *(v8 + 352);
     if (v11)
     {
-      v26 = 0;
-      v27 = *(v8 + 408);
+      v27 = 0;
+      v28 = *(v8 + 408);
       do
       {
-        *(v25 + 4 * v26) = v19;
-        v19 += *(v27 + 4 * v26++);
-        v28 = *(v8 + 288);
+        *(v26 + 4 * v27) = v20;
+        v20 += *(v28 + 4 * v27++);
+        v29 = *(v8 + 288);
       }
 
-      while (v26 < v28);
+      while (v27 < v29);
     }
 
     else
     {
-      v28 = 0;
+      v29 = 0;
     }
 
-    *(v25 + 4 * v28) = v19;
+    *(v26 + 4 * v29) = v20;
   }
 
-  v30[0] = MEMORY[0x277D85DD0];
-  v30[1] = 0x40000000;
-  v30[2] = sub_2405213D0;
-  v30[3] = &unk_278CA9490;
-  v30[4] = v8;
-  v31 = v19;
-  v32[0] = MEMORY[0x277D85DD0];
-  v32[1] = 1107296256;
-  v32[2] = sub_240520E1C;
-  v32[3] = &unk_28525D638;
-  v32[4] = v30;
-  v32[5] = v8;
-  sub_240520244(v8, 3u, 0, v32, a5, a6, a7, a8);
+  v31[0] = MEMORY[0x277D85DD0];
+  v31[1] = 0x40000000;
+  v31[2] = sub_2405213D0;
+  v31[3] = &unk_278CA9490;
+  v31[4] = v8;
+  v32 = v20;
+  v33[0] = MEMORY[0x277D85DD0];
+  v33[1] = 1107296256;
+  v33[2] = sub_240520E1C;
+  v33[3] = &unk_28525D638;
+  v33[4] = v31;
+  v33[5] = v8;
+  sub_240520244(v8, 3u, 0, v33, a5, a6, a7, a8);
 LABEL_28:
-  v29 = *(v8 + 224);
+  v30 = *(v8 + 224);
 
-  dispatch_group_leave(v29);
+  dispatch_group_leave(v30);
 }
 
-uint64_t sub_2405213D0(uint64_t a1)
+ssize_t sub_2405213D0(uint64_t a1)
 {
   v1 = *(a1 + 32);
   v2 = *(a1 + 40);
@@ -2563,8 +2547,8 @@ uint64_t sub_2405213D0(uint64_t a1)
     {
       v4 = *(v1 + 8);
       v5 = __error();
-      strerror(*v5);
-      sub_24051EB50(@"%s:%d: fgetxattr %s: %s\n", v6, v7, v8, v9, v10, v11, v12, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/StreamCompressor.cpp");
+      v6 = strerror(*v5);
+      sub_24051EB50(@"%s:%d: fgetxattr %s: %s\n", v7, v8, v9, v10, v11, v12, v13, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/StreamCompressor.cpp", 1502, v4, v6);
     }
   }
 
@@ -2574,18 +2558,18 @@ uint64_t sub_2405213D0(uint64_t a1)
     return result;
   }
 
-  v13 = *(v1 + 248);
-  if (v13 != -1)
+  v14 = *(v1 + 248);
+  if (v14 != -1)
   {
-    v19[0] = 0x300000002;
-    v19[1] = 0;
-    v19[2] = v2;
-    v19[3] = 0;
-    fcntl(v13, 42, v19);
+    v20[0] = 0x300000002;
+    v20[1] = 0;
+    v20[2] = v2;
+    v20[3] = 0;
+    fcntl(v14, 42, v20);
   }
 
-  v14 = *(v1 + 336);
-  if (v14)
+  v15 = *(v1 + 336);
+  if (v15)
   {
     result = sub_24052158C(v1, *(v1 + 336), *(v1 + 332), 0);
     if ((result & 1) == 0)
@@ -2593,8 +2577,8 @@ uint64_t sub_2405213D0(uint64_t a1)
       return result;
     }
 
-    v15 = (v1 + 336);
-    v16 = (v1 + 332);
+    v16 = (v1 + 336);
+    v17 = (v1 + 332);
   }
 
   else
@@ -2605,28 +2589,28 @@ uint64_t sub_2405213D0(uint64_t a1)
       return result;
     }
 
-    v15 = (v1 + 352);
-    v16 = (v1 + 344);
+    v16 = (v1 + 352);
+    v17 = (v1 + 344);
   }
 
-  v17 = *v16;
-  sub_240524CA0(*v15);
-  *v15 = 0;
+  v18 = *v17;
+  sub_240524CA0(*v16);
+  *v16 = 0;
   if (*(v1 + 288))
   {
-    v18 = 0;
+    v19 = 0;
     while (1)
     {
-      result = sub_24052158C(v1, *(*(v1 + 400) + 8 * v18), *(*(v1 + 408) + 4 * v18), v17);
+      result = sub_24052158C(v1, *(*(v1 + 400) + 8 * v19), *(*(v1 + 408) + 4 * v19), v18);
       if (!result)
       {
         break;
       }
 
-      v17 += *(*(v1 + 408) + 4 * v18);
-      sub_240524CA0(*(*(v1 + 400) + 8 * v18));
-      *(*(v1 + 400) + 8 * v18++) = 0;
-      if (v18 >= *(v1 + 288))
+      v18 += *(*(v1 + 408) + 4 * v19);
+      sub_240524CA0(*(*(v1 + 400) + 8 * v19));
+      *(*(v1 + 400) + 8 * v19++) = 0;
+      if (v19 >= *(v1 + 288))
       {
         goto LABEL_17;
       }
@@ -2636,12 +2620,12 @@ uint64_t sub_2405213D0(uint64_t a1)
   else
   {
 LABEL_17:
-    if (!v14)
+    if (!v15)
     {
       return sub_2405216F0(v1, 1);
     }
 
-    result = sub_24052158C(v1, &unk_240525D98, 0x32uLL, v17);
+    result = sub_24052158C(v1, &unk_240525D98, 0x32uLL, v18);
     if (result)
     {
       return sub_2405216F0(v1, 1);
@@ -2654,43 +2638,43 @@ LABEL_17:
 BOOL sub_24052158C(uint64_t a1, const void *a2, size_t a3, off_t a4)
 {
   v8 = *(a1 + 248);
-  if (v8 < 0)
+  if ((v8 & 0x80000000) != 0)
   {
     if (a4 < 0x100000000)
     {
-      v20 = *(a1 + 244);
-      v21 = *(a1 + 8);
-      v31[0] = MEMORY[0x277D85DD0];
-      v31[1] = 0x40000000;
-      v31[2] = sub_240521D88;
-      v31[3] = &unk_278CA93B0;
-      v31[4] = a1;
-      v31[5] = a2;
-      v31[6] = a3;
-      v31[7] = a4;
-      if (sub_24051ECE0(v20, 0, v21, (a1 + 323), v31) != -1)
+      v21 = *(a1 + 244);
+      v22 = *(a1 + 8);
+      v33[0] = MEMORY[0x277D85DD0];
+      v33[1] = 0x40000000;
+      v33[2] = sub_240521D88;
+      v33[3] = &unk_278CA93B0;
+      v33[4] = a1;
+      v33[5] = a2;
+      v33[6] = a3;
+      v33[7] = a4;
+      if (sub_24051ECE0(v21, 0, v22, (a1 + 323), v33) != -1)
       {
         return 1;
       }
 
-      v22 = *(a1 + 8);
-      v23 = __error();
-      strerror(*v23);
-      sub_24051EB50(@"%s:%d: fsetxattr %s: %s\n", v24, v25, v26, v27, v28, v29, v30, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/StreamCompressor.cpp");
-      v19 = *__error();
-      v18 = a1;
+      v23 = *(a1 + 8);
+      v24 = __error();
+      v25 = strerror(*v24);
+      sub_24051EB50(@"%s:%d: fsetxattr %s: %s\n", v26, v27, v28, v29, v30, v31, v32, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/StreamCompressor.cpp", 1324, v23, v25);
+      v20 = *__error();
+      v19 = a1;
     }
 
     else
     {
       v10 = __error();
-      strerror(*v10);
-      sub_24051EB50(@"%s:%d: fileOffset=%llu is too big: %s\n", v11, v12, v13, v14, v15, v16, v17, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/StreamCompressor.cpp");
-      v18 = a1;
-      v19 = 22;
+      v11 = strerror(*v10);
+      sub_24051EB50(@"%s:%d: fileOffset=%llu is too big: %s\n", v12, v13, v14, v15, v16, v17, v18, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/StreamCompressor.cpp", 1315, a4, v11);
+      v19 = a1;
+      v20 = 22;
     }
 
-    sub_240520C44(v18, v19);
+    sub_240520C44(v19, v20);
     return 0;
   }
 
@@ -2701,14 +2685,14 @@ BOOL sub_24052158C(uint64_t a1, const void *a2, size_t a3, off_t a4)
   }
 }
 
-intptr_t sub_2405216F0(uint64_t a1, int a2)
+intptr_t sub_2405216F0(uint64_t a1, uint64_t a2)
 {
-  v84 = *MEMORY[0x277D85DE8];
+  v88 = *MEMORY[0x277D85DE8];
   sub_240521BD8(a1);
   result = *(a1 + 244);
   if (result == -1)
   {
-    goto LABEL_12;
+    return result;
   }
 
   v12 = *(a1 + 160);
@@ -2723,13 +2707,13 @@ intptr_t sub_2405216F0(uint64_t a1, int a2)
   }
 
   v14 = *v13;
-  if (*v13)
+  if (v14)
   {
     goto LABEL_6;
   }
 
-  v19 = *(v12 + 16);
-  memset(v77, 170, sizeof(v77));
+  v18 = *(v12 + 16);
+  memset(v81, 170, sizeof(v81));
   switch(a2)
   {
     case 3:
@@ -2737,124 +2721,110 @@ intptr_t sub_2405216F0(uint64_t a1, int a2)
     case 2:
       if ((*(v12 + 14) & 1) == 0)
       {
-        sub_24051EB50(@"%s:%d: Error: storing data in xattr not allowed\n", v4, v5, v6, v7, v8, v9, v10, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/StreamCompressor.cpp");
+        sub_24051EB50(@"%s:%d: Error: storing data in xattr not allowed\n", v4, v5, v6, v7, v8, v9, v10, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/StreamCompressor.cpp", 1216);
         v14 = 45;
         goto LABEL_6;
       }
 
-      v23 = **(a1 + 408);
-      v22 = v23 + 16;
-      v21 = malloc(v23 + 16);
-      v24 = **(a1 + 400);
-      memcpy(v21 + 2, v24, v23);
-      sub_240524CA0(v24);
+      v22 = **(a1 + 408);
+      v21 = v22 + 16;
+      v20 = malloc(v22 + 16);
+      v23 = **(a1 + 400);
+      memcpy(v20 + 2, v23, v22);
+      sub_240524CA0(v23);
       **(a1 + 400) = 0;
-      v19 = *(*(a1 + 160) + 16) - 1;
+      v18 = *(*(a1 + 160) + 16) - 1;
       LODWORD(result) = *(a1 + 244);
-      v20 = 1;
+      v19 = 1;
       break;
     case 1:
-      v20 = 0;
+      v19 = 0;
       if (*(a1 + 280))
       {
-        v77[2] = *(a1 + 280);
-        v21 = v77;
-        v22 = 24;
+        v81[2] = *(a1 + 280);
+        v20 = v81;
+        v21 = 24;
       }
 
       else
       {
-        v21 = v77;
-        v22 = 16;
+        v20 = v81;
+        v21 = 16;
       }
 
       break;
     default:
-      sub_24051EB50(@"%s:%d: Error: invalid close flag %d\n", v4, v5, v6, v7, v8, v9, v10, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/StreamCompressor.cpp");
+      sub_24051EB50(@"%s:%d: Error: invalid close flag %d\n", v4, v5, v6, v7, v8, v9, v10, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/StreamCompressor.cpp", 1237, a2);
       v14 = 22;
       goto LABEL_6;
   }
 
-  *v21 = 1668116582;
-  *(v21 + 1) = v19;
-  v21[1] = *(a1 + 264);
-  v25 = *(a1 + 8);
+  *v20 = 1668116582;
+  *(v20 + 1) = v18;
+  v20[1] = *(a1 + 264);
+  v24 = *(a1 + 8);
   bytes.tv_sec = MEMORY[0x277D85DD0];
   *&bytes.tv_usec = 0x40000000;
-  v79 = sub_240521C7C;
-  v80 = &unk_278CA9390;
-  v81 = a1;
-  v82 = v21;
-  v83 = v22;
-  v26 = sub_24051ECE0(result, 0, v25, (a1 + 323), &bytes);
+  v83 = sub_240521C7C;
+  v84 = &unk_278CA9390;
+  v85 = a1;
+  v86 = v20;
+  v87 = v21;
+  v25 = sub_24051ECE0(result, 0, v24, (a1 + 323), &bytes);
   v14 = *__error();
-  if (v20)
+  if (v19)
   {
-    free(v21);
+    free(v20);
   }
 
-  if (v26 == -1)
+  if (v25 == -1)
   {
-    v37 = *(a1 + 8);
-    v38 = __error();
-    strerror(*v38);
-    sub_24051EB50(@"%s:%d: fsetxattr %s: %s\n", v39, v40, v41, v42, v43, v44, v45, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/StreamCompressor.cpp");
+    v36 = *(a1 + 8);
+    v37 = __error();
+    v79 = strerror(*v37);
+    sub_24051EB50(@"%s:%d: fsetxattr %s: %s\n", v38, v39, v40, v41, v42, v43, v44, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/StreamCompressor.cpp", 1265, v36, v79);
   }
 
   else if (*(*(a1 + 160) + 12) == 1 && ftruncate(*(a1 + 244), 0) == -1)
   {
     v14 = *__error();
-    v46 = *(a1 + 8);
-    v47 = __error();
-    strerror(*v47);
-    sub_24051EB50(@"%s:%d: ftruncate %s: %s\n", v48, v49, v50, v51, v52, v53, v54, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/StreamCompressor.cpp");
+    v45 = *(a1 + 8);
+    v46 = __error();
+    v80 = strerror(*v46);
+    sub_24051EB50(@"%s:%d: ftruncate %s: %s\n", v47, v48, v49, v50, v51, v52, v53, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/StreamCompressor.cpp", 1273, v45, v80);
   }
 
   else
   {
-    v27 = *(a1 + 244);
-    if (v27 != -1 && !sub_24051EE1C(0, v27, 0))
+    v26 = *(a1 + 244);
+    if (v26 != -1 && !sub_24051EE1C(0, v26, 0))
     {
       goto LABEL_34;
     }
 
     v14 = *__error();
-    v28 = *(a1 + 8);
-    v29 = __error();
-    strerror(*v29);
-    sub_24051EB50(@"%s:%d: setBsdflags %s: %s\n", v30, v31, v32, v33, v34, v35, v36, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/StreamCompressor.cpp");
+    v27 = *(a1 + 8);
+    v28 = __error();
+    v78 = strerror(*v28);
+    sub_24051EB50(@"%s:%d: setBsdflags %s: %s\n", v29, v30, v31, v32, v33, v34, v35, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/StreamCompressor.cpp", 1280, v27, v78);
   }
 
   if (!v14)
   {
 LABEL_34:
     fsync(*(a1 + 244));
-    if ((*(a1 + 254) & 1) == 0 && *(*(a1 + 160) + 12) != 1)
-    {
-      goto LABEL_37;
-    }
-
-    v55 = *(a1 + 56);
-    bytes.tv_sec = *(a1 + 48);
-    *(&bytes.tv_usec + 1) = -1431655766;
-    bytes.tv_usec = v55 / 1000;
-    v56 = *(a1 + 72);
-    v79 = *(a1 + 64);
-    HIDWORD(v80) = -1431655766;
-    LODWORD(v80) = v56 / 1000;
-    if (futimes(*(a1 + 244), &bytes) == -1)
+    if (((*(a1 + 254) & 1) != 0 || *(*(a1 + 160) + 12) == 1) && (v54 = *(a1 + 56), bytes.tv_sec = *(a1 + 48), *(&bytes.tv_usec + 1) = -1431655766, bytes.tv_usec = v54 / 1000, v55 = *(a1 + 72), v83 = *(a1 + 64), HIDWORD(v84) = -1431655766, LODWORD(v84) = v55 / 1000, futimes(*(a1 + 244), &bytes) == -1))
     {
       v14 = *__error();
-      v57 = *(a1 + 8);
-      v58 = *(a1 + 244);
-      v59 = __error();
-      strerror(*v59);
-      sub_24051EB50(@"%s:%d: futimes %s (fd %d): %s\n", v60, v61, v62, v63, v64, v65, v66, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/StreamCompressor.cpp");
+      v56 = *(a1 + 8);
+      v57 = *(a1 + 244);
+      v58 = __error();
+      v59 = strerror(*v58);
+      sub_24051EB50(@"%s:%d: futimes %s (fd %d): %s\n", v60, v61, v62, v63, v64, v65, v66, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/StreamCompressor.cpp", 1156, v56, v57, v59, v81[0], v81[1], v81[2]);
     }
 
     else
     {
-LABEL_37:
       v14 = 0;
     }
 
@@ -2864,8 +2834,8 @@ LABEL_37:
       v67 = *(a1 + 8);
       v68 = *(a1 + 244);
       v69 = __error();
-      strerror(*v69);
-      sub_24051EB50(@"%s:%d: fchmod %s (fd %d): %s\n", v70, v71, v72, v73, v74, v75, v76, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/StreamCompressor.cpp");
+      v70 = strerror(*v69);
+      sub_24051EB50(@"%s:%d: fchmod %s (fd %d): %s\n", v71, v72, v73, v74, v75, v76, v77, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/StreamCompressor.cpp", 1164, v67, v68, v70);
     }
 
     if (!v14)
@@ -2897,10 +2867,7 @@ LABEL_7:
     dispatch_once(&qword_27E4B5970, &unk_28525D738);
   }
 
-  result = dispatch_semaphore_signal(qword_27E4B5978);
-LABEL_12:
-  v18 = *MEMORY[0x277D85DE8];
-  return result;
+  return dispatch_semaphore_signal(qword_27E4B5978);
 }
 
 intptr_t sub_240521BD8(uint64_t a1)
@@ -2934,7 +2901,7 @@ intptr_t sub_240521BD8(uint64_t a1)
   return result;
 }
 
-BOOL sub_240521CA0(uint64_t a1, int a2, const void *a3, size_t a4, off_t a5)
+BOOL sub_240521CA0(int *a1, uint64_t a2, const void *a3, size_t a4, off_t a5)
 {
   do
   {
@@ -2955,9 +2922,9 @@ BOOL sub_240521CA0(uint64_t a1, int a2, const void *a3, size_t a4, off_t a5)
       v11 = 28;
     }
 
-    v12 = *(a1 + 8);
-    strerror(v11);
-    sub_24051EB50(@"%s:%d: Error: failed to write %zu bytes to %s(%d) at %llu: %s\n", v13, v14, v15, v16, v17, v18, v19, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/StreamCompressor.cpp");
+    v12 = *(a1 + 1);
+    v13 = strerror(v11);
+    sub_24051EB50(@"%s:%d: Error: failed to write %zu bytes to %s(%d) at %llu: %s\n", v14, v15, v16, v17, v18, v19, v20, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/StreamCompressor.cpp", 1302, a4, v12, a2, a5, v13);
     sub_240520C44(a1, v11);
   }
 
@@ -2988,22 +2955,22 @@ LABEL_8:
     v3 = result[66] - result[68];
   }
 
-  v1[91] = v3;
+  *(v1 + 364) = v3;
   if (*(v1 + 304) == 1)
   {
     result = sub_240524AFC(v3, 1);
-    *(v1 + 46) = result;
+    *(v1 + 368) = result;
     goto LABEL_8;
   }
 
   v4 = sub_240524AFC(v3 + 1, 1);
-  *v4 = *(*(v1 + 20) + 32);
-  *(v1 + 46) = v4 + 1;
+  *v4 = *(*(v1 + 160) + 32);
+  *(v1 + 368) = v4 + 1;
   *(v1 + 376) = 1;
-  LODWORD(v4) = v1[91];
-  v1[98] = v4;
+  LODWORD(v4) = *(v1 + 364);
+  *(v1 + 392) = v4;
   result = sub_240524AFC(v4, 1);
-  *(v1 + 48) = result;
+  *(v1 + 384) = result;
   return result;
 }
 
@@ -3050,31 +3017,27 @@ void sub_240521ED8(uint64_t a1)
   {
     v18 = "finalized before it was closed";
 LABEL_42:
-    sub_24052046C(a1, v18, v3, v4, v5, v6, v7, v8, v19);
+    sub_24052046C(a1, v18, v3, v4, v5, v6, v7, v8);
   }
 
   if (*(a1 + 244) != -1)
   {
-    v20 = *(a1 + 8);
-    sub_24051EB50(@"%s:%d: Error: freed StreamCompressor for %s without closing data fd\n", v2, v3, v4, v5, v6, v7, v8, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/StreamCompressor.cpp");
+    sub_24051EB50(@"%s:%d: Error: freed StreamCompressor for %s without closing data fd\n", v2, v3, v4, v5, v6, v7, v8, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/StreamCompressor.cpp", 737, *(a1 + 8));
   }
 
   if (*(a1 + 248) != -1)
   {
-    v21 = *(a1 + 8);
-    sub_24051EB50(@"%s:%d: Error: freed StreamCompressor for %s without closing rsrc fd\n", v2, v3, v4, v5, v6, v7, v8, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/StreamCompressor.cpp");
+    sub_24051EB50(@"%s:%d: Error: freed StreamCompressor for %s without closing rsrc fd\n", v2, v3, v4, v5, v6, v7, v8, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/StreamCompressor.cpp", 740, *(a1 + 8));
   }
 
   if (*(a1 + 256))
   {
-    v22 = *(a1 + 8);
-    sub_24051EB50(@"%s:%d: Error: freed StreamCompressor for %s that is still locked\n", v2, v3, v4, v5, v6, v7, v8, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/StreamCompressor.cpp");
+    sub_24051EB50(@"%s:%d: Error: freed StreamCompressor for %s that is still locked\n", v2, v3, v4, v5, v6, v7, v8, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/StreamCompressor.cpp", 743, *(a1 + 8));
   }
 
   if (*(a1 + 368))
   {
-    v23 = *(a1 + 8);
-    sub_24051EB50(@"%s:%d: Error: freed StreamCompressor for %s that is still has a curBuffer\n", v2, v3, v4, v5, v6, v7, v8, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/StreamCompressor.cpp");
+    sub_24051EB50(@"%s:%d: Error: freed StreamCompressor for %s that is still has a curBuffer\n", v2, v3, v4, v5, v6, v7, v8, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/StreamCompressor.cpp", 746, *(a1 + 8));
     v9 = *(a1 + 368);
     if (*(a1 + 376) == 1)
     {
@@ -3086,8 +3049,7 @@ LABEL_42:
 
   if (*(a1 + 384))
   {
-    v24 = *(a1 + 8);
-    sub_24051EB50(@"%s:%d: Error: freed StreamCompressor for %s that is still has a compressionBuffer\n", v2, v3, v4, v5, v6, v7, v8, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/StreamCompressor.cpp");
+    sub_24051EB50(@"%s:%d: Error: freed StreamCompressor for %s that is still has a compressionBuffer\n", v2, v3, v4, v5, v6, v7, v8, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/StreamCompressor.cpp", 754, *(a1 + 8));
     sub_240524CA0(*(a1 + 384));
   }
 
@@ -3363,97 +3325,98 @@ void sub_2405226BC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
         v12 = (v11 + 8);
       }
 
-      if (*v12)
+      v13 = *v12;
+      if (v13)
       {
-        sub_240520C44(v8, *v12);
-        sub_24052109C(v8, 3, v21, v22, v23, v24, v25, v26);
+        sub_240520C44(v8, v13);
+        sub_24052109C(v8, 3, v22, v23, v24, v25, v26, v27);
         return;
       }
 
-      v13 = *(*(v8 + 400) + 8 * v9);
+      v14 = *(*(v8 + 400) + 8 * v9);
       if (*(v8 + 264) - v10 >= 0x10000)
       {
-        v14 = 0x10000;
+        v15 = 0x10000;
       }
 
       else
       {
-        v14 = *(v8 + 264) - v10;
+        v15 = *(v8 + 264) - v10;
       }
 
-      v15 = *(*(v8 + 408) + 4 * v9);
-      if (*v13 == *(v11 + 32))
+      v16 = *(*(v8 + 408) + 4 * v9);
+      if (*v14 == *(v11 + 32))
       {
-        if (v15 != v14 + 1)
+        if (v16 != v15 + 1)
         {
           __assert_rtn("decompressIfNecessary_block_invoke_3", "StreamCompressor.cpp", 1406, "bufSz == uncmpSize + 1");
         }
 
-        v32[0] = MEMORY[0x277D85DD0];
-        v32[1] = 0x40000000;
-        v32[2] = sub_240522990;
-        v32[3] = &unk_278CA9410;
-        v32[4] = v8;
-        v32[5] = v13;
-        v33 = v14;
-        v34 = v10;
-        v35 = MEMORY[0x277D85DD0];
-        v36 = 1107296256;
-        v37 = sub_240520E1C;
-        v38 = &unk_28525D638;
-        v39 = v32;
-        v40 = v8;
-        v16 = &v35;
-        v17 = v8;
-        v18 = 3;
+        v33[0] = MEMORY[0x277D85DD0];
+        v33[1] = 0x40000000;
+        v33[2] = sub_240522990;
+        v33[3] = &unk_278CA9410;
+        v33[4] = v8;
+        v33[5] = v14;
+        v34 = v15;
+        v35 = v10;
+        v36 = MEMORY[0x277D85DD0];
+        v37 = 1107296256;
+        v38 = sub_240520E1C;
+        v39 = &unk_28525D638;
+        v40 = v33;
+        v41 = v8;
+        v17 = &v36;
+        v18 = v8;
+        v19 = 3;
       }
 
       else
       {
-        v27[0] = MEMORY[0x277D85DD0];
-        v27[1] = 0x40000000;
-        v27[2] = sub_2405229DC;
-        v27[3] = &unk_278CA9430;
-        v27[4] = v8;
-        v27[5] = v13;
-        v28 = v15;
-        v29 = v14;
-        v30 = v10;
-        v31 = v9;
-        v19 = sub_240524AFC(v14, 0);
-        if (!v19)
+        v28[0] = MEMORY[0x277D85DD0];
+        v28[1] = 0x40000000;
+        v28[2] = sub_2405229DC;
+        v28[3] = &unk_278CA9430;
+        v28[4] = v8;
+        v28[5] = v14;
+        v29 = v16;
+        v30 = v15;
+        v31 = v10;
+        v32 = v9;
+        v20 = sub_240524AFC(v15, 0);
+        if (!v20)
         {
-          v20 = *(*(v8 + 160) + 56);
-          v35 = MEMORY[0x277D85DD0];
-          v36 = 1107296256;
-          v37 = sub_2405208EC;
-          v38 = &unk_28525D5A8;
-          v41 = v20;
-          v42 = v14;
-          v39 = v27;
-          v40 = v8;
-          v16 = &v35;
-          v17 = v8;
-          v18 = 2;
+          v21 = *(*(v8 + 160) + 56);
+          v36 = MEMORY[0x277D85DD0];
+          v37 = 1107296256;
+          v38 = sub_2405208EC;
+          v39 = &unk_28525D5A8;
+          v42 = v21;
+          v43 = v15;
+          v40 = v28;
+          v41 = v8;
+          v17 = &v36;
+          v18 = v8;
+          v19 = 2;
           goto LABEL_16;
         }
 
-        v43[0] = MEMORY[0x277D85DD0];
-        v43[1] = 1107296256;
-        v43[2] = sub_240520870;
-        v43[3] = &unk_28525D578;
-        v43[4] = v27;
-        v43[5] = v19;
-        v16 = v43;
-        v17 = v8;
-        v18 = 2;
+        v44[0] = MEMORY[0x277D85DD0];
+        v44[1] = 1107296256;
+        v44[2] = sub_240520870;
+        v44[3] = &unk_28525D578;
+        v44[4] = v28;
+        v44[5] = v20;
+        v17 = v44;
+        v18 = v8;
+        v19 = 2;
       }
 
-      v20 = 0;
+      v21 = 0;
 LABEL_16:
-      sub_240520244(v17, v18, v20, v16, a5, a6, a7, a8);
+      sub_240520244(v18, v19, v21, v17, a5, a6, a7, a8);
       *(*(v8 + 400) + 8 * v9) = 0;
-      v10 += v14;
+      v10 += v15;
       ++v9;
     }
 
@@ -3521,41 +3484,39 @@ LABEL_12:
     }
   }
 
-  v31 = *(*(v12 + 160) + 24);
-  sub_24051EB50(@"%s:%d: Error: unknown compression scheme %llu\n", a2, a3, a4, v14, a6, a7, a8, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/ChunkCompression.cpp");
+  sub_24051EB50(@"%s:%d: Error: unknown compression scheme %llu\n", a2, a3, a4, v14, a6, a7, a8, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/ChunkCompression.cpp", 207, *(*(v12 + 160) + 24));
   v20 = 0;
 LABEL_16:
   sub_240524CA0(*(a1 + 40));
-  if (v20 == *(a1 + 52))
+  v28 = *(a1 + 52);
+  if (v20 == v28)
   {
-    v33[0] = MEMORY[0x277D85DD0];
-    v33[1] = 1107296256;
-    v33[2] = sub_240522BF4;
-    v33[3] = &unk_28525D668;
-    v33[5] = v12;
-    v33[6] = a2;
-    v28 = *(a1 + 56);
-    v34 = v20;
-    v35 = v28;
-    v33[4] = a3;
-    v36[0] = MEMORY[0x277D85DD0];
-    v36[1] = 1107296256;
-    v36[2] = sub_240520E1C;
-    v36[3] = &unk_28525D638;
-    v36[4] = v33;
-    v36[5] = v12;
-    sub_240520244(v12, 3u, 0, v36, v24, v25, v26, v27);
+    v31[0] = MEMORY[0x277D85DD0];
+    v31[1] = 1107296256;
+    v31[2] = sub_240522BF4;
+    v31[3] = &unk_28525D668;
+    v31[5] = v12;
+    v31[6] = a2;
+    v29 = *(a1 + 56);
+    v32 = v20;
+    v33 = v29;
+    v31[4] = a3;
+    v34[0] = MEMORY[0x277D85DD0];
+    v34[1] = 1107296256;
+    v34[2] = sub_240520E1C;
+    v34[3] = &unk_28525D638;
+    v34[4] = v31;
+    v34[5] = v12;
+    sub_240520244(v12, 3u, 0, v34, v24, v25, v26, v27);
   }
 
   else
   {
-    v30 = *(a1 + 60);
-    v32 = *(v12 + 8);
-    sub_24051EB50(@"%s:%d: Error: chunk %d of %s decompressed to %u, expected %u\n", v21, v22, v23, v24, v25, v26, v27, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/StreamCompressor.cpp");
-    sub_240520C44(v12, 0x16u);
-    v29 = *(a3 + 16);
+    sub_24051EB50(@"%s:%d: Error: chunk %d of %s decompressed to %u, expected %u\n", v21, v22, v23, v24, v25, v26, v27, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/StreamCompressor.cpp", 1422, *(a1 + 60), *(v12 + 8), v20, v28);
+    sub_240520C44(v12, 22);
+    v30 = *(a3 + 16);
 
-    v29(a3);
+    v30(a3);
   }
 }
 
@@ -3570,10 +3531,10 @@ uint64_t sub_240522BF4(uint64_t a1)
 uint64_t CreateStreamCompressor(int a1, char *a2, char *a3, uint64_t a4, uint64_t a5)
 {
   v5 = 0;
-  v149 = *MEMORY[0x277D85DE8];
+  v156 = *MEMORY[0x277D85DE8];
   if (!a4 || !a5)
   {
-    goto LABEL_69;
+    return v5;
   }
 
   v11 = rindex(a2, 47);
@@ -3589,10 +3550,10 @@ uint64_t CreateStreamCompressor(int a1, char *a2, char *a3, uint64_t a4, uint64_
 
   if (*v12 == 46 && v12[1] == 95)
   {
-    goto LABEL_68;
+    return 0;
   }
 
-  v143 = 0;
+  v150 = 0;
   if ((a5 - 536870913) < 0xFFFFFFFFE0004000)
   {
     goto LABEL_19;
@@ -3608,10 +3569,10 @@ uint64_t CreateStreamCompressor(int a1, char *a2, char *a3, uint64_t a4, uint64_
   v14 = sub_24051FDA8(a2, a3, &__b);
   v15 = CFStringCreateWithFileSystemRepresentation(*MEMORY[0x277CBECE8], v14);
   v16 = v15;
-  LOBYTE(v147.st_dev) = 1;
-  v143 = 0;
+  LOBYTE(v154.st_dev) = 1;
+  v150 = 0;
   f_bsize = __b.f_bsize;
-  if (*v13 && !sub_24051FE8C(v15, *v13, __b.f_bsize & 1, &v147, &v143))
+  if (*v13 && !sub_24051FE8C(v15, *v13, __b.f_bsize & 1, &v154, &v150))
   {
     v19 = *MEMORY[0x277D85DF8];
     v20 = "Failed to apply user rules.\n";
@@ -3626,7 +3587,7 @@ LABEL_17:
     goto LABEL_19;
   }
 
-  if (!sub_24051FE8C(v16, v13[1], f_bsize & 1, &v147, &v143))
+  if (!sub_24051FE8C(v16, v13[1], f_bsize & 1, &v154, &v150))
   {
     v19 = *MEMORY[0x277D85DF8];
     v20 = "Failed to apply system rules.\n";
@@ -3635,7 +3596,7 @@ LABEL_17:
   }
 
   CFRelease(v16);
-  if (v147.st_dev)
+  if (v154.st_dev)
   {
     v18 = 0;
     goto LABEL_21;
@@ -3644,9 +3605,7 @@ LABEL_17:
 LABEL_19:
   if (*(a4 + 12))
   {
-LABEL_68:
-    v5 = 0;
-    goto LABEL_69;
+    return 0;
   }
 
   v18 = 1;
@@ -3655,11 +3614,11 @@ LABEL_21:
   v5 = v22;
   if (!v22)
   {
-    goto LABEL_69;
+    return v5;
   }
 
   *v22 = 1;
-  v23 = v143;
+  v23 = v150;
   *(v22 + 59) = -208193560;
   *(v22 + 42) = -208193560;
   *(v22 + 244) = -1;
@@ -3703,8 +3662,8 @@ LABEL_21:
     v42 = *__error();
     v52 = *(v5 + 8);
     v53 = __error();
-    strerror(*v53);
-    sub_24051EB50(@"%s:%d: fstat %s: %s\n", v54, v55, v56, v57, v58, v59, v60, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/StreamCompressor.cpp");
+    v54 = strerror(*v53);
+    sub_24051EB50(@"%s:%d: fstat %s: %s\n", v55, v56, v57, v58, v59, v60, v61, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/StreamCompressor.cpp", 659, v52, v54);
     goto LABEL_67;
   }
 
@@ -3729,20 +3688,20 @@ LABEL_21:
       if (fcntl(a1, 50, &__b) != -1)
       {
         v40 = *(v5 + 8);
-        v145[0] = MEMORY[0x277D85DD0];
-        v145[1] = 0x40000000;
-        v145[2] = sub_240522130;
-        v145[3] = &unk_278CA9330;
-        v145[4] = &__b;
-        v41 = sub_24051ECE0(-1, &__b, v40, (v5 + 323), v145);
+        v152[0] = MEMORY[0x277D85DD0];
+        v152[1] = 0x40000000;
+        v152[2] = sub_240522130;
+        v152[3] = &unk_278CA9330;
+        v152[4] = &__b;
+        v41 = sub_24051ECE0(-1, &__b, v40, (v5 + 323), v152);
         *(v5 + 244) = v41;
         if (v41 == -1)
         {
           v42 = *__error();
           v43 = *(v5 + 8);
           v44 = __error();
-          strerror(*v44);
-          sub_24051EB50(@"%s:%d: open %s (%s): %s\n", v45, v46, v47, v48, v49, v50, v51, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/StreamCompressor.cpp");
+          v148 = strerror(*v44);
+          sub_24051EB50(@"%s:%d: open %s (%s): %s\n", v45, v46, v47, v48, v49, v50, v51, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/StreamCompressor.cpp", 1082, &__b, v43, v148);
           goto LABEL_49;
         }
 
@@ -3753,42 +3712,42 @@ LABEL_39:
         }
 
         memset(&__b, 170, 0x400uLL);
-        v62.tv_sec = 0xAAAAAAAAAAAAAAAALL;
-        v62.tv_nsec = 0xAAAAAAAAAAAAAAAALL;
-        *&v147.st_blksize = v62;
-        *v147.st_qspare = v62;
-        v147.st_birthtimespec = v62;
-        *&v147.st_size = v62;
-        v147.st_mtimespec = v62;
-        v147.st_ctimespec = v62;
-        *&v147.st_uid = v62;
-        v147.st_atimespec = v62;
-        *v146.st_qspare = v62;
-        *&v147.st_dev = v62;
-        *&v146.st_size = v62;
-        *&v146.st_blksize = v62;
-        v146.st_ctimespec = v62;
-        v146.st_birthtimespec = v62;
-        v146.st_mtimespec = v62;
-        *&v146.st_uid = v62;
-        v146.st_atimespec = v62;
-        *&v146.st_dev = v62;
+        v63.tv_sec = 0xAAAAAAAAAAAAAAAALL;
+        v63.tv_nsec = 0xAAAAAAAAAAAAAAAALL;
+        *&v154.st_blksize = v63;
+        *v154.st_qspare = v63;
+        v154.st_birthtimespec = v63;
+        *&v154.st_size = v63;
+        v154.st_mtimespec = v63;
+        v154.st_ctimespec = v63;
+        *&v154.st_uid = v63;
+        v154.st_atimespec = v63;
+        *v153.st_qspare = v63;
+        *&v154.st_dev = v63;
+        *&v153.st_size = v63;
+        *&v153.st_blksize = v63;
+        v153.st_ctimespec = v63;
+        v153.st_birthtimespec = v63;
+        v153.st_mtimespec = v63;
+        *&v153.st_uid = v63;
+        v153.st_atimespec = v63;
+        *&v153.st_dev = v63;
         if (fcntl(*(v5 + 244), 50, &__b))
         {
           v42 = *__error();
-          v63 = __error();
-          strerror(*v63);
-          sub_24051EB50(@"%s:%d: fcntl F_GETPATH %s: %s\n", v64, v65, v66, v67, v68, v69, v70, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/StreamCompressor.cpp");
+          v64 = __error();
+          v144 = strerror(*v64);
+          sub_24051EB50(@"%s:%d: fcntl F_GETPATH %s: %s\n", v65, v66, v67, v68, v69, v70, v71, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/StreamCompressor.cpp", 976, &__b, v144);
         }
 
         else
         {
           snprintf(&__b, 0x400uLL, "%s%s", &__b, "/..namedfork/rsrc");
-          v100 = open(&__b, 770);
-          *(v5 + 248) = v100;
-          if (v100 != -1)
+          v101 = open(&__b, 770);
+          *(v5 + 248) = v101;
+          if (v101 != -1)
           {
-            if (fstat(*(v5 + 244), &v146) || fstat(*(v5 + 248), &v147) || v146.st_ino == v147.st_ino)
+            if (fstat(*(v5 + 244), &v153) || fstat(*(v5 + 248), &v154) || v153.st_ino == v154.st_ino)
             {
               goto LABEL_61;
             }
@@ -3799,17 +3758,17 @@ LABEL_39:
 LABEL_45:
             sub_240520C44(v5, v42);
 LABEL_50:
-            v98 = *(v5 + 244);
-            if (v98 != -1)
-            {
-              close(v98);
-            }
-
-            *(v5 + 244) = -1;
-            v99 = *(v5 + 248);
+            v99 = *(v5 + 244);
             if (v99 != -1)
             {
               close(v99);
+            }
+
+            *(v5 + 244) = -1;
+            v100 = *(v5 + 248);
+            if (v100 != -1)
+            {
+              close(v100);
             }
 
             *(v5 + 248) = -1;
@@ -3823,10 +3782,10 @@ LABEL_50:
           }
 
           v42 = *__error();
-          v134 = *(v5 + 8);
-          v135 = __error();
-          strerror(*v135);
-          sub_24051EB50(@"%s:%d: open %s (%s): %s\n", v136, v137, v138, v139, v140, v141, v142, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/StreamCompressor.cpp");
+          v135 = *(v5 + 8);
+          v136 = __error();
+          v149 = strerror(*v136);
+          sub_24051EB50(@"%s:%d: open %s (%s): %s\n", v137, v138, v139, v140, v141, v142, v143, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/StreamCompressor.cpp", 984, &__b, v135, v149);
         }
 
         if (!v42)
@@ -3838,36 +3797,36 @@ LABEL_50:
       }
 
       v42 = *__error();
-      v89 = *(v5 + 8);
-      v90 = __error();
-      strerror(*v90);
-      sub_24051EB50(@"%s:%d: fcntl %s: %s\n", v91, v92, v93, v94, v95, v96, v97, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/StreamCompressor.cpp");
+      v90 = *(v5 + 8);
+      v91 = __error();
+      v147 = strerror(*v91);
+      sub_24051EB50(@"%s:%d: fcntl %s: %s\n", v92, v93, v94, v95, v96, v97, v98, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/StreamCompressor.cpp", 1072, v90, v147);
     }
 
     else
     {
       v42 = *__error();
-      v71 = *(v5 + 8);
-      v72 = __error();
-      strerror(*v72);
-      sub_24051EB50(@"%s:%d: write %s: %s\n", v73, v74, v75, v76, v77, v78, v79, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/StreamCompressor.cpp");
+      v72 = *(v5 + 8);
+      v73 = __error();
+      v145 = strerror(*v73);
+      sub_24051EB50(@"%s:%d: write %s: %s\n", v74, v75, v76, v77, v78, v79, v80, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/StreamCompressor.cpp", 1065, v72, v145);
     }
   }
 
   else
   {
-    v61 = dup(a1);
-    *(v5 + 244) = v61;
-    if (v61 != -1)
+    v62 = dup(a1);
+    *(v5 + 244) = v62;
+    if (v62 != -1)
     {
       goto LABEL_39;
     }
 
     v42 = *__error();
-    v80 = *(v5 + 8);
-    v81 = __error();
-    strerror(*v81);
-    sub_24051EB50(@"%s:%d: dup %s: %s\n", v82, v83, v84, v85, v86, v87, v88, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/StreamCompressor.cpp");
+    v81 = *(v5 + 8);
+    v82 = __error();
+    v146 = strerror(*v82);
+    sub_24051EB50(@"%s:%d: dup %s: %s\n", v83, v84, v85, v86, v87, v88, v89, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/StreamCompressor.cpp", 1060, v81, v146);
   }
 
 LABEL_49:
@@ -3879,15 +3838,15 @@ LABEL_49:
 LABEL_61:
   *(v5 + 322) = 0;
   *(v5 + 253) = 0;
-  v101 = *(v5 + 244);
-  if (v101 == -1)
+  v102 = *(v5 + 244);
+  if (v102 == -1)
   {
     v42 = 22;
     goto LABEL_67;
   }
 
   memset(&__b, 170, sizeof(__b));
-  if (fstatfs(v101, &__b) != -1)
+  if (fstatfs(v102, &__b) != -1)
   {
     if ((__b.f_flags & 0x80) != 0)
     {
@@ -3898,24 +3857,24 @@ LABEL_61:
   }
 
   v42 = *__error();
-  v102 = *(v5 + 8);
-  v103 = __error();
-  strerror(*v103);
-  sub_24051EB50(@"%s:%d: fstatfs %s: %s\n", v104, v105, v106, v107, v108, v109, v110, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/StreamCompressor.cpp");
+  v103 = *(v5 + 8);
+  v104 = __error();
+  v105 = strerror(*v104);
+  sub_24051EB50(@"%s:%d: fstatfs %s: %s\n", v106, v107, v108, v109, v110, v111, v112, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/StreamCompressor.cpp", 1029, v103, v105);
   if (v42)
   {
 LABEL_67:
     sub_240520C44(v5, v42);
-    sub_24052109C(v5, 3, v111, v112, v113, v114, v115, v116);
+    sub_24052109C(v5, 3, v113, v114, v115, v116, v117, v118);
     sub_24052213C(v5);
-    goto LABEL_68;
+    return 0;
   }
 
 LABEL_70:
-  v119 = *(v5 + 24);
+  v120 = *(v5 + 24);
   __b.f_bsize = *(v5 + 16);
-  *&__b.f_iosize = v119;
-  v120 = CFDataCreate(0, &__b, 12);
+  *&__b.f_iosize = v120;
+  v121 = CFDataCreate(0, &__b, 12);
   os_unfair_lock_lock(&unk_27E4B5950);
   Mutable = qword_27E4B5958;
   if (!qword_27E4B5958)
@@ -3929,89 +3888,87 @@ LABEL_70:
     qword_27E4B5958 = Mutable;
   }
 
-  CFDictionarySetValue(Mutable, v120, v5);
+  CFDictionarySetValue(Mutable, v121, v5);
   os_unfair_lock_unlock(&unk_27E4B5950);
-  CFRelease(v120);
+  CFRelease(v121);
   if (*(v5 + 304) == 1)
   {
-    v144[0] = MEMORY[0x277D85DD0];
-    v144[1] = 0x40000000;
-    v144[2] = sub_240521E70;
-    v144[3] = &unk_278CA92B0;
-    v144[4] = v5;
+    v151[0] = MEMORY[0x277D85DD0];
+    v151[1] = 0x40000000;
+    v151[2] = sub_240521E70;
+    v151[3] = &unk_278CA92B0;
+    v151[4] = v5;
     *&__b.f_bsize = MEMORY[0x277D85DD0];
     __b.f_blocks = 1107296256;
     __b.f_bfree = sub_240520E1C;
     __b.f_bavail = &unk_28525D638;
-    __b.f_files = v144;
+    __b.f_files = v151;
     __b.f_ffree = v5;
-    sub_240520244(v5, 3u, 0, &__b, v122, v123, v124, v125);
+    sub_240520244(v5, 3u, 0, &__b, v123, v124, v125, v126);
   }
 
   else
   {
-    v126 = *(v5 + 264);
-    v127 = (v126 + 0xFFFF) >> 16;
-    *(v5 + 288) = v127;
-    *(v5 + 400) = calloc(v127, 8uLL);
+    v127 = *(v5 + 264);
+    v128 = (v127 + 0xFFFF) >> 16;
+    *(v5 + 288) = v128;
+    *(v5 + 400) = calloc(v128, 8uLL);
     *(v5 + 408) = calloc(*(v5 + 288), 4uLL);
-    v128 = *(v5 + 288);
+    v129 = *(v5 + 288);
     if (*(*(v5 + 160) + 28) == 0x20000)
     {
-      v129 = 8 * v128 + 264;
-      *(v5 + 332) = v129;
-      *(v5 + 336) = sub_240524AFC(v129, 1);
-      v130 = *(v5 + 332) + 50;
+      v130 = 8 * v129 + 264;
+      *(v5 + 332) = v130;
+      *(v5 + 336) = sub_240524AFC(v130, 1);
+      v131 = *(v5 + 332) + 50;
     }
 
     else
     {
-      v131 = 4 * v128 + 4;
-      *(v5 + 344) = v131;
-      *(v5 + 352) = sub_240524AFC(v131, 1);
-      v130 = *(v5 + 344);
+      v132 = 4 * v129 + 4;
+      *(v5 + 344) = v132;
+      *(v5 + 352) = sub_240524AFC(v132, 1);
+      v131 = *(v5 + 344);
     }
 
     if (*(*(v5 + 160) + 24) == 460)
     {
-      v132 = -1;
+      v133 = -1;
     }
 
     else
     {
-      v133 = (1374389535 * (*(a4 + 20) * ((v126 + 4095) >> 12))) >> 32;
-      v132 = ((v133 << 7) & 0xFFFFF000) - v130;
-      if (v132 <= 0xECA)
+      v134 = (1374389535 * (*(a4 + 20) * ((v127 + 4095) >> 12))) >> 32;
+      v133 = ((v134 << 7) & 0xFFFFF000) - v131;
+      if (v133 <= 0xECA)
       {
-        v132 = 3786;
+        v133 = 3786;
       }
 
-      if (((v133 << 7) & 0xFFFFF000) == 0)
+      if (((v134 << 7) & 0xFFFFF000) == 0)
       {
-        v132 = 3786;
+        v133 = 3786;
       }
     }
 
-    *(v5 + 296) = v132;
+    *(v5 + 296) = v133;
   }
 
   sub_240521DCC(v5);
-LABEL_69:
-  v117 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
-uint64_t WriteToStreamCompressor(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t WriteToStreamCompressor(uint64_t a1, char *a2, unint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   if (!a1)
   {
-    v12 = 22;
+    LODWORD(v12) = 22;
     goto LABEL_53;
   }
 
   if (*(a1 + 322) == 1)
   {
-    sub_24052046C(a1, "written to after it was closed", a3, a4, a5, a6, a7, a8, v44);
+    sub_24052046C(a1, "written to after it was closed", a3, a4, a5, a6, a7, a8);
   }
 
   v9 = *(a1 + 160);
@@ -4022,7 +3979,7 @@ uint64_t WriteToStreamCompressor(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t
     v11 = (a1 + 240);
   }
 
-  v12 = *v11;
+  LODWORD(v12) = *v11;
   if (*v11)
   {
 LABEL_53:
@@ -4036,70 +3993,71 @@ LABEL_53:
     return 0;
   }
 
-  if ((*(a1 + 272) + a3) > *(a1 + 264))
+  v14 = *(a1 + 264);
+  if (*(a1 + 272) + a3 > v14)
   {
-    v45 = *(a1 + 272) + a3;
-    sub_24051EB50(@"%s:%d: Error: wrote %llu bytes to file of size %llu\n", a2, a3, a4, a5, a6, a7, a8, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/StreamCompressor.cpp");
+    sub_24051EB50(@"%s:%d: Error: wrote %llu bytes to file of size %llu\n", a2, a3, a4, a5, a6, a7, a8, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/StreamCompressor.cpp", 819, *(a1 + 272) + a3, v14);
     v12 = 22;
     goto LABEL_52;
   }
 
-  v15 = a2;
+  v16 = a2;
   if (v10 && (*(a1 + 324) & 1) != 0)
   {
-    v12 = 28;
+    LODWORD(v12) = 28;
     goto LABEL_53;
   }
 
-  v14 = 0;
+  v15 = 0;
+  v44 = v46;
   do
   {
     sub_240522240(a1, a2, a3, a4, a5, a6, a7, a8);
-    v16 = *(a1 + 360);
-    v17 = (*(a1 + 364) - v16);
-    if (v13 >= v17)
+    v17 = *(a1 + 360);
+    v18 = (*(a1 + 364) - v17);
+    if (v13 >= v18)
     {
-      v18 = v17;
+      v19 = v18;
     }
 
     else
     {
-      v18 = v13;
+      v19 = v13;
     }
 
-    memcpy((*(a1 + 368) + v16), v15, v18);
-    v19 = v18 + *(a1 + 360);
-    *(a1 + 360) = v19;
-    *(a1 + 272) += v18;
-    if (*(a1 + 364) == v19)
+    memcpy((*(a1 + 368) + v17), v16, v19);
+    v20 = (v19 + *(a1 + 360));
+    *(a1 + 360) = v20;
+    *(a1 + 272) += v19;
+    if (*(a1 + 364) == v20)
     {
-      v20 = *(a1 + 368);
-      if (!v20)
+      v21 = *(a1 + 368);
+      if (!v21)
       {
         __assert_rtn("emitCurBuffer", "StreamCompressor.cpp", 540, "curBuffer");
       }
 
       if (*(a1 + 304) == 1)
       {
-        v21 = v20 - *(a1 + 376);
-        v22 = *(a1 + 312);
+        v22 = v21 - *(a1 + 376);
+        v23 = *(a1 + 312);
+        v50[0] = MEMORY[0x277D85DD0];
+        v50[1] = 0x40000000;
+        v50[2] = sub_240520DD4;
+        v50[3] = &unk_278CA9270;
+        v50[4] = a1;
+        v50[5] = v21;
+        v51 = v20;
+        v50[6] = v23;
+        v50[7] = v22;
         v52[0] = MEMORY[0x277D85DD0];
-        v52[1] = 0x40000000;
-        v52[2] = sub_240520DD4;
-        v52[3] = &unk_278CA9270;
-        v52[4] = a1;
-        v52[5] = v20;
-        v53 = v19;
-        v52[6] = v22;
-        v52[7] = v21;
-        v54[0] = MEMORY[0x277D85DD0];
-        v54[1] = 1107296256;
-        v54[2] = sub_240520E1C;
-        v54[3] = &unk_28525D638;
-        v54[4] = v52;
-        v54[5] = a1;
-        sub_240520244(a1, 3u, 0, v54, a5, a6, a7, a8);
-        *(a1 + 312) += v19;
+        v52[1] = 1107296256;
+        v52[2] = sub_240520E1C;
+        v52[3] = &unk_28525D638;
+        v52[4] = v50;
+        v52[5] = a1;
+        sub_240520244(a1, 3u, 0, v52, a5, a6, a7, a8);
+        *(a1 + 312) += v20;
 LABEL_47:
         ++*(a1 + 416);
         *(a1 + 384) = 0;
@@ -4116,32 +4074,31 @@ LABEL_46:
         v31 = *(a1 + 416);
         v32 = *(a1 + 384);
         v33 = *(a1 + 392);
-        v48[0] = MEMORY[0x277D85DD0];
-        v48[1] = 0x40000000;
-        v48[2] = sub_240520E98;
-        v48[3] = &unk_278CA9290;
-        v48[4] = a1;
-        v48[5] = v20;
-        v49 = v31;
-        v50 = v19;
-        v48[6] = v32;
-        v51 = v33;
-        sub_240520244(a1, 0, 0, v48, a5, a6, a7, a8);
+        v45[0] = MEMORY[0x277D85DD0];
+        v45[1] = 0x40000000;
+        v46[0] = sub_240520E98;
+        v46[1] = &unk_278CA9290;
+        v46[2] = a1;
+        v46[3] = v21;
+        v47 = v31;
+        v48 = v20;
+        v46[4] = v32;
+        v49 = v33;
+        sub_240520244(a1, 0, 0, v45, a5, a6, a7, a8);
         goto LABEL_47;
       }
 
-      v23 = *(*(a1 + 160) + 64);
-      if (v19 < 0x1C || v23 == 0)
+      v24 = *(*(a1 + 160) + 64);
+      if (v20 < 0x1C || v24 == 0)
       {
         goto LABEL_45;
       }
 
-      v25 = *(a1 + 8);
-      v26 = *v20;
-      if (*v20 == -1095041334)
+      v26 = *v21;
+      if (*v21 == -1095041334)
       {
-        v28 = bswap32(v20[1]);
-        v29 = bswap32(v20[4]);
+        v28 = bswap32(v21[1]);
+        v29 = bswap32(v21[4]);
       }
 
       else
@@ -4169,7 +4126,7 @@ LABEL_35:
           {
             if (v30 < 0x20)
             {
-              if ((v23 >> v30))
+              if ((v24 >> v30))
               {
                 goto LABEL_44;
               }
@@ -4177,8 +4134,7 @@ LABEL_35:
 
             else
             {
-              v47 = *(a1 + 8);
-              sub_24051EB50(@"%s:%d: Error: file type of %s is out of range\n", a2, a3, a4, a5, a6, a7, a8, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/StreamCompressorQueue.c");
+              sub_24051EB50(@"%s:%d: Error: file type of %s is out of range\n", a2, a3, a4, a5, a6, a7, a8, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/StreamCompressorQueue.c", 365, *(a1 + 8));
             }
           }
 
@@ -4187,8 +4143,8 @@ LABEL_45:
           goto LABEL_46;
         }
 
-        v28 = v20[1];
-        v29 = v20[4];
+        v28 = v21[1];
+        v29 = v21[4];
       }
 
       if (v28 > 0x13)
@@ -4198,22 +4154,21 @@ LABEL_44:
         goto LABEL_45;
       }
 
-      if (v29 + 28 > v19)
+      if (v29 + 28 > v20)
       {
-        v46 = *(a1 + 8);
-        sub_24051EB50(@"%s:%d: Error: the first mach header of %s is not in the first %zu bytes, assuming we need to skip it\n", a2, a3, a4, a5, a6, a7, a8, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/StreamCompressorQueue.c");
+        sub_24051EB50(@"%s:%d: Error: the first mach header of %s is not in the first %zu bytes, assuming we need to skip it\n", a2, a3, a4, a5, a6, a7, a8, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/StreamCompressorQueue.c", 333, *(a1 + 8), v20, v44);
         goto LABEL_44;
       }
 
-      v27 = (v20 + v29);
+      v27 = (v21 + v29);
       v26 = *v27;
       goto LABEL_35;
     }
 
 LABEL_48:
-    v14 += v18;
-    v15 += v18;
-    v13 -= v18;
+    v15 += v19;
+    v16 += v19;
+    v13 -= v19;
   }
 
   while (v13);
@@ -4226,7 +4181,7 @@ LABEL_48:
   }
 
   v12 = *v36;
-  if (*v36)
+  if (v12)
   {
 LABEL_52:
     sub_240520C44(a1, v12);
@@ -4234,18 +4189,18 @@ LABEL_52:
     goto LABEL_53;
   }
 
-  return v14;
+  return v15;
 }
 
 uint64_t CloseStreamCompressor(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   if (a1)
   {
     v9 = *(a1 + 160);
     if (*(a1 + 322) == 1)
     {
-      sub_24052046C(a1, "double-closed", a3, a4, a5, a6, a7, a8, v30);
+      sub_24052046C(a1, "double-closed", a3, a4, a5, a6, a7, a8);
     }
 
     *(a1 + 322) = 1;
@@ -4265,15 +4220,13 @@ uint64_t CloseStreamCompressor(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a
 
       *&v14 = 0xAAAAAAAAAAAAAAAALL;
       *(&v14 + 1) = 0xAAAAAAAAAAAAAAAALL;
-      v36 = v14;
-      v37 = v14;
-      v34 = v14;
-      v35 = v14;
-      *v33 = v14;
-      backtrace(v33, 10);
-      v31 = *(a1 + 272);
-      v32 = *(a1 + 264);
-      sub_24051EB50(@"%s:%d: %p %p %p %p %p %p %p %p %p %p: Error: wrote %llu bytes but expected %llu bytes\n", v15, v16, v17, v18, v19, v20, v21, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/StreamCompressor.cpp");
+      v32 = v14;
+      v33 = v14;
+      v30 = v14;
+      v31 = v14;
+      *v29 = v14;
+      backtrace(v29, 10);
+      sub_24051EB50(@"%s:%d: %p %p %p %p %p %p %p %p %p %p: Error: wrote %llu bytes but expected %llu bytes\n", v15, v16, v17, v18, v19, v20, v21, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/StreamCompressor.cpp", 878, v29[0], v29[1], v30, v31, v32, *(&v32 + 1), *(&v33 + 1), *(a1 + 272), *(a1 + 264));
       v11 = 22;
     }
 
@@ -4284,7 +4237,7 @@ LABEL_14:
       v13 = 0;
 LABEL_17:
       DrainStreamCompressorQueue(v9);
-      goto LABEL_18;
+      return v13;
     }
 
     sub_240520C44(a1, v11);
@@ -4296,24 +4249,21 @@ LABEL_17:
   }
 
   *__error() = 22;
-  v13 = 0xFFFFFFFFLL;
-LABEL_18:
-  v28 = *MEMORY[0x277D85DE8];
-  return v13;
+  return 0xFFFFFFFFLL;
 }
 
-uint64_t sub_240523CD0(int a1, int *a2, _DWORD *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t sub_240523CD0(uint64_t a1, int *a2, _DWORD *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   if ((a1 - 15) <= 0xFFFFFFF1)
   {
-    sub_24051EB50(@"%s:%d: Error: type %d out of range\n", a2, a3, a4, a5, a6, a7, a8, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/ChunkCompression.cpp");
+    sub_24051EB50(@"%s:%d: Error: type %d out of range\n", a2, a3, a4, a5, a6, a7, a8, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/ChunkCompression.cpp", 54, a1);
     goto LABEL_8;
   }
 
   v10 = &dword_240525DCC[3 * a1];
   if (!*v10 || !v10[1])
   {
-    sub_24051EB50(@"%s:%d: Error: unknown compressor %d\n", a2, a3, a4, a5, a6, a7, a8, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/ChunkCompression.cpp");
+    sub_24051EB50(@"%s:%d: Error: unknown compressor %d\n", a2, a3, a4, a5, a6, a7, a8, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/ChunkCompression.cpp", 61, a1);
 LABEL_8:
     result = 0;
     v10 = dword_240525DCC;
@@ -4404,9 +4354,7 @@ int *sub_240523E4C(int *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, 
 
   else
   {
-    v19 = *(*a1 + 8);
-    v20 = a1[3];
-    sub_24051EB50(@"%s:%d: %s: unknown chunking scheme %llu\n", v9, v10, v11, v12, v13, v14, v15, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/ChunkCompression.cpp");
+    sub_24051EB50(@"%s:%d: %s: unknown chunking scheme %llu\n", v9, v10, v11, v12, v13, v14, v15, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/ChunkCompression.cpp", 253, *(*a1 + 8), v16);
   }
 
   return a1;
@@ -4414,24 +4362,22 @@ int *sub_240523E4C(int *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, 
 
 uint64_t sub_240523F28(uint64_t **a1, void *value, size_t size, uint64_t position, int *a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v11 = *a1;
-  v12 = **a1;
-  if (v12)
+  v12 = *a1;
+  v13 = **a1;
+  if (v13)
   {
     v43 = 0;
-    v13 = (*(v12 + 16))(v12, position, size, value, &v43);
-    *a5 = v13;
-    if (v13)
+    v14 = (*(v13 + 16))(v13, position, size, value, &v43, a6, a7, a8);
+    *a5 = v14;
+    if (v14)
     {
-      v40 = (*a1)[1];
-      sub_24051EB50(@"%s:%d: %s: readRscData: (%llu, %zu), returned error [%d]", v14, v15, v16, v17, v18, v19, v20, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/ChunkCompression.cpp");
+      sub_24051EB50(@"%s:%d: %s: readRscData: (%llu, %zu), returned error [%d]", v15, v16, v17, v18, v19, v20, v21, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/ChunkCompression.cpp", 322, (*a1)[1], position, size, v14);
       return 0;
     }
 
     if (v43 != size)
     {
-      v41 = (*a1)[1];
-      sub_24051EB50(@"%s:%d: %s: readRscData: (%llu, %zu), returned size [%lu]\n", v14, v15, v16, v17, v18, v19, v20, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/ChunkCompression.cpp");
+      sub_24051EB50(@"%s:%d: %s: readRscData: (%llu, %zu), returned size [%lu]\n", v15, v16, v17, v18, v19, v20, v21, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/ChunkCompression.cpp", 325, (*a1)[1], position, size, v43);
       *a5 = 5;
       return 0;
     }
@@ -4439,38 +4385,38 @@ uint64_t sub_240523F28(uint64_t **a1, void *value, size_t size, uint64_t positio
     return 1;
   }
 
+  v22 = v12[1];
   if (position < 0x100000000)
   {
-    v23 = getxattr(v11[1], "com.apple.ResourceFork", value, size, position, 32);
-    if (v23 == -1)
+    v25 = getxattr(v22, "com.apple.ResourceFork", value, size, position, 32);
+    if (v25 == -1)
     {
       *a5 = *__error();
-      v31 = (*a1)[1];
-      v32 = __error();
-      strerror(*v32);
-      sub_24051EB50(@"%s:%d: %s: fgetxattr(%llu,%zu): %s\n", v33, v34, v35, v36, v37, v38, v39, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/ChunkCompression.cpp");
+      v33 = (*a1)[1];
+      v34 = __error();
+      v42 = strerror(*v34);
+      sub_24051EB50(@"%s:%d: %s: fgetxattr(%llu,%zu): %s\n", v35, v36, v37, v38, v39, v40, v41, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/ChunkCompression.cpp", 340, v33, position, size, v42);
       return 0;
     }
 
-    if (v23 == size)
+    if (v25 == size)
     {
       return 1;
     }
 
-    v42 = (*a1)[1];
-    sub_24051EB50(@"%s:%d: %s: fgetxattr(%llu,%zu) returned %zu\n", v24, v25, v26, v27, v28, v29, v30, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/ChunkCompression.cpp");
+    sub_24051EB50(@"%s:%d: %s: fgetxattr(%llu,%zu) returned %zu\n", v26, v27, v28, v29, v30, v31, v32, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/ChunkCompression.cpp", 343, (*a1)[1], position, size, v25);
     result = 0;
-    v22 = 5;
+    v24 = 5;
   }
 
   else
   {
-    sub_24051EB50(@"%s:%d: %s: position=%lld is too big\n", value, size, value, a5, a6, a7, a8, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/ChunkCompression.cpp");
+    sub_24051EB50(@"%s:%d: %s: position=%lld is too big\n", value, size, value, a5, a6, a7, a8, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/ChunkCompression.cpp", 333, v22, position);
     result = 0;
-    v22 = 22;
+    v24 = 22;
   }
 
-  *a5 = v22;
+  *a5 = v24;
   return result;
 }
 
@@ -4494,344 +4440,333 @@ void *sub_2405240FC(void *result, size_t __size)
   return result;
 }
 
-uint64_t sub_24052414C(_DWORD *a1, uint64_t a2, uint64_t __size, uint64_t a4, uint64_t a5, size_t *a6, uint64_t a7, uint64_t a8)
+uint64_t sub_24052414C(unsigned int *a1, uint64_t a2, uint64_t __size, uint64_t a4, uint64_t a5, size_t *a6, uint64_t a7, uint64_t a8)
 {
   value[1] = *MEMORY[0x277D85DE8];
-  v77 = 0;
-  if (a1[4] <= a2)
+  v75 = 0;
+  v9 = a1[4];
+  if (v9 <= a2)
   {
-    v64 = *(*a1 + 8);
-    sub_24051EB50(@"%s:%d: %s: attempting to read chunk %u from file with %u chunks\n", a2, __size, a4, a5, a6, a7, a8, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/ChunkCompression.cpp");
-    goto LABEL_8;
+    sub_24051EB50(@"%s:%d: %s: attempting to read chunk %u from file with %u chunks\n", a2, __size, a4, a5, a6, a7, a8, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/ChunkCompression.cpp", 514, *(*a1 + 8), a2, v9);
+    return 22;
   }
 
-  v11 = a4;
-  v13 = a1[3];
-  if (v13 == 196608)
+  v12 = a4;
+  v14 = a1[3];
+  if (v14 != 196608)
   {
-    value[0] = 0xAAAAAAAAAAAAAAAALL;
-    if ((sub_240523F28(a1, value, 8uLL, 4 * a2, &v77, a6, a7, a8) & 1) == 0)
+    if (v14 != 0x20000)
     {
-      goto LABEL_23;
-    }
-
-    v28 = (HIDWORD(value[0]) - LODWORD(value[0]));
-    if (HIDWORD(value[0]) <= LODWORD(value[0]))
-    {
-      v66 = *(*a1 + 8);
-      sub_24051EB50(@"%s:%d: %s: resource fork offsets are out of order (offsets[1] (%u) <= offsets[0] (%u)) \n", a2, __size, a4, a5, a6, a7, a8, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/ChunkCompression.cpp");
-      v18 = 0;
-      result = 22;
-      goto LABEL_24;
-    }
-
-    sub_2405240FC(a1, (HIDWORD(value[0]) - LODWORD(value[0])));
-    v29 = *(a1 + 3);
-    if (v29)
-    {
-      v30 = sub_240523F28(a1, v29, v28, LODWORD(value[0]), &v77, v24, v25, v26);
-      if (v30)
+      if (v14 != 0x10000)
       {
-        v18 = v28;
+        sub_24051EB50(@"%s:%d: %s: unknown chunking scheme %llu\n", a2, __size, a4, a5, a6, a7, a8, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/ChunkCompression.cpp", 579, *(*a1 + 8), v14);
+        return 22;
       }
 
-      else
+      v15 = *a1;
+      v16 = *(*a1 + 16);
+      v19 = *v16;
+      v17 = v16 + 5;
+      v18 = v19;
+      *(a1 + 3) = v17;
+      v20 = v19 - 16;
+      if (v19 <= 0x10)
       {
-        v18 = 0;
+        sub_24051EB50(@"%s:%d: %s: decmpfs xattr size (%u) should be greater than decmpfs disk header size (%zu)\n", a2, __size, a4, a5, a6, a7, a8, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/ChunkCompression.cpp", 524, *(v15 + 8), v18, 16);
+        return 22;
       }
 
-      if (v30)
+LABEL_26:
+      v38 = a1[2];
+      if (*v17 == v38)
       {
-        result = 0;
-      }
-
-      else
-      {
-        result = v77;
-      }
-
-      goto LABEL_24;
-    }
-
-    v71 = *(*a1 + 8);
-    goto LABEL_65;
-  }
-
-  if (v13 == 0x20000)
-  {
-    value[0] = 0xAAAAAAAAAAAAAAAALL;
-    if ((sub_240523F28(a1, value, 8uLL, 8 * a2 + 264, &v77, a6, a7, a8) & 1) == 0)
-    {
-      goto LABEL_23;
-    }
-
-    sub_2405240FC(a1, HIDWORD(value[0]));
-    v27 = *(a1 + 3);
-    if (v27)
-    {
-      if (sub_240523F28(a1, v27, HIDWORD(value[0]), LODWORD(value[0]) + 260, &v77, v24, v25, v26))
-      {
-        result = 0;
-        v18 = HIDWORD(value[0]);
-LABEL_24:
-        if (result)
+        v39 = v20 - 1;
+        if (v39)
         {
-          goto LABEL_9;
+          v40 = 0;
+          v41 = 0;
+          v42 = v17 + 1;
+          do
+          {
+            v43 = a5 + 16 * v40;
+            v44 = *v43;
+            v45 = *(v43 + 8);
+            if (v45 >= v39)
+            {
+              v46 = v39;
+            }
+
+            else
+            {
+              v46 = v45;
+            }
+
+            if (v44)
+            {
+              memcpy(v44, v42, v46);
+            }
+
+            v41 += v46;
+            if (v40 + 1 >= v12)
+            {
+              break;
+            }
+
+            v42 += v46;
+            v40 = 1;
+            v39 -= v46;
+          }
+
+          while (v39);
         }
 
-        v16 = *(a1 + 3);
-        goto LABEL_26;
+        else
+        {
+          v41 = 0;
+        }
+
+        goto LABEL_47;
       }
 
-LABEL_23:
-      v18 = 0;
-      result = v77;
-      goto LABEL_24;
+      *a6 = 0;
+      if (v38 > 1278)
+      {
+        if (v38 == 1279)
+        {
+          v48 = 2049;
+        }
+
+        else
+        {
+          if (v38 != 1535)
+          {
+            goto LABEL_49;
+          }
+
+          v48 = 1794;
+        }
+
+        if (*(a1 + 7))
+        {
+          v47 = 0;
+          goto LABEL_57;
+        }
+      }
+
+      else
+      {
+        if (v38 != 767)
+        {
+          if (v38 == 774)
+          {
+            v47 = 0;
+            v48 = 2304;
+LABEL_57:
+            if (v12 == 1)
+            {
+              v49 = compression_decode_buffer(*a5, *(a5 + 8), &v17[v47], v20 - v47, *(a1 + 7), v48);
+              if (v49)
+              {
+                v57 = v49;
+                result = 0;
+                *a6 = v57;
+                return result;
+              }
+
+              v71 = *(*a1 + 8);
+              v73 = v48;
+              v63 = 616;
+              goto LABEL_78;
+            }
+
+            if (__size >= 0x100000000)
+            {
+              sub_24051EB50(@"%s:%d: %s: vecTotal=%lld is too big for compression algorithm 0x%x\n", a2, __size, a4, a5, a6, a7, a8, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/ChunkCompression.cpp", 623, *(*a1 + 8), __size, v48);
+              return 22;
+            }
+
+            v58 = a1[12];
+            v59 = *(a1 + 5);
+            if (v58 < __size)
+            {
+              if (v59)
+              {
+                free(v59);
+              }
+
+              v59 = malloc(__size);
+              *(a1 + 5) = v59;
+              a1[12] = __size;
+              v58 = __size;
+            }
+
+            if (v59)
+            {
+              v60 = compression_decode_buffer(v59, v58, (*(a1 + 3) + v47), v20 - v47, *(a1 + 7), v48);
+              if (v60)
+              {
+                v61 = v60;
+                v62 = HIDWORD(v60);
+                if (HIDWORD(v60))
+                {
+                  sub_24051EB50(@"%s:%d: %s: decmpSize=%zu is too big\n", v50, v51, v52, v53, v54, v55, v56, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/ChunkCompression.cpp", 639, *(*a1 + 8), v60, v74);
+                  return 22;
+                }
+
+                v41 = 0;
+                v64 = *(a1 + 5);
+                v65 = 1;
+                do
+                {
+                  v66 = a5 + 16 * v62;
+                  v67 = *v66;
+                  v68 = *(v66 + 8);
+                  if (v68 >= v61)
+                  {
+                    v69 = v61;
+                  }
+
+                  else
+                  {
+                    v69 = v68;
+                  }
+
+                  if (v67)
+                  {
+                    memcpy(v67, v64, v69);
+                  }
+
+                  v41 += v69;
+                  v61 -= v69;
+                  v64 += v69;
+                  v70 = v65 & (v61 != 0);
+                  v62 = 1;
+                  v65 = 0;
+                }
+
+                while ((v70 & 1) != 0);
+LABEL_47:
+                result = 0;
+                *a6 = v41;
+                return result;
+              }
+
+              v71 = *(*a1 + 8);
+              v73 = v48;
+              v63 = 635;
+LABEL_78:
+              sub_24051EB50(@"%s:%d: %s: decode failed for compression algorithm 0x%x\n", v50, v51, v52, v53, v54, v55, v56, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/ChunkCompression.cpp", v63, v71, v73, v74);
+              return 22;
+            }
+
+            sub_24051EB50(@"%s:%d: %s: allocating buffer of size %llu failed for compression algorithm 0x%x\n", a2, __size, a4, a5, a6, a7, a8, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/ChunkCompression.cpp", 628, *(*a1 + 8), __size, v48);
+            return 12;
+          }
+
+LABEL_49:
+          sub_24051EB50(@"%s:%d: %s: unknown compression scheme %llu\n", a2, __size, a4, a5, a6, a7, a8, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/ChunkCompression.cpp", 665, *(*a1 + 8), v38, v74);
+          return 22;
+        }
+
+        if (*(a1 + 7))
+        {
+          if (v20 < 2 || (*v17 & 0xF) != 8)
+          {
+            sub_24051EB50(@"%s:%d: %s: invalid zlib header\n", a2, __size, a4, a5, a6, a7, a8, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/ChunkCompression.cpp", 605, *(*a1 + 8), v72, v74);
+            return 22;
+          }
+
+          v47 = 2;
+          v48 = 517;
+          goto LABEL_57;
+        }
+      }
+
+      sub_24051EB50(@"%s:%d: %s: workbuffer allocation failed\n", a2, __size, a4, a5, a6, a7, a8, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/ChunkCompression.cpp", 594, *(*a1 + 8), v72, v74);
+      return 12;
     }
 
-    v67 = *(*a1 + 8);
+    value[0] = 0xAAAAAAAAAAAAAAAALL;
+    if (sub_240523F28(a1, value, 8uLL, 8 * a2 + 264, &v75, a6, a7, a8))
+    {
+      sub_2405240FC(a1, HIDWORD(value[0]));
+      v28 = *(a1 + 3);
+      if (v28)
+      {
+        if (sub_240523F28(a1, v28, HIDWORD(value[0]), LODWORD(value[0]) + 260, &v75, v25, v26, v27))
+        {
+          result = 0;
+          v20 = HIDWORD(value[0]);
+          goto LABEL_24;
+        }
+
+        goto LABEL_23;
+      }
+
+      sub_24051EB50(@"%s:%d: %s: allocating buffer of size %u failed\n", 0, v22, v23, v24, v25, v26, v27, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/ChunkCompression.cpp", 540, *(*a1 + 8), HIDWORD(value[0]));
+      goto LABEL_65;
+    }
+
+LABEL_23:
+    v20 = 0;
+    result = v75;
+    goto LABEL_24;
+  }
+
+  value[0] = 0xAAAAAAAAAAAAAAAALL;
+  if ((sub_240523F28(a1, value, 8uLL, 4 * a2, &v75, a6, a7, a8) & 1) == 0)
+  {
+    goto LABEL_23;
+  }
+
+  v29 = (HIDWORD(value[0]) - LODWORD(value[0]));
+  if (HIDWORD(value[0]) <= LODWORD(value[0]))
+  {
+    sub_24051EB50(@"%s:%d: %s: resource fork offsets are out of order (offsets[1] (%u) <= offsets[0] (%u)) \n", a2, __size, a4, a5, a6, a7, a8, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/ChunkCompression.cpp", 562, *(*a1 + 8), HIDWORD(value[0]), LODWORD(value[0]));
+    v20 = 0;
+    result = 22;
+    goto LABEL_24;
+  }
+
+  sub_2405240FC(a1, (HIDWORD(value[0]) - LODWORD(value[0])));
+  v36 = *(a1 + 3);
+  if (!v36)
+  {
+    sub_24051EB50(@"%s:%d: %s: allocating buffer of size %u failed\n", 0, v30, v31, v32, v33, v34, v35, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/ChunkCompression.cpp", 568, *(*a1 + 8), v29);
 LABEL_65:
-    sub_24051EB50(@"%s:%d: %s: allocating buffer of size %u failed\n", 0, v21, v22, v23, v24, v25, v26, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/ChunkCompression.cpp");
-    v18 = 0;
+    v20 = 0;
     result = 12;
     goto LABEL_24;
   }
 
-  if (v13 != 0x10000)
+  v37 = sub_240523F28(a1, v36, v29, LODWORD(value[0]), &v75, v33, v34, v35);
+  if (v37)
   {
-    v65 = *(*a1 + 8);
-    sub_24051EB50(@"%s:%d: %s: unknown chunking scheme %llu\n", a2, __size, a4, a5, a6, a7, a8, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/ChunkCompression.cpp");
-    goto LABEL_8;
+    v20 = v29;
   }
 
-  v14 = *a1;
-  v15 = *(*a1 + 16);
-  v17 = *v15;
-  v16 = v15 + 5;
-  *(a1 + 3) = v16;
-  v18 = v17 - 16;
-  if (v17 > 0x10)
+  else
   {
-LABEL_26:
-    v31 = a1[2];
-    if (*v16 == v31)
-    {
-      v32 = v18 - 1;
-      if (v32)
-      {
-        v33 = 0;
-        v34 = 0;
-        v35 = v16 + 1;
-        do
-        {
-          v36 = a5 + 16 * v33;
-          v37 = *v36;
-          v38 = *(v36 + 8);
-          if (v38 >= v32)
-          {
-            v39 = v32;
-          }
-
-          else
-          {
-            v39 = v38;
-          }
-
-          if (v37)
-          {
-            memcpy(v37, v35, v39);
-          }
-
-          v34 += v39;
-          if (v33 + 1 >= v11)
-          {
-            break;
-          }
-
-          v35 += v39;
-          v33 = 1;
-          v32 -= v39;
-        }
-
-        while (v32);
-      }
-
-      else
-      {
-        v34 = 0;
-      }
-
-      goto LABEL_47;
-    }
-
-    *a6 = 0;
-    if (v31 > 1278)
-    {
-      if (v31 == 1279)
-      {
-        v41 = COMPRESSION_LZFSE;
-      }
-
-      else
-      {
-        if (v31 != 1535)
-        {
-          goto LABEL_49;
-        }
-
-        v41 = COMPRESSION_LZBITMAP;
-      }
-
-      if (*(a1 + 7))
-      {
-        v40 = 0;
-        goto LABEL_57;
-      }
-    }
-
-    else
-    {
-      if (v31 != 767)
-      {
-        if (v31 == 774)
-        {
-          v40 = 0;
-          v41 = 2304;
-LABEL_57:
-          if (v11 == 1)
-          {
-            v42 = compression_decode_buffer(*a5, *(a5 + 8), &v16[v40], v18 - v40, *(a1 + 7), v41);
-            if (v42)
-            {
-              v50 = v42;
-              result = 0;
-              *a6 = v50;
-              goto LABEL_9;
-            }
-
-            v74 = *(*a1 + 8);
-            goto LABEL_78;
-          }
-
-          if (__size >= 0x100000000)
-          {
-            v69 = *(*a1 + 8);
-            sub_24051EB50(@"%s:%d: %s: vecTotal=%lld is too big for compression algorithm 0x%x\n", a2, __size, a4, a5, a6, a7, a8, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/ChunkCompression.cpp");
-            goto LABEL_8;
-          }
-
-          v51 = a1[12];
-          v52 = *(a1 + 5);
-          if (v51 < __size)
-          {
-            if (v52)
-            {
-              free(v52);
-            }
-
-            v52 = malloc(__size);
-            *(a1 + 5) = v52;
-            a1[12] = __size;
-            v51 = __size;
-          }
-
-          if (v52)
-          {
-            v53 = compression_decode_buffer(v52, v51, (*(a1 + 3) + v40), v18 - v40, *(a1 + 7), v41);
-            if (v53)
-            {
-              v54 = v53;
-              v55 = HIDWORD(v53);
-              if (HIDWORD(v53))
-              {
-                v72 = *(*a1 + 8);
-                sub_24051EB50(@"%s:%d: %s: decmpSize=%zu is too big\n", v43, v44, v45, v46, v47, v48, v49, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/ChunkCompression.cpp");
-                goto LABEL_8;
-              }
-
-              v34 = 0;
-              v56 = *(a1 + 5);
-              v57 = 1;
-              do
-              {
-                v58 = a5 + 16 * v55;
-                v59 = *v58;
-                v60 = *(v58 + 8);
-                if (v60 >= v54)
-                {
-                  v61 = v54;
-                }
-
-                else
-                {
-                  v61 = v60;
-                }
-
-                if (v59)
-                {
-                  memcpy(v59, v56, v61);
-                }
-
-                v34 += v61;
-                v54 -= v61;
-                v56 += v61;
-                v62 = v57 & (v54 != 0);
-                v55 = 1;
-                v57 = 0;
-              }
-
-              while ((v62 & 1) != 0);
-LABEL_47:
-              result = 0;
-              *a6 = v34;
-              goto LABEL_9;
-            }
-
-            v76 = *(*a1 + 8);
-LABEL_78:
-            sub_24051EB50(@"%s:%d: %s: decode failed for compression algorithm 0x%x\n", v43, v44, v45, v46, v47, v48, v49, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/ChunkCompression.cpp");
-            goto LABEL_8;
-          }
-
-          v75 = *(*a1 + 8);
-          sub_24051EB50(@"%s:%d: %s: allocating buffer of size %llu failed for compression algorithm 0x%x\n", a2, __size, a4, a5, a6, a7, a8, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/ChunkCompression.cpp");
-LABEL_63:
-          result = 12;
-          goto LABEL_9;
-        }
-
-LABEL_49:
-        v68 = *(*a1 + 8);
-        sub_24051EB50(@"%s:%d: %s: unknown compression scheme %llu\n", a2, __size, a4, a5, a6, a7, a8, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/ChunkCompression.cpp");
-        goto LABEL_8;
-      }
-
-      if (*(a1 + 7))
-      {
-        if (v18 < 2 || (*v16 & 0xF) != 8)
-        {
-          v73 = *(*a1 + 8);
-          sub_24051EB50(@"%s:%d: %s: invalid zlib header\n", a2, __size, a4, a5, a6, a7, a8, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/ChunkCompression.cpp");
-          goto LABEL_8;
-        }
-
-        v40 = 2;
-        v41 = COMPRESSION_ZLIB;
-        goto LABEL_57;
-      }
-    }
-
-    v70 = *(*a1 + 8);
-    sub_24051EB50(@"%s:%d: %s: workbuffer allocation failed\n", a2, __size, a4, a5, a6, a7, a8, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/ChunkCompression.cpp");
-    goto LABEL_63;
+    v20 = 0;
   }
 
-  v63 = v14[1];
-  sub_24051EB50(@"%s:%d: %s: decmpfs xattr size (%u) should be greater than decmpfs disk header size (%zu)\n", a2, __size, a4, a5, a6, a7, a8, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/ChunkCompression.cpp");
-LABEL_8:
-  result = 22;
-LABEL_9:
-  v20 = *MEMORY[0x277D85DE8];
+  if (v37)
+  {
+    result = 0;
+  }
+
+  else
+  {
+    result = v75;
+  }
+
+LABEL_24:
+  if (!result)
+  {
+    v17 = *(a1 + 3);
+    goto LABEL_26;
+  }
+
   return result;
 }
 
@@ -4853,7 +4788,7 @@ uint64_t sub_240524720(uint64_t a1, unint64_t a2, uint64_t a3, uint64_t a4, void
 
   if (((a3 + a2) >> 64))
   {
-    sub_24051EB50(@"%s:%d: add overflow: offset %llu, totalSize %llu\n", a1, a3, a4, a5, a6, a7, a8, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/ChunkCompression.cpp");
+    sub_24051EB50(@"%s:%d: add overflow: offset %llu, totalSize %llu\n", a1, a3, a4, a5, a6, a7, a8, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/ChunkCompression.cpp", 821, a2, a3);
     return v8;
   }
 
@@ -4868,28 +4803,28 @@ uint64_t sub_240524720(uint64_t a1, unint64_t a2, uint64_t a3, uint64_t a4, void
     v14 = v12 - a2;
   }
 
-  v64 = 0xAAAAAAAAAAAAAAAALL;
+  v63 = 0xAAAAAAAAAAAAAAAALL;
   *&v15 = 0xAAAAAAAAAAAAAAAALL;
   *(&v15 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  *v62 = v15;
-  *v63 = v15;
-  v60 = v15;
   *v61 = v15;
-  sub_240523E4C(&v60, a1, a3, a4, a5, a6, a7, a8);
+  *v62 = v15;
+  v59 = v15;
+  *v60 = v15;
+  sub_240523E4C(&v59, a1, a3, a4, a5, a6, a7, a8);
+  v60[1] = 0;
+  LODWORD(v61[0]) = 0;
   v61[1] = 0;
   LODWORD(v62[0]) = 0;
   v62[1] = 0;
-  LODWORD(v63[0]) = 0;
-  v63[1] = 0;
-  v64 = 0;
-  if (SDWORD2(v60) <= 773)
+  v63 = 0;
+  if (SDWORD2(v59) <= 773)
   {
-    if (DWORD2(v60) == 460)
+    if (DWORD2(v59) == 460)
     {
       goto LABEL_23;
     }
 
-    if (DWORD2(v60) != 767)
+    if (DWORD2(v59) != 767)
     {
       goto LABEL_22;
     }
@@ -4899,7 +4834,7 @@ uint64_t sub_240524720(uint64_t a1, unint64_t a2, uint64_t a3, uint64_t a4, void
 
   else
   {
-    switch(DWORD2(v60))
+    switch(DWORD2(v59))
     {
       case 0x5FF:
         v23 = COMPRESSION_LZBITMAP;
@@ -4912,8 +4847,7 @@ uint64_t sub_240524720(uint64_t a1, unint64_t a2, uint64_t a3, uint64_t a4, void
         break;
       default:
 LABEL_22:
-        v57 = *(v60 + 8);
-        sub_24051EB50(@"%s:%d: %s: unknown compression scheme %llu\n", v16, v17, v18, v19, v20, v21, v22, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/ChunkCompression.cpp");
+        sub_24051EB50(@"%s:%d: %s: unknown compression scheme %llu\n", v16, v17, v18, v19, v20, v21, v22, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/ChunkCompression.cpp", 470, *(v59 + 8), DWORD2(v59));
         goto LABEL_23;
     }
   }
@@ -4922,15 +4856,15 @@ LABEL_22:
   if (v24)
   {
     v25 = v24;
-    v63[1] = malloc(v24);
-    v64 = v25;
+    v62[1] = malloc(v24);
+    v63 = v25;
   }
 
 LABEL_23:
   v26 = calloc(v13 + 1, 0x10uLL);
   if (!v26)
   {
-    sub_24051EB50(@"%s:%d: allocation of %zu bytes failed\n", v27, v28, v29, v30, v31, v32, v33, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/ChunkCompression.cpp");
+    sub_24051EB50(@"%s:%d: allocation of %zu bytes failed\n", v27, v28, v29, v30, v31, v32, v33, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/ChunkCompression.cpp", 682, 16 * (v13 + 1));
     v8 = 12;
     goto LABEL_73;
   }
@@ -4948,7 +4882,7 @@ LABEL_31:
 
   if (HIWORD(a2))
   {
-    sub_24051EB50(@"%s:%d: invalid offset: %llu\n", v27, v28, v29, v30, v31, v32, v33, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/ChunkCompression.cpp");
+    sub_24051EB50(@"%s:%d: invalid offset: %llu\n", v27, v28, v29, v30, v31, v32, v33, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/ChunkCompression.cpp", 696, a2);
     goto LABEL_72;
   }
 
@@ -4968,8 +4902,8 @@ LABEL_32:
   v40 = 0;
   v41 = 0;
   v42 = v35;
+  v57 = v35;
   v58 = v35;
-  v59 = v35;
   while (1)
   {
     v43 = &a5[2 * v40];
@@ -5035,10 +4969,10 @@ LABEL_32:
       }
     }
 
-    v65 = 0;
-    if (v13 != 1 || !v59 || v51 != 2 || *v34 || (v53 = *(v34 + 24) + *(v34 + 8), v53 > a5[1]))
+    v64 = 0;
+    if (v13 != 1 || !v58 || v51 != 2 || *v34 || (v53 = *(v34 + 24) + *(v34 + 8), v53 > a5[1]))
     {
-      v54 = sub_24052414C(&v60, v36, v50, v51, v34, &v65, v32, v33);
+      v54 = sub_24052414C(&v59, v36, v50, v51, v34, &v64, v32, v33);
       if (v54)
       {
         break;
@@ -5049,16 +4983,16 @@ LABEL_32:
 
     *v34 = *a5;
     *(v34 + 8) = v53;
-    v54 = sub_24052414C(&v60, v36, v50, 1, v34, &v65, v32, v33);
+    v54 = sub_24052414C(&v59, v36, v50, 1, v34, &v64, v32, v33);
     if (v54)
     {
       break;
     }
 
-    memmove(*v34, (*v34 + v59), *(v34 + 8) - v59);
-    v59 = 0;
+    memmove(*v34, (*v34 + v58), *(v34 + 8) - v58);
+    v58 = 0;
 LABEL_62:
-    v39 += v65;
+    v39 += v64;
 LABEL_63:
     v38 = 0;
     v42 = 0;
@@ -5078,7 +5012,7 @@ LABEL_63:
     {
       free(v34);
       v8 = 0;
-      *a6 = v39 - v58;
+      *a6 = v39 - v57;
       goto LABEL_73;
     }
   }
@@ -5087,7 +5021,12 @@ LABEL_63:
 LABEL_72:
   free(v34);
 LABEL_73:
-  if (HIDWORD(v60) != 0x10000 && v61[1])
+  if (HIDWORD(v59) != 0x10000 && v60[1])
+  {
+    free(v60[1]);
+  }
+
+  if (v61[1])
   {
     free(v61[1]);
   }
@@ -5095,11 +5034,6 @@ LABEL_73:
   if (v62[1])
   {
     free(v62[1]);
-  }
-
-  if (v63[1])
-  {
-    free(v63[1]);
   }
 
   return v8;
@@ -5142,8 +5076,8 @@ dispatch_semaphore_t sub_240524BAC()
   if (sysctl(v14, 2u, &v13, &v12, 0, 0) == -1)
   {
     v2 = __error();
-    strerror(*v2);
-    sub_24051EB50(@"%s:%d: sysctl: %s\n", v3, v4, v5, v6, v7, v8, v9, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/ThrottlingAllocator.c");
+    v3 = strerror(*v2);
+    sub_24051EB50(@"%s:%d: sysctl: %s\n", v4, v5, v6, v7, v8, v9, v10, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/ThrottlingAllocator.c", 33, v3);
     v13 = 0;
     goto LABEL_7;
   }
@@ -5170,7 +5104,6 @@ LABEL_7:
 LABEL_8:
   result = dispatch_semaphore_create(v1);
   qword_27E4B5988 = result;
-  v11 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -5199,109 +5132,111 @@ int *sub_240524D00()
   if (v0)
   {
     v2 = atoi(v0);
-    sub_24051EB50(@"%s:%d: Error: using max fds override of %d\n", v3, v4, v5, v6, v7, v8, v9, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/ThrottlingAllocator.c");
+    v3 = v2;
+    sub_24051EB50(@"%s:%d: Error: using max fds override of %d\n", v4, v5, v6, v7, v8, v9, v10, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/ThrottlingAllocator.c", 107, v2);
   }
 
   else
   {
-    v2 = 96;
+    v3 = 96;
   }
 
-  v51.rlim_cur = 0;
-  v51.rlim_max = 0;
-  if (getrlimit(8, &v51) == -1)
+  v56.rlim_cur = 0;
+  v56.rlim_max = 0;
+  if (getrlimit(8, &v56) == -1)
   {
-    v43 = __error();
-    strerror(*v43);
-    return sub_24051EB50(@"%s:%d: getrlimit: %s\n", v44, v45, v46, v47, v48, v49, v50, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/ThrottlingAllocator.c");
+    v47 = __error();
+    v48 = strerror(*v47);
+    return sub_24051EB50(@"%s:%d: getrlimit: %s\n", v49, v50, v51, v52, v53, v54, v55, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/ThrottlingAllocator.c", 114, v48);
   }
 
   else
   {
-    v10 = v2;
-    rlim_cur = v51.rlim_cur;
-    if (v51.rlim_max >= 0x2800)
+    v11 = v3;
+    rlim_cur = v56.rlim_cur;
+    if (v56.rlim_max >= 0x2800)
     {
       rlim_max = 10240;
     }
 
     else
     {
-      rlim_max = v51.rlim_max;
+      rlim_max = v56.rlim_max;
     }
 
-    if (v51.rlim_cur >= rlim_max)
-    {
-      v13 = rlim_max;
-    }
-
-    else
-    {
-      v13 = v51.rlim_cur;
-    }
-
-    v14 = v13 + v10;
-    if (v13 + v10 >= rlim_max)
+    if (v56.rlim_cur >= rlim_max)
     {
       v14 = rlim_max;
     }
 
-    v51.rlim_cur = v14;
-    if (setrlimit(8, &v51) == -1)
+    else
     {
-      v15 = __error();
-      strerror(*v15);
-      sub_24051EB50(@"%s:%d: setrlimit(RLIMIT_NOFILE.rlim_cur = %lld): %s\n", v16, v17, v18, v19, v20, v21, v22, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/ThrottlingAllocator.c");
+      v14 = v56.rlim_cur;
     }
 
-    if (getrlimit(8, &v51) == -1)
+    v15 = v14 + v11;
+    if (v14 + v11 >= rlim_max)
     {
-      v30 = __error();
-      strerror(*v30);
-      sub_24051EB50(@"%s:%d: getrlimit(RLIMIT_NOFILE): %s\n", v31, v32, v33, v34, v35, v36, v37, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/ThrottlingAllocator.c");
+      v15 = rlim_max;
     }
 
-    v38 = v51.rlim_cur;
-    if (v51.rlim_cur >= rlim_max)
+    v56.rlim_cur = v15;
+    if (setrlimit(8, &v56) == -1)
     {
-      v38 = rlim_max;
+      v16 = v56.rlim_cur;
+      v17 = __error();
+      v18 = strerror(*v17);
+      sub_24051EB50(@"%s:%d: setrlimit(RLIMIT_NOFILE.rlim_cur = %lld): %s\n", v19, v20, v21, v22, v23, v24, v25, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/ThrottlingAllocator.c", 128, v16, v18);
     }
 
-    v39 = v38 - v13;
-    if (v38 - v13 <= 0xA)
+    if (getrlimit(8, &v56) == -1)
     {
-      v39 = 10;
+      v33 = __error();
+      v34 = strerror(*v33);
+      sub_24051EB50(@"%s:%d: getrlimit(RLIMIT_NOFILE): %s\n", v35, v36, v37, v38, v39, v40, v41, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/ThrottlingAllocator.c", 131, v34);
     }
 
-    if (rlim_cur >= v38)
+    v42 = v56.rlim_cur;
+    if (v56.rlim_cur >= rlim_max)
     {
-      v40 = 10;
+      v42 = rlim_max;
+    }
+
+    v43 = v42 - v14;
+    if (v42 - v14 <= 0xA)
+    {
+      v43 = 10;
+    }
+
+    if (rlim_cur >= v42)
+    {
+      v44 = 10;
     }
 
     else
     {
-      v40 = v39;
+      v44 = v43;
     }
 
-    if (v40 >= v10)
+    if (v44 >= v11)
     {
-      v41 = v10;
+      v45 = v11;
     }
 
     else
     {
-      v41 = v40;
+      v45 = v44;
     }
 
     if (v1)
     {
-      if (v40 < v10)
+      if (v44 < v11)
       {
-        sub_24051EB50(@"%s:%d: Error: could not use desired max fds of %d, using %llu instead\n", v23, v24, v25, v26, v27, v28, v29, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/ThrottlingAllocator.c");
+        sub_24051EB50(@"%s:%d: Error: could not use desired max fds of %d, using %llu instead\n", v26, v27, v28, v29, v30, v31, v32, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/ThrottlingAllocator.c", 154, v11, v45);
       }
     }
 
-    result = dispatch_semaphore_create(v41);
+    result = dispatch_semaphore_create(v45);
     qword_27E4B5978 = result;
   }
 
@@ -5391,7 +5326,7 @@ void sub_2405250D0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 
 uint64_t VolumeSupportsCompression(const char *a1)
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   if (qword_27E4B5990 != -1)
   {
     dispatch_once(&qword_27E4B5990, &unk_28525D7A8);
@@ -5400,74 +5335,31 @@ uint64_t VolumeSupportsCompression(const char *a1)
   memset(__b, 170, sizeof(__b));
   v2.tv_sec = 0xAAAAAAAAAAAAAAAALL;
   v2.tv_nsec = 0xAAAAAAAAAAAAAAAALL;
-  *&v35.st_dev = v2;
-  *&v35.st_uid = v2;
-  v35.st_atimespec = v2;
-  v35.st_mtimespec = v2;
-  v35.st_ctimespec = v2;
-  v35.st_birthtimespec = v2;
-  *&v35.st_size = v2;
-  *&v35.st_blksize = v2;
-  *v35.st_qspare = v2;
-  if (!realpath_DARWIN_EXTSN(a1, __b))
+  *&v40.st_dev = v2;
+  *&v40.st_uid = v2;
+  v40.st_atimespec = v2;
+  v40.st_mtimespec = v2;
+  v40.st_ctimespec = v2;
+  v40.st_birthtimespec = v2;
+  *&v40.st_size = v2;
+  *&v40.st_blksize = v2;
+  *v40.st_qspare = v2;
+  if (realpath_DARWIN_EXTSN(a1, __b))
   {
-    memset(&v37, 170, sizeof(v37));
-    if (statfs(a1, &v37))
+    if (lstat(__b, &v40) == -1)
     {
-      v4 = __error();
-      strerror(*v4);
-LABEL_21:
-      sub_24051EB50(@"%s:%d: statfs %s: %s\n", v5, v6, v7, v8, v9, v10, v11, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/pathUtils.c");
-      goto LABEL_25;
+      v13 = 45;
+LABEL_10:
+      v14 = __error();
+      v35 = strerror(*v14);
+      sub_24051EB50(@"%s:%d: lstat %s: %s\n", v15, v16, v17, v18, v19, v20, v21, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/pathUtils.c", v13, __b, v35);
+      return 0;
     }
 
-    __strlcpy_chk();
-LABEL_17:
-    v32 = 20;
-    v33 = 0;
-    v34 = 0;
-    v35.st_dev = 5;
-    *&v35.st_mode = xmmword_240525D40;
-    v35.st_gid = 0;
-    if (getattrlist(__b, &v35, &v32, 0x14uLL, 0))
+    st_dev = v40.st_dev;
+    if (v40.st_dev == dword_27E4B5910)
     {
-      if (*__error() != 22)
-      {
-        v22 = __error();
-        strerror(*v22);
-        sub_24051EB50(@"%s:%d: getattrlist %s: %s\n", v23, v24, v25, v26, v27, v28, v29, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/pathUtils.c");
-        goto LABEL_25;
-      }
-
-      bzero(&v37, 0x878uLL);
-      if (statfs(a1, &v37))
-      {
-        v21 = __error();
-        strerror(*v21);
-        goto LABEL_21;
-      }
-
-      if (*v37.f_fstypename != 7562856)
-      {
-        goto LABEL_25;
-      }
-    }
-
-    else if ((v33 & 0x10000) == 0)
-    {
-      goto LABEL_25;
-    }
-
-    result = 1;
-    goto LABEL_26;
-  }
-
-  if (lstat(__b, &v35) != -1)
-  {
-    st_dev = v35.st_dev;
-    if (v35.st_dev == dword_27E4B5910)
-    {
-      *__b = 47;
+      strcpy(__b, "/");
     }
 
     else
@@ -5477,56 +5369,101 @@ LABEL_17:
         if (*i == 47)
         {
           *i = 0;
-          if (lstat(__b, &v35) == -1)
+          if (lstat(__b, &v40) == -1)
           {
-            goto LABEL_9;
+            v13 = 67;
+            goto LABEL_10;
           }
 
-          if (v35.st_dev != st_dev)
+          if (v40.st_dev != st_dev)
           {
             *i = 47;
-            goto LABEL_17;
+            break;
           }
         }
       }
     }
-
-    goto LABEL_17;
   }
 
-LABEL_9:
-  v12 = __error();
-  strerror(*v12);
-  sub_24051EB50(@"%s:%d: lstat %s: %s\n", v13, v14, v15, v16, v17, v18, v19, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/pathUtils.c");
-LABEL_25:
-  result = 0;
-LABEL_26:
-  v31 = *MEMORY[0x277D85DE8];
-  return result;
+  else
+  {
+    memset(&v42, 170, sizeof(v42));
+    if (statfs(a1, &v42))
+    {
+      v4 = __error();
+      v33 = a1;
+      v34 = strerror(*v4);
+      v12 = 36;
+LABEL_22:
+      sub_24051EB50(@"%s:%d: statfs %s: %s\n", v5, v6, v7, v8, v9, v10, v11, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/pathUtils.c", v12, v33, v34);
+      return 0;
+    }
+
+    __strlcpy_chk();
+  }
+
+  v37 = 20;
+  v38 = 0;
+  v39 = 0;
+  v40.st_dev = 5;
+  *&v40.st_mode = xmmword_240525D40;
+  v40.st_gid = 0;
+  if (getattrlist(__b, &v40, &v37, 0x14uLL, 0))
+  {
+    if (*__error() != 22)
+    {
+      v24 = __error();
+      v36 = strerror(*v24);
+      sub_24051EB50(@"%s:%d: getattrlist %s: %s\n", v25, v26, v27, v28, v29, v30, v31, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/pathUtils.c", 131, __b, v36);
+      return 0;
+    }
+
+    bzero(&v42, 0x878uLL);
+    if (statfs(a1, &v42))
+    {
+      v23 = __error();
+      v33 = a1;
+      v34 = strerror(*v23);
+      v12 = 128;
+      goto LABEL_22;
+    }
+
+    if (*v42.f_fstypename != 7562856)
+    {
+      return 0;
+    }
+  }
+
+  else if ((v38 & 0x10000) == 0)
+  {
+    return 0;
+  }
+
+  return 1;
 }
 
 int *sub_240525458()
 {
   v0.tv_sec = 0xAAAAAAAAAAAAAAAALL;
   v0.tv_nsec = 0xAAAAAAAAAAAAAAAALL;
-  *&v10.st_blksize = v0;
-  *v10.st_qspare = v0;
-  v10.st_birthtimespec = v0;
-  *&v10.st_size = v0;
-  v10.st_mtimespec = v0;
-  v10.st_ctimespec = v0;
-  *&v10.st_uid = v0;
-  v10.st_atimespec = v0;
-  *&v10.st_dev = v0;
-  result = stat("/", &v10);
+  *&v11.st_blksize = v0;
+  *v11.st_qspare = v0;
+  v11.st_birthtimespec = v0;
+  *&v11.st_size = v0;
+  v11.st_mtimespec = v0;
+  v11.st_ctimespec = v0;
+  *&v11.st_uid = v0;
+  v11.st_atimespec = v0;
+  *&v11.st_dev = v0;
+  result = stat("/", &v11);
   if (result == -1)
   {
     v2 = __error();
-    strerror(*v2);
-    result = sub_24051EB50(@"%s:%d: stat /: %s\n", v3, v4, v5, v6, v7, v8, v9, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/pathUtils.c");
+    v3 = strerror(*v2);
+    result = sub_24051EB50(@"%s:%d: stat /: %s\n", v4, v5, v6, v7, v8, v9, v10, "/Library/Caches/com.apple.xbs/Sources/AppleFSCompression/Common/pathUtils.c", 26, v3);
   }
 
-  dword_27E4B5910 = v10.st_dev;
+  dword_27E4B5910 = v11.st_dev;
   return result;
 }
 

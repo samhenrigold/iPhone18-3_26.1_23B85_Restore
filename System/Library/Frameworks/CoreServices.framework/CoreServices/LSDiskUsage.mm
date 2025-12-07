@@ -52,13 +52,12 @@ void __42___LSDiskUsage_removeAllCachedUsageValues__block_invoke(uint64_t a1)
 void __32___LSDiskUsage_debugDescription__block_invoke(uint64_t a1)
 {
   v2 = objc_alloc(MEMORY[0x1E696AEC0]);
-  v3 = *(a1 + 32);
-  v4 = objc_opt_class();
-  v8 = NSStringFromClass(v4);
-  v5 = [v2 initWithFormat:@"<%@ %p> { %@ }", v8, *(a1 + 32), *(*(a1 + 32) + 16)];
-  v6 = *(*(a1 + 40) + 8);
-  v7 = *(v6 + 40);
-  *(v6 + 40) = v5;
+  v3 = objc_opt_class();
+  v7 = NSStringFromClass(v3);
+  v4 = [v2 initWithFormat:@"<%@ %p> { %@ }", v7, *(a1 + 32), *(*(a1 + 32) + 16)];
+  v5 = *(*(a1 + 40) + 8);
+  v6 = *(v5 + 40);
+  *(v5 + 40) = v4;
 }
 
 void __38___LSDiskUsage_Internal___serverQueue__block_invoke()
@@ -114,14 +113,14 @@ void __48___LSDiskUsage_Private__mobileInstallationQueue__block_invoke()
 
 void __78___LSDiskUsage_Private__usageFromMobileInstallationForBundleIdentifier_error___block_invoke(uint64_t a1, void *a2)
 {
-  v17[2] = *MEMORY[0x1E69E9840];
+  v16[2] = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
-  v16[0] = @"DynamicDiskUsage";
-  v16[1] = @"SharedDiskUsage";
-  v17[0] = MEMORY[0x1E695E118];
-  v17[1] = MEMORY[0x1E695E118];
-  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:v16 count:2];
+  v15[0] = @"DynamicDiskUsage";
+  v15[1] = @"SharedDiskUsage";
+  v16[0] = MEMORY[0x1E695E118];
+  v16[1] = MEMORY[0x1E695E118];
+  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:v15 count:2];
   v6 = softLinkMobileInstallationCopyDiskUsageForLaunchServices(*(a1 + 32), v5);
   v7 = v6;
   if (!v6 || ([v6 objectForKeyedSubscript:*(a1 + 32)], v8 = objc_claimAutoreleasedReturnValue(), (v9 = v8) == 0))
@@ -142,16 +141,15 @@ LABEL_7:
     goto LABEL_7;
   }
 
-  v14[0] = @"dynamic";
-  v14[1] = @"shared";
-  v15[0] = v10;
-  v15[1] = v11;
-  v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:v14 count:2];
+  v13[0] = @"dynamic";
+  v13[1] = @"shared";
+  v14[0] = v10;
+  v14[1] = v11;
+  v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:v13 count:2];
   (v3)[2](v3, v12, 0);
 LABEL_8:
 
   objc_autoreleasePoolPop(v4);
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 void __38___LSDiskUsage_Private__ODRConnection__block_invoke()
@@ -166,13 +164,13 @@ void __38___LSDiskUsage_Private__ODRConnection__block_invoke()
   [+[_LSDiskUsage(Private) ODRConnection]::result resume];
 }
 
-void __38___LSDiskUsage_Private__ODRConnection__block_invoke_2()
+void __38___LSDiskUsage_Private__ODRConnection__block_invoke_2(uint64_t a1)
 {
-  v0 = _LSDefaultLog();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v1 = _LSDefaultLog(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
-    *v1 = 0;
-    _os_log_impl(&dword_18162D000, v0, OS_LOG_TYPE_DEFAULT, "Unable to connect to ondemandd.", v1, 2u);
+    *v2 = 0;
+    _os_log_impl(&dword_18162D000, v1, OS_LOG_TYPE_DEFAULT, "Unable to connect to ondemandd.", v2, 2u);
   }
 }
 
@@ -216,63 +214,59 @@ void __59___LSDiskUsage_Private__ODRUsageForBundleIdentifier_error___block_invok
 
 void __50___LSDiskUsage_Private__fetchClientSideWithError___block_invoke(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = _LSDefaultLog();
+  v4 = _LSDefaultLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(*(a1 + 32) + 8);
-    v9 = 138412546;
-    v10 = v5;
-    v11 = 2112;
-    v12 = v3;
-    _os_log_impl(&dword_18162D000, v4, OS_LOG_TYPE_DEFAULT, "Failed to get dynamic/ODR disk usage for app %@, error = %@", &v9, 0x16u);
+    v8 = 138412546;
+    v9 = v5;
+    v10 = 2112;
+    v11 = v3;
+    _os_log_impl(&dword_18162D000, v4, OS_LOG_TYPE_DEFAULT, "Failed to get dynamic/ODR disk usage for app %@, error = %@", &v8, 0x16u);
   }
 
   v6 = *(*(a1 + 40) + 8);
   v7 = *(v6 + 40);
   *(v6 + 40) = v3;
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __50___LSDiskUsage_Private__fetchClientSideWithError___block_invoke_145(void *a1, void *a2, void *a3)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
+  v7 = v6;
   if (v5)
   {
-    v7 = a1[4];
     v8 = [objc_opt_class() propertyQueue];
-    v12[0] = MEMORY[0x1E69E9820];
-    v12[1] = 3221225472;
-    v12[2] = __50___LSDiskUsage_Private__fetchClientSideWithError___block_invoke_2;
-    v12[3] = &unk_1E6A1ABE8;
-    v12[4] = a1[4];
-    v13 = v5;
-    dispatch_barrier_async(v8, v12);
+    v11[0] = MEMORY[0x1E69E9820];
+    v11[1] = 3221225472;
+    v11[2] = __50___LSDiskUsage_Private__fetchClientSideWithError___block_invoke_2;
+    v11[3] = &unk_1E6A1ABE8;
+    v11[4] = a1[4];
+    v12 = v5;
+    dispatch_barrier_async(v8, v11);
 
     *(*(a1[5] + 8) + 24) = 1;
   }
 
   else
   {
-    v9 = _LSDefaultLog();
+    v9 = _LSDefaultLog(v6);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       v10 = *(a1[4] + 8);
       *buf = 138412546;
-      v15 = v10;
-      v16 = 2112;
-      v17 = v6;
+      v14 = v10;
+      v15 = 2112;
+      v16 = v7;
       _os_log_impl(&dword_18162D000, v9, OS_LOG_TYPE_DEFAULT, "Failed to get dynamic/ODR disk usage for app %@, error = %@", buf, 0x16u);
     }
 
     objc_storeStrong((*(a1[6] + 8) + 40), a3);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 @end

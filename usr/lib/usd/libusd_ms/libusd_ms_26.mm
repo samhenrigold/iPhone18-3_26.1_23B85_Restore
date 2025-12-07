@@ -1,3 +1,19 @@
+uint64_t sub_29A12FDD4(unsigned __int16 *a1)
+{
+  v1 = sqrtf(pxrInternal__aapl__pxrReserved__::pxr_half::half::_toFloat[sub_29A13085C(a1)]);
+  if (v1 == 0.0)
+  {
+    return HIWORD(LODWORD(v1));
+  }
+
+  if (pxrInternal__aapl__pxrReserved__::pxr_half::half::_eLut[LODWORD(v1) >> 23])
+  {
+    return pxrInternal__aapl__pxrReserved__::pxr_half::half::_eLut[LODWORD(v1) >> 23] + (((LODWORD(v1) & 0x7FFFFF) + ((LODWORD(v1) >> 13) & 1) + 4095) >> 13);
+  }
+
+  return pxrInternal__aapl__pxrReserved__::pxr_half::half::convert(LODWORD(v1));
+}
+
 uint64_t pxrInternal__aapl__pxrReserved__::GfDualQuath::GetNormalized(__int128 *a1, unsigned __int16 a2)
 {
   v3 = *a1;
@@ -5,7 +21,7 @@ uint64_t pxrInternal__aapl__pxrReserved__::GfDualQuath::GetNormalized(__int128 *
   return v3;
 }
 
-uint64_t pxrInternal__aapl__pxrReserved__::GfDualQuath::Normalize(unsigned __int16 *a1, unsigned __int16 a2)
+uint64_t pxrInternal__aapl__pxrReserved__::GfDualQuath::Normalize(pxrInternal__aapl__pxrReserved__::GfDualQuath *a1, unsigned __int16 a2)
 {
   Length = pxrInternal__aapl__pxrReserved__::GfDualQuath::GetLength(a1);
   v5 = pxrInternal__aapl__pxrReserved__::pxr_half::half::_toFloat[Length];
@@ -29,7 +45,7 @@ uint64_t pxrInternal__aapl__pxrReserved__::GfDualQuath::Normalize(unsigned __int
 
     sub_29A130000(a1, v7);
     sub_29A130000(a1 + 4, v7);
-    v8 = pxrInternal__aapl__pxrReserved__::pxr_half::half::_toFloat[sub_29A1309A8(a1, a1 + 4)] + (pxrInternal__aapl__pxrReserved__::pxr_half::half::_toFloat[a1[3]] * pxrInternal__aapl__pxrReserved__::pxr_half::half::_toFloat[a1[7]]);
+    v8 = pxrInternal__aapl__pxrReserved__::pxr_half::half::_toFloat[sub_29A1309A8(a1, a1 + 4)] + (pxrInternal__aapl__pxrReserved__::pxr_half::half::_toFloat[*(a1 + 3)] * pxrInternal__aapl__pxrReserved__::pxr_half::half::_toFloat[*(a1 + 7)]);
     if (v8 == 0.0)
     {
       v9 = HIWORD(LODWORD(v8));
@@ -79,7 +95,7 @@ unsigned __int16 *sub_29A130000(unsigned __int16 *a1, unsigned __int16 a2)
   }
 
   a1[3] = v5;
-  sub_29A130AC8(a1, pxrInternal__aapl__pxrReserved__::pxr_half::half::_toFloat[v3]);
+  sub_29A130AC8(a1, a2, pxrInternal__aapl__pxrReserved__::pxr_half::half::_toFloat[v3]);
   return a1;
 }
 
@@ -203,90 +219,90 @@ unsigned __int16 *pxrInternal__aapl__pxrReserved__::GfDualQuath::SetTranslation(
 {
   v5 = *a2;
   v6 = *(a2 + 2);
-  v3 = sub_29A130AC8(&v5, 0.5);
+  v3 = sub_29A130AC8(&v5, a2, 0.5);
   v7 = *v3 | (v3[2] << 32);
   result = pxrInternal__aapl__pxrReserved__::GfQuath::operator*=(&v7, a1);
   *(a1 + 8) = *result;
   return result;
 }
 
-unint64_t pxrInternal__aapl__pxrReserved__::GfDualQuath::GetTranslation(pxrInternal__aapl__pxrReserved__::GfDualQuath *this)
+unint64_t pxrInternal__aapl__pxrReserved__::GfDualQuath::GetTranslation(pxrInternal__aapl__pxrReserved__::GfDualQuath *this, int a2)
 {
-  v2 = *(this + 7);
-  v3 = *(this + 3);
-  v4 = pxrInternal__aapl__pxrReserved__::pxr_half::half::_toFloat[v2];
-  v5 = pxrInternal__aapl__pxrReserved__::pxr_half::half::_toFloat[*this];
-  v6 = pxrInternal__aapl__pxrReserved__::pxr_half::half::_toFloat[v3];
-  v7 = pxrInternal__aapl__pxrReserved__::pxr_half::half::_toFloat[*(this + 4)];
-  v8 = pxrInternal__aapl__pxrReserved__::pxr_half::half::_toFloat[*(this + 5)];
-  v9 = pxrInternal__aapl__pxrReserved__::pxr_half::half::_toFloat[*(this + 2)];
-  v10 = pxrInternal__aapl__pxrReserved__::pxr_half::half::_toFloat[*(this + 6)];
-  v11 = pxrInternal__aapl__pxrReserved__::pxr_half::half::_toFloat[*(this + 1)];
-  v12 = (((v4 * v5) - (v6 * v7)) + ((v8 * v9) - (v10 * v11))) * -2.0;
-  if (v12 == 0.0)
+  v3 = *(this + 7);
+  v4 = *(this + 3);
+  v5 = pxrInternal__aapl__pxrReserved__::pxr_half::half::_toFloat[v3];
+  v6 = pxrInternal__aapl__pxrReserved__::pxr_half::half::_toFloat[*this];
+  v7 = pxrInternal__aapl__pxrReserved__::pxr_half::half::_toFloat[v4];
+  v8 = pxrInternal__aapl__pxrReserved__::pxr_half::half::_toFloat[*(this + 4)];
+  v9 = pxrInternal__aapl__pxrReserved__::pxr_half::half::_toFloat[*(this + 5)];
+  v10 = pxrInternal__aapl__pxrReserved__::pxr_half::half::_toFloat[*(this + 2)];
+  v11 = pxrInternal__aapl__pxrReserved__::pxr_half::half::_toFloat[*(this + 6)];
+  v12 = pxrInternal__aapl__pxrReserved__::pxr_half::half::_toFloat[*(this + 1)];
+  v13 = (((v5 * v6) - (v7 * v8)) + ((v9 * v10) - (v11 * v12))) * -2.0;
+  if (v13 == 0.0)
   {
-    v13 = HIWORD(LODWORD(v12));
+    v14 = HIWORD(LODWORD(v13));
   }
 
-  else if (pxrInternal__aapl__pxrReserved__::pxr_half::half::_eLut[LODWORD(v12) >> 23])
+  else if (pxrInternal__aapl__pxrReserved__::pxr_half::half::_eLut[LODWORD(v13) >> 23])
   {
-    v13 = pxrInternal__aapl__pxrReserved__::pxr_half::half::_eLut[LODWORD(v12) >> 23] + (((LODWORD(v12) & 0x7FFFFF) + ((LODWORD(v12) >> 13) & 1) + 4095) >> 13);
-  }
-
-  else
-  {
-    LOWORD(v13) = pxrInternal__aapl__pxrReserved__::pxr_half::half::convert(LODWORD(v12));
-    v4 = pxrInternal__aapl__pxrReserved__::pxr_half::half::_toFloat[v2];
-    v11 = pxrInternal__aapl__pxrReserved__::pxr_half::half::_toFloat[*(this + 1)];
-    v6 = pxrInternal__aapl__pxrReserved__::pxr_half::half::_toFloat[v3];
-    v8 = pxrInternal__aapl__pxrReserved__::pxr_half::half::_toFloat[*(this + 5)];
-    v10 = pxrInternal__aapl__pxrReserved__::pxr_half::half::_toFloat[*(this + 6)];
-    v5 = pxrInternal__aapl__pxrReserved__::pxr_half::half::_toFloat[*this];
-    v7 = pxrInternal__aapl__pxrReserved__::pxr_half::half::_toFloat[*(this + 4)];
-    v9 = pxrInternal__aapl__pxrReserved__::pxr_half::half::_toFloat[*(this + 2)];
-  }
-
-  v14 = (((v4 * v11) - (v6 * v8)) + ((v10 * v5) - (v7 * v9))) * -2.0;
-  if (v14 == 0.0)
-  {
-    v15 = HIWORD(LODWORD(v14));
-  }
-
-  else if (pxrInternal__aapl__pxrReserved__::pxr_half::half::_eLut[LODWORD(v14) >> 23])
-  {
-    v15 = pxrInternal__aapl__pxrReserved__::pxr_half::half::_eLut[LODWORD(v14) >> 23] + (((LODWORD(v14) & 0x7FFFFF) + ((LODWORD(v14) >> 13) & 1) + 4095) >> 13);
+    v14 = pxrInternal__aapl__pxrReserved__::pxr_half::half::_eLut[LODWORD(v13) >> 23] + (((LODWORD(v13) & 0x7FFFFF) + ((LODWORD(v13) >> 13) & 1) + 4095) >> 13);
   }
 
   else
   {
-    LOWORD(v15) = pxrInternal__aapl__pxrReserved__::pxr_half::half::convert(LODWORD(v14));
-    v4 = pxrInternal__aapl__pxrReserved__::pxr_half::half::_toFloat[v2];
-    v9 = pxrInternal__aapl__pxrReserved__::pxr_half::half::_toFloat[*(this + 2)];
-    v6 = pxrInternal__aapl__pxrReserved__::pxr_half::half::_toFloat[v3];
-    v10 = pxrInternal__aapl__pxrReserved__::pxr_half::half::_toFloat[*(this + 6)];
-    v7 = pxrInternal__aapl__pxrReserved__::pxr_half::half::_toFloat[*(this + 4)];
-    v11 = pxrInternal__aapl__pxrReserved__::pxr_half::half::_toFloat[*(this + 1)];
-    v8 = pxrInternal__aapl__pxrReserved__::pxr_half::half::_toFloat[*(this + 5)];
-    v5 = pxrInternal__aapl__pxrReserved__::pxr_half::half::_toFloat[*this];
+    LOWORD(v14) = pxrInternal__aapl__pxrReserved__::pxr_half::half::convert(LODWORD(v13));
+    v5 = pxrInternal__aapl__pxrReserved__::pxr_half::half::_toFloat[v3];
+    v12 = pxrInternal__aapl__pxrReserved__::pxr_half::half::_toFloat[*(this + 1)];
+    v7 = pxrInternal__aapl__pxrReserved__::pxr_half::half::_toFloat[v4];
+    v9 = pxrInternal__aapl__pxrReserved__::pxr_half::half::_toFloat[*(this + 5)];
+    v11 = pxrInternal__aapl__pxrReserved__::pxr_half::half::_toFloat[*(this + 6)];
+    v6 = pxrInternal__aapl__pxrReserved__::pxr_half::half::_toFloat[*this];
+    v8 = pxrInternal__aapl__pxrReserved__::pxr_half::half::_toFloat[*(this + 4)];
+    v10 = pxrInternal__aapl__pxrReserved__::pxr_half::half::_toFloat[*(this + 2)];
   }
 
-  v16 = (((v4 * v9) - (v6 * v10)) + ((v7 * v11) - (v8 * v5))) * -2.0;
-  if (v16 == 0.0)
+  v15 = (((v5 * v12) - (v7 * v9)) + ((v11 * v6) - (v8 * v10))) * -2.0;
+  if (v15 == 0.0)
   {
-    v17 = HIWORD(LODWORD(v16));
+    v16 = HIWORD(LODWORD(v15));
   }
 
-  else if (pxrInternal__aapl__pxrReserved__::pxr_half::half::_eLut[LODWORD(v16) >> 23])
+  else if (pxrInternal__aapl__pxrReserved__::pxr_half::half::_eLut[LODWORD(v15) >> 23])
   {
-    v17 = pxrInternal__aapl__pxrReserved__::pxr_half::half::_eLut[LODWORD(v16) >> 23] + (((LODWORD(v16) & 0x7FFFFF) + ((LODWORD(v16) >> 13) & 1) + 4095) >> 13);
+    v16 = pxrInternal__aapl__pxrReserved__::pxr_half::half::_eLut[LODWORD(v15) >> 23] + (((LODWORD(v15) & 0x7FFFFF) + ((LODWORD(v15) >> 13) & 1) + 4095) >> 13);
   }
 
   else
   {
-    v17 = pxrInternal__aapl__pxrReserved__::pxr_half::half::convert(LODWORD(v16));
+    LOWORD(v16) = pxrInternal__aapl__pxrReserved__::pxr_half::half::convert(LODWORD(v15));
+    v5 = pxrInternal__aapl__pxrReserved__::pxr_half::half::_toFloat[v3];
+    v10 = pxrInternal__aapl__pxrReserved__::pxr_half::half::_toFloat[*(this + 2)];
+    v7 = pxrInternal__aapl__pxrReserved__::pxr_half::half::_toFloat[v4];
+    v11 = pxrInternal__aapl__pxrReserved__::pxr_half::half::_toFloat[*(this + 6)];
+    v8 = pxrInternal__aapl__pxrReserved__::pxr_half::half::_toFloat[*(this + 4)];
+    v12 = pxrInternal__aapl__pxrReserved__::pxr_half::half::_toFloat[*(this + 1)];
+    v9 = pxrInternal__aapl__pxrReserved__::pxr_half::half::_toFloat[*(this + 5)];
+    v6 = pxrInternal__aapl__pxrReserved__::pxr_half::half::_toFloat[*this];
   }
 
-  return (v15 << 16) | (v17 << 32) | v13;
+  v17 = (((v5 * v10) - (v7 * v11)) + ((v8 * v12) - (v9 * v6))) * -2.0;
+  if (v17 == 0.0)
+  {
+    v18 = HIWORD(LODWORD(v17));
+  }
+
+  else if (pxrInternal__aapl__pxrReserved__::pxr_half::half::_eLut[LODWORD(v17) >> 23])
+  {
+    v18 = pxrInternal__aapl__pxrReserved__::pxr_half::half::_eLut[LODWORD(v17) >> 23] + (((LODWORD(v17) & 0x7FFFFF) + ((LODWORD(v17) >> 13) & 1) + 4095) >> 13);
+  }
+
+  else
+  {
+    v18 = pxrInternal__aapl__pxrReserved__::pxr_half::half::convert(LODWORD(v17));
+  }
+
+  return (v16 << 16) | (v18 << 32) | v14;
 }
 
 uint64_t *pxrInternal__aapl__pxrReserved__::GfDualQuath::operator*=(uint64_t *a1, unsigned __int16 *a2)
@@ -304,16 +320,34 @@ uint64_t *pxrInternal__aapl__pxrReserved__::GfDualQuath::operator*=(uint64_t *a1
   return a1;
 }
 
-unint64_t pxrInternal__aapl__pxrReserved__::GfDualQuath::Transform(unsigned __int16 *a1, unsigned __int16 *a2)
+unint64_t pxrInternal__aapl__pxrReserved__::GfDualQuath::Transform(pxrInternal__aapl__pxrReserved__::GfDualQuath *a1, unsigned __int16 *a2)
 {
   v3 = pxrInternal__aapl__pxrReserved__::GfQuath::Transform(a1, a2);
-  Translation = pxrInternal__aapl__pxrReserved__::GfDualQuath::GetTranslation(a1);
-  v7 = Translation;
-  v8 = WORD2(Translation);
-  v10 = WORD2(v3);
-  v9 = v3;
-  v5 = sub_29A130DE0(&v9, &v7);
-  return *v5 | (v5[2] << 32);
+  Translation = pxrInternal__aapl__pxrReserved__::GfDualQuath::GetTranslation(a1, v4);
+  v8 = Translation;
+  v9 = WORD2(Translation);
+  v11 = WORD2(v3);
+  v10 = v3;
+  v6 = sub_29A130DE0(&v10, &v8);
+  return *v6 | (v6[2] << 32);
+}
+
+void *pxrInternal__aapl__pxrReserved__::operator<<(void *a1, int8x8_t *a2)
+{
+  v9.i8[0] = 40;
+  v3 = sub_29A00911C(a1, &v9, 1);
+  v9 = *a2;
+  v4 = pxrInternal__aapl__pxrReserved__::operator<<(v3, &v9);
+  v5 = sub_29A00911C(v4, ", ", 2);
+  v8 = a2[1];
+  v6 = pxrInternal__aapl__pxrReserved__::operator<<(v5, &v8);
+  v10 = 41;
+  return sub_29A00911C(v6, &v10, 1);
+}
+
+{
+  v3 = vext_s8(*a2, *a2, 6uLL);
+  return pxrInternal__aapl__pxrReserved__::operator<<(a1, &v3);
 }
 
 uint64_t sub_29A13085C(unsigned __int16 *a1)
@@ -416,60 +450,60 @@ _WORD *sub_29A130A50(_WORD *a1, _WORD *a2, float *a3)
   return a1;
 }
 
-unsigned __int16 *sub_29A130AC8(unsigned __int16 *a1, double a2)
+unsigned __int16 *sub_29A130AC8(unsigned __int16 *a1, int a2, double a3)
 {
-  v3 = a2;
-  v4 = pxrInternal__aapl__pxrReserved__::pxr_half::half::_toFloat[*a1] * v3;
-  if (v4 == 0.0)
+  v4 = a3;
+  v5 = pxrInternal__aapl__pxrReserved__::pxr_half::half::_toFloat[*a1] * v4;
+  if (v5 == 0.0)
   {
-    v5 = HIWORD(LODWORD(v4));
+    v6 = HIWORD(LODWORD(v5));
   }
 
-  else if (pxrInternal__aapl__pxrReserved__::pxr_half::half::_eLut[LODWORD(v4) >> 23])
+  else if (pxrInternal__aapl__pxrReserved__::pxr_half::half::_eLut[LODWORD(v5) >> 23])
   {
-    v5 = pxrInternal__aapl__pxrReserved__::pxr_half::half::_eLut[LODWORD(v4) >> 23] + (((LODWORD(v4) & 0x7FFFFF) + ((LODWORD(v4) >> 13) & 1) + 4095) >> 13);
-  }
-
-  else
-  {
-    LOWORD(v5) = pxrInternal__aapl__pxrReserved__::pxr_half::half::convert(LODWORD(v4));
-  }
-
-  *a1 = v5;
-  v6 = pxrInternal__aapl__pxrReserved__::pxr_half::half::_toFloat[a1[1]] * v3;
-  if (v6 == 0.0)
-  {
-    v7 = HIWORD(LODWORD(v6));
-  }
-
-  else if (pxrInternal__aapl__pxrReserved__::pxr_half::half::_eLut[LODWORD(v6) >> 23])
-  {
-    v7 = pxrInternal__aapl__pxrReserved__::pxr_half::half::_eLut[LODWORD(v6) >> 23] + (((LODWORD(v6) & 0x7FFFFF) + ((LODWORD(v6) >> 13) & 1) + 4095) >> 13);
+    v6 = pxrInternal__aapl__pxrReserved__::pxr_half::half::_eLut[LODWORD(v5) >> 23] + (((LODWORD(v5) & 0x7FFFFF) + ((LODWORD(v5) >> 13) & 1) + 4095) >> 13);
   }
 
   else
   {
-    LOWORD(v7) = pxrInternal__aapl__pxrReserved__::pxr_half::half::convert(LODWORD(v6));
+    LOWORD(v6) = pxrInternal__aapl__pxrReserved__::pxr_half::half::convert(LODWORD(v5));
   }
 
-  a1[1] = v7;
-  v8 = pxrInternal__aapl__pxrReserved__::pxr_half::half::_toFloat[a1[2]] * v3;
-  if (v8 == 0.0)
+  *a1 = v6;
+  v7 = pxrInternal__aapl__pxrReserved__::pxr_half::half::_toFloat[a1[1]] * v4;
+  if (v7 == 0.0)
   {
-    v9 = HIWORD(LODWORD(v8));
+    v8 = HIWORD(LODWORD(v7));
   }
 
-  else if (pxrInternal__aapl__pxrReserved__::pxr_half::half::_eLut[LODWORD(v8) >> 23])
+  else if (pxrInternal__aapl__pxrReserved__::pxr_half::half::_eLut[LODWORD(v7) >> 23])
   {
-    v9 = pxrInternal__aapl__pxrReserved__::pxr_half::half::_eLut[LODWORD(v8) >> 23] + (((LODWORD(v8) & 0x7FFFFF) + ((LODWORD(v8) >> 13) & 1) + 4095) >> 13);
+    v8 = pxrInternal__aapl__pxrReserved__::pxr_half::half::_eLut[LODWORD(v7) >> 23] + (((LODWORD(v7) & 0x7FFFFF) + ((LODWORD(v7) >> 13) & 1) + 4095) >> 13);
   }
 
   else
   {
-    LOWORD(v9) = pxrInternal__aapl__pxrReserved__::pxr_half::half::convert(LODWORD(v8));
+    LOWORD(v8) = pxrInternal__aapl__pxrReserved__::pxr_half::half::convert(LODWORD(v7));
   }
 
-  a1[2] = v9;
+  a1[1] = v8;
+  v9 = pxrInternal__aapl__pxrReserved__::pxr_half::half::_toFloat[a1[2]] * v4;
+  if (v9 == 0.0)
+  {
+    v10 = HIWORD(LODWORD(v9));
+  }
+
+  else if (pxrInternal__aapl__pxrReserved__::pxr_half::half::_eLut[LODWORD(v9) >> 23])
+  {
+    v10 = pxrInternal__aapl__pxrReserved__::pxr_half::half::_eLut[LODWORD(v9) >> 23] + (((LODWORD(v9) & 0x7FFFFF) + ((LODWORD(v9) >> 13) & 1) + 4095) >> 13);
+  }
+
+  else
+  {
+    LOWORD(v10) = pxrInternal__aapl__pxrReserved__::pxr_half::half::convert(LODWORD(v9));
+  }
+
+  a1[2] = v10;
   return a1;
 }
 
@@ -610,9 +644,9 @@ unsigned __int16 *sub_29A130DE0(unsigned __int16 *a1, unsigned __int16 *a2)
 
 void sub_29A130F50()
 {
-  pxrInternal__aapl__pxrReserved__::TfEnum::_AddName(qword_2A2040758, 0, "GfFrustum::Orthographic", 0);
+  pxrInternal__aapl__pxrReserved__::TfEnum::_AddName(&unk_2A2040758, 0, "GfFrustum::Orthographic", 0);
 
-  pxrInternal__aapl__pxrReserved__::TfEnum::_AddName(qword_2A2040758, 1, "GfFrustum::Perspective", 0);
+  pxrInternal__aapl__pxrReserved__::TfEnum::_AddName(&unk_2A2040758, 1, "GfFrustum::Perspective", 0);
 }
 
 double pxrInternal__aapl__pxrReserved__::GfFrustum::GfFrustum(pxrInternal__aapl__pxrReserved__::GfFrustum *this)
@@ -885,7 +919,7 @@ BOOL pxrInternal__aapl__pxrReserved__::GfFrustum::GetPerspective(pxrInternal__aa
   return v6 == 1;
 }
 
-long double pxrInternal__aapl__pxrReserved__::GfFrustum::GetFOV(pxrInternal__aapl__pxrReserved__::GfFrustum *this, int a2)
+double pxrInternal__aapl__pxrReserved__::GfFrustum::GetFOV(pxrInternal__aapl__pxrReserved__::GfFrustum *this, int a2)
 {
   result = 0.0;
   if (*(this + 28) == 1)
@@ -1382,7 +1416,7 @@ void pxrInternal__aapl__pxrReserved__::GfFrustum::ComputeCorners(pxrInternal__aa
   sub_29A132438(a2, &v18);
   memset(v17, 0, sizeof(v17));
   pxrInternal__aapl__pxrReserved__::GfMatrix4d::SetLookAt(&v18, this, this + 3);
-  pxrInternal__aapl__pxrReserved__::GfMatrix4d::GetInverse(v18.f64, 0, 0.0, v17);
+  pxrInternal__aapl__pxrReserved__::GfMatrix4d::GetInverse(v17, v18.f64, 0, 0.0);
   for (i = 0; i != 192; i += 24)
   {
     v11 = sub_29A12CECC(v17, (*a2 + i));
@@ -1545,7 +1579,7 @@ void pxrInternal__aapl__pxrReserved__::GfFrustum::ComputeCornersAtDistance(pxrIn
   sub_29A132438(a3, &v15);
   memset(v14, 0, sizeof(v14));
   pxrInternal__aapl__pxrReserved__::GfMatrix4d::SetLookAt(&v15, this, this + 3);
-  pxrInternal__aapl__pxrReserved__::GfMatrix4d::GetInverse(v15.f64, 0, 0.0, v14);
+  pxrInternal__aapl__pxrReserved__::GfMatrix4d::GetInverse(v14, v15.f64, 0, 0.0);
   for (i = 0; i != 96; i += 24)
   {
     v9 = sub_29A12CECC(v14, (*a3 + i));
@@ -1633,7 +1667,7 @@ double pxrInternal__aapl__pxrReserved__::GfFrustum::ComputeRay@<D0>(uint64_t a1@
 {
   sub_29A1329E8(*(a1 + 112), (a1 + 56), a2, v16, *(a1 + 88));
   pxrInternal__aapl__pxrReserved__::GfMatrix4d::SetLookAt(&v20, a1, (a1 + 24));
-  pxrInternal__aapl__pxrReserved__::GfMatrix4d::GetInverse(&v20, 0, 0.0, &v10);
+  pxrInternal__aapl__pxrReserved__::GfMatrix4d::GetInverse(&v10, &v20, 0, 0.0);
   *&v20 = sub_29A12CECC(v10.f64, v16);
   *(&v20 + 1) = v5;
   v21 = v6;
@@ -1684,7 +1718,7 @@ double pxrInternal__aapl__pxrReserved__::GfFrustum::_ComputePickRayOffsetToNearP
   v20 = vaddq_f64(vmulq_n_f64(*a3, v6), *a2);
   v21 = v7;
   pxrInternal__aapl__pxrReserved__::GfMatrix4d::SetLookAt(&v22, a1, a1 + 3);
-  pxrInternal__aapl__pxrReserved__::GfMatrix4d::GetInverse(v22.f64, 0, 0.0, &v14);
+  pxrInternal__aapl__pxrReserved__::GfMatrix4d::GetInverse(&v14, v22.f64, 0, 0.0);
   v20.f64[0] = sub_29A12CECC(v14.f64, v20.f64);
   v20.f64[1] = v8;
   v21 = v9;
@@ -1722,7 +1756,7 @@ double pxrInternal__aapl__pxrReserved__::GfFrustum::ComputeRay@<D0>(uint64_t a1@
   v24[1] = v7;
   v24[2] = 0.0;
   pxrInternal__aapl__pxrReserved__::GfMatrix4d::SetLookAt(&v25, a1, (a1 + 24));
-  pxrInternal__aapl__pxrReserved__::GfMatrix4d::GetInverse(&v25, 0, 0.0, &v18);
+  pxrInternal__aapl__pxrReserved__::GfMatrix4d::GetInverse(&v18, &v25, 0, 0.0);
   *&v25 = sub_29A12CECC(v18.f64, v24);
   *(&v25 + 1) = v10;
   v26 = v11;
@@ -1815,7 +1849,7 @@ void pxrInternal__aapl__pxrReserved__::GfFrustum::_CalculateFrustumPlanes(pxrInt
     v52 = 0u;
     v53 = 0u;
     pxrInternal__aapl__pxrReserved__::GfMatrix4d::SetLookAt(&v60, this, this + 3);
-    pxrInternal__aapl__pxrReserved__::GfMatrix4d::GetInverse(&v60, 0, 0.0, &v52);
+    pxrInternal__aapl__pxrReserved__::GfMatrix4d::GetInverse(&v52, &v60, 0, 0.0);
     if (*(this + 28) == 1)
     {
       v50 = 0uLL;
@@ -3530,6 +3564,72 @@ void *pxrInternal__aapl__pxrReserved__::operator<<(void *a1, double *a2)
   return sub_29A00911C(v6, ")", 1);
 }
 
+{
+  v3 = sub_29A00911C(a1, "SdfPayload(", 11);
+  v4 = *(a2 + 23);
+  if (v4 >= 0)
+  {
+    v5 = a2;
+  }
+
+  else
+  {
+    v5 = *a2;
+  }
+
+  if (v4 >= 0)
+  {
+    v6 = *(a2 + 23);
+  }
+
+  else
+  {
+    v6 = *(a2 + 1);
+  }
+
+  v7 = sub_29A00911C(v3, v5, v6);
+  v8 = sub_29A00911C(v7, ", ", 2);
+  v9 = pxrInternal__aapl__pxrReserved__::operator<<(v8, (a2 + 3));
+  v10 = sub_29A00911C(v9, ", ", 2);
+  v11 = pxrInternal__aapl__pxrReserved__::operator<<(v10, a2 + 4);
+
+  return sub_29A00911C(v11, ")", 1);
+}
+
+{
+  v3 = sub_29A00911C(a1, "SdfReference(", 13);
+  v4 = *(a2 + 23);
+  if (v4 >= 0)
+  {
+    v5 = a2;
+  }
+
+  else
+  {
+    v5 = *a2;
+  }
+
+  if (v4 >= 0)
+  {
+    v6 = *(a2 + 23);
+  }
+
+  else
+  {
+    v6 = *(a2 + 1);
+  }
+
+  v7 = sub_29A00911C(v3, v5, v6);
+  v8 = sub_29A00911C(v7, ", ", 2);
+  v9 = pxrInternal__aapl__pxrReserved__::operator<<(v8, (a2 + 3));
+  v10 = sub_29A00911C(v9, ", ", 2);
+  v11 = pxrInternal__aapl__pxrReserved__::operator<<(v10, a2 + 4);
+  v12 = sub_29A00911C(v11, ", ", 2);
+  v13 = pxrInternal__aapl__pxrReserved__::operator<<(v12, a2 + 6);
+
+  return sub_29A00911C(v13, ")", 1);
+}
+
 float64x2_t pxrInternal__aapl__pxrReserved__::GfMatrix2d::GfMatrix2d(float64x2_t *a1, float32x2_t *a2)
 {
   result = vcvtq_f64_f32(*a2);
@@ -3778,203 +3878,7 @@ LABEL_2:
   }
 }
 
-void *pxrInternal__aapl__pxrReserved__::operator<<(void *a1, float *a2)
-{
-  v3 = sub_29A00911C(a1, "( (", 3);
-  v4 = pxrInternal__aapl__pxrReserved__::operator<<(v3, *a2);
-  v5 = sub_29A00911C(v4, ", ", 2);
-  v6 = pxrInternal__aapl__pxrReserved__::operator<<(v5, a2[1]);
-  v7 = sub_29A00911C(v6, "), (", 4);
-  v8 = pxrInternal__aapl__pxrReserved__::operator<<(v7, a2[2]);
-  v9 = sub_29A00911C(v8, ", ", 2);
-  v10 = pxrInternal__aapl__pxrReserved__::operator<<(v9, a2[3]);
-
-  return sub_29A00911C(v10, "))", 3);
-}
-
-{
-  v3 = sub_29A00911C(a1, "( (", 3);
-  v4 = pxrInternal__aapl__pxrReserved__::operator<<(v3, *a2);
-  v5 = sub_29A00911C(v4, ", ", 2);
-  v6 = pxrInternal__aapl__pxrReserved__::operator<<(v5, a2[1]);
-  v7 = sub_29A00911C(v6, ", ", 2);
-  v8 = pxrInternal__aapl__pxrReserved__::operator<<(v7, a2[2]);
-  v9 = sub_29A00911C(v8, "), (", 4);
-  v10 = pxrInternal__aapl__pxrReserved__::operator<<(v9, a2[3]);
-  v11 = sub_29A00911C(v10, ", ", 2);
-  v12 = pxrInternal__aapl__pxrReserved__::operator<<(v11, a2[4]);
-  v13 = sub_29A00911C(v12, ", ", 2);
-  v14 = pxrInternal__aapl__pxrReserved__::operator<<(v13, a2[5]);
-  v15 = sub_29A00911C(v14, "), (", 4);
-  v16 = pxrInternal__aapl__pxrReserved__::operator<<(v15, a2[6]);
-  v17 = sub_29A00911C(v16, ", ", 2);
-  v18 = pxrInternal__aapl__pxrReserved__::operator<<(v17, a2[7]);
-  v19 = sub_29A00911C(v18, ", ", 2);
-  v20 = pxrInternal__aapl__pxrReserved__::operator<<(v19, a2[8]);
-
-  return sub_29A00911C(v20, "))", 3);
-}
-
-{
-  v3 = sub_29A00911C(a1, "( (", 3);
-  v4 = pxrInternal__aapl__pxrReserved__::operator<<(v3, *a2);
-  v5 = sub_29A00911C(v4, ", ", 2);
-  v6 = pxrInternal__aapl__pxrReserved__::operator<<(v5, a2[1]);
-  v7 = sub_29A00911C(v6, ", ", 2);
-  v8 = pxrInternal__aapl__pxrReserved__::operator<<(v7, a2[2]);
-  v9 = sub_29A00911C(v8, ", ", 2);
-  v10 = pxrInternal__aapl__pxrReserved__::operator<<(v9, a2[3]);
-  v11 = sub_29A00911C(v10, "), (", 4);
-  v12 = pxrInternal__aapl__pxrReserved__::operator<<(v11, a2[4]);
-  v13 = sub_29A00911C(v12, ", ", 2);
-  v14 = pxrInternal__aapl__pxrReserved__::operator<<(v13, a2[5]);
-  v15 = sub_29A00911C(v14, ", ", 2);
-  v16 = pxrInternal__aapl__pxrReserved__::operator<<(v15, a2[6]);
-  v17 = sub_29A00911C(v16, ", ", 2);
-  v18 = pxrInternal__aapl__pxrReserved__::operator<<(v17, a2[7]);
-  v19 = sub_29A00911C(v18, "), (", 4);
-  v20 = pxrInternal__aapl__pxrReserved__::operator<<(v19, a2[8]);
-  v21 = sub_29A00911C(v20, ", ", 2);
-  v22 = pxrInternal__aapl__pxrReserved__::operator<<(v21, a2[9]);
-  v23 = sub_29A00911C(v22, ", ", 2);
-  v24 = pxrInternal__aapl__pxrReserved__::operator<<(v23, a2[10]);
-  v25 = sub_29A00911C(v24, ", ", 2);
-  v26 = pxrInternal__aapl__pxrReserved__::operator<<(v25, a2[11]);
-  v27 = sub_29A00911C(v26, "), (", 4);
-  v28 = pxrInternal__aapl__pxrReserved__::operator<<(v27, a2[12]);
-  v29 = sub_29A00911C(v28, ", ", 2);
-  v30 = pxrInternal__aapl__pxrReserved__::operator<<(v29, a2[13]);
-  v31 = sub_29A00911C(v30, ", ", 2);
-  v32 = pxrInternal__aapl__pxrReserved__::operator<<(v31, a2[14]);
-  v33 = sub_29A00911C(v32, ", ", 2);
-  v34 = pxrInternal__aapl__pxrReserved__::operator<<(v33, a2[15]);
-
-  return sub_29A00911C(v34, "))", 3);
-}
-
-{
-  v8 = 91;
-  v3 = sub_29A00911C(a1, &v8, 1);
-  v4 = pxrInternal__aapl__pxrReserved__::operator<<(v3, *a2);
-  v5 = sub_29A00911C(v4, "...", 3);
-  v6 = pxrInternal__aapl__pxrReserved__::operator<<(v5, a2[1]);
-  v9 = 93;
-  return sub_29A00911C(v6, &v9, 1);
-}
-
-{
-  v8 = 40;
-  v3 = sub_29A00911C(a1, &v8, 1);
-  v4 = pxrInternal__aapl__pxrReserved__::operator<<(v3, *a2);
-  v5 = sub_29A00911C(v4, ", ", 2);
-  v6 = pxrInternal__aapl__pxrReserved__::operator<<(v5, a2[1]);
-  v9 = 41;
-  return sub_29A00911C(v6, &v9, 1);
-}
-
-{
-  v10 = 40;
-  v3 = sub_29A00911C(a1, &v10, 1);
-  v4 = pxrInternal__aapl__pxrReserved__::operator<<(v3, *a2);
-  v5 = sub_29A00911C(v4, ", ", 2);
-  v6 = pxrInternal__aapl__pxrReserved__::operator<<(v5, a2[1]);
-  v7 = sub_29A00911C(v6, ", ", 2);
-  v8 = pxrInternal__aapl__pxrReserved__::operator<<(v7, a2[2]);
-  v11 = 41;
-  return sub_29A00911C(v8, &v11, 1);
-}
-
-{
-  v12 = 40;
-  v3 = sub_29A00911C(a1, &v12, 1);
-  v4 = pxrInternal__aapl__pxrReserved__::operator<<(v3, *a2);
-  v5 = sub_29A00911C(v4, ", ", 2);
-  v6 = pxrInternal__aapl__pxrReserved__::operator<<(v5, a2[1]);
-  v7 = sub_29A00911C(v6, ", ", 2);
-  v8 = pxrInternal__aapl__pxrReserved__::operator<<(v7, a2[2]);
-  v9 = sub_29A00911C(v8, ", ", 2);
-  v10 = pxrInternal__aapl__pxrReserved__::operator<<(v9, a2[3]);
-  v13 = 41;
-  return sub_29A00911C(v10, &v13, 1);
-}
-
-{
-  v4 = sub_29A00911C(a1, "HgiAttachmentDesc: {", 20);
-  v5 = sub_29A00911C(v4, "format: ", 8);
-  v6 = MEMORY[0x29C2C1ED0](v5, *a2);
-  v7 = sub_29A00911C(v6, ", ", 2);
-  v8 = sub_29A00911C(v7, "usage: ", 7);
-  v9 = MEMORY[0x29C2C1EE0](v8, *(a2 + 1));
-  v10 = sub_29A00911C(v9, ", ", 2);
-  v11 = sub_29A00911C(v10, "clearValue: ", 12);
-  v12 = pxrInternal__aapl__pxrReserved__::operator<<(v11, a2 + 4);
-  v13 = sub_29A00911C(v12, ", ", 2);
-  v14 = sub_29A00911C(v13, "colorMask: ", 11);
-  v15 = MEMORY[0x29C2C1EE0](v14, *(a2 + 8));
-  v16 = sub_29A00911C(v15, ", ", 2);
-  v17 = sub_29A00911C(v16, "loadOp: ", 8);
-  v18 = MEMORY[0x29C2C1ED0](v17, *(a2 + 2));
-  v19 = sub_29A00911C(v18, ", ", 2);
-  v20 = sub_29A00911C(v19, "storeOp: ", 9);
-  v21 = MEMORY[0x29C2C1ED0](v20, *(a2 + 3));
-  v22 = sub_29A00911C(v21, ", ", 2);
-  v23 = sub_29A00911C(v22, "blendEnabled: ", 14);
-  v24 = MEMORY[0x29C2C1EA0](v23, *(a2 + 36));
-  v25 = sub_29A00911C(v24, ", ", 2);
-  v26 = sub_29A00911C(v25, "srcColorBlendFactor: ", 21);
-  v27 = MEMORY[0x29C2C1ED0](v26, *(a2 + 10));
-  v28 = sub_29A00911C(v27, ", ", 2);
-  v29 = sub_29A00911C(v28, "dstColorBlendFactor: ", 21);
-  v30 = MEMORY[0x29C2C1ED0](v29, *(a2 + 11));
-  v31 = sub_29A00911C(v30, ", ", 2);
-  v32 = sub_29A00911C(v31, "colorBlendOp: ", 14);
-  v33 = MEMORY[0x29C2C1ED0](v32, *(a2 + 12));
-  v34 = sub_29A00911C(v33, ", ", 2);
-  v35 = sub_29A00911C(v34, "srcAlphaBlendFactor: ", 21);
-  v36 = MEMORY[0x29C2C1ED0](v35, *(a2 + 13));
-  v37 = sub_29A00911C(v36, ", ", 2);
-  v38 = sub_29A00911C(v37, "dstAlphaBlendFactor: ", 21);
-  v39 = MEMORY[0x29C2C1ED0](v38, *(a2 + 14));
-  v40 = sub_29A00911C(v39, ", ", 2);
-  v41 = sub_29A00911C(v40, "alphaBlendOp: ", 14);
-  v42 = MEMORY[0x29C2C1ED0](v41, *(a2 + 15));
-  v43 = sub_29A00911C(v42, ", ", 2);
-  v44 = sub_29A00911C(v43, "blendConstantColor: ", 20);
-  v45 = pxrInternal__aapl__pxrReserved__::operator<<(v44, a2 + 16);
-  sub_29A00911C(v45, "}", 1);
-  return a1;
-}
-
-{
-  v4 = sub_29A00911C(a1, "ColorizeSelectionTask Params: (...) ", 36);
-  v5 = MEMORY[0x29C2C1EA0](v4, *a2);
-  v6 = sub_29A00911C(v5, " ", 1);
-  v7 = MEMORY[0x29C2C1EA0](v6, *(a2 + 1));
-  v8 = sub_29A00911C(v7, " ", 1);
-  v9 = pxrInternal__aapl__pxrReserved__::operator<<(v8, a2 + 1);
-  v10 = sub_29A00911C(v9, " ", 1);
-  v11 = pxrInternal__aapl__pxrReserved__::operator<<(v10, a2 + 5);
-  v12 = sub_29A00911C(v11, " ", 1);
-  v13 = pxrInternal__aapl__pxrReserved__::operator<<(v12, (a2 + 11));
-  v14 = sub_29A00911C(v13, " ", 1);
-  v15 = pxrInternal__aapl__pxrReserved__::operator<<(v14, (a2 + 13));
-  v16 = sub_29A00911C(v15, " ", 1);
-  pxrInternal__aapl__pxrReserved__::operator<<(v16, (a2 + 15));
-  return a1;
-}
-
-{
-  v4 = MEMORY[0x29C2C1EA0](a1, *a2);
-  sub_29A00911C(v4, " ", 1);
-  v5 = MEMORY[0x29C2C1EA0](a1, *(a2 + 1));
-  sub_29A00911C(v5, " ", 1);
-  v6 = pxrInternal__aapl__pxrReserved__::operator<<(a1, a2 + 2);
-  sub_29A00911C(v6, " ", 1);
-  pxrInternal__aapl__pxrReserved__::operator<<(a1, a2 + 6);
-  return a1;
-}
-
-float64x2_t pxrInternal__aapl__pxrReserved__::GfMatrix2f::GfMatrix2f(float32x4_t *this, __n128 *a2)
+float64x2_t pxrInternal__aapl__pxrReserved__::GfMatrix2f::GfMatrix2f(float32x4_t *this, float64x2_t *a2)
 {
   result = a2[1];
   *this = vcvt_hight_f32_f64(vcvt_f32_f64(*a2), result);
@@ -4370,7 +4274,7 @@ uint64_t pxrInternal__aapl__pxrReserved__::GfMatrix3f::Get(pxrInternal__aapl__px
   return *a2;
 }
 
-float pxrInternal__aapl__pxrReserved__::GfMatrix3f::GetTranspose@<S0>(int32x4_t *this@<X0>, uint64_t a2@<X8>)
+float pxrInternal__aapl__pxrReserved__::GfMatrix3f::GetTranspose@<S0>(int8x16_t *this@<X0>, uint64_t a2@<X8>)
 {
   v2 = this[1];
   v3 = vtrn2q_s32(vextq_s8(v2, *this, 4uLL), *this);
@@ -5974,14 +5878,14 @@ uint64_t pxrInternal__aapl__pxrReserved__::GfMatrix4f::SetScale(uint64_t this, f
 
 double pxrInternal__aapl__pxrReserved__::GfMatrix4f::GetDeterminant(pxrInternal__aapl__pxrReserved__::GfMatrix4f *this, double a2, double a3, double a4, double a5, double a6, double a7, double a8, double a9)
 {
-  v10.i32[0] = *(this + 5);
-  v9.i32[0] = *(this + 6);
+  v9.i32[0] = *(this + 5);
+  v10.i32[0] = *(this + 6);
   v11.i32[0] = *(this + 8);
   v12 = *(this + 2);
-  v13 = __PAIR64__(v11.u32[0], v9.u32[0]);
+  v13 = __PAIR64__(v11.u32[0], v10.u32[0]);
   LODWORD(a9) = *(this + 4);
   v14 = *&a9 * v12;
-  v15 = v10.f32[0] * v12;
+  v15 = v9.f32[0] * v12;
   v16 = *(this + 36);
   v17 = *this;
   v18 = vzip1_s32(*&a9, v16);
@@ -5989,19 +5893,19 @@ double pxrInternal__aapl__pxrReserved__::GfMatrix4f::GetDeterminant(pxrInternal_
   v20 = vzip2_s32(v16, *this);
   v21.i32[1] = v16.i32[1];
   v22 = vext_s8(v16, *this, 4uLL);
-  v23 = vmul_n_f32(__PAIR64__(LODWORD(v12), v9.u32[0]), v16.f32[0]);
-  v24 = v10.f32[0] * COERCE_FLOAT(*this);
+  v23 = vmul_n_f32(__PAIR64__(LODWORD(v12), v10.u32[0]), v16.f32[0]);
+  v24 = v9.f32[0] * COERCE_FLOAT(*this);
   v25 = vmuls_lane_f32(v24, v16, 1);
   v26 = (*&a9 * v12) * v16.f32[0];
-  v27 = __PAIR64__(v16.u32[1], v10.u32[0]);
-  v10.i32[1] = v11.i32[0];
-  v28 = vmuls_lane_f32(v9.f32[0], *this, 1);
-  v9.i32[1] = LODWORD(a9);
-  v29 = vmul_f32(v9, *this);
+  v27 = __PAIR64__(v16.u32[1], v9.u32[0]);
+  v9.i32[1] = v11.i32[0];
+  v28 = vmuls_lane_f32(v10.f32[0], *this, 1);
+  v10.i32[1] = LODWORD(a9);
+  v29 = vmul_f32(v10, *this);
   v30 = vmul_f32(v16, v29);
   v17.i32[0] = v11.i32[0];
   v31 = v11.f32[0] * v28;
-  v32 = v11.f32[0] * (v10.f32[0] * v12);
+  v32 = v11.f32[0] * (v9.f32[0] * v12);
   v11.f32[1] = v12;
   v33.f32[0] = -*(this + 3);
   v34 = vmul_f32(v13, v11);
@@ -6011,7 +5915,7 @@ double pxrInternal__aapl__pxrReserved__::GfMatrix4f::GetDeterminant(pxrInternal_
   v33.i32[1] = *(this + 7);
   v21.i32[0] = LODWORD(a9);
   v36 = *(this + 12);
-  return *(this + 15) * (((((v25 + v31) + v26) - v30.f32[0]) - v30.f32[1]) - v32) + vaddvq_f64(vmulq_f64(vcvtq_f64_f32(v33), vcvtq_f64_f32(vsub_f32(vsub_f32(vsub_f32(vadd_f32(vadd_f32(vmul_n_f32(v35, v13.f32[0]), vmul_n_f32(vmul_f32(v27, v20), v36)), vmul_n_f32(v34, v18.f32[0])), vmul_n_f32(vmul_f32(v21, v22), v18.f32[0])), vmul_n_f32(vmul_f32(v10, v17), v13.f32[0])), vmul_n_f32(v23, v36))))) - *(this + 11) * ((((((v13.f32[0] * v24) + (v36 * v28)) + (v18.f32[0] * v14)) - (v18.f32[0] * v29.f32[0])) - vmuls_lane_f32(v13.f32[0], v29, 1)) - (v36 * v15));
+  return *(this + 15) * (((((v25 + v31) + v26) - v30.f32[0]) - v30.f32[1]) - v32) + vaddvq_f64(vmulq_f64(vcvtq_f64_f32(v33), vcvtq_f64_f32(vsub_f32(vsub_f32(vsub_f32(vadd_f32(vadd_f32(vmul_n_f32(v35, v13.f32[0]), vmul_n_f32(vmul_f32(v27, v20), v36)), vmul_n_f32(v34, v18.f32[0])), vmul_n_f32(vmul_f32(v21, v22), v18.f32[0])), vmul_n_f32(vmul_f32(v9, v17), v13.f32[0])), vmul_n_f32(v23, v36))))) - *(this + 11) * ((((((v13.f32[0] * v24) + (v36 * v28)) + (v18.f32[0] * v14)) - (v18.f32[0] * v29.f32[0])) - vmuls_lane_f32(v13.f32[0], v29, 1)) - (v36 * v15));
 }
 
 double pxrInternal__aapl__pxrReserved__::GfMatrix4f::_GetDeterminant3(pxrInternal__aapl__pxrReserved__::GfMatrix4f *this, int a2, int a3, int a4, uint64_t a5, uint64_t a6, uint64_t a7)
@@ -6376,7 +6280,8 @@ _OWORD *pxrInternal__aapl__pxrReserved__::GfMatrix4f::SetLookAt(_OWORD *a1, floa
   v19 = 0;
   v21 = 1065353216;
   *v15 = 1065353216;
-  *&v15[4] = 0uLL;
+  *&v15[12] = 0;
+  *&v15[4] = 0;
   *&v15[20] = 1065353216;
   *&v15[24] = 0;
   *&v16 = 0;
@@ -6438,7 +6343,7 @@ BOOL pxrInternal__aapl__pxrReserved__::GfMatrix4f::Factor(uint64_t a1, float32x4
   }
 
   v17 = a7;
-  pxrInternal__aapl__pxrReserved__::GfMatrix4d::GetTranspose(&v63, &v56);
+  pxrInternal__aapl__pxrReserved__::GfMatrix4d::GetTranspose(v56.f64, &v63);
   v62[4] = v64[3];
   v62[5] = v64[4];
   v62[6] = v65;
@@ -6488,7 +6393,7 @@ BOOL pxrInternal__aapl__pxrReserved__::GfMatrix4f::Factor(uint64_t a1, float32x4
   v32 = v58;
   v33 = v59;
   pxrInternal__aapl__pxrReserved__::GfMatrix4d::operator*=(v30.f64, v54);
-  pxrInternal__aapl__pxrReserved__::GfMatrix4d::GetTranspose(&v56, v29);
+  pxrInternal__aapl__pxrReserved__::GfMatrix4d::GetTranspose(v29, &v56);
   v42 = v34;
   v43 = v35;
   v44 = v36;
@@ -7296,38 +7201,38 @@ uint64_t pxrInternal__aapl__pxrReserved__::GfMatrix4d::Get(pxrInternal__aapl__px
   return *a2;
 }
 
-double pxrInternal__aapl__pxrReserved__::GfMatrix4d::GetTranspose@<D0>(pxrInternal__aapl__pxrReserved__::GfMatrix4d *this@<X0>, uint64_t a2@<X8>)
+double pxrInternal__aapl__pxrReserved__::GfMatrix4d::GetTranspose@<D0>(double *__return_ptr a1@<X8>, pxrInternal__aapl__pxrReserved__::GfMatrix4d *this@<X0>)
 {
   v2 = *(this + 1);
   v3 = *(this + 4);
   v4 = *(this + 5);
-  *a2 = *this;
-  *(a2 + 8) = v3;
+  *a1 = *this;
+  *(a1 + 1) = v3;
   v5 = *(this + 2);
   v6 = *(this + 3);
-  *(a2 + 32) = v2;
-  *(a2 + 40) = v4;
+  *(a1 + 4) = v2;
+  *(a1 + 5) = v4;
   v7 = *(this + 6);
   v8 = *(this + 7);
-  *(a2 + 64) = v5;
-  *(a2 + 72) = v7;
-  *(a2 + 96) = v6;
-  *(a2 + 104) = v8;
+  *(a1 + 8) = v5;
+  *(a1 + 9) = v7;
+  *(a1 + 12) = v6;
+  *(a1 + 13) = v8;
   v9 = *(this + 9);
   v10 = *(this + 12);
   v11 = *(this + 13);
-  *(a2 + 16) = *(this + 8);
-  *(a2 + 24) = v10;
+  a1[2] = *(this + 8);
+  *(a1 + 3) = v10;
   result = *(this + 10);
   v13 = *(this + 11);
-  *(a2 + 48) = v9;
-  *(a2 + 56) = v11;
+  *(a1 + 6) = v9;
+  *(a1 + 7) = v11;
   v14 = *(this + 14);
   v15 = *(this + 15);
-  *(a2 + 80) = result;
-  *(a2 + 88) = v14;
-  *(a2 + 112) = v13;
-  *(a2 + 120) = v15;
+  a1[10] = result;
+  *(a1 + 11) = v14;
+  *(a1 + 14) = v13;
+  *(a1 + 15) = v15;
   return result;
 }
 
@@ -7375,7 +7280,7 @@ double pxrInternal__aapl__pxrReserved__::GfMatrix4d::SetRotate(pxrInternal__aapl
   return result;
 }
 
-double *pxrInternal__aapl__pxrReserved__::GfMatrix4d::GetInverse@<X0>(double *this@<X0>, double *a2@<X1>, double a3@<D0>, uint64_t a4@<X8>)
+double *pxrInternal__aapl__pxrReserved__::GfMatrix4d::GetInverse@<X0>(uint64_t *__return_ptr a1@<X8>, double *this@<X0>, double *a3@<X1>, double a4@<D0>)
 {
   v4 = *this;
   v5 = this[1];
@@ -7404,20 +7309,20 @@ double *pxrInternal__aapl__pxrReserved__::GfMatrix4d::GetInverse@<X0>(double *th
   v28 = v9 * v22 - v11 * v21 - v5 * v25;
   v29 = v11 * v23 + v7 * v25 - v9 * v24;
   v30 = *this * v29 + v6 * v28 + v10 * v26 + v8 * v27;
-  if (a2)
+  if (a3)
   {
-    *a2 = v30;
+    *a3 = v30;
   }
 
-  if (fabs(v30) <= a3)
+  if (fabs(v30) <= a4)
   {
-    *a4 = 0x47EFFFFFE0000000;
-    *(a4 + 8) = 0u;
-    *(a4 + 24) = 0u;
-    *(a4 + 48) = 0u;
-    *(a4 + 64) = 0u;
-    *(a4 + 88) = 0u;
-    *(a4 + 104) = 0u;
+    *a1 = 0x47EFFFFFE0000000;
+    *(a1 + 1) = 0u;
+    *(a1 + 3) = 0u;
+    *(a1 + 3) = 0u;
+    *(a1 + 4) = 0u;
+    *(a1 + 11) = 0u;
+    *(a1 + 13) = 0u;
     v39 = 1.0;
     v37 = 3.40282347e38;
     v38 = 3.40282347e38;
@@ -7431,27 +7336,27 @@ double *pxrInternal__aapl__pxrReserved__::GfMatrix4d::GetInverse@<X0>(double *th
     v34 = v6 * v9 - v7 * v8;
     v35 = v6 * v11 - v7 * v10;
     v36 = v8 * v11 - v9 * v10;
-    *a4 = v29 * (1.0 / v30);
-    *(a4 + 8) = v28 * (1.0 / v30);
-    *(a4 + 32) = (v8 * v24 - v10 * v23 - v6 * v25) * (1.0 / v30);
-    *(a4 + 16) = v27 * (1.0 / v30);
-    *(a4 + 24) = v26 * (1.0 / v30);
-    *(a4 + 64) = (v36 * v15 - v35 * v17 + v34 * v18) * (1.0 / v30);
-    *(a4 + 72) = (v33 * v17 - v32 * v18 - v12 * v36) * (1.0 / v30);
-    *(a4 + 48) = (v6 * v22 - v10 * v20 - v4 * v24) * (1.0 / v30);
-    *(a4 + 56) = (v8 * v20 + v4 * v23 - v6 * v21) * (1.0 / v30);
-    *(a4 + 88) = (v32 * v15 - v31 * v17 - v34 * v12) * (1.0 / v30);
-    *(a4 + 96) = (v35 * v16 - v34 * v19 - v36 * v14) * (1.0 / v30);
-    *(a4 + 104) = (v13 * v36 - v33 * v16 + v32 * v19) * (1.0 / v30);
-    *(a4 + 112) = (v33 * v14 - v31 * v19 - v13 * v35) * (1.0 / v30);
+    *a1 = v29 * (1.0 / v30);
+    *(a1 + 1) = v28 * (1.0 / v30);
+    *(a1 + 4) = (v8 * v24 - v10 * v23 - v6 * v25) * (1.0 / v30);
+    *(a1 + 2) = v27 * (1.0 / v30);
+    *(a1 + 3) = v26 * (1.0 / v30);
+    *(a1 + 8) = (v36 * v15 - v35 * v17 + v34 * v18) * (1.0 / v30);
+    *(a1 + 9) = (v33 * v17 - v32 * v18 - v12 * v36) * (1.0 / v30);
+    *(a1 + 6) = (v6 * v22 - v10 * v20 - v4 * v24) * (1.0 / v30);
+    *(a1 + 7) = (v8 * v20 + v4 * v23 - v6 * v21) * (1.0 / v30);
+    *(a1 + 11) = (v32 * v15 - v31 * v17 - v34 * v12) * (1.0 / v30);
+    *(a1 + 12) = (v35 * v16 - v34 * v19 - v36 * v14) * (1.0 / v30);
+    *(a1 + 13) = (v13 * v36 - v33 * v16 + v32 * v19) * (1.0 / v30);
+    *(a1 + 14) = (v33 * v14 - v31 * v19 - v13 * v35) * (1.0 / v30);
     v37 = (v10 * v21 + v4 * v25 - v8 * v22) * (1.0 / v30);
     v38 = (v12 * v35 - v33 * v15 + v31 * v18) * (1.0 / v30);
     v39 = (v34 * v13 - v32 * v14 + v31 * v16) * (1.0 / v30);
   }
 
-  *(a4 + 40) = v37;
-  *(a4 + 80) = v38;
-  *(a4 + 120) = v39;
+  *(a1 + 5) = v37;
+  *(a1 + 10) = v38;
+  *(a1 + 15) = v39;
   return this;
 }
 
@@ -8464,7 +8369,7 @@ LABEL_2:
   return v4;
 }
 
-void *pxrInternal__aapl__pxrReserved__::GfMultiInterval::GfMultiInterval(void *a1, uint64_t a2)
+void *pxrInternal__aapl__pxrReserved__::GfMultiInterval::GfMultiInterval(void *a1, __n128 *a2)
 {
   a1[2] = 0;
   a1[1] = 0;
@@ -8473,15 +8378,15 @@ void *pxrInternal__aapl__pxrReserved__::GfMultiInterval::GfMultiInterval(void *a
   return a1;
 }
 
-void *pxrInternal__aapl__pxrReserved__::GfMultiInterval::Add(void *result, uint64_t a2)
+void *pxrInternal__aapl__pxrReserved__::GfMultiInterval::Add(void *result, __n128 *a2)
 {
-  v2 = *(a2 + 16);
-  if (*a2 <= v2)
+  v2 = a2[1].n128_f64[0];
+  if (a2->n128_f64[0] <= v2)
   {
     v3 = result;
-    if (*a2 != v2 || *(a2 + 8) == 1 && (*(a2 + 24) & 1) != 0)
+    if (a2->n128_f64[0] != v2 || a2->n128_u8[8] == 1 && (a2[1].n128_u8[8] & 1) != 0)
     {
-      v4 = *(a2 + 16);
+      v4 = a2[1];
       v9[0] = *a2;
       v9[1] = v4;
       if (result[1])
@@ -8524,7 +8429,7 @@ void *pxrInternal__aapl__pxrReserved__::GfMultiInterval::Add(void *result, uint6
         }
       }
 
-      sub_29A13F760();
+      sub_29A13F760(v3, v9, v9);
     }
   }
 
@@ -8554,7 +8459,9 @@ uint64_t sub_29A13DFBC(uint64_t *a1)
   result = *a1;
   if (result == a1[1])
   {
-    sub_29B28E7EC();
+    v5[6] = v1;
+    v5[7] = v2;
+    sub_29B28E7EC(v5);
   }
 
   return result;
@@ -8644,13 +8551,13 @@ uint64_t *pxrInternal__aapl__pxrReserved__::GfMultiInterval::GetBounds@<X0>(uint
 uint64_t pxrInternal__aapl__pxrReserved__::GfMultiInterval::Contains(pxrInternal__aapl__pxrReserved__::GfMultiInterval *this, double a2)
 {
   v4 = pxrInternal__aapl__pxrReserved__::GfMultiInterval::lower_bound(this, a2);
-  if ((this + 8) != v4)
+  if (this + 8 != v4)
   {
-    v5 = *(v4 + 32);
-    if (v5 < a2 || v5 == a2 && *(v4 + 40) == 1)
+    v5 = *(v4 + 4);
+    if (v5 < a2 || v5 == a2 && v4[40] == 1)
     {
-      v6 = *(v4 + 48);
-      if (v6 > a2 || v6 == a2 && (*(v4 + 56) & 1) != 0)
+      v6 = *(v4 + 6);
+      if (v6 > a2 || v6 == a2 && (v4[56] & 1) != 0)
       {
         return 1;
       }
@@ -8678,7 +8585,7 @@ uint64_t pxrInternal__aapl__pxrReserved__::GfMultiInterval::Contains(pxrInternal
   {
     do
     {
-      v8 = *(v4 + 16);
+      v8 = *(v4 + 2);
       v9 = *v8 == v4;
       v4 = v8;
     }
@@ -8697,7 +8604,7 @@ uint64_t pxrInternal__aapl__pxrReserved__::GfMultiInterval::Contains(pxrInternal
   }
 }
 
-uint64_t pxrInternal__aapl__pxrReserved__::GfMultiInterval::lower_bound(pxrInternal__aapl__pxrReserved__::GfMultiInterval *this, double a2)
+char *pxrInternal__aapl__pxrReserved__::GfMultiInterval::lower_bound(pxrInternal__aapl__pxrReserved__::GfMultiInterval *this, double a2)
 {
   if (*(this + 1))
   {
@@ -8804,7 +8711,9 @@ uint64_t sub_29A13E4D4(void *a1)
 {
   if (*a1 == a1[1])
   {
-    sub_29B28E844();
+    v4[6] = v1;
+    v4[7] = v2;
+    sub_29B28E844(v4);
   }
 
   return *a1 + 32;
@@ -8856,7 +8765,7 @@ void *sub_29A13E500(void *a1)
   return a1;
 }
 
-uint64_t pxrInternal__aapl__pxrReserved__::GfMultiInterval::upper_bound(pxrInternal__aapl__pxrReserved__::GfMultiInterval *this, double a2)
+char *pxrInternal__aapl__pxrReserved__::GfMultiInterval::upper_bound(pxrInternal__aapl__pxrReserved__::GfMultiInterval *this, double a2)
 {
   if (*(this + 1))
   {
@@ -8866,7 +8775,7 @@ uint64_t pxrInternal__aapl__pxrReserved__::GfMultiInterval::upper_bound(pxrInter
   return this + 8;
 }
 
-uint64_t pxrInternal__aapl__pxrReserved__::GfMultiInterval::GetNextNonContainingInterval(pxrInternal__aapl__pxrReserved__::GfMultiInterval *this, double a2)
+char *pxrInternal__aapl__pxrReserved__::GfMultiInterval::GetNextNonContainingInterval(pxrInternal__aapl__pxrReserved__::GfMultiInterval *this, double a2)
 {
   if (*(this + 1))
   {
@@ -8950,7 +8859,7 @@ double *pxrInternal__aapl__pxrReserved__::GfMultiInterval::GetPriorNonContaining
           v14 = v5[6];
           if (v14 > a2 || v14 == a2 && *(v5 + 56) == 1)
           {
-            sub_29B28E89C(&v17, &v16, a4);
+            sub_29B28E89C(&v17, v16, a4);
           }
         }
       }
@@ -9013,7 +8922,7 @@ uint64_t pxrInternal__aapl__pxrReserved__::GfMultiInterval::GetContainingInterva
   return result;
 }
 
-void *pxrInternal__aapl__pxrReserved__::GfMultiInterval::Add(void *this, const pxrInternal__aapl__pxrReserved__::GfMultiInterval **a2)
+void *pxrInternal__aapl__pxrReserved__::GfMultiInterval::Add(void *this, const pxrInternal__aapl__pxrReserved__::GfMultiInterval ***a2)
 {
   v4 = *a2;
   v5 = (a2 + 1);
@@ -9113,7 +9022,7 @@ LABEL_13:
   return result;
 }
 
-void *pxrInternal__aapl__pxrReserved__::GfMultiInterval::Remove(void *this, const pxrInternal__aapl__pxrReserved__::GfMultiInterval **a2)
+void *pxrInternal__aapl__pxrReserved__::GfMultiInterval::Remove(void *this, const pxrInternal__aapl__pxrReserved__::GfMultiInterval ***a2)
 {
   v4 = *a2;
   v5 = (a2 + 1);
@@ -9133,18 +9042,18 @@ void *pxrInternal__aapl__pxrReserved__::GfMultiInterval::Remove(void *this, cons
   return this;
 }
 
-void pxrInternal__aapl__pxrReserved__::GfMultiInterval::Remove(uint64_t a1, uint64_t a2)
+void pxrInternal__aapl__pxrReserved__::GfMultiInterval::Remove(uint64_t result, uint64_t a2)
 {
   v2 = *(a2 + 16);
   if (*a2 <= v2 && (*a2 != v2 || *(a2 + 8) == 1 && (*(a2 + 24) & 1) != 0))
   {
-    v4 = (a1 + 8);
-    if (*(a1 + 8))
+    v4 = (result + 8);
+    if (*(result + 8))
     {
       pxrInternal__aapl__pxrReserved__::GfInterval::operator<();
     }
 
-    if (v4 != *a1)
+    if (v4 != *result)
     {
       v5 = *v4;
       if (*v4)
@@ -9170,7 +9079,7 @@ void pxrInternal__aapl__pxrReserved__::GfMultiInterval::Remove(uint64_t a1, uint
         while (v7);
       }
 
-      sub_29A13EC58(v6, a2, a1);
+      sub_29A13EC58(v6, a2, result);
     }
   }
 }
@@ -9253,7 +9162,9 @@ void *sub_29A13EF34(void *result)
 {
   if (*result == result[1])
   {
-    sub_29B28E900();
+    v3[6] = v1;
+    v3[7] = v2;
+    sub_29B28E900(v3);
   }
 
   return result;
@@ -9312,7 +9223,7 @@ void pxrInternal__aapl__pxrReserved__::GfMultiInterval::Intersect(pxrInternal__a
   sub_29A082B84(v3, v3[1]);
 }
 
-void pxrInternal__aapl__pxrReserved__::GfMultiInterval::Intersect(pxrInternal__aapl__pxrReserved__::GfMultiInterval *a1, uint64_t a2)
+void pxrInternal__aapl__pxrReserved__::GfMultiInterval::Intersect(pxrInternal__aapl__pxrReserved__::GfMultiInterval *a1, __n128 *a2)
 {
   pxrInternal__aapl__pxrReserved__::GfMultiInterval::GfMultiInterval(v3, a2);
   pxrInternal__aapl__pxrReserved__::GfMultiInterval::Intersect(a1, v3);
@@ -9332,7 +9243,7 @@ double **pxrInternal__aapl__pxrReserved__::GfMultiInterval::_AssertInvariants(do
       v7 = v3[6];
       if (v6 > v7 || v6 == v7 && ((v3[5] & 1) == 0 || (v3[7] & 1) == 0))
       {
-        sub_29B28EA08(v12, &v11, a3);
+        sub_29B28EA08(v12, v11, a3);
       }
 
       if (v4)
@@ -9374,17 +9285,17 @@ double **pxrInternal__aapl__pxrReserved__::GfMultiInterval::_AssertInvariants(do
   return this;
 }
 
-void pxrInternal__aapl__pxrReserved__::GfMultiInterval::ArithmeticAdd(uint64_t *a1, uint64_t a2)
+void pxrInternal__aapl__pxrReserved__::GfMultiInterval::ArithmeticAdd(uint64_t **a1, uint64_t a2)
 {
   v14[0] = 0;
   v14[1] = 0;
   v13 = v14;
   v11 = *a1;
-  v12 = a1 + 1;
+  v12 = (a1 + 1);
   while (v11 != v12)
   {
     v4 = sub_29A13F2BC(&v11);
-    v5 = v4[1];
+    v5 = *(v4 + 16);
     v9 = *v4;
     v10 = v5;
     v6 = *(a2 + 16);
@@ -9398,9 +9309,9 @@ void pxrInternal__aapl__pxrReserved__::GfMultiInterval::ArithmeticAdd(uint64_t *
     {
       v8 = *(a2 + 24);
 LABEL_8:
-      *&v9 = *a2 + *&v9;
+      v9.n128_f64[0] = *a2 + v9.n128_f64[0];
       *&v10 = v6 + *&v10;
-      BYTE8(v9) &= v7;
+      v9.n128_u8[8] &= v7;
       BYTE8(v10) &= v8;
       goto LABEL_9;
     }
@@ -9427,7 +9338,9 @@ uint64_t sub_29A13F2BC(void *a1)
 {
   if (*a1 == a1[1])
   {
-    sub_29B28EA6C();
+    v4[6] = v1;
+    v4[7] = v2;
+    sub_29B28EA6C(v4);
   }
 
   return *a1 + 32;
@@ -9533,14 +9446,14 @@ uint64_t sub_29A13F470(uint64_t result, uint64_t a2)
   return result;
 }
 
-uint64_t *sub_29A13F534(uint64_t *result, uint64_t a2)
+uint64_t **sub_29A13F534(uint64_t **result, uint64_t a2)
 {
   v2 = *result;
   *result = *a2;
   *a2 = v2;
   v5 = result[1];
   v4 = result[2];
-  v3 = result + 1;
+  v3 = (result + 1);
   *(result + 1) = *(a2 + 8);
   *(a2 + 8) = v5;
   *(a2 + 16) = v4;
@@ -9731,7 +9644,7 @@ double pxrInternal__aapl__pxrReserved__::GfPlane::Set(float64x2_t *a1, uint64_t 
   return result;
 }
 
-pxrInternal__aapl__pxrReserved__::GfPlane *pxrInternal__aapl__pxrReserved__::GfPlane::Transform(float64x2_t *this, const pxrInternal__aapl__pxrReserved__::GfMatrix4d *a2)
+float64x2_t *pxrInternal__aapl__pxrReserved__::GfPlane::Transform(float64x2_t *this, const pxrInternal__aapl__pxrReserved__::GfMatrix4d *a2)
 {
   v17 = 0u;
   v18 = 0u;
@@ -9741,14 +9654,15 @@ pxrInternal__aapl__pxrReserved__::GfPlane *pxrInternal__aapl__pxrReserved__::GfP
   v14 = 0u;
   v11 = 0u;
   v12 = 0u;
-  pxrInternal__aapl__pxrReserved__::GfMatrix4d::GetInverse(a2, 0, 0.0, v10);
-  pxrInternal__aapl__pxrReserved__::GfMatrix4d::GetTranspose(v10, &v11);
+  pxrInternal__aapl__pxrReserved__::GfMatrix4d::GetInverse(v10, a2, 0, 0.0);
+  pxrInternal__aapl__pxrReserved__::GfMatrix4d::GetTranspose(v11.f64, v10);
   v3 = this;
-  v4 = vld1q_dup_f64(v3++);
+  v4 = vld1q_dup_f64(v3->f64);
+  v3 = (v3 + 8);
   v5 = this[1].f64[0];
   v6 = this[1].f64[1];
-  v7 = vsubq_f64(vaddq_f64(vaddq_f64(vmulq_f64(v4, v11), vmulq_n_f64(v13, *v3)), vmulq_n_f64(v15, v5)), vmulq_n_f64(v17, v6));
-  v8 = vsubq_f64(vaddq_f64(vaddq_f64(vmulq_f64(v4, v12), vmulq_n_f64(v14, *v3)), vmulq_n_f64(v16, v5)), vmulq_n_f64(v18, v6));
+  v7 = vsubq_f64(vaddq_f64(vaddq_f64(vmulq_f64(v4, v11), vmulq_n_f64(v13, v3->f64[0])), vmulq_n_f64(v15, v5)), vmulq_n_f64(v17, v6));
+  v8 = vsubq_f64(vaddq_f64(vaddq_f64(vmulq_f64(v4, v12), vmulq_n_f64(v14, v3->f64[0])), vmulq_n_f64(v16, v5)), vmulq_n_f64(v18, v6));
   v10[0] = v7;
   v10[1] = v8;
   pxrInternal__aapl__pxrReserved__::GfPlane::Set(this, v10);
@@ -9925,4 +9839,128 @@ float64x2_t pxrInternal__aapl__pxrReserved__::GfQuatd::GfQuatd(float64x2_t *a1, 
   *a1 = result;
   a1[1] = v3;
   return result;
+}
+
+double pxrInternal__aapl__pxrReserved__::GfQuatd::GfQuatd(double *a1, unsigned __int16 *a2)
+{
+  *a1 = pxrInternal__aapl__pxrReserved__::pxr_half::half::_toFloat[*a2];
+  a1[1] = pxrInternal__aapl__pxrReserved__::pxr_half::half::_toFloat[a2[1]];
+  a1[2] = pxrInternal__aapl__pxrReserved__::pxr_half::half::_toFloat[a2[2]];
+  result = pxrInternal__aapl__pxrReserved__::pxr_half::half::_toFloat[a2[3]];
+  a1[3] = result;
+  return result;
+}
+
+{
+  *a1 = pxrInternal__aapl__pxrReserved__::pxr_half::half::_toFloat[*a2];
+  a1[1] = pxrInternal__aapl__pxrReserved__::pxr_half::half::_toFloat[a2[1]];
+  a1[2] = pxrInternal__aapl__pxrReserved__::pxr_half::half::_toFloat[a2[2]];
+  result = pxrInternal__aapl__pxrReserved__::pxr_half::half::_toFloat[a2[3]];
+  a1[3] = result;
+  return result;
+}
+
+float64x2_t *pxrInternal__aapl__pxrReserved__::GfQuatd::Normalize(float64x2_t *this, double a2)
+{
+  v3 = *this;
+  v4 = this[1].f64[0];
+  v5 = this[1].f64[1];
+  v6 = sqrt(vaddvq_f64(vmulq_f64(v3, v3)) + v4 * v4 + v5 * v5);
+  if (v6 >= a2)
+  {
+    v8 = v5 / v6;
+    v7 = vmulq_n_f64(v3, 1.0 / v6);
+    v9 = v4 * (1.0 / v6);
+  }
+
+  else
+  {
+    v7 = 0uLL;
+    v8 = 1.0;
+    v9 = 0.0;
+  }
+
+  *this = v7;
+  this[1].f64[0] = v9;
+  this[1].f64[1] = v8;
+  return this;
+}
+
+double pxrInternal__aapl__pxrReserved__::GfQuatd::Transform(double *a1, double *a2)
+{
+  v2 = a1[1];
+  v3 = a1[2];
+  v4 = a1[3];
+  v5 = *a1 * *a1 + v2 * v2 + v3 * v3;
+  v6 = a2[1];
+  v7 = a2[2];
+  v8 = *a1 * *a2 + v2 * v6 + v3 * v7;
+  return 1.0 / (v4 * v4 + v5) * ((v4 + v4) * (v2 * v7 - v3 * v6) + *a2 * (v4 * v4 - v5) + *a1 * (v8 + v8));
+}
+
+double pxrInternal__aapl__pxrReserved__::GfQuatd::operator*=(double *a1, double *a2)
+{
+  v3 = a1[2];
+  v2 = a1[3];
+  v5 = a2[2];
+  v4 = a2[3];
+  v6 = a1[1];
+  v7 = a2[1];
+  v8 = v2 * v4 - (*a1 * *a2 + v6 * v7 + v3 * v5);
+  v9 = v4 * *a1 + v2 * *a2 + v6 * v5 - v7 * v3;
+  v10 = v4 * v6 + v2 * v7 + *a2 * v3 - *a1 * v5;
+  v11 = v4 * v3 + v2 * v5;
+  v12 = *a1 * v7 - *a2 * v6;
+  *a1 = v9;
+  a1[1] = v10;
+  result = v12 + v11;
+  a1[2] = result;
+  a1[3] = v8;
+  return result;
+}
+
+double pxrInternal__aapl__pxrReserved__::GfSlerp(pxrInternal__aapl__pxrReserved__ *this, double a2, const pxrInternal__aapl__pxrReserved__::GfQuatd *a3, const pxrInternal__aapl__pxrReserved__::GfQuatd *a4)
+{
+  v5 = *this;
+  v6 = *(this + 1);
+  v7 = *a3;
+  v8 = *(a3 + 1);
+  v9 = *(this + 2);
+  v10 = *(this + 3);
+  v11 = *(a3 + 2);
+  v12 = *(a3 + 3);
+  v13 = *this * *a3 + v6 * v8 + v9 * v11 + v10 * v12;
+  v14 = -v13;
+  if (v13 >= 0.0)
+  {
+    v14 = *this * *a3 + v6 * v8 + v9 * v11 + v10 * v12;
+  }
+
+  if (1.0 - v14 <= 0.00001)
+  {
+    v19 = 1.0 - a2;
+  }
+
+  else
+  {
+    v23 = *a3;
+    v24 = *this;
+    v15 = acos(v14);
+    v16 = sin(v15);
+    v17 = sin((1.0 - a2) * v15);
+    v18 = v15 * a2;
+    v19 = v17 / v16;
+    v20 = sin(v18);
+    v7 = v23;
+    v5 = v24;
+    a2 = v20 / v16;
+  }
+
+  v21 = -a2;
+  if (v13 >= 0.0)
+  {
+    v21 = a2;
+  }
+
+  return v5 * v19 + v7 * v21;
 }

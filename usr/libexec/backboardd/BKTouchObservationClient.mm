@@ -30,12 +30,11 @@
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
       v8 = [BSDescriptionStream descriptionForRootObject:v5];
-      pid = self->_pid;
-      v10 = BSProcessDescriptionForPID();
+      v9 = BSProcessDescriptionForPID();
       *location = 138543618;
       *&location[4] = v8;
-      v14 = 2114;
-      v15 = v10;
+      v13 = 2114;
+      v14 = v9;
       _os_log_debug_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEBUG, "post updates:%{public}@ to:%{public}@", location, 0x16u);
     }
 
@@ -43,13 +42,13 @@
     BSContinuousMachTimeNow();
     self->_lock_updateSentTimestamp = v7;
     objc_initWeak(location, self);
-    v11[0] = _NSConcreteStackBlock;
-    v11[1] = 3221225472;
-    v11[2] = sub_100009CF4;
-    v11[3] = &unk_1000FA638;
-    objc_copyWeak(&v12, location);
-    [remoteTarget observeTouchEventDeliveryDidOccur:v5 response:v11];
-    objc_destroyWeak(&v12);
+    v10[0] = _NSConcreteStackBlock;
+    v10[1] = 3221225472;
+    v10[2] = sub_100009CF4;
+    v10[3] = &unk_1000FA638;
+    objc_copyWeak(&v11, location);
+    [remoteTarget observeTouchEventDeliveryDidOccur:v5 response:v10];
+    objc_destroyWeak(&v11);
     objc_destroyWeak(location);
   }
 }
@@ -69,15 +68,14 @@
       v10 = BKLogTouchDeliveryObserver();
       if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
-        pid = self->_pid;
-        v14 = BSProcessDescriptionForPID();
-        v15 = 134218498;
-        v16 = v8;
-        v17 = 1024;
-        v18 = v6;
-        v19 = 2114;
-        v20 = v14;
-        _os_log_error_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, "waiting for %g seconds; dropping %d updates for %{public}@", &v15, 0x1Cu);
+        v13 = BSProcessDescriptionForPID();
+        v14 = 134218498;
+        v15 = v8;
+        v16 = 1024;
+        v17 = v6;
+        v18 = 2114;
+        v19 = v13;
+        _os_log_error_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, "waiting for %g seconds; dropping %d updates for %{public}@", &v14, 0x1Cu);
       }
 
       [(NSMutableArray *)self->_lock_pendingUpdates removeAllObjects];

@@ -126,7 +126,7 @@
   v5 = messageDisplayView2;
   if (messageDisplayView2)
   {
-    [messageDisplayView2 transform];
+    objc_msgSend_transform(messageDisplayView2);
   }
 
   else

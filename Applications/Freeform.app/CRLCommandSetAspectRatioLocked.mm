@@ -29,7 +29,7 @@
   static UUID._unconditionallyBridgeFromObjectiveC(_:)();
   (*(v7 + 16))(self + OBJC_IVAR____TtC8Freeform30CRLCommandSetAspectRatioLocked_id, v9, v6);
   *(self + OBJC_IVAR____TtC8Freeform30CRLCommandSetAspectRatioLocked_aspectRatioLocked) = locked;
-  v10 = type metadata accessor for CRLCommandSetAspectRatioLocked();
+  v10 = type metadata accessor for CRLCommandSetAspectRatioLocked(0);
   v13.receiver = self;
   v13.super_class = v10;
   v11 = [(CRLCommand *)&v13 init];

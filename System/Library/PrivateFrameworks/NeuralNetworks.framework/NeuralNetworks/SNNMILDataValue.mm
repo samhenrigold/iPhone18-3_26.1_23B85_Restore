@@ -85,36 +85,36 @@
 
 - (SNNMILDataValue)initWithShape:(id)shape bytes:(const void *)bytes dataType:(unint64_t)type
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   shapeCopy = shape;
-  v25.receiver = self;
-  v25.super_class = SNNMILDataValue;
-  v10 = [(SNNMILValue *)&v25 init];
+  v24.receiver = self;
+  v24.super_class = SNNMILDataValue;
+  v10 = [(SNNMILValue *)&v24 init];
   if (v10)
   {
-    v23 = 0u;
-    v24 = 0u;
-    v21 = 0u;
     v22 = 0u;
+    v23 = 0u;
+    v20 = 0u;
+    v21 = 0u;
     v11 = shapeCopy;
-    v12 = [v11 countByEnumeratingWithState:&v21 objects:v26 count:16];
+    v12 = [v11 countByEnumeratingWithState:&v20 objects:v25 count:16];
     if (v12)
     {
-      v13 = *v22;
+      v13 = *v21;
       v14 = 1;
       do
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v22 != v13)
+          if (*v21 != v13)
           {
             objc_enumerationMutation(v11);
           }
 
-          v14 *= [*(*(&v21 + 1) + 8 * i) unsignedIntegerValue];
+          v14 *= [*(*(&v20 + 1) + 8 * i) unsignedIntegerValue];
         }
 
-        v12 = [v11 countByEnumeratingWithState:&v21 objects:v26 count:16];
+        v12 = [v11 countByEnumeratingWithState:&v20 objects:v25 count:16];
       }
 
       while (v12);
@@ -143,42 +143,41 @@
     v10->_dataType = type;
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
 - (SNNMILDataValue)initWithShape:(id)shape bytesNoCopy:(void *)copy dataType:(unint64_t)type
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   shapeCopy = shape;
-  v25.receiver = self;
-  v25.super_class = SNNMILDataValue;
-  v10 = [(SNNMILValue *)&v25 init];
+  v24.receiver = self;
+  v24.super_class = SNNMILDataValue;
+  v10 = [(SNNMILValue *)&v24 init];
   if (v10)
   {
-    v23 = 0u;
-    v24 = 0u;
-    v21 = 0u;
     v22 = 0u;
+    v23 = 0u;
+    v20 = 0u;
+    v21 = 0u;
     v11 = shapeCopy;
-    v12 = [v11 countByEnumeratingWithState:&v21 objects:v26 count:16];
+    v12 = [v11 countByEnumeratingWithState:&v20 objects:v25 count:16];
     if (v12)
     {
-      v13 = *v22;
+      v13 = *v21;
       v14 = 1;
       do
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v22 != v13)
+          if (*v21 != v13)
           {
             objc_enumerationMutation(v11);
           }
 
-          v14 *= [*(*(&v21 + 1) + 8 * i) unsignedIntegerValue];
+          v14 *= [*(*(&v20 + 1) + 8 * i) unsignedIntegerValue];
         }
 
-        v12 = [v11 countByEnumeratingWithState:&v21 objects:v26 count:16];
+        v12 = [v11 countByEnumeratingWithState:&v20 objects:v25 count:16];
       }
 
       while (v12);
@@ -207,7 +206,6 @@
     v10->_dataType = type;
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -259,43 +257,40 @@
 
 - (int64_t)scalarCount
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   dimensions = [(SNNMILDataValue *)self dimensions];
 
-  if (dimensions)
+  if (!dimensions)
   {
-    v13 = 0u;
-    v14 = 0u;
-    v11 = 0u;
-    v12 = 0u;
-    dimensions2 = [(SNNMILDataValue *)self dimensions];
-    v5 = [dimensions2 countByEnumeratingWithState:&v11 objects:v15 count:16];
-    if (v5)
-    {
-      v6 = *v12;
-      v7 = 1;
-      do
-      {
-        for (i = 0; i != v5; ++i)
-        {
-          if (*v12 != v6)
-          {
-            objc_enumerationMutation(dimensions2);
-          }
+    return 1;
+  }
 
-          v7 *= [*(*(&v11 + 1) + 8 * i) unsignedIntegerValue];
+  v12 = 0u;
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
+  dimensions2 = [(SNNMILDataValue *)self dimensions];
+  v5 = [dimensions2 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  if (v5)
+  {
+    v6 = *v11;
+    v7 = 1;
+    do
+    {
+      for (i = 0; i != v5; ++i)
+      {
+        if (*v11 != v6)
+        {
+          objc_enumerationMutation(dimensions2);
         }
 
-        v5 = [dimensions2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+        v7 *= [*(*(&v10 + 1) + 8 * i) unsignedIntegerValue];
       }
 
-      while (v5);
+      v5 = [dimensions2 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
-    else
-    {
-      v7 = 1;
-    }
+    while (v5);
   }
 
   else
@@ -303,7 +298,6 @@
     v7 = 1;
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -315,12 +309,12 @@
 
   if (dimensions)
   {
-    bytes = [(SNNMILDataValue *)self bytes];
+    [(SNNMILDataValue *)self bytes];
     dimensions2 = [(SNNMILDataValue *)self dimensions];
-    dataType = [(SNNMILDataValue *)self dataType];
+    [(SNNMILDataValue *)self dataType];
     if (contextCopy)
     {
-      [contextCopy milValueForTensorWithBytes:bytes shape:dimensions2 dataType:dataType];
+      objc_msgSend_milValueForTensorWithBytes_shape_dataType_(contextCopy);
     }
 
     else
@@ -331,10 +325,10 @@
 
   else if ([(SNNMILDataValue *)self dataType]== 1)
   {
-    v10 = [objc_alloc(MEMORY[0x277CCACA8]) initWithData:self->_data encoding:4];
+    v8 = [objc_alloc(MEMORY[0x277CCACA8]) initWithData:self->_data encoding:4];
     if (contextCopy)
     {
-      [contextCopy milValueForString:v10];
+      objc_msgSend_milValueForString_(contextCopy);
     }
 
     else
@@ -345,11 +339,11 @@
 
   else
   {
-    bytes2 = [(SNNMILDataValue *)self bytes];
-    dataType2 = [(SNNMILDataValue *)self dataType];
+    bytes = [(SNNMILDataValue *)self bytes];
+    dataType = [(SNNMILDataValue *)self dataType];
     if (contextCopy)
     {
-      [contextCopy milValueForScalarWithBytes:bytes2 dataType:dataType2];
+      [contextCopy milValueForScalarWithBytes:bytes dataType:dataType];
     }
 
     else
@@ -358,7 +352,7 @@
     }
   }
 
-  return v13;
+  return v11;
 }
 
 @end

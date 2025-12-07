@@ -7,6 +7,7 @@
 - (void)dealloc;
 - (void)downloadFirmwareWithOptions:(id)options;
 - (void)encodeWithCoder:(id)coder;
+- (void)findFirmwareWithOptions:(id)options remote:(BOOL)remote;
 - (void)finishWithOptions:(id)options;
 - (void)prepareFirmwareWithOptions:(id)options;
 @end
@@ -26,41 +27,8 @@
   v26.super_class = FGKUPlugin;
   v16 = [(FGKUPlugin *)&v26 init];
   v17 = v16;
-  if (!delegateCopy)
+  if (!delegateCopy || !classCopy || !v16 || (objc_storeStrong(&v16->_deviceClass, class), v18 = objc_alloc_init(NSMutableDictionary), pluginInfo = v17->_pluginInfo, v17->_pluginInfo = v18, pluginInfo, objc_storeWeak(&v17->_delegate, delegateCopy), v20 = [AppleFirmwareUpdateController alloc], [optionsCopy objectForKeyedSubscript:@"IOMatchLaunchServiceID"], v21 = objc_claimAutoreleasedReturnValue(), objc_msgSend(optionsCopy, "objectForKeyedSubscript:", @"FWDirectory"), v22 = objc_claimAutoreleasedReturnValue(), v23 = objc_msgSend(v20, "initWithRegistryEntryID:fwAssetDirectory:", v21, v22), controller = v17->_controller, v17->_controller = v23, controller, v22, v21, -[NSMutableDictionary setObject:forKeyedSubscript:](v17->_pluginInfo, "setObject:forKeyedSubscript:", &off_100004580, @"PrepareWeight"), -[NSMutableDictionary setObject:forKeyedSubscript:](v17->_pluginInfo, "setObject:forKeyedSubscript:", &off_100004590, @"ApplyWeight"), -[NSMutableDictionary setObject:forKeyedSubscript:](v17->_pluginInfo, "setObject:forKeyedSubscript:", &off_1000045A0, @"FinishWeight"), *info = v17->_pluginInfo, (-[AppleFirmwareUpdateController createFWAssetInfo](v17->_controller, "createFWAssetInfo") & 1) == 0))
   {
-    goto LABEL_6;
-  }
-
-  if (!classCopy)
-  {
-    goto LABEL_6;
-  }
-
-  if (!v16)
-  {
-    goto LABEL_6;
-  }
-
-  objc_storeStrong(&v16->_deviceClass, class);
-  v18 = objc_alloc_init(NSMutableDictionary);
-  pluginInfo = v17->_pluginInfo;
-  v17->_pluginInfo = v18;
-
-  objc_storeWeak(&v17->_delegate, delegateCopy);
-  v20 = [AppleFirmwareUpdateController alloc];
-  v21 = [optionsCopy objectForKeyedSubscript:@"IOMatchLaunchServiceID"];
-  v22 = [optionsCopy objectForKeyedSubscript:@"FWDirectory"];
-  v23 = [v20 initWithRegistryEntryID:v21 fwAssetDirectory:v22];
-  controller = v17->_controller;
-  v17->_controller = v23;
-
-  [(NSMutableDictionary *)v17->_pluginInfo setObject:&off_100004580 forKeyedSubscript:@"PrepareWeight"];
-  [(NSMutableDictionary *)v17->_pluginInfo setObject:&off_100004590 forKeyedSubscript:@"ApplyWeight"];
-  [(NSMutableDictionary *)v17->_pluginInfo setObject:&off_1000045A0 forKeyedSubscript:@"FinishWeight"];
-  *info = v17->_pluginInfo;
-  if (([(AppleFirmwareUpdateController *)v17->_controller createFWAssetInfo]& 1) == 0)
-  {
-LABEL_6:
     sub_100001794(delegateCopy);
 
     v17 = 0;
@@ -79,6 +47,17 @@ LABEL_6:
 
   delegate2 = [(FGKUPlugin *)self delegate];
   [delegate2 didBootstrap:v7 == 0 info:0 error:?];
+}
+
+- (void)findFirmwareWithOptions:(id)options remote:(BOOL)remote
+{
+  remoteCopy = remote;
+  optionsCopy = options;
+  delegate = [(FGKUPlugin *)self delegate];
+  [delegate log:7 format:{@"%s options %@ remote %d", "-[FGKUPlugin findFirmwareWithOptions:remote:]", optionsCopy, remoteCopy}];
+
+  delegate2 = [(FGKUPlugin *)self delegate];
+  [delegate2 didFind:1 info:0 updateAvailable:0 needsDownload:0 error:0];
 }
 
 - (void)downloadFirmwareWithOptions:(id)options

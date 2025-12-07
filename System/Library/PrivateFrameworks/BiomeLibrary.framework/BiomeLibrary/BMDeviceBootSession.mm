@@ -17,14 +17,12 @@
 
 + (id)columns
 {
-  v7[2] = *MEMORY[0x1E69E9840];
+  v6[2] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"bootUUID" dataType:6 requestOnly:0 fieldNumber:1 protoDataType:14 convertedType:3];
   v3 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"starting" dataType:0 requestOnly:0 fieldNumber:2 protoDataType:12 convertedType:0];
-  v7[0] = v2;
-  v7[1] = v3;
-  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:2];
-
-  v5 = *MEMORY[0x1E69E9840];
+  v6[0] = v2;
+  v6[1] = v3;
+  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:2];
 
   return v4;
 }
@@ -99,7 +97,7 @@ LABEL_14:
 
 - (id)jsonDictionary
 {
-  v12[2] = *MEMORY[0x1E69E9840];
+  v11[2] = *MEMORY[0x1E69E9840];
   bootUUID = [(BMDeviceBootSession *)self bootUUID];
   uUIDString = [bootUUID UUIDString];
 
@@ -113,23 +111,23 @@ LABEL_14:
     v5 = 0;
   }
 
-  v11[0] = @"bootUUID";
+  v10[0] = @"bootUUID";
   null = uUIDString;
   if (!uUIDString)
   {
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v11[1] = @"starting";
-  v12[0] = null;
+  v10[1] = @"starting";
+  v11[0] = null;
   null2 = v5;
   if (!v5)
   {
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v12[1] = null2;
-  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:2];
+  v11[1] = null2;
+  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:v10 count:2];
   if (v5)
   {
     if (uUIDString)
@@ -148,14 +146,13 @@ LABEL_14:
   }
 
 LABEL_10:
-  v9 = *MEMORY[0x1E69E9840];
 
   return v8;
 }
 
 - (BMDeviceBootSession)initWithJSONDictionary:(id)dictionary error:(id *)error
 {
-  v31[1] = *MEMORY[0x1E69E9840];
+  v30[1] = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   v7 = [dictionaryCopy objectForKeyedSubscript:@"bootUUID"];
   if (!v7 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
@@ -170,13 +167,13 @@ LABEL_4:
       {
         if (error)
         {
-          v19 = objc_alloc(MEMORY[0x1E696ABC0]);
-          v20 = *MEMORY[0x1E698F240];
-          v26 = *MEMORY[0x1E696A578];
-          v21 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"starting"];
-          v27 = v21;
-          v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v27 forKeys:&v26 count:1];
-          *error = [v19 initWithDomain:v20 code:2 userInfo:v22];
+          v18 = objc_alloc(MEMORY[0x1E696ABC0]);
+          v19 = *MEMORY[0x1E698F240];
+          v25 = *MEMORY[0x1E696A578];
+          v20 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"starting"];
+          v26 = v20;
+          v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v26 forKeys:&v25 count:1];
+          *error = [v18 initWithDomain:v19 code:2 userInfo:v21];
         }
 
         v10 = 0;
@@ -208,25 +205,25 @@ LABEL_8:
       goto LABEL_11;
     }
 
-    v16 = objc_alloc(MEMORY[0x1E696ABC0]);
-    v17 = *MEMORY[0x1E698F240];
-    v28 = *MEMORY[0x1E696A578];
+    v15 = objc_alloc(MEMORY[0x1E696ABC0]);
+    v16 = *MEMORY[0x1E698F240];
+    v27 = *MEMORY[0x1E696A578];
     v8 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"bootUUID"];
-    v29 = v8;
-    v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v29 forKeys:&v28 count:1];
-    v18 = [v16 initWithDomain:v17 code:2 userInfo:v10];
+    v28 = v8;
+    v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v28 forKeys:&v27 count:1];
+    v17 = [v15 initWithDomain:v16 code:2 userInfo:v10];
     selfCopy = 0;
-    *error = v18;
+    *error = v17;
     goto LABEL_9;
   }
 
   v8 = v7;
-  v14 = [objc_alloc(MEMORY[0x1E696AFB0]) initWithUUIDString:v8];
-  if (v14)
+  v13 = [objc_alloc(MEMORY[0x1E696AFB0]) initWithUUIDString:v8];
+  if (v13)
   {
-    v15 = v14;
+    v14 = v13;
 
-    v8 = v15;
+    v8 = v14;
     goto LABEL_4;
   }
 
@@ -236,13 +233,13 @@ LABEL_8:
     goto LABEL_10;
   }
 
-  v23 = objc_alloc(MEMORY[0x1E696ABC0]);
-  v24 = *MEMORY[0x1E698F240];
-  v30 = *MEMORY[0x1E696A578];
+  v22 = objc_alloc(MEMORY[0x1E696ABC0]);
+  v23 = *MEMORY[0x1E698F240];
+  v29 = *MEMORY[0x1E696A578];
   v10 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"-initWithUUIDString: for %@ returned nil", @"bootUUID"];
-  v31[0] = v10;
-  v25 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v31 forKeys:&v30 count:1];
-  *error = [v23 initWithDomain:v24 code:2 userInfo:v25];
+  v30[0] = v10;
+  v24 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v30 forKeys:&v29 count:1];
+  *error = [v22 initWithDomain:v23 code:2 userInfo:v24];
 
   selfCopy = 0;
 LABEL_9:
@@ -250,7 +247,6 @@ LABEL_9:
 LABEL_10:
 LABEL_11:
 
-  v12 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
@@ -266,18 +262,17 @@ LABEL_11:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v6 = toCopy;
+  v5 = toCopy;
   if (self->_raw_bootUUID)
   {
     PBDataWriterWriteDataField();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_hasStarting)
   {
-    starting = self->_starting;
     PBDataWriterWriteBOOLField();
-    toCopy = v6;
+    toCopy = v5;
   }
 }
 
@@ -438,21 +433,21 @@ LABEL_38:
 
 - (BMDeviceBootSession)initWithBootUUID:(id)d starting:(id)starting
 {
-  v14[2] = *MEMORY[0x1E69E9840];
+  v13[2] = *MEMORY[0x1E69E9840];
   dCopy = d;
   startingCopy = starting;
-  v13.receiver = self;
-  v13.super_class = BMDeviceBootSession;
-  v8 = [(BMEventBase *)&v13 init];
+  v12.receiver = self;
+  v12.super_class = BMDeviceBootSession;
+  v8 = [(BMEventBase *)&v12 init];
   if (v8)
   {
     v8->_dataVersion = [objc_opt_class() latestDataVersion];
     if (dCopy)
     {
-      v14[0] = 0;
-      v14[1] = 0;
-      [dCopy getUUIDBytes:v14];
-      v9 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytes:v14 length:16];
+      v13[0] = 0;
+      v13[1] = 0;
+      [dCopy getUUIDBytes:v13];
+      v9 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytes:v13 length:16];
       raw_bootUUID = v8->_raw_bootUUID;
       v8->_raw_bootUUID = v9;
     }
@@ -476,20 +471,17 @@ LABEL_38:
     }
   }
 
-  v11 = *MEMORY[0x1E69E9840];
   return v8;
 }
 
 + (id)protoFields
 {
-  v7[2] = *MEMORY[0x1E69E9840];
+  v6[2] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"bootUUID" number:1 type:14 subMessageClass:0];
-  v7[0] = v2;
+  v6[0] = v2;
   v3 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"starting" number:2 type:12 subMessageClass:0];
-  v7[1] = v3;
-  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:2];
-
-  v5 = *MEMORY[0x1E69E9840];
+  v6[1] = v3;
+  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:2];
 
   return v4;
 }

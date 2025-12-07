@@ -172,7 +172,7 @@
     v5 = equalCopy;
     if (![(PKLocation *)self hasEqualCoordinatesToLocation:v5])
     {
-      LOBYTE(v10) = 0;
+      LOBYTE(isEqualToString) = 0;
 LABEL_17:
 
       goto LABEL_18;
@@ -188,7 +188,7 @@ LABEL_17:
 
     else
     {
-      LOBYTE(v10) = 0;
+      LOBYTE(isEqualToString) = 0;
       if (!v7 || !v8)
       {
 LABEL_16:
@@ -196,9 +196,9 @@ LABEL_16:
         goto LABEL_17;
       }
 
-      v10 = [(NSString *)v7 isEqualToString:v8];
+      isEqualToString = objc_msgSend_isEqualToString_(v7);
 
-      if (!v10)
+      if (!isEqualToString)
       {
         goto LABEL_17;
       }
@@ -211,25 +211,25 @@ LABEL_16:
     v9 = v13;
     if (v7 == v13)
     {
-      LOBYTE(v10) = 1;
+      LOBYTE(isEqualToString) = 1;
     }
 
     else
     {
-      LOBYTE(v10) = 0;
+      LOBYTE(isEqualToString) = 0;
       if (v7 && v13)
       {
-        LOBYTE(v10) = [(NSString *)v7 isEqualToString:v13];
+        LOBYTE(isEqualToString) = objc_msgSend_isEqualToString_(v7);
       }
     }
 
     goto LABEL_16;
   }
 
-  LOBYTE(v10) = 0;
+  LOBYTE(isEqualToString) = 0;
 LABEL_18:
 
-  return v10;
+  return isEqualToString;
 }
 
 - (BOOL)hasEqualCoordinatesToLocation:(id)location

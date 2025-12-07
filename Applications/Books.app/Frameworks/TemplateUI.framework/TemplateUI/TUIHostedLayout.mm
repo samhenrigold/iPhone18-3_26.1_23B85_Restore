@@ -20,7 +20,7 @@
   v10 = v9;
   if (v9)
   {
-    v11 = [(TUILayout *)v9 box];
+    v11 = objc_msgSend_box(v9);
     hostingIdentifier = [v11 hostingIdentifier];
     [controllerCopy registerHostingLayout:v10 forIdentifier:hostingIdentifier];
   }
@@ -46,7 +46,7 @@
   self->_requestedSize.width = v4;
   self->_requestedSize.height = v5;
   controller = [(TUILayout *)self controller];
-  v8 = [(TUILayout *)self box];
+  v8 = objc_msgSend_box(self);
   hostingIdentifier = [v8 hostingIdentifier];
   v10 = [controller hostingGeometryForIdentifier:hostingIdentifier requestedSize:{self->_requestedSize.width, self->_requestedSize.height}];
 
@@ -55,38 +55,38 @@
 
   if (v10)
   {
-    [v10 requestedSize];
-    if (self->_requestedSize.width == v13 && self->_requestedSize.height == v12)
+    requestedSize = [v10 requestedSize];
+    if (self->_requestedSize.width == v14 && self->_requestedSize.height == v13)
     {
       [v10 layoutSize];
-      v4 = v15;
-      v6 = v16;
+      v4 = v16;
+      v6 = v17;
       objc_storeStrong(&self->_hostingGeometry, v10);
     }
   }
 
-  v17 = TUIHostingLog();
-  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+  v18 = TUIHostingLog(requestedSize);
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
   {
     controller2 = [(TUILayout *)self controller];
     feedId = [controller2 feedId];
-    v20 = [(TUILayout *)self box];
-    hostingIdentifier2 = [v20 hostingIdentifier];
-    v34.width = v4;
-    v34.height = v6;
-    v22 = NSStringFromCGSize(v34);
-    v23 = self->_hostingGeometry;
-    v24 = 134219010;
-    v25 = feedId;
-    v26 = 2112;
-    v27 = hostingIdentifier2;
-    v28 = 2112;
-    v29 = v10;
-    v30 = 2112;
-    v31 = v22;
-    v32 = 2112;
-    v33 = v23;
-    _os_log_debug_impl(&dword_0, v17, OS_LOG_TYPE_DEBUG, "[fid:%lu] computeLayout identifier=%@ geomtry=%@ layoutSize=%@ hostingGeomeetry=%@", &v24, 0x34u);
+    v21 = objc_msgSend_box(self);
+    hostingIdentifier2 = [v21 hostingIdentifier];
+    v35.width = v4;
+    v35.height = v6;
+    v23 = NSStringFromCGSize(v35);
+    v24 = self->_hostingGeometry;
+    v25 = 134219010;
+    v26 = feedId;
+    v27 = 2112;
+    v28 = hostingIdentifier2;
+    v29 = 2112;
+    v30 = v10;
+    v31 = 2112;
+    v32 = v23;
+    v33 = 2112;
+    v34 = v24;
+    _os_log_debug_impl(&dword_0, v18, OS_LOG_TYPE_DEBUG, "[fid:%lu] computeLayout identifier=%@ geomtry=%@ layoutSize=%@ hostingGeomeetry=%@", &v25, 0x34u);
   }
 
   [(TUILayout *)self setComputedNaturalSize:v4, v6];
@@ -104,7 +104,7 @@
 - (BOOL)collectHostingPropertiesWithCollector:(id)collector
 {
   collectorCopy = collector;
-  v5 = [(TUILayout *)self box];
+  v5 = objc_msgSend_box(self);
   hostingIdentifier = [v5 hostingIdentifier];
 
   if (hostingIdentifier)
@@ -120,7 +120,7 @@
 - (id)newRenderModelCompatibleWithKind:(unint64_t)kind context:(id)context
 {
   contextCopy = context;
-  v7 = [(TUILayout *)self box];
+  v7 = objc_msgSend_box(self);
   hostingIdentifier = [v7 hostingIdentifier];
 
   v9 = 0;
@@ -137,8 +137,9 @@
       if (v13)
       {
         selfCopy = self;
-        v67 = v13;
+        v68 = v13;
         layoutAncestor = v13;
+        v134 = 0u;
         v133 = 0u;
         v132 = 0u;
         v131 = 0u;
@@ -149,56 +150,55 @@
         v126 = 0u;
         v125 = 0u;
         v124 = 0u;
-        v123 = 0u;
-        v121 = 0u;
         v122 = 0u;
-        v119 = 0u;
+        v123 = 0u;
         v120 = 0u;
-        v117 = 0u;
+        v121 = 0u;
         v118 = 0u;
-        v115 = 0u;
+        v119 = 0u;
         v116 = 0u;
-        v113 = 0u;
+        v117 = 0u;
         v114 = 0u;
-        v111 = 0u;
+        v115 = 0u;
         v112 = 0u;
-        v109 = 0u;
+        v113 = 0u;
         v110 = 0u;
-        v107 = 0u;
+        v111 = 0u;
         v108 = 0u;
-        v106 = 0u;
-        v104 = 0u;
+        v109 = 0u;
+        v107 = 0u;
+        v105 = 0u;
         memset(buf, 0, sizeof(buf));
-        v102 = 0u;
         v103 = 0u;
-        v100 = 0u;
+        v104 = 0u;
         v101 = 0u;
-        v98 = 0u;
+        v102 = 0u;
         v99 = 0u;
-        v96 = 0u;
+        v100 = 0u;
         v97 = 0u;
-        v94 = 0u;
+        v98 = 0u;
         v95 = 0u;
-        v92 = 0u;
+        v96 = 0u;
         v93 = 0u;
-        v90 = 0u;
+        v94 = 0u;
         v91 = 0u;
-        v88 = 0u;
+        v92 = 0u;
         v89 = 0u;
-        v86 = 0u;
+        v90 = 0u;
         v87 = 0u;
-        v84 = 0u;
+        v88 = 0u;
         v85 = 0u;
-        v82 = 0u;
+        v86 = 0u;
         v83 = 0u;
-        v80 = 0u;
+        v84 = 0u;
         v81 = 0u;
-        v78 = 0u;
+        v82 = 0u;
         v79 = 0u;
-        v76 = 0u;
+        v80 = 0u;
         v77 = 0u;
-        memset(&v75, 0, sizeof(v75));
-        v66 = selfCopy;
+        v78 = 0u;
+        memset(&v76, 0, sizeof(v76));
+        v67 = selfCopy;
         v16 = 0;
         if (selfCopy)
         {
@@ -221,8 +221,8 @@
         }
 
         v21 = 0;
-        p_ty = &v74.ty;
-        v65 = layoutAncestor;
+        p_ty = &v75.ty;
+        v66 = layoutAncestor;
         do
         {
           v23 = layoutAncestor;
@@ -251,12 +251,12 @@
 
         if (v25)
         {
-          v13 = v67;
+          v13 = v68;
         }
 
         else
         {
-          v13 = v67;
+          v13 = v68;
           if (v16)
           {
             v26 = &buf[8 * v16 + 8];
@@ -287,23 +287,23 @@
         if (v24)
         {
           memset(buf, 0, 48);
-          [v65 computedTransformInAncestorLayout:v24];
-          memset(&v75, 0, sizeof(v75));
-          [(TUILayout *)v66 computedTransformInAncestorLayout:v24];
-          CGAffineTransformInvert(&v75, &v74);
+          objc_msgSend_computedTransformInAncestorLayout_(v66);
+          memset(&v76, 0, sizeof(v76));
+          objc_msgSend_computedTransformInAncestorLayout_(v67);
+          CGAffineTransformInvert(&v76, &v75);
           t1 = *buf;
-          memset(&v74, 0, sizeof(v74));
-          t2 = v75;
-          CGAffineTransformConcat(&v74, &t1, &t2);
-          [v65 computedNaturalSize];
-          v69 = v31 * 0.5;
-          [v65 computedNaturalSize];
-          v70 = vaddq_f64(*&v74.tx, vmlaq_n_f64(vmulq_n_f64(*&v74.c, v32 * 0.5), *&v74.a, v69));
-          [(TUILayout *)v66 computedNaturalSize];
+          memset(&v75, 0, sizeof(v75));
+          t2 = v76;
+          CGAffineTransformConcat(&v75, &t1, &t2);
+          [v66 computedNaturalSize];
+          v70 = v31 * 0.5;
+          [v66 computedNaturalSize];
+          v71 = vaddq_f64(*&v75.tx, vmlaq_n_f64(vmulq_n_f64(*&v75.c, v32 * 0.5), *&v75.a, v70));
+          [(TUILayout *)v67 computedNaturalSize];
           v34.f64[1] = v33;
           __asm { FMOV            V1.2D, #1.0 }
 
-          v40 = vmaxnmq_f64(vminnmq_f64(vdivq_f64(v70, vbslq_s8(vcgtq_f64(_Q1, v34), _Q1, v34)), _Q1), 0);
+          v40 = vmaxnmq_f64(vminnmq_f64(vdivq_f64(v71, vbslq_s8(vcgtq_f64(_Q1, v34), _Q1, v34)), _Q1), 0);
         }
 
         else
@@ -311,21 +311,21 @@
           v40 = vdupq_n_s64(0x7FF8000000000000uLL);
         }
 
-        v68 = v40;
+        v69 = v40;
       }
 
       else
       {
-        v68 = vdupq_n_s64(0x7FF8000000000000uLL);
+        v69 = vdupq_n_s64(0x7FF8000000000000uLL);
       }
 
-      v20 = v68.i64[1];
+      v20 = v69.i64[1];
     }
 
     else
     {
       v20 = 0x7FF8000000000000;
-      v68.i64[0] = 0x7FF8000000000000;
+      v69.i64[0] = 0x7FF8000000000000;
     }
 
     identifier = [v7 identifier];
@@ -341,29 +341,29 @@
     v55 = v54;
     hostingIdentifier2 = [v7 hostingIdentifier];
     hostingProperties = [v7 hostingProperties];
-    v9 = [TUIHostingView renderModelIdentifier:identifier size:v47 requestedSize:hostingIdentifier2 usingGeometry:hostingProperties insets:v43 hostingIdentifier:v45 hostingProperties:self->_requestedSize.width anchorPoint:self->_requestedSize.height, v49, v51, v53, v55, v68.i64[0], v20];
+    v9 = [TUIHostingView renderModelIdentifier:identifier size:v47 requestedSize:hostingIdentifier2 usingGeometry:hostingProperties insets:v43 hostingIdentifier:v45 hostingProperties:self->_requestedSize.width anchorPoint:self->_requestedSize.height, v49, v51, v53, v55, v69.i64[0], v20];
 
-    v58 = TUIHostingLog();
-    if (os_log_type_enabled(v58, OS_LOG_TYPE_DEBUG))
+    v59 = TUIHostingLog(v58);
+    if (os_log_type_enabled(v59, OS_LOG_TYPE_DEBUG))
     {
       controller = [(TUILayout *)self controller];
       feedId = [controller feedId];
-      v61 = [(TUILayout *)self box];
-      hostingIdentifier3 = [v61 hostingIdentifier];
+      v62 = objc_msgSend_box(self);
+      hostingIdentifier3 = [v62 hostingIdentifier];
       [v9 size];
-      v63 = NSStringFromCGSize(v134);
-      v64 = NSStringFromCGSize(*p_requestedSize);
+      v64 = NSStringFromCGSize(v135);
+      v65 = NSStringFromCGSize(*p_requestedSize);
       *buf = 134219010;
       *&buf[4] = feedId;
       *&buf[12] = 2112;
       *&buf[14] = hostingIdentifier3;
       *&buf[22] = 2112;
-      *&buf[24] = v63;
+      *&buf[24] = v64;
       *&buf[32] = 2112;
-      *&buf[34] = v64;
+      *&buf[34] = v65;
       *&buf[42] = 2112;
       *&buf[44] = v9;
-      _os_log_debug_impl(&dword_0, v58, OS_LOG_TYPE_DEBUG, "[fid:%lu] newRenderModel identifier=%@ size=%@ requestedSize=%@ renderModel=%@", buf, 0x34u);
+      _os_log_debug_impl(&dword_0, v59, OS_LOG_TYPE_DEBUG, "[fid:%lu] newRenderModel identifier=%@ size=%@ requestedSize=%@ renderModel=%@", buf, 0x34u);
     }
   }
 

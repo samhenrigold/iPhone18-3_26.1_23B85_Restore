@@ -9,92 +9,90 @@
 
 - (id)_cascadeEntityItemsFromEvents:(id)events
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   eventsCopy = events;
   v4 = objc_opt_new();
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v5 = eventsCopy;
-  v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v14;
+    v8 = *v13;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        cascadeEntityItemForEvent = [*(*(&v13 + 1) + 8 * i) cascadeEntityItemForEvent];
+        cascadeEntityItemForEvent = [*(*(&v12 + 1) + 8 * i) cascadeEntityItemForEvent];
         if (cascadeEntityItemForEvent)
         {
           [v4 addObject:cascadeEntityItemForEvent];
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v7);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
 
 - (void)addEvents:(id)events
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   eventsCopy = events;
+  v34 = 0u;
   v35 = 0u;
   v36 = 0u;
   v37 = 0u;
-  v38 = 0u;
-  v5 = [eventsCopy countByEnumeratingWithState:&v35 objects:v42 count:16];
+  v5 = [eventsCopy countByEnumeratingWithState:&v34 objects:v41 count:16];
   if (v5)
   {
     v6 = v5;
     selfCopy = self;
     obj = eventsCopy;
     v7 = 0;
-    v8 = *v36;
+    v8 = *v35;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v36 != v8)
+        if (*v35 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v35 + 1) + 8 * i);
+        v10 = *(*(&v34 + 1) + 8 * i);
+        v30 = 0u;
         v31 = 0u;
         v32 = 0u;
         v33 = 0u;
-        v34 = 0u;
         tags = [v10 tags];
-        v12 = [tags countByEnumeratingWithState:&v31 objects:v41 count:16];
+        v12 = [tags countByEnumeratingWithState:&v30 objects:v40 count:16];
         if (v12)
         {
           v13 = v12;
-          v14 = *v32;
+          v14 = *v31;
           do
           {
             for (j = 0; j != v13; ++j)
             {
-              if (*v32 != v14)
+              if (*v31 != v14)
               {
                 objc_enumerationMutation(tags);
               }
 
-              v16 = *(*(&v31 + 1) + 8 * j);
+              v16 = *(*(&v30 + 1) + 8 * j);
               if ([v16 isCascadeEntitySetVersion])
               {
                 value = [v16 value];
@@ -122,14 +120,14 @@
               }
             }
 
-            v13 = [tags countByEnumeratingWithState:&v31 objects:v41 count:16];
+            v13 = [tags countByEnumeratingWithState:&v30 objects:v40 count:16];
           }
 
           while (v13);
         }
       }
 
-      v6 = [obj countByEnumeratingWithState:&v35 objects:v42 count:16];
+      v6 = [obj countByEnumeratingWithState:&v34 objects:v41 count:16];
     }
 
     while (v6);
@@ -137,19 +135,19 @@
     if (v7)
     {
       v20 = [(SGCascadeWritebackAdapter *)selfCopy _cascadeEntityItemsFromEvents:obj];
-      if ([v20 count])
+      if (objc_msgSend_count(v20))
       {
         v21 = MEMORY[0x277CF9508];
-        v27[0] = MEMORY[0x277D85DD0];
-        v27[1] = 3221225472;
-        v27[2] = __39__SGCascadeWritebackAdapter_addEvents___block_invoke;
-        v27[3] = &unk_27894BE80;
-        v28 = obj;
-        v29 = v20;
-        v30 = v7;
-        [v21 incrementalSetDonationWithItemType:27325 descriptors:MEMORY[0x277CBEBF8] version:v7 validity:@"v1.0" completion:v27];
+        v26[0] = MEMORY[0x277D85DD0];
+        v26[1] = 3221225472;
+        v26[2] = __39__SGCascadeWritebackAdapter_addEvents___block_invoke;
+        v26[3] = &unk_27894BE80;
+        v27 = obj;
+        v28 = v20;
+        v29 = v7;
+        [v21 incrementalSetDonationWithItemType:27325 descriptors:MEMORY[0x277CBEBF8] version:v7 validity:@"v1.0" completion:v26];
 
-        v22 = v28;
+        v22 = v27;
       }
 
       else
@@ -159,7 +157,7 @@
         {
           v23 = [SGCascadeWritebackAdapter _loggingIdentifiersFromEvents:obj];
           *buf = 138412290;
-          v40 = v23;
+          v39 = v23;
           _os_log_impl(&dword_231E60000, v22, OS_LOG_TYPE_DEFAULT, "addEvents:[SGEvent ids: %@] bailing because events do not contain eligible cascade items.", buf, 0xCu);
         }
       }
@@ -173,17 +171,15 @@
   {
     v22 = [SGCascadeWritebackAdapter _loggingIdentifiersFromEvents:eventsCopy];
     *buf = 138412290;
-    v40 = v22;
+    v39 = v22;
     _os_log_error_impl(&dword_231E60000, v20, OS_LOG_TYPE_ERROR, "addEvents:[SGEvent ids: %@] bailing because events do not contain a cascade set version.", buf, 0xCu);
 LABEL_29:
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 void __39__SGCascadeWritebackAdapter_addEvents___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v58 = *MEMORY[0x277D85DE8];
+  v57 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (!v6)
@@ -192,32 +188,32 @@ void __39__SGCascadeWritebackAdapter_addEvents___block_invoke(uint64_t a1, void 
     if (objc_opt_isKindOfClass())
     {
       v8 = v5;
+      v45 = 0u;
       v46 = 0u;
       v47 = 0u;
       v48 = 0u;
-      v49 = 0u;
       v11 = *(a1 + 40);
-      v12 = [v11 countByEnumeratingWithState:&v46 objects:v57 count:16];
+      v12 = [v11 countByEnumeratingWithState:&v45 objects:v56 count:16];
       if (v12)
       {
         v13 = v12;
-        v38 = a1;
+        v37 = a1;
         v7 = 0;
-        v14 = *v47;
+        v14 = *v46;
 LABEL_8:
         v15 = 0;
         v16 = v7;
         while (1)
         {
-          if (*v47 != v14)
+          if (*v46 != v14)
           {
             objc_enumerationMutation(v11);
           }
 
-          v17 = *(*(&v46 + 1) + 8 * v15);
-          v45 = v16;
-          v18 = [v8 addOrUpdateItem:v17 error:&v45];
-          v7 = v45;
+          v17 = *(*(&v45 + 1) + 8 * v15);
+          v44 = v16;
+          v18 = [v8 addOrUpdateItem:v17 error:&v44];
+          v7 = v44;
 
           if ((v18 & 1) == 0)
           {
@@ -228,7 +224,7 @@ LABEL_8:
           v16 = v7;
           if (v13 == v15)
           {
-            v13 = [v11 countByEnumeratingWithState:&v46 objects:v57 count:16];
+            v13 = [v11 countByEnumeratingWithState:&v45 objects:v56 count:16];
             if (v13)
             {
               goto LABEL_8;
@@ -244,15 +240,15 @@ LABEL_8:
           goto LABEL_38;
         }
 
-        v29 = [SGCascadeWritebackAdapter _loggingIdentifiersFromEvents:*(v38 + 32)];
+        v29 = [SGCascadeWritebackAdapter _loggingIdentifiersFromEvents:*(v37 + 32)];
         v30 = [v17 metaContent];
         v31 = [v30 sourceItemIdentifier];
         *buf = 138412802;
-        v52 = v29;
-        v53 = 2112;
-        v54 = v31;
-        v55 = 2112;
-        v56 = v7;
+        v51 = v29;
+        v52 = 2112;
+        v53 = v31;
+        v54 = 2112;
+        v55 = v7;
         v32 = "addEvents:[SGEvent ids: %@] cascade donation failed to add or update item with id: %@ error: %@";
 LABEL_42:
         _os_log_error_impl(&dword_231E60000, v28, OS_LOG_TYPE_ERROR, v32, buf, 0x20u);
@@ -270,9 +266,9 @@ LABEL_38:
         v7 = 0;
 LABEL_32:
         v33 = v7;
-        v39 = v7;
-        v34 = [v5 finish:&v39];
-        v7 = v39;
+        v38 = v7;
+        v34 = [v5 finish:&v38];
+        v7 = v38;
 
         v35 = sgLogHandle();
         v8 = v35;
@@ -285,9 +281,9 @@ LABEL_32:
 
           v9 = [SGCascadeWritebackAdapter _loggingIdentifiersFromEvents:*(a1 + 32)];
           *buf = 138412546;
-          v52 = v9;
-          v53 = 2112;
-          v54 = v7;
+          v51 = v9;
+          v52 = 2112;
+          v53 = v7;
           v10 = "addEvents:[SGEvent ids: %@] failed to finish cascade donation with error: %@";
           goto LABEL_4;
         }
@@ -300,9 +296,9 @@ LABEL_32:
         v11 = [SGCascadeWritebackAdapter _loggingIdentifiersFromEvents:*(a1 + 32)];
         v36 = *(a1 + 48);
         *buf = 138412546;
-        v52 = v11;
-        v53 = 2048;
-        v54 = v36;
+        v51 = v11;
+        v52 = 2048;
+        v53 = v36;
         _os_log_impl(&dword_231E60000, v8, OS_LOG_TYPE_DEFAULT, "addEvents:[SGEvent ids: %@] finished donating version: %llu", buf, 0x16u);
 LABEL_39:
 
@@ -314,37 +310,37 @@ LABEL_39:
       {
         v20 = [SGCascadeWritebackAdapter _loggingIdentifiersFromEvents:*(a1 + 32)];
         *buf = 138412290;
-        v52 = v20;
+        v51 = v20;
         _os_log_impl(&dword_231E60000, v19, OS_LOG_TYPE_DEFAULT, "addEvents:[SGEvent ids: %@] fallback to a full set donation of cascade items.", buf, 0xCu);
       }
 
       v8 = v5;
+      v40 = 0u;
       v41 = 0u;
       v42 = 0u;
       v43 = 0u;
-      v44 = 0u;
       v11 = *(a1 + 40);
-      v21 = [v11 countByEnumeratingWithState:&v41 objects:v50 count:16];
+      v21 = [v11 countByEnumeratingWithState:&v40 objects:v49 count:16];
       if (v21)
       {
         v22 = v21;
-        v38 = a1;
+        v37 = a1;
         v7 = 0;
-        v23 = *v42;
+        v23 = *v41;
 LABEL_20:
         v24 = 0;
         v25 = v7;
         while (1)
         {
-          if (*v42 != v23)
+          if (*v41 != v23)
           {
             objc_enumerationMutation(v11);
           }
 
-          v26 = *(*(&v41 + 1) + 8 * v24);
-          v40 = v25;
-          v27 = [v8 registerItem:v26 error:&v40];
-          v7 = v40;
+          v26 = *(*(&v40 + 1) + 8 * v24);
+          v39 = v25;
+          v27 = [v8 registerItem:v26 error:&v39];
+          v7 = v39;
 
           if ((v27 & 1) == 0)
           {
@@ -355,14 +351,14 @@ LABEL_20:
           v25 = v7;
           if (v22 == v24)
           {
-            v22 = [v11 countByEnumeratingWithState:&v41 objects:v50 count:16];
+            v22 = [v11 countByEnumeratingWithState:&v40 objects:v49 count:16];
             if (v22)
             {
               goto LABEL_20;
             }
 
 LABEL_26:
-            a1 = v38;
+            a1 = v37;
             goto LABEL_30;
           }
         }
@@ -373,15 +369,15 @@ LABEL_26:
           goto LABEL_38;
         }
 
-        v29 = [SGCascadeWritebackAdapter _loggingIdentifiersFromEvents:*(v38 + 32)];
+        v29 = [SGCascadeWritebackAdapter _loggingIdentifiersFromEvents:*(v37 + 32)];
         v30 = [v26 metaContent];
         v31 = [v30 sourceItemIdentifier];
         *buf = 138412802;
-        v52 = v29;
-        v53 = 2112;
-        v54 = v31;
-        v55 = 2112;
-        v56 = v7;
+        v51 = v29;
+        v52 = 2112;
+        v53 = v31;
+        v54 = 2112;
+        v55 = v7;
         v32 = "addEvents:[SGEvent ids: %@] cascade donation failed to register item with id: %@ error: %@";
         goto LABEL_42;
       }
@@ -399,66 +395,61 @@ LABEL_30:
   {
     v9 = [SGCascadeWritebackAdapter _loggingIdentifiersFromEvents:*(a1 + 32)];
     *buf = 138412546;
-    v52 = v9;
-    v53 = 2112;
-    v54 = v7;
+    v51 = v9;
+    v52 = 2112;
+    v53 = v7;
     v10 = "addEvents:[SGEvent ids: %@] cascade donation failed with error %@";
 LABEL_4:
     _os_log_error_impl(&dword_231E60000, v8, OS_LOG_TYPE_ERROR, v10, buf, 0x16u);
   }
 
 LABEL_40:
-
-  v37 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addEvent:(id)event
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   v4 = MEMORY[0x277CBEA60];
   eventCopy2 = event;
   v6 = [v4 arrayWithObjects:&eventCopy count:1];
 
-  [(SGCascadeWritebackAdapter *)self addEvents:v6, eventCopy, v9];
-  v7 = *MEMORY[0x277D85DE8];
+  [(SGCascadeWritebackAdapter *)self addEvents:v6, eventCopy, v8];
 }
 
 + (id)_loggingIdentifiersFromEvents:(id)events
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   eventsCopy = events;
   v4 = objc_opt_new();
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v5 = eventsCopy;
-  v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v14;
+    v8 = *v13;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        loggingIdentifier = [*(*(&v13 + 1) + 8 * i) loggingIdentifier];
+        loggingIdentifier = [*(*(&v12 + 1) + 8 * i) loggingIdentifier];
         [v4 addObject:loggingIdentifier];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v7);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v4;
 }

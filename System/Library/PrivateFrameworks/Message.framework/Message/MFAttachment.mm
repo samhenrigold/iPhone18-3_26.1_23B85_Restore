@@ -60,7 +60,9 @@
 - (void)setDecodedFileSize:(unint64_t)size;
 - (void)setEncodedFileSize:(unint64_t)size;
 - (void)setFileName:(id)name;
+- (void)setIsPlaceholder:(BOOL)placeholder;
 - (void)setRemoteImageFileName:(id)name;
+- (void)setShouldPreserveFidelity:(BOOL)fidelity;
 - (void)updatePath;
 - (void)updatePathIfNeeded;
 @end
@@ -165,7 +167,7 @@
 
 - (id)decodeFilterWithDataConsumer:(id)consumer
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   consumerCopy = consumer;
   part = [(MFAttachment *)self part];
   contentTransferEncoding = [part contentTransferEncoding];
@@ -199,19 +201,19 @@ LABEL_13:
       isContainedInRFC822 = [(MFAttachment *)self isContainedInRFC822];
       isMailDrop2 = [(MFAttachment *)self isMailDrop];
       part3 = [(MFAttachment *)self part];
-      v26 = 138413570;
+      v25 = 138413570;
       selfCopy6 = self;
-      v28 = 1024;
-      *v29 = isDataAvailableLocally;
-      *&v29[4] = 1024;
-      *&v29[6] = isContainedInRFC822;
-      v30 = 1024;
-      v31 = isMailDrop2;
-      v32 = 2048;
-      v33 = part3;
-      v34 = 2114;
-      v35 = contentTransferEncoding;
-      _os_log_impl(&dword_1B0389000, v12, OS_LOG_TYPE_DEFAULT, "#Attachments %@ performing no conversion (isDataAvailableLocally=%d, isContainedInRFC822=%d, isMailDrop=%d, part=%p, contentTransferEncoding=%{public}@)", &v26, 0x32u);
+      v27 = 1024;
+      *v28 = isDataAvailableLocally;
+      *&v28[4] = 1024;
+      *&v28[6] = isContainedInRFC822;
+      v29 = 1024;
+      v30 = isMailDrop2;
+      v31 = 2048;
+      v32 = part3;
+      v33 = 2114;
+      v34 = contentTransferEncoding;
+      _os_log_impl(&dword_1B0389000, v12, OS_LOG_TYPE_DEFAULT, "#Attachments %@ performing no conversion (isDataAvailableLocally=%d, isContainedInRFC822=%d, isMailDrop=%d, part=%p, contentTransferEncoding=%{public}@)", &v25, 0x32u);
     }
 
     goto LABEL_15;
@@ -232,10 +234,10 @@ LABEL_5:
       goto LABEL_15;
     }
 
-    v26 = 138412546;
+    v25 = 138412546;
     selfCopy6 = self;
-    v28 = 2114;
-    *v29 = contentTransferEncoding;
+    v27 = 2114;
+    *v28 = contentTransferEncoding;
     v13 = "#Attachments %@ stripping line endings (contentTransferEncoding=%{public}@)";
     goto LABEL_10;
   }
@@ -243,18 +245,18 @@ LABEL_5:
   if ([contentTransferEncoding isEqualToString:@"quoted-printable"])
   {
     v12 = [MEMORY[0x1E69AD758] filterWithConsumer:consumerCopy];
-    v22 = [MEMORY[0x1E69AD6D0] filterWithConsumer:v12];
+    v21 = [MEMORY[0x1E69AD6D0] filterWithConsumer:v12];
     part4 = [(MFAttachment *)self part];
     type = [part4 type];
     -[NSObject setForTextPart:](v12, "setForTextPart:", [type isEqualToString:@"text"]);
 
-    v11 = v22;
-    v25 = MFLogGeneral();
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+    v11 = v21;
+    v24 = MFLogGeneral();
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
     {
-      v26 = 138412290;
+      v25 = 138412290;
       selfCopy6 = self;
-      _os_log_impl(&dword_1B0389000, v25, OS_LOG_TYPE_DEFAULT, "#Attachments %@ quoted-printable", &v26, 0xCu);
+      _os_log_impl(&dword_1B0389000, v24, OS_LOG_TYPE_DEFAULT, "#Attachments %@ quoted-printable", &v25, 0xCu);
     }
 
     goto LABEL_15;
@@ -269,7 +271,7 @@ LABEL_5:
       goto LABEL_15;
     }
 
-    v26 = 138412290;
+    v25 = 138412290;
     selfCopy6 = self;
     v13 = "#Attachments %@ base64";
     goto LABEL_28;
@@ -284,7 +286,7 @@ LABEL_5:
       goto LABEL_15;
     }
 
-    v26 = 138412290;
+    v25 = 138412290;
     selfCopy6 = self;
     v13 = "#Attachments %@ uuencode";
 LABEL_28:
@@ -297,21 +299,19 @@ LABEL_28:
   v12 = MFLogGeneral();
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
-    v26 = 138412546;
+    v25 = 138412546;
     selfCopy6 = self;
-    v28 = 2114;
-    *v29 = contentTransferEncoding;
+    v27 = 2114;
+    *v28 = contentTransferEncoding;
     v13 = "#Attachments %@ unknown encoding (contentTransferEncoding=%{public}@)";
 LABEL_10:
     v14 = v12;
     v15 = 22;
 LABEL_11:
-    _os_log_impl(&dword_1B0389000, v14, OS_LOG_TYPE_DEFAULT, v13, &v26, v15);
+    _os_log_impl(&dword_1B0389000, v14, OS_LOG_TYPE_DEFAULT, v13, &v25, v15);
   }
 
 LABEL_15:
-
-  v20 = *MEMORY[0x1E69E9840];
 
   return v11;
 }
@@ -319,7 +319,6 @@ LABEL_15:
 - (id)fetchLocalData:(id *)data stripPrivateMetadata:(BOOL)metadata
 {
   metadataCopy = metadata;
-  v21 = *MEMORY[0x1E69E9840];
   if ([(MFAttachment *)self isContainedInRFC822]|| [(MFAttachment *)self isContainedInCompose])
   {
     if (!self->_attachmentManager)
@@ -372,34 +371,32 @@ LABEL_15:
     }
   }
 
-  v19 = *MEMORY[0x1E69E9840];
-
   return readFromDisk;
 }
 
 - (id)fetchDataSynchronously:(id *)synchronously stripPrivateMetadata:(BOOL)metadata
 {
   metadataCopy = metadata;
-  v27[4] = *MEMORY[0x1E69E9840];
+  v26[4] = *MEMORY[0x1E69E9840];
   if (![MEMORY[0x1E696AF00] isMainThread] || (EFIsRunningUnitTests() & 1) != 0)
   {
     promise = [MEMORY[0x1E699B868] promise];
     fetchCompletionBlock = [(MFAttachment *)self fetchCompletionBlock];
-    v24[0] = MEMORY[0x1E69E9820];
-    v24[1] = 3221225472;
-    v24[2] = __60__MFAttachment_fetchDataSynchronously_stripPrivateMetadata___block_invoke;
-    v24[3] = &unk_1E7AA4C10;
+    v23[0] = MEMORY[0x1E69E9820];
+    v23[1] = 3221225472;
+    v23[2] = __60__MFAttachment_fetchDataSynchronously_stripPrivateMetadata___block_invoke;
+    v23[3] = &unk_1E7AA4C10;
     v13 = fetchCompletionBlock;
-    v26 = v13;
-    v24[4] = self;
+    v25 = v13;
+    v23[4] = self;
     v14 = promise;
-    v25 = v14;
-    [(MFAttachment *)self setFetchCompletionBlock:v24];
+    v24 = v14;
+    [(MFAttachment *)self setFetchCompletionBlock:v23];
     [(MFAttachmentManager *)self->_attachmentManager fetchDataSynchronouslyForAttachment:self];
     future = [v14 future];
-    v23 = 0;
-    v16 = [future result:&v23];
-    v9 = v23;
+    v22 = 0;
+    v16 = [future result:&v22];
+    v9 = v22;
 
     v10 = v16;
   }
@@ -412,9 +409,9 @@ LABEL_15:
       [MFAttachment fetchDataSynchronously:v7 stripPrivateMetadata:?];
     }
 
-    v27[0] = 0;
-    v8 = [(MFAttachment *)self fetchLocalData:v27 stripPrivateMetadata:0];
-    v9 = v27[0];
+    v26[0] = 0;
+    v8 = [(MFAttachment *)self fetchLocalData:v26 stripPrivateMetadata:0];
+    v9 = v26[0];
     v10 = v8;
   }
 
@@ -458,8 +455,6 @@ LABEL_17:
     *synchronously = v9;
   }
 
-  v21 = *MEMORY[0x1E69E9840];
-
   return v10;
 }
 
@@ -486,7 +481,7 @@ void __60__MFAttachment_fetchDataSynchronously_stripPrivateMetadata___block_invo
 
 - (id)fetchDataToURL:(id *)l
 {
-  v13[6] = *MEMORY[0x1E69E9840];
+  v12[6] = *MEMORY[0x1E69E9840];
   if ([(MFAttachment *)self isPlaceholder])
   {
     v4 = MFLogGeneral();
@@ -503,9 +498,9 @@ void __60__MFAttachment_fetchDataSynchronously_stripPrivateMetadata___block_invo
 
   else
   {
-    v13[0] = 0;
-    v7 = [(MFAttachment *)self fetchDataSynchronously:v13];
-    placeholder = v13[0];
+    v12[0] = 0;
+    v7 = [(MFAttachment *)self fetchDataSynchronously:v12];
+    placeholder = v12[0];
     if (v7)
     {
       fileName = [(MFAttachment *)self fileName];
@@ -545,8 +540,6 @@ void __60__MFAttachment_fetchDataSynchronously_stripPrivateMetadata___block_invo
       fileURL = 0;
     }
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return fileURL;
 }
@@ -605,7 +598,6 @@ LABEL_6:
 
 - (id)fetchPlaceholderData
 {
-  v3 = *MEMORY[0x1E69E9840];
   p_placeholder = &self->_placeholder;
   placeholder = self->_placeholder;
   if (placeholder)
@@ -629,9 +621,9 @@ LABEL_6:
       _dataProvider2 = objc_alloc_init(MEMORY[0x1E69AD698]);
       contentID = [MEMORY[0x1E69AD768] rangedFilterWithConsumer:_dataProvider2 range:{0, 2100}];
       promise = [MEMORY[0x1E699B868] promise];
-      v11 = [MEMORY[0x1E696AE38] discreteProgressWithTotalUnitCount:-1];
-      v12 = EFPromiseAttachmentDataHandler(promise, _dataProvider2);
-      [_dataProvider fetchDataForAttachment:self consumer:contentID progress:v11 completion:v12];
+      v10 = [MEMORY[0x1E696AE38] discreteProgressWithTotalUnitCount:-1];
+      v11 = EFPromiseAttachmentDataHandler(promise, _dataProvider2);
+      [_dataProvider fetchDataForAttachment:self consumer:contentID progress:v10 completion:v11];
 
       future = [promise future];
       serializedRepresentation = [future result:0];
@@ -639,17 +631,17 @@ LABEL_6:
 
     if (serializedRepresentation)
     {
-      v14 = [MFAttachmentPlaceholder placeholderFromSerializedRepresentation:serializedRepresentation];
-      if (v14)
+      v13 = [MFAttachmentPlaceholder placeholderFromSerializedRepresentation:serializedRepresentation];
+      if (v13)
       {
-        objc_storeStrong(p_placeholder, v14);
+        objc_storeStrong(p_placeholder, v13);
       }
     }
 
     else
     {
-      v14 = MFLogGeneral();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v13 = MFLogGeneral();
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
         [(MFAttachment *)self fileURL];
         objc_claimAutoreleasedReturnValue();
@@ -657,8 +649,6 @@ LABEL_6:
       }
     }
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return serializedRepresentation;
 }
@@ -677,6 +667,12 @@ LABEL_6:
   placeholder = self->_placeholder;
 
   return placeholder;
+}
+
+- (void)setIsPlaceholder:(BOOL)placeholder
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:placeholder];
+  [MFAttachment setMetadataValue:"setMetadataValue:forKey:" forKey:?];
 }
 
 - (BOOL)isPlaceholder
@@ -860,16 +856,16 @@ LABEL_6:
 
 - (id)_dataProvider
 {
-  v10[4] = *MEMORY[0x1E69E9840];
+  v9[4] = *MEMORY[0x1E69E9840];
   v3 = [(MFAttachment *)self url];
 
   if (v3)
   {
     attachmentManager = self->_attachmentManager;
     v5 = [(MFAttachment *)self url];
-    v10[0] = 0;
-    v3 = [(MFAttachmentManager *)attachmentManager _dataProviderForAttachmentURL:v5 error:v10];
-    v6 = v10[0];
+    v9[0] = 0;
+    v3 = [(MFAttachmentManager *)attachmentManager _dataProviderForAttachmentURL:v5 error:v9];
+    v6 = v9[0];
 
     if (v6)
     {
@@ -885,14 +881,12 @@ LABEL_6:
     }
   }
 
-  v8 = *MEMORY[0x1E69E9840];
-
   return v3;
 }
 
 - (BOOL)isDataAvailableLocally
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   if ([(MFAttachment *)self isContainedInRFC822]|| [(MFAttachment *)self isContainedInCompose])
   {
     LOBYTE(exists) = 1;
@@ -917,17 +911,16 @@ LABEL_6:
     {
       mimePartNumber = [(MFAttachment *)self mimePartNumber];
       fileURL2 = [(MFAttachment *)self fileURL];
-      v11 = 138543874;
-      v12 = mimePartNumber;
-      v13 = 2114;
-      v14 = fileURL2;
-      v15 = 1024;
-      v16 = exists;
-      _os_log_debug_impl(&dword_1B0389000, v6, OS_LOG_TYPE_DEBUG, "#Attachments Attachment '%{public}@' '%{public}@' has data available locally: %{BOOL}d", &v11, 0x1Cu);
+      v10 = 138543874;
+      v11 = mimePartNumber;
+      v12 = 2114;
+      v13 = fileURL2;
+      v14 = 1024;
+      v15 = exists;
+      _os_log_debug_impl(&dword_1B0389000, v6, OS_LOG_TYPE_DEBUG, "#Attachments Attachment '%{public}@' '%{public}@' has data available locally: %{BOOL}d", &v10, 0x1Cu);
     }
   }
 
-  v7 = *MEMORY[0x1E69E9840];
   return exists;
 }
 
@@ -1335,6 +1328,12 @@ LABEL_13:
   return bOOLValue;
 }
 
+- (void)setShouldPreserveFidelity:(BOOL)fidelity
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:fidelity];
+  [MFAttachment setMetadataValue:"setMetadataValue:forKey:" forKey:?];
+}
+
 - (unint64_t)decodedFileSize
 {
   v3 = [(MFAttachment *)self metadataValueForKey:@"MFAttachmentDecodedFileSizeKey"];
@@ -1450,15 +1449,15 @@ LABEL_13:
 
 - (id)readFromDisk
 {
-  v12[4] = *MEMORY[0x1E69E9840];
+  v11[4] = *MEMORY[0x1E69E9840];
   path = [(MFAttachment *)self path];
   if (path && (v4 = [(MFAttachment *)self isContainedInRFC822], path, !v4))
   {
     v6 = MEMORY[0x1E695DEF0];
     fileURL = [(MFAttachment *)self fileURL];
-    v12[0] = 0;
-    v5 = [v6 dataWithContentsOfURL:fileURL options:3 error:v12];
-    v8 = v12[0];
+    v11[0] = 0;
+    v5 = [v6 dataWithContentsOfURL:fileURL options:3 error:v11];
+    v8 = v11[0];
 
     if (!v5)
     {
@@ -1480,8 +1479,6 @@ LABEL_13:
   {
     v5 = 0;
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
@@ -1663,7 +1660,7 @@ LABEL_10:
   typeCopy = type;
   swift_getObjCClassMetadata();
   v11 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB6E1FE0, &qword_1B0E9B2B0) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  v4 = MEMORY[0x1EEE9AC00](filenameCopy);
+  MEMORY[0x1EEE9AC00](filenameCopy);
   v19 = &v9 - v11;
   MEMORY[0x1E69E5928](v4);
   MEMORY[0x1E69E5928](typeCopy);

@@ -28,7 +28,7 @@
   v6 = sub_766CA0();
   sub_BE38(v6, qword_99FE18);
   sub_7671D0();
-  sub_BD88(&unk_93F5C0);
+  sub_BD88(&unk_93F5C0, &unk_77C600);
   v7 = swift_allocObject();
   *(v7 + 16) = xmmword_77D9F0;
   *(v7 + 32) = traitCollection;
@@ -56,7 +56,7 @@
   v4 = sub_766CA0();
   sub_BE38(v4, qword_99FE18);
   sub_7671D0();
-  sub_BD88(&unk_93F5C0);
+  sub_BD88(&unk_93F5C0, &unk_77C600);
   v5 = swift_allocObject();
   *(v5 + 16) = xmmword_77D9F0;
   *(v5 + 32) = traitCollection;

@@ -1,6 +1,7 @@
 @interface PPQuickTypeLabeledValue
 + (id)labeledValueWithLabel:(id)label value:(id)value;
 + (id)labeledValueWithLabel:(id)label value:(id)value scoreBoost:(double)boost;
++ (id)labeledValueWithLabel:(id)label value:(id)value scoreBoost:(double)boost fields:(unsigned int)fields;
 - (PPQuickTypeLabeledValue)initWithLabel:(id)label value:(id)value scoreBoost:(double)boost fields:(unsigned int)fields;
 @end
 
@@ -23,6 +24,16 @@
   }
 
   return v14;
+}
+
++ (id)labeledValueWithLabel:(id)label value:(id)value scoreBoost:(double)boost fields:(unsigned int)fields
+{
+  v6 = *&fields;
+  valueCopy = value;
+  labelCopy = label;
+  v11 = [[PPQuickTypeLabeledValue alloc] initWithLabel:labelCopy value:valueCopy scoreBoost:v6 fields:boost];
+
+  return v11;
 }
 
 + (id)labeledValueWithLabel:(id)label value:(id)value scoreBoost:(double)boost

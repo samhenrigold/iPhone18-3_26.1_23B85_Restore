@@ -46,6 +46,8 @@
 - (void)legacyIdentityProvisioning:(id)provisioning targetDeviceIdentifier:(id)identifier completion:(id)completion;
 - (void)markAllAppletsForDeletionWithCompletion:(id)completion;
 - (void)markPendingTransactionAsProcessedForPassWithUniqueID:(id)d;
+- (void)noteForegroundVerificationObserverActive:(BOOL)active;
+- (void)noteProvisioningPreflightCompleteWithSuccess:(BOOL)success error:(id)error completion:(id)completion;
 - (void)noteWatchOfferDisplayedForPaymentPassWithUniqueID:(id)d;
 - (void)passesOfCardType:(int64_t)type withCompletion:(id)completion;
 - (void)passesWithCompletion:(id)completion;
@@ -56,6 +58,7 @@
 - (void)paymentPassesWithPrimaryAccountIdentifier:(id)identifier completion:(id)completion;
 - (void)peerPaymentAccountForPairingID:(id)d withCompletion:(id)completion;
 - (void)presentStandaloneTransaction:(int64_t)transaction forPassUniqueIdentifier:(id)identifier terminalReaderIdentifier:(id)readerIdentifier completion:(id)completion;
+- (void)provisionPassForAccountIdentifier:(id)identifier makeDefault:(BOOL)default completion:(id)completion;
 - (void)provisionPassForRemoteCredentialWithType:(int64_t)type andIdentifier:(id)identifier completion:(id)completion;
 - (void)reclaimUnusedSEMemory:(id)memory;
 - (void)redownloadAllPaymentPassesWithCompletion:(id)completion;
@@ -102,6 +105,36 @@
   dataSource = [(NPDCompanionAgentClient *)self dataSource];
   bulletinScheduler = [dataSource bulletinScheduler];
   [bulletinScheduler noteOfferDisplayedForCompanionPaymentPassWithUniqueID:dCopy];
+}
+
+- (void)provisionPassForAccountIdentifier:(id)identifier makeDefault:(BOOL)default completion:(id)completion
+{
+  defaultCopy = default;
+  identifierCopy = identifier;
+  completionCopy = completion;
+  v10 = [NPKOSTransaction transactionWithName:@"Provision pass for account identifier"];
+  block[0] = _NSConcreteStackBlock;
+  block[1] = 3221225472;
+  block[2] = sub_100021808;
+  block[3] = &unk_100071000;
+  block[4] = self;
+  dispatch_async(&_dispatch_main_q, block);
+  v17 = _NSConcreteStackBlock;
+  v18 = 3221225472;
+  v19 = sub_100021810;
+  v20 = &unk_100071DF8;
+  v21 = identifierCopy;
+  selfCopy = self;
+  v25 = defaultCopy;
+  v23 = v10;
+  v24 = completionCopy;
+  v11 = v10;
+  v12 = completionCopy;
+  v13 = identifierCopy;
+  v14 = objc_retainBlock(&v17);
+  v15 = [(NPDCompanionAgentClient *)self dataSource:v17];
+  remoteAdminConnectionServiceAgent = [v15 remoteAdminConnectionServiceAgent];
+  [remoteAdminConnectionServiceAgent provisionPassForAccountIdentifier:v13 makeDefault:defaultCopy completion:v14];
 }
 
 - (void)provisionPassForRemoteCredentialWithType:(int64_t)type andIdentifier:(id)identifier completion:(id)completion
@@ -478,6 +511,35 @@ LABEL_13:
     dispatch_source_cancel(self->_watchOfferTimeoutTimer);
     watchOfferTimeoutTimer = self->_watchOfferTimeoutTimer;
     self->_watchOfferTimeoutTimer = 0;
+  }
+}
+
+- (void)noteProvisioningPreflightCompleteWithSuccess:(BOOL)success error:(id)error completion:(id)completion
+{
+  successCopy = success;
+  errorCopy = error;
+  completionCopy = completion;
+  v10 = pk_Payment_log();
+  v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
+
+  if (v11)
+  {
+    v12 = pk_Payment_log();
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    {
+      v13[0] = 67109378;
+      v13[1] = successCopy;
+      v14 = 2112;
+      v15 = errorCopy;
+      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Notice: Note provisioning preflight completed with success %d (error %@)", v13, 0x12u);
+    }
+  }
+
+  [(NPDCompanionAgentClient *)self _invalidateWatchOfferTimer];
+  [(NPDCompanionAgentClient *)self _invokeWatchOfferProvisioningCompletionHandlersWithSuccess:successCopy error:errorCopy];
+  if (completionCopy)
+  {
+    completionCopy[2](completionCopy);
   }
 }
 
@@ -2801,6 +2863,28 @@ LABEL_11:
   dataSource = [(NPDCompanionAgentClient *)self dataSource];
   remoteAdminConnectionServiceAgent = [dataSource remoteAdminConnectionServiceAgent];
   [remoteAdminConnectionServiceAgent startBackgroundVerificationObserverForPass:passCopy verificationMethod:methodCopy];
+}
+
+- (void)noteForegroundVerificationObserverActive:(BOOL)active
+{
+  activeCopy = active;
+  v5 = pk_Payment_log();
+  v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
+
+  if (v6)
+  {
+    v7 = pk_Payment_log();
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    {
+      v10[0] = 67109120;
+      v10[1] = activeCopy;
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Notice: Note foreground observervation active %d", v10, 8u);
+    }
+  }
+
+  dataSource = [(NPDCompanionAgentClient *)self dataSource];
+  remoteAdminConnectionServiceAgent = [dataSource remoteAdminConnectionServiceAgent];
+  [remoteAdminConnectionServiceAgent noteForegroundVerificationObserverActive:activeCopy withObserver:self];
 }
 
 - (void)fetchPendingTransactionForPassWithUniqueID:(id)d completion:(id)completion

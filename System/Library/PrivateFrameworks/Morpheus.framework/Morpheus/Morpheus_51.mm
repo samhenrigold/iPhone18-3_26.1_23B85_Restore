@@ -1,1846 +1,46 @@
-void mlx::core::dispatch_scatter_axis_op<mlx::core::_MLX_BFloat16,unsigned long long>(mlx::core::array *a1, void *a2, mlx::core::array *a3, int a4, int a5)
-{
-  if (a5)
-  {
-    if (a5 != 1)
-    {
-      return;
-    }
-
-    v5 = a2[1];
-    v9[0] = *a2;
-    v9[1] = v5;
-    if (v5)
-    {
-      atomic_fetch_add_explicit((v5 + 8), 1uLL, memory_order_relaxed);
-    }
-
-    v6 = v9;
-    mlx::core::scatter_axis<unsigned short,unsigned long long,mlx::core::None>(a1, v9, a3, a4);
-  }
-
-  else
-  {
-    v7 = a2[1];
-    v8[0] = *a2;
-    v8[1] = v7;
-    if (v7)
-    {
-      atomic_fetch_add_explicit((v7 + 8), 1uLL, memory_order_relaxed);
-    }
-
-    v6 = v8;
-    mlx::core::scatter_axis<mlx::core::_MLX_BFloat16,unsigned long long,mlx::core::Sum>(a1, v8, a3, a4);
-  }
-
-  mlx::core::array::~array(v6);
-}
-
-void mlx::core::dispatch_scatter_axis_op<mlx::core::_MLX_BFloat16,signed char>(mlx::core::array *a1, void *a2, mlx::core::array *a3, int a4, int a5)
-{
-  if (a5)
-  {
-    if (a5 != 1)
-    {
-      return;
-    }
-
-    v5 = a2[1];
-    v9[0] = *a2;
-    v9[1] = v5;
-    if (v5)
-    {
-      atomic_fetch_add_explicit((v5 + 8), 1uLL, memory_order_relaxed);
-    }
-
-    v6 = v9;
-    mlx::core::scatter_axis<unsigned short,signed char,mlx::core::None>(a1, v9, a3, a4);
-  }
-
-  else
-  {
-    v7 = a2[1];
-    v8[0] = *a2;
-    v8[1] = v7;
-    if (v7)
-    {
-      atomic_fetch_add_explicit((v7 + 8), 1uLL, memory_order_relaxed);
-    }
-
-    v6 = v8;
-    mlx::core::scatter_axis<mlx::core::_MLX_BFloat16,signed char,mlx::core::Sum>(a1, v8, a3, a4);
-  }
-
-  mlx::core::array::~array(v6);
-}
-
-void mlx::core::dispatch_scatter_axis_op<mlx::core::_MLX_BFloat16,short>(mlx::core::array *a1, void *a2, mlx::core::array *a3, int a4, int a5)
-{
-  if (a5)
-  {
-    if (a5 != 1)
-    {
-      return;
-    }
-
-    v5 = a2[1];
-    v9[0] = *a2;
-    v9[1] = v5;
-    if (v5)
-    {
-      atomic_fetch_add_explicit((v5 + 8), 1uLL, memory_order_relaxed);
-    }
-
-    v6 = v9;
-    mlx::core::scatter_axis<unsigned short,short,mlx::core::None>(a1, v9, a3, a4);
-  }
-
-  else
-  {
-    v7 = a2[1];
-    v8[0] = *a2;
-    v8[1] = v7;
-    if (v7)
-    {
-      atomic_fetch_add_explicit((v7 + 8), 1uLL, memory_order_relaxed);
-    }
-
-    v6 = v8;
-    mlx::core::scatter_axis<mlx::core::_MLX_BFloat16,short,mlx::core::Sum>(a1, v8, a3, a4);
-  }
-
-  mlx::core::array::~array(v6);
-}
-
-void mlx::core::dispatch_scatter_axis_op<mlx::core::_MLX_BFloat16,int>(mlx::core::array *a1, void *a2, mlx::core::array *a3, int a4, int a5)
-{
-  if (a5)
-  {
-    if (a5 != 1)
-    {
-      return;
-    }
-
-    v5 = a2[1];
-    v9[0] = *a2;
-    v9[1] = v5;
-    if (v5)
-    {
-      atomic_fetch_add_explicit((v5 + 8), 1uLL, memory_order_relaxed);
-    }
-
-    v6 = v9;
-    mlx::core::scatter_axis<unsigned short,int,mlx::core::None>(a1, v9, a3, a4);
-  }
-
-  else
-  {
-    v7 = a2[1];
-    v8[0] = *a2;
-    v8[1] = v7;
-    if (v7)
-    {
-      atomic_fetch_add_explicit((v7 + 8), 1uLL, memory_order_relaxed);
-    }
-
-    v6 = v8;
-    mlx::core::scatter_axis<mlx::core::_MLX_BFloat16,int,mlx::core::Sum>(a1, v8, a3, a4);
-  }
-
-  mlx::core::array::~array(v6);
-}
-
-void mlx::core::dispatch_scatter_axis_op<mlx::core::_MLX_BFloat16,long long>(mlx::core::array *a1, void *a2, mlx::core::array *a3, int a4, int a5)
-{
-  if (a5)
-  {
-    if (a5 != 1)
-    {
-      return;
-    }
-
-    v5 = a2[1];
-    v9[0] = *a2;
-    v9[1] = v5;
-    if (v5)
-    {
-      atomic_fetch_add_explicit((v5 + 8), 1uLL, memory_order_relaxed);
-    }
-
-    v6 = v9;
-    mlx::core::scatter_axis<unsigned short,long long,mlx::core::None>(a1, v9, a3, a4);
-  }
-
-  else
-  {
-    v7 = a2[1];
-    v8[0] = *a2;
-    v8[1] = v7;
-    if (v7)
-    {
-      atomic_fetch_add_explicit((v7 + 8), 1uLL, memory_order_relaxed);
-    }
-
-    v6 = v8;
-    mlx::core::scatter_axis<mlx::core::_MLX_BFloat16,long long,mlx::core::Sum>(a1, v8, a3, a4);
-  }
-
-  mlx::core::array::~array(v6);
-}
-
-void mlx::core::scatter_axis<mlx::core::_MLX_BFloat16,unsigned char,mlx::core::Sum>(mlx::core::array *a1, mlx::core::array *a2, mlx::core::array *a3, int a4)
-{
-  v8 = *a2;
-  v98 = 0;
-  v99 = 0;
-  v97 = 0;
-  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v97, v8[3], v8[4], (v8[4] - v8[3]) >> 3);
-  v9 = &v97[8 * a4];
-  v10 = v98 - (v9 + 8);
-  if (v98 != v9 + 8)
-  {
-    memmove(&v97[8 * a4], v9 + 8, v98 - (v9 + 8));
-  }
-
-  v98 = &v9[v10];
-  v11 = *a2;
-  v95 = 0;
-  v96 = 0;
-  v94 = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v94, *v11, v11[1], (v11[1] - *v11) >> 2);
-  v12 = &v94[4 * a4];
-  v13 = v95 - (v12 + 4);
-  if (v95 != v12 + 4)
-  {
-    memmove(&v94[4 * a4], v12 + 4, v95 - (v12 + 4));
-  }
-
-  v95 = &v12[v13];
-  mlx::core::ContiguousIterator::ContiguousIterator(&v87, &v94, &v97, ((*(*a3 + 8) - **a3) >> 2) - 1);
-  if (&v97 != (*a3 + 24))
-  {
-    std::vector<long long>::__assign_with_size[abi:ne200100]<long long *,long long *>(&v97, *(*a3 + 24), *(*a3 + 32), (*(*a3 + 32) - *(*a3 + 24)) >> 3);
-  }
-
-  v14 = 8 * a4;
-  v15 = &v97[v14];
-  v16 = v98 - &v97[v14 + 8];
-  if (v98 != &v97[v14 + 8])
-  {
-    memmove(&v97[v14], &v97[v14 + 8], v98 - (v15 + 8));
-  }
-
-  v98 = &v15[v16];
-  mlx::core::ContiguousIterator::ContiguousIterator(&v80, &v94, &v97, ((*(*a3 + 8) - **a3) >> 2) - 1);
-  v76 = *(*a3 + 152);
-  v77 = *(*a2 + 152);
-  v79 = *(*a1 + 152);
-  v17 = mlx::core::array::strides(a2, a4);
-  v18 = mlx::core::array::strides(a3, a4);
-  v19 = mlx::core::array::strides(a1, a4);
-  v20 = mlx::core::array::shape(a2, a4);
-  v21 = mlx::core::array::shape(a1, a4);
-  if (a4 < 1)
-  {
-    v23 = 1;
-  }
-
-  else
-  {
-    v22 = 0;
-    v23 = 1;
-    do
-    {
-      v23 *= mlx::core::array::shape(a2, v22++);
-    }
-
-    while (a4 != v22);
-  }
-
-  v24 = a4 + 1;
-  v25 = *(*a2 + 8) - **a2;
-  v26 = 1;
-  while (v24 < v25 >> 2)
-  {
-    v26 *= mlx::core::array::shape(a2, v24++);
-    v25 = *(*a2 + 8) - **a2;
-  }
-
-  if (v23)
-  {
-    v27 = 0;
-    v69 = v26 * v21;
-    v28 = v87;
-    v29 = (v89 - v88) >> 2;
-    v78 = (((v89 - v88) << 30) - 0x100000000) >> 32;
-    v30 = v88 + 4 * v78;
-    v31 = v80;
-    v32 = (v82 - v81) >> 2;
-    v33 = (((v82 - v81) << 30) - 0x100000000) >> 32;
-    v34 = v81 + 4 * v33;
-    v35 = 2 * v18;
-    v36 = 4 * (v29 & 0x7FFFFFFF);
-    v73 = v88 - 8;
-    v37 = 4 * (v32 & 0x7FFFFFFF);
-    v72 = v81 - 8;
-    v70 = v23;
-    do
-    {
-      v71 = v27;
-      if (v26)
-      {
-        v38 = 0;
-        v39 = v90;
-        v40 = v92 + 4 * v78;
-        v41 = v83;
-        v74 = __p;
-        v75 = v92;
-        v42 = __p + 4 * v33;
-        do
-        {
-          if (v20 >= 1)
-          {
-            v43 = (v77 + v28);
-            v44 = (v76 + 2 * v31);
-            v45 = v20;
-            v46 = v79 + 2 * v38;
-            do
-            {
-              v47 = v19 * *v43;
-              v48 = COERCE_FLOAT(*v44 << 16) + COERCE_FLOAT(*(v46 + 2 * v47) << 16);
-              v44 = (v44 + v35);
-              v43 += v17;
-              *(v46 + 2 * v47) = (LODWORD(v48) + (HIWORD(LODWORD(v48)) & 1u) + 0x7FFF) >> 16;
-              --v45;
-            }
-
-            while (v45);
-          }
-
-          if (v29)
-          {
-            v49 = *v40;
-            if (v29 >= 2 && v49 == *v30 - 1)
-            {
-              v50 = v75;
-              v51 = v73;
-              v52 = (v29 & 0x7FFFFFFF) - 1;
-              v53 = v30;
-              v54 = v40;
-              v55 = v78;
-              do
-              {
-                v56 = v52;
-                *v54 = 0;
-                v28 -= v39[v55] * (*v53 - 1);
-                v87 = v28;
-                --v52;
-                v54 = &v50[v36 - 8];
-                v49 = *v54;
-                v50 -= 4;
-                if (v56 < 2)
-                {
-                  break;
-                }
-
-                v53 = &v51[v36];
-                v57 = *&v51[4 * (v29 & 0x7FFFFFFF)] - 1;
-                v51 -= 4;
-                v55 = v52;
-              }
-
-              while (v49 == v57);
-              v58 = &v50[v36 - 4];
-            }
-
-            else
-            {
-              v52 = v78;
-              v58 = v40;
-            }
-
-            *v58 = v49 + 1;
-            v28 += v39[v52];
-            v87 = v28;
-          }
-
-          if (v32)
-          {
-            v59 = *v42;
-            if (v32 >= 2 && v59 == *v34 - 1)
-            {
-              v60 = v74;
-              v61 = v72;
-              v62 = (v32 & 0x7FFFFFFF) - 1;
-              v63 = v34;
-              v64 = v42;
-              v65 = v33;
-              do
-              {
-                v66 = v62;
-                *v64 = 0;
-                v31 -= v41[v65] * (*v63 - 1);
-                v80 = v31;
-                --v62;
-                v64 = &v60[v37 - 8];
-                v59 = *v64;
-                v60 -= 4;
-                if (v66 < 2)
-                {
-                  break;
-                }
-
-                v63 = &v61[v37];
-                v67 = *&v61[4 * (v32 & 0x7FFFFFFF)] - 1;
-                v61 -= 4;
-                v65 = v62;
-              }
-
-              while (v59 == v67);
-              v68 = &v60[v37 - 4];
-            }
-
-            else
-            {
-              v62 = v33;
-              v68 = v42;
-            }
-
-            *v68 = v59 + 1;
-            v31 += v41[v62];
-            v80 = v31;
-          }
-
-          ++v38;
-        }
-
-        while (v38 != v26);
-      }
-
-      v79 += 2 * v69;
-      v27 = v71 + 1;
-    }
-
-    while (v71 + 1 != v70);
-  }
-
-  if (__p)
-  {
-    v86 = __p;
-    operator delete(__p);
-  }
-
-  if (v83)
-  {
-    v84 = v83;
-    operator delete(v83);
-  }
-
-  if (v81)
-  {
-    v82 = v81;
-    operator delete(v81);
-  }
-
-  if (v92)
-  {
-    v93 = v92;
-    operator delete(v92);
-  }
-
-  if (v90)
-  {
-    v91 = v90;
-    operator delete(v90);
-  }
-
-  if (v88)
-  {
-    v89 = v88;
-    operator delete(v88);
-  }
-
-  if (v94)
-  {
-    v95 = v94;
-    operator delete(v94);
-  }
-
-  if (v97)
-  {
-    v98 = v97;
-    operator delete(v97);
-  }
-}
-
-void sub_25A52BC60(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, void *a23, uint64_t a24, uint64_t a25, void *a26, uint64_t a27, uint64_t a28, void *a29, uint64_t a30, uint64_t a31, uint64_t a32, void *a33, uint64_t a34, uint64_t a35, void *a36, uint64_t a37, uint64_t a38, void *__p, uint64_t a40)
-{
-  if (__p)
-  {
-    operator delete(__p);
-  }
-
-  if (a36)
-  {
-    operator delete(a36);
-  }
-
-  if (a33)
-  {
-    operator delete(a33);
-  }
-
-  v42 = *(v40 - 136);
-  if (v42)
-  {
-    *(v40 - 128) = v42;
-    operator delete(v42);
-  }
-
-  v43 = *(v40 - 112);
-  if (v43)
-  {
-    *(v40 - 104) = v43;
-    operator delete(v43);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void mlx::core::scatter_axis<mlx::core::_MLX_BFloat16,unsigned short,mlx::core::Sum>(mlx::core::array *a1, mlx::core::array *a2, mlx::core::array *a3, int a4)
-{
-  v8 = *a2;
-  v99 = 0;
-  v100 = 0;
-  v98 = 0;
-  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v98, v8[3], v8[4], (v8[4] - v8[3]) >> 3);
-  v9 = &v98[8 * a4];
-  v10 = v99 - (v9 + 8);
-  if (v99 != v9 + 8)
-  {
-    memmove(&v98[8 * a4], v9 + 8, v99 - (v9 + 8));
-  }
-
-  v99 = &v9[v10];
-  v11 = *a2;
-  v96 = 0;
-  v97 = 0;
-  v95 = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v95, *v11, v11[1], (v11[1] - *v11) >> 2);
-  v12 = &v95[4 * a4];
-  v13 = v96 - (v12 + 4);
-  if (v96 != v12 + 4)
-  {
-    memmove(&v95[4 * a4], v12 + 4, v96 - (v12 + 4));
-  }
-
-  v96 = &v12[v13];
-  mlx::core::ContiguousIterator::ContiguousIterator(&v88, &v95, &v98, ((*(*a3 + 8) - **a3) >> 2) - 1);
-  if (&v98 != (*a3 + 24))
-  {
-    std::vector<long long>::__assign_with_size[abi:ne200100]<long long *,long long *>(&v98, *(*a3 + 24), *(*a3 + 32), (*(*a3 + 32) - *(*a3 + 24)) >> 3);
-  }
-
-  v14 = 8 * a4;
-  v15 = &v98[v14];
-  v16 = v99 - &v98[v14 + 8];
-  if (v99 != &v98[v14 + 8])
-  {
-    memmove(&v98[v14], &v98[v14 + 8], v99 - (v15 + 8));
-  }
-
-  v99 = &v15[v16];
-  mlx::core::ContiguousIterator::ContiguousIterator(&v81, &v95, &v98, ((*(*a3 + 8) - **a3) >> 2) - 1);
-  v77 = *(*a3 + 152);
-  v78 = *(*a2 + 152);
-  v80 = *(*a1 + 152);
-  v17 = mlx::core::array::strides(a2, a4);
-  v18 = mlx::core::array::strides(a3, a4);
-  v19 = mlx::core::array::strides(a1, a4);
-  v20 = mlx::core::array::shape(a2, a4);
-  v21 = mlx::core::array::shape(a1, a4);
-  if (a4 < 1)
-  {
-    v23 = 1;
-  }
-
-  else
-  {
-    v22 = 0;
-    v23 = 1;
-    do
-    {
-      v23 *= mlx::core::array::shape(a2, v22++);
-    }
-
-    while (a4 != v22);
-  }
-
-  v24 = a4 + 1;
-  v25 = *(*a2 + 8) - **a2;
-  v26 = 1;
-  while (v24 < v25 >> 2)
-  {
-    v26 *= mlx::core::array::shape(a2, v24++);
-    v25 = *(*a2 + 8) - **a2;
-  }
-
-  if (v23)
-  {
-    v27 = 0;
-    v70 = v26 * v21;
-    v28 = v88;
-    v29 = (v90 - v89) >> 2;
-    v79 = (((v90 - v89) << 30) - 0x100000000) >> 32;
-    v30 = v89 + 4 * v79;
-    v31 = v81;
-    v32 = (v83 - v82) >> 2;
-    v33 = (((v83 - v82) << 30) - 0x100000000) >> 32;
-    v34 = v82 + 4 * v33;
-    v35 = 2 * v18;
-    v36 = 2 * v17;
-    v37 = 4 * (v29 & 0x7FFFFFFF);
-    v74 = v89 - 8;
-    v38 = 4 * (v32 & 0x7FFFFFFF);
-    v73 = v82 - 8;
-    v71 = v23;
-    do
-    {
-      v72 = v27;
-      if (v26)
-      {
-        v39 = 0;
-        v40 = v91;
-        v41 = v93 + 4 * v79;
-        v42 = v84;
-        v75 = __p;
-        v76 = v93;
-        v43 = __p + 4 * v33;
-        do
-        {
-          if (v20 >= 1)
-          {
-            v44 = (v78 + 2 * v28);
-            v45 = (v77 + 2 * v31);
-            v46 = v20;
-            v47 = v80 + 2 * v39;
-            do
-            {
-              v48 = v19 * *v44;
-              v49 = COERCE_FLOAT(*v45 << 16) + COERCE_FLOAT(*(v47 + 2 * v48) << 16);
-              v45 = (v45 + v35);
-              v44 = (v44 + v36);
-              *(v47 + 2 * v48) = (LODWORD(v49) + (HIWORD(LODWORD(v49)) & 1u) + 0x7FFF) >> 16;
-              --v46;
-            }
-
-            while (v46);
-          }
-
-          if (v29)
-          {
-            v50 = *v41;
-            if (v29 >= 2 && v50 == *v30 - 1)
-            {
-              v51 = v76;
-              v52 = v74;
-              v53 = (v29 & 0x7FFFFFFF) - 1;
-              v54 = v30;
-              v55 = v41;
-              v56 = v79;
-              do
-              {
-                v57 = v53;
-                *v55 = 0;
-                v28 -= v40[v56] * (*v54 - 1);
-                v88 = v28;
-                --v53;
-                v55 = &v51[v37 - 8];
-                v50 = *v55;
-                v51 -= 4;
-                if (v57 < 2)
-                {
-                  break;
-                }
-
-                v54 = &v52[v37];
-                v58 = *&v52[4 * (v29 & 0x7FFFFFFF)] - 1;
-                v52 -= 4;
-                v56 = v53;
-              }
-
-              while (v50 == v58);
-              v59 = &v51[v37 - 4];
-            }
-
-            else
-            {
-              v53 = v79;
-              v59 = v41;
-            }
-
-            *v59 = v50 + 1;
-            v28 += v40[v53];
-            v88 = v28;
-          }
-
-          if (v32)
-          {
-            v60 = *v43;
-            if (v32 >= 2 && v60 == *v34 - 1)
-            {
-              v61 = v75;
-              v62 = v73;
-              v63 = (v32 & 0x7FFFFFFF) - 1;
-              v64 = v34;
-              v65 = v43;
-              v66 = v33;
-              do
-              {
-                v67 = v63;
-                *v65 = 0;
-                v31 -= v42[v66] * (*v64 - 1);
-                v81 = v31;
-                --v63;
-                v65 = &v61[v38 - 8];
-                v60 = *v65;
-                v61 -= 4;
-                if (v67 < 2)
-                {
-                  break;
-                }
-
-                v64 = &v62[v38];
-                v68 = *&v62[4 * (v32 & 0x7FFFFFFF)] - 1;
-                v62 -= 4;
-                v66 = v63;
-              }
-
-              while (v60 == v68);
-              v69 = &v61[v38 - 4];
-            }
-
-            else
-            {
-              v63 = v33;
-              v69 = v43;
-            }
-
-            *v69 = v60 + 1;
-            v31 += v42[v63];
-            v81 = v31;
-          }
-
-          ++v39;
-        }
-
-        while (v39 != v26);
-      }
-
-      v80 += 2 * v70;
-      v27 = v72 + 1;
-    }
-
-    while (v72 + 1 != v71);
-  }
-
-  if (__p)
-  {
-    v87 = __p;
-    operator delete(__p);
-  }
-
-  if (v84)
-  {
-    v85 = v84;
-    operator delete(v84);
-  }
-
-  if (v82)
-  {
-    v83 = v82;
-    operator delete(v82);
-  }
-
-  if (v93)
-  {
-    v94 = v93;
-    operator delete(v93);
-  }
-
-  if (v91)
-  {
-    v92 = v91;
-    operator delete(v91);
-  }
-
-  if (v89)
-  {
-    v90 = v89;
-    operator delete(v89);
-  }
-
-  if (v95)
-  {
-    v96 = v95;
-    operator delete(v95);
-  }
-
-  if (v98)
-  {
-    v99 = v98;
-    operator delete(v98);
-  }
-}
-
-void sub_25A52C2E0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, void *a23, uint64_t a24, uint64_t a25, void *a26, uint64_t a27, uint64_t a28, void *a29, uint64_t a30, uint64_t a31, uint64_t a32, void *a33, uint64_t a34, uint64_t a35, void *a36, uint64_t a37, uint64_t a38, void *__p, uint64_t a40)
-{
-  if (__p)
-  {
-    operator delete(__p);
-  }
-
-  if (a36)
-  {
-    operator delete(a36);
-  }
-
-  if (a33)
-  {
-    operator delete(a33);
-  }
-
-  v42 = *(v40 - 136);
-  if (v42)
-  {
-    *(v40 - 128) = v42;
-    operator delete(v42);
-  }
-
-  v43 = *(v40 - 112);
-  if (v43)
-  {
-    *(v40 - 104) = v43;
-    operator delete(v43);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void mlx::core::scatter_axis<mlx::core::_MLX_BFloat16,unsigned int,mlx::core::Sum>(mlx::core::array *a1, mlx::core::array *a2, mlx::core::array *a3, int a4)
-{
-  v8 = *a2;
-  v99 = 0;
-  v100 = 0;
-  v98 = 0;
-  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v98, v8[3], v8[4], (v8[4] - v8[3]) >> 3);
-  v9 = &v98[8 * a4];
-  v10 = v99 - (v9 + 8);
-  if (v99 != v9 + 8)
-  {
-    memmove(&v98[8 * a4], v9 + 8, v99 - (v9 + 8));
-  }
-
-  v99 = &v9[v10];
-  v11 = *a2;
-  v96 = 0;
-  v97 = 0;
-  v95 = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v95, *v11, v11[1], (v11[1] - *v11) >> 2);
-  v12 = &v95[4 * a4];
-  v13 = v96 - (v12 + 4);
-  if (v96 != v12 + 4)
-  {
-    memmove(&v95[4 * a4], v12 + 4, v96 - (v12 + 4));
-  }
-
-  v96 = &v12[v13];
-  mlx::core::ContiguousIterator::ContiguousIterator(&v88, &v95, &v98, ((*(*a3 + 8) - **a3) >> 2) - 1);
-  if (&v98 != (*a3 + 24))
-  {
-    std::vector<long long>::__assign_with_size[abi:ne200100]<long long *,long long *>(&v98, *(*a3 + 24), *(*a3 + 32), (*(*a3 + 32) - *(*a3 + 24)) >> 3);
-  }
-
-  v14 = 8 * a4;
-  v15 = &v98[v14];
-  v16 = v99 - &v98[v14 + 8];
-  if (v99 != &v98[v14 + 8])
-  {
-    memmove(&v98[v14], &v98[v14 + 8], v99 - (v15 + 8));
-  }
-
-  v99 = &v15[v16];
-  mlx::core::ContiguousIterator::ContiguousIterator(&v81, &v95, &v98, ((*(*a3 + 8) - **a3) >> 2) - 1);
-  v77 = *(*a3 + 152);
-  v78 = *(*a2 + 152);
-  v80 = *(*a1 + 152);
-  v17 = mlx::core::array::strides(a2, a4);
-  v18 = mlx::core::array::strides(a3, a4);
-  v19 = mlx::core::array::strides(a1, a4);
-  v20 = mlx::core::array::shape(a2, a4);
-  v21 = mlx::core::array::shape(a1, a4);
-  if (a4 < 1)
-  {
-    v23 = 1;
-  }
-
-  else
-  {
-    v22 = 0;
-    v23 = 1;
-    do
-    {
-      v23 *= mlx::core::array::shape(a2, v22++);
-    }
-
-    while (a4 != v22);
-  }
-
-  v24 = a4 + 1;
-  v25 = *(*a2 + 8) - **a2;
-  v26 = 1;
-  while (v24 < v25 >> 2)
-  {
-    v26 *= mlx::core::array::shape(a2, v24++);
-    v25 = *(*a2 + 8) - **a2;
-  }
-
-  if (v23)
-  {
-    v27 = 0;
-    v70 = v26 * v21;
-    v28 = v88;
-    v29 = (v90 - v89) >> 2;
-    v79 = (((v90 - v89) << 30) - 0x100000000) >> 32;
-    v30 = v89 + 4 * v79;
-    v31 = v81;
-    v32 = (v83 - v82) >> 2;
-    v33 = (((v83 - v82) << 30) - 0x100000000) >> 32;
-    v34 = v82 + 4 * v33;
-    v35 = 2 * v18;
-    v36 = 4 * v17;
-    v37 = 4 * (v29 & 0x7FFFFFFF);
-    v74 = v89 - 8;
-    v38 = 4 * (v32 & 0x7FFFFFFF);
-    v73 = v82 - 8;
-    v71 = v23;
-    do
-    {
-      v72 = v27;
-      if (v26)
-      {
-        v39 = 0;
-        v40 = v91;
-        v41 = v93 + 4 * v79;
-        v42 = v84;
-        v75 = __p;
-        v76 = v93;
-        v43 = __p + 4 * v33;
-        do
-        {
-          if (v20 >= 1)
-          {
-            v44 = (v78 + 4 * v28);
-            v45 = (v77 + 2 * v31);
-            v46 = v20;
-            v47 = v80 + 2 * v39;
-            do
-            {
-              v48 = v19 * *v44;
-              v49 = COERCE_FLOAT(*v45 << 16) + COERCE_FLOAT(*(v47 + 2 * v48) << 16);
-              v45 = (v45 + v35);
-              v44 = (v44 + v36);
-              *(v47 + 2 * v48) = (LODWORD(v49) + (HIWORD(LODWORD(v49)) & 1u) + 0x7FFF) >> 16;
-              --v46;
-            }
-
-            while (v46);
-          }
-
-          if (v29)
-          {
-            v50 = *v41;
-            if (v29 >= 2 && v50 == *v30 - 1)
-            {
-              v51 = v76;
-              v52 = v74;
-              v53 = (v29 & 0x7FFFFFFF) - 1;
-              v54 = v30;
-              v55 = v41;
-              v56 = v79;
-              do
-              {
-                v57 = v53;
-                *v55 = 0;
-                v28 -= v40[v56] * (*v54 - 1);
-                v88 = v28;
-                --v53;
-                v55 = &v51[v37 - 8];
-                v50 = *v55;
-                v51 -= 4;
-                if (v57 < 2)
-                {
-                  break;
-                }
-
-                v54 = &v52[v37];
-                v58 = *&v52[4 * (v29 & 0x7FFFFFFF)] - 1;
-                v52 -= 4;
-                v56 = v53;
-              }
-
-              while (v50 == v58);
-              v59 = &v51[v37 - 4];
-            }
-
-            else
-            {
-              v53 = v79;
-              v59 = v41;
-            }
-
-            *v59 = v50 + 1;
-            v28 += v40[v53];
-            v88 = v28;
-          }
-
-          if (v32)
-          {
-            v60 = *v43;
-            if (v32 >= 2 && v60 == *v34 - 1)
-            {
-              v61 = v75;
-              v62 = v73;
-              v63 = (v32 & 0x7FFFFFFF) - 1;
-              v64 = v34;
-              v65 = v43;
-              v66 = v33;
-              do
-              {
-                v67 = v63;
-                *v65 = 0;
-                v31 -= v42[v66] * (*v64 - 1);
-                v81 = v31;
-                --v63;
-                v65 = &v61[v38 - 8];
-                v60 = *v65;
-                v61 -= 4;
-                if (v67 < 2)
-                {
-                  break;
-                }
-
-                v64 = &v62[v38];
-                v68 = *&v62[4 * (v32 & 0x7FFFFFFF)] - 1;
-                v62 -= 4;
-                v66 = v63;
-              }
-
-              while (v60 == v68);
-              v69 = &v61[v38 - 4];
-            }
-
-            else
-            {
-              v63 = v33;
-              v69 = v43;
-            }
-
-            *v69 = v60 + 1;
-            v31 += v42[v63];
-            v81 = v31;
-          }
-
-          ++v39;
-        }
-
-        while (v39 != v26);
-      }
-
-      v80 += 2 * v70;
-      v27 = v72 + 1;
-    }
-
-    while (v72 + 1 != v71);
-  }
-
-  if (__p)
-  {
-    v87 = __p;
-    operator delete(__p);
-  }
-
-  if (v84)
-  {
-    v85 = v84;
-    operator delete(v84);
-  }
-
-  if (v82)
-  {
-    v83 = v82;
-    operator delete(v82);
-  }
-
-  if (v93)
-  {
-    v94 = v93;
-    operator delete(v93);
-  }
-
-  if (v91)
-  {
-    v92 = v91;
-    operator delete(v91);
-  }
-
-  if (v89)
-  {
-    v90 = v89;
-    operator delete(v89);
-  }
-
-  if (v95)
-  {
-    v96 = v95;
-    operator delete(v95);
-  }
-
-  if (v98)
-  {
-    v99 = v98;
-    operator delete(v98);
-  }
-}
-
-void sub_25A52C960(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, void *a23, uint64_t a24, uint64_t a25, void *a26, uint64_t a27, uint64_t a28, void *a29, uint64_t a30, uint64_t a31, uint64_t a32, void *a33, uint64_t a34, uint64_t a35, void *a36, uint64_t a37, uint64_t a38, void *__p, uint64_t a40)
-{
-  if (__p)
-  {
-    operator delete(__p);
-  }
-
-  if (a36)
-  {
-    operator delete(a36);
-  }
-
-  if (a33)
-  {
-    operator delete(a33);
-  }
-
-  v42 = *(v40 - 136);
-  if (v42)
-  {
-    *(v40 - 128) = v42;
-    operator delete(v42);
-  }
-
-  v43 = *(v40 - 112);
-  if (v43)
-  {
-    *(v40 - 104) = v43;
-    operator delete(v43);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void mlx::core::scatter_axis<mlx::core::_MLX_BFloat16,unsigned long long,mlx::core::Sum>(mlx::core::array *a1, mlx::core::array *a2, mlx::core::array *a3, int a4)
-{
-  v8 = *a2;
-  v99 = 0;
-  v100 = 0;
-  v98 = 0;
-  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v98, v8[3], v8[4], (v8[4] - v8[3]) >> 3);
-  v9 = &v98[8 * a4];
-  v10 = v99 - (v9 + 8);
-  if (v99 != v9 + 8)
-  {
-    memmove(&v98[8 * a4], v9 + 8, v99 - (v9 + 8));
-  }
-
-  v99 = &v9[v10];
-  v11 = *a2;
-  v96 = 0;
-  v97 = 0;
-  v95 = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v95, *v11, v11[1], (v11[1] - *v11) >> 2);
-  v12 = &v95[4 * a4];
-  v13 = v96 - (v12 + 4);
-  if (v96 != v12 + 4)
-  {
-    memmove(&v95[4 * a4], v12 + 4, v96 - (v12 + 4));
-  }
-
-  v96 = &v12[v13];
-  mlx::core::ContiguousIterator::ContiguousIterator(&v88, &v95, &v98, ((*(*a3 + 8) - **a3) >> 2) - 1);
-  if (&v98 != (*a3 + 24))
-  {
-    std::vector<long long>::__assign_with_size[abi:ne200100]<long long *,long long *>(&v98, *(*a3 + 24), *(*a3 + 32), (*(*a3 + 32) - *(*a3 + 24)) >> 3);
-  }
-
-  v14 = 8 * a4;
-  v15 = &v98[v14];
-  v16 = v99 - &v98[v14 + 8];
-  if (v99 != &v98[v14 + 8])
-  {
-    memmove(&v98[v14], &v98[v14 + 8], v99 - (v15 + 8));
-  }
-
-  v99 = &v15[v16];
-  mlx::core::ContiguousIterator::ContiguousIterator(&v81, &v95, &v98, ((*(*a3 + 8) - **a3) >> 2) - 1);
-  v77 = *(*a3 + 152);
-  v78 = *(*a2 + 152);
-  v80 = *(*a1 + 152);
-  v17 = mlx::core::array::strides(a2, a4);
-  v18 = mlx::core::array::strides(a3, a4);
-  v19 = mlx::core::array::strides(a1, a4);
-  v20 = mlx::core::array::shape(a2, a4);
-  v21 = mlx::core::array::shape(a1, a4);
-  if (a4 < 1)
-  {
-    v23 = 1;
-  }
-
-  else
-  {
-    v22 = 0;
-    v23 = 1;
-    do
-    {
-      v23 *= mlx::core::array::shape(a2, v22++);
-    }
-
-    while (a4 != v22);
-  }
-
-  v24 = a4 + 1;
-  v25 = *(*a2 + 8) - **a2;
-  v26 = 1;
-  while (v24 < v25 >> 2)
-  {
-    v26 *= mlx::core::array::shape(a2, v24++);
-    v25 = *(*a2 + 8) - **a2;
-  }
-
-  if (v23)
-  {
-    v27 = 0;
-    v70 = v26 * v21;
-    v28 = v88;
-    v29 = (v90 - v89) >> 2;
-    v79 = (((v90 - v89) << 30) - 0x100000000) >> 32;
-    v30 = v89 + 4 * v79;
-    v31 = v81;
-    v32 = (v83 - v82) >> 2;
-    v33 = (((v83 - v82) << 30) - 0x100000000) >> 32;
-    v34 = v82 + 4 * v33;
-    v35 = 2 * v18;
-    v36 = 8 * v17;
-    v37 = 4 * (v29 & 0x7FFFFFFF);
-    v74 = v89 - 8;
-    v38 = 4 * (v32 & 0x7FFFFFFF);
-    v73 = v82 - 8;
-    v71 = v23;
-    do
-    {
-      v72 = v27;
-      if (v26)
-      {
-        v39 = 0;
-        v40 = v91;
-        v41 = v93 + 4 * v79;
-        v42 = v84;
-        v75 = __p;
-        v76 = v93;
-        v43 = __p + 4 * v33;
-        do
-        {
-          if (v20 >= 1)
-          {
-            v44 = (v78 + 8 * v28);
-            v45 = (v77 + 2 * v31);
-            v46 = v20;
-            v47 = v80 + 2 * v39;
-            do
-            {
-              v48 = *v44 * v19;
-              v49 = COERCE_FLOAT(*v45 << 16) + COERCE_FLOAT(*(v47 + 2 * v48) << 16);
-              v45 = (v45 + v35);
-              v44 = (v44 + v36);
-              *(v47 + 2 * v48) = (LODWORD(v49) + (HIWORD(LODWORD(v49)) & 1u) + 0x7FFF) >> 16;
-              --v46;
-            }
-
-            while (v46);
-          }
-
-          if (v29)
-          {
-            v50 = *v41;
-            if (v29 >= 2 && v50 == *v30 - 1)
-            {
-              v51 = v76;
-              v52 = v74;
-              v53 = (v29 & 0x7FFFFFFF) - 1;
-              v54 = v30;
-              v55 = v41;
-              v56 = v79;
-              do
-              {
-                v57 = v53;
-                *v55 = 0;
-                v28 -= v40[v56] * (*v54 - 1);
-                v88 = v28;
-                --v53;
-                v55 = &v51[v37 - 8];
-                v50 = *v55;
-                v51 -= 4;
-                if (v57 < 2)
-                {
-                  break;
-                }
-
-                v54 = &v52[v37];
-                v58 = *&v52[4 * (v29 & 0x7FFFFFFF)] - 1;
-                v52 -= 4;
-                v56 = v53;
-              }
-
-              while (v50 == v58);
-              v59 = &v51[v37 - 4];
-            }
-
-            else
-            {
-              v53 = v79;
-              v59 = v41;
-            }
-
-            *v59 = v50 + 1;
-            v28 += v40[v53];
-            v88 = v28;
-          }
-
-          if (v32)
-          {
-            v60 = *v43;
-            if (v32 >= 2 && v60 == *v34 - 1)
-            {
-              v61 = v75;
-              v62 = v73;
-              v63 = (v32 & 0x7FFFFFFF) - 1;
-              v64 = v34;
-              v65 = v43;
-              v66 = v33;
-              do
-              {
-                v67 = v63;
-                *v65 = 0;
-                v31 -= v42[v66] * (*v64 - 1);
-                v81 = v31;
-                --v63;
-                v65 = &v61[v38 - 8];
-                v60 = *v65;
-                v61 -= 4;
-                if (v67 < 2)
-                {
-                  break;
-                }
-
-                v64 = &v62[v38];
-                v68 = *&v62[4 * (v32 & 0x7FFFFFFF)] - 1;
-                v62 -= 4;
-                v66 = v63;
-              }
-
-              while (v60 == v68);
-              v69 = &v61[v38 - 4];
-            }
-
-            else
-            {
-              v63 = v33;
-              v69 = v43;
-            }
-
-            *v69 = v60 + 1;
-            v31 += v42[v63];
-            v81 = v31;
-          }
-
-          ++v39;
-        }
-
-        while (v39 != v26);
-      }
-
-      v80 += 2 * v70;
-      v27 = v72 + 1;
-    }
-
-    while (v72 + 1 != v71);
-  }
-
-  if (__p)
-  {
-    v87 = __p;
-    operator delete(__p);
-  }
-
-  if (v84)
-  {
-    v85 = v84;
-    operator delete(v84);
-  }
-
-  if (v82)
-  {
-    v83 = v82;
-    operator delete(v82);
-  }
-
-  if (v93)
-  {
-    v94 = v93;
-    operator delete(v93);
-  }
-
-  if (v91)
-  {
-    v92 = v91;
-    operator delete(v91);
-  }
-
-  if (v89)
-  {
-    v90 = v89;
-    operator delete(v89);
-  }
-
-  if (v95)
-  {
-    v96 = v95;
-    operator delete(v95);
-  }
-
-  if (v98)
-  {
-    v99 = v98;
-    operator delete(v98);
-  }
-}
-
-void sub_25A52CFE0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, void *a23, uint64_t a24, uint64_t a25, void *a26, uint64_t a27, uint64_t a28, void *a29, uint64_t a30, uint64_t a31, uint64_t a32, void *a33, uint64_t a34, uint64_t a35, void *a36, uint64_t a37, uint64_t a38, void *__p, uint64_t a40)
-{
-  if (__p)
-  {
-    operator delete(__p);
-  }
-
-  if (a36)
-  {
-    operator delete(a36);
-  }
-
-  if (a33)
-  {
-    operator delete(a33);
-  }
-
-  v42 = *(v40 - 136);
-  if (v42)
-  {
-    *(v40 - 128) = v42;
-    operator delete(v42);
-  }
-
-  v43 = *(v40 - 112);
-  if (v43)
-  {
-    *(v40 - 104) = v43;
-    operator delete(v43);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void mlx::core::scatter_axis<mlx::core::_MLX_BFloat16,signed char,mlx::core::Sum>(mlx::core::array *a1, mlx::core::array *a2, mlx::core::array *a3, int a4)
-{
-  v8 = *a2;
-  v101 = 0;
-  v102 = 0;
-  v100 = 0;
-  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v100, v8[3], v8[4], (v8[4] - v8[3]) >> 3);
-  v9 = &v100[8 * a4];
-  v10 = v101 - (v9 + 8);
-  if (v101 != v9 + 8)
-  {
-    memmove(&v100[8 * a4], v9 + 8, v101 - (v9 + 8));
-  }
-
-  v101 = &v9[v10];
-  v11 = *a2;
-  v98 = 0;
-  v99 = 0;
-  v97 = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v97, *v11, v11[1], (v11[1] - *v11) >> 2);
-  v12 = &v97[4 * a4];
-  v13 = v98 - (v12 + 4);
-  if (v98 != v12 + 4)
-  {
-    memmove(&v97[4 * a4], v12 + 4, v98 - (v12 + 4));
-  }
-
-  v98 = &v12[v13];
-  mlx::core::ContiguousIterator::ContiguousIterator(&v90, &v97, &v100, ((*(*a3 + 8) - **a3) >> 2) - 1);
-  if (&v100 != (*a3 + 24))
-  {
-    std::vector<long long>::__assign_with_size[abi:ne200100]<long long *,long long *>(&v100, *(*a3 + 24), *(*a3 + 32), (*(*a3 + 32) - *(*a3 + 24)) >> 3);
-  }
-
-  v14 = 8 * a4;
-  v15 = &v100[v14];
-  v16 = v101 - &v100[v14 + 8];
-  if (v101 != &v100[v14 + 8])
-  {
-    memmove(&v100[v14], &v100[v14 + 8], v101 - (v15 + 8));
-  }
-
-  v101 = &v15[v16];
-  mlx::core::ContiguousIterator::ContiguousIterator(&v83, &v97, &v100, ((*(*a3 + 8) - **a3) >> 2) - 1);
-  v79 = *(*a3 + 152);
-  v80 = *(*a2 + 152);
-  v82 = *(*a1 + 152);
-  v17 = mlx::core::array::strides(a2, a4);
-  v18 = mlx::core::array::strides(a3, a4);
-  v19 = mlx::core::array::strides(a1, a4);
-  v20 = mlx::core::array::shape(a2, a4);
-  v21 = mlx::core::array::shape(a1, a4);
-  if (a4 < 1)
-  {
-    v23 = 1;
-  }
-
-  else
-  {
-    v22 = 0;
-    v23 = 1;
-    do
-    {
-      v23 *= mlx::core::array::shape(a2, v22++);
-    }
-
-    while (a4 != v22);
-  }
-
-  v24 = a4 + 1;
-  v25 = *(*a2 + 8) - **a2;
-  v26 = 1;
-  while (v24 < v25 >> 2)
-  {
-    v26 *= mlx::core::array::shape(a2, v24++);
-    v25 = *(*a2 + 8) - **a2;
-  }
-
-  if (v23)
-  {
-    v27 = 0;
-    v28 = v21;
-    v72 = v26 * v21;
-    v29 = v90;
-    v30 = (v92 - v91) >> 2;
-    v81 = (((v92 - v91) << 30) - 0x100000000) >> 32;
-    v31 = v91 + 4 * v81;
-    v32 = v83;
-    v33 = (v85 - v84) >> 2;
-    v34 = (((v85 - v84) << 30) - 0x100000000) >> 32;
-    v35 = v84 + 4 * v34;
-    v36 = 2 * v18;
-    v37 = 4 * (v30 & 0x7FFFFFFF);
-    v76 = v91 - 8;
-    v38 = 4 * (v33 & 0x7FFFFFFF);
-    v75 = v84 - 8;
-    v73 = v23;
-    do
-    {
-      v74 = v27;
-      if (v26)
-      {
-        v39 = 0;
-        v40 = v93;
-        v78 = v95;
-        v41 = v95 + 4 * v81;
-        v42 = v86;
-        v77 = __p;
-        v43 = __p + 4 * v34;
-        do
-        {
-          if (v20 >= 1)
-          {
-            v44 = (v80 + v29);
-            v45 = (v79 + 2 * v32);
-            v46 = v20;
-            v47 = v82 + 2 * v39;
-            do
-            {
-              v48 = *v44;
-              if (v48 >= 0)
-              {
-                v49 = 0;
-              }
-
-              else
-              {
-                v49 = v28;
-              }
-
-              v50 = (v49 + v48) * v19;
-              v51 = COERCE_FLOAT(*v45 << 16) + COERCE_FLOAT(*(v47 + 2 * v50) << 16);
-              v45 = (v45 + v36);
-              v44 += v17;
-              *(v47 + 2 * v50) = (LODWORD(v51) + (HIWORD(LODWORD(v51)) & 1u) + 0x7FFF) >> 16;
-              --v46;
-            }
-
-            while (v46);
-          }
-
-          if (v30)
-          {
-            v52 = *v41;
-            if (v30 >= 2 && v52 == *v31 - 1)
-            {
-              v53 = v78;
-              v54 = v76;
-              v55 = (v30 & 0x7FFFFFFF) - 1;
-              v56 = v31;
-              v57 = v41;
-              v58 = v81;
-              do
-              {
-                v59 = v55;
-                *v57 = 0;
-                v29 -= v40[v58] * (*v56 - 1);
-                v90 = v29;
-                --v55;
-                v57 = &v53[v37 - 8];
-                v52 = *v57;
-                v53 -= 4;
-                if (v59 < 2)
-                {
-                  break;
-                }
-
-                v56 = &v54[v37];
-                v60 = *&v54[4 * (v30 & 0x7FFFFFFF)] - 1;
-                v54 -= 4;
-                v58 = v55;
-              }
-
-              while (v52 == v60);
-              v61 = &v53[v37 - 4];
-            }
-
-            else
-            {
-              v55 = v81;
-              v61 = v41;
-            }
-
-            *v61 = v52 + 1;
-            v29 += v40[v55];
-            v90 = v29;
-          }
-
-          if (v33)
-          {
-            v62 = *v43;
-            if (v33 >= 2 && v62 == *v35 - 1)
-            {
-              v63 = v77;
-              v64 = v75;
-              v65 = (v33 & 0x7FFFFFFF) - 1;
-              v66 = v35;
-              v67 = v43;
-              v68 = v34;
-              do
-              {
-                v69 = v65;
-                *v67 = 0;
-                v32 -= v42[v68] * (*v66 - 1);
-                v83 = v32;
-                --v65;
-                v67 = &v63[v38 - 8];
-                v62 = *v67;
-                v63 -= 4;
-                if (v69 < 2)
-                {
-                  break;
-                }
-
-                v66 = &v64[v38];
-                v70 = *&v64[4 * (v33 & 0x7FFFFFFF)] - 1;
-                v64 -= 4;
-                v68 = v65;
-              }
-
-              while (v62 == v70);
-              v71 = &v63[v38 - 4];
-            }
-
-            else
-            {
-              v65 = v34;
-              v71 = v43;
-            }
-
-            *v71 = v62 + 1;
-            v32 += v42[v65];
-            v83 = v32;
-          }
-
-          ++v39;
-        }
-
-        while (v39 != v26);
-      }
-
-      v82 += 2 * v72;
-      v27 = v74 + 1;
-    }
-
-    while (v74 + 1 != v73);
-  }
-
-  if (__p)
-  {
-    v89 = __p;
-    operator delete(__p);
-  }
-
-  if (v86)
-  {
-    v87 = v86;
-    operator delete(v86);
-  }
-
-  if (v84)
-  {
-    v85 = v84;
-    operator delete(v84);
-  }
-
-  if (v95)
-  {
-    v96 = v95;
-    operator delete(v95);
-  }
-
-  if (v93)
-  {
-    v94 = v93;
-    operator delete(v93);
-  }
-
-  if (v91)
-  {
-    v92 = v91;
-    operator delete(v91);
-  }
-
-  if (v97)
-  {
-    v98 = v97;
-    operator delete(v97);
-  }
-
-  if (v100)
-  {
-    v101 = v100;
-    operator delete(v100);
-  }
-}
-
-void sub_25A52D674(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, void *a25, uint64_t a26, uint64_t a27, void *a28, uint64_t a29, uint64_t a30, void *a31, uint64_t a32, uint64_t a33, uint64_t a34, void *a35, uint64_t a36, uint64_t a37, void *a38, uint64_t a39, uint64_t a40, void *__p, uint64_t a42)
-{
-  if (__p)
-  {
-    operator delete(__p);
-  }
-
-  if (a38)
-  {
-    operator delete(a38);
-  }
-
-  if (a35)
-  {
-    operator delete(a35);
-  }
-
-  v44 = *(v42 - 136);
-  if (v44)
-  {
-    *(v42 - 128) = v44;
-    operator delete(v44);
-  }
-
-  v45 = *(v42 - 112);
-  if (v45)
-  {
-    *(v42 - 104) = v45;
-    operator delete(v45);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
 void mlx::core::scatter_axis<mlx::core::_MLX_BFloat16,short,mlx::core::Sum>(mlx::core::array *a1, mlx::core::array *a2, mlx::core::array *a3, int a4)
 {
   v8 = *a2;
   v100 = 0;
   v101 = 0;
   v99 = 0;
-  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v99, v8[3], v8[4], (v8[4] - v8[3]) >> 3);
-  v9 = &v99[8 * a4];
-  v10 = v100 - (v9 + 8);
-  if (v100 != v9 + 8)
+  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v99, *(v8 + 24), *(v8 + 32), (*(v8 + 32) - *(v8 + 24)) >> 3);
+  v9 = &v99[a4];
+  v10 = v100 - (v9 + 1);
+  if (v100 != v9 + 1)
   {
-    memmove(&v99[8 * a4], v9 + 8, v100 - (v9 + 8));
+    memmove(&v99[a4], v9 + 1, v100 - (v9 + 1));
   }
 
-  v100 = &v9[v10];
+  v100 = (v9 + v10);
   v11 = *a2;
   v97 = 0;
   v98 = 0;
   v96 = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v96, *v11, v11[1], (v11[1] - *v11) >> 2);
-  v12 = &v96[4 * a4];
-  v13 = v97 - (v12 + 4);
-  if (v97 != v12 + 4)
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v96, *v11, *(v11 + 8), (*(v11 + 8) - *v11) >> 2);
+  v12 = &v96[a4];
+  v13 = v97 - (v12 + 1);
+  if (v97 != v12 + 1)
   {
-    memmove(&v96[4 * a4], v12 + 4, v97 - (v12 + 4));
+    memmove(&v96[a4], v12 + 1, v97 - (v12 + 1));
   }
 
-  v97 = &v12[v13];
+  v97 = (v12 + v13);
   mlx::core::ContiguousIterator::ContiguousIterator(&v89, &v96, &v99, ((*(*a3 + 8) - **a3) >> 2) - 1);
   if (&v99 != (*a3 + 24))
   {
     std::vector<long long>::__assign_with_size[abi:ne200100]<long long *,long long *>(&v99, *(*a3 + 24), *(*a3 + 32), (*(*a3 + 32) - *(*a3 + 24)) >> 3);
   }
 
-  v14 = 8 * a4;
+  v14 = a4;
   v15 = &v99[v14];
-  v16 = v100 - &v99[v14 + 8];
-  if (v100 != &v99[v14 + 8])
+  v16 = v100 - &v99[v14 + 1];
+  if (v100 != &v99[v14 + 1])
   {
-    memmove(&v99[v14], &v99[v14 + 8], v100 - (v15 + 8));
+    memmove(&v99[v14], &v99[v14 + 1], v100 - (v15 + 1));
   }
 
-  v100 = &v15[v16];
+  v100 = (v15 + v16);
   mlx::core::ContiguousIterator::ContiguousIterator(&v82, &v96, &v99, ((*(*a3 + 8) - **a3) >> 2) - 1);
   v77 = *(*a3 + 152);
   v78 = *(*a2 + 152);
@@ -2134,43 +334,43 @@ void mlx::core::scatter_axis<mlx::core::_MLX_BFloat16,int,mlx::core::Sum>(mlx::c
   v100 = 0;
   v101 = 0;
   v99 = 0;
-  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v99, v8[3], v8[4], (v8[4] - v8[3]) >> 3);
-  v9 = &v99[8 * a4];
-  v10 = v100 - (v9 + 8);
-  if (v100 != v9 + 8)
+  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v99, *(v8 + 24), *(v8 + 32), (*(v8 + 32) - *(v8 + 24)) >> 3);
+  v9 = &v99[a4];
+  v10 = v100 - (v9 + 1);
+  if (v100 != v9 + 1)
   {
-    memmove(&v99[8 * a4], v9 + 8, v100 - (v9 + 8));
+    memmove(&v99[a4], v9 + 1, v100 - (v9 + 1));
   }
 
-  v100 = &v9[v10];
+  v100 = (v9 + v10);
   v11 = *a2;
   v97 = 0;
   v98 = 0;
   v96 = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v96, *v11, v11[1], (v11[1] - *v11) >> 2);
-  v12 = &v96[4 * a4];
-  v13 = v97 - (v12 + 4);
-  if (v97 != v12 + 4)
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v96, *v11, *(v11 + 8), (*(v11 + 8) - *v11) >> 2);
+  v12 = &v96[a4];
+  v13 = v97 - (v12 + 1);
+  if (v97 != v12 + 1)
   {
-    memmove(&v96[4 * a4], v12 + 4, v97 - (v12 + 4));
+    memmove(&v96[a4], v12 + 1, v97 - (v12 + 1));
   }
 
-  v97 = &v12[v13];
+  v97 = (v12 + v13);
   mlx::core::ContiguousIterator::ContiguousIterator(&v89, &v96, &v99, ((*(*a3 + 8) - **a3) >> 2) - 1);
   if (&v99 != (*a3 + 24))
   {
     std::vector<long long>::__assign_with_size[abi:ne200100]<long long *,long long *>(&v99, *(*a3 + 24), *(*a3 + 32), (*(*a3 + 32) - *(*a3 + 24)) >> 3);
   }
 
-  v14 = 8 * a4;
+  v14 = a4;
   v15 = &v99[v14];
-  v16 = v100 - &v99[v14 + 8];
-  if (v100 != &v99[v14 + 8])
+  v16 = v100 - &v99[v14 + 1];
+  if (v100 != &v99[v14 + 1])
   {
-    memmove(&v99[v14], &v99[v14 + 8], v100 - (v15 + 8));
+    memmove(&v99[v14], &v99[v14 + 1], v100 - (v15 + 1));
   }
 
-  v100 = &v15[v16];
+  v100 = (v15 + v16);
   mlx::core::ContiguousIterator::ContiguousIterator(&v82, &v96, &v99, ((*(*a3 + 8) - **a3) >> 2) - 1);
   v77 = *(*a3 + 152);
   v78 = *(*a2 + 152);
@@ -2464,43 +664,43 @@ void mlx::core::scatter_axis<mlx::core::_MLX_BFloat16,long long,mlx::core::Sum>(
   v98 = 0;
   v99 = 0;
   v97 = 0;
-  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v97, v8[3], v8[4], (v8[4] - v8[3]) >> 3);
-  v9 = &v97[8 * a4];
-  v10 = v98 - (v9 + 8);
-  if (v98 != v9 + 8)
+  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v97, *(v8 + 24), *(v8 + 32), (*(v8 + 32) - *(v8 + 24)) >> 3);
+  v9 = &v97[a4];
+  v10 = v98 - (v9 + 1);
+  if (v98 != v9 + 1)
   {
-    memmove(&v97[8 * a4], v9 + 8, v98 - (v9 + 8));
+    memmove(&v97[a4], v9 + 1, v98 - (v9 + 1));
   }
 
-  v98 = &v9[v10];
+  v98 = (v9 + v10);
   v11 = *a2;
   v95 = 0;
   v96 = 0;
   v94 = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v94, *v11, v11[1], (v11[1] - *v11) >> 2);
-  v12 = &v94[4 * a4];
-  v13 = v95 - (v12 + 4);
-  if (v95 != v12 + 4)
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v94, *v11, *(v11 + 8), (*(v11 + 8) - *v11) >> 2);
+  v12 = &v94[a4];
+  v13 = v95 - (v12 + 1);
+  if (v95 != v12 + 1)
   {
-    memmove(&v94[4 * a4], v12 + 4, v95 - (v12 + 4));
+    memmove(&v94[a4], v12 + 1, v95 - (v12 + 1));
   }
 
-  v95 = &v12[v13];
+  v95 = (v12 + v13);
   mlx::core::ContiguousIterator::ContiguousIterator(&v87, &v94, &v97, ((*(*a3 + 8) - **a3) >> 2) - 1);
   if (&v97 != (*a3 + 24))
   {
     std::vector<long long>::__assign_with_size[abi:ne200100]<long long *,long long *>(&v97, *(*a3 + 24), *(*a3 + 32), (*(*a3 + 32) - *(*a3 + 24)) >> 3);
   }
 
-  v14 = 8 * a4;
+  v14 = a4;
   v15 = &v97[v14];
-  v16 = v98 - &v97[v14 + 8];
-  if (v98 != &v97[v14 + 8])
+  v16 = v98 - &v97[v14 + 1];
+  if (v98 != &v97[v14 + 1])
   {
-    memmove(&v97[v14], &v97[v14 + 8], v98 - (v15 + 8));
+    memmove(&v97[v14], &v97[v14 + 1], v98 - (v15 + 1));
   }
 
-  v98 = &v15[v16];
+  v98 = (v15 + v16);
   mlx::core::ContiguousIterator::ContiguousIterator(&v80, &v94, &v97, ((*(*a3 + 8) - **a3) >> 2) - 1);
   v75 = *(*a3 + 152);
   v76 = *(*a2 + 152);
@@ -2777,7 +977,7 @@ void sub_25A52EA44(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void mlx::core::dispatch_scatter_axis_op<mlx::core::complex64_t,unsigned char>(mlx::core::array *a1, void *a2, mlx::core::array *a3, int a4, int a5)
+void mlx::core::dispatch_scatter_axis_op<mlx::core::complex64_t,unsigned char>(mlx::core::array *a1, void *a2, mlx::core::array *a3, uint64_t a4, int a5)
 {
   if (a5)
   {
@@ -2815,7 +1015,7 @@ void mlx::core::dispatch_scatter_axis_op<mlx::core::complex64_t,unsigned char>(m
   mlx::core::array::~array(v6);
 }
 
-void mlx::core::dispatch_scatter_axis_op<mlx::core::complex64_t,unsigned short>(mlx::core::array *a1, void *a2, mlx::core::array *a3, int a4, int a5)
+void mlx::core::dispatch_scatter_axis_op<mlx::core::complex64_t,unsigned short>(mlx::core::array *a1, void *a2, mlx::core::array *a3, uint64_t a4, int a5)
 {
   if (a5)
   {
@@ -2853,7 +1053,7 @@ void mlx::core::dispatch_scatter_axis_op<mlx::core::complex64_t,unsigned short>(
   mlx::core::array::~array(v6);
 }
 
-void mlx::core::dispatch_scatter_axis_op<mlx::core::complex64_t,unsigned int>(mlx::core::array *a1, void *a2, mlx::core::array *a3, int a4, int a5)
+void mlx::core::dispatch_scatter_axis_op<mlx::core::complex64_t,unsigned int>(mlx::core::array *a1, void *a2, mlx::core::array *a3, uint64_t a4, int a5)
 {
   if (a5)
   {
@@ -2891,7 +1091,7 @@ void mlx::core::dispatch_scatter_axis_op<mlx::core::complex64_t,unsigned int>(ml
   mlx::core::array::~array(v6);
 }
 
-void mlx::core::dispatch_scatter_axis_op<mlx::core::complex64_t,unsigned long long>(mlx::core::array *a1, void *a2, mlx::core::array *a3, int a4, int a5)
+void mlx::core::dispatch_scatter_axis_op<mlx::core::complex64_t,unsigned long long>(mlx::core::array *a1, void *a2, mlx::core::array *a3, uint64_t a4, int a5)
 {
   if (a5)
   {
@@ -2929,7 +1129,7 @@ void mlx::core::dispatch_scatter_axis_op<mlx::core::complex64_t,unsigned long lo
   mlx::core::array::~array(v6);
 }
 
-void mlx::core::dispatch_scatter_axis_op<mlx::core::complex64_t,signed char>(mlx::core::array *a1, void *a2, mlx::core::array *a3, int a4, int a5)
+void mlx::core::dispatch_scatter_axis_op<mlx::core::complex64_t,signed char>(mlx::core::array *a1, void *a2, mlx::core::array *a3, uint64_t a4, int a5)
 {
   if (a5)
   {
@@ -2967,7 +1167,7 @@ void mlx::core::dispatch_scatter_axis_op<mlx::core::complex64_t,signed char>(mlx
   mlx::core::array::~array(v6);
 }
 
-void mlx::core::dispatch_scatter_axis_op<mlx::core::complex64_t,short>(mlx::core::array *a1, void *a2, mlx::core::array *a3, int a4, int a5)
+void mlx::core::dispatch_scatter_axis_op<mlx::core::complex64_t,short>(mlx::core::array *a1, void *a2, mlx::core::array *a3, uint64_t a4, int a5)
 {
   if (a5)
   {
@@ -3005,7 +1205,7 @@ void mlx::core::dispatch_scatter_axis_op<mlx::core::complex64_t,short>(mlx::core
   mlx::core::array::~array(v6);
 }
 
-void mlx::core::dispatch_scatter_axis_op<mlx::core::complex64_t,int>(mlx::core::array *a1, void *a2, mlx::core::array *a3, int a4, int a5)
+void mlx::core::dispatch_scatter_axis_op<mlx::core::complex64_t,int>(mlx::core::array *a1, void *a2, mlx::core::array *a3, uint64_t a4, int a5)
 {
   if (a5)
   {
@@ -3043,7 +1243,7 @@ void mlx::core::dispatch_scatter_axis_op<mlx::core::complex64_t,int>(mlx::core::
   mlx::core::array::~array(v6);
 }
 
-void mlx::core::dispatch_scatter_axis_op<mlx::core::complex64_t,long long>(mlx::core::array *a1, void *a2, mlx::core::array *a3, int a4, int a5)
+void mlx::core::dispatch_scatter_axis_op<mlx::core::complex64_t,long long>(mlx::core::array *a1, void *a2, mlx::core::array *a3, uint64_t a4, int a5)
 {
   if (a5)
   {
@@ -3087,43 +1287,43 @@ void mlx::core::scatter_axis<mlx::core::complex64_t,unsigned char,mlx::core::Non
   v86 = 0;
   v87 = 0;
   v85 = 0;
-  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v85, v8[3], v8[4], (v8[4] - v8[3]) >> 3);
-  v9 = &v85[8 * a4];
-  v10 = v86 - (v9 + 8);
-  if (v86 != v9 + 8)
+  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v85, *(v8 + 24), *(v8 + 32), (*(v8 + 32) - *(v8 + 24)) >> 3);
+  v9 = &v85[a4];
+  v10 = v86 - (v9 + 1);
+  if (v86 != v9 + 1)
   {
-    memmove(&v85[8 * a4], v9 + 8, v86 - (v9 + 8));
+    memmove(&v85[a4], v9 + 1, v86 - (v9 + 1));
   }
 
-  v86 = &v9[v10];
+  v86 = (v9 + v10);
   v11 = *a2;
   v83 = 0;
   v84 = 0;
   v82 = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v82, *v11, v11[1], (v11[1] - *v11) >> 2);
-  v12 = &v82[4 * a4];
-  v13 = v83 - (v12 + 4);
-  if (v83 != v12 + 4)
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v82, *v11, *(v11 + 8), (*(v11 + 8) - *v11) >> 2);
+  v12 = &v82[a4];
+  v13 = v83 - (v12 + 1);
+  if (v83 != v12 + 1)
   {
-    memmove(&v82[4 * a4], v12 + 4, v83 - (v12 + 4));
+    memmove(&v82[a4], v12 + 1, v83 - (v12 + 1));
   }
 
-  v83 = &v12[v13];
+  v83 = (v12 + v13);
   mlx::core::ContiguousIterator::ContiguousIterator(&v75, &v82, &v85, ((*(*a3 + 8) - **a3) >> 2) - 1);
   if (&v85 != (*a3 + 24))
   {
     std::vector<long long>::__assign_with_size[abi:ne200100]<long long *,long long *>(&v85, *(*a3 + 24), *(*a3 + 32), (*(*a3 + 32) - *(*a3 + 24)) >> 3);
   }
 
-  v14 = 8 * a4;
+  v14 = a4;
   v15 = &v85[v14];
-  v16 = v86 - &v85[v14 + 8];
-  if (v86 != &v85[v14 + 8])
+  v16 = v86 - &v85[v14 + 1];
+  if (v86 != &v85[v14 + 1])
   {
-    memmove(&v85[v14], &v85[v14 + 8], v86 - (v15 + 8));
+    memmove(&v85[v14], &v85[v14 + 1], v86 - (v15 + 1));
   }
 
-  v86 = &v15[v16];
+  v86 = (v15 + v16);
   mlx::core::ContiguousIterator::ContiguousIterator(&v68, &v82, &v85, ((*(*a3 + 8) - **a3) >> 2) - 1);
   v17 = *(*a2 + 152);
   v18 = *(*a3 + 152);
@@ -3341,22 +1541,22 @@ void mlx::core::scatter_axis<mlx::core::complex64_t,unsigned char,mlx::core::Non
   }
 }
 
-void sub_25A52F524(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
+void sub_25A52F524(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, ...)
 {
-  va_start(va, a14);
+  va_start(va, a21);
   mlx::core::ContiguousIterator::~ContiguousIterator(va);
-  v16 = *(v14 - 136);
-  if (v16)
+  v23 = *(v21 - 136);
+  if (v23)
   {
-    *(v14 - 128) = v16;
-    operator delete(v16);
+    *(v21 - 128) = v23;
+    operator delete(v23);
   }
 
-  v17 = *(v14 - 112);
-  if (v17)
+  v24 = *(v21 - 112);
+  if (v24)
   {
-    *(v14 - 104) = v17;
-    operator delete(v17);
+    *(v21 - 104) = v24;
+    operator delete(v24);
   }
 
   _Unwind_Resume(a1);
@@ -3368,43 +1568,43 @@ void mlx::core::scatter_axis<mlx::core::complex64_t,unsigned char,mlx::core::Sum
   v95 = 0;
   v96 = 0;
   v94 = 0;
-  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v94, v8[3], v8[4], (v8[4] - v8[3]) >> 3);
-  v9 = &v94[8 * a4];
-  v10 = v95 - (v9 + 8);
-  if (v95 != v9 + 8)
+  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v94, *(v8 + 24), *(v8 + 32), (*(v8 + 32) - *(v8 + 24)) >> 3);
+  v9 = &v94[a4];
+  v10 = v95 - (v9 + 1);
+  if (v95 != v9 + 1)
   {
-    memmove(&v94[8 * a4], v9 + 8, v95 - (v9 + 8));
+    memmove(&v94[a4], v9 + 1, v95 - (v9 + 1));
   }
 
-  v95 = &v9[v10];
+  v95 = (v9 + v10);
   v11 = *a2;
   v92 = 0;
   v93 = 0;
   v91 = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v91, *v11, v11[1], (v11[1] - *v11) >> 2);
-  v12 = &v91[4 * a4];
-  v13 = v92 - (v12 + 4);
-  if (v92 != v12 + 4)
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v91, *v11, *(v11 + 8), (*(v11 + 8) - *v11) >> 2);
+  v12 = &v91[a4];
+  v13 = v92 - (v12 + 1);
+  if (v92 != v12 + 1)
   {
-    memmove(&v91[4 * a4], v12 + 4, v92 - (v12 + 4));
+    memmove(&v91[a4], v12 + 1, v92 - (v12 + 1));
   }
 
-  v92 = &v12[v13];
+  v92 = (v12 + v13);
   mlx::core::ContiguousIterator::ContiguousIterator(&v84, &v91, &v94, ((*(*a3 + 8) - **a3) >> 2) - 1);
   if (&v94 != (*a3 + 24))
   {
     std::vector<long long>::__assign_with_size[abi:ne200100]<long long *,long long *>(&v94, *(*a3 + 24), *(*a3 + 32), (*(*a3 + 32) - *(*a3 + 24)) >> 3);
   }
 
-  v14 = 8 * a4;
+  v14 = a4;
   v15 = &v94[v14];
-  v16 = v95 - &v94[v14 + 8];
-  if (v95 != &v94[v14 + 8])
+  v16 = v95 - &v94[v14 + 1];
+  if (v95 != &v94[v14 + 1])
   {
-    memmove(&v94[v14], &v94[v14 + 8], v95 - (v15 + 8));
+    memmove(&v94[v14], &v94[v14 + 1], v95 - (v15 + 1));
   }
 
-  v95 = &v15[v16];
+  v95 = (v15 + v16);
   mlx::core::ContiguousIterator::ContiguousIterator(&v77, &v91, &v94, ((*(*a3 + 8) - **a3) >> 2) - 1);
   v74 = *(*a3 + 152);
   v75 = *(*a2 + 152);
@@ -3684,43 +1884,43 @@ void mlx::core::scatter_axis<mlx::core::complex64_t,unsigned short,mlx::core::No
   v87 = 0;
   v88 = 0;
   v86 = 0;
-  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v86, v8[3], v8[4], (v8[4] - v8[3]) >> 3);
-  v9 = &v86[8 * a4];
-  v10 = v87 - (v9 + 8);
-  if (v87 != v9 + 8)
+  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v86, *(v8 + 24), *(v8 + 32), (*(v8 + 32) - *(v8 + 24)) >> 3);
+  v9 = &v86[a4];
+  v10 = v87 - (v9 + 1);
+  if (v87 != v9 + 1)
   {
-    memmove(&v86[8 * a4], v9 + 8, v87 - (v9 + 8));
+    memmove(&v86[a4], v9 + 1, v87 - (v9 + 1));
   }
 
-  v87 = &v9[v10];
+  v87 = (v9 + v10);
   v11 = *a2;
   v84 = 0;
   v85 = 0;
   v83 = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v83, *v11, v11[1], (v11[1] - *v11) >> 2);
-  v12 = &v83[4 * a4];
-  v13 = v84 - (v12 + 4);
-  if (v84 != v12 + 4)
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v83, *v11, *(v11 + 8), (*(v11 + 8) - *v11) >> 2);
+  v12 = &v83[a4];
+  v13 = v84 - (v12 + 1);
+  if (v84 != v12 + 1)
   {
-    memmove(&v83[4 * a4], v12 + 4, v84 - (v12 + 4));
+    memmove(&v83[a4], v12 + 1, v84 - (v12 + 1));
   }
 
-  v84 = &v12[v13];
+  v84 = (v12 + v13);
   mlx::core::ContiguousIterator::ContiguousIterator(&v76, &v83, &v86, ((*(*a3 + 8) - **a3) >> 2) - 1);
   if (&v86 != (*a3 + 24))
   {
     std::vector<long long>::__assign_with_size[abi:ne200100]<long long *,long long *>(&v86, *(*a3 + 24), *(*a3 + 32), (*(*a3 + 32) - *(*a3 + 24)) >> 3);
   }
 
-  v14 = 8 * a4;
+  v14 = a4;
   v15 = &v86[v14];
-  v16 = v87 - &v86[v14 + 8];
-  if (v87 != &v86[v14 + 8])
+  v16 = v87 - &v86[v14 + 1];
+  if (v87 != &v86[v14 + 1])
   {
-    memmove(&v86[v14], &v86[v14 + 8], v87 - (v15 + 8));
+    memmove(&v86[v14], &v86[v14 + 1], v87 - (v15 + 1));
   }
 
-  v87 = &v15[v16];
+  v87 = (v15 + v16);
   mlx::core::ContiguousIterator::ContiguousIterator(&v69, &v83, &v86, ((*(*a3 + 8) - **a3) >> 2) - 1);
   v17 = *(*a2 + 152);
   v18 = *(*a3 + 152);
@@ -3939,22 +2139,22 @@ void mlx::core::scatter_axis<mlx::core::complex64_t,unsigned short,mlx::core::No
   }
 }
 
-void sub_25A5300DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
+void sub_25A5300DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, ...)
 {
-  va_start(va, a14);
+  va_start(va, a21);
   mlx::core::ContiguousIterator::~ContiguousIterator(va);
-  v16 = *(v14 - 136);
-  if (v16)
+  v23 = *(v21 - 136);
+  if (v23)
   {
-    *(v14 - 128) = v16;
-    operator delete(v16);
+    *(v21 - 128) = v23;
+    operator delete(v23);
   }
 
-  v17 = *(v14 - 112);
-  if (v17)
+  v24 = *(v21 - 112);
+  if (v24)
   {
-    *(v14 - 104) = v17;
-    operator delete(v17);
+    *(v21 - 104) = v24;
+    operator delete(v24);
   }
 
   _Unwind_Resume(a1);
@@ -3966,43 +2166,43 @@ void mlx::core::scatter_axis<mlx::core::complex64_t,unsigned short,mlx::core::Su
   v96 = 0;
   v97 = 0;
   v95 = 0;
-  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v95, v8[3], v8[4], (v8[4] - v8[3]) >> 3);
-  v9 = &v95[8 * a4];
-  v10 = v96 - (v9 + 8);
-  if (v96 != v9 + 8)
+  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v95, *(v8 + 24), *(v8 + 32), (*(v8 + 32) - *(v8 + 24)) >> 3);
+  v9 = &v95[a4];
+  v10 = v96 - (v9 + 1);
+  if (v96 != v9 + 1)
   {
-    memmove(&v95[8 * a4], v9 + 8, v96 - (v9 + 8));
+    memmove(&v95[a4], v9 + 1, v96 - (v9 + 1));
   }
 
-  v96 = &v9[v10];
+  v96 = (v9 + v10);
   v11 = *a2;
   v93 = 0;
   v94 = 0;
   v92 = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v92, *v11, v11[1], (v11[1] - *v11) >> 2);
-  v12 = &v92[4 * a4];
-  v13 = v93 - (v12 + 4);
-  if (v93 != v12 + 4)
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v92, *v11, *(v11 + 8), (*(v11 + 8) - *v11) >> 2);
+  v12 = &v92[a4];
+  v13 = v93 - (v12 + 1);
+  if (v93 != v12 + 1)
   {
-    memmove(&v92[4 * a4], v12 + 4, v93 - (v12 + 4));
+    memmove(&v92[a4], v12 + 1, v93 - (v12 + 1));
   }
 
-  v93 = &v12[v13];
+  v93 = (v12 + v13);
   mlx::core::ContiguousIterator::ContiguousIterator(&v85, &v92, &v95, ((*(*a3 + 8) - **a3) >> 2) - 1);
   if (&v95 != (*a3 + 24))
   {
     std::vector<long long>::__assign_with_size[abi:ne200100]<long long *,long long *>(&v95, *(*a3 + 24), *(*a3 + 32), (*(*a3 + 32) - *(*a3 + 24)) >> 3);
   }
 
-  v14 = 8 * a4;
+  v14 = a4;
   v15 = &v95[v14];
-  v16 = v96 - &v95[v14 + 8];
-  if (v96 != &v95[v14 + 8])
+  v16 = v96 - &v95[v14 + 1];
+  if (v96 != &v95[v14 + 1])
   {
-    memmove(&v95[v14], &v95[v14 + 8], v96 - (v15 + 8));
+    memmove(&v95[v14], &v95[v14 + 1], v96 - (v15 + 1));
   }
 
-  v96 = &v15[v16];
+  v96 = (v15 + v16);
   mlx::core::ContiguousIterator::ContiguousIterator(&v78, &v92, &v95, ((*(*a3 + 8) - **a3) >> 2) - 1);
   v75 = *(*a3 + 152);
   v76 = *(*a2 + 152);
@@ -4283,43 +2483,43 @@ void mlx::core::scatter_axis<mlx::core::complex64_t,unsigned int,mlx::core::None
   v87 = 0;
   v88 = 0;
   v86 = 0;
-  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v86, v8[3], v8[4], (v8[4] - v8[3]) >> 3);
-  v9 = &v86[8 * a4];
-  v10 = v87 - (v9 + 8);
-  if (v87 != v9 + 8)
+  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v86, *(v8 + 24), *(v8 + 32), (*(v8 + 32) - *(v8 + 24)) >> 3);
+  v9 = &v86[a4];
+  v10 = v87 - (v9 + 1);
+  if (v87 != v9 + 1)
   {
-    memmove(&v86[8 * a4], v9 + 8, v87 - (v9 + 8));
+    memmove(&v86[a4], v9 + 1, v87 - (v9 + 1));
   }
 
-  v87 = &v9[v10];
+  v87 = (v9 + v10);
   v11 = *a2;
   v84 = 0;
   v85 = 0;
   v83 = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v83, *v11, v11[1], (v11[1] - *v11) >> 2);
-  v12 = &v83[4 * a4];
-  v13 = v84 - (v12 + 4);
-  if (v84 != v12 + 4)
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v83, *v11, *(v11 + 8), (*(v11 + 8) - *v11) >> 2);
+  v12 = &v83[a4];
+  v13 = v84 - (v12 + 1);
+  if (v84 != v12 + 1)
   {
-    memmove(&v83[4 * a4], v12 + 4, v84 - (v12 + 4));
+    memmove(&v83[a4], v12 + 1, v84 - (v12 + 1));
   }
 
-  v84 = &v12[v13];
+  v84 = (v12 + v13);
   mlx::core::ContiguousIterator::ContiguousIterator(&v76, &v83, &v86, ((*(*a3 + 8) - **a3) >> 2) - 1);
   if (&v86 != (*a3 + 24))
   {
     std::vector<long long>::__assign_with_size[abi:ne200100]<long long *,long long *>(&v86, *(*a3 + 24), *(*a3 + 32), (*(*a3 + 32) - *(*a3 + 24)) >> 3);
   }
 
-  v14 = 8 * a4;
+  v14 = a4;
   v15 = &v86[v14];
-  v16 = v87 - &v86[v14 + 8];
-  if (v87 != &v86[v14 + 8])
+  v16 = v87 - &v86[v14 + 1];
+  if (v87 != &v86[v14 + 1])
   {
-    memmove(&v86[v14], &v86[v14 + 8], v87 - (v15 + 8));
+    memmove(&v86[v14], &v86[v14 + 1], v87 - (v15 + 1));
   }
 
-  v87 = &v15[v16];
+  v87 = (v15 + v16);
   mlx::core::ContiguousIterator::ContiguousIterator(&v69, &v83, &v86, ((*(*a3 + 8) - **a3) >> 2) - 1);
   v17 = *(*a2 + 152);
   v18 = *(*a3 + 152);
@@ -4538,22 +2738,22 @@ void mlx::core::scatter_axis<mlx::core::complex64_t,unsigned int,mlx::core::None
   }
 }
 
-void sub_25A530C98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
+void sub_25A530C98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, ...)
 {
-  va_start(va, a14);
+  va_start(va, a21);
   mlx::core::ContiguousIterator::~ContiguousIterator(va);
-  v16 = *(v14 - 136);
-  if (v16)
+  v23 = *(v21 - 136);
+  if (v23)
   {
-    *(v14 - 128) = v16;
-    operator delete(v16);
+    *(v21 - 128) = v23;
+    operator delete(v23);
   }
 
-  v17 = *(v14 - 112);
-  if (v17)
+  v24 = *(v21 - 112);
+  if (v24)
   {
-    *(v14 - 104) = v17;
-    operator delete(v17);
+    *(v21 - 104) = v24;
+    operator delete(v24);
   }
 
   _Unwind_Resume(a1);
@@ -4565,43 +2765,43 @@ void mlx::core::scatter_axis<mlx::core::complex64_t,unsigned int,mlx::core::Sum>
   v96 = 0;
   v97 = 0;
   v95 = 0;
-  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v95, v8[3], v8[4], (v8[4] - v8[3]) >> 3);
-  v9 = &v95[8 * a4];
-  v10 = v96 - (v9 + 8);
-  if (v96 != v9 + 8)
+  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v95, *(v8 + 24), *(v8 + 32), (*(v8 + 32) - *(v8 + 24)) >> 3);
+  v9 = &v95[a4];
+  v10 = v96 - (v9 + 1);
+  if (v96 != v9 + 1)
   {
-    memmove(&v95[8 * a4], v9 + 8, v96 - (v9 + 8));
+    memmove(&v95[a4], v9 + 1, v96 - (v9 + 1));
   }
 
-  v96 = &v9[v10];
+  v96 = (v9 + v10);
   v11 = *a2;
   v93 = 0;
   v94 = 0;
   v92 = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v92, *v11, v11[1], (v11[1] - *v11) >> 2);
-  v12 = &v92[4 * a4];
-  v13 = v93 - (v12 + 4);
-  if (v93 != v12 + 4)
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v92, *v11, *(v11 + 8), (*(v11 + 8) - *v11) >> 2);
+  v12 = &v92[a4];
+  v13 = v93 - (v12 + 1);
+  if (v93 != v12 + 1)
   {
-    memmove(&v92[4 * a4], v12 + 4, v93 - (v12 + 4));
+    memmove(&v92[a4], v12 + 1, v93 - (v12 + 1));
   }
 
-  v93 = &v12[v13];
+  v93 = (v12 + v13);
   mlx::core::ContiguousIterator::ContiguousIterator(&v85, &v92, &v95, ((*(*a3 + 8) - **a3) >> 2) - 1);
   if (&v95 != (*a3 + 24))
   {
     std::vector<long long>::__assign_with_size[abi:ne200100]<long long *,long long *>(&v95, *(*a3 + 24), *(*a3 + 32), (*(*a3 + 32) - *(*a3 + 24)) >> 3);
   }
 
-  v14 = 8 * a4;
+  v14 = a4;
   v15 = &v95[v14];
-  v16 = v96 - &v95[v14 + 8];
-  if (v96 != &v95[v14 + 8])
+  v16 = v96 - &v95[v14 + 1];
+  if (v96 != &v95[v14 + 1])
   {
-    memmove(&v95[v14], &v95[v14 + 8], v96 - (v15 + 8));
+    memmove(&v95[v14], &v95[v14 + 1], v96 - (v15 + 1));
   }
 
-  v96 = &v15[v16];
+  v96 = (v15 + v16);
   mlx::core::ContiguousIterator::ContiguousIterator(&v78, &v92, &v95, ((*(*a3 + 8) - **a3) >> 2) - 1);
   v75 = *(*a3 + 152);
   v76 = *(*a2 + 152);
@@ -4882,43 +3082,43 @@ void mlx::core::scatter_axis<mlx::core::complex64_t,unsigned long long,mlx::core
   v87 = 0;
   v88 = 0;
   v86 = 0;
-  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v86, v8[3], v8[4], (v8[4] - v8[3]) >> 3);
-  v9 = &v86[8 * a4];
-  v10 = v87 - (v9 + 8);
-  if (v87 != v9 + 8)
+  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v86, *(v8 + 24), *(v8 + 32), (*(v8 + 32) - *(v8 + 24)) >> 3);
+  v9 = &v86[a4];
+  v10 = v87 - (v9 + 1);
+  if (v87 != v9 + 1)
   {
-    memmove(&v86[8 * a4], v9 + 8, v87 - (v9 + 8));
+    memmove(&v86[a4], v9 + 1, v87 - (v9 + 1));
   }
 
-  v87 = &v9[v10];
+  v87 = (v9 + v10);
   v11 = *a2;
   v84 = 0;
   v85 = 0;
   v83 = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v83, *v11, v11[1], (v11[1] - *v11) >> 2);
-  v12 = &v83[4 * a4];
-  v13 = v84 - (v12 + 4);
-  if (v84 != v12 + 4)
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v83, *v11, *(v11 + 8), (*(v11 + 8) - *v11) >> 2);
+  v12 = &v83[a4];
+  v13 = v84 - (v12 + 1);
+  if (v84 != v12 + 1)
   {
-    memmove(&v83[4 * a4], v12 + 4, v84 - (v12 + 4));
+    memmove(&v83[a4], v12 + 1, v84 - (v12 + 1));
   }
 
-  v84 = &v12[v13];
+  v84 = (v12 + v13);
   mlx::core::ContiguousIterator::ContiguousIterator(&v76, &v83, &v86, ((*(*a3 + 8) - **a3) >> 2) - 1);
   if (&v86 != (*a3 + 24))
   {
     std::vector<long long>::__assign_with_size[abi:ne200100]<long long *,long long *>(&v86, *(*a3 + 24), *(*a3 + 32), (*(*a3 + 32) - *(*a3 + 24)) >> 3);
   }
 
-  v14 = 8 * a4;
+  v14 = a4;
   v15 = &v86[v14];
-  v16 = v87 - &v86[v14 + 8];
-  if (v87 != &v86[v14 + 8])
+  v16 = v87 - &v86[v14 + 1];
+  if (v87 != &v86[v14 + 1])
   {
-    memmove(&v86[v14], &v86[v14 + 8], v87 - (v15 + 8));
+    memmove(&v86[v14], &v86[v14 + 1], v87 - (v15 + 1));
   }
 
-  v87 = &v15[v16];
+  v87 = (v15 + v16);
   mlx::core::ContiguousIterator::ContiguousIterator(&v69, &v83, &v86, ((*(*a3 + 8) - **a3) >> 2) - 1);
   v17 = *(*a2 + 152);
   v18 = *(*a3 + 152);
@@ -5137,22 +3337,22 @@ void mlx::core::scatter_axis<mlx::core::complex64_t,unsigned long long,mlx::core
   }
 }
 
-void sub_25A531854(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
+void sub_25A531854(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, ...)
 {
-  va_start(va, a14);
+  va_start(va, a21);
   mlx::core::ContiguousIterator::~ContiguousIterator(va);
-  v16 = *(v14 - 136);
-  if (v16)
+  v23 = *(v21 - 136);
+  if (v23)
   {
-    *(v14 - 128) = v16;
-    operator delete(v16);
+    *(v21 - 128) = v23;
+    operator delete(v23);
   }
 
-  v17 = *(v14 - 112);
-  if (v17)
+  v24 = *(v21 - 112);
+  if (v24)
   {
-    *(v14 - 104) = v17;
-    operator delete(v17);
+    *(v21 - 104) = v24;
+    operator delete(v24);
   }
 
   _Unwind_Resume(a1);
@@ -5164,43 +3364,43 @@ void mlx::core::scatter_axis<mlx::core::complex64_t,unsigned long long,mlx::core
   v96 = 0;
   v97 = 0;
   v95 = 0;
-  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v95, v8[3], v8[4], (v8[4] - v8[3]) >> 3);
-  v9 = &v95[8 * a4];
-  v10 = v96 - (v9 + 8);
-  if (v96 != v9 + 8)
+  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v95, *(v8 + 24), *(v8 + 32), (*(v8 + 32) - *(v8 + 24)) >> 3);
+  v9 = &v95[a4];
+  v10 = v96 - (v9 + 1);
+  if (v96 != v9 + 1)
   {
-    memmove(&v95[8 * a4], v9 + 8, v96 - (v9 + 8));
+    memmove(&v95[a4], v9 + 1, v96 - (v9 + 1));
   }
 
-  v96 = &v9[v10];
+  v96 = (v9 + v10);
   v11 = *a2;
   v93 = 0;
   v94 = 0;
   v92 = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v92, *v11, v11[1], (v11[1] - *v11) >> 2);
-  v12 = &v92[4 * a4];
-  v13 = v93 - (v12 + 4);
-  if (v93 != v12 + 4)
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v92, *v11, *(v11 + 8), (*(v11 + 8) - *v11) >> 2);
+  v12 = &v92[a4];
+  v13 = v93 - (v12 + 1);
+  if (v93 != v12 + 1)
   {
-    memmove(&v92[4 * a4], v12 + 4, v93 - (v12 + 4));
+    memmove(&v92[a4], v12 + 1, v93 - (v12 + 1));
   }
 
-  v93 = &v12[v13];
+  v93 = (v12 + v13);
   mlx::core::ContiguousIterator::ContiguousIterator(&v85, &v92, &v95, ((*(*a3 + 8) - **a3) >> 2) - 1);
   if (&v95 != (*a3 + 24))
   {
     std::vector<long long>::__assign_with_size[abi:ne200100]<long long *,long long *>(&v95, *(*a3 + 24), *(*a3 + 32), (*(*a3 + 32) - *(*a3 + 24)) >> 3);
   }
 
-  v14 = 8 * a4;
+  v14 = a4;
   v15 = &v95[v14];
-  v16 = v96 - &v95[v14 + 8];
-  if (v96 != &v95[v14 + 8])
+  v16 = v96 - &v95[v14 + 1];
+  if (v96 != &v95[v14 + 1])
   {
-    memmove(&v95[v14], &v95[v14 + 8], v96 - (v15 + 8));
+    memmove(&v95[v14], &v95[v14 + 1], v96 - (v15 + 1));
   }
 
-  v96 = &v15[v16];
+  v96 = (v15 + v16);
   mlx::core::ContiguousIterator::ContiguousIterator(&v78, &v92, &v95, ((*(*a3 + 8) - **a3) >> 2) - 1);
   v75 = *(*a3 + 152);
   v76 = *(*a2 + 152);
@@ -5481,43 +3681,43 @@ void mlx::core::scatter_axis<mlx::core::complex64_t,signed char,mlx::core::None>
   v88 = 0;
   v89 = 0;
   v87 = 0;
-  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v87, v8[3], v8[4], (v8[4] - v8[3]) >> 3);
-  v9 = &v87[8 * a4];
-  v10 = v88 - (v9 + 8);
-  if (v88 != v9 + 8)
+  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v87, *(v8 + 24), *(v8 + 32), (*(v8 + 32) - *(v8 + 24)) >> 3);
+  v9 = &v87[a4];
+  v10 = v88 - (v9 + 1);
+  if (v88 != v9 + 1)
   {
-    memmove(&v87[8 * a4], v9 + 8, v88 - (v9 + 8));
+    memmove(&v87[a4], v9 + 1, v88 - (v9 + 1));
   }
 
-  v88 = &v9[v10];
+  v88 = (v9 + v10);
   v11 = *a2;
   v85 = 0;
   v86 = 0;
   v84 = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v84, *v11, v11[1], (v11[1] - *v11) >> 2);
-  v12 = &v84[4 * a4];
-  v13 = v85 - (v12 + 4);
-  if (v85 != v12 + 4)
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v84, *v11, *(v11 + 8), (*(v11 + 8) - *v11) >> 2);
+  v12 = &v84[a4];
+  v13 = v85 - (v12 + 1);
+  if (v85 != v12 + 1)
   {
-    memmove(&v84[4 * a4], v12 + 4, v85 - (v12 + 4));
+    memmove(&v84[a4], v12 + 1, v85 - (v12 + 1));
   }
 
-  v85 = &v12[v13];
+  v85 = (v12 + v13);
   mlx::core::ContiguousIterator::ContiguousIterator(&v77, &v84, &v87, ((*(*a3 + 8) - **a3) >> 2) - 1);
   if (&v87 != (*a3 + 24))
   {
     std::vector<long long>::__assign_with_size[abi:ne200100]<long long *,long long *>(&v87, *(*a3 + 24), *(*a3 + 32), (*(*a3 + 32) - *(*a3 + 24)) >> 3);
   }
 
-  v14 = 8 * a4;
+  v14 = a4;
   v15 = &v87[v14];
-  v16 = v88 - &v87[v14 + 8];
-  if (v88 != &v87[v14 + 8])
+  v16 = v88 - &v87[v14 + 1];
+  if (v88 != &v87[v14 + 1])
   {
-    memmove(&v87[v14], &v87[v14 + 8], v88 - (v15 + 8));
+    memmove(&v87[v14], &v87[v14 + 1], v88 - (v15 + 1));
   }
 
-  v88 = &v15[v16];
+  v88 = (v15 + v16);
   mlx::core::ContiguousIterator::ContiguousIterator(&v70, &v84, &v87, ((*(*a3 + 8) - **a3) >> 2) - 1);
   v17 = *(*a2 + 152);
   v18 = *(*a3 + 152);
@@ -5746,22 +3946,22 @@ void mlx::core::scatter_axis<mlx::core::complex64_t,signed char,mlx::core::None>
   }
 }
 
-void sub_25A532414(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
+void sub_25A532414(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, ...)
 {
-  va_start(va, a14);
+  va_start(va, a21);
   mlx::core::ContiguousIterator::~ContiguousIterator(va);
-  v16 = *(v14 - 136);
-  if (v16)
+  v23 = *(v21 - 136);
+  if (v23)
   {
-    *(v14 - 128) = v16;
-    operator delete(v16);
+    *(v21 - 128) = v23;
+    operator delete(v23);
   }
 
-  v17 = *(v14 - 112);
-  if (v17)
+  v24 = *(v21 - 112);
+  if (v24)
   {
-    *(v14 - 104) = v17;
-    operator delete(v17);
+    *(v21 - 104) = v24;
+    operator delete(v24);
   }
 
   _Unwind_Resume(a1);
@@ -5773,43 +3973,43 @@ void mlx::core::scatter_axis<mlx::core::complex64_t,signed char,mlx::core::Sum>(
   v98 = 0;
   v99 = 0;
   v97 = 0;
-  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v97, v8[3], v8[4], (v8[4] - v8[3]) >> 3);
-  v9 = &v97[8 * a4];
-  v10 = v98 - (v9 + 8);
-  if (v98 != v9 + 8)
+  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v97, *(v8 + 24), *(v8 + 32), (*(v8 + 32) - *(v8 + 24)) >> 3);
+  v9 = &v97[a4];
+  v10 = v98 - (v9 + 1);
+  if (v98 != v9 + 1)
   {
-    memmove(&v97[8 * a4], v9 + 8, v98 - (v9 + 8));
+    memmove(&v97[a4], v9 + 1, v98 - (v9 + 1));
   }
 
-  v98 = &v9[v10];
+  v98 = (v9 + v10);
   v11 = *a2;
   v95 = 0;
   v96 = 0;
   v94 = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v94, *v11, v11[1], (v11[1] - *v11) >> 2);
-  v12 = &v94[4 * a4];
-  v13 = v95 - (v12 + 4);
-  if (v95 != v12 + 4)
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v94, *v11, *(v11 + 8), (*(v11 + 8) - *v11) >> 2);
+  v12 = &v94[a4];
+  v13 = v95 - (v12 + 1);
+  if (v95 != v12 + 1)
   {
-    memmove(&v94[4 * a4], v12 + 4, v95 - (v12 + 4));
+    memmove(&v94[a4], v12 + 1, v95 - (v12 + 1));
   }
 
-  v95 = &v12[v13];
+  v95 = (v12 + v13);
   mlx::core::ContiguousIterator::ContiguousIterator(&v87, &v94, &v97, ((*(*a3 + 8) - **a3) >> 2) - 1);
   if (&v97 != (*a3 + 24))
   {
     std::vector<long long>::__assign_with_size[abi:ne200100]<long long *,long long *>(&v97, *(*a3 + 24), *(*a3 + 32), (*(*a3 + 32) - *(*a3 + 24)) >> 3);
   }
 
-  v14 = 8 * a4;
+  v14 = a4;
   v15 = &v97[v14];
-  v16 = v98 - &v97[v14 + 8];
-  if (v98 != &v97[v14 + 8])
+  v16 = v98 - &v97[v14 + 1];
+  if (v98 != &v97[v14 + 1])
   {
-    memmove(&v97[v14], &v97[v14 + 8], v98 - (v15 + 8));
+    memmove(&v97[v14], &v97[v14 + 1], v98 - (v15 + 1));
   }
 
-  v98 = &v15[v16];
+  v98 = (v15 + v16);
   mlx::core::ContiguousIterator::ContiguousIterator(&v80, &v94, &v97, ((*(*a3 + 8) - **a3) >> 2) - 1);
   v76 = *(*a3 + 152);
   v77 = *(*a2 + 152);
@@ -6101,43 +4301,43 @@ void mlx::core::scatter_axis<mlx::core::complex64_t,short,mlx::core::None>(mlx::
   v89 = 0;
   v90 = 0;
   v88 = 0;
-  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v88, v8[3], v8[4], (v8[4] - v8[3]) >> 3);
-  v9 = &v88[8 * a4];
-  v10 = v89 - (v9 + 8);
-  if (v89 != v9 + 8)
+  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v88, *(v8 + 24), *(v8 + 32), (*(v8 + 32) - *(v8 + 24)) >> 3);
+  v9 = &v88[a4];
+  v10 = v89 - (v9 + 1);
+  if (v89 != v9 + 1)
   {
-    memmove(&v88[8 * a4], v9 + 8, v89 - (v9 + 8));
+    memmove(&v88[a4], v9 + 1, v89 - (v9 + 1));
   }
 
-  v89 = &v9[v10];
+  v89 = (v9 + v10);
   v11 = *a2;
   v86 = 0;
   v87 = 0;
   v85 = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v85, *v11, v11[1], (v11[1] - *v11) >> 2);
-  v12 = &v85[4 * a4];
-  v13 = v86 - (v12 + 4);
-  if (v86 != v12 + 4)
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v85, *v11, *(v11 + 8), (*(v11 + 8) - *v11) >> 2);
+  v12 = &v85[a4];
+  v13 = v86 - (v12 + 1);
+  if (v86 != v12 + 1)
   {
-    memmove(&v85[4 * a4], v12 + 4, v86 - (v12 + 4));
+    memmove(&v85[a4], v12 + 1, v86 - (v12 + 1));
   }
 
-  v86 = &v12[v13];
+  v86 = (v12 + v13);
   mlx::core::ContiguousIterator::ContiguousIterator(&v78, &v85, &v88, ((*(*a3 + 8) - **a3) >> 2) - 1);
   if (&v88 != (*a3 + 24))
   {
     std::vector<long long>::__assign_with_size[abi:ne200100]<long long *,long long *>(&v88, *(*a3 + 24), *(*a3 + 32), (*(*a3 + 32) - *(*a3 + 24)) >> 3);
   }
 
-  v14 = 8 * a4;
+  v14 = a4;
   v15 = &v88[v14];
-  v16 = v89 - &v88[v14 + 8];
-  if (v89 != &v88[v14 + 8])
+  v16 = v89 - &v88[v14 + 1];
+  if (v89 != &v88[v14 + 1])
   {
-    memmove(&v88[v14], &v88[v14 + 8], v89 - (v15 + 8));
+    memmove(&v88[v14], &v88[v14 + 1], v89 - (v15 + 1));
   }
 
-  v89 = &v15[v16];
+  v89 = (v15 + v16);
   mlx::core::ContiguousIterator::ContiguousIterator(&v71, &v85, &v88, ((*(*a3 + 8) - **a3) >> 2) - 1);
   v17 = *(*a2 + 152);
   v18 = *(*a3 + 152);
@@ -6367,22 +4567,22 @@ void mlx::core::scatter_axis<mlx::core::complex64_t,short,mlx::core::None>(mlx::
   }
 }
 
-void sub_25A532FE4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
+void sub_25A532FE4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, ...)
 {
-  va_start(va, a14);
+  va_start(va, a21);
   mlx::core::ContiguousIterator::~ContiguousIterator(va);
-  v16 = *(v14 - 136);
-  if (v16)
+  v23 = *(v21 - 136);
+  if (v23)
   {
-    *(v14 - 128) = v16;
-    operator delete(v16);
+    *(v21 - 128) = v23;
+    operator delete(v23);
   }
 
-  v17 = *(v14 - 112);
-  if (v17)
+  v24 = *(v21 - 112);
+  if (v24)
   {
-    *(v14 - 104) = v17;
-    operator delete(v17);
+    *(v21 - 104) = v24;
+    operator delete(v24);
   }
 
   _Unwind_Resume(a1);
@@ -6394,43 +4594,43 @@ void mlx::core::scatter_axis<mlx::core::complex64_t,short,mlx::core::Sum>(mlx::c
   v99 = 0;
   v100 = 0;
   v98 = 0;
-  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v98, v8[3], v8[4], (v8[4] - v8[3]) >> 3);
-  v9 = &v98[8 * a4];
-  v10 = v99 - (v9 + 8);
-  if (v99 != v9 + 8)
+  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v98, *(v8 + 24), *(v8 + 32), (*(v8 + 32) - *(v8 + 24)) >> 3);
+  v9 = &v98[a4];
+  v10 = v99 - (v9 + 1);
+  if (v99 != v9 + 1)
   {
-    memmove(&v98[8 * a4], v9 + 8, v99 - (v9 + 8));
+    memmove(&v98[a4], v9 + 1, v99 - (v9 + 1));
   }
 
-  v99 = &v9[v10];
+  v99 = (v9 + v10);
   v11 = *a2;
   v96 = 0;
   v97 = 0;
   v95 = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v95, *v11, v11[1], (v11[1] - *v11) >> 2);
-  v12 = &v95[4 * a4];
-  v13 = v96 - (v12 + 4);
-  if (v96 != v12 + 4)
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v95, *v11, *(v11 + 8), (*(v11 + 8) - *v11) >> 2);
+  v12 = &v95[a4];
+  v13 = v96 - (v12 + 1);
+  if (v96 != v12 + 1)
   {
-    memmove(&v95[4 * a4], v12 + 4, v96 - (v12 + 4));
+    memmove(&v95[a4], v12 + 1, v96 - (v12 + 1));
   }
 
-  v96 = &v12[v13];
+  v96 = (v12 + v13);
   mlx::core::ContiguousIterator::ContiguousIterator(&v88, &v95, &v98, ((*(*a3 + 8) - **a3) >> 2) - 1);
   if (&v98 != (*a3 + 24))
   {
     std::vector<long long>::__assign_with_size[abi:ne200100]<long long *,long long *>(&v98, *(*a3 + 24), *(*a3 + 32), (*(*a3 + 32) - *(*a3 + 24)) >> 3);
   }
 
-  v14 = 8 * a4;
+  v14 = a4;
   v15 = &v98[v14];
-  v16 = v99 - &v98[v14 + 8];
-  if (v99 != &v98[v14 + 8])
+  v16 = v99 - &v98[v14 + 1];
+  if (v99 != &v98[v14 + 1])
   {
-    memmove(&v98[v14], &v98[v14 + 8], v99 - (v15 + 8));
+    memmove(&v98[v14], &v98[v14 + 1], v99 - (v15 + 1));
   }
 
-  v99 = &v15[v16];
+  v99 = (v15 + v16);
   mlx::core::ContiguousIterator::ContiguousIterator(&v81, &v95, &v98, ((*(*a3 + 8) - **a3) >> 2) - 1);
   v77 = *(*a3 + 152);
   v78 = *(*a2 + 152);
@@ -6723,43 +4923,43 @@ void mlx::core::scatter_axis<mlx::core::complex64_t,int,mlx::core::None>(mlx::co
   v89 = 0;
   v90 = 0;
   v88 = 0;
-  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v88, v8[3], v8[4], (v8[4] - v8[3]) >> 3);
-  v9 = &v88[8 * a4];
-  v10 = v89 - (v9 + 8);
-  if (v89 != v9 + 8)
+  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v88, *(v8 + 24), *(v8 + 32), (*(v8 + 32) - *(v8 + 24)) >> 3);
+  v9 = &v88[a4];
+  v10 = v89 - (v9 + 1);
+  if (v89 != v9 + 1)
   {
-    memmove(&v88[8 * a4], v9 + 8, v89 - (v9 + 8));
+    memmove(&v88[a4], v9 + 1, v89 - (v9 + 1));
   }
 
-  v89 = &v9[v10];
+  v89 = (v9 + v10);
   v11 = *a2;
   v86 = 0;
   v87 = 0;
   v85 = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v85, *v11, v11[1], (v11[1] - *v11) >> 2);
-  v12 = &v85[4 * a4];
-  v13 = v86 - (v12 + 4);
-  if (v86 != v12 + 4)
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v85, *v11, *(v11 + 8), (*(v11 + 8) - *v11) >> 2);
+  v12 = &v85[a4];
+  v13 = v86 - (v12 + 1);
+  if (v86 != v12 + 1)
   {
-    memmove(&v85[4 * a4], v12 + 4, v86 - (v12 + 4));
+    memmove(&v85[a4], v12 + 1, v86 - (v12 + 1));
   }
 
-  v86 = &v12[v13];
+  v86 = (v12 + v13);
   mlx::core::ContiguousIterator::ContiguousIterator(&v78, &v85, &v88, ((*(*a3 + 8) - **a3) >> 2) - 1);
   if (&v88 != (*a3 + 24))
   {
     std::vector<long long>::__assign_with_size[abi:ne200100]<long long *,long long *>(&v88, *(*a3 + 24), *(*a3 + 32), (*(*a3 + 32) - *(*a3 + 24)) >> 3);
   }
 
-  v14 = 8 * a4;
+  v14 = a4;
   v15 = &v88[v14];
-  v16 = v89 - &v88[v14 + 8];
-  if (v89 != &v88[v14 + 8])
+  v16 = v89 - &v88[v14 + 1];
+  if (v89 != &v88[v14 + 1])
   {
-    memmove(&v88[v14], &v88[v14 + 8], v89 - (v15 + 8));
+    memmove(&v88[v14], &v88[v14 + 1], v89 - (v15 + 1));
   }
 
-  v89 = &v15[v16];
+  v89 = (v15 + v16);
   mlx::core::ContiguousIterator::ContiguousIterator(&v71, &v85, &v88, ((*(*a3 + 8) - **a3) >> 2) - 1);
   v17 = *(*a2 + 152);
   v18 = *(*a3 + 152);
@@ -6989,22 +5189,22 @@ void mlx::core::scatter_axis<mlx::core::complex64_t,int,mlx::core::None>(mlx::co
   }
 }
 
-void sub_25A533BB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
+void sub_25A533BB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, ...)
 {
-  va_start(va, a14);
+  va_start(va, a21);
   mlx::core::ContiguousIterator::~ContiguousIterator(va);
-  v16 = *(v14 - 136);
-  if (v16)
+  v23 = *(v21 - 136);
+  if (v23)
   {
-    *(v14 - 128) = v16;
-    operator delete(v16);
+    *(v21 - 128) = v23;
+    operator delete(v23);
   }
 
-  v17 = *(v14 - 112);
-  if (v17)
+  v24 = *(v21 - 112);
+  if (v24)
   {
-    *(v14 - 104) = v17;
-    operator delete(v17);
+    *(v21 - 104) = v24;
+    operator delete(v24);
   }
 
   _Unwind_Resume(a1);
@@ -7016,43 +5216,43 @@ void mlx::core::scatter_axis<mlx::core::complex64_t,int,mlx::core::Sum>(mlx::cor
   v99 = 0;
   v100 = 0;
   v98 = 0;
-  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v98, v8[3], v8[4], (v8[4] - v8[3]) >> 3);
-  v9 = &v98[8 * a4];
-  v10 = v99 - (v9 + 8);
-  if (v99 != v9 + 8)
+  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v98, *(v8 + 24), *(v8 + 32), (*(v8 + 32) - *(v8 + 24)) >> 3);
+  v9 = &v98[a4];
+  v10 = v99 - (v9 + 1);
+  if (v99 != v9 + 1)
   {
-    memmove(&v98[8 * a4], v9 + 8, v99 - (v9 + 8));
+    memmove(&v98[a4], v9 + 1, v99 - (v9 + 1));
   }
 
-  v99 = &v9[v10];
+  v99 = (v9 + v10);
   v11 = *a2;
   v96 = 0;
   v97 = 0;
   v95 = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v95, *v11, v11[1], (v11[1] - *v11) >> 2);
-  v12 = &v95[4 * a4];
-  v13 = v96 - (v12 + 4);
-  if (v96 != v12 + 4)
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v95, *v11, *(v11 + 8), (*(v11 + 8) - *v11) >> 2);
+  v12 = &v95[a4];
+  v13 = v96 - (v12 + 1);
+  if (v96 != v12 + 1)
   {
-    memmove(&v95[4 * a4], v12 + 4, v96 - (v12 + 4));
+    memmove(&v95[a4], v12 + 1, v96 - (v12 + 1));
   }
 
-  v96 = &v12[v13];
+  v96 = (v12 + v13);
   mlx::core::ContiguousIterator::ContiguousIterator(&v88, &v95, &v98, ((*(*a3 + 8) - **a3) >> 2) - 1);
   if (&v98 != (*a3 + 24))
   {
     std::vector<long long>::__assign_with_size[abi:ne200100]<long long *,long long *>(&v98, *(*a3 + 24), *(*a3 + 32), (*(*a3 + 32) - *(*a3 + 24)) >> 3);
   }
 
-  v14 = 8 * a4;
+  v14 = a4;
   v15 = &v98[v14];
-  v16 = v99 - &v98[v14 + 8];
-  if (v99 != &v98[v14 + 8])
+  v16 = v99 - &v98[v14 + 1];
+  if (v99 != &v98[v14 + 1])
   {
-    memmove(&v98[v14], &v98[v14 + 8], v99 - (v15 + 8));
+    memmove(&v98[v14], &v98[v14 + 1], v99 - (v15 + 1));
   }
 
-  v99 = &v15[v16];
+  v99 = (v15 + v16);
   mlx::core::ContiguousIterator::ContiguousIterator(&v81, &v95, &v98, ((*(*a3 + 8) - **a3) >> 2) - 1);
   v77 = *(*a3 + 152);
   v78 = *(*a2 + 152);
@@ -7345,43 +5545,43 @@ void mlx::core::scatter_axis<mlx::core::complex64_t,long long,mlx::core::None>(m
   v87 = 0;
   v88 = 0;
   v86 = 0;
-  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v86, v8[3], v8[4], (v8[4] - v8[3]) >> 3);
-  v9 = &v86[8 * a4];
-  v10 = v87 - (v9 + 8);
-  if (v87 != v9 + 8)
+  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v86, *(v8 + 24), *(v8 + 32), (*(v8 + 32) - *(v8 + 24)) >> 3);
+  v9 = &v86[a4];
+  v10 = v87 - (v9 + 1);
+  if (v87 != v9 + 1)
   {
-    memmove(&v86[8 * a4], v9 + 8, v87 - (v9 + 8));
+    memmove(&v86[a4], v9 + 1, v87 - (v9 + 1));
   }
 
-  v87 = &v9[v10];
+  v87 = (v9 + v10);
   v11 = *a2;
   v84 = 0;
   v85 = 0;
   v83 = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v83, *v11, v11[1], (v11[1] - *v11) >> 2);
-  v12 = &v83[4 * a4];
-  v13 = v84 - (v12 + 4);
-  if (v84 != v12 + 4)
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v83, *v11, *(v11 + 8), (*(v11 + 8) - *v11) >> 2);
+  v12 = &v83[a4];
+  v13 = v84 - (v12 + 1);
+  if (v84 != v12 + 1)
   {
-    memmove(&v83[4 * a4], v12 + 4, v84 - (v12 + 4));
+    memmove(&v83[a4], v12 + 1, v84 - (v12 + 1));
   }
 
-  v84 = &v12[v13];
+  v84 = (v12 + v13);
   mlx::core::ContiguousIterator::ContiguousIterator(&v76, &v83, &v86, ((*(*a3 + 8) - **a3) >> 2) - 1);
   if (&v86 != (*a3 + 24))
   {
     std::vector<long long>::__assign_with_size[abi:ne200100]<long long *,long long *>(&v86, *(*a3 + 24), *(*a3 + 32), (*(*a3 + 32) - *(*a3 + 24)) >> 3);
   }
 
-  v14 = 8 * a4;
+  v14 = a4;
   v15 = &v86[v14];
-  v16 = v87 - &v86[v14 + 8];
-  if (v87 != &v86[v14 + 8])
+  v16 = v87 - &v86[v14 + 1];
+  if (v87 != &v86[v14 + 1])
   {
-    memmove(&v86[v14], &v86[v14 + 8], v87 - (v15 + 8));
+    memmove(&v86[v14], &v86[v14 + 1], v87 - (v15 + 1));
   }
 
-  v87 = &v15[v16];
+  v87 = (v15 + v16);
   mlx::core::ContiguousIterator::ContiguousIterator(&v69, &v83, &v86, ((*(*a3 + 8) - **a3) >> 2) - 1);
   v17 = *(*a2 + 152);
   v18 = *(*a3 + 152);
@@ -7600,22 +5800,22 @@ void mlx::core::scatter_axis<mlx::core::complex64_t,long long,mlx::core::None>(m
   }
 }
 
-void sub_25A534788(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
+void sub_25A534788(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, ...)
 {
-  va_start(va, a14);
+  va_start(va, a21);
   mlx::core::ContiguousIterator::~ContiguousIterator(va);
-  v16 = *(v14 - 136);
-  if (v16)
+  v23 = *(v21 - 136);
+  if (v23)
   {
-    *(v14 - 128) = v16;
-    operator delete(v16);
+    *(v21 - 128) = v23;
+    operator delete(v23);
   }
 
-  v17 = *(v14 - 112);
-  if (v17)
+  v24 = *(v21 - 112);
+  if (v24)
   {
-    *(v14 - 104) = v17;
-    operator delete(v17);
+    *(v21 - 104) = v24;
+    operator delete(v24);
   }
 
   _Unwind_Resume(a1);
@@ -7627,43 +5827,43 @@ void mlx::core::scatter_axis<mlx::core::complex64_t,long long,mlx::core::Sum>(ml
   v98 = 0;
   v99 = 0;
   v97 = 0;
-  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v97, v8[3], v8[4], (v8[4] - v8[3]) >> 3);
-  v9 = &v97[8 * a4];
-  v10 = v98 - (v9 + 8);
-  if (v98 != v9 + 8)
+  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v97, *(v8 + 24), *(v8 + 32), (*(v8 + 32) - *(v8 + 24)) >> 3);
+  v9 = &v97[a4];
+  v10 = v98 - (v9 + 1);
+  if (v98 != v9 + 1)
   {
-    memmove(&v97[8 * a4], v9 + 8, v98 - (v9 + 8));
+    memmove(&v97[a4], v9 + 1, v98 - (v9 + 1));
   }
 
-  v98 = &v9[v10];
+  v98 = (v9 + v10);
   v11 = *a2;
   v95 = 0;
   v96 = 0;
   v94 = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v94, *v11, v11[1], (v11[1] - *v11) >> 2);
-  v12 = &v94[4 * a4];
-  v13 = v95 - (v12 + 4);
-  if (v95 != v12 + 4)
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v94, *v11, *(v11 + 8), (*(v11 + 8) - *v11) >> 2);
+  v12 = &v94[a4];
+  v13 = v95 - (v12 + 1);
+  if (v95 != v12 + 1)
   {
-    memmove(&v94[4 * a4], v12 + 4, v95 - (v12 + 4));
+    memmove(&v94[a4], v12 + 1, v95 - (v12 + 1));
   }
 
-  v95 = &v12[v13];
+  v95 = (v12 + v13);
   mlx::core::ContiguousIterator::ContiguousIterator(&v87, &v94, &v97, ((*(*a3 + 8) - **a3) >> 2) - 1);
   if (&v97 != (*a3 + 24))
   {
     std::vector<long long>::__assign_with_size[abi:ne200100]<long long *,long long *>(&v97, *(*a3 + 24), *(*a3 + 32), (*(*a3 + 32) - *(*a3 + 24)) >> 3);
   }
 
-  v14 = 8 * a4;
+  v14 = a4;
   v15 = &v97[v14];
-  v16 = v98 - &v97[v14 + 8];
-  if (v98 != &v97[v14 + 8])
+  v16 = v98 - &v97[v14 + 1];
+  if (v98 != &v97[v14 + 1])
   {
-    memmove(&v97[v14], &v97[v14 + 8], v98 - (v15 + 8));
+    memmove(&v97[v14], &v97[v14 + 1], v98 - (v15 + 1));
   }
 
-  v98 = &v15[v16];
+  v98 = (v15 + v16);
   mlx::core::ContiguousIterator::ContiguousIterator(&v80, &v94, &v97, ((*(*a3 + 8) - **a3) >> 2) - 1);
   v76 = *(*a3 + 152);
   v77 = *(*a2 + 152);
@@ -8023,7 +6223,7 @@ uint64_t std::__function::__func<std::__bind<mlx::core::ScatterAxis::eval_cpu(st
   }
 }
 
-const void *mlx::core::compile(uint64_t a1, uint64_t a2)
+mlx::core *mlx::core::compile(mlx::core *a1, uint64_t a2)
 {
   v45[20] = *MEMORY[0x277D85DE8];
   mlx::core::cache(a1);
@@ -8055,7 +6255,7 @@ const void *mlx::core::compile(uint64_t a1, uint64_t a2)
       {
         (*(*v10 + 48))(v35);
         memset(&__p, 0, sizeof(__p));
-        if (*(a1 + 23) < 0 && *(a1 + 8) >= 0xF6uLL)
+        if (*(a1 + 23) < 0 && *(a1 + 1) >= 0xF6uLL)
         {
           std::ostringstream::basic_ostringstream[abi:ne200100](&v40);
           v11 = *(a1 + 23);
@@ -8071,7 +6271,7 @@ const void *mlx::core::compile(uint64_t a1, uint64_t a2)
 
           if ((v11 & 0x80u) != 0)
           {
-            v11 = *(a1 + 8);
+            v11 = *(a1 + 1);
           }
 
           if (v11 >= 0xE5)
@@ -8139,7 +6339,7 @@ const void *mlx::core::compile(uint64_t a1, uint64_t a2)
         }
 
         std::__fs::filesystem::path::path[abi:ne200100]<std::string,void>(&v39, &v32);
-        std::__fs::filesystem::operator/[abi:ne200100](&v39, &v33, &v40);
+        std::__fs::filesystem::operator/[abi:ne200100](&v40, &v39, &v33);
         if (SHIBYTE(v40.__r_.__value_.__r.__words[2]) < 0)
         {
           std::string::__init_copy_ctor_external(&v31, v40.__r_.__value_.__l.__data_, v40.__r_.__value_.__l.__size_);
@@ -8159,14 +6359,24 @@ const void *mlx::core::compile(uint64_t a1, uint64_t a2)
           operator delete(v39.__r_.__value_.__l.__data_);
         }
 
-        std::ifstream::basic_ifstream(&v40);
-        v19 = *(&v40 + *(v40.__r_.__value_.__r.__words[0] - 24) + 32);
+        if ((v31.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+        {
+          v19 = &v31;
+        }
+
+        else
+        {
+          v19 = v31.__r_.__value_.__r.__words[0];
+        }
+
+        std::ifstream::basic_ifstream(&v40, v19, 8);
+        v20 = *(&v40 + *(v40.__r_.__value_.__r.__words[0] - 24) + 32);
         v40.__r_.__value_.__r.__words[0] = *MEMORY[0x277D82808];
         *(v40.__r_.__value_.__r.__words + *(v40.__r_.__value_.__r.__words[0] - 24)) = *(MEMORY[0x277D82808] + 24);
         MEMORY[0x25F8512A0](&v40.__r_.__value_.__r.__words[2]);
         std::istream::~istream();
-        v20 = MEMORY[0x25F8516C0](v45);
-        if (v19)
+        v21 = MEMORY[0x25F8516C0](v45);
+        if (v20)
         {
           if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
           {
@@ -8178,11 +6388,11 @@ const void *mlx::core::compile(uint64_t a1, uint64_t a2)
             size = __p.__r_.__value_.__l.__size_;
           }
 
-          v22 = &v30;
+          v23 = &v30;
           std::string::basic_string[abi:ne200100](&v30, size + 4);
           if ((v30.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
           {
-            v22 = v30.__r_.__value_.__r.__words[0];
+            v23 = v30.__r_.__value_.__r.__words[0];
           }
 
           if (size)
@@ -8197,12 +6407,12 @@ const void *mlx::core::compile(uint64_t a1, uint64_t a2)
               p_p = __p.__r_.__value_.__r.__words[0];
             }
 
-            memmove(v22, p_p, size);
+            memmove(v23, p_p, size);
           }
 
-          strcpy(v22 + size, ".cpp");
+          strcpy(v23 + size, ".cpp");
           std::__fs::filesystem::path::path[abi:ne200100]<std::string,void>(&v39, &v30);
-          std::__fs::filesystem::operator/[abi:ne200100](&v39, &v33, &v40);
+          std::__fs::filesystem::operator/[abi:ne200100](&v40, &v39, &v33);
           if (SHIBYTE(v40.__r_.__value_.__r.__words[2]) < 0)
           {
             std::string::__init_copy_ctor_external(&v29, v40.__r_.__value_.__l.__data_, v40.__r_.__value_.__l.__size_);
@@ -8222,28 +6432,28 @@ const void *mlx::core::compile(uint64_t a1, uint64_t a2)
             operator delete(v39.__r_.__value_.__l.__data_);
           }
 
-          std::ofstream::basic_ofstream(&v40, &v29);
+          std::ofstream::basic_ofstream(&v40, &v29, 16);
           if ((v36 & 0x80u) == 0)
           {
-            v24 = v35;
+            v25 = v35;
           }
 
           else
           {
-            v24 = v35[0];
+            v25 = v35[0];
           }
 
           if ((v36 & 0x80u) == 0)
           {
-            v25 = v36;
+            v26 = v36;
           }
 
           else
           {
-            v25 = v35[1];
+            v26 = v35[1];
           }
 
-          std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v40, v24, v25);
+          std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v40, v25, v26);
           if (!std::filebuf::close())
           {
             std::ios_base::clear((&v40 + *(v40.__r_.__value_.__r.__words[0] - 24)), *(&v40 + *(v40.__r_.__value_.__r.__words[0] - 24) + 32) | 4);
@@ -8265,7 +6475,7 @@ const void *mlx::core::compile(uint64_t a1, uint64_t a2)
           *(v40.__r_.__value_.__r.__words + *(v40.__r_.__value_.__r.__words[0] - 24)) = *(MEMORY[0x277D82810] + 24);
           MEMORY[0x25F8512A0](&v40.__r_.__value_.__r.__words[1]);
           std::ostream::~ostream();
-          v20 = MEMORY[0x25F8516C0](&v44);
+          v21 = MEMORY[0x25F8516C0](&v44);
           if (SHIBYTE(v29.__r_.__value_.__r.__words[2]) < 0)
           {
             operator delete(v29.__r_.__value_.__l.__data_);
@@ -8277,8 +6487,8 @@ const void *mlx::core::compile(uint64_t a1, uint64_t a2)
           }
         }
 
-        mlx::core::cache(v20);
-        std::__list_imp<mlx::core::CompilerCache::DLib>::__create_node[abi:ne200100]<std::string &>();
+        mlx::core::cache(v21);
+        std::__list_imp<mlx::core::CompilerCache::DLib>::__create_node[abi:ne200100]<std::string &>(&mlx::core::cache(void)::cache_, 0, 0, &v31);
       }
 
       std::__throw_bad_function_call[abi:ne200100]();
@@ -8288,7 +6498,6 @@ const void *mlx::core::compile(uint64_t a1, uint64_t a2)
     std::__shared_mutex_base::unlock(&stru_27FA05F50);
   }
 
-  v26 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
@@ -8312,6 +6521,13 @@ LABEL_6:
 
   __cxa_free_exception(v46);
   goto LABEL_6;
+}
+
+void sub_25A535B0C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, ...)
+{
+  va_start(va, a42);
+  std::ostringstream::~ostringstream(va);
+  JUMPOUT(0x25A535D58);
 }
 
 void sub_25A535B34(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, void *__p, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46)
@@ -8447,6 +6663,13 @@ void sub_25A535D8C(_Unwind_Exception *a1, int a2)
   _Unwind_Resume(a1);
 }
 
+void sub_25A535D9C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, ...)
+{
+  va_start(va, a42);
+  std::shared_lock<std::shared_mutex>::~shared_lock[abi:ne200100](va);
+  JUMPOUT(0x25A535DACLL);
+}
+
 void mlx::core::cache(mlx::core *this)
 {
   {
@@ -8455,20 +6678,19 @@ void mlx::core::cache(mlx::core *this)
   }
 }
 
-std::__fs::filesystem::path *std::__fs::filesystem::operator/[abi:ne200100]@<X0>(std::__fs::filesystem::path *this@<X1>, uint64_t a2@<X0>, std::__fs::filesystem::path *a3@<X8>)
+std::__fs::filesystem::path *std::__fs::filesystem::operator/[abi:ne200100]@<X0>(std::__fs::filesystem::path *__return_ptr a1@<X8>, std::__fs::filesystem::path *this@<X1>, uint64_t a3@<X0>)
 {
-  if (*(a2 + 23) < 0)
+  if (*(a3 + 23) < 0)
   {
-    std::string::__init_copy_ctor_external(&a3->__pn_, *a2, *(a2 + 8));
+    std::string::__init_copy_ctor_external(&a1->__pn_, *a3, *(a3 + 8));
   }
 
   else
   {
-    *&a3->__pn_.__r_.__value_.__l.__data_ = *a2;
-    a3->__pn_.__r_.__value_.__r.__words[2] = *(a2 + 16);
+    a1->__pn_ = *a3;
   }
 
-  return std::__fs::filesystem::path::operator/=[abi:ne200100](a3, this);
+  return std::__fs::filesystem::path::operator/=[abi:ne200100](a1, this);
 }
 
 void sub_25A535EB4(_Unwind_Exception *exception_object)
@@ -8481,7 +6703,7 @@ void sub_25A535EB4(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t *std::ofstream::basic_ofstream(uint64_t *a1, uint64_t *a2)
+uint64_t *std::ofstream::basic_ofstream(uint64_t *a1, uint64_t *a2, int a3)
 {
   a1[58] = 0;
   v4 = MEMORY[0x277D82860] + 64;
@@ -8498,11 +6720,6 @@ uint64_t *std::ofstream::basic_ofstream(uint64_t *a1, uint64_t *a2)
   *a1 = v8;
   a1[52] = v4;
   MEMORY[0x25F851290](a1 + 1);
-  if (*(a2 + 23) < 0)
-  {
-    v9 = *a2;
-  }
-
   if (!std::filebuf::open())
   {
     std::ios_base::clear((a1 + *(*a1 - 24)), *(a1 + *(*a1 - 24) + 32) | 4);
@@ -8518,7 +6735,7 @@ void sub_25A536064(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void mlx::core::Compiled::eval_cpu(uint64_t a1, uint64_t a2, uint64_t ***a3)
+void mlx::core::Compiled::eval_cpu(uint64_t a1, const void ****a2, char ****a3)
 {
   v38 = *MEMORY[0x277D85DE8];
   v6 = *(a1 + 159);
@@ -8549,7 +6766,7 @@ void mlx::core::Compiled::eval_cpu(uint64_t a1, uint64_t a2, uint64_t ***a3)
   v29 = 0;
   v30 = 0;
   v31 = 0;
-  if (*(a2 + 8) != *a2)
+  if (a2[1] != *a2)
   {
     v9 = 0;
     do
@@ -8557,7 +6774,7 @@ void mlx::core::Compiled::eval_cpu(uint64_t a1, uint64_t a2, uint64_t ***a3)
       v36.__r_.__value_.__r.__words[0] = *(*(a1 + 24) + 16 * v9);
       if (!std::__hash_table<unsigned long,std::hash<unsigned long>,std::equal_to<unsigned long>,std::allocator<unsigned long>>::find<unsigned long>((a1 + 96), &v36))
       {
-        v10 = (*a2 + 16 * v9);
+        v10 = &(*a2)[2 * v9];
         v36.__r_.__value_.__r.__words[0] = (*v10)[19];
         std::vector<void *>::push_back[abi:ne200100](v32, &v36);
         if (!v34 && (*v10)[1] != **v10)
@@ -8578,7 +6795,7 @@ void mlx::core::Compiled::eval_cpu(uint64_t a1, uint64_t a2, uint64_t ***a3)
             {
               if (*(v11 + 4 * v15) == 1)
               {
-                v35 = *((**a3)[3] + 8 * v15);
+                v35 = *&(**a3)[3][8 * v15];
               }
 
               else
@@ -8606,7 +6823,7 @@ void mlx::core::Compiled::eval_cpu(uint64_t a1, uint64_t a2, uint64_t ***a3)
               {
                 if (*(*v8 + 4 * v14) == 1)
                 {
-                  v35 = *((**a3)[3] + 8 * v14);
+                  v35 = *&(**a3)[3][8 * v14];
                 }
 
                 else
@@ -8644,7 +6861,7 @@ void mlx::core::Compiled::eval_cpu(uint64_t a1, uint64_t a2, uint64_t ***a3)
       ++v9;
     }
 
-    while (v9 < (*(a2 + 8) - *a2) >> 4);
+    while (v9 < (a2[1] - *a2) >> 4);
   }
 
   v28 = (v8[1] - *v8) >> 2;
@@ -8744,7 +6961,7 @@ void mlx::core::Compiled::eval_cpu(uint64_t a1, uint64_t a2, uint64_t ***a3)
   operator new();
 }
 
-void sub_25A536B40(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, char a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, void *__p, uint64_t a24, uint64_t a25, void *a26, uint64_t a27, int a28, __int16 a29, char a30, char a31, uint64_t a32, char a33, uint64_t a34, uint64_t a35, void *a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, char *a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, char a54)
+void sub_25A536B40(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, void *__p, uint64_t a24, uint64_t a25, void *a26, uint64_t a27, int a28, __int16 a29, char a30, char a31, uint64_t a32, char a33, uint64_t a34, uint64_t a35, void *a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, char *a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, char a54)
 {
   __cxa_free_exception(v55);
   std::mutex::unlock(v54);
@@ -8892,7 +7109,7 @@ void mlx::core::CompilerCache::~CompilerCache(mlx::core::CompilerCache *this)
   std::condition_variable::~condition_variable((this + 176));
   std::condition_variable::~condition_variable((this + 128));
   std::mutex::~mutex(this + 1);
-  std::__hash_table<std::__hash_value_type<std::string,void *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void *>>>::~__hash_table(this + 24);
+  std::__hash_table<std::__hash_value_type<std::string,void *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void *>>>::~__hash_table(this + 3);
   std::__list_imp<mlx::core::CompilerCache::DLib>::clear(this);
 }
 
@@ -8910,14 +7127,14 @@ mlx::core::CompilerCache *mlx::core::CompilerCache::CompilerCache(mlx::core::Com
 
 void sub_25A536F90(_Unwind_Exception *a1)
 {
-  std::__hash_table<std::__hash_value_type<std::string,void *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void *>>>::~__hash_table((v1 + 3));
+  std::__hash_table<std::__hash_value_type<std::string,void *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void *>>>::~__hash_table((v1 + 24));
   std::__list_imp<mlx::core::CompilerCache::DLib>::clear(v1);
   _Unwind_Resume(a1);
 }
 
-uint64_t std::__hash_table<std::__hash_value_type<std::string,void *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void *>>>::~__hash_table(uint64_t a1)
+void **std::__hash_table<std::__hash_value_type<std::string,void *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void *>>>::~__hash_table(void **a1)
 {
-  std::__hash_table<std::__hash_value_type<std::string,void *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void *>>>::__deallocate_node(a1, *(a1 + 16));
+  std::__hash_table<std::__hash_value_type<std::string,void *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void *>>>::__deallocate_node(a1, a1[2]);
   v2 = *a1;
   *a1 = 0;
   if (v2)
@@ -8949,20 +7166,20 @@ void std::__hash_table<std::__hash_value_type<std::string,void *>,std::__unorder
   }
 }
 
-void std::__list_imp<mlx::core::CompilerCache::DLib>::clear(void *a1)
+void std::__list_imp<mlx::core::CompilerCache::DLib>::clear(uint64_t *result)
 {
-  if (a1[2])
+  if (result[2])
   {
-    v2 = a1[1];
-    v3 = *(*a1 + 8);
+    v2 = result[1];
+    v3 = *(*result + 8);
     v4 = *v2;
     v4[1] = v3;
     *v3 = v4;
-    a1[2] = 0;
-    while (v2 != a1)
+    result[2] = 0;
+    while (v2 != result)
     {
       v5 = *(v2 + 8);
-      std::__list_imp<mlx::core::CompilerCache::DLib>::__delete_node[abi:ne200100](a1, v2);
+      std::__list_imp<mlx::core::CompilerCache::DLib>::__delete_node[abi:ne200100](result, v2);
       v2 = v5;
     }
   }
@@ -9058,8 +7275,7 @@ uint64_t std::unique_lock<std::shared_mutex>::~unique_lock[abi:ne200100](uint64_
 
 std::string *std::__fs::filesystem::path::path[abi:ne200100]<std::string,void>(std::string *a1, std::string *a2)
 {
-  a1->__r_.__value_.__r.__words[0] = 0;
-  a1->__r_.__value_.__l.__size_ = 0;
+  *&a1->__r_.__value_.__l.__data_ = 0uLL;
   a1->__r_.__value_.__r.__words[2] = 0;
   v3 = SHIBYTE(a2->__r_.__value_.__r.__words[2]);
   size = a2->__r_.__value_.__l.__size_;
@@ -9246,35 +7462,35 @@ LABEL_6:
   goto LABEL_6;
 }
 
-const void **std::__hash_table<std::__hash_value_type<std::string,void *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void *>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,void *>>(void *a1, const void **a2)
+const void **std::__hash_table<std::__hash_value_type<std::string,void *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void *>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,void *>>(void *a1, uint64_t *a2, uint64_t a3)
 {
-  v4 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
+  v5 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
+  v6 = v5;
+  v7 = a1[1];
+  if (!*&v7)
   {
     goto LABEL_18;
   }
 
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
+  v8 = vcnt_s8(v7);
+  v8.i16[0] = vaddlv_u8(v8);
+  v9 = v8.u32[0];
+  if (v8.u32[0] > 1uLL)
   {
-    v9 = v4;
-    if (v4 >= *&v6)
+    v10 = v5;
+    if (v5 >= *&v7)
     {
-      v9 = v4 % *&v6;
+      v10 = v5 % *&v7;
     }
   }
 
   else
   {
-    v9 = (*&v6 - 1) & v4;
+    v10 = (*&v7 - 1) & v5;
   }
 
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
+  v11 = *(*a1 + 8 * v10);
+  if (!v11 || (v12 = *v11) == 0)
   {
 LABEL_18:
     std::__hash_table<std::__hash_value_type<std::string,void *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void *>>>::__construct_node_hash<std::pair<std::string const,void *>>();
@@ -9282,44 +7498,44 @@ LABEL_18:
 
   while (1)
   {
-    v12 = v11[1];
-    if (v12 == v5)
+    v13 = v12[1];
+    if (v13 == v6)
     {
       break;
     }
 
-    if (v8 > 1)
+    if (v9 > 1)
     {
-      if (v12 >= *&v6)
+      if (v13 >= *&v7)
       {
-        v12 %= *&v6;
+        v13 %= *&v7;
       }
     }
 
     else
     {
-      v12 &= *&v6 - 1;
+      v13 &= *&v7 - 1;
     }
 
-    if (v12 != v9)
+    if (v13 != v10)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v11 = *v11;
-    if (!v11)
+    v12 = *v12;
+    if (!v12)
     {
       goto LABEL_18;
     }
   }
 
-  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v11 + 2, a2))
+  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v12 + 2, a2))
   {
     goto LABEL_17;
   }
 
-  return v11;
+  return v12;
 }
 
 void sub_25A537888(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void **__p, uint64_t a11)
@@ -9388,45 +7604,37 @@ void *std::__hash_table<unsigned long,std::hash<unsigned long>,std::equal_to<uns
     return 0;
   }
 
-  result = *v6;
-  if (*v6)
+  for (result = *v6; result; result = *result)
   {
-    do
+    v8 = result[1];
+    if (v3 == v8)
     {
-      v8 = result[1];
-      if (v3 == v8)
+      if (result[2] == v3)
       {
-        if (result[2] == v3)
+        return result;
+      }
+    }
+
+    else
+    {
+      if (v4.u32[0] > 1uLL)
+      {
+        if (v8 >= *&v2)
         {
-          return result;
+          v8 %= *&v2;
         }
       }
 
       else
       {
-        if (v4.u32[0] > 1uLL)
-        {
-          if (v8 >= *&v2)
-          {
-            v8 %= *&v2;
-          }
-        }
-
-        else
-        {
-          v8 &= *&v2 - 1;
-        }
-
-        if (v8 != v5)
-        {
-          return 0;
-        }
+        v8 &= *&v2 - 1;
       }
 
-      result = *result;
+      if (v8 != v5)
+      {
+        return 0;
+      }
     }
-
-    while (result);
   }
 
   return result;
@@ -9441,7 +7649,7 @@ __n128 std::__function::__func<mlx::core::Compiled::eval_cpu(std::vector<mlx::co
   return result;
 }
 
-uint64_t std::__function::__func<mlx::core::Compiled::eval_cpu(std::vector<mlx::core::array> const&,std::vector<mlx::core::array>&)::$_0,std::allocator<mlx::core::Compiled::eval_cpu(std::vector<mlx::core::array> const&,std::vector<mlx::core::array>&)::$_0>,std::string ()(void)>::operator()@<X0>(uint64_t a1@<X0>, _BYTE *a2@<X8>)
+uint64_t std::__function::__func<mlx::core::Compiled::eval_cpu(std::vector<mlx::core::array> const&,std::vector<mlx::core::array>&)::$_0,std::allocator<mlx::core::Compiled::eval_cpu(std::vector<mlx::core::array> const&,std::vector<mlx::core::array>&)::$_0>,std::string ()(void)>::operator()@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
 {
   v4 = *(a1 + 16);
   std::ostringstream::basic_ostringstream[abi:ne200100](&v14);
@@ -9503,19 +7711,19 @@ uint64_t std::__function::__func<mlx::core::Compiled::eval_cpu(std::vector<mlx::
   }
 }
 
-void mlx::core::build_kernel(void *a1, uint64_t a2, const mlx::core::array **a3, uint64_t ***a4, const mlx::core::array **a5, void *a6, int a7, int a8)
+void mlx::core::build_kernel(void *a1, uint64_t **a2, void ***a3, void ***a4, void ***a5, void *a6, int a7, int a8)
 {
   v12 = **a4;
   v280 = 0;
   v281 = 0;
   v279 = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v279, *v12, v12[1], (v12[1] - *v12) >> 2);
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v279, *v12, *(v12 + 8), (*(v12 + 8) - *v12) >> 2);
   v267 = a4;
   v13 = **a4;
   v277 = 0;
   v278 = 0;
   __p = 0;
-  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&__p, v13[3], v13[4], (v13[4] - v13[3]) >> 3);
+  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&__p, *(v13 + 24), *(v13 + 32), (*(v13 + 32) - *(v13 + 24)) >> 3);
   memset(v274, 0, sizeof(v274));
   v275 = 1065353216;
   v14 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(a1, "void ", 5);
@@ -9537,7 +7745,7 @@ void mlx::core::build_kernel(void *a1, uint64_t a2, const mlx::core::array **a3,
 
   else
   {
-    v17 = *(a2 + 8);
+    v17 = a2[1];
   }
 
   v18 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v14, v16, v17);
@@ -9570,7 +7778,7 @@ void mlx::core::build_kernel(void *a1, uint64_t a2, const mlx::core::array **a3,
 
       else
       {
-        mlx::core::get_type_string(*(*v21 + 56) & 0xFFFFFFFFFFLL, &v271);
+        mlx::core::get_type_string(*(*v21 + 7) & 0xFFFFFFFFFFLL, &v271);
         v27 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(a1, "  ", 2);
         if ((v273 & 0x80u) == 0)
         {
@@ -9648,7 +7856,7 @@ void mlx::core::build_kernel(void *a1, uint64_t a2, const mlx::core::array **a3,
         std::ostream::put();
         std::ostream::flush();
         v26 = (v23 + 1);
-        if (*(*v21 + 8) != **v21 && (a7 & 1) == 0)
+        if (*(*v21 + 1) != **v21 && (a7 & 1) == 0)
         {
           v44 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(a1, "  const size_t* ", 16);
           v45 = *(name + 23);
@@ -9693,7 +7901,7 @@ void mlx::core::build_kernel(void *a1, uint64_t a2, const mlx::core::array **a3,
         v23 = v26;
       }
 
-      v21 = (v21 + 16);
+      v21 += 2;
     }
 
     while (v21 != v22);
@@ -9706,7 +7914,7 @@ void mlx::core::build_kernel(void *a1, uint64_t a2, const mlx::core::array **a3,
     v55 = MEMORY[0x277D82680];
     do
     {
-      mlx::core::get_type_string(*(*v53 + 56) & 0xFFFFFFFFFFLL, &v271);
+      mlx::core::get_type_string(*(*v53 + 7) & 0xFFFFFFFFFFLL, &v271);
       v56 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(a1, "  ", 2);
       if ((v273 & 0x80u) == 0)
       {
@@ -9789,7 +7997,7 @@ void mlx::core::build_kernel(void *a1, uint64_t a2, const mlx::core::array **a3,
         operator delete(v271.__locale_);
       }
 
-      v53 = (v53 + 16);
+      v53 += 2;
       v26 = (v26 + 1);
     }
 
@@ -9867,7 +8075,7 @@ void mlx::core::build_kernel(void *a1, uint64_t a2, const mlx::core::array **a3,
       if (std::__hash_table<unsigned long,std::hash<unsigned long>,std::equal_to<unsigned long>,std::allocator<unsigned long>>::find<unsigned long>(a6, &v271))
       {
         v100 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(a1, "  ", 2);
-        mlx::core::get_type_string(*(*v97 + 56) & 0xFFFFFFFFFFLL, &v271);
+        mlx::core::get_type_string(*(*v97 + 7) & 0xFFFFFFFFFFLL, &v271);
         if ((v273 & 0x80u) == 0)
         {
           v101 = &v271;
@@ -9930,10 +8138,10 @@ void mlx::core::build_kernel(void *a1, uint64_t a2, const mlx::core::array **a3,
 
       else
       {
-        if (*(*v97 + 8) == **v97)
+        if (*(*v97 + 1) == **v97)
         {
           v127 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(a1, "  ", 2);
-          mlx::core::get_type_string(*(*v97 + 56) & 0xFFFFFFFFFFLL, &v271);
+          mlx::core::get_type_string(*(*v97 + 7) & 0xFFFFFFFFFFLL, &v271);
           if ((v273 & 0x80u) == 0)
           {
             v128 = &v271;
@@ -10013,7 +8221,7 @@ void mlx::core::build_kernel(void *a1, uint64_t a2, const mlx::core::array **a3,
         else if (a7)
         {
           v111 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(a1, "  ", 2);
-          mlx::core::get_type_string(*(*v97 + 56) & 0xFFFFFFFFFFLL, &v271);
+          mlx::core::get_type_string(*(*v97 + 7) & 0xFFFFFFFFFFLL, &v271);
           if ((v273 & 0x80u) == 0)
           {
             v112 = &v271;
@@ -10093,7 +8301,7 @@ void mlx::core::build_kernel(void *a1, uint64_t a2, const mlx::core::array **a3,
         else
         {
           v143 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(a1, "  ", 2);
-          mlx::core::get_type_string(*(*v97 + 56) & 0xFFFFFFFFFFLL, &v271);
+          mlx::core::get_type_string(*(*v97 + 7) & 0xFFFFFFFFFFLL, &v271);
           if ((v273 & 0x80u) == 0)
           {
             v144 = &v271;
@@ -10176,7 +8384,7 @@ void mlx::core::build_kernel(void *a1, uint64_t a2, const mlx::core::array **a3,
         }
       }
 
-      v97 = (v97 + 16);
+      v97 += 2;
     }
 
     while (v97 != v96);
@@ -10189,7 +8397,7 @@ void mlx::core::build_kernel(void *a1, uint64_t a2, const mlx::core::array **a3,
     do
     {
       v161 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(a1, "  ", 2);
-      mlx::core::get_type_string(*(*v159 + 56) & 0xFFFFFFFFFFLL, &v271);
+      mlx::core::get_type_string(*(*v159 + 7) & 0xFFFFFFFFFFLL, &v271);
       if ((v273 & 0x80u) == 0)
       {
         v162 = &v271;
@@ -10241,10 +8449,10 @@ void mlx::core::build_kernel(void *a1, uint64_t a2, const mlx::core::array **a3,
         operator delete(v271.__locale_);
       }
 
-      v171 = *(*v159 + 64);
+      v171 = *(*v159 + 8);
       {
         v172 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(a1, "static_cast<", 12);
-        mlx::core::get_type_string(*(*v159 + 56) & 0xFFFFFFFFFFLL, &v271);
+        mlx::core::get_type_string(*(*v159 + 7) & 0xFFFFFFFFFFLL, &v271);
         if ((v273 & 0x80u) == 0)
         {
           v173 = &v271;
@@ -10267,7 +8475,7 @@ void mlx::core::build_kernel(void *a1, uint64_t a2, const mlx::core::array **a3,
 
         v175 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v172, v173, v174);
         v176 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v175, ">(tmp_", 6);
-        v177 = mlx::core::NodeNamer::get_name(v274, *(*v159 + 176));
+        v177 = mlx::core::NodeNamer::get_name(v274, *(*v159 + 22));
         v178 = *(v177 + 23);
         if (v178 >= 0)
         {
@@ -10305,16 +8513,16 @@ void mlx::core::build_kernel(void *a1, uint64_t a2, const mlx::core::array **a3,
 
       else
       {
-        (*(**(*v159 + 64) + 40))(*(*v159 + 64), a1);
+        (*(**(*v159 + 8) + 40))(*(*v159 + 8), a1);
         std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(a1, "()(", 3);
-        if (*(*v159 + 184) - *(*v159 + 176) != 16)
+        if (*(*v159 + 23) - *(*v159 + 22) != 16)
         {
           v184 = 0;
           v185 = 0;
           do
           {
             v186 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(a1, "tmp_", 4);
-            v187 = mlx::core::NodeNamer::get_name(v274, (*(*v159 + 176) + v184));
+            v187 = mlx::core::NodeNamer::get_name(v274, (*(*v159 + 22) + v184));
             v188 = *(v187 + 23);
             if (v188 >= 0)
             {
@@ -10342,11 +8550,11 @@ void mlx::core::build_kernel(void *a1, uint64_t a2, const mlx::core::array **a3,
             v184 += 16;
           }
 
-          while (((*(*v159 + 184) - *(*v159 + 176)) >> 4) - 1 > v185);
+          while (((*(*v159 + 23) - *(*v159 + 22)) >> 4) - 1 > v185);
         }
 
         v192 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(a1, "tmp_", 4);
-        v193 = mlx::core::NodeNamer::get_name(v274, (*(*v159 + 184) - 16));
+        v193 = mlx::core::NodeNamer::get_name(v274, (*(*v159 + 23) - 16));
         v194 = *(v193 + 23);
         if (v194 >= 0)
         {
@@ -10378,7 +8586,7 @@ void mlx::core::build_kernel(void *a1, uint64_t a2, const mlx::core::array **a3,
         std::ostream::flush();
       }
 
-      v159 = (v159 + 16);
+      v159 += 2;
     }
 
     while (v159 != v160);
@@ -10480,7 +8688,7 @@ void mlx::core::build_kernel(void *a1, uint64_t a2, const mlx::core::array **a3,
       std::locale::~locale(&v271);
       std::ostream::put();
       std::ostream::flush();
-      v200 = (v200 + 16);
+      v200 += 2;
     }
 
     while (v200 != v201);
@@ -10628,5 +8836,1086 @@ void mlx::core::build_kernel(void *a1, uint64_t a2, const mlx::core::array **a3,
   {
     v280 = v279;
     operator delete(v279);
+  }
+}
+
+void sub_25A539700(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, std::locale a14, uint64_t a15, int a16, __int16 a17, char a18, char a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, void *__p, uint64_t a27)
+{
+  std::locale::~locale(&a14);
+  std::__hash_table<std::__hash_value_type<unsigned long,std::string>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,std::string>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,std::string>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,std::string>>>::~__hash_table(&a20);
+  if (__p)
+  {
+    a27 = __p;
+    operator delete(__p);
+  }
+
+  v29 = *(v27 - 120);
+  if (v29)
+  {
+    *(v27 - 112) = v29;
+    operator delete(v29);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void **std::__hash_table<std::__hash_value_type<unsigned long,std::string>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,std::string>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,std::string>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,std::string>>>::~__hash_table(void **a1)
+{
+  std::__hash_table<std::__hash_value_type<unsigned long,std::string>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,std::string>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,std::string>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,std::string>>>::__deallocate_node(a1, a1[2]);
+  v2 = *a1;
+  *a1 = 0;
+  if (v2)
+  {
+    operator delete(v2);
+  }
+
+  return a1;
+}
+
+void std::__hash_table<std::__hash_value_type<unsigned long,std::string>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,std::string>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,std::string>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,std::string>>>::__deallocate_node(int a1, void **__p)
+{
+  if (__p)
+  {
+    v2 = __p;
+    do
+    {
+      v3 = *v2;
+      if (*(v2 + 47) < 0)
+      {
+        operator delete(v2[3]);
+      }
+
+      operator delete(v2);
+      v2 = v3;
+    }
+
+    while (v3);
+  }
+}
+
+uint64_t std::__function::__value_func<std::string ()(void)>::~__value_func[abi:ne200100](uint64_t a1)
+{
+  v2 = *(a1 + 24);
+  if (v2 == a1)
+  {
+    (*(*v2 + 32))(v2);
+  }
+
+  else if (v2)
+  {
+    (*(*v2 + 40))(v2);
+  }
+
+  return a1;
+}
+
+uint64_t mlx::core::cpu::CommandEncoder::dispatch<mlx::core::Compiled::eval_cpu(std::vector<mlx::core::array> const&,std::vector<mlx::core::array>&)::$_1>(mlx::core::Compiled::eval_cpu(std::vector<mlx::core::array> const&,std::vector<mlx::core::array>&)::$_1 &&)::{lambda(void)#1}::~dispatch(uint64_t a1)
+{
+  v2 = *(a1 + 72);
+  if (v2)
+  {
+    *(a1 + 80) = v2;
+    operator delete(v2);
+  }
+
+  v5 = (a1 + 48);
+  std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v5);
+  v3 = *(a1 + 24);
+  if (v3)
+  {
+    *(a1 + 32) = v3;
+    operator delete(v3);
+  }
+
+  return a1;
+}
+
+uint64_t _ZNSt3__110__function6__funcIZN3mlx4core3cpu14CommandEncoder8dispatchIZNS3_8Compiled8eval_cpuERKNS_6vectorINS3_5arrayENS_9allocatorIS9_EEEERSC_E3__1JEEEvOT_DpOT0_EUlvE_NSA_ISM_EEFvvEED1Ev(uint64_t a1)
+{
+  *a1 = &unk_286BF6930;
+  v2 = *(a1 + 80);
+  if (v2)
+  {
+    *(a1 + 88) = v2;
+    operator delete(v2);
+  }
+
+  v5 = (a1 + 56);
+  std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v5);
+  v3 = *(a1 + 32);
+  if (v3)
+  {
+    *(a1 + 40) = v3;
+    operator delete(v3);
+  }
+
+  return a1;
+}
+
+uint64_t _ZNSt3__110__function6__funcIZN3mlx4core3cpu14CommandEncoder8dispatchIZNS3_8Compiled8eval_cpuERKNS_6vectorINS3_5arrayENS_9allocatorIS9_EEEERSC_E3__1JEEEvOT_DpOT0_EUlvE_NSA_ISM_EEFvvEED0Ev(uint64_t a1)
+{
+  *a1 = &unk_286BF6930;
+  v2 = *(a1 + 80);
+  if (v2)
+  {
+    *(a1 + 88) = v2;
+    operator delete(v2);
+  }
+
+  v5 = (a1 + 56);
+  std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v5);
+  v3 = *(a1 + 32);
+  if (v3)
+  {
+    *(a1 + 40) = v3;
+    operator delete(v3);
+  }
+
+  return MEMORY[0x25F851760](a1, 0x10B1C4006FBAB38);
+}
+
+void sub_25A539B70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va, a3);
+  std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](va);
+  v6 = *v4;
+  if (*v4)
+  {
+    v3[5] = v6;
+    operator delete(v6);
+  }
+
+  operator delete(v3);
+  _Unwind_Resume(a1);
+}
+
+uint64_t *_ZNKSt3__110__function6__funcIZN3mlx4core3cpu14CommandEncoder8dispatchIZNS3_8Compiled8eval_cpuERKNS_6vectorINS3_5arrayENS_9allocatorIS9_EEEERSC_E3__1JEEEvOT_DpOT0_EUlvE_NSA_ISM_EEFvvEE7__cloneEPNS0_6__baseISO_EE(uint64_t a1, uint64_t a2)
+{
+  *a2 = &unk_286BF6930;
+  v4 = *(a1 + 8);
+  *(a2 + 16) = *(a1 + 16);
+  *(a2 + 8) = v4;
+  *(a2 + 24) = *(a1 + 24);
+  *(a2 + 32) = 0;
+  *(a2 + 40) = 0;
+  *(a2 + 48) = 0;
+  std::vector<void *>::__init_with_size[abi:ne200100]<void **,void **>((a2 + 32), *(a1 + 32), *(a1 + 40), (*(a1 + 40) - *(a1 + 32)) >> 3);
+  *(a2 + 56) = 0;
+  *(a2 + 64) = 0;
+  *(a2 + 72) = 0;
+  std::vector<std::vector<unsigned long>>::__init_with_size[abi:ne200100]<std::vector<unsigned long>*,std::vector<unsigned long>*>((a2 + 56), *(a1 + 56), *(a1 + 64), 0xAAAAAAAAAAAAAAABLL * ((*(a1 + 64) - *(a1 + 56)) >> 3));
+  *(a2 + 80) = 0;
+  *(a2 + 88) = 0;
+  *(a2 + 96) = 0;
+  return std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>((a2 + 80), *(a1 + 80), *(a1 + 88), (*(a1 + 88) - *(a1 + 80)) >> 2);
+}
+
+void sub_25A539C80(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va, a3);
+  std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](va);
+  v6 = *v4;
+  if (*v4)
+  {
+    *(v3 + 40) = v6;
+    operator delete(v6);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void _ZNSt3__110__function6__funcIZN3mlx4core3cpu14CommandEncoder8dispatchIZNS3_8Compiled8eval_cpuERKNS_6vectorINS3_5arrayENS_9allocatorIS9_EEEERSC_E3__1JEEEvOT_DpOT0_EUlvE_NSA_ISM_EEFvvEE7destroyEv(uint64_t a1)
+{
+  v2 = *(a1 + 80);
+  if (v2)
+  {
+    *(a1 + 88) = v2;
+    operator delete(v2);
+  }
+
+  v4 = (a1 + 56);
+  std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v4);
+  v3 = *(a1 + 32);
+  if (v3)
+  {
+    *(a1 + 40) = v3;
+    operator delete(v3);
+  }
+}
+
+void _ZNSt3__110__function6__funcIZN3mlx4core3cpu14CommandEncoder8dispatchIZNS3_8Compiled8eval_cpuERKNS_6vectorINS3_5arrayENS_9allocatorIS9_EEEERSC_E3__1JEEEvOT_DpOT0_EUlvE_NSA_ISM_EEFvvEE18destroy_deallocateEv(uint64_t a1)
+{
+  v2 = *(a1 + 80);
+  if (v2)
+  {
+    *(a1 + 88) = v2;
+    operator delete(v2);
+  }
+
+  v4 = (a1 + 56);
+  std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v4);
+  v3 = *(a1 + 32);
+  if (v3)
+  {
+    *(a1 + 40) = v3;
+    operator delete(v3);
+  }
+
+  operator delete(a1);
+}
+
+void _ZNSt3__110__function6__funcIZN3mlx4core3cpu14CommandEncoder8dispatchIZNS3_8Compiled8eval_cpuERKNS_6vectorINS3_5arrayENS_9allocatorIS9_EEEERSC_E3__1JEEEvOT_DpOT0_EUlvE_NSA_ISM_EEFvvEEclEv(uint64_t a1)
+{
+  v1 = (*(a1 + 24))(*(a1 + 32));
+  v2 = mlx::core::scheduler::scheduler(v1);
+
+  mlx::core::scheduler::Scheduler::notify_task_completion(v2);
+}
+
+uint64_t _ZNKSt3__110__function6__funcIZN3mlx4core3cpu14CommandEncoder8dispatchIZNS3_8Compiled8eval_cpuERKNS_6vectorINS3_5arrayENS_9allocatorIS9_EEEERSC_E3__1JEEEvOT_DpOT0_EUlvE_NSA_ISM_EEFvvEE6targetERKSt9type_info(uint64_t a1, uint64_t a2)
+{
+  {
+    return a1 + 8;
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+uint64_t *std::vector<void *>::__init_with_size[abi:ne200100]<void **,void **>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
+{
+  if (a4)
+  {
+    std::vector<void *>::__vallocate[abi:ne200100](result, a4);
+  }
+
+  return result;
+}
+
+void sub_25A539E54(_Unwind_Exception *exception_object)
+{
+  v3 = *v1;
+  if (*v1)
+  {
+    *(v1 + 8) = v3;
+    operator delete(v3);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void std::vector<void *>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
+{
+  if (!(a2 >> 61))
+  {
+    std::__allocate_at_least[abi:ne200100]<std::allocator<void *>>(a1, a2);
+  }
+
+  std::vector<int>::__throw_length_error[abi:ne200100]();
+}
+
+uint64_t *std::vector<std::vector<unsigned long>>::__init_with_size[abi:ne200100]<std::vector<unsigned long>*,std::vector<unsigned long>*>(uint64_t *result, uint64_t a2, uint64_t a3, unint64_t a4)
+{
+  if (a4)
+  {
+    std::vector<std::vector<int>>::__vallocate[abi:ne200100](result, a4);
+  }
+
+  return result;
+}
+
+void sub_25A539F14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void **a9)
+{
+  *(v9 + 8) = v10;
+  std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&a9);
+  _Unwind_Resume(a1);
+}
+
+uint64_t *std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<std::vector<unsigned long>>,std::vector<unsigned long>*,std::vector<unsigned long>*,std::vector<unsigned long>*>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4)
+{
+  v4 = a4;
+  v10 = a4;
+  v11 = a4;
+  v8[0] = a1;
+  v8[1] = &v10;
+  v8[2] = &v11;
+  v9 = 0;
+  if (a2 != a3)
+  {
+    v6 = a2;
+    do
+    {
+      *v4 = 0;
+      v4[1] = 0;
+      v4[2] = 0;
+      std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long *,unsigned long *>(v4, *v6, *(v6 + 8), (*(v6 + 8) - *v6) >> 3);
+      v6 += 24;
+      v4 = v11 + 3;
+      v11 += 3;
+    }
+
+    while (v6 != a3);
+  }
+
+  v9 = 1;
+  std::__exception_guard_exceptions<std::_AllocatorDestroyRangeReverse<std::allocator<std::vector<unsigned long>>,std::vector<unsigned long>*>>::~__exception_guard_exceptions[abi:ne200100](v8);
+  return v4;
+}
+
+uint64_t std::__exception_guard_exceptions<std::_AllocatorDestroyRangeReverse<std::allocator<std::vector<unsigned long>>,std::vector<unsigned long>*>>::~__exception_guard_exceptions[abi:ne200100](uint64_t a1)
+{
+  if ((*(a1 + 24) & 1) == 0)
+  {
+    std::_AllocatorDestroyRangeReverse<std::allocator<std::vector<int>>,std::vector<int>*>::operator()[abi:ne200100](a1);
+  }
+
+  return a1;
+}
+
+uint64_t std::__function::__func<std::__bind<mlx::core::Compiled::eval_cpu(std::vector<mlx::core::array> const&,std::vector<mlx::core::array>&)::$_1>,std::allocator<std::__bind<mlx::core::Compiled::eval_cpu(std::vector<mlx::core::array> const&,std::vector<mlx::core::array>&)::$_1>>,void ()(void)>::~__func(uint64_t a1)
+{
+  *a1 = &unk_286BF69B0;
+  v2 = *(a1 + 64);
+  if (v2)
+  {
+    *(a1 + 72) = v2;
+    operator delete(v2);
+  }
+
+  v5 = (a1 + 40);
+  std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v5);
+  v3 = *(a1 + 16);
+  if (v3)
+  {
+    *(a1 + 24) = v3;
+    operator delete(v3);
+  }
+
+  return a1;
+}
+
+{
+  *a1 = &unk_286BF69B0;
+  v2 = *(a1 + 64);
+  if (v2)
+  {
+    *(a1 + 72) = v2;
+    operator delete(v2);
+  }
+
+  v5 = (a1 + 40);
+  std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v5);
+  v3 = *(a1 + 16);
+  if (v3)
+  {
+    *(a1 + 24) = v3;
+    operator delete(v3);
+  }
+
+  return MEMORY[0x25F851760](a1, 0x10B1C402834BF01);
+}
+
+void sub_25A53A204(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va, a3);
+  std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](va);
+  v6 = *v4;
+  if (*v4)
+  {
+    v3[3] = v6;
+    operator delete(v6);
+  }
+
+  operator delete(v3);
+  _Unwind_Resume(a1);
+}
+
+uint64_t *std::__function::__func<std::__bind<mlx::core::Compiled::eval_cpu(std::vector<mlx::core::array> const&,std::vector<mlx::core::array>&)::$_1>,std::allocator<std::__bind<mlx::core::Compiled::eval_cpu(std::vector<mlx::core::array> const&,std::vector<mlx::core::array>&)::$_1>>,void ()(void)>::__clone(uint64_t a1, uint64_t a2)
+{
+  v4 = *(a1 + 8);
+  *a2 = &unk_286BF69B0;
+  *(a2 + 8) = v4;
+  *(a2 + 16) = 0;
+  *(a2 + 24) = 0;
+  *(a2 + 32) = 0;
+  std::vector<void *>::__init_with_size[abi:ne200100]<void **,void **>((a2 + 16), *(a1 + 16), *(a1 + 24), (*(a1 + 24) - *(a1 + 16)) >> 3);
+  *(a2 + 40) = 0;
+  *(a2 + 48) = 0;
+  *(a2 + 56) = 0;
+  std::vector<std::vector<unsigned long>>::__init_with_size[abi:ne200100]<std::vector<unsigned long>*,std::vector<unsigned long>*>((a2 + 40), *(a1 + 40), *(a1 + 48), 0xAAAAAAAAAAAAAAABLL * ((*(a1 + 48) - *(a1 + 40)) >> 3));
+  *(a2 + 64) = 0;
+  *(a2 + 72) = 0;
+  *(a2 + 80) = 0;
+  result = std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>((a2 + 64), *(a1 + 64), *(a1 + 72), (*(a1 + 72) - *(a1 + 64)) >> 2);
+  *(a2 + 92) = 0;
+  *(a2 + 89) = 0;
+  return result;
+}
+
+void sub_25A53A308(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va, a3);
+  std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](va);
+  v6 = *v4;
+  if (*v4)
+  {
+    *(v3 + 24) = v6;
+    operator delete(v6);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void std::__function::__func<std::__bind<mlx::core::Compiled::eval_cpu(std::vector<mlx::core::array> const&,std::vector<mlx::core::array>&)::$_1>,std::allocator<std::__bind<mlx::core::Compiled::eval_cpu(std::vector<mlx::core::array> const&,std::vector<mlx::core::array>&)::$_1>>,void ()(void)>::destroy(uint64_t a1)
+{
+  v2 = *(a1 + 64);
+  if (v2)
+  {
+    *(a1 + 72) = v2;
+    operator delete(v2);
+  }
+
+  v4 = (a1 + 40);
+  std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v4);
+  v3 = *(a1 + 16);
+  if (v3)
+  {
+    *(a1 + 24) = v3;
+    operator delete(v3);
+  }
+}
+
+void std::__function::__func<std::__bind<mlx::core::Compiled::eval_cpu(std::vector<mlx::core::array> const&,std::vector<mlx::core::array>&)::$_1>,std::allocator<std::__bind<mlx::core::Compiled::eval_cpu(std::vector<mlx::core::array> const&,std::vector<mlx::core::array>&)::$_1>>,void ()(void)>::destroy_deallocate(uint64_t a1)
+{
+  v2 = *(a1 + 64);
+  if (v2)
+  {
+    *(a1 + 72) = v2;
+    operator delete(v2);
+  }
+
+  v4 = (a1 + 40);
+  std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v4);
+  v3 = *(a1 + 16);
+  if (v3)
+  {
+    *(a1 + 24) = v3;
+    operator delete(v3);
+  }
+
+  operator delete(a1);
+}
+
+uint64_t std::__function::__func<std::__bind<mlx::core::Compiled::eval_cpu(std::vector<mlx::core::array> const&,std::vector<mlx::core::array>&)::$_1>,std::allocator<std::__bind<mlx::core::Compiled::eval_cpu(std::vector<mlx::core::array> const&,std::vector<mlx::core::array>&)::$_1>>,void ()(void)>::target(uint64_t a1, uint64_t a2)
+{
+  {
+    return a1 + 8;
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+uint64_t *mlx::core::cpu::get_command_encoder(uint64_t a1, uint64_t a2)
+{
+  v4 = a1;
+  v5 = a2;
+  if ((atomic_load_explicit(_MergedGlobals_2, memory_order_acquire) & 1) == 0)
+  {
+    mlx::core::cpu::get_command_encoder();
+  }
+
+  v2 = std::__hash_table<std::__hash_value_type<int,std::vector<mlx::core::FunctionTable::Function>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::vector<mlx::core::FunctionTable::Function>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::vector<mlx::core::FunctionTable::Function>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::vector<mlx::core::FunctionTable::Function>>>>::find<int>(&xmmword_27FA06008, &v4);
+  if (!v2)
+  {
+    v2 = std::__hash_table<std::__hash_value_type<int,mlx::core::cpu::CommandEncoder>,std::__unordered_map_hasher<int,std::__hash_value_type<int,mlx::core::cpu::CommandEncoder>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,mlx::core::cpu::CommandEncoder>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,mlx::core::cpu::CommandEncoder>>>::__emplace_unique_key_args<int,int &,mlx::core::Stream &>(&xmmword_27FA06008, &v4, &v4, &v4);
+  }
+
+  return v2 + 3;
+}
+
+uint64_t std::__hash_table<std::__hash_value_type<int,mlx::core::cpu::CommandEncoder>,std::__unordered_map_hasher<int,std::__hash_value_type<int,mlx::core::cpu::CommandEncoder>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,mlx::core::cpu::CommandEncoder>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,mlx::core::cpu::CommandEncoder>>>::~__hash_table(uint64_t a1)
+{
+  std::__hash_table<std::__hash_value_type<int,mlx::core::cpu::CommandEncoder>,std::__unordered_map_hasher<int,std::__hash_value_type<int,mlx::core::cpu::CommandEncoder>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,mlx::core::cpu::CommandEncoder>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,mlx::core::cpu::CommandEncoder>>>::__deallocate_node(a1, *(a1 + 16));
+  v2 = *a1;
+  *a1 = 0;
+  if (v2)
+  {
+    operator delete(v2);
+  }
+
+  return a1;
+}
+
+void std::__hash_table<std::__hash_value_type<int,mlx::core::cpu::CommandEncoder>,std::__unordered_map_hasher<int,std::__hash_value_type<int,mlx::core::cpu::CommandEncoder>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,mlx::core::cpu::CommandEncoder>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,mlx::core::cpu::CommandEncoder>>>::__deallocate_node(uint64_t a1, char *a2)
+{
+  if (a2)
+  {
+    v2 = a2;
+    do
+    {
+      v3 = *v2;
+      v4 = (v2 + 40);
+      std::vector<mlx::core::array>::__destroy_vector::operator()[abi:ne200100](&v4);
+      operator delete(v2);
+      v2 = v3;
+    }
+
+    while (v3);
+  }
+}
+
+uint64_t *std::__hash_table<std::__hash_value_type<int,mlx::core::cpu::CommandEncoder>,std::__unordered_map_hasher<int,std::__hash_value_type<int,mlx::core::cpu::CommandEncoder>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,mlx::core::cpu::CommandEncoder>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,mlx::core::cpu::CommandEncoder>>>::__emplace_unique_key_args<int,int &,mlx::core::Stream &>(void *a1, int *a2, _DWORD *a3, uint64_t a4)
+{
+  v4 = *a2;
+  v5 = a1[1];
+  if (!*&v5)
+  {
+    goto LABEL_18;
+  }
+
+  v6 = vcnt_s8(v5);
+  v6.i16[0] = vaddlv_u8(v6);
+  if (v6.u32[0] > 1uLL)
+  {
+    v7 = *a2;
+    if (*&v5 <= v4)
+    {
+      v7 = v4 % *&v5;
+    }
+  }
+
+  else
+  {
+    v7 = (*&v5 - 1) & v4;
+  }
+
+  v8 = *(*a1 + 8 * v7);
+  if (!v8 || (v9 = *v8) == 0)
+  {
+LABEL_18:
+    operator new();
+  }
+
+  while (1)
+  {
+    v10 = v9[1];
+    if (v10 == v4)
+    {
+      break;
+    }
+
+    if (v6.u32[0] > 1uLL)
+    {
+      if (v10 >= *&v5)
+      {
+        v10 %= *&v5;
+      }
+    }
+
+    else
+    {
+      v10 &= *&v5 - 1;
+    }
+
+    if (v10 != v7)
+    {
+      goto LABEL_18;
+    }
+
+LABEL_17:
+    v9 = *v9;
+    if (!v9)
+    {
+      goto LABEL_18;
+    }
+  }
+
+  if (*(v9 + 4) != v4)
+  {
+    goto LABEL_17;
+  }
+
+  return v9;
+}
+
+void std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<int,mlx::core::cpu::CommandEncoder>,void *>>>::operator()[abi:ne200100](uint64_t a1, void **__p)
+{
+  if (*(a1 + 8) == 1)
+  {
+    v3 = __p + 5;
+    std::vector<mlx::core::array>::__destroy_vector::operator()[abi:ne200100](&v3);
+  }
+
+  if (__p)
+  {
+    operator delete(__p);
+  }
+}
+
+void mlx::core::QuantizedMatmul::eval_cpu(uint64_t a1, uint64_t *a2, int ***a3)
+{
+  v15[48] = *MEMORY[0x277D85DE8];
+  v3 = *a2;
+  if (a2[1] - *a2 == 64)
+  {
+    v13 = 0uLL;
+    v14 = 0;
+    v10 = *(a1 + 8);
+    v11 = *(a1 + 16);
+    v12 = &v13;
+    mlx::core::QuantizedMatmul::eval_cpu(std::vector<mlx::core::array> const&,mlx::core::array&)::$_0::operator()(&v10, v3, &v9);
+    mlx::core::QuantizedMatmul::eval_cpu(std::vector<mlx::core::array> const&,mlx::core::array&)::$_0::operator()(&v10, (v3 + 16), &v8);
+    mlx::core::QuantizedMatmul::eval_cpu(std::vector<mlx::core::array> const&,mlx::core::array&)::$_0::operator()(&v10, (v3 + 32), &v7);
+    mlx::core::QuantizedMatmul::eval_cpu(std::vector<mlx::core::array> const&,mlx::core::array&)::$_0::operator()(&v10, (v3 + 48), &v6);
+    v5 = mlx::core::allocator::malloc((*(*a3 + 60) * (*a3)[6]));
+    v15[0] = &unk_286BE3468;
+    v15[1] = mlx::core::allocator::free;
+    v15[3] = v15;
+    mlx::core::array::set_data(a3, v5, v15);
+  }
+
+  mlx::core::QuantizedMatmul::eval_cpu();
+}
+
+void sub_25A53AF38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, _Unwind_Exception *exception_objecta, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, char a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, char *a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
+{
+  __cxa_free_exception(v66);
+  std::mutex::unlock(v65);
+  mlx::core::cpu::CommandEncoder::dispatch<mlx::core::QuantizedMatmul::eval_cpu(std::vector<mlx::core::array> const&,mlx::core::array&)::$_1>(mlx::core::QuantizedMatmul::eval_cpu(std::vector<mlx::core::array> const&,mlx::core::array&)::$_1 &&)::{lambda(void)#1}::~dispatch(&a50);
+  mlx::core::QuantizedMatmul::eval_cpu(std::vector<mlx::core::array> const&,mlx::core::array&)::$_1::~$_1(&a65);
+  mlx::core::QuantizedMatmul::eval_cpu(std::vector<mlx::core::array> const&,mlx::core::array&)::$_1::~$_1(&a17);
+  mlx::core::array::~array(&a32);
+  mlx::core::array::~array(&a34);
+  mlx::core::array::~array(&a36);
+  mlx::core::array::~array(&a38);
+  a50 = &a43;
+  std::vector<mlx::core::array>::__destroy_vector::operator()[abi:ne200100](&a50);
+  _Unwind_Resume(a1);
+}
+
+void mlx::core::QuantizedMatmul::eval_cpu(std::vector<mlx::core::array> const&,mlx::core::array&)::$_0::operator()(uint64_t a1@<X0>, mlx::core::array *a2@<X1>, void *a3@<X8>)
+{
+  v5 = *a2;
+  if ((*(*a2 + 168) & 2) != 0)
+  {
+    v10 = *(a2 + 1);
+  }
+
+  else
+  {
+    v7 = *(a1 + 16);
+    v14 = 0;
+    v15 = 0;
+    __p = 0;
+    std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&__p, *v5, *(v5 + 8), (*(v5 + 8) - *v5) >> 2);
+    v8 = *(*a2 + 56);
+    v12 = 0;
+    memset(v11, 0, sizeof(v11));
+    mlx::core::array::array(v16, &__p, v8 & 0xFFFFFFFFFFLL);
+    std::vector<mlx::core::array>::push_back[abi:ne200100](v7, v16);
+    mlx::core::array::~array(v16);
+    v17 = v11;
+    std::vector<mlx::core::array>::__destroy_vector::operator()[abi:ne200100](&v17);
+    if (v12)
+    {
+      std::__shared_weak_count::__release_shared[abi:ne200100](v12);
+    }
+
+    if (__p)
+    {
+      v14 = __p;
+      operator delete(__p);
+    }
+
+    mlx::core::copy(a2, (*(*(a1 + 16) + 8) - 16), 2, *a1, *(a1 + 8));
+    v9 = *(*(a1 + 16) + 8);
+    v5 = *(v9 - 16);
+    v10 = *(v9 - 8);
+  }
+
+  *a3 = v5;
+  a3[1] = v10;
+  if (v10)
+  {
+    atomic_fetch_add_explicit((v10 + 8), 1uLL, memory_order_relaxed);
+  }
+}
+
+void sub_25A53B1A8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, uint64_t a12, uint64_t a13, std::__shared_weak_count *a14, void *__p, uint64_t a16)
+{
+  mlx::core::array::~array((v16 - 56));
+  *(v16 - 40) = &a10;
+  std::vector<mlx::core::array>::__destroy_vector::operator()[abi:ne200100]((v16 - 40));
+  if (a14)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](a14);
+  }
+
+  if (__p)
+  {
+    a16 = __p;
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void mlx::core::QuantizedMatmul::eval_cpu(std::vector<mlx::core::array> const&,mlx::core::array&)::$_1::~$_1(uint64_t a1)
+{
+  mlx::core::array::~array((a1 + 64));
+  mlx::core::array::~array((a1 + 48));
+  mlx::core::array::~array((a1 + 32));
+  mlx::core::array::~array((a1 + 16));
+
+  mlx::core::array::~array(a1);
+}
+
+void mlx::core::GatherQMM::eval_cpu(uint64_t a1, const void ****a2, int ***a3)
+{
+  v15[60] = *MEMORY[0x277D85DE8];
+  v3 = *a2;
+  if (a2[1] - *a2 == 96)
+  {
+    v13 = 0uLL;
+    v14 = 0;
+    v10 = *(a1 + 8);
+    v11 = *(a1 + 16);
+    v12 = &v13;
+    mlx::core::GatherQMM::eval_cpu(std::vector<mlx::core::array> const&,mlx::core::array&)::$_0::operator()(&v10, v3, &v9);
+    mlx::core::GatherQMM::eval_cpu(std::vector<mlx::core::array> const&,mlx::core::array&)::$_0::operator()(&v10, v3 + 2, &v8);
+    mlx::core::GatherQMM::eval_cpu(std::vector<mlx::core::array> const&,mlx::core::array&)::$_0::operator()(&v10, v3 + 4, &v7);
+    mlx::core::GatherQMM::eval_cpu(std::vector<mlx::core::array> const&,mlx::core::array&)::$_0::operator()(&v10, v3 + 6, &v6);
+    v5 = mlx::core::allocator::malloc((*(*a3 + 60) * (*a3)[6]));
+    v15[0] = &unk_286BE3468;
+    v15[1] = mlx::core::allocator::free;
+    v15[3] = v15;
+    mlx::core::array::set_data(a3, v5, v15);
+  }
+
+  mlx::core::GatherQMM::eval_cpu();
+}
+
+void sub_25A53BA60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, _Unwind_Exception *exception_objecta, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, char a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, char *a58)
+{
+  __cxa_free_exception(v59);
+  std::mutex::unlock(v58);
+  mlx::core::cpu::CommandEncoder::dispatch<mlx::core::GatherQMM::eval_cpu(std::vector<mlx::core::array> const&,mlx::core::array&)::$_1>(mlx::core::GatherQMM::eval_cpu(std::vector<mlx::core::array> const&,mlx::core::array&)::$_1 &&)::{lambda(void)#1}::~dispatch(&a58);
+  mlx::core::GatherQMM::eval_cpu(std::vector<mlx::core::array> const&,mlx::core::array&)::$_1::~$_1(&STACK[0x220]);
+  mlx::core::GatherQMM::eval_cpu(std::vector<mlx::core::array> const&,mlx::core::array&)::$_1::~$_1(&a21);
+  mlx::core::array::~array(&a40);
+  mlx::core::array::~array(&a42);
+  mlx::core::array::~array(&a44);
+  mlx::core::array::~array(&a46);
+  a58 = &a51;
+  std::vector<mlx::core::array>::__destroy_vector::operator()[abi:ne200100](&a58);
+  _Unwind_Resume(a1);
+}
+
+void mlx::core::GatherQMM::eval_cpu(std::vector<mlx::core::array> const&,mlx::core::array&)::$_0::operator()(uint64_t a1@<X0>, const void ***a2@<X1>, const void ***a3@<X8>)
+{
+  v5 = *a2;
+  v6 = **a2;
+  v7 = v5[1];
+  v8 = v7 - v6;
+  if (v7 == v6)
+  {
+    std::vector<mlx::core::array>::__throw_out_of_range[abi:ne200100]();
+  }
+
+  v9 = (v8 >> 2) - 1;
+  v10 = v5[3];
+  if (*(v10 + 2 * v8 - 16) == *(v6 + v9) && v10[v9] == 1)
+  {
+    v16 = a2[1];
+    *a3 = v5;
+  }
+
+  else
+  {
+    v13 = *(a1 + 16);
+    v20 = 0;
+    v21 = 0;
+    __p = 0;
+    std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&__p, v6, v7, v8 >> 2);
+    v14 = (*a2)[7];
+    v18 = 0;
+    memset(v17, 0, sizeof(v17));
+    mlx::core::array::array(v22, &__p, v14 & 0xFFFFFFFFFFLL);
+    std::vector<mlx::core::array>::push_back[abi:ne200100](v13, v22);
+    mlx::core::array::~array(v22);
+    v23 = v17;
+    std::vector<mlx::core::array>::__destroy_vector::operator()[abi:ne200100](&v23);
+    if (v18)
+    {
+      std::__shared_weak_count::__release_shared[abi:ne200100](v18);
+    }
+
+    if (__p)
+    {
+      v20 = __p;
+      operator delete(__p);
+    }
+
+    mlx::core::copy(a2, (*(*(a1 + 16) + 8) - 16), 2, *a1, *(a1 + 8));
+    v15 = *(*(a1 + 16) + 8);
+    v16 = *(v15 - 8);
+    *a3 = *(v15 - 16);
+  }
+
+  a3[1] = v16;
+  if (v16)
+  {
+    atomic_fetch_add_explicit(v16 + 1, 1uLL, memory_order_relaxed);
+  }
+}
+
+void sub_25A53BD30(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, uint64_t a12, uint64_t a13, std::__shared_weak_count *a14, void *__p, uint64_t a16)
+{
+  mlx::core::array::~array((v16 - 56));
+  *(v16 - 40) = &a10;
+  std::vector<mlx::core::array>::__destroy_vector::operator()[abi:ne200100]((v16 - 40));
+  if (a14)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](a14);
+  }
+
+  if (__p)
+  {
+    a16 = __p;
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void mlx::core::GatherQMM::eval_cpu(std::vector<mlx::core::array> const&,mlx::core::array&)::$_1::~$_1(uint64_t a1)
+{
+  mlx::core::array::~array((a1 + 96));
+  mlx::core::array::~array((a1 + 80));
+  mlx::core::array::~array((a1 + 64));
+  mlx::core::array::~array((a1 + 48));
+  mlx::core::array::~array((a1 + 32));
+  mlx::core::array::~array((a1 + 16));
+
+  mlx::core::array::~array(a1);
+}
+
+void mlx::core::fast::AffineQuantize::eval_cpu(uint64_t a1, mlx::core::array **a2, int ****a3)
+{
+  v18 = *MEMORY[0x277D85DE8];
+  v4 = *a2;
+  v5 = **a2;
+  if ((*(v5 + 168) & 2) != 0)
+  {
+    v9 = *(v4 + 1);
+    if (v9)
+    {
+      atomic_fetch_add_explicit((v9 + 8), 1uLL, memory_order_relaxed);
+    }
+  }
+
+  else
+  {
+    v6 = *(a1 + 8);
+    v7 = *(a1 + 16);
+    *&v17 = 0;
+    v16 = 0uLL;
+    std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v16, *v5, *(v5 + 8), (*(v5 + 8) - *v5) >> 2);
+    v8 = *(*v4 + 56);
+    memset(v14, 0, 24);
+    mlx::core::array::array(&v15, &v16, v8 & 0xFFFFFFFFFFLL);
+    v12 = v14;
+    std::vector<mlx::core::array>::__destroy_vector::operator()[abi:ne200100](&v12);
+    if (v16)
+    {
+      *(&v16 + 1) = v16;
+      operator delete(v16);
+    }
+
+    mlx::core::copy(v4, &v15, 2, v6, v7);
+    if (*(&v15 + 1))
+    {
+      atomic_fetch_add_explicit((*(&v15 + 1) + 8), 1uLL, memory_order_relaxed);
+    }
+
+    mlx::core::array::~array(&v15);
+  }
+
+  v10 = *a3;
+  v11 = mlx::core::allocator::malloc((*(**a3 + 60) * (**a3)[6]));
+  v13[0] = &unk_286BE3468;
+  v13[1] = mlx::core::allocator::free;
+  v13[3] = v13;
+  mlx::core::array::set_data(v10, v11, v13);
+}
+
+void sub_25A53C558(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, char a33, uint64_t a34, uint64_t a35, uint64_t a36, char a37, uint64_t a38, uint64_t a39, uint64_t a40, char a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, ...)
+{
+  va_start(va, a56);
+  __cxa_free_exception(v57);
+  std::mutex::unlock(v56);
+  mlx::core::cpu::CommandEncoder::dispatch<mlx::core::fast::AffineQuantize::eval_cpu(std::vector<mlx::core::array> const&,std::vector<mlx::core::array>&)::$_1>(mlx::core::fast::AffineQuantize::eval_cpu(std::vector<mlx::core::array> const&,std::vector<mlx::core::array>&)::$_1 &&)::{lambda(void)#1}::~dispatch(&a45);
+  mlx::core::fast::AffineQuantize::eval_cpu(std::vector<mlx::core::array> const&,std::vector<mlx::core::array>&)::$_1::~$_1(va);
+  mlx::core::fast::AffineQuantize::eval_cpu(std::vector<mlx::core::array> const&,std::vector<mlx::core::array>&)::$_1::~$_1(&a17);
+  mlx::core::array::~array(&a29);
+  _Unwind_Resume(a1);
+}
+
+void mlx::core::fast::AffineQuantize::eval_cpu(std::vector<mlx::core::array> const&,std::vector<mlx::core::array>&)::$_1::~$_1(uint64_t a1)
+{
+  mlx::core::array::~array((a1 + 48));
+  mlx::core::array::~array((a1 + 32));
+  mlx::core::array::~array((a1 + 16));
+
+  mlx::core::array::~array(a1);
+}
+
+void mlx::core::fast::AffineQuantize::~AffineQuantize(mlx::core::fast::AffineQuantize *this)
+{
+  *this = &unk_286BF6BB8;
+  std::__function::__value_func<std::vector<mlx::core::array> ()(std::vector<mlx::core::array>)>::~__value_func[abi:ne200100](this + 56);
+  *this = &unk_286BF21A8;
+  std::__function::__value_func<std::vector<mlx::core::array> ()(std::vector<mlx::core::array>)>::~__value_func[abi:ne200100](this + 24);
+}
+
+{
+  *this = &unk_286BF6BB8;
+  std::__function::__value_func<std::vector<mlx::core::array> ()(std::vector<mlx::core::array>)>::~__value_func[abi:ne200100](this + 56);
+  *this = &unk_286BF21A8;
+  std::__function::__value_func<std::vector<mlx::core::array> ()(std::vector<mlx::core::array>)>::~__value_func[abi:ne200100](this + 24);
+
+  JUMPOUT(0x25F851760);
+}
+
+uint64_t mlx::core::cpu::CommandEncoder::dispatch<mlx::core::QuantizedMatmul::eval_cpu(std::vector<mlx::core::array> const&,mlx::core::array&)::$_1>(mlx::core::QuantizedMatmul::eval_cpu(std::vector<mlx::core::array> const&,mlx::core::array&)::$_1 &&)::{lambda(void)#1}::~dispatch(uint64_t a1)
+{
+  mlx::core::array::~array((a1 + 80));
+  mlx::core::array::~array((a1 + 64));
+  mlx::core::array::~array((a1 + 48));
+  mlx::core::array::~array((a1 + 32));
+  mlx::core::array::~array((a1 + 16));
+  return a1;
+}
+
+void *_ZNSt3__110__function6__funcIZN3mlx4core3cpu14CommandEncoder8dispatchIZNS3_15QuantizedMatmul8eval_cpuERKNS_6vectorINS3_5arrayENS_9allocatorIS9_EEEERS9_E3__1JEEEvOT_DpOT0_EUlvE_NSA_ISM_EEFvvEED1Ev(void *a1)
+{
+  *a1 = &unk_286BF6C30;
+  v2 = (a1 + 5);
+  mlx::core::array::~array((a1 + 11));
+  mlx::core::array::~array((a1 + 9));
+  mlx::core::array::~array((a1 + 7));
+  mlx::core::array::~array(v2);
+  mlx::core::array::~array((a1 + 3));
+  return a1;
+}
+
+void _ZNSt3__110__function6__funcIZN3mlx4core3cpu14CommandEncoder8dispatchIZNS3_15QuantizedMatmul8eval_cpuERKNS_6vectorINS3_5arrayENS_9allocatorIS9_EEEERS9_E3__1JEEEvOT_DpOT0_EUlvE_NSA_ISM_EEFvvEED0Ev(void *a1)
+{
+  *a1 = &unk_286BF6C30;
+  v2 = (a1 + 5);
+  mlx::core::array::~array((a1 + 11));
+  mlx::core::array::~array((a1 + 9));
+  mlx::core::array::~array((a1 + 7));
+  mlx::core::array::~array(v2);
+  mlx::core::array::~array((a1 + 3));
+
+  JUMPOUT(0x25F851760);
+}
+
+uint64_t _ZNKSt3__110__function6__funcIZN3mlx4core3cpu14CommandEncoder8dispatchIZNS3_15QuantizedMatmul8eval_cpuERKNS_6vectorINS3_5arrayENS_9allocatorIS9_EEEERS9_E3__1JEEEvOT_DpOT0_EUlvE_NSA_ISM_EEFvvEE7__cloneEPNS0_6__baseISO_EE(uint64_t result, uint64_t a2)
+{
+  *a2 = &unk_286BF6C30;
+  v2 = *(result + 8);
+  *(a2 + 16) = *(result + 16);
+  *(a2 + 8) = v2;
+  v3 = *(result + 32);
+  *(a2 + 24) = *(result + 24);
+  *(a2 + 32) = v3;
+  if (v3)
+  {
+    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
+  }
+
+  v4 = *(result + 48);
+  *(a2 + 40) = *(result + 40);
+  *(a2 + 48) = v4;
+  if (v4)
+  {
+    atomic_fetch_add_explicit((v4 + 8), 1uLL, memory_order_relaxed);
+  }
+
+  v5 = *(result + 64);
+  *(a2 + 56) = *(result + 56);
+  *(a2 + 64) = v5;
+  if (v5)
+  {
+    atomic_fetch_add_explicit((v5 + 8), 1uLL, memory_order_relaxed);
+  }
+
+  v6 = *(result + 80);
+  *(a2 + 72) = *(result + 72);
+  *(a2 + 80) = v6;
+  if (v6)
+  {
+    atomic_fetch_add_explicit((v6 + 8), 1uLL, memory_order_relaxed);
+  }
+
+  v7 = *(result + 96);
+  *(a2 + 88) = *(result + 88);
+  *(a2 + 96) = v7;
+  if (v7)
+  {
+    atomic_fetch_add_explicit((v7 + 8), 1uLL, memory_order_relaxed);
+  }
+
+  v8 = *(result + 104);
+  *(a2 + 112) = *(result + 112);
+  *(a2 + 104) = v8;
+  return result;
+}
+
+void _ZNSt3__110__function6__funcIZN3mlx4core3cpu14CommandEncoder8dispatchIZNS3_15QuantizedMatmul8eval_cpuERKNS_6vectorINS3_5arrayENS_9allocatorIS9_EEEERS9_E3__1JEEEvOT_DpOT0_EUlvE_NSA_ISM_EEFvvEE7destroyEv(uint64_t a1)
+{
+  mlx::core::array::~array((a1 + 88));
+  mlx::core::array::~array((a1 + 72));
+  mlx::core::array::~array((a1 + 56));
+  mlx::core::array::~array((a1 + 40));
+
+  mlx::core::array::~array((a1 + 24));
+}
+
+void _ZNSt3__110__function6__funcIZN3mlx4core3cpu14CommandEncoder8dispatchIZNS3_15QuantizedMatmul8eval_cpuERKNS_6vectorINS3_5arrayENS_9allocatorIS9_EEEERS9_E3__1JEEEvOT_DpOT0_EUlvE_NSA_ISM_EEFvvEE18destroy_deallocateEv(uint64_t a1)
+{
+  mlx::core::array::~array((a1 + 88));
+  mlx::core::array::~array((a1 + 72));
+  mlx::core::array::~array((a1 + 56));
+  mlx::core::array::~array((a1 + 40));
+  mlx::core::array::~array((a1 + 24));
+
+  operator delete(a1);
+}
+
+void _ZNSt3__110__function6__funcIZN3mlx4core3cpu14CommandEncoder8dispatchIZNS3_15QuantizedMatmul8eval_cpuERKNS_6vectorINS3_5arrayENS_9allocatorIS9_EEEERS9_E3__1JEEEvOT_DpOT0_EUlvE_NSA_ISM_EEFvvEEclEv(uint64_t a1, float32x4_t a2, float32x4_t a3, float32x4_t a4, double a5, float32x4_t a6, float32x4_t a7, float32x4_t a8)
+{
+  std::__bind<mlx::core::QuantizedMatmul::eval_cpu(std::vector<mlx::core::array> const&,mlx::core::array&)::$_1>::operator()[abi:ne200100]<>(a1 + 24, a2, a3, a4, a5, a6, a7, a8);
+  v9 = mlx::core::scheduler::scheduler(v8);
+
+  mlx::core::scheduler::Scheduler::notify_task_completion(v9);
+}
+
+uint64_t _ZNKSt3__110__function6__funcIZN3mlx4core3cpu14CommandEncoder8dispatchIZNS3_15QuantizedMatmul8eval_cpuERKNS_6vectorINS3_5arrayENS_9allocatorIS9_EEEERS9_E3__1JEEEvOT_DpOT0_EUlvE_NSA_ISM_EEFvvEE6targetERKSt9type_info(uint64_t a1, uint64_t a2)
+{
+  {
+    return a1 + 8;
+  }
+
+  else
+  {
+    return 0;
   }
 }

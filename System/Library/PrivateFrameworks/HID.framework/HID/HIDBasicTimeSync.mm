@@ -23,7 +23,7 @@
 
 - (unint64_t)syncedTimeFromData:(id)data error:(id *)error
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   info = 0xAAAAAAAAAAAAAAAALL;
   v7 = mach_absolute_time();
@@ -73,43 +73,42 @@ LABEL_17:
   v15 = _IOHIDLog();
   if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
   {
-    v18 = v12 - v7;
+    v17 = v12 - v7;
     if (v7 > v12)
     {
-      v18 = v7 - v12;
+      v17 = v7 - v12;
     }
 
-    v19 = v18 * numer;
-    v20 = "-";
+    v18 = v17 * numer;
+    v19 = "-";
     if (v7 > v12)
     {
-      v20 = "+";
+      v19 = "+";
     }
 
     *buf = 134219010;
-    v24 = v11;
-    v25 = 2048;
-    v26 = v7;
-    v27 = 2048;
-    v28 = v12;
-    v29 = 2080;
-    v30 = v20;
-    v31 = 2048;
-    v32 = v19 / denom;
+    v23 = v11;
+    v24 = 2048;
+    v25 = v7;
+    v26 = 2048;
+    v27 = v12;
+    v28 = 2080;
+    v29 = v19;
+    v30 = 2048;
+    v31 = v18 / denom;
     _os_log_debug_impl(&dword_22DF7D000, v15, OS_LOG_TYPE_DEBUG, "W2 btclk(ns):%llu local abs:%llu Synced ts:%llu remote->local latency(ns):%s%llu", buf, 0x34u);
   }
 
 LABEL_8:
-  v16 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
 - (id)dataFromSyncedTime:(unint64_t)time error:(id *)error
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   if ([(HIDTimeSync *)self state]!= 1)
   {
-    [HIDBasicTimeSync syncedTimeFromData:v10 error:?];
+    [HIDBasicTimeSync syncedTimeFromData:v9 error:?];
   }
 
   if (error)
@@ -127,7 +126,6 @@ LABEL_8:
     *error = [MEMORY[0x277CCA9B8] errorWithIOReturn:v6];
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
@@ -222,7 +220,7 @@ LABEL_5:
 LABEL_15:
 }
 
-- (void)syncedTimeFromData:(uint64_t *)a1 error:(_OWORD *)a2 .cold.1(uint64_t *a1, _OWORD *a2)
+- (void)syncedTimeFromData:(void *)a1 error:(_OWORD *)a2 .cold.1(void *a1, _OWORD *a2)
 {
   *a1 = 0;
   a2[3] = 0u;
@@ -230,29 +228,35 @@ LABEL_15:
   a2[1] = 0u;
   a2[2] = 0u;
   *a2 = 0u;
-  os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
-  OUTLINED_FUNCTION_0_0();
-  v3 = *a1;
+  if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+  {
+    v5 = 3;
+  }
+
+  else
+  {
+    v5 = 2;
+  }
+
+  OUTLINED_FUNCTION_0_0(v5, v2, v3, v4, &dword_22DF7D000);
   _os_crash_msg();
   __break(1u);
 }
 
 - (void)syncedTimeFromData:(id *)a1 error:.cold.2(id *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = _IOHIDLog();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
-    v4 = [*a1 clockIdentifier];
-    v5 = [*a1 lockState];
-    v6 = 134218240;
-    v7 = v4;
-    v8 = 1024;
-    v9 = v5;
-    _os_log_error_impl(&dword_22DF7D000, v2, OS_LOG_TYPE_ERROR, "TimeSync: not locked, clockID: 0x%llx state: %d", &v6, 0x12u);
+    v3 = [*a1 clockIdentifier];
+    v4 = [*a1 lockState];
+    v5 = 134218240;
+    v6 = v3;
+    v7 = 1024;
+    v8 = v4;
+    _os_log_error_impl(&dword_22DF7D000, v2, OS_LOG_TYPE_ERROR, "TimeSync: not locked, clockID: 0x%llx state: %d", &v5, 0x12u);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 @end

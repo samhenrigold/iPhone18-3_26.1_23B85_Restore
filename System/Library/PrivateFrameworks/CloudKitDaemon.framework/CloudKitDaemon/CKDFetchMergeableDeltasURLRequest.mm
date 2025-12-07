@@ -76,10 +76,9 @@
 
 - (id)requestOperationClasses
 {
-  v6[1] = *MEMORY[0x277D85DE8];
-  v6[0] = objc_opt_class();
-  v3 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v2, v6, 1);
-  v4 = *MEMORY[0x277D85DE8];
+  v5[1] = *MEMORY[0x277D85DE8];
+  v5[0] = objc_opt_class();
+  v3 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v2, v5, 1);
 
   return v3;
 }
@@ -108,7 +107,7 @@
 
 - (id)requestDidParseProtobufObject:(id)object
 {
-  v75 = *MEMORY[0x277D85DE8];
+  v74 = *MEMORY[0x277D85DE8];
   objectCopy = object;
   v8 = objc_msgSend_mergeableValueIDsByRequestID(self, v6, v7);
   v11 = objc_msgSend_response(objectCopy, v9, v10);
@@ -117,44 +116,44 @@
 
   if (!v16)
   {
-    v58 = objc_msgSend_currentHandler(MEMORY[0x277CCA890], v17, v18);
-    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v58, v59, a2, self, @"CKDFetchMergeableDeltasURLRequest.m", 119, @"Expected non-nil mergeable ID for response %@", objectCopy);
+    v57 = objc_msgSend_currentHandler(MEMORY[0x277CCA890], v17, v18);
+    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v57, v58, a2, self, @"CKDFetchMergeableDeltasURLRequest.m", 119, @"Expected non-nil mergeable ID for response %@", objectCopy);
   }
 
   v19 = objc_opt_new();
   if (objc_msgSend_hasMergeableDeltaRetrieveResponse(objectCopy, v20, v21))
   {
-    v62 = objectCopy;
+    v61 = objectCopy;
     v24 = objc_msgSend_mergeableDeltaRetrieveResponse(objectCopy, v22, v23);
     objc_msgSend_continuation(v24, v25, v26);
-    v61 = v60 = v24;
+    v60 = v59 = v24;
+    v65 = 0u;
     v66 = 0u;
     v67 = 0u;
     v68 = 0u;
-    v69 = 0u;
     obj = objc_msgSend_deltas(v24, v27, v28);
-    v30 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v29, &v66, v74, 16);
+    v30 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v29, &v65, v73, 16);
     if (v30)
     {
       v33 = v30;
       v34 = 0;
-      v35 = *v67;
-      v63 = *MEMORY[0x277CBC120];
+      v35 = *v66;
+      v62 = *MEMORY[0x277CBC120];
       do
       {
         v36 = 0;
         do
         {
-          if (*v67 != v35)
+          if (*v66 != v35)
           {
             objc_enumerationMutation(obj);
           }
 
-          v37 = *(*(&v66 + 1) + 8 * v36);
+          v37 = *(*(&v65 + 1) + 8 * v36);
           v38 = objc_msgSend_translator(self, v31, v32);
-          v65 = v34;
-          v40 = objc_msgSend_mergeableDeltaFromPDelta_valueID_error_(v38, v39, v37, v16, &v65);
-          v41 = v65;
+          v64 = v34;
+          v40 = objc_msgSend_mergeableDeltaFromPDelta_valueID_error_(v38, v39, v37, v16, &v64);
+          v41 = v64;
 
           if (v40)
           {
@@ -165,7 +164,7 @@
           {
             if (!v41)
             {
-              v41 = objc_msgSend_errorWithDomain_code_format_(MEMORY[0x277CBC560], v42, v63, 1000, @"Failed to load fetched delta");
+              v41 = objc_msgSend_errorWithDomain_code_format_(MEMORY[0x277CBC560], v42, v62, 1000, @"Failed to load fetched delta");
             }
 
             if (*MEMORY[0x277CBC880] != -1)
@@ -177,9 +176,9 @@
             if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_ERROR))
             {
               *buf = 138412546;
-              v71 = v16;
-              v72 = 2112;
-              v73 = v41;
+              v70 = v16;
+              v71 = 2112;
+              v72 = v41;
               _os_log_error_impl(&dword_22506F000, v43, OS_LOG_TYPE_ERROR, "Failed to load fetched delta for mergeable %@: %@", buf, 0x16u);
             }
           }
@@ -190,7 +189,7 @@
         }
 
         while (v33 != v36);
-        v33 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v31, &v66, v74, 16);
+        v33 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v31, &v65, v73, 16);
       }
 
       while (v33);
@@ -201,8 +200,8 @@
       v34 = 0;
     }
 
-    v47 = v61;
-    objectCopy = v62;
+    v47 = v60;
+    objectCopy = v61;
   }
 
   else
@@ -234,13 +233,12 @@
 
   v55 = v34;
 
-  v56 = *MEMORY[0x277D85DE8];
   return v34;
 }
 
 - (void)requestDidParseNodeFailure:(id)failure
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   failureCopy = failure;
   if (*MEMORY[0x277CBC880] != -1)
   {
@@ -250,13 +248,13 @@
   v6 = *MEMORY[0x277CBC830];
   if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_ERROR))
   {
-    v34 = v6;
-    v37 = objc_msgSend_requestUUID(self, v35, v36);
+    v33 = v6;
+    v36 = objc_msgSend_requestUUID(self, v34, v35);
     *buf = 138412546;
-    v41 = v37;
-    v42 = 2112;
-    v43 = failureCopy;
-    _os_log_error_impl(&dword_22506F000, v34, OS_LOG_TYPE_ERROR, "Node failure in atom sync request %@: %@", buf, 0x16u);
+    v40 = v36;
+    v41 = 2112;
+    v42 = failureCopy;
+    _os_log_error_impl(&dword_22506F000, v33, OS_LOG_TYPE_ERROR, "Node failure in atom sync request %@: %@", buf, 0x16u);
   }
 
   v9 = objc_msgSend_response(failureCopy, v7, v8);
@@ -271,8 +269,8 @@
 
     if (!v23)
     {
-      v38 = objc_msgSend_currentHandler(MEMORY[0x277CCA890], v24, v25);
-      objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v38, v39, a2, self, @"CKDFetchMergeableDeltasURLRequest.m", 158, @"Expected non-nil mergeable ID for response %@", failureCopy);
+      v37 = objc_msgSend_currentHandler(MEMORY[0x277CCA890], v24, v25);
+      objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v37, v38, a2, self, @"CKDFetchMergeableDeltasURLRequest.m", 158, @"Expected non-nil mergeable ID for response %@", failureCopy);
     }
 
     v26 = objc_msgSend_deltasFetchedBlock(self, v24, v25);
@@ -289,8 +287,6 @@
   {
     v23 = 0;
   }
-
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 @end

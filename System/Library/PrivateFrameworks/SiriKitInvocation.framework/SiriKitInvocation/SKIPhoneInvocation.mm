@@ -3,6 +3,7 @@
 + (id)announceGroupFaceTimeRequestForAnnounceDirectInvocationPayload:(id)payload;
 + (id)announceHomeAnnouncementRequestFromApp:(id)app withAnnouncementIdentifier:(id)identifier withUserNotificationType:(int64_t)type synchronousBurstIndex:(id)index;
 + (id)announceIncomingCallNotificationRequest:(id)request;
++ (id)announceIncomingCallerRequestForCallID:(id)d callProviderIdentifier:(id)identifier callProviderBundleId:(id)id callerContactIdentifiers:(id)identifiers handle:(id)handle isVideo:(BOOL)video isCallerIDBlocked:(BOOL)blocked isBobbleCapableAnnouncement:(BOOL)self0;
 + (id)announcePayloadFromUserData:(id)data;
 + (id)announceVoicemailRequestForAnnounceDirectInvocationPayload:(id)payload;
 + (id)readHomeAnnouncementRequestFromApp:(id)app;
@@ -47,14 +48,14 @@
 
 + (id)readHomeAnnouncementRequestFromApp:(id)app
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   appCopy = app;
   v4 = [[SKIDirectInvocationPayload alloc] initWithIdentifier:@"com.apple.siri.directInvocation.homeCommunication.read"];
   if ([appCopy length])
   {
-    v11 = @"appBundleId";
-    v12[0] = appCopy;
-    v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:&v11 count:1];
+    v10 = @"appBundleId";
+    v11[0] = appCopy;
+    v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:&v10 count:1];
     [(SKIDirectInvocationPayload *)v4 setUserData:v5];
   }
 
@@ -62,9 +63,66 @@
   v7 = [SKIDirectInvocation runSiriKitExecutorCommandWithContext:v6 payload:v4];
   v8 = [SKIDirectInvocation wrapCommandInStartLocalRequest:v7];
 
-  v9 = *MEMORY[0x277D85DE8];
-
   return v8;
+}
+
++ (id)announceIncomingCallerRequestForCallID:(id)d callProviderIdentifier:(id)identifier callProviderBundleId:(id)id callerContactIdentifiers:(id)identifiers handle:(id)handle isVideo:(BOOL)video isCallerIDBlocked:(BOOL)blocked isBobbleCapableAnnouncement:(BOOL)self0
+{
+  videoCopy = video;
+  announcementCopy2 = announcement;
+  dCopy = d;
+  identifierCopy = identifier;
+  idCopy = id;
+  identifiersCopy = identifiers;
+  handleCopy = handle;
+  v31 = +[SKIDirectInvocationContext contextForAnnounceNotifications];
+  v21 = [[SKIDirectInvocationPayload alloc] initWithIdentifier:@"com.apple.siri.directInvocation.phone.identifyIncomingCaller"];
+  v22 = [objc_alloc(MEMORY[0x277CBEB38]) initWithCapacity:9];
+  if ([dCopy length])
+  {
+    [v22 setValue:dCopy forKey:@"callUUID"];
+  }
+
+  if ([identifierCopy length])
+  {
+    [v22 setValue:identifierCopy forKey:@"callProviderIdentifier"];
+  }
+
+  if ([idCopy length])
+  {
+    [v22 setValue:idCopy forKey:@"callProviderBundleId"];
+  }
+
+  if ([identifiersCopy count])
+  {
+    [v22 setValue:identifiersCopy forKey:@"callerContactIdentifiers"];
+  }
+
+  if (handleCopy)
+  {
+    value = [handleCopy value];
+    [v22 setValue:value forKey:@"handleValue"];
+
+    v24 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(handleCopy, "type")}];
+    [v22 setValue:v24 forKey:@"handleType"];
+
+    announcementCopy2 = announcement;
+  }
+
+  v25 = [MEMORY[0x277CCABB0] numberWithBool:videoCopy];
+  [v22 setValue:v25 forKey:@"isVideo"];
+
+  v26 = [MEMORY[0x277CCABB0] numberWithBool:blocked];
+  [v22 setValue:v26 forKey:@"isCallerIDBlocked"];
+
+  v27 = [MEMORY[0x277CCABB0] numberWithBool:announcementCopy2];
+  [v22 setValue:v27 forKey:@"isBobbleCapableAnnouncement"];
+
+  [(SKIDirectInvocationPayload *)v21 setUserData:v22];
+  v28 = [SKIDirectInvocation runSiriKitExecutorCommandWithContext:v31 payload:v21];
+  v29 = [SKIDirectInvocation wrapCommandInStartLocalRequest:v28];
+
+  return v29;
 }
 
 + (id)announceIncomingCallNotificationRequest:(id)request
@@ -79,14 +137,14 @@
   {
     v8 = MEMORY[0x277CCAAB0];
     notification2 = [requestCopy notification];
-    v31 = 0;
-    v10 = [v8 archivedDataWithRootObject:notification2 requiringSecureCoding:1 error:&v31];
-    v11 = v31;
+    v33 = 0;
+    v10 = [v8 archivedDataWithRootObject:notification2 requiringSecureCoding:1 error:&v33];
+    v11 = v33;
 
     if (v11)
     {
-      v12 = SKIDefaultLog();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v13 = SKIDefaultLog(v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
         +[SKIPhoneInvocation announceIncomingCallNotificationRequest:];
       }
@@ -96,71 +154,72 @@
   }
 
   appBundleId = [requestCopy appBundleId];
-  v14 = [appBundleId length];
+  v15 = [appBundleId length];
 
-  if (v14)
+  if (v15)
   {
     appBundleId2 = [requestCopy appBundleId];
     [v6 setValue:appBundleId2 forKey:@"appBundleId"];
   }
 
-  v16 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(requestCopy, "synchronousBurstIndex")}];
-  [v6 setValue:v16 forKey:@"synchronousBurstIndex"];
+  v17 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(requestCopy, "synchronousBurstIndex")}];
+  [v6 setValue:v17 forKey:@"synchronousBurstIndex"];
 
   appBundleIdOfLastAnnouncement = [requestCopy appBundleIdOfLastAnnouncement];
-  v18 = [appBundleIdOfLastAnnouncement length];
+  v19 = [appBundleIdOfLastAnnouncement length];
 
-  if (v18)
+  if (v19)
   {
     appBundleIdOfLastAnnouncement2 = [requestCopy appBundleIdOfLastAnnouncement];
     [v6 setValue:appBundleIdOfLastAnnouncement2 forKey:@"appBundleIdOfLastAnnouncement"];
   }
 
-  v20 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(requestCopy, "isSameTypeAsLastAnnouncement")}];
-  [v6 setValue:v20 forKey:@"isSameTypeAsLastAnnouncement"];
+  v21 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(requestCopy, "isSameTypeAsLastAnnouncement")}];
+  [v6 setValue:v21 forKey:@"isSameTypeAsLastAnnouncement"];
 
-  v21 = MEMORY[0x277CCABB0];
+  v22 = MEMORY[0x277CCABB0];
   [requestCopy timeSinceLastAnnouncement];
-  v22 = [v21 numberWithDouble:?];
-  [v6 setValue:v22 forKey:@"timeSinceLastAnnouncement"];
+  v23 = [v22 numberWithDouble:?];
+  [v6 setValue:v23 forKey:@"timeSinceLastAnnouncement"];
 
-  v23 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(requestCopy, "announcementPlatform")}];
-  [v6 setValue:v23 forKey:@"announcePlatform"];
+  v24 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(requestCopy, "announcementPlatform")}];
+  [v6 setValue:v24 forKey:@"announcePlatform"];
 
-  v30 = 0;
-  v24 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:requestCopy requiringSecureCoding:1 error:&v30];
-  v25 = v30;
-  if (v24)
+  v32 = 0;
+  v25 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:requestCopy requiringSecureCoding:1 error:&v32];
+  v26 = v32;
+  v27 = v26;
+  if (v25)
   {
-    [v6 setValue:v24 forKey:@"announcePayload"];
+    [v6 setValue:v25 forKey:@"announcePayload"];
   }
 
   else
   {
-    v26 = SKIDefaultLog();
-    if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+    v28 = SKIDefaultLog(v26);
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
     {
       +[SKIPhoneInvocation announceIncomingCallNotificationRequest:];
     }
   }
 
   [(SKIDirectInvocationPayload *)v5 setUserData:v6];
-  v27 = [SKIDirectInvocation runSiriKitExecutorCommandWithContext:v4 payload:v5];
-  v28 = [SKIDirectInvocation wrapCommandInStartLocalRequest:v27];
+  v29 = [SKIDirectInvocation runSiriKitExecutorCommandWithContext:v4 payload:v5];
+  v30 = [SKIDirectInvocation wrapCommandInStartLocalRequest:v29];
 
-  return v28;
+  return v30;
 }
 
 + (id)startPhoneCallRequestFromApp:(id)app
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   appCopy = app;
   v4 = [[SKIDirectInvocationPayload alloc] initWithIdentifier:@"com.apple.siri.directInvocation.phone.startPhoneCall"];
   if ([appCopy length])
   {
-    v11 = @"appBundleId";
-    v12[0] = appCopy;
-    v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:&v11 count:1];
+    v10 = @"appBundleId";
+    v11[0] = appCopy;
+    v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:&v10 count:1];
     [(SKIDirectInvocationPayload *)v4 setUserData:v5];
   }
 
@@ -168,22 +227,20 @@
   v7 = [SKIDirectInvocation runSiriKitExecutorCommandWithContext:v6 payload:v4];
   v8 = [SKIDirectInvocation wrapCommandInStartLocalRequest:v7];
 
-  v9 = *MEMORY[0x277D85DE8];
-
   return v8;
 }
 
 + (id)announceVoicemailRequestForAnnounceDirectInvocationPayload:(id)payload
 {
   payloadCopy = payload;
-  v30 = +[SKIDirectInvocationContext contextForAnnounceNotifications];
+  v31 = +[SKIDirectInvocationContext contextForAnnounceNotifications];
   v4 = [[SKIDirectInvocationPayload alloc] initWithIdentifier:@"com.apple.siri.directInvocation.phone.announceVoicemail"];
   v5 = [objc_alloc(MEMORY[0x277CBEB38]) initWithCapacity:9];
   notification = [payloadCopy notification];
   request = [notification request];
   content = [request content];
 
-  v29 = content;
+  v30 = content;
   userInfo = [content userInfo];
   v10 = [userInfo valueForKey:@"VMVoicemailIdentifier"];
   objc_opt_class();
@@ -198,8 +255,8 @@
     [v5 setValue:v11 forKey:@"MessageIdentifier"];
   }
 
-  v27 = v11;
-  v28 = v10;
+  v28 = v11;
+  v29 = v10;
   v12 = [userInfo valueForKey:@"contactInfo"];
   if ([v12 length])
   {
@@ -229,9 +286,10 @@
   v20 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(payloadCopy, "announcementPlatform")}];
   [v5 setValue:v20 forKey:@"announcePlatform"];
 
-  v31 = 0;
-  v21 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:payloadCopy requiringSecureCoding:1 error:&v31];
-  v22 = v31;
+  v32 = 0;
+  v21 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:payloadCopy requiringSecureCoding:1 error:&v32];
+  v22 = v32;
+  v23 = v22;
   if (v21)
   {
     [v5 setValue:v21 forKey:@"announcePayload"];
@@ -239,18 +297,18 @@
 
   else
   {
-    v23 = SKIDefaultLog();
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+    v24 = SKIDefaultLog(v22);
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
       +[SKIPhoneInvocation announceIncomingCallNotificationRequest:];
     }
   }
 
   [(SKIDirectInvocationPayload *)v4 setUserData:v5];
-  v24 = [SKIDirectInvocation runSiriKitExecutorCommandWithContext:v30 payload:v4];
-  v25 = [SKIDirectInvocation wrapCommandInStartLocalRequest:v24];
+  v25 = [SKIDirectInvocation runSiriKitExecutorCommandWithContext:v31 payload:v4];
+  v26 = [SKIDirectInvocation wrapCommandInStartLocalRequest:v25];
 
-  return v25;
+  return v26;
 }
 
 + (id)announceGroupFaceTimeRequestForAnnounceDirectInvocationPayload:(id)payload
@@ -270,14 +328,14 @@
     [v6 setValue:v11 forKey:@"remoteParticipantHandles"];
   }
 
-  v37 = userInfo;
+  v38 = userInfo;
   v12 = [userInfo valueForKey:@"activeParticipantHandles"];
   if ([v12 count])
   {
     [v6 setValue:v12 forKey:@"activeParticipantHandles"];
   }
 
-  v36 = v12;
+  v37 = v12;
   defaultActionURL = [content defaultActionURL];
   absoluteString = [defaultActionURL absoluteString];
 
@@ -292,9 +350,9 @@
     [v6 setValue:subtitle forKey:@"subtitle"];
   }
 
-  v35 = absoluteString;
-  v38 = content;
-  v39 = request;
+  v36 = absoluteString;
+  v39 = content;
+  v40 = request;
   identifier = [request identifier];
   if ([identifier length])
   {
@@ -313,7 +371,7 @@
     [v6 setValue:appBundleIdOfLastAnnouncement2 forKey:@"appBundleIdOfLastAnnouncement"];
   }
 
-  v34 = identifier;
+  v35 = identifier;
   v21 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(payloadCopy, "isSameTypeAsLastAnnouncement")}];
   [v6 setValue:v21 forKey:@"isSameTypeAsLastAnnouncement"];
 
@@ -325,45 +383,46 @@
   v24 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(payloadCopy, "announcementPlatform")}];
   [v6 setValue:v24 forKey:@"announcePlatform"];
 
-  v40 = 0;
-  v25 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:payloadCopy requiringSecureCoding:1 error:&v40];
-  v26 = v40;
-  v27 = subtitle;
+  v41 = 0;
+  v25 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:payloadCopy requiringSecureCoding:1 error:&v41];
+  v26 = v41;
+  v27 = v26;
+  v28 = subtitle;
   if (v25)
   {
-    v28 = v11;
+    v29 = v11;
     [v6 setValue:v25 forKey:@"announcePayload"];
   }
 
   else
   {
-    v29 = SKIDefaultLog();
-    if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+    v30 = SKIDefaultLog(v26);
+    if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
     {
       +[SKIPhoneInvocation announceGroupFaceTimeRequestForAnnounceDirectInvocationPayload:];
     }
 
-    v28 = v11;
+    v29 = v11;
   }
 
   [(SKIDirectInvocationPayload *)v5 setUserData:v6];
   [SKIDirectInvocation runSiriKitExecutorCommandWithContext:v4 payload:v5];
-  v31 = v30 = v4;
-  v32 = [SKIDirectInvocation wrapCommandInStartLocalRequest:v31];
+  v32 = v31 = v4;
+  v33 = [SKIDirectInvocation wrapCommandInStartLocalRequest:v32];
 
-  return v32;
+  return v33;
 }
 
 + (id)announceDropInCallForType:(int64_t)type
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   v4 = [[SKIDirectInvocationPayload alloc] initWithIdentifier:@"com.apple.siri.directInvocation.phone.announceCallBell"];
   if (type)
   {
-    v12 = @"announcementType";
+    v11 = @"announcementType";
     v5 = [MEMORY[0x277CCABB0] numberWithInteger:type];
-    v13[0] = v5;
-    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
+    v12[0] = v5;
+    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:&v11 count:1];
     [(SKIDirectInvocationPayload *)v4 setUserData:v6];
   }
 
@@ -371,59 +430,26 @@
   v8 = [SKIDirectInvocation runSiriKitExecutorCommandWithContext:v7 payload:v4];
   v9 = [SKIDirectInvocation wrapCommandInStartLocalRequest:v8];
 
-  v10 = *MEMORY[0x277D85DE8];
-
   return v9;
 }
 
 + (id)announcePayloadFromUserData:(id)data
 {
   v3 = [data objectForKeyedSubscript:@"announcePayload"];
-  v8 = 0;
-  v4 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClass:objc_opt_class() fromData:v3 error:&v8];
-  v5 = v8;
+  v9 = 0;
+  v4 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClass:objc_opt_class() fromData:v3 error:&v9];
+  v5 = v9;
+  v6 = v5;
   if (!v4)
   {
-    v6 = SKIDefaultLog();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = SKIDefaultLog(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       +[SKIPhoneInvocation announcePayloadFromUserData:];
     }
   }
 
   return v4;
-}
-
-+ (void)announceIncomingCallNotificationRequest:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_0(&dword_267542000, v0, v1, "Error archiving UNNotification %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-+ (void)announceIncomingCallNotificationRequest:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_0(&dword_267542000, v0, v1, "error archiving SKIAnnounceNotificationDirectInvocationPayload for SKIPhoneInvocation: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-+ (void)announceGroupFaceTimeRequestForAnnounceDirectInvocationPayload:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_0(&dword_267542000, v0, v1, "error archving SKIAnnounceNotificationDirectInvocationPayload for SKIPhoneInvocation: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-+ (void)announcePayloadFromUserData:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_0(&dword_267542000, v0, v1, "error unarchiving SKIAnnounceNotificationDirectInvocationPayload from userData for SKIPhoneInvocation: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

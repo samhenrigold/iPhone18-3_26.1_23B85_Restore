@@ -22,7 +22,7 @@
 {
   buttonCopy = button;
   selfCopy = self;
-  sub_100329FA8(buttonCopy);
+  sub_100329FA8(buttonCopy, v5);
 }
 
 - (void)videoTapGestureRecognized:(id)recognized
@@ -33,7 +33,7 @@
   swift_unknownObjectRelease();
   sub_10032A2D8();
 
-  sub_10000CD74(&v5);
+  sub_10000CD74(v5);
 }
 
 - (void)notifyMeButtonTapped:(id)tapped
@@ -56,16 +56,17 @@
   v5 = *(&selfCopy->super.super.super.isa + OBJC_IVAR____TtC20ProductPageExtension22AppEventDetailPageView_lockupTapGestureActionBlock);
   if (v5)
   {
+    v6 = *&selfCopy->cardScrollView[OBJC_IVAR____TtC20ProductPageExtension22AppEventDetailPageView_lockupTapGestureActionBlock];
 
-    v5(v6);
-    sub_1000167E0(v5);
+    v5(v7);
+    sub_1000167E0(v5, v6);
 
-    sub_10000CD74(v6);
+    sub_10000CD74(v7);
   }
 
   else
   {
-    sub_10000CD74(v6);
+    sub_10000CD74(v7);
   }
 }
 

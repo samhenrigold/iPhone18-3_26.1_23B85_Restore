@@ -27,7 +27,7 @@
 {
   sessionCopy = session;
   selfCopy = self;
-  v6 = sub_10002C488();
+  v6 = sub_10002C488(sessionCopy);
 
   return v6;
 }

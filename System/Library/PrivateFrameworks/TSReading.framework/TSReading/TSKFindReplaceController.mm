@@ -345,7 +345,7 @@ LABEL_31:
   }
 }
 
-uint64_t __50__TSKFindReplaceController_p_continueCountingHits__block_invoke_2(uint64_t a1, void *a2)
+void *__50__TSKFindReplaceController_p_continueCountingHits__block_invoke_2(uint64_t a1, void *a2)
 {
   result = [*(a1 + 32) p_shouldCountAnnotation:{objc_msgSend(a2, "annotation")}];
   if (result)
@@ -653,7 +653,7 @@ uint64_t __80__TSKFindReplaceController_searchReferencesToHighlightInVisibleRoot
   }
 }
 
-uint64_t __94__TSKFindReplaceController__buildLayoutSearchResultsForRootSearchTargetsInRange_resultsArray___block_invoke(uint64_t a1, void *a2)
+void *__94__TSKFindReplaceController__buildLayoutSearchResultsForRootSearchTargetsInRange_resultsArray___block_invoke(uint64_t a1, void *a2)
 {
   result = [*(a1 + 32) p_shouldCountAnnotation:{objc_msgSend(a2, "annotation")}];
   if (result)
@@ -682,7 +682,7 @@ uint64_t __94__TSKFindReplaceController__buildLayoutSearchResultsForRootSearchTa
   return [v4 _recursiveSearchWithSearchTarget:a2 forAnnotationsWithHitBlock:v5];
 }
 
-uint64_t __94__TSKFindReplaceController__buildLayoutSearchResultsForRootSearchTargetsInRange_resultsArray___block_invoke_3(uint64_t a1, void *a2)
+void *__94__TSKFindReplaceController__buildLayoutSearchResultsForRootSearchTargetsInRange_resultsArray___block_invoke_3(uint64_t a1, void *a2)
 {
   [a2 searchReferencePoint];
   if ((TSUPointIsFinite() & 1) == 0)
@@ -1165,7 +1165,7 @@ LABEL_22:
   return v12;
 }
 
-uint64_t __70__TSKFindReplaceController_searchReferenceAfterReference_inDirection___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
+void *__70__TSKFindReplaceController_searchReferenceAfterReference_inDirection___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
 {
   result = [objc_opt_class() searchReference:a2 isAfterSearchReference:*(a1 + 40) orEqual:0 inDirection:*(a1 + 56) comparator:{objc_msgSend(*(a1 + 32), "searchResultComparator")}];
   if (result)

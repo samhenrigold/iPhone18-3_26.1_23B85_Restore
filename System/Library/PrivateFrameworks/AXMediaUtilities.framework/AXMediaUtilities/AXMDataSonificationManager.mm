@@ -515,16 +515,16 @@ LABEL_37:
             v77 = *(*(&v126 + 1) + 8 * i);
             if (v76)
             {
-              xValue = [v76 xValue];
-              [xValue number];
+              v78 = objc_msgSend_xValue(v76);
+              [v78 number];
               if (v56 <= v79)
               {
               }
 
               else
               {
-                xValue2 = [v77 xValue];
-                [xValue2 number];
+                v80 = objc_msgSend_xValue(v77);
+                [v80 number];
                 v82 = v81;
 
                 if (v56 < v82)
@@ -581,8 +581,8 @@ LABEL_67:
             }
 
             v87 = *(*(&v122 + 1) + 8 * j);
-            xValue3 = [v87 xValue];
-            [xValue3 number];
+            v88 = objc_msgSend_xValue(v87);
+            [v88 number];
             v90 = v89;
 
             if (vabdd_f64(v90, v56) < v57)
@@ -730,8 +730,8 @@ LABEL_69:
               }
 
               v40 = *(*(&v134 + 1) + 8 * k);
-              xValue4 = [v40 xValue];
-              category = [xValue4 category];
+              v41 = objc_msgSend_xValue(v40);
+              category = [v41 category];
               v43 = [category isEqualToString:v34];
 
               if (v43)

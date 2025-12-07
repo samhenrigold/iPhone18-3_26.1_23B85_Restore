@@ -2,9 +2,35 @@
 - (int64_t)getChecksum;
 - (void)close;
 - (void)dealloc;
+- (void)writeByteWithByte:(char)byte;
+- (void)writeBytesWithByteArray:(id)array withInt:(int)int withInt:(int)withInt;
 @end
 
 @implementation OrgApacheLuceneStoreOutputStreamIndexOutput
+
+- (void)writeByteWithByte:(char)byte
+{
+  os = self->os_;
+  if (!os)
+  {
+    JreThrowNullPointerException();
+  }
+
+  [(JavaIoBufferedOutputStream *)os writeWithInt:byte];
+  ++self->bytesWritten_;
+}
+
+- (void)writeBytesWithByteArray:(id)array withInt:(int)int withInt:(int)withInt
+{
+  os = self->os_;
+  if (!os)
+  {
+    JreThrowNullPointerException();
+  }
+
+  [(JavaIoBufferedOutputStream *)os writeWithByteArray:array withInt:*&int withInt:?];
+  self->bytesWritten_ += withInt;
+}
 
 - (void)close
 {

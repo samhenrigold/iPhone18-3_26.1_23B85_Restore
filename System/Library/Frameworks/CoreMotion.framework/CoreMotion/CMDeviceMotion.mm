@@ -247,7 +247,7 @@
   v18 = internal[8];
   v19 = internal[9];
   objc_msgSend_magneticField(self, v20, v21);
-  v22 = v45;
+  v22 = v45[0];
   objc_msgSend_magneticField(self, v23, v24);
   v25 = v44;
   objc_msgSend_magneticField(self, v26, v27);

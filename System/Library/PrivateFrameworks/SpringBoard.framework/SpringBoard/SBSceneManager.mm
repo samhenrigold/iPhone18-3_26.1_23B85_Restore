@@ -604,7 +604,7 @@ id __62__SBSceneManager_existingSceneHandleForPersistenceIdentifier___block_invo
         v11 = *(*(&v20 + 1) + 8 * i);
         application = [v11 application];
         bundleIdentifier = [application bundleIdentifier];
-        v14 = [identifiersCopy containsObject:bundleIdentifier];
+        v14 = objc_msgSend_containsObject_(identifiersCopy);
 
         if (v14)
         {
@@ -685,7 +685,7 @@ void __52__SBSceneManager_assertBackgroundedStatusForScenes___block_invoke_2(uin
 {
   v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = SBLogWorkspace();
+  v4 = SBLogWorkspace(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     v10 = 138543362;
@@ -713,7 +713,7 @@ void __52__SBSceneManager_assertBackgroundedStatusForScenes___block_invoke_73(ui
 {
   v9 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = SBLogWorkspace();
+  v4 = SBLogWorkspace(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     v7 = 138543362;
@@ -1555,19 +1555,19 @@ void __41__SBSceneManager__handleAction_forScene___block_invoke(uint64_t a1, uin
 
 - (BOOL)_shouldFenceTransitionForScene:(id)scene updatedClientSettingsDiff:(id)diff oldClientSettings:(id)settings transitionContext:(id)context
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   sceneCopy = scene;
   settings = [sceneCopy settings];
   isForeground = [settings isForeground];
 
   if ((isForeground & 1) == 0)
   {
-    v9 = SBLogWorkspace();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+    v10 = SBLogWorkspace(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
-      v11 = 138412290;
-      v12 = sceneCopy;
-      _os_log_impl(&dword_21ED4E000, v9, OS_LOG_TYPE_INFO, "Not fencing scene transistion with scene: %@ because it is backgrounded", &v11, 0xCu);
+      v12 = 138412290;
+      v13 = sceneCopy;
+      _os_log_impl(&dword_21ED4E000, v10, OS_LOG_TYPE_INFO, "Not fencing scene transistion with scene: %@ because it is backgrounded", &v12, 0xCu);
     }
   }
 
@@ -1681,15 +1681,15 @@ void __53__SBSceneManager_debugNameForSceneSnapshotRequestor___block_invoke(uint
   bundleIdentifier = [clientHandle bundleIdentifier];
   v10 = [bundleIdentifier isEqualToString:@"com.apple.PosterBoard"];
 
-  if (v7 && !(v10 & 1 | (([(BSCopyingCacheSet *)self->_externalApplicationSceneHandles containsObject:v7]& 1) == 0)))
+  if (v7 && !(v10 & 1 | ((objc_msgSend_containsObject_(self->_externalApplicationSceneHandles) & 1) == 0)))
   {
     allScenes = self->_allScenes;
     sceneIfExists = [v7 sceneIfExists];
-    v13 = [(BSCopyingCacheSet *)allScenes containsObject:sceneIfExists];
+    v13 = objc_msgSend_containsObject_(allScenes);
 
     if (v13)
     {
-      v14 = [(BSCopyingCacheSet *)self->_reportedExternalForegroundApplicationSceneHandles containsObject:v7]^ 1;
+      v14 = objc_msgSend_containsObject_(self->_reportedExternalForegroundApplicationSceneHandles) ^ 1;
       v15 = v14;
     }
 
@@ -1701,7 +1701,7 @@ void __53__SBSceneManager_debugNameForSceneSnapshotRequestor___block_invoke(uint
 
     if ([settingsCopy isForeground])
     {
-      v16 = [(NSCountedSet *)self->_assertedBackgroundScenes containsObject:sceneCopy];
+      v16 = objc_msgSend_containsObject_(self->_assertedBackgroundScenes);
       clientProcess = [sceneCopy clientProcess];
       if (([clientProcess isCurrentProcess] & 1) == 0)
       {
@@ -1724,7 +1724,7 @@ void __53__SBSceneManager_debugNameForSceneSnapshotRequestor___block_invoke(uint
       [(BSCopyingCacheSet *)self->_externalForegroundApplicationSceneHandles removeObject:v7];
     }
 
-    v18 = [(BSCopyingCacheSet *)self->_reportedExternalForegroundApplicationSceneHandles containsObject:v7];
+    v18 = objc_msgSend_containsObject_(self->_reportedExternalForegroundApplicationSceneHandles);
     if (((v15 | v18) & 1) == 0 || (v14 & v18 & 1) != 0 || v13 != 1)
     {
       [(SBSceneManager *)self _noteDidChangeToVisibility:v18 & 1 previouslyExisted:v13 forScene:sceneCopy];
@@ -1758,7 +1758,7 @@ void __50__SBSceneManager__updateIconStyleSettingsOnScene___block_invoke(uint64_
 - (void)_addReportedForegroundExternalApplicationSceneHandle:(id)handle
 {
   handleCopy = handle;
-  if (([(BSCopyingCacheSet *)self->_reportedExternalForegroundApplicationSceneHandles containsObject:handleCopy]& 1) == 0)
+  if ((objc_msgSend_containsObject_(self->_reportedExternalForegroundApplicationSceneHandles) & 1) == 0)
   {
     [(BSCopyingCacheSet *)self->_reportedExternalForegroundApplicationSceneHandles addObject:handleCopy];
     v5[0] = MEMORY[0x277D85DD0];
@@ -1783,7 +1783,7 @@ void __71__SBSceneManager__addReportedForegroundExternalApplicationSceneHandle__
 - (void)_removeReportedForegroundExternalApplicationSceneHandle:(id)handle
 {
   handleCopy = handle;
-  if ([(BSCopyingCacheSet *)self->_reportedExternalForegroundApplicationSceneHandles containsObject:handleCopy])
+  if (objc_msgSend_containsObject_(self->_reportedExternalForegroundApplicationSceneHandles))
   {
     [(BSCopyingCacheSet *)self->_reportedExternalForegroundApplicationSceneHandles removeObject:handleCopy];
     v5[0] = MEMORY[0x277D85DD0];
@@ -2753,7 +2753,7 @@ LABEL_24:
 - (void)_prepareToRemoveSceneHandle:(id)handle withReason:(int64_t)reason
 {
   handleCopy = handle;
-  if ([(BSCopyingCacheSet *)self->_reportedExternalForegroundApplicationSceneHandles containsObject:handleCopy])
+  if (objc_msgSend_containsObject_(self->_reportedExternalForegroundApplicationSceneHandles))
   {
     v7[0] = MEMORY[0x277D85DD0];
     v7[1] = 3221225472;
@@ -2820,7 +2820,7 @@ void __57__SBSceneManager__prepareToRemoveSceneHandle_withReason___block_invoke(
 - (void)sceneDidActivate:(id)activate
 {
   activateCopy = activate;
-  if (([activateCopy isLegacy] & 1) == 0 && -[BSCopyingCacheSet containsObject:](self->_modernScenesPendingActivation, "containsObject:", activateCopy))
+  if (([activateCopy isLegacy] & 1) == 0 && objc_msgSend_containsObject_(self->_modernScenesPendingActivation))
   {
     [(BSCopyingCacheSet *)self->_modernScenesPendingActivation removeObject:activateCopy];
     [(SBSceneManager *)self _addScene:activateCopy];
@@ -2928,12 +2928,12 @@ void __57__SBSceneManager__prepareToRemoveSceneHandle_withReason___block_invoke(
   [(SBSceneManager *)self _scene:sceneCopy willUpdateWithSettings:settings transitionContext:transitionContext];
   externalApplicationSceneHandles = self->_externalApplicationSceneHandles;
   v10 = [(SBSceneManager *)self existingSceneHandleForScene:sceneCopy];
-  LODWORD(externalApplicationSceneHandles) = [(BSCopyingCacheSet *)externalApplicationSceneHandles containsObject:v10];
+  LODWORD(externalApplicationSceneHandles) = objc_msgSend_containsObject_(externalApplicationSceneHandles);
 
   if (externalApplicationSceneHandles)
   {
     v11 = [(SBSceneManager *)self existingSceneHandleForScene:sceneCopy];
-    if ([(BSCopyingCacheSet *)self->_externalApplicationSceneHandles containsObject:v11])
+    if (objc_msgSend_containsObject_(self->_externalApplicationSceneHandles))
     {
       v12 = objc_opt_class();
       v13 = v11;

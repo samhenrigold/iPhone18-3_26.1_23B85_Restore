@@ -8,10 +8,10 @@
 
 - (PTFaceAttributesNetwork)init
 {
-  v21[1] = *MEMORY[0x277D85DE8];
-  v20.receiver = self;
-  v20.super_class = PTFaceAttributesNetwork;
-  v2 = [(PTFaceAttributesNetwork *)&v20 init];
+  v23[1] = *MEMORY[0x277D85DE8];
+  v22.receiver = self;
+  v22.super_class = PTFaceAttributesNetwork;
+  v2 = [(PTFaceAttributesNetwork *)&v22 init];
   if (v2)
   {
     v3 = objc_opt_new();
@@ -23,32 +23,32 @@
     if (createRequest)
     {
       v7 = v2->_session;
-      v21[0] = createRequest;
-      v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:1];
-      v19 = 0;
-      LOBYTE(v7) = [(VNSession *)v7 prepareForPerformingRequests:v8 error:&v19];
-      v9 = v19;
+      v23[0] = createRequest;
+      v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:1];
+      v21 = 0;
+      LOBYTE(v7) = [(VNSession *)v7 prepareForPerformingRequests:v8 error:&v21];
+      v9 = v21;
 
       if ((v7 & 1) == 0)
       {
-        v10 = _PTLogSystem();
-        if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+        v11 = _PTLogSystem(v10);
+        if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
         {
           [PTFaceAttributesNetwork init];
         }
       }
 
-      v11 = [objc_alloc(MEMORY[0x277CE2E10]) initWithSession:v2->_session];
+      v12 = [objc_alloc(MEMORY[0x277CE2E10]) initWithSession:v2->_session];
       handler = v2->_handler;
-      v2->_handler = v11;
+      v2->_handler = v12;
 
       if (v2->_handler)
       {
-        v13 = MLAllComputeDevices();
-        v14 = [v13 indexOfObjectPassingTest:&__block_literal_global_13];
-        if (v14 == 0x7FFFFFFFFFFFFFFFLL)
+        v15 = MLAllComputeDevices();
+        v16 = [v15 indexOfObjectPassingTest:&__block_literal_global_13];
+        if (v16 == 0x7FFFFFFFFFFFFFFFLL)
         {
-          aneDevice = _PTLogSystem();
+          aneDevice = _PTLogSystem(0x7FFFFFFFFFFFFFFFLL);
           if (os_log_type_enabled(aneDevice, OS_LOG_TYPE_ERROR))
           {
             [PTFaceAttributesNetwork init];
@@ -57,17 +57,17 @@
 
         else
         {
-          v17 = [v13 objectAtIndexedSubscript:v14];
+          v19 = [v15 objectAtIndexedSubscript:v16];
           aneDevice = v2->_aneDevice;
-          v2->_aneDevice = v17;
+          v2->_aneDevice = v19;
         }
 
-        v16 = v2;
+        v18 = v2;
         goto LABEL_20;
       }
 
-      v13 = _PTLogSystem();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      v15 = _PTLogSystem(v14);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
         [PTFaceAttributesNetwork init];
       }
@@ -75,8 +75,8 @@
 
     else
     {
-      v13 = _PTLogSystem();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      v15 = _PTLogSystem(0);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
         [PTFaceAttributesNetwork init];
       }
@@ -84,16 +84,16 @@
       v9 = 0;
     }
 
-    v16 = 0;
+    v18 = 0;
 LABEL_20:
 
     goto LABEL_21;
   }
 
-  v16 = 0;
+  v18 = 0;
 LABEL_21:
 
-  return v16;
+  return v18;
 }
 
 uint64_t __31__PTFaceAttributesNetwork_init__block_invoke(uint64_t a1, void *a2)
@@ -111,13 +111,14 @@ uint64_t __31__PTFaceAttributesNetwork_init__block_invoke(uint64_t a1, void *a2)
   v4 = +[PTInference ANEConfigForAsynchronousWork];
   [v3 setModelExecutionPriority:{objc_msgSend(v4, "VNRequestModelExecutionPriority")}];
 
-  v11 = 0;
-  v5 = [v3 setRevision:3737841669 error:&v11];
-  v6 = v11;
+  v12 = 0;
+  v5 = [v3 setRevision:3737841669 error:&v12];
+  v6 = v12;
+  v7 = v6;
   if ((v5 & 1) == 0)
   {
-    v7 = _PTLogSystem();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = _PTLogSystem(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       [PTFaceAttributesNetwork createRequest];
     }
@@ -132,8 +133,8 @@ uint64_t __31__PTFaceAttributesNetwork_init__block_invoke(uint64_t a1, void *a2)
 
   else
   {
-    v9 = _PTLogSystem();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = _PTLogSystem(0);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       [PTFaceAttributesNetwork createRequest];
     }
@@ -145,20 +146,20 @@ uint64_t __31__PTFaceAttributesNetwork_init__block_invoke(uint64_t a1, void *a2)
 - (id)faceLandmarksInPixelBuffer:(__CVBuffer *)buffer faceRects:(id)rects orientation:(unsigned int)orientation
 {
   v5 = *&orientation;
-  v18[1] = *MEMORY[0x277D85DE8];
+  v19[1] = *MEMORY[0x277D85DE8];
   rectsCopy = rects;
   createRequest = [(PTFaceAttributesNetwork *)self createRequest];
-  [createRequest setInputFaceObservations:rectsCopy];
+  v10 = [createRequest setInputFaceObservations:rectsCopy];
   if (createRequest)
   {
     handler = self->_handler;
-    v18[0] = createRequest;
-    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:1];
-    v17 = 0;
-    v12 = [(VNSequenceRequestHandler *)handler performRequests:v11 onCVPixelBuffer:buffer orientation:v5 error:&v17];
-    v13 = v17;
+    v19[0] = createRequest;
+    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:1];
+    v18 = 0;
+    v13 = [(VNSequenceRequestHandler *)handler performRequests:v12 onCVPixelBuffer:buffer orientation:v5 error:&v18];
+    v14 = v18;
 
-    if (v12)
+    if (v13)
     {
       results = [createRequest results];
       goto LABEL_8;
@@ -167,13 +168,13 @@ uint64_t __31__PTFaceAttributesNetwork_init__block_invoke(uint64_t a1, void *a2)
 
   else
   {
-    v15 = _PTLogSystem();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v16 = _PTLogSystem(v10);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       [PTFaceAttributesNetwork faceLandmarksInPixelBuffer:faceRects:orientation:];
     }
 
-    v13 = 0;
+    v14 = 0;
   }
 
   results = 0;

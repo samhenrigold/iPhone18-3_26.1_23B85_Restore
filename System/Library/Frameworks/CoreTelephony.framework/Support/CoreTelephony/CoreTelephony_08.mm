@@ -1,3 +1,199 @@
+void sub_237454390(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, char a16)
+{
+  if (a15 < 0)
+  {
+    operator delete(__p);
+  }
+
+  std::ostringstream::~ostringstream(&a16);
+  _Unwind_Resume(a1);
+}
+
+void NetworkListOperator::getLocalizedCompositeName(NetworkListOperator *this@<X0>, uint64_t *a2@<X1>, uint64_t a3@<X2>, void *a4@<X8>)
+{
+  v6 = *a2;
+  if (!*a2)
+  {
+
+    NetworkListOperator::getCompositeName(this, a4);
+    return;
+  }
+
+  Registry::throwIfNotInitialized(*a2);
+  v8 = *(v6 + 24);
+  v9 = off_284A710A8;
+  if ((off_284A710A8 & 0x8000000000000000) != 0)
+  {
+    v10 = (off_284A710A8 & 0x7FFFFFFFFFFFFFFFLL);
+    v11 = 5381;
+    do
+    {
+      v9 = v11;
+      v12 = *v10++;
+      v11 = (33 * v11) ^ v12;
+    }
+
+    while (v12);
+  }
+
+  std::mutex::lock(v8 + 3);
+  v23[0] = v9;
+  v13 = std::__hash_table<std::__hash_value_type<unsigned long,std::shared_ptr<void>>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,std::shared_ptr<void>>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,std::shared_ptr<void>>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,std::shared_ptr<void>>>>::find<unsigned long>(&v8[4].__m_.__sig, v23);
+  if (v13)
+  {
+    v15 = v13[3];
+    v14 = v13[4];
+    if (v14)
+    {
+      atomic_fetch_add_explicit(&v14->__shared_owners_, 1uLL, memory_order_relaxed);
+      std::mutex::unlock(v8 + 3);
+      atomic_fetch_add_explicit(&v14->__shared_owners_, 1uLL, memory_order_relaxed);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v14);
+      v16 = 0;
+      if (!v15)
+      {
+        goto LABEL_8;
+      }
+
+      goto LABEL_16;
+    }
+  }
+
+  else
+  {
+    v15 = 0;
+  }
+
+  std::mutex::unlock(v8 + 3);
+  v14 = 0;
+  v16 = 1;
+  if (!v15)
+  {
+LABEL_8:
+    NetworkListOperator::getCompositeName(this, a4);
+    if (v16)
+    {
+      return;
+    }
+
+    goto LABEL_9;
+  }
+
+LABEL_16:
+  theDict = 0;
+  (*(*v15 + 80))(v23, v15, a3, 5, @"InterCarrierRoamingDisplayNames", 0, 0);
+  ctu::cf::CFSharedRef<__CFDictionary const>::CFSharedRef<void const,void>(&theDict, v23);
+  ctu::SharedRef<void const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,void const>::~SharedRef(v23);
+  if (!theDict)
+  {
+    NetworkListOperator::getCompositeName(this, a4);
+    goto LABEL_41;
+  }
+
+  MCCAndMNC::MCCAndMNC(v23, this + 32, this + 64);
+  MCCAndMNC::getStringValue(v23, &v28);
+  v17 = SHIBYTE(v28.__r_.__value_.__r.__words[2]);
+  if (SHIBYTE(v28.__r_.__value_.__r.__words[2]) < 0)
+  {
+    std::string::__init_copy_ctor_external(&v32, v28.__r_.__value_.__l.__data_, v28.__r_.__value_.__l.__size_);
+  }
+
+  else
+  {
+    v32 = v28;
+  }
+
+  v31 = 0;
+  if (SHIBYTE(v32.__r_.__value_.__r.__words[2]) < 0)
+  {
+    std::string::__init_copy_ctor_external(&v33, v32.__r_.__value_.__l.__data_, v32.__r_.__value_.__l.__size_);
+  }
+
+  else
+  {
+    v33 = v32;
+  }
+
+  v34 = 0;
+  if (ctu::cf::convert_copy())
+  {
+    v18 = v31;
+    v31 = v34;
+    v35 = v18;
+    ctu::SharedRef<__CFString const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFString const>::~SharedRef(&v35);
+  }
+
+  if (SHIBYTE(v33.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v33.__r_.__value_.__l.__data_);
+  }
+
+  v19 = v31;
+  v29 = v31;
+  v31 = 0;
+  ctu::SharedRef<__CFString const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFString const>::~SharedRef(&v31);
+  if (SHIBYTE(v32.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v32.__r_.__value_.__l.__data_);
+    if ((v17 & 0x80000000) == 0)
+    {
+      goto LABEL_30;
+    }
+  }
+
+  else if ((v17 & 0x80000000) == 0)
+  {
+    goto LABEL_30;
+  }
+
+  operator delete(v28.__r_.__value_.__l.__data_);
+LABEL_30:
+  if (v27 < 0)
+  {
+    operator delete(__p);
+  }
+
+  if (v25 < 0)
+  {
+    operator delete(v23[1]);
+  }
+
+  v33.__r_.__value_.__r.__words[0] = 0;
+  Value = CFDictionaryGetValue(theDict, v19);
+  v21 = Value;
+  if (!Value || (v22 = CFGetTypeID(Value), v22 != CFStringGetTypeID()))
+  {
+    v33.__r_.__value_.__r.__words[0] = 0;
+    goto LABEL_39;
+  }
+
+  v33.__r_.__value_.__r.__words[0] = v21;
+  CFRetain(v21);
+  if (!v33.__r_.__value_.__r.__words[0])
+  {
+LABEL_39:
+    NetworkListOperator::getCompositeName(this, a4);
+    goto LABEL_40;
+  }
+
+  v23[0] = 0;
+  v23[1] = 0;
+  v24 = 0;
+  ctu::cf::assign();
+  *a4 = *v23;
+  a4[2] = v24;
+LABEL_40:
+  ctu::SharedRef<__CFString const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFString const>::~SharedRef(&v33.__r_.__value_.__l.__data_);
+  ctu::SharedRef<__CFString const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFString const>::~SharedRef(&v29);
+LABEL_41:
+  ctu::SharedRef<__CFDictionary const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFDictionary const>::~SharedRef(&theDict);
+  if ((v16 & 1) == 0)
+  {
+LABEL_9:
+    std::__shared_weak_count::__release_shared[abi:ne200100](v14);
+  }
+}
+
 void sub_23745472C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, void *a20, uint64_t a21, uint64_t a22, const void *a23, const void *a24, __int16 a25, char a26, char a27, void *a28, uint64_t a29, int a30, __int16 a31, char a32, char a33)
 {
   if (a14 < 0)
@@ -16,7 +212,7 @@ void sub_23745472C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t NetworkListOperator::getAsString@<X0>(NetworkListOperator *this@<X0>, _BYTE *a2@<X8>)
+uint64_t NetworkListOperator::getAsString@<X0>(NetworkListOperator *this@<X0>, void *a2@<X8>)
 {
   v36 = 0;
   v34 = 0u;
@@ -199,12 +395,12 @@ void sub_237454B50(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void NetworkListOperator::dumpState(NetworkListOperator *this, os_log_t *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = *a2;
   if (os_log_type_enabled(*a2, OS_LOG_TYPE_DEFAULT))
   {
     NetworkListOperator::getAsString(this, __p);
-    if (v7 >= 0)
+    if (v6 >= 0)
     {
       v4 = __p;
     }
@@ -215,15 +411,13 @@ void NetworkListOperator::dumpState(NetworkListOperator *this, os_log_t *a2)
     }
 
     *buf = 136315138;
-    v9 = v4;
+    v8 = v4;
     _os_log_impl(&dword_2373EA000, v3, OS_LOG_TYPE_DEFAULT, "#I Operator description: %s", buf, 0xCu);
-    if (v7 < 0)
+    if (v6 < 0)
     {
       operator delete(__p[0]);
     }
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void NetworkListOperator::getMCC(NetworkListOperator *this@<X0>, _WORD *a2@<X8>)
@@ -530,7 +724,7 @@ void *ctu::cf::CFSharedRef<__CFDictionary const>::CFSharedRef<void const,void>(v
   return a1;
 }
 
-void sub_23745522C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, dispatch_object_t object)
+void sub_23745522C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, dispatch_object_t object)
 {
   ctu::OsLogContext::~OsLogContext(&a10);
   if (object)
@@ -667,11 +861,11 @@ uint64_t OTASPService::OTASPService(uint64_t a1, char *a2, void *a3, NSObject **
 {
   *(a1 + 8) = 0;
   *(a1 + 16) = 0;
-  ctu::OsLogContext::OsLogContext(&v23, "com.apple.CommCenter", a6);
-  ctu::OsLogLogger::OsLogLogger(v24, &v23);
-  MEMORY[0x2383CB6C0](a1 + 24, v24);
-  MEMORY[0x2383CB6D0](v24);
-  ctu::OsLogContext::~OsLogContext(&v23);
+  ctu::OsLogContext::OsLogContext(&v21, "com.apple.CommCenter", a6);
+  ctu::OsLogLogger::OsLogLogger(v22, &v21);
+  MEMORY[0x2383CB6C0](a1 + 24, v22);
+  MEMORY[0x2383CB6D0](v22);
+  ctu::OsLogContext::~OsLogContext(&v21);
   *a1 = &unk_284A6B188;
   v11 = *a4;
   *(a1 + 32) = *a4;
@@ -690,20 +884,19 @@ uint64_t OTASPService::OTASPService(uint64_t a1, char *a2, void *a3, NSObject **
 
   std::string::basic_string[abi:ne200100]<0>(&__p, a2);
   v13 = *(a1 + 32);
-  v20 = v13;
+  v18 = v13;
   if (v13)
   {
     dispatch_retain(v13);
   }
 
-  object = 0;
   ctu::RestModule::RestModule();
-  if (v20)
+  if (v18)
   {
-    dispatch_release(v20);
+    dispatch_release(v18);
   }
 
-  if (v22 < 0)
+  if (v20 < 0)
   {
     operator delete(__p);
   }
@@ -721,17 +914,17 @@ uint64_t OTASPService::OTASPService(uint64_t a1, char *a2, void *a3, NSObject **
     atomic_fetch_add_explicit((v14 + 8), 1uLL, memory_order_relaxed);
   }
 
-  Registry::createRestModuleOneTimeUseConnection(&v17, *(a1 + 40));
+  Registry::createRestModuleOneTimeUseConnection(*(a1 + 40));
   ctu::RestModule::connect();
-  if (v18)
+  if (v17)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v18);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v17);
   }
 
   return a1;
 }
 
-void sub_23745572C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::__shared_weak_count *a10, dispatch_object_t object, dispatch_object_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18, char a19)
+void sub_23745572C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, std::__shared_weak_count *a10, dispatch_object_t object, dispatch_object_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18, char a19)
 {
   if (a10)
   {
@@ -748,7 +941,7 @@ void sub_23745572C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   v19[11] = 0;
   if (v22)
   {
-    (*(*v22 + 8))(v22);
+    (*(*v22 + 8))(v22, a2, a3, a4, a5, a6, a7, a8);
   }
 
   v23 = v19[8];
@@ -769,7 +962,7 @@ void sub_23745572C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
     dispatch_release(v25);
   }
 
-  MEMORY[0x2383CB6D0](v19 + 3);
+  MEMORY[0x2383CB6D0](v19 + 3, a2, a3, a4, a5, a6, a7, a8);
   v26 = v19[2];
   if (v26)
   {
@@ -828,9 +1021,10 @@ void OTASPService::~OTASPService(OTASPService *this)
   JUMPOUT(0x2383CBEF0);
 }
 
-BOOL OTASPService::handleOtaspCallIndication(uint64_t a1, int a2, int a3, int a4)
+BOOL OTASPService::handleOtaspCallIndication(uint64_t a1, int a2, int a3, uint64_t a4)
 {
-  v108 = *MEMORY[0x277D85DE8];
+  v4 = a4;
+  v107 = *MEMORY[0x277D85DE8];
   if (*(a1 + 77) == 1 && *(a1 + 72) == a3)
   {
     if (a2)
@@ -898,7 +1092,7 @@ LABEL_68:
       }
 
       (*(**(a1 + 96) + 16))(*(a1 + 96), 8);
-      event::EventLogger<void ()(subscriber::SimSlot),event::CSIEventLogger>::operator()<subscriber::SimSlot>(a4);
+      event::EventLogger<void ()(subscriber::SimSlot),event::CSIEventLogger>::operator()<subscriber::SimSlot>(v4);
       v52 = *(a1 + 84);
       v53 = *(a1 + 24);
       v54 = os_log_type_enabled(v53, OS_LOG_TYPE_DEFAULT);
@@ -918,21 +1112,21 @@ LABEL_68:
           atomic_fetch_add_explicit(&v23->__shared_owners_, 1uLL, memory_order_relaxed);
         }
 
-        std::string::basic_string[abi:ne200100]<0>(v105, "ResetAfterOTASPTime");
+        std::string::basic_string[abi:ne200100]<0>(v104, "ResetAfterOTASPTime");
         v57 = *(a1 + 32);
-        v104 = v57;
+        v103 = v57;
         if (v57)
         {
           dispatch_retain(v57);
         }
 
-        v102[0] = MEMORY[0x277D85DD0];
-        v102[1] = 0x40000000;
-        v102[2] = ___ZN12OTASPService25handleOtaspCallIndicationEbiN10subscriber7SimSlotE_block_invoke;
-        v102[3] = &__block_descriptor_tmp_0;
-        v102[4] = a1;
-        v103 = _Block_copy(v102);
-        ctu::TimerService::createOneShotTimer(v56, v105, 2, 8000000, &v104, &v103);
+        v101[0] = MEMORY[0x277D85DD0];
+        v101[1] = 0x40000000;
+        v101[2] = ___ZN12OTASPService25handleOtaspCallIndicationEbiN10subscriber7SimSlotE_block_invoke;
+        v101[3] = &__block_descriptor_tmp_0;
+        v101[4] = a1;
+        v102 = _Block_copy(v101);
+        ctu::TimerService::createOneShotTimer(v56, v104, 2, 8000000, &v103, &v102);
         v58 = *buf;
         *buf = 0;
         v59 = *(a1 + 88);
@@ -948,22 +1142,22 @@ LABEL_68:
           }
         }
 
+        if (v102)
+        {
+          _Block_release(v102);
+        }
+
         if (v103)
         {
-          _Block_release(v103);
+          dispatch_release(v103);
         }
 
-        if (v104)
-        {
-          dispatch_release(v104);
-        }
-
-        if ((v106 & 0x80000000) == 0)
+        if ((v105 & 0x80000000) == 0)
         {
           goto LABEL_87;
         }
 
-        v29 = v105[0];
+        v29 = v104[0];
 LABEL_86:
         operator delete(v29);
 LABEL_87:
@@ -972,7 +1166,7 @@ LABEL_87:
           std::__shared_weak_count::__release_shared[abi:ne200100](v23);
         }
 
-        goto LABEL_132;
+        return 0;
       }
 
       if (v54)
@@ -1020,7 +1214,7 @@ LABEL_129:
           }
 
           (*(**(a1 + 96) + 24))(*(a1 + 96));
-          goto LABEL_132;
+          return 0;
         }
       }
 
@@ -1035,206 +1229,12 @@ LABEL_129:
       goto LABEL_129;
     }
 
-LABEL_132:
-    result = 0;
-    goto LABEL_140;
+    return 0;
   }
 
   if (*(a1 + 79) != 1)
   {
-    if (*(a1 + 78) == 1)
-    {
-      if (a2)
-      {
-        v30 = *(a1 + 24);
-        if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
-        {
-          *buf = 0;
-          _os_log_impl(&dword_2373EA000, v30, OS_LOG_TYPE_DEFAULT, "#I Visual OTASP & END indication", buf, 2u);
-        }
-
-        v31 = *(a1 + 40);
-        Registry::throwIfNotInitialized(v31);
-        v32 = *(v31 + 24);
-        v33 = off_284A6AB08;
-        v34 = off_284A6AB08;
-        if ((off_284A6AB08 & 0x8000000000000000) != 0)
-        {
-          v35 = (off_284A6AB08 & 0x7FFFFFFFFFFFFFFFLL);
-          v36 = 5381;
-          do
-          {
-            v34 = v36;
-            v37 = *v35++;
-            v36 = (33 * v36) ^ v37;
-          }
-
-          while (v37);
-        }
-
-        std::mutex::lock(v32 + 3);
-        *buf = v34;
-        v38 = std::__hash_table<std::__hash_value_type<unsigned long,std::shared_ptr<void>>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,std::shared_ptr<void>>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,std::shared_ptr<void>>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,std::shared_ptr<void>>>>::find<unsigned long>(&v32[4].__m_.__sig, buf);
-        if (v38)
-        {
-          v40 = v38[3];
-          v39 = v38[4];
-          if (v39)
-          {
-            atomic_fetch_add_explicit(&v39->__shared_owners_, 1uLL, memory_order_relaxed);
-            std::mutex::unlock(v32 + 3);
-            atomic_fetch_add_explicit(&v39->__shared_owners_, 1uLL, memory_order_relaxed);
-            std::__shared_weak_count::__release_shared[abi:ne200100](v39);
-            v41 = 0;
-            goto LABEL_99;
-          }
-        }
-
-        else
-        {
-          v40 = 0;
-        }
-
-        std::mutex::unlock(v32 + 3);
-        v39 = 0;
-        v41 = 1;
-LABEL_99:
-        (*(*v40 + 56))(v40, 8);
-        if ((v41 & 1) == 0)
-        {
-          std::__shared_weak_count::__release_shared[abi:ne200100](v39);
-        }
-
-        (*(**(a1 + 96) + 16))(*(a1 + 96), 8);
-        event::EventLogger<void ()(subscriber::SimSlot),event::CSIEventLogger>::operator()<subscriber::SimSlot>(a4);
-        if (*(a1 + 78) == 1 && *(a1 + 82) == 1 && *(a1 + 83) == 1 && (*(a1 + 84) & 1) == 0)
-        {
-          OTASPService::sendOTASPFailureToUI(a1);
-LABEL_138:
-          *(a1 + 78) = 0;
-          goto LABEL_139;
-        }
-
-        if (*(a1 + 84) == 1)
-        {
-          OTASPService::sendOTASPSuccessToUI(a1);
-          v70 = *(*(a1 + 40) + 24);
-          v72 = *(v70 + 32);
-          v71 = *(v70 + 40);
-          if (v71)
-          {
-            atomic_fetch_add_explicit(&v71->__shared_owners_, 1uLL, memory_order_relaxed);
-          }
-
-          std::string::basic_string[abi:ne200100]<0>(__p, "ResetAfterOTASPTime");
-          v73 = *(a1 + 32);
-          v94 = v73;
-          if (v73)
-          {
-            dispatch_retain(v73);
-          }
-
-          v92[0] = MEMORY[0x277D85DD0];
-          v92[1] = 0x40000000;
-          v92[2] = ___ZN12OTASPService25handleOtaspCallIndicationEbiN10subscriber7SimSlotE_block_invoke_5;
-          v92[3] = &__block_descriptor_tmp_6;
-          v92[4] = a1;
-          v93 = _Block_copy(v92);
-          ctu::TimerService::createOneShotTimer(v72, __p, 2, 8000000, &v94, &v93);
-          v74 = *buf;
-          *buf = 0;
-          v75 = *(a1 + 88);
-          *(a1 + 88) = v74;
-          if (v75)
-          {
-            (*(*v75 + 8))(v75);
-            v76 = *buf;
-            *buf = 0;
-            if (v76)
-            {
-              (*(*v76 + 8))(v76);
-            }
-          }
-
-          if (v93)
-          {
-            _Block_release(v93);
-          }
-
-          if (v94)
-          {
-            dispatch_release(v94);
-          }
-
-          if (v96 < 0)
-          {
-            operator delete(__p[0]);
-          }
-
-          if (v71)
-          {
-            std::__shared_weak_count::__release_shared[abi:ne200100](v71);
-          }
-
-          goto LABEL_138;
-        }
-
-        v77 = *(a1 + 40);
-        Registry::throwIfNotInitialized(v77);
-        v78 = *(v77 + 24);
-        if (v33 < 0)
-        {
-          v79 = (v33 & 0x7FFFFFFFFFFFFFFFLL);
-          v80 = 5381;
-          do
-          {
-            v33 = v80;
-            v81 = *v79++;
-            v80 = (33 * v80) ^ v81;
-          }
-
-          while (v81);
-        }
-
-        std::mutex::lock(v78 + 3);
-        *buf = v33;
-        v82 = std::__hash_table<std::__hash_value_type<unsigned long,std::shared_ptr<void>>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,std::shared_ptr<void>>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,std::shared_ptr<void>>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,std::shared_ptr<void>>>>::find<unsigned long>(&v78[4].__m_.__sig, buf);
-        if (v82)
-        {
-          v84 = v82[3];
-          v83 = v82[4];
-          if (v83)
-          {
-            atomic_fetch_add_explicit(&v83->__shared_owners_, 1uLL, memory_order_relaxed);
-            std::mutex::unlock(v78 + 3);
-            atomic_fetch_add_explicit(&v83->__shared_owners_, 1uLL, memory_order_relaxed);
-            std::__shared_weak_count::__release_shared[abi:ne200100](v83);
-            v85 = 0;
-LABEL_135:
-            (*(*v84 + 24))(v84);
-            if ((v85 & 1) == 0)
-            {
-              std::__shared_weak_count::__release_shared[abi:ne200100](v83);
-            }
-
-            (*(**(a1 + 96) + 24))(*(a1 + 96));
-            goto LABEL_138;
-          }
-        }
-
-        else
-        {
-          v84 = 0;
-        }
-
-        std::mutex::unlock(v78 + 3);
-        v83 = 0;
-        v85 = 1;
-        goto LABEL_135;
-      }
-    }
-
-    else
+    if (*(a1 + 78) != 1)
     {
       if (*(a1 + 80) == 1)
       {
@@ -1255,21 +1255,21 @@ LABEL_135:
             atomic_fetch_add_explicit(&v23->__shared_owners_, 1uLL, memory_order_relaxed);
           }
 
-          std::string::basic_string[abi:ne200100]<0>(v90, "ResetAfterOTASPTime");
+          std::string::basic_string[abi:ne200100]<0>(v89, "ResetAfterOTASPTime");
           v45 = *(a1 + 32);
-          v89 = v45;
+          v88 = v45;
           if (v45)
           {
             dispatch_retain(v45);
           }
 
-          v87[0] = MEMORY[0x277D85DD0];
-          v87[1] = 0x40000000;
-          v87[2] = ___ZN12OTASPService25handleOtaspCallIndicationEbiN10subscriber7SimSlotE_block_invoke_7;
-          v87[3] = &__block_descriptor_tmp_8;
-          v87[4] = a1;
-          v88 = _Block_copy(v87);
-          ctu::TimerService::createOneShotTimer(v44, v90, 2, 8000000, &v89, &v88);
+          v86[0] = MEMORY[0x277D85DD0];
+          v86[1] = 0x40000000;
+          v86[2] = ___ZN12OTASPService25handleOtaspCallIndicationEbiN10subscriber7SimSlotE_block_invoke_7;
+          v86[3] = &__block_descriptor_tmp_8;
+          v86[4] = a1;
+          v87 = _Block_copy(v86);
+          ctu::TimerService::createOneShotTimer(v44, v89, 2, 8000000, &v88, &v87);
           v46 = *buf;
           *buf = 0;
           v47 = *(a1 + 88);
@@ -1285,26 +1285,26 @@ LABEL_135:
             }
           }
 
+          if (v87)
+          {
+            _Block_release(v87);
+          }
+
           if (v88)
           {
-            _Block_release(v88);
+            dispatch_release(v88);
           }
 
-          if (v89)
-          {
-            dispatch_release(v89);
-          }
-
-          if ((v91 & 0x80000000) == 0)
+          if ((v90 & 0x80000000) == 0)
           {
             goto LABEL_87;
           }
 
-          v29 = v90[0];
+          v29 = v89[0];
           goto LABEL_86;
         }
 
-        goto LABEL_132;
+        return 0;
       }
 
       v51 = *(a1 + 24);
@@ -1313,16 +1313,205 @@ LABEL_135:
         *buf = 0;
         _os_log_impl(&dword_2373EA000, v51, OS_LOG_TYPE_DEFAULT, "#E Unexpected OTASP Indication. Ignoring. Command driver will continue to processing this indication.", buf, 2u);
       }
+
+      return 1;
     }
 
-LABEL_139:
-    result = 1;
-    goto LABEL_140;
+    if (!a2)
+    {
+      return 1;
+    }
+
+    v30 = *(a1 + 24);
+    if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 0;
+      _os_log_impl(&dword_2373EA000, v30, OS_LOG_TYPE_DEFAULT, "#I Visual OTASP & END indication", buf, 2u);
+    }
+
+    v31 = *(a1 + 40);
+    Registry::throwIfNotInitialized(v31);
+    v32 = *(v31 + 24);
+    v33 = off_284A6AB08;
+    v34 = off_284A6AB08;
+    if ((off_284A6AB08 & 0x8000000000000000) != 0)
+    {
+      v35 = (off_284A6AB08 & 0x7FFFFFFFFFFFFFFFLL);
+      v36 = 5381;
+      do
+      {
+        v34 = v36;
+        v37 = *v35++;
+        v36 = (33 * v36) ^ v37;
+      }
+
+      while (v37);
+    }
+
+    std::mutex::lock(v32 + 3);
+    *buf = v34;
+    v38 = std::__hash_table<std::__hash_value_type<unsigned long,std::shared_ptr<void>>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,std::shared_ptr<void>>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,std::shared_ptr<void>>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,std::shared_ptr<void>>>>::find<unsigned long>(&v32[4].__m_.__sig, buf);
+    if (v38)
+    {
+      v40 = v38[3];
+      v39 = v38[4];
+      if (v39)
+      {
+        atomic_fetch_add_explicit(&v39->__shared_owners_, 1uLL, memory_order_relaxed);
+        std::mutex::unlock(v32 + 3);
+        atomic_fetch_add_explicit(&v39->__shared_owners_, 1uLL, memory_order_relaxed);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v39);
+        v41 = 0;
+        goto LABEL_99;
+      }
+    }
+
+    else
+    {
+      v40 = 0;
+    }
+
+    std::mutex::unlock(v32 + 3);
+    v39 = 0;
+    v41 = 1;
+LABEL_99:
+    (*(*v40 + 56))(v40, 8);
+    if ((v41 & 1) == 0)
+    {
+      std::__shared_weak_count::__release_shared[abi:ne200100](v39);
+    }
+
+    (*(**(a1 + 96) + 16))(*(a1 + 96), 8);
+    event::EventLogger<void ()(subscriber::SimSlot),event::CSIEventLogger>::operator()<subscriber::SimSlot>(v4);
+    if (*(a1 + 78) == 1 && *(a1 + 82) == 1 && *(a1 + 83) == 1 && (*(a1 + 84) & 1) == 0)
+    {
+      OTASPService::sendOTASPFailureToUI(a1);
+LABEL_138:
+      *(a1 + 78) = 0;
+      return 1;
+    }
+
+    if (*(a1 + 84) == 1)
+    {
+      OTASPService::sendOTASPSuccessToUI(a1);
+      v70 = *(*(a1 + 40) + 24);
+      v72 = *(v70 + 32);
+      v71 = *(v70 + 40);
+      if (v71)
+      {
+        atomic_fetch_add_explicit(&v71->__shared_owners_, 1uLL, memory_order_relaxed);
+      }
+
+      std::string::basic_string[abi:ne200100]<0>(__p, "ResetAfterOTASPTime");
+      v73 = *(a1 + 32);
+      v93 = v73;
+      if (v73)
+      {
+        dispatch_retain(v73);
+      }
+
+      v91[0] = MEMORY[0x277D85DD0];
+      v91[1] = 0x40000000;
+      v91[2] = ___ZN12OTASPService25handleOtaspCallIndicationEbiN10subscriber7SimSlotE_block_invoke_5;
+      v91[3] = &__block_descriptor_tmp_6;
+      v91[4] = a1;
+      v92 = _Block_copy(v91);
+      ctu::TimerService::createOneShotTimer(v72, __p, 2, 8000000, &v93, &v92);
+      v74 = *buf;
+      *buf = 0;
+      v75 = *(a1 + 88);
+      *(a1 + 88) = v74;
+      if (v75)
+      {
+        (*(*v75 + 8))(v75);
+        v76 = *buf;
+        *buf = 0;
+        if (v76)
+        {
+          (*(*v76 + 8))(v76);
+        }
+      }
+
+      if (v92)
+      {
+        _Block_release(v92);
+      }
+
+      if (v93)
+      {
+        dispatch_release(v93);
+      }
+
+      if (v95 < 0)
+      {
+        operator delete(__p[0]);
+      }
+
+      if (v71)
+      {
+        std::__shared_weak_count::__release_shared[abi:ne200100](v71);
+      }
+
+      goto LABEL_138;
+    }
+
+    v77 = *(a1 + 40);
+    Registry::throwIfNotInitialized(v77);
+    v78 = *(v77 + 24);
+    if (v33 < 0)
+    {
+      v79 = (v33 & 0x7FFFFFFFFFFFFFFFLL);
+      v80 = 5381;
+      do
+      {
+        v33 = v80;
+        v81 = *v79++;
+        v80 = (33 * v80) ^ v81;
+      }
+
+      while (v81);
+    }
+
+    std::mutex::lock(v78 + 3);
+    *buf = v33;
+    v82 = std::__hash_table<std::__hash_value_type<unsigned long,std::shared_ptr<void>>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,std::shared_ptr<void>>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,std::shared_ptr<void>>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,std::shared_ptr<void>>>>::find<unsigned long>(&v78[4].__m_.__sig, buf);
+    if (v82)
+    {
+      v84 = v82[3];
+      v83 = v82[4];
+      if (v83)
+      {
+        atomic_fetch_add_explicit(&v83->__shared_owners_, 1uLL, memory_order_relaxed);
+        std::mutex::unlock(v78 + 3);
+        atomic_fetch_add_explicit(&v83->__shared_owners_, 1uLL, memory_order_relaxed);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v83);
+        v85 = 0;
+LABEL_135:
+        (*(*v84 + 24))(v84);
+        if ((v85 & 1) == 0)
+        {
+          std::__shared_weak_count::__release_shared[abi:ne200100](v83);
+        }
+
+        (*(**(a1 + 96) + 24))(*(a1 + 96));
+        goto LABEL_138;
+      }
+    }
+
+    else
+    {
+      v84 = 0;
+    }
+
+    std::mutex::unlock(v78 + 3);
+    v83 = 0;
+    v85 = 1;
+    goto LABEL_135;
   }
 
   if (!a2)
   {
-    goto LABEL_132;
+    return 0;
   }
 
   v19 = *(a1 + 24);
@@ -1345,7 +1534,7 @@ LABEL_139:
 
     if (*(a1 + 80) != 1)
     {
-      goto LABEL_132;
+      return 0;
     }
 
     v21 = *(a1 + 24);
@@ -1363,7 +1552,7 @@ LABEL_139:
       atomic_fetch_add_explicit(&v23->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
-    std::string::basic_string[abi:ne200100]<0>(v100, "ResetAfterOTASPTime");
+    std::string::basic_string[abi:ne200100]<0>(v99, "ResetAfterOTASPTime");
     v25 = *(a1 + 32);
     object = v25;
     if (v25)
@@ -1376,8 +1565,8 @@ LABEL_139:
     aBlock[2] = ___ZN12OTASPService25handleOtaspCallIndicationEbiN10subscriber7SimSlotE_block_invoke_3;
     aBlock[3] = &__block_descriptor_tmp_4;
     aBlock[4] = a1;
-    v98 = _Block_copy(aBlock);
-    ctu::TimerService::createOneShotTimer(v24, v100, 2, 8000000, &object, &v98);
+    v97 = _Block_copy(aBlock);
+    ctu::TimerService::createOneShotTimer(v24, v99, 2, 8000000, &object, &v97);
     v26 = *buf;
     *buf = 0;
     v27 = *(a1 + 88);
@@ -1393,9 +1582,9 @@ LABEL_139:
       }
     }
 
-    if (v98)
+    if (v97)
     {
-      _Block_release(v98);
+      _Block_release(v97);
     }
 
     if (object)
@@ -1403,12 +1592,12 @@ LABEL_139:
       dispatch_release(object);
     }
 
-    if ((v101 & 0x80000000) == 0)
+    if ((v100 & 0x80000000) == 0)
     {
       goto LABEL_87;
     }
 
-    v29 = v100[0];
+    v29 = v99[0];
     goto LABEL_86;
   }
 
@@ -1418,11 +1607,9 @@ LABEL_139:
   {
     *buf = 0;
     _os_log_impl(&dword_2373EA000, v49, OS_LOG_TYPE_DEFAULT, "#E Sim OTASP failed, marking card provisioning as failed", buf, 2u);
-    goto LABEL_132;
+    return 0;
   }
 
-LABEL_140:
-  v86 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -1438,33 +1625,33 @@ void sub_237456604(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void event::EventLogger<void ()(subscriber::SimSlot),event::CSIEventLogger>::operator()<subscriber::SimSlot>(int a1)
 {
-  v64 = *MEMORY[0x277D85DE8];
-  LODWORD(v35[0]) = a1;
-  v59 = 0;
-  v57 = 0u;
-  v58 = 0u;
-  v55 = 0u;
+  v63 = *MEMORY[0x277D85DE8];
+  LODWORD(v34[0]) = a1;
+  v58 = 0;
   v56 = 0u;
-  v53 = 0u;
+  v57 = 0u;
   v54 = 0u;
-  v51 = 0u;
+  v55 = 0u;
   v52 = 0u;
-  v49 = 0u;
+  v53 = 0u;
   v50 = 0u;
-  v47 = 0u;
+  v51 = 0u;
   v48 = 0u;
-  v45 = 0u;
-  __src = 0u;
-  v43 = 0u;
+  v49 = 0u;
+  v46 = 0u;
+  v47 = 0u;
   v44 = 0u;
-  std::ostringstream::basic_ostringstream[abi:ne200100](&v43);
-  subscriber::operator<<(&v43, v35);
-  if ((BYTE8(v49) & 0x10) != 0)
+  __src = 0u;
+  v42 = 0u;
+  v43 = 0u;
+  std::ostringstream::basic_ostringstream[abi:ne200100](&v42);
+  subscriber::operator<<(&v42, v34);
+  if ((BYTE8(v48) & 0x10) != 0)
   {
-    v3 = v49;
-    if (v49 < *(&__src + 1))
+    v3 = v48;
+    if (v48 < *(&__src + 1))
     {
-      *&v49 = *(&__src + 1);
+      *&v48 = *(&__src + 1);
       v3 = *(&__src + 1);
     }
 
@@ -1473,15 +1660,15 @@ void event::EventLogger<void ()(subscriber::SimSlot),event::CSIEventLogger>::ope
 
   else
   {
-    if ((BYTE8(v49) & 8) == 0)
+    if ((BYTE8(v48) & 8) == 0)
     {
       v2 = 0;
-      BYTE7(v40) = 0;
+      BYTE7(v39) = 0;
       goto LABEL_14;
     }
 
-    v4 = *(&v44 + 1);
-    v3 = *(&v45 + 1);
+    v4 = *(&v43 + 1);
+    v3 = *(&v44 + 1);
   }
 
   v2 = v3 - v4;
@@ -1495,7 +1682,7 @@ void event::EventLogger<void ()(subscriber::SimSlot),event::CSIEventLogger>::ope
     operator new();
   }
 
-  BYTE7(v40) = v3 - v4;
+  BYTE7(v39) = v3 - v4;
   if (v2)
   {
     memmove(&__dst, v4, v2);
@@ -1506,7 +1693,7 @@ LABEL_14:
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     p_dst = &__dst;
-    if (SBYTE7(v40) < 0)
+    if (SBYTE7(v39) < 0)
     {
       p_dst = __dst;
     }
@@ -1518,46 +1705,46 @@ LABEL_14:
     _os_log_impl(&dword_2373EA000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Firing event '%s': with params= %s", buf, 0x16u);
   }
 
-  if (SBYTE7(v40) < 0)
+  if (SBYTE7(v39) < 0)
   {
     operator delete(__dst);
   }
 
-  *&v43 = *MEMORY[0x277D82828];
-  *(&v43 + *(v43 - 24)) = *(MEMORY[0x277D82828] + 24);
-  *(&v43 + 1) = MEMORY[0x277D82878] + 16;
-  if (SHIBYTE(v48) < 0)
+  *&v42 = *MEMORY[0x277D82828];
+  *(&v42 + *(v42 - 24)) = *(MEMORY[0x277D82828] + 24);
+  *(&v42 + 1) = MEMORY[0x277D82878] + 16;
+  if (SHIBYTE(v47) < 0)
   {
-    operator delete(*(&v47 + 1));
+    operator delete(*(&v46 + 1));
   }
 
-  *(&v43 + 1) = MEMORY[0x277D82868] + 16;
-  std::locale::~locale(&v44);
+  *(&v42 + 1) = MEMORY[0x277D82868] + 16;
+  std::locale::~locale(&v43);
   std::ostream::~ostream();
-  MEMORY[0x2383CBE70](&v50);
+  MEMORY[0x2383CBE70](&v49);
   v6 = qword_280CE8C70;
   if (!qword_280CE8C70)
   {
     __assert_rtn("operator*", "shared_ptr.hpp", 780, "px != 0");
   }
 
-  v38 = a1;
-  v37 = 0uLL;
-  v53 = 0u;
-  v54 = 0u;
-  v51 = 0u;
+  v37 = a1;
+  v36 = 0uLL;
   v52 = 0u;
-  v49 = 0u;
+  v53 = 0u;
   v50 = 0u;
-  v47 = 0u;
+  v51 = 0u;
   v48 = 0u;
-  v45 = 0u;
-  __src = 0u;
-  v43 = 0u;
+  v49 = 0u;
+  v46 = 0u;
+  v47 = 0u;
   v44 = 0u;
+  __src = 0u;
+  v42 = 0u;
+  v43 = 0u;
   v7 = *(qword_280CE8C70 + 24);
   boost::shared_ptr<boost::signals2::mutex>::operator*(v7);
-  boost::signals2::detail::garbage_collecting_lock<boost::signals2::mutex>::garbage_collecting_lock(&v43, v7);
+  boost::signals2::detail::garbage_collecting_lock<boost::signals2::mutex>::garbage_collecting_lock(&v42, v7);
   v8 = v6[1];
   if (v8)
   {
@@ -1596,71 +1783,71 @@ LABEL_14:
     v14 = *v6;
   }
 
-  v16 = v37;
-  *&v37 = v14;
-  *(&v37 + 1) = v15;
+  v16 = v36;
+  *&v36 = v14;
+  *(&v36 + 1) = v15;
   __dst = v16;
   boost::detail::shared_count::~shared_count(&__dst + 1);
-  boost::signals2::mutex::unlock(*(&v54 + 1));
-  boost::signals2::detail::auto_buffer<boost::shared_ptr<void>,boost::signals2::detail::store_n_objects<10u>,boost::signals2::detail::default_grow_policy,std::allocator<boost::shared_ptr<void>>>::auto_buffer_destroy(&v43);
-  v56 = 0u;
-  v57 = 0u;
-  v54 = 0u;
+  boost::signals2::mutex::unlock(*(&v53 + 1));
+  boost::signals2::detail::auto_buffer<boost::shared_ptr<void>,boost::signals2::detail::store_n_objects<10u>,boost::signals2::detail::default_grow_policy,std::allocator<boost::shared_ptr<void>>>::auto_buffer_destroy(&v42);
   v55 = 0u;
-  v52 = 0u;
+  v56 = 0u;
   v53 = 0u;
-  v50 = 0u;
+  v54 = 0u;
   v51 = 0u;
-  v48 = 0u;
+  v52 = 0u;
   v49 = 0u;
-  __src = 0u;
+  v50 = 0u;
   v47 = 0u;
-  v44 = 0u;
-  v45 = 0u;
+  v48 = 0u;
+  __src = 0u;
+  v46 = 0u;
   v43 = 0u;
-  *&v58 = 0;
-  *(&v58 + 1) = 10;
-  v59 = &v43 + 8;
-  v60 = 0;
+  v44 = 0u;
+  v42 = 0u;
+  *&v57 = 0;
+  *(&v57 + 1) = 10;
+  v58 = &v42 + 8;
+  v59 = 0;
+  v61 = 0;
   v62 = 0;
-  v63 = 0;
-  v61 = &v38;
-  v17 = boost::shared_ptr<boost::signals2::detail::signal_impl<void ()(subscriber::SimSlot),boost::signals2::optional_last_value<void>,int,std::less<int>,boost::function<void ()(subscriber::SimSlot)>,boost::function<void ()(boost::signals2::connection const&,subscriber::SimSlot)>,boost::signals2::mutex>::invocation_state>::operator->(&v37);
+  v60 = &v37;
+  v17 = boost::shared_ptr<boost::signals2::detail::signal_impl<void ()(subscriber::SimSlot),boost::signals2::optional_last_value<void>,int,std::less<int>,boost::function<void ()(subscriber::SimSlot)>,boost::function<void ()(boost::signals2::connection const&,subscriber::SimSlot)>,boost::signals2::mutex>::invocation_state>::operator->(&v36);
   v18 = boost::shared_ptr<boost::signals2::detail::grouped_list<int,std::less<int>,boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(subscriber::SimSlot),boost::function<void ()(subscriber::SimSlot)>>,boost::signals2::mutex>>>>::operator*(v17);
-  v36[0] = &v43;
-  v36[1] = v6;
-  v36[2] = v18;
-  if (!*(boost::shared_ptr<boost::signals2::detail::signal_impl<void ()(subscriber::SimSlot),boost::signals2::optional_last_value<void>,int,std::less<int>,boost::function<void ()(subscriber::SimSlot)>,boost::function<void ()(boost::signals2::connection const&,subscriber::SimSlot)>,boost::signals2::mutex>::invocation_state>::operator->(&v37) + 16))
+  v35[0] = &v42;
+  v35[1] = v6;
+  v35[2] = v18;
+  if (!*(boost::shared_ptr<boost::signals2::detail::signal_impl<void ()(subscriber::SimSlot),boost::signals2::optional_last_value<void>,int,std::less<int>,boost::function<void ()(subscriber::SimSlot)>,boost::function<void ()(boost::signals2::connection const&,subscriber::SimSlot)>,boost::signals2::mutex>::invocation_state>::operator->(&v36) + 16))
   {
     __assert_rtn("operator*", "shared_ptr.hpp", 780, "px != 0");
   }
 
-  v19 = boost::shared_ptr<boost::signals2::detail::signal_impl<void ()(subscriber::SimSlot),boost::signals2::optional_last_value<void>,int,std::less<int>,boost::function<void ()(subscriber::SimSlot)>,boost::function<void ()(boost::signals2::connection const&,subscriber::SimSlot)>,boost::signals2::mutex>::invocation_state>::operator->(&v37);
+  v19 = boost::shared_ptr<boost::signals2::detail::signal_impl<void ()(subscriber::SimSlot),boost::signals2::optional_last_value<void>,int,std::less<int>,boost::function<void ()(subscriber::SimSlot)>,boost::function<void ()(boost::signals2::connection const&,subscriber::SimSlot)>,boost::signals2::mutex>::invocation_state>::operator->(&v36);
   v20 = *(boost::shared_ptr<boost::signals2::detail::grouped_list<int,std::less<int>,boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(subscriber::SimSlot),boost::function<void ()(subscriber::SimSlot)>>,boost::signals2::mutex>>>>::operator*(v19) + 8);
-  v21 = boost::shared_ptr<boost::signals2::detail::signal_impl<void ()(subscriber::SimSlot),boost::signals2::optional_last_value<void>,int,std::less<int>,boost::function<void ()(subscriber::SimSlot)>,boost::function<void ()(boost::signals2::connection const&,subscriber::SimSlot)>,boost::signals2::mutex>::invocation_state>::operator->(&v37);
+  v21 = boost::shared_ptr<boost::signals2::detail::signal_impl<void ()(subscriber::SimSlot),boost::signals2::optional_last_value<void>,int,std::less<int>,boost::function<void ()(subscriber::SimSlot)>,boost::function<void ()(boost::signals2::connection const&,subscriber::SimSlot)>,boost::signals2::mutex>::invocation_state>::operator->(&v36);
   v22 = boost::shared_ptr<boost::signals2::detail::grouped_list<int,std::less<int>,boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(subscriber::SimSlot),boost::function<void ()(subscriber::SimSlot)>>,boost::signals2::mutex>>>>::operator*(v21);
   *buf = v20;
   *&buf[8] = v22;
-  *&buf[16] = &v43;
+  *&buf[16] = &v42;
   *&buf[24] = v22;
   boost::signals2::detail::slot_call_iterator_t<boost::signals2::detail::variadic_slot_invoker<boost::signals2::detail::void_type,subscriber::SimSlot>,std::__list_iterator<boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(subscriber::SimSlot),boost::function<void ()(subscriber::SimSlot)>>,boost::signals2::mutex>>,void *>,boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(subscriber::SimSlot),boost::function<void ()(subscriber::SimSlot)>>,boost::signals2::mutex>>::lock_next_callable(buf);
-  v23 = boost::shared_ptr<boost::signals2::detail::signal_impl<void ()(subscriber::SimSlot),boost::signals2::optional_last_value<void>,int,std::less<int>,boost::function<void ()(subscriber::SimSlot)>,boost::function<void ()(boost::signals2::connection const&,subscriber::SimSlot)>,boost::signals2::mutex>::invocation_state>::operator->(&v37);
+  v23 = boost::shared_ptr<boost::signals2::detail::signal_impl<void ()(subscriber::SimSlot),boost::signals2::optional_last_value<void>,int,std::less<int>,boost::function<void ()(subscriber::SimSlot)>,boost::function<void ()(boost::signals2::connection const&,subscriber::SimSlot)>,boost::signals2::mutex>::invocation_state>::operator->(&v36);
   v24 = boost::shared_ptr<boost::signals2::detail::grouped_list<int,std::less<int>,boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(subscriber::SimSlot),boost::function<void ()(subscriber::SimSlot)>>,boost::signals2::mutex>>>>::operator*(v23);
-  v25 = boost::shared_ptr<boost::signals2::detail::signal_impl<void ()(subscriber::SimSlot),boost::signals2::optional_last_value<void>,int,std::less<int>,boost::function<void ()(subscriber::SimSlot)>,boost::function<void ()(boost::signals2::connection const&,subscriber::SimSlot)>,boost::signals2::mutex>::invocation_state>::operator->(&v37);
+  v25 = boost::shared_ptr<boost::signals2::detail::signal_impl<void ()(subscriber::SimSlot),boost::signals2::optional_last_value<void>,int,std::less<int>,boost::function<void ()(subscriber::SimSlot)>,boost::function<void ()(boost::signals2::connection const&,subscriber::SimSlot)>,boost::signals2::mutex>::invocation_state>::operator->(&v36);
   v26 = boost::shared_ptr<boost::signals2::detail::grouped_list<int,std::less<int>,boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(subscriber::SimSlot),boost::function<void ()(subscriber::SimSlot)>>,boost::signals2::mutex>>>>::operator*(v25);
-  v35[0] = v24;
-  v35[1] = v26;
-  v35[2] = &v43;
-  v35[3] = v26;
-  boost::signals2::detail::slot_call_iterator_t<boost::signals2::detail::variadic_slot_invoker<boost::signals2::detail::void_type,subscriber::SimSlot>,std::__list_iterator<boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(subscriber::SimSlot),boost::function<void ()(subscriber::SimSlot)>>,boost::signals2::mutex>>,void *>,boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(subscriber::SimSlot),boost::function<void ()(subscriber::SimSlot)>>,boost::signals2::mutex>>::lock_next_callable(v35);
+  v34[0] = v24;
+  v34[1] = v26;
+  v34[2] = &v42;
+  v34[3] = v26;
+  boost::signals2::detail::slot_call_iterator_t<boost::signals2::detail::variadic_slot_invoker<boost::signals2::detail::void_type,subscriber::SimSlot>,std::__list_iterator<boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(subscriber::SimSlot),boost::function<void ()(subscriber::SimSlot)>>,boost::signals2::mutex>>,void *>,boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(subscriber::SimSlot),boost::function<void ()(subscriber::SimSlot)>>,boost::signals2::mutex>>::lock_next_callable(v34);
   __dst = *buf;
-  v40 = *&buf[16];
-  v27 = v35[0];
+  v39 = *&buf[16];
+  v27 = v34[0];
   v28 = *buf;
-  if (*buf != v35[0])
+  if (*buf != v34[0])
   {
-    v29 = v40;
-    v30 = *v40;
+    v29 = v39;
+    v30 = *v39;
     do
     {
       if ((v30 & 1) == 0)
@@ -1670,9 +1857,9 @@ LABEL_14:
         v33 = *(v32 + 24);
         if (!v33)
         {
-          std::runtime_error::runtime_error(&v41, "call to empty boost::function");
-          v41.__vftable = &unk_284A6B370;
-          boost::throw_exception<boost::bad_function_call>(&v41);
+          std::runtime_error::runtime_error(&v40, "call to empty boost::function");
+          v40.__vftable = &unk_284A6B370;
+          boost::throw_exception<boost::bad_function_call>(&v40);
         }
 
         (*((v33 & 0xFFFFFFFFFFFFFFFELL) + 8))(v32 + 32, **(v29 + 272));
@@ -1684,10 +1871,10 @@ LABEL_14:
 
       *&__dst = *(v28 + 8);
       boost::signals2::detail::slot_call_iterator_t<boost::signals2::detail::variadic_slot_invoker<boost::signals2::detail::void_type,subscriber::SimSlot>,std::__list_iterator<boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(subscriber::SimSlot),boost::function<void ()(subscriber::SimSlot)>>,boost::signals2::mutex>>,void *>,boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(subscriber::SimSlot),boost::function<void ()(subscriber::SimSlot)>>,boost::signals2::mutex>>::lock_next_callable(&__dst);
-      v29 = v40;
-      if (*v40 == 1)
+      v29 = v39;
+      if (*v39 == 1)
       {
-        *v40 = 0;
+        *v39 = 0;
       }
 
       v30 = 0;
@@ -1697,10 +1884,9 @@ LABEL_14:
     while (__dst != v27);
   }
 
-  boost::signals2::detail::signal_impl<void ()(subscriber::SimSlot),boost::signals2::optional_last_value<void>,int,std::less<int>,boost::function<void ()(subscriber::SimSlot)>,boost::function<void ()(boost::signals2::connection const&,subscriber::SimSlot)>,boost::signals2::mutex>::invocation_janitor::~invocation_janitor(v36);
-  boost::signals2::detail::slot_call_iterator_cache<boost::signals2::detail::void_type,boost::signals2::detail::variadic_slot_invoker<boost::signals2::detail::void_type,subscriber::SimSlot>>::~slot_call_iterator_cache(&v43);
-  boost::detail::shared_count::~shared_count(&v37 + 1);
-  v34 = *MEMORY[0x277D85DE8];
+  boost::signals2::detail::signal_impl<void ()(subscriber::SimSlot),boost::signals2::optional_last_value<void>,int,std::less<int>,boost::function<void ()(subscriber::SimSlot)>,boost::function<void ()(boost::signals2::connection const&,subscriber::SimSlot)>,boost::signals2::mutex>::invocation_janitor::~invocation_janitor(v35);
+  boost::signals2::detail::slot_call_iterator_cache<boost::signals2::detail::void_type,boost::signals2::detail::variadic_slot_invoker<boost::signals2::detail::void_type,subscriber::SimSlot>>::~slot_call_iterator_cache(&v42);
+  boost::detail::shared_count::~shared_count(&v36 + 1);
 }
 
 void sub_237456DF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, char a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45)
@@ -1708,6 +1894,13 @@ void sub_237456DF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   std::ostringstream::~ostringstream(&a31, MEMORY[0x277D82828]);
   MEMORY[0x2383CBE70](&a45);
   _Unwind_Resume(a1);
+}
+
+void sub_237456E44(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, ...)
+{
+  va_start(va, a30);
+  boost::signals2::detail::garbage_collecting_lock<boost::signals2::mutex>::~garbage_collecting_lock(va);
+  JUMPOUT(0x237456E50);
 }
 
 void sub_237456E64(void *a1, int a2)
@@ -2183,7 +2376,7 @@ atomic_uint *boost::detail::sp_counted_base::release(atomic_uint *this)
   return this;
 }
 
-uint64_t boost::signals2::detail::signal_impl<void ()(subscriber::SimSlot),boost::signals2::optional_last_value<void>,int,std::less<int>,boost::function<void ()(subscriber::SimSlot)>,boost::function<void ()(boost::signals2::connection const&,subscriber::SimSlot)>,boost::signals2::mutex>::nolock_cleanup_connections_from(uint64_t *a1, uint64_t **a2, int a3)
+uint64_t *boost::signals2::detail::signal_impl<void ()(subscriber::SimSlot),boost::signals2::optional_last_value<void>,int,std::less<int>,boost::function<void ()(subscriber::SimSlot)>,boost::function<void ()(boost::signals2::connection const&,subscriber::SimSlot)>,boost::signals2::mutex>::nolock_cleanup_connections_from(uint64_t *a1, boost::detail::sp_counted_base ***a2, int a3)
 {
   v3 = a1[1];
   if (!v3 || atomic_load_explicit((v3 + 8), memory_order_acquire) != 1)
@@ -2475,19 +2668,18 @@ uint64_t boost::shared_ptr<boost::signals2::detail::grouped_list<int,std::less<i
 
 void boost::signals2::detail::connection_body_base::disconnect(boost::signals2::detail::connection_body_base *this)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v4 = 0u;
-  memset(v3, 0, sizeof(v3));
-  boost::signals2::detail::garbage_collecting_lock<boost::signals2::detail::connection_body_base>::garbage_collecting_lock(v3, this);
+  v4 = *MEMORY[0x277D85DE8];
+  v3 = 0u;
+  memset(v2, 0, sizeof(v2));
+  boost::signals2::detail::garbage_collecting_lock<boost::signals2::detail::connection_body_base>::garbage_collecting_lock(v2, this);
   if (*(this + 24) == 1)
   {
     *(this + 24) = 0;
-    boost::signals2::detail::connection_body_base::dec_slot_refcount<boost::signals2::detail::connection_body_base>(this, v3);
+    boost::signals2::detail::connection_body_base::dec_slot_refcount<boost::signals2::detail::connection_body_base>(this, v2);
   }
 
-  (*(**(&v4 + 1) + 32))(*(&v4 + 1));
-  boost::signals2::detail::auto_buffer<boost::shared_ptr<void>,boost::signals2::detail::store_n_objects<10u>,boost::signals2::detail::default_grow_policy,std::allocator<boost::shared_ptr<void>>>::auto_buffer_destroy(v3);
-  v2 = *MEMORY[0x277D85DE8];
+  (*(**(&v3 + 1) + 32))(*(&v3 + 1));
+  boost::signals2::detail::auto_buffer<boost::shared_ptr<void>,boost::signals2::detail::store_n_objects<10u>,boost::signals2::detail::default_grow_policy,std::allocator<boost::shared_ptr<void>>>::auto_buffer_destroy(v2);
 }
 
 void boost::throw_exception<boost::bad_function_call>(const std::runtime_error *a1)
@@ -2518,11 +2710,12 @@ uint64_t boost::wrapexcept<boost::bad_function_call>::~wrapexcept(uint64_t a1)
   return a1;
 }
 
-void sub_237458348(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
+void sub_237458348(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
+  va_start(va, a9);
   boost::exception_detail::refcount_ptr<boost::exception_detail::error_info_container>::~refcount_ptr(&a9);
-  boost::exception_detail::refcount_ptr<boost::exception_detail::error_info_container>::~refcount_ptr(&a10);
-  (*(*v10 + 24))(v10);
+  boost::exception_detail::refcount_ptr<boost::exception_detail::error_info_container>::~refcount_ptr(va);
+  (*(*v9 + 24))(v9);
   _Unwind_Resume(a1);
 }
 
@@ -2541,17 +2734,17 @@ void boost::wrapexcept<boost::bad_function_call>::~wrapexcept(uint64_t a1)
   JUMPOUT(0x2383CBEF0);
 }
 
-void non-virtual thunk toboost::wrapexcept<boost::bad_function_call>::~wrapexcept(uint64_t a1)
+void non-virtual thunk toboost::wrapexcept<boost::bad_function_call>::~wrapexcept(std::runtime_error *a1)
 {
-  *(a1 + 16) = &unk_284A6B398;
-  boost::exception_detail::refcount_ptr<boost::exception_detail::error_info_container>::~refcount_ptr((a1 + 24));
+  a1[1].__vftable = &unk_284A6B398;
+  boost::exception_detail::refcount_ptr<boost::exception_detail::error_info_container>::~refcount_ptr(&a1[1].__imp_);
 
   std::runtime_error::~runtime_error(a1);
 }
 
 {
-  *(a1 + 16) = &unk_284A6B398;
-  boost::exception_detail::refcount_ptr<boost::exception_detail::error_info_container>::~refcount_ptr((a1 + 24));
+  a1[1].__vftable = &unk_284A6B398;
+  boost::exception_detail::refcount_ptr<boost::exception_detail::error_info_container>::~refcount_ptr(&a1[1].__imp_);
   std::runtime_error::~runtime_error(a1);
 
   JUMPOUT(0x2383CBEF0);
@@ -2721,16 +2914,16 @@ void boost::signals2::detail::connection_body_base::dec_slot_refcount<boost::sig
   }
 }
 
-void sub_237458B30(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_237458B30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   boost::detail::shared_count::~shared_count(va);
   _Unwind_Resume(a1);
 }
 
 void boost::signals2::detail::slot_call_iterator_t<boost::signals2::detail::variadic_slot_invoker<boost::signals2::detail::void_type,subscriber::SimSlot>,std::__list_iterator<boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(subscriber::SimSlot),boost::function<void ()(subscriber::SimSlot)>>,boost::signals2::mutex>>,void *>,boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(subscriber::SimSlot),boost::function<void ()(subscriber::SimSlot)>>,boost::signals2::mutex>>::lock_next_callable(uint64_t *a1)
 {
-  v56 = *MEMORY[0x277D85DE8];
+  v55 = *MEMORY[0x277D85DE8];
   v1 = *a1;
   if (*a1 != a1[3])
   {
@@ -2764,21 +2957,21 @@ void boost::signals2::detail::slot_call_iterator_t<boost::signals2::detail::vari
         *(v3 + 264) = v5 - v4;
       }
 
-      v51 = 0u;
-      v52 = 0u;
-      v49 = 0u;
       v50 = 0u;
-      v47 = 0u;
+      v51 = 0u;
       v48 = 0u;
-      v45 = 0u;
+      v49 = 0u;
       v46 = 0u;
-      v43 = 0u;
+      v47 = 0u;
       v44 = 0u;
-      v41 = 0u;
+      v45 = 0u;
       v42 = 0u;
+      v43 = 0u;
+      v40 = 0u;
+      v41 = 0u;
       v8 = *(v1 + 16);
       boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(subscriber::SimSlot),boost::function<void ()(subscriber::SimSlot)>>,boost::signals2::mutex>>::operator*(v8);
-      boost::signals2::detail::garbage_collecting_lock<boost::signals2::detail::connection_body_base>::garbage_collecting_lock(&v41, v8);
+      boost::signals2::detail::garbage_collecting_lock<boost::signals2::detail::connection_body_base>::garbage_collecting_lock(&v40, v8);
       v9 = *(*a1 + 16);
       boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(subscriber::SimSlot),boost::function<void ()(subscriber::SimSlot)>>,boost::signals2::mutex>>::operator->(v9);
       v10 = *(v9 + 32);
@@ -2790,19 +2983,19 @@ void boost::signals2::detail::slot_call_iterator_t<boost::signals2::detail::vari
         {
           do
           {
+            v52 = 0;
             v53 = 0;
             v54 = 0;
-            v55 = 0;
             v13 = *v12 ^ (*v12 >> 31);
             if (v13 == 2)
             {
               v19 = boost::scoped_ptr<boost::signals2::detail::foreign_weak_ptr_impl_base>::operator->(*(v12 + 8));
-              (*(*v19 + 16))(&v39);
-              v54 = (*(*v39 + 16))(v39);
-              LODWORD(v53) = 1;
-              if (v39)
+              (*(*v19 + 16))(&v38);
+              v53 = (*(*v38 + 16))(v38);
+              LODWORD(v52) = 1;
+              if (v38)
               {
-                (*(*v39 + 8))(v39);
+                (*(*v38 + 8))(v38);
               }
             }
 
@@ -2811,8 +3004,8 @@ void boost::signals2::detail::slot_call_iterator_t<boost::signals2::detail::vari
               if (v13 == 1)
               {
                 v14 = *(v12 + 16);
-                v39 = 0;
-                v40 = v14;
+                v38 = 0;
+                v39 = v14;
                 if (v14)
                 {
                   v15 = v14[2];
@@ -2834,8 +3027,8 @@ void boost::signals2::detail::slot_call_iterator_t<boost::signals2::detail::vari
 
                 v18 = 0;
 LABEL_25:
-                v54 = v18;
-                v55 = v14;
+                v53 = v18;
+                v54 = v14;
               }
 
               else
@@ -2845,14 +3038,14 @@ LABEL_25:
                   boost::detail::variant::forced_return<BOOL>();
                 }
 
+                v53 = 0;
                 v54 = 0;
-                v55 = 0;
               }
 
+              v38 = 0;
               v39 = 0;
-              v40 = 0;
-              LODWORD(v53) = 0;
-              boost::detail::shared_count::~shared_count(&v40);
+              LODWORD(v52) = 0;
+              boost::detail::shared_count::~shared_count(&v39);
             }
 
             v20 = *v12 ^ (*v12 >> 31);
@@ -2879,10 +3072,10 @@ LABEL_43:
                 if (*(v9 + 24) == 1)
                 {
                   *(v9 + 24) = 0;
-                  boost::signals2::detail::connection_body_base::dec_slot_refcount<boost::signals2::detail::connection_body_base>(v9, &v41);
+                  boost::signals2::detail::connection_body_base::dec_slot_refcount<boost::signals2::detail::connection_body_base>(v9, &v40);
                 }
 
-                boost::variant<boost::shared_ptr<void>,boost::signals2::detail::foreign_void_shared_ptr>::destroy_content(&v53);
+                boost::variant<boost::shared_ptr<void>,boost::signals2::detail::foreign_void_shared_ptr>::destroy_content(&v52);
                 break;
               }
             }
@@ -2892,9 +3085,9 @@ LABEL_43:
             {
               if (v23 <= 9)
               {
-                v36 = 793;
-                v37 = "reserve";
-                v38 = "members_.capacity_ >= N";
+                v35 = 793;
+                v36 = "reserve";
+                v37 = "members_.capacity_ >= N";
               }
 
               else
@@ -2921,17 +3114,17 @@ LABEL_43:
                   std::__throw_bad_array_new_length[abi:ne200100]();
                 }
 
-                v36 = 767;
-                v37 = "unchecked_push_back";
-                v38 = "!full()";
+                v35 = 767;
+                v36 = "unchecked_push_back";
+                v37 = "!full()";
               }
 
-              __assert_rtn(v37, "auto_buffer.hpp", v36, v38);
+              __assert_rtn(v36, "auto_buffer.hpp", v35, v37);
             }
 
-            boost::variant<boost::shared_ptr<void>,boost::signals2::detail::foreign_void_shared_ptr>::variant(v11[32] + 24 * v23, &v53);
+            boost::variant<boost::shared_ptr<void>,boost::signals2::detail::foreign_void_shared_ptr>::variant(v11[32] + 24 * v23, &v52);
             ++v11[33];
-            boost::variant<boost::shared_ptr<void>,boost::signals2::detail::foreign_void_shared_ptr>::destroy_content(&v53);
+            boost::variant<boost::shared_ptr<void>,boost::signals2::detail::foreign_void_shared_ptr>::destroy_content(&v52);
             v12 += 24;
           }
 
@@ -2959,12 +3152,12 @@ LABEL_43:
 
       else
       {
-        boost::signals2::detail::slot_call_iterator_t<boost::signals2::detail::variadic_slot_invoker<boost::signals2::detail::void_type,subscriber::SimSlot>,std::__list_iterator<boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(subscriber::SimSlot),boost::function<void ()(subscriber::SimSlot)>>,boost::signals2::mutex>>,void *>,boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(subscriber::SimSlot),boost::function<void ()(subscriber::SimSlot)>>,boost::signals2::mutex>>::set_callable_iter(a1, &v41, *a1);
+        boost::signals2::detail::slot_call_iterator_t<boost::signals2::detail::variadic_slot_invoker<boost::signals2::detail::void_type,subscriber::SimSlot>,std::__list_iterator<boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(subscriber::SimSlot),boost::function<void ()(subscriber::SimSlot)>>,boost::signals2::mutex>>,void *>,boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(subscriber::SimSlot),boost::function<void ()(subscriber::SimSlot)>>,boost::signals2::mutex>>::set_callable_iter(a1, &v40, *a1);
         v31 = 0;
       }
 
-      (*(**(&v52 + 1) + 32))(*(&v52 + 1));
-      boost::signals2::detail::auto_buffer<boost::shared_ptr<void>,boost::signals2::detail::store_n_objects<10u>,boost::signals2::detail::default_grow_policy,std::allocator<boost::shared_ptr<void>>>::auto_buffer_destroy(&v41);
+      (*(**(&v51 + 1) + 32))(*(&v51 + 1));
+      boost::signals2::detail::auto_buffer<boost::shared_ptr<void>,boost::signals2::detail::store_n_objects<10u>,boost::signals2::detail::default_grow_policy,std::allocator<boost::shared_ptr<void>>>::auto_buffer_destroy(&v40);
       v1 = *a1;
       v32 = a1[1];
       if (!v31)
@@ -2987,29 +3180,27 @@ LABEL_58:
       v33 = a1[3];
       if (v33 != v1)
       {
-        v51 = 0u;
-        v52 = 0u;
-        v49 = 0u;
         v50 = 0u;
-        v47 = 0u;
+        v51 = 0u;
         v48 = 0u;
-        v45 = 0u;
+        v49 = 0u;
         v46 = 0u;
-        v43 = 0u;
+        v47 = 0u;
         v44 = 0u;
-        v41 = 0u;
+        v45 = 0u;
         v42 = 0u;
+        v43 = 0u;
+        v40 = 0u;
+        v41 = 0u;
         v34 = *(v33 + 16);
         boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(subscriber::SimSlot),boost::function<void ()(subscriber::SimSlot)>>,boost::signals2::mutex>>::operator*(v34);
-        boost::signals2::detail::garbage_collecting_lock<boost::signals2::detail::connection_body_base>::garbage_collecting_lock(&v41, v34);
-        boost::signals2::detail::slot_call_iterator_t<boost::signals2::detail::variadic_slot_invoker<boost::signals2::detail::void_type,subscriber::SimSlot>,std::__list_iterator<boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(subscriber::SimSlot),boost::function<void ()(subscriber::SimSlot)>>,boost::signals2::mutex>>,void *>,boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(subscriber::SimSlot),boost::function<void ()(subscriber::SimSlot)>>,boost::signals2::mutex>>::set_callable_iter(a1, &v41, a1[1]);
-        (*(**(&v52 + 1) + 32))(*(&v52 + 1));
-        boost::signals2::detail::auto_buffer<boost::shared_ptr<void>,boost::signals2::detail::store_n_objects<10u>,boost::signals2::detail::default_grow_policy,std::allocator<boost::shared_ptr<void>>>::auto_buffer_destroy(&v41);
+        boost::signals2::detail::garbage_collecting_lock<boost::signals2::detail::connection_body_base>::garbage_collecting_lock(&v40, v34);
+        boost::signals2::detail::slot_call_iterator_t<boost::signals2::detail::variadic_slot_invoker<boost::signals2::detail::void_type,subscriber::SimSlot>,std::__list_iterator<boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(subscriber::SimSlot),boost::function<void ()(subscriber::SimSlot)>>,boost::signals2::mutex>>,void *>,boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(subscriber::SimSlot),boost::function<void ()(subscriber::SimSlot)>>,boost::signals2::mutex>>::set_callable_iter(a1, &v40, a1[1]);
+        (*(**(&v51 + 1) + 32))(*(&v51 + 1));
+        boost::signals2::detail::auto_buffer<boost::shared_ptr<void>,boost::signals2::detail::store_n_objects<10u>,boost::signals2::detail::default_grow_policy,std::allocator<boost::shared_ptr<void>>>::auto_buffer_destroy(&v40);
       }
     }
   }
-
-  v35 = *MEMORY[0x277D85DE8];
 }
 
 void sub_237459198(void *a1, int a2)
@@ -3222,16 +3413,16 @@ void sub_23745954C(void *a1)
 
 void *boost::signals2::detail::signal_impl<void ()(subscriber::SimSlot),boost::signals2::optional_last_value<void>,int,std::less<int>,boost::function<void ()(subscriber::SimSlot)>,boost::function<void ()(boost::signals2::connection const&,subscriber::SimSlot)>,boost::signals2::mutex>::invocation_janitor::~invocation_janitor(void *a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if (*(*a1 + 284) > *(*a1 + 280))
   {
     v2 = a1[1];
     v3 = a1[2];
-    *v12 = 0u;
-    memset(v11, 0, sizeof(v11));
+    *v11 = 0u;
+    memset(v10, 0, sizeof(v10));
     v4 = v2[3];
     boost::shared_ptr<boost::signals2::mutex>::operator*(v4);
-    boost::signals2::detail::garbage_collecting_lock<boost::signals2::mutex>::garbage_collecting_lock(v11, v4);
+    boost::signals2::detail::garbage_collecting_lock<boost::signals2::mutex>::garbage_collecting_lock(v10, v4);
     v5 = boost::shared_ptr<boost::signals2::detail::signal_impl<void ()(subscriber::SimSlot),boost::signals2::optional_last_value<void>,int,std::less<int>,boost::function<void ()(subscriber::SimSlot)>,boost::function<void ()(boost::signals2::connection const&,subscriber::SimSlot)>,boost::signals2::mutex>::invocation_state>::operator->(v2);
     if (boost::shared_ptr<boost::signals2::detail::grouped_list<int,std::less<int>,boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(subscriber::SimSlot),boost::function<void ()(subscriber::SimSlot)>>,boost::signals2::mutex>>>>::operator*(v5) == v3)
     {
@@ -3242,25 +3433,25 @@ void *boost::signals2::detail::signal_impl<void ()(subscriber::SimSlot),boost::s
       }
 
       v7 = boost::shared_ptr<boost::signals2::detail::signal_impl<void ()(subscriber::SimSlot),boost::signals2::optional_last_value<void>,int,std::less<int>,boost::function<void ()(subscriber::SimSlot)>,boost::function<void ()(boost::signals2::connection const&,subscriber::SimSlot)>,boost::signals2::mutex>::invocation_state>::operator->(v2);
-      v10 = *(boost::shared_ptr<boost::signals2::detail::grouped_list<int,std::less<int>,boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(subscriber::SimSlot),boost::function<void ()(subscriber::SimSlot)>>,boost::signals2::mutex>>>>::operator*(v7) + 8);
-      boost::signals2::detail::signal_impl<void ()(subscriber::SimSlot),boost::signals2::optional_last_value<void>,int,std::less<int>,boost::function<void ()(subscriber::SimSlot)>,boost::function<void ()(boost::signals2::connection const&,subscriber::SimSlot)>,boost::signals2::mutex>::nolock_cleanup_connections_from(v2, &v10, 0);
+      v9 = *(boost::shared_ptr<boost::signals2::detail::grouped_list<int,std::less<int>,boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(subscriber::SimSlot),boost::function<void ()(subscriber::SimSlot)>>,boost::signals2::mutex>>>>::operator*(v7) + 8);
+      boost::signals2::detail::signal_impl<void ()(subscriber::SimSlot),boost::signals2::optional_last_value<void>,int,std::less<int>,boost::function<void ()(subscriber::SimSlot)>,boost::function<void ()(boost::signals2::connection const&,subscriber::SimSlot)>,boost::signals2::mutex>::nolock_cleanup_connections_from(v2, &v9, 0);
     }
 
-    boost::signals2::mutex::unlock(v12[1]);
-    boost::signals2::detail::auto_buffer<boost::shared_ptr<void>,boost::signals2::detail::store_n_objects<10u>,boost::signals2::detail::default_grow_policy,std::allocator<boost::shared_ptr<void>>>::auto_buffer_destroy(v11);
+    boost::signals2::mutex::unlock(v11[1]);
+    boost::signals2::detail::auto_buffer<boost::shared_ptr<void>,boost::signals2::detail::store_n_objects<10u>,boost::signals2::detail::default_grow_policy,std::allocator<boost::shared_ptr<void>>>::auto_buffer_destroy(v10);
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return a1;
 }
 
-void sub_237459790(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11)
+void sub_237459790(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
 {
+  va_start(va, a10);
   if (a2)
   {
-    MEMORY[0x2383CBEF0](v12, 0x1020C40A2524F59);
-    MEMORY[0x2383CBEF0](v11, 0x20C40DC1BFBCFLL);
-    boost::signals2::detail::garbage_collecting_lock<boost::signals2::mutex>::~garbage_collecting_lock(&a11);
+    MEMORY[0x2383CBEF0](v11, 0x1020C40A2524F59, a3, a4, a5, a6, a7, a8);
+    MEMORY[0x2383CBEF0](v10, 0x20C40DC1BFBCFLL);
+    boost::signals2::detail::garbage_collecting_lock<boost::signals2::mutex>::~garbage_collecting_lock(va);
     __clang_call_terminate(exception_object);
   }
 
@@ -3271,7 +3462,7 @@ void boost::shared_ptr<boost::signals2::detail::signal_impl<void ()(subscriber::
 {
   *a1 = a2;
   a1[1] = 0;
-  boost::detail::shared_count::shared_count<boost::signals2::detail::signal_impl<void ()(subscriber::SimSlot),boost::signals2::optional_last_value<void>,int,std::less<int>,boost::function<void ()(subscriber::SimSlot)>,boost::function<void ()(boost::signals2::connection const&,subscriber::SimSlot)>,boost::signals2::mutex>::invocation_state>(&v2);
+  boost::detail::shared_count::shared_count<boost::signals2::detail::signal_impl<void ()(subscriber::SimSlot),boost::signals2::optional_last_value<void>,int,std::less<int>,boost::function<void ()(subscriber::SimSlot)>,boost::function<void ()(boost::signals2::connection const&,subscriber::SimSlot)>,boost::signals2::mutex>::invocation_state>(&v2, a2);
 }
 
 void sub_2374598F0(void *a1)
@@ -3439,34 +3630,35 @@ uint64_t boost::signals2::detail::grouped_list<int,std::less<int>,boost::shared_
   return a1;
 }
 
-void *std::list<boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(subscriber::SimSlot),boost::function<void ()(subscriber::SimSlot)>>,boost::signals2::mutex>>>::list(void *result, uint64_t a2)
+uint64_t *std::list<boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(subscriber::SimSlot),boost::function<void ()(subscriber::SimSlot)>>,boost::signals2::mutex>>>::list(uint64_t *a1, uint64_t a2)
 {
-  *result = result;
-  result[1] = result;
-  result[2] = 0;
-  if (*(a2 + 8) != a2)
+  *a1 = a1;
+  a1[1] = a1;
+  a1[2] = 0;
+  v2 = *(a2 + 8);
+  if (v2 != a2)
   {
-    std::list<boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(subscriber::SimSlot),boost::function<void ()(subscriber::SimSlot)>>,boost::signals2::mutex>>>::push_back();
+    std::list<boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(subscriber::SimSlot),boost::function<void ()(subscriber::SimSlot)>>,boost::signals2::mutex>>>::push_back(a1, (v2 + 16));
   }
 
-  return result;
+  return a1;
 }
 
-void std::__list_imp<boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(subscriber::SimSlot),boost::function<void ()(subscriber::SimSlot)>>,boost::signals2::mutex>>>::clear(atomic_uint **a1)
+void std::__list_imp<boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(subscriber::SimSlot),boost::function<void ()(subscriber::SimSlot)>>,boost::signals2::mutex>>>::clear(boost::detail::sp_counted_base **a1)
 {
   if (a1[2])
   {
     v2 = a1[1];
     v3 = *(*a1 + 1);
     v4 = *v2;
-    *(v4 + 1) = v3;
+    *(v4 + 8) = v3;
     *v3 = v4;
     a1[2] = 0;
     if (v2 != a1)
     {
       do
       {
-        v5 = v2[1];
+        v5 = *(v2 + 1);
         boost::detail::shared_count::~shared_count(v2 + 3);
         operator delete(v2);
         v2 = v5;
@@ -3496,7 +3688,7 @@ uint64_t std::map<std::pair<boost::signals2::detail::slot_meta_group,boost::opti
     v5 = result;
     do
     {
-      result = std::__tree<std::__value_type<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,std::__list_iterator<boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(subscriber::SimSlot),boost::function<void ()(subscriber::SimSlot)>>,boost::signals2::mutex>>,void *>>,std::__map_value_compare<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,std::__value_type<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,std::__list_iterator<boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(subscriber::SimSlot),boost::function<void ()(subscriber::SimSlot)>>,boost::signals2::mutex>>,void *>>,boost::signals2::detail::group_key_less<int,std::less<int>>,false>,std::allocator<std::__value_type<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,std::__list_iterator<boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(subscriber::SimSlot),boost::function<void ()(subscriber::SimSlot)>>,boost::signals2::mutex>>,void *>>>>::__emplace_hint_unique_key_args<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,std::pair<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>> const,std::__list_iterator<boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(subscriber::SimSlot),boost::function<void ()(subscriber::SimSlot)>>,boost::signals2::mutex>>,void *>> const&>(v5, v5 + 1, (v4 + 4));
+      result = std::__tree<std::__value_type<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,std::__list_iterator<boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(subscriber::SimSlot),boost::function<void ()(subscriber::SimSlot)>>,boost::signals2::mutex>>,void *>>,std::__map_value_compare<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,std::__value_type<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,std::__list_iterator<boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(subscriber::SimSlot),boost::function<void ()(subscriber::SimSlot)>>,boost::signals2::mutex>>,void *>>,boost::signals2::detail::group_key_less<int,std::less<int>>,false>,std::allocator<std::__value_type<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,std::__list_iterator<boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(subscriber::SimSlot),boost::function<void ()(subscriber::SimSlot)>>,boost::signals2::mutex>>,void *>>>>::__emplace_hint_unique_key_args<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,std::pair<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>> const,std::__list_iterator<boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(subscriber::SimSlot),boost::function<void ()(subscriber::SimSlot)>>,boost::signals2::mutex>>,void *>> const&>(v5, (v5 + 8), (v4 + 4), (v4 + 4));
       v6 = v4[1];
       if (v6)
       {
@@ -3530,17 +3722,17 @@ uint64_t std::map<std::pair<boost::signals2::detail::slot_meta_group,boost::opti
   return result;
 }
 
-uint64_t std::__tree<std::__value_type<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,std::__list_iterator<boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(subscriber::SimSlot),boost::function<void ()(subscriber::SimSlot)>>,boost::signals2::mutex>>,void *>>,std::__map_value_compare<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,std::__value_type<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,std::__list_iterator<boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(subscriber::SimSlot),boost::function<void ()(subscriber::SimSlot)>>,boost::signals2::mutex>>,void *>>,boost::signals2::detail::group_key_less<int,std::less<int>>,false>,std::allocator<std::__value_type<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,std::__list_iterator<boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(subscriber::SimSlot),boost::function<void ()(subscriber::SimSlot)>>,boost::signals2::mutex>>,void *>>>>::__emplace_hint_unique_key_args<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,std::pair<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>> const,std::__list_iterator<boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(subscriber::SimSlot),boost::function<void ()(subscriber::SimSlot)>>,boost::signals2::mutex>>,void *>> const&>(void *a1, void *a2, uint64_t a3)
+uint64_t std::__tree<std::__value_type<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,std::__list_iterator<boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(subscriber::SimSlot),boost::function<void ()(subscriber::SimSlot)>>,boost::signals2::mutex>>,void *>>,std::__map_value_compare<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,std::__value_type<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,std::__list_iterator<boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(subscriber::SimSlot),boost::function<void ()(subscriber::SimSlot)>>,boost::signals2::mutex>>,void *>>,boost::signals2::detail::group_key_less<int,std::less<int>>,false>,std::allocator<std::__value_type<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,std::__list_iterator<boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(subscriber::SimSlot),boost::function<void ()(subscriber::SimSlot)>>,boost::signals2::mutex>>,void *>>>>::__emplace_hint_unique_key_args<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,std::pair<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>> const,std::__list_iterator<boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(subscriber::SimSlot),boost::function<void ()(subscriber::SimSlot)>>,boost::signals2::mutex>>,void *>> const&>(uint64_t **a1, void *a2, uint64_t a3, uint64_t a4)
 {
-  v5 = 0;
   v6 = 0;
-  v3 = *std::__tree<std::__value_type<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,std::__list_iterator<boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(subscriber::SimSlot),boost::function<void ()(subscriber::SimSlot)>>,boost::signals2::mutex>>,void *>>,std::__map_value_compare<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,std::__value_type<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,std::__list_iterator<boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(subscriber::SimSlot),boost::function<void ()(subscriber::SimSlot)>>,boost::signals2::mutex>>,void *>>,boost::signals2::detail::group_key_less<int,std::less<int>>,false>,std::allocator<std::__value_type<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,std::__list_iterator<boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(subscriber::SimSlot),boost::function<void ()(subscriber::SimSlot)>>,boost::signals2::mutex>>,void *>>>>::__find_equal<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>>(a1, a2, &v6, &v5, a3);
-  if (!v3)
+  v7 = 0;
+  v4 = *std::__tree<std::__value_type<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,std::__list_iterator<boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(subscriber::SimSlot),boost::function<void ()(subscriber::SimSlot)>>,boost::signals2::mutex>>,void *>>,std::__map_value_compare<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,std::__value_type<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,std::__list_iterator<boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(subscriber::SimSlot),boost::function<void ()(subscriber::SimSlot)>>,boost::signals2::mutex>>,void *>>,boost::signals2::detail::group_key_less<int,std::less<int>>,false>,std::allocator<std::__value_type<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,std::__list_iterator<boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(subscriber::SimSlot),boost::function<void ()(subscriber::SimSlot)>>,boost::signals2::mutex>>,void *>>>>::__find_equal<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>>(a1, a2, &v7, &v6, a3);
+  if (!v4)
   {
     operator new();
   }
 
-  return v3;
+  return v4;
 }
 
 uint64_t *std::__tree<std::__value_type<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,std::__list_iterator<boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(subscriber::SimSlot),boost::function<void ()(subscriber::SimSlot)>>,boost::signals2::mutex>>,void *>>,std::__map_value_compare<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,std::__value_type<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,std::__list_iterator<boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(subscriber::SimSlot),boost::function<void ()(subscriber::SimSlot)>>,boost::signals2::mutex>>,void *>>,boost::signals2::detail::group_key_less<int,std::less<int>>,false>,std::allocator<std::__value_type<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,std::__list_iterator<boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(subscriber::SimSlot),boost::function<void ()(subscriber::SimSlot)>>,boost::signals2::mutex>>,void *>>>>::__find_equal<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>>(void *a1, void *a2, void *a3, uint64_t *a4, uint64_t a5)
@@ -3662,7 +3854,7 @@ void boost::shared_ptr<boost::signals2::detail::grouped_list<int,std::less<int>,
 {
   *a1 = a2;
   a1[1] = 0;
-  boost::detail::shared_count::shared_count<boost::signals2::detail::grouped_list<int,std::less<int>,boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(subscriber::SimSlot),boost::function<void ()(subscriber::SimSlot)>>,boost::signals2::mutex>>>>(&v2);
+  boost::detail::shared_count::shared_count<boost::signals2::detail::grouped_list<int,std::less<int>,boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(subscriber::SimSlot),boost::function<void ()(subscriber::SimSlot)>>,boost::signals2::mutex>>>>(&v2, a2);
 }
 
 void sub_23745A120(void *a1)
@@ -3702,16 +3894,16 @@ uint64_t boost::detail::sp_counted_impl_p<boost::signals2::detail::grouped_list<
 
 uint64_t boost::signals2::detail::slot_call_iterator_cache<boost::signals2::detail::void_type,boost::signals2::detail::variadic_slot_invoker<boost::signals2::detail::void_type,subscriber::SimSlot>>::~slot_call_iterator_cache(uint64_t a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 288);
   if (v2)
   {
-    v6 = 0u;
-    memset(v5, 0, sizeof(v5));
-    boost::signals2::detail::garbage_collecting_lock<boost::signals2::detail::connection_body_base>::garbage_collecting_lock(v5, v2);
-    boost::signals2::detail::connection_body_base::dec_slot_refcount<boost::signals2::detail::connection_body_base>(*(a1 + 288), v5);
-    (*(**(&v6 + 1) + 32))(*(&v6 + 1));
-    boost::signals2::detail::auto_buffer<boost::shared_ptr<void>,boost::signals2::detail::store_n_objects<10u>,boost::signals2::detail::default_grow_policy,std::allocator<boost::shared_ptr<void>>>::auto_buffer_destroy(v5);
+    v5 = 0u;
+    memset(v4, 0, sizeof(v4));
+    boost::signals2::detail::garbage_collecting_lock<boost::signals2::detail::connection_body_base>::garbage_collecting_lock(v4, v2);
+    boost::signals2::detail::connection_body_base::dec_slot_refcount<boost::signals2::detail::connection_body_base>(*(a1 + 288), v4);
+    (*(**(&v5 + 1) + 32))(*(&v5 + 1));
+    boost::signals2::detail::auto_buffer<boost::shared_ptr<void>,boost::signals2::detail::store_n_objects<10u>,boost::signals2::detail::default_grow_policy,std::allocator<boost::shared_ptr<void>>>::auto_buffer_destroy(v4);
   }
 
   boost::signals2::detail::auto_buffer<boost::variant<boost::shared_ptr<void>,boost::signals2::detail::foreign_void_shared_ptr>,boost::signals2::detail::store_n_objects<10u>,boost::signals2::detail::default_grow_policy,std::allocator<boost::variant<boost::shared_ptr<void>,boost::signals2::detail::foreign_void_shared_ptr>>>::auto_buffer_destroy((a1 + 8));
@@ -3720,7 +3912,6 @@ uint64_t boost::signals2::detail::slot_call_iterator_cache<boost::signals2::deta
     *a1 = 0;
   }
 
-  v3 = *MEMORY[0x277D85DE8];
   return a1;
 }
 
@@ -3784,10 +3975,10 @@ void _GLOBAL__sub_I_ActivationRestResource_cpp()
   operator new();
 }
 
-void DebugAssertionHandler::create(void *a1@<X8>)
+void DebugAssertionHandler::create(std::__shared_weak_count_vtbl **a2@<X8>)
 {
-  *a1 = 0;
-  a1[1] = 0;
+  *a2 = 0;
+  a2[1] = 0;
   operator new();
 }
 
@@ -3800,11 +3991,10 @@ void sub_23745A63C(void *a1)
 
 void DebugAssertionHandler::init(DebugAssertionHandler *this)
 {
-  v2 = *(this + 1);
-  if (v2)
+  v1 = *(this + 1);
+  if (v1)
   {
-    v3 = *this;
-    if (std::__shared_weak_count::lock(v2))
+    if (std::__shared_weak_count::lock(v1))
     {
       operator new();
     }
@@ -3872,7 +4062,7 @@ uint64_t DebugAssertionHandler::DebugAssertionHandler(uint64_t a1, void *a2)
   return a1;
 }
 
-void sub_23745A8BC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, dispatch_object_t object, dispatch_object_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, char a17)
+void sub_23745A8BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, dispatch_object_t object, dispatch_object_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, char a17)
 {
   if (object)
   {
@@ -3895,7 +4085,7 @@ void sub_23745A8BC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
     std::__shared_weak_count::__release_shared[abi:ne200100](v19);
   }
 
-  MEMORY[0x2383CB6D0](v17 + 4);
+  MEMORY[0x2383CB6D0](v17 + 4, a2, a3, a4, a5, a6, a7, a8);
   ctu::SharedSynchronizable<HelperRestServer>::~SharedSynchronizable(v17);
   _Unwind_Resume(a1);
 }
@@ -3922,7 +4112,7 @@ void DebugAssertionHandler::~DebugAssertionHandler(DebugAssertionHandler *this)
 
 void DebugAssertionHandler::handleAssertionChanged_sync(void *a1, char *a2, char a3, uint64_t a4)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   std::string::basic_string[abi:ne200100]<0>(__p, a2);
   v9 = a1 + 11;
   v8 = a1[11];
@@ -3935,7 +4125,7 @@ LABEL_7:
   }
 
   v10 = 1;
-  while ((std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(__p, v8 + 4) & 0x80) != 0)
+  while ((std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(__p, v8 + 32) & 0x80) != 0)
   {
 LABEL_6:
     v8 = *v8;
@@ -3947,14 +4137,14 @@ LABEL_6:
 
   if ((std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v8 + 4, __p) & 0x80) != 0)
   {
-    ++v8;
+    v8 += 8;
     goto LABEL_6;
   }
 
   v11 = 0;
 LABEL_9:
-  v12 = a1 + 10;
-  if (v29 < 0)
+  v12 = (a1 + 10);
+  if (v28 < 0)
   {
     operator delete(*__p);
   }
@@ -3975,7 +4165,7 @@ LABEL_9:
       v15 = *(a4 + 24);
       if (v15)
       {
-        (*(*v15 + 48))(&v25);
+        (*(*v15 + 48))(&v24);
         operator new();
       }
 
@@ -3996,8 +4186,8 @@ LABEL_9:
     {
       *__p = 136315394;
       *&__p[4] = a2;
-      v27 = 2048;
-      v28 = v10;
+      v26 = 2048;
+      v27 = v10;
       _os_log_impl(&dword_2373EA000, v13, OS_LOG_TYPE_DEFAULT, "#I Assertion[%s]: removed (was held=%zd)", __p, 0x16u);
     }
 
@@ -4008,7 +4198,7 @@ LABEL_9:
       v17 = a1 + 11;
       do
       {
-        v18 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v16 + 4, __p);
+        v18 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>((v16 + 32), __p);
         if ((v18 & 0x80u) == 0)
         {
           v17 = v16;
@@ -4018,7 +4208,7 @@ LABEL_9:
       }
 
       while (v16);
-      if (v17 != v9 && (std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(__p, v17 + 4) & 0x80) == 0)
+      if (v17 != v9 && (std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(__p, v17 + 32) & 0x80) == 0)
       {
         v19 = v17[1];
         if (v19)
@@ -4058,22 +4248,20 @@ LABEL_9:
       }
     }
 
-    if (v29 < 0)
+    if (v28 < 0)
     {
       operator delete(*__p);
     }
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
-void sub_23745AD58(_Unwind_Exception *a1, uint64_t a2, std::__shared_weak_count *a3, ...)
+void sub_23745AD58(_Unwind_Exception *a1, uint64_t a2, std::__shared_weak_count *a3, uint64_t a4, std::__shared_weak_count *a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   std::unique_ptr<std::__tree_node<std::__value_type<std::string,std::shared_ptr<ctu::rest::AssertionHandle>>,void *>,std::__tree_node_destructor<std::allocator<std::__tree_node<std::__value_type<std::string,std::shared_ptr<ctu::rest::AssertionHandle>>,void *>>>>::~unique_ptr[abi:ne200100](va);
-  if (a3)
+  if (a5)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](a3);
+    std::__shared_weak_count::__release_shared[abi:ne200100](a5);
   }
 
   _Unwind_Resume(a1);
@@ -4157,90 +4345,88 @@ uint64_t std::unique_ptr<std::__tree_node<std::__value_type<std::string,std::sha
 
 uint64_t *dispatch::async<void ctu::SharedSynchronizable<DebugAssertionHandler>::execute_wrapped<DebugAssertionHandler::init(void)::$_0>(DebugAssertionHandler::init(void)::$_0 &&)::{lambda(void)#1}>(dispatch_queue_s *,std::unique_ptr<DebugAssertionHandler::init(void)::$_0,dispatch_queue_s *::default_delete<DebugAssertionHandler::init(void)::$_0>>)::{lambda(void *)#1}::__invoke(uint64_t **a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
-  v5 = a1;
+  v11 = *MEMORY[0x277D85DE8];
+  v4 = a1;
   v1 = *a1;
   v2 = **a1;
   std::string::basic_string[abi:ne200100]<0>(__p, "/cc/prefs-nb/debug_baseband_hold_online_assertion");
-  v8 = &unk_284A6B780;
-  v9 = (v2 + 72);
-  v10 = v2;
-  v11 = &v8;
+  v7 = &unk_284A6B780;
+  v8 = (v2 + 72);
+  v9 = v2;
+  v10 = &v7;
   ctu::RestModule::observeProperty();
-  std::__function::__value_func<void ()(xpc::object)>::~__value_func[abi:ne200100](&v8);
-  if (v7 < 0)
+  std::__function::__value_func<void ()(xpc::object)>::~__value_func[abi:ne200100](&v7);
+  if (v6 < 0)
   {
     operator delete(__p[0]);
   }
 
   std::string::basic_string[abi:ne200100]<0>(__p, "/cc/prefs-nb/debug_baseband_force_camp_only_assertion");
-  v8 = &unk_284A6B890;
-  v9 = (v2 + 73);
-  v10 = v2;
-  v11 = &v8;
+  v7 = &unk_284A6B890;
+  v8 = (v2 + 73);
+  v9 = v2;
+  v10 = &v7;
   ctu::RestModule::observeProperty();
-  std::__function::__value_func<void ()(xpc::object)>::~__value_func[abi:ne200100](&v8);
-  if (v7 < 0)
+  std::__function::__value_func<void ()(xpc::object)>::~__value_func[abi:ne200100](&v7);
+  if (v6 < 0)
   {
     operator delete(__p[0]);
   }
 
   std::string::basic_string[abi:ne200100]<0>(__p, "/cc/prefs-nb/debug_baseband_hold_booted_assertion");
-  v8 = &unk_284A6B990;
-  v9 = (v2 + 74);
-  v10 = v2;
-  v11 = &v8;
+  v7 = &unk_284A6B990;
+  v8 = (v2 + 74);
+  v9 = v2;
+  v10 = &v7;
   ctu::RestModule::observeProperty();
-  std::__function::__value_func<void ()(xpc::object)>::~__value_func[abi:ne200100](&v8);
-  if (v7 < 0)
+  std::__function::__value_func<void ()(xpc::object)>::~__value_func[abi:ne200100](&v7);
+  if (v6 < 0)
   {
     operator delete(__p[0]);
   }
 
   std::string::basic_string[abi:ne200100]<0>(__p, "/cc/prefs-nb/debug_prevent_baseband_reset_assertion");
-  v8 = &unk_284A6BA90;
-  v9 = (v2 + 75);
-  v10 = v2;
-  v11 = &v8;
+  v7 = &unk_284A6BA90;
+  v8 = (v2 + 75);
+  v9 = v2;
+  v10 = &v7;
   ctu::RestModule::observeProperty();
-  std::__function::__value_func<void ()(xpc::object)>::~__value_func[abi:ne200100](&v8);
-  if (v7 < 0)
+  std::__function::__value_func<void ()(xpc::object)>::~__value_func[abi:ne200100](&v7);
+  if (v6 < 0)
   {
     operator delete(__p[0]);
   }
 
   std::string::basic_string[abi:ne200100]<0>(__p, "/cc/events/dump_state");
-  v8 = &unk_284A6BB90;
-  v9 = v2;
-  v11 = &v8;
+  v7 = &unk_284A6BB90;
+  v8 = v2;
+  v10 = &v7;
   ctu::RestModule::observeEvent();
-  std::__function::__value_func<void ()(xpc::object)>::~__value_func[abi:ne200100](&v8);
-  if (v7 < 0)
+  std::__function::__value_func<void ()(xpc::object)>::~__value_func[abi:ne200100](&v7);
+  if (v6 < 0)
   {
     operator delete(__p[0]);
   }
 
-  Registry::createRestModuleOneTimeUseConnection(&v8, *(v2 + 40));
+  Registry::createRestModuleOneTimeUseConnection(*(v2 + 40));
   ctu::RestModule::connect();
-  if (v9)
+  if (v8)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v9);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v8);
   }
 
   MEMORY[0x2383CBEF0](v1, 0x20C4093837F09);
-  result = std::unique_ptr<void ctu::SharedSynchronizable<HelperRestServer>::execute_wrapped<HelperRestServer::init(void)::$_0>(HelperRestServer::init(void)::$_0 &&)::{lambda(void)#1},std::default_delete<HelperRestServer::init(void)::$_0 &&>>::~unique_ptr[abi:ne200100](&v5);
-  v4 = *MEMORY[0x277D85DE8];
-  return result;
+  return std::unique_ptr<void ctu::SharedSynchronizable<HelperRestServer>::execute_wrapped<HelperRestServer::init(void)::$_0>(HelperRestServer::init(void)::$_0 &&)::{lambda(void)#1},std::default_delete<HelperRestServer::init(void)::$_0 &&>>::~unique_ptr[abi:ne200100](&v4);
 }
 
-void sub_23745B1D0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, char a17, std::__shared_weak_count *a18)
+void sub_23745B1D0(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, char a17, std::__shared_weak_count *a18)
 {
   if (a18)
   {
     std::__shared_weak_count::__release_shared[abi:ne200100](a18);
   }
 
-  MEMORY[0x2383CBEF0](v18, 0x20C4093837F09);
+  MEMORY[0x2383CBEF0](v18, 0x20C4093837F09, a3, a4, a5, a6, a7, a8);
   std::unique_ptr<void ctu::SharedSynchronizable<HelperRestServer>::execute_wrapped<HelperRestServer::init(void)::$_0>(HelperRestServer::init(void)::$_0 &&)::{lambda(void)#1},std::default_delete<HelperRestServer::init(void)::$_0 &&>>::~unique_ptr[abi:ne200100](&a10);
   _Unwind_Resume(a1);
 }
@@ -4253,25 +4439,23 @@ __n128 std::__function::__func<void ctu::rest::property_sink_t<debug_baseband_fo
   return result;
 }
 
-uint64_t std::__function::__func<void ctu::rest::property_sink_t<debug_baseband_force_online>::bind_impl<DebugAssertionHandler::init(void)::$_0::operator() const(void)::{lambda(void)#1}>(ctu::RestModule &,DebugAssertionHandler::init(void)::$_0::operator() const(void)::{lambda(void)#1} &&,std::integral_constant<BOOL,true>)::{lambda(xpc::object const&)#1},std::allocator<xpc::object const&>,void ()(xpc)>::operator()(uint64_t a1, xpc *this)
+uint64_t std::__function::__func<void ctu::rest::property_sink_t<debug_baseband_force_online>::bind_impl<DebugAssertionHandler::init(void)::$_0::operator() const(void)::{lambda(void)#1}>(ctu::RestModule &,DebugAssertionHandler::init(void)::$_0::operator() const(void)::{lambda(void)#1} &&,std::integral_constant<BOOL,true>)::{lambda(xpc::object const&)#1},std::allocator<xpc::object const&>,void ()(xpc)>::operator()(uint64_t a1, xpc *this, BOOL a3)
 {
   v8[4] = *MEMORY[0x277D85DE8];
-  v3 = *(a1 + 8);
-  *v3 = xpc::dyn_cast_or_default(this, 0);
-  v4 = *(a1 + 16);
-  v5 = *(v4 + 72);
+  v4 = *(a1 + 8);
+  *v4 = xpc::dyn_cast_or_default(this, 0);
+  v5 = *(a1 + 16);
+  v6 = *(v5 + 72);
   v8[0] = &unk_284A6B7F0;
-  v8[1] = v4;
+  v8[1] = v5;
   v8[3] = v8;
-  DebugAssertionHandler::handleAssertionChanged_sync(v4, "online", v5, v8);
-  result = std::__function::__value_func<std::shared_ptr<ctu::rest::AssertionHandle> ()(void)>::~__value_func[abi:ne200100](v8);
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  DebugAssertionHandler::handleAssertionChanged_sync(v5, "online", v6, v8);
+  return std::__function::__value_func<std::shared_ptr<ctu::rest::AssertionHandle> ()(void)>::~__value_func[abi:ne200100](v8);
 }
 
-void sub_23745B390(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23745B390(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<std::shared_ptr<ctu::rest::AssertionHandle> ()(void)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -4298,10 +4482,9 @@ uint64_t std::__function::__func<DebugAssertionHandler::init(void)::$_0::operato
 
 void std::__function::__func<DebugAssertionHandler::init(void)::$_0::operator() const(void)::{lambda(void)#1}::operator() const(void)::{lambda(void)#1},std::allocator<DebugAssertionHandler::init(void)::$_0::operator() const(void)::{lambda(void)#1}::operator() const(void)::{lambda(void)#1}>,std::shared_ptr<ctu::rest::AssertionHandle> ()(void)>::operator()(uint64_t a1)
 {
-  v1 = *(a1 + 8);
   std::string::basic_string[abi:ne200100]<0>(&__p, "/cc/assertions/baseband_online");
   ctu::rest::AssertionHandle::create();
-  if (v3 < 0)
+  if (v2 < 0)
   {
     operator delete(__p);
   }
@@ -4353,25 +4536,23 @@ __n128 std::__function::__func<void ctu::rest::property_sink_t<debug_baseband_fo
   return result;
 }
 
-uint64_t std::__function::__func<void ctu::rest::property_sink_t<debug_baseband_force_camp_only>::bind_impl<DebugAssertionHandler::init(void)::$_0::operator() const(void)::{lambda(void)#2}>(ctu::RestModule &,DebugAssertionHandler::init(void)::$_0::operator() const(void)::{lambda(void)#2} &&,std::integral_constant<BOOL,true>)::{lambda(xpc::object const&)#1},std::allocator<xpc::object const&>,void ()(xpc)>::operator()(uint64_t a1, xpc *this)
+uint64_t std::__function::__func<void ctu::rest::property_sink_t<debug_baseband_force_camp_only>::bind_impl<DebugAssertionHandler::init(void)::$_0::operator() const(void)::{lambda(void)#2}>(ctu::RestModule &,DebugAssertionHandler::init(void)::$_0::operator() const(void)::{lambda(void)#2} &&,std::integral_constant<BOOL,true>)::{lambda(xpc::object const&)#1},std::allocator<xpc::object const&>,void ()(xpc)>::operator()(uint64_t a1, xpc *this, BOOL a3)
 {
   v8[4] = *MEMORY[0x277D85DE8];
-  v3 = *(a1 + 8);
-  *v3 = xpc::dyn_cast_or_default(this, 0);
-  v4 = *(a1 + 16);
-  v5 = *(v4 + 73);
+  v4 = *(a1 + 8);
+  *v4 = xpc::dyn_cast_or_default(this, 0);
+  v5 = *(a1 + 16);
+  v6 = *(v5 + 73);
   v8[0] = &unk_284A6B900;
-  v8[1] = v4;
+  v8[1] = v5;
   v8[3] = v8;
-  DebugAssertionHandler::handleAssertionChanged_sync(v4, "camp-only", v5, v8);
-  result = std::__function::__value_func<std::shared_ptr<ctu::rest::AssertionHandle> ()(void)>::~__value_func[abi:ne200100](v8);
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  DebugAssertionHandler::handleAssertionChanged_sync(v5, "camp-only", v6, v8);
+  return std::__function::__value_func<std::shared_ptr<ctu::rest::AssertionHandle> ()(void)>::~__value_func[abi:ne200100](v8);
 }
 
-void sub_23745B724(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23745B724(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<std::shared_ptr<ctu::rest::AssertionHandle> ()(void)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -4398,10 +4579,9 @@ uint64_t std::__function::__func<DebugAssertionHandler::init(void)::$_0::operato
 
 void std::__function::__func<DebugAssertionHandler::init(void)::$_0::operator() const(void)::{lambda(void)#2}::operator() const(void)::{lambda(void)#1},std::allocator<DebugAssertionHandler::init(void)::$_0::operator() const(void)::{lambda(void)#2}::operator() const(void)::{lambda(void)#1}>,std::shared_ptr<ctu::rest::AssertionHandle> ()(void)>::operator()(uint64_t a1)
 {
-  v1 = *(a1 + 8);
   std::string::basic_string[abi:ne200100]<0>(&__p, "/cc/assertions/baseband_camp_only_assertion");
   ctu::rest::AssertionHandle::create();
-  if (v3 < 0)
+  if (v2 < 0)
   {
     operator delete(__p);
   }
@@ -4437,25 +4617,23 @@ __n128 std::__function::__func<void ctu::rest::property_sink_t<debug_baseband_fo
   return result;
 }
 
-uint64_t std::__function::__func<void ctu::rest::property_sink_t<debug_baseband_force_booted>::bind_impl<DebugAssertionHandler::init(void)::$_0::operator() const(void)::{lambda(void)#3}>(ctu::RestModule &,DebugAssertionHandler::init(void)::$_0::operator() const(void)::{lambda(void)#3} &&,std::integral_constant<BOOL,true>)::{lambda(xpc::object const&)#1},std::allocator<xpc::object const&>,void ()(xpc)>::operator()(uint64_t a1, xpc *this)
+uint64_t std::__function::__func<void ctu::rest::property_sink_t<debug_baseband_force_booted>::bind_impl<DebugAssertionHandler::init(void)::$_0::operator() const(void)::{lambda(void)#3}>(ctu::RestModule &,DebugAssertionHandler::init(void)::$_0::operator() const(void)::{lambda(void)#3} &&,std::integral_constant<BOOL,true>)::{lambda(xpc::object const&)#1},std::allocator<xpc::object const&>,void ()(xpc)>::operator()(uint64_t a1, xpc *this, BOOL a3)
 {
   v8[4] = *MEMORY[0x277D85DE8];
-  v3 = *(a1 + 8);
-  *v3 = xpc::dyn_cast_or_default(this, 0);
-  v4 = *(a1 + 16);
-  v5 = *(v4 + 74);
+  v4 = *(a1 + 8);
+  *v4 = xpc::dyn_cast_or_default(this, 0);
+  v5 = *(a1 + 16);
+  v6 = *(v5 + 74);
   v8[0] = &unk_284A6BA00;
-  v8[1] = v4;
+  v8[1] = v5;
   v8[3] = v8;
-  DebugAssertionHandler::handleAssertionChanged_sync(v4, "booted", v5, v8);
-  result = std::__function::__value_func<std::shared_ptr<ctu::rest::AssertionHandle> ()(void)>::~__value_func[abi:ne200100](v8);
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  DebugAssertionHandler::handleAssertionChanged_sync(v5, "booted", v6, v8);
+  return std::__function::__value_func<std::shared_ptr<ctu::rest::AssertionHandle> ()(void)>::~__value_func[abi:ne200100](v8);
 }
 
-void sub_23745BA38(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23745BA38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<std::shared_ptr<ctu::rest::AssertionHandle> ()(void)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -4482,10 +4660,9 @@ uint64_t std::__function::__func<DebugAssertionHandler::init(void)::$_0::operato
 
 void std::__function::__func<DebugAssertionHandler::init(void)::$_0::operator() const(void)::{lambda(void)#3}::operator() const(void)::{lambda(void)#1},std::allocator<DebugAssertionHandler::init(void)::$_0::operator() const(void)::{lambda(void)#3}::operator() const(void)::{lambda(void)#1}>,std::shared_ptr<ctu::rest::AssertionHandle> ()(void)>::operator()(uint64_t a1)
 {
-  v1 = *(a1 + 8);
   std::string::basic_string[abi:ne200100]<0>(&__p, "/cc/assertions/baseband_booted");
   ctu::rest::AssertionHandle::create();
-  if (v3 < 0)
+  if (v2 < 0)
   {
     operator delete(__p);
   }
@@ -4521,25 +4698,23 @@ __n128 std::__function::__func<void ctu::rest::property_sink_t<debug_prevent_bas
   return result;
 }
 
-uint64_t std::__function::__func<void ctu::rest::property_sink_t<debug_prevent_baseband_reset>::bind_impl<DebugAssertionHandler::init(void)::$_0::operator() const(void)::{lambda(void)#4}>(ctu::RestModule &,DebugAssertionHandler::init(void)::$_0::operator() const(void)::{lambda(void)#4} &&,std::integral_constant<BOOL,true>)::{lambda(xpc::object const&)#1},std::allocator<xpc::object const&>,void ()(xpc)>::operator()(uint64_t a1, xpc *this)
+uint64_t std::__function::__func<void ctu::rest::property_sink_t<debug_prevent_baseband_reset>::bind_impl<DebugAssertionHandler::init(void)::$_0::operator() const(void)::{lambda(void)#4}>(ctu::RestModule &,DebugAssertionHandler::init(void)::$_0::operator() const(void)::{lambda(void)#4} &&,std::integral_constant<BOOL,true>)::{lambda(xpc::object const&)#1},std::allocator<xpc::object const&>,void ()(xpc)>::operator()(uint64_t a1, xpc *this, BOOL a3)
 {
   v8[4] = *MEMORY[0x277D85DE8];
-  v3 = *(a1 + 8);
-  *v3 = xpc::dyn_cast_or_default(this, 0);
-  v4 = *(a1 + 16);
-  v5 = *(v4 + 75);
+  v4 = *(a1 + 8);
+  *v4 = xpc::dyn_cast_or_default(this, 0);
+  v5 = *(a1 + 16);
+  v6 = *(v5 + 75);
   v8[0] = &unk_284A6BB00;
-  v8[1] = v4;
+  v8[1] = v5;
   v8[3] = v8;
-  DebugAssertionHandler::handleAssertionChanged_sync(v4, "prevent-bb-reset", v5, v8);
-  result = std::__function::__value_func<std::shared_ptr<ctu::rest::AssertionHandle> ()(void)>::~__value_func[abi:ne200100](v8);
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  DebugAssertionHandler::handleAssertionChanged_sync(v5, "prevent-bb-reset", v6, v8);
+  return std::__function::__value_func<std::shared_ptr<ctu::rest::AssertionHandle> ()(void)>::~__value_func[abi:ne200100](v8);
 }
 
-void sub_23745BD4C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23745BD4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<std::shared_ptr<ctu::rest::AssertionHandle> ()(void)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -4566,10 +4741,9 @@ uint64_t std::__function::__func<DebugAssertionHandler::init(void)::$_0::operato
 
 void std::__function::__func<DebugAssertionHandler::init(void)::$_0::operator() const(void)::{lambda(void)#4}::operator() const(void)::{lambda(void)#1},std::allocator<DebugAssertionHandler::init(void)::$_0::operator() const(void)::{lambda(void)#4}::operator() const(void)::{lambda(void)#1}>,std::shared_ptr<ctu::rest::AssertionHandle> ()(void)>::operator()(uint64_t a1)
 {
-  v1 = *(a1 + 8);
   std::string::basic_string[abi:ne200100]<0>(&__p, "/cc/assertions/prevent_baseband_reset");
   ctu::rest::AssertionHandle::create();
-  if (v3 < 0)
+  if (v2 < 0)
   {
     operator delete(__p);
   }
@@ -4607,7 +4781,7 @@ uint64_t std::__function::__func<void ctu::rest::event_sink_impl_t<void,ctu::res
 
 void std::__function::__func<void ctu::rest::event_sink_impl_t<void,ctu::rest::path_generator_t<dump_state>>::bind_impl<DebugAssertionHandler::init(void)::$_0::operator() const(void)::{lambda(void)#5}>(ctu::RestModule &,DebugAssertionHandler::init(void)::$_0::operator() const(void)::{lambda(void)#5} &&)::{lambda(xpc::object const&)#1},std::allocator<xpc::object const&>,void ()(xpc)>::operator()(uint64_t a1)
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   v1 = *(a1 + 8);
   v2 = *(v1 + 80);
   v3 = (v1 + 88);
@@ -4629,12 +4803,12 @@ void std::__function::__func<void ctu::rest::event_sink_impl_t<void,ctu::rest::p
       v4 = v2[5];
     }
 
-    memset(&v38, 0, sizeof(v38));
-    v5 = &v38;
-    std::string::basic_string[abi:ne200100](&v38, v4 + 1);
-    if ((v38.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+    memset(&v37, 0, sizeof(v37));
+    v5 = &v37;
+    std::string::basic_string[abi:ne200100](&v37, v4 + 1);
+    if ((v37.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
     {
-      v5 = v38.__r_.__value_.__r.__words[0];
+      v5 = v37.__r_.__value_.__r.__words[0];
     }
 
     if (v4)
@@ -4679,17 +4853,17 @@ void std::__function::__func<void ctu::rest::event_sink_impl_t<void,ctu::rest::p
     }
 
     v11 = strlen(v9);
-    v12 = std::string::append(&v38, v9, v11);
+    v12 = std::string::append(&v37, v9, v11);
     v13 = v12->__r_.__value_.__r.__words[0];
-    v36[0] = v12->__r_.__value_.__l.__size_;
-    *(v36 + 7) = *(&v12->__r_.__value_.__r.__words[1] + 7);
+    v35[0] = v12->__r_.__value_.__l.__size_;
+    *(v35 + 7) = *(&v12->__r_.__value_.__r.__words[1] + 7);
     v10 = HIBYTE(v12->__r_.__value_.__r.__words[2]);
     v12->__r_.__value_.__l.__size_ = 0;
     v12->__r_.__value_.__r.__words[2] = 0;
     v12->__r_.__value_.__r.__words[0] = 0;
-    if (SHIBYTE(v38.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v37.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v38.__r_.__value_.__l.__data_);
+      operator delete(v37.__r_.__value_.__l.__data_);
     }
 
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
@@ -4698,8 +4872,8 @@ void std::__function::__func<void ctu::rest::event_sink_impl_t<void,ctu::rest::p
     }
 
     __p.__r_.__value_.__r.__words[0] = v13;
-    __p.__r_.__value_.__l.__size_ = v36[0];
-    *(&__p.__r_.__value_.__r.__words[1] + 7) = *(v36 + 7);
+    __p.__r_.__value_.__l.__size_ = v35[0];
+    *(&__p.__r_.__value_.__r.__words[1] + 7) = *(v35 + 7);
     *(&__p.__r_.__value_.__s + 23) = v10;
     v14 = v2[1];
     if (v14)
@@ -4729,12 +4903,12 @@ void std::__function::__func<void ctu::rest::event_sink_impl_t<void,ctu::rest::p
     {
       do
       {
-        *(&v38.__r_.__value_.__s + 23) = 1;
-        LOWORD(v38.__r_.__value_.__l.__data_) = 44;
-        std::string::append(&__p, &v38, 1uLL);
-        if (SHIBYTE(v38.__r_.__value_.__r.__words[2]) < 0)
+        *(&v37.__r_.__value_.__s + 23) = 1;
+        LOWORD(v37.__r_.__value_.__l.__data_) = 44;
+        std::string::append(&__p, &v37, 1uLL);
+        if (SHIBYTE(v37.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(v38.__r_.__value_.__l.__data_);
+          operator delete(v37.__r_.__value_.__l.__data_);
         }
 
         if (*(v15 + 55) >= 0)
@@ -4747,16 +4921,16 @@ void std::__function::__func<void ctu::rest::event_sink_impl_t<void,ctu::rest::p
           v17 = v15[5];
         }
 
-        memset(&v38, 0, sizeof(v38));
-        std::string::basic_string[abi:ne200100](&v38, v17 + 1);
-        if ((v38.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+        memset(&v37, 0, sizeof(v37));
+        std::string::basic_string[abi:ne200100](&v37, v17 + 1);
+        if ((v37.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          v18 = &v38;
+          v18 = &v37;
         }
 
         else
         {
-          v18 = v38.__r_.__value_.__r.__words[0];
+          v18 = v37.__r_.__value_.__r.__words[0];
         }
 
         if (v17)
@@ -4800,42 +4974,42 @@ void std::__function::__func<void ctu::rest::event_sink_impl_t<void,ctu::rest::p
         }
 
         v23 = strlen(v22);
-        v24 = std::string::append(&v38, v22, v23);
+        v24 = std::string::append(&v37, v22, v23);
         v25 = *&v24->__r_.__value_.__l.__data_;
-        v37 = v24->__r_.__value_.__r.__words[2];
-        *v36 = v25;
+        v36 = v24->__r_.__value_.__r.__words[2];
+        *v35 = v25;
         v24->__r_.__value_.__l.__size_ = 0;
         v24->__r_.__value_.__r.__words[2] = 0;
         v24->__r_.__value_.__r.__words[0] = 0;
-        if (SHIBYTE(v38.__r_.__value_.__r.__words[2]) < 0)
+        if (SHIBYTE(v37.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(v38.__r_.__value_.__l.__data_);
+          operator delete(v37.__r_.__value_.__l.__data_);
         }
 
-        if (v37 >= 0)
+        if (v36 >= 0)
         {
-          v26 = v36;
-        }
-
-        else
-        {
-          v26 = v36[0];
-        }
-
-        if (v37 >= 0)
-        {
-          v27 = HIBYTE(v37);
+          v26 = v35;
         }
 
         else
         {
-          v27 = v36[1];
+          v26 = v35[0];
+        }
+
+        if (v36 >= 0)
+        {
+          v27 = HIBYTE(v36);
+        }
+
+        else
+        {
+          v27 = v35[1];
         }
 
         std::string::append(&__p, v26, v27);
-        if (SHIBYTE(v37) < 0)
+        if (SHIBYTE(v36) < 0)
         {
-          operator delete(v36[0]);
+          operator delete(v35[0]);
         }
 
         v28 = v15[1];
@@ -4907,9 +5081,9 @@ void std::__function::__func<void ctu::rest::event_sink_impl_t<void,ctu::rest::p
       v33 = __p.__r_.__value_.__r.__words[0];
     }
 
-    LODWORD(v38.__r_.__value_.__l.__data_) = 136315138;
-    *(v38.__r_.__value_.__r.__words + 4) = v33;
-    _os_log_impl(&dword_2373EA000, v32, OS_LOG_TYPE_DEFAULT, "#I Assertions: %s", &v38, 0xCu);
+    LODWORD(v37.__r_.__value_.__l.__data_) = 136315138;
+    *(v37.__r_.__value_.__r.__words + 4) = v33;
+    _os_log_impl(&dword_2373EA000, v32, OS_LOG_TYPE_DEFAULT, "#I Assertions: %s", &v37, 0xCu);
     LOBYTE(v10) = *(&__p.__r_.__value_.__s + 23);
   }
 
@@ -4917,8 +5091,6 @@ void std::__function::__func<void ctu::rest::event_sink_impl_t<void,ctu::rest::p
   {
     operator delete(__p.__r_.__value_.__l.__data_);
   }
-
-  v34 = *MEMORY[0x277D85DE8];
 }
 
 void sub_23745C3E4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17, uint64_t a18, uint64_t a19, int a20, __int16 a21, char a22, char a23, uint64_t a24, void *__p, uint64_t a26, int a27, __int16 a28, char a29, char a30)
@@ -4950,7 +5122,7 @@ uint64_t std::__function::__func<void ctu::rest::event_sink_impl_t<void,ctu::res
 
 void MatchedBundle::dumpState(MatchedBundle *this, os_log_t *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v4 = *a2;
   if (os_log_type_enabled(*a2, OS_LOG_TYPE_DEFAULT))
   {
@@ -4960,9 +5132,9 @@ void MatchedBundle::dumpState(MatchedBundle *this, os_log_t *a2)
       v5 = *this;
     }
 
-    v11 = 136315138;
-    v12 = v5;
-    _os_log_impl(&dword_2373EA000, v4, OS_LOG_TYPE_DEFAULT, "#I   Name: %s", &v11, 0xCu);
+    v10 = 136315138;
+    v11 = v5;
+    _os_log_impl(&dword_2373EA000, v4, OS_LOG_TYPE_DEFAULT, "#I   Name: %s", &v10, 0xCu);
     v4 = *a2;
   }
 
@@ -4974,9 +5146,9 @@ void MatchedBundle::dumpState(MatchedBundle *this, os_log_t *a2)
       v6 = *v6;
     }
 
-    v11 = 136446210;
-    v12 = v6;
-    _os_log_impl(&dword_2373EA000, v4, OS_LOG_TYPE_DEFAULT, "#I   ID: %{public}s", &v11, 0xCu);
+    v10 = 136446210;
+    v11 = v6;
+    _os_log_impl(&dword_2373EA000, v4, OS_LOG_TYPE_DEFAULT, "#I   ID: %{public}s", &v10, 0xCu);
     v4 = *a2;
   }
 
@@ -4988,9 +5160,9 @@ void MatchedBundle::dumpState(MatchedBundle *this, os_log_t *a2)
       v7 = *v7;
     }
 
-    v11 = 136315138;
-    v12 = v7;
-    _os_log_impl(&dword_2373EA000, v4, OS_LOG_TYPE_DEFAULT, "#I   Matched: %s", &v11, 0xCu);
+    v10 = 136315138;
+    v11 = v7;
+    _os_log_impl(&dword_2373EA000, v4, OS_LOG_TYPE_DEFAULT, "#I   Matched: %s", &v10, 0xCu);
     v4 = *a2;
   }
 
@@ -5002,9 +5174,9 @@ void MatchedBundle::dumpState(MatchedBundle *this, os_log_t *a2)
       v8 = *v8;
     }
 
-    v11 = 136446210;
-    v12 = v8;
-    _os_log_impl(&dword_2373EA000, v4, OS_LOG_TYPE_DEFAULT, "#I   Resolved: %{public}s", &v11, 0xCu);
+    v10 = 136446210;
+    v11 = v8;
+    _os_log_impl(&dword_2373EA000, v4, OS_LOG_TYPE_DEFAULT, "#I   Resolved: %{public}s", &v10, 0xCu);
     v4 = *a2;
   }
 
@@ -5016,17 +5188,15 @@ void MatchedBundle::dumpState(MatchedBundle *this, os_log_t *a2)
       v9 = *v9;
     }
 
-    v11 = 136446210;
-    v12 = v9;
-    _os_log_impl(&dword_2373EA000, v4, OS_LOG_TYPE_DEFAULT, "#I   Version: %{public}s", &v11, 0xCu);
+    v10 = 136446210;
+    v11 = v9;
+    _os_log_impl(&dword_2373EA000, v4, OS_LOG_TYPE_DEFAULT, "#I   Version: %{public}s", &v10, 0xCu);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void LinkedBundle::dumpState(LinkedBundle *this, os_log_t *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   MatchedBundle::dumpState(this, a2);
   v4 = *a2;
   if (os_log_type_enabled(*a2, OS_LOG_TYPE_DEFAULT))
@@ -5037,9 +5207,9 @@ void LinkedBundle::dumpState(LinkedBundle *this, os_log_t *a2)
       v5 = *v5;
     }
 
-    v11 = 136446210;
-    v12 = v5;
-    _os_log_impl(&dword_2373EA000, v4, OS_LOG_TYPE_DEFAULT, "#I   Linking: %{public}s", &v11, 0xCu);
+    v10 = 136446210;
+    v11 = v5;
+    _os_log_impl(&dword_2373EA000, v4, OS_LOG_TYPE_DEFAULT, "#I   Linking: %{public}s", &v10, 0xCu);
     v4 = *a2;
   }
 
@@ -5051,9 +5221,9 @@ void LinkedBundle::dumpState(LinkedBundle *this, os_log_t *a2)
       v6 = *v6;
     }
 
-    v11 = 136446210;
-    v12 = v6;
-    _os_log_impl(&dword_2373EA000, v4, OS_LOG_TYPE_DEFAULT, "#I   Preference: %{public}s", &v11, 0xCu);
+    v10 = 136446210;
+    v11 = v6;
+    _os_log_impl(&dword_2373EA000, v4, OS_LOG_TYPE_DEFAULT, "#I   Preference: %{public}s", &v10, 0xCu);
     v4 = *a2;
   }
 
@@ -5065,9 +5235,9 @@ void LinkedBundle::dumpState(LinkedBundle *this, os_log_t *a2)
       v7 = *v7;
     }
 
-    v11 = 136315138;
-    v12 = v7;
-    _os_log_impl(&dword_2373EA000, v4, OS_LOG_TYPE_DEFAULT, "#I   Carrier File: %s", &v11, 0xCu);
+    v10 = 136315138;
+    v11 = v7;
+    _os_log_impl(&dword_2373EA000, v4, OS_LOG_TYPE_DEFAULT, "#I   Carrier File: %s", &v10, 0xCu);
     v4 = *a2;
   }
 
@@ -5084,12 +5254,10 @@ void LinkedBundle::dumpState(LinkedBundle *this, os_log_t *a2)
       v9 = off_278A30EF8[v8];
     }
 
-    v11 = 136315138;
-    v12 = v9;
-    _os_log_impl(&dword_2373EA000, v4, OS_LOG_TYPE_DEFAULT, "#I   Tech type: %s", &v11, 0xCu);
+    v10 = 136315138;
+    v11 = v9;
+    _os_log_impl(&dword_2373EA000, v4, OS_LOG_TYPE_DEFAULT, "#I   Tech type: %s", &v10, 0xCu);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void LinkedBundleInfo::dumpState(const void **this, os_log_t *a2)
@@ -5148,141 +5316,142 @@ void LinkedBundleInfo::dumpState(const void **this, os_log_t *a2)
   }
 }
 
-void sub_23745CA98(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23745CA98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   ctu::SharedRef<__CFDictionary const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFDictionary const>::~SharedRef(va);
   _Unwind_Resume(a1);
 }
 
-void ___ZZNK16LinkedBundleInfo9dumpStateEPKN3ctu11OsLogLoggerEENK3__0clENS0_2cf11CFSharedRefIK14__CFDictionaryEE_block_invoke(uint64_t a1, uint64_t *a2, CFTypeRef *a3)
+void ___ZZNK16LinkedBundleInfo9dumpStateEPKN3ctu11OsLogLoggerEENK3__0clENS0_2cf11CFSharedRefIK14__CFDictionaryEE_block_invoke(uint64_t a1, uint64_t **a2, CFTypeRef *a3)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v6 = CFGetTypeID(*a3);
   if (v6 == CFNumberGetTypeID())
   {
     v7 = **(a1 + 32);
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    if (!os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
+      return;
+    }
+
+    if (*(a2 + 23) < 0)
+    {
+      a2 = *a2;
+    }
+
+    v9 = *a3;
+    *buf = 0;
+    ctu::cf::assign(buf, v9, v8);
+    v10 = *buf;
+    *buf = 136315394;
+    *&buf[4] = a2;
+    *&buf[12] = 2048;
+    *&buf[14] = v10;
+    v11 = "#I     %s = %lld";
+LABEL_27:
+    _os_log_impl(&dword_2373EA000, v7, OS_LOG_TYPE_DEFAULT, v11, buf, 0x16u);
+    return;
+  }
+
+  v12 = CFGetTypeID(*a3);
+  if (v12 != CFStringGetTypeID())
+  {
+    v18 = CFGetTypeID(*a3);
+    TypeID = CFBooleanGetTypeID();
+    v7 = **(a1 + 32);
+    v20 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
+    if (v18 == TypeID)
+    {
+      if (!v20)
+      {
+        return;
+      }
+
       if (*(a2 + 23) < 0)
       {
         a2 = *a2;
       }
 
-      v9 = *a3;
-      *buf = 0;
-      ctu::cf::assign(buf, v9, v8);
-      v10 = *buf;
+      v22 = *a3;
+      buf[0] = 0;
+      ctu::cf::assign(buf, v22, v21);
+      v23 = "false";
+      if (buf[0])
+      {
+        v23 = "true";
+      }
+
       *buf = 136315394;
       *&buf[4] = a2;
-      *&buf[12] = 2048;
-      *&buf[14] = v10;
-      v11 = "#I     %s = %lld";
-      goto LABEL_27;
-    }
-  }
-
-  else
-  {
-    v12 = CFGetTypeID(*a3);
-    if (v12 == CFStringGetTypeID())
-    {
-      v13 = **(a1 + 32);
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
-      {
-        v14 = *(a2 + 23);
-        v15 = *a2;
-        v16 = *a3;
-        memset(buf, 0, sizeof(buf));
-        ctu::cf::assign();
-        if (v14 >= 0)
-        {
-          v17 = a2;
-        }
-
-        else
-        {
-          v17 = v15;
-        }
-
-        *__p = *buf;
-        v29 = *&buf[16];
-        v18 = __p;
-        if ((buf[23] & 0x80u) != 0)
-        {
-          v18 = *buf;
-        }
-
-        *buf = 136315394;
-        *&buf[4] = v17;
-        *&buf[12] = 2080;
-        *&buf[14] = v18;
-        _os_log_impl(&dword_2373EA000, v13, OS_LOG_TYPE_DEFAULT, "#I     %s = %s", buf, 0x16u);
-        if (SHIBYTE(v29) < 0)
-        {
-          operator delete(__p[0]);
-        }
-      }
+      *&buf[12] = 2080;
+      *&buf[14] = v23;
+      v11 = "#I     %s = %s";
     }
 
     else
     {
-      v19 = CFGetTypeID(*a3);
-      TypeID = CFBooleanGetTypeID();
-      v7 = **(a1 + 32);
-      v21 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
-      if (v19 == TypeID)
+      if (!v20)
       {
-        if (v21)
-        {
-          if (*(a2 + 23) < 0)
-          {
-            a2 = *a2;
-          }
-
-          v23 = *a3;
-          buf[0] = 0;
-          ctu::cf::assign(buf, v23, v22);
-          v24 = "false";
-          if (buf[0])
-          {
-            v24 = "true";
-          }
-
-          *buf = 136315394;
-          *&buf[4] = a2;
-          *&buf[12] = 2080;
-          *&buf[14] = v24;
-          v11 = "#I     %s = %s";
-          goto LABEL_27;
-        }
+        return;
       }
 
-      else if (v21)
+      if (*(a2 + 23) >= 0)
       {
-        if (*(a2 + 23) >= 0)
-        {
-          v25 = a2;
-        }
-
-        else
-        {
-          v25 = *a2;
-        }
-
-        v26 = *a3;
-        *buf = 136315394;
-        *&buf[4] = v25;
-        *&buf[12] = 2112;
-        *&buf[14] = v26;
-        v11 = "#I     %s = %@";
-LABEL_27:
-        _os_log_impl(&dword_2373EA000, v7, OS_LOG_TYPE_DEFAULT, v11, buf, 0x16u);
+        v24 = a2;
       }
+
+      else
+      {
+        v24 = *a2;
+      }
+
+      v25 = *a3;
+      *buf = 136315394;
+      *&buf[4] = v24;
+      *&buf[12] = 2112;
+      *&buf[14] = v25;
+      v11 = "#I     %s = %@";
     }
+
+    goto LABEL_27;
   }
 
-  v27 = *MEMORY[0x277D85DE8];
+  v13 = **(a1 + 32);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  {
+    v14 = *(a2 + 23);
+    v15 = *a2;
+    memset(buf, 0, sizeof(buf));
+    ctu::cf::assign();
+    if (v14 >= 0)
+    {
+      v16 = a2;
+    }
+
+    else
+    {
+      v16 = v15;
+    }
+
+    *__p = *buf;
+    v27 = *&buf[16];
+    v17 = __p;
+    if ((buf[23] & 0x80u) != 0)
+    {
+      v17 = *buf;
+    }
+
+    *buf = 136315394;
+    *&buf[4] = v16;
+    *&buf[12] = 2080;
+    *&buf[14] = v17;
+    _os_log_impl(&dword_2373EA000, v13, OS_LOG_TYPE_DEFAULT, "#I     %s = %s", buf, 0x16u);
+    if (SHIBYTE(v27) < 0)
+    {
+      operator delete(__p[0]);
+    }
+  }
 }
 
 void sub_23745CD6C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18)
@@ -5371,7 +5540,7 @@ void ChipInformation::clear(ChipInformation *this)
   *(v2 + 2) = 0;
 }
 
-void ChipInformation::dumpState(ctu **this, NSObject **a2)
+void ChipInformation::dumpState(ctu **this, NSObject **a2, unint64_t a3)
 {
   v14 = *MEMORY[0x277D85DE8];
   __p[0] = 0;
@@ -5379,32 +5548,30 @@ void ChipInformation::dumpState(ctu **this, NSObject **a2)
   v9 = 0;
   if (*(this + 32) == 1)
   {
-    ctu::hex(this[1], (this[2] - this[1]));
+    ctu::hex(__p, this[1], (this[2] - this[1]));
   }
 
-  v4 = *a2;
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v5 = *a2;
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = *this;
-    v6 = __p;
+    v6 = *this;
+    v7 = __p;
     if (v9 < 0)
     {
-      v6 = __p[0];
+      v7 = __p[0];
     }
 
     *buf = 67109378;
-    v11 = v5;
+    v11 = v6;
     v12 = 2080;
-    v13 = v6;
-    _os_log_impl(&dword_2373EA000, v4, OS_LOG_TYPE_DEFAULT, "#I fChipId = %x, fSerialNumber = %s", buf, 0x12u);
+    v13 = v7;
+    _os_log_impl(&dword_2373EA000, v5, OS_LOG_TYPE_DEFAULT, "#I fChipId = %x, fSerialNumber = %s", buf, 0x12u);
   }
 
   if (SHIBYTE(v9) < 0)
   {
     operator delete(__p[0]);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 const char *analytics::getSwitchStatus(analytics *this, int a2)
@@ -5586,7 +5753,7 @@ uint64_t entitlements::convert(__int16 a1)
 
 uint64_t entitlements::TransferAuthorizationResponse::convert(uint64_t a1, uint64_t a2)
 {
-  v67 = *MEMORY[0x277D85DE8];
+  v66 = *MEMORY[0x277D85DE8];
   if (*(a1 + 480) == 1)
   {
     if (*(a1 + 479) < 0)
@@ -5660,35 +5827,35 @@ uint64_t entitlements::TransferAuthorizationResponse::convert(uint64_t a1, uint6
       v6 = *(a1 + 104);
       if (*(a2 + 31) < 0)
       {
-        std::string::__init_copy_ctor_external(&v51, *(a2 + 8), *(a2 + 16));
+        std::string::__init_copy_ctor_external(&v50, *(a2 + 8), *(a2 + 16));
       }
 
       else
       {
-        v51 = *(a2 + 8);
+        v50 = *(a2 + 8);
       }
 
-      v7 = HIBYTE(v51.__r_.__value_.__r.__words[2]);
+      v7 = HIBYTE(v50.__r_.__value_.__r.__words[2]);
       if (v5 != v6)
       {
-        if ((v51.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+        if ((v50.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          size = HIBYTE(v51.__r_.__value_.__r.__words[2]);
+          size = HIBYTE(v50.__r_.__value_.__r.__words[2]);
         }
 
         else
         {
-          size = v51.__r_.__value_.__l.__size_;
+          size = v50.__r_.__value_.__l.__size_;
         }
 
-        if ((v51.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+        if ((v50.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          v9 = &v51;
+          v9 = &v50;
         }
 
         else
         {
-          v9 = v51.__r_.__value_.__r.__words[0];
+          v9 = v50.__r_.__value_.__r.__words[0];
         }
 
         while (1)
@@ -5720,7 +5887,7 @@ uint64_t entitlements::TransferAuthorizationResponse::convert(uint64_t a1, uint6
 
       if (v7 < 0)
       {
-        operator delete(v51.__r_.__value_.__l.__data_);
+        operator delete(v50.__r_.__value_.__l.__data_);
       }
 
       if (v5 == *(a1 + 104))
@@ -5728,22 +5895,22 @@ uint64_t entitlements::TransferAuthorizationResponse::convert(uint64_t a1, uint6
         v13 = *(a1 + 96);
         if (*(a2 + 31) < 0)
         {
-          std::string::__init_copy_ctor_external(&v50, *(a2 + 8), *(a2 + 16));
+          std::string::__init_copy_ctor_external(&v49, *(a2 + 8), *(a2 + 16));
         }
 
         else
         {
-          v50 = *(a2 + 8);
+          v49 = *(a2 + 8);
         }
 
-        entitlements::IccidState::IccidState(__str, &v50);
+        entitlements::IccidState::IccidState(__str, &v49);
         v23 = *(a1 + 104);
         v22 = *(a1 + 112);
         if ((v22 - v23) >= 96)
         {
-          v28 = &v63;
+          v28 = &v62;
           v29 = v23 - v13;
-          if ((v23 - v13) > 95 || (*(a1 + 104) = std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<entitlements::IccidState>,entitlements::IccidState const*,entitlements::IccidState const*,entitlements::IccidState*>(__str + v29, &v63, *(a1 + 104)), v28 = (__str + v29), v29 >= 1))
+          if ((v23 - v13) > 95 || (*(a1 + 104) = std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<entitlements::IccidState>,entitlements::IccidState const*,entitlements::IccidState const*,entitlements::IccidState*>(__str + v29, &v62, *(a1 + 104)), v28 = (__str + v29), v29 >= 1))
           {
             std::vector<entitlements::IccidState>::__move_range(a1 + 96, v13, v23, &v13[4]);
             std::__copy_impl::operator()[abi:ne200100]<entitlements::IccidState const*,entitlements::IccidState const*,entitlements::IccidState*>(__str, v28, v13);
@@ -5775,17 +5942,17 @@ uint64_t entitlements::TransferAuthorizationResponse::convert(uint64_t a1, uint6
             v27 = v25;
           }
 
-          v54 = a1 + 96;
+          v53 = a1 + 96;
           if (v27)
           {
             std::__allocate_at_least[abi:ne200100]<std::allocator<entitlements::IccidState>>(v27);
           }
 
           v33 = 32 * ((v13 - v24) >> 5);
-          v52.__r_.__value_.__r.__words[0] = 0;
-          v52.__r_.__value_.__l.__size_ = v33;
-          v52.__r_.__value_.__r.__words[2] = v33;
-          v53 = 0;
+          v51.__r_.__value_.__r.__words[0] = 0;
+          v51.__r_.__value_.__l.__size_ = v33;
+          v51.__r_.__value_.__r.__words[2] = v33;
+          v52 = 0;
           if (SHIBYTE(__str[0].__r_.__value_.__r.__words[2]) < 0)
           {
             std::string::__init_copy_ctor_external((32 * ((v13 - v24) >> 5)), __str[0].__r_.__value_.__l.__data_, __str[0].__r_.__value_.__l.__size_);
@@ -5799,10 +5966,10 @@ uint64_t entitlements::TransferAuthorizationResponse::convert(uint64_t a1, uint6
           }
 
           std::__optional_copy_base<std::string,false>::__optional_copy_base[abi:ne200100]((v33 + 24), &__str[1]);
-          std::__optional_copy_base<std::string,false>::__optional_copy_base[abi:ne200100]((v33 + 56), &v61[1]);
-          *(32 * ((v13 - v24) >> 5) + 0x58) = *&v62[24];
+          std::__optional_copy_base<std::string,false>::__optional_copy_base[abi:ne200100]((v33 + 56), &v60[1]);
+          *(32 * ((v13 - v24) >> 5) + 0x58) = *&v61[24];
           v35 = v33 + 96;
-          v36 = v52.__r_.__value_.__l.__size_;
+          v36 = v51.__r_.__value_.__l.__size_;
           std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<entitlements::IccidState>,entitlements::IccidState*>(v13, *(a1 + 104), v35);
           v37 = *(a1 + 96);
           v38 = v35 + *(a1 + 104) - v13;
@@ -5813,20 +5980,20 @@ uint64_t entitlements::TransferAuthorizationResponse::convert(uint64_t a1, uint6
           *(a1 + 96) = v39;
           *(a1 + 104) = v38;
           v41 = *(a1 + 112);
-          *(a1 + 112) = v53;
-          v52.__r_.__value_.__r.__words[2] = v40;
-          v53 = v41;
-          v52.__r_.__value_.__r.__words[0] = v40;
-          v52.__r_.__value_.__l.__size_ = v40;
-          std::__split_buffer<entitlements::IccidState>::~__split_buffer(&v52);
+          *(a1 + 112) = v52;
+          v51.__r_.__value_.__r.__words[2] = v40;
+          v52 = v41;
+          v51.__r_.__value_.__r.__words[0] = v40;
+          v51.__r_.__value_.__l.__size_ = v40;
+          std::__split_buffer<entitlements::IccidState>::~__split_buffer(&v51);
         }
 
-        if (v62[16] == 1 && (v62[15] & 0x80000000) != 0)
+        if (v61[16] == 1 && (v61[15] & 0x80000000) != 0)
         {
-          operator delete(v61[1]);
+          operator delete(v60[1]);
         }
 
-        if (LOBYTE(v61[0]) == 1 && SHIBYTE(__str[1].__r_.__value_.__r.__words[2]) < 0)
+        if (LOBYTE(v60[0]) == 1 && SHIBYTE(__str[1].__r_.__value_.__r.__words[2]) < 0)
         {
           operator delete(__str[1].__r_.__value_.__l.__data_);
         }
@@ -5836,9 +6003,9 @@ uint64_t entitlements::TransferAuthorizationResponse::convert(uint64_t a1, uint6
           operator delete(__str[0].__r_.__value_.__l.__data_);
         }
 
-        if (SHIBYTE(v50.__r_.__value_.__r.__words[2]) < 0)
+        if (SHIBYTE(v49.__r_.__value_.__r.__words[2]) < 0)
         {
-          v32 = v50.__r_.__value_.__r.__words[0];
+          v32 = v49.__r_.__value_.__r.__words[0];
           goto LABEL_123;
         }
       }
@@ -5846,44 +6013,44 @@ uint64_t entitlements::TransferAuthorizationResponse::convert(uint64_t a1, uint6
 
     else
     {
-      v66 = 0;
-      *v64 = 0u;
-      v65 = 0u;
-      v63 = 0u;
-      *v61 = 0u;
-      memset(v62, 0, sizeof(v62));
+      v65 = 0;
+      *v63 = 0u;
+      v64 = 0u;
+      v62 = 0u;
+      *v60 = 0u;
+      memset(v61, 0, sizeof(v61));
       memset(__str, 0, sizeof(__str));
       if (*(a2 + 31) < 0)
       {
-        std::string::__init_copy_ctor_external(&v49, *(a2 + 8), *(a2 + 16));
+        std::string::__init_copy_ctor_external(&v48, *(a2 + 8), *(a2 + 16));
       }
 
       else
       {
-        v49 = *(a2 + 8);
+        v48 = *(a2 + 8);
       }
 
-      entitlements::IccidState::IccidState(&v52, &v49);
-      std::vector<entitlements::IccidState>::__assign_with_size[abi:ne200100]<entitlements::IccidState const*,entitlements::IccidState const*>(&__str[1], &v52, __str);
-      if (v59 == 1 && v58 < 0)
+      entitlements::IccidState::IccidState(&v51, &v48);
+      std::vector<entitlements::IccidState>::__assign_with_size[abi:ne200100]<entitlements::IccidState const*,entitlements::IccidState const*>(&__str[1], &v51, __str);
+      if (v58 == 1 && v57 < 0)
       {
         operator delete(__p);
       }
 
-      if (v56 == 1 && v55 < 0)
+      if (v55 == 1 && v54 < 0)
       {
-        operator delete(v53);
+        operator delete(v52);
       }
 
-      if (SHIBYTE(v52.__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v51.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v52.__r_.__value_.__l.__data_);
+        operator delete(v51.__r_.__value_.__l.__data_);
       }
 
       v14 = (a1 + 72);
-      if (SHIBYTE(v49.__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v48.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v49.__r_.__value_.__l.__data_);
+        operator delete(v48.__r_.__value_.__l.__data_);
       }
 
       if (*(a1 + 224) == 1)
@@ -5916,7 +6083,7 @@ uint64_t entitlements::TransferAuthorizationResponse::convert(uint64_t a1, uint6
                 v20 = v19;
               }
 
-              std::vector<entitlements::IccidState>::__vallocate[abi:ne200100](a1 + 96, v20);
+              std::vector<entitlements::IccidState>::__vallocate[abi:ne200100]((a1 + 96), v20);
             }
 
             std::vector<DataConnectionType>::__throw_length_error[abi:ne200100]();
@@ -5941,11 +6108,11 @@ uint64_t entitlements::TransferAuthorizationResponse::convert(uint64_t a1, uint6
           }
         }
 
-        std::__optional_storage_base<std::string,false>::__assign_from[abi:ne200100]<std::__optional_copy_assign_base<std::string,false> const&>((a1 + 120), v61);
-        *(a1 + 152) = *&v62[16];
-        *(a1 + 156) = v62[20];
-        std::__optional_storage_base<std::string,false>::__assign_from[abi:ne200100]<std::__optional_copy_assign_base<std::string,false> const&>((a1 + 160), &v62[24]);
-        std::__optional_storage_base<std::string,false>::__assign_from[abi:ne200100]<std::__optional_copy_assign_base<std::string,false> const&>((a1 + 192), &v64[1]);
+        std::__optional_storage_base<std::string,false>::__assign_from[abi:ne200100]<std::__optional_copy_assign_base<std::string,false> const&>((a1 + 120), v60);
+        *(a1 + 152) = *&v61[16];
+        *(a1 + 156) = v61[20];
+        std::__optional_storage_base<std::string,false>::__assign_from[abi:ne200100]<std::__optional_copy_assign_base<std::string,false> const&>((a1 + 160), &v61[24]);
+        std::__optional_storage_base<std::string,false>::__assign_from[abi:ne200100]<std::__optional_copy_assign_base<std::string,false> const&>((a1 + 192), &v63[1]);
       }
 
       else
@@ -5964,37 +6131,37 @@ uint64_t entitlements::TransferAuthorizationResponse::convert(uint64_t a1, uint6
         *(a1 + 96) = 0;
         *(a1 + 104) = 0;
         *(a1 + 112) = 0;
-        v52.__r_.__value_.__r.__words[0] = a1 + 96;
+        v51.__r_.__value_.__r.__words[0] = a1 + 96;
         if (__str[1].__r_.__value_.__l.__size_ != __str[1].__r_.__value_.__r.__words[0])
         {
-          v52.__r_.__value_.__l.__size_ = 0;
-          std::vector<entitlements::IccidState>::__vallocate[abi:ne200100](a1 + 96, 0xAAAAAAAAAAAAAAABLL * ((__str[1].__r_.__value_.__l.__size_ - __str[1].__r_.__value_.__r.__words[0]) >> 5));
+          v51.__r_.__value_.__l.__size_ = 0;
+          std::vector<entitlements::IccidState>::__vallocate[abi:ne200100]((a1 + 96), 0xAAAAAAAAAAAAAAABLL * ((__str[1].__r_.__value_.__l.__size_ - __str[1].__r_.__value_.__r.__words[0]) >> 5));
         }
 
-        std::__optional_copy_base<std::string,false>::__optional_copy_base[abi:ne200100]((a1 + 120), v61);
-        *(a1 + 152) = *&v62[16];
-        std::__optional_copy_base<std::string,false>::__optional_copy_base[abi:ne200100]((a1 + 160), &v62[24]);
-        std::__optional_copy_base<std::string,false>::__optional_copy_base[abi:ne200100]((a1 + 192), &v64[1]);
+        std::__optional_copy_base<std::string,false>::__optional_copy_base[abi:ne200100]((a1 + 120), v60);
+        *(a1 + 152) = *&v61[16];
+        std::__optional_copy_base<std::string,false>::__optional_copy_base[abi:ne200100]((a1 + 160), &v61[24]);
+        std::__optional_copy_base<std::string,false>::__optional_copy_base[abi:ne200100]((a1 + 192), &v63[1]);
         *(a1 + 224) = 1;
       }
 
-      if (v66 == 1 && SHIBYTE(v65) < 0)
+      if (v65 == 1 && SHIBYTE(v64) < 0)
       {
-        operator delete(v64[1]);
+        operator delete(v63[1]);
       }
 
-      if (LOBYTE(v64[0]) == 1 && SHIBYTE(v63) < 0)
+      if (LOBYTE(v63[0]) == 1 && SHIBYTE(v62) < 0)
       {
-        operator delete(*&v62[24]);
+        operator delete(*&v61[24]);
       }
 
-      if (v62[8] == 1 && (v62[7] & 0x80000000) != 0)
+      if (v61[8] == 1 && (v61[7] & 0x80000000) != 0)
       {
-        operator delete(v61[0]);
+        operator delete(v60[0]);
       }
 
-      v52.__r_.__value_.__r.__words[0] = &__str[1];
-      std::vector<entitlements::IccidState>::__destroy_vector::operator()[abi:ne200100](&v52);
+      v51.__r_.__value_.__r.__words[0] = &__str[1];
+      std::vector<entitlements::IccidState>::__destroy_vector::operator()[abi:ne200100](&v51);
       if (SHIBYTE(__str[0].__r_.__value_.__r.__words[2]) < 0)
       {
         v32 = __str[0].__r_.__value_.__r.__words[0];
@@ -6028,24 +6195,24 @@ LABEL_123:
 
     if (*(a2 + 151) < 0)
     {
-      std::string::__init_copy_ctor_external(v61, *(a2 + 128), *(a2 + 136));
+      std::string::__init_copy_ctor_external(v60, *(a2 + 128), *(a2 + 136));
     }
 
     else
     {
-      *v61 = *(a2 + 128);
-      *v62 = *(a2 + 144);
+      *v60 = *(a2 + 128);
+      *v61 = *(a2 + 144);
     }
 
     if (*(a2 + 175) < 0)
     {
-      std::string::__init_copy_ctor_external(&v62[8], *(a2 + 152), *(a2 + 160));
+      std::string::__init_copy_ctor_external(&v61[8], *(a2 + 152), *(a2 + 160));
     }
 
     else
     {
-      *&v62[8] = *(a2 + 152);
-      *&v62[24] = *(a2 + 168);
+      *&v61[8] = *(a2 + 152);
+      *&v61[24] = *(a2 + 168);
     }
 
     v42 = (a1 + 264);
@@ -6074,19 +6241,19 @@ LABEL_123:
         operator delete(*v43);
       }
 
-      *v43 = *v61;
-      *(a1 + 328) = *v62;
-      v62[7] = 0;
-      LOBYTE(v61[0]) = 0;
+      *v43 = *v60;
+      *(a1 + 328) = *v61;
+      v61[7] = 0;
+      LOBYTE(v60[0]) = 0;
       if (*(a1 + 359) < 0)
       {
         operator delete(*(a1 + 336));
       }
 
-      *(a1 + 336) = *&v62[8];
-      *(a1 + 352) = *&v62[24];
-      v62[31] = 0;
-      v62[8] = 0;
+      *(a1 + 336) = *&v61[8];
+      *(a1 + 352) = *&v61[24];
+      v61[31] = 0;
+      v61[8] = 0;
     }
 
     else
@@ -6096,21 +6263,21 @@ LABEL_123:
       memset(__str, 0, 24);
       *(a1 + 288) = __str[1];
       memset(&__str[1], 0, sizeof(std::string));
-      *(a1 + 328) = *v62;
-      *(a1 + 312) = *v61;
-      v61[1] = 0;
-      *v62 = 0;
-      v61[0] = 0;
-      v44 = *&v62[8];
-      *(a1 + 352) = *&v62[24];
+      *(a1 + 328) = *v61;
+      *(a1 + 312) = *v60;
+      v60[1] = 0;
+      *v61 = 0;
+      v60[0] = 0;
+      v44 = *&v61[8];
+      *(a1 + 352) = *&v61[24];
       *(a1 + 336) = v44;
-      memset(&v62[8], 0, 24);
+      memset(&v61[8], 0, 24);
       *(a1 + 360) = 1;
     }
 
-    if ((v62[7] & 0x80000000) != 0)
+    if ((v61[7] & 0x80000000) != 0)
     {
-      operator delete(v61[0]);
+      operator delete(v60[0]);
     }
 
     if (SHIBYTE(__str[1].__r_.__value_.__r.__words[2]) < 0)
@@ -6148,17 +6315,17 @@ LABEL_123:
 
     if (*(a2 + 255) < 0)
     {
-      std::string::__init_copy_ctor_external(v61, *(a2 + 232), *(a2 + 240));
+      std::string::__init_copy_ctor_external(v60, *(a2 + 232), *(a2 + 240));
     }
 
     else
     {
-      *v61 = *(a2 + 232);
-      *v62 = *(a2 + 248);
+      *v60 = *(a2 + 232);
+      *v61 = *(a2 + 248);
     }
 
     v45 = *(a2 + 256);
-    v62[8] = v45;
+    v61[8] = v45;
     if (*(a1 + 448) == 1)
     {
       if (*(a1 + 391) < 0)
@@ -6184,11 +6351,11 @@ LABEL_123:
         operator delete(*(a1 + 416));
       }
 
-      *(a1 + 416) = *v61;
-      *(a1 + 432) = *v62;
-      v62[7] = 0;
-      LOBYTE(v61[0]) = 0;
-      *(a1 + 440) = v62[8];
+      *(a1 + 416) = *v60;
+      *(a1 + 432) = *v61;
+      v61[7] = 0;
+      LOBYTE(v60[0]) = 0;
+      *(a1 + 440) = v61[8];
     }
 
     else
@@ -6197,11 +6364,11 @@ LABEL_123:
       memset(__str, 0, 24);
       *(a1 + 392) = __str[1];
       memset(&__str[1], 0, sizeof(std::string));
-      *(a1 + 432) = *v62;
-      *(a1 + 416) = *v61;
-      v61[1] = 0;
-      *v62 = 0;
-      v61[0] = 0;
+      *(a1 + 432) = *v61;
+      *(a1 + 416) = *v60;
+      v60[1] = 0;
+      *v61 = 0;
+      v60[0] = 0;
       *(a1 + 440) = v45;
       *(a1 + 448) = 1;
     }
@@ -6217,7 +6384,6 @@ LABEL_123:
     }
   }
 
-  v47 = *MEMORY[0x277D85DE8];
   return a1;
 }
 
@@ -6253,7 +6419,7 @@ void entitlements::IccidState::~IccidState(void **this)
 
 entitlements::TransferSIMResponse *entitlements::TransferSIMResponse::convert(entitlements::TransferSIMResponse *this, const entitlements::TransferSIMViaWebServiceResponse *a2)
 {
-  v27.__r_.__value_.__l.__size_ = *MEMORY[0x277D85DE8];
+  v26.__r_.__value_.__l.__size_ = *MEMORY[0x277D85DE8];
   if (*(this + 121) == 1)
   {
     *(this + 121) = 0;
@@ -6327,11 +6493,11 @@ LABEL_28:
         v11 = *(a2 + 2);
         if (v11)
         {
+          v18 = 0u;
           v19 = 0u;
-          v20 = 0u;
-          v17 = 0u;
-          *v18 = 0u;
-          memset(v16, 0, sizeof(v16));
+          v16 = 0u;
+          *v17 = 0u;
+          memset(v15, 0, sizeof(v15));
           std::string::__init_copy_ctor_external(&__p, *(a2 + 1), v11);
           goto LABEL_34;
         }
@@ -6339,42 +6505,42 @@ LABEL_28:
 
       else if (*(a2 + 31))
       {
+        v18 = 0u;
         v19 = 0u;
-        v20 = 0u;
-        v17 = 0u;
-        *v18 = 0u;
-        memset(v16, 0, sizeof(v16));
+        v16 = 0u;
+        *v17 = 0u;
+        memset(v15, 0, sizeof(v15));
         __p = *(a2 + 8);
 LABEL_34:
-        entitlements::IccidState::IccidState(v16, &__p);
+        entitlements::IccidState::IccidState(v15, &__p);
         if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
         {
           operator delete(__p.__r_.__value_.__l.__data_);
         }
 
-        WORD4(v20) = v10 | 0x100;
-        if ((v16[23] & 0x80000000) != 0)
+        WORD4(v19) = v10 | 0x100;
+        if ((v15[23] & 0x80000000) != 0)
         {
-          std::string::__init_copy_ctor_external(&__str, *v16, *&v16[8]);
+          std::string::__init_copy_ctor_external(&__str, *v15, *&v15[8]);
         }
 
         else
         {
-          __str = *v16;
+          __str = *v15;
         }
 
-        std::__optional_copy_base<std::string,false>::__optional_copy_base[abi:ne200100](&v22, &v16[24]);
-        std::__optional_copy_base<std::string,false>::__optional_copy_base[abi:ne200100](&v24, &v18[1]);
-        v26 = WORD4(v20);
-        std::vector<entitlements::IccidState>::__assign_with_size[abi:ne200100]<entitlements::IccidState const*,entitlements::IccidState const*>(this, &__str, &v27);
-        if (v25 == 1 && SHIBYTE(v24.__r_.__value_.__r.__words[2]) < 0)
+        std::__optional_copy_base<std::string,false>::__optional_copy_base[abi:ne200100](&v21, &v15[24]);
+        std::__optional_copy_base<std::string,false>::__optional_copy_base[abi:ne200100](&v23, &v17[1]);
+        v25 = WORD4(v19);
+        std::vector<entitlements::IccidState>::__assign_with_size[abi:ne200100]<entitlements::IccidState const*,entitlements::IccidState const*>(this, &__str, &v26);
+        if (v24 == 1 && SHIBYTE(v23.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(v24.__r_.__value_.__l.__data_);
+          operator delete(v23.__r_.__value_.__l.__data_);
         }
 
-        if (v23 == 1 && SHIBYTE(v22.__r_.__value_.__r.__words[2]) < 0)
+        if (v22 == 1 && SHIBYTE(v21.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(v22.__r_.__value_.__l.__data_);
+          operator delete(v21.__r_.__value_.__l.__data_);
         }
 
         if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
@@ -6382,19 +6548,19 @@ LABEL_34:
           operator delete(__str.__r_.__value_.__l.__data_);
         }
 
-        if (v20 == 1 && SHIBYTE(v19) < 0)
+        if (v19 == 1 && SHIBYTE(v18) < 0)
         {
-          operator delete(v18[1]);
+          operator delete(v17[1]);
         }
 
-        if (LOBYTE(v18[0]) == 1 && SHIBYTE(v17) < 0)
+        if (LOBYTE(v17[0]) == 1 && SHIBYTE(v16) < 0)
         {
-          operator delete(*&v16[24]);
+          operator delete(*&v15[24]);
         }
 
-        if ((v16[23] & 0x80000000) != 0)
+        if ((v15[23] & 0x80000000) != 0)
         {
-          operator delete(*v16);
+          operator delete(*v15);
         }
       }
     }
@@ -6422,7 +6588,6 @@ LABEL_34:
     std::string::operator=((this + 128), (a2 + 112));
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return this;
 }
 
@@ -6622,8 +6787,7 @@ uint64_t std::construct_at[abi:ne200100]<entitlements::IccidState,entitlements::
   v2 = *a2;
   *(result + 16) = *(a2 + 2);
   *result = v2;
-  *(a2 + 1) = 0;
-  *(a2 + 2) = 0;
+  *(a2 + 8) = 0uLL;
   *a2 = 0;
   *(result + 24) = 0;
   *(result + 48) = 0;
@@ -6632,8 +6796,7 @@ uint64_t std::construct_at[abi:ne200100]<entitlements::IccidState,entitlements::
     v3 = *(a2 + 24);
     *(result + 40) = *(a2 + 5);
     *(result + 24) = v3;
-    *(a2 + 4) = 0;
-    *(a2 + 5) = 0;
+    a2[2] = 0uLL;
     *(a2 + 3) = 0;
     *(result + 48) = 1;
   }
@@ -6645,8 +6808,7 @@ uint64_t std::construct_at[abi:ne200100]<entitlements::IccidState,entitlements::
     v4 = *(a2 + 56);
     *(result + 72) = *(a2 + 9);
     *(result + 56) = v4;
-    *(a2 + 8) = 0;
-    *(a2 + 9) = 0;
+    a2[4] = 0uLL;
     *(a2 + 7) = 0;
     *(result + 80) = 1;
   }
@@ -6703,7 +6865,7 @@ void std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<entitl
     do
     {
       std::allocator_traits<std::allocator<entitlements::IccidState>>::destroy[abi:ne200100]<entitlements::IccidState,void,0>(v5);
-      v5 += 96;
+      v5 += 6;
     }
 
     while (v5 != a2);
@@ -6792,7 +6954,7 @@ void std::vector<entitlements::IccidState>::__assign_with_size[abi:ne200100]<ent
   }
 }
 
-void std::vector<entitlements::IccidState>::__vdeallocate(void **a1)
+void std::vector<entitlements::IccidState>::__vdeallocate(char **a1)
 {
   v1 = *a1;
   if (*a1)
@@ -6819,7 +6981,7 @@ void std::vector<entitlements::IccidState>::__vdeallocate(void **a1)
   }
 }
 
-void std::vector<entitlements::IccidState>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<entitlements::IccidState>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0x2AAAAAAAAAAAAABLL)
   {
@@ -7011,15 +7173,14 @@ __n128 EmergencyMode::operator=(__n128 *a1, __n128 *a2)
   return result;
 }
 
-uint64_t getSingleSlotForEmergency(__int128 *a1)
+uint64_t getSingleSlotForEmergency(void *a1)
 {
-  v1 = *a1;
-  v2 = *(a1 + 1);
-  v3 = v2 - *a1;
-  if (v2 == *a1)
+  v1 = a1[1];
+  v2 = v1 - *a1;
+  if (v1 == *a1)
   {
-    v8 = *a1;
-    if (v3 != 4)
+    v7 = *a1;
+    if (v2 != 4)
     {
       return 0;
     }
@@ -7027,65 +7188,65 @@ uint64_t getSingleSlotForEmergency(__int128 *a1)
 
   else
   {
-    v4 = 0;
-    v5 = v3 >> 2;
-    v6 = *a1;
+    v3 = 0;
+    v4 = v2 >> 2;
+    v5 = *a1;
     do
     {
-      if (!*v6++)
+      if (!*v5++)
       {
-        ++v4;
+        ++v3;
       }
     }
 
-    while (v6 != v2);
-    if (v5 - v4 != 1)
+    while (v5 != v1);
+    if (v4 - v3 != 1)
     {
       return 0;
     }
 
+    v7 = *a1;
     v8 = *a1;
-    v9 = *a1;
-    while (*v9 != 1)
+    while (*v8 != 1)
     {
-      ++v9;
       ++v8;
-      if (v9 == v2)
+      ++v7;
+      if (v8 == v1)
       {
-        v8 = *(a1 + 1);
+        v7 = a1[1];
         break;
       }
     }
 
-    if (v2 != v8)
+    if (v1 != v7)
     {
       goto LABEL_18;
     }
 
-    v8 = *a1;
-    v10 = *a1;
-    while (*v10 != 3)
+    v7 = *a1;
+    v9 = *a1;
+    while (*v9 != 3)
     {
-      ++v10;
-      ++v8;
-      if (v10 == v2)
+      ++v9;
+      ++v7;
+      if (v9 == v1)
       {
-        v8 = *(a1 + 1);
+        v7 = a1[1];
         break;
       }
     }
   }
 
-  if (v2 == v8)
+  if (v1 == v7)
   {
     return 0;
   }
 
 LABEL_18:
-  v11 = (v8 - *a1) >> 2;
-  if (v11)
+  v10 = (v7 - *a1) >> 2;
+  if (v10)
   {
-    return 2 * (v11 == 1);
+    return 2 * (v10 == 1);
   }
 
   else
@@ -7552,7 +7713,7 @@ LABEL_54:
         v29 = off_278A31268[v28];
       }
 
-      ctu::rest::detail::write_enum_string_value(&v46, v28, v29, v27);
+      ctu::rest::detail::write_enum_string_value(&v46, v28, v27, v29);
       v44 = &v48;
       v45 = "first";
       xpc::dict::object_proxy::operator=(&v44, &v46, &object);
@@ -7563,7 +7724,7 @@ LABEL_54:
       v30 = *(v19 + 9);
       v31 = v30;
       v32 = asString(v30);
-      ctu::rest::detail::write_enum_string_value(&v42, v31, v32, v33);
+      ctu::rest::detail::write_enum_string_value(&v42, v31, v33, v32);
       v44 = &v48;
       v45 = "second";
       xpc::dict::object_proxy::operator=(&v44, &v42, &v43);
@@ -7724,6 +7885,272 @@ LABEL_54:
   }
 }
 
+void read_rest_value(void *a1, xpc_object_t *a2)
+{
+  v4 = a1 + 1;
+  std::__tree<std::__value_type<subscriber::SimSlot,unsigned long long>,std::__map_value_compare<subscriber::SimSlot,std::__value_type<subscriber::SimSlot,unsigned long long>,std::less<subscriber::SimSlot>,true>,std::allocator<std::__value_type<subscriber::SimSlot,unsigned long long>>>::destroy(a1[1]);
+  *a1 = v4;
+  a1[2] = 0;
+  *v4 = 0;
+  v29 = 0;
+  v30 = 0;
+  v28 = &v29;
+  v5 = *a2;
+  v6 = MEMORY[0x277D86440];
+  if (v5 && MEMORY[0x2383CC760](v5) == v6)
+  {
+    xpc_retain(v5);
+  }
+
+  else
+  {
+    v5 = xpc_null_create();
+  }
+
+  std::__tree<std::__value_type<subscriber::SimSlot,unsigned long long>,std::__map_value_compare<subscriber::SimSlot,std::__value_type<subscriber::SimSlot,unsigned long long>,std::less<subscriber::SimSlot>,true>,std::allocator<std::__value_type<subscriber::SimSlot,unsigned long long>>>::destroy(v29);
+  v29 = 0;
+  v30 = 0;
+  v28 = &v29;
+  if (MEMORY[0x2383CC760](v5) == v6)
+  {
+    object = v5;
+    if (v5)
+    {
+      xpc_retain(v5);
+    }
+
+    else
+    {
+      object = xpc_null_create();
+    }
+
+    xpc::array::iterator::iterator(&v33, &object, 0);
+    xpc_release(object);
+    object = v5;
+    if (v5)
+    {
+      xpc_retain(v5);
+    }
+
+    else
+    {
+      object = xpc_null_create();
+    }
+
+    if (MEMORY[0x2383CC760](v5) == v6)
+    {
+      count = xpc_array_get_count(v5);
+    }
+
+    else
+    {
+      count = 0;
+    }
+
+    xpc::array::iterator::iterator(v32, &object, count);
+    xpc_release(object);
+    v8 = MEMORY[0x277D86468];
+    for (i = v34; ; i = ++v34)
+    {
+      if (i == v32[1] && v33 == v32[0])
+      {
+        xpc_release(v32[0]);
+        xpc_release(v33);
+        goto LABEL_55;
+      }
+
+      v31 = 0;
+      object = &v33;
+      v39 = i;
+      xpc::array::object_proxy::operator xpc::dict(&object, &v31);
+      if (MEMORY[0x2383CC760](v31) == v8)
+      {
+        break;
+      }
+
+LABEL_53:
+      xpc_release(v31);
+    }
+
+    v10 = v31;
+    if (v31)
+    {
+      xpc_retain(v31);
+      v37 = v10;
+    }
+
+    else
+    {
+      v10 = xpc_null_create();
+      v37 = v10;
+      if (!v10)
+      {
+        v11 = xpc_null_create();
+        v10 = 0;
+        goto LABEL_26;
+      }
+    }
+
+    if (MEMORY[0x2383CC760](v10) == v8)
+    {
+      xpc_retain(v10);
+      v11 = v10;
+LABEL_27:
+      if (MEMORY[0x2383CC760](v11) == v8)
+      {
+        v35[0] = &v37;
+        v35[1] = "first";
+        xpc::dict::object_proxy::operator xpc::object(v35, &v36);
+        v14 = v36;
+        v41 = v36;
+        if (v36 && MEMORY[0x2383CC760](v36) == v8)
+        {
+          xpc_retain(v14);
+        }
+
+        else
+        {
+          v41 = xpc_null_create();
+        }
+
+        if (MEMORY[0x2383CC760]() == v8)
+        {
+          object = &v41;
+          v39 = "first";
+          xpc::dict::object_proxy::operator xpc::object(&object, &v40);
+          v15 = MEMORY[0x2383CC760](v40);
+          if (v15 == MEMORY[0x277D864C0])
+          {
+            v42[0] = 0;
+            ctu::rest::detail::read_enum_string_value(v42, &v40, v16);
+            v12 = v42[0];
+          }
+
+          else if (v15 == MEMORY[0x277D86448] || v15 == MEMORY[0x277D86498] || v15 == MEMORY[0x277D864C8])
+          {
+            v12 = xpc::dyn_cast_or_default(&v40, 0);
+          }
+
+          else
+          {
+            v12 = 0;
+          }
+
+          xpc_release(v40);
+          object = &v41;
+          v39 = "second";
+          xpc::dict::object_proxy::operator xpc::object(&object, &v40);
+          v17 = MEMORY[0x2383CC760](v40);
+          if (v17 == MEMORY[0x277D864C0])
+          {
+            v42[0] = 0;
+            ctu::rest::detail::read_enum_string_value(v42, &v40, v18);
+            v13 = v42[0];
+          }
+
+          else if (v17 == MEMORY[0x277D86448] || v17 == MEMORY[0x277D86498] || v17 == MEMORY[0x277D864C8])
+          {
+            v13 = xpc::dyn_cast_or_default(&v40, 0);
+          }
+
+          else
+          {
+            v13 = 0;
+          }
+
+          xpc_release(v40);
+        }
+
+        else
+        {
+          v12 = 0;
+          v13 = 0;
+        }
+
+        xpc_release(v41);
+        xpc_release(v36);
+        object = &v37;
+        v39 = "second";
+        xpc::dict::object_proxy::operator xpc::object(&object, v35);
+        xpc::dyn_cast_or_default(v35, v19, 0.0);
+        xpc_release(v35[0]);
+        v11 = v37;
+      }
+
+      else
+      {
+        v12 = 0;
+        v13 = 0;
+      }
+
+      xpc_release(v11);
+      xpc_release(v10);
+      object = 0;
+      if (!*std::__tree<std::__value_type<std::pair<Technology,Type>,double>,std::__map_value_compare<std::pair<Technology,Type>,std::__value_type<std::pair<Technology,Type>,double>,std::less<std::pair<Technology,Type>>,true>,std::allocator<std::__value_type<std::pair<Technology,Type>,double>>>::__find_equal<std::pair<Technology,Type>>(&v28, &object, v12, v13))
+      {
+        operator new();
+      }
+
+      goto LABEL_53;
+    }
+
+    v11 = xpc_null_create();
+LABEL_26:
+    v37 = v11;
+    goto LABEL_27;
+  }
+
+LABEL_55:
+  xpc_release(v5);
+  v20 = v28;
+  if (v28 != &v29)
+  {
+    do
+    {
+      v21 = *(v20 + 8);
+      v22 = *(v20 + 9);
+      v23 = v20[5];
+      object = 0;
+      v24 = *std::__tree<std::__value_type<std::pair<Technology,Type>,double>,std::__map_value_compare<std::pair<Technology,Type>,std::__value_type<std::pair<Technology,Type>,double>,std::less<std::pair<Technology,Type>>,true>,std::allocator<std::__value_type<std::pair<Technology,Type>,double>>>::__find_equal<std::pair<Technology,Type>>(a1, &object, v21, v22);
+      if (!v24)
+      {
+        operator new();
+      }
+
+      *(v24 + 40) = v23;
+      v25 = v20[1];
+      if (v25)
+      {
+        do
+        {
+          v26 = v25;
+          v25 = *v25;
+        }
+
+        while (v25);
+      }
+
+      else
+      {
+        do
+        {
+          v26 = v20[2];
+          v27 = *v26 == v20;
+          v20 = v26;
+        }
+
+        while (!v27);
+      }
+
+      v20 = v26;
+    }
+
+    while (v26 != &v29);
+  }
+
+  std::__tree<std::__value_type<subscriber::SimSlot,unsigned long long>,std::__map_value_compare<subscriber::SimSlot,std::__value_type<subscriber::SimSlot,unsigned long long>,std::less<subscriber::SimSlot>,true>,std::allocator<std::__value_type<subscriber::SimSlot,unsigned long long>>>::destroy(v29);
+}
+
 void sub_23746042C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, xpc_object_t a12, xpc_object_t a13, uint64_t a14, xpc_object_t a15, uint64_t a16, xpc_object_t a17, uint64_t a18, xpc_object_t a19, xpc_object_t a20, xpc_object_t object, uint64_t a22, xpc_object_t a23, xpc_object_t a24)
 {
   xpc_release(object);
@@ -7740,7 +8167,7 @@ void sub_2374608A4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t *std::__tree<std::__value_type<std::pair<Technology,Type>,double>,std::__map_value_compare<std::pair<Technology,Type>,std::__value_type<std::pair<Technology,Type>,double>,std::less<std::pair<Technology,Type>>,true>,std::allocator<std::__value_type<std::pair<Technology,Type>,double>>>::__find_equal<std::pair<Technology,Type>>(uint64_t a1, void *a2, int a3, int a4)
+uint64_t *std::__tree<std::__value_type<std::pair<Technology,Type>,double>,std::__map_value_compare<std::pair<Technology,Type>,std::__value_type<std::pair<Technology,Type>,double>,std::less<std::pair<Technology,Type>>,true>,std::allocator<std::__value_type<std::pair<Technology,Type>,double>>>::__find_equal<std::pair<Technology,Type>>(uint64_t a1, uint64_t **a2, int a3, int a4)
 {
   v6 = *(a1 + 8);
   result = (a1 + 8);
@@ -7750,7 +8177,7 @@ uint64_t *std::__tree<std::__value_type<std::pair<Technology,Type>,double>,std::
     while (1)
     {
       v7 = v5;
-      v8 = *(v5 + 8);
+      v8 = *(v5 + 32);
       if (v8 == a3)
       {
         v9 = *(v7 + 9);
@@ -8004,7 +8431,7 @@ _DWORD *ActivationSimInfo::ActivationSimInfo(_DWORD *result, int a2, int a3)
 
 uint64_t RegistrationInterface::getRatSelection(uint64_t a1, uint64_t *a2)
 {
-  v6[4] = *MEMORY[0x277D85DE8];
+  v5[4] = *MEMORY[0x277D85DE8];
   v3 = *a2;
   v2 = a2[1];
   if (v2)
@@ -8012,52 +8439,49 @@ uint64_t RegistrationInterface::getRatSelection(uint64_t a1, uint64_t *a2)
     atomic_fetch_add_explicit((v2 + 8), 1uLL, memory_order_relaxed);
   }
 
-  v6[0] = &unk_284A6D830;
-  v6[1] = v3;
-  v6[2] = v2;
-  v6[3] = v6;
-  (*(*a1 + 96))(a1, 1, v6);
-  result = std::__function::__value_func<void ()(unsigned char,unsigned char)>::~__value_func[abi:ne200100](v6);
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  v5[0] = &unk_284A6D830;
+  v5[1] = v3;
+  v5[2] = v2;
+  v5[3] = v5;
+  (*(*a1 + 96))(a1, 1, v5);
+  return std::__function::__value_func<void ()(unsigned char,unsigned char)>::~__value_func[abi:ne200100](v5);
 }
 
-void sub_23746144C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23746144C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(unsigned char,unsigned char)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
 void RegistrationInterface::getOperatorName(RegistrationInterface *this@<X0>, void *a2@<X8>)
 {
-  v7[4] = *MEMORY[0x277D85DE8];
+  v6[4] = *MEMORY[0x277D85DE8];
   v4 = dispatch_semaphore_create(0);
   a2[1] = 0;
   a2[2] = 0;
   *a2 = 0;
   dsema = v4;
-  v7[0] = &unk_284A6D8C0;
-  v7[1] = a2;
-  v7[2] = &dsema;
-  v7[3] = v7;
-  (*(*this + 112))(this, 1, v7);
-  std::__function::__value_func<void ()(std::string)>::~__value_func[abi:ne200100](v7);
+  v6[0] = &unk_284A6D8C0;
+  v6[1] = a2;
+  v6[2] = &dsema;
+  v6[3] = v6;
+  (*(*this + 112))(this, 1, v6);
+  std::__function::__value_func<void ()(std::string)>::~__value_func[abi:ne200100](v6);
   dispatch_semaphore_wait(dsema, 0xFFFFFFFFFFFFFFFFLL);
   if (dsema)
   {
     dispatch_release(dsema);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
-void sub_237461544(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, dispatch_object_t object, char a10)
+void sub_237461544(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, dispatch_object_t object, ...)
 {
-  std::__function::__value_func<void ()(std::string)>::~__value_func[abi:ne200100](&a10);
-  if (*(v10 + 23) < 0)
+  va_start(va, object);
+  std::__function::__value_func<void ()(std::string)>::~__value_func[abi:ne200100](va);
+  if (*(v9 + 23) < 0)
   {
-    operator delete(*v10);
+    operator delete(*v9);
   }
 
   if (object)
@@ -8070,7 +8494,7 @@ void sub_237461544(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 uint64_t RegistrationInterface::getOperatorShortName(uint64_t a1, uint64_t *a2)
 {
-  v6[4] = *MEMORY[0x277D85DE8];
+  v5[4] = *MEMORY[0x277D85DE8];
   v3 = *a2;
   v2 = a2[1];
   if (v2)
@@ -8078,48 +8502,46 @@ uint64_t RegistrationInterface::getOperatorShortName(uint64_t a1, uint64_t *a2)
     atomic_fetch_add_explicit((v2 + 8), 1uLL, memory_order_relaxed);
   }
 
-  v6[0] = &unk_284A6D940;
-  v6[1] = v3;
-  v6[2] = v2;
-  v6[3] = v6;
-  (*(*a1 + 120))(a1, 1, v6);
-  result = std::__function::__value_func<void ()(std::string)>::~__value_func[abi:ne200100](v6);
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  v5[0] = &unk_284A6D940;
+  v5[1] = v3;
+  v5[2] = v2;
+  v5[3] = v5;
+  (*(*a1 + 120))(a1, 1, v5);
+  return std::__function::__value_func<void ()(std::string)>::~__value_func[abi:ne200100](v5);
 }
 
-void sub_237461630(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_237461630(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(std::string)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
 uint64_t RegistrationInterface::getRegistrationStatus(RegistrationInterface *this)
 {
-  v7[4] = *MEMORY[0x277D85DE8];
-  v5 = 0;
+  v6[4] = *MEMORY[0x277D85DE8];
+  v4 = 0;
   dsema = dispatch_semaphore_create(0);
-  v7[0] = &unk_284A6D9C0;
-  v7[1] = &v5;
-  v7[2] = &dsema;
-  v7[3] = v7;
-  (*(*this + 16))(this, 1, v7);
-  std::__function::__value_func<void ()(RegistrationStatus)>::~__value_func[abi:ne200100](v7);
+  v6[0] = &unk_284A6D9C0;
+  v6[1] = &v4;
+  v6[2] = &dsema;
+  v6[3] = v6;
+  (*(*this + 16))(this, 1, v6);
+  std::__function::__value_func<void ()(RegistrationStatus)>::~__value_func[abi:ne200100](v6);
   dispatch_semaphore_wait(dsema, 0xFFFFFFFFFFFFFFFFLL);
-  v2 = v5;
+  v2 = v4;
   if (dsema)
   {
     dispatch_release(dsema);
   }
 
-  v3 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
-void sub_23746172C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, dispatch_object_t object, char a12)
+void sub_23746172C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, dispatch_object_t object, ...)
 {
-  std::__function::__value_func<void ()(RegistrationStatus)>::~__value_func[abi:ne200100](&a12);
+  va_start(va, object);
+  std::__function::__value_func<void ()(RegistrationStatus)>::~__value_func[abi:ne200100](va);
   if (object)
   {
     dispatch_release(object);
@@ -8130,7 +8552,7 @@ void sub_23746172C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 uint64_t RegistrationInterface::getRadioAccessTechnology(uint64_t a1, uint64_t *a2)
 {
-  v6[4] = *MEMORY[0x277D85DE8];
+  v5[4] = *MEMORY[0x277D85DE8];
   v3 = *a2;
   v2 = a2[1];
   if (v2)
@@ -8138,48 +8560,46 @@ uint64_t RegistrationInterface::getRadioAccessTechnology(uint64_t a1, uint64_t *
     atomic_fetch_add_explicit((v2 + 8), 1uLL, memory_order_relaxed);
   }
 
-  v6[0] = &unk_284A6DA50;
-  v6[1] = v3;
-  v6[2] = v2;
-  v6[3] = v6;
-  (*(*a1 + 80))(a1, 1, v6);
-  result = std::__function::__value_func<void ()(RadioAccessTechnology)>::~__value_func[abi:ne200100](v6);
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  v5[0] = &unk_284A6DA50;
+  v5[1] = v3;
+  v5[2] = v2;
+  v5[3] = v5;
+  (*(*a1 + 80))(a1, 1, v5);
+  return std::__function::__value_func<void ()(RadioAccessTechnology)>::~__value_func[abi:ne200100](v5);
 }
 
-void sub_237461808(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_237461808(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(RadioAccessTechnology)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
 uint64_t RegistrationInterface::getRadioAccessTechnology(RegistrationInterface *this)
 {
-  v7[4] = *MEMORY[0x277D85DE8];
-  v5 = 11;
+  v6[4] = *MEMORY[0x277D85DE8];
+  v4 = 11;
   dsema = dispatch_semaphore_create(0);
-  v7[0] = &unk_284A6DAE0;
-  v7[1] = &v5;
-  v7[2] = &dsema;
-  v7[3] = v7;
-  (*(*this + 80))(this, 1, v7);
-  std::__function::__value_func<void ()(RadioAccessTechnology)>::~__value_func[abi:ne200100](v7);
+  v6[0] = &unk_284A6DAE0;
+  v6[1] = &v4;
+  v6[2] = &dsema;
+  v6[3] = v6;
+  (*(*this + 80))(this, 1, v6);
+  std::__function::__value_func<void ()(RadioAccessTechnology)>::~__value_func[abi:ne200100](v6);
   dispatch_semaphore_wait(dsema, 0xFFFFFFFFFFFFFFFFLL);
-  v2 = v5;
+  v2 = v4;
   if (dsema)
   {
     dispatch_release(dsema);
   }
 
-  v3 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
-void sub_237461908(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, dispatch_object_t object, char a12)
+void sub_237461908(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, dispatch_object_t object, ...)
 {
-  std::__function::__value_func<void ()(RadioAccessTechnology)>::~__value_func[abi:ne200100](&a12);
+  va_start(va, object);
+  std::__function::__value_func<void ()(RadioAccessTechnology)>::~__value_func[abi:ne200100](va);
   if (object)
   {
     dispatch_release(object);
@@ -8190,7 +8610,7 @@ void sub_237461908(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 uint64_t RegistrationInterface::getServingPLMN(uint64_t a1, uint64_t *a2)
 {
-  v6[4] = *MEMORY[0x277D85DE8];
+  v5[4] = *MEMORY[0x277D85DE8];
   v3 = *a2;
   v2 = a2[1];
   if (v2)
@@ -8198,52 +8618,49 @@ uint64_t RegistrationInterface::getServingPLMN(uint64_t a1, uint64_t *a2)
     atomic_fetch_add_explicit((v2 + 8), 1uLL, memory_order_relaxed);
   }
 
-  v6[0] = &unk_284A6DB60;
-  v6[1] = v3;
-  v6[2] = v2;
-  v6[3] = v6;
-  (*(*a1 + 200))(a1, 1, v6);
-  result = std::__function::__value_func<void ()(std::string)>::~__value_func[abi:ne200100](v6);
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  v5[0] = &unk_284A6DB60;
+  v5[1] = v3;
+  v5[2] = v2;
+  v5[3] = v5;
+  (*(*a1 + 200))(a1, 1, v5);
+  return std::__function::__value_func<void ()(std::string)>::~__value_func[abi:ne200100](v5);
 }
 
-void sub_2374619E4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2374619E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(std::string)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
 void RegistrationInterface::getServingPLMN(RegistrationInterface *this@<X0>, void *a2@<X8>)
 {
-  v7[4] = *MEMORY[0x277D85DE8];
+  v6[4] = *MEMORY[0x277D85DE8];
   v4 = dispatch_semaphore_create(0);
   a2[1] = 0;
   a2[2] = 0;
   *a2 = 0;
   dsema = v4;
-  v7[0] = &unk_284A6DBE0;
-  v7[1] = a2;
-  v7[2] = &dsema;
-  v7[3] = v7;
-  (*(*this + 200))(this, 1, v7);
-  std::__function::__value_func<void ()(std::string)>::~__value_func[abi:ne200100](v7);
+  v6[0] = &unk_284A6DBE0;
+  v6[1] = a2;
+  v6[2] = &dsema;
+  v6[3] = v6;
+  (*(*this + 200))(this, 1, v6);
+  std::__function::__value_func<void ()(std::string)>::~__value_func[abi:ne200100](v6);
   dispatch_semaphore_wait(dsema, 0xFFFFFFFFFFFFFFFFLL);
   if (dsema)
   {
     dispatch_release(dsema);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
-void sub_237461ADC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, dispatch_object_t object, char a10)
+void sub_237461ADC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, dispatch_object_t object, ...)
 {
-  std::__function::__value_func<void ()(std::string)>::~__value_func[abi:ne200100](&a10);
-  if (*(v10 + 23) < 0)
+  va_start(va, object);
+  std::__function::__value_func<void ()(std::string)>::~__value_func[abi:ne200100](va);
+  if (*(v9 + 23) < 0)
   {
-    operator delete(*v10);
+    operator delete(*v9);
   }
 
   if (object)
@@ -8268,7 +8685,7 @@ uint64_t RegistrationInterface::getMobileCountryCode(RegistrationInterface *this
 
 uint64_t RegistrationInterface::getMobileCountryCode(uint64_t a1, uint64_t *a2)
 {
-  v6[4] = *MEMORY[0x277D85DE8];
+  v5[4] = *MEMORY[0x277D85DE8];
   v3 = *a2;
   v2 = a2[1];
   if (v2)
@@ -8276,26 +8693,24 @@ uint64_t RegistrationInterface::getMobileCountryCode(uint64_t a1, uint64_t *a2)
     atomic_fetch_add_explicit((v2 + 8), 1uLL, memory_order_relaxed);
   }
 
-  v6[0] = &unk_284A6DC60;
-  v6[1] = v3;
-  v6[2] = v2;
-  v6[3] = v6;
-  (*(*a1 + 208))(a1, 1, v6);
-  result = std::__function::__value_func<void ()(MCC)>::~__value_func[abi:ne200100](v6);
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  v5[0] = &unk_284A6DC60;
+  v5[1] = v3;
+  v5[2] = v2;
+  v5[3] = v5;
+  (*(*a1 + 208))(a1, 1, v5);
+  return std::__function::__value_func<void ()(MCC)>::~__value_func[abi:ne200100](v5);
 }
 
-void sub_237461C30(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_237461C30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(MCC)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
 uint64_t RegistrationInterface::getMobileNetworkCode(uint64_t a1, uint64_t *a2)
 {
-  v6[4] = *MEMORY[0x277D85DE8];
+  v5[4] = *MEMORY[0x277D85DE8];
   v3 = *a2;
   v2 = a2[1];
   if (v2)
@@ -8303,48 +8718,46 @@ uint64_t RegistrationInterface::getMobileNetworkCode(uint64_t a1, uint64_t *a2)
     atomic_fetch_add_explicit((v2 + 8), 1uLL, memory_order_relaxed);
   }
 
-  v6[0] = &unk_284A6DCF0;
-  v6[1] = v3;
-  v6[2] = v2;
-  v6[3] = v6;
-  (*(*a1 + 224))(a1, 1, v6);
-  result = std::__function::__value_func<void ()(MNC)>::~__value_func[abi:ne200100](v6);
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  v5[0] = &unk_284A6DCF0;
+  v5[1] = v3;
+  v5[2] = v2;
+  v5[3] = v5;
+  (*(*a1 + 224))(a1, 1, v5);
+  return std::__function::__value_func<void ()(MNC)>::~__value_func[abi:ne200100](v5);
 }
 
-void sub_237461D00(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_237461D00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(MNC)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
 uint64_t RegistrationInterface::getRegistrationDisplayStatus(RegistrationInterface *this)
 {
-  v7[4] = *MEMORY[0x277D85DE8];
-  v5 = 0;
+  v6[4] = *MEMORY[0x277D85DE8];
+  v4 = 0;
   dsema = dispatch_semaphore_create(0);
-  v7[0] = &unk_284A6DD80;
-  v7[1] = &v5;
-  v7[2] = &dsema;
-  v7[3] = v7;
-  (*(*this + 32))(this, 1, v7);
-  std::__function::__value_func<void ()(RegistrationDisplayStatus)>::~__value_func[abi:ne200100](v7);
+  v6[0] = &unk_284A6DD80;
+  v6[1] = &v4;
+  v6[2] = &dsema;
+  v6[3] = v6;
+  (*(*this + 32))(this, 1, v6);
+  std::__function::__value_func<void ()(RegistrationDisplayStatus)>::~__value_func[abi:ne200100](v6);
   dispatch_semaphore_wait(dsema, 0xFFFFFFFFFFFFFFFFLL);
-  v2 = v5;
+  v2 = v4;
   if (dsema)
   {
     dispatch_release(dsema);
   }
 
-  v3 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
-void sub_237461DFC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, dispatch_object_t object, char a12)
+void sub_237461DFC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, dispatch_object_t object, ...)
 {
-  std::__function::__value_func<void ()(RegistrationDisplayStatus)>::~__value_func[abi:ne200100](&a12);
+  va_start(va, object);
+  std::__function::__value_func<void ()(RegistrationDisplayStatus)>::~__value_func[abi:ne200100](va);
   if (object)
   {
     dispatch_release(object);
@@ -8355,7 +8768,7 @@ void sub_237461DFC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 uint64_t RegistrationInterface::getRegistrationCauseCode(uint64_t a1, uint64_t *a2)
 {
-  v6[4] = *MEMORY[0x277D85DE8];
+  v5[4] = *MEMORY[0x277D85DE8];
   v3 = *a2;
   v2 = a2[1];
   if (v2)
@@ -8363,27 +8776,25 @@ uint64_t RegistrationInterface::getRegistrationCauseCode(uint64_t a1, uint64_t *
     atomic_fetch_add_explicit((v2 + 8), 1uLL, memory_order_relaxed);
   }
 
-  v6[0] = &unk_284A6DE10;
-  v6[1] = v3;
-  v6[2] = v2;
-  v6[3] = v6;
-  (*(*a1 + 40))(a1, 1, v6);
-  result = std::__function::__value_func<void ()(int)>::~__value_func[abi:ne200100](v6);
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  v5[0] = &unk_284A6DE10;
+  v5[1] = v3;
+  v5[2] = v2;
+  v5[3] = v5;
+  (*(*a1 + 40))(a1, 1, v5);
+  return std::__function::__value_func<void ()(int)>::~__value_func[abi:ne200100](v5);
 }
 
-void sub_237461ED8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_237461ED8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(int)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
 uint64_t RegistrationInterface::isDataAttached(RegistrationInterface *this)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v7 = 0;
+  v9 = *MEMORY[0x277D85DE8];
+  v6 = 0;
   v2 = dispatch_semaphore_create(0);
   v3 = v2;
   if (v2)
@@ -8391,44 +8802,43 @@ uint64_t RegistrationInterface::isDataAttached(RegistrationInterface *this)
     dispatch_retain(v2);
   }
 
-  v9 = 0;
-  v8[0] = &unk_284A6DEA0;
-  v8[1] = v3;
+  v8 = 0;
+  v7[0] = &unk_284A6DEA0;
+  v7[1] = v3;
   if (v3)
   {
     dispatch_retain(v3);
   }
 
-  v8[2] = &v7;
-  v9 = v8;
-  (*(*this + 48))(this, 1, v8);
-  std::__function::__value_func<void ()(BOOL)>::~__value_func[abi:ne200100](v8);
+  v7[2] = &v6;
+  v8 = v7;
+  (*(*this + 48))(this, 1, v7);
+  std::__function::__value_func<void ()(BOOL)>::~__value_func[abi:ne200100](v7);
   if (v3)
   {
     dispatch_release(v3);
     dispatch_semaphore_wait(v3, 0xFFFFFFFFFFFFFFFFLL);
-    v4 = v7;
+    v4 = v6;
     dispatch_release(v3);
   }
 
   else
   {
     dispatch_semaphore_wait(0, 0xFFFFFFFFFFFFFFFFLL);
-    v4 = v7;
+    v4 = v6;
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return v4 & 1;
 }
 
-void sub_237462010(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_237462010(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(BOOL)>::~__value_func[abi:ne200100](va);
-  if (v2)
+  if (v3)
   {
-    dispatch_release(v2);
-    dispatch_release(v2);
+    dispatch_release(v3);
+    dispatch_release(v3);
   }
 
   _Unwind_Resume(a1);
@@ -8436,7 +8846,7 @@ void sub_237462010(_Unwind_Exception *a1, uint64_t a2, ...)
 
 uint64_t RegistrationInterface::isDataAttached(uint64_t a1, uint64_t *a2)
 {
-  v6[4] = *MEMORY[0x277D85DE8];
+  v5[4] = *MEMORY[0x277D85DE8];
   v3 = *a2;
   v2 = a2[1];
   if (v2)
@@ -8444,26 +8854,24 @@ uint64_t RegistrationInterface::isDataAttached(uint64_t a1, uint64_t *a2)
     atomic_fetch_add_explicit((v2 + 8), 1uLL, memory_order_relaxed);
   }
 
-  v6[0] = &unk_284A6DF20;
-  v6[1] = v3;
-  v6[2] = v2;
-  v6[3] = v6;
-  (*(*a1 + 48))(a1, 1, v6);
-  result = std::__function::__value_func<void ()(BOOL)>::~__value_func[abi:ne200100](v6);
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  v5[0] = &unk_284A6DF20;
+  v5[1] = v3;
+  v5[2] = v2;
+  v5[3] = v5;
+  (*(*a1 + 48))(a1, 1, v5);
+  return std::__function::__value_func<void ()(BOOL)>::~__value_func[abi:ne200100](v5);
 }
 
-void sub_2374620F4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2374620F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(BOOL)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
 uint64_t RegistrationInterface::getLastKnownMobileCountryCode(uint64_t a1, uint64_t *a2)
 {
-  v6[4] = *MEMORY[0x277D85DE8];
+  v5[4] = *MEMORY[0x277D85DE8];
   v3 = *a2;
   v2 = a2[1];
   if (v2)
@@ -8471,26 +8879,24 @@ uint64_t RegistrationInterface::getLastKnownMobileCountryCode(uint64_t a1, uint6
     atomic_fetch_add_explicit((v2 + 8), 1uLL, memory_order_relaxed);
   }
 
-  v6[0] = &unk_284A6DFA0;
-  v6[1] = v3;
-  v6[2] = v2;
-  v6[3] = v6;
-  (*(*a1 + 248))(a1, 1, v6);
-  result = std::__function::__value_func<void ()(MCC)>::~__value_func[abi:ne200100](v6);
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  v5[0] = &unk_284A6DFA0;
+  v5[1] = v3;
+  v5[2] = v2;
+  v5[3] = v5;
+  (*(*a1 + 248))(a1, 1, v5);
+  return std::__function::__value_func<void ()(MCC)>::~__value_func[abi:ne200100](v5);
 }
 
-void sub_2374621C4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2374621C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(MCC)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
 uint64_t RegistrationInterface::getNetworkSelectionMode(uint64_t a1, uint64_t *a2)
 {
-  v6[4] = *MEMORY[0x277D85DE8];
+  v5[4] = *MEMORY[0x277D85DE8];
   v3 = *a2;
   v2 = a2[1];
   if (v2)
@@ -8498,26 +8904,24 @@ uint64_t RegistrationInterface::getNetworkSelectionMode(uint64_t a1, uint64_t *a
     atomic_fetch_add_explicit((v2 + 8), 1uLL, memory_order_relaxed);
   }
 
-  v6[0] = &unk_284A6E020;
-  v6[1] = v3;
-  v6[2] = v2;
-  v6[3] = v6;
-  (*(*a1 + 168))(a1, 1, v6);
-  result = std::__function::__value_func<void ()(NetworkSelectionMode)>::~__value_func[abi:ne200100](v6);
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  v5[0] = &unk_284A6E020;
+  v5[1] = v3;
+  v5[2] = v2;
+  v5[3] = v5;
+  (*(*a1 + 168))(a1, 1, v5);
+  return std::__function::__value_func<void ()(NetworkSelectionMode)>::~__value_func[abi:ne200100](v5);
 }
 
-void sub_237462294(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_237462294(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(NetworkSelectionMode)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
 uint64_t RegistrationInterface::getNetworkSelectionState(uint64_t a1, uint64_t *a2)
 {
-  v6[4] = *MEMORY[0x277D85DE8];
+  v5[4] = *MEMORY[0x277D85DE8];
   v3 = *a2;
   v2 = a2[1];
   if (v2)
@@ -8525,26 +8929,24 @@ uint64_t RegistrationInterface::getNetworkSelectionState(uint64_t a1, uint64_t *
     atomic_fetch_add_explicit((v2 + 8), 1uLL, memory_order_relaxed);
   }
 
-  v6[0] = &unk_284A6E0B0;
-  v6[1] = v3;
-  v6[2] = v2;
-  v6[3] = v6;
-  (*(*a1 + 176))(a1, 1, v6);
-  result = std::__function::__value_func<void ()(NetworkSelectionState)>::~__value_func[abi:ne200100](v6);
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  v5[0] = &unk_284A6E0B0;
+  v5[1] = v3;
+  v5[2] = v2;
+  v5[3] = v5;
+  (*(*a1 + 176))(a1, 1, v5);
+  return std::__function::__value_func<void ()(NetworkSelectionState)>::~__value_func[abi:ne200100](v5);
 }
 
-void sub_237462364(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_237462364(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(NetworkSelectionState)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
 uint64_t RegistrationInterface::isNetworkSelectionMenuEnabled(uint64_t a1, uint64_t *a2)
 {
-  v6[4] = *MEMORY[0x277D85DE8];
+  v5[4] = *MEMORY[0x277D85DE8];
   v3 = *a2;
   v2 = a2[1];
   if (v2)
@@ -8552,62 +8954,56 @@ uint64_t RegistrationInterface::isNetworkSelectionMenuEnabled(uint64_t a1, uint6
     atomic_fetch_add_explicit((v2 + 8), 1uLL, memory_order_relaxed);
   }
 
-  v6[0] = &unk_284A6E140;
-  v6[1] = v3;
-  v6[2] = v2;
-  v6[3] = v6;
-  (*(*a1 + 304))(a1, 1, v6);
-  result = std::__function::__value_func<void ()(BOOL)>::~__value_func[abi:ne200100](v6);
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  v5[0] = &unk_284A6E140;
+  v5[1] = v3;
+  v5[2] = v2;
+  v5[3] = v5;
+  (*(*a1 + 304))(a1, 1, v5);
+  return std::__function::__value_func<void ()(BOOL)>::~__value_func[abi:ne200100](v5);
 }
 
-void sub_23746243C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23746243C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(BOOL)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
 uint64_t RegistrationInterface::fetchNetworkList(RegistrationInterface *this)
 {
-  v3[4] = *MEMORY[0x277D85DE8];
-  v3[0] = &unk_284A6E1C0;
-  v3[3] = v3;
-  (*(*this + 128))(this, 1, v3);
-  result = std::__function::__value_func<void ()(CTError)>::~__value_func[abi:ne200100](v3);
-  v2 = *MEMORY[0x277D85DE8];
-  return result;
+  v2[4] = *MEMORY[0x277D85DE8];
+  v2[0] = &unk_284A6E1C0;
+  v2[3] = v2;
+  (*(*this + 128))(this, 1, v2);
+  return std::__function::__value_func<void ()(CTError)>::~__value_func[abi:ne200100](v2);
 }
 
-void sub_2374624F8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2374624F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(CTError)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
 uint64_t RegistrationInterface::automaticallySelectNetwork(RegistrationInterface *this)
 {
-  v3[4] = *MEMORY[0x277D85DE8];
-  v3[0] = &unk_284A6E240;
-  v3[3] = v3;
-  (*(*this + 160))(this, 1, v3);
-  result = std::__function::__value_func<void ()(CTError)>::~__value_func[abi:ne200100](v3);
-  v2 = *MEMORY[0x277D85DE8];
-  return result;
+  v2[4] = *MEMORY[0x277D85DE8];
+  v2[0] = &unk_284A6E240;
+  v2[3] = v2;
+  (*(*this + 160))(this, 1, v2);
+  return std::__function::__value_func<void ()(CTError)>::~__value_func[abi:ne200100](v2);
 }
 
-void sub_2374625B4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2374625B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(CTError)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
 void RegistrationInterface::selectNetwork(uint64_t a1, uint64_t a2)
 {
-  v5[4] = *MEMORY[0x277D85DE8];
+  v4[4] = *MEMORY[0x277D85DE8];
   if (*(a2 + 23) < 0)
   {
     std::string::__init_copy_ctor_external(&__p, *a2, *(a2 + 8));
@@ -8618,21 +9014,19 @@ void RegistrationInterface::selectNetwork(uint64_t a1, uint64_t a2)
     __p = *a2;
   }
 
-  v5[0] = &unk_284A6E2C0;
-  v5[3] = v5;
-  (*(*a1 + 152))(a1, 1, &__p, v5);
-  std::__function::__value_func<void ()(CTError)>::~__value_func[abi:ne200100](v5);
+  v4[0] = &unk_284A6E2C0;
+  v4[3] = v4;
+  (*(*a1 + 152))(a1, 1, &__p, v4);
+  std::__function::__value_func<void ()(CTError)>::~__value_func[abi:ne200100](v4);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t RegistrationInterface::getSelectedNetwork(uint64_t a1, uint64_t *a2)
 {
-  v6[4] = *MEMORY[0x277D85DE8];
+  v5[4] = *MEMORY[0x277D85DE8];
   v3 = *a2;
   v2 = a2[1];
   if (v2)
@@ -8640,26 +9034,24 @@ uint64_t RegistrationInterface::getSelectedNetwork(uint64_t a1, uint64_t *a2)
     atomic_fetch_add_explicit((v2 + 8), 1uLL, memory_order_relaxed);
   }
 
-  v6[0] = &unk_284A6E340;
-  v6[1] = v3;
-  v6[2] = v2;
-  v6[3] = v6;
-  (*(*a1 + 136))(a1, 1, v6);
-  result = std::__function::__value_func<void ()(NetworkListOperator)>::~__value_func[abi:ne200100](v6);
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  v5[0] = &unk_284A6E340;
+  v5[1] = v3;
+  v5[2] = v2;
+  v5[3] = v5;
+  (*(*a1 + 136))(a1, 1, v5);
+  return std::__function::__value_func<void ()(NetworkListOperator)>::~__value_func[abi:ne200100](v5);
 }
 
-void sub_2374627A0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2374627A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(NetworkListOperator)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
 uint64_t RegistrationInterface::getNetworkList(uint64_t a1, uint64_t *a2)
 {
-  v6[4] = *MEMORY[0x277D85DE8];
+  v5[4] = *MEMORY[0x277D85DE8];
   v3 = *a2;
   v2 = a2[1];
   if (v2)
@@ -8667,19 +9059,17 @@ uint64_t RegistrationInterface::getNetworkList(uint64_t a1, uint64_t *a2)
     atomic_fetch_add_explicit((v2 + 8), 1uLL, memory_order_relaxed);
   }
 
-  v6[0] = &unk_284A6E3D0;
-  v6[1] = v3;
-  v6[2] = v2;
-  v6[3] = v6;
-  (*(*a1 + 144))(a1, 1, v6);
-  result = std::__function::__value_func<void ()(std::vector<NetworkListOperator>)>::~__value_func[abi:ne200100](v6);
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  v5[0] = &unk_284A6E3D0;
+  v5[1] = v3;
+  v5[2] = v2;
+  v5[3] = v5;
+  (*(*a1 + 144))(a1, 1, v5);
+  return std::__function::__value_func<void ()(std::vector<NetworkListOperator>)>::~__value_func[abi:ne200100](v5);
 }
 
-void sub_237462870(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_237462870(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(std::vector<NetworkListOperator>)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -8812,8 +9202,7 @@ __n128 std::__function::__func<RegistrationInterface::getOperatorName(void)::$_0
 void std::__function::__func<RegistrationInterface::getOperatorName(void)::$_0,std::allocator<RegistrationInterface::getOperatorName(void)::$_0>,void ()(std::string)>::operator()(uint64_t a1, std::string *a2)
 {
   __p = *a2;
-  a2->__r_.__value_.__l.__size_ = 0;
-  a2->__r_.__value_.__r.__words[2] = 0;
+  *&a2->__r_.__value_.__r.__words[1] = 0uLL;
   a2->__r_.__value_.__r.__words[0] = 0;
   std::string::operator=(*(a1 + 8), &__p);
   dispatch_semaphore_signal(**(a1 + 16));
@@ -9242,8 +9631,7 @@ __n128 std::__function::__func<RegistrationInterface::getServingPLMN(void)::$_0,
 void std::__function::__func<RegistrationInterface::getServingPLMN(void)::$_0,std::allocator<RegistrationInterface::getServingPLMN(void)::$_0>,void ()(std::string)>::operator()(uint64_t a1, std::string *a2)
 {
   __p = *a2;
-  a2->__r_.__value_.__l.__size_ = 0;
-  a2->__r_.__value_.__r.__words[2] = 0;
+  *&a2->__r_.__value_.__r.__words[1] = 0uLL;
   a2->__r_.__value_.__r.__words[0] = 0;
   std::string::operator=(*(a1 + 8), &__p);
   dispatch_semaphore_signal(**(a1 + 16));
@@ -9349,7 +9737,7 @@ void std::__function::__func<RegistrationInterface::getMobileCountryCode(xpc::au
     __p = *(a2 + 4);
   }
 
-  xpc::string("%03d", &v7, v3);
+  xpc::string(&v7, "%03d", a2, v3);
   v6[0] = *(a1 + 8);
   v6[1] = "kRegistrationMCC";
   xpc::dict::object_proxy::operator=(v6, &v7, &v8);
@@ -9384,15 +9772,15 @@ uint64_t std::__function::__func<RegistrationInterface::getMobileCountryCode(xpc
   }
 }
 
-xpc_object_t xpc::string@<X0>(xpc *this@<X0>, void *a2@<X8>, ...)
+uint64_t *xpc::string@<X0>(uint64_t *__return_ptr a1@<X8>, xpc *this@<X0>, const char *a3@<X1>, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   result = xpc_string_create_with_format_and_arguments(this, va);
-  *a2 = result;
+  *a1 = result;
   if (!result)
   {
     result = xpc_null_create();
-    *a2 = result;
+    *a1 = result;
   }
 
   return result;
@@ -9451,377 +9839,4 @@ uint64_t std::__function::__func<RegistrationInterface::getMobileNetworkCode(xpc
   }
 
   return result;
-}
-
-void std::__function::__func<RegistrationInterface::getMobileNetworkCode(xpc::auto_reply)::$_0,std::allocator<RegistrationInterface::getMobileNetworkCode(xpc::auto_reply)::$_0>,void ()(MNC)>::destroy(uint64_t a1)
-{
-  v1 = *(a1 + 16);
-  if (v1)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
-  }
-}
-
-void std::__function::__func<RegistrationInterface::getMobileNetworkCode(xpc::auto_reply)::$_0,std::allocator<RegistrationInterface::getMobileNetworkCode(xpc::auto_reply)::$_0>,void ()(MNC)>::destroy_deallocate(void *__p)
-{
-  v2 = __p[2];
-  if (v2)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
-  }
-
-  operator delete(__p);
-}
-
-void std::__function::__func<RegistrationInterface::getMobileNetworkCode(xpc::auto_reply)::$_0,std::allocator<RegistrationInterface::getMobileNetworkCode(xpc::auto_reply)::$_0>,void ()(MNC)>::operator()(uint64_t a1, unsigned __int16 *a2)
-{
-  v3 = *a2;
-  v6 = *a2;
-  if (*(a2 + 31) < 0)
-  {
-    std::string::__init_copy_ctor_external(&__p, *(a2 + 1), *(a2 + 2));
-    v3 = v6;
-  }
-
-  else
-  {
-    __p = *(a2 + 4);
-  }
-
-  size = HIBYTE(__p.__r_.__value_.__r.__words[2]);
-  if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
-  {
-    size = __p.__r_.__value_.__l.__size_;
-  }
-
-  if (size == 3)
-  {
-    v5 = "%03d";
-  }
-
-  else
-  {
-    v5 = "%02d";
-  }
-
-  xpc::string(v5, &v9, v3);
-  v8[0] = *(a1 + 8);
-  v8[1] = "kRegistrationMNC";
-  xpc::dict::object_proxy::operator=(v8, &v9, &v10);
-  xpc_release(v10);
-  v10 = 0;
-  xpc_release(v9);
-  if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(__p.__r_.__value_.__l.__data_);
-  }
-}
-
-void sub_237463FF8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17)
-{
-  if (a17 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-uint64_t std::__function::__func<RegistrationInterface::getMobileNetworkCode(xpc::auto_reply)::$_0,std::allocator<RegistrationInterface::getMobileNetworkCode(xpc::auto_reply)::$_0>,void ()(MNC)>::target(uint64_t a1, uint64_t a2)
-{
-  {
-    return a1 + 8;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-uint64_t std::__function::__value_func<void ()(MNC)>::~__value_func[abi:ne200100](uint64_t a1)
-{
-  v2 = *(a1 + 24);
-  if (v2 == a1)
-  {
-    (*(*v2 + 32))(v2);
-  }
-
-  else if (v2)
-  {
-    (*(*v2 + 40))(v2);
-  }
-
-  return a1;
-}
-
-__n128 std::__function::__func<RegistrationInterface::getRegistrationDisplayStatus(void)::$_0,std::allocator<RegistrationInterface::getRegistrationDisplayStatus(void)::$_0>,void ()(RegistrationDisplayStatus)>::__clone(uint64_t a1, uint64_t a2)
-{
-  *a2 = &unk_284A6DD80;
-  result = *(a1 + 8);
-  *(a2 + 8) = result;
-  return result;
-}
-
-intptr_t std::__function::__func<RegistrationInterface::getRegistrationDisplayStatus(void)::$_0,std::allocator<RegistrationInterface::getRegistrationDisplayStatus(void)::$_0>,void ()(RegistrationDisplayStatus)>::operator()(uint64_t a1, void *a2)
-{
-  v2 = *(a1 + 16);
-  **(a1 + 8) = *a2;
-  return dispatch_semaphore_signal(*v2);
-}
-
-uint64_t std::__function::__func<RegistrationInterface::getRegistrationDisplayStatus(void)::$_0,std::allocator<RegistrationInterface::getRegistrationDisplayStatus(void)::$_0>,void ()(RegistrationDisplayStatus)>::target(uint64_t a1, uint64_t a2)
-{
-  {
-    return a1 + 8;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-uint64_t std::__function::__value_func<void ()(RegistrationDisplayStatus)>::~__value_func[abi:ne200100](uint64_t a1)
-{
-  v2 = *(a1 + 24);
-  if (v2 == a1)
-  {
-    (*(*v2 + 32))(v2);
-  }
-
-  else if (v2)
-  {
-    (*(*v2 + 40))(v2);
-  }
-
-  return a1;
-}
-
-void *std::__function::__func<RegistrationInterface::getRegistrationCauseCode(xpc::auto_reply)::$_0,std::allocator<RegistrationInterface::getRegistrationCauseCode(xpc::auto_reply)::$_0>,void ()(int)>::~__func(void *a1)
-{
-  *a1 = &unk_284A6DE10;
-  v2 = a1[2];
-  if (v2)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
-  }
-
-  return a1;
-}
-
-void std::__function::__func<RegistrationInterface::getRegistrationCauseCode(xpc::auto_reply)::$_0,std::allocator<RegistrationInterface::getRegistrationCauseCode(xpc::auto_reply)::$_0>,void ()(int)>::~__func(void *a1)
-{
-  *a1 = &unk_284A6DE10;
-  v1 = a1[2];
-  if (v1)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
-  }
-
-  JUMPOUT(0x2383CBEF0);
-}
-
-uint64_t std::__function::__func<RegistrationInterface::getRegistrationCauseCode(xpc::auto_reply)::$_0,std::allocator<RegistrationInterface::getRegistrationCauseCode(xpc::auto_reply)::$_0>,void ()(int)>::__clone(uint64_t result, void *a2)
-{
-  v3 = *(result + 8);
-  v2 = *(result + 16);
-  *a2 = &unk_284A6DE10;
-  a2[1] = v3;
-  a2[2] = v2;
-  if (v2)
-  {
-    atomic_fetch_add_explicit((v2 + 8), 1uLL, memory_order_relaxed);
-  }
-
-  return result;
-}
-
-void std::__function::__func<RegistrationInterface::getRegistrationCauseCode(xpc::auto_reply)::$_0,std::allocator<RegistrationInterface::getRegistrationCauseCode(xpc::auto_reply)::$_0>,void ()(int)>::destroy(uint64_t a1)
-{
-  v1 = *(a1 + 16);
-  if (v1)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
-  }
-}
-
-void std::__function::__func<RegistrationInterface::getRegistrationCauseCode(xpc::auto_reply)::$_0,std::allocator<RegistrationInterface::getRegistrationCauseCode(xpc::auto_reply)::$_0>,void ()(int)>::destroy_deallocate(void *__p)
-{
-  v2 = __p[2];
-  if (v2)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
-  }
-
-  operator delete(__p);
-}
-
-void std::__function::__func<RegistrationInterface::getRegistrationCauseCode(xpc::auto_reply)::$_0,std::allocator<RegistrationInterface::getRegistrationCauseCode(xpc::auto_reply)::$_0>,void ()(int)>::operator()(uint64_t a1, int *a2)
-{
-  v4 = xpc_int64_create(*a2);
-  if (!v4)
-  {
-    v4 = xpc_null_create();
-  }
-
-  v3[0] = *(a1 + 8);
-  v3[1] = "kRegistrationCauseCode";
-  xpc::dict::object_proxy::operator=(v3, &v4, &object);
-  xpc_release(object);
-  object = 0;
-  xpc_release(v4);
-}
-
-uint64_t std::__function::__func<RegistrationInterface::getRegistrationCauseCode(xpc::auto_reply)::$_0,std::allocator<RegistrationInterface::getRegistrationCauseCode(xpc::auto_reply)::$_0>,void ()(int)>::target(uint64_t a1, uint64_t a2)
-{
-  {
-    return a1 + 8;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-uint64_t std::__function::__value_func<void ()(int)>::~__value_func[abi:ne200100](uint64_t a1)
-{
-  v2 = *(a1 + 24);
-  if (v2 == a1)
-  {
-    (*(*v2 + 32))(v2);
-  }
-
-  else if (v2)
-  {
-    (*(*v2 + 40))(v2);
-  }
-
-  return a1;
-}
-
-void *std::__function::__func<RegistrationInterface::isDataAttached(void)::$_0,std::allocator<RegistrationInterface::isDataAttached(void)::$_0>,void ()(BOOL)>::~__func(void *a1)
-{
-  *a1 = &unk_284A6DEA0;
-  v2 = a1[1];
-  if (v2)
-  {
-    dispatch_release(v2);
-  }
-
-  return a1;
-}
-
-void std::__function::__func<RegistrationInterface::isDataAttached(void)::$_0,std::allocator<RegistrationInterface::isDataAttached(void)::$_0>,void ()(BOOL)>::~__func(void *a1)
-{
-  *a1 = &unk_284A6DEA0;
-  v1 = a1[1];
-  if (v1)
-  {
-    dispatch_release(v1);
-  }
-
-  JUMPOUT(0x2383CBEF0);
-}
-
-void std::__function::__func<RegistrationInterface::isDataAttached(void)::$_0,std::allocator<RegistrationInterface::isDataAttached(void)::$_0>,void ()(BOOL)>::__clone(uint64_t a1, void *a2)
-{
-  v4 = *(a1 + 8);
-  *a2 = &unk_284A6DEA0;
-  a2[1] = v4;
-  if (v4)
-  {
-    dispatch_retain(v4);
-  }
-
-  a2[2] = *(a1 + 16);
-}
-
-void std::__function::__func<RegistrationInterface::isDataAttached(void)::$_0,std::allocator<RegistrationInterface::isDataAttached(void)::$_0>,void ()(BOOL)>::destroy(uint64_t a1)
-{
-  v1 = *(a1 + 8);
-  if (v1)
-  {
-    dispatch_release(v1);
-  }
-}
-
-void std::__function::__func<RegistrationInterface::isDataAttached(void)::$_0,std::allocator<RegistrationInterface::isDataAttached(void)::$_0>,void ()(BOOL)>::destroy_deallocate(void *__p)
-{
-  v2 = __p[1];
-  if (v2)
-  {
-    dispatch_release(v2);
-  }
-
-  operator delete(__p);
-}
-
-intptr_t std::__function::__func<RegistrationInterface::isDataAttached(void)::$_0,std::allocator<RegistrationInterface::isDataAttached(void)::$_0>,void ()(BOOL)>::operator()(uint64_t a1, _BYTE *a2)
-{
-  v3 = a1 + 8;
-  v2 = *(a1 + 8);
-  **(v3 + 8) = *a2;
-  return dispatch_semaphore_signal(v2);
-}
-
-uint64_t std::__function::__func<RegistrationInterface::isDataAttached(void)::$_0,std::allocator<RegistrationInterface::isDataAttached(void)::$_0>,void ()(BOOL)>::target(uint64_t a1, uint64_t a2)
-{
-  {
-    return a1 + 8;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-void *std::__function::__func<RegistrationInterface::isDataAttached(xpc::auto_reply)::$_0,std::allocator<RegistrationInterface::isDataAttached(xpc::auto_reply)::$_0>,void ()(BOOL)>::~__func(void *a1)
-{
-  *a1 = &unk_284A6DF20;
-  v2 = a1[2];
-  if (v2)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
-  }
-
-  return a1;
-}
-
-void std::__function::__func<RegistrationInterface::isDataAttached(xpc::auto_reply)::$_0,std::allocator<RegistrationInterface::isDataAttached(xpc::auto_reply)::$_0>,void ()(BOOL)>::~__func(void *a1)
-{
-  *a1 = &unk_284A6DF20;
-  v1 = a1[2];
-  if (v1)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
-  }
-
-  JUMPOUT(0x2383CBEF0);
-}
-
-uint64_t std::__function::__func<RegistrationInterface::isDataAttached(xpc::auto_reply)::$_0,std::allocator<RegistrationInterface::isDataAttached(xpc::auto_reply)::$_0>,void ()(BOOL)>::__clone(uint64_t result, void *a2)
-{
-  v3 = *(result + 8);
-  v2 = *(result + 16);
-  *a2 = &unk_284A6DF20;
-  a2[1] = v3;
-  a2[2] = v2;
-  if (v2)
-  {
-    atomic_fetch_add_explicit((v2 + 8), 1uLL, memory_order_relaxed);
-  }
-
-  return result;
-}
-
-void std::__function::__func<RegistrationInterface::isDataAttached(xpc::auto_reply)::$_0,std::allocator<RegistrationInterface::isDataAttached(xpc::auto_reply)::$_0>,void ()(BOOL)>::destroy(uint64_t a1)
-{
-  v1 = *(a1 + 16);
-  if (v1)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
-  }
 }

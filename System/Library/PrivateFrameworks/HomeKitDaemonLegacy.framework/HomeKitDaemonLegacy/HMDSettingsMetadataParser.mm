@@ -26,7 +26,7 @@
 
 - (id)modelsFromMetadata:(id)metadata
 {
-  v186 = *MEMORY[0x277D85DE8];
+  v185 = *MEMORY[0x277D85DE8];
   metadataCopy = metadata;
   v5 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v6 = [metadataCopy hmf_dictionaryForKey:@"Info"];
@@ -40,7 +40,7 @@
     {
       v101 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v179 = v101;
+      v178 = v101;
       _os_log_impl(&dword_2531F8000, v100, OS_LOG_TYPE_ERROR, "%{public}@Missing info section in metadata", buf, 0xCu);
     }
 
@@ -60,7 +60,7 @@
     {
       v102 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v179 = v102;
+      v178 = v102;
       _os_log_impl(&dword_2531F8000, v12, OS_LOG_TYPE_ERROR, "%{public}@Missing version number in metadata", buf, 0xCu);
     }
 
@@ -73,9 +73,9 @@
   {
     v13 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v179 = v13;
-    v180 = 2112;
-    v181 = v8;
+    v178 = v13;
+    v179 = 2112;
+    v180 = v8;
     _os_log_impl(&dword_2531F8000, v12, OS_LOG_TYPE_INFO, "%{public}@Loading setting version %@", buf, 0x16u);
   }
 
@@ -90,7 +90,7 @@
     {
       v106 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v179 = v106;
+      v178 = v106;
       _os_log_impl(&dword_2531F8000, v105, OS_LOG_TYPE_ERROR, "%{public}@Missing data section in metadata", buf, 0xCu);
     }
 
@@ -100,181 +100,181 @@
   }
 
   v15 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v146 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v145 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v147 = selfCopy2;
+  v144 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v146 = selfCopy2;
   dependency = [(HMDSettingsMetadataParser *)selfCopy2 dependency];
   parentIdentifier = [dependency parentIdentifier];
-  v157 = dependency;
+  v156 = dependency;
   v18 = [dependency createSettingRootGroupModelWithParentModelID:parentIdentifier];
 
   [v15 addObject:v18];
   v19 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v176[0] = @"parentUUID";
-  v138 = v18;
+  v175[0] = @"parentUUID";
+  v137 = v18;
   hmbModelID = [v18 hmbModelID];
-  v176[1] = @"group";
-  v177[0] = hmbModelID;
-  v177[1] = v14;
-  v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v177 forKeys:v176 count:2];
+  v175[1] = @"group";
+  v176[0] = hmbModelID;
+  v176[1] = v14;
+  v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v176 forKeys:v175 count:2];
   [v19 addObject:v21];
 
-  v155 = v19;
-  v139 = v14;
-  v156 = v15;
+  v154 = v19;
+  v138 = v14;
+  v155 = v15;
   if (![v19 count])
   {
 LABEL_70:
     v89 = objc_autoreleasePoolPush();
-    v90 = v147;
+    v90 = v146;
     v91 = HMFGetOSLogHandle();
     if (os_log_type_enabled(v91, OS_LOG_TYPE_INFO))
     {
       v92 = HMFGetLogIdentifier();
       v93 = v5;
       v94 = v8;
-      v95 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v156, "count")}];
-      v96 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v146, "count")}];
+      v95 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v155, "count")}];
+      v96 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v145, "count")}];
       *buf = 138543874;
-      v179 = v92;
-      v180 = 2112;
-      v181 = v95;
-      v182 = 2112;
-      v183 = v96;
+      v178 = v92;
+      v179 = 2112;
+      v180 = v95;
+      v181 = 2112;
+      v182 = v96;
       _os_log_impl(&dword_2531F8000, v91, OS_LOG_TYPE_INFO, "%{public}@Parsed %@ groups and %@ settings", buf, 0x20u);
 
       v5 = v93;
-      v15 = v156;
+      v15 = v155;
 
       v8 = v94;
-      v14 = v139;
+      v14 = v138;
     }
 
     objc_autoreleasePoolPop(v89);
     [v5 addObjectsFromArray:v15];
-    v83 = v146;
-    [v5 addObjectsFromArray:v146];
-    v84 = v145;
+    v83 = v145;
     [v5 addObjectsFromArray:v145];
+    v84 = v144;
+    [v5 addObjectsFromArray:v144];
     v97 = v5;
     goto LABEL_98;
   }
 
   *&v22 = 138544130;
-  v130 = v22;
-  v131 = v8;
-  v132 = v5;
+  v129 = v22;
+  v130 = v8;
+  v131 = v5;
   while (1)
   {
-    v23 = [v155 objectAtIndex:{0, v130}];
-    v154 = [v23 hmf_UUIDForKey:@"parentUUID"];
-    v133 = v23;
+    v23 = [v154 objectAtIndex:{0, v129}];
+    v153 = [v23 hmf_UUIDForKey:@"parentUUID"];
+    v132 = v23;
     v24 = [v23 hmf_dictionaryForKey:@"group"];
-    [v155 removeObjectAtIndex:0];
-    v136 = v24;
+    [v154 removeObjectAtIndex:0];
+    v135 = v24;
     v25 = [v24 hmf_arrayForKey:@"Groups"];
+    v163 = 0u;
     v164 = 0u;
     v165 = 0u;
     v166 = 0u;
-    v167 = 0u;
     obj = v25;
-    v26 = [obj countByEnumeratingWithState:&v164 objects:v175 count:16];
+    v26 = [obj countByEnumeratingWithState:&v163 objects:v174 count:16];
     if (v26)
     {
       v27 = v26;
-      v28 = *v165;
+      v28 = *v164;
       do
       {
         for (i = 0; i != v27; ++i)
         {
-          if (*v165 != v28)
+          if (*v164 != v28)
           {
             objc_enumerationMutation(obj);
           }
 
-          v30 = *(*(&v164 + 1) + 8 * i);
+          v30 = *(*(&v163 + 1) + 8 * i);
           v31 = [v30 hmf_stringForKey:@"Key"];
-          v15 = v156;
+          v15 = v155;
           if (!v31)
           {
             v107 = objc_autoreleasePoolPush();
-            v108 = v147;
+            v108 = v146;
             v109 = HMFGetOSLogHandle();
             if (os_log_type_enabled(v109, OS_LOG_TYPE_ERROR))
             {
               v110 = HMFGetLogIdentifier();
               *buf = 138543618;
-              v179 = v110;
-              v180 = 2112;
-              v181 = v30;
+              v178 = v110;
+              v179 = 2112;
+              v180 = v30;
               _os_log_impl(&dword_2531F8000, v109, OS_LOG_TYPE_ERROR, "%{public}@A group is missing a name attribute: %@", buf, 0x16u);
             }
 
             objc_autoreleasePoolPop(v107);
             v97 = 0;
-            v8 = v131;
-            v5 = v132;
-            v84 = v145;
-            v83 = v146;
+            v8 = v130;
+            v5 = v131;
+            v84 = v144;
+            v83 = v145;
             goto LABEL_98;
           }
 
           v32 = v31;
-          v33 = [v157 createSettingGroupModelWithName:v32 parent:v154];
-          [v156 addObject:v33];
-          v173[0] = @"parentUUID";
+          v33 = [v156 createSettingGroupModelWithName:v32 parent:v153];
+          [v155 addObject:v33];
+          v172[0] = @"parentUUID";
           hmbModelID2 = [v33 hmbModelID];
-          v173[1] = @"group";
-          v174[0] = hmbModelID2;
-          v174[1] = v30;
-          v35 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v174 forKeys:v173 count:2];
-          [v155 addObject:v35];
+          v172[1] = @"group";
+          v173[0] = hmbModelID2;
+          v173[1] = v30;
+          v35 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v173 forKeys:v172 count:2];
+          [v154 addObject:v35];
         }
 
-        v27 = [obj countByEnumeratingWithState:&v164 objects:v175 count:16];
+        v27 = [obj countByEnumeratingWithState:&v163 objects:v174 count:16];
       }
 
       while (v27);
     }
 
-    v36 = [v136 hmf_arrayForKey:@"Settings"];
+    v36 = [v135 hmf_arrayForKey:@"Settings"];
+    v159 = 0u;
     v160 = 0u;
     v161 = 0u;
     v162 = 0u;
-    v163 = 0u;
-    v137 = v36;
-    v15 = v156;
-    v140 = [v137 countByEnumeratingWithState:&v160 objects:v172 count:16];
-    if (v140)
+    v136 = v36;
+    v15 = v155;
+    v139 = [v136 countByEnumeratingWithState:&v159 objects:v171 count:16];
+    if (v139)
     {
       break;
     }
 
 LABEL_69:
 
-    v8 = v131;
-    v5 = v132;
-    if (![v155 count])
+    v8 = v130;
+    v5 = v131;
+    if (![v154 count])
     {
       goto LABEL_70;
     }
   }
 
-  v141 = *v161;
-  v134 = v7;
-  v135 = metadataCopy;
+  v140 = *v160;
+  v133 = v7;
+  v134 = metadataCopy;
 LABEL_18:
   v37 = 0;
   while (1)
   {
-    if (*v161 != v141)
+    if (*v160 != v140)
     {
-      objc_enumerationMutation(v137);
+      objc_enumerationMutation(v136);
     }
 
-    v38 = *(*(&v160 + 1) + 8 * v37);
+    v38 = *(*(&v159 + 1) + 8 * v37);
     v39 = [v38 hmf_stringForKey:@"Key"];
-    v152 = v37;
+    v151 = v37;
     if (v39)
     {
       break;
@@ -282,25 +282,25 @@ LABEL_18:
 
     v44 = v38;
     v45 = objc_autoreleasePoolPush();
-    v46 = v147;
+    v46 = v146;
     v47 = HMFGetOSLogHandle();
     if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
     {
       v48 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v179 = v48;
-      v180 = 2112;
-      v181 = v44;
+      v178 = v48;
+      v179 = 2112;
+      v180 = v44;
       _os_log_impl(&dword_2531F8000, v47, OS_LOG_TYPE_DEFAULT, "%{public}@A setting is missing a name: %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v45);
 LABEL_67:
-    v37 = v152 + 1;
-    if (v152 + 1 == v140)
+    v37 = v151 + 1;
+    if (v151 + 1 == v139)
     {
-      v140 = [v137 countByEnumeratingWithState:&v160 objects:v172 count:16];
-      if (!v140)
+      v139 = [v136 countByEnumeratingWithState:&v159 objects:v171 count:16];
+      if (!v139)
       {
         goto LABEL_69;
       }
@@ -315,24 +315,24 @@ LABEL_67:
   {
     v111 = v38;
     v112 = objc_autoreleasePoolPush();
-    v113 = v147;
+    v113 = v146;
     v114 = HMFGetOSLogHandle();
     if (os_log_type_enabled(v114, OS_LOG_TYPE_ERROR))
     {
       v115 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v179 = v115;
-      v180 = 2112;
-      v181 = v111;
+      v178 = v115;
+      v179 = 2112;
+      v180 = v111;
       _os_log_impl(&dword_2531F8000, v114, OS_LOG_TYPE_ERROR, "%{public}@A setting is missing type attribute %@", buf, 0x16u);
     }
 
-    v144 = 0;
+    v143 = 0;
     goto LABEL_88;
   }
 
   v42 = v41;
-  v144 = v42;
+  v143 = v42;
   if ([v42 isEqualToString:@"data"])
   {
     v43 = 1;
@@ -359,53 +359,53 @@ LABEL_67:
 
   if (([v42 isEqualToString:@"collection"] & 1) == 0)
   {
-    v127 = v38;
+    v126 = v38;
 
     v112 = objc_autoreleasePoolPush();
-    v128 = v147;
+    v127 = v146;
     v114 = HMFGetOSLogHandle();
     if (os_log_type_enabled(v114, OS_LOG_TYPE_ERROR))
     {
-      v129 = HMFGetLogIdentifier();
+      v128 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v179 = v129;
-      v180 = 2112;
-      v181 = v127;
+      v178 = v128;
+      v179 = 2112;
+      v180 = v126;
       _os_log_impl(&dword_2531F8000, v114, OS_LOG_TYPE_ERROR, "%{public}@Decoded setting with unrecognized type %@", buf, 0x16u);
     }
 
 LABEL_88:
-    v84 = v145;
+    v84 = v144;
 
     objc_autoreleasePoolPop(v112);
 LABEL_96:
 
-    v83 = v146;
+    v83 = v145;
     goto LABEL_97;
   }
 
   v43 = 5;
 LABEL_36:
-  v150 = v43;
+  v149 = v43;
 
-  v149 = v38;
+  v148 = v38;
   v49 = [v38 hmf_arrayForKey:@"Properties"];
   if (!v49)
   {
     v116 = objc_autoreleasePoolPush();
-    v117 = v147;
+    v117 = v146;
     v118 = HMFGetOSLogHandle();
     if (os_log_type_enabled(v118, OS_LOG_TYPE_ERROR))
     {
       v119 = HMFGetLogIdentifier();
-      *buf = v130;
-      v179 = v119;
-      v180 = 2112;
-      v181 = v149;
-      v182 = 2112;
-      v183 = v40;
-      v184 = 2112;
-      v185 = 0;
+      *buf = v129;
+      v178 = v119;
+      v179 = 2112;
+      v180 = v148;
+      v181 = 2112;
+      v182 = v40;
+      v183 = 2112;
+      v184 = 0;
       _os_log_impl(&dword_2531F8000, v118, OS_LOG_TYPE_ERROR, "%{public}@A setting is missing a required attribute %@ name: %@, propertiesArray %@", buf, 0x2Au);
     }
 
@@ -415,71 +415,71 @@ LABEL_36:
 
   v50 = v49;
   v51 = [v49 containsObject:@"r"];
-  v143 = v50;
+  v142 = v50;
   if ([v50 containsObject:@"w"])
   {
     v51 |= 2uLL;
   }
 
-  v52 = [MEMORY[0x277CCABB0] numberWithInteger:v150];
+  v52 = [MEMORY[0x277CCABB0] numberWithInteger:v149];
   v53 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v51];
-  v54 = [v157 createSettingModelWithName:v40 parent:v154 type:v52 properties:v53];
+  v54 = [v156 createSettingModelWithName:v40 parent:v153 type:v52 properties:v53];
 
   if (!v54)
   {
     v120 = objc_autoreleasePoolPush();
-    v121 = v147;
+    v121 = v146;
     v122 = HMFGetOSLogHandle();
     if (os_log_type_enabled(v122, OS_LOG_TYPE_ERROR))
     {
       v123 = HMFGetLogIdentifier();
-      v124 = [MEMORY[0x277CCABB0] numberWithInteger:v150];
+      v124 = [MEMORY[0x277CCABB0] numberWithInteger:v149];
       *buf = 138543874;
-      v179 = v123;
-      v180 = 2112;
-      v181 = v40;
-      v182 = 2112;
-      v183 = v124;
+      v178 = v123;
+      v179 = 2112;
+      v180 = v40;
+      v181 = 2112;
+      v182 = v124;
       _os_log_impl(&dword_2531F8000, v122, OS_LOG_TYPE_ERROR, "%{public}@Unable to create setting model for setting %@ with type %@", buf, 0x20u);
     }
 
     objc_autoreleasePoolPop(v120);
 LABEL_95:
-    v84 = v145;
+    v84 = v144;
     goto LABEL_96;
   }
 
-  v142 = v40;
-  v55 = [v149 hmf_arrayForKey:@"Constraints"];
-  v148 = v54;
+  v141 = v40;
+  v55 = [v148 hmf_arrayForKey:@"Constraints"];
+  v147 = v54;
   hmbModelID3 = [v54 hmbModelID];
   v57 = v55;
   v58 = hmbModelID3;
   v59 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v167 = 0u;
   v168 = 0u;
   v169 = 0u;
   v170 = 0u;
-  v171 = 0u;
-  v158 = v57;
-  v60 = [v158 countByEnumeratingWithState:&v168 objects:buf count:16];
+  v157 = v57;
+  v60 = [v157 countByEnumeratingWithState:&v167 objects:buf count:16];
   if (!v60)
   {
     goto LABEL_61;
   }
 
   v61 = v60;
-  v62 = *v169;
+  v62 = *v168;
   do
   {
     v63 = 0;
     do
     {
-      if (*v169 != v62)
+      if (*v168 != v62)
       {
-        objc_enumerationMutation(v158);
+        objc_enumerationMutation(v157);
       }
 
-      v64 = *(*(&v168 + 1) + 8 * v63);
+      v64 = *(*(&v167 + 1) + 8 * v63);
       v65 = [v64 hmf_stringForKey:@"Type"];
       if ([v65 isEqualToString:@"minimumValue"])
       {
@@ -549,62 +549,62 @@ LABEL_53:
     }
 
     while (v61 != v63);
-    v76 = [v158 countByEnumeratingWithState:&v168 objects:buf count:16];
+    v76 = [v157 countByEnumeratingWithState:&v167 objects:buf count:16];
     v61 = v76;
   }
 
   while (v76);
 LABEL_61:
 
-  v77 = [v59 copy];
-  v78 = [v149 objectForKey:@"Value"];
-  v79 = [MEMORY[0x277CCABB0] numberWithInteger:v150];
-  v159 = 0;
-  v80 = [v157 settingValueForValue:v78 type:v79 constraintModels:v77 error:&v159];
-  v151 = v159;
+  v77 = objc_msgSend_copy(v59);
+  v78 = [v148 objectForKey:@"Value"];
+  v79 = [MEMORY[0x277CCABB0] numberWithInteger:v149];
+  v158 = 0;
+  v80 = [v156 settingValueForValue:v78 type:v79 constraintModels:v77 error:&v158];
+  v150 = v158;
 
-  v81 = v148;
-  v82 = [v148 setSettingValue:v80];
+  v81 = v147;
+  v82 = [v147 setSettingValue:v80];
   if (v82)
   {
-    v83 = v146;
-    [v146 addObject:v148];
-    v84 = v145;
-    [v145 addObjectsFromArray:v77];
-    v7 = v134;
-    metadataCopy = v135;
-    v14 = v139;
+    v83 = v145;
+    [v145 addObject:v147];
+    v84 = v144;
+    [v144 addObjectsFromArray:v77];
+    v7 = v133;
+    metadataCopy = v134;
+    v14 = v138;
   }
 
   else
   {
     v85 = objc_autoreleasePoolPush();
-    v86 = v147;
+    v86 = v146;
     v87 = HMFGetOSLogHandle();
-    metadataCopy = v135;
-    v83 = v146;
+    metadataCopy = v134;
+    v83 = v145;
     if (os_log_type_enabled(v87, OS_LOG_TYPE_ERROR))
     {
       v88 = HMFGetLogIdentifier();
-      *buf = v130;
-      v179 = v88;
-      v180 = 2112;
-      v181 = v78;
-      v182 = 2112;
-      v183 = v80;
-      v184 = 2112;
-      v185 = v148;
+      *buf = v129;
+      v178 = v88;
+      v179 = 2112;
+      v180 = v78;
+      v181 = 2112;
+      v182 = v80;
+      v183 = 2112;
+      v184 = v147;
       _os_log_impl(&dword_2531F8000, v87, OS_LOG_TYPE_ERROR, "%{public}@Unable to set value %@(%@) on model %@", buf, 0x2Au);
     }
 
     objc_autoreleasePoolPop(v85);
-    v7 = v134;
-    v14 = v139;
-    v84 = v145;
-    v81 = v148;
+    v7 = v133;
+    v14 = v138;
+    v84 = v144;
+    v81 = v147;
   }
 
-  v15 = v156;
+  v15 = v155;
   if (v82)
   {
     goto LABEL_67;
@@ -613,15 +613,14 @@ LABEL_61:
 LABEL_97:
 
   v97 = 0;
-  v8 = v131;
-  v5 = v132;
+  v8 = v130;
+  v5 = v131;
 LABEL_98:
 
 LABEL_99:
 LABEL_100:
 
 LABEL_101:
-  v125 = *MEMORY[0x277D85DE8];
 
   return v97;
 }
@@ -655,12 +654,11 @@ LABEL_101:
 
 uint64_t __40__HMDSettingsMetadataParser_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v15_58139;
-  logCategory__hmf_once_v15_58139 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v15_58139;
+  logCategory__hmf_once_v15_58139 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

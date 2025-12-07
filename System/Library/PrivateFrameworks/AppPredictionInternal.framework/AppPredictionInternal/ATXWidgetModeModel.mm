@@ -68,7 +68,7 @@
 
   else
   {
-    v8 = __atxlog_handle_modes();
+    v8 = __atxlog_handle_modes(0);
     if (os_log_type_enabled(&v8->super, OS_LOG_TYPE_ERROR))
     {
       [ATXWidgetModeModel scoredEntitiesWithScoredAppEntities:?];
@@ -80,14 +80,11 @@
 
 void __58__ATXWidgetModeModel_scoredEntitiesWithScoredAppEntities___block_invoke(uint64_t a1, void *a2)
 {
-  v3 = a2;
-  v4 = *(a1 + 40);
-  v5 = *(a1 + 48);
-  v7 = v3;
-  v6 = [*(a1 + 32) widgetModeEntityForWidgetId:? widgetFeatures:? availableWidgets:? scoredAppEntities:?];
-  if (v6)
+  v4 = a2;
+  v3 = [*(a1 + 32) widgetModeEntityForWidgetId:? widgetFeatures:? availableWidgets:? scoredAppEntities:?];
+  if (v3)
   {
-    [*(a1 + 56) setObject:v6 forKey:v7];
+    [*(a1 + 56) setObject:v3 forKey:v4];
   }
 }
 
@@ -144,10 +141,10 @@ void __43__ATXWidgetModeModel_fetchAvailableWidgets__block_invoke(uint64_t a1, v
 
   if (v11)
   {
-    v12 = __atxlog_handle_modes();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v13 = __atxlog_handle_modes(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      __43__ATXWidgetModeModel_fetchAvailableWidgets__block_invoke_cold_1(v3, v12);
+      __43__ATXWidgetModeModel_fetchAvailableWidgets__block_invoke_cold_1(v3, v13);
     }
   }
 
@@ -189,30 +186,30 @@ LABEL_8:
   if (kind)
   {
     selfCopy = self;
-    v21 = objc_alloc(MEMORY[0x277CCACA8]);
+    v22 = objc_alloc(MEMORY[0x277CCACA8]);
     extensionIdentity3 = [widget extensionIdentity];
     containerBundleIdentifier2 = [extensionIdentity3 containerBundleIdentifier];
     extensionIdentity4 = [widget extensionIdentity];
     extensionBundleIdentifier2 = [extensionIdentity4 extensionBundleIdentifier];
     kind2 = [widget kind];
-    v27 = [v21 initWithFormat:@"%@:%@:%@", containerBundleIdentifier2, extensionBundleIdentifier2, kind2];
+    v28 = [v22 initWithFormat:@"%@:%@:%@", containerBundleIdentifier2, extensionBundleIdentifier2, kind2];
 
-    v28 = [widgetsCopy objectForKeyedSubscript:v27];
+    v29 = [widgetsCopy objectForKeyedSubscript:v28];
 
-    if (v28)
+    if (v29)
     {
       extensionIdentity5 = [widget extensionIdentity];
       containerBundleIdentifier3 = [extensionIdentity5 containerBundleIdentifier];
-      v31 = [entitiesCopy objectForKeyedSubscript:containerBundleIdentifier3];
-      v28 = [(ATXWidgetModeModel *)selfCopy scoredWidgetModeEntityWithWidgetFeatures:featuresCopy widget:widget scoredApp:v31];
+      v32 = [entitiesCopy objectForKeyedSubscript:containerBundleIdentifier3];
+      v29 = [(ATXWidgetModeModel *)selfCopy scoredWidgetModeEntityWithWidgetFeatures:featuresCopy widget:widget scoredApp:v32];
     }
 
     goto LABEL_12;
   }
 
 LABEL_9:
-  v32 = __atxlog_handle_modes();
-  if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
+  v33 = __atxlog_handle_modes(v21);
+  if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
   {
     extensionIdentity6 = [widget extensionIdentity];
     containerBundleIdentifier4 = [extensionIdentity6 containerBundleIdentifier];
@@ -227,15 +224,13 @@ LABEL_9:
     v46 = extensionBundleIdentifier3;
     v47 = 2112;
     v48 = kind3;
-    _os_log_impl(&dword_2263AA000, v32, OS_LOG_TYPE_DEFAULT, "%s: Widget properties containerBundleIdentifier:'%@' extensionBundleIdentifier:'%@' kind:'%@' must all be non-null in order to be scored.", buf, 0x2Au);
+    _os_log_impl(&dword_2263AA000, v33, OS_LOG_TYPE_DEFAULT, "%s: Widget properties containerBundleIdentifier:'%@' extensionBundleIdentifier:'%@' kind:'%@' must all be non-null in order to be scored.", buf, 0x2Au);
   }
 
-  v28 = 0;
+  v29 = 0;
 LABEL_12:
 
-  v38 = *MEMORY[0x277D85DE8];
-
-  return v28;
+  return v29;
 }
 
 - (id)widgetModeEntityForDescriptor:(id)descriptor widgetSize:(int64_t)size scoredAppEntities:(id)entities
@@ -402,21 +397,19 @@ LABEL_12:
 
 void __43__ATXWidgetModeModel_fetchAvailableWidgets__block_invoke_cold_1(void *a1, NSObject *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v4 = [a1 extensionIdentity];
   v5 = [v4 containerBundleIdentifier];
   v6 = [a1 extensionIdentity];
   v7 = [v6 extensionBundleIdentifier];
   v8 = [a1 kind];
-  v10 = 138412802;
-  v11 = v5;
-  v12 = 2112;
-  v13 = v7;
-  v14 = 2112;
-  v15 = v8;
-  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "ATXWidgetModeModel: duplicate descriptor for containerBundleIdentifier:%@, extensionBundleIdentifier: %@, kind:%@", &v10, 0x20u);
-
-  v9 = *MEMORY[0x277D85DE8];
+  v9 = 138412802;
+  v10 = v5;
+  v11 = 2112;
+  v12 = v7;
+  v13 = 2112;
+  v14 = v8;
+  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "ATXWidgetModeModel: duplicate descriptor for containerBundleIdentifier:%@, extensionBundleIdentifier: %@, kind:%@", &v9, 0x20u);
 }
 
 @end

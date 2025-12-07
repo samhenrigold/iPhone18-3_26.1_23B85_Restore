@@ -62,86 +62,86 @@
 
 void __56__VSIdentityProviderFetchAllOperation_executionDidBegin__block_invoke(id *a1)
 {
-  v60 = *MEMORY[0x277D85DE8];
+  v59 = *MEMORY[0x277D85DE8];
   v2 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v3 = [a1[4] result];
   v4 = [v3 forceUnwrapObject];
-  v52[0] = MEMORY[0x277D85DD0];
-  v52[1] = 3221225472;
-  v52[2] = __56__VSIdentityProviderFetchAllOperation_executionDidBegin__block_invoke_2;
-  v52[3] = &unk_279E194A8;
-  objc_copyWeak(&v54, a1 + 7);
+  v51[0] = MEMORY[0x277D85DD0];
+  v51[1] = 3221225472;
+  v51[2] = __56__VSIdentityProviderFetchAllOperation_executionDidBegin__block_invoke_2;
+  v51[3] = &unk_279E194A8;
+  objc_copyWeak(&v53, a1 + 7);
   v5 = v2;
-  v53 = v5;
-  v50[0] = MEMORY[0x277D85DD0];
-  v50[1] = 3221225472;
-  v50[2] = __56__VSIdentityProviderFetchAllOperation_executionDidBegin__block_invoke_3;
-  v50[3] = &unk_279E194D0;
-  objc_copyWeak(&v51, a1 + 7);
-  [v4 unwrapObject:v52 error:v50];
+  v52 = v5;
+  v49[0] = MEMORY[0x277D85DD0];
+  v49[1] = 3221225472;
+  v49[2] = __56__VSIdentityProviderFetchAllOperation_executionDidBegin__block_invoke_3;
+  v49[3] = &unk_279E194D0;
+  objc_copyWeak(&v50, a1 + 7);
+  [v4 unwrapObject:v51 error:v49];
 
   v6 = [a1[5] result];
   v7 = [v6 forceUnwrapObject];
-  v47[0] = MEMORY[0x277D85DD0];
-  v47[1] = 3221225472;
-  v47[2] = __56__VSIdentityProviderFetchAllOperation_executionDidBegin__block_invoke_10;
-  v47[3] = &unk_279E194A8;
-  objc_copyWeak(&v49, a1 + 7);
-  v26 = v5;
-  v48 = v26;
-  [v7 unwrapObject:v47 error:&__block_literal_global_1];
+  v46[0] = MEMORY[0x277D85DD0];
+  v46[1] = 3221225472;
+  v46[2] = __56__VSIdentityProviderFetchAllOperation_executionDidBegin__block_invoke_10;
+  v46[3] = &unk_279E194A8;
+  objc_copyWeak(&v48, a1 + 7);
+  v25 = v5;
+  v47 = v25;
+  [v7 unwrapObject:v46 error:&__block_literal_global_1];
 
-  v41 = 0;
-  v42 = &v41;
-  v43 = 0x3032000000;
-  v44 = __Block_byref_object_copy__0;
-  v45 = __Block_byref_object_dispose__0;
-  v46 = 0;
-  v35 = 0;
-  v36 = &v35;
-  v37 = 0x3032000000;
-  v38 = __Block_byref_object_copy__0;
-  v39 = __Block_byref_object_dispose__0;
   v40 = 0;
+  v41 = &v40;
+  v42 = 0x3032000000;
+  v43 = __Block_byref_object_copy__0;
+  v44 = __Block_byref_object_dispose__0;
+  v45 = 0;
+  v34 = 0;
+  v35 = &v34;
+  v36 = 0x3032000000;
+  v37 = __Block_byref_object_copy__0;
+  v38 = __Block_byref_object_dispose__0;
+  v39 = 0;
   v8 = objc_alloc_init(MEMORY[0x277CE22D8]);
   v9 = [a1[6] currentDevice];
-  v31[0] = MEMORY[0x277D85DD0];
-  v31[1] = 3221225472;
-  v31[2] = __56__VSIdentityProviderFetchAllOperation_executionDidBegin__block_invoke_30;
-  v31[3] = &unk_279E19520;
-  v33 = &v41;
-  v34 = &v35;
+  v30[0] = MEMORY[0x277D85DD0];
+  v30[1] = 3221225472;
+  v30[2] = __56__VSIdentityProviderFetchAllOperation_executionDidBegin__block_invoke_30;
+  v30[3] = &unk_279E19520;
+  v32 = &v40;
+  v33 = &v34;
   v10 = v8;
-  v32 = v10;
-  [v9 fetchSetTopBoxProfileWithCompletion:v31];
+  v31 = v10;
+  [v9 fetchSetTopBoxProfileWithCompletion:v30];
 
   [v10 wait];
-  if (v42[5])
+  if (v41[5])
   {
-    v29 = 0u;
-    v30 = 0u;
-    v27 = 0u;
     v28 = 0u;
-    v11 = v26;
-    v12 = [v11 countByEnumeratingWithState:&v27 objects:v59 count:16];
+    v29 = 0u;
+    v26 = 0u;
+    v27 = 0u;
+    v11 = v25;
+    v12 = [v11 countByEnumeratingWithState:&v26 objects:v58 count:16];
     if (v12)
     {
-      v13 = *v28;
+      v13 = *v27;
       while (2)
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v28 != v13)
+          if (*v27 != v13)
           {
             objc_enumerationMutation(v11);
           }
 
-          v15 = *(*(&v27 + 1) + 8 * i);
+          v15 = *(*(&v26 + 1) + 8 * i);
           if (([v15 isApplication] & 1) == 0)
           {
             v16 = [v15 uniqueID];
             v17 = [v16 forceUnwrapObject];
-            v18 = [v17 isEqualToString:v42[5]];
+            v18 = [v17 isEqualToString:v41[5]];
 
             if (v18)
             {
@@ -150,16 +150,16 @@ void __56__VSIdentityProviderFetchAllOperation_executionDidBegin__block_invoke(i
               {
                 v20 = [v15 uniqueID];
                 *buf = 138412546;
-                v56 = v20;
-                v57 = 2048;
-                v58 = -10;
+                v55 = v20;
+                v56 = 2048;
+                v57 = -10;
                 _os_log_impl(&dword_270DD4000, v19, OS_LOG_TYPE_DEFAULT, "Identity provider with ID %@ is STB vendor, setting rank override %ld", buf, 0x16u);
               }
 
               [v15 setRankForSorting:&unk_2880D26B0];
-              if ([v36[5] length])
+              if ([v35[5] length])
               {
-                [v15 setUserToken:v36[5]];
+                [v15 setUserToken:v35[5]];
               }
 
               v21 = VSDefaultLogObject();
@@ -167,7 +167,7 @@ void __56__VSIdentityProviderFetchAllOperation_executionDidBegin__block_invoke(i
               {
                 v22 = [v15 providerID];
                 *buf = 138412290;
-                v56 = v22;
+                v55 = v22;
                 _os_log_impl(&dword_270DD4000, v21, OS_LOG_TYPE_DEFAULT, "VSIdentityProviderFetchAllOperation: Found STB provider %@", buf, 0xCu);
               }
 
@@ -176,7 +176,7 @@ void __56__VSIdentityProviderFetchAllOperation_executionDidBegin__block_invoke(i
           }
         }
 
-        v12 = [v11 countByEnumeratingWithState:&v27 objects:v59 count:16];
+        v12 = [v11 countByEnumeratingWithState:&v26 objects:v58 count:16];
         if (v12)
         {
           continue;
@@ -192,21 +192,20 @@ LABEL_19:
   v23 = VSDefaultLogObject();
   if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
   {
-    v24 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v26, "count")}];
+    v24 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v25, "count")}];
     *buf = 138412290;
-    v56 = v24;
+    v55 = v24;
     _os_log_impl(&dword_270DD4000, v23, OS_LOG_TYPE_DEFAULT, "Will finish with %@ providers", buf, 0xCu);
   }
 
   [a1[6] finishExecutionIfPossible];
-  _Block_object_dispose(&v35, 8);
+  _Block_object_dispose(&v34, 8);
 
-  _Block_object_dispose(&v41, 8);
-  objc_destroyWeak(&v49);
-  objc_destroyWeak(&v51);
+  _Block_object_dispose(&v40, 8);
+  objc_destroyWeak(&v48);
+  objc_destroyWeak(&v50);
 
-  objc_destroyWeak(&v54);
-  v25 = *MEMORY[0x277D85DE8];
+  objc_destroyWeak(&v53);
 }
 
 void __56__VSIdentityProviderFetchAllOperation_executionDidBegin__block_invoke_2(uint64_t a1, void *a2)
@@ -239,25 +238,25 @@ void __56__VSIdentityProviderFetchAllOperation_executionDidBegin__block_invoke_3
 
 void __56__VSIdentityProviderFetchAllOperation_executionDidBegin__block_invoke_10(uint64_t a1, void *a2)
 {
-  *(&v114[2] + 4) = *MEMORY[0x277D85DE8];
-  v67 = a2;
+  *(&v113[2] + 4) = *MEMORY[0x277D85DE8];
+  v66 = a2;
   v3 = VSDefaultLogObject();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v4 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v67, "count")}];
+    v4 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v66, "count")}];
     *buf = 138412290;
-    v114[0] = v4;
+    v113[0] = v4;
     _os_log_impl(&dword_270DD4000, v3, OS_LOG_TYPE_DEFAULT, "Did obtain %@ developer providers", buf, 0xCu);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v6 = [WeakRetained applicationAccountProviders];
-  v65 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v64 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v7 = [WeakRetained applicationAccountProviders];
 
-  v61 = WeakRetained;
-  v62 = a1;
-  v60 = v6;
+  v60 = WeakRetained;
+  v61 = a1;
+  v59 = v6;
   if (v7)
   {
     if (!v6)
@@ -267,47 +266,47 @@ void __56__VSIdentityProviderFetchAllOperation_executionDidBegin__block_invoke_1
 
     v8 = v6;
     v9 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v99 = 0u;
     v100 = 0u;
     v101 = 0u;
     v102 = 0u;
-    v103 = 0u;
     obj = v8;
-    v71 = [obj countByEnumeratingWithState:&v100 objects:v112 count:16];
-    if (v71)
+    v70 = [obj countByEnumeratingWithState:&v99 objects:v111 count:16];
+    if (v70)
     {
-      v70 = *v101;
+      v69 = *v100;
       do
       {
         v10 = 0;
         do
         {
-          if (*v101 != v70)
+          if (*v100 != v69)
           {
             objc_enumerationMutation(obj);
           }
 
-          v73 = v10;
-          v11 = *(*(&v100 + 1) + 8 * v10);
+          v72 = v10;
+          v11 = *(*(&v99 + 1) + 8 * v10);
+          v95 = 0u;
           v96 = 0u;
           v97 = 0u;
           v98 = 0u;
-          v99 = 0u;
-          v12 = v67;
-          v13 = [v12 countByEnumeratingWithState:&v96 objects:v111 count:16];
+          v12 = v66;
+          v13 = [v12 countByEnumeratingWithState:&v95 objects:v110 count:16];
           if (v13)
           {
             v14 = v13;
-            v15 = *v97;
+            v15 = *v96;
             do
             {
               for (i = 0; i != v14; ++i)
               {
-                if (*v97 != v15)
+                if (*v96 != v15)
                 {
                   objc_enumerationMutation(v12);
                 }
 
-                v17 = *(*(&v96 + 1) + 8 * i);
+                v17 = *(*(&v95 + 1) + 8 * i);
                 v18 = [v11 identifier];
                 v19 = [v17 providerID];
                 v20 = [v19 forceUnwrapObject];
@@ -318,124 +317,124 @@ void __56__VSIdentityProviderFetchAllOperation_executionDidBegin__block_invoke_1
                   v22 = VSErrorLogObject();
                   if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
                   {
-                    __56__VSIdentityProviderFetchAllOperation_executionDidBegin__block_invoke_10_cold_1(buf, v11, v114, v22);
+                    __56__VSIdentityProviderFetchAllOperation_executionDidBegin__block_invoke_10_cold_1(buf, v11, v113, v22);
                   }
 
                   [v9 addObject:v11];
                 }
               }
 
-              v14 = [v12 countByEnumeratingWithState:&v96 objects:v111 count:16];
+              v14 = [v12 countByEnumeratingWithState:&v95 objects:v110 count:16];
             }
 
             while (v14);
           }
 
-          v10 = v73 + 1;
+          v10 = v72 + 1;
         }
 
-        while (v73 + 1 != v71);
-        v71 = [obj countByEnumeratingWithState:&v100 objects:v112 count:16];
+        while (v72 + 1 != v70);
+        v70 = [obj countByEnumeratingWithState:&v99 objects:v111 count:16];
       }
 
-      while (v71);
+      while (v70);
     }
 
     v23 = [obj mutableCopy];
     [v23 removeObjectsInArray:v9];
 
-    v65 = v23;
-    a1 = v62;
+    v64 = v23;
+    a1 = v61;
   }
 
-  v72 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v74 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v71 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v73 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v91 = 0u;
   v92 = 0u;
   v93 = 0u;
   v94 = 0u;
-  v95 = 0u;
-  v63 = *(a1 + 32);
-  v66 = [v63 countByEnumeratingWithState:&v92 objects:v110 count:16];
-  if (v66)
+  v62 = *(a1 + 32);
+  v65 = [v62 countByEnumeratingWithState:&v91 objects:v109 count:16];
+  if (v65)
   {
-    v64 = *v93;
+    v63 = *v92;
     do
     {
       v24 = 0;
       do
       {
-        if (*v93 != v64)
+        if (*v92 != v63)
         {
-          objc_enumerationMutation(v63);
+          objc_enumerationMutation(v62);
         }
 
         obja = v24;
-        v25 = *(*(&v92 + 1) + 8 * v24);
+        v25 = *(*(&v91 + 1) + 8 * v24);
         v26 = [v25 providerID];
         v27 = [v26 forceUnwrapObject];
 
-        v90 = 0u;
-        v91 = 0u;
-        v88 = 0u;
         v89 = 0u;
-        v28 = v67;
-        v29 = [v28 countByEnumeratingWithState:&v88 objects:v109 count:16];
+        v90 = 0u;
+        v87 = 0u;
+        v88 = 0u;
+        v28 = v66;
+        v29 = [v28 countByEnumeratingWithState:&v87 objects:v108 count:16];
         if (v29)
         {
           v30 = v29;
-          v31 = *v89;
+          v31 = *v88;
           do
           {
             for (j = 0; j != v30; ++j)
             {
-              if (*v89 != v31)
+              if (*v88 != v31)
               {
                 objc_enumerationMutation(v28);
               }
 
-              v33 = *(*(&v88 + 1) + 8 * j);
+              v33 = *(*(&v87 + 1) + 8 * j);
               v34 = [v33 providerID];
-              v84[0] = MEMORY[0x277D85DD0];
-              v84[1] = 3221225472;
-              v84[2] = __56__VSIdentityProviderFetchAllOperation_executionDidBegin__block_invoke_16;
-              v84[3] = &unk_279E194F8;
-              v85 = v27;
-              v86 = v74;
-              v87 = v25;
               v83[0] = MEMORY[0x277D85DD0];
               v83[1] = 3221225472;
-              v83[2] = __56__VSIdentityProviderFetchAllOperation_executionDidBegin__block_invoke_18;
-              v83[3] = &unk_279E19290;
-              v83[4] = v33;
-              [v34 conditionallyUnwrapObject:v84 otherwise:v83];
+              v83[2] = __56__VSIdentityProviderFetchAllOperation_executionDidBegin__block_invoke_16;
+              v83[3] = &unk_279E194F8;
+              v84 = v27;
+              v85 = v73;
+              v86 = v25;
+              v82[0] = MEMORY[0x277D85DD0];
+              v82[1] = 3221225472;
+              v82[2] = __56__VSIdentityProviderFetchAllOperation_executionDidBegin__block_invoke_18;
+              v82[3] = &unk_279E19290;
+              v82[4] = v33;
+              [v34 conditionallyUnwrapObject:v83 otherwise:v82];
             }
 
-            v30 = [v28 countByEnumeratingWithState:&v88 objects:v109 count:16];
+            v30 = [v28 countByEnumeratingWithState:&v87 objects:v108 count:16];
           }
 
           while (v30);
         }
 
-        v81 = 0u;
-        v82 = 0u;
-        v79 = 0u;
         v80 = 0u;
-        v35 = v65;
-        v36 = [v35 countByEnumeratingWithState:&v79 objects:v108 count:16];
+        v81 = 0u;
+        v78 = 0u;
+        v79 = 0u;
+        v35 = v64;
+        v36 = [v35 countByEnumeratingWithState:&v78 objects:v107 count:16];
         if (v36)
         {
           v37 = v36;
-          v38 = *v80;
+          v38 = *v79;
           do
           {
             for (k = 0; k != v37; ++k)
             {
-              if (*v80 != v38)
+              if (*v79 != v38)
               {
                 objc_enumerationMutation(v35);
               }
 
-              v40 = *(*(&v79 + 1) + 8 * k);
+              v40 = *(*(&v78 + 1) + 8 * k);
               v41 = [v40 identifier];
               v42 = [v27 isEqualToString:v41];
 
@@ -444,16 +443,16 @@ void __56__VSIdentityProviderFetchAllOperation_executionDidBegin__block_invoke_1
                 v43 = VSErrorLogObject();
                 if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
                 {
-                  *v106 = 138412290;
-                  v107 = v27;
-                  _os_log_error_impl(&dword_270DD4000, v43, OS_LOG_TYPE_ERROR, "Application Provider %@ conflicts with production provider.  Using production provider instead.", v106, 0xCu);
+                  *v105 = 138412290;
+                  v106 = v27;
+                  _os_log_error_impl(&dword_270DD4000, v43, OS_LOG_TYPE_ERROR, "Application Provider %@ conflicts with production provider.  Using production provider instead.", v105, 0xCu);
                 }
 
-                [v72 addObject:v40];
+                [v71 addObject:v40];
               }
             }
 
-            v37 = [v35 countByEnumeratingWithState:&v79 objects:v108 count:16];
+            v37 = [v35 countByEnumeratingWithState:&v78 objects:v107 count:16];
           }
 
           while (v37);
@@ -462,70 +461,68 @@ void __56__VSIdentityProviderFetchAllOperation_executionDidBegin__block_invoke_1
         v24 = obja + 1;
       }
 
-      while (obja + 1 != v66);
-      v66 = [v63 countByEnumeratingWithState:&v92 objects:v110 count:16];
+      while (obja + 1 != v65);
+      v65 = [v62 countByEnumeratingWithState:&v91 objects:v109 count:16];
     }
 
-    while (v66);
+    while (v65);
   }
 
-  v44 = [v65 mutableCopy];
-  [v44 removeObjectsInArray:v72];
-  [*(v62 + 32) removeObjectsInArray:v74];
-  [*(v62 + 32) addObjectsFromArray:v67];
+  v44 = [v64 mutableCopy];
+  [v44 removeObjectsInArray:v71];
+  [*(v61 + 32) removeObjectsInArray:v73];
+  [*(v61 + 32) addObjectsFromArray:v66];
+  v74 = 0u;
   v75 = 0u;
   v76 = 0u;
   v77 = 0u;
-  v78 = 0u;
   v45 = [v44 copy];
-  v46 = [v45 countByEnumeratingWithState:&v75 objects:v105 count:16];
+  v46 = [v45 countByEnumeratingWithState:&v74 objects:v104 count:16];
   if (v46)
   {
     v47 = v46;
-    v48 = *v76;
+    v48 = *v75;
     do
     {
       for (m = 0; m != v47; ++m)
       {
-        if (*v76 != v48)
+        if (*v75 != v48)
         {
           objc_enumerationMutation(v45);
         }
 
-        v50 = [objc_alloc(MEMORY[0x277CE2260]) initWithApplicationProvider:*(*(&v75 + 1) + 8 * m)];
-        [*(v62 + 32) addObject:v50];
+        v50 = [objc_alloc(MEMORY[0x277CE2260]) initWithApplicationProvider:*(*(&v74 + 1) + 8 * m)];
+        [*(v61 + 32) addObject:v50];
       }
 
-      v47 = [v45 countByEnumeratingWithState:&v75 objects:v105 count:16];
+      v47 = [v45 countByEnumeratingWithState:&v74 objects:v104 count:16];
     }
 
     while (v47);
   }
 
   v51 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"nameForSorting" ascending:1 selector:sel_localizedCaseInsensitiveCompare_];
-  v52 = *(v62 + 32);
-  v104 = v51;
-  v53 = [MEMORY[0x277CBEA60] arrayWithObjects:&v104 count:1];
+  v52 = *(v61 + 32);
+  v103 = v51;
+  v53 = [MEMORY[0x277CBEA60] arrayWithObjects:&v103 count:1];
   [v52 sortUsingDescriptors:v53];
 
   v54 = VSDefaultLogObject();
   if (os_log_type_enabled(v54, OS_LOG_TYPE_DEFAULT))
   {
-    v55 = [*(v62 + 32) count];
-    *v106 = 134217984;
-    v107 = v55;
-    _os_log_impl(&dword_270DD4000, v54, OS_LOG_TYPE_DEFAULT, "Obtained %ld all providers", v106, 0xCu);
+    v55 = [*(v61 + 32) count];
+    *v105 = 134217984;
+    v106 = v55;
+    _os_log_impl(&dword_270DD4000, v54, OS_LOG_TYPE_DEFAULT, "Obtained %ld all providers", v105, 0xCu);
   }
 
   v56 = MEMORY[0x277CE2298];
-  v57 = [MEMORY[0x277CE2250] failableWithObject:*(v62 + 32)];
+  v57 = [MEMORY[0x277CE2250] failableWithObject:*(v61 + 32)];
   v58 = [v56 optionalWithObject:v57];
-  [v61 setResult:v58];
-
-  v59 = *MEMORY[0x277D85DE8];
+  [v60 setResult:v58];
 }
 
-uint64_t __56__VSIdentityProviderFetchAllOperation_executionDidBegin__block_invoke_16(uint64_t a1, uint64_t a2)
+void *__56__VSIdentityProviderFetchAllOperation_executionDidBegin__block_invoke_16(uint64_t a1, uint64_t a2)
 {
   result = [*(a1 + 32) isEqualToString:a2];
   if (result)
@@ -543,12 +540,12 @@ uint64_t __56__VSIdentityProviderFetchAllOperation_executionDidBegin__block_invo
   return result;
 }
 
-void __56__VSIdentityProviderFetchAllOperation_executionDidBegin__block_invoke_18(uint64_t a1)
+void __56__VSIdentityProviderFetchAllOperation_executionDidBegin__block_invoke_18(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v2 = VSErrorLogObject();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+  v6 = VSErrorLogObject();
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
-    __56__VSIdentityProviderFetchAllOperation_executionDidBegin__block_invoke_18_cold_1(a1, v2, v3, v4, v5, v6, v7, v8);
+    __56__VSIdentityProviderFetchAllOperation_executionDidBegin__block_invoke_18_cold_1(a1, v6, v7, v8, v9, v10, v11, v12);
   }
 }
 
@@ -583,9 +580,9 @@ uint64_t __56__VSIdentityProviderFetchAllOperation_executionDidBegin__block_invo
 
 void __56__VSIdentityProviderFetchAllOperation_executionDidBegin__block_invoke_3_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_270DD4000, a2, a3, "Error from store fetch operation: %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0(&dword_270DD4000, a2, a3, "Error from store fetch operation: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __56__VSIdentityProviderFetchAllOperation_executionDidBegin__block_invoke_10_cold_1(uint8_t *a1, void *a2, void *a3, NSObject *a4)
@@ -598,17 +595,16 @@ void __56__VSIdentityProviderFetchAllOperation_executionDidBegin__block_invoke_1
 
 void __56__VSIdentityProviderFetchAllOperation_executionDidBegin__block_invoke_18_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v9 = HIDWORD(*(a1 + 32));
-  OUTLINED_FUNCTION_0(&dword_270DD4000, a2, a3, "Developer Provider %@ is missing required property providerID, skipping", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *(a1 + 32);
+  OUTLINED_FUNCTION_0(&dword_270DD4000, a2, a3, "Developer Provider %@ is missing required property providerID, skipping", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __56__VSIdentityProviderFetchAllOperation_executionDidBegin__block_invoke_28_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_270DD4000, a2, a3, "Error from developer fetch operation: %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0(&dword_270DD4000, a2, a3, "Error from developer fetch operation: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

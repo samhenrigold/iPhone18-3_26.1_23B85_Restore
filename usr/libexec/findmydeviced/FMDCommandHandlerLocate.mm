@@ -3,6 +3,7 @@
 - (id)locationPublisherWithParams:(id)params;
 - (void)_notifyAboutLocatingState;
 - (void)_sendAccessoryCurrentLocationsForCmd:(id)cmd reason:(int64_t)reason locator:(id)locator accessoryIdentifier:(id)identifier;
+- (void)_sendCurrentLocation:(id)location isFinished:(BOOL)finished forCmd:(id)cmd withReason:(int64_t)reason andAccuracyChange:(double)change;
 - (void)_sendTrackedLocations;
 - (void)_showAlertAfterUnlock:(id)unlock;
 - (void)handleCommand;
@@ -45,7 +46,7 @@
     v8 = qword_100312B60;
   }
 
-  v100 = v8;
+  v104 = v8;
   if (v8 == qword_100312B58)
   {
     commandParams = [(FMDCommandHandler *)self commandParams];
@@ -65,36 +66,36 @@
         [val desiredAccuracy];
         v20 = v18 > v19;
 
-        oslog = sub_100002880();
-        v21 = os_log_type_enabled(oslog, OS_LOG_TYPE_DEFAULT);
+        oslog = sub_100002880(v21);
+        v22 = os_log_type_enabled(oslog, OS_LOG_TYPE_DEFAULT);
         if (!v20)
         {
-          if (v21)
+          if (v22)
           {
             standardLocator4 = [provider standardLocator];
             [standardLocator4 desiredAccuracy];
-            v65 = v64;
+            v69 = v68;
             [val desiredAccuracy];
             *buf = 134218240;
-            *&buf[4] = v65;
+            *&buf[4] = v69;
             *&buf[12] = 2048;
-            *&buf[14] = v66;
+            *&buf[14] = v70;
             _os_log_impl(&_mh_execute_header, oslog, OS_LOG_TYPE_DEFAULT, "Current locate command is already looking for the same/better accuracy. Ignoring new locate - current=%fm,new=%fm", buf, 0x16u);
           }
 
           goto LABEL_48;
         }
 
-        if (v21)
+        if (v22)
         {
           standardLocator5 = [provider standardLocator];
           [standardLocator5 desiredAccuracy];
-          v24 = v23;
+          v25 = v24;
           [val desiredAccuracy];
           *buf = 134218240;
-          *&buf[4] = v24;
+          *&buf[4] = v25;
           *&buf[12] = 2048;
-          *&buf[14] = v25;
+          *&buf[14] = v26;
           _os_log_impl(&_mh_execute_header, oslog, OS_LOG_TYPE_DEFAULT, "New locate command asks for a better accuracy than the current locate. Stopping current locate - current=%fm,new=%fm", buf, 0x16u);
         }
       }
@@ -110,43 +111,44 @@
       [provider setStandardLocator:0];
     }
 
-    if (+[FMDPreferencesMgr simulateLocateNotification])
+    v29 = +[FMDPreferencesMgr simulateLocateNotification];
+    if (v29)
     {
-      v28 = sub_100002880();
-      if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+      v30 = sub_100002880(v29);
+      if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEFAULT, "Simulating locate notification...", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEFAULT, "Simulating locate notification...", buf, 2u);
       }
 
       commandParams2 = [(FMDCommandHandler *)self commandParams];
-      v30 = [commandParams2 mutableCopy];
+      v32 = [commandParams2 mutableCopy];
 
-      [v30 setObject:@"Find My iPhone" forKeyedSubscript:@"title"];
-      [v30 setObject:@"This device's location was accessed using Find My iPhone" forKeyedSubscript:@"text"];
-      [v30 setObject:@"OK" forKeyedSubscript:@"okButtonTitle"];
-      v31 = [v30 copy];
-      [(FMDCommandHandler *)self setCommandParams:v31];
+      [v32 setObject:@"Find My iPhone" forKeyedSubscript:@"title"];
+      [v32 setObject:@"This device's location was accessed using Find My iPhone" forKeyedSubscript:@"text"];
+      [v32 setObject:@"OK" forKeyedSubscript:@"okButtonTitle"];
+      v33 = [v32 copy];
+      [(FMDCommandHandler *)self setCommandParams:v33];
     }
 
     commandParams3 = [(FMDCommandHandler *)self commandParams];
-    v94 = [commandParams3 objectForKeyedSubscript:@"text"];
+    v98 = [commandParams3 objectForKeyedSubscript:@"text"];
 
-    if (v94 && +[FMDPreferencesMgr locateNotificationsEnabled])
+    if (v98 && +[FMDPreferencesMgr locateNotificationsEnabled])
     {
       osloga = objc_alloc_init(FMAlert);
       [osloga setCategory:3];
-      [osloga setMsgText:v94];
+      [osloga setMsgText:v98];
       commandParams4 = [(FMDCommandHandler *)self commandParams];
-      v34 = [commandParams4 objectForKeyedSubscript:@"title"];
-      [osloga setMsgTitle:v34];
+      v36 = [commandParams4 objectForKeyedSubscript:@"title"];
+      [osloga setMsgTitle:v36];
 
       [osloga setShowMsgInLockScreen:1];
       [osloga setDismissMsgOnUnlock:0];
       [osloga setDismissMsgOnLock:0];
       commandParams5 = [(FMDCommandHandler *)self commandParams];
-      v36 = [commandParams5 objectForKeyedSubscript:@"okButtonTitle"];
-      [osloga setDefaultButtonTitle:v36];
+      v38 = [commandParams5 objectForKeyedSubscript:@"okButtonTitle"];
+      [osloga setDefaultButtonTitle:v38];
     }
 
     else
@@ -154,120 +156,120 @@
       osloga = 0;
     }
 
-    v127 = @"id";
+    v131 = @"id";
     commandID = [(FMDCommandHandler *)self commandID];
-    v128 = commandID;
-    v38 = [NSDictionary dictionaryWithObjects:&v128 forKeys:&v127 count:1];
+    v132 = commandID;
+    v40 = [NSDictionary dictionaryWithObjects:&v132 forKeys:&v131 count:1];
 
     commandParams6 = [(FMDCommandHandler *)self commandParams];
-    v40 = [commandParams6 objectForKey:@"udid"];
-    fm_nullToNil = [v40 fm_nullToNil];
+    v42 = [commandParams6 objectForKey:@"udid"];
+    fm_nullToNil = [v42 fm_nullToNil];
 
     if (fm_nullToNil)
     {
-      v41 = [[FMDAccessoryIdentifier alloc] initWithString:fm_nullToNil];
-      [(FMDCommandHandlerLocate *)self setAccessoryIdentifier:v41];
+      v44 = [[FMDAccessoryIdentifier alloc] initWithString:fm_nullToNil];
+      [(FMDCommandHandlerLocate *)self setAccessoryIdentifier:v44];
     }
 
-    v42 = sub_100002880();
-    if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
+    v45 = sub_100002880(v43);
+    if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v42, OS_LOG_TYPE_DEFAULT, "CommandHandlerLocate Will send accessory locations.", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v45, OS_LOG_TYPE_DEFAULT, "CommandHandlerLocate Will send accessory locations.", buf, 2u);
     }
 
     commandParams7 = [(FMDCommandHandler *)self commandParams];
-    v97 = [(FMDCommandHandlerLocate *)self createLocatorWithParams:commandParams7];
+    v101 = [(FMDCommandHandlerLocate *)self createLocatorWithParams:commandParams7];
 
     commandParams8 = [(FMDCommandHandler *)self commandParams];
-    v93 = [(FMDCommandHandlerLocate *)self locationPublisherWithParams:commandParams8];
+    v97 = [(FMDCommandHandlerLocate *)self locationPublisherWithParams:commandParams8];
 
-    [v97 setLocatorPublisher:v93];
+    [v101 setLocatorPublisher:v97];
     accessoryIdentifier = [(FMDCommandHandlerLocate *)self accessoryIdentifier];
-    [(FMDCommandHandlerLocate *)self _sendAccessoryCurrentLocationsForCmd:v38 reason:1 locator:v97 accessoryIdentifier:accessoryIdentifier];
+    [(FMDCommandHandlerLocate *)self _sendAccessoryCurrentLocationsForCmd:v40 reason:1 locator:v101 accessoryIdentifier:accessoryIdentifier];
 
     commandParams9 = [(FMDCommandHandler *)self commandParams];
-    v95 = [commandParams9 objectForKey:@"scanDurationInSeconds"];
+    v99 = [commandParams9 objectForKey:@"scanDurationInSeconds"];
 
     accessoryRegistry = [provider accessoryRegistry];
     accessoryIdentifier2 = [(FMDCommandHandlerLocate *)self accessoryIdentifier];
-    v49 = [accessoryRegistry accessoryForIdentifier:accessoryIdentifier2];
+    v52 = [accessoryRegistry accessoryForIdentifier:accessoryIdentifier2];
 
-    accessoryIdentifier3 = [v49 accessoryIdentifier];
+    accessoryIdentifier3 = [v52 accessoryIdentifier];
     stringValue = [accessoryIdentifier3 stringValue];
 
-    [v95 doubleValue];
-    if (v51 <= 0.0)
+    [v99 doubleValue];
+    if (v54 <= 0.0)
     {
-      v57 = 0;
-      v58 = 0;
-      v90 = 0;
-      v59 = 0;
+      v61 = 0;
+      v62 = 0;
+      v94 = 0;
+      v63 = 0;
 LABEL_46:
       newDiscovery = 0;
 LABEL_47:
-      v67 = provider;
+      v71 = provider;
       *buf = 0;
       *&buf[8] = buf;
       *&buf[16] = 0x2020000000;
-      v126 = 0;
+      v130 = 0;
       commandParams10 = [(FMDCommandHandler *)self commandParams];
-      v69 = [(FMDCommandHandlerLocate *)self locationPublisherWithParams:commandParams10];
+      v73 = [(FMDCommandHandlerLocate *)self locationPublisherWithParams:commandParams10];
 
       objc_initWeak(&location, val);
-      v112[0] = _NSConcreteStackBlock;
-      v112[1] = 3221225472;
-      v112[2] = sub_1001BF95C;
-      v112[3] = &unk_1002D0D68;
+      v116[0] = _NSConcreteStackBlock;
+      v116[1] = 3221225472;
+      v116[2] = sub_1001BF95C;
+      v116[3] = &unk_1002D0D68;
       selfCopy = self;
-      v112[4] = selfCopy;
-      v70 = v59;
-      v113 = v70;
-      v88 = v38;
-      v114 = v88;
-      v71 = v49;
-      v115 = v71;
-      v72 = v57;
-      v116 = v72;
-      v73 = stringValue;
-      v117 = v73;
-      v74 = v58;
-      v118 = v74;
-      v75 = newDiscovery;
+      v116[4] = selfCopy;
+      v74 = v63;
+      v117 = v74;
+      v92 = v40;
+      v118 = v92;
+      v75 = v52;
       v119 = v75;
-      v76 = v67;
+      v76 = v61;
       v120 = v76;
-      objc_copyWeak(&v123, &location);
-      v122 = buf;
+      v77 = stringValue;
+      v121 = v77;
+      v78 = v62;
+      v122 = v78;
+      v79 = newDiscovery;
+      v123 = v79;
+      v80 = v71;
+      v124 = v80;
+      objc_copyWeak(&v127, &location);
+      v126 = buf;
       oslog = osloga;
-      v121 = oslog;
-      [v69 startPublishingWithBlock:v112];
-      [val setLocatorPublisher:v69];
-      v103[0] = _NSConcreteStackBlock;
-      v103[1] = 3221225472;
-      v103[2] = sub_1001BFF24;
-      v103[3] = &unk_1002D0D90;
-      v77 = v76;
-      v104 = v77;
-      v92 = v70;
-      v105 = v92;
-      v78 = v71;
-      v106 = v78;
-      v79 = v72;
-      v107 = v79;
-      v80 = v73;
-      v108 = v80;
-      v81 = v74;
-      v109 = v81;
+      v125 = oslog;
+      [v73 startPublishingWithBlock:v116];
+      [val setLocatorPublisher:v73];
+      v107[0] = _NSConcreteStackBlock;
+      v107[1] = 3221225472;
+      v107[2] = sub_1001BFF24;
+      v107[3] = &unk_1002D0D90;
+      v81 = v80;
+      v108 = v81;
+      v96 = v74;
+      v109 = v96;
       v82 = v75;
       v110 = v82;
-      v83 = v69;
+      v83 = v76;
       v111 = v83;
-      [val setStoppedLocatorBlock:v103];
-      [v77 setStandardLocator:val];
+      v84 = v77;
+      v112 = v84;
+      v85 = v78;
+      v113 = v85;
+      v86 = v79;
+      v114 = v86;
+      v87 = v73;
+      v115 = v87;
+      [val setStoppedLocatorBlock:v107];
+      [v81 setStandardLocator:val];
       [val startLocator];
 
-      objc_destroyWeak(&v123);
+      objc_destroyWeak(&v127);
       objc_destroyWeak(&location);
 
       _Block_object_dispose(buf, 8);
@@ -277,57 +279,58 @@ LABEL_48:
       goto LABEL_49;
     }
 
-    if ([v49 category] != 3)
+    category = [v52 category];
+    if (category != 3)
     {
-      v60 = sub_100002880();
-      if (os_log_type_enabled(v60, OS_LOG_TYPE_DEFAULT))
+      v64 = sub_100002880(category);
+      if (os_log_type_enabled(v64, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v60, OS_LOG_TYPE_DEFAULT, "FMDCommandHandlerLocate starting BLE discovery.", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v64, OS_LOG_TYPE_DEFAULT, "FMDCommandHandlerLocate starting BLE discovery.", buf, 2u);
       }
 
       bluetoothManager = [provider bluetoothManager];
       newDiscovery = [bluetoothManager newDiscovery];
 
-      [v95 doubleValue];
+      [v99 doubleValue];
       [newDiscovery startDiscoveryForDuration:?];
       if (newDiscovery)
       {
-        v59 = +[NSDate date];
-        v57 = 0;
-        v58 = 0;
-        v90 = 0;
+        v63 = +[NSDate date];
+        v61 = 0;
+        v62 = 0;
+        v94 = 0;
       }
 
       else
       {
-        v57 = 0;
-        v58 = 0;
-        v90 = 0;
-        v59 = 0;
+        v61 = 0;
+        v62 = 0;
+        v94 = 0;
+        v63 = 0;
       }
 
       goto LABEL_47;
     }
 
-    v52 = v49;
-    if (v52 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+    v56 = v52;
+    if (v56 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
     {
-      v53 = +[FMDExtConfigurationRegistry sharedInstance];
-      accessoryType = [v52 accessoryType];
-      v55 = [v53 configForAccessoryType:accessoryType];
+      v57 = +[FMDExtConfigurationRegistry sharedInstance];
+      accessoryType = [v56 accessoryType];
+      v59 = [v57 configForAccessoryType:accessoryType];
 
-      v90 = [v55 flavorForFeature:@"availability"];
+      v94 = [v59 flavorForFeature:@"availability"];
       accessoryRegistry2 = [provider accessoryRegistry];
-      v57 = [FMDExtExtensionHelper getAccessoryControllerForFeature:@"availability" flavor:v90 withDelegate:accessoryRegistry2];
+      v61 = [FMDExtExtensionHelper getAccessoryControllerForFeature:@"availability" flavor:v94 withDelegate:accessoryRegistry2];
 
-      v58 = [v55 infoForFeature:@"availability"];
-      [v95 doubleValue];
-      [v57 startDiscoveryForAccessory:stringValue duration:v58 info:&stru_1002D0D18 withCompletion:?];
+      v62 = [v59 infoForFeature:@"availability"];
+      [v99 doubleValue];
+      [v61 startDiscoveryForAccessory:stringValue duration:v62 info:&stru_1002D0D18 withCompletion:?];
 
-      if (v57)
+      if (v61)
       {
-        v59 = +[NSDate date];
+        v63 = +[NSDate date];
 LABEL_45:
 
         goto LABEL_46;
@@ -336,35 +339,35 @@ LABEL_45:
 
     else
     {
-      v90 = 0;
-      v58 = 0;
-      v57 = 0;
+      v94 = 0;
+      v62 = 0;
+      v61 = 0;
     }
 
-    v59 = 0;
+    v63 = 0;
     goto LABEL_45;
   }
 
 LABEL_49:
   commandParams11 = [(FMDCommandHandler *)self commandParams];
-  v85 = [commandParams11 objectForKeyedSubscript:@"includeTrackingInfo"];
+  v89 = [commandParams11 objectForKeyedSubscript:@"includeTrackingInfo"];
 
-  if (v85 && [v85 BOOLValue])
+  if (v89 && [v89 BOOLValue])
   {
     [(FMDCommandHandlerLocate *)self _sendTrackedLocations];
   }
 
   [(FMDCommandHandlerLocate *)self _notifyAboutLocatingState];
-  v86 = +[NSMutableDictionary dictionary];
-  v87 = [NSNumber numberWithInteger:v100];
-  [v86 setObject:v87 forKeyedSubscript:@"status"];
+  v90 = +[NSMutableDictionary dictionary];
+  v91 = [NSNumber numberWithInteger:v104];
+  [v90 setObject:v91 forKeyedSubscript:@"status"];
 
   if (v11)
   {
-    [v86 setObject:v11 forKeyedSubscript:@"message"];
+    [v90 setObject:v11 forKeyedSubscript:@"message"];
   }
 
-  [(FMDCommandHandler *)self didHandleCommandWithAckData:v86];
+  [(FMDCommandHandler *)self didHandleCommandWithAckData:v90];
 }
 
 - (void)sendAckWithCompletion:(id)completion
@@ -379,58 +382,123 @@ LABEL_49:
   v10 = [commandParams objectForKeyedSubscript:@"ackURL"];
 
   provider = [(FMDCommandHandler *)self provider];
+  v12 = provider;
   if (v10)
   {
-    v25 = intValue;
-    v24 = [NSURL URLWithString:v10];
-    v12 = [FMDActingRequestDecorator alloc];
-    v31[0] = _NSConcreteStackBlock;
-    v31[1] = 3221225472;
-    v31[2] = sub_1001C0434;
-    v31[3] = &unk_1002CD580;
-    v31[4] = self;
-    v29[0] = _NSConcreteStackBlock;
-    v29[1] = 3221225472;
-    v29[2] = sub_1001C04DC;
-    v29[3] = &unk_1002CDF18;
-    v29[4] = self;
-    v13 = provider;
-    v30 = v13;
-    v14 = [(FMDActingRequestDecorator *)v12 initWithDeviceContextGenerator:v31 deviceInfoGenerator:v29 serverContextGenerator:0 requestHeaderGenerator:0];
-    v15 = v8;
-    v16 = [FMDRequestAckLocate alloc];
-    [v13 account];
-    v17 = v10;
-    v18 = ackDataForCommand;
-    v20 = v19 = provider;
+    v26 = intValue;
+    v25 = [NSURL URLWithString:v10];
+    v13 = [FMDActingRequestDecorator alloc];
+    v32[0] = _NSConcreteStackBlock;
+    v32[1] = 3221225472;
+    v32[2] = sub_1001C0434;
+    v32[3] = &unk_1002CD580;
+    v32[4] = self;
+    v30[0] = _NSConcreteStackBlock;
+    v30[1] = 3221225472;
+    v30[2] = sub_1001C04DC;
+    v30[3] = &unk_1002CDF18;
+    v30[4] = self;
+    v14 = v12;
+    v31 = v14;
+    v15 = [(FMDActingRequestDecorator *)v13 initWithDeviceContextGenerator:v32 deviceInfoGenerator:v30 serverContextGenerator:0 requestHeaderGenerator:0];
+    v16 = v8;
+    v17 = [FMDRequestAckLocate alloc];
+    [v14 account];
+    v18 = v10;
+    v19 = ackDataForCommand;
+    v21 = v20 = v12;
     commandParams2 = [(FMDCommandHandler *)self commandParams];
-    v22 = [(FMDRequestAckLocate *)v16 initWithAccount:v20 locateCommand:commandParams2 ackURL:v24 cmdStatusCode:v25 cmdStatusMessage:v15];
+    v23 = [(FMDRequestAckLocate *)v17 initWithAccount:v21 locateCommand:commandParams2 ackURL:v25 cmdStatusCode:v26 cmdStatusMessage:v16];
 
-    provider = v19;
-    ackDataForCommand = v18;
-    v10 = v17;
-    [(FMDRequest *)v22 setDecorator:v14];
-    v27[0] = _NSConcreteStackBlock;
-    v27[1] = 3221225472;
-    v27[2] = sub_1001C05F0;
-    v27[3] = &unk_1002CD1D0;
-    v28 = completionCopy;
-    [(FMDRequest *)v22 setCompletionHandler:v27];
-    [v13 enqueueRequest:v22];
+    v12 = v20;
+    ackDataForCommand = v19;
+    v10 = v18;
+    [(FMDRequest *)v23 setDecorator:v15];
+    v28[0] = _NSConcreteStackBlock;
+    v28[1] = 3221225472;
+    v28[2] = sub_1001C05F0;
+    v28[3] = &unk_1002CD1D0;
+    v29 = completionCopy;
+    [(FMDRequest *)v23 setCompletionHandler:v28];
+    [v14 enqueueRequest:v23];
 
-    v8 = v15;
-    v23 = v24;
+    v8 = v16;
+    v24 = v25;
   }
 
   else
   {
-    v23 = sub_100002880();
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+    v24 = sub_100002880(provider);
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "Not acking the locate command because there is no ack URL", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "Not acking the locate command because there is no ack URL", buf, 2u);
     }
   }
+}
+
+- (void)_sendCurrentLocation:(id)location isFinished:(BOOL)finished forCmd:(id)cmd withReason:(int64_t)reason andAccuracyChange:(double)change
+{
+  finishedCopy = finished;
+  locationCopy = location;
+  cmdCopy = cmd;
+  v14 = sub_100002880(cmdCopy);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+  {
+    sub_10022DF20(v14);
+  }
+
+  v16 = sub_10017D9A8(v15);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+  {
+    horizontalAccuracy = [locationCopy horizontalAccuracy];
+    longitude = [locationCopy longitude];
+    latitude = [locationCopy latitude];
+    *buf = 138478339;
+    v42 = horizontalAccuracy;
+    v43 = 2113;
+    v44 = longitude;
+    v45 = 2113;
+    v46 = latitude;
+    _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Publishing Location with Accuracy: %{private}@ Longitude: %{private}@ Latitude: %{private}@", buf, 0x20u);
+  }
+
+  provider = [(FMDCommandHandler *)self provider];
+  v21 = [[FMDLocation alloc] initWithLocation:locationCopy eventType:0 positionType:255];
+  v22 = [cmdCopy objectForKeyedSubscript:@"id"];
+  v23 = [FMDActingRequestDecorator alloc];
+  v39[0] = _NSConcreteStackBlock;
+  v39[1] = 3221225472;
+  v39[2] = sub_1001C0BC8;
+  v39[3] = &unk_1002CD580;
+  v24 = v22;
+  v40 = v24;
+  v34 = _NSConcreteStackBlock;
+  v35 = 3221225472;
+  v36 = sub_1001C0C3C;
+  v37 = &unk_1002CD580;
+  v25 = provider;
+  v38 = v25;
+  v26 = [(FMDActingRequestDecorator *)v23 initWithDeviceContextGenerator:v39 deviceInfoGenerator:&v34 serverContextGenerator:0 requestHeaderGenerator:0];
+  v27 = [cmdCopy objectForKeyedSubscript:{@"locationValidityDuration", v34, v35, v36, v37}];
+
+  v28 = [FMDRequestCurrentLocation alloc];
+  account = [v25 account];
+  [v27 doubleValue];
+  v31 = [(FMDRequestCurrentLocation *)v28 initWithAccount:account location:v21 finalLocation:finishedCopy reason:reason accuracyChange:change cacheValidityDuration:v30];
+
+  [(FMDRequest *)v31 setDecorator:v26];
+  [(FMDRequest *)v31 setCompletionHandler:&stru_1002D0DB0];
+  ct_green_tea_logger_create_static();
+  v32 = getCTGreenTeaOsLogHandle();
+  v33 = v32;
+  if (v32 && os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
+  {
+    *buf = 0;
+    _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_INFO, "Transmitting Location.", buf, 2u);
+  }
+
+  [v25 enqueueRequest:v31];
 }
 
 - (void)_sendAccessoryCurrentLocationsForCmd:(id)cmd reason:(int64_t)reason locator:(id)locator accessoryIdentifier:(id)identifier
@@ -464,15 +532,16 @@ LABEL_49:
       v30 = *v55;
       do
       {
-        for (i = 0; i != v29; i = i + 1)
+        v31 = 0;
+        do
         {
           if (*v55 != v30)
           {
             objc_enumerationMutation(obj);
           }
 
-          v32 = *(*(&v54 + 1) + 8 * i);
-          v33 = sub_100002880();
+          v32 = *(*(&v54 + 1) + 8 * v31);
+          v33 = sub_100002880(v28);
           if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
@@ -491,12 +560,16 @@ LABEL_49:
 
             [v26 addObject:v36];
           }
+
+          v31 = v31 + 1;
         }
 
-        v29 = [obj countByEnumeratingWithState:&v54 objects:v69 count:16];
+        while (v29 != v31);
+        v28 = [obj countByEnumeratingWithState:&v54 objects:v69 count:16];
+        v29 = v28;
       }
 
-      while (v29);
+      while (v28);
     }
 
     if ([v26 count])
@@ -565,7 +638,7 @@ LABEL_49:
     v65 = v21;
     selfCopy = self;
     v22 = [(FMDActingRequestDecorator *)v20 initWithDeviceContextGenerator:v67 deviceInfoGenerator:v64 serverContextGenerator:0 requestHeaderGenerator:0];
-    v23 = sub_100002880();
+    v23 = sub_100002880(v22);
     if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
@@ -619,39 +692,39 @@ LABEL_23:
   newLocationManager = [provider newLocationManager];
   v8 = [(FMDLocator *)v6 initWithLocationManager:newLocationManager];
 
-  v9 = sub_100002880();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v10 = sub_100002880(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     fm_logID = [(FMDCommandHandler *)self fm_logID];
     serviceName = [provider serviceName];
-    v18 = 138412546;
-    v19 = fm_logID;
-    v20 = 2112;
-    v21 = serviceName;
-    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Created %@ for service %@", &v18, 0x16u);
+    v19 = 138412546;
+    v20 = fm_logID;
+    v21 = 2112;
+    v22 = serviceName;
+    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Created %@ for service %@", &v19, 0x16u);
   }
 
-  v12 = objc_autoreleasePoolPush();
-  v13 = [paramsCopy objectForKeyedSubscript:@"locationTimeout"];
-  v14 = v13;
-  if (v13)
+  v13 = objc_autoreleasePoolPush();
+  v14 = [paramsCopy objectForKeyedSubscript:@"locationTimeout"];
+  v15 = v14;
+  if (v14)
   {
-    [v13 doubleValue];
+    [v14 doubleValue];
     [(FMDLocator *)v8 setDuration:?];
   }
 
-  v15 = [paramsCopy objectForKeyedSubscript:@"desiredAccuracy"];
+  v16 = [paramsCopy objectForKeyedSubscript:@"desiredAccuracy"];
 
-  if (v15)
+  if (v16)
   {
-    [v15 doubleValue];
+    [v16 doubleValue];
     [(FMDLocator *)v8 setDesiredAccuracy:?];
   }
 
-  v16 = v8;
-  objc_autoreleasePoolPop(v12);
+  v17 = v8;
+  objc_autoreleasePoolPop(v13);
 
-  return v16;
+  return v17;
 }
 
 - (id)locationPublisherWithParams:(id)params

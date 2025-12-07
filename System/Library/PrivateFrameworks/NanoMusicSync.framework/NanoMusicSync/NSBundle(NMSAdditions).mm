@@ -11,9 +11,9 @@
     +[NSBundle(NMSAdditions) nanoMusicSyncBundle];
   }
 
-  v1 = nanoMusicSyncBundle___nanoMusicSyncBundle;
+  v2 = nanoMusicSyncBundle___nanoMusicSyncBundle;
 
-  return v1;
+  return v2;
 }
 
 @end

@@ -202,7 +202,7 @@ LABEL_14:
     goto LABEL_2;
   }
 
-  [coder decodeCMTimeRangeForKey:@"AVCaptionArchiveKeyTimeRange"];
+  objc_msgSend_decodeCMTimeRangeForKey_(coder);
   if ((BYTE12(v15) & 0x1D) != 1 || (BYTE4(v17) & 0x1D) != 1)
   {
     goto LABEL_2;
@@ -265,7 +265,7 @@ LABEL_3:
   [coder encodeObject:-[AVCaption text](self forKey:{"text"), @"AVCaptionArchiveKeyText"}];
   if (self)
   {
-    [(AVCaption *)self timeRange];
+    objc_msgSend_timeRange(self);
   }
 
   else
@@ -311,7 +311,7 @@ LABEL_3:
   _figCaptionData = [(AVCaption *)self _figCaptionData];
   if (self)
   {
-    [(AVCaption *)self timeRange];
+    objc_msgSend_timeRange(self);
   }
 
   else
@@ -394,7 +394,7 @@ LABEL_7:
   v3 = *MEMORY[0x1E695E480];
   if (self)
   {
-    [(AVCaption *)self timeRange];
+    objc_msgSend_timeRange(self, a2);
   }
 
   else
@@ -558,7 +558,7 @@ LABEL_19:
     objc_exception_throw(v8);
   }
 
-  [(AVCaption *)alignment _setTextAlignment:?];
+  [(AVCaption *)alignment _setTextAlignment:self];
 }
 
 - (void)_setFontWeight:(int64_t)weight inRange:(_NSRange)range
@@ -578,14 +578,14 @@ LABEL_19:
         range.length = MEMORY[0x1E69614A8];
         break;
       default:
-        v8 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector(self userInfo:{a2, @"fontWeight property must be one of the values defined in AVCaptionFontWeight.", range.location, range.length, v4, v5, v6, v9), 0}];
-        objc_exception_throw(v8);
+        v9 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector(self userInfo:{a2, @"fontWeight property must be one of the values defined in AVCaptionFontWeight.", range.location, range.length, v4, v5, v6, v10), 0}];
+        objc_exception_throw(v9);
     }
 
     if (([(AVCaption *)range.location _setFontWeight:self inRange:&cf, range.length]& 1) != 0)
     {
 LABEL_8:
-      [AVCaption _setFontWeight:inRange:];
+      [AVCaption _setFontWeight:? inRange:?];
     }
 
     if (cf)
@@ -612,14 +612,14 @@ LABEL_8:
         range.length = MEMORY[0x1E6961488];
         break;
       default:
-        v8 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector(self userInfo:{a2, @"fontStyle property must be one of the values defined in AVCaptionFontStyle.", range.location, range.length, v4, v5, v6, v9), 0}];
-        objc_exception_throw(v8);
+        v9 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector(self userInfo:{a2, @"fontStyle property must be one of the values defined in AVCaptionFontStyle.", range.location, range.length, v4, v5, v6, v10), 0}];
+        objc_exception_throw(v9);
     }
 
     if (([(AVCaption *)range.location _setFontStyle:self inRange:&cf, range.length]& 1) != 0)
     {
 LABEL_8:
-      [AVCaption _setFontStyle:inRange:];
+      [AVCaption _setFontStyle:? inRange:?];
     }
 
     if (cf)
@@ -631,15 +631,22 @@ LABEL_8:
 
 - (void)_setTextCombine:(int64_t)combine inRange:(_NSRange)range
 {
+  cf = 0;
   if (range.length)
   {
     if (combine > 1)
     {
-      if (combine == 2 || combine == 3 || combine == 4)
+      switch(combine)
       {
-LABEL_14:
-        [AVCaption _setTextCombine:inRange:];
-        return;
+        case 2:
+          v7 = MEMORY[0x1E6961520];
+          goto LABEL_15;
+        case 3:
+          v7 = MEMORY[0x1E6961518];
+          goto LABEL_15;
+        case 4:
+          v7 = MEMORY[0x1E6961500];
+          goto LABEL_15;
       }
     }
 
@@ -648,17 +655,27 @@ LABEL_14:
       switch(combine)
       {
         case -1:
-          goto LABEL_14;
+          v7 = MEMORY[0x1E69614F8];
+          goto LABEL_15;
         case 0:
-          [AVCaption _setTextCombine:inRange:];
-          return;
+          [AVCaption _setTextCombine:? inRange:?];
+          goto LABEL_16;
         case 1:
-          goto LABEL_14;
+          v7 = MEMORY[0x1E6961510];
+LABEL_15:
+          [(AVCaption *)range.location _setTextCombine:self inRange:&cf, v7];
+LABEL_16:
+          if (cf)
+          {
+            CFRelease(cf);
+          }
+
+          return;
       }
     }
 
-    v7 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector(self userInfo:{a2, @"textCombine is not one of the supported value.", range.location, range.length, v4, v5, v6, v8), 0}];
-    objc_exception_throw(v7);
+    v8 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector(self userInfo:{a2, @"textCombine is not one of the supported value.", range.location, range.length, v4, v5, v6, v9), 0}];
+    objc_exception_throw(v8);
   }
 }
 
@@ -1224,227 +1241,227 @@ LABEL_11:
 
 - (void)_setStylePropertiesForArchive:(id)archive
 {
-  v9 = OUTLINED_FUNCTION_14(self, a2, archive, v3, v4, v5, v6, v7, v31, v33, v35, v37, v39, v41, v43, v45, self, v48, v50, v52, v54, v56, 0, 0, 0, 0, 0, 0, 0, 0, v66, 0, v69);
+  v9 = OUTLINED_FUNCTION_14(self, a2, archive, v3, v4, v5, v6, v7, v39, v41, v43, v45, v47, v49, v51, v53, self, v56, v58, v60, v62, v64, 0, 0, 0, 0, 0, 0, 0, 0, v74, 0);
   if (!v9)
   {
     goto LABEL_49;
   }
 
   v10 = v9;
-  v57 = 0;
-  v11 = *v60;
-  v34 = *MEMORY[0x1E69614E0];
-  v51 = *MEMORY[0x1E695E480];
-  v38 = *MEMORY[0x1E69614F0];
-  v40 = *MEMORY[0x1E6961460];
-  v44 = *MEMORY[0x1E6961480];
-  v32 = *MEMORY[0x1E6961488];
-  v36 = *MEMORY[0x1E6961490];
-  v49 = *MEMORY[0x1E6961458];
-  v53 = *MEMORY[0x1E69614E8];
-  v55 = *MEMORY[0x1E69614A0];
-  v42 = *MEMORY[0x1E69614A8];
-  v46 = *MEMORY[0x1E69614B0];
+  v65 = 0;
+  v11 = *v68;
+  v42 = *MEMORY[0x1E69614E0];
+  v59 = *MEMORY[0x1E695E480];
+  v46 = *MEMORY[0x1E69614F0];
+  v48 = *MEMORY[0x1E6961460];
+  v52 = *MEMORY[0x1E6961480];
+  v40 = *MEMORY[0x1E6961488];
+  v44 = *MEMORY[0x1E6961490];
+  v57 = *MEMORY[0x1E6961458];
+  v61 = *MEMORY[0x1E69614E8];
+  v63 = *MEMORY[0x1E69614A0];
+  v50 = *MEMORY[0x1E69614A8];
+  v54 = *MEMORY[0x1E69614B0];
   do
   {
     v12 = 0;
     do
     {
-      if (*v60 != v11)
+      if (*v68 != v11)
       {
         objc_enumerationMutation(archive);
       }
 
-      v13 = *(v59 + 8 * v12);
-      objc_opt_class();
-      location = OUTLINED_FUNCTION_8();
+      v13 = *(v67 + 8 * v12);
+      v14 = objc_opt_class();
+      location = OUTLINED_FUNCTION_8(v14);
       if (location)
       {
         location = [v13 objectForKeyedSubscript:@"AVCaptionArchiveKeyStylePropertyName"];
         if (location)
         {
-          v22 = location;
+          v23 = location;
           location = [v13 objectForKeyedSubscript:@"AVCaptionArchiveKeyStylePropertyRange"];
           if (location)
           {
-            v23 = NSRangeFromString(location);
-            length = v23.length;
-            location = v23.location;
-            if (v23.length)
+            v24 = NSRangeFromString(location);
+            length = v24.length;
+            location = v24.location;
+            if (v24.length)
             {
               location = [v13 objectForKeyedSubscript:@"AVCaptionArchiveKeyStylePropertyValue"];
               if (location)
               {
-                v24 = location;
+                v25 = location;
                 if (cf)
                 {
                   CFRelease(cf);
                   cf = 0;
                 }
 
-                if ([v22 isEqualToString:{@"AVCaptionArchiveKeyStylePropertyName_FontWeight", v32}])
+                if ([v23 isEqualToString:{@"AVCaptionArchiveKeyStylePropertyName_FontWeight", v40}])
                 {
-                  objc_opt_class();
-                  location = OUTLINED_FUNCTION_8();
-                  v57 = v55;
+                  v26 = objc_opt_class();
+                  location = OUTLINED_FUNCTION_8(v26);
+                  v65 = v63;
                   if ((location & 1) == 0)
                   {
                     goto LABEL_31;
                   }
 
-                  location = [v24 isEqualToString:@"AVCaptionArchiveKeyStylePropertyName_FontWeightNormal"];
+                  location = [v25 isEqualToString:@"AVCaptionArchiveKeyStylePropertyName_FontWeightNormal"];
                   if (!location)
                   {
-                    location = [v24 isEqualToString:@"AVCaptionArchiveKeyStylePropertyName_FontWeightBold"];
-                    v57 = v55;
+                    location = [v25 isEqualToString:@"AVCaptionArchiveKeyStylePropertyName_FontWeightBold"];
+                    v65 = v63;
                     if (!location)
                     {
                       goto LABEL_31;
                     }
                   }
 
-                  OUTLINED_FUNCTION_5(location, length, v16, v17, v18, v19, v20, v21, v32, v34, v36, v38, v40, v42, v44, v46, v47, v49, v51);
+                  OUTLINED_FUNCTION_5(location, length, v17, v18, v19, v20, v21, v22, v40, v42, v44, v46, v48, v50, v52, v54, v55, v57, v59);
                   location = FigCaptionDynamicStyleCreate();
-                  v26 = v55;
+                  v29 = v63;
                 }
 
-                else if ([v22 isEqualToString:@"AVCaptionArchiveKeyStylePropertyName_TextColor"])
+                else if ([v23 isEqualToString:@"AVCaptionArchiveKeyStylePropertyName_TextColor"])
                 {
-                  objc_opt_class();
-                  location = OUTLINED_FUNCTION_8();
-                  v57 = v53;
+                  v27 = objc_opt_class();
+                  location = OUTLINED_FUNCTION_8(v27);
+                  v65 = v61;
                   if ((location & 1) == 0)
                   {
                     goto LABEL_31;
                   }
 
                   location = FigCreateCGColorSRGBFromCFArray();
-                  v57 = v53;
+                  v65 = v61;
                   if (!location)
                   {
                     goto LABEL_31;
                   }
 
-                  v25 = location;
-                  OUTLINED_FUNCTION_5(location, length, v16, v17, v18, v19, v20, v21, v32, v34, v36, v38, v40, v42, v44, v46, v47, v49, v51);
+                  v28 = location;
+                  OUTLINED_FUNCTION_5(location, length, v17, v18, v19, v20, v21, v22, v40, v42, v44, v46, v48, v50, v52, v54, v55, v57, v59);
                   FigCaptionDynamicStyleCreate();
-                  CGColorRelease(v25);
-                  v26 = v53;
+                  CGColorRelease(v28);
+                  v29 = v61;
                 }
 
-                else if ([v22 isEqualToString:@"AVCaptionArchiveKeyStylePropertyName_BackgroundColor"])
+                else if ([v23 isEqualToString:@"AVCaptionArchiveKeyStylePropertyName_BackgroundColor"])
                 {
-                  objc_opt_class();
-                  location = OUTLINED_FUNCTION_8();
-                  v57 = v49;
+                  v30 = objc_opt_class();
+                  location = OUTLINED_FUNCTION_8(v30);
+                  v65 = v57;
                   if ((location & 1) == 0)
                   {
                     goto LABEL_31;
                   }
 
                   location = FigCreateCGColorSRGBFromCFArray();
-                  v57 = v49;
+                  v65 = v57;
                   if (!location)
                   {
                     goto LABEL_31;
                   }
 
-                  v27 = location;
-                  OUTLINED_FUNCTION_5(location, length, v16, v17, v18, v19, v20, v21, v32, v34, v36, v38, v40, v42, v44, v46, v47, v49, v51);
+                  v31 = location;
+                  OUTLINED_FUNCTION_5(location, length, v17, v18, v19, v20, v21, v22, v40, v42, v44, v46, v48, v50, v52, v54, v55, v57, v59);
                   FigCaptionDynamicStyleCreate();
-                  CGColorRelease(v27);
-                  v26 = v49;
+                  CGColorRelease(v31);
+                  v29 = v57;
                 }
 
-                else if ([v22 isEqualToString:@"AVCaptionArchiveKeyStylePropertyName_FontStyle"])
+                else if ([v23 isEqualToString:@"AVCaptionArchiveKeyStylePropertyName_FontStyle"])
                 {
-                  objc_opt_class();
-                  location = OUTLINED_FUNCTION_8();
-                  v57 = v44;
+                  v34 = objc_opt_class();
+                  location = OUTLINED_FUNCTION_8(v34);
+                  v65 = v52;
                   if ((location & 1) == 0)
                   {
                     goto LABEL_31;
                   }
 
-                  location = [v24 isEqualToString:@"AVCaptionArchiveStylePropertyValue_FontStyleNormal"];
+                  location = [v25 isEqualToString:@"AVCaptionArchiveStylePropertyValue_FontStyleNormal"];
                   if (!location)
                   {
-                    location = [v24 isEqualToString:@"AVCaptionArchiveStylePropertyValue_FontStyleItalic"];
-                    v57 = v44;
+                    location = [v25 isEqualToString:@"AVCaptionArchiveStylePropertyValue_FontStyleItalic"];
+                    v65 = v52;
                     if (!location)
                     {
                       goto LABEL_31;
                     }
                   }
 
-                  OUTLINED_FUNCTION_5(location, length, v16, v17, v18, v19, v20, v21, v32, v34, v36, v38, v40, v42, v44, v46, v47, v49, v51);
+                  OUTLINED_FUNCTION_5(location, length, v17, v18, v19, v20, v21, v22, v40, v42, v44, v46, v48, v50, v52, v54, v55, v57, v59);
                   location = FigCaptionDynamicStyleCreate();
-                  v26 = v44;
+                  v29 = v52;
                 }
 
-                else if ([v22 isEqualToString:@"AVCaptionArchiveKeyStylePropertyName_Decoration"])
+                else if ([v23 isEqualToString:@"AVCaptionArchiveKeyStylePropertyName_Decoration"])
                 {
-                  objc_opt_class();
-                  location = OUTLINED_FUNCTION_8();
-                  v57 = v40;
+                  v35 = objc_opt_class();
+                  location = OUTLINED_FUNCTION_8(v35);
+                  v65 = v48;
                   if ((location & 1) == 0)
                   {
                     goto LABEL_31;
                   }
 
-                  OUTLINED_FUNCTION_5(location, length, v16, v17, v18, v19, v20, v21, v32, v34, v36, v38, v40, v42, v44, v46, v47, v49, v51);
+                  OUTLINED_FUNCTION_5(location, length, v17, v18, v19, v20, v21, v22, v40, v42, v44, v46, v48, v50, v52, v54, v55, v57, v59);
                   location = FigCaptionDynamicStyleCreate();
-                  v26 = v40;
+                  v29 = v48;
                 }
 
-                else if ([v22 isEqualToString:@"AVCaptionArchiveKeyStylePropertyName_TextCombine"])
+                else if ([v23 isEqualToString:@"AVCaptionArchiveKeyStylePropertyName_TextCombine"])
                 {
-                  objc_opt_class();
-                  location = OUTLINED_FUNCTION_8();
-                  v57 = v38;
+                  v36 = objc_opt_class();
+                  location = OUTLINED_FUNCTION_8(v36);
+                  v65 = v46;
                   if ((location & 1) == 0)
                   {
                     goto LABEL_31;
                   }
 
-                  OUTLINED_FUNCTION_5(location, length, v16, v17, v18, v19, v20, v21, v32, v34, v36, v38, v40, v42, v44, v46, v47, v49, v51);
+                  OUTLINED_FUNCTION_5(location, length, v17, v18, v19, v20, v21, v22, v40, v42, v44, v46, v48, v50, v52, v54, v55, v57, v59);
                   location = FigCaptionDynamicStyleCreate();
-                  v26 = v38;
+                  v29 = v46;
                 }
 
                 else
                 {
-                  location = [v22 isEqualToString:@"AVCaptionArchiveKeyStylePropertyName_RubyText"];
-                  v26 = v57;
+                  location = [v23 isEqualToString:@"AVCaptionArchiveKeyStylePropertyName_RubyText"];
+                  v29 = v65;
                   if (location)
                   {
-                    objc_opt_class();
-                    location = OUTLINED_FUNCTION_8();
-                    v57 = v34;
+                    v37 = objc_opt_class();
+                    location = OUTLINED_FUNCTION_8(v37);
+                    v65 = v42;
                     if ((location & 1) == 0)
                     {
                       goto LABEL_31;
                     }
 
-                    location = [v24 copyFigCaptionData];
+                    location = [v25 copyFigCaptionData];
                     cf = location;
-                    v26 = v34;
+                    v29 = v42;
                   }
                 }
 
-                v57 = v26;
-                if (v26)
+                v65 = v29;
+                if (v29)
                 {
                   if (cf)
                   {
-                    v28 = *(*(v47 + 8) + 8);
-                    v29 = *(*(CMBaseObjectGetVTable() + 16) + 32);
-                    if (!v29)
+                    v32 = *(*(v55 + 8) + 8);
+                    v33 = *(*(CMBaseObjectGetVTable() + 16) + 32);
+                    if (!v33)
                     {
                       goto LABEL_49;
                     }
 
-                    location = v29(v28, v57, cf, v23.location, v23.length);
+                    location = v33(v32, v65, cf, v24.location, v24.length);
                     if (location)
                     {
                       goto LABEL_49;
@@ -1462,11 +1479,11 @@ LABEL_31:
     }
 
     while (v10 != v12);
-    v30 = OUTLINED_FUNCTION_14(location, length, v16, v17, v18, v19, v20, v21, v32, v34, v36, v38, v40, v42, v44, v46, v47, v49, v51, v53, v55, v57, v58, v59, v60, v61, v62, v63, v64, v65, v67, cf, v70);
-    v10 = v30;
+    v38 = OUTLINED_FUNCTION_14(location, length, v17, v18, v19, v20, v21, v22, v40, v42, v44, v46, v48, v50, v52, v54, v55, v57, v59, v61, v63, v65, v66, v67, v68, v69, v70, v71, v72, v73, v75, cf);
+    v10 = v38;
   }
 
-  while (v30);
+  while (v38);
 LABEL_49:
   if (cf)
   {
@@ -1507,13 +1524,13 @@ LABEL_49:
 - (AVCaptionFontWeight)fontWeightAtIndex:(NSInteger)index range:(NSRange *)outRange
 {
   OUTLINED_FUNCTION_9();
-  if (!*(*(OUTLINED_FUNCTION_4() + 16) + 24))
+  if (!*(*(OUTLINED_FUNCTION_4(v4) + 16) + 24))
   {
     return 0;
   }
 
-  v4 = OUTLINED_FUNCTION_3();
-  if (v5(v4))
+  v5 = OUTLINED_FUNCTION_3();
+  if (v6(v5))
   {
     return 0;
   }
@@ -1533,13 +1550,13 @@ LABEL_49:
 - (AVCaptionFontStyle)fontStyleAtIndex:(NSInteger)index range:(NSRange *)outRange
 {
   OUTLINED_FUNCTION_9();
-  if (!*(*(OUTLINED_FUNCTION_4() + 16) + 24))
+  if (!*(*(OUTLINED_FUNCTION_4(v4) + 16) + 24))
   {
     return 0;
   }
 
-  v4 = OUTLINED_FUNCTION_3();
-  if (v5(v4))
+  v5 = OUTLINED_FUNCTION_3();
+  if (v6(v5))
   {
     return 0;
   }
@@ -1559,17 +1576,17 @@ LABEL_49:
 - (AVCaptionDecoration)decorationAtIndex:(NSInteger)index range:(NSRange *)outRange
 {
   OUTLINED_FUNCTION_9();
-  v8 = 0;
+  v9 = 0;
   cf = 0;
-  if (*(*(OUTLINED_FUNCTION_4() + 16) + 24))
+  if (*(*(OUTLINED_FUNCTION_4(v4) + 16) + 24))
   {
-    v4 = OUTLINED_FUNCTION_3();
-    if (!v5(v4))
+    v5 = OUTLINED_FUNCTION_3();
+    if (!v6(v5))
     {
       InitialValue = FigCaptionDynamicStyleGetInitialValue();
       if (InitialValue)
       {
-        CFNumberGetValue(InitialValue, kCFNumberNSIntegerType, &v8);
+        CFNumberGetValue(InitialValue, kCFNumberNSIntegerType, &v9);
       }
     }
   }
@@ -1579,19 +1596,19 @@ LABEL_49:
     CFRelease(cf);
   }
 
-  return v8;
+  return v9;
 }
 
-- (void)_setTextAlignment:(uint64_t)a1 .cold.1(uint64_t a1, CFTypeRef *a2)
+- (void)_setTextAlignment:(uint64_t)a3 .cold.1(uint64_t a1, CFTypeRef *a2, uint64_t a3)
 {
   if (!FigCaptionDynamicStyleCreate())
   {
-    v3 = *a2;
+    v4 = *a2;
     CMBaseObject = FigCaptionDataGetCMBaseObject();
-    v5 = *(*(CMBaseObjectGetVTable() + 8) + 56);
-    if (v5)
+    v6 = *(*(CMBaseObjectGetVTable() + 8) + 56);
+    if (v6)
     {
-      v5(CMBaseObject, *MEMORY[0x1E6961278], v3);
+      v6(CMBaseObject, *MEMORY[0x1E6961278], v4);
     }
   }
 
@@ -1620,16 +1637,16 @@ LABEL_49:
   return 0;
 }
 
-- (uint64_t)_setFontWeight:inRange:.cold.2()
+- (uint64_t)_setFontWeight:(uint64_t)a1 inRange:.cold.2(uint64_t a1)
 {
-  v0 = OUTLINED_FUNCTION_4();
-  v2 = *(v0 + 16);
-  result = v0 + 16;
-  if (*(v2 + 40))
+  v1 = OUTLINED_FUNCTION_4(a1);
+  v3 = *(v1 + 16);
+  result = v1 + 16;
+  if (*(v3 + 40))
   {
-    v3 = OUTLINED_FUNCTION_1_2();
+    v4 = OUTLINED_FUNCTION_1_2();
 
-    return v4(v3);
+    return v5(v4);
   }
 
   return result;
@@ -1654,49 +1671,49 @@ LABEL_49:
   return 0;
 }
 
-- (uint64_t)_setFontStyle:inRange:.cold.2()
+- (uint64_t)_setFontStyle:(uint64_t)a1 inRange:.cold.2(uint64_t a1)
 {
-  v0 = OUTLINED_FUNCTION_4();
-  v2 = *(v0 + 16);
-  result = v0 + 16;
-  if (*(v2 + 40))
+  v1 = OUTLINED_FUNCTION_4(a1);
+  v3 = *(v1 + 16);
+  result = v1 + 16;
+  if (*(v3 + 40))
   {
-    v3 = OUTLINED_FUNCTION_1_2();
+    v4 = OUTLINED_FUNCTION_1_2();
 
-    return v4(v3);
+    return v5(v4);
   }
 
   return result;
 }
 
-- (uint64_t)_setTextCombine:inRange:.cold.1()
+- (uint64_t)_setTextCombine:(uint64_t)a3 inRange:(uint64_t)a4 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5)
 {
   result = FigCaptionDynamicStyleCreate();
   if (!result)
   {
-    v1 = OUTLINED_FUNCTION_6();
-    v2 = *(v1 + 16);
-    result = v1 + 16;
-    if (*(v2 + 32))
+    v6 = OUTLINED_FUNCTION_6();
+    v7 = *(v6 + 16);
+    result = v6 + 16;
+    if (*(v7 + 32))
     {
-      v3 = OUTLINED_FUNCTION_0_3();
-      return v4(v3);
+      v8 = OUTLINED_FUNCTION_0_3();
+      return v9(v8);
     }
   }
 
   return result;
 }
 
-- (uint64_t)_setTextCombine:inRange:.cold.2()
+- (uint64_t)_setTextCombine:(uint64_t)a1 inRange:.cold.2(uint64_t a1)
 {
-  v0 = OUTLINED_FUNCTION_4();
-  v2 = *(v0 + 16);
-  result = v0 + 16;
-  if (*(v2 + 40))
+  v1 = OUTLINED_FUNCTION_4(a1);
+  v3 = *(v1 + 16);
+  result = v1 + 16;
+  if (*(v3 + 40))
   {
-    v3 = OUTLINED_FUNCTION_1_2();
+    v4 = OUTLINED_FUNCTION_1_2();
 
-    return v4(v3);
+    return v5(v4);
   }
 
   return result;

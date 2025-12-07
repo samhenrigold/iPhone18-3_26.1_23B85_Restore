@@ -10,25 +10,25 @@
 - (WBSFormerlySharedSavedAccountMarker)initWithDictionaryRepresentation:(id)representation
 {
   representationCopy = representation;
-  v5 = [representationCopy objectForKeyedSubscript:@"passwordManagerCredentialIdentifier"];
-  if (v5)
+  v6 = [representationCopy objectForKeyedSubscript:@"passwordManagerCredentialIdentifier"];
+  if (v6)
   {
-    v6 = [representationCopy objectForKeyedSubscript:@"groupName"];
-    v7 = [[WBSFormerlySharedSavedAccountMarker alloc] initWithPasswordManagerCredentialIdentifier:v5 nameOfGroupCredentialWasLastSharedIn:v6];
+    v7 = [representationCopy objectForKeyedSubscript:@"groupName"];
+    v8 = [[WBSFormerlySharedSavedAccountMarker alloc] initWithPasswordManagerCredentialIdentifier:v6 nameOfGroupCredentialWasLastSharedIn:v7];
   }
 
   else
   {
-    v8 = WBS_LOG_CHANNEL_PREFIXKeychain();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = WBS_LOG_CHANNEL_PREFIXKeychain(0, v5);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      [WBSFormerlySharedSavedAccountMarker initWithDictionaryRepresentation:v8];
+      [WBSFormerlySharedSavedAccountMarker initWithDictionaryRepresentation:v9];
     }
 
-    v7 = 0;
+    v8 = 0;
   }
 
-  return v7;
+  return v8;
 }
 
 - (WBSFormerlySharedSavedAccountMarker)initWithPasswordManagerCredentialIdentifier:(id)identifier nameOfGroupCredentialWasLastSharedIn:(id)in
@@ -56,12 +56,12 @@
 
 - (NSDictionary)dictionaryRepresentation
 {
-  v11[1] = *MEMORY[0x1E69E9840];
+  v10[1] = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E695DF90];
   passwordManagerCredentialIdentifier = self->_passwordManagerCredentialIdentifier;
-  v10 = @"passwordManagerCredentialIdentifier";
-  v11[0] = passwordManagerCredentialIdentifier;
-  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:&v10 count:1];
+  v9 = @"passwordManagerCredentialIdentifier";
+  v10[0] = passwordManagerCredentialIdentifier;
+  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:&v9 count:1];
   v6 = [v3 dictionaryWithDictionary:v5];
 
   nameOfGroupCredentialWasLastSharedIn = self->_nameOfGroupCredentialWasLastSharedIn;
@@ -69,8 +69,6 @@
   {
     [v6 setObject:nameOfGroupCredentialWasLastSharedIn forKeyedSubscript:@"groupName"];
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v6;
 }

@@ -57,7 +57,7 @@
 {
   viewCopy = view;
   selfCopy = self;
-  sub_1909B7718();
+  sub_1909B7718(view);
 }
 
 - (_TtC7ChatKit14CKBalloonLayer)initWithLayer:(id)layer
@@ -65,7 +65,7 @@
   swift_unknownObjectRetain();
   sub_190D58140();
   swift_unknownObjectRelease();
-  return sub_1909A9E20(&v4);
+  return sub_1909A9E20(v4);
 }
 
 - (_TtC7ChatKit14CKBalloonLayer)initWithCoder:(id)coder
@@ -199,7 +199,7 @@
 {
   layerCopy = layer;
   selfCopy = self;
-  v7 = _s7ChatKit14CKBalloonLayerC6action3for0F3KeySo8CAAction_pSgSo7CALayerC_SStF_0();
+  v7 = _s7ChatKit14CKBalloonLayerC6action3for0F3KeySo8CAAction_pSgSo7CALayerC_SStF_0(layerCopy);
 
   return v7;
 }

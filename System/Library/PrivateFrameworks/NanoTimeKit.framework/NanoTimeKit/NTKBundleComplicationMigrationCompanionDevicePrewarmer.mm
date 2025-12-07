@@ -294,117 +294,118 @@ uint64_t __78__NTKBundleComplicationMigrationCompanionDevicePrewarmer__nextDevic
 
 - (void)_purgeCaches
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v55 = *MEMORY[0x277D85DE8];
   v2 = objc_opt_new();
   mEMORY[0x277D37B50] = [MEMORY[0x277D37B50] sharedInstance];
   devices = [mEMORY[0x277D37B50] devices];
   paired = [devices paired];
   v6 = [paired all];
 
-  v46 = 0u;
   v47 = 0u;
-  v44 = 0u;
+  v48 = 0u;
   v45 = 0u;
+  v46 = 0u;
   v7 = v6;
-  v8 = [v7 countByEnumeratingWithState:&v44 objects:v53 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v45 objects:v54 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v45;
+    v10 = *v46;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v45 != v10)
+        if (*v46 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        pairingID = [*(*(&v44 + 1) + 8 * i) pairingID];
+        pairingID = [*(*(&v45 + 1) + 8 * i) pairingID];
         uUIDString = [pairingID UUIDString];
         [v2 addObject:uUIDString];
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v44 objects:v53 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v45 objects:v54 count:16];
     }
 
     while (v9);
   }
 
-  v35 = v7;
+  v36 = v7;
 
   v14 = 0x277CCA000uLL;
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-  v16 = NTKBundleComplicationMigrationServiceLookupDirectory();
+  v16 = NTKBundleComplicationMigrationServiceLookupDirectory(defaultManager);
   v17 = [defaultManager enumeratorAtPath:v16];
 
-  v42 = 0u;
   v43 = 0u;
-  v40 = 0u;
+  v44 = 0u;
   v41 = 0u;
+  v42 = 0u;
   v18 = v17;
-  v19 = [v18 countByEnumeratingWithState:&v40 objects:v52 count:16];
+  v19 = [v18 countByEnumeratingWithState:&v41 objects:v53 count:16];
   if (v19)
   {
     v20 = v19;
-    v21 = *v41;
-    v36 = v18;
-    v37 = v2;
+    v21 = *v42;
+    v37 = v18;
+    v38 = v2;
     do
     {
       v22 = 0;
       do
       {
-        if (*v41 != v21)
+        if (*v42 != v21)
         {
           objc_enumerationMutation(v18);
         }
 
-        v23 = *(*(&v40 + 1) + 8 * v22);
-        v39 = 0;
+        v23 = *(*(&v41 + 1) + 8 * v22);
+        v40 = 0;
         defaultManager2 = [*(v14 + 2560) defaultManager];
-        [defaultManager2 fileExistsAtPath:v23 isDirectory:&v39];
+        [defaultManager2 fileExistsAtPath:v23 isDirectory:&v40];
 
-        if ((v39 & 1) == 0)
+        if ((v40 & 1) == 0)
         {
           lastPathComponent = [v23 lastPathComponent];
           stringByDeletingPathExtension = [lastPathComponent stringByDeletingPathExtension];
 
-          if (([v2 containsObject:stringByDeletingPathExtension] & 1) == 0)
+          v27 = [v2 containsObject:stringByDeletingPathExtension];
+          if ((v27 & 1) == 0)
           {
-            v27 = NTKBundleComplicationMigrationServiceLookupDirectory();
-            v28 = [v27 stringByAppendingPathComponent:v23];
+            v28 = NTKBundleComplicationMigrationServiceLookupDirectory(v27);
+            v29 = [v28 stringByAppendingPathComponent:v23];
 
-            v29 = v14;
+            v30 = v14;
             defaultManager3 = [*(v14 + 2560) defaultManager];
-            v38 = 0;
-            v31 = [defaultManager3 removeItemAtPath:v28 error:&v38];
-            v32 = v38;
+            v39 = 0;
+            v32 = [defaultManager3 removeItemAtPath:v29 error:&v39];
+            v33 = v39;
 
-            v33 = _NTKLoggingObjectForDomain(56, "NTKLoggingDomainBundleComplicationMigration");
-            v34 = v33;
-            if (v31)
+            v34 = _NTKLoggingObjectForDomain(56, "NTKLoggingDomainBundleComplicationMigration");
+            v35 = v34;
+            if (v32)
             {
-              if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
+              if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 138412290;
-                v49 = v23;
-                _os_log_impl(&dword_22D9C5000, v34, OS_LOG_TYPE_DEFAULT, "CompanionDevicePrewarmer: Purged %@", buf, 0xCu);
+                v50 = v23;
+                _os_log_impl(&dword_22D9C5000, v35, OS_LOG_TYPE_DEFAULT, "CompanionDevicePrewarmer: Purged %@", buf, 0xCu);
               }
             }
 
-            else if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+            else if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412546;
-              v49 = v23;
-              v50 = 2112;
-              v51 = v32;
-              _os_log_error_impl(&dword_22D9C5000, v34, OS_LOG_TYPE_ERROR, "CompanionDevicePrewarmer: Error purging %@: %@", buf, 0x16u);
+              v50 = v23;
+              v51 = 2112;
+              v52 = v33;
+              _os_log_error_impl(&dword_22D9C5000, v35, OS_LOG_TYPE_ERROR, "CompanionDevicePrewarmer: Error purging %@: %@", buf, 0x16u);
             }
 
-            v14 = v29;
-            v18 = v36;
-            v2 = v37;
+            v14 = v30;
+            v18 = v37;
+            v2 = v38;
           }
         }
 
@@ -412,7 +413,7 @@ uint64_t __78__NTKBundleComplicationMigrationCompanionDevicePrewarmer__nextDevic
       }
 
       while (v20 != v22);
-      v20 = [v18 countByEnumeratingWithState:&v40 objects:v52 count:16];
+      v20 = [v18 countByEnumeratingWithState:&v41 objects:v53 count:16];
     }
 
     while (v20);

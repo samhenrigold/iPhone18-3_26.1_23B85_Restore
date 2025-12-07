@@ -13,18 +13,18 @@
 
 - (OZARFrameMetadata)initWithCameraTransform:(double)transform cameraIntrinsics:(double)intrinsics cameraImageResolution:(double)resolution
 {
-  v27.receiver = self;
-  v27.super_class = OZARFrameMetadata;
-  v17 = [(OZARFrameMetadata *)&v27 init];
-  v18 = v17;
-  if (v17)
+  v21.receiver = self;
+  v21.super_class = OZARFrameMetadata;
+  v11 = [(OZARFrameMetadata *)&v21 init:a2];
+  v12 = v11;
+  if (v11)
   {
-    [(OZARFrameMetadata *)v17 setCameraTransform:a2, transform, intrinsics, resolution];
-    [(OZARFrameMetadata *)v18 setCameraIntrinsics:a6, a7, a8];
-    [(OZARFrameMetadata *)v18 setCameraImageResolution:a10, a11];
+    [(OZARFrameMetadata *)v11 setCameraTransform:a2, transform, intrinsics, resolution];
+    [(OZARFrameMetadata *)v12 setCameraIntrinsics:a6, a7, a8];
+    [(OZARFrameMetadata *)v12 setCameraImageResolution:a10, a11];
   }
 
-  return v18;
+  return v12;
 }
 
 + (opaqueCMFormatDescription)metadataFormat
@@ -42,7 +42,7 @@
   return +[OZARFrameMetadata metadataFormat]::metadataFormat;
 }
 
-uint64_t __35__OZARFrameMetadata_metadataFormat__block_invoke(uint64_t a1)
+void *__35__OZARFrameMetadata_metadataFormat__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) createMetadataFormat];
   +[OZARFrameMetadata metadataFormat]::metadataFormat = result;

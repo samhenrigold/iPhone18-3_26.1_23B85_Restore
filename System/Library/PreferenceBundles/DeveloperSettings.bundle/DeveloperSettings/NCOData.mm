@@ -3,8 +3,10 @@
 - (NCOData)init;
 - (double)expirationTimeInterval;
 - (unsigned)wifiOverride;
+- (void)enablePrefer5G:(BOOL)g completion:(id)completion;
 - (void)fetchNCOStatusWithCompletion:(id)completion;
 - (void)fetchPrefer5GEnabledWithCompletion:(id)completion;
+- (void)setCellularInexpensive:(BOOL)inexpensive;
 - (void)setWifiOverride:(unsigned int)override completion:(id)completion;
 @end
 
@@ -143,6 +145,32 @@ LABEL_10:
   return v5;
 }
 
+- (void)setCellularInexpensive:(BOOL)inexpensive
+{
+  inexpensiveCopy = inexpensive;
+  ctClient = [(NCOData *)self ctClient];
+
+  if (ctClient)
+  {
+    ctClient2 = [(NCOData *)self ctClient];
+    v9 = [ctClient2 setOverriddenInterfaceCostInexpensive:inexpensiveCopy];
+
+    v7 = v9;
+    if (v9)
+    {
+      localizedDescription = [v9 localizedDescription];
+      NSLog(@"NCO Cellular: Error setting override %@", localizedDescription);
+
+      v7 = v9;
+    }
+  }
+
+  else
+  {
+    NSLog(@"NCO Cellular: ctClient is nil");
+  }
+}
+
 - (void)fetchPrefer5GEnabledWithCompletion:(id)completion
 {
   completionCopy = completion;
@@ -162,6 +190,33 @@ LABEL_10:
   v8 = completionCopy;
   v9 = v6;
   dispatch_async(symptomsReplyQueue, v10);
+}
+
+- (void)enablePrefer5G:(BOOL)g completion:(id)completion
+{
+  gCopy = g;
+  completionCopy = completion;
+  v16[0] = kSymptomForcePreferCellOverWiFiEnableKey;
+  v7 = [NSNumber numberWithBool:gCopy];
+  v17[0] = v7;
+  v16[1] = kSymptomForcePreferCellOverWiFiAutoDisableTimestampKey;
+  [(NCOData *)self expirationTimeInterval];
+  v8 = [NSNumber numberWithDouble:?];
+  v17[1] = v8;
+  v9 = [NSDictionary dictionaryWithObjects:v17 forKeys:v16 count:2];
+
+  NSLog(@"NCO Prefer5G (set) sent %@", v9);
+  symptomsReplyQueue = self->_symptomsReplyQueue;
+  block[0] = _NSConcreteStackBlock;
+  block[1] = 3221225472;
+  block[2] = sub_F960;
+  block[3] = &unk_3D560;
+  block[4] = self;
+  v14 = v9;
+  v15 = completionCopy;
+  v11 = completionCopy;
+  v12 = v9;
+  dispatch_async(symptomsReplyQueue, block);
 }
 
 - (unsigned)wifiOverride

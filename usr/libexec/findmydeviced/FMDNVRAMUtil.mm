@@ -34,7 +34,7 @@
 
   else
   {
-    v10 = sub_100002880();
+    v10 = sub_100002880(valueCopy);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       v11 = 138412546;
@@ -55,7 +55,7 @@
     if (v5)
     {
       v6 = [[NSString alloc] initWithData:v5 encoding:4];
-      v7 = sub_100002880();
+      v7 = sub_100002880(v6);
       if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
         v9 = 138412546;
@@ -90,10 +90,10 @@
 
     if (v5)
     {
-      v6 = sub_100002880();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+      v7 = sub_100002880(v6);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
-        sub_100228EA4(v5, v6);
+        sub_100228EA4(v5, v7);
       }
     }
   }
@@ -106,22 +106,23 @@
   v7 = valueCopy;
   if (!keyCopy || !valueCopy)
   {
-    v8 = sub_100002880();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = sub_100002880(valueCopy);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      *v9 = 0;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "#nvram - Cannot save data since data or key is nil", v9, 2u);
+      *v10 = 0;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "#nvram - Cannot save data since data or key is nil", v10, 2u);
     }
 
     goto LABEL_8;
   }
 
-  if (sub_100167298(keyCopy, valueCopy))
+  v8 = sub_100167298(keyCopy, valueCopy);
+  if (v8)
   {
-    v8 = sub_100002880();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = sub_100002880(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      sub_100228F1C(keyCopy, v7, v8);
+      sub_100228F1C(keyCopy, v7, v9);
     }
 
 LABEL_8:
@@ -139,7 +140,7 @@ LABEL_8:
     if (v5)
     {
       v6 = v5;
-      v7 = sub_100002880();
+      v7 = sub_100002880(v5);
       if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
         sub_100228FBC(v6, v7);
@@ -151,7 +152,7 @@ LABEL_8:
     else
     {
       v8 = v13;
-      v7 = sub_100002880();
+      v7 = sub_100002880(v5);
       if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
         if (v8)
@@ -178,7 +179,7 @@ LABEL_8:
 
   else
   {
-    v9 = sub_100002880();
+    v9 = sub_100002880(0);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;

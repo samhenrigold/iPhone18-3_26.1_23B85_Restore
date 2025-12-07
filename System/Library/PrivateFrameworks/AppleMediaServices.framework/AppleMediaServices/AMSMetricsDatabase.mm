@@ -555,9 +555,9 @@ uint64_t __53__AMSMetricsDatabase_dropAllEventsWithLockKey_error___block_invoke(
   return v5;
 }
 
-uint64_t __53__AMSMetricsDatabase_dropAllEventsWithLockKey_error___block_invoke_2(uint64_t result, void *a2)
+void *__53__AMSMetricsDatabase_dropAllEventsWithLockKey_error___block_invoke_2(void *result, void *a2)
 {
-  v2 = *(result + 32);
+  v2 = result[4];
   if (v2)
   {
     return [a2 bindString:v2 atPosition:1];
@@ -818,7 +818,7 @@ void __67__AMSMetricsDatabase_enumerateEventsWithTopic_lockKey_objectBlock___blo
   }
 }
 
-void __67__AMSMetricsDatabase_enumerateEventsWithTopic_lockKey_objectBlock___block_invoke_74(uint64_t a1, void *a2, void *a3, _BYTE *a4)
+void __67__AMSMetricsDatabase_enumerateEventsWithTopic_lockKey_objectBlock___block_invoke_74(void *a1, void *a2, void *a3, _BYTE *a4)
 {
   v49 = *MEMORY[0x1E69E9840];
   v7 = a2;
@@ -844,7 +844,7 @@ void __67__AMSMetricsDatabase_enumerateEventsWithTopic_lockKey_objectBlock___blo
     }
 
     *a4 = 1;
-    (*(*(a1 + 48) + 16))();
+    (*(a1[6] + 16))();
   }
 
   else
@@ -870,7 +870,7 @@ void __67__AMSMetricsDatabase_enumerateEventsWithTopic_lockKey_objectBlock___blo
           if (objc_opt_respondsToSelector())
           {
             v20 = [MEMORY[0x1E696AD98] numberWithLongLong:{objc_msgSend(v16, "longLongValue")}];
-            v21 = *(a1 + 40);
+            v21 = a1[5];
             v40[0] = MEMORY[0x1E69E9820];
             v40[1] = 3221225472;
             v40[2] = __67__AMSMetricsDatabase_enumerateEventsWithTopic_lockKey_objectBlock___block_invoke_80;
@@ -920,7 +920,7 @@ void __67__AMSMetricsDatabase_enumerateEventsWithTopic_lockKey_objectBlock___blo
           v18 = v38;
           v33 = [(AMSMetricsEvent *)v31 initWithDatabaseEventBody:v38 account:v26 databasePID:v32];
 
-          (*(*(a1 + 48) + 16))();
+          (*(a1[6] + 16))();
           v19 = 0;
           v17 = v37;
         }
@@ -2822,7 +2822,7 @@ void __72__AMSMetricsDatabase_enumerateUnsyncedIdentifierStoresUsingBlock_error_
   }
 }
 
-void __72__AMSMetricsDatabase_enumerateUnsyncedIdentifierStoresUsingBlock_error___block_invoke_159(uint64_t a1, void *a2, void *a3, _BYTE *a4)
+void __72__AMSMetricsDatabase_enumerateUnsyncedIdentifierStoresUsingBlock_error___block_invoke_159(void *a1, void *a2, void *a3, _BYTE *a4)
 {
   v25 = *MEMORY[0x1E69E9840];
   v7 = a2;
@@ -2845,7 +2845,7 @@ void __72__AMSMetricsDatabase_enumerateUnsyncedIdentifierStoresUsingBlock_error_
       _os_log_impl(&dword_192869000, v10, OS_LOG_TYPE_ERROR, "%{public}@: Failed to enumerate identifier_stores. %{public}@", &v21, 0x16u);
     }
 
-    objc_storeStrong((*(*(a1 + 48) + 8) + 40), a3);
+    objc_storeStrong((*(a1[6] + 8) + 40), a3);
     *a4 = 1;
   }
 
@@ -2903,7 +2903,7 @@ void __72__AMSMetricsDatabase_enumerateUnsyncedIdentifierStoresUsingBlock_error_
     [v11 setModified:v20];
 
     [v11 setDeleted:{objc_msgSend(v7, "intForColumnIndex:", 7) != 0}];
-    *a4 = (*(*(a1 + 40) + 16))() ^ 1;
+    *a4 = (*(a1[5] + 16))() ^ 1;
   }
 }
 
@@ -2997,7 +2997,7 @@ void __67__AMSMetricsDatabase_enumerateUnsyncedIdentifiersUsingBlock_error___blo
   }
 }
 
-void __67__AMSMetricsDatabase_enumerateUnsyncedIdentifiersUsingBlock_error___block_invoke_163(uint64_t a1, void *a2, void *a3, _BYTE *a4)
+void __67__AMSMetricsDatabase_enumerateUnsyncedIdentifiersUsingBlock_error___block_invoke_163(void *a1, void *a2, void *a3, _BYTE *a4)
 {
   v31 = *MEMORY[0x1E69E9840];
   v7 = a2;
@@ -3020,7 +3020,7 @@ void __67__AMSMetricsDatabase_enumerateUnsyncedIdentifiersUsingBlock_error___blo
       _os_log_impl(&dword_192869000, v10, OS_LOG_TYPE_ERROR, "%{public}@: Failed to enumerate identifiers. %{public}@", &v27, 0x16u);
     }
 
-    objc_storeStrong((*(*(a1 + 48) + 8) + 40), a3);
+    objc_storeStrong((*(a1[6] + 8) + 40), a3);
     *a4 = 1;
   }
 
@@ -3102,7 +3102,7 @@ void __67__AMSMetricsDatabase_enumerateUnsyncedIdentifiersUsingBlock_error___blo
     v26 = [v7 stringForColumnIndex:12];
     [v11 setPreviousValue:v26];
 
-    *a4 = (*(*(a1 + 40) + 16))() ^ 1;
+    *a4 = (*(a1[5] + 16))() ^ 1;
   }
 }
 

@@ -17,7 +17,7 @@
   v12 = objc_opt_class();
   if (v12)
   {
-    [v12 cellMetricsForIdiom:idiom];
+    objc_msgSend_cellMetricsForIdiom_(v12);
   }
 
   else

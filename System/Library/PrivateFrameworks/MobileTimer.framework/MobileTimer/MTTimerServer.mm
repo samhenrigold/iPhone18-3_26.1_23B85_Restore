@@ -61,8 +61,8 @@
 - (MTTimerServer)initWithStorage:(id)storage
 {
   storageCopy = storage;
-  v5 = MTTimerClientInterface();
-  v6 = MTTimerServerInterface();
+  v5 = MTTimerClientInterface(storageCopy);
+  v6 = MTTimerServerInterface(v5);
   v7 = [MTXPCConnectionInfo infoForMachServiceName:@"com.apple.MobileTimer.timerserver" remoteObjectInterface:v5 exportedObject:self exportedObjectInterface:v6 lifecycleNotification:@"com.apple.MTTimerServer.wakeup" requiredEntitlement:@"com.apple.private.mobiletimerd" options:0];
 
   v8 = [MTXPCConnectionListenerProvider providerWithConnectionInfo:v7 errorHandler:0];
@@ -73,19 +73,19 @@
 
 - (MTTimerServer)initWithStorage:(id)storage connectionListenerProvider:(id)provider
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   storageCopy = storage;
   providerCopy = provider;
-  v17.receiver = self;
-  v17.super_class = MTTimerServer;
-  v9 = [(MTTimerServer *)&v17 init];
+  v16.receiver = self;
+  v16.super_class = MTTimerServer;
+  v9 = [(MTTimerServer *)&v16 init];
   if (v9)
   {
     v10 = MTLogForCategory(4);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v19 = v9;
+      v18 = v9;
       _os_log_impl(&dword_1B1F9F000, v10, OS_LOG_TYPE_DEFAULT, "Initializing %{public}@", buf, 0xCu);
     }
 
@@ -102,42 +102,37 @@
     v9->_conductor = v13;
   }
 
-  v15 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
 - (void)startListening
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = MTLogForCategory(4);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 138543362;
+    v5 = 138543362;
     selfCopy = self;
-    _os_log_impl(&dword_1B1F9F000, v3, OS_LOG_TYPE_DEFAULT, "Starting %{public}@", &v6, 0xCu);
+    _os_log_impl(&dword_1B1F9F000, v3, OS_LOG_TYPE_DEFAULT, "Starting %{public}@", &v5, 0xCu);
   }
 
   connectionListenerProvider = [(MTTimerServer *)self connectionListenerProvider];
   [connectionListenerProvider startListening];
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)stopListening
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = MTLogForCategory(4);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 138543362;
+    v5 = 138543362;
     selfCopy = self;
-    _os_log_impl(&dword_1B1F9F000, v3, OS_LOG_TYPE_DEFAULT, "Stopping %{public}@", &v6, 0xCu);
+    _os_log_impl(&dword_1B1F9F000, v3, OS_LOG_TYPE_DEFAULT, "Stopping %{public}@", &v5, 0xCu);
   }
 
   connectionListenerProvider = [(MTTimerServer *)self connectionListenerProvider];
   [connectionListenerProvider stopListening];
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)handleSystemReady
@@ -153,22 +148,20 @@
 
 void __34__MTTimerServer_handleSystemReady__block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v2 = MTLogForCategory(4);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
-    v6 = 138543362;
-    v7 = v3;
-    _os_log_impl(&dword_1B1F9F000, v2, OS_LOG_TYPE_DEFAULT, "System is ready: %{public}@.  Will post MTTimerServerReadyNotification.", &v6, 0xCu);
+    v5 = 138543362;
+    v6 = v3;
+    _os_log_impl(&dword_1B1F9F000, v2, OS_LOG_TYPE_DEFAULT, "System is ready: %{public}@.  Will post MTTimerServerReadyNotification.", &v5, 0xCu);
   }
 
   *(*(a1 + 32) + 8) = 1;
   [*(*(a1 + 32) + 40) send];
   v4 = [MEMORY[0x1E696ABB0] defaultCenter];
   [v4 postNotificationName:@"com.apple.MTTimerServer.ready" object:0 userInfo:0 deliverImmediately:1];
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_systemNotReadyError
@@ -186,7 +179,7 @@ void __34__MTTimerServer_handleSystemReady__block_invoke(uint64_t a1)
 
 - (void)getTimersWithCompletion:(id)completion
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   aBlock[0] = MEMORY[0x1E69E9820];
   aBlock[1] = 3221225472;
@@ -194,7 +187,7 @@ void __34__MTTimerServer_handleSystemReady__block_invoke(uint64_t a1)
   aBlock[3] = &unk_1E7B0CA00;
   aBlock[4] = self;
   v5 = completionCopy;
-  v14 = v5;
+  v13 = v5;
   v6 = _Block_copy(aBlock);
   if ([(MTTimerServer *)self _isSystemReady])
   {
@@ -212,17 +205,15 @@ void __34__MTTimerServer_handleSystemReady__block_invoke(uint64_t a1)
     }
 
     conductor = self->_conductor;
-    v10[0] = MEMORY[0x1E69E9820];
-    v10[1] = 3221225472;
-    v10[2] = __41__MTTimerServer_getTimersWithCompletion___block_invoke_16;
-    v10[3] = &unk_1E7B0FE00;
-    v10[4] = self;
-    v11 = v6;
-    v12 = v5;
-    [(VoidConductor *)conductor registerReplyPublisherWithTimeOut:v10 completion:5.0];
+    v9[0] = MEMORY[0x1E69E9820];
+    v9[1] = 3221225472;
+    v9[2] = __41__MTTimerServer_getTimersWithCompletion___block_invoke_16;
+    v9[3] = &unk_1E7B0FE00;
+    v9[4] = self;
+    v10 = v6;
+    v11 = v5;
+    [(VoidConductor *)conductor registerReplyPublisherWithTimeOut:v9 completion:5.0];
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __41__MTTimerServer_getTimersWithCompletion___block_invoke(uint64_t a1)
@@ -233,7 +224,7 @@ void __41__MTTimerServer_getTimersWithCompletion___block_invoke(uint64_t a1)
 
 void __41__MTTimerServer_getTimersWithCompletion___block_invoke_16(uint64_t a1, int a2)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v4 = MTLogForCategory(4);
   v5 = v4;
   if (a2)
@@ -241,9 +232,9 @@ void __41__MTTimerServer_getTimersWithCompletion___block_invoke_16(uint64_t a1, 
     if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
       v6 = *(a1 + 32);
-      v11 = 138543362;
-      v12 = v6;
-      _os_log_impl(&dword_1B1F9F000, v5, OS_LOG_TYPE_INFO, "%{public}@ getTimersWithCompletion reply publisher ready, proceeding with request", &v11, 0xCu);
+      v10 = 138543362;
+      v11 = v6;
+      _os_log_impl(&dword_1B1F9F000, v5, OS_LOG_TYPE_INFO, "%{public}@ getTimersWithCompletion reply publisher ready, proceeding with request", &v10, 0xCu);
     }
 
     (*(*(a1 + 40) + 16))();
@@ -253,7 +244,7 @@ void __41__MTTimerServer_getTimersWithCompletion___block_invoke_16(uint64_t a1, 
   {
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      __41__MTTimerServer_getTimersWithCompletion___block_invoke_16_cold_1(a1);
+      __41__MTTimerServer_getTimersWithCompletion___block_invoke_16_cold_1();
     }
 
     v7 = *(a1 + 48);
@@ -264,13 +255,11 @@ void __41__MTTimerServer_getTimersWithCompletion___block_invoke_16(uint64_t a1, 
       (*(v7 + 16))(v7, v8, 0, v9);
     }
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addTimer:(id)timer withCompletion:(id)completion
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   timerCopy = timer;
   completionCopy = completion;
   aBlock[0] = MEMORY[0x1E69E9820];
@@ -279,9 +268,9 @@ void __41__MTTimerServer_getTimersWithCompletion___block_invoke_16(uint64_t a1, 
   aBlock[3] = &unk_1E7B0C5D8;
   aBlock[4] = self;
   v8 = timerCopy;
-  v18 = v8;
+  v17 = v8;
   v9 = completionCopy;
-  v19 = v9;
+  v18 = v9;
   v10 = _Block_copy(aBlock);
   if ([(MTTimerServer *)self _isSystemReady])
   {
@@ -299,17 +288,15 @@ void __41__MTTimerServer_getTimersWithCompletion___block_invoke_16(uint64_t a1, 
     }
 
     conductor = self->_conductor;
-    v14[0] = MEMORY[0x1E69E9820];
-    v14[1] = 3221225472;
-    v14[2] = __41__MTTimerServer_addTimer_withCompletion___block_invoke_19;
-    v14[3] = &unk_1E7B0FE00;
-    v14[4] = self;
-    v15 = v10;
-    v16 = v9;
-    [(VoidConductor *)conductor registerReplyPublisherWithTimeOut:v14 completion:5.0];
+    v13[0] = MEMORY[0x1E69E9820];
+    v13[1] = 3221225472;
+    v13[2] = __41__MTTimerServer_addTimer_withCompletion___block_invoke_19;
+    v13[3] = &unk_1E7B0FE00;
+    v13[4] = self;
+    v14 = v10;
+    v15 = v9;
+    [(VoidConductor *)conductor registerReplyPublisherWithTimeOut:v13 completion:5.0];
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 void __41__MTTimerServer_addTimer_withCompletion___block_invoke(uint64_t a1)
@@ -330,7 +317,7 @@ void __41__MTTimerServer_addTimer_withCompletion___block_invoke(uint64_t a1)
 
 void __41__MTTimerServer_addTimer_withCompletion___block_invoke_19(uint64_t a1, int a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v4 = MTLogForCategory(4);
   v5 = v4;
   if (a2)
@@ -338,9 +325,9 @@ void __41__MTTimerServer_addTimer_withCompletion___block_invoke_19(uint64_t a1, 
     if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
       v6 = *(a1 + 32);
-      v10 = 138543362;
-      v11 = v6;
-      _os_log_impl(&dword_1B1F9F000, v5, OS_LOG_TYPE_INFO, "%{public}@ addTimer reply publisher ready, proceeding with request", &v10, 0xCu);
+      v9 = 138543362;
+      v10 = v6;
+      _os_log_impl(&dword_1B1F9F000, v5, OS_LOG_TYPE_INFO, "%{public}@ addTimer reply publisher ready, proceeding with request", &v9, 0xCu);
     }
 
     (*(*(a1 + 40) + 16))();
@@ -350,7 +337,7 @@ void __41__MTTimerServer_addTimer_withCompletion___block_invoke_19(uint64_t a1, 
   {
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      __41__MTTimerServer_addTimer_withCompletion___block_invoke_19_cold_1(a1);
+      __41__MTTimerServer_addTimer_withCompletion___block_invoke_19_cold_1();
     }
 
     v7 = *(a1 + 48);
@@ -360,13 +347,11 @@ void __41__MTTimerServer_addTimer_withCompletion___block_invoke_19(uint64_t a1, 
       (*(v7 + 16))(v7, v8);
     }
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)updateTimer:(id)timer withCompletion:(id)completion
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   timerCopy = timer;
   completionCopy = completion;
   aBlock[0] = MEMORY[0x1E69E9820];
@@ -375,9 +360,9 @@ void __41__MTTimerServer_addTimer_withCompletion___block_invoke_19(uint64_t a1, 
   aBlock[3] = &unk_1E7B0C5D8;
   aBlock[4] = self;
   v8 = timerCopy;
-  v18 = v8;
+  v17 = v8;
   v9 = completionCopy;
-  v19 = v9;
+  v18 = v9;
   v10 = _Block_copy(aBlock);
   if ([(MTTimerServer *)self _isSystemReady])
   {
@@ -395,17 +380,15 @@ void __41__MTTimerServer_addTimer_withCompletion___block_invoke_19(uint64_t a1, 
     }
 
     conductor = self->_conductor;
-    v14[0] = MEMORY[0x1E69E9820];
-    v14[1] = 3221225472;
-    v14[2] = __44__MTTimerServer_updateTimer_withCompletion___block_invoke_20;
-    v14[3] = &unk_1E7B0FE00;
-    v14[4] = self;
-    v15 = v10;
-    v16 = v9;
-    [(VoidConductor *)conductor registerReplyPublisherWithTimeOut:v14 completion:5.0];
+    v13[0] = MEMORY[0x1E69E9820];
+    v13[1] = 3221225472;
+    v13[2] = __44__MTTimerServer_updateTimer_withCompletion___block_invoke_20;
+    v13[3] = &unk_1E7B0FE00;
+    v13[4] = self;
+    v14 = v10;
+    v15 = v9;
+    [(VoidConductor *)conductor registerReplyPublisherWithTimeOut:v13 completion:5.0];
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 void __44__MTTimerServer_updateTimer_withCompletion___block_invoke(uint64_t a1)
@@ -426,7 +409,7 @@ void __44__MTTimerServer_updateTimer_withCompletion___block_invoke(uint64_t a1)
 
 void __44__MTTimerServer_updateTimer_withCompletion___block_invoke_20(uint64_t a1, int a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v4 = MTLogForCategory(4);
   v5 = v4;
   if (a2)
@@ -434,9 +417,9 @@ void __44__MTTimerServer_updateTimer_withCompletion___block_invoke_20(uint64_t a
     if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
       v6 = *(a1 + 32);
-      v10 = 138543362;
-      v11 = v6;
-      _os_log_impl(&dword_1B1F9F000, v5, OS_LOG_TYPE_INFO, "%{public}@ updateTimer reply publisher ready, proceeding with request", &v10, 0xCu);
+      v9 = 138543362;
+      v10 = v6;
+      _os_log_impl(&dword_1B1F9F000, v5, OS_LOG_TYPE_INFO, "%{public}@ updateTimer reply publisher ready, proceeding with request", &v9, 0xCu);
     }
 
     (*(*(a1 + 40) + 16))();
@@ -446,7 +429,7 @@ void __44__MTTimerServer_updateTimer_withCompletion___block_invoke_20(uint64_t a
   {
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      __44__MTTimerServer_updateTimer_withCompletion___block_invoke_20_cold_1(a1);
+      __44__MTTimerServer_updateTimer_withCompletion___block_invoke_20_cold_1();
     }
 
     v7 = *(a1 + 48);
@@ -456,13 +439,11 @@ void __44__MTTimerServer_updateTimer_withCompletion___block_invoke_20(uint64_t a
       (*(v7 + 16))(v7, v8);
     }
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)removeTimer:(id)timer withCompletion:(id)completion
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   timerCopy = timer;
   completionCopy = completion;
   aBlock[0] = MEMORY[0x1E69E9820];
@@ -471,9 +452,9 @@ void __44__MTTimerServer_updateTimer_withCompletion___block_invoke_20(uint64_t a
   aBlock[3] = &unk_1E7B0C5D8;
   aBlock[4] = self;
   v8 = timerCopy;
-  v18 = v8;
+  v17 = v8;
   v9 = completionCopy;
-  v19 = v9;
+  v18 = v9;
   v10 = _Block_copy(aBlock);
   if ([(MTTimerServer *)self _isSystemReady])
   {
@@ -491,17 +472,15 @@ void __44__MTTimerServer_updateTimer_withCompletion___block_invoke_20(uint64_t a
     }
 
     conductor = self->_conductor;
-    v14[0] = MEMORY[0x1E69E9820];
-    v14[1] = 3221225472;
-    v14[2] = __44__MTTimerServer_removeTimer_withCompletion___block_invoke_21;
-    v14[3] = &unk_1E7B0FE00;
-    v14[4] = self;
-    v15 = v10;
-    v16 = v9;
-    [(VoidConductor *)conductor registerReplyPublisherWithTimeOut:v14 completion:5.0];
+    v13[0] = MEMORY[0x1E69E9820];
+    v13[1] = 3221225472;
+    v13[2] = __44__MTTimerServer_removeTimer_withCompletion___block_invoke_21;
+    v13[3] = &unk_1E7B0FE00;
+    v13[4] = self;
+    v14 = v10;
+    v15 = v9;
+    [(VoidConductor *)conductor registerReplyPublisherWithTimeOut:v13 completion:5.0];
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 void __44__MTTimerServer_removeTimer_withCompletion___block_invoke(uint64_t a1)
@@ -522,7 +501,7 @@ void __44__MTTimerServer_removeTimer_withCompletion___block_invoke(uint64_t a1)
 
 void __44__MTTimerServer_removeTimer_withCompletion___block_invoke_21(uint64_t a1, int a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v4 = MTLogForCategory(4);
   v5 = v4;
   if (a2)
@@ -530,9 +509,9 @@ void __44__MTTimerServer_removeTimer_withCompletion___block_invoke_21(uint64_t a
     if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
       v6 = *(a1 + 32);
-      v10 = 138543362;
-      v11 = v6;
-      _os_log_impl(&dword_1B1F9F000, v5, OS_LOG_TYPE_INFO, "%{public}@ removeTimer reply publisher ready, proceeding with request", &v10, 0xCu);
+      v9 = 138543362;
+      v10 = v6;
+      _os_log_impl(&dword_1B1F9F000, v5, OS_LOG_TYPE_INFO, "%{public}@ removeTimer reply publisher ready, proceeding with request", &v9, 0xCu);
     }
 
     (*(*(a1 + 40) + 16))();
@@ -542,7 +521,7 @@ void __44__MTTimerServer_removeTimer_withCompletion___block_invoke_21(uint64_t a
   {
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      __44__MTTimerServer_removeTimer_withCompletion___block_invoke_21_cold_1(a1);
+      __44__MTTimerServer_removeTimer_withCompletion___block_invoke_21_cold_1();
     }
 
     v7 = *(a1 + 48);
@@ -552,13 +531,11 @@ void __44__MTTimerServer_removeTimer_withCompletion___block_invoke_21(uint64_t a
       (*(v7 + 16))(v7, v8);
     }
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)dismissTimerWithIdentifier:(id)identifier withCompletion:(id)completion
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   completionCopy = completion;
   aBlock[0] = MEMORY[0x1E69E9820];
@@ -567,9 +544,9 @@ void __44__MTTimerServer_removeTimer_withCompletion___block_invoke_21(uint64_t a
   aBlock[3] = &unk_1E7B0C5D8;
   aBlock[4] = self;
   v8 = identifierCopy;
-  v18 = v8;
+  v17 = v8;
   v9 = completionCopy;
-  v19 = v9;
+  v18 = v9;
   v10 = _Block_copy(aBlock);
   if ([(MTTimerServer *)self _isSystemReady])
   {
@@ -587,17 +564,15 @@ void __44__MTTimerServer_removeTimer_withCompletion___block_invoke_21(uint64_t a
     }
 
     conductor = self->_conductor;
-    v14[0] = MEMORY[0x1E69E9820];
-    v14[1] = 3221225472;
-    v14[2] = __59__MTTimerServer_dismissTimerWithIdentifier_withCompletion___block_invoke_24;
-    v14[3] = &unk_1E7B0FE00;
-    v14[4] = self;
-    v15 = v10;
-    v16 = v9;
-    [(VoidConductor *)conductor registerReplyPublisherWithTimeOut:v14 completion:5.0];
+    v13[0] = MEMORY[0x1E69E9820];
+    v13[1] = 3221225472;
+    v13[2] = __59__MTTimerServer_dismissTimerWithIdentifier_withCompletion___block_invoke_24;
+    v13[3] = &unk_1E7B0FE00;
+    v13[4] = self;
+    v14 = v10;
+    v15 = v9;
+    [(VoidConductor *)conductor registerReplyPublisherWithTimeOut:v13 completion:5.0];
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 void __59__MTTimerServer_dismissTimerWithIdentifier_withCompletion___block_invoke(uint64_t a1)
@@ -634,7 +609,7 @@ void __59__MTTimerServer_dismissTimerWithIdentifier_withCompletion___block_invok
 
 void __59__MTTimerServer_dismissTimerWithIdentifier_withCompletion___block_invoke_24(uint64_t a1, int a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v4 = MTLogForCategory(4);
   v5 = v4;
   if (a2)
@@ -642,9 +617,9 @@ void __59__MTTimerServer_dismissTimerWithIdentifier_withCompletion___block_invok
     if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
       v6 = *(a1 + 32);
-      v10 = 138543362;
-      v11 = v6;
-      _os_log_impl(&dword_1B1F9F000, v5, OS_LOG_TYPE_INFO, "%{public}@ dismissTimerWithIdentifier reply publisher ready, proceeding with request", &v10, 0xCu);
+      v9 = 138543362;
+      v10 = v6;
+      _os_log_impl(&dword_1B1F9F000, v5, OS_LOG_TYPE_INFO, "%{public}@ dismissTimerWithIdentifier reply publisher ready, proceeding with request", &v9, 0xCu);
     }
 
     (*(*(a1 + 40) + 16))();
@@ -654,7 +629,7 @@ void __59__MTTimerServer_dismissTimerWithIdentifier_withCompletion___block_invok
   {
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      __59__MTTimerServer_dismissTimerWithIdentifier_withCompletion___block_invoke_24_cold_1(a1);
+      __59__MTTimerServer_dismissTimerWithIdentifier_withCompletion___block_invoke_24_cold_1();
     }
 
     v7 = *(a1 + 48);
@@ -664,13 +639,11 @@ void __59__MTTimerServer_dismissTimerWithIdentifier_withCompletion___block_invok
       (*(v7 + 16))(v7, v8);
     }
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)repeatTimerWithIdentifier:(id)identifier withCompletion:(id)completion
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   completionCopy = completion;
   aBlock[0] = MEMORY[0x1E69E9820];
@@ -679,9 +652,9 @@ void __59__MTTimerServer_dismissTimerWithIdentifier_withCompletion___block_invok
   aBlock[3] = &unk_1E7B0C5D8;
   aBlock[4] = self;
   v8 = identifierCopy;
-  v18 = v8;
+  v17 = v8;
   v9 = completionCopy;
-  v19 = v9;
+  v18 = v9;
   v10 = _Block_copy(aBlock);
   if ([(MTTimerServer *)self _isSystemReady])
   {
@@ -699,17 +672,15 @@ void __59__MTTimerServer_dismissTimerWithIdentifier_withCompletion___block_invok
     }
 
     conductor = self->_conductor;
-    v14[0] = MEMORY[0x1E69E9820];
-    v14[1] = 3221225472;
-    v14[2] = __58__MTTimerServer_repeatTimerWithIdentifier_withCompletion___block_invoke_26;
-    v14[3] = &unk_1E7B10008;
-    v14[4] = self;
-    v15 = v10;
-    v16 = v9;
-    [(VoidConductor *)conductor registerReplyPublisherWithTimeOut:v14 completion:5.0];
+    v13[0] = MEMORY[0x1E69E9820];
+    v13[1] = 3221225472;
+    v13[2] = __58__MTTimerServer_repeatTimerWithIdentifier_withCompletion___block_invoke_26;
+    v13[3] = &unk_1E7B10008;
+    v13[4] = self;
+    v14 = v10;
+    v15 = v9;
+    [(VoidConductor *)conductor registerReplyPublisherWithTimeOut:v13 completion:5.0];
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 void __58__MTTimerServer_repeatTimerWithIdentifier_withCompletion___block_invoke(uint64_t a1)
@@ -748,32 +719,31 @@ void __58__MTTimerServer_repeatTimerWithIdentifier_withCompletion___block_invoke
 {
   if (a2)
   {
-    v3 = *(a1 + 40);
-    v4 = *(*(a1 + 40) + 16);
+    v3 = *(*(a1 + 40) + 16);
 
-    v4();
+    v3();
   }
 
   else
   {
-    v5 = MTLogForCategory(4);
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v4 = MTLogForCategory(4);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      __58__MTTimerServer_repeatTimerWithIdentifier_withCompletion___block_invoke_26_cold_1(a1);
+      __58__MTTimerServer_repeatTimerWithIdentifier_withCompletion___block_invoke_26_cold_1();
     }
 
-    v6 = *(a1 + 48);
-    if (v6)
+    v5 = *(a1 + 48);
+    if (v5)
     {
-      v7 = [*(a1 + 32) _systemNotReadyError];
-      (*(v6 + 16))(v6, v7);
+      v6 = [*(a1 + 32) _systemNotReadyError];
+      (*(v5 + 16))(v5, v6);
     }
   }
 }
 
 - (void)getTimerDurationsWithCompletion:(id)completion
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   aBlock[0] = MEMORY[0x1E69E9820];
   aBlock[1] = 3221225472;
@@ -781,7 +751,7 @@ void __58__MTTimerServer_repeatTimerWithIdentifier_withCompletion___block_invoke
   aBlock[3] = &unk_1E7B0CA00;
   aBlock[4] = self;
   v5 = completionCopy;
-  v14 = v5;
+  v13 = v5;
   v6 = _Block_copy(aBlock);
   if ([(MTTimerServer *)self _isSystemReady])
   {
@@ -799,40 +769,36 @@ void __58__MTTimerServer_repeatTimerWithIdentifier_withCompletion___block_invoke
     }
 
     conductor = self->_conductor;
-    v10[0] = MEMORY[0x1E69E9820];
-    v10[1] = 3221225472;
-    v10[2] = __49__MTTimerServer_getTimerDurationsWithCompletion___block_invoke_27;
-    v10[3] = &unk_1E7B0FE00;
-    v10[4] = self;
-    v11 = v6;
-    v12 = v5;
-    [(VoidConductor *)conductor registerReplyPublisherWithTimeOut:v10 completion:5.0];
+    v9[0] = MEMORY[0x1E69E9820];
+    v9[1] = 3221225472;
+    v9[2] = __49__MTTimerServer_getTimerDurationsWithCompletion___block_invoke_27;
+    v9[3] = &unk_1E7B0FE00;
+    v9[4] = self;
+    v10 = v6;
+    v11 = v5;
+    [(VoidConductor *)conductor registerReplyPublisherWithTimeOut:v9 completion:5.0];
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __49__MTTimerServer_getTimerDurationsWithCompletion___block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v2 = MTLogForCategory(9);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     v3 = *(a1 + 32);
-    v6 = 138543362;
-    v7 = v3;
-    _os_log_impl(&dword_1B1F9F000, v2, OS_LOG_TYPE_INFO, "%{public}@ - getTimerDurationsWithCompletion", &v6, 0xCu);
+    v5 = 138543362;
+    v6 = v3;
+    _os_log_impl(&dword_1B1F9F000, v2, OS_LOG_TYPE_INFO, "%{public}@ - getTimerDurationsWithCompletion", &v5, 0xCu);
   }
 
   v4 = [*(a1 + 32) storage];
   [v4 getDurationsWithCompletion:*(a1 + 40)];
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __49__MTTimerServer_getTimerDurationsWithCompletion___block_invoke_27(uint64_t a1, int a2)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v4 = MTLogForCategory(4);
   v5 = v4;
   if (a2)
@@ -840,9 +806,9 @@ void __49__MTTimerServer_getTimerDurationsWithCompletion___block_invoke_27(uint6
     if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
       v6 = *(a1 + 32);
-      v13 = 138543362;
-      v14 = v6;
-      _os_log_impl(&dword_1B1F9F000, v5, OS_LOG_TYPE_INFO, "%{public}@ getTimerDurationsWithCompletion reply publisher ready, proceeding with request", &v13, 0xCu);
+      v12 = 138543362;
+      v13 = v6;
+      _os_log_impl(&dword_1B1F9F000, v5, OS_LOG_TYPE_INFO, "%{public}@ getTimerDurationsWithCompletion reply publisher ready, proceeding with request", &v12, 0xCu);
     }
 
     (*(*(a1 + 40) + 16))();
@@ -852,7 +818,7 @@ void __49__MTTimerServer_getTimerDurationsWithCompletion___block_invoke_27(uint6
   {
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      __49__MTTimerServer_getTimerDurationsWithCompletion___block_invoke_27_cold_1(a1);
+      __49__MTTimerServer_getTimerDurationsWithCompletion___block_invoke_27_cold_1();
     }
 
     v7 = *(a1 + 48);
@@ -865,13 +831,11 @@ void __49__MTTimerServer_getTimerDurationsWithCompletion___block_invoke_27(uint6
       (*(v7 + 16))(v7, v8, v9, v10, 0, v11);
     }
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addRecentDuration:(id)duration withCompletion:(id)completion
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   durationCopy = duration;
   completionCopy = completion;
   aBlock[0] = MEMORY[0x1E69E9820];
@@ -880,9 +844,9 @@ void __49__MTTimerServer_getTimerDurationsWithCompletion___block_invoke_27(uint6
   aBlock[3] = &unk_1E7B0C5D8;
   aBlock[4] = self;
   v8 = durationCopy;
-  v18 = v8;
+  v17 = v8;
   v9 = completionCopy;
-  v19 = v9;
+  v18 = v9;
   v10 = _Block_copy(aBlock);
   if ([(MTTimerServer *)self _isSystemReady])
   {
@@ -900,29 +864,27 @@ void __49__MTTimerServer_getTimerDurationsWithCompletion___block_invoke_27(uint6
     }
 
     conductor = self->_conductor;
-    v14[0] = MEMORY[0x1E69E9820];
-    v14[1] = 3221225472;
-    v14[2] = __50__MTTimerServer_addRecentDuration_withCompletion___block_invoke_28;
-    v14[3] = &unk_1E7B0FE00;
-    v14[4] = self;
-    v15 = v10;
-    v16 = v9;
-    [(VoidConductor *)conductor registerReplyPublisherWithTimeOut:v14 completion:5.0];
+    v13[0] = MEMORY[0x1E69E9820];
+    v13[1] = 3221225472;
+    v13[2] = __50__MTTimerServer_addRecentDuration_withCompletion___block_invoke_28;
+    v13[3] = &unk_1E7B0FE00;
+    v13[4] = self;
+    v14 = v10;
+    v15 = v9;
+    [(VoidConductor *)conductor registerReplyPublisherWithTimeOut:v13 completion:5.0];
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 void __50__MTTimerServer_addRecentDuration_withCompletion___block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v2 = MTLogForCategory(9);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     v3 = *(a1 + 32);
-    v9 = 138543362;
-    v10 = v3;
-    _os_log_impl(&dword_1B1F9F000, v2, OS_LOG_TYPE_INFO, "%{public}@ - addRecentDuration", &v9, 0xCu);
+    v8 = 138543362;
+    v9 = v3;
+    _os_log_impl(&dword_1B1F9F000, v2, OS_LOG_TYPE_INFO, "%{public}@ - addRecentDuration", &v8, 0xCu);
   }
 
   v4 = [*(a1 + 32) storage];
@@ -930,13 +892,11 @@ void __50__MTTimerServer_addRecentDuration_withCompletion___block_invoke(uint64_
   v5 = *(a1 + 48);
   v7 = [*(*(a1 + 32) + 24) currentClient];
   [v4 addRecentDuration:v6 withCompletion:v5 source:v7];
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __50__MTTimerServer_addRecentDuration_withCompletion___block_invoke_28(uint64_t a1, int a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v4 = MTLogForCategory(4);
   v5 = v4;
   if (a2)
@@ -944,9 +904,9 @@ void __50__MTTimerServer_addRecentDuration_withCompletion___block_invoke_28(uint
     if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
       v6 = *(a1 + 32);
-      v10 = 138543362;
-      v11 = v6;
-      _os_log_impl(&dword_1B1F9F000, v5, OS_LOG_TYPE_INFO, "%{public}@ addRecentDuration reply publisher ready, proceeding with request", &v10, 0xCu);
+      v9 = 138543362;
+      v10 = v6;
+      _os_log_impl(&dword_1B1F9F000, v5, OS_LOG_TYPE_INFO, "%{public}@ addRecentDuration reply publisher ready, proceeding with request", &v9, 0xCu);
     }
 
     (*(*(a1 + 40) + 16))();
@@ -956,7 +916,7 @@ void __50__MTTimerServer_addRecentDuration_withCompletion___block_invoke_28(uint
   {
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      __50__MTTimerServer_addRecentDuration_withCompletion___block_invoke_28_cold_1(a1);
+      __50__MTTimerServer_addRecentDuration_withCompletion___block_invoke_28_cold_1();
     }
 
     v7 = *(a1 + 48);
@@ -966,13 +926,11 @@ void __50__MTTimerServer_addRecentDuration_withCompletion___block_invoke_28(uint
       (*(v7 + 16))(v7, v8);
     }
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)removeRecentDuration:(id)duration withCompletion:(id)completion
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   durationCopy = duration;
   completionCopy = completion;
   aBlock[0] = MEMORY[0x1E69E9820];
@@ -981,9 +939,9 @@ void __50__MTTimerServer_addRecentDuration_withCompletion___block_invoke_28(uint
   aBlock[3] = &unk_1E7B0C5D8;
   aBlock[4] = self;
   v8 = durationCopy;
-  v18 = v8;
+  v17 = v8;
   v9 = completionCopy;
-  v19 = v9;
+  v18 = v9;
   v10 = _Block_copy(aBlock);
   if ([(MTTimerServer *)self _isSystemReady])
   {
@@ -1001,29 +959,27 @@ void __50__MTTimerServer_addRecentDuration_withCompletion___block_invoke_28(uint
     }
 
     conductor = self->_conductor;
-    v14[0] = MEMORY[0x1E69E9820];
-    v14[1] = 3221225472;
-    v14[2] = __53__MTTimerServer_removeRecentDuration_withCompletion___block_invoke_29;
-    v14[3] = &unk_1E7B0FE00;
-    v14[4] = self;
-    v15 = v10;
-    v16 = v9;
-    [(VoidConductor *)conductor registerReplyPublisherWithTimeOut:v14 completion:5.0];
+    v13[0] = MEMORY[0x1E69E9820];
+    v13[1] = 3221225472;
+    v13[2] = __53__MTTimerServer_removeRecentDuration_withCompletion___block_invoke_29;
+    v13[3] = &unk_1E7B0FE00;
+    v13[4] = self;
+    v14 = v10;
+    v15 = v9;
+    [(VoidConductor *)conductor registerReplyPublisherWithTimeOut:v13 completion:5.0];
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 void __53__MTTimerServer_removeRecentDuration_withCompletion___block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v2 = MTLogForCategory(9);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     v3 = *(a1 + 32);
-    v9 = 138543362;
-    v10 = v3;
-    _os_log_impl(&dword_1B1F9F000, v2, OS_LOG_TYPE_INFO, "%{public}@ - removeRecentDuration", &v9, 0xCu);
+    v8 = 138543362;
+    v9 = v3;
+    _os_log_impl(&dword_1B1F9F000, v2, OS_LOG_TYPE_INFO, "%{public}@ - removeRecentDuration", &v8, 0xCu);
   }
 
   v4 = [*(a1 + 32) storage];
@@ -1031,13 +987,11 @@ void __53__MTTimerServer_removeRecentDuration_withCompletion___block_invoke(uint
   v5 = *(a1 + 48);
   v7 = [*(*(a1 + 32) + 24) currentClient];
   [v4 removeRecentDuration:v6 withCompletion:v5 source:v7];
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __53__MTTimerServer_removeRecentDuration_withCompletion___block_invoke_29(uint64_t a1, int a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v4 = MTLogForCategory(4);
   v5 = v4;
   if (a2)
@@ -1045,9 +999,9 @@ void __53__MTTimerServer_removeRecentDuration_withCompletion___block_invoke_29(u
     if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
       v6 = *(a1 + 32);
-      v10 = 138543362;
-      v11 = v6;
-      _os_log_impl(&dword_1B1F9F000, v5, OS_LOG_TYPE_INFO, "%{public}@ removeRecentDuration reply publisher ready, proceeding with request", &v10, 0xCu);
+      v9 = 138543362;
+      v10 = v6;
+      _os_log_impl(&dword_1B1F9F000, v5, OS_LOG_TYPE_INFO, "%{public}@ removeRecentDuration reply publisher ready, proceeding with request", &v9, 0xCu);
     }
 
     (*(*(a1 + 40) + 16))();
@@ -1057,7 +1011,7 @@ void __53__MTTimerServer_removeRecentDuration_withCompletion___block_invoke_29(u
   {
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      __53__MTTimerServer_removeRecentDuration_withCompletion___block_invoke_29_cold_1(a1);
+      __53__MTTimerServer_removeRecentDuration_withCompletion___block_invoke_29_cold_1();
     }
 
     v7 = *(a1 + 48);
@@ -1067,13 +1021,11 @@ void __53__MTTimerServer_removeRecentDuration_withCompletion___block_invoke_29(u
       (*(v7 + 16))(v7, v8);
     }
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addFavoriteDuration:(id)duration withCompletion:(id)completion
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   durationCopy = duration;
   completionCopy = completion;
   aBlock[0] = MEMORY[0x1E69E9820];
@@ -1082,9 +1034,9 @@ void __53__MTTimerServer_removeRecentDuration_withCompletion___block_invoke_29(u
   aBlock[3] = &unk_1E7B0C5D8;
   aBlock[4] = self;
   v8 = durationCopy;
-  v18 = v8;
+  v17 = v8;
   v9 = completionCopy;
-  v19 = v9;
+  v18 = v9;
   v10 = _Block_copy(aBlock);
   if ([(MTTimerServer *)self _isSystemReady])
   {
@@ -1102,29 +1054,27 @@ void __53__MTTimerServer_removeRecentDuration_withCompletion___block_invoke_29(u
     }
 
     conductor = self->_conductor;
-    v14[0] = MEMORY[0x1E69E9820];
-    v14[1] = 3221225472;
-    v14[2] = __52__MTTimerServer_addFavoriteDuration_withCompletion___block_invoke_30;
-    v14[3] = &unk_1E7B0FE00;
-    v14[4] = self;
-    v15 = v10;
-    v16 = v9;
-    [(VoidConductor *)conductor registerReplyPublisherWithTimeOut:v14 completion:5.0];
+    v13[0] = MEMORY[0x1E69E9820];
+    v13[1] = 3221225472;
+    v13[2] = __52__MTTimerServer_addFavoriteDuration_withCompletion___block_invoke_30;
+    v13[3] = &unk_1E7B0FE00;
+    v13[4] = self;
+    v14 = v10;
+    v15 = v9;
+    [(VoidConductor *)conductor registerReplyPublisherWithTimeOut:v13 completion:5.0];
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 void __52__MTTimerServer_addFavoriteDuration_withCompletion___block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v2 = MTLogForCategory(9);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     v3 = *(a1 + 32);
-    v9 = 138543362;
-    v10 = v3;
-    _os_log_impl(&dword_1B1F9F000, v2, OS_LOG_TYPE_INFO, "%{public}@ - addFavoriteDuration", &v9, 0xCu);
+    v8 = 138543362;
+    v9 = v3;
+    _os_log_impl(&dword_1B1F9F000, v2, OS_LOG_TYPE_INFO, "%{public}@ - addFavoriteDuration", &v8, 0xCu);
   }
 
   v4 = [*(a1 + 32) storage];
@@ -1132,13 +1082,11 @@ void __52__MTTimerServer_addFavoriteDuration_withCompletion___block_invoke(uint6
   v5 = *(a1 + 48);
   v7 = [*(*(a1 + 32) + 24) currentClient];
   [v4 addFavoriteDuration:v6 withCompletion:v5 source:v7];
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __52__MTTimerServer_addFavoriteDuration_withCompletion___block_invoke_30(uint64_t a1, int a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v4 = MTLogForCategory(4);
   v5 = v4;
   if (a2)
@@ -1146,9 +1094,9 @@ void __52__MTTimerServer_addFavoriteDuration_withCompletion___block_invoke_30(ui
     if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
       v6 = *(a1 + 32);
-      v10 = 138543362;
-      v11 = v6;
-      _os_log_impl(&dword_1B1F9F000, v5, OS_LOG_TYPE_INFO, "%{public}@ addFavoriteDuration reply publisher ready, proceeding with request", &v10, 0xCu);
+      v9 = 138543362;
+      v10 = v6;
+      _os_log_impl(&dword_1B1F9F000, v5, OS_LOG_TYPE_INFO, "%{public}@ addFavoriteDuration reply publisher ready, proceeding with request", &v9, 0xCu);
     }
 
     (*(*(a1 + 40) + 16))();
@@ -1158,7 +1106,7 @@ void __52__MTTimerServer_addFavoriteDuration_withCompletion___block_invoke_30(ui
   {
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      __52__MTTimerServer_addFavoriteDuration_withCompletion___block_invoke_30_cold_1(a1);
+      __52__MTTimerServer_addFavoriteDuration_withCompletion___block_invoke_30_cold_1();
     }
 
     v7 = *(a1 + 48);
@@ -1168,13 +1116,11 @@ void __52__MTTimerServer_addFavoriteDuration_withCompletion___block_invoke_30(ui
       (*(v7 + 16))(v7, v8);
     }
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)removeFavoriteDuration:(id)duration withCompletion:(id)completion
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   durationCopy = duration;
   completionCopy = completion;
   aBlock[0] = MEMORY[0x1E69E9820];
@@ -1183,9 +1129,9 @@ void __52__MTTimerServer_addFavoriteDuration_withCompletion___block_invoke_30(ui
   aBlock[3] = &unk_1E7B0C5D8;
   aBlock[4] = self;
   v8 = durationCopy;
-  v18 = v8;
+  v17 = v8;
   v9 = completionCopy;
-  v19 = v9;
+  v18 = v9;
   v10 = _Block_copy(aBlock);
   if ([(MTTimerServer *)self _isSystemReady])
   {
@@ -1203,29 +1149,27 @@ void __52__MTTimerServer_addFavoriteDuration_withCompletion___block_invoke_30(ui
     }
 
     conductor = self->_conductor;
-    v14[0] = MEMORY[0x1E69E9820];
-    v14[1] = 3221225472;
-    v14[2] = __55__MTTimerServer_removeFavoriteDuration_withCompletion___block_invoke_31;
-    v14[3] = &unk_1E7B0FE00;
-    v14[4] = self;
-    v15 = v10;
-    v16 = v9;
-    [(VoidConductor *)conductor registerReplyPublisherWithTimeOut:v14 completion:5.0];
+    v13[0] = MEMORY[0x1E69E9820];
+    v13[1] = 3221225472;
+    v13[2] = __55__MTTimerServer_removeFavoriteDuration_withCompletion___block_invoke_31;
+    v13[3] = &unk_1E7B0FE00;
+    v13[4] = self;
+    v14 = v10;
+    v15 = v9;
+    [(VoidConductor *)conductor registerReplyPublisherWithTimeOut:v13 completion:5.0];
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 void __55__MTTimerServer_removeFavoriteDuration_withCompletion___block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v2 = MTLogForCategory(9);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     v3 = *(a1 + 32);
-    v9 = 138543362;
-    v10 = v3;
-    _os_log_impl(&dword_1B1F9F000, v2, OS_LOG_TYPE_INFO, "%{public}@ - removeFavoriteDuration", &v9, 0xCu);
+    v8 = 138543362;
+    v9 = v3;
+    _os_log_impl(&dword_1B1F9F000, v2, OS_LOG_TYPE_INFO, "%{public}@ - removeFavoriteDuration", &v8, 0xCu);
   }
 
   v4 = [*(a1 + 32) storage];
@@ -1233,13 +1177,11 @@ void __55__MTTimerServer_removeFavoriteDuration_withCompletion___block_invoke(ui
   v5 = *(a1 + 48);
   v7 = [*(*(a1 + 32) + 24) currentClient];
   [v4 removeFavoriteDuration:v6 withCompletion:v5 source:v7];
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __55__MTTimerServer_removeFavoriteDuration_withCompletion___block_invoke_31(uint64_t a1, int a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v4 = MTLogForCategory(4);
   v5 = v4;
   if (a2)
@@ -1247,9 +1189,9 @@ void __55__MTTimerServer_removeFavoriteDuration_withCompletion___block_invoke_31
     if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
       v6 = *(a1 + 32);
-      v10 = 138543362;
-      v11 = v6;
-      _os_log_impl(&dword_1B1F9F000, v5, OS_LOG_TYPE_INFO, "%{public}@ removeFavoriteDuration reply publisher ready, proceeding with request", &v10, 0xCu);
+      v9 = 138543362;
+      v10 = v6;
+      _os_log_impl(&dword_1B1F9F000, v5, OS_LOG_TYPE_INFO, "%{public}@ removeFavoriteDuration reply publisher ready, proceeding with request", &v9, 0xCu);
     }
 
     (*(*(a1 + 40) + 16))();
@@ -1259,7 +1201,7 @@ void __55__MTTimerServer_removeFavoriteDuration_withCompletion___block_invoke_31
   {
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      __55__MTTimerServer_removeFavoriteDuration_withCompletion___block_invoke_31_cold_1(a1);
+      __55__MTTimerServer_removeFavoriteDuration_withCompletion___block_invoke_31_cold_1();
     }
 
     v7 = *(a1 + 48);
@@ -1269,13 +1211,11 @@ void __55__MTTimerServer_removeFavoriteDuration_withCompletion___block_invoke_31
       (*(v7 + 16))(v7, v8);
     }
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)saveLatestDuration:(id)duration withCompletion:(id)completion
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   durationCopy = duration;
   completionCopy = completion;
   aBlock[0] = MEMORY[0x1E69E9820];
@@ -1284,9 +1224,9 @@ void __55__MTTimerServer_removeFavoriteDuration_withCompletion___block_invoke_31
   aBlock[3] = &unk_1E7B0C5D8;
   aBlock[4] = self;
   v8 = durationCopy;
-  v18 = v8;
+  v17 = v8;
   v9 = completionCopy;
-  v19 = v9;
+  v18 = v9;
   v10 = _Block_copy(aBlock);
   if ([(MTTimerServer *)self _isSystemReady])
   {
@@ -1304,29 +1244,27 @@ void __55__MTTimerServer_removeFavoriteDuration_withCompletion___block_invoke_31
     }
 
     conductor = self->_conductor;
-    v14[0] = MEMORY[0x1E69E9820];
-    v14[1] = 3221225472;
-    v14[2] = __51__MTTimerServer_saveLatestDuration_withCompletion___block_invoke_32;
-    v14[3] = &unk_1E7B0FE00;
-    v14[4] = self;
-    v15 = v10;
-    v16 = v9;
-    [(VoidConductor *)conductor registerReplyPublisherWithTimeOut:v14 completion:5.0];
+    v13[0] = MEMORY[0x1E69E9820];
+    v13[1] = 3221225472;
+    v13[2] = __51__MTTimerServer_saveLatestDuration_withCompletion___block_invoke_32;
+    v13[3] = &unk_1E7B0FE00;
+    v13[4] = self;
+    v14 = v10;
+    v15 = v9;
+    [(VoidConductor *)conductor registerReplyPublisherWithTimeOut:v13 completion:5.0];
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 void __51__MTTimerServer_saveLatestDuration_withCompletion___block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v2 = MTLogForCategory(9);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     v3 = *(a1 + 32);
-    v9 = 138543362;
-    v10 = v3;
-    _os_log_impl(&dword_1B1F9F000, v2, OS_LOG_TYPE_INFO, "%{public}@ - saveLatestDuration", &v9, 0xCu);
+    v8 = 138543362;
+    v9 = v3;
+    _os_log_impl(&dword_1B1F9F000, v2, OS_LOG_TYPE_INFO, "%{public}@ - saveLatestDuration", &v8, 0xCu);
   }
 
   v4 = [*(a1 + 32) storage];
@@ -1334,13 +1272,11 @@ void __51__MTTimerServer_saveLatestDuration_withCompletion___block_invoke(uint64
   v5 = *(a1 + 48);
   v7 = [*(*(a1 + 32) + 24) currentClient];
   [v4 saveLatestDuration:v6 withCompletion:v5 source:v7];
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __51__MTTimerServer_saveLatestDuration_withCompletion___block_invoke_32(uint64_t a1, int a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v4 = MTLogForCategory(4);
   v5 = v4;
   if (a2)
@@ -1348,9 +1284,9 @@ void __51__MTTimerServer_saveLatestDuration_withCompletion___block_invoke_32(uin
     if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
       v6 = *(a1 + 32);
-      v10 = 138543362;
-      v11 = v6;
-      _os_log_impl(&dword_1B1F9F000, v5, OS_LOG_TYPE_INFO, "%{public}@ saveLatestDuration reply publisher ready, proceeding with request", &v10, 0xCu);
+      v9 = 138543362;
+      v10 = v6;
+      _os_log_impl(&dword_1B1F9F000, v5, OS_LOG_TYPE_INFO, "%{public}@ saveLatestDuration reply publisher ready, proceeding with request", &v9, 0xCu);
     }
 
     (*(*(a1 + 40) + 16))();
@@ -1360,7 +1296,7 @@ void __51__MTTimerServer_saveLatestDuration_withCompletion___block_invoke_32(uin
   {
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      __51__MTTimerServer_saveLatestDuration_withCompletion___block_invoke_32_cold_1(a1);
+      __51__MTTimerServer_saveLatestDuration_withCompletion___block_invoke_32_cold_1();
     }
 
     v7 = *(a1 + 48);
@@ -1370,8 +1306,6 @@ void __51__MTTimerServer_saveLatestDuration_withCompletion___block_invoke_32(uin
       (*(v7 + 16))(v7, v8);
     }
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)source:(id)source didAddTimers:(id)timers
@@ -1459,21 +1393,21 @@ void __51__MTTimerServer_saveLatestDuration_withCompletion___block_invoke_32(uin
 
 - (void)printDiagnostics
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v3 = MTLogForCategory(1);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v10) = 0;
-    _os_log_impl(&dword_1B1F9F000, v3, OS_LOG_TYPE_DEFAULT, "-----MTTimerServer-----", &v10, 2u);
+    LOWORD(v9) = 0;
+    _os_log_impl(&dword_1B1F9F000, v3, OS_LOG_TYPE_DEFAULT, "-----MTTimerServer-----", &v9, 2u);
   }
 
   v4 = MTLogForCategory(1);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = [MEMORY[0x1E696AD98] numberWithBool:{-[MTTimerServer _isSystemReady](self, "_isSystemReady")}];
-    v10 = 138412290;
-    v11 = v5;
-    _os_log_impl(&dword_1B1F9F000, v4, OS_LOG_TYPE_DEFAULT, "System Ready: %@", &v10, 0xCu);
+    v9 = 138412290;
+    v10 = v5;
+    _os_log_impl(&dword_1B1F9F000, v4, OS_LOG_TYPE_DEFAULT, "System Ready: %@", &v9, 0xCu);
   }
 
   v6 = MTLogForCategory(1);
@@ -1481,18 +1415,16 @@ void __51__MTTimerServer_saveLatestDuration_withCompletion___block_invoke_32(uin
   {
     connectionListenerProvider = [(MTTimerServer *)self connectionListenerProvider];
     connectedClients = [connectionListenerProvider connectedClients];
-    v10 = 138543362;
-    v11 = connectedClients;
-    _os_log_impl(&dword_1B1F9F000, v6, OS_LOG_TYPE_DEFAULT, "Clients: %{public}@", &v10, 0xCu);
+    v9 = 138543362;
+    v10 = connectedClients;
+    _os_log_impl(&dword_1B1F9F000, v6, OS_LOG_TYPE_DEFAULT, "Clients: %{public}@", &v9, 0xCu);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (id)gatherDiagnostics
 {
-  v12[2] = *MEMORY[0x1E69E9840];
-  v11[0] = @"Timer system ready";
+  v11[2] = *MEMORY[0x1E69E9840];
+  v10[0] = @"Timer system ready";
   if ([(MTTimerServer *)self _isSystemReady])
   {
     v3 = @"YES";
@@ -1503,16 +1435,14 @@ void __51__MTTimerServer_saveLatestDuration_withCompletion___block_invoke_32(uin
     v3 = @"NO";
   }
 
-  v11[1] = @"Timer clients";
-  v12[0] = v3;
+  v10[1] = @"Timer clients";
+  v11[0] = v3;
   connectionListenerProvider = [(MTTimerServer *)self connectionListenerProvider];
   connectedClients = [connectionListenerProvider connectedClients];
   v6 = [connectedClients valueForKey:@"processName"];
   v7 = [v6 componentsJoinedByString:{@", "}];
-  v12[1] = v7;
-  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:2];
-
-  v9 = *MEMORY[0x1E69E9840];
+  v11[1] = v7;
+  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:v10 count:2];
 
   return v8;
 }
@@ -1583,100 +1513,88 @@ void __47__MTTimerServer_recentTimerDurationsDidUpdate___block_invoke(uint64_t a
   }
 }
 
-void __41__MTTimerServer_getTimersWithCompletion___block_invoke_16_cold_1(uint64_t a1)
+void __41__MTTimerServer_getTimersWithCompletion___block_invoke_16_cold_1()
 {
-  OUTLINED_FUNCTION_3_1(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_3_1(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_1_2();
-  OUTLINED_FUNCTION_0_1(&dword_1B1F9F000, v1, v2, "%{public}@ getTimersWithCompletion reply publisher timed out, replying with error", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0_1(&dword_1B1F9F000, v0, v1, "%{public}@ getTimersWithCompletion reply publisher timed out, replying with error", v2, v3, v4, v5);
 }
 
-void __41__MTTimerServer_addTimer_withCompletion___block_invoke_19_cold_1(uint64_t a1)
+void __41__MTTimerServer_addTimer_withCompletion___block_invoke_19_cold_1()
 {
-  OUTLINED_FUNCTION_3_1(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_3_1(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_1_2();
-  OUTLINED_FUNCTION_0_1(&dword_1B1F9F000, v1, v2, "%{public}@ addTimer reply publisher timed out, replying with error", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0_1(&dword_1B1F9F000, v0, v1, "%{public}@ addTimer reply publisher timed out, replying with error", v2, v3, v4, v5);
 }
 
-void __44__MTTimerServer_updateTimer_withCompletion___block_invoke_20_cold_1(uint64_t a1)
+void __44__MTTimerServer_updateTimer_withCompletion___block_invoke_20_cold_1()
 {
-  OUTLINED_FUNCTION_3_1(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_3_1(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_1_2();
-  OUTLINED_FUNCTION_0_1(&dword_1B1F9F000, v1, v2, "%{public}@ updateTimer reply publisher timed out, replying with error", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0_1(&dword_1B1F9F000, v0, v1, "%{public}@ updateTimer reply publisher timed out, replying with error", v2, v3, v4, v5);
 }
 
-void __44__MTTimerServer_removeTimer_withCompletion___block_invoke_21_cold_1(uint64_t a1)
+void __44__MTTimerServer_removeTimer_withCompletion___block_invoke_21_cold_1()
 {
-  OUTLINED_FUNCTION_3_1(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_3_1(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_1_2();
-  OUTLINED_FUNCTION_0_1(&dword_1B1F9F000, v1, v2, "%{public}@ removeTimer reply publisher timed out, replying with error", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0_1(&dword_1B1F9F000, v0, v1, "%{public}@ removeTimer reply publisher timed out, replying with error", v2, v3, v4, v5);
 }
 
-void __59__MTTimerServer_dismissTimerWithIdentifier_withCompletion___block_invoke_24_cold_1(uint64_t a1)
+void __59__MTTimerServer_dismissTimerWithIdentifier_withCompletion___block_invoke_24_cold_1()
 {
-  OUTLINED_FUNCTION_3_1(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_3_1(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_1_2();
-  OUTLINED_FUNCTION_0_1(&dword_1B1F9F000, v1, v2, "%{public}@ dismissTimerWithIdentifier reply publisher timed out, replying with error", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0_1(&dword_1B1F9F000, v0, v1, "%{public}@ dismissTimerWithIdentifier reply publisher timed out, replying with error", v2, v3, v4, v5);
 }
 
-void __58__MTTimerServer_repeatTimerWithIdentifier_withCompletion___block_invoke_26_cold_1(uint64_t a1)
+void __58__MTTimerServer_repeatTimerWithIdentifier_withCompletion___block_invoke_26_cold_1()
 {
-  OUTLINED_FUNCTION_3_1(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_3_1(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_1_2();
-  OUTLINED_FUNCTION_0_1(&dword_1B1F9F000, v1, v2, "%{public}@ repeatTimerWithIdentifier reply publisher timed out, replying with error", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0_1(&dword_1B1F9F000, v0, v1, "%{public}@ repeatTimerWithIdentifier reply publisher timed out, replying with error", v2, v3, v4, v5);
 }
 
-void __49__MTTimerServer_getTimerDurationsWithCompletion___block_invoke_27_cold_1(uint64_t a1)
+void __49__MTTimerServer_getTimerDurationsWithCompletion___block_invoke_27_cold_1()
 {
-  OUTLINED_FUNCTION_3_1(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_3_1(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_1_2();
-  OUTLINED_FUNCTION_0_1(&dword_1B1F9F000, v1, v2, "%{public}@ getTimerDurationsWithCompletion reply publisher timed out, replying with error", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0_1(&dword_1B1F9F000, v0, v1, "%{public}@ getTimerDurationsWithCompletion reply publisher timed out, replying with error", v2, v3, v4, v5);
 }
 
-void __50__MTTimerServer_addRecentDuration_withCompletion___block_invoke_28_cold_1(uint64_t a1)
+void __50__MTTimerServer_addRecentDuration_withCompletion___block_invoke_28_cold_1()
 {
-  OUTLINED_FUNCTION_3_1(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_3_1(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_1_2();
-  OUTLINED_FUNCTION_0_1(&dword_1B1F9F000, v1, v2, "%{public}@ addRecentDuration reply publisher timed out, replying with error", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0_1(&dword_1B1F9F000, v0, v1, "%{public}@ addRecentDuration reply publisher timed out, replying with error", v2, v3, v4, v5);
 }
 
-void __53__MTTimerServer_removeRecentDuration_withCompletion___block_invoke_29_cold_1(uint64_t a1)
+void __53__MTTimerServer_removeRecentDuration_withCompletion___block_invoke_29_cold_1()
 {
-  OUTLINED_FUNCTION_3_1(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_3_1(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_1_2();
-  OUTLINED_FUNCTION_0_1(&dword_1B1F9F000, v1, v2, "%{public}@ removeRecentDuration reply publisher timed out, replying with error", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0_1(&dword_1B1F9F000, v0, v1, "%{public}@ removeRecentDuration reply publisher timed out, replying with error", v2, v3, v4, v5);
 }
 
-void __52__MTTimerServer_addFavoriteDuration_withCompletion___block_invoke_30_cold_1(uint64_t a1)
+void __52__MTTimerServer_addFavoriteDuration_withCompletion___block_invoke_30_cold_1()
 {
-  OUTLINED_FUNCTION_3_1(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_3_1(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_1_2();
-  OUTLINED_FUNCTION_0_1(&dword_1B1F9F000, v1, v2, "%{public}@ addFavoriteDuration reply publisher timed out, replying with error", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0_1(&dword_1B1F9F000, v0, v1, "%{public}@ addFavoriteDuration reply publisher timed out, replying with error", v2, v3, v4, v5);
 }
 
-void __55__MTTimerServer_removeFavoriteDuration_withCompletion___block_invoke_31_cold_1(uint64_t a1)
+void __55__MTTimerServer_removeFavoriteDuration_withCompletion___block_invoke_31_cold_1()
 {
-  OUTLINED_FUNCTION_3_1(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_3_1(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_1_2();
-  OUTLINED_FUNCTION_0_1(&dword_1B1F9F000, v1, v2, "%{public}@ removeFavoriteDuration reply publisher timed out, replying with error", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0_1(&dword_1B1F9F000, v0, v1, "%{public}@ removeFavoriteDuration reply publisher timed out, replying with error", v2, v3, v4, v5);
 }
 
-void __51__MTTimerServer_saveLatestDuration_withCompletion___block_invoke_32_cold_1(uint64_t a1)
+void __51__MTTimerServer_saveLatestDuration_withCompletion___block_invoke_32_cold_1()
 {
-  OUTLINED_FUNCTION_3_1(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_3_1(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_1_2();
-  OUTLINED_FUNCTION_0_1(&dword_1B1F9F000, v1, v2, "%{public}@ saveLatestDuration reply publisher timed out, replying with error", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0_1(&dword_1B1F9F000, v0, v1, "%{public}@ saveLatestDuration reply publisher timed out, replying with error", v2, v3, v4, v5);
 }
 
 @end

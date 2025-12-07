@@ -177,16 +177,16 @@ void __75__PXCMMProgressBannerView_textView_primaryActionForTextItem_defaultActi
   }
 }
 
-uint64_t __61__PXCMMProgressBannerView__performActionFromView_sourceRect___block_invoke(uint64_t a1)
+uint64_t __61__PXCMMProgressBannerView__performActionFromView_sourceRect___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v2 = PLUserStatusUIGetLog();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v9 = *MEMORY[0x1E69E9840];
+  v3 = PLUserStatusUIGetLog();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(*(a1 + 32) + 408);
-    v6 = 138543362;
-    v7 = v3;
-    _os_log_impl(&dword_1A3C1C000, v2, OS_LOG_TYPE_DEFAULT, "CMM Progress Banner: User confirmed action (%{public}@)", &v6, 0xCu);
+    v4 = *(*(a1 + 32) + 408);
+    v7 = 138543362;
+    v8 = v4;
+    _os_log_impl(&dword_1A3C1C000, v3, OS_LOG_TYPE_DEFAULT, "CMM Progress Banner: User confirmed action (%{public}@)", &v7, 0xCu);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 48));
@@ -195,16 +195,16 @@ uint64_t __61__PXCMMProgressBannerView__performActionFromView_sourceRect___block
   return (*(*(a1 + 40) + 16))();
 }
 
-void __61__PXCMMProgressBannerView__performActionFromView_sourceRect___block_invoke_230(uint64_t a1)
+void __61__PXCMMProgressBannerView__performActionFromView_sourceRect___block_invoke_230(uint64_t a1, uint64_t a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v2 = PLUserStatusUIGetLog();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v8 = *MEMORY[0x1E69E9840];
+  v3 = PLUserStatusUIGetLog();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(*(a1 + 32) + 408);
-    v5 = 138543362;
-    v6 = v3;
-    _os_log_impl(&dword_1A3C1C000, v2, OS_LOG_TYPE_DEFAULT, "CMM Progress Banner: User cancelled action (%{public}@)", &v5, 0xCu);
+    v4 = *(*(a1 + 32) + 408);
+    v6 = 138543362;
+    v7 = v4;
+    _os_log_impl(&dword_1A3C1C000, v3, OS_LOG_TYPE_DEFAULT, "CMM Progress Banner: User cancelled action (%{public}@)", &v6, 0xCu);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 40));

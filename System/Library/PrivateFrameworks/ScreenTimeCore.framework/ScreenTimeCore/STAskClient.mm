@@ -30,7 +30,7 @@
 
 - (BOOL)respondToAskForTimeRequestWithIdentifier:(id)identifier answer:(int64_t)answer error:(id *)error
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   v9 = +[STLog askClient];
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
@@ -55,32 +55,32 @@
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x3032000000;
-  v25 = __Block_byref_object_copy__18;
-  v26 = __Block_byref_object_dispose__18;
-  v27 = 0;
+  v24 = __Block_byref_object_copy__18;
+  v25 = __Block_byref_object_dispose__18;
+  v26 = 0;
   connection = [(STAskClient *)self connection];
-  v19[0] = MEMORY[0x1E69E9820];
-  v19[1] = 3221225472;
-  v19[2] = __69__STAskClient_respondToAskForTimeRequestWithIdentifier_answer_error___block_invoke;
-  v19[3] = &unk_1E7CE6BA8;
-  v19[4] = buf;
-  v12 = [connection synchronousRemoteObjectProxyWithErrorHandler:v19];
-
   v18[0] = MEMORY[0x1E69E9820];
   v18[1] = 3221225472;
-  v18[2] = __69__STAskClient_respondToAskForTimeRequestWithIdentifier_answer_error___block_invoke_2;
+  v18[2] = __69__STAskClient_respondToAskForTimeRequestWithIdentifier_answer_error___block_invoke;
   v18[3] = &unk_1E7CE6BA8;
   v18[4] = buf;
-  [v12 respondToAskForTimeRequestWithIdentifier:identifierCopy answer:answer completionHandler:v18];
+  v12 = [connection synchronousRemoteObjectProxyWithErrorHandler:v18];
+
+  v17[0] = MEMORY[0x1E69E9820];
+  v17[1] = 3221225472;
+  v17[2] = __69__STAskClient_respondToAskForTimeRequestWithIdentifier_answer_error___block_invoke_2;
+  v17[3] = &unk_1E7CE6BA8;
+  v17[4] = buf;
+  [v12 respondToAskForTimeRequestWithIdentifier:identifierCopy answer:answer completionHandler:v17];
   v13 = +[STLog askClient];
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     v14 = *(*&buf[8] + 40);
-    *v20 = 138543618;
-    v21 = identifierCopy;
-    v22 = 2114;
-    v23 = v14;
-    _os_log_impl(&dword_1B831F000, v13, OS_LOG_TYPE_DEFAULT, "Responded to ask for time request: %{public}@ - Error: %{public}@", v20, 0x16u);
+    *v19 = 138543618;
+    v20 = identifierCopy;
+    v21 = 2114;
+    v22 = v14;
+    _os_log_impl(&dword_1B831F000, v13, OS_LOG_TYPE_DEFAULT, "Responded to ask for time request: %{public}@ - Error: %{public}@", v19, 0x16u);
   }
 
   if (error)
@@ -91,7 +91,6 @@
   v15 = *(*&buf[8] + 40) == 0;
 
   _Block_object_dispose(buf, 8);
-  v16 = *MEMORY[0x1E69E9840];
   return v15;
 }
 

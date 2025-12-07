@@ -24,29 +24,29 @@
     {
       if (v6)
       {
-        v8 = [@"ordered" isEqualToString:v6];
+        isEqualToString = objc_msgSend_isEqualToString_(@"ordered");
 
-        if (v8)
+        if (isEqualToString)
         {
           goto LABEL_5;
         }
 
         v10 = v7;
-        if (v10 == @"shipped" || (v11 = v10, v12 = [@"shipped" isEqualToString:v10], v11, (v12 & 1) != 0))
+        if (v10 == @"shipped" || (v11 = v10, v12 = objc_msgSend_isEqualToString_(@"shipped"), v11, (v12 & 1) != 0))
         {
           v9 = 2;
           goto LABEL_16;
         }
 
         v13 = v11;
-        if (v13 == @"fixShippingAddress" || (v14 = v13, v15 = [@"fixShippingAddress" isEqualToString:v13], v14, (v15 & 1) != 0))
+        if (v13 == @"fixShippingAddress" || (v14 = v13, v15 = objc_msgSend_isEqualToString_(@"fixShippingAddress"), v14, (v15 & 1) != 0))
         {
           v9 = 3;
           goto LABEL_16;
         }
 
         v16 = v14;
-        if (v16 == @"error" || (v17 = v16, v18 = [@"error" isEqualToString:v16], v17, v18))
+        if (v16 == @"error" || (v17 = v16, v18 = objc_msgSend_isEqualToString_(@"error"), v17, v18))
         {
           v9 = 4;
           goto LABEL_16;
@@ -146,9 +146,9 @@ LABEL_15:
     goto LABEL_15;
   }
 
-  v11 = [(NSString *)v8 isEqualToString:v9];
+  isEqualToString = objc_msgSend_isEqualToString_(v8);
 
-  if (!v11)
+  if (!isEqualToString)
   {
     goto LABEL_15;
   }

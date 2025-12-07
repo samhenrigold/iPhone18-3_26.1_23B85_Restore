@@ -76,7 +76,7 @@
   if (v8)
   {
     v9 = v8;
-    [(PAESharedDefaultBase *)self getPixelTransformForImage:input];
+    objc_msgSend_getPixelTransformForImage_(self);
     __asm { FMOV            V0.2D, #0.5 }
 
     v22 = _Q0;
@@ -93,7 +93,7 @@
     v20 = 0x3FE0000000000000;
     [v9 getFloatValue:&v20 fromParm:3 atFxTime:info->var0.var1];
     v16 = [(PAESharedDefaultBase *)self getRenderMode:info->var0.var1];
-    [(PAESharedDefaultBase *)self convertRelativeToImageCoordinates:&v22 withImage:input];
+    objc_msgSend_convertRelativeToImageCoordinates_withImage_(self);
     v22 = v19;
     if (v16 && [input imageType] == 3)
     {

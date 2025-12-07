@@ -31,7 +31,7 @@
 
 + (id)allAnalysisModes
 {
-  v2 = _s24DVTInstrumentsFoundation30BottlenecksAnalysisModeManagerC03allD5Modes0B04DataVSgyFZ_0();
+  v2 = _s24DVTInstrumentsFoundation30BottlenecksAnalysisModeManagerC03allD5Modes0B04DataVSgyFZ_0(self, a2);
   if (v3 >> 60 == 15)
   {
     v4 = 0;
@@ -52,17 +52,17 @@
 + (BOOL)applyWithConfig:(id)config
 {
   configCopy = config;
-  v4 = _s24DVTInstrumentsFoundation30BottlenecksAnalysisModeManagerC5apply6configSbSo22XRRecountConfigurationC_tFZ_0(configCopy);
+  v5 = _s24DVTInstrumentsFoundation30BottlenecksAnalysisModeManagerC5apply6configSbSo22XRRecountConfigurationC_tFZ_0(configCopy, v4);
 
-  return v4;
+  return v5;
 }
 
 + (BOOL)applyWithConfig:(id)config actionID:(unint64_t)d
 {
   configCopy = config;
-  v5 = _s24DVTInstrumentsFoundation30BottlenecksAnalysisModeManagerC5apply6config8actionIDSbSo22XRRecountConfigurationC_SutFZ_0(configCopy);
+  LOBYTE(d) = _s24DVTInstrumentsFoundation30BottlenecksAnalysisModeManagerC5apply6config8actionIDSbSo22XRRecountConfigurationC_SutFZ_0(configCopy, d);
 
-  return v5;
+  return d & 1;
 }
 
 - (XRBottlenecksAnalysisModeManager)init

@@ -3,7 +3,7 @@
 
 @implementation UIView
 
-uint64_t __61__UIView_PhotoLibraryAdditions__pl_setHidden_delay_animated___block_invoke_2(uint64_t a1)
+void *__61__UIView_PhotoLibraryAdditions__pl_setHidden_delay_animated___block_invoke_2(uint64_t a1)
 {
   result = [*(a1 + 32) alpha];
   if (v3 == *(a1 + 40))

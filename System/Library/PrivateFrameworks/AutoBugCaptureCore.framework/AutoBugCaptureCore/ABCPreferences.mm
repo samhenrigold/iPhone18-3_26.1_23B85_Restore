@@ -71,8 +71,7 @@
     [standardUserDefaults addObserver:v2 forKeyPath:@"case_summary_unsubmitted_retention_days" options:5 context:0];
     [standardUserDefaults addObserver:v2 forKeyPath:@"case_summary_enable" options:5 context:0];
     [standardUserDefaults addObserver:v2 forKeyPath:@"diagnostic_pipeline_submission" options:5 context:0];
-    [standardUserDefaults addObserver:v2 forKeyPath:@"diagnostic_pipeline_submission_rate" options:5 context:0];
-    v8 = configurationLogHandle();
+    v8 = configurationLogHandle([standardUserDefaults addObserver:v2 forKeyPath:@"diagnostic_pipeline_submission_rate" options:5 context:0]);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       autoFeedbackAssistantEnable = [(ABCPreferences *)v2 autoFeedbackAssistantEnable];
@@ -90,33 +89,33 @@
     v2->_diagnosticPipelineEnabled = 1;
     _DPCGetUploadServiceEnablement();
     v11 = 0;
+    v12 = v11;
     if (!v11)
     {
       v2->_diagnosticPipelineEnabled = 0;
     }
 
-    v12 = configurationLogHandle();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v13 = configurationLogHandle(v11);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       if (v2->_diagnosticPipelineEnabled)
       {
-        v13 = "en";
+        v14 = "en";
       }
 
       else
       {
-        v13 = "dis";
+        v14 = "dis";
       }
 
       *buf = 136315394;
-      v18 = v13;
+      v18 = v14;
       v19 = 2080;
       v20 = "";
-      _os_log_impl(&dword_241804000, v12, OS_LOG_TYPE_DEFAULT, "DiagnosticPipeline is %sabled%s", buf, 0x16u);
+      _os_log_impl(&dword_241804000, v13, OS_LOG_TYPE_DEFAULT, "DiagnosticPipeline is %sabled%s", buf, 0x16u);
     }
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
@@ -159,20 +158,21 @@
 
 - (BOOL)is_automated_device_group
 {
-  v15 = *MEMORY[0x277D85DE8];
-  if (os_variant_has_internal_diagnostics())
+  v16 = *MEMORY[0x277D85DE8];
+  has_internal_diagnostics = os_variant_has_internal_diagnostics();
+  if (has_internal_diagnostics)
   {
     if (is_automated_device_group_foundAutomatedDeviceGroup)
     {
-      automatedDeviceGroup = configurationLogHandle();
+      automatedDeviceGroup = configurationLogHandle(has_internal_diagnostics);
       if (os_log_type_enabled(automatedDeviceGroup, OS_LOG_TYPE_DEBUG))
       {
-        LOWORD(v13) = 0;
-        v3 = "Automated device group set. Skipping further OSAnalytics queries";
-        v4 = automatedDeviceGroup;
-        v5 = 2;
+        LOWORD(v14) = 0;
+        v4 = "Automated device group set. Skipping further OSAnalytics queries";
+        v5 = automatedDeviceGroup;
+        v6 = 2;
 LABEL_8:
-        _os_log_impl(&dword_241804000, v4, OS_LOG_TYPE_DEBUG, v3, &v13, v5);
+        _os_log_impl(&dword_241804000, v5, OS_LOG_TYPE_DEBUG, v4, &v14, v6);
       }
     }
 
@@ -180,20 +180,20 @@ LABEL_8:
     {
       date = [MEMORY[0x277CBEAA8] date];
       [date timeIntervalSinceReferenceDate];
-      v8 = v7;
+      v9 = v8;
 
-      if (v8 - *&is_automated_device_group_lastQueryTimestamp >= *&is_automated_device_group_queryHysteresis)
+      if (v9 - *&is_automated_device_group_lastQueryTimestamp >= *&is_automated_device_group_queryHysteresis)
       {
         automatedDeviceGroup = [MEMORY[0x277D36B80] automatedDeviceGroup];
-        v9 = configurationLogHandle();
-        v10 = v9;
+        v11 = configurationLogHandle(automatedDeviceGroup);
+        v12 = v11;
         if (automatedDeviceGroup)
         {
-          if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+          if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
           {
-            v13 = 138412290;
-            v14 = automatedDeviceGroup;
-            _os_log_impl(&dword_241804000, v10, OS_LOG_TYPE_DEFAULT, "AutomatedDeviceGroup is configured as: '%@'", &v13, 0xCu);
+            v14 = 138412290;
+            v15 = automatedDeviceGroup;
+            _os_log_impl(&dword_241804000, v12, OS_LOG_TYPE_DEFAULT, "AutomatedDeviceGroup is configured as: '%@'", &v14, 0xCu);
           }
 
           is_automated_device_group_foundAutomatedDeviceGroup = 1;
@@ -201,28 +201,28 @@ LABEL_8:
 
         else
         {
-          if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+          if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
           {
-            LOWORD(v13) = 0;
-            _os_log_impl(&dword_241804000, v10, OS_LOG_TYPE_INFO, "This device is not in an automated test group", &v13, 2u);
+            LOWORD(v14) = 0;
+            _os_log_impl(&dword_241804000, v12, OS_LOG_TYPE_INFO, "This device is not in an automated test group", &v14, 2u);
           }
 
           is_automated_device_group_foundAutomatedDeviceGroup = 0;
           is_automated_device_group_queryHysteresis = fmin(*&is_automated_device_group_queryHysteresis + *&is_automated_device_group_queryHysteresis, 3600.0);
         }
 
-        is_automated_device_group_lastQueryTimestamp = *&v8;
+        is_automated_device_group_lastQueryTimestamp = *&v9;
         goto LABEL_17;
       }
 
-      automatedDeviceGroup = configurationLogHandle();
+      automatedDeviceGroup = configurationLogHandle(v10);
       if (os_log_type_enabled(automatedDeviceGroup, OS_LOG_TYPE_DEBUG))
       {
-        v13 = 134217984;
-        v14 = is_automated_device_group_lastQueryTimestamp;
-        v3 = "Skipping this OSAnalytics query (last queried 'automatedDeviceGroup' at %.3lf)";
-        v4 = automatedDeviceGroup;
-        v5 = 12;
+        v14 = 134217984;
+        v15 = is_automated_device_group_lastQueryTimestamp;
+        v4 = "Skipping this OSAnalytics query (last queried 'automatedDeviceGroup' at %.3lf)";
+        v5 = automatedDeviceGroup;
+        v6 = 12;
         goto LABEL_8;
       }
     }
@@ -230,9 +230,7 @@ LABEL_8:
 LABEL_17:
   }
 
-  result = is_automated_device_group_foundAutomatedDeviceGroup;
-  v12 = *MEMORY[0x277D85DE8];
-  return result;
+  return is_automated_device_group_foundAutomatedDeviceGroup;
 }
 
 - (BOOL)has_apple_email
@@ -251,16 +249,16 @@ void __33__ABCPreferences_has_apple_email__block_invoke()
   v0 = [MEMORY[0x277D36B80] sharedInstance];
   v1 = [v0 internalKey];
 
-  v2 = configurationLogHandle();
-  v3 = v2;
+  v3 = configurationLogHandle(v2);
+  v4 = v3;
   if (!v1)
   {
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       LOWORD(v14) = 0;
-      v7 = "Unable to fetch the internal key from OSASystemConfiguration";
-      v8 = v3;
-      v9 = OS_LOG_TYPE_ERROR;
+      v8 = "Unable to fetch the internal key from OSASystemConfiguration";
+      v9 = v4;
+      v10 = OS_LOG_TYPE_ERROR;
       goto LABEL_13;
     }
 
@@ -270,33 +268,33 @@ LABEL_14:
     goto LABEL_15;
   }
 
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v14 = 138477827;
     v15 = v1;
-    _os_log_impl(&dword_241804000, v3, OS_LOG_TYPE_DEFAULT, "InternalKey is configured as: '%{private}@'", &v14, 0xCu);
+    _os_log_impl(&dword_241804000, v4, OS_LOG_TYPE_DEFAULT, "InternalKey is configured as: '%{private}@'", &v14, 0xCu);
   }
 
-  v4 = [v1 rangeOfString:@"@apple.com"];
-  if (v4 < 2 || v4 == 0x7FFFFFFFFFFFFFFFLL)
+  v5 = [v1 rangeOfString:@"@apple.com"];
+  if (v5 < 2 || v5 == 0x7FFFFFFFFFFFFFFFLL)
   {
-    v3 = configurationLogHandle();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
+    v4 = configurationLogHandle(v5);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
       LOWORD(v14) = 0;
-      v7 = "Did not find an email address as part of the internal key";
-      v8 = v3;
-      v9 = OS_LOG_TYPE_INFO;
+      v8 = "Did not find an email address as part of the internal key";
+      v9 = v4;
+      v10 = OS_LOG_TYPE_INFO;
 LABEL_13:
-      _os_log_impl(&dword_241804000, v8, v9, v7, &v14, 2u);
+      _os_log_impl(&dword_241804000, v9, v10, v8, &v14, 2u);
       goto LABEL_14;
     }
 
     goto LABEL_14;
   }
 
-  v11 = [v1 substringToIndex:v4 + v5];
-  v12 = configurationLogHandle();
+  v11 = [v1 substringToIndex:v5 + v6];
+  v12 = configurationLogHandle(v11);
   if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
   {
     v14 = 138477827;
@@ -306,8 +304,6 @@ LABEL_13:
 
   has_apple_email_foundAppleEmailAccount = 1;
 LABEL_15:
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context
@@ -340,7 +336,7 @@ LABEL_15:
   }
 
   v14 = v13;
-  v15 = configurationLogHandle();
+  v15 = configurationLogHandle(v14);
   if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
   {
     *buf = 138412546;
@@ -354,8 +350,7 @@ LABEL_15:
   {
     if (v12)
     {
-      -[ABCPreferences setDisable_internal_build:](self, "setDisable_internal_build:", [v12 BOOLValue]);
-      v16 = configurationLogHandle();
+      v16 = configurationLogHandle(-[ABCPreferences setDisable_internal_build:](self, "setDisable_internal_build:", [v12 BOOLValue]));
       if (!os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
 LABEL_41:
@@ -386,8 +381,7 @@ LABEL_16:
       goto LABEL_41;
     }
 
-    [(ABCPreferences *)self setDisable_internal_build:0];
-    v29 = configurationLogHandle();
+    v29 = configurationLogHandle([(ABCPreferences *)self setDisable_internal_build:0]);
     if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
@@ -408,8 +402,7 @@ LABEL_70:
   {
     if (!v12)
     {
-      [(ABCPreferences *)self setCarrier_seed_flag:0];
-      v29 = configurationLogHandle();
+      v29 = configurationLogHandle([(ABCPreferences *)self setCarrier_seed_flag:0]);
       if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
@@ -422,8 +415,7 @@ LABEL_71:
       goto LABEL_72;
     }
 
-    [(ABCPreferences *)self setCarrier_seed_flag:v12];
-    v16 = configurationLogHandle();
+    v16 = configurationLogHandle([(ABCPreferences *)self setCarrier_seed_flag:v12]);
     if (!os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_41;
@@ -457,8 +449,7 @@ LABEL_40:
   {
     if (!v12)
     {
-      [(ABCPreferences *)self setSeed_flag:0];
-      v29 = configurationLogHandle();
+      v29 = configurationLogHandle([(ABCPreferences *)self setSeed_flag:0]);
       if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
@@ -469,8 +460,7 @@ LABEL_40:
       goto LABEL_71;
     }
 
-    [(ABCPreferences *)self setSeed_flag:v12];
-    v16 = configurationLogHandle();
+    v16 = configurationLogHandle([(ABCPreferences *)self setSeed_flag:v12]);
     if (!os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_41;
@@ -501,8 +491,7 @@ LABEL_40:
   {
     if (!v12)
     {
-      [(ABCPreferences *)self setVendor_flag:0];
-      v29 = configurationLogHandle();
+      v29 = configurationLogHandle([(ABCPreferences *)self setVendor_flag:0]);
       if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
@@ -513,8 +502,7 @@ LABEL_40:
       goto LABEL_71;
     }
 
-    [(ABCPreferences *)self setVendor_flag:v12];
-    v16 = configurationLogHandle();
+    v16 = configurationLogHandle([(ABCPreferences *)self setVendor_flag:v12]);
     if (!os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_41;
@@ -545,8 +533,7 @@ LABEL_40:
   {
     if (!v14)
     {
-      [(ABCPreferences *)self setDatabase_container_path:0];
-      v29 = configurationLogHandle();
+      v29 = configurationLogHandle([(ABCPreferences *)self setDatabase_container_path:0]);
       if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
@@ -557,8 +544,7 @@ LABEL_40:
       goto LABEL_71;
     }
 
-    [(ABCPreferences *)self setDatabase_container_path:v14];
-    v16 = configurationLogHandle();
+    v16 = configurationLogHandle([(ABCPreferences *)self setDatabase_container_path:v14]);
     if (!os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_41;
@@ -581,8 +567,7 @@ LABEL_48:
       goto LABEL_72;
     }
 
-    -[ABCPreferences setDisable_autobugcapture:](self, "setDisable_autobugcapture:", [v12 BOOLValue]);
-    v16 = configurationLogHandle();
+    v16 = configurationLogHandle(-[ABCPreferences setDisable_autobugcapture:](self, "setDisable_autobugcapture:", [v12 BOOLValue]));
     if (!os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_41;
@@ -617,8 +602,7 @@ LABEL_80:
       goto LABEL_72;
     }
 
-    -[ABCPreferences setOptin_autobugcapture:](self, "setOptin_autobugcapture:", [v12 BOOLValue]);
-    v16 = configurationLogHandle();
+    v16 = configurationLogHandle(-[ABCPreferences setOptin_autobugcapture:](self, "setOptin_autobugcapture:", [v12 BOOLValue]));
     if (!os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_41;
@@ -650,8 +634,7 @@ LABEL_80:
       goto LABEL_72;
     }
 
-    -[ABCPreferences setDut_flag:](self, "setDut_flag:", [v12 BOOLValue]);
-    v16 = configurationLogHandle();
+    v16 = configurationLogHandle(-[ABCPreferences setDut_flag:](self, "setDut_flag:", [v12 BOOLValue]));
     if (!os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_41;
@@ -659,17 +642,17 @@ LABEL_80:
 
     if ([(ABCPreferences *)self dut_flag])
     {
-      v43 = "YES";
+      v42 = "YES";
     }
 
     else
     {
-      v43 = "NO";
+      v42 = "NO";
     }
 
     dut_flag = [(ABCPreferences *)self dut_flag];
     *buf = 136315394;
-    v96 = v43;
+    v96 = v42;
     v97 = 1024;
     LODWORD(v98) = dut_flag;
     v19 = "dut_flag configuration is %s (%d)";
@@ -680,8 +663,7 @@ LABEL_80:
   {
     if (!v12)
     {
-      [(ABCPreferences *)self setNpi_flag:0];
-      v29 = configurationLogHandle();
+      v29 = configurationLogHandle([(ABCPreferences *)self setNpi_flag:0]);
       if (!os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
       {
         goto LABEL_71;
@@ -692,8 +674,7 @@ LABEL_80:
       goto LABEL_69;
     }
 
-    [(ABCPreferences *)self setNpi_flag:v12];
-    v16 = configurationLogHandle();
+    v16 = configurationLogHandle([(ABCPreferences *)self setNpi_flag:v12]);
     if (!os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_41;
@@ -702,18 +683,18 @@ LABEL_80:
     carrier_seed_flag = [(ABCPreferences *)self npi_flag];
     if ([carrier_seed_flag BOOLValue])
     {
-      v45 = "YES";
+      v44 = "YES";
     }
 
     else
     {
-      v45 = "NO";
+      v44 = "NO";
     }
 
     carrier_seed_flag2 = [(ABCPreferences *)self npi_flag];
     bOOLValue4 = [carrier_seed_flag2 BOOLValue];
     *buf = 136315394;
-    v96 = v45;
+    v96 = v44;
     v97 = 1024;
     LODWORD(v98) = bOOLValue4;
     v26 = "npi_flag override is %s (%d)";
@@ -727,8 +708,7 @@ LABEL_80:
       goto LABEL_72;
     }
 
-    -[ABCPreferences setArbitrator_disable_dampening:](self, "setArbitrator_disable_dampening:", [v12 BOOLValue]);
-    v16 = configurationLogHandle();
+    v16 = configurationLogHandle(-[ABCPreferences setArbitrator_disable_dampening:](self, "setArbitrator_disable_dampening:", [v12 BOOLValue]));
     if (!os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_41;
@@ -736,17 +716,17 @@ LABEL_80:
 
     if ([(ABCPreferences *)self arbitrator_disable_dampening])
     {
-      v47 = "YES";
+      v46 = "YES";
     }
 
     else
     {
-      v47 = "NO";
+      v46 = "NO";
     }
 
     arbitrator_disable_dampening = [(ABCPreferences *)self arbitrator_disable_dampening];
     *buf = 136315394;
-    v96 = v47;
+    v96 = v46;
     v97 = 1024;
     LODWORD(v98) = arbitrator_disable_dampening;
     v19 = "arbitrator_disable_dampening override is %s (%d)";
@@ -760,8 +740,7 @@ LABEL_80:
       goto LABEL_72;
     }
 
-    -[ABCPreferences setArbitrator_daily_count_limit:](self, "setArbitrator_daily_count_limit:", [v12 integerValue]);
-    v16 = configurationLogHandle();
+    v16 = configurationLogHandle(-[ABCPreferences setArbitrator_daily_count_limit:](self, "setArbitrator_daily_count_limit:", [v12 integerValue]));
     if (!os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_41;
@@ -784,8 +763,7 @@ LABEL_99:
       goto LABEL_72;
     }
 
-    -[ABCPreferences setApns_enable:](self, "setApns_enable:", [v12 BOOLValue]);
-    v16 = configurationLogHandle();
+    v16 = configurationLogHandle(-[ABCPreferences setApns_enable:](self, "setApns_enable:", [v12 BOOLValue]));
     if (!os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_41;
@@ -793,17 +771,17 @@ LABEL_99:
 
     if ([(ABCPreferences *)self apns_enable])
     {
-      v50 = "YES";
+      v49 = "YES";
     }
 
     else
     {
-      v50 = "NO";
+      v49 = "NO";
     }
 
     apns_enable = [(ABCPreferences *)self apns_enable];
     *buf = 136315394;
-    v96 = v50;
+    v96 = v49;
     v97 = 1024;
     LODWORD(v98) = apns_enable;
     v19 = "apns_enable configuration is %s (%d)";
@@ -817,8 +795,7 @@ LABEL_99:
       goto LABEL_72;
     }
 
-    -[ABCPreferences setApns_dev_environment:](self, "setApns_dev_environment:", [v12 BOOLValue]);
-    v16 = configurationLogHandle();
+    v16 = configurationLogHandle(-[ABCPreferences setApns_dev_environment:](self, "setApns_dev_environment:", [v12 BOOLValue]));
     if (!os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_41;
@@ -826,17 +803,17 @@ LABEL_99:
 
     if ([(ABCPreferences *)self apns_dev_environment])
     {
-      v52 = "YES";
+      v51 = "YES";
     }
 
     else
     {
-      v52 = "NO";
+      v51 = "NO";
     }
 
     apns_dev_environment = [(ABCPreferences *)self apns_dev_environment];
     *buf = 136315394;
-    v96 = v52;
+    v96 = v51;
     v97 = 1024;
     LODWORD(v98) = apns_dev_environment;
     v19 = "apns_dev_environment configuration is %s (%d)";
@@ -850,8 +827,7 @@ LABEL_99:
       goto LABEL_72;
     }
 
-    -[ABCPreferences setMax_upload_retries:](self, "setMax_upload_retries:", [v12 unsignedIntegerValue]);
-    v16 = configurationLogHandle();
+    v16 = configurationLogHandle(-[ABCPreferences setMax_upload_retries:](self, "setMax_upload_retries:", [v12 unsignedIntegerValue]));
     if (!os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_41;
@@ -871,8 +847,7 @@ LABEL_99:
       goto LABEL_72;
     }
 
-    -[ABCPreferences setArbitrator_dampened_ips_limit:](self, "setArbitrator_dampened_ips_limit:", [v12 unsignedIntegerValue]);
-    v16 = configurationLogHandle();
+    v16 = configurationLogHandle(-[ABCPreferences setArbitrator_dampened_ips_limit:](self, "setArbitrator_dampened_ips_limit:", [v12 unsignedIntegerValue]));
     if (!os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_41;
@@ -892,8 +867,7 @@ LABEL_99:
       goto LABEL_72;
     }
 
-    -[ABCPreferences setABCUserConsent:](self, "setABCUserConsent:", [v12 unsignedIntegerValue] != 0);
-    v16 = configurationLogHandle();
+    v16 = configurationLogHandle(-[ABCPreferences setABCUserConsent:](self, "setABCUserConsent:", [v12 unsignedIntegerValue] != 0));
     if (!os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_41;
@@ -913,8 +887,7 @@ LABEL_99:
       goto LABEL_72;
     }
 
-    -[ABCPreferences setDampening_restriction_factor:](self, "setDampening_restriction_factor:", [v12 unsignedIntegerValue]);
-    v16 = configurationLogHandle();
+    v16 = configurationLogHandle(-[ABCPreferences setDampening_restriction_factor:](self, "setDampening_restriction_factor:", [v12 unsignedIntegerValue]));
     if (!os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_41;
@@ -934,8 +907,7 @@ LABEL_99:
       goto LABEL_72;
     }
 
-    -[ABCPreferences setDisable_api_rate_limit:](self, "setDisable_api_rate_limit:", [v12 BOOLValue]);
-    v16 = configurationLogHandle();
+    v16 = configurationLogHandle(-[ABCPreferences setDisable_api_rate_limit:](self, "setDisable_api_rate_limit:", [v12 BOOLValue]));
     if (!os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_41;
@@ -943,17 +915,17 @@ LABEL_99:
 
     if ([(ABCPreferences *)self disable_api_rate_limit])
     {
-      v58 = "YES";
+      v57 = "YES";
     }
 
     else
     {
-      v58 = "NO";
+      v57 = "NO";
     }
 
     disable_api_rate_limit = [(ABCPreferences *)self disable_api_rate_limit];
     *buf = 136315394;
-    v96 = v58;
+    v96 = v57;
     v97 = 1024;
     LODWORD(v98) = disable_api_rate_limit;
     v19 = "disable_api_rate_limit override is %s (%d)";
@@ -968,8 +940,7 @@ LABEL_99:
     }
 
     [v12 doubleValue];
-    [(ABCPreferences *)self setApi_rate_limit:?];
-    v16 = configurationLogHandle();
+    v16 = configurationLogHandle([(ABCPreferences *)self setApi_rate_limit:?]);
     if (!os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_41;
@@ -977,7 +948,7 @@ LABEL_99:
 
     [(ABCPreferences *)self api_rate_limit];
     *buf = 134217984;
-    v96 = v60;
+    v96 = v59;
     v19 = "api_rate_limit configuration is %.1lf";
     goto LABEL_99;
   }
@@ -990,8 +961,7 @@ LABEL_99:
     }
 
     [v12 doubleValue];
-    [(ABCPreferences *)self setApi_limit_window:?];
-    v16 = configurationLogHandle();
+    v16 = configurationLogHandle([(ABCPreferences *)self setApi_limit_window:?]);
     if (!os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_41;
@@ -999,7 +969,7 @@ LABEL_99:
 
     [(ABCPreferences *)self api_limit_window];
     *buf = 134217984;
-    v96 = v61;
+    v96 = v60;
     v19 = "api_limit_window configuration is %.1lf";
     goto LABEL_99;
   }
@@ -1011,8 +981,7 @@ LABEL_99:
       goto LABEL_72;
     }
 
-    -[ABCPreferences setIgnore_automated_device_group:](self, "setIgnore_automated_device_group:", [v12 BOOLValue]);
-    v16 = configurationLogHandle();
+    v16 = configurationLogHandle(-[ABCPreferences setIgnore_automated_device_group:](self, "setIgnore_automated_device_group:", [v12 BOOLValue]));
     if (!os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_41;
@@ -1020,17 +989,17 @@ LABEL_99:
 
     if ([(ABCPreferences *)self ignore_automated_device_group])
     {
-      v62 = "YES";
+      v61 = "YES";
     }
 
     else
     {
-      v62 = "NO";
+      v61 = "NO";
     }
 
     ignore_automated_device_group = [(ABCPreferences *)self ignore_automated_device_group];
     *buf = 136315394;
-    v96 = v62;
+    v96 = v61;
     v97 = 1024;
     LODWORD(v98) = ignore_automated_device_group;
     v19 = "ignore_automated_device_group override is %s (%d)";
@@ -1044,8 +1013,7 @@ LABEL_99:
       goto LABEL_72;
     }
 
-    -[ABCPreferences setCloudkit_enable:](self, "setCloudkit_enable:", [v12 BOOLValue]);
-    v16 = configurationLogHandle();
+    v16 = configurationLogHandle(-[ABCPreferences setCloudkit_enable:](self, "setCloudkit_enable:", [v12 BOOLValue]));
     if (!os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_41;
@@ -1053,17 +1021,17 @@ LABEL_99:
 
     if ([(ABCPreferences *)self cloudkit_enable])
     {
-      v64 = "YES";
+      v63 = "YES";
     }
 
     else
     {
-      v64 = "NO";
+      v63 = "NO";
     }
 
     cloudkit_enable = [(ABCPreferences *)self cloudkit_enable];
     *buf = 136315394;
-    v96 = v64;
+    v96 = v63;
     v97 = 1024;
     LODWORD(v98) = cloudkit_enable;
     v19 = "cloudkit_enable configuration is %s (%d)";
@@ -1077,8 +1045,7 @@ LABEL_99:
       goto LABEL_72;
     }
 
-    -[ABCPreferences setCloudkit_sandbox_environment:](self, "setCloudkit_sandbox_environment:", [v12 BOOLValue]);
-    v16 = configurationLogHandle();
+    v16 = configurationLogHandle(-[ABCPreferences setCloudkit_sandbox_environment:](self, "setCloudkit_sandbox_environment:", [v12 BOOLValue]));
     if (!os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_41;
@@ -1086,17 +1053,17 @@ LABEL_99:
 
     if ([(ABCPreferences *)self cloudkit_sandbox_environment])
     {
-      v66 = "YES";
+      v65 = "YES";
     }
 
     else
     {
-      v66 = "NO";
+      v65 = "NO";
     }
 
     cloudkit_sandbox_environment = [(ABCPreferences *)self cloudkit_sandbox_environment];
     *buf = 136315394;
-    v96 = v66;
+    v96 = v65;
     v97 = 1024;
     LODWORD(v98) = cloudkit_sandbox_environment;
     v19 = "cloudkit_sandbox_environment override is %s (%d)";
@@ -1110,8 +1077,7 @@ LABEL_99:
       goto LABEL_72;
     }
 
-    [(ABCPreferences *)self setCloudkit_container_identifier:v14];
-    v16 = configurationLogHandle();
+    v16 = configurationLogHandle([(ABCPreferences *)self setCloudkit_container_identifier:v14]);
     if (!os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_41;
@@ -1131,8 +1097,7 @@ LABEL_99:
       goto LABEL_72;
     }
 
-    [(ABCPreferences *)self setCloudkit_inverness_service:v14];
-    v16 = configurationLogHandle();
+    v16 = configurationLogHandle([(ABCPreferences *)self setCloudkit_inverness_service:v14]);
     if (!os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_41;
@@ -1152,8 +1117,7 @@ LABEL_99:
       goto LABEL_72;
     }
 
-    -[ABCPreferences setCloudkit_upload_expiration_timeout:](self, "setCloudkit_upload_expiration_timeout:", [v12 unsignedIntegerValue]);
-    v16 = configurationLogHandle();
+    v16 = configurationLogHandle(-[ABCPreferences setCloudkit_upload_expiration_timeout:](self, "setCloudkit_upload_expiration_timeout:", [v12 unsignedIntegerValue]));
     if (!os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_41;
@@ -1173,8 +1137,7 @@ LABEL_99:
       goto LABEL_72;
     }
 
-    -[ABCPreferences setCloudkit_upload_connection_timeout:](self, "setCloudkit_upload_connection_timeout:", [v12 unsignedIntegerValue]);
-    v16 = configurationLogHandle();
+    v16 = configurationLogHandle(-[ABCPreferences setCloudkit_upload_connection_timeout:](self, "setCloudkit_upload_connection_timeout:", [v12 unsignedIntegerValue]));
     if (!os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_41;
@@ -1194,8 +1157,7 @@ LABEL_99:
       goto LABEL_72;
     }
 
-    -[ABCPreferences setCloudkit_upload_max_fallback_log_count:](self, "setCloudkit_upload_max_fallback_log_count:", [v12 unsignedIntegerValue]);
-    v16 = configurationLogHandle();
+    v16 = configurationLogHandle(-[ABCPreferences setCloudkit_upload_max_fallback_log_count:](self, "setCloudkit_upload_max_fallback_log_count:", [v12 unsignedIntegerValue]));
     if (!os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_41;
@@ -1215,8 +1177,7 @@ LABEL_99:
       goto LABEL_72;
     }
 
-    -[ABCPreferences setCloudkit_prefers_anonymous:](self, "setCloudkit_prefers_anonymous:", [v12 BOOLValue]);
-    v16 = configurationLogHandle();
+    v16 = configurationLogHandle(-[ABCPreferences setCloudkit_prefers_anonymous:](self, "setCloudkit_prefers_anonymous:", [v12 BOOLValue]));
     if (!os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_41;
@@ -1224,17 +1185,17 @@ LABEL_99:
 
     if ([(ABCPreferences *)self cloudkit_prefers_anonymous])
     {
-      v71 = "YES";
+      v70 = "YES";
     }
 
     else
     {
-      v71 = "NO";
+      v70 = "NO";
     }
 
     cloudkit_prefers_anonymous = [(ABCPreferences *)self cloudkit_prefers_anonymous];
     *buf = 136315394;
-    v96 = v71;
+    v96 = v70;
     v97 = 1024;
     LODWORD(v98) = cloudkit_prefers_anonymous;
     v19 = "cloudkit_prefers_anonymous configuration is %s (%d)";
@@ -1248,8 +1209,7 @@ LABEL_99:
       goto LABEL_72;
     }
 
-    -[ABCPreferences setCase_summary_maximum_per_submission:](self, "setCase_summary_maximum_per_submission:", [v12 unsignedIntegerValue]);
-    v16 = configurationLogHandle();
+    v16 = configurationLogHandle(-[ABCPreferences setCase_summary_maximum_per_submission:](self, "setCase_summary_maximum_per_submission:", [v12 unsignedIntegerValue]));
     if (!os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_41;
@@ -1269,8 +1229,7 @@ LABEL_99:
       goto LABEL_72;
     }
 
-    -[ABCPreferences setCase_summary_submitted_retention_days:](self, "setCase_summary_submitted_retention_days:", [v12 unsignedIntegerValue]);
-    v16 = configurationLogHandle();
+    v16 = configurationLogHandle(-[ABCPreferences setCase_summary_submitted_retention_days:](self, "setCase_summary_submitted_retention_days:", [v12 unsignedIntegerValue]));
     if (!os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_41;
@@ -1290,8 +1249,7 @@ LABEL_99:
       goto LABEL_72;
     }
 
-    -[ABCPreferences setCase_summary_unsubmitted_retention_days:](self, "setCase_summary_unsubmitted_retention_days:", [v12 unsignedIntegerValue]);
-    v16 = configurationLogHandle();
+    v16 = configurationLogHandle(-[ABCPreferences setCase_summary_unsubmitted_retention_days:](self, "setCase_summary_unsubmitted_retention_days:", [v12 unsignedIntegerValue]));
     if (!os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_41;
@@ -1311,8 +1269,7 @@ LABEL_99:
       goto LABEL_72;
     }
 
-    -[ABCPreferences setCase_summary_enable:](self, "setCase_summary_enable:", [v12 BOOLValue]);
-    v16 = configurationLogHandle();
+    v16 = configurationLogHandle(-[ABCPreferences setCase_summary_enable:](self, "setCase_summary_enable:", [v12 BOOLValue]));
     if (!os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_41;
@@ -1320,17 +1277,17 @@ LABEL_99:
 
     if ([(ABCPreferences *)self case_summary_enable])
     {
-      v76 = "YES";
+      v75 = "YES";
     }
 
     else
     {
-      v76 = "NO";
+      v75 = "NO";
     }
 
     case_summary_enable = [(ABCPreferences *)self case_summary_enable];
     *buf = 136315394;
-    v96 = v76;
+    v96 = v75;
     v97 = 1024;
     LODWORD(v98) = case_summary_enable;
     v19 = "case_summary_enable configuration is %s (%d)";
@@ -1344,8 +1301,7 @@ LABEL_99:
       goto LABEL_72;
     }
 
-    -[ABCPreferences setDiagnostic_pipeline_submission:](self, "setDiagnostic_pipeline_submission:", [v12 BOOLValue]);
-    v16 = configurationLogHandle();
+    v16 = configurationLogHandle(-[ABCPreferences setDiagnostic_pipeline_submission:](self, "setDiagnostic_pipeline_submission:", [v12 BOOLValue]));
     if (!os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_41;
@@ -1353,17 +1309,17 @@ LABEL_99:
 
     if ([(ABCPreferences *)self diagnostic_pipeline_submission])
     {
-      v78 = "YES";
+      v77 = "YES";
     }
 
     else
     {
-      v78 = "NO";
+      v77 = "NO";
     }
 
     diagnostic_pipeline_submission = [(ABCPreferences *)self diagnostic_pipeline_submission];
     *buf = 136315394;
-    v96 = v78;
+    v96 = v77;
     v97 = 1024;
     LODWORD(v98) = diagnostic_pipeline_submission;
     v19 = "diagnostic_pipeline_submission configuration is %s (%d)";
@@ -1378,8 +1334,7 @@ LABEL_99:
     }
 
     [v12 doubleValue];
-    [(ABCPreferences *)self setDiagnostic_pipeline_submission_rate:?];
-    v16 = configurationLogHandle();
+    v16 = configurationLogHandle([(ABCPreferences *)self setDiagnostic_pipeline_submission_rate:?]);
     if (!os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_41;
@@ -1387,7 +1342,7 @@ LABEL_99:
 
     [(ABCPreferences *)self diagnostic_pipeline_submission_rate];
     *buf = 134217984;
-    v96 = v80;
+    v96 = v79;
     v19 = "diagnostic_pipeline_submission_rate configuration is %.3lf";
     goto LABEL_99;
   }
@@ -1396,47 +1351,46 @@ LABEL_99:
   {
     if (v12)
     {
-      -[ABCPreferences setAutoFeedbackAssistantEnable:](self, "setAutoFeedbackAssistantEnable:", [v12 BOOLValue]);
-      v81 = configurationLogHandle();
-      if (os_log_type_enabled(v81, OS_LOG_TYPE_DEFAULT))
+      v80 = configurationLogHandle(-[ABCPreferences setAutoFeedbackAssistantEnable:](self, "setAutoFeedbackAssistantEnable:", [v12 BOOLValue]));
+      if (os_log_type_enabled(v80, OS_LOG_TYPE_DEFAULT))
       {
         if ([(ABCPreferences *)self autoFeedbackAssistantEnable])
         {
-          v82 = "YES";
+          v81 = "YES";
         }
 
         else
         {
-          v82 = "NO";
+          v81 = "NO";
         }
 
         autoFeedbackAssistantEnable = [(ABCPreferences *)self autoFeedbackAssistantEnable];
         *buf = 136315394;
-        v96 = v82;
+        v96 = v81;
         v97 = 1024;
         LODWORD(v98) = autoFeedbackAssistantEnable;
-        _os_log_impl(&dword_241804000, v81, OS_LOG_TYPE_DEFAULT, "autoFeedbackAssistantEnable configuration is %s (%d)", buf, 0x12u);
+        _os_log_impl(&dword_241804000, v80, OS_LOG_TYPE_DEFAULT, "autoFeedbackAssistantEnable configuration is %s (%d)", buf, 0x12u);
       }
 
       if ([(ABCPreferences *)self autoFeedbackAssistantEnable]&& !self->_observingInstalledProfiles)
       {
-        v84 = +[ManagedConfigurationUtils sharedInstance];
-        [v84 addObserver:self forKeyPath:@"installedVisibleProfileIdentifiers" options:1 context:0];
+        v83 = +[ManagedConfigurationUtils sharedInstance];
+        [v83 addObserver:self forKeyPath:@"installedVisibleProfileIdentifiers" options:1 context:0];
 
-        v85 = dispatch_source_create(MEMORY[0x277D85D38], 0, 0, MEMORY[0x277D85CD0]);
+        v84 = dispatch_source_create(MEMORY[0x277D85D38], 0, 0, MEMORY[0x277D85CD0]);
         checkProfilesTimer = self->_checkProfilesTimer;
-        self->_checkProfilesTimer = v85;
+        self->_checkProfilesTimer = v84;
 
-        v87 = self->_checkProfilesTimer;
-        v88 = dispatch_time(0, 120000000000);
-        dispatch_source_set_timer(v87, v88, 0xFFFFFFFFFFFFFFFFLL, 0x5F5E100uLL);
-        v89 = self->_checkProfilesTimer;
+        v86 = self->_checkProfilesTimer;
+        v87 = dispatch_time(0, 120000000000);
+        dispatch_source_set_timer(v86, v87, 0xFFFFFFFFFFFFFFFFLL, 0x5F5E100uLL);
+        v88 = self->_checkProfilesTimer;
         handler[0] = MEMORY[0x277D85DD0];
         handler[1] = 3221225472;
         handler[2] = __65__ABCPreferences_observeValueForKeyPath_ofObject_change_context___block_invoke;
         handler[3] = &unk_278CEFE88;
         handler[4] = self;
-        dispatch_source_set_event_handler(v89, handler);
+        dispatch_source_set_event_handler(v88, handler);
         dispatch_resume(self->_checkProfilesTimer);
         self->_observingInstalledProfiles = 1;
       }
@@ -1452,8 +1406,7 @@ LABEL_99:
         goto LABEL_72;
       }
 
-      -[ABCPreferences setDiagnosticsAndUsageEnabled:](self, "setDiagnosticsAndUsageEnabled:", [v12 BOOLValue]);
-      v16 = configurationLogHandle();
+      v16 = configurationLogHandle(-[ABCPreferences setDiagnosticsAndUsageEnabled:](self, "setDiagnosticsAndUsageEnabled:", [v12 BOOLValue]));
       if (!os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
         goto LABEL_41;
@@ -1461,26 +1414,27 @@ LABEL_99:
 
       if ([(ABCPreferences *)self diagnosticsAndUsageEnabled])
       {
-        v90 = "YES";
+        v89 = "YES";
       }
 
       else
       {
-        v90 = "NO";
+        v89 = "NO";
       }
 
       diagnosticsAndUsageEnabled = [(ABCPreferences *)self diagnosticsAndUsageEnabled];
       *buf = 136315394;
-      v96 = v90;
+      v96 = v89;
       v97 = 1024;
       LODWORD(v98) = diagnosticsAndUsageEnabled;
       v19 = "diagnosticsAndUsageEnabled configuration is %s (%d)";
       goto LABEL_80;
     }
 
-    if (![pathCopy isEqualToString:@"installedVisibleProfileIdentifiers"])
+    v91 = [pathCopy isEqualToString:@"installedVisibleProfileIdentifiers"];
+    if (!v91)
     {
-      v29 = configurationLogHandle();
+      v29 = configurationLogHandle(v91);
       if (!os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
       {
         goto LABEL_71;
@@ -1516,8 +1470,6 @@ LABEL_99:
   }
 
 LABEL_72:
-
-  v42 = *MEMORY[0x277D85DE8];
 }
 
 void __65__ABCPreferences_observeValueForKeyPath_ofObject_change_context___block_invoke(uint64_t a1)
@@ -1535,12 +1487,12 @@ void __65__ABCPreferences_observeValueForKeyPath_ofObject_change_context___block
 
 - (BOOL)diagnosticPipelineEnabled
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   _DPCGetUploadServiceEnablement();
   v3 = 0;
   if (!v3 && !self->_diagnosticPipelineEnabled)
   {
-    v4 = configurationLogHandle();
+    v4 = configurationLogHandle(0);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       if (self->_diagnosticPipelineEnabled)
@@ -1554,33 +1506,32 @@ void __65__ABCPreferences_observeValueForKeyPath_ofObject_change_context___block
       }
 
       *buf = 136315650;
-      v9 = v5;
-      v10 = 2080;
-      v11 = "en";
-      v12 = 2080;
-      v13 = "";
+      v8 = v5;
+      v9 = 2080;
+      v10 = "en";
+      v11 = 2080;
+      v12 = "";
       _os_log_impl(&dword_241804000, v4, OS_LOG_TYPE_DEFAULT, "DiagnosticPipeline: %sabled -> %sabled%s", buf, 0x20u);
     }
 
     self->_diagnosticPipelineEnabled = 1;
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
 - (void)processInstalledVisibleProfileIdentifiers:(id)identifiers
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v4 = [identifiers containsObject:@"com.apple.basebandlogging"];
   if (self->_autoFeedbackAssistantEnable && (v4 & 1) == 0)
   {
-    v5 = configurationLogHandle();
+    v5 = configurationLogHandle(v4);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
-      v9 = 136315138;
-      v10 = "autoFeedbackAssistantEnable";
-      _os_log_impl(&dword_241804000, v5, OS_LOG_TYPE_INFO, "Disabling the %s Preference", &v9, 0xCu);
+      v8 = 136315138;
+      v9 = "autoFeedbackAssistantEnable";
+      _os_log_impl(&dword_241804000, v5, OS_LOG_TYPE_INFO, "Disabling the %s Preference", &v8, 0xCu);
     }
 
     standardUserDefaults = [MEMORY[0x277CBEBD0] standardUserDefaults];
@@ -1594,8 +1545,6 @@ void __65__ABCPreferences_observeValueForKeyPath_ofObject_change_context___block
       self->_observingInstalledProfiles = 0;
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dealloc

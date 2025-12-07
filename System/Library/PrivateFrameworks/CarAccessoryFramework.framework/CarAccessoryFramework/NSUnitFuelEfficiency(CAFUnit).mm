@@ -11,9 +11,9 @@
     +[NSUnitFuelEfficiency(CAFUnit) millilitersPer100Kilometers];
   }
 
-  v1 = millilitersPer100Kilometers__millilitersPer100Kilometers;
+  v2 = millilitersPer100Kilometers__millilitersPer100Kilometers;
 
-  return v1;
+  return v2;
 }
 
 @end

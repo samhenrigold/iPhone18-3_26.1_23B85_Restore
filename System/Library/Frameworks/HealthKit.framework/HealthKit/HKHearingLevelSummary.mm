@@ -33,14 +33,14 @@
 + (HKHearingLevelSummary)emptySummary
 {
   objc_opt_self();
-  v0 = [[HKHearingLevelSummary alloc] initWithLeftEarMetrics:0 rightEarMetrics:0];
+  v1 = [[HKHearingLevelSummary alloc] initWithLeftEarMetrics:0 rightEarMetrics:0];
 
-  return v0;
+  return v1;
 }
 
 + (id)summaryForAudiogramSample:(id)sample
 {
-  v72 = *MEMORY[0x1E69E9840];
+  v71 = *MEMORY[0x1E69E9840];
   sampleCopy = sample;
   sensitivityPoints = [sampleCopy sensitivityPoints];
   v6 = [sensitivityPoints count];
@@ -56,41 +56,41 @@
 
     v11 = v8;
     v12 = v10;
-    v60 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:4];
+    v59 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:4];
     v13 = v11;
     v14 = v12;
-    v59 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:4];
+    v58 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:4];
+    v66 = 0u;
     v67 = 0u;
     v68 = 0u;
     v69 = 0u;
-    v70 = 0u;
-    v56 = sampleCopy;
+    v55 = sampleCopy;
     obj = [sampleCopy sensitivityPoints];
-    v65 = v14;
+    v64 = v14;
     v15 = v13;
-    v57 = v14;
-    v58 = v13;
-    v63 = [obj countByEnumeratingWithState:&v67 objects:v71 count:16];
-    if (v63)
+    v56 = v14;
+    v57 = v13;
+    v62 = [obj countByEnumeratingWithState:&v66 objects:v70 count:16];
+    if (v62)
     {
-      v62 = *v68;
-      v65 = v14;
+      v61 = *v67;
+      v64 = v14;
       v15 = v13;
       do
       {
-        for (i = 0; i != v63; ++i)
+        for (i = 0; i != v62; ++i)
         {
-          if (*v68 != v62)
+          if (*v67 != v61)
           {
             objc_enumerationMutation(obj);
           }
 
-          v17 = *(*(&v67 + 1) + 8 * i);
+          v17 = *(*(&v66 + 1) + 8 * i);
           v18 = MEMORY[0x1E696AD98];
           frequency = [v17 frequency];
           v20 = +[HKUnit hertzUnit];
           [frequency doubleValueForUnit:v20];
-          v66 = [v18 numberWithDouble:?];
+          v65 = [v18 numberWithDouble:?];
 
           tests = [v17 tests];
           v22 = [tests hk_filter:&__block_literal_global_22];
@@ -120,11 +120,11 @@
             v32 = HKQuantityMax(v14, v30);
 
             v33 = HKHearingLevelClassificationPureToneAverageFrequencies();
-            v34 = [v33 containsObject:v66];
+            v34 = [v33 containsObject:v65];
 
             if (v34)
             {
-              [v60 addObject:v30];
+              [v59 addObject:v30];
             }
 
             v14 = v32;
@@ -133,7 +133,7 @@
 
           if ([v24 count])
           {
-            v64 = v13;
+            v63 = v13;
             firstObject3 = [v24 firstObject];
             clampedSensitivity2 = [firstObject3 clampedSensitivity];
             v37 = clampedSensitivity2;
@@ -152,48 +152,46 @@
             v41 = [HKHearingLevelSummary _roundWithPositiveZeroForSensitivity:sensitivity2];
             v42 = HKQuantityMin(v15, v41);
 
-            v43 = HKQuantityMax(v65, v41);
+            v43 = HKQuantityMax(v64, v41);
 
             v44 = HKHearingLevelClassificationPureToneAverageFrequencies();
-            v45 = [v44 containsObject:v66];
+            v45 = [v44 containsObject:v65];
 
             if (v45)
             {
-              [v59 addObject:v41];
+              [v58 addObject:v41];
             }
 
-            v65 = v43;
+            v64 = v43;
             v15 = v42;
             v14 = v38;
-            v13 = v64;
+            v13 = v63;
           }
         }
 
-        v63 = [obj countByEnumeratingWithState:&v67 objects:v71 count:16];
+        v62 = [obj countByEnumeratingWithState:&v66 objects:v70 count:16];
       }
 
-      while (v63);
+      while (v62);
     }
 
-    v46 = HKPureToneAverageFromPureToneSensitivityPoints(v60);
-    v47 = HKPureToneAverageFromPureToneSensitivityPoints(v59);
+    v46 = HKPureToneAverageFromPureToneSensitivityPoints(v59);
+    v47 = HKPureToneAverageFromPureToneSensitivityPoints(v58);
     v48 = [(HKHearingLevelSummary *)selfCopy _roundWithPositiveZeroForSensitivity:v46];
 
     v49 = [(HKHearingLevelSummary *)selfCopy _roundWithPositiveZeroForSensitivity:v47];
 
     v50 = [[HKHearingLevelMetrics alloc] initWithAverageSensitivity:v48 minimumSensitivity:v13 maximumSensitivity:v14];
-    v51 = [[HKHearingLevelMetrics alloc] initWithAverageSensitivity:v49 minimumSensitivity:v15 maximumSensitivity:v65];
+    v51 = [[HKHearingLevelMetrics alloc] initWithAverageSensitivity:v49 minimumSensitivity:v15 maximumSensitivity:v64];
     v52 = [[HKHearingLevelSummary alloc] initWithLeftEarMetrics:v50 rightEarMetrics:v51];
 
-    sampleCopy = v56;
+    sampleCopy = v55;
   }
 
   else
   {
     v52 = +[HKHearingLevelSummary emptySummary];
   }
-
-  v53 = *MEMORY[0x1E69E9840];
 
   return v52;
 }

@@ -60,13 +60,13 @@ LABEL_3:
 
 LABEL_4:
   type metadata accessor for NSKeyValueChangeKey(0);
-  sub_100643DBC(&qword_1009224E8, 255, type metadata accessor for NSKeyValueChangeKey);
+  sub_100643DBC(&qword_1009224E8, 255, type metadata accessor for NSKeyValueChangeKey, &unk_1007A53B4);
   v15 = sub_100752F44();
 
 LABEL_8:
   sub_100642624(v10, v12, v18, v15, context);
 
-  sub_10000C8CC(v18, &unk_100923520);
+  sub_10000C8CC(v18, &unk_100923520, &qword_1007A5A70);
 }
 
 - (void)traitCollectionDidChange:(id)change

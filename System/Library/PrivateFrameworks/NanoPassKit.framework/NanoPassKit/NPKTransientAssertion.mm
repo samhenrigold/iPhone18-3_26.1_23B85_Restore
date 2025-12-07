@@ -60,57 +60,55 @@
 
 void __39__NPKTransientAssertion_initWithQueue___block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
+  v2 = WeakRetained;
   if (WeakRetained)
   {
-    v2 = pk_Payment_log();
-    v3 = os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT);
+    v3 = pk_Payment_log(WeakRetained);
+    v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
 
-    if (v3)
+    if (v4)
     {
-      v4 = pk_Payment_log();
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+      v6 = pk_Payment_log(v5);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
-        *v7 = 138412290;
-        *&v7[4] = objc_opt_class();
-        v5 = *&v7[4];
-        _os_log_impl(&dword_25B300000, v4, OS_LOG_TYPE_DEFAULT, "Notice: %@: Transient assertion connection interrupted", v7, 0xCu);
+        *v8 = 138412290;
+        *&v8[4] = objc_opt_class();
+        v7 = *&v8[4];
+        _os_log_impl(&dword_25B300000, v6, OS_LOG_TYPE_DEFAULT, "Notice: %@: Transient assertion connection interrupted", v8, 0xCu);
       }
     }
 
-    [WeakRetained _handleInterruption];
+    [v2 _handleInterruption];
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __39__NPKTransientAssertion_initWithQueue___block_invoke_120(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
+  v2 = WeakRetained;
   if (WeakRetained)
   {
-    v2 = pk_Payment_log();
-    v3 = os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT);
+    v3 = pk_Payment_log(WeakRetained);
+    v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
 
-    if (v3)
+    if (v4)
     {
-      v4 = pk_Payment_log();
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+      v6 = pk_Payment_log(v5);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
-        *v7 = 138412290;
-        *&v7[4] = objc_opt_class();
-        v5 = *&v7[4];
-        _os_log_impl(&dword_25B300000, v4, OS_LOG_TYPE_DEFAULT, "Notice: %@: Transient assertion connection invalidated", v7, 0xCu);
+        *v8 = 138412290;
+        *&v8[4] = objc_opt_class();
+        v7 = *&v8[4];
+        _os_log_impl(&dword_25B300000, v6, OS_LOG_TYPE_DEFAULT, "Notice: %@: Transient assertion connection invalidated", v8, 0xCu);
       }
     }
 
-    [WeakRetained _handleInvalidation];
-    [WeakRetained setXpcConnection:0];
+    [v2 _handleInvalidation];
+    [v2 setXpcConnection:0];
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dealloc
@@ -129,90 +127,88 @@ void __39__NPKTransientAssertion_initWithQueue___block_invoke_120(uint64_t a1)
 {
   location[3] = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
+  v5 = handlerCopy;
   if (self->_xpcConnection)
   {
     objc_initWeak(location, self);
     xpcConnection = self->_xpcConnection;
-    v16[0] = MEMORY[0x277D85DD0];
-    v16[1] = 3221225472;
-    v16[2] = __60__NPKTransientAssertion__remoteObjectProxyWithErrorHandler___block_invoke;
-    v16[3] = &unk_279945A70;
-    objc_copyWeak(&v18, location);
-    v17 = handlerCopy;
-    v6 = [(NSXPCConnection *)xpcConnection remoteObjectProxyWithErrorHandler:v16];
+    v17[0] = MEMORY[0x277D85DD0];
+    v17[1] = 3221225472;
+    v17[2] = __60__NPKTransientAssertion__remoteObjectProxyWithErrorHandler___block_invoke;
+    v17[3] = &unk_279945A70;
+    objc_copyWeak(&v19, location);
+    v18 = v5;
+    v7 = [(NSXPCConnection *)xpcConnection remoteObjectProxyWithErrorHandler:v17];
 
-    objc_destroyWeak(&v18);
+    objc_destroyWeak(&v19);
     objc_destroyWeak(location);
   }
 
   else
   {
-    v7 = pk_Payment_log();
-    v8 = os_log_type_enabled(v7, OS_LOG_TYPE_ERROR);
+    v8 = pk_Payment_log(handlerCopy);
+    v9 = os_log_type_enabled(v8, OS_LOG_TYPE_ERROR);
 
-    if (v8)
+    if (v9)
     {
-      v9 = pk_Payment_log();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v11 = pk_Payment_log(v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         LODWORD(location[0]) = 138412290;
         *(location + 4) = objc_opt_class();
-        v10 = *(location + 4);
-        _os_log_impl(&dword_25B300000, v9, OS_LOG_TYPE_ERROR, "Error: %@: XPC connection is nil", location, 0xCu);
+        v12 = *(location + 4);
+        _os_log_impl(&dword_25B300000, v11, OS_LOG_TYPE_ERROR, "Error: %@: XPC connection is nil", location, 0xCu);
       }
     }
 
-    if (handlerCopy)
+    if (v5)
     {
-      v11 = MEMORY[0x277CCA9B8];
-      v19 = *MEMORY[0x277CCA450];
-      v20 = @"XPC connection is nil";
-      v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v20 forKeys:&v19 count:1];
-      v13 = [v11 errorWithDomain:@"com.apple.NPKErrorDomain" code:-1000 userInfo:v12];
+      v13 = MEMORY[0x277CCA9B8];
+      v20 = *MEMORY[0x277CCA450];
+      v21 = @"XPC connection is nil";
+      v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v21 forKeys:&v20 count:1];
+      v15 = [v13 errorWithDomain:@"com.apple.NPKErrorDomain" code:-1000 userInfo:v14];
 
-      (*(handlerCopy + 2))(handlerCopy, v13);
+      (v5)[2](v5, v15);
     }
 
-    v6 = 0;
+    v7 = 0;
   }
 
-  v14 = *MEMORY[0x277D85DE8];
-
-  return v6;
+  return v7;
 }
 
 void __60__NPKTransientAssertion__remoteObjectProxyWithErrorHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
+  v5 = WeakRetained;
   if (WeakRetained)
   {
-    v5 = pk_Payment_log();
-    v6 = os_log_type_enabled(v5, OS_LOG_TYPE_ERROR);
+    v6 = pk_Payment_log(WeakRetained);
+    v7 = os_log_type_enabled(v6, OS_LOG_TYPE_ERROR);
 
-    if (v6)
+    if (v7)
     {
-      v7 = pk_Payment_log();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      v9 = pk_Payment_log(v8);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
-        v11 = 138412546;
-        v12 = objc_opt_class();
-        v13 = 2112;
-        v14 = v3;
-        v8 = v12;
-        _os_log_impl(&dword_25B300000, v7, OS_LOG_TYPE_ERROR, "Error: %@: Couldn't get remote object proxy. Error: %@", &v11, 0x16u);
+        v12 = 138412546;
+        v13 = objc_opt_class();
+        v14 = 2112;
+        v15 = v3;
+        v10 = v13;
+        _os_log_impl(&dword_25B300000, v9, OS_LOG_TYPE_ERROR, "Error: %@: Couldn't get remote object proxy. Error: %@", &v12, 0x16u);
       }
     }
   }
 
-  v9 = *(a1 + 32);
-  if (v9)
+  v11 = *(a1 + 32);
+  if (v11)
   {
-    (*(v9 + 16))(v9, v3);
+    (*(v11 + 16))(v11, v3);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)invalidate
@@ -230,121 +226,109 @@ void __60__NPKTransientAssertion__remoteObjectProxyWithErrorHandler___block_invo
 - (void)handleDelegatedDoublePressEventWithSource:(unint64_t)source
 {
   v9 = *MEMORY[0x277D85DE8];
-  v3 = pk_Payment_log();
+  v3 = pk_Payment_log(self);
   v4 = os_log_type_enabled(v3, OS_LOG_TYPE_ERROR);
 
   if (v4)
   {
-    v5 = pk_Payment_log();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = pk_Payment_log(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       v7 = 136315138;
       v8 = "[NPKTransientAssertion handleDelegatedDoublePressEventWithSource:]";
-      _os_log_impl(&dword_25B300000, v5, OS_LOG_TYPE_ERROR, "Error: Subclasses to implement %s", &v7, 0xCu);
+      _os_log_impl(&dword_25B300000, v6, OS_LOG_TYPE_ERROR, "Error: Subclasses to implement %s", &v7, 0xCu);
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleTerminalAuthenticationRequestedForPassWithUniqueID:(id)d
 {
   v9 = *MEMORY[0x277D85DE8];
-  v3 = pk_Payment_log();
+  v3 = pk_Payment_log(self);
   v4 = os_log_type_enabled(v3, OS_LOG_TYPE_ERROR);
 
   if (v4)
   {
-    v5 = pk_Payment_log();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = pk_Payment_log(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       v7 = 136315138;
       v8 = "[NPKTransientAssertion handleTerminalAuthenticationRequestedForPassWithUniqueID:]";
-      _os_log_impl(&dword_25B300000, v5, OS_LOG_TYPE_ERROR, "Error: Subclasses to implement %s", &v7, 0xCu);
+      _os_log_impl(&dword_25B300000, v6, OS_LOG_TYPE_ERROR, "Error: Subclasses to implement %s", &v7, 0xCu);
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didEnterFieldForPassesWithUniqueIDs:(id)ds
 {
   v9 = *MEMORY[0x277D85DE8];
-  v3 = pk_Payment_log();
+  v3 = pk_Payment_log(self);
   v4 = os_log_type_enabled(v3, OS_LOG_TYPE_ERROR);
 
   if (v4)
   {
-    v5 = pk_Payment_log();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = pk_Payment_log(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       v7 = 136315138;
       v8 = "[NPKTransientAssertion didEnterFieldForPassesWithUniqueIDs:]";
-      _os_log_impl(&dword_25B300000, v5, OS_LOG_TYPE_ERROR, "Error: Subclasses to implement %s", &v7, 0xCu);
+      _os_log_impl(&dword_25B300000, v6, OS_LOG_TYPE_ERROR, "Error: Subclasses to implement %s", &v7, 0xCu);
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_resyncState
 {
   v8 = *MEMORY[0x277D85DE8];
-  v2 = pk_Payment_log();
+  v2 = pk_Payment_log(self);
   v3 = os_log_type_enabled(v2, OS_LOG_TYPE_ERROR);
 
   if (v3)
   {
-    v4 = pk_Payment_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = pk_Payment_log(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       v6 = 136315138;
       v7 = "[NPKTransientAssertion _resyncState]";
-      _os_log_impl(&dword_25B300000, v4, OS_LOG_TYPE_ERROR, "Error: Subclasses to implement %s", &v6, 0xCu);
+      _os_log_impl(&dword_25B300000, v5, OS_LOG_TYPE_ERROR, "Error: Subclasses to implement %s", &v6, 0xCu);
     }
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleInterruption
 {
   v8 = *MEMORY[0x277D85DE8];
-  v2 = pk_Payment_log();
+  v2 = pk_Payment_log(self);
   v3 = os_log_type_enabled(v2, OS_LOG_TYPE_ERROR);
 
   if (v3)
   {
-    v4 = pk_Payment_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = pk_Payment_log(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       v6 = 136315138;
       v7 = "[NPKTransientAssertion _handleInterruption]";
-      _os_log_impl(&dword_25B300000, v4, OS_LOG_TYPE_ERROR, "Error: Subclasses to implement %s", &v6, 0xCu);
+      _os_log_impl(&dword_25B300000, v5, OS_LOG_TYPE_ERROR, "Error: Subclasses to implement %s", &v6, 0xCu);
     }
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleInvalidation
 {
   v8 = *MEMORY[0x277D85DE8];
-  v2 = pk_Payment_log();
+  v2 = pk_Payment_log(self);
   v3 = os_log_type_enabled(v2, OS_LOG_TYPE_ERROR);
 
   if (v3)
   {
-    v4 = pk_Payment_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = pk_Payment_log(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       v6 = 136315138;
       v7 = "[NPKTransientAssertion _handleInvalidation]";
-      _os_log_impl(&dword_25B300000, v4, OS_LOG_TYPE_ERROR, "Error: Subclasses to implement %s", &v6, 0xCu);
+      _os_log_impl(&dword_25B300000, v5, OS_LOG_TYPE_ERROR, "Error: Subclasses to implement %s", &v6, 0xCu);
     }
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

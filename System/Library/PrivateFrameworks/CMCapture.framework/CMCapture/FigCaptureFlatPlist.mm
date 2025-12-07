@@ -53,13 +53,13 @@
       if (v2)
       {
         v4 = a2;
-        *(v2 + 1) = v4;
+        v2[1] = v4;
         if (!v4)
         {
           [FigCaptureFlatPlist initWithMutableData:];
         }
 
-        FigCaptureBinaryPlistInitialize(v2 + 16, [v4 mutableBytes], objc_msgSend(*(v2 + 1), "length"));
+        FigCaptureBinaryPlistInitialize((v2 + 2), [v4 mutableBytes], objc_msgSend(v2[1], "length"));
       }
     }
   }

@@ -168,7 +168,7 @@
 
         v33 = *(*(&v88 + 1) + 8 * j);
         interfaceElementIdentifier2 = [v33 interfaceElementIdentifier];
-        if (([v75 containsObject:interfaceElementIdentifier2] & 1) == 0)
+        if ((objc_msgSend_containsObject_(v75) & 1) == 0)
         {
           if (v30)
           {

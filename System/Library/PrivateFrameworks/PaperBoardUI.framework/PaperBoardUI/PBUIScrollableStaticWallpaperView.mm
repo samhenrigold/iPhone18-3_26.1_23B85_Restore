@@ -114,160 +114,160 @@
 {
   y = offset.y;
   x = offset.x;
-  v45 = *MEMORY[0x277D85DE8];
-  v8 = PBUILogCommon();
+  v57 = *MEMORY[0x277D85DE8];
+  v8 = PBUILogCommon(self);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
     _os_log_impl(&dword_21E67D000, v8, OS_LOG_TYPE_INFO, "//////////_parallaxFactorWithZoomScale//////////", buf, 2u);
   }
 
-  v9 = PBUILogCommon();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+  v10 = PBUILogCommon(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
     *buf = 134217984;
     scaleCopy = scale;
-    _os_log_impl(&dword_21E67D000, v9, OS_LOG_TYPE_INFO, "zoomScale %g", buf, 0xCu);
+    _os_log_impl(&dword_21E67D000, v10, OS_LOG_TYPE_INFO, "zoomScale %g", buf, 0xCu);
   }
 
-  v10 = PBUILogCommon();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+  v12 = PBUILogCommon(v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
   {
     minimumZoomScale = self->_minimumZoomScale;
     *buf = 134217984;
     scaleCopy = minimumZoomScale;
-    _os_log_impl(&dword_21E67D000, v10, OS_LOG_TYPE_INFO, "minimumZoomScale %g", buf, 0xCu);
+    _os_log_impl(&dword_21E67D000, v12, OS_LOG_TYPE_INFO, "minimumZoomScale %g", buf, 0xCu);
   }
 
-  v12 = PBUILogCommon();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+  v15 = PBUILogCommon(v14);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
   {
     minimumZoomScaleForParallax = self->_minimumZoomScaleForParallax;
     *buf = 134217984;
     scaleCopy = minimumZoomScaleForParallax;
-    _os_log_impl(&dword_21E67D000, v12, OS_LOG_TYPE_INFO, "minimumZoomScaleForParallax %g", buf, 0xCu);
+    _os_log_impl(&dword_21E67D000, v15, OS_LOG_TYPE_INFO, "minimumZoomScaleForParallax %g", buf, 0xCu);
   }
 
-  v14 = fmin(fmax((scale - self->_minimumZoomScale) / (self->_minimumZoomScaleForParallax - self->_minimumZoomScale), 0.0), 1.0);
-  v15 = PBUILogCommon();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+  v17 = fmin(fmax((scale - self->_minimumZoomScale) / (self->_minimumZoomScaleForParallax - self->_minimumZoomScale), 0.0), 1.0);
+  v19 = PBUILogCommon(v18);
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
   {
     *buf = 134217984;
-    scaleCopy = v14;
-    _os_log_impl(&dword_21E67D000, v15, OS_LOG_TYPE_INFO, "zoomFactor %g", buf, 0xCu);
+    scaleCopy = v17;
+    _os_log_impl(&dword_21E67D000, v19, OS_LOG_TYPE_INFO, "zoomFactor %g", buf, 0xCu);
   }
 
-  v42 = v14;
+  v54 = v17;
 
-  [(PBUIScrollableStaticWallpaperView *)self _minimumContentOffsetForOverhang];
-  v17 = v16;
-  v19 = v18;
-  v20 = PBUILogCommon();
-  if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
+  _minimumContentOffsetForOverhang = [(PBUIScrollableStaticWallpaperView *)self _minimumContentOffsetForOverhang];
+  v22 = v21;
+  v24 = v23;
+  v25 = PBUILogCommon(_minimumContentOffsetForOverhang);
+  if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
   {
-    v46.x = v17;
-    v46.y = v19;
-    NSStringFromCGPoint(v46);
-    v21 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
+    v58.x = v22;
+    v58.y = v24;
+    NSStringFromCGPoint(v58);
+    v26 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
     *buf = 138543362;
-    scaleCopy = v21;
-    _os_log_impl(&dword_21E67D000, v20, OS_LOG_TYPE_INFO, "minOffset %{public}@", buf, 0xCu);
+    scaleCopy = v26;
+    _os_log_impl(&dword_21E67D000, v25, OS_LOG_TYPE_INFO, "minOffset %{public}@", buf, 0xCu);
   }
 
-  [(PBUIScrollableStaticWallpaperView *)self _maximumContentOffsetForOverhang];
-  v23 = v22;
-  v25 = v24;
-  v26 = PBUILogCommon();
-  if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
+  _maximumContentOffsetForOverhang = [(PBUIScrollableStaticWallpaperView *)self _maximumContentOffsetForOverhang];
+  v29 = v28;
+  v31 = v30;
+  v32 = PBUILogCommon(_maximumContentOffsetForOverhang);
+  if (os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
   {
-    v47.x = v23;
-    v47.y = v25;
-    NSStringFromCGPoint(v47);
-    v27 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
+    v59.x = v29;
+    v59.y = v31;
+    NSStringFromCGPoint(v59);
+    v33 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
     *buf = 138543362;
-    scaleCopy = v27;
-    _os_log_impl(&dword_21E67D000, v26, OS_LOG_TYPE_INFO, "maxOffset %{public}@", buf, 0xCu);
+    scaleCopy = v33;
+    _os_log_impl(&dword_21E67D000, v32, OS_LOG_TYPE_INFO, "maxOffset %{public}@", buf, 0xCu);
   }
 
-  v28 = PBUILogCommon();
-  if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
+  v35 = PBUILogCommon(v34);
+  if (os_log_type_enabled(v35, OS_LOG_TYPE_INFO))
   {
     *buf = 134217984;
-    scaleCopy = x / v17;
-    _os_log_impl(&dword_21E67D000, v28, OS_LOG_TYPE_INFO, "minOffsetXFactor %g", buf, 0xCu);
+    scaleCopy = x / v22;
+    _os_log_impl(&dword_21E67D000, v35, OS_LOG_TYPE_INFO, "minOffsetXFactor %g", buf, 0xCu);
   }
 
-  v29 = y;
-  v30 = y / v19;
-  v31 = PBUILogCommon();
-  if (os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
+  v36 = y;
+  v37 = y / v24;
+  v39 = PBUILogCommon(v38);
+  if (os_log_type_enabled(v39, OS_LOG_TYPE_INFO))
   {
     *buf = 134217984;
-    scaleCopy = v30;
-    _os_log_impl(&dword_21E67D000, v31, OS_LOG_TYPE_INFO, "minOffsetYFactor %g", buf, 0xCu);
+    scaleCopy = v37;
+    _os_log_impl(&dword_21E67D000, v39, OS_LOG_TYPE_INFO, "minOffsetYFactor %g", buf, 0xCu);
   }
 
-  if (x / v17 >= v30)
+  if (x / v22 >= v37)
   {
-    v32 = v30;
+    v41 = v37;
   }
 
   else
   {
-    v32 = x / v17;
+    v41 = x / v22;
   }
 
-  v33 = fmin(fmax(v32, 0.0), 1.0);
-  v34 = PBUILogCommon();
-  if (os_log_type_enabled(v34, OS_LOG_TYPE_INFO))
+  v42 = fmin(fmax(v41, 0.0), 1.0);
+  v43 = PBUILogCommon(v40);
+  if (os_log_type_enabled(v43, OS_LOG_TYPE_INFO))
   {
     *buf = 134217984;
-    scaleCopy = v33;
-    _os_log_impl(&dword_21E67D000, v34, OS_LOG_TYPE_INFO, "minOffsetFactor %g", buf, 0xCu);
+    scaleCopy = v42;
+    _os_log_impl(&dword_21E67D000, v43, OS_LOG_TYPE_INFO, "minOffsetFactor %g", buf, 0xCu);
   }
 
-  v35 = (v17 + v23 - x) / v17;
-  if (v35 >= (v19 + v25 - v29) / v19)
+  v45 = (v22 + v29 - x) / v22;
+  if (v45 >= (v24 + v31 - v36) / v24)
   {
-    v35 = (v19 + v25 - v29) / v19;
+    v45 = (v24 + v31 - v36) / v24;
   }
 
-  v36 = fmin(fmax(v35, 0.0), 1.0);
-  v37 = PBUILogCommon();
-  if (os_log_type_enabled(v37, OS_LOG_TYPE_INFO))
-  {
-    *buf = 134217984;
-    scaleCopy = v36;
-    _os_log_impl(&dword_21E67D000, v37, OS_LOG_TYPE_INFO, "maxOffsetFactor %g", buf, 0xCu);
-  }
-
-  v38 = v42;
-  if (v42 > v33)
-  {
-    v38 = v33;
-  }
-
-  if (v38 <= v36)
-  {
-    v36 = v38;
-  }
-
-  v39 = PBUILogCommon();
-  if (os_log_type_enabled(v39, OS_LOG_TYPE_INFO))
+  v46 = fmin(fmax(v45, 0.0), 1.0);
+  v47 = PBUILogCommon(v44);
+  if (os_log_type_enabled(v47, OS_LOG_TYPE_INFO))
   {
     *buf = 134217984;
-    scaleCopy = v36;
-    _os_log_impl(&dword_21E67D000, v39, OS_LOG_TYPE_INFO, "result: %g", buf, 0xCu);
+    scaleCopy = v46;
+    _os_log_impl(&dword_21E67D000, v47, OS_LOG_TYPE_INFO, "maxOffsetFactor %g", buf, 0xCu);
   }
 
-  v40 = PBUILogCommon();
-  if (os_log_type_enabled(v40, OS_LOG_TYPE_INFO))
+  v49 = v54;
+  if (v54 > v42)
+  {
+    v49 = v42;
+  }
+
+  if (v49 <= v46)
+  {
+    v46 = v49;
+  }
+
+  v50 = PBUILogCommon(v48);
+  if (os_log_type_enabled(v50, OS_LOG_TYPE_INFO))
+  {
+    *buf = 134217984;
+    scaleCopy = v46;
+    _os_log_impl(&dword_21E67D000, v50, OS_LOG_TYPE_INFO, "result: %g", buf, 0xCu);
+  }
+
+  v52 = PBUILogCommon(v51);
+  if (os_log_type_enabled(v52, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
-    _os_log_impl(&dword_21E67D000, v40, OS_LOG_TYPE_INFO, "/////////////////////////", buf, 2u);
+    _os_log_impl(&dword_21E67D000, v52, OS_LOG_TYPE_INFO, "/////////////////////////", buf, 2u);
   }
 
-  return v36;
+  return v46;
 }
 
 - (void)_resetColorBoxes
@@ -511,99 +511,99 @@ void __57__PBUIScrollableStaticWallpaperView__scrollViewDidUpdate__block_invoke_
 
 - (void)_updateScrollViewZoomScales
 {
-  v31 = *MEMORY[0x277D85DE8];
-  v3 = PBUILogCommon();
+  v37 = *MEMORY[0x277D85DE8];
+  v3 = PBUILogCommon(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
     _os_log_impl(&dword_21E67D000, v3, OS_LOG_TYPE_INFO, "//////////_updateScrollViewZoomScales//////////", buf, 2u);
   }
 
-  v28.receiver = self;
-  v28.super_class = PBUIScrollableStaticWallpaperView;
-  wallpaperImage = [(PBUIStaticWallpaperView *)&v28 wallpaperImage];
+  v34.receiver = self;
+  v34.super_class = PBUIScrollableStaticWallpaperView;
+  wallpaperImage = [(PBUIStaticWallpaperView *)&v34 wallpaperImage];
   [wallpaperImage size];
   v6 = v5;
   v8 = v7;
 
-  v9 = PBUILogCommon();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+  v10 = PBUILogCommon(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
-    v32.width = v6;
-    v32.height = v8;
-    v10 = NSStringFromCGSize(v32);
+    v38.width = v6;
+    v38.height = v8;
+    v11 = NSStringFromCGSize(v38);
     *buf = 138543362;
-    v30 = *&v10;
-    _os_log_impl(&dword_21E67D000, v9, OS_LOG_TYPE_INFO, "imageSize: %{public}@", buf, 0xCu);
+    v36 = *&v11;
+    _os_log_impl(&dword_21E67D000, v10, OS_LOG_TYPE_INFO, "imageSize: %{public}@", buf, 0xCu);
   }
 
   [(UIScrollView *)self->_scrollView bounds];
-  v13 = v12 / v6;
-  if (v12 / v6 < v11 / v8)
+  v14 = v13 / v6;
+  if (v13 / v6 < v12 / v8)
   {
-    v13 = v11 / v8;
+    v14 = v12 / v8;
   }
 
-  self->_minimumZoomScale = v13;
+  self->_minimumZoomScale = v14;
   [(UIScrollView *)self->_scrollView setMinimumZoomScale:?];
   [(UIScrollView *)self->_scrollView setMaximumZoomScale:fmax(self->_minimumZoomScale + self->_minimumZoomScale, 5.0)];
-  +[PBUIWallpaperParallaxSettings minimumWallpaperSizeForCurrentDevice];
-  v15 = v14;
+  v15 = +[PBUIWallpaperParallaxSettings minimumWallpaperSizeForCurrentDevice];
   v17 = v16;
-  v18 = PBUILogCommon();
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
+  v19 = v18;
+  v20 = PBUILogCommon(v15);
+  if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
   {
-    v33.width = v15;
-    v33.height = v17;
-    v19 = NSStringFromCGSize(v33);
+    v39.width = v17;
+    v39.height = v19;
+    v21 = NSStringFromCGSize(v39);
     *buf = 138543362;
-    v30 = *&v19;
-    _os_log_impl(&dword_21E67D000, v18, OS_LOG_TYPE_INFO, "parallaxSize: %{public}@", buf, 0xCu);
+    v36 = *&v21;
+    _os_log_impl(&dword_21E67D000, v20, OS_LOG_TYPE_INFO, "parallaxSize: %{public}@", buf, 0xCu);
   }
 
-  v20 = v15 / v6;
-  v21 = PBUILogCommon();
-  if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
+  v22 = v17 / v6;
+  v24 = PBUILogCommon(v23);
+  if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
   {
     *buf = 134217984;
-    v30 = v20;
-    _os_log_impl(&dword_21E67D000, v21, OS_LOG_TYPE_INFO, "scaleX: %g", buf, 0xCu);
+    v36 = v22;
+    _os_log_impl(&dword_21E67D000, v24, OS_LOG_TYPE_INFO, "scaleX: %g", buf, 0xCu);
   }
 
-  v22 = v17 / v8;
-  v23 = PBUILogCommon();
-  if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
+  v25 = v19 / v8;
+  v27 = PBUILogCommon(v26);
+  if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
   {
     *buf = 134217984;
-    v30 = v22;
-    _os_log_impl(&dword_21E67D000, v23, OS_LOG_TYPE_INFO, "scaleY: %g", buf, 0xCu);
+    v36 = v25;
+    _os_log_impl(&dword_21E67D000, v27, OS_LOG_TYPE_INFO, "scaleY: %g", buf, 0xCu);
   }
 
-  if (v20 >= v22)
+  if (v22 >= v25)
   {
-    v24 = v20;
+    v29 = v22;
   }
 
   else
   {
-    v24 = v22;
+    v29 = v25;
   }
 
-  self->_minimumZoomScaleForParallax = v24;
-  v25 = PBUILogCommon();
-  if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
+  self->_minimumZoomScaleForParallax = v29;
+  v30 = PBUILogCommon(v28);
+  if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
   {
     minimumZoomScaleForParallax = self->_minimumZoomScaleForParallax;
     *buf = 134217984;
-    v30 = minimumZoomScaleForParallax;
-    _os_log_impl(&dword_21E67D000, v25, OS_LOG_TYPE_INFO, "minimumZoomScaleForParallax: %g", buf, 0xCu);
+    v36 = minimumZoomScaleForParallax;
+    _os_log_impl(&dword_21E67D000, v30, OS_LOG_TYPE_INFO, "minimumZoomScaleForParallax: %g", buf, 0xCu);
   }
 
-  v27 = PBUILogCommon();
-  if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
+  v33 = PBUILogCommon(v32);
+  if (os_log_type_enabled(v33, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
-    _os_log_impl(&dword_21E67D000, v27, OS_LOG_TYPE_INFO, "/////////////////////////", buf, 2u);
+    _os_log_impl(&dword_21E67D000, v33, OS_LOG_TYPE_INFO, "/////////////////////////", buf, 2u);
   }
 }
 
@@ -702,252 +702,252 @@ void __57__PBUIScrollableStaticWallpaperView__scrollViewDidUpdate__block_invoke_
 
 - (CGRect)_cropRect
 {
-  v59 = *MEMORY[0x277D85DE8];
-  v3 = PBUILogCommon();
+  v67 = *MEMORY[0x277D85DE8];
+  v3 = PBUILogCommon(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     LOWORD(buf.a) = 0;
     _os_log_impl(&dword_21E67D000, v3, OS_LOG_TYPE_INFO, "//////////_cropRect//////////", &buf, 2u);
   }
 
-  [(UIScrollView *)self->_scrollView bounds];
-  v5 = v4;
-  v7 = v6;
-  v9 = v8;
-  v11 = v10;
-  v12 = PBUILogCommon();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+  bounds = [(UIScrollView *)self->_scrollView bounds];
+  v6 = v5;
+  v8 = v7;
+  v10 = v9;
+  v12 = v11;
+  v13 = PBUILogCommon(bounds);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
   {
-    v62.origin.x = v5;
-    v62.origin.y = v7;
-    v62.size.width = v9;
-    v62.size.height = v11;
-    v13 = NSStringFromCGRect(v62);
+    v70.origin.x = v6;
+    v70.origin.y = v8;
+    v70.size.width = v10;
+    v70.size.height = v12;
+    v14 = NSStringFromCGRect(v70);
     LODWORD(buf.a) = 138543362;
-    *(&buf.a + 4) = v13;
-    _os_log_impl(&dword_21E67D000, v12, OS_LOG_TYPE_INFO, "zoomedRect: %{public}@", &buf, 0xCu);
+    *(&buf.a + 4) = v14;
+    _os_log_impl(&dword_21E67D000, v13, OS_LOG_TYPE_INFO, "zoomedRect: %{public}@", &buf, 0xCu);
   }
 
-  [(UIScrollView *)self->_scrollView zoomScale];
-  v15 = v14;
-  v16 = PBUILogCommon();
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
+  zoomScale = [(UIScrollView *)self->_scrollView zoomScale];
+  v17 = v16;
+  v18 = PBUILogCommon(zoomScale);
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
   {
     LODWORD(buf.a) = 134217984;
-    *(&buf.a + 4) = v15;
-    _os_log_impl(&dword_21E67D000, v16, OS_LOG_TYPE_INFO, "zoomScale: %g", &buf, 0xCu);
+    *(&buf.a + 4) = v17;
+    _os_log_impl(&dword_21E67D000, v18, OS_LOG_TYPE_INFO, "zoomScale: %g", &buf, 0xCu);
   }
 
-  v57.receiver = self;
-  v57.super_class = PBUIScrollableStaticWallpaperView;
-  wallpaperImage = [(PBUIStaticWallpaperView *)&v57 wallpaperImage];
-  v18 = wallpaperImage;
-  if (v15 == 0.0 || wallpaperImage == 0)
+  v65.receiver = self;
+  v65.super_class = PBUIScrollableStaticWallpaperView;
+  wallpaperImage = [(PBUIStaticWallpaperView *)&v65 wallpaperImage];
+  v20 = wallpaperImage;
+  if (v17 == 0.0 || wallpaperImage == 0)
   {
-    v20 = *MEMORY[0x277CBF3A0];
-    v21 = *(MEMORY[0x277CBF3A0] + 8);
-    v22 = *(MEMORY[0x277CBF3A0] + 16);
-    v23 = *(MEMORY[0x277CBF3A0] + 24);
+    v22 = *MEMORY[0x277CBF3A0];
+    v23 = *(MEMORY[0x277CBF3A0] + 8);
+    v24 = *(MEMORY[0x277CBF3A0] + 16);
+    v25 = *(MEMORY[0x277CBF3A0] + 24);
   }
 
   else
   {
-    [wallpaperImage size];
-    v25 = v15 * v24;
-    v27 = v15 * v26;
-    v28 = PBUILogCommon();
-    if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
+    v26 = [wallpaperImage size];
+    v28 = v17 * v27;
+    v30 = v17 * v29;
+    v31 = PBUILogCommon(v26);
+    if (os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
     {
-      v60.width = v25;
-      v60.height = v27;
-      v30 = NSStringFromCGSize(v60);
+      v68.width = v28;
+      v68.height = v30;
+      v33 = NSStringFromCGSize(v68);
       LODWORD(buf.a) = 138543362;
-      *(&buf.a + 4) = v30;
-      _os_log_impl(&dword_21E67D000, v28, OS_LOG_TYPE_INFO, "scaledImageSize: %{public}@", &buf, 0xCu);
+      *(&buf.a + 4) = v33;
+      _os_log_impl(&dword_21E67D000, v31, OS_LOG_TYPE_INFO, "scaledImageSize: %{public}@", &buf, 0xCu);
     }
 
-    v56 = v27;
+    v64 = v30;
 
-    v31 = 0.0;
+    v34 = 0.0;
     if ([(PBUIWallpaperView *)self parallaxEnabled])
     {
       [(PBUIScrollableStaticWallpaperView *)self parallaxFactor];
-      v31 = v32;
+      v34 = v35;
     }
 
-    [PBUIWallpaperParallaxSettings bestWallpaperSizeForParallaxFactor:v31];
-    v34 = v33;
-    v36 = v35;
-    v37 = PBUILogCommon();
-    if (os_log_type_enabled(v37, OS_LOG_TYPE_INFO))
+    v36 = [PBUIWallpaperParallaxSettings bestWallpaperSizeForParallaxFactor:v34];
+    v38 = v37;
+    v40 = v39;
+    v41 = PBUILogCommon(v36);
+    if (os_log_type_enabled(v41, OS_LOG_TYPE_INFO))
     {
       LODWORD(buf.a) = 134217984;
-      *(&buf.a + 4) = v31;
-      _os_log_impl(&dword_21E67D000, v37, OS_LOG_TYPE_INFO, "parallaxFactor: %g", &buf, 0xCu);
+      *(&buf.a + 4) = v34;
+      _os_log_impl(&dword_21E67D000, v41, OS_LOG_TYPE_INFO, "parallaxFactor: %g", &buf, 0xCu);
     }
 
-    v38 = PBUILogCommon();
-    if (os_log_type_enabled(v38, OS_LOG_TYPE_INFO))
+    v43 = PBUILogCommon(v42);
+    if (os_log_type_enabled(v43, OS_LOG_TYPE_INFO))
     {
-      v61.width = v34;
-      v61.height = v36;
-      v39 = NSStringFromCGSize(v61);
+      v69.width = v38;
+      v69.height = v40;
+      v44 = NSStringFromCGSize(v69);
       LODWORD(buf.a) = 138543362;
-      *(&buf.a + 4) = v39;
-      _os_log_impl(&dword_21E67D000, v38, OS_LOG_TYPE_INFO, "bestSize: %{public}@", &buf, 0xCu);
+      *(&buf.a + 4) = v44;
+      _os_log_impl(&dword_21E67D000, v43, OS_LOG_TYPE_INFO, "bestSize: %{public}@", &buf, 0xCu);
     }
 
-    v40 = (v34 - v9) * 0.5;
-    v41 = (v36 - v11) * 0.5;
-    if (v40 >= v5)
+    v46 = (v38 - v10) * 0.5;
+    v47 = (v40 - v12) * 0.5;
+    if (v46 >= v6)
     {
-      v40 = v5;
+      v46 = v6;
     }
 
-    if (v40 >= v25 - (v5 + v9))
+    if (v46 >= v28 - (v6 + v10))
     {
-      v40 = v25 - (v5 + v9);
+      v46 = v28 - (v6 + v10);
     }
 
-    if (v41 >= v7)
+    if (v47 >= v8)
     {
-      v41 = v7;
+      v47 = v8;
     }
 
-    if (v41 >= v56 - (v7 + v11))
+    if (v47 >= v64 - (v8 + v12))
     {
-      v41 = v56 - (v7 + v11);
+      v47 = v64 - (v8 + v12);
     }
 
-    if (v40 >= 0.0)
+    if (v46 >= 0.0)
     {
-      v42 = v40;
-    }
-
-    else
-    {
-      v42 = 0.0;
-    }
-
-    if (v41 >= 0.0)
-    {
-      v43 = v41;
+      v48 = v46;
     }
 
     else
     {
-      v43 = 0.0;
+      v48 = 0.0;
     }
 
-    v44 = PBUILogCommon();
-    if (os_log_type_enabled(v44, OS_LOG_TYPE_INFO))
+    if (v47 >= 0.0)
     {
-      LODWORD(buf.a) = 134217984;
-      *(&buf.a + 4) = v42;
-      _os_log_impl(&dword_21E67D000, v44, OS_LOG_TYPE_INFO, "extraX: %g", &buf, 0xCu);
+      v49 = v47;
     }
 
-    v45 = PBUILogCommon();
-    if (os_log_type_enabled(v45, OS_LOG_TYPE_INFO))
+    else
+    {
+      v49 = 0.0;
+    }
+
+    v50 = PBUILogCommon(v45);
+    if (os_log_type_enabled(v50, OS_LOG_TYPE_INFO))
     {
       LODWORD(buf.a) = 134217984;
-      *(&buf.a + 4) = v43;
-      _os_log_impl(&dword_21E67D000, v45, OS_LOG_TYPE_INFO, "extraY: %g", &buf, 0xCu);
+      *(&buf.a + 4) = v48;
+      _os_log_impl(&dword_21E67D000, v50, OS_LOG_TYPE_INFO, "extraX: %g", &buf, 0xCu);
+    }
+
+    v52 = PBUILogCommon(v51);
+    if (os_log_type_enabled(v52, OS_LOG_TYPE_INFO))
+    {
+      LODWORD(buf.a) = 134217984;
+      *(&buf.a + 4) = v49;
+      _os_log_impl(&dword_21E67D000, v52, OS_LOG_TYPE_INFO, "extraY: %g", &buf, 0xCu);
     }
 
     [(PBUIWallpaperView *)self contentScaleFactor];
-    CGAffineTransformMakeScale(&buf, 1.0 / v46, 1.0 / v46);
-    v63.origin.x = v5 - v42;
-    v63.origin.y = v7 - v43;
-    v63.size.width = v9 + v42 * 2.0;
-    v63.size.height = v11 + v43 * 2.0;
-    CGRectApplyAffineTransform(v63, &buf);
-    v47 = PBUILogCommon();
-    if (os_log_type_enabled(v47, OS_LOG_TYPE_INFO))
+    CGAffineTransformMakeScale(&buf, 1.0 / v53, 1.0 / v53);
+    v71.origin.x = v6 - v48;
+    v71.origin.y = v8 - v49;
+    v71.size.width = v10 + v48 * 2.0;
+    v71.size.height = v12 + v49 * 2.0;
+    CGRectApplyAffineTransform(v71, &buf);
+    v55 = PBUILogCommon(v54);
+    if (os_log_type_enabled(v55, OS_LOG_TYPE_INFO))
     {
       LOWORD(buf.a) = 0;
-      _os_log_impl(&dword_21E67D000, v47, OS_LOG_TYPE_INFO, "/////////////////////////", &buf, 2u);
+      _os_log_impl(&dword_21E67D000, v55, OS_LOG_TYPE_INFO, "/////////////////////////", &buf, 2u);
     }
 
     UIRectCenteredIntegralRect();
-    v20 = v48;
-    v21 = v49;
-    v22 = v50;
-    v23 = v51;
+    v22 = v56;
+    v23 = v57;
+    v24 = v58;
+    v25 = v59;
   }
 
-  v52 = v20;
-  v53 = v21;
-  v54 = v22;
-  v55 = v23;
-  result.size.height = v55;
-  result.size.width = v54;
-  result.origin.y = v53;
-  result.origin.x = v52;
+  v60 = v22;
+  v61 = v23;
+  v62 = v24;
+  v63 = v25;
+  result.size.height = v63;
+  result.size.width = v62;
+  result.origin.y = v61;
+  result.origin.x = v60;
   return result;
 }
 
 - (CGRect)cropRect
 {
-  v31 = *MEMORY[0x277D85DE8];
-  v3 = PBUILogCommon();
+  v34 = *MEMORY[0x277D85DE8];
+  v3 = PBUILogCommon(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
-    LOWORD(v29) = 0;
-    _os_log_impl(&dword_21E67D000, v3, OS_LOG_TYPE_INFO, "//////////cropRect//////////", &v29, 2u);
+    LOWORD(v32) = 0;
+    _os_log_impl(&dword_21E67D000, v3, OS_LOG_TYPE_INFO, "//////////cropRect//////////", &v32, 2u);
   }
 
-  [(PBUIScrollableStaticWallpaperView *)self _cropRect];
-  v5 = v4;
-  v7 = v6;
-  v9 = v8;
-  v11 = v10;
-  v12 = PBUILogCommon();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+  _cropRect = [(PBUIScrollableStaticWallpaperView *)self _cropRect];
+  v6 = v5;
+  v8 = v7;
+  v10 = v9;
+  v12 = v11;
+  v13 = PBUILogCommon(_cropRect);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
   {
-    v32.origin.x = v5;
-    v32.origin.y = v7;
-    v32.size.width = v9;
-    v32.size.height = v11;
-    v13 = NSStringFromCGRect(v32);
-    v29 = 138543362;
-    v30 = v13;
-    _os_log_impl(&dword_21E67D000, v12, OS_LOG_TYPE_INFO, "pre crop rect: %{public}@", &v29, 0xCu);
+    v35.origin.x = v6;
+    v35.origin.y = v8;
+    v35.size.width = v10;
+    v35.size.height = v12;
+    v14 = NSStringFromCGRect(v35);
+    v32 = 138543362;
+    v33 = v14;
+    _os_log_impl(&dword_21E67D000, v13, OS_LOG_TYPE_INFO, "pre crop rect: %{public}@", &v32, 0xCu);
   }
 
-  [(UIScrollView *)self->_scrollView convertRect:self->_imageView toView:v5, v7, v9, v11];
-  v15 = v14;
+  v15 = [(UIScrollView *)self->_scrollView convertRect:self->_imageView toView:v6, v8, v10, v12];
   v17 = v16;
   v19 = v18;
   v21 = v20;
-  v22 = PBUILogCommon();
-  if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
-  {
-    v33.origin.x = v15;
-    v33.origin.y = v17;
-    v33.size.width = v19;
-    v33.size.height = v21;
-    v23 = NSStringFromCGRect(v33);
-    v29 = 138543362;
-    v30 = v23;
-    _os_log_impl(&dword_21E67D000, v22, OS_LOG_TYPE_INFO, "result crop rect: %{public}@", &v29, 0xCu);
-  }
-
-  v24 = PBUILogCommon();
+  v23 = v22;
+  v24 = PBUILogCommon(v15);
   if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
   {
-    LOWORD(v29) = 0;
-    _os_log_impl(&dword_21E67D000, v24, OS_LOG_TYPE_INFO, "/////////////////////////", &v29, 2u);
+    v36.origin.x = v17;
+    v36.origin.y = v19;
+    v36.size.width = v21;
+    v36.size.height = v23;
+    v25 = NSStringFromCGRect(v36);
+    v32 = 138543362;
+    v33 = v25;
+    _os_log_impl(&dword_21E67D000, v24, OS_LOG_TYPE_INFO, "result crop rect: %{public}@", &v32, 0xCu);
   }
 
-  v25 = v15;
-  v26 = v17;
-  v27 = v19;
-  v28 = v21;
-  result.size.height = v28;
-  result.size.width = v27;
-  result.origin.y = v26;
-  result.origin.x = v25;
+  v27 = PBUILogCommon(v26);
+  if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
+  {
+    LOWORD(v32) = 0;
+    _os_log_impl(&dword_21E67D000, v27, OS_LOG_TYPE_INFO, "/////////////////////////", &v32, 2u);
+  }
+
+  v28 = v17;
+  v29 = v19;
+  v30 = v21;
+  v31 = v23;
+  result.size.height = v31;
+  result.size.width = v30;
+  result.origin.y = v29;
+  result.origin.x = v28;
   return result;
 }
 

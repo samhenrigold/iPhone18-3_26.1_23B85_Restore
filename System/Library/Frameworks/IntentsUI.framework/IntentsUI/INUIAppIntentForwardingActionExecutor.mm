@@ -26,7 +26,7 @@
 
 - (void)executeAction:(id)action completionHandler:(id)handler
 {
-  v48[1] = *MEMORY[0x277D85DE8];
+  v47[1] = *MEMORY[0x277D85DE8];
   actionCopy = action;
   handlerCopy = handler;
   application = [(INUIAppIntentForwardingActionExecutor *)self application];
@@ -34,31 +34,31 @@
   intentForwardingAction = [actionCopy intentForwardingAction];
   if (intentForwardingAction && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
   {
-    v43 = 0;
-    v44 = &v43;
-    v45 = 0x2050000000;
+    v42 = 0;
+    v43 = &v42;
+    v44 = 0x2050000000;
     v11 = getWFOnScreenContentExtractorClass_softClass;
-    v46 = getWFOnScreenContentExtractorClass_softClass;
+    v45 = getWFOnScreenContentExtractorClass_softClass;
     if (!getWFOnScreenContentExtractorClass_softClass)
     {
-      v38 = MEMORY[0x277D85DD0];
-      v39 = 3221225472;
-      v40 = __getWFOnScreenContentExtractorClass_block_invoke;
-      v41 = &unk_27872BE58;
-      v42 = &v43;
-      __getWFOnScreenContentExtractorClass_block_invoke(&v38);
-      v11 = v44[3];
+      v37 = MEMORY[0x277D85DD0];
+      v38 = 3221225472;
+      v39 = __getWFOnScreenContentExtractorClass_block_invoke;
+      v40 = &unk_27872BE58;
+      v41 = &v42;
+      __getWFOnScreenContentExtractorClass_block_invoke(&v37);
+      v11 = v43[3];
     }
 
     v12 = v11;
-    _Block_object_dispose(&v43, 8);
+    _Block_object_dispose(&v42, 8);
     v13 = objc_alloc_init(v11);
-    v36[0] = MEMORY[0x277D85DD0];
-    v36[1] = 3221225472;
-    v36[2] = __73__INUIAppIntentForwardingActionExecutor_executeAction_completionHandler___block_invoke;
-    v36[3] = &unk_27872B960;
-    v37 = handlerCopy;
-    [v13 handleAction:intentForwardingAction completionHandler:v36];
+    v35[0] = MEMORY[0x277D85DD0];
+    v35[1] = 3221225472;
+    v35[2] = __73__INUIAppIntentForwardingActionExecutor_executeAction_completionHandler___block_invoke;
+    v35[3] = &unk_27872B960;
+    v36 = handlerCopy;
+    [v13 handleAction:intentForwardingAction completionHandler:v35];
   }
 
   else
@@ -68,46 +68,46 @@
     {
       intentForwardingAction2 = [actionCopy intentForwardingAction];
       v15 = [objc_alloc(MEMORY[0x277CD3A80]) initWithDelegate:self];
-      v34[0] = MEMORY[0x277D85DD0];
-      v34[1] = 3221225472;
-      v34[2] = __73__INUIAppIntentForwardingActionExecutor_executeAction_completionHandler___block_invoke_2;
-      v34[3] = &unk_27872B988;
-      v34[4] = self;
-      v35 = handlerCopy;
-      [v15 dispatchIntentForwardingAction:intentForwardingAction2 completionHandler:v34];
+      v33[0] = MEMORY[0x277D85DD0];
+      v33[1] = 3221225472;
+      v33[2] = __73__INUIAppIntentForwardingActionExecutor_executeAction_completionHandler___block_invoke_2;
+      v33[3] = &unk_27872B988;
+      v33[4] = self;
+      v34 = handlerCopy;
+      [v15 dispatchIntentForwardingAction:intentForwardingAction2 completionHandler:v33];
     }
 
     else if (objc_opt_respondsToSelector())
     {
-      v38 = 0;
-      v39 = &v38;
-      v40 = 0x2020000000;
-      LOBYTE(v41) = 0;
+      v37 = 0;
+      v38 = &v37;
+      v39 = 0x2020000000;
+      LOBYTE(v40) = 0;
       intentForwardingAction3 = [actionCopy intentForwardingAction];
       intent = [intentForwardingAction3 intent];
       v18 = INTypedIntentWithIntent();
 
-      v31[0] = MEMORY[0x277D85DD0];
-      v31[1] = 3221225472;
-      v31[2] = __73__INUIAppIntentForwardingActionExecutor_executeAction_completionHandler___block_invoke_3;
-      v31[3] = &unk_27872B9B0;
-      v33 = &v38;
-      v32 = handlerCopy;
-      [delegate application:application handleIntent:v18 completionHandler:v31];
+      v30[0] = MEMORY[0x277D85DD0];
+      v30[1] = 3221225472;
+      v30[2] = __73__INUIAppIntentForwardingActionExecutor_executeAction_completionHandler___block_invoke_3;
+      v30[3] = &unk_27872B9B0;
+      v32 = &v37;
+      v31 = handlerCopy;
+      [delegate application:application handleIntent:v18 completionHandler:v30];
 
-      _Block_object_dispose(&v38, 8);
+      _Block_object_dispose(&v37, 8);
     }
 
     else
     {
       v19 = MEMORY[0x277CCA9B8];
-      v47 = *MEMORY[0x277CCA068];
+      v46 = *MEMORY[0x277CCA068];
       v20 = MEMORY[0x277CCACA8];
       intentForwardingAction4 = [actionCopy intentForwardingAction];
       intent2 = [intentForwardingAction4 intent];
       v23 = [v20 stringWithFormat:@"Missing intent handler for %@", objc_opt_class()];
-      v48[0] = v23;
-      v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v48 forKeys:&v47 count:1];
+      v47[0] = v23;
+      v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v47 forKeys:&v46 count:1];
       v25 = [v19 errorWithDomain:*MEMORY[0x277CD3848] code:2003 userInfo:v24];
 
       intentForwardingAction5 = [actionCopy intentForwardingAction];
@@ -118,8 +118,6 @@
       (*(handlerCopy + 2))(handlerCopy, v29);
     }
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 void __73__INUIAppIntentForwardingActionExecutor_executeAction_completionHandler___block_invoke(uint64_t a1, void *a2)
@@ -138,15 +136,15 @@ void __73__INUIAppIntentForwardingActionExecutor_executeAction_completionHandler
   (*(v2 + 16))(v2, v3);
 }
 
-void __73__INUIAppIntentForwardingActionExecutor_executeAction_completionHandler___block_invoke_3(uint64_t a1)
+void __73__INUIAppIntentForwardingActionExecutor_executeAction_completionHandler___block_invoke_3(uint64_t a1, uint64_t a2)
 {
   *(*(*(a1 + 40) + 8) + 24) = 1;
-  v6 = INIntentResponseWithTypedIntentResponse();
-  v2 = *(a1 + 32);
-  v3 = MEMORY[0x277D75610];
-  v4 = [objc_alloc(MEMORY[0x277CD3CB8]) initWithIntentResponse:v6 launchContextActivityData:0 cacheItems:0 error:0];
-  v5 = [v3 responseWithIntentForwardingActionResponse:v4];
-  (*(v2 + 16))(v2, v5);
+  v7 = INIntentResponseWithTypedIntentResponse();
+  v3 = *(a1 + 32);
+  v4 = MEMORY[0x277D75610];
+  v5 = [objc_alloc(MEMORY[0x277CD3CB8]) initWithIntentResponse:v7 launchContextActivityData:0 cacheItems:0 error:0];
+  v6 = [v4 responseWithIntentForwardingActionResponse:v5];
+  (*(v3 + 16))(v3, v6);
 }
 
 - (INUIAppIntentForwardingActionExecutor)initWithApplication:(id)application

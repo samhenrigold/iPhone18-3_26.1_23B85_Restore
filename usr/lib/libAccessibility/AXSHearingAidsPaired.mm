@@ -3,7 +3,7 @@
 
 @implementation AXSHearingAidsPaired
 
-uint64_t ___AXSHearingAidsPaired_block_invoke()
+void *___AXSHearingAidsPaired_block_invoke()
 {
   if (!_processIsResponsibleForPreferenceObserving())
   {

@@ -2579,12 +2579,13 @@ LABEL_19:
 - (void)dispatchCommand:(id)command bypassGesturedInput:(BOOL)input
 {
   commandCopy = command;
-  if (input || ![(VOTEventFactory *)self->_eventFactory processEventAsGesturedTextInput:commandCopy])
+  if (input || (v6 = [(VOTEventFactory *)self->_eventFactory processEventAsGesturedTextInput:commandCopy], v7 = commandCopy, (v6 & 1) == 0))
   {
-    [(VOTElementManagementProtocol *)self->_elementManager handleEvent:commandCopy];
+    v6 = [(VOTElementManagementProtocol *)self->_elementManager handleEvent:commandCopy];
+    v7 = commandCopy;
   }
 
-  _objc_release_x1();
+  _objc_release_x1(v6, v7);
 }
 
 - (void)_postKeyboardEventWithCharacters:(id)characters originalCharacters:(id)originalCharacters modifiers:(id)modifiers keyCode:(id)code

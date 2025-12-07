@@ -9,7 +9,7 @@
 
 - (id)translateCKErrorToMSError
 {
-  v45[1] = *MEMORY[0x277D85DE8];
+  v44[1] = *MEMORY[0x277D85DE8];
   if (!self)
   {
     goto LABEL_21;
@@ -31,9 +31,9 @@
       if (code == 21)
       {
         v21 = MEMORY[0x277CCA9B8];
-        v32 = @"MSUserInfoErrorStringKey";
-        v33 = @"CloudKit Change Token Expired";
-        v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v33 forKeys:&v32 count:1];
+        v31 = @"MSUserInfoErrorStringKey";
+        v32 = @"CloudKit Change Token Expired";
+        v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v32 forKeys:&v31 count:1];
         v7 = v21;
         v8 = 7;
         goto LABEL_27;
@@ -51,25 +51,25 @@
       {
         case 'n':
           v25 = MEMORY[0x277CCA9B8];
-          v38 = @"MSUserInfoErrorStringKey";
-          v39 = @"CloudKit Manatee Unavailable";
-          v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v39 forKeys:&v38 count:1];
+          v37 = @"MSUserInfoErrorStringKey";
+          v38 = @"CloudKit Manatee Unavailable";
+          v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v38 forKeys:&v37 count:1];
           v7 = v25;
           v8 = 4;
           goto LABEL_27;
         case 'o':
           v22 = MEMORY[0x277CCA9B8];
-          v28 = @"MSUserInfoErrorStringKey";
-          v29 = @"CloudKit Unsynched Keychain error, Please try again after a while";
-          v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v29 forKeys:&v28 count:1];
+          v27 = @"MSUserInfoErrorStringKey";
+          v28 = @"CloudKit Unsynched Keychain error, Please try again after a while";
+          v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v28 forKeys:&v27 count:1];
           v7 = v22;
           v8 = 9;
           goto LABEL_27;
         case 'p':
           v9 = MEMORY[0x277CCA9B8];
-          v36 = @"MSUserInfoErrorStringKey";
-          v37 = @"CloudKit Manatee Missing Identity";
-          v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v37 forKeys:&v36 count:1];
+          v35 = @"MSUserInfoErrorStringKey";
+          v36 = @"CloudKit Manatee Missing Identity";
+          v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v36 forKeys:&v35 count:1];
           v7 = v9;
           v8 = 5;
           goto LABEL_27;
@@ -86,9 +86,9 @@ LABEL_21:
     if (code == 1)
     {
       v23 = MEMORY[0x277CCA9B8];
-      v30 = @"MSUserInfoErrorStringKey";
-      v31 = @"Cannot recover from CKInternalError, Please file a radar";
-      v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v31 forKeys:&v30 count:1];
+      v29 = @"MSUserInfoErrorStringKey";
+      v30 = @"Cannot recover from CKInternalError, Please file a radar";
+      v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v30 forKeys:&v29 count:1];
       v7 = v23;
       v8 = 8;
       goto LABEL_27;
@@ -101,9 +101,9 @@ LABEL_21:
 
       v18 = [MEMORY[0x277CCACA8] stringWithFormat:@"CloudKit Partial Failure Error for %lu records", objc_msgSend(v13, "count")];
       v19 = MEMORY[0x277CCA9B8];
-      v42 = @"MSUserInfoErrorStringKey";
-      v43 = v18;
-      v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v43 forKeys:&v42 count:1];
+      v41 = @"MSUserInfoErrorStringKey";
+      v42 = v18;
+      v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v42 forKeys:&v41 count:1];
       selfCopy = [v19 errorWithDomain:@"com.apple.mediasetup.cloudkit.errorDomain" code:2 userInfo:v20];
 
       goto LABEL_20;
@@ -121,9 +121,9 @@ LABEL_16:
     v13 = [v10 stringWithFormat:@"CloudKit Throttled Error: Retry after - %@", v12];
 
     v14 = MEMORY[0x277CCA9B8];
-    v34 = @"MSUserInfoErrorStringKey";
-    v35 = v13;
-    v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v35 forKeys:&v34 count:1];
+    v33 = @"MSUserInfoErrorStringKey";
+    v34 = v13;
+    v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v34 forKeys:&v33 count:1];
     selfCopy = [v14 errorWithDomain:@"com.apple.mediasetup.cloudkit.errorDomain" code:6 userInfo:v15];
 
 LABEL_20:
@@ -133,9 +133,9 @@ LABEL_20:
   if (code == 11)
   {
     v24 = MEMORY[0x277CCA9B8];
-    v44 = @"MSUserInfoErrorStringKey";
-    v45[0] = @"CloudKit Unknown Item";
-    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v45 forKeys:&v44 count:1];
+    v43 = @"MSUserInfoErrorStringKey";
+    v44[0] = @"CloudKit Unknown Item";
+    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v44 forKeys:&v43 count:1];
     v7 = v24;
     v8 = 1;
     goto LABEL_27;
@@ -147,16 +147,15 @@ LABEL_20:
   }
 
   v5 = MEMORY[0x277CCA9B8];
-  v40 = @"MSUserInfoErrorStringKey";
-  v41 = @"CloudKit Server Record Changed";
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v41 forKeys:&v40 count:1];
+  v39 = @"MSUserInfoErrorStringKey";
+  v40 = @"CloudKit Server Record Changed";
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v40 forKeys:&v39 count:1];
   v7 = v5;
   v8 = 3;
 LABEL_27:
   selfCopy = [v7 errorWithDomain:@"com.apple.mediasetup.cloudkit.errorDomain" code:v8 userInfo:v6];
 
 LABEL_28:
-  v26 = *MEMORY[0x277D85DE8];
 
   return selfCopy;
 }
@@ -192,66 +191,62 @@ LABEL_28:
 
 - (uint64_t)CKErrorHasUnderlyingErrorCode:()MediaSetup
 {
-  v24 = *MEMORY[0x277D85DE8];
-  if (self && CKErrorIsCode())
+  v23 = *MEMORY[0x277D85DE8];
+  if (!self || !CKErrorIsCode())
   {
-    userInfo = [self userInfo];
-    v6 = [userInfo objectForKey:*MEMORY[0x277CBBFB0]];
+    return 0;
+  }
 
-    v21 = 0u;
-    v22 = 0u;
-    v19 = 0u;
-    v20 = 0u;
-    allValues = [v6 allValues];
-    v8 = [allValues countByEnumeratingWithState:&v19 objects:v23 count:16];
-    if (v8)
+  userInfo = [self userInfo];
+  v6 = [userInfo objectForKey:*MEMORY[0x277CBBFB0]];
+
+  v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
+  allValues = [v6 allValues];
+  v8 = [allValues countByEnumeratingWithState:&v18 objects:v22 count:16];
+  if (v8)
+  {
+    v9 = v8;
+    v10 = *v19;
+    v11 = *MEMORY[0x277CBBF50];
+    do
     {
-      v9 = v8;
-      v10 = *v20;
-      v11 = *MEMORY[0x277CBBF50];
-      do
+      for (i = 0; i != v9; ++i)
       {
-        for (i = 0; i != v9; ++i)
+        if (*v19 != v10)
         {
-          if (*v20 != v10)
-          {
-            objc_enumerationMutation(allValues);
-          }
+          objc_enumerationMutation(allValues);
+        }
 
-          v13 = *(*(&v19 + 1) + 8 * i);
-          domain = [v13 domain];
-          if ([domain isEqualToString:v11])
-          {
-            code = [v13 code];
+        v13 = *(*(&v18 + 1) + 8 * i);
+        domain = [v13 domain];
+        if ([domain isEqualToString:v11])
+        {
+          code = [v13 code];
 
-            if (code == a3)
-            {
-              v16 = 1;
-              goto LABEL_16;
-            }
-          }
-
-          else
+          if (code == a3)
           {
+            v16 = 1;
+            goto LABEL_16;
           }
         }
 
-        v9 = [allValues countByEnumeratingWithState:&v19 objects:v23 count:16];
+        else
+        {
+        }
       }
 
-      while (v9);
+      v9 = [allValues countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
-    v16 = 0;
+    while (v9);
+  }
+
+  v16 = 0;
 LABEL_16:
-  }
 
-  else
-  {
-    v16 = 0;
-  }
-
-  v17 = *MEMORY[0x277D85DE8];
   return v16;
 }
 

@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)typeAsString:(int)string;
 - (int)StringAsType:(id)type;
 - (int)type;
 - (unint64_t)hash;
@@ -24,6 +25,21 @@
   {
     return 0;
   }
+}
+
+- (id)typeAsString:(int)string
+{
+  if (string >= 7)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_100203D38 + string);
+  }
+
+  return v4;
 }
 
 - (int)StringAsType:(id)type
@@ -151,54 +167,53 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v6 = toCopy;
+  v5 = toCopy;
   if (*&self->_has)
   {
-    type = self->_type;
     PBDataWriterWriteInt32Field();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_objectId)
   {
     PBDataWriterWriteStringField();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_parentObjectId)
   {
     PBDataWriterWriteStringField();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_appIdentifier)
   {
     PBDataWriterWriteStringField();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_objectIdPath)
   {
     PBDataWriterWriteStringField();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_dateCreated)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_stableParentObjectId)
   {
     PBDataWriterWriteStringField();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_stableObjectIdPath)
   {
     PBDataWriterWriteStringField();
-    toCopy = v6;
+    toCopy = v5;
   }
 }
 
@@ -304,7 +319,6 @@
     goto LABEL_21;
   }
 
-  v5 = *(equalCopy + 68);
   if (*&self->_has)
   {
     if ((*(equalCopy + 68) & 1) == 0 || self->_type != *(equalCopy + 16))
@@ -316,7 +330,7 @@
   else if (*(equalCopy + 68))
   {
 LABEL_21:
-    v13 = 0;
+    v12 = 0;
     goto LABEL_22;
   }
 
@@ -374,17 +388,17 @@ LABEL_21:
   stableObjectIdPath = self->_stableObjectIdPath;
   if (stableObjectIdPath | *(equalCopy + 6))
   {
-    v13 = [(NSString *)stableObjectIdPath isEqual:?];
+    v12 = [(NSString *)stableObjectIdPath isEqual:?];
   }
 
   else
   {
-    v13 = 1;
+    v12 = 1;
   }
 
 LABEL_22:
 
-  return v13;
+  return v12;
 }
 
 - (unint64_t)hash
@@ -452,7 +466,7 @@ LABEL_22:
       goto LABEL_17;
     }
 
-    [(PDDPDate *)dateCreated mergeFrom:?];
+    dateCreated = [(PDDPDate *)dateCreated mergeFrom:?];
   }
 
   else
@@ -462,23 +476,24 @@ LABEL_22:
       goto LABEL_17;
     }
 
-    [(PDDPProgressEntity *)self setDateCreated:?];
+    dateCreated = [(PDDPProgressEntity *)self setDateCreated:?];
   }
 
   v5 = v8;
 LABEL_17:
   if (v5[7])
   {
-    [(PDDPProgressEntity *)self setStableParentObjectId:?];
+    dateCreated = [(PDDPProgressEntity *)self setStableParentObjectId:?];
     v5 = v8;
   }
 
   if (v5[6])
   {
-    [(PDDPProgressEntity *)self setStableObjectIdPath:?];
+    dateCreated = [(PDDPProgressEntity *)self setStableObjectIdPath:?];
+    v5 = v8;
   }
 
-  _objc_release_x1();
+  _objc_release_x1(dateCreated, v5);
 }
 
 @end

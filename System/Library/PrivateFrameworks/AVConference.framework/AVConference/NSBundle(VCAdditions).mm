@@ -133,7 +133,7 @@ LABEL_3:
     {
       OUTLINED_FUNCTION_5_0();
       OUTLINED_FUNCTION_8_16();
-      OUTLINED_FUNCTION_4_15(&dword_1DB56E000, v3, v4, " [%s] %s:%d Configuration plist specified but the path is invalid: path=%@", v5, v6, v7, v8, v9);
+      OUTLINED_FUNCTION_4_15(&dword_1DB56E000, v3, v4, " [%s] %s:%d Configuration plist specified but the path is invalid: path=%@", v5, v6, v7, v8);
     }
   }
 
@@ -149,7 +149,7 @@ LABEL_3:
     {
       OUTLINED_FUNCTION_5_0();
       OUTLINED_FUNCTION_8_16();
-      OUTLINED_FUNCTION_4_15(&dword_1DB56E000, v3, v4, " [%s] %s:%d Configuration plist specified but the file could not be loaded: path=%@", v5, v6, v7, v8, v9);
+      OUTLINED_FUNCTION_4_15(&dword_1DB56E000, v3, v4, " [%s] %s:%d Configuration plist specified but the file could not be loaded: path=%@", v5, v6, v7, v8);
     }
   }
 

@@ -1,48 +1,49 @@
 @interface IMDIndexingUtilities
 + (BOOL)canDonateItemDictionary:(id)dictionary;
 + (BOOL)isItemGroupPhoto:(id)photo;
++ (void)copyIndexableMessageDictionariesWithLimit:(int64_t)limit requireIndexableAttachments:(BOOL)attachments isIndexableBlock:(id)block completionHandler:(id)handler;
 @end
 
 @implementation IMDIndexingUtilities
 
 + (BOOL)isItemGroupPhoto:(id)photo
 {
-  v25 = *MEMORY[0x1E69E9840];
-  v3 = objc_msgSend_objectForKeyedSubscript_(photo, a2, @"attachments");
-  if (objc_msgSend_count(v3, v4, v5) == 1)
+  v28 = *MEMORY[0x1E69E9840];
+  v4 = objc_msgSend_objectForKeyedSubscript_(photo, a2, @"attachments", v3);
+  if (objc_msgSend_count(v4, v5, v6, v7) == 1)
   {
-    v22 = 0u;
+    v25 = 0u;
+    v26 = 0u;
     v23 = 0u;
-    v20 = 0u;
-    v21 = 0u;
-    v6 = v3;
-    v8 = objc_msgSend_countByEnumeratingWithState_objects_count_(v6, v7, &v20, v24, 16);
-    if (v8)
+    v24 = 0u;
+    v8 = v4;
+    v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(v8, v9, &v23, v27, 16);
+    if (v10)
     {
-      v10 = v8;
-      v11 = *v21;
-      v12 = *MEMORY[0x1E69A7018];
+      v13 = v10;
+      v14 = *v24;
+      v15 = *MEMORY[0x1E69A7018];
       while (2)
       {
-        for (i = 0; i != v10; ++i)
+        for (i = 0; i != v13; ++i)
         {
-          if (*v21 != v11)
+          if (*v24 != v14)
           {
-            objc_enumerationMutation(v6);
+            objc_enumerationMutation(v8);
           }
 
-          v14 = objc_msgSend_objectForKeyedSubscript_(*(*(&v20 + 1) + 8 * i), v9, @"name", v20);
-          isEqualToString = objc_msgSend_isEqualToString_(v14, v15, v12);
+          v17 = objc_msgSend_objectForKeyedSubscript_(*(*(&v23 + 1) + 8 * i), v11, @"name", v12, v23);
+          isEqualToString = objc_msgSend_isEqualToString_(v17, v18, v15, v19);
 
           if (isEqualToString)
           {
-            v17 = 1;
+            v21 = 1;
             goto LABEL_13;
           }
         }
 
-        v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(v6, v9, &v20, v24, 16);
-        if (v10)
+        v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(v8, v11, &v23, v27, 16);
+        if (v13)
         {
           continue;
         }
@@ -51,59 +52,84 @@
       }
     }
 
-    v17 = 0;
+    v21 = 0;
 LABEL_13:
   }
 
   else
   {
-    v17 = 0;
+    v21 = 0;
   }
 
-  v18 = *MEMORY[0x1E69E9840];
-  return v17;
+  return v21;
 }
 
 + (BOOL)canDonateItemDictionary:(id)dictionary
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
-  v5 = objc_msgSend_objectForKey_(dictionaryCopy, v4, @"associatedMessageType");
-  v8 = v5;
-  if (v5)
+  v6 = objc_msgSend_objectForKey_(dictionaryCopy, v4, @"associatedMessageType", v5);
+  v10 = v6;
+  if (v6)
   {
-    v9 = objc_msgSend_integerValue(v5, v6, v7);
-    v10 = 1;
-    if (v9)
+    v11 = objc_msgSend_integerValue(v6, v7, v8, v9);
+    v12 = 1;
+    if (v11)
     {
-      v11 = v9;
-      if ((v9 & 0xFFFFFFFFFFFFFFF8) != 0x7D0)
+      v13 = v11;
+      if ((v11 & 0xFFFFFFFFFFFFFFF8) != 0x7D0)
       {
-        v12 = IMLogHandleForCategory();
-        if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+        v14 = IMLogHandleForCategory();
+        if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
         {
-          v14 = objc_msgSend_objectForKey_(dictionaryCopy, v13, @"guid");
-          v17 = 136315650;
-          v18 = "+[IMDIndexingUtilities canDonateItemDictionary:]";
-          v19 = 2112;
-          v20 = v14;
-          v21 = 2048;
-          v22 = v11;
-          _os_log_impl(&dword_1B7AD5000, v12, OS_LOG_TYPE_INFO, "%s GUID %@ is of type %ld, not indexing", &v17, 0x20u);
+          v17 = objc_msgSend_objectForKey_(dictionaryCopy, v15, @"guid", v16);
+          v19 = 136315650;
+          v20 = "+[IMDIndexingUtilities canDonateItemDictionary:]";
+          v21 = 2112;
+          v22 = v17;
+          v23 = 2048;
+          v24 = v13;
+          _os_log_impl(&dword_1B7AD5000, v14, OS_LOG_TYPE_INFO, "%s GUID %@ is of type %ld, not indexing", &v19, 0x20u);
         }
 
-        v10 = 0;
+        v12 = 0;
       }
     }
   }
 
   else
   {
-    v10 = 1;
+    v12 = 1;
   }
 
-  v15 = *MEMORY[0x1E69E9840];
-  return v10;
+  return v12;
+}
+
++ (void)copyIndexableMessageDictionariesWithLimit:(int64_t)limit requireIndexableAttachments:(BOOL)attachments isIndexableBlock:(id)block completionHandler:(id)handler
+{
+  attachmentsCopy = attachments;
+  blockCopy = block;
+  handlerCopy = handler;
+  v11 = objc_alloc_init(IMDMessageRecordBatchFetcher);
+  v12 = [IMDThreadSafeMessageDictionaryMapper alloc];
+  v15 = objc_msgSend_initWithBatchFetcher_(v12, v13, v11, v14);
+  objc_msgSend_setRequiresAttachments_(v15, v16, attachmentsCopy, v17);
+  v20 = objc_msgSend_arrayWithCapacity_(MEMORY[0x1E695DF70], v18, limit, v19);
+  aBlock[0] = MEMORY[0x1E69E9820];
+  aBlock[1] = 3221225472;
+  aBlock[2] = sub_1B7BCA494;
+  aBlock[3] = &unk_1E7CBC360;
+  v31 = attachmentsCopy;
+  v21 = blockCopy;
+  v30 = v21;
+  v22 = v20;
+  v29 = v22;
+  v25 = _Block_copy(aBlock);
+    ;
+  }
+
+  v27 = objc_msgSend_copy(v22, v23, v26, v24);
+  handlerCopy[2](handlerCopy, v27);
 }
 
 @end

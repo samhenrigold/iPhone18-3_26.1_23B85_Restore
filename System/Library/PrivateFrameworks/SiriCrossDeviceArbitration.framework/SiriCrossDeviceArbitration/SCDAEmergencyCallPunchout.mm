@@ -27,7 +27,7 @@ void __56__SCDAEmergencyCallPunchout_initiateEmergencyCallMyriad__block_invoke()
     *&buf[16] = __getTUCallProviderManagerClass_block_invoke;
     v22 = &unk_1E85D3638;
     v23 = &v17;
-    TelephonyUtilitiesLibraryCore();
+    TelephonyUtilitiesLibraryCore(0);
     Class = objc_getClass("TUCallProviderManager");
     *(v23[1] + 24) = Class;
     getTUCallProviderManagerClass_softClass = *(v23[1] + 24);
@@ -49,7 +49,7 @@ void __56__SCDAEmergencyCallPunchout_initiateEmergencyCallMyriad__block_invoke()
     *&buf[16] = __getTUDialRequestClass_block_invoke;
     v22 = &unk_1E85D3638;
     v23 = &v17;
-    TelephonyUtilitiesLibraryCore();
+    TelephonyUtilitiesLibraryCore(0);
     v6 = objc_getClass("TUDialRequest");
     *(v23[1] + 24) = v6;
     getTUDialRequestClass_softClass = *(v23[1] + 24);
@@ -83,8 +83,8 @@ void __56__SCDAEmergencyCallPunchout_initiateEmergencyCallMyriad__block_invoke()
   _Block_object_dispose(&v17, 8);
   if (!v11)
   {
-    dlerror();
-    abort_report_np();
+    v14 = dlerror();
+    abort_report_np("%s", v14);
     __break(1u);
   }
 
@@ -106,38 +106,34 @@ void __56__SCDAEmergencyCallPunchout_initiateEmergencyCallMyriad__block_invoke()
   v16 = v10;
   v13 = v10;
   [v4 launchAppForDialRequest:v13 completion:v15];
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 void __56__SCDAEmergencyCallPunchout_initiateEmergencyCallMyriad__block_invoke_24(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = SCDALogContextCore;
   if (v3)
   {
     if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_ERROR))
     {
-      v7 = 136315394;
-      v8 = "[SCDAEmergencyCallPunchout initiateEmergencyCallMyriad]_block_invoke";
-      v9 = 2112;
-      v10 = v3;
-      _os_log_error_impl(&dword_1DA758000, v4, OS_LOG_TYPE_ERROR, "%s Emergency beacon initiated call failed, error: %@", &v7, 0x16u);
+      v6 = 136315394;
+      v7 = "[SCDAEmergencyCallPunchout initiateEmergencyCallMyriad]_block_invoke";
+      v8 = 2112;
+      v9 = v3;
+      _os_log_error_impl(&dword_1DA758000, v4, OS_LOG_TYPE_ERROR, "%s Emergency beacon initiated call failed, error: %@", &v6, 0x16u);
     }
   }
 
   else if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_INFO))
   {
     v5 = *(a1 + 32);
-    v7 = 136315394;
-    v8 = "[SCDAEmergencyCallPunchout initiateEmergencyCallMyriad]_block_invoke";
-    v9 = 2112;
-    v10 = v5;
-    _os_log_impl(&dword_1DA758000, v4, OS_LOG_TYPE_INFO, "%s Emergency beacon initiated call created: %@", &v7, 0x16u);
+    v6 = 136315394;
+    v7 = "[SCDAEmergencyCallPunchout initiateEmergencyCallMyriad]_block_invoke";
+    v8 = 2112;
+    v9 = v5;
+    _os_log_impl(&dword_1DA758000, v4, OS_LOG_TYPE_INFO, "%s Emergency beacon initiated call created: %@", &v6, 0x16u);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (SCDAEmergencyCallPunchout)init

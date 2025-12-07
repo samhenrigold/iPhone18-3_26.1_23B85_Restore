@@ -5,10 +5,13 @@
 - (BOOL)checkDrainAndInvokeIssueDetection:(id)detection;
 - (BOOL)cpuPercentageTriggerForWindowEndDate:(id)date windowStartDate:(id)startDate score:(double *)score;
 - (id)_init;
+- (id)generateMetadataForDrain:(int)drain cpuPercentage:(int)percentage detectionLookbackDuration:(int)duration;
+- (id)generatePayloadWithMetadata:(id)metadata triggeredDetection:(int)detection triggeredType:(int)type;
 - (id)getTriggerInterval;
 - (int)getDetectionLookbackDuration;
 - (int)getDrainPercentage:(id)percentage;
 - (void)_start;
+- (void)logTriggerToPPS:(int)s cpuPercentage:(int)percentage triggeredDetection:(int)detection triggeredType:(int)type detectionLookbackDuration:(int)duration;
 - (void)modifyTriggerInterval:(id)interval;
 - (void)processTimerFiredAction;
 @end
@@ -83,37 +86,38 @@ uint64_t __34__CSTriggerManager_sharedInstance__block_invoke()
 - (void)_start
 {
   logger = self->_logger;
-  if (os_log_type_enabled(logger, OS_LOG_TYPE_DEFAULT))
+  v4 = os_log_type_enabled(logger, OS_LOG_TYPE_DEFAULT);
+  if (v4)
   {
     LOWORD(buf[0]) = 0;
     _os_log_impl(&dword_243DC3000, logger, OS_LOG_TYPE_DEFAULT, "Started CSTriggerManagerService", buf, 2u);
   }
 
-  v4 = getMainQueue();
-  v5 = dispatch_source_create(MEMORY[0x277D85D38], 0, 0, v4);
+  v5 = getMainQueue(v4);
+  v6 = dispatch_source_create(MEMORY[0x277D85D38], 0, 0, v5);
   triggerTimer = self->_triggerTimer;
-  self->_triggerTimer = v5;
+  self->_triggerTimer = v6;
 
-  v7 = self->_triggerTimer;
-  v8 = dispatch_walltime(0, 0);
-  dispatch_source_set_timer(v7, v8, (self->_triggerInterval * 1000000000.0), 0x8BB2C97000uLL);
+  v8 = self->_triggerTimer;
+  v9 = dispatch_walltime(0, 0);
+  dispatch_source_set_timer(v8, v9, (self->_triggerInterval * 1000000000.0), 0x8BB2C97000uLL);
   objc_initWeak(buf, self);
-  v9 = self->_triggerTimer;
+  v10 = self->_triggerTimer;
   handler[0] = MEMORY[0x277D85DD0];
   handler[1] = 3221225472;
   handler[2] = __26__CSTriggerManager__start__block_invoke;
   handler[3] = &unk_278DF5180;
-  objc_copyWeak(&v13, buf);
-  dispatch_source_set_event_handler(v9, handler);
+  objc_copyWeak(&v14, buf);
+  dispatch_source_set_event_handler(v10, handler);
   dispatch_resume(self->_triggerTimer);
-  v10 = self->_logger;
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v11 = self->_logger;
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
-    *v11 = 0;
-    _os_log_impl(&dword_243DC3000, v10, OS_LOG_TYPE_DEFAULT, "Repeating timer for Trigger polling armed.", v11, 2u);
+    *v12 = 0;
+    _os_log_impl(&dword_243DC3000, v11, OS_LOG_TYPE_DEFAULT, "Repeating timer for Trigger polling armed.", v12, 2u);
   }
 
-  objc_destroyWeak(&v13);
+  objc_destroyWeak(&v14);
   objc_destroyWeak(buf);
 }
 
@@ -131,7 +135,7 @@ void __26__CSTriggerManager__start__block_invoke(uint64_t a1)
   v10 = __Block_byref_object_copy_;
   v11 = __Block_byref_object_dispose_;
   v12 = 0;
-  v3 = getMainQueue();
+  v3 = getMainQueue(self);
   v6[0] = MEMORY[0x277D85DD0];
   v6[1] = 3221225472;
   v6[2] = __38__CSTriggerManager_getTriggerInterval__block_invoke;
@@ -149,10 +153,7 @@ void __26__CSTriggerManager__start__block_invoke(uint64_t a1)
 uint64_t __38__CSTriggerManager_getTriggerInterval__block_invoke(uint64_t a1, double a2)
 {
   LODWORD(a2) = *(*(a1 + 32) + 8);
-  v3 = [MEMORY[0x277CCABB0] numberWithFloat:a2];
-  v4 = *(*(a1 + 40) + 8);
-  v5 = *(v4 + 40);
-  *(v4 + 40) = v3;
+  *(*(*(a1 + 40) + 8) + 40) = [MEMORY[0x277CCABB0] numberWithFloat:a2];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -161,17 +162,17 @@ uint64_t __38__CSTriggerManager_getTriggerInterval__block_invoke(uint64_t a1, do
 {
   intervalCopy = interval;
   triggerInterval = self->_triggerInterval;
-  [intervalCopy floatValue];
-  if (triggerInterval != v6)
+  floatValue = [intervalCopy floatValue];
+  if (triggerInterval != v7)
   {
-    v7 = getMainQueue();
-    v8[0] = MEMORY[0x277D85DD0];
-    v8[1] = 3221225472;
-    v8[2] = __42__CSTriggerManager_modifyTriggerInterval___block_invoke;
-    v8[3] = &unk_278DF51D0;
-    v8[4] = self;
-    v9 = intervalCopy;
-    dispatch_sync(v7, v8);
+    v8 = getMainQueue(floatValue);
+    v9[0] = MEMORY[0x277D85DD0];
+    v9[1] = 3221225472;
+    v9[2] = __42__CSTriggerManager_modifyTriggerInterval___block_invoke;
+    v9[3] = &unk_278DF51D0;
+    v9[4] = self;
+    v10 = intervalCopy;
+    dispatch_sync(v8, v9);
   }
 }
 
@@ -232,16 +233,16 @@ void __42__CSTriggerManager_modifyTriggerInterval___block_invoke(uint64_t a1)
 
 - (BOOL)checkDrainAndInvokeIssueDetection:(id)detection
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v4 = [(CSTriggerManager *)self getDrainPercentage:detection];
   if (v4 < 2)
   {
     v11 = +[CSLogger signpostCategory];
     if (os_signpost_enabled(v11))
     {
-      v14 = 67240192;
-      v15 = v4;
-      _os_signpost_emit_with_name_impl(&dword_243DC3000, v11, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Trigger NonDetection", "Drain Percentage: %{public, name=drainPercentage}d\n", &v14, 8u);
+      v13 = 67240192;
+      v14 = v4;
+      _os_signpost_emit_with_name_impl(&dword_243DC3000, v11, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Trigger NonDetection", "Drain Percentage: %{public, name=drainPercentage}d\n", &v13, 8u);
     }
 
     selfCopy2 = self;
@@ -257,9 +258,9 @@ void __42__CSTriggerManager_modifyTriggerInterval___block_invoke(uint64_t a1)
     v6 = +[CSLogger signpostCategory];
     if (os_signpost_enabled(v6))
     {
-      v14 = 67240192;
-      v15 = v4;
-      _os_signpost_emit_with_name_impl(&dword_243DC3000, v6, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Trigger Detection", "Drain Percentage: %{public, name=drainPercentage}d\n", &v14, 8u);
+      v13 = 67240192;
+      v14 = v4;
+      _os_signpost_emit_with_name_impl(&dword_243DC3000, v6, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Trigger Detection", "Drain Percentage: %{public, name=drainPercentage}d\n", &v13, 8u);
     }
 
     selfCopy2 = self;
@@ -269,9 +270,7 @@ void __42__CSTriggerManager_modifyTriggerInterval___block_invoke(uint64_t a1)
   }
 
   [(CSTriggerManager *)selfCopy2 logTriggerToPPS:v8 cpuPercentage:0xFFFFFFFFLL triggeredDetection:v9 triggeredType:1 detectionLookbackDuration:v10];
-  result = v4 > 1;
-  v13 = *MEMORY[0x277D85DE8];
-  return result;
+  return v4 > 1;
 }
 
 - (int)getDrainPercentage:(id)percentage
@@ -328,9 +327,9 @@ LABEL_10:
 
 - (BOOL)checkCpuPercentageAndInvokeIssueDetection:(id)detection windowStartDate:(id)date
 {
-  v14 = *MEMORY[0x277D85DE8];
-  v11 = 0.0;
-  v5 = [(CSTriggerManager *)self cpuPercentageTriggerForWindowEndDate:detection windowStartDate:date score:&v11];
+  v13 = *MEMORY[0x277D85DE8];
+  v10 = 0.0;
+  v5 = [(CSTriggerManager *)self cpuPercentageTriggerForWindowEndDate:detection windowStartDate:date score:&v10];
   v6 = +[CSLogger signpostCategory];
   v7 = os_signpost_enabled(v6);
   if (v5)
@@ -338,12 +337,12 @@ LABEL_10:
     if (v7)
     {
       *buf = 67240192;
-      v13 = v11;
+      v12 = v10;
       _os_signpost_emit_with_name_impl(&dword_243DC3000, v6, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Trigger Detection", "CPU Percentage: %{public, name=percentage}d\n", buf, 8u);
     }
 
     getDetectionLookbackDuration = [(CSTriggerManager *)self getDetectionLookbackDuration];
-    [(CSTriggerManager *)self logTriggerToPPS:0xFFFFFFFFLL cpuPercentage:v11 triggeredDetection:1 triggeredType:2 detectionLookbackDuration:getDetectionLookbackDuration];
+    [(CSTriggerManager *)self logTriggerToPPS:0xFFFFFFFFLL cpuPercentage:v10 triggeredDetection:1 triggeredType:2 detectionLookbackDuration:getDetectionLookbackDuration];
     [(CSIssueDetector *)self->_issueDetector detectWithLookbackDuration:getDetectionLookbackDuration];
   }
 
@@ -352,20 +351,19 @@ LABEL_10:
     if (v7)
     {
       *buf = 67240192;
-      v13 = v11;
+      v12 = v10;
       _os_signpost_emit_with_name_impl(&dword_243DC3000, v6, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Trigger NonDetection", "CPU Percentage: %{public, name=percentage}d\n", buf, 8u);
     }
 
-    [(CSTriggerManager *)self logTriggerToPPS:0xFFFFFFFFLL cpuPercentage:v11 triggeredDetection:0 triggeredType:2 detectionLookbackDuration:0xFFFFFFFFLL];
+    [(CSTriggerManager *)self logTriggerToPPS:0xFFFFFFFFLL cpuPercentage:v10 triggeredDetection:0 triggeredType:2 detectionLookbackDuration:0xFFFFFFFFLL];
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
 - (BOOL)cpuPercentageTriggerForWindowEndDate:(id)date windowStartDate:(id)startDate score:(double *)score
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   powerlogDBReader = self->_powerlogDBReader;
   startDateCopy = startDate;
   dateCopy = date;
@@ -381,11 +379,11 @@ LABEL_10:
   logger = self->_logger;
   if (os_log_type_enabled(logger, OS_LOG_TYPE_DEFAULT))
   {
-    v22 = 134218240;
-    v23 = v12;
-    v24 = 2048;
-    v25 = v16;
-    _os_log_impl(&dword_243DC3000, logger, OS_LOG_TYPE_DEFAULT, "cpuPercentageTrigger: cpuTimeS: %f, apWakeTimeS %f", &v22, 0x16u);
+    v21 = 134218240;
+    v22 = v12;
+    v23 = 2048;
+    v24 = v16;
+    _os_log_impl(&dword_243DC3000, logger, OS_LOG_TYPE_DEFAULT, "cpuPercentageTrigger: cpuTimeS: %f, apWakeTimeS %f", &v21, 0x16u);
   }
 
   if (v16 <= 0.0)
@@ -394,8 +392,8 @@ LABEL_10:
     v18 = -1.0;
     if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
     {
-      LOWORD(v22) = 0;
-      _os_log_impl(&dword_243DC3000, v19, OS_LOG_TYPE_INFO, "Error totalApWakeTime is 0", &v22, 2u);
+      LOWORD(v21) = 0;
+      _os_log_impl(&dword_243DC3000, v19, OS_LOG_TYPE_INFO, "Error totalApWakeTime is 0", &v21, 2u);
     }
   }
 
@@ -409,18 +407,17 @@ LABEL_10:
     *score = v18;
   }
 
-  v20 = *MEMORY[0x277D85DE8];
   return v18 >= 70.0;
 }
 
 - (void)processTimerFiredAction
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   logger = self->_logger;
   if (os_log_type_enabled(logger, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v14) = 0;
-    _os_log_impl(&dword_243DC3000, logger, OS_LOG_TYPE_DEFAULT, "Flushing powerlog tables", &v14, 2u);
+    LOWORD(v13) = 0;
+    _os_log_impl(&dword_243DC3000, logger, OS_LOG_TYPE_DEFAULT, "Flushing powerlog tables", &v13, 2u);
   }
 
   PLQueryRegistered();
@@ -429,20 +426,20 @@ LABEL_10:
   v6 = self->_logger;
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v14 = 138412546;
-    v15 = *&v5;
-    v16 = 2112;
-    v17 = v4;
-    _os_log_impl(&dword_243DC3000, v6, OS_LOG_TYPE_DEFAULT, "processTimerFiredAction: Querying DB with time window from: %@ to %@", &v14, 0x16u);
+    v13 = 138412546;
+    v14 = *&v5;
+    v15 = 2112;
+    v16 = v4;
+    _os_log_impl(&dword_243DC3000, v6, OS_LOG_TYPE_DEFAULT, "processTimerFiredAction: Querying DB with time window from: %@ to %@", &v13, 0x16u);
   }
 
   v7 = +[CSLogger signpostCategory];
   if (os_signpost_enabled(v7))
   {
     triggerInterval = self->_triggerInterval;
-    v14 = 134349056;
-    v15 = triggerInterval;
-    _os_signpost_emit_with_name_impl(&dword_243DC3000, v7, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Trigger Fired", "Interval: %{public, name=interval}f\n", &v14, 0xCu);
+    v13 = 134349056;
+    v14 = triggerInterval;
+    _os_signpost_emit_with_name_impl(&dword_243DC3000, v7, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Trigger Fired", "Interval: %{public, name=interval}f\n", &v13, 0xCu);
   }
 
   if (self->_savedTriggerInterval != 0.0)
@@ -459,8 +456,31 @@ LABEL_10:
   v11 = [MEMORY[0x277CBEAA8] now];
   lastTriggerTimerDate = self->_lastTriggerTimerDate;
   self->_lastTriggerTimerDate = v11;
+}
 
-  v13 = *MEMORY[0x277D85DE8];
+- (void)logTriggerToPPS:(int)s cpuPercentage:(int)percentage triggeredDetection:(int)detection triggeredType:(int)type detectionLookbackDuration:(int)duration
+{
+  v7 = *&duration;
+  v8 = *&type;
+  v9 = *&detection;
+  v10 = *&percentage;
+  v11 = *&s;
+  logger = self->_logger;
+  if (os_log_type_enabled(logger, OS_LOG_TYPE_INFO))
+  {
+    *v16 = 0;
+    _os_log_impl(&dword_243DC3000, logger, OS_LOG_TYPE_INFO, "Logging trigger information in powerlog", v16, 2u);
+  }
+
+  if (logTriggerToPPS_cpuPercentage_triggeredDetection_triggeredType_detectionLookbackDuration__onceToken != -1)
+  {
+    [CSTriggerManager logTriggerToPPS:cpuPercentage:triggeredDetection:triggeredType:detectionLookbackDuration:];
+  }
+
+  v14 = [(CSTriggerManager *)self generateMetadataForDrain:v11 cpuPercentage:v10 detectionLookbackDuration:v7];
+  v15 = [(CSTriggerManager *)self generatePayloadWithMetadata:v14 triggeredDetection:v9 triggeredType:v8];
+
+  PPSSendTelemetry();
 }
 
 uint64_t __109__CSTriggerManager_logTriggerToPPS_cpuPercentage_triggeredDetection_triggeredType_detectionLookbackDuration___block_invoke()
@@ -468,6 +488,55 @@ uint64_t __109__CSTriggerManager_logTriggerToPPS_cpuPercentage_triggeredDetectio
   result = PPSCreateTelemetryIdentifier();
   logTriggerToPPS_cpuPercentage_triggeredDetection_triggeredType_detectionLookbackDuration__streamID = result;
   return result;
+}
+
+- (id)generateMetadataForDrain:(int)drain cpuPercentage:(int)percentage detectionLookbackDuration:(int)duration
+{
+  v5 = *&duration;
+  v6 = *&percentage;
+  v7 = *&drain;
+  dictionary = [MEMORY[0x277CBEB38] dictionary];
+  if (v7 != -1)
+  {
+    v9 = [MEMORY[0x277CCABB0] numberWithInt:v7];
+    [dictionary setObject:v9 forKeyedSubscript:@"DrainPercentage"];
+  }
+
+  if (v6 != -1)
+  {
+    v10 = [MEMORY[0x277CCABB0] numberWithInt:v6];
+    [dictionary setObject:v10 forKeyedSubscript:@"CPUPercentage"];
+  }
+
+  if (v5 != -1)
+  {
+    v11 = [MEMORY[0x277CCABB0] numberWithInt:v5];
+    [dictionary setObject:v11 forKeyedSubscript:@"DetectionLookbackDuration"];
+  }
+
+  return dictionary;
+}
+
+- (id)generatePayloadWithMetadata:(id)metadata triggeredDetection:(int)detection triggeredType:(int)type
+{
+  v5 = *&type;
+  v6 = *&detection;
+  v16[3] = *MEMORY[0x277D85DE8];
+  v14 = 0;
+  v7 = [MEMORY[0x277CCAAA0] dataWithJSONObject:metadata options:0 error:&v14];
+  v8 = v14;
+  v15[0] = @"Source";
+  v9 = [MEMORY[0x277CCABB0] numberWithInt:v5];
+  v16[0] = v9;
+  v15[1] = @"Metadata";
+  v10 = [objc_alloc(MEMORY[0x277CCACA8]) initWithData:v7 encoding:4];
+  v16[1] = v10;
+  v15[2] = @"TriggeredDetection";
+  v11 = [MEMORY[0x277CCABB0] numberWithInt:v6];
+  v16[2] = v11;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:3];
+
+  return v12;
 }
 
 @end

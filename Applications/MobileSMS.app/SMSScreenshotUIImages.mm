@@ -20,64 +20,62 @@
   v2 = +[UIApplication sharedApplication];
   connectedScenes = [v2 connectedScenes];
 
-  v27 = 0u;
-  v28 = 0u;
   v25 = 0u;
   v26 = 0u;
+  v23 = 0u;
+  v24 = 0u;
   v4 = connectedScenes;
-  v5 = [v4 countByEnumeratingWithState:&v25 objects:v30 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v23 objects:v28 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v26;
-    v8 = &NSClassFromString_ptr;
+    v7 = *v24;
     do
     {
       for (i = 0; i != v6; i = i + 1)
       {
-        if (*v26 != v7)
+        if (*v24 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v10 = *(*(&v25 + 1) + 8 * i);
-        if (![v10 activationState])
+        v9 = *(*(&v23 + 1) + 8 * i);
+        if (![v9 activationState])
         {
-          v11 = v8[166];
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v12 = v10;
+            v10 = v9;
+            v19 = 0u;
+            v20 = 0u;
             v21 = 0u;
             v22 = 0u;
-            v23 = 0u;
-            v24 = 0u;
-            windows = [v12 windows];
-            v14 = [windows countByEnumeratingWithState:&v21 objects:v29 count:16];
-            if (v14)
+            windows = [v10 windows];
+            v12 = [windows countByEnumeratingWithState:&v19 objects:v27 count:16];
+            if (v12)
             {
-              v15 = v14;
-              v16 = *v22;
+              v13 = v12;
+              v14 = *v20;
               while (2)
               {
-                for (j = 0; j != v15; j = j + 1)
+                for (j = 0; j != v13; j = j + 1)
                 {
-                  if (*v22 != v16)
+                  if (*v20 != v14)
                   {
                     objc_enumerationMutation(windows);
                   }
 
-                  v18 = *(*(&v21 + 1) + 8 * j);
-                  if ([v18 isKeyWindow])
+                  v16 = *(*(&v19 + 1) + 8 * j);
+                  if ([v16 isKeyWindow])
                   {
-                    v19 = v18;
+                    v17 = v16;
 
                     goto LABEL_22;
                   }
                 }
 
-                v15 = [windows countByEnumeratingWithState:&v21 objects:v29 count:16];
-                if (v15)
+                v13 = [windows countByEnumeratingWithState:&v19 objects:v27 count:16];
+                if (v13)
                 {
                   continue;
                 }
@@ -85,14 +83,12 @@
                 break;
               }
             }
-
-            v8 = &NSClassFromString_ptr;
           }
         }
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v25 objects:v30 count:16];
-      v19 = 0;
+      v6 = [v4 countByEnumeratingWithState:&v23 objects:v28 count:16];
+      v17 = 0;
     }
 
     while (v6);
@@ -100,12 +96,12 @@
 
   else
   {
-    v19 = 0;
+    v17 = 0;
   }
 
 LABEL_22:
 
-  return v19;
+  return v17;
 }
 
 + (id)imageFromView:(id)view

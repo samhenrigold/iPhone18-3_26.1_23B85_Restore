@@ -123,7 +123,7 @@
   [(CKBrowserSwitcherCell *)self bounds];
   v25 = [v14 initWithFrame:{0.0, v13}];
   v15 = MEMORY[0x1E696AEC0];
-  v16 = CKFrameworkBundle();
+  v16 = CKFrameworkBundle(v25);
   v17 = [v16 localizedStringForKey:@"MESSAGES_EXTENSION_CRASHED_SWITCHER" value:&stru_1F04268F8 table:@"ChatKit"];
   nameCopy = [v15 stringWithFormat:v17, nameCopy];
 

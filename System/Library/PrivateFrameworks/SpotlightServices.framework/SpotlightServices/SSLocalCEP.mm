@@ -8,7 +8,7 @@
 
 + (id)getCEPValuesForCurrentLocale
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   currentLocale = [MEMORY[0x1E695DF58] currentLocale];
   v3 = [currentLocale objectForKey:*MEMORY[0x1E695D9B0]];
   v4 = [currentLocale objectForKey:*MEMORY[0x1E695D978]];
@@ -28,7 +28,7 @@
   {
     if (v4)
     {
-      v8 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"%@_%@", v3, v4, v21];
+      v8 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"%@_%@", v3, v4, v20];
     }
 
     else
@@ -56,20 +56,20 @@
       +[SSLocalCEP getCEPValuesForCurrentLocale];
     }
 
-    v26 = "iOS";
+    v25 = "iOS";
     uTF8String = [v9 UTF8String];
-    v28 = 0;
+    v27 = 0;
     v11 = getCEPValuesForCurrentLocale_sCannedCepForLocale;
     getCEPValuesForCurrentLocale_sCannedCepForLocale = 0;
 
-    v24 = 0uLL;
-    v25 = 0;
+    v23 = 0uLL;
+    v24 = 0;
     if (_MDPlistContainerGetPlistObjectAtKeyArray())
     {
       v12 = [SSPlistDataReader alloc];
+      v21 = v23;
       v22 = v24;
-      v23 = v25;
-      v13 = [(SSPlistDataReader *)v12 initWithPlistContainer:getCEPValuesForCurrentLocale_sCannedCepValues obj:&v22];
+      v13 = [(SSPlistDataReader *)v12 initWithPlistContainer:getCEPValuesForCurrentLocale_sCannedCepValues obj:&v21];
       v14 = getCEPValuesForCurrentLocale_sCannedCepForLocale;
       getCEPValuesForCurrentLocale_sCannedCepForLocale = v13;
     }
@@ -80,9 +80,9 @@
       if (_MDPlistContainerGetPlistObjectAtKeyArray())
       {
         v15 = [SSPlistDataReader alloc];
+        v21 = v23;
         v22 = v24;
-        v23 = v25;
-        v16 = [(SSPlistDataReader *)v15 initWithPlistContainer:getCEPValuesForCurrentLocale_sCannedCepValues obj:&v22];
+        v16 = [(SSPlistDataReader *)v15 initWithPlistContainer:getCEPValuesForCurrentLocale_sCannedCepValues obj:&v21];
       }
 
       else
@@ -99,8 +99,6 @@
 
   v18 = v10;
 
-  v19 = *MEMORY[0x1E69E9840];
-
   return v18;
 }
 
@@ -113,7 +111,6 @@ void __42__SSLocalCEP_getCEPValuesForCurrentLocale__block_invoke()
     v2 = [v0 initWithContentsOfFile:v1 options:8 error:0];
 
     v3 = v2;
-    v4 = *MEMORY[0x1E695E480];
     [v3 bytes];
     [v3 length];
     getCEPValuesForCurrentLocale_sCannedCepValues = _MDPlistContainerCreateWithBytesAndDeallocator();

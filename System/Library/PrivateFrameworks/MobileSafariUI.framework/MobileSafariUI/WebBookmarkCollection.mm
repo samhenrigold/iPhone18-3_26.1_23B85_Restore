@@ -7,7 +7,7 @@
 + (void)stopObservingDatabaseVacuumNotification;
 + (void)test_overrideMainBookmarkCollection;
 - (uint64_t)dropOperationForReadingListDropSession:(uint64_t)result;
-- (uint64_t)markReadingListBookmark:(char)bookmark asRead:(int)read postNotification:;
+- (uint64_t)markReadingListBookmark:(int)bookmark asRead:(int)read postNotification:;
 - (uint64_t)saveReadingListBookmarkWithTitle:(void *)title address:(void *)address previewText:(void *)text thumbnailURL:(void *)l siteName:(void *)name tabDocument:(int)document didFetchPage:(void *)page updateController:(_DWORD *)self0 savedBookmarkID:(char)self1 shouldFetchMetadata:;
 - (uint64_t)updateBookmark:(void *)bookmark withLeadImageURL:;
 - (uint64_t)updateReadingListBookmarkWithID:(void *)d setTitle:(void *)title address:(void *)address previewText:(void *)text thumbnailURL:(void *)l siteName:;
@@ -43,22 +43,22 @@
 
 + (void)_startBookmarkCollectionOpenRetryTimer
 {
-  v0 = objc_opt_self();
+  v1 = objc_opt_self();
   if (!bookmarkCollectionOpenRetryTimer)
   {
-    v1 = v0;
-    v2 = dispatch_source_create(MEMORY[0x277D85D38], 0, 0, MEMORY[0x277D85CD0]);
-    v3 = bookmarkCollectionOpenRetryTimer;
-    bookmarkCollectionOpenRetryTimer = v2;
-
+    v2 = v1;
+    v3 = dispatch_source_create(MEMORY[0x277D85D38], 0, 0, MEMORY[0x277D85CD0]);
     v4 = bookmarkCollectionOpenRetryTimer;
-    v5 = dispatch_time(0, 10000000000);
-    dispatch_source_set_timer(v4, v5, 0x2540BE400uLL, 0x3B9ACA00uLL);
+    bookmarkCollectionOpenRetryTimer = v3;
+
+    v5 = bookmarkCollectionOpenRetryTimer;
+    v6 = dispatch_time(0, 10000000000);
+    dispatch_source_set_timer(v5, v6, 0x2540BE400uLL, 0x3B9ACA00uLL);
     handler[0] = MEMORY[0x277D85DD0];
     handler[1] = 3221225472;
     handler[2] = __77__WebBookmarkCollection_SafariExtras___startBookmarkCollectionOpenRetryTimer__block_invoke;
     handler[3] = &__block_descriptor_40_e5_v8__0l;
-    handler[4] = v1;
+    handler[4] = v2;
     dispatch_source_set_event_handler(bookmarkCollectionOpenRetryTimer, handler);
     dispatch_resume(bookmarkCollectionOpenRetryTimer);
   }
@@ -101,23 +101,23 @@ void __72__WebBookmarkCollection_SafariExtras__observeDatabaseVacuumNotification
     defaultCenter = [MEMORY[0x277CCA9A0] defaultCenter];
     [defaultCenter removeObserver:databaseVacuumDistributedNotificationToken name:*MEMORY[0x277D7B610] object:0];
 
-    v1 = databaseVacuumDistributedNotificationToken;
+    v2 = databaseVacuumDistributedNotificationToken;
     databaseVacuumDistributedNotificationToken = 0;
   }
 }
 
 void __77__WebBookmarkCollection_SafariExtras___startBookmarkCollectionOpenRetryTimer__block_invoke(uint64_t a1)
 {
-  v1 = [*(a1 + 32) mainBookmarkCollection];
+  v2 = [*(a1 + 32) mainBookmarkCollection];
 
-  if (v1)
+  if (v2)
   {
-    +[WebBookmarkCollection _stopBookmarkCollectionOpenRetryTimer];
+    +[(WebBookmarkCollection *)*(a1];
     if ((postedBookmarkCollectionHasBecomeAvailableNotification & 1) == 0)
     {
       postedBookmarkCollectionHasBecomeAvailableNotification = 1;
-      v2 = [MEMORY[0x277CCAB98] defaultCenter];
-      [v2 postNotificationName:@"bookmarkCollectionHasBecomeAvailableNotification" object:0];
+      v3 = [MEMORY[0x277CCAB98] defaultCenter];
+      [v3 postNotificationName:@"bookmarkCollectionHasBecomeAvailableNotification" object:0];
     }
   }
 }
@@ -128,7 +128,7 @@ void __77__WebBookmarkCollection_SafariExtras___startBookmarkCollectionOpenRetry
   if (bookmarkCollectionOpenRetryTimer)
   {
     dispatch_source_cancel(bookmarkCollectionOpenRetryTimer);
-    v0 = bookmarkCollectionOpenRetryTimer;
+    v1 = bookmarkCollectionOpenRetryTimer;
     bookmarkCollectionOpenRetryTimer = 0;
   }
 }
@@ -137,20 +137,20 @@ void __77__WebBookmarkCollection_SafariExtras___startBookmarkCollectionOpenRetry
 {
   objc_opt_self();
   [objc_opt_class() lockSync];
-  v0 = [PPTWebBookmarkCollection alloc];
+  v1 = [PPTWebBookmarkCollection alloc];
   inMemoryBookmarkCollectionConfiguration = [MEMORY[0x277D7B520] inMemoryBookmarkCollectionConfiguration];
-  v2 = [(PPTWebBookmarkCollection *)v0 initWithConfiguration:inMemoryBookmarkCollectionConfiguration];
+  v3 = [(PPTWebBookmarkCollection *)v1 initWithConfiguration:inMemoryBookmarkCollectionConfiguration];
 
   standardUserDefaults = [MEMORY[0x277CBEBD0] standardUserDefaults];
-  v4 = [standardUserDefaults BOOLForKey:@"DidImportBuiltinBookmarks"];
+  v5 = [standardUserDefaults BOOLForKey:@"DidImportBuiltinBookmarks"];
   [standardUserDefaults setBool:0 forKey:@"DidImportBuiltinBookmarks"];
-  v5 = [[BookmarkImporter alloc] initWithBookmarkCollection:v2];
-  [(BookmarkImporter *)v5 importBuiltinBookmarks];
-  [standardUserDefaults setBool:v4 forKey:@"DidImportBuiltinBookmarks"];
-  [(PPTWebBookmarkCollection *)v2 test_restoreMissingSpecialBookmarks];
+  v6 = [[BookmarkImporter alloc] initWithBookmarkCollection:v3];
+  [(BookmarkImporter *)v6 importBuiltinBookmarks];
+  [standardUserDefaults setBool:v5 forKey:@"DidImportBuiltinBookmarks"];
+  [(PPTWebBookmarkCollection *)v3 test_restoreMissingSpecialBookmarks];
   [objc_opt_class() unlockSync];
 
-  return v2;
+  return v3;
 }
 
 + (void)test_overrideMainBookmarkCollection
@@ -187,14 +187,14 @@ void __77__WebBookmarkCollection_SafariExtras___startBookmarkCollectionOpenRetry
   pageCopy = page;
   if (!self)
   {
-    v51 = 0;
+    v53 = 0;
     goto LABEL_26;
   }
 
   if (([objc_opt_class() lockSync] & 1) == 0)
   {
     defaultReadingList = [MEMORY[0x277D7B558] defaultReadingList];
-    v51 = [defaultReadingList addReadingListItemWithURL:titleCopy title:v17 previewText:addressCopy error:0];
+    v53 = [defaultReadingList addReadingListItemWithURL:titleCopy title:v17 previewText:addressCopy error:0];
 
 LABEL_26:
     v24 = v17;
@@ -203,7 +203,7 @@ LABEL_26:
 
   v24 = [MEMORY[0x277D7B5A0] _trimmedTitle:v17];
 
-  v48 = nameCopy;
+  v50 = nameCopy;
   if (addressCopy)
   {
     v25 = [MEMORY[0x277D7B5A0] _trimmedPreviewText:addressCopy];
@@ -216,7 +216,7 @@ LABEL_26:
 
   if (v27)
   {
-    v43 = v27;
+    v45 = v27;
     [(WebBookmarkCollection *)self _markDuplicateReadingListBookmarkUnread:v27 updatingController:pageCopy];
     [objc_opt_class() unlockSync];
     if (controller)
@@ -224,13 +224,13 @@ LABEL_26:
       *controller = [v27 identifier];
     }
 
-    v51 = 1;
-    nameCopy = v48;
+    v53 = 1;
+    nameCopy = v50;
   }
 
   else
   {
-    v47 = pageCopy;
+    v49 = pageCopy;
     v28 = objc_alloc(MEMORY[0x277D7B5A0]);
     absoluteString2 = [titleCopy absoluteString];
     v30 = [v28 initReadingListBookmarkWithTitle:v24 address:absoluteString2 previewText:addressCopy];
@@ -246,7 +246,7 @@ LABEL_26:
 
     v33 = lCopy;
     [v30 setAddedLocally:{1, v24}];
-    nameCopy = v48;
+    nameCopy = v50;
     if (textCopy)
     {
       safari_originalDataAsString = [textCopy safari_originalDataAsString];
@@ -256,9 +256,9 @@ LABEL_26:
     safari_browserDefaults = [MEMORY[0x277CBEBD0] safari_browserDefaults];
     safari_shouldAutomaticallyDownloadReadingListItems = [safari_browserDefaults safari_shouldAutomaticallyDownloadReadingListItems];
 
-    if (v48 && ([v48 isReaderAvailable] & 1) == 0 && ((safari_shouldAutomaticallyDownloadReadingListItems ^ 1) & 1) == 0)
+    if (v50 && ([v50 isReaderAvailable] & 1) == 0 && ((safari_shouldAutomaticallyDownloadReadingListItems ^ 1) & 1) == 0)
     {
-      [(WebBookmarkCollection *)self _saveWebArchiveForTabDocument:v48 bookmark:v30];
+      [(WebBookmarkCollection *)self _saveWebArchiveForTabDocument:v50 bookmark:v30];
     }
 
     [self saveBookmark:v30];
@@ -269,7 +269,7 @@ LABEL_26:
       v38 = v37;
       if (document)
       {
-        v39 = v48;
+        v39 = v50;
       }
 
       else
@@ -286,28 +286,28 @@ LABEL_26:
     v41 = +[Application sharedApplication];
     [v41 setReadingListWidgetNeedsReload];
 
-    v42 = WBS_LOG_CHANNEL_PREFIXWidgets();
-    pageCopy = v47;
-    if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
+    v44 = WBS_LOG_CHANNEL_PREFIXWidgets(v42, v43);
+    pageCopy = v49;
+    if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_215819000, v42, OS_LOG_TYPE_DEFAULT, "Requested widget update because of item addition", buf, 2u);
+      _os_log_impl(&dword_215819000, v44, OS_LOG_TYPE_DEFAULT, "Requested widget update because of item addition", buf, 2u);
     }
 
     [objc_opt_class() unlockSync];
-    v24 = v46;
+    v24 = v48;
     if (controller)
     {
       *controller = [v30 identifier];
     }
 
-    v51 = 1;
+    v53 = 1;
 
-    v43 = 0;
+    v45 = 0;
   }
 
 LABEL_27:
-  return v51;
+  return v53;
 }
 
 - (void)_saveWebArchiveForTabDocument:(void *)document bookmark:
@@ -361,7 +361,7 @@ void __78__WebBookmarkCollection_SafariExtras___saveWebArchiveForTabDocument_boo
   }
 }
 
-uint64_t __78__WebBookmarkCollection_SafariExtras___saveWebArchiveForTabDocument_bookmark___block_invoke_2(uint64_t a1, int a2)
+void *__78__WebBookmarkCollection_SafariExtras___saveWebArchiveForTabDocument_bookmark___block_invoke_2(uint64_t a1, int a2)
 {
   if (a2)
   {
@@ -539,13 +539,13 @@ void __85__WebBookmarkCollection_SafariExtras__dropDragItemsInReadingList_updati
   return v10;
 }
 
-- (uint64_t)markReadingListBookmark:(char)bookmark asRead:(int)read postNotification:
+- (uint64_t)markReadingListBookmark:(int)bookmark asRead:(int)read postNotification:
 {
   v7 = a2;
   v8 = v7;
   if (!self)
   {
-    goto LABEL_21;
+    goto LABEL_27;
   }
 
   dateLastViewed = [v7 dateLastViewed];
@@ -571,8 +571,8 @@ LABEL_3:
 
   if (([objc_opt_class() lockSync] & 1) == 0)
   {
-    v22 = +[FeatureManager sharedFeatureManager];
-    isInMemoryBookmarkChangeTrackingAvailable = [v22 isInMemoryBookmarkChangeTrackingAvailable];
+    v25 = +[FeatureManager sharedFeatureManager];
+    isInMemoryBookmarkChangeTrackingAvailable = [v25 isInMemoryBookmarkChangeTrackingAvailable];
 
     if (isInMemoryBookmarkChangeTrackingAvailable)
     {
@@ -583,28 +583,44 @@ LABEL_3:
         [defaultCenter postNotificationName:@"ReadingListBookmarkDidUpdateNotification" object:v8];
       }
 
-      v25 = +[Application sharedApplication];
-      [v25 setReadingListWidgetNeedsReload];
+      v28 = +[Application sharedApplication];
+      [v28 setReadingListWidgetNeedsReload];
 
-      v26 = WBS_LOG_CHANNEL_PREFIXWidgets();
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+      v31 = WBS_LOG_CHANNEL_PREFIXWidgets(v29, v30);
+      if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
       {
-        OUTLINED_FUNCTION_0_7(&dword_215819000, v27, v28, "Requested widget update because of item being marked %{private}@", v29, v30, v31, v32, 3u);
+        v38 = @"unread";
+        if (bookmark)
+        {
+          v38 = @"read";
+        }
+
+        LODWORD(v51) = 138477827;
+        HIDWORD(v51) = v38;
+        OUTLINED_FUNCTION_0_7(&dword_215819000, v32, v33, "Requested widget update because of item being marked %{private}@", v34, v35, v36, v37, v51, HIDWORD(v38));
       }
 
       goto LABEL_3;
     }
 
-    v33 = +[Application sharedApplication];
-    [v33 setReadingListWidgetNeedsReload];
+    v39 = +[Application sharedApplication];
+    [v39 setReadingListWidgetNeedsReload];
 
-    v34 = WBS_LOG_CHANNEL_PREFIXWidgets();
-    if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
+    v42 = WBS_LOG_CHANNEL_PREFIXWidgets(v40, v41);
+    if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
     {
-      OUTLINED_FUNCTION_0_7(&dword_215819000, v35, v36, "Requested widget update because of item being marked %{private}@", v37, v38, v39, v40, 3u);
+      v49 = @"unread";
+      if (bookmark)
+      {
+        v49 = @"read";
+      }
+
+      LODWORD(v52) = 138477827;
+      HIDWORD(v52) = v49;
+      OUTLINED_FUNCTION_0_7(&dword_215819000, v43, v44, "Requested widget update because of item being marked %{private}@", v45, v46, v47, v48, v52, HIDWORD(v49));
     }
 
-LABEL_21:
+LABEL_27:
     v11 = 0;
     goto LABEL_4;
   }
@@ -617,11 +633,19 @@ LABEL_21:
   }
 
   [objc_opt_class() unlockSync];
-  WBSReloadReadingListWidget();
-  v15 = WBS_LOG_CHANNEL_PREFIXWidgets();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+  v15 = WBSReloadReadingListWidget();
+  v17 = WBS_LOG_CHANNEL_PREFIXWidgets(v15, v16);
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
   {
-    OUTLINED_FUNCTION_0_7(&dword_215819000, v16, v17, "Requested widget update because of item being marked %{private}@", v18, v19, v20, v21, 3u);
+    v24 = @"unread";
+    if (bookmark)
+    {
+      v24 = @"read";
+    }
+
+    LODWORD(v50) = 138477827;
+    HIDWORD(v50) = v24;
+    OUTLINED_FUNCTION_0_7(&dword_215819000, v18, v19, "Requested widget update because of item being marked %{private}@", v20, v21, v22, v23, v50, HIDWORD(v24));
   }
 
 LABEL_4:

@@ -22,7 +22,13 @@
 - (void)dealloc;
 - (void)setOption:(NSObject *)option forKey:(NSString *)key;
 - (void)setOption:(id)option forMirroringKey:(id)key;
+- (void)setReadOnly:(BOOL)readOnly;
+- (void)setShouldAddStoreAsynchronously:(BOOL)shouldAddStoreAsynchronously;
+- (void)setShouldInferMappingModelAutomatically:(BOOL)shouldInferMappingModelAutomatically;
+- (void)setShouldInvokeCompletionHandlerConcurrently:(BOOL)concurrently;
+- (void)setShouldMigrateStoreAutomatically:(BOOL)shouldMigrateStoreAutomatically;
 - (void)setTimeout:(NSTimeInterval)timeout;
+- (void)setUsesPersistentHistoryTracking:(BOOL)tracking;
 - (void)setValue:(NSObject *)value forPragmaNamed:(NSString *)name;
 @end
 
@@ -120,11 +126,13 @@
 - (id)description
 {
   v3 = objc_autoreleasePoolPush();
-  v6.receiver = self;
-  v6.super_class = NSPersistentStoreDescription;
-  v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@ (type: %@, url: %@)", -[NSPersistentStoreDescription description](&v6, sel_description), -[NSPersistentStoreDescription type](self, "type"), -[NSPersistentStoreDescription URL](self, "URL")];
+  v4 = MEMORY[0x1E696AEC0];
+  v8.receiver = self;
+  v8.super_class = NSPersistentStoreDescription;
+  v5 = [(NSPersistentStoreDescription *)&v8 description];
+  v6 = objc_msgSend_stringWithFormat_(v4, v5, [(NSPersistentStoreDescription *)self type], [(NSPersistentStoreDescription *)self URL]);
   objc_autoreleasePoolPop(v3);
-  return v4;
+  return v6;
 }
 
 - (NSPersistentStoreDescription)init
@@ -195,6 +203,13 @@
   }
 }
 
+- (void)setReadOnly:(BOOL)readOnly
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:readOnly];
+
+  [(NSPersistentStoreDescription *)self setOption:v4 forKey:@"NSReadOnlyPersistentStoreOption"];
+}
+
 - (NSTimeInterval)timeout
 {
   v2 = [(NSMutableDictionary *)self->_options objectForKey:@"NSPersistentStoreTimeoutOption"];
@@ -230,6 +245,27 @@
   -[NSPersistentStoreDescription setOption:forKey:](self, "setOption:forKey:", [v7 copy], @"NSSQLitePragmasOption");
 }
 
+- (void)setShouldAddStoreAsynchronously:(BOOL)shouldAddStoreAsynchronously
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:shouldAddStoreAsynchronously];
+
+  [(NSPersistentStoreDescription *)self setOption:v4 forKey:@"NSAddStoreAsynchronouslyOption"];
+}
+
+- (void)setShouldInvokeCompletionHandlerConcurrently:(BOOL)concurrently
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:concurrently];
+
+  [(NSPersistentStoreDescription *)self setOption:v4 forKey:@"NSInvokeCompletionHandlerConcurrently"];
+}
+
+- (void)setShouldMigrateStoreAutomatically:(BOOL)shouldMigrateStoreAutomatically
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:shouldMigrateStoreAutomatically];
+
+  [(NSPersistentStoreDescription *)self setOption:v4 forKey:@"NSMigratePersistentStoresAutomaticallyOption"];
+}
+
 - (BOOL)shouldInferMappingModelAutomatically
 {
   v2 = [(NSMutableDictionary *)self->_options objectForKey:@"NSInferMappingModelAutomaticallyOption"];
@@ -242,24 +278,30 @@
   return v2;
 }
 
+- (void)setShouldInferMappingModelAutomatically:(BOOL)shouldInferMappingModelAutomatically
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:shouldInferMappingModelAutomatically];
+
+  [(NSPersistentStoreDescription *)self setOption:v4 forKey:@"NSInferMappingModelAutomaticallyOption"];
+}
+
 - (NSPersistentStoreDescription)initWithURL:(NSURL *)url
 {
-  v9[2] = *MEMORY[0x1E69E9840];
-  v7.receiver = self;
-  v7.super_class = NSPersistentStoreDescription;
-  v4 = [(NSPersistentStoreDescription *)&v7 init];
+  v8[2] = *MEMORY[0x1E69E9840];
+  v6.receiver = self;
+  v6.super_class = NSPersistentStoreDescription;
+  v4 = [(NSPersistentStoreDescription *)&v6 init];
   if (v4)
   {
     v4->_url = [(NSURL *)url copy];
     v4->_type = @"SQLite";
-    v8[0] = @"NSInferMappingModelAutomaticallyOption";
-    v8[1] = @"NSMigratePersistentStoresAutomaticallyOption";
-    v9[0] = MEMORY[0x1E695E118];
-    v9[1] = MEMORY[0x1E695E118];
-    v4->_options = [objc_msgSend(MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:v8 count:{2), "mutableCopy"}];
+    v7[0] = @"NSInferMappingModelAutomaticallyOption";
+    v7[1] = @"NSMigratePersistentStoresAutomaticallyOption";
+    v8[0] = MEMORY[0x1E695E118];
+    v8[1] = MEMORY[0x1E695E118];
+    v4->_options = [objc_msgSend(MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:v7 count:{2), "mutableCopy"}];
   }
 
-  v5 = *MEMORY[0x1E69E9840];
   return v4;
 }
 
@@ -366,6 +408,13 @@
   }
 
   return v2;
+}
+
+- (void)setUsesPersistentHistoryTracking:(BOOL)tracking
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:tracking];
+
+  [(NSPersistentStoreDescription *)self setOption:v4 forKey:@"NSPersistentHistoryTrackingKey"];
 }
 
 @end

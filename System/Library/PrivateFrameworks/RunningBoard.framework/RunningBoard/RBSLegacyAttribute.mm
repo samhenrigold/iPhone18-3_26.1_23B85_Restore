@@ -271,7 +271,7 @@ uint64_t __93__RBSLegacyAttribute_RBProcessState__applyToAssertionIntransientSta
 
 - (void)_mutateReasonWithContext:(void *)context
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (context)
   {
@@ -318,20 +318,18 @@ uint64_t __93__RBSLegacyAttribute_RBProcessState__applyToAssertionIntransientSta
       {
         reason2 = [context reason];
         assertion = [v3 assertion];
-        v12 = 134349570;
-        v13 = reason2;
-        v14 = 2050;
-        v15 = reason;
-        v16 = 2114;
-        v17 = assertion;
-        _os_log_impl(&dword_262485000, v8, OS_LOG_TYPE_DEFAULT, "Mutating assertion reason from %{public}lu to %{public}lu for assertion %{public}@", &v12, 0x20u);
+        v11 = 134349570;
+        v12 = reason2;
+        v13 = 2050;
+        v14 = reason;
+        v15 = 2114;
+        v16 = assertion;
+        _os_log_impl(&dword_262485000, v8, OS_LOG_TYPE_DEFAULT, "Mutating assertion reason from %{public}lu to %{public}lu for assertion %{public}@", &v11, 0x20u);
       }
 
       [context setReason:reason];
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (double)_invalidationDurationExpiringTaskCompletionsQuickly:(void *)quickly
@@ -466,27 +464,11 @@ LABEL_13:
 
     else if ((flags & 8) != 0)
     {
-      if (reason != 9)
-      {
-        goto LABEL_21;
-      }
-
-      targetProcess = [v3 targetProcess];
-      if (!targetProcess)
-      {
-        goto LABEL_21;
-      }
-
-      v10 = targetProcess;
-      assertion = [v3 assertion];
-      explanation = [assertion explanation];
-      v13 = [explanation isEqualToString:@"com.apple.viewservice.session"];
-
-      if (v13)
+      if (reason == 9 && ([v3 targetProcess], (v9 = objc_claimAutoreleasedReturnValue()) != 0) && (v10 = v9, objc_msgSend(v3, "assertion"), v11 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v11, "explanation"), v12 = objc_claimAutoreleasedReturnValue(), v13 = objc_msgSend(v12, "isEqualToString:", @"com.apple.viewservice.session"), v12, v11, v10, v13))
       {
         entitlementManager = [v3 entitlementManager];
-        targetProcess2 = [v3 targetProcess];
-        v16 = [entitlementManager entitlementsForProcess:targetProcess2];
+        targetProcess = [v3 targetProcess];
+        v16 = [entitlementManager entitlementsForProcess:targetProcess];
 
         if ([v16 rb_hasEntitlement:*MEMORY[0x277D47040]])
         {
@@ -501,7 +483,6 @@ LABEL_13:
 
       else
       {
-LABEL_21:
         v6 = 100;
       }
     }
@@ -551,7 +532,7 @@ LABEL_21:
 
 - (uint64_t)_isOriginatorValidForContext:(__CFString *)context errorReason:
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   v6 = a2;
   if (!self)
   {
@@ -597,27 +578,27 @@ LABEL_32:
         originatorEntitlements2 = [v6 originatorEntitlements];
         v14 = [originatorEntitlements2 rb_hasEntitlement:@"com.apple.assertiond.background-view-services"];
 
-        v35 = 0u;
-        v36 = 0u;
-        v33 = 0u;
         v34 = 0u;
+        v35 = 0u;
+        v32 = 0u;
+        v33 = 0u;
         legacyAssertions = [originatorState legacyAssertions];
-        v16 = [legacyAssertions countByEnumeratingWithState:&v33 objects:v41 count:16];
+        v16 = [legacyAssertions countByEnumeratingWithState:&v32 objects:v40 count:16];
         if (v16)
         {
           v17 = v16;
-          v18 = *v34;
+          v18 = *v33;
           while (2)
           {
             v19 = 0;
             do
             {
-              if (*v34 != v18)
+              if (*v33 != v18)
               {
                 objc_enumerationMutation(legacyAssertions);
               }
 
-              if ([*(*(&v33 + 1) + 8 * v19) isLegacyAssertionReason:9])
+              if ([*(*(&v32 + 1) + 8 * v19) isLegacyAssertionReason:9])
               {
 
                 goto LABEL_49;
@@ -627,7 +608,7 @@ LABEL_32:
             }
 
             while (v17 != v19);
-            v17 = [legacyAssertions countByEnumeratingWithState:&v33 objects:v41 count:16];
+            v17 = [legacyAssertions countByEnumeratingWithState:&v32 objects:v40 count:16];
             if (v17)
             {
               continue;
@@ -682,9 +663,9 @@ LABEL_44:
           if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138543618;
-            v38 = originatorEntitlements4;
-            v39 = 2114;
-            v40 = originatorState;
+            v37 = originatorEntitlements4;
+            v38 = 2114;
+            v39 = originatorState;
             _os_log_impl(&dword_262485000, v23, OS_LOG_TYPE_DEFAULT, "allowing legacy background task: untrusted process %{public}@ is targeting trusted process %{public}@", buf, 0x16u);
           }
         }
@@ -755,7 +736,6 @@ LABEL_34:
   v26 = 1;
 LABEL_45:
 
-  v30 = *MEMORY[0x277D85DE8];
   return v26;
 }
 

@@ -132,339 +132,346 @@ LABEL_10:
 - (BOOL)performiCloudAccountSignInWithContext:(id)context outError:(id *)error
 {
   contextCopy = context;
-  v60 = 0;
-  v61 = &v60;
-  v62 = 0x3032000000;
-  v63 = sub_10000D254;
-  v64 = sub_10000D264;
-  v65 = dispatch_semaphore_create(0);
-  v54 = 0;
-  v55 = &v54;
-  v56 = 0x3032000000;
-  v57 = sub_10000D254;
-  v58 = sub_10000D264;
+  v65 = 0;
+  v66 = &v65;
+  v67 = 0x3032000000;
+  v68 = sub_10000D254;
+  v69 = sub_10000D264;
+  v70 = dispatch_semaphore_create(0);
   v59 = 0;
-  v48 = 0;
-  v49 = &v48;
-  v50 = 0x3032000000;
-  v51 = sub_10000D254;
-  v52 = sub_10000D264;
+  v60 = &v59;
+  v61 = 0x3032000000;
+  v62 = sub_10000D254;
+  v63 = sub_10000D264;
+  v64 = 0;
   v53 = 0;
-  v47[0] = _NSConcreteStackBlock;
-  v47[1] = 3221225472;
-  v47[2] = sub_10000D26C;
-  v47[3] = &unk_100169E18;
-  v47[4] = &v54;
-  v47[5] = &v48;
-  v47[6] = &v60;
-  [(MSDAccountManagerHelper *)self _authenticateAccountWithContext:contextCopy forService:1 completionHandler:v47];
-  v6 = v61[5];
+  v54 = &v53;
+  v55 = 0x3032000000;
+  v56 = sub_10000D254;
+  v57 = sub_10000D264;
+  v58 = 0;
+  v52[0] = _NSConcreteStackBlock;
+  v52[1] = 3221225472;
+  v52[2] = sub_10000D26C;
+  v52[3] = &unk_100169E18;
+  v52[4] = &v59;
+  v52[5] = &v53;
+  v52[6] = &v65;
+  [(MSDAccountManagerHelper *)self _authenticateAccountWithContext:contextCopy forService:1 completionHandler:v52];
+  v6 = v66[5];
   v7 = dispatch_time(0, 200000000000);
-  if (dispatch_semaphore_wait(v6, v7))
+  v8 = dispatch_semaphore_wait(v6, v7);
+  if (v8)
   {
-    v38 = sub_100063A54();
-    sub_1000C5DF0(v38);
+    v43 = sub_100063A54(v8);
+    sub_1000C5DF0(v43);
 
     sub_1000C13D8(error, 3727741043, @"Failed to authenticate account with server.", @"Operation timed out");
-    v13 = 0;
-    v9 = 0;
+    v14 = 0;
+    v10 = 0;
 LABEL_41:
-    v36 = 0;
+    v41 = 0;
     goto LABEL_23;
   }
 
-  v8 = v49[5];
-  if (v8)
+  v9 = v54[5];
+  if (v9)
   {
-    localizedDescription = [v8 localizedDescription];
+    localizedDescription = [v9 localizedDescription];
     sub_1000C13D8(error, 3727741043, @"Failed to authenticate account with server.", localizedDescription);
-    v13 = 0;
-    v9 = 0;
+    v14 = 0;
+    v10 = 0;
     goto LABEL_21;
   }
 
-  v9 = [NSMutableArray arrayWithObject:AIDAServiceTypeCloud];
+  v10 = [NSMutableArray arrayWithObject:AIDAServiceTypeCloud];
   features = [contextCopy features];
-  v11 = [features objectForKey:@"com.apple.mobilestoredemo.FaceTime"];
+  v12 = [features objectForKey:@"com.apple.mobilestoredemo.FaceTime"];
 
-  if (v11 && [v11 BOOLValue])
+  if (v12 && [v12 BOOLValue])
   {
-    [v9 addObject:AIDAServiceTypeFaceTime];
+    [v10 addObject:AIDAServiceTypeFaceTime];
   }
 
   features2 = [contextCopy features];
-  v13 = [features2 objectForKey:@"com.apple.mobilestoredemo.iMessage"];
+  v14 = [features2 objectForKey:@"com.apple.mobilestoredemo.iMessage"];
 
-  if (v13 && [v13 BOOLValue])
+  if (v14 && [v14 BOOLValue])
   {
-    [v9 addObject:AIDAServiceTypeMessages];
+    [v10 addObject:AIDAServiceTypeMessages];
   }
 
-  v14 = v55[5];
-  v46[0] = _NSConcreteStackBlock;
-  v46[1] = 3221225472;
-  v46[2] = sub_10000D310;
-  v46[3] = &unk_100169E40;
-  v46[4] = &v48;
-  v46[5] = &v60;
-  [(MSDAccountManagerHelper *)self _signInToAppleIDWithContext:contextCopy forServices:v9 usingAuthResults:v14 completionHandler:v46];
-  v15 = v61[5];
-  v16 = dispatch_time(0, 200000000000);
-  if (dispatch_semaphore_wait(v15, v16))
+  v15 = v60[5];
+  v51[0] = _NSConcreteStackBlock;
+  v51[1] = 3221225472;
+  v51[2] = sub_10000D310;
+  v51[3] = &unk_100169E40;
+  v51[4] = &v53;
+  v51[5] = &v65;
+  [(MSDAccountManagerHelper *)self _signInToAppleIDWithContext:contextCopy forServices:v10 usingAuthResults:v15 completionHandler:v51];
+  v16 = v66[5];
+  v17 = dispatch_time(0, 200000000000);
+  v18 = dispatch_semaphore_wait(v16, v17);
+  if (v18)
   {
-    v39 = sub_100063A54();
-    if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
+    v44 = sub_100063A54(v18);
+    if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
     {
       sub_1000C5E48();
     }
 
-    v40 = 3727741046;
-    v41 = @"Failed to sign in account service.";
+    v45 = 3727741046;
+    v46 = @"Failed to sign in account service.";
     goto LABEL_40;
   }
 
-  v17 = v49[5];
-  if (v17)
+  v19 = v54[5];
+  if (v19)
   {
-    if (![v17 aa_isAASignInErrorWithCode:-8010])
+    if (![v19 aa_isAASignInErrorWithCode:-8010])
     {
-      localizedDescription = [v49[5] localizedDescription];
+      localizedDescription = [v54[5] localizedDescription];
       sub_1000C13D8(error, 3727741046, @"Failed to sign in account service.", localizedDescription);
       goto LABEL_21;
     }
 
-    v18 = v55[5];
-    v45[0] = _NSConcreteStackBlock;
-    v45[1] = 3221225472;
-    v45[2] = sub_10000D378;
-    v45[3] = &unk_100169E40;
-    v45[4] = &v48;
-    v45[5] = &v60;
-    [(MSDAccountManagerHelper *)self _acceptiCloudTermsWithAuthResults:v18 completionHandler:v45];
-    v19 = v61[5];
-    v20 = dispatch_time(0, 200000000000);
-    if (dispatch_semaphore_wait(v19, v20))
+    v20 = v60[5];
+    v50[0] = _NSConcreteStackBlock;
+    v50[1] = 3221225472;
+    v50[2] = sub_10000D378;
+    v50[3] = &unk_100169E40;
+    v50[4] = &v53;
+    v50[5] = &v65;
+    [(MSDAccountManagerHelper *)self _acceptiCloudTermsWithAuthResults:v20 completionHandler:v50];
+    v21 = v66[5];
+    v22 = dispatch_time(0, 200000000000);
+    v23 = dispatch_semaphore_wait(v21, v22);
+    if (v23)
     {
-      v39 = sub_100063A54();
-      v40 = 3727741048;
-      if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
+      v44 = sub_100063A54(v23);
+      v45 = 3727741048;
+      if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
       {
         sub_1000C5E48();
       }
 
-      v41 = @"Failed to accept account terms.";
+      v46 = @"Failed to accept account terms.";
       goto LABEL_40;
     }
 
-    v21 = v49[5];
-    if (v21)
+    v24 = v54[5];
+    if (v24)
     {
-      localizedDescription = [v21 localizedDescription];
+      localizedDescription = [v24 localizedDescription];
       sub_1000C13D8(error, 3727741048, @"Failed to accept account terms.", localizedDescription);
       goto LABEL_21;
     }
   }
 
   features3 = [contextCopy features];
-  v44[0] = _NSConcreteStackBlock;
-  v44[1] = 3221225472;
-  v44[2] = sub_10000D3E0;
-  v44[3] = &unk_100169E40;
-  v44[4] = &v48;
-  v44[5] = &v60;
-  [(MSDAccountManagerHelper *)self _configureiCloudAccountFeatures:features3 completionHandler:v44];
+  v49[0] = _NSConcreteStackBlock;
+  v49[1] = 3221225472;
+  v49[2] = sub_10000D3E0;
+  v49[3] = &unk_100169E40;
+  v49[4] = &v53;
+  v49[5] = &v65;
+  [(MSDAccountManagerHelper *)self _configureiCloudAccountFeatures:features3 completionHandler:v49];
 
-  v23 = v61[5];
-  v24 = dispatch_time(0, 200000000000);
-  if (dispatch_semaphore_wait(v23, v24))
+  v26 = v66[5];
+  v27 = dispatch_time(0, 200000000000);
+  v28 = dispatch_semaphore_wait(v26, v27);
+  if (v28)
   {
-    v39 = sub_100063A54();
-    v40 = 3727741049;
-    if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
+    v44 = sub_100063A54(v28);
+    v45 = 3727741049;
+    if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
     {
       sub_1000C5E7C();
     }
 
-    v41 = @"Failed to configure account features.";
+    v46 = @"Failed to configure account features.";
 LABEL_40:
 
-    sub_1000C13D8(error, v40, v41, @"Operation timed out");
+    sub_1000C13D8(error, v45, v46, @"Operation timed out");
     goto LABEL_41;
   }
 
-  v25 = v49[5];
-  if (v25)
+  v29 = v54[5];
+  if (v29)
   {
-    localizedDescription = [v25 localizedDescription];
+    localizedDescription = [v29 localizedDescription];
     sub_1000C13D8(error, 3727741049, @"Failed to configure account features.", localizedDescription);
     goto LABEL_21;
   }
 
   features4 = [contextCopy features];
-  v27 = [features4 objectForKey:@"com.apple.mobilestoredemo.FindMyiPhone"];
-  bOOLValue = [v27 BOOLValue];
+  v31 = [features4 objectForKey:@"com.apple.mobilestoredemo.FindMyiPhone"];
+  bOOLValue = [v31 BOOLValue];
 
   features5 = [contextCopy features];
-  v30 = [features5 objectForKey:@"com.apple.mobilestoredemo.SendLastLocation"];
-  bOOLValue2 = [v30 BOOLValue];
+  v34 = [features5 objectForKey:@"com.apple.mobilestoredemo.SendLastLocation"];
+  bOOLValue2 = [v34 BOOLValue];
 
   if (bOOLValue)
   {
-    v43[0] = _NSConcreteStackBlock;
-    v43[1] = 3221225472;
-    v43[2] = sub_10000D448;
-    v43[3] = &unk_100169E40;
-    v43[4] = &v48;
-    v43[5] = &v60;
-    [(MSDAccountManagerHelper *)self _enableFindMyServiceAndSendLastLocation:bOOLValue2 completionHandler:v43];
-    v32 = v61[5];
-    v33 = dispatch_time(0, 200000000000);
-    if (!dispatch_semaphore_wait(v32, v33))
+    v48[0] = _NSConcreteStackBlock;
+    v48[1] = 3221225472;
+    v48[2] = sub_10000D448;
+    v48[3] = &unk_100169E40;
+    v48[4] = &v53;
+    v48[5] = &v65;
+    [(MSDAccountManagerHelper *)self _enableFindMyServiceAndSendLastLocation:bOOLValue2 completionHandler:v48];
+    v36 = v66[5];
+    v37 = dispatch_time(0, 200000000000);
+    v38 = dispatch_semaphore_wait(v36, v37);
+    if (!v38)
     {
-      v34 = v49[5];
-      if (!v34)
+      v39 = v54[5];
+      if (!v39)
       {
         goto LABEL_19;
       }
 
-      localizedDescription = [v34 localizedDescription];
+      localizedDescription = [v39 localizedDescription];
       sub_1000C13D8(error, 3727741042, @"Cannot turn on Find My iPhone.", localizedDescription);
 LABEL_21:
-      v36 = 0;
+      v41 = 0;
       goto LABEL_22;
     }
 
-    v39 = sub_100063A54();
-    v40 = 3727741042;
-    if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
+    v44 = sub_100063A54(v38);
+    v45 = 3727741042;
+    if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
     {
       sub_1000C5EB0();
     }
 
-    v41 = @"Cannot turn on Find My iPhone.";
+    v46 = @"Cannot turn on Find My iPhone.";
     goto LABEL_40;
   }
 
 LABEL_19:
   localizedDescription = [contextCopy username];
   [(MSDAccountManagerHelper *)self _waitForIDSOperationToQuiesceForAccount:localizedDescription forSignOut:0];
-  v36 = 1;
+  v41 = 1;
 LABEL_22:
 
 LABEL_23:
-  _Block_object_dispose(&v48, 8);
+  _Block_object_dispose(&v53, 8);
 
-  _Block_object_dispose(&v54, 8);
-  _Block_object_dispose(&v60, 8);
+  _Block_object_dispose(&v59, 8);
+  _Block_object_dispose(&v65, 8);
 
-  return v36;
+  return v41;
 }
 
 - (BOOL)performiTunesAccountSignInWithContext:(id)context outError:(id *)error
 {
   contextCopy = context;
-  v36 = 0;
-  v37 = &v36;
-  v38 = 0x3032000000;
-  v39 = sub_10000D254;
-  v40 = sub_10000D264;
-  v41 = dispatch_semaphore_create(0);
-  v30 = 0;
-  v31 = &v30;
-  v32 = 0x3032000000;
-  v33 = sub_10000D254;
-  v34 = sub_10000D264;
-  v35 = 0;
-  v24 = 0;
-  v25 = &v24;
-  v26 = 0x3032000000;
-  v27 = sub_10000D254;
-  v28 = sub_10000D264;
-  v29 = 0;
-  v23[0] = _NSConcreteStackBlock;
-  v23[1] = 3221225472;
-  v23[2] = sub_10000D8E4;
-  v23[3] = &unk_100169E18;
-  v23[4] = &v30;
-  v23[5] = &v24;
-  v23[6] = &v36;
-  [(MSDAccountManagerHelper *)self _authenticateAccountWithContext:contextCopy forService:2 completionHandler:v23];
-  v7 = v37[5];
+  v38 = 0;
+  v39 = &v38;
+  v40 = 0x3032000000;
+  v41 = sub_10000D254;
+  v42 = sub_10000D264;
+  v43 = dispatch_semaphore_create(0);
+  v32 = 0;
+  v33 = &v32;
+  v34 = 0x3032000000;
+  v35 = sub_10000D254;
+  v36 = sub_10000D264;
+  v37 = 0;
+  v26 = 0;
+  v27 = &v26;
+  v28 = 0x3032000000;
+  v29 = sub_10000D254;
+  v30 = sub_10000D264;
+  v31 = 0;
+  v25[0] = _NSConcreteStackBlock;
+  v25[1] = 3221225472;
+  v25[2] = sub_10000D8E4;
+  v25[3] = &unk_100169E18;
+  v25[4] = &v32;
+  v25[5] = &v26;
+  v25[6] = &v38;
+  [(MSDAccountManagerHelper *)self _authenticateAccountWithContext:contextCopy forService:2 completionHandler:v25];
+  v7 = v39[5];
   v8 = dispatch_time(0, 200000000000);
-  if (dispatch_semaphore_wait(v7, v8))
+  v9 = dispatch_semaphore_wait(v7, v8);
+  if (v9)
   {
-    v18 = sub_100063A54();
-    v19 = 3727741043;
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    v20 = sub_100063A54(v9);
+    v21 = 3727741043;
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
       sub_1000C5EE4();
     }
 
-    v20 = @"Failed to authenticate account with server.";
+    v22 = @"Failed to authenticate account with server.";
     goto LABEL_14;
   }
 
-  v9 = v25[5];
-  if (v9)
+  v10 = v27[5];
+  if (v10)
   {
-    localizedDescription = [v9 localizedDescription];
+    localizedDescription = [v10 localizedDescription];
     sub_1000C13D8(error, 3727741043, @"Failed to authenticate account with server.", localizedDescription);
 LABEL_16:
 
     goto LABEL_17;
   }
 
-  v42 = AIDAServiceTypeStore;
-  v10 = [NSArray arrayWithObjects:&v42 count:1];
-  v11 = v31[5];
-  v22[0] = _NSConcreteStackBlock;
-  v22[1] = 3221225472;
-  v22[2] = sub_10000D988;
-  v22[3] = &unk_100169E40;
-  v22[4] = &v24;
-  v22[5] = &v36;
-  [(MSDAccountManagerHelper *)self _signInToAppleIDWithContext:contextCopy forServices:v10 usingAuthResults:v11 completionHandler:v22];
+  v44 = AIDAServiceTypeStore;
+  v11 = [NSArray arrayWithObjects:&v44 count:1];
+  v12 = v33[5];
+  v24[0] = _NSConcreteStackBlock;
+  v24[1] = 3221225472;
+  v24[2] = sub_10000D988;
+  v24[3] = &unk_100169E40;
+  v24[4] = &v26;
+  v24[5] = &v38;
+  [(MSDAccountManagerHelper *)self _signInToAppleIDWithContext:contextCopy forServices:v11 usingAuthResults:v12 completionHandler:v24];
 
-  v12 = v37[5];
-  v13 = dispatch_time(0, 200000000000);
-  if (dispatch_semaphore_wait(v12, v13))
+  v13 = v39[5];
+  v14 = dispatch_time(0, 200000000000);
+  v15 = dispatch_semaphore_wait(v13, v14);
+  if (v15)
   {
-    v18 = sub_100063A54();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    v20 = sub_100063A54(v15);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
       sub_1000C5F18();
     }
 
-    v19 = 3727741046;
-    v20 = @"Failed to sign in account service.";
+    v21 = 3727741046;
+    v22 = @"Failed to sign in account service.";
 LABEL_14:
 
-    sub_1000C13D8(error, v19, v20, @"Operation timed out");
+    sub_1000C13D8(error, v21, v22, @"Operation timed out");
 LABEL_17:
-    v15 = 0;
-    v16 = 0;
+    v17 = 0;
+    v18 = 0;
     goto LABEL_6;
   }
 
-  v14 = v25[5];
-  if (v14)
+  v16 = v27[5];
+  if (v16)
   {
-    localizedDescription = [v14 localizedDescription];
+    localizedDescription = [v16 localizedDescription];
     sub_1000C13D8(error, 3727741046, @"Failed to sign in account service.", localizedDescription);
     goto LABEL_16;
   }
 
-  v15 = [[NSUserDefaults alloc] initWithSuiteName:@"com.apple.MobileStore"];
-  [v15 setBool:1 forKey:@"SKUIFamilySetupDisplayed"];
-  [v15 synchronize];
-  v16 = 1;
+  v17 = [[NSUserDefaults alloc] initWithSuiteName:@"com.apple.MobileStore"];
+  [v17 setBool:1 forKey:@"SKUIFamilySetupDisplayed"];
+  [v17 synchronize];
+  v18 = 1;
 LABEL_6:
-  _Block_object_dispose(&v24, 8);
+  _Block_object_dispose(&v26, 8);
 
-  _Block_object_dispose(&v30, 8);
-  _Block_object_dispose(&v36, 8);
+  _Block_object_dispose(&v32, 8);
+  _Block_object_dispose(&v38, 8);
 
-  return v16;
+  return v18;
 }
 
 - (BOOL)performiCloudAccountSignOutWithContext:(id)context outError:(id *)error
@@ -473,144 +480,147 @@ LABEL_6:
   iCloudAccount = [(MSDAccountManagerHelper *)self iCloudAccount];
   username = [iCloudAccount username];
 
-  v29 = 0;
-  v30 = &v29;
-  v31 = 0x3032000000;
-  v32 = sub_10000D254;
-  v33 = sub_10000D264;
-  v34 = dispatch_semaphore_create(0);
-  v23 = 0;
-  v24 = &v23;
-  v25 = 0x3032000000;
-  v26 = sub_10000D254;
-  v27 = sub_10000D264;
-  v28 = 0;
-  v22[0] = _NSConcreteStackBlock;
-  v22[1] = 3221225472;
-  v22[2] = sub_10000DD60;
-  v22[3] = &unk_100169E40;
-  v22[4] = &v23;
-  v22[5] = &v29;
-  [(MSDAccountManagerHelper *)self _disableFindMyServiceUsingContext:contextCopy completionHandler:v22];
-  v9 = v30[5];
+  v31 = 0;
+  v32 = &v31;
+  v33 = 0x3032000000;
+  v34 = sub_10000D254;
+  v35 = sub_10000D264;
+  v36 = dispatch_semaphore_create(0);
+  v25 = 0;
+  v26 = &v25;
+  v27 = 0x3032000000;
+  v28 = sub_10000D254;
+  v29 = sub_10000D264;
+  v30 = 0;
+  v24[0] = _NSConcreteStackBlock;
+  v24[1] = 3221225472;
+  v24[2] = sub_10000DD60;
+  v24[3] = &unk_100169E40;
+  v24[4] = &v25;
+  v24[5] = &v31;
+  [(MSDAccountManagerHelper *)self _disableFindMyServiceUsingContext:contextCopy completionHandler:v24];
+  v9 = v32[5];
   v10 = dispatch_time(0, 200000000000);
-  if (dispatch_semaphore_wait(v9, v10))
+  v11 = dispatch_semaphore_wait(v9, v10);
+  if (v11)
   {
-    v17 = sub_100063A54();
-    v18 = 3727741042;
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v19 = sub_100063A54(v11);
+    v20 = 3727741042;
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
       sub_1000C5F4C();
     }
 
-    v19 = @"Cannot turn off Find My iPhone.";
+    v21 = @"Cannot turn off Find My iPhone.";
     goto LABEL_14;
   }
 
-  v11 = v24[5];
-  if (v11)
+  v12 = v26[5];
+  if (v12)
   {
-    localizedDescription = [v11 localizedDescription];
+    localizedDescription = [v12 localizedDescription];
     sub_1000C13D8(error, 3727741042, @"Cannot turn off Find My iPhone.", localizedDescription);
 LABEL_16:
 
     goto LABEL_17;
   }
 
-  v21[0] = _NSConcreteStackBlock;
-  v21[1] = 3221225472;
-  v21[2] = sub_10000DDC8;
-  v21[3] = &unk_100169E40;
-  v21[4] = &v23;
-  v21[5] = &v29;
-  [(MSDAccountManagerHelper *)self _signOutAppleIDForServices:0 completionHandler:v21];
-  v12 = v30[5];
-  v13 = dispatch_time(0, 200000000000);
-  if (dispatch_semaphore_wait(v12, v13))
+  v23[0] = _NSConcreteStackBlock;
+  v23[1] = 3221225472;
+  v23[2] = sub_10000DDC8;
+  v23[3] = &unk_100169E40;
+  v23[4] = &v25;
+  v23[5] = &v31;
+  [(MSDAccountManagerHelper *)self _signOutAppleIDForServices:0 completionHandler:v23];
+  v13 = v32[5];
+  v14 = dispatch_time(0, 200000000000);
+  v15 = dispatch_semaphore_wait(v13, v14);
+  if (v15)
   {
-    v17 = sub_100063A54();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v19 = sub_100063A54(v15);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
       sub_1000C5F80();
     }
 
-    v18 = 3727741047;
-    v19 = @"Failed to sign out account service.";
+    v20 = 3727741047;
+    v21 = @"Failed to sign out account service.";
 LABEL_14:
 
-    sub_1000C13D8(error, v18, v19, @"Operation timed out");
+    sub_1000C13D8(error, v20, v21, @"Operation timed out");
 LABEL_17:
-    v15 = 0;
+    v17 = 0;
     goto LABEL_6;
   }
 
-  v14 = v24[5];
-  if (v14)
+  v16 = v26[5];
+  if (v16)
   {
-    localizedDescription = [v14 localizedDescription];
+    localizedDescription = [v16 localizedDescription];
     sub_1000C13D8(error, 3727741047, @"Failed to sign out account service.", localizedDescription);
     goto LABEL_16;
   }
 
-  v15 = 1;
+  v17 = 1;
   [(MSDAccountManagerHelper *)self _waitForIDSOperationToQuiesceForAccount:username forSignOut:1];
 LABEL_6:
-  _Block_object_dispose(&v23, 8);
+  _Block_object_dispose(&v25, 8);
 
-  _Block_object_dispose(&v29, 8);
-  return v15;
+  _Block_object_dispose(&v31, 8);
+  return v17;
 }
 
 - (BOOL)performiTunesAccountSignOutWithContext:(id)context outError:(id *)error
 {
   contextCopy = context;
+  v22 = 0;
+  v23 = &v22;
+  v24 = 0x3032000000;
+  v25 = sub_10000D254;
+  v26 = sub_10000D264;
+  v27 = dispatch_semaphore_create(0);
+  v16 = 0;
+  v17 = &v16;
+  v18 = 0x3032000000;
+  v19 = sub_10000D254;
+  v20 = sub_10000D264;
   v21 = 0;
-  v22 = &v21;
-  v23 = 0x3032000000;
-  v24 = sub_10000D254;
-  v25 = sub_10000D264;
-  v26 = dispatch_semaphore_create(0);
-  v15 = 0;
-  v16 = &v15;
-  v17 = 0x3032000000;
-  v18 = sub_10000D254;
-  v19 = sub_10000D264;
-  v20 = 0;
-  v14[0] = _NSConcreteStackBlock;
-  v14[1] = 3221225472;
-  v14[2] = sub_10000E048;
-  v14[3] = &unk_100169E40;
-  v14[4] = &v15;
-  v14[5] = &v21;
-  [(MSDAccountManagerHelper *)self _signOutAppleIDForServices:0 completionHandler:v14];
-  v7 = v22[5];
+  v15[0] = _NSConcreteStackBlock;
+  v15[1] = 3221225472;
+  v15[2] = sub_10000E048;
+  v15[3] = &unk_100169E40;
+  v15[4] = &v16;
+  v15[5] = &v22;
+  [(MSDAccountManagerHelper *)self _signOutAppleIDForServices:0 completionHandler:v15];
+  v7 = v23[5];
   v8 = dispatch_time(0, 200000000000);
-  if (dispatch_semaphore_wait(v7, v8))
+  v9 = dispatch_semaphore_wait(v7, v8);
+  if (v9)
   {
-    v12 = sub_100063A54();
-    sub_1000C5FB4(v12);
+    v13 = sub_100063A54(v9);
+    sub_1000C5FB4(v13);
 
     sub_1000C13D8(error, 3727741047, @"Failed to sign out account service.", @"Operation timed out");
 LABEL_7:
-    v10 = 0;
+    v11 = 0;
     goto LABEL_4;
   }
 
-  v9 = v16[5];
-  if (v9)
+  v10 = v17[5];
+  if (v10)
   {
-    localizedDescription = [v9 localizedDescription];
+    localizedDescription = [v10 localizedDescription];
     sub_1000C13D8(error, 3727741047, @"Failed to sign out account service.", localizedDescription);
 
     goto LABEL_7;
   }
 
-  v10 = 1;
+  v11 = 1;
 LABEL_4:
-  _Block_object_dispose(&v15, 8);
+  _Block_object_dispose(&v16, 8);
 
-  _Block_object_dispose(&v21, 8);
-  return v10;
+  _Block_object_dispose(&v22, 8);
+  return v11;
 }
 
 - (id)generateiCloudAccountRecoveryKeyWithError:(id *)error
@@ -619,8 +629,8 @@ LABEL_4:
   v5 = initForPrimaryiCloudAccount;
   if (!initForPrimaryiCloudAccount)
   {
-    v11 = sub_100063A54();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = sub_100063A54(0);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       sub_1000C600C();
     }
@@ -629,55 +639,57 @@ LABEL_4:
     goto LABEL_11;
   }
 
-  if ([initForPrimaryiCloudAccount isRecoveryKeyAvailable:0])
+  v6 = [initForPrimaryiCloudAccount isRecoveryKeyAvailable:0];
+  if (v6)
   {
-    v6 = sub_100063A54();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = sub_100063A54(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "iCloud account already has recovery key created before!", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "iCloud account already has recovery key created before!", buf, 2u);
     }
   }
 
-  v13 = 0;
-  v7 = [v5 generateRecoveryKeyWithError:&v13];
-  v8 = v13;
-  if (v8)
+  v14 = 0;
+  v8 = [v5 generateRecoveryKeyWithError:&v14];
+  v9 = v14;
+  if (v9)
   {
-    v9 = v8;
-    localizedDescription = [v8 localizedDescription];
+    v10 = v9;
+    localizedDescription = [v9 localizedDescription];
     sub_1000C13D8(error, 3727741051, @"Failed to setup recovery key for iCloud account.", localizedDescription);
 
 LABEL_11:
-    v7 = 0;
+    v8 = 0;
   }
 
-  return v7;
+  return v8;
 }
 
 - (BOOL)forceiCloudKeychainToSyncWithServerAndError:(id *)error
 {
   v5 = dispatch_semaphore_create(0);
-  v19 = 0;
-  v20 = &v19;
-  v21 = 0x3032000000;
-  v22 = sub_10000D254;
-  v23 = sub_10000D264;
-  v24 = 0;
+  v20 = 0;
+  v21 = &v20;
+  v22 = 0x3032000000;
+  v23 = sub_10000D254;
+  v24 = sub_10000D264;
+  v25 = 0;
   [(MSDAccountManagerHelper *)self _forceIDSToSyncWithServer];
-  v13 = _NSConcreteStackBlock;
-  v14 = 3221225472;
-  v15 = sub_10000E3E8;
-  v16 = &unk_100169E68;
-  v18 = &v19;
+  v14 = _NSConcreteStackBlock;
+  v15 = 3221225472;
+  v16 = sub_10000E3E8;
+  v17 = &unk_100169E68;
+  v19 = &v20;
   v6 = v5;
-  v17 = v6;
-  [(MSDAccountManagerHelper *)self _forceiCloudKeychainToSyncWithServerAndCompletion:&v13];
+  v18 = v6;
+  [(MSDAccountManagerHelper *)self _forceiCloudKeychainToSyncWithServerAndCompletion:&v14];
   v7 = dispatch_time(0, 200000000000);
-  if (dispatch_semaphore_wait(v6, v7))
+  v8 = dispatch_semaphore_wait(v6, v7);
+  if (v8)
   {
-    v8 = sub_100063A54();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = sub_100063A54(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       sub_1000C6040();
     }
@@ -687,22 +699,22 @@ LABEL_11:
 
   else
   {
-    v9 = v20[5];
-    if (!v9)
+    v10 = v21[5];
+    if (!v10)
     {
-      v11 = 1;
+      v12 = 1;
       goto LABEL_8;
     }
 
-    localizedDescription = [v9 localizedDescription];
+    localizedDescription = [v10 localizedDescription];
     sub_1000C13D8(error, 3727741050, @"Failed to synchronize account data with server.", localizedDescription);
   }
 
-  v11 = 0;
+  v12 = 0;
 LABEL_8:
 
-  _Block_object_dispose(&v19, 8);
-  return v11;
+  _Block_object_dispose(&v20, 8);
+  return v12;
 }
 
 - (void)_authenticateAccountWithContext:(id)context forService:(int64_t)service completionHandler:(id)handler
@@ -711,7 +723,7 @@ LABEL_8:
   handlerCopy = handler;
   username = [contextCopy username];
   password = [contextCopy password];
-  v12 = sub_100063A54();
+  v12 = sub_100063A54(password);
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543618;
@@ -757,7 +769,7 @@ LABEL_8:
   v30 = sub_10000D254;
   v31 = sub_10000D264;
   v32 = 0;
-  v14 = sub_100063A54();
+  v14 = sub_100063A54(handlerCopy);
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
@@ -836,7 +848,7 @@ LABEL_8:
   resultsCopy = results;
   handlerCopy = handler;
   v8 = [NSSet setWithObjects:AATermsEntryDevice, AATermsEntryWarranty, AATermsEntryPrivacy, AATermsEntryiCloud, AATermsEntryiTunes, AATermsEntryGameCenter, 0];
-  v9 = sub_100063A54();
+  v9 = sub_100063A54(v8);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -862,7 +874,7 @@ LABEL_8:
 
     else
     {
-      v14 = sub_100063A54();
+      v14 = sub_100063A54(0);
       if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
         sub_1000C6170();
@@ -878,7 +890,7 @@ LABEL_8:
 {
   servicesCopy = services;
   handlerCopy = handler;
-  v8 = sub_100063A54();
+  v8 = sub_100063A54(handlerCopy);
   v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
   if (servicesCopy)
   {
@@ -947,7 +959,7 @@ LABEL_7:
 {
   accountCopy = account;
   handlerCopy = handler;
-  v7 = sub_100063A54();
+  v7 = sub_100063A54(handlerCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109120;
@@ -983,7 +995,7 @@ LABEL_7:
 
     else
     {
-      v11 = sub_100063A54();
+      v11 = sub_100063A54(0);
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
@@ -999,11 +1011,11 @@ LABEL_7:
 {
   featuresCopy = features;
   handlerCopy = handler;
-  v8 = sub_100063A54();
+  v8 = sub_100063A54(handlerCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v42 = featuresCopy;
+    v44 = featuresCopy;
     _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Configuring iCloud account features: %{public}@", buf, 0xCu);
   }
 
@@ -1013,110 +1025,116 @@ LABEL_7:
     if (iCloudAccount)
     {
       v10 = iCloudAccount;
-      if (featuresCopy && [featuresCopy count])
+      if (featuresCopy)
       {
-        selfCopy = self;
-        v29 = handlerCopy;
-        v38 = 0u;
-        v39 = 0u;
-        v36 = 0u;
-        v37 = 0u;
-        v30 = featuresCopy;
-        v11 = featuresCopy;
-        v12 = [v11 countByEnumeratingWithState:&v36 objects:v40 count:16];
-        if (!v12)
+        iCloudAccount = [featuresCopy count];
+        if (iCloudAccount)
         {
-          goto LABEL_29;
-        }
-
-        v13 = v12;
-        v14 = *v37;
-        v31 = ACAccountDataclassSiri;
-        while (1)
-        {
-          for (i = 0; i != v13; i = i + 1)
+          selfCopy = self;
+          v31 = handlerCopy;
+          v40 = 0u;
+          v41 = 0u;
+          v38 = 0u;
+          v39 = 0u;
+          v32 = featuresCopy;
+          v11 = featuresCopy;
+          v12 = [v11 countByEnumeratingWithState:&v38 objects:v42 count:16];
+          if (!v12)
           {
-            if (*v37 != v14)
-            {
-              objc_enumerationMutation(v11);
-            }
-
-            v16 = *(*(&v36 + 1) + 8 * i);
-            v17 = [v11 objectForKey:{v16, selfCopy}];
-            bOOLValue = [v17 BOOLValue];
-            v19 = sub_100063A54();
-            v20 = os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT);
-            if (bOOLValue)
-            {
-              if (v20)
-              {
-                *buf = 138543362;
-                v42 = v16;
-                v21 = v19;
-                v22 = ">> Enabling iCloud account feature: %{public}@";
-LABEL_17:
-                _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, v22, buf, 0xCu);
-              }
-            }
-
-            else if (v20)
-            {
-              *buf = 138543362;
-              v42 = v16;
-              v21 = v19;
-              v22 = ">> Disabling iCloud account feature: %{public}@";
-              goto LABEL_17;
-            }
-
-            if (([v16 isEqualToString:@"com.apple.mobilestoredemo.FindMyiPhone"] & 1) == 0 && (objc_msgSend(v16, "isEqualToString:", @"com.apple.mobilestoredemo.SendLastLocation") & 1) == 0)
-            {
-              if ([v10 isProvisionedForDataclass:v16])
-              {
-                if ([v16 isEqualToString:v31])
-                {
-                  v23 = +[AFPreferences sharedPreferences];
-                  [v23 setCloudSyncEnabled:{objc_msgSend(v17, "BOOLValue")}];
-                }
-
-                [v10 setEnabled:objc_msgSend(v17 forDataclass:{"BOOLValue"), v16}];
-              }
-
-              else
-              {
-                v24 = sub_100063A54();
-                if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
-                {
-                  sub_1000C640C(&v34, v35, v24);
-                }
-              }
-            }
+            goto LABEL_29;
           }
 
-          v13 = [v11 countByEnumeratingWithState:&v36 objects:v40 count:16];
-          if (!v13)
+          v13 = v12;
+          v14 = *v39;
+          v33 = ACAccountDataclassSiri;
+          while (1)
           {
+            for (i = 0; i != v13; i = i + 1)
+            {
+              if (*v39 != v14)
+              {
+                objc_enumerationMutation(v11);
+              }
+
+              v16 = *(*(&v38 + 1) + 8 * i);
+              v17 = [v11 objectForKey:{v16, selfCopy}];
+              bOOLValue = [v17 BOOLValue];
+              v19 = bOOLValue;
+              v20 = sub_100063A54(bOOLValue);
+              v21 = os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT);
+              if (v19)
+              {
+                if (v21)
+                {
+                  *buf = 138543362;
+                  v44 = v16;
+                  v22 = v20;
+                  v23 = ">> Enabling iCloud account feature: %{public}@";
+LABEL_17:
+                  _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, v23, buf, 0xCu);
+                }
+              }
+
+              else if (v21)
+              {
+                *buf = 138543362;
+                v44 = v16;
+                v22 = v20;
+                v23 = ">> Disabling iCloud account feature: %{public}@";
+                goto LABEL_17;
+              }
+
+              if (([v16 isEqualToString:@"com.apple.mobilestoredemo.FindMyiPhone"] & 1) == 0 && (objc_msgSend(v16, "isEqualToString:", @"com.apple.mobilestoredemo.SendLastLocation") & 1) == 0)
+              {
+                v24 = [v10 isProvisionedForDataclass:v16];
+                if (v24)
+                {
+                  if ([v16 isEqualToString:v33])
+                  {
+                    v25 = +[AFPreferences sharedPreferences];
+                    [v25 setCloudSyncEnabled:{objc_msgSend(v17, "BOOLValue")}];
+                  }
+
+                  [v10 setEnabled:objc_msgSend(v17 forDataclass:{"BOOLValue"), v16}];
+                }
+
+                else
+                {
+                  v26 = sub_100063A54(v24);
+                  if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+                  {
+                    sub_1000C640C(&v36, v37, v26);
+                  }
+                }
+              }
+            }
+
+            v13 = [v11 countByEnumeratingWithState:&v38 objects:v42 count:16];
+            if (!v13)
+            {
 LABEL_29:
 
-            accountStore = [(MSDAccountManagerHelper *)selfCopy accountStore];
-            v32[0] = _NSConcreteStackBlock;
-            v32[1] = 3221225472;
-            v32[2] = sub_10000FEC8;
-            v32[3] = &unk_100169F58;
-            handlerCopy = v29;
-            v33 = v29;
-            [accountStore saveAccount:v10 withCompletionHandler:v32];
+              accountStore = [(MSDAccountManagerHelper *)selfCopy accountStore];
+              v34[0] = _NSConcreteStackBlock;
+              v34[1] = 3221225472;
+              v34[2] = sub_10000FEC8;
+              v34[3] = &unk_100169F58;
+              handlerCopy = v31;
+              v35 = v31;
+              [accountStore saveAccount:v10 withCompletionHandler:v34];
 
-            featuresCopy = v30;
-            goto LABEL_36;
+              featuresCopy = v32;
+              goto LABEL_36;
+            }
           }
         }
       }
 
-      v26 = sub_100063A54();
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+      v28 = sub_100063A54(iCloudAccount);
+      if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "No iCloud account features provided. Skip configuring anything!", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEFAULT, "No iCloud account features provided. Skip configuring anything!", buf, 2u);
       }
 
       (*(handlerCopy + 2))(handlerCopy, 0);
@@ -1124,8 +1142,8 @@ LABEL_29:
 
     else
     {
-      v27 = sub_100063A54();
-      if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+      v29 = sub_100063A54(0);
+      if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
       {
         sub_1000C644C();
       }
@@ -1142,7 +1160,7 @@ LABEL_36:
 {
   handlerCopy = handler;
   v6 = +[AAUIDeviceLocatorService sharedInstance];
-  v7 = sub_100063A54();
+  v7 = sub_100063A54(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -1167,12 +1185,12 @@ LABEL_36:
   handlerCopy = handler;
   v8 = +[AAUIDeviceLocatorService sharedInstance];
   iCloudAccount = [(MSDAccountManagerHelper *)self iCloudAccount];
-  v10 = sub_100063A54();
+  v10 = sub_100063A54(iCloudAccount);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     username = [iCloudAccount username];
     *buf = 138543362;
-    v28[0] = username;
+    v31[0] = username;
     _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Checking 'Find My' service state for iCloud account: %{public}@", buf, 0xCu);
   }
 
@@ -1184,67 +1202,78 @@ LABEL_36:
       [contextCopy setUsername:username2];
 
       *&v13 = 67109376;
-      v22 = v13;
-      while (![v8 isStateKnown] || objc_msgSend(v8, "isChangingState"))
+      v25 = v13;
+      while (1)
       {
-        v14 = sub_100063A54();
-        if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+        isStateKnown = [v8 isStateKnown];
+        if (isStateKnown)
         {
-          isStateKnown = [v8 isStateKnown];
+          isStateKnown = [v8 isChangingState];
+          if (!isStateKnown)
+          {
+            break;
+          }
+        }
+
+        v15 = sub_100063A54(isStateKnown);
+        if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+        {
+          isStateKnown2 = [v8 isStateKnown];
           isChangingState = [v8 isChangingState];
-          *buf = v22;
-          LODWORD(v28[0]) = isStateKnown;
-          WORD2(v28[0]) = 1024;
-          *(v28 + 6) = isChangingState;
-          _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Wait until 'Find My' service state is known (isStateKnown = %{BOOL}d) or finished changing (isChaningState = %{BOOL}d).", buf, 0xEu);
+          *buf = v25;
+          LODWORD(v31[0]) = isStateKnown2;
+          WORD2(v31[0]) = 1024;
+          *(v31 + 6) = isChangingState;
+          _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Wait until 'Find My' service state is known (isStateKnown = %{BOOL}d) or finished changing (isChaningState = %{BOOL}d).", buf, 0xEu);
         }
 
         sleep(1u);
       }
 
-      if (![v8 isStateKnown] || (objc_msgSend(v8, "isEnabled") & 1) != 0)
+      isStateKnown3 = [v8 isStateKnown];
+      if (!isStateKnown3 || (isStateKnown3 = [v8 isEnabled], (isStateKnown3 & 1) != 0))
       {
-        v17 = sub_100063A54();
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+        v19 = sub_100063A54(isStateKnown3);
+        if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "'Find My' service is still enabled. Disabling it now!", buf, 2u);
+          _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "'Find My' service is still enabled. Disabling it now!", buf, 2u);
         }
 
         password = [contextCopy password];
 
         if (password)
         {
-          v23[0] = _NSConcreteStackBlock;
-          v23[1] = 3221225472;
-          v23[2] = sub_10001068C;
-          v23[3] = &unk_10016A020;
-          v26 = handlerCopy;
-          v24 = iCloudAccount;
-          v25 = v8;
-          [(MSDAccountManagerHelper *)self _authenticateAccountWithContext:contextCopy forService:0 completionHandler:v23];
+          v26[0] = _NSConcreteStackBlock;
+          v26[1] = 3221225472;
+          v26[2] = sub_10001068C;
+          v26[3] = &unk_10016A020;
+          v29 = handlerCopy;
+          v27 = iCloudAccount;
+          v28 = v8;
+          [(MSDAccountManagerHelper *)self _authenticateAccountWithContext:contextCopy forService:0 completionHandler:v26];
         }
 
         else
         {
-          v19 = sub_100063A54();
-          if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+          v22 = sub_100063A54(v21);
+          if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
           {
             sub_1000C65CC();
           }
 
-          v20 = [NSError errorDomainMSDWithCode:3727744512 message:@"Unexpected server response." reason:@"No password for existing account."];
-          (*(handlerCopy + 2))(handlerCopy, v20);
+          v23 = [NSError errorDomainMSDWithCode:3727744512 message:@"Unexpected server response." reason:@"No password for existing account."];
+          (*(handlerCopy + 2))(handlerCopy, v23);
         }
 
         goto LABEL_24;
       }
 
-      v21 = sub_100063A54();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+      v24 = sub_100063A54(isStateKnown3);
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "'Find My' service is already disabled.", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "'Find My' service is already disabled.", buf, 2u);
       }
     }
 
@@ -1259,81 +1288,81 @@ LABEL_24:
   outCopy = out;
   accountCopy = account;
   v5 = @"registration";
-  v37 = outCopy;
+  v40 = outCopy;
   if (outCopy)
   {
     v5 = @"deregistration";
   }
 
   v6 = v5;
-  v7 = sub_100063A54();
+  v7 = sub_100063A54(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v49 = v6;
+    v52 = v6;
     _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Wait for IDS %{public}@ to quiesce...", buf, 0xCu);
   }
 
   if (accountCopy)
   {
-    v8 = [[IDSAccountController alloc] initWithService:@"com.apple.private.alloy.mobilestoredemo.icloud"];
-    if (v8)
+    v9 = [[IDSAccountController alloc] initWithService:@"com.apple.private.alloy.mobilestoredemo.icloud"];
+    if (v9)
     {
-      v9 = v8;
-      v36 = v6;
-      v10 = 0;
+      v10 = v9;
+      v39 = v6;
       v11 = 0;
-      v12 = 0.0;
+      v12 = 0;
+      v13 = 0.0;
       while (1)
       {
-        v13 = v10;
-        accounts = [v9 accounts];
-        v10 = +[NSDate date];
+        v14 = v11;
+        accounts = [v10 accounts];
+        v11 = +[NSDate date];
 
-        v15 = sub_100063A54();
-        if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+        v17 = sub_100063A54(v16);
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138543362;
-          v49 = accounts;
-          _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Found IDS accounts: %{public}@", buf, 0xCu);
+          v52 = accounts;
+          _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "Found IDS accounts: %{public}@", buf, 0xCu);
         }
 
-        if (v37)
+        if (v40)
         {
-          v46 = 0u;
+          v49 = 0u;
+          v50 = 0u;
           v47 = 0u;
-          v44 = 0u;
-          v45 = 0u;
-          v16 = accounts;
-          v17 = [(__CFString *)v16 countByEnumeratingWithState:&v44 objects:v53 count:16];
-          if (!v17)
+          v48 = 0u;
+          v18 = accounts;
+          v19 = [(__CFString *)v18 countByEnumeratingWithState:&v47 objects:v56 count:16];
+          if (!v19)
           {
 LABEL_19:
 
-            v21 = 1;
+            v23 = 1;
             goto LABEL_31;
           }
 
-          v18 = v17;
-          v19 = *v45;
+          v20 = v19;
+          v21 = *v48;
 LABEL_13:
-          v20 = 0;
+          v22 = 0;
           while (1)
           {
-            if (*v45 != v19)
+            if (*v48 != v21)
             {
-              objc_enumerationMutation(v16);
+              objc_enumerationMutation(v18);
             }
 
-            if ([*(*(&v44 + 1) + 8 * v20) isActive])
+            if ([*(*(&v47 + 1) + 8 * v22) isActive])
             {
               break;
             }
 
-            if (v18 == ++v20)
+            if (v20 == ++v22)
             {
-              v18 = [(__CFString *)v16 countByEnumeratingWithState:&v44 objects:v53 count:16];
-              if (v18)
+              v20 = [(__CFString *)v18 countByEnumeratingWithState:&v47 objects:v56 count:16];
+              if (v20)
               {
                 goto LABEL_13;
               }
@@ -1345,51 +1374,51 @@ LABEL_13:
 
         else
         {
-          v42 = 0u;
+          v45 = 0u;
+          v46 = 0u;
           v43 = 0u;
-          v40 = 0u;
-          v41 = 0u;
-          v22 = accounts;
-          v23 = [(__CFString *)v22 countByEnumeratingWithState:&v40 objects:v52 count:16];
-          if (v23)
+          v44 = 0u;
+          v24 = accounts;
+          v25 = [(__CFString *)v24 countByEnumeratingWithState:&v43 objects:v55 count:16];
+          if (v25)
           {
-            v24 = v23;
-            v25 = *v41;
-            v38 = v11;
+            v26 = v25;
+            v27 = *v44;
+            v41 = v12;
             while (2)
             {
-              v26 = v10;
-              v27 = v9;
-              for (i = 0; i != v24; i = i + 1)
+              v28 = v11;
+              v29 = v10;
+              for (i = 0; i != v26; i = i + 1)
               {
-                if (*v41 != v25)
+                if (*v44 != v27)
                 {
-                  objc_enumerationMutation(v22);
+                  objc_enumerationMutation(v24);
                 }
 
-                v29 = *(*(&v40 + 1) + 8 * i);
-                if ([v29 isActive])
+                v31 = *(*(&v43 + 1) + 8 * i);
+                if ([v31 isActive])
                 {
-                  loginID = [v29 loginID];
-                  v31 = [loginID isEqualToString:accountCopy];
+                  loginID = [v31 loginID];
+                  v33 = [loginID isEqualToString:accountCopy];
 
-                  if (v31)
+                  if (v33)
                   {
 
-                    v21 = 1;
-                    v9 = v27;
-                    v10 = v26;
-                    v11 = v38;
+                    v23 = 1;
+                    v10 = v29;
+                    v11 = v28;
+                    v12 = v41;
                     goto LABEL_31;
                   }
                 }
               }
 
-              v24 = [(__CFString *)v22 countByEnumeratingWithState:&v40 objects:v52 count:16];
-              v9 = v27;
-              v10 = v26;
-              v11 = v38;
-              if (v24)
+              v26 = [(__CFString *)v24 countByEnumeratingWithState:&v43 objects:v55 count:16];
+              v10 = v29;
+              v11 = v28;
+              v12 = v41;
+              if (v26)
               {
                 continue;
               }
@@ -1400,41 +1429,41 @@ LABEL_13:
         }
 
         sleep(5u);
-        v21 = 0;
+        v23 = 0;
 LABEL_31:
-        v32 = +[NSDate date];
+        v34 = +[NSDate date];
 
-        [v32 timeIntervalSinceDate:v10];
-        v12 = v12 + v33;
+        [v34 timeIntervalSinceDate:v11];
+        v13 = v13 + v35;
 
-        if ((v21 & 1) == 0)
+        if ((v23 & 1) == 0)
         {
-          v11 = v32;
-          if (v12 < 60.0)
+          v12 = v34;
+          if (v13 < 60.0)
           {
             continue;
           }
         }
 
-        v34 = sub_100063A54();
-        v35 = v34;
-        if (v21)
+        v37 = sub_100063A54(v36);
+        v38 = v37;
+        if (v23)
         {
-          v6 = v36;
-          if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
+          v6 = v39;
+          if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138543618;
-            v49 = v36;
-            v50 = 2048;
-            v51 = v12;
-            _os_log_impl(&_mh_execute_header, v35, OS_LOG_TYPE_DEFAULT, "IDS %{public}@ finished after %f seconds.", buf, 0x16u);
+            v52 = v39;
+            v53 = 2048;
+            v54 = v13;
+            _os_log_impl(&_mh_execute_header, v38, OS_LOG_TYPE_DEFAULT, "IDS %{public}@ finished after %f seconds.", buf, 0x16u);
           }
         }
 
         else
         {
-          v6 = v36;
-          if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+          v6 = v39;
+          if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
           {
             sub_1000C6658();
           }
@@ -1444,8 +1473,8 @@ LABEL_31:
       }
     }
 
-    v9 = sub_100063A54();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = sub_100063A54(0);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       sub_1000C66D8();
     }
@@ -1453,11 +1482,11 @@ LABEL_31:
 
   else
   {
-    v9 = sub_100063A54();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = sub_100063A54(v8);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "No iCloud account signed in on device!", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "No iCloud account signed in on device!", buf, 2u);
     }
   }
 
@@ -1477,81 +1506,81 @@ LABEL_43:
 
   if (iCloudAccount)
   {
-    v3 = +[NSMutableArray array];
-    v4 = [[IDSAccountController alloc] initWithService:@"com.apple.private.alloy.mobilestoredemo.icloud"];
-    v5 = v4;
-    if (v4)
+    v4 = +[NSMutableArray array];
+    v5 = [[IDSAccountController alloc] initWithService:@"com.apple.private.alloy.mobilestoredemo.icloud"];
+    v6 = v5;
+    if (v5)
     {
-      v28 = v4;
-      [v4 accounts];
-      v34 = 0u;
+      v29 = v5;
+      [v5 accounts];
       v35 = 0u;
       v36 = 0u;
-      v6 = v37 = 0u;
-      v7 = [v6 countByEnumeratingWithState:&v34 objects:v39 count:16];
-      if (v7)
+      v37 = 0u;
+      v7 = v38 = 0u;
+      v8 = [v7 countByEnumeratingWithState:&v35 objects:v40 count:16];
+      if (v8)
       {
-        v8 = v7;
-        v9 = *v35;
+        v9 = v8;
+        v10 = *v36;
         while (2)
         {
-          for (i = 0; i != v8; i = i + 1)
+          for (i = 0; i != v9; i = i + 1)
           {
-            if (*v35 != v9)
+            if (*v36 != v10)
             {
-              objc_enumerationMutation(v6);
+              objc_enumerationMutation(v7);
             }
 
-            v11 = *(*(&v34 + 1) + 8 * i);
-            if ([v11 isActive])
+            v12 = *(*(&v35 + 1) + 8 * i);
+            if ([v12 isActive])
             {
-              loginID = [v11 loginID];
+              loginID = [v12 loginID];
               iCloudAccount2 = [(MSDAccountManagerHelper *)self iCloudAccount];
               [iCloudAccount2 username];
-              v15 = v14 = v6;
-              v16 = [loginID isEqualToString:v15];
+              v16 = v15 = v7;
+              v17 = [loginID isEqualToString:v16];
 
-              v6 = v14;
-              if (v16)
+              v7 = v15;
+              if (v17)
               {
-                v32 = 0u;
                 v33 = 0u;
-                v30 = 0u;
+                v34 = 0u;
                 v31 = 0u;
-                devices = [v11 devices];
-                v18 = [devices countByEnumeratingWithState:&v30 objects:v38 count:16];
-                if (v18)
+                v32 = 0u;
+                devices = [v12 devices];
+                v19 = [devices countByEnumeratingWithState:&v31 objects:v39 count:16];
+                if (v19)
                 {
-                  v19 = v18;
-                  v20 = *v31;
+                  v20 = v19;
+                  v21 = *v32;
                   do
                   {
-                    for (j = 0; j != v19; j = j + 1)
+                    for (j = 0; j != v20; j = j + 1)
                     {
-                      if (*v31 != v20)
+                      if (*v32 != v21)
                       {
                         objc_enumerationMutation(devices);
                       }
 
-                      v22 = *(*(&v30 + 1) + 8 * j);
-                      nsuuid = [v22 nsuuid];
+                      v23 = *(*(&v31 + 1) + 8 * j);
+                      nsuuid = [v23 nsuuid];
                       if (nsuuid)
                       {
-                        v24 = nsuuid;
-                        supportsiCloudPairing = [v22 supportsiCloudPairing];
+                        v25 = nsuuid;
+                        supportsiCloudPairing = [v23 supportsiCloudPairing];
 
                         if (supportsiCloudPairing)
                         {
-                          uniqueID = [v22 uniqueID];
-                          [v3 addObject:uniqueID];
+                          uniqueID = [v23 uniqueID];
+                          [v4 addObject:uniqueID];
                         }
                       }
                     }
 
-                    v19 = [devices countByEnumeratingWithState:&v30 objects:v38 count:16];
+                    v20 = [devices countByEnumeratingWithState:&v31 objects:v39 count:16];
                   }
 
-                  while (v19);
+                  while (v20);
                 }
 
                 goto LABEL_29;
@@ -1559,8 +1588,8 @@ LABEL_43:
             }
           }
 
-          v8 = [v6 countByEnumeratingWithState:&v34 objects:v39 count:16];
-          if (v8)
+          v9 = [v7 countByEnumeratingWithState:&v35 objects:v40 count:16];
+          if (v9)
           {
             continue;
           }
@@ -1571,13 +1600,13 @@ LABEL_43:
 
 LABEL_29:
 
-      v5 = v28;
+      v6 = v29;
     }
 
     else
     {
-      v6 = sub_100063A54();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+      v7 = sub_100063A54(0);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
         sub_1000C66D8();
       }
@@ -1586,28 +1615,28 @@ LABEL_29:
 
   else
   {
-    v5 = sub_100063A54();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = sub_100063A54(v3);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       sub_1000C6758();
     }
 
-    v3 = 0;
+    v4 = 0;
   }
 
-  return v3;
+  return v4;
 }
 
 - (void)_forceiCloudKeychainToSyncWithServerAndCompletion:(id)completion
 {
   completionCopy = completion;
-  v18 = 0;
-  v19 = &v18;
-  v20 = 0x3032000000;
-  v21 = sub_10000D254;
-  v22 = sub_10000D264;
-  v23 = 0;
-  v5 = sub_100063A54();
+  v19 = 0;
+  v20 = &v19;
+  v21 = 0x3032000000;
+  v22 = sub_10000D254;
+  v23 = sub_10000D264;
+  v24 = 0;
+  v5 = sub_100063A54(completionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -1622,11 +1651,11 @@ LABEL_29:
   iCloudAccount = [(MSDAccountManagerHelper *)self iCloudAccount];
   if (!iCloudAccount)
   {
-    v12 = sub_100063A54();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v13 = sub_100063A54(0);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "No iCloud account signed in on device!", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "No iCloud account signed in on device!", buf, 2u);
     }
 
     completionCopy[2](completionCopy, 0);
@@ -1636,19 +1665,19 @@ LABEL_12:
     goto LABEL_13;
   }
 
-  v17 = 0;
-  v7 = [CKKSControl controlObject:&v17];
-  v8 = v17;
-  v9 = v19[5];
-  v19[5] = v7;
+  v18 = 0;
+  v7 = [CKKSControl controlObject:&v18];
+  v8 = v18;
+  v9 = v20[5];
+  v20[5] = v7;
 
   if (v8)
   {
-    v10 = sub_100063A54();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = sub_100063A54(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       localizedDescription = [v8 localizedDescription];
-      sub_1000C678C(localizedDescription, buf, v10);
+      sub_1000C678C(localizedDescription, buf, v11);
     }
 
     (completionCopy)[2](completionCopy, v8);
@@ -1656,26 +1685,26 @@ LABEL_12:
 
   else
   {
-    v13 = v19[5];
-    v14[0] = _NSConcreteStackBlock;
-    v14[1] = 3221225472;
-    v14[2] = sub_100011710;
-    v14[3] = &unk_10016A048;
-    v15 = completionCopy;
-    v16 = &v18;
-    [v13 rpcFetchAndProcessChanges:0 reply:v14];
+    v14 = v20[5];
+    v15[0] = _NSConcreteStackBlock;
+    v15[1] = 3221225472;
+    v15[2] = sub_100011710;
+    v15[3] = &unk_10016A048;
+    v16 = completionCopy;
+    v17 = &v19;
+    [v14 rpcFetchAndProcessChanges:0 reply:v15];
 
     v8 = 0;
   }
 
 LABEL_13:
 
-  _Block_object_dispose(&v18, 8);
+  _Block_object_dispose(&v19, 8);
 }
 
 - (void)_forceIDSToSyncWithServer
 {
-  v3 = sub_100063A54();
+  v3 = sub_100063A54(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -1694,22 +1723,23 @@ LABEL_13:
       v14 = 0u;
       v15 = 0u;
       enabledAccounts = [v5 enabledAccounts];
-      v8 = [enabledAccounts countByEnumeratingWithState:&v14 objects:v20 count:16];
-      if (v8)
+      Dependent = [enabledAccounts countByEnumeratingWithState:&v14 objects:v20 count:16];
+      if (Dependent)
       {
-        v9 = v8;
+        v9 = Dependent;
         v10 = *v15;
         do
         {
-          for (i = 0; i != v9; i = i + 1)
+          v11 = 0;
+          do
           {
             if (*v15 != v10)
             {
               objc_enumerationMutation(enabledAccounts);
             }
 
-            v12 = *(*(&v14 + 1) + 8 * i);
-            v13 = sub_100063A54();
+            v12 = *(*(&v14 + 1) + 8 * v11);
+            v13 = sub_100063A54(Dependent);
             if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138543362;
@@ -1717,13 +1747,16 @@ LABEL_13:
               _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Kicking IDS account: %{public}@", buf, 0xCu);
             }
 
-            IDSKickGetDependent();
+            Dependent = IDSKickGetDependent();
+            v11 = v11 + 1;
           }
 
-          v9 = [enabledAccounts countByEnumeratingWithState:&v14 objects:v20 count:16];
+          while (v9 != v11);
+          Dependent = [enabledAccounts countByEnumeratingWithState:&v14 objects:v20 count:16];
+          v9 = Dependent;
         }
 
-        while (v9);
+        while (Dependent);
       }
 
       sleep(0xAu);
@@ -1731,7 +1764,7 @@ LABEL_13:
 
     else
     {
-      v6 = sub_100063A54();
+      v6 = sub_100063A54(0);
       if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
         sub_1000C6870();
@@ -1741,7 +1774,7 @@ LABEL_13:
 
   else
   {
-    v6 = sub_100063A54();
+    v6 = sub_100063A54(0);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
@@ -1753,23 +1786,25 @@ LABEL_13:
 - (BOOL)_isAllowListedAccount:(id)account withAuthResults:(id)results
 {
   accountCopy = account;
-  v6 = [results objectForKey:AKAuthenticationDemoAccountKey];
-  if (!v6 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0) || ![v6 BOOLValue])
+  isKindOfClass = [results objectForKey:AKAuthenticationDemoAccountKey];
+  v7 = isKindOfClass;
+  if (!isKindOfClass || (objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), (isKindOfClass & 1) == 0) || (isKindOfClass = [v7 BOOLValue], !isKindOfClass))
   {
-    v9 = sub_100063A54();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = sub_100063A54(isKindOfClass);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "No 'demo account' flag set in IdMS auth response!", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "No 'demo account' flag set in IdMS auth response!", buf, 2u);
     }
 
-    v23 = 0;
-    v10 = [NSRegularExpression regularExpressionWithPattern:@"chnl_internal_[0-9]{1 options:2}@icloud.com" error:1, &v23];
-    v11 = v23;
-    if (!v10)
+    v30 = 0;
+    v11 = [NSRegularExpression regularExpressionWithPattern:@"chnl_internal_[0-9]{1 options:2}@icloud.com" error:1, &v30];
+    v12 = v30;
+    v13 = v12;
+    if (!v11)
     {
-      v19 = sub_100063A54();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+      v26 = sub_100063A54(v12);
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
       {
         sub_1000C68A4();
       }
@@ -1777,37 +1812,37 @@ LABEL_13:
       goto LABEL_44;
     }
 
-    if (![v10 rangeOfFirstMatchInString:accountCopy options:0 range:{0, objc_msgSend(accountCopy, "length")}] && v12 == objc_msgSend(accountCopy, "length"))
+    if (![v11 rangeOfFirstMatchInString:accountCopy options:0 range:{0, objc_msgSend(accountCopy, "length")}] && v14 == objc_msgSend(accountCopy, "length"))
     {
-      v13 = [accountCopy substringWithRange:{objc_msgSend(@"chnl_internal_", "length"), objc_msgSend(accountCopy, "rangeOfString:", @"@icloud.com", "length")}];
-      if ([v13 integerValue]>= 1 && [v13 integerValue]< 21)
+      v15 = [accountCopy substringWithRange:{objc_msgSend(@"chnl_internal_", "length"), objc_msgSend(accountCopy, "rangeOfString:", @"@icloud.com", "length")}];
+      if ([v15 integerValue]>= 1 && [v15 integerValue]< 21)
       {
-        v8 = 1;
+        v9 = 1;
 LABEL_31:
 
         goto LABEL_32;
       }
     }
 
-    v22 = v11;
-    v14 = [NSRegularExpression regularExpressionWithPattern:@"(ars|channel|dekota)[0-9]+\\.[0-9]+@(icloud|me|mac)\\.com" options:1 error:&v22];
-    v7 = v22;
+    v29 = v13;
+    v16 = [NSRegularExpression regularExpressionWithPattern:@"(ars|channel|dekota)[0-9]+\\.[0-9]+@(icloud|me|mac)\\.com" options:1 error:&v29];
+    v8 = v29;
 
-    if (v14)
+    if (v16)
     {
-      if (![v14 rangeOfFirstMatchInString:accountCopy options:0 range:{0, objc_msgSend(accountCopy, "length")}] && v15 == objc_msgSend(accountCopy, "length"))
+      if (![v16 rangeOfFirstMatchInString:accountCopy options:0 range:{0, objc_msgSend(accountCopy, "length")}] && v18 == objc_msgSend(accountCopy, "length"))
       {
         goto LABEL_26;
       }
 
-      v21 = v7;
-      v10 = [NSRegularExpression regularExpressionWithPattern:@"chnl\\.[0-9]{7}\\.[0-9]{3}@icloud\\.com" options:1 error:&v21];
-      v11 = v21;
+      v28 = v8;
+      v11 = [NSRegularExpression regularExpressionWithPattern:@"chnl\\.[0-9]{7}\\.[0-9]{3}@icloud\\.com" options:1 error:&v28];
+      v13 = v28;
 
-      if (!v10)
+      if (!v11)
       {
-        v19 = sub_100063A54();
-        if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+        v26 = sub_100063A54(v19);
+        if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
         {
           sub_1000C68A4();
         }
@@ -1815,45 +1850,51 @@ LABEL_31:
         goto LABEL_44;
       }
 
-      if (![v10 rangeOfFirstMatchInString:accountCopy options:0 range:{0, objc_msgSend(accountCopy, "length")}] && v16 == objc_msgSend(accountCopy, "length"))
+      if (![v11 rangeOfFirstMatchInString:accountCopy options:0 range:{0, objc_msgSend(accountCopy, "length")}] && v20 == objc_msgSend(accountCopy, "length"))
       {
-        v8 = 1;
+        v9 = 1;
 LABEL_32:
-        v14 = v10;
-        v7 = v11;
+        v16 = v11;
+        v8 = v13;
         goto LABEL_33;
       }
 
-      v20 = v11;
-      v14 = [NSRegularExpression regularExpressionWithPattern:@"chnl\\.[a-zA-Z0-9]{4}\\.[a-zA-Z0-9]{6}@icloud\\.com" options:1 error:&v20];
-      v7 = v20;
+      v27 = v13;
+      v16 = [NSRegularExpression regularExpressionWithPattern:@"chnl\\.[a-zA-Z0-9]{4}\\.[a-zA-Z0-9]{6}@icloud\\.com" options:1 error:&v27];
+      v8 = v27;
 
-      if (v14)
+      if (v16)
       {
-        if (![v14 rangeOfFirstMatchInString:accountCopy options:0 range:{0, objc_msgSend(accountCopy, "length")}] && v17 == objc_msgSend(accountCopy, "length"))
+        v22 = [v16 rangeOfFirstMatchInString:accountCopy options:0 range:{0, objc_msgSend(accountCopy, "length")}];
+        if (!v22)
         {
+          v24 = v23;
+          v22 = [accountCopy length];
+          if (v24 == v22)
+          {
 LABEL_26:
-          v8 = 1;
+            v9 = 1;
 LABEL_33:
 
-          goto LABEL_34;
+            goto LABEL_34;
+          }
         }
 
-        v10 = v14;
-        v11 = v7;
+        v11 = v16;
+        v13 = v8;
 LABEL_28:
-        v13 = sub_100063A54();
-        if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+        v15 = sub_100063A54(v22);
+        if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
         {
           sub_1000C68D8();
         }
 
-        v8 = 0;
+        v9 = 0;
         goto LABEL_31;
       }
 
-      v19 = sub_100063A54();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+      v26 = sub_100063A54(v21);
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
       {
         sub_1000C68A4();
       }
@@ -1861,37 +1902,37 @@ LABEL_28:
 
     else
     {
-      v19 = sub_100063A54();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+      v26 = sub_100063A54(v17);
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
       {
         sub_1000C68A4();
       }
     }
 
-    v11 = v7;
+    v13 = v8;
 LABEL_44:
 
-    v10 = 0;
+    v11 = 0;
     goto LABEL_28;
   }
 
-  v7 = sub_100063A54();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v8 = sub_100063A54(isKindOfClass);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Found 'demo account' flag in IdMS auth response!", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Found 'demo account' flag in IdMS auth response!", buf, 2u);
   }
 
-  v8 = 1;
+  v9 = 1;
 LABEL_34:
 
-  return v8;
+  return v9;
 }
 
 - (void)signOutFlowController:(id)controller showAlertWithTitle:(id)title message:(id)message completion:(id)completion
 {
   completionCopy = completion;
-  v7 = sub_100063A54();
+  v7 = sub_100063A54(completionCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = 136315138;
@@ -1905,7 +1946,7 @@ LABEL_34:
 - (void)signOutFlowController:(id)controller performWalrusValidationForAccount:(id)account completion:(id)completion
 {
   completionCopy = completion;
-  v6 = sub_100063A54();
+  v6 = sub_100063A54(completionCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = 136315138;
@@ -1919,7 +1960,7 @@ LABEL_34:
 - (void)signOutFlowController:(id)controller disableFindMyDeviceForAccount:(id)account completion:(id)completion
 {
   completionCopy = completion;
-  v6 = sub_100063A54();
+  v6 = sub_100063A54(completionCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = 136315138;
@@ -1934,7 +1975,7 @@ LABEL_34:
 {
   completionCopy = completion;
   accountCopy = account;
-  v9 = sub_100063A54();
+  v9 = sub_100063A54(accountCopy);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;

@@ -9,7 +9,7 @@
 + (NSString)reuseIdentifier
 {
   type metadata accessor for SearchHomeTipkitCollectionViewCell();
-  sub_1000CE6B8(&qword_101910AE8);
+  sub_1000CE6B8(&qword_101910AE8, &unk_1011EEC40);
   String.init<A>(describing:)();
   v2 = String._bridgeToObjectiveC()();
 

@@ -59,8 +59,8 @@
   swift_beginAccess();
   type metadata accessor for URL();
 
-  sub_10015DA04(&unk_1006C9B40);
-  sub_1002AA814(&qword_1006C07C0, &type metadata accessor for URL);
+  sub_10015DA04(&unk_1006C9B40, &unk_1005397F0);
+  sub_1002AA814(&qword_1006C07C0, &type metadata accessor for URL, &protocol conformance descriptor for URL);
   v2.super.isa = Dictionary._bridgeToObjectiveC()().super.isa;
 
   return v2.super.isa;
@@ -69,8 +69,8 @@
 - (void)setErrors:(id)errors
 {
   type metadata accessor for URL();
-  sub_10015DA04(&unk_1006C9B40);
-  sub_1002AA814(&qword_1006C07C0, &type metadata accessor for URL);
+  sub_10015DA04(&unk_1006C9B40, &unk_1005397F0);
+  sub_1002AA814(&qword_1006C07C0, &type metadata accessor for URL, &protocol conformance descriptor for URL);
   v4 = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
   v5 = OBJC_IVAR____TtC11MobileNotes17ICArchiveImporter_errors;
   swift_beginAccess();

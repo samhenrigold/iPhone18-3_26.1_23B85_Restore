@@ -63,81 +63,103 @@ void __48__UpgradeOperation_terminateJobsWithCompletion___block_invoke(uint64_t 
     if (v4)
     {
       v5 = [*(a1 + 32) logHandle];
-      os_log_type_enabled(v5, OS_LOG_TYPE_ERROR);
-      [*(a1 + 32) cryptexName];
-      v20 = *buf = 138543618;
-      v21 = 1024;
-      v22 = a2;
-      v6 = _os_log_send_and_compose_impl();
+      v6 = os_log_type_enabled(v5, OS_LOG_TYPE_ERROR);
+      v7 = [*(a1 + 32) cryptexName];
+      if (v6)
+      {
+        v8 = 3;
+      }
+
+      else
+      {
+        v8 = 2;
+      }
+
+      *buf = 138543618;
+      v26 = v7;
+      v27 = 1024;
+      v28 = a2;
+      v9 = _os_log_send_and_compose_impl(v8, 0, 0, 0, &_mh_execute_header, v5, 16, "Terminating launchd jobs failed for cryptex '%{public}@' %{darwin.errno}d", buf, 18);
     }
 
     else
     {
-      v14 = &_os_log_default;
-      [*(a1 + 32) cryptexName];
-      v20 = *buf = 138543618;
-      v21 = 1024;
-      v22 = a2;
-      v6 = _os_log_send_and_compose_impl();
+      v19 = &_os_log_default;
+      v20 = [*(a1 + 32) cryptexName];
+      *buf = 138543618;
+      v26 = v20;
+      v27 = 1024;
+      v28 = a2;
+      v9 = _os_log_send_and_compose_impl(2, 0, 0, 0, &_mh_execute_header, &_os_log_default, 16, "Terminating launchd jobs failed for cryptex '%{public}@' %{darwin.errno}d", buf, 18);
 
       v5 = &_os_log_default;
     }
 
-    Error = createError("[UpgradeOperation terminateJobsWithCompletion:]_block_invoke", "upgrade_sequencer.m", 128, "com.apple.security.cryptex.posix", a2, 0, v6);
-LABEL_14:
-    v16 = Error;
-    free(v6);
-    goto LABEL_15;
+    Error = createError("[UpgradeOperation terminateJobsWithCompletion:]_block_invoke", "upgrade_sequencer.m", 128, "com.apple.security.cryptex.posix", a2, 0, v9);
+LABEL_20:
+    v22 = Error;
+    free(v9);
+    goto LABEL_21;
   }
 
-  v7 = *__error();
-  v8 = [*(a1 + 32) logHandle];
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+  v10 = *__error();
+  v11 = [*(a1 + 32) logHandle];
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
   {
-    v9 = [*(a1 + 32) cryptexName];
+    v12 = [*(a1 + 32) cryptexName];
     *buf = 138543362;
-    v20 = v9;
-    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_INFO, "Terminated jobs for cryptex '%{public}@'", buf, 0xCu);
+    v26 = v12;
+    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_INFO, "Terminated jobs for cryptex '%{public}@'", buf, 0xCu);
   }
 
-  *__error() = v7;
-  v10 = proc_terminate_all_rsr(9);
-  if (v10)
+  *__error() = v10;
+  v13 = proc_terminate_all_rsr(9);
+  if (v13)
   {
-    v11 = [*(a1 + 32) logHandle];
+    v14 = [*(a1 + 32) logHandle];
 
-    if (v11)
+    if (v14)
     {
-      v12 = [*(a1 + 32) logHandle];
-      os_log_type_enabled(v12, OS_LOG_TYPE_ERROR);
-      v13 = [*(a1 + 32) cryptexName];
+      v15 = [*(a1 + 32) logHandle];
+      v16 = os_log_type_enabled(v15, OS_LOG_TYPE_ERROR);
+      v17 = [*(a1 + 32) cryptexName];
+      if (v16)
+      {
+        v18 = 3;
+      }
+
+      else
+      {
+        v18 = 2;
+      }
+
       *buf = 138543618;
-      v20 = v13;
-      v21 = 1024;
-      v22 = v10;
-      v6 = _os_log_send_and_compose_impl();
+      v26 = v17;
+      v27 = 1024;
+      v28 = v13;
+      v9 = _os_log_send_and_compose_impl(v18, 0, 0, 0, &_mh_execute_header, v15, 16, "Killing miscellaneous processes failed for cryptex '%{public}@' %{darwin.errno}d", buf, 18);
     }
 
     else
     {
-      v17 = &_os_log_default;
-      v18 = [*(a1 + 32) cryptexName];
+      v23 = &_os_log_default;
+      v24 = [*(a1 + 32) cryptexName];
       *buf = 138543618;
-      v20 = v18;
-      v21 = 1024;
-      v22 = v10;
-      v6 = _os_log_send_and_compose_impl();
+      v26 = v24;
+      v27 = 1024;
+      v28 = v13;
+      v9 = _os_log_send_and_compose_impl(2, 0, 0, 0, &_mh_execute_header, &_os_log_default, 16, "Killing miscellaneous processes failed for cryptex '%{public}@' %{darwin.errno}d", buf, 18);
 
-      v12 = &_os_log_default;
+      v15 = &_os_log_default;
     }
 
-    Error = createError("[UpgradeOperation terminateJobsWithCompletion:]_block_invoke", "upgrade_sequencer.m", 143, "com.apple.security.cryptex.posix", v10, 0, v6);
-    goto LABEL_14;
+    Error = createError("[UpgradeOperation terminateJobsWithCompletion:]_block_invoke", "upgrade_sequencer.m", 143, "com.apple.security.cryptex.posix", v13, 0, v9);
+    goto LABEL_20;
   }
 
-  v16 = 0;
-LABEL_15:
-  (*(*(a1 + 40) + 16))(*(a1 + 40), v16);
+  v22 = 0;
+LABEL_21:
+  (*(*(a1 + 40) + 16))();
 }
 
 - (void)startUpgrade

@@ -56,40 +56,40 @@
 
 - (ChipError)_encodeToTLVReader:(PacketBufferTLVReader *)reader
 {
-  v86 = *MEMORY[0x277D85DE8];
-  *v68 = 0;
-  v69 = 0;
+  v85 = *MEMORY[0x277D85DE8];
+  *v67 = 0;
+  v68 = 0;
   unsignedCharValue = 0;
+  v73 = 0;
   v74 = 0;
-  v75 = 0;
-  LOBYTE(v76) = 0;
+  LOBYTE(v75) = 0;
+  v70 = 0u;
   v71 = 0u;
-  v72 = 0u;
   unsignedCharValue2 = 0;
+  v76 = 0u;
   v77 = 0u;
   v78 = 0u;
   v79 = 0u;
-  v80 = 0u;
-  v67[0] = 0;
-  v67[1] = 0;
-  v66 = v67;
+  v66[0] = 0;
+  v66[1] = 0;
+  v65 = v66;
   arg1 = [(MTRUnitTestingClusterTestNestedStructListArgumentRequestParams *)self arg1];
   v5 = [arg1 a];
-  v68[0] = [v5 unsignedCharValue];
+  v67[0] = [v5 unsignedCharValue];
 
   arg12 = [(MTRUnitTestingClusterTestNestedStructListArgumentRequestParams *)self arg1];
   v7 = [arg12 b];
-  v68[1] = [v7 BOOLValue];
+  v67[1] = [v7 BOOLValue];
 
   arg13 = [(MTRUnitTestingClusterTestNestedStructListArgumentRequestParams *)self arg1];
   v9 = [arg13 c];
   v10 = [v9 a];
-  LOBYTE(v69) = [v10 unsignedCharValue];
+  LOBYTE(v68) = [v10 unsignedCharValue];
 
   arg14 = [(MTRUnitTestingClusterTestNestedStructListArgumentRequestParams *)self arg1];
   v12 = [arg14 c];
   v13 = [v12 b];
-  HIBYTE(v69) = [v13 BOOLValue];
+  HIBYTE(v68) = [v13 BOOLValue];
 
   arg15 = [(MTRUnitTestingClusterTestNestedStructListArgumentRequestParams *)self arg1];
   v15 = [arg15 c];
@@ -102,14 +102,14 @@
   v20 = v19;
   sub_238DB6950(buf, [v19 bytes], objc_msgSend(v19, "length"));
 
-  v71 = *buf;
+  v70 = *buf;
   arg17 = [(MTRUnitTestingClusterTestNestedStructListArgumentRequestParams *)self arg1];
   v22 = [arg17 c];
   v23 = [v22 e];
   v24 = v23;
   sub_238DB9BD8(buf, [v23 UTF8String], objc_msgSend(v23, "lengthOfBytesUsingEncoding:", 4));
 
-  v72 = *buf;
+  v71 = *buf;
   arg18 = [(MTRUnitTestingClusterTestNestedStructListArgumentRequestParams *)self arg1];
   v26 = [arg18 c];
   v27 = [v26 f];
@@ -119,13 +119,13 @@
   v29 = [arg19 c];
   v30 = [v29 g];
   [v30 floatValue];
-  v74 = v31;
+  v73 = v31;
 
   arg110 = [(MTRUnitTestingClusterTestNestedStructListArgumentRequestParams *)self arg1];
   v33 = [arg110 c];
   v34 = [v33 h];
   [v34 doubleValue];
-  v75 = v35;
+  v74 = v35;
 
   arg111 = [(MTRUnitTestingClusterTestNestedStructListArgumentRequestParams *)self arg1];
   v37 = [arg111 c];
@@ -134,11 +134,11 @@
 
   if (!v39)
   {
-    v76 = 1;
+    v75 = 1;
     arg112 = [(MTRUnitTestingClusterTestNestedStructListArgumentRequestParams *)self arg1];
     v41 = [arg112 c];
     v42 = [v41 i];
-    HIBYTE(v76) = [v42 unsignedCharValue];
+    HIBYTE(v75) = [v42 unsignedCharValue];
   }
 
   arg113 = [(MTRUnitTestingClusterTestNestedStructListArgumentRequestParams *)self arg1];
@@ -150,7 +150,7 @@
     operator new();
   }
 
-  v77 = 0uLL;
+  v76 = 0uLL;
   arg114 = [(MTRUnitTestingClusterTestNestedStructListArgumentRequestParams *)self arg1];
   v47 = [arg114 e];
   v48 = [v47 count] == 0;
@@ -160,7 +160,7 @@
     operator new();
   }
 
-  v78 = 0uLL;
+  v77 = 0uLL;
   arg115 = [(MTRUnitTestingClusterTestNestedStructListArgumentRequestParams *)self arg1];
   v50 = [arg115 f];
   v51 = [v50 count] == 0;
@@ -170,7 +170,7 @@
     operator new();
   }
 
-  v79 = 0uLL;
+  v78 = 0uLL;
   arg116 = [(MTRUnitTestingClusterTestNestedStructListArgumentRequestParams *)self arg1];
   v53 = [arg116 g];
   v54 = [v53 count] == 0;
@@ -180,36 +180,36 @@
     operator new();
   }
 
-  v80 = 0uLL;
-  sub_2393D9C18(0x62FuLL, 0, &v65);
-  if (v65)
+  v79 = 0uLL;
+  sub_2393D9C18(0x62FuLL, 0, &v64);
+  if (v64)
   {
     sub_2393C7B90(buf);
+    v82 = 0;
     v83 = 0;
+    v81 = &unk_284BB83A8;
     v84 = 0;
-    v82 = &unk_284BB83A8;
-    v85 = 0;
-    sub_238EA16C4(&v82, &v65, 0);
-    sub_2393C7BF0(buf, &v82, 0xFFFFFFFF);
-    v55 = sub_238F30BC8(v68, buf, 0x100uLL);
+    sub_238EA16C4(&v81, &v64, 0);
+    sub_2393C7BF0(buf, &v81, 0xFFFFFFFF);
+    v55 = sub_238F30BC8(v67, buf, 0x100uLL);
     v57 = v55;
-    if (v55 || (v55 = sub_238DD2EFC(buf, &v65), v57 = v55, v55))
+    if (v55 || (v55 = sub_238DD2EFC(buf, &v64), v57 = v55, v55))
     {
       v58 = v56;
     }
 
     else
     {
-      sub_238DD2F90(reader, &v65);
+      sub_238DD2F90(reader, &v64);
       v55 = sub_2393C7114(reader, 21, 256);
-      v58 = v63;
+      v58 = v62;
       v57 = v55;
     }
 
     v59 = v55 & 0xFFFFFFFF00000000;
-    v82 = &unk_284BB83A8;
-    sub_238EA1758(&v84);
+    v81 = &unk_284BB83A8;
     sub_238EA1758(&v83);
+    sub_238EA1758(&v82);
   }
 
   else
@@ -219,14 +219,13 @@
     v57 = 11;
   }
 
-  sub_238EA1758(&v65);
-  sub_238EA1790(&v66);
-  v60 = *MEMORY[0x277D85DE8];
-  v61 = v57 | v59;
-  v62 = v58;
-  result.mFile = v62;
-  result.mError = v61;
-  result.mLine = HIDWORD(v61);
+  sub_238EA1758(&v64);
+  sub_238EA1790(&v65);
+  v60 = v57 | v59;
+  v61 = v58;
+  result.mFile = v61;
+  result.mError = v60;
+  result.mLine = HIDWORD(v60);
   return result;
 }
 

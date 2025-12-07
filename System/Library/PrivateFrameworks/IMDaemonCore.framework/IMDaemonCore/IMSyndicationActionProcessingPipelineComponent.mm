@@ -61,7 +61,7 @@
 
 - (id)handleMessageSyndicationAction:(id)action chat:(id)chat
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   actionCopy = action;
   chatCopy = chat;
   _messageStore = [(IMSyndicationActionProcessingPipelineComponent *)self _messageStore];
@@ -75,11 +75,11 @@
       if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
       {
         guid = [v9 guid];
-        v20 = 138412546;
-        v21 = guid;
-        v22 = 2112;
-        v23 = actionCopy;
-        _os_log_impl(&dword_22B4CC000, v10, OS_LOG_TYPE_INFO, "Updated message: %@ with SyndicationAction: %@", &v20, 0x16u);
+        v19 = 138412546;
+        v20 = guid;
+        v21 = 2112;
+        v22 = actionCopy;
+        _os_log_impl(&dword_22B4CC000, v10, OS_LOG_TYPE_INFO, "Updated message: %@ with SyndicationAction: %@", &v19, 0x16u);
       }
     }
 
@@ -103,14 +103,12 @@
     v15 = [v17 initWithDomain:*MEMORY[0x277D18DF8] code:5 userInfo:0];
   }
 
-  v18 = *MEMORY[0x277D85DE8];
-
   return v15;
 }
 
 - (id)handleChatSyndicationAction:(id)action chat:(id)chat
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   actionCopy = action;
   chatCopy = chat;
   v7 = [chatCopy updateDonationStateWithSyndicationAction:actionCopy];
@@ -125,21 +123,20 @@
         v9 = @"YES";
       }
 
-      v12 = 138412546;
-      v13 = v9;
-      v14 = 2112;
-      v15 = actionCopy;
-      _os_log_impl(&dword_22B4CC000, v8, OS_LOG_TYPE_INFO, "Did update chat: %@. with SyndicationAction: %@", &v12, 0x16u);
+      v11 = 138412546;
+      v12 = v9;
+      v13 = 2112;
+      v14 = actionCopy;
+      _os_log_impl(&dword_22B4CC000, v8, OS_LOG_TYPE_INFO, "Did update chat: %@. with SyndicationAction: %@", &v11, 0x16u);
     }
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
 - (id)findSMSChatForInput:(id)input
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   inputCopy = input;
   if (IMOSLoggingEnabled())
   {
@@ -152,46 +149,46 @@
   }
 
   v6 = +[IMDServiceController sharedController];
-  v25 = [v6 serviceWithName:*MEMORY[0x277D1A610]];
+  v24 = [v6 serviceWithName:*MEMORY[0x277D1A610]];
 
   v7 = +[IMDAccountController sharedInstance];
-  v8 = [v7 activeAccountsForService:v25];
+  v8 = [v7 activeAccountsForService:v24];
 
   participantIdentifiers = [inputCopy participantIdentifiers];
-  v31[0] = MEMORY[0x277D85DD0];
-  v31[1] = 3221225472;
-  v31[2] = sub_22B567D24;
-  v31[3] = &unk_278703AF0;
-  v26 = inputCopy;
-  v32 = v26;
-  v10 = [participantIdentifiers __imArrayByFilteringWithBlock:v31];
+  v30[0] = MEMORY[0x277D85DD0];
+  v30[1] = 3221225472;
+  v30[2] = sub_22B567D24;
+  v30[3] = &unk_278703AF0;
+  v25 = inputCopy;
+  v31 = v25;
+  v10 = [participantIdentifiers __imArrayByFilteringWithBlock:v30];
   _IDsFromURIs = [v10 _IDsFromURIs];
 
   v12 = [_IDsFromURIs count];
-  v29 = 0u;
-  v30 = 0u;
-  v27 = 0u;
   v28 = 0u;
+  v29 = 0u;
+  v26 = 0u;
+  v27 = 0u;
   v13 = v8;
-  v14 = [v13 countByEnumeratingWithState:&v27 objects:v34 count:16];
+  v14 = [v13 countByEnumeratingWithState:&v26 objects:v33 count:16];
   if (v14)
   {
-    v15 = *v28;
+    v15 = *v27;
     while (2)
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v28 != v15)
+        if (*v27 != v15)
         {
           objc_enumerationMutation(v13);
         }
 
-        v17 = *(*(&v27 + 1) + 8 * i);
+        v17 = *(*(&v26 + 1) + 8 * i);
         _chatRegistry = [(IMSyndicationActionProcessingPipelineComponent *)self _chatRegistry];
         v19 = _chatRegistry;
         if (v12 <= 1)
         {
-          fromDisplayID = [v26 fromDisplayID];
+          fromDisplayID = [v25 fromDisplayID];
           v20 = [v19 existingChatForID:fromDisplayID account:v17];
         }
 
@@ -207,7 +204,7 @@
         }
       }
 
-      v14 = [v13 countByEnumeratingWithState:&v27 objects:v34 count:16];
+      v14 = [v13 countByEnumeratingWithState:&v26 objects:v33 count:16];
       if (v14)
       {
         continue;
@@ -230,14 +227,12 @@
   v20 = 0;
 LABEL_22:
 
-  v23 = *MEMORY[0x277D85DE8];
-
   return v20;
 }
 
 - (id)runIndividuallyWithInput:(id)input
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   inputCopy = input;
   chat = [inputCopy chat];
   if (!chat)
@@ -245,8 +240,8 @@ LABEL_22:
     chat = [(IMSyndicationActionProcessingPipelineComponent *)self findSMSChatForInput:inputCopy];
     if (!chat)
     {
-      v19 = objc_alloc(MEMORY[0x277CCA9B8]);
-      v12 = [v19 initWithDomain:*MEMORY[0x277D18DF8] code:8 userInfo:0];
+      v18 = objc_alloc(MEMORY[0x277CCA9B8]);
+      v12 = [v18 initWithDomain:*MEMORY[0x277D18DF8] code:8 userInfo:0];
       v7 = 0;
       if (v12)
       {
@@ -309,16 +304,14 @@ LABEL_16:
     v16 = OSLogHandleForIMFoundationCategory();
     if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
     {
-      v20 = 138412290;
-      v21 = v7;
-      _os_log_impl(&dword_22B4CC000, v16, OS_LOG_TYPE_INFO, "Processed SyndicationAction ok: %@", &v20, 0xCu);
+      v19 = 138412290;
+      v20 = v7;
+      _os_log_impl(&dword_22B4CC000, v16, OS_LOG_TYPE_INFO, "Processed SyndicationAction ok: %@", &v19, 0xCu);
     }
   }
 
   v15 = [objc_alloc(MEMORY[0x277D18E08]) initWithValue:inputCopy];
 LABEL_21:
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v15;
 }

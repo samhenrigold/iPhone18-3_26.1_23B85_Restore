@@ -2,6 +2,7 @@
 - (CKFetchRecordZoneChangesOperationInfo)init;
 - (CKFetchRecordZoneChangesOperationInfo)initWithCoder:(id)coder;
 - (void)encodeWithCoder:(id)coder;
+- (void)setForcePCSDecryptionAttempt:(BOOL)attempt;
 @end
 
 @implementation CKFetchRecordZoneChangesOperationInfo
@@ -19,6 +20,16 @@
   }
 
   return result;
+}
+
+- (void)setForcePCSDecryptionAttempt:(BOOL)attempt
+{
+  if (attempt && objc_msgSend_errorReportingStyle(self, a2, attempt) == 2)
+  {
+    objc_msgSend_setErrorReportingStyle_(self, v5, 1);
+  }
+
+  self->_forcePCSDecryptionAttempt = attempt;
 }
 
 - (void)encodeWithCoder:(id)coder

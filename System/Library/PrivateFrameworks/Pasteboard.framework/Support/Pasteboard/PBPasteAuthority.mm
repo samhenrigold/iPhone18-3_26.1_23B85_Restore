@@ -220,7 +220,7 @@ LABEL_4:
   versionedPID = [messageCopy versionedPID];
   if (infoCopy)
   {
-    [infoCopy auditToken];
+    objc_msgSend_auditToken(infoCopy);
   }
 
   else
@@ -757,7 +757,7 @@ LABEL_133:
           layerGrader = self->_layerGrader;
           if (hitTestInformationFromStartEvent)
           {
-            [hitTestInformationFromStartEvent cumulativeLayerTransform];
+            objc_msgSend_cumulativeLayerTransform(hitTestInformationFromStartEvent);
           }
 
           else
@@ -773,7 +773,7 @@ LABEL_133:
 
           if (hitTestInformationFromEndEvent)
           {
-            [hitTestInformationFromEndEvent cumulativeLayerTransform];
+            objc_msgSend_cumulativeLayerTransform(hitTestInformationFromEndEvent);
           }
 
           else
@@ -792,7 +792,7 @@ LABEL_133:
           contentsGrader = self->_contentsGrader;
           if (hitTestInformationFromStartEvent)
           {
-            [hitTestInformationFromStartEvent cumulativeContentsTransform];
+            objc_msgSend_cumulativeContentsTransform(hitTestInformationFromStartEvent);
           }
 
           else
@@ -808,7 +808,7 @@ LABEL_133:
 
           if (hitTestInformationFromEndEvent)
           {
-            [hitTestInformationFromEndEvent cumulativeContentsTransform];
+            objc_msgSend_cumulativeContentsTransform(hitTestInformationFromEndEvent);
           }
 
           else
@@ -926,29 +926,28 @@ LABEL_119:
   pasteboardCopy = pasteboard;
   tokenCopy = token;
   v7 = mach_continuous_time();
-  if (!tokenCopy)
+  v14 = 0;
+  if (tokenCopy)
   {
-    goto LABEL_5;
-  }
+    v8 = v7;
+    sharingToken = [pasteboardCopy sharingToken];
+    v10 = [tokenCopy isEqual:sharingToken];
 
-  v8 = v7;
-  sharingToken = [pasteboardCopy sharingToken];
-  v10 = [tokenCopy isEqual:sharingToken];
-
-  if (!v10)
-  {
-    goto LABEL_5;
-  }
-
-  if (v8 > [pasteboardCopy saveTimestamp] && (v11 = PBSharingTokenTimeoutInterval, info = 0, mach_timebase_info(&info), LODWORD(v12) = info.denom, LODWORD(v13) = info.numer, v8 - (v11 * v12 * 1000000000.0 / v13) <= objc_msgSend(pasteboardCopy, "saveTimestamp")))
-  {
-    v14 = 1;
-  }
-
-  else
-  {
-LABEL_5:
-    v14 = 0;
+    if (v10)
+    {
+      if (v8 > [pasteboardCopy saveTimestamp])
+      {
+        v11 = PBSharingTokenTimeoutInterval;
+        info = 0;
+        mach_timebase_info(&info);
+        LODWORD(v12) = info.denom;
+        LODWORD(v13) = info.numer;
+        if (v8 - (v11 * v12 * 1000000000.0 / v13) <= [pasteboardCopy saveTimestamp])
+        {
+          v14 = 1;
+        }
+      }
+    }
   }
 
   return v14;
@@ -1006,21 +1005,20 @@ LABEL_5:
 - (unint64_t)tccAuthorizationRightForAuditTokenInfo:(id)info encounteredError:(BOOL *)error
 {
   infoCopy = info;
-  v11 = 0;
-  v12 = &v11;
-  v13 = 0x3032000000;
-  v14 = sub_100007F0C;
-  v15 = sub_100007F1C;
-  v16 = 0;
+  v10 = 0;
+  v11 = &v10;
+  v12 = 0x3032000000;
+  v13 = sub_100007F0C;
+  v14 = sub_100007F1C;
+  v15 = 0;
   tccSyncMessageOptions = [(PBPasteAuthority *)self tccSyncMessageOptions];
   v7 = [(PBPasteAuthority *)self tccIdentityForAuditTokenInfo:infoCopy];
   if (v7)
   {
-    tccServer = self->_tccServer;
     tcc_server_message_get_authorization_records_by_identity();
   }
 
-  if (v12[5])
+  if (v11[5])
   {
     authorization_right = tcc_authorization_record_get_authorization_right();
   }
@@ -1030,7 +1028,7 @@ LABEL_5:
     authorization_right = 1;
   }
 
-  _Block_object_dispose(&v11, 8);
+  _Block_object_dispose(&v10, 8);
   return authorization_right;
 }
 
@@ -1049,38 +1047,37 @@ LABEL_5:
   tccSyncMessageOptions = [(PBPasteAuthority *)self tccSyncMessageOptions];
   if (infoCopy)
   {
-    [infoCopy auditToken];
+    objc_msgSend_auditToken(infoCopy);
   }
 
   else
   {
+    v10 = 0u;
     v11 = 0u;
-    v12 = 0u;
   }
 
   v6 = tcc_credential_create_for_process_with_audit_token();
-  *&v11 = 0;
-  *(&v11 + 1) = &v11;
-  *&v12 = 0x3032000000;
-  *(&v12 + 1) = sub_100007F0C;
-  v13 = sub_100007F1C;
-  v14 = 0;
+  *&v10 = 0;
+  *(&v10 + 1) = &v10;
+  *&v11 = 0x3032000000;
+  *(&v11 + 1) = sub_100007F0C;
+  v12 = sub_100007F1C;
+  v13 = 0;
   if (v6)
   {
-    tccServer = self->_tccServer;
     tcc_server_message_get_identity_for_credential();
-    v8 = *(*(&v11 + 1) + 40);
+    v7 = *(*(&v10 + 1) + 40);
   }
 
   else
   {
-    v8 = 0;
+    v7 = 0;
   }
 
-  v9 = v8;
-  _Block_object_dispose(&v11, 8);
+  v8 = v7;
+  _Block_object_dispose(&v10, 8);
 
-  return v9;
+  return v8;
 }
 
 - (BOOL)processSupportsFlexiGlass:(id)glass
@@ -1098,14 +1095,12 @@ LABEL_5:
   infoCopy = info;
   tccSyncMessageOptions = [(PBPasteAuthority *)self tccSyncMessageOptions];
   v6 = [(PBPasteAuthority *)self tccIdentityForAuditTokenInfo:infoCopy];
-  v9 = 0;
+  v7 = 0;
   if (v6)
   {
-    [(PBPasteAuthority *)self tccAuthorizationRightForAuditTokenInfo:infoCopy encounteredError:&v9];
-    if ((v9 & 1) == 0)
+    [(PBPasteAuthority *)self tccAuthorizationRightForAuditTokenInfo:infoCopy encounteredError:&v7];
+    if ((v7 & 1) == 0)
     {
-      tccServer = self->_tccServer;
-      tccService = self->_tccService;
       tcc_server_message_set_authorization_value();
     }
   }

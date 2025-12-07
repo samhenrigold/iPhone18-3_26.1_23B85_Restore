@@ -1002,7 +1002,7 @@ LABEL_207:
   }
 }
 
-uint64_t __43___MPCMediaRemotePublisher_publishIfNeeded__block_invoke(uint64_t a1)
+void *__43___MPCMediaRemotePublisher_publishIfNeeded__block_invoke(uint64_t a1)
 {
   [*(a1 + 32) _updateSupportedCommands];
   result = [*(a1 + 32) _updateLaunchCommands];
@@ -1428,11 +1428,11 @@ void __60___MPCMediaRemotePublisher__performCommandEvent_completion___block_invo
   }
 
   v8 = [*(a1 + 32) player];
-  [v8 currentTime];
+  objc_msgSend_currentTime(v8);
   if (v9 + a2 < v7)
   {
     v10 = [*(a1 + 32) player];
-    [v10 currentTime];
+    objc_msgSend_currentTime(v10);
     v7 = v11 + a2;
   }
 
@@ -1450,12 +1450,12 @@ void __60___MPCMediaRemotePublisher__performCommandEvent_completion___block_invo
 void __60___MPCMediaRemotePublisher__performCommandEvent_completion___block_invoke_472(uint64_t a1, double a2)
 {
   v4 = [*(a1 + 32) player];
-  [v4 currentTime];
+  objc_msgSend_currentTime(v4);
   v5 = 0.0;
   if (v6 >= a2)
   {
     v7 = [*(a1 + 32) player];
-    [v7 currentTime];
+    objc_msgSend_currentTime(v7);
     v5 = v8 - a2;
   }
 
@@ -3761,29 +3761,10 @@ void __73___MPCMediaRemotePublisher_becomeActiveIfNeededWithCommandID_completion
 void __73___MPCMediaRemotePublisher_becomeActiveIfNeededWithCommandID_completion___block_invoke_122(uint64_t a1, uint64_t a2, void *a3, double a4)
 {
   v37 = *MEMORY[0x1E69E9840];
-  v7 = COERCE_DOUBLE(a3);
+  v7 = a3;
   v8 = os_log_create("com.apple.amp.mediaplaybackcore", "Publisher");
   v9 = v8;
-  if (v7 == 0.0)
-  {
-    if (!os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
-    {
-      goto LABEL_7;
-    }
-
-    v14 = *(a1 + 32);
-    *buf = 138543874;
-    v32 = v14;
-    v33 = 2048;
-    v34 = *&a2;
-    v35 = 2048;
-    v36 = a4;
-    v11 = "[PUB:%{public}@] becomeActiveIfNeeded | activated player [] token=%lld avTime=%0.4gs";
-    v12 = v9;
-    v13 = OS_LOG_TYPE_DEFAULT;
-  }
-
-  else
+  if (v7)
   {
     if (!os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
@@ -3794,12 +3775,31 @@ void __73___MPCMediaRemotePublisher_becomeActiveIfNeededWithCommandID_completion
     *buf = 138543874;
     v32 = v10;
     v33 = 2048;
-    v34 = *&a2;
+    v34 = a2;
     v35 = 2114;
-    v36 = v7;
+    v36 = *&v7;
     v11 = "[PUB:%{public}@] becomeActiveIfNeeded | failed activating player [] token=%lld error=%{public}@";
     v12 = v9;
     v13 = OS_LOG_TYPE_ERROR;
+  }
+
+  else
+  {
+    if (!os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    {
+      goto LABEL_7;
+    }
+
+    v14 = *(a1 + 32);
+    *buf = 138543874;
+    v32 = v14;
+    v33 = 2048;
+    v34 = a2;
+    v35 = 2048;
+    v36 = a4;
+    v11 = "[PUB:%{public}@] becomeActiveIfNeeded | activated player [] token=%lld avTime=%0.4gs";
+    v12 = v9;
+    v13 = OS_LOG_TYPE_DEFAULT;
   }
 
   _os_log_impl(&dword_1C5C61000, v12, v13, v11, buf, 0x20u);
@@ -3822,7 +3822,7 @@ LABEL_7:
     v30[1] = a2;
     v22 = &v29;
     v29 = v7;
-    v24 = *&v7;
+    v24 = v7;
     msv_dispatch_on_main_queue();
   }
 
@@ -3835,7 +3835,7 @@ LABEL_7:
       *buf = 138543618;
       v32 = v19;
       v33 = 2048;
-      v34 = v17;
+      v34 = *&v17;
       _os_log_impl(&dword_1C5C61000, v18, OS_LOG_TYPE_ERROR, "[PUB:%{public}@] becomeActiveIfNeeded | delaying audio activation [internal setting] delay=%gs", buf, 0x16u);
     }
 
@@ -3850,7 +3850,7 @@ LABEL_7:
     v28[0] = *(a1 + 40);
     v28[1] = a2;
     v27 = v7;
-    v23 = *&v7;
+    v23 = v7;
     dispatch_after(v20, MEMORY[0x1E69E96A0], block);
   }
 }
@@ -3887,26 +3887,26 @@ uint64_t __73___MPCMediaRemotePublisher_becomeActiveIfNeededWithCommandID_comple
   return (*(*(a1 + 56) + 16))();
 }
 
-void __73___MPCMediaRemotePublisher_becomeActiveIfNeededWithCommandID_completion___block_invoke_114(uint64_t a1)
+void __73___MPCMediaRemotePublisher_becomeActiveIfNeededWithCommandID_completion___block_invoke_114(uint64_t a1, char a2)
 {
   [*(a1 + 32) timeIntervalSinceNow];
-  *(*(*(a1 + 88) + 8) + 24) = *(*(*(a1 + 88) + 8) + 24) - v2;
-  v3 = *(a1 + 40);
-  v4 = *(a1 + 48);
-  v11 = *(a1 + 72);
-  v5 = *(a1 + 56);
-  v6 = *(a1 + 64);
-  *&v7 = v5;
-  *(&v7 + 1) = v6;
-  *&v8 = v3;
-  *(&v8 + 1) = v4;
-  v9 = v8;
-  v10 = v7;
-  v12 = *(a1 + 80);
+  *(*(*(a1 + 88) + 8) + 24) = *(*(*(a1 + 88) + 8) + 24) - v3;
+  v4 = *(a1 + 40);
+  v5 = *(a1 + 48);
+  v12 = *(a1 + 72);
+  v6 = *(a1 + 56);
+  v7 = *(a1 + 64);
+  *&v8 = v6;
+  *(&v8 + 1) = v7;
+  *&v9 = v4;
+  *(&v9 + 1) = v5;
+  v10 = v9;
+  v11 = v8;
+  v13 = *(a1 + 80);
   msv_dispatch_sync_on_main_queue();
 }
 
-uint64_t __73___MPCMediaRemotePublisher_becomeActiveIfNeededWithCommandID_completion___block_invoke_2_115(uint64_t a1)
+void *__73___MPCMediaRemotePublisher_becomeActiveIfNeededWithCommandID_completion___block_invoke_2_115(uint64_t a1)
 {
   v12 = *MEMORY[0x1E69E9840];
   if (*(a1 + 80))
@@ -3966,7 +3966,7 @@ void __73___MPCMediaRemotePublisher_becomeActiveIfNeededWithCommandID_completion
   (*(v5 + 16))(v5, v6);
 }
 
-void __73___MPCMediaRemotePublisher_becomeActiveIfNeededWithCommandID_completion___block_invoke_107(uint64_t a1, uint64_t a2, void *a3)
+void __73___MPCMediaRemotePublisher_becomeActiveIfNeededWithCommandID_completion___block_invoke_107(uint64_t a1, char a2, void *a3)
 {
   v4 = a3;
   [*(a1 + 32) timeIntervalSinceNow];
@@ -3986,7 +3986,7 @@ void __73___MPCMediaRemotePublisher_becomeActiveIfNeededWithCommandID_completion
   msv_dispatch_on_main_queue();
 }
 
-uint64_t __73___MPCMediaRemotePublisher_becomeActiveIfNeededWithCommandID_completion___block_invoke_2(uint64_t a1)
+void *__73___MPCMediaRemotePublisher_becomeActiveIfNeededWithCommandID_completion___block_invoke_2(uint64_t a1)
 {
   v18 = *MEMORY[0x1E69E9840];
   if (*(a1 + 80) == 1 && !*(a1 + 32))

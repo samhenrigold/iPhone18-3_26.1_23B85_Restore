@@ -1,5 +1,7 @@
 @interface _DASCoreDataStorage
 + (BOOL)createDatabaseDirectory:(id)directory error:(id *)error;
++ (id)persistentStoreOptionsFor:(id)for readOnly:(BOOL)only;
++ (id)storageWithDirectory:(id)directory databaseName:(id)name modelURL:(id)l readOnly:(BOOL)only;
 - (BOOL)deleteDatabaseForPSC:(id)c protectionClass:(id)class obliterate:(BOOL)obliterate;
 - (BOOL)deleteStorageFor:(id)for obliterate:(BOOL)obliterate;
 - (NSManagedObjectModel)managedObjectModel;
@@ -12,6 +14,17 @@
 @end
 
 @implementation _DASCoreDataStorage
+
++ (id)storageWithDirectory:(id)directory databaseName:(id)name modelURL:(id)l readOnly:(BOOL)only
+{
+  onlyCopy = only;
+  lCopy = l;
+  nameCopy = name;
+  directoryCopy = directory;
+  v13 = [[self alloc] initWithDirectory:directoryCopy databaseName:nameCopy modelURL:lCopy readOnly:onlyCopy];
+
+  return v13;
+}
 
 - (_DASCoreDataStorage)initWithDirectory:(id)directory databaseName:(id)name modelURL:(id)l readOnly:(BOOL)only
 {
@@ -145,6 +158,26 @@ LABEL_4:
 LABEL_5:
 
   return v6;
+}
+
++ (id)persistentStoreOptionsFor:(id)for readOnly:(BOOL)only
+{
+  onlyCopy = only;
+  v9[0] = NSPersistentStoreConnectionPoolMaxSizeKey;
+  v9[1] = NSMigratePersistentStoresAutomaticallyOption;
+  v10[0] = &off_1001C97A8;
+  v10[1] = &__kCFBooleanTrue;
+  v10[2] = &__kCFBooleanTrue;
+  v9[2] = NSInferMappingModelAutomaticallyOption;
+  v9[3] = NSReadOnlyPersistentStoreOption;
+  forCopy = for;
+  v6 = [NSNumber numberWithBool:onlyCopy];
+  v9[4] = NSPersistentStoreFileProtectionKey;
+  v10[3] = v6;
+  v10[4] = forCopy;
+  v7 = [NSDictionary dictionaryWithObjects:v10 forKeys:v9 count:5];
+
+  return v7;
 }
 
 - (id)persistentStoreCoordinatorFor:(id)for

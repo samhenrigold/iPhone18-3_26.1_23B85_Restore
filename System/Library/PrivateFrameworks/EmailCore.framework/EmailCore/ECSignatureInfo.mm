@@ -106,7 +106,7 @@
 
 - (NSArray)smimeCapabilities
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v3 = *MEMORY[0x277D28568];
   v4 = objc_opt_class();
   v5 = [(ECSignatureInfo *)self _protectedAttributeOfType:v3 class:v4];
@@ -114,35 +114,33 @@
   capabilities = [v5 capabilities];
   v8 = [v6 initWithCapacity:{objc_msgSend(capabilities, "count")}];
 
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   capabilities2 = [v5 capabilities];
-  v10 = [capabilities2 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v10 = [capabilities2 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v10)
   {
-    v11 = *v17;
+    v11 = *v16;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v17 != v11)
+        if (*v16 != v11)
         {
           objc_enumerationMutation(capabilities2);
         }
 
-        oIDString = [*(*(&v16 + 1) + 8 * i) OIDString];
+        oIDString = [*(*(&v15 + 1) + 8 * i) OIDString];
         [v8 addObject:oIDString];
       }
 
-      v10 = [capabilities2 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v10 = [capabilities2 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v10);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v8;
 }

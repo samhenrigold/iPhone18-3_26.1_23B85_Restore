@@ -80,7 +80,7 @@
     v4 = +[PXStorySettings sharedInstance];
     exportVideoQuality = [v4 exportVideoQuality];
 
-    [(PXStoryVideoAssetResourcePreloadingOperation *)self downloadTimeRange];
+    objc_msgSend_downloadTimeRange(self);
     [(PXVideoSessionManagerDisplayAssetOptions *)v3 addContentDeliveryStrategyWithDeliveryQuality:exportVideoQuality segmentTimeRange:&v22 streamingAllowed:0];
     v6 = *(MEMORY[0x1E6960C98] + 16);
     v22 = *MEMORY[0x1E6960C98];
@@ -91,7 +91,7 @@
 
   else
   {
-    [(PXStoryVideoAssetResourcePreloadingOperation *)self downloadTimeRange];
+    objc_msgSend_downloadTimeRange(self);
     [(PXVideoSessionManagerDisplayAssetOptions *)v3 addContentDeliveryStrategyWithDeliveryQuality:2 segmentTimeRange:&v22 streamingAllowed:0 networkAccessAllowed:0];
     if ([(PXStoryVideoAssetResourcePreloadingOperation *)self limitVideoDownloadQuality])
     {
@@ -111,7 +111,7 @@
 
       if (v10 && [v10 px_isSharedAlbumAsset])
       {
-        [(PXStoryVideoAssetResourcePreloadingOperation *)self downloadTimeRange];
+        objc_msgSend_downloadTimeRange(self);
         [(PXVideoSessionManagerDisplayAssetOptions *)v3 addContentDeliveryStrategyWithDeliveryQuality:videoQuality segmentTimeRange:&v22 streamingAllowed:1];
       }
     }
@@ -122,7 +122,7 @@
       v10 = 0;
     }
 
-    [(PXStoryVideoAssetResourcePreloadingOperation *)self downloadTimeRange];
+    objc_msgSend_downloadTimeRange(self);
     [(PXVideoSessionManagerDisplayAssetOptions *)v3 addContentDeliveryStrategyWithDeliveryQuality:videoQuality segmentTimeRange:&v22 streamingAllowed:0];
     v11 = *(MEMORY[0x1E6960C98] + 16);
     v22 = *MEMORY[0x1E6960C98];
@@ -170,7 +170,7 @@
   v3 = MEMORY[0x1E696AEC0];
   displayAsset = [(PXStoryDisplayAssetResourcePreloadingOperation *)self displayAsset];
   uuid = [displayAsset uuid];
-  [(PXStoryVideoAssetResourcePreloadingOperation *)self downloadTimeRange];
+  objc_msgSend_downloadTimeRange(self);
   v6 = PXCMTimeRangeDescription(v11);
   videoContentProvider = [(PXStoryVideoAssetResourcePreloadingOperation *)self videoContentProvider];
   [videoContentProvider loadingProgress];

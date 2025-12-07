@@ -36,9 +36,9 @@
   utilityProvider = self->_utilityProvider;
   if (!utilityProvider)
   {
-    sharedUtilityProvider = [(objc_class *)getRTTTelephonyUtilitiesClass() sharedUtilityProvider];
+    v4 = [getRTTTelephonyUtilitiesClass(0 a2)];
     v5 = self->_utilityProvider;
-    self->_utilityProvider = sharedUtilityProvider;
+    self->_utilityProvider = v4;
 
     utilityProvider = self->_utilityProvider;
   }

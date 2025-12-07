@@ -30,7 +30,7 @@
   {
     v6->_notifyToken = -1;
     v6->_serviceName = [name copy];
-    v7->_queue = BSDispatchQueueCreateWithQualityOfService([name UTF8String], 0, QOS_CLASS_USER_INITIATED, 0);
+    v7->_queue = BSDispatchQueueCreateWithQualityOfService([name UTF8String], 0, 25, 0);
     v7->_serverEndpoint = endpoint;
     v7->_clientInvalidated = 0;
   }

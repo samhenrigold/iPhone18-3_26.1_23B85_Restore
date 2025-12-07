@@ -1,5 +1,6 @@
 @interface OrgApacheLuceneStoreByteArrayDataOutput
 - (OrgApacheLuceneStoreByteArrayDataOutput)initWithByteArray:(id)array;
+- (OrgApacheLuceneStoreByteArrayDataOutput)initWithByteArray:(id)array withInt:(int)int withInt:(int)withInt;
 - (void)dealloc;
 - (void)resetWithByteArray:(id)array;
 - (void)resetWithByteArray:(id)array withInt:(int)int withInt:(int)withInt;
@@ -10,8 +11,17 @@
 
 - (OrgApacheLuceneStoreByteArrayDataOutput)initWithByteArray:(id)array
 {
-  OrgApacheLuceneStoreDataOutput_init(self, a2);
+  OrgApacheLuceneStoreDataOutput_init();
   [(OrgApacheLuceneStoreByteArrayDataOutput *)self resetWithByteArray:array];
+  return self;
+}
+
+- (OrgApacheLuceneStoreByteArrayDataOutput)initWithByteArray:(id)array withInt:(int)int withInt:(int)withInt
+{
+  v5 = *&withInt;
+  v6 = *&int;
+  OrgApacheLuceneStoreDataOutput_init();
+  [(OrgApacheLuceneStoreByteArrayDataOutput *)self resetWithByteArray:array withInt:v6 withInt:v5];
   return self;
 }
 

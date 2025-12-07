@@ -53,7 +53,7 @@
           v17 = v16;
           if (v16)
           {
-            [v16 ear_toString];
+            objc_msgSend_ear_toString(v16);
           }
 
           else
@@ -63,7 +63,7 @@
             v34 = 0;
           }
 
-          std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string>(&v29, &__p);
+          std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string>(&v29, &__p, &__p);
           if (SHIBYTE(v34) < 0)
           {
             operator delete(__p);
@@ -102,7 +102,7 @@
           v24 = v23;
           if (v23)
           {
-            [v23 ear_toString];
+            objc_msgSend_ear_toString(v23);
           }
 
           else
@@ -112,7 +112,7 @@
             v34 = 0;
           }
 
-          std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string>(&v27, &__p);
+          std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string>(&v27, &__p, &__p);
           if (SHIBYTE(v34) < 0)
           {
             operator delete(__p);
@@ -174,7 +174,7 @@
 {
   v13 = *MEMORY[0x1E69E9840];
   v2 = MEMORY[0x1E696AEC0];
-  quasar::artifact::Artifact::getLocale(self->_artifact.__ptr_, &v10);
+  quasar::artifact::Artifact::getLocale(&v10, self->_artifact.__ptr_);
   std::string::basic_string[abi:ne200100]<0>(v6, "_");
   quasar::Locale::toInternalShortIdentifier(&v10, v6);
   if (v9 >= 0)
@@ -218,7 +218,7 @@
   ptr = self->_artifact.__ptr_;
   if (infoCopy)
   {
-    [infoCopy ear_toString];
+    objc_msgSend_ear_toString(infoCopy);
   }
 
   else
@@ -244,7 +244,7 @@
   ptr = self->_artifact.__ptr_;
   if (infoCopy)
   {
-    [infoCopy ear_toString];
+    objc_msgSend_ear_toString(infoCopy);
   }
 
   else
@@ -272,7 +272,7 @@
   ptr = self->_artifact.__ptr_;
   if (infoCopy)
   {
-    [infoCopy ear_toString];
+    objc_msgSend_ear_toString(infoCopy);
   }
 
   else
@@ -314,7 +314,7 @@
   ptr = self->_artifact.__ptr_;
   if (contentCopy)
   {
-    [contentCopy ear_toString];
+    objc_msgSend_ear_toString(contentCopy);
   }
 
   else
@@ -340,7 +340,7 @@
   ptr = self->_artifact.__ptr_;
   if (contentCopy)
   {
-    [contentCopy ear_toString];
+    objc_msgSend_ear_toString(contentCopy);
   }
 
   else
@@ -368,7 +368,7 @@
   ptr = self->_artifact.__ptr_;
   if (contentCopy)
   {
-    [contentCopy ear_toString];
+    objc_msgSend_ear_toString(contentCopy);
   }
 
   else
@@ -405,24 +405,26 @@
 
 - (BOOL)write:(id)write
 {
+  v11 = *MEMORY[0x1E69E9840];
   writeCopy = write;
   v5 = writeCopy;
   ptr = self->_artifact.__ptr_;
   if (writeCopy)
   {
-    [writeCopy ear_toString];
+    objc_msgSend_ear_toString(writeCopy);
   }
 
   else
   {
-    __p = 0;
+    __p[0] = 0;
+    __p[1] = 0;
     v10 = 0;
   }
 
-  v7 = quasar::artifact::Artifact::write(ptr);
-  if (v10 < 0)
+  v7 = quasar::artifact::Artifact::write(ptr, __p);
+  if (SHIBYTE(v10) < 0)
   {
-    operator delete(__p);
+    operator delete(__p[0]);
   }
 
   return v7;
@@ -438,23 +440,25 @@
 
 + (BOOL)isValid:(id)valid
 {
+  v9 = *MEMORY[0x1E69E9840];
   validCopy = valid;
   v4 = validCopy;
   if (validCopy)
   {
-    [validCopy ear_toString];
+    objc_msgSend_ear_toString(validCopy);
   }
 
   else
   {
-    __p = 0;
+    __p[0] = 0;
+    __p[1] = 0;
     v8 = 0;
   }
 
-  isValid = quasar::artifact::Artifact::isValid();
-  if (v8 < 0)
+  isValid = quasar::artifact::Artifact::isValid(__p);
+  if (SHIBYTE(v8) < 0)
   {
-    operator delete(__p);
+    operator delete(__p[0]);
   }
 
   return isValid;

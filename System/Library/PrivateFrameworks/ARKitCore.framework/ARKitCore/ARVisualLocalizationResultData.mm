@@ -29,7 +29,7 @@
     {
       if (resultCopy)
       {
-        [resultCopy location];
+        objc_msgSend_location(resultCopy);
       }
 
       else

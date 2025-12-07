@@ -91,12 +91,10 @@
 
 + (id)actions
 {
-  v6[1] = *MEMORY[0x277D85DE8];
+  v5[1] = *MEMORY[0x277D85DE8];
   _goToSUPaneAction = [self _goToSUPaneAction];
-  v6[0] = _goToSUPaneAction;
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:1];
-
-  v4 = *MEMORY[0x277D85DE8];
+  v5[0] = _goToSUPaneAction;
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:1];
 
   return v3;
 }
@@ -171,18 +169,16 @@
 
 + (id)notificationOptions
 {
-  v9[4] = *MEMORY[0x277D85DE8];
+  v8[4] = *MEMORY[0x277D85DE8];
   defaultOptions = [MEMORY[0x277CFE510] defaultOptions];
   v3 = *MEMORY[0x277CFE490];
-  v9[0] = *MEMORY[0x277CFE498];
-  v9[1] = v3;
+  v8[0] = *MEMORY[0x277CFE498];
+  v8[1] = v3;
   v4 = *MEMORY[0x277CFE470];
-  v9[2] = *MEMORY[0x277CFE4A0];
-  v9[3] = v4;
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:4];
+  v8[2] = *MEMORY[0x277CFE4A0];
+  v8[3] = v4;
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:4];
   v6 = [defaultOptions setByAddingObjectsFromArray:v5];
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v6;
 }

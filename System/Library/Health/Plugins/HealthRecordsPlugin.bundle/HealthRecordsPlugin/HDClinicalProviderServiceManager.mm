@@ -576,7 +576,7 @@ LABEL_8:
 
 - (void)_createSessionIDIfNeeded
 {
-  if (!self->_currentSearchSessionID || (v3 = self->_currentSearchSessionIDMaxLifetime) != 0 && (+[NSDate date], v4 = objc_claimAutoreleasedReturnValue(), v5 = [(NSDate *)v3 hk_isBeforeDate:v4], v4, v5))
+  if (!self->_currentSearchSessionID || (currentSearchSessionIDMaxLifetime = self->_currentSearchSessionIDMaxLifetime) != 0 && (+[NSDate date], v4 = objc_claimAutoreleasedReturnValue(), v5 = [(NSDate *)currentSearchSessionIDMaxLifetime hk_isBeforeDate:v4], v4, v5))
   {
     v6 = +[NSUUID UUID];
     uUIDString = [v6 UUIDString];
@@ -584,9 +584,7 @@ LABEL_8:
     currentSearchSessionID = self->_currentSearchSessionID;
     self->_currentSearchSessionID = v8;
 
-    v10 = [NSDate dateWithTimeIntervalSinceNow:86400.0];
-    currentSearchSessionIDMaxLifetime = self->_currentSearchSessionIDMaxLifetime;
-    self->_currentSearchSessionIDMaxLifetime = v10;
+    self->_currentSearchSessionIDMaxLifetime = [NSDate dateWithTimeIntervalSinceNow:86400.0];
 
     _objc_release_x1();
   }
@@ -594,9 +592,7 @@ LABEL_8:
 
 - (void)unitTesting_markSessionIDExpired
 {
-  v3 = [NSDate dateWithTimeIntervalSinceNow:-300.0];
-  currentSearchSessionIDMaxLifetime = self->_currentSearchSessionIDMaxLifetime;
-  self->_currentSearchSessionIDMaxLifetime = v3;
+  self->_currentSearchSessionIDMaxLifetime = [NSDate dateWithTimeIntervalSinceNow:-300.0];
 
   _objc_release_x1();
 }

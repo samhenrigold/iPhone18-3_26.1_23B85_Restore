@@ -17,7 +17,7 @@
 
 - (id)_init
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   if (result)
   {
     v1 = result;
@@ -27,67 +27,64 @@
       v3 = objc_opt_class();
       if (v3 != objc_opt_class())
       {
-        v5 = [MEMORY[0x1E696AEC0] stringWithFormat:@"BKSHIDKeyboardDeviceProperties cannot be subclassed"];
+        v4 = [MEMORY[0x1E696AEC0] stringWithFormat:?];
         if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
         {
-          v6 = NSStringFromSelector(sel__init);
-          v7 = objc_opt_class();
-          v8 = NSStringFromClass(v7);
+          v5 = NSStringFromSelector(sel__init);
+          v6 = objc_opt_class();
+          v7 = NSStringFromClass(v6);
           *buf = 138544642;
-          v11 = v6;
-          v12 = 2114;
-          v13 = v8;
-          v14 = 2048;
-          v15 = v1;
-          v16 = 2114;
-          v17 = @"BKSHIDKeyboardDeviceProperties.m";
-          v18 = 1024;
-          v19 = 52;
-          v20 = 2114;
-          v21 = v5;
+          v10 = v5;
+          v11 = 2114;
+          v12 = v7;
+          v13 = 2048;
+          v14 = v1;
+          v15 = 2114;
+          v16 = @"BKSHIDKeyboardDeviceProperties.m";
+          v17 = 1024;
+          v18 = 52;
+          v19 = 2114;
+          v20 = v4;
           _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
         }
 
-        [v5 UTF8String];
+        [v4 UTF8String];
         _bs_set_crash_log_message();
         __break(0);
         JUMPOUT(0x18639F4F4);
       }
     }
 
-    v9.receiver = v1;
-    v9.super_class = BKSHIDKeyboardDeviceProperties;
-    result = objc_msgSendSuper2(&v9, sel_init);
+    v8.receiver = v1;
+    v8.super_class = BKSHIDKeyboardDeviceProperties;
+    return objc_msgSendSuper2(&v8, sel_init);
   }
 
-  v4 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 - (void)appendDescriptionToFormatter:(id)formatter
 {
   formatterCopy = formatter;
-  v4 = [formatterCopy appendUInt64:self->_senderID withName:@"senderID" format:1];
-  v5 = [formatterCopy appendObject:self->_transport withName:@"transport"];
-  v6 = [formatterCopy appendObject:self->_language withName:@"language"];
-  v7 = [formatterCopy appendObject:self->_layout withName:@"layout"];
-  exclusivityIdentifier = self->_exclusivityIdentifier;
-  if (exclusivityIdentifier)
+  v4 = [formatterCopy appendUInt64:? withName:? format:?];
+  v5 = [formatterCopy appendObject:? withName:?];
+  v6 = [formatterCopy appendObject:? withName:?];
+  v7 = [formatterCopy appendObject:? withName:?];
+  if (self->_exclusivityIdentifier)
   {
-    [formatterCopy appendString:exclusivityIdentifier withName:@"exclusivityIdentifier"];
+    [formatterCopy appendString:? withName:?];
   }
 
-  platformInputModeConfiguration = self->_platformInputModeConfiguration;
-  if (platformInputModeConfiguration)
+  if (self->_platformInputModeConfiguration)
   {
-    v10 = [formatterCopy appendObject:platformInputModeConfiguration withName:@"platformInputModeConfiguration"];
+    v8 = [formatterCopy appendObject:? withName:?];
   }
 
-  v11 = [formatterCopy appendInteger:self->_countryCode withName:@"countryCode"];
-  v12 = [formatterCopy appendInteger:self->_standardType withName:@"standardType"];
-  v13 = [formatterCopy appendInteger:self->_subinterfaceID withName:@"subinterfaceID"];
-  v14 = [formatterCopy appendBool:self->_capsLockKeyHasLanguageSwitchLabel withName:@"capsLockKeyHasLanguageSwitchLabel"];
-  v15 = [formatterCopy appendBool:self->_globeKeyLabelHasGlobeSymbol withName:@"globeKeyLabelHasGlobeSymbol"];
+  v9 = [formatterCopy appendInteger:? withName:?];
+  v10 = [formatterCopy appendInteger:? withName:?];
+  v11 = [formatterCopy appendInteger:? withName:?];
+  v12 = [formatterCopy appendBool:? withName:?];
+  v13 = [formatterCopy appendBool:? withName:?];
 }
 
 - (id)mutableCopyWithZone:(_NSZone *)zone
@@ -151,37 +148,9 @@
 {
   equalCopy = equal;
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
-  {
-    goto LABEL_12;
-  }
+  v5 = (objc_opt_isKindOfClass() & 1) != 0 && equalCopy[1] == self->_senderID && BSEqualObjects() && BSEqualObjects() && BSEqualObjects() && BSEqualObjects() && *(equalCopy + 72) == self->_countryCode && *(equalCopy + 14) == self->_standardType && equalCopy[8] == self->_subinterfaceID && *(equalCopy + 73) == self->_capsLockKeyHasLanguageSwitchLabel && *(equalCopy + 74) == self->_globeKeyLabelHasGlobeSymbol;
 
-  if (equalCopy[1] != self->_senderID)
-  {
-    goto LABEL_12;
-  }
-
-  v5 = equalCopy[3];
-  language = self->_language;
-  if (!BSEqualObjects())
-  {
-    goto LABEL_12;
-  }
-
-  v7 = equalCopy[4];
-  layout = self->_layout;
-  if (BSEqualObjects() && (v9 = equalCopy[5], exclusivityIdentifier = self->_exclusivityIdentifier, BSEqualObjects()) && (v11 = equalCopy[6], platformInputModeConfiguration = self->_platformInputModeConfiguration, BSEqualObjects()) && *(equalCopy + 72) == self->_countryCode && *(equalCopy + 14) == self->_standardType && equalCopy[8] == self->_subinterfaceID && *(equalCopy + 73) == self->_capsLockKeyHasLanguageSwitchLabel)
-  {
-    v13 = *(equalCopy + 74) == self->_globeKeyLabelHasGlobeSymbol;
-  }
-
-  else
-  {
-LABEL_12:
-    v13 = 0;
-  }
-
-  return v13;
+  return v5;
 }
 
 - (unint64_t)hash
@@ -192,13 +161,13 @@ LABEL_12:
   v6 = v4 ^ v5 ^ [(NSString *)self->_layout hash];
   v7 = [(NSString *)self->_exclusivityIdentifier hash];
   v8 = v6 ^ v7 ^ [(NSData *)self->_platformInputModeConfiguration hash];
-  v9 = [MEMORY[0x1E696AD98] numberWithUnsignedChar:self->_countryCode];
+  v9 = [MEMORY[0x1E696AD98] numberWithUnsignedChar:?];
   v10 = [v9 hash];
 
-  v11 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:self->_standardType];
+  v11 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:?];
   v12 = v8 ^ v10 ^ [v11 hash];
 
-  v13 = [MEMORY[0x1E696AD98] numberWithInteger:self->_subinterfaceID];
+  v13 = [MEMORY[0x1E696AD98] numberWithInteger:?];
   v14 = [v13 hash];
 
   return v12 ^ v14;
@@ -207,46 +176,41 @@ LABEL_12:
 - (void)encodeWithCoder:(id)coder
 {
   coderCopy = coder;
-  [coderCopy encodeInt64:self->_senderID forKey:@"senderID"];
-  transport = self->_transport;
-  if (transport)
+  [coderCopy encodeInt64:? forKey:?];
+  if (self->_transport)
   {
-    [coderCopy encodeObject:transport forKey:@"transport"];
+    [coderCopy encodeObject:? forKey:?];
   }
 
-  language = self->_language;
-  if (language)
+  if (self->_language)
   {
-    [coderCopy encodeObject:language forKey:@"language"];
+    [coderCopy encodeObject:? forKey:?];
   }
 
-  layout = self->_layout;
-  v7 = coderCopy;
-  if (layout)
+  v4 = coderCopy;
+  if (self->_layout)
   {
-    [coderCopy encodeObject:layout forKey:@"layout"];
-    v7 = coderCopy;
+    [coderCopy encodeObject:? forKey:?];
+    v4 = coderCopy;
   }
 
-  exclusivityIdentifier = self->_exclusivityIdentifier;
-  if (exclusivityIdentifier)
+  if (self->_exclusivityIdentifier)
   {
-    [coderCopy encodeObject:exclusivityIdentifier forKey:@"exclusivityIdentifier"];
-    v7 = coderCopy;
+    [coderCopy encodeObject:? forKey:?];
+    v4 = coderCopy;
   }
 
-  platformInputModeConfiguration = self->_platformInputModeConfiguration;
-  if (platformInputModeConfiguration)
+  if (self->_platformInputModeConfiguration)
   {
-    [coderCopy encodeObject:platformInputModeConfiguration forKey:@"platformInputModeConfiguration"];
-    v7 = coderCopy;
+    [coderCopy encodeObject:? forKey:?];
+    v4 = coderCopy;
   }
 
-  [v7 encodeInteger:self->_countryCode forKey:@"countryCode"];
-  [coderCopy encodeInteger:self->_standardType forKey:@"standardType"];
-  [coderCopy encodeInteger:self->_subinterfaceID forKey:@"subinterfaceID"];
-  [coderCopy encodeBool:self->_capsLockKeyHasLanguageSwitchLabel forKey:@"capsLockKeyHasLanguageSwitchLabel"];
-  [coderCopy encodeBool:self->_globeKeyLabelHasGlobeSymbol forKey:@"globeKeyLabelHasGlobeSymbol"];
+  [v4 encodeInteger:? forKey:?];
+  [coderCopy encodeInteger:? forKey:?];
+  [coderCopy encodeInteger:? forKey:?];
+  [coderCopy encodeBool:? forKey:?];
+  [coderCopy encodeBool:? forKey:?];
 }
 
 - (BKSHIDKeyboardDeviceProperties)initWithCoder:(id)coder
@@ -255,32 +219,37 @@ LABEL_12:
   v17.super_class = BKSHIDKeyboardDeviceProperties;
   coderCopy = coder;
   v4 = [(BKSHIDKeyboardDeviceProperties *)&v17 init];
-  v4->_senderID = [coderCopy decodeInt64ForKey:{@"senderID", v17.receiver, v17.super_class}];
-  v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"transport"];
+  v4->_senderID = [coderCopy decodeInt64ForKey:{v17.receiver, v17.super_class}];
+  objc_opt_class();
+  v5 = [coderCopy decodeObjectOfClass:? forKey:?];
   transport = v4->_transport;
   v4->_transport = v5;
 
-  v7 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"language"];
+  objc_opt_class();
+  v7 = [coderCopy decodeObjectOfClass:? forKey:?];
   language = v4->_language;
   v4->_language = v7;
 
-  v9 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"layout"];
+  objc_opt_class();
+  v9 = [coderCopy decodeObjectOfClass:? forKey:?];
   layout = v4->_layout;
   v4->_layout = v9;
 
-  v11 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"exclusivityIdentifier"];
+  objc_opt_class();
+  v11 = [coderCopy decodeObjectOfClass:? forKey:?];
   exclusivityIdentifier = v4->_exclusivityIdentifier;
   v4->_exclusivityIdentifier = v11;
 
-  v13 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"platformInputModeConfiguration"];
+  objc_opt_class();
+  v13 = [coderCopy decodeObjectOfClass:? forKey:?];
   platformInputModeConfiguration = v4->_platformInputModeConfiguration;
   v4->_platformInputModeConfiguration = v13;
 
-  v4->_countryCode = [coderCopy decodeIntegerForKey:@"countryCode"];
-  v4->_standardType = [coderCopy decodeIntegerForKey:@"standardType"];
-  v4->_subinterfaceID = [coderCopy decodeIntegerForKey:@"subinterfaceID"];
-  v4->_capsLockKeyHasLanguageSwitchLabel = [coderCopy decodeBoolForKey:@"capsLockKeyHasLanguageSwitchLabel"];
-  v15 = [coderCopy decodeBoolForKey:@"globeKeyLabelHasGlobeSymbol"];
+  v4->_countryCode = [coderCopy decodeIntegerForKey:?];
+  v4->_standardType = [coderCopy decodeIntegerForKey:?];
+  v4->_subinterfaceID = [coderCopy decodeIntegerForKey:?];
+  v4->_capsLockKeyHasLanguageSwitchLabel = [coderCopy decodeBoolForKey:?];
+  v15 = [coderCopy decodeBoolForKey:?];
 
   v4->_globeKeyLabelHasGlobeSymbol = v15;
   return v4;
@@ -288,7 +257,7 @@ LABEL_12:
 
 - (BKSHIDKeyboardDeviceProperties)init
 {
-  v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"cannot directly allocate BKSHIDKeyboardDeviceProperties"];
+  v4 = [MEMORY[0x1E696AEC0] stringWithFormat:?];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     v5 = NSStringFromSelector(a2);
@@ -318,22 +287,22 @@ LABEL_12:
 void __48__BKSHIDKeyboardDeviceProperties_protobufSchema__block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  [v2 addField:"_senderID"];
-  [v2 addField:"_transport"];
-  [v2 addField:"_language"];
-  [v2 addField:"_layout"];
-  [v2 addField:"_exclusivityIdentifier"];
-  [v2 addField:"_platformInputModeConfiguration"];
-  [v2 addField:"_countryCode"];
-  [v2 addField:"_standardType"];
-  [v2 addField:"_subinterfaceID"];
-  [v2 addField:"_capsLockKeyHasLanguageSwitchLabel"];
-  [v2 addField:"_globeKeyLabelHasGlobeSymbol"];
+  [v2 addField:?];
+  [v2 addField:?];
+  [v2 addField:?];
+  [v2 addField:?];
+  [v2 addField:?];
+  [v2 addField:?];
+  [v2 addField:?];
+  [v2 addField:?];
+  [v2 addField:?];
+  [v2 addField:?];
+  [v2 addField:?];
 }
 
 + (BKSHIDKeyboardDeviceProperties)new
 {
-  v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"cannot directly allocate BKSHIDKeyboardDeviceProperties"];
+  v4 = [MEMORY[0x1E696AEC0] stringWithFormat:?];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     v5 = NSStringFromSelector(a2);

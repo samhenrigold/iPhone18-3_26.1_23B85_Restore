@@ -44,10 +44,11 @@
 
   v7 = (self + OBJC_IVAR____TtCC12MobileSafari17BrowsingAssistant18ReaderButtonFooter_showReader);
   v8 = *(self + OBJC_IVAR____TtCC12MobileSafari17BrowsingAssistant18ReaderButtonFooter_showReader);
+  v9 = *(self + OBJC_IVAR____TtCC12MobileSafari17BrowsingAssistant18ReaderButtonFooter_showReader + 8);
   *v7 = v6;
   v7[1] = v4;
   selfCopy = self;
-  sub_18B7E0A10(v8);
+  sub_18B7E0A10(v8, v9);
 }
 
 - (void)setHideReader:(id)reader
@@ -68,10 +69,11 @@
 
   v7 = (self + OBJC_IVAR____TtCC12MobileSafari17BrowsingAssistant18ReaderButtonFooter_hideReader);
   v8 = *(self + OBJC_IVAR____TtCC12MobileSafari17BrowsingAssistant18ReaderButtonFooter_hideReader);
+  v9 = *(self + OBJC_IVAR____TtCC12MobileSafari17BrowsingAssistant18ReaderButtonFooter_hideReader + 8);
   *v7 = v6;
   v7[1] = v4;
   selfCopy = self;
-  sub_18B7E0A10(v8);
+  sub_18B7E0A10(v8, v9);
 }
 
 - (void)toggleReader:(id)reader
@@ -82,7 +84,7 @@
   swift_unknownObjectRelease();
   sub_18BAAE8C4();
 
-  __swift_destroy_boxed_opaque_existential_1Tm(&v5);
+  __swift_destroy_boxed_opaque_existential_1Tm(v5);
 }
 
 @end

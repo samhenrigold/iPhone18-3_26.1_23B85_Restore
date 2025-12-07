@@ -9,10 +9,9 @@
 
 - (_TtP20CoreSpeechFoundation29CSEnhancedEndpointerModelType_)modelType
 {
-  v2 = *(&self->super.isa + OBJC_IVAR____TtC20CoreSpeechFoundation39CSEnhancedEndpointerInputVectorAcoustic_modelType);
-  v3 = swift_unknownObjectRetain();
+  v2 = swift_unknownObjectRetain();
 
-  return v3;
+  return v2;
 }
 
 - (void)setMultiArray:(id)array

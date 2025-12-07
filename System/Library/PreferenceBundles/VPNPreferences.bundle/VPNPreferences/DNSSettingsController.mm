@@ -7,6 +7,7 @@
 - (void)showDNSSettingsPrivacyPage;
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path;
 - (void)toggleDNSSettingsForSpecifier:(id)specifier;
+- (void)viewDidAppear:(BOOL)appear;
 @end
 
 @implementation DNSSettingsController
@@ -336,6 +337,33 @@ LABEL_13:
   }
 
   return v7;
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v17.receiver = self;
+  v17.super_class = DNSSettingsController;
+  [(DNSSettingsController *)&v17 viewDidAppear:appear];
+  v4 = [NSURL URLWithString:@"settings-navigation://com.apple.Settings.General/ManagedConfigurationList/DNS"];
+  v5 = [NSBundle bundleForClass:objc_opt_class()];
+  bundleURL = [v5 bundleURL];
+
+  v7 = [_NSLocalizedStringResource alloc];
+  v8 = +[NSLocale currentLocale];
+  v9 = [v7 initWithKey:@"DNS" table:0 locale:v8 bundleURL:bundleURL];
+
+  v10 = [_NSLocalizedStringResource alloc];
+  v11 = +[NSLocale currentLocale];
+  v12 = [v10 initWithKey:@"General" table:0 locale:v11 bundleURL:bundleURL];
+
+  v13 = [_NSLocalizedStringResource alloc];
+  v14 = +[NSLocale currentLocale];
+  v15 = [v13 initWithKey:@"VPN & Device Management" table:0 locale:v14 bundleURL:bundleURL];
+
+  v18[0] = v12;
+  v18[1] = v15;
+  v16 = [NSArray arrayWithObjects:v18 count:2];
+  [(DNSSettingsController *)self pe_emitNavigationEventForSystemSettingsWithGraphicIconIdentifier:@"com.apple.graphic-icon.vpn" title:v9 localizedNavigationComponents:v16 deepLink:v4];
 }
 
 @end

@@ -14,16 +14,16 @@ uint64_t start()
   return 0;
 }
 
-id sub_100000E00()
+id sub_100000E00(uint64_t a1)
 {
   if (qword_10000C6F0 != -1)
   {
     sub_10000350C();
   }
 
-  v1 = qword_10000C6E8;
+  v2 = qword_10000C6E8;
 
-  return v1;
+  return v2;
 }
 
 void sub_100000E44(id a1)

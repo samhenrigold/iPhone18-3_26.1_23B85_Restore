@@ -155,51 +155,52 @@ LABEL_7:
   applicationCopy = application;
   requestsCopy = requests;
   v8 = +[NSMutableArray array];
-  if ([applicationCopy supportsDeviceFamily:2])
+  v9 = [applicationCopy supportsDeviceFamily:2];
+  if (v9)
   {
-    v9 = SBLayoutSupportsSideLayoutRole();
+    v11 = SBLayoutSupportsSideLayoutRole(v9, v10);
   }
 
   else
   {
-    v9 = 0;
+    v11 = 0;
   }
 
+  v23 = 0u;
+  v24 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v19 = 0u;
-  v20 = 0u;
-  v10 = requestsCopy;
-  v11 = [v10 countByEnumeratingWithState:&v19 objects:v23 count:16];
-  if (v11)
+  v12 = requestsCopy;
+  v13 = [v12 countByEnumeratingWithState:&v21 objects:v25 count:16];
+  if (v13)
   {
-    v12 = v11;
-    v13 = *v20;
+    v14 = v13;
+    v15 = *v22;
     do
     {
-      for (i = 0; i != v12; i = i + 1)
+      for (i = 0; i != v14; i = i + 1)
       {
-        if (*v20 != v13)
+        if (*v22 != v15)
         {
-          objc_enumerationMutation(v10);
+          objc_enumerationMutation(v12);
         }
 
-        v15 = *(*(&v19 + 1) + 8 * i);
-        [v8 addObject:{v15, v19}];
-        if (v9)
+        v17 = *(*(&v21 + 1) + 8 * i);
+        [v8 addObject:{v17, v21}];
+        if (v11)
         {
-          v16 = SBLayoutDefaultSideLayoutElementWidth([v15 interfaceOrientation]);
-          v17 = [v15 copy];
-          [v15 naturalSize];
-          [v17 setNaturalSize:v16];
-          [v8 addObject:v17];
+          v18 = SBLayoutDefaultSideLayoutElementWidth([v17 interfaceOrientation]);
+          v19 = [v17 copy];
+          [v17 naturalSize];
+          [v19 setNaturalSize:v18];
+          [v8 addObject:v19];
         }
       }
 
-      v12 = [v10 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v14 = [v12 countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
-    while (v12);
+    while (v14);
   }
 
   return v8;

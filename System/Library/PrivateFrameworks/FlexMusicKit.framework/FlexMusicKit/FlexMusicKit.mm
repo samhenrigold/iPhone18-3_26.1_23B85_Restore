@@ -9,20 +9,18 @@ uint64_t sub_24B7E667C(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t
 
 void sub_24B7E7E8C(uint64_t a1, uint64_t a2, void *a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = a3;
   v4 = FlexLogForCategory(0);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v13 = 138412290;
-    v14 = v3;
-    _os_log_impl(&dword_24B7E5000, v4, OS_LOG_TYPE_DEFAULT, "Posting kFlexReachabilityChangedNotification for %@", &v13, 0xCu);
+    v12 = 138412290;
+    v13 = v3;
+    _os_log_impl(&dword_24B7E5000, v4, OS_LOG_TYPE_DEFAULT, "Posting kFlexReachabilityChangedNotification for %@", &v12, 0xCu);
   }
 
   v9 = objc_msgSend_defaultCenter(MEMORY[0x277CCAB98], v5, v6, v7, v8);
   objc_msgSend_postNotificationName_object_(v9, v10, @"kFlexNetworkReachabilityChangedNotification", v3, v11);
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void sub_24B7E8764(uint64_t a1)
@@ -38,13 +36,14 @@ void sub_24B7E8764(uint64_t a1)
   }
 }
 
-void sub_24B7EA58C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, char a19, uint64_t a20, uint64_t a21, uint64_t a22, char a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27)
+void sub_24B7EA58C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
 {
+  va_start(va, a26);
   _Block_object_dispose(&a19, 8);
   _Block_object_dispose(&a23, 8);
-  _Block_object_dispose(&a27, 8);
-  _Block_object_dispose((v27 - 160), 8);
-  _Block_object_dispose((v27 - 128), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v26 - 160), 8);
+  _Block_object_dispose((v26 - 128), 8);
   _Unwind_Resume(a1);
 }
 
@@ -126,32 +125,27 @@ void sub_24B7EA5D4(void *a1, void *a2)
   }
 }
 
-void sub_24B7EA8D4(void *a1, int a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint8_t buf)
+void sub_24B7EA8D4(void *a1, int a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, ...)
 {
+  va_start(va, a10);
 
-  _os_log_debug_impl(a1, v11, OS_LOG_TYPE_DEBUG, a4, &buf, 0xCu);
+  _os_log_debug_impl(a1, v10, OS_LOG_TYPE_DEBUG, a4, va, 0xCu);
 }
 
 void sub_24B7EA8F4(void *a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v19 = *MEMORY[0x277D85DE8];
   v5 = MEMORY[0x277CCACA8];
   v6 = objc_msgSend_name(a1, a2, a3, a4, a5);
-  v10 = objc_msgSend_stringWithFormat_(v5, v7, @"Missing peak value for segment item: %@", v8, v9);
-  sub_24B7EA8D4(&dword_24B7E5000, v11, v12, "%@", v13, v14, v15, v16, v6, v18, 2u);
-
-  v17 = *MEMORY[0x277D85DE8];
+  v18 = objc_msgSend_stringWithFormat_(v5, v7, @"Missing peak value for segment item: %@", v8, v9, v6);
+  sub_24B7EA8D4(&dword_24B7E5000, v10, v11, "%@", v12, v13, v14, v15, v16, v17);
 }
 
 void sub_24B7EA9AC(void *a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v19 = *MEMORY[0x277D85DE8];
   v5 = MEMORY[0x277CCACA8];
   v6 = objc_msgSend_name(a1, a2, a3, a4, a5);
-  v10 = objc_msgSend_stringWithFormat_(v5, v7, @"Missing loudness value for segment item: %@", v8, v9);
-  sub_24B7EA8D4(&dword_24B7E5000, v11, v12, "%@", v13, v14, v15, v16, v6, v18, 2u);
-
-  v17 = *MEMORY[0x277D85DE8];
+  v18 = objc_msgSend_stringWithFormat_(v5, v7, @"Missing loudness value for segment item: %@", v8, v9, v6);
+  sub_24B7EA8D4(&dword_24B7E5000, v10, v11, "%@", v12, v13, v14, v15, v16, v17);
 }
 
 uint64_t sub_24B7EAB20(uint64_t a1)
@@ -237,24 +231,22 @@ BOOL sub_24B7EE4E8(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
   return v33;
 }
 
-void sub_24B7EF864(void *a1, char *a2, uint64_t a3, uint64_t a4, uint64_t a5)
+void sub_24B7EF864(void *a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v6 = MEMORY[0x277CCABB0];
   v7 = objc_msgSend_count(a1, a2, a3, a4, a5);
   v11 = objc_msgSend_numberWithUnsignedInteger_(v6, v8, v7, v9, v10);
-  v13 = 138412290;
-  v14 = v11;
-  _os_log_debug_impl(&dword_24B7E5000, a2, OS_LOG_TYPE_DEBUG, "Found %@ number of loop points in rendition.", &v13, 0xCu);
-
-  v12 = *MEMORY[0x277D85DE8];
+  v12 = 138412290;
+  v13 = v11;
+  _os_log_debug_impl(&dword_24B7E5000, a2, OS_LOG_TYPE_DEBUG, "Found %@ number of loop points in rendition.", &v12, 0xCu);
 }
 
-void sub_24B7EFC84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_24B7EFC84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 80), 8);
+  _Block_object_dispose((v16 - 80), 8);
   _Unwind_Resume(a1);
 }
 
@@ -306,60 +298,58 @@ void sub_24B7F24C0(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4, uint64
 
 void sub_24B7F35F8(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v8[43] = *MEMORY[0x277D85DE8];
-  v8[0] = @"Mood_Ethereal";
-  v8[1] = @"Mood_Sentimental";
-  v8[2] = @"Mood_Chill";
-  v8[3] = @"Mood_Gentle";
-  v8[4] = @"Mood_Happy";
-  v8[5] = @"Mood_Uplifting";
-  v8[6] = @"Mood_Party";
-  v8[7] = @"Mood_Action";
-  v8[8] = @"Mood_Epic";
-  v8[9] = @"Mood_Neutral";
-  v8[10] = @"SongPace_Slow";
-  v8[11] = @"SongPace_Medium";
-  v8[12] = @"SongPace_Fast";
-  v8[13] = @"MoodAlt_Sentimental";
-  v8[14] = @"MoodAlt_Playful";
-  v8[15] = @"MoodAlt_Action";
-  v8[16] = @"MoodAlt_Event";
-  v8[17] = @"MoodAlt_Chill";
-  v8[18] = @"MoodAlt_Retro";
-  v8[19] = @"MoodAlt_Pop";
-  v8[20] = @"Genre_Blues";
-  v8[21] = @"Genre_Classical";
-  v8[22] = @"Genre_Country";
-  v8[23] = @"Genre_Dance";
-  v8[24] = @"Genre_Electronic";
-  v8[25] = @"Genre_HipHopRap";
-  v8[26] = @"Genre_Holiday";
-  v8[27] = @"Genre_Indie";
-  v8[28] = @"Genre_Jazz";
-  v8[29] = @"Genre_KidsFamily";
-  v8[30] = @"Genre_Latin";
-  v8[31] = @"Genre_Lounge";
-  v8[32] = @"Genre_Metal";
-  v8[33] = @"Genre_Pop";
-  v8[34] = @"Genre_R&B";
-  v8[35] = @"Genre_Reggae";
-  v8[36] = @"Genre_Rock";
-  v8[37] = @"Genre_SingerSongwriter";
-  v8[38] = @"Genre_SoulFunk";
-  v8[39] = @"Genre_StageScreen";
-  v8[40] = @"Genre_World";
-  v8[41] = @"Genre_Alternative";
-  v8[42] = @"Genre_Downtempo";
-  v5 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], a2, v8, 43, a5);
+  v7[43] = *MEMORY[0x277D85DE8];
+  v7[0] = @"Mood_Ethereal";
+  v7[1] = @"Mood_Sentimental";
+  v7[2] = @"Mood_Chill";
+  v7[3] = @"Mood_Gentle";
+  v7[4] = @"Mood_Happy";
+  v7[5] = @"Mood_Uplifting";
+  v7[6] = @"Mood_Party";
+  v7[7] = @"Mood_Action";
+  v7[8] = @"Mood_Epic";
+  v7[9] = @"Mood_Neutral";
+  v7[10] = @"SongPace_Slow";
+  v7[11] = @"SongPace_Medium";
+  v7[12] = @"SongPace_Fast";
+  v7[13] = @"MoodAlt_Sentimental";
+  v7[14] = @"MoodAlt_Playful";
+  v7[15] = @"MoodAlt_Action";
+  v7[16] = @"MoodAlt_Event";
+  v7[17] = @"MoodAlt_Chill";
+  v7[18] = @"MoodAlt_Retro";
+  v7[19] = @"MoodAlt_Pop";
+  v7[20] = @"Genre_Blues";
+  v7[21] = @"Genre_Classical";
+  v7[22] = @"Genre_Country";
+  v7[23] = @"Genre_Dance";
+  v7[24] = @"Genre_Electronic";
+  v7[25] = @"Genre_HipHopRap";
+  v7[26] = @"Genre_Holiday";
+  v7[27] = @"Genre_Indie";
+  v7[28] = @"Genre_Jazz";
+  v7[29] = @"Genre_KidsFamily";
+  v7[30] = @"Genre_Latin";
+  v7[31] = @"Genre_Lounge";
+  v7[32] = @"Genre_Metal";
+  v7[33] = @"Genre_Pop";
+  v7[34] = @"Genre_R&B";
+  v7[35] = @"Genre_Reggae";
+  v7[36] = @"Genre_Rock";
+  v7[37] = @"Genre_SingerSongwriter";
+  v7[38] = @"Genre_SoulFunk";
+  v7[39] = @"Genre_StageScreen";
+  v7[40] = @"Genre_World";
+  v7[41] = @"Genre_Alternative";
+  v7[42] = @"Genre_Downtempo";
+  v5 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], a2, v7, 43, a5);
   v6 = qword_27F060D50;
   qword_27F060D50 = v5;
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
-void sub_24B7F43A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_24B7F43A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -385,51 +375,48 @@ void sub_24B7F43E8(uint64_t a1, void *a2)
   }
 }
 
-void sub_24B7F4570(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_24B7F4570(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 2u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 2u);
 }
 
 void sub_24B7F4600(uint64_t a1, void *a2, NSObject *a3, uint64_t a4, uint64_t a5)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v7 = objc_msgSend_uid(a2, a2, a3, a4, a5);
-  v9 = 138412546;
-  v10 = a1;
-  v11 = 2112;
-  v12 = v7;
-  _os_log_error_impl(&dword_24B7E5000, a3, OS_LOG_TYPE_ERROR, "ERROR: client provide uid %@ does not match expected UID %@", &v9, 0x16u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  v8 = 138412546;
+  v9 = a1;
+  v10 = 2112;
+  v11 = v7;
+  _os_log_error_impl(&dword_24B7E5000, a3, OS_LOG_TYPE_ERROR, "ERROR: client provide uid %@ does not match expected UID %@", &v8, 0x16u);
 }
 
-void _FMLogMessage(const char *a1, int a2, const char *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+void _FMLogMessage(const char *a1, int a2, const char *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
-  v15 = *MEMORY[0x277D85DE8];
-  vsnprintf(__str, 0x400uLL, a3, &a9);
-  v11 = strlen(__str);
-  if (v11 <= 0x3FE)
-  {
-    snprintf(&__str[v11], 1024 - v11, " (file: %s, line: %u)", a1, a2);
-  }
-
-  v12 = FlexLogForCategory(0);
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
-  {
-    sub_24B7F47A4(__str, v12);
-  }
-
+  va_start(va, a8);
   v13 = *MEMORY[0x277D85DE8];
+  vsnprintf(__str, 0x400uLL, a3, va);
+  v10 = strlen(__str);
+  if (v10 <= 0x3FE)
+  {
+    snprintf(&__str[v10], 1024 - v10, " (file: %s, line: %u)", a1, a2);
+  }
+
+  v11 = FlexLogForCategory(0);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+  {
+    sub_24B7F47A4(__str, v11);
+  }
 }
 
 void sub_24B7F47A4(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 136315138;
-  v4 = a1;
-  _os_log_debug_impl(&dword_24B7E5000, a2, OS_LOG_TYPE_DEBUG, "%s", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 136315138;
+  v3 = a1;
+  _os_log_debug_impl(&dword_24B7E5000, a2, OS_LOG_TYPE_DEBUG, "%s", &v2, 0xCu);
 }
 
 id FlexLogForCategory(unint64_t a1)
@@ -486,30 +473,30 @@ id FlexDynamicCast(uint64_t a1, void *a2)
 
 void sub_24B7F591C(uint64_t a1, void *a2, void *a3)
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
+  v33 = 0u;
   v34 = 0u;
   v35 = 0u;
   v36 = 0u;
-  v37 = 0u;
-  v8 = objc_msgSend_countByEnumeratingWithState_objects_count_(v6, v7, &v34, v38, 16);
+  v8 = objc_msgSend_countByEnumeratingWithState_objects_count_(v6, v7, &v33, v37, 16);
   if (v8)
   {
     v13 = v8;
-    v14 = *v35;
+    v14 = *v34;
     v15 = MEMORY[0x277CC0898];
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v35 != v14)
+        if (*v34 != v14)
         {
           objc_enumerationMutation(v6);
         }
 
-        v17 = *(*(&v34 + 1) + 8 * i);
-        memset(&v33, 0, sizeof(v33));
+        v17 = *(*(&v33 + 1) + 8 * i);
+        memset(&v32, 0, sizeof(v32));
         if (v17)
         {
           v18 = *(a1 + 32);
@@ -522,27 +509,25 @@ void sub_24B7F591C(uint64_t a1, void *a2, void *a3)
           lhs = *v15;
         }
 
-        v31 = *(a1 + 36);
-        CMTimeAdd(&v33, &lhs, &v31);
+        v30 = *(a1 + 36);
+        CMTimeAdd(&v32, &lhs, &v30);
         v20 = MEMORY[0x277CCABB0];
-        lhs = v33;
+        lhs = v32;
         Seconds = CMTimeGetSeconds(&lhs);
         v26 = objc_msgSend_numberWithDouble_(v20, v22, v23, v24, v25, Seconds);
         objc_msgSend_addObject_(v5, v27, v26, v28, v29);
       }
 
-      v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(v6, v9, &v34, v38, 16);
+      v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(v6, v9, &v33, v37, 16);
     }
 
     while (v13);
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 void sub_24B7F7120(uint64_t a1, void *a2, void *a3)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v10 = a3;
   if (v10)
@@ -550,11 +535,11 @@ void sub_24B7F7120(uint64_t a1, void *a2, void *a3)
     v11 = FlexLogForCategory(3uLL);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      v16 = 138412546;
-      v17 = v5;
-      v18 = 2112;
-      v19 = v10;
-      _os_log_impl(&dword_24B7E5000, v11, OS_LOG_TYPE_DEFAULT, "Failed to load local song local database %@, error %@", &v16, 0x16u);
+      v15 = 138412546;
+      v16 = v5;
+      v17 = 2112;
+      v18 = v10;
+      _os_log_impl(&dword_24B7E5000, v11, OS_LOG_TYPE_DEFAULT, "Failed to load local song local database %@, error %@", &v15, 0x16u);
     }
   }
 
@@ -565,16 +550,15 @@ void sub_24B7F7120(uint64_t a1, void *a2, void *a3)
     v14 = *(v13 + 24);
     *(v13 + 24) = v12;
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
-void sub_24B7F7488(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, id location, char a19)
+void sub_24B7F7488(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, id location, ...)
 {
-  objc_destroyWeak((v19 + 56));
+  va_start(va, location);
+  objc_destroyWeak((v18 + 56));
   objc_destroyWeak(&location);
-  _Block_object_dispose(&a19, 8);
-  _Block_object_dispose((v20 - 80), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v19 - 80), 8);
   _Unwind_Resume(a1);
 }
 
@@ -587,24 +571,24 @@ uint64_t sub_24B7F74BC(uint64_t result, uint64_t a2)
 
 void sub_24B7F74D4(uint64_t a1)
 {
-  v109 = *MEMORY[0x277D85DE8];
+  v108 = *MEMORY[0x277D85DE8];
   objc_copyWeak(&to, (a1 + 56));
   v2 = objc_alloc(MEMORY[0x277CCAD78]);
   v7 = objc_msgSend_uid(*(a1 + 32), v3, v4, v5, v6);
-  v94 = objc_msgSend_initWithUUIDString_(v2, v8, v7, v9, v10);
+  v93 = objc_msgSend_initWithUUIDString_(v2, v8, v7, v9, v10);
 
-  if (v94)
+  if (v93)
   {
     v15 = objc_msgSend_fetchRequestWithEntityName_(MEMORY[0x277CBE428], v11, @"LocalSongs", v13, v14);
-    v19 = objc_msgSend_predicateWithFormat_(MEMORY[0x277CCAC30], v16, @"uuid == %@", v17, v18, v94);
+    v19 = objc_msgSend_predicateWithFormat_(MEMORY[0x277CCAC30], v16, @"uuid == %@", v17, v18, v93);
     objc_msgSend_setPredicate_(v15, v20, v19, v21, v22);
 
     v23 = objc_loadWeakRetained(&to);
-    v100 = 0;
-    v93 = objc_msgSend_executeFetchRequest_error_(v23, v24, v15, &v100, v25);
-    v26 = v100;
+    v99 = 0;
+    v92 = objc_msgSend_executeFetchRequest_error_(v23, v24, v15, &v99, v25);
+    v26 = v99;
 
-    if (objc_msgSend_count(v93, v27, v28, v29, v30) || v26)
+    if (objc_msgSend_count(v92, v27, v28, v29, v30) || v26)
     {
       if (v26)
       {
@@ -636,38 +620,38 @@ void sub_24B7F74D4(uint64_t a1)
       v32 = objc_loadWeakRetained(&to);
       v35 = objc_msgSend_insertNewObjectForEntityForName_inManagedObjectContext_(v31, v33, @"LocalSongs", v32, v34);
 
-      objc_msgSend_setUuid_(v35, v36, v94, v37, v38);
+      objc_msgSend_setUuid_(v35, v36, v93, v37, v38);
       objc_msgSend_songData(*(a1 + 32), v39, v40, v41, v42);
+      v97 = 0u;
       v98 = 0u;
-      v99 = 0u;
-      v96 = 0u;
-      v43 = v97 = 0u;
-      v48 = objc_msgSend_countByEnumeratingWithState_objects_count_(v43, v44, &v96, v108, 16);
+      v95 = 0u;
+      v43 = v96 = 0u;
+      v48 = objc_msgSend_countByEnumeratingWithState_objects_count_(v43, v44, &v95, v107, 16);
       if (v48)
       {
-        v49 = *v97;
+        v49 = *v96;
         do
         {
           for (i = 0; i != v48; ++i)
           {
-            if (*v97 != v49)
+            if (*v96 != v49)
             {
               objc_enumerationMutation(v43);
             }
 
-            v51 = *(*(&v96 + 1) + 8 * i);
+            v51 = *(*(&v95 + 1) + 8 * i);
             v52 = objc_msgSend_objectForKeyedSubscript_(v43, v45, v51, v46, v47);
             objc_msgSend_setValue_forKey_(v35, v53, v52, v51, v54);
           }
 
-          v48 = objc_msgSend_countByEnumeratingWithState_objects_count_(v43, v45, &v96, v108, 16);
+          v48 = objc_msgSend_countByEnumeratingWithState_objects_count_(v43, v45, &v95, v107, 16);
         }
 
         while (v48);
       }
     }
 
-    v65 = v93;
+    v65 = v92;
   }
 
   else
@@ -677,9 +661,9 @@ void sub_24B7F74D4(uint64_t a1)
     v15 = objc_msgSend_stringWithFormat_(v55, v57, @"'%@' is an invalid UUID. Record not saved to local database", v58, v59, v56);
 
     v60 = MEMORY[0x277CCA9B8];
-    v106 = *MEMORY[0x277CCA068];
-    v107 = v15;
-    v26 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v61, &v107, &v106, 1);
+    v105 = *MEMORY[0x277CCA068];
+    v106 = v15;
+    v26 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v61, &v106, &v105, 1);
     v63 = objc_msgSend_errorWithDomain_code_userInfo_(v60, v62, @"com.apple.FlexMusicKit.DatabaseError", 0, v26);
     v64 = *(*(a1 + 40) + 8);
     v65 = *(v64 + 40);
@@ -707,9 +691,9 @@ void sub_24B7F74D4(uint64_t a1)
           v86 = objc_msgSend_localizedDescription(*(*(*(a1 + 40) + 8) + 40), v82, v83, v84, v85);
           v91 = objc_msgSend_localizedRecoverySuggestion(*(*(*(a1 + 40) + 8) + 40), v87, v88, v89, v90);
           *buf = 138412546;
-          v103 = v86;
-          v104 = 2112;
-          v105 = v91;
+          v102 = v86;
+          v103 = 2112;
+          v104 = v91;
           _os_log_impl(&dword_24B7E5000, v81, OS_LOG_TYPE_DEFAULT, "Error updating database\n%@\n%@", buf, 0x16u);
         }
 
@@ -728,37 +712,37 @@ void sub_24B7F74D4(uint64_t a1)
 LABEL_28:
 
   objc_destroyWeak(&to);
-  v92 = *MEMORY[0x277D85DE8];
 }
 
-void sub_24B7F7B40(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, id location, char a19)
+void sub_24B7F7B40(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, id location, ...)
 {
-  objc_destroyWeak((v19 + 56));
+  va_start(va, location);
+  objc_destroyWeak((v18 + 56));
   objc_destroyWeak(&location);
-  _Block_object_dispose(&a19, 8);
-  _Block_object_dispose((v20 - 80), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v19 - 80), 8);
   _Unwind_Resume(a1);
 }
 
 void sub_24B7F7B74(uint64_t a1)
 {
-  v98 = *MEMORY[0x277D85DE8];
+  v97 = *MEMORY[0x277D85DE8];
   objc_copyWeak(&to, (a1 + 56));
   v2 = objc_alloc(MEMORY[0x277CCAD78]);
   v7 = objc_msgSend_uid(*(a1 + 32), v3, v4, v5, v6);
-  v85 = objc_msgSend_initWithUUIDString_(v2, v8, v7, v9, v10);
+  v84 = objc_msgSend_initWithUUIDString_(v2, v8, v7, v9, v10);
 
-  if (v85)
+  if (v84)
   {
     v14 = objc_msgSend_fetchRequestWithEntityName_(MEMORY[0x277CBE428], v11, @"LocalSongs", v12, v13);
-    v18 = objc_msgSend_predicateWithFormat_(MEMORY[0x277CCAC30], v15, @"uuid == %@", v16, v17, v85);
+    v18 = objc_msgSend_predicateWithFormat_(MEMORY[0x277CCAC30], v15, @"uuid == %@", v16, v17, v84);
     objc_msgSend_setPredicate_(v14, v19, v18, v20, v21);
-    v84 = v14;
+    v83 = v14;
 
     v22 = objc_loadWeakRetained(&to);
-    v91 = 0;
-    v83 = objc_msgSend_executeFetchRequest_error_(v22, v23, v14, &v91, v24);
-    v25 = v91;
+    v90 = 0;
+    v82 = objc_msgSend_executeFetchRequest_error_(v22, v23, v14, &v90, v24);
+    v25 = v90;
 
     if (v25)
     {
@@ -774,34 +758,34 @@ void sub_24B7F7B74(uint64_t a1)
       *(v31 + 40) = v32;
     }
 
-    else if (objc_msgSend_count(v83, v26, v27, v28, v29))
+    else if (objc_msgSend_count(v82, v26, v27, v28, v29))
     {
-      v33 = objc_msgSend_firstObject(v83, v34, v35, v36, v37);
+      v33 = objc_msgSend_firstObject(v82, v34, v35, v36, v37);
       v42 = objc_msgSend_songData(*(a1 + 32), v38, v39, v40, v41);
-      v89 = 0u;
-      v90 = 0u;
-      v87 = 0u;
       v88 = 0u;
+      v89 = 0u;
+      v86 = 0u;
+      v87 = 0u;
       v47 = objc_msgSend_allKeys(v42, v43, v44, v45, v46);
-      v52 = objc_msgSend_countByEnumeratingWithState_objects_count_(v47, v48, &v87, v97, 16);
+      v52 = objc_msgSend_countByEnumeratingWithState_objects_count_(v47, v48, &v86, v96, 16);
       if (v52)
       {
-        v53 = *v88;
+        v53 = *v87;
         do
         {
           for (i = 0; i != v52; ++i)
           {
-            if (*v88 != v53)
+            if (*v87 != v53)
             {
               objc_enumerationMutation(v47);
             }
 
-            v55 = *(*(&v87 + 1) + 8 * i);
+            v55 = *(*(&v86 + 1) + 8 * i);
             v56 = objc_msgSend_objectForKeyedSubscript_(v42, v49, v55, v50, v51);
             objc_msgSend_setValue_forKey_(v33, v57, v56, v55, v58);
           }
 
-          v52 = objc_msgSend_countByEnumeratingWithState_objects_count_(v47, v49, &v87, v97, 16);
+          v52 = objc_msgSend_countByEnumeratingWithState_objects_count_(v47, v49, &v86, v96, 16);
         }
 
         while (v52);
@@ -839,9 +823,9 @@ void sub_24B7F7B74(uint64_t a1)
           v76 = objc_msgSend_localizedDescription(*(*(*(a1 + 40) + 8) + 40), v72, v73, v74, v75);
           v81 = objc_msgSend_localizedRecoverySuggestion(*(*(*(a1 + 40) + 8) + 40), v77, v78, v79, v80);
           *buf = 138412546;
-          v94 = v76;
-          v95 = 2112;
-          v96 = v81;
+          v93 = v76;
+          v94 = 2112;
+          v95 = v81;
           _os_log_impl(&dword_24B7E5000, v71, OS_LOG_TYPE_DEFAULT, "Error updating database\n%@\n%@", buf, 0x16u);
         }
 
@@ -860,21 +844,21 @@ void sub_24B7F7B74(uint64_t a1)
 LABEL_26:
 
   objc_destroyWeak(&to);
-  v82 = *MEMORY[0x277D85DE8];
 }
 
-void sub_24B7F8148(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, id location, char a19)
+void sub_24B7F8148(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, id location, ...)
 {
-  objc_destroyWeak((v19 + 64));
+  va_start(va, location);
+  objc_destroyWeak((v18 + 64));
   objc_destroyWeak(&location);
-  _Block_object_dispose(&a19, 8);
-  _Block_object_dispose((v20 - 96), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v19 - 96), 8);
   _Unwind_Resume(a1);
 }
 
 void sub_24B7F817C(uint64_t a1)
 {
-  v78 = *MEMORY[0x277D85DE8];
+  v77 = *MEMORY[0x277D85DE8];
   objc_copyWeak(&to, (a1 + 64));
   v2 = objc_alloc(MEMORY[0x277CCAD78]);
   v9 = objc_msgSend_initWithUUIDString_(v2, v3, *(a1 + 32), v4, v5);
@@ -885,9 +869,9 @@ void sub_24B7F817C(uint64_t a1)
     objc_msgSend_setPredicate_(v10, v15, v14, v16, v17);
 
     v18 = objc_loadWeakRetained(&to);
-    v71 = 0;
-    v21 = objc_msgSend_executeFetchRequest_error_(v18, v19, v10, &v71, v20);
-    v22 = v71;
+    v70 = 0;
+    v21 = objc_msgSend_executeFetchRequest_error_(v18, v19, v10, &v70, v20);
+    v22 = v70;
 
     if (v22)
     {
@@ -906,30 +890,30 @@ void sub_24B7F817C(uint64_t a1)
     else if (objc_msgSend_count(v21, v23, v24, v25, v26))
     {
       v30 = objc_msgSend_firstObject(v21, v31, v32, v33, v34);
-      v69 = 0u;
-      v70 = 0u;
-      v67 = 0u;
       v68 = 0u;
+      v69 = 0u;
+      v66 = 0u;
+      v67 = 0u;
       v35 = *(a1 + 40);
-      v39 = objc_msgSend_countByEnumeratingWithState_objects_count_(v35, v36, &v67, v77, 16);
+      v39 = objc_msgSend_countByEnumeratingWithState_objects_count_(v35, v36, &v66, v76, 16);
       if (v39)
       {
-        v40 = *v68;
+        v40 = *v67;
         do
         {
           v41 = 0;
           do
           {
-            if (*v68 != v40)
+            if (*v67 != v40)
             {
               objc_enumerationMutation(v35);
             }
 
-            objc_msgSend_setValue_forKey_(v30, v37, 0, *(*(&v67 + 1) + 8 * v41++), v38);
+            objc_msgSend_setValue_forKey_(v30, v37, 0, *(*(&v66 + 1) + 8 * v41++), v38);
           }
 
           while (v39 != v41);
-          v39 = objc_msgSend_countByEnumeratingWithState_objects_count_(v35, v37, &v67, v77, 16);
+          v39 = objc_msgSend_countByEnumeratingWithState_objects_count_(v35, v37, &v66, v76, 16);
         }
 
         while (v39);
@@ -967,9 +951,9 @@ void sub_24B7F817C(uint64_t a1)
           v59 = objc_msgSend_localizedDescription(*(*(*(a1 + 48) + 8) + 40), v55, v56, v57, v58);
           v64 = objc_msgSend_localizedRecoverySuggestion(*(*(*(a1 + 48) + 8) + 40), v60, v61, v62, v63);
           *buf = 138412546;
-          v74 = v59;
-          v75 = 2112;
-          v76 = v64;
+          v73 = v59;
+          v74 = 2112;
+          v75 = v64;
           _os_log_impl(&dword_24B7E5000, v54, OS_LOG_TYPE_DEFAULT, "Error updating database\n%@\n%@", buf, 0x16u);
         }
 
@@ -988,12 +972,11 @@ void sub_24B7F817C(uint64_t a1)
 LABEL_26:
 
   objc_destroyWeak(&to);
-  v65 = *MEMORY[0x277D85DE8];
 }
 
-void sub_24B7F8674(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_24B7F8674(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1088,10 +1071,11 @@ LABEL_6:
   }
 }
 
-void sub_24B7F8B08(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_24B7F8B08(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 void sub_24B7F8B4C(void *a1, uint64_t a2, os_log_t log, const char *a4, ...)
@@ -1101,64 +1085,32 @@ void sub_24B7F8B4C(void *a1, uint64_t a2, os_log_t log, const char *a4, ...)
   _os_log_error_impl(a1, log, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
 }
 
-void sub_24B7F8B6C(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_24B7F8B6C(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 void sub_24B7F8B88(void *a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v14 = *MEMORY[0x277D85DE8];
   v5 = objc_msgSend_localizedDescription(a1, a2, a3, a4, a5);
   sub_24B7F8B40();
-  sub_24B7F8B08(&dword_24B7E5000, v6, v7, "Error fetching song records:\n%@", v8, v9, v10, v11, v13);
-
-  v12 = *MEMORY[0x277D85DE8];
-}
-
-void sub_24B7F8C0C()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  sub_24B7F8B28();
-  sub_24B7F8B4C(&dword_24B7E5000, v0, v1, "Error fetching record for UID %@\n%@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-void sub_24B7F8C74()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  sub_24B7F8B40();
-  sub_24B7F8B6C(&dword_24B7E5000, v0, v1, "Song with UID %@ already present in database, new record not saved", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void sub_24B7F8CDC()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  sub_24B7F8B40();
-  sub_24B7F8B6C(&dword_24B7E5000, v0, v1, "No song record found for UID %@. No database update performed.", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  sub_24B7F8B08(&dword_24B7E5000, v6, v7, "Error fetching song records:\n%@", v8, v9, v10, v11);
 }
 
 void sub_24B7F8D44(void *a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v14 = *MEMORY[0x277D85DE8];
   v5 = objc_msgSend_localizedDescription(a1, a2, a3, a4, a5);
   sub_24B7F8B40();
-  sub_24B7F8B08(&dword_24B7E5000, v6, v7, "Failed to execute date fetch request\n%@", v8, v9, v10, v11, v13);
-
-  v12 = *MEMORY[0x277D85DE8];
+  sub_24B7F8B08(&dword_24B7E5000, v6, v7, "Failed to execute date fetch request\n%@", v8, v9, v10, v11);
 }
 
 void sub_24B7F8DC8(void *a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v14 = *MEMORY[0x277D85DE8];
   v5 = objc_msgSend_localizedDescription(a1, a2, a3, a4, a5);
   sub_24B7F8B40();
-  sub_24B7F8B08(&dword_24B7E5000, v6, v7, "Error saving last cloud check date to database.\n%@", v8, v9, v10, v11, v13);
-
-  v12 = *MEMORY[0x277D85DE8];
+  sub_24B7F8B08(&dword_24B7E5000, v6, v7, "Error saving last cloud check date to database.\n%@", v8, v9, v10, v11);
 }
 
 BOOL sub_24B7F937C(void *a1, uint64_t a2, void *a3)
@@ -1353,9 +1305,9 @@ void sub_24B7FB4E4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_24B7FB508(void **a1)
+void sub_24B7FB508(id *a1)
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained(a1 + 7);
   if (WeakRetained)
   {
@@ -1364,38 +1316,38 @@ void sub_24B7FB508(void **a1)
     v12 = objc_msgSend_arrayWithArray_(v7, v9, v8, v10, v11);
 
     v13 = MEMORY[0x277CCAC30];
-    v36[0] = MEMORY[0x277D85DD0];
-    v36[1] = 3221225472;
-    v36[2] = sub_24B7FB71C;
-    v36[3] = &unk_27900EF90;
-    v37 = a1[5];
-    v38 = a1[6];
-    v17 = objc_msgSend_predicateWithBlock_(v13, v14, v36, v15, v16);
+    v35[0] = MEMORY[0x277D85DD0];
+    v35[1] = 3221225472;
+    v35[2] = sub_24B7FB71C;
+    v35[3] = &unk_27900EF90;
+    v36 = a1[5];
+    v37 = a1[6];
+    v17 = objc_msgSend_predicateWithBlock_(v13, v14, v35, v15, v16);
     objc_msgSend_filterUsingPredicate_(v12, v18, v17, v19, v20);
 
-    v34 = 0u;
-    v35 = 0u;
-    v32 = 0u;
     v33 = 0u;
+    v34 = 0u;
+    v31 = 0u;
+    v32 = 0u;
     v21 = v12;
-    v23 = objc_msgSend_countByEnumeratingWithState_objects_count_(v21, v22, &v32, v40, 16);
+    v23 = objc_msgSend_countByEnumeratingWithState_objects_count_(v21, v22, &v31, v39, 16);
     if (v23)
     {
       v28 = v23;
-      v29 = *v33;
+      v29 = *v32;
       do
       {
         for (i = 0; i != v28; ++i)
         {
-          if (*v33 != v29)
+          if (*v32 != v29)
           {
             objc_enumerationMutation(v21);
           }
 
-          objc_msgSend_purgeSync(*(*(&v32 + 1) + 8 * i), v24, v25, v26, v27, v32);
+          objc_msgSend_purgeSync(*(*(&v31 + 1) + 8 * i), v24, v25, v26, v27, v31);
         }
 
-        v28 = objc_msgSend_countByEnumeratingWithState_objects_count_(v21, v24, &v32, v40, 16);
+        v28 = objc_msgSend_countByEnumeratingWithState_objects_count_(v21, v24, &v31, v39, 16);
       }
 
       while (v28);
@@ -1411,13 +1363,11 @@ void sub_24B7FB508(void **a1)
       _os_log_impl(&dword_24B7E5000, v21, OS_LOG_TYPE_DEFAULT, "StrongSelf is nil in _newestContentSetFromAssets. Returning...", buf, 2u);
     }
   }
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t sub_24B7FB71C(uint64_t a1, void *a2)
 {
-  v107 = *MEMORY[0x277D85DE8];
+  v106 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v8 = objc_msgSend_attributes(v3, v4, v5, v6, v7);
   v12 = objc_msgSend_objectForKeyedSubscript_(v8, v9, @"uuid", v10, v11);
@@ -1433,61 +1383,61 @@ LABEL_15:
 
   else
   {
-    v94 = a1;
-    v95 = v8;
-    v104 = 0u;
-    v105 = 0u;
-    v102 = 0u;
+    v93 = a1;
+    v94 = v8;
     v103 = 0u;
+    v104 = 0u;
+    v101 = 0u;
+    v102 = 0u;
     v19 = *(a1 + 32);
-    v101 = objc_msgSend_countByEnumeratingWithState_objects_count_(v19, v20, &v102, v106, 16);
-    if (v101)
+    v100 = objc_msgSend_countByEnumeratingWithState_objects_count_(v19, v20, &v101, v105, 16);
+    if (v100)
     {
-      v25 = *v103;
-      v99 = *v103;
+      v25 = *v102;
+      v98 = *v102;
       do
       {
-        for (i = 0; i != v101; ++i)
+        for (i = 0; i != v100; ++i)
         {
-          if (*v103 != v25)
+          if (*v102 != v25)
           {
             objc_enumerationMutation(v19);
           }
 
-          v27 = *(*(&v102 + 1) + 8 * i);
+          v27 = *(*(&v101 + 1) + 8 * i);
           v28 = objc_msgSend_attributes(v27, v21, v22, v23, v24);
           v32 = objc_msgSend_objectForKeyedSubscript_(v28, v29, @"uuid", v30, v31);
           isEqualToString = objc_msgSend_isEqualToString_(v32, v33, v12, v34, v35);
 
           if (isEqualToString)
           {
-            v100 = objc_msgSend_attributes(v27, v21, v22, v23, v24);
-            v40 = objc_msgSend_objectForKeyedSubscript_(v100, v37, @"_ContentVersion", v38, v39);
+            v99 = objc_msgSend_attributes(v27, v21, v22, v23, v24);
+            v40 = objc_msgSend_objectForKeyedSubscript_(v99, v37, @"_ContentVersion", v38, v39);
             v45 = objc_msgSend_integerValue(v40, v41, v42, v43, v44);
             v50 = objc_msgSend_attributes(v3, v46, v47, v48, v49);
             v54 = objc_msgSend_objectForKeyedSubscript_(v50, v51, @"_ContentVersion", v52, v53);
             if (v45 == objc_msgSend_integerValue(v54, v55, v56, v57, v58))
             {
-              v97 = objc_msgSend_attributes(v27, v59, v60, v61, v62);
-              v66 = objc_msgSend_objectForKeyedSubscript_(v97, v63, @"_CompatibilityVersion", v64, v65);
-              v98 = objc_msgSend_integerValue(v66, v67, v68, v69, v70);
+              v96 = objc_msgSend_attributes(v27, v59, v60, v61, v62);
+              v66 = objc_msgSend_objectForKeyedSubscript_(v96, v63, @"_CompatibilityVersion", v64, v65);
+              v97 = objc_msgSend_integerValue(v66, v67, v68, v69, v70);
               objc_msgSend_attributes(v3, v71, v72, v73, v74);
               v76 = v75 = v3;
               objc_msgSend_objectForKeyedSubscript_(v76, v77, @"_CompatibilityVersion", v78, v79);
               v80 = v19;
               v82 = v81 = v12;
-              v96 = objc_msgSend_integerValue(v82, v83, v84, v85, v86);
+              v95 = objc_msgSend_integerValue(v82, v83, v84, v85, v86);
 
               v12 = v81;
               v19 = v80;
 
               v3 = v75;
-              v25 = v99;
-              if (v98 == v96)
+              v25 = v98;
+              if (v97 == v95)
               {
 
-                a1 = v94;
-                v8 = v95;
+                a1 = v93;
+                v8 = v94;
                 goto LABEL_15;
               }
             }
@@ -1495,107 +1445,75 @@ LABEL_15:
             else
             {
 
-              v25 = v99;
+              v25 = v98;
             }
           }
         }
 
-        v101 = objc_msgSend_countByEnumeratingWithState_objects_count_(v19, v21, &v102, v106, 16);
+        v100 = objc_msgSend_countByEnumeratingWithState_objects_count_(v19, v21, &v101, v105, 16);
       }
 
-      while (v101);
+      while (v100);
     }
 
-    v8 = v95;
+    v8 = v94;
   }
 
   isPresent = objc_msgSend_isPresent(v3, v87, v88, v89, v90);
 LABEL_18:
 
-  v92 = *MEMORY[0x277D85DE8];
   return isPresent;
 }
 
 void sub_24B7FBB30(uint64_t a1, uint64_t a2)
 {
-  v96 = *MEMORY[0x277D85DE8];
+  v95 = *MEMORY[0x277D85DE8];
   v4 = FlexLogForCategory(2uLL);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v8 = objc_msgSend__mobileAssetDownloadResultStringValue_(*(a1 + 32), v5, a2, v6, v7);
     *buf = 138412290;
-    v95 = v8;
+    v94 = v8;
     _os_log_impl(&dword_24B7E5000, v4, OS_LOG_TYPE_DEFAULT, "Completed catalog download with MADownloadResult: %@", buf, 0xCu);
   }
 
   v12 = objc_msgSend__responseForDownloadResult_(*(a1 + 32), v9, a2, v10, v11);
   v16 = v12;
-  if (v12 <= 1)
+  if (v12 > 1)
   {
-    if (v12)
+    if (v12 == 3)
     {
-      if (v12 != 1)
-      {
-        goto LABEL_23;
-      }
-
       goto LABEL_19;
     }
 
-    goto LABEL_9;
-  }
-
-  if (v12 == 3)
-  {
-LABEL_19:
-    v23 = objc_msgSend__mobileAssetDownloadResultStringValue_(*(a1 + 32), v13, a2, v14, v15);
-    v22 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v79, @"An error occurred while downloading the Mobile Assets catalog: %@", v80, v81, v23);
-    v82 = FlexLogForCategory(2uLL);
-    if (os_log_type_enabled(v82, OS_LOG_TYPE_DEFAULT))
+    if (v12 != 2)
     {
-      *buf = 138412290;
-      v95 = v22;
-      _os_log_impl(&dword_24B7E5000, v82, OS_LOG_TYPE_DEFAULT, "%@", buf, 0xCu);
+      return;
     }
 
-    v83 = *MEMORY[0x277CCA470];
-    v91[0] = *MEMORY[0x277CCA450];
-    v91[1] = v83;
-    v92[0] = v22;
-    v92[1] = v23;
-    v54 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v84, v92, v91, 2);
-    v75 = objc_msgSend_errorWithDomain_code_userInfo_(MEMORY[0x277CCA9B8], v85, @"com.apple.FlexMusicKit", v16, v54);
-    (*(*(a1 + 40) + 16))();
-LABEL_22:
-
-    goto LABEL_23;
-  }
-
-  if (v12 == 2)
-  {
 LABEL_9:
     v17 = objc_msgSend__mobileAssetsForAssetType_andUIDs_(*(a1 + 32), v13, @"SongBundle", 0, v15);
     v22 = objc_msgSend_set(MEMORY[0x277CBEB58], v18, v19, v20, v21);
+    v86 = 0u;
     v87 = 0u;
     v88 = 0u;
     v89 = 0u;
-    v90 = 0u;
     v23 = v17;
-    v25 = objc_msgSend_countByEnumeratingWithState_objects_count_(v23, v24, &v87, v93, 16);
+    v25 = objc_msgSend_countByEnumeratingWithState_objects_count_(v23, v24, &v86, v92, 16);
     if (v25)
     {
       v30 = v25;
-      v31 = *v88;
+      v31 = *v87;
       do
       {
         for (i = 0; i != v30; ++i)
         {
-          if (*v88 != v31)
+          if (*v87 != v31)
           {
             objc_enumerationMutation(v23);
           }
 
-          v33 = *(*(&v87 + 1) + 8 * i);
+          v33 = *(*(&v86 + 1) + 8 * i);
           v34 = objc_msgSend_attributes(v33, v26, v27, v28, v29);
           v38 = objc_msgSend_objectForKeyedSubscript_(v34, v35, @"uuid", v36, v37);
 
@@ -1607,7 +1525,7 @@ LABEL_9:
           }
         }
 
-        v30 = objc_msgSend_countByEnumeratingWithState_objects_count_(v23, v26, &v87, v93, 16);
+        v30 = objc_msgSend_countByEnumeratingWithState_objects_count_(v23, v26, &v86, v92, 16);
       }
 
       while (v30);
@@ -1628,8 +1546,34 @@ LABEL_9:
     goto LABEL_22;
   }
 
-LABEL_23:
-  v86 = *MEMORY[0x277D85DE8];
+  if (!v12)
+  {
+    goto LABEL_9;
+  }
+
+  if (v12 == 1)
+  {
+LABEL_19:
+    v23 = objc_msgSend__mobileAssetDownloadResultStringValue_(*(a1 + 32), v13, a2, v14, v15);
+    v22 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v79, @"An error occurred while downloading the Mobile Assets catalog: %@", v80, v81, v23);
+    v82 = FlexLogForCategory(2uLL);
+    if (os_log_type_enabled(v82, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 138412290;
+      v94 = v22;
+      _os_log_impl(&dword_24B7E5000, v82, OS_LOG_TYPE_DEFAULT, "%@", buf, 0xCu);
+    }
+
+    v83 = *MEMORY[0x277CCA470];
+    v90[0] = *MEMORY[0x277CCA450];
+    v90[1] = v83;
+    v91[0] = v22;
+    v91[1] = v23;
+    v54 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v84, v91, v90, 2);
+    v75 = objc_msgSend_errorWithDomain_code_userInfo_(MEMORY[0x277CCA9B8], v85, @"com.apple.FlexMusicKit", v16, v54);
+    (*(*(a1 + 40) + 16))();
+LABEL_22:
+  }
 }
 
 uint64_t sub_24B7FDADC(uint64_t a1, void *a2, void *a3)
@@ -1667,15 +1611,15 @@ void sub_24B7FE338(uint64_t a1)
 
 void sub_24B7FED34(uint64_t a1)
 {
-  v72[1] = *MEMORY[0x277D85DE8];
+  v71[1] = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 72));
   if (!WeakRetained)
   {
     v17 = FlexLogForCategory(2uLL);
     if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v70) = 0;
-      _os_log_impl(&dword_24B7E5000, v17, OS_LOG_TYPE_DEFAULT, "FlexMobileAssetManagerV2 is nil from _dispatchNextAsyncAssetDownloadAndPurge:", &v70, 2u);
+      LOWORD(v69) = 0;
+      _os_log_impl(&dword_24B7E5000, v17, OS_LOG_TYPE_DEFAULT, "FlexMobileAssetManagerV2 is nil from _dispatchNextAsyncAssetDownloadAndPurge:", &v69, 2u);
     }
 
     goto LABEL_18;
@@ -1704,29 +1648,16 @@ void sub_24B7FED34(uint64_t a1)
   }
 
   v17 = *v16;
-  if (!v17)
-  {
-    goto LABEL_15;
-  }
-
-  v27 = *(a1 + 40);
-  v28 = objc_msgSend_uid(*(a1 + 48), v23, v24, v25, v26);
-  v72[0] = v28;
-  v31 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v29, v72, 1, v30);
-  v34 = objc_msgSend__mobileAssetsForAssetType_andUIDs_(v27, v32, v17, v31, v33);
-
-  v37 = objc_msgSend_assetWithNewestContentVersionInAssets_preferInstalled_(FlexMobileAssetManagerV2, v35, v34, 0, v36);
-
-  if (!v37)
+  if (!v17 || (v27 = *(a1 + 40), objc_msgSend_uid(*(a1 + 48), v23, v24, v25, v26), v28 = objc_claimAutoreleasedReturnValue(), v71[0] = v28, objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v29, v71, 1, v30), v31 = objc_claimAutoreleasedReturnValue(), objc_msgSend__mobileAssetsForAssetType_andUIDs_(v27, v32, v17, v31, v33), v34 = objc_claimAutoreleasedReturnValue(), v31, v28, objc_msgSend_assetWithNewestContentVersionInAssets_preferInstalled_(FlexMobileAssetManagerV2, v35, v34, 0, v36), v37 = objc_claimAutoreleasedReturnValue(), v34, !v37))
   {
 LABEL_15:
     v37 = FlexLogForCategory(2uLL);
     if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
     {
       v47 = *(a1 + 56);
-      v70 = 138412290;
-      v71 = v47;
-      _os_log_impl(&dword_24B7E5000, v37, OS_LOG_TYPE_DEFAULT, "Not downloading %@ because no mobile asset exists.", &v70, 0xCu);
+      v69 = 138412290;
+      v70 = v47;
+      _os_log_impl(&dword_24B7E5000, v37, OS_LOG_TYPE_DEFAULT, "Not downloading %@ because no mobile asset exists.", &v69, 0xCu);
     }
 
     goto LABEL_17;
@@ -1738,9 +1669,9 @@ LABEL_15:
     if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
     {
       v46 = *(a1 + 56);
-      v70 = 138412290;
-      v71 = v46;
-      _os_log_impl(&dword_24B7E5000, v45, OS_LOG_TYPE_DEFAULT, "Not downloading %@ because mobile asset is alredy installed.", &v70, 0xCu);
+      v69 = 138412290;
+      v70 = v46;
+      _os_log_impl(&dword_24B7E5000, v45, OS_LOG_TYPE_DEFAULT, "Not downloading %@ because mobile asset is alredy installed.", &v69, 0xCu);
     }
 
 LABEL_17:
@@ -1749,28 +1680,27 @@ LABEL_17:
 
   if ((objc_msgSend__isDownloadingAsset_(*(a1 + 40), v42, *(a1 + 32), v43, v44) & 1) == 0)
   {
-    v49 = WeakRetained[7];
-    objc_sync_enter(v49);
-    objc_msgSend_addObject_(WeakRetained[9], v50, v37, v51, v52);
-    objc_msgSend_setObject_forKey_(WeakRetained[11], v53, *(a1 + 64), v37, v54);
-    if (objc_msgSend_containsObject_(WeakRetained[12], v55, v37, v56, v57))
+    v48 = WeakRetained[7];
+    objc_sync_enter(v48);
+    objc_msgSend_addObject_(WeakRetained[9], v49, v37, v50, v51);
+    objc_msgSend_setObject_forKey_(WeakRetained[11], v52, *(a1 + 64), v37, v53);
+    if (objc_msgSend_containsObject_(WeakRetained[12], v54, v37, v55, v56))
     {
-      objc_msgSend_removeObject_(WeakRetained[12], v58, v37, v59, v60);
+      objc_msgSend_removeObject_(WeakRetained[12], v57, v37, v58, v59);
     }
 
-    if (objc_msgSend_containsObject_(WeakRetained[13], v58, v37, v59, v60))
+    if (objc_msgSend_containsObject_(WeakRetained[13], v57, v37, v58, v59))
     {
-      objc_msgSend_removeObject_(WeakRetained[13], v61, v37, v62, v63);
+      objc_msgSend_removeObject_(WeakRetained[13], v60, v37, v61, v62);
     }
 
-    objc_sync_exit(v49);
+    objc_sync_exit(v48);
 
-    objc_msgSend_updateAsset_downloadProgress_error_(*(a1 + 48), v64, *(a1 + 32), 0, v65, 0.01);
-    objc_msgSend__dispatchNextAsyncAssetDownloadAndPurge(WeakRetained, v66, v67, v68, v69);
+    objc_msgSend_updateAsset_downloadProgress_error_(*(a1 + 48), v63, *(a1 + 32), 0, v64, 0.01);
+    objc_msgSend__dispatchNextAsyncAssetDownloadAndPurge(WeakRetained, v65, v66, v67, v68);
   }
 
 LABEL_18:
-  v48 = *MEMORY[0x277D85DE8];
 }
 
 void sub_24B7FF5E4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, id location)
@@ -1798,7 +1728,7 @@ void sub_24B7FF620(uint64_t a1, void *a2)
 
 void sub_24B7FF6AC(uint64_t a1, uint64_t a2)
 {
-  v118 = *MEMORY[0x277D85DE8];
+  v117 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 80));
   v5 = FlexLogForCategory(2uLL);
   v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
@@ -1810,11 +1740,11 @@ void sub_24B7FF6AC(uint64_t a1, uint64_t a2)
       v10 = *(a1 + 40);
       v12 = objc_msgSend__mobileAssetDownloadResultStringValue_(*(a1 + 48), v7, a2, v8, v9);
       *buf = 138412802;
-      v113 = v11;
-      v114 = 2112;
-      v115 = v10;
-      v116 = 2112;
-      v117 = v12;
+      v112 = v11;
+      v113 = 2112;
+      v114 = v10;
+      v115 = 2112;
+      v116 = v12;
       _os_log_impl(&dword_24B7E5000, v5, OS_LOG_TYPE_DEFAULT, "Ending download task for UID: %@ assetID: %@. MADownloadResult: %@", buf, 0x20u);
     }
 
@@ -1837,9 +1767,9 @@ LABEL_31:
           v96 = *(a1 + 32);
           v97 = *(a1 + 40);
           *buf = 138412546;
-          v113 = v96;
-          v114 = 2112;
-          v115 = v97;
+          v112 = v96;
+          v113 = 2112;
+          v114 = v97;
           _os_log_impl(&dword_24B7E5000, v95, OS_LOG_TYPE_DEFAULT, "Completed processing of %@ %@", buf, 0x16u);
         }
 
@@ -1878,11 +1808,11 @@ LABEL_15:
         v55 = *(a1 + 32);
         v56 = *(a1 + 40);
         *buf = 138412802;
-        v113 = v55;
-        v114 = 2112;
-        v115 = v56;
-        v116 = 2048;
-        v117 = v17;
+        v112 = v55;
+        v113 = 2112;
+        v114 = v56;
+        v115 = 2048;
+        v116 = v17;
         v57 = "Asset download failed when attempting to download asset %@ %@ - %lu";
         v58 = v54;
         v59 = 32;
@@ -1899,9 +1829,9 @@ LABEL_15:
         v60 = *(a1 + 32);
         v61 = *(a1 + 40);
         *buf = 138412546;
-        v113 = v60;
-        v114 = 2112;
-        v115 = v61;
+        v112 = v60;
+        v113 = 2112;
+        v114 = v61;
         v57 = "Asset download canceled %@ %@";
         v58 = v54;
         v59 = 22;
@@ -1931,12 +1861,12 @@ LABEL_30:
       }
 
       v85 = *MEMORY[0x277CCA470];
-      v110[0] = *MEMORY[0x277CCA450];
-      v110[1] = v85;
-      v111[0] = @"Download operation was unsuccessful.";
+      v109[0] = *MEMORY[0x277CCA450];
+      v109[1] = v85;
+      v110[0] = @"Download operation was unsuccessful.";
       v86 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v65, @"MobileAsset error %li", v66, v67, a2);
-      v111[1] = v86;
-      v88 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v87, v111, v110, 2);
+      v110[1] = v86;
+      v88 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v87, v110, v109, 2);
 
       v90 = objc_msgSend_errorWithDomain_code_userInfo_(MEMORY[0x277CCA9B8], v89, @"com.apple.FlexMusicKit", a2, v88);
       objc_msgSend_updateAsset_downloadProgress_error_(*(a1 + 64), v91, *(a1 + 72), v90, v92, -1.0);
@@ -1975,9 +1905,9 @@ LABEL_30:
         v69 = *(a1 + 32);
         v70 = *(a1 + 40);
         *buf = 138412546;
-        v113 = v69;
-        v114 = 2112;
-        v115 = v70;
+        v112 = v69;
+        v113 = 2112;
+        v114 = v70;
         _os_log_impl(&dword_24B7E5000, v68, OS_LOG_TYPE_DEFAULT, "Cancel request after downloading, purging %@ %@", buf, 0x16u);
       }
 
@@ -2002,71 +1932,68 @@ LABEL_30:
   }
 
 LABEL_36:
-  v109 = *MEMORY[0x277D85DE8];
 }
 
 void sub_24B8001F0(uint64_t a1, uint64_t a2)
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   v4 = FlexLogForCategory(2uLL);
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
-  if (!a2)
+  if (a2)
+  {
+    if (v5)
+    {
+      v9 = *(a1 + 32);
+      v10 = *(a1 + 40);
+      v11 = objc_msgSend__mobileAssetCancelDownloadResultStringValue_(*(a1 + 48), v6, a2, v7, v8);
+      *buf = 138412802;
+      v32 = v9;
+      v33 = 2112;
+      v34 = v10;
+      v35 = 2112;
+      v36 = v11;
+      _os_log_impl(&dword_24B7E5000, v4, OS_LOG_TYPE_DEFAULT, "Cancel download failed for mobile asset with songUID: %@ assetID: %@ MACancelDownloadResult: %@", buf, 0x20u);
+    }
+
+    if (a2 != 3)
+    {
+      v15 = *MEMORY[0x277CCA470];
+      v29[0] = *MEMORY[0x277CCA450];
+      v29[1] = v15;
+      v30[0] = @"Cancel operation was unsuccessful.";
+      v16 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v12, @"MobileAsset error %li", v13, v14, a2);
+      v30[1] = v16;
+      v18 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v17, v30, v29, 2);
+
+      v20 = objc_msgSend_errorWithDomain_code_userInfo_(MEMORY[0x277CCA9B8], v19, @"com.apple.FlexMusicKit", a2, v18);
+      objc_msgSend_updateAsset_downloadProgress_error_(*(a1 + 56), v21, *(a1 + 64), v20, v22, -1.0);
+      objc_msgSend_updateAsset_downloadProgress_error_(*(a1 + 56), v23, *(a1 + 64), 0, v24, 0.0);
+
+      return;
+    }
+  }
+
+  else
   {
     if (v5)
     {
       v25 = *(a1 + 32);
       v26 = *(a1 + 40);
       *buf = 138412546;
-      v33 = v25;
-      v34 = 2112;
-      v35 = v26;
+      v32 = v25;
+      v33 = 2112;
+      v34 = v26;
       _os_log_impl(&dword_24B7E5000, v4, OS_LOG_TYPE_DEFAULT, "Cancel download success for mobile asset with songUID: %@ assetID: %@ ", buf, 0x16u);
     }
-
-    goto LABEL_9;
   }
 
-  if (v5)
-  {
-    v9 = *(a1 + 32);
-    v10 = *(a1 + 40);
-    v11 = objc_msgSend__mobileAssetCancelDownloadResultStringValue_(*(a1 + 48), v6, a2, v7, v8);
-    *buf = 138412802;
-    v33 = v9;
-    v34 = 2112;
-    v35 = v10;
-    v36 = 2112;
-    v37 = v11;
-    _os_log_impl(&dword_24B7E5000, v4, OS_LOG_TYPE_DEFAULT, "Cancel download failed for mobile asset with songUID: %@ assetID: %@ MACancelDownloadResult: %@", buf, 0x20u);
-  }
-
-  if (a2 == 3)
-  {
-LABEL_9:
-    objc_msgSend_updateAsset_downloadProgress_error_(*(a1 + 56), v12, *(a1 + 64), 0, v14, -1.0);
-    objc_msgSend_updateAsset_downloadProgress_error_(*(a1 + 56), v27, *(a1 + 64), 0, v28, 0.0);
-    goto LABEL_10;
-  }
-
-  v15 = *MEMORY[0x277CCA470];
-  v30[0] = *MEMORY[0x277CCA450];
-  v30[1] = v15;
-  v31[0] = @"Cancel operation was unsuccessful.";
-  v16 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v12, @"MobileAsset error %li", v13, v14, a2);
-  v31[1] = v16;
-  v18 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v17, v31, v30, 2);
-
-  v20 = objc_msgSend_errorWithDomain_code_userInfo_(MEMORY[0x277CCA9B8], v19, @"com.apple.FlexMusicKit", a2, v18);
-  objc_msgSend_updateAsset_downloadProgress_error_(*(a1 + 56), v21, *(a1 + 64), v20, v22, -1.0);
-  objc_msgSend_updateAsset_downloadProgress_error_(*(a1 + 56), v23, *(a1 + 64), 0, v24, 0.0);
-
-LABEL_10:
-  v29 = *MEMORY[0x277D85DE8];
+  objc_msgSend_updateAsset_downloadProgress_error_(*(a1 + 56), v12, *(a1 + 64), 0, v14, -1.0);
+  objc_msgSend_updateAsset_downloadProgress_error_(*(a1 + 56), v27, *(a1 + 64), 0, v28, 0.0);
 }
 
 void sub_24B8007B8(uint64_t a1)
 {
-  v250[2] = *MEMORY[0x277D85DE8];
+  v247[2] = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 72));
   v3 = WeakRetained;
   if (WeakRetained)
@@ -2080,199 +2007,197 @@ void sub_24B8007B8(uint64_t a1)
       if (!objc_msgSend_isPresent(*(a1 + 32), v12, v13, v14, v15))
       {
 LABEL_54:
-        v213 = *(v3 + 56);
-        objc_sync_enter(v213);
-        objc_msgSend_removeObject_(*(v3 + 104), v214, *(a1 + 32), v215, v216);
-        objc_sync_exit(v213);
+        v211 = *(v3 + 56);
+        objc_sync_enter(v211);
+        objc_msgSend_removeObject_(*(v3 + 104), v212, *(a1 + 32), v213, v214);
+        objc_sync_exit(v211);
 
-        v217 = *(v3 + 144);
+        v215 = *(v3 + 144);
         block[0] = MEMORY[0x277D85DD0];
         block[1] = 3221225472;
         block[2] = sub_24B801048;
         block[3] = &unk_27900E970;
         block[4] = v3;
-        dispatch_async(v217, block);
+        dispatch_async(v215, block);
         goto LABEL_55;
       }
 
       v19 = (a1 + 48);
-      v228 = objc_msgSend_existingAssetWithID_(*(a1 + 40), v16, *(a1 + 48), v17, v18);
-      isEqualToString = objc_msgSend_isEqualToString_(*(a1 + 48), v20, @"FMSongBundleAssetID", v21, v22);
-      v27 = *(a1 + 40);
-      if (isEqualToString)
+      v225 = objc_msgSend_existingAssetWithID_(*(a1 + 40), v16, *(a1 + 48), v17, v18);
+      if (objc_msgSend_isEqualToString_(*(a1 + 48), v20, @"FMSongBundleAssetID", v21, v22))
       {
-        objc_msgSend_existingAssetWithID_(*(a1 + 40), v24, @"FMSongArtworkAssetID", v25, v26);
+        objc_msgSend_existingAssetWithID_(*(a1 + 40), v23, @"FMSongArtworkAssetID", v24, v25);
       }
 
       else
       {
-        objc_msgSend_existingAssetWithID_(*(a1 + 40), v24, @"FMSongBundleAssetID", v25, v26);
+        objc_msgSend_existingAssetWithID_(*(a1 + 40), v23, @"FMSongBundleAssetID", v24, v25);
       }
-      v227 = ;
-      v28 = [FlexMobileAssetV2SongAsset alloc];
-      v29 = *v19;
-      v34 = objc_msgSend_contentVersion(v228, v30, v31, v32, v33);
-      v39 = objc_msgSend_compatibilityVersion(v228, v35, v36, v37, v38);
-      v226 = objc_msgSend_initWithAssetID_localURL_cloudManager_contentVersion_compatibilityVersion_(v28, v40, v29, 0, v3, v34, v39);
-      if (objc_msgSend_isEqualToString_(*v19, v41, @"FMSongBundleAssetID", v42, v43))
+      v224 = ;
+      v26 = [FlexMobileAssetV2SongAsset alloc];
+      v27 = *v19;
+      v32 = objc_msgSend_contentVersion(v225, v28, v29, v30, v31);
+      v37 = objc_msgSend_compatibilityVersion(v225, v33, v34, v35, v36);
+      v223 = objc_msgSend_initWithAssetID_localURL_cloudManager_contentVersion_compatibilityVersion_(v26, v38, v27, 0, v3, v32, v37);
+      if (objc_msgSend_isEqualToString_(*v19, v39, @"FMSongBundleAssetID", v40, v41))
       {
-        v220 = [FlexSongProxy alloc];
-        v225 = objc_msgSend_uid(*(a1 + 40), v47, v48, v49, v50);
-        v224 = objc_msgSend_songName(*(a1 + 40), v51, v52, v53, v54);
-        v223 = objc_msgSend_artistName(*(a1 + 40), v55, v56, v57, v58);
-        v222 = objc_msgSend_tagIDs(*(a1 + 40), v59, v60, v61, v62);
-        v221 = objc_msgSend_keywords(*(a1 + 40), v63, v64, v65, v66);
-        v71 = objc_msgSend_weightedKeywords(*(a1 + 40), v67, v68, v69, v70);
-        v76 = objc_msgSend_hidden(*(a1 + 40), v72, v73, v74, v75);
-        v83 = objc_msgSend_recalled(*(a1 + 40), v77, v78, v79, v80);
-        if (v227)
+        v217 = [FlexSongProxy alloc];
+        v222 = objc_msgSend_uid(*(a1 + 40), v45, v46, v47, v48);
+        v221 = objc_msgSend_songName(*(a1 + 40), v49, v50, v51, v52);
+        v220 = objc_msgSend_artistName(*(a1 + 40), v53, v54, v55, v56);
+        v219 = objc_msgSend_tagIDs(*(a1 + 40), v57, v58, v59, v60);
+        v218 = objc_msgSend_keywords(*(a1 + 40), v61, v62, v63, v64);
+        v69 = objc_msgSend_weightedKeywords(*(a1 + 40), v65, v66, v67, v68);
+        v74 = objc_msgSend_hidden(*(a1 + 40), v70, v71, v72, v73);
+        v81 = objc_msgSend_recalled(*(a1 + 40), v75, v76, v77, v78);
+        if (v224)
         {
-          v250[0] = v227;
-          v250[1] = v226;
-          v84 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v81, v250, 2, v82);
+          v247[0] = v224;
+          v247[1] = v223;
+          v82 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v79, v247, 2, v80);
         }
 
         else
         {
-          v249 = v226;
-          v84 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v81, &v249, 1, v82);
+          v246 = v223;
+          v82 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v79, &v246, 1, v80);
         }
 
-        v99 = v84;
-        v100 = objc_msgSend_audioEncoderPresetName(*(a1 + 40), v85, v86, v87, v88);
-        v105 = objc_msgSend_metadataVersion(*(a1 + 40), v101, v102, v103, v104);
-        v110 = objc_msgSend_songFormat(*(a1 + 40), v106, v107, v108, v109);
-        HIBYTE(v219) = v83;
-        LOBYTE(v219) = v76;
-        v112 = objc_msgSend_initWithUID_songName_artistName_tagIDs_keywords_weightedKeywords_hidden_recalled_assets_audioEncoderPresetName_metadataVersion_songFormat_(v220, v111, v225, v224, v223, v222, v221, v71, v219, v99, v100, v105, v110);
+        v97 = v82;
+        v98 = objc_msgSend_audioEncoderPresetName(*(a1 + 40), v83, v84, v85, v86);
+        v103 = objc_msgSend_metadataVersion(*(a1 + 40), v99, v100, v101, v102);
+        v108 = objc_msgSend_songFormat(*(a1 + 40), v104, v105, v106, v107);
+        HIBYTE(v216) = v81;
+        LOBYTE(v216) = v74;
+        v110 = objc_msgSend_initWithUID_songName_artistName_tagIDs_keywords_weightedKeywords_hidden_recalled_assets_audioEncoderPresetName_metadataVersion_songFormat_(v217, v109, v222, v221, v220, v219, v218, v69, v216, v97, v98, v103, v108);
 
-        objc_msgSend_updateBackend_(*(a1 + 40), v113, v112, v114, v115);
-        v120 = objc_msgSend_uid(*(a1 + 40), v116, v117, v118, v119);
-        objc_msgSend__loadBundledSongForSongID_(v3, v121, v120, v122, v123);
+        objc_msgSend_updateBackend_(*(a1 + 40), v111, v110, v112, v113);
+        v118 = objc_msgSend_uid(*(a1 + 40), v114, v115, v116, v117);
+        objc_msgSend__loadBundledSongForSongID_(v3, v119, v118, v120, v121);
       }
 
       else
       {
-        if (!objc_msgSend_isEqualToString_(*(a1 + 48), v44, @"FMSongArtworkAssetID", v45, v46))
+        if (!objc_msgSend_isEqualToString_(*(a1 + 48), v42, @"FMSongArtworkAssetID", v43, v44))
         {
           goto LABEL_22;
         }
 
-        v94 = *(a1 + 40);
-        if (v227)
+        v92 = *(a1 + 40);
+        if (v224)
         {
-          v248[0] = v227;
-          v248[1] = v226;
-          v95 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v90, v248, 2, v93);
+          v245[0] = v224;
+          v245[1] = v223;
+          v93 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v88, v245, 2, v91);
         }
 
         else
         {
-          v247 = v226;
-          v95 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v90, &v247, 1, v93);
+          v244 = v223;
+          v93 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v88, &v244, 1, v91);
         }
 
-        v124 = v95;
-        objc_msgSend_updateAssets_(v94, v96, v95, v97, v98);
+        v122 = v93;
+        objc_msgSend_updateAssets_(v92, v94, v93, v95, v96);
 
-        v112 = objc_msgSend_uid(*(a1 + 40), v125, v126, v127, v128);
-        objc_msgSend__loadBundledArtworkForSongID_(v3, v129, v112, v130, v131);
+        v110 = objc_msgSend_uid(*(a1 + 40), v123, v124, v125, v126);
+        objc_msgSend__loadBundledArtworkForSongID_(v3, v127, v110, v128, v129);
       }
 
 LABEL_22:
-      v136 = objc_msgSend_purgeSync(*(a1 + 32), v90, v91, v92, v93);
-      if (v136)
+      v134 = objc_msgSend_purgeSync(*(a1 + 32), v88, v89, v90, v91);
+      if (v134)
       {
-        v137 = FlexLogForCategory(2uLL);
-        if (os_log_type_enabled(v137, OS_LOG_TYPE_DEFAULT))
+        v135 = FlexLogForCategory(2uLL);
+        if (os_log_type_enabled(v135, OS_LOG_TYPE_DEFAULT))
         {
-          v142 = objc_msgSend_uid(*(a1 + 40), v138, v139, v140, v141);
-          v143 = *(a1 + 48);
-          v147 = objc_msgSend__mobileAssetPurgeResultStringValue_(v3, v144, v136, v145, v146);
+          v140 = objc_msgSend_uid(*(a1 + 40), v136, v137, v138, v139);
+          v141 = *(a1 + 48);
+          v145 = objc_msgSend__mobileAssetPurgeResultStringValue_(v3, v142, v134, v143, v144);
           *buf = 138412802;
-          v242 = v142;
-          v243 = 2112;
-          v244 = v143;
-          v245 = 2112;
-          v246 = v147;
-          _os_log_impl(&dword_24B7E5000, v137, OS_LOG_TYPE_DEFAULT, "purge failed for %@ %@ error: %@", buf, 0x20u);
+          v239 = v140;
+          v240 = 2112;
+          v241 = v141;
+          v242 = 2112;
+          v243 = v145;
+          _os_log_impl(&dword_24B7E5000, v135, OS_LOG_TYPE_DEFAULT, "purge failed for %@ %@ error: %@", buf, 0x20u);
         }
       }
 
-      v152 = objc_msgSend_state(*(a1 + 32), v132, v133, v134, v135);
-      v153 = *(a1 + 32);
-      if (v152 == 3)
+      v150 = objc_msgSend_state(*(a1 + 32), v130, v131, v132, v133);
+      v151 = *(a1 + 32);
+      if (v150 == 3)
       {
-        v154 = objc_msgSend_attributes(v153, v148, v149, v150, v151);
-        v158 = objc_msgSend_objectForKeyedSubscript_(v154, v155, @"FMAssetType", v156, v157);
-        v240 = *(a1 + 56);
-        v161 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v159, &v240, 1, v160);
-        v164 = objc_msgSend__mobileAssetsForAssetType_andUIDs_(v3, v162, v158, v161, v163);
+        v152 = objc_msgSend_attributes(v151, v146, v147, v148, v149);
+        v156 = objc_msgSend_objectForKeyedSubscript_(v152, v153, @"FMAssetType", v154, v155);
+        v237 = *(a1 + 56);
+        v159 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v157, &v237, 1, v158);
+        v162 = objc_msgSend__mobileAssetsForAssetType_andUIDs_(v3, v160, v156, v159, v161);
 
-        v169 = objc_msgSend_set(MEMORY[0x277CBEB58], v165, v166, v167, v168);
-        v236 = 0u;
-        v237 = 0u;
+        v167 = objc_msgSend_set(MEMORY[0x277CBEB58], v163, v164, v165, v166);
+        v233 = 0u;
         v234 = 0u;
-        v235 = 0u;
-        v170 = v164;
-        v176 = objc_msgSend_countByEnumeratingWithState_objects_count_(v170, v171, &v234, v239, 16);
-        if (v176)
+        v231 = 0u;
+        v232 = 0u;
+        v168 = v162;
+        v174 = objc_msgSend_countByEnumeratingWithState_objects_count_(v168, v169, &v231, v236, 16);
+        if (v174)
         {
-          v177 = *v235;
+          v175 = *v232;
           do
           {
-            for (i = 0; i != v176; ++i)
+            for (i = 0; i != v174; ++i)
             {
-              if (*v235 != v177)
+              if (*v232 != v175)
               {
-                objc_enumerationMutation(v170);
+                objc_enumerationMutation(v168);
               }
 
-              v179 = objc_msgSend_attributes(*(*(&v234 + 1) + 8 * i), v172, v173, v174, v175);
-              v183 = objc_msgSend_objectForKeyedSubscript_(v179, v180, @"uuid", v181, v182);
+              v177 = objc_msgSend_attributes(*(*(&v231 + 1) + 8 * i), v170, v171, v172, v173);
+              v181 = objc_msgSend_objectForKeyedSubscript_(v177, v178, @"uuid", v179, v180);
 
-              if (v183)
+              if (v181)
               {
-                objc_msgSend_addObject_(v169, v184, v183, v185, v186);
+                objc_msgSend_addObject_(v167, v182, v181, v183, v184);
               }
             }
 
-            v176 = objc_msgSend_countByEnumeratingWithState_objects_count_(v170, v172, &v234, v239, 16);
+            v174 = objc_msgSend_countByEnumeratingWithState_objects_count_(v168, v170, &v231, v236, 16);
           }
 
-          while (v176);
+          while (v174);
         }
 
-        v190 = objc_msgSend__metadataMappingForUUIDSet_(v3, v187, v169, v188, v189);
-        v194 = objc_msgSend_objectForKey_(v190, v191, *(a1 + 56), v192, v193);
-        v232 = 0u;
-        v233 = 0u;
+        v188 = objc_msgSend__metadataMappingForUUIDSet_(v3, v185, v167, v186, v187);
+        v192 = objc_msgSend_objectForKey_(v188, v189, *(a1 + 56), v190, v191);
+        v229 = 0u;
         v230 = 0u;
-        v231 = 0u;
-        v195 = v170;
-        v201 = objc_msgSend_countByEnumeratingWithState_objects_count_(v195, v196, &v230, v238, 16);
-        if (v201)
+        v227 = 0u;
+        v228 = 0u;
+        v193 = v168;
+        v199 = objc_msgSend_countByEnumeratingWithState_objects_count_(v193, v194, &v227, v235, 16);
+        if (v199)
         {
-          v202 = *v231;
+          v200 = *v228;
           while (2)
           {
-            for (j = 0; j != v201; j = j + 1)
+            for (j = 0; j != v199; j = j + 1)
             {
-              if (*v231 != v202)
+              if (*v228 != v200)
               {
-                objc_enumerationMutation(v195);
+                objc_enumerationMutation(v193);
               }
 
-              v204 = *(*(&v230 + 1) + 8 * j);
-              if (objc_msgSend_state(v204, v197, v198, v199, v200) != 3)
+              v202 = *(*(&v227 + 1) + 8 * j);
+              if (objc_msgSend_state(v202, v195, v196, v197, v198) != 3)
               {
-                v201 = v204;
+                v199 = v202;
                 goto LABEL_49;
               }
             }
 
-            v201 = objc_msgSend_countByEnumeratingWithState_objects_count_(v195, v197, &v230, v238, 16);
-            if (v201)
+            v199 = objc_msgSend_countByEnumeratingWithState_objects_count_(v193, v195, &v227, v235, 16);
+            if (v199)
             {
               continue;
             }
@@ -2283,35 +2208,35 @@ LABEL_22:
 
 LABEL_49:
 
-        v211 = *(a1 + 64);
-        objc_sync_enter(v211);
-        if (v201)
+        v209 = *(a1 + 64);
+        objc_sync_enter(v209);
+        if (v199)
         {
-          objc_msgSend__updateExistingSong_usingAsset_metadataAsset_forceUpdate_(v3, v212, *(a1 + 40), v201, v194, 1);
+          objc_msgSend__updateExistingSong_usingAsset_metadataAsset_forceUpdate_(v3, v210, *(a1 + 40), v199, v192, 1);
         }
 
-        objc_sync_exit(v211);
+        objc_sync_exit(v209);
       }
 
       else
       {
-        if (objc_msgSend_refreshState(v153, v148, v149, v150, v151))
+        if (objc_msgSend_refreshState(v151, v146, v147, v148, v149))
         {
 LABEL_53:
 
           goto LABEL_54;
         }
 
-        v195 = FlexLogForCategory(2uLL);
-        if (os_log_type_enabled(v195, OS_LOG_TYPE_DEFAULT))
+        v193 = FlexLogForCategory(2uLL);
+        if (os_log_type_enabled(v193, OS_LOG_TYPE_DEFAULT))
         {
-          v209 = objc_msgSend_uid(*(a1 + 40), v205, v206, v207, v208);
-          v210 = *(a1 + 48);
+          v207 = objc_msgSend_uid(*(a1 + 40), v203, v204, v205, v206);
+          v208 = *(a1 + 48);
           *buf = 138412546;
-          v242 = v209;
-          v243 = 2112;
-          v244 = v210;
-          _os_log_impl(&dword_24B7E5000, v195, OS_LOG_TYPE_DEFAULT, "refreshState failed for %@ %@", buf, 0x16u);
+          v239 = v207;
+          v240 = 2112;
+          v241 = v208;
+          _os_log_impl(&dword_24B7E5000, v193, OS_LOG_TYPE_DEFAULT, "refreshState failed for %@ %@", buf, 0x16u);
         }
       }
 
@@ -2324,22 +2249,20 @@ LABEL_53:
 
   else
   {
-    v89 = FlexLogForCategory(2uLL);
-    if (os_log_type_enabled(v89, OS_LOG_TYPE_DEFAULT))
+    v87 = FlexLogForCategory(2uLL);
+    if (os_log_type_enabled(v87, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_24B7E5000, v89, OS_LOG_TYPE_DEFAULT, "attempted to purge but no cloud manager", buf, 2u);
+      _os_log_impl(&dword_24B7E5000, v87, OS_LOG_TYPE_DEFAULT, "attempted to purge but no cloud manager", buf, 2u);
     }
   }
 
 LABEL_55:
-
-  v218 = *MEMORY[0x277D85DE8];
 }
 
 void sub_24B801294(uint64_t a1)
 {
-  v68[1] = *MEMORY[0x277D85DE8];
+  v67[1] = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 56));
   if (WeakRetained)
   {
@@ -2352,8 +2275,8 @@ void sub_24B801294(uint64_t a1)
         v8 = *(a1 + 48);
         v9 = *(a1 + 32);
         v10 = objc_msgSend_songUID(*(a1 + 40), v2, v3, v4, v5);
-        v68[0] = v10;
-        v13 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v11, v68, 1, v12);
+        v67[0] = v10;
+        v13 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v11, v67, 1, v12);
         v16 = objc_msgSend__mobileAssetsForAssetType_andUIDs_(v8, v14, v9, v13, v15);
 
         v7 = objc_msgSend_assetWithNewestContentVersionInAssets_preferInstalled_(FlexMobileAssetManagerV2, v17, v16, 1, v18);
@@ -2364,11 +2287,11 @@ void sub_24B801294(uint64_t a1)
           {
             v24 = objc_msgSend_songUID(*(a1 + 40), v20, v21, v22, v23);
             v29 = objc_msgSend_assetID(*(a1 + 40), v25, v26, v27, v28);
-            v64 = 138412546;
-            v65 = v24;
-            v66 = 2112;
-            v67 = v29;
-            _os_log_impl(&dword_24B7E5000, v19, OS_LOG_TYPE_DEFAULT, "cannot purge due to nil mobileAsset %@ %@", &v64, 0x16u);
+            v63 = 138412546;
+            v64 = v24;
+            v65 = 2112;
+            v66 = v29;
+            _os_log_impl(&dword_24B7E5000, v19, OS_LOG_TYPE_DEFAULT, "cannot purge due to nil mobileAsset %@ %@", &v63, 0x16u);
           }
         }
       }
@@ -2424,8 +2347,6 @@ LABEL_15:
       objc_msgSend__dispatchNextAsyncAssetDownloadAndPurge(*(a1 + 48), v59, v60, v61, v62);
     }
   }
-
-  v63 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t sub_24B803A0C(uint64_t a1, void *a2, void *a3)
@@ -2447,9 +2368,9 @@ uint64_t sub_24B803A0C(uint64_t a1, void *a2, void *a3)
   return v19;
 }
 
-void sub_24B804228(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+void sub_24B804228(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  va_start(va, a17);
+  va_start(va, a24);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2648,6 +2569,13 @@ uint64_t sub_24B8080E4(uint64_t a1, void *a2, void *a3)
   return v19;
 }
 
+void sub_24B808600(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, ...)
+{
+  va_start(va, a34);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
 uint64_t sub_24B808634(uint64_t a1, void *a2)
 {
   v3 = a2;
@@ -2706,9 +2634,9 @@ uint64_t sub_24B80A7A0(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t
   return isEqualToString;
 }
 
-void sub_24B80A90C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_24B80A90C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2789,22 +2717,20 @@ void sub_24B80E570(uint8_t *buf, _BYTE *a2, os_log_t log)
 
 void sub_24B80E5B0(void *a1, char *a2, NSObject *a3, uint64_t a4, uint64_t a5)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v7 = objc_msgSend_lastPathComponent(a1, a2, a3, a4, a5);
-  v13 = 138412546;
-  v14 = v7;
-  v15 = 2048;
-  v16 = objc_msgSend_sampleCount(a2, v8, v9, v10, v11);
-  _os_log_debug_impl(&dword_24B7E5000, a3, OS_LOG_TYPE_DEBUG, "%@: kExtAudioFileProperty_FileLengthFrames is 1 sample longer than segment.sampleCount %lld", &v13, 0x16u);
-
-  v12 = *MEMORY[0x277D85DE8];
+  v12 = 138412546;
+  v13 = v7;
+  v14 = 2048;
+  v15 = objc_msgSend_sampleCount(a2, v8, v9, v10, v11);
+  _os_log_debug_impl(&dword_24B7E5000, a3, OS_LOG_TYPE_DEBUG, "%@: kExtAudioFileProperty_FileLengthFrames is 1 sample longer than segment.sampleCount %lld", &v12, 0x16u);
 }
 
-void sub_24B80E9B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_24B80E9B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 80), 8);
+  _Block_object_dispose((v16 - 80), 8);
   _Unwind_Resume(a1);
 }
 
@@ -2815,7 +2741,7 @@ uint64_t sub_24B80E9E4(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_24B80E9FC(void *a1, void *a2, unint64_t a3, _BYTE *a4)
+void sub_24B80E9FC(void *a1, void *a2, char *a3, _BYTE *a4)
 {
   v7 = a2;
   v8 = a1[6];
@@ -2830,7 +2756,7 @@ void sub_24B80E9FC(void *a1, void *a2, unint64_t a3, _BYTE *a4)
   {
     if (objc_msgSend_count(*(*(a1[5] + 8) + 40), v19, v20, v21, v22) - 1 > a3)
     {
-      v23 = objc_msgSend_objectAtIndexedSubscript_(*(*(a1[5] + 8) + 40), v13, a3 + 1, v15, v16);
+      v23 = objc_msgSend_objectAtIndexedSubscript_(*(*(a1[5] + 8) + 40), v13, (a3 + 1), v15, v16);
       objc_msgSend_value(v56, v24, v25, v26, v27);
       v29 = v28;
       objc_msgSend_value(v23, v30, v31, v32, v33);
@@ -2889,11 +2815,11 @@ void sub_24B80ECF0(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
   }
 }
 
-void sub_24B80EE90(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_24B80EE90(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v7 - 48), 8);
+  _Block_object_dispose((v13 - 48), 8);
   _Unwind_Resume(a1);
 }
 
@@ -2911,11 +2837,11 @@ void sub_24B80EEB4(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
   *(*(*(a1 + 32) + 8) + 24) = v15;
 }
 
-void sub_24B80F0B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_24B80F0B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 80), 8);
+  _Block_object_dispose((v16 - 80), 8);
   _Unwind_Resume(a1);
 }
 
@@ -2962,20 +2888,18 @@ LABEL_9:
 
 void sub_24B811580(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_24B7E5000, a2, OS_LOG_TYPE_ERROR, "Failed to fetch genre:\n%@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_24B7E5000, a2, OS_LOG_TYPE_ERROR, "Failed to fetch genre:\n%@", &v2, 0xCu);
 }
 
 void sub_24B8115F8(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_24B7E5000, a2, OS_LOG_TYPE_ERROR, "Failed to fetch region:\n%@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_24B7E5000, a2, OS_LOG_TYPE_ERROR, "Failed to fetch region:\n%@", &v2, 0xCu);
 }
 
 uint64_t sub_24B812D9C(uint64_t a1, void *a2, void *a3)
@@ -3042,9 +2966,9 @@ LABEL_9:
   return MEMORY[0x2821F96F8]();
 }
 
-void sub_24B81454C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_24B81454C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3069,31 +2993,29 @@ void sub_24B81457C(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
   }
 }
 
-void sub_24B814A04(void *a1, char *a2, uint64_t a3, uint64_t a4, uint64_t a5)
+void sub_24B814A04(void *a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v6 = objc_msgSend_name(a1, a2, a3, a4, a5);
-  v8 = 138412290;
-  v9 = v6;
-  _os_log_debug_impl(&dword_24B7E5000, a2, OS_LOG_TYPE_DEBUG, "Relinking transitions for segment %@ because it is not Sliceable", &v8, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
+  v7 = 138412290;
+  v8 = v6;
+  _os_log_debug_impl(&dword_24B7E5000, a2, OS_LOG_TYPE_DEBUG, "Relinking transitions for segment %@ because it is not Sliceable", &v7, 0xCu);
 }
 
 void sub_24B814A9C(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_debug_impl(&dword_24B7E5000, a2, OS_LOG_TYPE_DEBUG, "%@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_debug_impl(&dword_24B7E5000, a2, OS_LOG_TYPE_DEBUG, "%@", &v2, 0xCu);
 }
 
-void sub_24B815B9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, char a35)
+void sub_24B815B9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, ...)
 {
-  _Block_object_dispose(&a35, 8);
-  _Block_object_dispose((v35 - 160), 8);
-  _Block_object_dispose((v35 - 104), 8);
+  va_start(va, a34);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v34 - 160), 8);
+  _Block_object_dispose((v34 - 104), 8);
   _Unwind_Resume(a1);
 }
 

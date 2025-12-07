@@ -15,12 +15,12 @@
 
 - (FPSearchOnServerEnumerator)initWithQuery:(id)query domainIDs:(id)ds desiredNumberOfResults:(int64_t)results
 {
-  v44 = *MEMORY[0x1E69E9840];
+  v43 = *MEMORY[0x1E69E9840];
   queryCopy = query;
   dsCopy = ds;
-  v42.receiver = self;
-  v42.super_class = FPSearchOnServerEnumerator;
-  v11 = [(FPSearchOnServerEnumerator *)&v42 init];
+  v41.receiver = self;
+  v41.super_class = FPSearchOnServerEnumerator;
+  v11 = [(FPSearchOnServerEnumerator *)&v41 init];
   v12 = v11;
   if (v11)
   {
@@ -53,31 +53,31 @@
     initialRequests = v12->_initialRequests;
     v12->_initialRequests = v24;
 
-    v40 = 0u;
-    v41 = 0u;
-    v38 = 0u;
     v39 = 0u;
+    v40 = 0u;
+    v37 = 0u;
+    v38 = 0u;
     v26 = dsCopy;
-    v27 = [v26 countByEnumeratingWithState:&v38 objects:v43 count:16];
+    v27 = [v26 countByEnumeratingWithState:&v37 objects:v42 count:16];
     if (v27)
     {
       v28 = v27;
-      v29 = *v39;
+      v29 = *v38;
       do
       {
         v30 = 0;
         do
         {
-          if (*v39 != v29)
+          if (*v38 != v29)
           {
             objc_enumerationMutation(v26);
           }
 
-          [(NSMutableSet *)v12->_initialRequests addObject:*(*(&v38 + 1) + 8 * v30++)];
+          [(NSMutableSet *)v12->_initialRequests addObject:*(*(&v37 + 1) + 8 * v30++)];
         }
 
         while (v28 != v30);
-        v28 = [v26 countByEnumeratingWithState:&v38 objects:v43 count:16];
+        v28 = [v26 countByEnumeratingWithState:&v37 objects:v42 count:16];
       }
 
       while (v28);
@@ -88,62 +88,59 @@
     block[1] = 3221225472;
     block[2] = __77__FPSearchOnServerEnumerator_initWithQuery_domainIDs_desiredNumberOfResults___block_invoke;
     block[3] = &unk_1E793AA70;
-    v35 = v26;
-    v36 = v12;
+    v34 = v26;
+    v35 = v12;
     resultsCopy = results;
     dispatch_async(v31, block);
   }
 
-  v32 = *MEMORY[0x1E69E9840];
   return v12;
 }
 
 void __77__FPSearchOnServerEnumerator_initWithQuery_domainIDs_desiredNumberOfResults___block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   obj = *(a1 + 32);
-  v2 = [obj countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v2 = [obj countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v2)
   {
     v3 = v2;
-    v4 = *v16;
+    v4 = *v15;
     do
     {
       v5 = 0;
       do
       {
-        if (*v16 != v4)
+        if (*v15 != v4)
         {
           objc_enumerationMutation(obj);
         }
 
-        v6 = *(*(&v15 + 1) + 8 * v5);
+        v6 = *(*(&v14 + 1) + 8 * v5);
         v7 = *(a1 + 40);
         v8 = *(a1 + 48);
         v9 = v7[1];
-        v12[0] = MEMORY[0x1E69E9820];
-        v12[1] = 3221225472;
-        v12[2] = __77__FPSearchOnServerEnumerator_initWithQuery_domainIDs_desiredNumberOfResults___block_invoke_2;
-        v12[3] = &unk_1E793D470;
-        v13 = v7;
-        v14 = v6;
-        [FPSearchOnServerEnumerator enumeratorForQuery:v9 providerDomainID:v6 desiredNumberOfResults:v8 completionHandler:v12];
+        v11[0] = MEMORY[0x1E69E9820];
+        v11[1] = 3221225472;
+        v11[2] = __77__FPSearchOnServerEnumerator_initWithQuery_domainIDs_desiredNumberOfResults___block_invoke_2;
+        v11[3] = &unk_1E793D470;
+        v12 = v7;
+        v13 = v6;
+        [FPSearchOnServerEnumerator enumeratorForQuery:v9 providerDomainID:v6 desiredNumberOfResults:v8 completionHandler:v11];
 
         ++v5;
       }
 
       while (v3 != v5);
-      v3 = [obj countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v3 = [obj countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v3);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __77__FPSearchOnServerEnumerator_initWithQuery_domainIDs_desiredNumberOfResults___block_invoke_2(uint64_t a1, void *a2, void *a3, void *a4)
@@ -492,7 +489,7 @@ uint64_t __63__FPSearchOnServerEnumerator_nextResultsWithCompletionHandler___blo
 
 - (void)cancelOnQueue
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   dispatch_assert_queue_V2(self->_queue);
   if (self->_finished)
   {
@@ -505,31 +502,31 @@ uint64_t __63__FPSearchOnServerEnumerator_nextResultsWithCompletionHandler___blo
 
   else
   {
-    v12 = 0u;
-    v13 = 0u;
-    v10 = 0u;
     v11 = 0u;
+    v12 = 0u;
+    v9 = 0u;
+    v10 = 0u;
     allValues = [(NSMutableDictionary *)self->_inflightRequests allValues];
-    v5 = [allValues countByEnumeratingWithState:&v10 objects:v14 count:16];
+    v5 = [allValues countByEnumeratingWithState:&v9 objects:v13 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v11;
+      v7 = *v10;
       do
       {
         v8 = 0;
         do
         {
-          if (*v11 != v7)
+          if (*v10 != v7)
           {
             objc_enumerationMutation(allValues);
           }
 
-          [*(*(&v10 + 1) + 8 * v8++) invalidate];
+          [*(*(&v9 + 1) + 8 * v8++) invalidate];
         }
 
         while (v6 != v8);
-        v6 = [allValues countByEnumeratingWithState:&v10 objects:v14 count:16];
+        v6 = [allValues countByEnumeratingWithState:&v9 objects:v13 count:16];
       }
 
       while (v6);
@@ -542,19 +539,15 @@ uint64_t __63__FPSearchOnServerEnumerator_nextResultsWithCompletionHandler___blo
     [(NSMutableDictionary *)self->_extensionLifetimeExtenders removeAllObjects];
     [(FPSearchOnServerEnumerator *)self signalGroup];
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __77__FPSearchOnServerEnumerator_initWithQuery_domainIDs_desiredNumberOfResults___block_invoke_3_cold_1(uint64_t a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v3 = [*(a1 + 56) fp_prettyDescription];
-  v5 = 138412290;
-  v6 = v3;
-  _os_log_error_impl(&dword_1AAAE1000, a2, OS_LOG_TYPE_ERROR, "[ERROR] enumerator for query returned nil enumerator, %@", &v5, 0xCu);
-
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = 138412290;
+  v5 = v3;
+  _os_log_error_impl(&dword_1AAAE1000, a2, OS_LOG_TYPE_ERROR, "[ERROR] enumerator for query returned nil enumerator, %@", &v4, 0xCu);
 }
 
 @end

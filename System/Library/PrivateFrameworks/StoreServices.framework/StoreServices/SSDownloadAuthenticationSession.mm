@@ -49,34 +49,39 @@ void __58__SSDownloadAuthenticationSession_authenticationChallenge__block_invoke
         v7 = [v6 shouldLog];
         if ([v6 shouldLogToDisk])
         {
-          v8 = v7 | 2;
+          LODWORD(v8) = v7 | 2;
         }
 
         else
         {
-          v8 = v7;
+          LODWORD(v8) = v7;
         }
 
-        if (!os_log_type_enabled([v6 OSLogObject], OS_LOG_TYPE_ERROR))
+        v9 = [v6 OSLogObject];
+        if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+        {
+          v8 = v8;
+        }
+
+        else
         {
           v8 &= 2u;
         }
 
         if (v8)
         {
-          v9 = objc_opt_class();
+          v10 = objc_opt_class();
           v22 = 138543618;
-          v23 = v9;
+          v23 = v10;
           v24 = 2114;
           v25 = v21;
-          LODWORD(v20) = 22;
-          v10 = _os_log_send_and_compose_impl();
-          if (v10)
+          v11 = _os_log_send_and_compose_impl(v8, 0, 0, 0, &dword_1D48BA000, v9, 16, "%{public}@: Failed to unarchive auth challenge. Error = %{public}@", &v22, 22);
+          if (v11)
           {
-            v11 = v10;
-            v12 = [MEMORY[0x1E696AEC0] stringWithCString:v10 encoding:{4, &v22, v20}];
-            free(v11);
-            SSFileLog(v6, @"%@", v13, v14, v15, v16, v17, v18, v12);
+            v12 = v11;
+            v13 = [MEMORY[0x1E696AEC0] stringWithCString:v11 encoding:4];
+            free(v12);
+            SSFileLog(v6, @"%@", v14, v15, v16, v17, v18, v19, v13);
           }
         }
       }
@@ -84,8 +89,8 @@ void __58__SSDownloadAuthenticationSession_authenticationChallenge__block_invoke
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v19 = [[SSDownloadAuthenticationChallengeSender alloc] initWithAuthenticationSession:*(a1 + 32)];
-        *(*(*(a1 + 40) + 8) + 40) = [objc_alloc(MEMORY[0x1E696AF10]) initWithProtectionSpace:objc_msgSend(v5 proposedCredential:"protectionSpace") previousFailureCount:objc_msgSend(v5 failureResponse:"proposedCredential") error:objc_msgSend(v5 sender:{"previousFailureCount"), objc_msgSend(v5, "failureResponse"), objc_msgSend(v5, "error"), v19}];
+        v20 = [[SSDownloadAuthenticationChallengeSender alloc] initWithAuthenticationSession:*(a1 + 32)];
+        *(*(*(a1 + 40) + 8) + 40) = [objc_alloc(MEMORY[0x1E696AF10]) initWithProtectionSpace:objc_msgSend(v5 proposedCredential:"protectionSpace") previousFailureCount:objc_msgSend(v5 failureResponse:"proposedCredential") error:objc_msgSend(v5 sender:{"previousFailureCount"), objc_msgSend(v5, "failureResponse"), objc_msgSend(v5, "error"), v20}];
       }
     }
 
@@ -95,16 +100,16 @@ void __58__SSDownloadAuthenticationSession_authenticationChallenge__block_invoke
 
 - (void)_finishWithType:(int)type credential:(id)credential
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   v7 = xpc_dictionary_create(0, 0, 0);
   xpc_dictionary_set_int64(v7, "0", 2);
   xpc_dictionary_set_int64(v7, "1", self->super._sessionID);
   xpc_dictionary_set_int64(v7, "2", type);
   if (credential)
   {
-    v23 = 0;
-    SSXPCDictionarySetCFObject(v7, "3", [MEMORY[0x1E696ACC8] archivedDataWithRootObject:credential requiringSecureCoding:1 error:&v23]);
-    if (v23)
+    v22 = 0;
+    SSXPCDictionarySetCFObject(v7, "3", [MEMORY[0x1E696ACC8] archivedDataWithRootObject:credential requiringSecureCoding:1 error:&v22]);
+    if (v22)
     {
       v8 = +[SSLogConfig sharedStoreServicesConfig];
       if (!v8)
@@ -115,41 +120,45 @@ void __58__SSDownloadAuthenticationSession_authenticationChallenge__block_invoke
       shouldLog = [v8 shouldLog];
       if ([v8 shouldLogToDisk])
       {
-        v10 = shouldLog | 2;
+        LODWORD(v10) = shouldLog | 2;
       }
 
       else
       {
-        v10 = shouldLog;
+        LODWORD(v10) = shouldLog;
       }
 
-      if (!os_log_type_enabled([v8 OSLogObject], OS_LOG_TYPE_ERROR))
+      oSLogObject = [v8 OSLogObject];
+      if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+      {
+        v10 = v10;
+      }
+
+      else
       {
         v10 &= 2u;
       }
 
       if (v10)
       {
-        v11 = objc_opt_class();
-        v24 = 138543618;
-        v25 = v11;
-        v26 = 2114;
-        v27 = v23;
-        LODWORD(v22) = 22;
-        v21 = &v24;
-        v12 = _os_log_send_and_compose_impl();
-        if (v12)
+        v12 = objc_opt_class();
+        v23 = 138543618;
+        v24 = v12;
+        v25 = 2114;
+        v26 = v22;
+        v13 = _os_log_send_and_compose_impl(v10, 0, 0, 0, &dword_1D48BA000, oSLogObject, 16, "%{public}@: Failed to archive credential. Error = %{public}@", &v23, 22);
+        if (v13)
         {
-          v13 = v12;
-          v14 = [MEMORY[0x1E696AEC0] stringWithCString:v12 encoding:{4, &v24, v22}];
-          free(v13);
-          SSFileLog(v8, @"%@", v15, v16, v17, v18, v19, v20, v14);
+          v14 = v13;
+          v15 = [MEMORY[0x1E696AEC0] stringWithCString:v13 encoding:4];
+          free(v14);
+          SSFileLog(v8, @"%@", v16, v17, v18, v19, v20, v21, v15);
         }
       }
     }
   }
 
-  [(SSXPCConnection *)self->super._controlConnection sendMessage:v7, v21];
+  [(SSXPCConnection *)self->super._controlConnection sendMessage:v7];
   xpc_release(v7);
 }
 

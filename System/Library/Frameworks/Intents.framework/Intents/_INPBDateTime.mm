@@ -1,6 +1,7 @@
 @interface _INPBDateTime
 - (BOOL)isEqual:(id)equal;
 - (_INPBDateTime)initWithCoder:(id)coder;
+- (id)calendarSystemAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)dictionaryRepresentation;
 - (int)StringAsCalendarSystem:(id)system;
@@ -228,7 +229,6 @@ LABEL_22:
   toCopy = to;
   if ([(_INPBDateTime *)self hasCalendarSystem])
   {
-    calendarSystem = self->_calendarSystem;
     PBDataWriterWriteInt32Field();
   }
 
@@ -250,12 +250,11 @@ LABEL_22:
 
   timeZoneID = [(_INPBDateTime *)self timeZoneID];
 
-  v10 = toCopy;
+  v9 = toCopy;
   if (timeZoneID)
   {
-    timeZoneID = self->_timeZoneID;
     PBDataWriterWriteStringField();
-    v10 = toCopy;
+    v9 = toCopy;
   }
 }
 
@@ -334,6 +333,21 @@ LABEL_22:
   else
   {
     v4 = 1;
+  }
+
+  return v4;
+}
+
+- (id)calendarSystemAsString:(int)string
+{
+  if ((string - 1) >= 0xC)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E72812F0[string - 1];
   }
 
   return v4;

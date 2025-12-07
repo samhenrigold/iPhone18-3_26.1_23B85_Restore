@@ -697,9 +697,7 @@ LABEL_64:
   bbSections = self->_bbSections;
   self->_bbSections = v6;
 
-  v8 = [[NSArray alloc] initWithArray:self->_bbSections copyItems:0];
-  unfilteredBBSections = self->_unfilteredBBSections;
-  self->_unfilteredBBSections = v8;
+  self->_unfilteredBBSections = [[NSArray alloc] initWithArray:self->_bbSections copyItems:0];
 
   _objc_release_x1();
 }

@@ -54,31 +54,30 @@
 
 - (BOOL)_accessibilityMailboxUsesUnreadCount
 {
+  v11[0] = 0;
+  v11[1] = v11;
+  v11[2] = 0x3032000000;
+  v11[3] = __Block_byref_object_copy__2;
+  v11[4] = __Block_byref_object_dispose__2;
   v12 = 0;
-  v13 = &v12;
-  v14 = 0x3032000000;
-  v15 = __Block_byref_object_copy__2;
-  v16 = __Block_byref_object_dispose__2;
-  v17 = 0;
-  v6 = 0;
-  v7 = &v6;
-  v8 = 0x3032000000;
-  v9 = __Block_byref_object_copy__2;
-  v10 = __Block_byref_object_dispose__2;
-  v11 = 0;
+  v5 = 0;
+  v6 = &v5;
+  v7 = 0x3032000000;
+  v8 = __Block_byref_object_copy__2;
+  v9 = __Block_byref_object_dispose__2;
+  v10 = 0;
   AXPerformSafeBlock();
-  type = [v7[5] type];
+  type = [v6[5] type];
   v3 = 0;
   if ((type - 5) >= 2 && (type - 105) >= 2)
   {
-    v4 = v13[5];
     NSClassFromString(&cfstr_FavoriteitemSh.isa);
     v3 = objc_opt_isKindOfClass() ^ 1;
   }
 
-  _Block_object_dispose(&v6, 8);
+  _Block_object_dispose(&v5, 8);
 
-  _Block_object_dispose(&v12, 8);
+  _Block_object_dispose(v11, 8);
   return v3 & 1;
 }
 

@@ -529,7 +529,6 @@ LABEL_13:
       goto LABEL_48;
     }
 
-    v9 = *(equalCopy + 72);
     if (self->_certCached)
     {
       if ((*(equalCopy + 72) & 1) == 0)
@@ -594,7 +593,6 @@ LABEL_13:
       goto LABEL_48;
     }
 
-    v10 = *(equalCopy + 73);
     if (self->_uploadCompleted)
     {
       if ((*(equalCopy + 73) & 1) == 0)
@@ -638,7 +636,7 @@ LABEL_13:
     }
 
 LABEL_48:
-    v13 = 0;
+    v11 = 0;
     goto LABEL_49;
   }
 
@@ -659,17 +657,17 @@ LABEL_39:
   serializedReason = self->_serializedReason;
   if (serializedReason | *(equalCopy + 7))
   {
-    v13 = [(NSData *)serializedReason isEqual:?];
+    v11 = [(NSData *)serializedReason isEqual:?];
   }
 
   else
   {
-    v13 = 1;
+    v11 = 1;
   }
 
 LABEL_49:
 
-  return v13;
+  return v11;
 }
 
 - (id)copyWithZone:(_NSZone *)zone
@@ -846,32 +844,30 @@ LABEL_12:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v12 = toCopy;
+  v6 = toCopy;
   if (self->_uuid)
   {
     PBDataWriterWriteStringField();
-    toCopy = v12;
+    toCopy = v6;
   }
 
   if ((*&self->_has & 0x10) != 0)
   {
-    certCached = self->_certCached;
     PBDataWriterWriteBOOLField();
-    toCopy = v12;
+    toCopy = v6;
   }
 
   if (self->_serializedPrerecord)
   {
     PBDataWriterWriteDataField();
-    toCopy = v12;
+    toCopy = v6;
   }
 
   has = self->_has;
   if (has)
   {
-    lastCloudServicesTriggerTime = self->_lastCloudServicesTriggerTime;
     PBDataWriterWriteUint64Field();
-    toCopy = v12;
+    toCopy = v6;
     has = self->_has;
     if ((has & 2) == 0)
     {
@@ -890,9 +886,8 @@ LABEL_9:
     goto LABEL_9;
   }
 
-  lastEscrowAttemptTime = self->_lastEscrowAttemptTime;
   PBDataWriterWriteUint64Field();
-  toCopy = v12;
+  toCopy = v6;
   has = self->_has;
   if ((has & 0x20) == 0)
   {
@@ -906,35 +901,32 @@ LABEL_10:
   }
 
 LABEL_23:
-  uploadCompleted = self->_uploadCompleted;
   PBDataWriterWriteBOOLField();
-  toCopy = v12;
+  toCopy = v6;
   if ((*&self->_has & 8) != 0)
   {
 LABEL_11:
-    uploadRetries = self->_uploadRetries;
     PBDataWriterWriteUint64Field();
-    toCopy = v12;
+    toCopy = v6;
   }
 
 LABEL_12:
   if (self->_altDSID)
   {
     PBDataWriterWriteStringField();
-    toCopy = v12;
+    toCopy = v6;
   }
 
   if ((*&self->_has & 4) != 0)
   {
-    triggerRequestTime = self->_triggerRequestTime;
     PBDataWriterWriteUint64Field();
-    toCopy = v12;
+    toCopy = v6;
   }
 
   if (self->_serializedReason)
   {
     PBDataWriterWriteDataField();
-    toCopy = v12;
+    toCopy = v6;
   }
 }
 

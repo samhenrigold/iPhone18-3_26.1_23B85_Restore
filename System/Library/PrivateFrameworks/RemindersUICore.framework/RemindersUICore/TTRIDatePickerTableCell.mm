@@ -45,7 +45,7 @@
 
   sub_21D720998();
 
-  sub_21D0CF7E0(v6, &qword_27CE5C690);
+  sub_21D0CF7E0(v6, &qword_27CE5C690, &unk_21DC11AB0);
 }
 
 - (_TtC15RemindersUICore23TTRIDatePickerTableCell)initWithStyle:(int64_t)style reuseIdentifier:(id)identifier

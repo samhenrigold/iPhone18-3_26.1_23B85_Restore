@@ -84,12 +84,11 @@
   [(MRDDiagnostic *)self _appendNullableObjectDescription:self->_batchedNowPlayingState toString:v3 withTitle:@"BatchedNowPlayingState" usingDebugDescription:0];
   [(MRDDiagnostic *)self _appendNullableObjectDescription:self->_remoteASEState toString:v3 withTitle:@"RemoteASEState" usingDebugDescription:0];
   [(MRDDiagnostic *)self _appendSubheader:@"Routing Server" toString:v3];
-  systemDiscoveryMode = self->_systemDiscoveryMode;
-  v9 = MRMediaRemoteCopyRouteDiscoveryModeDescription();
-  [(MRDDiagnostic *)self _appendNullableObjectDescription:v9 toString:v3 withTitle:@"System Discovery Mode (Legacy)"];
+  v8 = MRMediaRemoteCopyRouteDiscoveryModeDescription();
+  [(MRDDiagnostic *)self _appendNullableObjectDescription:v8 toString:v3 withTitle:@"System Discovery Mode (Legacy)"];
 
-  v10 = [(_MRAVAirPlaySecuritySettingsProtobuf *)self->_airplaySecuritySettings description];
-  [(MRDDiagnostic *)self _appendNullableObjectDescription:v10 toString:v3 withTitle:@"AirPlay Security Settings"];
+  v9 = [(_MRAVAirPlaySecuritySettingsProtobuf *)self->_airplaySecuritySettings description];
+  [(MRDDiagnostic *)self _appendNullableObjectDescription:v9 toString:v3 withTitle:@"AirPlay Security Settings"];
 
   [(MRDDiagnostic *)self _appendNullableObjectDescription:self->_localReceiverPairingIdentity toString:v3 withTitle:@"Local Receiver Pairing Identity"];
   [(MRDDiagnostic *)self _appendNullableObjectDescription:self->_systemActiveEndpoints toString:v3 withTitle:@"System Active Endpoints"];
@@ -136,177 +135,175 @@
   }
 
   [(MRDDiagnostic *)self _appendSubheader:@"Hosted Routing" toString:v3];
-  hostedRouteDiscoveryMode = self->_hostedRouteDiscoveryMode;
-  v13 = MRMediaRemoteCopyRouteDiscoveryModeDescription();
-  [(MRDDiagnostic *)self _appendNullableObjectDescription:v13 toString:v3 withTitle:@"Hosted Discovery Mode"];
+  v11 = MRMediaRemoteCopyRouteDiscoveryModeDescription();
+  [(MRDDiagnostic *)self _appendNullableObjectDescription:v11 toString:v3 withTitle:@"Hosted Discovery Mode"];
 
   [v3 appendString:@"\n"];
   [(MRDDiagnostic *)self _appendDescribableArray:self->_hostedDiscoverySessions toString:v3 withTitle:@"Discovery Sessions" indentLevel:0 usingDebugDescription:1];
   [v3 appendString:@"\n"];
   [v3 appendString:@"Endpoints:\n"];
-  v14 = [NSMutableArray arrayWithCapacity:[(NSDictionary *)self->_hostedExternalDevices count]];
+  v12 = [NSMutableArray arrayWithCapacity:[(NSDictionary *)self->_hostedExternalDevices count]];
   endpoints = self->_endpoints;
-  v68[0] = _NSConcreteStackBlock;
-  v68[1] = 3221225472;
-  v68[2] = sub_100143D3C;
-  v68[3] = &unk_1004BEB30;
-  v16 = v14;
-  v69 = v16;
+  v65[0] = _NSConcreteStackBlock;
+  v65[1] = 3221225472;
+  v65[2] = sub_100143D3C;
+  v65[3] = &unk_1004BEB30;
+  v14 = v12;
+  v66 = v14;
   selfCopy = self;
-  v17 = v3;
-  v71 = v17;
-  [(NSArray *)endpoints enumerateObjectsUsingBlock:v68];
-  v18 = [(NSDictionary *)self->_hostedExternalDevices mutableCopy];
-  v55 = v16;
-  [v18 removeObjectsForKeys:v16];
-  if ([v18 count])
+  v15 = v3;
+  v68 = v15;
+  [(NSArray *)endpoints enumerateObjectsUsingBlock:v65];
+  v16 = [(NSDictionary *)self->_hostedExternalDevices mutableCopy];
+  v52 = v14;
+  [v16 removeObjectsForKeys:v14];
+  if ([v16 count])
   {
-    [v17 appendString:@"Remaining External Devices\n"];
-    v65[0] = _NSConcreteStackBlock;
-    v65[1] = 3221225472;
-    v65[2] = sub_100143E88;
-    v65[3] = &unk_1004BEB58;
-    v19 = v17;
-    v66 = v19;
+    [v15 appendString:@"Remaining External Devices\n"];
+    v62[0] = _NSConcreteStackBlock;
+    v62[1] = 3221225472;
+    v62[2] = sub_100143E88;
+    v62[3] = &unk_1004BEB58;
+    v17 = v15;
+    v63 = v17;
     selfCopy2 = self;
-    [v18 enumerateKeysAndObjectsUsingBlock:v65];
-    [v19 appendString:@"\n"];
+    [v16 enumerateKeysAndObjectsUsingBlock:v62];
+    [v17 appendString:@"\n"];
   }
 
-  [(MRDDiagnostic *)self _appendNullableObjectDescription:self->_discoverySession toString:v17 withTitle:@"Concrete Discovery Session" usingDebugDescription:1];
-  v20 = +[MRUserSettings currentSettings];
-  supportMultiplayerHost = [v20 supportMultiplayerHost];
+  [(MRDDiagnostic *)self _appendNullableObjectDescription:self->_discoverySession toString:v15 withTitle:@"Concrete Discovery Session" usingDebugDescription:1];
+  v18 = +[MRUserSettings currentSettings];
+  supportMultiplayerHost = [v18 supportMultiplayerHost];
 
   if (supportMultiplayerHost)
   {
-    v22 = +[MRDStreamCapacityManager sharedManager];
-    [(MRDDiagnostic *)self _appendNullableObjectDescription:v22 toString:v17 withTitle:@"Stream Count" usingDebugDescription:1];
+    v20 = +[MRDStreamCapacityManager sharedManager];
+    [(MRDDiagnostic *)self _appendNullableObjectDescription:v20 toString:v15 withTitle:@"Stream Count" usingDebugDescription:1];
   }
 
-  v54 = v18;
-  [(MRDDiagnostic *)self _appendSubheader:@"Virtual Audio Server" toString:v17];
-  [(MRDDiagnostic *)self _appendDescribableArray:self->_recordingEndpointClients toString:v17 withTitle:@"Recording Endpoint Clients"];
-  [v17 appendString:@"\n"];
-  [(MRDDiagnostic *)self _appendDescribableArray:self->_registeredVirtualAudioDevices toString:v17 withTitle:@"Registered Virtual Audio Devices"];
-  [(MRDDiagnostic *)self _appendSubheader:@"Transaction Server" toString:v17];
-  [(MRDDiagnostic *)self _appendDescribableArray:self->_transactions toString:v17 withTitle:@"Transactions"];
-  [v17 appendString:@"\n"];
-  [v17 appendFormat:@"Used Transaction Memory: %llu bytes\n", self->_usedTransactionMemory];
-  [v17 appendFormat:@"Allowed Transaction Memory: %llu bytes\n", self->_allowedTransactionMemory];
-  [v17 appendFormat:@"Transaction Wait Duration: %f seconds\n", *&self->_transactionWaitDuration];
-  [(MRDDiagnostic *)self _appendSubheader:@"Group Sessions" toString:v17];
+  v51 = v16;
+  [(MRDDiagnostic *)self _appendSubheader:@"Virtual Audio Server" toString:v15];
+  [(MRDDiagnostic *)self _appendDescribableArray:self->_recordingEndpointClients toString:v15 withTitle:@"Recording Endpoint Clients"];
+  [v15 appendString:@"\n"];
+  [(MRDDiagnostic *)self _appendDescribableArray:self->_registeredVirtualAudioDevices toString:v15 withTitle:@"Registered Virtual Audio Devices"];
+  [(MRDDiagnostic *)self _appendSubheader:@"Transaction Server" toString:v15];
+  [(MRDDiagnostic *)self _appendDescribableArray:self->_transactions toString:v15 withTitle:@"Transactions"];
+  [v15 appendString:@"\n"];
+  [v15 appendFormat:@"Used Transaction Memory: %llu bytes\n", self->_usedTransactionMemory];
+  [v15 appendFormat:@"Allowed Transaction Memory: %llu bytes\n", self->_allowedTransactionMemory];
+  [v15 appendFormat:@"Transaction Wait Duration: %f seconds\n", *&self->_transactionWaitDuration];
+  [(MRDDiagnostic *)self _appendSubheader:@"Group Sessions" toString:v15];
   groupSessionAssertionManagerState = self->_groupSessionAssertionManagerState;
   if (groupSessionAssertionManagerState)
   {
-    [(MRDDiagnostic *)self _appendNullableObjectDescription:groupSessionAssertionManagerState toString:v17 withTitle:@"Assertion manager state"];
+    [(MRDDiagnostic *)self _appendNullableObjectDescription:groupSessionAssertionManagerState toString:v15 withTitle:@"Assertion manager state"];
   }
 
-  [v17 appendString:@"\n"];
-  [(MRDDiagnostic *)self _appendNullableObjectDescription:self->_currentGroupSession toString:v17 withTitle:@"Current group session"];
-  [v17 appendString:@"\n"];
-  [(MRDDiagnostic *)self _appendNullableObjectDescription:self->_groupSessionManagerAdvertiseReason toString:v17 withTitle:@"Advertiser reason"];
-  [(MRDDiagnostic *)self _appendNullableObjectDescription:self->_groupSessionAdvertiserState toString:v17 withTitle:@"Advertiser state"];
-  [(MRDDiagnostic *)self _appendDescribableArray:self->_groupSessionAdvertiserEvents toString:v17 withTitle:@"Advertiser log history" indentLevel:1];
-  [v17 appendString:@"\n"];
-  v24 = [NSNumber numberWithBool:self->_groupSessionDiscoveryEnabled];
-  stringValue = [v24 stringValue];
-  [v17 appendFormat:@"GroupSession discovery enabled: %@\n", stringValue];
+  [v15 appendString:@"\n"];
+  [(MRDDiagnostic *)self _appendNullableObjectDescription:self->_currentGroupSession toString:v15 withTitle:@"Current group session"];
+  [v15 appendString:@"\n"];
+  [(MRDDiagnostic *)self _appendNullableObjectDescription:self->_groupSessionManagerAdvertiseReason toString:v15 withTitle:@"Advertiser reason"];
+  [(MRDDiagnostic *)self _appendNullableObjectDescription:self->_groupSessionAdvertiserState toString:v15 withTitle:@"Advertiser state"];
+  [(MRDDiagnostic *)self _appendDescribableArray:self->_groupSessionAdvertiserEvents toString:v15 withTitle:@"Advertiser log history" indentLevel:1];
+  [v15 appendString:@"\n"];
+  v22 = [NSNumber numberWithBool:self->_groupSessionDiscoveryEnabled];
+  stringValue = [v22 stringValue];
+  [v15 appendFormat:@"GroupSession discovery enabled: %@\n", stringValue];
 
-  [(MRDDiagnostic *)self _appendNullableObjectDescription:self->_discoveredGroupSessions toString:v17 withTitle:@"Discovered group sessions"];
-  [(MRDDiagnostic *)self _appendNullableObjectDescription:self->_notifiedGroupSessions toString:v17 withTitle:@"Notified group sessions"];
-  [v17 appendString:@"\n"];
-  [(MRDDiagnostic *)self _appendNullableObjectDescription:self->_groupSessionCoordinatorState toString:v17 withTitle:@"Coordinator state"];
-  [(MRDDiagnostic *)self _appendSubheader:@"Media Suggestions Data Source" toString:v17];
-  v26 = objc_opt_new();
-  v27 = [(MRDDiagnostic *)self mediaSuggestions:v26];
-  v53 = v26;
-  [(MRDDiagnostic *)self _appendNullableObjectDescription:v26 toString:v17 withTitle:@"Suggestion Preferences"];
-  v63 = 0u;
-  v64 = 0u;
+  [(MRDDiagnostic *)self _appendNullableObjectDescription:self->_discoveredGroupSessions toString:v15 withTitle:@"Discovered group sessions"];
+  [(MRDDiagnostic *)self _appendNullableObjectDescription:self->_notifiedGroupSessions toString:v15 withTitle:@"Notified group sessions"];
+  [v15 appendString:@"\n"];
+  [(MRDDiagnostic *)self _appendNullableObjectDescription:self->_groupSessionCoordinatorState toString:v15 withTitle:@"Coordinator state"];
+  [(MRDDiagnostic *)self _appendSubheader:@"Media Suggestions Data Source" toString:v15];
+  v24 = objc_opt_new();
+  v25 = [(MRDDiagnostic *)self mediaSuggestions:v24];
+  v50 = v24;
+  [(MRDDiagnostic *)self _appendNullableObjectDescription:v24 toString:v15 withTitle:@"Suggestion Preferences"];
+  v60 = 0u;
   v61 = 0u;
-  v62 = 0u;
-  v28 = v27;
-  v29 = [v28 countByEnumeratingWithState:&v61 objects:v74 count:16];
-  if (v29)
+  v58 = 0u;
+  v59 = 0u;
+  v26 = v25;
+  v27 = [v26 countByEnumeratingWithState:&v58 objects:v71 count:16];
+  if (v27)
   {
-    v30 = v29;
-    v31 = *v62;
+    v28 = v27;
+    v29 = *v59;
     do
     {
-      for (i = 0; i != v30; i = i + 1)
+      for (i = 0; i != v28; i = i + 1)
       {
-        if (*v62 != v31)
+        if (*v59 != v29)
         {
-          objc_enumerationMutation(v28);
+          objc_enumerationMutation(v26);
         }
 
-        v33 = *(*(&v61 + 1) + 8 * i);
-        v34 = [v28 objectForKeyedSubscript:v33];
-        [(MRDDiagnostic *)self _appendDescribableArray:v34 toString:v17 withTitle:v33];
+        v31 = *(*(&v58 + 1) + 8 * i);
+        v32 = [v26 objectForKeyedSubscript:v31];
+        [(MRDDiagnostic *)self _appendDescribableArray:v32 toString:v15 withTitle:v31];
       }
 
-      v30 = [v28 countByEnumeratingWithState:&v61 objects:v74 count:16];
+      v28 = [v26 countByEnumeratingWithState:&v58 objects:v71 count:16];
     }
 
-    while (v30);
+    while (v28);
   }
 
-  v52 = v28;
+  v49 = v26;
 
   selfCopy3 = self;
-  [(MRDDiagnostic *)self _appendSubheader:@"Companion Link" toString:v17];
-  v36 = +[MRCompanionLinkClient sharedCompanionLinkClient];
-  companionLinkDevices = [v36 companionLinkDevices];
+  [(MRDDiagnostic *)self _appendSubheader:@"Companion Link" toString:v15];
+  v34 = +[MRCompanionLinkClient sharedCompanionLinkClient];
+  companionLinkDevices = [v34 companionLinkDevices];
 
-  v59 = 0u;
-  v60 = 0u;
+  v56 = 0u;
   v57 = 0u;
-  v58 = 0u;
+  v54 = 0u;
+  v55 = 0u;
   obj = companionLinkDevices;
-  v38 = [obj countByEnumeratingWithState:&v57 objects:v73 count:16];
-  if (v38)
+  v36 = [obj countByEnumeratingWithState:&v54 objects:v70 count:16];
+  if (v36)
   {
-    v39 = v38;
-    v40 = *v58;
+    v37 = v36;
+    v38 = *v55;
     do
     {
-      for (j = 0; j != v39; j = j + 1)
+      for (j = 0; j != v37; j = j + 1)
       {
-        if (*v58 != v40)
+        if (*v55 != v38)
         {
           objc_enumerationMutation(obj);
         }
 
-        v72 = *(*(&v57 + 1) + 8 * j);
-        v42 = v72;
-        v43 = [NSArray arrayWithObjects:&v72 count:1];
-        mediaRouteIdentifier = [v42 mediaRouteIdentifier];
-        v45 = [NSString stringWithFormat:@"RPDevice<routeID: %@>", mediaRouteIdentifier, v52];
-        [(MRDDiagnostic *)selfCopy3 _appendDescribableArray:v43 toString:v17 withTitle:v45];
+        v69 = *(*(&v54 + 1) + 8 * j);
+        v40 = v69;
+        v41 = [NSArray arrayWithObjects:&v69 count:1];
+        mediaRouteIdentifier = [v40 mediaRouteIdentifier];
+        v43 = [NSString stringWithFormat:@"RPDevice<routeID: %@>", mediaRouteIdentifier, v49];
+        [(MRDDiagnostic *)selfCopy3 _appendDescribableArray:v41 toString:v15 withTitle:v43];
 
-        homeKitUserIdentifiers = [v42 homeKitUserIdentifiers];
-        [(MRDDiagnostic *)selfCopy3 _appendDescribableArray:homeKitUserIdentifiers toString:v17 withTitle:@"Home Users"];
+        homeKitUserIdentifiers = [v40 homeKitUserIdentifiers];
+        [(MRDDiagnostic *)selfCopy3 _appendDescribableArray:homeKitUserIdentifiers toString:v15 withTitle:@"Home Users"];
 
-        [v17 appendString:@"\n"];
+        [v15 appendString:@"\n"];
       }
 
-      v39 = [obj countByEnumeratingWithState:&v57 objects:v73 count:16];
+      v37 = [obj countByEnumeratingWithState:&v54 objects:v70 count:16];
     }
 
-    while (v39);
+    while (v37);
   }
 
-  [(MRDDiagnostic *)selfCopy3 _appendSubheader:@"MediaRemote User defaults" toString:v17];
-  v47 = [[NSUserDefaults alloc] initWithSuiteName:@"com.apple.mediaremote"];
-  dictionaryRepresentation = [v47 dictionaryRepresentation];
-  [(MRDDiagnostic *)selfCopy3 _appendNullableObjectDescription:dictionaryRepresentation toString:v17 withTitle:@"UserDefaults"];
-  [v17 appendString:@"\n"];
-  [(MRDDiagnostic *)selfCopy3 _appendSubheader:@"Media Control" toString:v17];
-  [v17 appendString:selfCopy3->_mediaControlDiagnostic];
-  dateCreated = selfCopy3->_dateCreated;
-  v50 = MRDiagnosticCreate();
+  [(MRDDiagnostic *)selfCopy3 _appendSubheader:@"MediaRemote User defaults" toString:v15];
+  v45 = [[NSUserDefaults alloc] initWithSuiteName:@"com.apple.mediaremote"];
+  dictionaryRepresentation = [v45 dictionaryRepresentation];
+  [(MRDDiagnostic *)selfCopy3 _appendNullableObjectDescription:dictionaryRepresentation toString:v15 withTitle:@"UserDefaults"];
+  [v15 appendString:@"\n"];
+  [(MRDDiagnostic *)selfCopy3 _appendSubheader:@"Media Control" toString:v15];
+  [v15 appendString:selfCopy3->_mediaControlDiagnostic];
+  v47 = MRDiagnosticCreate();
 
-  return v50;
+  return v47;
 }
 
 - (void)_appendNullableObjectDescription:(id)description toString:(id)string withTitle:(id)title usingDebugDescription:(BOOL)debugDescription

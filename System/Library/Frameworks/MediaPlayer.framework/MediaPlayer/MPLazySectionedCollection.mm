@@ -124,7 +124,7 @@ LABEL_10:
 LABEL_19:
         v15 = self->_storage;
         *buf = &indexCopy;
-        v16 = std::__tree<std::__value_type<long,MPIdentifierSet * {__strong}>,std::__map_value_compare<long,std::__value_type<long,MPIdentifierSet * {__strong}>,std::less<long>,true>,std::allocator<std::__value_type<long,MPIdentifierSet * {__strong}>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(&v15->_sectionIdentifierSetMap, index);
+        v16 = std::__tree<std::__value_type<long,MPIdentifierSet * {__strong}>,std::__map_value_compare<long,std::__value_type<long,MPIdentifierSet * {__strong}>,std::less<long>,true>,std::allocator<std::__value_type<long,MPIdentifierSet * {__strong}>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(&v15->_sectionIdentifierSetMap, index, buf);
         objc_storeStrong(v16 + 5, v11);
 
         goto LABEL_20;
@@ -271,7 +271,7 @@ LABEL_11:
 
     v17 = self->_storage;
     *buf = &v23;
-    v18 = std::__tree<std::__value_type<long,MPIdentifierSet * {__strong}>,std::__map_value_compare<long,std::__value_type<long,MPIdentifierSet * {__strong}>,std::less<long>,true>,std::allocator<std::__value_type<long,MPIdentifierSet * {__strong}>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(&v17->_itemIdentifierSetMap, v7);
+    v18 = std::__tree<std::__value_type<long,MPIdentifierSet * {__strong}>,std::__map_value_compare<long,std::__value_type<long,MPIdentifierSet * {__strong}>,std::less<long>,true>,std::allocator<std::__value_type<long,MPIdentifierSet * {__strong}>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(&v17->_itemIdentifierSetMap, v7, buf);
     objc_storeStrong(v18 + 5, v13);
 
     goto LABEL_21;
@@ -525,7 +525,7 @@ void __51__MPLazySectionedCollection_itemsInSectionAtIndex___block_invoke(uint64
     if (v6)
     {
       v8 = [(MPSectionedCollection *)self globalIndexForIndexPath:pathCopy];
-      v24[0] = v8;
+      v24 = v8;
       [(NSCache *)self->_storage->_itemsCache setObject:v6 forKey:pathCopy];
       objc_opt_class();
       if (objc_opt_isKindOfClass())
@@ -581,8 +581,8 @@ LABEL_17:
         {
           identifiers2 = [v9 identifiers];
           v16 = self->_storage;
-          v24[1] = v24;
-          v17 = std::__tree<std::__value_type<long,MPIdentifierSet * {__strong}>,std::__map_value_compare<long,std::__value_type<long,MPIdentifierSet * {__strong}>,std::less<long>,true>,std::allocator<std::__value_type<long,MPIdentifierSet * {__strong}>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(&v16->_itemIdentifierSetMap, v8);
+          v25 = &v24;
+          v17 = std::__tree<std::__value_type<long,MPIdentifierSet * {__strong}>,std::__map_value_compare<long,std::__value_type<long,MPIdentifierSet * {__strong}>,std::less<long>,true>,std::allocator<std::__value_type<long,MPIdentifierSet * {__strong}>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(&v16->_itemIdentifierSetMap, v8, &v25);
           v18 = v17[5];
           v17[5] = identifiers2;
         }

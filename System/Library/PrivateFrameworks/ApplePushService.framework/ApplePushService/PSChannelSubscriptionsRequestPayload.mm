@@ -4,6 +4,8 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)subscriptionsTypeAsString:(int)string;
+- (id)versionAsString:(int)string;
 - (int)StringAsSubscriptionsType:(id)type;
 - (int)subscriptionsType;
 - (int)version;
@@ -259,6 +261,21 @@
   *&self->_has = *&self->_has & 0xFB | v3;
 }
 
+- (id)versionAsString:(int)string
+{
+  if (string == 1)
+  {
+    v4 = @"V_1";
+  }
+
+  else
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  return v4;
+}
+
 - (void)addAppChannelSubscriptions:(id)subscriptions
 {
   subscriptionsCopy = subscriptions;
@@ -303,6 +320,29 @@
   }
 
   *&self->_has = *&self->_has & 0xFD | v3;
+}
+
+- (id)subscriptionsTypeAsString:(int)string
+{
+  if (string)
+  {
+    if (string == 1)
+    {
+      v4 = @"FULL_SUBSCRIPTION";
+    }
+
+    else
+    {
+      v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+    }
+  }
+
+  else
+  {
+    v4 = @"DELTA_SUBSCRIPTION";
+  }
+
+  return v4;
 }
 
 - (int)StringAsSubscriptionsType:(id)type
@@ -426,50 +466,46 @@
   toCopy = to;
   if ((*&self->_has & 4) != 0)
   {
-    version = self->_version;
     PBDataWriterWriteInt32Field();
   }
 
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
-  v16 = 0u;
-  v6 = self->_appChannelSubscriptions;
-  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
-  if (v7)
+  v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
+  v5 = self->_appChannelSubscriptions;
+  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  if (v6)
   {
-    v8 = v7;
-    v9 = *v16;
+    v7 = v6;
+    v8 = *v12;
     do
     {
-      for (i = 0; i != v8; i = i + 1)
+      for (i = 0; i != v7; ++i)
       {
-        if (*v16 != v9)
+        if (*v12 != v8)
         {
-          objc_enumerationMutation(v6);
+          objc_enumerationMutation(v5);
         }
 
-        v11 = *(*(&v15 + 1) + 8 * i);
         PBDataWriterWriteSubmessage();
       }
 
-      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
-    while (v8);
+    while (v7);
   }
 
   has = self->_has;
   if ((has & 2) != 0)
   {
-    subscriptionsType = self->_subscriptionsType;
     PBDataWriterWriteInt32Field();
     has = self->_has;
   }
 
   if (has)
   {
-    sequenceNumber = self->_sequenceNumber;
     PBDataWriterWriteUint64Field();
   }
 }
@@ -579,7 +615,6 @@
   }
 
   has = self->_has;
-  v6 = *(equalCopy + 32);
   if ((has & 4) != 0)
   {
     if ((*(equalCopy + 32) & 4) == 0 || self->_version != *(equalCopy + 7))
@@ -599,7 +634,7 @@
     if (![(NSMutableArray *)appChannelSubscriptions isEqual:?])
     {
 LABEL_19:
-      v8 = 0;
+      v7 = 0;
       goto LABEL_20;
     }
 
@@ -619,7 +654,7 @@ LABEL_19:
     goto LABEL_19;
   }
 
-  v8 = (*(equalCopy + 32) & 1) == 0;
+  v7 = (*(equalCopy + 32) & 1) == 0;
   if (has)
   {
     if ((*(equalCopy + 32) & 1) == 0 || self->_sequenceNumber != *(equalCopy + 1))
@@ -627,12 +662,12 @@ LABEL_19:
       goto LABEL_19;
     }
 
-    v8 = 1;
+    v7 = 1;
   }
 
 LABEL_20:
 
-  return v8;
+  return v7;
 }
 
 - (unint64_t)hash

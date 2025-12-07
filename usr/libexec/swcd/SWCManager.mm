@@ -13,6 +13,7 @@
 - (id)_entriesWithServiceSpecifier:(id)specifier URL:(id)l limit:(unint64_t)limit auditToken:(id *)token;
 - (id)_filterApplicationIdentifiers:(id)identifiers toMatchEntitlementOfXPCConnection:(id)connection;
 - (id)_serviceDetailsWithEntry:(id)entry;
+- (void)_addEntriesForAllBundlesWithEnumerator:(id)enumerator toWorkingSet:(id)set enterpriseContext:(id)context developerModeEnabled:(BOOL)enabled;
 - (void)_updateAllEntries:(id)entries;
 - (void)_waitForSiteApprovalWithServiceSpecifier:(id)specifier completionHandler:(id)handler;
 - (void)addAllAppsWithCompletionHandler:(id)handler;
@@ -33,6 +34,7 @@
 - (void)setAdditionalServiceDetailsForApplicationIdentifiers:(id)identifiers usingContentsOfDictionary:(id)dictionary completionHandler:(id)handler;
 - (void)setDetails:(id)details forServiceWithServiceSpecifier:(id)specifier completionHandler:(id)handler;
 - (void)setDeveloperModeEnabled:(BOOL)enabled completionHandler:(id)handler;
+- (void)setUserApprovalState:(unsigned __int8)state forServiceWithServiceSpecifier:(id)specifier completionHandler:(id)handler;
 - (void)showWithVerbosity:(unsigned __int8)verbosity isTTY:(BOOL)y fileDescriptor:(id)descriptor completionHandler:(id)handler;
 - (void)updateEntriesForAllBundlesIgnoringCurrentState:(BOOL)state;
 - (void)waitForSiteApprovalWithServiceSpecifier:(id)specifier completionHandler:(id)handler;
@@ -402,7 +404,7 @@ LABEL_44:
     v15 = v14;
     if (v14)
     {
-      [v14 auditToken];
+      objc_msgSend_auditToken(v14);
     }
 
     else
@@ -736,6 +738,75 @@ LABEL_11:
 LABEL_20:
 }
 
+- (void)setUserApprovalState:(unsigned __int8)state forServiceWithServiceSpecifier:(id)specifier completionHandler:(id)handler
+{
+  stateCopy = state;
+  specifierCopy = specifier;
+  handlerCopy = handler;
+  v10 = +[NSXPCConnection currentConnection];
+  v11 = [(SWCManager *)self _connectionIsEntitled:v10 forMutation:1];
+
+  if ((v11 & 1) == 0)
+  {
+    v17 = [NSError alloc];
+    v31[0] = &off_100036960;
+    v30[0] = @"Line";
+    v30[1] = @"Function";
+    v18 = [NSString stringWithUTF8String:"[SWCManager setUserApprovalState:forServiceWithServiceSpecifier:completionHandler:]"];
+    v30[2] = NSDebugDescriptionErrorKey;
+    v31[1] = v18;
+    v31[2] = @"Entitlement required to mutate SWC database";
+    v19 = [NSDictionary dictionaryWithObjects:v31 forKeys:v30 count:3];
+    v16 = [v17 initWithDomain:_SWCErrorDomain code:1 userInfo:v19];
+
+    goto LABEL_5;
+  }
+
+  if (stateCopy >= 3)
+  {
+    v12 = [NSError alloc];
+    v29[0] = &off_100036978;
+    v28[0] = @"Line";
+    v28[1] = @"Function";
+    v13 = [NSString stringWithUTF8String:"[SWCManager setUserApprovalState:forServiceWithServiceSpecifier:completionHandler:]"];
+    v29[1] = v13;
+    v29[2] = @"Unknown approval state specified by caller";
+    v28[2] = NSDebugDescriptionErrorKey;
+    v28[3] = @"ApprovalState";
+    v14 = [NSNumber numberWithUnsignedChar:stateCopy];
+    v29[3] = v14;
+    v15 = [NSDictionary dictionaryWithObjects:v29 forKeys:v28 count:4];
+    v16 = [v12 initWithDomain:_SWCErrorDomain code:2 userInfo:v15];
+
+LABEL_5:
+    v20 = 0;
+    goto LABEL_9;
+  }
+
+  v24 = 0;
+  v25 = &v24;
+  v26 = 0x2020000000;
+  v27 = 0;
+  database = self->_database;
+  v22[0] = _NSConcreteStackBlock;
+  v22[1] = 3221225472;
+  v22[2] = sub_100016298;
+  v22[3] = &unk_100034F60;
+  v22[4] = &v24;
+  v23 = stateCopy;
+  [(SWCDatabase *)database enumerateEntriesMatchingServiceSpecifier:specifierCopy block:v22];
+  if (*(v25 + 24) == 1)
+  {
+    [(SWCDatabase *)self->_database scheduleNextSave];
+  }
+
+  _Block_object_dispose(&v24, 8);
+  v16 = 0;
+  v20 = 1;
+LABEL_9:
+  handlerCopy[2](handlerCopy, v20, v16);
+}
+
 - (void)addAllAppsWithCompletionHandler:(id)handler
 {
   handlerCopy = handler;
@@ -832,20 +903,20 @@ LABEL_20:
           }
 
           _SWCLogHeader();
-          v75 = 0;
-          v76 = &v75;
-          v77 = 0x2020000000;
-          v78 = 0;
+          v74 = 0;
+          v75 = &v74;
+          v76 = 0x2020000000;
+          v77 = 0;
           database = self->_database;
-          v73[0] = _NSConcreteStackBlock;
-          v73[1] = 3221225472;
-          v73[2] = sub_100016EEC;
-          v73[3] = &unk_100034F88;
-          v73[4] = &v75;
-          v73[5] = v13;
-          v74 = verbosityCopy;
-          [(SWCDatabase *)database enumerateEntriesWithBlock:v73];
-          if ((v76[3] & 1) == 0)
+          v72[0] = _NSConcreteStackBlock;
+          v72[1] = 3221225472;
+          v72[2] = sub_100016EEC;
+          v72[3] = &unk_100034F88;
+          v72[4] = &v74;
+          v72[5] = v13;
+          v73 = verbosityCopy;
+          [(SWCDatabase *)database enumerateEntriesWithBlock:v72];
+          if ((v75[3] & 1) == 0)
           {
             _SWCLogLine();
           }
@@ -855,21 +926,21 @@ LABEL_20:
           {
             v29 = objc_alloc_init(NSMutableArray);
             downloader = self->_downloader;
-            v67[0] = _NSConcreteStackBlock;
-            v67[1] = 3221225472;
-            v67[2] = sub_10001710C;
-            v67[3] = &unk_100034FD8;
-            v69 = verbosityCopy;
+            v66[0] = _NSConcreteStackBlock;
+            v66[1] = 3221225472;
+            v66[2] = sub_10001710C;
+            v66[3] = &unk_100034FD8;
+            v68 = verbosityCopy;
             v31 = v29;
-            v68 = v31;
-            [(SWCDownloader *)downloader enumerateActiveAASAFileDownloadsWithBlock:v67];
+            v67 = v31;
+            [(SWCDownloader *)downloader enumerateActiveAASAFileDownloadsWithBlock:v66];
             v32 = [v31 componentsJoinedByString:{@", "}];
             _SWCLogLine();
 
             if (!verbosityCopy)
             {
 LABEL_35:
-              _Block_object_dispose(&v75, 8);
+              _Block_object_dispose(&v74, 8);
               objc_autoreleasePoolPop(context);
               fclose(v13);
               goto LABEL_3;
@@ -880,73 +951,73 @@ LABEL_35:
           {
             v24 = objc_alloc_init(NSByteCountFormatter);
             v25 = self->_downloader;
-            v70[0] = _NSConcreteStackBlock;
-            v70[1] = 3221225472;
-            v70[2] = sub_100016F80;
-            v70[3] = &unk_100034FB0;
-            v71 = v24;
-            v72 = v13;
+            v69[0] = _NSConcreteStackBlock;
+            v69[1] = 3221225472;
+            v69[2] = sub_100016F80;
+            v69[3] = &unk_100034FB0;
+            v70 = v24;
+            v71 = v13;
             v26 = v24;
-            [(SWCDownloader *)v25 enumerateActiveAASAFileDownloadsWithBlock:v70];
+            [(SWCDownloader *)v25 enumerateActiveAASAFileDownloadsWithBlock:v69];
 
             _SWCLogHeader();
             v27 = +[_SWCPrefs sharedPrefs];
             descriptionOfAllPrefs = [v27 descriptionOfAllPrefs];
-            v66[0] = _NSConcreteStackBlock;
-            v66[1] = 3221225472;
-            v66[2] = sub_100017230;
-            v66[3] = &unk_100034FF8;
-            v66[4] = v13;
-            [descriptionOfAllPrefs enumerateKeysAndObjectsUsingBlock:v66];
+            v65[0] = _NSConcreteStackBlock;
+            v65[1] = 3221225472;
+            v65[2] = sub_100017230;
+            v65[3] = &unk_100034FF8;
+            v65[4] = v13;
+            [descriptionOfAllPrefs enumerateKeysAndObjectsUsingBlock:v65];
           }
 
           _SWCLogHeader();
-          v56 = 0;
-          v57 = &v56;
-          v58 = 0x2020000000;
-          LOBYTE(v59) = 0;
+          v55 = 0;
+          v56 = &v55;
+          v57 = 0x2020000000;
+          LOBYTE(v58) = 0;
           v33 = self->_database;
-          v65[0] = _NSConcreteStackBlock;
-          v65[1] = 3221225472;
-          v65[2] = sub_100017240;
-          v65[3] = &unk_100035020;
-          v65[4] = &v56;
-          v65[5] = v13;
-          [(SWCDatabase *)v33 enumerateSettingsDictionariesWithBlock:v65];
-          if ((v57[3] & 1) == 0)
+          v64[0] = _NSConcreteStackBlock;
+          v64[1] = 3221225472;
+          v64[2] = sub_100017240;
+          v64[3] = &unk_100035020;
+          v64[4] = &v55;
+          v64[5] = v13;
+          [(SWCDatabase *)v33 enumerateSettingsDictionariesWithBlock:v64];
+          if ((v56[3] & 1) == 0)
           {
             _SWCLogLine();
           }
 
-          _Block_object_dispose(&v56, 8);
+          _Block_object_dispose(&v55, 8);
           _SWCLogHeader();
           v34 = objc_alloc_init(NSMutableDictionary);
           v35 = self->_database;
-          v63[0] = _NSConcreteStackBlock;
-          v63[1] = 3221225472;
-          v63[2] = sub_10001731C;
-          v63[3] = &unk_100034F38;
+          v62[0] = _NSConcreteStackBlock;
+          v62[1] = 3221225472;
+          v62[2] = sub_10001731C;
+          v62[3] = &unk_100034F38;
           v36 = v34;
-          v64 = v36;
-          v54 = v36;
-          [(SWCDatabase *)v35 enumerateEntriesWithBlock:v63];
-          v56 = 0;
-          v57 = &v56;
-          v58 = 0x4812000000;
-          v59 = sub_100017480;
-          v60 = sub_1000174A4;
-          v61 = &unk_10002EB53;
-          memset(v62, 0, sizeof(v62));
-          v55[0] = _NSConcreteStackBlock;
-          v55[1] = 3221225472;
-          v55[2] = sub_1000174D0;
-          v55[3] = &unk_100035048;
-          v55[4] = &v56;
-          [v36 enumerateKeysAndObjectsUsingBlock:v55];
-          v37 = v57[6];
-          v38 = v57[7];
+          v63 = v36;
+          v53 = v36;
+          [(SWCDatabase *)v35 enumerateEntriesWithBlock:v62];
+          v55 = 0;
+          v56 = &v55;
+          v57 = 0x4812000000;
+          v58 = sub_100017480;
+          v59 = sub_1000174A4;
+          v60 = &unk_10002EB53;
+          memset(v61, 0, sizeof(v61));
+          v54[0] = _NSConcreteStackBlock;
+          v54[1] = 3221225472;
+          v54[2] = sub_1000174D0;
+          v54[3] = &unk_100035048;
+          v54[4] = &v55;
+          [v36 enumerateKeysAndObjectsUsingBlock:v54];
+          v37 = v56[6];
+          v38 = v56[7];
           v39 = 126 - 2 * __clz((v38 - v37) >> 4);
-          v79 = &stru_100035088;
+          v78 = &stru_100035088;
           if (v38 == v37)
           {
             v40 = 0;
@@ -957,33 +1028,32 @@ LABEL_35:
             v40 = v39;
           }
 
-          sub_10001BF00(v37, v38, &v79, v40, 1);
+          sub_10001BF00(v37, v38, &v78, v40, 1);
 
-          if (v57[6] == v57[7])
+          if (v56[6] == v56[7])
           {
             _SWCLogLine();
           }
 
           else
           {
-            v50 = handlerCopy;
-            v51 = descriptorCopy;
+            v49 = handlerCopy;
+            v50 = descriptorCopy;
             v41 = v13;
             v42 = verbosityCopy;
-            v53 = objc_alloc_init(NSByteCountFormatter);
-            v43 = v57[6];
-            v44 = v57[7];
+            v52 = objc_alloc_init(NSByteCountFormatter);
+            v43 = v56[6];
+            v44 = v56[7];
             while (v43 != v44)
             {
               if (*(v43 + 8))
               {
                 v45 = *v43;
                 v46 = [NSNumber numberWithUnsignedLongLong:*(v43 + 8)];
-                v47 = *(v43 + 8);
-                v48 = [v45 description];
+                v47 = [v45 description];
                 if (v42 <= 1)
                 {
-                  v49 = [v53 stringForObjectValue:v46];
+                  v48 = [v52 stringForObjectValue:v46];
                   _SWCLogValueForKey();
                 }
 
@@ -992,20 +1062,20 @@ LABEL_35:
                   _SWCLogValueForKey();
                 }
 
-                v36 = v54;
+                v36 = v53;
               }
 
               v43 += 16;
             }
 
             v13 = v41;
-            handlerCopy = v50;
-            descriptorCopy = v51;
+            handlerCopy = v49;
+            descriptorCopy = v50;
           }
 
-          _Block_object_dispose(&v56, 8);
-          v80 = v62;
-          sub_10001BE80(&v80);
+          _Block_object_dispose(&v55, 8);
+          v79 = v61;
+          sub_10001BE80(&v79);
 
           goto LABEL_35;
         }
@@ -1289,37 +1359,36 @@ LABEL_13:
 
   else
   {
-    v20 = 0u;
-    v21 = 0u;
-    v18 = 0u;
     v19 = 0u;
+    v20 = 0u;
+    v17 = 0u;
+    v18 = 0u;
     v9 = domainsCopy;
-    v10 = [v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
     if (v10)
     {
-      v11 = *v19;
+      v11 = *v18;
       while (2)
       {
         v12 = 0;
         do
         {
-          if (*v19 != v11)
+          if (*v18 != v11)
           {
             objc_enumerationMutation(v9);
           }
 
-          v13 = *(*(&v18 + 1) + 8 * v12);
           if ((_NSIsNSString() & 1) == 0)
           {
 
             goto LABEL_13;
           }
 
-          v12 = v12 + 1;
+          ++v12;
         }
 
         while (v10 != v12);
-        v10 = [v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
+        v10 = [v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
         if (v10)
         {
           continue;
@@ -1329,14 +1398,14 @@ LABEL_13:
       }
     }
 
-    v15[0] = _NSConcreteStackBlock;
-    v15[1] = 3221225472;
-    v15[2] = sub_1000187D8;
-    v15[3] = &unk_1000350B0;
-    v16 = os_transaction_create();
-    v17 = handlerCopy;
-    v14 = v16;
-    [_SWCTrackingDomainInfo _getTrackingDomainInfoWithDomains:v9 sources:sources completionHandler:v15];
+    v14[0] = _NSConcreteStackBlock;
+    v14[1] = 3221225472;
+    v14[2] = sub_1000187D8;
+    v14[3] = &unk_1000350B0;
+    v15 = os_transaction_create();
+    v16 = handlerCopy;
+    v13 = v15;
+    [_SWCTrackingDomainInfo _getTrackingDomainInfoWithDomains:v9 sources:sources completionHandler:v14];
   }
 }
 
@@ -1499,6 +1568,54 @@ LABEL_13:
 LABEL_14:
 
   handlerCopy[2](handlerCopy, v16, v15);
+}
+
+- (void)_addEntriesForAllBundlesWithEnumerator:(id)enumerator toWorkingSet:(id)set enterpriseContext:(id)context developerModeEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  enumeratorCopy = enumerator;
+  setCopy = set;
+  contextCopy = context;
+  context = objc_autoreleasePoolPush();
+  v20 = 0u;
+  v21 = 0u;
+  v22 = 0u;
+  v23 = 0u;
+  v12 = enumeratorCopy;
+  v13 = [v12 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  if (v13)
+  {
+    v14 = *v21;
+    do
+    {
+      v15 = 0;
+      do
+      {
+        if (*v21 != v14)
+        {
+          objc_enumerationMutation(v12);
+        }
+
+        v16 = *(*(&v20 + 1) + 8 * v15);
+        v17 = objc_autoreleasePoolPush();
+        v18 = [SWCEntry entriesForBundleRecord:v16 enterpriseContext:contextCopy developerModeEnabled:enabledCopy];
+        if ([v18 count])
+        {
+          [setCopy unionOrderedSet:v18];
+        }
+
+        objc_autoreleasePoolPop(v17);
+        v15 = v15 + 1;
+      }
+
+      while (v13 != v15);
+      v13 = [v12 countByEnumeratingWithState:&v20 objects:v24 count:16];
+    }
+
+    while (v13);
+  }
+
+  objc_autoreleasePoolPop(context);
 }
 
 - (id)_eligibleSystemPlaceholderRecords
@@ -1842,12 +1959,12 @@ LABEL_19:
   if (![specifierCopy isFullySpecified])
   {
     v11 = [NSError alloc];
-    v38[0] = @"Line";
-    v38[1] = @"Function";
-    v39[0] = &off_100036AF8;
+    v37[0] = @"Line";
+    v37[1] = @"Function";
+    v38[0] = &off_100036AF8;
     v9 = [NSString stringWithUTF8String:"[SWCManager(Private) _waitForSiteApprovalWithServiceSpecifier:completionHandler:]"];
-    v39[1] = v9;
-    sWCDomain = [NSDictionary dictionaryWithObjects:v39 forKeys:v38 count:2];
+    v38[1] = v9;
+    sWCDomain = [NSDictionary dictionaryWithObjects:v38 forKeys:v37 count:2];
     v13 = [v11 initWithDomain:_SWCErrorDomain code:2 userInfo:sWCDomain];
     handlerCopy[2](handlerCopy, 0, v13);
     goto LABEL_20;
@@ -1858,14 +1975,14 @@ LABEL_19:
   if (!v8)
   {
     v14 = [NSError alloc];
-    v41[0] = &off_100036AE0;
-    v40[0] = @"Line";
-    v40[1] = @"Function";
+    v40[0] = &off_100036AE0;
+    v39[0] = @"Line";
+    v39[1] = @"Function";
     sWCDomain = [NSString stringWithUTF8String:"[SWCManager(Private) _waitForSiteApprovalWithServiceSpecifier:completionHandler:]"];
-    v40[2] = NSDebugDescriptionErrorKey;
-    v41[1] = sWCDomain;
-    v41[2] = @"The specified service was not found in the SWC database.";
-    v13 = [NSDictionary dictionaryWithObjects:v41 forKeys:v40 count:3];
+    v39[2] = NSDebugDescriptionErrorKey;
+    v40[1] = sWCDomain;
+    v40[2] = @"The specified service was not found in the SWC database.";
+    v13 = [NSDictionary dictionaryWithObjects:v40 forKeys:v39 count:3];
     v15 = [v14 initWithDomain:_SWCErrorDomain code:3 userInfo:v13];
     handlerCopy[2](handlerCopy, 0, v15);
 
@@ -1896,10 +2013,10 @@ LABEL_19:
           retryCount3 = [v9 retryCount];
           v23 = +[NSXPCConnection currentConnection];
           *buf = 138543874;
-          v45 = retryCount3;
-          v46 = 2112;
-          v47 = v9;
-          v48 = 2048;
+          v44 = retryCount3;
+          v45 = 2112;
+          v46 = v9;
+          v47 = 2048;
           processIdentifier = [v23 processIdentifier];
           _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_INFO, "Exhausted retry attempts (%{public}@) for entry %@; will not attempt to download it on behalf of an interested caller %llu", buf, 0x20u);
         }
@@ -1914,12 +2031,12 @@ LABEL_19:
         else
         {
           v29 = [NSError alloc];
-          v42[0] = @"Line";
-          v42[1] = @"Function";
-          v43[0] = &off_100036AC8;
+          v41[0] = @"Line";
+          v41[1] = @"Function";
+          v42[0] = &off_100036AC8;
           v30 = [NSString stringWithUTF8String:"[SWCManager(Private) _waitForSiteApprovalWithServiceSpecifier:completionHandler:]"];
-          v43[1] = v30;
-          v31 = [NSDictionary dictionaryWithObjects:v43 forKeys:v42 count:2];
+          v42[1] = v30;
+          v31 = [NSDictionary dictionaryWithObjects:v42 forKeys:v41 count:2];
           sWCDomain = [v29 initWithDomain:_SWCErrorDomain code:-1 userInfo:v31];
         }
 
@@ -1931,16 +2048,16 @@ LABEL_19:
     sWCDomain = [specifierCopy SWCDomain];
     downloader = self->_downloader;
     sWCApplicationIdentifier = [specifierCopy SWCApplicationIdentifier];
-    v35[0] = _NSConcreteStackBlock;
-    v35[1] = 3221225472;
-    v35[2] = sub_10001AD80;
-    v35[3] = &unk_100035178;
-    v37 = handlerCopy;
+    v34[0] = _NSConcreteStackBlock;
+    v34[1] = 3221225472;
+    v34[2] = sub_10001AD80;
+    v34[3] = &unk_100035178;
+    v36 = handlerCopy;
     v28 = v9;
-    v36 = v28;
-    [(SWCDownloader *)downloader downloadAASAFileForDomain:sWCDomain applicationIdentifier:sWCApplicationIdentifier completionHandler:v35];
+    v35 = v28;
+    [(SWCDownloader *)downloader downloadAASAFileForDomain:sWCDomain applicationIdentifier:sWCApplicationIdentifier completionHandler:v34];
 
-    v13 = v37;
+    v13 = v36;
     v9 = v28;
 LABEL_20:
 
@@ -1956,15 +2073,15 @@ LABEL_21:
   v10 = qword_10003AD20;
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
-    v32 = *[v9 fields];
-    v33 = _SWCServiceApprovalStateGetDebugDescription();
-    v34 = +[NSXPCConnection currentConnection];
+    [v9 fields];
+    v32 = _SWCServiceApprovalStateGetDebugDescription();
+    v33 = +[NSXPCConnection currentConnection];
     *buf = 138412802;
-    v45 = v9;
-    v46 = 2114;
-    v47 = v33;
-    v48 = 2048;
-    processIdentifier = [v34 processIdentifier];
+    v44 = v9;
+    v45 = 2114;
+    v46 = v32;
+    v47 = 2048;
+    processIdentifier = [v33 processIdentifier];
     _os_log_debug_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEBUG, "Entry %@ already has approval state %{public}@, skipping download for interested caller %llu", buf, 0x20u);
   }
 
@@ -1978,7 +2095,7 @@ LABEL_22:
   v5 = entitledCopy;
   if (entitledCopy)
   {
-    [entitledCopy auditToken];
+    objc_msgSend_auditToken(entitledCopy);
   }
 
   v6 = _SWCIsAuditTokenEntitled();

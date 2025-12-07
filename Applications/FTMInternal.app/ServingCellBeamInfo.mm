@@ -270,47 +270,43 @@ LABEL_12:
 {
   toCopy = to;
   has = self->_has;
-  v17 = toCopy;
+  v8 = toCopy;
   if ((has & 2) != 0)
   {
-    cellPci = self->_cellPci;
     PBDataWriterWriteUint32Field();
-    toCopy = v17;
+    toCopy = v8;
     has = self->_has;
   }
 
   if (has < 0)
   {
-    ssbIndex = self->_ssbIndex;
     PBDataWriterWriteUint32Field();
-    toCopy = v17;
+    toCopy = v8;
   }
 
   if (self->_rxBeamIds.count)
   {
-    v8 = 0;
+    v6 = 0;
     do
     {
-      v9 = self->_rxBeamIds.list[v8];
       PBDataWriterWriteUint32Field();
-      toCopy = v17;
-      ++v8;
+      toCopy = v8;
+      ++v6;
     }
 
-    while (v8 < self->_rxBeamIds.count);
+    while (v6 < self->_rxBeamIds.count);
   }
 
-  v10 = self->_has;
-  if ((v10 & 0x10) != 0)
+  v7 = self->_has;
+  if ((v7 & 0x10) != 0)
   {
-    numDetectedTxBeams = self->_numDetectedTxBeams;
     PBDataWriterWriteUint32Field();
-    toCopy = v17;
-    v10 = self->_has;
-    if ((v10 & 1) == 0)
+    toCopy = v8;
+    v7 = self->_has;
+    if ((v7 & 1) == 0)
     {
 LABEL_10:
-      if ((v10 & 4) == 0)
+      if ((v7 & 4) == 0)
       {
         goto LABEL_11;
       }
@@ -324,14 +320,13 @@ LABEL_10:
     goto LABEL_10;
   }
 
-  antennaPanelIndex = self->_antennaPanelIndex;
   PBDataWriterWriteUint32Field();
-  toCopy = v17;
-  v10 = self->_has;
-  if ((v10 & 4) == 0)
+  toCopy = v8;
+  v7 = self->_has;
+  if ((v7 & 4) == 0)
   {
 LABEL_11:
-    if ((v10 & 8) == 0)
+    if ((v7 & 8) == 0)
     {
       goto LABEL_12;
     }
@@ -340,14 +335,13 @@ LABEL_11:
   }
 
 LABEL_20:
-  cellRsrp = self->_cellRsrp;
   PBDataWriterWriteInt32Field();
-  toCopy = v17;
-  v10 = self->_has;
-  if ((v10 & 8) == 0)
+  toCopy = v8;
+  v7 = self->_has;
+  if ((v7 & 8) == 0)
   {
 LABEL_12:
-    if ((v10 & 0x40) == 0)
+    if ((v7 & 0x40) == 0)
     {
       goto LABEL_13;
     }
@@ -356,14 +350,13 @@ LABEL_12:
   }
 
 LABEL_21:
-  cellRsrq = self->_cellRsrq;
   PBDataWriterWriteInt32Field();
-  toCopy = v17;
-  v10 = self->_has;
-  if ((v10 & 0x40) == 0)
+  toCopy = v8;
+  v7 = self->_has;
+  if ((v7 & 0x40) == 0)
   {
 LABEL_13:
-    if ((v10 & 0x20) == 0)
+    if ((v7 & 0x20) == 0)
     {
       goto LABEL_15;
     }
@@ -372,15 +365,13 @@ LABEL_13:
   }
 
 LABEL_22:
-  rxBeamRsrp = self->_rxBeamRsrp;
   PBDataWriterWriteInt32Field();
-  toCopy = v17;
+  toCopy = v8;
   if ((*&self->_has & 0x20) != 0)
   {
 LABEL_14:
-    rasterArfcn = self->_rasterArfcn;
     PBDataWriterWriteUint32Field();
-    toCopy = v17;
+    toCopy = v8;
   }
 
 LABEL_15:
@@ -605,7 +596,6 @@ LABEL_11:
     goto LABEL_42;
   }
 
-  v5 = *(equalCopy + 64);
   if ((*&self->_has & 2) != 0)
   {
     if ((*(equalCopy + 64) & 2) == 0 || self->_cellPci != *(equalCopy + 9))
@@ -630,7 +620,7 @@ LABEL_11:
   else if ((*(equalCopy + 64) & 0x80) != 0)
   {
 LABEL_42:
-    v6 = 0;
+    v5 = 0;
     goto LABEL_43;
   }
 
@@ -704,7 +694,7 @@ LABEL_42:
     goto LABEL_42;
   }
 
-  v6 = (*(equalCopy + 64) & 0x20) == 0;
+  v5 = (*(equalCopy + 64) & 0x20) == 0;
   if ((*&self->_has & 0x20) != 0)
   {
     if ((*(equalCopy + 64) & 0x20) == 0 || self->_rasterArfcn != *(equalCopy + 13))
@@ -712,12 +702,12 @@ LABEL_42:
       goto LABEL_42;
     }
 
-    v6 = 1;
+    v5 = 1;
   }
 
 LABEL_43:
 
-  return v6;
+  return v5;
 }
 
 - (unint64_t)hash

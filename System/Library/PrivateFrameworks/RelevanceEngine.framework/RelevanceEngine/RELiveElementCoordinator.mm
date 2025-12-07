@@ -224,38 +224,36 @@ void __77__RELiveElementCoordinator_dataSourceManager_willUnloadDataSourceContro
 
 void __77__RELiveElementCoordinator_dataSourceManager_willUnloadDataSourceController___block_invoke_2(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
+  v7 = 0u;
   v8 = 0u;
   v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
   v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v9;
+    v5 = *v8;
     do
     {
       v6 = 0;
       do
       {
-        if (*v9 != v5)
+        if (*v8 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        [*(a1 + 40) elementDataSourceController:0 didRemoveElement:{*(*(&v8 + 1) + 8 * v6++), v8}];
+        [*(a1 + 40) elementDataSourceController:0 didRemoveElement:{*(*(&v7 + 1) + 8 * v6++), v7}];
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
     }
 
     while (v4);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addElement:(id)element toSection:(id)section
@@ -285,28 +283,28 @@ void __77__RELiveElementCoordinator_dataSourceManager_willUnloadDataSourceContro
 
 - (double)_mostRecentRequestForAttention:(id)attention
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   relevanceProviders = [attention relevanceProviders];
-  v4 = [relevanceProviders countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v4 = [relevanceProviders countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v19;
+    v6 = *v18;
     v7 = 0.0;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v19 != v6)
+        if (*v18 != v6)
         {
           objc_enumerationMutation(relevanceProviders);
         }
 
-        v9 = *(*(&v18 + 1) + 8 * i);
+        v9 = *(*(&v17 + 1) + 8 * i);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -323,7 +321,7 @@ void __77__RELiveElementCoordinator_dataSourceManager_willUnloadDataSourceContro
         }
       }
 
-      v5 = [relevanceProviders countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v5 = [relevanceProviders countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v5);
@@ -334,7 +332,6 @@ void __77__RELiveElementCoordinator_dataSourceManager_willUnloadDataSourceContro
     v7 = 0.0;
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -659,14 +656,14 @@ void __76__RELiveElementCoordinator_elementDataSourceController_performBatchUpda
 
 void __76__RELiveElementCoordinator_elementDataSourceController_performBatchUpdates___block_invoke_2(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v2 = RELogForDomain(7);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
-    v7 = 138543362;
-    v8 = v3;
-    _os_log_impl(&dword_22859F000, v2, OS_LOG_TYPE_DEFAULT, "[LEC]: Start processing batch updates for data source controller %{public}@", &v7, 0xCu);
+    v6 = 138543362;
+    v7 = v3;
+    _os_log_impl(&dword_22859F000, v2, OS_LOG_TYPE_DEFAULT, "[LEC]: Start processing batch updates for data source controller %{public}@", &v6, 0xCu);
   }
 
   (*(*(a1 + 40) + 16))();
@@ -674,12 +671,10 @@ void __76__RELiveElementCoordinator_elementDataSourceController_performBatchUpda
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 32);
-    v7 = 138543362;
-    v8 = v5;
-    _os_log_impl(&dword_22859F000, v4, OS_LOG_TYPE_DEFAULT, "[LEC]: Finish processing batch updates for data source controller %{public}@", &v7, 0xCu);
+    v6 = 138543362;
+    v7 = v5;
+    _os_log_impl(&dword_22859F000, v4, OS_LOG_TYPE_DEFAULT, "[LEC]: Finish processing batch updates for data source controller %{public}@", &v6, 0xCu);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)elementDataSourceController:(id)controller didAddElement:(id)element toSection:(id)section
@@ -741,7 +736,7 @@ void __76__RELiveElementCoordinator_elementDataSourceController_performBatchUpda
   return self;
 }
 
-uint64_t __73__RELiveElementCoordinator_elementDataSourceController_isElementVisible___block_invoke(void *a1, void *a2, _BYTE *a3)
+void *__73__RELiveElementCoordinator_elementDataSourceController_isElementVisible___block_invoke(void *a1, void *a2, _BYTE *a3)
 {
   result = [a2 relevanceEngine:a1[4] isElementAtPathVisible:a1[5]];
   if (result)
@@ -755,45 +750,42 @@ uint64_t __73__RELiveElementCoordinator_elementDataSourceController_isElementVis
 
 - (void)dataSource:(id)source didBeginActivity:(id)activity
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   sourceCopy = source;
   activityCopy = activity;
   v8 = RELogForDomain(7);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 138543618;
-    v11 = activityCopy;
-    v12 = 2114;
-    v13 = sourceCopy;
-    _os_log_impl(&dword_22859F000, v8, OS_LOG_TYPE_DEFAULT, "[LEC]: Start processing %{public}@ activity from data source %{public}@", &v10, 0x16u);
+    v9 = 138543618;
+    v10 = activityCopy;
+    v11 = 2114;
+    v12 = sourceCopy;
+    _os_log_impl(&dword_22859F000, v8, OS_LOG_TYPE_DEFAULT, "[LEC]: Start processing %{public}@ activity from data source %{public}@", &v9, 0x16u);
   }
 
   [(RERelevanceEngineSubsystem *)self beginActivity:activityCopy forObject:sourceCopy];
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dataSource:(id)source didFinishActivity:(id)activity
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   sourceCopy = source;
   activityCopy = activity;
   [(RERelevanceEngineSubsystem *)self endActivity:activityCopy forObject:sourceCopy];
   v8 = RELogForDomain(7);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 138543618;
-    v11 = activityCopy;
-    v12 = 2114;
-    v13 = sourceCopy;
-    _os_log_impl(&dword_22859F000, v8, OS_LOG_TYPE_DEFAULT, "[LEC]: Finish processing %{public}@ activity from data source %{public}@", &v10, 0x16u);
+    v9 = 138543618;
+    v10 = activityCopy;
+    v11 = 2114;
+    v12 = sourceCopy;
+    _os_log_impl(&dword_22859F000, v8, OS_LOG_TYPE_DEFAULT, "[LEC]: Finish processing %{public}@ activity from data source %{public}@", &v9, 0x16u);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_queue_addElement:(id)element toSection:(id)section
 {
-  v20[1] = *MEMORY[0x277D85DE8];
+  v19[1] = *MEMORY[0x277D85DE8];
   elementCopy = element;
   sectionCopy = section;
   dispatch_assert_queue_V2(self->_controllerQueue);
@@ -812,10 +804,10 @@ uint64_t __73__RELiveElementCoordinator_elementDataSourceController_isElementVis
     }
   }
 
-  v19 = @"elementId";
+  v18 = @"elementId";
   identifier2 = [elementCopy identifier];
-  v20[0] = identifier2;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:&v19 count:1];
+  v19[0] = identifier2;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:&v18 count:1];
   [RESignposts traceEvent:1 withMetadata:v10];
 
   v11 = RELogForDomain(7);
@@ -837,12 +829,11 @@ uint64_t __73__RELiveElementCoordinator_elementDataSourceController_isElementVis
   [(NSMutableDictionary *)elementIdElementMap setObject:elementCopy forKey:identifier5];
 
   [(REElementRelevanceEngine *)self->_relevanceEngine addElement:elementCopy section:sectionCopy];
-  v18 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __56__RELiveElementCoordinator__queue_addElement_toSection___block_invoke()
+uint64_t __56__RELiveElementCoordinator__queue_addElement_toSection___block_invoke(uint64_t a1, uint64_t a2)
 {
-  result = _REGetIsInternalBuild();
+  result = _REGetIsInternalBuild(a1, a2);
   _isInternalDevice_6 = result;
   return result;
 }
@@ -928,9 +919,9 @@ uint64_t __56__RELiveElementCoordinator__queue_addElement_toSection___block_invo
   }
 }
 
-uint64_t __49__RELiveElementCoordinator__queue_reloadElement___block_invoke()
+uint64_t __49__RELiveElementCoordinator__queue_reloadElement___block_invoke(uint64_t a1, uint64_t a2)
 {
-  result = _REGetIsInternalBuild();
+  result = _REGetIsInternalBuild(a1, a2);
   _isInternalDevice_6 = result;
   return result;
 }
@@ -981,16 +972,16 @@ uint64_t __49__RELiveElementCoordinator__queue_reloadElement___block_invoke()
   }
 }
 
-uint64_t __50__RELiveElementCoordinator__queue_refreshElement___block_invoke()
+uint64_t __50__RELiveElementCoordinator__queue_refreshElement___block_invoke(uint64_t a1, uint64_t a2)
 {
-  result = _REGetIsInternalBuild();
+  result = _REGetIsInternalBuild(a1, a2);
   _isInternalDevice_6 = result;
   return result;
 }
 
 - (void)_queue_removeElement:(id)element
 {
-  v19[1] = *MEMORY[0x277D85DE8];
+  v18[1] = *MEMORY[0x277D85DE8];
   elementCopy = element;
   dispatch_assert_queue_V2(self->_controllerQueue);
   if (_fetchedInternalBuildOnceToken_6 != -1)
@@ -1008,10 +999,10 @@ uint64_t __50__RELiveElementCoordinator__queue_refreshElement___block_invoke()
     }
   }
 
-  v18 = @"elementId";
+  v17 = @"elementId";
   identifier2 = [elementCopy identifier];
-  v19[0] = identifier2;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:&v18 count:1];
+  v18[0] = identifier2;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:&v17 count:1];
   [RESignposts traceEvent:2 withMetadata:v7];
 
   v8 = RELogForDomain(7);
@@ -1035,20 +1026,18 @@ uint64_t __50__RELiveElementCoordinator__queue_refreshElement___block_invoke()
   elementIdElementMap = self->_elementIdElementMap;
   identifier6 = [elementCopy identifier];
   [(NSMutableDictionary *)elementIdElementMap removeObjectForKey:identifier6];
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __49__RELiveElementCoordinator__queue_removeElement___block_invoke()
+uint64_t __49__RELiveElementCoordinator__queue_removeElement___block_invoke(uint64_t a1, uint64_t a2)
 {
-  result = _REGetIsInternalBuild();
+  result = _REGetIsInternalBuild(a1, a2);
   _isInternalDevice_6 = result;
   return result;
 }
 
 - (void)_queue_reload
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_controllerQueue);
   if (self->_reloadImmediately || ![(NSCountedSet *)self->_remainingRemoveOperations count]&& ![(NSCountedSet *)self->_remainingInsertOperations count])
   {
@@ -1059,27 +1048,27 @@ LABEL_11:
     [(NSMutableSet *)self->_refreshedElements removeAllObjects];
     sections = [(REElementRelevanceEngine *)self->_relevanceEngine sections];
     v8 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:{objc_msgSend(sections, "count")}];
-    v20[0] = MEMORY[0x277D85DD0];
-    v20[1] = 3221225472;
-    v20[2] = __41__RELiveElementCoordinator__queue_reload__block_invoke;
-    v20[3] = &unk_2785FCD38;
-    v20[4] = self;
+    v19[0] = MEMORY[0x277D85DD0];
+    v19[1] = 3221225472;
+    v19[2] = __41__RELiveElementCoordinator__queue_reload__block_invoke;
+    v19[3] = &unk_2785FCD38;
+    v19[4] = self;
     v9 = v8;
-    v21 = v9;
-    [(RELiveElementCoordinator *)self _enumerateSectionsUsingBlock:v20];
+    v20 = v9;
+    [(RELiveElementCoordinator *)self _enumerateSectionsUsingBlock:v19];
     callbackQueue = self->_callbackQueue;
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __41__RELiveElementCoordinator__queue_reload__block_invoke_2;
     block[3] = &unk_2785FB070;
     block[4] = self;
-    v18 = v9;
-    v19 = v6;
+    v17 = v9;
+    v18 = v6;
     v11 = v6;
     v12 = v9;
     dispatch_async(callbackQueue, block);
 
-    goto LABEL_12;
+    return;
   }
 
   currentReloadTryCount = self->_currentReloadTryCount;
@@ -1097,15 +1086,15 @@ LABEL_11:
 
   if (v5)
   {
-    v14 = [(NSCountedSet *)self->_remainingRemoveOperations count];
-    v15 = [(NSCountedSet *)self->_remainingInsertOperations count];
-    v16 = self->_currentReloadTryCount;
+    v13 = [(NSCountedSet *)self->_remainingRemoveOperations count];
+    v14 = [(NSCountedSet *)self->_remainingInsertOperations count];
+    v15 = self->_currentReloadTryCount;
     *buf = 134218496;
-    v23 = v14;
-    v24 = 2048;
-    v25 = v15;
-    v26 = 2048;
-    v27 = v16;
+    v22 = v13;
+    v23 = 2048;
+    v24 = v14;
+    v25 = 2048;
+    v26 = v15;
     _os_log_debug_impl(&dword_22859F000, v4, OS_LOG_TYPE_DEBUG, "[LEC] Delaying reload with pending removes %lu, inserts %lu, retry count %lu", buf, 0x20u);
   }
 
@@ -1113,8 +1102,6 @@ LABEL_11:
   [(RERelevanceEngineSubsystem *)self beginActivity:@"RERelevanceEngineSubsystemLoadingActivity" forObject:self];
   ++self->_scheduleCount;
   [(REUpNextScheduler *)self->_scheduler schedule];
-LABEL_12:
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __41__RELiveElementCoordinator__queue_reload__block_invoke(uint64_t a1, void *a2)
@@ -1142,7 +1129,7 @@ void __41__RELiveElementCoordinator__queue_reload__block_invoke(uint64_t a1, voi
 
 void __41__RELiveElementCoordinator__queue_reload__block_invoke_2(id *a1)
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   v2 = [a1[4] relevanceEngine];
   if (_fetchedInternalBuildOnceToken_6 != -1)
   {
@@ -1155,47 +1142,47 @@ void __41__RELiveElementCoordinator__queue_reload__block_invoke_2(id *a1)
 
     if (DisplayDebugProbabilities)
     {
-      v33 = 0u;
-      v34 = 0u;
       v32 = 0u;
+      v33 = 0u;
       v31 = 0u;
+      v30 = 0u;
       obj = a1[5];
-      v22 = [obj countByEnumeratingWithState:&v31 objects:v36 count:16];
-      if (v22)
+      v21 = [obj countByEnumeratingWithState:&v30 objects:v35 count:16];
+      if (v21)
       {
-        v21 = *v32;
+        v20 = *v31;
         do
         {
           v4 = 0;
           do
           {
-            if (*v32 != v21)
+            if (*v31 != v20)
             {
               objc_enumerationMutation(obj);
             }
 
-            v23 = v4;
-            v5 = *(*(&v31 + 1) + 8 * v4);
+            v22 = v4;
+            v5 = *(*(&v30 + 1) + 8 * v4);
+            v26 = 0u;
             v27 = 0u;
             v28 = 0u;
             v29 = 0u;
-            v30 = 0u;
             v6 = [a1[5] objectForKeyedSubscript:v5];
-            v7 = [v6 countByEnumeratingWithState:&v27 objects:v35 count:16];
+            v7 = [v6 countByEnumeratingWithState:&v26 objects:v34 count:16];
             if (v7)
             {
               v8 = v7;
-              v9 = *v28;
+              v9 = *v27;
               do
               {
                 for (i = 0; i != v8; ++i)
                 {
-                  if (*v28 != v9)
+                  if (*v27 != v9)
                   {
                     objc_enumerationMutation(v6);
                   }
 
-                  v11 = *(*(&v27 + 1) + 8 * i);
+                  v11 = *(*(&v26 + 1) + 8 * i);
                   v12 = [a1[4] _predictionForElement:v11];
                   v13 = MEMORY[0x277CCACA8];
                   [v12 probability];
@@ -1211,20 +1198,20 @@ void __41__RELiveElementCoordinator__queue_reload__block_invoke_2(id *a1)
                   [v16 setDescription2TextContentProvider:v17];
                 }
 
-                v8 = [v6 countByEnumeratingWithState:&v27 objects:v35 count:16];
+                v8 = [v6 countByEnumeratingWithState:&v26 objects:v34 count:16];
               }
 
               while (v8);
             }
 
-            v4 = v23 + 1;
+            v4 = v22 + 1;
           }
 
-          while (v23 + 1 != v22);
-          v22 = [obj countByEnumeratingWithState:&v31 objects:v36 count:16];
+          while (v22 + 1 != v21);
+          v21 = [obj countByEnumeratingWithState:&v30 objects:v35 count:16];
         }
 
-        while (v22);
+        while (v21);
       }
     }
   }
@@ -1234,16 +1221,14 @@ void __41__RELiveElementCoordinator__queue_reload__block_invoke_2(id *a1)
   }
 
   v18 = a1[4];
-  v24[0] = MEMORY[0x277D85DD0];
-  v24[1] = 3221225472;
-  v24[2] = __41__RELiveElementCoordinator__queue_reload__block_invoke_3;
-  v24[3] = &unk_2785FB070;
-  v24[4] = v18;
-  v25 = a1[5];
-  v26 = a1[6];
-  [v18 performBatchUpdateBlock:v24];
-
-  v19 = *MEMORY[0x277D85DE8];
+  v23[0] = MEMORY[0x277D85DD0];
+  v23[1] = 3221225472;
+  v23[2] = __41__RELiveElementCoordinator__queue_reload__block_invoke_3;
+  v23[3] = &unk_2785FB070;
+  v23[4] = v18;
+  v24 = a1[5];
+  v25 = a1[6];
+  [v18 performBatchUpdateBlock:v23];
 }
 
 void __41__RELiveElementCoordinator__queue_reload__block_invoke_3(id *a1)
@@ -1401,7 +1386,7 @@ void __41__RELiveElementCoordinator__queue_reload__block_invoke_8(uint64_t a1, u
 
 - (void)relevanceEngine:(id)engine didInsertElement:(id)element atPath:(id)path
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   elementCopy = element;
   dispatch_assert_queue_V2(self->_controllerQueue);
   v7 = [(NSMutableDictionary *)self->_elementIdElementMap objectForKey:elementCopy];
@@ -1411,11 +1396,11 @@ void __41__RELiveElementCoordinator__queue_reload__block_invoke_8(uint64_t a1, u
   {
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v15 = 136315394;
-      v16 = "[RELiveElementCoordinator relevanceEngine:didInsertElement:atPath:]";
-      v17 = 2112;
-      v18 = elementCopy;
-      _os_log_impl(&dword_22859F000, v9, OS_LOG_TYPE_DEFAULT, "[LEC]: %s: %@", &v15, 0x16u);
+      v14 = 136315394;
+      v15 = "[RELiveElementCoordinator relevanceEngine:didInsertElement:atPath:]";
+      v16 = 2112;
+      v17 = elementCopy;
+      _os_log_impl(&dword_22859F000, v9, OS_LOG_TYPE_DEFAULT, "[LEC]: %s: %@", &v14, 0x16u);
     }
 
     elementIdDateRelevantMap = self->_elementIdDateRelevantMap;
@@ -1434,13 +1419,11 @@ void __41__RELiveElementCoordinator__queue_reload__block_invoke_8(uint64_t a1, u
       [RELiveElementCoordinator relevanceEngine:didInsertElement:atPath:];
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)relevanceEngine:(id)engine didRemoveElement:(id)element atPath:(id)path
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   elementCopy = element;
   dispatch_assert_queue_V2(self->_controllerQueue);
   v7 = [(NSMutableDictionary *)self->_elementIdElementMap objectForKey:elementCopy];
@@ -1450,11 +1433,11 @@ void __41__RELiveElementCoordinator__queue_reload__block_invoke_8(uint64_t a1, u
   {
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v14 = 136315394;
-      v15 = "[RELiveElementCoordinator relevanceEngine:didRemoveElement:atPath:]";
-      v16 = 2112;
-      v17 = elementCopy;
-      _os_log_impl(&dword_22859F000, v9, OS_LOG_TYPE_DEFAULT, "[LEC]: %s: %@", &v14, 0x16u);
+      v13 = 136315394;
+      v14 = "[RELiveElementCoordinator relevanceEngine:didRemoveElement:atPath:]";
+      v15 = 2112;
+      v16 = elementCopy;
+      _os_log_impl(&dword_22859F000, v9, OS_LOG_TYPE_DEFAULT, "[LEC]: %s: %@", &v13, 0x16u);
     }
 
     elementIdDateRelevantMap = self->_elementIdDateRelevantMap;
@@ -1472,8 +1455,6 @@ void __41__RELiveElementCoordinator__queue_reload__block_invoke_8(uint64_t a1, u
       [RELiveElementCoordinator relevanceEngine:didRemoveElement:atPath:];
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)relevanceEngine:(id)engine didMoveElement:(id)element fromPath:(id)path toPath:(id)toPath
@@ -1551,174 +1532,107 @@ void __72__RELiveElementCoordinator_relevanceEngine_didUpdateRelevanceOfElement_
 void __51__RELiveElementCoordinator_rankingScoreForElement___block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_4_0();
-  v0 = *MEMORY[0x277D85DE8];
-  v2 = [OUTLINED_FUNCTION_3_0(v1) identifier];
+  v1 = [OUTLINED_FUNCTION_3_0(v0) identifier];
   OUTLINED_FUNCTION_1_3();
   OUTLINED_FUNCTION_0_6();
-  _os_log_debug_impl(v3, v4, v5, v6, v7, 0x16u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
 }
 
 void __51__RELiveElementCoordinator_rankingScoreForElement___block_invoke_cold_2()
 {
   OUTLINED_FUNCTION_4_0();
-  v0 = *MEMORY[0x277D85DE8];
-  v2 = [OUTLINED_FUNCTION_3_0(v1) identifier];
+  v1 = [OUTLINED_FUNCTION_3_0(v0) identifier];
   OUTLINED_FUNCTION_1_3();
   OUTLINED_FUNCTION_0_6();
-  _os_log_debug_impl(v3, v4, v5, v6, v7, 0x16u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
 }
 
 void __51__RELiveElementCoordinator_rankingScoreForElement___block_invoke_cold_3()
 {
   OUTLINED_FUNCTION_4_0();
-  v0 = *MEMORY[0x277D85DE8];
-  v2 = [OUTLINED_FUNCTION_3_0(v1) identifier];
+  v1 = [OUTLINED_FUNCTION_3_0(v0) identifier];
   OUTLINED_FUNCTION_1_3();
   OUTLINED_FUNCTION_0_6();
-  _os_log_debug_impl(v3, v4, v5, v6, v7, 0x16u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
 }
 
 void __51__RELiveElementCoordinator_rankingScoreForElement___block_invoke_cold_4()
 {
   OUTLINED_FUNCTION_4_0();
-  v0 = *MEMORY[0x277D85DE8];
-  v2 = [OUTLINED_FUNCTION_3_0(v1) identifier];
+  v1 = [OUTLINED_FUNCTION_3_0(v0) identifier];
   OUTLINED_FUNCTION_1_3();
   OUTLINED_FUNCTION_0_6();
-  _os_log_debug_impl(v3, v4, v5, v6, v7, 0x16u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
 }
 
 void __50__RELiveElementCoordinator_rankingTierForElement___block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_4_0();
-  v1 = *MEMORY[0x277D85DE8];
-  [OUTLINED_FUNCTION_3_0(v2) identifier];
+  [OUTLINED_FUNCTION_3_0(v1) identifier];
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_6_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0_6();
-  _os_log_debug_impl(v3, v4, v5, v6, v7, 0x16u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
 }
 
 void __55__RELiveElementCoordinator_rankingStartDateForElement___block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_4_0();
-  v1 = *MEMORY[0x277D85DE8];
-  [OUTLINED_FUNCTION_3_0(v2) identifier];
+  [OUTLINED_FUNCTION_3_0(v1) identifier];
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_6_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0_6();
-  _os_log_debug_impl(v3, v4, v5, v6, v7, 0x16u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
 }
 
 - (void)_queue_addElement:(void *)a1 toSection:.cold.2(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 identifier];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0_6();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_queue_reloadElement:(void *)a1 .cold.2(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 identifier];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0_6();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_queue_reloadElement:(void *)a1 .cold.3(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 identifier];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0_6();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_queue_reloadElement:(NSObject *)a1 .cold.4(NSObject *a1)
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
   v2 = [0 identifier];
   OUTLINED_FUNCTION_3();
-  _os_log_error_impl(&dword_22859F000, a1, OS_LOG_TYPE_ERROR, "previousElement is nil. Identifier is %@", v4, 0xCu);
-
-  v3 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_22859F000, a1, OS_LOG_TYPE_ERROR, "previousElement is nil. Identifier is %@", v3, 0xCu);
 }
 
 - (void)_queue_refreshElement:(void *)a1 .cold.2(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 identifier];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0_6();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_queue_removeElement:(void *)a1 .cold.2(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 identifier];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0_6();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
-}
-
-- (void)relevanceEngine:didInsertElement:atPath:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_1_0(&dword_22859F000, v0, v1, "Unable to find element for id %@ (insert)", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)relevanceEngine:didRemoveElement:atPath:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_1_0(&dword_22859F000, v0, v1, "Unable to find element for id %@ (remove)", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)relevanceEngine:didMoveElement:fromPath:toPath:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_1_0(&dword_22859F000, v0, v1, "Unable to find element for id %@ (move)", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)relevanceEngine:didUpdateRelevanceOfElement:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_1_0(&dword_22859F000, v0, v1, "Unable to find element for id %@ (relevance update)", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

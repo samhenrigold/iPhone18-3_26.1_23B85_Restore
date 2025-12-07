@@ -13,27 +13,27 @@
 
 - (void)startNetworkDiagnosticsObservationOnPhone
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C81C610);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C81C610, &qword_20D5BCCE0);
   MEMORY[0x28223BE20](v3 - 8);
-  v5 = &v10 - v4;
+  v5 = &v11 - v4;
   selfCopy = self;
-  sub_20D567EC8();
-  sub_20CECF940(0, &qword_28111FAB8);
-  v7 = sub_20D568518();
-  sub_20D565868();
+  v7 = sub_20D567EC8();
+  sub_20CECF940(0, &qword_28111FAB8, 0x277D86200);
+  v8 = sub_20D568518();
+  sub_20D565868(v7, &dword_20CEB6000, v8, "startNetworkDiagnosticsObservationOnPhone on phone", 50, 2, MEMORY[0x277D84F90]);
 
-  v8 = sub_20D567C58();
-  (*(*(v8 - 8) + 56))(v5, 1, 1, v8);
-  v9 = swift_allocObject();
-  v9[2] = 0;
-  v9[3] = 0;
-  v9[4] = selfCopy;
-  sub_20CF18C60(0, 0, v5, &unk_20D5C8DF0, v9);
+  v9 = sub_20D567C58();
+  (*(*(v9 - 8) + 56))(v5, 1, 1, v9);
+  v10 = swift_allocObject();
+  v10[2] = 0;
+  v10[3] = 0;
+  v10[4] = selfCopy;
+  sub_20CF18C60(0, 0, v5, &unk_20D5C8DF0, v10);
 }
 
 - (void)stopNetworkDiagnosticsObservationOnPhone
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C81C610);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C81C610, &qword_20D5BCCE0);
   MEMORY[0x28223BE20](v3 - 8);
   v5 = &v9 - v4;
   selfCopy = self;

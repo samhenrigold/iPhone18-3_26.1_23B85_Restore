@@ -15,41 +15,37 @@
 
 - (unint64_t)mediaType
 {
+  v6 = 0;
+  v7 = &v6;
+  v8 = 0x2020000000;
   v9 = 0;
-  v10 = &v9;
-  v11 = 0x2020000000;
-  v12 = 0;
-  v3 = dispatch_semaphore_create(0);
-  queue = self->_queue;
-  v8 = v3;
+  v5 = dispatch_semaphore_create(0);
   AFGetNowPlayingInfoDictionary();
-  v5 = dispatch_time(0, 5000000000);
-  dispatch_semaphore_wait(v8, v5);
-  v6 = v10[3];
+  v2 = dispatch_time(0, 5000000000);
+  dispatch_semaphore_wait(v5, v2);
+  v3 = v7[3];
 
-  _Block_object_dispose(&v9, 8);
-  return v6;
+  _Block_object_dispose(&v6, 8);
+  return v3;
 }
 
 - (id)musicPlayingState
 {
-  v9 = 0;
-  v10 = &v9;
-  v11 = 0x3032000000;
-  v12 = sub_1000057C4;
-  v13 = sub_1000057D4;
-  v14 = objc_alloc_init(SAMPQueueState);
-  v3 = dispatch_semaphore_create(0);
-  queue = self->_queue;
-  v8 = v3;
+  v6 = 0;
+  v7 = &v6;
+  v8 = 0x3032000000;
+  v9 = sub_1000057C4;
+  v10 = sub_1000057D4;
+  v11 = objc_alloc_init(SAMPQueueState);
+  v5 = dispatch_semaphore_create(0);
   AFGetNowPlayingQueueState();
-  v5 = dispatch_time(0, 5000000000);
-  dispatch_semaphore_wait(v8, v5);
-  v6 = v10[5];
+  v2 = dispatch_time(0, 5000000000);
+  dispatch_semaphore_wait(v5, v2);
+  v3 = v7[5];
 
-  _Block_object_dispose(&v9, 8);
+  _Block_object_dispose(&v6, 8);
 
-  return v6;
+  return v3;
 }
 
 - (id)motionConfidence

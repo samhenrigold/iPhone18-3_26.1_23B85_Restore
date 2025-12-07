@@ -1,4 +1,5 @@
 @interface _ATXSuggestionsWidgetSuggestion
+- (BOOL)addSuggestion:(id)suggestion asMainSuggestion:(BOOL)mainSuggestion dryRun:(BOOL)run;
 - (BOOL)containsIdenticalContentOfSuggestion:(id)suggestion;
 - (_ATXSuggestionsWidgetSuggestion)initWithSuggestionsWidget:(id)widget containingStack:(id)stack suggestionDeduplicator:(id)deduplicator hyperParameters:(id)parameters;
 - (_ATXSuggestionsWidgetSuggestion)initWithSuggestionsWidget:(id)widget containingStack:(id)stack suggestionLayout:(id)layout suggestionDeduplicator:(id)deduplicator hyperParameters:(id)parameters;
@@ -18,11 +19,11 @@
 
   if (v16)
   {
-    v38.receiver = self;
-    v38.super_class = _ATXSuggestionsWidgetSuggestion;
-    v17 = [(_ATXSuggestionsWidgetSuggestion *)&v38 init];
-    self = v17;
-    if (!v17)
+    v40.receiver = self;
+    v40.super_class = _ATXSuggestionsWidgetSuggestion;
+    v18 = [(_ATXSuggestionsWidgetSuggestion *)&v40 init];
+    self = v18;
+    if (!v18)
     {
 LABEL_13:
       self = self;
@@ -30,47 +31,48 @@ LABEL_13:
       goto LABEL_14;
     }
 
-    objc_storeWeak(&v17->super._stack, stackCopy);
+    objc_storeWeak(&v18->super._stack, stackCopy);
     objc_storeStrong(&self->super._widget, widget);
     objc_storeStrong(&self->super._suggestionDeduplicator, deduplicator);
     objc_storeStrong(&self->super._hyperParameters, parameters);
     if (![(ATXHomeScreenWidgetIdentifiable *)self->super._widget size])
     {
-      v18 = 5;
+      v19 = 5;
       goto LABEL_12;
     }
 
     if ([(ATXHomeScreenWidgetIdentifiable *)self->super._widget size]== 1)
     {
-      v18 = 9;
+      v19 = 9;
 LABEL_12:
-      self->super._layoutType = v18;
-      v28 = objc_opt_new();
+      self->super._layoutType = v19;
+      v30 = objc_opt_new();
       suggestionsBySuggestionLayoutTypes = self->super._suggestionsBySuggestionLayoutTypes;
-      self->super._suggestionsBySuggestionLayoutTypes = v28;
+      self->super._suggestionsBySuggestionLayoutTypes = v30;
 
       goto LABEL_13;
     }
 
-    if ([(ATXHomeScreenWidgetIdentifiable *)self->super._widget size]== 2)
+    v29 = [(ATXHomeScreenWidgetIdentifiable *)self->super._widget size];
+    if (v29 == 2)
     {
-      v18 = 11;
+      v19 = 11;
       goto LABEL_12;
     }
 
-    v19 = __atxlog_handle_blending();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_FAULT))
+    v20 = __atxlog_handle_blending(v29);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_FAULT))
     {
-      [(_ATXSuggestionsWidgetSuggestion *)v19 initWithSuggestionsWidget:v31 containingStack:v32 suggestionDeduplicator:v33 hyperParameters:v34, v35, v36, v37];
+      [(_ATXSuggestionsWidgetSuggestion *)v20 initWithSuggestionsWidget:v33 containingStack:v34 suggestionDeduplicator:v35 hyperParameters:v36, v37, v38, v39];
     }
   }
 
   else
   {
-    v19 = __atxlog_handle_blending();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_FAULT))
+    v20 = __atxlog_handle_blending(v17);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_FAULT))
     {
-      [(_ATXSuggestionsWidgetSuggestion *)v19 initWithSuggestionsWidget:v20 containingStack:v21 suggestionDeduplicator:v22 hyperParameters:v23, v24, v25, v26];
+      [(_ATXSuggestionsWidgetSuggestion *)v20 initWithSuggestionsWidget:v21 containingStack:v22 suggestionDeduplicator:v23 hyperParameters:v24, v25, v26, v27];
     }
   }
 
@@ -89,32 +91,33 @@ LABEL_14:
     goto LABEL_4;
   }
 
-  if ([layoutCopy layoutType] == v14->super._layoutType)
+  layoutType = [layoutCopy layoutType];
+  if (layoutType == v14->super._layoutType)
   {
     objc_storeStrong(&v14->super._suggestionLayout, layout);
 LABEL_4:
-    v15 = v14;
+    v16 = v14;
     goto LABEL_8;
   }
 
-  v16 = __atxlog_handle_blending();
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
+  v17 = __atxlog_handle_blending(layoutType);
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
   {
-    [(_ATXSuggestionsWidgetSuggestion *)v16 initWithSuggestionsWidget:v17 containingStack:v18 suggestionLayout:v19 suggestionDeduplicator:v20 hyperParameters:v21, v22, v23];
+    [(_ATXSuggestionsWidgetSuggestion *)v17 initWithSuggestionsWidget:v18 containingStack:v19 suggestionLayout:v20 suggestionDeduplicator:v21 hyperParameters:v22, v23, v24];
   }
 
-  v15 = 0;
+  v16 = 0;
 LABEL_8:
 
-  return v15;
+  return v16;
 }
 
 - (id)initForPreviewOfSize:(unint64_t)size hyperParameters:(id)parameters
 {
   parametersCopy = parameters;
-  v28.receiver = self;
-  v28.super_class = _ATXSuggestionsWidgetSuggestion;
-  v8 = [(_ATXSuggestionsWidgetSuggestion *)&v28 init];
+  v29.receiver = self;
+  v29.super_class = _ATXSuggestionsWidgetSuggestion;
+  v8 = [(_ATXSuggestionsWidgetSuggestion *)&v29 init];
   v9 = v8;
   if (!v8)
   {
@@ -147,32 +150,33 @@ LABEL_8:
 LABEL_8:
     [(ATXHomeScreenWidgetIdentifiable *)v9->super._widget setWidgetUniqueId:*v14];
     v9->super._layoutType = v15;
-    v16 = objc_opt_new();
+    v17 = objc_opt_new();
     suggestionsBySuggestionLayoutTypes = v9->super._suggestionsBySuggestionLayoutTypes;
-    v9->super._suggestionsBySuggestionLayoutTypes = v16;
+    v9->super._suggestionsBySuggestionLayoutTypes = v17;
 
 LABEL_9:
-    v18 = v9;
+    v19 = v9;
     goto LABEL_10;
   }
 
-  if ([(ATXHomeScreenWidgetIdentifiable *)v9->super._widget size]== 2)
+  v16 = [(ATXHomeScreenWidgetIdentifiable *)v9->super._widget size];
+  if (v16 == 2)
   {
     v14 = MEMORY[0x277CEBBB8];
     v15 = 11;
     goto LABEL_8;
   }
 
-  v20 = __atxlog_handle_blending();
-  if (os_log_type_enabled(v20, OS_LOG_TYPE_FAULT))
+  v21 = __atxlog_handle_blending(v16);
+  if (os_log_type_enabled(v21, OS_LOG_TYPE_FAULT))
   {
-    [(_ATXSuggestionsWidgetSuggestion *)v20 initForPreviewOfSize:v21 hyperParameters:v22, v23, v24, v25, v26, v27];
+    [(_ATXSuggestionsWidgetSuggestion *)v21 initForPreviewOfSize:v22 hyperParameters:v23, v24, v25, v26, v27, v28];
   }
 
-  v18 = 0;
+  v19 = 0;
 LABEL_10:
 
-  return v18;
+  return v19;
 }
 
 - (BOOL)containsIdenticalContentOfSuggestion:(id)suggestion
@@ -185,32 +189,52 @@ LABEL_10:
   return suggestionDeduplicator;
 }
 
+- (BOOL)addSuggestion:(id)suggestion asMainSuggestion:(BOOL)mainSuggestion dryRun:(BOOL)run
+{
+  runCopy = run;
+  mainSuggestionCopy = mainSuggestion;
+  suggestionCopy = suggestion;
+  if ([(_ATXCompositeLayoutWidgetSuggestionBase *)self isLayoutComplete]|| ![(ATXBlendingLayerHyperParameters *)self->super._hyperParameters isSuggestionEligibleForSuggestionsWidget:suggestionCopy])
+  {
+    v9 = 0;
+  }
+
+  else
+  {
+    v11.receiver = self;
+    v11.super_class = _ATXSuggestionsWidgetSuggestion;
+    v9 = [(_ATXCompositeLayoutWidgetSuggestionBase *)&v11 addSuggestion:suggestionCopy asMainSuggestion:mainSuggestionCopy dryRun:runCopy];
+  }
+
+  return v9;
+}
+
 - (void)initWithSuggestionsWidget:(uint64_t)a3 containingStack:(uint64_t)a4 suggestionDeduplicator:(uint64_t)a5 hyperParameters:(uint64_t)a6 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_8(&dword_2263AA000, a1, a3, "%s: Widget is not a SuggestionsWidget.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[_ATXSuggestionsWidgetSuggestion initWithSuggestionsWidget:containingStack:suggestionDeduplicator:hyperParameters:]";
+  OUTLINED_FUNCTION_0_8(&dword_2263AA000, a1, a3, "%s: Widget is not a SuggestionsWidget.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)initWithSuggestionsWidget:(uint64_t)a3 containingStack:(uint64_t)a4 suggestionDeduplicator:(uint64_t)a5 hyperParameters:(uint64_t)a6 .cold.2(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_8(&dword_2263AA000, a1, a3, "%s: Incompatible stack size.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[_ATXSuggestionsWidgetSuggestion initWithSuggestionsWidget:containingStack:suggestionDeduplicator:hyperParameters:]";
+  OUTLINED_FUNCTION_0_8(&dword_2263AA000, a1, a3, "%s: Incompatible stack size.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)initWithSuggestionsWidget:(uint64_t)a3 containingStack:(uint64_t)a4 suggestionLayout:(uint64_t)a5 suggestionDeduplicator:(uint64_t)a6 hyperParameters:(uint64_t)a7 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_8(&dword_2263AA000, a1, a3, "%s: SuggestionLayout is incompatible with stack size.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[_ATXSuggestionsWidgetSuggestion initWithSuggestionsWidget:containingStack:suggestionLayout:suggestionDeduplicator:hyperParameters:]";
+  OUTLINED_FUNCTION_0_8(&dword_2263AA000, a1, a3, "%s: SuggestionLayout is incompatible with stack size.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)initForPreviewOfSize:(uint64_t)a3 hyperParameters:(uint64_t)a4 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_8(&dword_2263AA000, a1, a3, "%s: Incompatible stack size.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[_ATXSuggestionsWidgetSuggestion initForPreviewOfSize:hyperParameters:]";
+  OUTLINED_FUNCTION_0_8(&dword_2263AA000, a1, a3, "%s: Incompatible stack size.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

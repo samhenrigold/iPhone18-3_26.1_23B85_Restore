@@ -96,11 +96,11 @@
     identifier = self->_identifier;
     v6 = equalCopy;
     identifier = [v6 identifier];
-    LODWORD(identifier) = [(NSString *)identifier isEqualToString:identifier];
+    LODWORD(identifier) = objc_msgSend_isEqualToString_(identifier);
 
     title = self->_title;
     title = [v6 title];
-    v10 = identifier & [(NSString *)title isEqualToString:title];
+    v10 = identifier & objc_msgSend_isEqualToString_(title);
 
     behavior = self->_behavior;
     if (behavior == [v6 behavior])

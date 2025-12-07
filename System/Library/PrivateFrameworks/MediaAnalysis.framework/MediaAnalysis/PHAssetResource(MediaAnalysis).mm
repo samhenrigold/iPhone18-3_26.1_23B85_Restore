@@ -184,15 +184,15 @@ LABEL_26:
     {
       defaultManager = [MEMORY[0x1E696AC08] defaultManager];
       path = [privateFileURL path];
-      v6 = [defaultManager fileExistsAtPath:path];
+      v7 = [defaultManager fileExistsAtPath:path];
     }
 
     else
     {
-      v6 = 0;
+      v7 = 0;
     }
 
-    return v6;
+    return v7;
   }
 }
 
@@ -258,7 +258,7 @@ LABEL_26:
 
 - (id)mad_existingAnalysisFromComputeSyncForAsset:()MediaAnalysis allowDownload:cancel:
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   v8 = a3;
   v9 = a5;
   if (([v8 mad_isEligibleForComputeSync] & 1) == 0 || !objc_msgSend(v8, "mad_isEligibleForComputeSyncIngestion"))
@@ -274,9 +274,9 @@ LABEL_12:
     {
       localIdentifier = [v8 localIdentifier];
       *buf = 138412546;
-      v31 = localIdentifier;
-      v32 = 1024;
-      LODWORD(v33) = [self type];
+      v34 = localIdentifier;
+      v35 = 1024;
+      LODWORD(v36) = [self type];
       _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "[%@] Invalid resource type (%d), unable to extract analysis results from compute sync", buf, 0x12u);
     }
 
@@ -289,7 +289,7 @@ LABEL_12:
     {
       localIdentifier2 = [v8 localIdentifier];
       *buf = 138412290;
-      v31 = localIdentifier2;
+      v34 = localIdentifier2;
       _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG, "[%@] Analysis extraction from compute sync resource cancelled", buf, 0xCu);
     }
 
@@ -299,63 +299,64 @@ LABEL_12:
   privateFileURL = [self privateFileURL];
   if (a4 && ([objc_opt_class() mad_disableComputeSyncDownload] & 1) == 0)
   {
-    if (([v8 mad_isEligibleForComputeSyncDownloadWithAnalysisTask:1] & 1) == 0)
+    v16 = [v8 mad_isEligibleForComputeSyncDownloadWithAnalysisTask:1];
+    if ((v16 & 1) == 0)
     {
       if (MediaAnalysisLogLevel() >= 6 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
       {
         localIdentifier3 = [v8 localIdentifier];
         *buf = 138412546;
-        v31 = localIdentifier3;
-        v32 = 1024;
-        LODWORD(v33) = 1;
+        v34 = localIdentifier3;
+        v35 = 1024;
+        LODWORD(v36) = 1;
         _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "[%@] Ineligible for compute sync downalod with taskID %d", buf, 0x12u);
       }
 
       goto LABEL_46;
     }
 
-    v16 = VCPSignPostLog();
-    v17 = os_signpost_id_generate(v16);
+    v17 = VCPSignPostLog(v16);
+    v18 = os_signpost_id_generate(v17);
 
-    v18 = VCPSignPostLog();
-    v19 = v18;
-    if (v17 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v18))
+    v20 = VCPSignPostLog(v19);
+    v21 = v20;
+    if (v18 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v20))
     {
       *buf = 0;
-      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v19, OS_SIGNPOST_INTERVAL_BEGIN, v17, "MADDownloadComputeSyncResource", "", buf, 2u);
+      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v21, OS_SIGNPOST_INTERVAL_BEGIN, v18, "MADDownloadComputeSyncResource", "", buf, 2u);
     }
 
-    v29 = privateFileURL;
-    v20 = [MEMORY[0x1E69786E8] vcp_requestFileURLForAssetResource:self withTaskID:1 toResourceURL:&v29 cancel:v9];
-    v21 = v29;
+    v32 = privateFileURL;
+    v22 = [MEMORY[0x1E69786E8] vcp_requestFileURLForAssetResource:self withTaskID:1 toResourceURL:&v32 cancel:v9];
+    v23 = v32;
 
-    v22 = VCPSignPostLog();
-    v23 = v22;
-    if (v17 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v22))
+    v25 = VCPSignPostLog(v24);
+    v26 = v25;
+    if (v18 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v25))
     {
       *buf = 0;
-      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v23, OS_SIGNPOST_INTERVAL_END, v17, "MADDownloadComputeSyncResource", "", buf, 2u);
+      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v26, OS_SIGNPOST_INTERVAL_END, v18, "MADDownloadComputeSyncResource", "", buf, 2u);
     }
 
-    if (v20)
+    if (v22)
     {
       if (MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
         localIdentifier4 = [v8 localIdentifier];
         *buf = 138412546;
-        v31 = localIdentifier4;
-        v32 = 1024;
-        LODWORD(v33) = v20;
+        v34 = localIdentifier4;
+        v35 = 1024;
+        LODWORD(v36) = v22;
         _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "[%@] Failed to download compute sync resource (%d)", buf, 0x12u);
       }
 
       v12 = 0;
-      privateFileURL = v21;
+      privateFileURL = v23;
       goto LABEL_47;
     }
 
-    privateFileURL = v21;
-    if (v21)
+    privateFileURL = v23;
+    if (v23)
     {
       goto LABEL_19;
     }
@@ -379,9 +380,9 @@ LABEL_19:
           localIdentifier5 = [v8 localIdentifier];
           path = [privateFileURL path];
           *buf = 138412546;
-          v31 = localIdentifier5;
-          v32 = 2112;
-          v33 = path;
+          v34 = localIdentifier5;
+          v35 = 2112;
+          v36 = path;
           _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG, "[%@] No MediaAnalysis payload data in compute sync resource at %@", buf, 0x16u);
         }
 
@@ -396,9 +397,9 @@ LABEL_19:
   {
     localIdentifier6 = [v8 localIdentifier];
     *buf = 138412546;
-    v31 = localIdentifier6;
-    v32 = 1024;
-    LODWORD(v33) = a4;
+    v34 = localIdentifier6;
+    v35 = 1024;
+    LODWORD(v36) = a4;
     _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG, "[%@] Compute sync resource not locally available (allowDownload: %d)", buf, 0x12u);
   }
 
@@ -413,7 +414,7 @@ LABEL_13:
 
 - (uint64_t)mad_isAnalysisCompleteFromComputeSyncForAsset:()MediaAnalysis taskID:allowDownload:cancel:
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v48 = *MEMORY[0x1E69E9840];
   v10 = a3;
   v11 = a6;
   if (([v10 mad_isEligibleForComputeSync] & 1) != 0 && objc_msgSend(v10, "mad_isEligibleForComputeSyncIngestion"))
@@ -424,9 +425,9 @@ LABEL_13:
       {
         localIdentifier = [v10 localIdentifier];
         *buf = 138412546;
-        v36 = localIdentifier;
-        v37 = 1024;
-        LODWORD(v38) = [self type];
+        v39 = localIdentifier;
+        v40 = 1024;
+        LODWORD(v41) = [self type];
         _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "[%@] Invalid resource type (%d), unable to extract analysis results from compute sync", buf, 0x12u);
       }
 
@@ -439,7 +440,7 @@ LABEL_13:
       {
         localIdentifier2 = [v10 localIdentifier];
         *buf = 138412290;
-        v36 = localIdentifier2;
+        v39 = localIdentifier2;
         _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG, "[%@] Analysis extraction from compute sync resource cancelled", buf, 0xCu);
       }
 
@@ -452,33 +453,34 @@ LABEL_13:
       goto LABEL_16;
     }
 
-    if ([v10 mad_isEligibleForComputeSyncDownloadWithAnalysisTask:a4])
+    v22 = [v10 mad_isEligibleForComputeSyncDownloadWithAnalysisTask:a4];
+    if (v22)
     {
-      v22 = VCPSignPostLog();
-      v23 = os_signpost_id_generate(v22);
+      v23 = VCPSignPostLog(v22);
+      v24 = os_signpost_id_generate(v23);
 
-      v24 = VCPSignPostLog();
-      v25 = v24;
-      if (v23 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v24))
+      v26 = VCPSignPostLog(v25);
+      v27 = v26;
+      if (v24 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v26))
       {
         *buf = 0;
-        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v25, OS_SIGNPOST_INTERVAL_BEGIN, v23, "MADDownloadComputeSyncResource", "", buf, 2u);
+        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v27, OS_SIGNPOST_INTERVAL_BEGIN, v24, "MADDownloadComputeSyncResource", "", buf, 2u);
       }
 
-      v34 = privateFileURL;
-      v26 = [MEMORY[0x1E69786E8] vcp_requestFileURLForAssetResource:self withTaskID:a4 toResourceURL:&v34 cancel:v11];
-      v27 = v34;
+      v37 = privateFileURL;
+      v28 = [MEMORY[0x1E69786E8] vcp_requestFileURLForAssetResource:self withTaskID:a4 toResourceURL:&v37 cancel:v11];
+      v29 = v37;
 
-      privateFileURL = v27;
-      v28 = VCPSignPostLog();
-      v29 = v28;
-      if (v23 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v28))
+      privateFileURL = v29;
+      v31 = VCPSignPostLog(v30);
+      v32 = v31;
+      if (v24 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v31))
       {
         *buf = 0;
-        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v29, OS_SIGNPOST_INTERVAL_END, v23, "MADDownloadComputeSyncResource", "", buf, 2u);
+        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v32, OS_SIGNPOST_INTERVAL_END, v24, "MADDownloadComputeSyncResource", "", buf, 2u);
       }
 
-      if (!v26 && privateFileURL && ([self isLocallyAvailable] & 1) != 0)
+      if (!v28 && privateFileURL && ([self isLocallyAvailable] & 1) != 0)
       {
         mad_refetchAsset = [v10 mad_refetchAsset];
         if (mad_refetchAsset)
@@ -495,20 +497,20 @@ LABEL_16:
             v20 = v19;
             v21 = @"complete";
             *buf = 138413314;
-            v36 = localIdentifier3;
-            v37 = 2112;
+            v39 = localIdentifier3;
+            v40 = 2112;
             if (v17)
             {
               v21 = @"incomplete";
             }
 
-            v38 = v19;
-            v39 = 2112;
-            v40 = v21;
-            v41 = 2112;
-            v42 = privateFileURL;
-            v43 = 1024;
-            v44 = a5;
+            v41 = v19;
+            v42 = 2112;
+            v43 = v21;
+            v44 = 2112;
+            v45 = privateFileURL;
+            v46 = 1024;
+            v47 = a5;
             _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "[%@] %@ %@ with compute sync resource at %@ (allowDownload: %d)", buf, 0x30u);
           }
 
@@ -519,7 +521,7 @@ LABEL_16:
         {
           localIdentifier4 = [v10 localIdentifier];
           *buf = 138412290;
-          v36 = localIdentifier4;
+          v39 = localIdentifier4;
           _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "[%@] Failed to re-fetch asset after compute sync download attempt", buf, 0xCu);
         }
       }
@@ -528,9 +530,9 @@ LABEL_16:
       {
         localIdentifier5 = [v10 localIdentifier];
         *buf = 138412546;
-        v36 = localIdentifier5;
-        v37 = 1024;
-        LODWORD(v38) = v26;
+        v39 = localIdentifier5;
+        v40 = 1024;
+        LODWORD(v41) = v28;
         _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "[%@] Failed to download compute sync resource (%d)", buf, 0x12u);
       }
     }
@@ -539,9 +541,9 @@ LABEL_16:
     {
       localIdentifier6 = [v10 localIdentifier];
       *buf = 138412546;
-      v36 = localIdentifier6;
-      v37 = 1024;
-      LODWORD(v38) = a4;
+      v39 = localIdentifier6;
+      v40 = 1024;
+      LODWORD(v41) = a4;
       _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "[%@] Ineligible for compute sync downalod with taskID %d", buf, 0x12u);
     }
 

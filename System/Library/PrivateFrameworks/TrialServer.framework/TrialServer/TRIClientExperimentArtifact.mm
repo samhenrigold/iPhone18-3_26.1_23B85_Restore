@@ -1,5 +1,6 @@
 @interface TRIClientExperimentArtifact
 + (id)allReferencedCKRecordKeys;
++ (id)artifactFromCKRecordResult:(id)result withContainer:(int)container teamId:(id)id requireDeploymentId:(BOOL)deploymentId completion:(id)completion;
 + (id)artifactWithExperiment:(id)experiment;
 + (id)parseFromData:(id)data error:(id *)error;
 - (BOOL)hasNamespacesAvailableForExperimentWithDatabase:(id)database;
@@ -92,16 +93,16 @@
 
 - (TRIClientExperiment)experiment
 {
-  *&v29[5] = *MEMORY[0x277D85DE8];
+  *&v28[5] = *MEMORY[0x277D85DE8];
   encodedExperimentDefinition = [(TRIClientExperimentArtifact *)self encodedExperimentDefinition];
 
   if (encodedExperimentDefinition)
   {
     v4 = MEMORY[0x277D73AD0];
     encodedExperimentDefinition2 = [(TRIClientExperimentArtifact *)self encodedExperimentDefinition];
-    v25 = 0;
-    v6 = [v4 parseFromData:encodedExperimentDefinition2 error:&v25];
-    v7 = v25;
+    v24 = 0;
+    v6 = [v4 parseFromData:encodedExperimentDefinition2 error:&v24];
+    v7 = v24;
 
     if (v7 || !v6)
     {
@@ -109,7 +110,7 @@
       if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v27 = v7;
+        v26 = v7;
         _os_log_impl(&dword_26F567000, v16, OS_LOG_TYPE_DEFAULT, "failed to decode experiment: %@", buf, 0xCu);
       }
     }
@@ -123,7 +124,7 @@
         {
           experimentId = [(TRIClientExperimentArtifact *)self experimentId];
           *buf = 138412290;
-          v27 = experimentId;
+          v26 = experimentId;
           _os_log_error_impl(&dword_26F567000, v8, OS_LOG_TYPE_ERROR, "experiment definition contains no experiment id.  assume id %@", buf, 0xCu);
         }
 
@@ -161,11 +162,11 @@ LABEL_26:
           experimentId5 = [(TRIClientExperimentArtifact *)self experimentId];
           deploymentId2 = [(TRIClientExperimentArtifact *)self deploymentId];
           *buf = 138412802;
-          v27 = experimentId5;
-          v28 = 1024;
-          *v29 = deploymentId2;
-          v29[2] = 1024;
-          *&v29[3] = deploymentId;
+          v26 = experimentId5;
+          v27 = 1024;
+          *v28 = deploymentId2;
+          v28[2] = 1024;
+          *&v28[3] = deploymentId;
           _os_log_error_impl(&dword_26F567000, v17, OS_LOG_TYPE_ERROR, "deployment id mismatch for experiment %@: %d != %d", buf, 0x18u);
         }
       }
@@ -178,9 +179,9 @@ LABEL_26:
           experimentId6 = [(TRIClientExperimentArtifact *)self experimentId];
           experimentId7 = [v6 experimentId];
           *buf = 138412546;
-          v27 = experimentId6;
-          v28 = 2112;
-          *v29 = experimentId7;
+          v26 = experimentId6;
+          v27 = 2112;
+          *v28 = experimentId7;
           _os_log_error_impl(&dword_26F567000, v17, OS_LOG_TYPE_ERROR, "experiment id mismatch: %@ != %@", buf, 0x16u);
         }
       }
@@ -195,23 +196,21 @@ LABEL_26:
   {
     experimentId8 = [(TRIClientExperimentArtifact *)self experimentId];
     *buf = 138412546;
-    v27 = experimentId8;
-    v28 = 1024;
-    *v29 = [(TRIClientExperimentArtifact *)self experimentType];
+    v26 = experimentId8;
+    v27 = 1024;
+    *v28 = [(TRIClientExperimentArtifact *)self experimentType];
     _os_log_impl(&dword_26F567000, v7, OS_LOG_TYPE_DEFAULT, "no experiment definition to decode experimentId: %@ type: %d", buf, 0x12u);
   }
 
   v15 = 0;
 LABEL_27:
 
-  v20 = *MEMORY[0x277D85DE8];
-
   return v15;
 }
 
 id __59__TRIClientExperimentArtifact__convertNamespaceIdsToNames___block_invoke(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v2 = a2;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -234,24 +233,22 @@ id __59__TRIClientExperimentArtifact__convertNamespaceIdsToNames___block_invoke(
       v7 = TRILogCategory_Server();
       if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
-        *v12 = 138543618;
-        *&v12[4] = v2;
-        *&v12[12] = 2112;
-        *&v12[14] = objc_opt_class();
-        v11 = *&v12[14];
-        _os_log_error_impl(&dword_26F567000, v7, OS_LOG_TYPE_ERROR, "unexpected type for namespace: %{public}@ <%@>", v12, 0x16u);
+        *v11 = 138543618;
+        *&v11[4] = v2;
+        *&v11[12] = 2112;
+        *&v11[14] = objc_opt_class();
+        v10 = *&v11[14];
+        _os_log_error_impl(&dword_26F567000, v7, OS_LOG_TYPE_ERROR, "unexpected type for namespace: %{public}@ <%@>", v11, 0x16u);
       }
 
       v6 = MEMORY[0x277D73B50];
       v5 = 0;
     }
 
-    v3 = [v6 namespaceNameFromId:{v5, *v12, *&v12[16], v13}];
+    v3 = [v6 namespaceNameFromId:{v5, *v11, *&v11[8], v12}];
   }
 
   v8 = v3;
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -285,7 +282,7 @@ id __59__TRIClientExperimentArtifact__convertNamespaceIdsToNames___block_invoke(
 
 - (BOOL)hasValidNamespacesWithError:(id *)error
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   namespaces = [(TRIClientExperimentArtifact *)self namespaces];
   if (!namespaces || (v6 = namespaces, -[TRIClientExperimentArtifact namespaces](self, "namespaces"), v7 = objc_claimAutoreleasedReturnValue(), v8 = [v7 count], v7, v6, !v8))
   {
@@ -294,13 +291,13 @@ id __59__TRIClientExperimentArtifact__convertNamespaceIdsToNames___block_invoke(
     {
       experimentId = [(TRIClientExperimentArtifact *)self experimentId];
       *buf = 138412290;
-      v36 = experimentId;
+      v35 = experimentId;
       _os_log_error_impl(&dword_26F567000, v14, OS_LOG_TYPE_ERROR, "missing namespaces in definition of experiment %@", buf, 0xCu);
     }
 
     if (!error)
     {
-      goto LABEL_14;
+      return 0;
     }
 
     v15 = MEMORY[0x277CCACA8];
@@ -308,11 +305,11 @@ id __59__TRIClientExperimentArtifact__convertNamespaceIdsToNames___block_invoke(
     v17 = [v15 stringWithFormat:@"missing namespaces in definition of experiment %@", experimentId2];
 
     v18 = objc_alloc(MEMORY[0x277CCA9B8]);
-    v33 = *MEMORY[0x277CCA450];
-    v34 = v17;
+    v32 = *MEMORY[0x277CCA450];
+    v33 = v17;
     v19 = MEMORY[0x277CBEAC0];
-    v20 = &v34;
-    v21 = &v33;
+    v20 = &v33;
+    v21 = &v32;
     goto LABEL_13;
   }
 
@@ -321,52 +318,45 @@ id __59__TRIClientExperimentArtifact__convertNamespaceIdsToNames___block_invoke(
   namespaceCompatibilityVersions = [(TRIClientExperimentArtifact *)self namespaceCompatibilityVersions];
   v12 = [namespaceCompatibilityVersions count];
 
-  if (v10 != v12)
+  if (v10 == v12)
   {
-    v22 = TRILogCategory_Server();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
-    {
-      experimentId3 = [(TRIClientExperimentArtifact *)self experimentId];
-      *buf = 138412290;
-      v36 = experimentId3;
-      _os_log_error_impl(&dword_26F567000, v22, OS_LOG_TYPE_ERROR, "mismatch in namespaces and namespace compatibility versions in definition of experiment %@", buf, 0xCu);
-    }
+    return 1;
+  }
 
-    if (!error)
-    {
-      goto LABEL_14;
-    }
+  v22 = TRILogCategory_Server();
+  if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+  {
+    experimentId3 = [(TRIClientExperimentArtifact *)self experimentId];
+    *buf = 138412290;
+    v35 = experimentId3;
+    _os_log_error_impl(&dword_26F567000, v22, OS_LOG_TYPE_ERROR, "mismatch in namespaces and namespace compatibility versions in definition of experiment %@", buf, 0xCu);
+  }
 
+  if (error)
+  {
     v23 = MEMORY[0x277CCACA8];
     experimentId4 = [(TRIClientExperimentArtifact *)self experimentId];
     v17 = [v23 stringWithFormat:@"mismatch in namespaces and namespace compatibility versions in definition of experiment %@", experimentId4];
 
     v18 = objc_alloc(MEMORY[0x277CCA9B8]);
-    v31 = *MEMORY[0x277CCA450];
-    v32 = v17;
+    v30 = *MEMORY[0x277CCA450];
+    v31 = v17;
     v19 = MEMORY[0x277CBEAC0];
-    v20 = &v32;
-    v21 = &v31;
+    v20 = &v31;
+    v21 = &v30;
 LABEL_13:
     v25 = [v19 dictionaryWithObjects:v20 forKeys:v21 count:1];
     v26 = [v18 initWithDomain:@"TRIGeneralErrorDomain" code:1 userInfo:v25];
     v27 = *error;
     *error = v26;
-
-LABEL_14:
-    result = 0;
-    goto LABEL_15;
   }
 
-  result = 1;
-LABEL_15:
-  v28 = *MEMORY[0x277D85DE8];
-  return result;
+  return 0;
 }
 
 - (BOOL)isCompatibleWithNamespaceDescriptorProvider:(id)provider error:(id *)error
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   providerCopy = provider;
   if ([(TRIClientExperimentArtifact *)self experimentType]== 1)
   {
@@ -382,9 +372,9 @@ LABEL_15:
           v10 = TRIDeploymentEnvironment_EnumDescriptor();
           v11 = [v10 enumNameForValue:{-[TRIClientExperimentArtifact deploymentEnvironment](self, "deploymentEnvironment")}];
           *buf = 138412546;
-          v25 = shortDesc;
-          v26 = 2112;
-          v27 = v11;
+          v24 = shortDesc;
+          v25 = 2112;
+          v26 = v11;
           _os_log_impl(&dword_26F567000, v7, OS_LOG_TYPE_DEFAULT, "experiment %@ has deployment environment %@; bypassing namespace descriptor checks.", buf, 0x16u);
         }
 
@@ -396,18 +386,18 @@ LABEL_15:
         v13 = objc_opt_new();
         v14 = objc_opt_new();
         namespaces = [(TRIClientExperimentArtifact *)self namespaces];
-        v19[0] = MEMORY[0x277D85DD0];
-        v19[1] = 3221225472;
-        v19[2] = __81__TRIClientExperimentArtifact_isCompatibleWithNamespaceDescriptorProvider_error___block_invoke;
-        v19[3] = &unk_279DDF5E0;
-        v19[4] = self;
-        v20 = providerCopy;
-        v21 = v13;
-        v22 = v14;
+        v18[0] = MEMORY[0x277D85DD0];
+        v18[1] = 3221225472;
+        v18[2] = __81__TRIClientExperimentArtifact_isCompatibleWithNamespaceDescriptorProvider_error___block_invoke;
+        v18[3] = &unk_279DDF5E0;
+        v18[4] = self;
+        v19 = providerCopy;
+        v20 = v13;
+        v21 = v14;
         errorCopy = error;
         v16 = v14;
         v7 = v13;
-        [namespaces enumerateObjectsUsingBlock:v19];
+        [namespaces enumerateObjectsUsingBlock:v18];
 
         v12 = [v16 isEqualToSet:v7];
       }
@@ -424,13 +414,12 @@ LABEL_15:
     v12 = 1;
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
 void __81__TRIClientExperimentArtifact_isCompatibleWithNamespaceDescriptorProvider_error___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v41[1] = *MEMORY[0x277D85DE8];
+  v40[1] = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = [*(a1 + 32) namespaceCompatibilityVersions];
   v7 = [v6 objectAtIndexedSubscript:a3];
@@ -449,15 +438,15 @@ void __81__TRIClientExperimentArtifact_isCompatibleWithNamespaceDescriptorProvid
     v21 = TRILogCategory_Server();
     if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
-      v29 = [*(a1 + 32) experimentId];
+      v28 = [*(a1 + 32) experimentId];
       *buf = 138413058;
-      v33 = v29;
-      v34 = 2114;
-      v35 = v5;
-      v36 = 1024;
-      v37 = v8;
-      v38 = 1024;
-      v39 = [v10 downloadNCV];
+      v32 = v28;
+      v33 = 2114;
+      v34 = v5;
+      v35 = 1024;
+      v36 = v8;
+      v37 = 1024;
+      v38 = [v10 downloadNCV];
       _os_log_error_impl(&dword_26F567000, v21, OS_LOG_TYPE_ERROR, "experiment %@ with namespace %{public}@ has compatibility version %u which is incompatible with compatibility version %u found locally", buf, 0x22u);
     }
 
@@ -468,11 +457,11 @@ void __81__TRIClientExperimentArtifact_isCompatibleWithNamespaceDescriptorProvid
       v16 = [v22 stringWithFormat:@"experiment %@ with namespace %@ has compatibility version %u which is incompatible with compatibility version %u found locally", v23, v5, v8, objc_msgSend(v10, "downloadNCV")];
 
       v17 = objc_alloc(MEMORY[0x277CCA9B8]);
-      v30 = *MEMORY[0x277CCA450];
-      v31 = v16;
+      v29 = *MEMORY[0x277CCA450];
+      v30 = v16;
       v18 = MEMORY[0x277CBEAC0];
-      v19 = &v31;
-      v20 = &v30;
+      v19 = &v30;
+      v20 = &v29;
       goto LABEL_12;
     }
   }
@@ -485,9 +474,9 @@ void __81__TRIClientExperimentArtifact_isCompatibleWithNamespaceDescriptorProvid
       v12 = [*(a1 + 32) experimentDeployment];
       v13 = [v12 shortDesc];
       *buf = 138412546;
-      v33 = v13;
-      v34 = 2114;
-      v35 = v5;
+      v32 = v13;
+      v33 = 2114;
+      v34 = v5;
       _os_log_impl(&dword_26F567000, v11, OS_LOG_TYPE_DEFAULT, "Warning: experiment %@ specifies namespace %{public}@, which is not registered with Trial", buf, 0x16u);
     }
 
@@ -498,11 +487,11 @@ void __81__TRIClientExperimentArtifact_isCompatibleWithNamespaceDescriptorProvid
       v16 = [v14 stringWithFormat:@"experiment %@ specifies namespace %@, which is not registered with Trial. Please make sure namespace descriptor for %@ is installed.", v15, v5, v5];
 
       v17 = objc_alloc(MEMORY[0x277CCA9B8]);
-      v40 = *MEMORY[0x277CCA450];
-      v41[0] = v16;
+      v39 = *MEMORY[0x277CCA450];
+      v40[0] = v16;
       v18 = MEMORY[0x277CBEAC0];
-      v19 = v41;
-      v20 = &v40;
+      v19 = v40;
+      v20 = &v39;
 LABEL_12:
       v24 = [v18 dictionaryWithObjects:v19 forKeys:v20 count:1];
       v25 = [v17 initWithDomain:@"TRIGeneralErrorDomain" code:1 userInfo:v24];
@@ -514,13 +503,11 @@ LABEL_12:
 
 LABEL_13:
   [*(a1 + 56) addObject:v5];
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)saveWithDatabase:(id)database paths:(id)paths
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   databaseCopy = database;
   experiment = [(TRIClientExperimentArtifact *)self experiment];
   v7 = experiment;
@@ -545,22 +532,22 @@ LABEL_13:
             {
               v15 = namespaceCompatibilityVersions;
               [(TRIClientExperimentArtifact *)self namespaces];
-              v16 = v32 = v11;
-              v31 = [v16 count];
+              v16 = v31 = v11;
+              v30 = [v16 count];
               namespaceCompatibilityVersions2 = [(TRIClientExperimentArtifact *)self namespaceCompatibilityVersions];
               v18 = [namespaceCompatibilityVersions2 count];
 
-              v11 = v32;
-              if (v31 == v18)
+              v11 = v31;
+              if (v30 == v18)
               {
                 namespaces2 = [(TRIClientExperimentArtifact *)self namespaces];
-                v33[0] = MEMORY[0x277D85DD0];
-                v33[1] = 3221225472;
-                v33[2] = __54__TRIClientExperimentArtifact_saveWithDatabase_paths___block_invoke;
-                v33[3] = &unk_279DDF608;
-                v33[4] = self;
-                v34 = v32;
-                [namespaces2 enumerateObjectsUsingBlock:v33];
+                v32[0] = MEMORY[0x277D85DD0];
+                v32[1] = 3221225472;
+                v32[2] = __54__TRIClientExperimentArtifact_saveWithDatabase_paths___block_invoke;
+                v32[3] = &unk_279DDF608;
+                v32[4] = self;
+                v33 = v31;
+                [namespaces2 enumerateObjectsUsingBlock:v32];
               }
             }
 
@@ -601,7 +588,7 @@ LABEL_13:
         if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412290;
-          v36 = experimentId;
+          v35 = experimentId;
           v21 = "can't save experiment id %@ with nil deploymentId";
           v22 = v10;
           v23 = 12;
@@ -641,14 +628,13 @@ LABEL_17:
   {
     experimentId2 = [(TRIClientExperimentArtifact *)self experimentId];
     *buf = 138412290;
-    v36 = experimentId2;
+    v35 = experimentId2;
     _os_log_error_impl(&dword_26F567000, experimentId, OS_LOG_TYPE_ERROR, "no client experiment found on artifact for experiment id %@", buf, 0xCu);
   }
 
   v20 = 0;
 LABEL_18:
 
-  v24 = *MEMORY[0x277D85DE8];
   return v20;
 }
 
@@ -740,7 +726,7 @@ void __54__TRIClientExperimentArtifact_saveWithDatabase_paths___block_invoke(uin
 
 - (id)asPersistedArtifact
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   v3 = objc_opt_new();
   experimentId = [(TRIClientExperimentArtifact *)self experimentId];
   [v3 setExperimentId:experimentId];
@@ -810,31 +796,31 @@ void __54__TRIClientExperimentArtifact_saveWithDatabase_paths___block_invoke(uin
 
   if (namespaceCompatibilityVersions)
   {
-    v32 = 0u;
-    v33 = 0u;
-    v30 = 0u;
     v31 = 0u;
+    v32 = 0u;
+    v29 = 0u;
+    v30 = 0u;
     namespaceCompatibilityVersions2 = [(TRIClientExperimentArtifact *)self namespaceCompatibilityVersions];
-    v22 = [namespaceCompatibilityVersions2 countByEnumeratingWithState:&v30 objects:v34 count:16];
+    v22 = [namespaceCompatibilityVersions2 countByEnumeratingWithState:&v29 objects:v33 count:16];
     if (v22)
     {
       v23 = v22;
-      v24 = *v31;
+      v24 = *v30;
       do
       {
         for (i = 0; i != v23; ++i)
         {
-          if (*v31 != v24)
+          if (*v30 != v24)
           {
             objc_enumerationMutation(namespaceCompatibilityVersions2);
           }
 
-          v26 = *(*(&v30 + 1) + 8 * i);
+          v26 = *(*(&v29 + 1) + 8 * i);
           namespaceCompatibilityVersionsArray = [v3 namespaceCompatibilityVersionsArray];
           [namespaceCompatibilityVersionsArray addValue:{objc_msgSend(v26, "unsignedIntValue")}];
         }
 
-        v23 = [namespaceCompatibilityVersions2 countByEnumeratingWithState:&v30 objects:v34 count:16];
+        v23 = [namespaceCompatibilityVersions2 countByEnumeratingWithState:&v29 objects:v33 count:16];
       }
 
       while (v23);
@@ -842,7 +828,6 @@ void __54__TRIClientExperimentArtifact_saveWithDatabase_paths___block_invoke(uin
   }
 
   [v3 setDeploymentEnvironment:{-[TRIClientExperimentArtifact deploymentEnvironment](self, "deploymentEnvironment")}];
-  v28 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
@@ -866,12 +851,12 @@ void __54__TRIClientExperimentArtifact_saveWithDatabase_paths___block_invoke(uin
 
 + (id)parseFromData:(id)data error:(id *)error
 {
-  v36[1] = *MEMORY[0x277D85DE8];
+  v35[1] = *MEMORY[0x277D85DE8];
   dataCopy = data;
   v6 = objc_autoreleasePoolPush();
-  v34 = 0;
-  v7 = [(TRIPBMessage *)TRIPersistedExperimentArtifact parseFromData:dataCopy error:&v34];
-  v8 = v34;
+  v33 = 0;
+  v7 = [(TRIPBMessage *)TRIPersistedExperimentArtifact parseFromData:dataCopy error:&v33];
+  v8 = v33;
   v9 = v8;
   if (v7)
   {
@@ -979,13 +964,13 @@ void __54__TRIClientExperimentArtifact_saveWithDatabase_paths___block_invoke(uin
       {
         v27 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(v7, "namespaceCompatibilityVersionsArray_Count")}];
         namespaceCompatibilityVersionsArray = [v7 namespaceCompatibilityVersionsArray];
-        v32[0] = MEMORY[0x277D85DD0];
-        v32[1] = 3221225472;
-        v32[2] = __51__TRIClientExperimentArtifact_parseFromData_error___block_invoke;
-        v32[3] = &unk_279DDF630;
-        v33 = v27;
+        v31[0] = MEMORY[0x277D85DD0];
+        v31[1] = 3221225472;
+        v31[2] = __51__TRIClientExperimentArtifact_parseFromData_error___block_invoke;
+        v31[3] = &unk_279DDF630;
+        v32 = v27;
         v29 = v27;
-        [namespaceCompatibilityVersionsArray enumerateValuesWithBlock:v32];
+        [namespaceCompatibilityVersionsArray enumerateValuesWithBlock:v31];
 
         [v14 setNamespaceCompatibilityVersions:v29];
       }
@@ -996,9 +981,9 @@ void __54__TRIClientExperimentArtifact_saveWithDatabase_paths___block_invoke(uin
     if (error)
     {
       v16 = objc_alloc(MEMORY[0x277CCA9B8]);
-      v35 = *MEMORY[0x277CCA450];
-      v36[0] = @"TRIPersistedExperimentArtifact has nil experimentId";
-      v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v36 forKeys:&v35 count:1];
+      v34 = *MEMORY[0x277CCA450];
+      v35[0] = @"TRIPersistedExperimentArtifact has nil experimentId";
+      v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v35 forKeys:&v34 count:1];
       v17 = [v16 initWithDomain:@"TRIGeneralErrorDomain" code:1 userInfo:v15];
       v18 = *error;
       *error = v17;
@@ -1025,8 +1010,6 @@ LABEL_34:
 
 LABEL_35:
   objc_autoreleasePoolPop(v6);
-
-  v30 = *MEMORY[0x277D85DE8];
 
   return v14;
 }
@@ -1377,33 +1360,326 @@ LABEL_54:
 
 + (id)allReferencedCKRecordKeys
 {
-  v12[15] = *MEMORY[0x277D85DE8];
+  v11[15] = *MEMORY[0x277D85DE8];
   v2 = *MEMORY[0x277D738B8];
-  v12[0] = *MEMORY[0x277D738E0];
-  v12[1] = v2;
+  v11[0] = *MEMORY[0x277D738E0];
+  v11[1] = v2;
   v3 = *MEMORY[0x277D738D0];
-  v12[2] = *MEMORY[0x277D738B0];
-  v12[3] = v3;
+  v11[2] = *MEMORY[0x277D738B0];
+  v11[3] = v3;
   v4 = *MEMORY[0x277D73928];
-  v12[4] = *MEMORY[0x277D738D8];
-  v12[5] = v4;
+  v11[4] = *MEMORY[0x277D738D8];
+  v11[5] = v4;
   v5 = *MEMORY[0x277D738F8];
-  v12[6] = *MEMORY[0x277D738F0];
-  v12[7] = v5;
+  v11[6] = *MEMORY[0x277D738F0];
+  v11[7] = v5;
   v6 = *MEMORY[0x277D73908];
-  v12[8] = *MEMORY[0x277D738E8];
-  v12[9] = v6;
+  v11[8] = *MEMORY[0x277D738E8];
+  v11[9] = v6;
   v7 = *MEMORY[0x277D73910];
-  v12[10] = *MEMORY[0x277D738C8];
-  v12[11] = v7;
+  v11[10] = *MEMORY[0x277D738C8];
+  v11[11] = v7;
   v8 = *MEMORY[0x277D738A8];
-  v12[12] = *MEMORY[0x277D73918];
-  v12[13] = v8;
-  v12[14] = *MEMORY[0x277D73900];
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:15];
-  v10 = *MEMORY[0x277D85DE8];
+  v11[12] = *MEMORY[0x277D73918];
+  v11[13] = v8;
+  v11[14] = *MEMORY[0x277D73900];
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:15];
 
   return v9;
+}
+
++ (id)artifactFromCKRecordResult:(id)result withContainer:(int)container teamId:(id)id requireDeploymentId:(BOOL)deploymentId completion:(id)completion
+{
+  deploymentIdCopy = deploymentId;
+  v10 = *&container;
+  v96[1] = *MEMORY[0x277D85DE8];
+  resultCopy = result;
+  idCopy = id;
+  completionCopy = completion;
+  values = [resultCopy values];
+  v15 = values;
+  if (values)
+  {
+    v16 = [values triStringValueForField:*MEMORY[0x277D738E0] isNestedValue:0];
+    v17 = [v15 triNumberValueForField:*MEMORY[0x277D738B8] isNestedValue:0];
+    if (v17)
+    {
+      v18 = v17;
+    }
+
+    else
+    {
+      v18 = &unk_287FC45A0;
+    }
+
+    if (v17)
+    {
+      v19 = 1;
+    }
+
+    else
+    {
+      v19 = !deploymentIdCopy;
+    }
+
+    if (!v19)
+    {
+      v43 = TRILogCategory_Server();
+      if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
+      {
+        recordID = [resultCopy recordID];
+        *buf = 138412546;
+        v92 = recordID;
+        v93 = 2112;
+        v94 = v16;
+        _os_log_error_impl(&dword_26F567000, v43, OS_LOG_TYPE_ERROR, "CloudKit record %@ with experiment %@ is missing the deployment id", buf, 0x16u);
+      }
+
+      v45 = MEMORY[0x277CCACA8];
+      recordID2 = [resultCopy recordID];
+      v18 = [v45 stringWithFormat:@"CloudKit record %@ with experiment %@ is missing the deployment id", recordID2, v16];
+
+      v47 = objc_alloc(MEMORY[0x277CCA9B8]);
+      v89 = *MEMORY[0x277CCA450];
+      v90 = v18;
+      v48 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v90 forKeys:&v89 count:1];
+      v20 = [v47 initWithDomain:@"TRIGeneralErrorDomain" code:1 userInfo:v48];
+
+      completionCopy[2](completionCopy, 0, v20);
+      v42 = 0;
+      goto LABEL_53;
+    }
+
+    v20 = [objc_alloc(MEMORY[0x277D736C0]) initWithExperimentId:v16 deploymentId:{objc_msgSend(v18, "intValue")}];
+    v21 = [TRIClientExperimentArtifact artifactWithExperiment:v20];
+    [v21 setCloudKitContainer:v10];
+    [v21 setTeamId:idCopy];
+    v22 = [v15 triDataForField:*MEMORY[0x277D738D0]];
+    [v21 setEncodedExperimentDefinition:v22];
+
+    v23 = [v15 triStringValueForField:*MEMORY[0x277D738D8] isNestedValue:0];
+    [v21 setEncodedExperimentDefinitionSignature:v23];
+
+    v24 = [v15 triDataForField:*MEMORY[0x277D73928]];
+    [v21 setPublicCertificate:v24];
+
+    v25 = [v15 triArrayValueForField:*MEMORY[0x277D73918] isNestedValue:0];
+    [v21 setNamespaces:v25];
+
+    v26 = [v15 triArrayValueForField:*MEMORY[0x277D73910] isNestedValue:0];
+    [v21 setNamespaceCompatibilityVersions:v26];
+
+    v27 = [v15 triNumberValueForField:*MEMORY[0x277D738F0] isNestedValue:0];
+    v28 = v27;
+    if (v27)
+    {
+      [v27 intValue];
+      if (TRICloudKitSupport_NotificationStatus_IsValidValue())
+      {
+        [v21 setExperimentState:{objc_msgSend(v28, "intValue")}];
+      }
+    }
+
+    v29 = [v15 triNumberValueForField:*MEMORY[0x277D738F8] isNestedValue:0];
+    v30 = v29;
+    if (v29)
+    {
+      [v29 intValue];
+      if (TRICloudKitSupport_NotificationType_IsValidValue())
+      {
+        [v21 setExperimentType:{objc_msgSend(v30, "intValue")}];
+      }
+    }
+
+    v31 = [v15 triNumberValueForField:*MEMORY[0x277D738E8] isNestedValue:0];
+    v32 = v31;
+    if (v31)
+    {
+      [v31 intValue];
+      if (TRICloudKitSupport_NotificationPriority_IsValidValue())
+      {
+        [v21 setExperimentPriority:{objc_msgSend(v32, "intValue")}];
+      }
+    }
+
+    v33 = [v15 triNumberValueForField:*MEMORY[0x277D73908] isNestedValue:0];
+    if (v33 && [&unk_287FC4EB8 containsObject:v33])
+    {
+      [v21 setInternalBuildOnly:{objc_msgSend(v33, "BOOLValue")}];
+    }
+
+    v34 = [v15 triNumberValueForField:*MEMORY[0x277D738B0] isNestedValue:0];
+    v35 = v34;
+    if (v34)
+    {
+      [v34 intValue];
+      if (!TRIDeploymentEnvironment_IsValidValue())
+      {
+        v79 = idCopy;
+        v80 = v20;
+        v54 = TRILogCategory_Server();
+        if (os_log_type_enabled(v54, OS_LOG_TYPE_ERROR))
+        {
+          experimentId = [v21 experimentId];
+          *buf = 138412546;
+          v92 = experimentId;
+          v93 = 2112;
+          v94 = v35;
+          _os_log_error_impl(&dword_26F567000, v54, OS_LOG_TYPE_ERROR, "received CloudKit record for experimentId %@ with unsupported deployment environment %@", buf, 0x16u);
+        }
+
+        v55 = MEMORY[0x277CCACA8];
+        experimentId2 = [v21 experimentId];
+        v57 = [v55 stringWithFormat:@"received CloudKit record for experimentId %@ with unsupported deployment environment %@", experimentId2, v35];
+
+        v58 = objc_alloc(MEMORY[0x277CCA9B8]);
+        v87 = *MEMORY[0x277CCA450];
+        v88 = v57;
+        v59 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v88 forKeys:&v87 count:1];
+        v60 = [v58 initWithDomain:@"TRIGeneralErrorDomain" code:1 userInfo:v59];
+
+        completionCopy[2](completionCopy, 0, v60);
+        v42 = 0;
+        idCopy = v79;
+        v20 = v80;
+        goto LABEL_52;
+      }
+
+      intValue = [v35 intValue];
+    }
+
+    else
+    {
+      intValue = 0;
+    }
+
+    [v21 setDeploymentEnvironment:intValue];
+
+    v49 = [v15 triDateForField:*MEMORY[0x277D73960]];
+    [v21 setDeploymentDate:v49];
+
+    v50 = TRILogCategory_Server();
+    if (os_log_type_enabled(v50, OS_LOG_TYPE_DEFAULT))
+    {
+      experimentId3 = [v21 experimentId];
+      *buf = 138412290;
+      v92 = experimentId3;
+      _os_log_impl(&dword_26F567000, v50, OS_LOG_TYPE_DEFAULT, "received CloudKit record with experiment id: %@", buf, 0xCu);
+    }
+
+    v82 = 0;
+    experimentId4 = [v21 experimentId];
+
+    if (experimentId4)
+    {
+      if ([v21 experimentType] == 2 || (objc_msgSend(v21, "isValid") & 1) != 0)
+      {
+        if ([v21 experimentType] != 1 || (objc_msgSend(v21, "hasValidNamespacesWithError:", &v82) & 1) != 0)
+        {
+          v53 = 4;
+LABEL_51:
+          completionCopy[2](completionCopy, v53, v82);
+          v21 = v21;
+
+          v42 = v21;
+LABEL_52:
+
+LABEL_53:
+          goto LABEL_54;
+        }
+
+        v71 = TRILogCategory_Server();
+        if (os_log_type_enabled(v71, OS_LOG_TYPE_ERROR))
+        {
+          experimentId5 = [v21 experimentId];
+          *buf = 138412290;
+          v92 = experimentId5;
+          _os_log_error_impl(&dword_26F567000, v71, OS_LOG_TYPE_ERROR, "experiment with id %@ is incompatible", buf, 0xCu);
+        }
+
+LABEL_50:
+
+        v53 = 0;
+        v21 = 0;
+        goto LABEL_51;
+      }
+
+      v81 = v20;
+      v68 = TRILogCategory_Server();
+      if (os_log_type_enabled(v68, OS_LOG_TYPE_ERROR))
+      {
+        experimentId6 = [v21 experimentId];
+        *buf = 138412290;
+        v92 = experimentId6;
+        _os_log_error_impl(&dword_26F567000, v68, OS_LOG_TYPE_ERROR, "invalid signature for experiment id %@", buf, 0xCu);
+      }
+
+      v69 = MEMORY[0x277CCACA8];
+      experimentId7 = [0 experimentId];
+      v21 = [v69 stringWithFormat:@"invalid signature for experiment id %@", experimentId7];
+
+      v64 = objc_alloc(MEMORY[0x277CCA9B8]);
+      v83 = *MEMORY[0x277CCA450];
+      v84 = v21;
+      v65 = MEMORY[0x277CBEAC0];
+      v66 = &v84;
+      v67 = &v83;
+    }
+
+    else
+    {
+      v81 = v20;
+      v61 = TRILogCategory_Server();
+      if (os_log_type_enabled(v61, OS_LOG_TYPE_ERROR))
+      {
+        recordID3 = [resultCopy recordID];
+        *buf = 138412290;
+        v92 = recordID3;
+        _os_log_error_impl(&dword_26F567000, v61, OS_LOG_TYPE_ERROR, "experiment id is nil for artifact with CKRecord %@", buf, 0xCu);
+      }
+
+      v62 = MEMORY[0x277CCACA8];
+      recordID4 = [resultCopy recordID];
+      v21 = [v62 stringWithFormat:@"experiment id is nil for artifact with CKRecord %@", recordID4];
+
+      v64 = objc_alloc(MEMORY[0x277CCA9B8]);
+      v85 = *MEMORY[0x277CCA450];
+      v86 = v21;
+      v65 = MEMORY[0x277CBEAC0];
+      v66 = &v86;
+      v67 = &v85;
+    }
+
+    v71 = [v65 dictionaryWithObjects:v66 forKeys:v67 count:1];
+    v82 = [v64 initWithDomain:@"TRIGeneralErrorDomain" code:1 userInfo:v71];
+    v20 = v81;
+    goto LABEL_50;
+  }
+
+  v37 = TRILogCategory_Server();
+  if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
+  {
+    recordID5 = [resultCopy recordID];
+    *buf = 138412290;
+    v92 = recordID5;
+    _os_log_error_impl(&dword_26F567000, v37, OS_LOG_TYPE_ERROR, "could not create experiment artifact from CloudKit record %@", buf, 0xCu);
+  }
+
+  v38 = MEMORY[0x277CCACA8];
+  recordID6 = [resultCopy recordID];
+  v16 = [v38 stringWithFormat:@"could not create experiment artifact from CloudKit record %@", recordID6];
+
+  v40 = objc_alloc(MEMORY[0x277CCA9B8]);
+  v95 = *MEMORY[0x277CCA450];
+  v96[0] = v16;
+  v41 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v96 forKeys:&v95 count:1];
+  v18 = [v40 initWithDomain:@"TRIGeneralErrorDomain" code:1 userInfo:v41];
+
+  completionCopy[2](completionCopy, 0, v18);
+  v42 = 0;
+LABEL_54:
+
+  return v42;
 }
 
 - (BOOL)isCompatibleCounterfactual
@@ -1457,11 +1733,11 @@ LABEL_54:
   return v8;
 }
 
-void __113__TRIClientExperimentArtifact_Counterfactuals__counterfactualsTreatmentsToFactorPackSetIdsWithActiveTreatmentId___block_invoke(uint64_t a1, void *a2)
+void __113__TRIClientExperimentArtifact_Counterfactuals__counterfactualsTreatmentsToFactorPackSetIdsWithActiveTreatmentId___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v3 = a2;
-  v4 = TRIValidateFactorPackSetId();
-  [*(a1 + 32) setObject:v4 forKeyedSubscript:v3];
+  v4 = a2;
+  v5 = TRIValidateFactorPackSetId();
+  [*(a1 + 32) setObject:v5 forKeyedSubscript:v4];
 }
 
 - (id)factorPackSetIdForTreatmentId:(id)id

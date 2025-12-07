@@ -34,7 +34,7 @@
 {
   defaultsCopy = defaults;
   swift_unknownObjectRetain();
-  return MSUserDefaultsBucketBarConfigurationProvider.init(userDefaults:delegate:)(defaultsCopy);
+  return MSUserDefaultsBucketBarConfigurationProvider.init(userDefaults:delegate:)(defaultsCopy, delegate);
 }
 
 - (MSBucketBarConfigurationProviderDelegate)delegate
@@ -47,15 +47,13 @@
 
 - (EFCancelable)token
 {
-  v2 = *(self + OBJC_IVAR___MSUserDefaultsBucketBarConfigurationProvider_token);
-  v3 = swift_unknownObjectRetain();
+  v2 = swift_unknownObjectRetain();
 
-  return v3;
+  return v2;
 }
 
 - (void)setToken:(id)token
 {
-  v3 = *(self + OBJC_IVAR___MSUserDefaultsBucketBarConfigurationProvider_token);
   *(self + OBJC_IVAR___MSUserDefaultsBucketBarConfigurationProvider_token) = token;
   swift_unknownObjectRetain();
 

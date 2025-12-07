@@ -109,10 +109,10 @@
 
 - (void)viewDidLoad
 {
-  v81[4] = *MEMORY[0x277D85DE8];
-  v79.receiver = self;
-  v79.super_class = CFXPreviewViewController;
-  [(CFXPreviewViewController *)&v79 viewDidLoad];
+  v83[4] = *MEMORY[0x277D85DE8];
+  v81.receiver = self;
+  v81.super_class = CFXPreviewViewController;
+  [(CFXPreviewViewController *)&v81 viewDidLoad];
   shouldExportOnly = [(CFXPreviewViewController *)self shouldExportOnly];
   exportButton = [(CFXPreviewViewController *)self exportButton];
   [exportButton setHidden:!shouldExportOnly];
@@ -120,29 +120,29 @@
   playButton = [(CFXPreviewViewController *)self playButton];
   [playButton setTranslatesAutoresizingMaskIntoConstraints:0];
 
-  v70 = MEMORY[0x277CCAAD0];
+  v72 = MEMORY[0x277CCAAD0];
   playButton2 = [(CFXPreviewViewController *)self playButton];
   widthAnchor = [playButton2 widthAnchor];
-  v75 = [widthAnchor constraintEqualToConstant:70.0];
-  v81[0] = v75;
+  v77 = [widthAnchor constraintEqualToConstant:70.0];
+  v83[0] = v77;
   playButton3 = [(CFXPreviewViewController *)self playButton];
   heightAnchor = [playButton3 heightAnchor];
-  v72 = [heightAnchor constraintEqualToConstant:70.0];
-  v81[1] = v72;
+  v74 = [heightAnchor constraintEqualToConstant:70.0];
+  v83[1] = v74;
   playButton4 = [(CFXPreviewViewController *)self playButton];
   centerXAnchor = [playButton4 centerXAnchor];
   playerContainerView = [(CFXPreviewViewController *)self playerContainerView];
   centerXAnchor2 = [playerContainerView centerXAnchor];
   v8 = [centerXAnchor constraintEqualToAnchor:centerXAnchor2];
-  v81[2] = v8;
+  v83[2] = v8;
   playButton5 = [(CFXPreviewViewController *)self playButton];
   centerYAnchor = [playButton5 centerYAnchor];
   playerContainerView2 = [(CFXPreviewViewController *)self playerContainerView];
   centerYAnchor2 = [playerContainerView2 centerYAnchor];
   v13 = [centerYAnchor constraintEqualToAnchor:centerYAnchor2];
-  v81[3] = v13;
-  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v81 count:4];
-  [v70 activateConstraints:v14];
+  v83[3] = v13;
+  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v83 count:4];
+  [v72 activateConstraints:v14];
 
   previewClip = [(CFXPreviewViewController *)self previewClip];
   mediaItem = [(CFXPreviewViewController *)self mediaItem];
@@ -153,19 +153,19 @@
   [previewClip setMediaInterfaceOrientationForDisplay:{objc_msgSend(delegate, "calculateMediaInterfaceOrientationForDisplay")}];
 
   v19 = MEMORY[0x277CBEB98];
-  v80[0] = objc_opt_class();
-  v80[1] = objc_opt_class();
-  v80[2] = objc_opt_class();
-  v80[3] = objc_opt_class();
-  v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v80 count:4];
+  v82[0] = objc_opt_class();
+  v82[1] = objc_opt_class();
+  v82[2] = objc_opt_class();
+  v82[3] = objc_opt_class();
+  v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v82 count:4];
   v21 = [v19 setWithArray:v20];
 
   v22 = MEMORY[0x277CCAAC8];
   delegate2 = [(CFXPreviewViewController *)self delegate];
   animojiMetadata = [delegate2 animojiMetadata];
-  v78 = 0;
-  v25 = [v22 unarchivedObjectOfClasses:v21 fromData:animojiMetadata error:&v78];
-  v26 = v78;
+  v80 = 0;
+  v25 = [v22 unarchivedObjectOfClasses:v21 fromData:animojiMetadata error:&v80];
+  v26 = v80;
 
   v27 = [v25 objectForKey:@"JFXAnimojiEffectDataRepresentationKey"];
   [previewClip setOriginalAnimojiDataRepresentation:v27];
@@ -197,10 +197,10 @@
     v42 = objc_alloc(MEMORY[0x277D75D18]);
     playerContainerView3 = [(CFXPreviewViewController *)self playerContainerView];
     [playerContainerView3 frame];
-    Width = CGRectGetWidth(v82);
+    Width = CGRectGetWidth(v84);
     playerContainerView4 = [(CFXPreviewViewController *)self playerContainerView];
     [playerContainerView4 frame];
-    v46 = [v42 initWithFrame:{0.0, 0.0, Width, CGRectGetHeight(v83)}];
+    v46 = [v42 initWithFrame:{0.0, 0.0, Width, CGRectGetHeight(v85)}];
 
     [v46 addSubview:s_LiveCaptureSnapshotView];
     previewPlayer2 = [(CFXPreviewViewController *)self previewPlayer];
@@ -220,33 +220,33 @@
   {
     previewControls = [(CFXPreviewViewController *)self previewControls];
     controlsContainerViewWidthConstraint = [previewControls controlsContainerViewWidthConstraint];
-    LODWORD(v54) = 1132068864;
-    [controlsContainerViewWidthConstraint setPriority:v54];
+    LODWORD(v56) = 1132068864;
+    [controlsContainerViewWidthConstraint setPriority:v56];
 
     previewControls2 = [(CFXPreviewViewController *)self previewControls];
     controlsContainerViewHeightConstraint = [previewControls2 controlsContainerViewHeightConstraint];
-    LODWORD(v57) = 1132068864;
-    [controlsContainerViewHeightConstraint setPriority:v57];
+    LODWORD(v59) = 1132068864;
+    [controlsContainerViewHeightConstraint setPriority:v59];
 
     previewControls3 = [(CFXPreviewViewController *)self previewControls];
     controlsContainerViewLeadingConstraint = [previewControls3 controlsContainerViewLeadingConstraint];
-    LODWORD(v60) = 1144750080;
-    [controlsContainerViewLeadingConstraint setPriority:v60];
+    LODWORD(v62) = 1144750080;
+    [controlsContainerViewLeadingConstraint setPriority:v62];
 
     previewControls4 = [(CFXPreviewViewController *)self previewControls];
     controlsContainerViewTrailingConstraint = [previewControls4 controlsContainerViewTrailingConstraint];
-    LODWORD(v63) = 1144750080;
-    [controlsContainerViewTrailingConstraint setPriority:v63];
+    LODWORD(v65) = 1144750080;
+    [controlsContainerViewTrailingConstraint setPriority:v65];
 
     previewControls5 = [(CFXPreviewViewController *)self previewControls];
     controlsContainerViewTopConstraint = [previewControls5 controlsContainerViewTopConstraint];
-    LODWORD(v66) = 1144750080;
-    [controlsContainerViewTopConstraint setPriority:v66];
+    LODWORD(v68) = 1144750080;
+    [controlsContainerViewTopConstraint setPriority:v68];
   }
 
-  v67 = isShowPlayerScrubbingControlsEnabled();
+  v69 = isShowPlayerScrubbingControlsEnabled(v52, v53);
   playbackSlider = [(CFXPreviewViewController *)self playbackSlider];
-  [playbackSlider setHidden:v67 ^ 1u];
+  [playbackSlider setHidden:v69 ^ 1u];
 }
 
 - (void)viewDidLayoutSubviews
@@ -281,7 +281,7 @@
     v82 = 0u;
     v79 = 0u;
     v80 = 0u;
-    [MEMORY[0x277D3D080] reviewScreenControlBarGeometryForReferenceBounds:v12 withOrientation:{v5, v7, v9, v11}];
+    objc_msgSend_reviewScreenControlBarGeometryForReferenceBounds_withOrientation_(MEMORY[0x277D3D080], v5, v7, v9, v11);
     if ([(CFXPreviewViewController *)self dockIsMagnified])
     {
       [(CFXPreviewViewController *)self dockMagnifiedHeightDelta];
@@ -452,7 +452,7 @@ LABEL_32:
   v82 = 0u;
   v79 = 0u;
   v80 = 0u;
-  [MEMORY[0x277D3D080] reviewScreenControlBarGeometryForReferenceBounds:v12 withOrientation:{v5, v7, v9, v11}];
+  objc_msgSend_reviewScreenControlBarGeometryForReferenceBounds_withOrientation_(MEMORY[0x277D3D080], v5, v7, v9, v11);
   v15 = v79;
   v16 = v80;
   bottomControlsDrawer4 = [(CFXPreviewViewController *)self bottomControlsDrawer];
@@ -666,12 +666,12 @@ void __44__CFXPreviewViewController_shouldExportOnly__block_invoke()
 {
   changedCopy = changed;
   previewPlayer = [(CFXPreviewViewController *)self previewPlayer];
-  duration = [previewPlayer duration];
+  v6 = objc_msgSend_duration(previewPlayer);
   [changedCopy value];
   v8 = v7;
 
   previewPlayer2 = [(CFXPreviewViewController *)self previewPlayer];
-  [previewPlayer2 seekToTime:(v8 * duration)];
+  [previewPlayer2 seekToTime:(v8 * v6)];
 }
 
 - (void)CFX_prepareFaceTrackingDataForOverlayInsertionWithCompletion:(id)completion
@@ -702,7 +702,7 @@ void __44__CFXPreviewViewController_shouldExportOnly__block_invoke()
   v13 = previewPlayer;
   if (previewPlayer)
   {
-    [previewPlayer currentCMTime];
+    objc_msgSend_currentCMTime(previewPlayer);
   }
 
   else
@@ -1159,7 +1159,7 @@ LABEL_27:
   }
 
 LABEL_29:
-  v22 = +[CFXAnalyticsManager sharedInstance];
+  v22 = [CFXAnalyticsManager sharedInstance:*v27];
   [v22 trackEffect:effectCopy];
 
   v23 = CFXLog_action();
@@ -1181,9 +1181,9 @@ LABEL_29:
   completionCopy = completion;
   memset(&v18, 0, sizeof(v18));
   previewPlayer = [(CFXPreviewViewController *)self previewPlayer];
-  currentTime = [previewPlayer currentTime];
+  v9 = objc_msgSend_currentTime(previewPlayer);
   previewPlayer2 = [(CFXPreviewViewController *)self previewPlayer];
-  CMTimeMake(&v18, currentTime, [previewPlayer2 frameRate]);
+  CMTimeMake(&v18, v9, [previewPlayer2 frameRate]);
 
   v11 = dispatch_get_global_queue(21, 0);
   v13[0] = MEMORY[0x277D85DD0];
@@ -1508,9 +1508,9 @@ void __54__CFXPreviewViewController_CFX_exportPhotoWithEffects__block_invoke_2(u
   [v4 setRenderSize:{v2, v3}];
   v5 = [v4 renderEffect];
 
-  v6[0] = kDefaultEffectPreviewAnimationRange;
-  v6[1] = *algn_242B5CE28;
-  v6[2] = xmmword_242B5CE38;
+  v6[0] = *kDefaultEffectPreviewAnimationRange;
+  v6[1] = *&kDefaultEffectPreviewAnimationRange[16];
+  v6[2] = *&kDefaultEffectPreviewAnimationRange[32];
   [v5 setEffectRange:v6];
 }
 
@@ -1866,7 +1866,7 @@ void __45__CFXPreviewViewController_playbackDidStart___block_invoke_2(uint64_t a
 
 - (void)playbackTimeDidChange:(id)change currentTime:(int)time
 {
-  v5 = time / [change duration];
+  v5 = time / objc_msgSend_duration(change, a2);
   playbackSlider = [(CFXPreviewViewController *)self playbackSlider];
   *&v6 = v5;
   [playbackSlider setValue:v6];
@@ -1877,9 +1877,9 @@ void __45__CFXPreviewViewController_playbackDidStart___block_invoke_2(uint64_t a
   stopCopy = stop;
   previewPlayer = [(CFXPreviewViewController *)self previewPlayer];
   clip = [previewPlayer clip];
-  duration = [clip duration];
+  v9 = objc_msgSend_duration(clip);
 
-  if (duration <= time)
+  if (v9 <= time)
   {
     [stopCopy seekToTime:0];
   }
@@ -2933,7 +2933,7 @@ void __51__CFXPreviewViewController_setUserInterfaceHidden___block_invoke(uint64
 
   else
   {
-    [MEMORY[0x277D3D080] reviewScreenContentGeometryForReferenceBounds:v10 forContentSize:v13 withOrientation:{v15, v17, Width, v7, v9}];
+    objc_msgSend_reviewScreenContentGeometryForReferenceBounds_forContentSize_withOrientation_(MEMORY[0x277D3D080], v13, v15, v17, Width, v7, v9);
     playerContainerView2 = [(CFXPreviewViewController *)self playerContainerView];
     [playerContainerView2 setBounds:{0.0, 0.0, 0.0, 0.0}];
 
@@ -3168,13 +3168,13 @@ LABEL_10:
   delegate = [(CFXPreviewViewController *)self delegate];
   mediaCapturedInFunCam = [delegate mediaCapturedInFunCam];
 
-  v5 = ![(CFXPreviewViewController *)self capturedWithBackCamera];
-  if ((v5 & 1) != 0 || (mediaCapturedInFunCam & 1) == 0)
+  capturedWithBackCamera = [(CFXPreviewViewController *)self capturedWithBackCamera];
+  if (((capturedWithBackCamera ^ 1) & 1) != 0 || (mediaCapturedInFunCam & 1) == 0)
   {
-    return v5 & mediaCapturedInFunCam;
+    return (capturedWithBackCamera ^ 1) & mediaCapturedInFunCam;
   }
 
-  return isFaceTrackingEnabledOnBackCamera();
+  return isFaceTrackingEnabledOnBackCamera(capturedWithBackCamera, v6);
 }
 
 - (BOOL)CFX_canApplyFaceTracking
@@ -3792,7 +3792,7 @@ void __83__CFXPreviewViewController_CFX_addAssetWithIdentifier_intoAlbum_complet
     v13 = v12;
     v15 = v14;
     v17 = v16;
-    [(CFXPreviewViewController *)self CFX_previewPlayerCurrentTime];
+    objc_msgSend_CFX_previewPlayerCurrentTime(self);
     [(CFXPreviewViewController *)self normalizedMinimumHitTestArea];
     v20 = [JFXEffectEditingUtilities hitTestOverlays:v9 atPoint:v23 relativeToBounds:1 atTime:x adjustForMinimumSize:y normalizedMinimumSize:v11, v13, v15, v17, v18, v19];
     if (v20)
@@ -3865,7 +3865,7 @@ void __83__CFXPreviewViewController_CFX_addAssetWithIdentifier_intoAlbum_complet
   if (isKindOfClass)
   {
     jtEffect2 = [effectCopy jtEffect];
-    [(CFXPreviewViewController *)self CFX_previewPlayerCurrentTime];
+    objc_msgSend_CFX_previewPlayerCurrentTime(self);
     [jtEffect2 imageFrameAtTime:v26 forcePosterFrame:1 includeDropShadow:1 relativeTo:1 basisOrigin:{x, y, width, height}];
     v15 = v14;
     v17 = v16;
@@ -3903,7 +3903,7 @@ void __83__CFXPreviewViewController_CFX_addAssetWithIdentifier_intoAlbum_complet
   if (isKindOfClass)
   {
     jtEffect2 = [effectCopy jtEffect];
-    [(CFXPreviewViewController *)self CFX_previewPlayerCurrentTime];
+    objc_msgSend_CFX_previewPlayerCurrentTime(self);
     [(CFXPreviewViewController *)self normalizedMinimumHitTestArea];
     [jtEffect2 hitAreaBoundingFrameAtTime:v24 forcePosterFrame:1 includeDropShadow:1 adjustForMinimumSize:sizeCopy normalizedMinimumSize:1 relativeTo:? basisOrigin:?];
     v13 = v12;
@@ -3940,7 +3940,7 @@ void __83__CFXPreviewViewController_CFX_addAssetWithIdentifier_intoAlbum_complet
   if (objc_opt_isKindOfClass())
   {
     v9 = jtEffect;
-    [(CFXPreviewViewController *)self CFX_previewPlayerCurrentTime];
+    objc_msgSend_CFX_previewPlayerCurrentTime(self);
     height = [JFXOverlayEffectFrame frameWithEffect:v9 relativeToSize:1 origin:v12 time:1 forcePosterFrame:1 includeDropShadow:1 includeTextFrames:width, height];
   }
 
@@ -3959,7 +3959,7 @@ void __83__CFXPreviewViewController_CFX_addAssetWithIdentifier_intoAlbum_complet
   y = bounds.origin.y;
   x = bounds.origin.x;
   jtEffect = [effect jtEffect];
-  [(CFXPreviewViewController *)self CFX_previewPlayerCurrentTime];
+  objc_msgSend_CFX_previewPlayerCurrentTime(self);
   v11 = *(MEMORY[0x277CBF2C0] + 16);
   v18[0] = *MEMORY[0x277CBF2C0];
   v18[1] = v11;
@@ -3984,7 +3984,7 @@ void __83__CFXPreviewViewController_CFX_addAssetWithIdentifier_intoAlbum_complet
   v10 = point.y;
   v11 = point.x;
   jtEffect = [effect jtEffect];
-  [(CFXPreviewViewController *)self CFX_previewPlayerCurrentTime];
+  objc_msgSend_CFX_previewPlayerCurrentTime(self);
   [JFXEffectEditingUtilities spacingBetweenCenterPointOfEffect:jtEffect point:v20 relativeToBounds:v11 atTime:v10, x, y, width, height];
   v15 = v14;
   v17 = v16;
@@ -4003,7 +4003,7 @@ void __83__CFXPreviewViewController_CFX_addAssetWithIdentifier_intoAlbum_complet
   y = bounds.origin.y;
   x = bounds.origin.x;
   jtEffect = [effect jtEffect];
-  [(CFXPreviewViewController *)self CFX_previewPlayerCurrentTime];
+  objc_msgSend_CFX_previewPlayerCurrentTime(self);
   v13 = *&transform->c;
   v15[0] = *&transform->a;
   v15[1] = v13;
@@ -4090,7 +4090,7 @@ void __98__CFXPreviewViewController_EffectEditingAdditions__effectEditorView_did
   y = bounds.origin.y;
   x = bounds.origin.x;
   jtEffect = [effect jtEffect];
-  [(CFXPreviewViewController *)self CFX_previewPlayerCurrentTime];
+  objc_msgSend_CFX_previewPlayerCurrentTime(self);
   height = [JFXEffectEditingUtilities newTextEditingPropertiesForEffect:jtEffect relativeTo:v13 atTime:0 withNewText:x, y, width, height];
 
   return height;
@@ -4226,9 +4226,9 @@ void __98__CFXPreviewViewController_EffectEditingAdditions__effectEditorView_did
 - ($3CC8671D27C23BF42ADDB32F2B5E48AE)CFX_previewPlayerCurrentTime
 {
   previewPlayer = [(CFXPreviewViewController *)self previewPlayer];
-  currentTime = [previewPlayer currentTime];
+  v5 = objc_msgSend_currentTime(previewPlayer);
   previewPlayer2 = [(CFXPreviewViewController *)self previewPlayer];
-  CMTimeMake(retstr, currentTime, [previewPlayer2 frameRate]);
+  CMTimeMake(retstr, v5, [previewPlayer2 frameRate]);
 
   return result;
 }
@@ -4424,6 +4424,13 @@ void __98__CFXPreviewViewController_EffectEditingAdditions__dispatchWhenPlayerRe
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
+void __65__CFXPreviewViewController_CFX_createAlbumWithCompletionHandler___block_invoke_3_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *(a1 + 32);
+  OUTLINED_FUNCTION_4(&dword_242A3B000, a2, a3, "ERROR: failed to create the album (%@)", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
 void __77__CFXPreviewViewController_CFX_addAssetAtURL_resourceType_completionHandler___block_invoke_2_cold_1(uint64_t a1, uint64_t a2, os_log_t log)
 {
   v8 = *MEMORY[0x277D85DE8];
@@ -4433,6 +4440,13 @@ void __77__CFXPreviewViewController_CFX_addAssetAtURL_resourceType_completionHan
   v6 = 2112;
   v7 = a2;
   _os_log_error_impl(&dword_242A3B000, log, OS_LOG_TYPE_ERROR, "ERROR: failed to move asset (%@) to the album (%@)", &v4, 0x16u);
+}
+
+void __83__CFXPreviewViewController_CFX_addAssetWithIdentifier_intoAlbum_completionHandler___block_invoke_4_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *(a1 + 40);
+  OUTLINED_FUNCTION_4(&dword_242A3B000, a2, a3, "ERROR: failed to assign album (%@)", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

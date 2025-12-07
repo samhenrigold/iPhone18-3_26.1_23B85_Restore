@@ -17,34 +17,34 @@
   queueCopy = queue;
   destinationCopy = destination;
   completionCopy = completion;
-  v28[0] = MEMORY[0x277D85DD0];
-  v28[1] = 3221225472;
-  v28[2] = sub_2334F750C;
-  v28[3] = &unk_2789DB8F0;
+  v35[0] = MEMORY[0x277D85DD0];
+  v35[1] = 3221225472;
+  v35[2] = sub_2334F750C;
+  v35[3] = &unk_2789DB8F0;
   v13 = queueCopy;
-  v29 = v13;
+  v36 = v13;
   selfCopy = self;
   resyncCopy = resync;
-  v31 = completionCopy;
+  v38 = completionCopy;
   v14 = completionCopy;
-  v15 = MEMORY[0x2383A14D0](v28);
+  v15 = MEMORY[0x2383A14D0](v35);
   v16 = dispatch_queue_create("com.apple.mediaPlayer.assistant.setQueue.sendCommand", 0);
-  v17 = [destinationCopy mutableCopy];
-  [v17 setSingleGroup:1];
-  v22[0] = MEMORY[0x277D85DD0];
-  v22[1] = 3221225472;
-  v22[2] = sub_2334F76C4;
-  v22[3] = &unk_2789DB940;
-  v23 = destinationCopy;
+  v21 = objc_msgSend_mutableCopy(destinationCopy, v17, v18, v19, v20);
+  objc_msgSend_setSingleGroup_(v21, v22, 1, v23, v24);
+  v29[0] = MEMORY[0x277D85DD0];
+  v29[1] = 3221225472;
+  v29[2] = sub_2334F76C4;
+  v29[3] = &unk_2789DB940;
+  v30 = destinationCopy;
   selfCopy2 = self;
-  v26 = v13;
+  v33 = v13;
+  v34 = v15;
+  v32 = v21;
+  v25 = v13;
+  v26 = v21;
   v27 = v15;
-  v25 = v17;
-  v18 = v13;
-  v19 = v17;
-  v20 = v15;
-  v21 = destinationCopy;
-  MEMORY[0x2383A0F90](v16, v22);
+  v28 = destinationCopy;
+  MEMORY[0x2383A0F90](v16, v29);
 }
 
 - (void)_playMediaItems:(id)items contextID:(id)d dryRun:(BOOL)run completion:(id)completion
@@ -52,61 +52,59 @@
   itemsCopy = items;
   dCopy = d;
   completionCopy = completion;
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = sub_2334F7DE8;
-  v16[3] = &unk_2789DB8A0;
-  v16[4] = self;
-  v17 = itemsCopy;
-  v18 = dCopy;
-  v19 = completionCopy;
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = sub_2334F7DE8;
+  v19[3] = &unk_2789DB8A0;
+  v19[4] = self;
+  v20 = itemsCopy;
+  v21 = dCopy;
+  v22 = completionCopy;
   runCopy = run;
   v13 = completionCopy;
   v14 = dCopy;
   v15 = itemsCopy;
-  sub_2334F7DE8(v16, 0);
+  sub_2334F7DE8(v19, 0, v16, v17, v18);
 }
 
 - (void)_playAlbumFromMediaItems:(id)items contextID:(id)d dryRun:(BOOL)run completion:(id)completion
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   itemsCopy = items;
   dCopy = d;
   completionCopy = completion;
-  if (![(NSString *)self->_requestAceHash length])
+  if (!objc_msgSend_length(self->_requestAceHash, v13, v14, v15, v16))
   {
-    aceId = [(MPAssistantSetQueue *)self aceId];
-    v14 = sub_233505670(@"Set Queue", aceId);
+    v21 = objc_msgSend_aceId(self, v17, v18, v19, v20);
+    v22 = sub_233505670(@"Set Queue", v21);
     requestAceHash = self->_requestAceHash;
-    self->_requestAceHash = v14;
+    self->_requestAceHash = v22;
   }
 
-  v16 = _MPLogCategoryAssistant();
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+  v24 = _MPLogCategoryAssistant();
+  if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
   {
-    v17 = self->_requestAceHash;
+    v25 = self->_requestAceHash;
     *buf = 138543618;
-    v28 = v17;
-    v29 = 2114;
-    v30 = itemsCopy;
-    _os_log_impl(&dword_2334D9000, v16, OS_LOG_TYPE_DEFAULT, "Set Queue (local) <%{public}@>: find album with pid %{public}@", buf, 0x16u);
+    v38 = v25;
+    v39 = 2114;
+    v40 = itemsCopy;
+    _os_log_impl(&dword_2334D9000, v24, OS_LOG_TYPE_DEFAULT, "Set Queue (local) <%{public}@>: find album with pid %{public}@", buf, 0x16u);
   }
 
-  v22[0] = MEMORY[0x277D85DD0];
-  v22[1] = 3221225472;
-  v22[2] = sub_2334F8844;
-  v22[3] = &unk_2789DB8A0;
-  v22[4] = self;
-  v23 = itemsCopy;
-  v24 = dCopy;
-  v25 = completionCopy;
+  v32[0] = MEMORY[0x277D85DD0];
+  v32[1] = 3221225472;
+  v32[2] = sub_2334F8844;
+  v32[3] = &unk_2789DB8A0;
+  v32[4] = self;
+  v33 = itemsCopy;
+  v34 = dCopy;
+  v35 = completionCopy;
   runCopy = run;
-  v18 = completionCopy;
-  v19 = dCopy;
-  v20 = itemsCopy;
-  sub_2334F8844(v22, 0);
-
-  v21 = *MEMORY[0x277D85DE8];
+  v26 = completionCopy;
+  v27 = dCopy;
+  v28 = itemsCopy;
+  sub_2334F8844(v32, 0, v29, v30, v31);
 }
 
 - (void)_performMediaItemsSetQueueFromStoreIdentifiersAsDryRun:(BOOL)run onlyPlayableItems:(BOOL)items onlyLocalItems:(BOOL)localItems completion:(id)completion
@@ -114,449 +112,456 @@
   localItemsCopy = localItems;
   itemsCopy = items;
   runCopy = run;
-  v177 = *MEMORY[0x277D85DE8];
+  v501 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
-  mediaItems = [(MPAssistantSetQueue *)self mediaItems];
-  identifier = [mediaItems identifier];
+  v12 = objc_msgSend_mediaItems(self, v8, v9, v10, v11);
+  v463 = objc_msgSend_identifier(v12, v13, v14, v15, v16);
 
-  refId = [(MPAssistantSetQueue *)self refId];
-  v162 = 0;
-  v163 = &v162;
-  v164 = 0x3032000000;
-  v165 = sub_2334FA878;
-  v166 = sub_2334FA888;
-  v167 = 0;
-  v157[0] = MEMORY[0x277D85DD0];
-  v157[1] = 3221225472;
-  v157[2] = sub_2334FA890;
-  v157[3] = &unk_2789DB828;
-  v160 = &v162;
-  v157[4] = self;
-  v134 = completionCopy;
-  v159 = v134;
-  v132 = refId;
-  v158 = v132;
-  v161 = runCopy;
-  v135 = MEMORY[0x2383A14D0](v157);
-  scheme = [identifier scheme];
-  LODWORD(refId) = [scheme isEqualToString:@"x-sampplaylist"];
+  v21 = objc_msgSend_refId(self, v17, v18, v19, v20);
+  v486 = 0;
+  v487 = &v486;
+  v488 = 0x3032000000;
+  v489 = sub_2334FA878;
+  v490 = sub_2334FA888;
+  v491 = 0;
+  v481[0] = MEMORY[0x277D85DD0];
+  v481[1] = 3221225472;
+  v481[2] = sub_2334FA890;
+  v481[3] = &unk_2789DB828;
+  v484 = &v486;
+  v481[4] = self;
+  v458 = completionCopy;
+  v483 = v458;
+  v456 = v21;
+  v482 = v456;
+  v485 = runCopy;
+  v459 = MEMORY[0x2383A14D0](v481);
+  v26 = objc_msgSend_scheme(v463, v22, v23, v24, v25);
+  LODWORD(v21) = objc_msgSend_isEqualToString_(v26, v27, @"x-sampplaylist", v28, v29);
 
-  if (refId)
+  if (v21)
   {
-    obj = [MEMORY[0x277CD5E38] playlistsQuery];
-    if (self->_userIdentity)
+    obj = objc_msgSend_playlistsQuery(MEMORY[0x277CD5E38], v30, v31, v32, v33);
+    userIdentity = self->_userIdentity;
+    if (userIdentity)
     {
-      v11 = [MEMORY[0x277CD5E10] deviceMediaLibraryWithUserIdentity:?];
-      [obj setMediaLibrary:v11];
+      v38 = objc_msgSend_deviceMediaLibraryWithUserIdentity_(MEMORY[0x277CD5E10], v34, userIdentity, v35, v36);
+      objc_msgSend_setMediaLibrary_(obj, v39, v38, v40, v41);
     }
 
-    lastPathComponent = [identifier lastPathComponent];
-    if (![lastPathComponent length])
+    v462 = objc_msgSend_lastPathComponent(v463, v34, userIdentity, v35, v36);
+    if (!objc_msgSend_length(v462, v42, v43, v44, v45))
     {
-      v82 = objc_alloc(MEMORY[0x277D47208]);
-      array = [v82 initWithErrorCode:*MEMORY[0x277D48648]];
-      (*(v134 + 2))(v134, 1, array);
+      v347 = objc_alloc(MEMORY[0x277D47208]);
+      v63 = objc_msgSend_initWithErrorCode_(v347, v348, *MEMORY[0x277D48648], v349, v350);
+      (*(v458 + 2))(v458, 1, v63);
       goto LABEL_89;
     }
 
-    v12 = [MEMORY[0x277CD5E30] predicateWithValue:lastPathComponent forProperty:*MEMORY[0x277CD58F0]];
-    [obj addFilterPredicate:v12];
+    v48 = objc_msgSend_predicateWithValue_forProperty_(MEMORY[0x277CD5E30], v46, v462, *MEMORY[0x277CD58F0], v47);
+    objc_msgSend_addFilterPredicate_(obj, v49, v48, v50, v51);
 
-    objc_storeStrong(v163 + 5, obj);
-    if (![(NSString *)self->_requestAceHash length])
+    objc_storeStrong(v487 + 5, obj);
+    if (!objc_msgSend_length(self->_requestAceHash, v52, v53, v54, v55))
     {
-      aceId = [(MPAssistantSetQueue *)self aceId];
-      v14 = sub_233505670(@"Set Queue", aceId);
+      v60 = objc_msgSend_aceId(self, v56, v57, v58, v59);
+      v61 = sub_233505670(@"Set Queue", v60);
       requestAceHash = self->_requestAceHash;
-      self->_requestAceHash = v14;
+      self->_requestAceHash = v61;
     }
 
-    array = _MPLogCategoryAssistant();
-    if (os_log_type_enabled(array, OS_LOG_TYPE_DEFAULT))
+    v63 = _MPLogCategoryAssistant();
+    if (os_log_type_enabled(v63, OS_LOG_TYPE_DEFAULT))
     {
-      v17 = self->_requestAceHash;
-      collections = [obj collections];
-      firstObject = [collections firstObject];
+      v68 = self->_requestAceHash;
+      v69 = objc_msgSend_collections(obj, v64, v65, v66, v67);
+      v74 = objc_msgSend_firstObject(v69, v70, v71, v72, v73);
       *buf = 138543618;
-      v174 = v17;
-      v175 = 2114;
-      v176 = firstObject;
-      _os_log_impl(&dword_2334D9000, array, OS_LOG_TYPE_DEFAULT, "Set Queue (store) <%{public}@>: playlist %{public}@", buf, 0x16u);
+      v498 = v68;
+      v499 = 2114;
+      v500 = v74;
+      _os_log_impl(&dword_2334D9000, v63, OS_LOG_TYPE_DEFAULT, "Set Queue (store) <%{public}@>: playlist %{public}@", buf, 0x16u);
     }
 
     goto LABEL_98;
   }
 
-  scheme2 = [identifier scheme];
-  v21 = [scheme2 isEqualToString:@"x-sampmeditem"];
+  v75 = objc_msgSend_scheme(v463, v30, v31, v32, v33);
+  isEqualToString = objc_msgSend_isEqualToString_(v75, v76, @"x-sampmeditem", v77, v78);
 
-  if (!v21)
+  if (!isEqualToString)
   {
-    scheme3 = [identifier scheme];
-    v59 = [scheme3 isEqualToString:@"x-sampcollection-album"];
+    v227 = objc_msgSend_scheme(v463, v80, v81, v82, v83);
+    v231 = objc_msgSend_isEqualToString_(v227, v228, @"x-sampcollection-album", v229, v230);
 
-    if (!v59)
+    if (!v231)
     {
 LABEL_99:
-      v135[2]();
+      v459[2]();
       goto LABEL_100;
     }
 
-    v60 = MEMORY[0x277CCABB0];
-    lastPathComponent2 = [identifier lastPathComponent];
-    obj = [v60 numberWithLongLong:{objc_msgSend(lastPathComponent2, "longLongValue")}];
+    v236 = MEMORY[0x277CCABB0];
+    v237 = objc_msgSend_lastPathComponent(v463, v232, v233, v234, v235);
+    v242 = objc_msgSend_longLongValue(v237, v238, v239, v240, v241);
+    obj = objc_msgSend_numberWithLongLong_(v236, v243, v242, v244, v245);
 
-    if (![obj longLongValue])
+    if (!objc_msgSend_longLongValue(obj, v246, v247, v248, v249))
     {
-      if (![(NSString *)self->_requestAceHash length])
+      if (!objc_msgSend_length(self->_requestAceHash, v250, v251, v252, v253))
       {
-        aceId2 = [(MPAssistantSetQueue *)self aceId];
-        v97 = sub_233505670(@"Set Queue", aceId2);
-        v98 = self->_requestAceHash;
-        self->_requestAceHash = v97;
+        v390 = objc_msgSend_aceId(self, v386, v387, v388, v389);
+        v391 = sub_233505670(@"Set Queue", v390);
+        v392 = self->_requestAceHash;
+        self->_requestAceHash = v391;
       }
 
-      v99 = _MPLogCategoryAssistant();
-      if (os_log_type_enabled(v99, OS_LOG_TYPE_ERROR))
+      v393 = _MPLogCategoryAssistant();
+      if (os_log_type_enabled(v393, OS_LOG_TYPE_ERROR))
       {
-        v100 = self->_requestAceHash;
+        v394 = self->_requestAceHash;
         *buf = 138543362;
-        v174 = v100;
-        _os_log_impl(&dword_2334D9000, v99, OS_LOG_TYPE_ERROR, "Set Queue (store) <%{public}@>: no identifier received", buf, 0xCu);
+        v498 = v394;
+        _os_log_impl(&dword_2334D9000, v393, OS_LOG_TYPE_ERROR, "Set Queue (store) <%{public}@>: no identifier received", buf, 0xCu);
       }
 
-      v101 = objc_alloc(MEMORY[0x277D47208]);
-      lastPathComponent = [v101 initWithErrorCode:*MEMORY[0x277D48648]];
-      (*(v134 + 2))(v134, 0, lastPathComponent);
+      v395 = objc_alloc(MEMORY[0x277D47208]);
+      v462 = objc_msgSend_initWithErrorCode_(v395, v396, *MEMORY[0x277D48648], v397, v398);
+      (*(v458 + 2))(v458, 0, v462);
       goto LABEL_90;
     }
 
-    lastPathComponent = objc_alloc_init(MEMORY[0x277CD5E38]);
-    if (self->_userIdentity)
+    v462 = objc_alloc_init(MEMORY[0x277CD5E38]);
+    v257 = self->_userIdentity;
+    if (v257)
     {
-      v62 = [MEMORY[0x277CD5E10] deviceMediaLibraryWithUserIdentity:?];
-      [lastPathComponent setMediaLibrary:v62];
+      v258 = objc_msgSend_deviceMediaLibraryWithUserIdentity_(MEMORY[0x277CD5E10], v254, v257, v255, v256);
+      objc_msgSend_setMediaLibrary_(v462, v259, v258, v260, v261);
     }
 
-    [lastPathComponent setIgnoreSystemFilterPredicates:1];
-    [lastPathComponent setShouldIncludeNonLibraryEntities:1];
-    v63 = [MEMORY[0x277CD5E30] predicateWithValue:obj forProperty:*MEMORY[0x277CD5890]];
-    [lastPathComponent addFilterPredicate:v63];
+    objc_msgSend_setIgnoreSystemFilterPredicates_(v462, v254, 1, v255, v256);
+    objc_msgSend_setShouldIncludeNonLibraryEntities_(v462, v262, 1, v263, v264);
+    v267 = objc_msgSend_predicateWithValue_forProperty_(MEMORY[0x277CD5E30], v265, obj, *MEMORY[0x277CD5890], v266);
+    objc_msgSend_addFilterPredicate_(v462, v268, v267, v269, v270);
 
-    v64 = MEMORY[0x277CCABB0];
-    items = [lastPathComponent items];
-    firstObject2 = [items firstObject];
-    v67 = *MEMORY[0x277CD56C8];
-    v68 = [firstObject2 valueForProperty:*MEMORY[0x277CD56C8]];
-    array = [v64 numberWithUnsignedLongLong:{objc_msgSend(v68, "unsignedLongLongValue")}];
+    v271 = MEMORY[0x277CCABB0];
+    v276 = objc_msgSend_items(v462, v272, v273, v274, v275);
+    v281 = objc_msgSend_firstObject(v276, v277, v278, v279, v280);
+    v282 = *MEMORY[0x277CD56C8];
+    v286 = objc_msgSend_valueForProperty_(v281, v283, *MEMORY[0x277CD56C8], v284, v285);
+    v291 = objc_msgSend_unsignedLongLongValue(v286, v287, v288, v289, v290);
+    v63 = objc_msgSend_numberWithUnsignedLongLong_(v271, v292, v291, v293, v294);
 
-    longLongValue = [array longLongValue];
-    v70 = self->_requestAceHash;
-    if (!longLongValue)
+    v303 = objc_msgSend_longLongValue(v63, v295, v296, v297, v298);
+    v304 = self->_requestAceHash;
+    if (!v303)
     {
-      if (![(NSString *)v70 length])
+      if (!objc_msgSend_length(v304, v299, v300, v301, v302))
       {
-        aceId3 = [(MPAssistantSetQueue *)self aceId];
-        v120 = sub_233505670(@"Set Queue", aceId3);
-        v121 = self->_requestAceHash;
-        self->_requestAceHash = v120;
+        v440 = objc_msgSend_aceId(self, v436, v437, v438, v439);
+        v441 = sub_233505670(@"Set Queue", v440);
+        v442 = self->_requestAceHash;
+        self->_requestAceHash = v441;
       }
 
-      v122 = _MPLogCategoryAssistant();
-      if (os_log_type_enabled(v122, OS_LOG_TYPE_ERROR))
+      v443 = _MPLogCategoryAssistant();
+      if (os_log_type_enabled(v443, OS_LOG_TYPE_ERROR))
       {
-        v123 = self->_requestAceHash;
+        v444 = self->_requestAceHash;
         *buf = 138543618;
-        v174 = v123;
-        v175 = 2114;
-        v176 = obj;
-        _os_log_impl(&dword_2334D9000, v122, OS_LOG_TYPE_ERROR, "Set Queue (store) <%{public}@>: no local item %{public}@.", buf, 0x16u);
+        v498 = v444;
+        v499 = 2114;
+        v500 = obj;
+        _os_log_impl(&dword_2334D9000, v443, OS_LOG_TYPE_ERROR, "Set Queue (store) <%{public}@>: no local item %{public}@.", buf, 0x16u);
       }
 
-      v124 = objc_alloc(MEMORY[0x277D47208]);
-      v57 = [v124 initWithErrorCode:*MEMORY[0x277D48640]];
-      (*(v134 + 2))(v134, 1, v57);
+      v445 = objc_alloc(MEMORY[0x277D47208]);
+      v225 = objc_msgSend_initWithErrorCode_(v445, v446, *MEMORY[0x277D48640], v447, v448);
+      (*(v458 + 2))(v458, 1, v225);
       goto LABEL_88;
     }
 
-    if (![(NSString *)v70 length])
+    if (!objc_msgSend_length(v304, v299, v300, v301, v302))
     {
-      aceId4 = [(MPAssistantSetQueue *)self aceId];
-      v72 = sub_233505670(@"Set Queue", aceId4);
-      v73 = self->_requestAceHash;
-      self->_requestAceHash = v72;
+      v309 = objc_msgSend_aceId(self, v305, v306, v307, v308);
+      v310 = sub_233505670(@"Set Queue", v309);
+      v311 = self->_requestAceHash;
+      self->_requestAceHash = v310;
     }
 
-    v74 = _MPLogCategoryAssistant();
-    if (os_log_type_enabled(v74, OS_LOG_TYPE_DEFAULT))
+    v312 = _MPLogCategoryAssistant();
+    if (os_log_type_enabled(v312, OS_LOG_TYPE_DEFAULT))
     {
-      v75 = self->_requestAceHash;
-      items2 = [lastPathComponent items];
-      firstObject3 = [items2 firstObject];
+      v317 = self->_requestAceHash;
+      v318 = objc_msgSend_items(v462, v313, v314, v315, v316);
+      v323 = objc_msgSend_firstObject(v318, v319, v320, v321, v322);
       *buf = 138543618;
-      v174 = v75;
-      v175 = 2114;
-      v176 = firstObject3;
-      _os_log_impl(&dword_2334D9000, v74, OS_LOG_TYPE_DEFAULT, "Set Queue (store) <%{public}@>: pilot item %{public}@", buf, 0x16u);
+      v498 = v317;
+      v499 = 2114;
+      v500 = v323;
+      _os_log_impl(&dword_2334D9000, v312, OS_LOG_TYPE_DEFAULT, "Set Queue (store) <%{public}@>: pilot item %{public}@", buf, 0x16u);
     }
 
-    albumsQuery = [MEMORY[0x277CD5E38] albumsQuery];
-    if (self->_userIdentity)
+    v331 = objc_msgSend_albumsQuery(MEMORY[0x277CD5E38], v324, v325, v326, v327);
+    v332 = self->_userIdentity;
+    if (v332)
     {
-      v79 = [MEMORY[0x277CD5E10] deviceMediaLibraryWithUserIdentity:?];
-      [albumsQuery setMediaLibrary:v79];
+      v333 = objc_msgSend_deviceMediaLibraryWithUserIdentity_(MEMORY[0x277CD5E10], v328, v332, v329, v330);
+      objc_msgSend_setMediaLibrary_(v331, v334, v333, v335, v336);
     }
 
-    [albumsQuery setIgnoreSystemFilterPredicates:1];
-    [albumsQuery setShouldIncludeNonLibraryEntities:1];
-    v80 = [MEMORY[0x277CD5E30] predicateWithValue:array forProperty:v67];
-    [albumsQuery addFilterPredicate:v80];
+    objc_msgSend_setIgnoreSystemFilterPredicates_(v331, v328, 1, v329, v330);
+    objc_msgSend_setShouldIncludeNonLibraryEntities_(v331, v337, 1, v338, v339);
+    v342 = objc_msgSend_predicateWithValue_forProperty_(MEMORY[0x277CD5E30], v340, v63, v282, v341);
+    objc_msgSend_addFilterPredicate_(v331, v343, v342, v344, v345);
 
-    v81 = v163[5];
-    v163[5] = albumsQuery;
+    v346 = v487[5];
+    v487[5] = v331;
 
 LABEL_98:
     goto LABEL_99;
   }
 
   obj = objc_alloc_init(MEMORY[0x277CBEB18]);
-  lastPathComponent = [(MPAssistantSetQueue *)self mediaItems];
-  v155 = 0u;
-  v156 = 0u;
-  v153 = 0u;
-  v154 = 0u;
-  items3 = [lastPathComponent items];
-  v23 = [items3 countByEnumeratingWithState:&v153 objects:v172 count:16];
-  if (v23)
+  v462 = objc_msgSend_mediaItems(self, v84, v85, v86, v87);
+  v479 = 0u;
+  v480 = 0u;
+  v477 = 0u;
+  v478 = 0u;
+  v92 = objc_msgSend_items(v462, v88, v89, v90, v91);
+  v98 = objc_msgSend_countByEnumeratingWithState_objects_count_(v92, v93, &v477, v496, 16);
+  if (v98)
   {
-    v24 = *v154;
+    v99 = *v478;
     do
     {
-      for (i = 0; i != v23; ++i)
+      for (i = 0; i != v98; ++i)
       {
-        if (*v154 != v24)
+        if (*v478 != v99)
         {
-          objc_enumerationMutation(items3);
+          objc_enumerationMutation(v92);
         }
 
-        identifier2 = [*(*(&v153 + 1) + 8 * i) identifier];
-        if (sub_23350261C(identifier2) == 3)
+        v101 = objc_msgSend_identifier(*(*(&v477 + 1) + 8 * i), v94, v95, v96, v97);
+        if (sub_23350261C(v101) == 3)
         {
-          lastPathComponent3 = [identifier2 lastPathComponent];
-          longLongValue2 = [lastPathComponent3 longLongValue];
+          v106 = objc_msgSend_lastPathComponent(v101, v102, v103, v104, v105);
+          v111 = objc_msgSend_longLongValue(v106, v107, v108, v109, v110);
 
-          if (!longLongValue2)
+          if (!v111)
           {
             goto LABEL_23;
           }
 
-          v29 = [MEMORY[0x277CCABB0] numberWithLongLong:longLongValue2];
-          [obj addObject:v29];
+          v115 = objc_msgSend_numberWithLongLong_(MEMORY[0x277CCABB0], v112, v111, v113, v114);
+          objc_msgSend_addObject_(obj, v116, v115, v117, v118);
         }
 
         else
         {
-          if (![(NSString *)self->_requestAceHash length])
+          if (!objc_msgSend_length(self->_requestAceHash, v102, v103, v104, v105))
           {
-            aceId5 = [(MPAssistantSetQueue *)self aceId];
-            v31 = sub_233505670(@"Set Queue", aceId5);
-            v32 = self->_requestAceHash;
-            self->_requestAceHash = v31;
+            v123 = objc_msgSend_aceId(self, v119, v120, v121, v122);
+            v124 = sub_233505670(@"Set Queue", v123);
+            v125 = self->_requestAceHash;
+            self->_requestAceHash = v124;
           }
 
-          v29 = _MPLogCategoryAssistant();
-          if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+          v115 = _MPLogCategoryAssistant();
+          if (os_log_type_enabled(v115, OS_LOG_TYPE_ERROR))
           {
-            v33 = self->_requestAceHash;
+            v126 = self->_requestAceHash;
             *buf = 138543618;
-            v174 = v33;
-            v175 = 2114;
-            v176 = identifier2;
-            _os_log_impl(&dword_2334D9000, v29, OS_LOG_TYPE_ERROR, "Set Queue (store) <%{public}@>: content origin %{public}@", buf, 0x16u);
+            v498 = v126;
+            v499 = 2114;
+            v500 = v101;
+            _os_log_impl(&dword_2334D9000, v115, OS_LOG_TYPE_ERROR, "Set Queue (store) <%{public}@>: content origin %{public}@", buf, 0x16u);
           }
         }
 
 LABEL_23:
       }
 
-      v23 = [items3 countByEnumeratingWithState:&v153 objects:v172 count:16];
+      v98 = objc_msgSend_countByEnumeratingWithState_objects_count_(v92, v94, &v477, v496, 16);
     }
 
-    while (v23);
+    while (v98);
   }
 
-  if (![obj count])
+  if (!objc_msgSend_count(obj, v127, v128, v129, v130))
   {
-    identifier3 = [lastPathComponent identifier];
-    v84 = identifier3 == 0;
+    v351 = objc_msgSend_identifier(v462, v131, v132, v133, v134);
+    v352 = v351 == 0;
 
-    if (!v84)
+    if (!v352)
     {
-      identifier4 = [lastPathComponent identifier];
-      lastPathComponent4 = [identifier4 lastPathComponent];
-      longLongValue3 = [lastPathComponent4 longLongValue];
+      v353 = objc_msgSend_identifier(v462, v131, v132, v133, v134);
+      v358 = objc_msgSend_lastPathComponent(v353, v354, v355, v356, v357);
+      v363 = objc_msgSend_longLongValue(v358, v359, v360, v361, v362);
 
-      if (longLongValue3)
+      if (v363)
       {
-        v88 = [MEMORY[0x277CCABB0] numberWithLongLong:longLongValue3];
-        [obj addObject:v88];
+        v364 = objc_msgSend_numberWithLongLong_(MEMORY[0x277CCABB0], v131, v363, v133, v134);
+        objc_msgSend_addObject_(obj, v365, v364, v366, v367);
       }
     }
   }
 
-  if (![obj count])
+  if (!objc_msgSend_count(obj, v131, v132, v133, v134))
   {
-    v89 = objc_alloc(MEMORY[0x277D47208]);
-    array = [v89 initWithErrorCode:*MEMORY[0x277D48648]];
-    (*(v134 + 2))(v134, 1, array);
+    v368 = objc_alloc(MEMORY[0x277D47208]);
+    v63 = objc_msgSend_initWithErrorCode_(v368, v369, *MEMORY[0x277D48648], v370, v371);
+    (*(v458 + 2))(v458, 1, v63);
     goto LABEL_89;
   }
 
-  array = [MEMORY[0x277CBEB18] array];
-  v151 = 0u;
-  v152 = 0u;
-  v149 = 0u;
-  v150 = 0u;
+  v63 = objc_msgSend_array(MEMORY[0x277CBEB18], v135, v136, v137, v138);
+  v475 = 0u;
+  v476 = 0u;
+  v473 = 0u;
+  v474 = 0u;
   obj = obj;
-  v34 = [obj countByEnumeratingWithState:&v149 objects:v171 count:16];
-  if (!v34)
+  v140 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v139, &v473, v495, 16);
+  if (!v140)
   {
     goto LABEL_48;
   }
 
-  v131 = *v150;
-  v35 = MEMORY[0x277CD57A0];
-  v127 = *MEMORY[0x277CD5888];
-  v126 = *MEMORY[0x277CD58A0];
-  v130 = localItemsCopy || itemsCopy;
+  v455 = *v474;
+  v141 = MEMORY[0x277CD57A0];
+  v451 = *MEMORY[0x277CD5888];
+  v450 = *MEMORY[0x277CD58A0];
+  v454 = localItemsCopy || itemsCopy;
   if (localItemsCopy)
   {
-    v35 = MEMORY[0x277CD5790];
+    v141 = MEMORY[0x277CD5790];
   }
 
-  v128 = *v35;
+  v452 = *v141;
   while (2)
   {
-    v125 = v34;
-    for (j = 0; j != v125; ++j)
+    v449 = v140;
+    for (j = 0; j != v449; ++j)
     {
-      if (*v150 != v131)
+      if (*v474 != v455)
       {
         objc_enumerationMutation(obj);
       }
 
-      v140 = *(*(&v149 + 1) + 8 * j);
-      v37 = objc_alloc_init(MEMORY[0x277CD5E38]);
-      if (self->_userIdentity)
+      v464 = *(*(&v473 + 1) + 8 * j);
+      v146 = objc_alloc_init(MEMORY[0x277CD5E38]);
+      v147 = self->_userIdentity;
+      if (v147)
       {
-        v38 = [MEMORY[0x277CD5E10] deviceMediaLibraryWithUserIdentity:?];
-        [v37 setMediaLibrary:v38];
+        v148 = objc_msgSend_deviceMediaLibraryWithUserIdentity_(MEMORY[0x277CD5E10], v143, v147, v144, v145);
+        objc_msgSend_setMediaLibrary_(v146, v149, v148, v150, v151);
       }
 
-      [v37 setIgnoreSystemFilterPredicates:1];
-      [v37 setShouldIncludeNonLibraryEntities:1];
-      if (!v130 || ([MEMORY[0x277CD5E30] predicateWithValue:MEMORY[0x277CBEC38] forProperty:v128], (v137 = objc_claimAutoreleasedReturnValue()) == 0))
+      objc_msgSend_setIgnoreSystemFilterPredicates_(v146, v143, 1, v144, v145);
+      objc_msgSend_setShouldIncludeNonLibraryEntities_(v146, v152, 1, v153, v154);
+      if (!v454 || (objc_msgSend_predicateWithValue_forProperty_(MEMORY[0x277CD5E30], v155, MEMORY[0x277CBEC38], v452, v158), (v461 = objc_claimAutoreleasedReturnValue()) == 0))
       {
-        if (![(NSString *)self->_requestAceHash length])
+        if (!objc_msgSend_length(self->_requestAceHash, v155, v156, v157, v158))
         {
-          aceId6 = [(MPAssistantSetQueue *)self aceId];
-          v91 = sub_233505670(@"Set Queue", aceId6);
-          v92 = self->_requestAceHash;
-          self->_requestAceHash = v91;
+          v376 = objc_msgSend_aceId(self, v372, v373, v374, v375);
+          v377 = sub_233505670(@"Set Queue", v376);
+          v378 = self->_requestAceHash;
+          self->_requestAceHash = v377;
         }
 
-        v93 = _MPLogCategoryAssistant();
-        if (os_log_type_enabled(v93, OS_LOG_TYPE_ERROR))
+        v379 = _MPLogCategoryAssistant();
+        if (os_log_type_enabled(v379, OS_LOG_TYPE_ERROR))
         {
-          v94 = self->_requestAceHash;
+          v380 = self->_requestAceHash;
           *buf = 138543362;
-          v174 = v94;
-          _os_log_impl(&dword_2334D9000, v93, OS_LOG_TYPE_ERROR, "Set Queue (store) <%{public}@>: no playable type set", buf, 0xCu);
+          v498 = v380;
+          _os_log_impl(&dword_2334D9000, v379, OS_LOG_TYPE_ERROR, "Set Queue (store) <%{public}@>: no playable type set", buf, 0xCu);
         }
 
-        v95 = [objc_alloc(MEMORY[0x277D47208]) initWithReason:@"no playable type set"];
-        (*(v134 + 2))(v134, 1, v95);
+        v381 = objc_alloc(MEMORY[0x277D47208]);
+        v385 = objc_msgSend_initWithReason_(v381, v382, @"no playable type set", v383, v384);
+        (*(v458 + 2))(v458, 1, v385);
 
         goto LABEL_86;
       }
 
-      v39 = MEMORY[0x277CD5DB8];
-      v40 = MEMORY[0x277CD5DC0];
-      v41 = [MEMORY[0x277CD5E30] predicateWithValue:v140 forProperty:v127];
-      v169[0] = v41;
-      v42 = [MEMORY[0x277CD5E30] predicateWithValue:v140 forProperty:v126];
-      v169[1] = v42;
-      v43 = [MEMORY[0x277CBEA60] arrayWithObjects:v169 count:2];
-      v44 = [v40 predicateMatchingPredicates:v43];
-      v170[0] = v44;
-      v170[1] = v137;
-      v45 = [MEMORY[0x277CBEA60] arrayWithObjects:v170 count:2];
-      v46 = [v39 predicateMatchingPredicates:v45];
+      v159 = MEMORY[0x277CD5DB8];
+      v160 = MEMORY[0x277CD5DC0];
+      v161 = objc_msgSend_predicateWithValue_forProperty_(MEMORY[0x277CD5E30], v155, v464, v451, v158);
+      v493[0] = v161;
+      v164 = objc_msgSend_predicateWithValue_forProperty_(MEMORY[0x277CD5E30], v162, v464, v450, v163);
+      v493[1] = v164;
+      v167 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v165, v493, 2, v166);
+      v171 = objc_msgSend_predicateMatchingPredicates_(v160, v168, v167, v169, v170);
+      v494[0] = v171;
+      v494[1] = v461;
+      v174 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v172, v494, 2, v173);
+      v178 = objc_msgSend_predicateMatchingPredicates_(v159, v175, v174, v176, v177);
 
-      [v37 addFilterPredicate:v46];
-      items4 = [v37 items];
-      LOBYTE(v42) = [items4 count] == 0;
+      objc_msgSend_addFilterPredicate_(v146, v179, v178, v180, v181);
+      v186 = objc_msgSend_items(v146, v182, v183, v184, v185);
+      LOBYTE(v164) = objc_msgSend_count(v186, v187, v188, v189, v190) == 0;
 
-      if (v42)
+      if (v164)
       {
-        if (![(NSString *)self->_requestAceHash length])
+        if (!objc_msgSend_length(self->_requestAceHash, v191, v192, v193, v194))
         {
-          aceId7 = [(MPAssistantSetQueue *)self aceId];
-          v103 = sub_233505670(@"Set Queue", aceId7);
-          v104 = self->_requestAceHash;
-          self->_requestAceHash = v103;
+          v403 = objc_msgSend_aceId(self, v399, v400, v401, v402);
+          v404 = sub_233505670(@"Set Queue", v403);
+          v405 = self->_requestAceHash;
+          self->_requestAceHash = v404;
         }
 
-        v105 = _MPLogCategoryAssistant();
-        if (os_log_type_enabled(v105, OS_LOG_TYPE_ERROR))
+        v406 = _MPLogCategoryAssistant();
+        if (os_log_type_enabled(v406, OS_LOG_TYPE_ERROR))
         {
-          v106 = self->_requestAceHash;
+          v407 = self->_requestAceHash;
           *buf = 138543618;
-          v174 = v106;
-          v175 = 2114;
-          v176 = v140;
-          _os_log_impl(&dword_2334D9000, v105, OS_LOG_TYPE_ERROR, "Set Queue (store) <%{public}@>: no local item %{public}@", buf, 0x16u);
+          v498 = v407;
+          v499 = 2114;
+          v500 = v464;
+          _os_log_impl(&dword_2334D9000, v406, OS_LOG_TYPE_ERROR, "Set Queue (store) <%{public}@>: no local item %{public}@", buf, 0x16u);
         }
 
-        v107 = objc_alloc(MEMORY[0x277D47208]);
-        v108 = [v107 initWithErrorCode:*MEMORY[0x277D48640]];
-        (*(v134 + 2))(v134, 1, v108);
+        v408 = objc_alloc(MEMORY[0x277D47208]);
+        v412 = objc_msgSend_initWithErrorCode_(v408, v409, *MEMORY[0x277D48640], v410, v411);
+        (*(v458 + 2))(v458, 1, v412);
 
 LABEL_86:
-        v57 = obj;
+        v225 = obj;
         goto LABEL_87;
       }
 
-      v147 = 0u;
-      v148 = 0u;
-      v145 = 0u;
-      v146 = 0u;
-      items5 = [v37 items];
-      v49 = [items5 countByEnumeratingWithState:&v145 objects:v168 count:16];
-      if (v49)
+      v471 = 0u;
+      v472 = 0u;
+      v469 = 0u;
+      v470 = 0u;
+      v195 = objc_msgSend_items(v146, v191, v192, v193, v194);
+      v200 = objc_msgSend_countByEnumeratingWithState_objects_count_(v195, v196, &v469, v492, 16);
+      if (v200)
       {
-        v50 = *v146;
+        v201 = *v470;
         do
         {
-          for (k = 0; k != v49; ++k)
+          for (k = 0; k != v200; ++k)
           {
-            if (*v146 != v50)
+            if (*v470 != v201)
             {
-              objc_enumerationMutation(items5);
+              objc_enumerationMutation(v195);
             }
 
-            [array addObject:*(*(&v145 + 1) + 8 * k)];
+            objc_msgSend_addObject_(v63, v197, *(*(&v469 + 1) + 8 * k), v198, v199);
           }
 
-          v49 = [items5 countByEnumeratingWithState:&v145 objects:v168 count:16];
+          v200 = objc_msgSend_countByEnumeratingWithState_objects_count_(v195, v197, &v469, v492, 16);
         }
 
-        while (v49);
+        while (v200);
       }
     }
 
-    v34 = [obj countByEnumeratingWithState:&v149 objects:v171 count:16];
-    if (v34)
+    v140 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v203, &v473, v495, 16);
+    if (v140)
     {
       continue;
     }
@@ -566,70 +571,73 @@ LABEL_86:
 
 LABEL_48:
 
-  if ([array count]!= 1)
+  if (objc_msgSend_count(v63, v204, v205, v206, v207) != 1)
   {
-    v109 = [objc_alloc(MEMORY[0x277CD5E38]) initWithEntities:array entityType:0];
-    v110 = v163[5];
-    v163[5] = v109;
+    v413 = objc_alloc(MEMORY[0x277CD5E38]);
+    v416 = objc_msgSend_initWithEntities_entityType_(v413, v414, v63, 0, v415);
+    v417 = v487[5];
+    v487[5] = v416;
 
-    if (self->_userIdentity)
+    v421 = self->_userIdentity;
+    if (v421)
     {
-      v111 = [MEMORY[0x277CD5E10] deviceMediaLibraryWithUserIdentity:?];
-      [v163[5] setMediaLibrary:v111];
+      v422 = objc_msgSend_deviceMediaLibraryWithUserIdentity_(MEMORY[0x277CD5E10], v418, v421, v419, v420);
+      objc_msgSend_setMediaLibrary_(v487[5], v423, v422, v424, v425);
     }
 
-    if (![(NSString *)self->_requestAceHash length])
+    if (!objc_msgSend_length(self->_requestAceHash, v418, v421, v419, v420))
     {
-      aceId8 = [(MPAssistantSetQueue *)self aceId];
-      v113 = sub_233505670(@"Set Queue", aceId8);
-      v114 = self->_requestAceHash;
-      self->_requestAceHash = v113;
+      v430 = objc_msgSend_aceId(self, v426, v427, v428, v429);
+      v431 = sub_233505670(@"Set Queue", v430);
+      v432 = self->_requestAceHash;
+      self->_requestAceHash = v431;
     }
 
-    v115 = _MPLogCategoryAssistant();
-    if (os_log_type_enabled(v115, OS_LOG_TYPE_DEFAULT))
+    v433 = _MPLogCategoryAssistant();
+    if (os_log_type_enabled(v433, OS_LOG_TYPE_DEFAULT))
     {
-      v116 = self->_requestAceHash;
-      v117 = v163[5];
+      v434 = self->_requestAceHash;
+      v435 = v487[5];
       *buf = 138543618;
-      v174 = v116;
-      v175 = 2114;
-      v176 = v117;
-      _os_log_impl(&dword_2334D9000, v115, OS_LOG_TYPE_DEFAULT, "Set Queue (store) <%{public}@>: queue from %{public}@", buf, 0x16u);
+      v498 = v434;
+      v499 = 2114;
+      v500 = v435;
+      _os_log_impl(&dword_2334D9000, v433, OS_LOG_TYPE_DEFAULT, "Set Queue (store) <%{public}@>: queue from %{public}@", buf, 0x16u);
     }
 
     goto LABEL_98;
   }
 
-  if (![(NSString *)self->_requestAceHash length])
+  if (!objc_msgSend_length(self->_requestAceHash, v208, v209, v210, v211))
   {
-    aceId9 = [(MPAssistantSetQueue *)self aceId];
-    v53 = sub_233505670(@"Set Queue", aceId9);
-    v54 = self->_requestAceHash;
-    self->_requestAceHash = v53;
+    v216 = objc_msgSend_aceId(self, v212, v213, v214, v215);
+    v217 = sub_233505670(@"Set Queue", v216);
+    v218 = self->_requestAceHash;
+    self->_requestAceHash = v217;
   }
 
-  v55 = _MPLogCategoryAssistant();
-  if (os_log_type_enabled(v55, OS_LOG_TYPE_DEFAULT))
+  v219 = _MPLogCategoryAssistant();
+  if (os_log_type_enabled(v219, OS_LOG_TYPE_DEFAULT))
   {
-    v56 = self->_requestAceHash;
+    v220 = self->_requestAceHash;
     *buf = 138543618;
-    v174 = v56;
-    v175 = 2114;
-    v176 = array;
-    _os_log_impl(&dword_2334D9000, v55, OS_LOG_TYPE_DEFAULT, "Set Queue (store) <%{public}@>: album from %{public}@", buf, 0x16u);
+    v498 = v220;
+    v499 = 2114;
+    v500 = v63;
+    _os_log_impl(&dword_2334D9000, v219, OS_LOG_TYPE_DEFAULT, "Set Queue (store) <%{public}@>: album from %{public}@", buf, 0x16u);
   }
 
-  v57 = [objc_alloc(MEMORY[0x277CD5DF0]) initWithItems:array];
-  v142[0] = MEMORY[0x277D85DD0];
-  v142[1] = 3221225472;
-  v142[2] = sub_2334FAA74;
-  v142[3] = &unk_2789DB760;
-  v143 = v135;
-  v144 = v134;
-  [(MPAssistantSetQueue *)self _playAlbumFromMediaItems:v57 contextID:v132 dryRun:runCopy completion:v142];
+  v221 = objc_alloc(MEMORY[0x277CD5DF0]);
+  v225 = objc_msgSend_initWithItems_(v221, v222, v63, v223, v224);
+  v466[0] = MEMORY[0x277D85DD0];
+  v466[1] = 3221225472;
+  v466[2] = sub_2334FAA74;
+  v466[3] = &unk_2789DB760;
+  v467 = v459;
+  v468 = v458;
+  objc_msgSend__playAlbumFromMediaItems_contextID_dryRun_completion_(self, v226, v225, v456, runCopy, v466);
 
-  v37 = v143;
+  v146 = v467;
 LABEL_87:
 
 LABEL_88:
@@ -638,85 +646,84 @@ LABEL_89:
 LABEL_90:
 LABEL_100:
 
-  _Block_object_dispose(&v162, 8);
-  v118 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v486, 8);
 }
 
 - (void)_performStoreItemsSetQueueAsDryRun:(BOOL)run completion:(id)completion
 {
   completionCopy = completion;
-  mediaItems = [(MPAssistantSetQueue *)self mediaItems];
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = sub_2334FAB84;
-  v10[3] = &unk_2789DB710;
-  v11 = mediaItems;
-  v12 = completionCopy;
-  v10[4] = self;
+  v11 = objc_msgSend_mediaItems(self, v7, v8, v9, v10);
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = sub_2334FAB84;
+  v17[3] = &unk_2789DB710;
+  v18 = v11;
+  v19 = completionCopy;
+  v17[4] = self;
   runCopy = run;
-  v8 = mediaItems;
-  v9 = completionCopy;
-  sub_2334FAB84(v10, 0);
+  v12 = v11;
+  v13 = completionCopy;
+  sub_2334FAB84(v17, 0, v14, v15, v16);
 }
 
 - (void)_performMediaItemsSetQueueAsDryRun:(BOOL)run completion:(id)completion
 {
   runCopy = run;
   completionCopy = completion;
-  mediaItems = [(MPAssistantSetQueue *)self mediaItems];
-  identifier = [mediaItems identifier];
-  refId = [(MPAssistantSetQueue *)self refId];
-  v10 = [mediaItems MPMediaItemQueryOnlyPlayableItems:1 withUserIdentity:self->_userIdentity plugin:@"Set Queue" hash:self->_requestAceHash];
-  if ([v10 _countOfItems])
+  v11 = objc_msgSend_mediaItems(self, v7, v8, v9, v10);
+  v16 = objc_msgSend_identifier(v11, v12, v13, v14, v15);
+  v21 = objc_msgSend_refId(self, v17, v18, v19, v20);
+  v23 = objc_msgSend_MPMediaItemQueryOnlyPlayableItems_withUserIdentity_plugin_hash_(v11, v22, 1, self->_userIdentity, @"Set Queue", self->_requestAceHash);
+  if (objc_msgSend__countOfItems(v23, v24, v25, v26, v27))
   {
-    v34[0] = MEMORY[0x277D85DD0];
-    v34[1] = 3221225472;
-    v34[2] = sub_2334FBE48;
-    v34[3] = &unk_2789DB738;
-    v30 = v10;
-    v35 = v30;
-    v11 = identifier;
-    v36 = v11;
-    v37 = mediaItems;
+    v78[0] = MEMORY[0x277D85DD0];
+    v78[1] = 3221225472;
+    v78[2] = sub_2334FBE48;
+    v78[3] = &unk_2789DB738;
+    v74 = v23;
+    v79 = v74;
+    v28 = v16;
+    v80 = v28;
+    v81 = v11;
     selfCopy = self;
-    v12 = refId;
-    v39 = v12;
-    v41 = runCopy;
-    v29 = completionCopy;
-    v40 = v29;
-    v13 = MEMORY[0x2383A14D0](v34);
-    scheme = [v11 scheme];
-    if ([scheme isEqualToString:@"x-sampmeditem"])
+    v29 = v21;
+    v83 = v29;
+    v85 = runCopy;
+    v73 = completionCopy;
+    v84 = v73;
+    v30 = MEMORY[0x2383A14D0](v78);
+    v35 = objc_msgSend_scheme(v28, v31, v32, v33, v34);
+    if (objc_msgSend_isEqualToString_(v35, v36, @"x-sampmeditem", v37, v38))
     {
-      v27 = v12;
-      v28 = runCopy;
-      [v30 items];
-      v15 = v13;
-      v16 = mediaItems;
-      v17 = v10;
-      v18 = refId;
-      v19 = identifier;
-      v21 = v20 = completionCopy;
-      v22 = [v21 count];
+      v71 = v29;
+      v72 = runCopy;
+      objc_msgSend_items(v74, v39, v40, v41, v42);
+      v43 = v30;
+      v44 = v11;
+      v45 = v23;
+      v46 = v21;
+      v47 = v16;
+      v49 = v48 = completionCopy;
+      v54 = objc_msgSend_count(v49, v50, v51, v52, v53);
 
-      completionCopy = v20;
-      identifier = v19;
-      refId = v18;
-      v10 = v17;
-      mediaItems = v16;
-      v13 = v15;
+      completionCopy = v48;
+      v16 = v47;
+      v21 = v46;
+      v23 = v45;
+      v11 = v44;
+      v30 = v43;
 
-      if (v22 == 1)
+      if (v54 == 1)
       {
-        collections = [v30 collections];
-        firstObject = [collections firstObject];
-        v31[0] = MEMORY[0x277D85DD0];
-        v31[1] = 3221225472;
-        v31[2] = sub_2334FBF74;
-        v31[3] = &unk_2789DB760;
-        v32 = v15;
-        v33 = v29;
-        [(MPAssistantSetQueue *)self _playAlbumFromMediaItems:firstObject contextID:v27 dryRun:v28 completion:v31];
+        v59 = objc_msgSend_collections(v74, v55, v56, v57, v58);
+        v64 = objc_msgSend_firstObject(v59, v60, v61, v62, v63);
+        v75[0] = MEMORY[0x277D85DD0];
+        v75[1] = 3221225472;
+        v75[2] = sub_2334FBF74;
+        v75[3] = &unk_2789DB760;
+        v76 = v43;
+        v77 = v73;
+        objc_msgSend__playAlbumFromMediaItems_contextID_dryRun_completion_(self, v65, v64, v71, v72, v75);
 
 LABEL_8:
         goto LABEL_9;
@@ -727,13 +734,13 @@ LABEL_8:
     {
     }
 
-    v13[2](v13);
+    v30[2](v30);
     goto LABEL_8;
   }
 
-  v25 = objc_alloc(MEMORY[0x277D47208]);
-  v26 = [v25 initWithErrorCode:*MEMORY[0x277D48640]];
-  (*(completionCopy + 2))(completionCopy, v26);
+  v66 = objc_alloc(MEMORY[0x277D47208]);
+  v70 = objc_msgSend_initWithErrorCode_(v66, v67, *MEMORY[0x277D48640], v68, v69);
+  (*(completionCopy + 2))(completionCopy, v70);
 
 LABEL_9:
 }
@@ -741,226 +748,228 @@ LABEL_9:
 - (void)_performRadioStationSetQueueAsDryRun:(BOOL)run completion:(id)completion
 {
   completionCopy = completion;
-  mediaItems = [(MPAssistantSetQueue *)self mediaItems];
-  identifier = [mediaItems identifier];
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = sub_2334FC074;
-  v11[3] = &unk_2789DB710;
-  v12 = identifier;
-  v13 = completionCopy;
-  v11[4] = self;
+  v11 = objc_msgSend_mediaItems(self, v7, v8, v9, v10);
+  v16 = objc_msgSend_identifier(v11, v12, v13, v14, v15);
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = sub_2334FC074;
+  v19[3] = &unk_2789DB710;
+  v20 = v16;
+  v21 = completionCopy;
+  v19[4] = self;
   runCopy = run;
-  v9 = identifier;
-  v10 = completionCopy;
-  sub_2334FC074(v11, 0);
+  v17 = v16;
+  v18 = completionCopy;
+  sub_2334FC074(v19, 0);
 }
 
 - (void)_performWithCompletion:(id)completion
 {
-  v68 = *MEMORY[0x277D85DE8];
+  v184 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
-  mediaItems = [(MPAssistantSetQueue *)self mediaItems];
-  identifier = [mediaItems identifier];
+  v9 = objc_msgSend_mediaItems(self, v5, v6, v7, v8);
+  v14 = objc_msgSend_identifier(v9, v10, v11, v12, v13);
 
-  scheme = [identifier scheme];
-  v8 = scheme;
-  if (!scheme)
+  v19 = objc_msgSend_scheme(v14, v15, v16, v17, v18);
+  v24 = v19;
+  if (!v19)
   {
-    if (![(NSString *)self->_requestAceHash length])
+    if (!objc_msgSend_length(self->_requestAceHash, v20, v21, v22, v23))
     {
-      aceId = [(MPAssistantSetQueue *)self aceId];
-      v17 = sub_233505670(@"Set Queue", aceId);
+      v55 = objc_msgSend_aceId(self, v51, v52, v53, v54);
+      v56 = sub_233505670(@"Set Queue", v55);
       requestAceHash = self->_requestAceHash;
-      self->_requestAceHash = v17;
+      self->_requestAceHash = v56;
     }
 
-    v19 = _MPLogCategoryAssistant();
-    if (!os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v58 = _MPLogCategoryAssistant();
+    if (!os_log_type_enabled(v58, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_17;
     }
 
-    v20 = self->_requestAceHash;
-    dryRun = [(MPAssistantSetQueue *)self dryRun];
-    v22 = &stru_2848D4AE0;
+    v63 = self->_requestAceHash;
+    v64 = objc_msgSend_dryRun(self, v59, v60, v61, v62);
+    v65 = &stru_2848D4AE0;
     *buf = 138543874;
-    v63 = v20;
-    v64 = 2114;
-    if (dryRun)
+    v179 = v63;
+    v180 = 2114;
+    if (v64)
     {
-      v22 = @" ⚠️ DRY RUN";
+      v65 = @" ⚠️ DRY RUN";
     }
 
-    v65 = identifier;
-    v66 = 2114;
-    v67 = v22;
-    v23 = "Set Queue (invalid) <%{public}@>: invoke with identifier %{public}@%{public}@";
+    v181 = v14;
+    v182 = 2114;
+    v183 = v65;
+    v66 = "Set Queue (invalid) <%{public}@>: invoke with identifier %{public}@%{public}@";
     goto LABEL_16;
   }
 
-  if ([scheme isEqualToString:@"x-sampradio"])
+  if (objc_msgSend_isEqualToString_(v19, v20, @"x-sampradio", v22, v23))
   {
-    if (![(NSString *)self->_requestAceHash length])
+    if (!objc_msgSend_length(self->_requestAceHash, v25, v26, v27, v28))
     {
-      aceId2 = [(MPAssistantSetQueue *)self aceId];
-      v10 = sub_233505670(@"Set Queue", aceId2);
-      v11 = self->_requestAceHash;
-      self->_requestAceHash = v10;
+      v33 = objc_msgSend_aceId(self, v29, v30, v31, v32);
+      v34 = sub_233505670(@"Set Queue", v33);
+      v35 = self->_requestAceHash;
+      self->_requestAceHash = v34;
     }
 
-    v12 = _MPLogCategoryAssistant();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v36 = _MPLogCategoryAssistant();
+    if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = self->_requestAceHash;
-      dryRun2 = [(MPAssistantSetQueue *)self dryRun];
-      v15 = &stru_2848D4AE0;
+      v41 = self->_requestAceHash;
+      v42 = objc_msgSend_dryRun(self, v37, v38, v39, v40);
+      v43 = &stru_2848D4AE0;
       *buf = 138543874;
-      v63 = v13;
-      v64 = 2114;
-      if (dryRun2)
+      v179 = v41;
+      v180 = 2114;
+      if (v42)
       {
-        v15 = @" ⚠️ DRY RUN";
+        v43 = @" ⚠️ DRY RUN";
       }
 
-      v65 = identifier;
-      v66 = 2114;
-      v67 = v15;
-      _os_log_impl(&dword_2334D9000, v12, OS_LOG_TYPE_DEFAULT, "Set Queue (radio) <%{public}@>: invoke with identifier %{public}@%{public}@", buf, 0x20u);
+      v181 = v14;
+      v182 = 2114;
+      v183 = v43;
+      _os_log_impl(&dword_2334D9000, v36, OS_LOG_TYPE_DEFAULT, "Set Queue (radio) <%{public}@>: invoke with identifier %{public}@%{public}@", buf, 0x20u);
     }
 
-    [(MPAssistantSetQueue *)self _performRadioStationSetQueueAsDryRun:[(MPAssistantSetQueue *)self dryRun] completion:completionCopy];
+    v48 = objc_msgSend_dryRun(self, v44, v45, v46, v47);
+    objc_msgSend__performRadioStationSetQueueAsDryRun_completion_(self, v49, v48, completionCopy, v50);
     goto LABEL_51;
   }
 
-  v26 = sub_23350261C(identifier);
-  if (v26 == 4)
+  v72 = sub_23350261C(v14);
+  if (v72 == 4)
   {
     goto LABEL_21;
   }
 
-  if (v26 != 3)
+  if (v72 != 3)
   {
-    if (v26 == 1)
+    if (v72 == 1)
     {
 LABEL_21:
-      if (![(NSString *)self->_requestAceHash length])
+      if (!objc_msgSend_length(self->_requestAceHash, v73, v74, v75, v76))
       {
-        aceId3 = [(MPAssistantSetQueue *)self aceId];
-        v28 = sub_233505670(@"Set Queue", aceId3);
-        v29 = self->_requestAceHash;
-        self->_requestAceHash = v28;
+        v81 = objc_msgSend_aceId(self, v77, v78, v79, v80);
+        v82 = sub_233505670(@"Set Queue", v81);
+        v83 = self->_requestAceHash;
+        self->_requestAceHash = v82;
       }
 
-      v30 = _MPLogCategoryAssistant();
-      if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+      v84 = _MPLogCategoryAssistant();
+      if (os_log_type_enabled(v84, OS_LOG_TYPE_DEFAULT))
       {
-        v31 = self->_requestAceHash;
-        dryRun3 = [(MPAssistantSetQueue *)self dryRun];
-        v33 = &stru_2848D4AE0;
+        v89 = self->_requestAceHash;
+        v90 = objc_msgSend_dryRun(self, v85, v86, v87, v88);
+        v91 = &stru_2848D4AE0;
         *buf = 138543874;
-        v63 = v31;
-        v64 = 2114;
-        if (dryRun3)
+        v179 = v89;
+        v180 = 2114;
+        if (v90)
         {
-          v33 = @" ⚠️ DRY RUN";
+          v91 = @" ⚠️ DRY RUN";
         }
 
-        v65 = identifier;
-        v66 = 2114;
-        v67 = v33;
-        _os_log_impl(&dword_2334D9000, v30, OS_LOG_TYPE_DEFAULT, "Set Queue (local) <%{public}@>: invoke with identifier %{public}@%{public}@", buf, 0x20u);
+        v181 = v14;
+        v182 = 2114;
+        v183 = v91;
+        _os_log_impl(&dword_2334D9000, v84, OS_LOG_TYPE_DEFAULT, "Set Queue (local) <%{public}@>: invoke with identifier %{public}@%{public}@", buf, 0x20u);
       }
 
-      [(MPAssistantSetQueue *)self _performMediaItemsSetQueueAsDryRun:[(MPAssistantSetQueue *)self dryRun] completion:completionCopy];
+      v96 = objc_msgSend_dryRun(self, v92, v93, v94, v95);
+      objc_msgSend__performMediaItemsSetQueueAsDryRun_completion_(self, v97, v96, completionCopy, v98);
       goto LABEL_51;
     }
 
-    if (![(NSString *)self->_requestAceHash length])
+    if (!objc_msgSend_length(self->_requestAceHash, v73, v74, v75, v76))
     {
-      aceId4 = [(MPAssistantSetQueue *)self aceId];
-      v46 = sub_233505670(@"Set Queue", aceId4);
-      v47 = self->_requestAceHash;
-      self->_requestAceHash = v46;
+      v143 = objc_msgSend_aceId(self, v139, v140, v141, v142);
+      v144 = sub_233505670(@"Set Queue", v143);
+      v145 = self->_requestAceHash;
+      self->_requestAceHash = v144;
     }
 
-    v19 = _MPLogCategoryAssistant();
-    if (!os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v58 = _MPLogCategoryAssistant();
+    if (!os_log_type_enabled(v58, OS_LOG_TYPE_ERROR))
     {
 LABEL_17:
 
-      v24 = objc_alloc(MEMORY[0x277D47208]);
-      v25 = [v24 initWithErrorCode:*MEMORY[0x277D48638]];
-      completionCopy[2](completionCopy, v25);
+      v67 = objc_alloc(MEMORY[0x277D47208]);
+      v71 = objc_msgSend_initWithErrorCode_(v67, v68, *MEMORY[0x277D48638], v69, v70);
+      completionCopy[2](completionCopy, v71);
 
       goto LABEL_51;
     }
 
-    v48 = self->_requestAceHash;
-    dryRun4 = [(MPAssistantSetQueue *)self dryRun];
-    v50 = &stru_2848D4AE0;
+    v150 = self->_requestAceHash;
+    v151 = objc_msgSend_dryRun(self, v146, v147, v148, v149);
+    v152 = &stru_2848D4AE0;
     *buf = 138543874;
-    v63 = v48;
-    v64 = 2114;
-    if (dryRun4)
+    v179 = v150;
+    v180 = 2114;
+    if (v151)
     {
-      v50 = @" ⚠️ DRY RUN";
+      v152 = @" ⚠️ DRY RUN";
     }
 
-    v65 = identifier;
-    v66 = 2114;
-    v67 = v50;
-    v23 = "Set Queue (invalid) <%{public}@>: invoke with invalid origin identifier %{public}@%{public}@";
+    v181 = v14;
+    v182 = 2114;
+    v183 = v152;
+    v66 = "Set Queue (invalid) <%{public}@>: invoke with invalid origin identifier %{public}@%{public}@";
 LABEL_16:
-    _os_log_impl(&dword_2334D9000, v19, OS_LOG_TYPE_ERROR, v23, buf, 0x20u);
+    _os_log_impl(&dword_2334D9000, v58, OS_LOG_TYPE_ERROR, v66, buf, 0x20u);
     goto LABEL_17;
   }
 
-  sharedUserIdFromPlayableMusicAccount = [(MPAssistantSetQueue *)self sharedUserIdFromPlayableMusicAccount];
-  if ([sharedUserIdFromPlayableMusicAccount length])
+  v99 = objc_msgSend_sharedUserIdFromPlayableMusicAccount(self, v73, v74, v75, v76);
+  if (objc_msgSend_length(v99, v100, v101, v102, v103))
   {
-    assetInfo = [(MPAssistantSetQueue *)self assetInfo];
-    v36 = [assetInfo length];
+    v108 = objc_msgSend_assetInfo(self, v104, v105, v106, v107);
+    v113 = objc_msgSend_length(v108, v109, v110, v111, v112);
 
-    if (!v36)
+    if (!v113)
     {
-      if (![(NSString *)self->_requestAceHash length])
+      if (!objc_msgSend_length(self->_requestAceHash, v114, v115, v116, v117))
       {
-        aceId5 = [(MPAssistantSetQueue *)self aceId];
-        v38 = sub_233505670(@"Set Queue", aceId5);
-        v39 = self->_requestAceHash;
-        self->_requestAceHash = v38;
+        v122 = objc_msgSend_aceId(self, v118, v119, v120, v121);
+        v123 = sub_233505670(@"Set Queue", v122);
+        v124 = self->_requestAceHash;
+        self->_requestAceHash = v123;
       }
 
-      v40 = _MPLogCategoryAssistant();
-      if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
+      v125 = _MPLogCategoryAssistant();
+      if (os_log_type_enabled(v125, OS_LOG_TYPE_DEFAULT))
       {
-        v41 = self->_requestAceHash;
-        dryRun5 = [(MPAssistantSetQueue *)self dryRun];
-        v43 = &stru_2848D4AE0;
+        v130 = self->_requestAceHash;
+        v131 = objc_msgSend_dryRun(self, v126, v127, v128, v129);
+        v132 = &stru_2848D4AE0;
         *buf = 138543874;
-        v63 = v41;
-        v64 = 2114;
-        if (dryRun5)
+        v179 = v130;
+        v180 = 2114;
+        if (v131)
         {
-          v43 = @" ⚠️ DRY RUN";
+          v132 = @" ⚠️ DRY RUN";
         }
 
-        v65 = identifier;
-        v66 = 2114;
-        v67 = v43;
-        _os_log_impl(&dword_2334D9000, v40, OS_LOG_TYPE_DEFAULT, "Set Queue (localstore) <%{public}@>: invoke with identifier %{public}@%{public}@", buf, 0x20u);
+        v181 = v14;
+        v182 = 2114;
+        v183 = v132;
+        _os_log_impl(&dword_2334D9000, v125, OS_LOG_TYPE_DEFAULT, "Set Queue (localstore) <%{public}@>: invoke with identifier %{public}@%{public}@", buf, 0x20u);
       }
 
-      dryRun6 = [(MPAssistantSetQueue *)self dryRun];
-      v59[0] = MEMORY[0x277D85DD0];
-      v59[1] = 3221225472;
-      v59[2] = sub_2334FD034;
-      v59[3] = &unk_2789DB698;
-      v59[4] = self;
-      v60 = identifier;
-      v61 = completionCopy;
-      [(MPAssistantSetQueue *)self _performMediaItemsSetQueueFromStoreIdentifiersAsDryRun:dryRun6 onlyPlayableItems:1 onlyLocalItems:0 completion:v59];
+      v137 = objc_msgSend_dryRun(self, v133, v134, v135, v136);
+      v175[0] = MEMORY[0x277D85DD0];
+      v175[1] = 3221225472;
+      v175[2] = sub_2334FD034;
+      v175[3] = &unk_2789DB698;
+      v175[4] = self;
+      v176 = v14;
+      v177 = completionCopy;
+      objc_msgSend__performMediaItemsSetQueueFromStoreIdentifiersAsDryRun_onlyPlayableItems_onlyLocalItems_completion_(self, v138, v137, 1, 0, v175);
 
       goto LABEL_51;
     }
@@ -970,110 +979,107 @@ LABEL_16:
   {
   }
 
-  if (![(NSString *)self->_requestAceHash length])
+  if (!objc_msgSend_length(self->_requestAceHash, v114, v115, v116, v117))
   {
-    aceId6 = [(MPAssistantSetQueue *)self aceId];
-    v52 = sub_233505670(@"Set Queue", aceId6);
-    v53 = self->_requestAceHash;
-    self->_requestAceHash = v52;
+    v157 = objc_msgSend_aceId(self, v153, v154, v155, v156);
+    v158 = sub_233505670(@"Set Queue", v157);
+    v159 = self->_requestAceHash;
+    self->_requestAceHash = v158;
   }
 
-  v54 = _MPLogCategoryAssistant();
-  if (os_log_type_enabled(v54, OS_LOG_TYPE_DEFAULT))
+  v160 = _MPLogCategoryAssistant();
+  if (os_log_type_enabled(v160, OS_LOG_TYPE_DEFAULT))
   {
-    v55 = self->_requestAceHash;
-    dryRun7 = [(MPAssistantSetQueue *)self dryRun];
-    v57 = &stru_2848D4AE0;
+    v165 = self->_requestAceHash;
+    v166 = objc_msgSend_dryRun(self, v161, v162, v163, v164);
+    v167 = &stru_2848D4AE0;
     *buf = 138543874;
-    v63 = v55;
-    v64 = 2114;
-    if (dryRun7)
+    v179 = v165;
+    v180 = 2114;
+    if (v166)
     {
-      v57 = @" ⚠️ DRY RUN";
+      v167 = @" ⚠️ DRY RUN";
     }
 
-    v65 = identifier;
-    v66 = 2114;
-    v67 = v57;
-    _os_log_impl(&dword_2334D9000, v54, OS_LOG_TYPE_DEFAULT, "Set Queue (store) <%{public}@>: invoke with identifier %{public}@%{public}@", buf, 0x20u);
+    v181 = v14;
+    v182 = 2114;
+    v183 = v167;
+    _os_log_impl(&dword_2334D9000, v160, OS_LOG_TYPE_DEFAULT, "Set Queue (store) <%{public}@>: invoke with identifier %{public}@%{public}@", buf, 0x20u);
   }
 
-  [(MPAssistantSetQueue *)self _performStoreItemsSetQueueAsDryRun:[(MPAssistantSetQueue *)self dryRun] completion:completionCopy];
+  v172 = objc_msgSend_dryRun(self, v168, v169, v170, v171);
+  objc_msgSend__performStoreItemsSetQueueAsDryRun_completion_(self, v173, v172, completionCopy, v174);
 LABEL_51:
-
-  v58 = *MEMORY[0x277D85DE8];
 }
 
 - (void)performWithCompletion:(id)completion serviceHelper:(id)helper
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v95 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   helperCopy = helper;
   v8 = objc_alloc_init(MEMORY[0x277D27820]);
   availability = self->_availability;
   self->_availability = v8;
 
-  if (![(NSString *)self->_requestAceHash length])
+  if (!objc_msgSend_length(self->_requestAceHash, v10, v11, v12, v13))
   {
-    aceId = [(MPAssistantSetQueue *)self aceId];
-    v11 = sub_233505670(@"Set Queue", aceId);
+    v18 = objc_msgSend_aceId(self, v14, v15, v16, v17);
+    v19 = sub_233505670(@"Set Queue", v18);
     requestAceHash = self->_requestAceHash;
-    self->_requestAceHash = v11;
+    self->_requestAceHash = v19;
   }
 
-  v13 = _MPLogCategoryAssistant();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  v21 = _MPLogCategoryAssistant();
+  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
   {
-    v30 = self->_requestAceHash;
-    hashedRouteUIDs = [(MPAssistantSetQueue *)self hashedRouteUIDs];
-    v29 = [hashedRouteUIDs count];
-    [(MPAssistantSetQueue *)self assetInfo];
-    v31 = v33 = completionCopy;
-    v14 = [v31 length] != 0;
-    requesterSharedUserId = [(MPAssistantSetQueue *)self requesterSharedUserId];
-    v16 = helperCopy;
-    v17 = [requesterSharedUserId length] != 0;
-    sharedUserIdFromPlayableMusicAccount = [(MPAssistantSetQueue *)self sharedUserIdFromPlayableMusicAccount];
-    v19 = [sharedUserIdFromPlayableMusicAccount length] != 0;
-    startPlaying = [(MPAssistantSetQueue *)self startPlaying];
+    v77 = self->_requestAceHash;
+    v79 = objc_msgSend_hashedRouteUIDs(self, v22, v23, v24, v25);
+    v76 = objc_msgSend_count(v79, v26, v27, v28, v29);
+    objc_msgSend_assetInfo(self, v30, v31, v32, v33);
+    v78 = v80 = completionCopy;
+    v38 = objc_msgSend_length(v78, v34, v35, v36, v37) != 0;
+    v43 = objc_msgSend_requesterSharedUserId(self, v39, v40, v41, v42);
+    v48 = helperCopy;
+    v49 = objc_msgSend_length(v43, v44, v45, v46, v47) != 0;
+    v54 = objc_msgSend_sharedUserIdFromPlayableMusicAccount(self, v50, v51, v52, v53);
+    v59 = objc_msgSend_length(v54, v55, v56, v57, v58) != 0;
+    v64 = objc_msgSend_startPlaying(self, v60, v61, v62, v63);
     *buf = 138544642;
-    v37 = v30;
-    v38 = 2048;
-    v39 = v29;
-    v40 = 1024;
-    v41 = v14;
-    v42 = 1024;
-    v43 = v17;
-    helperCopy = v16;
-    v44 = 1024;
-    v45 = v19;
-    v46 = 2114;
-    v47 = startPlaying;
-    _os_log_impl(&dword_2334D9000, v13, OS_LOG_TYPE_DEFAULT, "Set Queue (invoke) <%{public}@>: %lu UIDs, asset info present %{BOOL}u, requester shared user id present %{BOOL}u, playable music account shared user id present %{BOOL}u, start %{public}@", buf, 0x32u);
+    v84 = v77;
+    v85 = 2048;
+    v86 = v76;
+    v87 = 1024;
+    v88 = v38;
+    v89 = 1024;
+    v90 = v49;
+    helperCopy = v48;
+    v91 = 1024;
+    v92 = v59;
+    v93 = 2114;
+    v94 = v64;
+    _os_log_impl(&dword_2334D9000, v21, OS_LOG_TYPE_DEFAULT, "Set Queue (invoke) <%{public}@>: %lu UIDs, asset info present %{BOOL}u, requester shared user id present %{BOOL}u, playable music account shared user id present %{BOOL}u, start %{public}@", buf, 0x32u);
 
-    completionCopy = v33;
+    completionCopy = v80;
   }
 
-  v21 = self->_requestAceHash;
-  hashedRouteUIDs2 = [(MPAssistantSetQueue *)self hashedRouteUIDs];
-  sub_2335057BC(@"Set Queue", v21, hashedRouteUIDs2);
+  v65 = self->_requestAceHash;
+  v70 = objc_msgSend_hashedRouteUIDs(self, v66, v67, v68, v69);
+  sub_2335057BC(@"Set Queue", v65, v70);
 
   serviceHelper = self->_serviceHelper;
   self->_serviceHelper = helperCopy;
-  v24 = helperCopy;
+  v72 = helperCopy;
 
-  v25 = sub_23350699C();
-  v26 = dispatch_queue_create("com.apple.mediaPlayer.assistant.setQueue", 0);
+  v73 = sub_23350699C();
+  v74 = dispatch_queue_create("com.apple.mediaPlayer.assistant.setQueue", 0);
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = sub_2334FD4DC;
   block[3] = &unk_2789DB670;
   block[4] = self;
-  v35 = completionCopy;
-  v27 = completionCopy;
-  dispatch_group_notify(v25, v26, block);
-
-  v28 = *MEMORY[0x277D85DE8];
+  v82 = completionCopy;
+  v75 = completionCopy;
+  dispatch_group_notify(v73, v74, block);
 }
 
 @end

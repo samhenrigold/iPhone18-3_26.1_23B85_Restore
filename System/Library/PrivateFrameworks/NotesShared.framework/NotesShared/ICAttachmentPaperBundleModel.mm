@@ -504,23 +504,23 @@ void __91__ICAttachmentPaperBundleModel_updateMinimumSupportedVersionIfNeededWit
   updateMinimumSupportedVersionIfNeededWithCompletionHandler__queue = v0;
 }
 
-void __91__ICAttachmentPaperBundleModel_updateMinimumSupportedVersionIfNeededWithCompletionHandler___block_invoke_2(id *a1)
+void __91__ICAttachmentPaperBundleModel_updateMinimumSupportedVersionIfNeededWithCompletionHandler___block_invoke_2(id *a1, uint64_t a2)
 {
-  v2 = [objc_opt_class() baseNotesVersion];
-  v3 = [a1[4] paperBundleURL];
-  v4 = [_TtC11NotesShared34ICAttachmentSystemPaperModelHelper minimumSupportedNotesVersionForPaperAtURL:v3 greaterOrEqualToVersion:v2];
+  v3 = [objc_opt_class() baseNotesVersion];
+  v4 = [a1[4] paperBundleURL];
+  v5 = [_TtC11NotesShared34ICAttachmentSystemPaperModelHelper minimumSupportedNotesVersionForPaperAtURL:v4 greaterOrEqualToVersion:v3];
 
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __91__ICAttachmentPaperBundleModel_updateMinimumSupportedVersionIfNeededWithCompletionHandler___block_invoke_3;
   block[3] = &unk_278194E10;
-  v11 = v2;
-  v12 = v4;
-  v5 = a1[5];
-  v6 = a1[4];
-  v8 = v5;
+  v12 = v3;
+  v13 = v5;
+  v6 = a1[5];
+  v7 = a1[4];
   v9 = v6;
-  v10 = a1[6];
+  v10 = v7;
+  v11 = a1[6];
   dispatch_async(MEMORY[0x277D85CD0], block);
 }
 

@@ -51,48 +51,46 @@
 
 - (void)fulfillWithStyle:(id)style
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   styleCopy = style;
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   v5 = self->_promisees;
-  v7 = objc_msgSend_countByEnumeratingWithState_objects_count_(v5, v6, &v17, v21, 16);
+  v7 = objc_msgSend_countByEnumeratingWithState_objects_count_(v5, v6, &v16, v20, 16);
   if (v7)
   {
     v8 = v7;
-    v9 = *v18;
+    v9 = *v17;
     do
     {
       v10 = 0;
       do
       {
-        if (*v18 != v9)
+        if (*v17 != v9)
         {
           objc_enumerationMutation(v5);
         }
 
-        v11 = *(*(&v17 + 1) + 8 * v10);
-        v15[0] = MEMORY[0x277D85DD0];
-        v15[1] = 3221225472;
-        v15[2] = sub_276CB47B0;
-        v15[3] = &unk_27A6EF0B0;
-        v15[4] = self;
-        v16 = styleCopy;
-        objc_msgSend_replaceReferencedStylesUsingBlock_(v11, v12, v15);
+        v11 = *(*(&v16 + 1) + 8 * v10);
+        v14[0] = MEMORY[0x277D85DD0];
+        v14[1] = 3221225472;
+        v14[2] = sub_276CB47B0;
+        v14[3] = &unk_27A6EF0B0;
+        v14[4] = self;
+        v15 = styleCopy;
+        objc_msgSend_replaceReferencedStylesUsingBlock_(v11, v12, v14);
 
         ++v10;
       }
 
       while (v8 != v10);
-      v8 = objc_msgSend_countByEnumeratingWithState_objects_count_(v5, v13, &v17, v21, 16);
+      v8 = objc_msgSend_countByEnumeratingWithState_objects_count_(v5, v13, &v16, v20, 16);
     }
 
     while (v8);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 @end

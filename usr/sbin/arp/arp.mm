@@ -470,19 +470,19 @@ uint64_t print_entry_ext(uint64_t a1, uint64_t a2, uint64_t a3)
   }
 
   printf("%-17s ", v11);
-  v22.tv_sec = 0;
-  *&v22.tv_usec = 0;
-  gettimeofday(&v22, 0);
+  v19.tv_sec = 0;
+  *&v19.tv_usec = 0;
+  gettimeofday(&v19, 0);
   if (*(a3 + 96) && (v12 = *(a3 + 104)) != 0)
   {
-    if (v12 <= v22.tv_sec)
+    if (v12 <= v19.tv_sec)
     {
       v13 = "expired";
     }
 
     else
     {
-      sec2str(v12 - v22.tv_sec);
+      sec2str(v12 - v19.tv_sec);
       v13 = sec2str_result;
     }
   }
@@ -495,14 +495,14 @@ uint64_t print_entry_ext(uint64_t a1, uint64_t a2, uint64_t a3)
   printf("%-9.9s ", v13);
   if (*(a3 + 96) && (v14 = *(a3 + 112)) != 0)
   {
-    if (v14 <= v22.tv_sec)
+    if (v14 <= v19.tv_sec)
     {
       v15 = "expired";
     }
 
     else
     {
-      sec2str(v14 - v22.tv_sec);
+      sec2str(v14 - v19.tv_sec);
       v15 = sec2str_result;
     }
   }
@@ -513,12 +513,12 @@ uint64_t print_entry_ext(uint64_t a1, uint64_t a2, uint64_t a3)
   }
 
   printf("%-9.9s", v15);
-  if (!if_indextoname(*(a1 + 2), v23))
+  if (!if_indextoname(*(a1 + 2), v20))
   {
-    strcpy(v23, "?");
+    strcpy(v20, "?");
   }
 
-  printf(" %8.8s", v23);
+  printf(" %8.8s", v20);
   if (!*(a3 + 96))
   {
     return putchar(10);
@@ -547,7 +547,6 @@ uint64_t print_entry_ext(uint64_t a1, uint64_t a2, uint64_t a3)
 
   else
   {
-    v19 = *(a3 + 120);
     printf(" %7d");
   }
 
@@ -567,7 +566,6 @@ LABEL_37:
     goto LABEL_38;
   }
 
-  v20 = *(a3 + 124);
   printf(" %7d");
 LABEL_38:
   v17 = *(a3 + 128);
@@ -586,7 +584,6 @@ LABEL_45:
     return putchar(10);
   }
 
-  v21 = *(a3 + 128);
   printf(" %7d");
   return putchar(10);
 }

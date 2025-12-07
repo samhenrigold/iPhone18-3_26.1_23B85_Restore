@@ -11,9 +11,9 @@
 - (PTVFXSoftAlphaMask)initWithMetalContext:(id)context colorSize:(id *)size
 {
   contextCopy = context;
-  v56.receiver = self;
-  v56.super_class = PTVFXSoftAlphaMask;
-  v8 = [(PTVFXSoftAlphaMask *)&v56 init];
+  v60.receiver = self;
+  v60.super_class = PTVFXSoftAlphaMask;
+  v8 = [(PTVFXSoftAlphaMask *)&v60 init];
   if (!v8)
   {
     goto LABEL_26;
@@ -70,77 +70,77 @@ LABEL_12:
 
   if (!*(v8 + 2))
   {
-    v26 = _PTLogSystem();
-    if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+    v30 = _PTLogSystem(v14);
+    if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
     {
-      [(PTVFXSoftAlphaMask *)v26 initWithMetalContext:v27 colorSize:v28, v29, v30, v31, v32, v33];
+      [(PTVFXSoftAlphaMask *)v30 initWithMetalContext:v31 colorSize:v32, v33, v34, v35, v36, v37];
     }
 
     goto LABEL_25;
   }
 
-  v14 = [contextCopy computePipelineStateFor:@"remapAlphaMask" withConstants:0];
-  v15 = *(v8 + 3);
-  *(v8 + 3) = v14;
+  v15 = [contextCopy computePipelineStateFor:@"remapAlphaMask" withConstants:0];
+  v16 = *(v8 + 3);
+  *(v8 + 3) = v15;
 
   if (!*(v8 + 3))
   {
-    v26 = _PTLogSystem();
-    if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+    v30 = _PTLogSystem(v17);
+    if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
     {
-      [(PTVFXSoftAlphaMask *)v26 initWithMetalContext:v34 colorSize:v35, v36, v37, v38, v39, v40];
+      [(PTVFXSoftAlphaMask *)v30 initWithMetalContext:v38 colorSize:v39, v40, v41, v42, v43, v44];
     }
 
     goto LABEL_25;
   }
 
   textureUtil = [contextCopy textureUtil];
-  v17 = [textureUtil createWithWidth:v10 height:v11 pixelFormat:10];
-  v18 = *(v8 + 4);
-  *(v8 + 4) = v17;
+  v19 = [textureUtil createWithWidth:v10 height:v11 pixelFormat:10];
+  v20 = *(v8 + 4);
+  *(v8 + 4) = v19;
 
   if (!*(v8 + 4))
   {
-    v26 = _PTLogSystem();
-    if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+    v30 = _PTLogSystem(v21);
+    if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
     {
-      [(PTVFXSoftAlphaMask *)v26 initWithMetalContext:v41 colorSize:v42, v43, v44, v45, v46, v47];
+      [(PTVFXSoftAlphaMask *)v30 initWithMetalContext:v45 colorSize:v46, v47, v48, v49, v50, v51];
     }
 
     goto LABEL_25;
   }
 
   textureUtil2 = [contextCopy textureUtil];
-  v20 = [textureUtil2 createWithWidth:v10 height:v11 pixelFormat:10];
-  v21 = *(v8 + 6);
-  *(v8 + 6) = v20;
+  v23 = [textureUtil2 createWithWidth:v10 height:v11 pixelFormat:10];
+  v24 = *(v8 + 6);
+  *(v8 + 6) = v23;
 
   if (!*(v8 + 6))
   {
-    v26 = _PTLogSystem();
-    if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+    v30 = _PTLogSystem(v25);
+    if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
     {
-      [(PTVFXSoftAlphaMask *)v26 initWithMetalContext:v48 colorSize:v49, v50, v51, v52, v53, v54];
+      [(PTVFXSoftAlphaMask *)v30 initWithMetalContext:v52 colorSize:v53, v54, v55, v56, v57, v58];
     }
 
 LABEL_25:
 
 LABEL_26:
-    v25 = 0;
+    v29 = 0;
     goto LABEL_27;
   }
 
-  v22 = *&size->var0;
+  v26 = *&size->var0;
   *(v8 + 9) = size->var2;
-  *(v8 + 56) = v22;
-  v23 = [[PTBoxFilter alloc] initWithMetalContext:contextCopy options:1];
-  v24 = *(v8 + 10);
-  *(v8 + 10) = v23;
+  *(v8 + 56) = v26;
+  v27 = [[PTBoxFilter alloc] initWithMetalContext:contextCopy options:1];
+  v28 = *(v8 + 10);
+  *(v8 + 10) = v27;
 
-  v25 = v8;
+  v29 = v8;
 LABEL_27:
 
-  return v25;
+  return v29;
 }
 
 - (int)updateSoftAlphaMask:(id)mask inDisparity:(id)disparity focusDisparityModifiers:(id)modifiers effectRenderRequest:(id)request
@@ -214,15 +214,15 @@ LABEL_27:
   v16 = v15;
   v18 = v17;
   v20 = v19;
-  v53.origin.x = 0.0;
-  v53.origin.y = 0.0;
-  v53.size.width = 1.0;
-  v53.size.height = 1.0;
-  v51.origin.x = v6;
-  v51.origin.y = v8;
-  v51.size.width = v10;
-  v51.size.height = v12;
-  if (CGRectEqualToRect(v51, v53) && (v54.origin.x = 0.0, v54.origin.y = 0.0, v54.size.width = 1.0, v54.size.height = 1.0, v52.origin.x = v14, v52.origin.y = v16, v52.size.width = v18, v52.size.height = v20, CGRectEqualToRect(v52, v54)))
+  v54.origin.x = 0.0;
+  v54.origin.y = 0.0;
+  v54.size.width = 1.0;
+  v54.size.height = 1.0;
+  v52.origin.x = v6;
+  v52.origin.y = v8;
+  v52.size.width = v10;
+  v52.size.height = v12;
+  if (CGRectEqualToRect(v52, v54) && (v55.origin.x = 0.0, v55.origin.y = 0.0, v55.size.width = 1.0, v55.size.height = 1.0, v53.origin.x = v14, v53.origin.y = v16, v53.size.width = v18, v53.size.height = v20, CGRectEqualToRect(v53, v55)))
   {
     remappedAlphaMask = self->_remappedAlphaMask;
     self->_remappedAlphaMask = 0;
@@ -276,19 +276,19 @@ LABEL_27:
 
       if (!self->_remappedAlphaMask)
       {
-        v40 = _PTLogSystem();
-        if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
+        v41 = _PTLogSystem(v40);
+        if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
         {
-          [(PTVFXSoftAlphaMask *)v40 lazyInstantiateAlphaMaskForRenderRequest:v41, v42, v43, v44, v45, v46, v47];
+          [(PTVFXSoftAlphaMask *)v41 lazyInstantiateAlphaMaskForRenderRequest:v42, v43, v44, v45, v46, v47, v48];
         }
       }
     }
   }
 
-  v48 = *p_alphaMask;
   v49 = *p_alphaMask;
+  v50 = *p_alphaMask;
 
-  return v48;
+  return v49;
 }
 
 - (int)updateSoftAlphaMask:(id)mask inSegmentation:(id)segmentation effectRenderRequest:(id)request
@@ -299,6 +299,41 @@ LABEL_27:
   LODWORD(self) = [(PTVFXSoftAlphaMask *)self remapAlphaMask:maskCopy effectRenderRequest:requestCopy];
 
   return self | segmentation;
+}
+
+- (void)initWithMetalContext:(uint64_t)a3 colorSize:(uint64_t)a4 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "_intermediateTextureBox";
+  OUTLINED_FUNCTION_0(&dword_2243FB000, a1, a3, "Assertion failed %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)initWithMetalContext:(uint64_t)a3 colorSize:(uint64_t)a4 .cold.2(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "_alphaMask";
+  OUTLINED_FUNCTION_0(&dword_2243FB000, a1, a3, "Assertion failed %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)initWithMetalContext:(uint64_t)a3 colorSize:(uint64_t)a4 .cold.3(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "_remapAlphaMask";
+  OUTLINED_FUNCTION_0(&dword_2243FB000, a1, a3, "Assertion failed %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)initWithMetalContext:(uint64_t)a3 colorSize:(uint64_t)a4 .cold.4(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "_disparityToAlphaMask";
+  OUTLINED_FUNCTION_0(&dword_2243FB000, a1, a3, "Assertion failed %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)lazyInstantiateAlphaMaskForRenderRequest:(uint64_t)a3 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "_remappedAlphaMask";
+  OUTLINED_FUNCTION_0(&dword_2243FB000, a1, a3, "Assertion failed %s", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

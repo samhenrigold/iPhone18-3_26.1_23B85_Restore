@@ -9,34 +9,34 @@
 + (void)searchInfo:(id)info forString:(id)string options:(unint64_t)options hitBlock:(id)block
 {
   v11 = -[TSTCellIterator initWithTableModel:]([TSTCellIterator alloc], "initWithTableModel:", [info tableModel]);
-  if ([(TSTCellIterator *)v11 getNext:v19])
+  if ([(TSTCellIterator *)v11 getNext:v20])
   {
     do
     {
-      if (!v21 || v21->mPrivate.mCellFormats.mCurrentCellFormat.mFormatType != 267 && *(&v21->mPrivate + 1) << 8 != 2304)
+      if (!v22 || v22->mPrivate.mCellFormats.mCurrentCellFormat.mFormatType != 267 && *(&v22->mPrivate + 1) << 8 != 2304)
       {
-        v12 = NSStringFromNativeTSTCell(v21);
-        if (v12)
+        v13 = NSStringFromNativeTSTCell(v22, v12);
+        if (v13)
         {
-          v13 = v12;
+          v14 = v13;
           tsu_range = 0;
-          v18 = 0;
-          tsu_range = [(__CFString *)v12 tsu_range];
-          v18 = v14;
-          while (v18)
+          v19 = 0;
+          tsu_range = [(__CFString *)v13 tsu_range];
+          v19 = v15;
+          while (v19)
           {
-            v15 = [(__CFString *)v13 rangeOfString:string searchOptions:options updatingSearchRange:&tsu_range];
-            if (v15 != 0x7FFFFFFFFFFFFFFFLL)
+            v16 = [(__CFString *)v14 rangeOfString:string searchOptions:options updatingSearchRange:&tsu_range];
+            if (v16 != 0x7FFFFFFFFFFFFFFFLL)
             {
-              v6 = v6 & 0xFFFFFFFF00000000 | v20;
-              (*(block + 2))(block, [TSTSearchReference searchReferenceWithTableInfo:info cellID:v6 range:v15, v16]);
+              v6 = v6 & 0xFFFFFFFF00000000 | v21;
+              (*(block + 2))(block, [TSTSearchReference searchReferenceWithTableInfo:info cellID:v6 range:v16, v17]);
             }
           }
         }
       }
     }
 
-    while ([(TSTCellIterator *)v11 getNext:v19]);
+    while ([(TSTCellIterator *)v11 getNext:v20]);
   }
 }
 
@@ -44,11 +44,11 @@
 {
   tableInfo = [layout tableInfo];
   v11 = [[TSTLayoutCellIterator alloc] initWithLayout:layout range:TSTLayoutGetPartitionRange(layout) flags:337];
-  while ([(TSTCellIterator *)v11 getNext:v22])
+  while ([(TSTCellIterator *)v11 getNext:v23])
   {
-    if (v24)
+    if (v25)
     {
-      p_mCurrentCellFormat = &v24->mPrivate.mCellFormats.mCurrentCellFormat;
+      p_mCurrentCellFormat = &v25->mPrivate.mCellFormats.mCurrentCellFormat;
     }
 
     else
@@ -58,24 +58,24 @@
 
     if (p_mCurrentCellFormat->mFormatType != 267)
     {
-      v13 = NSStringFromNativeTSTCell(v24);
-      if (v13)
+      v14 = NSStringFromNativeTSTCell(v25, v12);
+      if (v14)
       {
-        v14 = v13;
+        v15 = v14;
         tsu_range = 0;
-        v21 = 0;
-        tsu_range = [(__CFString *)v13 tsu_range];
-        v21 = v15;
-        while (v21)
+        v22 = 0;
+        tsu_range = [(__CFString *)v14 tsu_range];
+        v22 = v16;
+        while (v22)
         {
-          v16 = [(__CFString *)v14 rangeOfString:string searchOptions:options updatingSearchRange:&tsu_range];
-          if (v16 != 0x7FFFFFFFFFFFFFFFLL)
+          v17 = [(__CFString *)v15 rangeOfString:string searchOptions:options updatingSearchRange:&tsu_range];
+          if (v17 != 0x7FFFFFFFFFFFFFFFLL)
           {
-            v6 = v6 & 0xFFFFFFFF00000000 | v23;
-            v18 = [TSTSearchReference searchReferenceWithTableInfo:tableInfo cellID:v6 range:v16, v17];
-            [layout calculatePointFromSearchReference:v18];
-            [(TSTSearchReference *)v18 setSearchReferencePoint:?];
-            (*(block + 2))(block, v18);
+            v6 = v6 & 0xFFFFFFFF00000000 | v24;
+            v19 = [TSTSearchReference searchReferenceWithTableInfo:tableInfo cellID:v6 range:v17, v18];
+            [layout calculatePointFromSearchReference:v19];
+            [(TSTSearchReference *)v19 setSearchReferencePoint:?];
+            (*(block + 2))(block, v19);
           }
         }
       }

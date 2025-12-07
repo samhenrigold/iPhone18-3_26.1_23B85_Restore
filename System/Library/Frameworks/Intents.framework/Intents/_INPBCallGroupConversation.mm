@@ -15,7 +15,7 @@
 
 - (id)dictionaryRepresentation
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   callGroup = [(_INPBCallGroupConversation *)self callGroup];
   dictionaryRepresentation = [callGroup dictionaryRepresentation];
@@ -35,30 +35,30 @@
   if ([(NSArray *)self->_otherParticipants count])
   {
     array = [MEMORY[0x1E695DF70] array];
+    v18 = 0u;
     v19 = 0u;
     v20 = 0u;
     v21 = 0u;
-    v22 = 0u;
     v11 = self->_otherParticipants;
-    v12 = [(NSArray *)v11 countByEnumeratingWithState:&v19 objects:v23 count:16];
+    v12 = [(NSArray *)v11 countByEnumeratingWithState:&v18 objects:v22 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v20;
+      v14 = *v19;
       do
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v20 != v14)
+          if (*v19 != v14)
           {
             objc_enumerationMutation(v11);
           }
 
-          dictionaryRepresentation3 = [*(*(&v19 + 1) + 8 * i) dictionaryRepresentation];
+          dictionaryRepresentation3 = [*(*(&v18 + 1) + 8 * i) dictionaryRepresentation];
           [array addObject:dictionaryRepresentation3];
         }
 
-        v13 = [(NSArray *)v11 countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v13 = [(NSArray *)v11 countByEnumeratingWithState:&v18 objects:v22 count:16];
       }
 
       while (v13);
@@ -66,8 +66,6 @@
 
     [dictionary setObject:array forKeyedSubscript:@"otherParticipants"];
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 
   return dictionary;
 }
@@ -243,7 +241,7 @@ LABEL_23:
 
 - (void)writeTo:(id)to
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   toCopy = to;
   callGroup = [(_INPBCallGroupConversation *)self callGroup];
 
@@ -265,43 +263,39 @@ LABEL_23:
 
   if (conversationId)
   {
-    conversationId = self->_conversationId;
     PBDataWriterWriteStringField();
   }
 
-  v20 = 0u;
-  v21 = 0u;
+  v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
-  v11 = self->_otherParticipants;
-  v12 = [(NSArray *)v11 countByEnumeratingWithState:&v18 objects:v22 count:16];
-  if (v12)
+  v15 = 0u;
+  v16 = 0u;
+  v10 = self->_otherParticipants;
+  v11 = [(NSArray *)v10 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  if (v11)
   {
-    v13 = v12;
-    v14 = *v19;
+    v12 = v11;
+    v13 = *v16;
     do
     {
-      v15 = 0;
+      v14 = 0;
       do
       {
-        if (*v19 != v14)
+        if (*v16 != v13)
         {
-          objc_enumerationMutation(v11);
+          objc_enumerationMutation(v10);
         }
 
-        v16 = *(*(&v18 + 1) + 8 * v15);
         PBDataWriterWriteSubmessage();
-        ++v15;
+        ++v14;
       }
 
-      while (v13 != v15);
-      v13 = [(NSArray *)v11 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      while (v12 != v14);
+      v12 = [(NSArray *)v10 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
-    while (v13);
+    while (v12);
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addOtherParticipants:(id)participants

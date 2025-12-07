@@ -11,8 +11,8 @@
 
 - (NSString)description
 {
-  v28 = *MEMORY[0x277D85DE8];
-  string = [MEMORY[0x277CCAB68] string];
+  v27 = *MEMORY[0x277D85DE8];
+  v3 = objc_msgSend_string(MEMORY[0x277CCAB68], a2);
   corrections = [(TIAutocorrectionList *)self->_candidates corrections];
   autocorrection = [corrections autocorrection];
   if (autocorrection)
@@ -28,9 +28,9 @@
       corrections3 = [(TIAutocorrectionList *)self->_candidates corrections];
       autocorrection3 = [corrections3 autocorrection];
       candidate2 = [autocorrection3 candidate];
-      [string appendString:candidate2];
+      [v3 appendString:candidate2];
 
-      [string appendString:@": "];
+      [v3 appendString:@": "];
     }
   }
 
@@ -38,40 +38,38 @@
   {
   }
 
-  v25 = 0u;
-  v26 = 0u;
-  v23 = 0u;
   v24 = 0u;
+  v25 = 0u;
+  v22 = 0u;
+  v23 = 0u;
   predictions = [(TIAutocorrectionList *)self->_candidates predictions];
-  v15 = [predictions countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v15 = [predictions countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v24;
+    v17 = *v23;
     do
     {
       for (i = 0; i != v16; ++i)
       {
-        if (*v24 != v17)
+        if (*v23 != v17)
         {
           objc_enumerationMutation(predictions);
         }
 
-        candidate3 = [*(*(&v23 + 1) + 8 * i) candidate];
-        [string appendString:candidate3];
+        candidate3 = [*(*(&v22 + 1) + 8 * i) candidate];
+        [v3 appendString:candidate3];
 
-        [string appendString:@" "];
+        [v3 appendString:@" "];
       }
 
-      v16 = [predictions countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v16 = [predictions countByEnumeratingWithState:&v22 objects:v26 count:16];
     }
 
     while (v16);
   }
 
-  v20 = [MEMORY[0x277CCACA8] stringWithFormat:@"<Candidates Offered: %@>", string];
-
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = [MEMORY[0x277CCACA8] stringWithFormat:@"<Candidates Offered: %@>", v3];
 
   return v20;
 }
@@ -131,11 +129,11 @@
 
 - (TIKeyboardInteractionProtocolEventCandidatesOffered)initWithCoder:(id)coder
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v21.receiver = self;
-  v21.super_class = TIKeyboardInteractionProtocolEventCandidatesOffered;
-  v5 = [(TIKeyboardInteractionProtocolBase *)&v21 initWithCoder:coderCopy];
+  v20.receiver = self;
+  v20.super_class = TIKeyboardInteractionProtocolEventCandidatesOffered;
+  v5 = [(TIKeyboardInteractionProtocolBase *)&v20 initWithCoder:coderCopy];
   if (v5)
   {
     v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"candidates"];
@@ -147,35 +145,34 @@
   autocorrection = [corrections autocorrection];
   [(TIKeyboardInteractionProtocolEventCandidatesOffered *)v5 adjustSourceMaskForCandidate:autocorrection];
 
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
   v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   predictions = [(TIAutocorrectionList *)v5->_candidates predictions];
-  v11 = [predictions countByEnumeratingWithState:&v17 objects:v22 count:16];
+  v11 = [predictions countByEnumeratingWithState:&v16 objects:v21 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v18;
+    v13 = *v17;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v18 != v13)
+        if (*v17 != v13)
         {
           objc_enumerationMutation(predictions);
         }
 
-        [(TIKeyboardInteractionProtocolEventCandidatesOffered *)v5 adjustSourceMaskForCandidate:*(*(&v17 + 1) + 8 * i)];
+        [(TIKeyboardInteractionProtocolEventCandidatesOffered *)v5 adjustSourceMaskForCandidate:*(*(&v16 + 1) + 8 * i)];
       }
 
-      v12 = [predictions countByEnumeratingWithState:&v17 objects:v22 count:16];
+      v12 = [predictions countByEnumeratingWithState:&v16 objects:v21 count:16];
     }
 
     while (v12);
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

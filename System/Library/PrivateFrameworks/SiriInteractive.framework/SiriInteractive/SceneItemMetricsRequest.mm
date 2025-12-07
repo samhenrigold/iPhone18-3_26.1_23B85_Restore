@@ -110,7 +110,7 @@
 - (id)copyWithZone:(void *)zone
 {
   selfCopy = self;
-  sub_267514AD0(v6);
+  sub_267514AD0(selfCopy, v6);
 
   __swift_project_boxed_opaque_existential_0(v6, v6[3]);
   v4 = sub_267533E24();

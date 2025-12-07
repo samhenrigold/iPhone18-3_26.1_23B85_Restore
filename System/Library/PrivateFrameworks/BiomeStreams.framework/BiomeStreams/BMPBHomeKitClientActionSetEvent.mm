@@ -87,7 +87,7 @@
 
 - (void)writeTo:(id)to
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   toCopy = to;
   if (self->_base)
   {
@@ -104,33 +104,32 @@
     PBDataWriterWriteStringField();
   }
 
-  v14 = 0u;
-  v15 = 0u;
   v12 = 0u;
   v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
   v5 = self->_associatedAccessoryUniqueIdentifiers;
-  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v13;
+    v8 = *v11;
     do
     {
       v9 = 0;
       do
       {
-        if (*v13 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v12 + 1) + 8 * v9);
         PBDataWriterWriteStringField();
         ++v9;
       }
 
       while (v7 != v9);
-      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v7);
@@ -145,8 +144,6 @@
   {
     PBDataWriterWriteStringField();
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)copyTo:(id)to
@@ -197,7 +194,7 @@
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   v5 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
   v6 = [(BMPBHomeKitClientBase *)self->_base copyWithZone:zone];
   v7 = v5[5];
@@ -211,34 +208,34 @@
   v11 = v5[2];
   v5[2] = v10;
 
-  v26 = 0u;
-  v27 = 0u;
-  v24 = 0u;
   v25 = 0u;
+  v26 = 0u;
+  v23 = 0u;
+  v24 = 0u;
   v12 = self->_associatedAccessoryUniqueIdentifiers;
-  v13 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v24 objects:v28 count:16];
+  v13 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v23 objects:v27 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v25;
+    v15 = *v24;
     do
     {
       v16 = 0;
       do
       {
-        if (*v25 != v15)
+        if (*v24 != v15)
         {
           objc_enumerationMutation(v12);
         }
 
-        v17 = [*(*(&v24 + 1) + 8 * v16) copyWithZone:{zone, v24}];
+        v17 = [*(*(&v23 + 1) + 8 * v16) copyWithZone:{zone, v23}];
         [v5 addAssociatedAccessoryUniqueIdentifiers:v17];
 
         ++v16;
       }
 
       while (v14 != v16);
-      v14 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v24 objects:v28 count:16];
+      v14 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v23 objects:v27 count:16];
     }
 
     while (v14);
@@ -252,7 +249,6 @@
   v21 = v5[6];
   v5[6] = v20;
 
-  v22 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -293,7 +289,7 @@
 
 - (void)mergeFrom:(id)from
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   fromCopy = from;
   base = self->_base;
   v6 = *(fromCopy + 5);
@@ -320,29 +316,29 @@
     [(BMPBHomeKitClientActionSetEvent *)self setActionSetType:?];
   }
 
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
   v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   v7 = *(fromCopy + 4);
-  v8 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v14;
+    v10 = *v13;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v14 != v10)
+        if (*v13 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        [(BMPBHomeKitClientActionSetEvent *)self addAssociatedAccessoryUniqueIdentifiers:*(*(&v13 + 1) + 8 * i), v13];
+        [(BMPBHomeKitClientActionSetEvent *)self addAssociatedAccessoryUniqueIdentifiers:*(*(&v12 + 1) + 8 * i), v12];
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v9);
@@ -357,8 +353,6 @@
   {
     [(BMPBHomeKitClientActionSetEvent *)self setHomeName:?];
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 @end

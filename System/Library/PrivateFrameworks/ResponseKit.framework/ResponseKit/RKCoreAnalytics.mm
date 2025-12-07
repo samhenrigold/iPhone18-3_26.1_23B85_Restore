@@ -123,15 +123,14 @@ LABEL_31:
 
 id __67__RKCoreAnalytics_sendCoreAnalyticsEvent_forAction_withLanguageID___block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v1 = *(a1 + 32);
-  v5[0] = @"ACTION";
-  v5[1] = @"LOCALE";
-  v6 = v1;
-  v5[2] = @"CATEGORY";
-  v7 = *(a1 + 48);
-  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v6 forKeys:v5 count:3];
-  v3 = *MEMORY[0x277D85DE8];
+  v4[0] = @"ACTION";
+  v4[1] = @"LOCALE";
+  v5 = v1;
+  v4[2] = @"CATEGORY";
+  v6 = *(a1 + 48);
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v5 forKeys:v4 count:3];
 
   return v2;
 }

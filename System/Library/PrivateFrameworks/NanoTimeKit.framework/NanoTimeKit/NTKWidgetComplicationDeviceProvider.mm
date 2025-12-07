@@ -77,7 +77,7 @@
 
   WidgetComplicationDeviceProvider.addObserver(_:)(v6);
 
-  sub_22D9CA164(v6, &qword_27DA2D188);
+  sub_22D9CA164(v6, &qword_27DA2D188, &unk_22DCEB0A0);
 }
 
 - (void)removeObserver:(id)observer

@@ -1009,7 +1009,7 @@ LABEL_15:
 - (BOOL)connect:(int)connect localAddress:(const sockaddr *)address remoteAddress:(const sockaddr *)remoteAddress clientUUID:(unsigned __int8)d[16] sessionID:(id)iD relaySessionToken:(id)token relaySessionKey:(id)key randomSaltBlock:(id)self0 pskTransportParameters:(id)self1 pskH3Settings:(id)self2 newLocalPort:(unsigned __int16 *)self3 disconnectAfterUse:(BOOL)self4 holdUntilFirstPacketReady:(BOOL)self5 usePathMTUDiscovery:(BOOL)self6 readyHandler:(id)self7
 {
   v19 = *&connect;
-  v208 = *MEMORY[0x1E69E9840];
+  v209 = *MEMORY[0x1E69E9840];
   iDCopy = iD;
   tokenCopy = token;
   keyCopy = key;
@@ -1020,15 +1020,15 @@ LABEL_15:
   *self->_clientUUID = *d;
   addressCopy = address;
   address = nw_endpoint_create_address(address);
-  v201 = 0;
+  v202 = 0;
   selfCopy = self;
-  v166 = iDCopy;
+  v167 = iDCopy;
   endpoint = nw_endpoint_create_address(remoteAddress);
   LODWORD(token) = [IDSNWLink _findExistingCollidingQRConnection:"_findExistingCollidingQRConnection:remoteEndpoint:sessionID:localEndpointToUse:" remoteEndpoint:address sessionID:? localEndpointToUse:?];
   v24 = 0;
   if (!token)
   {
-    v157 = v24;
+    v158 = v24;
     goto LABEL_8;
   }
 
@@ -1040,29 +1040,29 @@ LABEL_15:
     {
       *buf = 138412546;
       *&buf[4] = address;
-      v206 = 2112;
-      v207 = v25;
+      v207 = 2112;
+      v208 = v25;
       _os_log_impl(&dword_1A7AD9000, v26, OS_LOG_TYPE_DEFAULT, "COLLISION MITIGATED: local endpoint %@ -> %@", buf, 0x16u);
     }
 
-    v198[0] = MEMORY[0x1E69E9820];
-    v198[1] = 3221225472;
-    v198[2] = sub_1A7B32714;
-    v198[3] = &unk_1E77E0138;
-    v198[4] = selfCopy;
-    IDSTransportThreadAddBlock(v198);
+    v199[0] = MEMORY[0x1E69E9820];
+    v199[1] = 3221225472;
+    v199[2] = sub_1A7B32714;
+    v199[3] = &unk_1E77E0138;
+    v199[4] = selfCopy;
+    IDSTransportThreadAddBlock(v199);
     *port = nw_endpoint_get_port(v25);
-    v157 = v25;
+    v158 = v25;
 
-    address = v157;
+    address = v158;
 LABEL_8:
-    v169 = _tokenWithParameters(address, endpoint, iDCopy, 5uLL, 0);
-    v27 = [(IDSNWLink *)selfCopy _NWLinkConnectionForToken:v169];
+    v170 = _tokenWithParameters(address, endpoint, iDCopy, 5uLL, 0);
+    v27 = [(IDSNWLink *)selfCopy _NWLinkConnectionForToken:v170];
     if (!v27)
     {
 LABEL_12:
-      v156 = blockCopy[2]();
-      if (v156)
+      v157 = blockCopy[2]();
+      if (v157)
       {
         v35 = [[NWLinkConnection alloc] initWithType:5 interfaceIndex:v19 localEndpoint:address remoteEndpoint:endpoint];
 
@@ -1077,135 +1077,135 @@ LABEL_12:
         v36 = nw_interface_create_with_index();
         sub_1A7B306B4(v35, 1, "connecting on if:%@(%u) for %@", v37, v38, v39, v40, v41, v36);
 
-        queue = NWLinkQueue();
+        queue = NWLinkQueue(v42);
         parameters = nw_parameters_create_secure_udp(*MEMORY[0x1E6977EC0], *MEMORY[0x1E6977EB8]);
         stack = nw_parameters_copy_default_protocol_stack(parameters);
         *__buf = -1431655766;
         arc4random_buf(__buf, 4uLL);
         *__buf &= ~0x800000u;
-        v42 = +[IDSFoundationLog IDSNWLink];
-        if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
+        v43 = +[IDSFoundationLog IDSNWLink];
+        if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 67109120;
           *&buf[4] = *__buf;
-          _os_log_impl(&dword_1A7AD9000, v42, OS_LOG_TYPE_DEFAULT, "_generateQUICConnectionID: %08x", buf, 8u);
+          _os_log_impl(&dword_1A7AD9000, v43, OS_LOG_TYPE_DEFAULT, "_generateQUICConnectionID: %08x", buf, 8u);
         }
 
         buffer = *__buf;
-        v146 = dispatch_data_create(&buffer, 4uLL, 0, 0);
+        v147 = dispatch_data_create(&buffer, 4uLL, 0, 0);
         protocol = nw_demux_create_options();
-        v189 = 64;
-        v190 = bswap32(buffer);
-        sub_1A7B306B4(v35, 1, "connect: adding demux rule with pattern: %02x%02x%02x%02x%02x (%08x)", v43, v44, v45, v46, v47, 64);
-        v187 = -32;
-        v188 = -1;
+        v190 = 64;
+        v191 = bswap32(buffer);
+        sub_1A7B306B4(v35, 1, "connect: adding demux rule with pattern: %02x%02x%02x%02x%02x (%08x)", v44, v45, v46, v47, v48, 64);
+        v188 = -32;
+        v189 = -1;
         buf[0] = -64;
         *&buf[1] = 0;
         buf[5] = 0;
         *&buf[6] = bswap32(buffer);
-        sub_1A7B306B4(v35, 1, "connect: adding demux rule with pattern: %02x%02x%02x%02x%02x%02x%02x%02x%02x%02x (%08x)", v48, v49, v50, v51, v52, 192);
+        sub_1A7B306B4(v35, 1, "connect: adding demux rule with pattern: %02x%02x%02x%02x%02x%02x%02x%02x%02x%02x (%08x)", v49, v50, v51, v52, v53, 192);
         __buf[0] = -32;
         *&__buf[1] = 0;
-        v203 = 0;
-        v204 = -1;
+        v204 = 0;
+        v205 = -1;
         nw_demux_options_add_pattern();
         nw_demux_options_add_pattern();
         nw_protocol_stack_prepend_application_protocol(stack, protocol);
-        v150 = MEMORY[0x1AC564630]();
-        v163 = nw_quic_stream_copy_shared_connection_options();
+        v151 = MEMORY[0x1AC564630]();
+        v164 = nw_quic_stream_copy_shared_connection_options();
         nw_quic_connection_set_force_version_negotiation();
         nw_quic_connection_set_keepalive_count();
         if (selfCopy->_ftPowerOptimizationEnabled)
         {
           localEndpoint = [(NWLinkConnection *)v35 localEndpoint];
-          v54 = [(IDSNWLink *)selfCopy _isLocalEndpointCellular:localEndpoint];
+          v55 = [(IDSNWLink *)selfCopy _isLocalEndpointCellular:localEndpoint];
 
-          if (v54)
+          if (v55)
           {
-            sub_1A7B306B4(v35, 1, "setting nw_quic_connection_set_idle_timeout for cellular connection", v55, v56, v57, v58, v59, v140);
+            sub_1A7B306B4(v35, 1, "setting nw_quic_connection_set_idle_timeout for cellular connection", v56, v57, v58, v59, v60, v141);
             nw_quic_connection_set_idle_timeout();
           }
         }
 
         options = nw_quic_connection_copy_sec_protocol_options();
         nw_quic_set_source_connection_id();
-        v149 = [IDSNWLink derivePSKFromSessionKey:keyCopy salt:v156];
-        if (v149)
+        v150 = [IDSNWLink derivePSKFromSessionKey:keyCopy salt:v157];
+        if (v150)
         {
-          v60 = [tokenCopy length];
-          v144 = [objc_alloc(MEMORY[0x1E695DF88]) initWithLength:v60 + 13];
-          v61 = v144;
-          mutableBytes = [v144 mutableBytes];
+          v61 = [tokenCopy length];
+          v145 = [objc_alloc(MEMORY[0x1E695DF88]) initWithLength:v61 + 13];
+          v62 = v145;
+          mutableBytes = [v145 mutableBytes];
           *mutableBytes = 0;
-          v63 = v156;
-          bytes = [v156 bytes];
-          v65 = *bytes;
+          v64 = v157;
+          bytes = [v157 bytes];
+          v66 = *bytes;
           *(mutableBytes + 9) = *(bytes + 8);
-          *(mutableBytes + 1) = v65;
-          v66 = tokenCopy;
+          *(mutableBytes + 1) = v66;
+          v67 = tokenCopy;
           memcpy(mutableBytes + 13, [tokenCopy bytes], objc_msgSend(tokenCopy, "length"));
-          sub_1A7B306B4(v35, 1, "PSK transport parameters: %@, h3 settings: %@", v67, v68, v69, v70, v71, parametersCopy);
-          v72 = v149;
-          v73 = dispatch_data_create([v149 bytes], 0x20uLL, 0, 0);
-          v74 = dispatch_data_create(mutableBytes, v60 + 13, 0, 0);
-          sec_protocol_options_add_pre_shared_key(options, v73, v74);
+          sub_1A7B306B4(v35, 1, "PSK transport parameters: %@, h3 settings: %@", v68, v69, v70, v71, v72, parametersCopy);
+          v73 = v150;
+          v74 = dispatch_data_create([v150 bytes], 0x20uLL, 0, 0);
+          v75 = dispatch_data_create(mutableBytes, v61 + 13, 0, 0);
+          sec_protocol_options_add_pre_shared_key(options, v74, v75);
 
           sec_protocol_options_add_tls_application_protocol(options, "h3");
           nw_quic_connection_add_h3_alpn();
           nw_quic_connection_set_disable_spin_bit();
-          v152 = [(IDSNWLink *)selfCopy _dictionaryFromPSKParameters:parametersCopy];
-          v75 = sub_1A7B32838(v152, &unk_1F1B1FF88, 0x2000);
-          sub_1A7B32838(v152, &unk_1F1B1FFA0, 0x2000);
-          sub_1A7B32838(v152, &unk_1F1B1FFB8, 0x2000);
-          sub_1A7B32838(v152, &unk_1F1B1FFD0, 0x2000);
-          sub_1A7B32838(v152, &unk_1F1B1FFE8, 16);
-          sub_1A7B32838(v152, &unk_1F1B20000, 16);
-          sub_1A7B306B4(v35, 1, "PSK transport parameters:\n    initialMaxStreamDataBidiLocal: %lld\n    initialMaxStreamDataBidiRemote: %lld\n    initialMaxData: %lld\n    initialMaxStreamDataUni: %lld\n    initialMaxStreamsBidi: %lld\n    initialMaxStreamsUni: %lld", v76, v77, v78, v79, v80, v75);
+          v153 = [(IDSNWLink *)selfCopy _dictionaryFromPSKParameters:parametersCopy];
+          v76 = sub_1A7B32838(v153, &unk_1F1B1FF88, 0x2000);
+          sub_1A7B32838(v153, &unk_1F1B1FFA0, 0x2000);
+          sub_1A7B32838(v153, &unk_1F1B1FFB8, 0x2000);
+          sub_1A7B32838(v153, &unk_1F1B1FFD0, 0x2000);
+          sub_1A7B32838(v153, &unk_1F1B1FFE8, 16);
+          sub_1A7B32838(v153, &unk_1F1B20000, 16);
+          sub_1A7B306B4(v35, 1, "PSK transport parameters:\n    initialMaxStreamDataBidiLocal: %lld\n    initialMaxStreamDataBidiRemote: %lld\n    initialMaxData: %lld\n    initialMaxStreamDataUni: %lld\n    initialMaxStreamsBidi: %lld\n    initialMaxStreamsUni: %lld", v77, v78, v79, v80, v81, v76);
           nw_quic_set_remote_transport_parameters();
           nw_quic_connection_set_pmtud_for_non_transport();
           if (discovery)
           {
             objc_initWeak(&location, selfCopy);
             objc_initWeak(&from, v35);
-            v179[1] = MEMORY[0x1E69E9820];
-            v179[2] = 3221225472;
-            v179[3] = sub_1A7B32880;
-            v179[4] = &unk_1E77E01D8;
-            objc_copyWeak(&v181, &location);
-            objc_copyWeak(&v182, &from);
-            v180 = v169;
+            v180[1] = MEMORY[0x1E69E9820];
+            v180[2] = 3221225472;
+            v180[3] = sub_1A7B32880;
+            v180[4] = &unk_1E77E01D8;
+            objc_copyWeak(&v182, &location);
+            objc_copyWeak(&v183, &from);
+            v181 = v170;
             nw_quic_connection_set_pmtud_update_block();
             mEMORY[0x1E69A60F0] = [MEMORY[0x1E69A60F0] sharedInstance];
             [mEMORY[0x1E69A60F0] isInternalInstall];
-            v87 = IMGetDomainBoolForKeyWithDefaultValue();
+            v88 = IMGetDomainBoolForKeyWithDefaultValue();
 
-            if ((addressCopy->sa_family == 30) | v87 & 1)
+            if ((addressCopy->sa_family == 30) | v88 & 1)
             {
               nw_quic_connection_set_pmtud_ignore_cost();
               nw_quic_connection_set_pmtud_update_interval();
-              v93 = "set pmtu update interval and block";
+              v94 = "set pmtu update interval and block";
             }
 
             else
             {
-              v93 = "not setting pmtu update interval because not ipv6, but did set block";
+              v94 = "not setting pmtu update interval because not ipv6, but did set block";
             }
 
-            sub_1A7B306B4(v35, 1, v93, v88, v89, v90, v91, v92, v141);
+            sub_1A7B306B4(v35, 1, v94, v89, v90, v91, v92, v93, v142);
 
+            objc_destroyWeak(&v183);
             objc_destroyWeak(&v182);
-            objc_destroyWeak(&v181);
             objc_destroyWeak(&from);
             objc_destroyWeak(&location);
           }
 
           else
           {
-            sub_1A7B306B4(v35, 1, "not setting pmtu block or interval because feature is not enabled", v81, v82, v83, v84, v85, v141);
+            sub_1A7B306B4(v35, 1, "not setting pmtu block or interval because feature is not enabled", v82, v83, v84, v85, v86, v142);
           }
 
-          nw_protocol_stack_prepend_application_protocol(stack, v150);
-          v155 = nw_http3_create_options();
+          nw_protocol_stack_prepend_application_protocol(stack, v151);
+          v156 = nw_http3_create_options();
           if (ready)
           {
             nw_http3_set_0rtt_enabled();
@@ -1214,129 +1214,129 @@ LABEL_12:
           if (selfCopy->_ftPowerOptimizationEnabled)
           {
             localEndpoint2 = [(NWLinkConnection *)v35 localEndpoint];
-            v109 = [(IDSNWLink *)selfCopy _isLocalEndpointCellular:localEndpoint2];
+            v110 = [(IDSNWLink *)selfCopy _isLocalEndpointCellular:localEndpoint2];
 
-            if (v109)
+            if (v110)
             {
-              sub_1A7B306B4(v35, 1, "disabling h3 keepalives for this connection", v110, v111, v112, v113, v114, v142);
+              sub_1A7B306B4(v35, 1, "disabling h3 keepalives for this connection", v111, v112, v113, v114, v115, v143);
               nw_http3_set_keepalive_mode();
             }
           }
 
-          v115 = [(IDSNWLink *)selfCopy _dictionaryFromPSKParameters:settingsCopy];
-          v116 = sub_1A7B32838(v115, &unk_1F1B1FFA0, 0x10000);
-          sub_1A7B32838(v115, &unk_1F1B20018, 0x3FFFLL);
-          sub_1A7B32838(v115, &unk_1F1B1FFD0, 100);
-          sub_1A7B306B4(v35, 1, "PSK H3 parameters:\n    maxFieldSectionSize: %lld\n    maxTableCapacity: %lld\n    blockedStreams: %lld", v117, v118, v119, v120, v121, v116);
+          v116 = [(IDSNWLink *)selfCopy _dictionaryFromPSKParameters:settingsCopy];
+          v117 = sub_1A7B32838(v116, &unk_1F1B1FFA0, 0x10000);
+          sub_1A7B32838(v116, &unk_1F1B20018, 0x3FFFLL);
+          sub_1A7B32838(v116, &unk_1F1B1FFD0, 100);
+          sub_1A7B306B4(v35, 1, "PSK H3 parameters:\n    maxFieldSectionSize: %lld\n    maxTableCapacity: %lld\n    blockedStreams: %lld", v118, v119, v120, v121, v122, v117);
           nw_http3_set_initial_remote_settings();
-          nw_protocol_stack_prepend_application_protocol(stack, v155);
-          v122 = [(IDSNWLink *)selfCopy protocolStackDescriptionFor:stack];
-          [(NWLinkConnection *)v35 setProtocolStackDescription:v122];
+          nw_protocol_stack_prepend_application_protocol(stack, v156);
+          v123 = [(IDSNWLink *)selfCopy protocolStackDescriptionFor:stack];
+          [(NWLinkConnection *)v35 setProtocolStackDescription:v123];
 
           [(IDSNWLink *)selfCopy _setParameters:parameters NWLinkConnection:v35 sharePortWithListener:1 isTCP:0];
-          v128 = nw_connection_create(endpoint, parameters);
-          v99 = v128 != 0;
-          if (v128)
+          v129 = nw_connection_create(endpoint, parameters);
+          v100 = v129 != 0;
+          if (v129)
           {
             handler[0] = MEMORY[0x1E69E9820];
             handler[1] = 3221225472;
             handler[2] = sub_1A7B32A38;
             handler[3] = &unk_1E77E0278;
-            v129 = v35;
-            v174[0] = v129;
-            v174[1] = selfCopy;
-            v130 = handlerCopy;
-            v176 = v130;
+            v130 = v35;
+            v175[0] = v130;
+            v175[1] = selfCopy;
+            v131 = handlerCopy;
+            v177 = v131;
             readyCopy = ready;
-            v131 = v169;
-            v175 = v131;
-            nw_connection_set_state_changed_handler(v128, handler);
-            [(NWLinkConnection *)v129 setConnection:v128];
-            [(NWLinkConnection *)v129 setName:@"Main QUIC QR connection"];
-            [(IDSNWLink *)selfCopy _addNWLinkConnection:v129 token:v131];
-            nw_connection_set_queue(v128, queue);
+            v132 = v170;
+            v176 = v132;
+            nw_connection_set_state_changed_handler(v129, handler);
+            [(NWLinkConnection *)v130 setConnection:v129];
+            [(NWLinkConnection *)v130 setName:@"Main QUIC QR connection"];
+            [(IDSNWLink *)selfCopy _addNWLinkConnection:v130 token:v132];
+            nw_connection_set_queue(v129, queue);
             if (ready)
             {
-              sub_1A7B306B4(v129, 1, "start: holding until first packet ready", v132, v133, v134, v135, v136, v143);
-              [(NWLinkConnection *)v129 setHasQUICStarted:0];
-              if (v130)
+              sub_1A7B306B4(v130, 1, "start: holding until first packet ready", v133, v134, v135, v136, v137, v144);
+              [(NWLinkConnection *)v130 setHasQUICStarted:0];
+              if (v131)
               {
-                v170[0] = MEMORY[0x1E69E9820];
-                v170[1] = 3221225472;
-                v170[2] = sub_1A7B32ECC;
-                v170[3] = &unk_1E77E02A0;
-                v171 = v129;
+                v171[0] = MEMORY[0x1E69E9820];
+                v171[1] = 3221225472;
+                v171[2] = sub_1A7B32ECC;
+                v171[3] = &unk_1E77E02A0;
                 v172 = v130;
-                IDSTransportThreadAddBlock(v170);
+                v173 = v131;
+                IDSTransportThreadAddBlock(v171);
               }
             }
 
             else
             {
-              sub_1A7B306B4(v129, 1, "start: starting immediately", v132, v133, v134, v135, v136, v143);
-              [(NWLinkConnection *)v129 setHasQUICStarted:1];
-              nw_connection_start(v128);
+              sub_1A7B306B4(v130, 1, "start: starting immediately", v133, v134, v135, v136, v137, v144);
+              [(NWLinkConnection *)v130 setHasQUICStarted:1];
+              nw_connection_start(v129);
             }
 
-            v137 = v174;
+            v138 = v175;
           }
 
           else
           {
-            sub_1A7B306B4(v35, 2, "couldn't create QUIC connection for %@", v123, v124, v125, v126, v127, v169);
-            v178[0] = MEMORY[0x1E69E9820];
-            v178[1] = 3221225472;
-            v178[2] = sub_1A7B32A1C;
-            v178[3] = &unk_1E77E0188;
-            v179[0] = handlerCopy;
-            IDSTransportThreadAddBlock(v178);
-            v137 = v179;
+            sub_1A7B306B4(v35, 2, "couldn't create QUIC connection for %@", v124, v125, v126, v127, v128, v170);
+            v179[0] = MEMORY[0x1E69E9820];
+            v179[1] = 3221225472;
+            v179[2] = sub_1A7B32A1C;
+            v179[3] = &unk_1E77E0188;
+            v180[0] = handlerCopy;
+            IDSTransportThreadAddBlock(v179);
+            v138 = v180;
           }
 
-          v105 = v144;
+          v106 = v145;
         }
 
         else
         {
-          v104 = +[IDSFoundationLog IDSNWLink];
-          if (os_log_type_enabled(v104, OS_LOG_TYPE_ERROR))
+          v105 = +[IDSFoundationLog IDSNWLink];
+          if (os_log_type_enabled(v105, OS_LOG_TYPE_ERROR))
           {
             sub_1A7E12680();
           }
 
-          v185[0] = MEMORY[0x1E69E9820];
-          v185[1] = 3221225472;
-          v185[2] = sub_1A7B3281C;
-          v185[3] = &unk_1E77E0188;
-          v186 = handlerCopy;
-          IDSTransportThreadAddBlock(v185);
-          v99 = 0;
-          v105 = v186;
+          v186[0] = MEMORY[0x1E69E9820];
+          v186[1] = 3221225472;
+          v186[2] = sub_1A7B3281C;
+          v186[3] = &unk_1E77E0188;
+          v187 = handlerCopy;
+          IDSTransportThreadAddBlock(v186);
+          v100 = 0;
+          v106 = v187;
         }
 
         v27 = v35;
-        v103 = queue;
+        v104 = queue;
       }
 
       else
       {
-        v102 = +[IDSFoundationLog IDSNWLink];
-        if (os_log_type_enabled(v102, OS_LOG_TYPE_ERROR))
+        v103 = +[IDSFoundationLog IDSNWLink];
+        if (os_log_type_enabled(v103, OS_LOG_TYPE_ERROR))
         {
           sub_1A7E126B4();
         }
 
-        v192[0] = MEMORY[0x1E69E9820];
-        v192[1] = 3221225472;
-        v192[2] = sub_1A7B32800;
-        v192[3] = &unk_1E77E0188;
-        v193 = handlerCopy;
-        IDSTransportThreadAddBlock(v192);
-        v99 = 0;
-        v103 = v193;
+        v193[0] = MEMORY[0x1E69E9820];
+        v193[1] = 3221225472;
+        v193[2] = sub_1A7B32800;
+        v193[3] = &unk_1E77E0188;
+        v194 = handlerCopy;
+        IDSTransportThreadAddBlock(v193);
+        v100 = 0;
+        v104 = v194;
       }
 
-      v100 = v156;
+      v101 = v157;
       goto LABEL_59;
     }
 
@@ -1347,7 +1347,7 @@ LABEL_12:
       if (v29 < v28)
       {
         [v27 scheduledDisconnectTime];
-        sub_1A7B306B4(v27, 1, "existing connection %@ already timed out (%.1f < %.1f) - reconnecting...", v30, v31, v32, v33, v34, v169);
+        sub_1A7B306B4(v27, 1, "existing connection %@ already timed out (%.1f < %.1f) - reconnecting...", v30, v31, v32, v33, v34, v170);
         [(IDSNWLink *)selfCopy disconnectWithSessionID:iDCopy localAddress:address remoteAddress:remoteAddress waitTime:0 final:0.0];
         goto LABEL_12;
       }
@@ -1355,75 +1355,75 @@ LABEL_12:
 
     if ([v27 disconnectionState] == 3)
     {
-      sub_1A7B306B4(v27, 1, "this QUIC connection cannot be reused", v94, v95, v96, v97, v98, v139);
-      v196[0] = MEMORY[0x1E69E9820];
-      v196[1] = 3221225472;
-      v196[2] = sub_1A7B327C8;
-      v196[3] = &unk_1E77E0188;
-      v197 = handlerCopy;
-      IDSTransportThreadAddBlock(v196);
-      v99 = 0;
-      v100 = v197;
+      sub_1A7B306B4(v27, 1, "this QUIC connection cannot be reused", v95, v96, v97, v98, v99, v140);
+      v197[0] = MEMORY[0x1E69E9820];
+      v197[1] = 3221225472;
+      v197[2] = sub_1A7B327C8;
+      v197[3] = &unk_1E77E0188;
+      v198 = handlerCopy;
+      IDSTransportThreadAddBlock(v197);
+      v100 = 0;
+      v101 = v198;
 LABEL_59:
 
-      v107 = v157;
+      v108 = v158;
       goto LABEL_60;
     }
 
-    sub_1A7B306B4(v27, 1, "%@ already exists", v94, v95, v96, v97, v98, v169);
+    sub_1A7B306B4(v27, 1, "%@ already exists", v95, v96, v97, v98, v99, v170);
     if (use)
     {
       if ([v27 disconnectionState] != 1)
       {
 LABEL_37:
-        v194[0] = MEMORY[0x1E69E9820];
-        v194[1] = 3221225472;
-        v194[2] = sub_1A7B327E4;
-        v194[3] = &unk_1E77E0188;
-        v195 = handlerCopy;
-        IDSTransportThreadAddBlock(v194);
-        v100 = v195;
-        v99 = 1;
+        v195[0] = MEMORY[0x1E69E9820];
+        v195[1] = 3221225472;
+        v195[2] = sub_1A7B327E4;
+        v195[3] = &unk_1E77E0188;
+        v196 = handlerCopy;
+        IDSTransportThreadAddBlock(v195);
+        v101 = v196;
+        v100 = 1;
         goto LABEL_59;
       }
 
-      v101 = 0;
+      v102 = 0;
     }
 
     else
     {
-      v101 = 2;
+      v102 = 2;
     }
 
-    [v27 setDisconnectionState:v101];
+    [v27 setDisconnectionState:v102];
     goto LABEL_37;
   }
 
-  v106 = +[IDSFoundationLog IDSNWLink];
-  if (os_log_type_enabled(v106, OS_LOG_TYPE_DEFAULT))
+  v107 = +[IDSFoundationLog IDSNWLink];
+  if (os_log_type_enabled(v107, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_1A7AD9000, v106, OS_LOG_TYPE_DEFAULT, "COLLISION MITIGATION failed", buf, 2u);
+    _os_log_impl(&dword_1A7AD9000, v107, OS_LOG_TYPE_DEFAULT, "COLLISION MITIGATION failed", buf, 2u);
   }
 
-  v199[0] = MEMORY[0x1E69E9820];
-  v199[1] = 3221225472;
-  v199[2] = sub_1A7B32644;
-  v199[3] = &unk_1E77E0160;
-  v199[4] = selfCopy;
-  v200 = handlerCopy;
-  IDSTransportThreadAddBlock(v199);
-  v99 = 0;
-  v107 = v200;
+  v200[0] = MEMORY[0x1E69E9820];
+  v200[1] = 3221225472;
+  v200[2] = sub_1A7B32644;
+  v200[3] = &unk_1E77E0160;
+  v200[4] = selfCopy;
+  v201 = handlerCopy;
+  IDSTransportThreadAddBlock(v200);
+  v100 = 0;
+  v108 = v201;
 LABEL_60:
 
-  return v99;
+  return v100;
 }
 
 - (BOOL)connectTCP:(int)p localAddress:(const sockaddr *)address remoteAddress:(const sockaddr *)remoteAddress clientUUID:(unsigned __int8)d[16] sessionID:(id)iD relaySessionToken:(id)token relaySessionKey:(id)key randomSaltBlock:(id)self0 newLocalPort:(unsigned __int16 *)self1 disconnectAfterUse:(BOOL)self2 readyHandler:(id)self3
 {
   v17 = *&p;
-  v114 = *MEMORY[0x1E69E9840];
+  v115 = *MEMORY[0x1E69E9840];
   iDCopy = iD;
   tokenCopy = token;
   keyCopy = key;
@@ -1432,10 +1432,10 @@ LABEL_60:
   *self->_clientUUID = *d;
   address = nw_endpoint_create_address(address);
   v21 = nw_endpoint_create_address(remoteAddress);
-  v109 = 0;
-  v82 = iDCopy;
-  LODWORD(token) = [(IDSNWLink *)self _findExistingCollidingQRConnection:address remoteEndpoint:v21 sessionID:iDCopy localEndpointToUse:&v109];
-  v22 = v109;
+  v110 = 0;
+  v83 = iDCopy;
+  LODWORD(token) = [(IDSNWLink *)self _findExistingCollidingQRConnection:address remoteEndpoint:v21 sessionID:iDCopy localEndpointToUse:&v110];
+  v22 = v110;
   v23 = v22;
   if (!token)
   {
@@ -1462,200 +1462,200 @@ LABEL_7:
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x3032000000;
-    v111 = sub_1A7B33924;
-    v112 = sub_1A7B33934;
-    v113 = _tokenWithParameters(address, v21, v82, 5uLL, 0);
-    v101 = 0;
-    v102 = &v101;
-    v103 = 0x3032000000;
-    v104 = sub_1A7B33924;
-    v105 = sub_1A7B33934;
-    v106 = [(IDSNWLink *)self _NWLinkConnectionForToken:*(*&buf[8] + 40)];
-    if (!v102[5])
+    v112 = sub_1A7B33924;
+    v113 = sub_1A7B33934;
+    v114 = _tokenWithParameters(address, v21, v83, 5uLL, 0);
+    v102 = 0;
+    v103 = &v102;
+    v104 = 0x3032000000;
+    v105 = sub_1A7B33924;
+    v106 = sub_1A7B33934;
+    v107 = [(IDSNWLink *)self _NWLinkConnectionForToken:*(*&buf[8] + 40)];
+    if (!v103[5])
     {
 LABEL_11:
-      v77 = blockCopy[2]();
-      if (v77)
+      v78 = blockCopy[2]();
+      if (v78)
       {
         v34 = [[NWLinkConnection alloc] initWithType:5 interfaceIndex:v17 localEndpoint:address remoteEndpoint:v21 isH2Connection:1];
-        v35 = v102[5];
-        v102[5] = v34;
+        v35 = v103[5];
+        v103[5] = v34;
 
-        [v102[5] setHasRequiredInterface:1];
+        [v103[5] setHasRequiredInterface:1];
         v36 = _supportsNAT64(address, v17);
-        [v102[5] setSupportsNAT64:v36];
-        [v102[5] setSessionID:v82];
+        [v103[5] setSupportsNAT64:v36];
+        [v103[5] setSessionID:v83];
         if (!use)
         {
-          [v102[5] setDisconnectionState:2];
+          [v103[5] setDisconnectionState:2];
         }
 
-        v37 = v102[5];
+        v37 = v103[5];
         v38 = nw_interface_create_with_index();
         sub_1A7B306B4(v37, 1, "connectTCP: connecting on if:%@(%u) for %@", v39, v40, v41, v42, v43, v38);
 
-        queue = NWLinkQueue();
+        queue = NWLinkQueue(v44);
         configure_tls[0] = MEMORY[0x1E69E9820];
         configure_tls[1] = 3221225472;
         configure_tls[2] = sub_1A7B339E0;
         configure_tls[3] = &unk_1E77E02F0;
-        v90 = keyCopy;
-        v91 = v77;
-        v44 = handlerCopy;
-        v93 = v44;
-        v92 = tokenCopy;
+        v91 = keyCopy;
+        v92 = v78;
+        v45 = handlerCopy;
+        v94 = v45;
+        v93 = tokenCopy;
         secure_tcp = nw_parameters_create_secure_tcp(configure_tls, *MEMORY[0x1E6977EB8]);
-        v46 = nw_parameters_copy_default_protocol_stack(secure_tcp);
+        v47 = nw_parameters_copy_default_protocol_stack(secure_tcp);
         options = nw_http2_create_options();
-        sub_1A7B306B4(v102[5], 1, "disabling nw capsule handling", v48, v49, v50, v51, v52, v75);
+        sub_1A7B306B4(v103[5], 1, "disabling nw capsule handling", v49, v50, v51, v52, v53, v76);
         nw_http2_set_capsule_handling_disabled();
-        nw_protocol_stack_prepend_application_protocol(v46, options);
-        v53 = [(IDSNWLink *)self protocolStackDescriptionFor:v46];
-        [v102[5] setProtocolStackDescription:v53];
+        nw_protocol_stack_prepend_application_protocol(v47, options);
+        v54 = [(IDSNWLink *)self protocolStackDescriptionFor:v47];
+        [v103[5] setProtocolStackDescription:v54];
 
-        [(IDSNWLink *)self _setParameters:secure_tcp NWLinkConnection:v102[5] sharePortWithListener:0 isTCP:1];
-        v59 = nw_connection_create(v21, secure_tcp);
-        v60 = v59 != 0;
-        if (v59)
+        [(IDSNWLink *)self _setParameters:secure_tcp NWLinkConnection:v103[5] sharePortWithListener:0 isTCP:1];
+        v60 = nw_connection_create(v21, secure_tcp);
+        v61 = v60 != 0;
+        if (v60)
         {
           handler[0] = MEMORY[0x1E69E9820];
           handler[1] = 3221225472;
           handler[2] = sub_1A7B33C08;
           handler[3] = &unk_1E77E0390;
-          v85 = &v101;
+          v86 = &v102;
           handler[4] = self;
-          v86 = buf;
-          v84 = v44;
-          nw_connection_set_state_changed_handler(v59, handler);
-          [v102[5] setConnection:v59];
-          [v102[5] setName:@"Main TCP QR connection"];
-          [(IDSNWLink *)self _addPendingTCPNWLinkConnection:v102[5] token:*(*&buf[8] + 40)];
-          nw_connection_set_queue(v59, queue);
-          nw_connection_start(v59);
-          [v102[5] setHasQUICStarted:1];
+          v87 = buf;
+          v85 = v45;
+          nw_connection_set_state_changed_handler(v60, handler);
+          [v103[5] setConnection:v60];
+          [v103[5] setName:@"Main TCP QR connection"];
+          [(IDSNWLink *)self _addPendingTCPNWLinkConnection:v103[5] token:*(*&buf[8] + 40)];
+          nw_connection_set_queue(v60, queue);
+          nw_connection_start(v60);
+          [v103[5] setHasQUICStarted:1];
         }
 
         else
         {
-          sub_1A7B306B4(v102[5], 2, "connectTCP: couldn't create TCPH2 connection for %@", v54, v55, v56, v57, v58, *(*&buf[8] + 40));
-          v87[0] = MEMORY[0x1E69E9820];
-          v87[1] = 3221225472;
-          v87[2] = sub_1A7B33BE8;
-          v87[3] = &unk_1E77E0188;
-          v88 = v44;
-          IDSTransportThreadAddBlock(v87);
+          sub_1A7B306B4(v103[5], 2, "connectTCP: couldn't create TCPH2 connection for %@", v55, v56, v57, v58, v59, *(*&buf[8] + 40));
+          v88[0] = MEMORY[0x1E69E9820];
+          v88[1] = 3221225472;
+          v88[2] = sub_1A7B33BE8;
+          v88[3] = &unk_1E77E0188;
+          v89 = v45;
+          IDSTransportThreadAddBlock(v88);
         }
 
-        v71 = queue;
+        v72 = queue;
       }
 
       else
       {
-        v70 = +[IDSFoundationLog IDSNWLink];
-        if (os_log_type_enabled(v70, OS_LOG_TYPE_ERROR))
+        v71 = +[IDSFoundationLog IDSNWLink];
+        if (os_log_type_enabled(v71, OS_LOG_TYPE_ERROR))
         {
           sub_1A7E126B4();
         }
 
-        v94[0] = MEMORY[0x1E69E9820];
-        v94[1] = 3221225472;
-        v94[2] = sub_1A7B339C0;
-        v94[3] = &unk_1E77E0188;
-        v95 = handlerCopy;
-        IDSTransportThreadAddBlock(v94);
-        v60 = 0;
-        v71 = v95;
+        v95[0] = MEMORY[0x1E69E9820];
+        v95[1] = 3221225472;
+        v95[2] = sub_1A7B339C0;
+        v95[3] = &unk_1E77E0188;
+        v96 = handlerCopy;
+        IDSTransportThreadAddBlock(v95);
+        v61 = 0;
+        v72 = v96;
       }
 
       goto LABEL_30;
     }
 
     v25 = ids_monotonic_time();
-    if ([v102[5] disconnectionState] == 1)
+    if ([v103[5] disconnectionState] == 1)
     {
-      [v102[5] scheduledDisconnectTime];
+      [v103[5] scheduledDisconnectTime];
       if (v26 < v25)
       {
-        v27 = v102[5];
+        v27 = v103[5];
         v28 = *(*&buf[8] + 40);
         [v27 scheduledDisconnectTime];
         sub_1A7B306B4(v27, 1, "existing connection %@ already timed out (%.1f < %.1f) - reconnecting...", v29, v30, v31, v32, v33, v28);
-        [(IDSNWLink *)self disconnectWithSessionID:v82 localAddress:address remoteAddress:remoteAddress waitTime:0 final:0.0];
+        [(IDSNWLink *)self disconnectWithSessionID:v83 localAddress:address remoteAddress:remoteAddress waitTime:0 final:0.0];
         goto LABEL_11;
       }
     }
 
-    disconnectionState = [v102[5] disconnectionState];
-    v67 = v102[5];
+    disconnectionState = [v103[5] disconnectionState];
+    v68 = v103[5];
     if (disconnectionState == 3)
     {
-      sub_1A7B306B4(v67, 1, "this H/2 connection cannot be reused", v61, v62, v63, v64, v65, v74);
-      v99[0] = MEMORY[0x1E69E9820];
-      v99[1] = 3221225472;
-      v99[2] = sub_1A7B3393C;
-      v99[3] = &unk_1E77E0188;
-      v100 = handlerCopy;
-      IDSTransportThreadAddBlock(v99);
+      sub_1A7B306B4(v68, 1, "this H/2 connection cannot be reused", v62, v63, v64, v65, v66, v75);
+      v100[0] = MEMORY[0x1E69E9820];
+      v100[1] = 3221225472;
+      v100[2] = sub_1A7B3393C;
+      v100[3] = &unk_1E77E0188;
+      v101 = handlerCopy;
+      IDSTransportThreadAddBlock(v100);
 
-      v60 = 0;
+      v61 = 0;
 LABEL_30:
-      _Block_object_dispose(&v101, 8);
+      _Block_object_dispose(&v102, 8);
 
       _Block_object_dispose(buf, 8);
       goto LABEL_31;
     }
 
-    sub_1A7B306B4(v67, 1, "connectTCP: %@ already exists", v61, v62, v63, v64, v65, *(*&buf[8] + 40));
-    v68 = v102[5];
+    sub_1A7B306B4(v68, 1, "connectTCP: %@ already exists", v62, v63, v64, v65, v66, *(*&buf[8] + 40));
+    v69 = v103[5];
     if (use)
     {
-      if ([v68 disconnectionState] != 1)
+      if ([v69 disconnectionState] != 1)
       {
 LABEL_29:
-        v96[0] = MEMORY[0x1E69E9820];
-        v96[1] = 3221225472;
-        v96[2] = sub_1A7B3395C;
-        v96[3] = &unk_1E77E02C8;
-        v96[4] = self;
-        v98 = &v101;
-        v97 = handlerCopy;
-        IDSTransportThreadAddBlock(v96);
+        v97[0] = MEMORY[0x1E69E9820];
+        v97[1] = 3221225472;
+        v97[2] = sub_1A7B3395C;
+        v97[3] = &unk_1E77E02C8;
+        v97[4] = self;
+        v99 = &v102;
+        v98 = handlerCopy;
+        IDSTransportThreadAddBlock(v97);
 
-        v60 = 1;
+        v61 = 1;
         goto LABEL_30;
       }
 
-      v69 = 0;
-      v68 = v102[5];
+      v70 = 0;
+      v69 = v103[5];
     }
 
     else
     {
-      v69 = 2;
+      v70 = 2;
     }
 
-    [v68 setDisconnectionState:v69];
+    [v69 setDisconnectionState:v70];
     goto LABEL_29;
   }
 
-  v73 = +[IDSFoundationLog IDSNWLink];
-  if (os_log_type_enabled(v73, OS_LOG_TYPE_DEFAULT))
+  v74 = +[IDSFoundationLog IDSNWLink];
+  if (os_log_type_enabled(v74, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_1A7AD9000, v73, OS_LOG_TYPE_DEFAULT, "connectTCP: COLLISION MITIGATION failed", buf, 2u);
+    _os_log_impl(&dword_1A7AD9000, v74, OS_LOG_TYPE_DEFAULT, "connectTCP: COLLISION MITIGATION failed", buf, 2u);
   }
 
-  v107[0] = MEMORY[0x1E69E9820];
-  v107[1] = 3221225472;
-  v107[2] = sub_1A7B33904;
-  v107[3] = &unk_1E77E0188;
-  v108 = handlerCopy;
-  IDSTransportThreadAddBlock(v107);
-  v60 = 0;
-  v23 = v108;
+  v108[0] = MEMORY[0x1E69E9820];
+  v108[1] = 3221225472;
+  v108[2] = sub_1A7B33904;
+  v108[3] = &unk_1E77E0188;
+  v109 = handlerCopy;
+  IDSTransportThreadAddBlock(v108);
+  v61 = 0;
+  v23 = v109;
 LABEL_31:
 
-  return v60;
+  return v61;
 }
 
 - (void)_addPendingTCPNWLinkConnection:(id)connection token:(id)token
@@ -2539,7 +2539,7 @@ LABEL_39:
   podCopy = pod;
   cellularCopy = cellular;
   relayCopy = relay;
-  v70 = *MEMORY[0x1E69E9840];
+  v71 = *MEMORY[0x1E69E9840];
   forCopy = for;
   v14 = forCopy;
   if (d)
@@ -2557,7 +2557,7 @@ LABEL_39:
 
     connection = [v14 connection];
     v19 = connection;
-    v62 = v16;
+    v63 = v16;
     if (!connection)
     {
       v20 = +[IDSFoundationLog IDSNWLink];
@@ -2579,7 +2579,7 @@ LABEL_35:
       goto LABEL_36;
     }
 
-    v61 = connection;
+    v62 = connection;
     v20 = [(IDSNWLink *)self _childConnectionEvaluatorForToken:v16];
     v21 = +[IDSFoundationLog IDSNWLink];
     v22 = os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT);
@@ -2588,7 +2588,7 @@ LABEL_35:
       if (v22)
       {
         *buf = 138412290;
-        *&buf[4] = v61;
+        *&buf[4] = v62;
         _os_log_impl(&dword_1A7AD9000, v21, OS_LOG_TYPE_DEFAULT, "copyChildConnectionIDForLocalAddress found existing parent connection: %@", buf, 0xCu);
       }
 
@@ -2598,22 +2598,22 @@ LABEL_35:
       {
         v23 = [objc_alloc(MEMORY[0x1E696AFB0]) initWithUUIDBytes:buf];
         v24 = remoteEndpoint;
-        v19 = v61;
+        v19 = v62;
 LABEL_36:
 
         goto LABEL_37;
       }
 
       v29 = +[IDSFoundationLog IDSNWLink];
-      v19 = v61;
+      v19 = v62;
       if (!os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
       {
         goto LABEL_34;
       }
 
-      LOWORD(v66[0]) = 0;
+      LOWORD(v67[0]) = 0;
       v30 = "copyChildConnectionIDForLocalAddress: failed to get existing client id";
-      v31 = v66;
+      v31 = v67;
       v32 = v29;
       v33 = 2;
       goto LABEL_33;
@@ -2631,27 +2631,27 @@ LABEL_36:
       *&buf[4] = v25;
       *&buf[12] = 2112;
       *&buf[14] = localEndpoint;
-      v68 = 2112;
-      v69 = remoteEndpoint;
+      v69 = 2112;
+      v70 = remoteEndpoint;
       _os_log_impl(&dword_1A7AD9000, v21, OS_LOG_TYPE_DEFAULT, "copyChildConnectionIDForLocalAddress %s connection found for %@ / %@", buf, 0x20u);
     }
 
-    v19 = v61;
+    v19 = v62;
     v26 = nw_connection_copy_connected_path();
     v20 = v26;
     if (v26)
     {
       if (MEMORY[0x1AC564470](v26))
       {
-        v66[0] = 0xAAAAAAAAAAAAAAAALL;
-        v66[1] = 0xAAAAAAAAAAAAAAAALL;
+        v67[0] = 0xAAAAAAAAAAAAAAAALL;
+        v67[1] = 0xAAAAAAAAAAAAAAAALL;
         if ((nw_path_get_client_id() & 1) == 0)
         {
           v35 = +[IDSFoundationLog IDSNWLink];
           if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            *&buf[4] = v61;
+            *&buf[4] = v62;
             _os_log_impl(&dword_1A7AD9000, v35, OS_LOG_TYPE_DEFAULT, "copyChildConnectionIDForLocalAddress failed to get client id for %@", buf, 0xCu);
           }
 
@@ -2660,14 +2660,14 @@ LABEL_36:
           goto LABEL_74;
         }
 
-        v60 = [objc_alloc(MEMORY[0x1E696AFB0]) initWithUUIDBytes:v66];
+        v61 = [objc_alloc(MEMORY[0x1E696AFB0]) initWithUUIDBytes:v67];
         v27 = +[IDSFoundationLog IDSNWLink];
         if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412546;
-          *&buf[4] = v60;
+          *&buf[4] = v61;
           *&buf[12] = 2112;
-          *&buf[14] = v61;
+          *&buf[14] = v62;
           _os_log_impl(&dword_1A7AD9000, v27, OS_LOG_TYPE_DEFAULT, "copyChildConnectionIDForLocalAddress got %@ from %@", buf, 0x16u);
         }
 
@@ -2682,24 +2682,24 @@ LABEL_36:
           secure_udp = nw_parameters_create_secure_udp(*MEMORY[0x1E6977EC0], *MEMORY[0x1E6977EB8]);
         }
 
-        v19 = v61;
+        v19 = v62;
         memset(buf, 170, 16);
-        [v60 getUUIDBytes:buf];
+        [v61 getUUIDBytes:buf];
         nw_parameters_set_parent_id();
-        v58 = [(IDSNWLink *)self _findListenerWithLocalEndpoint:localEndpoint];
-        if (!v58)
+        v59 = [(IDSNWLink *)self _findListenerWithLocalEndpoint:localEndpoint];
+        if (!v59)
         {
           v38 = +[IDSFoundationLog IDSNWLink];
           if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
           {
-            LODWORD(v65) = 138412290;
-            *(&v65 + 4) = v61;
-            _os_log_impl(&dword_1A7AD9000, v38, OS_LOG_TYPE_DEFAULT, "copyChildConnectionIDForLocalAddress failed to find the listener for %@", &v65, 0xCu);
+            LODWORD(v66) = 138412290;
+            *(&v66 + 4) = v62;
+            _os_log_impl(&dword_1A7AD9000, v38, OS_LOG_TYPE_DEFAULT, "copyChildConnectionIDForLocalAddress failed to find the listener for %@", &v66, 0xCu);
           }
 
           v23 = 0;
           v24 = remoteEndpoint;
-          v35 = v60;
+          v35 = v61;
           goto LABEL_73;
         }
 
@@ -2707,8 +2707,8 @@ LABEL_36:
         if (podCopy)
         {
           idsQPodParameters = [v14 idsQPodParameters];
-          *&v65 = -[IDSNWLink demuxPatternForQPodConnectionWithID:forNWLinkConnection:](self, "demuxPatternForQPodConnectionWithID:forNWLinkConnection:", [idsQPodParameters clientConnectionID], v14);
-          WORD4(v65) = v37;
+          *&v66 = -[IDSNWLink demuxPatternForQPodConnectionWithID:forNWLinkConnection:](self, "demuxPatternForQPodConnectionWithID:forNWLinkConnection:", [idsQPodParameters clientConnectionID], v14);
+          WORD4(v66) = v37;
         }
 
         else
@@ -2716,15 +2716,15 @@ LABEL_36:
           if (relayCopy)
           {
             nw_demux_options_add_pattern();
-            *&v65 = 0x8000000060;
-            *v64 = 0x10000080000000F0;
+            *&v66 = 0x8000000060;
+            *v65 = 0x10000080000000F0;
           }
 
           else
           {
             nw_parameters_set_account_id();
-            LOBYTE(v65) = 0x80;
-            v64[0] = -64;
+            LOBYTE(v66) = 0x80;
+            v65[0] = -64;
             nw_demux_options_add_pattern();
           }
 
@@ -2734,9 +2734,9 @@ LABEL_36:
             goto LABEL_54;
           }
 
-          sub_1A7B306B4(v14, 1, "copyChildConnectionIDFor: adding demux rule for baseband notification packets", v39, v40, v41, v42, v43, v54);
-          LODWORD(v65) = -272716322;
-          *v64 = -1;
+          sub_1A7B306B4(v14, 1, "copyChildConnectionIDFor: adding demux rule for baseband notification packets", v39, v40, v41, v42, v43, v55);
+          LODWORD(v66) = -272716322;
+          *v65 = -1;
         }
 
         nw_demux_options_add_pattern();
@@ -2744,11 +2744,11 @@ LABEL_54:
         nw_parameters_set_channel_demux_options();
         v44 = nw_demux_create_options();
         nw_demux_options_add_pattern();
-        v55 = nw_parameters_copy_default_protocol_stack(secure_udp);
-        v56 = v44;
-        nw_protocol_stack_prepend_application_protocol(v55, v44);
-        nw_parameters_allow_sharing_port_with_listener_for_connection();
-        v45 = IDSRealTimeContext();
+        v56 = nw_parameters_copy_default_protocol_stack(secure_udp);
+        v57 = v44;
+        nw_protocol_stack_prepend_application_protocol(v56, v44);
+        v45 = nw_parameters_allow_sharing_port_with_listener_for_connection();
+        v46 = IDSRealTimeContext(v45);
         nw_parameters_set_context();
 
         nw_parameters_set_delegated_unique_pid();
@@ -2757,75 +2757,75 @@ LABEL_54:
           nw_parameters_set_e_proc_uuid();
         }
 
-        v46 = +[IDSFoundationLog IDSNWLink];
-        if (os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT))
+        v47 = +[IDSFoundationLog IDSNWLink];
+        if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
         {
-          LODWORD(v65) = 138412290;
-          *(&v65 + 4) = v60;
-          _os_log_impl(&dword_1A7AD9000, v46, OS_LOG_TYPE_DEFAULT, "copyChildConnectionIDForLocalAddress: create evaluator with parent connection ID %@", &v65, 0xCu);
+          LODWORD(v66) = 138412290;
+          *(&v66 + 4) = v61;
+          _os_log_impl(&dword_1A7AD9000, v47, OS_LOG_TYPE_DEFAULT, "copyChildConnectionIDForLocalAddress: create evaluator with parent connection ID %@", &v66, 0xCu);
         }
 
-        v47 = nw_path_copy_effective_local_endpoint(v20);
-        v48 = v47;
-        if (v47)
+        v48 = nw_path_copy_effective_local_endpoint(v20);
+        v49 = v48;
+        if (v48)
         {
-          v49 = v47;
+          v50 = v48;
         }
 
         else
         {
-          v49 = localEndpoint;
+          v50 = localEndpoint;
         }
 
-        nw_parameters_set_local_endpoint(secure_udp, v49);
-        v50 = nw_path_copy_effective_remote_endpoint(v20);
+        nw_parameters_set_local_endpoint(secure_udp, v50);
+        v51 = nw_path_copy_effective_remote_endpoint(v20);
         evaluator_for_endpoint = nw_path_create_evaluator_for_endpoint();
         if (evaluator_for_endpoint)
         {
-          v65 = 0uLL;
+          v66 = 0uLL;
           if (nw_path_evaluator_get_client_id())
           {
-            v23 = [objc_alloc(MEMORY[0x1E696AFB0]) initWithUUIDBytes:&v65];
-            [(IDSNWLink *)self _addChildConnectionEvaluator:evaluator_for_endpoint token:v62];
-            v52 = +[IDSFoundationLog IDSNWLink];
-            if (os_log_type_enabled(v52, OS_LOG_TYPE_DEFAULT))
+            v23 = [objc_alloc(MEMORY[0x1E696AFB0]) initWithUUIDBytes:&v66];
+            [(IDSNWLink *)self _addChildConnectionEvaluator:evaluator_for_endpoint token:v63];
+            v53 = +[IDSFoundationLog IDSNWLink];
+            if (os_log_type_enabled(v53, OS_LOG_TYPE_DEFAULT))
             {
-              *v64 = 138412290;
-              *&v64[4] = v23;
-              _os_log_impl(&dword_1A7AD9000, v52, OS_LOG_TYPE_DEFAULT, "copyChildConnectionIDForLocalAddress: created child connection ID %@", v64, 0xCu);
+              *v65 = 138412290;
+              *&v65[4] = v23;
+              _os_log_impl(&dword_1A7AD9000, v53, OS_LOG_TYPE_DEFAULT, "copyChildConnectionIDForLocalAddress: created child connection ID %@", v65, 0xCu);
             }
           }
 
           else
           {
-            v52 = +[IDSFoundationLog IDSNWLink];
-            if (os_log_type_enabled(v52, OS_LOG_TYPE_DEFAULT))
+            v53 = +[IDSFoundationLog IDSNWLink];
+            if (os_log_type_enabled(v53, OS_LOG_TYPE_DEFAULT))
             {
-              *v64 = 0;
-              _os_log_impl(&dword_1A7AD9000, v52, OS_LOG_TYPE_DEFAULT, "copyChildConnectionIDForLocalAddress: failed to get client id", v64, 2u);
+              *v65 = 0;
+              _os_log_impl(&dword_1A7AD9000, v53, OS_LOG_TYPE_DEFAULT, "copyChildConnectionIDForLocalAddress: failed to get client id", v65, 2u);
             }
 
             v23 = 0;
           }
 
-          v35 = v60;
+          v35 = v61;
         }
 
         else
         {
-          v53 = +[IDSFoundationLog IDSNWLink];
-          if (os_log_type_enabled(v53, OS_LOG_TYPE_DEFAULT))
+          v54 = +[IDSFoundationLog IDSNWLink];
+          if (os_log_type_enabled(v54, OS_LOG_TYPE_DEFAULT))
           {
-            LOWORD(v65) = 0;
-            _os_log_impl(&dword_1A7AD9000, v53, OS_LOG_TYPE_DEFAULT, "copyChildConnectionIDForLocalAddress: failed to create evaluator for", &v65, 2u);
+            LOWORD(v66) = 0;
+            _os_log_impl(&dword_1A7AD9000, v54, OS_LOG_TYPE_DEFAULT, "copyChildConnectionIDForLocalAddress: failed to create evaluator for", &v66, 2u);
           }
 
           v23 = 0;
-          v35 = v60;
+          v35 = v61;
         }
 
         v24 = remoteEndpoint;
-        v19 = v61;
+        v19 = v62;
         v38 = options;
 LABEL_73:
 
@@ -2837,7 +2837,7 @@ LABEL_74:
       if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        *&buf[4] = v61;
+        *&buf[4] = v62;
         v30 = "copyChildConnectionIDForLocalAddress this connection doesn't support nexus: %@";
         goto LABEL_32;
       }
@@ -2849,7 +2849,7 @@ LABEL_74:
       if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        *&buf[4] = v61;
+        *&buf[4] = v62;
         v30 = "copyChildConnectionIDForLocalAddress failed to copy path for %@";
 LABEL_32:
         v31 = buf;
@@ -3057,119 +3057,120 @@ LABEL_6:
 
 - (id)_createNewListenerWithLocalPort:(unsigned __int16 *)port
 {
-  v48 = *MEMORY[0x1E69E9840];
+  v50 = *MEMORY[0x1E69E9840];
   v4 = *port;
   *&v5 = 0xAAAAAAAAAAAAAAAALL;
   *(&v5 + 1) = 0xAAAAAAAAAAAAAAAALL;
+  v48 = v5;
+  v49 = v5;
   v46 = v5;
   v47 = v5;
   v44 = v5;
   v45 = v5;
-  v42 = v5;
-  v43 = v5;
   *__str = v5;
-  v41 = v5;
+  v43 = v5;
   snprintf(__str, 0x80uLL, "%u", v4);
   secure_udp = nw_parameters_create_secure_udp(*MEMORY[0x1E6977EC0], *MEMORY[0x1E6977EB8]);
   nw_parameters_set_account_id();
   host = nw_endpoint_create_host("::", __str);
   nw_parameters_set_local_endpoint(secure_udp, host);
 
-  if (!uuid_is_null(self->_clientUUID))
+  is_null = uuid_is_null(self->_clientUUID);
+  if (!is_null)
   {
-    nw_parameters_set_e_proc_uuid();
+    is_null = nw_parameters_set_e_proc_uuid();
   }
 
-  v8 = IDSRealTimeContext();
+  v9 = IDSRealTimeContext(is_null);
   nw_parameters_set_context();
 
   options = nw_demux_create_options();
-  v39 = 0;
-  v10 = nw_demux_create_options();
+  v41 = 0;
+  v11 = nw_demux_create_options();
   nw_demux_options_add_pattern();
   nw_demux_options_add_pattern();
   nw_parameters_set_channel_demux_options();
-  v11 = nw_parameters_copy_default_protocol_stack(secure_udp);
+  v12 = nw_parameters_copy_default_protocol_stack(secure_udp);
   nw_protocol_stack_append_application_protocol();
-  v24 = [(IDSNWLink *)self protocolStackDescriptionFor:v11];
-  v12 = nw_listener_create(secure_udp);
-  if (v12)
+  v26 = [(IDSNWLink *)self protocolStackDescriptionFor:v12];
+  v13 = nw_listener_create(secure_udp);
+  if (v13)
   {
     handler[0] = MEMORY[0x1E69E9820];
     handler[1] = 3221225472;
     handler[2] = sub_1A7B37C2C;
     handler[3] = &unk_1E77E0458;
     handler[4] = self;
-    v38 = v24;
-    nw_listener_set_new_connection_handler(v12, handler);
-    v13 = dispatch_semaphore_create(0);
-    v33 = 0;
-    v34 = &v33;
-    v35 = 0x2020000000;
-    v36 = 0;
-    v31[0] = 0;
-    v31[1] = v31;
-    v31[2] = 0x3032000000;
-    v31[3] = sub_1A7B33924;
-    v31[4] = sub_1A7B33934;
-    v32 = 0;
-    v25[0] = MEMORY[0x1E69E9820];
-    v25[1] = 3221225472;
-    v25[2] = sub_1A7B3824C;
-    v25[3] = &unk_1E77E0480;
-    v14 = v12;
-    v30 = v4;
-    v26 = v14;
-    v28 = &v33;
+    v40 = v26;
+    nw_listener_set_new_connection_handler(v13, handler);
+    v14 = dispatch_semaphore_create(0);
+    v35 = 0;
+    v36 = &v35;
+    v37 = 0x2020000000;
+    v38 = 0;
+    v33[0] = 0;
+    v33[1] = v33;
+    v33[2] = 0x3032000000;
+    v33[3] = sub_1A7B33924;
+    v33[4] = sub_1A7B33934;
+    v34 = 0;
+    v27[0] = MEMORY[0x1E69E9820];
+    v27[1] = 3221225472;
+    v27[2] = sub_1A7B3824C;
+    v27[3] = &unk_1E77E0480;
     v15 = v13;
-    v27 = v15;
-    v29 = v31;
-    nw_listener_set_state_changed_handler(v14, v25);
-    v16 = NWLinkQueue();
-    nw_listener_set_queue(v14, v16);
+    v32 = v4;
+    v28 = v15;
+    v30 = &v35;
+    v16 = v14;
+    v29 = v16;
+    v31 = v33;
+    nw_listener_set_state_changed_handler(v15, v27);
+    v18 = NWLinkQueue(v17);
+    nw_listener_set_queue(v15, v18);
 
-    nw_listener_start(v14);
-    v17 = dispatch_time(0, 3000000000);
-    dispatch_semaphore_wait(v15, v17);
-    if (v34[3])
+    nw_listener_start(v15);
+    v19 = dispatch_time(0, 3000000000);
+    dispatch_semaphore_wait(v16, v19);
+    if (v36[3])
     {
       if (!v4)
       {
-        v18 = nw_listener_copy_local_endpoint();
-        *port = nw_endpoint_get_port(v18);
+        v20 = nw_listener_copy_local_endpoint();
+        *port = nw_endpoint_get_port(v20);
       }
 
-      v19 = v14;
+      v21 = v15;
     }
 
     else
     {
-      v21 = +[IDSFoundationLog IDSNWLink];
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+      v23 = +[IDSFoundationLog IDSNWLink];
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
       {
         sub_1A7E1295C();
       }
 
-      nw_listener_cancel(v14);
-      v19 = 0;
+      nw_listener_cancel(v15);
+      v21 = 0;
     }
 
-    _Block_object_dispose(v31, 8);
-    _Block_object_dispose(&v33, 8);
+    _Block_object_dispose(v33, 8);
+    _Block_object_dispose(&v35, 8);
   }
 
   else
   {
-    v20 = +[IDSFoundationLog IDSNWLink];
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    v22 = +[IDSFoundationLog IDSNWLink];
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
       sub_1A7E129E8();
     }
 
-    v19 = 0;
+    v21 = 0;
   }
 
-  return v19;
+  return v21;
 }
 
 - (void)_createUDPConnectionForNWLinkConnection:(id)connection readyHandler:(id)handler
@@ -3225,8 +3226,7 @@ LABEL_6:
         nw_connection_set_state_changed_handler(v20, handler);
         [v26 setName:@"UDP connection"];
         [v26 setConnection:v20];
-        [(IDSNWLink *)self _addUDPConnectionInProgress:v26 token:v27];
-        v28 = NWLinkQueue();
+        v28 = NWLinkQueue([(IDSNWLink *)self _addUDPConnectionInProgress:v26 token:v27]);
         nw_connection_set_queue(v20, v28);
 
         nw_connection_start(v20);
@@ -3428,8 +3428,7 @@ LABEL_13:
       v12 = 1;
       sub_1A7B306B4(v29, 1, "peeled off [C%llu(C%llu)]", v33, v34, v35, v36, v37, v41);
 
-      [(IDSNWLink *)self _addNWLinkConnection:v29 token:v42];
-      v38 = NWLinkQueue();
+      v38 = NWLinkQueue([(IDSNWLink *)self _addNWLinkConnection:v29 token:v42]);
       nw_connection_set_queue(v21, v38);
 
       v28 = v45;
@@ -3487,8 +3486,7 @@ LABEL_13:
     [connectionCopy connectionID];
     sub_1A7B306B4(v15, 1, "peeled off RU [C%llu(%llu)]", v19, v20, v21, v22, v23, connectionID);
     [(NWLinkConnection *)v15 setParent:connectionCopy];
-    [(IDSNWLink *)self _addNWLinkConnection:v15 token:v17];
-    v24 = NWLinkQueue();
+    v24 = NWLinkQueue([(IDSNWLink *)self _addNWLinkConnection:v15 token:v17]);
     nw_connection_set_queue(v14, v24);
 
     nw_connection_start(v14);
@@ -3810,8 +3808,7 @@ LABEL_8:
           connectionID = [(NWLinkConnection *)v53 connectionID];
           [connectionCopy connectionID];
           sub_1A7B306B4(v53, 1, "QUICPod peeled off [C%llu(C%llu)]", v67, v68, v69, v70, v71, connectionID);
-          [(IDSNWLink *)self _addNWLinkConnection:v53 token:v88];
-          v72 = NWLinkQueue();
+          v72 = NWLinkQueue([(IDSNWLink *)self _addNWLinkConnection:v53 token:v88]);
           nw_connection_set_queue(connection, v72);
 
           nw_connection_start(connection);
@@ -3957,8 +3954,7 @@ LABEL_20:
         connectionID = [(NWLinkConnection *)v42 connectionID];
         [connectionCopy connectionID];
         sub_1A7B306B4(v42, 1, "QUICPod peeled off [C%llu(C%llu)]", v45, v46, v47, v48, v49, connectionID);
-        [(IDSNWLink *)self _addNWLinkConnection:v42 token:v66];
-        v50 = NWLinkQueue();
+        v50 = NWLinkQueue([(IDSNWLink *)self _addNWLinkConnection:v42 token:v66]);
         nw_connection_set_queue(v41, v50);
 
         nw_connection_start(v41);
@@ -4221,7 +4217,7 @@ LABEL_8:
 {
   pCopy = p;
   listenerCopy = listener;
-  v57 = *MEMORY[0x1E69E9840];
+  v58 = *MEMORY[0x1E69E9840];
   parametersCopy = parameters;
   connectionCopy = connection;
   localEndpoint = [connectionCopy localEndpoint];
@@ -4243,14 +4239,14 @@ LABEL_8:
 
     *&v20 = 0xAAAAAAAAAAAAAAAALL;
     *(&v20 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    v55 = v20;
     v56 = v20;
-    v53 = v20;
+    v57 = v20;
     v54 = v20;
-    v51 = v20;
+    v55 = v20;
     v52 = v20;
+    v53 = v20;
     *__str = v20;
-    v50 = v20;
+    v51 = v20;
     cachedH2LocalEndpoint = [connectionCopy cachedH2LocalEndpoint];
     port = nw_endpoint_get_port(cachedH2LocalEndpoint);
     snprintf(__str, 0x80uLL, "%u", port);
@@ -4268,14 +4264,14 @@ LABEL_10:
   {
     *&v23 = 0xAAAAAAAAAAAAAAAALL;
     *(&v23 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    v55 = v23;
     v56 = v23;
-    v53 = v23;
+    v57 = v23;
     v54 = v23;
-    v51 = v23;
+    v55 = v23;
     v52 = v23;
+    v53 = v23;
     *__str = v23;
-    v50 = v23;
+    v51 = v23;
     v24 = nw_endpoint_get_port(localEndpoint);
     snprintf(__str, 0x80uLL, "%u", v24);
     goto LABEL_8;
@@ -4291,18 +4287,19 @@ LABEL_12:
   }
 
   nw_parameters_set_reuse_local_address(parametersCopy, 1);
-  if (!uuid_is_null(self->_clientUUID))
+  is_null = uuid_is_null(self->_clientUUID);
+  if (!is_null)
   {
-    nw_parameters_set_e_proc_uuid();
+    is_null = nw_parameters_set_e_proc_uuid();
   }
 
-  v28 = IDSRealTimeContext();
+  v29 = IDSRealTimeContext(is_null);
   nw_parameters_set_context();
 
   if (pCopy)
   {
-    LOBYTE(v34) = 1;
-    sub_1A7B306B4(connectionCopy, 1, "TCP: no need to have demux logic", v29, v30, v31, v32, v33, v48);
+    LOBYTE(v35) = 1;
+    sub_1A7B306B4(connectionCopy, 1, "TCP: no need to have demux logic", v30, v31, v32, v33, v34, v49);
   }
 
   else
@@ -4313,10 +4310,10 @@ LABEL_12:
     nw_parameters_set_channel_demux_options();
     if (listenerCopy)
     {
-      v34 = [(IDSNWLink *)self _findListenerWithLocalEndpoint:localEndpoint];
-      if (!v34)
+      v35 = [(IDSNWLink *)self _findListenerWithLocalEndpoint:localEndpoint];
+      if (!v35)
       {
-        sub_1A7B306B4(connectionCopy, 2, "couldn't find the listener for %@", v36, v37, v38, v39, v40, localEndpoint);
+        sub_1A7B306B4(connectionCopy, 2, "couldn't find the listener for %@", v37, v38, v39, v40, v41, localEndpoint);
 
         goto LABEL_22;
       }
@@ -4324,15 +4321,15 @@ LABEL_12:
       connection = [connectionCopy connection];
       nw_parameters_allow_sharing_port_with_listener_for_connection();
 
-      sub_1A7B306B4(connectionCopy, 1, "sharing local port with listener %p", v42, v43, v44, v45, v46, v34);
+      sub_1A7B306B4(connectionCopy, 1, "sharing local port with listener %p", v43, v44, v45, v46, v47, v35);
     }
 
-    LOBYTE(v34) = 1;
+    LOBYTE(v35) = 1;
   }
 
 LABEL_22:
 
-  return v34;
+  return v35;
 }
 
 - (BOOL)_findExistingCollidingQRConnection:(id)connection remoteEndpoint:(id)endpoint sessionID:(id)d localEndpointToUse:(id *)use

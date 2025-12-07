@@ -1,6 +1,7 @@
 @interface NotificationRelay
 + (id)sharedRelay;
 - (NotificationRelay)init;
+- (void)refreshManagersForPreferences:(BOOL)preferences localNotifications:(BOOL)notifications;
 - (void)relayFrameworkNotification:(id)notification;
 @end
 
@@ -113,6 +114,14 @@ LABEL_11:
   }
 
 LABEL_13:
+}
+
+- (void)refreshManagersForPreferences:(BOOL)preferences localNotifications:(BOOL)notifications
+{
+  if (preferences)
+  {
+    [ClockManager loadUserPreferences:preferences];
+  }
 }
 
 @end

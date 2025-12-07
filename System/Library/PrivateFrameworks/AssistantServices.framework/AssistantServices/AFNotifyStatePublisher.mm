@@ -16,7 +16,7 @@
 
 - (void)_unregister
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   registrationToken = self->_registrationToken;
   if (registrationToken != -1)
   {
@@ -26,20 +26,18 @@
     if (os_log_type_enabled(AFSiriLogContextUtility, OS_LOG_TYPE_INFO))
     {
       name = self->_name;
-      v7 = 136315394;
-      v8 = "[AFNotifyStatePublisher _unregister]";
-      v9 = 2080;
-      v10 = name;
-      _os_log_impl(&dword_1912FE000, v4, OS_LOG_TYPE_INFO, "%s Registration token of %s is invalidated.", &v7, 0x16u);
+      v6 = 136315394;
+      v7 = "[AFNotifyStatePublisher _unregister]";
+      v8 = 2080;
+      v9 = name;
+      _os_log_impl(&dword_1912FE000, v4, OS_LOG_TYPE_INFO, "%s Registration token of %s is invalidated.", &v6, 0x16u);
     }
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_register
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   if (self->_registrationToken == -1)
   {
     out_token = -1;
@@ -52,11 +50,11 @@
       {
         name = self->_name;
         *buf = 136315650;
-        v13 = "[AFNotifyStatePublisher _register]";
-        v14 = 2080;
-        v15 = name;
-        v16 = 1024;
-        v17 = v4;
+        v12 = "[AFNotifyStatePublisher _register]";
+        v13 = 2080;
+        v14 = name;
+        v15 = 1024;
+        v16 = v4;
         _os_log_error_impl(&dword_1912FE000, v5, OS_LOG_TYPE_ERROR, "%s Failed to get registration token of %s (status = %u).", buf, 0x1Cu);
       }
     }
@@ -70,22 +68,20 @@
       {
         v9 = self->_name;
         *buf = 136315650;
-        v13 = "[AFNotifyStatePublisher _register]";
-        v14 = 2080;
-        v15 = v9;
-        v16 = 1024;
-        v17 = v7;
+        v12 = "[AFNotifyStatePublisher _register]";
+        v13 = 2080;
+        v14 = v9;
+        v15 = 1024;
+        v16 = v7;
         _os_log_impl(&dword_1912FE000, v8, OS_LOG_TYPE_INFO, "%s Registration token of %s is %d.", buf, 0x1Cu);
       }
     }
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)_getState:(unint64_t *)state withToken:(int)token
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   if (state)
   {
     *state = 0;
@@ -96,7 +92,7 @@
       *state = state64;
 LABEL_7:
       LOBYTE(v10) = 1;
-      goto LABEL_8;
+      return v10;
     }
   }
 
@@ -117,25 +113,23 @@ LABEL_7:
   {
     name = self->_name;
     *buf = 136315906;
-    v16 = "[AFNotifyStatePublisher _getState:withToken:]";
-    v17 = 2080;
-    v18 = name;
-    v19 = 1024;
+    v15 = "[AFNotifyStatePublisher _getState:withToken:]";
+    v16 = 2080;
+    v17 = name;
+    v18 = 1024;
     tokenCopy = token;
-    v21 = 1024;
-    v22 = stateCopy;
+    v20 = 1024;
+    v21 = stateCopy;
     _os_log_error_impl(&dword_1912FE000, v9, OS_LOG_TYPE_ERROR, "%s Failed to get state of %s with token %d (status = %u).", buf, 0x22u);
     LOBYTE(v10) = 0;
   }
 
-LABEL_8:
-  v12 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
 - (BOOL)_setState:(unint64_t)state withToken:(int)token
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v7 = notify_set_state(token, state);
   if (v7)
   {
@@ -143,23 +137,21 @@ LABEL_8:
     if (os_log_type_enabled(AFSiriLogContextUtility, OS_LOG_TYPE_ERROR))
     {
       name = self->_name;
-      v12 = 136316162;
-      v13 = "[AFNotifyStatePublisher _setState:withToken:]";
-      v14 = 2048;
+      v11 = 136316162;
+      v12 = "[AFNotifyStatePublisher _setState:withToken:]";
+      v13 = 2048;
       stateCopy = state;
-      v16 = 2080;
-      v17 = name;
-      v18 = 1024;
+      v15 = 2080;
+      v16 = name;
+      v17 = 1024;
       tokenCopy = token;
-      v20 = 1024;
-      v21 = v7;
-      _os_log_error_impl(&dword_1912FE000, v8, OS_LOG_TYPE_ERROR, "%s Failed to set state to %llu of %s with token %d (status = %u).", &v12, 0x2Cu);
+      v19 = 1024;
+      v20 = v7;
+      _os_log_error_impl(&dword_1912FE000, v8, OS_LOG_TYPE_ERROR, "%s Failed to set state to %llu of %s with token %d (status = %u).", &v11, 0x2Cu);
     }
   }
 
-  result = v7 == 0;
-  v10 = *MEMORY[0x1E69E9840];
-  return result;
+  return v7 == 0;
 }
 
 - (void)invalidate
@@ -250,12 +242,12 @@ _DWORD *__48__AFNotifyStatePublisher_publishStateWithBlock___block_invoke(uint64
 
 - (AFNotifyStatePublisher)initWithName:(id)name queue:(id)queue
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   nameCopy = name;
   queueCopy = queue;
-  v18.receiver = self;
-  v18.super_class = AFNotifyStatePublisher;
-  v8 = [(AFNotifyStatePublisher *)&v18 init];
+  v17.receiver = self;
+  v17.super_class = AFNotifyStatePublisher;
+  v8 = [(AFNotifyStatePublisher *)&v17 init];
   v9 = v8;
   if (v8)
   {
@@ -269,9 +261,9 @@ _DWORD *__48__AFNotifyStatePublisher_publishStateWithBlock___block_invoke(uint64
       if (os_log_type_enabled(AFSiriLogContextUtility, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v20 = "[AFNotifyStatePublisher initWithName:queue:]";
-        v21 = 2112;
-        v22 = nameCopy;
+        v19 = "[AFNotifyStatePublisher initWithName:queue:]";
+        v20 = 2112;
+        v21 = nameCopy;
         _os_log_error_impl(&dword_1912FE000, v12, OS_LOG_TYPE_ERROR, "%s Unable to get C string of name from %@.", buf, 0x16u);
       }
     }
@@ -282,11 +274,10 @@ _DWORD *__48__AFNotifyStatePublisher_publishStateWithBlock___block_invoke(uint64
     block[1] = 3221225472;
     block[2] = __45__AFNotifyStatePublisher_initWithName_queue___block_invoke;
     block[3] = &unk_1E73497C8;
-    v17 = v9;
+    v16 = v9;
     dispatch_async(queue, block);
   }
 
-  v14 = *MEMORY[0x1E69E9840];
   return v9;
 }
 

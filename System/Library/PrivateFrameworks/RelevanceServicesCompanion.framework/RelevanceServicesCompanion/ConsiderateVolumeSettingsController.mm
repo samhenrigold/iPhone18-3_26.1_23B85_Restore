@@ -7,13 +7,11 @@
 
 - (_TtC26RelevanceServicesCompanion35ConsiderateVolumeSettingsController)init
 {
-  v3 = objc_allocWithZone(swift_getObjectType());
-  v4 = ConsiderateVolumeSettingsController.init(alwaysSynchronize:)(1);
+  v2 = objc_allocWithZone(swift_getObjectType());
+  v3 = ConsiderateVolumeSettingsController.init(alwaysSynchronize:)(1);
   swift_getObjectType();
-  v5 = *((*MEMORY[0x277D85000] & self->super.isa) + 0x30);
-  v6 = *((*MEMORY[0x277D85000] & self->super.isa) + 0x34);
   swift_deallocPartialClassInstance();
-  return v4;
+  return v3;
 }
 
 - (void)dealloc

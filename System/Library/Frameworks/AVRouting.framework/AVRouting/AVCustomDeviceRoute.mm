@@ -25,7 +25,7 @@
 
 - (void)setDevice:(id)device
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
 
   self->_device = device;
   networkEndpoint = self->_networkEndpoint;
@@ -39,24 +39,23 @@
     self->_networkEndpoint = nw_retain([device networkEndpoint]);
   }
 
-  self->_bluetoothIdentifier = [device bluetoothIdentifier];
-  v6 = _AVRoutingLog();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  bluetoothIdentifier = [device bluetoothIdentifier];
+  self->_bluetoothIdentifier = bluetoothIdentifier;
+  v8 = _AVRoutingLog(bluetoothIdentifier, v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = self->_networkEndpoint;
+    v9 = self->_networkEndpoint;
     bluetoothIdentifier = self->_bluetoothIdentifier;
-    v10 = 136315906;
-    v11 = "[AVCustomDeviceRoute setDevice:]";
-    v12 = 2112;
+    v11 = 136315906;
+    v12 = "[AVCustomDeviceRoute setDevice:]";
+    v13 = 2112;
     deviceCopy = device;
-    v14 = 2112;
-    v15 = v7;
-    v16 = 2112;
-    v17 = bluetoothIdentifier;
-    _os_log_impl(&dword_1AB586000, v6, OS_LOG_TYPE_DEFAULT, "%s AVVSR.device = %@, networkEndpoint = %@, bluetoothIdentifier = %@", &v10, 0x2Au);
+    v15 = 2112;
+    v16 = v9;
+    v17 = 2112;
+    v18 = bluetoothIdentifier;
+    _os_log_impl(&dword_1AB586000, v8, OS_LOG_TYPE_DEFAULT, "%s AVVSR.device = %@, networkEndpoint = %@, bluetoothIdentifier = %@", &v11, 0x2Au);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)isEqual:(id)equal

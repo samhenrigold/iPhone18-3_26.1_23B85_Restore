@@ -161,16 +161,16 @@ void __52__AMSupportStaticURLSession_sendRequest_completion___block_invoke(uint6
   v2 = [*(a1 + 32) _urlRequestForHTTPMessage:*(a1 + 48)];
   if (v2)
   {
-    v8 = [*(*(a1 + 32) + 32) dataTaskWithRequest:v2 completionHandler:*(a1 + 40)];
-    LODWORD(v9) = *(*(a1 + 32) + 24);
-    [v8 setPriority:v9];
+    v3 = [*(*(a1 + 32) + 32) dataTaskWithRequest:v2 completionHandler:*(a1 + 40)];
+    LODWORD(v4) = *(*(a1 + 32) + 24);
+    [v3 setPriority:v4];
 
-    [v8 resume];
+    [v3 resume];
   }
 
   else
   {
-    AMSupportLogInternal(3, "[AMSupportStaticURLSession sendRequest:completion:]_block_invoke", "Could not construct NSURLRequest from message %@", v3, v4, v5, v6, v7, *(a1 + 48));
+    AMSupportLogInternal(3, "[AMSupportStaticURLSession sendRequest:completion:]_block_invoke", "Could not construct NSURLRequest from message %@", *(a1 + 48));
     global_queue = dispatch_get_global_queue(0, 0);
     block[0] = _NSConcreteStackBlock;
     block[1] = 3254779904;
@@ -194,39 +194,39 @@ uint64_t __52__AMSupportStaticURLSession_sendRequest_completion___block_invoke_2
 {
   if (error)
   {
-    AMSupportLogInternal(3, "[AMSupportStaticURLSession URLSession:didBecomeInvalidWithError:]", "Session %@ became invalid: %@", error, v4, v5, v6, v7, session);
+    AMSupportLogInternal(3, "[AMSupportStaticURLSession URLSession:didBecomeInvalidWithError:]", "Session %@ became invalid: %@", session, error);
   }
 }
 
 - (void)URLSession:(id)session didReceiveChallenge:(id)challenge completionHandler:(id)handler
 {
   protectionSpace = [objc_msgSend(challenge protectionSpace];
-  AMSupportLogInternal(7, "[AMSupportStaticURLSession URLSession:didReceiveChallenge:completionHandler:]", "Authentication challenge received.  Method: %@", v9, v10, v11, v12, v13, protectionSpace);
+  AMSupportLogInternal(7, "[AMSupportStaticURLSession URLSession:didReceiveChallenge:completionHandler:]", "Authentication challenge received.  Method: %@", protectionSpace);
   if ([challenge previousFailureCount] < 1)
   {
     if ([protectionSpace isEqual:NSURLAuthenticationMethodClientCertificate] && -[NSDictionary objectForKey:](self->_options, "objectForKey:", @"ClientIdentity"))
     {
-      AMSupportLogInternal(6, "[AMSupportStaticURLSession URLSession:didReceiveChallenge:completionHandler:]", "Received client certificate challenge. Client SSL authentication failed.", v23, v24, v25, v26, v27, v68);
+      AMSupportLogInternal(6, "[AMSupportStaticURLSession URLSession:didReceiveChallenge:completionHandler:]", "Received client certificate challenge. Client SSL authentication failed.");
     }
 
     else
     {
       if (([protectionSpace isEqual:NSURLAuthenticationMethodServerTrust] & 1) == 0)
       {
-        v19 = *(handler + 2);
+        v9 = *(handler + 2);
         handlerCopy4 = handler;
-        v21 = 1;
+        v11 = 1;
         goto LABEL_3;
       }
 
       if ([-[NSDictionary objectForKey:](self->_options objectForKey:{@"DisableSSLValidation", "isEqual:", +[NSNumber numberWithBool:](NSNumber, "numberWithBool:", 1)}])
       {
-        AMSupportLogInternal(6, "[AMSupportStaticURLSession URLSession:didReceiveChallenge:completionHandler:]", "SSL validation disabled.  Attempting to continue without authentication.", v28, v29, v30, v31, v32, v68);
-        v33 = +[NSURLCredential credentialForTrust:](NSURLCredential, "credentialForTrust:", [objc_msgSend(challenge "protectionSpace")]);
-        v19 = *(handler + 2);
-        v22 = v33;
+        AMSupportLogInternal(6, "[AMSupportStaticURLSession URLSession:didReceiveChallenge:completionHandler:]", "SSL validation disabled.  Attempting to continue without authentication.");
+        v13 = +[NSURLCredential credentialForTrust:](NSURLCredential, "credentialForTrust:", [objc_msgSend(challenge "protectionSpace")]);
+        v9 = *(handler + 2);
+        v12 = v13;
         handlerCopy4 = handler;
-        v21 = 0;
+        v11 = 0;
         goto LABEL_4;
       }
 
@@ -238,11 +238,11 @@ uint64_t __52__AMSupportStaticURLSession_sendRequest_completion___block_invoke_2
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
-          v36 = +[NSURLCredential credentialForTrust:](NSURLCredential, "credentialForTrust:", [objc_msgSend(challenge "protectionSpace")]);
-          v19 = *(handler + 2);
-          v22 = v36;
+          v16 = +[NSURLCredential credentialForTrust:](NSURLCredential, "credentialForTrust:", [objc_msgSend(challenge "protectionSpace")]);
+          v9 = *(handler + 2);
+          v12 = v16;
           handlerCopy4 = handler;
-          v21 = 1;
+          v11 = 1;
           goto LABEL_4;
         }
       }
@@ -250,105 +250,105 @@ uint64_t __52__AMSupportStaticURLSession_sendRequest_completion___block_invoke_2
       [(NSDictionary *)self->_options objectForKey:@"TrustedServerCAs"];
       objc_opt_class();
       isKindOfClass = objc_opt_isKindOfClass();
-      v35 = [(NSDictionary *)self->_options objectForKey:@"TrustedServerCAs"];
+      v15 = [(NSDictionary *)self->_options objectForKey:@"TrustedServerCAs"];
       selfCopy = self;
       if ((isKindOfClass & 1) == 0)
       {
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v35 = [NSArray arrayWithObject:[(NSDictionary *)self->_options objectForKey:@"TrustedServerCAs"]];
+          v15 = [NSArray arrayWithObject:[(NSDictionary *)self->_options objectForKey:@"TrustedServerCAs"]];
         }
 
         else
         {
-          v35 = 0;
+          v15 = 0;
         }
       }
 
-      v37 = [NSMutableArray arrayWithCapacity:[(NSArray *)v35 count]];
-      v73 = 0u;
-      v74 = 0u;
-      v75 = 0u;
-      v76 = 0u;
-      v38 = [(NSArray *)v35 countByEnumeratingWithState:&v73 objects:v72 count:16];
-      if (v38)
+      v17 = [NSMutableArray arrayWithCapacity:[(NSArray *)v15 count]];
+      v31 = 0u;
+      v32 = 0u;
+      v33 = 0u;
+      v34 = 0u;
+      v18 = [(NSArray *)v15 countByEnumeratingWithState:&v31 objects:v30 count:16];
+      if (v18)
       {
-        v39 = v38;
-        v40 = *v74;
+        v19 = v18;
+        v20 = *v32;
         do
         {
-          for (i = 0; i != v39; i = i + 1)
+          for (i = 0; i != v19; i = i + 1)
           {
-            if (*v74 != v40)
+            if (*v32 != v20)
             {
-              objc_enumerationMutation(v35);
+              objc_enumerationMutation(v15);
             }
 
-            v42 = *(*(&v73 + 1) + 8 * i);
+            v22 = *(*(&v31 + 1) + 8 * i);
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              v43 = SecCertificateCreateWithData(kCFAllocatorDefault, v42);
-              if (v43)
+              v23 = SecCertificateCreateWithData(kCFAllocatorDefault, v22);
+              if (v23)
               {
-                v49 = v43;
-                [(NSMutableArray *)v37 addObject:v43];
-                CFRelease(v49);
+                v24 = v23;
+                [(NSMutableArray *)v17 addObject:v23];
+                CFRelease(v24);
               }
 
               else
               {
-                AMSupportLogInternal(4, "[AMSupportStaticURLSession URLSession:didReceiveChallenge:completionHandler:]", "trusted certificate could not be loaded %@", v44, v45, v46, v47, v48, v42);
+                AMSupportLogInternal(4, "[AMSupportStaticURLSession URLSession:didReceiveChallenge:completionHandler:]", "trusted certificate could not be loaded %@", v22);
               }
             }
           }
 
-          v39 = [(NSArray *)v35 countByEnumeratingWithState:&v73 objects:v72 count:16];
+          v19 = [(NSArray *)v15 countByEnumeratingWithState:&v31 objects:v30 count:16];
         }
 
-        while (v39);
+        while (v19);
       }
 
-      v50 = [objc_msgSend(challenge "protectionSpace")];
-      v71 = 0;
-      AMSupportLogInternal(7, "[AMSupportStaticURLSession URLSession:didReceiveChallenge:completionHandler:]", "Attempting trust evaluate", v51, v52, v53, v54, v55, v68);
-      v61 = AMSupportX509ChainEvaluateTrust(v50, v37, &v71, v56, v57, v58, v59, v60);
-      if (v61)
+      v25 = [objc_msgSend(challenge "protectionSpace")];
+      v29 = 0;
+      AMSupportLogInternal(7, "[AMSupportStaticURLSession URLSession:didReceiveChallenge:completionHandler:]", "Attempting trust evaluate");
+      v26 = AMSupportX509ChainEvaluateTrust(v25, v17, &v29);
+      if (v26)
       {
-        AMSupportLogInternal(3, "[AMSupportStaticURLSession URLSession:didReceiveChallenge:completionHandler:]", "trust evaluation failed (OSStatus=%d)", v62, v63, v64, v65, v66, v61);
-        v67 = selfCopy;
+        AMSupportLogInternal(3, "[AMSupportStaticURLSession URLSession:didReceiveChallenge:completionHandler:]", "trust evaluation failed (OSStatus=%d)", v26);
+        v27 = selfCopy;
       }
 
       else
       {
-        v67 = selfCopy;
-        if (v71 == 4 || v71 == 1)
+        v27 = selfCopy;
+        if (v29 == 4 || v29 == 1)
         {
-          AMSupportLogInternal(7, "[AMSupportStaticURLSession URLSession:didReceiveChallenge:completionHandler:]", "Trust evaluation succeeded, proceeding..", v62, v63, v64, v65, v66, v69);
-          (*(handler + 2))(handler, 0, [NSURLCredential credentialForTrust:v50]);
+          AMSupportLogInternal(7, "[AMSupportStaticURLSession URLSession:didReceiveChallenge:completionHandler:]", "Trust evaluation succeeded, proceeding..");
+          (*(handler + 2))(handler, 0, [NSURLCredential credentialForTrust:v25]);
           return;
         }
 
-        AMSupportLogInternal(4, "[AMSupportStaticURLSession URLSession:didReceiveChallenge:completionHandler:]", "trust evaluation did not result in okay to proceed (result=%d)", v62, v63, v64, v65, v66, v71);
+        AMSupportLogInternal(4, "[AMSupportStaticURLSession URLSession:didReceiveChallenge:completionHandler:]", "trust evaluation did not result in okay to proceed (result=%d)", v29);
       }
 
-      v67->_sslEvalFailed = 1;
+      v27->_sslEvalFailed = 1;
     }
 
     (*(handler + 2))(handler, 2, 0);
     return;
   }
 
-  AMSupportLogInternal(3, "[AMSupportStaticURLSession URLSession:didReceiveChallenge:completionHandler:]", "Multiple challenge failures. Request failed.", v14, v15, v16, v17, v18, v68);
-  v19 = *(handler + 2);
+  AMSupportLogInternal(3, "[AMSupportStaticURLSession URLSession:didReceiveChallenge:completionHandler:]", "Multiple challenge failures. Request failed.");
+  v9 = *(handler + 2);
   handlerCopy4 = handler;
-  v21 = 2;
+  v11 = 2;
 LABEL_3:
-  v22 = 0;
+  v12 = 0;
 LABEL_4:
 
-  v19(handlerCopy4, v21, v22);
+  v9(handlerCopy4, v11, v12);
 }
 
 @end

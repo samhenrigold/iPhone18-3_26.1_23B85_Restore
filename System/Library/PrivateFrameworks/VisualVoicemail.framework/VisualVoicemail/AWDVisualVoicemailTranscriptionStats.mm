@@ -139,12 +139,11 @@ LABEL_5:
 {
   toCopy = to;
   has = self->_has;
-  v10 = toCopy;
+  v6 = toCopy;
   if (has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
-    toCopy = v10;
+    toCopy = v6;
     has = self->_has;
     if ((has & 8) == 0)
     {
@@ -163,41 +162,38 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  result = self->_result;
   PBDataWriterWriteBOOLField();
-  toCopy = v10;
+  toCopy = v6;
   if ((*&self->_has & 4) != 0)
   {
 LABEL_4:
-    subsid = self->_subsid;
     PBDataWriterWriteUint32Field();
-    toCopy = v10;
+    toCopy = v6;
   }
 
 LABEL_5:
   if (self->_mcc)
   {
     PBDataWriterWriteStringField();
-    toCopy = v10;
+    toCopy = v6;
   }
 
   if (self->_mnc)
   {
     PBDataWriterWriteStringField();
-    toCopy = v10;
+    toCopy = v6;
   }
 
   if ((*&self->_has & 2) != 0)
   {
-    confidencelevel = self->_confidencelevel;
     PBDataWriterWriteUint32Field();
-    toCopy = v10;
+    toCopy = v6;
   }
 
   if (self->_language)
   {
     PBDataWriterWriteStringField();
-    toCopy = v10;
+    toCopy = v6;
   }
 }
 
@@ -329,7 +325,6 @@ LABEL_5:
     goto LABEL_31;
   }
 
-  v5 = *(equalCopy + 56);
   if (*&self->_has)
   {
     if ((*(equalCopy + 56) & 1) == 0 || self->_timestamp != *(equalCopy + 1))
@@ -351,7 +346,7 @@ LABEL_5:
     }
 
 LABEL_31:
-    v11 = 0;
+    v8 = 0;
     goto LABEL_32;
   }
 
@@ -360,7 +355,6 @@ LABEL_31:
     goto LABEL_31;
   }
 
-  v6 = *(equalCopy + 52);
   if (self->_result)
   {
     if ((*(equalCopy + 52) & 1) == 0)
@@ -403,7 +397,6 @@ LABEL_9:
     }
   }
 
-  v9 = *(equalCopy + 56);
   if ((*&self->_has & 2) != 0)
   {
     if ((*(equalCopy + 56) & 2) == 0 || self->_confidencelevel != *(equalCopy + 4))
@@ -420,17 +413,17 @@ LABEL_9:
   language = self->_language;
   if (language | *(equalCopy + 3))
   {
-    v11 = [(NSString *)language isEqual:?];
+    v8 = [(NSString *)language isEqual:?];
   }
 
   else
   {
-    v11 = 1;
+    v8 = 1;
   }
 
 LABEL_32:
 
-  return v11;
+  return v8;
 }
 
 - (unint64_t)hash

@@ -43,7 +43,7 @@
 
   AllowedFieldValuesTreatmentAction.perform(_:context:)(v18, v19);
 
-  sub_1AB014AC0(v18, &unk_1EB437E60);
+  sub_1AB014AC0(v18, &unk_1EB437E60, &qword_1AB4D4730);
   v10 = v20;
   if (v20)
   {

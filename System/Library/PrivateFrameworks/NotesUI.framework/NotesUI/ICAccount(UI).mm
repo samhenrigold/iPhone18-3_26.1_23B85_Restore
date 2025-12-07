@@ -38,8 +38,8 @@
 
 + (id)localizedLocalAccountNameMidSentence:()UI
 {
-  v8 = a4 & 1;
-  Helper_x8__OBJC_CLASS___ACUILocalization = gotLoadHelper_x8__OBJC_CLASS___ACUILocalization(self);
+  v8 = a3 & 1;
+  Helper_x8__OBJC_CLASS___ACUILocalization = gotLoadHelper_x8__OBJC_CLASS___ACUILocalization(a4);
   v6 = [*(v5 + 2272) localizedTitleForLocalSourceOfDataclass:*MEMORY[0x1E69596C0] usedAtBeginningOfSentence:{(v8 & 1) == 0, Helper_x8__OBJC_CLASS___ACUILocalization}];
 
   return v6;
@@ -52,9 +52,9 @@
     +[ICAccount(UI) globalVirtualSharedWithYouFolder];
   }
 
-  v1 = globalVirtualSharedWithYouFolder_identifier;
+  v2 = globalVirtualSharedWithYouFolder_identifier;
 
-  return v1;
+  return v2;
 }
 
 + (id)globalVirtualRecentlyDeletedMathNotesFolder
@@ -81,9 +81,9 @@
     +[ICAccount(UI) globalVirtualCallNotesFolder];
   }
 
-  v1 = globalVirtualCallNotesFolder_identifier;
+  v2 = globalVirtualCallNotesFolder_identifier;
 
-  return v1;
+  return v2;
 }
 
 - (ICVirtualSmartFolderItemIdentifier)virtualSystemPaperFolder

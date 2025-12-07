@@ -3,11 +3,11 @@
 
 @implementation Finalize
 
-uint64_t __discoverer_Finalize_block_invoke()
+uint64_t __discoverer_Finalize_block_invoke(uint64_t a1, uint64_t a2)
 {
-  if (MX_FeatureFlags_IsAVODDiscoveryEnhancementEnabled())
+  if (MX_FeatureFlags_IsAVODDiscoveryEnhancementEnabled(a1, a2))
   {
-    FigRouteDiscoveryManagerRemoveCachedDiscoverers();
+    FigRouteDiscoveryManagerRemoveCachedDiscoverers(0);
   }
 
   return FigRouteDiscoveryManagerUpdateDiscoveryMode();

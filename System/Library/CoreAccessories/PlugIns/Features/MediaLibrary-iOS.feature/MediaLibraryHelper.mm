@@ -287,110 +287,104 @@ LABEL_12:
 
 - (void)applicationsDidInstall:(id)install
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   installCopy = install;
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
-  v5 = [installCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v5 = [installCopy countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v11;
+    v7 = *v10;
     do
     {
       v8 = 0;
       do
       {
-        if (*v11 != v7)
+        if (*v10 != v7)
         {
           objc_enumerationMutation(installCopy);
         }
 
-        [(MediaLibraryHelper *)self handleAppInstall:*(*(&v10 + 1) + 8 * v8++)];
+        [(MediaLibraryHelper *)self handleAppInstall:*(*(&v9 + 1) + 8 * v8++)];
       }
 
       while (v6 != v8);
-      v6 = [installCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v6 = [installCopy countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v6);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)applicationsWillUninstall:(id)uninstall
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   uninstallCopy = uninstall;
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
-  v5 = [uninstallCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v5 = [uninstallCopy countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v11;
+    v7 = *v10;
     do
     {
       v8 = 0;
       do
       {
-        if (*v11 != v7)
+        if (*v10 != v7)
         {
           objc_enumerationMutation(uninstallCopy);
         }
 
-        [(MediaLibraryHelper *)self handleAppUninstall:*(*(&v10 + 1) + 8 * v8++)];
+        [(MediaLibraryHelper *)self handleAppUninstall:*(*(&v9 + 1) + 8 * v8++)];
       }
 
       while (v6 != v8);
-      v6 = [uninstallCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v6 = [uninstallCopy countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v6);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)applicationsDidUninstall:(id)uninstall
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   uninstallCopy = uninstall;
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
-  v5 = [uninstallCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v5 = [uninstallCopy countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v11;
+    v7 = *v10;
     do
     {
       v8 = 0;
       do
       {
-        if (*v11 != v7)
+        if (*v10 != v7)
         {
           objc_enumerationMutation(uninstallCopy);
         }
 
-        [(MediaLibraryHelper *)self handleAppUninstall:*(*(&v10 + 1) + 8 * v8++)];
+        [(MediaLibraryHelper *)self handleAppUninstall:*(*(&v9 + 1) + 8 * v8++)];
       }
 
       while (v6 != v8);
-      v6 = [uninstallCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v6 = [uninstallCopy countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v6);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -7,6 +7,7 @@
 + (id)transactionEntityWithUUID:(id)d databaseTransaction:(id)transaction error:(id *)error;
 - (BOOL)committedInDatabaseTransaction:(id)transaction error:(id *)error;
 - (BOOL)deleteWithDatabaseTransaction:(id)transaction error:(id *)error;
+- (BOOL)setCommitted:(BOOL)committed databaseTransaction:(id)transaction error:(id *)error;
 - (id)uuidInDatabaseTransaction:(id)transaction error:(id *)error;
 @end
 
@@ -14,26 +15,24 @@
 
 + (id)insertWithUUID:(id)d sourceDevice:(id)device databaseTransaction:(id)transaction error:(id *)error
 {
-  v22[4] = *MEMORY[0x277D85DE8];
+  v21[4] = *MEMORY[0x277D85DE8];
   dCopy = d;
   deviceCopy = device;
   v12 = [transaction databaseForEntityClass:self];
-  v22[0] = @"uuid";
-  v22[1] = @"source_device";
-  v22[2] = @"committed";
-  v22[3] = @"creation_date";
-  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:4];
-  v19[0] = MEMORY[0x277D85DD0];
-  v19[1] = 3221225472;
-  v19[2] = __90__HDSharedSummaryTransactionEntity_insertWithUUID_sourceDevice_databaseTransaction_error___block_invoke;
-  v19[3] = &unk_278613DE8;
-  v20 = dCopy;
-  v21 = deviceCopy;
+  v21[0] = @"uuid";
+  v21[1] = @"source_device";
+  v21[2] = @"committed";
+  v21[3] = @"creation_date";
+  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:4];
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 3221225472;
+  v18[2] = __90__HDSharedSummaryTransactionEntity_insertWithUUID_sourceDevice_databaseTransaction_error___block_invoke;
+  v18[3] = &unk_278613DE8;
+  v19 = dCopy;
+  v20 = deviceCopy;
   v14 = deviceCopy;
   v15 = dCopy;
-  v16 = [self insertOrReplaceEntity:0 database:v12 properties:v13 error:error bindingHandler:v19];
-
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = [self insertOrReplaceEntity:0 database:v12 properties:v13 error:error bindingHandler:v18];
 
   return v16;
 }
@@ -177,6 +176,17 @@ uint64_t __99__HDSharedSummaryTransactionEntity_mostRecentTransactionCreationDat
   return v7;
 }
 
+- (BOOL)setCommitted:(BOOL)committed databaseTransaction:(id)transaction error:(id *)error
+{
+  committedCopy = committed;
+  v8 = MEMORY[0x277CCABB0];
+  transactionCopy = transaction;
+  v10 = [v8 numberWithBool:committedCopy];
+  LOBYTE(error) = [(HDHealthEntity *)self setNumber:v10 forProperty:@"committed" transaction:transactionCopy error:error];
+
+  return error;
+}
+
 - (BOOL)committedInDatabaseTransaction:(id)transaction error:(id *)error
 {
   v4 = [(HDHealthEntity *)self numberForProperty:@"committed" transaction:transaction error:error];
@@ -221,41 +231,39 @@ uint64_t __99__HDSharedSummaryTransactionEntity_mostRecentTransactionCreationDat
 
 BOOL __73__HDSharedSummaryTransactionEntity_pruneWithProfile_nowDate_limit_error___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v24[2] = *MEMORY[0x277D85DE8];
-  v5 = *(a1 + 48);
-  v6 = a2;
-  v7 = [v6 databaseForEntityClass:objc_opt_class()];
+  v21[2] = *MEMORY[0x277D85DE8];
+  v5 = a2;
+  v6 = [v5 databaseForEntityClass:objc_opt_class()];
 
-  v8 = [*(a1 + 32) dateByAddingTimeInterval:-1209600.0];
-  v9 = [MEMORY[0x277D10B18] predicateWithProperty:@"committed" equalToValue:MEMORY[0x277CBEC28]];
-  v10 = [MEMORY[0x277D10B18] predicateWithProperty:@"creation_date" lessThanValue:v8];
-  v11 = MEMORY[0x277D10B20];
-  v24[0] = v9;
-  v24[1] = v10;
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:2];
-  v13 = [v11 predicateMatchingAllPredicates:v12];
+  v7 = [*(a1 + 32) dateByAddingTimeInterval:-1209600.0];
+  v8 = [MEMORY[0x277D10B18] predicateWithProperty:@"committed" equalToValue:MEMORY[0x277CBEC28]];
+  v9 = [MEMORY[0x277D10B18] predicateWithProperty:@"creation_date" lessThanValue:v7];
+  v10 = MEMORY[0x277D10B20];
+  v21[0] = v8;
+  v21[1] = v9;
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:2];
+  v12 = [v10 predicateMatchingAllPredicates:v11];
 
-  v14 = *(a1 + 48);
-  v23 = 0;
-  v15 = [objc_opt_class() deleteEntitiesInDatabase:v7 predicate:v13 error:&v23];
-  v16 = v23;
-  v17 = v16;
-  if (v15)
+  v20 = 0;
+  v13 = [objc_opt_class() deleteEntitiesInDatabase:v6 predicate:v12 error:&v20];
+  v14 = v20;
+  v15 = v14;
+  if (v13)
   {
-    *(*(*(a1 + 40) + 8) + 24) = [v7 getChangesCount];
-    v18 = 1;
+    *(*(*(a1 + 40) + 8) + 24) = [v6 getChangesCount];
+    v16 = 1;
   }
 
   else
   {
-    v19 = v16;
-    v18 = v19 == 0;
-    if (v19)
+    v17 = v14;
+    v16 = v17 == 0;
+    if (v17)
     {
       if (a3)
       {
-        v20 = v19;
-        *a3 = v19;
+        v18 = v17;
+        *a3 = v17;
       }
 
       else
@@ -265,8 +273,7 @@ BOOL __73__HDSharedSummaryTransactionEntity_pruneWithProfile_nowDate_limit_error
     }
   }
 
-  v21 = *MEMORY[0x277D85DE8];
-  return v18;
+  return v16;
 }
 
 @end

@@ -7,7 +7,7 @@
 + (id)p_standardSearchBar
 {
   v2 = objc_alloc_init(UISearchBar);
-  v3 = IMCommonCoreBundle();
+  v3 = IMCommonCoreBundle(v2);
   v4 = [v3 localizedStringForKey:@"Type a word or page number" value:&stru_2D2930 table:@"BCCommonCoreLocalizable"];
   [v2 setPlaceholder:v4];
 

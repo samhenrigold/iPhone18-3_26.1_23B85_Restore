@@ -79,7 +79,7 @@
 
     if (!v6)
     {
-      v7 = scn_default_log();
+      v7 = scn_default_log(self, a2);
       if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
         [SCNPhysicsVehicleWheel _setVehicle:v7];

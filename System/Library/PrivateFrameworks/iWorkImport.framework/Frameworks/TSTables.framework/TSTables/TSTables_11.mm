@@ -1,3 +1,10 @@
+void sub_2212C9944()
+{
+  v0 = TSULogCreateCategory();
+  v1 = *MEMORY[0x277D81410];
+  *MEMORY[0x277D81410] = v0;
+}
+
 void sub_2212C9D28()
 {
   v0 = TSULogCreateCategory();
@@ -5,7 +12,7 @@ void sub_2212C9D28()
   *MEMORY[0x277D81410] = v0;
 }
 
-void sub_2212CB1D0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, char a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, void *__p, uint64_t a27)
+void sub_2212CB1D0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, void *__p, uint64_t a27)
 {
   _Block_object_dispose(&a20, 8);
   if (__p)
@@ -19,14 +26,12 @@ void sub_2212CB1D0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 __n128 sub_2212CB1FC(__n128 *a1, __n128 *a2)
 {
-  a1[3].n128_u64[0] = 0;
-  a1[3].n128_u64[1] = 0;
+  a1[3] = 0uLL;
   a1[4].n128_u64[0] = 0;
   result = a2[3];
   a1[3] = result;
   a1[4].n128_u64[0] = a2[4].n128_u64[0];
-  a2[3].n128_u64[0] = 0;
-  a2[3].n128_u64[1] = 0;
+  a2[3] = 0uLL;
   a2[4].n128_u64[0] = 0;
   return result;
 }
@@ -78,7 +83,7 @@ void sub_2212CB598(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_2212CB7D8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, char a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, void *__p, uint64_t a25)
+void sub_2212CB7D8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, void *__p, uint64_t a25)
 {
   _Block_object_dispose(&a18, 8);
   if (__p)
@@ -90,22 +95,22 @@ void sub_2212CB7D8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_2212CB830(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5)
+void sub_2212CB830(uint64_t a1, const char *a2, uint64_t a3)
 {
-  v6 = *(a1 + 32);
-  if (v6)
+  v4 = *(a1 + 32);
+  if (v4)
   {
-    objc_msgSend_uuidsInRange_(v6, a2, a2, a3, a5);
-    v7 = *__p;
+    objc_msgSend_uuidsInRange_(v4, a2, a2, a3);
+    v5 = *__p;
   }
 
   else
   {
-    v7 = 0uLL;
+    v5 = 0uLL;
     __p[0] = 0;
   }
 
-  sub_2210F0C88((*(*(a1 + 40) + 8) + 48), *(*(*(a1 + 40) + 8) + 56), v7, *(&v7 + 1), (*(&v7 + 1) - v7) >> 4);
+  sub_2210F0C88((*(*(a1 + 40) + 8) + 48), *(*(*(a1 + 40) + 8) + 56), v5, *(&v5 + 1), (*(&v5 + 1) - v5) >> 4);
   if (__p[0])
   {
     operator delete(__p[0]);
@@ -122,33 +127,33 @@ void sub_2212CB8B8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t *sub_2212CBA68(void *a1, unsigned int *a2)
+uint64_t *sub_2212CBA68(void *a1, unsigned int *a2, uint64_t a3, _DWORD **a4)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v4 = *a2;
+  v5 = a1[1];
+  if (!*&v5)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v6 = vcnt_s8(v5);
+  v6.i16[0] = vaddlv_u8(v6);
+  if (v6.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (*&v3 <= v2)
+    v7 = *a2;
+    if (*&v5 <= v4)
     {
-      v5 = v2 % v3.i32[0];
+      v7 = v4 % v5.i32[0];
     }
   }
 
   else
   {
-    v5 = (v3.i32[0] - 1) & v2;
+    v7 = (v5.i32[0] - 1) & v4;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v8 = *(*a1 + 8 * v7);
+  if (!v8 || (v9 = *v8) == 0)
   {
 LABEL_18:
     operator new();
@@ -156,47 +161,47 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v10 = v9[1];
+    if (v10 == v4)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v6.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v10 >= *&v5)
       {
-        v8 %= *&v3;
+        v10 %= *&v5;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v10 &= *&v5 - 1;
     }
 
-    if (v8 != v5)
+    if (v10 != v7)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v9 = *v9;
+    if (!v9)
     {
       goto LABEL_18;
     }
   }
 
-  if (*(v7 + 4) != v2)
+  if (*(v9 + 4) != v4)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v9;
 }
 
-uint64_t sub_2212CBCA0(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *sub_2212CBCA0(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -304,10 +309,10 @@ double sub_2212CBE94(CC_SHA1_CTX *a1)
   return __dst * 5.42101086e-20;
 }
 
-void sub_2212CD2D8(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5)
+void sub_2212CD2D8(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4)
 {
-  v10 = objc_msgSend_children(*(a1 + 32), a2, a3, a4, a5);
-  *(*(a1 + 32) + 128) = objc_msgSend_count(v10, v6, v7, v8, v9) | 0x100000000;
+  v8 = objc_msgSend_children(*(a1 + 32), a2, a3, a4);
+  *(*(a1 + 32) + 128) = objc_msgSend_count(v8, v5, v6, v7) | 0x100000000;
 }
 
 TSCEASTRelativeCoordRefElement *sub_2212CE9E4(TSCEFormulaRewriteContext **a1, TSCEASTRelativeCoordRefElement *a2)
@@ -316,28 +321,28 @@ TSCEASTRelativeCoordRefElement *sub_2212CE9E4(TSCEFormulaRewriteContext **a1, TS
   {
     if (TSCEASTElement::refFlags(a2, a1))
     {
-      v7 = TSCEASTRelativeCoordRefElement::tableUID(a2, a1, v4, v5, v6);
-      v8 = v9;
+      v6 = TSCEASTRelativeCoordRefElement::tableUID(a2, a1, v4, v5);
+      v7 = v8;
     }
 
     else
     {
+      v6 = 0;
       v7 = 0;
-      v8 = 0;
     }
 
-    v15.var0 = v7;
-    v15.var1 = v8;
-    v14 = TSCEASTRelativeCoordRefElement::relativeCoord(a2, a1, v4, v5, v6);
-    v13._flags = TSCEASTRelativeCoordRefElement::preserveFlags(a2, a1);
-    v10 = TSCEFormulaRewriteContext::containingCell(a1[1]);
-    if (v7 == v10->var0.var0._tableUID._lower && v8 == v10->var0.var0._tableUID._upper)
+    v14._lower = v6;
+    v14._upper = v7;
+    v13 = TSCEASTRelativeCoordRefElement::relativeCoord(a2, a1, v4, v5);
+    v12._flags = TSCEASTRelativeCoordRefElement::preserveFlags(a2, a1);
+    v9 = TSCEFormulaRewriteContext::containingCell(a1[1]);
+    if (v6 == v9->var0.var0._tableUID._lower && v7 == v9->var0.var0._tableUID._upper)
     {
-      v15.var0 = 0;
-      v15.var1 = 0;
+      v14._lower = 0;
+      v14._upper = 0;
     }
 
-    TSCEASTIteratorBase::createRelativeCoordReference(a1, &v15, &v14, &v13, 0);
+    TSCEASTIteratorBase::createRelativeCoordReference(a1, &v14, &v13, &v12, 0);
   }
 
   return a2;
@@ -349,7 +354,7 @@ uint64_t sub_2212CEAB8(uint64_t a1, uint64_t a2)
   if (TSCEASTElement::tagHasUidTractList(v4))
   {
 
-    TSCEASTIteratorBase::createTagOnlyOp(a1, 0x1C, v5, v6, v7);
+    TSCEASTIteratorBase::createTagOnlyOp(a1, 0x1C, v5, v6);
   }
 
   return a2;
@@ -359,12 +364,12 @@ TSCEASTColonTractElement *sub_2212CEB18(uint64_t a1, TSCEASTColonTractElement *a
 {
   if (TSCEASTElement::hasUidTracts(a2, a1))
   {
-    v7 = TSCEASTColonTractElement::relativeTractRef(a2, a1, v4, v5, v6);
-    v8 = TSCEASTElement::refFlags(a2, a1);
-    v12 = TSCEASTColonTractElement::colonTractFlags(a2, a1, v9, v10, v11);
-    sub_22120CA10(a1, v13, v14, v15, v16);
-    v17._flags = v12;
-    TSCEASTColonTractElement::appendColonTractElement((a1 + 24), v8, v17, v7, 0, v18);
+    v6 = TSCEASTColonTractElement::relativeTractRef(a2, a1, v4, v5);
+    v7 = TSCEASTElement::refFlags(a2, a1);
+    v10 = TSCEASTColonTractElement::colonTractFlags(a2, a1, v8, v9);
+    sub_22120CA10(a1, v11, v12, v13);
+    v14._flags = v10;
+    TSCEASTColonTractElement::appendColonTractElement((a1 + 24), v7, v14, v6, 0, v15);
     operator new();
   }
 
@@ -376,7 +381,7 @@ uint64_t sub_2212CEC40(TSCEASTIteratorBase *a1, uint64_t a2)
   if (TSCEASTElement::hasUidTracts(a2, a1))
   {
 
-    TSCEASTIteratorBase::createReferenceError(a1, v4, v5, v6, v7);
+    TSCEASTIteratorBase::createReferenceError(a1, v4, v5, v6);
   }
 
   return a2;
@@ -418,18 +423,18 @@ __end_ *TSCEEvaluationStack::at(TSCEEvaluationStack *this, unint64_t a2)
 
 void TSCEEvaluationStack::push_back(TSCEEvaluationStack *this, TSCEValue *a2)
 {
-  v17 = a2;
-  if (!v17)
+  v14 = a2;
+  if (!v14)
   {
-    v6 = MEMORY[0x277D81150];
-    v7 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v3, "void TSCEEvaluationStack::push_back(TSCEValue *__strong)", v4, v5);
-    v11 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v8, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCEEvaluationStack.mm", v9, v10);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v6, v12, v7, v11, 40, 0, "invalid nil value for '%{public}s'", "value", 0);
+    v5 = MEMORY[0x277D81150];
+    v6 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v3, "void TSCEEvaluationStack::push_back(TSCEValue *__strong)", v4);
+    v9 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v7, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCEEvaluationStack.mm", v8);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v5, v10, v6, v9, 40, 0, "invalid nil value for '%{public}s'", "value", 0);
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v13, v14, v15, v16);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v11, v12, v13);
   }
 
-  sub_221179A54(this, &v17);
+  sub_221179A54(this, &v14);
 }
 
 void TSCEEvaluationStack::pop_back(TSCEEvaluationStack *this)
@@ -471,67 +476,67 @@ __end_ *TSCEEvaluationStack::rawArgumentAtIndex(TSCEEvaluationStack *this, uint6
   return v5;
 }
 
-void TSCEEvaluationStack::replaceValueForArgumentAtIndexSingletonMode(void **a1, uint64_t a2, void *a3, void *a4, void *a5, const char *a6)
+void TSCEEvaluationStack::replaceValueForArgumentAtIndexSingletonMode(id *a1, uint64_t a2, void *a3, void *a4, void *a5, const char *a6)
 {
   v11 = a4;
-  if (objc_msgSend_isThunk(*a1, v12, v13, v14, v15))
+  if (objc_msgSend_isThunk(*a1, v12, v13, v14))
   {
     goto LABEL_60;
   }
 
-  v20 = objc_msgSend_nativeType(*a1, v16, v17, v18, v19);
-  v25 = v20;
-  if (v20 == 9)
+  v18 = objc_msgSend_nativeType(*a1, v15, v16, v17);
+  v22 = v18;
+  if (v18 == 9)
   {
     goto LABEL_60;
   }
 
-  if (v20 != 6)
+  if (v18 != 6)
   {
     goto LABEL_16;
   }
 
-  v26 = objc_msgSend_asReferenceValue(*a1, v21, v22, v23, v24);
-  v31 = v26;
+  v23 = objc_msgSend_asReferenceValue(*a1, v19, v20, v21);
+  v27 = v23;
   if (a5)
   {
-    v32 = objc_msgSend_referenceForGeometryOnly(a5, v27, v28, v29, v30);
-    if (v31)
+    v28 = objc_msgSend_referenceForGeometryOnly(a5, v24, v25, v26);
+    if (v27)
     {
-      v33 = v32;
+      v29 = v28;
     }
 
     else
     {
-      v33 = 1;
+      v29 = 1;
     }
 
-    if (v33)
+    if (v29)
     {
       goto LABEL_15;
     }
 
 LABEL_11:
-    if (objc_msgSend_isOutputOfAFunction(v31, v27, v28, v29, v30))
+    if (objc_msgSend_isOutputOfAFunction(v27, v24, v25, v26))
     {
-      objc_msgSend_anyRef(v31, v34, v35, v36, v37);
-      if (LOWORD(v83._tskFormat) - 3 < 0x10)
+      objc_msgSend_anyRef(v27, v30, v31, v32);
+      if (LOWORD(v71._tskFormat) - 3 < 0x10)
       {
-        v79 = MEMORY[0x277D81150];
-        v41 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v38, "static void TSCEEvaluationStack::replaceValueForArgumentAtIndexSingletonMode(TSCEValue *__autoreleasing *, uint32_t, TSCEFunctionSpec *__unsafe_unretained, TSCEEvaluationContext *__strong, TSCEFunctionArgSpec *__unsafe_unretained, TSCEArgumentType, uint32_t)", v39, v40);
-        v45 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v42, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCEEvaluationStack.mm", v43, v44);
-        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v79, v46, v41, v45, 109, 0, "unsupported computed reference type found. See TSCECalcEngine::referenceWasGuaranteedCleanAtRecalcCycleStart");
+        v67 = MEMORY[0x277D81150];
+        v35 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v33, "static void TSCEEvaluationStack::replaceValueForArgumentAtIndexSingletonMode(TSCEValue *__autoreleasing *, uint32_t, TSCEFunctionSpec *__unsafe_unretained, TSCEEvaluationContext *__strong, TSCEFunctionArgSpec *__unsafe_unretained, TSCEArgumentType, uint32_t)", v34);
+        v38 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v36, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCEEvaluationStack.mm", v37);
+        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v67, v39, v35, v38, 109, 0, "unsupported computed reference type found. See TSCECalcEngine::referenceWasGuaranteedCleanAtRecalcCycleStart");
 
-        objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v47, v48, v49, v50);
+        objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v40, v41, v42);
       }
 
-      objc_msgSend_addCalculatedPrecedent_(v11, v38, &v83, v39, v40);
+      objc_msgSend_addCalculatedPrecedent_(v11, v33, &v71, v34);
     }
 
     goto LABEL_15;
   }
 
-  if (v26)
+  if (v23)
   {
     goto LABEL_11;
   }
@@ -539,47 +544,47 @@ LABEL_11:
 LABEL_15:
 
 LABEL_16:
-  v51 = a6;
+  v43 = a6;
   if (a6 != 1)
   {
-    v51 = a6;
+    v43 = a6;
     if (a6 != 6)
     {
-      v51 = objc_msgSend_deepType_(*a1, v21, v11, v23, v24);
+      v43 = objc_msgSend_deepType_(*a1, v19, v11, v21);
     }
   }
 
-  if (!TSCEArgumentAccessor::valueSufficesForArgumentType(*a1, a6, v25, v51, v11, 0))
+  if (!TSCEArgumentAccessor::valueSufficesForArgumentType(*a1, a6, v22, v43, v11, 0))
   {
     goto LABEL_24;
   }
 
   if (a5)
   {
-    v56 = 0;
+    v47 = 0;
     if (a6 == 1 || a6 == 6)
     {
       goto LABEL_35;
     }
 
-    if (objc_msgSend_typeIsDisallowed_value_(a5, v52, v51, *a1, v55))
+    if (objc_msgSend_typeIsDisallowed_value_(a5, v44, v43, *a1))
     {
 LABEL_24:
-      if (v51 == 9)
+      if (v43 == 9)
       {
-        objc_msgSend_errorWithContext_(*a1, v52, v11, v54, v55);
+        objc_msgSend_errorWithContext_(*a1, v44, v11, v46);
       }
 
       else
       {
-        objc_msgSend_typeErrorForValue_context_functionSpec_argumentIndex_(TSCEError, v52, *a1, v11, a3, a2);
+        objc_msgSend_typeErrorForValue_context_functionSpec_argumentIndex_(TSCEError, v44, *a1, v11, a3, a2);
       }
-      v57 = ;
-      if (v57)
+      v48 = ;
+      if (v48)
       {
-        v58 = objc_msgSend_errorValue_(TSCEErrorValue, v52, v57, v54, v55);
+        v49 = objc_msgSend_errorValue_(TSCEErrorValue, v44, v48, v46);
 LABEL_32:
-        *a1 = v58;
+        *a1 = v49;
 
         goto LABEL_60;
       }
@@ -588,46 +593,46 @@ LABEL_32:
 
   if (a6 == 8)
   {
-    v59 = *a1;
-    v82 = 0;
-    v60 = TSCEArgumentAccessor::coerceValueToNumberOrDate(v59, v11, a3, a2, v51, &v82);
-    v57 = v82;
-    v61 = v60;
-    *a1 = v60;
-    if (v57)
+    v50 = *a1;
+    v70 = 0;
+    v51 = TSCEArgumentAccessor::coerceValueToNumberOrDate(v50, v11, a3, a2, v43, &v70);
+    v48 = v70;
+    v52 = v51;
+    *a1 = v51;
+    if (v48)
     {
-      v58 = objc_msgSend_errorValue_(TSCEErrorValue, v52, v57, v54, v55);
+      v49 = objc_msgSend_errorValue_(TSCEErrorValue, v44, v48, v46);
       goto LABEL_32;
     }
 
-    v56 = 1;
+    v47 = 1;
   }
 
   else
   {
-    v56 = 0;
+    v47 = 0;
   }
 
 LABEL_35:
-  if (objc_msgSend_isNil(*a1, v52, v53, v54, v55))
+  if (objc_msgSend_isNil(*a1, v44, v45, v46))
   {
-    v65 = *a1;
-    v81._tskFormat = 0;
-    v81._formatType = 0;
-    v81._formatState = 0;
-    *&v81._durationFormat = *&v81._durationFormat & 0xC080 | 0x421;
-    *(&v81._durationFormat + 2) = *(&v81._durationFormat + 2) & 0xF8 | 1;
-    *&v81._baseFormat.base = -50266102;
-    v81._numberFormat.decimalPlaces = -3;
-    *(&v81._numberFormat + 1) &= 0xE0u;
-    v81._numberFormat.currencyCodeIndex = 0;
-    TSCEFormat::TSCEFormat(&v83, &v81);
-    objc_msgSend_setFormat_(v65, v66, &v83, v67, v68);
+    v55 = *a1;
+    v69._tskFormat = 0;
+    v69._formatType = 0;
+    v69._formatState = 0;
+    *&v69._durationFormat = *&v69._durationFormat & 0xC080 | 0x421;
+    *(&v69._durationFormat + 2) = *(&v69._durationFormat + 2) & 0xF8 | 1;
+    *&v69._baseFormat.base = -50266102;
+    v69._numberFormat.decimalPlaces = -3;
+    *(&v69._numberFormat + 1) &= 0xE0u;
+    v69._numberFormat.currencyCodeIndex = 0;
+    TSCEFormat::TSCEFormat(&v71, &v69);
+    objc_msgSend_setFormat_(v55, v56, &v71, v57);
   }
 
   if (a6 == 5)
   {
-    if (v51 == 10 || v51 == 12)
+    if (v43 == 10 || v43 == 12)
     {
       goto LABEL_60;
     }
@@ -635,35 +640,35 @@ LABEL_35:
 
   else
   {
-    v69 = v56 ^ 1;
-    if (v51 != 5)
+    v58 = v47 ^ 1;
+    if (v43 != 5)
     {
-      v69 = 1;
+      v58 = 1;
     }
 
-    if (v69)
+    if (v58)
     {
       goto LABEL_46;
     }
   }
 
-  v70 = TSCEArgumentAccessor::checkBoundsAndUnits(*a1, v11, a3, a5, a2, v51);
-  if (v70)
+  v59 = TSCEArgumentAccessor::checkBoundsAndUnits(*a1, v11, a3, a5, a2, v43);
+  if (v59)
   {
-    *a1 = objc_msgSend_errorValue_(TSCEErrorValue, v62, v70, v63, v64);
+    *a1 = objc_msgSend_errorValue_(TSCEErrorValue, v53, v59, v54);
 
     goto LABEL_60;
   }
 
 LABEL_46:
-  if (v51 != 2)
+  if (v43 != 2)
   {
     if (a6 != 7)
     {
       goto LABEL_60;
     }
 
-    if (v51 != 7)
+    if (v43 != 7)
     {
       goto LABEL_60;
     }
@@ -673,24 +678,24 @@ LABEL_46:
       goto LABEL_60;
     }
 
-    objc_msgSend_formatWithContext_(*a1, v62, v11, v63, v64);
-    if (v83._formatType != 271)
+    objc_msgSend_formatWithContext_(*a1, v53, v11, v54);
+    if (v71._formatType != 271)
     {
       goto LABEL_60;
     }
 
-    v75 = *a1;
-    v80 = 0;
-    if (v75)
+    v63 = *a1;
+    v68 = 0;
+    if (v63)
     {
-      objc_msgSend_asRichTextStorage_functionSpec_argumentIndex_outError_(v75, v71, v11, a3, a2, &v80);
-      v76 = v80;
-      if (v76)
+      objc_msgSend_asRichTextStorage_functionSpec_argumentIndex_outError_(v63, v60, v11, a3, a2, &v68);
+      v64 = v68;
+      if (v64)
       {
-        v77 = v76;
-        v78 = objc_msgSend_errorValue_(TSCEErrorValue, v71, v76, v73, v74);
+        v65 = v64;
+        v66 = objc_msgSend_errorValue_(TSCEErrorValue, v60, v64, v62);
 LABEL_59:
-        *a1 = v78;
+        *a1 = v66;
 
         goto LABEL_60;
       }
@@ -698,17 +703,17 @@ LABEL_59:
 
     else
     {
-      memset(&v83, 0, 24);
+      memset(&v71, 0, 24);
     }
 
-    v77 = 0;
-    v78 = sub_2210789F4(&v83, v71, v72, v73, v74);
+    v65 = 0;
+    v66 = sub_2210789F4(&v71, v60, v61, v62);
     goto LABEL_59;
   }
 
   if (a6 == 8 || a6 == 5)
   {
-    objc_msgSend_reportBoolToNumberConversionWarningInContext_(TSCEWarning, v62, v11, v63, v64);
+    objc_msgSend_reportBoolToNumberConversionWarningInContext_(TSCEWarning, v53, v11, v54);
   }
 
 LABEL_60:
@@ -716,92 +721,92 @@ LABEL_60:
 
 id TSCEEvaluationStack::valueForArgumentAtIndexSingletonMode(TSCEEvaluationStack *a1, uint64_t a2, void *a3, void *a4, void *a5, const char *a6)
 {
-  v14 = a4;
+  v13 = a4;
   if ((a2 - a1->_argumentCount + a1->_evaluationStack.var0 - a1->_evaluationStack.__begin_) < 0)
   {
-    v21 = objc_msgSend_nilValue(TSCENilValue, a2, v11, v12, v13);
+    v19 = objc_msgSend_nilValue(TSCENilValue, a2, v11, v12);
   }
 
   else
   {
-    v15 = TSCEEvaluationStack::rawArgumentAtIndex(a1, a2);
-    if ((objc_msgSend_isThunk(v15, v16, v17, v18, v19) & 1) == 0)
+    v14 = TSCEEvaluationStack::rawArgumentAtIndex(a1, a2);
+    if ((objc_msgSend_isThunk(v14, v15, v16, v17) & 1) == 0)
     {
-      v23 = v15;
-      TSCEEvaluationStack::replaceValueForArgumentAtIndexSingletonMode(&v23, a2, a3, v14, a5, a6);
-      v20 = v23;
+      v21 = v14;
+      TSCEEvaluationStack::replaceValueForArgumentAtIndexSingletonMode(&v21, a2, a3, v13, a5, a6);
+      v18 = v21;
 
-      v15 = v20;
+      v14 = v18;
     }
 
-    v21 = v15;
+    v19 = v14;
   }
 
-  return v21;
+  return v19;
 }
 
-void TSCEEvaluationStack::replaceValueForArgumentAtIndexListLikeMode(void **a1, uint64_t a2, void *a3, void *a4, void *a5, int a6)
+void TSCEEvaluationStack::replaceValueForArgumentAtIndexListLikeMode(id *a1, uint64_t a2, void *a3, void *a4, void *a5, int a6)
 {
   v11 = a4;
-  v16 = objc_msgSend_nativeType(*a1, v12, v13, v14, v15);
-  v21 = v16;
-  if (v16 == 9)
+  v15 = objc_msgSend_nativeType(*a1, v12, v13, v14);
+  v19 = v15;
+  if (v15 == 9)
   {
-    v22 = objc_msgSend_errorWithContext_(*a1, v17, v11, v19, v20);
-    v26 = objc_msgSend_errorValue_(TSCEErrorValue, v23, v22, v24, v25);
+    v20 = objc_msgSend_errorWithContext_(*a1, v16, v11, v18);
+    v23 = objc_msgSend_errorValue_(TSCEErrorValue, v21, v20, v22);
 LABEL_6:
-    *a1 = v26;
+    *a1 = v23;
 
     goto LABEL_7;
   }
 
-  if (a6 == 6 && v16 != 6)
+  if (a6 == 6 && v15 != 6)
   {
-    v22 = objc_msgSend_typeErrorForValue_context_functionSpec_argumentIndex_(TSCEError, v17, *a1, v11, a3, a2);
-    v26 = objc_msgSend_errorValue_(TSCEErrorValue, v27, v22, v28, v29);
+    v20 = objc_msgSend_typeErrorForValue_context_functionSpec_argumentIndex_(TSCEError, v16, *a1, v11, a3, a2);
+    v23 = objc_msgSend_errorValue_(TSCEErrorValue, v24, v20, v25);
     goto LABEL_6;
   }
 
-  if (a5 && v16 == 10)
+  if (a5 && v15 == 10)
   {
-    if (objc_msgSend_typeIsDisallowed_value_(a5, v17, 10, *a1, v20))
+    if (objc_msgSend_typeIsDisallowed_value_(a5, v16, 10, *a1))
     {
-      v22 = objc_msgSend_emptyArgumentSpecificErrorForArgumentNumber_(TSCEError, v17, (a2 + 1), v30, v31);
-      v26 = objc_msgSend_errorValue_(TSCEErrorValue, v32, v22, v33, v34);
+      v20 = objc_msgSend_emptyArgumentSpecificErrorForArgumentNumber_(TSCEError, v16, (a2 + 1), v26);
+      v23 = objc_msgSend_errorValue_(TSCEErrorValue, v27, v20, v28);
       goto LABEL_6;
     }
   }
 
-  else if (v16 == 6 && (!a5 || (objc_msgSend_referenceForGeometryOnly(a5, v17, v18, v19, v20) & 1) == 0))
+  else if (v15 == 6 && (!a5 || (objc_msgSend_referenceForGeometryOnly(a5, v16, v17, v18) & 1) == 0))
   {
-    v35 = objc_msgSend_asReferenceValue(*a1, v17, v18, v19, v20);
-    v40 = v35;
-    if (v35 && objc_msgSend_isOutputOfAFunction(v35, v36, v37, v38, v39))
+    v29 = objc_msgSend_asReferenceValue(*a1, v16, v17, v18);
+    v33 = v29;
+    if (v29 && objc_msgSend_isOutputOfAFunction(v29, v30, v31, v32))
     {
-      objc_msgSend_anyRef(v40, v41, v42, v43, v44);
-      objc_msgSend_addCalculatedPrecedent_(v11, v45, v74, v46, v47);
+      objc_msgSend_anyRef(v33, v34, v35, v36);
+      objc_msgSend_addCalculatedPrecedent_(v11, v37, v60, v38);
     }
   }
 
-  v48 = *a1;
-  v73 = 0;
-  v49 = objc_msgSend_asGrid_functionSpec_argumentIndex_applyPreferredFormat_outError_(v48, v17, v11, a3, a2, 1, &v73);
-  v54 = v73;
-  if (v54)
+  v39 = *a1;
+  v59 = 0;
+  v40 = objc_msgSend_asGrid_functionSpec_argumentIndex_applyPreferredFormat_outError_(v39, v16, v11, a3, a2, 1, &v59);
+  v44 = v59;
+  if (v44)
   {
-    *a1 = objc_msgSend_errorValue_(TSCEErrorValue, v50, v54, v52, v53);
+    *a1 = objc_msgSend_errorValue_(TSCEErrorValue, v41, v44, v43);
   }
 
-  else if (v21 == 1 && objc_msgSend_gridKind(v49, v50, v51, v52, v53) == 1 && objc_msgSend_count(v49, v55, v56, v57, v58) >= 2 && (v63 = objc_msgSend_functionIndex(a3, v59, v60, v61, v62), v63 != 8) && v63 != 63)
+  else if (v19 == 1 && objc_msgSend_gridKind(v40, v41, v42, v43) == 1 && objc_msgSend_count(v40, v45, v46, v47) >= 2 && (v51 = objc_msgSend_functionIndex(a3, v48, v49, v50), v51 != 8) && v51 != 63)
   {
-    v69 = objc_msgSend_argumentSetUsedOutOfContextError(TSCEError, v64, v65, v66, v67);
-    *a1 = objc_msgSend_errorValue_(TSCEErrorValue, v70, v69, v71, v72);
+    v56 = objc_msgSend_argumentSetUsedOutOfContextError(TSCEError, v52, v53, v54);
+    *a1 = objc_msgSend_errorValue_(TSCEErrorValue, v57, v56, v58);
   }
 
   else
   {
-    v68 = v49;
-    *a1 = v49;
+    v55 = v40;
+    *a1 = v40;
   }
 
 LABEL_7:
@@ -821,113 +826,113 @@ id TSCEEvaluationStack::valueForArgumentAtIndexListLikeMode(TSCEEvaluationStack 
 
 id TSCEEvaluationStack::valueForArgumentAtIndexRepeatingMode(TSCEEvaluationStack *a1, uint64_t a2, uint64_t a3, void *a4, void *a5, uint64_t a6, int a7)
 {
-  v144 = a4;
+  v117 = a4;
   if (a7 - 1 == a2)
   {
-    v16 = a1->_evaluationStack.var0 - a1->_evaluationStack.__begin_;
-    if (!v16 || (v16 >> 3) + a2 - a1->_argumentCount >= v16 >> 3)
+    v15 = a1->_evaluationStack.var0 - a1->_evaluationStack.__begin_;
+    if (!v15 || (v15 >> 3) + a2 - a1->_argumentCount >= v15 >> 3)
     {
-      v17 = objc_msgSend_invalidReferenceError(TSCEError, v12, v13, v14, v15);
-      v96 = objc_msgSend_errorValue_(TSCEErrorValue, v93, v17, v94, v95);
+      v16 = objc_msgSend_invalidReferenceError(TSCEError, v12, v13, v14);
+      v79 = objc_msgSend_errorValue_(TSCEErrorValue, v77, v16, v78);
 LABEL_38:
-      v97 = v96;
+      v80 = v79;
 LABEL_39:
 
       goto LABEL_48;
     }
 
-    v17 = TSCEEvaluationStack::rawArgumentAtIndex(a1, a2);
-    if (!objc_msgSend_isError(v17, v18, v19, v20, v21))
+    v16 = TSCEEvaluationStack::rawArgumentAtIndex(a1, a2);
+    if (!objc_msgSend_isError(v16, v17, v18, v19))
     {
 LABEL_60:
-      if (objc_msgSend_isReferenceValue(v17, v22, v23, v24, v25) && (!a5 || (objc_msgSend_referenceForGeometryOnly(a5, v115, v116, v117, v118) & 1) == 0))
+      if (objc_msgSend_isReferenceValue(v16, v20, v21, v22) && (!a5 || (objc_msgSend_referenceForGeometryOnly(a5, v94, v95, v96) & 1) == 0))
       {
-        v119 = objc_msgSend_asReferenceValue(v17, v115, v116, v117, v118);
-        v124 = v119;
-        if (v119 && objc_msgSend_isOutputOfAFunction(v119, v120, v121, v122, v123))
+        v97 = objc_msgSend_asReferenceValue(v16, v94, v95, v96);
+        v101 = v97;
+        if (v97 && objc_msgSend_isOutputOfAFunction(v97, v98, v99, v100))
         {
-          objc_msgSend_anyRef(v124, v125, v126, v127, v128);
-          objc_msgSend_addCalculatedPrecedent_(v144, v129, v158, v130, v131);
+          objc_msgSend_anyRef(v101, v102, v103, v104);
+          objc_msgSend_addCalculatedPrecedent_(v117, v105, v128, v106);
         }
       }
 
-      if (objc_msgSend_isGridValue(v17, v115, v116, v117, v118))
+      if (objc_msgSend_isGridValue(v16, v94, v95, v96))
       {
-        v157 = 0;
-        v133 = objc_msgSend_asGrid_functionSpec_argumentIndex_applyPreferredFormat_outError_(v17, v132, v144, a3, a2, 1, &v157);
-        v137 = v157;
-        if (v137)
+        v127 = 0;
+        v108 = objc_msgSend_asGrid_functionSpec_argumentIndex_applyPreferredFormat_outError_(v16, v107, v117, a3, a2, 1, &v127);
+        v111 = v127;
+        if (v111)
         {
-          v97 = objc_msgSend_errorValue_(TSCEErrorValue, v134, v137, v135, v136);
+          v80 = objc_msgSend_errorValue_(TSCEErrorValue, v109, v111, v110);
 
           goto LABEL_39;
         }
 
-        *v158 = v144;
-        *&v158[8] = a3;
-        *&v158[16] = 0;
-        *&v158[24] = a2;
-        *&v158[28] = 0;
-        *&v158[31] = 0;
-        v159 = vdupq_n_s64(0x7FFF7FFFFFFFuLL);
-        v160 = 0;
-        v161 = 0;
-        if (v133)
+        *v128 = v117;
+        *&v128[8] = a3;
+        *&v128[16] = 0;
+        *&v128[24] = a2;
+        *&v128[28] = 0;
+        *&v128[31] = 0;
+        v129 = vdupq_n_s64(0x7FFF7FFFFFFFuLL);
+        v130 = 0;
+        v131 = 0;
+        if (v108)
         {
-          objc_msgSend_format(v133, v138, v139, v140, v141);
+          objc_msgSend_format(v108, v112, v113, v114);
         }
 
         else
         {
-          memset(&v156, 0, sizeof(v156));
+          memset(&v126, 0, sizeof(v126));
         }
 
-        v142 = objc_msgSend_flattenedGrid_format_(v133, v138, v158, &v156, v141);
+        v115 = objc_msgSend_flattenedGrid_format_(v108, v112, v128, &v126);
 
-        v17 = v142;
+        v16 = v115;
       }
 
-      v96 = v17;
-      v17 = v96;
+      v79 = v16;
+      v16 = v79;
       goto LABEL_38;
     }
 
-    v30 = objc_msgSend_errorWithContext_(v17, v22, v144, v24, v25);
+    v26 = objc_msgSend_errorWithContext_(v16, v20, v117, v22);
     if (a5)
     {
-      v31 = objc_msgSend_argumentContext(a5, v26, v27, v28, v29);
-      if ((v31 & 0xFFFFFFFE) == 8)
+      v27 = objc_msgSend_argumentContext(a5, v23, v24, v25);
+      if ((v27 & 0xFFFFFFFE) == 8)
       {
-        memset(&v156, 0, 24);
-        v163[0] = objc_msgSend_errorValue_(TSCEErrorValue, v26, v30, v28, v29);
-        sub_2210ED5B8(&v156, v163);
+        memset(&v126, 0, 24);
+        v133[0] = objc_msgSend_errorValue_(TSCEErrorValue, v23, v26, v25);
+        sub_2210ED5B8(&v126, v133);
 
-        v33 = [TSCEDenseGrid alloc];
-        isFlattened = objc_msgSend_initWithValues_gridKind_isFlattened_(v33, v34, &v156, 0, 0);
-        if (v17)
+        v29 = [TSCEDenseGrid alloc];
+        isFlattened = objc_msgSend_initWithValues_gridKind_isFlattened_(v29, v30, &v126, 0, 0);
+        if (v16)
         {
-          objc_msgSend_format(v17, v35, v36, v37, v38);
+          objc_msgSend_format(v16, v31, v32, v33);
         }
 
         else
         {
-          memset(v158, 0, 32);
+          memset(v128, 0, 32);
         }
 
-        v111 = objc_msgSend_gridValue_format_(TSCEGridValue, v35, isFlattened, v158, v38);
+        v91 = objc_msgSend_gridValue_format_(TSCEGridValue, v31, isFlattened, v128);
 
-        *v158 = &v156;
-        sub_22107C2C0(v158);
-        v17 = v111;
+        *v128 = &v126;
+        sub_22107C2C0(v128);
+        v16 = v91;
         goto LABEL_56;
       }
 
-      if ((v31 & 0xFFFFFFFD) == 0xC)
+      if ((v27 & 0xFFFFFFFD) == 0xC)
       {
 LABEL_56:
-        if (objc_msgSend_errorType(v30, v26, v32, v28, v29) == 25)
+        if (objc_msgSend_errorType(v26, v23, v28, v25) == 25)
         {
-          v110 = objc_msgSend_errorValue_(TSCEErrorValue, v112, v30, v113, v114);
+          v90 = objc_msgSend_errorValue_(TSCEErrorValue, v92, v26, v93);
           goto LABEL_58;
         }
 
@@ -935,157 +940,154 @@ LABEL_56:
       }
     }
 
-    v110 = objc_msgSend_errorValue_(TSCEErrorValue, v26, v30, v28, v29);
+    v90 = objc_msgSend_errorValue_(TSCEErrorValue, v23, v26, v25);
 LABEL_58:
-    v97 = v110;
+    v80 = v90;
 
     goto LABEL_39;
   }
 
-  v153 = 0;
-  v154 = 0;
-  v155 = 0;
-  __p = 0;
-  v151 = 0;
-  v152 = 0;
+  v124 = 0;
+  v125 = 0;
+  memset(&__p, 0, sizeof(__p));
   if (a2 < a7)
   {
     a2 = a2;
-    v143 = vdupq_n_s64(0x7FFF7FFFFFFFuLL);
+    v116 = vdupq_n_s64(0x7FFF7FFFFFFFuLL);
     while (1)
     {
-      v40 = TSCEEvaluationStack::rawArgumentAtIndex(a1, a2);
-      if ((objc_msgSend_isNil(v40, v41, v42, v43, v44) & 1) == 0)
+      v35 = TSCEEvaluationStack::rawArgumentAtIndex(a1, a2);
+      if ((objc_msgSend_isNil(v35, v36, v37, v38) & 1) == 0)
       {
-        v49 = objc_msgSend_nativeType(v40, v45, v46, v47, v48);
-        if (v49 != 12)
+        v42 = objc_msgSend_nativeType(v35, v39, v40, v41);
+        if (v42 != 12)
         {
-          if (v49 == 6 && (!a5 || (objc_msgSend_referenceForGeometryOnly(a5, v50, v51, v52, v53) & 1) == 0))
+          if (v42 == 6 && (!a5 || (objc_msgSend_referenceForGeometryOnly(a5, v43, v44, v45) & 1) == 0))
           {
-            v54 = objc_msgSend_asReferenceValue(v40, v50, v51, v52, v53, *&v143);
-            v59 = v54;
-            if (v54 && objc_msgSend_isOutputOfAFunction(v54, v55, v56, v57, v58))
+            v46 = objc_msgSend_asReferenceValue(v35, v43, v44, v45, *&v116);
+            v50 = v46;
+            if (v46 && objc_msgSend_isOutputOfAFunction(v46, v47, v48, v49))
             {
-              objc_msgSend_anyRef(v59, v60, v61, v62, v63);
-              objc_msgSend_addCalculatedPrecedent_(v144, v64, v158, v65, v66);
+              objc_msgSend_anyRef(v50, v51, v52, v53);
+              objc_msgSend_addCalculatedPrecedent_(v117, v54, v128, v55);
             }
           }
 
-          v149 = 0;
-          v67 = objc_msgSend_asGrid_functionSpec_argumentIndex_applyPreferredFormat_outError_(v40, v50, v144, a3, a2, 1, &v149, *&v143);
-          v72 = v149;
-          if (v72)
+          v122 = 0;
+          v56 = objc_msgSend_asGrid_functionSpec_argumentIndex_applyPreferredFormat_outError_(v35, v43, v117, a3, a2, 1, &v122, *&v116);
+          v60 = v122;
+          if (v60)
           {
-            if (!a5 || (objc_msgSend_argumentContext(a5, v68, v69, v70, v71) & 0xFFFFFFFE) != 8)
+            if (!a5 || (objc_msgSend_argumentContext(a5, v57, v58, v59) & 0xFFFFFFFE) != 8)
             {
-              v97 = objc_msgSend_errorValue_(TSCEErrorValue, v68, v72, v70, v71);
+              v80 = objc_msgSend_errorValue_(TSCEErrorValue, v57, v60, v59);
 
               goto LABEL_45;
             }
 
-            memset(v158, 0, 24);
-            v148 = objc_msgSend_errorValue_(TSCEErrorValue, v68, v72, v70, v71);
-            sub_2210ED5B8(v158, &v148);
+            memset(v128, 0, 24);
+            v121 = objc_msgSend_errorValue_(TSCEErrorValue, v57, v60, v59);
+            sub_2210ED5B8(v128, &v121);
 
-            v73 = [TSCEDenseGrid alloc];
-            v77 = objc_msgSend_initWithValues_(v73, v74, v158, v75, v76);
-            v147 = objc_msgSend_gridValue_(TSCEGridValue, v78, v77, v79, v80);
-            sub_2212D01C8(&v153, &v147);
+            v61 = [TSCEDenseGrid alloc];
+            v64 = objc_msgSend_initWithValues_(v61, v62, v128, v63);
+            v120 = objc_msgSend_gridValue_(TSCEGridValue, v65, v64, v66);
+            sub_2212D01C8(&__p._numberFormat.decimalPlaces, &v120);
 
-            v156._tskFormat = v158;
-            sub_22107C2C0(&v156);
+            v126._tskFormat = v128;
+            sub_22107C2C0(&v126);
           }
 
           else
           {
-            *v158 = v144;
-            *&v158[8] = a3;
-            *&v158[16] = 0;
-            *&v158[24] = a2;
-            *&v158[28] = 0;
-            *&v158[31] = 0;
-            v159 = v143;
-            v160 = 0;
-            v161 = 0;
-            if (v67)
+            *v128 = v117;
+            *&v128[8] = a3;
+            *&v128[16] = 0;
+            *&v128[24] = a2;
+            *&v128[28] = 0;
+            *&v128[31] = 0;
+            v129 = v116;
+            v130 = 0;
+            v131 = 0;
+            if (v56)
             {
-              objc_msgSend_format(v67, v81, v82, v83, v84);
+              objc_msgSend_format(v56, v67, v68, v69);
             }
 
             else
             {
-              memset(&v156, 0, sizeof(v156));
+              memset(&v126, 0, sizeof(v126));
             }
 
-            v146 = objc_msgSend_flattenedGrid_format_(v67, v81, v158, &v156, v84);
-            sub_2212D01C8(&v153, &v146);
+            v119 = objc_msgSend_flattenedGrid_format_(v56, v67, v128, &v126);
+            sub_2212D01C8(&__p._numberFormat.decimalPlaces, &v119);
 
-            if (v67)
+            if (v56)
             {
-              objc_msgSend_format(v67, v85, v86, v87, v88);
+              objc_msgSend_format(v56, v70, v71, v72);
             }
 
             else
             {
-              memset(&v156, 0, sizeof(v156));
+              memset(&v126, 0, sizeof(v126));
             }
 
-            v89 = v151;
-            if (v151 >= v152)
+            v73 = *&__p._formatType;
+            if (*&__p._formatType >= *&__p._durationFormat)
             {
-              v90 = sub_22114F468(&__p, &v156);
+              v74 = sub_22114F468(&__p, &v126);
             }
 
             else
             {
-              TSCEFormat::TSCEFormat(v151, &v156);
-              v90 = v89 + 1;
+              TSCEFormat::TSCEFormat(*&__p._formatType, &v126);
+              v74 = v73 + 32;
             }
 
-            v151 = v90;
+            *&__p._formatType = v74;
           }
         }
       }
 
       if (a7 == ++a2)
       {
-        v91 = v153;
-        v92 = v154;
+        v75 = *&__p._numberFormat.decimalPlaces;
+        v76 = v124;
         goto LABEL_41;
       }
     }
   }
 
-  v91 = 0;
-  v92 = 0;
+  v75 = 0;
+  v76 = 0;
 LABEL_41:
-  if (v92 - v91 == 8)
+  if (v76 - v75 == 8)
   {
-    v97 = *v91;
+    v80 = *v75;
   }
 
   else
   {
-    v98 = [TSCEAggregateGrid alloc];
-    v102 = objc_msgSend_initWithGrids_(v98, v99, &v153, v100, v101);
-    v97 = objc_msgSend_gridValue_(TSCEGridValue, v103, v102, v104, v105);
+    v81 = [TSCEAggregateGrid alloc];
+    v84 = objc_msgSend_initWithGrids_(v81, v82, &__p._numberFormat, v83);
+    v80 = objc_msgSend_gridValue_(TSCEGridValue, v85, v84, v86);
   }
 
-  sub_221256020(&__p, &v145);
-  TSCEFormat::TSCEFormat(v158, &v145);
-  objc_msgSend_setFormat_(v97, v106, v158, v107, v108);
+  sub_221256020(&__p, &v118);
+  TSCEFormat::TSCEFormat(v128, &v118);
+  objc_msgSend_setFormat_(v80, v87, v128, v88);
 LABEL_45:
-  if (__p)
+  if (__p._tskFormat)
   {
-    v151 = __p;
-    operator delete(__p);
+    *&__p._formatType = __p._tskFormat;
+    operator delete(__p._tskFormat);
   }
 
-  *v158 = &v153;
-  sub_22107C2C0(v158);
+  *v128 = &__p._numberFormat;
+  sub_22107C2C0(v128);
 LABEL_48:
 
-  return v97;
+  return v80;
 }
 
 void *sub_2212D01C8(void *result, uint64_t *a2)
@@ -1149,27 +1151,27 @@ void *sub_2212D01C8(void *result, uint64_t *a2)
   return result;
 }
 
-void sub_2212D02AC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2212D02AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_22107C26C(va);
   _Unwind_Resume(a1);
 }
 
 id TSCEEvaluationStack::valueForArgumentAtIndexSwitch(TSCEEvaluationStack *a1, uint64_t a2, void *a3, void *a4, void *a5, const char *a6, uint64_t a7, int a8)
 {
-  v18 = a4;
+  v17 = a4;
   if (a7 > 2)
   {
     if (a7 == 3)
     {
-      v19 = TSCEEvaluationStack::valueForArgumentAtIndexListLikeMode(a1, a2, a3, v18, a5, a6);
+      v18 = TSCEEvaluationStack::valueForArgumentAtIndexListLikeMode(a1, a2, a3, v17, a5, a6);
       goto LABEL_11;
     }
 
     if (a7 == 4)
     {
-      v19 = TSCEEvaluationStack::valueForArgumentAtIndexRepeatingMode(a1, a2, a3, v18, a5, 0, a8);
+      v18 = TSCEEvaluationStack::valueForArgumentAtIndexRepeatingMode(a1, a2, a3, v17, a5, 0, a8);
       goto LABEL_11;
     }
   }
@@ -1178,108 +1180,108 @@ id TSCEEvaluationStack::valueForArgumentAtIndexSwitch(TSCEEvaluationStack *a1, u
   {
     if ((a7 - 1) < 2)
     {
-      v19 = TSCEEvaluationStack::valueForArgumentAtIndexSingletonMode(a1, a2, a3, v18, a5, a6);
+      v18 = TSCEEvaluationStack::valueForArgumentAtIndexSingletonMode(a1, a2, a3, v17, a5, a6);
       goto LABEL_11;
     }
 
     if (!a7)
     {
-      v19 = TSCEEvaluationStack::rawArgumentAtIndex(a1, a2);
+      v18 = TSCEEvaluationStack::rawArgumentAtIndex(a1, a2);
       goto LABEL_11;
     }
   }
 
-  v20 = MEMORY[0x277D81150];
-  v21 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v15, "TSCEValue *TSCEEvaluationStack::valueForArgumentAtIndexSwitch(uint32_t, TSCEFunctionSpec *__unsafe_unretained, TSCEEvaluationContext *__strong, TSCEFunctionArgSpec *__unsafe_unretained, TSCEArgumentType, TSCEArgumentAccessorMode, uint32_t)", v16, v17);
-  v25 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v22, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCEEvaluationStack.mm", v23, v24);
-  objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v20, v26, v21, v25, 478, 0, "Invalid accessorMode (%d)", a7);
+  v19 = MEMORY[0x277D81150];
+  v20 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v15, "TSCEValue *TSCEEvaluationStack::valueForArgumentAtIndexSwitch(uint32_t, TSCEFunctionSpec *__unsafe_unretained, TSCEEvaluationContext *__strong, TSCEFunctionArgSpec *__unsafe_unretained, TSCEArgumentType, TSCEArgumentAccessorMode, uint32_t)", v16);
+  v23 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v21, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCEEvaluationStack.mm", v22);
+  objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v19, v24, v20, v23, 478, 0, "Invalid accessorMode (%d)", a7);
 
-  objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v27, v28, v29, v30);
-  v19 = objc_msgSend_nilValue(TSCENilValue, v31, v32, v33, v34);
+  objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v25, v26, v27);
+  v18 = objc_msgSend_nilValue(TSCENilValue, v28, v29, v30);
 LABEL_11:
-  v35 = v19;
+  v31 = v18;
 
-  return v35;
+  return v31;
 }
 
 id TSCEEvaluationStack::typeCheckArgumentsForFunction(void *a1, void *a2, void *a3)
 {
-  v76 = a1;
-  v78 = a3;
-  v7 = a3[1] - *a3;
-  if ((v7 >> 3) < 1)
+  v62 = a1;
+  v64 = a3;
+  v6 = a3[1] - *a3;
+  if ((v6 >> 3) < 1)
   {
 LABEL_34:
-    v42 = 0;
+    v35 = 0;
     goto LABEL_36;
   }
 
+  v7 = 0;
   v8 = 0;
-  v9 = 0;
-  v75 = (v7 >> 3) & 0x7FFFFFFF;
+  v61 = (v6 >> 3) & 0x7FFFFFFF;
   while (1)
   {
-    v10 = objc_msgSend_argumentSpecForIndex_(a2, v4, v9, v5, v6, v75);
-    v15 = v10;
-    if (v10)
+    v9 = objc_msgSend_argumentSpecForIndex_(a2, v4, v8, v5, v61);
+    v13 = v9;
+    if (v9)
     {
-      v16 = objc_msgSend_argumentType(v10, v11, v12, v13, v14);
-      v21 = objc_msgSend_accessorMode(v15, v17, v18, v19, v20);
-      v26 = objc_msgSend_argumentContext(v15, v22, v23, v24, v25);
-      v31 = objc_msgSend_allowError(v15, v27, v28, v29, v30);
+      v14 = objc_msgSend_argumentType(v9, v10, v11, v12);
+      v18 = objc_msgSend_accessorMode(v13, v15, v16, v17);
+      v22 = objc_msgSend_argumentContext(v13, v19, v20, v21);
+      v26 = objc_msgSend_allowError(v13, v23, v24, v25);
     }
 
     else
     {
-      v16 = 0;
-      v31 = 0;
-      v21 = 1;
-      v26 = 14;
+      v14 = 0;
+      v26 = 0;
+      v18 = 1;
+      v22 = 14;
     }
 
-    v32 = *(*v78 + 8 * v9);
-    if (objc_msgSend_unwrapThunk(v15, v33, v34, v35, v36) && objc_msgSend_isThunk(v32, v37, v38, v39, v40))
+    v27 = *(*v64 + 8 * v8);
+    if (objc_msgSend_unwrapThunk(v13, v28, v29, v30) && objc_msgSend_isThunk(v27, v31, v32, v33))
     {
-      v41 = objc_msgSend_unwrapThunk_(v76, v37, v32, v39, v40);
+      v34 = objc_msgSend_unwrapThunk_(v62, v31, v27, v33);
 
-      v32 = v41;
+      v27 = v34;
     }
 
-    if ((v26 == 14) | v31 & 1)
+    if ((v22 == 14) | v26 & 1)
     {
-      v42 = 0;
+      v35 = 0;
     }
 
     else
     {
-      v43 = *(*v78 + 8 * v9);
-      if (objc_msgSend_isError(v43, v44, v45, v46, v47))
+      v36 = *(*v64 + 8 * v8);
+      if (objc_msgSend_isError(v36, v37, v38, v39))
       {
-        v42 = objc_msgSend_errorWithContext_(v43, v48, v76, v49, v50);
+        v35 = objc_msgSend_errorWithContext_(v36, v40, v62, v41);
       }
 
       else
       {
-        v42 = 0;
+        v35 = 0;
       }
     }
 
-    if ((v21 - 1) >= 2)
+    if ((v18 - 1) >= 2)
     {
       break;
     }
 
-    if (v26 != 14 && (!objc_msgSend_isTokenOrEmptyArg(v32, v37, v38, v39, v40) || (objc_msgSend_isOptional(v15, v51, v52, v53, v54) & 1) == 0))
+    if (v22 != 14 && (!objc_msgSend_isTokenOrEmptyArg(v27, v31, v32, v33) || (objc_msgSend_isOptional(v13, v42, v43, v44) & 1) == 0))
     {
-      v80 = v32;
-      TSCEEvaluationStack::replaceValueForArgumentAtIndexSingletonMode(&v80, v9, a2, v76, v15, v16);
-      v55 = v80;
-      v56 = v80;
+      v66 = v27;
+      TSCEEvaluationStack::replaceValueForArgumentAtIndexSingletonMode(&v66, v8, a2, v62, v13, v14);
+      v45 = v66;
+      v46 = v66;
 
-      objc_storeStrong((*v78 + v8), v55);
-      if ((v31 & 1) == 0)
+      objc_storeStrong((*v64 + v7), v45);
+      if ((v26 & 1) == 0)
       {
-        if (!objc_msgSend_isError(v56, v57, v58, v59, v60))
+        if (!objc_msgSend_isError(v46, v47, v48, v49))
         {
           goto LABEL_32;
         }
@@ -1291,140 +1293,140 @@ LABEL_34:
     }
 
 LABEL_25:
-    if (!v31)
+    if (!v26)
     {
-      v56 = v32;
+      v46 = v27;
       goto LABEL_32;
     }
 
 LABEL_29:
 
-    v56 = v32;
+    v46 = v27;
 LABEL_33:
 
-    ++v9;
-    v8 += 8;
-    if (v75 == v9)
+    ++v8;
+    v7 += 8;
+    if (v61 == v8)
     {
       goto LABEL_34;
     }
   }
 
-  if (v21 != 3 || objc_msgSend_isTokenOrEmptyArg(v32, v37, v38, v39, v40) && (objc_msgSend_isOptional(v15, v64, v65, v66, v67) & 1) != 0)
+  if (v18 != 3 || objc_msgSend_isTokenOrEmptyArg(v27, v31, v32, v33) && (objc_msgSend_isOptional(v13, v52, v53, v54) & 1) != 0)
   {
     goto LABEL_25;
   }
 
-  v79 = v32;
-  TSCEEvaluationStack::replaceValueForArgumentAtIndexListLikeMode(&v79, v9, a2, v76, v15, v16);
-  v68 = v79;
-  v56 = v79;
+  v65 = v27;
+  TSCEEvaluationStack::replaceValueForArgumentAtIndexListLikeMode(&v65, v8, a2, v62, v13, v14);
+  v55 = v65;
+  v46 = v65;
 
-  objc_storeStrong((*v78 + v8), v68);
-  if (v31)
+  objc_storeStrong((*v64 + v7), v55);
+  if (v26)
   {
 LABEL_28:
-    v32 = v56;
+    v27 = v46;
     goto LABEL_29;
   }
 
-  if (!objc_msgSend_isError(v56, v69, v70, v71, v72))
+  if (!objc_msgSend_isError(v46, v56, v57, v58))
   {
     goto LABEL_32;
   }
 
 LABEL_31:
-  v73 = objc_msgSend_errorWithContext_(v56, v61, v76, v62, v63);
+  v59 = objc_msgSend_errorWithContext_(v46, v50, v62, v51);
 
-  v42 = v73;
+  v35 = v59;
 LABEL_32:
-  if (!v42)
+  if (!v35)
   {
     goto LABEL_33;
   }
 
 LABEL_36:
 
-  return v42;
+  return v35;
 }
 
 id TSCEEvaluationStack::valueForArgumentAtIndex(TSCEEvaluationStack *this, uint64_t a2, TSCEFunctionSpec *a3, TSCEEvaluationContext *a4)
 {
   v7 = a4;
   argumentCount = this->_argumentCount;
-  v13 = objc_msgSend_maxArguments(a3, v9, v10, v11, v12);
-  v18 = objc_msgSend_minArguments(a3, v14, v15, v16, v17);
-  v22 = objc_msgSend_argumentSpecForIndex_(a3, v19, a2, v20, v21);
-  v27 = v22;
-  if (v22)
+  v12 = objc_msgSend_maxArguments(a3, v9, v10, v11);
+  v16 = objc_msgSend_minArguments(a3, v13, v14, v15);
+  v19 = objc_msgSend_argumentSpecForIndex_(a3, v17, a2, v18);
+  v23 = v19;
+  if (v19)
   {
-    v28 = objc_msgSend_argumentType(v22, v23, v24, v25, v26);
-    v33 = objc_msgSend_accessorMode(v27, v29, v30, v31, v32);
+    v24 = objc_msgSend_argumentType(v19, v20, v21, v22);
+    v28 = objc_msgSend_accessorMode(v23, v25, v26, v27);
   }
 
   else
   {
-    v28 = 0;
-    v33 = 1;
+    v24 = 0;
+    v28 = 1;
   }
 
-  if (v18 <= argumentCount && (v13 == -1 || v13 >= argumentCount) && (argumentCount > a2 || ((v33 & 0xFFFFFFFB) != 0 ? (v43 = v33 == 2) : (v43 = 1), !v43 ? (v44 = 0) : (v44 = 1), !a2 && v44 && !objc_msgSend_minArguments(a3, v23, v24, v25, v26))))
+  if (v16 <= argumentCount && (v12 == -1 || v12 >= argumentCount) && (argumentCount > a2 || ((v28 & 0xFFFFFFFB) != 0 ? (v36 = v28 == 2) : (v36 = 1), !v36 ? (v37 = 0) : (v37 = 1), !a2 && v37 && !objc_msgSend_minArguments(a3, v20, v21, v22))))
   {
-    v41 = TSCEEvaluationStack::valueForArgumentAtIndexSwitch(this, a2, a3, v7, v27, v28, v33, argumentCount);
+    v34 = TSCEEvaluationStack::valueForArgumentAtIndexSwitch(this, a2, a3, v7, v23, v24, v28, argumentCount);
   }
 
   else
   {
-    v34 = objc_msgSend_functionName(a3, v23, v24, v25, v26);
-    v37 = objc_msgSend_wrongNumberOfArgumentsErrorForFunctionName_provided_(TSCEError, v35, v34, argumentCount, v36);
-    v41 = objc_msgSend_raiseErrorOrConvert_(v7, v38, v37, v39, v40);
+    v29 = objc_msgSend_functionName(a3, v20, v21, v22);
+    v31 = objc_msgSend_wrongNumberOfArgumentsErrorForFunctionName_provided_(TSCEError, v30, v29, argumentCount);
+    v34 = objc_msgSend_raiseErrorOrConvert_(v7, v32, v31, v33);
   }
 
-  return v41;
+  return v34;
 }
 
 void TSCEEvaluationStack::replaceArgumentAtIndex(TSCEEvaluationStack *this, unsigned int a2, TSCEValue *a3)
 {
-  v8 = a3;
+  v7 = a3;
   argumentCount = this->_argumentCount;
   if (argumentCount <= a2)
   {
-    v10 = MEMORY[0x277D81150];
-    v11 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v5, "void TSCEEvaluationStack::replaceArgumentAtIndex(uint32_t, TSCEValue *__strong)", v6, v7);
-    v15 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v12, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCEEvaluationStack.mm", v13, v14);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v10, v16, v11, v15, 590, 0, "cannot replace an invalid index");
+    v9 = MEMORY[0x277D81150];
+    v10 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v5, "void TSCEEvaluationStack::replaceArgumentAtIndex(uint32_t, TSCEValue *__strong)", v6);
+    v13 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v11, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCEEvaluationStack.mm", v12);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v9, v14, v10, v13, 590, 0, "cannot replace an invalid index");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v17, v18, v19, v20);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v15, v16, v17);
     argumentCount = this->_argumentCount;
   }
 
-  v21 = &this->_evaluationStack.__begin_[((this->_evaluationStack.var0 - this->_evaluationStack.__begin_) >> 3) - argumentCount];
-  v22 = v21[a2];
-  v21[a2] = v8;
+  v18 = &this->_evaluationStack.__begin_[((this->_evaluationStack.var0 - this->_evaluationStack.__begin_) >> 3) - argumentCount];
+  v19 = v18[a2];
+  v18[a2] = v7;
 }
 
-void TSCEEvaluationStack::clearArgument(TSCEEvaluationStack *this, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+void TSCEEvaluationStack::clearArgument(TSCEEvaluationStack *this, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v6 = this->_evaluationStack.var0 - this->_evaluationStack.__begin_;
+  v5 = this->_evaluationStack.var0 - this->_evaluationStack.__begin_;
   argumentCount = this->_argumentCount;
-  v8 = (v6 - argumentCount);
-  if (v6 >= argumentCount)
+  v7 = (v5 - argumentCount);
+  if (v5 >= argumentCount)
   {
-    sub_2212D0BF4(this, v8);
+    sub_2212D0BF4(this, v7);
   }
 
   else
   {
-    v9 = MEMORY[0x277D81150];
-    v10 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v8, "void TSCEEvaluationStack::clearArgument()", a4, a5);
-    v14 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v11, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCEEvaluationStack.mm", v12, v13);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v9, v15, v10, v14, 598, 0, "Messed up arguments on _evaluationStack");
+    v8 = MEMORY[0x277D81150];
+    v9 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v7, "void TSCEEvaluationStack::clearArgument()", a4);
+    v12 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v10, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCEEvaluationStack.mm", v11);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v8, v13, v9, v12, 598, 0, "Messed up arguments on _evaluationStack");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v16, v17, v18, v19);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v14, v15, v16);
     begin = this->_evaluationStack.__begin_;
     for (i = this->_evaluationStack.var0; i != begin; --i)
     {
-      v22 = *(i - 1);
+      v19 = *(i - 1);
     }
 
     this->_evaluationStack.var0 = begin;
@@ -1545,9 +1547,9 @@ void sub_2212D0D48(uint64_t a1, unint64_t a2)
   }
 }
 
-void sub_2212D0E34(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2212D0E34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_22107C26C(va);
   _Unwind_Resume(a1);
 }
@@ -1777,107 +1779,107 @@ void TSCEASTStreamIterator::pushEmbeddedSizeOffset(TSCEASTStreamIterator *this, 
   v3[1] = v6;
 }
 
-uint64_t TSCEASTStreamIterator::popEmbeddedSizeOffset(TSCEASTStreamIterator *this, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5)
+uint64_t TSCEASTStreamIterator::popEmbeddedSizeOffset(TSCEASTStreamIterator *this, const char *a2, uint64_t a3, uint64_t a4)
 {
-  v6 = *(this + 16);
-  if (!v6 || *v6 == v6[1])
+  v5 = *(this + 16);
+  if (!v5 || *v5 == v5[1])
   {
-    v7 = MEMORY[0x277D81150];
-    v8 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "size_t TSCEASTStreamIterator::popEmbeddedSizeOffset()", a4, a5);
-    v12 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v9, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCEASTStreamIterator.mm", v10, v11);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v7, v13, v8, v12, 60, 0, "Mismatch in push/popEmbeddedSizeOffset");
+    v6 = MEMORY[0x277D81150];
+    v7 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "size_t TSCEASTStreamIterator::popEmbeddedSizeOffset()", a4);
+    v10 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v8, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCEASTStreamIterator.mm", v9);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v6, v11, v7, v10, 60, 0, "Mismatch in push/popEmbeddedSizeOffset");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v14, v15, v16, v17);
-    v6 = *(this + 16);
-    if (!v6)
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v12, v13, v14);
+    v5 = *(this + 16);
+    if (!v5)
     {
       return 0;
     }
   }
 
-  v18 = v6[1];
-  result = *(v18 - 8);
-  v6[1] = v18 - 8;
+  v15 = v5[1];
+  result = *(v15 - 8);
+  v5[1] = v15 - 8;
   return result;
 }
 
-void TSCEASTStreamIterator::pushIncompleteEmbeddedNode(TSCEASTStreamIterator *this, TSCEASTElementWithChildren *a2, uint64_t a3, uint64_t a4, uint64_t a5)
+void TSCEASTStreamIterator::pushIncompleteEmbeddedNode(TSCEASTStreamIterator *this, TSCEASTElementWithChildren *a2, uint64_t a3, uint64_t a4)
 {
-  v6 = *(this + 15);
-  if (!v6)
+  v5 = *(this + 15);
+  if (!v5)
   {
     operator new();
   }
 
-  v7 = *v6;
-  v8 = *(v6 + 8);
-  if (*v6 == v8 || *(v8 - 1) != a2)
+  v6 = *v5;
+  v7 = *(v5 + 8);
+  if (*v5 == v7 || *(v7 - 1) != a2)
   {
-    v21 = *(v6 + 16);
-    if (v8 >= v21)
+    v18 = *(v5 + 16);
+    if (v7 >= v18)
     {
-      v23 = (v8 - v7) >> 3;
-      if ((v23 + 1) >> 61)
+      v20 = (v7 - v6) >> 3;
+      if ((v20 + 1) >> 61)
       {
         sub_22107C148();
       }
 
-      v24 = v21 - v7;
-      v25 = v24 >> 2;
-      if (v24 >> 2 <= (v23 + 1))
+      v21 = v18 - v6;
+      v22 = v21 >> 2;
+      if (v21 >> 2 <= (v20 + 1))
       {
-        v25 = v23 + 1;
+        v22 = v20 + 1;
       }
 
-      if (v24 >= 0x7FFFFFFFFFFFFFF8)
+      if (v21 >= 0x7FFFFFFFFFFFFFF8)
       {
-        v26 = 0x1FFFFFFFFFFFFFFFLL;
+        v23 = 0x1FFFFFFFFFFFFFFFLL;
       }
 
       else
       {
-        v26 = v25;
+        v23 = v22;
       }
 
+      if (v23)
+      {
+        sub_221122DC8(v5, v23);
+      }
+
+      *(8 * v20) = a2;
+      v19 = 8 * v20 + 8;
+      v24 = *(v5 + 8) - *v5;
+      v25 = (8 * v20 - v24);
+      memcpy(v25, *v5, v24);
+      v26 = *v5;
+      *v5 = v25;
+      *(v5 + 8) = v19;
+      *(v5 + 16) = 0;
       if (v26)
       {
-        sub_221122DC8(v6, v26);
-      }
-
-      *(8 * v23) = a2;
-      v22 = 8 * v23 + 8;
-      v27 = *(v6 + 8) - *v6;
-      v28 = (8 * v23 - v27);
-      memcpy(v28, *v6, v27);
-      v29 = *v6;
-      *v6 = v28;
-      *(v6 + 8) = v22;
-      *(v6 + 16) = 0;
-      if (v29)
-      {
-        operator delete(v29);
+        operator delete(v26);
       }
     }
 
     else
     {
-      *v8 = a2;
-      v22 = (v8 + 8);
+      *v7 = a2;
+      v19 = (v7 + 8);
     }
 
-    *(v6 + 8) = v22;
+    *(v5 + 8) = v19;
   }
 
   else
   {
-    v9 = MEMORY[0x277D81150];
-    v10 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "void TSCEASTStreamIterator::pushIncompleteEmbeddedNode(TSCEASTElementWithChildren *)", a4, a5);
-    v14 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v11, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCEASTStreamIterator.mm", v12, v13);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v9, v15, v10, v14, 81, 0, "Why are we pushing an incomplete embeddedNode multiple times?");
+    v8 = MEMORY[0x277D81150];
+    v9 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "void TSCEASTStreamIterator::pushIncompleteEmbeddedNode(TSCEASTElementWithChildren *)", a4);
+    v12 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v10, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCEASTStreamIterator.mm", v11);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v8, v13, v9, v12, 81, 0, "Why are we pushing an incomplete embeddedNode multiple times?");
 
-    v20 = MEMORY[0x277D81150];
+    v17 = MEMORY[0x277D81150];
 
-    objc_msgSend_logBacktraceThrottled(v20, v16, v17, v18, v19);
+    objc_msgSend_logBacktraceThrottled(v17, v14, v15, v16);
   }
 }
 
@@ -1909,25 +1911,25 @@ void TSCEASTStreamIterator::appendElement(TSCEASTNodeArray **this, TSCEASTElemen
     {
       if ((this[12] & 1) == 0)
       {
-        TSCEASTNodeArray::writeUInt8(this[13], v4, v5, v6, v7);
+        TSCEASTNodeArray::writeUInt8(this[13], v4, v5, v6);
         TSCEASTStreamIterator::pushEmbeddedSizeOffset(this, this[13]->var1);
-        v21 = 0;
-        sub_22120D918(this[13], &v21, v8, v9, v10);
+        v17 = 0;
+        sub_22120D918(this[13], &v17, v7, v8);
       }
 
-      TSCEASTStreamIterator::pushIncompleteEmbeddedNode(this, a2, v5, v6, v7);
+      TSCEASTStreamIterator::pushIncompleteEmbeddedNode(this, a2, v5, v6);
     }
 
     else if ((this[12] & 1) == 0)
     {
-      v11 = (*(*a2 + 72))(a2, this);
-      v15 = TSCEASTIteratorBase::readerForElement(this, a2, v12, v13, v14);
-      v18 = this[13];
-      v19 = v15[1];
-      v20 = **v15;
-      v15[1] = (v19 + v11);
+      v9 = (*(*a2 + 72))(a2, this);
+      v12 = TSCEASTIteratorBase::readerForElement(this, a2, v10, v11);
+      v14 = this[13];
+      v15 = v12[1];
+      v16 = **v12;
+      v12[1] = (v15 + v9);
 
-      sub_22120D7E8(v18, v19 + v20, v11, v16, v17);
+      sub_22120D7E8(v14, v15 + v16, v9, v13);
     }
   }
 }
@@ -1940,19 +1942,19 @@ TSCEASTElement *TSCEASTStreamIterator::visitNode(TSCEASTNodeArray **this, TSCEAS
   return TSCEASTIteratorBase::visitNode(this, a2);
 }
 
-uint64_t TSCEASTStreamIterator::rewrite(TSCEASTStreamIterator *this, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5)
+uint64_t TSCEASTStreamIterator::rewrite(TSCEASTStreamIterator *this, const char *a2, uint64_t a3, uint64_t a4)
 {
-  v6 = *(this + 2);
-  v91 = v6;
-  v92 = 0;
-  v93 = 0;
-  v94 = 0;
-  if (v6)
+  v5 = *(this + 2);
+  v83 = v5;
+  v84 = 0;
+  v85 = 0;
+  v86 = 0;
+  if (v5)
   {
-    v6 = v6[1];
+    v5 = v5[1];
   }
 
-  v93 = v6;
+  v85 = v5;
   if (!*(this + 13) && (*(this + 96) & 1) == 0)
   {
     operator new();
@@ -1960,39 +1962,39 @@ uint64_t TSCEASTStreamIterator::rewrite(TSCEASTStreamIterator *this, const char 
 
   if ((*(this + 99) & 1) == 0)
   {
-    v8 = "virtual void TSCEASTStreamIterator::rewrite()";
+    v7 = "virtual void TSCEASTStreamIterator::rewrite()";
 LABEL_9:
-    if (v92 >= v93 || v94 && (v9 = v94[1], *v94 != v9) && v92 >= *(v9 - 8))
+    if (v84 >= v85 || v86 && (v8 = v86[1], *v86 != v8) && v84 >= *(v8 - 8))
     {
-      v10 = *(this + 15);
-      if (!v10 || *v10 == v10[1])
+      v9 = *(this + 15);
+      if (!v9 || *v9 == v9[1])
       {
-        return sub_22120E388(&v91);
+        return sub_22120E388(&v83);
       }
     }
 
     while (1)
     {
-      if ((*(this + 99) & 1) != 0 || v92 < v93 && (!v94 || (v11 = v94[1], *v94 == v11) || v92 < *(v11 - 8)))
+      if ((*(this + 99) & 1) != 0 || v84 < v85 && (!v86 || (v10 = v86[1], *v86 == v10) || v84 < *(v10 - 8)))
       {
 LABEL_36:
         if (*(this + 99))
         {
-          return sub_22120E388(&v91);
+          return sub_22120E388(&v83);
         }
 
-        v33 = v92;
-        if (v92 >= v93 || v94 && (v34 = v94[1], *v94 != v34) && v92 >= *(v34 - 8))
+        v29 = v84;
+        if (v84 >= v85 || v86 && (v30 = v86[1], *v86 != v30) && v84 >= *(v30 - 8))
         {
-          v35 = *(this + 15);
-          if (!v35 || *v35 == v35[1])
+          v31 = *(this + 15);
+          if (!v31 || *v31 == v31[1])
           {
-            return sub_22120E388(&v91);
+            return sub_22120E388(&v83);
           }
         }
 
-        v36 = *(*v91 + v92++);
-        switch(v36)
+        v32 = *(*v83 + v84++);
+        switch(v32)
         {
           case 1:
           case 2:
@@ -2006,352 +2008,352 @@ LABEL_36:
           case 10:
           case 11:
           case 12:
-            v87 = v87 & 0xF8 | 2;
-            v89 = 0;
-            v90 = 0;
-            v88 = 0;
-            v85 = &unk_2834A54C8;
-            v86 = v33;
-            v37 = (*(*this + 40))(this, &v85);
-            TSCEASTStreamIterator::appendElement(this, v37);
+            v79 = v79 & 0xF8 | 2;
+            v81 = 0;
+            v82 = 0;
+            v80 = 0;
+            v77 = &unk_2834A54C8;
+            v78 = v29;
+            v33 = (*(*this + 40))(this, &v77);
+            TSCEASTStreamIterator::appendElement(this, v33);
             goto LABEL_47;
           case 13:
           case 14:
           case 15:
           case 70:
-            v87 = v87 & 0xF8 | 2;
-            v89 = 0;
-            v90 = 0;
-            v88 = 0;
-            v85 = &unk_2834A56D8;
-            v86 = v33;
-            v40 = (*(*this + 40))(this, &v85);
-            TSCEASTStreamIterator::appendElement(this, v40);
+            v79 = v79 & 0xF8 | 2;
+            v81 = 0;
+            v82 = 0;
+            v80 = 0;
+            v77 = &unk_2834A56D8;
+            v78 = v29;
+            v36 = (*(*this + 40))(this, &v77);
+            TSCEASTStreamIterator::appendElement(this, v36);
 LABEL_47:
-            TSCEASTElementWithChildren::~TSCEASTElementWithChildren(&v85);
+            TSCEASTElementWithChildren::~TSCEASTElementWithChildren(&v77);
             goto LABEL_48;
           case 16:
           case 17:
           case 33:
           case 34:
-            v87 = v87 & 0xF8 | 2;
-            v89 = 0;
-            v90 = 0;
-            v88 = 0;
-            v85 = &unk_2834A5D08;
-            v86 = v33;
-            v38 = TSCEASTFunctionElement::size(&v85, this, a3, a4, a5);
-            v39 = (*(*this + 40))(this, &v85);
-            TSCEASTStreamIterator::appendElement(this, v39);
+            v79 = v79 & 0xF8 | 2;
+            v81 = 0;
+            v82 = 0;
+            v80 = 0;
+            v77 = &unk_2834A5D08;
+            v78 = v29;
+            v34 = TSCEASTFunctionElement::size(&v77, this, a3, a4);
+            v35 = (*(*this + 40))(this, &v77);
+            TSCEASTStreamIterator::appendElement(this, v35);
             goto LABEL_66;
           case 18:
-            v87 = v87 & 0xF8 | 2;
-            v85 = &unk_2834A5998;
-            v86 = v33;
-            v51 = (*(*this + 40))(this, &v85);
-            TSCEASTStreamIterator::appendElement(this, v51);
+            v79 = v79 & 0xF8 | 2;
+            v77 = &unk_2834A5998;
+            v78 = v29;
+            v46 = (*(*this + 40))(this, &v77);
+            TSCEASTStreamIterator::appendElement(this, v46);
             goto LABEL_58;
           case 19:
-            v87 = v87 & 0xF8 | 2;
-            v85 = &unk_2834A5A48;
-            v86 = v33;
-            v53 = (*(*this + 40))(this, &v85);
-            TSCEASTStreamIterator::appendElement(this, v53);
+            v79 = v79 & 0xF8 | 2;
+            v77 = &unk_2834A5A48;
+            v78 = v29;
+            v48 = (*(*this + 40))(this, &v77);
+            TSCEASTStreamIterator::appendElement(this, v48);
             goto LABEL_70;
           case 20:
-            v87 = v87 & 0xF8 | 2;
-            v85 = &unk_2834A58E8;
-            v86 = v33;
-            v38 = TSCEASTStringElement::size(&v85, this, a3, a4, a5);
-            v55 = (*(*this + 40))(this, &v85);
-            TSCEASTStreamIterator::appendElement(this, v55);
+            v79 = v79 & 0xF8 | 2;
+            v77 = &unk_2834A58E8;
+            v78 = v29;
+            v34 = TSCEASTStringElement::size(&v77, this, a3, a4);
+            v50 = (*(*this + 40))(this, &v77);
+            TSCEASTStreamIterator::appendElement(this, v50);
             break;
           case 21:
-            v87 = v87 & 0xF8 | 2;
-            v85 = &unk_2834A5AF8;
-            v86 = v33;
-            v38 = TSCEASTDateElement::size(&v85, this, a3, a4, a5);
-            v52 = (*(*this + 40))(this, &v85);
-            TSCEASTStreamIterator::appendElement(this, v52);
+            v79 = v79 & 0xF8 | 2;
+            v77 = &unk_2834A5AF8;
+            v78 = v29;
+            v34 = TSCEASTDateElement::size(&v77, this, a3, a4);
+            v47 = (*(*this + 40))(this, &v77);
+            TSCEASTStreamIterator::appendElement(this, v47);
             break;
           case 22:
-            v87 = v87 & 0xF8 | 2;
-            v85 = &unk_2834A5BA8;
-            v86 = v33;
-            v38 = TSCEASTDurationElement::size();
-            v54 = (*(*this + 40))(this, &v85);
-            TSCEASTStreamIterator::appendElement(this, v54);
+            v79 = v79 & 0xF8 | 2;
+            v77 = &unk_2834A5BA8;
+            v78 = v29;
+            v34 = TSCEASTDurationElement::size();
+            v49 = (*(*this + 40))(this, &v77);
+            TSCEASTStreamIterator::appendElement(this, v49);
             break;
           case 23:
-            v87 = v87 & 0xF8 | 2;
-            v85 = &unk_2834A5838;
-            v86 = v33;
-            v50 = (*(*this + 40))(this, &v85);
-            TSCEASTStreamIterator::appendElement(this, v50);
+            v79 = v79 & 0xF8 | 2;
+            v77 = &unk_2834A5838;
+            v78 = v29;
+            v45 = (*(*this + 40))(this, &v77);
+            TSCEASTStreamIterator::appendElement(this, v45);
             goto LABEL_48;
           case 24:
-            v87 = v87 & 0xF8 | 2;
-            v85 = &unk_2834A5C58;
-            v86 = v33;
-            v61 = (*(*this + 40))(this, &v85);
-            TSCEASTStreamIterator::appendElement(this, v61);
+            v79 = v79 & 0xF8 | 2;
+            v77 = &unk_2834A5C58;
+            v78 = v29;
+            v56 = (*(*this + 40))(this, &v77);
+            TSCEASTStreamIterator::appendElement(this, v56);
             goto LABEL_70;
           case 25:
-            v87 = v87 & 0xF8 | 2;
-            v89 = 0;
-            v90 = 0;
-            v88 = 0;
-            v85 = &unk_2834A6208;
-            v86 = v33;
-            v59 = (*(*this + 40))(this, &v85);
-            TSCEASTStreamIterator::appendElement(this, v59);
+            v79 = v79 & 0xF8 | 2;
+            v81 = 0;
+            v82 = 0;
+            v80 = 0;
+            v77 = &unk_2834A6208;
+            v78 = v29;
+            v54 = (*(*this + 40))(this, &v77);
+            TSCEASTStreamIterator::appendElement(this, v54);
             goto LABEL_72;
           case 26:
-            v87 = v87 & 0xF8 | 2;
-            v89 = 0;
-            v90 = 0;
-            v88 = 0;
-            v85 = &unk_2834A62B8;
-            v86 = v33;
-            v62 = (*(*this + 40))(this, &v85);
-            TSCEASTStreamIterator::appendElement(this, v62);
+            v79 = v79 & 0xF8 | 2;
+            v81 = 0;
+            v82 = 0;
+            v80 = 0;
+            v77 = &unk_2834A62B8;
+            v78 = v29;
+            v57 = (*(*this + 40))(this, &v77);
+            TSCEASTStreamIterator::appendElement(this, v57);
 LABEL_72:
-            TSCEASTElementWithChildren::~TSCEASTElementWithChildren(&v85);
+            TSCEASTElementWithChildren::~TSCEASTElementWithChildren(&v77);
             goto LABEL_74;
           case 27:
           case 56:
             operator new();
           case 28:
           case 45:
-            v87 = v87 & 0xF8 | 2;
-            v89 = 0;
-            v90 = 0;
-            v88 = 0;
-            v85 = &unk_2834A5578;
-            v86 = v33;
-            v38 = TSCEASTColonElement::size(&v85, this);
-            v45 = (*(*this + 40))(this, &v85);
-            (*(*this + 72))(this, &v85);
-            TSCEASTStreamIterator::appendElement(this, v45);
+            v79 = v79 & 0xF8 | 2;
+            v81 = 0;
+            v82 = 0;
+            v80 = 0;
+            v77 = &unk_2834A5578;
+            v78 = v29;
+            v34 = TSCEASTColonElement::size(&v77, this);
+            v40 = (*(*this + 40))(this, &v77);
+            (*(*this + 72))(this, &v77);
+            TSCEASTStreamIterator::appendElement(this, v40);
             goto LABEL_66;
           case 29:
           case 36:
-            v87 = v87 & 0xF8 | 2;
-            v85 = &unk_2834A5F18;
-            v86 = v33;
-            v38 = TSCEASTRelativeCoordRefElement::size(&v85, this);
-            v47 = (*(*this + 40))(this, &v85);
-            TSCEASTStreamIterator::appendElement(this, v47);
+            v79 = v79 & 0xF8 | 2;
+            v77 = &unk_2834A5F18;
+            v78 = v29;
+            v34 = TSCEASTRelativeCoordRefElement::size(&v77, this);
+            v42 = (*(*this + 40))(this, &v77);
+            TSCEASTStreamIterator::appendElement(this, v42);
             break;
           case 30:
-            v87 = v87 & 0xF8 | 2;
-            v89 = 0;
-            v90 = 0;
-            v88 = 0;
-            v85 = &unk_2834A5DB8;
-            v86 = v33;
-            v38 = TSCEASTUnknownFunctionElement::size(&v85, this, a3, a4, a5);
-            v56 = (*(*this + 40))(this, &v85);
-            TSCEASTStreamIterator::appendElement(this, v56);
+            v79 = v79 & 0xF8 | 2;
+            v81 = 0;
+            v82 = 0;
+            v80 = 0;
+            v77 = &unk_2834A5DB8;
+            v78 = v29;
+            v34 = TSCEASTUnknownFunctionElement::size(&v77, this, a3, a4);
+            v51 = (*(*this + 40))(this, &v77);
+            TSCEASTStreamIterator::appendElement(this, v51);
             goto LABEL_66;
           case 31:
           case 32:
-            v87 = v87 & 0xF8 | 2;
-            v89 = 0;
-            v90 = 0;
-            v88 = 0;
-            v85 = &unk_2834A5E68;
-            v86 = v33;
-            v38 = TSCEASTWhitespaceElement::size(&v85, this, a3, a4, a5);
-            v46 = (*(*this + 40))(this, &v85);
-            TSCEASTStreamIterator::appendElement(this, v46);
+            v79 = v79 & 0xF8 | 2;
+            v81 = 0;
+            v82 = 0;
+            v80 = 0;
+            v77 = &unk_2834A5E68;
+            v78 = v29;
+            v34 = TSCEASTWhitespaceElement::size(&v77, this, a3, a4);
+            v41 = (*(*this + 40))(this, &v77);
+            TSCEASTStreamIterator::appendElement(this, v41);
             goto LABEL_66;
           case 50:
-            v87 = v87 & 0xF8 | 2;
-            v85 = &unk_2834A60A8;
-            v86 = v33;
-            v38 = TSCEASTUidReferenceElement::size(&v85, this);
-            v60 = (*(*this + 40))(this, &v85);
-            TSCEASTStreamIterator::appendElement(this, v60);
+            v79 = v79 & 0xF8 | 2;
+            v77 = &unk_2834A60A8;
+            v78 = v29;
+            v34 = TSCEASTUidReferenceElement::size(&v77, this);
+            v55 = (*(*this + 40))(this, &v77);
+            TSCEASTStreamIterator::appendElement(this, v55);
             break;
           case 52:
-            v87 = v87 & 0xF8 | 2;
-            v89 = 0;
-            v90 = 0;
-            v88 = 0;
-            v85 = &unk_2834A6418;
-            v86 = v33;
-            v38 = TSCEASTLetBindElement::size(&v85, this, a3, a4, a5);
-            v58 = (*(*this + 40))(this, &v85);
-            TSCEASTStreamIterator::appendElement(this, v58);
+            v79 = v79 & 0xF8 | 2;
+            v81 = 0;
+            v82 = 0;
+            v80 = 0;
+            v77 = &unk_2834A6418;
+            v78 = v29;
+            v34 = TSCEASTLetBindElement::size(&v77, this, a3, a4);
+            v53 = (*(*this + 40))(this, &v77);
+            TSCEASTStreamIterator::appendElement(this, v53);
             goto LABEL_66;
           case 53:
-            v87 = v87 & 0xF8 | 2;
-            v85 = &unk_2834A64C8;
-            v86 = v33;
-            v63 = (*(*this + 40))(this, &v85);
-            TSCEASTStreamIterator::appendElement(this, v63);
+            v79 = v79 & 0xF8 | 2;
+            v77 = &unk_2834A64C8;
+            v78 = v29;
+            v58 = (*(*this + 40))(this, &v77);
+            TSCEASTStreamIterator::appendElement(this, v58);
 LABEL_74:
-            v38 = 5;
+            v34 = 5;
             break;
           case 54:
-            v87 = v87 & 0xF8 | 2;
-            v85 = &unk_2834A6578;
-            v86 = v33;
-            v64 = (*(*this + 40))(this, &v85);
-            TSCEASTStreamIterator::appendElement(this, v64);
+            v79 = v79 & 0xF8 | 2;
+            v77 = &unk_2834A6578;
+            v78 = v29;
+            v59 = (*(*this + 40))(this, &v77);
+            TSCEASTStreamIterator::appendElement(this, v59);
 LABEL_48:
-            v38 = 1;
+            v34 = 1;
             break;
           case 55:
-            v87 = v87 & 0xF8 | 2;
-            v89 = 0;
-            v90 = 0;
-            v88 = 0;
-            v85 = &unk_2834A6628;
-            v86 = v33;
-            v38 = TSCEASTLambdaElement::size(&v85, this, a3, a4, a5);
-            v48 = (*(*this + 40))(this, &v85);
-            TSCEASTStreamIterator::appendElement(this, v48);
+            v79 = v79 & 0xF8 | 2;
+            v81 = 0;
+            v82 = 0;
+            v80 = 0;
+            v77 = &unk_2834A6628;
+            v78 = v29;
+            v34 = TSCEASTLambdaElement::size(&v77, this, a3, a4);
+            v43 = (*(*this + 40))(this, &v77);
+            TSCEASTStreamIterator::appendElement(this, v43);
 LABEL_66:
-            TSCEASTElementWithChildren::~TSCEASTElementWithChildren(&v85);
+            TSCEASTElementWithChildren::~TSCEASTElementWithChildren(&v77);
             break;
           case 63:
           case 64:
           case 65:
-            v87 = v87 & 0xF8 | 2;
-            v85 = &unk_2834A5FE8;
-            v86 = v33;
-            v44 = (*(*this + 40))(this, &v85);
-            TSCEASTStreamIterator::appendElement(this, v44);
+            v79 = v79 & 0xF8 | 2;
+            v77 = &unk_2834A5FE8;
+            v78 = v29;
+            v39 = (*(*this + 40))(this, &v77);
+            TSCEASTStreamIterator::appendElement(this, v39);
 LABEL_58:
-            v38 = 17;
+            v34 = 17;
             break;
           case 66:
-            v87 = v87 & 0xF8 | 2;
-            v85 = &unk_2834A66D8;
-            v86 = v33;
-            v38 = TSCEASTCategoryRefElement::size(&v85, this, a3, a4, a5);
-            v66 = (*(*this + 40))(this, &v85);
-            TSCEASTStreamIterator::appendElement(this, v66);
+            v79 = v79 & 0xF8 | 2;
+            v77 = &unk_2834A66D8;
+            v78 = v29;
+            v34 = TSCEASTCategoryRefElement::size(&v77, this, a3, a4);
+            v61 = (*(*this + 40))(this, &v77);
+            TSCEASTStreamIterator::appendElement(this, v61);
             break;
           case 67:
-            v87 = v87 & 0xF8 | 2;
-            v85 = &unk_2834A5628;
-            v86 = v33;
-            v38 = TSCEASTColonTractElement::size(&v85, this, a3, a4, a5);
-            v49 = (*(*this + 40))(this, &v85);
-            TSCEASTStreamIterator::appendElement(this, v49);
+            v79 = v79 & 0xF8 | 2;
+            v77 = &unk_2834A5628;
+            v78 = v29;
+            v34 = TSCEASTColonTractElement::size(&v77, this, a3, a4);
+            v44 = (*(*this + 40))(this, &v77);
+            TSCEASTStreamIterator::appendElement(this, v44);
             break;
           case 68:
-            v87 = v87 & 0xF8 | 2;
-            v85 = &unk_2834A6158;
-            v86 = v33;
-            v38 = TSCEASTViewTractRefElement::size(&v85, this);
-            v65 = (*(*this + 40))(this, &v85);
-            TSCEASTStreamIterator::appendElement(this, v65);
+            v79 = v79 & 0xF8 | 2;
+            v77 = &unk_2834A6158;
+            v78 = v29;
+            v34 = TSCEASTViewTractRefElement::size(&v77, this);
+            v60 = (*(*this + 40))(this, &v77);
+            TSCEASTStreamIterator::appendElement(this, v60);
             break;
           case 69:
-            v87 = v87 & 0xF8 | 2;
-            v89 = 0;
-            v90 = 0;
-            v88 = 0;
-            v85 = &unk_2834A5788;
-            v86 = v33;
-            v57 = (*(*this + 40))(this, &v85);
-            TSCEASTStreamIterator::appendElement(this, v57);
-            TSCEASTElementWithChildren::~TSCEASTElementWithChildren(&v85);
+            v79 = v79 & 0xF8 | 2;
+            v81 = 0;
+            v82 = 0;
+            v80 = 0;
+            v77 = &unk_2834A5788;
+            v78 = v29;
+            v52 = (*(*this + 40))(this, &v77);
+            TSCEASTStreamIterator::appendElement(this, v52);
+            TSCEASTElementWithChildren::~TSCEASTElementWithChildren(&v77);
 LABEL_70:
-            v38 = 2;
+            v34 = 2;
             break;
           default:
-            v67 = MEMORY[0x277D81150];
-            v84 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, v8, a4, a5);
-            v68 = v8;
-            v72 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v69, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCEASTStreamIterator.mm", v70, v71);
-            v73 = v92;
-            v78 = TSCEASTNodeArray::codeString(*(this + 2), v74, v75, v76, v77);
-            objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v67, v79, v84, v72, 398, 0, "%d is not a valid node tag, seen at offset: %lu, seen in %{public}@", v36, v73, v78);
+            v62 = MEMORY[0x277D81150];
+            v76 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, v7, a4);
+            v63 = v7;
+            v66 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v64, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCEASTStreamIterator.mm", v65);
+            v67 = v84;
+            v71 = TSCEASTNodeArray::codeString(*(this + 2), v68, v69, v70);
+            objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v62, v72, v76, v66, 398, 0, "%d is not a valid node tag, seen at offset: %lu, seen in %{public}@", v32, v67, v71);
 
-            objc_msgSend_logFullBacktrace(MEMORY[0x277D81150], v80, v81, v82, v83);
-            v8 = v68;
-            v38 = 0;
+            objc_msgSend_logFullBacktrace(MEMORY[0x277D81150], v73, v74, v75);
+            v7 = v63;
+            v34 = 0;
             *(this + 99) = 1;
             break;
         }
 
-        sub_22120C7F0(&v91, (v38 + v33), v41, v42, v43);
+        sub_22120C7F0(&v83, (v34 + v29), v37, v38);
         if ((*(*this + 320))(this))
         {
           *(this + 99) = 1;
-          return sub_22120E388(&v91);
+          return sub_22120E388(&v83);
         }
 
         if (*(this + 99))
         {
-          return sub_22120E388(&v91);
+          return sub_22120E388(&v83);
         }
 
         goto LABEL_9;
       }
 
-      v12 = *(this + 15);
-      if (!v12 || (v13 = v12[1], *v12 == v13))
+      v11 = *(this + 15);
+      if (!v11 || (v12 = v11[1], *v11 == v12))
       {
-        v14 = 0;
+        v13 = 0;
       }
 
       else
       {
-        v14 = *(v13 - 8);
-        v12[1] = v13 - 8;
+        v13 = *(v12 - 8);
+        v11[1] = v12 - 8;
       }
 
-      v15 = TSCEASTElement::tag(v14, this);
-      if (v15 == 56)
+      v14 = TSCEASTElement::tag(v13, this);
+      if (v14 == 56)
       {
         break;
       }
 
-      if (v15 == 52)
+      if (v14 == 52)
       {
-        if (!v14 || (*(this + 96) & 1) != 0)
+        if (!v13 || (*(this + 96) & 1) != 0)
         {
           goto LABEL_34;
         }
 
 LABEL_32:
-        v20 = TSCEASTStreamIterator::popEmbeddedSizeOffset(this, v16, v17, v18, v19);
-        *(**(this + 13) + v20) = *(*(this + 13) + 8) - v20 - 8;
+        v18 = TSCEASTStreamIterator::popEmbeddedSizeOffset(this, v15, v16, v17);
+        *(**(this + 13) + v18) = *(*(this + 13) + 8) - v18 - 8;
         goto LABEL_34;
       }
 
-      if (v15 == 27)
+      if (v14 == 27)
       {
         break;
       }
 
-      v21 = MEMORY[0x277D81150];
-      v22 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v16, v8, v18, v19);
-      v26 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v23, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCEASTStreamIterator.mm", v24, v25);
-      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v21, v27, v22, v26, 175, 0, "Unexpected incomplete embedded node type found");
+      v19 = MEMORY[0x277D81150];
+      v20 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v15, v7, v17);
+      v23 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v21, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCEASTStreamIterator.mm", v22);
+      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v19, v24, v20, v23, 175, 0, "Unexpected incomplete embedded node type found");
 
-      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v28, v29, v30, v31);
+      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v25, v26, v27);
 LABEL_34:
-      TSCEASTNodeArrayReader::popEndPoint(&v91);
-      v32 = *(this + 15);
-      if (!v32 || *v32 == v32[1])
+      TSCEASTNodeArrayReader::popEndPoint(&v83);
+      v28 = *(this + 15);
+      if (!v28 || *v28 == v28[1])
       {
         goto LABEL_36;
       }
     }
 
-    if (!v14)
+    if (!v13)
     {
       goto LABEL_34;
     }
 
-    (*(*this + 192))(this, v14);
+    (*(*this + 192))(this, v13);
     if (*(this + 96))
     {
       goto LABEL_34;
@@ -2360,23 +2362,23 @@ LABEL_34:
     goto LABEL_32;
   }
 
-  return sub_22120E388(&v91);
+  return sub_22120E388(&v83);
 }
 
-void sub_2212D28C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_2212D28C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
 
   sub_22120E388(va);
   _Unwind_Resume(a1);
 }
 
-void sub_2212D35A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_2212D35A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
 
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v14 - 128), 8);
+  _Block_object_dispose((v21 - 128), 8);
 
   _Unwind_Resume(a1);
 }
@@ -2384,17 +2386,17 @@ void sub_2212D35A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 void sub_2212D3700(uint64_t a1, void *a2)
 {
   v3 = a2;
-  TSCEFormat::TSCEFormat(&v8, v3, 0);
+  TSCEFormat::TSCEFormat(&v7, v3, 0);
   if (*(*(*(a1 + 32) + 8) + 24) == 1)
   {
-    TSCEFormat::operator=(*(*(a1 + 40) + 8) + 48, &v8);
+    TSCEFormat::operator=(*(*(a1 + 40) + 8) + 48, &v7);
     *(*(*(a1 + 32) + 8) + 24) = 0;
   }
 
   else
   {
-    TSCEFormat::formatByMergingWithFormat((*(*(a1 + 40) + 8) + 48), &v8, v4, v5, v6, v7);
-    TSCEFormat::operator=(*(*(a1 + 40) + 8) + 48, v7);
+    TSCEFormat::formatByMergingWithFormat(&v6, (*(*(a1 + 40) + 8) + 48), &v7, v4, v5);
+    TSCEFormat::operator=(*(*(a1 + 40) + 8) + 48, &v6);
   }
 }
 
@@ -2403,143 +2405,144 @@ uint64_t sub_2212D4278(uint64_t a1, TSUIndexRange *this)
   v2 = *(a1 + 32);
   v4 = TSUIndexRange::asNSRange(this);
 
-  return objc_msgSend_addIndexesInRange_(v2, v3, v4, v3, v5);
+  return objc_msgSend_addIndexesInRange_(v2, v3, v4, v3);
 }
 
-uint64_t sub_2212D44EC(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5)
+uint64_t sub_2212D44EC(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4)
 {
-  v11[0] = a2;
-  v11[1] = a3;
-  v6 = objc_msgSend_lookupKeyForRowUID_(*(a1 + 32), a2, v11, a4, a5);
-  return objc_msgSend_addIndex_(*(a1 + 40), v7, v6, v8, v9);
+  v9[0] = a2;
+  v9[1] = a3;
+  v5 = objc_msgSend_lookupKeyForRowUID_(*(a1 + 32), a2, v9, a4);
+  return objc_msgSend_addIndex_(*(a1 + 40), v6, v5, v7);
 }
 
 void sub_2212D464C(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
-  v9 = a3;
-  v10 = *(a1 + 40);
-  v11 = *(v10 + 40);
-  if (!v11)
+  v8 = a3;
+  v9 = *(a1 + 40);
+  v10 = *(v9 + 40);
+  if (!v10)
   {
     goto LABEL_6;
   }
 
-  v12 = *(v10 + 32);
-  v13 = *v11;
-  if (v12 < *v11)
+  v11 = *(v9 + 32);
+  v12 = *v10;
+  if (v11 < *v10)
   {
-    *(v10 + 32) = v12 + 1;
-    objc_msgSend_encodeToArchive_(v5, v6, *&v11[2 * v12 + 2], v7, v8);
+    *(v9 + 32) = v11 + 1;
+    objc_msgSend_encodeToArchive_(v5, v6, *&v10[2 * v11 + 2], v7);
     goto LABEL_8;
   }
 
-  if (v13 == *(v10 + 36))
+  if (v12 == *(v9 + 36))
   {
 LABEL_6:
-    google::protobuf::internal::RepeatedPtrFieldBase::Reserve((v10 + 24));
-    v11 = *(v10 + 40);
-    v13 = *v11;
+    google::protobuf::internal::RepeatedPtrFieldBase::Reserve((v9 + 24));
+    v10 = *(v9 + 40);
+    v12 = *v10;
   }
 
-  *v11 = v13 + 1;
-  v17 = MEMORY[0x223DA02D0](*(v10 + 24));
-  v18 = *(v10 + 32);
-  v19 = *(v10 + 40) + 8 * v18;
-  *(v10 + 32) = v18 + 1;
-  *(v19 + 8) = v17;
-  objc_msgSend_encodeToArchive_(v5, v20, v17, v21, v22);
+  *v10 = v12 + 1;
+  v15 = MEMORY[0x223DA02D0](*(v9 + 24));
+  v16 = *(v9 + 32);
+  v17 = *(v9 + 40) + 8 * v16;
+  *(v9 + 32) = v16 + 1;
+  *(v17 + 8) = v15;
+  objc_msgSend_encodeToArchive_(v5, v18, v15, v19);
 LABEL_8:
   if (!*(a1 + 32))
   {
-    v23 = MEMORY[0x277D81150];
-    v24 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v14, "[TSTGroupNodeFormatManager encodeToArchive:forGroupBy:backwardCompat:]_block_invoke", v15, v16);
-    v28 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v25, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTGroupNodeFormatManager.mm", v26, v27);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v23, v29, v24, v28, 314, 0, "invalid nil value for '%{public}s'", "groupBy");
+    v20 = MEMORY[0x277D81150];
+    v21 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v13, "[TSTGroupNodeFormatManager encodeToArchive:forGroupBy:backwardCompat:]_block_invoke", v14);
+    v24 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v22, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTGroupNodeFormatManager.mm", v23);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v20, v25, v21, v24, 314, 0, "invalid nil value for '%{public}s'", "groupBy");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v30, v31, v32, v33);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v26, v27, v28);
   }
 
-  MEMORY[0x223D9F7A0](&v58, v9);
-  v34 = *(a1 + 40);
-  v35 = *(v34 + 88);
-  if (!v35)
+  MEMORY[0x223D9F7A0](&v51, v8);
+  v29 = *(a1 + 40);
+  v30 = *(v29 + 88);
+  if (!v30)
   {
     goto LABEL_15;
   }
 
-  v36 = *(v34 + 80);
-  v37 = *v35;
-  if (v36 >= *v35)
+  v31 = *(v29 + 80);
+  v32 = *v30;
+  if (v31 >= *v30)
   {
-    if (v37 != *(v34 + 84))
+    if (v32 != *(v29 + 84))
     {
 LABEL_16:
-      *v35 = v37 + 1;
-      v38 = google::protobuf::Arena::CreateMaybeMessage<TSCE::IndexSetArchive>(*(v34 + 72));
-      v39 = *(v34 + 80);
-      v40 = *(v34 + 88) + 8 * v39;
-      *(v34 + 80) = v39 + 1;
-      *(v40 + 8) = v38;
+      *v30 = v32 + 1;
+      v33 = google::protobuf::Arena::CreateMaybeMessage<TSCE::IndexSetArchive>(*(v29 + 72));
+      v34 = *(v29 + 80);
+      v35 = *(v29 + 88) + 8 * v34;
+      *(v29 + 80) = v34 + 1;
+      *(v35 + 8) = v33;
       goto LABEL_17;
     }
 
 LABEL_15:
-    google::protobuf::internal::RepeatedPtrFieldBase::Reserve((v34 + 72));
-    v35 = *(v34 + 88);
-    v37 = *v35;
+    google::protobuf::internal::RepeatedPtrFieldBase::Reserve((v29 + 72));
+    v30 = *(v29 + 88);
+    v32 = *v30;
     goto LABEL_16;
   }
 
-  *(v34 + 80) = v36 + 1;
+  *(v29 + 80) = v31 + 1;
+  v33 = *&v30[2 * v31 + 2];
 LABEL_17:
-  sub_22126A644();
-  if (*(a1 + 48) == 1 && (objc_msgSend_isForPivotTable(*(a1 + 32), v41, v42, v43, v44) & 1) == 0)
+  sub_22126A644(&v51, v33);
+  if (*(a1 + 48) == 1 && (objc_msgSend_isForPivotTable(*(a1 + 32), v36, v37, v38) & 1) == 0)
   {
-    v45 = *(a1 + 40);
-    v46 = *(v45 + 64);
-    if (!v46)
+    v39 = *(a1 + 40);
+    v40 = *(v39 + 64);
+    if (!v40)
     {
       goto LABEL_24;
     }
 
-    v47 = *(v45 + 56);
-    v48 = *v46;
-    if (v47 < *v46)
+    v41 = *(v39 + 56);
+    v42 = *v40;
+    if (v41 < *v40)
     {
-      *(v45 + 56) = v47 + 1;
-      v49 = *&v46[2 * v47 + 2];
+      *(v39 + 56) = v41 + 1;
+      v43 = *&v40[2 * v41 + 2];
 LABEL_26:
-      v55[0] = MEMORY[0x277D85DD0];
-      v55[1] = 3221225472;
-      v55[2] = sub_2212D49A8;
-      v55[3] = &unk_278462B20;
-      v56 = *(a1 + 32);
-      v57 = v49;
-      objc_msgSend_enumerateIndexesUsingBlock_(v9, v52, v55, v53, v54);
+      v48[0] = MEMORY[0x277D85DD0];
+      v48[1] = 3221225472;
+      v48[2] = sub_2212D49A8;
+      v48[3] = &unk_278462B20;
+      v49 = *(a1 + 32);
+      v50 = v43;
+      objc_msgSend_enumerateIndexesUsingBlock_(v8, v46, v48, v47);
 
       goto LABEL_27;
     }
 
-    if (v48 == *(v45 + 60))
+    if (v42 == *(v39 + 60))
     {
 LABEL_24:
-      google::protobuf::internal::RepeatedPtrFieldBase::Reserve((v45 + 48));
-      v46 = *(v45 + 64);
-      v48 = *v46;
+      google::protobuf::internal::RepeatedPtrFieldBase::Reserve((v39 + 48));
+      v40 = *(v39 + 64);
+      v42 = *v40;
     }
 
-    *v46 = v48 + 1;
-    v49 = google::protobuf::Arena::CreateMaybeMessage<TST::GroupByArchive_GroupNodeArchive_FormatManagerArchive_RowSetArchive>(*(v45 + 48));
-    v50 = *(v45 + 56);
-    v51 = *(v45 + 64) + 8 * v50;
-    *(v45 + 56) = v50 + 1;
-    *(v51 + 8) = v49;
+    *v40 = v42 + 1;
+    v43 = google::protobuf::Arena::CreateMaybeMessage<TST::GroupByArchive_GroupNodeArchive_FormatManagerArchive_RowSetArchive>(*(v39 + 48));
+    v44 = *(v39 + 56);
+    v45 = *(v39 + 64) + 8 * v44;
+    *(v39 + 56) = v44 + 1;
+    *(v45 + 8) = v43;
     goto LABEL_26;
   }
 
 LABEL_27:
-  TSUIndexSet::~TSUIndexSet(&v58);
+  TSUIndexSet::~TSUIndexSet(&v51);
 }
 
 void sub_2212D4954(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, TSUIndexSet *a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *a15, uint64_t a16, uint64_t a17)
@@ -2549,49 +2552,49 @@ void sub_2212D4954(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_2212D49A8(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5)
+uint64_t sub_2212D49A8(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4)
 {
-  v15._lower = objc_msgSend_rowUIDForLookupKey_(*(a1 + 32), a2, a2, a4, a5);
-  v15._upper = v6;
-  v7 = *(a1 + 40);
-  v8 = *(v7 + 32);
-  if (!v8)
+  v14._lower = objc_msgSend_rowUIDForLookupKey_(*(a1 + 32), a2, a2, a4);
+  v14._upper = v5;
+  v6 = *(a1 + 40);
+  v7 = *(v6 + 32);
+  if (!v7)
   {
     goto LABEL_6;
   }
 
-  v9 = *(v7 + 24);
-  v10 = *v8;
-  if (v9 >= *v8)
+  v8 = *(v6 + 24);
+  v9 = *v7;
+  if (v8 >= *v7)
   {
-    if (v10 != *(v7 + 28))
+    if (v9 != *(v6 + 28))
     {
 LABEL_7:
-      *v8 = v10 + 1;
-      v11 = MEMORY[0x223DA0360](*(v7 + 16));
-      v12 = *(v7 + 24);
-      v13 = *(v7 + 32) + 8 * v12;
-      *(v7 + 24) = v12 + 1;
-      *(v13 + 8) = v11;
-      return TSKUIDStruct::saveToMessage(&v15, v11);
+      *v7 = v9 + 1;
+      v10 = MEMORY[0x223DA0360](*(v6 + 16));
+      v11 = *(v6 + 24);
+      v12 = *(v6 + 32) + 8 * v11;
+      *(v6 + 24) = v11 + 1;
+      *(v12 + 8) = v10;
+      return TSKUIDStruct::saveToMessage(&v14, v10);
     }
 
 LABEL_6:
-    google::protobuf::internal::RepeatedPtrFieldBase::Reserve((v7 + 16));
-    v8 = *(v7 + 32);
-    v10 = *v8;
+    google::protobuf::internal::RepeatedPtrFieldBase::Reserve((v6 + 16));
+    v7 = *(v6 + 32);
+    v9 = *v7;
     goto LABEL_7;
   }
 
-  *(v7 + 24) = v9 + 1;
-  v11 = *&v8[2 * v9 + 2];
-  return TSKUIDStruct::saveToMessage(&v15, v11);
+  *(v6 + 24) = v8 + 1;
+  v10 = *&v7[2 * v8 + 2];
+  return TSKUIDStruct::saveToMessage(&v14, v10);
 }
 
-void sub_2212D5AF4(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5)
+void sub_2212D5AF4(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4)
 {
-  v9 = objc_msgSend_sharedTableConfiguration(TSTConfiguration, a2, a3, a4, a5);
-  byte_27CFB44B8 = objc_msgSend_tokenizeFormulaStringLiterals(v9, v5, v6, v7, v8);
+  v7 = objc_msgSend_sharedTableConfiguration(TSTConfiguration, a2, a3, a4);
+  byte_27CFB44B8 = objc_msgSend_tokenizeFormulaStringLiterals(v7, v4, v5, v6);
 }
 
 void sub_2212D61D8(uint64_t a1, char *__s)
@@ -2645,9 +2648,9 @@ void TSTParser::TSTParser(TSTParser *this, TSCECalculationEngine *a2, TSWPStorag
   *(this + 3) = 0;
   *(this + 4) = v9;
   *(this + 5) = 0;
-  v15 = objc_msgSend_documentLocale(v10, v11, v12, v13, v14);
-  v20 = objc_msgSend_listSeparator(v15, v16, v17, v18, v19);
-  isEqualToString = objc_msgSend_isEqualToString_(v20, v21, @",", v22, v23);
+  v14 = objc_msgSend_documentLocale(v10, v11, v12, v13);
+  v18 = objc_msgSend_listSeparator(v14, v15, v16, v17);
+  isEqualToString = objc_msgSend_isEqualToString_(v18, v19, @",", v20);
 
   if (isEqualToString)
   {
@@ -2674,51 +2677,51 @@ void TSTParser::~TSTParser(TSTParser *this)
   }
 }
 
-id TSTParser::locale(void **this, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5)
+id TSTParser::locale(id *this, const char *a2, uint64_t a3, uint64_t a4)
 {
-  v5 = objc_msgSend_documentLocale(*this, a2, a3, a4, a5);
+  v4 = objc_msgSend_documentLocale(*this, a2, a3, a4);
 
-  return v5;
+  return v4;
 }
 
 void *TSTParser::parse(TSTParser *this, TSTTableInfo *a2, const TSUModelCellCoord *a3)
 {
   v5 = a2;
   dword_27CFB6C78 = 0;
-  v10 = objc_autoreleasePoolPush();
+  v9 = objc_autoreleasePoolPush();
   if (v5)
   {
-    v11 = objc_msgSend_context(v5, v6, v7, v8, v9);
-    v16 = objc_msgSend_objectLocale(v11, v12, v13, v14, v15);
+    v10 = objc_msgSend_context(v5, v6, v7, v8);
+    v14 = objc_msgSend_objectLocale(v10, v11, v12, v13);
   }
 
   else
   {
-    v16 = objc_msgSend_documentLocale(*this, v6, v7, v8, v9);
+    v14 = objc_msgSend_documentLocale(*this, v6, v7, v8);
   }
 
-  v17 = *(this + 3);
+  v15 = *(this + 3);
   *(this + 3) = 0;
 
-  v18 = sub_2216F2CB8(this);
-  v23 = *(this + 3);
-  if (v18 == 1)
+  v16 = sub_2216F2CB8(this);
+  v20 = *(this + 3);
+  if (v16 == 1)
   {
-    if (!v23)
+    if (!v20)
     {
-      v24 = sub_2212B889C(*(this + 1));
-      if (objc_msgSend_length(v24, v25, v26, v27, v28))
+      v21 = sub_2212B889C(*(this + 1));
+      if (objc_msgSend_length(v21, v22, v23, v24))
       {
-        v29 = sub_2212B889C(*(this + 1));
-        v33 = objc_msgSend_characterAtIndex_(v29, v30, 0, v31, v32);
-        isFormulaEqualsCharacter = objc_msgSend_isFormulaEqualsCharacter_(TSTFormula, v34, v33, v35, v36);
+        v25 = sub_2212B889C(*(this + 1));
+        v28 = objc_msgSend_characterAtIndex_(v25, v26, 0, v27);
+        isFormulaEqualsCharacter = objc_msgSend_isFormulaEqualsCharacter_(TSTFormula, v29, v28, v30);
 
         if (isFormulaEqualsCharacter)
         {
-          v42 = objc_msgSend_syntaxLeadingEqualError(TSCEError, v38, v39, v40, v41);
+          v35 = objc_msgSend_syntaxLeadingEqualError(TSCEError, v32, v33, v34);
 LABEL_15:
-          v62 = *(this + 3);
-          *(this + 3) = v42;
+          v52 = *(this + 3);
+          *(this + 3) = v35;
 
           goto LABEL_16;
         }
@@ -2728,7 +2731,7 @@ LABEL_15:
       {
       }
 
-      v42 = objc_msgSend_syntaxError(TSCEError, v38, v39, v40, v41);
+      v35 = objc_msgSend_syntaxError(TSCEError, v32, v33, v34);
       goto LABEL_15;
     }
 
@@ -2737,28 +2740,28 @@ LABEL_16:
     goto LABEL_17;
   }
 
-  if (v23)
+  if (v20)
   {
     goto LABEL_16;
   }
 
-  v43 = objc_msgSend_convertEmptyArgumentsToPlaceholders(*(this + 2), v19, v20, v21, v22);
-  v44 = *(this + 2);
-  *(this + 2) = v43;
+  v36 = objc_msgSend_convertEmptyArgumentsToPlaceholders(*(this + 2), v17, v18, v19);
+  v37 = *(this + 2);
+  *(this + 2) = v36;
 
-  TSCESymbolTable::TSCESymbolTable(&v71, v16);
-  v50 = objc_msgSend_copyByResolvingIdentifiers_hostTable_baseHostCell_forceReferenceInterpretation_symbolTable_oldToNewNodeMap_(*(this + 2), v45, *this, v5, *a3, 0, &v71, 0);
-  if (v50)
+  TSCESymbolTable::TSCESymbolTable(&v61, v14);
+  v42 = objc_msgSend_copyByResolvingIdentifiers_hostTable_baseHostCell_forceReferenceInterpretation_symbolTable_oldToNewNodeMap_(*(this + 2), v38, *this, v5, *a3, 0, &v61, 0);
+  if (v42)
   {
-    TSCESymbolTable::TSCESymbolTable(&v70, v16);
-    v54 = objc_msgSend_variableUsageErrorWithSymbolTable_(v50, v51, &v70, v52, v53);
-    v55 = *(this + 3);
-    *(this + 3) = v54;
+    TSCESymbolTable::TSCESymbolTable(&v60, v14);
+    v45 = objc_msgSend_variableUsageErrorWithSymbolTable_(v42, v43, &v60, v44);
+    v46 = *(this + 3);
+    *(this + 3) = v45;
 
-    v60 = *(this + 3);
-    if (v60)
+    v50 = *(this + 3);
+    if (v50)
     {
-      isSyntaxError = objc_msgSend_isSyntaxError(v60, v56, v57, v58, v59);
+      isSyntaxError = objc_msgSend_isSyntaxError(v50, v47, v48, v49);
     }
 
     else
@@ -2766,50 +2769,50 @@ LABEL_16:
       isSyntaxError = 0;
     }
 
-    p_undoSymbolTableMaps = &v70._undoSymbolTableMaps;
+    p_undoSymbolTableMaps = &v60._undoSymbolTableMaps;
     sub_2210C8268(&p_undoSymbolTableMaps);
-    sub_221087B80(&v70._identifierMap);
-    sub_2210C82EC(&v70._symbolTableMap);
+    sub_221087B80(&v60._identifierMap);
+    sub_2210C82EC(&v60._symbolTableMap);
   }
 
   else
   {
-    v66 = objc_msgSend_syntaxError(TSCEError, v46, v47, v48, v49);
-    v67 = *(this + 3);
-    *(this + 3) = v66;
+    v56 = objc_msgSend_syntaxError(TSCEError, v39, v40, v41);
+    v57 = *(this + 3);
+    *(this + 3) = v56;
 
     isSyntaxError = *(this + 3) != 0;
   }
 
-  v68 = *(this + 2);
-  *(this + 2) = v50;
-  v69 = v50;
+  v58 = *(this + 2);
+  *(this + 2) = v42;
+  v59 = v42;
 
-  v70._locale = &v71._undoSymbolTableMaps;
-  sub_2210C8268(&v70);
-  sub_221087B80(&v71._identifierMap);
-  sub_2210C82EC(&v71._symbolTableMap);
+  v60._locale = &v61._undoSymbolTableMaps;
+  sub_2210C8268(&v60);
+  sub_221087B80(&v61._identifierMap);
+  sub_2210C82EC(&v61._symbolTableMap);
 
 LABEL_17:
-  objc_autoreleasePoolPop(v10);
+  objc_autoreleasePoolPop(v9);
   if (isSyntaxError)
   {
-    v63 = 0;
+    v53 = 0;
   }
 
   else
   {
-    v63 = *(this + 2);
+    v53 = *(this + 2);
   }
 
-  v64 = v63;
+  v54 = v53;
 
-  return v63;
+  return v53;
 }
 
-void sub_2212D68B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+void sub_2212D68B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  va_start(va, a17);
+  va_start(va, a24);
 
   sub_2210C8214(va);
   _Unwind_Resume(a1);
@@ -2822,80 +2825,80 @@ void sub_2212D696C(id *a1)
   JUMPOUT(0x223DA1450);
 }
 
-void sub_2212D6AB8(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5)
+void sub_2212D6AB8(uint64_t a1, const char *a2, uint64_t a3)
 {
-  v6 = *(a1 + 32);
-  if (v6)
+  v4 = *(a1 + 32);
+  if (v4)
   {
-    objc_msgSend_cellUIDRangeForCellRange_(v6, a2, a2, a3, a5);
-    v8 = v11[0];
-    v7 = v11[1];
-    v10 = *(&v12 + 1);
-    v9 = v13;
+    objc_msgSend_cellUIDRangeForCellRange_(v4, a2, a2, a3);
+    v6 = v9[0];
+    v5 = v9[1];
+    v8 = *(&v10 + 1);
+    v7 = v11;
   }
 
   else
   {
-    v10 = 0;
-    v9 = 0;
     v8 = 0;
     v7 = 0;
-    v12 = 0u;
+    v6 = 0;
+    v5 = 0;
+    v10 = 0u;
+    v11 = 0u;
+    *v9 = 0u;
+  }
+
+  if (((v7 - v8) >> 4) * ((v5 - v6) >> 4) && (v6 != v5 || v8 != v7))
+  {
+    sub_2210BAF64(*(a1 + 40) + 8, v9);
+  }
+
+  if (*(&v10 + 1))
+  {
+    *&v11 = *(&v10 + 1);
+    operator delete(*(&v10 + 1));
+  }
+
+  if (v9[0])
+  {
+    v9[1] = v9[0];
+    operator delete(v9[0]);
+  }
+}
+
+void sub_2212D6CA8(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4)
+{
+  v7 = objc_msgSend_columnRowUIDMap(*(a1 + 32), a2, a3, a4);
+  v9 = v7;
+  if (v7)
+  {
+    objc_msgSend_cellUIDRangeForCellRange_(v7, v8, a2, a3);
+  }
+
+  else
+  {
+    *__p = 0u;
     v13 = 0u;
     *v11 = 0u;
   }
 
-  if (((v9 - v10) >> 4) * ((v7 - v8) >> 4) && (v8 != v7 || v10 != v9))
+  v10 = __p[1];
+  if (((v13 - __p[1]) >> 4) * ((v11[1] - v11[0]) >> 4) && (v11[0] != v11[1] || __p[1] != v13))
   {
-    sub_2210BAF64((*(a1 + 40) + 8), v11);
+    sub_2210BAF64(*(a1 + 40) + 8, v11);
+    v10 = __p[1];
   }
 
-  if (*(&v12 + 1))
+  if (v10)
   {
-    *&v13 = *(&v12 + 1);
-    operator delete(*(&v12 + 1));
+    *&v13 = v10;
+    operator delete(v10);
   }
 
   if (v11[0])
   {
     v11[1] = v11[0];
     operator delete(v11[0]);
-  }
-}
-
-void sub_2212D6CA8(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5)
-{
-  v8 = objc_msgSend_columnRowUIDMap(*(a1 + 32), a2, a3, a4, a5);
-  v11 = v8;
-  if (v8)
-  {
-    objc_msgSend_cellUIDRangeForCellRange_(v8, v9, a2, a3, v10);
-  }
-
-  else
-  {
-    *__p = 0u;
-    v15 = 0u;
-    *v13 = 0u;
-  }
-
-  v12 = __p[1];
-  if (((v15 - __p[1]) >> 4) * ((v13[1] - v13[0]) >> 4) && (v13[0] != v13[1] || __p[1] != v15))
-  {
-    sub_2210BAF64((*(a1 + 40) + 8), v13);
-    v12 = __p[1];
-  }
-
-  if (v12)
-  {
-    *&v15 = v12;
-    operator delete(v12);
-  }
-
-  if (v13[0])
-  {
-    v13[1] = v13[0];
-    operator delete(v13[0]);
   }
 }
 
@@ -2906,7 +2909,7 @@ void sub_2212D7010(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_2212D7224(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, char a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, void *__p, uint64_t a27)
+void sub_2212D7224(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, void *__p, uint64_t a27)
 {
   _Block_object_dispose(&a20, 8);
   if (__p)
@@ -2920,14 +2923,12 @@ void sub_2212D7224(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 __n128 sub_2212D728C(__n128 *a1, __n128 *a2)
 {
-  a1[3].n128_u64[0] = 0;
-  a1[3].n128_u64[1] = 0;
+  a1[3] = 0uLL;
   a1[4].n128_u64[0] = 0;
   result = a2[3];
   a1[3] = result;
   a1[4].n128_u64[0] = a2[4].n128_u64[0];
-  a2[3].n128_u64[0] = 0;
-  a2[3].n128_u64[1] = 0;
+  a2[3] = 0uLL;
   a2[4].n128_u64[0] = 0;
   return result;
 }
@@ -3042,26 +3043,28 @@ uint64_t sub_2212D7A68(uint64_t a1, uint64_t a2, _BYTE *a3)
   return result;
 }
 
-void sub_2212D7C1C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17)
+void sub_2212D7C1C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
+  va_start(va, a16);
   if (__p)
   {
     operator delete(__p);
   }
 
-  sub_2210BDEC0(&a17);
+  sub_2210BDEC0(va);
 
   _Unwind_Resume(a1);
 }
 
-void sub_2212D7DB8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17)
+void sub_2212D7DB8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
+  va_start(va, a16);
   if (__p)
   {
     operator delete(__p);
   }
 
-  sub_2210BDEC0(&a17);
+  sub_2210BDEC0(va);
 
   _Unwind_Resume(a1);
 }
@@ -3075,24 +3078,25 @@ void sub_2212D7FE4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_2212D81A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, char a16)
+void sub_2212D81A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
+  va_start(va, a15);
   sub_22109DBB8(&a9);
-  MEMORY[0x223D9FC70](&a16);
+  MEMORY[0x223D9FC70](va);
 
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_2212D82F0(uint64_t a1, void *a2, uint64_t *a3)
+uint64_t *sub_2212D82F0(uint64_t a1, uint64_t *a2, uint64_t a3)
 {
   *a2 = 0;
   a2[1] = 0;
   a2[2] = 0;
-  sub_221086EBC(a2, *a3, a3[1], (a3[1] - *a3) >> 4);
+  sub_221086EBC(a2, *a3, *(a3 + 8), (*(a3 + 8) - *a3) >> 4);
   a2[3] = 0;
   a2[4] = 0;
   a2[5] = 0;
-  return sub_221086EBC((a2 + 3), a3[3], a3[4], (a3[4] - a3[3]) >> 4);
+  return sub_221086EBC(a2 + 3, *(a3 + 24), *(a3 + 32), (*(a3 + 32) - *(a3 + 24)) >> 4);
 }
 
 void sub_2212D834C(_Unwind_Exception *exception_object)
@@ -3107,7 +3111,7 @@ void sub_2212D834C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t sub_2212D8368(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *sub_2212D8368(uint64_t *result, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -3124,7 +3128,7 @@ void sub_2212D83D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void *sub_2212D83F0(uint64_t a1, uint64_t *a2, uint64_t *a3, void *a4)
+uint64_t *sub_2212D83F0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
   v4 = a4;
   v11 = a4;
@@ -3139,7 +3143,7 @@ void *sub_2212D83F0(uint64_t a1, uint64_t *a2, uint64_t *a3, void *a4)
     do
     {
       sub_2212D82F0(a1, v4, v6);
-      v6 += 6;
+      v6 += 48;
       v4 = v12 + 6;
       v12 += 6;
     }
@@ -3152,7 +3156,7 @@ void *sub_2212D83F0(uint64_t a1, uint64_t *a2, uint64_t *a3, void *a4)
   return v4;
 }
 
-void *sub_2212D849C(void *result, char *__src, char *a3, unint64_t a4)
+void **sub_2212D849C(void **result, char *__src, char *a3, unint64_t a4)
 {
   v6 = result;
   v7 = result[2];
@@ -3224,8 +3228,7 @@ void *sub_2212D849C(void *result, char *__src, char *a3, unint64_t a4)
       {
         v16 = *v13;
         v13 += 16;
-        *v15 = v16;
-        v15 += 16;
+        *v15++ = v16;
         v14 += 16;
       }
 
@@ -3239,53 +3242,53 @@ void *sub_2212D849C(void *result, char *__src, char *a3, unint64_t a4)
   return result;
 }
 
-void sub_2212D94A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_2212D94A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
-  TST::DateNodeArchive::~DateNodeArchive((v14 + 40));
+  va_start(va, a20);
+  TST::DateNodeArchive::~DateNodeArchive((v21 + 40));
   TST::DateNodeArchive::~DateNodeArchive(va);
 
   _Unwind_Resume(a1);
 }
 
-void sub_2212D94D4(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5)
+void sub_2212D94D4(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4)
 {
-  v6 = *(a1 + 64) & 0xFFFFFFFFFFFFFFFELL;
-  if (*(v6 + 23) < 0)
+  v5 = *(a1 + 64) & 0xFFFFFFFFFFFFFFFELL;
+  if (*(v5 + 23) < 0)
   {
-    v6 = *v6;
+    v5 = *v5;
   }
 
-  v30 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, v6, a4, a5);
-  v11 = objc_msgSend_objectLocale(*(a1 + 32), v7, v8, v9, v10);
-  v12 = TSUCreateDateFromString();
-  v13 = *(a1 + 32);
-  v14 = *(v13 + 136);
-  *(v13 + 136) = v12;
+  v26 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, v5, a4);
+  v9 = objc_msgSend_objectLocale(*(a1 + 32), v6, v7, v8);
+  v10 = TSUCreateDateFromString();
+  v11 = *(a1 + 32);
+  v12 = *(v11 + 136);
+  *(v11 + 136) = v10;
 
   *(*(a1 + 32) + 128) = 0;
   if ((*(*(a1 + 88) + 16) & 2) != 0)
   {
-    v27 = *(a1 + 72) & 0xFFFFFFFFFFFFFFFELL;
-    if (*(v27 + 23) < 0)
+    v23 = *(a1 + 72) & 0xFFFFFFFFFFFFFFFELL;
+    if (*(v23 + 23) < 0)
     {
-      v27 = *v27;
+      v23 = *v23;
     }
 
-    v28 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v15, v27, v17, v18);
-    v29 = *(a1 + 32);
-    v20 = *(v29 + 144);
-    *(v29 + 144) = v28;
+    v24 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v13, v23, v15);
+    v25 = *(a1 + 32);
+    v17 = *(v25 + 144);
+    *(v25 + 144) = v24;
   }
 
   else
   {
-    v19 = MEMORY[0x277D811A0];
-    v20 = objc_msgSend_objectLocale(*(a1 + 32), v15, v16, v17, v18);
-    v24 = objc_msgSend_defaultDateTimeFormatForLocale_(v19, v21, v20, v22, v23);
-    v25 = *(a1 + 32);
-    v26 = *(v25 + 144);
-    *(v25 + 144) = v24;
+    v16 = MEMORY[0x277D811A0];
+    v17 = objc_msgSend_objectLocale(*(a1 + 32), v13, v14, v15);
+    v20 = objc_msgSend_defaultDateTimeFormatForLocale_(v16, v18, v17, v19);
+    v21 = *(a1 + 32);
+    v22 = *(v21 + 144);
+    *(v21 + 144) = v20;
   }
 }
 
@@ -3306,44 +3309,44 @@ void sub_2212DBD48(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_2212DD1D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, void *a7, void *a8, void *a9, void *a10, uint64_t a11, ...)
+void sub_2212DD1D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, void *a7, void *a8, void *a9, void *a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, void *a15, void *a16, void *a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
 
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_2212DD2A4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+void sub_2212DD2A4(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4)
 {
-  v6 = *(a2 + 16);
-  v23[0] = *a2;
-  v23[1] = v6;
-  v7 = objc_msgSend_translator(*(a1 + 32), a2, a3, a4, a5);
-  v11 = v7;
-  if (v7)
+  v5 = *(a2 + 1);
+  v18[0] = *a2;
+  v18[1] = v5;
+  v6 = objc_msgSend_translator(*(a1 + 32), a2, a3, a4);
+  v9 = v6;
+  if (v6)
   {
-    objc_msgSend_chromeRangeRefForViewRangeRef_(v7, v8, v23, v9, v10);
+    objc_msgSend_chromeRangeRefForViewRangeRef_(v6, v7, v18, v8);
   }
 
   else
   {
-    memset(v22, 0, sizeof(v22));
+    memset(v17, 0, sizeof(v17));
   }
 
-  objc_msgSend_setAllowTableName_(*(a1 + 40), v12, (*(*(*(a1 + 64) + 8) + 24) & 1) == 0, v13, v14);
-  v20 = objc_msgSend_nameForChromeRangeRef_namingContext_(*(a1 + 48), v15, v22, *(a1 + 40), v16);
-  if (v20)
+  objc_msgSend_setAllowTableName_(*(a1 + 40), v10, (*(*(*(a1 + 64) + 8) + 24) & 1) == 0, v11);
+  v15 = objc_msgSend_nameForChromeRangeRef_namingContext_(*(a1 + 48), v12, v17, *(a1 + 40));
+  if (v15)
   {
-    v21 = *(a1 + 56);
+    v16 = *(a1 + 56);
     if (*(*(*(a1 + 64) + 8) + 24) == 1)
     {
-      objc_msgSend_appendFormat_(v21, v17, @" | %@", v18, v19, v20);
+      objc_msgSend_appendFormat_(v16, v13, @" | %@", v14, v15);
     }
 
     else
     {
-      objc_msgSend_appendString_(v21, v17, v20, v18, v19);
+      objc_msgSend_appendString_(v16, v13, v15, v14);
     }
 
     *(*(*(a1 + 64) + 8) + 24) = 1;
@@ -3414,11 +3417,18 @@ uint64_t sub_2212DFCA0(uint64_t a1, uint64_t a2)
   return a1;
 }
 
-void sub_2212DFD38(void *a1, unsigned __int16 a2, TSCECellCoordSet *a3)
+TSCECellCoordSet *sub_2212DFCE8(void *a1, TSUCellCoord *a2)
+{
+  v5 = a2 + 1;
+  v3 = sub_2212E13E8(a1, &a2[1], &unk_2217E1200, &v5);
+  return TSCECellCoordSet::addCellCoord((v3 + 3), a2);
+}
+
+void sub_2212DFD38(void *a1, __int16 a2, TSCECellCoordSet *a3)
 {
   v5 = a2;
   v6 = &v5;
-  v4 = sub_2212E13E8(a1, &v5);
+  v4 = sub_2212E13E8(a1, &v5, &unk_2217E1200, &v6);
   TSCECellCoordSet::addCellCoords((v4 + 3), a3);
 }
 
@@ -3430,7 +3440,7 @@ void sub_2212DFD90(void *a1, uint64_t a2)
   }
 }
 
-uint64_t **sub_2212DFDD0(void *a1, uint64_t a2)
+uint64_t ***sub_2212DFDD0(void *a1, uint64_t a2)
 {
   result = sub_2210C3024(a1, (a2 + 8));
   if (result)
@@ -3448,14 +3458,14 @@ uint64_t **sub_2212DFDD0(void *a1, uint64_t a2)
   return result;
 }
 
-void sub_2212DFE4C(uint64_t a1, uint64_t a2)
+void sub_2212DFE4C(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v2[0] = MEMORY[0x277D85DD0];
-  v2[1] = 3221225472;
-  v2[2] = sub_2212E0068;
-  v2[3] = &unk_27845F588;
-  v2[4] = a1;
-  sub_2212DFEC0(a2, v2);
+  v3[0] = MEMORY[0x277D85DD0];
+  v3[1] = 3221225472;
+  v3[2] = sub_2212E0068;
+  v3[3] = &unk_27845F588;
+  v3[4] = a1;
+  sub_2212DFEC0(a2, v3);
 }
 
 void sub_2212DFEC0(uint64_t a1, void *a2)
@@ -3500,15 +3510,15 @@ void sub_2212DFEC0(uint64_t a1, void *a2)
   _Block_object_dispose(&v15, 8);
 }
 
-void sub_2212E0030(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
+void sub_2212E0030(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, ...)
 {
-  va_start(va, a12);
+  va_start(va, a19);
   _Block_object_dispose(va, 8);
 
   _Unwind_Resume(a1);
 }
 
-uint64_t **sub_2212E0070(void *a1, unsigned __int16 a2)
+uint64_t ***sub_2212E0070(void *a1, unsigned __int16 a2)
 {
   v3 = a2;
   result = sub_2210C3024(a1, &v3);
@@ -3520,11 +3530,11 @@ uint64_t **sub_2212E0070(void *a1, unsigned __int16 a2)
   return result;
 }
 
-uint64_t **sub_2212E00A8(void *a1, unsigned __int16 a2)
+uint64_t **sub_2212E00A8(void *a1, __int16 a2)
 {
   v3 = a2;
   v4 = &v3;
-  return sub_2212E13E8(a1, &v3) + 3;
+  return sub_2212E13E8(a1, &v3, &unk_2217E1200, &v4) + 3;
 }
 
 unint64_t sub_2212E00EC(uint64_t a1)
@@ -3555,7 +3565,7 @@ unint64_t sub_2212E014C(void *a1)
   return v4;
 }
 
-uint64_t **sub_2212E0198(void *a1, uint64_t a2)
+uint64_t ***sub_2212E0198(void *a1, uint64_t a2)
 {
   result = sub_2210C3024(a1, (a2 + 8));
   if (result)
@@ -3568,7 +3578,7 @@ uint64_t **sub_2212E0198(void *a1, uint64_t a2)
   return result;
 }
 
-uint64_t **sub_2212E01E8(void *a1, uint64_t a2)
+uint64_t ***sub_2212E01E8(void *a1, uint64_t a2)
 {
   result = sub_2210C3024(a1, (a2 + 16));
   if (result)
@@ -3680,43 +3690,43 @@ void sub_2212E03B0(uint64_t a1, void *a2)
 void sub_2212E0430(uint64_t a1@<X0>, void *a2@<X1>, TSCECellRefSet *a3@<X8>)
 {
   v5 = a2;
-  v9 = v5;
-  v24 = 0;
-  v25 = &v24;
-  v26 = 0x4812000000;
-  v27 = sub_2212E061C;
-  v28 = sub_2212E0628;
-  v29 = &unk_22188E88F;
-  v31[0] = 0;
-  v31[1] = 0;
-  v30 = v31;
+  v8 = v5;
+  v21 = 0;
+  v22 = &v21;
+  v23 = 0x4812000000;
+  v24 = sub_2212E061C;
+  v25 = sub_2212E0628;
+  v26 = &unk_22188E88F;
+  v28[0] = 0;
+  v28[1] = 0;
+  v27 = v28;
   if (v5)
   {
-    v21[0] = MEMORY[0x277D85DD0];
-    v21[1] = 3221225472;
-    v21[2] = sub_2212E0634;
-    v21[3] = &unk_278462C10;
-    v22 = v5;
-    v23 = &v24;
-    sub_2212E03B0(a1, v21);
+    v18[0] = MEMORY[0x277D85DD0];
+    v18[1] = 3221225472;
+    v18[2] = sub_2212E0634;
+    v18[3] = &unk_278462C10;
+    v19 = v5;
+    v20 = &v21;
+    sub_2212E03B0(a1, v18);
   }
 
   else
   {
-    v10 = MEMORY[0x277D81150];
-    v11 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v6, "TSCECellRefSet TSCEInternalCellRefSet::asCellRefSet(TSCEDependencyTracker *__strong) const", v7, v8);
-    v15 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v12, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCEInternalCellRefSet.mm", v13, v14);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v10, v16, v11, v15, 212, 0, "Need a dependency tracker to do this conversion");
+    v9 = MEMORY[0x277D81150];
+    v10 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v6, "TSCECellRefSet TSCEInternalCellRefSet::asCellRefSet(TSCEDependencyTracker *__strong) const", v7);
+    v13 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v11, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCEInternalCellRefSet.mm", v12);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v9, v14, v10, v13, 212, 0, "Need a dependency tracker to do this conversion");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v17, v18, v19, v20);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v15, v16, v17);
   }
 
-  TSCECellRefSet::TSCECellRefSet(a3, v25 + 2);
-  _Block_object_dispose(&v24, 8);
-  sub_22107C800(&v30, v31[0]);
+  TSCECellRefSet::TSCECellRefSet(a3, v22 + 2);
+  _Block_object_dispose(&v21, 8);
+  sub_22107C800(&v27, v28[0]);
 }
 
-void sub_2212E05CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, char a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, void *a23)
+void sub_2212E05CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, void *a23)
 {
   _Block_object_dispose(&a16, 8);
   sub_22107C800(v26 + 48, a23);
@@ -3724,13 +3734,13 @@ void sub_2212E05CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sub_2212E0634(uint64_t a1, const char *a2, TSCECellCoordSet *a3, uint64_t a4, uint64_t a5)
+void sub_2212E0634(uint64_t a1, const char *a2, TSCECellCoordSet *a3, uint64_t a4)
 {
-  v8._lower = objc_msgSend_formulaOwnerUIDForInternalFormulaOwnerID_(*(a1 + 32), a2, a2, a4, a5);
-  v8._upper = v7;
-  if (v8._lower | v7)
+  v7._lower = objc_msgSend_formulaOwnerUIDForInternalFormulaOwnerID_(*(a1 + 32), a2, a2, a4);
+  v7._upper = v6;
+  if (v7._lower | v6)
   {
-    TSCECellRefSet::addCellRefs((*(*(a1 + 40) + 8) + 48), &v8, a3);
+    TSCECellRefSet::addCellRefs((*(*(a1 + 40) + 8) + 48), &v7, a3);
   }
 }
 
@@ -3812,7 +3822,7 @@ void sub_2212E0790(void *a1, uint64_t a2)
       v6 = *(*(a2 + 32) + v5);
       v9 = *(v6 + 32);
       v10 = &v9;
-      v7 = sub_2212E13E8(a1, &v9);
+      v7 = sub_2212E13E8(a1, &v9, &unk_2217E1200, &v10);
       if (*(v6 + 24))
       {
         v8 = *(v6 + 24);
@@ -3868,7 +3878,7 @@ void sub_2212E0848(uint64_t a1@<X0>, void *a2@<X1>, TSCECellRefSet *a3@<X8>)
   sub_22107C800(&v17, v18[0]);
 }
 
-void sub_2212E096C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, char a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, void *a23)
+void sub_2212E096C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, void *a23)
 {
   _Block_object_dispose(&a16, 8);
   sub_22107C800(v24 + 48, a23);
@@ -3897,20 +3907,20 @@ void sub_2212E09A4(uint64_t a1, void *a2)
   objc_autoreleasePoolPop(v4);
 }
 
-void sub_2212E0A38(uint64_t a1, const char *a2, void *a3, uint64_t a4, uint64_t a5)
+void sub_2212E0A38(uint64_t a1, const char *a2, void *a3, uint64_t a4)
 {
-  v8 = objc_msgSend_dependencyTracker(*(a1 + 32), a2, a3, a4, a5);
-  v12 = objc_msgSend_formulaOwnerUIDForInternalFormulaOwnerID_(v8, v9, *a2, v10, v11);
-  v14 = v13;
+  v7 = objc_msgSend_dependencyTracker(*(a1 + 32), a2, a3, a4);
+  v10 = objc_msgSend_formulaOwnerUIDForInternalFormulaOwnerID_(v7, v8, *a2, v9);
+  v12 = v11;
 
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = sub_2212E0B08;
-  v15[3] = &unk_278462C38;
-  v15[4] = *(a1 + 40);
-  v15[5] = v12;
-  v15[6] = v14;
-  TSCECellCoordSet::enumerateCoordsUsingBlock(a3, v15);
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = sub_2212E0B08;
+  v13[3] = &unk_278462C38;
+  v13[4] = *(a1 + 40);
+  v13[5] = v10;
+  v13[6] = v12;
+  TSCECellCoordSet::enumerateCoordsUsingBlock(a3, v13);
 }
 
 TSCECellCoordSet *sub_2212E0B08(uint64_t a1, uint64_t a2)
@@ -3922,12 +3932,12 @@ TSCECellCoordSet *sub_2212E0B08(uint64_t a1, uint64_t a2)
   return TSCECellRefSet::addCellRef(v2 + 2, &v4);
 }
 
-uint64_t sub_2212E0D78(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5)
+uint64_t sub_2212E0D78(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4)
 {
-  v5 = *(a1 + 40);
-  v7 = *a2 & 0xFFFFFFFFFFFFLL;
-  v8 = v5;
-  return objc_msgSend_addCellRef_(*(a1 + 32), a2, &v7, a4, a5);
+  v4 = *(a1 + 40);
+  v6 = *a2 & 0xFFFFFFFFFFFFLL;
+  v7 = v4;
+  return objc_msgSend_addCellRef_(*(a1 + 32), a2, &v6, a4);
 }
 
 uint64_t sub_2212E0EB8(uint64_t a1, uint64_t *a2)
@@ -3938,7 +3948,7 @@ uint64_t sub_2212E0EB8(uint64_t a1, uint64_t *a2)
   return v3();
 }
 
-uint64_t *sub_2212E10A8(void *a1, unsigned __int16 *a2)
+uint64_t **sub_2212E10A8(void *a1, unsigned __int16 *a2)
 {
   result = sub_2210C3024(a1, a2);
   if (result)
@@ -4018,7 +4028,7 @@ void sub_2212E11A0(void *a1, uint64_t *a2, uint64_t *a3)
       do
       {
         *(v8 + 8) = *(v4 + 8);
-        TSCECellCoordSet::operator=((v8 + 3), (v4 + 3));
+        TSCECellCoordSet::operator=(v8 + 3, (v4 + 3));
         v10 = *v8;
         v11 = *(v8 + 8);
         v8[1] = v11;
@@ -4041,7 +4051,7 @@ void sub_2212E11A0(void *a1, uint64_t *a2, uint64_t *a3)
 
   if (v4 != a3)
   {
-    sub_2212E12C0();
+    sub_2212E12C0(a1);
   }
 }
 
@@ -4069,33 +4079,33 @@ void sub_2212E13CC(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t **sub_2212E13E8(void *a1, unsigned __int16 *a2)
+uint64_t **sub_2212E13E8(void *a1, unsigned __int16 *a2, uint64_t a3, _WORD **a4)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v4 = *a2;
+  v5 = a1[1];
+  if (!*&v5)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v6 = vcnt_s8(v5);
+  v6.i16[0] = vaddlv_u8(v6);
+  if (v6.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (*&v3 <= v2)
+    v7 = *a2;
+    if (*&v5 <= v4)
     {
-      v5 = v2 % a1[1];
+      v7 = v4 % a1[1];
     }
   }
 
   else
   {
-    v5 = (v3.i32[0] - 1) & v2;
+    v7 = (v5.i32[0] - 1) & v4;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v8 = *(*a1 + 8 * v7);
+  if (!v8 || (v9 = *v8) == 0)
   {
 LABEL_18:
     operator new();
@@ -4103,44 +4113,44 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v10 = v9[1];
+    if (v10 == v4)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v6.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v10 >= *&v5)
       {
-        v8 %= *&v3;
+        v10 %= *&v5;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v10 &= *&v5 - 1;
     }
 
-    if (v8 != v5)
+    if (v10 != v7)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v9 = *v9;
+    if (!v9)
     {
       goto LABEL_18;
     }
   }
 
-  if (*(v7 + 8) != v2)
+  if (*(v9 + 8) != v4)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v9;
 }
 
 void sub_2212E1650(uint64_t a1)
@@ -4162,84 +4172,84 @@ void sub_2212E1650(uint64_t a1)
   }
 }
 
-uint64_t **sub_2212E16AC(void *a1, uint64_t *a2)
+uint64_t **sub_2212E16AC(void *a1, uint64_t *a2, uint64_t a3, uint64_t **a4)
 {
-  v2 = *(a2 + 4);
-  v3 = (*a2 + (*(a2 + 2) << 16)) ^ v2;
-  v4 = a1[1];
-  if (!*&v4)
+  v4 = *(a2 + 4);
+  v5 = (*a2 + (*(a2 + 2) << 16)) ^ v4;
+  v6 = a1[1];
+  if (!*&v6)
   {
     goto LABEL_24;
   }
 
-  v5 = vcnt_s8(v4);
-  v5.i16[0] = vaddlv_u8(v5);
-  if (v5.u32[0] > 1uLL)
+  v7 = vcnt_s8(v6);
+  v7.i16[0] = vaddlv_u8(v7);
+  if (v7.u32[0] > 1uLL)
   {
-    v6 = (*a2 + (*(a2 + 2) << 16)) ^ v2;
-    if (*&v4 <= v3)
+    v8 = (*a2 + (*(a2 + 2) << 16)) ^ v4;
+    if (*&v6 <= v5)
     {
-      v6 = v3 % v4.i32[0];
+      v8 = v5 % v6.i32[0];
     }
   }
 
   else
   {
-    v6 = (v4.i32[0] - 1) & v3;
+    v8 = (v6.i32[0] - 1) & v5;
   }
 
-  v7 = *(*a1 + 8 * v6);
-  if (!v7 || (v8 = *v7) == 0)
+  v9 = *(*a1 + 8 * v8);
+  if (!v9 || (v10 = *v9) == 0)
   {
 LABEL_24:
     operator new();
   }
 
-  v9 = *a2;
+  v11 = *a2;
   while (1)
   {
-    v10 = v8[1];
-    if (v10 == v3)
+    v12 = v10[1];
+    if (v12 == v5)
     {
       break;
     }
 
-    if (v5.u32[0] > 1uLL)
+    if (v7.u32[0] > 1uLL)
     {
-      if (v10 >= *&v4)
+      if (v12 >= *&v6)
       {
-        v10 %= *&v4;
+        v12 %= *&v6;
       }
     }
 
     else
     {
-      v10 &= *&v4 - 1;
+      v12 &= *&v6 - 1;
     }
 
-    if (v10 != v6)
+    if (v12 != v8)
     {
       goto LABEL_24;
     }
 
 LABEL_23:
-    v8 = *v8;
-    if (!v8)
+    v10 = *v10;
+    if (!v10)
     {
       goto LABEL_24;
     }
   }
 
-  v11 = v8[2];
-  v13 = v9 == v11;
-  v12 = (v11 ^ v9) & 0x101FFFF00000000;
-  v13 = v13 && v12 == 0;
-  if (!v13 || v2 != *(v8 + 12))
+  v13 = v10[2];
+  v15 = v11 == v13;
+  v14 = (v13 ^ v11) & 0x101FFFF00000000;
+  v15 = v15 && v14 == 0;
+  if (!v15 || v4 != *(v10 + 12))
   {
     goto LABEL_23;
   }
 
-  return v8;
+  return v10;
 }
 
 void sub_2212E1B5C(_Unwind_Exception *a1)
@@ -4317,9 +4327,9 @@ id sub_2212E2EB8(void *a1, id *a2)
   return result;
 }
 
-void sub_2212E2F98(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2212E2F98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_22107C26C(va);
   _Unwind_Resume(a1);
 }
@@ -4385,40 +4395,40 @@ void *sub_2212E30F4(void *result, uint64_t *a2)
   return result;
 }
 
-void sub_2212E31D8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2212E31D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_22107C26C(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t *sub_2212E351C(void *a1, unsigned int *a2)
+uint64_t *sub_2212E351C(void *a1, unsigned int *a2, uint64_t a3, _DWORD **a4)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v4 = *a2;
+  v5 = a1[1];
+  if (!*&v5)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v6 = vcnt_s8(v5);
+  v6.i16[0] = vaddlv_u8(v6);
+  if (v6.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (*&v3 <= v2)
+    v7 = *a2;
+    if (*&v5 <= v4)
     {
-      v5 = v2 % v3.i32[0];
+      v7 = v4 % v5.i32[0];
     }
   }
 
   else
   {
-    v5 = (v3.i32[0] - 1) & v2;
+    v7 = (v5.i32[0] - 1) & v4;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v8 = *(*a1 + 8 * v7);
+  if (!v8 || (v9 = *v8) == 0)
   {
 LABEL_18:
     operator new();
@@ -4426,80 +4436,80 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v10 = v9[1];
+    if (v10 == v4)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v6.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v10 >= *&v5)
       {
-        v8 %= *&v3;
+        v10 %= *&v5;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v10 &= *&v5 - 1;
     }
 
-    if (v8 != v5)
+    if (v10 != v7)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v9 = *v9;
+    if (!v9)
     {
       goto LABEL_18;
     }
   }
 
-  if (*(v7 + 4) != v2)
+  if (*(v9 + 4) != v4)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v9;
 }
 
-void sub_2212E376C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2212E376C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_221087E7C(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t *sub_2212E3780(void *a1, unsigned int *a2)
+uint64_t *sub_2212E3780(void *a1, unsigned int *a2, uint64_t a3, _DWORD **a4)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v4 = *a2;
+  v5 = a1[1];
+  if (!*&v5)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v6 = vcnt_s8(v5);
+  v6.i16[0] = vaddlv_u8(v6);
+  if (v6.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (*&v3 <= v2)
+    v7 = *a2;
+    if (*&v5 <= v4)
     {
-      v5 = v2 % v3.i32[0];
+      v7 = v4 % v5.i32[0];
     }
   }
 
   else
   {
-    v5 = (v3.i32[0] - 1) & v2;
+    v7 = (v5.i32[0] - 1) & v4;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v8 = *(*a1 + 8 * v7);
+  if (!v8 || (v9 = *v8) == 0)
   {
 LABEL_18:
     operator new();
@@ -4507,65 +4517,65 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v10 = v9[1];
+    if (v10 == v4)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v6.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v10 >= *&v5)
       {
-        v8 %= *&v3;
+        v10 %= *&v5;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v10 &= *&v5 - 1;
     }
 
-    if (v8 != v5)
+    if (v10 != v7)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v9 = *v9;
+    if (!v9)
     {
       goto LABEL_18;
     }
   }
 
-  if (*(v7 + 4) != v2)
+  if (*(v9 + 4) != v4)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v9;
 }
 
-void sub_2212E39D0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2212E39D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_221087E7C(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_2212E4404(uint64_t a1, unsigned int *a2)
+void *sub_2212E4404(uint64_t **a1, unsigned int *a2, uint64_t a3, uint64_t **a4)
 {
-  v2 = *sub_2212E44A8(a1, &v4, a2);
-  if (!v2)
+  v4 = *sub_2212E44A8(a1, &v6, a2);
+  if (!v4)
   {
     operator new();
   }
 
-  return v2;
+  return v4;
 }
 
-uint64_t *sub_2212E44A8(uint64_t a1, void *a2, unsigned int *a3)
+uint64_t *sub_2212E44A8(uint64_t a1, uint64_t **a2, unsigned int *a3)
 {
   v5 = *(a1 + 8);
   result = (a1 + 8);
@@ -4579,7 +4589,7 @@ uint64_t *sub_2212E44A8(uint64_t a1, void *a2, unsigned int *a3)
       while (1)
       {
         v8 = v4;
-        v9 = *(v4 + 8);
+        v9 = *(v4 + 32);
         if (v6 >= v9 && (v6 != v9 || v7 >= *(v8 + 18)))
         {
           break;
@@ -4615,15 +4625,15 @@ LABEL_13:
   return result;
 }
 
-uint64_t sub_2212E4518(uint64_t a1, TSUCellRect *this)
+uint64_t sub_2212E4518(uint64_t **a1, TSUCellRect *this, _OWORD *a3)
 {
-  v2 = *sub_2212E45AC(a1, &v4, this);
-  if (!v2)
+  v3 = *sub_2212E45AC(a1, &v5, this);
+  if (!v3)
   {
     operator new();
   }
 
-  return v2;
+  return v3;
 }
 
 uint64_t *sub_2212E45AC(uint64_t a1, void *a2, TSUCellRect *this)
@@ -4855,7 +4865,7 @@ TSCEASTStreamIterator *sub_2212E5ECC(TSCEASTStreamIterator *a1, TSCEASTNodeArray
   return a1;
 }
 
-uint64_t *sub_2212E5F64(uint64_t a1, TSKUIDStruct *a2, uint64_t a3, uint64_t a4, uint64_t a5)
+TSCEFormulaRewriteContextRecord *sub_2212E5F64(uint64_t a1, TSKUIDStruct *a2, uint64_t a3, uint64_t a4)
 {
   tableUID = *a2;
   if (tableUID == 0uLL)
@@ -4863,195 +4873,195 @@ uint64_t *sub_2212E5F64(uint64_t a1, TSKUIDStruct *a2, uint64_t a3, uint64_t a4,
     tableUID = TSCEFormulaRewriteContext::containingCell(*(a1 + 8))->var0.var0._tableUID;
   }
 
-  v7 = objc_msgSend_isForTable_(*(a1 + 136), a2, &tableUID, a4, a5);
-  v8 = *(a1 + 136);
-  v63 = TSCEFormulaRewriteContext::containingCell(*(a1 + 8))->var0.var0._tableUID;
-  result = objc_msgSend_isForTable_(v8, v9, &v63, v10, v11);
-  v17 = result;
-  if ((v7 & 1) != 0 || result)
+  v6 = objc_msgSend_isForTable_(*(a1 + 136), a2, &tableUID, a4);
+  v7 = *(a1 + 136);
+  v54 = TSCEFormulaRewriteContext::containingCell(*(a1 + 8))->var0.var0._tableUID;
+  result = objc_msgSend_isForTable_(v7, v8, &v54, v9);
+  v14 = result;
+  if ((v6 & 1) != 0 || result)
   {
     lower = a2[1]._lower;
-    LOBYTE(v19) = HIBYTE(lower) != 0;
-    isRows = objc_msgSend_isRows(*(a1 + 144), v13, v14, v15, v16);
+    LOBYTE(v16) = HIBYTE(lower) != 0;
+    isRows = objc_msgSend_isRows(*(a1 + 144), v11, v12, v13);
     coordinate = TSCEFormulaRewriteContext::containingCell(*(a1 + 8))->var0.var0.coordinate;
     if (isRows)
     {
       result = TSCEFormulaRewriteContext::containingCell(*(a1 + 8));
-      v25 = lower;
+      v21 = lower;
       if ((lower & 0x1000000000000) != 0)
       {
         goto LABEL_29;
       }
 
-      v25 = 0x7FFFFFFFLL;
+      v21 = 0x7FFFFFFFLL;
       if (lower == 0x7FFFFFFF)
       {
         goto LABEL_29;
       }
 
-      v26 = *result;
+      v22 = result->var0.var0.coordinate;
       if (lower < 1)
       {
-        if (lower && v26 < -lower)
+        if (lower && v22.row < -lower)
         {
           goto LABEL_29;
         }
       }
 
-      else if (999999 - lower < v26)
+      else if ((999999 - lower) < v22.row)
       {
         goto LABEL_29;
       }
 
-      if (v26 == 0x7FFFFFFF)
+      if (v22.row == 0x7FFFFFFF)
       {
-        v58 = MEMORY[0x277D81150];
-        v60 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v22, "TSURowIndex TSCEMakeAbsoluteRowFromRelativeRow(TSUCellCoord, TSURelativeRowIndex, BOOL)", v23, v24);
-        v32 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v29, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCERelativeTypes.h", v30, v31);
-        v33 = NSStringFromTSUCellCoord();
-        v34 = v60;
-        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v58, v35, v60, v32, 195, 0, "Calling TSCEMakeAbsoluteRowFromRelativeRow with an invalid hostCell row: %@", v33);
+        v49 = MEMORY[0x277D81150];
+        v51 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v19, "TSURowIndex TSCEMakeAbsoluteRowFromRelativeRow(TSUCellCoord, TSURelativeRowIndex, BOOL)", v20);
+        v27 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v25, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCERelativeTypes.h", v26);
+        v28 = NSStringFromTSUCellCoord();
+        v29 = v51;
+        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v49, v30, v51, v27, 195, 0, "Calling TSCEMakeAbsoluteRowFromRelativeRow with an invalid hostCell row: %@", v28);
       }
 
       else
       {
-        v25 = (v26 + lower);
-        if (v25 < 0x7FFFFFFF)
+        v21 = (v22.row + lower);
+        if (v21 < 0x7FFFFFFF)
         {
 LABEL_29:
-          v19 = HIWORD(lower) & 1;
-          v45 = v25 == 0x7FFFFFFF;
+          v16 = HIWORD(lower) & 1;
+          v38 = v21 == 0x7FFFFFFF;
 LABEL_30:
-          v54 = 0;
-          if (v7 && !v45)
+          v45 = 0;
+          if (v6 && !v38)
           {
-            result = objc_msgSend_offsetForRowIndex_(*(a1 + 144), v22, v25, v23, v24);
-            v54 = result;
+            result = objc_msgSend_offsetForRowIndex_(*(a1 + 144), v19, v21, v20);
+            v45 = result;
           }
 
-          if (v19 & 1 | ((v17 & 1) == 0))
+          if (v16 & 1 | ((v14 & 1) == 0))
           {
-            v55 = 0;
+            v46 = 0;
           }
 
           else
           {
-            result = objc_msgSend_offsetForRowIndex_(*(a1 + 144), v22, coordinate, v23, v24);
-            v55 = result;
+            result = objc_msgSend_offsetForRowIndex_(*(a1 + 144), v19, coordinate, v20);
+            v46 = result;
           }
 
-          if (v54 | v55)
+          if (v45 | v46)
           {
-            result = objc_msgSend_isRows(*(a1 + 144), v22, v25, v23, v24);
-            LOWORD(v56) = 0x7FFF;
+            result = objc_msgSend_isRows(*(a1 + 144), v19, v21, v20);
+            LOWORD(v47) = 0x7FFF;
             if (WORD2(lower) != 0x7FFF)
             {
-              LOWORD(v56) = v54 + WORD2(lower) - v55;
+              LOWORD(v47) = v45 + WORD2(lower) - v46;
             }
 
             if (lower == 0x7FFFFFFF)
             {
-              LODWORD(v57) = 0x7FFFFFFF;
+              LODWORD(v48) = 0x7FFFFFFF;
             }
 
             else
             {
-              LODWORD(v57) = v54 + lower - v55;
+              LODWORD(v48) = v45 + lower - v46;
             }
 
             if (result)
             {
-              v56 = HIDWORD(lower);
-              v57 = v57;
+              v47 = HIDWORD(lower);
+              v48 = v48;
             }
 
             else
             {
-              v57 = lower;
+              v48 = lower;
             }
 
-            a2[1]._lower = (v56 << 32) | lower & 0xFFFF000000000000 | v57;
+            a2[1]._lower = (v47 << 32) | lower & 0xFFFF000000000000 | v48;
           }
 
           return result;
         }
 
-        v62 = MEMORY[0x277D81150];
-        v34 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v22, "TSURowIndex TSCEMakeAbsoluteRowFromRelativeRow(TSUCellCoord, TSURelativeRowIndex, BOOL)", v23, v24);
-        v32 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v46, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCERelativeTypes.h", v47, v48);
-        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v62, v49, v34, v32, 191, 0, "overflow in row, input row: %d with host row: %lu", lower, v26);
+        v53 = MEMORY[0x277D81150];
+        v29 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v19, "TSURowIndex TSCEMakeAbsoluteRowFromRelativeRow(TSUCellCoord, TSURelativeRowIndex, BOOL)", v20);
+        v27 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v39, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCERelativeTypes.h", v40);
+        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v53, v41, v29, v27, 191, 0, "overflow in row, input row: %d with host row: %lu", lower, v22.row);
       }
 
-      result = objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v50, v51, v52, v53);
-      v25 = 0x7FFFFFFFLL;
+      result = objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v42, v43, v44);
+      v21 = 0x7FFFFFFFLL;
       goto LABEL_29;
     }
 
     result = TSCEFormulaRewriteContext::containingCell(*(a1 + 8));
     if (HIBYTE(lower))
     {
-      v27 = HIDWORD(lower);
+      v23 = HIDWORD(lower);
     }
 
     else
     {
-      LOWORD(v27) = 0x7FFF;
+      LOWORD(v23) = 0x7FFF;
       if (WORD2(lower) != 0x7FFF)
       {
-        v28 = *result;
+        v24 = result->var0.var0.coordinate;
         if ((lower >> 16) >> 16 < 1)
         {
-          if ((lower & 0x800000000000) != 0 && -SWORD2(lower) > WORD2(v28))
+          if ((lower & 0x800000000000) != 0 && -SWORD2(lower) > v24.column)
           {
             goto LABEL_25;
           }
         }
 
-        else if (999 - SWORD2(lower) < WORD2(v28))
+        else if (999 - SWORD2(lower) < v24.column)
         {
           goto LABEL_25;
         }
 
-        LOWORD(v27) = WORD2(v28) + WORD2(lower);
-        if ((WORD2(v28) + WORD2(lower)) >= 0x7FFFu)
+        LOWORD(v23) = v24.column + WORD2(lower);
+        if ((v24.column + WORD2(lower)) >= 0x7FFFu)
         {
-          v59 = MEMORY[0x277D81150];
-          v61 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v22, "TSUColumnIndex TSCEMakeAbsoluteColumnFromRelativeColumn(TSUCellCoord, TSURelativeColumnIndex, BOOL)", v23, v24);
-          v39 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v36, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCERelativeTypes.h", v37, v38);
-          objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v59, v40, v61, v39, 168, 0, "overflow in column");
+          v50 = MEMORY[0x277D81150];
+          v52 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v19, "TSUColumnIndex TSCEMakeAbsoluteColumnFromRelativeColumn(TSUCellCoord, TSURelativeColumnIndex, BOOL)", v20);
+          v33 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v31, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCERelativeTypes.h", v32);
+          objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v50, v34, v52, v33, 168, 0, "overflow in column");
 
-          result = objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v41, v42, v43, v44);
+          result = objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v35, v36, v37);
         }
       }
     }
 
 LABEL_25:
     coordinate = WORD2(coordinate);
-    v25 = v27;
-    v45 = v27 == 0x7FFF;
+    v21 = v23;
+    v38 = v23 == 0x7FFF;
     goto LABEL_30;
   }
 
   return result;
 }
 
-TSCEASTRelativeCoordRefElement *sub_2212E638C(TSCEASTIteratorBase *a1, TSCEASTRelativeCoordRefElement *this, uint64_t a3, uint64_t a4, uint64_t a5)
+TSCEASTRelativeCoordRefElement *sub_2212E638C(TSCEASTIteratorBase *a1, TSCEASTRelativeCoordRefElement *this, uint64_t a3, uint64_t a4)
 {
-  TSCEASTRelativeCoordRefElement::crossTableRef(this, a1, a3, a4, a5, &v13);
-  sub_2212E5F64(a1, &v13, v7, v8, v9);
-  TSCEASTRelativeCoordRefElement::setRelativeCoord(this, &v14, a1, v10, v11);
+  TSCEASTRelativeCoordRefElement::crossTableRef(&v10, this, a1, a3, a4);
+  sub_2212E5F64(a1, &v10, v6, v7);
+  TSCEASTRelativeCoordRefElement::setRelativeCoord(this, &v11, a1, v8);
   return this;
 }
 
-void sub_2212E63F4(uint64_t a1)
+void sub_2212E63F4(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 144);
-  v2 = TSCEFormulaRewriteContext::containingCell(*(a1 + 8));
-  v5 = *v2;
-  lower = v2[1]._lower;
-  if (v1)
+  v2 = *(a1 + 144);
+  v3 = TSCEFormulaRewriteContext::containingCell(*(a1 + 8));
+  v5 = *v3;
+  lower = v3[1]._lower;
+  if (v2)
   {
-    objc_msgSend_updatedCellRefForRewriteType_originalCellRef_(v1, v3, 3, &v5, v4);
+    objc_msgSend_updatedCellRefForRewriteType_originalCellRef_(v2, v4, 3, &v5);
   }
 
   else
@@ -5064,160 +5074,160 @@ void sub_2212E63F4(uint64_t a1)
   operator new();
 }
 
-TSCEASTColonTractElement *sub_2212E6520(TSCEASTIteratorBase *a1, TSCEASTColonTractElement *this, uint64_t a3, uint64_t a4, uint64_t a5)
+TSCEASTColonTractElement *sub_2212E6520(TSCEASTIteratorBase *a1, TSCEASTColonTractElement *this, uint64_t a3, uint64_t a4)
 {
-  v7 = TSCEASTColonTractElement::relativeTractRef(this, a1, a3, a4, a5);
-  tableUID._lower = objc_msgSend_tableUID(v7, v8, v9, v10, v11);
-  tableUID._upper = v12;
-  if (!(tableUID._lower | v12))
+  v6 = TSCEASTColonTractElement::relativeTractRef(this, a1, a3, a4);
+  tableUID._lower = objc_msgSend_tableUID(v6, v7, v8, v9);
+  tableUID._upper = v10;
+  if (!(tableUID._lower | v10))
   {
     tableUID = TSCEFormulaRewriteContext::containingCell(*(a1 + 1))->var0.var0._tableUID;
   }
 
-  v13 = *(a1 + 17);
+  v11 = *(a1 + 17);
   *&__p = TSCEFormulaRewriteContext::containingCell(*(a1 + 1))->var0.var0._tableUID;
-  v17 = objc_msgSend_isForTable_(v13, v14, &__p, v15, v16);
-  v25 = objc_msgSend_isForTable_(*(a1 + 17), v18, &tableUID, v19, v20);
-  if ((v17 | v25))
+  v14 = objc_msgSend_isForTable_(v11, v12, &__p, v13);
+  v20 = objc_msgSend_isForTable_(*(a1 + 17), v15, &tableUID, v16);
+  if ((v14 | v20))
   {
-    v30 = objc_msgSend_rewriteType(*(a1 + 17), v21, v22, v23, v24);
-    v31 = *(a1 + 17);
-    if (v30 == 4)
+    v24 = objc_msgSend_rewriteType(*(a1 + 17), v17, v18, v19);
+    v25 = *(a1 + 17);
+    if (v24 == 4)
     {
-      v32 = objc_msgSend_rowColumnInfo(v31, v26, v27, v28, v29);
-      v37 = objc_msgSend_auxRowColumnInfo(v32, v33, v34, v35, v36);
+      v26 = objc_msgSend_rowColumnInfo(v25, v21, v22, v23);
+      v30 = objc_msgSend_auxRowColumnInfo(v26, v27, v28, v29);
     }
 
     else
     {
-      v37 = objc_msgSend_rowColumnInfo(v31, v26, v27, v28, v29);
+      v30 = objc_msgSend_rowColumnInfo(v25, v21, v22, v23);
     }
 
-    v276 = v37;
+    v217 = v30;
     *&__p = TSCEFormulaRewriteContext::containingCell(*(a1 + 1))->var0.var0.coordinate;
-    v41 = objc_msgSend_absoluteCellTractRefForHostCell_(v7, v38, &__p, v39, v40);
-    v278 = TSCEASTElement::mutableUndoTractList(this, a1);
-    isRectangularRange = objc_msgSend_isRectangularRange(v41, v42, v43, v44, v45);
-    v275 = objc_msgSend_preserveRectangular(v41, v47, v48, v49, v50);
-    if (v17)
+    v33 = objc_msgSend_absoluteCellTractRefForHostCell_(v6, v31, &__p, v32);
+    v219 = TSCEASTElement::mutableUndoTractList(this, a1);
+    isRectangularRange = objc_msgSend_isRectangularRange(v33, v34, v35, v36);
+    v216 = objc_msgSend_preserveRectangular(v33, v38, v39, v40);
+    if (v14)
     {
-      v55 = TSCEFormulaRewriteContext::containingCell(*(a1 + 1));
-      v56 = sub_2212C7330(v55);
-      if (!v25)
+      v44 = TSCEFormulaRewriteContext::containingCell(*(a1 + 1));
+      v45 = sub_2212C7330(v44);
+      if (!v20)
       {
 LABEL_9:
-        v57 = 0;
+        v46 = 0;
         goto LABEL_15;
       }
     }
 
     else
     {
-      v56 = 0;
-      if (!v25)
+      v45 = 0;
+      if (!v20)
       {
         goto LABEL_9;
       }
     }
 
-    if (objc_msgSend_isRows(v37, v51, v52, v53, v54))
+    if (objc_msgSend_isRows(v30, v41, v42, v43))
     {
-      v62 = objc_msgSend_rowOrColumnUids(v37, v58, v59, v60, v61);
-      v67 = objc_msgSend_indexes(v62, v63, v64, v65, v66);
-      inserted = objc_msgSend_insertRowGapsAtIndexes_(v41, v68, v67, v69, v70);
+      v50 = objc_msgSend_rowOrColumnUids(v30, v47, v48, v49);
+      v54 = objc_msgSend_indexes(v50, v51, v52, v53);
+      inserted = objc_msgSend_insertRowGapsAtIndexes_(v33, v55, v54, v56);
     }
 
     else
     {
-      v62 = objc_msgSend_rowOrColumnUids(v37, v58, v59, v60, v61);
-      v67 = objc_msgSend_indexes(v62, v72, v73, v74, v75);
-      inserted = objc_msgSend_insertColumnGapsAtIndexes_(v41, v76, v67, v77, v78);
+      v50 = objc_msgSend_rowOrColumnUids(v30, v47, v48, v49);
+      v54 = objc_msgSend_indexes(v50, v58, v59, v60);
+      inserted = objc_msgSend_insertColumnGapsAtIndexes_(v33, v61, v54, v62);
     }
 
-    v57 = inserted;
+    v46 = inserted;
 
-    v56 |= v57;
+    v45 |= v46;
 LABEL_15:
-    v79 = *(a1 + 17);
-    v80 = sub_221089E8C(a1);
-    v277 = objc_msgSend_coordMapperForTableUID_calcEngine_(v79, v81, &tableUID, v80, v82);
+    v63 = *(a1 + 17);
+    v64 = sub_221089E8C(a1);
+    v218 = objc_msgSend_coordMapperForTableUID_calcEngine_(v63, v65, &tableUID, v64);
 
-    isRows = objc_msgSend_isRows(v37, v83, v84, v85, v86);
-    if (v277)
+    isRows = objc_msgSend_isRows(v30, v66, v67, v68);
+    if (v218)
     {
-      v92 = isRows;
+      v73 = isRows;
     }
 
     else
     {
-      v92 = 0;
+      v73 = 0;
     }
 
-    if (v92 == 1 && (objc_msgSend_isIdentityMapping(v277, v88, v89, v90, v91) & 1) == 0)
+    if (v73 == 1 && (objc_msgSend_isIdentityMapping(v218, v70, v71, v72) & 1) == 0)
     {
-      v106 = sub_221089E8C(a1);
-      v109 = objc_msgSend_resolverForTableUID_(v106, v107, tableUID._lower, tableUID._upper, v108);
+      v84 = sub_221089E8C(a1);
+      v86 = objc_msgSend_resolverForTableUID_(v84, v85, tableUID._lower, tableUID._upper);
 
-      v114 = objc_msgSend_insertAtUid(*(a1 + 18), v110, v111, v112, v113);
-      objc_msgSend_rowIndexForRowUID_(v109, v115, v114, v115, v116);
-      v121 = objc_msgSend_rows(v41, v117, v118, v119, v120);
-      LODWORD(v106) = TSUIndexSet::containsIndex(v121);
-      v126 = objc_msgSend_insertOppositeUid(*(a1 + 18), v122, v123, v124, v125);
-      objc_msgSend_rowIndexForRowUID_(v109, v127, v126, v127, v128);
-      v133 = objc_msgSend_rows(v41, v129, v130, v131, v132);
-      if ((v106 & TSUIndexSet::containsIndex(v133)) == 1)
+      v90 = objc_msgSend_insertAtUid(*(a1 + 18), v87, v88, v89);
+      objc_msgSend_rowIndexForRowUID_(v86, v91, v90, v91);
+      v95 = objc_msgSend_rows(v33, v92, v93, v94);
+      LODWORD(v84) = TSUIndexSet::containsIndex(v95);
+      v99 = objc_msgSend_insertOppositeUid(*(a1 + 18), v96, v97, v98);
+      objc_msgSend_rowIndexForRowUID_(v86, v100, v99, v100);
+      v104 = objc_msgSend_rows(v33, v101, v102, v103);
+      if ((v84 & TSUIndexSet::containsIndex(v104)) == 1)
       {
-        v138 = objc_msgSend_rowOrColumnUids(v37, v134, v135, v136, v137);
-        v143 = objc_msgSend_indexes(v138, v139, v140, v141, v142);
-        MEMORY[0x223D9F7A0](&__p, v143);
-        objc_msgSend_addRows_(v41, v144, &__p, v145, v146);
+        v108 = objc_msgSend_rowOrColumnUids(v30, v105, v106, v107);
+        v112 = objc_msgSend_indexes(v108, v109, v110, v111);
+        MEMORY[0x223D9F7A0](&__p, v112);
+        objc_msgSend_addRows_(v33, v113, &__p, v114);
         TSUIndexSet::~TSUIndexSet(&__p);
 
 LABEL_37:
-        v56 = 1;
+        v45 = 1;
       }
     }
 
     else
     {
-      if ((v57 & isRectangularRange & v275) != 1)
+      if ((v46 & isRectangularRange & v216) != 1)
       {
 LABEL_39:
         if (isRectangularRange)
         {
-          v179 = objc_msgSend_insertAtUid(*(a1 + 18), v88, v89, v90, v91);
-          if (v179 | v88)
+          v139 = objc_msgSend_insertAtUid(*(a1 + 18), v70, v71, v72);
+          if (v139 | v70)
           {
-            v180 = objc_msgSend_tableUID(*(a1 + 17), v88, v89, v90, v91);
-            if (tableUID == __PAIR128__(v88, v180) && objc_msgSend_rewriteType(*(a1 + 17), v88, v89, v90, v91) == 3 && (*(a1 + 98) & 1) == 0 && objc_msgSend_isRows(*(a1 + 18), v88, v89, v90, v91))
+            v140 = objc_msgSend_tableUID(*(a1 + 17), v70, v71, v72);
+            if (tableUID == __PAIR128__(v70, v140) && objc_msgSend_rewriteType(*(a1 + 17), v70, v71, v72) == 3 && (*(a1 + 98) & 1) == 0 && objc_msgSend_isRows(*(a1 + 18), v70, v71, v72))
             {
-              v181 = sub_221089E8C(a1);
+              v141 = sub_221089E8C(a1);
               *&__p = TSCEFormulaRewriteContext::containingCell(*(a1 + 1))->var0.var0._tableUID;
-              v185 = objc_msgSend_tableResolverForTableUID_(v181, v182, &__p, v183, v184);
+              v144 = objc_msgSend_tableResolverForTableUID_(v141, v142, &__p, v143);
 
-              if (v185)
+              if (v144)
               {
-                v190 = objc_msgSend_footerRangeCoordinate(v185, v186, v187, v188, v189);
-                v192 = v191;
+                v148 = objc_msgSend_footerRangeCoordinate(v144, v145, v146, v147);
+                v150 = v149;
                 coordinate = TSCEFormulaRewriteContext::containingCell(*(a1 + 1))->var0.var1.coordinate;
-                if (coordinate.column >= WORD2(v190) && coordinate.row <= v192 && coordinate.row >= v190 && coordinate.column <= WORD2(v192))
+                if (coordinate.column >= WORD2(v148) && coordinate.row <= v150 && coordinate.row >= v148 && coordinate.column <= WORD2(v150))
                 {
-                  v194 = sub_221089E8C(a1);
-                  v197 = objc_msgSend_resolverForTableUID_(v194, v195, tableUID._lower, tableUID._upper, v196);
+                  v152 = sub_221089E8C(a1);
+                  v154 = objc_msgSend_resolverForTableUID_(v152, v153, tableUID._lower, tableUID._upper);
 
-                  if (v197)
+                  if (v154)
                   {
-                    v202 = objc_msgSend_insertAtUid(*(a1 + 18), v198, v199, v200, v201);
-                    objc_msgSend_rowIndexForRowUID_(v197, v203, v202, v203, v204);
-                    v209 = objc_msgSend_rows(v41, v205, v206, v207, v208);
-                    if (TSUIndexSet::containsIndex(v209))
+                    v158 = objc_msgSend_insertAtUid(*(a1 + 18), v155, v156, v157);
+                    objc_msgSend_rowIndexForRowUID_(v154, v159, v158, v159);
+                    v163 = objc_msgSend_rows(v33, v160, v161, v162);
+                    if (TSUIndexSet::containsIndex(v163))
                     {
-                      v214 = objc_msgSend_rowOrColumnUids(*(a1 + 18), v210, v211, v212, v213);
-                      v219 = objc_msgSend_indexes(v214, v215, v216, v217, v218);
-                      v224 = objc_msgSend_isRows(*(a1 + 18), v220, v221, v222, v223);
-                      v227 = objc_msgSend_edgeExpandUsingIndexes_forRows_(v41, v225, v219, v224, v226);
+                      v167 = objc_msgSend_rowOrColumnUids(*(a1 + 18), v164, v165, v166);
+                      v171 = objc_msgSend_indexes(v167, v168, v169, v170);
+                      v175 = objc_msgSend_isRows(*(a1 + 18), v172, v173, v174);
+                      v177 = objc_msgSend_edgeExpandUsingIndexes_forRows_(v33, v176, v171, v175);
 
-                      v56 |= objc_msgSend_count(v227, v228, v229, v230, v231) != 0;
+                      v45 |= objc_msgSend_count(v177, v178, v179, v180) != 0;
                     }
                   }
                 }
@@ -5226,22 +5236,22 @@ LABEL_39:
           }
         }
 
-        v232 = objc_msgSend_rewriteType(*(a1 + 17), v88, v89, v90, v91) != 4;
-        v233 = *(a1 + 98);
-        v242 = objc_msgSend_includedUidsTract(v278, v234, v235, v236, v237);
-        if (v242)
+        v181 = objc_msgSend_rewriteType(*(a1 + 17), v70, v71, v72) != 4;
+        v182 = *(a1 + 98);
+        v189 = objc_msgSend_includedUidsTract(v219, v183, v184, v185);
+        if (v189)
         {
-          v243 = objc_msgSend_tableUID(*(a1 + 17), v238, v239, v240, v241);
-          if (tableUID._lower == v243)
+          v190 = objc_msgSend_tableUID(*(a1 + 17), v186, v187, v188);
+          if (tableUID._lower == v190)
           {
-            v245 = v244;
+            v192 = v191;
             upper = tableUID._upper;
 
-            if (upper == v245)
+            if (upper == v192)
             {
-              if (((v232 | v233) & 1) == 0)
+              if (((v181 | v182) & 1) == 0)
               {
-                if (((v56 | objc_msgSend_edgeExpandUsingMovingUids_tractList_(v41, v238, v276, v278, v241)) & 1) == 0)
+                if (((v45 | objc_msgSend_edgeExpandUsingMovingUids_tractList_(v33, v186, v217, v219)) & 1) == 0)
                 {
                   goto LABEL_66;
                 }
@@ -5249,37 +5259,37 @@ LABEL_39:
                 goto LABEL_64;
               }
 
-              if (v233)
+              if (v182)
               {
-                v247 = sub_221089E8C(a1);
-                v250 = objc_msgSend_resolverForTableUID_(v247, v248, tableUID._lower, tableUID._upper, v249);
+                v194 = sub_221089E8C(a1);
+                v196 = objc_msgSend_resolverForTableUID_(v194, v195, tableUID._lower, tableUID._upper);
 
-                v255 = objc_msgSend_isRows(v276, v251, v252, v253, v254);
-                v257 = v56 | objc_msgSend_edgeExpandTractUsingIncludeUidTract_resolver_forRows_isInverse_(v41, v256, v278, v250, v255, v275 ^ 1u);
+                v200 = objc_msgSend_isRows(v217, v197, v198, v199);
+                v202 = v45 | objc_msgSend_edgeExpandTractUsingIncludeUidTract_resolver_forRows_isInverse_(v33, v201, v219, v196, v200, v216 ^ 1u);
 
-                if ((v257 & 1) == 0)
+                if ((v202 & 1) == 0)
                 {
 LABEL_66:
-                  v262 = objc_msgSend_removedByMoveUidTract(v278, v238, v239, v240, v241);
-                  v259 = v276;
-                  if (v262)
+                  v206 = objc_msgSend_removedByMoveUidTract(v219, v186, v187, v188);
+                  v204 = v217;
+                  if (v206)
                   {
-                    objc_msgSend_dropTract_(v278, v271, v262, v272, v273);
-                    TSCEASTColonTractElement::setUndoTractList(this, v278, a1);
+                    objc_msgSend_dropTract_(v219, v213, v206, v214);
+                    TSCEASTColonTractElement::setUndoTractList(this, v219, a1);
                   }
 
                   goto LABEL_68;
                 }
 
 LABEL_64:
-                v258 = [TSCERelativeTractRef alloc];
-                v259 = v276;
+                v203 = [TSCERelativeTractRef alloc];
+                v204 = v217;
                 *&__p = TSCEFormulaRewriteContext::containingCell(*(a1 + 1))->var0.var1.coordinate;
-                v262 = objc_msgSend_initWithAbsoluteTractRef_hostCell_(v258, v260, v41, &__p, v261);
-                TSCEASTColonTractElement::setRelativeTractRef(this, v262, v7, a1, 0);
-                v267 = objc_msgSend_removedByMoveUidTract(v278, v263, v264, v265, v266);
-                objc_msgSend_dropTract_(v278, v268, v267, v269, v270);
-                TSCEASTColonTractElement::setUndoTractList(this, v278, a1);
+                v206 = objc_msgSend_initWithAbsoluteTractRef_hostCell_(v203, v205, v33, &__p);
+                TSCEASTColonTractElement::setRelativeTractRef(this, v206, v6, a1, 0);
+                v210 = objc_msgSend_removedByMoveUidTract(v219, v207, v208, v209);
+                objc_msgSend_dropTract_(v219, v211, v210, v212);
+                TSCEASTColonTractElement::setUndoTractList(this, v219, a1);
 
 LABEL_68:
                 goto LABEL_69;
@@ -5292,7 +5302,7 @@ LABEL_68:
           }
         }
 
-        if ((v56 & 1) == 0)
+        if ((v45 & 1) == 0)
         {
           goto LABEL_66;
         }
@@ -5300,28 +5310,28 @@ LABEL_68:
         goto LABEL_64;
       }
 
-      if (objc_msgSend_isRows(v37, v88, v89, v90, v91))
+      if (objc_msgSend_isRows(v30, v70, v71, v72))
       {
-        v97 = objc_msgSend_rowOrColumnUids(v37, v93, v94, v95, v96);
-        v102 = objc_msgSend_indexes(v97, v98, v99, v100, v101);
-        objc_msgSend_fillInRowGapsUsingIndexes_(v41, v103, v102, v104, v105);
+        v77 = objc_msgSend_rowOrColumnUids(v30, v74, v75, v76);
+        v81 = objc_msgSend_indexes(v77, v78, v79, v80);
+        objc_msgSend_fillInRowGapsUsingIndexes_(v33, v82, v81, v83);
       }
 
       else
       {
-        v97 = objc_msgSend_rowOrColumnUids(v37, v93, v94, v95, v96);
-        v102 = objc_msgSend_indexes(v97, v147, v148, v149, v150);
-        objc_msgSend_fillInColumnGapsUsingIndexes_(v41, v151, v102, v152, v153);
+        v77 = objc_msgSend_rowOrColumnUids(v30, v74, v75, v76);
+        v81 = objc_msgSend_indexes(v77, v115, v116, v117);
+        objc_msgSend_fillInColumnGapsUsingIndexes_(v33, v118, v81, v119);
       }
-      v109 = ;
+      v86 = ;
 
-      if (objc_msgSend_count(v109, v154, v155, v156, v157))
+      if (objc_msgSend_count(v86, v120, v121, v122))
       {
-        v162 = objc_msgSend_rowOrColumnUids(v37, v158, v159, v160, v161);
-        v166 = v162;
-        if (v162)
+        v126 = objc_msgSend_rowOrColumnUids(v30, v123, v124, v125);
+        v129 = v126;
+        if (v126)
         {
-          objc_msgSend_uidsForIndexes_(v162, v163, v109, v164, v165);
+          objc_msgSend_uidsForIndexes_(v126, v127, v86, v128);
         }
 
         else
@@ -5329,22 +5339,22 @@ LABEL_68:
           memset(&__p, 0, 24);
         }
 
-        v171 = __p;
+        v133 = __p;
         if (__p._singleRange._begin != *&__p)
         {
-          if (objc_msgSend_rewriteType(*(a1 + 17), v167, v168, v169, v170) == 4 && (*(a1 + 100) & 1) == 0)
+          if (objc_msgSend_rewriteType(*(a1 + 17), v130, v131, v132) == 4 && (*(a1 + 100) & 1) == 0)
           {
-            v176 = objc_msgSend_isRows(v37, v172, v173, v174, v175);
-            objc_msgSend_addToExcludedTractUids_isRows_(v278, v177, &__p, v176, v178);
+            v137 = objc_msgSend_isRows(v30, v134, v135, v136);
+            objc_msgSend_addToExcludedTractUids_isRows_(v219, v138, &__p, v137);
           }
 
-          v171 = __p;
+          v133 = __p;
         }
 
-        if (v171)
+        if (v133)
         {
-          __p._singleRange._begin = v171;
-          operator delete(v171);
+          __p._singleRange._begin = v133;
+          operator delete(v133);
         }
 
         goto LABEL_37;
@@ -5359,86 +5369,86 @@ LABEL_69:
   return this;
 }
 
-void sub_2212E6E98(uint64_t a1, char *a2, uint64_t a3, uint64_t a4, uint64_t a5)
+void sub_2212E6E98(uint64_t a1, TSCEASTUidReferenceElement *a2, uint64_t a3, uint64_t a4)
 {
-  if (objc_msgSend_rewriteType(*(a1 + 136), a2, a3, a4, a5) != 4)
+  if (objc_msgSend_rewriteType(*(a1 + 136), a2, a3, a4) != 4)
   {
-    v10 = MEMORY[0x277D81150];
-    v11 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v7, "virtual TSCEASTElement *TSCEASTInsertRowsRewriter::uidReferenceNode(TSCEASTUidReferenceElement *)", v8, v9);
-    v15 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v12, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCEASTInsertRowsRewriter.mm", v13, v14);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v10, v16, v11, v15, 336, 0, "TSCEASTInsertRowsRewriter - only move rows uses uuid-form references");
+    v8 = MEMORY[0x277D81150];
+    v9 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v6, "virtual TSCEASTElement *TSCEASTInsertRowsRewriter::uidReferenceNode(TSCEASTUidReferenceElement *)", v7);
+    v12 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v10, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCEASTInsertRowsRewriter.mm", v11);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v8, v13, v9, v12, 336, 0, "TSCEASTInsertRowsRewriter - only move rows uses uuid-form references");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v17, v18, v19, v20);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v14, v15, v16);
   }
 
   if (TSCEASTElement::refFlags(a2, a1))
   {
-    lower = TSCEASTUidReferenceElement::tableUID(a2, a1, v21, v22, v23);
+    lower = TSCEASTUidReferenceElement::tableUID(a2, a1, v17, v18);
   }
 
   else
   {
-    v24 = TSCEFormulaRewriteContext::containingCell(*(a1 + 8));
-    lower = v24->var0.var0._tableUID._lower;
-    upper = v24->var0.var0._tableUID._upper;
+    v19 = TSCEFormulaRewriteContext::containingCell(*(a1 + 8));
+    lower = v19->var0.var0._tableUID._lower;
+    upper = v19->var0.var0._tableUID._upper;
   }
 
-  v180.var0 = lower;
-  v180.var1 = upper;
-  v27 = TSCEASTElement::mutableUndoTractList(a2, a1);
-  v32 = objc_msgSend_activeUidTract(v27, v28, v29, v30, v31);
-  v37 = v32;
-  v177 = 0;
-  v178 = 0;
-  v179 = 0;
-  v174 = 0;
-  v175 = 0;
-  v176 = 0;
-  if (v32)
+  v149._lower = lower;
+  v149._upper = upper;
+  v22 = TSCEASTElement::mutableUndoTractList(a2, a1);
+  v26 = objc_msgSend_activeUidTract(v22, v23, v24, v25);
+  v30 = v26;
+  v146 = 0;
+  v147 = 0;
+  v148 = 0;
+  v143 = 0;
+  v144 = 0;
+  v145 = 0;
+  if (v26)
   {
-    v38 = objc_msgSend_columnUids(v32, v33, v34, v35, v36);
-    if (&v177 != v38)
+    v31 = objc_msgSend_columnUids(v26, v27, v28, v29);
+    if (&v146 != v31)
     {
-      sub_2210BD068(&v177, *v38, v38[1], (v38[1] - *v38) >> 4);
+      sub_2210BD068(&v146, *v31, v31[1], (v31[1] - *v31) >> 4);
     }
 
-    v43 = objc_msgSend_rowUids(v37, v39, v40, v41, v42);
-    if (&v174 != v43)
+    v35 = objc_msgSend_rowUids(v30, v32, v33, v34);
+    if (&v143 != v35)
     {
-      sub_2210BD068(&v174, *v43, v43[1], (v43[1] - *v43) >> 4);
+      sub_2210BD068(&v143, *v35, v35[1], (v35[1] - *v35) >> 4);
     }
 
-    v48 = objc_msgSend_preserveRectangularRange(v37, v44, v45, v46, v47);
+    v39 = objc_msgSend_preserveRectangularRange(v30, v36, v37, v38);
   }
 
   else
   {
-    v48 = 0;
+    v39 = 0;
   }
 
-  objc_msgSend_dropTract_(v27, v33, v37, v35, v36);
-  v52 = v178 - v177 == 16 && !*v177 && *(v177 + 1) == 0;
-  v161 = v52;
-  if (v175 - v174 == 16 && !*v174)
+  objc_msgSend_dropTract_(v22, v27, v30, v29);
+  v42 = v147 - v146 == 16 && !*v146 && *(v146 + 1) == 0;
+  v130 = v42;
+  if (v144 - v143 == 16 && !*v143)
   {
-    v53 = *(v174 + 1) == 0;
-    if (v52 && v53)
+    v43 = *(v143 + 1) == 0;
+    if (v42 && v43)
     {
-      v106 = MEMORY[0x277D81150];
-      v107 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v49, "virtual TSCEASTElement *TSCEASTInsertRowsRewriter::uidReferenceNode(TSCEASTUidReferenceElement *)", v50, v51);
-      v111 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v108, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCEASTInsertRowsRewriter.mm", v109, v110);
-      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v106, v112, v107, v111, 359, 0, "Can't be spanning on both row and column, tractList: %{public}@", v27);
+      v86 = MEMORY[0x277D81150];
+      v87 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v40, "virtual TSCEASTElement *TSCEASTInsertRowsRewriter::uidReferenceNode(TSCEASTUidReferenceElement *)", v41);
+      v90 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v88, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCEASTInsertRowsRewriter.mm", v89);
+      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v86, v91, v87, v90, 359, 0, "Can't be spanning on both row and column, tractList: %{public}@", v22);
 
-      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v113, v114, v115, v116);
-      v54 = 0;
-      LOBYTE(v53) = 1;
+      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v92, v93, v94);
+      v44 = 0;
+      LOBYTE(v43) = 1;
 LABEL_20:
-      v172 = 0;
-      v173 = 0;
-      v55 = TSCEASTRelativeCoordRefElement::tractRefUsingUuids(a1, &v180, &v177, &v174, &v173, &v172, v48);
-      if (objc_msgSend_count(v173, v56, v57, v58, v59))
+      v141 = 0;
+      v142 = 0;
+      v45 = TSCEASTRelativeCoordRefElement::tractRefUsingUuids(a1, &v149, &v146, &v143, &v142, &v141, v39);
+      if (objc_msgSend_count(v142, v46, v47, v48))
       {
-        isAllInvalid = objc_msgSend_isAllInvalid(v173, v60, v61, v62, v63);
+        isAllInvalid = objc_msgSend_isAllInvalid(v142, v49, v50, v51);
       }
 
       else
@@ -5446,51 +5456,51 @@ LABEL_20:
         isAllInvalid = 1;
       }
 
-      if (objc_msgSend_count(v172, v60, v61, v62, v63))
+      if (objc_msgSend_count(v141, v49, v50, v51))
       {
-        v69 = objc_msgSend_isAllInvalid(v172, v65, v66, v67, v68);
+        v56 = objc_msgSend_isAllInvalid(v141, v53, v54, v55);
       }
 
       else
       {
-        v69 = 1;
+        v56 = 1;
       }
 
-      isValid = objc_msgSend_isValid(v55, v65, v66, v67, v68);
-      if (v54)
+      isValid = objc_msgSend_isValid(v45, v53, v54, v55);
+      if (v44)
       {
-        v74 = isValid & isAllInvalid & v69;
+        v60 = isValid & isAllInvalid & v56;
       }
 
       else
       {
-        v74 = 0;
-        v178 = v177;
-        v175 = v174;
+        v60 = 0;
+        v147 = v146;
+        v144 = v143;
       }
 
-      v75 = TSCEASTUidReferenceElement::preserveFlags(a2, a1, v71, v72, v73);
-      v171._flags = v75;
-      v76 = TSCEASTElement::refFlags(a2, a1);
-      if (!v74)
+      v61 = TSCEASTUidReferenceElement::preserveFlags(a2, a1, v58, v59);
+      v140._flags = v61;
+      v62 = TSCEASTElement::refFlags(a2, a1);
+      if (!v60)
       {
-        objc_msgSend_addUuidsFromVector_(v173, v77, &v177, v79, v80);
-        objc_msgSend_addUuidsFromVector_(v172, v99, &v174, v100, v101);
-        if (v173)
+        objc_msgSend_addUuidsFromVector_(v142, v63, &v146, v65);
+        objc_msgSend_addUuidsFromVector_(v141, v81, &v143, v82);
+        if (v142)
         {
-          objc_msgSend_uuidsAsVector(v173, v102, v103, v104, v105);
+          objc_msgSend_uuidsAsVector(v142, v83, v84, v85);
         }
 
         else
         {
-          v168 = 0;
+          v137 = 0;
           __dst = 0;
-          v170 = 0;
+          v139 = 0;
         }
 
-        if (v172)
+        if (v141)
         {
-          objc_msgSend_uuidsAsVector(v172, v102, v103, v104, v105);
+          objc_msgSend_uuidsAsVector(v141, v83, v84, v85);
         }
 
         else
@@ -5498,69 +5508,69 @@ LABEL_20:
           memset(&__p, 0, sizeof(__p));
         }
 
-        objc_msgSend_addToIncludedUidsTractColumnUids_rowUids_(v27, v102, &v168, &__p, v105);
+        objc_msgSend_addToIncludedUidsTractColumnUids_rowUids_(v22, v83, &v137, &__p);
         if (__p.coordinate)
         {
           __p._tableUID._lower = __p.coordinate;
           operator delete(*&__p.coordinate);
         }
 
-        if (v168)
+        if (v137)
         {
-          __dst = v168;
-          operator delete(v168);
+          __dst = v137;
+          operator delete(v137);
         }
 
-        TSCEASTIteratorBase::createReferenceErrorWithUidTractList(a1, v27, &v180, &v171);
+        TSCEASTIteratorBase::createReferenceErrorWithUidTractList(a1, v22, &v149, &v140);
       }
 
-      v81 = v76;
-      v82 = objc_msgSend_includedUidsTract(v27, v77, v78, v79, v80);
-      v87 = v82;
-      if (v82 && *(a1 + 98) == 1)
+      v66 = v62;
+      v67 = objc_msgSend_includedUidsTract(v22, v63, v64, v65);
+      v71 = v67;
+      if (v67 && *(a1 + 98) == 1)
       {
-        v88 = objc_msgSend_rowUids(v82, v83, v84, v85, v86);
-        v168 = 0;
+        v72 = objc_msgSend_rowUids(v67, v68, v69, v70);
+        v137 = 0;
         __dst = 0;
-        v170 = 0;
-        sub_221086EBC(&v168, *v88, v88[1], (v88[1] - *v88) >> 4);
-        v93 = objc_msgSend_columnUids(v87, v89, v90, v91, v92);
+        v139 = 0;
+        sub_221086EBC(&v137, *v72, *(v72 + 8), (*(v72 + 8) - *v72) >> 4);
+        v76 = objc_msgSend_columnUids(v71, v73, v74, v75);
         memset(&__p, 0, sizeof(__p));
-        sub_221086EBC(&__p, *v93, v93[1], (v93[1] - *v93) >> 4);
-        if (v172)
+        sub_221086EBC(&__p, *v76, *(v76 + 8), (*(v76 + 8) - *v76) >> 4);
+        if (v141)
         {
-          objc_msgSend_uuidsAsVector(v172, v94, v95, v96, v97);
-          v98 = tableUID;
+          objc_msgSend_uuidsAsVector(v141, v77, v78, v79);
+          v80 = tableUID;
         }
 
         else
         {
-          v166 = 0;
-          v98 = 0;
+          v135 = 0;
+          v80 = 0;
           tableUID = 0;
         }
 
-        sub_2210F0C88(&v168, __dst, v98._lower, v98._upper, (v98._upper - v98._lower) >> 4);
+        sub_2210F0C88(&v137, __dst, v80._lower, v80._upper, (v80._upper - v80._lower) >> 4);
         if (tableUID._lower)
         {
           tableUID._upper = tableUID._lower;
           operator delete(tableUID._lower);
         }
 
-        if (v173)
+        if (v142)
         {
-          objc_msgSend_uuidsAsVector(v173, v117, v118, v119, v120);
-          v121 = tableUID;
+          objc_msgSend_uuidsAsVector(v142, v95, v96, v97);
+          v98 = tableUID;
         }
 
         else
         {
-          v166 = 0;
-          v121 = 0;
+          v135 = 0;
+          v98 = 0;
           tableUID = 0;
         }
 
-        sub_2210F0C88(&__p, __p._tableUID._lower, v121._lower, v121._upper, (v121._upper - v121._lower) >> 4);
+        sub_2210F0C88(&__p, __p._tableUID._lower, v98._lower, v98._upper, (v98._upper - v98._lower) >> 4);
         if (tableUID._lower)
         {
           tableUID._upper = tableUID._lower;
@@ -5569,24 +5579,24 @@ LABEL_20:
 
         tableUID._lower = 0;
         tableUID._upper = 0;
-        v166 = 0;
-        v162 = 0;
-        v163 = 0;
-        v164 = 0;
-        v122 = TSCEASTRelativeCoordRefElement::expandTractRefUsingUuids(a1, &v180, v55, &v168, &tableUID, 1);
-        if ((TSCEASTRelativeCoordRefElement::expandTractRefUsingUuids(a1, &v180, v55, &__p, &v162, 0) | v122))
+        v135 = 0;
+        v131 = 0;
+        v132 = 0;
+        v133 = 0;
+        v99 = TSCEASTRelativeCoordRefElement::expandTractRefUsingUuids(a1, &v149, v45, &v137, &tableUID, 1);
+        if ((TSCEASTRelativeCoordRefElement::expandTractRefUsingUuids(a1, &v149, v45, &__p, &v131, 0) | v99))
         {
-          objc_msgSend_removeAllUuids(v173, v83, v84, v85, v86);
-          objc_msgSend_addUuidsFromVector_(v173, v123, &v162, v124, v125);
-          objc_msgSend_removeAllUuids(v172, v126, v127, v128, v129);
-          objc_msgSend_addUuidsFromVector_(v172, v130, &tableUID, v131, v132);
-          objc_msgSend_dropTract_(v27, v133, v87, v134, v135);
+          objc_msgSend_removeAllUuids(v142, v68, v69, v70);
+          objc_msgSend_addUuidsFromVector_(v142, v100, &v131, v101);
+          objc_msgSend_removeAllUuids(v141, v102, v103, v104);
+          objc_msgSend_addUuidsFromVector_(v141, v105, &tableUID, v106);
+          objc_msgSend_dropTract_(v22, v107, v71, v108);
         }
 
-        if (v162)
+        if (v131)
         {
-          v163 = v162;
-          operator delete(*&v162);
+          v132 = v131;
+          operator delete(*&v131);
         }
 
         if (tableUID._lower)
@@ -5601,78 +5611,78 @@ LABEL_20:
           operator delete(*&__p.coordinate);
         }
 
-        if (v168)
+        if (v137)
         {
-          __dst = v168;
-          operator delete(v168);
+          __dst = v137;
+          operator delete(v137);
         }
       }
 
-      if (v53)
+      if (v43)
       {
-        if (v161)
+        if (v130)
         {
-          v136 = 0;
+          v109 = 0;
           goto LABEL_71;
         }
       }
 
       else
       {
-        v136 = objc_msgSend_count(v172, v83, v84, v85, v86) != 0;
-        if (v136 || v161)
+        v109 = objc_msgSend_count(v141, v68, v69, v70) != 0;
+        if (v109 || v130)
         {
           goto LABEL_71;
         }
       }
 
-      v136 = objc_msgSend_count(v173, v83, v84, v85, v86) != 0;
+      v109 = objc_msgSend_count(v142, v68, v69, v70) != 0;
 LABEL_71:
-      if (objc_msgSend_isRangeRef(v37, v83, v84, v85, v86))
+      if (objc_msgSend_isRangeRef(v30, v68, v69, v70))
       {
-        v141 = 1;
+        v113 = 1;
       }
 
       else
       {
-        v141 = objc_msgSend_isSingleCellOrSpanningRange(v55, v137, v138, v139, v140) ^ 1;
+        v113 = objc_msgSend_isSingleCellOrSpanningRange(v45, v110, v111, v112) ^ 1;
       }
 
-      v142 = *(a1 + 144);
+      v114 = *(a1 + 144);
       __p = TSCEFormulaRewriteContext::containingCell(*(a1 + 8))->var0.var0;
-      if (v142)
+      if (v114)
       {
-        objc_msgSend_updatedCellRefForRewriteType_originalCellRef_(v142, v143, 3, &__p, v146);
-        v147 = v168;
+        objc_msgSend_updatedCellRefForRewriteType_originalCellRef_(v114, v115, 3, &__p);
+        v118 = v137;
       }
 
       else
       {
-        v147 = 0;
-        v168 = 0;
+        v118 = 0;
+        v137 = 0;
         __dst = 0;
-        v170 = 0;
+        v139 = 0;
       }
 
-      v162 = v147;
-      if ((v136 | v141))
+      v131 = v118;
+      if ((v109 | v113))
       {
-        v148 = v75 & 3;
-        if (v141)
+        v119 = v61 & 3;
+        if (v113)
         {
-          v149 = (v75 >> 2) & 3;
+          v120 = (v61 >> 2) & 3;
         }
 
         else
         {
-          v149 = v75 & 3;
+          v120 = v61 & 3;
         }
 
-        if (v136)
+        if (v109)
         {
-          if (v173)
+          if (v142)
           {
-            objc_msgSend_uuidsAsVector(v173, v143, v144, v145, v146);
+            objc_msgSend_uuidsAsVector(v142, v115, v116, v117);
           }
 
           else
@@ -5680,19 +5690,19 @@ LABEL_71:
             memset(&__p, 0, sizeof(__p));
           }
 
-          if (v172)
+          if (v141)
           {
-            objc_msgSend_uuidsAsVector(v172, v143, v144, v145, v146);
+            objc_msgSend_uuidsAsVector(v141, v115, v116, v117);
           }
 
           else
           {
             tableUID._lower = 0;
             tableUID._upper = 0;
-            v166 = 0;
+            v135 = 0;
           }
 
-          objc_msgSend_addToIncludedUidsTractColumnUids_rowUids_(v27, v143, &__p, &tableUID, v146);
+          objc_msgSend_addToIncludedUidsTractColumnUids_rowUids_(v22, v115, &__p, &tableUID);
           if (tableUID._lower)
           {
             tableUID._upper = tableUID._lower;
@@ -5706,30 +5716,30 @@ LABEL_71:
           }
         }
 
-        objc_msgSend_setPreserveFlags_(v55, v143, v148 | (4 * v149), v145, v146);
-        v151 = [TSCERelativeTractRef alloc];
-        v154 = objc_msgSend_initWithAbsoluteTractRef_hostCell_(v151, v152, v55, &v162, v153);
-        v158 = TSCEASTUidReferenceElement::colonTractFlags(a2, a1, v155, v156, v157);
+        objc_msgSend_setPreserveFlags_(v45, v115, v119 | (4 * v120), v117);
+        v122 = [TSCERelativeTractRef alloc];
+        v124 = objc_msgSend_initWithAbsoluteTractRef_hostCell_(v122, v123, v45, &v131);
+        v127 = TSCEASTUidReferenceElement::colonTractFlags(a2, a1, v125, v126);
         *&__p.coordinate.row = TSCEFormulaRewriteContext::containingCell(*(a1 + 8))->var0.var0._tableUID;
-        v159._flags = v81;
-        v160._flags = v158;
-        TSCEASTIteratorBase::createColonTractRef(a1, v159, v160, v154, v27, &__p);
+        v128._flags = v66;
+        v129._flags = v127;
+        TSCEASTIteratorBase::createColonTractRef(a1, v128, v129, v124, v22, &__p);
       }
 
-      __p.coordinate = objc_msgSend_topLeft(v55, v143, v144, v145, v146);
-      __p._tableUID = *&v180.var0;
+      __p.coordinate = objc_msgSend_topLeft(v45, v115, v116, v117);
+      __p._tableUID = v149;
       tableUID = TSCEFormulaRewriteContext::containingCell(*(a1 + 8))->var0.var0._tableUID;
-      v150._flags = v81;
-      TSCEASTIteratorBase::createReference(a1, &__p, v150, &tableUID, &v162, v27);
+      v121._flags = v66;
+      TSCEASTIteratorBase::createReference(a1, &__p, v121, &tableUID, &v131, v22);
     }
   }
 
   else
   {
-    LOBYTE(v53) = 0;
+    LOBYTE(v43) = 0;
   }
 
-  v54 = 1;
+  v44 = 1;
   goto LABEL_20;
 }
 
@@ -5769,477 +5779,477 @@ void sub_2212E801C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-id sub_2212E8C80(void *a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5)
+id sub_2212E8C80(void *a1, const char *a2, uint64_t a3, uint64_t a4)
 {
-  v6 = objc_msgSend_localeSpecificStorageForKey_(a1, a2, @"functionNameToLocalizedDictionary", a4, a5);
-  if (!v6)
+  v5 = objc_msgSend_localeSpecificStorageForKey_(a1, a2, @"functionNameToLocalizedDictionary", a4);
+  if (!v5)
   {
-    v360 = objc_alloc(MEMORY[0x277CBEAC0]);
-    v689 = objc_msgSend_localizedStringForKey_value_table_(a1, v7, @"DATE", &stru_2834BADA0, @"TSCalculationEngine");
-    v688 = objc_msgSend_localizedStringForKey_value_table_(a1, v8, @"DATEDIF", &stru_2834BADA0, @"TSCalculationEngine");
-    v687 = objc_msgSend_localizedStringForKey_value_table_(a1, v9, @"DATEVALUE", &stru_2834BADA0, @"TSCalculationEngine");
-    v686 = objc_msgSend_localizedStringForKey_value_table_(a1, v10, @"DAY", &stru_2834BADA0, @"TSCalculationEngine");
-    v685 = objc_msgSend_localizedStringForKey_value_table_(a1, v11, @"DAYNAME", &stru_2834BADA0, @"TSCalculationEngine");
-    v684 = objc_msgSend_localizedStringForKey_value_table_(a1, v12, @"DAYS360", &stru_2834BADA0, @"TSCalculationEngine");
-    v683 = objc_msgSend_localizedStringForKey_value_table_(a1, v13, @"EDATE", &stru_2834BADA0, @"TSCalculationEngine");
-    v682 = objc_msgSend_localizedStringForKey_value_table_(a1, v14, @"EOMONTH", &stru_2834BADA0, @"TSCalculationEngine");
-    v681 = objc_msgSend_localizedStringForKey_value_table_(a1, v15, @"HOUR", &stru_2834BADA0, @"TSCalculationEngine");
-    v680 = objc_msgSend_localizedStringForKey_value_table_(a1, v16, @"ISOWEEKNUM", &stru_2834BADA0, @"TSCalculationEngine");
-    v679 = objc_msgSend_localizedStringForKey_value_table_(a1, v17, @"MINUTE", &stru_2834BADA0, @"TSCalculationEngine");
-    v678 = objc_msgSend_localizedStringForKey_value_table_(a1, v18, @"MONTH", &stru_2834BADA0, @"TSCalculationEngine");
-    v677 = objc_msgSend_localizedStringForKey_value_table_(a1, v19, @"MONTHNAME", &stru_2834BADA0, @"TSCalculationEngine");
-    v676 = objc_msgSend_localizedStringForKey_value_table_(a1, v20, @"NETWORKDAYS", &stru_2834BADA0, @"TSCalculationEngine");
-    v675 = objc_msgSend_localizedStringForKey_value_table_(a1, v21, @"NOW", &stru_2834BADA0, @"TSCalculationEngine");
-    v674 = objc_msgSend_localizedStringForKey_value_table_(a1, v22, @"SECOND", &stru_2834BADA0, @"TSCalculationEngine");
-    v673 = objc_msgSend_localizedStringForKey_value_table_(a1, v23, @"TIME", &stru_2834BADA0, @"TSCalculationEngine");
-    v672 = objc_msgSend_localizedStringForKey_value_table_(a1, v24, @"TIMEVALUE", &stru_2834BADA0, @"TSCalculationEngine");
-    v671 = objc_msgSend_localizedStringForKey_value_table_(a1, v25, @"TODAY", &stru_2834BADA0, @"TSCalculationEngine");
-    v670 = objc_msgSend_localizedStringForKey_value_table_(a1, v26, @"WEEKDAY", &stru_2834BADA0, @"TSCalculationEngine");
-    v669 = objc_msgSend_localizedStringForKey_value_table_(a1, v27, @"WEEKNUM", &stru_2834BADA0, @"TSCalculationEngine");
-    v668 = objc_msgSend_localizedStringForKey_value_table_(a1, v28, @"WORKDAY", &stru_2834BADA0, @"TSCalculationEngine");
-    v667 = objc_msgSend_localizedStringForKey_value_table_(a1, v29, @"YEAR", &stru_2834BADA0, @"TSCalculationEngine");
-    v666 = objc_msgSend_localizedStringForKey_value_table_(a1, v30, @"YEARFRAC", &stru_2834BADA0, @"TSCalculationEngine");
-    v665 = objc_msgSend_localizedStringForKey_value_table_(a1, v31, @"DURATION", &stru_2834BADA0, @"TSCalculationEngine");
-    v664 = objc_msgSend_localizedStringForKey_value_table_(a1, v32, @"DUR2DAYS", &stru_2834BADA0, @"TSCalculationEngine");
-    v663 = objc_msgSend_localizedStringForKey_value_table_(a1, v33, @"DUR2HOURS", &stru_2834BADA0, @"TSCalculationEngine");
-    v662 = objc_msgSend_localizedStringForKey_value_table_(a1, v34, @"DUR2MILLISECONDS", &stru_2834BADA0, @"TSCalculationEngine");
-    v661 = objc_msgSend_localizedStringForKey_value_table_(a1, v35, @"DUR2MINUTES", &stru_2834BADA0, @"TSCalculationEngine");
-    v660 = objc_msgSend_localizedStringForKey_value_table_(a1, v36, @"DUR2SECONDS", &stru_2834BADA0, @"TSCalculationEngine");
-    v659 = objc_msgSend_localizedStringForKey_value_table_(a1, v37, @"DUR2WEEKS", &stru_2834BADA0, @"TSCalculationEngine");
-    v658 = objc_msgSend_localizedStringForKey_value_table_(a1, v38, @"STRIPDURATION", &stru_2834BADA0, @"TSCalculationEngine");
-    v657 = objc_msgSend_localizedStringForKey_value_table_(a1, v39, @"BASETONUM", &stru_2834BADA0, @"TSCalculationEngine");
-    v656 = objc_msgSend_localizedStringForKey_value_table_(a1, v40, @"BESSELJ", &stru_2834BADA0, @"TSCalculationEngine");
-    v655 = objc_msgSend_localizedStringForKey_value_table_(a1, v41, @"BESSELY", &stru_2834BADA0, @"TSCalculationEngine");
-    v654 = objc_msgSend_localizedStringForKey_value_table_(a1, v42, @"BIN2DEC", &stru_2834BADA0, @"TSCalculationEngine");
-    v653 = objc_msgSend_localizedStringForKey_value_table_(a1, v43, @"BIN2HEX", &stru_2834BADA0, @"TSCalculationEngine");
-    v652 = objc_msgSend_localizedStringForKey_value_table_(a1, v44, @"BIN2OCT", &stru_2834BADA0, @"TSCalculationEngine");
-    v651 = objc_msgSend_localizedStringForKey_value_table_(a1, v45, @"BITAND", &stru_2834BADA0, @"TSCalculationEngine");
-    v650 = objc_msgSend_localizedStringForKey_value_table_(a1, v46, @"BITLSHIFT", &stru_2834BADA0, @"TSCalculationEngine");
-    v649 = objc_msgSend_localizedStringForKey_value_table_(a1, v47, @"BITRSHIFT", &stru_2834BADA0, @"TSCalculationEngine");
-    v648 = objc_msgSend_localizedStringForKey_value_table_(a1, v48, @"BITOR", &stru_2834BADA0, @"TSCalculationEngine");
-    v647 = objc_msgSend_localizedStringForKey_value_table_(a1, v49, @"BITXOR", &stru_2834BADA0, @"TSCalculationEngine");
-    v646 = objc_msgSend_localizedStringForKey_value_table_(a1, v50, @"CONVERT", &stru_2834BADA0, @"TSCalculationEngine");
-    v645 = objc_msgSend_localizedStringForKey_value_table_(a1, v51, @"DEC2BIN", &stru_2834BADA0, @"TSCalculationEngine");
-    v644 = objc_msgSend_localizedStringForKey_value_table_(a1, v52, @"DEC2HEX", &stru_2834BADA0, @"TSCalculationEngine");
-    v643 = objc_msgSend_localizedStringForKey_value_table_(a1, v53, @"DEC2OCT", &stru_2834BADA0, @"TSCalculationEngine");
-    v642 = objc_msgSend_localizedStringForKey_value_table_(a1, v54, @"DELTA", &stru_2834BADA0, @"TSCalculationEngine");
-    v641 = objc_msgSend_localizedStringForKey_value_table_(a1, v55, @"ERF", &stru_2834BADA0, @"TSCalculationEngine");
-    v640 = objc_msgSend_localizedStringForKey_value_table_(a1, v56, @"ERFC", &stru_2834BADA0, @"TSCalculationEngine");
-    v639 = objc_msgSend_localizedStringForKey_value_table_(a1, v57, @"GESTEP", &stru_2834BADA0, @"TSCalculationEngine");
-    v638 = objc_msgSend_localizedStringForKey_value_table_(a1, v58, @"HEX2BIN", &stru_2834BADA0, @"TSCalculationEngine");
-    v637 = objc_msgSend_localizedStringForKey_value_table_(a1, v59, @"HEX2DEC", &stru_2834BADA0, @"TSCalculationEngine");
-    v636 = objc_msgSend_localizedStringForKey_value_table_(a1, v60, @"HEX2OCT", &stru_2834BADA0, @"TSCalculationEngine");
-    v635 = objc_msgSend_localizedStringForKey_value_table_(a1, v61, @"NUMTOBASE", &stru_2834BADA0, @"TSCalculationEngine");
-    v634 = objc_msgSend_localizedStringForKey_value_table_(a1, v62, @"OCT2BIN", &stru_2834BADA0, @"TSCalculationEngine");
-    v633 = objc_msgSend_localizedStringForKey_value_table_(a1, v63, @"OCT2DEC", &stru_2834BADA0, @"TSCalculationEngine");
-    v632 = objc_msgSend_localizedStringForKey_value_table_(a1, v64, @"OCT2HEX", &stru_2834BADA0, @"TSCalculationEngine");
-    v631 = objc_msgSend_localizedStringForKey_value_table_(a1, v65, @"ACCRINT", &stru_2834BADA0, @"TSCalculationEngine");
-    v630 = objc_msgSend_localizedStringForKey_value_table_(a1, v66, @"ACCRINTM", &stru_2834BADA0, @"TSCalculationEngine");
-    v629 = objc_msgSend_localizedStringForKey_value_table_(a1, v67, @"BONDDURATION", &stru_2834BADA0, @"TSCalculationEngine");
-    v628 = objc_msgSend_localizedStringForKey_value_table_(a1, v68, @"BONDMDURATION", &stru_2834BADA0, @"TSCalculationEngine");
-    v627 = objc_msgSend_localizedStringForKey_value_table_(a1, v69, @"COUPDAYBS", &stru_2834BADA0, @"TSCalculationEngine");
-    v626 = objc_msgSend_localizedStringForKey_value_table_(a1, v70, @"COUPDAYS", &stru_2834BADA0, @"TSCalculationEngine");
-    v625 = objc_msgSend_localizedStringForKey_value_table_(a1, v71, @"COUPDAYSNC", &stru_2834BADA0, @"TSCalculationEngine");
-    v624 = objc_msgSend_localizedStringForKey_value_table_(a1, v72, @"COUPNUM", &stru_2834BADA0, @"TSCalculationEngine");
-    v623 = objc_msgSend_localizedStringForKey_value_table_(a1, v73, @"CUMIPMT", &stru_2834BADA0, @"TSCalculationEngine");
-    v622 = objc_msgSend_localizedStringForKey_value_table_(a1, v74, @"CUMPRINC", &stru_2834BADA0, @"TSCalculationEngine");
-    v621 = objc_msgSend_localizedStringForKey_value_table_(a1, v75, @"CURRENCY", &stru_2834BADA0, @"TSCalculationEngine");
-    v620 = objc_msgSend_localizedStringForKey_value_table_(a1, v76, @"CURRENCYCODE", &stru_2834BADA0, @"TSCalculationEngine");
-    v619 = objc_msgSend_localizedStringForKey_value_table_(a1, v77, @"CURRENCYCONVERT", &stru_2834BADA0, @"TSCalculationEngine");
-    v618 = objc_msgSend_localizedStringForKey_value_table_(a1, v78, @"CURRENCYH", &stru_2834BADA0, @"TSCalculationEngine");
-    v617 = objc_msgSend_localizedStringForKey_value_table_(a1, v79, @"DB", &stru_2834BADA0, @"TSCalculationEngine");
-    v616 = objc_msgSend_localizedStringForKey_value_table_(a1, v80, @"DDB", &stru_2834BADA0, @"TSCalculationEngine");
-    v615 = objc_msgSend_localizedStringForKey_value_table_(a1, v81, @"DISC", &stru_2834BADA0, @"TSCalculationEngine");
-    v614 = objc_msgSend_localizedStringForKey_value_table_(a1, v82, @"EFFECT", &stru_2834BADA0, @"TSCalculationEngine");
-    v613 = objc_msgSend_localizedStringForKey_value_table_(a1, v83, @"FV", &stru_2834BADA0, @"TSCalculationEngine");
-    v612 = objc_msgSend_localizedStringForKey_value_table_(a1, v84, @"INTRATE", &stru_2834BADA0, @"TSCalculationEngine");
-    v611 = objc_msgSend_localizedStringForKey_value_table_(a1, v85, @"IPMT", &stru_2834BADA0, @"TSCalculationEngine");
-    v610 = objc_msgSend_localizedStringForKey_value_table_(a1, v86, @"IRR", &stru_2834BADA0, @"TSCalculationEngine");
-    v609 = objc_msgSend_localizedStringForKey_value_table_(a1, v87, @"ISPMT", &stru_2834BADA0, @"TSCalculationEngine");
-    v608 = objc_msgSend_localizedStringForKey_value_table_(a1, v88, @"MIRR", &stru_2834BADA0, @"TSCalculationEngine");
-    v607 = objc_msgSend_localizedStringForKey_value_table_(a1, v89, @"NOMINAL", &stru_2834BADA0, @"TSCalculationEngine");
-    v606 = objc_msgSend_localizedStringForKey_value_table_(a1, v90, @"NPER", &stru_2834BADA0, @"TSCalculationEngine");
-    v605 = objc_msgSend_localizedStringForKey_value_table_(a1, v91, @"NPV", &stru_2834BADA0, @"TSCalculationEngine");
-    v604 = objc_msgSend_localizedStringForKey_value_table_(a1, v92, @"PMT", &stru_2834BADA0, @"TSCalculationEngine");
-    v603 = objc_msgSend_localizedStringForKey_value_table_(a1, v93, @"PPMT", &stru_2834BADA0, @"TSCalculationEngine");
-    v602 = objc_msgSend_localizedStringForKey_value_table_(a1, v94, @"PRICE", &stru_2834BADA0, @"TSCalculationEngine");
-    v601 = objc_msgSend_localizedStringForKey_value_table_(a1, v95, @"PRICEDISC", &stru_2834BADA0, @"TSCalculationEngine");
-    v600 = objc_msgSend_localizedStringForKey_value_table_(a1, v96, @"PRICEMAT", &stru_2834BADA0, @"TSCalculationEngine");
-    v599 = objc_msgSend_localizedStringForKey_value_table_(a1, v97, @"PV", &stru_2834BADA0, @"TSCalculationEngine");
-    v598 = objc_msgSend_localizedStringForKey_value_table_(a1, v98, @"RATE", &stru_2834BADA0, @"TSCalculationEngine");
-    v597 = objc_msgSend_localizedStringForKey_value_table_(a1, v99, @"RECEIVED", &stru_2834BADA0, @"TSCalculationEngine");
-    v596 = objc_msgSend_localizedStringForKey_value_table_(a1, v100, @"SLN", &stru_2834BADA0, @"TSCalculationEngine");
-    v595 = objc_msgSend_localizedStringForKey_value_table_(a1, v101, @"STOCK", &stru_2834BADA0, @"TSCalculationEngine");
-    v594 = objc_msgSend_localizedStringForKey_value_table_(a1, v102, @"STOCKH", &stru_2834BADA0, @"TSCalculationEngine");
-    v593 = objc_msgSend_localizedStringForKey_value_table_(a1, v103, @"SYD", &stru_2834BADA0, @"TSCalculationEngine");
-    v592 = objc_msgSend_localizedStringForKey_value_table_(a1, v104, @"VDB", &stru_2834BADA0, @"TSCalculationEngine");
-    v591 = objc_msgSend_localizedStringForKey_value_table_(a1, v105, @"XIRR", &stru_2834BADA0, @"TSCalculationEngine");
-    v590 = objc_msgSend_localizedStringForKey_value_table_(a1, v106, @"XNPV", &stru_2834BADA0, @"TSCalculationEngine");
-    v589 = objc_msgSend_localizedStringForKey_value_table_(a1, v107, @"YIELD", &stru_2834BADA0, @"TSCalculationEngine");
-    v588 = objc_msgSend_localizedStringForKey_value_table_(a1, v108, @"YIELDDISC", &stru_2834BADA0, @"TSCalculationEngine");
-    v587 = objc_msgSend_localizedStringForKey_value_table_(a1, v109, @"YIELDMAT", &stru_2834BADA0, @"TSCalculationEngine");
-    v586 = objc_msgSend_localizedStringForKey_value_table_(a1, v110, @"AND", &stru_2834BADA0, @"TSCalculationEngine");
-    v585 = objc_msgSend_localizedStringForKey_value_table_(a1, v111, @"FALSE", &stru_2834BADA0, @"TSCalculationEngine");
-    v584 = objc_msgSend_localizedStringForKey_value_table_(a1, v112, @"IF", &stru_2834BADA0, @"TSCalculationEngine");
-    v583 = objc_msgSend_localizedStringForKey_value_table_(a1, v113, @"IFS", &stru_2834BADA0, @"TSCalculationEngine");
-    v582 = objc_msgSend_localizedStringForKey_value_table_(a1, v114, @"IFERROR", &stru_2834BADA0, @"TSCalculationEngine");
-    v581 = objc_msgSend_localizedStringForKey_value_table_(a1, v115, @"ISBLANK", &stru_2834BADA0, @"TSCalculationEngine");
-    v580 = objc_msgSend_localizedStringForKey_value_table_(a1, v116, @"ISDATE", &stru_2834BADA0, @"TSCalculationEngine");
-    v579 = objc_msgSend_localizedStringForKey_value_table_(a1, v117, @"ISERROR", &stru_2834BADA0, @"TSCalculationEngine");
-    v578 = objc_msgSend_localizedStringForKey_value_table_(a1, v118, @"ISEVEN", &stru_2834BADA0, @"TSCalculationEngine");
-    v577 = objc_msgSend_localizedStringForKey_value_table_(a1, v119, @"ISNUMBER", &stru_2834BADA0, @"TSCalculationEngine");
-    v576 = objc_msgSend_localizedStringForKey_value_table_(a1, v120, @"ISNUMBERORDATE", &stru_2834BADA0, @"TSCalculationEngine");
-    v575 = objc_msgSend_localizedStringForKey_value_table_(a1, v121, @"ISODD", &stru_2834BADA0, @"TSCalculationEngine");
-    v574 = objc_msgSend_localizedStringForKey_value_table_(a1, v122, @"ISTEXT", &stru_2834BADA0, @"TSCalculationEngine");
-    v573 = objc_msgSend_localizedStringForKey_value_table_(a1, v123, @"NOT", &stru_2834BADA0, @"TSCalculationEngine");
-    v572 = objc_msgSend_localizedStringForKey_value_table_(a1, v124, @"OR", &stru_2834BADA0, @"TSCalculationEngine");
-    v571 = objc_msgSend_localizedStringForKey_value_table_(a1, v125, @"SWITCH", &stru_2834BADA0, @"TSCalculationEngine");
-    v570 = objc_msgSend_localizedStringForKey_value_table_(a1, v126, @"TRUE", &stru_2834BADA0, @"TSCalculationEngine");
-    v569 = objc_msgSend_localizedStringForKey_value_table_(a1, v127, @"ADDRESS", &stru_2834BADA0, @"TSCalculationEngine");
-    v568 = objc_msgSend_localizedStringForKey_value_table_(a1, v128, @"AREAS", &stru_2834BADA0, @"TSCalculationEngine");
-    v567 = objc_msgSend_localizedStringForKey_value_table_(a1, v129, @"ARRAYTOTEXT", &stru_2834BADA0, @"TSCalculationEngine");
-    v566 = objc_msgSend_localizedStringForKey_value_table_(a1, v130, @"BYCOL", &stru_2834BADA0, @"TSCalculationEngine");
-    v565 = objc_msgSend_localizedStringForKey_value_table_(a1, v131, @"BYROW", &stru_2834BADA0, @"TSCalculationEngine");
-    v564 = objc_msgSend_localizedStringForKey_value_table_(a1, v132, @"CHOOSE", &stru_2834BADA0, @"TSCalculationEngine");
-    v563 = objc_msgSend_localizedStringForKey_value_table_(a1, v133, @"CHOOSECOLS", &stru_2834BADA0, @"TSCalculationEngine");
-    v562 = objc_msgSend_localizedStringForKey_value_table_(a1, v134, @"CHOOSEROWS", &stru_2834BADA0, @"TSCalculationEngine");
-    v561 = objc_msgSend_localizedStringForKey_value_table_(a1, v135, @"COLUMN", &stru_2834BADA0, @"TSCalculationEngine");
-    v560 = objc_msgSend_localizedStringForKey_value_table_(a1, v136, @"COLUMNS", &stru_2834BADA0, @"TSCalculationEngine");
-    v559 = objc_msgSend_localizedStringForKey_value_table_(a1, v137, @"DROP", &stru_2834BADA0, @"TSCalculationEngine");
-    v558 = objc_msgSend_localizedStringForKey_value_table_(a1, v138, @"EXPAND", &stru_2834BADA0, @"TSCalculationEngine");
-    v557 = objc_msgSend_localizedStringForKey_value_table_(a1, v139, @"FILTER", &stru_2834BADA0, @"TSCalculationEngine");
-    v556 = objc_msgSend_localizedStringForKey_value_table_(a1, v140, @"FORMULATEXT", &stru_2834BADA0, @"TSCalculationEngine");
-    v555 = objc_msgSend_localizedStringForKey_value_table_(a1, v141, @"GETPIVOTDATA", &stru_2834BADA0, @"TSCalculationEngine");
-    v554 = objc_msgSend_localizedStringForKey_value_table_(a1, v142, @"HLOOKUP", &stru_2834BADA0, @"TSCalculationEngine");
-    v553 = objc_msgSend_localizedStringForKey_value_table_(a1, v143, @"HSTACK", &stru_2834BADA0, @"TSCalculationEngine");
-    v552 = objc_msgSend_localizedStringForKey_value_table_(a1, v144, @"HYPERLINK", &stru_2834BADA0, @"TSCalculationEngine");
-    v551 = objc_msgSend_localizedStringForKey_value_table_(a1, v145, @"INDEX", &stru_2834BADA0, @"TSCalculationEngine");
-    v550 = objc_msgSend_localizedStringForKey_value_table_(a1, v146, @"INDIRECT", &stru_2834BADA0, @"TSCalculationEngine");
-    v549 = objc_msgSend_localizedStringForKey_value_table_(a1, v147, @"INTERSECT.RANGES", &stru_2834BADA0, @"TSCalculationEngine");
-    v548 = objc_msgSend_localizedStringForKey_value_table_(a1, v148, @"ISOMITTED", &stru_2834BADA0, @"TSCalculationEngine");
-    v547 = objc_msgSend_localizedStringForKey_value_table_(a1, v149, @"LOOKUP", &stru_2834BADA0, @"TSCalculationEngine");
-    v546 = objc_msgSend_localizedStringForKey_value_table_(a1, v150, @"MAKEARRAY", &stru_2834BADA0, @"TSCalculationEngine");
-    v545 = objc_msgSend_localizedStringForKey_value_table_(a1, v151, @"MAP", &stru_2834BADA0, @"TSCalculationEngine");
-    v544 = objc_msgSend_localizedStringForKey_value_table_(a1, v152, @"MATCH", &stru_2834BADA0, @"TSCalculationEngine");
-    v543 = objc_msgSend_localizedStringForKey_value_table_(a1, v153, @"OFFSET", &stru_2834BADA0, @"TSCalculationEngine");
-    v542 = objc_msgSend_localizedStringForKey_value_table_(a1, v154, @"RANDARRAY", &stru_2834BADA0, @"TSCalculationEngine");
-    v541 = objc_msgSend_localizedStringForKey_value_table_(a1, v155, @"REDUCE", &stru_2834BADA0, @"TSCalculationEngine");
-    v540 = objc_msgSend_localizedStringForKey_value_table_(a1, v156, @"REFERENCE.NAME", &stru_2834BADA0, @"TSCalculationEngine");
-    v539 = objc_msgSend_localizedStringForKey_value_table_(a1, v157, @"ROW", &stru_2834BADA0, @"TSCalculationEngine");
-    v538 = objc_msgSend_localizedStringForKey_value_table_(a1, v158, @"ROWS", &stru_2834BADA0, @"TSCalculationEngine");
-    v537 = objc_msgSend_localizedStringForKey_value_table_(a1, v159, @"SCAN", &stru_2834BADA0, @"TSCalculationEngine");
-    v536 = objc_msgSend_localizedStringForKey_value_table_(a1, v160, @"SEQUENCE", &stru_2834BADA0, @"TSCalculationEngine");
-    v535 = objc_msgSend_localizedStringForKey_value_table_(a1, v161, @"SORT", &stru_2834BADA0, @"TSCalculationEngine");
-    v534 = objc_msgSend_localizedStringForKey_value_table_(a1, v162, @"SORTBY", &stru_2834BADA0, @"TSCalculationEngine");
-    v533 = objc_msgSend_localizedStringForKey_value_table_(a1, v163, @"TAKE", &stru_2834BADA0, @"TSCalculationEngine");
-    v532 = objc_msgSend_localizedStringForKey_value_table_(a1, v164, @"TOCOL", &stru_2834BADA0, @"TSCalculationEngine");
-    v531 = objc_msgSend_localizedStringForKey_value_table_(a1, v165, @"TOROW", &stru_2834BADA0, @"TSCalculationEngine");
-    v530 = objc_msgSend_localizedStringForKey_value_table_(a1, v166, @"TRANSPOSE", &stru_2834BADA0, @"TSCalculationEngine");
-    v529 = objc_msgSend_localizedStringForKey_value_table_(a1, v167, @"UNION.RANGES", &stru_2834BADA0, @"TSCalculationEngine");
-    v528 = objc_msgSend_localizedStringForKey_value_table_(a1, v168, @"UNIQUE", &stru_2834BADA0, @"TSCalculationEngine");
-    v527 = objc_msgSend_localizedStringForKey_value_table_(a1, v169, @"VLOOKUP", &stru_2834BADA0, @"TSCalculationEngine");
-    v526 = objc_msgSend_localizedStringForKey_value_table_(a1, v170, @"VSTACK", &stru_2834BADA0, @"TSCalculationEngine");
-    v525 = objc_msgSend_localizedStringForKey_value_table_(a1, v171, @"WRAPCOLS", &stru_2834BADA0, @"TSCalculationEngine");
-    v524 = objc_msgSend_localizedStringForKey_value_table_(a1, v172, @"WRAPROWS", &stru_2834BADA0, @"TSCalculationEngine");
-    v523 = objc_msgSend_localizedStringForKey_value_table_(a1, v173, @"XLOOKUP", &stru_2834BADA0, @"TSCalculationEngine");
-    v522 = objc_msgSend_localizedStringForKey_value_table_(a1, v174, @"XMATCH", &stru_2834BADA0, @"TSCalculationEngine");
-    v521 = objc_msgSend_localizedStringForKey_value_table_(a1, v175, @"ABS", &stru_2834BADA0, @"TSCalculationEngine");
-    v520 = objc_msgSend_localizedStringForKey_value_table_(a1, v176, @"ACOS", &stru_2834BADA0, @"TSCalculationEngine");
-    v519 = objc_msgSend_localizedStringForKey_value_table_(a1, v177, @"ACOSH", &stru_2834BADA0, @"TSCalculationEngine");
-    v518 = objc_msgSend_localizedStringForKey_value_table_(a1, v178, @"ASIN", &stru_2834BADA0, @"TSCalculationEngine");
-    v517 = objc_msgSend_localizedStringForKey_value_table_(a1, v179, @"ASINH", &stru_2834BADA0, @"TSCalculationEngine");
-    v516 = objc_msgSend_localizedStringForKey_value_table_(a1, v180, @"ATAN", &stru_2834BADA0, @"TSCalculationEngine");
-    v515 = objc_msgSend_localizedStringForKey_value_table_(a1, v181, @"ATAN2", &stru_2834BADA0, @"TSCalculationEngine");
-    v514 = objc_msgSend_localizedStringForKey_value_table_(a1, v182, @"ATANH", &stru_2834BADA0, @"TSCalculationEngine");
-    v513 = objc_msgSend_localizedStringForKey_value_table_(a1, v183, @"CEILING", &stru_2834BADA0, @"TSCalculationEngine");
-    v512 = objc_msgSend_localizedStringForKey_value_table_(a1, v184, @"COMBIN", &stru_2834BADA0, @"TSCalculationEngine");
-    v511 = objc_msgSend_localizedStringForKey_value_table_(a1, v185, @"COS", &stru_2834BADA0, @"TSCalculationEngine");
-    v510 = objc_msgSend_localizedStringForKey_value_table_(a1, v186, @"COSH", &stru_2834BADA0, @"TSCalculationEngine");
-    v509 = objc_msgSend_localizedStringForKey_value_table_(a1, v187, @"DEGREES", &stru_2834BADA0, @"TSCalculationEngine");
-    v508 = objc_msgSend_localizedStringForKey_value_table_(a1, v188, @"EVEN", &stru_2834BADA0, @"TSCalculationEngine");
-    v507 = objc_msgSend_localizedStringForKey_value_table_(a1, v189, @"EXP", &stru_2834BADA0, @"TSCalculationEngine");
-    v506 = objc_msgSend_localizedStringForKey_value_table_(a1, v190, @"FACT", &stru_2834BADA0, @"TSCalculationEngine");
-    v505 = objc_msgSend_localizedStringForKey_value_table_(a1, v191, @"FACTDOUBLE", &stru_2834BADA0, @"TSCalculationEngine");
-    v504 = objc_msgSend_localizedStringForKey_value_table_(a1, v192, @"FLOOR", &stru_2834BADA0, @"TSCalculationEngine");
-    v503 = objc_msgSend_localizedStringForKey_value_table_(a1, v193, @"GCD", &stru_2834BADA0, @"TSCalculationEngine");
-    v502 = objc_msgSend_localizedStringForKey_value_table_(a1, v194, @"INT", &stru_2834BADA0, @"TSCalculationEngine");
-    v501 = objc_msgSend_localizedStringForKey_value_table_(a1, v195, @"LAMBDA", &stru_2834BADA0, @"TSCalculationEngine");
-    v500 = objc_msgSend_localizedStringForKey_value_table_(a1, v196, @"LAMBDA.APPLY", &stru_2834BADA0, @"TSCalculationEngine");
-    v499 = objc_msgSend_localizedStringForKey_value_table_(a1, v197, @"LCM", &stru_2834BADA0, @"TSCalculationEngine");
-    v498 = objc_msgSend_localizedStringForKey_value_table_(a1, v198, @"LET", &stru_2834BADA0, @"TSCalculationEngine");
-    v497 = objc_msgSend_localizedStringForKey_value_table_(a1, v199, @"LN", &stru_2834BADA0, @"TSCalculationEngine");
-    v496 = objc_msgSend_localizedStringForKey_value_table_(a1, v200, @"LOG", &stru_2834BADA0, @"TSCalculationEngine");
-    v495 = objc_msgSend_localizedStringForKey_value_table_(a1, v201, @"LOG10", &stru_2834BADA0, @"TSCalculationEngine");
-    v494 = objc_msgSend_localizedStringForKey_value_table_(a1, v202, @"MDETERM", &stru_2834BADA0, @"TSCalculationEngine");
-    v493 = objc_msgSend_localizedStringForKey_value_table_(a1, v203, @"MINVERSE", &stru_2834BADA0, @"TSCalculationEngine");
-    v492 = objc_msgSend_localizedStringForKey_value_table_(a1, v204, @"MMULT", &stru_2834BADA0, @"TSCalculationEngine");
-    v491 = objc_msgSend_localizedStringForKey_value_table_(a1, v205, @"MOD", &stru_2834BADA0, @"TSCalculationEngine");
-    v490 = objc_msgSend_localizedStringForKey_value_table_(a1, v206, @"MROUND", &stru_2834BADA0, @"TSCalculationEngine");
-    v489 = objc_msgSend_localizedStringForKey_value_table_(a1, v207, @"MULTINOMIAL", &stru_2834BADA0, @"TSCalculationEngine");
-    v488 = objc_msgSend_localizedStringForKey_value_table_(a1, v208, @"MUNIT", &stru_2834BADA0, @"TSCalculationEngine");
-    v487 = objc_msgSend_localizedStringForKey_value_table_(a1, v209, @"ODD", &stru_2834BADA0, @"TSCalculationEngine");
-    v486 = objc_msgSend_localizedStringForKey_value_table_(a1, v210, @"PI", &stru_2834BADA0, @"TSCalculationEngine");
-    v485 = objc_msgSend_localizedStringForKey_value_table_(a1, v211, @"POLYNOMIAL", &stru_2834BADA0, @"TSCalculationEngine");
-    v484 = objc_msgSend_localizedStringForKey_value_table_(a1, v212, @"POWER", &stru_2834BADA0, @"TSCalculationEngine");
-    v483 = objc_msgSend_localizedStringForKey_value_table_(a1, v213, @"PRODUCT", &stru_2834BADA0, @"TSCalculationEngine");
-    v482 = objc_msgSend_localizedStringForKey_value_table_(a1, v214, @"QUOTIENT", &stru_2834BADA0, @"TSCalculationEngine");
-    v481 = objc_msgSend_localizedStringForKey_value_table_(a1, v215, @"RADIANS", &stru_2834BADA0, @"TSCalculationEngine");
-    v480 = objc_msgSend_localizedStringForKey_value_table_(a1, v216, @"RAND", &stru_2834BADA0, @"TSCalculationEngine");
-    v479 = objc_msgSend_localizedStringForKey_value_table_(a1, v217, @"RANDBETWEEN", &stru_2834BADA0, @"TSCalculationEngine");
-    v478 = objc_msgSend_localizedStringForKey_value_table_(a1, v218, @"ROMAN", &stru_2834BADA0, @"TSCalculationEngine");
-    v477 = objc_msgSend_localizedStringForKey_value_table_(a1, v219, @"ROUND", &stru_2834BADA0, @"TSCalculationEngine");
-    v476 = objc_msgSend_localizedStringForKey_value_table_(a1, v220, @"ROUNDDOWN", &stru_2834BADA0, @"TSCalculationEngine");
-    v475 = objc_msgSend_localizedStringForKey_value_table_(a1, v221, @"ROUNDUP", &stru_2834BADA0, @"TSCalculationEngine");
-    v474 = objc_msgSend_localizedStringForKey_value_table_(a1, v222, @"SERIESSUM", &stru_2834BADA0, @"TSCalculationEngine");
-    v473 = objc_msgSend_localizedStringForKey_value_table_(a1, v223, @"SIGN", &stru_2834BADA0, @"TSCalculationEngine");
-    v472 = objc_msgSend_localizedStringForKey_value_table_(a1, v224, @"SIN", &stru_2834BADA0, @"TSCalculationEngine");
-    v471 = objc_msgSend_localizedStringForKey_value_table_(a1, v225, @"SINH", &stru_2834BADA0, @"TSCalculationEngine");
-    v470 = objc_msgSend_localizedStringForKey_value_table_(a1, v226, @"SQRT", &stru_2834BADA0, @"TSCalculationEngine");
-    v469 = objc_msgSend_localizedStringForKey_value_table_(a1, v227, @"SQRTPI", &stru_2834BADA0, @"TSCalculationEngine");
-    v468 = objc_msgSend_localizedStringForKey_value_table_(a1, v228, @"SUBTOTAL", &stru_2834BADA0, @"TSCalculationEngine");
-    v467 = objc_msgSend_localizedStringForKey_value_table_(a1, v229, @"SUM", &stru_2834BADA0, @"TSCalculationEngine");
-    v466 = objc_msgSend_localizedStringForKey_value_table_(a1, v230, @"SUMIF", &stru_2834BADA0, @"TSCalculationEngine");
-    v465 = objc_msgSend_localizedStringForKey_value_table_(a1, v231, @"SUMIFS", &stru_2834BADA0, @"TSCalculationEngine");
-    v464 = objc_msgSend_localizedStringForKey_value_table_(a1, v232, @"SUMPRODUCT", &stru_2834BADA0, @"TSCalculationEngine");
-    v463 = objc_msgSend_localizedStringForKey_value_table_(a1, v233, @"SUMSQ", &stru_2834BADA0, @"TSCalculationEngine");
-    v462 = objc_msgSend_localizedStringForKey_value_table_(a1, v234, @"SUMX2MY2", &stru_2834BADA0, @"TSCalculationEngine");
-    v461 = objc_msgSend_localizedStringForKey_value_table_(a1, v235, @"SUMX2PY2", &stru_2834BADA0, @"TSCalculationEngine");
-    v460 = objc_msgSend_localizedStringForKey_value_table_(a1, v236, @"SUMXMY2", &stru_2834BADA0, @"TSCalculationEngine");
-    v459 = objc_msgSend_localizedStringForKey_value_table_(a1, v237, @"TAN", &stru_2834BADA0, @"TSCalculationEngine");
-    v458 = objc_msgSend_localizedStringForKey_value_table_(a1, v238, @"TANH", &stru_2834BADA0, @"TSCalculationEngine");
-    v457 = objc_msgSend_localizedStringForKey_value_table_(a1, v239, @"TRUNC", &stru_2834BADA0, @"TSCalculationEngine");
-    v456 = objc_msgSend_localizedStringForKey_value_table_(a1, v240, @"AVEDEV", &stru_2834BADA0, @"TSCalculationEngine");
-    v455 = objc_msgSend_localizedStringForKey_value_table_(a1, v241, @"AVERAGE", &stru_2834BADA0, @"TSCalculationEngine");
-    v454 = objc_msgSend_localizedStringForKey_value_table_(a1, v242, @"AVERAGEA", &stru_2834BADA0, @"TSCalculationEngine");
-    v453 = objc_msgSend_localizedStringForKey_value_table_(a1, v243, @"AVERAGEIF", &stru_2834BADA0, @"TSCalculationEngine");
-    v452 = objc_msgSend_localizedStringForKey_value_table_(a1, v244, @"AVERAGEIFS", &stru_2834BADA0, @"TSCalculationEngine");
-    v451 = objc_msgSend_localizedStringForKey_value_table_(a1, v245, @"BETADIST", &stru_2834BADA0, @"TSCalculationEngine");
-    v450 = objc_msgSend_localizedStringForKey_value_table_(a1, v246, @"BETAINV", &stru_2834BADA0, @"TSCalculationEngine");
-    v449 = objc_msgSend_localizedStringForKey_value_table_(a1, v247, @"BINOMDIST", &stru_2834BADA0, @"TSCalculationEngine");
-    v448 = objc_msgSend_localizedStringForKey_value_table_(a1, v248, @"CHIDIST", &stru_2834BADA0, @"TSCalculationEngine");
-    v447 = objc_msgSend_localizedStringForKey_value_table_(a1, v249, @"CHIINV", &stru_2834BADA0, @"TSCalculationEngine");
-    v446 = objc_msgSend_localizedStringForKey_value_table_(a1, v250, @"CHITEST", &stru_2834BADA0, @"TSCalculationEngine");
-    v445 = objc_msgSend_localizedStringForKey_value_table_(a1, v251, @"CONFIDENCE", &stru_2834BADA0, @"TSCalculationEngine");
-    v444 = objc_msgSend_localizedStringForKey_value_table_(a1, v252, @"CORREL", &stru_2834BADA0, @"TSCalculationEngine");
-    v443 = objc_msgSend_localizedStringForKey_value_table_(a1, v253, @"COUNT", &stru_2834BADA0, @"TSCalculationEngine");
-    v442 = objc_msgSend_localizedStringForKey_value_table_(a1, v254, @"COUNTA", &stru_2834BADA0, @"TSCalculationEngine");
-    v441 = objc_msgSend_localizedStringForKey_value_table_(a1, v255, @"COUNTBLANK", &stru_2834BADA0, @"TSCalculationEngine");
-    v440 = objc_msgSend_localizedStringForKey_value_table_(a1, v256, @"COUNTIF", &stru_2834BADA0, @"TSCalculationEngine");
-    v439 = objc_msgSend_localizedStringForKey_value_table_(a1, v257, @"COUNTIFS", &stru_2834BADA0, @"TSCalculationEngine");
-    v438 = objc_msgSend_localizedStringForKey_value_table_(a1, v258, @"COVAR", &stru_2834BADA0, @"TSCalculationEngine");
-    v437 = objc_msgSend_localizedStringForKey_value_table_(a1, v259, @"CRITBINOM", &stru_2834BADA0, @"TSCalculationEngine");
-    v436 = objc_msgSend_localizedStringForKey_value_table_(a1, v260, @"DEVSQ", &stru_2834BADA0, @"TSCalculationEngine");
-    v435 = objc_msgSend_localizedStringForKey_value_table_(a1, v261, @"EXPONDIST", &stru_2834BADA0, @"TSCalculationEngine");
-    v434 = objc_msgSend_localizedStringForKey_value_table_(a1, v262, @"FDIST", &stru_2834BADA0, @"TSCalculationEngine");
-    v433 = objc_msgSend_localizedStringForKey_value_table_(a1, v263, @"FINV", &stru_2834BADA0, @"TSCalculationEngine");
-    v432 = objc_msgSend_localizedStringForKey_value_table_(a1, v264, @"FORECAST", &stru_2834BADA0, @"TSCalculationEngine");
-    v431 = objc_msgSend_localizedStringForKey_value_table_(a1, v265, @"FREQUENCY", &stru_2834BADA0, @"TSCalculationEngine");
-    v430 = objc_msgSend_localizedStringForKey_value_table_(a1, v266, @"GAMMADIST", &stru_2834BADA0, @"TSCalculationEngine");
-    v429 = objc_msgSend_localizedStringForKey_value_table_(a1, v267, @"GAMMAINV", &stru_2834BADA0, @"TSCalculationEngine");
-    v428 = objc_msgSend_localizedStringForKey_value_table_(a1, v268, @"GAMMALN", &stru_2834BADA0, @"TSCalculationEngine");
-    v427 = objc_msgSend_localizedStringForKey_value_table_(a1, v269, @"GEOMEAN", &stru_2834BADA0, @"TSCalculationEngine");
-    v426 = objc_msgSend_localizedStringForKey_value_table_(a1, v270, @"HARMEAN", &stru_2834BADA0, @"TSCalculationEngine");
-    v425 = objc_msgSend_localizedStringForKey_value_table_(a1, v271, @"INTERCEPT", &stru_2834BADA0, @"TSCalculationEngine");
-    v424 = objc_msgSend_localizedStringForKey_value_table_(a1, v272, @"LARGE", &stru_2834BADA0, @"TSCalculationEngine");
-    v423 = objc_msgSend_localizedStringForKey_value_table_(a1, v273, @"LINEST", &stru_2834BADA0, @"TSCalculationEngine");
-    v422 = objc_msgSend_localizedStringForKey_value_table_(a1, v274, @"LOGINV", &stru_2834BADA0, @"TSCalculationEngine");
-    v421 = objc_msgSend_localizedStringForKey_value_table_(a1, v275, @"LOGNORMDIST", &stru_2834BADA0, @"TSCalculationEngine");
-    v420 = objc_msgSend_localizedStringForKey_value_table_(a1, v276, @"MAX", &stru_2834BADA0, @"TSCalculationEngine");
-    v419 = objc_msgSend_localizedStringForKey_value_table_(a1, v277, @"MAXA", &stru_2834BADA0, @"TSCalculationEngine");
-    v418 = objc_msgSend_localizedStringForKey_value_table_(a1, v278, @"MAXIFS", &stru_2834BADA0, @"TSCalculationEngine");
-    v417 = objc_msgSend_localizedStringForKey_value_table_(a1, v279, @"MEDIAN", &stru_2834BADA0, @"TSCalculationEngine");
-    v416 = objc_msgSend_localizedStringForKey_value_table_(a1, v280, @"MIN", &stru_2834BADA0, @"TSCalculationEngine");
-    v415 = objc_msgSend_localizedStringForKey_value_table_(a1, v281, @"MINA", &stru_2834BADA0, @"TSCalculationEngine");
-    v414 = objc_msgSend_localizedStringForKey_value_table_(a1, v282, @"MINIFS", &stru_2834BADA0, @"TSCalculationEngine");
-    v413 = objc_msgSend_localizedStringForKey_value_table_(a1, v283, @"MODE", &stru_2834BADA0, @"TSCalculationEngine");
-    v412 = objc_msgSend_localizedStringForKey_value_table_(a1, v284, @"NEGBINOMDIST", &stru_2834BADA0, @"TSCalculationEngine");
-    v411 = objc_msgSend_localizedStringForKey_value_table_(a1, v285, @"NORMDIST", &stru_2834BADA0, @"TSCalculationEngine");
-    v410 = objc_msgSend_localizedStringForKey_value_table_(a1, v286, @"NORMINV", &stru_2834BADA0, @"TSCalculationEngine");
-    v409 = objc_msgSend_localizedStringForKey_value_table_(a1, v287, @"NORMSDIST", &stru_2834BADA0, @"TSCalculationEngine");
-    v408 = objc_msgSend_localizedStringForKey_value_table_(a1, v288, @"NORMSINV", &stru_2834BADA0, @"TSCalculationEngine");
-    v407 = objc_msgSend_localizedStringForKey_value_table_(a1, v289, @"PERCENTILE", &stru_2834BADA0, @"TSCalculationEngine");
-    v406 = objc_msgSend_localizedStringForKey_value_table_(a1, v290, @"PERCENTRANK", &stru_2834BADA0, @"TSCalculationEngine");
-    v405 = objc_msgSend_localizedStringForKey_value_table_(a1, v291, @"PERMUT", &stru_2834BADA0, @"TSCalculationEngine");
-    v404 = objc_msgSend_localizedStringForKey_value_table_(a1, v292, @"POISSON", &stru_2834BADA0, @"TSCalculationEngine");
-    v403 = objc_msgSend_localizedStringForKey_value_table_(a1, v293, @"PROB", &stru_2834BADA0, @"TSCalculationEngine");
-    v402 = objc_msgSend_localizedStringForKey_value_table_(a1, v294, @"QUARTILE", &stru_2834BADA0, @"TSCalculationEngine");
-    v401 = objc_msgSend_localizedStringForKey_value_table_(a1, v295, @"RANK", &stru_2834BADA0, @"TSCalculationEngine");
-    v400 = objc_msgSend_localizedStringForKey_value_table_(a1, v296, @"SLOPE", &stru_2834BADA0, @"TSCalculationEngine");
-    v399 = objc_msgSend_localizedStringForKey_value_table_(a1, v297, @"SMALL", &stru_2834BADA0, @"TSCalculationEngine");
-    v398 = objc_msgSend_localizedStringForKey_value_table_(a1, v298, @"STANDARDIZE", &stru_2834BADA0, @"TSCalculationEngine");
-    v397 = objc_msgSend_localizedStringForKey_value_table_(a1, v299, @"STDEV", &stru_2834BADA0, @"TSCalculationEngine");
-    v396 = objc_msgSend_localizedStringForKey_value_table_(a1, v300, @"STDEVA", &stru_2834BADA0, @"TSCalculationEngine");
-    v395 = objc_msgSend_localizedStringForKey_value_table_(a1, v301, @"STDEVP", &stru_2834BADA0, @"TSCalculationEngine");
-    v394 = objc_msgSend_localizedStringForKey_value_table_(a1, v302, @"STDEVPA", &stru_2834BADA0, @"TSCalculationEngine");
-    v393 = objc_msgSend_localizedStringForKey_value_table_(a1, v303, @"SUBTOTAL", &stru_2834BADA0, @"TSCalculationEngine");
-    v392 = objc_msgSend_localizedStringForKey_value_table_(a1, v304, @"TDIST", &stru_2834BADA0, @"TSCalculationEngine");
-    v391 = objc_msgSend_localizedStringForKey_value_table_(a1, v305, @"TINV", &stru_2834BADA0, @"TSCalculationEngine");
-    v390 = objc_msgSend_localizedStringForKey_value_table_(a1, v306, @"TTEST", &stru_2834BADA0, @"TSCalculationEngine");
-    v389 = objc_msgSend_localizedStringForKey_value_table_(a1, v307, @"VAR", &stru_2834BADA0, @"TSCalculationEngine");
-    v388 = objc_msgSend_localizedStringForKey_value_table_(a1, v308, @"VARA", &stru_2834BADA0, @"TSCalculationEngine");
-    v387 = objc_msgSend_localizedStringForKey_value_table_(a1, v309, @"VARP", &stru_2834BADA0, @"TSCalculationEngine");
-    v386 = objc_msgSend_localizedStringForKey_value_table_(a1, v310, @"VARPA", &stru_2834BADA0, @"TSCalculationEngine");
-    v385 = objc_msgSend_localizedStringForKey_value_table_(a1, v311, @"WEIBULL", &stru_2834BADA0, @"TSCalculationEngine");
-    v384 = objc_msgSend_localizedStringForKey_value_table_(a1, v312, @"ZTEST", &stru_2834BADA0, @"TSCalculationEngine");
-    v383 = objc_msgSend_localizedStringForKey_value_table_(a1, v313, @"CHAR", &stru_2834BADA0, @"TSCalculationEngine");
-    v382 = objc_msgSend_localizedStringForKey_value_table_(a1, v314, @"CLEAN", &stru_2834BADA0, @"TSCalculationEngine");
-    v381 = objc_msgSend_localizedStringForKey_value_table_(a1, v315, @"CODE", &stru_2834BADA0, @"TSCalculationEngine");
-    v380 = objc_msgSend_localizedStringForKey_value_table_(a1, v316, @"CONCAT", &stru_2834BADA0, @"TSCalculationEngine");
-    v379 = objc_msgSend_localizedStringForKey_value_table_(a1, v317, @"CONCATENATE", &stru_2834BADA0, @"TSCalculationEngine");
-    v378 = objc_msgSend_localizedStringForKey_value_table_(a1, v318, @"COUNTMATCHES", &stru_2834BADA0, @"TSCalculationEngine");
-    v377 = objc_msgSend_localizedStringForKey_value_table_(a1, v319, @"DOLLAR", &stru_2834BADA0, @"TSCalculationEngine");
-    v376 = objc_msgSend_localizedStringForKey_value_table_(a1, v320, @"EXACT", &stru_2834BADA0, @"TSCalculationEngine");
-    v375 = objc_msgSend_localizedStringForKey_value_table_(a1, v321, @"FIND", &stru_2834BADA0, @"TSCalculationEngine");
-    v374 = objc_msgSend_localizedStringForKey_value_table_(a1, v322, @"FIXED", &stru_2834BADA0, @"TSCalculationEngine");
-    v373 = objc_msgSend_localizedStringForKey_value_table_(a1, v323, @"LEFT", &stru_2834BADA0, @"TSCalculationEngine");
-    v372 = objc_msgSend_localizedStringForKey_value_table_(a1, v324, @"LEN", &stru_2834BADA0, @"TSCalculationEngine");
-    v371 = objc_msgSend_localizedStringForKey_value_table_(a1, v325, @"LOWER", &stru_2834BADA0, @"TSCalculationEngine");
-    v370 = objc_msgSend_localizedStringForKey_value_table_(a1, v326, @"MID", &stru_2834BADA0, @"TSCalculationEngine");
-    v369 = objc_msgSend_localizedStringForKey_value_table_(a1, v327, @"PLAINTEXT", &stru_2834BADA0, @"TSCalculationEngine");
-    v368 = objc_msgSend_localizedStringForKey_value_table_(a1, v328, @"PROPER", &stru_2834BADA0, @"TSCalculationEngine");
-    v367 = objc_msgSend_localizedStringForKey_value_table_(a1, v329, @"REGEX", &stru_2834BADA0, @"TSCalculationEngine");
-    v366 = objc_msgSend_localizedStringForKey_value_table_(a1, v330, @"REGEX.EXTRACT", &stru_2834BADA0, @"TSCalculationEngine");
-    v365 = objc_msgSend_localizedStringForKey_value_table_(a1, v331, @"REPLACE", &stru_2834BADA0, @"TSCalculationEngine");
-    v364 = objc_msgSend_localizedStringForKey_value_table_(a1, v332, @"REPT", &stru_2834BADA0, @"TSCalculationEngine");
-    v363 = objc_msgSend_localizedStringForKey_value_table_(a1, v333, @"RIGHT", &stru_2834BADA0, @"TSCalculationEngine");
-    v362 = objc_msgSend_localizedStringForKey_value_table_(a1, v334, @"SEARCH", &stru_2834BADA0, @"TSCalculationEngine");
-    v361 = objc_msgSend_localizedStringForKey_value_table_(a1, v335, @"SUBSTITUTE", &stru_2834BADA0, @"TSCalculationEngine");
-    v359 = objc_msgSend_localizedStringForKey_value_table_(a1, v336, @"T", &stru_2834BADA0, @"TSCalculationEngine");
-    v358 = objc_msgSend_localizedStringForKey_value_table_(a1, v337, @"TEXTAFTER", &stru_2834BADA0, @"TSCalculationEngine");
-    v357 = objc_msgSend_localizedStringForKey_value_table_(a1, v338, @"TEXTBEFORE", &stru_2834BADA0, @"TSCalculationEngine");
-    v356 = objc_msgSend_localizedStringForKey_value_table_(a1, v339, @"TEXTBETWEEN", &stru_2834BADA0, @"TSCalculationEngine");
-    v355 = objc_msgSend_localizedStringForKey_value_table_(a1, v340, @"TEXTJOIN", &stru_2834BADA0, @"TSCalculationEngine");
-    v354 = objc_msgSend_localizedStringForKey_value_table_(a1, v341, @"TEXTSPLIT", &stru_2834BADA0, @"TSCalculationEngine");
-    v353 = objc_msgSend_localizedStringForKey_value_table_(a1, v342, @"TRIM", &stru_2834BADA0, @"TSCalculationEngine");
-    v352 = objc_msgSend_localizedStringForKey_value_table_(a1, v343, @"UPPER", &stru_2834BADA0, @"TSCalculationEngine");
-    v351 = objc_msgSend_localizedStringForKey_value_table_(a1, v344, @"VALUE", &stru_2834BADA0, @"TSCalculationEngine");
-    v6 = objc_msgSend_initWithObjectsAndKeys_(v360, v345, v689, v346, v347, @"DATE", v688, @"DATEDIF", v687, @"DATEVALUE", v686, @"DAY", v685, @"DAYNAME", v684, @"DAYS360", v683, @"EDATE", v682, @"EOMONTH", v681, @"HOUR", v680, @"ISOWEEKNUM", v679, @"MINUTE", v678, @"MONTH", v677, @"MONTHNAME", v676, @"NETWORKDAYS", v675, @"NOW", v674, @"SECOND", v673, @"TIME", v672, @"TIMEVALUE", v671, @"TODAY", v670, @"WEEKDAY", v669, @"WEEKNUM", v668, @"WORKDAY", v667, @"YEAR", v666, @"YEARFRAC", v665, @"DURATION", v664, @"DUR2DAYS", v663, @"DUR2HOURS", v662, @"DUR2MILLISECONDS", v661, @"DUR2MINUTES", v660);
+    v357 = objc_alloc(MEMORY[0x277CBEAC0]);
+    v686 = objc_msgSend_localizedStringForKey_value_table_(a1, v6, @"DATE", &stru_2834BADA0, @"TSCalculationEngine");
+    v685 = objc_msgSend_localizedStringForKey_value_table_(a1, v7, @"DATEDIF", &stru_2834BADA0, @"TSCalculationEngine");
+    v684 = objc_msgSend_localizedStringForKey_value_table_(a1, v8, @"DATEVALUE", &stru_2834BADA0, @"TSCalculationEngine");
+    v683 = objc_msgSend_localizedStringForKey_value_table_(a1, v9, @"DAY", &stru_2834BADA0, @"TSCalculationEngine");
+    v682 = objc_msgSend_localizedStringForKey_value_table_(a1, v10, @"DAYNAME", &stru_2834BADA0, @"TSCalculationEngine");
+    v681 = objc_msgSend_localizedStringForKey_value_table_(a1, v11, @"DAYS360", &stru_2834BADA0, @"TSCalculationEngine");
+    v680 = objc_msgSend_localizedStringForKey_value_table_(a1, v12, @"EDATE", &stru_2834BADA0, @"TSCalculationEngine");
+    v679 = objc_msgSend_localizedStringForKey_value_table_(a1, v13, @"EOMONTH", &stru_2834BADA0, @"TSCalculationEngine");
+    v678 = objc_msgSend_localizedStringForKey_value_table_(a1, v14, @"HOUR", &stru_2834BADA0, @"TSCalculationEngine");
+    v677 = objc_msgSend_localizedStringForKey_value_table_(a1, v15, @"ISOWEEKNUM", &stru_2834BADA0, @"TSCalculationEngine");
+    v676 = objc_msgSend_localizedStringForKey_value_table_(a1, v16, @"MINUTE", &stru_2834BADA0, @"TSCalculationEngine");
+    v675 = objc_msgSend_localizedStringForKey_value_table_(a1, v17, @"MONTH", &stru_2834BADA0, @"TSCalculationEngine");
+    v674 = objc_msgSend_localizedStringForKey_value_table_(a1, v18, @"MONTHNAME", &stru_2834BADA0, @"TSCalculationEngine");
+    v673 = objc_msgSend_localizedStringForKey_value_table_(a1, v19, @"NETWORKDAYS", &stru_2834BADA0, @"TSCalculationEngine");
+    v672 = objc_msgSend_localizedStringForKey_value_table_(a1, v20, @"NOW", &stru_2834BADA0, @"TSCalculationEngine");
+    v671 = objc_msgSend_localizedStringForKey_value_table_(a1, v21, @"SECOND", &stru_2834BADA0, @"TSCalculationEngine");
+    v670 = objc_msgSend_localizedStringForKey_value_table_(a1, v22, @"TIME", &stru_2834BADA0, @"TSCalculationEngine");
+    v669 = objc_msgSend_localizedStringForKey_value_table_(a1, v23, @"TIMEVALUE", &stru_2834BADA0, @"TSCalculationEngine");
+    v668 = objc_msgSend_localizedStringForKey_value_table_(a1, v24, @"TODAY", &stru_2834BADA0, @"TSCalculationEngine");
+    v667 = objc_msgSend_localizedStringForKey_value_table_(a1, v25, @"WEEKDAY", &stru_2834BADA0, @"TSCalculationEngine");
+    v666 = objc_msgSend_localizedStringForKey_value_table_(a1, v26, @"WEEKNUM", &stru_2834BADA0, @"TSCalculationEngine");
+    v665 = objc_msgSend_localizedStringForKey_value_table_(a1, v27, @"WORKDAY", &stru_2834BADA0, @"TSCalculationEngine");
+    v664 = objc_msgSend_localizedStringForKey_value_table_(a1, v28, @"YEAR", &stru_2834BADA0, @"TSCalculationEngine");
+    v663 = objc_msgSend_localizedStringForKey_value_table_(a1, v29, @"YEARFRAC", &stru_2834BADA0, @"TSCalculationEngine");
+    v662 = objc_msgSend_localizedStringForKey_value_table_(a1, v30, @"DURATION", &stru_2834BADA0, @"TSCalculationEngine");
+    v661 = objc_msgSend_localizedStringForKey_value_table_(a1, v31, @"DUR2DAYS", &stru_2834BADA0, @"TSCalculationEngine");
+    v660 = objc_msgSend_localizedStringForKey_value_table_(a1, v32, @"DUR2HOURS", &stru_2834BADA0, @"TSCalculationEngine");
+    v659 = objc_msgSend_localizedStringForKey_value_table_(a1, v33, @"DUR2MILLISECONDS", &stru_2834BADA0, @"TSCalculationEngine");
+    v658 = objc_msgSend_localizedStringForKey_value_table_(a1, v34, @"DUR2MINUTES", &stru_2834BADA0, @"TSCalculationEngine");
+    v657 = objc_msgSend_localizedStringForKey_value_table_(a1, v35, @"DUR2SECONDS", &stru_2834BADA0, @"TSCalculationEngine");
+    v656 = objc_msgSend_localizedStringForKey_value_table_(a1, v36, @"DUR2WEEKS", &stru_2834BADA0, @"TSCalculationEngine");
+    v655 = objc_msgSend_localizedStringForKey_value_table_(a1, v37, @"STRIPDURATION", &stru_2834BADA0, @"TSCalculationEngine");
+    v654 = objc_msgSend_localizedStringForKey_value_table_(a1, v38, @"BASETONUM", &stru_2834BADA0, @"TSCalculationEngine");
+    v653 = objc_msgSend_localizedStringForKey_value_table_(a1, v39, @"BESSELJ", &stru_2834BADA0, @"TSCalculationEngine");
+    v652 = objc_msgSend_localizedStringForKey_value_table_(a1, v40, @"BESSELY", &stru_2834BADA0, @"TSCalculationEngine");
+    v651 = objc_msgSend_localizedStringForKey_value_table_(a1, v41, @"BIN2DEC", &stru_2834BADA0, @"TSCalculationEngine");
+    v650 = objc_msgSend_localizedStringForKey_value_table_(a1, v42, @"BIN2HEX", &stru_2834BADA0, @"TSCalculationEngine");
+    v649 = objc_msgSend_localizedStringForKey_value_table_(a1, v43, @"BIN2OCT", &stru_2834BADA0, @"TSCalculationEngine");
+    v648 = objc_msgSend_localizedStringForKey_value_table_(a1, v44, @"BITAND", &stru_2834BADA0, @"TSCalculationEngine");
+    v647 = objc_msgSend_localizedStringForKey_value_table_(a1, v45, @"BITLSHIFT", &stru_2834BADA0, @"TSCalculationEngine");
+    v646 = objc_msgSend_localizedStringForKey_value_table_(a1, v46, @"BITRSHIFT", &stru_2834BADA0, @"TSCalculationEngine");
+    v645 = objc_msgSend_localizedStringForKey_value_table_(a1, v47, @"BITOR", &stru_2834BADA0, @"TSCalculationEngine");
+    v644 = objc_msgSend_localizedStringForKey_value_table_(a1, v48, @"BITXOR", &stru_2834BADA0, @"TSCalculationEngine");
+    v643 = objc_msgSend_localizedStringForKey_value_table_(a1, v49, @"CONVERT", &stru_2834BADA0, @"TSCalculationEngine");
+    v642 = objc_msgSend_localizedStringForKey_value_table_(a1, v50, @"DEC2BIN", &stru_2834BADA0, @"TSCalculationEngine");
+    v641 = objc_msgSend_localizedStringForKey_value_table_(a1, v51, @"DEC2HEX", &stru_2834BADA0, @"TSCalculationEngine");
+    v640 = objc_msgSend_localizedStringForKey_value_table_(a1, v52, @"DEC2OCT", &stru_2834BADA0, @"TSCalculationEngine");
+    v639 = objc_msgSend_localizedStringForKey_value_table_(a1, v53, @"DELTA", &stru_2834BADA0, @"TSCalculationEngine");
+    v638 = objc_msgSend_localizedStringForKey_value_table_(a1, v54, @"ERF", &stru_2834BADA0, @"TSCalculationEngine");
+    v637 = objc_msgSend_localizedStringForKey_value_table_(a1, v55, @"ERFC", &stru_2834BADA0, @"TSCalculationEngine");
+    v636 = objc_msgSend_localizedStringForKey_value_table_(a1, v56, @"GESTEP", &stru_2834BADA0, @"TSCalculationEngine");
+    v635 = objc_msgSend_localizedStringForKey_value_table_(a1, v57, @"HEX2BIN", &stru_2834BADA0, @"TSCalculationEngine");
+    v634 = objc_msgSend_localizedStringForKey_value_table_(a1, v58, @"HEX2DEC", &stru_2834BADA0, @"TSCalculationEngine");
+    v633 = objc_msgSend_localizedStringForKey_value_table_(a1, v59, @"HEX2OCT", &stru_2834BADA0, @"TSCalculationEngine");
+    v632 = objc_msgSend_localizedStringForKey_value_table_(a1, v60, @"NUMTOBASE", &stru_2834BADA0, @"TSCalculationEngine");
+    v631 = objc_msgSend_localizedStringForKey_value_table_(a1, v61, @"OCT2BIN", &stru_2834BADA0, @"TSCalculationEngine");
+    v630 = objc_msgSend_localizedStringForKey_value_table_(a1, v62, @"OCT2DEC", &stru_2834BADA0, @"TSCalculationEngine");
+    v629 = objc_msgSend_localizedStringForKey_value_table_(a1, v63, @"OCT2HEX", &stru_2834BADA0, @"TSCalculationEngine");
+    v628 = objc_msgSend_localizedStringForKey_value_table_(a1, v64, @"ACCRINT", &stru_2834BADA0, @"TSCalculationEngine");
+    v627 = objc_msgSend_localizedStringForKey_value_table_(a1, v65, @"ACCRINTM", &stru_2834BADA0, @"TSCalculationEngine");
+    v626 = objc_msgSend_localizedStringForKey_value_table_(a1, v66, @"BONDDURATION", &stru_2834BADA0, @"TSCalculationEngine");
+    v625 = objc_msgSend_localizedStringForKey_value_table_(a1, v67, @"BONDMDURATION", &stru_2834BADA0, @"TSCalculationEngine");
+    v624 = objc_msgSend_localizedStringForKey_value_table_(a1, v68, @"COUPDAYBS", &stru_2834BADA0, @"TSCalculationEngine");
+    v623 = objc_msgSend_localizedStringForKey_value_table_(a1, v69, @"COUPDAYS", &stru_2834BADA0, @"TSCalculationEngine");
+    v622 = objc_msgSend_localizedStringForKey_value_table_(a1, v70, @"COUPDAYSNC", &stru_2834BADA0, @"TSCalculationEngine");
+    v621 = objc_msgSend_localizedStringForKey_value_table_(a1, v71, @"COUPNUM", &stru_2834BADA0, @"TSCalculationEngine");
+    v620 = objc_msgSend_localizedStringForKey_value_table_(a1, v72, @"CUMIPMT", &stru_2834BADA0, @"TSCalculationEngine");
+    v619 = objc_msgSend_localizedStringForKey_value_table_(a1, v73, @"CUMPRINC", &stru_2834BADA0, @"TSCalculationEngine");
+    v618 = objc_msgSend_localizedStringForKey_value_table_(a1, v74, @"CURRENCY", &stru_2834BADA0, @"TSCalculationEngine");
+    v617 = objc_msgSend_localizedStringForKey_value_table_(a1, v75, @"CURRENCYCODE", &stru_2834BADA0, @"TSCalculationEngine");
+    v616 = objc_msgSend_localizedStringForKey_value_table_(a1, v76, @"CURRENCYCONVERT", &stru_2834BADA0, @"TSCalculationEngine");
+    v615 = objc_msgSend_localizedStringForKey_value_table_(a1, v77, @"CURRENCYH", &stru_2834BADA0, @"TSCalculationEngine");
+    v614 = objc_msgSend_localizedStringForKey_value_table_(a1, v78, @"DB", &stru_2834BADA0, @"TSCalculationEngine");
+    v613 = objc_msgSend_localizedStringForKey_value_table_(a1, v79, @"DDB", &stru_2834BADA0, @"TSCalculationEngine");
+    v612 = objc_msgSend_localizedStringForKey_value_table_(a1, v80, @"DISC", &stru_2834BADA0, @"TSCalculationEngine");
+    v611 = objc_msgSend_localizedStringForKey_value_table_(a1, v81, @"EFFECT", &stru_2834BADA0, @"TSCalculationEngine");
+    v610 = objc_msgSend_localizedStringForKey_value_table_(a1, v82, @"FV", &stru_2834BADA0, @"TSCalculationEngine");
+    v609 = objc_msgSend_localizedStringForKey_value_table_(a1, v83, @"INTRATE", &stru_2834BADA0, @"TSCalculationEngine");
+    v608 = objc_msgSend_localizedStringForKey_value_table_(a1, v84, @"IPMT", &stru_2834BADA0, @"TSCalculationEngine");
+    v607 = objc_msgSend_localizedStringForKey_value_table_(a1, v85, @"IRR", &stru_2834BADA0, @"TSCalculationEngine");
+    v606 = objc_msgSend_localizedStringForKey_value_table_(a1, v86, @"ISPMT", &stru_2834BADA0, @"TSCalculationEngine");
+    v605 = objc_msgSend_localizedStringForKey_value_table_(a1, v87, @"MIRR", &stru_2834BADA0, @"TSCalculationEngine");
+    v604 = objc_msgSend_localizedStringForKey_value_table_(a1, v88, @"NOMINAL", &stru_2834BADA0, @"TSCalculationEngine");
+    v603 = objc_msgSend_localizedStringForKey_value_table_(a1, v89, @"NPER", &stru_2834BADA0, @"TSCalculationEngine");
+    v602 = objc_msgSend_localizedStringForKey_value_table_(a1, v90, @"NPV", &stru_2834BADA0, @"TSCalculationEngine");
+    v601 = objc_msgSend_localizedStringForKey_value_table_(a1, v91, @"PMT", &stru_2834BADA0, @"TSCalculationEngine");
+    v600 = objc_msgSend_localizedStringForKey_value_table_(a1, v92, @"PPMT", &stru_2834BADA0, @"TSCalculationEngine");
+    v599 = objc_msgSend_localizedStringForKey_value_table_(a1, v93, @"PRICE", &stru_2834BADA0, @"TSCalculationEngine");
+    v598 = objc_msgSend_localizedStringForKey_value_table_(a1, v94, @"PRICEDISC", &stru_2834BADA0, @"TSCalculationEngine");
+    v597 = objc_msgSend_localizedStringForKey_value_table_(a1, v95, @"PRICEMAT", &stru_2834BADA0, @"TSCalculationEngine");
+    v596 = objc_msgSend_localizedStringForKey_value_table_(a1, v96, @"PV", &stru_2834BADA0, @"TSCalculationEngine");
+    v595 = objc_msgSend_localizedStringForKey_value_table_(a1, v97, @"RATE", &stru_2834BADA0, @"TSCalculationEngine");
+    v594 = objc_msgSend_localizedStringForKey_value_table_(a1, v98, @"RECEIVED", &stru_2834BADA0, @"TSCalculationEngine");
+    v593 = objc_msgSend_localizedStringForKey_value_table_(a1, v99, @"SLN", &stru_2834BADA0, @"TSCalculationEngine");
+    v592 = objc_msgSend_localizedStringForKey_value_table_(a1, v100, @"STOCK", &stru_2834BADA0, @"TSCalculationEngine");
+    v591 = objc_msgSend_localizedStringForKey_value_table_(a1, v101, @"STOCKH", &stru_2834BADA0, @"TSCalculationEngine");
+    v590 = objc_msgSend_localizedStringForKey_value_table_(a1, v102, @"SYD", &stru_2834BADA0, @"TSCalculationEngine");
+    v589 = objc_msgSend_localizedStringForKey_value_table_(a1, v103, @"VDB", &stru_2834BADA0, @"TSCalculationEngine");
+    v588 = objc_msgSend_localizedStringForKey_value_table_(a1, v104, @"XIRR", &stru_2834BADA0, @"TSCalculationEngine");
+    v587 = objc_msgSend_localizedStringForKey_value_table_(a1, v105, @"XNPV", &stru_2834BADA0, @"TSCalculationEngine");
+    v586 = objc_msgSend_localizedStringForKey_value_table_(a1, v106, @"YIELD", &stru_2834BADA0, @"TSCalculationEngine");
+    v585 = objc_msgSend_localizedStringForKey_value_table_(a1, v107, @"YIELDDISC", &stru_2834BADA0, @"TSCalculationEngine");
+    v584 = objc_msgSend_localizedStringForKey_value_table_(a1, v108, @"YIELDMAT", &stru_2834BADA0, @"TSCalculationEngine");
+    v583 = objc_msgSend_localizedStringForKey_value_table_(a1, v109, @"AND", &stru_2834BADA0, @"TSCalculationEngine");
+    v582 = objc_msgSend_localizedStringForKey_value_table_(a1, v110, @"FALSE", &stru_2834BADA0, @"TSCalculationEngine");
+    v581 = objc_msgSend_localizedStringForKey_value_table_(a1, v111, @"IF", &stru_2834BADA0, @"TSCalculationEngine");
+    v580 = objc_msgSend_localizedStringForKey_value_table_(a1, v112, @"IFS", &stru_2834BADA0, @"TSCalculationEngine");
+    v579 = objc_msgSend_localizedStringForKey_value_table_(a1, v113, @"IFERROR", &stru_2834BADA0, @"TSCalculationEngine");
+    v578 = objc_msgSend_localizedStringForKey_value_table_(a1, v114, @"ISBLANK", &stru_2834BADA0, @"TSCalculationEngine");
+    v577 = objc_msgSend_localizedStringForKey_value_table_(a1, v115, @"ISDATE", &stru_2834BADA0, @"TSCalculationEngine");
+    v576 = objc_msgSend_localizedStringForKey_value_table_(a1, v116, @"ISERROR", &stru_2834BADA0, @"TSCalculationEngine");
+    v575 = objc_msgSend_localizedStringForKey_value_table_(a1, v117, @"ISEVEN", &stru_2834BADA0, @"TSCalculationEngine");
+    v574 = objc_msgSend_localizedStringForKey_value_table_(a1, v118, @"ISNUMBER", &stru_2834BADA0, @"TSCalculationEngine");
+    v573 = objc_msgSend_localizedStringForKey_value_table_(a1, v119, @"ISNUMBERORDATE", &stru_2834BADA0, @"TSCalculationEngine");
+    v572 = objc_msgSend_localizedStringForKey_value_table_(a1, v120, @"ISODD", &stru_2834BADA0, @"TSCalculationEngine");
+    v571 = objc_msgSend_localizedStringForKey_value_table_(a1, v121, @"ISTEXT", &stru_2834BADA0, @"TSCalculationEngine");
+    v570 = objc_msgSend_localizedStringForKey_value_table_(a1, v122, @"NOT", &stru_2834BADA0, @"TSCalculationEngine");
+    v569 = objc_msgSend_localizedStringForKey_value_table_(a1, v123, @"OR", &stru_2834BADA0, @"TSCalculationEngine");
+    v568 = objc_msgSend_localizedStringForKey_value_table_(a1, v124, @"SWITCH", &stru_2834BADA0, @"TSCalculationEngine");
+    v567 = objc_msgSend_localizedStringForKey_value_table_(a1, v125, @"TRUE", &stru_2834BADA0, @"TSCalculationEngine");
+    v566 = objc_msgSend_localizedStringForKey_value_table_(a1, v126, @"ADDRESS", &stru_2834BADA0, @"TSCalculationEngine");
+    v565 = objc_msgSend_localizedStringForKey_value_table_(a1, v127, @"AREAS", &stru_2834BADA0, @"TSCalculationEngine");
+    v564 = objc_msgSend_localizedStringForKey_value_table_(a1, v128, @"ARRAYTOTEXT", &stru_2834BADA0, @"TSCalculationEngine");
+    v563 = objc_msgSend_localizedStringForKey_value_table_(a1, v129, @"BYCOL", &stru_2834BADA0, @"TSCalculationEngine");
+    v562 = objc_msgSend_localizedStringForKey_value_table_(a1, v130, @"BYROW", &stru_2834BADA0, @"TSCalculationEngine");
+    v561 = objc_msgSend_localizedStringForKey_value_table_(a1, v131, @"CHOOSE", &stru_2834BADA0, @"TSCalculationEngine");
+    v560 = objc_msgSend_localizedStringForKey_value_table_(a1, v132, @"CHOOSECOLS", &stru_2834BADA0, @"TSCalculationEngine");
+    v559 = objc_msgSend_localizedStringForKey_value_table_(a1, v133, @"CHOOSEROWS", &stru_2834BADA0, @"TSCalculationEngine");
+    v558 = objc_msgSend_localizedStringForKey_value_table_(a1, v134, @"COLUMN", &stru_2834BADA0, @"TSCalculationEngine");
+    v557 = objc_msgSend_localizedStringForKey_value_table_(a1, v135, @"COLUMNS", &stru_2834BADA0, @"TSCalculationEngine");
+    v556 = objc_msgSend_localizedStringForKey_value_table_(a1, v136, @"DROP", &stru_2834BADA0, @"TSCalculationEngine");
+    v555 = objc_msgSend_localizedStringForKey_value_table_(a1, v137, @"EXPAND", &stru_2834BADA0, @"TSCalculationEngine");
+    v554 = objc_msgSend_localizedStringForKey_value_table_(a1, v138, @"FILTER", &stru_2834BADA0, @"TSCalculationEngine");
+    v553 = objc_msgSend_localizedStringForKey_value_table_(a1, v139, @"FORMULATEXT", &stru_2834BADA0, @"TSCalculationEngine");
+    v552 = objc_msgSend_localizedStringForKey_value_table_(a1, v140, @"GETPIVOTDATA", &stru_2834BADA0, @"TSCalculationEngine");
+    v551 = objc_msgSend_localizedStringForKey_value_table_(a1, v141, @"HLOOKUP", &stru_2834BADA0, @"TSCalculationEngine");
+    v550 = objc_msgSend_localizedStringForKey_value_table_(a1, v142, @"HSTACK", &stru_2834BADA0, @"TSCalculationEngine");
+    v549 = objc_msgSend_localizedStringForKey_value_table_(a1, v143, @"HYPERLINK", &stru_2834BADA0, @"TSCalculationEngine");
+    v548 = objc_msgSend_localizedStringForKey_value_table_(a1, v144, @"INDEX", &stru_2834BADA0, @"TSCalculationEngine");
+    v547 = objc_msgSend_localizedStringForKey_value_table_(a1, v145, @"INDIRECT", &stru_2834BADA0, @"TSCalculationEngine");
+    v546 = objc_msgSend_localizedStringForKey_value_table_(a1, v146, @"INTERSECT.RANGES", &stru_2834BADA0, @"TSCalculationEngine");
+    v545 = objc_msgSend_localizedStringForKey_value_table_(a1, v147, @"ISOMITTED", &stru_2834BADA0, @"TSCalculationEngine");
+    v544 = objc_msgSend_localizedStringForKey_value_table_(a1, v148, @"LOOKUP", &stru_2834BADA0, @"TSCalculationEngine");
+    v543 = objc_msgSend_localizedStringForKey_value_table_(a1, v149, @"MAKEARRAY", &stru_2834BADA0, @"TSCalculationEngine");
+    v542 = objc_msgSend_localizedStringForKey_value_table_(a1, v150, @"MAP", &stru_2834BADA0, @"TSCalculationEngine");
+    v541 = objc_msgSend_localizedStringForKey_value_table_(a1, v151, @"MATCH", &stru_2834BADA0, @"TSCalculationEngine");
+    v540 = objc_msgSend_localizedStringForKey_value_table_(a1, v152, @"OFFSET", &stru_2834BADA0, @"TSCalculationEngine");
+    v539 = objc_msgSend_localizedStringForKey_value_table_(a1, v153, @"RANDARRAY", &stru_2834BADA0, @"TSCalculationEngine");
+    v538 = objc_msgSend_localizedStringForKey_value_table_(a1, v154, @"REDUCE", &stru_2834BADA0, @"TSCalculationEngine");
+    v537 = objc_msgSend_localizedStringForKey_value_table_(a1, v155, @"REFERENCE.NAME", &stru_2834BADA0, @"TSCalculationEngine");
+    v536 = objc_msgSend_localizedStringForKey_value_table_(a1, v156, @"ROW", &stru_2834BADA0, @"TSCalculationEngine");
+    v535 = objc_msgSend_localizedStringForKey_value_table_(a1, v157, @"ROWS", &stru_2834BADA0, @"TSCalculationEngine");
+    v534 = objc_msgSend_localizedStringForKey_value_table_(a1, v158, @"SCAN", &stru_2834BADA0, @"TSCalculationEngine");
+    v533 = objc_msgSend_localizedStringForKey_value_table_(a1, v159, @"SEQUENCE", &stru_2834BADA0, @"TSCalculationEngine");
+    v532 = objc_msgSend_localizedStringForKey_value_table_(a1, v160, @"SORT", &stru_2834BADA0, @"TSCalculationEngine");
+    v531 = objc_msgSend_localizedStringForKey_value_table_(a1, v161, @"SORTBY", &stru_2834BADA0, @"TSCalculationEngine");
+    v530 = objc_msgSend_localizedStringForKey_value_table_(a1, v162, @"TAKE", &stru_2834BADA0, @"TSCalculationEngine");
+    v529 = objc_msgSend_localizedStringForKey_value_table_(a1, v163, @"TOCOL", &stru_2834BADA0, @"TSCalculationEngine");
+    v528 = objc_msgSend_localizedStringForKey_value_table_(a1, v164, @"TOROW", &stru_2834BADA0, @"TSCalculationEngine");
+    v527 = objc_msgSend_localizedStringForKey_value_table_(a1, v165, @"TRANSPOSE", &stru_2834BADA0, @"TSCalculationEngine");
+    v526 = objc_msgSend_localizedStringForKey_value_table_(a1, v166, @"UNION.RANGES", &stru_2834BADA0, @"TSCalculationEngine");
+    v525 = objc_msgSend_localizedStringForKey_value_table_(a1, v167, @"UNIQUE", &stru_2834BADA0, @"TSCalculationEngine");
+    v524 = objc_msgSend_localizedStringForKey_value_table_(a1, v168, @"VLOOKUP", &stru_2834BADA0, @"TSCalculationEngine");
+    v523 = objc_msgSend_localizedStringForKey_value_table_(a1, v169, @"VSTACK", &stru_2834BADA0, @"TSCalculationEngine");
+    v522 = objc_msgSend_localizedStringForKey_value_table_(a1, v170, @"WRAPCOLS", &stru_2834BADA0, @"TSCalculationEngine");
+    v521 = objc_msgSend_localizedStringForKey_value_table_(a1, v171, @"WRAPROWS", &stru_2834BADA0, @"TSCalculationEngine");
+    v520 = objc_msgSend_localizedStringForKey_value_table_(a1, v172, @"XLOOKUP", &stru_2834BADA0, @"TSCalculationEngine");
+    v519 = objc_msgSend_localizedStringForKey_value_table_(a1, v173, @"XMATCH", &stru_2834BADA0, @"TSCalculationEngine");
+    v518 = objc_msgSend_localizedStringForKey_value_table_(a1, v174, @"ABS", &stru_2834BADA0, @"TSCalculationEngine");
+    v517 = objc_msgSend_localizedStringForKey_value_table_(a1, v175, @"ACOS", &stru_2834BADA0, @"TSCalculationEngine");
+    v516 = objc_msgSend_localizedStringForKey_value_table_(a1, v176, @"ACOSH", &stru_2834BADA0, @"TSCalculationEngine");
+    v515 = objc_msgSend_localizedStringForKey_value_table_(a1, v177, @"ASIN", &stru_2834BADA0, @"TSCalculationEngine");
+    v514 = objc_msgSend_localizedStringForKey_value_table_(a1, v178, @"ASINH", &stru_2834BADA0, @"TSCalculationEngine");
+    v513 = objc_msgSend_localizedStringForKey_value_table_(a1, v179, @"ATAN", &stru_2834BADA0, @"TSCalculationEngine");
+    v512 = objc_msgSend_localizedStringForKey_value_table_(a1, v180, @"ATAN2", &stru_2834BADA0, @"TSCalculationEngine");
+    v511 = objc_msgSend_localizedStringForKey_value_table_(a1, v181, @"ATANH", &stru_2834BADA0, @"TSCalculationEngine");
+    v510 = objc_msgSend_localizedStringForKey_value_table_(a1, v182, @"CEILING", &stru_2834BADA0, @"TSCalculationEngine");
+    v509 = objc_msgSend_localizedStringForKey_value_table_(a1, v183, @"COMBIN", &stru_2834BADA0, @"TSCalculationEngine");
+    v508 = objc_msgSend_localizedStringForKey_value_table_(a1, v184, @"COS", &stru_2834BADA0, @"TSCalculationEngine");
+    v507 = objc_msgSend_localizedStringForKey_value_table_(a1, v185, @"COSH", &stru_2834BADA0, @"TSCalculationEngine");
+    v506 = objc_msgSend_localizedStringForKey_value_table_(a1, v186, @"DEGREES", &stru_2834BADA0, @"TSCalculationEngine");
+    v505 = objc_msgSend_localizedStringForKey_value_table_(a1, v187, @"EVEN", &stru_2834BADA0, @"TSCalculationEngine");
+    v504 = objc_msgSend_localizedStringForKey_value_table_(a1, v188, @"EXP", &stru_2834BADA0, @"TSCalculationEngine");
+    v503 = objc_msgSend_localizedStringForKey_value_table_(a1, v189, @"FACT", &stru_2834BADA0, @"TSCalculationEngine");
+    v502 = objc_msgSend_localizedStringForKey_value_table_(a1, v190, @"FACTDOUBLE", &stru_2834BADA0, @"TSCalculationEngine");
+    v501 = objc_msgSend_localizedStringForKey_value_table_(a1, v191, @"FLOOR", &stru_2834BADA0, @"TSCalculationEngine");
+    v500 = objc_msgSend_localizedStringForKey_value_table_(a1, v192, @"GCD", &stru_2834BADA0, @"TSCalculationEngine");
+    v499 = objc_msgSend_localizedStringForKey_value_table_(a1, v193, @"INT", &stru_2834BADA0, @"TSCalculationEngine");
+    v498 = objc_msgSend_localizedStringForKey_value_table_(a1, v194, @"LAMBDA", &stru_2834BADA0, @"TSCalculationEngine");
+    v497 = objc_msgSend_localizedStringForKey_value_table_(a1, v195, @"LAMBDA.APPLY", &stru_2834BADA0, @"TSCalculationEngine");
+    v496 = objc_msgSend_localizedStringForKey_value_table_(a1, v196, @"LCM", &stru_2834BADA0, @"TSCalculationEngine");
+    v495 = objc_msgSend_localizedStringForKey_value_table_(a1, v197, @"LET", &stru_2834BADA0, @"TSCalculationEngine");
+    v494 = objc_msgSend_localizedStringForKey_value_table_(a1, v198, @"LN", &stru_2834BADA0, @"TSCalculationEngine");
+    v493 = objc_msgSend_localizedStringForKey_value_table_(a1, v199, @"LOG", &stru_2834BADA0, @"TSCalculationEngine");
+    v492 = objc_msgSend_localizedStringForKey_value_table_(a1, v200, @"LOG10", &stru_2834BADA0, @"TSCalculationEngine");
+    v491 = objc_msgSend_localizedStringForKey_value_table_(a1, v201, @"MDETERM", &stru_2834BADA0, @"TSCalculationEngine");
+    v490 = objc_msgSend_localizedStringForKey_value_table_(a1, v202, @"MINVERSE", &stru_2834BADA0, @"TSCalculationEngine");
+    v489 = objc_msgSend_localizedStringForKey_value_table_(a1, v203, @"MMULT", &stru_2834BADA0, @"TSCalculationEngine");
+    v488 = objc_msgSend_localizedStringForKey_value_table_(a1, v204, @"MOD", &stru_2834BADA0, @"TSCalculationEngine");
+    v487 = objc_msgSend_localizedStringForKey_value_table_(a1, v205, @"MROUND", &stru_2834BADA0, @"TSCalculationEngine");
+    v486 = objc_msgSend_localizedStringForKey_value_table_(a1, v206, @"MULTINOMIAL", &stru_2834BADA0, @"TSCalculationEngine");
+    v485 = objc_msgSend_localizedStringForKey_value_table_(a1, v207, @"MUNIT", &stru_2834BADA0, @"TSCalculationEngine");
+    v484 = objc_msgSend_localizedStringForKey_value_table_(a1, v208, @"ODD", &stru_2834BADA0, @"TSCalculationEngine");
+    v483 = objc_msgSend_localizedStringForKey_value_table_(a1, v209, @"PI", &stru_2834BADA0, @"TSCalculationEngine");
+    v482 = objc_msgSend_localizedStringForKey_value_table_(a1, v210, @"POLYNOMIAL", &stru_2834BADA0, @"TSCalculationEngine");
+    v481 = objc_msgSend_localizedStringForKey_value_table_(a1, v211, @"POWER", &stru_2834BADA0, @"TSCalculationEngine");
+    v480 = objc_msgSend_localizedStringForKey_value_table_(a1, v212, @"PRODUCT", &stru_2834BADA0, @"TSCalculationEngine");
+    v479 = objc_msgSend_localizedStringForKey_value_table_(a1, v213, @"QUOTIENT", &stru_2834BADA0, @"TSCalculationEngine");
+    v478 = objc_msgSend_localizedStringForKey_value_table_(a1, v214, @"RADIANS", &stru_2834BADA0, @"TSCalculationEngine");
+    v477 = objc_msgSend_localizedStringForKey_value_table_(a1, v215, @"RAND", &stru_2834BADA0, @"TSCalculationEngine");
+    v476 = objc_msgSend_localizedStringForKey_value_table_(a1, v216, @"RANDBETWEEN", &stru_2834BADA0, @"TSCalculationEngine");
+    v475 = objc_msgSend_localizedStringForKey_value_table_(a1, v217, @"ROMAN", &stru_2834BADA0, @"TSCalculationEngine");
+    v474 = objc_msgSend_localizedStringForKey_value_table_(a1, v218, @"ROUND", &stru_2834BADA0, @"TSCalculationEngine");
+    v473 = objc_msgSend_localizedStringForKey_value_table_(a1, v219, @"ROUNDDOWN", &stru_2834BADA0, @"TSCalculationEngine");
+    v472 = objc_msgSend_localizedStringForKey_value_table_(a1, v220, @"ROUNDUP", &stru_2834BADA0, @"TSCalculationEngine");
+    v471 = objc_msgSend_localizedStringForKey_value_table_(a1, v221, @"SERIESSUM", &stru_2834BADA0, @"TSCalculationEngine");
+    v470 = objc_msgSend_localizedStringForKey_value_table_(a1, v222, @"SIGN", &stru_2834BADA0, @"TSCalculationEngine");
+    v469 = objc_msgSend_localizedStringForKey_value_table_(a1, v223, @"SIN", &stru_2834BADA0, @"TSCalculationEngine");
+    v468 = objc_msgSend_localizedStringForKey_value_table_(a1, v224, @"SINH", &stru_2834BADA0, @"TSCalculationEngine");
+    v467 = objc_msgSend_localizedStringForKey_value_table_(a1, v225, @"SQRT", &stru_2834BADA0, @"TSCalculationEngine");
+    v466 = objc_msgSend_localizedStringForKey_value_table_(a1, v226, @"SQRTPI", &stru_2834BADA0, @"TSCalculationEngine");
+    v465 = objc_msgSend_localizedStringForKey_value_table_(a1, v227, @"SUBTOTAL", &stru_2834BADA0, @"TSCalculationEngine");
+    v464 = objc_msgSend_localizedStringForKey_value_table_(a1, v228, @"SUM", &stru_2834BADA0, @"TSCalculationEngine");
+    v463 = objc_msgSend_localizedStringForKey_value_table_(a1, v229, @"SUMIF", &stru_2834BADA0, @"TSCalculationEngine");
+    v462 = objc_msgSend_localizedStringForKey_value_table_(a1, v230, @"SUMIFS", &stru_2834BADA0, @"TSCalculationEngine");
+    v461 = objc_msgSend_localizedStringForKey_value_table_(a1, v231, @"SUMPRODUCT", &stru_2834BADA0, @"TSCalculationEngine");
+    v460 = objc_msgSend_localizedStringForKey_value_table_(a1, v232, @"SUMSQ", &stru_2834BADA0, @"TSCalculationEngine");
+    v459 = objc_msgSend_localizedStringForKey_value_table_(a1, v233, @"SUMX2MY2", &stru_2834BADA0, @"TSCalculationEngine");
+    v458 = objc_msgSend_localizedStringForKey_value_table_(a1, v234, @"SUMX2PY2", &stru_2834BADA0, @"TSCalculationEngine");
+    v457 = objc_msgSend_localizedStringForKey_value_table_(a1, v235, @"SUMXMY2", &stru_2834BADA0, @"TSCalculationEngine");
+    v456 = objc_msgSend_localizedStringForKey_value_table_(a1, v236, @"TAN", &stru_2834BADA0, @"TSCalculationEngine");
+    v455 = objc_msgSend_localizedStringForKey_value_table_(a1, v237, @"TANH", &stru_2834BADA0, @"TSCalculationEngine");
+    v454 = objc_msgSend_localizedStringForKey_value_table_(a1, v238, @"TRUNC", &stru_2834BADA0, @"TSCalculationEngine");
+    v453 = objc_msgSend_localizedStringForKey_value_table_(a1, v239, @"AVEDEV", &stru_2834BADA0, @"TSCalculationEngine");
+    v452 = objc_msgSend_localizedStringForKey_value_table_(a1, v240, @"AVERAGE", &stru_2834BADA0, @"TSCalculationEngine");
+    v451 = objc_msgSend_localizedStringForKey_value_table_(a1, v241, @"AVERAGEA", &stru_2834BADA0, @"TSCalculationEngine");
+    v450 = objc_msgSend_localizedStringForKey_value_table_(a1, v242, @"AVERAGEIF", &stru_2834BADA0, @"TSCalculationEngine");
+    v449 = objc_msgSend_localizedStringForKey_value_table_(a1, v243, @"AVERAGEIFS", &stru_2834BADA0, @"TSCalculationEngine");
+    v448 = objc_msgSend_localizedStringForKey_value_table_(a1, v244, @"BETADIST", &stru_2834BADA0, @"TSCalculationEngine");
+    v447 = objc_msgSend_localizedStringForKey_value_table_(a1, v245, @"BETAINV", &stru_2834BADA0, @"TSCalculationEngine");
+    v446 = objc_msgSend_localizedStringForKey_value_table_(a1, v246, @"BINOMDIST", &stru_2834BADA0, @"TSCalculationEngine");
+    v445 = objc_msgSend_localizedStringForKey_value_table_(a1, v247, @"CHIDIST", &stru_2834BADA0, @"TSCalculationEngine");
+    v444 = objc_msgSend_localizedStringForKey_value_table_(a1, v248, @"CHIINV", &stru_2834BADA0, @"TSCalculationEngine");
+    v443 = objc_msgSend_localizedStringForKey_value_table_(a1, v249, @"CHITEST", &stru_2834BADA0, @"TSCalculationEngine");
+    v442 = objc_msgSend_localizedStringForKey_value_table_(a1, v250, @"CONFIDENCE", &stru_2834BADA0, @"TSCalculationEngine");
+    v441 = objc_msgSend_localizedStringForKey_value_table_(a1, v251, @"CORREL", &stru_2834BADA0, @"TSCalculationEngine");
+    v440 = objc_msgSend_localizedStringForKey_value_table_(a1, v252, @"COUNT", &stru_2834BADA0, @"TSCalculationEngine");
+    v439 = objc_msgSend_localizedStringForKey_value_table_(a1, v253, @"COUNTA", &stru_2834BADA0, @"TSCalculationEngine");
+    v438 = objc_msgSend_localizedStringForKey_value_table_(a1, v254, @"COUNTBLANK", &stru_2834BADA0, @"TSCalculationEngine");
+    v437 = objc_msgSend_localizedStringForKey_value_table_(a1, v255, @"COUNTIF", &stru_2834BADA0, @"TSCalculationEngine");
+    v436 = objc_msgSend_localizedStringForKey_value_table_(a1, v256, @"COUNTIFS", &stru_2834BADA0, @"TSCalculationEngine");
+    v435 = objc_msgSend_localizedStringForKey_value_table_(a1, v257, @"COVAR", &stru_2834BADA0, @"TSCalculationEngine");
+    v434 = objc_msgSend_localizedStringForKey_value_table_(a1, v258, @"CRITBINOM", &stru_2834BADA0, @"TSCalculationEngine");
+    v433 = objc_msgSend_localizedStringForKey_value_table_(a1, v259, @"DEVSQ", &stru_2834BADA0, @"TSCalculationEngine");
+    v432 = objc_msgSend_localizedStringForKey_value_table_(a1, v260, @"EXPONDIST", &stru_2834BADA0, @"TSCalculationEngine");
+    v431 = objc_msgSend_localizedStringForKey_value_table_(a1, v261, @"FDIST", &stru_2834BADA0, @"TSCalculationEngine");
+    v430 = objc_msgSend_localizedStringForKey_value_table_(a1, v262, @"FINV", &stru_2834BADA0, @"TSCalculationEngine");
+    v429 = objc_msgSend_localizedStringForKey_value_table_(a1, v263, @"FORECAST", &stru_2834BADA0, @"TSCalculationEngine");
+    v428 = objc_msgSend_localizedStringForKey_value_table_(a1, v264, @"FREQUENCY", &stru_2834BADA0, @"TSCalculationEngine");
+    v427 = objc_msgSend_localizedStringForKey_value_table_(a1, v265, @"GAMMADIST", &stru_2834BADA0, @"TSCalculationEngine");
+    v426 = objc_msgSend_localizedStringForKey_value_table_(a1, v266, @"GAMMAINV", &stru_2834BADA0, @"TSCalculationEngine");
+    v425 = objc_msgSend_localizedStringForKey_value_table_(a1, v267, @"GAMMALN", &stru_2834BADA0, @"TSCalculationEngine");
+    v424 = objc_msgSend_localizedStringForKey_value_table_(a1, v268, @"GEOMEAN", &stru_2834BADA0, @"TSCalculationEngine");
+    v423 = objc_msgSend_localizedStringForKey_value_table_(a1, v269, @"HARMEAN", &stru_2834BADA0, @"TSCalculationEngine");
+    v422 = objc_msgSend_localizedStringForKey_value_table_(a1, v270, @"INTERCEPT", &stru_2834BADA0, @"TSCalculationEngine");
+    v421 = objc_msgSend_localizedStringForKey_value_table_(a1, v271, @"LARGE", &stru_2834BADA0, @"TSCalculationEngine");
+    v420 = objc_msgSend_localizedStringForKey_value_table_(a1, v272, @"LINEST", &stru_2834BADA0, @"TSCalculationEngine");
+    v419 = objc_msgSend_localizedStringForKey_value_table_(a1, v273, @"LOGINV", &stru_2834BADA0, @"TSCalculationEngine");
+    v418 = objc_msgSend_localizedStringForKey_value_table_(a1, v274, @"LOGNORMDIST", &stru_2834BADA0, @"TSCalculationEngine");
+    v417 = objc_msgSend_localizedStringForKey_value_table_(a1, v275, @"MAX", &stru_2834BADA0, @"TSCalculationEngine");
+    v416 = objc_msgSend_localizedStringForKey_value_table_(a1, v276, @"MAXA", &stru_2834BADA0, @"TSCalculationEngine");
+    v415 = objc_msgSend_localizedStringForKey_value_table_(a1, v277, @"MAXIFS", &stru_2834BADA0, @"TSCalculationEngine");
+    v414 = objc_msgSend_localizedStringForKey_value_table_(a1, v278, @"MEDIAN", &stru_2834BADA0, @"TSCalculationEngine");
+    v413 = objc_msgSend_localizedStringForKey_value_table_(a1, v279, @"MIN", &stru_2834BADA0, @"TSCalculationEngine");
+    v412 = objc_msgSend_localizedStringForKey_value_table_(a1, v280, @"MINA", &stru_2834BADA0, @"TSCalculationEngine");
+    v411 = objc_msgSend_localizedStringForKey_value_table_(a1, v281, @"MINIFS", &stru_2834BADA0, @"TSCalculationEngine");
+    v410 = objc_msgSend_localizedStringForKey_value_table_(a1, v282, @"MODE", &stru_2834BADA0, @"TSCalculationEngine");
+    v409 = objc_msgSend_localizedStringForKey_value_table_(a1, v283, @"NEGBINOMDIST", &stru_2834BADA0, @"TSCalculationEngine");
+    v408 = objc_msgSend_localizedStringForKey_value_table_(a1, v284, @"NORMDIST", &stru_2834BADA0, @"TSCalculationEngine");
+    v407 = objc_msgSend_localizedStringForKey_value_table_(a1, v285, @"NORMINV", &stru_2834BADA0, @"TSCalculationEngine");
+    v406 = objc_msgSend_localizedStringForKey_value_table_(a1, v286, @"NORMSDIST", &stru_2834BADA0, @"TSCalculationEngine");
+    v405 = objc_msgSend_localizedStringForKey_value_table_(a1, v287, @"NORMSINV", &stru_2834BADA0, @"TSCalculationEngine");
+    v404 = objc_msgSend_localizedStringForKey_value_table_(a1, v288, @"PERCENTILE", &stru_2834BADA0, @"TSCalculationEngine");
+    v403 = objc_msgSend_localizedStringForKey_value_table_(a1, v289, @"PERCENTRANK", &stru_2834BADA0, @"TSCalculationEngine");
+    v402 = objc_msgSend_localizedStringForKey_value_table_(a1, v290, @"PERMUT", &stru_2834BADA0, @"TSCalculationEngine");
+    v401 = objc_msgSend_localizedStringForKey_value_table_(a1, v291, @"POISSON", &stru_2834BADA0, @"TSCalculationEngine");
+    v400 = objc_msgSend_localizedStringForKey_value_table_(a1, v292, @"PROB", &stru_2834BADA0, @"TSCalculationEngine");
+    v399 = objc_msgSend_localizedStringForKey_value_table_(a1, v293, @"QUARTILE", &stru_2834BADA0, @"TSCalculationEngine");
+    v398 = objc_msgSend_localizedStringForKey_value_table_(a1, v294, @"RANK", &stru_2834BADA0, @"TSCalculationEngine");
+    v397 = objc_msgSend_localizedStringForKey_value_table_(a1, v295, @"SLOPE", &stru_2834BADA0, @"TSCalculationEngine");
+    v396 = objc_msgSend_localizedStringForKey_value_table_(a1, v296, @"SMALL", &stru_2834BADA0, @"TSCalculationEngine");
+    v395 = objc_msgSend_localizedStringForKey_value_table_(a1, v297, @"STANDARDIZE", &stru_2834BADA0, @"TSCalculationEngine");
+    v394 = objc_msgSend_localizedStringForKey_value_table_(a1, v298, @"STDEV", &stru_2834BADA0, @"TSCalculationEngine");
+    v393 = objc_msgSend_localizedStringForKey_value_table_(a1, v299, @"STDEVA", &stru_2834BADA0, @"TSCalculationEngine");
+    v392 = objc_msgSend_localizedStringForKey_value_table_(a1, v300, @"STDEVP", &stru_2834BADA0, @"TSCalculationEngine");
+    v391 = objc_msgSend_localizedStringForKey_value_table_(a1, v301, @"STDEVPA", &stru_2834BADA0, @"TSCalculationEngine");
+    v390 = objc_msgSend_localizedStringForKey_value_table_(a1, v302, @"SUBTOTAL", &stru_2834BADA0, @"TSCalculationEngine");
+    v389 = objc_msgSend_localizedStringForKey_value_table_(a1, v303, @"TDIST", &stru_2834BADA0, @"TSCalculationEngine");
+    v388 = objc_msgSend_localizedStringForKey_value_table_(a1, v304, @"TINV", &stru_2834BADA0, @"TSCalculationEngine");
+    v387 = objc_msgSend_localizedStringForKey_value_table_(a1, v305, @"TTEST", &stru_2834BADA0, @"TSCalculationEngine");
+    v386 = objc_msgSend_localizedStringForKey_value_table_(a1, v306, @"VAR", &stru_2834BADA0, @"TSCalculationEngine");
+    v385 = objc_msgSend_localizedStringForKey_value_table_(a1, v307, @"VARA", &stru_2834BADA0, @"TSCalculationEngine");
+    v384 = objc_msgSend_localizedStringForKey_value_table_(a1, v308, @"VARP", &stru_2834BADA0, @"TSCalculationEngine");
+    v383 = objc_msgSend_localizedStringForKey_value_table_(a1, v309, @"VARPA", &stru_2834BADA0, @"TSCalculationEngine");
+    v382 = objc_msgSend_localizedStringForKey_value_table_(a1, v310, @"WEIBULL", &stru_2834BADA0, @"TSCalculationEngine");
+    v381 = objc_msgSend_localizedStringForKey_value_table_(a1, v311, @"ZTEST", &stru_2834BADA0, @"TSCalculationEngine");
+    v380 = objc_msgSend_localizedStringForKey_value_table_(a1, v312, @"CHAR", &stru_2834BADA0, @"TSCalculationEngine");
+    v379 = objc_msgSend_localizedStringForKey_value_table_(a1, v313, @"CLEAN", &stru_2834BADA0, @"TSCalculationEngine");
+    v378 = objc_msgSend_localizedStringForKey_value_table_(a1, v314, @"CODE", &stru_2834BADA0, @"TSCalculationEngine");
+    v377 = objc_msgSend_localizedStringForKey_value_table_(a1, v315, @"CONCAT", &stru_2834BADA0, @"TSCalculationEngine");
+    v376 = objc_msgSend_localizedStringForKey_value_table_(a1, v316, @"CONCATENATE", &stru_2834BADA0, @"TSCalculationEngine");
+    v375 = objc_msgSend_localizedStringForKey_value_table_(a1, v317, @"COUNTMATCHES", &stru_2834BADA0, @"TSCalculationEngine");
+    v374 = objc_msgSend_localizedStringForKey_value_table_(a1, v318, @"DOLLAR", &stru_2834BADA0, @"TSCalculationEngine");
+    v373 = objc_msgSend_localizedStringForKey_value_table_(a1, v319, @"EXACT", &stru_2834BADA0, @"TSCalculationEngine");
+    v372 = objc_msgSend_localizedStringForKey_value_table_(a1, v320, @"FIND", &stru_2834BADA0, @"TSCalculationEngine");
+    v371 = objc_msgSend_localizedStringForKey_value_table_(a1, v321, @"FIXED", &stru_2834BADA0, @"TSCalculationEngine");
+    v370 = objc_msgSend_localizedStringForKey_value_table_(a1, v322, @"LEFT", &stru_2834BADA0, @"TSCalculationEngine");
+    v369 = objc_msgSend_localizedStringForKey_value_table_(a1, v323, @"LEN", &stru_2834BADA0, @"TSCalculationEngine");
+    v368 = objc_msgSend_localizedStringForKey_value_table_(a1, v324, @"LOWER", &stru_2834BADA0, @"TSCalculationEngine");
+    v367 = objc_msgSend_localizedStringForKey_value_table_(a1, v325, @"MID", &stru_2834BADA0, @"TSCalculationEngine");
+    v366 = objc_msgSend_localizedStringForKey_value_table_(a1, v326, @"PLAINTEXT", &stru_2834BADA0, @"TSCalculationEngine");
+    v365 = objc_msgSend_localizedStringForKey_value_table_(a1, v327, @"PROPER", &stru_2834BADA0, @"TSCalculationEngine");
+    v364 = objc_msgSend_localizedStringForKey_value_table_(a1, v328, @"REGEX", &stru_2834BADA0, @"TSCalculationEngine");
+    v363 = objc_msgSend_localizedStringForKey_value_table_(a1, v329, @"REGEX.EXTRACT", &stru_2834BADA0, @"TSCalculationEngine");
+    v362 = objc_msgSend_localizedStringForKey_value_table_(a1, v330, @"REPLACE", &stru_2834BADA0, @"TSCalculationEngine");
+    v361 = objc_msgSend_localizedStringForKey_value_table_(a1, v331, @"REPT", &stru_2834BADA0, @"TSCalculationEngine");
+    v360 = objc_msgSend_localizedStringForKey_value_table_(a1, v332, @"RIGHT", &stru_2834BADA0, @"TSCalculationEngine");
+    v359 = objc_msgSend_localizedStringForKey_value_table_(a1, v333, @"SEARCH", &stru_2834BADA0, @"TSCalculationEngine");
+    v358 = objc_msgSend_localizedStringForKey_value_table_(a1, v334, @"SUBSTITUTE", &stru_2834BADA0, @"TSCalculationEngine");
+    v356 = objc_msgSend_localizedStringForKey_value_table_(a1, v335, @"T", &stru_2834BADA0, @"TSCalculationEngine");
+    v355 = objc_msgSend_localizedStringForKey_value_table_(a1, v336, @"TEXTAFTER", &stru_2834BADA0, @"TSCalculationEngine");
+    v354 = objc_msgSend_localizedStringForKey_value_table_(a1, v337, @"TEXTBEFORE", &stru_2834BADA0, @"TSCalculationEngine");
+    v353 = objc_msgSend_localizedStringForKey_value_table_(a1, v338, @"TEXTBETWEEN", &stru_2834BADA0, @"TSCalculationEngine");
+    v352 = objc_msgSend_localizedStringForKey_value_table_(a1, v339, @"TEXTJOIN", &stru_2834BADA0, @"TSCalculationEngine");
+    v351 = objc_msgSend_localizedStringForKey_value_table_(a1, v340, @"TEXTSPLIT", &stru_2834BADA0, @"TSCalculationEngine");
+    v350 = objc_msgSend_localizedStringForKey_value_table_(a1, v341, @"TRIM", &stru_2834BADA0, @"TSCalculationEngine");
+    v349 = objc_msgSend_localizedStringForKey_value_table_(a1, v342, @"UPPER", &stru_2834BADA0, @"TSCalculationEngine");
+    v348 = objc_msgSend_localizedStringForKey_value_table_(a1, v343, @"VALUE", &stru_2834BADA0, @"TSCalculationEngine");
+    v5 = objc_msgSend_initWithObjectsAndKeys_(v357, v344, v686, v345, @"DATE", v685, @"DATEDIF", v684, @"DATEVALUE", v683, @"DAY", v682, @"DAYNAME", v681, @"DAYS360", v680, @"EDATE", v679, @"EOMONTH", v678, @"HOUR", v677, @"ISOWEEKNUM", v676, @"MINUTE", v675, @"MONTH", v674, @"MONTHNAME", v673, @"NETWORKDAYS", v672, @"NOW", v671, @"SECOND", v670, @"TIME", v669, @"TIMEVALUE", v668, @"TODAY", v667, @"WEEKDAY", v666, @"WEEKNUM", v665, @"WORKDAY", v664, @"YEAR", v663, @"YEARFRAC", v662, @"DURATION", v661, @"DUR2DAYS", v660, @"DUR2HOURS", v659, @"DUR2MILLISECONDS", v658, @"DUR2MINUTES", v657, @"DUR2SECONDS");
 
-    objc_msgSend_setLocaleSpecificStorage_forKey_(a1, v348, v6, @"functionNameToLocalizedDictionary", v349);
+    objc_msgSend_setLocaleSpecificStorage_forKey_(a1, v346, v5, @"functionNameToLocalizedDictionary");
   }
 
-  return v6;
+  return v5;
 }
 
-id sub_2212EFD74(void *a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5)
+id sub_2212EFD74(void *a1, const char *a2, uint64_t a3, uint64_t a4)
 {
-  v40 = *MEMORY[0x277D85DE8];
-  v9 = objc_msgSend_localeSpecificStorageForKey_(a1, a2, @"localizedFunctionNameToEnglishDictionary", a4, a5);
-  if (!v9)
+  v34 = *MEMORY[0x277D85DE8];
+  v7 = objc_msgSend_localeSpecificStorageForKey_(a1, a2, @"localizedFunctionNameToEnglishDictionary", a4);
+  if (!v7)
   {
-    v33 = objc_msgSend_functionNameForwardLocalizationDictionary(a1, v5, v6, v7, v8);
-    v10 = objc_opt_new();
-    v37 = 0u;
-    v38 = 0u;
-    v35 = 0u;
-    v36 = 0u;
-    v11 = v33;
-    v16 = objc_msgSend_countByEnumeratingWithState_objects_count_(v11, v12, &v35, v39, 16);
-    if (v16)
+    v27 = objc_msgSend_functionNameForwardLocalizationDictionary(a1, v4, v5, v6);
+    v8 = objc_opt_new();
+    v31 = 0u;
+    v32 = 0u;
+    v29 = 0u;
+    v30 = 0u;
+    v9 = v27;
+    v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(v9, v10, &v29, v33, 16);
+    if (v13)
     {
-      v17 = *v36;
+      v14 = *v30;
       do
       {
-        for (i = 0; i != v16; ++i)
+        for (i = 0; i != v13; ++i)
         {
-          if (*v36 != v17)
+          if (*v30 != v14)
           {
-            objc_enumerationMutation(v11);
+            objc_enumerationMutation(v9);
           }
 
-          v19 = *(*(&v35 + 1) + 8 * i);
-          v20 = objc_msgSend_objectForKey_(v11, v13, v19, v14, v15, v33);
-          v24 = objc_msgSend_objectForKeyedSubscript_(v10, v21, v20, v22, v23);
-          v25 = v24 == 0;
+          v16 = *(*(&v29 + 1) + 8 * i);
+          v17 = objc_msgSend_objectForKey_(v9, v11, v16, v12, v27);
+          v20 = objc_msgSend_objectForKeyedSubscript_(v8, v18, v17, v19);
+          v21 = v20 == 0;
 
-          if (v25 || (objc_msgSend_isEqualToString_(v19, v26, @"op_Subtract", v27, v28) & 1) != 0 || objc_msgSend_isEqualToString_(v19, v26, @"op_Add", v29, v28))
+          if (v21 || (objc_msgSend_isEqualToString_(v16, v22, @"op_Subtract", v23) & 1) != 0 || objc_msgSend_isEqualToString_(v16, v22, @"op_Add", v24))
           {
-            objc_msgSend_setObject_forKeyedSubscript_(v10, v26, v19, v20, v28);
+            objc_msgSend_setObject_forKeyedSubscript_(v8, v22, v16, v17);
           }
         }
 
-        v16 = objc_msgSend_countByEnumeratingWithState_objects_count_(v11, v13, &v35, v39, 16);
+        v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(v9, v11, &v29, v33, 16);
       }
 
-      while (v16);
+      while (v13);
     }
 
-    v9 = v10;
-    objc_msgSend_setLocaleSpecificStorage_forKey_(a1, v30, v9, @"localizedFunctionNameToEnglishDictionary", v31);
+    v7 = v8;
+    objc_msgSend_setLocaleSpecificStorage_forKey_(a1, v25, v7, @"localizedFunctionNameToEnglishDictionary");
   }
 
-  return v9;
+  return v7;
 }
 
-id sub_2212EFFAC(void *a1, const char *a2, void *a3, uint64_t a4, uint64_t a5)
+id sub_2212EFFAC(void *a1, const char *a2, void *a3, uint64_t a4)
 {
-  v6 = objc_msgSend_uppercaseString(a3, a2, a3, a4, a5);
-  v11 = objc_msgSend_functionLocalizationDictionary(a1, v7, v8, v9, v10);
-  v15 = objc_msgSend_objectForKey_(v11, v12, v6, v13, v14);
+  v5 = objc_msgSend_uppercaseString(a3, a2, a3, a4);
+  v9 = objc_msgSend_functionLocalizationDictionary(a1, v6, v7, v8);
+  v12 = objc_msgSend_objectForKey_(v9, v10, v5, v11);
 
-  return v15;
+  return v12;
 }
 
-id sub_2212F003C(void *a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5)
+id sub_2212F003C(void *a1, const char *a2, uint64_t a3, uint64_t a4)
 {
-  v5 = objc_msgSend_functionLocalizationDictionary(a1, a2, a3, a4, a5);
-  v10 = objc_msgSend_allKeys(v5, v6, v7, v8, v9);
+  v4 = objc_msgSend_functionLocalizationDictionary(a1, a2, a3, a4);
+  v8 = objc_msgSend_allKeys(v4, v5, v6, v7);
 
-  return v10;
+  return v8;
 }
 
-id sub_2212F0098(void *a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5)
+id sub_2212F0098(void *a1, const char *a2, uint64_t a3, uint64_t a4)
 {
-  v9 = objc_msgSend_localeSpecificStorageForKey_(a1, a2, @"mappings_localizedTypeStringForArgumentType", a4, a5);
-  if (!v9)
+  v7 = objc_msgSend_localeSpecificStorageForKey_(a1, a2, @"mappings_localizedTypeStringForArgumentType", a4);
+  if (!v7)
   {
-    v10 = objc_alloc(MEMORY[0x277CBEAC0]);
-    v103 = objc_msgSend_localizedStringForKey_value_table_(a1, v11, @"an error", &stru_2834BADA0, @"TSCalculationEngine");
-    v15 = objc_msgSend_numberWithInt_(MEMORY[0x277CCABB0], v12, 9, v13, v14);
-    v17 = objc_msgSend_localizedStringForKey_value_table_(a1, v16, @"an empty cell", &stru_2834BADA0, @"TSCalculationEngine");
-    v125 = objc_msgSend_numberWithInt_(MEMORY[0x277CCABB0], v18, 0, v19, v20);
-    v22 = objc_msgSend_localizedStringForKey_value_table_(a1, v21, @"empty", &stru_2834BADA0, @"TSCalculationEngine");
-    objc_msgSend_numberWithInt_(MEMORY[0x277CCABB0], v23, 10, v24, v25);
-    v123 = v22;
-    v124 = v102 = a3;
-    v27 = objc_msgSend_localizedStringForKey_value_table_(a1, v26, @"a number", &stru_2834BADA0, @"TSCalculationEngine");
-    v122 = objc_msgSend_numberWithInt_(MEMORY[0x277CCABB0], v28, 5, v29, v30);
-    v121 = objc_msgSend_localizedStringForKey_value_table_(a1, v31, @"a string", &stru_2834BADA0, @"TSCalculationEngine");
-    v120 = objc_msgSend_numberWithInt_(MEMORY[0x277CCABB0], v32, 7, v33, v34);
-    v119 = objc_msgSend_localizedStringForKey_value_table_(a1, v35, @"a Boolean", &stru_2834BADA0, @"TSCalculationEngine");
-    v118 = objc_msgSend_numberWithInt_(MEMORY[0x277CCABB0], v36, 2, v37, v38);
-    v117 = objc_msgSend_localizedStringForKey_value_table_(a1, v39, @"a date", &stru_2834BADA0, @"TSCalculationEngine");
-    v116 = objc_msgSend_numberWithInt_(MEMORY[0x277CCABB0], v40, 3, v41, v42);
-    v115 = objc_msgSend_localizedStringForKey_value_table_(a1, v43, @"a reference", &stru_2834BADA0, @"TSCalculationEngine");
-    v114 = objc_msgSend_numberWithInt_(MEMORY[0x277CCABB0], v44, 6, v45, v46);
-    v113 = objc_msgSend_localizedStringForKey_value_table_(a1, v47, @"an array", &stru_2834BADA0, @"TSCalculationEngine");
-    v112 = objc_msgSend_numberWithInt_(MEMORY[0x277CCABB0], v48, 1, v49, v50);
-    v111 = objc_msgSend_localizedStringForKey_value_table_(a1, v51, @"an array", &stru_2834BADA0, @"TSCalculationEngine");
-    v110 = objc_msgSend_numberWithInt_(MEMORY[0x277CCABB0], v52, 16, v53, v54);
-    v109 = objc_msgSend_localizedStringForKey_value_table_(a1, v55, @"a duration", &stru_2834BADA0, @"TSCalculationEngine");
-    v108 = objc_msgSend_numberWithInt_(MEMORY[0x277CCABB0], v56, 4, v57, v58);
-    v107 = objc_msgSend_localizedStringForKey_value_table_(a1, v59, @"anything", &stru_2834BADA0, @"TSCalculationEngine");
-    v106 = objc_msgSend_numberWithInt_(MEMORY[0x277CCABB0], v60, 0xFFFFFFFFLL, v61, v62);
-    v105 = objc_msgSend_localizedStringForKey_value_table_(a1, v63, @"a number, date, or duration", &stru_2834BADA0, @"TSCalculationEngine");
-    v104 = objc_msgSend_numberWithInt_(MEMORY[0x277CCABB0], v64, 8, v65, v66);
-    v101 = objc_msgSend_localizedStringForKey_value_table_(a1, v67, @"a variable", &stru_2834BADA0, @"TSCalculationEngine");
-    v100 = objc_msgSend_numberWithInt_(MEMORY[0x277CCABB0], v68, 18, v69, v70);
-    v99 = objc_msgSend_localizedStringForKey_value_table_(a1, v71, @"an identifier", &stru_2834BADA0, @"TSCalculationEngine");
-    v98 = objc_msgSend_numberWithInt_(MEMORY[0x277CCABB0], v72, 20, v73, v74);
-    v76 = objc_msgSend_localizedStringForKey_value_table_(a1, v75, @"a lambda", &stru_2834BADA0, @"TSCalculationEngine");
-    v97 = objc_msgSend_numberWithInt_(MEMORY[0x277CCABB0], v77, 19, v78, v79);
-    v81 = objc_msgSend_localizedStringForKey_value_table_(a1, v80, @"a number, or BOOLean", &stru_2834BADA0, @"TSCalculationEngine");
-    v85 = objc_msgSend_numberWithInt_(MEMORY[0x277CCABB0], v82, 21, v83, v84);
-    v9 = objc_msgSend_initWithObjectsAndKeys_(v10, v86, v103, v87, v88, v15, v17, v125, v22, v124, v27, v122, v121, v120, v119, v118, v117, v116, v115, v114, v113, v112, v111, v110, v109, v108, v107, v106, v105, v104, v101, v100, v99, v98, v76, v97, v81, v85, 0);
+    v8 = objc_alloc(MEMORY[0x277CBEAC0]);
+    v81 = objc_msgSend_localizedStringForKey_value_table_(a1, v9, @"an error", &stru_2834BADA0, @"TSCalculationEngine");
+    v12 = objc_msgSend_numberWithInt_(MEMORY[0x277CCABB0], v10, 9, v11);
+    v14 = objc_msgSend_localizedStringForKey_value_table_(a1, v13, @"an empty cell", &stru_2834BADA0, @"TSCalculationEngine");
+    v103 = objc_msgSend_numberWithInt_(MEMORY[0x277CCABB0], v15, 0, v16);
+    v18 = objc_msgSend_localizedStringForKey_value_table_(a1, v17, @"empty", &stru_2834BADA0, @"TSCalculationEngine");
+    objc_msgSend_numberWithInt_(MEMORY[0x277CCABB0], v19, 10, v20);
+    v101 = v18;
+    v102 = v80 = a3;
+    v22 = objc_msgSend_localizedStringForKey_value_table_(a1, v21, @"a number", &stru_2834BADA0, @"TSCalculationEngine");
+    v100 = objc_msgSend_numberWithInt_(MEMORY[0x277CCABB0], v23, 5, v24);
+    v99 = objc_msgSend_localizedStringForKey_value_table_(a1, v25, @"a string", &stru_2834BADA0, @"TSCalculationEngine");
+    v98 = objc_msgSend_numberWithInt_(MEMORY[0x277CCABB0], v26, 7, v27);
+    v97 = objc_msgSend_localizedStringForKey_value_table_(a1, v28, @"a Boolean", &stru_2834BADA0, @"TSCalculationEngine");
+    v96 = objc_msgSend_numberWithInt_(MEMORY[0x277CCABB0], v29, 2, v30);
+    v95 = objc_msgSend_localizedStringForKey_value_table_(a1, v31, @"a date", &stru_2834BADA0, @"TSCalculationEngine");
+    v94 = objc_msgSend_numberWithInt_(MEMORY[0x277CCABB0], v32, 3, v33);
+    v93 = objc_msgSend_localizedStringForKey_value_table_(a1, v34, @"a reference", &stru_2834BADA0, @"TSCalculationEngine");
+    v92 = objc_msgSend_numberWithInt_(MEMORY[0x277CCABB0], v35, 6, v36);
+    v91 = objc_msgSend_localizedStringForKey_value_table_(a1, v37, @"an array", &stru_2834BADA0, @"TSCalculationEngine");
+    v90 = objc_msgSend_numberWithInt_(MEMORY[0x277CCABB0], v38, 1, v39);
+    v89 = objc_msgSend_localizedStringForKey_value_table_(a1, v40, @"an array", &stru_2834BADA0, @"TSCalculationEngine");
+    v88 = objc_msgSend_numberWithInt_(MEMORY[0x277CCABB0], v41, 16, v42);
+    v87 = objc_msgSend_localizedStringForKey_value_table_(a1, v43, @"a duration", &stru_2834BADA0, @"TSCalculationEngine");
+    v86 = objc_msgSend_numberWithInt_(MEMORY[0x277CCABB0], v44, 4, v45);
+    v85 = objc_msgSend_localizedStringForKey_value_table_(a1, v46, @"anything", &stru_2834BADA0, @"TSCalculationEngine");
+    v84 = objc_msgSend_numberWithInt_(MEMORY[0x277CCABB0], v47, 0xFFFFFFFFLL, v48);
+    v83 = objc_msgSend_localizedStringForKey_value_table_(a1, v49, @"a number, date, or duration", &stru_2834BADA0, @"TSCalculationEngine");
+    v82 = objc_msgSend_numberWithInt_(MEMORY[0x277CCABB0], v50, 8, v51);
+    v79 = objc_msgSend_localizedStringForKey_value_table_(a1, v52, @"a variable", &stru_2834BADA0, @"TSCalculationEngine");
+    v78 = objc_msgSend_numberWithInt_(MEMORY[0x277CCABB0], v53, 18, v54);
+    v77 = objc_msgSend_localizedStringForKey_value_table_(a1, v55, @"an identifier", &stru_2834BADA0, @"TSCalculationEngine");
+    v76 = objc_msgSend_numberWithInt_(MEMORY[0x277CCABB0], v56, 20, v57);
+    v59 = objc_msgSend_localizedStringForKey_value_table_(a1, v58, @"a lambda", &stru_2834BADA0, @"TSCalculationEngine");
+    v75 = objc_msgSend_numberWithInt_(MEMORY[0x277CCABB0], v60, 19, v61);
+    v63 = objc_msgSend_localizedStringForKey_value_table_(a1, v62, @"a number, or BOOLean", &stru_2834BADA0, @"TSCalculationEngine");
+    v66 = objc_msgSend_numberWithInt_(MEMORY[0x277CCABB0], v64, 21, v65);
+    v7 = objc_msgSend_initWithObjectsAndKeys_(v8, v67, v81, v68, v12, v14, v103, v18, v102, v22, v100, v99, v98, v97, v96, v95, v94, v93, v92, v91, v90, v89, v88, v87, v86, v85, v84, v83, v82, v79, v78, v77, v76, v59, v75, v63, v66, 0);
 
-    objc_msgSend_setLocaleSpecificStorage_forKey_(a1, v89, v9, @"mappings_localizedTypeStringForArgumentType", v90);
-    a3 = v102;
+    objc_msgSend_setLocaleSpecificStorage_forKey_(a1, v69, v7, @"mappings_localizedTypeStringForArgumentType");
+    a3 = v80;
   }
 
-  v91 = objc_msgSend_numberWithInt_(MEMORY[0x277CCABB0], v6, a3, v7, v8);
-  v95 = objc_msgSend_objectForKey_(v9, v92, v91, v93, v94);
+  v70 = objc_msgSend_numberWithInt_(MEMORY[0x277CCABB0], v5, a3, v6);
+  v73 = objc_msgSend_objectForKey_(v7, v71, v70, v72);
 
-  return v95;
+  return v73;
 }
 
 void sub_2212F07A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, void *a43, void *a44, void *a45, void *a46, void *a47, void *a48, void *a49, void *a50, uint64_t a51, void *a52, void *a53, void *a54)
@@ -6252,73 +6262,73 @@ void sub_2212F07A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 uint64_t sub_2212F0A40(void *a1, uint64_t a2, void *a3)
 {
   v4 = a3;
-  v9 = objc_msgSend_localizedTrueString(a1, v5, v6, v7, v8);
-  IsEqual_toString = objc_msgSend_localizedCaseInsensitiveIsEqual_toString_(a1, v10, v4, v9, v11);
+  v8 = objc_msgSend_localizedTrueString(a1, v5, v6, v7);
+  IsEqual_toString = objc_msgSend_localizedCaseInsensitiveIsEqual_toString_(a1, v9, v4, v8);
 
   return IsEqual_toString;
 }
 
-id sub_2212F0ABC(void *a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5)
+id sub_2212F0ABC(void *a1, const char *a2, uint64_t a3, uint64_t a4)
 {
-  v7 = objc_msgSend_localeSpecificStorageForKey_(a1, a2, @"sLocalizedTrue", a4, a5);
-  if (!v7)
+  v6 = objc_msgSend_localeSpecificStorageForKey_(a1, a2, @"sLocalizedTrue", a4);
+  if (!v6)
   {
-    v7 = objc_msgSend_localizedStringForKey_value_table_(a1, v6, @"TRUE", &stru_2834BADA0, @"TSCalculationEngine");
-    objc_msgSend_setLocaleSpecificStorage_forKey_(a1, v8, v7, @"sLocalizedTrue", v9);
+    v6 = objc_msgSend_localizedStringForKey_value_table_(a1, v5, @"TRUE", &stru_2834BADA0, @"TSCalculationEngine");
+    objc_msgSend_setLocaleSpecificStorage_forKey_(a1, v7, v6, @"sLocalizedTrue");
   }
 
-  return v7;
+  return v6;
 }
 
 uint64_t sub_2212F0B64(void *a1, uint64_t a2, void *a3)
 {
   v4 = a3;
-  v9 = objc_msgSend_localizedFalseString(a1, v5, v6, v7, v8);
-  IsEqual_toString = objc_msgSend_localizedCaseInsensitiveIsEqual_toString_(a1, v10, v4, v9, v11);
+  v8 = objc_msgSend_localizedFalseString(a1, v5, v6, v7);
+  IsEqual_toString = objc_msgSend_localizedCaseInsensitiveIsEqual_toString_(a1, v9, v4, v8);
 
   return IsEqual_toString;
 }
 
-id sub_2212F0BE0(void *a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5)
+id sub_2212F0BE0(void *a1, const char *a2, uint64_t a3, uint64_t a4)
 {
-  v7 = objc_msgSend_localeSpecificStorageForKey_(a1, a2, @"sLocalizedFalse", a4, a5);
-  if (!v7)
+  v6 = objc_msgSend_localeSpecificStorageForKey_(a1, a2, @"sLocalizedFalse", a4);
+  if (!v6)
   {
-    v7 = objc_msgSend_localizedStringForKey_value_table_(a1, v6, @"FALSE", &stru_2834BADA0, @"TSCalculationEngine");
-    objc_msgSend_setLocaleSpecificStorage_forKey_(a1, v8, v7, @"sLocalizedFalse", v9);
+    v6 = objc_msgSend_localizedStringForKey_value_table_(a1, v5, @"FALSE", &stru_2834BADA0, @"TSCalculationEngine");
+    objc_msgSend_setLocaleSpecificStorage_forKey_(a1, v7, v6, @"sLocalizedFalse");
   }
 
-  return v7;
+  return v6;
 }
 
-id sub_2212F0C88(void *a1, const char *a2, unsigned int a3, uint64_t a4, uint64_t a5)
+id sub_2212F0C88(void *a1, const char *a2, unsigned int a3, uint64_t a4)
 {
-  v9 = objc_msgSend_localeSpecificStorageForKey_(a1, a2, @"localizedFunctionNameForMenuTag", a4, a5);
-  if (!v9)
+  v7 = objc_msgSend_localeSpecificStorageForKey_(a1, a2, @"localizedFunctionNameForMenuTag", a4);
+  if (!v7)
   {
-    v10 = objc_alloc(MEMORY[0x277CBEA60]);
-    v44 = objc_msgSend_localizedStringForKey_value_table_(a1, v11, @"SUM", &stru_2834BADA0, @"TSCalculationEngine");
-    v13 = objc_msgSend_localizedStringForKey_value_table_(a1, v12, @"AVERAGE", &stru_2834BADA0, @"TSCalculationEngine");
-    v15 = objc_msgSend_localizedStringForKey_value_table_(a1, v14, @"COUNT", &stru_2834BADA0, @"TSCalculationEngine");
-    v41 = objc_msgSend_localizedStringForKey_value_table_(a1, v16, @"MAX", &stru_2834BADA0, @"TSCalculationEngine");
-    v18 = objc_msgSend_localizedStringForKey_value_table_(a1, v17, @"MIN", &stru_2834BADA0, @"TSCalculationEngine");
-    v43 = objc_msgSend_localizedStringForKey_value_table_(a1, v19, @"PRODUCT", &stru_2834BADA0, @"TSCalculationEngine");
-    v42 = objc_msgSend_localizedStringForKey_value_table_(a1, v20, @"STDEVA", &stru_2834BADA0, @"TSCalculationEngine");
-    v40 = objc_msgSend_localizedStringForKey_value_table_(a1, v21, @"STDEVPA", &stru_2834BADA0, @"TSCalculationEngine");
-    v39 = objc_msgSend_localizedStringForKey_value_table_(a1, v22, @"VARA", &stru_2834BADA0, @"TSCalculationEngine");
-    v38 = objc_msgSend_localizedStringForKey_value_table_(a1, v23, @"VARPA", &stru_2834BADA0, @"TSCalculationEngine");
-    v37 = objc_msgSend_localizedStringForKey_value_table_(a1, v24, @"Mean", &stru_2834BADA0, @"TSCalculationEngine");
-    v36 = objc_msgSend_localizedStringForKey_value_table_(a1, v25, @"Median", &stru_2834BADA0, @"TSCalculationEngine");
-    v35 = v15;
-    v27 = objc_msgSend_localizedStringForKey_value_table_(a1, v26, @"Mode", &stru_2834BADA0, @"TSCalculationEngine");
-    v9 = objc_msgSend_initWithObjects_(v10, v28, v44, v29, v30, v13, v35, v41, v18, v43, v42, v40, v39, v38, v37, v36, v27, 0);
+    v8 = objc_alloc(MEMORY[0x277CBEA60]);
+    v40 = objc_msgSend_localizedStringForKey_value_table_(a1, v9, @"SUM", &stru_2834BADA0, @"TSCalculationEngine");
+    v11 = objc_msgSend_localizedStringForKey_value_table_(a1, v10, @"AVERAGE", &stru_2834BADA0, @"TSCalculationEngine");
+    v13 = objc_msgSend_localizedStringForKey_value_table_(a1, v12, @"COUNT", &stru_2834BADA0, @"TSCalculationEngine");
+    v37 = objc_msgSend_localizedStringForKey_value_table_(a1, v14, @"MAX", &stru_2834BADA0, @"TSCalculationEngine");
+    v16 = objc_msgSend_localizedStringForKey_value_table_(a1, v15, @"MIN", &stru_2834BADA0, @"TSCalculationEngine");
+    v39 = objc_msgSend_localizedStringForKey_value_table_(a1, v17, @"PRODUCT", &stru_2834BADA0, @"TSCalculationEngine");
+    v38 = objc_msgSend_localizedStringForKey_value_table_(a1, v18, @"STDEVA", &stru_2834BADA0, @"TSCalculationEngine");
+    v36 = objc_msgSend_localizedStringForKey_value_table_(a1, v19, @"STDEVPA", &stru_2834BADA0, @"TSCalculationEngine");
+    v35 = objc_msgSend_localizedStringForKey_value_table_(a1, v20, @"VARA", &stru_2834BADA0, @"TSCalculationEngine");
+    v34 = objc_msgSend_localizedStringForKey_value_table_(a1, v21, @"VARPA", &stru_2834BADA0, @"TSCalculationEngine");
+    v33 = objc_msgSend_localizedStringForKey_value_table_(a1, v22, @"Mean", &stru_2834BADA0, @"TSCalculationEngine");
+    v32 = objc_msgSend_localizedStringForKey_value_table_(a1, v23, @"Median", &stru_2834BADA0, @"TSCalculationEngine");
+    v31 = v13;
+    v25 = objc_msgSend_localizedStringForKey_value_table_(a1, v24, @"Mode", &stru_2834BADA0, @"TSCalculationEngine");
+    v7 = objc_msgSend_initWithObjects_(v8, v26, v40, v27, v11, v31, v37, v16, v39, v38, v36, v35, v34, v33, v32, v25, 0);
 
-    objc_msgSend_setLocaleSpecificStorage_forKey_(a1, v31, v9, @"localizedFunctionNameForMenuTag", v32);
+    objc_msgSend_setLocaleSpecificStorage_forKey_(a1, v28, v7, @"localizedFunctionNameForMenuTag");
   }
 
-  v33 = objc_msgSend_objectAtIndex_(v9, v6, a3, v7, v8);
+  v29 = objc_msgSend_objectAtIndex_(v7, v5, a3, v6);
 
-  return v33;
+  return v29;
 }
 
 void sub_2212F0FFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, void *a23, uint64_t a24, void *a25, void *a26, void *a27, void *a28)
@@ -6333,162 +6343,162 @@ void sub_2212F0FFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 id sub_2212F1160(void *a1, uint64_t a2, void *a3)
 {
   v4 = a3;
-  v9 = objc_msgSend_functionNameForwardLocalizationDictionary(a1, v5, v6, v7, v8);
-  v13 = objc_msgSend_objectForKey_(v9, v10, v4, v11, v12);
+  v8 = objc_msgSend_functionNameForwardLocalizationDictionary(a1, v5, v6, v7);
+  v11 = objc_msgSend_objectForKey_(v8, v9, v4, v10);
 
-  if (v4 && !v13)
+  if (v4 && !v11)
   {
-    if (objc_msgSend_hasPrefix_(v4, v14, @"__", v15, v16))
+    if (objc_msgSend_hasPrefix_(v4, v12, @"__", v13))
     {
-      v13 = 0;
+      v11 = 0;
     }
 
     else
     {
-      v20 = MEMORY[0x277D81150];
-      v21 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v17, "[TSULocale(TSCELocalization) localizedNameForFunction:]", v18, v19);
-      v25 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v22, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCELocalization.mm", v23, v24);
-      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v20, v26, v21, v25, 597, 0, "ERROR: No localized name found for '%{public}@', reverting to english name.", v4);
+      v16 = MEMORY[0x277D81150];
+      v17 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v14, "[TSULocale(TSCELocalization) localizedNameForFunction:]", v15);
+      v20 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v18, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCELocalization.mm", v19);
+      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v16, v21, v17, v20, 597, 0, "ERROR: No localized name found for '%{public}@', reverting to english name.", v4);
 
-      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v27, v28, v29, v30);
-      v13 = v4;
+      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v22, v23, v24);
+      v11 = v4;
     }
   }
 
-  return v13;
+  return v11;
 }
 
-id sub_2212F12B0(void *a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5)
+id sub_2212F12B0(void *a1, const char *a2, uint64_t a3, uint64_t a4)
 {
-  v6 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], a2, @"%@_TOOLTIP", a4, a5, a3);
-  v10 = objc_msgSend__localizedStringFromArgumentsTable_(a1, v7, v6, v8, v9);
+  v5 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], a2, @"%@_TOOLTIP", a4, a3);
+  v8 = objc_msgSend__localizedStringFromArgumentsTable_(a1, v6, v5, v7);
 
-  return v10;
+  return v8;
 }
 
 id sub_2212F1334(void *a1, uint64_t a2, void *a3)
 {
-  v56 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   v4 = a3;
-  v44 = v4;
-  v11 = objc_msgSend_localeSpecificStorageForKey_(a1, v5, @"localizedCategoryForFunction:", v6, v7);
-  if (!v11)
+  v37 = v4;
+  v9 = objc_msgSend_localeSpecificStorageForKey_(a1, v5, @"localizedCategoryForFunction:", v6);
+  if (!v9)
   {
-    v43 = a1;
-    v12 = objc_alloc_init(MEMORY[0x277CBEB38]);
-    v17 = objc_msgSend_localizedFunctionCategoryDictionary(v43, v13, v14, v15, v16);
-    v52 = 0u;
-    v53 = 0u;
-    v50 = 0u;
-    v51 = 0u;
-    v22 = objc_msgSend_allKeys(v17, v18, v19, v20, v21);
-    v27 = objc_msgSend_countByEnumeratingWithState_objects_count_(v22, v23, &v50, v55, 16);
-    if (v27)
+    v36 = a1;
+    v10 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    v14 = objc_msgSend_localizedFunctionCategoryDictionary(v36, v11, v12, v13);
+    v45 = 0u;
+    v46 = 0u;
+    v43 = 0u;
+    v44 = 0u;
+    v18 = objc_msgSend_allKeys(v14, v15, v16, v17);
+    v22 = objc_msgSend_countByEnumeratingWithState_objects_count_(v18, v19, &v43, v48, 16);
+    if (v22)
     {
-      v28 = *v51;
-      obj = v22;
+      v23 = *v44;
+      obj = v18;
       do
       {
-        for (i = 0; i != v27; ++i)
+        for (i = 0; i != v22; ++i)
         {
-          if (*v51 != v28)
+          if (*v44 != v23)
           {
             objc_enumerationMutation(obj);
           }
 
-          v30 = *(*(&v50 + 1) + 8 * i);
-          v31 = objc_msgSend_objectForKey_(v17, v24, v30, v25, v26);
-          v48 = 0u;
-          v49 = 0u;
-          v46 = 0u;
-          v47 = 0u;
-          v32 = v31;
-          v36 = objc_msgSend_countByEnumeratingWithState_objects_count_(v32, v33, &v46, v54, 16);
-          if (v36)
+          v25 = *(*(&v43 + 1) + 8 * i);
+          v26 = objc_msgSend_objectForKey_(v14, v20, v25, v21);
+          v41 = 0u;
+          v42 = 0u;
+          v39 = 0u;
+          v40 = 0u;
+          v27 = v26;
+          v30 = objc_msgSend_countByEnumeratingWithState_objects_count_(v27, v28, &v39, v47, 16);
+          if (v30)
           {
-            v37 = *v47;
+            v31 = *v40;
             do
             {
-              for (j = 0; j != v36; ++j)
+              for (j = 0; j != v30; ++j)
               {
-                if (*v47 != v37)
+                if (*v40 != v31)
                 {
-                  objc_enumerationMutation(v32);
+                  objc_enumerationMutation(v27);
                 }
 
-                objc_msgSend_setObject_forKey_(v12, v34, v30, *(*(&v46 + 1) + 8 * j), v35);
+                objc_msgSend_setObject_forKey_(v10, v29, v25, *(*(&v39 + 1) + 8 * j));
               }
 
-              v36 = objc_msgSend_countByEnumeratingWithState_objects_count_(v32, v34, &v46, v54, 16);
+              v30 = objc_msgSend_countByEnumeratingWithState_objects_count_(v27, v29, &v39, v47, 16);
             }
 
-            while (v36);
+            while (v30);
           }
         }
 
-        v22 = obj;
-        v27 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v24, &v50, v55, 16);
+        v18 = obj;
+        v22 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v20, &v43, v48, 16);
       }
 
-      while (v27);
+      while (v22);
     }
 
-    objc_msgSend_setLocaleSpecificStorage_forKey_(v43, v39, v12, @"localizedCategoryForFunction:", v40);
-    v11 = v12;
-    v4 = v44;
+    objc_msgSend_setLocaleSpecificStorage_forKey_(v36, v33, v10, @"localizedCategoryForFunction:");
+    v9 = v10;
+    v4 = v37;
   }
 
-  v41 = objc_msgSend_objectForKey_(v11, v8, v4, v9, v10);
+  v34 = objc_msgSend_objectForKey_(v9, v7, v4, v8);
 
-  return v41;
+  return v34;
 }
 
-id sub_2212F15F8(void *a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5)
+id sub_2212F15F8(void *a1, const char *a2, uint64_t a3, uint64_t a4)
 {
-  v6 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], a2, @"%@_ARGUMENT_%lu", a4, a5, a4, a3);
-  v10 = objc_msgSend__localizedStringFromArgumentsTable_(a1, v7, v6, v8, v9);
+  v5 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], a2, @"%@_ARGUMENT_%lu", a4, a4, a3);
+  v8 = objc_msgSend__localizedStringFromArgumentsTable_(a1, v6, v5, v7);
 
-  return v10;
+  return v8;
 }
 
-id sub_2212F167C(void *a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5)
+id sub_2212F167C(void *a1, const char *a2, uint64_t a3, uint64_t a4)
 {
-  v6 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], a2, @"%@_ARGUMENT_%lu_TOOLTIP", a4, a5, a4, a3);
-  v10 = objc_msgSend__localizedStringFromArgumentsTable_(a1, v7, v6, v8, v9);
+  v5 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], a2, @"%@_ARGUMENT_%lu_TOOLTIP", a4, a4, a3);
+  v8 = objc_msgSend__localizedStringFromArgumentsTable_(a1, v6, v5, v7);
 
-  return v10;
+  return v8;
 }
 
 id sub_2212F1700(void *a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v6 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], a2, @"%@_ARGUMENT_%lu_MODE_%d", a4, a5, a5, a3, a4);
-  v10 = objc_msgSend__localizedStringFromArgumentsTable_(a1, v7, v6, v8, v9);
+  v6 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], a2, @"%@_ARGUMENT_%lu_MODE_%d", a4, a5, a3, a4);
+  v9 = objc_msgSend__localizedStringFromArgumentsTable_(a1, v7, v6, v8);
 
-  return v10;
+  return v9;
 }
 
 id sub_2212F178C(void *a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v6 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], a2, @"%@_ARGUMENT_%lu_MODE_%d_TOOLTIP", a4, a5, a5, a3, a4);
-  v10 = objc_msgSend__localizedStringFromArgumentsTable_(a1, v7, v6, v8, v9);
+  v6 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], a2, @"%@_ARGUMENT_%lu_MODE_%d_TOOLTIP", a4, a5, a3, a4);
+  v9 = objc_msgSend__localizedStringFromArgumentsTable_(a1, v7, v6, v8);
 
-  return v10;
+  return v9;
 }
 
 id sub_2212F1818(void *a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v6 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], a2, @"%@_ARGUMENT_%lu_LAMBDA_%d", a4, a5, a5, a3, a4);
-  v10 = objc_msgSend__localizedStringFromArgumentsTable_(a1, v7, v6, v8, v9);
+  v6 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], a2, @"%@_ARGUMENT_%lu_LAMBDA_%d", a4, a5, a3, a4);
+  v9 = objc_msgSend__localizedStringFromArgumentsTable_(a1, v7, v6, v8);
 
-  return v10;
+  return v9;
 }
 
 id sub_2212F18A4(void *a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v6 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], a2, @"%@_ARGUMENT_%lu_LAMBDA_%d_TOOLTIP", a4, a5, a5, a3, a4);
-  v10 = objc_msgSend__localizedStringFromArgumentsTable_(a1, v7, v6, v8, v9);
+  v6 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], a2, @"%@_ARGUMENT_%lu_LAMBDA_%d_TOOLTIP", a4, a5, a3, a4);
+  v9 = objc_msgSend__localizedStringFromArgumentsTable_(a1, v7, v6, v8);
 
-  return v10;
+  return v9;
 }
 
 id sub_2212F1930(void *a1, const char *a2, uint64_t a3)
@@ -6500,92 +6510,92 @@ id sub_2212F1930(void *a1, const char *a2, uint64_t a3)
 
 void sub_2212F196C(void *a1)
 {
-  v79 = sub_2212F6DF8();
-  v76 = objc_msgSend_localizations(v79, v1, v2, v3, v4);
-  v5 = objc_alloc(MEMORY[0x277CBEB18]);
-  v10 = objc_msgSend_count(v76, v6, v7, v8, v9);
-  v78 = objc_msgSend_initWithCapacity_(v5, v11, v10, v12, v13);
-  v14 = objc_alloc(MEMORY[0x277CBEB18]);
-  v19 = objc_msgSend_count(v76, v15, v16, v17, v18);
-  v77 = objc_msgSend_initWithCapacity_(v14, v20, v19, v21, v22);
-  v80 = objc_msgSend_objectEnumerator(v76, v23, v24, v25, v26);
-  for (i = 0; ; i = v32)
+  v63 = sub_2212F6DF8(a1);
+  v60 = objc_msgSend_localizations(v63, v1, v2, v3);
+  v4 = objc_alloc(MEMORY[0x277CBEB18]);
+  v8 = objc_msgSend_count(v60, v5, v6, v7);
+  v62 = objc_msgSend_initWithCapacity_(v4, v9, v8, v10);
+  v11 = objc_alloc(MEMORY[0x277CBEB18]);
+  v15 = objc_msgSend_count(v60, v12, v13, v14);
+  v61 = objc_msgSend_initWithCapacity_(v11, v16, v15, v17);
+  v64 = objc_msgSend_objectEnumerator(v60, v18, v19, v20);
+  for (i = 0; ; i = v25)
   {
-    v32 = objc_msgSend_nextObject(v80, v27, v28, v29, v30);
+    v25 = objc_msgSend_nextObject(v64, v21, v22, v23);
 
-    if (!v32)
+    if (!v25)
     {
       break;
     }
 
-    v37 = objc_msgSend_pathForResource_ofType_inDirectory_forLocalization_(v79, v33, @"Localizable", @"strings", 0, v32);
-    v41 = objc_msgSend_dictionaryWithContentsOfFile_(MEMORY[0x277CBEAC0], v38, v37, v39, v40);
-    v45 = objc_msgSend_objectForKey_(v41, v42, @"TRUE", v43, v44);
-    v52 = objc_msgSend_objectForKey_(v41, v46, @"FALSE", v47, v48);
-    if (v45)
+    v30 = objc_msgSend_pathForResource_ofType_inDirectory_forLocalization_(v63, v27, @"Localizable", @"strings", 0, v25);
+    v33 = objc_msgSend_dictionaryWithContentsOfFile_(MEMORY[0x277CBEAC0], v31, v30, v32);
+    v36 = objc_msgSend_objectForKey_(v33, v34, @"TRUE", v35);
+    v41 = objc_msgSend_objectForKey_(v33, v37, @"FALSE", v38);
+    if (v36)
     {
-      objc_msgSend_addObject_(v78, v49, v45, v50, v51);
+      objc_msgSend_addObject_(v62, v39, v36, v40);
     }
 
-    if (v52)
+    if (v41)
     {
-      objc_msgSend_addObject_(v77, v49, v52, v50, v51);
+      objc_msgSend_addObject_(v61, v39, v41, v40);
     }
   }
 
-  if (!v78 || !objc_msgSend_count(v78, v33, v34, v35, v36))
+  if (!v62 || (v26 = objc_msgSend_count(v62, v27, v28, v29)) == 0)
   {
-    v57 = sub_2212F6DF8();
-    v59 = objc_msgSend_localizedStringForKey_value_table_(v57, v58, @"TRUE", &stru_2834BADA0, @"TSCalculationEngine");
+    v45 = sub_2212F6DF8(v26);
+    v47 = objc_msgSend_localizedStringForKey_value_table_(v45, v46, @"TRUE", &stru_2834BADA0, @"TSCalculationEngine");
 
-    if (v59)
+    if (v47)
     {
-      v60 = objc_alloc(MEMORY[0x277CBEB18]);
-      v78 = objc_msgSend_initWithObjects_(v60, v61, v59, v62, v63, 0);
+      v48 = objc_alloc(MEMORY[0x277CBEB18]);
+      v62 = objc_msgSend_initWithObjects_(v48, v49, v47, v50, 0);
     }
 
     else
     {
-      v78 = 0;
+      v62 = 0;
     }
   }
 
-  if (!v77 || !objc_msgSend_count(v77, v53, v54, v55, v56))
+  if (!v61 || (v26 = objc_msgSend_count(v61, v42, v43, v44)) == 0)
   {
-    v66 = sub_2212F6DF8();
-    v68 = objc_msgSend_localizedStringForKey_value_table_(v66, v67, @"FALSE", &stru_2834BADA0, @"TSCalculationEngine");
+    v52 = sub_2212F6DF8(v26);
+    v54 = objc_msgSend_localizedStringForKey_value_table_(v52, v53, @"FALSE", &stru_2834BADA0, @"TSCalculationEngine");
 
-    if (v68)
+    if (v54)
     {
-      v69 = objc_alloc(MEMORY[0x277CBEB18]);
-      v77 = objc_msgSend_initWithObjects_(v69, v70, v68, v71, v72, 0);
+      v55 = objc_alloc(MEMORY[0x277CBEB18]);
+      v61 = objc_msgSend_initWithObjects_(v55, v56, v54, v57, 0);
     }
 
     else
     {
-      v77 = 0;
+      v61 = 0;
     }
   }
 
   __dmb(0xBu);
-  objc_msgSend_setLocaleSpecificStorage_forKey_(a1, v64, v78, @"sLocalizedTrueStrings", v65);
-  objc_msgSend_setLocaleSpecificStorage_forKey_(a1, v73, v77, @"sLocalizedFalseStrings", v74);
+  objc_msgSend_setLocaleSpecificStorage_forKey_(a1, v51, v62, @"sLocalizedTrueStrings");
+  objc_msgSend_setLocaleSpecificStorage_forKey_(a1, v58, v61, @"sLocalizedFalseStrings");
 }
 
-id sub_2212F1D28(void *a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5)
+id sub_2212F1D28(void *a1, const char *a2, uint64_t a3, uint64_t a4)
 {
-  v6 = objc_msgSend_localeSpecificStorageForKey_(a1, a2, @"sLocalizedTrueStrings", a4, a5);
-  if (!v6)
+  v5 = objc_msgSend_localeSpecificStorageForKey_(a1, a2, @"sLocalizedTrueStrings", a4);
+  if (!v5)
   {
-    v7 = a1;
-    objc_sync_enter(v7);
-    objc_msgSend_loadLocalizedStrings(v7, v8, v9, v10, v11);
-    objc_sync_exit(v7);
+    v6 = a1;
+    objc_sync_enter(v6);
+    objc_msgSend_loadLocalizedStrings(v6, v7, v8, v9);
+    objc_sync_exit(v6);
 
-    v6 = objc_msgSend_localizedTrueStrings(v7, v12, v13, v14, v15);
+    v5 = objc_msgSend_localizedTrueStrings(v6, v10, v11, v12);
   }
 
-  return v6;
+  return v5;
 }
 
 void sub_2212F1D98(_Unwind_Exception *a1)
@@ -6595,20 +6605,20 @@ void sub_2212F1D98(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-id sub_2212F1DB0(void *a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5)
+id sub_2212F1DB0(void *a1, const char *a2, uint64_t a3, uint64_t a4)
 {
-  v6 = objc_msgSend_localeSpecificStorageForKey_(a1, a2, @"sLocalizedFalseStrings", a4, a5);
-  if (!v6)
+  v5 = objc_msgSend_localeSpecificStorageForKey_(a1, a2, @"sLocalizedFalseStrings", a4);
+  if (!v5)
   {
-    v7 = a1;
-    objc_sync_enter(v7);
-    objc_msgSend_loadLocalizedStrings(v7, v8, v9, v10, v11);
-    objc_sync_exit(v7);
+    v6 = a1;
+    objc_sync_enter(v6);
+    objc_msgSend_loadLocalizedStrings(v6, v7, v8, v9);
+    objc_sync_exit(v6);
 
-    v6 = objc_msgSend_localizedFalseStrings(v7, v12, v13, v14, v15);
+    v5 = objc_msgSend_localizedFalseStrings(v6, v10, v11, v12);
   }
 
-  return v6;
+  return v5;
 }
 
 void sub_2212F1E20(_Unwind_Exception *a1)
@@ -6622,90 +6632,90 @@ id sub_2212F1E38(void *a1, uint64_t a2, void *a3)
 {
   v4 = a3;
   v5 = objc_alloc(MEMORY[0x277CBEB18]);
-  v10 = objc_msgSend_count(v4, v6, v7, v8, v9);
-  v14 = objc_msgSend_initWithCapacity_(v5, v11, v10, v12, v13);
-  v50 = v4;
-  v23 = objc_msgSend_objectEnumerator(v4, v15, v16, v17, v18);
-  for (i = 0; ; i = v25)
+  v9 = objc_msgSend_count(v4, v6, v7, v8);
+  v12 = objc_msgSend_initWithCapacity_(v5, v10, v9, v11);
+  v41 = v4;
+  v19 = objc_msgSend_objectEnumerator(v4, v13, v14, v15);
+  for (i = 0; ; i = v21)
   {
-    v25 = objc_msgSend_nextObject(v23, v19, v20, v21, v22);
+    v21 = objc_msgSend_nextObject(v19, v16, v17, v18);
 
-    if (!v25)
+    if (!v21)
     {
       break;
     }
 
-    v32 = objc_msgSend_localizedNameForFunction_(a1, v26, v25, v27, v28);
-    if (v32)
+    v26 = objc_msgSend_localizedNameForFunction_(a1, v22, v21, v23);
+    if (v26)
     {
-      v33 = objc_msgSend_localizedNameForFunction_(a1, v29, v25, v30, v31);
-      objc_msgSend_addObject_(v14, v34, v33, v35, v36);
+      v27 = objc_msgSend_localizedNameForFunction_(a1, v24, v21, v25);
+      objc_msgSend_addObject_(v12, v28, v27, v29);
     }
 
     else
     {
-      v37 = MEMORY[0x277D81150];
-      v38 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v29, "[TSULocale(TSCELocalization) localizedNamesForFunctions:]", v30, v31);
-      v42 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v39, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCELocalization.mm", v40, v41);
-      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v37, v43, v38, v42, 763, 0, "Either %@ was translated improperly, or some other function was translated to the same name.", v25);
+      v30 = MEMORY[0x277D81150];
+      v31 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v24, "[TSULocale(TSCELocalization) localizedNamesForFunctions:]", v25);
+      v34 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v32, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCELocalization.mm", v33);
+      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v30, v35, v31, v34, 763, 0, "Either %@ was translated improperly, or some other function was translated to the same name.", v21);
 
-      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v44, v45, v46, v47);
+      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v36, v37, v38);
     }
   }
 
-  v51[0] = MEMORY[0x277D85DD0];
-  v51[1] = 3221225472;
-  v51[2] = sub_2212F2090;
-  v51[3] = &unk_278462D28;
-  v51[4] = a1;
-  v48 = objc_msgSend_sortedArrayUsingComparator_(v14, v26, v51, v27, v28);
+  v42[0] = MEMORY[0x277D85DD0];
+  v42[1] = 3221225472;
+  v42[2] = sub_2212F2090;
+  v42[3] = &unk_278462D28;
+  v42[4] = a1;
+  v39 = objc_msgSend_sortedArrayUsingComparator_(v12, v22, v42, v23);
 
-  return v48;
+  return v39;
 }
 
-id sub_2212F20A0(void *a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5)
+id sub_2212F20A0(void *a1, const char *a2, uint64_t a3, uint64_t a4)
 {
-  v5 = objc_msgSend_localeSpecificStorageForKey_(a1, a2, @"localizedFunctionCategoryDictionary", a4, a5);
-  if (!v5)
+  v4 = objc_msgSend_localeSpecificStorageForKey_(a1, a2, @"localizedFunctionCategoryDictionary", a4);
+  if (!v4)
   {
-    v6 = objc_alloc(MEMORY[0x277CBEAC0]);
-    v105 = objc_msgSend_arrayWithObjects_(MEMORY[0x277CBEA60], v7, @"DATE", v8, v9, @"DATEDIF", @"DATEVALUE", @"DAY", @"DAYNAME", @"DAYS360", @"EDATE", @"EOMONTH", @"HOUR", @"ISOWEEKNUM", @"MINUTE", @"MONTH", @"MONTHNAME", @"NETWORKDAYS", @"NOW", @"SECOND", @"TIME", @"TIMEVALUE", @"TODAY", @"WEEKDAY", @"WEEKNUM", @"WORKDAY", @"YEAR", @"YEARFRAC", 0);
-    v13 = objc_msgSend_localizedNamesForFunctions_(a1, v10, v105, v11, v12);
-    v113 = objc_msgSend_localizedStringForKey_value_table_(a1, v14, @"Date and Time", &stru_2834BADA0, @"TSCalculationEngine");
-    v104 = objc_msgSend_arrayWithObjects_(MEMORY[0x277CBEA60], v15, @"DURATION", v16, v17, @"DUR2DAYS", @"DUR2HOURS", @"DUR2MILLISECONDS", @"DUR2MINUTES", @"DUR2SECONDS", @"DUR2WEEKS", @"STRIPDURATION", 0);
-    v112 = objc_msgSend_localizedNamesForFunctions_(a1, v18, v104, v19, v20);
-    v103 = objc_msgSend_localizedStringForKey_value_table_(a1, v21, @"Duration", &stru_2834BADA0, @"TSCalculationEngine");
-    v102 = objc_msgSend_arrayWithObjects_(MEMORY[0x277CBEA60], v22, @"BASETONUM", v23, v24, @"BESSELJ", @"BESSELY", @"BIN2DEC", @"BIN2HEX", @"BIN2OCT", @"BITAND", @"BITLSHIFT", @"BITOR", @"BITRSHIFT", @"BITXOR", @"CONVERT", @"DEC2BIN", @"DEC2HEX", @"DEC2OCT", @"DELTA", @"ERF", @"ERFC", @"GESTEP", @"HEX2BIN", @"HEX2DEC", @"HEX2OCT", @"NUMTOBASE", @"OCT2BIN", @"OCT2DEC", @"OCT2HEX", 0);
-    v101 = objc_msgSend_localizedNamesForFunctions_(a1, v25, v102, v26, v27);
-    v111 = objc_msgSend_localizedStringForKey_value_table_(a1, v28, @"Engineering", &stru_2834BADA0, @"TSCalculationEngine");
-    v100 = objc_msgSend_arrayWithObjects_(MEMORY[0x277CBEA60], v29, @"ACCRINT", v30, v31, @"ACCRINTM", @"BONDDURATION", @"BONDMDURATION", @"COUPDAYBS", @"COUPDAYS", @"COUPDAYSNC", @"COUPNUM", @"CUMIPMT", @"CUMPRINC", @"CURRENCY", @"CURRENCYCODE", @"CURRENCYCONVERT", @"CURRENCYH", @"DB", @"DDB", @"DISC", @"EFFECT", @"FV", @"INTRATE", @"IPMT", @"IRR", @"ISPMT", @"MIRR", @"NOMINAL", @"NPER", @"NPV", @"PMT", @"PPMT", @"PRICE", @"PRICEDISC", @"PRICEMAT", @"PV", @"RATE", @"RECEIVED", @"SLN", @"STOCK", @"STOCKH", @"SYD", @"VDB", @"XIRR", @"XNPV", @"YIELD", @"YIELDDISC", @"YIELDMAT", 0);
-    v99 = objc_msgSend_localizedNamesForFunctions_(a1, v32, v100, v33, v34);
-    v36 = objc_msgSend_localizedStringForKey_value_table_(a1, v35, @"Financial", &stru_2834BADA0, @"TSCalculationEngine");
-    v98 = objc_msgSend_arrayWithObjects_(MEMORY[0x277CBEA60], v37, @"AND", v38, v39, @"BYCOL", @"BYROW", @"FALSE", @"IF", @"IFS", @"IFERROR", @"ISBLANK", @"ISDATE", @"ISERROR", @"ISEVEN", @"ISNUMBER", @"ISNUMBERORDATE", @"ISODD", @"ISOMITTED", @"ISTEXT", @"LAMBDA", @"LAMBDA.APPLY", @"LET", @"MAKEARRAY", @"MAP", @"NOT", @"OR", @"REDUCE", @"SCAN", @"SWITCH", @"TRUE", 0);
-    v97 = objc_msgSend_localizedNamesForFunctions_(a1, v40, v98, v41, v42);
-    v96 = objc_msgSend_localizedStringForKey_value_table_(a1, v43, @"Logical and Information", &stru_2834BADA0, @"TSCalculationEngine");
-    v95 = objc_msgSend_arrayWithObjects_(MEMORY[0x277CBEA60], v44, @"ADDRESS", v45, v46, @"AREAS", @"CHOOSE", @"CHOOSECOLS", @"CHOOSEROWS", @"COLUMN", @"COLUMNS", @"DROP", @"EXPAND", @"FILTER", @"FORMULATEXT", @"GETPIVOTDATA", @"HLOOKUP", @"HSTACK", @"HYPERLINK", @"INDEX", @"INDIRECT", @"INTERSECT.RANGES", @"LOOKUP", @"MATCH", @"OFFSET", @"REFERENCE.NAME", @"ROW", @"ROWS", @"SEQUENCE", @"SORT", @"SORTBY", @"TAKE", @"TOCOL", @"TOROW", @"TRANSPOSE", @"UNION.RANGES", @"UNIQUE", @"VLOOKUP", @"VSTACK", @"WRAPCOLS", @"WRAPROWS", @"XLOOKUP", @"XMATCH", 0);
-    v110 = objc_msgSend_localizedNamesForFunctions_(a1, v47, v95, v48, v49);
-    v109 = objc_msgSend_localizedStringForKey_value_table_(a1, v50, @"Reference", &stru_2834BADA0, @"TSCalculationEngine");
-    v94 = objc_msgSend_arrayWithObjects_(MEMORY[0x277CBEA60], v51, @"ABS", v52, v53, @"CEILING", @"COMBIN", @"EVEN", @"EXP", @"FACT", @"FACTDOUBLE", @"FLOOR", @"GCD", @"INT", @"LCM", @"LN", @"LOG", @"LOG10", @"MDETERM", @"MINVERSE", @"MMULT", @"MOD", @"MROUND", @"MULTINOMIAL", @"MUNIT", @"ODD", @"PI", @"POLYNOMIAL", @"POWER", @"PRODUCT", @"QUOTIENT", @"RAND", @"RANDARRAY", @"RANDBETWEEN", @"ROMAN", @"ROUND", @"ROUNDDOWN", @"ROUNDUP", @"SERIESSUM", @"SIGN", @"SQRT", @"SQRTPI", @"SUBTOTAL", @"SUM", @"SUMIF", @"SUMIFS", @"SUMPRODUCT", @"SUMSQ", @"SUMX2MY2", @"SUMX2PY2", @"SUMXMY2", @"TRUNC", 0);
-    v108 = objc_msgSend_localizedNamesForFunctions_(a1, v54, v94, v55, v56);
-    v107 = objc_msgSend_localizedStringForKey_value_table_(a1, v57, @"Numeric", &stru_2834BADA0, @"TSCalculationEngine");
-    v93 = objc_msgSend_arrayWithObjects_(MEMORY[0x277CBEA60], v58, @"ACOS", v59, v60, @"ACOSH", @"ASIN", @"ASINH", @"ATAN", @"ATAN2", @"ATANH", @"COS", @"COSH", @"DEGREES", @"RADIANS", @"SIN", @"SINH", @"TAN", @"TANH", 0);
-    v92 = objc_msgSend_localizedNamesForFunctions_(a1, v61, v93, v62, v63);
-    v65 = objc_msgSend_localizedStringForKey_value_table_(a1, v64, @"Trigonometric", &stru_2834BADA0, @"TSCalculationEngine");
-    v91 = objc_msgSend_arrayWithObjects_(MEMORY[0x277CBEA60], v66, @"AVEDEV", v67, v68, @"AVERAGE", @"AVERAGEA", @"AVERAGEIF", @"AVERAGEIFS", @"BETADIST", @"BETAINV", @"BINOMDIST", @"CHIDIST", @"CHIINV", @"CHITEST", @"CONFIDENCE", @"CORREL", @"COUNT", @"COUNTA", @"COUNTBLANK", @"COUNTIF", @"COUNTIFS", @"COVAR", @"CRITBINOM", @"DEVSQ", @"EXPONDIST", @"FDIST", @"FINV", @"FORECAST", @"FREQUENCY", @"GAMMADIST", @"GAMMAINV", @"GAMMALN", @"GEOMEAN", @"HARMEAN", @"INTERCEPT", @"LARGE", @"LINEST", @"LOGINV", @"LOGNORMDIST", @"MAX", @"MAXA", @"MAXIFS", @"MEDIAN", @"MIN", @"MINA", @"MINIFS", @"MODE", @"NEGBINOMDIST", @"NORMDIST", @"NORMINV", @"NORMSDIST", @"NORMSINV", @"PERCENTILE", @"PERCENTRANK", @"PERMUT", @"POISSON", @"PROB", @"QUARTILE", @"RANK", @"SLOPE", @"SMALL", @"STANDARDIZE");
-    v90 = objc_msgSend_localizedNamesForFunctions_(a1, v69, v91, v70, v71);
-    v89 = objc_msgSend_localizedStringForKey_value_table_(a1, v72, @"Statistical", &stru_2834BADA0, @"TSCalculationEngine");
-    v88 = objc_msgSend_arrayWithObjects_(MEMORY[0x277CBEA60], v73, @"ARRAYTOTEXT", v74, v75, @"CHAR", @"CLEAN", @"CODE", @"COUNTMATCHES", @"DOLLAR", @"FIXED", @"CONCAT", @"CONCATENATE", @"EXACT", @"FIND", @"LEFT", @"LEN", @"LOWER", @"MID", @"PLAINTEXT", @"PROPER", @"REGEX", @"REGEX.EXTRACT", @"REPLACE", @"REPT", @"RIGHT", @"SEARCH", @"SUBSTITUTE", @"T", @"TEXTAFTER", @"TEXTBEFORE", @"TEXTBETWEEN", @"TEXTJOIN", @"TEXTSPLIT", @"TRIM", @"UPPER", @"VALUE", 0);
-    v87 = objc_msgSend_localizedNamesForFunctions_(a1, v76, v88, v77, v78);
-    v106 = v13;
-    v80 = objc_msgSend_localizedStringForKey_value_table_(a1, v79, @"Text", &stru_2834BADA0, @"TSCalculationEngine");
-    v5 = objc_msgSend_initWithObjectsAndKeys_(v6, v81, v13, v82, v83, v113, v112, v103, v101, v111, v99, v36, v97, v96, v110, v109, v108, v107, v92, v65, v90, v89, v87, v80, 0);
+    v5 = objc_alloc(MEMORY[0x277CBEAC0]);
+    v82 = objc_msgSend_arrayWithObjects_(MEMORY[0x277CBEA60], v6, @"DATE", v7, @"DATEDIF", @"DATEVALUE", @"DAY", @"DAYNAME", @"DAYS360", @"EDATE", @"EOMONTH", @"HOUR", @"ISOWEEKNUM", @"MINUTE", @"MONTH", @"MONTHNAME", @"NETWORKDAYS", @"NOW", @"SECOND", @"TIME", @"TIMEVALUE", @"TODAY", @"WEEKDAY", @"WEEKNUM", @"WORKDAY", @"YEAR", @"YEARFRAC", 0);
+    v10 = objc_msgSend_localizedNamesForFunctions_(a1, v8, v82, v9);
+    v90 = objc_msgSend_localizedStringForKey_value_table_(a1, v11, @"Date and Time", &stru_2834BADA0, @"TSCalculationEngine");
+    v81 = objc_msgSend_arrayWithObjects_(MEMORY[0x277CBEA60], v12, @"DURATION", v13, @"DUR2DAYS", @"DUR2HOURS", @"DUR2MILLISECONDS", @"DUR2MINUTES", @"DUR2SECONDS", @"DUR2WEEKS", @"STRIPDURATION", 0);
+    v89 = objc_msgSend_localizedNamesForFunctions_(a1, v14, v81, v15);
+    v80 = objc_msgSend_localizedStringForKey_value_table_(a1, v16, @"Duration", &stru_2834BADA0, @"TSCalculationEngine");
+    v79 = objc_msgSend_arrayWithObjects_(MEMORY[0x277CBEA60], v17, @"BASETONUM", v18, @"BESSELJ", @"BESSELY", @"BIN2DEC", @"BIN2HEX", @"BIN2OCT", @"BITAND", @"BITLSHIFT", @"BITOR", @"BITRSHIFT", @"BITXOR", @"CONVERT", @"DEC2BIN", @"DEC2HEX", @"DEC2OCT", @"DELTA", @"ERF", @"ERFC", @"GESTEP", @"HEX2BIN", @"HEX2DEC", @"HEX2OCT", @"NUMTOBASE", @"OCT2BIN", @"OCT2DEC", @"OCT2HEX", 0);
+    v78 = objc_msgSend_localizedNamesForFunctions_(a1, v19, v79, v20);
+    v88 = objc_msgSend_localizedStringForKey_value_table_(a1, v21, @"Engineering", &stru_2834BADA0, @"TSCalculationEngine");
+    v77 = objc_msgSend_arrayWithObjects_(MEMORY[0x277CBEA60], v22, @"ACCRINT", v23, @"ACCRINTM", @"BONDDURATION", @"BONDMDURATION", @"COUPDAYBS", @"COUPDAYS", @"COUPDAYSNC", @"COUPNUM", @"CUMIPMT", @"CUMPRINC", @"CURRENCY", @"CURRENCYCODE", @"CURRENCYCONVERT", @"CURRENCYH", @"DB", @"DDB", @"DISC", @"EFFECT", @"FV", @"INTRATE", @"IPMT", @"IRR", @"ISPMT", @"MIRR", @"NOMINAL", @"NPER", @"NPV", @"PMT", @"PPMT", @"PRICE", @"PRICEDISC", @"PRICEMAT", @"PV", @"RATE", @"RECEIVED", @"SLN", @"STOCK", @"STOCKH", @"SYD", @"VDB", @"XIRR", @"XNPV", @"YIELD", @"YIELDDISC", @"YIELDMAT", 0);
+    v76 = objc_msgSend_localizedNamesForFunctions_(a1, v24, v77, v25);
+    v27 = objc_msgSend_localizedStringForKey_value_table_(a1, v26, @"Financial", &stru_2834BADA0, @"TSCalculationEngine");
+    v75 = objc_msgSend_arrayWithObjects_(MEMORY[0x277CBEA60], v28, @"AND", v29, @"BYCOL", @"BYROW", @"FALSE", @"IF", @"IFS", @"IFERROR", @"ISBLANK", @"ISDATE", @"ISERROR", @"ISEVEN", @"ISNUMBER", @"ISNUMBERORDATE", @"ISODD", @"ISOMITTED", @"ISTEXT", @"LAMBDA", @"LAMBDA.APPLY", @"LET", @"MAKEARRAY", @"MAP", @"NOT", @"OR", @"REDUCE", @"SCAN", @"SWITCH", @"TRUE", 0);
+    v74 = objc_msgSend_localizedNamesForFunctions_(a1, v30, v75, v31);
+    v73 = objc_msgSend_localizedStringForKey_value_table_(a1, v32, @"Logical and Information", &stru_2834BADA0, @"TSCalculationEngine");
+    v72 = objc_msgSend_arrayWithObjects_(MEMORY[0x277CBEA60], v33, @"ADDRESS", v34, @"AREAS", @"CHOOSE", @"CHOOSECOLS", @"CHOOSEROWS", @"COLUMN", @"COLUMNS", @"DROP", @"EXPAND", @"FILTER", @"FORMULATEXT", @"GETPIVOTDATA", @"HLOOKUP", @"HSTACK", @"HYPERLINK", @"INDEX", @"INDIRECT", @"INTERSECT.RANGES", @"LOOKUP", @"MATCH", @"OFFSET", @"REFERENCE.NAME", @"ROW", @"ROWS", @"SEQUENCE", @"SORT", @"SORTBY", @"TAKE", @"TOCOL", @"TOROW", @"TRANSPOSE", @"UNION.RANGES", @"UNIQUE", @"VLOOKUP", @"VSTACK", @"WRAPCOLS", @"WRAPROWS", @"XLOOKUP", @"XMATCH", 0);
+    v87 = objc_msgSend_localizedNamesForFunctions_(a1, v35, v72, v36);
+    v86 = objc_msgSend_localizedStringForKey_value_table_(a1, v37, @"Reference", &stru_2834BADA0, @"TSCalculationEngine");
+    v71 = objc_msgSend_arrayWithObjects_(MEMORY[0x277CBEA60], v38, @"ABS", v39, @"CEILING", @"COMBIN", @"EVEN", @"EXP", @"FACT", @"FACTDOUBLE", @"FLOOR", @"GCD", @"INT", @"LCM", @"LN", @"LOG", @"LOG10", @"MDETERM", @"MINVERSE", @"MMULT", @"MOD", @"MROUND", @"MULTINOMIAL", @"MUNIT", @"ODD", @"PI", @"POLYNOMIAL", @"POWER", @"PRODUCT", @"QUOTIENT", @"RAND", @"RANDARRAY", @"RANDBETWEEN", @"ROMAN", @"ROUND", @"ROUNDDOWN", @"ROUNDUP", @"SERIESSUM", @"SIGN", @"SQRT", @"SQRTPI", @"SUBTOTAL", @"SUM", @"SUMIF", @"SUMIFS", @"SUMPRODUCT", @"SUMSQ", @"SUMX2MY2", @"SUMX2PY2", @"SUMXMY2", @"TRUNC", 0);
+    v85 = objc_msgSend_localizedNamesForFunctions_(a1, v40, v71, v41);
+    v84 = objc_msgSend_localizedStringForKey_value_table_(a1, v42, @"Numeric", &stru_2834BADA0, @"TSCalculationEngine");
+    v70 = objc_msgSend_arrayWithObjects_(MEMORY[0x277CBEA60], v43, @"ACOS", v44, @"ACOSH", @"ASIN", @"ASINH", @"ATAN", @"ATAN2", @"ATANH", @"COS", @"COSH", @"DEGREES", @"RADIANS", @"SIN", @"SINH", @"TAN", @"TANH", 0);
+    v69 = objc_msgSend_localizedNamesForFunctions_(a1, v45, v70, v46);
+    v48 = objc_msgSend_localizedStringForKey_value_table_(a1, v47, @"Trigonometric", &stru_2834BADA0, @"TSCalculationEngine");
+    v68 = objc_msgSend_arrayWithObjects_(MEMORY[0x277CBEA60], v49, @"AVEDEV", v50, @"AVERAGE", @"AVERAGEA", @"AVERAGEIF", @"AVERAGEIFS", @"BETADIST", @"BETAINV", @"BINOMDIST", @"CHIDIST", @"CHIINV", @"CHITEST", @"CONFIDENCE", @"CORREL", @"COUNT", @"COUNTA", @"COUNTBLANK", @"COUNTIF", @"COUNTIFS", @"COVAR", @"CRITBINOM", @"DEVSQ", @"EXPONDIST", @"FDIST", @"FINV", @"FORECAST", @"FREQUENCY", @"GAMMADIST", @"GAMMAINV", @"GAMMALN", @"GEOMEAN", @"HARMEAN", @"INTERCEPT", @"LARGE", @"LINEST", @"LOGINV", @"LOGNORMDIST", @"MAX", @"MAXA", @"MAXIFS", @"MEDIAN", @"MIN", @"MINA", @"MINIFS", @"MODE", @"NEGBINOMDIST", @"NORMDIST", @"NORMINV", @"NORMSDIST", @"NORMSINV", @"PERCENTILE", @"PERCENTRANK", @"PERMUT", @"POISSON", @"PROB", @"QUARTILE", @"RANK", @"SLOPE", @"SMALL", @"STANDARDIZE", @"STDEV");
+    v67 = objc_msgSend_localizedNamesForFunctions_(a1, v51, v68, v52);
+    v66 = objc_msgSend_localizedStringForKey_value_table_(a1, v53, @"Statistical", &stru_2834BADA0, @"TSCalculationEngine");
+    v65 = objc_msgSend_arrayWithObjects_(MEMORY[0x277CBEA60], v54, @"ARRAYTOTEXT", v55, @"CHAR", @"CLEAN", @"CODE", @"COUNTMATCHES", @"DOLLAR", @"FIXED", @"CONCAT", @"CONCATENATE", @"EXACT", @"FIND", @"LEFT", @"LEN", @"LOWER", @"MID", @"PLAINTEXT", @"PROPER", @"REGEX", @"REGEX.EXTRACT", @"REPLACE", @"REPT", @"RIGHT", @"SEARCH", @"SUBSTITUTE", @"T", @"TEXTAFTER", @"TEXTBEFORE", @"TEXTBETWEEN", @"TEXTJOIN", @"TEXTSPLIT", @"TRIM", @"UPPER", @"VALUE", 0);
+    v64 = objc_msgSend_localizedNamesForFunctions_(a1, v56, v65, v57);
+    v83 = v10;
+    v59 = objc_msgSend_localizedStringForKey_value_table_(a1, v58, @"Text", &stru_2834BADA0, @"TSCalculationEngine");
+    v4 = objc_msgSend_initWithObjectsAndKeys_(v5, v60, v10, v61, v90, v89, v80, v78, v88, v76, v27, v74, v73, v87, v86, v85, v84, v69, v48, v67, v66, v64, v59, 0);
 
-    objc_msgSend_setLocaleSpecificStorage_forKey_(a1, v84, v5, @"localizedFunctionCategoryDictionary", v85);
+    objc_msgSend_setLocaleSpecificStorage_forKey_(a1, v62, v4, @"localizedFunctionCategoryDictionary");
   }
 
-  return v5;
+  return v4;
 }
 
 void sub_2212F331C(_Unwind_Exception *a1)
@@ -6717,107 +6727,107 @@ void sub_2212F331C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-id sub_2212F3568(void *a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5)
+id sub_2212F3568(void *a1, const char *a2, uint64_t a3, uint64_t a4)
 {
-  v10 = objc_msgSend_localeSpecificStorageForKey_(a1, a2, @"localizedCategoryArray", a4, a5);
-  if (!v10)
+  v8 = objc_msgSend_localeSpecificStorageForKey_(a1, a2, @"localizedCategoryArray", a4);
+  if (!v8)
   {
-    v11 = objc_msgSend_localizedFunctionCategoryDictionary(a1, v6, v7, v8, v9);
-    v16 = objc_msgSend_allKeys(v11, v12, v13, v14, v15);
-    v23[0] = MEMORY[0x277D85DD0];
-    v23[1] = 3221225472;
-    v23[2] = sub_2212F367C;
-    v23[3] = &unk_278462D28;
-    v23[4] = a1;
-    v10 = objc_msgSend_sortedArrayUsingComparator_(v16, v17, v23, v18, v19);
+    v9 = objc_msgSend_localizedFunctionCategoryDictionary(a1, v5, v6, v7);
+    v13 = objc_msgSend_allKeys(v9, v10, v11, v12);
+    v18[0] = MEMORY[0x277D85DD0];
+    v18[1] = 3221225472;
+    v18[2] = sub_2212F367C;
+    v18[3] = &unk_278462D28;
+    v18[4] = a1;
+    v8 = objc_msgSend_sortedArrayUsingComparator_(v13, v14, v18, v15);
 
-    objc_msgSend_setLocaleSpecificStorage_forKey_(a1, v20, v10, @"localizedCategoryArray", v21);
+    objc_msgSend_setLocaleSpecificStorage_forKey_(a1, v16, v8, @"localizedCategoryArray");
   }
 
-  return v10;
+  return v8;
 }
 
-id sub_2212F368C(void *a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5)
+id sub_2212F368C(void *a1, const char *a2, uint64_t a3, uint64_t a4)
 {
-  v6 = objc_msgSend_localeSpecificStorageForKey_(a1, a2, @"allLocalizedFunctions", a4, a5);
-  if (!v6)
+  v5 = objc_msgSend_localeSpecificStorageForKey_(a1, a2, @"allLocalizedFunctions", a4);
+  if (!v5)
   {
-    v7 = objc_alloc_init(MEMORY[0x277CBEB18]);
-    v12 = objc_msgSend_localizedFunctionCategoryDictionary(a1, v8, v9, v10, v11);
-    v17 = objc_msgSend_allValues(v12, v13, v14, v15, v16);
+    v6 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v10 = objc_msgSend_localizedFunctionCategoryDictionary(a1, v7, v8, v9);
+    v14 = objc_msgSend_allValues(v10, v11, v12, v13);
 
-    v25 = objc_msgSend_count(v17, v18, v19, v20, v21);
-    if (v25)
+    v20 = objc_msgSend_count(v14, v15, v16, v17);
+    if (v20)
     {
-      for (i = 0; i != v25; ++i)
+      for (i = 0; i != v20; ++i)
       {
-        v27 = objc_msgSend_objectAtIndex_(v17, v22, i, v23, v24);
-        objc_msgSend_addObjectsFromArray_(v7, v28, v27, v29, v30);
+        v22 = objc_msgSend_objectAtIndex_(v14, v18, i, v19);
+        objc_msgSend_addObjectsFromArray_(v6, v23, v22, v24);
       }
     }
 
-    v34[0] = MEMORY[0x277D85DD0];
-    v34[1] = 3221225472;
-    v34[2] = sub_2212F3824;
-    v34[3] = &unk_278462D28;
-    v34[4] = a1;
-    v6 = objc_msgSend_sortedArrayUsingComparator_(v7, v22, v34, v23, v24);
-    objc_msgSend_setLocaleSpecificStorage_forKey_(a1, v31, v6, @"allLocalizedFunctions", v32);
+    v27[0] = MEMORY[0x277D85DD0];
+    v27[1] = 3221225472;
+    v27[2] = sub_2212F3824;
+    v27[3] = &unk_278462D28;
+    v27[4] = a1;
+    v5 = objc_msgSend_sortedArrayUsingComparator_(v6, v18, v27, v19);
+    objc_msgSend_setLocaleSpecificStorage_forKey_(a1, v25, v5, @"allLocalizedFunctions");
   }
 
-  return v6;
+  return v5;
 }
 
-__CFString *sub_2212F3834(void *a1, const char *a2, unsigned int a3, uint64_t a4, uint64_t a5)
+__CFString *sub_2212F3834(void *a1, const char *a2, unsigned int a3, uint64_t a4)
 {
-  v10 = objc_msgSend_localeSpecificStorageForKey_(a1, a2, @"localizedLabelForAggType", a4, a5);
-  if (!v10)
+  v8 = objc_msgSend_localeSpecificStorageForKey_(a1, a2, @"localizedLabelForAggType", a4);
+  if (!v8)
   {
-    v11 = objc_alloc(MEMORY[0x277CBEA60]);
-    v61 = objc_msgSend_localizedStringForKey_value_table_(a1, v12, @"No Summary", &stru_2834BADA0, @"TSCalculationEngine");
-    v77 = objc_msgSend_localizedStringForKey_value_table_(a1, v13, @"Count (All)", &stru_2834BADA0, @"TSCalculationEngine");
-    v15 = objc_msgSend_localizedStringForKey_value_table_(a1, v14, @"Sum", &stru_2834BADA0, @"TSCalculationEngine");
-    v76 = objc_msgSend_localizedStringForKey_value_table_(a1, v16, @"Average (All)", &stru_2834BADA0, @"TSCalculationEngine");
-    v75 = objc_msgSend_localizedStringForKey_value_table_(a1, v17, @"Minimum", &stru_2834BADA0, @"TSCalculationEngine");
-    v74 = objc_msgSend_localizedStringForKey_value_table_(a1, v18, @"Maximum", &stru_2834BADA0, @"TSCalculationEngine");
-    v20 = objc_msgSend_localizedStringForKey_value_table_(a1, v19, @"Category", &stru_2834BADA0, @"TSCalculationEngine");
-    v73 = objc_msgSend_localizedStringForKey_value_table_(a1, v21, @"Group Name", &stru_2834BADA0, @"TSCalculationEngine");
-    v72 = objc_msgSend_localizedStringForKey_value_table_(a1, v22, @"Body", &stru_2834BADA0, @"TSCalculationEngine");
-    v71 = objc_msgSend_localizedStringForKey_value_table_(a1, v23, @"Label", &stru_2834BADA0, @"TSCalculationEngine");
-    v25 = objc_msgSend_localizedStringForKey_value_table_(a1, v24, @"Count", &stru_2834BADA0, @"TSCalculationEngine");
-    v70 = objc_msgSend_localizedStringForKey_value_table_(a1, v26, @"Count (Unique)", &stru_2834BADA0, @"TSCalculationEngine");
-    v69 = objc_msgSend_localizedStringForKey_value_table_(a1, v27, @"Rows", &stru_2834BADA0, @"TSCalculationEngine");
-    v68 = objc_msgSend_localizedStringForKey_value_table_(a1, v28, @"Count (Duplicates)", &stru_2834BADA0, @"TSCalculationEngine");
-    v30 = objc_msgSend_localizedStringForKey_value_table_(a1, v29, @"Count (Blank)", &stru_2834BADA0, @"TSCalculationEngine");
-    v67 = objc_msgSend_localizedStringForKey_value_table_(a1, v31, @"Average", &stru_2834BADA0, @"TSCalculationEngine");
-    v66 = objc_msgSend_localizedStringForKey_value_table_(a1, v32, @"Median", &stru_2834BADA0, @"TSCalculationEngine");
-    v65 = objc_msgSend_localizedStringForKey_value_table_(a1, v33, @"MODE", &stru_2834BADA0, @"TSCalculationEngine");
-    v64 = objc_msgSend_localizedStringForKey_value_table_(a1, v34, @"Product", &stru_2834BADA0, @"TSCalculationEngine");
-    v63 = objc_msgSend_localizedStringForKey_value_table_(a1, v35, @"RANGE", &stru_2834BADA0, @"TSCalculationEngine");
-    v62 = objc_msgSend_localizedStringForKey_value_table_(a1, v36, @"STDEV", &stru_2834BADA0, @"TSCalculationEngine");
-    v60 = objc_msgSend_localizedStringForKey_value_table_(a1, v37, @"STDEVA", &stru_2834BADA0, @"TSCalculationEngine");
-    v59 = objc_msgSend_localizedStringForKey_value_table_(a1, v38, @"STDEVP", &stru_2834BADA0, @"TSCalculationEngine");
-    v58 = objc_msgSend_localizedStringForKey_value_table_(a1, v39, @"STDEVPA", &stru_2834BADA0, @"TSCalculationEngine");
-    v57 = objc_msgSend_localizedStringForKey_value_table_(a1, v40, @"VAR", &stru_2834BADA0, @"TSCalculationEngine");
-    v56 = objc_msgSend_localizedStringForKey_value_table_(a1, v41, @"VARA", &stru_2834BADA0, @"TSCalculationEngine");
-    v55 = objc_msgSend_localizedStringForKey_value_table_(a1, v42, @"VARP", &stru_2834BADA0, @"TSCalculationEngine");
-    v44 = objc_msgSend_localizedStringForKey_value_table_(a1, v43, @"VARPA", &stru_2834BADA0, @"TSCalculationEngine");
-    v10 = objc_msgSend_initWithObjects_(v11, v45, v61, v46, v47, v77, v15, v76, v75, v74, &stru_2834BADA0, v20, &stru_2834BADA0, v73, v72, &stru_2834BADA0, v71, v25, v70, v69, v68, v30, v67, v66, v65, v64, v63, &stru_2834BADA0, &stru_2834BADA0, &stru_2834BADA0, v62, v60, v59, v58, v57, v56, v55, v44, 0);
+    v9 = objc_alloc(MEMORY[0x277CBEA60]);
+    v56 = objc_msgSend_localizedStringForKey_value_table_(a1, v10, @"No Summary", &stru_2834BADA0, @"TSCalculationEngine");
+    v72 = objc_msgSend_localizedStringForKey_value_table_(a1, v11, @"Count (All)", &stru_2834BADA0, @"TSCalculationEngine");
+    v13 = objc_msgSend_localizedStringForKey_value_table_(a1, v12, @"Sum", &stru_2834BADA0, @"TSCalculationEngine");
+    v71 = objc_msgSend_localizedStringForKey_value_table_(a1, v14, @"Average (All)", &stru_2834BADA0, @"TSCalculationEngine");
+    v70 = objc_msgSend_localizedStringForKey_value_table_(a1, v15, @"Minimum", &stru_2834BADA0, @"TSCalculationEngine");
+    v69 = objc_msgSend_localizedStringForKey_value_table_(a1, v16, @"Maximum", &stru_2834BADA0, @"TSCalculationEngine");
+    v18 = objc_msgSend_localizedStringForKey_value_table_(a1, v17, @"Category", &stru_2834BADA0, @"TSCalculationEngine");
+    v68 = objc_msgSend_localizedStringForKey_value_table_(a1, v19, @"Group Name", &stru_2834BADA0, @"TSCalculationEngine");
+    v67 = objc_msgSend_localizedStringForKey_value_table_(a1, v20, @"Body", &stru_2834BADA0, @"TSCalculationEngine");
+    v66 = objc_msgSend_localizedStringForKey_value_table_(a1, v21, @"Label", &stru_2834BADA0, @"TSCalculationEngine");
+    v23 = objc_msgSend_localizedStringForKey_value_table_(a1, v22, @"Count", &stru_2834BADA0, @"TSCalculationEngine");
+    v65 = objc_msgSend_localizedStringForKey_value_table_(a1, v24, @"Count (Unique)", &stru_2834BADA0, @"TSCalculationEngine");
+    v64 = objc_msgSend_localizedStringForKey_value_table_(a1, v25, @"Rows", &stru_2834BADA0, @"TSCalculationEngine");
+    v63 = objc_msgSend_localizedStringForKey_value_table_(a1, v26, @"Count (Duplicates)", &stru_2834BADA0, @"TSCalculationEngine");
+    v28 = objc_msgSend_localizedStringForKey_value_table_(a1, v27, @"Count (Blank)", &stru_2834BADA0, @"TSCalculationEngine");
+    v62 = objc_msgSend_localizedStringForKey_value_table_(a1, v29, @"Average", &stru_2834BADA0, @"TSCalculationEngine");
+    v61 = objc_msgSend_localizedStringForKey_value_table_(a1, v30, @"Median", &stru_2834BADA0, @"TSCalculationEngine");
+    v60 = objc_msgSend_localizedStringForKey_value_table_(a1, v31, @"MODE", &stru_2834BADA0, @"TSCalculationEngine");
+    v59 = objc_msgSend_localizedStringForKey_value_table_(a1, v32, @"Product", &stru_2834BADA0, @"TSCalculationEngine");
+    v58 = objc_msgSend_localizedStringForKey_value_table_(a1, v33, @"RANGE", &stru_2834BADA0, @"TSCalculationEngine");
+    v57 = objc_msgSend_localizedStringForKey_value_table_(a1, v34, @"STDEV", &stru_2834BADA0, @"TSCalculationEngine");
+    v55 = objc_msgSend_localizedStringForKey_value_table_(a1, v35, @"STDEVA", &stru_2834BADA0, @"TSCalculationEngine");
+    v54 = objc_msgSend_localizedStringForKey_value_table_(a1, v36, @"STDEVP", &stru_2834BADA0, @"TSCalculationEngine");
+    v53 = objc_msgSend_localizedStringForKey_value_table_(a1, v37, @"STDEVPA", &stru_2834BADA0, @"TSCalculationEngine");
+    v52 = objc_msgSend_localizedStringForKey_value_table_(a1, v38, @"VAR", &stru_2834BADA0, @"TSCalculationEngine");
+    v51 = objc_msgSend_localizedStringForKey_value_table_(a1, v39, @"VARA", &stru_2834BADA0, @"TSCalculationEngine");
+    v50 = objc_msgSend_localizedStringForKey_value_table_(a1, v40, @"VARP", &stru_2834BADA0, @"TSCalculationEngine");
+    v42 = objc_msgSend_localizedStringForKey_value_table_(a1, v41, @"VARPA", &stru_2834BADA0, @"TSCalculationEngine");
+    v8 = objc_msgSend_initWithObjects_(v9, v43, v56, v44, v72, v13, v71, v70, v69, &stru_2834BADA0, v18, &stru_2834BADA0, v68, v67, &stru_2834BADA0, v66, v23, v65, v64, v63, v28, v62, v61, v60, v59, v58, &stru_2834BADA0, &stru_2834BADA0, &stru_2834BADA0, v57, v55, v54, v53, v52, v51, v50, v42, 0);
 
-    objc_msgSend_setLocaleSpecificStorage_forKey_(a1, v48, v10, @"localizedLabelForAggType", v49);
+    objc_msgSend_setLocaleSpecificStorage_forKey_(a1, v45, v8, @"localizedLabelForAggType");
   }
 
-  if (objc_msgSend_count(v10, v6, v7, v8, v9) <= a3)
+  if (objc_msgSend_count(v8, v5, v6, v7) <= a3)
   {
-    v53 = &stru_2834BADA0;
+    v48 = &stru_2834BADA0;
   }
 
   else
   {
-    v53 = objc_msgSend_objectAtIndex_(v10, v50, a3, v51, v52);
+    v48 = objc_msgSend_objectAtIndex_(v8, v46, a3, v47);
   }
 
-  return v53;
+  return v48;
 }
 
 void sub_2212F3F1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, void *a43, uint64_t a44, void *a45, void *a46, void *a47, void *a48, void *a49, void *a50)
@@ -6831,56 +6841,56 @@ void sub_2212F3F1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-__CFString *sub_2212F4184(void *a1, const char *a2, unsigned int a3, uint64_t a4, uint64_t a5)
+__CFString *sub_2212F4184(void *a1, const char *a2, unsigned int a3, uint64_t a4)
 {
-  v10 = objc_msgSend_localeSpecificStorageForKey_(a1, a2, @"localizedShortLabelForAggType", a4, a5);
-  if (!v10)
+  v8 = objc_msgSend_localeSpecificStorageForKey_(a1, a2, @"localizedShortLabelForAggType", a4);
+  if (!v8)
   {
-    v11 = objc_alloc(MEMORY[0x277CBEA60]);
-    v61 = objc_msgSend_localizedStringForKey_value_table_(a1, v12, @"No Summary", &stru_2834BADA0, @"TSCalculationEngine");
-    v77 = objc_msgSend_localizedStringForKey_value_table_(a1, v13, @"Count All", &stru_2834BADA0, @"TSCalculationEngine");
-    v15 = objc_msgSend_localizedStringForKey_value_table_(a1, v14, @"Sum", &stru_2834BADA0, @"TSCalculationEngine");
-    v76 = objc_msgSend_localizedStringForKey_value_table_(a1, v16, @"Average All", &stru_2834BADA0, @"TSCalculationEngine");
-    v75 = objc_msgSend_localizedStringForKey_value_table_(a1, v17, @"Min.", &stru_2834BADA0, @"TSCalculationEngine");
-    v74 = objc_msgSend_localizedStringForKey_value_table_(a1, v18, @"Max.", &stru_2834BADA0, @"TSCalculationEngine");
-    v20 = objc_msgSend_localizedStringForKey_value_table_(a1, v19, @"Category", &stru_2834BADA0, @"TSCalculationEngine");
-    v73 = objc_msgSend_localizedStringForKey_value_table_(a1, v21, @"Group Name", &stru_2834BADA0, @"TSCalculationEngine");
-    v72 = objc_msgSend_localizedStringForKey_value_table_(a1, v22, @"Body", &stru_2834BADA0, @"TSCalculationEngine");
-    v71 = objc_msgSend_localizedStringForKey_value_table_(a1, v23, @"Label", &stru_2834BADA0, @"TSCalculationEngine");
-    v25 = objc_msgSend_localizedStringForKey_value_table_(a1, v24, @"Count", &stru_2834BADA0, @"TSCalculationEngine");
-    v70 = objc_msgSend_localizedStringForKey_value_table_(a1, v26, @"Unique", &stru_2834BADA0, @"TSCalculationEngine");
-    v69 = objc_msgSend_localizedStringForKey_value_table_(a1, v27, @"Rows", &stru_2834BADA0, @"TSCalculationEngine");
-    v68 = objc_msgSend_localizedStringForKey_value_table_(a1, v28, @"Count Duplicates", &stru_2834BADA0, @"TSCalculationEngine");
-    v30 = objc_msgSend_localizedStringForKey_value_table_(a1, v29, @"Count Blank", &stru_2834BADA0, @"TSCalculationEngine");
-    v67 = objc_msgSend_localizedStringForKey_value_table_(a1, v31, @"Average", &stru_2834BADA0, @"TSCalculationEngine");
-    v66 = objc_msgSend_localizedStringForKey_value_table_(a1, v32, @"Median", &stru_2834BADA0, @"TSCalculationEngine");
-    v65 = objc_msgSend_localizedStringForKey_value_table_(a1, v33, @"MODE", &stru_2834BADA0, @"TSCalculationEngine");
-    v64 = objc_msgSend_localizedStringForKey_value_table_(a1, v34, @"Product", &stru_2834BADA0, @"TSCalculationEngine");
-    v63 = objc_msgSend_localizedStringForKey_value_table_(a1, v35, @"RANGE", &stru_2834BADA0, @"TSCalculationEngine");
-    v62 = objc_msgSend_localizedStringForKey_value_table_(a1, v36, @"STDEV", &stru_2834BADA0, @"TSCalculationEngine");
-    v60 = objc_msgSend_localizedStringForKey_value_table_(a1, v37, @"STDEVA", &stru_2834BADA0, @"TSCalculationEngine");
-    v59 = objc_msgSend_localizedStringForKey_value_table_(a1, v38, @"STDEVP", &stru_2834BADA0, @"TSCalculationEngine");
-    v58 = objc_msgSend_localizedStringForKey_value_table_(a1, v39, @"STDEVPA", &stru_2834BADA0, @"TSCalculationEngine");
-    v57 = objc_msgSend_localizedStringForKey_value_table_(a1, v40, @"VAR", &stru_2834BADA0, @"TSCalculationEngine");
-    v56 = objc_msgSend_localizedStringForKey_value_table_(a1, v41, @"VARA", &stru_2834BADA0, @"TSCalculationEngine");
-    v55 = objc_msgSend_localizedStringForKey_value_table_(a1, v42, @"VARP", &stru_2834BADA0, @"TSCalculationEngine");
-    v44 = objc_msgSend_localizedStringForKey_value_table_(a1, v43, @"VARPA", &stru_2834BADA0, @"TSCalculationEngine");
-    v10 = objc_msgSend_initWithObjects_(v11, v45, v61, v46, v47, v77, v15, v76, v75, v74, &stru_2834BADA0, v20, &stru_2834BADA0, v73, v72, &stru_2834BADA0, v71, v25, v70, v69, v68, v30, v67, v66, v65, v64, v63, &stru_2834BADA0, &stru_2834BADA0, &stru_2834BADA0, v62, v60, v59, v58, v57, v56, v55, v44, 0);
+    v9 = objc_alloc(MEMORY[0x277CBEA60]);
+    v56 = objc_msgSend_localizedStringForKey_value_table_(a1, v10, @"No Summary", &stru_2834BADA0, @"TSCalculationEngine");
+    v72 = objc_msgSend_localizedStringForKey_value_table_(a1, v11, @"Count All", &stru_2834BADA0, @"TSCalculationEngine");
+    v13 = objc_msgSend_localizedStringForKey_value_table_(a1, v12, @"Sum", &stru_2834BADA0, @"TSCalculationEngine");
+    v71 = objc_msgSend_localizedStringForKey_value_table_(a1, v14, @"Average All", &stru_2834BADA0, @"TSCalculationEngine");
+    v70 = objc_msgSend_localizedStringForKey_value_table_(a1, v15, @"Min.", &stru_2834BADA0, @"TSCalculationEngine");
+    v69 = objc_msgSend_localizedStringForKey_value_table_(a1, v16, @"Max.", &stru_2834BADA0, @"TSCalculationEngine");
+    v18 = objc_msgSend_localizedStringForKey_value_table_(a1, v17, @"Category", &stru_2834BADA0, @"TSCalculationEngine");
+    v68 = objc_msgSend_localizedStringForKey_value_table_(a1, v19, @"Group Name", &stru_2834BADA0, @"TSCalculationEngine");
+    v67 = objc_msgSend_localizedStringForKey_value_table_(a1, v20, @"Body", &stru_2834BADA0, @"TSCalculationEngine");
+    v66 = objc_msgSend_localizedStringForKey_value_table_(a1, v21, @"Label", &stru_2834BADA0, @"TSCalculationEngine");
+    v23 = objc_msgSend_localizedStringForKey_value_table_(a1, v22, @"Count", &stru_2834BADA0, @"TSCalculationEngine");
+    v65 = objc_msgSend_localizedStringForKey_value_table_(a1, v24, @"Unique", &stru_2834BADA0, @"TSCalculationEngine");
+    v64 = objc_msgSend_localizedStringForKey_value_table_(a1, v25, @"Rows", &stru_2834BADA0, @"TSCalculationEngine");
+    v63 = objc_msgSend_localizedStringForKey_value_table_(a1, v26, @"Count Duplicates", &stru_2834BADA0, @"TSCalculationEngine");
+    v28 = objc_msgSend_localizedStringForKey_value_table_(a1, v27, @"Count Blank", &stru_2834BADA0, @"TSCalculationEngine");
+    v62 = objc_msgSend_localizedStringForKey_value_table_(a1, v29, @"Average", &stru_2834BADA0, @"TSCalculationEngine");
+    v61 = objc_msgSend_localizedStringForKey_value_table_(a1, v30, @"Median", &stru_2834BADA0, @"TSCalculationEngine");
+    v60 = objc_msgSend_localizedStringForKey_value_table_(a1, v31, @"MODE", &stru_2834BADA0, @"TSCalculationEngine");
+    v59 = objc_msgSend_localizedStringForKey_value_table_(a1, v32, @"Product", &stru_2834BADA0, @"TSCalculationEngine");
+    v58 = objc_msgSend_localizedStringForKey_value_table_(a1, v33, @"RANGE", &stru_2834BADA0, @"TSCalculationEngine");
+    v57 = objc_msgSend_localizedStringForKey_value_table_(a1, v34, @"STDEV", &stru_2834BADA0, @"TSCalculationEngine");
+    v55 = objc_msgSend_localizedStringForKey_value_table_(a1, v35, @"STDEVA", &stru_2834BADA0, @"TSCalculationEngine");
+    v54 = objc_msgSend_localizedStringForKey_value_table_(a1, v36, @"STDEVP", &stru_2834BADA0, @"TSCalculationEngine");
+    v53 = objc_msgSend_localizedStringForKey_value_table_(a1, v37, @"STDEVPA", &stru_2834BADA0, @"TSCalculationEngine");
+    v52 = objc_msgSend_localizedStringForKey_value_table_(a1, v38, @"VAR", &stru_2834BADA0, @"TSCalculationEngine");
+    v51 = objc_msgSend_localizedStringForKey_value_table_(a1, v39, @"VARA", &stru_2834BADA0, @"TSCalculationEngine");
+    v50 = objc_msgSend_localizedStringForKey_value_table_(a1, v40, @"VARP", &stru_2834BADA0, @"TSCalculationEngine");
+    v42 = objc_msgSend_localizedStringForKey_value_table_(a1, v41, @"VARPA", &stru_2834BADA0, @"TSCalculationEngine");
+    v8 = objc_msgSend_initWithObjects_(v9, v43, v56, v44, v72, v13, v71, v70, v69, &stru_2834BADA0, v18, &stru_2834BADA0, v68, v67, &stru_2834BADA0, v66, v23, v65, v64, v63, v28, v62, v61, v60, v59, v58, &stru_2834BADA0, &stru_2834BADA0, &stru_2834BADA0, v57, v55, v54, v53, v52, v51, v50, v42, 0);
 
-    objc_msgSend_setLocaleSpecificStorage_forKey_(a1, v48, v10, @"localizedShortLabelForAggType", v49);
+    objc_msgSend_setLocaleSpecificStorage_forKey_(a1, v45, v8, @"localizedShortLabelForAggType");
   }
 
-  if (objc_msgSend_count(v10, v6, v7, v8, v9) <= a3)
+  if (objc_msgSend_count(v8, v5, v6, v7) <= a3)
   {
-    v53 = &stru_2834BADA0;
+    v48 = &stru_2834BADA0;
   }
 
   else
   {
-    v53 = objc_msgSend_objectAtIndex_(v10, v50, a3, v51, v52);
+    v48 = objc_msgSend_objectAtIndex_(v8, v46, a3, v47);
   }
 
-  return v53;
+  return v48;
 }
 
 void sub_2212F486C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, void *a43, uint64_t a44, void *a45, void *a46, void *a47, void *a48, void *a49, void *a50)
@@ -6906,19 +6916,19 @@ __CFString *sub_2212F4AD4(void *a1, uint64_t a2, unsigned int a3)
   v18 = objc_msgSend_localizedStringForKey_value_table_(a1, v17, @"Running Total In…", &stru_2834BADA0, @"TSCalculationEngine");
   v20 = objc_msgSend_localizedStringForKey_value_table_(a1, v19, @"% of Running Total In…", &stru_2834BADA0, @"TSCalculationEngine");
   v22 = objc_msgSend_localizedStringForKey_value_table_(a1, v21, @"Index", &stru_2834BADA0, @"TSCalculationEngine");
-  v26 = objc_msgSend_initWithObjects_(v4, v23, v6, v24, v25, v8, v10, v12, v14, v16, v18, v20, v22, 0);
+  v25 = objc_msgSend_initWithObjects_(v4, v23, v6, v24, v8, v10, v12, v14, v16, v18, v20, v22, 0);
 
-  if (objc_msgSend_count(v26, v27, v28, v29, v30) <= a3)
+  if (objc_msgSend_count(v25, v26, v27, v28) <= a3)
   {
-    v34 = &stru_2834BADA0;
+    v31 = &stru_2834BADA0;
   }
 
   else
   {
-    v34 = objc_msgSend_objectAtIndex_(v26, v31, a3, v32, v33);
+    v31 = objc_msgSend_objectAtIndex_(v25, v29, a3, v30);
   }
 
-  return v34;
+  return v31;
 }
 
 int *sub_2212F4DA8(uint64_t a1, uint64_t a2)
@@ -7229,7 +7239,7 @@ LABEL_9:
   return result;
 }
 
-double sub_2212F537C(long double a1, long double a2, long double a3)
+long double sub_2212F537C(long double a1, long double a2, long double a3)
 {
   v6 = 1.0 / a1;
   v7 = (1.0 - a2) * a3;
@@ -7277,32 +7287,32 @@ double sub_2212F537C(long double a1, long double a2, long double a3)
   return result;
 }
 
-uint64_t sub_2212F6D90(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5)
+uint64_t sub_2212F6D90(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4)
 {
-  v6 = objc_msgSend_gregorianCalendar(TSCECalendar, a2, a3, a4, a5);
-  v9 = objc_msgSend_components_fromDate_(v6, v7, 4, a1, v8);
-  v14 = objc_msgSend_year(v9, v10, v11, v12, v13);
+  v5 = objc_msgSend_gregorianCalendar(TSCECalendar, a2, a3, a4);
+  v7 = objc_msgSend_components_fromDate_(v5, v6, 4, a1);
+  v11 = objc_msgSend_year(v7, v8, v9, v10);
 
-  return v14;
+  return v11;
 }
 
-id sub_2212F6DF8()
+id sub_2212F6DF8(uint64_t a1)
 {
   if (qword_27CFB5410 != -1)
   {
     sub_2216F76EC();
   }
 
-  v1 = qword_27CFB5408;
+  v2 = qword_27CFB5408;
 
-  return v1;
+  return v2;
 }
 
-void sub_2212F6E3C(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5)
+void sub_2212F6E3C(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4)
 {
-  v5 = objc_msgSend_mainBundle(MEMORY[0x277CCA8D8], a2, a3, a4, a5);
-  v6 = qword_27CFB5408;
-  qword_27CFB5408 = v5;
+  v4 = objc_msgSend_mainBundle(MEMORY[0x277CCA8D8], a2, a3, a4);
+  v5 = qword_27CFB5408;
+  qword_27CFB5408 = v4;
 }
 
 TSCEASTRewriter *sub_2212F7968(TSCEASTRewriter *a1, TSCEASTNodeArray *a2, TSCEFormulaRewriteContext *a3, void *a4)
@@ -7319,135 +7329,135 @@ TSCEASTRelativeCoordRefElement *sub_2212F79EC(uint64_t a1, TSCEASTRelativeCoordR
   v4 = TSCEASTElement::refFlags(a2, a1);
   if (v4)
   {
-    v8 = v4;
-    v9 = TSCEASTRelativeCoordRefElement::tableUID(a2, a1, v5, v6, v7);
-    v11 = v10;
-    v80.var0 = v9;
-    v80.var1 = v10;
-    if (v9 == objc_msgSend_tableUID(*(a1 + 200), v10, v12, v13, v14) && v11 == v15)
+    v7 = v4;
+    v8 = TSCEASTRelativeCoordRefElement::tableUID(a2, a1, v5, v6);
+    v10 = v9;
+    v69._lower = v8;
+    v69._upper = v9;
+    if (v8 == objc_msgSend_tableUID(*(a1 + 200), v9, v11, v12) && v10 == v13)
     {
-      v20 = TSCEASTRelativeCoordRefElement::relativeCoord(a2, a1, v16, v17, v18);
-      v21 = TSCEFormulaRewriteContext::containingCell(*(a1 + 8));
-      if ((v8 & 0x20) != 0)
+      v17 = TSCEASTRelativeCoordRefElement::relativeCoord(a2, a1, v14, v15);
+      v18 = TSCEFormulaRewriteContext::containingCell(*(a1 + 8));
+      if ((v7 & 0x20) != 0)
       {
-        v25 = v20;
+        v21 = v17;
         goto LABEL_13;
       }
 
-      v25 = 0x7FFFFFFFLL;
-      if (v20 == 0x7FFFFFFF)
+      v21 = 0x7FFFFFFFLL;
+      if (v17 == 0x7FFFFFFF)
       {
         goto LABEL_13;
       }
 
-      coordinate = v21->var0.var0.coordinate;
-      if (v20 < 1)
+      coordinate = v18->var0.var0.coordinate;
+      if (v17 < 1)
       {
-        if (v20 && coordinate.row < -v20)
+        if (v17 && coordinate.row < -v17)
         {
           goto LABEL_13;
         }
       }
 
-      else if ((999999 - v20) < coordinate.row)
+      else if ((999999 - v17) < coordinate.row)
       {
         goto LABEL_13;
       }
 
       if (coordinate.row == 0x7FFFFFFF)
       {
-        v51 = MEMORY[0x277D81150];
-        v52 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v22, "TSURowIndex TSCEMakeAbsoluteRowFromRelativeRow(TSUCellCoord, TSURelativeRowIndex, BOOL)", v23, v24);
-        v56 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v53, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCERelativeTypes.h", v54, v55);
-        v57 = NSStringFromTSUCellCoord();
-        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v51, v58, v52, v56, 195, 0, "Calling TSCEMakeAbsoluteRowFromRelativeRow with an invalid hostCell row: %@", v57);
+        v45 = MEMORY[0x277D81150];
+        v46 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v19, "TSURowIndex TSCEMakeAbsoluteRowFromRelativeRow(TSUCellCoord, TSURelativeRowIndex, BOOL)", v20);
+        v49 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v47, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCERelativeTypes.h", v48);
+        v50 = NSStringFromTSUCellCoord();
+        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v45, v51, v46, v49, 195, 0, "Calling TSCEMakeAbsoluteRowFromRelativeRow with an invalid hostCell row: %@", v50);
       }
 
       else
       {
-        v25 = (coordinate.row + v20);
-        if (v25 < 0x7FFFFFFF)
+        v21 = (coordinate.row + v17);
+        if (v21 < 0x7FFFFFFF)
         {
           goto LABEL_13;
         }
 
-        v70 = MEMORY[0x277D81150];
-        v52 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v22, "TSURowIndex TSCEMakeAbsoluteRowFromRelativeRow(TSUCellCoord, TSURelativeRowIndex, BOOL)", v23, v24);
-        v56 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v71, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCERelativeTypes.h", v72, v73);
-        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v70, v74, v52, v56, 191, 0, "overflow in row, input row: %d with host row: %lu", v20, coordinate.row);
+        v61 = MEMORY[0x277D81150];
+        v46 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v19, "TSURowIndex TSCEMakeAbsoluteRowFromRelativeRow(TSUCellCoord, TSURelativeRowIndex, BOOL)", v20);
+        v49 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v62, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCERelativeTypes.h", v63);
+        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v61, v64, v46, v49, 191, 0, "overflow in row, input row: %d with host row: %lu", v17, coordinate.row);
       }
 
-      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v75, v76, v77, v78);
-      v25 = 0x7FFFFFFFLL;
+      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v65, v66, v67);
+      v21 = 0x7FFFFFFFLL;
 LABEL_13:
-      v27 = TSCEFormulaRewriteContext::containingCell(*(a1 + 8));
-      if ((v8 & 0x10) != 0)
+      v23 = TSCEFormulaRewriteContext::containingCell(*(a1 + 8));
+      if ((v7 & 0x10) != 0)
       {
-        v31 = HIDWORD(v20);
+        v26 = HIDWORD(v17);
         goto LABEL_19;
       }
 
-      LOWORD(v31) = 0x7FFF;
-      if (WORD2(v20) == 0x7FFF)
+      LOWORD(v26) = 0x7FFF;
+      if (WORD2(v17) == 0x7FFF)
       {
         goto LABEL_19;
       }
 
-      v32 = v27->var0.var0.coordinate;
-      if ((v20 >> 16) >> 16 < 1)
+      v27 = v23->var0.var0.coordinate;
+      if ((v17 >> 16) >> 16 < 1)
       {
-        if ((v20 & 0x800000000000) != 0 && -SWORD2(v20) > v32.column)
+        if ((v17 & 0x800000000000) != 0 && -SWORD2(v17) > v27.column)
         {
           goto LABEL_19;
         }
       }
 
-      else if (999 - SWORD2(v20) < v32.column)
+      else if (999 - SWORD2(v17) < v27.column)
       {
         goto LABEL_19;
       }
 
-      LOWORD(v31) = v32.column + WORD2(v20);
-      if ((v32.column + WORD2(v20)) >= 0x7FFFu)
+      LOWORD(v26) = v27.column + WORD2(v17);
+      if ((v27.column + WORD2(v17)) >= 0x7FFFu)
       {
-        v59 = MEMORY[0x277D81150];
-        v60 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v28, "TSUColumnIndex TSCEMakeAbsoluteColumnFromRelativeColumn(TSUCellCoord, TSURelativeColumnIndex, BOOL)", v29, v30);
-        v64 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v61, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCERelativeTypes.h", v62, v63);
-        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v59, v65, v60, v64, 168, 0, "overflow in column");
+        v52 = MEMORY[0x277D81150];
+        v53 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v24, "TSUColumnIndex TSCEMakeAbsoluteColumnFromRelativeColumn(TSUCellCoord, TSURelativeColumnIndex, BOOL)", v25);
+        v56 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v54, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCERelativeTypes.h", v55);
+        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v52, v57, v53, v56, 168, 0, "overflow in column");
 
-        objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v66, v67, v68, v69);
+        objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v58, v59, v60);
       }
 
 LABEL_19:
+      v28 = sub_221089E8C(a1);
+      v30 = objc_msgSend_uuidForTableUID_andIndex_direction_(v28, v29, v8, v10, v21, 1);
+      v32 = v31;
+
       v33 = sub_221089E8C(a1);
-      v35 = objc_msgSend_uuidForTableUID_andIndex_direction_(v33, v34, v9, v11, v25, 1);
+      v35 = objc_msgSend_uuidForTableUID_andIndex_direction_(v33, v34, v8, v10, v26, 0);
       v37 = v36;
 
-      v38 = sub_221089E8C(a1);
-      v40 = objc_msgSend_uuidForTableUID_andIndex_direction_(v38, v39, v9, v11, v31, 0);
-      v42 = v41;
-
-      if ((v8 & 0xC) == 4)
+      if ((v7 & 0xC) == 4)
       {
-        if (!(v35 | v37))
+        if (!(v30 | v32))
         {
           return a2;
         }
       }
 
-      else if (((v8 & 0xC) != 8 || !(v40 | v42)) && (!(v35 | v37) || !(v40 | v42)))
+      else if (((v7 & 0xC) != 8 || !(v35 | v37)) && (!(v30 | v32) || !(v35 | v37)))
       {
         return a2;
       }
 
-      v43 = TSCEASTElement::mutableUndoTractList(a2, a1);
-      objc_msgSend_addToIncludedUidsTractColumnUid_rowUid_(v43, v44, v40, v42, v35, v37);
-      v45 = sub_221089E8C(a1);
-      v80.var0 = objc_msgSend_mapOwnerUID_(v45, v46, &v80, v47, v48);
-      v80.var1 = v49;
+      v38 = TSCEASTElement::mutableUndoTractList(a2, a1);
+      objc_msgSend_addToIncludedUidsTractColumnUid_rowUid_(v38, v39, v35, v37, v30, v32);
+      v40 = sub_221089E8C(a1);
+      v69._lower = objc_msgSend_mapOwnerUID_(v40, v41, &v69, v42);
+      v69._upper = v43;
 
-      v79._flags = (v8 >> 4) & 3;
-      TSCEASTIteratorBase::createReferenceErrorWithUidTractList(a1, v43, &v80, &v79);
+      v68._flags = (v7 >> 4) & 3;
+      TSCEASTIteratorBase::createReferenceErrorWithUidTractList(a1, v38, &v69, &v68);
     }
   }
 
@@ -7470,99 +7480,99 @@ TSCEASTElementWithChildren *sub_2212F7E8C(uint64_t a1, TSCEASTElementWithChildre
       v11 = TSCEASTElement::simpleTagForTag(v9);
       if (v11 == TSCEASTElement::simpleTagForTag(v10) && v9 == 36 && (TSCEASTElement::refFlags(v7, a1) & 1) != 0 && (TSCEASTElement::refFlags(v8, a1) & 1) != 0)
       {
-        v63.var2 = TSCEFormulaRewriteContext::containingCell(*(a1 + 8))->var0.var0.coordinate;
-        (*(*v7 + 136))(&v64, v7, a1, &v63.var2);
-        v59[0] = TSCEFormulaRewriteContext::containingCell(*(a1 + 8))->var0.var0.coordinate;
-        (*(*v8 + 136))(&v63.var2, v8, a1, v59);
-        upper = *(&v65 + 1);
-        lower = v65;
-        if (v65 == 0)
+        v56[0] = TSCEFormulaRewriteContext::containingCell(*(a1 + 8))->var0.var0.coordinate;
+        (*(*v7 + 136))(&v57, v7, a1, v56);
+        v51[0] = TSCEFormulaRewriteContext::containingCell(*(a1 + 8))->var0.var0.coordinate;
+        (*(*v8 + 136))(v56, v8, a1, v51);
+        upper = *(&v58 + 1);
+        lower = v58;
+        if (v58 == 0)
         {
-          v19 = TSCEFormulaRewriteContext::containingCell(*(a1 + 8));
-          lower = v19->var0.var0._tableUID._lower;
-          upper = v19->var0.var0._tableUID._upper;
+          v18 = TSCEFormulaRewriteContext::containingCell(*(a1 + 8));
+          lower = v18->var0.var0._tableUID._lower;
+          upper = v18->var0.var0._tableUID._upper;
         }
 
-        v63.var0 = lower;
-        v63.var1 = upper;
-        if (lower == objc_msgSend_tableUID(*(a1 + 200), v13, v14, v15, v16) && upper == v20 && (*&v64 & 0xFFFFFFFFFFFFLL) != 0x7FFF7FFFFFFFLL && sub_2212F83DC(&v64, &v63.var2))
+        v55._lower = lower;
+        v55._upper = upper;
+        if (lower == objc_msgSend_tableUID(*(a1 + 200), v13, v14, v15) && upper == v19 && (*&v57 & 0xFFFFFFFFFFFFLL) != 0x7FFF7FFFFFFFLL && sub_2212F83DC(&v57, v56))
         {
-          v21 = TSCEASTRelativeCoordRefElement::preserveFlags(v7, a1);
-          v62._flags = v21 & 3 | (4 * (TSCEASTRelativeCoordRefElement::preserveFlags(v8, a1) & 3));
-          v61._topLeft = v64;
-          v61._bottomRight = v63.var2;
-          TSCERangeCoordinate::fixInversions(&v61, &v62);
-          row = v64.row;
-          if (v64.row != v61._topLeft.row || ((*&v61._topLeft ^ *&v64) & 0x101FFFF00000000) != 0)
+          v20 = TSCEASTRelativeCoordRefElement::preserveFlags(v7, a1);
+          v54._flags = v20 & 3 | (4 * (TSCEASTRelativeCoordRefElement::preserveFlags(v8, a1) & 3));
+          v53._topLeft = v57;
+          v53._bottomRight = v56[0];
+          TSCERangeCoordinate::fixInversions(&v53, &v54);
+          row = v57.row;
+          if (v57.row != v53._topLeft.row || ((*&v53._topLeft ^ *&v57) & 0x101FFFF00000000) != 0)
           {
-            TSCEASTElementWithChildren::setChildAtIndex(this, v6, 0, a1, v22);
-            TSCEASTElementWithChildren::setChildAtIndex(this, v4, 1, a1, v24);
-            row = v61._topLeft.row;
+            TSCEASTElementWithChildren::setChildAtIndex(this, v6, 0, a1);
+            TSCEASTElementWithChildren::setChildAtIndex(this, v4, 1, a1);
+            row = v53._topLeft.row;
           }
 
-          v25 = v61._bottomRight.row;
-          v59[0] = 0;
-          v59[1] = 0;
-          v60 = 0;
+          v22 = v53._bottomRight.row;
+          v51[0] = 0;
+          v51[1] = 0;
+          v52 = 0;
           if (row == 0x7FFFFFFF)
           {
             sub_2212F8464(__p);
           }
 
-          v26 = sub_221089E8C(a1);
-          v31 = objc_msgSend_tableUID(*(a1 + 200), v27, v28, v29, v30);
-          v34 = objc_msgSend_resolverForTableUID_(v26, v32, v31, v32, v33);
+          v23 = sub_221089E8C(a1);
+          v27 = objc_msgSend_tableUID(*(a1 + 200), v24, v25, v26);
+          v29 = objc_msgSend_resolverForTableUID_(v23, v28, v27, v28);
 
-          if (v34)
+          if (v29)
           {
-            objc_msgSend_UIDsForRange_isRows_(v34, v35, row, v25 - row + 1, 1);
+            objc_msgSend_UIDsForRange_isRows_(v29, v30, row, v22 - row + 1, 1);
           }
 
           else
           {
             __p[0] = 0;
             __p[1] = 0;
-            v58 = 0;
+            v50 = 0;
           }
 
-          *v59 = *__p;
-          v60 = v58;
+          *v51 = *__p;
+          v52 = v50;
 
-          column = v61._topLeft.column;
-          v37 = v61._bottomRight.column;
+          column = v53._topLeft.column;
+          v32 = v53._bottomRight.column;
           __p[0] = 0;
           __p[1] = 0;
-          v58 = 0;
-          if (v61._topLeft.column == 0x7FFFLL)
+          v50 = 0;
+          if (v53._topLeft.column == 0x7FFFLL)
           {
-            sub_2212F8464(&v55);
+            sub_2212F8464(&v47);
           }
 
-          v38 = sub_221089E8C(a1);
-          v43 = objc_msgSend_tableUID(*(a1 + 200), v39, v40, v41, v42);
-          v46 = objc_msgSend_resolverForTableUID_(v38, v44, v43, v44, v45);
+          v33 = sub_221089E8C(a1);
+          v37 = objc_msgSend_tableUID(*(a1 + 200), v34, v35, v36);
+          v39 = objc_msgSend_resolverForTableUID_(v33, v38, v37, v38);
 
-          if (v46)
+          if (v39)
           {
-            objc_msgSend_UIDsForRange_isRows_(v46, v47, column, (v37 - column + 1), 0);
+            objc_msgSend_UIDsForRange_isRows_(v39, v40, column, (v32 - column + 1), 0);
           }
 
           else
           {
-            v55 = 0uLL;
-            v56 = 0;
+            v47 = 0uLL;
+            v48 = 0;
           }
 
-          *__p = v55;
-          v58 = v56;
+          *__p = v47;
+          v50 = v48;
 
-          v48 = TSCEASTElement::mutableUndoTractList(this, a1);
-          objc_msgSend_addToIncludedUidsTractColumnUids_rowUids_isRangeRef_preserveRectangularRange_(v48, v49, __p, v59, 1, 1);
-          v50 = sub_221089E8C(a1);
-          v63.var0 = objc_msgSend_mapOwnerUID_(v50, v51, &v63, v52, v53);
-          v63.var1 = v54;
+          v41 = TSCEASTElement::mutableUndoTractList(this, a1);
+          objc_msgSend_addToIncludedUidsTractColumnUids_rowUids_isRangeRef_preserveRectangularRange_(v41, v42, __p, v51, 1, 1);
+          v43 = sub_221089E8C(a1);
+          v55._lower = objc_msgSend_mapOwnerUID_(v43, v44, &v55, v45);
+          v55._upper = v46;
 
-          TSCEASTIteratorBase::createReferenceErrorWithUidTractList(a1, v48, &v63, &v62);
+          TSCEASTIteratorBase::createReferenceErrorWithUidTractList(a1, v41, &v55, &v54);
         }
       }
     }
@@ -7604,7 +7614,7 @@ uint64_t sub_2212F83DC(uint64_t *a1, uint64_t *a2)
   return v11 ^ v13;
 }
 
-void sub_2212F8464(void *a1@<X8>)
+void sub_2212F8464(const void **a1@<X8>)
 {
   *a1 = 0;
   a1[1] = 0;
@@ -7624,114 +7634,114 @@ void sub_2212F84DC(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-TSCEASTColonTractElement *sub_2212F84F8(TSCEASTIteratorBase *a1, TSCEASTColonTractElement *this, uint64_t a3, uint64_t a4, uint64_t a5)
+TSCEASTElement *sub_2212F84F8(TSCEASTIteratorBase *a1, TSCEASTColonTractElement *this, uint64_t a3, uint64_t a4)
 {
-  v7 = TSCEASTColonTractElement::relativeTractRef(this, a1, a3, a4, a5);
-  v104[0] = TSCEFormulaRewriteContext::containingCell(*(a1 + 1))->var0.var0.coordinate;
-  v11 = objc_msgSend_absoluteCellTractRefForHostCell_(v7, v8, v104, v9, v10);
-  lower = objc_msgSend_tableUID(v11, v12, v13, v14, v15);
-  upper = v16;
+  v6 = TSCEASTColonTractElement::relativeTractRef(this, a1, a3, a4);
+  v85[0] = TSCEFormulaRewriteContext::containingCell(*(a1 + 1))->var0.var0.coordinate;
+  v9 = objc_msgSend_absoluteCellTractRefForHostCell_(v6, v7, v85, v8);
+  lower = objc_msgSend_tableUID(v9, v10, v11, v12);
+  upper = v13;
   if (!lower)
   {
-    if (v16)
+    if (v13)
     {
       lower = 0;
     }
 
     else
     {
-      v22 = TSCEFormulaRewriteContext::containingCell(*(a1 + 1));
-      lower = v22->var0.var0._tableUID._lower;
-      upper = v22->var0.var0._tableUID._upper;
+      v18 = TSCEFormulaRewriteContext::containingCell(*(a1 + 1));
+      lower = v18->var0.var0._tableUID._lower;
+      upper = v18->var0.var0._tableUID._upper;
     }
   }
 
-  v106.var0 = lower;
-  v106.var1 = upper;
-  v23 = objc_msgSend_topLeft(v11, v16, v17, v18, v19);
-  v28 = objc_msgSend_bottomRight(v11, v24, v25, v26, v27);
-  if (lower == objc_msgSend_tableUID(*(a1 + 25), v29, v30, v31, v32) && upper == v33 && (v23 & 0xFFFFFFFFFFFFLL) != 0x7FFF7FFFFFFFLL && (v28 & 0xFFFFFFFFFFFFLL) != 0x7FFF7FFFFFFFLL)
+  v87._lower = lower;
+  v87._upper = upper;
+  v19 = objc_msgSend_topLeft(v9, v13, v14, v15);
+  v23 = objc_msgSend_bottomRight(v9, v20, v21, v22);
+  if (lower == objc_msgSend_tableUID(*(a1 + 25), v24, v25, v26) && upper == v27 && (v19 & 0xFFFFFFFFFFFFLL) != 0x7FFF7FFFFFFFLL && (v23 & 0xFFFFFFFFFFFFLL) != 0x7FFF7FFFFFFFLL)
   {
-    v37 = (v23 & 0xFFFF00000000) != 0x7FFF00000000 || v23 == 0x7FFFFFFFLL;
-    v38 = !v37;
-    v39 = (v28 & 0xFFFF00000000) != 0x7FFF00000000 || v28 == 0x7FFFFFFFLL;
-    v40 = !v39;
-    if (v38 == v40)
+    v30 = (v19 & 0xFFFF00000000) != 0x7FFF00000000 || v19 == 0x7FFFFFFFLL;
+    v31 = !v30;
+    v32 = (v23 & 0xFFFF00000000) != 0x7FFF00000000 || v23 == 0x7FFFFFFFLL;
+    v33 = !v32;
+    if (v31 == v33)
     {
-      v41 = v23 != 0x7FFFFFFFLL || (v23 & 0xFFFF00000000) == 0x7FFF00000000;
-      v42 = !v41;
-      v43 = v28 != 0x7FFFFFFFLL || (v28 & 0xFFFF00000000) == 0x7FFF00000000;
-      v44 = v43;
-      if (v42 != v44)
+      v34 = v19 != 0x7FFFFFFFLL || (v19 & 0xFFFF00000000) == 0x7FFF00000000;
+      v35 = !v34;
+      v36 = v23 != 0x7FFFFFFFLL || (v23 & 0xFFFF00000000) == 0x7FFF00000000;
+      v37 = v36;
+      if (v35 != v37)
       {
-        v104[0] = 0;
-        v104[1] = 0;
-        v105 = 0;
-        if (objc_msgSend_spansAllRows(v11, v33, v34, v35, v36))
+        v85[0] = 0;
+        v85[1] = 0;
+        v86 = 0;
+        if (objc_msgSend_spansAllRows(v9, v27, v28, v29))
         {
           operator new();
         }
 
-        v45 = sub_221089E8C(a1);
-        v50 = objc_msgSend_tableUID(*(a1 + 25), v46, v47, v48, v49);
-        v53 = objc_msgSend_resolverForTableUID_(v45, v51, v50, v51, v52);
+        v38 = sub_221089E8C(a1);
+        v42 = objc_msgSend_tableUID(*(a1 + 25), v39, v40, v41);
+        v44 = objc_msgSend_resolverForTableUID_(v38, v43, v42, v43);
 
-        v58 = objc_msgSend_rows(v11, v54, v55, v56, v57);
-        v61 = TSUIndexSet::asNSIndexSet(v58);
-        if (v53)
+        v48 = objc_msgSend_rows(v9, v45, v46, v47);
+        v50 = TSUIndexSet::asNSIndexSet(v48);
+        if (v44)
         {
-          objc_msgSend_UIDsForIndexes_isRows_(v53, v59, v61, 1, v60);
+          objc_msgSend_UIDsForIndexes_isRows_(v44, v49, v50, 1);
         }
 
         else
         {
           __p[0] = 0;
           __p[1] = 0;
-          v103 = 0;
+          v84 = 0;
         }
 
-        *v104 = *__p;
-        v105 = v103;
+        *v85 = *__p;
+        v86 = v84;
 
         __p[0] = 0;
         __p[1] = 0;
-        v103 = 0;
-        if (objc_msgSend_spansAllColumns(v11, v62, v63, v64, v65))
+        v84 = 0;
+        if (objc_msgSend_spansAllColumns(v9, v51, v52, v53))
         {
           operator new();
         }
 
-        v66 = sub_221089E8C(a1);
-        v71 = objc_msgSend_tableUID(*(a1 + 25), v67, v68, v69, v70);
-        v74 = objc_msgSend_resolverForTableUID_(v66, v72, v71, v72, v73);
+        v54 = sub_221089E8C(a1);
+        v58 = objc_msgSend_tableUID(*(a1 + 25), v55, v56, v57);
+        v60 = objc_msgSend_resolverForTableUID_(v54, v59, v58, v59);
 
-        v79 = objc_msgSend_columns(v11, v75, v76, v77, v78);
-        v82 = TSUIndexSet::asNSIndexSet(v79);
-        if (v74)
+        v64 = objc_msgSend_columns(v9, v61, v62, v63);
+        v66 = TSUIndexSet::asNSIndexSet(v64);
+        if (v60)
         {
-          objc_msgSend_UIDsForIndexes_isRows_(v74, v80, v82, 0, v81);
+          objc_msgSend_UIDsForIndexes_isRows_(v60, v65, v66, 0);
         }
 
         else
         {
-          memset(v100, 0, sizeof(v100));
-          v101 = 0;
+          memset(v81, 0, sizeof(v81));
+          v82 = 0;
         }
 
-        *__p = *&v100[0]._flags;
-        v103 = v101;
-        v101 = 0;
-        memset(v100, 0, sizeof(v100));
+        *__p = *&v81[0]._flags;
+        v84 = v82;
+        v82 = 0;
+        memset(v81, 0, sizeof(v81));
 
-        v83 = TSCEASTElement::mutableUndoTractList(this, a1);
-        isRectangularRange = objc_msgSend_isRectangularRange(v11, v84, v85, v86, v87);
-        objc_msgSend_addToIncludedUidsTractColumnUids_rowUids_isRangeRef_preserveRectangularRange_(v83, v89, __p, v104, 1, isRectangularRange);
-        v90 = sub_221089E8C(a1);
-        v106.var0 = objc_msgSend_mapOwnerUID_(v90, v91, &v106, v92, v93);
-        v106.var1 = v94;
+        v67 = TSCEASTElement::mutableUndoTractList(this, a1);
+        isRectangularRange = objc_msgSend_isRectangularRange(v9, v68, v69, v70);
+        objc_msgSend_addToIncludedUidsTractColumnUids_rowUids_isRangeRef_preserveRectangularRange_(v67, v72, __p, v85, 1, isRectangularRange);
+        v73 = sub_221089E8C(a1);
+        v87._lower = objc_msgSend_mapOwnerUID_(v73, v74, &v87, v75);
+        v87._upper = v76;
 
-        v100[0]._flags = objc_msgSend_preserveFlags(v11, v95, v96, v97, v98);
-        TSCEASTIteratorBase::createReferenceErrorWithUidTractList(a1, v83, &v106, v100);
+        v81[0]._flags = objc_msgSend_preserveFlags(v9, v77, v78, v79);
+        TSCEASTIteratorBase::createReferenceErrorWithUidTractList(a1, v67, &v87, v81);
       }
     }
   }
@@ -7762,7 +7772,7 @@ void sub_2212F89E4(id *a1)
   JUMPOUT(0x223DA1450);
 }
 
-uint64_t sub_2212FA10C(uint64_t *a1, const char *a2)
+uint64_t sub_2212FA10C(void *a1, const char *a2)
 {
   v2 = 16;
   if (a2 == 1)
@@ -7835,9 +7845,9 @@ id sub_2213000E8(void *a1, id *a2)
   return result;
 }
 
-void sub_2213001C8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2213001C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_22107C26C(va);
   _Unwind_Resume(a1);
 }
@@ -7899,40 +7909,40 @@ id sub_2213001DC(void *a1, id *a2)
   return result;
 }
 
-void sub_2213002BC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2213002BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_22107C26C(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t **sub_2213008C8(void *a1, unsigned __int8 *a2)
+uint64_t **sub_2213008C8(void *a1, unsigned __int8 *a2, uint64_t a3, _BYTE **a4)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v4 = *a2;
+  v5 = a1[1];
+  if (!*&v5)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v6 = vcnt_s8(v5);
+  v6.i16[0] = vaddlv_u8(v6);
+  if (v6.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (*&v3 <= v2)
+    v7 = *a2;
+    if (*&v5 <= v4)
     {
-      v5 = v2 % a1[1];
+      v7 = v4 % a1[1];
     }
   }
 
   else
   {
-    v5 = (v3.i32[0] - 1) & v2;
+    v7 = (v5.i32[0] - 1) & v4;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v8 = *(*a1 + 8 * v7);
+  if (!v8 || (v9 = *v8) == 0)
   {
 LABEL_18:
     operator new();
@@ -7940,73 +7950,73 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v10 = v9[1];
+    if (v10 == v4)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v6.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v10 >= *&v5)
       {
-        v8 %= *&v3;
+        v10 %= *&v5;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v10 &= *&v5 - 1;
     }
 
-    if (v8 != v5)
+    if (v10 != v7)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v9 = *v9;
+    if (!v9)
     {
       goto LABEL_18;
     }
   }
 
-  if (*(v7 + 16) != v2)
+  if (*(v9 + 16) != v4)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v9;
 }
 
-uint64_t **sub_221300B0C(void *a1, unsigned __int16 *a2)
+uint64_t **sub_221300B0C(void *a1, unsigned __int16 *a2, uint64_t a3, _WORD **a4)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v4 = *a2;
+  v5 = a1[1];
+  if (!*&v5)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v6 = vcnt_s8(v5);
+  v6.i16[0] = vaddlv_u8(v6);
+  if (v6.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (*&v3 <= v2)
+    v7 = *a2;
+    if (*&v5 <= v4)
     {
-      v5 = v2 % a1[1];
+      v7 = v4 % a1[1];
     }
   }
 
   else
   {
-    v5 = (v3.i32[0] - 1) & v2;
+    v7 = (v5.i32[0] - 1) & v4;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v8 = *(*a1 + 8 * v7);
+  if (!v8 || (v9 = *v8) == 0)
   {
 LABEL_18:
     operator new();
@@ -8014,73 +8024,73 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v10 = v9[1];
+    if (v10 == v4)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v6.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v10 >= *&v5)
       {
-        v8 %= *&v3;
+        v10 %= *&v5;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v10 &= *&v5 - 1;
     }
 
-    if (v8 != v5)
+    if (v10 != v7)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v9 = *v9;
+    if (!v9)
     {
       goto LABEL_18;
     }
   }
 
-  if (*(v7 + 8) != v2)
+  if (*(v9 + 8) != v4)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v9;
 }
 
-uint64_t **sub_221300D50(void *a1, unsigned __int16 *a2)
+uint64_t **sub_221300D50(void *a1, unsigned __int16 *a2, uint64_t a3, _WORD **a4)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v4 = *a2;
+  v5 = a1[1];
+  if (!*&v5)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v6 = vcnt_s8(v5);
+  v6.i16[0] = vaddlv_u8(v6);
+  if (v6.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (*&v3 <= v2)
+    v7 = *a2;
+    if (*&v5 <= v4)
     {
-      v5 = v2 % a1[1];
+      v7 = v4 % a1[1];
     }
   }
 
   else
   {
-    v5 = (v3.i32[0] - 1) & v2;
+    v7 = (v5.i32[0] - 1) & v4;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v8 = *(*a1 + 8 * v7);
+  if (!v8 || (v9 = *v8) == 0)
   {
 LABEL_18:
     operator new();
@@ -8088,49 +8098,49 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v10 = v9[1];
+    if (v10 == v4)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v6.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v10 >= *&v5)
       {
-        v8 %= *&v3;
+        v10 %= *&v5;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v10 &= *&v5 - 1;
     }
 
-    if (v8 != v5)
+    if (v10 != v7)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v9 = *v9;
+    if (!v9)
     {
       goto LABEL_18;
     }
   }
 
-  if (*(v7 + 8) != v2)
+  if (*(v9 + 8) != v4)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v9;
 }
 
-void sub_221300FB4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_221300FB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_221300FC8(va);
   _Unwind_Resume(a1);
 }
@@ -8152,34 +8162,34 @@ uint64_t sub_221300FC8(uint64_t a1)
   return a1;
 }
 
-void *sub_221301014(void *a1, void *a2)
+void *sub_221301014(void *a1, void *a2, uint64_t a3, _OWORD **a4)
 {
-  v2 = a2[1];
-  v3 = v2 ^ *a2;
-  v4 = a1[1];
-  if (!*&v4)
+  v4 = a2[1];
+  v5 = v4 ^ *a2;
+  v6 = a1[1];
+  if (!*&v6)
   {
     goto LABEL_22;
   }
 
-  v5 = vcnt_s8(v4);
-  v5.i16[0] = vaddlv_u8(v5);
-  if (v5.u32[0] > 1uLL)
+  v7 = vcnt_s8(v6);
+  v7.i16[0] = vaddlv_u8(v7);
+  if (v7.u32[0] > 1uLL)
   {
-    v6 = v2 ^ *a2;
-    if (v3 >= *&v4)
+    v8 = v4 ^ *a2;
+    if (v5 >= *&v6)
     {
-      v6 = v3 % *&v4;
+      v8 = v5 % *&v6;
     }
   }
 
   else
   {
-    v6 = (*&v4 - 1) & v3;
+    v8 = (*&v6 - 1) & v5;
   }
 
-  v7 = *(*a1 + 8 * v6);
-  if (!v7 || (v8 = *v7) == 0)
+  v9 = *(*a1 + 8 * v8);
+  if (!v9 || (v10 = *v9) == 0)
   {
 LABEL_22:
     operator new();
@@ -8187,49 +8197,49 @@ LABEL_22:
 
   while (1)
   {
-    v9 = v8[1];
-    if (v9 == v3)
+    v11 = v10[1];
+    if (v11 == v5)
     {
       break;
     }
 
-    if (v5.u32[0] > 1uLL)
+    if (v7.u32[0] > 1uLL)
     {
-      if (v9 >= *&v4)
+      if (v11 >= *&v6)
       {
-        v9 %= *&v4;
+        v11 %= *&v6;
       }
     }
 
     else
     {
-      v9 &= *&v4 - 1;
+      v11 &= *&v6 - 1;
     }
 
-    if (v9 != v6)
+    if (v11 != v8)
     {
       goto LABEL_22;
     }
 
 LABEL_21:
-    v8 = *v8;
-    if (!v8)
+    v10 = *v10;
+    if (!v10)
     {
       goto LABEL_22;
     }
   }
 
-  if (v8[2] != *a2 || v8[3] != v2)
+  if (v10[2] != *a2 || v10[3] != v4)
   {
     goto LABEL_21;
   }
 
-  return v8;
+  return v10;
 }
 
-void sub_221301268(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_221301268(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_221087224(va);
   _Unwind_Resume(a1);
 }
@@ -8264,10 +8274,10 @@ void sub_2213012B8(uint64_t a1, void *a2)
   }
 }
 
-void sub_221301328(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5)
+void sub_221301328(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4)
 {
-  v9 = objc_msgSend_availableCurrencyCodes(MEMORY[0x277D81228], a2, a3, a4, a5);
-  objc_msgSend_count(v9, v5, v6, v7, v8);
+  v7 = objc_msgSend_availableCurrencyCodes(MEMORY[0x277D81228], a2, a3, a4);
+  objc_msgSend_count(v7, v4, v5, v6);
   operator new();
 }
 
@@ -8290,33 +8300,33 @@ void sub_221307314(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t **sub_2213097B8(void *a1, unsigned __int16 *a2)
+uint64_t **sub_2213097B8(void *a1, unsigned __int16 *a2, uint64_t a3, _WORD **a4)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v4 = *a2;
+  v5 = a1[1];
+  if (!*&v5)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v6 = vcnt_s8(v5);
+  v6.i16[0] = vaddlv_u8(v6);
+  if (v6.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (*&v3 <= v2)
+    v7 = *a2;
+    if (*&v5 <= v4)
     {
-      v5 = v2 % a1[1];
+      v7 = v4 % a1[1];
     }
   }
 
   else
   {
-    v5 = (v3.i32[0] - 1) & v2;
+    v7 = (v5.i32[0] - 1) & v4;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v8 = *(*a1 + 8 * v7);
+  if (!v8 || (v9 = *v8) == 0)
   {
 LABEL_18:
     operator new();
@@ -8324,47 +8334,47 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v10 = v9[1];
+    if (v10 == v4)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v6.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v10 >= *&v5)
       {
-        v8 %= *&v3;
+        v10 %= *&v5;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v10 &= *&v5 - 1;
     }
 
-    if (v8 != v5)
+    if (v10 != v7)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v9 = *v9;
+    if (!v9)
     {
       goto LABEL_18;
     }
   }
 
-  if (*(v7 + 8) != v2)
+  if (*(v9 + 8) != v4)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v9;
 }
 
-uint64_t **sub_2213099F4(void *a1, unsigned __int16 *a2)
+uint64_t ***sub_2213099F4(void *a1, unsigned __int16 *a2)
 {
   v2 = *a2;
   v3 = a1[1];
@@ -8455,33 +8465,33 @@ void sub_221309CA4(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t **sub_221309CBC(void *a1, unsigned __int16 *a2)
+uint64_t **sub_221309CBC(void *a1, unsigned __int16 *a2, uint64_t a3, _WORD **a4)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v4 = *a2;
+  v5 = a1[1];
+  if (!*&v5)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v6 = vcnt_s8(v5);
+  v6.i16[0] = vaddlv_u8(v6);
+  if (v6.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (*&v3 <= v2)
+    v7 = *a2;
+    if (*&v5 <= v4)
     {
-      v5 = v2 % a1[1];
+      v7 = v4 % a1[1];
     }
   }
 
   else
   {
-    v5 = (v3.i32[0] - 1) & v2;
+    v7 = (v5.i32[0] - 1) & v4;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v8 = *(*a1 + 8 * v7);
+  if (!v8 || (v9 = *v8) == 0)
   {
 LABEL_18:
     operator new();
@@ -8489,47 +8499,47 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v10 = v9[1];
+    if (v10 == v4)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v6.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v10 >= *&v5)
       {
-        v8 %= *&v3;
+        v10 %= *&v5;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v10 &= *&v5 - 1;
     }
 
-    if (v8 != v5)
+    if (v10 != v7)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v9 = *v9;
+    if (!v9)
     {
       goto LABEL_18;
     }
   }
 
-  if (*(v7 + 8) != v2)
+  if (*(v9 + 8) != v4)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v9;
 }
 
-uint64_t **sub_221309EF8(void *a1, unsigned __int16 *a2)
+uint64_t ***sub_221309EF8(void *a1, unsigned __int16 *a2)
 {
   v2 = *a2;
   v3 = a1[1];
@@ -8635,25 +8645,25 @@ double sub_22130ABA8(TSCEASTStreamIterator *a1, TSCEASTNodeArray *a2, TSCEFormul
   return result;
 }
 
-TSCEASTRelativeCoordRefElement *sub_22130AC00(TSCEASTIteratorBase *a1, TSCEASTRelativeCoordRefElement *this, uint64_t a3, uint64_t a4, uint64_t a5)
+TSCEASTRelativeCoordRefElement *sub_22130AC00(TSCEASTIteratorBase *a1, TSCEASTRelativeCoordRefElement *this, uint64_t a3, uint64_t a4)
 {
-  v9[0] = TSCEASTRelativeCoordRefElement::tableUID(this, a1, a3, a4, a5);
-  v9[1] = v7;
-  if (v9[0] | v7)
+  *&v8 = TSCEASTRelativeCoordRefElement::tableUID(this, a1, a3, a4);
+  *(&v8 + 1) = v6;
+  if (v8 | v6)
   {
-    sub_2210C2B00(a1 + 17, v9);
+    sub_2210C2B00(a1 + 17, &v8, &v8);
   }
 
   return this;
 }
 
-TSCEASTRelativeCoordRefElement *sub_22130AC58(TSCEASTIteratorBase *a1, TSCEASTRelativeCoordRefElement *this, uint64_t a3, uint64_t a4, uint64_t a5)
+TSCEASTRelativeCoordRefElement *sub_22130AC58(TSCEASTIteratorBase *a1, TSCEASTRelativeCoordRefElement *this, uint64_t a3, uint64_t a4)
 {
-  v9[0] = TSCEASTRelativeCoordRefElement::tableUID(this, a1, a3, a4, a5);
-  v9[1] = v7;
-  if (v9[0] | v7)
+  *&v8 = TSCEASTRelativeCoordRefElement::tableUID(this, a1, a3, a4);
+  *(&v8 + 1) = v6;
+  if (v8 | v6)
   {
-    sub_2210C2B00(a1 + 17, v9);
+    sub_2210C2B00(a1 + 17, &v8, &v8);
   }
 
   return this;
@@ -8661,72 +8671,72 @@ TSCEASTRelativeCoordRefElement *sub_22130AC58(TSCEASTIteratorBase *a1, TSCEASTRe
 
 uint64_t sub_22130ACB0(uint64_t a1, uint64_t a2)
 {
-  v6[0] = (*(*a2 + 136))(a2, a1);
-  v6[1] = v4;
-  if (v6[0] | v4)
+  *&v6 = (*(*a2 + 136))(a2, a1);
+  *(&v6 + 1) = v4;
+  if (v6 | v4)
   {
-    sub_2210C2B00((a1 + 136), v6);
+    sub_2210C2B00((a1 + 136), &v6, &v6);
   }
 
   return a2;
 }
 
-TSCEASTUidReferenceElement *sub_22130AD28(TSCEASTIteratorBase *a1, TSCEASTUidReferenceElement *this, uint64_t a3, uint64_t a4, uint64_t a5)
+TSCEASTUidReferenceElement *sub_22130AD28(TSCEASTIteratorBase *a1, TSCEASTUidReferenceElement *this, uint64_t a3, uint64_t a4)
 {
-  v9[0] = TSCEASTUidReferenceElement::tableUID(this, a1, a3, a4, a5);
-  v9[1] = v7;
-  if (v9[0] | v7)
+  *&v8 = TSCEASTUidReferenceElement::tableUID(this, a1, a3, a4);
+  *(&v8 + 1) = v6;
+  if (v8 | v6)
   {
-    sub_2210C2B00(a1 + 17, v9);
+    sub_2210C2B00(a1 + 17, &v8, &v8);
   }
 
   return this;
 }
 
-TSCEASTCategoryRefElement *sub_22130AD80(TSCEASTIteratorBase *a1, TSCEASTCategoryRefElement *this, uint64_t a3, uint64_t a4, uint64_t a5)
+TSCEASTCategoryRefElement *sub_22130AD80(TSCEASTIteratorBase *a1, TSCEASTCategoryRefElement *this, uint64_t a3, uint64_t a4)
 {
-  v7 = TSCEASTCategoryRefElement::categoryRef(this, a1, a3, a4, a5);
-  v19[0] = objc_msgSend_pivotTableUid(v7, v8, v9, v10, v11);
-  v19[1] = v12;
-  if (v19[0] | v12)
+  v6 = TSCEASTCategoryRefElement::categoryRef(this, a1, a3, a4);
+  *&v16 = objc_msgSend_pivotTableUid(v6, v7, v8, v9);
+  *(&v16 + 1) = v10;
+  if (v16 | v10)
   {
-    sub_2210C2B00(a1 + 17, v19);
+    sub_2210C2B00(a1 + 17, &v16, &v16);
   }
 
   else
   {
-    v18[0] = objc_msgSend_groupByUid(v7, v12, v13, v14, v15);
-    v18[1] = v16;
-    if (v18[0] | v16)
+    *&v15 = objc_msgSend_groupByUid(v6, v10, v11, v12);
+    *(&v15 + 1) = v13;
+    if (v15 | v13)
     {
-      sub_2210C2B00(a1 + 22, v18);
+      sub_2210C2B00(a1 + 22, &v15, &v15);
     }
   }
 
   return this;
 }
 
-TSCEASTColonTractElement *sub_22130AE2C(TSCEASTIteratorBase *a1, TSCEASTColonTractElement *this, uint64_t a3, uint64_t a4, uint64_t a5)
+TSCEASTColonTractElement *sub_22130AE2C(TSCEASTIteratorBase *a1, TSCEASTColonTractElement *this, uint64_t a3, uint64_t a4)
 {
-  v7 = TSCEASTColonTractElement::relativeTractRef(this, a1, a3, a4, a5);
-  v12 = objc_msgSend_tableUID(v7, v8, v9, v10, v11);
-  if (v12 | v13)
+  v6 = TSCEASTColonTractElement::relativeTractRef(this, a1, a3, a4);
+  v10 = objc_msgSend_tableUID(v6, v7, v8, v9);
+  if (v10 | v11)
   {
-    v19[0] = objc_msgSend_tableUID(v7, v13, v14, v15, v16);
-    v19[1] = v17;
-    sub_2211D6484(a1 + 17, v19);
+    *&v16 = objc_msgSend_tableUID(v6, v11, v12, v13);
+    *(&v16 + 1) = v14;
+    sub_2211D6484(a1 + 17, &v16, &v16);
   }
 
   return this;
 }
 
-TSCEASTViewTractRefElement *sub_22130AEB8(TSCEASTIteratorBase *a1, TSCEASTViewTractRefElement *this, uint64_t a3, uint64_t a4, uint64_t a5)
+TSCEASTViewTractRefElement *sub_22130AEB8(TSCEASTIteratorBase *a1, TSCEASTViewTractRefElement *this, uint64_t a3, uint64_t a4)
 {
-  v9[0] = TSCEASTViewTractRefElement::tableUID(this, a1, a3, a4, a5);
-  v9[1] = v7;
-  if (v9[0] | v7)
+  *&v8 = TSCEASTViewTractRefElement::tableUID(this, a1, a3, a4);
+  *(&v8 + 1) = v6;
+  if (v8 | v6)
   {
-    sub_2210C2B00(a1 + 17, v9);
+    sub_2210C2B00(a1 + 17, &v8, &v8);
   }
 
   return this;
@@ -8780,9 +8790,9 @@ void sub_22130B75C(void *a1, unint64_t a2, id *a3)
   }
 }
 
-void sub_22130B9E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_22130B9E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   sub_22107C26C(va);
 
   _Unwind_Resume(a1);
@@ -8845,19 +8855,19 @@ id sub_22130BAC8(void *a1, id *a2)
   return result;
 }
 
-void sub_22130BBA8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_22130BBA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_22107C26C(va);
   _Unwind_Resume(a1);
 }
 
-void sub_22130BC80(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5)
+void sub_22130BC80(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4)
 {
-  v10 = objc_msgSend_syntaxError(TSCEError, a2, a3, a4, a5);
-  v8 = objc_msgSend_errorValue_(TSCEErrorValue, v5, v10, v6, v7);
-  v9 = qword_27CFB5450;
-  qword_27CFB5450 = v8;
+  v8 = objc_msgSend_syntaxError(TSCEError, a2, a3, a4);
+  v6 = objc_msgSend_errorValue_(TSCEErrorValue, v4, v8, v5);
+  v7 = qword_27CFB5450;
+  qword_27CFB5450 = v6;
 }
 
 void *sub_22130BE9C(void *result, unint64_t a2, id *a3)
@@ -8882,7 +8892,7 @@ void *sub_22130BE9C(void *result, unint64_t a2, id *a3)
       v7 = v13;
     }
 
-    *(v5 + 8) = v7;
+    v5[1] = v7;
   }
 
   else
@@ -8937,9 +8947,9 @@ void *sub_22130BE9C(void *result, unint64_t a2, id *a3)
   return result;
 }
 
-void sub_22130BFB0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_22130BFB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_22107C26C(va);
   _Unwind_Resume(a1);
 }
@@ -8951,13 +8961,13 @@ void sub_22130C3B0(void *a1, uint64_t *a2)
   {
     if (!a1[22])
     {
-      v9 = a1[17];
-      if (*(v9 + 24))
+      v8 = a1[17];
+      if (*(v8 + 24))
       {
-        for (i = *(v9 + 16); i; i = *i)
+        for (i = *(v8 + 16); i; i = *i)
         {
-          sub_2210C2B00(a1 + 19, i + 2);
-          sub_2210C2B00(a1 + 19, i + 4);
+          sub_2210C2B00(a1 + 19, i + 2, i + 1);
+          sub_2210C2B00(a1 + 19, i + 4, i + 2);
         }
       }
     }
@@ -8965,7 +8975,7 @@ void sub_22130C3B0(void *a1, uint64_t *a2)
     if (!sub_2210875C4(a1 + 19, a2))
     {
       v5 = sub_221089E8C(a1);
-      IsRegistered = objc_msgSend_ownerIsRegistered_(v5, v6, *a2, a2[1], v7);
+      IsRegistered = objc_msgSend_ownerIsRegistered_(v5, v6, *a2, a2[1]);
 
       if ((IsRegistered & 1) == 0)
       {
@@ -8975,23 +8985,23 @@ void sub_22130C3B0(void *a1, uint64_t *a2)
   }
 }
 
-TSCEASTColonTractElement *sub_22130C484(TSCEASTIteratorBase *a1, TSCEASTColonTractElement *this, uint64_t a3, uint64_t a4, uint64_t a5)
+TSCEASTColonTractElement *sub_22130C484(TSCEASTIteratorBase *a1, TSCEASTColonTractElement *this, uint64_t a3, uint64_t a4)
 {
-  v12.n128_u64[0] = TSCEASTColonTractElement::tableUID(this, a1, a3, a4, a5);
-  v12.n128_u64[1] = v7;
-  if (v12.n128_u64[0] | v7)
+  v10._lower = TSCEASTColonTractElement::tableUID(this, a1, a3, a4);
+  v10._upper = v6;
+  if (v10._lower | v6)
   {
-    if (sub_2210875C4(*(a1 + 17), &v12))
+    if (sub_2210875C4(*(a1 + 17), &v10))
     {
-      v8 = *(a1 + 17);
-      v13 = &v12;
-      v12 = *(sub_221230440(v8, &v12) + 2);
-      TSCEASTColonTractElement::setTableUID(this, &v12, a1, v9, v10);
+      v7 = *(a1 + 17);
+      v11 = &v10;
+      v10 = *(sub_221230440(v7, &v10, &unk_2217E1397, &v11) + 2);
+      TSCEASTColonTractElement::setTableUID(this, &v10, a1, v8);
     }
 
     else
     {
-      sub_22130C3B0(a1, &v12);
+      sub_22130C3B0(a1, &v10);
     }
   }
 
@@ -9002,14 +9012,14 @@ TSCEASTViewTractRefElement *sub_22130C530(TSCEASTIteratorBase *a1, TSCEASTViewTr
 {
   if (TSCEASTElement::refFlags(a2, a1))
   {
-    v13[0] = TSCEASTViewTractRefElement::tableUID(a2, a1, v4, v5, v6);
-    v13[1] = v7;
-    if (sub_2210875C4(*(a1 + 17), v13))
+    v11[0] = TSCEASTViewTractRefElement::tableUID(a2, a1, v4, v5);
+    v11[1] = v6;
+    if (sub_2210875C4(*(a1 + 17), v11))
     {
-      v8 = *(a1 + 17);
-      v12._lower = v13;
-      v12 = *(sub_221230440(v8, v13) + 2);
-      TSCEASTViewTractRefElement::setTableUID(a2, &v12, a1, v9, v10);
+      v7 = *(a1 + 17);
+      v10._lower = v11;
+      v10 = *(sub_221230440(v7, v11, &unk_2217E1397, &v10) + 2);
+      TSCEASTViewTractRefElement::setTableUID(a2, &v10, a1, v8);
     }
   }
 
@@ -9020,19 +9030,19 @@ TSCEASTRelativeCoordRefElement *sub_22130C5D4(TSCEASTIteratorBase *a1, TSCEASTRe
 {
   if (TSCEASTElement::refFlags(a2, a1))
   {
-    v13[0] = TSCEASTRelativeCoordRefElement::tableUID(a2, a1, v4, v5, v6);
-    v13[1] = v7;
-    if (sub_2210875C4(*(a1 + 17), v13))
+    v11[0] = TSCEASTRelativeCoordRefElement::tableUID(a2, a1, v4, v5);
+    v11[1] = v6;
+    if (sub_2210875C4(*(a1 + 17), v11))
     {
-      v8 = *(a1 + 17);
-      v12._lower = v13;
-      v12 = *(sub_221230440(v8, v13) + 2);
-      TSCEASTRelativeCoordRefElement::setTableUID(a2, &v12, a1, v9, v10);
+      v7 = *(a1 + 17);
+      v10._lower = v11;
+      v10 = *(sub_221230440(v7, v11, &unk_2217E1397, &v10) + 2);
+      TSCEASTRelativeCoordRefElement::setTableUID(a2, &v10, a1, v8);
     }
 
     else
     {
-      sub_22130C3B0(a1, v13);
+      sub_22130C3B0(a1, v11);
     }
   }
 

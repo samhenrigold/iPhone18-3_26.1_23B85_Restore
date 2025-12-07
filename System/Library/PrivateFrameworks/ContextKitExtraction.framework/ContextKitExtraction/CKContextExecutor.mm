@@ -162,7 +162,6 @@ uint64_t __64__CKContextExecutor_addWorkItemToQueue_withWorkItem_andContext___bl
       v3 = atomic_load(WeakRetained + 56);
       if ((v3 & 1) == 0)
       {
-        v4 = *(a1 + 32);
         (*(*(a1 + 40) + 16))();
       }
     }

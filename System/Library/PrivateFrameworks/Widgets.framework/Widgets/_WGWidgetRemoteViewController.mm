@@ -98,25 +98,25 @@
 - (void)_requestEncodedLayerTreeAtURL:(id)l withReplyHandler:(id)handler
 {
   handlerCopy = handler;
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __80___WGWidgetRemoteViewController__requestEncodedLayerTreeAtURL_withReplyHandler___block_invoke;
-  v11[3] = &unk_279ED20B8;
-  v12 = handlerCopy;
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __80___WGWidgetRemoteViewController__requestEncodedLayerTreeAtURL_withReplyHandler___block_invoke;
+  v12[3] = &unk_279ED20B8;
+  v13 = handlerCopy;
   v7 = handlerCopy;
   lCopy = l;
-  v9 = [(_UIRemoteViewController *)self serviceViewControllerProxyWithErrorHandler:v11];
-  if (_WGSupportsASTC())
+  v9 = [(_UIRemoteViewController *)self serviceViewControllerProxyWithErrorHandler:v12];
+  if (_WGSupportsASTC(v9, v10))
   {
-    v10 = @"com.apple.atx";
+    v11 = @"com.apple.atx";
   }
 
   else
   {
-    v10 = 0;
+    v11 = 0;
   }
 
-  [v9 __requestEncodedLayerTreeToURL:lCopy withCodingImageFormat:v10 withReplyHandler:v7];
+  [v9 __requestEncodedLayerTreeToURL:lCopy withCodingImageFormat:v11 withReplyHandler:v7];
 }
 
 - (void)_performUpdateWithReplyHandler:(id)handler

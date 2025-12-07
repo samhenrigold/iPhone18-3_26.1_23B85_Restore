@@ -40,9 +40,9 @@ LABEL_6:
 - (AppLedgerItem)initWithDictionary:(id)dictionary
 {
   dictionaryCopy = dictionary;
-  v41.receiver = self;
-  v41.super_class = AppLedgerItem;
-  v5 = [(AppLedgerItem *)&v41 init];
+  v43.receiver = self;
+  v43.super_class = AppLedgerItem;
+  v5 = [(AppLedgerItem *)&v43 init];
   if (!v5)
   {
     goto LABEL_25;
@@ -54,7 +54,7 @@ LABEL_6:
 
   if (!v5->_bundleIdentifier)
   {
-    v35 = 0;
+    v37 = 0;
     goto LABEL_27;
   }
 
@@ -63,37 +63,37 @@ LABEL_6:
   v5->_itemID = v8;
 
   v10 = [dictionaryCopy objectForKeyedSubscript:@"installs"];
-  v39 = +[NSMutableArray array];
+  v41 = +[NSMutableArray array];
   if (!v10)
   {
     goto LABEL_24;
   }
 
-  v38 = v5;
+  v40 = v5;
+  v46 = 0u;
+  v47 = 0u;
   v44 = 0u;
   v45 = 0u;
-  v42 = 0u;
-  v43 = 0u;
-  v37 = v10;
+  v39 = v10;
   obj = v10;
-  v11 = [obj countByEnumeratingWithState:&v42 objects:v47 count:16];
+  v11 = [obj countByEnumeratingWithState:&v44 objects:v49 count:16];
   if (!v11)
   {
     goto LABEL_23;
   }
 
   v12 = v11;
-  v13 = *v43;
+  v13 = *v45;
   do
   {
     for (i = 0; i != v12; i = i + 1)
     {
-      if (*v43 != v13)
+      if (*v45 != v13)
       {
         objc_enumerationMutation(obj);
       }
 
-      v15 = *(*(&v42 + 1) + 8 * i);
+      v15 = *(*(&v44 + 1) + 8 * i);
       v16 = [AppLedgerInstallItem alloc];
       v17 = v15;
       if (!v16)
@@ -104,9 +104,9 @@ LABEL_19:
         goto LABEL_20;
       }
 
-      v46.receiver = v16;
-      v46.super_class = AppLedgerInstallItem;
-      v18 = [(AppLedgerItem *)&v46 init];
+      v48.receiver = v16;
+      v48.super_class = AppLedgerInstallItem;
+      v18 = [(AppLedgerItem *)&v48 init];
       if (v18)
       {
         v19 = v18;
@@ -123,33 +123,33 @@ LABEL_19:
         v19->_installs = v24;
 
         v26 = sub_10023790C(v17, @"installType");
-        objc_opt_class();
-        v27 = sub_1001C09E4(v26);
+        v27 = objc_opt_class();
+        v28 = sub_1001C09E4(v26, v27);
 
-        if (v27)
+        if (v28)
         {
           v19->_bundleIdentifier = [v26 integerValue];
         }
 
-        v28 = sub_10023790C(v17, @"packageType");
-        objc_opt_class();
-        v29 = sub_1001C09E4(v28);
+        v29 = sub_10023790C(v17, @"packageType");
+        v30 = objc_opt_class();
+        v31 = sub_1001C09E4(v29, v30);
 
-        if (v29)
+        if (v31)
         {
-          v19[1]._bundleIdentifier = [v28 integerValue];
+          v19[1]._bundleIdentifier = [v29 integerValue];
         }
 
-        v30 = sub_1002380D8(v17, @"originator");
-        v31 = v19[1]._installs;
-        v19[1]._installs = v30;
+        v32 = sub_1002380D8(v17, @"originator");
+        v33 = v19[1]._installs;
+        v19[1]._installs = v32;
 
-        v32 = v19->_installs;
-        if (v32)
+        v34 = v19->_installs;
+        if (v34)
         {
-          v33 = v19;
+          v35 = v19;
 
-          [(NSMutableArray *)v39 addObject:v33];
+          [(NSMutableArray *)v41 addObject:v35];
           goto LABEL_21;
         }
 
@@ -157,28 +157,28 @@ LABEL_19:
       }
 
 LABEL_20:
-      v33 = 0;
+      v35 = 0;
 LABEL_21:
     }
 
-    v12 = [obj countByEnumeratingWithState:&v42 objects:v47 count:16];
+    v12 = [obj countByEnumeratingWithState:&v44 objects:v49 count:16];
   }
 
   while (v12);
 LABEL_23:
 
-  v5 = v38;
-  v10 = v37;
+  v5 = v40;
+  v10 = v39;
 LABEL_24:
 
-  v34 = v5->_installs;
-  v5->_installs = v39;
+  v36 = v5->_installs;
+  v5->_installs = v41;
 
 LABEL_25:
-  v35 = v5;
+  v37 = v5;
 LABEL_27:
 
-  return v35;
+  return v37;
 }
 
 - (NSDictionary)dictionaryRepresentation

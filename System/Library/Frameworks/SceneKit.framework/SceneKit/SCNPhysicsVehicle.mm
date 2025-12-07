@@ -119,7 +119,7 @@ uint64_t __43__SCNPhysicsVehicle__initializeWheelsArray__block_invoke(uint64_t a
 
   if (!v7)
   {
-    v8 = scn_default_log();
+    v8 = scn_default_log(self, a2);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       [SCNPhysicsHingeJoint _addToPhysicsWorld:v8 definition:?];
@@ -268,12 +268,12 @@ uint64_t __55__SCNPhysicsVehicle_applyBrakingForce_forWheelAtIndex___block_invok
   [wheel radius];
   v29 = v28;
   v30 = btRaycastVehicle::addWheel(vehicle, &v33, &v32, &v31, &v34, [wheel isFront], v27, v29);
-  *(v30 + 288) = [objc_msgSend(wheel "node")];
+  *(v30 + 36) = [objc_msgSend(wheel "node")];
 }
 
 - (void)_handleCreateIfNeeded:(BOOL)needed
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   if (needed && !self->_vehicle)
   {
     if ([(SCNPhysicsBody *)self->_chassisBody sceneRef])
@@ -284,24 +284,24 @@ uint64_t __55__SCNPhysicsVehicle_applyBrakingForce_forWheelAtIndex___block_invok
         btCollisionObject::setActivationState(_handle, 4);
         [(SCNPhysicsWorld *)self->_world _defaultVehicleRayCaster];
         *buf = xmmword_21C2A3E90;
-        v8 = 0x45BB800041280000;
+        v10 = 0x45BB800041280000;
         operator new();
       }
 
-      v6 = scn_default_log();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      v8 = scn_default_log(0, v6);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_21BEF7000, v6, OS_LOG_TYPE_DEFAULT, "Warning: Chassis should already have a body", buf, 2u);
+        _os_log_impl(&dword_21BEF7000, v8, OS_LOG_TYPE_DEFAULT, "Warning: Chassis should already have a body", buf, 2u);
       }
     }
 
     else
     {
-      v5 = scn_default_log();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+      v7 = scn_default_log(0, v4);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
-        [SCNPhysicsVehicle _handleCreateIfNeeded:v5];
+        [SCNPhysicsVehicle _handleCreateIfNeeded:v7];
       }
     }
   }
@@ -320,29 +320,29 @@ uint64_t __55__SCNPhysicsVehicle_applyBrakingForce_forWheelAtIndex___block_invok
         btRaycastVehicle::updateWheelTransform(self->_vehicle, i, 1);
         WheelInfo = btRaycastVehicle::getWheelInfo(self->_vehicle, i);
         v7 = *(WheelInfo + 288);
-        Parent = C3DNodeGetParent(v7);
+        Parent = C3DNodeGetParent(v7, v8);
         if (Parent)
         {
-          WorldMatrix = C3DNodeGetWorldMatrix(Parent);
-          C3DMatrix4x4Invert(WorldMatrix, &v21);
-          v10 = *(WheelInfo + 112);
-          v11 = *(WheelInfo + 128);
-          v12 = *(WheelInfo + 144);
-          v13 = *(WheelInfo + 160);
-          v14 = vtrn1q_s32(v10, v11);
-          *&v15 = vextq_s8(v14, v14, 8uLL).u64[0];
-          v14.i64[1] = v12.u32[0];
-          *v10.i8 = vzip2_s32(*v10.i8, *v11.i8);
-          v10.u64[1] = vzip2_s32(*v12.i8, 0);
-          *(&v15 + 1) = vextq_s8(v12, v12, 8uLL).u32[0];
-          v17[0] = v14;
-          v17[1] = v10;
-          v17[2] = v15;
-          v18 = v13;
-          v19 = DWORD2(v13);
-          v20 = 1065353216;
-          C3DMatrix4x4Mult(v17, &v21, v16);
-          C3DNodeSetMatrix(v7, v16);
+          WorldMatrix = C3DNodeGetWorldMatrix(Parent, v10);
+          C3DMatrix4x4Invert(WorldMatrix, &v23);
+          v12 = *(WheelInfo + 112);
+          v13 = *(WheelInfo + 128);
+          v14 = *(WheelInfo + 144);
+          v15 = *(WheelInfo + 160);
+          v16 = vtrn1q_s32(v12, v13);
+          *&v17 = vextq_s8(v16, v16, 8uLL).u64[0];
+          v16.i64[1] = v14.u32[0];
+          *v12.i8 = vzip2_s32(*v12.i8, *v13.i8);
+          v12.u64[1] = vzip2_s32(*v14.i8, 0);
+          *(&v17 + 1) = vextq_s8(v14, v14, 8uLL).u32[0];
+          v19[0] = v16;
+          v19[1] = v12;
+          v19[2] = v17;
+          v20 = v15;
+          v21 = DWORD2(v15);
+          v22 = 1065353216;
+          C3DMatrix4x4Mult(v19, &v23, v18);
+          C3DNodeSetMatrix(v7, v18);
         }
       }
 

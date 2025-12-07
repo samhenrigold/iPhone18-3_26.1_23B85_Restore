@@ -8,14 +8,14 @@ unsigned int *std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void
     if (*a3 < v4 || v4 >= v6 && a3[1] < a2[1])
     {
       *result = v6;
-      v7 = (result + 1);
+      v7 = result + 1;
     }
 
     else
     {
       *result = v4;
       *a2 = v5;
-      v7 = (a2 + 1);
+      v7 = a2 + 1;
       v13 = result[1];
       result[1] = a2[1];
       a2[1] = v13;
@@ -30,7 +30,7 @@ unsigned int *std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void
     }
 
     *a3 = v5;
-    v10 = (a3 + 1);
+    v10 = a3 + 1;
     goto LABEL_14;
   }
 
@@ -39,7 +39,7 @@ unsigned int *std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void
   {
     *a2 = v8;
     *a3 = v4;
-    v10 = (a2 + 1);
+    v10 = a2 + 1;
     v9 = a2[1];
     a2[1] = a3[1];
     a3[1] = v9;
@@ -48,7 +48,7 @@ unsigned int *std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void
     if (*a2 < *result || v12 >= v11 && *v10 < result[1])
     {
       *result = v11;
-      v7 = (result + 1);
+      v7 = result + 1;
       *a2 = v12;
 LABEL_14:
       v15 = *v7;
@@ -624,9 +624,9 @@ LABEL_20:
 LABEL_22:
       *a1 = v28;
       a1[4] = v27;
-      v29 = (a1 + 1);
+      v29 = a1 + 1;
 LABEL_64:
-      v37 = (a1 + 5);
+      v37 = a1 + 5;
       goto LABEL_65;
     }
 
@@ -646,7 +646,7 @@ LABEL_64:
 
     v43 = a1[1];
     a1[3] = v43;
-    v29 = (a1 + 3);
+    v29 = a1 + 3;
     *a1 = v26;
     a1[1] = v39;
     a1[2] = v27;
@@ -667,7 +667,7 @@ LABEL_64:
     v36 = a1[5];
 LABEL_33:
     a1[3] = v36;
-    v37 = (a1 + 3);
+    v37 = a1 + 3;
     a1[2] = v34;
     a1[4] = v26;
     a1[5] = v35;
@@ -678,7 +678,7 @@ LABEL_33:
 
     *a1 = v34;
     a1[2] = v27;
-    v29 = (a1 + 1);
+    v29 = a1 + 1;
 LABEL_65:
     v44 = *v29;
     *v29 = *v37;
@@ -770,7 +770,7 @@ LABEL_81:
   }
 }
 
-unsigned int *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::pair<unsigned int,unsigned int> *,std::pair<unsigned int,unsigned int> *>(unsigned int *a1, unsigned int *a2, unsigned int *a3, uint64_t a4)
+char *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::pair<unsigned int,unsigned int> *,std::pair<unsigned int,unsigned int> *>(char *a1, char *a2, char *a3, uint64_t a4)
 {
   if (a1 != a2)
   {
@@ -779,7 +779,7 @@ unsigned int *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std:
     {
       v9 = (v8 - 2) >> 1;
       v10 = v9 + 1;
-      v11 = &a1[2 * v9];
+      v11 = &a1[8 * v9];
       do
       {
         std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::pair<unsigned int,unsigned int> *>(a1, a4, v8, v11);
@@ -798,17 +798,17 @@ unsigned int *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std:
       {
         v13 = *v12;
         v14 = *a1;
-        if (*v12 < *a1 || v14 >= v13 && v12[1] < a1[1])
+        if (*v12 < *a1 || v14 >= v13 && *(v12 + 1) < *(a1 + 1))
         {
           *v12 = v14;
           *a1 = v13;
-          v15 = v12[1];
-          v12[1] = a1[1];
-          a1[1] = v15;
+          v15 = *(v12 + 1);
+          *(v12 + 1) = *(a1 + 1);
+          *(a1 + 1) = v15;
           std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::pair<unsigned int,unsigned int> *>(a1, a4, v8, a1);
         }
 
-        v12 += 2;
+        v12 += 8;
       }
 
       while (v12 != a3);
@@ -816,28 +816,28 @@ unsigned int *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std:
 
     if (v8 >= 2)
     {
-      v16 = a2 - 2;
+      v16 = a2 - 8;
       do
       {
         v18 = *a1;
-        v17 = a1[1];
+        v17 = *(a1 + 1);
         v19 = std::__floyd_sift_down[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::pair<unsigned int,unsigned int> *>(a1, a4, v8);
         if (v16 == v19)
         {
           *v19 = v18;
-          v19[1] = v17;
+          *(v19 + 1) = v17;
         }
 
         else
         {
           *v19 = *v16;
-          v19[1] = v16[1];
+          *(v19 + 1) = *(v16 + 1);
           *v16 = v18;
-          v16[1] = v17;
-          std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::pair<unsigned int,unsigned int> *>(a1, (v19 + 2), a4, ((v19 + 2) - a1) >> 3);
+          *(v16 + 1) = v17;
+          std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::pair<unsigned int,unsigned int> *>(a1, (v19 + 8), a4, (v19 + 8 - a1) >> 3);
         }
 
-        v16 -= 2;
+        v16 -= 8;
       }
 
       while (v8-- > 2);
@@ -1100,7 +1100,7 @@ char *internal::marisa::grimoire::vector::Vector<internal::marisa::grimoire::tri
       v8 = *v6;
       v6 += 2;
       *v7 = v8;
-      v7 += 2;
+      v7 += 16;
       --v5;
     }
 
@@ -1121,17 +1121,17 @@ char *internal::marisa::grimoire::vector::Vector<internal::marisa::grimoire::tri
   return result;
 }
 
-uint64_t internal::marisa::grimoire::trie::LoudsTrie::build_current_trie<internal::marisa::grimoire::trie::ReverseKey>(uint64_t *a1, uint64_t a2, __int128 *a3, uint64_t a4, uint64_t a5)
+uint64_t internal::marisa::grimoire::trie::LoudsTrie::build_current_trie<internal::marisa::grimoire::trie::ReverseKey>(internal::marisa::grimoire::vector::BitVector *a1, __int128 *a2, __int128 *a3, uint64_t a4, uint64_t a5)
 {
-  v8 = *(a2 + 24);
-  v9 = *(a2 + 8);
+  v8 = *(a2 + 3);
+  v9 = *(a2 + 1);
   if (v8)
   {
     v10 = 0;
     v11 = vdupq_n_s64(v8 - 1);
     v12 = xmmword_1D2B276C0;
     v13 = xmmword_1D2B276B0;
-    v14 = (v9 + 64);
+    v14 = v9 + 64;
     v15 = vdupq_n_s64(4uLL);
     do
     {
@@ -1161,7 +1161,7 @@ uint64_t internal::marisa::grimoire::trie::LoudsTrie::build_current_trie<interna
     while (((v8 + 3) & 0xFFFFFFFFFFFFFFFCLL) != v10);
   }
 
-  v17 = internal::marisa::grimoire::algorithm::details::sort<internal::marisa::grimoire::trie::ReverseKey *>(v9, v9 + 24 * v8, 0);
+  v17 = internal::marisa::grimoire::algorithm::details::sort<internal::marisa::grimoire::trie::ReverseKey *>(v9, &v9[24 * v8], 0);
   v18 = 256;
   if (a5 != 1)
   {
@@ -1176,7 +1176,7 @@ uint64_t internal::marisa::grimoire::trie::LoudsTrie::build_current_trie<interna
 
   while (v19 < v17 / *(a4 + 8));
   internal::marisa::grimoire::vector::Vector<internal::marisa::grimoire::trie::Cache>::resize(a1 + 126, v19);
-  a1[132] = v19 - 1;
+  *(a1 + 132) = v19 - 1;
   internal::marisa::grimoire::vector::BitVector::push_back(a1, 1);
   internal::marisa::grimoire::vector::BitVector::push_back(a1, 0);
   LOBYTE(v71[0]) = 0;
@@ -1187,7 +1187,7 @@ uint64_t internal::marisa::grimoire::trie::LoudsTrie::build_current_trie<interna
   memset(v69, 0, sizeof(v69));
   v67 = 0u;
   memset(v68, 0, 25);
-  v65.n128_u64[0] = *(a2 + 24) << 32;
+  v65.n128_u64[0] = *(a2 + 3) << 32;
   v65.n128_u32[2] = 0;
   std::deque<internal::marisa::grimoire::trie::Range>::push_back(v69, &v65);
   v20 = *(&v70 + 1);
@@ -1196,7 +1196,7 @@ uint64_t internal::marisa::grimoire::trie::LoudsTrie::build_current_trie<interna
     v62 = a4;
     do
     {
-      v21 = a1[58];
+      v21 = *(a1 + 58);
       v22 = (*(*(&v69[0] + 1) + 8 * (v70 / 0x155)) + 12 * (v70 % 0x155));
       v23 = *v22;
       v24 = v22[1];
@@ -1216,7 +1216,7 @@ uint64_t internal::marisa::grimoire::trie::LoudsTrie::build_current_trie<interna
       {
         while (1)
         {
-          v27 = *(a2 + 8) + 24 * v23;
+          v27 = *(a2 + 1) + 24 * v23;
           if (*(v27 + 8) != v25)
           {
             break;
@@ -1241,7 +1241,7 @@ uint64_t internal::marisa::grimoire::trie::LoudsTrie::build_current_trie<interna
           MEMORY[0x1D38A8C00](v28, 0x1000C8077774924);
         }
 
-        v29 = *(a2 + 8);
+        v29 = *(a2 + 1);
         v30 = *(v29 + 24 * v23 + 12);
         v31 = v23 + 1;
         if (v23 + 1 < v24)
@@ -1258,7 +1258,7 @@ uint64_t internal::marisa::grimoire::trie::LoudsTrie::build_current_trie<interna
               v65.n128_u64[0] = v34 + v23;
               v65.n128_u64[1] = v25 | (v35 << 32);
               internal::marisa::grimoire::vector::Vector<internal::marisa::grimoire::trie::WeightedRange>::push_back(&v67, &v65);
-              v29 = *(a2 + 8);
+              v29 = *(a2 + 1);
               v32 = 0.0;
               LODWORD(v23) = v31;
             }
@@ -1287,7 +1287,7 @@ uint64_t internal::marisa::grimoire::trie::LoudsTrie::build_current_trie<interna
         v37 = v68[1];
         if (v64 == v20)
         {
-          a1[133] = v68[1];
+          *(a1 + 133) = v68[1];
         }
 
         if (v37)
@@ -1297,7 +1297,7 @@ uint64_t internal::marisa::grimoire::trie::LoudsTrie::build_current_trie<interna
           {
             v39 = (*(&v67 + 1) + 16 * v38);
             v40 = *(v39 + 2);
-            v41 = *(a2 + 8);
+            v41 = *(a2 + 1);
             v42 = *(v41 + 24 * *v39 + 8);
             v43 = v40 + 1;
             if (v40 + 1 >= v42)
@@ -1337,9 +1337,9 @@ uint64_t internal::marisa::grimoire::trie::LoudsTrie::build_current_trie<interna
             }
 
 LABEL_45:
-            v52 = a1[81];
+            v52 = *(a1 + 81);
             v53 = v39[3];
-            v54 = a1[127] + 12 * (a1[132] & v52);
+            v54 = *(a1 + 127) + 12 * (*(a1 + 132) & v52);
             if (*(v54 + 8) < v53)
             {
               *v54 = v26;
@@ -1350,7 +1350,7 @@ LABEL_45:
 
             if (v44 == v40)
             {
-              v65.n128_u8[0] = *(~v44 + *(*(a2 + 8) + 24 * *v39));
+              v65.n128_u8[0] = *(~v44 + *(*(a2 + 1) + 24 * *v39));
               internal::marisa::grimoire::vector::Vector<unsigned char>::push_back(a1 + 78, &v65);
               internal::marisa::grimoire::vector::BitVector::push_back(a1 + 52, 0);
             }
@@ -1363,7 +1363,7 @@ LABEL_45:
               v65 = 0uLL;
               v66 = 0;
               v55 = *(v39 + 2);
-              v65.n128_u64[0] = *(*(a2 + 8) + 24 * *v39) - v55;
+              v65.n128_u64[0] = *(*(a2 + 1) + 24 * *v39) - v55;
               v65.n128_u64[1] = (v42 - v55);
               v65.n128_f32[3] = v39[3];
               internal::marisa::grimoire::vector::Vector<internal::marisa::grimoire::trie::Key>::push_back(v71, &v65);
@@ -1394,8 +1394,8 @@ LABEL_51:
   v56 = *a2;
   *a2 = v71[0];
   v71[0] = v56;
-  v57 = *(a2 + 16);
-  *(a2 + 16) = *&v71[1];
+  v57 = *(a2 + 2);
+  *(a2 + 2) = *&v71[1];
   *&v71[1] = v57;
   v58 = *(a2 + 24);
   *(a2 + 24) = *(&v71[1] + 8);
@@ -1418,19 +1418,19 @@ LABEL_51:
   return result;
 }
 
-void sub_1D2B0E598(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+void sub_1D2B0E598(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a16);
-  if (a11)
+  va_start(va, a22);
+  if (a17)
   {
-    MEMORY[0x1D38A8C00](a11, 0x1000C8077774924);
+    MEMORY[0x1D38A8C00](a17, 0x1000C8077774924, a3, a4, a5, a6, a7, a8);
   }
 
   std::deque<internal::marisa::grimoire::trie::Range>::~deque[abi:ne200100](va);
-  v19 = *(v16 - 144);
-  if (v19)
+  v25 = *(v22 - 144);
+  if (v25)
   {
-    MEMORY[0x1D38A8C00](v19, 0x1000C8077774924);
+    MEMORY[0x1D38A8C00](v25, 0x1000C8077774924);
   }
 
   if (a2 == 1)
@@ -1493,22 +1493,22 @@ uint64_t internal::marisa::grimoire::trie::LoudsTrie::build_terminals<internal::
   return result;
 }
 
-void sub_1D2B0E770(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9)
+void sub_1D2B0E770(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
   if (a9)
   {
-    MEMORY[0x1D38A8C00](a9, 0x1000C8077774924);
+    MEMORY[0x1D38A8C00](a9, 0x1000C8077774924, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t internal::marisa::grimoire::algorithm::details::sort<internal::marisa::grimoire::trie::ReverseKey *>(unint64_t a1, unint64_t a2, unint64_t a3)
+uint64_t internal::marisa::grimoire::algorithm::details::sort<internal::marisa::grimoire::trie::ReverseKey *>(char *a1, char *a2, unint64_t a3)
 {
   v4 = a2;
   v5 = a1;
   v6 = a2 - a1;
-  if ((a2 - a1) < 241)
+  if (a2 - a1 < 241)
   {
     v7 = 0;
     goto LABEL_64;
@@ -1519,7 +1519,7 @@ uint64_t internal::marisa::grimoire::algorithm::details::sort<internal::marisa::
   v9 = a1;
   do
   {
-    v10 = internal::marisa::grimoire::algorithm::details::median<internal::marisa::grimoire::trie::ReverseKey>(v9, v9 + 24 * (v6 / 0x30uLL), v4 - 24, a3);
+    v10 = internal::marisa::grimoire::algorithm::details::median<internal::marisa::grimoire::trie::ReverseKey>(v9, &v9[24 * (v6 / 0x30uLL)], (v4 - 24), a3);
     v11 = v10;
     v12 = v9;
     v5 = v4;
@@ -1527,7 +1527,7 @@ uint64_t internal::marisa::grimoire::algorithm::details::sort<internal::marisa::
     v14 = v4;
     while (v12 < v5)
     {
-      v15 = *(v12 + 8);
+      v15 = *(v12 + 2);
       v16 = a3 >= v15 ? -1 : *(*v12 - a3 - 1);
       if (v16 > v10)
       {
@@ -1538,12 +1538,12 @@ uint64_t internal::marisa::grimoire::algorithm::details::sort<internal::marisa::
       {
         v17 = *v12;
         *v12 = *v13;
-        *(v12 + 8) = *(v13 + 8);
+        *(v12 + 2) = *(v13 + 2);
         v18 = *(v12 + 12);
-        *(v12 + 12) = *(v13 + 12);
-        *(v12 + 16) = *(v13 + 16);
+        *(v12 + 3) = *(v13 + 3);
+        *(v12 + 4) = *(v13 + 4);
         *v13 = v17;
-        *(v13 + 8) = v15;
+        *(v13 + 2) = v15;
         *(v13 + 12) = v18;
         v13 += 24;
       }
@@ -1558,7 +1558,7 @@ LABEL_11:
       do
       {
         v5 = v19;
-        v20 = *(v19 + 8);
+        v20 = *(v19 + 2);
         if (a3 >= v20)
         {
           v21 = -1;
@@ -1576,16 +1576,16 @@ LABEL_11:
 
         if (v21 == v10)
         {
-          v22 = *(v14 - 24);
+          v22 = *(v14 - 3);
           v14 -= 24;
           v23 = *v5;
           *v5 = v22;
-          *(v5 + 8) = *(v14 + 8);
+          *(v5 + 2) = *(v14 + 2);
           v24 = *(v5 + 12);
-          *(v5 + 12) = *(v14 + 12);
-          *(v5 + 16) = *(v14 + 16);
+          *(v5 + 3) = *(v14 + 3);
+          *(v5 + 4) = *(v14 + 4);
           *v14 = v23;
-          *(v14 + 8) = v20;
+          *(v14 + 2) = v20;
           *(v14 + 12) = v24;
         }
 
@@ -1598,15 +1598,15 @@ LABEL_11:
     if (v12 < v5)
     {
       v25 = *v12;
-      v26 = *(v12 + 16);
+      v26 = *(v12 + 4);
       *v12 = *v5;
-      v27 = *(v12 + 8);
-      *(v12 + 8) = *(v5 + 8);
-      *(v12 + 12) = *(v5 + 12);
-      *(v12 + 16) = *(v5 + 16);
+      v27 = *(v12 + 1);
+      *(v12 + 2) = *(v5 + 2);
+      *(v12 + 3) = *(v5 + 3);
+      *(v12 + 4) = *(v5 + 4);
       *v5 = v25;
-      *(v5 + 8) = v27;
-      *(v5 + 16) = v26;
+      *(v5 + 1) = v27;
+      *(v5 + 4) = v26;
       goto LABEL_11;
     }
 
@@ -1615,47 +1615,47 @@ LABEL_11:
       v28 = 0;
       do
       {
-        v29 = v13 + v28;
-        v30 = v12 + v28;
-        v31 = *(v13 + v28 - 24);
-        v32 = *(v13 + v28 - 8);
-        *(v29 - 24) = *(v12 + v28 - 24);
-        v33 = *(v13 + v28 - 16);
-        *(v29 - 16) = *(v12 + v28 - 16);
-        *(v29 - 12) = *(v12 + v28 - 12);
-        *(v29 - 8) = *(v12 + v28 - 8);
-        *(v30 - 24) = v31;
-        *(v30 - 16) = v33;
-        *(v30 - 8) = v32;
+        v29 = &v13[v28];
+        v30 = &v12[v28];
+        v31 = *&v13[v28 - 24];
+        v32 = *&v13[v28 - 8];
+        *(v29 - 3) = *&v12[v28 - 24];
+        v33 = *&v13[v28 - 16];
+        *(v29 - 4) = *&v12[v28 - 16];
+        *(v29 - 3) = *&v12[v28 - 12];
+        *(v29 - 2) = *&v12[v28 - 8];
+        *(v30 - 3) = v31;
+        *(v30 - 2) = v33;
+        *(v30 - 2) = v32;
         v28 -= 24;
       }
 
-      while (v13 + v28 > v9);
+      while (&v13[v28] > v9);
       v12 += v28;
     }
 
     while (v14 < v4)
     {
       v34 = *v14;
-      v35 = *(v14 + 16);
+      v35 = *(v14 + 4);
       *v14 = *v5;
-      v36 = *(v14 + 8);
-      *(v14 + 8) = *(v5 + 8);
-      *(v14 + 12) = *(v5 + 12);
-      *(v14 + 16) = *(v5 + 16);
+      v36 = *(v14 + 1);
+      *(v14 + 2) = *(v5 + 2);
+      *(v14 + 3) = *(v5 + 3);
+      *(v14 + 4) = *(v5 + 4);
       *v5 = v34;
-      *(v5 + 8) = v36;
-      *(v5 + 16) = v35;
+      *(v5 + 1) = v36;
+      *(v5 + 4) = v35;
       v14 += 24;
       v5 += 24;
     }
 
     v37 = v12 - v8;
     v38 = v5 - v12;
-    if (v37 <= (v5 - v12))
+    if (v37 <= v5 - v12)
     {
       v39 = v4 - v5;
-      if ((v4 - v5) <= v38)
+      if (v4 - v5 <= v38)
       {
         if (v37 == 24)
         {
@@ -1720,7 +1720,7 @@ LABEL_32:
     }
 
     v40 = v4 - v5;
-    if (v37 >= (v4 - v5))
+    if (v37 >= v4 - v5)
     {
       if (v40 == 24)
       {
@@ -1752,7 +1752,7 @@ LABEL_60:
     v9 = v5;
   }
 
-  while ((v4 - v5) > 240);
+  while (v4 - v5 > 240);
 LABEL_64:
   if (v6 >= 25)
   {
@@ -1953,7 +1953,7 @@ char *internal::marisa::grimoire::vector::Vector<internal::marisa::grimoire::tri
       v8 = *v6;
       v6 += 3;
       *v7 = v8;
-      v7 += 3;
+      v7 += 12;
       --v5;
     }
 
@@ -2126,7 +2126,7 @@ uint64_t internal::marisa::grimoire::trie::Tail::build_(uint64_t a1, uint64_t a2
     v11 = vdupq_n_s64(v8 - 1);
     v12 = xmmword_1D2B276C0;
     v13 = xmmword_1D2B276B0;
-    v14 = (v9 + 44);
+    v14 = v9 + 44;
     v15 = vdupq_n_s64(4uLL);
     do
     {
@@ -2156,7 +2156,7 @@ uint64_t internal::marisa::grimoire::trie::Tail::build_(uint64_t a1, uint64_t a2
     while (((v8 + 3) & 0xFFFFFFFFFFFFFFFCLL) != v10);
   }
 
-  internal::marisa::grimoire::algorithm::details::sort<internal::marisa::grimoire::trie::Entry *>(v9, v9 + 16 * v8, 0);
+  internal::marisa::grimoire::algorithm::details::sort<internal::marisa::grimoire::trie::Entry *>(v9, &v9[16 * v8], 0);
   memset(v37, 0, 41);
   v17 = *(a2 + 24);
   LODWORD(v36[0]) = 0;
@@ -2293,11 +2293,11 @@ LABEL_35:
   return result;
 }
 
-void sub_1D2B0F4EC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13)
+void sub_1D2B0F4EC(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13)
 {
   if (a13)
   {
-    MEMORY[0x1D38A8C00](a13, 0x1000C8077774924);
+    MEMORY[0x1D38A8C00](a13, 0x1000C8077774924, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -2396,7 +2396,7 @@ uint64_t internal::marisa::grimoire::trie::Tail::match(void *a1, uint64_t a2, un
   return 0;
 }
 
-BOOL internal::marisa::grimoire::trie::Tail::prefix_match(void *a1, uint64_t a2, unint64_t a3, unint64_t *a4, unint64_t a5, std::string *this)
+uint64_t internal::marisa::grimoire::trie::Tail::prefix_match(void *a1, uint64_t a2, unint64_t a3, unint64_t *a4, unint64_t a5, std::string *this)
 {
   v7 = a5;
   if (a1[12])
@@ -2541,7 +2541,7 @@ uint64_t *internal::marisa::grimoire::vector::Vector<unsigned int>::resize(uint6
   return result;
 }
 
-uint64_t internal::marisa::grimoire::algorithm::details::sort<internal::marisa::grimoire::trie::Entry *>(unint64_t a1, unint64_t a2, unint64_t a3)
+uint64_t internal::marisa::grimoire::algorithm::details::sort<internal::marisa::grimoire::trie::Entry *>(char *a1, char *a2, unint64_t a3)
 {
   v4 = a2;
   v5 = a1;
@@ -2557,7 +2557,7 @@ uint64_t internal::marisa::grimoire::algorithm::details::sort<internal::marisa::
   v8 = a1;
   do
   {
-    v9 = internal::marisa::grimoire::algorithm::details::median<internal::marisa::grimoire::trie::Entry>(v8, v8 + 16 * (v6 >> 1), v4 - 16, a3);
+    v9 = internal::marisa::grimoire::algorithm::details::median<internal::marisa::grimoire::trie::Entry>(v8, &v8[16 * (v6 >> 1)], (v4 - 16), a3);
     v10 = v9;
     v11 = v8;
     v5 = v4;
@@ -2565,7 +2565,7 @@ uint64_t internal::marisa::grimoire::algorithm::details::sort<internal::marisa::
     v13 = v4;
     while (v11 < v5)
     {
-      v14 = *(v11 + 8);
+      v14 = *(v11 + 2);
       v15 = a3 >= v14 ? -1 : *(*v11 - a3);
       if (v15 > v9)
       {
@@ -2575,12 +2575,12 @@ uint64_t internal::marisa::grimoire::algorithm::details::sort<internal::marisa::
       if (v15 == v9)
       {
         v16 = *v11;
-        v17 = *(v11 + 12);
+        v17 = *(v11 + 3);
         *v11 = *v12;
-        *(v11 + 8) = *(v12 + 8);
+        *(v11 + 1) = *(v12 + 1);
         *v12 = v16;
-        *(v12 + 8) = v14;
-        *(v12 + 12) = v17;
+        *(v12 + 2) = v14;
+        *(v12 + 3) = v17;
         v12 += 16;
       }
 
@@ -2594,7 +2594,7 @@ LABEL_11:
       do
       {
         v5 = v18;
-        v19 = *(v18 + 8);
+        v19 = *(v18 + 2);
         if (a3 >= v19)
         {
           v20 = -1;
@@ -2612,15 +2612,15 @@ LABEL_11:
 
         if (v20 == v9)
         {
-          v21 = *(v13 - 16);
+          v21 = *(v13 - 2);
           v13 -= 16;
           v22 = *v5;
-          v23 = *(v5 + 12);
+          v23 = *(v5 + 3);
           *v5 = v21;
-          *(v5 + 8) = *(v13 + 8);
+          *(v5 + 1) = *(v13 + 1);
           *v13 = v22;
-          *(v13 + 8) = v19;
-          *(v13 + 12) = v23;
+          *(v13 + 2) = v19;
+          *(v13 + 3) = v23;
         }
 
         v18 = v5 - 16;
@@ -2633,45 +2633,45 @@ LABEL_11:
     {
       v24 = *v11;
       *v11 = *v5;
-      v25 = *(v5 + 8);
+      v25 = *(v5 + 1);
       *v5 = v24;
-      v26 = *(v11 + 8);
-      *(v11 + 8) = v25;
-      *(v5 + 8) = v26;
+      v26 = *(v11 + 1);
+      *(v11 + 1) = v25;
+      *(v5 + 1) = v26;
       goto LABEL_11;
     }
 
     while (v12 > v8)
     {
-      v28 = *(v12 - 16);
+      v28 = *(v12 - 2);
       v12 -= 16;
       v27 = v28;
-      v29 = *(v11 - 16);
+      v29 = *(v11 - 2);
       v11 -= 16;
       *v12 = v29;
-      v30 = *(v11 + 8);
+      v30 = *(v11 + 1);
       *v11 = v27;
-      v31 = *(v12 + 8);
-      *(v12 + 8) = v30;
-      *(v11 + 8) = v31;
+      v31 = *(v12 + 1);
+      *(v12 + 1) = v30;
+      *(v11 + 1) = v31;
     }
 
     while (v13 < v4)
     {
       v32 = *v13;
       *v13 = *v5;
-      v33 = *(v5 + 8);
+      v33 = *(v5 + 1);
       *v5 = v32;
-      v34 = *(v13 + 8);
-      *(v13 + 8) = v33;
-      *(v5 + 8) = v34;
+      v34 = *(v13 + 1);
+      *(v13 + 1) = v33;
+      *(v5 + 1) = v34;
       v13 += 16;
       v5 += 16;
     }
 
     v35 = v11 - v7;
     v36 = (v11 - v7) >> 4;
-    v37 = v5 - v11;
+    v37 = (v5 - v11);
     v38 = (v5 - v11) >> 4;
     if (v36 <= v38)
     {
@@ -2920,7 +2920,7 @@ uint64_t internal::marisa::grimoire::algorithm::details::median<internal::marisa
 
 uint64_t internal::marisa::grimoire::algorithm::details::insertion_sort<internal::marisa::grimoire::trie::Entry *>(unint64_t a1, unint64_t a2, unint64_t a3)
 {
-  v3 = (a1 + 16);
+  v3 = a1 + 16;
   if (a1 + 16 >= a2)
   {
     return 1;
@@ -2939,7 +2939,7 @@ uint64_t internal::marisa::grimoire::algorithm::details::insertion_sort<internal
     {
       while (1)
       {
-        v9 = v8 - 2;
+        v9 = (v8 - 2);
         v10 = internal::marisa::grimoire::algorithm::details::compare<internal::marisa::grimoire::trie::Entry>((v8 - 2), v8, a3);
         if (v10 < 1)
         {
@@ -2965,7 +2965,7 @@ uint64_t internal::marisa::grimoire::algorithm::details::insertion_sort<internal
     }
 
     v7 += v14;
-    v3 += 2;
+    v3 += 16;
   }
 
   while (v3 < a2);
@@ -3087,123 +3087,123 @@ LABEL_16:
   return v3 + ((0x101010101010101 * (((v8 >> 4) & 0x707070707070707) + (v8 & 0x707070707070707))) >> 56);
 }
 
-unint64_t internal::marisa::grimoire::vector::BitVector::select0(internal::marisa::grimoire::vector::BitVector *this, unint64_t a2)
+uint64_t internal::marisa::grimoire::vector::BitVector::select0(internal::marisa::grimoire::vector::BitVector *this, unint64_t a2, uint64_t a3, unint64_t a4)
 {
-  v2 = (*(this + 16) + 4 * (a2 >> 9));
+  v4 = (*(this + 16) + 4 * (a2 >> 9));
   if ((a2 & 0x1FF) == 0)
   {
-    return *v2;
+    return *v4;
   }
 
-  v3 = *v2 >> 9;
-  v4 = (v2[1] + 511) >> 9;
-  v5 = *(this + 10);
-  if (v3 + 10 >= v4)
+  v5 = *v4 >> 9;
+  v6 = (v4[1] + 511) >> 9;
+  v7 = *(this + 10);
+  if (v5 + 10 >= v6)
   {
-    v7 = v5 + 12 * v3;
-    v8 = v3-- << 9;
-    v9 = (v7 + 12);
+    v9 = v7 + 12 * v5;
+    v10 = v5-- << 9;
+    v11 = (v9 + 12);
     do
     {
-      v10 = *v9;
-      v9 += 3;
-      ++v3;
-      v8 += 512;
+      v12 = *v11;
+      v11 += 3;
+      ++v5;
+      v10 += 512;
     }
 
-    while (v8 - v10 <= a2);
+    while (v10 - v12 <= a2);
   }
 
   else
   {
     do
     {
-      if (((v4 + v3) >> 1 << 9) - *(v5 + 12 * ((v4 + v3) >> 1)) > a2)
+      if (((v6 + v5) >> 1 << 9) - *(v7 + 12 * ((v6 + v5) >> 1)) > a2)
       {
-        v4 = (v4 + v3) >> 1;
+        v6 = (v6 + v5) >> 1;
       }
 
       else
       {
-        v3 = (v4 + v3) >> 1;
+        v5 = (v6 + v5) >> 1;
       }
     }
 
-    while (v3 + 1 < v4);
+    while (v5 + 1 < v6);
   }
 
-  v11 = (v5 + 12 * v3);
-  v12 = v11[1];
-  v13 = (a2 - (v3 << 9) + *v11);
-  v14 = 8 * v3;
-  if (v13 >= 256 - (v12 >> 23))
+  v13 = (v7 + 12 * v5);
+  v14 = v13[1];
+  v15 = (a2 - (v5 << 9) + *v13);
+  v16 = 8 * v5;
+  if (v15 >= 256 - (v14 >> 23))
   {
-    v16 = v11[2];
-    v17 = (v16 >> 9) & 0x1FF;
-    if (v13 >= 384 - v17)
+    v18 = v13[2];
+    v19 = (v18 >> 9) & 0x1FF;
+    if (v15 >= 384 - v19)
     {
-      v19 = (v16 >> 18) & 0x1FF;
-      if (v13 >= 448 - v19)
+      v21 = (v18 >> 18) & 0x1FF;
+      if (v15 >= 448 - v21)
       {
-        v14 |= 7uLL;
-        v13 = (v13 + v19 - 448);
+        v16 |= 7uLL;
+        v15 = (v15 + v21 - 448);
       }
 
       else
       {
-        v14 |= 6uLL;
-        v13 = (v13 + v17 - 384);
+        v16 |= 6uLL;
+        v15 = (v15 + v19 - 384);
       }
     }
 
-    else if (v13 >= 320 - (v16 & 0x1FF))
+    else if (v15 >= 320 - (v18 & 0x1FF))
     {
-      v14 |= 5uLL;
-      v13 = (v13 + (v16 & 0x1FF) - 320);
+      v16 |= 5uLL;
+      v15 = (v15 + (v18 & 0x1FF) - 320);
     }
 
     else
     {
-      v14 |= 4uLL;
-      v13 = (v13 + (v12 >> 23) - 256);
+      v16 |= 4uLL;
+      v15 = (v15 + (v14 >> 23) - 256);
     }
   }
 
-  else if (v13 >= 128 - (v12 >> 7))
+  else if (v15 >= 128 - (v14 >> 7))
   {
-    v18 = (v12 >> 15);
-    if (v13 >= 192 - v18)
+    v20 = (v14 >> 15);
+    if (v15 >= 192 - v20)
     {
-      v14 |= 3uLL;
-      v13 = (v13 + v18 - 192);
+      v16 |= 3uLL;
+      v15 = (v15 + v20 - 192);
     }
 
     else
     {
-      v14 |= 2uLL;
-      v13 = (v13 + (v12 >> 7) - 128);
+      v16 |= 2uLL;
+      v15 = (v15 + (v14 >> 7) - 128);
     }
   }
 
   else
   {
-    v15 = v12 & 0x7F;
-    if (v13 >= 64 - v15)
+    v17 = v14 & 0x7F;
+    if (v15 >= 64 - v17)
     {
-      v14 |= 1uLL;
-      v13 = (v13 + v15 - 64);
+      v16 |= 1uLL;
+      v15 = (v15 + v17 - 64);
     }
   }
 }
 
-unint64_t internal::marisa::grimoire::vector::anonymous namespace::select_bit(internal::marisa::grimoire::vector::_anonymous_namespace_ *this, uint64_t a2, unint64_t a3)
+uint64_t internal::marisa::grimoire::vector::anonymous namespace::select_bit(internal::marisa::grimoire::vector::_anonymous_namespace_ *this, uint64_t a2, unint64_t a3)
 {
   v3 = (((a3 - ((a3 >> 1) & 0x5555555555555555)) >> 2) & 0x3333333333333333) + ((a3 - ((a3 >> 1) & 0x5555555555555555)) & 0x3333333333333333);
   v4 = (v3 + (v3 >> 4)) & 0xF0F0F0F0F0F0F0FLL;
   v5 = __clz(__rbit64(((((0x101010101010101 * v4) | 0x8080808080808080) - 0x101010101010101 * this - 0x101010101010101) >> 7) & 0x101010101010101));
 }
 
-unint64_t internal::marisa::grimoire::vector::BitVector::select1(internal::marisa::grimoire::vector::BitVector *this, unint64_t a2)
+uint64_t internal::marisa::grimoire::vector::BitVector::select1(internal::marisa::grimoire::vector::BitVector *this, unint64_t a2)
 {
   v2 = (*(this + 22) + 4 * (a2 >> 9));
   if ((a2 & 0x1FF) == 0)
@@ -3378,119 +3378,117 @@ void internal::marisa::grimoire::vector::BitVector::build_index(internal::marisa
     }
 
 LABEL_35:
-    v35 = (v8 - 1) >> 9;
-    v36 = ((v8 - 1) >> 6) & 7;
-    if (v36 > 3)
+    v32 = (v8 - 1) >> 9;
+    v33 = ((v8 - 1) >> 6) & 7;
+    if (v33 > 3)
     {
       if ((((v8 - 1) >> 6) & 7) > 5)
       {
-        if (v36 == 7)
+        if (v33 == 7)
         {
           goto LABEL_55;
         }
 
-        v37 = *(this + 9);
-        v43 = (v37 + 12 * v35);
-        v44 = v43[2];
-        v39 = v13 - *v43;
+        v34 = *(this + 9);
+        v40 = (v34 + 12 * v32);
+        v41 = v40[2];
+        v36 = v13 - *v40;
         goto LABEL_54;
       }
 
-      if (v36 != 4)
+      if (v33 != 4)
       {
-        v37 = *(this + 9);
-        v47 = (v37 + 12 * v35);
-        v48 = v47[2];
-        v39 = v13 - *v47;
+        v34 = *(this + 9);
+        v44 = (v34 + 12 * v32);
+        v45 = v44[2];
+        v36 = v13 - *v44;
 LABEL_53:
-        v44 = v48 & 0xFFFC01FF | ((v39 & 0x1FF) << 9);
-        *(v37 + 12 * v35 + 8) = v44;
+        v41 = v45 & 0xFFFC01FF | ((v36 & 0x1FF) << 9);
+        *(v34 + 12 * v32 + 8) = v41;
 LABEL_54:
-        *(v37 + 12 * v35 + 8) = v44 & 0xF803FFFF | ((v39 & 0x1FF) << 18);
+        *(v34 + 12 * v32 + 8) = v41 & 0xF803FFFF | ((v36 & 0x1FF) << 18);
         goto LABEL_55;
       }
 
-      v37 = *(this + 9);
-      v39 = v13 - *(v37 + 12 * v35);
+      v34 = *(this + 9);
+      v36 = v13 - *(v34 + 12 * v32);
 LABEL_52:
-      v50 = v37 + 12 * v35;
-      v48 = *(v50 + 8) & 0xFFFFFE00 | v39 & 0x1FF;
-      *(v50 + 8) = v48;
+      v47 = v34 + 12 * v32;
+      v45 = *(v47 + 8) & 0xFFFFFE00 | v36 & 0x1FF;
+      *(v47 + 8) = v45;
       goto LABEL_53;
     }
 
     if ((((v8 - 1) >> 6) & 7) > 1)
     {
-      if (v36 != 2)
+      if (v33 != 2)
       {
-        v37 = *(this + 9);
-        v49 = (v37 + 12 * v35);
-        v46 = v49[1];
-        v39 = v13 - *v49;
+        v34 = *(this + 9);
+        v46 = (v34 + 12 * v32);
+        v43 = v46[1];
+        v36 = v13 - *v46;
         goto LABEL_51;
       }
 
-      v37 = *(this + 9);
-      v41 = (v37 + 12 * v35);
-      v42 = v41[1];
-      v39 = v13 - *v41;
+      v34 = *(this + 9);
+      v38 = (v34 + 12 * v32);
+      v39 = v38[1];
+      v36 = v13 - *v38;
     }
 
     else
     {
-      if (v36)
+      if (v33)
       {
-        v37 = *(this + 9);
-        v45 = (v37 + 12 * v35);
-        v40 = v45[1];
-        v39 = v13 - *v45;
+        v34 = *(this + 9);
+        v42 = (v34 + 12 * v32);
+        v37 = v42[1];
+        v36 = v13 - *v42;
       }
 
       else
       {
-        v37 = *(this + 9);
-        v38 = (v37 + 12 * v35);
-        v39 = v13 - *v38;
-        v40 = v38[1] & 0xFFFFFF80 | v39 & 0x7F;
-        v38[1] = v40;
+        v34 = *(this + 9);
+        v35 = (v34 + 12 * v32);
+        v36 = v13 - *v35;
+        v37 = v35[1] & 0xFFFFFF80 | v36 & 0x7F;
+        v35[1] = v37;
       }
 
-      v42 = v40 & 0xFFFF807F | (v39 << 7);
-      *(v37 + 12 * v35 + 4) = v42;
+      v39 = v37 & 0xFFFF807F | (v36 << 7);
+      *(v34 + 12 * v32 + 4) = v39;
     }
 
-    v46 = v42 & 0xFF807FFF | (v39 << 15);
-    *(v37 + 12 * v35 + 4) = v46;
+    v43 = v39 & 0xFF807FFF | (v36 << 15);
+    *(v34 + 12 * v32 + 4) = v43;
 LABEL_51:
-    *(v37 + 12 * v35 + 4) = v46 & 0x7FFFFF | (v39 << 23);
+    *(v34 + 12 * v32 + 4) = v43 & 0x7FFFFF | (v36 << 23);
     goto LABEL_52;
   }
 
-  v51 = v8 & 0x1FF;
-  v52 = v8;
+  v48 = v8 & 0x1FF;
+  v49 = v8;
   v11 = 0;
   v12 = 0;
   v13 = 0;
   v14 = 0;
-  v55 = *(v6 + 3);
+  v52 = *(v6 + 3);
   do
   {
     v15 = v14 & 7;
-    v16 = (*(this + 9) + 12 * (v11 >> 9));
+    v16 = *(this + 9) + 12 * (v11 >> 9);
     if (v15 <= 3)
     {
       if ((v14 & 7u) > 1uLL)
       {
         if (v15 == 2)
         {
-          v19 = (v13 - *v16);
-          v18 = v16[1] & 0xFFFF807F | ((v13 - *v16) << 7);
+          v17 = *(v16 + 4) & 0xFFFF807F | ((v13 - *v16) << 7);
         }
 
         else
         {
-          v21 = (v13 - *v16);
-          v18 = v16[1] & 0xFF807FFF | ((v13 - *v16) << 15);
+          v17 = *(v16 + 4) & 0xFF807FFF | ((v13 - *v16) << 15);
         }
       }
 
@@ -3502,7 +3500,7 @@ LABEL_51:
           goto LABEL_22;
         }
 
-        v18 = v16[1] & 0xFFFFFF80 | (v13 - *v16) & 0x7F;
+        v17 = *(v16 + 4) & 0xFFFFFF80 | (v13 - *v16) & 0x7F;
       }
 
       goto LABEL_19;
@@ -3512,12 +3510,12 @@ LABEL_51:
     {
       if (v15 == 6)
       {
-        v20 = v16[2] & 0xFFFC01FF | (((v13 - *v16) & 0x1FF) << 9);
+        v18 = *(v16 + 8) & 0xFFFC01FF | (((v13 - *v16) & 0x1FF) << 9);
       }
 
       else
       {
-        v20 = v16[2] & 0xF803FFFF | (((v13 - *v16) & 0x1FF) << 18);
+        v18 = *(v16 + 8) & 0xF803FFFF | (((v13 - *v16) & 0x1FF) << 18);
       }
     }
 
@@ -3525,74 +3523,73 @@ LABEL_51:
     {
       if (v15 == 4)
       {
-        v17 = (v13 - *v16);
-        v18 = v16[1] & 0x7FFFFF | ((v13 - *v16) << 23);
+        v17 = *(v16 + 4) & 0x7FFFFF | ((v13 - *v16) << 23);
 LABEL_19:
-        v16[1] = v18;
+        *(v16 + 4) = v17;
         goto LABEL_22;
       }
 
-      v20 = v16[2] & 0xFFFFFE00 | (v13 - *v16) & 0x1FF;
+      v18 = *(v16 + 8) & 0xFFFFFE00 | (v13 - *v16) & 0x1FF;
     }
 
-    v16[2] = v20;
+    *(v16 + 8) = v18;
 LABEL_22:
-    v22 = *(*(v6 + 2) + 8 * v14);
-    v23 = (((((v22 >> 1) & 0x5555555555555555) + (v22 & 0x5555555555555555)) >> 2) & 0x3333333333333333) + ((((v22 >> 1) & 0x5555555555555555) + (v22 & 0x5555555555555555)) & 0x3333333333333333);
-    v24 = (0x101010101010101 * (((v23 >> 4) & 0x707070707070707) + (v23 & 0x707070707070707))) >> 56;
+    v19 = *(*(v6 + 2) + 8 * v14);
+    v20 = (((((v19 >> 1) & 0x5555555555555555) + (v19 & 0x5555555555555555)) >> 2) & 0x3333333333333333) + ((((v19 >> 1) & 0x5555555555555555) + (v19 & 0x5555555555555555)) & 0x3333333333333333);
+    v21 = (0x101010101010101 * (((v20 >> 4) & 0x707070707070707) + (v20 & 0x707070707070707))) >> 56;
     if (a3)
     {
-      v25 = v6;
-      v26 = a3;
-      v27 = a4;
-      v28 = 64;
+      v22 = v6;
+      v23 = a3;
+      v24 = a4;
+      v25 = 64;
       if (v8 < 0x40)
       {
-        v28 = v8;
+        v25 = v8;
       }
 
-      v29 = v28 - v24;
-      v30 = (-v12 & 0x1FFLL);
-      if (v28 - v24 > v30)
+      v26 = v25 - v21;
+      v27 = (-v12 & 0x1FFLL);
+      if (v25 - v21 > v27)
       {
-        v53 = v12;
-        v54 = v13;
-        internal::marisa::grimoire::vector::Vector<unsigned int>::push_back(this + 14, &v56);
-        v12 = v53;
-        v13 = v54;
-        v10 = v55;
+        v50 = v12;
+        v51 = v13;
+        internal::marisa::grimoire::vector::Vector<unsigned int>::push_back(this + 14, &v53);
+        v12 = v50;
+        v13 = v51;
+        v10 = v52;
       }
 
-      v12 += v29;
-      a4 = v27;
-      a3 = v26;
-      v6 = v25;
+      v12 += v26;
+      a4 = v24;
+      a3 = v23;
+      v6 = v22;
     }
 
     if (a4)
     {
-      v31 = (-v13 & 0x1FFLL);
-      if (v24 > v31)
+      v28 = (-v13 & 0x1FFLL);
+      if (v21 > v28)
       {
-        v32 = v22;
-        v33 = v13;
-        v34 = v12;
-        internal::marisa::grimoire::vector::Vector<unsigned int>::push_back(this + 20, &v56);
-        v12 = v34;
-        v10 = v55;
-        v13 = v33;
+        v29 = v19;
+        v30 = v13;
+        v31 = v12;
+        internal::marisa::grimoire::vector::Vector<unsigned int>::push_back(this + 20, &v53);
+        v12 = v31;
+        v10 = v52;
+        v13 = v30;
       }
     }
 
-    v13 += v24;
+    v13 += v21;
     ++v14;
     v11 += 64;
     v8 -= 64;
   }
 
   while (v10 != v14);
-  v8 = v52;
-  if (v51)
+  v8 = v49;
+  if (v48)
   {
     goto LABEL_35;
   }
@@ -3603,15 +3600,15 @@ LABEL_55:
   *(*(this + 9) + 12 * *(this + 11) - 12) = v13;
   if (a3)
   {
-    v56 = v8;
-    internal::marisa::grimoire::vector::Vector<unsigned int>::push_back(this + 14, &v56);
+    v53 = v8;
+    internal::marisa::grimoire::vector::Vector<unsigned int>::push_back(this + 14, &v53);
     internal::marisa::grimoire::vector::Vector<unsigned int>::shrink(this + 28);
   }
 
   if (a4)
   {
-    v56 = v8;
-    internal::marisa::grimoire::vector::Vector<unsigned int>::push_back(this + 20, &v56);
+    v53 = v8;
+    internal::marisa::grimoire::vector::Vector<unsigned int>::push_back(this + 20, &v53);
     internal::marisa::grimoire::vector::Vector<unsigned int>::shrink(this + 40);
   }
 }
@@ -3753,9 +3750,9 @@ LABEL_11:
   return Copy;
 }
 
-void sub_1D2B10A74(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1D2B10A74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   nlp::CFScopedPtr<__CFString const*>::reset(va, 0);
   _Unwind_Resume(a1);
 }
@@ -3766,11 +3763,8 @@ uint64_t CEM::LocalizedStringTable::_getLocalizedDataView(CEM::LocalizedStringTa
   v2 = *(this + 4);
   if (!v2)
   {
-    v3 = *this;
-    v4 = *(this + 2);
-    v5 = *(this + 3);
-    v6 = CFBundleCopyLocalizedStringTableForLocalization();
-    nlp::CFScopedPtr<__CFDictionary const*>::reset(this + 4, v6);
+    v3 = CFBundleCopyLocalizedStringTableForLocalization();
+    nlp::CFScopedPtr<__CFDictionary const*>::reset(this + 4, v3);
     v2 = *(this + 4);
   }
 
@@ -3800,9 +3794,9 @@ CFStringRef CEM::LocalizedStringTable::copyValueForEmoji(CEM::LocalizedStringTab
   return v4;
 }
 
-void sub_1D2B10B84(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1D2B10B84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<CEM::EmojiToken>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -3857,7 +3851,7 @@ Class ___ZN3CEML12initNSBundleEv_block_invoke()
 
   else
   {
-    v1 = abort_report_np();
+    v1 = abort_report_np("Unable to find class %s", "NSBundle");
     return CEM::NSBundleFunction(v1);
   }
 
@@ -3870,9 +3864,9 @@ void *___ZN3CEML17FoundationLibraryEv_block_invoke()
   CEM::FoundationLibrary(void)::frameworkLibrary = result;
   if (!result)
   {
-    dlerror();
-    v1 = abort_report_np();
-    return CEM::initNSString(v1);
+    v1 = dlerror();
+    v2 = abort_report_np("%s", v1);
+    return CEM::initNSString(v2);
   }
 
   return result;
@@ -3904,7 +3898,7 @@ Class ___ZN3CEML12initNSStringEv_block_invoke()
 
   else
   {
-    v1 = abort_report_np();
+    v1 = abort_report_np("Unable to find class %s", "NSString");
     return CEM::NSStringFunction(v1);
   }
 
@@ -3925,18 +3919,20 @@ uint64_t *std::unique_ptr<CEM::EmojiToken>::reset[abi:ne200100](uint64_t *result
   return result;
 }
 
-CFStringRef CEM::VoiceoverStrings::createDescription(CEM::LocalizedStringTable **a1, CFStringRef theString, int a3, int a4)
+CFStringRef CEM::VoiceoverStrings::createDescription(CEM::LocalizedStringTable **a1, CFStringRef theString, uint64_t a3, uint64_t a4)
 {
   if (!theString || !*a1)
   {
     return 0;
   }
 
+  v5 = a4;
+  v6 = a3;
   MutableCopy = CFStringCreateMutableCopy(0, 0, theString);
   CFStringTransform(MutableCopy, 0, @"Any-SoftbankSMS", 0);
   if (CFStringCompare(theString, MutableCopy, 0))
   {
-    VoiceoverSearchKeyForEmoji = createVoiceoverSearchKeyForEmoji(MutableCopy, 0, a3, a4);
+    VoiceoverSearchKeyForEmoji = createVoiceoverSearchKeyForEmoji(MutableCopy, 0, v6, v5);
     v10 = CEM::LocalizedStringTable::copyValueForKey(*a1, VoiceoverSearchKeyForEmoji);
     if (v10)
     {
@@ -3949,7 +3945,7 @@ CFStringRef CEM::VoiceoverStrings::createDescription(CEM::LocalizedStringTable *
     VoiceoverSearchKeyForEmoji = 0;
   }
 
-  v11 = createVoiceoverSearchKeyForEmoji(theString, 0, a3, a4);
+  v11 = createVoiceoverSearchKeyForEmoji(theString, 0, v6, v5);
   if (VoiceoverSearchKeyForEmoji)
   {
     CFRelease(VoiceoverSearchKeyForEmoji);
@@ -3968,7 +3964,7 @@ LABEL_12:
     goto LABEL_13;
   }
 
-  VoiceoverSearchKeyForEmoji = createVoiceoverSearchKeyForEmoji(theString, 1, a3, a4);
+  VoiceoverSearchKeyForEmoji = createVoiceoverSearchKeyForEmoji(theString, 1, v6, v5);
   if (v11)
   {
     CFRelease(v11);
@@ -3991,14 +3987,14 @@ LABEL_14:
   return v10;
 }
 
-void sub_1D2B1101C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1D2B1101C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va2, a2);
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, const void *);
+  va_start(va2, a3);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, const void *);
   va_copy(va2, va1);
-  v5 = va_arg(va2, const void *);
+  v6 = va_arg(va2, const void *);
   nlp::CFScopedPtr<__CFString const*>::reset(va, 0);
   nlp::CFScopedPtr<__CFString const*>::reset(va1, 0);
   nlp::CFScopedPtr<__CFString *>::reset(va2);
@@ -4007,46 +4003,46 @@ void sub_1D2B1101C(_Unwind_Exception *a1, uint64_t a2, ...)
 
 __CFString *createVoiceoverSearchKeyForEmoji(const __CFString *a1, int a2, int a3, int a4)
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   Length = CFStringGetLength(a1);
   Mutable = CFStringCreateMutable(0, 0);
   CFStringAppend(Mutable, @"UnicodeHex.");
   theString = a1;
-  v32 = 0;
-  v33 = Length;
+  v31 = 0;
+  v32 = Length;
   CharactersPtr = CFStringGetCharactersPtr(a1);
   CStringPtr = 0;
-  v30 = CharactersPtr;
+  v29 = CharactersPtr;
   if (!CharactersPtr)
   {
     CStringPtr = CFStringGetCStringPtr(a1, 0x600u);
   }
 
+  v33 = 0;
   v34 = 0;
-  v35 = 0;
-  v31 = CStringPtr;
+  v30 = CStringPtr;
   if (Length >= 1)
   {
     for (i = 0; i != Length; ++i)
     {
-      v12 = v33;
-      if (v33 <= i)
+      v12 = v32;
+      if (v32 <= i)
       {
         v14 = 0;
       }
 
       else
       {
-        if (v30)
+        if (v29)
         {
-          v13 = &v30[v32 + i];
+          v13 = &v29[v31 + i];
           goto LABEL_8;
         }
 
-        if (!v31)
+        if (!v30)
         {
-          v19 = v34;
-          if (v35 <= i || v34 > i)
+          v19 = v33;
+          if (v34 <= i || v33 > i)
           {
             v21 = i - 4;
             if (i < 4)
@@ -4054,17 +4050,17 @@ __CFString *createVoiceoverSearchKeyForEmoji(const __CFString *a1, int a2, int a
               v21 = 0;
             }
 
-            if (v21 + 64 < v33)
+            if (v21 + 64 < v32)
             {
               v12 = v21 + 64;
             }
 
-            v34 = v21;
-            v35 = v12;
-            v38.length = v12 - v21;
-            v38.location = v32 + v21;
-            CFStringGetCharacters(theString, v38, buffer);
-            v19 = v34;
+            v33 = v21;
+            v34 = v12;
+            v37.length = v12 - v21;
+            v37.location = v31 + v21;
+            CFStringGetCharacters(theString, v37, buffer);
+            v19 = v33;
           }
 
           v13 = &buffer[i - v19];
@@ -4088,7 +4084,7 @@ LABEL_8:
           goto LABEL_21;
         }
 
-        v14 = v31[v32 + i];
+        v14 = v30[v31 + i];
       }
 
 LABEL_21:
@@ -4134,7 +4130,6 @@ LABEL_21:
     }
   }
 
-  v25 = *MEMORY[0x1E69E9840];
   return Mutable;
 }
 
@@ -4177,22 +4172,21 @@ void std::vector<std::variant<std::monostate,unsigned int,double,std::string,std
 
 uint64_t CEM::AdaptationDatabase::executeStatement(CEM::AdaptationDatabase *this, CEM::Statement *a2, uint64_t a3)
 {
-  v5[4] = *MEMORY[0x1E69E9840];
+  v4[4] = *MEMORY[0x1E69E9840];
   *this = 0;
   *(this + 1) = 0;
   *(this + 2) = 0;
-  v5[0] = &unk_1F4E06B88;
-  v5[1] = this;
-  v5[3] = v5;
-  CEM::AdaptationDatabase::executeStatement(a2, a3, v5);
-  result = std::__function::__value_func<void ()(std::map<std::string,std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>> const&)>::~__value_func[abi:ne200100](v5);
-  v4 = *MEMORY[0x1E69E9840];
-  return result;
+  v4[0] = &unk_1F4E06B88;
+  v4[1] = this;
+  v4[3] = v4;
+  CEM::AdaptationDatabase::executeStatement(a2, a3, v4);
+  return std::__function::__value_func<void ()(std::map<std::string,std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>> const&)>::~__value_func[abi:ne200100](v4);
 }
 
-void sub_1D2B113F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void **a9, char a10)
+void sub_1D2B113F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  std::__function::__value_func<void ()(std::map<std::string,std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>> const&)>::~__value_func[abi:ne200100](&a10);
+  va_start(va, a9);
+  std::__function::__value_func<void ()(std::map<std::string,std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>> const&)>::~__value_func[abi:ne200100](va);
   std::vector<std::map<std::string,std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>>>::__destroy_vector::operator()[abi:ne200100](&a9);
   _Unwind_Resume(a1);
 }
@@ -4209,7 +4203,7 @@ void std::vector<std::map<std::string,std::variant<std::monostate,unsigned int,d
     {
       do
       {
-        v6 = v4 - 24;
+        v6 = v4 - 3;
         std::__tree<std::__value_type<std::string,std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>>>>::destroy(*(v4 - 2));
         v4 = v6;
       }
@@ -4290,9 +4284,9 @@ void _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm3EEE10__d
 
 void CEM::AdaptationDatabase::executeStatement(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   std::mutex::lock((a1 + 32));
-  v26 = a1;
+  v25 = a1;
   v5 = *(a1 + 24);
   if (v5)
   {
@@ -4310,9 +4304,9 @@ void CEM::AdaptationDatabase::executeStatement(uint64_t a1, uint64_t a2, uint64_
       v8 = 0;
       while (1)
       {
-        LODWORD(v28) = 1;
+        LODWORD(v27) = 1;
         *buf = a2;
-        *&buf[8] = &v28;
+        *&buf[8] = &v27;
         *&buf[16] = v8;
         v9 = *(v6 + v7 + 24);
         if (v9 == -1)
@@ -4322,7 +4316,7 @@ void CEM::AdaptationDatabase::executeStatement(uint64_t a1, uint64_t a2, uint64_
 
         *&__dst = buf;
         (off_1F4E07910[v9])(&__dst);
-        if (v28)
+        if (v27)
         {
           break;
         }
@@ -4372,9 +4366,9 @@ LABEL_41:
           break;
         }
 
-        v29[0] = 0;
-        v29[1] = 0;
-        v28 = v29;
+        v28[0] = 0;
+        v28[1] = 0;
+        v27 = v28;
         if (sqlite3_column_count(*(a2 + 80)))
         {
           v15 = sqlite3_column_name(*(a2 + 80), 0);
@@ -4419,7 +4413,7 @@ LABEL_37:
                   operator new();
                 }
 
-                HIBYTE(v31) = v18;
+                HIBYTE(v30) = v18;
                 if (v18)
                 {
                   memmove(&__dst, v17, v18);
@@ -4427,7 +4421,7 @@ LABEL_37:
 
                 *(&__dst + v19) = 0;
                 *buf = __dst;
-                *&buf[16] = v31;
+                *&buf[16] = v30;
                 v20 = 3;
                 goto LABEL_37;
               default:
@@ -4461,8 +4455,8 @@ LABEL_48:
           std::__throw_bad_function_call[abi:ne200100]();
         }
 
-        (*(*v22 + 48))(v22, &v28);
-        std::__tree<std::__value_type<std::string,std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>>>>::destroy(v29[0]);
+        (*(*v22 + 48))(v22, &v27);
+        std::__tree<std::__value_type<std::string,std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>>>>::destroy(v28[0]);
       }
 
       *(a2 + 104) = sqlite3_finalize(*(a2 + 80));
@@ -4485,8 +4479,7 @@ LABEL_48:
     }
   }
 
-  std::mutex::unlock((v26 + 32));
-  v25 = *MEMORY[0x1E69E9840];
+  std::mutex::unlock((v25 + 32));
 }
 
 uint64_t std::__function::__value_func<void ()(std::map<std::string,std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>> const&)>::~__value_func[abi:ne200100](uint64_t a1)
@@ -4505,7 +4498,7 @@ uint64_t std::__function::__value_func<void ()(std::map<std::string,std::variant
   return a1;
 }
 
-uint64_t **std::__tree<std::__value_type<std::string,std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>>>>::__insert_node_at(uint64_t **result, uint64_t a2, uint64_t **a3, uint64_t *a4)
+uint64_t ***std::__tree<std::__value_type<std::string,std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>>>>::__insert_node_at(uint64_t ***result, uint64_t a2, uint64_t **a3, uint64_t *a4)
 {
   *a4 = 0;
   a4[1] = 0;
@@ -4525,12 +4518,12 @@ uint64_t **std::__tree<std::__value_type<std::string,std::variant<std::monostate
     do
     {
       v6 = a4[2];
-      if (v6[3])
+      if (*(v6 + 24))
       {
         break;
       }
 
-      v7 = v6[2];
+      v7 = *(v6 + 16);
       v8 = *v7;
       if (*v7 == v6)
       {
@@ -4544,22 +4537,22 @@ uint64_t **std::__tree<std::__value_type<std::string,std::variant<std::monostate
 
           else
           {
-            v15 = v6[1];
+            v15 = *(v6 + 8);
             v16 = *v15;
-            v6[1] = *v15;
+            *(v6 + 8) = *v15;
             v17 = v6;
             if (v16)
             {
-              v16[2] = v6;
-              v7 = v6[2];
+              *(v16 + 16) = v6;
+              v7 = *(v6 + 16);
               v17 = *v7;
             }
 
-            v15[2] = v7;
+            *(v15 + 16) = v7;
             v7[v17 != v6] = v15;
             *v15 = v6;
-            v6[2] = v15;
-            v7 = v15[2];
+            *(v6 + 16) = v15;
+            v7 = *(v15 + 16);
             v8 = *v7;
           }
 
@@ -4593,13 +4586,13 @@ uint64_t **std::__tree<std::__value_type<std::string,std::variant<std::monostate
             if (v18)
             {
               *(v18 + 16) = v6;
-              v7 = v6[2];
+              v7 = *(v6 + 16);
             }
 
             v14[2] = v7;
             v7[*v7 != v6] = v14;
             v14[1] = v6;
-            v6[2] = v14;
+            *(v6 + 16) = v14;
             v7 = v14[2];
           }
 
@@ -4729,8 +4722,7 @@ __n128 std::__variant_detail::__visitation::__base::__dispatcher<4ul>::__dispatc
   result = *a2;
   *v2 = *a2;
   v2[1].n128_u64[0] = a2[1].n128_u64[0];
-  a2->n128_u64[0] = 0;
-  a2->n128_u64[1] = 0;
+  *a2 = 0uLL;
   a2[1].n128_u64[0] = 0;
   return result;
 }
@@ -4741,8 +4733,7 @@ __n128 std::__variant_detail::__visitation::__base::__dispatcher<3ul>::__dispatc
   result = *a2;
   v2[1].n128_u64[0] = a2[1].n128_u64[0];
   *v2 = result;
-  a2->n128_u64[1] = 0;
-  a2[1].n128_u64[0] = 0;
+  *(a2 + 8) = 0uLL;
   a2->n128_u64[0] = 0;
   return result;
 }
@@ -4893,19 +4884,19 @@ uint64_t std::__function::__func<CEM::AdaptationDatabase::executeStatement(CEM::
   return result;
 }
 
-void sub_1D2B122B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_1D2B122B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<std::map<std::string,std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
 
-void *std::map<std::string,std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>>::map[abi:ne200100](void *a1, void *a2)
+uint64_t *std::map<std::string,std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>>::map[abi:ne200100](uint64_t *a1, void *a2)
 {
   a1[1] = 0;
   v3 = a1 + 1;
   a1[2] = 0;
-  *a1 = a1 + 1;
+  *a1 = (a1 + 1);
   v4 = a2 + 1;
   v5 = *a2;
   if (*a2 != a2 + 1)
@@ -4923,7 +4914,7 @@ void *std::map<std::string,std::variant<std::monostate,unsigned int,double,std::
           do
           {
             v7 = v8;
-            v8 = v8[1];
+            v8 = *(v8 + 8);
           }
 
           while (v8);
@@ -5010,11 +5001,11 @@ LABEL_18:
   return a1;
 }
 
-void sub_1D2B124B8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1D2B124B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__tree_node<std::__value_type<std::string,std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>>,void *>,std::__tree_node_destructor<std::allocator<std::__tree_node<std::__value_type<std::string,std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>>,void *>>>>::~unique_ptr[abi:ne200100](va);
-  std::__tree<std::__value_type<std::string,std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>>>>::destroy(*v2);
+  std::__tree<std::__value_type<std::string,std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>>>>::destroy(*v3);
   _Unwind_Resume(a1);
 }
 
@@ -5051,7 +5042,7 @@ uint64_t std::__variant_detail::__copy_constructor<std::__variant_detail::__trai
   return a1;
 }
 
-void **_ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm4EEE10__dispatchB8ne200100IOZNS0_6__ctorINS0_8__traitsIJNS_9monostateEjdNS_12basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEEENS_6vectorIhNSC_IhEEEEEEEE19__generic_constructB8ne200100IRKNS0_18__copy_constructorISI_LNS0_6_TraitE1EEEEEvRSJ_OT_EUlSS_E_JRKNS0_6__baseILSM_1EJS8_jdSE_SH_EEEEEEDcSR_DpT0_(void **result, void *a2)
+uint64_t **_ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm4EEE10__dispatchB8ne200100IOZNS0_6__ctorINS0_8__traitsIJNS_9monostateEjdNS_12basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEEENS_6vectorIhNSC_IhEEEEEEEE19__generic_constructB8ne200100IRKNS0_18__copy_constructorISI_LNS0_6_TraitE1EEEEEvRSJ_OT_EUlSS_E_JRKNS0_6__baseILSM_1EJS8_jdSE_SH_EEEEEEDcSR_DpT0_(uint64_t **result, void *a2)
 {
   v2 = *result;
   *v2 = 0;
@@ -5078,7 +5069,7 @@ void sub_1D2B12634(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<unsigned char>::__vallocate[abi:ne200100](uint64_t a1, uint64_t a2)
+void std::vector<unsigned char>::__vallocate[abi:ne200100](uint64_t *a1, uint64_t a2)
 {
   if ((a2 & 0x8000000000000000) == 0)
   {
@@ -5137,7 +5128,7 @@ void ___ZL26sharedMonochromeSymbolDataPK10__CFString_block_invoke(uint64_t a1, u
 void sub_1D2B12858(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, __int16 a9)
 {
   v11 = v9;
-  MEMORY[0x1D38A8C30](v11, 0x1070C408606C210);
+  MEMORY[0x1D38A8C30](v11, 0x1070C408606C210, a3, a4, a5, a6, a7, a8);
   if (a2 == 1)
   {
     __cxa_begin_catch(a1);
@@ -5154,18 +5145,18 @@ void sub_1D2B12858(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint
   _Unwind_Resume(a1);
 }
 
-void CEMEmojiLocaleDataEnumerateSearchResultsInStringWithBlock(uint64_t a1, const __CFString *a2, CFRange a3, uint64_t a4, unsigned int a5, uint64_t a6)
+void CEMEmojiLocaleDataEnumerateSearchResultsInStringWithBlock(uint64_t result, const __CFString *a2, CFRange a3, uint64_t a5, uint64_t a6, uint64_t a7)
 {
-  if (a1)
+  if (result)
   {
-    v6 = *(a1 + 24);
+    v6 = *(result + 24);
     v7[0] = MEMORY[0x1E69E9820];
     v7[1] = 0x40000000;
     v7[2] = __CEMEmojiLocaleDataEnumerateSearchResultsInStringWithBlock_block_invoke;
     v7[3] = &unk_1E8404918;
-    v7[4] = a6;
-    v7[5] = a1;
-    CEM::EmojiLocaleData::enumerateSearchResultsInStringWithBlock(v6, a2, a3, a5, 0, v7);
+    v7[4] = a7;
+    v7[5] = result;
+    CEM::EmojiLocaleData::enumerateSearchResultsInStringWithBlock(v6, a2, a3, a6, 0, v7);
   }
 }
 
@@ -5186,18 +5177,18 @@ void sub_1D2B129E8(void *a1)
   __cxa_end_catch();
 }
 
-void CEMEmojiLocaleDataEnumerateSearchResultsIncludingSubstringsInStringWithBlock(uint64_t a1, const __CFString *a2, CFRange a3, uint64_t a4, unsigned int a5, uint64_t a6)
+void CEMEmojiLocaleDataEnumerateSearchResultsIncludingSubstringsInStringWithBlock(uint64_t result, const __CFString *a2, CFRange a3, uint64_t a5, uint64_t a6, uint64_t a7)
 {
-  if (a1)
+  if (result)
   {
-    v6 = *(a1 + 24);
+    v6 = *(result + 24);
     v7[0] = MEMORY[0x1E69E9820];
     v7[1] = 0x40000000;
     v7[2] = __CEMEmojiLocaleDataEnumerateSearchResultsIncludingSubstringsInStringWithBlock_block_invoke;
     v7[3] = &unk_1E8404940;
-    v7[4] = a6;
-    v7[5] = a1;
-    CEM::EmojiLocaleData::enumerateSearchResultsInStringWithBlock(v6, a2, a3, a5, 1, v7);
+    v7[4] = a7;
+    v7[5] = result;
+    CEM::EmojiLocaleData::enumerateSearchResultsInStringWithBlock(v6, a2, a3, a6, 1, v7);
   }
 }
 
@@ -5221,10 +5212,10 @@ void sub_1D2B12B10(void *a1)
 __CFArray *CEMEmojiLocaleDataCreateEmojiTokensForString(__CFArray *a1, const __CFString *a2, const __CFString *a3, uint64_t a4, unsigned int a5, int a6)
 {
   Wrappers = a1;
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   if (a1)
   {
-    v11 = MEMORY[0x1D38A8770](*(*(a1 + 3) + 32));
+    v11 = MEMORY[0x1D38A8770](*(*(a1 + 3) + 32), a2, a3, a4);
     if (v11)
     {
       v12 = !CFStringHasPrefix(v11, @"en") || a2 == 0;
@@ -5232,39 +5223,39 @@ __CFArray *CEMEmojiLocaleDataCreateEmojiTokensForString(__CFArray *a1, const __C
       {
         if (CFStringCompare(a2, @"smile", 1uLL) == kCFCompareEqualTo)
         {
-          v27 = xmmword_1E8404960;
-          v28 = @"😀";
-          *&v23 = 0;
-          v22 = 0uLL;
-          std::vector<__CFString const*>::__init_with_size[abi:ne200100]<__CFString const* const*,__CFString const* const*>();
+          v26 = xmmword_1E8404960;
+          v27 = @"😀";
+          *&v22 = 0;
+          v21 = 0uLL;
+          std::vector<__CFString const*>::__init_with_size[abi:ne200100]<__CFString const* const*,__CFString const* const*>(&v21, &v26, &v28, 3);
         }
 
         if (CFStringCompare(a2, @"smiley", 1uLL) == kCFCompareEqualTo)
         {
-          v22 = xmmword_1E8404978;
-          v23 = *&off_1E8404988;
-          v28 = 0;
-          v27 = 0uLL;
-          std::vector<__CFString const*>::__init_with_size[abi:ne200100]<__CFString const* const*,__CFString const* const*>();
+          v21 = xmmword_1E8404978;
+          v22 = *&off_1E8404988;
+          v27 = 0;
+          v26 = 0uLL;
+          std::vector<__CFString const*>::__init_with_size[abi:ne200100]<__CFString const* const*,__CFString const* const*>(&v26, &v21, v23, 4);
         }
 
         if (CFStringCompare(a2, @"happy", 1uLL) == kCFCompareEqualTo)
         {
-          v24 = xmmword_1E84049B8;
-          v25 = *off_1E84049C8;
-          v26 = @"🙃";
-          v22 = xmmword_1E8404998;
-          v23 = *&off_1E84049A8;
-          v28 = 0;
-          v27 = 0uLL;
-          std::vector<__CFString const*>::__init_with_size[abi:ne200100]<__CFString const* const*,__CFString const* const*>();
+          v23[0] = xmmword_1E84049B8;
+          v23[1] = *off_1E84049C8;
+          v24 = @"🙃";
+          v21 = xmmword_1E8404998;
+          v22 = *&off_1E84049A8;
+          v27 = 0;
+          v26 = 0uLL;
+          std::vector<__CFString const*>::__init_with_size[abi:ne200100]<__CFString const* const*,__CFString const* const*>(&v26, &v21, &v25, 9);
         }
       }
     }
 
     v14 = *(Wrappers + 3);
-    v28 = 0;
-    v27 = 0uLL;
+    v27 = 0;
+    v26 = 0uLL;
     v15 = *v14;
     if (*v14 && (*(v15 + 120) & 2) != 0)
     {
@@ -5277,36 +5268,35 @@ __CFArray *CEMEmojiLocaleDataCreateEmojiTokensForString(__CFArray *a1, const __C
       v15 = *(v14 + 8);
     }
 
-    CEM::EmojiLocaleData::exactMatchEmojiTokensForSingleWord(&v22, v14, a2, a3, a5, v15, a6);
-    std::vector<std::shared_ptr<CEM::EmojiToken>>::__vdeallocate(&v27);
-    v20 = v22;
+    CEM::EmojiLocaleData::exactMatchEmojiTokensForSingleWord(&v21, v14, a2, a3, a5, v15, a6);
+    std::vector<std::shared_ptr<CEM::EmojiToken>>::__vdeallocate(&v26);
+    v19 = v21;
+    v26 = v21;
     v27 = v22;
-    v28 = v23;
-    *&v23 = 0;
-    v21 = &v22;
-    v22 = 0uLL;
-    std::vector<std::shared_ptr<CEM::EmojiToken>>::__destroy_vector::operator()[abi:ne200100](&v21);
-    if (vmovn_s64(vceqq_s64(vdupq_laneq_s64(v20, 1), v20)).u8[0])
+    *&v22 = 0;
+    v20 = &v21;
+    v21 = 0uLL;
+    std::vector<std::shared_ptr<CEM::EmojiToken>>::__destroy_vector::operator()[abi:ne200100](&v20);
+    if (vmovn_s64(vceqq_s64(vdupq_laneq_s64(v19, 1), v19)).u8[0])
     {
       MutableCopy = CFStringCreateMutableCopy(0, 0, a2);
       CFStringLowercase(MutableCopy, *(v14 + 32));
-      CEM::EmojiLocaleData::exactMatchEmojiTokensForSingleWord(&v22, v14, MutableCopy, a3, a5, *v16, a6);
-      std::vector<std::shared_ptr<CEM::EmojiToken>>::__vdeallocate(&v27);
+      CEM::EmojiLocaleData::exactMatchEmojiTokensForSingleWord(&v21, v14, MutableCopy, a3, a5, *v16, a6);
+      std::vector<std::shared_ptr<CEM::EmojiToken>>::__vdeallocate(&v26);
+      v26 = v21;
       v27 = v22;
-      v28 = v23;
-      *&v23 = 0;
-      v21 = &v22;
-      v22 = 0uLL;
-      std::vector<std::shared_ptr<CEM::EmojiToken>>::__destroy_vector::operator()[abi:ne200100](&v21);
+      *&v22 = 0;
+      v20 = &v21;
+      v21 = 0uLL;
+      std::vector<std::shared_ptr<CEM::EmojiToken>>::__destroy_vector::operator()[abi:ne200100](&v20);
       CFRelease(MutableCopy);
     }
 
-    Wrappers = CEM::EmojiToken::createWrappers(&v27, Wrappers);
-    *&v22 = &v27;
-    std::vector<std::shared_ptr<CEM::EmojiToken>>::__destroy_vector::operator()[abi:ne200100](&v22);
+    Wrappers = CEM::EmojiToken::createWrappers(&v26, Wrappers);
+    *&v21 = &v26;
+    std::vector<std::shared_ptr<CEM::EmojiToken>>::__destroy_vector::operator()[abi:ne200100](&v21);
   }
 
-  v18 = *MEMORY[0x1E69E9840];
   return Wrappers;
 }
 
@@ -5393,7 +5383,6 @@ uint64_t CEMEmojiLocaleDataGetLocaleIdentifier(uint64_t result)
 {
   if (result)
   {
-    v1 = *(*(result + 24) + 32);
     JUMPOUT(0x1D38A8770);
   }
 
@@ -5414,9 +5403,9 @@ __CFArray *CEMEmojiLocaleDataCopyCommonEmojiTokens(const void *a1)
   return Wrappers;
 }
 
-void sub_1D2B13158(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_1D2B13158(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::vector<std::shared_ptr<CEM::EmojiToken>>::__destroy_vector::operator()[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -5571,21 +5560,21 @@ LABEL_7:
 
 uint64_t CEMEmojiLocaleDataRecordEmojiEngagement(uint64_t a1, const __CFString *a2, const __CFString *a3)
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   if (!a1 || !a2 || !a3)
   {
-    goto LABEL_20;
+    return 0;
   }
 
   v4 = *(a1 + 24);
-  CEM::getUTF8StringFromCFString(v18, a2);
-  v5 = v19;
-  v6 = v18[0];
-  v7 = v18[1];
+  CEM::getUTF8StringFromCFString(v14, a2);
+  v5 = v15;
+  v6 = v14[0];
+  v7 = v14[1];
   CEM::getUTF8StringFromCFString(&__p, a3);
   if ((v5 & 0x80u) == 0)
   {
-    v8 = v18;
+    v8 = v14;
   }
 
   else
@@ -5606,40 +5595,33 @@ uint64_t CEMEmojiLocaleDataRecordEmojiEngagement(uint64_t a1, const __CFString *
   if (*(v4 + 136) == 2)
   {
     v10 = *(v4 + 192);
-    std::mutex::lock((v10 + 64));
-    if (*(*(v10 + 128) + 24))
+    std::mutex::lock(v10 + 1);
+    if (*(v10[2].__m_.__sig + 24))
     {
-      __src = v8;
       {
       }
 
       {
-      }
-
-      if ((*(v10 + 167) & 0x8000000000000000) != 0)
-      {
-        v14 = *(v10 + 144);
-        v13 = *(v10 + 152);
       }
 
       if (v9 <= 0x7FFFFFFFFFFFFFF7)
       {
         if (v9 < 0x17)
         {
-          HIBYTE(v21) = v9;
+          HIBYTE(v17) = v9;
           if (v9)
           {
-            memmove(&__dst, __src, v9);
+            memmove(&__dst, v8, v9);
           }
 
           *(&__dst + v9) = 0;
-          v25 = __dst;
-          v26 = v21;
-          v27 = 3;
-          v23 = 0;
-          v24 = 0;
+          v21 = __dst;
+          v22 = v17;
+          v23 = 3;
+          v19 = 0;
+          v20 = 0;
           *buf = 0;
-          std::vector<std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>>::__init_with_size[abi:ne200100]<std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>> const*,std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>> const*>(buf, &v25, v28, 1uLL);
+          std::vector<std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>>::__init_with_size[abi:ne200100]<std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>> const*,std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>> const*>(buf, &v21, v24, 1uLL);
         }
 
         operator new();
@@ -5648,27 +5630,25 @@ uint64_t CEMEmojiLocaleDataRecordEmojiEngagement(uint64_t a1, const __CFString *
       std::string::__throw_length_error[abi:ne200100]();
     }
 
-    std::mutex::unlock((v10 + 64));
-    if ((v17 & 0x80) == 0)
+    std::mutex::unlock(v10 + 1);
+    if ((v13 & 0x80) == 0)
     {
-      goto LABEL_18;
+      goto LABEL_17;
     }
   }
 
-  else if ((v17 & 0x80) == 0)
+  else if ((v13 & 0x80) == 0)
   {
-    goto LABEL_18;
+    goto LABEL_17;
   }
 
   operator delete(__p);
-LABEL_18:
-  if (v19 < 0)
+LABEL_17:
+  if (v15 < 0)
   {
-    operator delete(v18[0]);
+    operator delete(v14[0]);
   }
 
-LABEL_20:
-  v11 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
@@ -5729,9 +5709,9 @@ void CEMEmojiLocaleDataResetAdaptationDatabase(uint64_t a1)
   }
 }
 
-void sub_1D2B1416C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_1D2B1416C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   CEM::Statement::~Statement(va);
   _Unwind_Resume(a1);
 }
@@ -5739,71 +5719,64 @@ void sub_1D2B1416C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 BOOL CEMEMFSearchEngineIsLocaleSupported(CEM *a1, const __CFLocale *a2)
 {
   buf[3] = *MEMORY[0x1E69E9840];
-  if (a1)
+  if (!a1)
   {
-    NormalizedLocale = CEM::createNormalizedLocale(a1, a2);
-    buf[0] = NormalizedLocale;
-    SearchEngineBundleForLocale = CEM::SearchEngineResources::createSearchEngineBundleForLocale(NormalizedLocale, v4);
-    v7 = SearchEngineBundleForLocale;
-    if (SearchEngineBundleForLocale)
-    {
-      CFRelease(SearchEngineBundleForLocale);
-    }
+    return 0;
+  }
 
-    if (NormalizedLocale)
-    {
-      CFRelease(NormalizedLocale);
-    }
+  NormalizedLocale = CEM::createNormalizedLocale(a1, a2);
+  buf[0] = NormalizedLocale;
+  SearchEngineBundleForLocale = CEM::SearchEngineResources::createSearchEngineBundleForLocale(NormalizedLocale, v4);
+  v7 = SearchEngineBundleForLocale;
+  if (SearchEngineBundleForLocale)
+  {
+    CFRelease(SearchEngineBundleForLocale);
+  }
 
-    if (v7)
-    {
-      v8 = 1;
-    }
+  if (NormalizedLocale)
+  {
+    CFRelease(NormalizedLocale);
+  }
 
-    else
-    {
-      v9 = CEM::createNormalizedLocale(a1, v6);
-      Value = CFLocaleGetValue(v9, *MEMORY[0x1E695E6F0]);
-      v11 = CFLocaleGetValue(v9, *MEMORY[0x1E695E6D0]);
-      if (CFStringCompare(Value, @"en", 0) || v11 && CFStringCompare(v11, @"US", 0))
-      {
-        v13 = @"LocaleData";
-        v14 = v9;
-      }
+  if (v7)
+  {
+    return 1;
+  }
 
-      else
-      {
-        v14 = 0;
-        v13 = @"LocaleData-en";
-      }
-
-      v15 = CEM::copyResourceURLFromFrameworkBundle(v13, @"dat", 0, v14, v12);
-      v8 = v15 != 0;
-      if (v15)
-      {
-        if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
-        {
-          LODWORD(buf[0]) = 138412290;
-          *(buf + 4) = MEMORY[0x1D38A8770](v9);
-          _os_log_impl(&dword_1D2AFC000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "Legacy search is supported by locale '%@'", buf, 0xCu);
-        }
-
-        CFRelease(v15);
-      }
-
-      if (v9)
-      {
-        CFRelease(v9);
-      }
-    }
+  v9 = CEM::createNormalizedLocale(a1, v6);
+  Value = CFLocaleGetValue(v9, *MEMORY[0x1E695E6F0]);
+  v11 = CFLocaleGetValue(v9, *MEMORY[0x1E695E6D0]);
+  if (CFStringCompare(Value, @"en", 0) || v11 && CFStringCompare(v11, @"US", 0))
+  {
+    v13 = @"LocaleData";
+    v14 = v9;
   }
 
   else
   {
-    v8 = 0;
+    v14 = 0;
+    v13 = @"LocaleData-en";
   }
 
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = CEM::copyResourceURLFromFrameworkBundle(v13, @"dat", 0, v14, v12);
+  v8 = v15 != 0;
+  if (v15)
+  {
+    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
+    {
+      LODWORD(buf[0]) = 138412290;
+      *(buf + 4) = MEMORY[0x1D38A8770](v9);
+      _os_log_impl(&dword_1D2AFC000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "Legacy search is supported by locale '%@'", buf, 0xCu);
+    }
+
+    CFRelease(v15);
+  }
+
+  if (v9)
+  {
+    CFRelease(v9);
+  }
+
   return v8;
 }
 
@@ -5828,15 +5801,16 @@ CFBundleRef CEMEMFSearchEngineCreateBundleForLocaleIdentifier(CFLocaleIdentifier
   return SearchEngineBundleForLocale;
 }
 
-void sub_1D2B14410(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1D2B14410(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   nlp::CFScopedPtr<__CFLocale const*>::reset(va, 0);
   _Unwind_Resume(a1);
 }
 
-uint64_t CEMEmojiTokenCreateWithLongCharacter(unsigned int a1, uint64_t a2)
+uint64_t CEMEmojiTokenCreateWithLongCharacter(uint64_t a1, uint64_t a2)
 {
+  v3 = a1;
   if (sharedEmojiData(void)::onceToken != -1)
   {
     dispatch_once(&sharedEmojiData(void)::onceToken, &__block_literal_global_59);
@@ -5860,12 +5834,12 @@ uint64_t CEMEmojiTokenCreateWithLongCharacter(unsigned int a1, uint64_t a2)
   }
 
   v7 = v6;
-  CEM::EmojiData::advance(v4, *(v4 + 32), 0x100000000, a1);
+  CEM::EmojiData::advance(v4, *(v4 + 32), 0x100000000, v3);
   v9 = v8 & 0x100000000;
   v10 = v8;
   if ((BYTE4(v8) & (v8 != 0)) == 0 && v7)
   {
-    CEM::EmojiData::advance(v7, *(v7 + 32), 0x100000000, a1);
+    CEM::EmojiData::advance(v7, *(v7 + 32), 0x100000000, v3);
     v9 = v8 & 0x100000000;
     v10 = v8;
   }
@@ -5971,9 +5945,9 @@ void std::shared_ptr<CEM::EmojiToken>::shared_ptr[abi:ne200100]<CEM::EmojiToken,
   operator new();
 }
 
-void sub_1D2B14794(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1D2B14794(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<CEM::EmojiToken>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -6267,21 +6241,21 @@ uint64_t CEMEmojiTokenIsCommon(uint64_t result)
   return result;
 }
 
-uint64_t CEMEmojiTokenCopyName(uint64_t result)
+uint64_t CEMEmojiTokenCopyName(uint64_t result, uint64_t a2)
 {
   if (result)
   {
-    CEM::EmojiToken::copyNameWithCount(*(result + 24));
+    CEM::EmojiToken::copyNameWithCount(*(result + 24), a2, 1);
   }
 
   return result;
 }
 
-uint64_t CEMEmojiTokenCopyNameWithCount(uint64_t result)
+uint64_t CEMEmojiTokenCopyNameWithCount(uint64_t result, uint64_t a2, uint64_t a3)
 {
   if (result)
   {
-    CEM::EmojiToken::copyNameWithCount(*(result + 24));
+    CEM::EmojiToken::copyNameWithCount(*(result + 24), a2, a3);
   }
 
   return result;
@@ -6330,7 +6304,7 @@ BOOL CEMEmojiTokenIsPerson(uint64_t a1)
   CopyRemovingModifiers = CEM::EmojiToken::createCopyRemovingModifiers(*(a1 + 24));
   memset(v15, 0, sizeof(v15));
   v1 = v15;
-  v2 = _convertUTF16StringToUTF32CharBuffer(v15, 32, *(CopyRemovingModifiers + 8));
+  v2 = _convertUTF16StringToUTF32CharBuffer(v15, 32, *(CopyRemovingModifiers + 1));
   v3 = v15 + v2;
   if (v2)
   {
@@ -6356,9 +6330,9 @@ BOOL CEMEmojiTokenIsPerson(uint64_t a1)
       do
       {
         v9 = v8 >> 1;
-        v10 = &v7[4 * (v8 >> 1)];
+        v10 = &v7[v8 >> 1];
         v12 = *v10;
-        v11 = (v10 + 1);
+        v11 = v10 + 1;
         v8 += ~(v8 >> 1);
         if (v12 < v4)
         {
@@ -6372,7 +6346,7 @@ BOOL CEMEmojiTokenIsPerson(uint64_t a1)
       }
 
       while (v8);
-      if (v7 != &unk_1D2B29EB4 && *v7 <= v4)
+      if (v7 != dword_1D2B29EB4 && *v7 <= v4)
       {
         break;
       }
@@ -6447,8 +6421,9 @@ LABEL_14:
   return CEM::LocalizedStringTable::copyValueForEmoji(data, v2);
 }
 
-uint64_t CEMLongCharacterIsEmoji(unsigned int a1)
+uint64_t CEMLongCharacterIsEmoji(uint64_t a1)
 {
+  v1 = a1;
   if (sharedEmojiData(void)::onceToken != -1)
   {
     dispatch_once(&sharedEmojiData(void)::onceToken, &__block_literal_global_59);
@@ -6457,7 +6432,7 @@ uint64_t CEMLongCharacterIsEmoji(unsigned int a1)
   result = sharedEmojiData(void)::data;
   if (sharedEmojiData(void)::data)
   {
-    CEM::EmojiData::advance(sharedEmojiData(void)::data, *(sharedEmojiData(void)::data + 32), 0x100000000, a1);
+    CEM::EmojiData::advance(sharedEmojiData(void)::data, *(sharedEmojiData(void)::data + 32), 0x100000000, v1);
     return v4 & (v3 != 0);
   }
 
@@ -6509,7 +6484,7 @@ unsigned __int16 *CEMCopyEmojiTokens(uint64_t a1, uint64_t a2, uint64_t a3)
       for (i = 0; i < CFArrayGetCount(Mutable); ++i)
       {
         ValueAtIndex = CFArrayGetValueAtIndex(Mutable, i);
-        if (CFStringCompare(ValueAtIndex, @"🇹🇼", 0) || CEM::shouldShowTaiwanFlagEmoji(0))
+        if (CFStringCompare(ValueAtIndex, @"🇹🇼", 0) || (CEM::shouldShowTaiwanFlagEmoji(0) & 1) != 0)
         {
           v10 = CEMEmojiTokenCreateWithString(ValueAtIndex, a3);
           CFArrayAppendValue(v4, v10);
@@ -6699,9 +6674,8 @@ LABEL_6:
   return this;
 }
 
-void *CEM::ReadOnlyFileCreationException::ReadOnlyFileCreationException(void *a1, int a2)
+void *CEM::ReadOnlyFileCreationException::ReadOnlyFileCreationException(void *a1, int a2, uint64_t a3)
 {
-  v3 = off_1E8404B08[a2 - 1];
   std::operator+<char>();
   CEM::ResourceCreationException::ResourceCreationException(a1, &__p);
   if (v6 < 0)
@@ -6734,38 +6708,46 @@ const __CFString *CEMCreateStringByStrippingEmojiCharacters(const __CFString *a1
 {
   v1 = a1;
   Length = CFStringGetLength(a1);
+  v18 = 0;
+  v19 = &v18;
+  v20 = 0x2000000000;
+  v21 = 0;
+  v14 = 0;
+  v15 = &v14;
+  v16 = 0x2000000000;
   v17 = 0;
-  v18 = &v17;
-  v19 = 0x2000000000;
-  v20 = 0;
-  v13 = 0;
-  v14 = &v13;
-  v15 = 0x2000000000;
-  v16 = 0;
-  v7 = 0;
-  v8 = &v7;
-  v9 = 0x3002000000;
-  v10 = __Block_byref_object_copy_;
-  v11 = __Block_byref_object_dispose_;
+  v8 = 0;
+  v9 = &v8;
+  v10 = 0x3002000000;
+  v11 = __Block_byref_object_copy_;
+  v12 = __Block_byref_object_dispose_;
   v3 = *MEMORY[0x1E695E480];
   cf = CFStringCreateMutable(*MEMORY[0x1E695E480], Length);
-  CEMEnumerateEmojiTokensInStringWithBlock(v1, 0, Length);
-  v4.location = v14[3];
+  v7[0] = MEMORY[0x1E69E9820];
+  v7[1] = 0x40000000;
+  v7[2] = __CEMCreateStringByStrippingEmojiCharacters_block_invoke;
+  v7[3] = &unk_1E8404A10;
+  v7[4] = &v18;
+  v7[5] = &v14;
+  v7[6] = &v8;
+  v7[7] = v1;
+  CEMEnumerateEmojiTokensInStringWithBlock(v1, 0, Length, v7);
+  v4.location = v15[3];
   if (Length > v4.location)
   {
     v4.length = Length - v4.location;
     v5 = CFStringCreateWithSubstring(v3, v1, v4);
-    CFStringAppend(v8[5], v5);
+    CFStringAppend(v9[5], v5);
     if (v5)
     {
       CFRelease(v5);
     }
   }
 
-  if (v18[3])
+  if (v19[3])
   {
-    v1 = v8[5];
-    v8[5] = 0;
+    v1 = v9[5];
+    v9[5] = 0;
   }
 
   else
@@ -6773,24 +6755,23 @@ const __CFString *CEMCreateStringByStrippingEmojiCharacters(const __CFString *a1
     CFRetain(v1);
   }
 
-  _Block_object_dispose(&v7, 8);
+  _Block_object_dispose(&v8, 8);
   if (cf)
   {
     CFRelease(cf);
   }
 
-  _Block_object_dispose(&v13, 8);
-  _Block_object_dispose(&v17, 8);
+  _Block_object_dispose(&v14, 8);
+  _Block_object_dispose(&v18, 8);
   return v1;
 }
 
-void sub_1D2B15ACC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1D2B15ACC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va2, a2);
-  va_start(va1, a2);
-  va_start(va, a2);
-  v5 = va_arg(va1, const void *);
-  v7 = va_arg(va1, void);
+  va_start(va2, a3);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v6 = va_arg(va1, const void *);
   v8 = va_arg(va1, void);
   v9 = va_arg(va1, void);
   v10 = va_arg(va1, void);
@@ -6798,18 +6779,19 @@ void sub_1D2B15ACC(_Unwind_Exception *a1, uint64_t a2, ...)
   v12 = va_arg(va1, void);
   v13 = va_arg(va1, void);
   v14 = va_arg(va1, void);
+  v15 = va_arg(va1, void);
   va_copy(va2, va1);
-  v15 = va_arg(va2, void);
-  v17 = va_arg(va2, void);
+  v16 = va_arg(va2, void);
   v18 = va_arg(va2, void);
   v19 = va_arg(va2, void);
   v20 = va_arg(va2, void);
   v21 = va_arg(va2, void);
+  v22 = va_arg(va2, void);
   nlp::CFScopedPtr<__CFString const*>::reset(va, 0);
   _Block_object_dispose(va1, 8);
-  nlp::CFScopedPtr<__CFString *>::reset((v2 + 40));
+  nlp::CFScopedPtr<__CFString *>::reset((v3 + 40));
   _Block_object_dispose(va2, 8);
-  _Block_object_dispose((v3 - 96), 8);
+  _Block_object_dispose((v4 - 96), 8);
   _Unwind_Resume(a1);
 }
 
@@ -6835,9 +6817,9 @@ void __CEMCreateStringByStrippingEmojiCharacters_block_invoke(uint64_t a1, uint6
   }
 }
 
-void sub_1D2B15BE8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1D2B15BE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   nlp::CFScopedPtr<__CFString const*>::reset(va, 0);
   _Unwind_Resume(a1);
 }
@@ -6847,49 +6829,57 @@ const __CFString *CEMCreateStringByTranslatingEmojiCharactersToNameInString(cons
   v3 = a1;
   if (a1)
   {
-    v13 = 0;
-    nlp::CFScopedPtr<__EmojiLocaleDataWrapper const*>::acquire(&v13, cf);
-    v4 = v13;
-    if (!v13)
+    v17 = 0;
+    nlp::CFScopedPtr<__EmojiLocaleDataWrapper const*>::acquire(&v17, cf);
+    v6 = v17;
+    if (!v17)
     {
-      v4 = CEMCreateEmojiLocaleData(@"en_US");
-      v13 = v4;
+      v6 = CEMCreateEmojiLocaleData(@"en_US");
+      v17 = v6;
     }
 
-    v9 = 0;
-    v10 = &v9;
-    v11 = 0x2000000000;
+    v13 = 0;
+    v14 = &v13;
+    v15 = 0x2000000000;
     MutableCopy = CFStringCreateMutableCopy(*MEMORY[0x1E695E480], 0, v3);
-    v8[0] = 0;
-    v8[1] = v8;
-    v8[2] = 0x2000000000;
-    v8[3] = 0;
-    v7[0] = 0;
-    v7[1] = v7;
-    v7[2] = 0x2000000000;
-    v7[3] = 0;
+    v12[0] = 0;
+    v12[1] = v12;
+    v12[2] = 0x2000000000;
+    v12[3] = 0;
+    v11[0] = 0;
+    v11[1] = v11;
+    v11[2] = 0x2000000000;
+    v11[3] = 0;
     Length = CFStringGetLength(v3);
-    CEMEnumerateEmojiTokensInStringWithLocaleAndBlock(v3, 0, Length, v4);
-    v3 = v10[3];
-    _Block_object_dispose(v7, 8);
-    _Block_object_dispose(v8, 8);
-    _Block_object_dispose(&v9, 8);
-    if (v4)
+    v9[0] = MEMORY[0x1E69E9820];
+    v9[1] = 0x40000000;
+    v9[2] = __CEMCreateStringByTranslatingEmojiCharactersToNameInString_block_invoke;
+    v9[3] = &unk_1E8404A38;
+    v10 = a2;
+    v9[4] = v12;
+    v9[5] = v11;
+    v9[6] = &v13;
+    v9[7] = cf;
+    CEMEnumerateEmojiTokensInStringWithLocaleAndBlock(v3, 0, Length, v6, v9);
+    v3 = v14[3];
+    _Block_object_dispose(v11, 8);
+    _Block_object_dispose(v12, 8);
+    _Block_object_dispose(&v13, 8);
+    if (v6)
     {
-      CFRelease(v4);
+      CFRelease(v6);
     }
   }
 
   return v3;
 }
 
-void __CEMCreateStringByTranslatingEmojiCharactersToNameInString_block_invoke(uint64_t a1, uint64_t a2)
+void __CEMCreateStringByTranslatingEmojiCharactersToNameInString_block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, CFIndex a4)
 {
   v16 = *MEMORY[0x1E69E9840];
   if (a2)
   {
-    v4 = *(a1 + 64);
-    CEM::EmojiToken::copyNameWithCount(*(a2 + 24));
+    CEM::EmojiToken::copyNameWithCount(*(a2 + 24), *(a1 + 64), 1);
   }
 
   if (cem_logging_get_default_log_onceToken != -1)
@@ -6897,7 +6887,7 @@ void __CEMCreateStringByTranslatingEmojiCharactersToNameInString_block_invoke(ui
     dispatch_once(&cem_logging_get_default_log_onceToken, &__block_literal_global_309);
   }
 
-  v5 = cem_logging_get_default_log_log;
+  v6 = cem_logging_get_default_log_log;
   if (os_log_type_enabled(cem_logging_get_default_log_log, OS_LOG_TYPE_DEBUG))
   {
     v7 = *(a1 + 64);
@@ -6918,15 +6908,13 @@ void __CEMCreateStringByTranslatingEmojiCharactersToNameInString_block_invoke(ui
     v13 = v7;
     v14 = 2114;
     v15 = v9;
-    _os_log_debug_impl(&dword_1D2AFC000, v5, OS_LOG_TYPE_DEBUG, "Could not load name for emoji '%{public}@' for name type '%lu' for locale identifier '%{public}@'", buf, 0x20u);
+    _os_log_debug_impl(&dword_1D2AFC000, v6, OS_LOG_TYPE_DEBUG, "Could not load name for emoji '%{public}@' for name type '%lu' for locale identifier '%{public}@'", buf, 0x20u);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
-void sub_1D2B15F8C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1D2B15F8C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   nlp::CFScopedPtr<__CFString const*>::reset(va, 0);
   _Unwind_Resume(a1);
 }
@@ -6997,17 +6985,16 @@ uint64_t trie::MarisaTrie<unsigned int,char>::enumerateChildren(uint64_t *a1, ui
     v8[0] = &unk_1F4E07710;
     v8[1] = a3;
     v8[3] = v8;
-    internal::marisa::Trie::enumerate_children(a1 + 2, a2, v8);
-    result = std::__function::__value_func<void ()(char,internal::marisa::Cursor const&,BOOL &)>::~__value_func[abi:ne200100](v8);
+    internal::marisa::Trie::enumerate_children(a1 + 2, a2, v8, v7);
+    return std::__function::__value_func<void ()(char,internal::marisa::Cursor const&,BOOL &)>::~__value_func[abi:ne200100](v8);
   }
 
-  v7 = *MEMORY[0x1E69E9840];
   return result;
 }
 
-void sub_1D2B16150(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1D2B16150(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(char,internal::marisa::Cursor const&,BOOL &)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -7049,27 +7036,26 @@ uint64_t std::__function::__func<trie::MarisaTrie<unsigned int,char>::enumerateC
   return result;
 }
 
-uint64_t trie::MarisaTrie<unsigned int,char>::enumerateEntries(unint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t trie::MarisaTrie<unsigned int,char>::enumerateEntries(std::string **a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v10[4] = *MEMORY[0x1E69E9840];
-  result = (*(*a1 + 112))(a1);
+  v9[4] = *MEMORY[0x1E69E9840];
+  result = ((*a1)[4].__r_.__value_.__r.__words[2])(a1);
   if (result)
   {
-    v10[0] = &unk_1F4E07690;
-    v10[1] = a1;
-    v10[2] = a3;
-    v10[3] = v10;
-    internal::marisa::Trie::enumerate_entries(a1 + 2, a2, v10, a4);
-    result = std::__function::__value_func<void ()(unsigned long,std::string_view,BOOL &)>::~__value_func[abi:ne200100](v10);
+    v9[0] = &unk_1F4E07690;
+    v9[1] = a1;
+    v9[2] = a3;
+    v9[3] = v9;
+    internal::marisa::Trie::enumerate_entries(a1 + 2, a2, v9, a4);
+    return std::__function::__value_func<void ()(unsigned long,std::string_view,BOOL &)>::~__value_func[abi:ne200100](v9);
   }
 
-  v9 = *MEMORY[0x1E69E9840];
   return result;
 }
 
-void sub_1D2B163A4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1D2B163A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(unsigned long,std::string_view,BOOL &)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -7186,20 +7172,18 @@ double trie::MarisaTrie<unsigned int,char>::root@<D0>(_OWORD *a1@<X8>)
 
 uint64_t trie::MarisaTrie<unsigned int,char>::enumerateCompletions(uint64_t a1, uint64_t a2, unint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v7[4] = *MEMORY[0x1E69E9840];
-  v7[0] = &unk_1F4E07610;
-  v7[1] = a1;
-  v7[2] = a4;
-  v7[3] = v7;
-  internal::marisa::Trie::predictive_search((a1 + 16), a2, a3, v7, a5);
-  result = std::__function::__value_func<void ()(unsigned long,std::string_view,BOOL &)>::~__value_func[abi:ne200100](v7);
-  v6 = *MEMORY[0x1E69E9840];
-  return result;
+  v6[4] = *MEMORY[0x1E69E9840];
+  v6[0] = &unk_1F4E07610;
+  v6[1] = a1;
+  v6[2] = a4;
+  v6[3] = v6;
+  internal::marisa::Trie::predictive_search((a1 + 16), a2, a3, v6, a5);
+  return std::__function::__value_func<void ()(unsigned long,std::string_view,BOOL &)>::~__value_func[abi:ne200100](v6);
 }
 
-void sub_1D2B167F4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1D2B167F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(unsigned long,std::string_view,BOOL &)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -7237,20 +7221,18 @@ __n128 std::__function::__func<trie::MarisaTrie<unsigned int,char>::enumerateCom
 
 uint64_t trie::MarisaTrie<unsigned int,char>::enumeratePrefixStrings(uint64_t a1, uint64_t a2, unint64_t a3, uint64_t a4)
 {
-  v6[4] = *MEMORY[0x1E69E9840];
-  v6[0] = &unk_1F4E07580;
-  v6[1] = a1;
-  v6[2] = a4;
-  v6[3] = v6;
-  internal::marisa::Trie::common_prefix_search((a1 + 16), a2, a3, v6);
-  result = std::__function::__value_func<void ()(unsigned long,std::string_view,BOOL &)>::~__value_func[abi:ne200100](v6);
-  v5 = *MEMORY[0x1E69E9840];
-  return result;
+  v5[4] = *MEMORY[0x1E69E9840];
+  v5[0] = &unk_1F4E07580;
+  v5[1] = a1;
+  v5[2] = a4;
+  v5[3] = v5;
+  internal::marisa::Trie::common_prefix_search((a1 + 16), a2, a3, v5);
+  return std::__function::__value_func<void ()(unsigned long,std::string_view,BOOL &)>::~__value_func[abi:ne200100](v5);
 }
 
-void sub_1D2B169E0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1D2B169E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(unsigned long,std::string_view,BOOL &)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -7415,23 +7397,17 @@ void sub_1D2B16DA4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 uint64_t trie::MarisaTrie<unsigned int,char>::buildFromKeys(uint64_t a1, uint64_t *a2, uint64_t *a3, void *a4)
 {
   __p = 0;
-  v8 = 0;
-  v9 = 0;
+  v6 = 0;
+  v7 = 0;
   if (a2 != a3)
   {
-    if ((*(a2 + 23) & 0x8000000000000000) != 0)
-    {
-      v5 = *a2;
-      v4 = a2[1];
-    }
-
     operator new();
   }
 
   internal::marisa::Trie::build((a1 + 16), &__p, a4, *(a1 + 8));
   if (__p)
   {
-    v8 = __p;
+    v6 = __p;
     operator delete(__p);
   }
 
@@ -7556,10 +7532,10 @@ LABEL_14:
   return MEMORY[0x1D38A8BC0](&v26);
 }
 
-void sub_1D2B172B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, void *__p, uint64_t a5, int a6, __int16 a7, char a8, char a9, char a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, ...)
+void sub_1D2B172B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, void *__p, uint64_t a5, int a6, __int16 a7, char a8, char a9, char a10, uint64_t a11, void *a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, ...)
 {
-  va_start(va, a25);
-  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::~basic_stringstream(&a10);
+  va_start(va, a30);
+  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::~basic_stringstream(&a15);
   MEMORY[0x1D38A8BC0](va);
   _Unwind_Resume(a1);
 }
@@ -7658,19 +7634,17 @@ uint64_t std::basic_stringstream<char,std::char_traits<char>,std::allocator<char
 
 uint64_t trie::Trie<unsigned int,char,internal::marisa::Cursor>::enumerateCompletions(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v6[4] = *MEMORY[0x1E69E9840];
-  v6[0] = &unk_1F4E07500;
-  v6[1] = a4;
-  v6[3] = v6;
-  (*(*a1 + 96))(a1, a2, a3, v6);
-  result = std::__function::__value_func<void ()(unsigned int,std::string_view,BOOL &)>::~__value_func[abi:ne200100](v6);
-  v5 = *MEMORY[0x1E69E9840];
-  return result;
+  v5[4] = *MEMORY[0x1E69E9840];
+  v5[0] = &unk_1F4E07500;
+  v5[1] = a4;
+  v5[3] = v5;
+  (*(*a1 + 96))(a1, a2, a3, v5);
+  return std::__function::__value_func<void ()(unsigned int,std::string_view,BOOL &)>::~__value_func[abi:ne200100](v5);
 }
 
-void sub_1D2B1784C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1D2B1784C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(unsigned int,std::string_view,BOOL &)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -7727,19 +7701,17 @@ uint64_t std::__function::__func<trie::Trie<unsigned int,char,internal::marisa::
 
 uint64_t trie::Trie<unsigned int,char,internal::marisa::Cursor>::enumeratePrefixStrings(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v6[4] = *MEMORY[0x1E69E9840];
-  v6[0] = &unk_1F4E07480;
-  v6[1] = a4;
-  v6[3] = v6;
-  (*(*a1 + 88))(a1, a2, a3, v6);
-  result = std::__function::__value_func<void ()(unsigned int,std::string_view,BOOL &)>::~__value_func[abi:ne200100](v6);
-  v5 = *MEMORY[0x1E69E9840];
-  return result;
+  v5[4] = *MEMORY[0x1E69E9840];
+  v5[0] = &unk_1F4E07480;
+  v5[1] = a4;
+  v5[3] = v5;
+  (*(*a1 + 88))(a1, a2, a3, v5);
+  return std::__function::__value_func<void ()(unsigned int,std::string_view,BOOL &)>::~__value_func[abi:ne200100](v5);
 }
 
-void sub_1D2B17AE0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1D2B17AE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(unsigned int,std::string_view,BOOL &)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -7823,7 +7795,7 @@ uint64_t trie::Trie<unsigned int,char,internal::marisa::Cursor>::build(uint64_t 
         v31.__begin_ = (8 * ((v29 - v28) >> 3));
         v31.__end_ = v31.__begin_;
         v31.__end_cap_.__value_ = 0;
-        std::allocator_traits<std::allocator<std::string>>::construct[abi:ne200100]<std::string,char const*,unsigned long,void,0>(v31.__begin_, v10, v11);
+        std::allocator_traits<std::allocator<std::string>>::construct[abi:ne200100]<std::string,char const*,unsigned long,void,0>(v31.__begin_->__r_.__value_.__r.__words, v10, v11);
         v14 = v31.__end_ + 1;
         v17 = (v31.__begin_ - (v29 - v28));
         memcpy(v17, v28, v29 - v28);
@@ -7842,7 +7814,7 @@ uint64_t trie::Trie<unsigned int,char,internal::marisa::Cursor>::build(uint64_t 
       else
       {
         std::allocator_traits<std::allocator<std::string>>::construct[abi:ne200100]<std::string,char const*,unsigned long,void,0>(v29, *a3, v11);
-        v14 = v13 + 1;
+        v14 = (v13 + 24);
       }
 
       v29 = v14;
@@ -7890,7 +7862,7 @@ uint64_t trie::Trie<unsigned int,char,internal::marisa::Cursor>::build(uint64_t 
   return v23;
 }
 
-void sub_1D2B17F18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, void *__p, uint64_t a5, uint64_t a6, char a7, uint64_t a8, uint64_t a9, std::__split_buffer<std::string> *a10, uint64_t a11, void *__pa, void *a13, uint64_t a14, char a15)
+void sub_1D2B17F18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, void *__p, uint64_t a5, uint64_t a6, char a7, uint64_t a8, uint64_t a9, std::__split_buffer<std::string> *a10, uint64_t a11, char *__pa, char *a13, uint64_t a14, char a15)
 {
   if (__pa)
   {
@@ -7903,7 +7875,7 @@ void sub_1D2B17F18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, void *__p, u
   _Unwind_Resume(a1);
 }
 
-_BYTE *std::allocator_traits<std::allocator<std::string>>::construct[abi:ne200100]<std::string,char const*,unsigned long,void,0>(_BYTE *__dst, void *__src, size_t __len)
+void *std::allocator_traits<std::allocator<std::string>>::construct[abi:ne200100]<std::string,char const*,unsigned long,void,0>(void *__dst, void *__src, size_t __len)
 {
   if (__len >= 0x7FFFFFFFFFFFFFF8)
   {
@@ -7916,17 +7888,17 @@ _BYTE *std::allocator_traits<std::allocator<std::string>>::construct[abi:ne20010
     operator new();
   }
 
-  __dst[23] = __len;
+  *(__dst + 23) = __len;
   if (__len)
   {
     __dst = memmove(__dst, __src, __len);
   }
 
-  v4[__len] = 0;
+  *(v4 + __len) = 0;
   return __dst;
 }
 
-void std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](void ***a1)
+void std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](void ****a1)
 {
   v1 = *a1;
   v2 = **a1;
@@ -7994,7 +7966,7 @@ void std::__split_buffer<std::string>::~__split_buffer(std::__split_buffer<std::
   }
 }
 
-void trie::MarisaTrie<unsigned int,char>::~MarisaTrie(void *a1)
+void trie::MarisaTrie<unsigned int,char>::~MarisaTrie(uint64_t a1)
 {
   trie::MarisaTrie<unsigned int,char>::~MarisaTrie(a1);
 
@@ -8738,7 +8710,7 @@ LABEL_25:
 
 uint64_t cedar::da<unsigned int,-1,-2,true,1,0ul>::_follow<cedar::da<unsigned int,-1,-2,true,1,0ul>::empty_callback>(uint64_t a1, uint64_t *a2, unsigned __int8 *a3)
 {
-  v92 = *MEMORY[0x1E69E9840];
+  v91 = *MEMORY[0x1E69E9840];
   v6 = *(a1 + 8);
   v7 = *a2;
   v8 = *(v6 + 8 * *a2);
@@ -8811,9 +8783,9 @@ uint64_t cedar::da<unsigned int,-1,-2,true,1,0ul>::_follow<cedar::da<unsigned in
       v15 = *(v14 + 2 * v11 + 1);
       v21 = -1;
 LABEL_18:
-      v30 = cedar::da<unsigned int,-1,-2,true,1,0ul>::_set_child(v19, v91, v20, v15, v21);
+      v30 = cedar::da<unsigned int,-1,-2,true,1,0ul>::_set_child(v19, v90, v20, v15, v21);
       v31 = v30;
-      if (v91 == v30)
+      if (v90 == v30)
       {
         place = cedar::da<unsigned int,-1,-2,true,1,0ul>::_find_place(a1);
       }
@@ -8824,9 +8796,9 @@ LABEL_18:
         if (v32)
         {
           v33 = *(*(a1 + 40) + 20 * v32);
-          v34 = (v30 - v91 + 1);
+          v34 = (v30 - v90 + 1);
           v35 = a1 + 80;
-          v88 = v33;
+          v87 = v33;
           do
           {
             v36 = *(a1 + 40);
@@ -8838,11 +8810,11 @@ LABEL_18:
               place = *(v37 + 16);
               do
               {
-                v41 = v91;
+                v41 = v90;
                 while (1)
                 {
                   v42 = *++v41;
-                  if ((*(v39 + 8 * (place ^ v91[0] ^ v42) + 4) & 0x80000000) == 0)
+                  if ((*(v39 + 8 * (place ^ v90[0] ^ v42) + 4) & 0x80000000) == 0)
                   {
                     break;
                   }
@@ -8874,7 +8846,7 @@ LABEL_18:
             {
               cedar::da<unsigned int,-1,-2,true,1,0ul>::_transfer_block(v36, v32, (a1 + 56), (a1 + 52));
               v35 = a1 + 80;
-              v33 = v88;
+              v33 = v87;
             }
 
             v46 = v32 == v33;
@@ -8889,7 +8861,7 @@ LABEL_37:
         v10 = v8 ^ v9;
       }
 
-      v47 = place ^ v91[0];
+      v47 = place ^ v90[0];
       if (v17)
       {
         v48 = v8;
@@ -8900,7 +8872,7 @@ LABEL_37:
         v48 = v13;
       }
 
-      v90 = v48;
+      v89 = v48;
       if (v17)
       {
         v49 = *a2;
@@ -8911,14 +8883,14 @@ LABEL_37:
         v49 = v11;
       }
 
-      if (v17 && v91[0] == v9)
+      if (v17 && v90[0] == v9)
       {
         *(*(a1 + 32) + 2 * *a2 + 1) = v9;
       }
 
       *(*(a1 + 8) + 8 * v49) = v47;
       v50 = a2;
-      if (v91 <= v31)
+      if (v90 <= v31)
       {
         if (v9)
         {
@@ -8930,11 +8902,11 @@ LABEL_37:
           v51 = 0;
         }
 
-        v85 = v51;
-        v86 = v48 >> 8;
-        v52 = v91;
-        v84 = 2 * v10;
-        v89 = v49;
+        v84 = v51;
+        v85 = v48 >> 8;
+        v52 = v90;
+        v83 = 2 * v10;
+        v88 = v49;
         while (1)
         {
           v53 = cedar::da<unsigned int,-1,-2,true,1,0ul>::_pop_enode(a1, v47, *v52, v49);
@@ -8948,7 +8920,7 @@ LABEL_37:
             v54 = v52[1];
           }
 
-          v55 = v90 ^ *v52;
+          v55 = v89 ^ *v52;
           *(*(a1 + 32) + 2 * v53) = v54;
           if (v17 && v55 == v10)
           {
@@ -9024,15 +8996,15 @@ LABEL_37:
             v72 = (v69 + 2 * v74);
           }
 
-          *(v69 + v84) = v71;
+          *(v69 + v83) = v71;
           *v72 = v9;
           *(*(a1 + 32) + 2 * v60 + 1) = 0;
-          *v61 = v85;
+          *v61 = v84;
           v61[1] = *v50;
 LABEL_88:
           v10 = v57;
           v47 = v56;
-          v49 = v89;
+          v49 = v88;
 LABEL_89:
           if (++v52 > v31)
           {
@@ -9040,16 +9012,16 @@ LABEL_89:
           }
         }
 
-        v76 = *(a1 + 40) + 20 * v86;
+        v76 = *(a1 + 40) + 20 * v85;
         v77 = *(v76 + 8);
         *(v76 + 8) = v77 + 1;
         if (!v77)
         {
           *(v76 + 16) = v55;
           *(*(a1 + 8) + 8 * v55) = -v55 | (-v55 << 32);
-          if (v90 >= 0x100)
+          if (v89 >= 0x100)
           {
-            cedar::da<unsigned int,-1,-2,true,1,0ul>::_transfer_block(*(a1 + 40), v86, (a1 + 48), (a1 + 52));
+            cedar::da<unsigned int,-1,-2,true,1,0ul>::_transfer_block(*(a1 + 40), v85, (a1 + 48), (a1 + 52));
           }
 
           goto LABEL_85;
@@ -9064,18 +9036,18 @@ LABEL_89:
         *(*(a1 + 8) + 8 * v78 + 4) = v81;
         if (*(v76 + 8) == 2)
         {
-          if (v90 < 0x100)
+          if (v89 < 0x100)
           {
             goto LABEL_84;
           }
         }
 
-        else if (v90 < 0x100 || *(v76 + 12) != 1)
+        else if (v89 < 0x100 || *(v76 + 12) != 1)
         {
           goto LABEL_84;
         }
 
-        cedar::da<unsigned int,-1,-2,true,1,0ul>::_transfer_block(*(a1 + 40), v86, (a1 + 52), (a1 + 56));
+        cedar::da<unsigned int,-1,-2,true,1,0ul>::_transfer_block(*(a1 + 40), v85, (a1 + 52), (a1 + 56));
 LABEL_84:
         *(v76 + 12) = 0;
 LABEL_85:
@@ -9093,17 +9065,16 @@ LABEL_85:
 LABEL_90:
       if (v17)
       {
-        result = v47 ^ v9;
+        return v47 ^ v9;
       }
 
       else
       {
-        result = v10;
+        return v10;
       }
     }
   }
 
-  v83 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -9177,7 +9148,7 @@ LABEL_14:
   return place;
 }
 
-_BYTE *cedar::da<unsigned int,-1,-2,true,1,0ul>::_set_child(uint64_t a1, _BYTE *a2, int a3, unsigned int a4, unsigned int a5)
+_BYTE *cedar::da<unsigned int,-1,-2,true,1,0ul>::_set_child(uint64_t a1, _BYTE *a2, int a3, int a4, int a5)
 {
   if (a4)
   {
@@ -9372,7 +9343,7 @@ uint64_t cedar::da<unsigned int,-1,-2,true,1,0ul>::_add_block(uint64_t a1)
   return ((v16 >> 8) - 1);
 }
 
-uint64_t trie::CedarMinimalPrefixTrie<unsigned int,char>::enumerateChildren(void *a1, uint64_t *a2, uint64_t a3)
+uint64_t trie::CedarMinimalPrefixTrie<unsigned int,char>::enumerateChildren(void *a1, unint64_t *a2, uint64_t a3)
 {
   result = (*(*a1 + 112))(a1);
   if (result)
@@ -9802,4 +9773,20 @@ LABEL_6:
 
   v19 = (v18 + a5 + 1);
   return *v19;
+}
+
+uint64_t trie::CedarMinimalPrefixTrie<unsigned int,char>::advance(uint64_t a1, unint64_t *a2, uint64_t a3, unint64_t a4)
+{
+  v4 = *a2;
+  v6 = 0;
+  v7 = v4;
+  if (cedar::da<unsigned int,-1,-2,true,1,0ul>::_find(a1 + 8, a3, &v7, &v6, a4) == -2)
+  {
+    return -1;
+  }
+
+  else
+  {
+    return v7;
+  }
 }

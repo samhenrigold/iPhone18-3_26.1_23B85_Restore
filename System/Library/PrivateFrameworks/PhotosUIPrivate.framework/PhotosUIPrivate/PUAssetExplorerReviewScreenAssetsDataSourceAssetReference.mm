@@ -22,10 +22,10 @@
   identifierCopy = identifier;
   assetCopy = asset;
   assetCollection = [referenceCopy assetCollection];
-  indexPath = [referenceCopy indexPath];
+  v13 = objc_msgSend_indexPath(referenceCopy);
   v17.receiver = self;
   v17.super_class = PUAssetExplorerReviewScreenAssetsDataSourceAssetReference;
-  v14 = [(PUAssetReference *)&v17 initWithAsset:assetCopy assetCollection:assetCollection indexPath:indexPath dataSourceIdentifier:identifierCopy];
+  v14 = [(PUAssetReference *)&v17 initWithAsset:assetCopy assetCollection:assetCollection indexPath:v13 dataSourceIdentifier:identifierCopy];
 
   if (v14)
   {

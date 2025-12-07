@@ -68,9 +68,9 @@
   defaultCenter = [v3 defaultCenter];
   [defaultCenter removeObserver:selfCopy];
 
-  v6.receiver = selfCopy;
-  v6.super_class = type metadata accessor for FBAExpandingTextView();
-  [(FBAExpandingTextView *)&v6 dealloc];
+  v8.receiver = selfCopy;
+  v8.super_class = type metadata accessor for FBAExpandingTextView(v6, v7);
+  [(FBAExpandingTextView *)&v8 dealloc];
 }
 
 - (BOOL)canPerformAction:(SEL)action withSender:(id)sender
@@ -217,9 +217,9 @@ LABEL_6:
 - (BOOL)resignFirstResponder
 {
   selfCopy = self;
-  v3 = sub_1000468AC();
+  v4 = sub_1000468AC(selfCopy, v3);
 
-  return v3 & 1;
+  return v4 & 1;
 }
 
 - (_TtC18Feedback_Assistant20FBAExpandingTextView)initWithFrame:(CGRect)frame textContainer:(id)container

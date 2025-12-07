@@ -368,7 +368,7 @@ void __75__PKApplyVerificationSMSOTPViewController__submitCode_skippedVerificati
   }
 }
 
-uint64_t __75__PKApplyVerificationSMSOTPViewController__submitCode_skippedVerification___block_invoke_3(uint64_t a1, char a2)
+void *__75__PKApplyVerificationSMSOTPViewController__submitCode_skippedVerification___block_invoke_3(uint64_t a1, char a2)
 {
   result = [*(a1 + 32) showNavigationBarSpinner:0];
   if ((a2 & 1) == 0)
@@ -563,7 +563,7 @@ void __63__PKApplyVerificationSMSOTPViewController__withdrawApplication__block_i
 LABEL_7:
 }
 
-uint64_t __63__PKApplyVerificationSMSOTPViewController__withdrawApplication__block_invoke_2(uint64_t a1, char a2)
+void *__63__PKApplyVerificationSMSOTPViewController__withdrawApplication__block_invoke_2(uint64_t a1, char a2)
 {
   result = [*(a1 + 32) showNavigationBarSpinner:0];
   if ((a2 & 1) == 0)

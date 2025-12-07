@@ -75,37 +75,37 @@ LABEL_13:
 
 - (id)jsonDictionary
 {
-  v14[3] = *MEMORY[0x1E69E9840];
+  v13[3] = *MEMORY[0x1E69E9840];
   v3 = [MEMORY[0x1E696AD98] numberWithInt:{-[BMMLSEShareSheetInferencePeopleSuggestionsPeopleSuggestionModelIdentifier modelType](self, "modelType")}];
   trialIdentifier = [(BMMLSEShareSheetInferencePeopleSuggestionsPeopleSuggestionModelIdentifier *)self trialIdentifier];
   jsonDictionary = [trialIdentifier jsonDictionary];
 
   otherModelTypeName = [(BMMLSEShareSheetInferencePeopleSuggestionsPeopleSuggestionModelIdentifier *)self otherModelTypeName];
-  v13[0] = @"modelType";
+  v12[0] = @"modelType";
   null = v3;
   if (!v3)
   {
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v14[0] = null;
-  v13[1] = @"trialIdentifier";
+  v13[0] = null;
+  v12[1] = @"trialIdentifier";
   null2 = jsonDictionary;
   if (!jsonDictionary)
   {
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v14[1] = null2;
-  v13[2] = @"otherModelTypeName";
+  v13[1] = null2;
+  v12[2] = @"otherModelTypeName";
   null3 = otherModelTypeName;
   if (!otherModelTypeName)
   {
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v14[2] = null3;
-  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:v13 count:3];
+  v13[2] = null3;
+  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:v12 count:3];
   if (otherModelTypeName)
   {
     if (jsonDictionary)
@@ -137,14 +137,13 @@ LABEL_9:
 LABEL_15:
 
 LABEL_10:
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
 
 - (BMMLSEShareSheetInferencePeopleSuggestionsPeopleSuggestionModelIdentifier)initWithJSONDictionary:(id)dictionary error:(id *)error
 {
-  v34[1] = *MEMORY[0x1E69E9840];
+  v33[1] = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   v7 = [dictionaryCopy objectForKeyedSubscript:@"modelType"];
   if (v7 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
@@ -167,16 +166,16 @@ LABEL_10:
           goto LABEL_19;
         }
 
-        v22 = objc_alloc(MEMORY[0x1E696ABC0]);
-        v23 = *MEMORY[0x1E698F240];
-        v33 = *MEMORY[0x1E696A578];
+        v21 = objc_alloc(MEMORY[0x1E696ABC0]);
+        v22 = *MEMORY[0x1E698F240];
+        v32 = *MEMORY[0x1E696A578];
         v10 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (corresponding to enum value), or NSString (string version of enum)", objc_opt_class(), @"modelType"];
-        v34[0] = v10;
-        v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v34 forKeys:&v33 count:1];
-        v24 = [v22 initWithDomain:v23 code:2 userInfo:v11];
+        v33[0] = v10;
+        v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v33 forKeys:&v32 count:1];
+        v23 = [v21 initWithDomain:v22 code:2 userInfo:v11];
         v8 = 0;
         selfCopy = 0;
-        *error = v24;
+        *error = v23;
         goto LABEL_17;
       }
 
@@ -201,20 +200,20 @@ LABEL_10:
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v16 = v10;
-    v28 = 0;
-    v11 = [[BMTrialIdentifier alloc] initWithJSONDictionary:v16 error:&v28];
-    v17 = v28;
-    if (v17)
+    v15 = v10;
+    v27 = 0;
+    v11 = [[BMTrialIdentifier alloc] initWithJSONDictionary:v15 error:&v27];
+    v16 = v27;
+    if (v16)
     {
       if (error)
       {
-        v17 = v17;
-        *error = v17;
+        v16 = v16;
+        *error = v16;
       }
 
       selfCopy = 0;
-      v10 = v16;
+      v10 = v15;
       goto LABEL_17;
     }
 
@@ -227,13 +226,13 @@ LABEL_12:
       {
         if (error)
         {
-          v27 = objc_alloc(MEMORY[0x1E696ABC0]);
-          v25 = *MEMORY[0x1E698F240];
-          v29 = *MEMORY[0x1E696A578];
-          v20 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"otherModelTypeName"];
-          v30 = v20;
-          v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v30 forKeys:&v29 count:1];
-          *error = [v27 initWithDomain:v25 code:2 userInfo:v21];
+          v26 = objc_alloc(MEMORY[0x1E696ABC0]);
+          v24 = *MEMORY[0x1E698F240];
+          v28 = *MEMORY[0x1E696A578];
+          v19 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"otherModelTypeName"];
+          v29 = v19;
+          v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v29 forKeys:&v28 count:1];
+          *error = [v26 initWithDomain:v24 code:2 userInfo:v20];
 
           error = 0;
         }
@@ -263,13 +262,13 @@ LABEL_16:
     goto LABEL_18;
   }
 
-  v26 = objc_alloc(MEMORY[0x1E696ABC0]);
-  v18 = *MEMORY[0x1E698F240];
-  v31 = *MEMORY[0x1E696A578];
+  v25 = objc_alloc(MEMORY[0x1E696ABC0]);
+  v17 = *MEMORY[0x1E698F240];
+  v30 = *MEMORY[0x1E696A578];
   v11 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSDictionary", objc_opt_class(), @"trialIdentifier"];
-  v32 = v11;
-  v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v32 forKeys:&v31 count:1];
-  *error = [v26 initWithDomain:v18 code:2 userInfo:v19];
+  v31 = v11;
+  v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v31 forKeys:&v30 count:1];
+  *error = [v25 initWithDomain:v17 code:2 userInfo:v18];
 
   selfCopy = 0;
 LABEL_17:
@@ -277,7 +276,6 @@ LABEL_17:
 LABEL_18:
 LABEL_19:
 
-  v14 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
@@ -293,7 +291,6 @@ LABEL_19:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  modelType = self->_modelType;
   PBDataWriterWriteUint32Field();
   if (self->_trialIdentifier)
   {
@@ -500,43 +497,39 @@ LABEL_43:
 
 + (id)protoFields
 {
-  v8[3] = *MEMORY[0x1E69E9840];
+  v7[3] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"modelType" number:1 type:4 subMessageClass:0];
   v3 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"trialIdentifier" number:2 type:14 subMessageClass:{objc_opt_class(), v2}];
-  v8[1] = v3;
+  v7[1] = v3;
   v4 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"otherModelTypeName" number:3 type:13 subMessageClass:0];
-  v8[2] = v4;
-  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:3];
-
-  v6 = *MEMORY[0x1E69E9840];
+  v7[2] = v4;
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:3];
 
   return v5;
 }
 
 + (id)columns
 {
-  v8[3] = *MEMORY[0x1E69E9840];
+  v7[3] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"modelType" dataType:0 requestOnly:0 fieldNumber:1 protoDataType:4 convertedType:0];
   v3 = [objc_alloc(MEMORY[0x1E698F2D8]) initWithName:@"trialIdentifier_json" dataType:5 requestOnly:1 extractBlock:&__block_literal_global_222];
   v4 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"otherModelTypeName" dataType:2 requestOnly:0 fieldNumber:3 protoDataType:13 convertedType:0];
-  v8[0] = v2;
-  v8[1] = v3;
-  v8[2] = v4;
-  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:3];
-
-  v6 = *MEMORY[0x1E69E9840];
+  v7[0] = v2;
+  v7[1] = v3;
+  v7[2] = v4;
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:3];
 
   return v5;
 }
 
-id __84__BMMLSEShareSheetInferencePeopleSuggestionsPeopleSuggestionModelIdentifier_columns__block_invoke(uint64_t a1, void *a2)
+id __84__BMMLSEShareSheetInferencePeopleSuggestionsPeopleSuggestionModelIdentifier_columns__block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v2 = [a2 eventBodyKeepingBackingData:1];
-  v3 = [v2 trialIdentifier];
-  v4 = [v3 jsonDictionary];
-  v5 = BMConvertObjectToJSONString();
+  v3 = [a2 eventBodyKeepingBackingData:1];
+  v4 = [v3 trialIdentifier];
+  v5 = [v4 jsonDictionary];
+  v6 = BMConvertObjectToJSONString();
 
-  return v5;
+  return v6;
 }
 
 + (id)eventWithData:(id)data dataVersion:(unsigned int)version

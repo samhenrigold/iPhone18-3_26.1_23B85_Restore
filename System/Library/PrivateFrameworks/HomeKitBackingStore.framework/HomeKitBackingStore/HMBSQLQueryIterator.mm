@@ -28,7 +28,7 @@
 
 - (id)nextObject
 {
-  v75 = *MEMORY[0x277D85DE8];
+  v74 = *MEMORY[0x277D85DE8];
   error = [(HMBSQLQueryIterator *)self error];
   v4 = error == 0;
 
@@ -38,7 +38,7 @@
   }
 
   *&v5 = 138543874;
-  v46 = v5;
+  v45 = v5;
   while (1)
   {
     cachedResults = [(HMBSQLQueryIterator *)self cachedResults];
@@ -55,9 +55,9 @@
     }
 
     currentSequence = [(HMBSQLQueryIterator *)self currentSequence];
-    v12 = currentSequence == 0;
+    v11 = currentSequence == 0;
 
-    if (!v12)
+    if (!v11)
     {
 LABEL_11:
       selfCopy = self;
@@ -75,112 +75,112 @@ LABEL_32:
           }
 
           currentSequence2 = [(HMBSQLQueryIterator *)selfCopy currentSequence];
-          v17 = currentSequence2 == 0;
+          v16 = currentSequence2 == 0;
 
-          if (v17)
+          if (v16)
           {
             goto LABEL_32;
           }
         }
 
         maximumRowsPerQuery = [(HMBSQLQueryIterator *)selfCopy maximumRowsPerQuery];
-        v63 = 0;
-        v64 = &v63;
-        v65 = 0x3032000000;
-        v66 = __Block_byref_object_copy_;
-        v67 = __Block_byref_object_dispose_;
-        v68 = [MEMORY[0x277CBEB18] arrayWithCapacity:maximumRowsPerQuery];
-        v59 = 0;
-        v60 = &v59;
-        v61 = 0x2020000000;
         v62 = 0;
-        v55 = 0;
-        v56 = &v55;
-        v57 = 0x2020000000;
+        v63 = &v62;
+        v64 = 0x3032000000;
+        v65 = __Block_byref_object_copy_;
+        v66 = __Block_byref_object_dispose_;
+        v67 = [MEMORY[0x277CBEB18] arrayWithCapacity:maximumRowsPerQuery];
         v58 = 0;
+        v59 = &v58;
+        v60 = 0x2020000000;
+        v61 = 0;
+        v54 = 0;
+        v55 = &v54;
+        v56 = 0x2020000000;
+        v57 = 0;
         sequenceBindOffset = [(HMBSQLQueryIterator *)selfCopy sequenceBindOffset];
         statement = [(HMBSQLQueryIterator *)selfCopy statement];
         context = [statement context];
-        v48[0] = MEMORY[0x277D85DD0];
-        v48[1] = 3221225472;
-        v48[2] = ____fetchNextBatch_block_invoke;
-        v48[3] = &unk_2786E0358;
-        v54 = sequenceBindOffset;
-        v22 = selfCopy;
-        v49 = v22;
-        v50 = &v55;
-        v51 = &v59;
-        v52 = &v63;
-        v53 = maximumRowsPerQuery;
-        v23 = [context sqlBlockWithActivity:0 block:v48];
+        v47[0] = MEMORY[0x277D85DD0];
+        v47[1] = 3221225472;
+        v47[2] = ____fetchNextBatch_block_invoke;
+        v47[3] = &unk_2786E0358;
+        v53 = sequenceBindOffset;
+        v21 = selfCopy;
+        v48 = v21;
+        v49 = &v54;
+        v50 = &v58;
+        v51 = &v62;
+        v52 = maximumRowsPerQuery;
+        v22 = [context sqlBlockWithActivity:0 block:v47];
 
-        v24 = v64[5];
-        if (v24)
+        v23 = v63[5];
+        if (v23)
         {
-          if ((v56[3] & 1) != 0 || [v24 count])
+          if ((v55[3] & 1) != 0 || [v23 count])
           {
-            currentSequence3 = [(HMBSQLQueryIterator *)v22 currentSequence];
-            v26 = currentSequence3 == 0;
+            currentSequence3 = [(HMBSQLQueryIterator *)v21 currentSequence];
+            v25 = currentSequence3 == 0;
 
-            if (!v26)
+            if (!v25)
             {
-              v27 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v60[3]];
-              [(HMBSQLQueryIterator *)v22 setCurrentSequence:v27];
+              v26 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v59[3]];
+              [(HMBSQLQueryIterator *)v21 setCurrentSequence:v26];
             }
 
-            cachedResults5 = [(HMBSQLQueryIterator *)v22 cachedResults];
-            v29 = cachedResults5 == 0;
+            cachedResults5 = [(HMBSQLQueryIterator *)v21 cachedResults];
+            v28 = cachedResults5 == 0;
 
-            if (v29)
+            if (v28)
             {
-              [(HMBSQLQueryIterator *)v22 setCachedResults:v64[5]];
+              [(HMBSQLQueryIterator *)v21 setCachedResults:v63[5]];
             }
 
             else
             {
-              cachedResults6 = [(HMBSQLQueryIterator *)v22 cachedResults];
-              [cachedResults6 addObjectsFromArray:v64[5]];
+              cachedResults6 = [(HMBSQLQueryIterator *)v21 cachedResults];
+              [cachedResults6 addObjectsFromArray:v63[5]];
             }
 
-            v36 = 1;
+            v35 = 1;
             goto LABEL_28;
           }
 
-          [(HMBSQLQueryIterator *)v22 setCurrentSequence:0];
+          [(HMBSQLQueryIterator *)v21 setCurrentSequence:0];
         }
 
         else
         {
-          v31 = objc_autoreleasePoolPush();
-          v32 = v22;
-          v33 = HMFGetOSLogHandle();
-          if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+          v30 = objc_autoreleasePoolPush();
+          v31 = v21;
+          v32 = HMFGetOSLogHandle();
+          if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
           {
-            v34 = HMFGetLogIdentifier();
-            currentSequence4 = [(HMBSQLQueryIterator *)v32 currentSequence];
-            *buf = v46;
-            v70 = v34;
-            v71 = 2112;
-            v72 = currentSequence4;
-            v73 = 2112;
-            v74 = v23;
-            _os_log_impl(&dword_22AD27000, v33, OS_LOG_TYPE_ERROR, "%{public}@Failed to fetch additional items into query enumeration %@: %@", buf, 0x20u);
+            v33 = HMFGetLogIdentifier();
+            currentSequence4 = [(HMBSQLQueryIterator *)v31 currentSequence];
+            *buf = v45;
+            v69 = v33;
+            v70 = 2112;
+            v71 = currentSequence4;
+            v72 = 2112;
+            v73 = v22;
+            _os_log_impl(&dword_22AD27000, v32, OS_LOG_TYPE_ERROR, "%{public}@Failed to fetch additional items into query enumeration %@: %@", buf, 0x20u);
           }
 
-          objc_autoreleasePoolPop(v31);
-          [(HMBSQLQueryIterator *)v32 setError:v23];
-          [(HMBSQLQueryIterator *)v32 setCurrentSequence:0];
-          [(HMBSQLQueryIterator *)v32 setCachedResults:0];
+          objc_autoreleasePoolPop(v30);
+          [(HMBSQLQueryIterator *)v31 setError:v22];
+          [(HMBSQLQueryIterator *)v31 setCurrentSequence:0];
+          [(HMBSQLQueryIterator *)v31 setCachedResults:0];
         }
 
-        v36 = 0;
+        v35 = 0;
 LABEL_28:
 
-        _Block_object_dispose(&v55, 8);
-        _Block_object_dispose(&v59, 8);
-        _Block_object_dispose(&v63, 8);
+        _Block_object_dispose(&v54, 8);
+        _Block_object_dispose(&v58, 8);
+        _Block_object_dispose(&v62, 8);
 
-        if ((v36 & 1) == 0)
+        if ((v35 & 1) == 0)
         {
           goto LABEL_32;
         }
@@ -198,9 +198,9 @@ LABEL_42:
     }
 
     error2 = [(HMBSQLQueryIterator *)self error];
-    v39 = error2 == 0;
+    v38 = error2 == 0;
 
-    if (!v39)
+    if (!v38)
     {
       goto LABEL_42;
     }
@@ -208,18 +208,18 @@ LABEL_42:
     cachedResults8 = [(HMBSQLQueryIterator *)self cachedResults];
     hmf_dequeue = [cachedResults8 hmf_dequeue];
 
-    v47 = 0;
-    v6 = [(HMBSQLQueryIterator *)self fetchRow:hmf_dequeue error:&v47];
-    v42 = v47;
-    v43 = v42;
+    v46 = 0;
+    v6 = [(HMBSQLQueryIterator *)self fetchRow:hmf_dequeue error:&v46];
+    v41 = v46;
+    v42 = v41;
     if (v6)
     {
       break;
     }
 
-    if (![v42 isHMFError] || objc_msgSend(v43, "code") != 2)
+    if (![v41 isHMFError] || objc_msgSend(v42, "code") != 2)
     {
-      [(HMBSQLQueryIterator *)self setError:v43];
+      [(HMBSQLQueryIterator *)self setError:v42];
       [(HMBSQLQueryIterator *)self setCurrentSequence:0];
 
 LABEL_2:
@@ -228,16 +228,15 @@ LABEL_2:
     }
 
     error3 = [(HMBSQLQueryIterator *)self error];
-    v45 = error3 == 0;
+    v44 = error3 == 0;
 
-    if (!v45)
+    if (!v44)
     {
       goto LABEL_2;
     }
   }
 
 LABEL_3:
-  v7 = *MEMORY[0x277D85DE8];
 
   return v6;
 }

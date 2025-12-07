@@ -3,6 +3,7 @@
 - (void)handleEvent:(id)event withService:(id)service;
 - (void)reset;
 - (void)serviceAdded:(id)added;
+- (void)serviceRemoved:(id)removed resetReportInterval:(BOOL)interval;
 - (void)setReport:(id)report;
 @end
 
@@ -79,7 +80,7 @@ LABEL_10:
 
 - (void)serviceAdded:(id)added
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   addedCopy = added;
   if (gLogCategory_DRHIDClientDM6 <= 50 && (gLogCategory_DRHIDClientDM6 != -1 || _LogCategory_Initialize()))
   {
@@ -87,9 +88,9 @@ LABEL_10:
   }
 
   selfCopy = self;
-  v22.receiver = self;
-  v22.super_class = DRHIDClientDM6;
-  [(DRHIDClient *)&v22 serviceAdded:addedCopy];
+  v21.receiver = self;
+  v21.super_class = DRHIDClientDM6;
+  [(DRHIDClient *)&v21 serviceAdded:addedCopy];
   v5 = objc_alloc_init(MEMORY[0x277CBEB38]);
   v6 = [MEMORY[0x277CBEA90] dataWithBytes:&wxDM6Descriptor length:99];
   [v5 setObject:v6 forKey:@"ReportDescriptor"];
@@ -97,26 +98,26 @@ LABEL_10:
   [v5 setObject:MEMORY[0x277CBEC38] forKey:*MEMORY[0x277D0EF10]];
   [v5 setObject:&unk_285B1C948 forKey:@"ReportInterval"];
   [v5 setObject:@"Virtual" forKey:@"Transport"];
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
-  v7 = [&unk_285B1CA38 countByEnumeratingWithState:&v18 objects:v23 count:16];
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
+  v7 = [&unk_285B1CA38 countByEnumeratingWithState:&v17 objects:v22 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v19;
+    v9 = *v18;
     do
     {
       v10 = 0;
       do
       {
-        if (*v19 != v9)
+        if (*v18 != v9)
         {
           objc_enumerationMutation(&unk_285B1CA38);
         }
 
-        v11 = *(*(&v18 + 1) + 8 * v10);
+        v11 = *(*(&v17 + 1) + 8 * v10);
         v12 = [addedCopy propertyForKey:v11];
         if (v12)
         {
@@ -132,7 +133,7 @@ LABEL_10:
       }
 
       while (v8 != v10);
-      v13 = [&unk_285B1CA38 countByEnumeratingWithState:&v18 objects:v23 count:16];
+      v13 = [&unk_285B1CA38 countByEnumeratingWithState:&v17 objects:v22 count:16];
       v8 = v13;
     }
 
@@ -143,8 +144,29 @@ LABEL_10:
   [v14 setObject:v5 forKeyedSubscript:@"properties"];
   dataHandler = [(DRHIDClient *)selfCopy dataHandler];
   (dataHandler)[2](dataHandler, 1, [addedCopy serviceID], 0, v14);
+}
 
-  v16 = *MEMORY[0x277D85DE8];
+- (void)serviceRemoved:(id)removed resetReportInterval:(BOOL)interval
+{
+  intervalCopy = interval;
+  removedCopy = removed;
+  v7 = removedCopy;
+  if (intervalCopy)
+  {
+    [removedCopy setProperty:&unk_285B1C948 forKey:@"ReportInterval"];
+  }
+
+  if (gLogCategory_DRHIDClientDM6 <= 50 && (gLogCategory_DRHIDClientDM6 != -1 || _LogCategory_Initialize()))
+  {
+    [DRHIDClientDM6 serviceRemoved:v7 resetReportInterval:?];
+  }
+
+  v10.receiver = self;
+  v10.super_class = DRHIDClientDM6;
+  [(DRHIDClient *)&v10 serviceRemoved:v7 resetReportInterval:intervalCopy];
+  v8 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  dataHandler = [(DRHIDClient *)self dataHandler];
+  (dataHandler)[2](dataHandler, 1, [v7 serviceID], 1, v8);
 }
 
 - (void)setReport:(id)report
@@ -226,7 +248,7 @@ LABEL_17:
         [v17 getBytes:&v25 range:{1, 4}];
         if (gLogCategory_DRHIDClientDM6 <= 30 && (gLogCategory_DRHIDClientDM6 != -1 || _LogCategory_Initialize()))
         {
-          [DRHIDClientDM6 setReport:?];
+          [DRHIDClientDM6 setReport:];
         }
 
         hIDServices = [(DRHIDClient *)self HIDServices];

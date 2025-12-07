@@ -81,13 +81,13 @@
 
 - (id)persistedState
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   persistence = self->_persistence;
   identifier = self->_identifier;
   allowedStates = self->_allowedStates;
-  v13 = 0;
-  v6 = [(HKSPStatePersistence *)persistence loadPersistentStateForIdentifier:identifier allowedStates:allowedStates error:&v13];
-  v7 = v13;
+  v12 = 0;
+  v6 = [(HKSPStatePersistence *)persistence loadPersistentStateForIdentifier:identifier allowedStates:allowedStates error:&v12];
+  v7 = v12;
   [v6 setStateMachine:self];
   if (v7)
   {
@@ -96,9 +96,9 @@
     {
       stateMachineName = [(HKSPStateMachine *)self stateMachineName];
       *buf = 138543618;
-      v15 = stateMachineName;
-      v16 = 2114;
-      v17 = v7;
+      v14 = stateMachineName;
+      v15 = 2114;
+      v16 = v7;
       _os_log_error_impl(&dword_269A84000, v8, OS_LOG_TYPE_ERROR, "[%{public}@] Failed to load state with error %{public}@", buf, 0x16u);
     }
 
@@ -109,8 +109,6 @@
   {
     v9 = v6;
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
@@ -149,12 +147,12 @@
 
 - (void)enterState:(id)state
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   stateCopy = state;
   currentState = [(HKSPStateMachine *)self currentState];
-  v18.receiver = self;
-  v18.super_class = HKSPPersistentStateMachine;
-  [(HKSPStateMachine *)&v18 enterState:stateCopy];
+  v17.receiver = self;
+  v17.super_class = HKSPPersistentStateMachine;
+  [(HKSPStateMachine *)&v17 enterState:stateCopy];
   if ((NAEqualObjects() & 1) == 0)
   {
     if ((HKSPIsUnitTesting() & 1) == 0)
@@ -165,18 +163,18 @@
         stateMachineName = [(HKSPStateMachine *)self stateMachineName];
         stateName = [stateCopy stateName];
         *buf = 138543618;
-        v20 = stateMachineName;
-        v21 = 2114;
-        v22 = stateName;
+        v19 = stateMachineName;
+        v20 = 2114;
+        v21 = stateName;
         _os_log_impl(&dword_269A84000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}@] Persisting state %{public}@", buf, 0x16u);
       }
     }
 
     persistence = self->_persistence;
     identifier = self->_identifier;
-    v17 = 0;
-    v11 = [(HKSPStatePersistence *)persistence savePersistentState:stateCopy identifier:identifier error:&v17];
-    v12 = v17;
+    v16 = 0;
+    v11 = [(HKSPStatePersistence *)persistence savePersistentState:stateCopy identifier:identifier error:&v16];
+    v12 = v16;
     if (v11)
     {
       if (HKSPIsUnitTesting())
@@ -197,9 +195,9 @@ LABEL_12:
       stateMachineName2 = [(HKSPStateMachine *)self stateMachineName];
       stateName2 = [stateCopy stateName];
       *buf = 138543618;
-      v20 = stateMachineName2;
-      v21 = 2114;
-      v22 = stateName2;
+      v19 = stateMachineName2;
+      v20 = 2114;
+      v21 = stateName2;
       _os_log_impl(&dword_269A84000, v13, OS_LOG_TYPE_DEFAULT, "[%{public}@] Successfully persisted state %{public}@", buf, 0x16u);
     }
 
@@ -214,11 +212,11 @@ LABEL_12:
       stateMachineName2 = [(HKSPStateMachine *)self stateMachineName];
       stateName2 = [stateCopy stateName];
       *buf = 138543874;
-      v20 = stateMachineName2;
-      v21 = 2114;
-      v22 = stateName2;
-      v23 = 2114;
-      v24 = v12;
+      v19 = stateMachineName2;
+      v20 = 2114;
+      v21 = stateName2;
+      v22 = 2114;
+      v23 = v12;
       _os_log_error_impl(&dword_269A84000, v13, OS_LOG_TYPE_ERROR, "[%{public}@] Failed to persist state %{public}@ with error %{public}@", buf, 0x20u);
     }
 
@@ -226,8 +224,6 @@ LABEL_12:
   }
 
 LABEL_14:
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stateWithIdentifierDidExpire:(id)expire

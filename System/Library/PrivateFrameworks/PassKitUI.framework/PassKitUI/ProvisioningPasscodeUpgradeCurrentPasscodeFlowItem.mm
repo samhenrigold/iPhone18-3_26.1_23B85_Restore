@@ -19,6 +19,8 @@
   controllerCopy = controller;
   selfCopy = self;
   sub_1BD9DD4F4(v6, v8);
+
+  v8, v11, v12, v13, v14, v15, v16, v17;
 }
 
 @end

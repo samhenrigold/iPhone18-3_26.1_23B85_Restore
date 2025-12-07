@@ -902,9 +902,9 @@ LABEL_17:
 
 uint64_t __63__BPSTinkerSupport_getActiveTinkerFamilyDetailsWithCompletion___block_invoke_63_cold_1()
 {
-  dlerror();
-  v0 = abort_report_np();
-  return __getNSSManagerClass_block_invoke_cold_1(v0);
+  v0 = dlerror();
+  abort_report_np("%s", v0);
+  return __getNSSManagerClass_block_invoke_cold_1();
 }
 
 @end

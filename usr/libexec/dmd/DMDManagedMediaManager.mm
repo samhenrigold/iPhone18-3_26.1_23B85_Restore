@@ -114,202 +114,193 @@
 
 - (void)memberQueueCleanUp
 {
-  if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
+  v2 = os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT);
+  if (v2)
   {
     *buf = 0;
     _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "Cleaning up media manager manifests", buf, 2u);
   }
 
-  v69 = sub_100050ED0();
+  v71 = sub_100050ED0(v2);
   [(DMDManagedMediaManager *)self memberQueueRereadNonStoreBooksManifest];
-  v72 = objc_opt_new();
-  downloads = [v69 downloads];
-  v79 = [downloads mutableCopy];
+  v74 = objc_opt_new();
+  downloads = [v71 downloads];
+  v81 = [downloads mutableCopy];
 
+  v108 = 0u;
+  v109 = 0u;
   v106 = 0u;
   v107 = 0u;
-  v104 = 0u;
-  v105 = 0u;
   obj = [(DMDManagedMediaManager *)self memberQueuePersistentIDToNonStoreBook];
-  v3 = [obj countByEnumeratingWithState:&v104 objects:v115 count:16];
-  if (v3)
+  v4 = [obj countByEnumeratingWithState:&v106 objects:v117 count:16];
+  if (v4)
   {
-    v77 = 0;
-    v4 = *v105;
-    v73 = SSDownloadPhaseFailed;
-    v71 = SSDownloadPhaseFinished;
+    v79 = 0;
+    v5 = *v107;
+    v75 = SSDownloadPhaseFailed;
+    v73 = SSDownloadPhaseFinished;
     do
     {
-      for (i = 0; i != v3; i = i + 1)
+      for (i = 0; i != v4; i = i + 1)
       {
-        if (*v105 != v4)
+        if (*v107 != v5)
         {
           objc_enumerationMutation(obj);
         }
 
-        v6 = *(*(&v104 + 1) + 8 * i);
+        v7 = *(*(&v106 + 1) + 8 * i);
         memberQueuePersistentIDToNonStoreBook = [(DMDManagedMediaManager *)self memberQueuePersistentIDToNonStoreBook];
-        v8 = [memberQueuePersistentIDToNonStoreBook objectForKeyedSubscript:v6];
+        v9 = [memberQueuePersistentIDToNonStoreBook objectForKeyedSubscript:v7];
 
-        downloadIdentifier = [v8 downloadIdentifier];
-        v10 = downloadIdentifier == 0;
+        downloadIdentifier = [v9 downloadIdentifier];
+        v11 = downloadIdentifier == 0;
 
-        if (!v10)
+        if (!v11)
         {
           *buf = 0;
-          v99 = buf;
-          v100 = 0x3032000000;
-          v101 = sub_100050F14;
-          v102 = sub_100050F24;
-          v103 = 0;
-          downloadIdentifier2 = [v8 downloadIdentifier];
+          v101 = buf;
+          v102 = 0x3032000000;
+          v103 = sub_100050F14;
+          v104 = sub_100050F24;
+          v105 = 0;
+          downloadIdentifier2 = [v9 downloadIdentifier];
           longLongValue = [downloadIdentifier2 longLongValue];
 
-          v97[0] = _NSConcreteStackBlock;
-          v97[1] = 3221225472;
-          v97[2] = sub_100050F2C;
-          v97[3] = &unk_1000CF5A0;
-          v97[4] = buf;
-          v97[5] = longLongValue;
-          [v79 enumerateObjectsUsingBlock:v97];
-          v13 = *(v99 + 5);
-          if (v13)
+          v99[0] = _NSConcreteStackBlock;
+          v99[1] = 3221225472;
+          v99[2] = sub_100050F2C;
+          v99[3] = &unk_1000CF5A0;
+          v99[4] = buf;
+          v99[5] = longLongValue;
+          [v81 enumerateObjectsUsingBlock:v99];
+          v14 = *(v101 + 5);
+          if (v14)
           {
-            downloadPhaseIdentifier = [v13 downloadPhaseIdentifier];
-            if ([downloadPhaseIdentifier isEqualToString:v73])
+            downloadPhaseIdentifier = [v14 downloadPhaseIdentifier];
+            if ([downloadPhaseIdentifier isEqualToString:v75])
             {
-              v15 = &_os_log_default;
+              v16 = &_os_log_default;
               if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
               {
-                friendlyName = [v8 friendlyName];
-                failureError = [*(v99 + 5) failureError];
-                *v111 = 138543618;
-                v112 = friendlyName;
-                v113 = 2114;
-                v114 = failureError;
-                _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "Book failed to download: %{public}@\nError: %{public}@", v111, 0x16u);
+                friendlyName = [v9 friendlyName];
+                failureError = [*(v101 + 5) failureError];
+                *v113 = 138543618;
+                v114 = friendlyName;
+                v115 = 2114;
+                v116 = failureError;
+                _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "Book failed to download: %{public}@\nError: %{public}@", v113, 0x16u);
               }
 
-              [v8 setDownloadIdentifier:0];
-              state = [v8 state];
-              v17 = state == @"Failed";
+              [v9 setDownloadIdentifier:0];
+              state = [v9 state];
+              v18 = state == @"Failed";
 
-              if (!v17)
+              if (!v18)
               {
-                [v8 setState:@"Failed"];
-                v77 = 1;
+                [v9 setState:@"Failed"];
+                v79 = 1;
               }
 
-              [v72 addObject:*(v99 + 5)];
+              [v74 addObject:*(v101 + 5)];
             }
 
-            else if ([downloadPhaseIdentifier isEqualToString:v71])
+            else if ([downloadPhaseIdentifier isEqualToString:v73])
             {
-              v18 = &_os_log_default;
+              v19 = &_os_log_default;
               if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
               {
-                friendlyName2 = [v8 friendlyName];
-                *v111 = 138543362;
-                v112 = friendlyName2;
-                _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "Book completed downloading: %{public}@", v111, 0xCu);
+                friendlyName2 = [v9 friendlyName];
+                *v113 = 138543362;
+                v114 = friendlyName2;
+                _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "Book completed downloading: %{public}@", v113, 0xCu);
               }
 
-              [v8 setDownloadIdentifier:0];
-              state2 = [v8 state];
-              v21 = state2 == @"Managed";
+              [v9 setDownloadIdentifier:0];
+              state2 = [v9 state];
+              v22 = state2 == @"Managed";
 
-              if (!v21)
+              if (!v22)
               {
-                [v8 setState:@"Managed"];
-                v77 = 1;
+                [v9 setState:@"Managed"];
+                v79 = 1;
               }
             }
 
-            [v79 removeObjectIdenticalTo:*(v99 + 5)];
+            [v81 removeObjectIdenticalTo:*(v101 + 5)];
           }
 
           _Block_object_dispose(buf, 8);
         }
       }
 
-      v3 = [obj countByEnumeratingWithState:&v104 objects:v115 count:16];
+      v4 = [obj countByEnumeratingWithState:&v106 objects:v117 count:16];
     }
 
-    while (v3);
+    while (v4);
   }
 
   else
   {
-    v77 = 0;
+    v79 = 0;
   }
 
-  [v69 finishDownloads:v72];
-  if ([v79 count])
+  [v71 finishDownloads:v74];
+  if ([v81 count])
   {
-    v94[0] = _NSConcreteStackBlock;
-    v94[1] = 3221225472;
-    v94[2] = sub_100050FAC;
-    v94[3] = &unk_1000CDBD0;
-    v95 = v69;
-    v96 = v79;
-    [v95 cancelDownloads:v96 completionBlock:v94];
+    v96[0] = _NSConcreteStackBlock;
+    v96[1] = 3221225472;
+    v96[2] = sub_100050FAC;
+    v96[3] = &unk_1000CDBD0;
+    v97 = v71;
+    v98 = v81;
+    [v97 cancelDownloads:v98 completionBlock:v96];
   }
 
+  v94 = 0u;
+  v95 = 0u;
   v92 = 0u;
   v93 = 0u;
-  v90 = 0u;
-  v91 = 0u;
   memberQueuePersistentIDToNonStoreBook2 = [(DMDManagedMediaManager *)self memberQueuePersistentIDToNonStoreBook];
-  v24 = [memberQueuePersistentIDToNonStoreBook2 countByEnumeratingWithState:&v90 objects:v110 count:16];
-  if (v24)
+  v25 = [memberQueuePersistentIDToNonStoreBook2 countByEnumeratingWithState:&v92 objects:v112 count:16];
+  if (v25)
   {
-    v25 = *v91;
+    v26 = *v93;
     do
     {
-      for (j = 0; j != v24; j = j + 1)
+      for (j = 0; j != v25; j = j + 1)
       {
-        if (*v91 != v25)
+        if (*v93 != v26)
         {
           objc_enumerationMutation(memberQueuePersistentIDToNonStoreBook2);
         }
 
-        v27 = *(*(&v90 + 1) + 8 * j);
+        v28 = *(*(&v92 + 1) + 8 * j);
         memberQueuePersistentIDToNonStoreBook3 = [(DMDManagedMediaManager *)self memberQueuePersistentIDToNonStoreBook];
-        v29 = [memberQueuePersistentIDToNonStoreBook3 objectForKeyedSubscript:v27];
+        v30 = [memberQueuePersistentIDToNonStoreBook3 objectForKeyedSubscript:v28];
 
-        fullPath = [v29 fullPath];
-        if (!fullPath)
+        fullPath = [v30 fullPath];
+        if (!fullPath || (+[NSFileManager defaultManager](NSFileManager, "defaultManager"), v32 = objc_claimAutoreleasedReturnValue(), [v30 fullPath], v33 = objc_claimAutoreleasedReturnValue(), v34 = objc_msgSend(v32, "fileExistsAtPath:", v33), v33, v32, fullPath, !v34))
         {
-          goto LABEL_38;
-        }
+          state3 = [v30 state];
+          v39 = state3 == @"ManagedButUninstalled";
 
-        v31 = +[NSFileManager defaultManager];
-        fullPath2 = [v29 fullPath];
-        v33 = [v31 fileExistsAtPath:fullPath2];
-
-        if (!v33)
-        {
-LABEL_38:
-          state3 = [v29 state];
-          v38 = state3 == @"ManagedButUninstalled";
-
-          v36 = @"ManagedButUninstalled";
-          if (v38)
+          v37 = @"ManagedButUninstalled";
+          if (v39)
           {
             goto LABEL_40;
           }
 
 LABEL_39:
-          [v29 setState:v36];
-          v77 = 1;
+          [v30 setState:v37];
+          v79 = 1;
           goto LABEL_40;
         }
 
-        state4 = [v29 state];
-        v35 = state4 == @"Managed";
+        state4 = [v30 state];
+        v36 = state4 == @"Managed";
 
-        v36 = @"Managed";
-        if (!v35)
+        v37 = @"Managed";
+        if (!v36)
         {
           goto LABEL_39;
         }
@@ -317,129 +308,129 @@ LABEL_39:
 LABEL_40:
       }
 
-      v24 = [memberQueuePersistentIDToNonStoreBook2 countByEnumeratingWithState:&v90 objects:v110 count:16];
+      v25 = [memberQueuePersistentIDToNonStoreBook2 countByEnumeratingWithState:&v92 objects:v112 count:16];
     }
 
-    while (v24);
+    while (v25);
   }
 
-  if (v77)
+  if (v79)
   {
     [(DMDManagedMediaManager *)self memberQueueCommitNonStoreBooksManifest];
   }
 
-  v39 = +[DMDPaths purchasedBooksManifest];
-  obja = [NSDictionary dictionaryWithContentsOfFile:v39];
+  v40 = +[DMDPaths purchasedBooksManifest];
+  obja = [NSDictionary dictionaryWithContentsOfFile:v40];
 
-  v40 = [obja objectForKeyedSubscript:@"Books"];
-  v41 = +[NSMutableDictionary dictionaryWithCapacity:](NSMutableDictionary, "dictionaryWithCapacity:", [v40 count]);
+  v41 = [obja objectForKeyedSubscript:@"Books"];
+  v42 = +[NSMutableDictionary dictionaryWithCapacity:](NSMutableDictionary, "dictionaryWithCapacity:", [v41 count]);
+  v90 = 0u;
+  v91 = 0u;
   v88 = 0u;
   v89 = 0u;
-  v86 = 0u;
-  v87 = 0u;
-  v80 = v40;
-  v42 = [v80 countByEnumeratingWithState:&v86 objects:v109 count:16];
-  if (v42)
+  v82 = v41;
+  v43 = [v82 countByEnumeratingWithState:&v88 objects:v111 count:16];
+  if (v43)
   {
-    v43 = *v87;
+    v44 = *v89;
     do
     {
-      for (k = 0; k != v42; k = k + 1)
+      for (k = 0; k != v43; k = k + 1)
       {
-        if (*v87 != v43)
+        if (*v89 != v44)
         {
-          objc_enumerationMutation(v80);
+          objc_enumerationMutation(v82);
         }
 
-        v45 = *(*(&v86 + 1) + 8 * k);
-        v46 = [v45 objectForKeyedSubscript:@"s"];
-        v47 = [v45 objectForKeyedSubscript:@"Path"];
-        v48 = v47;
-        if (v46)
+        v46 = *(*(&v88 + 1) + 8 * k);
+        v47 = [v46 objectForKeyedSubscript:@"s"];
+        v48 = [v46 objectForKeyedSubscript:@"Path"];
+        v49 = v48;
+        if (v47)
         {
-          v49 = v47 == 0;
+          v50 = v48 == 0;
         }
 
         else
         {
-          v49 = 1;
+          v50 = 1;
         }
 
-        if (!v49)
+        if (!v50)
         {
-          v50 = +[DMDPaths purchasedBooksDirectory];
-          v51 = [v50 stringByAppendingPathComponent:v48];
-          [v41 setObject:v51 forKeyedSubscript:v46];
+          v51 = +[DMDPaths purchasedBooksDirectory];
+          v52 = [v51 stringByAppendingPathComponent:v49];
+          [v42 setObject:v52 forKeyedSubscript:v47];
         }
       }
 
-      v42 = [v80 countByEnumeratingWithState:&v86 objects:v109 count:16];
+      v43 = [v82 countByEnumeratingWithState:&v88 objects:v111 count:16];
     }
 
-    while (v42);
+    while (v43);
   }
 
   [(DMDManagedMediaManager *)self memberQueueRereadStoreBooksManifest];
-  v78 = +[NSFileManager defaultManager];
+  v80 = +[NSFileManager defaultManager];
+  v86 = 0u;
+  v87 = 0u;
   v84 = 0u;
   v85 = 0u;
-  v82 = 0u;
-  v83 = 0u;
   memberQueueiTunesStoreIDToStoreBook = [(DMDManagedMediaManager *)self memberQueueiTunesStoreIDToStoreBook];
-  v53 = [memberQueueiTunesStoreIDToStoreBook countByEnumeratingWithState:&v82 objects:v108 count:16];
-  if (!v53)
+  v54 = [memberQueueiTunesStoreIDToStoreBook countByEnumeratingWithState:&v84 objects:v110 count:16];
+  if (!v54)
   {
 
     goto LABEL_74;
   }
 
-  v76 = 0;
-  v54 = *v83;
+  v78 = 0;
+  v55 = *v85;
   do
   {
-    for (m = 0; m != v53; m = m + 1)
+    for (m = 0; m != v54; m = m + 1)
     {
-      if (*v83 != v54)
+      if (*v85 != v55)
       {
         objc_enumerationMutation(memberQueueiTunesStoreIDToStoreBook);
       }
 
-      v56 = *(*(&v82 + 1) + 8 * m);
+      v57 = *(*(&v84 + 1) + 8 * m);
       memberQueueiTunesStoreIDToStoreBook2 = [(DMDManagedMediaManager *)self memberQueueiTunesStoreIDToStoreBook];
-      v58 = [memberQueueiTunesStoreIDToStoreBook2 objectForKeyedSubscript:v56];
+      v59 = [memberQueueiTunesStoreIDToStoreBook2 objectForKeyedSubscript:v57];
 
-      v59 = sub_100050FB8();
-      state5 = [v58 state];
-      v61 = [v59 containsObject:state5];
+      v61 = sub_100050FB8(v60);
+      state5 = [v59 state];
+      v63 = [v61 containsObject:state5];
 
-      if ((v61 & 1) == 0)
+      if ((v63 & 1) == 0)
       {
-        iTunesStoreID = [v58 iTunesStoreID];
-        v63 = [v41 objectForKeyedSubscript:iTunesStoreID];
+        iTunesStoreID = [v59 iTunesStoreID];
+        v65 = [v42 objectForKeyedSubscript:iTunesStoreID];
 
-        if (v63 && [v78 fileExistsAtPath:v63])
+        if (v65 && [v80 fileExistsAtPath:v65])
         {
-          state6 = [v58 state];
-          v65 = state6 == @"Installed";
+          state6 = [v59 state];
+          v67 = state6 == @"Installed";
 
-          v66 = @"Installed";
-          if (v65)
+          v68 = @"Installed";
+          if (v67)
           {
             goto LABEL_68;
           }
 
 LABEL_67:
-          [v58 setState:v66];
-          v76 = 1;
+          [v59 setState:v68];
+          v78 = 1;
         }
 
         else
         {
-          state7 = [v58 state];
-          v68 = state7 == @"Uninstalled";
+          state7 = [v59 state];
+          v70 = state7 == @"Uninstalled";
 
-          v66 = @"Uninstalled";
-          if (!v68)
+          v68 = @"Uninstalled";
+          if (!v70)
           {
             goto LABEL_67;
           }
@@ -449,12 +440,12 @@ LABEL_68:
       }
     }
 
-    v53 = [memberQueueiTunesStoreIDToStoreBook countByEnumeratingWithState:&v82 objects:v108 count:16];
+    v54 = [memberQueueiTunesStoreIDToStoreBook countByEnumeratingWithState:&v84 objects:v110 count:16];
   }
 
-  while (v53);
+  while (v54);
 
-  if (v76)
+  if (v78)
   {
     [(DMDManagedMediaManager *)self memberQueueCommitStoreBooksManifest];
   }
@@ -798,7 +789,7 @@ LABEL_74:
 {
   identifiersCopy = identifiers;
   blockCopy = block;
-  v7 = sub_100050ED0();
+  v7 = sub_100050ED0(blockCopy);
   v8 = objc_opt_new();
   if ([identifiersCopy count])
   {
@@ -1075,114 +1066,114 @@ LABEL_8:
 
 - (void)memberQueueMoveTransientStatesForward
 {
-  v29 = objc_opt_new();
-  v35 = 0u;
-  v36 = 0u;
+  v31 = objc_opt_new();
   v37 = 0u;
   v38 = 0u;
+  v39 = 0u;
+  v40 = 0u;
   memberQueuePersistentIDToNonStoreBook = [(DMDManagedMediaManager *)self memberQueuePersistentIDToNonStoreBook];
-  v4 = [memberQueuePersistentIDToNonStoreBook countByEnumeratingWithState:&v35 objects:v42 count:16];
+  v4 = [memberQueuePersistentIDToNonStoreBook countByEnumeratingWithState:&v37 objects:v44 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v36;
+    v6 = *v38;
     do
     {
       for (i = 0; i != v5; i = i + 1)
       {
-        if (*v36 != v6)
+        if (*v38 != v6)
         {
           objc_enumerationMutation(memberQueuePersistentIDToNonStoreBook);
         }
 
-        v8 = *(*(&v35 + 1) + 8 * i);
+        v8 = *(*(&v37 + 1) + 8 * i);
         memberQueuePersistentIDToNonStoreBook2 = [(DMDManagedMediaManager *)self memberQueuePersistentIDToNonStoreBook];
         v10 = [memberQueuePersistentIDToNonStoreBook2 objectForKeyedSubscript:v8];
 
-        v11 = sub_100050FB8();
+        v12 = sub_100050FB8(v11);
         state = [v10 state];
-        v13 = [v11 containsObject:state];
+        v14 = [v12 containsObject:state];
 
-        if (v13)
+        if (v14)
         {
-          [v29 addObject:v8];
+          [v31 addObject:v8];
         }
       }
 
-      v5 = [memberQueuePersistentIDToNonStoreBook countByEnumeratingWithState:&v35 objects:v42 count:16];
+      v5 = [memberQueuePersistentIDToNonStoreBook countByEnumeratingWithState:&v37 objects:v44 count:16];
     }
 
     while (v5);
   }
 
-  if ([v29 count])
+  if ([v31 count])
   {
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_INFO))
     {
-      v14 = [v29 count];
+      v15 = [v31 count];
       *buf = 67109120;
-      LODWORD(v40) = v14;
+      LODWORD(v42) = v15;
       _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_INFO, "Removing %u non-store books because we have reported their transient state.", buf, 8u);
     }
 
     memberQueuePersistentIDToNonStoreBook3 = [(DMDManagedMediaManager *)self memberQueuePersistentIDToNonStoreBook];
-    [memberQueuePersistentIDToNonStoreBook3 removeObjectsForKeys:v29];
+    [memberQueuePersistentIDToNonStoreBook3 removeObjectsForKeys:v31];
 
     [(DMDManagedMediaManager *)self memberQueueCommitNonStoreBooksManifest];
   }
 
-  v30 = objc_opt_new();
-  v31 = 0u;
-  v32 = 0u;
+  v32 = objc_opt_new();
   v33 = 0u;
   v34 = 0u;
+  v35 = 0u;
+  v36 = 0u;
   memberQueueiTunesStoreIDToStoreBook = [(DMDManagedMediaManager *)self memberQueueiTunesStoreIDToStoreBook];
-  v17 = [memberQueueiTunesStoreIDToStoreBook countByEnumeratingWithState:&v31 objects:v41 count:16];
-  if (v17)
+  v18 = [memberQueueiTunesStoreIDToStoreBook countByEnumeratingWithState:&v33 objects:v43 count:16];
+  if (v18)
   {
-    v18 = v17;
-    v19 = *v32;
+    v19 = v18;
+    v20 = *v34;
     do
     {
-      for (j = 0; j != v18; j = j + 1)
+      for (j = 0; j != v19; j = j + 1)
       {
-        if (*v32 != v19)
+        if (*v34 != v20)
         {
           objc_enumerationMutation(memberQueueiTunesStoreIDToStoreBook);
         }
 
-        v21 = *(*(&v31 + 1) + 8 * j);
+        v22 = *(*(&v33 + 1) + 8 * j);
         memberQueueiTunesStoreIDToStoreBook2 = [(DMDManagedMediaManager *)self memberQueueiTunesStoreIDToStoreBook];
-        v23 = [memberQueueiTunesStoreIDToStoreBook2 objectForKeyedSubscript:v21];
+        v24 = [memberQueueiTunesStoreIDToStoreBook2 objectForKeyedSubscript:v22];
 
-        v24 = sub_100050FB8();
-        state2 = [v23 state];
-        v26 = [v24 containsObject:state2];
+        v26 = sub_100050FB8(v25);
+        state2 = [v24 state];
+        v28 = [v26 containsObject:state2];
 
-        if (v26)
+        if (v28)
         {
-          [v30 addObject:v21];
+          [v32 addObject:v22];
         }
       }
 
-      v18 = [memberQueueiTunesStoreIDToStoreBook countByEnumeratingWithState:&v31 objects:v41 count:16];
+      v19 = [memberQueueiTunesStoreIDToStoreBook countByEnumeratingWithState:&v33 objects:v43 count:16];
     }
 
-    while (v18);
+    while (v19);
   }
 
-  if ([v30 count])
+  if ([v32 count])
   {
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_INFO))
     {
-      v27 = [v30 count];
+      v29 = [v32 count];
       *buf = 134217984;
-      v40 = v27;
+      v42 = v29;
       _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_INFO, "Removing %lu store books because we have reported their transient state.", buf, 0xCu);
     }
 
     memberQueueiTunesStoreIDToStoreBook3 = [(DMDManagedMediaManager *)self memberQueueiTunesStoreIDToStoreBook];
-    [memberQueueiTunesStoreIDToStoreBook3 removeObjectsForKeys:v30];
+    [memberQueueiTunesStoreIDToStoreBook3 removeObjectsForKeys:v32];
 
     [(DMDManagedMediaManager *)self memberQueueCommitStoreBooksManifest];
   }
@@ -1247,27 +1238,28 @@ LABEL_8:
 {
   assertionCopy = assertion;
   blockCopy = block;
-  if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
+  v8 = os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT);
+  if (v8)
   {
     *buf = 0;
     _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "Canceling all book downloads.", buf, 2u);
   }
 
-  v8 = sub_100050ED0();
-  [v8 downloads];
-  v13[0] = _NSConcreteStackBlock;
-  v13[1] = 3221225472;
-  v13[2] = sub_100054C18;
-  v13[3] = &unk_1000CF758;
-  v15 = v14 = v8;
-  v17 = assertionCopy;
-  v18 = blockCopy;
+  v9 = sub_100050ED0(v8);
+  [v9 downloads];
+  v14[0] = _NSConcreteStackBlock;
+  v14[1] = 3221225472;
+  v14[2] = sub_100054C18;
+  v14[3] = &unk_1000CF758;
+  v16 = v15 = v9;
+  v18 = assertionCopy;
+  v19 = blockCopy;
   selfCopy = self;
-  v9 = assertionCopy;
-  v10 = blockCopy;
-  v11 = v15;
-  v12 = v8;
-  [v12 cancelDownloads:v11 completionBlock:v13];
+  v10 = assertionCopy;
+  v11 = blockCopy;
+  v12 = v16;
+  v13 = v9;
+  [v13 cancelDownloads:v12 completionBlock:v14];
 }
 
 @end

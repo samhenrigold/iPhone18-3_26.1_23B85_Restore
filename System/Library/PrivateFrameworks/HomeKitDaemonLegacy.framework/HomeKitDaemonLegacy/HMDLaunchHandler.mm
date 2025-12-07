@@ -15,7 +15,7 @@
 - (void)_setJetsamPriorityElevated:(BOOL)elevated
 {
   elevatedCopy = elevated;
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   handlerQueue = [(HMDLaunchHandler *)self handlerQueue];
   dispatch_assert_queue_V2(handlerQueue);
 
@@ -42,13 +42,13 @@
     {
       v13 = HMFGetLogIdentifier();
       v14 = HMFBooleanToString();
-      v18 = 138543874;
-      v19 = v13;
-      v20 = 2112;
-      v21 = v14;
-      v22 = 1024;
-      v23 = v8;
-      _os_log_impl(&dword_2531F8000, v12, OS_LOG_TYPE_ERROR, "%{public}@Failed to set jetsam priority elevated to %@: %d", &v18, 0x1Cu);
+      v17 = 138543874;
+      v18 = v13;
+      v19 = 2112;
+      v20 = v14;
+      v21 = 1024;
+      v22 = v8;
+      _os_log_impl(&dword_2531F8000, v12, OS_LOG_TYPE_ERROR, "%{public}@Failed to set jetsam priority elevated to %@: %d", &v17, 0x1Cu);
     }
   }
 
@@ -56,100 +56,44 @@
   {
     v15 = HMFGetLogIdentifier();
     v16 = HMFBooleanToString();
-    v18 = 138543618;
-    v19 = v15;
-    v20 = 2112;
-    v21 = v16;
-    _os_log_impl(&dword_2531F8000, v12, OS_LOG_TYPE_INFO, "%{public}@Successfully set jetsam priority elevated to %@", &v18, 0x16u);
+    v17 = 138543618;
+    v18 = v15;
+    v19 = 2112;
+    v20 = v16;
+    _os_log_impl(&dword_2531F8000, v12, OS_LOG_TYPE_INFO, "%{public}@Successfully set jetsam priority elevated to %@", &v17, 0x16u);
   }
 
   objc_autoreleasePoolPop(v9);
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateOrRemoveRelaunchPlist
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   handlerQueue = [(HMDLaunchHandler *)self handlerQueue];
   dispatch_assert_queue_V2(handlerQueue);
 
   registeredRelaunchClients = [(HMDLaunchHandler *)self registeredRelaunchClients];
   v5 = [registeredRelaunchClients count];
 
-  if (v5)
+  if (!v5)
   {
-    v42 = @"KeepAliveClients";
-    registeredRelaunchClients2 = [(HMDLaunchHandler *)self registeredRelaunchClients];
-    allObjects = [registeredRelaunchClients2 allObjects];
-    v43 = allObjects;
-    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v43 forKeys:&v42 count:1];
-
     fileManager = [(HMDLaunchHandler *)self fileManager];
     relaunchPlistFileURL = [(HMDLaunchHandler *)self relaunchPlistFileURL];
+    v25 = [fileManager fileExistsAtURL:relaunchPlistFileURL];
+
+    if (!v25)
+    {
+      return;
+    }
+
+    fileManager2 = [(HMDLaunchHandler *)self fileManager];
+    relaunchPlistFileURL2 = [(HMDLaunchHandler *)self relaunchPlistFileURL];
     v40 = 0;
-    v11 = [fileManager writeDictionary:v8 toURL:relaunchPlistFileURL error:&v40];
-    v12 = v40;
-
-    v13 = objc_autoreleasePoolPush();
-    selfCopy = self;
-    v15 = HMFGetOSLogHandle();
-    v16 = v15;
-    if (v11)
-    {
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
-      {
-        v17 = HMFGetLogIdentifier();
-        relaunchPlistFileURL2 = [(HMDLaunchHandler *)selfCopy relaunchPlistFileURL];
-        *buf = 138543618;
-        v45 = v17;
-        v46 = 2112;
-        v47 = relaunchPlistFileURL2;
-        v19 = "%{public}@Successfully wrote relaunch plist file at %@";
-        v20 = v16;
-        v21 = OS_LOG_TYPE_INFO;
-        v22 = 22;
-LABEL_11:
-        _os_log_impl(&dword_2531F8000, v20, v21, v19, buf, v22);
-      }
-    }
-
-    else if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
-    {
-      v17 = HMFGetLogIdentifier();
-      relaunchPlistFileURL2 = [(HMDLaunchHandler *)selfCopy relaunchPlistFileURL];
-      *buf = 138543874;
-      v45 = v17;
-      v46 = 2112;
-      v47 = relaunchPlistFileURL2;
-      v48 = 2112;
-      v49 = v12;
-      v19 = "%{public}@Failed to write relaunch plist file at %@: %@";
-      v20 = v16;
-      v21 = OS_LOG_TYPE_ERROR;
-      v22 = 32;
-      goto LABEL_11;
-    }
-
-    objc_autoreleasePoolPop(v13);
-LABEL_17:
-
-    goto LABEL_18;
-  }
-
-  fileManager2 = [(HMDLaunchHandler *)self fileManager];
-  relaunchPlistFileURL3 = [(HMDLaunchHandler *)self relaunchPlistFileURL];
-  v25 = [fileManager2 fileExistsAtURL:relaunchPlistFileURL3];
-
-  if (v25)
-  {
-    fileManager3 = [(HMDLaunchHandler *)self fileManager];
-    relaunchPlistFileURL4 = [(HMDLaunchHandler *)self relaunchPlistFileURL];
-    v41 = 0;
-    v28 = [fileManager3 removeItemAtURL:relaunchPlistFileURL4 error:&v41];
-    v8 = v41;
+    v28 = [fileManager2 removeItemAtURL:relaunchPlistFileURL2 error:&v40];
+    v8 = v40;
 
     v29 = objc_autoreleasePoolPush();
-    selfCopy2 = self;
+    selfCopy = self;
     v31 = HMFGetOSLogHandle();
     v32 = v31;
     if (v28)
@@ -157,11 +101,11 @@ LABEL_17:
       if (os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
       {
         v33 = HMFGetLogIdentifier();
-        relaunchPlistFileURL5 = [(HMDLaunchHandler *)selfCopy2 relaunchPlistFileURL];
+        relaunchPlistFileURL3 = [(HMDLaunchHandler *)selfCopy relaunchPlistFileURL];
         *buf = 138543618;
-        v45 = v33;
-        v46 = 2112;
-        v47 = relaunchPlistFileURL5;
+        v44 = v33;
+        v45 = 2112;
+        v46 = relaunchPlistFileURL3;
         v35 = "%{public}@Successfully removed relaunch plist file at %@";
         v36 = v32;
         v37 = OS_LOG_TYPE_INFO;
@@ -174,13 +118,13 @@ LABEL_15:
     else if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
     {
       v33 = HMFGetLogIdentifier();
-      relaunchPlistFileURL5 = [(HMDLaunchHandler *)selfCopy2 relaunchPlistFileURL];
+      relaunchPlistFileURL3 = [(HMDLaunchHandler *)selfCopy relaunchPlistFileURL];
       *buf = 138543874;
-      v45 = v33;
-      v46 = 2112;
-      v47 = relaunchPlistFileURL5;
-      v48 = 2112;
-      v49 = v8;
+      v44 = v33;
+      v45 = 2112;
+      v46 = relaunchPlistFileURL3;
+      v47 = 2112;
+      v48 = v8;
       v35 = "%{public}@Failed to remove relaunch plist file at %@: %@";
       v36 = v32;
       v37 = OS_LOG_TYPE_ERROR;
@@ -192,8 +136,60 @@ LABEL_15:
     goto LABEL_17;
   }
 
-LABEL_18:
-  v39 = *MEMORY[0x277D85DE8];
+  v41 = @"KeepAliveClients";
+  registeredRelaunchClients2 = [(HMDLaunchHandler *)self registeredRelaunchClients];
+  allObjects = [registeredRelaunchClients2 allObjects];
+  v42 = allObjects;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v42 forKeys:&v41 count:1];
+
+  fileManager3 = [(HMDLaunchHandler *)self fileManager];
+  relaunchPlistFileURL4 = [(HMDLaunchHandler *)self relaunchPlistFileURL];
+  v39 = 0;
+  v11 = [fileManager3 writeDictionary:v8 toURL:relaunchPlistFileURL4 error:&v39];
+  v12 = v39;
+
+  v13 = objc_autoreleasePoolPush();
+  selfCopy2 = self;
+  v15 = HMFGetOSLogHandle();
+  v16 = v15;
+  if (v11)
+  {
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+    {
+      v17 = HMFGetLogIdentifier();
+      relaunchPlistFileURL5 = [(HMDLaunchHandler *)selfCopy2 relaunchPlistFileURL];
+      *buf = 138543618;
+      v44 = v17;
+      v45 = 2112;
+      v46 = relaunchPlistFileURL5;
+      v19 = "%{public}@Successfully wrote relaunch plist file at %@";
+      v20 = v16;
+      v21 = OS_LOG_TYPE_INFO;
+      v22 = 22;
+LABEL_11:
+      _os_log_impl(&dword_2531F8000, v20, v21, v19, buf, v22);
+    }
+  }
+
+  else if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+  {
+    v17 = HMFGetLogIdentifier();
+    relaunchPlistFileURL5 = [(HMDLaunchHandler *)selfCopy2 relaunchPlistFileURL];
+    *buf = 138543874;
+    v44 = v17;
+    v45 = 2112;
+    v46 = relaunchPlistFileURL5;
+    v47 = 2112;
+    v48 = v12;
+    v19 = "%{public}@Failed to write relaunch plist file at %@: %@";
+    v20 = v16;
+    v21 = OS_LOG_TYPE_ERROR;
+    v22 = 32;
+    goto LABEL_11;
+  }
+
+  objc_autoreleasePoolPop(v13);
+LABEL_17:
 }
 
 - (void)deregisterRelaunchClientWithUUID:(id)d
@@ -212,7 +208,7 @@ LABEL_18:
 
 void __53__HMDLaunchHandler_deregisterRelaunchClientWithUUID___block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
@@ -220,11 +216,11 @@ void __53__HMDLaunchHandler_deregisterRelaunchClientWithUUID___block_invoke(uint
   {
     v5 = HMFGetLogIdentifier();
     v6 = *(a1 + 40);
-    v15 = 138543618;
-    v16 = v5;
-    v17 = 2112;
-    v18 = v6;
-    _os_log_impl(&dword_2531F8000, v4, OS_LOG_TYPE_INFO, "%{public}@Deregistering client for relaunch: %@", &v15, 0x16u);
+    v14 = 138543618;
+    v15 = v5;
+    v16 = 2112;
+    v17 = v6;
+    _os_log_impl(&dword_2531F8000, v4, OS_LOG_TYPE_INFO, "%{public}@Deregistering client for relaunch: %@", &v14, 0x16u);
   }
 
   objc_autoreleasePoolPop(v2);
@@ -247,8 +243,6 @@ void __53__HMDLaunchHandler_deregisterRelaunchClientWithUUID___block_invoke(uint
       [*(a1 + 32) _setJetsamPriorityElevated:0];
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)registerRelaunchClientWithUUID:(id)d
@@ -267,7 +261,7 @@ void __53__HMDLaunchHandler_deregisterRelaunchClientWithUUID___block_invoke(uint
 
 void __51__HMDLaunchHandler_registerRelaunchClientWithUUID___block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
@@ -275,11 +269,11 @@ void __51__HMDLaunchHandler_registerRelaunchClientWithUUID___block_invoke(uint64
   {
     v5 = HMFGetLogIdentifier();
     v6 = *(a1 + 40);
-    v15 = 138543618;
-    v16 = v5;
-    v17 = 2112;
-    v18 = v6;
-    _os_log_impl(&dword_2531F8000, v4, OS_LOG_TYPE_INFO, "%{public}@Registering client for relaunch: %@", &v15, 0x16u);
+    v14 = 138543618;
+    v15 = v5;
+    v16 = 2112;
+    v17 = v6;
+    _os_log_impl(&dword_2531F8000, v4, OS_LOG_TYPE_INFO, "%{public}@Registering client for relaunch: %@", &v14, 0x16u);
   }
 
   objc_autoreleasePoolPop(v2);
@@ -302,8 +296,6 @@ void __51__HMDLaunchHandler_registerRelaunchClientWithUUID___block_invoke(uint64
       [*(a1 + 32) _setJetsamPriorityElevated:1];
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removePersistentRelaunchRegistrationsIfNecessary
@@ -319,16 +311,16 @@ void __51__HMDLaunchHandler_registerRelaunchClientWithUUID___block_invoke(uint64
 
 void __68__HMDLaunchHandler_removePersistentRelaunchRegistrationsIfNecessary__block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = HMFGetLogIdentifier();
-    v9 = 138543362;
-    v10 = v5;
-    _os_log_impl(&dword_2531F8000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@Removing persistent relaunch registrations if necessary", &v9, 0xCu);
+    v8 = 138543362;
+    v9 = v5;
+    _os_log_impl(&dword_2531F8000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@Removing persistent relaunch registrations if necessary", &v8, 0xCu);
   }
 
   objc_autoreleasePoolPop(v2);
@@ -339,8 +331,6 @@ void __68__HMDLaunchHandler_removePersistentRelaunchRegistrationsIfNecessary__bl
   {
     [*(a1 + 32) _updateOrRemoveRelaunchPlist];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (HMDLaunchHandler)initWithRelaunchPlistFileURL:(id)l fileManager:(id)manager jetsamPriorityHandler:(id)handler
@@ -353,7 +343,7 @@ void __68__HMDLaunchHandler_removePersistentRelaunchRegistrationsIfNecessary__bl
   v11 = [(HMDLaunchHandler *)&v22 init];
   if (v11)
   {
-    v12 = [lCopy copy];
+    v12 = objc_msgSend_copy(lCopy);
     relaunchPlistFileURL = v11->_relaunchPlistFileURL;
     v11->_relaunchPlistFileURL = v12;
 
@@ -387,7 +377,7 @@ void __68__HMDLaunchHandler_removePersistentRelaunchRegistrationsIfNecessary__bl
   return v7;
 }
 
-uint64_t __24__HMDLaunchHandler_init__block_invoke()
+uint64_t __24__HMDLaunchHandler_init__block_invoke(uint64_t a1, uint64_t a2)
 {
   getpid();
 
@@ -408,12 +398,11 @@ uint64_t __24__HMDLaunchHandler_init__block_invoke()
 
 uint64_t __31__HMDLaunchHandler_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v10_130748;
-  logCategory__hmf_once_v10_130748 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v10_130748;
+  logCategory__hmf_once_v10_130748 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 + (HMDLaunchHandler)sharedHandler

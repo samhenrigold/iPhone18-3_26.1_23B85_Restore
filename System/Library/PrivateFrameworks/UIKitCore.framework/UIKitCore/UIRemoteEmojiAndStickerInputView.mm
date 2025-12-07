@@ -332,9 +332,9 @@ void __59__UIRemoteEmojiAndStickerInputView_didSelectEmoji_dismiss___block_invok
 {
   v12 = *MEMORY[0x1E69E9840];
   v2 = +[UIKeyboard keyboardBundleIdentifier];
-  v3 = [v2 isEqualToString:@"com.apple.MobileSMS"];
+  isEqualToString = objc_msgSend_isEqualToString_(v2);
 
-  if (v3)
+  if (isEqualToString)
   {
     v9 = +[UIKeyboardMediaController sharedKeyboardMediaController];
     [v9 presentCard];

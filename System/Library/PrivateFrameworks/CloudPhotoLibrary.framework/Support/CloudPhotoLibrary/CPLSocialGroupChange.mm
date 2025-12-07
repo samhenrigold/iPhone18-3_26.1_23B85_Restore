@@ -172,7 +172,7 @@ LABEL_26:
     if (sub_10002B0A8(v13))
     {
       sub_1000187DC();
-      sub_1000A1044(&_mh_execute_header, v14, v15, "Failed to find any personsData for %@", v16, v17, v18, v19, v20);
+      sub_1000A1044(&_mh_execute_header, v14, v15, "Failed to find any personsData for %@", v16, v17, v18, v19);
     }
   }
 }

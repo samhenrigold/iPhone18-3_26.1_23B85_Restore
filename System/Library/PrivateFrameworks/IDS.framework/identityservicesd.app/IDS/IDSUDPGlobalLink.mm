@@ -1235,7 +1235,7 @@ LABEL_6:
         sub_100920914();
       }
 
-      sub_1003D03D4(&self->_sockAddrPairTable, self->_udpLink, self->_cbuuid, (qword_100CBD418 + v9 * 4294967300.0) >> 22);
+      sub_1003D03D4(&self->_sockAddrPairTable, self->_udpLink, self->_cbuuid, ((qword_100CBD418 + v9 * 4294967300.0) >> 22));
       IDSTransportThreadAddBlockAfter();
     }
   }
@@ -1720,67 +1720,66 @@ LABEL_24:
 {
   v8 = __chkstk_darwin(self);
   v10 = v9;
-  v12 = v11;
-  __src = v13;
+  __src = v11;
+  v13 = v12;
   v15 = v14;
   v17 = v16;
-  v18 = v8;
-  v20 = v19;
-  v85 = &v80;
-  v86 = v17;
-  *&v21 = 0xAAAAAAAAAAAAAAAALL;
-  *(&v21 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v102 = v21;
-  v103 = v21;
-  v100 = v21;
-  v101 = v21;
-  v98 = v21;
-  v99 = v21;
-  v96 = v21;
-  v97 = v21;
-  v88 = v21;
-  v89 = v21;
-  v90 = v21;
-  v91 = v21;
-  v92 = v21;
-  v93 = v21;
-  v94 = v21;
-  v95 = v21;
-  v22 = OSLogHandleForTransportCategory();
-  if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+  v19 = v18;
+  v84 = &v79;
+  v85 = v15;
+  *&v20 = 0xAAAAAAAAAAAAAAAALL;
+  *(&v20 + 1) = 0xAAAAAAAAAAAAAAAALL;
+  v101 = v20;
+  v102 = v20;
+  v99 = v20;
+  v100 = v20;
+  v97 = v20;
+  v98 = v20;
+  v95 = v20;
+  v96 = v20;
+  v87 = v20;
+  v88 = v20;
+  v89 = v20;
+  v90 = v20;
+  v91 = v20;
+  v92 = v20;
+  v93 = v20;
+  v94 = v20;
+  v21 = OSLogHandleForTransportCategory();
+  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
   {
+    v22 = SAToIPPortString();
     v23 = SAToIPPortString();
-    v24 = SAToIPPortString();
     *buf = 138413058;
-    *&buf[4] = v20;
+    *&buf[4] = v19;
     *&buf[12] = 2080;
-    *&buf[14] = v23;
+    *&buf[14] = v22;
     *&buf[22] = 1024;
-    *&buf[24] = v15;
+    *&buf[24] = v13;
     *&buf[28] = 2080;
-    *&buf[30] = v24;
-    _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "receive binding request %@ for [%s(%u)-%s].", buf, 0x26u);
+    *&buf[30] = v23;
+    _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "receive binding request %@ for [%s(%u)-%s].", buf, 0x26u);
   }
 
   if (os_log_shim_legacy_logging_enabled())
   {
     if (_IDSShouldLogTransport())
     {
+      v24 = SAToIPPortString();
       v25 = SAToIPPortString();
-      v26 = SAToIPPortString();
-      v82 = v15;
-      v83 = v26;
-      v80 = v20;
-      v81 = v25;
+      v81 = v13;
+      v82 = v25;
+      v79 = v19;
+      v80 = v24;
       _IDSLogTransport();
       if (_IDSShouldLog())
       {
+        v26 = SAToIPPortString();
         v27 = SAToIPPortString();
-        v28 = SAToIPPortString();
-        v82 = v15;
-        v83 = v28;
-        v80 = v20;
-        v81 = v27;
+        v81 = v13;
+        v82 = v27;
+        v79 = v19;
+        v80 = v26;
         _IDSLogV();
       }
     }
@@ -1788,20 +1787,20 @@ LABEL_24:
 
   memset(buf, 170, 0x5D0uLL);
   memset(__b, 170, sizeof(__b));
-  if (![v20 getAttribute:37 attribute:buf] || !objc_msgSend(v20, "getAttribute:attribute:", 6, __b))
+  if (![v19 getAttribute:37 attribute:buf] || !objc_msgSend(v19, "getAttribute:attribute:", 6, __b))
   {
-    v84 = 0;
+    v83 = 0;
     goto LABEL_21;
   }
 
-  v29 = *(v18 + 1856);
-  if (!v29)
+  v28 = *(v17 + 1856);
+  if (!v28)
   {
-    v60 = OSLogHandleForTransportCategory();
-    if (os_log_type_enabled(v60, OS_LOG_TYPE_DEFAULT))
+    v59 = OSLogHandleForTransportCategory();
+    if (os_log_type_enabled(v59, OS_LOG_TYPE_DEFAULT))
     {
-      *v112 = 0;
-      _os_log_impl(&_mh_execute_header, v60, OS_LOG_TYPE_DEFAULT, "process nomination request before Accept, this should NOT happen.", v112, 2u);
+      *v111 = 0;
+      _os_log_impl(&_mh_execute_header, v59, OS_LOG_TYPE_DEFAULT, "process nomination request before Accept, this should NOT happen.", v111, 2u);
     }
 
     if (os_log_shim_legacy_logging_enabled())
@@ -1819,213 +1818,213 @@ LABEL_24:
     goto LABEL_94;
   }
 
-  v84 = *&buf[8];
-  v30 = __b[2];
-  uTF8String = [v29 UTF8String];
-  v32 = strlen(uTF8String);
-  if (v84 >= 1 && v30 >= 1 && v32 == v30 && !memcmp(&__b[3], uTF8String, v32))
+  v83 = *&buf[8];
+  v29 = __b[2];
+  uTF8String = [v28 UTF8String];
+  v31 = strlen(uTF8String);
+  if (v83 >= 1 && v29 >= 1 && v31 == v29 && !memcmp(&__b[3], uTF8String, v31))
   {
-    v75 = OSLogHandleForTransportCategory();
-    if (os_log_type_enabled(v75, OS_LOG_TYPE_DEFAULT))
+    v74 = OSLogHandleForTransportCategory();
+    if (os_log_type_enabled(v74, OS_LOG_TYPE_DEFAULT))
     {
-      *v112 = 136315138;
-      *&v112[4] = &__b[3];
-      _os_log_impl(&_mh_execute_header, v75, OS_LOG_TYPE_DEFAULT, "receive nominate binding request with remotePartyID %s.", v112, 0xCu);
+      *v111 = 136315138;
+      *&v111[4] = &__b[3];
+      _os_log_impl(&_mh_execute_header, v74, OS_LOG_TYPE_DEFAULT, "receive nominate binding request with remotePartyID %s.", v111, 0xCu);
     }
 
     if (os_log_shim_legacy_logging_enabled())
     {
       if (_IDSShouldLogTransport())
       {
-        v80 = &__b[3];
+        v79 = &__b[3];
         _IDSLogTransport();
         if (_IDSShouldLog())
         {
-          v80 = &__b[3];
+          v79 = &__b[3];
           _IDSLogV();
         }
       }
     }
 
-    sub_1003CFAC0((v18 + 56), v15, __src, v12, 5, &__b[3], v30);
-    uTF8String2 = [*(v18 + 1856) UTF8String];
-    v77 = strlen(uTF8String2);
-    if (!memcmp(&__b[3], uTF8String2, v77))
+    sub_1003CFAC0((v17 + 56), v13, __src, v10, 5, &__b[3], v29);
+    uTF8String2 = [*(v17 + 1856) UTF8String];
+    v76 = strlen(uTF8String2);
+    if (!memcmp(&__b[3], uTF8String2, v76))
     {
-      v78 = OSLogHandleForTransportCategory();
-      if (os_log_type_enabled(v78, OS_LOG_TYPE_DEFAULT))
+      v77 = OSLogHandleForTransportCategory();
+      if (os_log_type_enabled(v77, OS_LOG_TYPE_DEFAULT))
       {
-        *v112 = 67109378;
-        *&v112[4] = v84;
-        *&v112[8] = 2080;
-        *&v112[10] = uTF8String2;
-        _os_log_impl(&_mh_execute_header, v78, OS_LOG_TYPE_DEFAULT, "nominate request with count(%d) matches remoteID %s", v112, 0x12u);
+        *v111 = 67109378;
+        *&v111[4] = v83;
+        *&v111[8] = 2080;
+        *&v111[10] = uTF8String2;
+        _os_log_impl(&_mh_execute_header, v77, OS_LOG_TYPE_DEFAULT, "nominate request with count(%d) matches remoteID %s", v111, 0x12u);
       }
 
       if (os_log_shim_legacy_logging_enabled())
       {
         if (_IDSShouldLogTransport())
         {
-          v80 = v84;
-          v81 = uTF8String2;
+          v79 = v83;
+          v80 = uTF8String2;
           _IDSLogTransport();
           if (_IDSShouldLog())
           {
-            v80 = v84;
-            v81 = uTF8String2;
+            v79 = v83;
+            v80 = uTF8String2;
             _IDSLogV();
           }
         }
       }
 
-      [v18 _updateLinkTransportAddress:v15 localAddress:__src remoteAddress:v12];
+      [v17 _updateLinkTransportAddress:v13 localAddress:__src remoteAddress:v10];
     }
 
 LABEL_21:
-    v34 = _IDSLinkPacketBufferCreate();
-    v35 = v34;
-    if (*(v18 + 1896) != 4)
+    v33 = _IDSLinkPacketBufferCreate();
+    v34 = v33;
+    if (*(v17 + 1896) != 4)
     {
-      *(v34 + 48) = v15;
-      memcpy((v34 + 56), __src, *__src);
-      memcpy((v35 + 184), v12, *v12);
+      *(v33 + 48) = v13;
+      memcpy((v33 + 56), __src, *__src);
+      memcpy((v34 + 184), v10, *v10);
       goto LABEL_28;
     }
 
-    v36 = *(v18 + 1689);
-    if (v36 == v12[1])
+    v35 = *(v17 + 1689);
+    if (v35 == v10[1])
     {
-      if (v36 == 30)
+      if (v35 == 30)
       {
-        if (*(v18 + 1690) == *(v12 + 1))
+        if (*(v17 + 1690) == *(v10 + 1))
         {
-          v37 = *(v18 + 1696) == *(v12 + 1) && *(v18 + 1704) == *(v12 + 2);
+          v36 = *(v17 + 1696) == *(v10 + 1) && *(v17 + 1704) == *(v10 + 2);
           goto LABEL_59;
         }
       }
 
-      else if (v36 == 2 && *(v18 + 1690) == *(v12 + 1))
+      else if (v35 == 2 && *(v17 + 1690) == *(v10 + 1))
       {
-        v37 = *(v18 + 1692) == *(v12 + 1);
+        v36 = *(v17 + 1692) == *(v10 + 1);
 LABEL_59:
-        v62 = v37;
-        v63 = (v18 + 1552);
-        if (*(v18 + 1552) != v15 || (v62 & 1) == 0)
+        v61 = v36;
+        v62 = (v17 + 1552);
+        if (*(v17 + 1552) != v13 || (v61 & 1) == 0)
         {
           goto LABEL_66;
         }
 
 LABEL_28:
-        memset(v112, 170, sizeof(v112));
-        if ([v20 getAttribute:32773 attribute:v112])
+        memset(v111, 170, sizeof(v111));
+        if ([v19 getAttribute:32773 attribute:v111])
         {
-          v38 = *&v112[12];
+          v37 = *&v111[12];
           ids_monotonic_time();
-          v40 = v39;
+          v39 = v38;
           if (qword_100CBD420 != -1)
           {
             sub_100920914();
           }
 
-          v41 = bswap32(v38) >> 16;
-          v42 = ((qword_100CBD418 + v40 * 4294967300.0) >> 22) - ((qword_100CBD418 + v10 * 4294967300.0) >> 22);
+          v40 = bswap32(v37) >> 16;
+          v41 = ((qword_100CBD418 + v39 * 4294967300.0) >> 22) - ((qword_100CBD418 + v8 * 4294967300.0) >> 22);
         }
 
         else
         {
+          v40 = 0;
           v41 = 0;
-          v42 = 0;
         }
 
-        v43 = [[IDSStunMessage alloc] initWithType:257];
-        v44 = *v35;
-        transactionID = [v20 transactionID];
-        v46 = *(v35 + 8);
-        v80 = *(v18 + 1840);
-        [v43 stunResponseToBuffer:v44 outputLength:v35 + 16 transactionID:transactionID reqCount:v84 echoTime:v41 delay:v42 keyData:v80 remainingLength:v46];
+        v42 = [[IDSStunMessage alloc] initWithType:257];
+        v43 = *v34;
+        transactionID = [v19 transactionID];
+        v45 = *(v34 + 8);
+        v79 = *(v17 + 1840);
+        [v42 stunResponseToBuffer:v43 outputLength:v34 + 16 transactionID:transactionID reqCount:v83 echoTime:v40 delay:v41 keyData:v79 remainingLength:v45];
 
-        v47 = OSLogHandleForTransportCategory();
-        if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
+        v46 = OSLogHandleForTransportCategory();
+        if (os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT))
         {
-          v48 = SAToIPPortString();
-          v49 = *(v35 + 48);
-          v50 = SAToIPPortString();
-          *v104 = 138413058;
-          v105 = v43;
-          v106 = 2080;
-          v107 = v48;
-          v108 = 1024;
-          v109 = v49;
-          v110 = 2080;
-          v111 = v50;
-          _os_log_impl(&_mh_execute_header, v47, OS_LOG_TYPE_DEFAULT, "send binding response %@ for [%s(%u)-%s].", v104, 0x26u);
+          v47 = SAToIPPortString();
+          v48 = *(v34 + 48);
+          v49 = SAToIPPortString();
+          *v103 = 138413058;
+          v104 = v42;
+          v105 = 2080;
+          v106 = v47;
+          v107 = 1024;
+          v108 = v48;
+          v109 = 2080;
+          v110 = v49;
+          _os_log_impl(&_mh_execute_header, v46, OS_LOG_TYPE_DEFAULT, "send binding response %@ for [%s(%u)-%s].", v103, 0x26u);
         }
 
         if (os_log_shim_legacy_logging_enabled())
         {
           if (_IDSShouldLogTransport())
           {
-            v51 = SAToIPPortString();
-            v52 = *(v35 + 48);
-            v53 = SAToIPPortString();
-            v82 = v52;
-            v83 = v53;
-            v80 = v43;
+            v50 = SAToIPPortString();
+            v51 = *(v34 + 48);
+            v52 = SAToIPPortString();
             v81 = v51;
+            v82 = v52;
+            v79 = v42;
+            v80 = v50;
             _IDSLogTransport();
             if (_IDSShouldLog())
             {
-              v54 = SAToIPPortString();
-              v55 = *(v35 + 48);
-              v56 = SAToIPPortString();
-              v82 = v55;
-              v83 = v56;
-              v80 = v43;
+              v53 = SAToIPPortString();
+              v54 = *(v34 + 48);
+              v55 = SAToIPPortString();
               v81 = v54;
+              v82 = v55;
+              v79 = v42;
+              v80 = v53;
               _IDSLogV();
             }
           }
         }
 
-        v57 = [*(v18 + 8) sendPacketBuffer:v35 toDeviceUniqueID:*(v18 + 1888) cbuuid:v86];
-        if (v57)
+        v56 = [*(v17 + 8) sendPacketBuffer:v34 toDeviceUniqueID:*(v17 + 1888) cbuuid:v85];
+        if (v56)
         {
-          v58 = OSLogHandleForTransportCategory();
-          if (os_log_type_enabled(v58, OS_LOG_TYPE_DEFAULT))
+          v57 = OSLogHandleForTransportCategory();
+          if (os_log_type_enabled(v57, OS_LOG_TYPE_DEFAULT))
           {
-            if (v57 > 0xF)
+            if (v56 > 0xF)
             {
-              v59 = "UnexpectedSendResult";
+              v58 = "UnexpectedSendResult";
             }
 
             else
             {
-              v59 = _IDSLinkSendResultStrings[v57];
+              v58 = _IDSLinkSendResultStrings[v56];
             }
 
-            *v104 = 136315138;
-            v105 = v59;
-            _os_log_impl(&_mh_execute_header, v58, OS_LOG_TYPE_DEFAULT, "send binding response failed with %s", v104, 0xCu);
+            *v103 = 136315138;
+            v104 = v58;
+            _os_log_impl(&_mh_execute_header, v57, OS_LOG_TYPE_DEFAULT, "send binding response failed with %s", v103, 0xCu);
           }
 
           if (os_log_shim_legacy_logging_enabled() && _IDSShouldLogTransport())
           {
-            v61 = v57 > 0xF ? "UnexpectedSendResult" : _IDSLinkSendResultStrings[v57];
-            v80 = v61;
+            v60 = v56 > 0xF ? "UnexpectedSendResult" : _IDSLinkSendResultStrings[v56];
+            v79 = v60;
             _IDSLogTransport();
             if (_IDSShouldLog())
             {
-              if (v57 > 0xF)
+              if (v56 > 0xF)
               {
-                v74 = "UnexpectedSendResult";
+                v73 = "UnexpectedSendResult";
               }
 
               else
               {
-                v74 = _IDSLinkSendResultStrings[v57];
+                v73 = _IDSLinkSendResultStrings[v56];
               }
 
-              v80 = v74;
+              v79 = v73;
               _IDSLogV();
             }
           }
@@ -2035,42 +2034,42 @@ LABEL_28:
       }
     }
 
-    v63 = (v18 + 1552);
+    v62 = (v17 + 1552);
 LABEL_66:
-    v64 = OSLogHandleForTransportCategory();
-    if (os_log_type_enabled(v64, OS_LOG_TYPE_DEFAULT))
+    v63 = OSLogHandleForTransportCategory();
+    if (os_log_type_enabled(v63, OS_LOG_TYPE_DEFAULT))
     {
-      v65 = SAToIPPortString();
-      v66 = *v63;
-      v67 = SAToIPPortString();
-      *v112 = 136315650;
-      *&v112[4] = v65;
-      *&v112[12] = 1024;
-      *&v112[14] = v66;
-      *&v112[18] = 2080;
-      *&v112[20] = v67;
-      _os_log_impl(&_mh_execute_header, v64, OS_LOG_TYPE_DEFAULT, "skip binding response to %s, socket on if_index %d is already connected to %s.", v112, 0x1Cu);
+      v64 = SAToIPPortString();
+      v65 = *v62;
+      v66 = SAToIPPortString();
+      *v111 = 136315650;
+      *&v111[4] = v64;
+      *&v111[12] = 1024;
+      *&v111[14] = v65;
+      *&v111[18] = 2080;
+      *&v111[20] = v66;
+      _os_log_impl(&_mh_execute_header, v63, OS_LOG_TYPE_DEFAULT, "skip binding response to %s, socket on if_index %d is already connected to %s.", v111, 0x1Cu);
     }
 
     if (os_log_shim_legacy_logging_enabled())
     {
       if (_IDSShouldLogTransport())
       {
-        v68 = SAToIPPortString();
-        v69 = *v63;
-        v70 = SAToIPPortString();
-        v81 = v69;
-        v82 = v70;
+        v67 = SAToIPPortString();
+        v68 = *v62;
+        v69 = SAToIPPortString();
         v80 = v68;
+        v81 = v69;
+        v79 = v67;
         _IDSLogTransport();
         if (_IDSShouldLog())
         {
-          v71 = SAToIPPortString();
-          v72 = *v63;
-          v73 = SAToIPPortString();
-          v81 = v72;
-          v82 = v73;
+          v70 = SAToIPPortString();
+          v71 = *v62;
+          v72 = SAToIPPortString();
           v80 = v71;
+          v81 = v72;
+          v79 = v70;
           _IDSLogV();
         }
       }
@@ -2080,11 +2079,11 @@ LABEL_66:
     goto LABEL_94;
   }
 
-  v33 = OSLogHandleForTransportCategory();
-  if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
+  v32 = OSLogHandleForTransportCategory();
+  if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
   {
-    *v112 = 0;
-    _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_DEFAULT, "receive nomination request with invalid remotePartyID, ignore.", v112, 2u);
+    *v111 = 0;
+    _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_DEFAULT, "receive nomination request with invalid remotePartyID, ignore.", v111, 2u);
   }
 
   if (os_log_shim_legacy_logging_enabled())

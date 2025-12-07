@@ -40,9 +40,13 @@
 
 - (void)remoteAlertScene:(id)scene didTransitionToAttachedToWindowedAccessory:(BOOL)accessory windowedAccessoryCutoutFrameInScreen:(CGRect)screen
 {
+  height = screen.size.height;
+  width = screen.size.width;
+  y = screen.origin.y;
+  x = screen.origin.x;
   sceneCopy = scene;
   selfCopy = self;
-  sub_10002AA68(sceneCopy, accessory);
+  sub_10002AA68(sceneCopy, accessory, x, y, width, height);
 }
 
 @end

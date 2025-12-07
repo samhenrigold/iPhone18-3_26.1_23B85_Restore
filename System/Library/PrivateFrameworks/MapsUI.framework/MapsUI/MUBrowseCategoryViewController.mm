@@ -78,40 +78,40 @@
 
 - (void)collectionView:(id)view didSelectItemAtIndexPath:(id)path
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   pathCopy = path;
   browseItems = [(MUBrowseCategoryViewController *)self browseItems];
   v7 = [browseItems objectAtIndexedSubscript:{objc_msgSend(pathCopy, "row")}];
 
   v8 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v27 = 0u;
   v28 = 0u;
   v29 = 0u;
   v30 = 0u;
-  v31 = 0u;
   browseItems2 = [(MUBrowseCategoryViewController *)self browseItems];
-  v10 = [browseItems2 countByEnumeratingWithState:&v28 objects:v32 count:16];
+  v10 = [browseItems2 countByEnumeratingWithState:&v27 objects:v31 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v29;
+    v12 = *v28;
     do
     {
       v13 = 0;
       do
       {
-        if (*v29 != v12)
+        if (*v28 != v12)
         {
           objc_enumerationMutation(browseItems2);
         }
 
-        searchCategory = [*(*(&v28 + 1) + 8 * v13) searchCategory];
+        searchCategory = [*(*(&v27 + 1) + 8 * v13) searchCategory];
         [v8 addObject:searchCategory];
 
         ++v13;
       }
 
       while (v11 != v13);
-      v11 = [browseItems2 countByEnumeratingWithState:&v28 objects:v32 count:16];
+      v11 = [browseItems2 countByEnumeratingWithState:&v27 objects:v31 count:16];
     }
 
     while (v11);
@@ -140,8 +140,6 @@
       [delegate2 categoryBrowseViewController:self didTapOnSearchCategory:searchCategory4];
     }
   }
-
-  v27 = *MEMORY[0x1E69E9840];
 }
 
 - (NSArray)buttons
@@ -212,10 +210,10 @@
 
 - (void)viewDidLayoutSubviews
 {
-  v27 = *MEMORY[0x1E69E9840];
-  v25.receiver = self;
-  v25.super_class = MUBrowseCategoryViewController;
-  [(MUBrowseCategoryViewController *)&v25 viewDidLayoutSubviews];
+  v26 = *MEMORY[0x1E69E9840];
+  v24.receiver = self;
+  v24.super_class = MUBrowseCategoryViewController;
+  [(MUBrowseCategoryViewController *)&v24 viewDidLayoutSubviews];
   collectionView = [(MUBrowseCategoryViewController *)self collectionView];
   v4 = [collectionView numberOfItemsInSection:0];
 
@@ -225,27 +223,27 @@
     firstObject = [browseItems firstObject];
     searchCategory = [firstObject searchCategory];
 
-    v23 = 0u;
-    v24 = 0u;
-    v21 = 0u;
     v22 = 0u;
+    v23 = 0u;
+    v20 = 0u;
+    v21 = 0u;
     browseItems2 = [(MUBrowseCategoryViewController *)self browseItems];
-    v9 = [browseItems2 countByEnumeratingWithState:&v21 objects:v26 count:16];
+    v9 = [browseItems2 countByEnumeratingWithState:&v20 objects:v25 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v22;
+      v11 = *v21;
       while (2)
       {
         v12 = 0;
         do
         {
-          if (*v22 != v11)
+          if (*v21 != v11)
           {
             objc_enumerationMutation(browseItems2);
           }
 
-          searchCategory2 = [*(*(&v21 + 1) + 8 * v12) searchCategory];
+          searchCategory2 = [*(*(&v20 + 1) + 8 * v12) searchCategory];
           subcategories = [searchCategory2 subcategories];
           v15 = [subcategories count];
 
@@ -259,7 +257,7 @@
         }
 
         while (v10 != v12);
-        v10 = [browseItems2 countByEnumeratingWithState:&v21 objects:v26 count:16];
+        v10 = [browseItems2 countByEnumeratingWithState:&v20 objects:v25 count:16];
         if (v10)
         {
           continue;
@@ -284,8 +282,6 @@ LABEL_12:
       [delegate2 categoryBrowseViewControllerDidDisplayBrowseCategories:self];
     }
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (void)viewWillLayoutSubviews
@@ -373,19 +369,17 @@ LABEL_17:
 
 void __56__MUBrowseCategoryViewController_viewWillLayoutSubviews__block_invoke()
 {
-  v5[5] = *MEMORY[0x1E69E9840];
+  v4[5] = *MEMORY[0x1E69E9840];
   v0 = *MEMORY[0x1E69DDC38];
-  v5[0] = *MEMORY[0x1E69DDC40];
-  v5[1] = v0;
+  v4[0] = *MEMORY[0x1E69DDC40];
+  v4[1] = v0;
   v1 = *MEMORY[0x1E69DDC28];
-  v5[2] = *MEMORY[0x1E69DDC30];
-  v5[3] = v1;
-  v5[4] = *MEMORY[0x1E69DDC20];
-  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:5];
+  v4[2] = *MEMORY[0x1E69DDC30];
+  v4[3] = v1;
+  v4[4] = *MEMORY[0x1E69DDC20];
+  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v4 count:5];
   v3 = viewWillLayoutSubviews_accessibilitySizeCategories;
   viewWillLayoutSubviews_accessibilitySizeCategories = v2;
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (double)collectionViewBottomPadding
@@ -416,27 +410,25 @@ void __56__MUBrowseCategoryViewController_viewWillLayoutSubviews__block_invoke()
 
 void __61__MUBrowseCategoryViewController_collectionViewBottomPadding__block_invoke()
 {
-  v6[7] = *MEMORY[0x1E69E9840];
+  v5[7] = *MEMORY[0x1E69E9840];
   v0 = *MEMORY[0x1E69DDC68];
-  v6[0] = *MEMORY[0x1E69DDC90];
-  v6[1] = v0;
+  v5[0] = *MEMORY[0x1E69DDC90];
+  v5[1] = v0;
   v1 = *MEMORY[0x1E69DDC78];
-  v6[2] = *MEMORY[0x1E69DDC88];
-  v6[3] = v1;
+  v5[2] = *MEMORY[0x1E69DDC88];
+  v5[3] = v1;
   v2 = *MEMORY[0x1E69DDC60];
-  v6[4] = *MEMORY[0x1E69DDC70];
-  v6[5] = v2;
-  v6[6] = *MEMORY[0x1E69DDC58];
-  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:7];
+  v5[4] = *MEMORY[0x1E69DDC70];
+  v5[5] = v2;
+  v5[6] = *MEMORY[0x1E69DDC58];
+  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:7];
   v4 = collectionViewBottomPadding_sizeCategoriesForDefaultPadding;
   collectionViewBottomPadding_sizeCategoriesForDefaultPadding = v3;
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setupCollectionView
 {
-  v51[4] = *MEMORY[0x1E69E9840];
+  v50[4] = *MEMORY[0x1E69E9840];
   v3 = objc_alloc_init(MUFixedToTopCollectionViewFlowLayout);
   [(MUBrowseCategoryViewController *)self setCollectionViewFlowLayout:v3];
 
@@ -494,41 +486,39 @@ void __61__MUBrowseCategoryViewController_collectionViewBottomPadding__block_inv
   v29 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2 constant:-v28];
   [(MUBrowseCategoryViewController *)self setCollectionViewBottomConstraint:v29];
 
-  v43 = MEMORY[0x1E696ACD8];
+  v42 = MEMORY[0x1E696ACD8];
   collectionView11 = [(MUBrowseCategoryViewController *)self collectionView];
   leadingAnchor = [collectionView11 leadingAnchor];
   view3 = [(MUBrowseCategoryViewController *)self view];
   layoutMarginsGuide2 = [view3 layoutMarginsGuide];
   leadingAnchor2 = [layoutMarginsGuide2 leadingAnchor];
-  v45 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
-  v51[0] = v45;
+  v44 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
+  v50[0] = v44;
   collectionView12 = [(MUBrowseCategoryViewController *)self collectionView];
   trailingAnchor = [collectionView12 trailingAnchor];
   view4 = [(MUBrowseCategoryViewController *)self view];
   layoutMarginsGuide3 = [view4 layoutMarginsGuide];
   trailingAnchor2 = [layoutMarginsGuide3 trailingAnchor];
   v32 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
-  v51[1] = v32;
+  v50[1] = v32;
   collectionView13 = [(MUBrowseCategoryViewController *)self collectionView];
   topAnchor = [collectionView13 topAnchor];
   view5 = [(MUBrowseCategoryViewController *)self view];
   topAnchor2 = [view5 topAnchor];
   v37 = [topAnchor constraintEqualToAnchor:topAnchor2];
-  v51[2] = v37;
+  v50[2] = v37;
   collectionViewBottomConstraint = [(MUBrowseCategoryViewController *)self collectionViewBottomConstraint];
-  v51[3] = collectionViewBottomConstraint;
-  v39 = [MEMORY[0x1E695DEC8] arrayWithObjects:v51 count:4];
-  [v43 activateConstraints:v39];
-
-  v40 = *MEMORY[0x1E69E9840];
+  v50[3] = collectionViewBottomConstraint;
+  v39 = [MEMORY[0x1E695DEC8] arrayWithObjects:v50 count:4];
+  [v42 activateConstraints:v39];
 }
 
 - (void)viewDidLoad
 {
-  v27 = *MEMORY[0x1E69E9840];
-  v25.receiver = self;
-  v25.super_class = MUBrowseCategoryViewController;
-  [(MUBrowseCategoryViewController *)&v25 viewDidLoad];
+  v26 = *MEMORY[0x1E69E9840];
+  v24.receiver = self;
+  v24.super_class = MUBrowseCategoryViewController;
+  [(MUBrowseCategoryViewController *)&v24 viewDidLoad];
   view = [(MUBrowseCategoryViewController *)self view];
   [view setPreservesSuperviewLayoutMargins:1];
 
@@ -540,29 +530,29 @@ void __61__MUBrowseCategoryViewController_collectionViewBottomPadding__block_inv
   _browseCategories = [mapItem _browseCategories];
   v8 = [v5 initWithCapacity:{objc_msgSend(_browseCategories, "count")}];
 
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
   v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   mapItem2 = [(MUBrowseCategoryViewController *)self mapItem];
   _browseCategories2 = [mapItem2 _browseCategories];
 
-  v11 = [_browseCategories2 countByEnumeratingWithState:&v21 objects:v26 count:16];
+  v11 = [_browseCategories2 countByEnumeratingWithState:&v20 objects:v25 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v22;
+    v13 = *v21;
     do
     {
       v14 = 0;
       do
       {
-        if (*v22 != v13)
+        if (*v21 != v13)
         {
           objc_enumerationMutation(_browseCategories2);
         }
 
-        v15 = *(*(&v21 + 1) + 8 * v14);
+        v15 = *(*(&v20 + 1) + 8 * v14);
         v16 = [MUBrowseCategoryItem alloc];
         traitCollection = [(MUBrowseCategoryViewController *)self traitCollection];
         v18 = -[MUBrowseCategoryItem initWithCategory:nightMode:](v16, "initWithCategory:nightMode:", v15, [traitCollection userInterfaceStyle] == 2);
@@ -572,7 +562,7 @@ void __61__MUBrowseCategoryViewController_collectionViewBottomPadding__block_inv
       }
 
       while (v12 != v14);
-      v12 = [_browseCategories2 countByEnumeratingWithState:&v21 objects:v26 count:16];
+      v12 = [_browseCategories2 countByEnumeratingWithState:&v20 objects:v25 count:16];
     }
 
     while (v12);
@@ -582,7 +572,6 @@ void __61__MUBrowseCategoryViewController_collectionViewBottomPadding__block_inv
   [(MUBrowseCategoryViewController *)self setBrowseItems:v19];
 
   [(MUBrowseCategoryViewController *)self setupCollectionView];
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (MUBrowseCategoryViewController)initWithMapItem:(id)item

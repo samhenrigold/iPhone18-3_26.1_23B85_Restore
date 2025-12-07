@@ -13,6 +13,7 @@
 - (void)_notifyClientOfStartWithError:(id)error;
 - (void)_notifyCompletionHandlers:(id)handlers withSourceFormat:(id)format currentlyHoldingLock:(BOOL)lock;
 - (void)_prefetchPreferredSourceAudioFormat;
+- (void)_processPreferredSourceFormatResponse:(id)response currentlyHoldingLock:(BOOL)lock;
 - (void)_setUpDelegateQueue:(id)queue;
 - (void)audioGenerationDidFinish;
 - (void)clientShouldDisconnect;
@@ -55,7 +56,7 @@
 
 void __50__STSpeechTranslatorClient_setProduceTranscripts___block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v1 = *(a1 + 32);
   if ((*(v1 + 12) & 1) == 0 && *(v1 + 80) != *(a1 + 40))
   {
@@ -66,23 +67,21 @@ void __50__STSpeechTranslatorClient_setProduceTranscripts___block_invoke(uint64_
       v4 = [*(*(a1 + 32) + 24) translatorPeer];
       [v4 setProduceTranscripts:*(a1 + 40)];
 
-      v5 = _LTOSLogSTMultiprocess();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+      v7 = _LTOSLogSTMultiprocess(v5, v6);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
       {
-        v6 = *(a1 + 32);
-        v7 = v5;
-        v8 = [v6 _descriptionWhileLocked];
-        v9 = *(a1 + 40);
-        v11 = 138543618;
-        v12 = v8;
-        v13 = 1024;
-        v14 = v9;
-        _os_log_impl(&dword_26B5BC000, v7, OS_LOG_TYPE_INFO, "client: %{public}@ setting produceTranscripts: %{BOOL}d", &v11, 0x12u);
+        v8 = *(a1 + 32);
+        v9 = v7;
+        v10 = [v8 _descriptionWhileLocked];
+        v11 = *(a1 + 40);
+        v12 = 138543618;
+        v13 = v10;
+        v14 = 1024;
+        v15 = v11;
+        _os_log_impl(&dword_26B5BC000, v9, OS_LOG_TYPE_INFO, "client: %{public}@ setting produceTranscripts: %{BOOL}d", &v12, 0x12u);
       }
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setProduceTranslatedText:(BOOL)text
@@ -101,7 +100,7 @@ void __50__STSpeechTranslatorClient_setProduceTranscripts___block_invoke(uint64_
 
 void __53__STSpeechTranslatorClient_setProduceTranslatedText___block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v1 = *(a1 + 32);
   if ((*(v1 + 12) & 1) == 0 && *(v1 + 81) != *(a1 + 40))
   {
@@ -112,23 +111,21 @@ void __53__STSpeechTranslatorClient_setProduceTranslatedText___block_invoke(uint
       v4 = [*(*(a1 + 32) + 24) translatorPeer];
       [v4 setProduceTranslatedText:*(a1 + 40)];
 
-      v5 = _LTOSLogSTMultiprocess();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+      v7 = _LTOSLogSTMultiprocess(v5, v6);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
       {
-        v6 = *(a1 + 32);
-        v7 = v5;
-        v8 = [v6 _descriptionWhileLocked];
-        v9 = *(a1 + 40);
-        v11 = 138543618;
-        v12 = v8;
-        v13 = 1024;
-        v14 = v9;
-        _os_log_impl(&dword_26B5BC000, v7, OS_LOG_TYPE_INFO, "client: %{public}@ setting produceTranslatedText: %{BOOL}d", &v11, 0x12u);
+        v8 = *(a1 + 32);
+        v9 = v7;
+        v10 = [v8 _descriptionWhileLocked];
+        v11 = *(a1 + 40);
+        v12 = 138543618;
+        v13 = v10;
+        v14 = 1024;
+        v15 = v11;
+        _os_log_impl(&dword_26B5BC000, v9, OS_LOG_TYPE_INFO, "client: %{public}@ setting produceTranslatedText: %{BOOL}d", &v12, 0x12u);
       }
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setProduceAudio:(BOOL)audio
@@ -147,7 +144,7 @@ void __53__STSpeechTranslatorClient_setProduceTranslatedText___block_invoke(uint
 
 void __44__STSpeechTranslatorClient_setProduceAudio___block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v1 = *(a1 + 32);
   if ((*(v1 + 12) & 1) == 0 && *(v1 + 82) != *(a1 + 40))
   {
@@ -158,23 +155,21 @@ void __44__STSpeechTranslatorClient_setProduceAudio___block_invoke(uint64_t a1)
       v4 = [*(*(a1 + 32) + 24) translatorPeer];
       [v4 setProduceAudio:*(a1 + 40)];
 
-      v5 = _LTOSLogSTMultiprocess();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+      v7 = _LTOSLogSTMultiprocess(v5, v6);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
       {
-        v6 = *(a1 + 32);
-        v7 = v5;
-        v8 = [v6 _descriptionWhileLocked];
-        v9 = *(a1 + 40);
-        v11 = 138543618;
-        v12 = v8;
-        v13 = 1024;
-        v14 = v9;
-        _os_log_impl(&dword_26B5BC000, v7, OS_LOG_TYPE_INFO, "client: %{public}@ setting produceAudio: %{BOOL}d", &v11, 0x12u);
+        v8 = *(a1 + 32);
+        v9 = v7;
+        v10 = [v8 _descriptionWhileLocked];
+        v11 = *(a1 + 40);
+        v12 = 138543618;
+        v13 = v10;
+        v14 = 1024;
+        v15 = v11;
+        _os_log_impl(&dword_26B5BC000, v9, OS_LOG_TYPE_INFO, "client: %{public}@ setting produceAudio: %{BOOL}d", &v12, 0x12u);
       }
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (STSpeechTranslatorClient)initWithConfiguration:(id)configuration delegate:(id)delegate delegateQueue:(id)queue
@@ -183,17 +178,17 @@ void __44__STSpeechTranslatorClient_setProduceAudio___block_invoke(uint64_t a1)
   configurationCopy = configuration;
   delegateCopy = delegate;
   queueCopy = queue;
-  v11 = [STSpeechTranslatorClient _newPeerContextWithConfiguration:configurationCopy];
-  if (v11)
+  v12 = [STSpeechTranslatorClient _newPeerContextWithConfiguration:configurationCopy];
+  if (v12)
   {
-    v12 = [(STSpeechTranslatorClient *)self _initWithPeerContext:v11 delegate:delegateCopy delegateQueue:queueCopy];
-    v13 = v12;
+    v13 = [(STSpeechTranslatorClient *)self _initWithPeerContext:v12 delegate:delegateCopy delegateQueue:queueCopy];
+    v14 = v13;
   }
 
   else
   {
-    v14 = _LTOSLogSTMultiprocess();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v15 = _LTOSLogSTMultiprocess(0, v11);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543874;
       v19 = configurationCopy;
@@ -201,17 +196,16 @@ void __44__STSpeechTranslatorClient_setProduceAudio___block_invoke(uint64_t a1)
       v21 = delegateCopy;
       v22 = 2114;
       v23 = queueCopy;
-      _os_log_error_impl(&dword_26B5BC000, v14, OS_LOG_TYPE_ERROR, "Failed to initialize peerProviderContext for STSpeechTranslatorClient configuration: %{public}@ delegate: %p delegateQueue: %{public}@", buf, 0x20u);
+      _os_log_error_impl(&dword_26B5BC000, v15, OS_LOG_TYPE_ERROR, "Failed to initialize peerProviderContext for STSpeechTranslatorClient configuration: %{public}@ delegate: %p delegateQueue: %{public}@", buf, 0x20u);
     }
 
     v17.receiver = self;
     v17.super_class = STSpeechTranslatorClient;
-    v12 = [(STSpeechTranslatorClient *)&v17 init];
-    v13 = 0;
+    v13 = [(STSpeechTranslatorClient *)&v17 init];
+    v14 = 0;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
-  return v13;
+  return v14;
 }
 
 - (STSpeechTranslatorClient)initWithTranslatorIdentifier:(id)identifier delegate:(id)delegate delegateQueue:(id)queue
@@ -220,17 +214,17 @@ void __44__STSpeechTranslatorClient_setProduceAudio___block_invoke(uint64_t a1)
   identifierCopy = identifier;
   delegateCopy = delegate;
   queueCopy = queue;
-  v11 = [STSpeechTranslatorClient _newPeerContextWithTranslatorIdentifier:identifierCopy];
-  if (v11)
+  v12 = [STSpeechTranslatorClient _newPeerContextWithTranslatorIdentifier:identifierCopy];
+  if (v12)
   {
-    v12 = [(STSpeechTranslatorClient *)self _initWithPeerContext:v11 delegate:delegateCopy delegateQueue:queueCopy];
-    v13 = v12;
+    v13 = [(STSpeechTranslatorClient *)self _initWithPeerContext:v12 delegate:delegateCopy delegateQueue:queueCopy];
+    v14 = v13;
   }
 
   else
   {
-    v14 = _LTOSLogSTMultiprocess();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v15 = _LTOSLogSTMultiprocess(0, v11);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543874;
       v19 = identifierCopy;
@@ -238,17 +232,16 @@ void __44__STSpeechTranslatorClient_setProduceAudio___block_invoke(uint64_t a1)
       v21 = delegateCopy;
       v22 = 2114;
       v23 = queueCopy;
-      _os_log_error_impl(&dword_26B5BC000, v14, OS_LOG_TYPE_ERROR, "Failed to initialize peerProviderContext for STSpeechTranslatorClient translatorIdentifier: %{public}@ delegate: %p delegateQueue: %{public}@", buf, 0x20u);
+      _os_log_error_impl(&dword_26B5BC000, v15, OS_LOG_TYPE_ERROR, "Failed to initialize peerProviderContext for STSpeechTranslatorClient translatorIdentifier: %{public}@ delegate: %p delegateQueue: %{public}@", buf, 0x20u);
     }
 
     v17.receiver = self;
     v17.super_class = STSpeechTranslatorClient;
-    v12 = [(STSpeechTranslatorClient *)&v17 init];
-    v13 = 0;
+    v13 = [(STSpeechTranslatorClient *)&v17 init];
+    v14 = 0;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
-  return v13;
+  return v14;
 }
 
 - (void)invalidate
@@ -309,16 +302,13 @@ void __44__STSpeechTranslatorClient_setProduceAudio___block_invoke(uint64_t a1)
 
 void __66__STSpeechTranslatorClient_startTranslationWithCompletionHandler___block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   if (*(v2 + 12) == 1)
   {
     v3 = [MEMORY[0x277CCA9B8] st_errorForCode:7];
 LABEL_5:
-    v4 = *(*(a1 + 48) + 8);
-    v5 = *(v4 + 40);
-    *(v4 + 40) = v3;
-    v6 = *MEMORY[0x277D85DE8];
+    *(*(*(a1 + 48) + 8) + 40) = v3;
 
     MEMORY[0x2821F96F8]();
     return;
@@ -330,34 +320,33 @@ LABEL_5:
     goto LABEL_5;
   }
 
-  v7 = _Block_copy(*(a1 + 40));
-  v8 = *(a1 + 32);
-  v9 = *(v8 + 40);
-  *(v8 + 40) = v7;
+  v4 = _Block_copy(*(a1 + 40));
+  v5 = *(a1 + 32);
+  v6 = *(v5 + 40);
+  *(v5 + 40) = v4;
 
-  v10 = _LTOSLogSTMultiprocess();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+  v9 = _LTOSLogSTMultiprocess(v7, v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
-    v11 = *(a1 + 32);
-    v12 = v10;
-    v13 = [v11 _descriptionWhileLocked];
+    v10 = *(a1 + 32);
+    v11 = v9;
+    v12 = [v10 _descriptionWhileLocked];
     *buf = 138543362;
-    v19 = v13;
-    _os_log_impl(&dword_26B5BC000, v12, OS_LOG_TYPE_INFO, "Client: %{public}@ requesting startTranslation", buf, 0xCu);
+    v17 = v12;
+    _os_log_impl(&dword_26B5BC000, v11, OS_LOG_TYPE_INFO, "Client: %{public}@ requesting startTranslation", buf, 0xCu);
   }
 
   objc_initWeak(buf, *(a1 + 32));
-  v14 = [*(*(a1 + 32) + 24) translatorPeer];
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = __66__STSpeechTranslatorClient_startTranslationWithCompletionHandler___block_invoke_16;
-  v16[3] = &unk_279CF7C48;
-  objc_copyWeak(&v17, buf);
-  [v14 startTranslationWithReply:v16];
+  v13 = [*(*(a1 + 32) + 24) translatorPeer];
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __66__STSpeechTranslatorClient_startTranslationWithCompletionHandler___block_invoke_16;
+  v14[3] = &unk_279CF7C48;
+  objc_copyWeak(&v15, buf);
+  [v13 startTranslationWithReply:v14];
 
-  objc_destroyWeak(&v17);
+  objc_destroyWeak(&v15);
   objc_destroyWeak(buf);
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __66__STSpeechTranslatorClient_startTranslationWithCompletionHandler___block_invoke_16(uint64_t a1, void *a2)
@@ -380,31 +369,29 @@ void __66__STSpeechTranslatorClient_startTranslationWithCompletionHandler___bloc
   v3[4] = self;
   os_unfair_lock_assert_not_owner(&self->_stateLock);
   os_unfair_lock_lock(&self->_stateLock);
-  __43__STSpeechTranslatorClient_stopTranslation__block_invoke(v3);
+  (__43__STSpeechTranslatorClient_stopTranslation__block_invoke)(v3);
   os_unfair_lock_unlock(&self->_stateLock);
 }
 
-void __43__STSpeechTranslatorClient_stopTranslation__block_invoke(uint64_t a1)
+void __43__STSpeechTranslatorClient_stopTranslation__block_invoke(uint64_t a1, uint64_t a2)
 {
   v10 = *MEMORY[0x277D85DE8];
   if ((*(*(a1 + 32) + 12) & 1) == 0)
   {
-    v2 = _LTOSLogSTMultiprocess();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+    v3 = _LTOSLogSTMultiprocess(a1, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
-      v3 = *(a1 + 32);
-      v4 = v2;
-      v5 = [v3 _descriptionWhileLocked];
+      v4 = *(a1 + 32);
+      v5 = v3;
+      v6 = [v4 _descriptionWhileLocked];
       v8 = 138543362;
-      v9 = v5;
-      _os_log_impl(&dword_26B5BC000, v4, OS_LOG_TYPE_INFO, "Client: %{public}@ requesting stopTranslation", &v8, 0xCu);
+      v9 = v6;
+      _os_log_impl(&dword_26B5BC000, v5, OS_LOG_TYPE_INFO, "Client: %{public}@ requesting stopTranslation", &v8, 0xCu);
     }
 
-    v6 = [*(*(a1 + 32) + 24) translatorPeer];
-    [v6 stopTranslation];
+    v7 = [*(*(a1 + 32) + 24) translatorPeer];
+    [v7 stopTranslation];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_descriptionWhileLocked
@@ -472,18 +459,19 @@ void __43__STSpeechTranslatorClient_stopTranslation__block_invoke(uint64_t a1)
   lockedCopy = locked;
   contextCopy = context;
   os_unfair_lock_assert_owner(&self->_stateLock);
-  if ([lockedCopy setUpPeerForDelegate:self context:contextCopy])
+  v9 = [lockedCopy setUpPeerForDelegate:self context:contextCopy];
+  if (v9)
   {
     synchronousTranslatorPeer = [lockedCopy synchronousTranslatorPeer];
-    v15[0] = MEMORY[0x277D85DD0];
-    v15[1] = 3221225472;
-    v15[2] = __70__STSpeechTranslatorClient__setUpPeerProviderWhileLocked_withContext___block_invoke;
-    v15[3] = &unk_279CF7C98;
-    v15[4] = self;
-    [synchronousTranslatorPeer obtainIdentifierInReply:v15];
+    v19[0] = MEMORY[0x277D85DD0];
+    v19[1] = 3221225472;
+    v19[2] = __70__STSpeechTranslatorClient__setUpPeerProviderWhileLocked_withContext___block_invoke;
+    v19[3] = &unk_279CF7C98;
+    v19[4] = self;
+    [synchronousTranslatorPeer obtainIdentifierInReply:v19];
 
     translatorIdentifier = [(STSpeechTranslatorClient *)self translatorIdentifier];
-    v11 = translatorIdentifier != 0;
+    v13 = translatorIdentifier != 0;
 
     if (translatorIdentifier)
     {
@@ -492,8 +480,8 @@ void __43__STSpeechTranslatorClient_stopTranslation__block_invoke(uint64_t a1)
 
     else
     {
-      v13 = _LTOSLogSTMultiprocess();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      v17 = _LTOSLogSTMultiprocess(v14, v15);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
         [STSpeechTranslatorClient _setUpPeerProviderWhileLocked:withContext:];
       }
@@ -502,124 +490,120 @@ void __43__STSpeechTranslatorClient_stopTranslation__block_invoke(uint64_t a1)
 
   else
   {
-    v12 = _LTOSLogSTMultiprocess();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v16 = _LTOSLogSTMultiprocess(v9, v10);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       [STSpeechTranslatorClient _setUpPeerProviderWhileLocked:withContext:];
     }
 
-    v11 = 0;
+    v13 = 0;
   }
 
-  return v11;
+  return v13;
 }
 
 - (id)_initWithPeerProvider:(id)provider peerContext:(id)context delegate:(id)delegate delegateQueue:(id)queue
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v55 = *MEMORY[0x277D85DE8];
   providerCopy = provider;
   contextCopy = context;
   delegateCopy = delegate;
   queueCopy = queue;
-  v46.receiver = self;
-  v46.super_class = STSpeechTranslatorClient;
-  v14 = [(STSpeechTranslatorClient *)&v46 init];
-  v15 = v14;
+  v48.receiver = self;
+  v48.super_class = STSpeechTranslatorClient;
+  v14 = [(STSpeechTranslatorClient *)&v48 init];
+  v16 = v14;
   if (v14)
   {
     v14->_stateLock._os_unfair_lock_opaque = 0;
-    v16 = objc_alloc_init(MEMORY[0x277CBEB18]);
-    formatHandlers = v15->_formatHandlers;
-    v15->_formatHandlers = v16;
+    v17 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    formatHandlers = v16->_formatHandlers;
+    v16->_formatHandlers = v17;
 
-    objc_storeWeak(&v15->_delegate, delegateCopy);
-    [(STSpeechTranslatorClient *)v15 _setUpDelegateQueue:queueCopy];
-    v42 = 0;
-    v43 = &v42;
-    v44 = 0x2020000000;
-    v45 = 0;
-    v36 = 0;
-    v37 = &v36;
-    v38 = 0x3032000000;
-    v39 = __Block_byref_object_copy_;
-    v40 = __Block_byref_object_dispose_;
-    v41 = 0;
-    v28[0] = MEMORY[0x277D85DD0];
-    v28[1] = 3221225472;
-    v29 = __85__STSpeechTranslatorClient__initWithPeerProvider_peerContext_delegate_delegateQueue___block_invoke;
-    v30 = &unk_279CF7CC0;
-    v34 = &v42;
-    v18 = v15;
-    v31 = v18;
-    v32 = providerCopy;
-    v19 = contextCopy;
+    objc_storeWeak(&v16->_delegate, delegateCopy);
+    [(STSpeechTranslatorClient *)v16 _setUpDelegateQueue:queueCopy];
+    v44 = 0;
+    v45 = &v44;
+    v46 = 0x2020000000;
+    v47 = 0;
+    v38 = 0;
+    v39 = &v38;
+    v40 = 0x3032000000;
+    v41 = __Block_byref_object_copy_;
+    v42 = __Block_byref_object_dispose_;
+    v43 = 0;
+    v30[0] = MEMORY[0x277D85DD0];
+    v30[1] = 3221225472;
+    v31 = __85__STSpeechTranslatorClient__initWithPeerProvider_peerContext_delegate_delegateQueue___block_invoke;
+    v32 = &unk_279CF7CC0;
+    v36 = &v44;
+    v19 = v16;
     v33 = v19;
-    v35 = &v36;
-    v20 = v28;
-    os_unfair_lock_assert_not_owner(&v15->_stateLock);
-    os_unfair_lock_lock(&v15->_stateLock);
-    v29(v20);
+    v34 = providerCopy;
+    v20 = contextCopy;
+    v35 = v20;
+    v37 = &v38;
+    v21 = v30;
+    os_unfair_lock_assert_not_owner(&v16->_stateLock);
+    os_unfair_lock_lock(&v16->_stateLock);
+    v31(v21);
 
-    os_unfair_lock_unlock(&v15->_stateLock);
-    if (v43[3])
+    os_unfair_lock_unlock(&v16->_stateLock);
+    if (v45[3])
     {
-      v21 = _LTOSLogSTMultiprocess();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+      v24 = _LTOSLogSTMultiprocess(v22, v23);
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
       {
-        v22 = v37[5];
+        v25 = v39[5];
         *buf = 138543874;
-        v48 = v22;
-        v49 = 2114;
-        v50 = v19;
-        v51 = 2048;
-        v52 = delegateCopy;
-        _os_log_impl(&dword_26B5BC000, v21, OS_LOG_TYPE_DEFAULT, "Created instance: %{public}@ peerContext: %{public}@ delegate: %p", buf, 0x20u);
+        v50 = v25;
+        v51 = 2114;
+        v52 = v20;
+        v53 = 2048;
+        v54 = delegateCopy;
+        _os_log_impl(&dword_26B5BC000, v24, OS_LOG_TYPE_DEFAULT, "Created instance: %{public}@ peerContext: %{public}@ delegate: %p", buf, 0x20u);
       }
 
-      v23 = v18;
+      v26 = v19;
     }
 
     else
     {
-      v25 = _LTOSLogSTMultiprocess();
-      if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+      v28 = _LTOSLogSTMultiprocess(v22, v23);
+      if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
       {
         [STSpeechTranslatorClient _initWithPeerProvider:peerContext:delegate:delegateQueue:];
       }
 
-      v23 = 0;
+      v26 = 0;
     }
 
-    _Block_object_dispose(&v36, 8);
-    _Block_object_dispose(&v42, 8);
+    _Block_object_dispose(&v38, 8);
+    _Block_object_dispose(&v44, 8);
   }
 
   else
   {
-    v24 = _LTOSLogSTMultiprocess();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+    v27 = _LTOSLogSTMultiprocess(0, v15);
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
     {
       [STSpeechTranslatorClient _initWithPeerProvider:peerContext:delegate:delegateQueue:];
     }
 
-    v23 = 0;
+    v26 = 0;
   }
 
-  v26 = *MEMORY[0x277D85DE8];
-  return v23;
+  return v26;
 }
 
-uint64_t __85__STSpeechTranslatorClient__initWithPeerProvider_peerContext_delegate_delegateQueue___block_invoke(uint64_t a1)
+void *__85__STSpeechTranslatorClient__initWithPeerProvider_peerContext_delegate_delegateQueue___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _setUpPeerProviderWhileLocked:*(a1 + 40) withContext:*(a1 + 48)];
   *(*(*(a1 + 56) + 8) + 24) = result;
   if (*(*(*(a1 + 56) + 8) + 24) == 1)
   {
     [*(a1 + 32) _prefetchPreferredSourceAudioFormat];
-    v3 = [*(a1 + 32) _descriptionWhileLocked];
-    v4 = *(*(a1 + 64) + 8);
-    v5 = *(v4 + 40);
-    *(v4 + 40) = v3;
+    *(*(*(a1 + 64) + 8) + 40) = [*(a1 + 32) _descriptionWhileLocked];
 
     return MEMORY[0x2821F96F8]();
   }
@@ -633,17 +617,17 @@ uint64_t __85__STSpeechTranslatorClient__initWithPeerProvider_peerContext_delega
   contextCopy = context;
   delegateCopy = delegate;
   queueCopy = queue;
-  v11 = objc_alloc_init(_STXPCClient);
-  if (v11)
+  v12 = objc_alloc_init(_STXPCClient);
+  if (v12)
   {
-    v12 = [(STSpeechTranslatorClient *)self _initWithPeerProvider:v11 peerContext:contextCopy delegate:delegateCopy delegateQueue:queueCopy];
-    v13 = v12;
+    v13 = [(STSpeechTranslatorClient *)self _initWithPeerProvider:v12 peerContext:contextCopy delegate:delegateCopy delegateQueue:queueCopy];
+    v14 = v13;
   }
 
   else
   {
-    v14 = _LTOSLogSTMultiprocess();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v15 = _LTOSLogSTMultiprocess(0, v11);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543874;
       v19 = contextCopy;
@@ -651,45 +635,44 @@ uint64_t __85__STSpeechTranslatorClient__initWithPeerProvider_peerContext_delega
       v21 = delegateCopy;
       v22 = 2114;
       v23 = queueCopy;
-      _os_log_error_impl(&dword_26B5BC000, v14, OS_LOG_TYPE_ERROR, "Failed to initialize peerProvider for STSpeechTranslatorClient peerContext: %{public}@ delegate: %p delegateQueue: %{public}@", buf, 0x20u);
+      _os_log_error_impl(&dword_26B5BC000, v15, OS_LOG_TYPE_ERROR, "Failed to initialize peerProvider for STSpeechTranslatorClient peerContext: %{public}@ delegate: %p delegateQueue: %{public}@", buf, 0x20u);
     }
 
     v17.receiver = self;
     v17.super_class = STSpeechTranslatorClient;
-    v12 = [(STSpeechTranslatorClient *)&v17 init];
-    v13 = 0;
+    v13 = [(STSpeechTranslatorClient *)&v17 init];
+    v14 = 0;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
-  return v13;
+  return v14;
 }
 
 - (void)_invalidateWhileLocked
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   os_unfair_lock_assert_owner(&self->_stateLock);
-  v3 = _LTOSLogSTMultiprocess();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  v5 = _LTOSLogSTMultiprocess(v3, v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v4 = v3;
+    v6 = v5;
     _descriptionWhileLocked = [(STSpeechTranslatorClient *)self _descriptionWhileLocked];
     *buf = 138543362;
-    v14 = _descriptionWhileLocked;
-    _os_log_impl(&dword_26B5BC000, v4, OS_LOG_TYPE_DEFAULT, "client: %{public}@ invalidating", buf, 0xCu);
+    v15 = _descriptionWhileLocked;
+    _os_log_impl(&dword_26B5BC000, v6, OS_LOG_TYPE_DEFAULT, "client: %{public}@ invalidating", buf, 0xCu);
   }
 
-  v6 = _Block_copy(self->_startHandler);
+  v8 = _Block_copy(self->_startHandler);
   startHandler = self->_startHandler;
   self->_startHandler = 0;
 
-  if (v6)
+  if (v8)
   {
     delegateQueue = self->_delegateQueue;
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __50__STSpeechTranslatorClient__invalidateWhileLocked__block_invoke;
     block[3] = &unk_279CF7CE8;
-    v12 = v6;
+    v13 = v8;
     dispatch_async(delegateQueue, block);
   }
 
@@ -701,8 +684,6 @@ uint64_t __85__STSpeechTranslatorClient__initWithPeerProvider_peerContext_delega
 
   objc_storeWeak(&self->_delegate, 0);
   self->_invalidated = 1;
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __50__STSpeechTranslatorClient__invalidateWhileLocked__block_invoke(uint64_t a1)
@@ -730,7 +711,7 @@ void __50__STSpeechTranslatorClient__invalidateWhileLocked__block_invoke(uint64_
 
 void __58__STSpeechTranslatorClient__notifyClientOfStartWithError___block_invoke(uint64_t a1)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v1 = *(a1 + 32);
   if ((*(v1 + 12) & 1) == 0)
   {
@@ -742,36 +723,34 @@ void __58__STSpeechTranslatorClient__notifyClientOfStartWithError___block_invoke
       v6 = *(v5 + 40);
       *(v5 + 40) = 0;
 
-      v7 = _LTOSLogSTMultiprocess();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+      v9 = _LTOSLogSTMultiprocess(v7, v8);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
       {
-        v8 = *(a1 + 32);
-        v9 = v7;
-        v10 = [v8 _descriptionWhileLocked];
-        v11 = _Block_copy(v4);
-        v12 = *(a1 + 40);
+        v10 = *(a1 + 32);
+        v11 = v9;
+        v12 = [v10 _descriptionWhileLocked];
+        v13 = _Block_copy(v4);
+        v14 = *(a1 + 40);
         *buf = 138543874;
-        v20 = v10;
-        v21 = 2114;
-        v22 = v11;
-        v23 = 2112;
-        v24 = v12;
-        _os_log_impl(&dword_26B5BC000, v9, OS_LOG_TYPE_INFO, "client: %{public}@ invoking startHandler: %{public}@ with error: %@", buf, 0x20u);
+        v21 = v12;
+        v22 = 2114;
+        v23 = v13;
+        v24 = 2112;
+        v25 = v14;
+        _os_log_impl(&dword_26B5BC000, v11, OS_LOG_TYPE_INFO, "client: %{public}@ invoking startHandler: %{public}@ with error: %@", buf, 0x20u);
       }
 
-      v13 = *(*(a1 + 32) + 32);
-      v16[0] = MEMORY[0x277D85DD0];
-      v16[1] = 3221225472;
-      v16[2] = __58__STSpeechTranslatorClient__notifyClientOfStartWithError___block_invoke_34;
-      v16[3] = &unk_279CF7D10;
-      v18 = v4;
-      v17 = *(a1 + 40);
-      v14 = v4;
-      dispatch_async(v13, v16);
+      v15 = *(*(a1 + 32) + 32);
+      v17[0] = MEMORY[0x277D85DD0];
+      v17[1] = 3221225472;
+      v17[2] = __58__STSpeechTranslatorClient__notifyClientOfStartWithError___block_invoke_34;
+      v17[3] = &unk_279CF7D10;
+      v19 = v4;
+      v18 = *(a1 + 40);
+      v16 = v4;
+      dispatch_async(v15, v17);
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_prefetchPreferredSourceAudioFormat
@@ -866,76 +845,112 @@ void __63__STSpeechTranslatorClient__prefetchPreferredSourceAudioFormat__block_i
 
 void __92__STSpeechTranslatorClient__notifyCompletionHandlers_withSourceFormat_currentlyHoldingLock___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
+  v6 = 0u;
+  v7 = 0u;
+  v8 = 0u;
   v9 = 0u;
-  v10 = 0u;
-  v11 = 0u;
-  v12 = 0u;
-  v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
-  if (v3)
+  v1 = *(a1 + 32);
+  v2 = [v1 countByEnumeratingWithState:&v6 objects:v10 count:16];
+  if (v2)
   {
-    v4 = v3;
-    v5 = *v10;
+    v3 = v2;
+    v4 = *v7;
     do
     {
-      v6 = 0;
+      v5 = 0;
       do
       {
-        if (*v10 != v5)
+        if (*v7 != v4)
         {
-          objc_enumerationMutation(v2);
+          objc_enumerationMutation(v1);
         }
 
-        v7 = *(a1 + 40);
-        (*(*(*(&v9 + 1) + 8 * v6) + 16))(*(*(&v9 + 1) + 8 * v6));
-        ++v6;
+        (*(*(*(&v6 + 1) + 8 * v5) + 16))(*(*(&v6 + 1) + 8 * v5));
+        ++v5;
       }
 
-      while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      while (v3 != v5);
+      v3 = [v1 countByEnumeratingWithState:&v6 objects:v10 count:16];
     }
 
-    while (v4);
+    while (v3);
+  }
+}
+
+- (void)_processPreferredSourceFormatResponse:(id)response currentlyHoldingLock:(BOOL)lock
+{
+  lockCopy = lock;
+  responseCopy = response;
+  v19 = 0;
+  v20 = &v19;
+  v21 = 0x3032000000;
+  v22 = __Block_byref_object_copy_;
+  v23 = __Block_byref_object_dispose_;
+  v24 = 0;
+  v11 = MEMORY[0x277D85DD0];
+  v12 = 3221225472;
+  v13 = __87__STSpeechTranslatorClient__processPreferredSourceFormatResponse_currentlyHoldingLock___block_invoke;
+  v14 = &unk_279CF7D88;
+  selfCopy = self;
+  v7 = responseCopy;
+  v18 = lockCopy;
+  v16 = v7;
+  v17 = &v19;
+  v8 = _Block_copy(&v11);
+  v9 = v8;
+  if (lockCopy)
+  {
+    v8[2](v8);
   }
 
-  v8 = *MEMORY[0x277D85DE8];
+  else
+  {
+    v10 = v8;
+    os_unfair_lock_assert_not_owner(&self->_stateLock);
+    os_unfair_lock_lock(&self->_stateLock);
+    v10[2](v10);
+
+    os_unfair_lock_unlock(&self->_stateLock);
+  }
+
+  [(STSpeechTranslatorClient *)self _notifyCompletionHandlers:v20[5] withSourceFormat:v7 currentlyHoldingLock:lockCopy, v11, v12, v13, v14, selfCopy];
+
+  _Block_object_dispose(&v19, 8);
 }
 
 void __87__STSpeechTranslatorClient__processPreferredSourceFormatResponse_currentlyHoldingLock___block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   os_unfair_lock_assert_owner((*(a1 + 32) + 8));
   if ((*(*(a1 + 32) + 12) & 1) == 0)
   {
-    v2 = _LTOSLogSTMultiprocess();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+    v4 = _LTOSLogSTMultiprocess(v2, v3);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
-      v3 = *(a1 + 32);
-      v4 = v2;
-      v5 = [v3 _descriptionWhileLocked];
-      v6 = *(a1 + 40);
-      v7 = *(a1 + 56);
-      v12 = 138543874;
-      v13 = v5;
-      v14 = 2114;
-      v15 = v6;
-      v16 = 1024;
-      v17 = v7;
-      _os_log_impl(&dword_26B5BC000, v4, OS_LOG_TYPE_INFO, "client: %{public}@ caching format: %{public}@ fastPath: %{BOOL}d", &v12, 0x1Cu);
+      v5 = *(a1 + 32);
+      v6 = v4;
+      v7 = [v5 _descriptionWhileLocked];
+      v8 = *(a1 + 40);
+      v9 = *(a1 + 56);
+      v13 = 138543874;
+      v14 = v7;
+      v15 = 2114;
+      v16 = v8;
+      v17 = 1024;
+      v18 = v9;
+      _os_log_impl(&dword_26B5BC000, v6, OS_LOG_TYPE_INFO, "client: %{public}@ caching format: %{public}@ fastPath: %{BOOL}d", &v13, 0x1Cu);
     }
 
     objc_storeStrong((*(a1 + 32) + 56), *(a1 + 40));
     *(*(a1 + 32) + 64) = 1;
-    v8 = [*(*(a1 + 32) + 72) copy];
-    v9 = *(*(a1 + 48) + 8);
-    v10 = *(v9 + 40);
-    *(v9 + 40) = v8;
+    v10 = [*(*(a1 + 32) + 72) copy];
+    v11 = *(*(a1 + 48) + 8);
+    v12 = *(v11 + 40);
+    *(v11 + 40) = v10;
 
     [*(*(a1 + 32) + 72) removeAllObjects];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)translationDidStart
@@ -953,43 +968,42 @@ void __87__STSpeechTranslatorClient__processPreferredSourceFormatResponse_curren
 
 void __47__STSpeechTranslatorClient_translationDidStart__block_invoke(uint64_t a1)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v1 = *(a1 + 32);
   if ((*(v1 + 12) & 1) == 0)
   {
     WeakRetained = objc_loadWeakRetained((v1 + 16));
     v4 = objc_opt_respondsToSelector();
-    v5 = _LTOSLogSTMultiprocess();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+    v5 = v4;
+    v7 = _LTOSLogSTMultiprocess(v4, v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
-      v6 = *(a1 + 32);
-      v7 = v5;
-      v8 = [v6 _descriptionWhileLocked];
+      v8 = *(a1 + 32);
+      v9 = v7;
+      v10 = [v8 _descriptionWhileLocked];
       *buf = 138543874;
-      v17 = v8;
-      v18 = 2048;
-      v19 = WeakRetained;
-      v20 = 1024;
-      v21 = v4 & 1;
-      _os_log_impl(&dword_26B5BC000, v7, OS_LOG_TYPE_INFO, "client: %{public}@ received translationDidStart, delegate: %p responds: %{BOOL}d", buf, 0x1Cu);
+      v18 = v10;
+      v19 = 2048;
+      v20 = WeakRetained;
+      v21 = 1024;
+      v22 = v5 & 1;
+      _os_log_impl(&dword_26B5BC000, v9, OS_LOG_TYPE_INFO, "client: %{public}@ received translationDidStart, delegate: %p responds: %{BOOL}d", buf, 0x1Cu);
     }
 
-    if (v4)
+    if (v5)
     {
-      v9 = *(*(a1 + 32) + 32);
-      v13[0] = MEMORY[0x277D85DD0];
-      v13[1] = 3221225472;
-      v13[2] = __47__STSpeechTranslatorClient_translationDidStart__block_invoke_38;
-      v13[3] = &unk_279CF7D38;
-      v10 = WeakRetained;
-      v11 = *(a1 + 32);
-      v14 = v10;
-      v15 = v11;
-      dispatch_async(v9, v13);
+      v11 = *(*(a1 + 32) + 32);
+      v14[0] = MEMORY[0x277D85DD0];
+      v14[1] = 3221225472;
+      v14[2] = __47__STSpeechTranslatorClient_translationDidStart__block_invoke_38;
+      v14[3] = &unk_279CF7D38;
+      v12 = WeakRetained;
+      v13 = *(a1 + 32);
+      v15 = v12;
+      v16 = v13;
+      dispatch_async(v11, v14);
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)translationDidStopWithError:(id)error
@@ -1015,40 +1029,38 @@ void __56__STSpeechTranslatorClient_translationDidStopWithError___block_invoke(u
   if ((*(v1 + 12) & 1) == 0)
   {
     WeakRetained = objc_loadWeakRetained((v1 + 16));
-    v4 = _LTOSLogSTMultiprocess();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+    v5 = _LTOSLogSTMultiprocess(WeakRetained, v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
-      v5 = *(a1 + 32);
-      v6 = v4;
-      v7 = [v5 _descriptionWhileLocked];
-      v8 = *(a1 + 40);
+      v6 = *(a1 + 32);
+      v7 = v5;
+      v8 = [v6 _descriptionWhileLocked];
+      v9 = *(a1 + 40);
       *buf = 138543874;
-      v19 = v7;
+      v19 = v8;
       v20 = 2112;
-      v21 = v8;
+      v21 = v9;
       v22 = 2048;
       v23 = WeakRetained;
-      _os_log_impl(&dword_26B5BC000, v6, OS_LOG_TYPE_INFO, "client: %{public}@ received translationDidStopWithError: %@, delegate: %p", buf, 0x20u);
+      _os_log_impl(&dword_26B5BC000, v7, OS_LOG_TYPE_INFO, "client: %{public}@ received translationDidStopWithError: %@, delegate: %p", buf, 0x20u);
     }
 
     if (WeakRetained)
     {
-      v9 = *(*(a1 + 32) + 32);
+      v10 = *(*(a1 + 32) + 32);
       block[0] = MEMORY[0x277D85DD0];
       block[1] = 3221225472;
       block[2] = __56__STSpeechTranslatorClient_translationDidStopWithError___block_invoke_39;
       block[3] = &unk_279CF7DB0;
-      v10 = WeakRetained;
-      v11 = *(a1 + 32);
-      v12 = *(a1 + 40);
-      v15 = v10;
-      v16 = v11;
-      v17 = v12;
-      dispatch_async(v9, block);
+      v11 = WeakRetained;
+      v12 = *(a1 + 32);
+      v13 = *(a1 + 40);
+      v15 = v11;
+      v16 = v12;
+      v17 = v13;
+      dispatch_async(v10, block);
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)clientShouldDisconnect
@@ -1071,36 +1083,34 @@ void __50__STSpeechTranslatorClient_clientShouldDisconnect__block_invoke(uint64_
   if ((*(v1 + 12) & 1) == 0)
   {
     WeakRetained = objc_loadWeakRetained((v1 + 16));
-    v4 = _LTOSLogSTMultiprocess();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+    v5 = _LTOSLogSTMultiprocess(WeakRetained, v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
-      v5 = *(a1 + 32);
-      v6 = v4;
-      v7 = [v5 _descriptionWhileLocked];
+      v6 = *(a1 + 32);
+      v7 = v5;
+      v8 = [v6 _descriptionWhileLocked];
       *buf = 138543618;
-      v16 = v7;
+      v16 = v8;
       v17 = 2048;
       v18 = WeakRetained;
-      _os_log_impl(&dword_26B5BC000, v6, OS_LOG_TYPE_INFO, "client: %{public}@ received disconnect, delegate: %p", buf, 0x16u);
+      _os_log_impl(&dword_26B5BC000, v7, OS_LOG_TYPE_INFO, "client: %{public}@ received disconnect, delegate: %p", buf, 0x16u);
     }
 
     [*(a1 + 32) _invalidateWhileLocked];
     if (WeakRetained)
     {
-      v8 = *(*(a1 + 32) + 32);
+      v9 = *(*(a1 + 32) + 32);
       v12[0] = MEMORY[0x277D85DD0];
       v12[1] = 3221225472;
       v12[2] = __50__STSpeechTranslatorClient_clientShouldDisconnect__block_invoke_40;
       v12[3] = &unk_279CF7D38;
-      v9 = WeakRetained;
-      v10 = *(a1 + 32);
-      v13 = v9;
-      v14 = v10;
-      dispatch_async(v8, v12);
+      v10 = WeakRetained;
+      v11 = *(a1 + 32);
+      v13 = v10;
+      v14 = v11;
+      dispatch_async(v9, v12);
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)translationDidPauseWithReason:(id)reason
@@ -1121,48 +1131,47 @@ void __50__STSpeechTranslatorClient_clientShouldDisconnect__block_invoke(uint64_
 
 void __58__STSpeechTranslatorClient_translationDidPauseWithReason___block_invoke(uint64_t a1)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v1 = *(a1 + 32);
   if ((*(v1 + 12) & 1) == 0)
   {
     WeakRetained = objc_loadWeakRetained((v1 + 16));
     v4 = objc_opt_respondsToSelector();
-    v5 = _LTOSLogSTMultiprocess();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+    v5 = v4;
+    v7 = _LTOSLogSTMultiprocess(v4, v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
-      v6 = *(a1 + 32);
-      v7 = v5;
-      v8 = [v6 _descriptionWhileLocked];
-      v9 = *(a1 + 40);
+      v8 = *(a1 + 32);
+      v9 = v7;
+      v10 = [v8 _descriptionWhileLocked];
+      v11 = *(a1 + 40);
       *buf = 138544130;
-      v20 = v8;
-      v21 = 2114;
-      v22 = v9;
-      v23 = 2048;
-      v24 = WeakRetained;
-      v25 = 1024;
-      v26 = v4 & 1;
-      _os_log_impl(&dword_26B5BC000, v7, OS_LOG_TYPE_INFO, "client: %{public}@ received didPauseWithReason: %{public}@, delegate: %p responds: %{BOOL}d", buf, 0x26u);
+      v21 = v10;
+      v22 = 2114;
+      v23 = v11;
+      v24 = 2048;
+      v25 = WeakRetained;
+      v26 = 1024;
+      v27 = v5 & 1;
+      _os_log_impl(&dword_26B5BC000, v9, OS_LOG_TYPE_INFO, "client: %{public}@ received didPauseWithReason: %{public}@, delegate: %p responds: %{BOOL}d", buf, 0x26u);
     }
 
-    if (v4)
+    if (v5)
     {
-      v10 = *(*(a1 + 32) + 32);
+      v12 = *(*(a1 + 32) + 32);
       block[0] = MEMORY[0x277D85DD0];
       block[1] = 3221225472;
       block[2] = __58__STSpeechTranslatorClient_translationDidPauseWithReason___block_invoke_43;
       block[3] = &unk_279CF7DB0;
-      v11 = WeakRetained;
-      v12 = *(a1 + 32);
-      v13 = *(a1 + 40);
-      v16 = v11;
-      v17 = v12;
-      v18 = v13;
-      dispatch_async(v10, block);
+      v13 = WeakRetained;
+      v14 = *(a1 + 32);
+      v15 = *(a1 + 40);
+      v17 = v13;
+      v18 = v14;
+      v19 = v15;
+      dispatch_async(v12, block);
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)translationDidResume
@@ -1180,43 +1189,42 @@ void __58__STSpeechTranslatorClient_translationDidPauseWithReason___block_invoke
 
 void __48__STSpeechTranslatorClient_translationDidResume__block_invoke(uint64_t a1)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v1 = *(a1 + 32);
   if ((*(v1 + 12) & 1) == 0)
   {
     WeakRetained = objc_loadWeakRetained((v1 + 16));
     v4 = objc_opt_respondsToSelector();
-    v5 = _LTOSLogSTMultiprocess();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+    v5 = v4;
+    v7 = _LTOSLogSTMultiprocess(v4, v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
-      v6 = *(a1 + 32);
-      v7 = v5;
-      v8 = [v6 _descriptionWhileLocked];
+      v8 = *(a1 + 32);
+      v9 = v7;
+      v10 = [v8 _descriptionWhileLocked];
       *buf = 138543874;
-      v17 = v8;
-      v18 = 2048;
-      v19 = WeakRetained;
-      v20 = 1024;
-      v21 = v4 & 1;
-      _os_log_impl(&dword_26B5BC000, v7, OS_LOG_TYPE_INFO, "client: %{public}@ received didResume, delegate: %p responds: %{BOOL}d", buf, 0x1Cu);
+      v18 = v10;
+      v19 = 2048;
+      v20 = WeakRetained;
+      v21 = 1024;
+      v22 = v5 & 1;
+      _os_log_impl(&dword_26B5BC000, v9, OS_LOG_TYPE_INFO, "client: %{public}@ received didResume, delegate: %p responds: %{BOOL}d", buf, 0x1Cu);
     }
 
-    if (v4)
+    if (v5)
     {
-      v9 = *(*(a1 + 32) + 32);
-      v13[0] = MEMORY[0x277D85DD0];
-      v13[1] = 3221225472;
-      v13[2] = __48__STSpeechTranslatorClient_translationDidResume__block_invoke_46;
-      v13[3] = &unk_279CF7D38;
-      v10 = WeakRetained;
-      v11 = *(a1 + 32);
-      v14 = v10;
-      v15 = v11;
-      dispatch_async(v9, v13);
+      v11 = *(*(a1 + 32) + 32);
+      v14[0] = MEMORY[0x277D85DD0];
+      v14[1] = 3221225472;
+      v14[2] = __48__STSpeechTranslatorClient_translationDidResume__block_invoke_46;
+      v14[3] = &unk_279CF7D38;
+      v12 = WeakRetained;
+      v13 = *(a1 + 32);
+      v15 = v12;
+      v16 = v13;
+      dispatch_async(v11, v14);
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)willStartTranslatedAudioWithMetadata:(id)metadata
@@ -1237,48 +1245,47 @@ void __48__STSpeechTranslatorClient_translationDidResume__block_invoke(uint64_t 
 
 void __65__STSpeechTranslatorClient_willStartTranslatedAudioWithMetadata___block_invoke(uint64_t a1)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v1 = *(a1 + 32);
   if ((*(v1 + 12) & 1) == 0)
   {
     WeakRetained = objc_loadWeakRetained((v1 + 16));
     v4 = objc_opt_respondsToSelector();
-    v5 = _LTOSLogSTMultiprocess();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+    v5 = v4;
+    v7 = _LTOSLogSTMultiprocess(v4, v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
-      v6 = *(a1 + 32);
-      v7 = v5;
-      v8 = [v6 _descriptionWhileLocked];
-      v9 = *(a1 + 40);
+      v8 = *(a1 + 32);
+      v9 = v7;
+      v10 = [v8 _descriptionWhileLocked];
+      v11 = *(a1 + 40);
       *buf = 138544130;
-      v20 = v8;
-      v21 = 2114;
-      v22 = v9;
-      v23 = 2048;
-      v24 = WeakRetained;
-      v25 = 1024;
-      v26 = v4 & 1;
-      _os_log_impl(&dword_26B5BC000, v7, OS_LOG_TYPE_INFO, "client: %{public}@ received willStartTranslatedAudioWithMetadata: %{public}@, delegate: %p responds: %{BOOL}d", buf, 0x26u);
+      v21 = v10;
+      v22 = 2114;
+      v23 = v11;
+      v24 = 2048;
+      v25 = WeakRetained;
+      v26 = 1024;
+      v27 = v5 & 1;
+      _os_log_impl(&dword_26B5BC000, v9, OS_LOG_TYPE_INFO, "client: %{public}@ received willStartTranslatedAudioWithMetadata: %{public}@, delegate: %p responds: %{BOOL}d", buf, 0x26u);
     }
 
-    if (v4)
+    if (v5)
     {
-      v10 = *(*(a1 + 32) + 32);
+      v12 = *(*(a1 + 32) + 32);
       block[0] = MEMORY[0x277D85DD0];
       block[1] = 3221225472;
       block[2] = __65__STSpeechTranslatorClient_willStartTranslatedAudioWithMetadata___block_invoke_47;
       block[3] = &unk_279CF7DB0;
-      v11 = WeakRetained;
-      v12 = *(a1 + 32);
-      v13 = *(a1 + 40);
-      v16 = v11;
-      v17 = v12;
-      v18 = v13;
-      dispatch_async(v10, block);
+      v13 = WeakRetained;
+      v14 = *(a1 + 32);
+      v15 = *(a1 + 40);
+      v17 = v13;
+      v18 = v14;
+      v19 = v15;
+      dispatch_async(v12, block);
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didGenerateTranslatedAudio:(id)audio
@@ -1308,15 +1315,15 @@ void __55__STSpeechTranslatorClient_didGenerateTranslatedAudio___block_invoke(ui
     {
 LABEL_7:
 
-      goto LABEL_8;
+      return;
     }
 
     v4 = [MEMORY[0x277CB83C8] st_deserializeData:*(a1 + 40) withBufferAllocator:*MEMORY[0x277CBECE8]];
-    v5 = _LTOSLogSTMultiprocess();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+    v6 = _LTOSLogSTMultiprocess(v4, v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
       v10 = *(a1 + 32);
-      v11 = v5;
+      v11 = v6;
       v12 = [v10 _descriptionWhileLocked];
       v13 = *(a1 + 40);
       *buf = 138544130;
@@ -1342,23 +1349,20 @@ LABEL_6:
       goto LABEL_7;
     }
 
-    v6 = *(*(a1 + 32) + 32);
+    v7 = *(*(a1 + 32) + 32);
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __55__STSpeechTranslatorClient_didGenerateTranslatedAudio___block_invoke_49;
     block[3] = &unk_279CF7DB0;
-    v7 = WeakRetained;
-    v8 = *(a1 + 32);
-    v15 = v7;
-    v16 = v8;
+    v8 = WeakRetained;
+    v9 = *(a1 + 32);
+    v15 = v8;
+    v16 = v9;
     v17 = v4;
-    dispatch_async(v6, block);
+    dispatch_async(v7, block);
 
     goto LABEL_6;
   }
-
-LABEL_8:
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)audioGenerationDidFinish
@@ -1376,43 +1380,42 @@ LABEL_8:
 
 void __52__STSpeechTranslatorClient_audioGenerationDidFinish__block_invoke(uint64_t a1)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v1 = *(a1 + 32);
   if ((*(v1 + 12) & 1) == 0)
   {
     WeakRetained = objc_loadWeakRetained((v1 + 16));
     v4 = objc_opt_respondsToSelector();
-    v5 = _LTOSLogSTMultiprocess();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+    v5 = v4;
+    v7 = _LTOSLogSTMultiprocess(v4, v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
-      v6 = *(a1 + 32);
-      v7 = v5;
-      v8 = [v6 _descriptionWhileLocked];
+      v8 = *(a1 + 32);
+      v9 = v7;
+      v10 = [v8 _descriptionWhileLocked];
       *buf = 138543874;
-      v17 = v8;
-      v18 = 2048;
-      v19 = WeakRetained;
-      v20 = 1024;
-      v21 = v4 & 1;
-      _os_log_impl(&dword_26B5BC000, v7, OS_LOG_TYPE_INFO, "client: %{public}@ received audioGenerationDidFinish, delegate: %p responds: %{BOOL}d", buf, 0x1Cu);
+      v18 = v10;
+      v19 = 2048;
+      v20 = WeakRetained;
+      v21 = 1024;
+      v22 = v5 & 1;
+      _os_log_impl(&dword_26B5BC000, v9, OS_LOG_TYPE_INFO, "client: %{public}@ received audioGenerationDidFinish, delegate: %p responds: %{BOOL}d", buf, 0x1Cu);
     }
 
-    if (v4)
+    if (v5)
     {
-      v9 = *(*(a1 + 32) + 32);
-      v13[0] = MEMORY[0x277D85DD0];
-      v13[1] = 3221225472;
-      v13[2] = __52__STSpeechTranslatorClient_audioGenerationDidFinish__block_invoke_50;
-      v13[3] = &unk_279CF7D38;
-      v10 = WeakRetained;
-      v11 = *(a1 + 32);
-      v14 = v10;
-      v15 = v11;
-      dispatch_async(v9, v13);
+      v11 = *(*(a1 + 32) + 32);
+      v14[0] = MEMORY[0x277D85DD0];
+      v14[1] = 3221225472;
+      v14[2] = __52__STSpeechTranslatorClient_audioGenerationDidFinish__block_invoke_50;
+      v14[3] = &unk_279CF7D38;
+      v12 = WeakRetained;
+      v13 = *(a1 + 32);
+      v15 = v12;
+      v16 = v13;
+      dispatch_async(v11, v14);
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)producedTranscription:(id)transcription
@@ -1433,48 +1436,47 @@ void __52__STSpeechTranslatorClient_audioGenerationDidFinish__block_invoke(uint6
 
 void __50__STSpeechTranslatorClient_producedTranscription___block_invoke(uint64_t a1)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v1 = *(a1 + 32);
   if ((*(v1 + 12) & 1) == 0)
   {
     WeakRetained = objc_loadWeakRetained((v1 + 16));
     v4 = objc_opt_respondsToSelector();
-    v5 = _LTOSLogSTMultiprocess();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+    v5 = v4;
+    v7 = _LTOSLogSTMultiprocess(v4, v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
-      v6 = *(a1 + 32);
-      v7 = v5;
-      v8 = [v6 _descriptionWhileLocked];
-      v9 = *(a1 + 40);
+      v8 = *(a1 + 32);
+      v9 = v7;
+      v10 = [v8 _descriptionWhileLocked];
+      v11 = *(a1 + 40);
       *buf = 138544130;
-      v20 = v8;
-      v21 = 2114;
-      v22 = v9;
-      v23 = 2048;
-      v24 = WeakRetained;
-      v25 = 1024;
-      v26 = v4 & 1;
-      _os_log_impl(&dword_26B5BC000, v7, OS_LOG_TYPE_INFO, "client: %{public}@ received producedTranscription: %{public}@, delegate: %p responds: %{BOOL}d", buf, 0x26u);
+      v21 = v10;
+      v22 = 2114;
+      v23 = v11;
+      v24 = 2048;
+      v25 = WeakRetained;
+      v26 = 1024;
+      v27 = v5 & 1;
+      _os_log_impl(&dword_26B5BC000, v9, OS_LOG_TYPE_INFO, "client: %{public}@ received producedTranscription: %{public}@, delegate: %p responds: %{BOOL}d", buf, 0x26u);
     }
 
-    if (v4)
+    if (v5)
     {
-      v10 = *(*(a1 + 32) + 32);
+      v12 = *(*(a1 + 32) + 32);
       block[0] = MEMORY[0x277D85DD0];
       block[1] = 3221225472;
       block[2] = __50__STSpeechTranslatorClient_producedTranscription___block_invoke_51;
       block[3] = &unk_279CF7DB0;
-      v11 = WeakRetained;
-      v12 = *(a1 + 32);
-      v13 = *(a1 + 40);
-      v16 = v11;
-      v17 = v12;
-      v18 = v13;
-      dispatch_async(v10, block);
+      v13 = WeakRetained;
+      v14 = *(a1 + 32);
+      v15 = *(a1 + 40);
+      v17 = v13;
+      v18 = v14;
+      v19 = v15;
+      dispatch_async(v12, block);
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)producedTranslation:(id)translation
@@ -1495,48 +1497,47 @@ void __50__STSpeechTranslatorClient_producedTranscription___block_invoke(uint64_
 
 void __48__STSpeechTranslatorClient_producedTranslation___block_invoke(uint64_t a1)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v1 = *(a1 + 32);
   if ((*(v1 + 12) & 1) == 0)
   {
     WeakRetained = objc_loadWeakRetained((v1 + 16));
     v4 = objc_opt_respondsToSelector();
-    v5 = _LTOSLogSTMultiprocess();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+    v5 = v4;
+    v7 = _LTOSLogSTMultiprocess(v4, v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
-      v6 = *(a1 + 32);
-      v7 = v5;
-      v8 = [v6 _descriptionWhileLocked];
-      v9 = *(a1 + 40);
+      v8 = *(a1 + 32);
+      v9 = v7;
+      v10 = [v8 _descriptionWhileLocked];
+      v11 = *(a1 + 40);
       *buf = 138544130;
-      v20 = v8;
-      v21 = 2114;
-      v22 = v9;
-      v23 = 2048;
-      v24 = WeakRetained;
-      v25 = 1024;
-      v26 = v4 & 1;
-      _os_log_impl(&dword_26B5BC000, v7, OS_LOG_TYPE_INFO, "client: %{public}@ received producedTranslation: %{public}@, delegate: %p responds: %{BOOL}d", buf, 0x26u);
+      v21 = v10;
+      v22 = 2114;
+      v23 = v11;
+      v24 = 2048;
+      v25 = WeakRetained;
+      v26 = 1024;
+      v27 = v5 & 1;
+      _os_log_impl(&dword_26B5BC000, v9, OS_LOG_TYPE_INFO, "client: %{public}@ received producedTranslation: %{public}@, delegate: %p responds: %{BOOL}d", buf, 0x26u);
     }
 
-    if (v4)
+    if (v5)
     {
-      v10 = *(*(a1 + 32) + 32);
+      v12 = *(*(a1 + 32) + 32);
       block[0] = MEMORY[0x277D85DD0];
       block[1] = 3221225472;
       block[2] = __48__STSpeechTranslatorClient_producedTranslation___block_invoke_52;
       block[3] = &unk_279CF7DB0;
-      v11 = WeakRetained;
-      v12 = *(a1 + 32);
-      v13 = *(a1 + 40);
-      v16 = v11;
-      v17 = v12;
-      v18 = v13;
-      dispatch_async(v10, block);
+      v13 = WeakRetained;
+      v14 = *(a1 + 32);
+      v15 = *(a1 + 40);
+      v17 = v13;
+      v18 = v14;
+      v19 = v15;
+      dispatch_async(v12, block);
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (AVAudioFormat)preferredTranslatedAudioFormat
@@ -1582,9 +1583,7 @@ uint64_t __65__STSpeechTranslatorClient_Audio__preferredTranslatedAudioFormat__b
     }
 
     v4 = *(*(result + 40) + 8);
-    v5 = v3;
-    v6 = *(v4 + 40);
-    *(v4 + 40) = v5;
+    *(v4 + 40) = v3;
 
     return MEMORY[0x2821F96F8]();
   }
@@ -1610,22 +1609,22 @@ uint64_t __65__STSpeechTranslatorClient_Audio__preferredTranslatedAudioFormat__b
 
 void __69__STSpeechTranslatorClient_Audio__setPreferredTranslatedAudioFormat___block_invoke(uint64_t a1)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v1 = *(a1 + 32);
   if (*(v1 + 12))
   {
-    goto LABEL_15;
+    return;
   }
 
   v3 = (a1 + 40);
   if ([*(v1 + 48) isEqual:*(a1 + 40)])
   {
-    goto LABEL_15;
+    return;
   }
 
   if (!*v3)
   {
-    v5 = 0;
+    v6 = 0;
     goto LABEL_8;
   }
 
@@ -1634,45 +1633,42 @@ void __69__STSpeechTranslatorClient_Audio__setPreferredTranslatedAudioFormat___b
   {
     if (*(v4 + 8) == 1819304813)
     {
-      v5 = *v3;
+      v6 = *v3;
 LABEL_8:
-      objc_storeStrong((*(a1 + 32) + 48), v5);
-      v6 = _LTOSLogSTMultiprocess();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+      objc_storeStrong((*(a1 + 32) + 48), v6);
+      v9 = _LTOSLogSTMultiprocess(v7, v8);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
       {
-        v7 = *(a1 + 32);
-        v8 = *(a1 + 40);
-        v25 = 138543618;
-        v26 = v7;
-        v27 = 2114;
-        v28 = v8;
-        _os_log_impl(&dword_26B5BC000, v6, OS_LOG_TYPE_INFO, "client: %{public}@ applying preferredTranslatedAudioFormat: %{public}@", &v25, 0x16u);
+        v10 = *(a1 + 32);
+        v11 = *(a1 + 40);
+        v27 = 138543618;
+        v28 = v10;
+        v29 = 2114;
+        v30 = v11;
+        _os_log_impl(&dword_26B5BC000, v9, OS_LOG_TYPE_INFO, "client: %{public}@ applying preferredTranslatedAudioFormat: %{public}@", &v27, 0x16u);
       }
 
-      v9 = [*(*(a1 + 32) + 24) translatorPeer];
-      [v9 setPreferredTranslatedAudioFormat:*(a1 + 40)];
+      v12 = [*(*(a1 + 32) + 24) translatorPeer];
+      [v12 setPreferredTranslatedAudioFormat:*(a1 + 40)];
 
-      goto LABEL_15;
+      return;
     }
 
-    v17 = _LTOSLogSTMultiprocess();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v20 = _LTOSLogSTMultiprocess(v4, v5);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
-      __69__STSpeechTranslatorClient_Audio__setPreferredTranslatedAudioFormat___block_invoke_cold_1(v3, v17, v18, v19, v20, v21, v22, v23);
+      __69__STSpeechTranslatorClient_Audio__setPreferredTranslatedAudioFormat___block_invoke_cold_1(v3, v20, v21, v22, v23, v24, v25, v26);
     }
   }
 
   else
   {
-    v10 = _LTOSLogSTMultiprocess();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v13 = _LTOSLogSTMultiprocess(0, v5);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      __69__STSpeechTranslatorClient_Audio__setPreferredTranslatedAudioFormat___block_invoke_cold_2(v3, v10, v11, v12, v13, v14, v15, v16);
+      __69__STSpeechTranslatorClient_Audio__setPreferredTranslatedAudioFormat___block_invoke_cold_2(v3, v13, v14, v15, v16, v17, v18, v19);
     }
   }
-
-LABEL_15:
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (void)lookUpPreferredInputAudioFormatWithCompletionHandler:(id)handler
@@ -1714,7 +1710,7 @@ LABEL_15:
 
 void __88__STSpeechTranslatorClient_Audio__lookUpPreferredInputAudioFormatWithCompletionHandler___block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v1 = *(a1 + 32);
   if ((*(v1 + 12) & 1) == 0)
   {
@@ -1730,23 +1726,21 @@ void __88__STSpeechTranslatorClient_Audio__lookUpPreferredInputAudioFormatWithCo
       [v3 addObject:v4];
 
       *(*(*(a1 + 56) + 8) + 24) = 0;
-      v5 = _LTOSLogSTMultiprocess();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+      v7 = _LTOSLogSTMultiprocess(v5, v6);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
       {
-        v6 = *(a1 + 32);
-        v7 = v5;
-        v8 = [v6 _descriptionWhileLocked];
-        v9 = _Block_copy(*(a1 + 40));
-        v11 = 138543618;
-        v12 = v8;
-        v13 = 2114;
-        v14 = v9;
-        _os_log_impl(&dword_26B5BC000, v7, OS_LOG_TYPE_INFO, "Client: %{public}@ requested to look up preferred input audio format but pre-fetch is NOT yet completed. Enqueuing handler: %{public}@", &v11, 0x16u);
+        v8 = *(a1 + 32);
+        v9 = v7;
+        v10 = [v8 _descriptionWhileLocked];
+        v11 = _Block_copy(*(a1 + 40));
+        v12 = 138543618;
+        v13 = v10;
+        v14 = 2114;
+        v15 = v11;
+        _os_log_impl(&dword_26B5BC000, v9, OS_LOG_TYPE_INFO, "Client: %{public}@ requested to look up preferred input audio format but pre-fetch is NOT yet completed. Enqueuing handler: %{public}@", &v12, 0x16u);
       }
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)pauseTranslationWithReason:(id)reason
@@ -1761,34 +1755,32 @@ void __88__STSpeechTranslatorClient_Audio__lookUpPreferredInputAudioFormatWithCo
   v5 = reasonCopy;
   os_unfair_lock_assert_not_owner(&self->_stateLock);
   os_unfair_lock_lock(&self->_stateLock);
-  __62__STSpeechTranslatorClient_Audio__pauseTranslationWithReason___block_invoke(v6);
+  (__62__STSpeechTranslatorClient_Audio__pauseTranslationWithReason___block_invoke)(v6);
   os_unfair_lock_unlock(&self->_stateLock);
 }
 
-void __62__STSpeechTranslatorClient_Audio__pauseTranslationWithReason___block_invoke(uint64_t a1)
+void __62__STSpeechTranslatorClient_Audio__pauseTranslationWithReason___block_invoke(uint64_t a1, uint64_t a2)
 {
   v13 = *MEMORY[0x277D85DE8];
   if ((*(*(a1 + 32) + 12) & 1) == 0)
   {
-    v2 = _LTOSLogSTMultiprocess();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+    v3 = _LTOSLogSTMultiprocess(a1, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
-      v3 = *(a1 + 32);
-      v4 = v2;
-      v5 = [v3 _descriptionWhileLocked];
-      v6 = *(a1 + 40);
+      v4 = *(a1 + 32);
+      v5 = v3;
+      v6 = [v4 _descriptionWhileLocked];
+      v7 = *(a1 + 40);
       v9 = 138543618;
-      v10 = v5;
+      v10 = v6;
       v11 = 2114;
-      v12 = v6;
-      _os_log_impl(&dword_26B5BC000, v4, OS_LOG_TYPE_INFO, "client: %{public}@ requesting to pauseWithReason: %{public}@", &v9, 0x16u);
+      v12 = v7;
+      _os_log_impl(&dword_26B5BC000, v5, OS_LOG_TYPE_INFO, "client: %{public}@ requesting to pauseWithReason: %{public}@", &v9, 0x16u);
     }
 
-    v7 = [*(*(a1 + 32) + 24) translatorPeer];
-    [v7 pauseTranslationWithReason:*(a1 + 40)];
+    v8 = [*(*(a1 + 32) + 24) translatorPeer];
+    [v8 pauseTranslationWithReason:*(a1 + 40)];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)resumeTranslation
@@ -1800,31 +1792,29 @@ void __62__STSpeechTranslatorClient_Audio__pauseTranslationWithReason___block_in
   v3[4] = self;
   os_unfair_lock_assert_not_owner(&self->_stateLock);
   os_unfair_lock_lock(&self->_stateLock);
-  __52__STSpeechTranslatorClient_Audio__resumeTranslation__block_invoke(v3);
+  (__52__STSpeechTranslatorClient_Audio__resumeTranslation__block_invoke)(v3);
   os_unfair_lock_unlock(&self->_stateLock);
 }
 
-void __52__STSpeechTranslatorClient_Audio__resumeTranslation__block_invoke(uint64_t a1)
+void __52__STSpeechTranslatorClient_Audio__resumeTranslation__block_invoke(uint64_t a1, uint64_t a2)
 {
   v10 = *MEMORY[0x277D85DE8];
   if ((*(*(a1 + 32) + 12) & 1) == 0)
   {
-    v2 = _LTOSLogSTMultiprocess();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+    v3 = _LTOSLogSTMultiprocess(a1, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
-      v3 = *(a1 + 32);
-      v4 = v2;
-      v5 = [v3 _descriptionWhileLocked];
+      v4 = *(a1 + 32);
+      v5 = v3;
+      v6 = [v4 _descriptionWhileLocked];
       v8 = 138543362;
-      v9 = v5;
-      _os_log_impl(&dword_26B5BC000, v4, OS_LOG_TYPE_INFO, "client: %{public}@ requesting to resume", &v8, 0xCu);
+      v9 = v6;
+      _os_log_impl(&dword_26B5BC000, v5, OS_LOG_TYPE_INFO, "client: %{public}@ requesting to resume", &v8, 0xCu);
     }
 
-    v6 = [*(*(a1 + 32) + 24) translatorPeer];
-    [v6 resumeTranslation];
+    v7 = [*(*(a1 + 32) + 24) translatorPeer];
+    [v7 resumeTranslation];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)translateAudioSamples:(id)samples
@@ -1849,11 +1839,11 @@ void __57__STSpeechTranslatorClient_Audio__translateAudioSamples___block_invoke(
   if ((*(*(a1 + 32) + 12) & 1) == 0)
   {
     v2 = [*(a1 + 40) st_serializeWithBufferAllocator:*MEMORY[0x277CBECE8]];
-    v3 = _LTOSLogSTMultiprocess();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
+    v4 = _LTOSLogSTMultiprocess(v2, v3);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {
       v6 = *(a1 + 32);
-      v7 = v3;
+      v7 = v4;
       v8 = [v6 _descriptionWhileLocked];
       v9 = *(a1 + 40);
       v10 = [v9 format];
@@ -1880,65 +1870,28 @@ void __57__STSpeechTranslatorClient_Audio__translateAudioSamples___block_invoke(
     {
 LABEL_5:
 
-      goto LABEL_6;
+      return;
     }
 
-    v4 = [*(*(a1 + 32) + 24) translatorPeer];
-    [v4 translateAudioBuffer:v2];
+    v5 = [*(*(a1 + 32) + 24) translatorPeer];
+    [v5 translateAudioBuffer:v2];
 
     goto LABEL_5;
   }
-
-LABEL_6:
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_setUpPeerProviderWhileLocked:withContext:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_1();
-  OUTLINED_FUNCTION_0_1(&dword_26B5BC000, v0, v1, "Failed to generate peer for context: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_setUpPeerProviderWhileLocked:withContext:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_1();
-  OUTLINED_FUNCTION_0_1(&dword_26B5BC000, v0, v1, "Failed to generate translator identifier with context: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_initWithPeerProvider:peerContext:delegate:delegateQueue:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_1();
-  OUTLINED_FUNCTION_0(&dword_26B5BC000, v0, v1, "Failed to create STSpeechTranslatorClient with peerContext: %{public}@ delegate: %p");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_initWithPeerProvider:peerContext:delegate:delegateQueue:.cold.2()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_1();
-  OUTLINED_FUNCTION_0(&dword_26B5BC000, v0, v1, "Failed to initialize super instance for STSpeechTranslatorClient delegate: %p delegateQueue: %{public}@");
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 void __69__STSpeechTranslatorClient_Audio__setPreferredTranslatedAudioFormat___block_invoke_cold_1(void *a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v9 = HIDWORD(*a1);
-  OUTLINED_FUNCTION_0_1(&dword_26B5BC000, a2, a3, "Provided format is NOT linear PCM preferredTranslatedAudioFormat: %{public}@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = *a1;
+  OUTLINED_FUNCTION_0_1(&dword_26B5BC000, a2, a3, "Provided format is NOT linear PCM preferredTranslatedAudioFormat: %{public}@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __69__STSpeechTranslatorClient_Audio__setPreferredTranslatedAudioFormat___block_invoke_cold_2(void *a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v9 = HIDWORD(*a1);
-  OUTLINED_FUNCTION_0_1(&dword_26B5BC000, a2, a3, "Failed to fetch description for preferredTranslatedAudioFormat: %{public}@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = *a1;
+  OUTLINED_FUNCTION_0_1(&dword_26B5BC000, a2, a3, "Failed to fetch description for preferredTranslatedAudioFormat: %{public}@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

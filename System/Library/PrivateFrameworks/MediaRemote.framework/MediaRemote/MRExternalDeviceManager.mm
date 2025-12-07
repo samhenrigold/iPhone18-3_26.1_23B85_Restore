@@ -83,27 +83,27 @@ void __37__MRExternalDeviceManager_allDevices__block_invoke(uint64_t a1)
 
 - (id)deviceWithIdentifier:(id)identifier
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   [(MRExternalDeviceManager *)self allDevices];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
-  v5 = v18 = 0u;
-  v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v5 = v17 = 0u;
+  v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v6)
   {
-    v7 = *v16;
+    v7 = *v15;
     while (2)
     {
       for (i = 0; i != v6; i = i + 1)
       {
-        if (*v16 != v7)
+        if (*v15 != v7)
         {
           objc_enumerationMutation(v5);
         }
 
-        v9 = *(*(&v15 + 1) + 8 * i);
+        v9 = *(*(&v14 + 1) + 8 * i);
         if (v9)
         {
           null = [MEMORY[0x1E695DFB0] null];
@@ -113,7 +113,7 @@ void __37__MRExternalDeviceManager_allDevices__block_invoke(uint64_t a1)
             deviceInfo = [v9 deviceInfo];
             identifier = [deviceInfo identifier];
 
-            if ([identifierCopy isEqualToString:identifier])
+            if (objc_msgSend_isEqualToString_(identifierCopy))
             {
               v6 = v9;
 
@@ -123,7 +123,7 @@ void __37__MRExternalDeviceManager_allDevices__block_invoke(uint64_t a1)
         }
       }
 
-      v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
       if (v6)
       {
         continue;
@@ -134,8 +134,6 @@ void __37__MRExternalDeviceManager_allDevices__block_invoke(uint64_t a1)
   }
 
 LABEL_14:
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return v6;
 }

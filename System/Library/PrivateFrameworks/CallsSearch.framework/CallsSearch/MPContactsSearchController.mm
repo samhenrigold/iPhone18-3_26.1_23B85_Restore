@@ -25,12 +25,10 @@
 
 - (NSString)sectionTitle
 {
-  v2 = *(self + OBJC_IVAR___MPContactsSearchController_sectionTitle);
-  v3 = *(self + OBJC_IVAR___MPContactsSearchController_sectionTitle + 8);
 
-  v4 = sub_1CFB8FA80();
+  v2 = sub_1CFB8FA80();
 
-  return v4;
+  return v2;
 }
 
 - (MPSearchResultsUpdatingProtocol)delegate
@@ -60,18 +58,16 @@
 {
   if (*(self + OBJC_IVAR___MPContactsSearchController_searchText + 8))
   {
-    v2 = *(self + OBJC_IVAR___MPContactsSearchController_searchText);
-    v3 = *(self + OBJC_IVAR___MPContactsSearchController_searchText + 8);
 
-    v4 = sub_1CFB8FA80();
+    v2 = sub_1CFB8FA80();
   }
 
   else
   {
-    v4 = 0;
+    v2 = 0;
   }
 
-  return v4;
+  return v2;
 }
 
 - (void)setSearchText:(id)text
@@ -88,27 +84,23 @@
   }
 
   v6 = (self + OBJC_IVAR___MPContactsSearchController_searchText);
-  v7 = *(self + OBJC_IVAR___MPContactsSearchController_searchText + 8);
   *v6 = v4;
   v6[1] = v5;
 }
 
 - (NSArray)searchTokens
 {
-  v2 = *(self + OBJC_IVAR___MPContactsSearchController_searchTokens);
   sub_1CFB5D38C(0, &unk_1EE04BD50, 0x1E69DCF30);
 
-  v3 = sub_1CFB8FB20();
+  v2 = sub_1CFB8FB20();
 
-  return v3;
+  return v2;
 }
 
 - (void)setSearchTokens:(id)tokens
 {
   sub_1CFB5D38C(0, &unk_1EE04BD50, 0x1E69DCF30);
-  v4 = sub_1CFB8FB30();
-  v5 = *(self + OBJC_IVAR___MPContactsSearchController_searchTokens);
-  *(self + OBJC_IVAR___MPContactsSearchController_searchTokens) = v4;
+  *(self + OBJC_IVAR___MPContactsSearchController_searchTokens) = sub_1CFB8FB30();
 }
 
 - (MPContactsSearchController)initWithContactSearchType:(int64_t)type contactViewControllerProvider:(id)provider searchResultsRanker:(id)ranker senderIdentityProvider:(id)identityProvider callProviderManagerProvider:(id)managerProvider
@@ -145,42 +137,41 @@
 - (void)searchWith:(id)with searchTokens:(id)tokens completion:(id)completion
 {
   v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC4EC4B0, &qword_1CFB91F10);
-  v9 = *(*(v8 - 8) + 64);
   MEMORY[0x1EEE9AC00](v8 - 8);
-  v11 = &v22 - v10;
-  v12 = _Block_copy(completion);
+  v10 = &v21 - v9;
+  v11 = _Block_copy(completion);
   if (with)
   {
     with = sub_1CFB8FA90();
-    v14 = v13;
+    v13 = v12;
   }
 
   else
   {
-    v14 = 0;
+    v13 = 0;
   }
 
   sub_1CFB5D38C(0, &unk_1EE04BD50, 0x1E69DCF30);
-  v15 = sub_1CFB8FB30();
-  v16 = swift_allocObject();
-  *(v16 + 16) = v12;
-  v17 = sub_1CFB8FBF0();
-  (*(*(v17 - 8) + 56))(v11, 1, 1, v17);
+  v14 = sub_1CFB8FB30();
+  v15 = swift_allocObject();
+  *(v15 + 16) = v11;
+  v16 = sub_1CFB8FBF0();
+  (*(*(v16 - 8) + 56))(v10, 1, 1, v16);
   sub_1CFB8FBC0();
   selfCopy = self;
 
-  v19 = sub_1CFB8FBB0();
-  v20 = swift_allocObject();
-  v21 = MEMORY[0x1E69E85E0];
-  v20[2] = v19;
-  v20[3] = v21;
-  v20[4] = selfCopy;
-  v20[5] = with;
-  v20[6] = v14;
-  v20[7] = v15;
-  v20[8] = sub_1CFB842A4;
-  v20[9] = v16;
-  sub_1CFB80934(0, 0, v11, &unk_1CFB92528, v20);
+  v18 = sub_1CFB8FBB0();
+  v19 = swift_allocObject();
+  v20 = MEMORY[0x1E69E85E0];
+  v19[2] = v18;
+  v19[3] = v20;
+  v19[4] = selfCopy;
+  v19[5] = with;
+  v19[6] = v13;
+  v19[7] = v14;
+  v19[8] = sub_1CFB842A4;
+  v19[9] = v15;
+  sub_1CFB80934(0, 0, v10, &unk_1CFB92528, v19);
 }
 
 - (void)cancelPreviousSearchRequests
@@ -191,7 +182,7 @@
 
 - (void)registerCellWith:(id)with
 {
-  type metadata accessor for ContactSearchViewCell();
+  type metadata accessor for ContactSearchViewCell(0);
   ObjCClassFromMetadata = swift_getObjCClassFromMetadata();
   withCopy = with;
   v5 = sub_1CFB8FA80();
@@ -202,43 +193,41 @@
 {
   v6 = sub_1CFB8F780();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
   MEMORY[0x1EEE9AC00](v6);
-  v10 = &v15 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v14 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1CFB8F750();
   viewCopy = view;
   selfCopy = self;
   contactsTableViewController = [(MPContactsSearchController *)selfCopy contactsTableViewController];
-  sub_1CFB7C780(viewCopy, v10);
+  sub_1CFB7C780(viewCopy, v9);
 
-  v14 = sub_1CFB8F740();
-  [viewCopy deselectRowAtIndexPath:v14 animated:0];
+  v13 = sub_1CFB8F740();
+  [viewCopy deselectRowAtIndexPath:v13 animated:0];
 
-  (*(v7 + 8))(v10, v6);
+  (*(v7 + 8))(v9, v6);
 }
 
 - (id)tableView:(id)view cellForRowAt:(id)at
 {
   v6 = sub_1CFB8F780();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
   MEMORY[0x1EEE9AC00](v6);
-  v10 = &v18 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v17 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1CFB8F750();
   viewCopy = view;
   selfCopy = self;
   contactsTableViewController = [(MPContactsSearchController *)selfCopy contactsTableViewController];
-  v14 = sub_1CFB7C12C(viewCopy, v10);
+  v13 = sub_1CFB7C12C(viewCopy, v9);
 
-  type metadata accessor for ContactSearchViewCell();
-  v15 = swift_dynamicCastClass();
-  if (v15)
+  type metadata accessor for ContactSearchViewCell(0);
+  v14 = swift_dynamicCastClass();
+  if (v14)
   {
-    v16 = v15;
+    v15 = v14;
 
-    (*(v7 + 8))(v10, v6);
+    (*(v7 + 8))(v9, v6);
 
-    return v16;
+    return v15;
   }
 
   else
@@ -283,17 +272,16 @@
 {
   v6 = sub_1CFB8F780();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
   MEMORY[0x1EEE9AC00](v6);
-  v10 = &v16 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v15 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1CFB8F750();
   withCopy = with;
   selfCopy = self;
   contactsTableViewController = [(MPContactsSearchController *)selfCopy contactsTableViewController];
-  v14 = sub_1CFB7D75C(withCopy);
+  v13 = sub_1CFB7D75C(withCopy);
 
-  (*(v7 + 8))(v10, v6);
-  return v14;
+  (*(v7 + 8))(v9, v6);
+  return v13;
 }
 
 - (id)viewForDetails

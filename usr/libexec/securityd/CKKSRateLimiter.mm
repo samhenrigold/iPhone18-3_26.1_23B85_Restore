@@ -1,6 +1,7 @@
 @interface CKKSRateLimiter
 - (BOOL)isEqual:(id)equal;
 - (CKKSRateLimiter)initWithCoder:(id)coder;
+- (id)consumeTokenFromBucket:(id)bucket type:(int)type at:(id)at;
 - (id)diagnostics;
 - (id)topOffendingAccessGroups:(unint64_t)groups;
 - (int)capacity:(int)capacity;
@@ -311,6 +312,41 @@ LABEL_18:
 
 LABEL_31:
   return v27;
+}
+
+- (id)consumeTokenFromBucket:(id)bucket type:(int)type at:(id)at
+{
+  v6 = *&type;
+  bucketCopy = bucket;
+  atCopy = at;
+  v10 = [atCopy dateByAddingTimeInterval:{-(-[CKKSRateLimiter capacity:](self, "capacity:", v6) * -[CKKSRateLimiter rate:](self, "rate:", v6))}];
+  buckets = [(CKKSRateLimiter *)self buckets];
+  v12 = [buckets objectForKeyedSubscript:bucketCopy];
+
+  if (!v12 || ([v12 timeIntervalSinceDate:v10], v13 < 0.0))
+  {
+    v14 = v10;
+
+    v12 = v14;
+  }
+
+  v15 = [v12 dateByAddingTimeInterval:{-[CKKSRateLimiter rate:](self, "rate:", v6)}];
+
+  buckets2 = [(CKKSRateLimiter *)self buckets];
+  [buckets2 setObject:v15 forKeyedSubscript:bucketCopy];
+
+  [v15 timeIntervalSinceDate:atCopy];
+  if (v17 <= 0.0)
+  {
+    v18 = 0;
+  }
+
+  else
+  {
+    v18 = [v15 copy];
+  }
+
+  return v18;
 }
 
 - (int)capacity:(int)capacity

@@ -3,7 +3,7 @@
 
 @implementation UIFocusUserDefaults
 
-uint64_t ___UIFocusUserDefaults_block_invoke()
+void *___UIFocusUserDefaults_block_invoke()
 {
   v0 = [objc_alloc(MEMORY[0x277CBEBD0]) initWithSuiteName:@"com.apple.FocusEngine"];
   v1 = _MergedGlobals_5;

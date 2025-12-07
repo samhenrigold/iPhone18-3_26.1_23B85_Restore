@@ -530,7 +530,7 @@ LABEL_11:
           {
             if (v19)
             {
-              [v19 timeInterval];
+              objc_msgSend_timeInterval(v19);
             }
 
             else
@@ -548,7 +548,7 @@ LABEL_11:
             *&end[0].value = v75;
             if (v19)
             {
-              [v19 timeInterval];
+              objc_msgSend_timeInterval(v19);
             }
 
             else
@@ -748,13 +748,13 @@ void __66__VCPVideoProcessorSession_processSampleBuffer_withEndTime_error___bloc
   *(*(a1 + 32) + 24) = 0;
 }
 
-uint64_t __66__VCPVideoProcessorSession_processSampleBuffer_withEndTime_error___block_invoke_2(uint64_t result)
+void *__66__VCPVideoProcessorSession_processSampleBuffer_withEndTime_error___block_invoke_2(void *result)
 {
   v1 = result;
-  v2 = *(result + 32);
+  v2 = result[4];
   if (*(v2 + 24) == 1)
   {
-    result = [*(v2 + 16) containsObject:*(result + 40)];
+    result = [*(v2 + 16) containsObject:result[5]];
     v3 = result ^ 1;
   }
 
@@ -763,11 +763,11 @@ uint64_t __66__VCPVideoProcessorSession_processSampleBuffer_withEndTime_error___
     v3 = 0;
   }
 
-  *(*(*(v1 + 48) + 8) + 24) = v3;
+  *(*(v1[6] + 8) + 24) = v3;
   return result;
 }
 
-uint64_t __66__VCPVideoProcessorSession_processSampleBuffer_withEndTime_error___block_invoke_24(uint64_t a1)
+void *__66__VCPVideoProcessorSession_processSampleBuffer_withEndTime_error___block_invoke_24(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 16) removeObject:*(a1 + 40)];
   *(*(a1 + 32) + 24) = 1;

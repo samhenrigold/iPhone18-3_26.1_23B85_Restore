@@ -7,8 +7,11 @@
 - (int)finalizeStatement;
 - (int)reset;
 - (int)step;
+- (void)bindArray:(id)array atPosition:(int)position;
 - (void)bindData:(id)data atPosition:(int)position;
 - (void)bindDataCopy:(id)copy atPosition:(int)position;
+- (void)bindDate:(id)date atPosition:(int)position;
+- (void)bindDictionary:(id)dictionary atPosition:(int)position;
 - (void)bindDouble:(double)double atPosition:(int)position;
 - (void)bindFloat:(float)float atPosition:(int)position;
 - (void)bindInt64:(int64_t)int64 atPosition:(int)position;
@@ -17,6 +20,8 @@
 - (void)bindNumber:(id)number atPosition:(int)position;
 - (void)bindString:(id)string atPosition:(int)position;
 - (void)bindStringCopy:(id)copy atPosition:(int)position;
+- (void)bindURL:(id)l atPosition:(int)position;
+- (void)bindUUID:(id)d atPosition:(int)position;
 @end
 
 @implementation ASUSQLiteStatement
@@ -145,6 +150,13 @@
   }
 }
 
+- (void)bindArray:(id)array atPosition:(int)position
+{
+  v4 = *&position;
+  v6 = [MEMORY[0x277CCAAA0] dataWithJSONObject:array options:0 error:0];
+  [(ASUSQLiteStatement *)self bindData:v6 atPosition:v4];
+}
+
 - (void)bindData:(id)data atPosition:(int)position
 {
   dataCopy = data;
@@ -177,6 +189,21 @@
   {
     [MEMORY[0x277CBEAD8] raise:*MEMORY[0x277CBE658] format:@"Statement already finalized"];
   }
+}
+
+- (void)bindDate:(id)date atPosition:(int)position
+{
+  v4 = *&position;
+  [date timeIntervalSinceReferenceDate];
+
+  [(ASUSQLiteStatement *)self bindDouble:v4 atPosition:?];
+}
+
+- (void)bindDictionary:(id)dictionary atPosition:(int)position
+{
+  v4 = *&position;
+  v6 = [MEMORY[0x277CCAAA0] dataWithJSONObject:dictionary options:0 error:0];
+  [(ASUSQLiteStatement *)self bindData:v6 atPosition:v4];
 }
 
 - (void)bindDouble:(double)double atPosition:(int)position
@@ -353,6 +380,20 @@ LABEL_12:
 
     [v7 raise:v8 format:@"Statement already finalized"];
   }
+}
+
+- (void)bindUUID:(id)d atPosition:(int)position
+{
+  v4 = *&position;
+  uUIDString = [d UUIDString];
+  [(ASUSQLiteStatement *)self bindString:uUIDString atPosition:v4];
+}
+
+- (void)bindURL:(id)l atPosition:(int)position
+{
+  v4 = *&position;
+  absoluteString = [l absoluteString];
+  [(ASUSQLiteStatement *)self bindString:absoluteString atPosition:v4];
 }
 
 - (int)clearBindings

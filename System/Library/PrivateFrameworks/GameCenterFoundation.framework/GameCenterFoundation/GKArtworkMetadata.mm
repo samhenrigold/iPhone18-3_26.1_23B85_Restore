@@ -46,30 +46,28 @@
   return v3;
 }
 
-void __44__GKArtworkMetadata_secureCodedPropertyKeys__block_invoke()
+void __44__GKArtworkMetadata_secureCodedPropertyKeys__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v4[8] = *MEMORY[0x277D85DE8];
-  v3[0] = @"templateURL";
-  v4[0] = objc_opt_class();
-  v3[1] = @"textColor1";
-  v4[1] = objc_opt_class();
-  v3[2] = @"textColor2";
-  v4[2] = objc_opt_class();
-  v3[3] = @"textColor3";
-  v4[3] = objc_opt_class();
-  v3[4] = @"textColor4";
-  v4[4] = objc_opt_class();
-  v3[5] = @"backgroundColor";
-  v4[5] = objc_opt_class();
-  v3[6] = @"width";
-  v4[6] = objc_opt_class();
-  v3[7] = @"height";
-  v4[7] = objc_opt_class();
-  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v4 forKeys:v3 count:8];
-  v1 = secureCodedPropertyKeys_sSecureCodedKeys_24;
-  secureCodedPropertyKeys_sSecureCodedKeys_24 = v0;
-
-  v2 = *MEMORY[0x277D85DE8];
+  v5[8] = *MEMORY[0x277D85DE8];
+  v4[0] = @"templateURL";
+  v5[0] = objc_opt_class();
+  v4[1] = @"textColor1";
+  v5[1] = objc_opt_class();
+  v4[2] = @"textColor2";
+  v5[2] = objc_opt_class();
+  v4[3] = @"textColor3";
+  v5[3] = objc_opt_class();
+  v4[4] = @"textColor4";
+  v5[4] = objc_opt_class();
+  v4[5] = @"backgroundColor";
+  v5[5] = objc_opt_class();
+  v4[6] = @"width";
+  v5[6] = objc_opt_class();
+  v4[7] = @"height";
+  v5[7] = objc_opt_class();
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:v4 count:8];
+  v3 = secureCodedPropertyKeys_sSecureCodedKeys_24;
+  secureCodedPropertyKeys_sSecureCodedKeys_24 = v2;
 }
 
 @end

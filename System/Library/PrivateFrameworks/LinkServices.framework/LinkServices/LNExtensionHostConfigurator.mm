@@ -7,7 +7,7 @@
 
 + (id)extensionIdentityWithExtensionPointIdentifier:(id)identifier bundleIdentifier:(id)bundleIdentifier error:(id *)error
 {
-  v26[1] = *MEMORY[0x1E69E9840];
+  v25[1] = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   bundleIdentifierCopy = bundleIdentifier;
   v9 = objc_alloc(MEMORY[0x1E6966CE0]);
@@ -25,9 +25,9 @@
         firstObject = [v12 firstObject];
         v15 = [firstObject url];
         *buf = 138412546;
-        v22 = bundleIdentifierCopy;
-        v23 = 2112;
-        v24 = v15;
+        v21 = bundleIdentifierCopy;
+        v22 = 2112;
+        v23 = v15;
       }
     }
 
@@ -37,22 +37,20 @@
   else if (error)
   {
     v16 = MEMORY[0x1E696ABC0];
-    v17 = v25 = *MEMORY[0x1E696A578];
-    v26[0] = v17;
-    v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v26 forKeys:&v25 count:1];
+    v17 = v24 = *MEMORY[0x1E696A578];
+    v25[0] = v17;
+    v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v25 forKeys:&v24 count:1];
     *error = [v16 errorWithDomain:@"LNConnectionErrorDomain" code:1100 userInfo:v18];
 
     error = 0;
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 
   return error;
 }
 
 + (id)extensionProcessWithExtensionRecord:(id)record extensionType:(int64_t *)type error:(id *)error
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   recordCopy = record;
   if (!recordCopy)
   {
@@ -92,7 +90,7 @@
       {
         v18 = *error;
         *buf = 138543362;
-        v23 = v18;
+        v22 = v18;
         _os_log_impl(&dword_19763D000, v17, OS_LOG_TYPE_ERROR, "Unable to create extension identity: %{public}@", buf, 0xCu);
       }
 
@@ -106,14 +104,12 @@
     if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v23 = identifier;
+      v22 = identifier;
       _os_log_impl(&dword_19763D000, v16, OS_LOG_TYPE_ERROR, "Unsupported extension point identifier %{public}@", buf, 0xCu);
     }
 
     v12 = 0;
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 
   return v12;
 }

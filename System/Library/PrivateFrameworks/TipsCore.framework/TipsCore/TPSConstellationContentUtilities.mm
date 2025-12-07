@@ -68,7 +68,7 @@ void __56__TPSConstellationContentUtilities_contentContainsLink___block_invoke(u
   }
 }
 
-uint64_t __56__TPSConstellationContentUtilities_contentContainsLink___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
+void *__56__TPSConstellationContentUtilities_contentContainsLink___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
 {
   result = [*(a1 + 40) markTypeForMarkDictionary:a2];
   if (!result)
@@ -82,53 +82,53 @@ uint64_t __56__TPSConstellationContentUtilities_contentContainsLink___block_invo
 
 + (BOOL)contentContainsInlineIcon:(id)icon
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   iconCopy = icon;
   if ([iconCopy count])
   {
-    v28 = 0u;
-    v29 = 0u;
-    v26 = 0u;
     v27 = 0u;
+    v28 = 0u;
+    v25 = 0u;
+    v26 = 0u;
     v5 = iconCopy;
-    v6 = [v5 countByEnumeratingWithState:&v26 objects:v31 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v25 objects:v30 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v27;
+      v8 = *v26;
       v9 = @"content";
-      v21 = *v27;
+      v20 = *v26;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v27 != v8)
+          if (*v26 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
           v11 = v9;
-          v12 = [*(*(&v26 + 1) + 8 * i) TPSSafeArrayForKey:v9];
+          v12 = [*(*(&v25 + 1) + 8 * i) TPSSafeArrayForKey:v9];
+          v21 = 0u;
           v22 = 0u;
           v23 = 0u;
           v24 = 0u;
-          v25 = 0u;
           v13 = v12;
-          v14 = [v13 countByEnumeratingWithState:&v22 objects:v30 count:16];
+          v14 = [v13 countByEnumeratingWithState:&v21 objects:v29 count:16];
           if (v14)
           {
             v15 = v14;
-            v16 = *v23;
+            v16 = *v22;
             while (2)
             {
               for (j = 0; j != v15; ++j)
               {
-                if (*v23 != v16)
+                if (*v22 != v16)
                 {
                   objc_enumerationMutation(v13);
                 }
 
-                if ([self contentTypeForContentDictionary:*(*(&v22 + 1) + 8 * j)] == 3)
+                if ([self contentTypeForContentDictionary:*(*(&v21 + 1) + 8 * j)] == 3)
                 {
 
                   v18 = 1;
@@ -136,7 +136,7 @@ uint64_t __56__TPSConstellationContentUtilities_contentContainsLink___block_invo
                 }
               }
 
-              v15 = [v13 countByEnumeratingWithState:&v22 objects:v30 count:16];
+              v15 = [v13 countByEnumeratingWithState:&v21 objects:v29 count:16];
               if (v15)
               {
                 continue;
@@ -147,10 +147,10 @@ uint64_t __56__TPSConstellationContentUtilities_contentContainsLink___block_invo
           }
 
           v9 = v11;
-          v8 = v21;
+          v8 = v20;
         }
 
-        v7 = [v5 countByEnumeratingWithState:&v26 objects:v31 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v25 objects:v30 count:16];
         v18 = 0;
       }
 
@@ -170,7 +170,6 @@ LABEL_21:
     v18 = 0;
   }
 
-  v19 = *MEMORY[0x1E69E9840];
   return v18;
 }
 
@@ -212,36 +211,36 @@ LABEL_21:
 
 + (id)altTextRepresentationForContent:(id)content
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   contentCopy = content;
   if (contentCopy)
   {
     v5 = objc_opt_new();
+    v33 = 0u;
     v34 = 0u;
     v35 = 0u;
     v36 = 0u;
-    v37 = 0u;
-    v25 = contentCopy;
+    v24 = contentCopy;
     obj = contentCopy;
-    v27 = [obj countByEnumeratingWithState:&v34 objects:v40 count:16];
-    if (!v27)
+    v26 = [obj countByEnumeratingWithState:&v33 objects:v39 count:16];
+    if (!v26)
     {
       goto LABEL_29;
     }
 
-    v26 = *v35;
+    v25 = *v34;
     while (1)
     {
       v6 = 0;
       do
       {
-        if (*v35 != v26)
+        if (*v34 != v25)
         {
           objc_enumerationMutation(obj);
         }
 
-        v29 = v6;
-        v7 = *(*(&v34 + 1) + 8 * v6);
+        v28 = v6;
+        v7 = *(*(&v33 + 1) + 8 * v6);
         firstObject = [obj firstObject];
 
         if (v7 != firstObject && [self contentTypeForContentDictionary:v7] == 1)
@@ -258,32 +257,32 @@ LABEL_21:
 
         else
         {
-          v39 = v7;
-          v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v39 count:1];
+          v38 = v7;
+          v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v38 count:1];
         }
 
         v12 = v11;
 
-        v32 = 0u;
-        v33 = 0u;
-        v30 = 0u;
         v31 = 0u;
+        v32 = 0u;
+        v29 = 0u;
+        v30 = 0u;
         v13 = v12;
-        v14 = [v13 countByEnumeratingWithState:&v30 objects:v38 count:16];
+        v14 = [v13 countByEnumeratingWithState:&v29 objects:v37 count:16];
         if (v14)
         {
           v15 = v14;
-          v16 = *v31;
+          v16 = *v30;
           do
           {
             for (i = 0; i != v15; ++i)
             {
-              if (*v31 != v16)
+              if (*v30 != v16)
               {
                 objc_enumerationMutation(v13);
               }
 
-              v18 = *(*(&v30 + 1) + 8 * i);
+              v18 = *(*(&v29 + 1) + 8 * i);
               v19 = [self contentTypeForContentDictionary:v18];
               if ((v19 - 2) >= 2)
               {
@@ -307,18 +306,18 @@ LABEL_21:
               }
             }
 
-            v15 = [v13 countByEnumeratingWithState:&v30 objects:v38 count:16];
+            v15 = [v13 countByEnumeratingWithState:&v29 objects:v37 count:16];
           }
 
           while (v15);
         }
 
-        v6 = v29 + 1;
+        v6 = v28 + 1;
       }
 
-      while (v29 + 1 != v27);
-      v27 = [obj countByEnumeratingWithState:&v34 objects:v40 count:16];
-      if (!v27)
+      while (v28 + 1 != v26);
+      v26 = [obj countByEnumeratingWithState:&v33 objects:v39 count:16];
+      if (!v26)
       {
 LABEL_29:
 
@@ -332,7 +331,7 @@ LABEL_29:
           v22 = 0;
         }
 
-        contentCopy = v25;
+        contentCopy = v24;
         goto LABEL_34;
       }
     }
@@ -340,8 +339,6 @@ LABEL_29:
 
   v22 = 0;
 LABEL_34:
-
-  v23 = *MEMORY[0x1E69E9840];
 
   return v22;
 }
@@ -415,24 +412,22 @@ LABEL_34:
 
 + (id)textContentWithText:(id)text
 {
-  v14[1] = *MEMORY[0x1E69E9840];
-  v10 = @"type";
-  v11 = @"text";
+  v13[1] = *MEMORY[0x1E69E9840];
+  v9 = @"type";
+  v10 = @"text";
   textCopy = &stru_1F3F2F4B8;
   if (text)
   {
     textCopy = text;
   }
 
-  v12 = @"text";
-  v13 = textCopy;
+  v11 = @"text";
+  v12 = textCopy;
   v4 = MEMORY[0x1E695DF20];
   textCopy2 = text;
-  v6 = [v4 dictionaryWithObjects:&v12 forKeys:&v10 count:2];
-  v14[0] = v6;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:{1, v10, v11, v12, v13}];
-
-  v8 = *MEMORY[0x1E69E9840];
+  v6 = [v4 dictionaryWithObjects:&v11 forKeys:&v9 count:2];
+  v13[0] = v6;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:{1, v9, v10, v11, v12}];
 
   return v7;
 }

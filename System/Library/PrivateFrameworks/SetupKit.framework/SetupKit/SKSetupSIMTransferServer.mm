@@ -29,40 +29,35 @@
 {
   connectonCopy = connecton;
   v4 = self->super._skCnx;
-  if (v4)
-  {
-    v5 = v4;
-    var0 = self->super._ucat->var0;
-    if (var0 <= 90)
-    {
-      v7 = connectonCopy;
-      if (var0 != -1)
-      {
-LABEL_4:
-        v10 = v7;
-        LogPrintF();
-        [connectonCopy invalidate];
-        goto LABEL_8;
-      }
-
-      if (_LogCategory_Initialize())
-      {
-        ucat = self->super._ucat;
-        v7 = connectonCopy;
-        goto LABEL_4;
-      }
-    }
-
-    [connectonCopy invalidate];
-  }
-
-  else
+  if (!v4)
   {
     v5 = objc_alloc_init(SKConnection);
     [(SKConnection *)v5 setBleConnection:connectonCopy];
     [(SKSetupBase *)self _connectionStartWithSKConnection:v5 clientMode:0 completeOnFailure:0 completion:&__block_literal_global_1046];
+    goto LABEL_8;
   }
 
+  v5 = v4;
+  ucat = self->super._ucat;
+  if (ucat->var0 <= 90)
+  {
+    v7 = connectonCopy;
+    if (ucat->var0 == -1)
+    {
+      if (!_LogCategory_Initialize())
+      {
+        goto LABEL_7;
+      }
+
+      ucat = self->super._ucat;
+      v7 = connectonCopy;
+    }
+
+    LogPrintF(ucat, "[SKSetupSIMTransferServer _bleServerAcceptConnecton:]", 90, "### Reject BLE connection when already connected: %@ vs %@", v7, v5);
+  }
+
+LABEL_7:
+  [connectonCopy invalidate];
 LABEL_8:
 }
 
@@ -70,13 +65,13 @@ LABEL_8:
 {
   if (self->_bleServer)
   {
-    var0 = self->super._ucat->var0;
-    if (var0 <= 30)
+    ucat = self->super._ucat;
+    if (ucat->var0 <= 30)
     {
-      if (var0 != -1)
+      if (ucat->var0 != -1)
       {
 LABEL_4:
-        LogPrintF();
+        LogPrintF(ucat, "[SKSetupSIMTransferServer _bleServerEnsureStopped]", 30, "BLE server stop");
         goto LABEL_6;
       }
 
@@ -104,17 +99,17 @@ LABEL_6:
 
     [(CBServer *)v3 setDispatchQueue:self->super._dispatchQueue];
     [(CBServer *)v3 setBleListenPSM:130];
-    v9[0] = MEMORY[0x277D85DD0];
-    v9[1] = 3221225472;
-    v9[2] = __51__SKSetupSIMTransferServer__bleServerEnsureStarted__block_invoke;
-    v9[3] = &unk_279BB8180;
-    v9[4] = v3;
-    v9[5] = self;
-    [(CBServer *)v3 setAcceptHandler:v9];
-    var0 = self->super._ucat->var0;
-    if (var0 <= 30)
+    v7[0] = MEMORY[0x277D85DD0];
+    v7[1] = 3221225472;
+    v7[2] = __51__SKSetupSIMTransferServer__bleServerEnsureStarted__block_invoke;
+    v7[3] = &unk_279BB8180;
+    v7[4] = v3;
+    v7[5] = self;
+    [(CBServer *)v3 setAcceptHandler:v7];
+    ucat = self->super._ucat;
+    if (ucat->var0 <= 30)
     {
-      if (var0 == -1)
+      if (ucat->var0 == -1)
       {
         if (!_LogCategory_Initialize())
         {
@@ -124,62 +119,58 @@ LABEL_6:
         ucat = self->super._ucat;
       }
 
-      v7 = v3;
-      LogPrintF();
+      LogPrintF(ucat, "[SKSetupSIMTransferServer _bleServerEnsureStarted]", 30, "BLE server start: %@", v3);
     }
 
 LABEL_6:
-    v8[0] = MEMORY[0x277D85DD0];
-    v8[1] = 3221225472;
-    v8[2] = __51__SKSetupSIMTransferServer__bleServerEnsureStarted__block_invoke_2;
-    v8[3] = &unk_279BB8838;
-    v8[4] = v3;
-    v8[5] = self;
-    [(CBServer *)v3 activateWithCompletion:v8, v7];
+    v6[0] = MEMORY[0x277D85DD0];
+    v6[1] = 3221225472;
+    v6[2] = __51__SKSetupSIMTransferServer__bleServerEnsureStarted__block_invoke_2;
+    v6[3] = &unk_279BB8838;
+    v6[4] = v3;
+    v6[5] = self;
+    [(CBServer *)v3 activateWithCompletion:v6];
   }
 }
 
 void __51__SKSetupSIMTransferServer__bleServerEnsureStarted__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v15 = a2;
+  v11 = a2;
   v5 = a3;
   v6 = *(a1 + 40);
-  if (*(a1 + 32) != *(v6 + 216))
+  if (*(a1 + 32) != v6[27])
   {
-    v7 = *MEMORY[0x277CCA590];
-    v8 = NSErrorF_safe();
-    v5[2](v5, v8);
+    v7 = NSErrorF_safe(*MEMORY[0x277CCA590], 4294896148, "Server invalidated");
+    v5[2](v5, v7);
 
     goto LABEL_9;
   }
 
-  v9 = **(v6 + 144);
-  v10 = v15;
-  if (v9 <= 30)
+  v8 = v6[18];
+  v9 = v11;
+  if (*v8 <= 30)
   {
-    if (v9 == -1)
+    if (*v8 == -1)
     {
-      v11 = *(v6 + 144);
-      v12 = _LogCategory_Initialize();
+      v10 = _LogCategory_Initialize();
       v6 = *(a1 + 40);
-      if (!v12)
+      if (!v10)
       {
-        v10 = v15;
+        v9 = v11;
         goto LABEL_8;
       }
 
-      v13 = *(v6 + 144);
-      v10 = v15;
+      v8 = v6[18];
+      v9 = v11;
     }
 
-    v14 = v10;
-    LogPrintF();
-    v10 = v15;
+    LogPrintF(v8, "[SKSetupSIMTransferServer _bleServerEnsureStarted]_block_invoke", 30, "BLE server incoming connection: %@", v9);
+    v9 = v11;
     v6 = *(a1 + 40);
   }
 
 LABEL_8:
-  [v6 _bleServerAcceptConnecton:{v10, v14}];
+  [v6 _bleServerAcceptConnecton:v9];
   [*(a1 + 40) _run];
   v5[2](v5, 0);
 LABEL_9:
@@ -190,60 +181,60 @@ uint64_t __51__SKSetupSIMTransferServer__bleServerEnsureStarted__block_invoke_2(
   v3 = a2;
   v5 = *(a1 + 32);
   v4 = *(a1 + 40);
-  if (v5 == *(v4 + 216))
+  if (v5 == v4[27])
   {
-    v6 = **(v4 + 144);
-    v15 = v3;
+    v6 = v4[18];
+    v7 = *v6;
+    v13 = v3;
     if (v3)
     {
-      if (v6 <= 90)
+      if (v7 <= 90)
       {
-        if (v6 == -1)
+        if (v7 == -1)
         {
           if (!_LogCategory_Initialize())
           {
             goto LABEL_10;
           }
 
-          v10 = *(*(a1 + 40) + 144);
+          v6 = *(*(a1 + 40) + 144);
         }
 
-        v13 = CUPrintNSError();
-        LogPrintF();
+        v8 = CUPrintNSError();
+        LogPrintF(v6, "[SKSetupSIMTransferServer _bleServerEnsureStarted]_block_invoke_2", 90, "### BLE server failed: %@", v8);
       }
 
 LABEL_10:
       [*(a1 + 32) invalidate];
-      v7 = *(a1 + 40);
-      v8 = *(v7 + 216);
-      *(v7 + 216) = 0;
+      v9 = *(a1 + 40);
+      v10 = *(v9 + 216);
+      *(v9 + 216) = 0;
 
-      goto LABEL_13;
-    }
-
-    if (v6 <= 30)
-    {
-      if (v6 != -1)
-      {
-LABEL_8:
-        v14 = v5;
-        LogPrintF();
-        v4 = [*(a1 + 40) _run];
 LABEL_13:
-        v3 = v15;
-        goto LABEL_14;
-      }
-
-      v9 = _LogCategory_Initialize();
-      v4 = *(a1 + 40);
-      if (v9)
-      {
-        v11 = *(v4 + 144);
-        v5 = *(a1 + 32);
-        goto LABEL_8;
-      }
+      v3 = v13;
+      goto LABEL_14;
     }
 
+    if (v7 <= 30)
+    {
+      if (v7 == -1)
+      {
+        v11 = _LogCategory_Initialize();
+        v4 = *(a1 + 40);
+        if (!v11)
+        {
+          goto LABEL_12;
+        }
+
+        v6 = v4[18];
+        v5 = *(a1 + 32);
+      }
+
+      LogPrintF(v6, "[SKSetupSIMTransferServer _bleServerEnsureStarted]_block_invoke_2", 30, "BLE server started: %@", v5);
+      v4 = *(a1 + 40);
+    }
+
+LABEL_12:
     v4 = [v4 _run];
     goto LABEL_13;
   }
@@ -258,24 +249,22 @@ LABEL_14:
   bleAdvertiser = self->_bleAdvertiser;
   if (bleAdvertiser)
   {
-    var0 = self->super._ucat->var0;
-    if (var0 <= 30)
+    ucat = self->super._ucat;
+    if (ucat->var0 <= 30)
     {
-      if (var0 != -1)
+      if (ucat->var0 != -1)
       {
 LABEL_4:
-        v9 = bleAdvertiser;
-        LogPrintF();
+        LogPrintF(ucat, "[SKSetupSIMTransferServer _bleAdvertiserEnsureStopped]", 30, "BLE advertiser stop: %@", bleAdvertiser);
         bleAdvertiser = self->_bleAdvertiser;
         goto LABEL_6;
       }
 
-      ucat = self->super._ucat;
-      v6 = _LogCategory_Initialize();
+      v5 = _LogCategory_Initialize();
       bleAdvertiser = self->_bleAdvertiser;
-      if (v6)
+      if (v5)
       {
-        v8 = self->super._ucat;
+        ucat = self->super._ucat;
         goto LABEL_4;
       }
     }
@@ -283,7 +272,7 @@ LABEL_4:
 
 LABEL_6:
   [(CBAdvertiser *)bleAdvertiser invalidate];
-  v7 = self->_bleAdvertiser;
+  v6 = self->_bleAdvertiser;
   self->_bleAdvertiser = 0;
 }
 
@@ -297,53 +286,44 @@ LABEL_6:
 
     [(CBAdvertiser *)v3 setDispatchQueue:self->super._dispatchQueue];
     [(CBAdvertiser *)v3 setNearbyActionFlags:64];
-    if (!self->_nearbyActionType)
-    {
-      self->_useSecondTrigger;
-    }
-
     [(CBAdvertiser *)v3 setNearbyActionType:?];
     [(CBAdvertiser *)v3 setNearbyActionExtraData:self->_nearbyActionExtraData];
     [(CBAdvertiser *)v3 setUseCase:258];
-    var0 = self->super._ucat->var0;
-    if (var0 > 30)
+    ucat = self->super._ucat;
+    if (ucat->var0 <= 30)
     {
-      goto LABEL_11;
-    }
-
-    if (var0 == -1)
-    {
-      if (!_LogCategory_Initialize())
+      if (ucat->var0 != -1)
       {
-LABEL_11:
-        v10[0] = MEMORY[0x277D85DD0];
-        v10[1] = 3221225472;
-        v10[2] = __55__SKSetupSIMTransferServer__bleAdvertiserEnsureStarted__block_invoke;
-        v10[3] = &unk_279BB8838;
-        v10[4] = v3;
-        v10[5] = self;
-        [(CBAdvertiser *)v3 activateWithCompletion:v10, v8, v9];
+LABEL_4:
+        if (self->_useSecondTrigger)
+        {
+          v6 = "yes";
+        }
 
-        return;
+        else
+        {
+          v6 = "no";
+        }
+
+        LogPrintF(ucat, "[SKSetupSIMTransferServer _bleAdvertiserEnsureStarted]", 30, "BLE advertiser start: %@, secondTrigger %s", v3, v6);
+        goto LABEL_9;
       }
 
-      ucat = self->super._ucat;
+      if (_LogCategory_Initialize())
+      {
+        ucat = self->super._ucat;
+        goto LABEL_4;
+      }
     }
 
-    if (self->_useSecondTrigger)
-    {
-      v6 = "yes";
-    }
-
-    else
-    {
-      v6 = "no";
-    }
-
-    v8 = v3;
-    v9 = v6;
-    LogPrintF();
-    goto LABEL_11;
+LABEL_9:
+    v7[0] = MEMORY[0x277D85DD0];
+    v7[1] = 3221225472;
+    v7[2] = __55__SKSetupSIMTransferServer__bleAdvertiserEnsureStarted__block_invoke;
+    v7[3] = &unk_279BB8838;
+    v7[4] = v3;
+    v7[5] = self;
+    [(CBAdvertiser *)v3 activateWithCompletion:v7];
   }
 }
 
@@ -351,33 +331,32 @@ uint64_t __55__SKSetupSIMTransferServer__bleAdvertiserEnsureStarted__block_invok
 {
   v3 = a2;
   v4 = *(a1 + 40);
-  if (*(a1 + 32) == *(v4 + 208))
+  if (*(a1 + 32) == v4[26])
   {
-    v12 = v3;
+    v10 = v3;
     if (!v3)
     {
       v4 = [v4 _run];
 LABEL_9:
-      v3 = v12;
+      v3 = v10;
       goto LABEL_10;
     }
 
-    v5 = **(v4 + 144);
-    if (v5 <= 90)
+    v5 = v4[18];
+    if (*v5 <= 90)
     {
-      if (v5 == -1)
+      if (*v5 == -1)
       {
-        v6 = *(v4 + 144);
         if (!_LogCategory_Initialize())
         {
           goto LABEL_8;
         }
 
-        v9 = *(*(a1 + 40) + 144);
+        v5 = *(*(a1 + 40) + 144);
       }
 
-      v11 = CUPrintNSError();
-      LogPrintF();
+      v6 = CUPrintNSError();
+      LogPrintF(v5, "[SKSetupSIMTransferServer _bleAdvertiserEnsureStarted]_block_invoke", 90, "### BLE advertiser failed: %@", v6);
     }
 
 LABEL_8:
@@ -450,25 +429,37 @@ LABEL_10:
 {
   if ((level & 0x8000000) != 0)
   {
-    v3 = 0;
+    v3 = 8;
   }
 
   else
   {
-    v7 = [objc_opt_class() description];
-    CUAppendF();
-    v3 = 0;
+    v3 = 12;
   }
 
-  v4 = &stru_2877689A8;
-  if (v3)
+  v10 = v3;
+  if ((level & 0x8000000) != 0)
   {
-    v4 = v3;
+    v5 = 0;
   }
 
-  v5 = v4;
+  else
+  {
+    v9 = 0;
+    v4 = [objc_opt_class() description];
+    CUAppendF(&v9, &v10, "%@", v4);
+    v5 = v9;
+  }
 
-  return v5;
+  v6 = &stru_2877689A8;
+  if (v5)
+  {
+    v6 = v5;
+  }
+
+  v7 = v6;
+
+  return v7;
 }
 
 - (SKSetupSIMTransferServer)init

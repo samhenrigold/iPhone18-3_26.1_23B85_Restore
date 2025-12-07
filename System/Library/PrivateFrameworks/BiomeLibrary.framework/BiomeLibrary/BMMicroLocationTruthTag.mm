@@ -125,7 +125,7 @@ LABEL_20:
 
 - (id)jsonDictionary
 {
-  v18[4] = *MEMORY[0x1E69E9840];
+  v17[4] = *MEMORY[0x1E69E9840];
   absoluteTimestamp = [(BMMicroLocationTruthTag *)self absoluteTimestamp];
   if (absoluteTimestamp)
   {
@@ -143,39 +143,39 @@ LABEL_20:
   truthTagID = [(BMMicroLocationTruthTag *)self truthTagID];
   recordingRequestID = [(BMMicroLocationTruthTag *)self recordingRequestID];
   clientBundleID = [(BMMicroLocationTruthTag *)self clientBundleID];
-  v17[0] = @"absoluteTimestamp";
+  v16[0] = @"absoluteTimestamp";
   null = v6;
   if (!v6)
   {
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v18[0] = null;
-  v17[1] = @"truthTagID";
+  v17[0] = null;
+  v16[1] = @"truthTagID";
   null2 = truthTagID;
   if (!truthTagID)
   {
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v18[1] = null2;
-  v17[2] = @"recordingRequestID";
+  v17[1] = null2;
+  v16[2] = @"recordingRequestID";
   null3 = recordingRequestID;
   if (!recordingRequestID)
   {
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v18[2] = null3;
-  v17[3] = @"clientBundleID";
+  v17[2] = null3;
+  v16[3] = @"clientBundleID";
   null4 = clientBundleID;
   if (!clientBundleID)
   {
     null4 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v18[3] = null4;
-  v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:v17 count:4];
+  v17[3] = null4;
+  v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:v16 count:4];
   if (clientBundleID)
   {
     if (recordingRequestID)
@@ -220,14 +220,13 @@ LABEL_15:
 LABEL_22:
 
 LABEL_16:
-  v15 = *MEMORY[0x1E69E9840];
 
   return v14;
 }
 
 - (BMMicroLocationTruthTag)initWithJSONDictionary:(id)dictionary error:(id *)error
 {
-  v47[1] = *MEMORY[0x1E69E9840];
+  v46[1] = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   v6 = [dictionaryCopy objectForKeyedSubscript:@"absoluteTimestamp"];
   if (v6 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
@@ -250,7 +249,7 @@ LABEL_16:
       if (objc_opt_isKindOfClass())
       {
         v13 = objc_alloc_init(MEMORY[0x1E696AC80]);
-        v39 = [v13 dateFromString:v6];
+        v38 = [v13 dateFromString:v6];
 
         goto LABEL_9;
       }
@@ -260,33 +259,33 @@ LABEL_16:
       {
         if (!error)
         {
-          v39 = 0;
+          v38 = 0;
           v21 = 0;
           selfCopy4 = self;
           goto LABEL_36;
         }
 
-        v33 = objc_alloc(MEMORY[0x1E696ABC0]);
-        v34 = *MEMORY[0x1E698F240];
-        v46 = *MEMORY[0x1E696A578];
+        v32 = objc_alloc(MEMORY[0x1E696ABC0]);
+        v33 = *MEMORY[0x1E698F240];
+        v45 = *MEMORY[0x1E696A578];
         v15 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (as time internal since 2001 (CFAbsoluteTime)), NSString (ISO8601 format), or NSDate", objc_opt_class(), @"absoluteTimestamp"];
-        v47[0] = v15;
-        v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v47 forKeys:&v46 count:1];
-        v39 = 0;
+        v46[0] = v15;
+        v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v46 forKeys:&v45 count:1];
+        v38 = 0;
         v21 = 0;
-        *error = [v33 initWithDomain:v34 code:2 userInfo:v14];
+        *error = [v32 initWithDomain:v33 code:2 userInfo:v14];
         goto LABEL_44;
       }
 
       v12 = v6;
     }
 
-    v39 = v12;
+    v38 = v12;
   }
 
   else
   {
-    v39 = 0;
+    v38 = 0;
   }
 
 LABEL_9:
@@ -307,10 +306,10 @@ LABEL_9:
       {
         v22 = objc_alloc(MEMORY[0x1E696ABC0]);
         v23 = *MEMORY[0x1E698F240];
-        v44 = *MEMORY[0x1E696A578];
+        v43 = *MEMORY[0x1E696A578];
         v18 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"truthTagID"];
-        v45 = v18;
-        v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v45 forKeys:&v44 count:1];
+        v44 = v18;
+        v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v44 forKeys:&v43 count:1];
         v24 = [v22 initWithDomain:v23 code:2 userInfo:v16];
         v15 = 0;
         v21 = 0;
@@ -344,14 +343,14 @@ LABEL_12:
 
       if (error)
       {
-        v36 = objc_alloc(MEMORY[0x1E696ABC0]);
+        v35 = objc_alloc(MEMORY[0x1E696ABC0]);
         v25 = *MEMORY[0x1E698F240];
-        v42 = *MEMORY[0x1E696A578];
+        v41 = *MEMORY[0x1E696A578];
         errorCopy2 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"recordingRequestID"];
-        v43 = errorCopy2;
-        [MEMORY[0x1E695DF20] dictionaryWithObjects:&v43 forKeys:&v42 count:1];
+        v42 = errorCopy2;
+        [MEMORY[0x1E695DF20] dictionaryWithObjects:&v42 forKeys:&v41 count:1];
         v19 = v26 = error;
-        v27 = [v36 initWithDomain:v25 code:2 userInfo:v19];
+        v27 = [v35 initWithDomain:v25 code:2 userInfo:v19];
         v18 = 0;
         v21 = 0;
         *v26 = v27;
@@ -384,14 +383,14 @@ LABEL_15:
 
       if (errorCopy2)
       {
-        v37 = objc_alloc(MEMORY[0x1E696ABC0]);
-        v35 = *MEMORY[0x1E698F240];
-        v40 = *MEMORY[0x1E696A578];
+        v36 = objc_alloc(MEMORY[0x1E696ABC0]);
+        v34 = *MEMORY[0x1E698F240];
+        v39 = *MEMORY[0x1E696A578];
         v28 = errorCopy2;
         v29 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"clientBundleID"];
-        v41 = v29;
-        v30 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v41 forKeys:&v40 count:1];
-        *v28 = [v37 initWithDomain:v35 code:2 userInfo:v30];
+        v40 = v29;
+        v30 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v40 forKeys:&v39 count:1];
+        *v28 = [v36 initWithDomain:v34 code:2 userInfo:v30];
 
         errorCopy2 = 0;
       }
@@ -405,7 +404,7 @@ LABEL_32:
 
   errorCopy2 = 0;
 LABEL_18:
-  selfCopy4 = [(BMMicroLocationTruthTag *)self initWithAbsoluteTimestamp:v39 truthTagID:v15 recordingRequestID:v18 clientBundleID:errorCopy2];
+  selfCopy4 = [(BMMicroLocationTruthTag *)self initWithAbsoluteTimestamp:v38 truthTagID:v15 recordingRequestID:v18 clientBundleID:errorCopy2];
   v21 = selfCopy4;
 LABEL_33:
 
@@ -413,7 +412,6 @@ LABEL_34:
 LABEL_35:
 
 LABEL_36:
-  v31 = *MEMORY[0x1E69E9840];
   return v21;
 }
 
@@ -429,30 +427,29 @@ LABEL_36:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v6 = toCopy;
+  v5 = toCopy;
   if (self->_hasRaw_absoluteTimestamp)
   {
-    raw_absoluteTimestamp = self->_raw_absoluteTimestamp;
     PBDataWriterWriteDoubleField();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_truthTagID)
   {
     PBDataWriterWriteStringField();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_recordingRequestID)
   {
     PBDataWriterWriteStringField();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_clientBundleID)
   {
     PBDataWriterWriteStringField();
-    toCopy = v6;
+    toCopy = v5;
   }
 }
 
@@ -650,36 +647,32 @@ LABEL_37:
 
 + (id)protoFields
 {
-  v9[4] = *MEMORY[0x1E69E9840];
+  v8[4] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"absoluteTimestamp" number:1 type:0 subMessageClass:0];
-  v9[0] = v2;
+  v8[0] = v2;
   v3 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"truthTagID" number:2 type:13 subMessageClass:0];
-  v9[1] = v3;
+  v8[1] = v3;
   v4 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"recordingRequestID" number:3 type:13 subMessageClass:0];
-  v9[2] = v4;
+  v8[2] = v4;
   v5 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"clientBundleID" number:4 type:13 subMessageClass:0];
-  v9[3] = v5;
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:4];
-
-  v7 = *MEMORY[0x1E69E9840];
+  v8[3] = v5;
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:4];
 
   return v6;
 }
 
 + (id)columns
 {
-  v9[4] = *MEMORY[0x1E69E9840];
+  v8[4] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"absoluteTimestamp" dataType:3 requestOnly:0 fieldNumber:1 protoDataType:0 convertedType:1];
   v3 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"truthTagID" dataType:2 requestOnly:0 fieldNumber:2 protoDataType:13 convertedType:0];
   v4 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"recordingRequestID" dataType:2 requestOnly:0 fieldNumber:3 protoDataType:13 convertedType:0];
   v5 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"clientBundleID" dataType:2 requestOnly:0 fieldNumber:4 protoDataType:13 convertedType:0];
-  v9[0] = v2;
-  v9[1] = v3;
-  v9[2] = v4;
-  v9[3] = v5;
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:4];
-
-  v7 = *MEMORY[0x1E69E9840];
+  v8[0] = v2;
+  v8[1] = v3;
+  v8[2] = v4;
+  v8[3] = v5;
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:4];
 
   return v6;
 }

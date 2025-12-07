@@ -16,7 +16,6 @@
     swift_task_reportUnexpectedExecutor();
   }
 
-  v3 = *(&self->super.super.super.isa + OBJC_IVAR____TtC13HearingTestUIP33_082BE27A287B6DD65B327A94BB91711E27EvaluationVFXViewController_vfxView);
   selfCopy = self;
   sub_20CDA66F0();
 }

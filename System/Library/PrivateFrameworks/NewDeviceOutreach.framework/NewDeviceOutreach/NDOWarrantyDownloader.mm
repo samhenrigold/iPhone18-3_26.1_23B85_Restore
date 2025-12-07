@@ -2,7 +2,9 @@
 - (NDOWarrantyDownloader)initWithCallingProcessBundleID:(id)d;
 - (id)dictionaryFromURL:(id)l forSerialNumber:(id)number;
 - (void)_downloadDeviceListForLocalDevices:(id)devices sessionID:(id)d params:(id)params completionHandler:(id)handler;
+- (void)_downloadDeviceListFromServerURL:(id)l serialNumber:(id)number localDevices:(id)devices sessionID:(id)d params:(id)params withRetries:(int)retries completionBlock:(id)block;
 - (void)_downloadWarrantyForSerialNumber:(id)number sessionID:(id)d params:(id)params withCompletion:(id)completion;
+- (void)_downloadWarrantyFromServerURL:(id)l serialNumber:(id)number sessionID:(id)d params:(id)params withRetries:(int)retries completionBlock:(id)block;
 - (void)_scheduleConversionOutreachIfRequiredForWarranty:(id)warranty serialNumber:(id)number andCachedWarranty:(id)cachedWarranty;
 - (void)_scheduleWeeklyOutreachIfRequiredForDefaultDeviceWarranty:(id)warranty;
 - (void)downloadDeviceForLocalDevices:(id)devices sessionID:(id)d params:(id)params completionHandler:(id)handler;
@@ -518,6 +520,96 @@ LABEL_41:
   v18 = numberCopy;
   v19 = handlerCopy;
   [NDOServerVersionUtilities serverVersionSupported:v20];
+}
+
+- (void)_downloadDeviceListFromServerURL:(id)l serialNumber:(id)number localDevices:(id)devices sessionID:(id)d params:(id)params withRetries:(int)retries completionBlock:(id)block
+{
+  v9 = *&retries;
+  numberCopy = number;
+  devicesCopy = devices;
+  paramsCopy = params;
+  blockCopy = block;
+  dCopy = d;
+  lCopy = l;
+  v21 = _NDOLogSystem();
+  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 67109376;
+    v32 = 2 - v9;
+    v33 = 1024;
+    v34 = 2;
+    _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "_downloadDeviceListFromServerURL attempt (%d/%d)", buf, 0xEu);
+  }
+
+  v22 = [[NDODownloader alloc] initWithURL:lCopy callingProcessBundleID:self->_callingProcessBundleID sessionID:dCopy];
+  if ((+[NDOAppleAuthHelpers isSignedIntoAppleAccount]& 1) != 0)
+  {
+    v26[0] = _NSConcreteStackBlock;
+    v26[1] = 3221225472;
+    v26[2] = sub_100009404;
+    v26[3] = &unk_10009A7F0;
+    v27 = paramsCopy;
+    selfCopy = self;
+    v29 = numberCopy;
+    v30 = devicesCopy;
+    v24[0] = _NSConcreteStackBlock;
+    v24[1] = 3221225472;
+    v24[2] = sub_100009510;
+    v24[3] = &unk_10009A818;
+    v25 = blockCopy;
+    [(NDODownloader *)v22 downloadWithRetryCount:v9 prepareBlock:v26 completion:v24];
+  }
+
+  else
+  {
+    v23 = _NDOLogSystem();
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 0;
+      _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "DeviceListRequestBody error - No primary iCloud account, can't sign this request", buf, 2u);
+    }
+
+    (*(blockCopy + 2))(blockCopy, 0);
+  }
+}
+
+- (void)_downloadWarrantyFromServerURL:(id)l serialNumber:(id)number sessionID:(id)d params:(id)params withRetries:(int)retries completionBlock:(id)block
+{
+  v9 = *&retries;
+  numberCopy = number;
+  paramsCopy = params;
+  blockCopy = block;
+  dCopy = d;
+  lCopy = l;
+  v19 = _NDOLogSystem();
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 138478339;
+    v31 = numberCopy;
+    v32 = 1024;
+    v33 = 2 - v9;
+    v34 = 1024;
+    v35 = 2;
+    _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "%{private}@ : warranty download attempt (%d/%d)", buf, 0x18u);
+  }
+
+  v20 = [[NDODownloader alloc] initWithURL:lCopy callingProcessBundleID:self->_callingProcessBundleID sessionID:dCopy];
+  v26[0] = _NSConcreteStackBlock;
+  v26[1] = 3221225472;
+  v26[2] = sub_10000973C;
+  v26[3] = &unk_10009A868;
+  v27 = paramsCopy;
+  v28 = numberCopy;
+  selfCopy = self;
+  v24[0] = _NSConcreteStackBlock;
+  v24[1] = 3221225472;
+  v24[2] = sub_100009AC4;
+  v24[3] = &unk_10009A818;
+  v25 = blockCopy;
+  v21 = blockCopy;
+  v22 = numberCopy;
+  v23 = paramsCopy;
+  [(NDODownloader *)v20 downloadWithRetryCount:v9 prepareBlock:v26 completion:v24];
 }
 
 - (id)dictionaryFromURL:(id)l forSerialNumber:(id)number

@@ -45,21 +45,21 @@
 
 - (FCTelemetryBasedOfflineNetworkTransitionOperation)initWithAppActivationMonitor:(id)monitor ignoredHosts:(id)hosts networkBehaviorMonitor:(id)behaviorMonitor
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   monitorCopy = monitor;
   hostsCopy = hosts;
   behaviorMonitorCopy = behaviorMonitor;
   if (!monitorCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v20 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "appActivationMonitor"];
+    v19 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "appActivationMonitor"];
     *buf = 136315906;
-    v25 = "[FCTelemetryBasedOfflineNetworkTransitionOperation initWithAppActivationMonitor:ignoredHosts:networkBehaviorMonitor:]";
-    v26 = 2080;
-    v27 = "FCTelemetryBasedOfflineNetworkTransitionOperation.m";
-    v28 = 1024;
-    v29 = 38;
-    v30 = 2114;
-    v31 = v20;
+    v24 = "[FCTelemetryBasedOfflineNetworkTransitionOperation initWithAppActivationMonitor:ignoredHosts:networkBehaviorMonitor:]";
+    v25 = 2080;
+    v26 = "FCTelemetryBasedOfflineNetworkTransitionOperation.m";
+    v27 = 1024;
+    v28 = 38;
+    v29 = 2114;
+    v30 = v19;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
 
     if (hostsCopy)
@@ -75,36 +75,36 @@
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v21 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "ignoredHosts"];
+    v20 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "ignoredHosts"];
     *buf = 136315906;
-    v25 = "[FCTelemetryBasedOfflineNetworkTransitionOperation initWithAppActivationMonitor:ignoredHosts:networkBehaviorMonitor:]";
-    v26 = 2080;
-    v27 = "FCTelemetryBasedOfflineNetworkTransitionOperation.m";
-    v28 = 1024;
-    v29 = 39;
-    v30 = 2114;
-    v31 = v21;
+    v24 = "[FCTelemetryBasedOfflineNetworkTransitionOperation initWithAppActivationMonitor:ignoredHosts:networkBehaviorMonitor:]";
+    v25 = 2080;
+    v26 = "FCTelemetryBasedOfflineNetworkTransitionOperation.m";
+    v27 = 1024;
+    v28 = 39;
+    v29 = 2114;
+    v30 = v20;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
 LABEL_6:
   if (!behaviorMonitorCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v22 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "networkBehaviorMonitor"];
+    v21 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "networkBehaviorMonitor"];
     *buf = 136315906;
-    v25 = "[FCTelemetryBasedOfflineNetworkTransitionOperation initWithAppActivationMonitor:ignoredHosts:networkBehaviorMonitor:]";
-    v26 = 2080;
-    v27 = "FCTelemetryBasedOfflineNetworkTransitionOperation.m";
-    v28 = 1024;
-    v29 = 40;
-    v30 = 2114;
-    v31 = v22;
+    v24 = "[FCTelemetryBasedOfflineNetworkTransitionOperation initWithAppActivationMonitor:ignoredHosts:networkBehaviorMonitor:]";
+    v25 = 2080;
+    v26 = "FCTelemetryBasedOfflineNetworkTransitionOperation.m";
+    v27 = 1024;
+    v28 = 40;
+    v29 = 2114;
+    v30 = v21;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
-  v23.receiver = self;
-  v23.super_class = FCTelemetryBasedOfflineNetworkTransitionOperation;
-  v12 = [(FCOperation *)&v23 init];
+  v22.receiver = self;
+  v22.super_class = FCTelemetryBasedOfflineNetworkTransitionOperation;
+  v12 = [(FCOperation *)&v22 init];
   v13 = v12;
   if (v12)
   {
@@ -119,7 +119,6 @@ LABEL_6:
     v13->_lock = v16;
   }
 
-  v18 = *MEMORY[0x1E69E9840];
   return v13;
 }
 
@@ -131,7 +130,7 @@ LABEL_6:
 
 - (void)logNetworkEvent:(id)event
 {
-  v48 = *MEMORY[0x1E69E9840];
+  v47 = *MEMORY[0x1E69E9840];
   eventCopy = event;
   v5 = MEMORY[0x1E695DF00];
   [eventCopy startTime];
@@ -144,20 +143,20 @@ LABEL_6:
     monitoringStartDate = [(FCTelemetryBasedOfflineNetworkTransitionOperation *)self monitoringStartDate];
     if (([v6 fc_isLaterThan:monitoringStartDate] & 1) == 0)
     {
-      v37[0] = MEMORY[0x1E69E9820];
-      v37[1] = 3221225472;
-      v37[2] = __69__FCTelemetryBasedOfflineNetworkTransitionOperation_logNetworkEvent___block_invoke_3;
-      v37[3] = &unk_1E7C36C58;
-      v38 = v6;
-      v39 = monitoringStartDate;
-      __69__FCTelemetryBasedOfflineNetworkTransitionOperation_logNetworkEvent___block_invoke_3(v37);
+      v36[0] = MEMORY[0x1E69E9820];
+      v36[1] = 3221225472;
+      v36[2] = __69__FCTelemetryBasedOfflineNetworkTransitionOperation_logNetworkEvent___block_invoke_3;
+      v36[3] = &unk_1E7C36C58;
+      v37 = v6;
+      v38 = monitoringStartDate;
+      __69__FCTelemetryBasedOfflineNetworkTransitionOperation_logNetworkEvent___block_invoke_3(v36);
 
 LABEL_10:
       goto LABEL_11;
     }
 
-    v36 = 0;
-    if (![v9 fc_isOfflineErrorOfflineReason:&v36] || v36 == 2)
+    v35 = 0;
+    if (![v9 fc_isOfflineErrorOfflineReason:&v35] || v35 == 2)
     {
       goto LABEL_10;
     }
@@ -176,43 +175,43 @@ LABEL_10:
 
     error2 = [eventCopy error];
     userInfo = [error2 userInfo];
-    v15 = [userInfo objectForKeyedSubscript:*MEMORY[0x1E696A980]];
+    v14 = [userInfo objectForKeyedSubscript:*MEMORY[0x1E696A980]];
 
-    if (v15)
+    if (v14)
     {
-      host = [v15 host];
+      host = [v14 host];
       ignoredHosts = [(FCTelemetryBasedOfflineNetworkTransitionOperation *)self ignoredHosts];
-      v18 = [ignoredHosts containsObject:host];
+      v17 = [ignoredHosts containsObject:host];
 
-      v19 = FCReachabilityLog;
-      v20 = os_log_type_enabled(FCReachabilityLog, OS_LOG_TYPE_DEFAULT);
-      if (v18)
+      v18 = FCReachabilityLog;
+      v19 = os_log_type_enabled(FCReachabilityLog, OS_LOG_TYPE_DEFAULT);
+      if (v17)
       {
-        if (v20)
+        if (v19)
         {
           *buf = 138543362;
-          v45 = host;
-          _os_log_impl(&dword_1B63EF000, v19, OS_LOG_TYPE_DEFAULT, "host %{public}@ will be ignored", buf, 0xCu);
+          v44 = host;
+          _os_log_impl(&dword_1B63EF000, v18, OS_LOG_TYPE_DEFAULT, "host %{public}@ will be ignored", buf, 0xCu);
         }
 
         goto LABEL_35;
       }
 
-      if (v20)
+      if (v19)
       {
         *buf = 138543362;
-        v45 = host;
-        _os_log_impl(&dword_1B63EF000, v19, OS_LOG_TYPE_DEFAULT, "host %{public}@ will not be ignored", buf, 0xCu);
+        v44 = host;
+        _os_log_impl(&dword_1B63EF000, v18, OS_LOG_TYPE_DEFAULT, "host %{public}@ will not be ignored", buf, 0xCu);
       }
     }
 
     else
     {
-      v21 = FCReachabilityLog;
+      v20 = FCReachabilityLog;
       if (os_log_type_enabled(FCReachabilityLog, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_1B63EF000, v21, OS_LOG_TYPE_DEFAULT, "no failing URL was obtained, so treating error as counting towards offline", buf, 2u);
+        _os_log_impl(&dword_1B63EF000, v20, OS_LOG_TYPE_DEFAULT, "no failing URL was obtained, so treating error as counting towards offline", buf, 2u);
       }
     }
 
@@ -226,19 +225,19 @@ LABEL_10:
     {
       if (lastBackgroundDate && [lastBackgroundDate fc_isLaterThan:host])
       {
-        v25 = FCReachabilityLog;
+        v24 = FCReachabilityLog;
         if (os_log_type_enabled(FCReachabilityLog, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138543618;
-          v45 = lastBackgroundDate;
-          v46 = 2114;
-          v47 = host;
-          v26 = "disregarding error, since app is currently in the background, with last activation date of %{public}@ and last background date of %{public}@ ";
+          v44 = lastBackgroundDate;
+          v45 = 2114;
+          v46 = host;
+          v25 = "disregarding error, since app is currently in the background, with last activation date of %{public}@ and last background date of %{public}@ ";
 LABEL_29:
-          v27 = v25;
-          v28 = 22;
+          v26 = v24;
+          v27 = 22;
 LABEL_32:
-          _os_log_impl(&dword_1B63EF000, v27, OS_LOG_TYPE_DEFAULT, v26, buf, v28);
+          _os_log_impl(&dword_1B63EF000, v26, OS_LOG_TYPE_DEFAULT, v25, buf, v27);
         }
       }
 
@@ -247,28 +246,28 @@ LABEL_32:
         if (![v6 fc_isEarlierThan:host])
         {
           lock = [(FCTelemetryBasedOfflineNetworkTransitionOperation *)self lock];
-          v31[0] = MEMORY[0x1E69E9820];
-          v31[1] = 3221225472;
-          v31[2] = __69__FCTelemetryBasedOfflineNetworkTransitionOperation_logNetworkEvent___block_invoke_25;
-          v31[3] = &unk_1E7C376C8;
-          v31[4] = self;
-          v32 = eventCopy;
-          v33 = v6;
-          v34 = host;
-          v35 = lastBackgroundDate;
-          [lock performWithLockSync:v31];
+          v30[0] = MEMORY[0x1E69E9820];
+          v30[1] = 3221225472;
+          v30[2] = __69__FCTelemetryBasedOfflineNetworkTransitionOperation_logNetworkEvent___block_invoke_25;
+          v30[3] = &unk_1E7C376C8;
+          v30[4] = self;
+          v31 = eventCopy;
+          v32 = v6;
+          v33 = host;
+          v34 = lastBackgroundDate;
+          [lock performWithLockSync:v30];
 
           goto LABEL_34;
         }
 
-        v25 = FCReachabilityLog;
+        v24 = FCReachabilityLog;
         if (os_log_type_enabled(FCReachabilityLog, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138543618;
-          v45 = v6;
-          v46 = 2114;
-          v47 = host;
-          v26 = "disregarding error, since network event started at %{public}@ relative to last activation date of %{public}@";
+          v44 = v6;
+          v45 = 2114;
+          v46 = host;
+          v25 = "disregarding error, since network event started at %{public}@ relative to last activation date of %{public}@";
           goto LABEL_29;
         }
       }
@@ -276,13 +275,13 @@ LABEL_32:
 
     else
     {
-      v29 = FCReachabilityLog;
+      v28 = FCReachabilityLog;
       if (os_log_type_enabled(FCReachabilityLog, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        v26 = "disregarding error, since app has not yet become active";
-        v27 = v29;
-        v28 = 2;
+        v25 = "disregarding error, since app has not yet become active";
+        v26 = v28;
+        v27 = 2;
         goto LABEL_32;
       }
     }
@@ -293,19 +292,17 @@ LABEL_35:
     goto LABEL_10;
   }
 
-  v40[0] = MEMORY[0x1E69E9820];
-  v40[1] = 3221225472;
-  v40[2] = __69__FCTelemetryBasedOfflineNetworkTransitionOperation_logNetworkEvent___block_invoke;
-  v40[3] = &unk_1E7C376A0;
-  v41 = eventCopy;
+  v39[0] = MEMORY[0x1E69E9820];
+  v39[1] = 3221225472;
+  v39[2] = __69__FCTelemetryBasedOfflineNetworkTransitionOperation_logNetworkEvent___block_invoke;
+  v39[3] = &unk_1E7C376A0;
+  v40 = eventCopy;
   selfCopy = self;
-  v43 = v6;
-  __69__FCTelemetryBasedOfflineNetworkTransitionOperation_logNetworkEvent___block_invoke(v40);
+  v42 = v6;
+  __69__FCTelemetryBasedOfflineNetworkTransitionOperation_logNetworkEvent___block_invoke(v39);
 
-  v9 = v41;
+  v9 = v40;
 LABEL_11:
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __69__FCTelemetryBasedOfflineNetworkTransitionOperation_logNetworkEvent___block_invoke(uint64_t a1)
@@ -337,25 +334,23 @@ void __69__FCTelemetryBasedOfflineNetworkTransitionOperation_logNetworkEvent___b
 
 void __69__FCTelemetryBasedOfflineNetworkTransitionOperation_logNetworkEvent___block_invoke_3(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v2 = FCReachabilityLog;
   if (os_log_type_enabled(FCReachabilityLog, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     v4 = *(a1 + 40);
-    v6 = 138543618;
-    v7 = v3;
-    v8 = 2114;
-    v9 = v4;
-    _os_log_impl(&dword_1B63EF000, v2, OS_LOG_TYPE_DEFAULT, "disregarding event, since it started at %{public}@ relative to offline monitoring start date of %{public}@", &v6, 0x16u);
+    v5 = 138543618;
+    v6 = v3;
+    v7 = 2114;
+    v8 = v4;
+    _os_log_impl(&dword_1B63EF000, v2, OS_LOG_TYPE_DEFAULT, "disregarding event, since it started at %{public}@ relative to offline monitoring start date of %{public}@", &v5, 0x16u);
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __69__FCTelemetryBasedOfflineNetworkTransitionOperation_logNetworkEvent___block_invoke_25(uint64_t a1)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) dateOfLastSuccess];
   if (!v2)
   {
@@ -380,17 +375,17 @@ LABEL_4:
       v10 = *(a1 + 48);
       v11 = *(a1 + 56);
       v12 = *(a1 + 64);
-      v16 = 138544386;
-      v17 = v9;
-      v18 = 2114;
-      v19 = v10;
-      v20 = 2114;
-      v21 = v11;
-      v22 = 2114;
-      v23 = v12;
-      v24 = 2114;
-      v25 = v2;
-      _os_log_impl(&dword_1B63EF000, v8, OS_LOG_TYPE_DEFAULT, "transitioning offline after receiving event with error %{public}@, starting at %{public}@ relative to last activation date of %{public}@, last background date of %{public}@, and last success date of %{public}@", &v16, 0x34u);
+      v15 = 138544386;
+      v16 = v9;
+      v17 = 2114;
+      v18 = v10;
+      v19 = 2114;
+      v20 = v11;
+      v21 = 2114;
+      v22 = v12;
+      v23 = 2114;
+      v24 = v2;
+      _os_log_impl(&dword_1B63EF000, v8, OS_LOG_TYPE_DEFAULT, "transitioning offline after receiving event with error %{public}@, starting at %{public}@ relative to last activation date of %{public}@, last background date of %{public}@, and last success date of %{public}@", &v15, 0x34u);
     }
 
     if (([*(a1 + 32) isFinished] & 1) == 0)
@@ -407,13 +402,12 @@ LABEL_4:
   v14 = FCReachabilityLog;
   if (os_log_type_enabled(FCReachabilityLog, OS_LOG_TYPE_DEFAULT))
   {
-    v16 = 138543362;
-    v17 = v3;
-    _os_log_impl(&dword_1B63EF000, v14, OS_LOG_TYPE_DEFAULT, "disregarding error, since earliest failure date is %{public}@", &v16, 0xCu);
+    v15 = 138543362;
+    v16 = v3;
+    _os_log_impl(&dword_1B63EF000, v14, OS_LOG_TYPE_DEFAULT, "disregarding error, since earliest failure date is %{public}@", &v15, 0xCu);
   }
 
 LABEL_11:
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 @end

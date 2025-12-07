@@ -102,21 +102,21 @@
   queue_imageRegistrationNode = self->_queue_imageRegistrationNode;
   self->_queue_imageRegistrationNode = v12;
 
-  if ((AXMIsRunningInServiceProcess() & 1) == 0)
+  if ((AXMIsRunningInServiceProcess(v14, v15) & 1) == 0)
   {
-    v14 = objc_alloc_init(AXMService);
-    [(AXMVisionEngine *)self setAxMediaUtilsService:v14];
+    v16 = objc_alloc_init(AXMService);
+    [(AXMVisionEngine *)self setAxMediaUtilsService:v16];
 
     axMediaUtilsService = [(AXMVisionEngine *)self axMediaUtilsService];
     [axMediaUtilsService setDelegate:self];
   }
 
   *&self->_maximumQueueSize = xmmword_1AE451720;
-  v16 = [[AXMTaskDispatcher alloc] initWithIdentifier:@"AXMVisionEngine" delegate:self];
-  [(AXMVisionEngine *)self setTaskDispatcher:v16];
+  v18 = [[AXMTaskDispatcher alloc] initWithIdentifier:@"AXMVisionEngine" delegate:self];
+  [(AXMVisionEngine *)self setTaskDispatcher:v18];
 
-  v17 = objc_alloc_init(AXMSequenceRequestManager);
-  [(AXMVisionEngine *)self setSequenceRequestManager:v17];
+  v19 = objc_alloc_init(AXMSequenceRequestManager);
+  [(AXMVisionEngine *)self setSequenceRequestManager:v19];
 }
 
 - (BOOL)isEqual:(id)equal
@@ -885,7 +885,7 @@ void __53__AXMVisionEngine__queue_evaluateWithSource_context___block_invoke(uint
   v6 = AXMediaLogCommon();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
-    __53__AXMVisionEngine__queue_evaluateWithSource_context___block_invoke_cold_1();
+    __53__AXMVisionEngine__queue_evaluateWithSource_context___block_invoke_cold_1(v5);
   }
 
   v7 = [v4 pipelineMetric];
@@ -1805,7 +1805,7 @@ void __47__AXMVisionEngine_makeUniqueIdentifierForNode___block_invoke(uint64_t a
   return queue;
 }
 
-uint64_t __40__AXMVisionEngine_nodeIdentifierExists___block_invoke(uint64_t a1)
+void *__40__AXMVisionEngine_nodeIdentifierExists___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _queue_nodeIdentifierExists:*(a1 + 40)];
   *(*(*(a1 + 48) + 8) + 24) = result;
@@ -2501,7 +2501,8 @@ void __41__AXMVisionEngine_dispatcher_handleTask___block_invoke(uint64_t a1)
 
   objc_storeStrong((v9 + 56), v2);
   [v5 willBeginProcessingContext];
-  if ([v4 shouldProcessRemotely] && (AXMIsRunningInServiceProcess() & 1) == 0)
+  v11 = [v4 shouldProcessRemotely];
+  if (v11 && (AXMIsRunningInServiceProcess(v11, v12) & 1) == 0)
   {
     [*(a1 + 40) _queue_remotelyEvaluateWithSource:v4 context:v5];
   }
@@ -2526,34 +2527,34 @@ LABEL_13:
   dispatch_async(queue, v5);
 }
 
-void __57__AXMVisionEngine_axMediaUtilitiesService_eventOccurred___block_invoke(uint64_t a1)
+void __57__AXMVisionEngine_axMediaUtilitiesService_eventOccurred___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v2 = AXMediaLogCommon();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v11 = *MEMORY[0x1E69E9840];
+  v3 = AXMediaLogCommon();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(a1 + 40);
-    v9[0] = 67109120;
-    v9[1] = v3;
-    _os_log_impl(&dword_1AE37B000, v2, OS_LOG_TYPE_DEFAULT, "AXMVisionEngine: event occurred: %d", v9, 8u);
+    v4 = *(a1 + 40);
+    v10[0] = 67109120;
+    v10[1] = v4;
+    _os_log_impl(&dword_1AE37B000, v3, OS_LOG_TYPE_DEFAULT, "AXMVisionEngine: event occurred: %d", v10, 8u);
   }
 
   if ((*(a1 + 40) - 1) <= 2)
   {
-    v4 = AXMediaLogCommon();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = AXMediaLogCommon();
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v9[0]) = 0;
-      _os_log_impl(&dword_1AE37B000, v4, OS_LOG_TYPE_DEFAULT, "AXMVisionEngine: service indicated it went invalid. clearing client-side tasks", v9, 2u);
+      LOWORD(v10[0]) = 0;
+      _os_log_impl(&dword_1AE37B000, v5, OS_LOG_TYPE_DEFAULT, "AXMVisionEngine: service indicated it went invalid. clearing client-side tasks", v10, 2u);
     }
 
-    v5 = [*(a1 + 32) taskDispatcher];
-    v6 = [v5 unscheduleAllTasks];
+    v6 = [*(a1 + 32) taskDispatcher];
+    v7 = [v6 unscheduleAllTasks];
 
     [*(*(a1 + 32) + 56) markAsComplete:0];
-    v7 = *(a1 + 32);
-    v8 = *(v7 + 56);
-    *(v7 + 56) = 0;
+    v8 = *(a1 + 32);
+    v9 = *(v8 + 56);
+    *(v8 + 56) = 0;
   }
 }
 
@@ -2734,12 +2735,12 @@ void __61__AXMVisionEngine__queue_remotelyEvaluateWithSource_context___block_inv
   _os_log_debug_impl(v4, v5, v6, v7, v8, 0x16u);
 }
 
-void __53__AXMVisionEngine__queue_evaluateWithSource_context___block_invoke_cold_1()
+void __53__AXMVisionEngine__queue_evaluateWithSource_context___block_invoke_cold_1(uint64_t a1)
 {
-  v0 = [objc_opt_class() title];
+  v1 = [objc_opt_class() title];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_0_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
+  _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
 }
 
 void __53__AXMVisionEngine__queue_evaluateWithSource_context___block_invoke_97_cold_1(uint64_t a1, id *a2, NSObject *a3)

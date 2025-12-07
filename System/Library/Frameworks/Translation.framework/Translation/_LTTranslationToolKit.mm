@@ -9,47 +9,45 @@
 + (void)startPersonalTranslationSession:(id)session
 {
   v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DFC5960, &qword_23AB4D400);
-  v5 = *(*(v4 - 8) + 64);
   MEMORY[0x28223BE20](v4 - 8);
-  v7 = &v13 - v6;
-  v8 = _Block_copy(session);
-  v9 = swift_allocObject();
-  *(v9 + 16) = v8;
+  v6 = &v12 - v5;
+  v7 = _Block_copy(session);
+  v8 = swift_allocObject();
+  *(v8 + 16) = v7;
   ObjCClassMetadata = swift_getObjCClassMetadata();
-  v11 = sub_23AB46DC8();
-  (*(*(v11 - 8) + 56))(v7, 1, 1, v11);
-  v12 = swift_allocObject();
-  v12[2] = 0;
-  v12[3] = 0;
-  v12[4] = ObjCClassMetadata;
-  v12[5] = sub_23AB3A344;
-  v12[6] = v9;
-  sub_23AB375D4(0, 0, v7, &unk_23AB4D4E8, v12);
+  v10 = sub_23AB46DC8();
+  (*(*(v10 - 8) + 56))(v6, 1, 1, v10);
+  v11 = swift_allocObject();
+  v11[2] = 0;
+  v11[3] = 0;
+  v11[4] = ObjCClassMetadata;
+  v11[5] = sub_23AB3A344;
+  v11[6] = v8;
+  sub_23AB375D4(0, 0, v6, &unk_23AB4D4E8, v11);
 }
 
 + (void)launchAppWithCompletionHandler:(id)handler
 {
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DFC5960, &qword_23AB4D400);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x28223BE20](v5 - 8);
-  v8 = &v14 - v7;
-  v9 = _Block_copy(handler);
-  v10 = swift_allocObject();
-  *(v10 + 16) = v9;
-  *(v10 + 24) = self;
-  v11 = sub_23AB46DC8();
-  (*(*(v11 - 8) + 56))(v8, 1, 1, v11);
+  v7 = &v13 - v6;
+  v8 = _Block_copy(handler);
+  v9 = swift_allocObject();
+  *(v9 + 16) = v8;
+  *(v9 + 24) = self;
+  v10 = sub_23AB46DC8();
+  (*(*(v10 - 8) + 56))(v7, 1, 1, v10);
+  v11 = swift_allocObject();
+  v11[2] = 0;
+  v11[3] = 0;
+  v11[4] = &unk_23AB4D410;
+  v11[5] = v9;
   v12 = swift_allocObject();
   v12[2] = 0;
   v12[3] = 0;
-  v12[4] = &unk_23AB4D410;
-  v12[5] = v10;
-  v13 = swift_allocObject();
-  v13[2] = 0;
-  v13[3] = 0;
-  v13[4] = &unk_23AB4D420;
-  v13[5] = v12;
-  sub_23AB3869C(0, 0, v8, &unk_23AB4D430, v13);
+  v12[4] = &unk_23AB4D420;
+  v12[5] = v11;
+  sub_23AB3869C(0, 0, v7, &unk_23AB4D430, v12);
 }
 
 - (_LTTranslationToolKit)init

@@ -120,9 +120,9 @@
             goto LABEL_38;
           }
 
-          v15 = [(NSString *)v9 isEqual:v10];
+          isEqual = objc_msgSend_isEqual_(v9);
 
-          if (!v15)
+          if (!isEqual)
           {
             v13 = 0;
 LABEL_40:
@@ -148,7 +148,7 @@ LABEL_40:
             goto LABEL_37;
           }
 
-          v19 = [(NSString *)v14 isEqual:v18];
+          v19 = objc_msgSend_isEqual_(v14);
 
           if (!v19)
           {
@@ -201,7 +201,7 @@ LABEL_38:
 
         if (v22 && v23)
         {
-          v24 = [(NSString *)v22 isEqual:v23];
+          v24 = objc_msgSend_isEqual_(v22);
 
           if (!v24)
           {

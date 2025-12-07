@@ -490,39 +490,40 @@ LABEL_7:
 {
   animatedCopy = animated;
   stateCopy = state;
-  if ([(PHAbstractCallParticipantLabelView *)self activityState]!= state)
+  activityState = [(PHAbstractCallParticipantLabelView *)self activityState];
+  if (activityState != stateCopy)
   {
-    v7 = sub_100004F84();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = sub_100004F84(activityState);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109376;
-      v15 = stateCopy;
-      v16 = 1024;
-      activityState = [(PHAbstractCallParticipantLabelView *)self activityState];
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Participant label setting selection state to %d (current is %d)", buf, 0xEu);
+      v16 = stateCopy;
+      v17 = 1024;
+      activityState2 = [(PHAbstractCallParticipantLabelView *)self activityState];
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Participant label setting selection state to %d (current is %d)", buf, 0xEu);
     }
 
-    v12[0] = _NSConcreteStackBlock;
-    v12[1] = 3221225472;
-    v12[2] = sub_1000424E0;
-    v12[3] = &unk_100356960;
-    v12[4] = self;
-    v13 = stateCopy;
-    v8 = objc_retainBlock(v12);
-    if (animatedCopy && (-[PHMultipleCallParticipantLabelView callDisplayStyleManager](self, "callDisplayStyleManager"), v9 = objc_claimAutoreleasedReturnValue(), v10 = [v9 usesLargeFormatUI], v9, (v10 & 1) == 0))
+    v13[0] = _NSConcreteStackBlock;
+    v13[1] = 3221225472;
+    v13[2] = sub_1000424E0;
+    v13[3] = &unk_100356960;
+    v13[4] = self;
+    v14 = stateCopy;
+    v9 = objc_retainBlock(v13);
+    if (animatedCopy && (-[PHMultipleCallParticipantLabelView callDisplayStyleManager](self, "callDisplayStyleManager"), v10 = objc_claimAutoreleasedReturnValue(), v11 = [v10 usesLargeFormatUI], v10, (v11 & 1) == 0))
     {
-      [UIView animateWithDuration:v8 animations:0 completion:0.5];
+      [UIView animateWithDuration:v9 animations:0 completion:0.5];
     }
 
     else
     {
-      (v8[2])(v8);
+      (v9[2])(v9);
     }
 
     [(PHMultipleCallParticipantLabelView *)self setShowsActivitySpinner:stateCopy == 2];
-    v11.receiver = self;
-    v11.super_class = PHMultipleCallParticipantLabelView;
-    [(PHAbstractCallParticipantLabelView *)&v11 setActivityState:stateCopy];
+    v12.receiver = self;
+    v12.super_class = PHMultipleCallParticipantLabelView;
+    [(PHAbstractCallParticipantLabelView *)&v12 setActivityState:stateCopy];
   }
 }
 
@@ -671,7 +672,7 @@ LABEL_7:
 
 - (void)setShowsCallDetailsViewButton:(BOOL)button
 {
-  v3 = sub_100004F84();
+  v3 = sub_100004F84(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;

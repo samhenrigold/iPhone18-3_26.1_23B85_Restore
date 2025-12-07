@@ -13,7 +13,7 @@
 
 - (OrgApacheLuceneCodecsCompressingCompressingTermVectorsReader_TVPostingsEnum)init
 {
-  OrgApacheLuceneIndexPostingsEnum_init(self, a2);
+  OrgApacheLuceneIndexPostingsEnum_init(self);
   self->doc_ = -1;
   v3 = new_OrgApacheLuceneUtilBytesRef_init();
   JreStrongAssignAndConsume(&self->payload_, v3);
@@ -44,16 +44,16 @@
 {
   if (self->doc_)
   {
-    v23 = new_JavaLangIllegalStateException_init();
+    v22 = new_JavaLangIllegalStateException_init();
     goto LABEL_24;
   }
 
   i = self->i_;
   if (i >= self->termFreq_ - 1)
   {
-    v23 = new_JavaLangIllegalStateException_initWithNSString_(@"Read past last position");
+    v22 = new_JavaLangIllegalStateException_initWithNSString_(@"Read past last position");
 LABEL_24:
-    objc_exception_throw(v23);
+    objc_exception_throw(v22);
   }
 
   v4 = i + 1;
@@ -88,14 +88,13 @@ LABEL_24:
       IOSArray_throwOutOfBoundsWithMsg(v15, v16);
     }
 
-    v17 = self->payloadIndex_;
-    v18 = v14 + v13;
-    if (v18 < 0 || v18 >= v15)
+    v17 = v14 + v13;
+    if (v17 < 0 || v17 >= v15)
     {
-      IOSArray_throwOutOfBoundsWithMsg(v15, v18);
+      IOSArray_throwOutOfBoundsWithMsg(v15, v17);
     }
 
-    self->payload_->length_ = *(&v12->super.size_ + v16 + 1) - *(&v12->super.size_ + v18 + 1);
+    self->payload_->length_ = *(&v12->super.size_ + v16 + 1) - *(&v12->super.size_ + v17 + 1);
   }
 
   positions = self->positions_;
@@ -104,14 +103,14 @@ LABEL_24:
     return -1;
   }
 
-  v20 = positions->super.size_;
-  v21 = self->i_ + self->positionIndex_;
-  if (v21 < 0 || v21 >= v20)
+  v19 = positions->super.size_;
+  v20 = self->i_ + self->positionIndex_;
+  if (v20 < 0 || v20 >= v19)
   {
-    IOSArray_throwOutOfBoundsWithMsg(v20, v21);
+    IOSArray_throwOutOfBoundsWithMsg(v19, v20);
   }
 
-  return *(&positions->super.size_ + v21 + 1);
+  return *(&positions->super.size_ + v20 + 1);
 }
 
 - (int)startOffset

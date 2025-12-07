@@ -1,6 +1,7 @@
 @interface MTAlarmCache
 - (BOOL)_isUpdateNeeded;
 - (MTAlarmCache)initWithUpdateBlock:(id)block;
+- (void)_getCachedAlarmsWithCompletion:(id)completion doSynchronous:(BOOL)synchronous;
 - (void)_withLock:(id)lock;
 - (void)markNeedsUpdate;
 @end
@@ -72,6 +73,72 @@
   v2[3] = &unk_1E7B0C9D8;
   v2[4] = self;
   [(MTAlarmCache *)self _withLock:v2];
+}
+
+- (void)_getCachedAlarmsWithCompletion:(id)completion doSynchronous:(BOOL)synchronous
+{
+  synchronousCopy = synchronous;
+  completionCopy = completion;
+  v27 = 0;
+  v28 = &v27;
+  v29 = 0x3032000000;
+  v30 = __Block_byref_object_copy__5;
+  v31 = __Block_byref_object_dispose__5;
+  v32 = 0;
+  v21 = 0;
+  v22 = &v21;
+  v23 = 0x3032000000;
+  v24 = __Block_byref_object_copy__5;
+  v25 = __Block_byref_object_dispose__5;
+  v26 = 0;
+  v15 = 0;
+  v16 = &v15;
+  v17 = 0x3032000000;
+  v18 = __Block_byref_object_copy__5;
+  v19 = __Block_byref_object_dispose__5;
+  v20 = 0;
+  if ([(MTAlarmCache *)self _isUpdateNeeded])
+  {
+    v7 = MTLogForCategory(3);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+    {
+      [MTAlarmCache _getCachedAlarmsWithCompletion:v7 doSynchronous:?];
+    }
+
+    updateBlock = self->_updateBlock;
+    v10[0] = MEMORY[0x1E69E9820];
+    v10[1] = 3221225472;
+    v10[2] = __61__MTAlarmCache__getCachedAlarmsWithCompletion_doSynchronous___block_invoke;
+    v10[3] = &unk_1E7B0DFB0;
+    v10[4] = self;
+    v12 = &v27;
+    v13 = &v21;
+    v14 = &v15;
+    v11 = completionCopy;
+    updateBlock[2](updateBlock, v10, synchronousCopy);
+  }
+
+  else
+  {
+    v9[0] = MEMORY[0x1E69E9820];
+    v9[1] = 3221225472;
+    v9[2] = __61__MTAlarmCache__getCachedAlarmsWithCompletion_doSynchronous___block_invoke_2;
+    v9[3] = &unk_1E7B0DFD8;
+    v9[4] = self;
+    v9[5] = &v27;
+    v9[6] = &v21;
+    v9[7] = &v15;
+    [(MTAlarmCache *)self _withLock:v9];
+    if (completionCopy)
+    {
+      (*(completionCopy + 2))(completionCopy, v28[5], v22[5], v16[5], 0);
+    }
+  }
+
+  _Block_object_dispose(&v15, 8);
+
+  _Block_object_dispose(&v21, 8);
+  _Block_object_dispose(&v27, 8);
 }
 
 void __61__MTAlarmCache__getCachedAlarmsWithCompletion_doSynchronous___block_invoke(uint64_t a1, void *a2, void *a3, void *a4, void *a5)
@@ -155,23 +222,21 @@ void __61__MTAlarmCache__getCachedAlarmsWithCompletion_doSynchronous___block_inv
 
 - (void)_getCachedAlarmsWithCompletion:(uint64_t)a1 doSynchronous:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_debug_impl(&dword_1B1F9F000, a2, OS_LOG_TYPE_DEBUG, "%@ - Cache Miss", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_debug_impl(&dword_1B1F9F000, a2, OS_LOG_TYPE_DEBUG, "%@ - Cache Miss", &v2, 0xCu);
 }
 
 void __61__MTAlarmCache__getCachedAlarmsWithCompletion_doSynchronous___block_invoke_cold_1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = *(a1 + 32);
-  v5 = 138543618;
-  v6 = v3;
-  v7 = 2114;
-  v8 = a2;
-  _os_log_error_impl(&dword_1B1F9F000, log, OS_LOG_TYPE_ERROR, "%{public}@ - Error getting alarms: %{public}@", &v5, 0x16u);
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = 138543618;
+  v5 = v3;
+  v6 = 2114;
+  v7 = a2;
+  _os_log_error_impl(&dword_1B1F9F000, log, OS_LOG_TYPE_ERROR, "%{public}@ - Error getting alarms: %{public}@", &v4, 0x16u);
 }
 
 @end

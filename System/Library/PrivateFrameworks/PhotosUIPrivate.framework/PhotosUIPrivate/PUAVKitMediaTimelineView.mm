@@ -148,7 +148,7 @@ id __49__PUAVKitMediaTimelineView__updateTimeRangeMarks__block_invoke(uint64_t a
   memset(&v11, 0, sizeof(v11));
   if (a2)
   {
-    [a2 CMTimeRangeValue];
+    objc_msgSend_CMTimeRangeValue(a2);
   }
 
   v3 = objc_alloc(MEMORY[0x1E6958620]);

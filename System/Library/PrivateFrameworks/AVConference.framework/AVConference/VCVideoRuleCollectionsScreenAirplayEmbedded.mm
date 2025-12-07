@@ -6,6 +6,8 @@
 - (VCVideoRuleCollectionsScreenAirplayEmbedded)initWithHardwareSettings:(id)settings;
 - (void)initSupportedPayloads;
 - (void)selectPreferredRule:(id)rule screenSize:(CGSize)size;
+- (void)setupH264Rules;
+- (void)setupHEVCRules;
 @end
 
 @implementation VCVideoRuleCollectionsScreenAirplayEmbedded
@@ -185,7 +187,7 @@ LABEL_22:
   v35 = *MEMORY[0x1E69E9840];
   if (![(VCVideoRuleCollections *)self isPayloadSupported:123])
   {
-    [(VCVideoRuleCollectionsScreenAirplayEmbedded *)&v28 setupH264Rules];
+    [VCVideoRuleCollectionsScreenAirplayEmbedded setupH264Rules];
 LABEL_53:
     v12 = v28;
     v11 = *buf;
@@ -207,7 +209,7 @@ LABEL_53:
       screenWidth = [(VCHardwareSettingsEmbeddedProtocol *)self->_hardwareSettings screenWidth];
       if (!screenWidth)
       {
-        [(VCVideoRuleCollectionsScreenAirplayEmbedded *)&v28 setupH264Rules];
+        [VCVideoRuleCollectionsScreenAirplayEmbedded setupH264Rules];
         goto LABEL_53;
       }
 
@@ -215,7 +217,7 @@ LABEL_53:
       screenHeight = [(VCHardwareSettingsEmbeddedProtocol *)self->_hardwareSettings screenHeight];
       if (!screenHeight)
       {
-        [(VCVideoRuleCollectionsScreenAirplayEmbedded *)&v28 setupH264Rules];
+        [VCVideoRuleCollectionsScreenAirplayEmbedded setupH264Rules];
         goto LABEL_53;
       }
 
@@ -227,7 +229,7 @@ LABEL_53:
   videoEncoderType = [(VCHardwareSettingsEmbeddedProtocol *)self->_hardwareSettings videoEncoderType];
   if (videoEncoderType == -1)
   {
-    [(VCVideoRuleCollectionsScreenAirplayEmbedded *)&v28 setupH264Rules];
+    [VCVideoRuleCollectionsScreenAirplayEmbedded setupH264Rules];
     goto LABEL_53;
   }
 
@@ -412,7 +414,7 @@ LABEL_32:
       screenWidth = [(VCHardwareSettingsEmbeddedProtocol *)self->_hardwareSettings screenWidth];
       if (!screenWidth)
       {
-        [(VCVideoRuleCollectionsScreenAirplayEmbedded *)&v41 setupHEVCRules];
+        [VCVideoRuleCollectionsScreenAirplayEmbedded setupHEVCRules];
         goto LABEL_87;
       }
 
@@ -420,7 +422,7 @@ LABEL_32:
       screenHeight = [(VCHardwareSettingsEmbeddedProtocol *)self->_hardwareSettings screenHeight];
       if (!screenHeight)
       {
-        [(VCVideoRuleCollectionsScreenAirplayEmbedded *)&v41 setupHEVCRules];
+        [VCVideoRuleCollectionsScreenAirplayEmbedded setupHEVCRules];
         goto LABEL_87;
       }
 
@@ -432,7 +434,7 @@ LABEL_32:
   videoEncoderType = [(VCHardwareSettingsEmbeddedProtocol *)self->_hardwareSettings videoEncoderType];
   if (videoEncoderType == -1)
   {
-    [(VCVideoRuleCollectionsScreenAirplayEmbedded *)&v41 setupHEVCRules];
+    [VCVideoRuleCollectionsScreenAirplayEmbedded setupHEVCRules];
     goto LABEL_87;
   }
 
@@ -450,7 +452,7 @@ LABEL_32:
           v20 = videoRulesForFormatList_1(&g_AirplayWifiDecodingFormatiPad, 0xCu, 100);
           if (!v20)
           {
-            [(VCVideoRuleCollectionsScreenAirplayEmbedded *)&v41 setupHEVCRules];
+            [VCVideoRuleCollectionsScreenAirplayEmbedded setupHEVCRules];
             goto LABEL_87;
           }
 
@@ -489,7 +491,7 @@ LABEL_32:
           v23 = videoRulesForFormatList_1(v28, v29, 100);
           if (!v23)
           {
-            [(VCVideoRuleCollectionsScreenAirplayEmbedded *)v17 setupHEVCRules:buf];
+            [VCVideoRuleCollectionsScreenAirplayEmbedded setupHEVCRules];
             goto LABEL_87;
           }
 
@@ -516,7 +518,7 @@ LABEL_14:
           v16 = videoRulesForFormatList_1(&g_AirplayWifiDecodingFormatiPad, 0xCu, 100);
           if (!v16)
           {
-            [(VCVideoRuleCollectionsScreenAirplayEmbedded *)&v41 setupHEVCRules];
+            [VCVideoRuleCollectionsScreenAirplayEmbedded setupHEVCRules];
             goto LABEL_87;
           }
 
@@ -555,7 +557,7 @@ LABEL_14:
           v23 = videoRulesForFormatList_1(v21, v22, 100);
           if (!v23)
           {
-            [(VCVideoRuleCollectionsScreenAirplayEmbedded *)v17 setupHEVCRules:buf];
+            [VCVideoRuleCollectionsScreenAirplayEmbedded setupHEVCRules];
 LABEL_87:
             v25 = v41;
             v17 = *buf;
@@ -579,7 +581,7 @@ LABEL_87:
       v24 = iPhoneWiFiScreenDecodingRules(100, v9, v8);
       if (!v24)
       {
-        [(VCVideoRuleCollectionsScreenAirplayEmbedded *)&v41 setupHEVCRules];
+        [VCVideoRuleCollectionsScreenAirplayEmbedded setupHEVCRules];
         goto LABEL_87;
       }
 
@@ -607,7 +609,7 @@ LABEL_74:
     v30 = iPhoneWiFiScreenEncodingRules(v14, 100, v9, v8);
     if (!v30)
     {
-      [(VCVideoRuleCollectionsScreenAirplayEmbedded *)v17 setupHEVCRules:buf];
+      [VCVideoRuleCollectionsScreenAirplayEmbedded setupHEVCRules];
       goto LABEL_87;
     }
 
@@ -643,7 +645,7 @@ LABEL_74:
       v39 = videoRulesForFormatList_1(v19, v18, 100);
       if (!v39)
       {
-        [(VCVideoRuleCollectionsScreenAirplayEmbedded *)&v41 setupHEVCRules];
+        [VCVideoRuleCollectionsScreenAirplayEmbedded setupHEVCRules];
         goto LABEL_87;
       }
 
@@ -691,7 +693,7 @@ LABEL_73:
     v38 = videoRulesForFormatList_1(v36, v37, 100);
     if (!v38)
     {
-      [(VCVideoRuleCollectionsScreenAirplayEmbedded *)v25 setupHEVCRules:buf];
+      [VCVideoRuleCollectionsScreenAirplayEmbedded setupHEVCRules];
       goto LABEL_87;
     }
 
@@ -731,6 +733,44 @@ LABEL_41:
   OUTLINED_FUNCTION_0();
   v4 = 242;
   _os_log_error_impl(&dword_1DB56E000, v1, OS_LOG_TYPE_ERROR, " [%s] %s:%d Failed to create H264/HEVC rules for Airplay screen!", &v2, 0x1Cu);
+}
+
+- (void)setupH264Rules
+{
+  OUTLINED_FUNCTION_37();
+  OUTLINED_FUNCTION_15();
+  if (VRTraceGetErrorLogLevelForModule() >= 3)
+  {
+    VRTraceErrorLogLevelToCSTR();
+    if (OUTLINED_FUNCTION_31())
+    {
+      OUTLINED_FUNCTION_8();
+      OUTLINED_FUNCTION_0();
+      OUTLINED_FUNCTION_13(&dword_1DB56E000, v0, v1, " [%s] %s:%d Screen rules: Could not retrieve hardware encoder type", v2, v3, v4, v5);
+    }
+  }
+
+  OUTLINED_FUNCTION_4();
+  OUTLINED_FUNCTION_36();
+}
+
+- (void)setupHEVCRules
+{
+  OUTLINED_FUNCTION_37();
+  OUTLINED_FUNCTION_15();
+  if (VRTraceGetErrorLogLevelForModule() >= 3)
+  {
+    VRTraceErrorLogLevelToCSTR();
+    if (OUTLINED_FUNCTION_31())
+    {
+      OUTLINED_FUNCTION_8();
+      OUTLINED_FUNCTION_0();
+      OUTLINED_FUNCTION_13(&dword_1DB56E000, v0, v1, " [%s] %s:%d Screen rules: Could not retrieve hardware encoder type", v2, v3, v4, v5);
+    }
+  }
+
+  OUTLINED_FUNCTION_4();
+  OUTLINED_FUNCTION_36();
 }
 
 @end

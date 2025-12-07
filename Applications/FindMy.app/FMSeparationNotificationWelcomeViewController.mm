@@ -12,7 +12,7 @@
 {
   appearCopy = appear;
   v8.receiver = self;
-  v8.super_class = type metadata accessor for FMSeparationNotificationWelcomeViewController();
+  v8.super_class = type metadata accessor for FMSeparationNotificationWelcomeViewController(0);
   v4 = v8.receiver;
   [(FMSeparationNotificationWelcomeViewController *)&v8 viewWillAppear:appearCopy];
   parentViewController = [v4 parentViewController];
@@ -44,7 +44,7 @@
 {
   appearCopy = appear;
   v7.receiver = self;
-  v7.super_class = type metadata accessor for FMSeparationNotificationWelcomeViewController();
+  v7.super_class = type metadata accessor for FMSeparationNotificationWelcomeViewController(0);
   v4 = v7.receiver;
   [(FMSeparationNotificationWelcomeViewController *)&v7 viewDidAppear:appearCopy];
   navigationItem = [v4 navigationItem];
@@ -78,12 +78,13 @@
   v3 = *(&self->super.super.super.super.isa + OBJC_IVAR____TtC6FindMy45FMSeparationNotificationWelcomeViewController_scrollHandler);
   if (v3)
   {
+    v5 = *&self->super.mediator[OBJC_IVAR____TtC6FindMy45FMSeparationNotificationWelcomeViewController_scrollHandler];
     scrollCopy = scroll;
     selfCopy = self;
-    sub_100062900(v3);
-    v3(scrollCopy);
+    v8 = sub_100062900(v3, v5);
+    v3(scrollCopy, v8);
 
-    sub_10001835C(v3);
+    sub_10001835C(v3, v5);
   }
 }
 

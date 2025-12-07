@@ -3,7 +3,7 @@
 
 @implementation UIDynamicButtonEvent
 
-uint64_t __52___UIDynamicButtonEvent__appendDescriptionToStream___block_invoke_2(uint64_t a1)
+void *__52___UIDynamicButtonEvent__appendDescriptionToStream___block_invoke_2(uint64_t a1)
 {
   v2 = [*(a1 + 32) appendObject:*(*(a1 + 40) + 144) withName:@"dynamicButtonForDispatch"];
   result = [*(*(a1 + 40) + 136) count];

@@ -32,13 +32,13 @@
 
 - (id)predictMailboxIDsForMessages:(id)messages limit:(unint64_t)limit
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   messagesCopy = messages;
   v6 = [(EDCachingMailboxPredictor *)self _cacheKeyForMessages:?];
   cache = [(EDCachingMailboxPredictor *)self cache];
   v8 = [cache objectForKey:v6];
 
-  v24 = v8;
+  v23 = v8;
   if (v8)
   {
     v9 = +[EDMailboxPredictionController log];
@@ -57,115 +57,113 @@
     }
 
     predictor = [(EDCachingMailboxPredictor *)self predictor];
-    v24 = [predictor predictMailboxIDsForMessages:messagesCopy limit:limit];
+    v23 = [predictor predictMailboxIDsForMessages:messagesCopy limit:limit];
 
     cache2 = [(EDCachingMailboxPredictor *)self cache];
-    [cache2 setObject:v24 forKey:v6];
+    [cache2 setObject:v23 forKey:v6];
 
-    v31 = 0u;
-    v32 = 0u;
-    v29 = 0u;
     v30 = 0u;
+    v31 = 0u;
+    v28 = 0u;
+    v29 = 0u;
     v9 = messagesCopy;
-    v13 = [v9 countByEnumeratingWithState:&v29 objects:v34 count:16];
+    v13 = [v9 countByEnumeratingWithState:&v28 objects:v33 count:16];
     if (v13)
     {
-      v14 = *v30;
+      v14 = *v29;
       do
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v30 != v14)
+          if (*v29 != v14)
           {
             objc_enumerationMutation(v9);
           }
 
-          v16 = *(*(&v29 + 1) + 8 * i);
+          v16 = *(*(&v28 + 1) + 8 * i);
+          v24 = 0u;
           v25 = 0u;
           v26 = 0u;
           v27 = 0u;
-          v28 = 0u;
           v17 = [(EDCachingMailboxPredictor *)self _propertyKeysForMessage:v16];
-          v18 = [v17 countByEnumeratingWithState:&v25 objects:v33 count:16];
+          v18 = [v17 countByEnumeratingWithState:&v24 objects:v32 count:16];
           if (v18)
           {
-            v19 = *v26;
+            v19 = *v25;
             do
             {
               for (j = 0; j != v18; ++j)
               {
-                if (*v26 != v19)
+                if (*v25 != v19)
                 {
                   objc_enumerationMutation(v17);
                 }
 
-                [(EDCachingMailboxPredictor *)self _trackCacheKey:v6 forPropertyKey:*(*(&v25 + 1) + 8 * j)];
+                [(EDCachingMailboxPredictor *)self _trackCacheKey:v6 forPropertyKey:*(*(&v24 + 1) + 8 * j)];
               }
 
-              v18 = [v17 countByEnumeratingWithState:&v25 objects:v33 count:16];
+              v18 = [v17 countByEnumeratingWithState:&v24 objects:v32 count:16];
             }
 
             while (v18);
           }
         }
 
-        v13 = [v9 countByEnumeratingWithState:&v29 objects:v34 count:16];
+        v13 = [v9 countByEnumeratingWithState:&v28 objects:v33 count:16];
       }
 
       while (v13);
     }
   }
 
-  v21 = *MEMORY[0x1E69E9840];
-
-  return v24;
+  return v23;
 }
 
 - (void)invalidatePredictionsAffectedByMessage:(id)message
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
+  v24 = 0u;
   v25 = 0u;
   v26 = 0u;
   v27 = 0u;
-  v28 = 0u;
   obj = [(EDCachingMailboxPredictor *)self _propertyKeysForMessage:message];
-  v4 = [obj countByEnumeratingWithState:&v25 objects:v30 count:16];
+  v4 = [obj countByEnumeratingWithState:&v24 objects:v29 count:16];
   if (v4)
   {
-    v19 = *v26;
+    v18 = *v25;
     do
     {
-      v20 = v4;
-      for (i = 0; i != v20; ++i)
+      v19 = v4;
+      for (i = 0; i != v19; ++i)
       {
-        if (*v26 != v19)
+        if (*v25 != v18)
         {
           objc_enumerationMutation(obj);
         }
 
-        v6 = *(*(&v25 + 1) + 8 * i);
+        v6 = *(*(&v24 + 1) + 8 * i);
+        v20 = 0u;
         v21 = 0u;
         v22 = 0u;
         v23 = 0u;
-        v24 = 0u;
         cacheKeysByProperty = [(EDCachingMailboxPredictor *)self cacheKeysByProperty];
         v8 = [cacheKeysByProperty objectForKeyedSubscript:v6];
         allObjects = [v8 allObjects];
 
-        v10 = [allObjects countByEnumeratingWithState:&v21 objects:v29 count:16];
+        v10 = [allObjects countByEnumeratingWithState:&v20 objects:v28 count:16];
         if (v10)
         {
-          v11 = *v22;
+          v11 = *v21;
           do
           {
             for (j = 0; j != v10; ++j)
             {
-              if (*v22 != v11)
+              if (*v21 != v11)
               {
                 objc_enumerationMutation(allObjects);
               }
 
-              v13 = *(*(&v21 + 1) + 8 * j);
+              v13 = *(*(&v20 + 1) + 8 * j);
               cache = [(EDCachingMailboxPredictor *)self cache];
               [cache removeObjectForKey:v13];
 
@@ -174,20 +172,18 @@
               [v16 removeObject:v13];
             }
 
-            v10 = [allObjects countByEnumeratingWithState:&v21 objects:v29 count:16];
+            v10 = [allObjects countByEnumeratingWithState:&v20 objects:v28 count:16];
           }
 
           while (v10);
         }
       }
 
-      v4 = [obj countByEnumeratingWithState:&v25 objects:v30 count:16];
+      v4 = [obj countByEnumeratingWithState:&v24 objects:v29 count:16];
     }
 
     while (v4);
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)removeAllPredictions
@@ -231,9 +227,9 @@
 
 - (id)_propertyKeysForMessage:(id)message
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   messageCopy = message;
-  v30 = messageCopy;
+  v29 = messageCopy;
   array = [MEMORY[0x1E695DF70] array];
   listIDHash = [messageCopy listIDHash];
   if (listIDHash)
@@ -252,25 +248,25 @@
   v8 = [messageCopy to];
   v9 = [v8 ef_mapSelector:sel_ea_uncommentedAddress];
 
-  v34 = 0u;
-  v35 = 0u;
-  v32 = 0u;
   v33 = 0u;
+  v34 = 0u;
+  v31 = 0u;
+  v32 = 0u;
   obj = v9;
-  v10 = [obj countByEnumeratingWithState:&v32 objects:v36 count:16];
+  v10 = [obj countByEnumeratingWithState:&v31 objects:v35 count:16];
   if (v10)
   {
-    v11 = *v33;
+    v11 = *v32;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v33 != v11)
+        if (*v32 != v11)
         {
           objc_enumerationMutation(obj);
         }
 
-        v13 = *(*(&v32 + 1) + 8 * i);
+        v13 = *(*(&v31 + 1) + 8 * i);
         v14 = objc_alloc(MEMORY[0x1E699B990]);
         v15 = [MEMORY[0x1E696AEC0] stringWithFormat:@"R %@", v13];
         v16 = [v14 initWithString:v15];
@@ -279,13 +275,13 @@
         [array addObject:v17];
       }
 
-      v10 = [obj countByEnumeratingWithState:&v32 objects:v36 count:16];
+      v10 = [obj countByEnumeratingWithState:&v31 objects:v35 count:16];
     }
 
     while (v10);
   }
 
-  from = [v30 from];
+  from = [v29 from];
   firstObject = [from firstObject];
 
   if (firstObject)
@@ -298,7 +294,7 @@
     [array addObject:v23];
   }
 
-  persistentID = [v30 persistentID];
+  persistentID = [v29 persistentID];
   longLongValue = [persistentID longLongValue];
 
   if (longLongValue)
@@ -307,27 +303,23 @@
     [array addObject:v26];
   }
 
-  v27 = *MEMORY[0x1E69E9840];
-
   return array;
 }
 
 - (void)predictMailboxIDsForMessages:(uint64_t)a1 limit:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_debug_impl(&dword_1C61EF000, a2, OS_LOG_TYPE_DEBUG, "Cache hit for %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_debug_impl(&dword_1C61EF000, a2, OS_LOG_TYPE_DEBUG, "Cache hit for %@", &v2, 0xCu);
 }
 
 - (void)predictMailboxIDsForMessages:(uint64_t)a1 limit:(NSObject *)a2 .cold.2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_debug_impl(&dword_1C61EF000, a2, OS_LOG_TYPE_DEBUG, "Cache miss for %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_debug_impl(&dword_1C61EF000, a2, OS_LOG_TYPE_DEBUG, "Cache miss for %@", &v2, 0xCu);
 }
 
 @end

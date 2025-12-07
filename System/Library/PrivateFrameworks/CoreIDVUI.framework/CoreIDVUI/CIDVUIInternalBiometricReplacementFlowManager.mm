@@ -7,7 +7,7 @@
 
 - (void)beginBiometricReplacementForTarget:(int64_t)target withAuthHandler:(id)handler andCompletionHandler:(id)completionHandler
 {
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27EE297B0);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27EE297B0, &qword_2459171A0);
   MEMORY[0x28223BE20](v9 - 8);
   v11 = &v21 - v10;
   v12 = _Block_copy(handler);
@@ -31,7 +31,7 @@
   sub_245910D34();
   selfCopy = self;
 
-  sub_245771BB4(v13);
+  sub_245771BB4(v13, v15);
   v18 = sub_245910D24();
   v19 = swift_allocObject();
   v20 = MEMORY[0x277D85700];
@@ -45,7 +45,7 @@
   v19[9] = v15;
   sub_2458B90EC(0, 0, v11, &unk_24591CE60, v19);
 
-  sub_245771C34(v13);
+  sub_245771C34(v13, v15);
 }
 
 - (_TtC9CoreIDVUI45CIDVUIInternalBiometricReplacementFlowManager)init

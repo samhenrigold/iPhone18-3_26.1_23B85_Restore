@@ -17,22 +17,22 @@
 
 + (id)getRemoteObjectProxyWithConnection:(id)connection errorHandler:(id)handler
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   connectionCopy = connection;
   handlerCopy = handler;
   v8 = handlerCopy;
   if (connectionCopy)
   {
-    v19[0] = MEMORY[0x277D85DD0];
-    v19[1] = 3221225472;
-    v19[2] = __76__SSRRPISamplingXPCService_getRemoteObjectProxyWithConnection_errorHandler___block_invoke;
-    v19[3] = &unk_278577D88;
+    v18[0] = MEMORY[0x277D85DD0];
+    v18[1] = 3221225472;
+    v18[2] = __76__SSRRPISamplingXPCService_getRemoteObjectProxyWithConnection_errorHandler___block_invoke;
+    v18[3] = &unk_278577D88;
     v9 = handlerCopy;
-    v21 = v9;
+    v20 = v9;
     selfCopy = self;
     v10 = connectionCopy;
-    v20 = v10;
-    v11 = [v10 remoteObjectProxyWithErrorHandler:v19];
+    v19 = v10;
+    v11 = [v10 remoteObjectProxyWithErrorHandler:v18];
     v12 = v11;
     if (v11)
     {
@@ -46,7 +46,7 @@ LABEL_11:
     if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v24 = "+[SSRRPISamplingXPCService getRemoteObjectProxyWithConnection:errorHandler:]";
+      v23 = "+[SSRRPISamplingXPCService getRemoteObjectProxyWithConnection:errorHandler:]";
       _os_log_error_impl(&dword_225E12000, v15, OS_LOG_TYPE_ERROR, "%s service cannot be created", buf, 0xCu);
       if (!v9)
       {
@@ -75,8 +75,6 @@ LABEL_10:
 
   v12 = 0;
 LABEL_12:
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
@@ -113,30 +111,26 @@ uint64_t __76__SSRRPISamplingXPCService_getRemoteObjectProxyWithConnection_error
 
 void __45__SSRRPISamplingXPCService__createConnection__block_invoke_19()
 {
-  v4 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
   v0 = *MEMORY[0x277D01970];
   if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_ERROR))
   {
-    v2 = 136315138;
-    v3 = "+[SSRRPISamplingXPCService _createConnection]_block_invoke";
-    _os_log_error_impl(&dword_225E12000, v0, OS_LOG_TYPE_ERROR, "%s SSRRPISamplingXPC Services Invalidated", &v2, 0xCu);
+    v1 = 136315138;
+    v2 = "+[SSRRPISamplingXPCService _createConnection]_block_invoke";
+    _os_log_error_impl(&dword_225E12000, v0, OS_LOG_TYPE_ERROR, "%s SSRRPISamplingXPC Services Invalidated", &v1, 0xCu);
   }
-
-  v1 = *MEMORY[0x277D85DE8];
 }
 
 void __45__SSRRPISamplingXPCService__createConnection__block_invoke()
 {
-  v4 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
   v0 = *MEMORY[0x277D01970];
   if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_ERROR))
   {
-    v2 = 136315138;
-    v3 = "+[SSRRPISamplingXPCService _createConnection]_block_invoke";
-    _os_log_error_impl(&dword_225E12000, v0, OS_LOG_TYPE_ERROR, "%s SSRRPISamplingXPC Services Interrupted", &v2, 0xCu);
+    v1 = 136315138;
+    v2 = "+[SSRRPISamplingXPCService _createConnection]_block_invoke";
+    _os_log_error_impl(&dword_225E12000, v0, OS_LOG_TYPE_ERROR, "%s SSRRPISamplingXPC Services Interrupted", &v1, 0xCu);
   }
-
-  v1 = *MEMORY[0x277D85DE8];
 }
 
 + (void)_invalidateConnection:(id)connection

@@ -25,60 +25,60 @@
 {
   selfCopy = self;
   errorCopy = error;
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   callsCopy = calls;
   descriptorsCopy = descriptors;
   v8 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+  v29 = 0u;
   v30 = 0u;
   v31 = 0u;
   v32 = 0u;
-  v33 = 0u;
   v9 = callsCopy;
-  v10 = [v9 countByEnumeratingWithState:&v30 objects:v35 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v29 objects:v34 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v31;
+    v12 = *v30;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v31 != v12)
+        if (*v30 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = *(*(&v30 + 1) + 8 * i);
+        v14 = *(*(&v29 + 1) + 8 * i);
+        v25 = 0u;
         v26 = 0u;
         v27 = 0u;
         v28 = 0u;
-        v29 = 0u;
         remoteParticipantHandles = [v14 remoteParticipantHandles];
-        v16 = [remoteParticipantHandles countByEnumeratingWithState:&v26 objects:v34 count:16];
+        v16 = [remoteParticipantHandles countByEnumeratingWithState:&v25 objects:v33 count:16];
         if (v16)
         {
           v17 = v16;
-          v18 = *v27;
+          v18 = *v26;
           do
           {
             for (j = 0; j != v17; ++j)
             {
-              if (*v27 != v18)
+              if (*v26 != v18)
               {
                 objc_enumerationMutation(remoteParticipantHandles);
               }
 
-              [v8 addObject:*(*(&v26 + 1) + 8 * j)];
+              [v8 addObject:*(*(&v25 + 1) + 8 * j)];
             }
 
-            v17 = [remoteParticipantHandles countByEnumeratingWithState:&v26 objects:v34 count:16];
+            v17 = [remoteParticipantHandles countByEnumeratingWithState:&v25 objects:v33 count:16];
           }
 
           while (v17);
         }
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v30 objects:v35 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v29 objects:v34 count:16];
     }
 
     while (v11);
@@ -87,37 +87,35 @@
   allObjects = [v8 allObjects];
   v21 = [(CHContactProvider *)selfCopy contactsByHandleForHandles:allObjects keyDescriptors:descriptorsCopy error:errorCopy];
 
-  v22 = *MEMORY[0x1E69E9840];
-
   return v21;
 }
 
 - (id)contactsByHandleForHandles:(id)handles keyDescriptors:(id)descriptors error:(id *)error
 {
-  v57 = *MEMORY[0x1E69E9840];
+  v56 = *MEMORY[0x1E69E9840];
   handlesCopy = handles;
   descriptorsCopy = descriptors;
-  v41 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v40 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v49 = 0u;
   v50 = 0u;
   v51 = 0u;
   v52 = 0u;
-  v53 = 0u;
   obj = handlesCopy;
-  v9 = [obj countByEnumeratingWithState:&v50 objects:v56 count:16];
+  v9 = [obj countByEnumeratingWithState:&v49 objects:v55 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v51;
+    v11 = *v50;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v51 != v11)
+        if (*v50 != v11)
         {
           objc_enumerationMutation(obj);
         }
 
-        v13 = *(*(&v50 + 1) + 8 * i);
+        v13 = *(*(&v49 + 1) + 8 * i);
         normalizedValue = [v13 normalizedValue];
         if (![normalizedValue length])
         {
@@ -128,7 +126,7 @@
 
         if ([normalizedValue length])
         {
-          v16 = [v41 objectForKeyedSubscript:normalizedValue];
+          v16 = [v40 objectForKeyedSubscript:normalizedValue];
           if (v16)
           {
             v17 = v16;
@@ -138,85 +136,85 @@
           else
           {
             v17 = [objc_alloc(MEMORY[0x1E695DF70]) initWithObjects:{v13, 0}];
-            [v41 setObject:v17 forKeyedSubscript:normalizedValue];
+            [v40 setObject:v17 forKeyedSubscript:normalizedValue];
           }
         }
       }
 
-      v10 = [obj countByEnumeratingWithState:&v50 objects:v56 count:16];
+      v10 = [obj countByEnumeratingWithState:&v49 objects:v55 count:16];
     }
 
     while (v10);
   }
 
   dataSource = [(CHContactProvider *)self dataSource];
-  v19 = v41;
-  allKeys = [v41 allKeys];
+  v19 = v40;
+  allKeys = [v40 allKeys];
   v21 = [dataSource contactsByContactHandleForContactHandles:allKeys keyDescriptors:descriptorsCopy error:error];
 
   if (v21)
   {
     v22 = objc_alloc_init(MEMORY[0x1E695DF90]);
+    v45 = 0u;
     v46 = 0u;
     v47 = 0u;
     v48 = 0u;
-    v49 = 0u;
     allKeys2 = [v21 allKeys];
-    v40 = [allKeys2 countByEnumeratingWithState:&v46 objects:v55 count:16];
-    if (v40)
+    v39 = [allKeys2 countByEnumeratingWithState:&v45 objects:v54 count:16];
+    if (v39)
     {
-      v39 = *v47;
+      v38 = *v46;
       do
       {
-        for (j = 0; j != v40; ++j)
+        for (j = 0; j != v39; ++j)
         {
-          if (*v47 != v39)
+          if (*v46 != v38)
           {
             objc_enumerationMutation(allKeys2);
           }
 
-          v24 = *(*(&v46 + 1) + 8 * j);
+          v24 = *(*(&v45 + 1) + 8 * j);
           v25 = [v19 objectForKeyedSubscript:v24];
           v26 = v25;
           if (v25)
           {
-            v44 = 0u;
-            v45 = 0u;
-            v42 = 0u;
             v43 = 0u;
-            v27 = [v25 countByEnumeratingWithState:&v42 objects:v54 count:16];
+            v44 = 0u;
+            v41 = 0u;
+            v42 = 0u;
+            v27 = [v25 countByEnumeratingWithState:&v41 objects:v53 count:16];
             if (v27)
             {
               v28 = v27;
-              v29 = *v43;
+              v29 = *v42;
               do
               {
                 for (k = 0; k != v28; ++k)
                 {
-                  if (*v43 != v29)
+                  if (*v42 != v29)
                   {
                     objc_enumerationMutation(v26);
                   }
 
-                  v31 = *(*(&v42 + 1) + 8 * k);
+                  v31 = *(*(&v41 + 1) + 8 * k);
                   v32 = [v21 objectForKeyedSubscript:v24];
                   [v22 setObject:v32 forKeyedSubscript:v31];
                 }
 
-                v28 = [v26 countByEnumeratingWithState:&v42 objects:v54 count:16];
+                v28 = [v26 countByEnumeratingWithState:&v41 objects:v53 count:16];
               }
 
               while (v28);
             }
           }
 
-          v19 = v41;
+          v19 = v40;
         }
 
-        v40 = [allKeys2 countByEnumeratingWithState:&v46 objects:v55 count:16];
+        v39 = [allKeys2 countByEnumeratingWithState:&v45 objects:v54 count:16];
       }
 
-      while (v40);
+      while (v39);
     }
   }
 
@@ -226,8 +224,6 @@
   }
 
   v33 = [v22 copy];
-
-  v34 = *MEMORY[0x1E69E9840];
 
   return v33;
 }

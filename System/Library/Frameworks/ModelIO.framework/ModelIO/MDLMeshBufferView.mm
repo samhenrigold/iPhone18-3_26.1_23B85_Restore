@@ -13,11 +13,10 @@
   v7 = [(MDLMeshBufferView *)&v13 init];
   if (v7)
   {
-    v8 = *(copyCopy + 5);
-    v9 = objc_opt_self();
-    LOBYTE(v8) = objc_opt_isKindOfClass();
+    v8 = objc_opt_self();
+    isKindOfClass = objc_opt_isKindOfClass();
 
-    if (v8)
+    if (isKindOfClass)
     {
       objc_storeStrong(&v7->_allocator, *(copyCopy + 5));
     }

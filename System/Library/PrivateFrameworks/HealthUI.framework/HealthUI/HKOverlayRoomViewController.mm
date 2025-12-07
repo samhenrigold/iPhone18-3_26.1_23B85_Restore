@@ -489,7 +489,7 @@
 
 - (id)_addHealthFactorsIfNecessary:(id)necessary
 {
-  v26[1] = *MEMORY[0x1E69E9840];
+  v27[1] = *MEMORY[0x1E69E9840];
   necessaryCopy = necessary;
   v5 = necessaryCopy;
   if ([(HKOverlayRoomViewController *)self supportsHealthFactors])
@@ -508,13 +508,13 @@
           {
             activeFactorContexts = [v6 activeFactorContexts];
             inactiveFactorContexts = [v7 inactiveFactorContexts];
-            v22 = [activeFactorContexts arrayByAddingObjectsFromArray:inactiveFactorContexts];
+            v23 = [activeFactorContexts arrayByAddingObjectsFromArray:inactiveFactorContexts];
 
-            v10 = [[HKOverlayContextSection alloc] initWithSectionTitle:0 overlayContextItems:v22];
+            v10 = [[HKOverlayContextSection alloc] initWithSectionTitle:0 overlayContextItems:v23];
             v11 = [HKOverlayContextSectionContainer alloc];
             _healthFactorsSectionTitle = [(HKOverlayRoomViewController *)self _healthFactorsSectionTitle];
-            v26[0] = v10;
-            v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v26 count:1];
+            v27[0] = v10;
+            v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v27 count:1];
             v14 = [(HKOverlayContextSectionContainer *)v11 initWithContainerTitle:_healthFactorsSectionTitle overlayContextSections:v13];
 
             firstObject = [necessaryCopy firstObject];
@@ -524,9 +524,9 @@
             primaryDisplayType = [firstObject primaryDisplayType];
             v20 = [(HKOverlayContextSectionContainer *)v16 initWithContainerTitle:_healthFactorsMeasurementSectionTitle overlayContextSections:overlayContextSections primaryDisplayType:primaryDisplayType];
 
-            v25[0] = v20;
-            v25[1] = v14;
-            v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v25 count:2];
+            v26[0] = v20;
+            v26[1] = v14;
+            v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v26 count:2];
 
 LABEL_10:
             goto LABEL_11;
@@ -535,8 +535,8 @@ LABEL_10:
 
         else
         {
-          _HKInitializeLogging();
-          v7 = HKUILogCharting();
+          v21 = _HKInitializeLogging();
+          v7 = HKUILogCharting(v21);
           if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
@@ -3299,7 +3299,7 @@ uint64_t __84__HKOverlayRoomViewController_fetchContextItemsIfNeededWithDateInte
 - (void)_updateChartForOverlaySelection:(id)selection previousSelection:(id)previousSelection animated:(BOOL)animated
 {
   animatedCopy = animated;
-  v94 = *MEMORY[0x1E69E9840];
+  v95 = *MEMORY[0x1E69E9840];
   selectionCopy = selection;
   previousSelectionCopy = previousSelection;
   if (previousSelectionCopy)
@@ -3312,32 +3312,32 @@ uint64_t __84__HKOverlayRoomViewController_fetchContextItemsIfNeededWithDateInte
     overlayContextItems = [v12 overlayContextItems];
     v14 = [overlayContextItems objectAtIndexedSubscript:{objc_msgSend(previousSelectionCopy, "itemIndex")}];
 
-    v83 = [objc_opt_class() conformsToProtocol:&unk_1F43EAEB0];
-    if (v83)
+    v84 = [objc_opt_class() conformsToProtocol:&unk_1F43EAEB0];
+    if (v84)
     {
-      v90 = v14;
+      v91 = v14;
     }
 
     else
     {
-      v90 = 0;
+      v91 = 0;
     }
   }
 
   else
   {
-    v83 = 0;
-    v90 = 0;
+    v84 = 0;
+    v91 = 0;
     v14 = 0;
   }
 
-  v86 = previousSelectionCopy;
+  v87 = previousSelectionCopy;
   if (!selectionCopy)
   {
     segmentedControlSelectedIndex = [(HKOverlayRoomViewController *)self segmentedControlSelectedIndex];
-    v85 = 0;
+    v86 = 0;
     v20 = 0;
-    v89 = 0;
+    v90 = 0;
     v23 = 0;
     goto LABEL_17;
   }
@@ -3364,31 +3364,31 @@ uint64_t __84__HKOverlayRoomViewController_fetchContextItemsIfNeededWithDateInte
 
   presentation = [primaryDisplayType presentation];
   v27 = [presentation copyWithIsCriticalForAutoscale:1];
-  v91 = [primaryDisplayType copyWithPresentation:v27];
+  v92 = [primaryDisplayType copyWithPresentation:v27];
 
   v23 = [objc_opt_class() conformsToProtocol:&unk_1F43EAEB0];
   if (v23)
   {
-    v89 = v20;
-    v28 = [v89 stackedBaseDisplayTypeForOverlay:self->_currentChartTimeScope];
+    v90 = v20;
+    v28 = [v90 stackedBaseDisplayTypeForOverlay:self->_currentChartTimeScope];
     presentation2 = [v28 presentation];
     v30 = selectionCopy;
     v31 = [presentation2 copyWithIsCriticalForAutoscale:1];
-    v85 = [v28 copyWithPresentation:v31];
+    v86 = [v28 copyWithPresentation:v31];
 
     selectionCopy = v30;
   }
 
   else
   {
-    v89 = 0;
-    v85 = 0;
+    v90 = 0;
+    v86 = 0;
   }
 
-  previousSelectionCopy = v86;
+  previousSelectionCopy = v87;
 
   segmentedControlSelectedIndex2 = [(HKOverlayRoomViewController *)self segmentedControlSelectedIndex];
-  if (!v91)
+  if (!v92)
   {
     segmentedControlSelectedIndex = segmentedControlSelectedIndex2;
 LABEL_17:
@@ -3397,7 +3397,7 @@ LABEL_17:
 
     if (v34 <= segmentedControlSelectedIndex)
     {
-      v91 = 0;
+      v92 = 0;
     }
 
     else
@@ -3409,7 +3409,7 @@ LABEL_17:
       presentation3 = [primaryDisplayType2 presentation];
       v39 = selectionCopy;
       v40 = [presentation3 copyWithIsCriticalForAutoscale:1];
-      v91 = [primaryDisplayType2 copyWithPresentation:v40];
+      v92 = [primaryDisplayType2 copyWithPresentation:v40];
 
       selectionCopy = v39;
     }
@@ -3439,14 +3439,14 @@ LABEL_22:
   v43 = contextItemForLastUpdate2;
   if (contextItemForLastUpdate2 && contextItemForLastUpdate && contextItemForLastUpdate2 == contextItemForLastUpdate && animatedCopy)
   {
-    _HKInitializeLogging();
-    v44 = HKUILogCharting();
-    if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
+    v44 = _HKInitializeLogging();
+    v45 = HKUILogCharting(v44);
+    if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
     {
-      v45 = [v43 description];
+      v46 = [v43 description];
       *buf = 138477827;
-      v93 = v45;
-      _os_log_impl(&dword_1C3942000, v44, OS_LOG_TYPE_DEFAULT, "HKOverlayRoomViewController skipping redundant update during animation for selected context item: %{private}@", buf, 0xCu);
+      v94 = v46;
+      _os_log_impl(&dword_1C3942000, v45, OS_LOG_TYPE_DEFAULT, "HKOverlayRoomViewController skipping redundant update during animation for selected context item: %{private}@", buf, 0xCu);
     }
 
     goto LABEL_90;
@@ -3468,11 +3468,11 @@ LABEL_31:
     [v14 overlayStateWillChange:0 contextItem:contextItemForLastUpdate chartController:chartController3];
   }
 
-  v88 = contextItemForLastUpdate;
-  if (v90 && (objc_opt_respondsToSelector() & 1) != 0)
+  v89 = contextItemForLastUpdate;
+  if (v91 && (objc_opt_respondsToSelector() & 1) != 0)
   {
     chartController4 = [(HKOverlayRoomViewController *)self chartController];
-    [v90 stackedOverlayStateWillChange:0 contextItem:contextItemForLastUpdate chartController:chartController4];
+    [v91 stackedOverlayStateWillChange:0 contextItem:contextItemForLastUpdate chartController:chartController4];
   }
 
   if (v20 && (objc_opt_respondsToSelector() & 1) != 0)
@@ -3481,17 +3481,17 @@ LABEL_31:
     [v20 overlayStateWillChange:1 contextItem:v43 chartController:chartController5];
   }
 
-  if (v89 && (objc_opt_respondsToSelector() & 1) != 0)
+  if (v90 && (objc_opt_respondsToSelector() & 1) != 0)
   {
     chartController6 = [(HKOverlayRoomViewController *)self chartController];
-    [v89 stackedOverlayStateWillChange:1 contextItem:v43 chartController:chartController6];
+    [v90 stackedOverlayStateWillChange:1 contextItem:v43 chartController:chartController6];
   }
 
   [(HKOverlayRoomViewController *)self didChangeFromContextItem:contextItemForLastUpdate toContextItem:v43];
   [(HKOverlayRoomViewController *)self setCurrentSelectedContextLocation:selectionCopy];
   if (v23)
   {
-    if (v83)
+    if (v84)
     {
       chartController7 = [(HKOverlayRoomViewController *)self chartController];
       [chartController7 clearDisplayTypeStack];
@@ -3499,15 +3499,15 @@ LABEL_31:
       [(HKOverlayRoomViewController *)self _restoreStackingProportions];
     }
 
-    [(HKOverlayRoomViewController *)self _setupStackingProportionsForContext:v89];
+    [(HKOverlayRoomViewController *)self _setupStackingProportionsForContext:v90];
     chartController8 = [(HKOverlayRoomViewController *)self chartController];
-    [chartController8 installStackedDisplayType:v85];
+    [chartController8 installStackedDisplayType:v86];
 
     chartController9 = [(HKOverlayRoomViewController *)self chartController];
     [chartController9 updateCurrentValueViewWithVisibleRange];
   }
 
-  else if (v83)
+  else if (v84)
   {
     chartController10 = [(HKOverlayRoomViewController *)self chartController];
     [chartController10 clearDisplayTypeStack];
@@ -3515,62 +3515,62 @@ LABEL_31:
     [(HKOverlayRoomViewController *)self _restoreStackingProportions];
   }
 
-  v84 = selectionCopy;
+  v85 = selectionCopy;
   chartController11 = [(HKOverlayRoomViewController *)self chartController];
   chartController12 = [(HKOverlayRoomViewController *)self chartController];
-  v58 = [chartController11 currentDisplayTypesForStackOffset:{objc_msgSend(chartController12, "primaryDisplayTypeStackIndex")}];
+  v59 = [chartController11 currentDisplayTypesForStackOffset:{objc_msgSend(chartController12, "primaryDisplayTypeStackIndex")}];
 
-  v82 = v58;
-  firstObject = [v58 firstObject];
+  v83 = v59;
+  firstObject = [v59 firstObject];
   primaryDisplayType3 = [(HKOverlayRoomViewController *)self primaryDisplayType];
   if (firstObject == primaryDisplayType3)
   {
-    v62 = 1;
+    v63 = 1;
   }
 
   else
   {
     primaryDisplayType4 = [(HKOverlayRoomViewController *)self primaryDisplayType];
-    v62 = [primaryDisplayType4 isEqual:firstObject];
+    v63 = [primaryDisplayType4 isEqual:firstObject];
   }
 
   primaryDisplayType5 = [(HKOverlayRoomViewController *)self primaryDisplayType];
   isActivitySummary = [primaryDisplayType5 isActivitySummary];
 
-  v65 = v23;
+  v66 = v23;
   if ((isActivitySummary & 1) == 0)
   {
-    v65 = v23;
-    if ((v62 & 1) == 0)
+    v66 = v23;
+    if ((v63 & 1) == 0)
     {
-      if (v20 || (objc_opt_respondsToSelector() & 1) == 0 || (v65 = v23, ([v14 unselectedContextShouldUseContextBaseType] & 1) == 0))
+      if (v20 || (objc_opt_respondsToSelector() & 1) == 0 || (v66 = v23, ([v14 unselectedContextShouldUseContextBaseType] & 1) == 0))
       {
         primaryDisplayType6 = [(HKOverlayRoomViewController *)self primaryDisplayType];
         [(HKOverlayRoomViewController *)self _installBaseDisplayType:primaryDisplayType6 autoscale:v23 ^ 1u];
 
-        v65 = 1;
+        v66 = 1;
       }
     }
   }
 
-  if (v91)
+  if (v92)
   {
     primaryDisplayType7 = [(HKOverlayRoomViewController *)self primaryDisplayType];
     if (primaryDisplayType7)
     {
-      v68 = primaryDisplayType7;
+      v69 = primaryDisplayType7;
       primaryDisplayType8 = [(HKOverlayRoomViewController *)self primaryDisplayType];
       isActivitySummary2 = [primaryDisplayType8 isActivitySummary];
 
       if ((isActivitySummary2 & 1) == 0)
       {
-        [(HKOverlayRoomViewController *)self _installBaseDisplayType:v91 autoscale:v23 ^ 1u];
-        v65 = 1;
+        [(HKOverlayRoomViewController *)self _installBaseDisplayType:v92 autoscale:v23 ^ 1u];
+        v66 = 1;
       }
     }
   }
 
-  if (v91 != firstObject)
+  if (v92 != firstObject)
   {
     chartController13 = [(HKOverlayRoomViewController *)self chartController];
     [chartController13 updateCurrentValueViewWithVisibleRange];
@@ -3578,27 +3578,27 @@ LABEL_31:
 
   if (v20)
   {
-    v72 = [v20 overlayDisplayTypeForTimeScope:self->_currentChartTimeScope];
+    v73 = [v20 overlayDisplayTypeForTimeScope:self->_currentChartTimeScope];
   }
 
   else
   {
-    v72 = 0;
+    v73 = 0;
   }
 
   chartController14 = [(HKOverlayRoomViewController *)self chartController];
-  [chartController14 installOverlayDisplayType:v72];
+  [chartController14 installOverlayDisplayType:v73];
 
   if (v14 && (objc_opt_respondsToSelector() & 1) != 0)
   {
     chartController15 = [(HKOverlayRoomViewController *)self chartController];
-    [v14 overlayStateDidChange:0 contextItem:v88 chartController:chartController15];
+    [v14 overlayStateDidChange:0 contextItem:v89 chartController:chartController15];
   }
 
-  if (v90 && (objc_opt_respondsToSelector() & 1) != 0)
+  if (v91 && (objc_opt_respondsToSelector() & 1) != 0)
   {
     chartController16 = [(HKOverlayRoomViewController *)self chartController];
-    [v90 stackedOverlayStateDidChange:0 contextItem:v88 chartController:chartController16];
+    [v91 stackedOverlayStateDidChange:0 contextItem:v89 chartController:chartController16];
   }
 
   if (v20)
@@ -3609,20 +3609,20 @@ LABEL_31:
       [v20 overlayStateDidChange:1 contextItem:v43 chartController:chartController17];
     }
 
-    if ((objc_opt_respondsToSelector() & 1) != 0 && (!v86 || ([v86 isEqual:v84] & 1) == 0))
+    if ((objc_opt_respondsToSelector() & 1) != 0 && (!v87 || ([v87 isEqual:v85] & 1) == 0))
     {
       chartController18 = [(HKOverlayRoomViewController *)self chartController];
       [v20 overlayWasExplicitlySelected:v43 chartController:chartController18];
     }
   }
 
-  if (v89 && (objc_opt_respondsToSelector() & 1) != 0)
+  if (v90 && (objc_opt_respondsToSelector() & 1) != 0)
   {
     chartController19 = [(HKOverlayRoomViewController *)self chartController];
-    [v89 stackedOverlayStateDidChange:1 contextItem:v43 chartController:chartController19];
+    [v90 stackedOverlayStateDidChange:1 contextItem:v43 chartController:chartController19];
   }
 
-  if (v65)
+  if (v66)
   {
     chartController20 = [(HKOverlayRoomViewController *)self chartController];
     primaryGraphViewController = [chartController20 primaryGraphViewController];
@@ -3630,15 +3630,15 @@ LABEL_31:
     [graphView resetAndRedraw];
   }
 
-  selectionCopy = v84;
-  previousSelectionCopy = v86;
-  if (v84 | v86)
+  selectionCopy = v85;
+  previousSelectionCopy = v87;
+  if (v85 | v87)
   {
-    [(HKOverlayRoomViewController *)self setRestorationContextLocation:v84];
+    [(HKOverlayRoomViewController *)self setRestorationContextLocation:v85];
     [(HKOverlayRoomViewController *)self saveRestorationState];
   }
 
-  contextItemForLastUpdate = v88;
+  contextItemForLastUpdate = v89;
 LABEL_90:
 }
 
@@ -3704,7 +3704,9 @@ LABEL_90:
 - (void)_setupStackingProportionsForContext:(id)context
 {
   contextCopy = context;
-  if (objc_opt_respondsToSelector())
+  v4 = objc_opt_respondsToSelector();
+  v5 = contextCopy;
+  if (v4)
   {
     stackedHeight = [contextCopy stackedHeight];
     kind = [stackedHeight kind];
@@ -3717,16 +3719,16 @@ LABEL_90:
       {
         chartController2 = [(HKOverlayRoomViewController *)self chartController];
         stackedDisplayTypeHeights2 = [chartController2 stackedDisplayTypeHeights];
-        v6 = [stackedDisplayTypeHeights2 arrayByAddingObject:stackedHeight];
+        v8 = [stackedDisplayTypeHeights2 arrayByAddingObject:stackedHeight];
       }
 
       else
       {
         chartController2 = [(HKOverlayRoomViewController *)self _evenStackedProportions];
-        v6 = [chartController2 arrayByAddingObject:stackedHeight];
+        v8 = [chartController2 arrayByAddingObject:stackedHeight];
       }
 
-      if (!v6)
+      if (!v8)
       {
         goto LABEL_6;
       }
@@ -3740,8 +3742,8 @@ LABEL_90:
       }
 
       [stackedHeight heightValue];
-      v6 = [(HKOverlayRoomViewController *)self _computeRevisedRatiosGivenRatio:?];
-      if (!v6)
+      v8 = [(HKOverlayRoomViewController *)self _computeRevisedRatiosGivenRatio:?];
+      if (!v8)
       {
         goto LABEL_6;
       }
@@ -3752,12 +3754,13 @@ LABEL_90:
     [(HKOverlayRoomViewController *)self setPreviousStackHeights:stackedDisplayTypeHeights3];
 
     chartController4 = [(HKOverlayRoomViewController *)self chartController];
-    [chartController4 setStackedDisplayTypeHeights:v6];
+    [chartController4 setStackedDisplayTypeHeights:v8];
 
 LABEL_6:
+    v5 = contextCopy;
   }
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v4, v5);
 }
 
 - (id)_computeRevisedRatiosGivenRatio:(double)ratio
@@ -4159,7 +4162,7 @@ LABEL_8:
   dispatch_async(MEMORY[0x1E69E96A0], v7);
 }
 
-uint64_t __81__HKOverlayRoomViewController_sampleTypeDateRangeController_didUpdateDateRanges___block_invoke(uint64_t a1)
+void *__81__HKOverlayRoomViewController_sampleTypeDateRangeController_didUpdateDateRanges___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _shouldUpdateContextItemsForChanges:*(a1 + 40)];
   if (result)

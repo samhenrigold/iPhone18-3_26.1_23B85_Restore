@@ -320,11 +320,11 @@ void __53__PKAddPassesCardStackViewController_viewWillAppear___block_invoke(uint
   dispatch_async(MEMORY[0x1E69E96A0], block);
 }
 
-uint64_t __53__PKAddPassesCardStackViewController_viewWillAppear___block_invoke_2(uint64_t result)
+id *__53__PKAddPassesCardStackViewController_viewWillAppear___block_invoke_2(id *result)
 {
-  if (*(result + 40))
+  if (result[5])
   {
-    return [*(result + 32) setSettings:*(result + 48)];
+    return [result[4] setSettings:result[6]];
   }
 
   return result;
@@ -858,7 +858,7 @@ LABEL_7:
   _Block_object_dispose(&v21, 8);
 }
 
-uint64_t __67__PKAddPassesCardStackViewController__configureNavigationItemTitle__block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__67__PKAddPassesCardStackViewController__configureNavigationItemTitle__block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   result = [a2 style];
   *(*(*(a1 + 32) + 8) + 24) = result == *(a1 + 40);

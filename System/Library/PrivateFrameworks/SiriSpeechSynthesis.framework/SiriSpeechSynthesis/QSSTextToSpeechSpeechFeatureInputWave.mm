@@ -76,11 +76,7 @@ uint64_t __59__QSSTextToSpeechSpeechFeatureInputWave_addObjectToBuffer___block_i
 
 - (void)pcm_data:(id)pcm_data
 {
-  root = self->_root;
-  v5 = &root[-*root->var0];
   pcm_dataCopy = pcm_data;
-  v7 = *root[*v5[6].var0 + *root[*v5[6].var0].var0].var0;
-  v8 = pcm_dataCopy;
   (*(pcm_data + 2))();
 }
 

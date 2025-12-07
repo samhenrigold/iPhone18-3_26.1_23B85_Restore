@@ -23,8 +23,8 @@
 
   else
   {
-    infoDictionary = [v27 infoDictionary];
-    v4 = [infoDictionary bs_safeArrayForKey:@"BSPluginSpecification"];
+    v5 = objc_msgSend_infoDictionary(v27, 0);
+    v4 = [v5 bs_safeArrayForKey:@"BSPluginSpecification"];
   }
 
   v32 = 0u;

@@ -1,6 +1,6 @@
 @interface NSSQLEntity_DerivedAttributesExtension
+- (CFDictionaryRef)addDerivationKeypath:(void *)key forAttribute:;
 - (NSSQLEntity_DerivedAttributesExtension)initWithEntity:(id)entity;
-- (uint64_t)addDerivationKeypath:(void *)key forAttribute:;
 - (void)_generateTriggerSQL;
 - (void)dealloc;
 @end
@@ -70,16 +70,16 @@
   return v5;
 }
 
-- (uint64_t)addDerivationKeypath:(void *)key forAttribute:
+- (CFDictionaryRef)addDerivationKeypath:(void *)key forAttribute:
 {
   if (result)
   {
     v5 = result;
-    Value = CFDictionaryGetValue(*(result + 16), key);
+    Value = CFDictionaryGetValue(result[2], key);
     if (!Value)
     {
       Value = objc_alloc_init(MEMORY[0x1E695DFA8]);
-      CFDictionarySetValue(*(v5 + 16), key, Value);
+      CFDictionarySetValue(v5[2], key, Value);
     }
 
     result = [a2 count];

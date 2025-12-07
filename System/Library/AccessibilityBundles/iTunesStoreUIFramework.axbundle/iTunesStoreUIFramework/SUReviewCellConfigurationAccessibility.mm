@@ -8,30 +8,27 @@
 {
   [self _accessibilityReloadMediaStrings];
   v3 = [(SUReviewCellConfigurationAccessibility *)self safeValueForKey:@"_accessibilityStringsArrayPointer"];
-  bytes = [v3 bytes];
-  v5 = [(SUReviewCellConfigurationAccessibility *)self safeValueForKey:@"_representedObject"];
-  v6 = v5;
-  if (v5)
+  [v3 bytes];
+  v4 = [(SUReviewCellConfigurationAccessibility *)self safeValueForKey:@"_representedObject"];
+  v5 = v4;
+  if (v4)
   {
-    v7 = [v5 safeValueForKey:@"reviewStatistics"];
-    v8 = [v7 safeValueForKey:@"averageUserRating"];
-    [v8 floatValue];
-    v10 = v9;
+    v6 = [v4 safeValueForKey:@"reviewStatistics"];
+    v7 = [v6 safeValueForKey:@"averageUserRating"];
+    [v7 floatValue];
+    v9 = v8;
 
-    v11 = starStringForStarCount(v10);
+    v10 = starStringForStarCount(v9);
   }
 
   else
   {
-    v11 = 0;
+    v10 = 0;
   }
 
-  v12 = bytes[1];
-  v16 = *bytes;
-  v15 = bytes[2];
-  v13 = __UIAXStringForVariables();
+  v11 = __UIAXStringForVariables();
 
-  return v13;
+  return v11;
 }
 
 @end

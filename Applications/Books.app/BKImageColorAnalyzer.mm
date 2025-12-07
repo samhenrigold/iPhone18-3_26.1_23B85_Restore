@@ -10,14 +10,14 @@
   cGImage = [color CGImage];
   Width = CGImageGetWidth(cGImage);
   Height = CGImageGetHeight(cGImage);
-  v6 = 0;
+  v7 = 0;
   if (Width && Height)
   {
-    v7 = sub_1000A4730();
-    if (v7)
+    v8 = sub_1000A4730(Height, v6);
+    if (v8)
     {
-      CopyWithColorSpace = CGImageCreateCopyWithColorSpace(cGImage, v7);
-      v9 = CopyWithColorSpace;
+      CopyWithColorSpace = CGImageCreateCopyWithColorSpace(cGImage, v8);
+      v10 = CopyWithColorSpace;
       if (CopyWithColorSpace)
       {
         cGImage = CopyWithColorSpace;
@@ -26,30 +26,30 @@
 
     else
     {
-      v9 = 0;
+      v10 = 0;
     }
 
-    v10 = TSDBitmapContextCreate();
-    CGContextSetInterpolationQuality(v10, kCGInterpolationHigh);
+    v11 = TSDBitmapContextCreate();
+    CGContextSetInterpolationQuality(v11, kCGInterpolationHigh);
+    if (v11)
+    {
+      v15.origin.x = CGPointZero.x;
+      v15.origin.y = CGPointZero.y;
+      v15.size.width = 22.0;
+      v15.size.height = 22.0;
+      CGContextDrawImage(v11, v15, cGImage);
+    }
+
     if (v10)
     {
-      v14.origin.x = CGPointZero.x;
-      v14.origin.y = CGPointZero.y;
-      v14.size.width = 22.0;
-      v14.size.height = 22.0;
-      CGContextDrawImage(v10, v14, cGImage);
+      CGImageRelease(v10);
     }
 
-    if (v9)
+    sub_10011D024(v13);
+    if (sub_10012C8D4(v11, v13))
     {
-      CGImageRelease(v9);
-    }
-
-    sub_10011D024(v12);
-    if (sub_10012C8D4(v10, v12))
-    {
-      v6 = [UIColor colorWithRed:v12[0] green:v12[1] blue:v12[2] alpha:v12[3]];
-      if (!v10)
+      v7 = [UIColor colorWithRed:v13[0] green:v13[1] blue:v13[2] alpha:v13[3]];
+      if (!v11)
       {
         goto LABEL_17;
       }
@@ -57,19 +57,19 @@
 
     else
     {
-      v6 = 0;
-      if (!v10)
+      v7 = 0;
+      if (!v11)
       {
         goto LABEL_17;
       }
     }
 
-    CGContextRelease(v10);
+    CGContextRelease(v11);
   }
 
 LABEL_17:
 
-  return v6;
+  return v7;
 }
 
 + (double)colorLuminance:(CGColor *)luminance

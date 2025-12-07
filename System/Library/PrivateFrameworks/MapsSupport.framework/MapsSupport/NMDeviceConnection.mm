@@ -2,7 +2,9 @@
 - (BOOL)_shouldIncludeTemporaryLocationAuthorizationWithMessage:(id)message;
 - (NMDeviceConnection)init;
 - (id)_idsOptionsForMessage:(id)message withOptions:(id)options;
+- (id)_messageQueueForType:(int)type;
 - (id)_nearbyConnectedDevice;
+- (id)addMessageObserverForType:(int)type callback:(id)callback;
 - (int64_t)_priorityForMessage:(id)message;
 - (unint64_t)_determineProtocolVersion:(id)version;
 - (unint64_t)protocolVersion;
@@ -11,10 +13,13 @@
 - (void)_sendReply:(id)reply forMessage:(id)message options:(id)options force:(BOOL)force timeSpentEnqueued:(double)enqueued;
 - (void)_unpauseAllQueues;
 - (void)_updateReceiverProcessUUID:(id)d;
+- (void)cancelAllMessagesOfType:(int)type;
+- (void)removeMessageObserver:(id)observer forType:(int)type;
 - (void)sendMessage:(id)message options:(id)options withReply:(id)reply;
 - (void)sendReply:(id)reply forMessage:(id)message options:(id)options;
 - (void)service:(id)service account:(id)account identifier:(id)identifier didSendWithSuccess:(BOOL)success error:(id)error;
 - (void)service:(id)service account:(id)account incomingData:(id)data fromID:(id)d context:(id)context;
+- (void)setMessageQueue:(id)queue forType:(int)type;
 - (void)suspend;
 - (void)test_disconnect;
 - (void)test_reconnect;
@@ -116,7 +121,7 @@
 {
   if (self->_queue)
   {
-    v3 = sub_100053434();
+    v3 = sub_100053434(self);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       *v4 = 0;
@@ -133,22 +138,23 @@
   if (dCopy)
   {
     [(NSLock *)self->_receiverProcessUUIDLock lock];
-    if ([(NSString *)self->_receiverProcessUUID isEqualToString:dCopy])
+    v6 = [(NSString *)self->_receiverProcessUUID isEqualToString:dCopy];
+    if (v6)
     {
       [(NSLock *)self->_receiverProcessUUIDLock unlock];
     }
 
     else
     {
-      v6 = sub_100001B24();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+      v7 = sub_100001B24(v6);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
       {
         receiverProcessUUID = self->_receiverProcessUUID;
-        v8 = 138478083;
-        v9 = receiverProcessUUID;
-        v10 = 2113;
-        v11 = dCopy;
-        _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_INFO, "Receiver process UUID changed (old: %{private}@, new: %{private}@). Requesting clients re-sync state if necessary.", &v8, 0x16u);
+        v9 = 138478083;
+        v10 = receiverProcessUUID;
+        v11 = 2113;
+        v12 = dCopy;
+        _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_INFO, "Receiver process UUID changed (old: %{private}@, new: %{private}@). Requesting clients re-sync state if necessary.", &v9, 0x16u);
       }
 
       objc_storeStrong(&self->_receiverProcessUUID, d);
@@ -199,6 +205,42 @@
 LABEL_12:
 
   return v3;
+}
+
+- (id)_messageQueueForType:(int)type
+{
+  v3 = *&type;
+  [(NSRecursiveLock *)self->_messageQueuesLock lock];
+  messageQueues = self->_messageQueues;
+  v6 = [NSNumber numberWithInt:v3];
+  v7 = [(NSMutableDictionary *)messageQueues objectForKey:v6];
+
+  if (!v7)
+  {
+    v7 = objc_alloc_init(NMMessageQueue);
+    v8 = self->_messageQueues;
+    v9 = [NSNumber numberWithInt:v3];
+    [(NSMutableDictionary *)v8 setObject:v7 forKeyedSubscript:v9];
+  }
+
+  [(NSRecursiveLock *)self->_messageQueuesLock unlock];
+
+  return v7;
+}
+
+- (void)setMessageQueue:(id)queue forType:(int)type
+{
+  v4 = *&type;
+  messageQueuesLock = self->_messageQueuesLock;
+  queueCopy = queue;
+  [(NSRecursiveLock *)messageQueuesLock lock];
+  messageQueues = self->_messageQueues;
+  v9 = [NSNumber numberWithInt:v4];
+  [(NSMutableDictionary *)messageQueues setObject:queueCopy forKey:v9];
+
+  v10 = self->_messageQueuesLock;
+
+  [(NSRecursiveLock *)v10 unlock];
 }
 
 - (id)_idsOptionsForMessage:(id)message withOptions:(id)options
@@ -381,12 +423,12 @@ LABEL_8:
     v15 = [optionsCopy objectForKeyedSubscript:@"NMSendMessageOptionFireAndForget"];
     if (!v15 || (v16 = v15, [optionsCopy objectForKeyedSubscript:@"NMSendMessageOptionFireAndForget"], v17 = objc_claimAutoreleasedReturnValue(), v18 = objc_msgSend(v17, "BOOLValue"), v17, v16, v18))
     {
-      v19 = sub_100001B24();
+      v19 = sub_100001B24(v15);
       if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
       {
         shortDebugDescription = [messageCopy shortDebugDescription];
         *buf = 138477827;
-        v94 = shortDebugDescription;
+        v103 = shortDebugDescription;
         _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_INFO, "Not sending message because device is not connected: %{private}@", buf, 0xCu);
       }
 
@@ -394,8 +436,8 @@ LABEL_8:
       {
         v21 = 3;
 LABEL_15:
-        v25 = [NSError errorWithDomain:@"NMDeviceConnectionErrorDomain" code:v21 userInfo:0];
-        replyCopy[2](replyCopy, 0, v25);
+        v26 = [NSError errorWithDomain:@"NMDeviceConnectionErrorDomain" code:v21 userInfo:0];
+        replyCopy[2](replyCopy, 0, v26);
 LABEL_16:
 
         goto LABEL_17;
@@ -405,7 +447,8 @@ LABEL_16:
     }
   }
 
-  if ([(NMDeviceConnection *)self shouldSendMessage:messageCopy])
+  v22 = [(NMDeviceConnection *)self shouldSendMessage:messageCopy];
+  if (v22)
   {
     if (force)
     {
@@ -414,48 +457,50 @@ LABEL_16:
 
     else
     {
-      v26 = [optionsCopy objectForKeyedSubscript:@"NMSendMessageOptionSendImmediately"];
-      bOOLValue = [v26 BOOLValue];
+      v27 = [optionsCopy objectForKeyedSubscript:@"NMSendMessageOptionSendImmediately"];
+      bOOLValue = [v27 BOOLValue];
     }
 
-    v25 = -[NMDeviceConnection _messageQueueForType:](self, "_messageQueueForType:", [messageCopy type]);
-    if (!-[NMDeviceConnection canSendMessageWithType:](self, "canSendMessageWithType:", [messageCopy type]))
+    v26 = -[NMDeviceConnection _messageQueueForType:](self, "_messageQueueForType:", [messageCopy type]);
+    v28 = -[NMDeviceConnection canSendMessageWithType:](self, "canSendMessageWithType:", [messageCopy type]);
+    if ((v28 & 1) == 0)
     {
-      v29 = sub_100001B24();
-      if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
+      v32 = sub_100001B24(v28);
+      if (os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
       {
         shortDebugDescription2 = [messageCopy shortDebugDescription];
         *buf = 138477827;
-        v94 = shortDebugDescription2;
-        _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_INFO, "Not sending message because remote device does not support it: %{private}@", buf, 0xCu);
+        v103 = shortDebugDescription2;
+        _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_INFO, "Not sending message because remote device does not support it: %{private}@", buf, 0xCu);
       }
 
       if (replyCopy)
       {
-        v31 = [NSError errorWithDomain:@"NMDeviceConnectionErrorDomain" code:6 userInfo:0];
-        replyCopy[2](replyCopy, 0, v31);
+        v34 = [NSError errorWithDomain:@"NMDeviceConnectionErrorDomain" code:6 userInfo:0];
+        replyCopy[2](replyCopy, 0, v34);
       }
 
       goto LABEL_16;
     }
 
-    if (([v25 isPaused] & 1) != 0 || (bOOLValue & 1) == 0 && (objc_msgSend(v25, "shouldSendNewPayload") & 1) == 0)
+    isPaused = [v26 isPaused];
+    if ((isPaused & 1) != 0 || (bOOLValue & 1) == 0 && (isPaused = [v26 shouldSendNewPayload], (isPaused & 1) == 0))
     {
-      v27 = sub_100001B24();
-      if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
+      v30 = sub_100001B24(isPaused);
+      if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
       {
         shortDebugDescription3 = [messageCopy shortDebugDescription];
         *buf = 138477827;
-        v94 = shortDebugDescription3;
-        _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_INFO, "Cannot send message now, adding to queue: %{private}@", buf, 0xCu);
+        v103 = shortDebugDescription3;
+        _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_INFO, "Cannot send message now, adding to queue: %{private}@", buf, 0xCu);
       }
 
-      [v25 enqueueMessage:messageCopy options:optionsCopy reply:replyCopy];
+      [v26 enqueueMessage:messageCopy options:optionsCopy reply:replyCopy];
       goto LABEL_16;
     }
 
-    v32 = sub_100001B7C();
-    [messageCopy setSenderUUID:v32];
+    v35 = sub_100001B7C(isPaused);
+    [messageCopy setSenderUUID:v35];
 
     [messageCopy setSentTimestamp:CFAbsoluteTimeGetCurrent()];
     if (enqueued > 0.0)
@@ -468,127 +513,127 @@ LABEL_16:
       goto LABEL_130;
     }
 
-    v92 = 0;
-    v33 = [CLLocationManager _getClientTransientAuthorizationInfoForBundleId:@"com.apple.Maps" error:&v92];
-    v34 = v92;
-    v35 = sub_100001B24();
-    v36 = v35;
-    if (v34 || !v33)
+    v101 = 0;
+    v36 = [CLLocationManager _getClientTransientAuthorizationInfoForBundleId:@"com.apple.Maps" error:&v101];
+    v37 = v101;
+    v38 = sub_100001B24(v37);
+    v39 = v38;
+    if (v37 || !v36)
     {
-      if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v94 = v34;
-        _os_log_impl(&_mh_execute_header, v36, OS_LOG_TYPE_ERROR, "Error getting transient location authorization: %@", buf, 0xCu);
+        v103 = v37;
+        _os_log_impl(&_mh_execute_header, v39, OS_LOG_TYPE_ERROR, "Error getting transient location authorization: %@", buf, 0xCu);
       }
 
       goto LABEL_129;
     }
 
-    if (!os_log_type_enabled(v35, OS_LOG_TYPE_INFO))
+    if (!os_log_type_enabled(v38, OS_LOG_TYPE_INFO))
     {
 LABEL_128:
 
-      v36 = objc_alloc_init(NMArgument);
-      [v36 setTag:600];
-      [v36 setDataValue:v33];
-      [messageCopy addArgument:v36];
+      v39 = objc_alloc_init(NMArgument);
+      [v39 setTag:600];
+      [v39 setDataValue:v36];
+      [messageCopy addArgument:v39];
 LABEL_129:
 
 LABEL_130:
       data = [messageCopy data];
-      v39 = [(NMDeviceConnection *)self _idsOptionsForMessage:messageCopy withOptions:optionsCopy];
-      v40 = v39;
+      v42 = [(NMDeviceConnection *)self _idsOptionsForMessage:messageCopy withOptions:optionsCopy];
+      v43 = v42;
       if (replyCopy)
       {
-        if (v39)
+        if (v42)
         {
-          v41 = [v39 mutableCopy];
+          v44 = [v42 mutableCopy];
         }
 
         else
         {
-          v41 = +[NSMutableDictionary dictionary];
+          v44 = +[NSMutableDictionary dictionary];
         }
 
-        v42 = v41;
-        [v41 setObject:&__kCFBooleanTrue forKeyedSubscript:IDSSendMessageOptionExpectsPeerResponseKey];
+        v45 = v44;
+        [v44 setObject:&__kCFBooleanTrue forKeyedSubscript:IDSSendMessageOptionExpectsPeerResponseKey];
 
-        v82 = v42;
+        v91 = v45;
       }
 
       else
       {
-        v82 = v39;
+        v91 = v42;
       }
 
-      v43 = [(NMDeviceConnection *)self _priorityForMessage:messageCopy];
-      v44 = [optionsCopy objectForKeyedSubscript:@"NMSendMessageOptionUrgent"];
+      v46 = [(NMDeviceConnection *)self _priorityForMessage:messageCopy];
+      v47 = [optionsCopy objectForKeyedSubscript:@"NMSendMessageOptionUrgent"];
 
-      if (v44)
+      if (v47)
       {
-        v45 = [optionsCopy objectForKeyedSubscript:@"NMSendMessageOptionUrgent"];
-        if ([v45 BOOLValue])
+        v48 = [optionsCopy objectForKeyedSubscript:@"NMSendMessageOptionUrgent"];
+        if ([v48 BOOLValue])
         {
-          v43 = 300;
+          v46 = 300;
         }
 
         else
         {
-          v43 = 200;
+          v46 = 200;
         }
       }
 
-      v46 = [data length];
-      v47 = v46;
-      if (v43 == 300 && v46 > 0x100000)
+      v49 = [data length];
+      v50 = v49;
+      if (v46 == 300 && v49 > 0x100000)
       {
-        v48 = sub_100001B24();
-        if (os_log_type_enabled(v48, OS_LOG_TYPE_INFO))
+        v51 = sub_100001B24(v49);
+        if (os_log_type_enabled(v51, OS_LOG_TYPE_INFO))
         {
           *buf = 134218240;
-          v94 = v47;
-          v95 = 2048;
-          v96 = 0x100000;
-          _os_log_impl(&_mh_execute_header, v48, OS_LOG_TYPE_INFO, "Degrading message from Urgent to Default priority due to size (%luB / %luB)", buf, 0x16u);
+          v103 = v50;
+          v104 = 2048;
+          v105 = 0x100000;
+          _os_log_impl(&_mh_execute_header, v51, OS_LOG_TYPE_INFO, "Degrading message from Urgent to Default priority due to size (%luB / %luB)", buf, 0x16u);
         }
 
-        v43 = 200;
+        v46 = 200;
       }
 
-      if (v47 > 0x500000)
+      if (v50 > 0x500000)
       {
-        v49 = sub_100001B24();
-        if (os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
+        v52 = sub_100001B24(v49);
+        if (os_log_type_enabled(v52, OS_LOG_TYPE_ERROR))
         {
           *buf = 134218240;
-          v94 = v47;
-          v95 = 2048;
-          v96 = 5242880;
-          _os_log_impl(&_mh_execute_header, v49, OS_LOG_TYPE_ERROR, "Message exceeds maximum permitted and will likely fail (%luB / %luB)", buf, 0x16u);
+          v103 = v50;
+          v104 = 2048;
+          v105 = 5242880;
+          _os_log_impl(&_mh_execute_header, v52, OS_LOG_TYPE_ERROR, "Message exceeds maximum permitted and will likely fail (%luB / %luB)", buf, 0x16u);
         }
       }
 
       idsService = self->_idsService;
       accounts = [(IDSService *)idsService accounts];
       anyObject = [accounts anyObject];
-      v53 = [NSSet setWithObject:IDSDefaultPairedDevice];
-      v90 = 0;
-      v91 = 0;
-      v54 = v43;
-      v55 = v82;
-      LODWORD(idsService) = [(IDSService *)idsService sendData:data fromAccount:anyObject toDestinations:v53 priority:v54 options:v82 identifier:&v91 error:&v90];
-      v83 = v91;
-      v81 = v90;
+      v56 = [NSSet setWithObject:IDSDefaultPairedDevice];
+      v99 = 0;
+      v100 = 0;
+      v57 = v46;
+      v58 = v91;
+      LODWORD(idsService) = [(IDSService *)idsService sendData:data fromAccount:anyObject toDestinations:v56 priority:v57 options:v91 identifier:&v100 error:&v99];
+      v92 = v100;
+      v90 = v99;
 
-      v56 = sub_100001B24();
-      v57 = v56;
+      v60 = sub_100001B24(v59);
+      v61 = v60;
       if (idsService)
       {
-        if (os_log_type_enabled(v56, OS_LOG_TYPE_INFO))
+        if (os_log_type_enabled(v60, OS_LOG_TYPE_INFO))
         {
           shortDebugDescription4 = [messageCopy shortDebugDescription];
-          v59 = [data length];
+          v63 = [data length];
           if (optionsCopy)
           {
             optionsCopy = [NSString stringWithFormat:@", options: %@", optionsCopy];
@@ -601,69 +646,69 @@ LABEL_130:
 
           if (enqueued <= 0.0)
           {
-            v65 = &stru_100087EB8;
+            v70 = &stru_100087EB8;
           }
 
           else
           {
-            v65 = [NSString stringWithFormat:@", enqueued time: %f", *&enqueued];
+            v70 = [NSString stringWithFormat:@", enqueued time: %f", *&enqueued];
           }
 
           *buf = 138478851;
-          v94 = shortDebugDescription4;
-          v95 = 2048;
-          v96 = v59;
-          v97 = 2113;
-          v98 = optionsCopy;
-          v99 = 2113;
-          v100 = v65;
-          v101 = 2113;
-          v102 = v83;
-          _os_log_impl(&_mh_execute_header, v57, OS_LOG_TYPE_INFO, "Sending message: %{private}@ (size = %lu%{private}@%{private}@, GUID = %{private}@)", buf, 0x34u);
+          v103 = shortDebugDescription4;
+          v104 = 2048;
+          v105 = v63;
+          v106 = 2113;
+          v107 = optionsCopy;
+          v108 = 2113;
+          v109 = v70;
+          v110 = 2113;
+          v111 = v92;
+          _os_log_impl(&_mh_execute_header, v61, OS_LOG_TYPE_INFO, "Sending message: %{private}@ (size = %lu%{private}@%{private}@, GUID = %{private}@)", buf, 0x34u);
           if (enqueued > 0.0)
           {
           }
 
-          v55 = v82;
+          v58 = v91;
           if (optionsCopy)
           {
           }
         }
 
-        v66 = sub_100001B24();
-        v64 = v83;
-        v61 = v81;
-        if (os_log_type_enabled(v66, OS_LOG_TYPE_DEBUG))
+        v72 = sub_100001B24(v71);
+        v69 = v92;
+        v65 = v90;
+        if (os_log_type_enabled(v72, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138477827;
-          v94 = messageCopy;
-          _os_log_impl(&_mh_execute_header, v66, OS_LOG_TYPE_DEBUG, "Message contents to be sent: %{private}@", buf, 0xCu);
+          v103 = messageCopy;
+          _os_log_impl(&_mh_execute_header, v72, OS_LOG_TYPE_DEBUG, "Message contents to be sent: %{private}@", buf, 0xCu);
         }
 
-        v67 = objc_alloc_init(_NMSentMessageMetadata);
-        -[_NMSentMessageMetadata setType:](v67, "setType:", [messageCopy type]);
+        v73 = objc_alloc_init(_NMSentMessageMetadata);
+        -[_NMSentMessageMetadata setType:](v73, "setType:", [messageCopy type]);
         [messageCopy sentTimestamp];
-        [(_NMSentMessageMetadata *)v67 setTimestamp:?];
-        -[_NMSentMessageMetadata setPayloadSize:](v67, "setPayloadSize:", [data length]);
-        [(_NMSentMessageMetadata *)v67 setReply:0];
-        [v25 willSendPayloadWithSize:{-[_NMSentMessageMetadata payloadSize](v67, "payloadSize")}];
-        if (v83)
+        [(_NMSentMessageMetadata *)v73 setTimestamp:?];
+        -[_NMSentMessageMetadata setPayloadSize:](v73, "setPayloadSize:", [data length]);
+        [(_NMSentMessageMetadata *)v73 setReply:0];
+        v74 = [v26 willSendPayloadWithSize:{-[_NMSentMessageMetadata payloadSize](v73, "payloadSize")}];
+        if (v92)
         {
           if (replyCopy)
           {
             [(NSLock *)self->_replyCallbackBlocksLock lock];
             replyCallbackBlocks = self->_replyCallbackBlocks;
-            v69 = [replyCopy copy];
-            [(NSMutableDictionary *)replyCallbackBlocks setObject:v69 forKey:v83];
+            v76 = [replyCopy copy];
+            [(NSMutableDictionary *)replyCallbackBlocks setObject:v76 forKey:v92];
 
-            v70 = [optionsCopy objectForKey:@"NMSendMessageOptionReplyTimeout"];
-            if (v70)
+            v77 = [optionsCopy objectForKey:@"NMSendMessageOptionReplyTimeout"];
+            if (v77)
             {
-              v71 = [optionsCopy objectForKeyedSubscript:@"NMSendMessageOptionReplyTimeout"];
-              [v71 doubleValue];
-              delta = (v72 * 1000000000.0);
+              v78 = [optionsCopy objectForKeyedSubscript:@"NMSendMessageOptionReplyTimeout"];
+              [v78 doubleValue];
+              delta = (v79 * 1000000000.0);
 
-              v55 = v82;
+              v58 = v91;
             }
 
             else
@@ -671,65 +716,66 @@ LABEL_130:
               delta = 120000000000;
             }
 
-            v77 = dispatch_source_create(&_dispatch_source_type_timer, 0, 0, self->_queue);
-            v64 = v83;
-            if (v77)
+            v86 = dispatch_source_create(&_dispatch_source_type_timer, 0, 0, self->_queue);
+            v69 = v92;
+            if (v86)
             {
-              v78 = dispatch_time(0, delta);
-              dispatch_source_set_timer(v77, v78, 0xFFFFFFFFFFFFFFFFLL, 0);
+              v87 = dispatch_time(0, delta);
+              dispatch_source_set_timer(v86, v87, 0xFFFFFFFFFFFFFFFFLL, 0);
               handler[0] = _NSConcreteStackBlock;
               handler[1] = 3221225472;
               handler[2] = sub_10003F5A8;
               handler[3] = &unk_100086628;
-              v86 = messageCopy;
-              v87 = v83;
+              v95 = messageCopy;
+              v96 = v92;
               selfCopy = self;
-              v79 = v67;
-              v89 = v79;
-              dispatch_source_set_event_handler(v77, handler);
-              [(_NMSentMessageMetadata *)v79 setTimeoutTimer:v77];
-              dispatch_resume(v77);
+              v88 = v73;
+              v98 = v88;
+              dispatch_source_set_event_handler(v86, handler);
+              [(_NMSentMessageMetadata *)v88 setTimeoutTimer:v86];
+              dispatch_resume(v86);
             }
 
-            [(NSMutableDictionary *)self->_replyExpectingMessageMetadata setObject:v67 forKey:v83];
+            [(NSMutableDictionary *)self->_replyExpectingMessageMetadata setObject:v73 forKey:v92];
             [(NSLock *)self->_replyCallbackBlocksLock unlock];
 
-            v61 = v81;
+            v65 = v90;
           }
 
-          [(NSMutableDictionary *)self->_inFlightMessageMetadata setObject:v67 forKey:v64];
+          [(NSMutableDictionary *)self->_inFlightMessageMetadata setObject:v73 forKey:v69];
         }
 
         else
         {
-          v73 = sub_100001B24();
-          if (os_log_type_enabled(v73, OS_LOG_TYPE_ERROR))
+          v80 = sub_100001B24(v74);
+          if (os_log_type_enabled(v80, OS_LOG_TYPE_ERROR))
           {
             *buf = 0;
-            _os_log_impl(&_mh_execute_header, v73, OS_LOG_TYPE_ERROR, "ERROR: Did not receive an identifier for sent message", buf, 2u);
+            _os_log_impl(&_mh_execute_header, v80, OS_LOG_TYPE_ERROR, "ERROR: Did not receive an identifier for sent message", buf, 2u);
           }
 
-          v74 = sub_100053104();
-          if (os_log_type_enabled(v74, OS_LOG_TYPE_ERROR))
+          v82 = sub_100053104(v81);
+          if (os_log_type_enabled(v82, OS_LOG_TYPE_ERROR))
           {
             *buf = 136315650;
-            v94 = "[NMDeviceConnection _sendMessage:options:force:timeSpentEnqueued:withReply:]";
-            v95 = 2080;
-            v96 = "NMDeviceConnection.m";
-            v97 = 1024;
-            LODWORD(v98) = 496;
-            _os_log_impl(&_mh_execute_header, v74, OS_LOG_TYPE_ERROR, "%s [%s:%d] Assertion reached unexpectedly!", buf, 0x1Cu);
+            v103 = "[NMDeviceConnection _sendMessage:options:force:timeSpentEnqueued:withReply:]";
+            v104 = 2080;
+            v105 = "NMDeviceConnection.m";
+            v106 = 1024;
+            LODWORD(v107) = 496;
+            _os_log_impl(&_mh_execute_header, v82, OS_LOG_TYPE_ERROR, "%s [%s:%d] Assertion reached unexpectedly!", buf, 0x1Cu);
           }
 
-          if (sub_10000645C())
+          v83 = sub_10000645C();
+          if (v83)
           {
-            v75 = sub_100053104();
-            if (os_log_type_enabled(v75, OS_LOG_TYPE_ERROR))
+            v84 = sub_100053104(v83);
+            if (os_log_type_enabled(v84, OS_LOG_TYPE_ERROR))
             {
-              v76 = +[NSThread callStackSymbols];
+              v85 = +[NSThread callStackSymbols];
               *buf = 138412290;
-              v94 = v76;
-              _os_log_impl(&_mh_execute_header, v75, OS_LOG_TYPE_ERROR, "%@", buf, 0xCu);
+              v103 = v85;
+              _os_log_impl(&_mh_execute_header, v84, OS_LOG_TYPE_ERROR, "%@", buf, 0xCu);
             }
           }
         }
@@ -737,29 +783,29 @@ LABEL_130:
 
       else
       {
-        v61 = v81;
-        if (os_log_type_enabled(v56, OS_LOG_TYPE_ERROR))
+        v65 = v90;
+        if (os_log_type_enabled(v60, OS_LOG_TYPE_ERROR))
         {
           shortDebugDescription5 = [messageCopy shortDebugDescription];
           *buf = 138478083;
-          v94 = shortDebugDescription5;
-          v95 = 2113;
-          v96 = v81;
-          _os_log_impl(&_mh_execute_header, v57, OS_LOG_TYPE_ERROR, "Error sending message: messageType=%{private}@ -- %{private}@", buf, 0x16u);
+          v103 = shortDebugDescription5;
+          v104 = 2113;
+          v105 = v90;
+          _os_log_impl(&_mh_execute_header, v61, OS_LOG_TYPE_ERROR, "Error sending message: messageType=%{private}@ -- %{private}@", buf, 0x16u);
         }
 
-        v63 = sub_100001B24();
-        v64 = v83;
-        if (os_log_type_enabled(v63, OS_LOG_TYPE_DEBUG))
+        v68 = sub_100001B24(v67);
+        v69 = v92;
+        if (os_log_type_enabled(v68, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138477827;
-          v94 = messageCopy;
-          _os_log_impl(&_mh_execute_header, v63, OS_LOG_TYPE_DEBUG, "Message contents which failed: %{private}@", buf, 0xCu);
+          v103 = messageCopy;
+          _os_log_impl(&_mh_execute_header, v68, OS_LOG_TYPE_DEBUG, "Message contents which failed: %{private}@", buf, 0xCu);
         }
 
         if (replyCopy)
         {
-          replyCopy[2](replyCopy, 0, v81);
+          replyCopy[2](replyCopy, 0, v90);
         }
 
         -[NMDeviceConnection _dequeueNextMessageIfNecessaryForType:](self, "_dequeueNextMessageIfNecessaryForType:", [messageCopy type]);
@@ -777,17 +823,17 @@ LABEL_130:
         {
           if (type == 203)
           {
-            v38 = @"FAILED_TO_UPDATE_LOCATION";
+            v41 = @"FAILED_TO_UPDATE_LOCATION";
           }
 
           else if (type == 204)
           {
-            v38 = @"DID_PAUSE_LOCATION_UPDATES";
+            v41 = @"DID_PAUSE_LOCATION_UPDATES";
           }
 
           else
           {
-            v38 = @"DID_RESUME_LOCATION_UPDATES";
+            v41 = @"DID_RESUME_LOCATION_UPDATES";
           }
         }
 
@@ -796,52 +842,52 @@ LABEL_130:
           switch(type)
           {
             case 300:
-              v38 = @"UPDATE_NAV_ROUTE_DETAILS";
+              v41 = @"UPDATE_NAV_ROUTE_DETAILS";
               break;
             case 301:
-              v38 = @"UPDATE_NAV_ROUTE_STATUS";
+              v41 = @"UPDATE_NAV_ROUTE_STATUS";
               break;
             case 302:
-              v38 = @"START_NAV";
+              v41 = @"START_NAV";
               break;
             case 303:
-              v38 = @"STOP_NAV";
+              v41 = @"STOP_NAV";
               break;
             case 304:
-              v38 = @"PREVIEW_NAV";
+              v41 = @"PREVIEW_NAV";
               break;
             case 305:
-              v38 = @"CLEAR_NAV_PREVIEW";
+              v41 = @"CLEAR_NAV_PREVIEW";
               break;
             case 306:
-              v38 = @"SET_WANTS_ALL_NAV_STATUS_UPDATES";
+              v41 = @"SET_WANTS_ALL_NAV_STATUS_UPDATES";
               break;
             case 307:
-              v38 = @"DISMISS_NAV_SAFETY_ALERT";
+              v41 = @"DISMISS_NAV_SAFETY_ALERT";
               break;
             case 308:
-              v38 = @"AVAILABLE_ROUTE";
+              v41 = @"AVAILABLE_ROUTE";
               break;
             case 309:
-              v38 = @"SELECTED_ROUTE";
+              v41 = @"SELECTED_ROUTE";
               break;
             case 310:
-              v38 = @"REQUEST_NAVIGATION_UPDATE";
+              v41 = @"REQUEST_NAVIGATION_UPDATE";
               break;
             case 311:
-              v38 = @"UPDATE_NAV_ROUTE_UPDATE";
+              v41 = @"UPDATE_NAV_ROUTE_UPDATE";
               break;
             case 312:
-              v38 = @"AVAILABLE_ROUTE_UPDATE";
+              v41 = @"AVAILABLE_ROUTE_UPDATE";
               break;
             case 313:
-              v38 = @"PAUSE_NAV";
+              v41 = @"PAUSE_NAV";
               break;
             case 314:
-              v38 = @"RESUME_NAV";
+              v41 = @"RESUME_NAV";
               break;
             case 315:
-              v38 = @"SET_DISPLAYED_STEP";
+              v41 = @"SET_DISPLAYED_STEP";
               break;
             default:
               if (type != 206)
@@ -849,7 +895,7 @@ LABEL_130:
                 goto LABEL_87;
               }
 
-              v38 = @"APPLY_LOCATION_AUTHORIZATION";
+              v41 = @"APPLY_LOCATION_AUTHORIZATION";
               break;
           }
         }
@@ -863,13 +909,13 @@ LABEL_130:
         {
           if (type == 1500)
           {
-            v38 = @"DEBUG_FETCH_CONFIGURATION_INFO";
+            v41 = @"DEBUG_FETCH_CONFIGURATION_INFO";
             goto LABEL_127;
           }
 
           if (type == 1501)
           {
-            v38 = @"DEBUG_FETCH_DIAGNOSTICS_STRING";
+            v41 = @"DEBUG_FETCH_DIAGNOSTICS_STRING";
             goto LABEL_127;
           }
         }
@@ -878,13 +924,13 @@ LABEL_130:
         {
           if (type == 600)
           {
-            v38 = @"FETCH_ROUTE_GENIUS";
+            v41 = @"FETCH_ROUTE_GENIUS";
             goto LABEL_127;
           }
 
           if (type == 1000)
           {
-            v38 = @"PING";
+            v41 = @"PING";
             goto LABEL_127;
           }
         }
@@ -896,13 +942,13 @@ LABEL_130:
       {
         if (type == 501)
         {
-          v38 = @"PLACE_DATA_IDENTIFIER_LOOKUP";
+          v41 = @"PLACE_DATA_IDENTIFIER_LOOKUP";
           goto LABEL_127;
         }
 
         if (type == 502)
         {
-          v38 = @"SERVICE_REQUEST";
+          v41 = @"SERVICE_REQUEST";
           goto LABEL_127;
         }
 
@@ -911,7 +957,7 @@ LABEL_130:
 
       if (type == 401)
       {
-        v38 = @"OPEN_URL";
+        v41 = @"OPEN_URL";
         goto LABEL_127;
       }
 
@@ -920,7 +966,7 @@ LABEL_130:
         goto LABEL_87;
       }
 
-      v38 = @"PLACE_DATA_MUID_LOOKUP";
+      v41 = @"PLACE_DATA_MUID_LOOKUP";
     }
 
     else
@@ -932,57 +978,57 @@ LABEL_130:
           switch(type)
           {
             case '2':
-              v38 = @"START_INITIAL_SYNC";
+              v41 = @"START_INITIAL_SYNC";
               break;
             case '3':
-              v38 = @"FETCH_CURRENT_COUNTRY_CODE";
+              v41 = @"FETCH_CURRENT_COUNTRY_CODE";
               break;
             case '4':
-              v38 = @"FETCH_EXPERIMENTS_CONFIG";
+              v41 = @"FETCH_EXPERIMENTS_CONFIG";
               break;
             case '5':
-              v38 = @"DID_CHANGE_EXPERIMENTS_CONFIG";
+              v41 = @"DID_CHANGE_EXPERIMENTS_CONFIG";
               break;
             case '6':
-              v38 = @"SYNC_UP_NEXT_ITEMS";
+              v41 = @"SYNC_UP_NEXT_ITEMS";
               break;
             case '7':
-              v38 = @"REQUEST_UP_NEXT_ITEMS";
+              v41 = @"REQUEST_UP_NEXT_ITEMS";
               break;
             case '8':
-              v38 = @"SYNC_CONFIG_STORE";
+              v41 = @"SYNC_CONFIG_STORE";
               break;
             case '9':
-              v38 = @"CHECKIN_WITH_CONFIG_STORE";
+              v41 = @"CHECKIN_WITH_CONFIG_STORE";
               break;
             case ':':
-              v38 = @"REQUEST_ANALYTIC_IDENTIFIERS";
+              v41 = @"REQUEST_ANALYTIC_IDENTIFIERS";
               break;
             case ';':
-              v38 = @"CHECKIN_WITH_SUBSCRIPTION_INFO";
+              v41 = @"CHECKIN_WITH_SUBSCRIPTION_INFO";
               break;
             case '<':
-              v38 = @"SYNC_SUBSCRIPTION_INFO";
+              v41 = @"SYNC_SUBSCRIPTION_INFO";
               break;
             case '=':
-              v38 = @"SET_OBSERVED_SUBSCRIPTION_IDENTIFIERS";
+              v41 = @"SET_OBSERVED_SUBSCRIPTION_IDENTIFIERS";
               break;
             case '>':
               goto LABEL_87;
             case '?':
-              v38 = @"UPDATE_SUBSCRIPTION_STATE";
+              v41 = @"UPDATE_SUBSCRIPTION_STATE";
               break;
             case '@':
-              v38 = @"START_STOP_SUBSCRIPTION_DOWNLOAD";
+              v41 = @"START_STOP_SUBSCRIPTION_DOWNLOAD";
               break;
             case 'A':
-              v38 = @"CHECKIN_WITH_SUBSCRIPTION_STATE_SUMMARY";
+              v41 = @"CHECKIN_WITH_SUBSCRIPTION_STATE_SUMMARY";
               break;
             case 'B':
-              v38 = @"SET_SUBSCRIPTION_STATE_SUMMARY";
+              v41 = @"SET_SUBSCRIPTION_STATE_SUMMARY";
               break;
             case 'C':
-              v38 = @"SET_SUBSCRIPTION_SHOULD_SYNC";
+              v41 = @"SET_SUBSCRIPTION_SHOULD_SYNC";
               break;
             default:
               if (type != 4)
@@ -990,7 +1036,7 @@ LABEL_130:
                 goto LABEL_87;
               }
 
-              v38 = @"FETCHED_TILE";
+              v41 = @"FETCHED_TILE";
               break;
           }
 
@@ -1000,18 +1046,18 @@ LABEL_130:
         switch(type)
         {
           case 1:
-            v38 = @"FETCH_TILES";
+            v41 = @"FETCH_TILES";
             goto LABEL_127;
           case 2:
-            v38 = @"CANCEL_TILES";
+            v41 = @"CANCEL_TILES";
             goto LABEL_127;
           case 3:
-            v38 = @"REPORT_CORRUPT_TILE";
+            v41 = @"REPORT_CORRUPT_TILE";
             goto LABEL_127;
         }
 
 LABEL_87:
-        v38 = [NSString stringWithFormat:@"(unknown: %i)", type];
+        v41 = [NSString stringWithFormat:@"(unknown: %i)", type];
         goto LABEL_127;
       }
 
@@ -1019,17 +1065,17 @@ LABEL_87:
       {
         if (type == 100)
         {
-          v38 = @"CHECKIN_WITH_TILE_GROUP";
+          v41 = @"CHECKIN_WITH_TILE_GROUP";
         }
 
         else if (type == 101)
         {
-          v38 = @"FORCE_UPDATE_MANIFEST";
+          v41 = @"FORCE_UPDATE_MANIFEST";
         }
 
         else
         {
-          v38 = @"DID_CHANGE_ACTIVE_TILE_GROUP";
+          v41 = @"DID_CHANGE_ACTIVE_TILE_GROUP";
         }
 
         goto LABEL_127;
@@ -1039,12 +1085,12 @@ LABEL_87:
       {
         if (type == 201)
         {
-          v38 = @"STOP_LOCATION_UPDATE";
+          v41 = @"STOP_LOCATION_UPDATE";
         }
 
         else
         {
-          v38 = @"UPDATED_LOCATION";
+          v41 = @"UPDATED_LOCATION";
         }
 
         goto LABEL_127;
@@ -1052,7 +1098,7 @@ LABEL_87:
 
       if (type == 103)
       {
-        v38 = @"FETCH_RESOURCE";
+        v41 = @"FETCH_RESOURCE";
         goto LABEL_127;
       }
 
@@ -1061,24 +1107,24 @@ LABEL_87:
         goto LABEL_87;
       }
 
-      v38 = @"START_LOCATION_UPDATE";
+      v41 = @"START_LOCATION_UPDATE";
     }
 
 LABEL_127:
     *buf = 138412290;
-    v94 = v38;
-    _os_log_impl(&_mh_execute_header, v36, OS_LOG_TYPE_INFO, "Attaching transient location authorization to message %@", buf, 0xCu);
+    v103 = v41;
+    _os_log_impl(&_mh_execute_header, v39, OS_LOG_TYPE_INFO, "Attaching transient location authorization to message %@", buf, 0xCu);
 
     goto LABEL_128;
   }
 
-  v23 = sub_100001B24();
-  if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
+  v24 = sub_100001B24(v22);
+  if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
   {
     shortDebugDescription6 = [messageCopy shortDebugDescription];
     *buf = 138477827;
-    v94 = shortDebugDescription6;
-    _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_INFO, "Not sending message because connection was short circuited: %{private}@", buf, 0xCu);
+    v103 = shortDebugDescription6;
+    _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_INFO, "Not sending message because connection was short circuited: %{private}@", buf, 0xCu);
   }
 
   if (replyCopy)
@@ -1118,114 +1164,99 @@ LABEL_17:
   dispatch_assert_queue_V2(self->_queue);
   if (replyCopy && messageCopy)
   {
-    if (self->_connected)
+    if (self->_connected || ([optionsCopy objectForKeyedSubscript:@"NMSendMessageOptionFireAndForget"], (v15 = objc_claimAutoreleasedReturnValue()) != 0) && (v16 = v15, objc_msgSend(optionsCopy, "objectForKeyedSubscript:", @"NMSendMessageOptionFireAndForget"), v17 = objc_claimAutoreleasedReturnValue(), v18 = objc_msgSend(v17, "BOOLValue"), v17, v16, !v18))
     {
-      goto LABEL_8;
-    }
-
-    v15 = [optionsCopy objectForKeyedSubscript:@"NMSendMessageOptionFireAndForget"];
-    if (!v15)
-    {
-      goto LABEL_6;
-    }
-
-    v16 = v15;
-    v17 = [optionsCopy objectForKeyedSubscript:@"NMSendMessageOptionFireAndForget"];
-    bOOLValue = [v17 BOOLValue];
-
-    if (!bOOLValue)
-    {
-LABEL_8:
       if (force)
       {
-        bOOLValue2 = 1;
+        bOOLValue = 1;
       }
 
       else
       {
         v22 = [optionsCopy objectForKeyedSubscript:@"NMSendMessageOptionSendImmediately"];
-        bOOLValue2 = [v22 BOOLValue];
+        bOOLValue = [v22 BOOLValue];
       }
 
       v23 = -[NMDeviceConnection _messageQueueForType:](self, "_messageQueueForType:", [messageCopy type]);
       v19 = v23;
-      if ((bOOLValue2 & 1) != 0 || ([v23 shouldSendNewPayload]& 1) != 0)
+      if ((bOOLValue & 1) != 0 || ([v23 shouldSendNewPayload]& 1) != 0)
       {
         Current = CFAbsoluteTimeGetCurrent();
         v25 = objc_getAssociatedObject(messageCopy, &unk_10009E838);
+        v26 = v25;
         if (v25)
         {
-          v26 = sub_100001B7C();
-          [replyCopy setSenderUUID:v26];
+          v27 = sub_100001B7C(v25);
+          [replyCopy setSenderUUID:v27];
 
           if (([replyCopy hasResponseTime] & 1) == 0)
           {
-            [v25 requestReceivedTimestamp];
-            [replyCopy setResponseTime:Current - v27];
+            [v26 requestReceivedTimestamp];
+            [replyCopy setResponseTime:Current - v28];
           }
 
-          v54 = v19;
+          v57 = v19;
           if (enqueued > 0.0)
           {
             [replyCopy setEnqueuedTimeInterval:enqueued];
           }
 
-          [v25 requestReceivedTimestamp];
+          [v26 requestReceivedTimestamp];
           [replyCopy setRequestReceivedTimestamp:?];
           [replyCopy setSentTimestamp:Current];
           data = [replyCopy data];
-          idsMessageIdentifier = [v25 idsMessageIdentifier];
-          v30 = [NSMutableDictionary dictionaryWithObject:idsMessageIdentifier forKey:IDSSendMessageOptionPeerResponseIdentifierKey];
+          idsMessageIdentifier = [v26 idsMessageIdentifier];
+          v31 = [NSMutableDictionary dictionaryWithObject:idsMessageIdentifier forKey:IDSSendMessageOptionPeerResponseIdentifierKey];
 
-          v31 = [(NMDeviceConnection *)self _idsOptionsForMessage:messageCopy withOptions:optionsCopy];
-          if (v31)
+          v32 = [(NMDeviceConnection *)self _idsOptionsForMessage:messageCopy withOptions:optionsCopy];
+          if (v32)
           {
-            [v30 addEntriesFromDictionary:v31];
+            [v31 addEntriesFromDictionary:v32];
           }
 
-          v53 = v31;
-          v32 = [(NMDeviceConnection *)self _priorityForReply:messageCopy];
-          v33 = [optionsCopy objectForKeyedSubscript:@"NMSendMessageOptionUrgent"];
+          v56 = v32;
+          v33 = [(NMDeviceConnection *)self _priorityForReply:messageCopy];
+          v34 = [optionsCopy objectForKeyedSubscript:@"NMSendMessageOptionUrgent"];
 
-          v55 = v25;
-          v57 = v30;
-          if (v33)
+          v58 = v26;
+          v60 = v31;
+          if (v34)
           {
-            v34 = [optionsCopy objectForKeyedSubscript:@"NMSendMessageOptionUrgent"];
-            if ([v34 BOOLValue])
+            v35 = [optionsCopy objectForKeyedSubscript:@"NMSendMessageOptionUrgent"];
+            if ([v35 BOOLValue])
             {
-              v32 = 300;
+              v33 = 300;
             }
 
             else
             {
-              v32 = 200;
+              v33 = 200;
             }
           }
 
           idsService = self->_idsService;
           accounts = [(IDSService *)idsService accounts];
           anyObject = [accounts anyObject];
-          v38 = [NSSet setWithObject:IDSDefaultPairedDevice];
-          v58 = 0;
-          v59 = 0;
-          LODWORD(idsService) = [(IDSService *)idsService sendData:data fromAccount:anyObject toDestinations:v38 priority:v32 options:v57 identifier:&v59 error:&v58];
-          v39 = v59;
-          v56 = v58;
+          v39 = [NSSet setWithObject:IDSDefaultPairedDevice];
+          v61 = 0;
+          v62 = 0;
+          LODWORD(idsService) = [(IDSService *)idsService sendData:data fromAccount:anyObject toDestinations:v39 priority:v33 options:v60 identifier:&v62 error:&v61];
+          v40 = v62;
+          v59 = v61;
 
-          v40 = sub_100001B24();
-          v41 = v40;
+          v42 = sub_100001B24(v41);
+          v43 = v42;
           if (idsService)
           {
-            v42 = data;
-            v19 = v54;
-            v43 = v39;
-            if (os_log_type_enabled(v40, OS_LOG_TYPE_INFO))
+            v44 = data;
+            v19 = v57;
+            v45 = v40;
+            if (os_log_type_enabled(v42, OS_LOG_TYPE_INFO))
             {
               shortDebugDescription = [messageCopy shortDebugDescription];
-              v51 = [v42 length];
+              v54 = [v44 length];
               [replyCopy responseTime];
-              v46 = v45;
+              v48 = v47;
               if (optionsCopy)
               {
                 optionsCopy = [NSString stringWithFormat:@", options: %@", optionsCopy];
@@ -1238,27 +1269,27 @@ LABEL_8:
 
               if (enqueued <= 0.0)
               {
-                v48 = &stru_100087EB8;
+                v50 = &stru_100087EB8;
               }
 
               else
               {
-                v48 = [NSString stringWithFormat:@", enqueued time: %f", *&enqueued];
+                v50 = [NSString stringWithFormat:@", enqueued time: %f", *&enqueued];
               }
 
               *buf = 138479107;
-              v61 = shortDebugDescription;
-              v62 = 2048;
-              v63 = v51;
-              v64 = 2048;
-              v65 = v46;
-              v66 = 2113;
-              v67 = optionsCopy;
-              v68 = 2113;
-              v69 = v48;
-              v70 = 2113;
-              v71 = v43;
-              _os_log_impl(&_mh_execute_header, v41, OS_LOG_TYPE_INFO, "Sending reply for original message: %{private}@ (size = %lu, response time = %f%{private}@%{private}@, GUID = %{private}@)", buf, 0x3Eu);
+              v64 = shortDebugDescription;
+              v65 = 2048;
+              v66 = v54;
+              v67 = 2048;
+              v68 = v48;
+              v69 = 2113;
+              v70 = optionsCopy;
+              v71 = 2113;
+              v72 = v50;
+              v73 = 2113;
+              v74 = v45;
+              _os_log_impl(&_mh_execute_header, v43, OS_LOG_TYPE_INFO, "Sending reply for original message: %{private}@ (size = %lu, response time = %f%{private}@%{private}@, GUID = %{private}@)", buf, 0x3Eu);
               if (enqueued > 0.0)
               {
               }
@@ -1268,55 +1299,55 @@ LABEL_8:
               }
             }
 
-            v49 = sub_100001B24();
-            v25 = v55;
-            if (os_log_type_enabled(v49, OS_LOG_TYPE_DEBUG))
+            v52 = sub_100001B24(v51);
+            v26 = v58;
+            if (os_log_type_enabled(v52, OS_LOG_TYPE_DEBUG))
             {
               *buf = 138478083;
-              v61 = replyCopy;
-              v62 = 2113;
-              v63 = messageCopy;
-              _os_log_impl(&_mh_execute_header, v49, OS_LOG_TYPE_DEBUG, "Reply contents to be sent: %{private}@\n Original message contents: %{private}@", buf, 0x16u);
+              v64 = replyCopy;
+              v65 = 2113;
+              v66 = messageCopy;
+              _os_log_impl(&_mh_execute_header, v52, OS_LOG_TYPE_DEBUG, "Reply contents to be sent: %{private}@\n Original message contents: %{private}@", buf, 0x16u);
             }
 
-            v50 = objc_alloc_init(_NMSentMessageMetadata);
-            -[_NMSentMessageMetadata setType:](v50, "setType:", [messageCopy type]);
+            v53 = objc_alloc_init(_NMSentMessageMetadata);
+            -[_NMSentMessageMetadata setType:](v53, "setType:", [messageCopy type]);
             [messageCopy sentTimestamp];
-            [(_NMSentMessageMetadata *)v50 setTimestamp:?];
-            [(_NMSentMessageMetadata *)v50 setPayloadSize:[v42 length]];
-            [(_NMSentMessageMetadata *)v50 setReply:1];
-            [v54 willSendPayloadWithSize:[(_NMSentMessageMetadata *)v50 payloadSize]];
-            [(NSMutableDictionary *)self->_inFlightMessageMetadata setObject:v50 forKey:v43];
+            [(_NMSentMessageMetadata *)v53 setTimestamp:?];
+            [(_NMSentMessageMetadata *)v53 setPayloadSize:[v44 length]];
+            [(_NMSentMessageMetadata *)v53 setReply:1];
+            [v57 willSendPayloadWithSize:[(_NMSentMessageMetadata *)v53 payloadSize]];
+            [(NSMutableDictionary *)self->_inFlightMessageMetadata setObject:v53 forKey:v45];
           }
 
           else
           {
-            if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
+            if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
             {
               shortDebugDescription2 = [messageCopy shortDebugDescription];
               *buf = 138543618;
-              v61 = shortDebugDescription2;
-              v62 = 2114;
-              v63 = v56;
-              _os_log_impl(&_mh_execute_header, v41, OS_LOG_TYPE_ERROR, "Error sending reply to message: messageType=%{public}@ -- %{public}@", buf, 0x16u);
+              v64 = shortDebugDescription2;
+              v65 = 2114;
+              v66 = v59;
+              _os_log_impl(&_mh_execute_header, v43, OS_LOG_TYPE_ERROR, "Error sending reply to message: messageType=%{public}@ -- %{public}@", buf, 0x16u);
             }
 
             -[NMDeviceConnection _dequeueNextMessageIfNecessaryForType:](self, "_dequeueNextMessageIfNecessaryForType:", [messageCopy type]);
-            v42 = data;
-            v19 = v54;
-            v25 = v55;
-            v43 = v39;
+            v44 = data;
+            v19 = v57;
+            v26 = v58;
+            v45 = v40;
           }
         }
 
         else
         {
-          v42 = sub_100001B24();
-          if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
+          v44 = sub_100001B24(0);
+          if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
           {
             *buf = 138543362;
-            v61 = messageCopy;
-            _os_log_impl(&_mh_execute_header, v42, OS_LOG_TYPE_ERROR, "Sending reply to unknown message '%{public}@'. Ignoring...", buf, 0xCu);
+            v64 = messageCopy;
+            _os_log_impl(&_mh_execute_header, v44, OS_LOG_TYPE_ERROR, "Sending reply to unknown message '%{public}@'. Ignoring...", buf, 0xCu);
           }
         }
       }
@@ -1329,17 +1360,341 @@ LABEL_8:
 
     else
     {
-LABEL_6:
-      v19 = sub_100001B24();
+      v19 = sub_100001B24(v15);
       if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
       {
         shortDebugDescription3 = [messageCopy shortDebugDescription];
         *buf = 138477827;
-        v61 = shortDebugDescription3;
+        v64 = shortDebugDescription3;
         _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_INFO, "Not sending reply because device is not connected. Original message: %{private}@", buf, 0xCu);
       }
     }
   }
+}
+
+- (void)cancelAllMessagesOfType:(int)type
+{
+  v3 = *&type;
+  v4 = [(NMDeviceConnection *)self _messageQueueForType:?];
+  v5 = [v4 count];
+  if (v5)
+  {
+    v6 = v5;
+    v7 = sub_100001B24(v5);
+    if (!os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+    {
+LABEL_93:
+
+      [v4 removeAllMessages];
+      goto LABEL_94;
+    }
+
+    if (v3 > 202)
+    {
+      if (v3 <= 400)
+      {
+        if (v3 <= 205)
+        {
+          if (v3 == 203)
+          {
+            v8 = @"FAILED_TO_UPDATE_LOCATION";
+          }
+
+          else if (v3 == 204)
+          {
+            v8 = @"DID_PAUSE_LOCATION_UPDATES";
+          }
+
+          else
+          {
+            v8 = @"DID_RESUME_LOCATION_UPDATES";
+          }
+        }
+
+        else
+        {
+          switch(v3)
+          {
+            case 300:
+              v8 = @"UPDATE_NAV_ROUTE_DETAILS";
+              break;
+            case 301:
+              v8 = @"UPDATE_NAV_ROUTE_STATUS";
+              break;
+            case 302:
+              v8 = @"START_NAV";
+              break;
+            case 303:
+              v8 = @"STOP_NAV";
+              break;
+            case 304:
+              v8 = @"PREVIEW_NAV";
+              break;
+            case 305:
+              v8 = @"CLEAR_NAV_PREVIEW";
+              break;
+            case 306:
+              v8 = @"SET_WANTS_ALL_NAV_STATUS_UPDATES";
+              break;
+            case 307:
+              v8 = @"DISMISS_NAV_SAFETY_ALERT";
+              break;
+            case 308:
+              v8 = @"AVAILABLE_ROUTE";
+              break;
+            case 309:
+              v8 = @"SELECTED_ROUTE";
+              break;
+            case 310:
+              v8 = @"REQUEST_NAVIGATION_UPDATE";
+              break;
+            case 311:
+              v8 = @"UPDATE_NAV_ROUTE_UPDATE";
+              break;
+            case 312:
+              v8 = @"AVAILABLE_ROUTE_UPDATE";
+              break;
+            case 313:
+              v8 = @"PAUSE_NAV";
+              break;
+            case 314:
+              v8 = @"RESUME_NAV";
+              break;
+            case 315:
+              v8 = @"SET_DISPLAYED_STEP";
+              break;
+            default:
+              if (v3 != 206)
+              {
+                goto LABEL_52;
+              }
+
+              v8 = @"APPLY_LOCATION_AUTHORIZATION";
+              break;
+          }
+        }
+
+        goto LABEL_92;
+      }
+
+      if (v3 > 599)
+      {
+        if (v3 > 1499)
+        {
+          if (v3 == 1500)
+          {
+            v8 = @"DEBUG_FETCH_CONFIGURATION_INFO";
+            goto LABEL_92;
+          }
+
+          if (v3 == 1501)
+          {
+            v8 = @"DEBUG_FETCH_DIAGNOSTICS_STRING";
+            goto LABEL_92;
+          }
+        }
+
+        else
+        {
+          if (v3 == 600)
+          {
+            v8 = @"FETCH_ROUTE_GENIUS";
+            goto LABEL_92;
+          }
+
+          if (v3 == 1000)
+          {
+            v8 = @"PING";
+            goto LABEL_92;
+          }
+        }
+
+        goto LABEL_52;
+      }
+
+      if (v3 > 500)
+      {
+        if (v3 == 501)
+        {
+          v8 = @"PLACE_DATA_IDENTIFIER_LOOKUP";
+          goto LABEL_92;
+        }
+
+        if (v3 == 502)
+        {
+          v8 = @"SERVICE_REQUEST";
+          goto LABEL_92;
+        }
+
+        goto LABEL_52;
+      }
+
+      if (v3 == 401)
+      {
+        v8 = @"OPEN_URL";
+        goto LABEL_92;
+      }
+
+      if (v3 != 500)
+      {
+        goto LABEL_52;
+      }
+
+      v8 = @"PLACE_DATA_MUID_LOOKUP";
+    }
+
+    else
+    {
+      if (v3 <= 99)
+      {
+        if (v3 > 3)
+        {
+          switch(v3)
+          {
+            case '2':
+              v8 = @"START_INITIAL_SYNC";
+              break;
+            case '3':
+              v8 = @"FETCH_CURRENT_COUNTRY_CODE";
+              break;
+            case '4':
+              v8 = @"FETCH_EXPERIMENTS_CONFIG";
+              break;
+            case '5':
+              v8 = @"DID_CHANGE_EXPERIMENTS_CONFIG";
+              break;
+            case '6':
+              v8 = @"SYNC_UP_NEXT_ITEMS";
+              break;
+            case '7':
+              v8 = @"REQUEST_UP_NEXT_ITEMS";
+              break;
+            case '8':
+              v8 = @"SYNC_CONFIG_STORE";
+              break;
+            case '9':
+              v8 = @"CHECKIN_WITH_CONFIG_STORE";
+              break;
+            case ':':
+              v8 = @"REQUEST_ANALYTIC_IDENTIFIERS";
+              break;
+            case ';':
+              v8 = @"CHECKIN_WITH_SUBSCRIPTION_INFO";
+              break;
+            case '<':
+              v8 = @"SYNC_SUBSCRIPTION_INFO";
+              break;
+            case '=':
+              v8 = @"SET_OBSERVED_SUBSCRIPTION_IDENTIFIERS";
+              break;
+            case '>':
+              goto LABEL_52;
+            case '?':
+              v8 = @"UPDATE_SUBSCRIPTION_STATE";
+              break;
+            case '@':
+              v8 = @"START_STOP_SUBSCRIPTION_DOWNLOAD";
+              break;
+            case 'A':
+              v8 = @"CHECKIN_WITH_SUBSCRIPTION_STATE_SUMMARY";
+              break;
+            case 'B':
+              v8 = @"SET_SUBSCRIPTION_STATE_SUMMARY";
+              break;
+            case 'C':
+              v8 = @"SET_SUBSCRIPTION_SHOULD_SYNC";
+              break;
+            default:
+              if (v3 != 4)
+              {
+                goto LABEL_52;
+              }
+
+              v8 = @"FETCHED_TILE";
+              break;
+          }
+
+          goto LABEL_92;
+        }
+
+        switch(v3)
+        {
+          case 1:
+            v8 = @"FETCH_TILES";
+            goto LABEL_92;
+          case 2:
+            v8 = @"CANCEL_TILES";
+            goto LABEL_92;
+          case 3:
+            v8 = @"REPORT_CORRUPT_TILE";
+            goto LABEL_92;
+        }
+
+LABEL_52:
+        v8 = [NSString stringWithFormat:@"(unknown: %i)", v3];
+        goto LABEL_92;
+      }
+
+      if (v3 <= 102)
+      {
+        if (v3 == 100)
+        {
+          v8 = @"CHECKIN_WITH_TILE_GROUP";
+        }
+
+        else if (v3 == 101)
+        {
+          v8 = @"FORCE_UPDATE_MANIFEST";
+        }
+
+        else
+        {
+          v8 = @"DID_CHANGE_ACTIVE_TILE_GROUP";
+        }
+
+        goto LABEL_92;
+      }
+
+      if (v3 > 200)
+      {
+        if (v3 == 201)
+        {
+          v8 = @"STOP_LOCATION_UPDATE";
+        }
+
+        else
+        {
+          v8 = @"UPDATED_LOCATION";
+        }
+
+        goto LABEL_92;
+      }
+
+      if (v3 == 103)
+      {
+        v8 = @"FETCH_RESOURCE";
+        goto LABEL_92;
+      }
+
+      if (v3 != 200)
+      {
+        goto LABEL_52;
+      }
+
+      v8 = @"START_LOCATION_UPDATE";
+    }
+
+LABEL_92:
+    *buf = 134218242;
+    v10 = v6;
+    v11 = 2112;
+    v12 = v8;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEBUG, "Cancelling %lu %@ messages in queue", buf, 0x16u);
+
+    goto LABEL_93;
+  }
+
+LABEL_94:
 }
 
 - (unint64_t)_determineProtocolVersion:(id)version
@@ -1405,37 +1760,1026 @@ LABEL_6:
   return v6;
 }
 
+- (id)addMessageObserverForType:(int)type callback:(id)callback
+{
+  if (!callback)
+  {
+    uUIDString = 0;
+    goto LABEL_97;
+  }
+
+  v4 = *&type;
+  callbackCopy = callback;
+  v7 = +[NSUUID UUID];
+  uUIDString = [v7 UUIDString];
+
+  [(NSLock *)self->_observersLock lock];
+  messageObservers = self->_messageObservers;
+  v10 = [NSNumber numberWithInt:v4];
+  v11 = [(NSMutableDictionary *)messageObservers objectForKeyedSubscript:v10];
+
+  if (!v11)
+  {
+    v11 = objc_alloc_init(NSMutableDictionary);
+    v13 = self->_messageObservers;
+    v14 = [NSNumber numberWithInt:v4];
+    [(NSMutableDictionary *)v13 setObject:v11 forKeyedSubscript:v14];
+  }
+
+  v15 = sub_100001B24(v12);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+  {
+    if (v4 > 202)
+    {
+      if (v4 <= 400)
+      {
+        if (v4 <= 205)
+        {
+          if (v4 == 203)
+          {
+            v16 = @"FAILED_TO_UPDATE_LOCATION";
+          }
+
+          else if (v4 == 204)
+          {
+            v16 = @"DID_PAUSE_LOCATION_UPDATES";
+          }
+
+          else
+          {
+            v16 = @"DID_RESUME_LOCATION_UPDATES";
+          }
+        }
+
+        else
+        {
+          switch(v4)
+          {
+            case 300:
+              v16 = @"UPDATE_NAV_ROUTE_DETAILS";
+              break;
+            case 301:
+              v16 = @"UPDATE_NAV_ROUTE_STATUS";
+              break;
+            case 302:
+              v16 = @"START_NAV";
+              break;
+            case 303:
+              v16 = @"STOP_NAV";
+              break;
+            case 304:
+              v16 = @"PREVIEW_NAV";
+              break;
+            case 305:
+              v16 = @"CLEAR_NAV_PREVIEW";
+              break;
+            case 306:
+              v16 = @"SET_WANTS_ALL_NAV_STATUS_UPDATES";
+              break;
+            case 307:
+              v16 = @"DISMISS_NAV_SAFETY_ALERT";
+              break;
+            case 308:
+              v16 = @"AVAILABLE_ROUTE";
+              break;
+            case 309:
+              v16 = @"SELECTED_ROUTE";
+              break;
+            case 310:
+              v16 = @"REQUEST_NAVIGATION_UPDATE";
+              break;
+            case 311:
+              v16 = @"UPDATE_NAV_ROUTE_UPDATE";
+              break;
+            case 312:
+              v16 = @"AVAILABLE_ROUTE_UPDATE";
+              break;
+            case 313:
+              v16 = @"PAUSE_NAV";
+              break;
+            case 314:
+              v16 = @"RESUME_NAV";
+              break;
+            case 315:
+              v16 = @"SET_DISPLAYED_STEP";
+              break;
+            default:
+              if (v4 != 206)
+              {
+                goto LABEL_55;
+              }
+
+              v16 = @"APPLY_LOCATION_AUTHORIZATION";
+              break;
+          }
+        }
+
+        goto LABEL_95;
+      }
+
+      if (v4 > 599)
+      {
+        if (v4 > 1499)
+        {
+          if (v4 == 1500)
+          {
+            v16 = @"DEBUG_FETCH_CONFIGURATION_INFO";
+            goto LABEL_95;
+          }
+
+          if (v4 == 1501)
+          {
+            v16 = @"DEBUG_FETCH_DIAGNOSTICS_STRING";
+            goto LABEL_95;
+          }
+        }
+
+        else
+        {
+          if (v4 == 600)
+          {
+            v16 = @"FETCH_ROUTE_GENIUS";
+            goto LABEL_95;
+          }
+
+          if (v4 == 1000)
+          {
+            v16 = @"PING";
+            goto LABEL_95;
+          }
+        }
+
+        goto LABEL_55;
+      }
+
+      if (v4 > 500)
+      {
+        if (v4 == 501)
+        {
+          v16 = @"PLACE_DATA_IDENTIFIER_LOOKUP";
+          goto LABEL_95;
+        }
+
+        if (v4 == 502)
+        {
+          v16 = @"SERVICE_REQUEST";
+          goto LABEL_95;
+        }
+
+        goto LABEL_55;
+      }
+
+      if (v4 == 401)
+      {
+        v16 = @"OPEN_URL";
+        goto LABEL_95;
+      }
+
+      if (v4 != 500)
+      {
+        goto LABEL_55;
+      }
+
+      v16 = @"PLACE_DATA_MUID_LOOKUP";
+    }
+
+    else
+    {
+      if (v4 <= 99)
+      {
+        if (v4 > 3)
+        {
+          switch(v4)
+          {
+            case '2':
+              v16 = @"START_INITIAL_SYNC";
+              break;
+            case '3':
+              v16 = @"FETCH_CURRENT_COUNTRY_CODE";
+              break;
+            case '4':
+              v16 = @"FETCH_EXPERIMENTS_CONFIG";
+              break;
+            case '5':
+              v16 = @"DID_CHANGE_EXPERIMENTS_CONFIG";
+              break;
+            case '6':
+              v16 = @"SYNC_UP_NEXT_ITEMS";
+              break;
+            case '7':
+              v16 = @"REQUEST_UP_NEXT_ITEMS";
+              break;
+            case '8':
+              v16 = @"SYNC_CONFIG_STORE";
+              break;
+            case '9':
+              v16 = @"CHECKIN_WITH_CONFIG_STORE";
+              break;
+            case ':':
+              v16 = @"REQUEST_ANALYTIC_IDENTIFIERS";
+              break;
+            case ';':
+              v16 = @"CHECKIN_WITH_SUBSCRIPTION_INFO";
+              break;
+            case '<':
+              v16 = @"SYNC_SUBSCRIPTION_INFO";
+              break;
+            case '=':
+              v16 = @"SET_OBSERVED_SUBSCRIPTION_IDENTIFIERS";
+              break;
+            case '>':
+              goto LABEL_55;
+            case '?':
+              v16 = @"UPDATE_SUBSCRIPTION_STATE";
+              break;
+            case '@':
+              v16 = @"START_STOP_SUBSCRIPTION_DOWNLOAD";
+              break;
+            case 'A':
+              v16 = @"CHECKIN_WITH_SUBSCRIPTION_STATE_SUMMARY";
+              break;
+            case 'B':
+              v16 = @"SET_SUBSCRIPTION_STATE_SUMMARY";
+              break;
+            case 'C':
+              v16 = @"SET_SUBSCRIPTION_SHOULD_SYNC";
+              break;
+            default:
+              if (v4 != 4)
+              {
+                goto LABEL_55;
+              }
+
+              v16 = @"FETCHED_TILE";
+              break;
+          }
+
+          goto LABEL_95;
+        }
+
+        switch(v4)
+        {
+          case 1:
+            v16 = @"FETCH_TILES";
+            goto LABEL_95;
+          case 2:
+            v16 = @"CANCEL_TILES";
+            goto LABEL_95;
+          case 3:
+            v16 = @"REPORT_CORRUPT_TILE";
+            goto LABEL_95;
+        }
+
+LABEL_55:
+        v16 = [NSString stringWithFormat:@"(unknown: %i)", v4];
+        goto LABEL_95;
+      }
+
+      if (v4 <= 102)
+      {
+        if (v4 == 100)
+        {
+          v16 = @"CHECKIN_WITH_TILE_GROUP";
+        }
+
+        else if (v4 == 101)
+        {
+          v16 = @"FORCE_UPDATE_MANIFEST";
+        }
+
+        else
+        {
+          v16 = @"DID_CHANGE_ACTIVE_TILE_GROUP";
+        }
+
+        goto LABEL_95;
+      }
+
+      if (v4 > 200)
+      {
+        if (v4 == 201)
+        {
+          v16 = @"STOP_LOCATION_UPDATE";
+        }
+
+        else
+        {
+          v16 = @"UPDATED_LOCATION";
+        }
+
+        goto LABEL_95;
+      }
+
+      if (v4 == 103)
+      {
+        v16 = @"FETCH_RESOURCE";
+        goto LABEL_95;
+      }
+
+      if (v4 != 200)
+      {
+        goto LABEL_55;
+      }
+
+      v16 = @"START_LOCATION_UPDATE";
+    }
+
+LABEL_95:
+    *buf = 138543618;
+    v20 = uUIDString;
+    v21 = 2114;
+    v22 = v16;
+    _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_INFO, "Adding observer %{public}@ for %{public}@", buf, 0x16u);
+  }
+
+  v17 = [callbackCopy copy];
+  [v11 setObject:v17 forKey:uUIDString];
+
+  [(NSLock *)self->_observersLock unlock];
+LABEL_97:
+
+  return uUIDString;
+}
+
+- (void)removeMessageObserver:(id)observer forType:(int)type
+{
+  v4 = *&type;
+  observerCopy = observer;
+  if (observerCopy)
+  {
+    [(NSLock *)self->_observersLock lock];
+    messageObservers = self->_messageObservers;
+    v8 = [NSNumber numberWithInt:v4];
+    v9 = [(NSMutableDictionary *)messageObservers objectForKeyedSubscript:v8];
+
+    v10 = [v9 objectForKey:observerCopy];
+
+    v12 = sub_100001B24(v11);
+    v13 = os_log_type_enabled(v12, OS_LOG_TYPE_INFO);
+    if (v10)
+    {
+      if (!v13)
+      {
+LABEL_136:
+
+        [v9 removeObjectForKey:observerCopy];
+LABEL_187:
+        [(NSLock *)self->_observersLock unlock];
+
+        goto LABEL_188;
+      }
+
+      if (v4 > 202)
+      {
+        if (v4 <= 400)
+        {
+          if (v4 <= 205)
+          {
+            if (v4 == 203)
+            {
+              v14 = @"FAILED_TO_UPDATE_LOCATION";
+            }
+
+            else if (v4 == 204)
+            {
+              v14 = @"DID_PAUSE_LOCATION_UPDATES";
+            }
+
+            else
+            {
+              v14 = @"DID_RESUME_LOCATION_UPDATES";
+            }
+          }
+
+          else
+          {
+            switch(v4)
+            {
+              case 300:
+                v14 = @"UPDATE_NAV_ROUTE_DETAILS";
+                break;
+              case 301:
+                v14 = @"UPDATE_NAV_ROUTE_STATUS";
+                break;
+              case 302:
+                v14 = @"START_NAV";
+                break;
+              case 303:
+                v14 = @"STOP_NAV";
+                break;
+              case 304:
+                v14 = @"PREVIEW_NAV";
+                break;
+              case 305:
+                v14 = @"CLEAR_NAV_PREVIEW";
+                break;
+              case 306:
+                v14 = @"SET_WANTS_ALL_NAV_STATUS_UPDATES";
+                break;
+              case 307:
+                v14 = @"DISMISS_NAV_SAFETY_ALERT";
+                break;
+              case 308:
+                v14 = @"AVAILABLE_ROUTE";
+                break;
+              case 309:
+                v14 = @"SELECTED_ROUTE";
+                break;
+              case 310:
+                v14 = @"REQUEST_NAVIGATION_UPDATE";
+                break;
+              case 311:
+                v14 = @"UPDATE_NAV_ROUTE_UPDATE";
+                break;
+              case 312:
+                v14 = @"AVAILABLE_ROUTE_UPDATE";
+                break;
+              case 313:
+                v14 = @"PAUSE_NAV";
+                break;
+              case 314:
+                v14 = @"RESUME_NAV";
+                break;
+              case 315:
+                v14 = @"SET_DISPLAYED_STEP";
+                break;
+              default:
+                if (v4 != 206)
+                {
+                  goto LABEL_95;
+                }
+
+                v14 = @"APPLY_LOCATION_AUTHORIZATION";
+                break;
+            }
+          }
+
+          goto LABEL_135;
+        }
+
+        if (v4 > 599)
+        {
+          if (v4 > 1499)
+          {
+            if (v4 == 1500)
+            {
+              v14 = @"DEBUG_FETCH_CONFIGURATION_INFO";
+              goto LABEL_135;
+            }
+
+            if (v4 == 1501)
+            {
+              v14 = @"DEBUG_FETCH_DIAGNOSTICS_STRING";
+              goto LABEL_135;
+            }
+          }
+
+          else
+          {
+            if (v4 == 600)
+            {
+              v14 = @"FETCH_ROUTE_GENIUS";
+              goto LABEL_135;
+            }
+
+            if (v4 == 1000)
+            {
+              v14 = @"PING";
+              goto LABEL_135;
+            }
+          }
+
+          goto LABEL_95;
+        }
+
+        if (v4 > 500)
+        {
+          if (v4 == 501)
+          {
+            v14 = @"PLACE_DATA_IDENTIFIER_LOOKUP";
+            goto LABEL_135;
+          }
+
+          if (v4 == 502)
+          {
+            v14 = @"SERVICE_REQUEST";
+            goto LABEL_135;
+          }
+
+          goto LABEL_95;
+        }
+
+        if (v4 == 401)
+        {
+          v14 = @"OPEN_URL";
+          goto LABEL_135;
+        }
+
+        if (v4 != 500)
+        {
+          goto LABEL_95;
+        }
+
+        v14 = @"PLACE_DATA_MUID_LOOKUP";
+      }
+
+      else
+      {
+        if (v4 <= 99)
+        {
+          if (v4 > 3)
+          {
+            switch(v4)
+            {
+              case '2':
+                v14 = @"START_INITIAL_SYNC";
+                break;
+              case '3':
+                v14 = @"FETCH_CURRENT_COUNTRY_CODE";
+                break;
+              case '4':
+                v14 = @"FETCH_EXPERIMENTS_CONFIG";
+                break;
+              case '5':
+                v14 = @"DID_CHANGE_EXPERIMENTS_CONFIG";
+                break;
+              case '6':
+                v14 = @"SYNC_UP_NEXT_ITEMS";
+                break;
+              case '7':
+                v14 = @"REQUEST_UP_NEXT_ITEMS";
+                break;
+              case '8':
+                v14 = @"SYNC_CONFIG_STORE";
+                break;
+              case '9':
+                v14 = @"CHECKIN_WITH_CONFIG_STORE";
+                break;
+              case ':':
+                v14 = @"REQUEST_ANALYTIC_IDENTIFIERS";
+                break;
+              case ';':
+                v14 = @"CHECKIN_WITH_SUBSCRIPTION_INFO";
+                break;
+              case '<':
+                v14 = @"SYNC_SUBSCRIPTION_INFO";
+                break;
+              case '=':
+                v14 = @"SET_OBSERVED_SUBSCRIPTION_IDENTIFIERS";
+                break;
+              case '>':
+                goto LABEL_95;
+              case '?':
+                v14 = @"UPDATE_SUBSCRIPTION_STATE";
+                break;
+              case '@':
+                v14 = @"START_STOP_SUBSCRIPTION_DOWNLOAD";
+                break;
+              case 'A':
+                v14 = @"CHECKIN_WITH_SUBSCRIPTION_STATE_SUMMARY";
+                break;
+              case 'B':
+                v14 = @"SET_SUBSCRIPTION_STATE_SUMMARY";
+                break;
+              case 'C':
+                v14 = @"SET_SUBSCRIPTION_SHOULD_SYNC";
+                break;
+              default:
+                if (v4 != 4)
+                {
+                  goto LABEL_95;
+                }
+
+                v14 = @"FETCHED_TILE";
+                break;
+            }
+
+            goto LABEL_135;
+          }
+
+          switch(v4)
+          {
+            case 1:
+              v14 = @"FETCH_TILES";
+              goto LABEL_135;
+            case 2:
+              v14 = @"CANCEL_TILES";
+              goto LABEL_135;
+            case 3:
+              v14 = @"REPORT_CORRUPT_TILE";
+              goto LABEL_135;
+          }
+
+LABEL_95:
+          v14 = [NSString stringWithFormat:@"(unknown: %i)", v4];
+          goto LABEL_135;
+        }
+
+        if (v4 <= 102)
+        {
+          if (v4 == 100)
+          {
+            v14 = @"CHECKIN_WITH_TILE_GROUP";
+          }
+
+          else if (v4 == 101)
+          {
+            v14 = @"FORCE_UPDATE_MANIFEST";
+          }
+
+          else
+          {
+            v14 = @"DID_CHANGE_ACTIVE_TILE_GROUP";
+          }
+
+          goto LABEL_135;
+        }
+
+        if (v4 > 200)
+        {
+          if (v4 == 201)
+          {
+            v14 = @"STOP_LOCATION_UPDATE";
+          }
+
+          else
+          {
+            v14 = @"UPDATED_LOCATION";
+          }
+
+          goto LABEL_135;
+        }
+
+        if (v4 == 103)
+        {
+          v14 = @"FETCH_RESOURCE";
+          goto LABEL_135;
+        }
+
+        if (v4 != 200)
+        {
+          goto LABEL_95;
+        }
+
+        v14 = @"START_LOCATION_UPDATE";
+      }
+
+LABEL_135:
+      *buf = 138543618;
+      v17 = observerCopy;
+      v18 = 2114;
+      v19 = v14;
+      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_INFO, "Removing observer %{public}@ for %{public}@", buf, 0x16u);
+
+      goto LABEL_136;
+    }
+
+    if (!v13)
+    {
+LABEL_186:
+
+      goto LABEL_187;
+    }
+
+    if (v4 > 202)
+    {
+      if (v4 <= 400)
+      {
+        if (v4 <= 205)
+        {
+          if (v4 == 203)
+          {
+            v15 = @"FAILED_TO_UPDATE_LOCATION";
+          }
+
+          else if (v4 == 204)
+          {
+            v15 = @"DID_PAUSE_LOCATION_UPDATES";
+          }
+
+          else
+          {
+            v15 = @"DID_RESUME_LOCATION_UPDATES";
+          }
+        }
+
+        else
+        {
+          switch(v4)
+          {
+            case 300:
+              v15 = @"UPDATE_NAV_ROUTE_DETAILS";
+              break;
+            case 301:
+              v15 = @"UPDATE_NAV_ROUTE_STATUS";
+              break;
+            case 302:
+              v15 = @"START_NAV";
+              break;
+            case 303:
+              v15 = @"STOP_NAV";
+              break;
+            case 304:
+              v15 = @"PREVIEW_NAV";
+              break;
+            case 305:
+              v15 = @"CLEAR_NAV_PREVIEW";
+              break;
+            case 306:
+              v15 = @"SET_WANTS_ALL_NAV_STATUS_UPDATES";
+              break;
+            case 307:
+              v15 = @"DISMISS_NAV_SAFETY_ALERT";
+              break;
+            case 308:
+              v15 = @"AVAILABLE_ROUTE";
+              break;
+            case 309:
+              v15 = @"SELECTED_ROUTE";
+              break;
+            case 310:
+              v15 = @"REQUEST_NAVIGATION_UPDATE";
+              break;
+            case 311:
+              v15 = @"UPDATE_NAV_ROUTE_UPDATE";
+              break;
+            case 312:
+              v15 = @"AVAILABLE_ROUTE_UPDATE";
+              break;
+            case 313:
+              v15 = @"PAUSE_NAV";
+              break;
+            case 314:
+              v15 = @"RESUME_NAV";
+              break;
+            case 315:
+              v15 = @"SET_DISPLAYED_STEP";
+              break;
+            default:
+              if (v4 != 206)
+              {
+                goto LABEL_145;
+              }
+
+              v15 = @"APPLY_LOCATION_AUTHORIZATION";
+              break;
+          }
+        }
+
+        goto LABEL_185;
+      }
+
+      if (v4 > 599)
+      {
+        if (v4 > 1499)
+        {
+          if (v4 == 1500)
+          {
+            v15 = @"DEBUG_FETCH_CONFIGURATION_INFO";
+            goto LABEL_185;
+          }
+
+          if (v4 == 1501)
+          {
+            v15 = @"DEBUG_FETCH_DIAGNOSTICS_STRING";
+            goto LABEL_185;
+          }
+        }
+
+        else
+        {
+          if (v4 == 600)
+          {
+            v15 = @"FETCH_ROUTE_GENIUS";
+            goto LABEL_185;
+          }
+
+          if (v4 == 1000)
+          {
+            v15 = @"PING";
+            goto LABEL_185;
+          }
+        }
+
+        goto LABEL_145;
+      }
+
+      if (v4 > 500)
+      {
+        if (v4 == 501)
+        {
+          v15 = @"PLACE_DATA_IDENTIFIER_LOOKUP";
+          goto LABEL_185;
+        }
+
+        if (v4 == 502)
+        {
+          v15 = @"SERVICE_REQUEST";
+          goto LABEL_185;
+        }
+
+        goto LABEL_145;
+      }
+
+      if (v4 == 401)
+      {
+        v15 = @"OPEN_URL";
+        goto LABEL_185;
+      }
+
+      if (v4 != 500)
+      {
+        goto LABEL_145;
+      }
+
+      v15 = @"PLACE_DATA_MUID_LOOKUP";
+    }
+
+    else
+    {
+      if (v4 <= 99)
+      {
+        if (v4 > 3)
+        {
+          switch(v4)
+          {
+            case '2':
+              v15 = @"START_INITIAL_SYNC";
+              break;
+            case '3':
+              v15 = @"FETCH_CURRENT_COUNTRY_CODE";
+              break;
+            case '4':
+              v15 = @"FETCH_EXPERIMENTS_CONFIG";
+              break;
+            case '5':
+              v15 = @"DID_CHANGE_EXPERIMENTS_CONFIG";
+              break;
+            case '6':
+              v15 = @"SYNC_UP_NEXT_ITEMS";
+              break;
+            case '7':
+              v15 = @"REQUEST_UP_NEXT_ITEMS";
+              break;
+            case '8':
+              v15 = @"SYNC_CONFIG_STORE";
+              break;
+            case '9':
+              v15 = @"CHECKIN_WITH_CONFIG_STORE";
+              break;
+            case ':':
+              v15 = @"REQUEST_ANALYTIC_IDENTIFIERS";
+              break;
+            case ';':
+              v15 = @"CHECKIN_WITH_SUBSCRIPTION_INFO";
+              break;
+            case '<':
+              v15 = @"SYNC_SUBSCRIPTION_INFO";
+              break;
+            case '=':
+              v15 = @"SET_OBSERVED_SUBSCRIPTION_IDENTIFIERS";
+              break;
+            case '>':
+              goto LABEL_145;
+            case '?':
+              v15 = @"UPDATE_SUBSCRIPTION_STATE";
+              break;
+            case '@':
+              v15 = @"START_STOP_SUBSCRIPTION_DOWNLOAD";
+              break;
+            case 'A':
+              v15 = @"CHECKIN_WITH_SUBSCRIPTION_STATE_SUMMARY";
+              break;
+            case 'B':
+              v15 = @"SET_SUBSCRIPTION_STATE_SUMMARY";
+              break;
+            case 'C':
+              v15 = @"SET_SUBSCRIPTION_SHOULD_SYNC";
+              break;
+            default:
+              if (v4 != 4)
+              {
+                goto LABEL_145;
+              }
+
+              v15 = @"FETCHED_TILE";
+              break;
+          }
+
+          goto LABEL_185;
+        }
+
+        switch(v4)
+        {
+          case 1:
+            v15 = @"FETCH_TILES";
+            goto LABEL_185;
+          case 2:
+            v15 = @"CANCEL_TILES";
+            goto LABEL_185;
+          case 3:
+            v15 = @"REPORT_CORRUPT_TILE";
+            goto LABEL_185;
+        }
+
+LABEL_145:
+        v15 = [NSString stringWithFormat:@"(unknown: %i)", v4];
+        goto LABEL_185;
+      }
+
+      if (v4 <= 102)
+      {
+        if (v4 == 100)
+        {
+          v15 = @"CHECKIN_WITH_TILE_GROUP";
+        }
+
+        else if (v4 == 101)
+        {
+          v15 = @"FORCE_UPDATE_MANIFEST";
+        }
+
+        else
+        {
+          v15 = @"DID_CHANGE_ACTIVE_TILE_GROUP";
+        }
+
+        goto LABEL_185;
+      }
+
+      if (v4 > 200)
+      {
+        if (v4 == 201)
+        {
+          v15 = @"STOP_LOCATION_UPDATE";
+        }
+
+        else
+        {
+          v15 = @"UPDATED_LOCATION";
+        }
+
+        goto LABEL_185;
+      }
+
+      if (v4 == 103)
+      {
+        v15 = @"FETCH_RESOURCE";
+        goto LABEL_185;
+      }
+
+      if (v4 != 200)
+      {
+        goto LABEL_145;
+      }
+
+      v15 = @"START_LOCATION_UPDATE";
+    }
+
+LABEL_185:
+    *buf = 138543618;
+    v17 = observerCopy;
+    v18 = 2114;
+    v19 = v15;
+    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_INFO, "Unable to remove observer %{public}@ for %{public}@, not in collection", buf, 0x16u);
+
+    goto LABEL_186;
+  }
+
+LABEL_188:
+}
+
 - (void)updateConnectionStatus
 {
-  v3 = sub_100001B24();
+  v3 = sub_100001B24(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     devices = [(IDSService *)self->_idsService devices];
     *buf = 138477827;
-    *v65 = devices;
+    *v67 = devices;
     _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_INFO, "Updating connection status with devices: %{private}@", buf, 0xCu);
   }
 
+  v61 = 0u;
+  v62 = 0u;
   v59 = 0u;
   v60 = 0u;
-  v57 = 0u;
-  v58 = 0u;
   devices2 = [(IDSService *)self->_idsService devices];
-  v6 = [devices2 countByEnumeratingWithState:&v57 objects:v66 count:16];
+  v6 = [devices2 countByEnumeratingWithState:&v59 objects:v68 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v58;
+    v8 = *v60;
     while (2)
     {
       for (i = 0; i != v7; i = i + 1)
       {
-        if (*v58 != v8)
+        if (*v60 != v8)
         {
           objc_enumerationMutation(devices2);
         }
 
-        v10 = *(*(&v57 + 1) + 8 * i);
+        v10 = *(*(&v59 + 1) + 8 * i);
         if ([v10 isDefaultPairedDevice] && objc_msgSend(v10, "isConnected"))
         {
           isNearby = [v10 isNearby];
@@ -1444,7 +2788,7 @@ LABEL_6:
         }
       }
 
-      v7 = [devices2 countByEnumeratingWithState:&v57 objects:v66 count:16];
+      v7 = [devices2 countByEnumeratingWithState:&v59 objects:v68 count:16];
       if (v7)
       {
         continue;
@@ -1459,27 +2803,27 @@ LABEL_6:
 LABEL_14:
 
   testSimulateNoDevices = self->_testSimulateNoDevices;
-  v14 = sub_100001B24();
-  v15 = os_log_type_enabled(v14, OS_LOG_TYPE_INFO);
+  v15 = sub_100001B24(v14);
+  v16 = os_log_type_enabled(v15, OS_LOG_TYPE_INFO);
   if (testSimulateNoDevices)
   {
-    if (v15)
+    if (v16)
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_INFO, "New connection status: simulating no devices connected", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_INFO, "New connection status: simulating no devices connected", buf, 2u);
     }
 
     isNearby = 0;
     v12 = 0;
   }
 
-  else if (v15)
+  else if (v16)
   {
     *buf = 67109376;
-    *v65 = v12;
-    *&v65[4] = 1024;
-    *&v65[6] = isNearby;
-    _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_INFO, "New connection status: connected: %i, nearby: %i", buf, 0xEu);
+    *v67 = v12;
+    *&v67[4] = 1024;
+    *&v67[6] = isNearby;
+    _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_INFO, "New connection status: connected: %i, nearby: %i", buf, 0xEu);
   }
 
   nearby = self->_nearby;
@@ -1491,97 +2835,98 @@ LABEL_14:
   self->_protocolVersion = 0;
   if (self->_connected != v12)
   {
-    v43 = nearby;
-    v44 = isNearby;
+    v45 = nearby;
+    v46 = isNearby;
     self->_connected = v12;
     if (!v12)
     {
-      v17 = [[NSError alloc] initWithDomain:@"NMDeviceConnectionErrorDomain" code:0 userInfo:0];
+      v18 = [[NSError alloc] initWithDomain:@"NMDeviceConnectionErrorDomain" code:0 userInfo:0];
       [(NSLock *)self->_replyCallbackBlocksLock lock];
       allValues = [(NSMutableDictionary *)self->_replyCallbackBlocks allValues];
-      v19 = [allValues copy];
+      v20 = [allValues copy];
 
       allValues2 = [(NSMutableDictionary *)self->_replyExpectingMessageMetadata allValues];
-      v21 = [allValues2 copy];
+      v22 = [allValues2 copy];
 
       [(NSMutableDictionary *)self->_replyCallbackBlocks removeAllObjects];
       [(NSMutableDictionary *)self->_replyExpectingMessageMetadata removeAllObjects];
       [(NSLock *)self->_replyCallbackBlocksLock unlock];
-      if ([v19 count])
+      v23 = [v20 count];
+      if (v23)
       {
-        v22 = sub_100001B24();
-        if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+        v24 = sub_100001B24(v23);
+        if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
         {
-          v23 = [v19 count];
+          v25 = [v20 count];
           *buf = 134217984;
-          *v65 = v23;
-          _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_ERROR, "Canceling %lu requests due to lost connection to paired device", buf, 0xCu);
+          *v67 = v25;
+          _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_ERROR, "Canceling %lu requests due to lost connection to paired device", buf, 0xCu);
         }
       }
 
+      v57 = 0u;
+      v58 = 0u;
       v55 = 0u;
       v56 = 0u;
-      v53 = 0u;
-      v54 = 0u;
-      v24 = v21;
-      v25 = [v24 countByEnumeratingWithState:&v53 objects:v63 count:16];
-      if (v25)
+      v26 = v22;
+      v27 = [v26 countByEnumeratingWithState:&v55 objects:v65 count:16];
+      if (v27)
       {
-        v26 = v25;
-        v27 = *v54;
+        v28 = v27;
+        v29 = *v56;
         do
         {
-          for (j = 0; j != v26; j = j + 1)
+          for (j = 0; j != v28; j = j + 1)
           {
-            if (*v54 != v27)
+            if (*v56 != v29)
             {
-              objc_enumerationMutation(v24);
+              objc_enumerationMutation(v26);
             }
 
-            v29 = *(*(&v53 + 1) + 8 * j);
-            timeoutTimer = [v29 timeoutTimer];
+            v31 = *(*(&v55 + 1) + 8 * j);
+            timeoutTimer = [v31 timeoutTimer];
 
             if (timeoutTimer)
             {
-              timeoutTimer2 = [v29 timeoutTimer];
+              timeoutTimer2 = [v31 timeoutTimer];
               dispatch_source_cancel(timeoutTimer2);
 
-              [v29 setTimeoutTimer:0];
+              [v31 setTimeoutTimer:0];
             }
           }
 
-          v26 = [v24 countByEnumeratingWithState:&v53 objects:v63 count:16];
+          v28 = [v26 countByEnumeratingWithState:&v55 objects:v65 count:16];
         }
 
-        while (v26);
+        while (v28);
       }
 
+      v53 = 0u;
+      v54 = 0u;
       v51 = 0u;
       v52 = 0u;
-      v49 = 0u;
-      v50 = 0u;
-      v32 = v19;
-      v33 = [v32 countByEnumeratingWithState:&v49 objects:v62 count:16];
-      if (v33)
+      v34 = v20;
+      v35 = [v34 countByEnumeratingWithState:&v51 objects:v64 count:16];
+      if (v35)
       {
-        v34 = v33;
-        v35 = *v50;
+        v36 = v35;
+        v37 = *v52;
         do
         {
-          for (k = 0; k != v34; k = k + 1)
+          for (k = 0; k != v36; k = k + 1)
           {
-            if (*v50 != v35)
+            if (*v52 != v37)
             {
-              objc_enumerationMutation(v32);
+              objc_enumerationMutation(v34);
             }
 
-            (*(*(*(&v49 + 1) + 8 * k) + 16))();
+            (*(*(*(&v51 + 1) + 8 * k) + 16))();
           }
 
-          v34 = [v32 countByEnumeratingWithState:&v49 objects:v62 count:16];
+          v36 = [v34 countByEnumeratingWithState:&v51 objects:v64 count:16];
         }
 
-        while (v34);
+        while (v36);
       }
 
       [(NSRecursiveLock *)self->_messageQueuesLock lock];
@@ -1590,44 +2935,44 @@ LABEL_14:
     }
 
     allObservers = [(GEOObserverHashTable *)self->_observers allObservers];
-    v45 = 0u;
-    v46 = 0u;
     v47 = 0u;
     v48 = 0u;
-    v38 = [allObservers countByEnumeratingWithState:&v45 objects:v61 count:16];
-    if (v38)
+    v49 = 0u;
+    v50 = 0u;
+    v40 = [allObservers countByEnumeratingWithState:&v47 objects:v63 count:16];
+    if (v40)
     {
-      v39 = v38;
-      v40 = *v46;
+      v41 = v40;
+      v42 = *v48;
       do
       {
-        for (m = 0; m != v39; m = m + 1)
+        for (m = 0; m != v41; m = m + 1)
         {
-          if (*v46 != v40)
+          if (*v48 != v42)
           {
             objc_enumerationMutation(allObservers);
           }
 
-          v42 = *(*(&v45 + 1) + 8 * m);
+          v44 = *(*(&v47 + 1) + 8 * m);
           if (objc_opt_respondsToSelector())
           {
-            [v42 connection:self didChangeDeviceConnectivity:v12];
+            [v44 connection:self didChangeDeviceConnectivity:v12];
           }
 
           if (v12 && (objc_opt_respondsToSelector() & 1) != 0)
           {
-            [v42 connectionNeedsStateSynchronization:self];
+            [v44 connectionNeedsStateSynchronization:self];
           }
         }
 
-        v39 = [allObservers countByEnumeratingWithState:&v45 objects:v61 count:16];
+        v41 = [allObservers countByEnumeratingWithState:&v47 objects:v63 count:16];
       }
 
-      while (v39);
+      while (v41);
     }
 
-    nearby = v43;
-    isNearby = v44;
+    nearby = v45;
+    isNearby = v46;
   }
 
   if (nearby != isNearby)
@@ -1649,68 +2994,68 @@ LABEL_14:
     [(NSLock *)self->_replyCallbackBlocksLock lock];
     replyCallbackBlocks = self->_replyCallbackBlocks;
     incomingResponseIdentifier3 = [contextCopy incomingResponseIdentifier];
-    v16 = [(NSMutableDictionary *)replyCallbackBlocks objectForKey:incomingResponseIdentifier3];
-    v17 = v16 != 0;
+    v17 = [(NSMutableDictionary *)replyCallbackBlocks objectForKey:incomingResponseIdentifier3];
+    v18 = v17 != 0;
 
-    [(NSLock *)self->_replyCallbackBlocksLock unlock];
+    unlock = [(NSLock *)self->_replyCallbackBlocksLock unlock];
   }
 
   else
   {
-    v17 = 0;
+    v18 = 0;
   }
 
-  v18 = sub_100001B24();
-  v19 = v18;
+  v19 = sub_100001B24(unlock);
+  v20 = v19;
   if (dataCopy)
   {
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138477827;
-      v101 = incomingResponseIdentifier;
-      _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEBUG, "Received data with incomingResponseIdentifier: %{private}@", buf, 0xCu);
+      v108 = incomingResponseIdentifier;
+      _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEBUG, "Received data with incomingResponseIdentifier: %{private}@", buf, 0xCu);
     }
 
-    if (v17)
+    if (v18)
     {
-      v20 = sub_100001B24();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+      v22 = sub_100001B24(v21);
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEBUG, "incomingResponseIdentifier matches message awaiting reply", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEBUG, "incomingResponseIdentifier matches message awaiting reply", buf, 2u);
       }
 
-      v21 = [[NMReply alloc] initWithData:dataCopy];
-      v19 = v21;
-      if (v21)
+      v23 = [[NMReply alloc] initWithData:dataCopy];
+      v20 = v23;
+      if (v23)
       {
-        senderUUID = [(NMReply *)v21 senderUUID];
+        senderUUID = [(NMReply *)v23 senderUUID];
         [(NMDeviceConnection *)self _updateReceiverProcessUUID:senderUUID];
 
         [(NSLock *)self->_replyCallbackBlocksLock lock];
-        v23 = [(NSMutableDictionary *)self->_replyExpectingMessageMetadata objectForKey:incomingResponseIdentifier];
+        v25 = [(NSMutableDictionary *)self->_replyExpectingMessageMetadata objectForKey:incomingResponseIdentifier];
         [(NSMutableDictionary *)self->_replyExpectingMessageMetadata removeObjectForKey:incomingResponseIdentifier];
         [(NSLock *)self->_replyCallbackBlocksLock unlock];
-        timeoutTimer = [v23 timeoutTimer];
+        timeoutTimer = [v25 timeoutTimer];
 
         if (timeoutTimer)
         {
-          timeoutTimer2 = [v23 timeoutTimer];
+          timeoutTimer2 = [v25 timeoutTimer];
           dispatch_source_cancel(timeoutTimer2);
 
-          [v23 setTimeoutTimer:0];
+          [v25 setTimeoutTimer:0];
         }
 
-        [v23 timestamp];
-        v27 = v26;
-        v28 = sub_100001B24();
-        if (!os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
+        timestamp = [v25 timestamp];
+        v30 = v29;
+        v31 = sub_100001B24(timestamp);
+        if (!os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
         {
           goto LABEL_149;
         }
 
-        v29 = Current - v27;
-        type = [v23 type];
+        v32 = Current - v30;
+        type = [v25 type];
         if (type > 202)
         {
           if (type <= 400)
@@ -1719,17 +3064,17 @@ LABEL_14:
             {
               if (type == 203)
               {
-                v31 = @"FAILED_TO_UPDATE_LOCATION";
+                v34 = @"FAILED_TO_UPDATE_LOCATION";
               }
 
               else if (type == 204)
               {
-                v31 = @"DID_PAUSE_LOCATION_UPDATES";
+                v34 = @"DID_PAUSE_LOCATION_UPDATES";
               }
 
               else
               {
-                v31 = @"DID_RESUME_LOCATION_UPDATES";
+                v34 = @"DID_RESUME_LOCATION_UPDATES";
               }
             }
 
@@ -1738,52 +3083,52 @@ LABEL_14:
               switch(type)
               {
                 case 300:
-                  v31 = @"UPDATE_NAV_ROUTE_DETAILS";
+                  v34 = @"UPDATE_NAV_ROUTE_DETAILS";
                   goto LABEL_147;
                 case 301:
-                  v31 = @"UPDATE_NAV_ROUTE_STATUS";
+                  v34 = @"UPDATE_NAV_ROUTE_STATUS";
                   goto LABEL_147;
                 case 302:
-                  v31 = @"START_NAV";
+                  v34 = @"START_NAV";
                   goto LABEL_147;
                 case 303:
-                  v31 = @"STOP_NAV";
+                  v34 = @"STOP_NAV";
                   goto LABEL_147;
                 case 304:
-                  v31 = @"PREVIEW_NAV";
+                  v34 = @"PREVIEW_NAV";
                   goto LABEL_147;
                 case 305:
-                  v31 = @"CLEAR_NAV_PREVIEW";
+                  v34 = @"CLEAR_NAV_PREVIEW";
                   goto LABEL_147;
                 case 306:
-                  v31 = @"SET_WANTS_ALL_NAV_STATUS_UPDATES";
+                  v34 = @"SET_WANTS_ALL_NAV_STATUS_UPDATES";
                   goto LABEL_147;
                 case 307:
-                  v31 = @"DISMISS_NAV_SAFETY_ALERT";
+                  v34 = @"DISMISS_NAV_SAFETY_ALERT";
                   goto LABEL_147;
                 case 308:
-                  v31 = @"AVAILABLE_ROUTE";
+                  v34 = @"AVAILABLE_ROUTE";
                   goto LABEL_147;
                 case 309:
-                  v31 = @"SELECTED_ROUTE";
+                  v34 = @"SELECTED_ROUTE";
                   goto LABEL_147;
                 case 310:
-                  v31 = @"REQUEST_NAVIGATION_UPDATE";
+                  v34 = @"REQUEST_NAVIGATION_UPDATE";
                   goto LABEL_147;
                 case 311:
-                  v31 = @"UPDATE_NAV_ROUTE_UPDATE";
+                  v34 = @"UPDATE_NAV_ROUTE_UPDATE";
                   goto LABEL_147;
                 case 312:
-                  v31 = @"AVAILABLE_ROUTE_UPDATE";
+                  v34 = @"AVAILABLE_ROUTE_UPDATE";
                   goto LABEL_147;
                 case 313:
-                  v31 = @"PAUSE_NAV";
+                  v34 = @"PAUSE_NAV";
                   goto LABEL_147;
                 case 314:
-                  v31 = @"RESUME_NAV";
+                  v34 = @"RESUME_NAV";
                   goto LABEL_147;
                 case 315:
-                  v31 = @"SET_DISPLAYED_STEP";
+                  v34 = @"SET_DISPLAYED_STEP";
                   goto LABEL_147;
                 default:
                   if (type != 206)
@@ -1791,7 +3136,7 @@ LABEL_14:
                     goto LABEL_107;
                   }
 
-                  v31 = @"APPLY_LOCATION_AUTHORIZATION";
+                  v34 = @"APPLY_LOCATION_AUTHORIZATION";
                   break;
               }
             }
@@ -1805,13 +3150,13 @@ LABEL_14:
             {
               if (type == 1500)
               {
-                v31 = @"DEBUG_FETCH_CONFIGURATION_INFO";
+                v34 = @"DEBUG_FETCH_CONFIGURATION_INFO";
                 goto LABEL_147;
               }
 
               if (type == 1501)
               {
-                v31 = @"DEBUG_FETCH_DIAGNOSTICS_STRING";
+                v34 = @"DEBUG_FETCH_DIAGNOSTICS_STRING";
                 goto LABEL_147;
               }
             }
@@ -1820,13 +3165,13 @@ LABEL_14:
             {
               if (type == 600)
               {
-                v31 = @"FETCH_ROUTE_GENIUS";
+                v34 = @"FETCH_ROUTE_GENIUS";
                 goto LABEL_147;
               }
 
               if (type == 1000)
               {
-                v31 = @"PING";
+                v34 = @"PING";
                 goto LABEL_147;
               }
             }
@@ -1838,13 +3183,13 @@ LABEL_14:
           {
             if (type == 501)
             {
-              v31 = @"PLACE_DATA_IDENTIFIER_LOOKUP";
+              v34 = @"PLACE_DATA_IDENTIFIER_LOOKUP";
               goto LABEL_147;
             }
 
             if (type == 502)
             {
-              v31 = @"SERVICE_REQUEST";
+              v34 = @"SERVICE_REQUEST";
               goto LABEL_147;
             }
 
@@ -1853,7 +3198,7 @@ LABEL_14:
 
           if (type == 401)
           {
-            v31 = @"OPEN_URL";
+            v34 = @"OPEN_URL";
             goto LABEL_147;
           }
 
@@ -1862,7 +3207,7 @@ LABEL_14:
             goto LABEL_107;
           }
 
-          v31 = @"PLACE_DATA_MUID_LOOKUP";
+          v34 = @"PLACE_DATA_MUID_LOOKUP";
         }
 
         else
@@ -1874,57 +3219,57 @@ LABEL_14:
               switch(type)
               {
                 case '2':
-                  v31 = @"START_INITIAL_SYNC";
+                  v34 = @"START_INITIAL_SYNC";
                   goto LABEL_147;
                 case '3':
-                  v31 = @"FETCH_CURRENT_COUNTRY_CODE";
+                  v34 = @"FETCH_CURRENT_COUNTRY_CODE";
                   goto LABEL_147;
                 case '4':
-                  v31 = @"FETCH_EXPERIMENTS_CONFIG";
+                  v34 = @"FETCH_EXPERIMENTS_CONFIG";
                   goto LABEL_147;
                 case '5':
-                  v31 = @"DID_CHANGE_EXPERIMENTS_CONFIG";
+                  v34 = @"DID_CHANGE_EXPERIMENTS_CONFIG";
                   goto LABEL_147;
                 case '6':
-                  v31 = @"SYNC_UP_NEXT_ITEMS";
+                  v34 = @"SYNC_UP_NEXT_ITEMS";
                   goto LABEL_147;
                 case '7':
-                  v31 = @"REQUEST_UP_NEXT_ITEMS";
+                  v34 = @"REQUEST_UP_NEXT_ITEMS";
                   goto LABEL_147;
                 case '8':
-                  v31 = @"SYNC_CONFIG_STORE";
+                  v34 = @"SYNC_CONFIG_STORE";
                   goto LABEL_147;
                 case '9':
-                  v31 = @"CHECKIN_WITH_CONFIG_STORE";
+                  v34 = @"CHECKIN_WITH_CONFIG_STORE";
                   goto LABEL_147;
                 case ':':
-                  v31 = @"REQUEST_ANALYTIC_IDENTIFIERS";
+                  v34 = @"REQUEST_ANALYTIC_IDENTIFIERS";
                   goto LABEL_147;
                 case ';':
-                  v31 = @"CHECKIN_WITH_SUBSCRIPTION_INFO";
+                  v34 = @"CHECKIN_WITH_SUBSCRIPTION_INFO";
                   goto LABEL_147;
                 case '<':
-                  v31 = @"SYNC_SUBSCRIPTION_INFO";
+                  v34 = @"SYNC_SUBSCRIPTION_INFO";
                   goto LABEL_147;
                 case '=':
-                  v31 = @"SET_OBSERVED_SUBSCRIPTION_IDENTIFIERS";
+                  v34 = @"SET_OBSERVED_SUBSCRIPTION_IDENTIFIERS";
                   goto LABEL_147;
                 case '>':
                   goto LABEL_107;
                 case '?':
-                  v31 = @"UPDATE_SUBSCRIPTION_STATE";
+                  v34 = @"UPDATE_SUBSCRIPTION_STATE";
                   goto LABEL_147;
                 case '@':
-                  v31 = @"START_STOP_SUBSCRIPTION_DOWNLOAD";
+                  v34 = @"START_STOP_SUBSCRIPTION_DOWNLOAD";
                   goto LABEL_147;
                 case 'A':
-                  v31 = @"CHECKIN_WITH_SUBSCRIPTION_STATE_SUMMARY";
+                  v34 = @"CHECKIN_WITH_SUBSCRIPTION_STATE_SUMMARY";
                   goto LABEL_147;
                 case 'B':
-                  v31 = @"SET_SUBSCRIPTION_STATE_SUMMARY";
+                  v34 = @"SET_SUBSCRIPTION_STATE_SUMMARY";
                   goto LABEL_147;
                 case 'C':
-                  v31 = @"SET_SUBSCRIPTION_SHOULD_SYNC";
+                  v34 = @"SET_SUBSCRIPTION_SHOULD_SYNC";
                   goto LABEL_147;
                 default:
                   if (type != 4)
@@ -1932,7 +3277,7 @@ LABEL_14:
                     goto LABEL_107;
                   }
 
-                  v31 = @"FETCHED_TILE";
+                  v34 = @"FETCHED_TILE";
                   break;
               }
 
@@ -1942,94 +3287,94 @@ LABEL_14:
             switch(type)
             {
               case 1:
-                v31 = @"FETCH_TILES";
+                v34 = @"FETCH_TILES";
                 goto LABEL_147;
               case 2:
-                v31 = @"CANCEL_TILES";
+                v34 = @"CANCEL_TILES";
                 goto LABEL_147;
               case 3:
-                v31 = @"REPORT_CORRUPT_TILE";
+                v34 = @"REPORT_CORRUPT_TILE";
                 goto LABEL_147;
             }
 
 LABEL_107:
-            v94 = [NSString stringWithFormat:@"(unknown: %i)", type];
+            v101 = [NSString stringWithFormat:@"(unknown: %i)", type];
 LABEL_148:
-            v75 = [dataCopy length];
-            [v19 responseTime];
-            v77 = v76;
-            [v19 enqueuedTimeInterval];
-            v79 = v78;
-            [v19 responseTime];
-            v81 = v29 - v80;
-            [v19 enqueuedTimeInterval];
-            v83 = v81 - v82;
+            v81 = [dataCopy length];
+            [v20 responseTime];
+            v83 = v82;
+            [v20 enqueuedTimeInterval];
+            v85 = v84;
+            [v20 responseTime];
+            v87 = v32 - v86;
+            [v20 enqueuedTimeInterval];
+            v89 = v87 - v88;
             incomingResponseIdentifier4 = [contextCopy incomingResponseIdentifier];
             outgoingResponseIdentifier = [contextCopy outgoingResponseIdentifier];
             *buf = 138479619;
-            v101 = v94;
-            v102 = 2048;
-            v103 = v75;
-            v104 = 2048;
-            v105 = v29;
-            v106 = 2048;
-            v107 = v77;
-            v108 = 2048;
-            v109 = v79;
-            v110 = 2048;
-            v111 = v83;
-            v112 = 2113;
-            v113 = incomingResponseIdentifier4;
-            v114 = 2113;
-            v115 = outgoingResponseIdentifier;
-            _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_INFO, "Received reply for original message type: %{private}@ (size = %lu, elapsed time = %f, remote processing time = %f, enqueued time = %f, inferred transport time = %f, incoming guid = %{private}@, outgoing guid = %{private}@)", buf, 0x52u);
+            v108 = v101;
+            v109 = 2048;
+            v110 = v81;
+            v111 = 2048;
+            v112 = v32;
+            v113 = 2048;
+            v114 = v83;
+            v115 = 2048;
+            v116 = v85;
+            v117 = 2048;
+            v118 = v89;
+            v119 = 2113;
+            v120 = incomingResponseIdentifier4;
+            v121 = 2113;
+            v122 = outgoingResponseIdentifier;
+            _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_INFO, "Received reply for original message type: %{private}@ (size = %lu, elapsed time = %f, remote processing time = %f, enqueued time = %f, inferred transport time = %f, incoming guid = %{private}@, outgoing guid = %{private}@)", buf, 0x52u);
 
 LABEL_149:
-            decompressArguments = [v19 decompressArguments];
-            v87 = sub_100001B24();
-            v88 = v87;
-            if (decompressArguments)
+            decompressArguments = [v20 decompressArguments];
+            v93 = decompressArguments;
+            v94 = sub_100001B24(decompressArguments);
+            v95 = v94;
+            if (v93)
             {
-              if (os_log_type_enabled(v87, OS_LOG_TYPE_DEBUG))
+              if (os_log_type_enabled(v94, OS_LOG_TYPE_DEBUG))
               {
                 *buf = 138477827;
-                v101 = v19;
-                _os_log_impl(&_mh_execute_header, v88, OS_LOG_TYPE_DEBUG, "Received reply contents: %{private}@", buf, 0xCu);
+                v108 = v20;
+                _os_log_impl(&_mh_execute_header, v95, OS_LOG_TYPE_DEBUG, "Received reply contents: %{private}@", buf, 0xCu);
               }
 
               [(NSLock *)self->_replyCallbackBlocksLock lock];
-              v89 = [(NSMutableDictionary *)self->_replyCallbackBlocks objectForKey:incomingResponseIdentifier];
-              v70 = [v89 copy];
+              v96 = [(NSMutableDictionary *)self->_replyCallbackBlocks objectForKey:incomingResponseIdentifier];
+              v76 = [v96 copy];
 
-              if (v70)
+              if (v76)
               {
                 [(NSMutableDictionary *)self->_replyCallbackBlocks removeObjectForKey:incomingResponseIdentifier];
-                [(NSLock *)self->_replyCallbackBlocksLock unlock];
-                v90 = sub_100001B24();
-                if (os_log_type_enabled(v90, OS_LOG_TYPE_DEBUG))
+                v97 = sub_100001B24([(NSLock *)self->_replyCallbackBlocksLock unlock]);
+                if (os_log_type_enabled(v97, OS_LOG_TYPE_DEBUG))
                 {
                   *buf = 0;
-                  _os_log_impl(&_mh_execute_header, v90, OS_LOG_TYPE_DEBUG, "Sending reply to callback block", buf, 2u);
+                  _os_log_impl(&_mh_execute_header, v97, OS_LOG_TYPE_DEBUG, "Sending reply to callback block", buf, 2u);
                 }
 
-                v70[2](v70, v19, 0);
+                v76[2](v76, v20, 0);
                 goto LABEL_162;
               }
 
               goto LABEL_161;
             }
 
-            if (os_log_type_enabled(v87, OS_LOG_TYPE_ERROR))
+            if (os_log_type_enabled(v94, OS_LOG_TYPE_ERROR))
             {
               *buf = 0;
-              _os_log_impl(&_mh_execute_header, v88, OS_LOG_TYPE_ERROR, "Failed to decompress reply arguments", buf, 2u);
+              _os_log_impl(&_mh_execute_header, v95, OS_LOG_TYPE_ERROR, "Failed to decompress reply arguments", buf, 2u);
             }
 
             [(NSLock *)self->_replyCallbackBlocksLock lock];
-            v91 = [(NSMutableDictionary *)self->_replyCallbackBlocks objectForKey:incomingResponseIdentifier];
-            v70 = [v91 copy];
+            v98 = [(NSMutableDictionary *)self->_replyCallbackBlocks objectForKey:incomingResponseIdentifier];
+            v76 = [v98 copy];
 
-            if (!v70)
+            if (!v76)
             {
 LABEL_161:
               [(NSLock *)self->_replyCallbackBlocksLock unlock];
@@ -2039,7 +3384,7 @@ LABEL_161:
             [(NSMutableDictionary *)self->_replyCallbackBlocks removeObjectForKey:incomingResponseIdentifier];
             [(NSLock *)self->_replyCallbackBlocksLock unlock];
             dataValue = [NSError errorWithDomain:@"NMDeviceConnectionErrorDomain" code:1 userInfo:0];
-            (v70)[2](v70, 0, dataValue);
+            (v76)[2](v76, 0, dataValue);
 LABEL_160:
 
 LABEL_162:
@@ -2050,17 +3395,17 @@ LABEL_162:
           {
             if (type == 100)
             {
-              v31 = @"CHECKIN_WITH_TILE_GROUP";
+              v34 = @"CHECKIN_WITH_TILE_GROUP";
             }
 
             else if (type == 101)
             {
-              v31 = @"FORCE_UPDATE_MANIFEST";
+              v34 = @"FORCE_UPDATE_MANIFEST";
             }
 
             else
             {
-              v31 = @"DID_CHANGE_ACTIVE_TILE_GROUP";
+              v34 = @"DID_CHANGE_ACTIVE_TILE_GROUP";
             }
 
             goto LABEL_147;
@@ -2070,12 +3415,12 @@ LABEL_162:
           {
             if (type == 201)
             {
-              v31 = @"STOP_LOCATION_UPDATE";
+              v34 = @"STOP_LOCATION_UPDATE";
             }
 
             else
             {
-              v31 = @"UPDATED_LOCATION";
+              v34 = @"UPDATED_LOCATION";
             }
 
             goto LABEL_147;
@@ -2083,7 +3428,7 @@ LABEL_162:
 
           if (type == 103)
           {
-            v31 = @"FETCH_RESOURCE";
+            v34 = @"FETCH_RESOURCE";
             goto LABEL_147;
           }
 
@@ -2092,36 +3437,36 @@ LABEL_162:
             goto LABEL_107;
           }
 
-          v31 = @"START_LOCATION_UPDATE";
+          v34 = @"START_LOCATION_UPDATE";
         }
 
 LABEL_147:
-        v94 = v31;
+        v101 = v34;
         goto LABEL_148;
       }
 
-      v23 = sub_100001B24();
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+      v25 = sub_100001B24(0);
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
       {
         *buf = 0;
-        v46 = "Invalid reply data";
+        v51 = "Invalid reply data";
 LABEL_36:
-        _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_ERROR, v46, buf, 2u);
+        _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_ERROR, v51, buf, 2u);
         goto LABEL_163;
       }
 
       goto LABEL_163;
     }
 
-    v19 = [[NMMessage alloc] initWithData:dataCopy];
-    v33 = sub_100001B24();
-    v23 = v33;
-    if (!v19)
+    v20 = [[NMMessage alloc] initWithData:dataCopy];
+    v36 = sub_100001B24(v20);
+    v25 = v36;
+    if (!v20)
     {
-      if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
       {
         *buf = 0;
-        v46 = "Invalid message data";
+        v51 = "Invalid message data";
         goto LABEL_36;
       }
 
@@ -2130,37 +3475,38 @@ LABEL_163:
       goto LABEL_164;
     }
 
-    if (os_log_type_enabled(v33, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(v36, OS_LOG_TYPE_INFO))
     {
-      shortDebugDescription = [v19 shortDebugDescription];
-      v35 = [dataCopy length];
-      [v19 sentTimestamp];
-      v37 = Current - v36;
-      [v19 enqueuedTimeInterval];
+      shortDebugDescription = [v20 shortDebugDescription];
+      v38 = [dataCopy length];
+      [v20 sentTimestamp];
+      v40 = Current - v39;
+      [v20 enqueuedTimeInterval];
       *buf = 138478595;
-      v101 = shortDebugDescription;
-      v102 = 2048;
-      v103 = v35;
-      v104 = 2048;
-      v105 = v37;
-      v106 = 2048;
-      v107 = v38;
-      _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_INFO, "Received message type: %{private}@ (size = %lu, sent %f seconds ago, enqueued time = %f)", buf, 0x2Au);
+      v108 = shortDebugDescription;
+      v109 = 2048;
+      v110 = v38;
+      v111 = 2048;
+      v112 = v40;
+      v113 = 2048;
+      v114 = v41;
+      _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_INFO, "Received message type: %{private}@ (size = %lu, sent %f seconds ago, enqueued time = %f)", buf, 0x2Au);
     }
 
-    senderUUID2 = [v19 senderUUID];
+    senderUUID2 = [v20 senderUUID];
     [(NMDeviceConnection *)self _updateReceiverProcessUUID:senderUUID2];
 
-    decompressArguments2 = [v19 decompressArguments];
-    v41 = sub_100001B24();
-    v42 = v41;
-    if (decompressArguments2)
+    decompressArguments2 = [v20 decompressArguments];
+    v44 = decompressArguments2;
+    v45 = sub_100001B24(decompressArguments2);
+    v46 = v45;
+    if (v44)
     {
-      if (os_log_type_enabled(v41, OS_LOG_TYPE_DEBUG))
+      if (os_log_type_enabled(v45, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138477827;
-        v101 = v19;
-        _os_log_impl(&_mh_execute_header, v42, OS_LOG_TYPE_DEBUG, "Received message contents: %{private}@", buf, 0xCu);
+        v108 = v20;
+        _os_log_impl(&_mh_execute_header, v46, OS_LOG_TYPE_DEBUG, "Received message contents: %{private}@", buf, 0xCu);
       }
 
       if ([contextCopy expectsPeerResponse])
@@ -2169,98 +3515,98 @@ LABEL_163:
 
         if (outgoingResponseIdentifier2)
         {
-          v44 = objc_alloc_init(_NMReplyInfo);
+          v49 = objc_alloc_init(_NMReplyInfo);
           outgoingResponseIdentifier3 = [contextCopy outgoingResponseIdentifier];
-          [(_NMReplyInfo *)v44 setIdsMessageIdentifier:outgoingResponseIdentifier3];
+          [(_NMReplyInfo *)v49 setIdsMessageIdentifier:outgoingResponseIdentifier3];
 
-          [(_NMReplyInfo *)v44 setRequestReceivedTimestamp:Current];
-          objc_setAssociatedObject(v19, &unk_10009E838, v44, 0x301);
+          [(_NMReplyInfo *)v49 setRequestReceivedTimestamp:Current];
+          objc_setAssociatedObject(v20, &unk_10009E838, v49, 0x301);
         }
 
         else
         {
-          v44 = sub_100001B24();
-          if (os_log_type_enabled(&v44->super, OS_LOG_TYPE_ERROR))
+          v49 = sub_100001B24(v48);
+          if (os_log_type_enabled(&v49->super, OS_LOG_TYPE_ERROR))
           {
-            shortDebugDescription2 = [v19 shortDebugDescription];
+            shortDebugDescription2 = [v20 shortDebugDescription];
             *buf = 138543362;
-            v101 = shortDebugDescription2;
-            _os_log_impl(&_mh_execute_header, &v44->super, OS_LOG_TYPE_ERROR, "Message wants reply, but didn't receive a message identifier! Message: %{public}@", buf, 0xCu);
+            v108 = shortDebugDescription2;
+            _os_log_impl(&_mh_execute_header, &v49->super, OS_LOG_TYPE_ERROR, "Message wants reply, but didn't receive a message identifier! Message: %{public}@", buf, 0xCu);
           }
         }
       }
 
       [(NSLock *)self->_observersLock lock];
       messageObservers = self->_messageObservers;
-      v61 = [NSNumber numberWithInt:[v19 type]];
-      v23 = [(NSMutableDictionary *)messageObservers objectForKeyedSubscript:v61];
+      v66 = [NSNumber numberWithInt:[v20 type]];
+      v25 = [(NSMutableDictionary *)messageObservers objectForKeyedSubscript:v66];
 
-      allValues = [v23 allValues];
-      v63 = [allValues copy];
+      allValues = [v25 allValues];
+      v68 = [allValues copy];
 
       [(NSLock *)self->_observersLock unlock];
-      if (![v63 count])
+      if (![v68 count])
       {
-        v64 = sub_100001B24();
-        if (os_log_type_enabled(v64, OS_LOG_TYPE_ERROR))
+        v69 = sub_100001B24(0);
+        if (os_log_type_enabled(v69, OS_LOG_TYPE_ERROR))
         {
-          shortDebugDescription3 = [v19 shortDebugDescription];
+          shortDebugDescription3 = [v20 shortDebugDescription];
           *buf = 138543362;
-          v101 = shortDebugDescription3;
-          _os_log_impl(&_mh_execute_header, v64, OS_LOG_TYPE_ERROR, "No handler registered for incoming message type %{public}@", buf, 0xCu);
+          v108 = shortDebugDescription3;
+          _os_log_impl(&_mh_execute_header, v69, OS_LOG_TYPE_ERROR, "No handler registered for incoming message type %{public}@", buf, 0xCu);
         }
       }
 
-      v66 = [v19 argumentForTag:600];
-      dataValue = [v66 dataValue];
+      v71 = [v20 argumentForTag:600];
+      dataValue = [v71 dataValue];
 
       if (dataValue)
       {
-        v68 = sub_100001B24();
-        if (os_log_type_enabled(v68, OS_LOG_TYPE_INFO))
+        v74 = sub_100001B24(v73);
+        if (os_log_type_enabled(v74, OS_LOG_TYPE_INFO))
         {
           *buf = 0;
-          _os_log_impl(&_mh_execute_header, v68, OS_LOG_TYPE_INFO, "Applying transient location authorization", buf, 2u);
+          _os_log_impl(&_mh_execute_header, v74, OS_LOG_TYPE_INFO, "Applying transient location authorization", buf, 2u);
         }
 
-        v69 = [CLLocationManager _setClientTransientAuthorizationInfoForBundleId:@"com.apple.Maps" data:dataValue];
+        v75 = [CLLocationManager _setClientTransientAuthorizationInfoForBundleId:@"com.apple.Maps" data:dataValue];
       }
 
-      v97 = 0u;
-      v98 = 0u;
-      v95 = 0u;
-      v96 = 0u;
-      v70 = v63;
-      v71 = [v70 countByEnumeratingWithState:&v95 objects:v99 count:16];
-      if (v71)
+      v104 = 0u;
+      v105 = 0u;
+      v102 = 0u;
+      v103 = 0u;
+      v76 = v68;
+      v77 = [v76 countByEnumeratingWithState:&v102 objects:v106 count:16];
+      if (v77)
       {
-        v72 = v71;
-        v73 = *v96;
+        v78 = v77;
+        v79 = *v103;
         do
         {
-          for (i = 0; i != v72; i = i + 1)
+          for (i = 0; i != v78; i = i + 1)
           {
-            if (*v96 != v73)
+            if (*v103 != v79)
             {
-              objc_enumerationMutation(v70);
+              objc_enumerationMutation(v76);
             }
 
-            (*(*(*(&v95 + 1) + 8 * i) + 16))();
+            (*(*(*(&v102 + 1) + 8 * i) + 16))();
           }
 
-          v72 = [v70 countByEnumeratingWithState:&v95 objects:v99 count:16];
+          v78 = [v76 countByEnumeratingWithState:&v102 objects:v106 count:16];
         }
 
-        while (v72);
+        while (v78);
       }
 
       goto LABEL_160;
     }
 
-    if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v42, OS_LOG_TYPE_ERROR, "Failed to decompress message arguments", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v46, OS_LOG_TYPE_ERROR, "Failed to decompress message arguments", buf, 2u);
     }
 
     if ([contextCopy expectsPeerResponse])
@@ -2269,52 +3615,52 @@ LABEL_163:
 
       if (outgoingResponseIdentifier4)
       {
-        v23 = objc_alloc_init(NMReply);
-        v48 = sub_100001B7C();
-        [v23 setSenderUUID:v48];
+        v25 = objc_alloc_init(NMReply);
+        v53 = sub_100001B7C(v25);
+        [v25 setSenderUUID:v53];
 
-        v49 = [NMArgument alloc];
-        v50 = [NSError errorWithDomain:@"NMDeviceConnectionErrorDomain" code:1 userInfo:0];
-        v51 = [(NMArgument *)v49 _nm_initWithErrorValue:v50 tag:3];
+        v54 = [NMArgument alloc];
+        v55 = [NSError errorWithDomain:@"NMDeviceConnectionErrorDomain" code:1 userInfo:0];
+        v56 = [(NMArgument *)v54 _nm_initWithErrorValue:v55 tag:3];
 
-        v93 = v51;
-        [v23 addArgument:v51];
-        v52 = [(NMDeviceConnection *)self _idsOptionsForMessage:v19 withOptions:0];
-        v53 = [v52 mutableCopy];
+        v100 = v56;
+        [v25 addArgument:v56];
+        v57 = [(NMDeviceConnection *)self _idsOptionsForMessage:v20 withOptions:0];
+        v58 = [v57 mutableCopy];
 
-        if (!v53)
+        if (!v58)
         {
-          v53 = +[NSMutableDictionary dictionary];
+          v58 = +[NSMutableDictionary dictionary];
         }
 
         outgoingResponseIdentifier5 = [contextCopy outgoingResponseIdentifier];
-        [v53 setObject:outgoingResponseIdentifier5 forKeyedSubscript:IDSSendMessageOptionPeerResponseIdentifierKey];
+        [v58 setObject:outgoingResponseIdentifier5 forKeyedSubscript:IDSSendMessageOptionPeerResponseIdentifierKey];
 
         idsService = self->_idsService;
-        data = [v23 data];
+        data = [v25 data];
         accounts = [(IDSService *)self->_idsService accounts];
         anyObject = [accounts anyObject];
-        v58 = [NSSet setWithObject:IDSDefaultPairedDevice];
-        [(IDSService *)idsService sendData:data fromAccount:anyObject toDestinations:v58 priority:200 options:v53 identifier:0 error:0];
+        v63 = [NSSet setWithObject:IDSDefaultPairedDevice];
+        [(IDSService *)idsService sendData:data fromAccount:anyObject toDestinations:v63 priority:200 options:v58 identifier:0 error:0];
 
         goto LABEL_163;
       }
     }
   }
 
-  else if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+  else if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
   {
-    v32 = "NO";
-    if (v17)
+    v35 = "NO";
+    if (v18)
     {
-      v32 = "YES";
+      v35 = "YES";
     }
 
     *buf = 138478083;
-    v101 = incomingResponseIdentifier;
-    v102 = 2080;
-    v103 = v32;
-    _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_ERROR, "Missing data with incomingResponseIdentifier: %{private}@ (Reply: %s) ", buf, 0x16u);
+    v108 = incomingResponseIdentifier;
+    v109 = 2080;
+    v110 = v35;
+    _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_ERROR, "Missing data with incomingResponseIdentifier: %{private}@ (Reply: %s) ", buf, 0x16u);
   }
 
 LABEL_164:
@@ -2327,7 +3673,7 @@ LABEL_164:
   dispatch_assert_queue_V2(self->_queue);
   if (!identifierCopy)
   {
-    v14 = 0;
+    v15 = 0;
     if (success)
     {
       goto LABEL_121;
@@ -2337,7 +3683,7 @@ LABEL_164:
   }
 
   v12 = [(NSMutableDictionary *)self->_inFlightMessageMetadata objectForKey:identifierCopy];
-  [(NSMutableDictionary *)self->_inFlightMessageMetadata removeObjectForKey:identifierCopy];
+  v13 = [(NSMutableDictionary *)self->_inFlightMessageMetadata removeObjectForKey:identifierCopy];
   if (v12)
   {
     type = [v12 type];
@@ -2349,17 +3695,17 @@ LABEL_164:
         {
           if (type == 203)
           {
-            v14 = @"FAILED_TO_UPDATE_LOCATION";
+            v15 = @"FAILED_TO_UPDATE_LOCATION";
           }
 
           else if (type == 204)
           {
-            v14 = @"DID_PAUSE_LOCATION_UPDATES";
+            v15 = @"DID_PAUSE_LOCATION_UPDATES";
           }
 
           else
           {
-            v14 = @"DID_RESUME_LOCATION_UPDATES";
+            v15 = @"DID_RESUME_LOCATION_UPDATES";
           }
         }
 
@@ -2368,52 +3714,52 @@ LABEL_164:
           switch(type)
           {
             case 300:
-              v14 = @"UPDATE_NAV_ROUTE_DETAILS";
+              v15 = @"UPDATE_NAV_ROUTE_DETAILS";
               break;
             case 301:
-              v14 = @"UPDATE_NAV_ROUTE_STATUS";
+              v15 = @"UPDATE_NAV_ROUTE_STATUS";
               break;
             case 302:
-              v14 = @"START_NAV";
+              v15 = @"START_NAV";
               break;
             case 303:
-              v14 = @"STOP_NAV";
+              v15 = @"STOP_NAV";
               break;
             case 304:
-              v14 = @"PREVIEW_NAV";
+              v15 = @"PREVIEW_NAV";
               break;
             case 305:
-              v14 = @"CLEAR_NAV_PREVIEW";
+              v15 = @"CLEAR_NAV_PREVIEW";
               break;
             case 306:
-              v14 = @"SET_WANTS_ALL_NAV_STATUS_UPDATES";
+              v15 = @"SET_WANTS_ALL_NAV_STATUS_UPDATES";
               break;
             case 307:
-              v14 = @"DISMISS_NAV_SAFETY_ALERT";
+              v15 = @"DISMISS_NAV_SAFETY_ALERT";
               break;
             case 308:
-              v14 = @"AVAILABLE_ROUTE";
+              v15 = @"AVAILABLE_ROUTE";
               break;
             case 309:
-              v14 = @"SELECTED_ROUTE";
+              v15 = @"SELECTED_ROUTE";
               break;
             case 310:
-              v14 = @"REQUEST_NAVIGATION_UPDATE";
+              v15 = @"REQUEST_NAVIGATION_UPDATE";
               break;
             case 311:
-              v14 = @"UPDATE_NAV_ROUTE_UPDATE";
+              v15 = @"UPDATE_NAV_ROUTE_UPDATE";
               break;
             case 312:
-              v14 = @"AVAILABLE_ROUTE_UPDATE";
+              v15 = @"AVAILABLE_ROUTE_UPDATE";
               break;
             case 313:
-              v14 = @"PAUSE_NAV";
+              v15 = @"PAUSE_NAV";
               break;
             case 314:
-              v14 = @"RESUME_NAV";
+              v15 = @"RESUME_NAV";
               break;
             case 315:
-              v14 = @"SET_DISPLAYED_STEP";
+              v15 = @"SET_DISPLAYED_STEP";
               break;
             default:
               if (type != 206)
@@ -2421,7 +3767,7 @@ LABEL_164:
                 goto LABEL_57;
               }
 
-              v14 = @"APPLY_LOCATION_AUTHORIZATION";
+              v15 = @"APPLY_LOCATION_AUTHORIZATION";
               break;
           }
         }
@@ -2435,13 +3781,13 @@ LABEL_164:
         {
           if (type == 1500)
           {
-            v14 = @"DEBUG_FETCH_CONFIGURATION_INFO";
+            v15 = @"DEBUG_FETCH_CONFIGURATION_INFO";
             goto LABEL_97;
           }
 
           if (type == 1501)
           {
-            v14 = @"DEBUG_FETCH_DIAGNOSTICS_STRING";
+            v15 = @"DEBUG_FETCH_DIAGNOSTICS_STRING";
             goto LABEL_97;
           }
         }
@@ -2450,13 +3796,13 @@ LABEL_164:
         {
           if (type == 600)
           {
-            v14 = @"FETCH_ROUTE_GENIUS";
+            v15 = @"FETCH_ROUTE_GENIUS";
             goto LABEL_97;
           }
 
           if (type == 1000)
           {
-            v14 = @"PING";
+            v15 = @"PING";
             goto LABEL_97;
           }
         }
@@ -2468,13 +3814,13 @@ LABEL_164:
       {
         if (type == 501)
         {
-          v14 = @"PLACE_DATA_IDENTIFIER_LOOKUP";
+          v15 = @"PLACE_DATA_IDENTIFIER_LOOKUP";
           goto LABEL_97;
         }
 
         if (type == 502)
         {
-          v14 = @"SERVICE_REQUEST";
+          v15 = @"SERVICE_REQUEST";
           goto LABEL_97;
         }
 
@@ -2483,7 +3829,7 @@ LABEL_164:
 
       if (type == 401)
       {
-        v14 = @"OPEN_URL";
+        v15 = @"OPEN_URL";
         goto LABEL_97;
       }
 
@@ -2492,7 +3838,7 @@ LABEL_164:
         goto LABEL_57;
       }
 
-      v14 = @"PLACE_DATA_MUID_LOOKUP";
+      v15 = @"PLACE_DATA_MUID_LOOKUP";
     }
 
     else
@@ -2504,57 +3850,57 @@ LABEL_164:
           switch(type)
           {
             case '2':
-              v14 = @"START_INITIAL_SYNC";
+              v15 = @"START_INITIAL_SYNC";
               break;
             case '3':
-              v14 = @"FETCH_CURRENT_COUNTRY_CODE";
+              v15 = @"FETCH_CURRENT_COUNTRY_CODE";
               break;
             case '4':
-              v14 = @"FETCH_EXPERIMENTS_CONFIG";
+              v15 = @"FETCH_EXPERIMENTS_CONFIG";
               break;
             case '5':
-              v14 = @"DID_CHANGE_EXPERIMENTS_CONFIG";
+              v15 = @"DID_CHANGE_EXPERIMENTS_CONFIG";
               break;
             case '6':
-              v14 = @"SYNC_UP_NEXT_ITEMS";
+              v15 = @"SYNC_UP_NEXT_ITEMS";
               break;
             case '7':
-              v14 = @"REQUEST_UP_NEXT_ITEMS";
+              v15 = @"REQUEST_UP_NEXT_ITEMS";
               break;
             case '8':
-              v14 = @"SYNC_CONFIG_STORE";
+              v15 = @"SYNC_CONFIG_STORE";
               break;
             case '9':
-              v14 = @"CHECKIN_WITH_CONFIG_STORE";
+              v15 = @"CHECKIN_WITH_CONFIG_STORE";
               break;
             case ':':
-              v14 = @"REQUEST_ANALYTIC_IDENTIFIERS";
+              v15 = @"REQUEST_ANALYTIC_IDENTIFIERS";
               break;
             case ';':
-              v14 = @"CHECKIN_WITH_SUBSCRIPTION_INFO";
+              v15 = @"CHECKIN_WITH_SUBSCRIPTION_INFO";
               break;
             case '<':
-              v14 = @"SYNC_SUBSCRIPTION_INFO";
+              v15 = @"SYNC_SUBSCRIPTION_INFO";
               break;
             case '=':
-              v14 = @"SET_OBSERVED_SUBSCRIPTION_IDENTIFIERS";
+              v15 = @"SET_OBSERVED_SUBSCRIPTION_IDENTIFIERS";
               break;
             case '>':
               goto LABEL_57;
             case '?':
-              v14 = @"UPDATE_SUBSCRIPTION_STATE";
+              v15 = @"UPDATE_SUBSCRIPTION_STATE";
               break;
             case '@':
-              v14 = @"START_STOP_SUBSCRIPTION_DOWNLOAD";
+              v15 = @"START_STOP_SUBSCRIPTION_DOWNLOAD";
               break;
             case 'A':
-              v14 = @"CHECKIN_WITH_SUBSCRIPTION_STATE_SUMMARY";
+              v15 = @"CHECKIN_WITH_SUBSCRIPTION_STATE_SUMMARY";
               break;
             case 'B':
-              v14 = @"SET_SUBSCRIPTION_STATE_SUMMARY";
+              v15 = @"SET_SUBSCRIPTION_STATE_SUMMARY";
               break;
             case 'C':
-              v14 = @"SET_SUBSCRIPTION_SHOULD_SYNC";
+              v15 = @"SET_SUBSCRIPTION_SHOULD_SYNC";
               break;
             default:
               if (type != 4)
@@ -2562,7 +3908,7 @@ LABEL_164:
                 goto LABEL_57;
               }
 
-              v14 = @"FETCHED_TILE";
+              v15 = @"FETCHED_TILE";
               break;
           }
 
@@ -2572,18 +3918,19 @@ LABEL_164:
         switch(type)
         {
           case 1:
-            v14 = @"FETCH_TILES";
+            v15 = @"FETCH_TILES";
             goto LABEL_97;
           case 2:
-            v14 = @"CANCEL_TILES";
+            v15 = @"CANCEL_TILES";
             goto LABEL_97;
           case 3:
-            v14 = @"REPORT_CORRUPT_TILE";
+            v15 = @"REPORT_CORRUPT_TILE";
             goto LABEL_97;
         }
 
 LABEL_57:
-        v14 = [NSString stringWithFormat:@"(unknown: %i)", type];
+        type = [NSString stringWithFormat:@"(unknown: %i)", type];
+        v15 = type;
         goto LABEL_97;
       }
 
@@ -2591,17 +3938,17 @@ LABEL_57:
       {
         if (type == 100)
         {
-          v14 = @"CHECKIN_WITH_TILE_GROUP";
+          v15 = @"CHECKIN_WITH_TILE_GROUP";
         }
 
         else if (type == 101)
         {
-          v14 = @"FORCE_UPDATE_MANIFEST";
+          v15 = @"FORCE_UPDATE_MANIFEST";
         }
 
         else
         {
-          v14 = @"DID_CHANGE_ACTIVE_TILE_GROUP";
+          v15 = @"DID_CHANGE_ACTIVE_TILE_GROUP";
         }
 
         goto LABEL_97;
@@ -2611,12 +3958,12 @@ LABEL_57:
       {
         if (type == 201)
         {
-          v14 = @"STOP_LOCATION_UPDATE";
+          v15 = @"STOP_LOCATION_UPDATE";
         }
 
         else
         {
-          v14 = @"UPDATED_LOCATION";
+          v15 = @"UPDATED_LOCATION";
         }
 
         goto LABEL_97;
@@ -2624,7 +3971,7 @@ LABEL_57:
 
       if (type == 103)
       {
-        v14 = @"FETCH_RESOURCE";
+        v15 = @"FETCH_RESOURCE";
         goto LABEL_97;
       }
 
@@ -2633,44 +3980,44 @@ LABEL_57:
         goto LABEL_57;
       }
 
-      v14 = @"START_LOCATION_UPDATE";
+      v15 = @"START_LOCATION_UPDATE";
     }
 
 LABEL_97:
-    v16 = sub_100001B24();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+    v17 = sub_100001B24(type);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
     {
       isReply = [v12 isReply];
-      v18 = @"message";
+      v19 = @"message";
       *buf = 138543875;
       if (isReply)
       {
-        v18 = @"reply";
+        v19 = @"reply";
       }
 
-      v34 = v18;
-      v35 = 2113;
-      v36 = v14;
+      v36 = v19;
       v37 = 2113;
-      v38 = identifierCopy;
-      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEBUG, "Finished sending %{public}@ for type: %{private}@ (GUID = %{private}@)", buf, 0x20u);
+      v38 = v15;
+      v39 = 2113;
+      v40 = identifierCopy;
+      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEBUG, "Finished sending %{public}@ for type: %{private}@ (GUID = %{private}@)", buf, 0x20u);
     }
 
-    v15 = -[NMDeviceConnection _messageQueueForType:](self, "_messageQueueForType:", [v12 type]);
-    -[NSObject didSendPayloadWithSize:](v15, "didSendPayloadWithSize:", [v12 payloadSize]);
+    v16 = -[NMDeviceConnection _messageQueueForType:](self, "_messageQueueForType:", [v12 type]);
+    -[NSObject didSendPayloadWithSize:](v16, "didSendPayloadWithSize:", [v12 payloadSize]);
     -[NMDeviceConnection _dequeueNextMessageIfNecessaryForType:](self, "_dequeueNextMessageIfNecessaryForType:", [v12 type]);
     goto LABEL_102;
   }
 
-  v15 = sub_100001B24();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
+  v16 = sub_100001B24(v13);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
   {
     *buf = 138543362;
-    v34 = identifierCopy;
-    _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_FAULT, "Unable to find metadata for message GUID = %{public}@. This could throw off the in-flight message counters.", buf, 0xCu);
+    v36 = identifierCopy;
+    _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_FAULT, "Unable to find metadata for message GUID = %{public}@. This could throw off the in-flight message counters.", buf, 0xCu);
   }
 
-  v14 = 0;
+  v15 = 0;
 LABEL_102:
 
   if (success)
@@ -2679,89 +4026,89 @@ LABEL_102:
   }
 
 LABEL_103:
-  v19 = [(__CFString *)v14 length];
-  v20 = sub_100001B24();
-  v21 = os_log_type_enabled(v20, OS_LOG_TYPE_ERROR);
-  if (v19)
+  v20 = [(__CFString *)v15 length];
+  v21 = sub_100001B24(v20);
+  v22 = os_log_type_enabled(v21, OS_LOG_TYPE_ERROR);
+  if (v20)
   {
-    if (!v21)
+    if (!v22)
     {
       goto LABEL_109;
     }
 
     *buf = 138478339;
-    v34 = v14;
-    v35 = 2114;
-    v36 = errorCopy;
+    v36 = v15;
     v37 = 2114;
-    v38 = identifierCopy;
-    v22 = "Error sending message: messageType=%{private}@ -- %{public}@ (GUID = %{public}@)";
-    v23 = v20;
-    v24 = 32;
+    v38 = errorCopy;
+    v39 = 2114;
+    v40 = identifierCopy;
+    v23 = "Error sending message: messageType=%{private}@ -- %{public}@ (GUID = %{public}@)";
+    v24 = v21;
+    v25 = 32;
   }
 
   else
   {
-    if (!v21)
+    if (!v22)
     {
       goto LABEL_109;
     }
 
     *buf = 138543618;
-    v34 = errorCopy;
-    v35 = 2114;
-    v36 = identifierCopy;
-    v22 = "Error sending message: %{public}@ (GUID = %{public}@)";
-    v23 = v20;
-    v24 = 22;
+    v36 = errorCopy;
+    v37 = 2114;
+    v38 = identifierCopy;
+    v23 = "Error sending message: %{public}@ (GUID = %{public}@)";
+    v24 = v21;
+    v25 = 22;
   }
 
-  _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_ERROR, v22, buf, v24);
+  _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_ERROR, v23, buf, v25);
 LABEL_109:
 
   if (identifierCopy)
   {
     [(NSLock *)self->_replyCallbackBlocksLock lock];
-    v25 = [(NSMutableDictionary *)self->_replyCallbackBlocks objectForKey:identifierCopy];
-    v26 = [v25 copy];
+    v26 = [(NSMutableDictionary *)self->_replyCallbackBlocks objectForKey:identifierCopy];
+    v27 = [v26 copy];
 
-    if (v26)
+    if (v27)
     {
       [(NSMutableDictionary *)self->_replyCallbackBlocks removeObjectForKey:identifierCopy];
-      v27 = [(NSMutableDictionary *)self->_replyExpectingMessageMetadata objectForKey:identifierCopy];
+      v28 = [(NSMutableDictionary *)self->_replyExpectingMessageMetadata objectForKey:identifierCopy];
       [(NSMutableDictionary *)self->_replyExpectingMessageMetadata removeObjectForKey:identifierCopy];
       [(NSLock *)self->_replyCallbackBlocksLock unlock];
-      timeoutTimer = [v27 timeoutTimer];
+      timeoutTimer = [v28 timeoutTimer];
 
       if (timeoutTimer)
       {
-        timeoutTimer2 = [v27 timeoutTimer];
+        timeoutTimer2 = [v28 timeoutTimer];
         dispatch_source_cancel(timeoutTimer2);
 
-        [v27 setTimeoutTimer:0];
+        v30 = [v28 setTimeoutTimer:0];
       }
 
-      v30 = sub_100001B24();
-      if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
+      v32 = sub_100001B24(v30);
+      if (os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEBUG, "Sending reply to callback block", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_DEBUG, "Sending reply to callback block", buf, 2u);
       }
 
       if (errorCopy)
       {
-        v31 = [NSDictionary dictionaryWithObject:errorCopy forKey:NSUnderlyingErrorKey];
+        v33 = [NSDictionary dictionaryWithObject:errorCopy forKey:NSUnderlyingErrorKey];
       }
 
       else
       {
-        v31 = 0;
+        v33 = 0;
       }
 
-      v32 = [NSError errorWithDomain:@"NMDeviceConnectionErrorDomain" code:5 userInfo:v31];
+      v34 = [NSError errorWithDomain:@"NMDeviceConnectionErrorDomain" code:5 userInfo:v33];
 
-      v26[2](v26, 0, v32);
-      errorCopy = v32;
+      v27[2](v27, 0, v34);
+      errorCopy = v34;
     }
 
     else
@@ -2777,7 +4124,7 @@ LABEL_121:
 {
   if (!self->_testSimulateNoDevices)
   {
-    v3 = sub_100001B24();
+    v3 = sub_100001B24(self);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
       *v4 = 0;
@@ -2796,7 +4143,7 @@ LABEL_121:
   {
     v7 = v2;
     v8 = v3;
-    v5 = sub_100001B24();
+    v5 = sub_100001B24(self);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
       *v6 = 0;

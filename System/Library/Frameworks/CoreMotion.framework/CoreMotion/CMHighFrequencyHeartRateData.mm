@@ -173,23 +173,21 @@ LABEL_7:
 
 - (id)sr_dictionaryRepresentation
 {
-  v24[3] = *MEMORY[0x1E69E9840];
-  v23[0] = @"heartRate";
+  v23[3] = *MEMORY[0x1E69E9840];
+  v22[0] = @"heartRate";
   v4 = MEMORY[0x1E696AD98];
   objc_msgSend_heartRate(self, a2, v2);
-  v24[0] = objc_msgSend_numberWithDouble_(v4, v5, v6);
-  v23[1] = @"confidence";
+  v23[0] = objc_msgSend_numberWithDouble_(v4, v5, v6);
+  v22[1] = @"confidence";
   v7 = MEMORY[0x1E696AD98];
   v10 = objc_msgSend_confidence(self, v8, v9);
-  v24[1] = objc_msgSend_numberWithInteger_(v7, v11, v10);
-  v23[2] = @"startTime";
+  v23[1] = objc_msgSend_numberWithInteger_(v7, v11, v10);
+  v22[2] = @"startTime";
   v12 = MEMORY[0x1E696AD98];
   v15 = objc_msgSend_date(self, v13, v14);
   objc_msgSend_timeIntervalSinceReferenceDate(v15, v16, v17);
-  v24[2] = objc_msgSend_numberWithDouble_(v12, v18, v19);
-  result = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v20, v24, v23, 3);
-  v22 = *MEMORY[0x1E69E9840];
-  return result;
+  v23[2] = objc_msgSend_numberWithDouble_(v12, v18, v19);
+  return objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v20, v23, v22, 3);
 }
 
 @end

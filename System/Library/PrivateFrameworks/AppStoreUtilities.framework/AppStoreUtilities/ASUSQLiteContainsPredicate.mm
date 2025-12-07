@@ -72,7 +72,7 @@
 
 - (void)applyBinding:(id)binding atIndex:(int *)index
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   bindingCopy = binding;
   query = self->_query;
   if (query)
@@ -82,37 +82,35 @@
 
   else
   {
-    v16 = 0u;
-    v17 = 0u;
-    v14 = 0u;
     v15 = 0u;
+    v16 = 0u;
+    v13 = 0u;
+    v14 = 0u;
     v8 = self->_values;
-    v9 = [v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v15;
+      v11 = *v14;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v15 != v11)
+          if (*v14 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          ASUSQLiteBindFoundationValue(bindingCopy, *index, *(*(&v14 + 1) + 8 * i));
+          ASUSQLiteBindFoundationValue(bindingCopy, *index, *(*(&v13 + 1) + 8 * i));
           ++*index;
         }
 
-        v10 = [v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v13 objects:v17 count:16];
       }
 
       while (v10);
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isEqual:(id)equal
@@ -169,7 +167,7 @@ LABEL_13:
 
 - (id)SQLForEntityClass:(Class)class
 {
-  v18[1] = *MEMORY[0x277D85DE8];
+  v17[1] = *MEMORY[0x277D85DE8];
   property = [(ASUSQLitePropertyPredicate *)self property];
   v6 = [(objc_class *)class disambiguatedSQLForProperty:property];
 
@@ -189,8 +187,8 @@ LABEL_13:
   query = self->_query;
   if (query)
   {
-    v18[0] = self->_queryProperty;
-    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:1];
+    v17[0] = self->_queryProperty;
+    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:1];
     v12 = [(ASUSQLiteQuery *)query copySelectSQLWithProperties:v11];
 
     if (v12)
@@ -201,28 +199,26 @@ LABEL_13:
 
   else
   {
-    v15 = [self->_values count];
-    if (v15)
+    v14 = [self->_values count];
+    if (v14)
     {
-      v16 = v15;
+      v15 = v14;
       [v8 appendString:@"?"];
-      v17 = v16 - 1;
-      if (v16 != 1)
+      v16 = v15 - 1;
+      if (v15 != 1)
       {
         do
         {
           [v8 appendString:{@", ?"}];
-          --v17;
+          --v16;
         }
 
-        while (v17);
+        while (v16);
       }
     }
   }
 
   [v8 appendString:@""]);
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v8;
 }

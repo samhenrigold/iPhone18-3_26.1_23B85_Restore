@@ -9,32 +9,32 @@
 
 - (id)confidenceThresholdBySceneIdentifierForSceneNames:(id)names withThresholdType:(unint64_t)type
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   namesCopy = names;
   v7 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   v8 = namesCopy;
-  v9 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v9)
   {
     v10 = v9;
     lowercaseString = 0;
-    v12 = *v20;
+    v12 = *v19;
     do
     {
       v13 = 0;
       v14 = lowercaseString;
       do
       {
-        if (*v20 != v12)
+        if (*v19 != v12)
         {
           objc_enumerationMutation(v8);
         }
 
-        lowercaseString = [*(*(&v19 + 1) + 8 * v13) lowercaseString];
+        lowercaseString = [*(*(&v18 + 1) + 8 * v13) lowercaseString];
 
         [v7 addObject:lowercaseString];
         ++v13;
@@ -42,17 +42,15 @@
       }
 
       while (v10 != v13);
-      v10 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v10);
   }
 
-  v18.receiver = self;
-  v18.super_class = CLSSceneModel;
-  v15 = [(CLSTaxonomyBasedModel *)&v18 confidenceThresholdBySceneIdentifierForSceneNames:v7 withThresholdType:type];
-
-  v16 = *MEMORY[0x277D85DE8];
+  v17.receiver = self;
+  v17.super_class = CLSSceneModel;
+  v15 = [(CLSTaxonomyBasedModel *)&v17 confidenceThresholdBySceneIdentifierForSceneNames:v7 withThresholdType:type];
 
   return v15;
 }
@@ -67,7 +65,7 @@
 - (CLSSceneModel)initWithSceneAnalysisVersion:(unint64_t)version
 {
   versionCopy = version;
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v5 = [objc_opt_class() baseSceneAnalysisVersionWithSceneAnalysisVersion:version];
   if (v5)
   {
@@ -75,18 +73,18 @@
     v7 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v5];
     stringValue = [v7 stringValue];
 
-    v17 = 0;
-    initWithLatestTaxonomy = [objc_alloc(MEMORY[0x277D3B4C8]) initWithIdentifier:stringValue error:&v17];
-    v10 = v17;
+    v16 = 0;
+    initWithLatestTaxonomy = [objc_alloc(MEMORY[0x277D3B4C8]) initWithIdentifier:stringValue error:&v16];
+    v10 = v16;
     if (initWithLatestTaxonomy)
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
         digest = [initWithLatestTaxonomy digest];
         *buf = 67109378;
-        *v19 = v6;
-        *&v19[4] = 2112;
-        *&v19[6] = digest;
+        *v18 = v6;
+        *&v18[4] = 2112;
+        *&v18[6] = digest;
         _os_log_impl(&dword_25E5F0000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Setting up scene model version %d using scene taxonomy with digest '%@'", buf, 0x12u);
       }
     }
@@ -96,9 +94,9 @@
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
         *buf = 138412546;
-        *v19 = stringValue;
-        *&v19[8] = 2112;
-        *&v19[10] = v10;
+        *v18 = stringValue;
+        *&v18[8] = 2112;
+        *&v18[10] = v10;
         _os_log_error_impl(&dword_25E5F0000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Error instantiating scene taxonomy for version %@, using latest: %@", buf, 0x16u);
       }
 
@@ -116,9 +114,9 @@
       }
     }
 
-    v16.receiver = self;
-    v16.super_class = CLSSceneModel;
-    v13 = [(CLSTaxonomyBasedModel *)&v16 initWithSceneTaxonomy:initWithLatestTaxonomy];
+    v15.receiver = self;
+    v15.super_class = CLSSceneModel;
+    v13 = [(CLSTaxonomyBasedModel *)&v15 initWithSceneTaxonomy:initWithLatestTaxonomy];
     if (v13)
     {
       v13->_version = v6;
@@ -135,16 +133,15 @@ LABEL_14:
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109378;
-    *v19 = versionCopy;
-    *&v19[4] = 2112;
-    *&v19[6] = objc_opt_class();
+    *v18 = versionCopy;
+    *&v18[4] = 2112;
+    *&v18[6] = objc_opt_class();
     _os_log_impl(&dword_25E5F0000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Unsupported version %d in %@", buf, 0x12u);
   }
 
   selfCopy = 0;
 LABEL_15:
 
-  v14 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 

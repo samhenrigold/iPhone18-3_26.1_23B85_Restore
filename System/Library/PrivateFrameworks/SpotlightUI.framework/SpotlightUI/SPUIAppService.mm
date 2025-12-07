@@ -5,7 +5,6 @@
 - (void)_cancelAwakeNotifyToken;
 - (void)activate;
 - (void)deactivate;
-- (void)init;
 - (void)registerAwakeNotifyToken;
 @end
 
@@ -190,7 +189,7 @@ void __42__SPUIAppService_registerAwakeNotifyToken__block_invoke(uint64_t a1)
 
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
     {
-      [(SPUIAppService *)&v3->_backgroundConnection init];
+      [SPUIAppService init];
     }
 
     if (runningInSpotlight == 1)
@@ -251,15 +250,6 @@ void __28__SPUIAppService_deactivate__block_invoke(uint64_t a1)
   {
     __28__SPUIAppService_deactivate__block_invoke_cold_1();
   }
-}
-
-- (void)init
-{
-  v8 = *MEMORY[0x277D85DE8];
-  v7 = *self;
-  OUTLINED_FUNCTION_0();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -24,6 +24,7 @@
 - (void)personalizedAdsAvailable:(id)available;
 - (void)setAcknowledgedVersionForPersonalizedAds:(int64_t)ads;
 - (void)setCrossAppTrackingAllowed:(BOOL)allowed;
+- (void)setPersonalizedAds:(BOOL)ads;
 @end
 
 @implementation ADTrackingTransparency
@@ -96,18 +97,18 @@
 
 - (BOOL)_userAllowedToChangeSettings
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   if ([(ADTrackingTransparency *)self _isUserEDURestricted])
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      v10 = 138412290;
-      v11 = objc_opt_class();
-      v3 = v11;
+      v9 = 138412290;
+      v10 = objc_opt_class();
+      v3 = v10;
       v4 = MEMORY[0x277D86220];
       v5 = "[%@] The device is in Education Mode.";
 LABEL_13:
-      _os_log_impl(&dword_255F62000, v4, OS_LOG_TYPE_DEFAULT, v5, &v10, 0xCu);
+      _os_log_impl(&dword_255F62000, v4, OS_LOG_TYPE_DEFAULT, v5, &v9, 0xCu);
     }
   }
 
@@ -115,9 +116,9 @@ LABEL_13:
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      v10 = 138412290;
-      v11 = objc_opt_class();
-      v3 = v11;
+      v9 = 138412290;
+      v10 = objc_opt_class();
+      v3 = v10;
       v4 = MEMORY[0x277D86220];
       v5 = "[%@] The device is in Managed Mode.";
       goto LABEL_13;
@@ -128,9 +129,9 @@ LABEL_13:
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      v10 = 138412290;
-      v11 = objc_opt_class();
-      v3 = v11;
+      v9 = 138412290;
+      v10 = objc_opt_class();
+      v3 = v10;
       v4 = MEMORY[0x277D86220];
       v5 = "[%@] The device is in Proto U13 Mode.";
       goto LABEL_13;
@@ -144,24 +145,21 @@ LABEL_13:
       mEMORY[0x277D262A0] = [MEMORY[0x277D262A0] sharedConnection];
       v6 = [mEMORY[0x277D262A0] effectiveBoolValueForSetting:*MEMORY[0x277D25F28]] == 1;
 
-      goto LABEL_15;
+      return v6;
     }
 
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      v10 = 138412290;
-      v11 = objc_opt_class();
-      v3 = v11;
+      v9 = 138412290;
+      v10 = objc_opt_class();
+      v3 = v10;
       v4 = MEMORY[0x277D86220];
       v5 = "[%@] The device is in Proto Teen Mode.";
       goto LABEL_13;
     }
   }
 
-  v6 = 0;
-LABEL_15:
-  v7 = *MEMORY[0x277D85DE8];
-  return v6;
+  return 0;
 }
 
 - (BOOL)_isUserEDURestricted
@@ -325,20 +323,18 @@ void __58__ADTrackingTransparency_accountLevelSwitchDisabledReason__block_invoke
 
 void __58__ADTrackingTransparency_accountLevelSwitchDisabledReason__block_invoke_23(uint64_t a1, uint64_t a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    v4 = *(a1 + 32);
-    v7 = 138412546;
-    v8 = objc_opt_class();
-    v9 = 2050;
-    v10 = a2;
-    v5 = v8;
-    _os_log_impl(&dword_255F62000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "[%@] The disabled reason is %{public}ld.", &v7, 0x16u);
+    v5 = 138412546;
+    v6 = objc_opt_class();
+    v7 = 2050;
+    v8 = a2;
+    v4 = v6;
+    _os_log_impl(&dword_255F62000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "[%@] The disabled reason is %{public}ld.", &v5, 0x16u);
   }
 
   *(*(*(a1 + 40) + 8) + 24) = a2;
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)shouldDisplayPAUI
@@ -406,68 +402,64 @@ void __43__ADTrackingTransparency_shouldDisplayPAUI__block_invoke_27()
 
 - (int64_t)accountRestrictionReason
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   if ([(ADTrackingTransparency *)self _isUserEDURestricted])
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      v10 = 138412290;
-      v11 = objc_opt_class();
-      v3 = v11;
-      _os_log_impl(&dword_255F62000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "[%@] The device is in Education Mode.", &v10, 0xCu);
+      v8 = 138412290;
+      v9 = objc_opt_class();
+      v3 = v9;
+      _os_log_impl(&dword_255F62000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "[%@] The device is in Education Mode.", &v8, 0xCu);
     }
 
-    result = 3;
-LABEL_17:
-    v8 = *MEMORY[0x277D85DE8];
-    return result;
+    return 3;
   }
 
-  if ([(ADTrackingTransparency *)self _isUserManagedRestricted])
+  else if ([(ADTrackingTransparency *)self _isUserManagedRestricted])
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      v10 = 138412290;
-      v11 = objc_opt_class();
-      v5 = v11;
-      _os_log_impl(&dword_255F62000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "[%@] The device has a Managed account.", &v10, 0xCu);
+      v8 = 138412290;
+      v9 = objc_opt_class();
+      v5 = v9;
+      _os_log_impl(&dword_255F62000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "[%@] The device has a Managed account.", &v8, 0xCu);
     }
 
-    result = 4;
-    goto LABEL_17;
+    return 4;
   }
 
-  if ([(ADTrackingTransparency *)self _isUserProtoU13State])
+  else if ([(ADTrackingTransparency *)self _isUserProtoU13State])
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      v10 = 138412290;
-      v11 = objc_opt_class();
-      v6 = v11;
-      _os_log_impl(&dword_255F62000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "[%@] The device is in Proto U13 state.", &v10, 0xCu);
+      v8 = 138412290;
+      v9 = objc_opt_class();
+      v6 = v9;
+      _os_log_impl(&dword_255F62000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "[%@] The device is in Proto U13 state.", &v8, 0xCu);
     }
 
-    result = 9;
-    goto LABEL_17;
+    return 9;
   }
 
-  if ([(ADTrackingTransparency *)self _isUserProtoTeenState])
+  else if ([(ADTrackingTransparency *)self _isUserProtoTeenState])
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      v10 = 138412290;
-      v11 = objc_opt_class();
-      v7 = v11;
-      _os_log_impl(&dword_255F62000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "[%@] The device is in Proto Teen state.", &v10, 0xCu);
+      v8 = 138412290;
+      v9 = objc_opt_class();
+      v7 = v9;
+      _os_log_impl(&dword_255F62000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "[%@] The device is in Proto Teen state.", &v8, 0xCu);
     }
 
-    result = 10;
-    goto LABEL_17;
+    return 10;
   }
 
-  v9 = *MEMORY[0x277D85DE8];
+  else
+  {
 
-  return [(ADTrackingTransparency *)self accountLevelSwitchDisabledReason];
+    return [(ADTrackingTransparency *)self accountLevelSwitchDisabledReason];
+  }
 }
 
 - (NSArray)adSwitchDisabledReasons
@@ -532,7 +524,7 @@ LABEL_17:
 
 - (int64_t)crossAppTrackingAllowedSwitchDisabledReason
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   mEMORY[0x277D262A0] = [MEMORY[0x277D262A0] sharedConnection];
   v4 = [mEMORY[0x277D262A0] isBoolSettingLockedDownByRestrictions:*MEMORY[0x277D25F40]];
 
@@ -540,19 +532,17 @@ LABEL_17:
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      v9 = 138412290;
-      v10 = objc_opt_class();
-      v5 = v10;
-      _os_log_impl(&dword_255F62000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "[%@] The device has a profile installed that has a restriction on Allow Apps to Request to Track.", &v9, 0xCu);
+      v7 = 138412290;
+      v8 = objc_opt_class();
+      v5 = v8;
+      _os_log_impl(&dword_255F62000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "[%@] The device has a profile installed that has a restriction on Allow Apps to Request to Track.", &v7, 0xCu);
     }
 
-    v6 = *MEMORY[0x277D85DE8];
     return 6;
   }
 
   else
   {
-    v8 = *MEMORY[0x277D85DE8];
 
     return [(ADTrackingTransparency *)self accountRestrictionReason];
   }
@@ -580,48 +570,49 @@ LABEL_17:
 
 - (int64_t)personalizedAdsSwitchDisabledReason
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   if ([(ADTrackingTransparency *)self isPersonalizedAdsScreenTimeRestricted])
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      v10 = 138412290;
-      v11 = objc_opt_class();
-      v3 = v11;
-      _os_log_impl(&dword_255F62000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "[%@] The device has a screen time restriction on Personalized Ads.", &v10, 0xCu);
+      v8 = 138412290;
+      v9 = objc_opt_class();
+      v3 = v9;
+      _os_log_impl(&dword_255F62000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "[%@] The device has a screen time restriction on Personalized Ads.", &v8, 0xCu);
     }
 
-    result = 8;
-LABEL_9:
-    v8 = *MEMORY[0x277D85DE8];
-    return result;
+    return 8;
   }
 
-  mEMORY[0x277D262A0] = [MEMORY[0x277D262A0] sharedConnection];
-  v6 = [mEMORY[0x277D262A0] isBoolSettingLockedDownByRestrictions:*MEMORY[0x277D25D28]];
-
-  if (v6)
+  else
   {
-    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+    mEMORY[0x277D262A0] = [MEMORY[0x277D262A0] sharedConnection];
+    v6 = [mEMORY[0x277D262A0] isBoolSettingLockedDownByRestrictions:*MEMORY[0x277D25D28]];
+
+    if (v6)
     {
-      v10 = 138412290;
-      v11 = objc_opt_class();
-      v7 = v11;
-      _os_log_impl(&dword_255F62000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "[%@] The device has a profile installed that has a restriction on Personalized Ads.", &v10, 0xCu);
+      if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+      {
+        v8 = 138412290;
+        v9 = objc_opt_class();
+        v7 = v9;
+        _os_log_impl(&dword_255F62000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "[%@] The device has a profile installed that has a restriction on Personalized Ads.", &v8, 0xCu);
+      }
+
+      return 7;
     }
 
-    result = 7;
-    goto LABEL_9;
+    else
+    {
+
+      return [(ADTrackingTransparency *)self accountRestrictionReason];
+    }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
-
-  return [(ADTrackingTransparency *)self accountRestrictionReason];
 }
 
 - (BOOL)personalizedAdsAvailable
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   shouldDisplayPAUI = [(ADTrackingTransparency *)self shouldDisplayPAUI];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
@@ -631,12 +622,11 @@ LABEL_9:
       v3 = @"will";
     }
 
-    v6 = 138543362;
-    v7 = v3;
-    _os_log_impl(&dword_255F62000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "The Personalized Ads UI %{public}@ render.", &v6, 0xCu);
+    v5 = 138543362;
+    v6 = v3;
+    _os_log_impl(&dword_255F62000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "The Personalized Ads UI %{public}@ render.", &v5, 0xCu);
   }
 
-  v4 = *MEMORY[0x277D85DE8];
   return shouldDisplayPAUI;
 }
 
@@ -706,26 +696,24 @@ void __51__ADTrackingTransparency_personalizedAdsAvailable___block_invoke_51()
 
 void __51__ADTrackingTransparency_personalizedAdsAvailable___block_invoke_54(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     v3 = a2;
     v4 = [v3 code];
     v5 = [v3 localizedDescription];
 
-    v7 = 134218242;
-    v8 = v4;
-    v9 = 2112;
-    v10 = v5;
-    _os_log_impl(&dword_255F62000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Received error code %ld from remote call: %@", &v7, 0x16u);
+    v6 = 134218242;
+    v7 = v4;
+    v8 = 2112;
+    v9 = v5;
+    _os_log_impl(&dword_255F62000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Received error code %ld from remote call: %@", &v6, 0x16u);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __51__ADTrackingTransparency_personalizedAdsAvailable___block_invoke_58(uint64_t a1, uint64_t a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     v4 = @"will NOT";
@@ -734,9 +722,9 @@ uint64_t __51__ADTrackingTransparency_personalizedAdsAvailable___block_invoke_58
       v4 = @"will";
     }
 
-    v8 = 138543362;
-    v9 = v4;
-    _os_log_impl(&dword_255F62000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "The Personalized Ads UI %{public}@ render.", &v8, 0xCu);
+    v7 = 138543362;
+    v8 = v4;
+    _os_log_impl(&dword_255F62000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "The Personalized Ads UI %{public}@ render.", &v7, 0xCu);
   }
 
   v5 = *(a1 + 40);
@@ -745,9 +733,7 @@ uint64_t __51__ADTrackingTransparency_personalizedAdsAvailable___block_invoke_58
     (*(v5 + 16))(v5, a2);
   }
 
-  result = [*(a1 + 32) invalidate];
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) invalidate];
 }
 
 - (BOOL)personalizedAdsAvailableForAdPlatforms
@@ -814,35 +800,35 @@ uint64_t __51__ADTrackingTransparency_personalizedAdsAvailable___block_invoke_58
 
 - (BOOL)shouldPresentPersonalizedAdsOnboarding
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   if (![(ADTrackingTransparency *)self personalizedAdsSwitchEnabled])
   {
     if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      goto LABEL_17;
+      return 0;
     }
 
-    v15 = 138412290;
-    v16 = objc_opt_class();
-    v9 = v16;
+    v14 = 138412290;
+    v15 = objc_opt_class();
+    v9 = v15;
     v10 = MEMORY[0x277D86220];
     v11 = "[%@] personalizedAdsSwitchEnabled is NO.";
 LABEL_16:
-    _os_log_impl(&dword_255F62000, v10, OS_LOG_TYPE_DEFAULT, v11, &v15, 0xCu);
+    _os_log_impl(&dword_255F62000, v10, OS_LOG_TYPE_DEFAULT, v11, &v14, 0xCu);
 
-    goto LABEL_17;
+    return 0;
   }
 
   if (![(ADTrackingTransparency *)self personalizedAdsAvailableForAdPlatforms])
   {
     if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      goto LABEL_17;
+      return 0;
     }
 
-    v15 = 138412290;
-    v16 = objc_opt_class();
-    v9 = v16;
+    v14 = 138412290;
+    v15 = objc_opt_class();
+    v9 = v15;
     v10 = MEMORY[0x277D86220];
     v11 = "[%@] personalizedAdsAvailableForAdPlatforms is NO.";
     goto LABEL_16;
@@ -853,17 +839,15 @@ LABEL_16:
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      v15 = 138412290;
-      v16 = objc_opt_class();
-      v9 = v16;
+      v14 = 138412290;
+      v15 = objc_opt_class();
+      v9 = v15;
       v10 = MEMORY[0x277D86220];
       v11 = "[%@] acknowledgedVersionForPersonalizedAds is already set.";
       goto LABEL_16;
     }
 
-LABEL_17:
-    v8 = 0;
-    goto LABEL_18;
+    return 0;
   }
 
   v4 = [objc_alloc(MEMORY[0x277CBEBD0]) initWithSuiteName:@"com.apple.AdPlatforms"];
@@ -873,10 +857,10 @@ LABEL_17:
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      v15 = 138412290;
-      v16 = objc_opt_class();
-      v7 = v16;
-      _os_log_impl(&dword_255F62000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "[%@] shouldPresentPersonalizedAdsOnboarding is TRUE.", &v15, 0xCu);
+      v14 = 138412290;
+      v15 = objc_opt_class();
+      v7 = v15;
+      _os_log_impl(&dword_255F62000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "[%@] shouldPresentPersonalizedAdsOnboarding is TRUE.", &v14, 0xCu);
     }
 
     v8 = 1;
@@ -887,18 +871,55 @@ LABEL_17:
     v8 = 0;
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      v15 = 138412290;
-      v16 = objc_opt_class();
-      v14 = v16;
-      _os_log_impl(&dword_255F62000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "[%@] Previous selection for PA was made.", &v15, 0xCu);
+      v14 = 138412290;
+      v15 = objc_opt_class();
+      v13 = v15;
+      _os_log_impl(&dword_255F62000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "[%@] Previous selection for PA was made.", &v14, 0xCu);
 
       v8 = 0;
     }
   }
 
-LABEL_18:
-  v12 = *MEMORY[0x277D85DE8];
   return v8;
+}
+
+- (void)setPersonalizedAds:(BOOL)ads
+{
+  adsCopy = ads;
+  v4 = [(ADTrackingTransparency *)self appTrackingXPCConnection:&__block_literal_global_64 withInvalidation:&__block_literal_global_67];
+  v5 = v4;
+  if (v4)
+  {
+    v6 = [v4 remoteObjectProxyWithErrorHandler:&__block_literal_global_70];
+    v7 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT);
+    if (v6)
+    {
+      if (v7)
+      {
+        *buf = 0;
+        _os_log_impl(&dword_255F62000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Starting asynchronous remote call to setPersonalizedAds()", buf, 2u);
+      }
+
+      v8[0] = MEMORY[0x277D85DD0];
+      v8[1] = 3221225472;
+      v8[2] = __45__ADTrackingTransparency_setPersonalizedAds___block_invoke_71;
+      v8[3] = &unk_279817750;
+      v9 = v5;
+      [v6 setPersonalizedAds:adsCopy withCompletionHandler:v8];
+    }
+
+    else if (v7)
+    {
+      *buf = 0;
+      _os_log_impl(&dword_255F62000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "The remote proxy is nil. Unable to set personalized ads.", buf, 2u);
+    }
+  }
+
+  else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 0;
+    _os_log_impl(&dword_255F62000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Failed to create connection to setPersonalizedAds()", buf, 2u);
+  }
 }
 
 void __45__ADTrackingTransparency_setPersonalizedAds___block_invoke()
@@ -921,26 +942,24 @@ void __45__ADTrackingTransparency_setPersonalizedAds___block_invoke_65()
 
 void __45__ADTrackingTransparency_setPersonalizedAds___block_invoke_68(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     v3 = a2;
     v4 = [v3 code];
     v5 = [v3 localizedDescription];
 
-    v7 = 134218242;
-    v8 = v4;
-    v9 = 2112;
-    v10 = v5;
-    _os_log_impl(&dword_255F62000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Received error code %ld from remote call: %@", &v7, 0x16u);
+    v6 = 134218242;
+    v7 = v4;
+    v8 = 2112;
+    v9 = v5;
+    _os_log_impl(&dword_255F62000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Received error code %ld from remote call: %@", &v6, 0x16u);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __45__ADTrackingTransparency_setPersonalizedAds___block_invoke_71(uint64_t a1, int a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     v4 = @"was NOT";
@@ -949,20 +968,18 @@ uint64_t __45__ADTrackingTransparency_setPersonalizedAds___block_invoke_71(uint6
       v4 = @"was";
     }
 
-    v7 = 138412290;
-    v8 = v4;
-    _os_log_impl(&dword_255F62000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "The Personalized Ads value %@ set.", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = v4;
+    _os_log_impl(&dword_255F62000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "The Personalized Ads value %@ set.", &v6, 0xCu);
   }
 
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v7) = 0;
-    _os_log_impl(&dword_255F62000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Returned from asynchronous remote call to setPersonalizedAds()", &v7, 2u);
+    LOWORD(v6) = 0;
+    _os_log_impl(&dword_255F62000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Returned from asynchronous remote call to setPersonalizedAds()", &v6, 2u);
   }
 
-  result = [*(a1 + 32) invalidate];
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) invalidate];
 }
 
 - (id)appTrackingXPCConnection:(id)connection withInvalidation:(id)invalidation
@@ -986,21 +1003,19 @@ uint64_t __45__ADTrackingTransparency_setPersonalizedAds___block_invoke_71(uint6
 
 void __50__ADTrackingTransparency_appTrackingServiceProxy___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     v3 = a2;
     v4 = [v3 code];
     v5 = [v3 localizedDescription];
 
-    v7 = 134218242;
-    v8 = v4;
-    v9 = 2112;
-    v10 = v5;
-    _os_log_impl(&dword_255F62000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Received error code %ld from remote call: %@", &v7, 0x16u);
+    v6 = 134218242;
+    v7 = v4;
+    v8 = 2112;
+    v9 = v5;
+    _os_log_impl(&dword_255F62000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Received error code %ld from remote call: %@", &v6, 0x16u);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

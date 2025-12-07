@@ -59,7 +59,7 @@
         v16 = [(TUIAXCustomAction *)v12 initWithTrigger:v11 actionData:v13 actionObject:actionObject actionDelegate:actionDelegate controlIdentifier:identifierCopy];
 
         [v28 setObject:v16 forKey:v11];
-        if ([v11 isEqualToString:@"press"])
+        if (objc_msgSend_isEqualToString_(v11))
         {
           [(NSMutableArray *)self->_customActionsForPress addObject:v16];
         }

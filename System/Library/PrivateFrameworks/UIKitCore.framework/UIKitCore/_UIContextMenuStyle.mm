@@ -103,7 +103,7 @@
   v10 = 0;
   v8 = 0u;
   v9 = 0u;
-  [(_UIContextMenuStyle *)self _preferredAnchor];
+  objc_msgSend__preferredAnchor(self, a2);
   v5 = 1;
   if (absentCopy)
   {
@@ -258,7 +258,7 @@
   [v4 setPreferredBackgroundInsets:?];
   [v4 setInputViewVisibility:{-[_UIContextMenuStyle inputViewVisibility](self, "inputViewVisibility")}];
   [v4 setIgnoresDefaultSizingRules:{-[_UIContextMenuStyle ignoresDefaultSizingRules](self, "ignoresDefaultSizingRules")}];
-  [(_UIContextMenuStyle *)self _preferredAnchor];
+  objc_msgSend__preferredAnchor(self);
   v12[0] = v14;
   v12[1] = v15;
   v13 = v16;

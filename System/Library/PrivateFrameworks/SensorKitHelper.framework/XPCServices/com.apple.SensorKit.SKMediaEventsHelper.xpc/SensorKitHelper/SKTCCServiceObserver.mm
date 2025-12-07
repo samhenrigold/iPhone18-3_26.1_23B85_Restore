@@ -44,11 +44,10 @@
   tcc_events_filter_create_with_criteria();
   objc_initWeak(&location, self);
   [(NSString *)self->_identifier UTF8String];
-  q = self->_q;
-  objc_copyWeak(&v5, &location);
+  objc_copyWeak(&v4, &location);
   tcc_events_subscribe();
 
-  objc_destroyWeak(&v5);
+  objc_destroyWeak(&v4);
   objc_destroyWeak(&location);
 }
 

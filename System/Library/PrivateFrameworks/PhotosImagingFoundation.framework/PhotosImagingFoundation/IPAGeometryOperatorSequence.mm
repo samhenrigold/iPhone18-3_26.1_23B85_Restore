@@ -437,7 +437,7 @@ void __46__IPAGeometryOperatorSequence_appendOperator___block_invoke(uint64_t a1
   return v3;
 }
 
-uint64_t __36__IPAGeometryOperatorSequence_count__block_invoke(uint64_t a1)
+void *__36__IPAGeometryOperatorSequence_count__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 40) count];
   *(*(*(a1 + 40) + 8) + 24) = result;

@@ -33,37 +33,37 @@ void __59__NSLocale_IntlPreferencesAdditions__renderableUILanguages__block_invok
 
 void __63__NSLocale_IntlPreferencesAdditions__renderableLocaleLanguages__block_invoke()
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v0 = [MEMORY[0x277CBEAF8] availableLocaleIdentifiers];
   v1 = [MEMORY[0x277CBEB58] set];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v2 = v0;
-  v3 = [v2 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v14;
+    v5 = *v13;
     do
     {
       v6 = 0;
       do
       {
-        if (*v14 != v5)
+        if (*v13 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = [MEMORY[0x277CBEAF8] canonicalLanguageAndScriptCodeIdentifierForIdentifier:{*(*(&v13 + 1) + 8 * v6), v13}];
+        v7 = [MEMORY[0x277CBEAF8] canonicalLanguageAndScriptCodeIdentifierForIdentifier:{*(*(&v12 + 1) + 8 * v6), v12}];
         [v1 addObject:v7];
 
         ++v6;
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v4);
@@ -74,8 +74,6 @@ void __63__NSLocale_IntlPreferencesAdditions__renderableLocaleLanguages__block_i
   v10 = [v8 renderableLanguagesFromList:v9];
   v11 = renderableLocaleLanguages___renderableLanguages;
   renderableLocaleLanguages___renderableLanguages = v10;
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __66__NSLocale_IntlPreferencesAdditions__renderableLanguagesFromList___block_invoke(uint64_t a1, void *a2)

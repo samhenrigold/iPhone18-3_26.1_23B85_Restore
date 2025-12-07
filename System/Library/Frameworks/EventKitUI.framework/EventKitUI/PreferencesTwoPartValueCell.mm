@@ -33,8 +33,8 @@
     clearColor = [MEMORY[0x1E69DC888] clearColor];
     [(TwoPartTextLabel *)self->_twoPartLabel setBackgroundColor:clearColor];
 
-    contentView = [(PreferencesTwoPartValueCell *)self contentView];
-    [contentView addSubview:self->_twoPartLabel];
+    v9 = objc_msgSend_contentView(self);
+    [v9 addSubview:self->_twoPartLabel];
 
     twoPartLabel = self->_twoPartLabel;
   }
@@ -57,8 +57,8 @@
     clearColor = [MEMORY[0x1E69DC888] clearColor];
     [(UILabel *)self->_largePart2TextLabel setBackgroundColor:clearColor];
 
-    contentView = [(PreferencesTwoPartValueCell *)self contentView];
-    [contentView addSubview:self->_largePart2TextLabel];
+    v8 = objc_msgSend_contentView(self);
+    [v8 addSubview:self->_largePart2TextLabel];
 
     largePart2TextLabel = self->_largePart2TextLabel;
   }
@@ -83,46 +83,46 @@
 {
   textCopy = text;
   valueCopy = value;
-  IsLeftToRight = CalInterfaceIsLeftToRight();
+  IsLeftToRight = CalInterfaceIsLeftToRight(valueCopy, v7);
   [(PreferencesTwoPartValueCell *)self directionalLayoutMargins];
-  v9 = v8;
-  contentView = [(PreferencesTwoPartValueCell *)self contentView];
-  [contentView bounds];
-  v12 = v11;
-  v14 = v13;
-  v16 = v15;
-  v18 = v17;
+  v10 = v9;
+  v11 = objc_msgSend_contentView(self);
+  [v11 bounds];
+  v13 = v12;
+  v15 = v14;
+  v17 = v16;
+  v19 = v18;
 
-  v96.origin.x = v12;
-  v96.origin.y = v14;
-  v96.size.width = v16;
-  v96.size.height = v18;
-  v97 = CGRectInset(v96, v9, 0.0);
-  x = v97.origin.x;
-  width = v97.size.width;
-  height = v97.size.height;
-  v22 = v9 * [(PreferencesTwoPartValueCell *)self indentationLevel];
-  v23 = x + v22;
+  v97.origin.x = v13;
+  v97.origin.y = v15;
+  v97.size.width = v17;
+  v97.size.height = v19;
+  v98 = CGRectInset(v97, v10, 0.0);
+  x = v98.origin.x;
+  width = v98.size.width;
+  height = v98.size.height;
+  v23 = v10 * [(PreferencesTwoPartValueCell *)self indentationLevel];
+  v24 = x + v23;
   if (!IsLeftToRight)
   {
-    v23 = x;
+    v24 = x;
   }
 
-  v93 = v23;
-  v24 = width - v22;
-  v25 = MEMORY[0x1E695F060];
-  [textCopy sizeThatFits:{width - v22, height}];
-  v27 = v26;
+  v94 = v24;
+  v25 = width - v23;
+  v26 = MEMORY[0x1E695F060];
+  [textCopy sizeThatFits:{width - v23, height}];
+  v28 = v27;
   text = [textCopy text];
-  v29 = text;
+  v30 = text;
   if (text && [text length])
   {
     superview = [textCopy superview];
 
     if (!superview)
     {
-      contentView2 = [(PreferencesTwoPartValueCell *)self contentView];
-      [contentView2 addSubview:textCopy];
+      v32 = objc_msgSend_contentView(self);
+      [v32 addSubview:textCopy];
     }
   }
 
@@ -131,22 +131,22 @@
     [textCopy removeFromSuperview];
   }
 
-  v32 = *v25;
-  v33 = *v25;
+  v33 = *v26;
+  v34 = *v26;
   if (valueCopy)
   {
-    [valueCopy sizeThatFits:{v24, height}];
-    v33 = v34;
+    [valueCopy sizeThatFits:{v25, height}];
+    v34 = v35;
     text2 = [valueCopy text];
-    v36 = text2;
+    v37 = text2;
     if (text2 && [text2 length])
     {
       superview2 = [valueCopy superview];
 
       if (!superview2)
       {
-        contentView3 = [(PreferencesTwoPartValueCell *)self contentView];
-        [contentView3 addSubview:valueCopy];
+        v39 = objc_msgSend_contentView(self);
+        [v39 addSubview:valueCopy];
       }
     }
 
@@ -157,167 +157,167 @@
   }
 
   numberOfLines = [textCopy numberOfLines];
-  v40 = ceil(v24 * (v27 / (v27 + v33 + 6.0)));
+  v41 = ceil(v25 * (v28 / (v28 + v34 + 6.0)));
   [textCopy setNumberOfLines:1];
-  [textCopy sizeThatFits:{v40, height}];
-  v42 = v41;
+  [textCopy sizeThatFits:{v41, height}];
+  v43 = v42;
   [textCopy setNumberOfLines:0];
-  [textCopy sizeThatFits:{v40, height}];
-  v45 = v42 * numberOfLines;
+  [textCopy sizeThatFits:{v41, height}];
+  v46 = v43 * numberOfLines;
   if (numberOfLines <= 0)
   {
-    v45 = 3.40282347e38;
+    v46 = 3.40282347e38;
   }
 
-  if (v44 < v45)
+  if (v45 < v46)
   {
-    v45 = v44;
+    v46 = v45;
   }
 
-  v88 = v45;
-  if (v44 <= v45 && v45 <= height)
+  v89 = v46;
+  if (v45 <= v46 && v46 <= height)
   {
-    v40 = v43;
+    v41 = v44;
   }
 
   [textCopy setNumberOfLines:numberOfLines];
   numberOfLines2 = [valueCopy numberOfLines];
-  v48 = v24;
-  v91 = v40;
-  v49 = v24 - v40;
-  v50 = v24 - v40 + -6.0;
+  v49 = v25;
+  v92 = v41;
+  v50 = v25 - v41;
+  v51 = v25 - v41 + -6.0;
   [valueCopy setNumberOfLines:1];
   if (valueCopy)
   {
-    [valueCopy sizeThatFits:{v50, height}];
-    v52 = v51;
+    [valueCopy sizeThatFits:{v51, height}];
+    v53 = v52;
     [valueCopy setNumberOfLines:0];
-    [valueCopy sizeThatFits:{v50, height}];
-    v32 = v54;
+    [valueCopy sizeThatFits:{v51, height}];
+    v33 = v55;
   }
 
   else
   {
-    v52 = v25[1];
+    v53 = v26[1];
     [0 setNumberOfLines:0];
-    v53 = v52;
+    v54 = v53;
   }
 
-  v55 = v52 * numberOfLines2;
+  v56 = v53 * numberOfLines2;
   if (numberOfLines2 <= 0)
   {
-    v55 = 3.40282347e38;
+    v56 = 3.40282347e38;
   }
 
-  if (v53 < v55)
+  if (v54 < v56)
   {
-    v55 = v53;
+    v56 = v54;
   }
 
-  v87 = v55;
-  v89 = height;
-  if (v53 > v55 || v55 > height)
+  v88 = v56;
+  v90 = height;
+  if (v54 > v56 || v56 > height)
   {
-    v57 = v50;
+    v58 = v51;
   }
 
   else
   {
-    v57 = v32;
+    v58 = v33;
   }
 
   [valueCopy setNumberOfLines:numberOfLines2];
   font = [textCopy font];
   [font ascender];
-  v60 = v59;
+  v61 = v60;
   font2 = [valueCopy font];
   [font2 ascender];
-  v63 = v62;
+  v64 = v63;
 
-  if (v60 >= v63)
+  if (v61 >= v64)
   {
     font3 = [textCopy font];
     [font3 ascender];
-    v73 = v72;
+    v74 = v73;
     font4 = [valueCopy font];
     [font4 ascender];
-    CalRoundToScreenScale(v73 - v74);
-    v71 = v75;
-    v70 = 0.0;
+    CalRoundToScreenScale(v74 - v75);
+    v72 = v76;
+    v71 = 0.0;
   }
 
   else
   {
     font3 = [valueCopy font];
     [font3 ascender];
-    v66 = v65;
+    v67 = v66;
     font4 = [textCopy font];
     [font4 ascender];
-    CalRoundToScreenScale(v66 - v68);
-    v70 = v69;
-    v71 = 0.0;
+    CalRoundToScreenScale(v67 - v69);
+    v71 = v70;
+    v72 = 0.0;
   }
 
   if (IsLeftToRight)
-  {
-    v76 = 0.0;
-  }
-
-  else
-  {
-    v76 = v49;
-  }
-
-  if (IsLeftToRight)
-  {
-    v77 = v48 - v57;
-  }
-
-  else
   {
     v77 = 0.0;
   }
 
-  v98.origin.x = v76;
-  v98.origin.y = v70;
-  v98.size.width = v91;
-  v98.size.height = v88;
-  v103.origin.x = v77;
-  v103.origin.y = v71;
-  v103.size.width = v57;
-  v103.size.height = v87;
-  v99 = CGRectUnion(v98, v103);
-  v78 = CalCeilToScreenScale((v89 - v99.size.height) * 0.5);
-  v100.origin.x = v76;
-  v100.origin.y = v70;
-  v100.size.width = v91;
-  v100.size.height = v88;
-  v101 = CGRectOffset(v100, v93, v78);
-  v90 = v101.size.height;
-  v92 = v101.origin.x;
-  y = v101.origin.y;
-  v80 = v101.size.width;
+  else
+  {
+    v77 = v50;
+  }
+
+  if (IsLeftToRight)
+  {
+    v78 = v49 - v58;
+  }
+
+  else
+  {
+    v78 = 0.0;
+  }
+
+  v99.origin.x = v77;
+  v99.origin.y = v71;
+  v99.size.width = v92;
+  v99.size.height = v89;
+  v104.origin.x = v78;
+  v104.origin.y = v72;
+  v104.size.width = v58;
+  v104.size.height = v88;
+  v100 = CGRectUnion(v99, v104);
+  v79 = CalCeilToScreenScale((v90 - v100.size.height) * 0.5);
   v101.origin.x = v77;
   v101.origin.y = v71;
-  v101.size.width = v57;
-  v101.size.height = v87;
-  v102 = CGRectOffset(v101, v93, v78);
-  v81 = v102.origin.x;
-  v82 = v102.origin.y;
-  v83 = v102.size.width;
-  v84 = v102.size.height;
+  v101.size.width = v92;
+  v101.size.height = v89;
+  v102 = CGRectOffset(v101, v94, v79);
+  v91 = v102.size.height;
+  v93 = v102.origin.x;
+  y = v102.origin.y;
+  v81 = v102.size.width;
+  v102.origin.x = v78;
+  v102.origin.y = v72;
+  v102.size.width = v58;
+  v102.size.height = v88;
+  v103 = CGRectOffset(v102, v94, v79);
+  v82 = v103.origin.x;
+  v83 = v103.origin.y;
+  v84 = v103.size.width;
+  v85 = v103.size.height;
   superview3 = [textCopy superview];
 
   if (superview3)
   {
-    [textCopy setFrame:{v92, y, v80, v90}];
+    [textCopy setFrame:{v93, y, v81, v91}];
   }
 
   superview4 = [valueCopy superview];
 
   if (superview4)
   {
-    [valueCopy setFrame:{v81, v82, v83, v84}];
+    [valueCopy setFrame:{v82, v83, v84, v85}];
   }
 }
 
@@ -398,9 +398,9 @@ LABEL_5:
 
 - (void)layoutSubviews
 {
-  *&v54.size.width = self;
-  *&v54.size.height = PreferencesTwoPartValueCell;
-  [(CGSize *)&v54.size layoutSubviews];
+  *&v56.size.width = self;
+  *&v56.size.height = PreferencesTwoPartValueCell;
+  [(CGSize *)&v56.size layoutSubviews];
   traitCollection = [(PreferencesTwoPartValueCell *)self traitCollection];
   v4 = EKUIUsesLargeTextLayout(traitCollection);
 
@@ -446,7 +446,7 @@ LABEL_5:
       [(UILabel *)self->_largePart2TextLabel sizeToFit];
       textLabel2 = [(PreferencesTwoPartValueCell *)self textLabel];
       [textLabel2 frame];
-      v54.origin.y = v21;
+      v56.origin.y = v21;
       v23 = v22;
       v25 = v24;
       v27 = v26;
@@ -470,41 +470,41 @@ LABEL_5:
 
         v43 = v23 - v42;
         textLabel3 = [(PreferencesTwoPartValueCell *)self textLabel];
-        [textLabel3 setFrame:{v54.origin.y, v43, v25, v27}];
+        [textLabel3 setFrame:{v56.origin.y, v43, v25, v27}];
 
         v45 = v32 - v42;
         detailTextLabel5 = [(PreferencesTwoPartValueCell *)self detailTextLabel];
-        v54.origin.x = v30;
+        v56.origin.x = v30;
         [detailTextLabel5 setFrame:{v30, v45, v34, v36}];
 
-        [(UILabel *)self->_largePart2TextLabel frame];
-        v48 = v47;
-        v50 = v49;
-        if (CalInterfaceIsLeftToRight())
+        frame = [(UILabel *)self->_largePart2TextLabel frame];
+        v49 = v48;
+        v51 = v50;
+        if (CalInterfaceIsLeftToRight(frame, v52))
         {
-          v55.origin.x = v54.origin.y;
-          v55.origin.y = v43;
-          v55.size.width = v25;
-          v55.size.height = v27;
-          MinX = CGRectGetMinX(v55);
+          v57.origin.x = v56.origin.y;
+          v57.origin.y = v43;
+          v57.size.width = v25;
+          v57.size.height = v27;
+          MinX = CGRectGetMinX(v57);
         }
 
         else
         {
-          v56.origin.x = v54.origin.y;
-          v56.origin.y = v43;
-          v56.size.width = v25;
-          v56.size.height = v27;
-          MinX = CGRectGetMaxX(v56) - v48;
+          v58.origin.x = v56.origin.y;
+          v58.origin.y = v43;
+          v58.size.width = v25;
+          v58.size.height = v27;
+          MinX = CGRectGetMaxX(v58) - v49;
         }
 
-        v57.origin.x = v54.origin.x;
-        v57.origin.y = v45;
-        v57.size.width = v34;
-        v57.size.height = v36;
-        [(UILabel *)self->_largePart2TextLabel setFrame:MinX, CGRectGetMaxY(v57), v48, v50];
-        contentView = [(PreferencesTwoPartValueCell *)self contentView];
-        [contentView addSubview:self->_largePart2TextLabel];
+        v59.origin.x = v56.origin.x;
+        v59.origin.y = v45;
+        v59.size.width = v34;
+        v59.size.height = v36;
+        [(UILabel *)self->_largePart2TextLabel setFrame:MinX, CGRectGetMaxY(v59), v49, v51];
+        v55 = objc_msgSend_contentView(self);
+        [v55 addSubview:self->_largePart2TextLabel];
       }
     }
 

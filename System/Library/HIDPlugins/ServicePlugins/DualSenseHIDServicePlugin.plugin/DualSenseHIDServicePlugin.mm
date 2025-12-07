@@ -1,4 +1,4 @@
-uint64_t sub_DE8()
+uint64_t sub_DE8(uint64_t a1, uint64_t a2)
 {
   if (qword_1F168 != -1)
   {
@@ -8,16 +8,16 @@ uint64_t sub_DE8()
   return byte_1F160;
 }
 
-id sub_E48()
+id sub_E48(uint64_t a1)
 {
   if (qword_1F178 != -1)
   {
     sub_B24C();
   }
 
-  v1 = qword_1F170;
+  v2 = qword_1F170;
 
-  return v1;
+  return v2;
 }
 
 void sub_E8C(id a1)
@@ -27,16 +27,16 @@ void sub_E8C(id a1)
   qword_1F170 = v1;
 }
 
-id sub_ED0()
+id sub_ED0(uint64_t a1)
 {
   if (qword_1F188 != -1)
   {
     sub_B260();
   }
 
-  v1 = qword_1F180;
+  v2 = qword_1F180;
 
-  return v1;
+  return v2;
 }
 
 void sub_F14(id a1)
@@ -46,16 +46,16 @@ void sub_F14(id a1)
   qword_1F180 = v1;
 }
 
-id sub_F58()
+id sub_F58(uint64_t a1)
 {
   if (qword_1F198 != -1)
   {
     sub_B274();
   }
 
-  v1 = qword_1F190;
+  v2 = qword_1F190;
 
-  return v1;
+  return v2;
 }
 
 void sub_F9C(id a1)
@@ -65,16 +65,16 @@ void sub_F9C(id a1)
   qword_1F190 = v1;
 }
 
-id sub_FE0()
+id sub_FE0(uint64_t a1)
 {
   if (qword_1F1A8 != -1)
   {
     sub_B288();
   }
 
-  v1 = qword_1F1A0;
+  v2 = qword_1F1A0;
 
-  return v1;
+  return v2;
 }
 
 void sub_1024(id a1)
@@ -91,16 +91,16 @@ void sub_1068(char *category)
   qword_1F1B0 = v1;
 }
 
-id sub_10A8()
+id sub_10A8(uint64_t a1)
 {
   if (qword_1F1B8 != -1)
   {
     sub_B29C();
   }
 
-  v1 = qword_1F1B0;
+  v2 = qword_1F1B0;
 
-  return v1;
+  return v2;
 }
 
 void sub_10EC(id a1)
@@ -111,16 +111,16 @@ void sub_10EC(id a1)
   }
 }
 
-id sub_1110()
+id sub_1110(uint64_t a1)
 {
   if (qword_1F1C8 != -1)
   {
     sub_B2B0();
   }
 
-  v1 = qword_1F1C0;
+  v2 = qword_1F1C0;
 
-  return v1;
+  return v2;
 }
 
 void sub_1154(id a1)
@@ -130,16 +130,16 @@ void sub_1154(id a1)
   qword_1F1C0 = v1;
 }
 
-id sub_1198()
+id sub_1198(uint64_t a1)
 {
   if (qword_1F1D8 != -1)
   {
     sub_B2C4();
   }
 
-  v1 = qword_1F1D0;
+  v2 = qword_1F1D0;
 
-  return v1;
+  return v2;
 }
 
 void sub_11DC(id a1)
@@ -149,16 +149,16 @@ void sub_11DC(id a1)
   qword_1F1D0 = v1;
 }
 
-id sub_1220()
+id sub_1220(uint64_t a1)
 {
   if (qword_1F1E8 != -1)
   {
     sub_B2D8();
   }
 
-  v1 = qword_1F1E0;
+  v2 = qword_1F1E0;
 
-  return v1;
+  return v2;
 }
 
 void sub_1264(id a1)
@@ -168,9 +168,9 @@ void sub_1264(id a1)
   qword_1F1E0 = v1;
 }
 
-id hexStringFromByteArray(uint64_t a1, int a2)
+id hexStringFromByteArray(uint64_t a1, unsigned int a2)
 {
-  v4 = [NSMutableString stringWithCapacity:2 * a2];
+  v4 = [NSMutableString stringWithCapacity:(2 * a2)];
   if (a2 >= 1)
   {
     v5 = a2 - 1;
@@ -201,7 +201,7 @@ id hexStringFromByteArray(uint64_t a1, int a2)
   return v10;
 }
 
-uint64_t isPartnerSupportEnabled()
+uint64_t isPartnerSupportEnabled(uint64_t a1, uint64_t a2)
 {
   if (qword_1F1F0 != -1)
   {
@@ -214,13 +214,14 @@ uint64_t isPartnerSupportEnabled()
 void sub_2020(id a1)
 {
   v1 = [[NSUserDefaults alloc] initWithSuiteName:@"com.apple.GameController"];
-  byte_1F1F8 = [v1 BOOLForKey:@"GCPartnersEnable"];
-  v2 = sub_10A8();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v2 = [v1 BOOLForKey:@"GCPartnersEnable"];
+  byte_1F1F8 = v2;
+  v3 = sub_10A8(v2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3[0] = 67109120;
-    v3[1] = byte_1F1F8;
-    _os_log_impl(&dword_0, v2, OS_LOG_TYPE_DEFAULT, "Partners mode enabled? %d", v3, 8u);
+    v4[0] = 67109120;
+    v4[1] = byte_1F1F8;
+    _os_log_impl(&dword_0, v3, OS_LOG_TYPE_DEFAULT, "Partners mode enabled? %d", v4, 8u);
   }
 }
 
@@ -304,7 +305,7 @@ void sub_26D0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int
 void sub_2700(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v2 = sub_10A8();
+  v2 = sub_10A8(WeakRetained);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v3 = 0;
@@ -319,7 +320,7 @@ void sub_2700(uint64_t a1)
 void sub_2798(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v2 = sub_10A8();
+  v2 = sub_10A8(WeakRetained);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -330,9 +331,9 @@ void sub_2798(uint64_t a1)
   [v3 driverCheckIn];
 }
 
-void sub_2F0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_2F0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -347,7 +348,7 @@ uint64_t sub_2F2C(uint64_t result, uint64_t a2)
 void sub_2F44(uint64_t a1)
 {
   v2 = [NSString stringWithCString:dispatch_queue_get_label(*(a1 + 32)) encoding:4];
-  v3 = sub_10A8();
+  v3 = sub_10A8(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v6 = 138412290;
@@ -389,18 +390,19 @@ void sub_38EC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int
 void sub_3910(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
+  v2 = WeakRetained;
   if (WeakRetained)
   {
-    v2 = sub_10A8();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    v3 = sub_10A8(WeakRetained);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      *v4 = 0;
-      _os_log_impl(&dword_0, v2, OS_LOG_TYPE_DEFAULT, "calling cancel handler", v4, 2u);
+      *v5 = 0;
+      _os_log_impl(&dword_0, v3, OS_LOG_TYPE_DEFAULT, "calling cancel handler", v5, 2u);
     }
 
-    (*(WeakRetained[1] + 16))();
-    v3 = WeakRetained[1];
-    WeakRetained[1] = 0;
+    (*(v2[1] + 16))();
+    v4 = v2[1];
+    v2[1] = 0;
   }
 }
 
@@ -476,19 +478,20 @@ void sub_5A90(uint64_t a1)
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained)
   {
-    v5 = 0uLL;
-    clock_gettime(_CLOCK_MONOTONIC_RAW, &v5);
-    if ((*(&v5 + 1) + v5 * 1000000000.0 - (*(WeakRetained + 64) + *(WeakRetained + 63) * 1000000000.0)) * 0.000000001 >= *(WeakRetained + 122))
+    v6 = 0uLL;
+    clock_gettime(_CLOCK_MONOTONIC_RAW, &v6);
+    if ((*(&v6 + 1) + v6 * 1000000000.0 - (*(WeakRetained + 64) + *(WeakRetained + 63) * 1000000000.0)) * 0.000000001 >= *(WeakRetained + 122))
     {
-      *(WeakRetained + 504) = v5;
+      *(WeakRetained + 504) = v6;
       v2 = [WeakRetained isAnyHapticMotorEnabled];
-      v3 = sub_10A8();
-      v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG);
-      if (v2)
+      v3 = v2;
+      v4 = sub_10A8(v2);
+      v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG);
+      if (v3)
       {
-        if (v4)
+        if (v5)
         {
-          sub_B728(v3);
+          sub_B728(v4);
         }
 
         *(WeakRetained + 121) = 0;
@@ -497,9 +500,9 @@ void sub_5A90(uint64_t a1)
 
       else
       {
-        if (v4)
+        if (v5)
         {
-          sub_B6E4(v3);
+          sub_B6E4(v4);
         }
 
         [WeakRetained stopHaptics];
@@ -508,7 +511,7 @@ void sub_5A90(uint64_t a1)
   }
 }
 
-uint64_t sub_6170()
+uint64_t sub_6170(unsigned int a1)
 {
 
   return kdebug_trace();
@@ -516,7 +519,6 @@ uint64_t sub_6170()
 
 id sub_6198(uint64_t a1, void *a2)
 {
-  v3 = *(a1 + 656);
 
   return [a2 timestamp];
 }
@@ -528,13 +530,13 @@ void sub_61C0(uint64_t a1)
   dispatch_after(v2, v3, v1);
 }
 
-void sub_6938(uint64_t a1, int a2, const void *a3, unint64_t a4)
+void sub_6938(uint64_t a1, uint64_t a2, const void *a3, size_t a4)
 {
-  v8 = *(a1 + 40);
-  kdebug_trace();
-  if (a2)
+  v6 = a2;
+  v8 = kdebug_trace();
+  if (v6)
   {
-    v9 = sub_10A8();
+    v9 = sub_10A8(v8);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       sub_B7DC();
@@ -553,14 +555,14 @@ void sub_6938(uint64_t a1, int a2, const void *a3, unint64_t a4)
       v10 = a4;
     }
 
-    memcpy((*(a1 + 32) + 904), a3, v10);
-    v9 = sub_10A8();
+    v11 = memcpy((*(a1 + 32) + 904), a3, v10);
+    v9 = sub_10A8(v11);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = sub_6A84((*(a1 + 32) + 904));
-      v12 = 138412290;
-      v13 = v11;
-      _os_log_impl(&dword_0, v9, OS_LOG_TYPE_DEFAULT, "(Async) Firmware Info = %@", &v12, 0xCu);
+      v12 = sub_6A84((*(a1 + 32) + 904));
+      v13 = 138412290;
+      v14 = v12;
+      _os_log_impl(&dword_0, v9, OS_LOG_TYPE_DEFAULT, "(Async) Firmware Info = %@", &v13, 0xCu);
     }
   }
 
@@ -658,13 +660,13 @@ id sub_6A84(const char *a1)
   return v16;
 }
 
-void sub_706C(uint64_t a1, int a2, const void *a3, unint64_t a4)
+void sub_706C(uint64_t a1, uint64_t a2, const void *a3, size_t a4)
 {
-  v8 = *(a1 + 40);
-  kdebug_trace();
-  if (a2)
+  v6 = a2;
+  v8 = kdebug_trace();
+  if (v6)
   {
-    v9 = sub_10A8();
+    v9 = sub_10A8(v8);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       sub_B8BC();
@@ -686,18 +688,19 @@ LABEL_4:
     v11 = a4;
   }
 
-  memcpy((*(a1 + 32) + 727), a3, v11);
-  if (sub_DE8())
+  v12 = memcpy((*(a1 + 32) + 727), a3, v11);
+  v14 = sub_DE8(v12, v13);
+  if (v14)
   {
     sub_B92C();
   }
 
-  v12 = vcvtd_n_f64_s32(*(*v10 + 748) + *(*v10 + 746), 1uLL);
-  *(*v10 + 768) = v12 / ((fabs((*(*v10 + 734) - *(*v10 + 728))) + fabs((*(*v10 + 736) - *(*v10 + 728)))) * 0.5);
+  v16 = vcvtd_n_f64_s32(*(*v10 + 748) + *(*v10 + 746), 1uLL);
+  *(*v10 + 768) = v16 / ((fabs((*(*v10 + 734) - *(*v10 + 728))) + fabs((*(*v10 + 736) - *(*v10 + 728)))) * 0.5);
   *(*v10 + 768) = *(*v10 + 768) * 0.0174532925;
-  *(*v10 + 776) = v12 / ((fabs((*(*v10 + 738) - *(*v10 + 730))) + fabs((*(*v10 + 740) - *(*v10 + 730)))) * 0.5);
+  *(*v10 + 776) = v16 / ((fabs((*(*v10 + 738) - *(*v10 + 730))) + fabs((*(*v10 + 740) - *(*v10 + 730)))) * 0.5);
   *(*v10 + 776) = *(*v10 + 776) * 0.0174532925;
-  *(*v10 + 784) = v12 / ((fabs((*(*v10 + 742) - *(*v10 + 732))) + fabs((*(*v10 + 744) - *(*v10 + 732)))) * 0.5);
+  *(*v10 + 784) = v16 / ((fabs((*(*v10 + 742) - *(*v10 + 732))) + fabs((*(*v10 + 744) - *(*v10 + 732)))) * 0.5);
   *(*v10 + 784) = *(*v10 + 784) * 0.0174532925;
   *(*v10 + 792) = vcvtd_n_f64_s32(*(*v10 + 752) + *(*v10 + 750), 1uLL);
   *(*v10 + 800) = vcvtd_n_f64_s32(*(*v10 + 756) + *(*v10 + 754), 1uLL);
@@ -705,54 +708,63 @@ LABEL_4:
   *(*v10 + 816) = 2.0 / (*(*v10 + 750) - *(*v10 + 752));
   *(*v10 + 824) = 2.0 / (*(*v10 + 754) - *(*v10 + 756));
   *(*v10 + 832) = 2.0 / (*(*v10 + 758) - *(*v10 + 760));
-  if (sub_DE8())
+  v17 = sub_DE8(v14, v15);
+  if (v17)
   {
     sub_B9F8();
   }
 
-  if (sub_DE8())
+  v19 = sub_DE8(v17, v18);
+  if (v19)
   {
     sub_BA94();
   }
 
-  if (sub_DE8())
+  v21 = sub_DE8(v19, v20);
+  if (v21)
   {
     sub_BB30();
   }
 
-  if (sub_DE8())
+  v23 = sub_DE8(v21, v22);
+  if (v23)
   {
     sub_BBCC();
   }
 
-  if (sub_DE8())
+  v25 = sub_DE8(v23, v24);
+  if (v25)
   {
     sub_BC68();
   }
 
-  if (sub_DE8())
+  v27 = sub_DE8(v25, v26);
+  if (v27)
   {
     sub_BD04();
   }
 
-  if (sub_DE8())
+  v29 = sub_DE8(v27, v28);
+  if (v29)
   {
     sub_BDA0();
   }
 
-  if (sub_DE8())
+  v31 = sub_DE8(v29, v30);
+  if (v31)
   {
     sub_BE3C();
   }
 
-  if (sub_DE8())
+  v33 = sub_DE8(v31, v32);
+  if (v33)
   {
-    v9 = sub_10A8();
+    v9 = sub_10A8(v33);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
-      v13 = *(*v10 + 832);
+      v34 = *(*v10 + 832);
       *buf = 134217984;
-      v15 = v13;
+      v36 = v34;
       _os_log_impl(&dword_0, v9, OS_LOG_TYPE_INFO, "(Async) Accelerometer Z Sensitivity = %f", buf, 0xCu);
     }
 
@@ -848,7 +860,7 @@ void sub_7CA0(_Unwind_Exception *a1)
 
 void sub_7CC8(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, void *a6)
 {
-  v80 = a2;
+  v81 = a2;
   v12 = a6;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v14 = WeakRetained;
@@ -856,9 +868,9 @@ void sub_7CC8(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, void
   {
     sub_B3B0(WeakRetained);
     kdebug_trace();
-    v108 = 0u;
-    memset(v109, 0, 28);
-    memset(v107, 0, sizeof(v107));
+    v109 = 0u;
+    memset(v110, 0, 28);
+    memset(v108, 0, sizeof(v108));
     if (a5 == 49)
     {
       [v12 bytes];
@@ -875,34 +887,34 @@ LABEL_10:
       block[2] = sub_8854;
       block[3] = &unk_18648;
       v15 = v14;
-      v82 = v15;
-      objc_copyWeak(&v83, (a1 + 32));
+      v83 = v15;
+      objc_copyWeak(&v84, (a1 + 32));
       if (v14[87] != -1)
       {
         dispatch_once(v14 + 87, block);
       }
 
-      [v15 updateBatteryLevel:v109[2] & 0xF chargeStatus:LOBYTE(v109[2]) >> 4];
+      [v15 updateBatteryLevel:v110[2] & 0xF chargeStatus:LOBYTE(v110[2]) >> 4];
       if (*(v15 + 721) == 1)
       {
-        v74 = *(v15 + 97) * (*(&v107[1] + 1) - *(v15 + 365));
-        v75 = *(v15 + 96) * (*(v107 + 15) - *(v15 + 364));
-        v72 = -((*(&v107[1] + 5) - *(v15 + 99)) * *(v15 + 102));
-        v73 = *(v15 + 98) * (*(v15 + 366) - *(&v107[1] + 3));
-        v70 = -((*(&v107[1] + 7) - *(v15 + 100)) * *(v15 + 103));
-        v71 = (*(&v107[1] + 9) - *(v15 + 101)) * *(v15 + 104);
-        v69 = 1;
+        v75 = *(v15 + 97) * (*(&v108[1] + 1) - *(v15 + 365));
+        v76 = *(v15 + 96) * (*(v108 + 15) - *(v15 + 364));
+        v73 = -((*(&v108[1] + 5) - *(v15 + 99)) * *(v15 + 102));
+        v74 = *(v15 + 98) * (*(v15 + 366) - *(&v108[1] + 3));
+        v71 = -((*(&v108[1] + 7) - *(v15 + 100)) * *(v15 + 103));
+        v72 = (*(&v108[1] + 9) - *(v15 + 101)) * *(v15 + 104);
+        v70 = 1;
       }
 
       else
       {
-        v69 = 0;
-        v70 = 0.0;
+        v70 = 0;
         v71 = 0.0;
         v72 = 0.0;
         v73 = 0.0;
         v74 = 0.0;
         v75 = 0.0;
+        v76 = 0.0;
       }
 
       v16 = 0.0;
@@ -910,10 +922,10 @@ LABEL_10:
       v18 = 0.0;
       v19 = 0.0;
       v20 = 0.0;
-      if ((v108 & 0x80000000) == 0)
+      if ((v109 & 0x80000000) == 0)
       {
-        v21 = (((*(&v108 + 1) & 0xFFF) / 1919.0) + ((*(&v108 + 1) & 0xFFF) / 1919.0)) + -1.0;
-        v22 = (*(&v108 + 1) | (BYTE3(v108) << 16)) >> 12;
+        v21 = (((*(&v109 + 1) & 0xFFF) / 1919.0) + ((*(&v109 + 1) & 0xFFF) / 1919.0)) + -1.0;
+        v22 = (*(&v109 + 1) | (BYTE3(v109) << 16)) >> 12;
         v23 = ((v22 / 1079.0) + (v22 / 1079.0)) + -1.0;
         v17 = fmaxf(-v23, 0.0);
         v18 = fmaxf(v23, 0.0);
@@ -930,15 +942,15 @@ LABEL_10:
         v20 = fmaxf(v21, 0.0);
       }
 
-      v77 = v17;
-      v76 = v12;
+      v78 = v17;
+      v77 = v12;
       v24 = 0.0;
       v25 = 0.0;
       v26 = 0.0;
-      if ((SBYTE4(v108) & 0x80000000) == 0)
+      if ((SBYTE4(v109) & 0x80000000) == 0)
       {
-        v27 = (((*(&v108 + 5) & 0xFFF) / 1919.0) + ((*(&v108 + 5) & 0xFFF) / 1919.0)) + -1.0;
-        v28 = (*(&v108 + 5) | (BYTE7(v108) << 16)) >> 12;
+        v27 = (((*(&v109 + 5) & 0xFFF) / 1919.0) + ((*(&v109 + 5) & 0xFFF) / 1919.0)) + -1.0;
+        v28 = (*(&v109 + 5) | (BYTE7(v109) << 16)) >> 12;
         v29 = ((v28 / 1079.0) + (v28 / 1079.0)) + -1.0;
         v16 = fmaxf(-v29, 0.0);
         v24 = fmaxf(v29, 0.0);
@@ -955,18 +967,18 @@ LABEL_10:
         v26 = fmaxf(v27, 0.0);
       }
 
-      v78 = v16;
-      v30 = LOBYTE(v107[0]);
-      v31 = BYTE2(v107[0]);
-      v32 = BYTE1(v107[0]);
-      v33 = BYTE3(v107[0]);
-      v34 = BYTE9(v107[0]);
-      v35 = *(v107 + 7);
-      LOBYTE(v6) = BYTE5(v107[0]);
-      LOBYTE(v7) = BYTE4(v107[0]);
-      [v15 dispatchHomeButtonEventWithValue:BYTE9(v107[0]) & 1 timestamp:a3];
-      [v15 dispatchMenuButtonEventWithValue:(*(v107 + 7) >> 13) & 1 timestamp:a3];
-      [v15 dispatchOptionsButtonEventWithValue:(*(v107 + 7) >> 12) & 1 timestamp:a3];
+      v79 = v16;
+      v30 = LOBYTE(v108[0]);
+      v31 = BYTE2(v108[0]);
+      v32 = BYTE1(v108[0]);
+      v33 = BYTE3(v108[0]);
+      v34 = BYTE9(v108[0]);
+      v35 = *(v108 + 7);
+      LOBYTE(v6) = BYTE5(v108[0]);
+      LOBYTE(v7) = BYTE4(v108[0]);
+      [v15 dispatchHomeButtonEventWithValue:BYTE9(v108[0]) & 1 timestamp:a3];
+      [v15 dispatchMenuButtonEventWithValue:(*(v108 + 7) >> 13) & 1 timestamp:a3];
+      [v15 dispatchOptionsButtonEventWithValue:(*(v108 + 7) >> 12) & 1 timestamp:a3];
       v36.i64[0] = v30;
       v36.i64[1] = v32;
       v37 = v36;
@@ -983,206 +995,206 @@ LABEL_10:
       v46 = vdup_n_s32(v35);
       __asm { FMOV            V18.2S, #1.0 }
 
-      v85 = vbslq_s8(vmovl_s16(vceq_s16(vdup_n_s16(v35 & 0xF), 0x2000600040000)), _Q7, vcvtq_f32_u32(vmovl_u16(vand_s8(vuzp1_s16(vorr_s8(vceq_s32(v39, 0x500000001), vceq_s32(v39, 0x300000007)), vceq_s32(vdup_n_s32(v35 & 0xD), 0x100000005)), 0x1000100010001))));
+      v86 = vbslq_s8(vmovl_s16(vceq_s16(vdup_n_s16(v35 & 0xF), 0x2000600040000)), _Q7, vcvtq_f32_u32(vmovl_u16(vand_s8(vuzp1_s16(vorr_s8(vceq_s32(v39, 0x500000001), vceq_s32(v39, 0x300000007)), vceq_s32(vdup_n_s32(v35 & 0xD), 0x100000005)), 0x1000100010001))));
       *buf = 0;
-      v86 = vcvt_f32_u32((*&vshl_u32((*&v46 & 0xFFFF00FFFFFF00FFLL), 0xFFFFFFFAFFFFFFFBLL) & 0xFFFFFFF1FFFFFFF1));
-      *&v87 = ((v35 >> 4) & 1);
-      *(&v87 + 1) = ((v35 >> 7) & 1);
-      v88 = vbic_s8(_D18, vceqz_s32(vand_s8(v46, 0x20000000100)));
-      LODWORD(v89) = fmaxf(*&v37.i32[1], 0.0);
-      *(&v89 + 4) = vand_s8(vneg_f32(*&v38.f64[0]), vcltz_f32(*&v38.f64[0]));
-      HIDWORD(v89) = fmaxf(*v37.i32, 0.0);
-      LODWORD(v90) = fmaxf(*&v40.i32[1], 0.0);
-      *(&v90 + 4) = vand_s8(vneg_f32(v41), vcltz_f32(v41));
-      HIDWORD(v90) = fmaxf(*v40.i32, 0.0);
-      *&v91 = v7 / 255.0;
-      *(&v91 + 1) = v6 / 255.0;
-      *(&v91 + 2) = ((v35 >> 14) & 1);
-      *(&v91 + 3) = (v35 >> 15);
-      v92 = 0;
+      v87 = vcvt_f32_u32((*&vshl_u32((*&v46 & 0xFFFF00FFFFFF00FFLL), 0xFFFFFFFAFFFFFFFBLL) & 0xFFFFFFF1FFFFFFF1));
+      *&v88 = ((v35 >> 4) & 1);
+      *(&v88 + 1) = ((v35 >> 7) & 1);
+      v89 = vbic_s8(_D18, vceqz_s32(vand_s8(v46, 0x20000000100)));
+      LODWORD(v90) = fmaxf(*&v37.i32[1], 0.0);
+      *(&v90 + 4) = vand_s8(vneg_f32(*&v38.f64[0]), vcltz_f32(*&v38.f64[0]));
+      HIDWORD(v90) = fmaxf(*v37.i32, 0.0);
+      LODWORD(v91) = fmaxf(*&v40.i32[1], 0.0);
+      *(&v91 + 4) = vand_s8(vneg_f32(v41), vcltz_f32(v41));
+      HIDWORD(v91) = fmaxf(*v40.i32, 0.0);
+      *&v92 = v7 / 255.0;
+      *(&v92 + 1) = v6 / 255.0;
+      *(&v92 + 2) = ((v35 >> 14) & 1);
+      *(&v92 + 3) = (v35 >> 15);
       v93 = 0;
-      v94 = v77;
-      v95 = v18;
-      v96 = v19;
-      v97 = v20;
-      v98 = v78;
-      v99 = v24;
-      v100 = v25;
-      v101 = v26;
-      v102 = ((v34 >> 1) & 1);
-      v106 = 0;
-      v104 = 0u;
+      v94 = 0;
+      v95 = v78;
+      v96 = v18;
+      v97 = v19;
+      v98 = v20;
+      v99 = v79;
+      v100 = v24;
+      v101 = v25;
+      v102 = v26;
+      v103 = ((v34 >> 1) & 1);
+      v107 = 0;
       v105 = 0u;
-      v103 = 0u;
-      [v15 dispatchGameControllerExtendedEventWithState:buf timestamp:a3];
+      v106 = 0u;
+      v104 = 0u;
+      v48 = [v15 dispatchGameControllerExtendedEventWithState:buf timestamp:a3];
       if (*(v15 + 721) == 1)
       {
-        buf[0] = v69;
+        buf[0] = v70;
         *&buf[1] = 0;
         *&buf[4] = 0;
-        *v85.i64 = v75;
-        *&v85.i64[1] = v73;
-        v86 = *&v74;
-        LOBYTE(v87) = v69;
-        *(&v87 + 1) = 0;
-        HIDWORD(v87) = 0;
-        v88 = *&v72;
-        *&v89 = v71;
-        *(&v89 + 1) = v70;
-        v90 = 0u;
+        *v86.i64 = v76;
+        *&v86.i64[1] = v74;
+        v87 = *&v75;
+        LOBYTE(v88) = v70;
+        *(&v88 + 1) = 0;
+        HIDWORD(v88) = 0;
+        v89 = *&v73;
+        *&v90 = v72;
+        *(&v90 + 1) = v71;
         v91 = 0u;
-        v92 = 0;
-        [v15 dispatchMotionEventWithState:buf timestamp:a3];
+        v92 = 0u;
+        v93 = 0;
+        v48 = [v15 dispatchMotionEventWithState:buf timestamp:a3];
       }
 
-      v48 = HIBYTE(v108);
-      v49 = HIBYTE(v108) & 0xF;
-      v50 = BYTE9(v108);
-      v79 = BYTE10(v108);
-      v51 = *(v15 + 901);
-      v52 = v49 != v51;
-      v12 = v76;
-      if (v49 != v51)
+      v49 = HIBYTE(v109);
+      v50 = HIBYTE(v109) & 0xF;
+      v51 = BYTE9(v109);
+      v80 = BYTE10(v109);
+      v52 = *(v15 + 901);
+      v53 = v50 != v52;
+      v12 = v77;
+      if (v50 != v52)
       {
-        v53 = sub_10A8();
-        if (os_log_type_enabled(v53, OS_LOG_TYPE_INFO))
-        {
-          *buf = 67109120;
-          *&buf[4] = v49;
-          _os_log_impl(&dword_0, v53, OS_LOG_TYPE_INFO, "(Right Trigger) Working Mode = %d", buf, 8u);
-        }
-
-        *(v15 + 901) = v49;
-      }
-
-      if ((v50 & 0xF) != *(v15 + 902))
-      {
-        v54 = sub_10A8();
+        v54 = sub_10A8(v48);
         if (os_log_type_enabled(v54, OS_LOG_TYPE_INFO))
         {
           *buf = 67109120;
-          *&buf[4] = v50 & 0xF;
-          _os_log_impl(&dword_0, v54, OS_LOG_TYPE_INFO, "(Right Trigger) Arm Position = %d", buf, 8u);
+          *&buf[4] = v50;
+          _os_log_impl(&dword_0, v54, OS_LOG_TYPE_INFO, "(Right Trigger) Working Mode = %d", buf, 8u);
         }
 
-        *(v15 + 902) = v50 & 0xF;
-        v52 = 1;
+        *(v15 + 901) = v50;
       }
 
-      v56 = v49 == 1 || v49 == 4;
-      v57 = *(v15 + 903);
-      if (v50 >> 4 != v57 || v49 == 4 || v49 == 1)
+      if ((v51 & 0xF) != *(v15 + 902))
       {
-        if ((v50 >> 4) != 1)
+        v55 = sub_10A8(v48);
+        if (os_log_type_enabled(v55, OS_LOG_TYPE_INFO))
         {
-          v56 = 0;
+          *buf = 67109120;
+          *&buf[4] = v51 & 0xF;
+          _os_log_impl(&dword_0, v55, OS_LOG_TYPE_INFO, "(Right Trigger) Arm Position = %d", buf, 8u);
         }
 
-        if (v56 && BYTE5(v107[0]) == 0)
+        *(v15 + 902) = v51 & 0xF;
+        v53 = 1;
+      }
+
+      v57 = v50 == 1 || v50 == 4;
+      v58 = *(v15 + 903);
+      if (v51 >> 4 != v58 || v50 == 4 || v50 == 1)
+      {
+        if ((v51 >> 4) != 1)
         {
-          v58 = 0;
+          v57 = 0;
+        }
+
+        if (v57 && BYTE5(v108[0]) == 0)
+        {
+          v59 = 0;
         }
 
         else
         {
-          v58 = v50 >> 4;
+          v59 = v51 >> 4;
         }
 
-        if (v57 != v58)
+        if (v58 != v59)
         {
-          v59 = sub_10A8();
-          if (os_log_type_enabled(v59, OS_LOG_TYPE_INFO))
+          v60 = sub_10A8(v48);
+          if (os_log_type_enabled(v60, OS_LOG_TYPE_INFO))
           {
             *buf = 67109120;
-            *&buf[4] = v58;
-            _os_log_impl(&dword_0, v59, OS_LOG_TYPE_INFO, "(Right Trigger) AD-T Control Status = %d", buf, 8u);
+            *&buf[4] = v59;
+            _os_log_impl(&dword_0, v60, OS_LOG_TYPE_INFO, "(Right Trigger) AD-T Control Status = %d", buf, 8u);
           }
 
-          v52 = 1;
+          v53 = 1;
         }
 
-        *(v15 + 903) = v58;
+        *(v15 + 903) = v59;
       }
 
-      v60 = v48 >> 4;
-      if (v48 >> 4 != *(v15 + 869))
+      v61 = v49 >> 4;
+      if (v49 >> 4 != *(v15 + 869))
       {
-        v61 = sub_10A8();
-        if (os_log_type_enabled(v61, OS_LOG_TYPE_INFO))
+        v62 = sub_10A8(v48);
+        if (os_log_type_enabled(v62, OS_LOG_TYPE_INFO))
         {
           *buf = 67109120;
-          *&buf[4] = v48 >> 4;
-          _os_log_impl(&dword_0, v61, OS_LOG_TYPE_INFO, "(Left Trigger) Working Mode = %d", buf, 8u);
+          *&buf[4] = v49 >> 4;
+          _os_log_impl(&dword_0, v62, OS_LOG_TYPE_INFO, "(Left Trigger) Working Mode = %d", buf, 8u);
         }
 
-        *(v15 + 869) = v60;
-        v52 = 1;
+        *(v15 + 869) = v61;
+        v53 = 1;
       }
 
-      v62 = v79 & 0xF;
-      if (v62 != *(v15 + 870))
+      v63 = v80 & 0xF;
+      if (v63 != *(v15 + 870))
       {
-        v63 = sub_10A8();
-        if (os_log_type_enabled(v63, OS_LOG_TYPE_INFO))
+        v64 = sub_10A8(v48);
+        if (os_log_type_enabled(v64, OS_LOG_TYPE_INFO))
         {
           *buf = 67109120;
-          *&buf[4] = v79 & 0xF;
-          _os_log_impl(&dword_0, v63, OS_LOG_TYPE_INFO, "(Left Trigger) Arm Position = %d", buf, 8u);
+          *&buf[4] = v80 & 0xF;
+          _os_log_impl(&dword_0, v64, OS_LOG_TYPE_INFO, "(Left Trigger) Arm Position = %d", buf, 8u);
         }
 
-        *(v15 + 870) = v62;
-        v52 = 1;
+        *(v15 + 870) = v63;
+        v53 = 1;
       }
 
-      v64 = v79 >> 4;
-      v66 = v60 == 1 || v60 == 4;
-      v67 = *(v15 + 871);
-      if (v64 != v67 || v60 == 4 || v60 == 1)
+      v65 = v80 >> 4;
+      v67 = v61 == 1 || v61 == 4;
+      v68 = *(v15 + 871);
+      if (v65 != v68 || v61 == 4 || v61 == 1)
       {
-        if ((v79 >> 4) != 1)
+        if ((v80 >> 4) != 1)
         {
-          v66 = 0;
+          v67 = 0;
         }
 
-        if (v66 && BYTE4(v107[0]) == 0)
+        if (v67 && BYTE4(v108[0]) == 0)
         {
-          LOBYTE(v64) = 0;
+          LOBYTE(v65) = 0;
         }
 
-        if (v67 == v64)
+        if (v68 == v65)
         {
-          if (!v52)
+          if (!v53)
           {
 LABEL_88:
-            objc_destroyWeak(&v83);
+            objc_destroyWeak(&v84);
 
             goto LABEL_89;
           }
 
-          LOBYTE(v64) = *(v15 + 871);
+          LOBYTE(v65) = *(v15 + 871);
         }
 
         else
         {
-          v68 = sub_10A8();
-          if (os_log_type_enabled(v68, OS_LOG_TYPE_INFO))
+          v69 = sub_10A8(v48);
+          if (os_log_type_enabled(v69, OS_LOG_TYPE_INFO))
           {
             *buf = 67109120;
-            *&buf[4] = v64;
-            _os_log_impl(&dword_0, v68, OS_LOG_TYPE_INFO, "(Left Trigger) AD-T Control Status = %d", buf, 8u);
+            *&buf[4] = v65;
+            _os_log_impl(&dword_0, v69, OS_LOG_TYPE_INFO, "(Left Trigger) AD-T Control Status = %d", buf, 8u);
           }
 
-          *(v15 + 871) = v64;
-          v62 = *(v15 + 870);
+          *(v15 + 871) = v65;
+          v63 = *(v15 + 870);
         }
       }
 
-      else if (!v52)
+      else if (!v53)
       {
         goto LABEL_88;
       }
 
-      [v15[126] updateAdaptiveTriggerStatusWithLeftMode:*(v15 + 848) leftStatus:v64 leftArmPosition:v62 rightMode:*(v15 + 880) rightStatus:*(v15 + 903) rightArmPosition:*(v15 + 902)];
+      [v15[126] updateAdaptiveTriggerStatusWithLeftMode:*(v15 + 848) leftStatus:v65 leftArmPosition:v63 rightMode:*(v15 + 880) rightStatus:*(v15 + 903) rightArmPosition:*(v15 + 902)];
       goto LABEL_88;
     }
 
@@ -1191,18 +1203,18 @@ LABEL_88:
       [v12 bytes];
       if (-[dispatch_once_t isBluetoothClassic](v14, "isBluetoothClassic") && [v12 length] == &dword_8 + 2)
       {
-        v85.i8[0] = 0;
+        v86.i8[0] = 0;
         *buf = 0;
         [v12 length];
         __memcpy_chk();
-        LODWORD(v107[0]) = 0;
-        *(v107 + 7) = 0;
-        BYTE9(v107[0]) = 0;
-        WORD2(v107[0]) = 0;
+        LODWORD(v108[0]) = 0;
+        *(v108 + 7) = 0;
+        BYTE9(v108[0]) = 0;
+        WORD2(v108[0]) = 0;
 LABEL_17:
         if (-[dispatch_once_t isBluetoothClassic](v14, "isBluetoothClassic") && [v12 length] == &dword_8 + 2)
         {
-          v109[2] = v109[2] & 0xFFF0 | 0xA;
+          v110[2] = v110[2] & 0xFFF0 | 0xA;
         }
 
         goto LABEL_10;
@@ -1253,13 +1265,13 @@ void sub_8930(uint64_t a1)
   }
 }
 
-void sub_90E4(uint64_t a1, int a2)
+void sub_90E4(uint64_t a1, uint64_t a2)
 {
-  v3 = *(a1 + 32);
-  kdebug_trace();
-  if (a2)
+  v2 = a2;
+  v3 = kdebug_trace();
+  if (v2)
   {
-    v4 = sub_10A8();
+    v4 = sub_10A8(v3);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       sub_BF88();
@@ -1267,13 +1279,13 @@ void sub_90E4(uint64_t a1, int a2)
   }
 }
 
-void sub_9150(uint64_t a1, int a2)
+void sub_9150(uint64_t a1, uint64_t a2)
 {
-  v3 = *(a1 + 32);
-  kdebug_trace();
-  if (a2)
+  v2 = a2;
+  v3 = kdebug_trace();
+  if (v2)
   {
-    v4 = sub_10A8();
+    v4 = sub_10A8(v3);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       sub_BFF8();
@@ -1283,7 +1295,7 @@ void sub_9150(uint64_t a1, int a2)
 
 id sub_99F0(uint64_t a1)
 {
-  v2 = sub_10A8();
+  v2 = sub_10A8(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     v3 = *(a1 + 40);
@@ -1319,7 +1331,7 @@ id sub_99F0(uint64_t a1)
 
 id sub_A0D4(uint64_t a1)
 {
-  v2 = sub_10A8();
+  v2 = sub_10A8(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     v3 = *(a1 + 40);
@@ -1353,27 +1365,28 @@ id sub_A0D4(uint64_t a1)
   return result;
 }
 
-void sub_A4C0(uint64_t a1)
+void sub_A4C0(void *a1)
 {
+  v1 = a1;
   if (*(a1 + 40) == 1)
   {
-    v2 = *(a1 + 32);
-    if ((v2[1029] & 1) == 0)
+    a1 = a1[4];
+    if ((*(a1 + 1029) & 1) == 0)
     {
-      [v2 setExtendedSupportEnabled:1];
+      a1 = [a1 setExtendedSupportEnabled:1];
     }
   }
 
-  v3 = sub_10A8();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
+  v2 = sub_10A8(a1);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
-    v4 = *(a1 + 40);
-    v5[0] = 67109120;
-    v5[1] = v4;
-    _os_log_impl(&dword_0, v3, OS_LOG_TYPE_INFO, "updateSensorsEnabled %d", v5, 8u);
+    v3 = *(v1 + 40);
+    v4[0] = 67109120;
+    v4[1] = v3;
+    _os_log_impl(&dword_0, v2, OS_LOG_TYPE_INFO, "updateSensorsEnabled %d", v4, 8u);
   }
 
-  *(*(a1 + 32) + 721) = *(a1 + 40);
+  *(v1[4] + 721) = *(v1 + 40);
 }
 
 void sub_AF44(uint64_t a1)
@@ -1403,7 +1416,7 @@ LABEL_6:
     goto LABEL_6;
   }
 
-  v5 = sub_10A8();
+  v5 = sub_10A8(v3);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     v6 = *(a1 + 40);
@@ -1424,20 +1437,19 @@ void sub_B300(uint64_t a1, void *a2, int a3)
   v5 = a2;
   if (a1)
   {
-    v8 = v5;
+    v7 = v5;
     if (a3)
     {
       *(a1 + 664) = [v5 timestamp];
     }
 
-    v6 = *(a1 + 656);
-    [v8 timestamp];
-    [v8 type];
+    [v7 timestamp];
+    [v7 type];
     kdebug_trace();
     WeakRetained = objc_loadWeakRetained((a1 + 624));
-    [WeakRetained dispatchEvent:v8];
+    [WeakRetained dispatchEvent:v7];
 
-    v5 = v8;
+    v5 = v7;
   }
 }
 
@@ -1453,7 +1465,7 @@ uint64_t sub_B3B0(uint64_t result)
 
 void sub_B464(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v6 = sub_10A8();
+  v6 = sub_10A8(a1);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     v7 = *(a1 + 656);
@@ -1470,8 +1482,7 @@ void sub_B464(uint64_t a1, uint64_t a2, uint64_t a3)
 void sub_B548(uint64_t a1, void *a2)
 {
   sub_6198(a1, a2);
-  [v3 type];
-  sub_6170();
+  sub_6170([v3 type]);
   dispatch_time(0, (*v4 * 1000000000.0));
   [v5 dispatchQueue];
   objc_claimAutoreleasedReturnValue();
@@ -1486,8 +1497,7 @@ void sub_B548(uint64_t a1, void *a2)
 void sub_B5F8(uint64_t a1, void *a2)
 {
   sub_6198(a1, a2);
-  [v3 type];
-  sub_6170();
+  sub_6170([v3 type]);
   dispatch_time(0, (*v4 * 1000000000.0));
   [v5 dispatchQueue];
   objc_claimAutoreleasedReturnValue();
@@ -1497,16 +1507,6 @@ void sub_B5F8(uint64_t a1, void *a2)
   *(v2 + 24) = &unk_185F8;
   *(v2 + 32) = v5;
   sub_61C0(v3);
-}
-
-uint64_t sub_B6A8(uint64_t a1)
-{
-  if (a1)
-  {
-    v1 = *(a1 + 656);
-  }
-
-  return kdebug_trace();
 }
 
 void sub_B76C()
@@ -1540,121 +1540,121 @@ void sub_B8BC()
 void sub_B92C()
 {
   sub_B16C();
-  v3 = sub_10A8();
-  if (sub_B190(v3))
+  v4 = sub_10A8(v3);
+  if (sub_B190(v4))
   {
-    v4 = (*v2 + v1);
-    v11 = *v4;
-    v12[0] = v4[1];
-    *(v12 + 9) = *(v4 + 25);
-    v5 = sub_74B4(&v11);
+    v5 = (*v2 + v1);
+    v12 = *v5;
+    v13[0] = v5[1];
+    *(v13 + 9) = *(v5 + 25);
+    v6 = sub_74B4(&v12);
     sub_B1B4();
     sub_B150();
-    _os_log_impl(v6, v7, v8, v9, v10, 0xCu);
+    _os_log_impl(v7, v8, v9, v10, v11, 0xCu);
   }
 }
 
 void sub_B9F8()
 {
   sub_B16C();
-  v1 = sub_10A8();
-  if (sub_B190(v1))
+  v2 = sub_10A8(v1);
+  if (sub_B190(v2))
   {
     sub_B178();
     sub_B160();
     sub_B150();
-    _os_log_impl(v2, v3, v4, v5, v6, 0xCu);
+    _os_log_impl(v3, v4, v5, v6, v7, 0xCu);
   }
 }
 
 void sub_BA94()
 {
   sub_B16C();
-  v1 = sub_10A8();
-  if (sub_B190(v1))
+  v2 = sub_10A8(v1);
+  if (sub_B190(v2))
   {
     sub_B178();
     sub_B160();
     sub_B150();
-    _os_log_impl(v2, v3, v4, v5, v6, 0xCu);
+    _os_log_impl(v3, v4, v5, v6, v7, 0xCu);
   }
 }
 
 void sub_BB30()
 {
   sub_B16C();
-  v1 = sub_10A8();
-  if (sub_B190(v1))
+  v2 = sub_10A8(v1);
+  if (sub_B190(v2))
   {
     sub_B178();
     sub_B160();
     sub_B150();
-    _os_log_impl(v2, v3, v4, v5, v6, 0xCu);
+    _os_log_impl(v3, v4, v5, v6, v7, 0xCu);
   }
 }
 
 void sub_BBCC()
 {
   sub_B16C();
-  v1 = sub_10A8();
-  if (sub_B190(v1))
+  v2 = sub_10A8(v1);
+  if (sub_B190(v2))
   {
     sub_B178();
     sub_B160();
     sub_B150();
-    _os_log_impl(v2, v3, v4, v5, v6, 0xCu);
+    _os_log_impl(v3, v4, v5, v6, v7, 0xCu);
   }
 }
 
 void sub_BC68()
 {
   sub_B16C();
-  v1 = sub_10A8();
-  if (sub_B190(v1))
+  v2 = sub_10A8(v1);
+  if (sub_B190(v2))
   {
     sub_B178();
     sub_B160();
     sub_B150();
-    _os_log_impl(v2, v3, v4, v5, v6, 0xCu);
+    _os_log_impl(v3, v4, v5, v6, v7, 0xCu);
   }
 }
 
 void sub_BD04()
 {
   sub_B16C();
-  v1 = sub_10A8();
-  if (sub_B190(v1))
+  v2 = sub_10A8(v1);
+  if (sub_B190(v2))
   {
     sub_B178();
     sub_B160();
     sub_B150();
-    _os_log_impl(v2, v3, v4, v5, v6, 0xCu);
+    _os_log_impl(v3, v4, v5, v6, v7, 0xCu);
   }
 }
 
 void sub_BDA0()
 {
   sub_B16C();
-  v1 = sub_10A8();
-  if (sub_B190(v1))
+  v2 = sub_10A8(v1);
+  if (sub_B190(v2))
   {
     sub_B178();
     sub_B160();
     sub_B150();
-    _os_log_impl(v2, v3, v4, v5, v6, 0xCu);
+    _os_log_impl(v3, v4, v5, v6, v7, 0xCu);
   }
 }
 
 void sub_BE3C()
 {
   sub_B16C();
-  v1 = sub_10A8();
-  if (sub_B190(v1))
+  v2 = sub_10A8(v1);
+  if (sub_B190(v2))
   {
     sub_B178();
     sub_B160();
     sub_B150();
-    _os_log_impl(v2, v3, v4, v5, v6, 0xCu);
+    _os_log_impl(v3, v4, v5, v6, v7, 0xCu);
   }
 }
 
@@ -1679,68 +1679,55 @@ void sub_BFF8()
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
-void sub_C068()
+void sub_C068(uint64_t a1)
 {
-  v1 = sub_10A8();
-  if (sub_B190(v1))
+  v2 = sub_10A8(a1);
+  if (sub_B190(v2))
   {
     sub_B160();
     sub_B150();
-    _os_log_impl(v2, v3, v4, v5, v6, 0xCu);
+    _os_log_impl(v3, v4, v5, v6, v7, 0xCu);
   }
 }
 
-void sub_C110(uint64_t *a1)
+void sub_C110(uint64_t a1)
 {
-  v3 = sub_10A8();
-  if (sub_B190(v3))
+  v2 = sub_10A8(a1);
+  if (sub_B190(v2))
   {
-    v4 = *a1;
     sub_B160();
     sub_B150();
-    _os_log_impl(v5, v6, v7, v8, v9, 0xCu);
+    _os_log_impl(v3, v4, v5, v6, v7, 0xCu);
   }
 }
 
-void sub_C1A4(unsigned __int8 *a1)
+void sub_C1A4(uint64_t a1)
 {
-  v3 = sub_10A8();
-  if (sub_B190(v3))
+  v2 = sub_10A8(a1);
+  if (sub_B190(v2))
   {
-    v9 = *a1;
     sub_B150();
-    _os_log_impl(v4, v5, v6, v7, v8, 8u);
+    _os_log_impl(v3, v4, v5, v6, v7, 8u);
   }
 }
 
-void sub_C23C(unsigned __int16 *a1)
+void sub_C23C(uint64_t a1)
 {
-  v3 = sub_10A8();
-  if (sub_B190(v3))
+  v2 = sub_10A8(a1);
+  if (sub_B190(v2))
   {
-    v9 = *a1;
     sub_B150();
-    _os_log_impl(v4, v5, v6, v7, v8, 8u);
+    _os_log_impl(v3, v4, v5, v6, v7, 8u);
   }
 }
 
 void sub_C2D4()
 {
   sub_B16C();
-  v3 = sub_10A8();
-  if (sub_B190(v3))
+  v2 = sub_10A8(v1);
+  if (sub_B190(v2))
   {
-    v9 = *v2;
-    v10 = v1[19];
-    v11 = v1[20];
-    v12 = v1[21];
-    v13 = v1[22];
-    v14 = v1[23];
-    v15 = v1[24];
-    v16 = v1[25];
-    v17 = v1[26];
-    v18 = v1[27];
     sub_B150();
-    _os_log_impl(v4, v5, v6, v7, v8, 0x3Eu);
+    _os_log_impl(v3, v4, v5, v6, v7, 0x3Eu);
   }
 }

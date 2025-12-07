@@ -2,7 +2,7 @@
 + (id)grantWithRole:(unsigned __int8)role;
 - (BOOL)isEqual:(id)equal;
 - (RBSSuspendableCPUGrant)initWithRBSXPCCoder:(id)coder;
-- (id)_initWithRole:(id)result;
+- (_BYTE)_initWithRole:(_BYTE *)result;
 - (id)description;
 - (void)encodeWithRBSXPCCoder:(id)coder;
 @end
@@ -84,7 +84,7 @@
   return v6;
 }
 
-- (id)_initWithRole:(id)result
+- (_BYTE)_initWithRole:(_BYTE *)result
 {
   if (result)
   {
@@ -101,7 +101,7 @@
     result = objc_msgSendSuper2(&v5, sel__init);
     if (result)
     {
-      *(result + 8) = v2;
+      result[8] = v2;
     }
   }
 

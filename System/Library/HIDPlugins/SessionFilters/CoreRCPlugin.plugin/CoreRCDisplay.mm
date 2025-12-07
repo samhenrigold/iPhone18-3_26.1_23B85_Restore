@@ -64,13 +64,12 @@ LABEL_3:
   objc_storeStrong(&self->_queue, queue);
   self->_isDisplayAsleep = asleep;
   objc_storeStrong(&self->_cecBus, bus);
-  [(CoreCECBus *)self->_cecBus setDelegate:self];
-  v14 = CoreRCPluginLog();
+  v14 = CoreRCPluginLog([(CoreCECBus *)self->_cecBus setDelegate:self]);
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
     cecBus = self->_cecBus;
     *buf = 138412290;
-    v26 = cecBus;
+    v27 = cecBus;
     _os_log_impl(&dword_0, v14, OS_LOG_TYPE_DEFAULT, "CEC bus has been added (%@)", buf, 0xCu);
   }
 
@@ -85,13 +84,13 @@ LABEL_3:
   }
 
   v17 = self->_cecBus;
-  v24 = 0;
-  v18 = [(CoreCECBus *)v17 setOSDName:v16 error:&v24];
-  v19 = v24;
+  v25 = 0;
+  v18 = [(CoreCECBus *)v17 setOSDName:v16 error:&v25];
+  v19 = v25;
   v20 = v19;
   if (!v18 || v19)
   {
-    sub_4328();
+    sub_4328(v19);
   }
 
   if (([(CoreCECBus *)self->_cecBus hasLink]& 1) != 0)
@@ -103,11 +102,11 @@ LABEL_3:
     {
       if (self->_isDisplayAsleep)
       {
-        v22 = CoreRCPluginLog();
-        if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+        v23 = CoreRCPluginLog(v22);
+        if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&dword_0, v22, OS_LOG_TYPE_DEFAULT, "Current display state should be asleep, don't send active source", buf, 2u);
+          _os_log_impl(&dword_0, v23, OS_LOG_TYPE_DEFAULT, "Current display state should be asleep, don't send active source", buf, 2u);
         }
       }
 
@@ -195,7 +194,7 @@ LABEL_3:
 {
   if (self->_cecDevice)
   {
-    v3 = CoreRCPluginLog();
+    v3 = CoreRCPluginLog(self);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       cecDevice = self->_cecDevice;
@@ -216,7 +215,7 @@ LABEL_3:
 
 - (BOOL)sleepDisplay
 {
-  v3 = CoreRCPluginLog();
+  v3 = CoreRCPluginLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
@@ -228,8 +227,8 @@ LABEL_3:
   self->_recentDisplayWake = 0;
   if (!self->_cecBus)
   {
-    v13 = CoreRCPluginLog();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v17 = CoreRCPluginLog(v4);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       sub_4518();
     }
@@ -241,20 +240,20 @@ LABEL_3:
 
   if (!cecDevice)
   {
-    v13 = CoreRCPluginLog();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v17 = CoreRCPluginLog(v6);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      v14 = "No CEC device";
+      v18 = "No CEC device";
 LABEL_15:
-      _os_log_impl(&dword_0, v13, OS_LOG_TYPE_DEFAULT, v14, buf, 2u);
+      _os_log_impl(&dword_0, v17, OS_LOG_TYPE_DEFAULT, v18, buf, 2u);
     }
 
 LABEL_16:
-    v10 = 0;
+    v13 = 0;
 LABEL_19:
 
-    v11 = 0;
+    v15 = 0;
     goto LABEL_8;
   }
 
@@ -266,11 +265,11 @@ LABEL_19:
 
   if ((isActiveSource & 1) == 0)
   {
-    v13 = CoreRCPluginLog();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v17 = CoreRCPluginLog(v10);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      v14 = "Not currently active source, not sending standby";
+      v18 = "Not currently active source, not sending standby";
       goto LABEL_15;
     }
 
@@ -278,15 +277,15 @@ LABEL_19:
   }
 
   cecDevice4 = [(CoreRCDisplay *)self cecDevice];
-  v15 = 0;
-  v9 = [cecDevice4 performStandbyWithTargetDevice:0 error:&v15];
-  v10 = v15;
+  v19 = 0;
+  v12 = [cecDevice4 performStandbyWithTargetDevice:0 error:&v19];
+  v13 = v19;
 
-  v11 = 1;
-  if ((v9 & 1) == 0 && v10)
+  v15 = 1;
+  if ((v12 & 1) == 0 && v13)
   {
-    v13 = CoreRCPluginLog();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v17 = CoreRCPluginLog(v14);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       sub_44A4();
     }
@@ -296,12 +295,12 @@ LABEL_19:
 
 LABEL_8:
 
-  return v11;
+  return v15;
 }
 
 - (BOOL)wakeDisplay
 {
-  v3 = CoreRCPluginLog();
+  v3 = CoreRCPluginLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
@@ -314,41 +313,41 @@ LABEL_8:
 
   if (!cecDevice)
   {
-    v12 = CoreRCPluginLog();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v14 = CoreRCPluginLog(v5);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
       selfCopy = 0;
-      _os_log_impl(&dword_0, v12, OS_LOG_TYPE_DEFAULT, "No CEC device %@", buf, 0xCu);
+      _os_log_impl(&dword_0, v14, OS_LOG_TYPE_DEFAULT, "No CEC device %@", buf, 0xCu);
     }
 
-    v10 = 0;
+    v11 = 0;
     goto LABEL_14;
   }
 
   if (!self->_recentDisplayWake)
   {
     self->_recentDisplayWake = 1;
-    v5 = dispatch_time(0, 1000000000 * self->_cecActiveSourceRecentlySentDuration);
+    v6 = dispatch_time(0, 1000000000 * self->_cecActiveSourceRecentlySentDuration);
     queue = self->_queue;
     block[0] = _NSConcreteStackBlock;
     block[1] = 3221225472;
     block[2] = sub_2A9C;
     block[3] = &unk_8340;
     block[4] = self;
-    dispatch_after(v5, queue, block);
+    dispatch_after(v6, queue, block);
   }
 
   cecDevice = self->_cecDevice;
-  v13 = 0;
-  v8 = 1;
-  v9 = [(CoreCECDevice *)cecDevice makeActiveSourceWithTVMenus:1 error:&v13];
-  v10 = v13;
-  [(CoreCECDevice *)self->_cecDevice setPowerStatus:1 error:0];
-  if (!v9 || v10)
+  v15 = 0;
+  v9 = 1;
+  v10 = [(CoreCECDevice *)cecDevice makeActiveSourceWithTVMenus:1 error:&v15];
+  v11 = v15;
+  v12 = [(CoreCECDevice *)self->_cecDevice setPowerStatus:1 error:0];
+  if (!v10 || v11)
   {
-    v12 = CoreRCPluginLog();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v14 = CoreRCPluginLog(v12);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       sub_4558();
     }
@@ -359,7 +358,7 @@ LABEL_14:
     return 0;
   }
 
-  return v8;
+  return v9;
 }
 
 - (void)updatePolicy
@@ -368,26 +367,26 @@ LABEL_14:
   edidAttributes = [(CoreCECBus *)self->_cecBus edidAttributes];
   if (edidAttributes)
   {
+    v24 = 0u;
+    v25 = 0u;
     v22 = 0u;
     v23 = 0u;
-    v20 = 0u;
-    v21 = 0u;
     v4 = +[CoreRCDisplay DisabledEDIDs];
-    v5 = [v4 countByEnumeratingWithState:&v20 objects:v26 count:16];
+    v5 = [v4 countByEnumeratingWithState:&v22 objects:v28 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v21;
+      v7 = *v23;
 LABEL_4:
       v8 = 0;
       while (1)
       {
-        if (*v21 != v7)
+        if (*v23 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v20 + 1) + 8 * v8);
+        v9 = *(*(&v22 + 1) + 8 * v8);
         if ([v9 vendorID])
         {
           vendorID = [v9 vendorID];
@@ -437,18 +436,18 @@ LABEL_19:
           {
             modelName2 = [v9 modelName];
             modelName3 = [edidAttributes modelName];
-            v17 = [modelName2 isEqualToString:modelName3];
+            v18 = [modelName2 isEqualToString:modelName3];
 
-            if (v17)
+            if (v18)
             {
               self->_cecEnabled = 0;
 LABEL_28:
-              v19 = CoreRCPluginLog();
-              if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+              v21 = CoreRCPluginLog(v15);
+              if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 138412290;
-                v25 = v9;
-                _os_log_impl(&dword_0, v19, OS_LOG_TYPE_DEFAULT, "CEC Disabled! EDID matched against %@", buf, 0xCu);
+                v27 = v9;
+                _os_log_impl(&dword_0, v21, OS_LOG_TYPE_DEFAULT, "CEC Disabled! EDID matched against %@", buf, 0xCu);
               }
 
               goto LABEL_31;
@@ -465,7 +464,7 @@ LABEL_23:
         self->_cecEnabled = 1;
         if (v6 == ++v8)
         {
-          v6 = [v4 countByEnumeratingWithState:&v20 objects:v26 count:16];
+          v6 = [v4 countByEnumeratingWithState:&v22 objects:v28 count:16];
           if (v6)
           {
             goto LABEL_4;
@@ -476,12 +475,12 @@ LABEL_23:
       }
     }
 
-    v4 = CoreRCPluginLog();
+    v4 = CoreRCPluginLog(v19);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       cecEnabled = self->_cecEnabled;
       *buf = 67109120;
-      LODWORD(v25) = cecEnabled;
+      LODWORD(v27) = cecEnabled;
       _os_log_impl(&dword_0, v4, OS_LOG_TYPE_DEFAULT, "Policy updated _cecEnabled: %d", buf, 8u);
     }
 
@@ -515,12 +514,11 @@ LABEL_31:
       v10 = self->_cecDevice;
       if (!v10 || v8)
       {
-        sub_4610();
+        sub_4610(v8);
         goto LABEL_11;
       }
 
-      [(CoreCECDevice *)v10 setDelegate:self];
-      v11 = CoreRCPluginLog();
+      v11 = CoreRCPluginLog([(CoreCECDevice *)v10 setDelegate:self]);
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
         v12 = self->_cecDevice;
@@ -550,41 +548,43 @@ LABEL_11:
 - (void)bus:(id)bus deviceHasBeenRemoved:(id)removed
 {
   removedCopy = removed;
+  v6 = removedCopy;
   if (self->_cecDevice == removedCopy)
   {
-    v6 = CoreRCPluginLog();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = CoreRCPluginLog(removedCopy);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 138412546;
-      v9 = removedCopy;
-      v10 = 2112;
+      v9 = 138412546;
+      v10 = v6;
+      v11 = 2112;
       selfCopy = self;
-      _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEFAULT, "CEC device has been removed %@ (%@)", &v8, 0x16u);
+      _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEFAULT, "CEC device has been removed %@ (%@)", &v9, 0x16u);
     }
 
     cecDevice = self->_cecDevice;
     self->_cecDevice = 0;
 
-    [(CoreCECDevice *)removedCopy setDelegate:0];
+    [(CoreCECDevice *)v6 setDelegate:0];
   }
 }
 
 - (void)cecDeviceShouldAssertActiveSource:(id)source
 {
   sourceCopy = source;
+  v5 = sourceCopy;
   if (!self->_isDisplayAsleep)
   {
-    v5 = CoreRCPluginLog();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = CoreRCPluginLog(sourceCopy);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = 138412546;
-      v7 = sourceCopy;
-      v8 = 2112;
+      v7 = 138412546;
+      v8 = v5;
+      v9 = 2112;
       selfCopy = self;
-      _os_log_impl(&dword_0, v5, OS_LOG_TYPE_DEFAULT, "cecDeviceShouldAssertActiveSource sending active source from device %@ (%@)", &v6, 0x16u);
+      _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEFAULT, "cecDeviceShouldAssertActiveSource sending active source from device %@ (%@)", &v7, 0x16u);
     }
 
-    [sourceCopy makeActiveSourceWithTVMenus:1 error:0];
+    [v5 makeActiveSourceWithTVMenus:1 error:0];
   }
 }
 
@@ -592,31 +592,31 @@ LABEL_11:
 {
   changedCopy = changed;
   deviceCopy = device;
-  v7 = CoreRCPluginLog();
+  v7 = CoreRCPluginLog(deviceCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = "NO";
-    v10 = 136315650;
+    v11 = 136315650;
     if (changedCopy)
     {
       v8 = "YES";
     }
 
-    v11 = v8;
-    v12 = 2112;
-    v13 = deviceCopy;
-    v14 = 2112;
+    v12 = v8;
+    v13 = 2112;
+    v14 = deviceCopy;
+    v15 = 2112;
     selfCopy = self;
-    _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEFAULT, "CECDeviceActiveSourceStatus changed to %s, %@ (%@)\n", &v10, 0x20u);
+    _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEFAULT, "CECDeviceActiveSourceStatus changed to %s, %@ (%@)\n", &v11, 0x20u);
   }
 
   if (self->_recentDisplayWake && !changedCopy)
   {
-    v9 = CoreRCPluginLog();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = CoreRCPluginLog(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v10) = 0;
-      _os_log_impl(&dword_0, v9, OS_LOG_TYPE_DEFAULT, "Active source incorrectly switched away from us", &v10, 2u);
+      LOWORD(v11) = 0;
+      _os_log_impl(&dword_0, v10, OS_LOG_TYPE_DEFAULT, "Active source incorrectly switched away from us", &v11, 2u);
     }
 
     *&self->_activeSourceDeferred = 1;
@@ -627,7 +627,7 @@ LABEL_11:
 {
   updatedCopy = updated;
   busCopy = bus;
-  v7 = CoreRCPluginLog();
+  v7 = CoreRCPluginLog(busCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = "NO";
@@ -657,7 +657,7 @@ LABEL_11:
 LABEL_10:
         if (self->_isDisplayAsleep)
         {
-          v11 = CoreRCPluginLog();
+          v11 = CoreRCPluginLog(cecDevice);
           if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
           {
             LOWORD(v13) = 0;
@@ -682,7 +682,7 @@ LABEL_10:
       }
     }
 
-    v12 = CoreRCPluginLog();
+    v12 = CoreRCPluginLog(cecDevice);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       v13 = 138412290;

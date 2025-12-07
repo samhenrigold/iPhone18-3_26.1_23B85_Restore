@@ -8,6 +8,7 @@
 - (unsigned)endpointFeatures;
 - (void)dealloc;
 - (void)setDestination:(id)destination;
+- (void)setDiscoveryMode:(unsigned int)mode;
 - (void)setExternalDevice:(id)device;
 @end
 
@@ -92,7 +93,7 @@ uint64_t __61__MRAVExternalRoutingDiscoverySession_initWithConfiguration___block
   if (v5)
   {
     v6 = [*(a1 + 32) outputDeviceUID];
-    v7 = [v3 containsOutputDeviceWithUID:v6];
+    isEqualToString = [v3 containsOutputDeviceWithUID:v6];
   }
 
   else
@@ -100,10 +101,10 @@ uint64_t __61__MRAVExternalRoutingDiscoverySession_initWithConfiguration___block
     v6 = [v3 designatedGroupLeader];
     v8 = [v6 uid];
     v9 = [*(a1 + 32) outputDeviceUID];
-    v7 = [v8 isEqualToString:v9];
+    isEqualToString = objc_msgSend_isEqualToString_(v8);
   }
 
-  return v7;
+  return isEqualToString;
 }
 
 void __61__MRAVExternalRoutingDiscoverySession_initWithConfiguration___block_invoke_3(uint64_t a1, void *a2)
@@ -165,6 +166,45 @@ void __61__MRAVExternalRoutingDiscoverySession_initWithConfiguration___block_inv
   return discoveryMode;
 }
 
+- (void)setDiscoveryMode:(unsigned int)mode
+{
+  v3 = *&mode;
+  obj = self;
+  objc_sync_enter(obj);
+  if (obj->_discoveryMode != v3)
+  {
+    obj->_discoveryMode = v3;
+    discoveryTracker = obj->_discoveryTracker;
+    if (v3)
+    {
+      v5 = MSVDeviceOSIsInternalInstall();
+      if (v5)
+      {
+        callStackSymbols = [MEMORY[0x1E696AF00] callStackSymbols];
+      }
+
+      else
+      {
+        callStackSymbols = 0;
+      }
+
+      [(MRActivityTracker *)discoveryTracker startActivityTrackingWithContext:callStackSymbols];
+      if (v5)
+      {
+      }
+    }
+
+    else
+    {
+      [(MRActivityTracker *)obj->_discoveryTracker stopActivityTracking];
+    }
+
+    [(MRExternalDevice *)obj->_externalDevice setDiscoveryMode:v3 forToken:obj->_externalDeviceDiscoveryToken];
+  }
+
+  objc_sync_exit(obj);
+}
+
 - (unsigned)endpointFeatures
 {
   selfCopy = self;
@@ -198,23 +238,23 @@ LABEL_6:
 
 - (void)setDestination:(id)destination
 {
-  v12[1] = *MEMORY[0x1E69E9840];
+  v11[1] = *MEMORY[0x1E69E9840];
   destinationCopy = destination;
   selfCopy = self;
   objc_sync_enter(selfCopy);
   objc_storeStrong(&selfCopy->_destination, destination);
   if (destinationCopy)
   {
-    v11 = @"MREndpointConnectionReasonUserInfoKey";
-    v12[0] = @"MRAVExternalRoutingDiscoverySession";
-    v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:&v11 count:1];
-    v9[0] = MEMORY[0x1E69E9820];
-    v9[1] = 3221225472;
-    v9[2] = __54__MRAVExternalRoutingDiscoverySession_setDestination___block_invoke;
-    v9[3] = &unk_1E769B6D0;
-    v9[4] = selfCopy;
-    v10 = destinationCopy;
-    [v10 connectToExternalDeviceWithUserInfo:v7 completion:v9];
+    v10 = @"MREndpointConnectionReasonUserInfoKey";
+    v11[0] = @"MRAVExternalRoutingDiscoverySession";
+    v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:&v10 count:1];
+    v8[0] = MEMORY[0x1E69E9820];
+    v8[1] = 3221225472;
+    v8[2] = __54__MRAVExternalRoutingDiscoverySession_setDestination___block_invoke;
+    v8[3] = &unk_1E769B6D0;
+    v8[4] = selfCopy;
+    v9 = destinationCopy;
+    [v9 connectToExternalDeviceWithUserInfo:v7 completion:v8];
   }
 
   else
@@ -223,8 +263,6 @@ LABEL_6:
   }
 
   objc_sync_exit(selfCopy);
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __54__MRAVExternalRoutingDiscoverySession_setDestination___block_invoke(uint64_t a1, void *a2)

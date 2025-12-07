@@ -26,33 +26,13 @@
 - (MSSetupBundle)initWithCoder:(id)coder
 {
   coderCopy = coder;
-  if (!self)
+  if (!self || ([coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"Home_ID"], v5 = objc_claimAutoreleasedReturnValue(), homeID = self->_homeID, self->_homeID = v5, homeID, self->_homeID) && (objc_msgSend(coderCopy, "decodeObjectOfClass:forKey:", objc_opt_class(), @"Home_User_ID"), v7 = objc_claimAutoreleasedReturnValue(), homeUserID = self->_homeUserID, self->_homeUserID = v7, homeUserID, self->_homeUserID))
   {
-    goto LABEL_4;
-  }
-
-  v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"Home_ID"];
-  homeID = self->_homeID;
-  self->_homeID = v5;
-
-  if (!self->_homeID)
-  {
-    goto LABEL_5;
-  }
-
-  v7 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"Home_User_ID"];
-  homeUserID = self->_homeUserID;
-  self->_homeUserID = v7;
-
-  if (self->_homeUserID)
-  {
-LABEL_4:
     selfCopy = self;
   }
 
   else
   {
-LABEL_5:
     selfCopy = 0;
   }
 

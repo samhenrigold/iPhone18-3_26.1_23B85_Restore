@@ -130,18 +130,17 @@ void __33__WCMClientProxy_connectToServer__block_invoke(uint64_t a1, void *a2)
   v3 = xpc_uint64_create(self->mProcessId);
   values = v3;
   v4 = xpc_dictionary_create(keys, &values, 1uLL);
-  *v9 = xmmword_279ED63C8;
+  *v8 = xmmword_279ED63C8;
   v5 = xpc_uint64_create(1uLL);
-  v8[0] = v5;
-  v8[1] = v4;
-  v6 = xpc_dictionary_create(v9, v8, 2uLL);
+  v7[0] = v5;
+  v7[1] = v4;
+  v6 = xpc_dictionary_create(v8, v7, 2uLL);
   xpc_connection_send_message(self->mConnection, v6);
   xpc_release(v3);
   xpc_release(v4);
   xpc_release(v5);
   xpc_release(v6);
   self->mIsRegistered = 1;
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sendMessage:(int)message argument:(id)argument
@@ -164,7 +163,7 @@ void __33__WCMClientProxy_connectToServer__block_invoke(uint64_t a1, void *a2)
 
 void __39__WCMClientProxy_sendMessage_argument___block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   if ((v2[32] & 1) == 0)
   {
@@ -181,7 +180,6 @@ void __39__WCMClientProxy_sendMessage_argument___block_invoke(uint64_t a1)
   xpc_release(*(a1 + 40));
   xpc_release(object[0]);
   xpc_release(v5);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

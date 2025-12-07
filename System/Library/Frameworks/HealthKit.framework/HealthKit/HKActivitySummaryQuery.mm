@@ -61,7 +61,7 @@ uint64_t __43__HKActivitySummaryQuery_setUpdateHandler___block_invoke(uint64_t a
   v4 = *(v3 + 184);
   *(v3 + 184) = v2;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2, v4);
 }
 
 - (id)completionHandler

@@ -1,8 +1,11 @@
 @interface CellularLteConnectionStats
 - (BOOL)isEqual:(id)equal;
+- (id)causeAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)maxDlModAsString:(int)string;
+- (id)maxUlModAsString:(int)string;
 - (int)StringAsCause:(id)cause;
 - (int)StringAsMaxDlMod:(id)mod;
 - (int)StringAsMaxUlMod:(id)mod;
@@ -81,6 +84,21 @@
   self->_has = (*&self->_has & 0xFFFFF7FF | v3);
 }
 
+- (id)maxUlModAsString:(int)string
+{
+  if (string >= 7)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_100318128 + string);
+  }
+
+  return v4;
+}
+
 - (int)StringAsMaxUlMod:(id)mod
 {
   modCopy = mod;
@@ -153,6 +171,21 @@
   }
 
   self->_has = (*&self->_has & 0xFFFFFFBF | v3);
+}
+
+- (id)maxDlModAsString:(int)string
+{
+  if (string >= 7)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_100318128 + string);
+  }
+
+  return v4;
 }
 
 - (int)StringAsMaxDlMod:(id)mod
@@ -470,6 +503,21 @@
   }
 
   self->_has = (*&self->_has & 0xFFFFFFFD | v3);
+}
+
+- (id)causeAsString:(int)string
+{
+  if (string >= 6)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_100318160 + string);
+  }
+
+  return v4;
 }
 
 - (int)StringAsCause:(id)cause
@@ -915,7 +963,6 @@ LABEL_45:
   has = self->_has;
   if (*&has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((*&has & 8) == 0)
@@ -935,7 +982,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  duration = self->_duration;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x800) == 0)
@@ -950,7 +996,6 @@ LABEL_4:
   }
 
 LABEL_46:
-  maxUlMod = self->_maxUlMod;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((*&has & 0x40) == 0)
@@ -965,7 +1010,6 @@ LABEL_5:
   }
 
 LABEL_47:
-  maxDlMod = self->_maxDlMod;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((*&has & 0x80) == 0)
@@ -980,7 +1024,6 @@ LABEL_6:
   }
 
 LABEL_48:
-  maxNwMimoLyr = self->_maxNwMimoLyr;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x400) == 0)
@@ -995,7 +1038,6 @@ LABEL_7:
   }
 
 LABEL_49:
-  maxUeRank = self->_maxUeRank;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x100) == 0)
@@ -1010,7 +1052,6 @@ LABEL_8:
   }
 
 LABEL_50:
-  maxRxAnt = self->_maxRxAnt;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x200) == 0)
@@ -1025,7 +1066,6 @@ LABEL_9:
   }
 
 LABEL_51:
-  maxSchdMimoLyr = self->_maxSchdMimoLyr;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x20) == 0)
@@ -1040,12 +1080,10 @@ LABEL_10:
   }
 
 LABEL_52:
-  lteTotalNumCcs = self->_lteTotalNumCcs;
   PBDataWriterWriteUint32Field();
   if ((*&self->_has & 0x10) != 0)
   {
 LABEL_11:
-    lteTotalDlMimoLayers = self->_lteTotalDlMimoLayers;
     PBDataWriterWriteUint32Field();
   }
 
@@ -1055,16 +1093,15 @@ LABEL_12:
     PBDataWriterWriteSubmessage();
   }
 
-  v7 = self->_has;
-  if ((*&v7 & 0x20000) != 0)
+  v6 = self->_has;
+  if ((*&v6 & 0x20000) != 0)
   {
-    mrdcTotalNumCcs = self->_mrdcTotalNumCcs;
     PBDataWriterWriteUint32Field();
-    v7 = self->_has;
-    if ((*&v7 & 0x10000) == 0)
+    v6 = self->_has;
+    if ((*&v6 & 0x10000) == 0)
     {
 LABEL_16:
-      if ((*&v7 & 0x2000) == 0)
+      if ((*&v6 & 0x2000) == 0)
       {
         goto LABEL_17;
       }
@@ -1073,18 +1110,17 @@ LABEL_16:
     }
   }
 
-  else if ((*&v7 & 0x10000) == 0)
+  else if ((*&v6 & 0x10000) == 0)
   {
     goto LABEL_16;
   }
 
-  mrdcTotalDlMimoLayers = self->_mrdcTotalDlMimoLayers;
   PBDataWriterWriteUint32Field();
-  v7 = self->_has;
-  if ((*&v7 & 0x2000) == 0)
+  v6 = self->_has;
+  if ((*&v6 & 0x2000) == 0)
   {
 LABEL_17:
-    if ((*&v7 & 0x1000) == 0)
+    if ((*&v6 & 0x1000) == 0)
     {
       goto LABEL_19;
     }
@@ -1093,12 +1129,10 @@ LABEL_17:
   }
 
 LABEL_56:
-  mrdcLteTotalNumCcs = self->_mrdcLteTotalNumCcs;
   PBDataWriterWriteUint32Field();
   if ((*&self->_has & 0x1000) != 0)
   {
 LABEL_18:
-    mrdcLteTotalDlMimoLayers = self->_mrdcLteTotalDlMimoLayers;
     PBDataWriterWriteUint32Field();
   }
 
@@ -1108,17 +1142,15 @@ LABEL_19:
     PBDataWriterWriteSubmessage();
   }
 
-  v9 = self->_has;
-  if ((*&v9 & 0x8000) != 0)
+  v7 = self->_has;
+  if ((*&v7 & 0x8000) != 0)
   {
-    mrdcNrTotalNumCcs = self->_mrdcNrTotalNumCcs;
     PBDataWriterWriteUint32Field();
-    v9 = self->_has;
+    v7 = self->_has;
   }
 
-  if ((*&v9 & 0x4000) != 0)
+  if ((*&v7 & 0x4000) != 0)
   {
-    mrdcNrTotalDlMimoLayers = self->_mrdcNrTotalDlMimoLayers;
     PBDataWriterWriteUint32Field();
   }
 
@@ -1127,41 +1159,39 @@ LABEL_19:
     PBDataWriterWriteSubmessage();
   }
 
-  v38 = 0u;
-  v39 = 0u;
-  v36 = 0u;
-  v37 = 0u;
-  v12 = self->_nwUeCapStats;
-  v13 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v36 objects:v40 count:16];
-  if (v13)
+  v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
+  v8 = self->_nwUeCapStats;
+  v9 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  if (v9)
   {
-    v14 = v13;
-    v15 = *v37;
+    v10 = v9;
+    v11 = *v15;
     do
     {
-      v16 = 0;
+      v12 = 0;
       do
       {
-        if (*v37 != v15)
+        if (*v15 != v11)
         {
-          objc_enumerationMutation(v12);
+          objc_enumerationMutation(v8);
         }
 
-        v17 = *(*(&v36 + 1) + 8 * v16);
         PBDataWriterWriteSubmessage();
-        v16 = v16 + 1;
+        ++v12;
       }
 
-      while (v14 != v16);
-      v14 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v36 objects:v40 count:16];
+      while (v10 != v12);
+      v10 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
-    while (v14);
+    while (v10);
   }
 
   if ((*(&self->_has + 2) & 4) != 0)
   {
-    numSubs = self->_numSubs;
     PBDataWriterWriteUint32Field();
   }
 
@@ -1170,22 +1200,20 @@ LABEL_19:
     PBDataWriterWriteDataField();
   }
 
-  v19 = self->_has;
-  if ((*&v19 & 0x100000) != 0)
+  v13 = self->_has;
+  if ((*&v13 & 0x100000) != 0)
   {
-    subsId = self->_subsId;
     PBDataWriterWriteUint32Field();
-    v19 = self->_has;
-    if ((*&v19 & 0x80000) == 0)
+    v13 = self->_has;
+    if ((*&v13 & 0x80000) == 0)
     {
 LABEL_40:
-      if ((*&v19 & 2) == 0)
+      if ((*&v13 & 2) == 0)
       {
         goto LABEL_41;
       }
 
 LABEL_60:
-      cause = self->_cause;
       PBDataWriterWriteInt32Field();
       if ((*&self->_has & 4) == 0)
       {
@@ -1196,24 +1224,22 @@ LABEL_60:
     }
   }
 
-  else if ((*&v19 & 0x80000) == 0)
+  else if ((*&v13 & 0x80000) == 0)
   {
     goto LABEL_40;
   }
 
-  psPref = self->_psPref;
   PBDataWriterWriteUint32Field();
-  v19 = self->_has;
-  if ((*&v19 & 2) != 0)
+  v13 = self->_has;
+  if ((*&v13 & 2) != 0)
   {
     goto LABEL_60;
   }
 
 LABEL_41:
-  if ((*&v19 & 4) != 0)
+  if ((*&v13 & 4) != 0)
   {
 LABEL_42:
-    connDuration = self->_connDuration;
     PBDataWriterWriteUint32Field();
   }
 

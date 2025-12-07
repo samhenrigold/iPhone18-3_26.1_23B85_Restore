@@ -110,21 +110,21 @@
 
 id __21__CNLazyArray_reduce__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = v5;
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   v8 = *(a1 + 32);
-  v9 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
   v10 = v7;
   if (v9)
   {
     v11 = v9;
-    v12 = *v18;
+    v12 = *v17;
     v10 = v7;
     do
     {
@@ -132,25 +132,23 @@ id __21__CNLazyArray_reduce__block_invoke(uint64_t a1, void *a2, void *a3)
       v14 = v10;
       do
       {
-        if (*v18 != v12)
+        if (*v17 != v12)
         {
           objc_enumerationMutation(v8);
         }
 
-        v10 = v6[2](v6, v14, *(*(&v17 + 1) + 8 * v13));
+        v10 = v6[2](v6, v14, *(*(&v16 + 1) + 8 * v13));
 
         ++v13;
         v14 = v10;
       }
 
       while (v11 != v13);
-      v11 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v11 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v11);
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
@@ -287,29 +285,29 @@ id __22__CNLazyArray_flatMap__block_invoke(uint64_t a1, void *a2)
 
 uint64_t __18__CNLazyArray_all__block_invoke(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v3 = a2;
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v4 = *(a1 + 32);
-  v5 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = *v12;
     while (2)
     {
       v8 = 0;
       do
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        if (!v3[2](v3, *(*(&v12 + 1) + 8 * v8)))
+        if (!v3[2](v3, *(*(&v11 + 1) + 8 * v8)))
         {
           v9 = 0;
           goto LABEL_11;
@@ -319,7 +317,7 @@ uint64_t __18__CNLazyArray_all__block_invoke(uint64_t a1, void *a2)
       }
 
       while (v6 != v8);
-      v6 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
       if (v6)
       {
         continue;
@@ -332,7 +330,6 @@ uint64_t __18__CNLazyArray_all__block_invoke(uint64_t a1, void *a2)
   v9 = 1;
 LABEL_11:
 
-  v10 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
@@ -350,34 +347,34 @@ LABEL_11:
 
 uint64_t __18__CNLazyArray_any__block_invoke(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v3 = a2;
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   v4 = *(a1 + 32);
-  v5 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v5)
   {
-    v6 = *v11;
+    v6 = *v10;
     while (2)
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v11 != v6)
+        if (*v10 != v6)
         {
           objc_enumerationMutation(v4);
         }
 
-        if (v3[2](v3, *(*(&v10 + 1) + 8 * i)))
+        if (v3[2](v3, *(*(&v9 + 1) + 8 * i)))
         {
           v5 = 1;
           goto LABEL_11;
         }
       }
 
-      v5 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v5 = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
       if (v5)
       {
         continue;
@@ -389,7 +386,6 @@ uint64_t __18__CNLazyArray_any__block_invoke(uint64_t a1, void *a2)
 
 LABEL_11:
 
-  v8 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -407,29 +403,29 @@ LABEL_11:
 
 uint64_t __19__CNLazyArray_none__block_invoke(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v3 = a2;
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v4 = *(a1 + 32);
-  v5 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = *v12;
     while (2)
     {
       v8 = 0;
       do
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        if (v3[2](v3, *(*(&v12 + 1) + 8 * v8)))
+        if (v3[2](v3, *(*(&v11 + 1) + 8 * v8)))
         {
           v9 = 0;
           goto LABEL_11;
@@ -439,7 +435,7 @@ uint64_t __19__CNLazyArray_none__block_invoke(uint64_t a1, void *a2)
       }
 
       while (v6 != v8);
-      v6 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
       if (v6)
       {
         continue;
@@ -452,7 +448,6 @@ uint64_t __19__CNLazyArray_none__block_invoke(uint64_t a1, void *a2)
   v9 = 1;
 LABEL_11:
 
-  v10 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
@@ -470,34 +465,34 @@ LABEL_11:
 
 uint64_t __23__CNLazyArray_contains__block_invoke(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v3 = a2;
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   v4 = *(a1 + 32);
-  v5 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v5)
   {
-    v6 = *v11;
+    v6 = *v10;
     while (2)
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v11 != v6)
+        if (*v10 != v6)
         {
           objc_enumerationMutation(v4);
         }
 
-        if ([*(*(&v10 + 1) + 8 * i) isEqual:{v3, v10}])
+        if ([*(*(&v9 + 1) + 8 * i) isEqual:{v3, v9}])
         {
           v5 = 1;
           goto LABEL_11;
         }
       }
 
-      v5 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v5 = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
       if (v5)
       {
         continue;
@@ -509,7 +504,6 @@ uint64_t __23__CNLazyArray_contains__block_invoke(uint64_t a1, void *a2)
 
 LABEL_11:
 
-  v8 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

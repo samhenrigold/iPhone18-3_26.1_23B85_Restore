@@ -155,9 +155,9 @@ void __33__PLGlyphControl_setHighlighted___block_invoke(uint64_t a1)
 
 - (void)layoutSubviews
 {
-  v13.receiver = self;
-  v13.super_class = PLGlyphControl;
-  [(PLGlyphControl *)&v13 layoutSubviews];
+  v15.receiver = self;
+  v15.super_class = PLGlyphControl;
+  [(PLGlyphControl *)&v15 layoutSubviews];
   [(PLGlyphControl *)self _configureBackgroundMaterialViewIfNecessary];
   [(PLGlyphControl *)self _cornerRadius];
   [(MTMaterialView *)self->_backgroundMaterialView _setContinuousCornerRadius:?];
@@ -165,15 +165,15 @@ void __33__PLGlyphControl_setHighlighted___block_invoke(uint64_t a1)
   [(MTMaterialView *)self->_backgroundMaterialView setFrame:?];
   image = [(UIImageView *)self->_glyphView image];
   [image size];
-  BSRectWithSize();
-  v12 = PLMainScreenScale();
+  v4 = BSRectWithSize();
+  v14 = PLMainScreenScale(v4, v5);
   UIRectCenteredIntegralRectScale();
-  v5 = v4;
   v7 = v6;
   v9 = v8;
   v11 = v10;
+  v13 = v12;
 
-  [(UIImageView *)self->_glyphView setFrame:v5, v7, v9, v11, *&v12];
+  [(UIImageView *)self->_glyphView setFrame:v7, v9, v11, v13, *&v14];
 }
 
 - (void)setMaterialGroupNameBase:(id)base

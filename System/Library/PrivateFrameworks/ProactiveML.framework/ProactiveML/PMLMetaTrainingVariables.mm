@@ -10,58 +10,55 @@
 
 - (id)toPlistWithChunks:(id)chunks
 {
-  v25[14] = *MEMORY[0x277D85DE8];
-  v25[0] = self->_planId;
-  v24[0] = @"PLAN_ID";
-  v24[1] = @"NOISE_STRATEGY_TYPE";
-  noiseStrategy = self->_noiseStrategy;
+  v23[14] = *MEMORY[0x277D85DE8];
+  v23[0] = self->_planId;
+  v22[0] = @"PLAN_ID";
+  v22[1] = @"NOISE_STRATEGY_TYPE";
   chunksCopy = chunks;
-  v6 = objc_opt_class();
-  v23 = NSStringFromClass(v6);
-  v25[1] = v23;
-  v24[2] = @"NOISE_STRATEGY";
-  v22 = [(PMLNoiseStrategy *)self->_noiseStrategy toPlistWithChunks:chunksCopy];
-  v25[2] = v22;
-  v24[3] = @"SESSIONS_MODEL_HANDLE";
-  v21 = [(PMLSessionDescriptor *)self->_sessionDescriptor toPlistWithChunks:chunksCopy];
+  v5 = objc_opt_class();
+  v21 = NSStringFromClass(v5);
+  v23[1] = v21;
+  v22[2] = @"NOISE_STRATEGY";
+  v20 = [(PMLNoiseStrategy *)self->_noiseStrategy toPlistWithChunks:chunksCopy];
+  v23[2] = v20;
+  v22[3] = @"SESSIONS_MODEL_HANDLE";
+  v19 = [(PMLSessionDescriptor *)self->_sessionDescriptor toPlistWithChunks:chunksCopy];
 
-  v25[3] = v21;
-  v24[4] = @"SESSIONS_LIMIT";
-  v7 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:self->_maxSessionsToTrainOn];
-  v25[4] = v7;
-  v24[5] = @"SESSIONS_IN_BATCH";
-  v8 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:self->_trainingSetSize];
+  v23[3] = v19;
+  v22[4] = @"SESSIONS_LIMIT";
+  v6 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:self->_maxSessionsToTrainOn];
+  v23[4] = v6;
+  v22[5] = @"SESSIONS_IN_BATCH";
+  v7 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:self->_trainingSetSize];
   labelsToTrainOn = self->_labelsToTrainOn;
   currentServerIteration = self->_currentServerIteration;
-  v25[5] = v8;
-  v25[6] = labelsToTrainOn;
-  v24[6] = @"LABELS_TO_TRAIN_ON";
-  v24[7] = @"SERVER_ITERATION";
-  v11 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:currentServerIteration];
-  v25[7] = v11;
-  v24[8] = @"STOPPING_THRESHOLD";
-  v12 = [MEMORY[0x277CCABB0] numberWithDouble:self->_lossThresholdForStopping];
-  v25[8] = v12;
-  v24[9] = @"MIN_ITERATIONS";
-  v13 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:self->_epochsPerBatch];
-  v25[9] = v13;
-  v24[10] = @"THRESHOLD";
-  v14 = [MEMORY[0x277CCABB0] numberWithDouble:self->_probThreshold];
-  v25[10] = v14;
-  v24[11] = @"EVALUATION_LEVEL";
-  v15 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:self->_evaluationLevel];
-  v25[11] = v15;
-  v24[12] = @"REPORT_SCALE";
-  v16 = [MEMORY[0x277CCABB0] numberWithBool:self->_reportScale];
-  v25[12] = v16;
-  v24[13] = @"SUMMABLE_METRICS_ONLY";
-  v17 = [MEMORY[0x277CCABB0] numberWithBool:self->_summableMetricsOnly];
-  v25[13] = v17;
-  v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:v24 count:14];
+  v23[5] = v7;
+  v23[6] = labelsToTrainOn;
+  v22[6] = @"LABELS_TO_TRAIN_ON";
+  v22[7] = @"SERVER_ITERATION";
+  v10 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:currentServerIteration];
+  v23[7] = v10;
+  v22[8] = @"STOPPING_THRESHOLD";
+  v11 = [MEMORY[0x277CCABB0] numberWithDouble:self->_lossThresholdForStopping];
+  v23[8] = v11;
+  v22[9] = @"MIN_ITERATIONS";
+  v12 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:self->_epochsPerBatch];
+  v23[9] = v12;
+  v22[10] = @"THRESHOLD";
+  v13 = [MEMORY[0x277CCABB0] numberWithDouble:self->_probThreshold];
+  v23[10] = v13;
+  v22[11] = @"EVALUATION_LEVEL";
+  v14 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:self->_evaluationLevel];
+  v23[11] = v14;
+  v22[12] = @"REPORT_SCALE";
+  v15 = [MEMORY[0x277CCABB0] numberWithBool:self->_reportScale];
+  v23[12] = v15;
+  v22[13] = @"SUMMABLE_METRICS_ONLY";
+  v16 = [MEMORY[0x277CCABB0] numberWithBool:self->_summableMetricsOnly];
+  v23[13] = v16;
+  v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:v22 count:14];
 
-  v19 = *MEMORY[0x277D85DE8];
-
-  return v18;
+  return v17;
 }
 
 - (PMLMetaTrainingVariables)initWithPlist:(id)plist chunks:(id)chunks context:(id)context

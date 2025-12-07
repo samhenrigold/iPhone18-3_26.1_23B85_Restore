@@ -303,6 +303,8 @@
   contextCopy = context;
   v12 = static REMCDList.existingCloudObject(for:accountID:managedObjectContext:)(dCopy, v7, v9, contextCopy);
 
+  v9, v13, v14, v15, v16, v17, v18, v19;
+
   return v12;
 }
 
@@ -364,6 +366,8 @@
   v11._countAndFlagsBits = v6;
   v11._object = v8;
   REMCDList.mergeData(from:accountID:)(recordCopy, v11);
+
+  v8, v12, v13, v14, v15, v16, v17, v18;
 }
 
 - (id)newlyCreatedRecord
@@ -380,17 +384,19 @@
   name = [(REMCDList *)selfCopy name];
   if (!name)
   {
-    v7.receiver = selfCopy;
-    v7.super_class = REMCDList;
-    name = [(REMCDObject *)&v7 shareTitle];
+    v16.receiver = selfCopy;
+    v16.super_class = REMCDList;
+    name = [(REMCDObject *)&v16 shareTitle];
   }
 
   v4 = name;
   static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v6 = v5;
 
-  v5 = String._bridgeToObjectiveC()();
+  v7 = String._bridgeToObjectiveC()();
+  v6, v8, v9, v10, v11, v12, v13, v14;
 
-  return v5;
+  return v7;
 }
 
 - (id)shareType
@@ -432,11 +438,12 @@
 - (id)objectsToBeDeletedBeforeThisObject
 {
   selfCopy = self;
-  REMCDList.objectsToBeDeletedBeforeThisObject()();
+  v3 = REMCDList.objectsToBeDeletedBeforeThisObject()();
 
-  v3.super.isa = Array._bridgeToObjectiveC()().super.isa;
+  v4.super.isa = Array._bridgeToObjectiveC()().super.isa;
+  v3, v5, v6, v7, v8, v9, v10, v11;
 
-  return v3.super.isa;
+  return v4.super.isa;
 }
 
 - (void)restoreParentReferenceAfterUnmarkingForDeletion

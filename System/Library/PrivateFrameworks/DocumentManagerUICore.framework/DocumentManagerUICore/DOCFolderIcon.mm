@@ -24,10 +24,6 @@
 
 - (id)imageWithMinimalIO
 {
-  v5 = *(&self->super.isa + OBJC_IVAR___DOCFolderIcon_fetcher);
-  v6 = self->fetcher[OBJC_IVAR___DOCFolderIcon_fetcher + 8];
-  v7 = *&self->fetcher[OBJC_IVAR___DOCFolderIcon_fetcher + 16];
-  v8 = *&self->fetcher[OBJC_IVAR___DOCFolderIcon_fetcher + 32];
   v2 = *&self->fetcher[OBJC_IVAR___DOCFolderIcon_fetcher + 40];
   swift_unknownObjectRetain();
   v3 = FolderIconFetcher.fetchAvailableImage()();
@@ -40,27 +36,26 @@
 - (void)fetchImageWithCompletionHandler:(id)handler
 {
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EF19670, &qword_249D07600);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x28223BE20](v5 - 8);
-  v8 = &v15 - v7;
-  v9 = _Block_copy(handler);
-  v10 = swift_allocObject();
-  *(v10 + 16) = v9;
-  *(v10 + 24) = self;
-  v11 = sub_249D04B6C();
-  (*(*(v11 - 8) + 56))(v8, 1, 1, v11);
+  v7 = &v14 - v6;
+  v8 = _Block_copy(handler);
+  v9 = swift_allocObject();
+  *(v9 + 16) = v8;
+  *(v9 + 24) = self;
+  v10 = sub_249D04B6C();
+  (*(*(v10 - 8) + 56))(v7, 1, 1, v10);
+  v11 = swift_allocObject();
+  v11[2] = 0;
+  v11[3] = 0;
+  v11[4] = &unk_249D07610;
+  v11[5] = v9;
   v12 = swift_allocObject();
   v12[2] = 0;
   v12[3] = 0;
-  v12[4] = &unk_249D07610;
-  v12[5] = v10;
-  v13 = swift_allocObject();
-  v13[2] = 0;
-  v13[3] = 0;
-  v13[4] = &unk_249D07620;
-  v13[5] = v12;
+  v12[4] = &unk_249D07620;
+  v12[5] = v11;
   selfCopy = self;
-  sub_249CF99D8(0, 0, v8, &unk_249D07630, v13);
+  sub_249CF99D8(0, 0, v7, &unk_249D07630, v12);
 }
 
 - (DOCFolderIcon)init

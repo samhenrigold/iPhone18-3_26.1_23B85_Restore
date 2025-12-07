@@ -248,7 +248,7 @@ void __39__IRCompanionLinkClient_startDiscovery__block_invoke_26(uint64_t a1)
 
 void __39__IRCompanionLinkClient_startDiscovery__block_invoke_27(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v5 = WeakRetained;
@@ -262,9 +262,9 @@ void __39__IRCompanionLinkClient_startDiscovery__block_invoke_27(uint64_t a1, vo
       v7 = *MEMORY[0x277D21260];
       if (os_log_type_enabled(*MEMORY[0x277D21260], OS_LOG_TYPE_DEFAULT))
       {
-        v10 = 138412290;
-        v11 = v3;
-        _os_log_impl(&dword_25543D000, v7, OS_LOG_TYPE_DEFAULT, "#companionlink-client, Rapport discovery companionLinkClient failed to activate. Error - %@", &v10, 0xCu);
+        v9 = 138412290;
+        v10 = v3;
+        _os_log_impl(&dword_25543D000, v7, OS_LOG_TYPE_DEFAULT, "#companionlink-client, Rapport discovery companionLinkClient failed to activate. Error - %@", &v9, 0xCu);
       }
 
       [v5 stopDiscovery];
@@ -276,13 +276,11 @@ void __39__IRCompanionLinkClient_startDiscovery__block_invoke_27(uint64_t a1, vo
       v8 = *MEMORY[0x277D21260];
       if (os_log_type_enabled(*MEMORY[0x277D21260], OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v10) = 0;
-        _os_log_impl(&dword_25543D000, v8, OS_LOG_TYPE_DEFAULT, "#companionlink-client, Rapport discovery client activated. Searching for Rapport devices...", &v10, 2u);
+        LOWORD(v9) = 0;
+        _os_log_impl(&dword_25543D000, v8, OS_LOG_TYPE_DEFAULT, "#companionlink-client, Rapport discovery client activated. Searching for Rapport devices...", &v9, 2u);
       }
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_didUpdateRapportDevices
@@ -366,23 +364,23 @@ void __49__IRCompanionLinkClient__didUpdateRapportDevices__block_invoke(uint64_t
 
 void __39__IRCompanionLinkClient_startDiscovery__block_invoke_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_2(&dword_25543D000, a2, a3, "#companionlink-client, Found device: %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_2(&dword_25543D000, a2, a3, "#companionlink-client, Found device: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __39__IRCompanionLinkClient_startDiscovery__block_invoke_20_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_2(&dword_25543D000, a2, a3, "#companionlink-client, Lost device: %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_2(&dword_25543D000, a2, a3, "#companionlink-client, Lost device: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __39__IRCompanionLinkClient_startDiscovery__block_invoke_21_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_2(&dword_25543D000, a2, a3, "#companionlink-client, Changed device: %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_2(&dword_25543D000, a2, a3, "#companionlink-client, Changed device: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

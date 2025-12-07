@@ -9,7 +9,7 @@
 {
   sub_19B334();
   type metadata accessor for SCATSwitchesView(0);
-  sub_15E180(&qword_2B8358, type metadata accessor for SCATSwitchesView);
+  sub_15E180(&qword_2B8358, type metadata accessor for SCATSwitchesView, &unk_1DB144);
   v2 = sub_19B344();
 
   return v2;

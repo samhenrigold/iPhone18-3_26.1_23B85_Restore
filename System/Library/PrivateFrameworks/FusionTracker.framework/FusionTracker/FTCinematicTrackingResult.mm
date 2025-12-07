@@ -42,10 +42,10 @@
   {
     if (coderCopy)
     {
-      [coderCopy fusionTracker_decodeCMTimeForKey:@"sourceFrameTimestamp"];
+      objc_msgSend_fusionTracker_decodeCMTimeForKey_(coderCopy);
       *&v6->_sourceFrameTimestamp.value = v19;
       v6->_sourceFrameTimestamp.epoch = v20;
-      [coderCopy fusionTracker_decodeCMTimeForKey:@"mostRecentTapTime"];
+      objc_msgSend_fusionTracker_decodeCMTimeForKey_(coderCopy);
     }
 
     else

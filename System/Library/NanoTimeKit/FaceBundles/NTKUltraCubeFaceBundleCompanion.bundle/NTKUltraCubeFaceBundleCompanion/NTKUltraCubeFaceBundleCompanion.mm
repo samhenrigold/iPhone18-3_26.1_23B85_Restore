@@ -123,11 +123,12 @@ void sub_4AAC(uint64_t a1, void *a2, void *a3)
   }
 }
 
-void sub_5754(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, char a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27)
+void sub_5754(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
 {
+  va_start(va, a26);
   _Block_object_dispose(&a17, 8);
   _Block_object_dispose(&a23, 8);
-  _Block_object_dispose(&a27, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -404,10 +405,11 @@ void sub_11660(void *a1, void *a2)
   CGContextFillEllipseInRect(v5, *&v8);
 }
 
-void sub_1401C(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_1401C(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0x16u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
 }
 
 uint64_t _NTKUltraCubeFiller::_NTKUltraCubeFiller(uint64_t a1, uint64_t a2, uint64_t a3, int a4, int a5)
@@ -704,19 +706,19 @@ uint64_t _NTKUltraCubeFiller::_NTKUltraCubeFiller(uint64_t a1, uint64_t a2, uint
   return a1;
 }
 
-void sub_14640(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void **a9, void **a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, int a20, std::random_device a21, std::random_device a22, uint64_t a23, uint64_t a24, int a25, __int16 a26, char a27, char a28)
+void sub_14640(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void **a9, void **a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, int a20, std::random_device arg5C, std::random_device a21, int _64, std::random_device a22, uint64_t a23, uint64_t a24, int a25, __int16 a26, char a27, char a28)
 {
-  v30 = v28[338];
-  if (v30)
+  v32 = v30[338];
+  if (v32)
   {
-    v28[339] = v30;
-    operator delete(v30);
-    v31 = v28[335];
-    if (!v31)
+    v30[339] = v32;
+    operator delete(v32);
+    v33 = v30[335];
+    if (!v33)
     {
 LABEL_3:
-      v32 = v28[332];
-      if (!v32)
+      v34 = v30[332];
+      if (!v34)
       {
         goto LABEL_4;
       }
@@ -727,20 +729,20 @@ LABEL_3:
 
   else
   {
-    v31 = v28[335];
-    if (!v31)
+    v33 = v30[335];
+    if (!v33)
     {
       goto LABEL_3;
     }
   }
 
-  v28[336] = v31;
-  operator delete(v31);
-  v32 = v28[332];
-  if (!v32)
+  v30[336] = v33;
+  operator delete(v33);
+  v34 = v30[332];
+  if (!v34)
   {
 LABEL_4:
-    v33 = *a10;
+    v35 = *a10;
     if (!*a10)
     {
       goto LABEL_5;
@@ -750,14 +752,14 @@ LABEL_4:
   }
 
 LABEL_12:
-  v28[333] = v32;
-  operator delete(v32);
-  v33 = *a10;
+  v30[333] = v34;
+  operator delete(v34);
+  v35 = *a10;
   if (!*a10)
   {
 LABEL_5:
-    v34 = v28[326];
-    if (!v34)
+    v36 = v30[326];
+    if (!v36)
     {
       goto LABEL_6;
     }
@@ -766,14 +768,14 @@ LABEL_5:
   }
 
 LABEL_13:
-  v28[330] = v33;
-  operator delete(v33);
-  v34 = v28[326];
-  if (!v34)
+  v30[330] = v35;
+  operator delete(v35);
+  v36 = v30[326];
+  if (!v36)
   {
 LABEL_6:
-    v35 = v28[323];
-    if (!v35)
+    v37 = v30[323];
+    if (!v37)
     {
       goto LABEL_7;
     }
@@ -782,14 +784,14 @@ LABEL_6:
   }
 
 LABEL_14:
-  v28[327] = v34;
-  operator delete(v34);
-  v35 = v28[323];
-  if (!v35)
+  v30[327] = v36;
+  operator delete(v36);
+  v37 = v30[323];
+  if (!v37)
   {
 LABEL_7:
-    v36 = v28[320];
-    if (!v36)
+    v38 = v30[320];
+    if (!v38)
     {
       goto LABEL_8;
     }
@@ -798,13 +800,13 @@ LABEL_7:
   }
 
 LABEL_15:
-  v28[324] = v35;
-  operator delete(v35);
-  v36 = v28[320];
-  if (!v36)
+  v30[324] = v37;
+  operator delete(v37);
+  v38 = v30[320];
+  if (!v38)
   {
 LABEL_8:
-    v37 = *a9;
+    v39 = *a9;
     if (!*a9)
     {
 LABEL_18:
@@ -812,15 +814,15 @@ LABEL_18:
     }
 
 LABEL_17:
-    v28[318] = v37;
-    operator delete(v37);
+    v30[318] = v39;
+    operator delete(v39);
     goto LABEL_18;
   }
 
 LABEL_16:
-  v28[321] = v36;
-  operator delete(v36);
-  v37 = *a9;
+  v30[321] = v38;
+  operator delete(v38);
+  v39 = *a9;
   if (!*a9)
   {
     goto LABEL_18;
@@ -898,39 +900,39 @@ BOOL _NTKUltraCubeFiller::isLocationOpen(uint64_t a1, int a2)
   return v9 > 2;
 }
 
-void _NTKUltraCubeFiller::setup(_NTKUltraCubeFiller *this)
+void _NTKUltraCubeFiller::setup(_NTKUltraCubeFiller *this, double a2)
 {
-  v2 = *(this + 4);
-  v57 = *(this + 5);
-  v3 = *(this + 6);
-  v4 = *(this + 7) * v3;
-  v5 = *(this + 321);
-  v6 = *(this + 320);
-  if (v4 <= &v5[-v6])
+  v3 = *(this + 4);
+  v58 = *(this + 5);
+  v4 = *(this + 6);
+  v5 = *(this + 7) * v4;
+  v6 = *(this + 321);
+  v7 = *(this + 320);
+  if (v5 <= &v6[-v7])
   {
-    if (v4 < &v5[-v6])
+    if (v5 < &v6[-v7])
     {
-      *(this + 321) = v6 + v4;
+      *(this + 321) = v7 + v5;
     }
 
-    v8 = *(this + 323);
-    v9 = (*(this + 324) - v8) >> 4;
-    _CF = v4 >= v9;
-    v11 = v4 - v9;
-    if (v4 <= v9)
+    v9 = *(this + 323);
+    v10 = (*(this + 324) - v9) >> 4;
+    _CF = v5 >= v10;
+    v12 = v5 - v10;
+    if (v5 <= v10)
     {
       goto LABEL_10;
     }
 
 LABEL_8:
-    sub_166C0(this + 2584, v11);
+    sub_166C0(this + 2584, v12);
     goto LABEL_12;
   }
 
-  v7 = *(this + 322);
-  if (v7 - v5 < v4 - &v5[-v6])
+  v8 = *(this + 322);
+  if (v8 - v6 < v5 - &v6[-v7])
   {
-    if ((v4 & 0x80000000) == 0)
+    if ((v5 & 0x80000000) == 0)
     {
       operator new();
     }
@@ -938,14 +940,14 @@ LABEL_8:
     sub_166A8();
   }
 
-  v12 = v4 + v6;
-  bzero(v5, v4 - &v5[-v6]);
-  *(this + 321) = v12;
-  v8 = *(this + 323);
-  v13 = (*(this + 324) - v8) >> 4;
-  _CF = v4 >= v13;
-  v11 = v4 - v13;
-  if (v4 > v13)
+  v13 = v5 + v7;
+  bzero(v6, v5 - &v6[-v7]);
+  *(this + 321) = v13;
+  v9 = *(this + 323);
+  v14 = (*(this + 324) - v9) >> 4;
+  _CF = v5 >= v14;
+  v12 = v5 - v14;
+  if (v5 > v14)
   {
     goto LABEL_8;
   }
@@ -953,84 +955,84 @@ LABEL_8:
 LABEL_10:
   if (!_CF)
   {
-    *(this + 324) = v8 + 16 * v4;
+    *(this + 324) = v9 + 16 * v5;
   }
 
 LABEL_12:
-  v14 = *(this + 326);
-  v15 = (*(this + 327) - v14) >> 4;
-  if (v4 <= v15)
+  v15 = *(this + 326);
+  v16 = (*(this + 327) - v15) >> 4;
+  if (v5 <= v16)
   {
-    if (v4 < v15)
+    if (v5 < v16)
     {
-      *(this + 327) = &v14[16 * v4];
+      *(this + 327) = &v15[16 * v5];
     }
   }
 
   else
   {
-    sub_166C0(this + 2608, v4 - v15);
-    v14 = *(this + 326);
+    sub_166C0(this + 2608, v5 - v16);
+    v15 = *(this + 326);
   }
 
-  v16 = *(this + 323);
-  v18 = *this;
-  v17 = *(this + 1);
-  v19 = *(this + 320);
-  bzero(v19, v4);
-  bzero(v14, 16 * v4);
-  bzero(v16, 16 * v4);
-  if (v57 >= 1 && v2 >= 1)
+  v17 = *(this + 323);
+  v19 = *this;
+  v18 = *(this + 1);
+  v20 = *(this + 320);
+  bzero(v20, v5);
+  bzero(v15, 16 * v5);
+  bzero(v17, 16 * v5);
+  if (v58 >= 1 && v3 >= 1)
   {
-    v20 = 0;
-    v21 = 11 * v3 + 11;
-    v22 = &v19[v21];
-    v23 = 16 * v21;
-    v24 = &v16[16 * v21];
-    v25 = &v14[v23];
+    v21 = 0;
+    v22 = 11 * v4 + 11;
+    v23 = &v20[v22];
+    v24 = 16 * v22;
+    v25 = &v17[16 * v22];
+    v26 = &v15[v24];
     __asm
     {
       FMOV            V0.4S, #-1.0
       FMOV            V1.4S, #3.0
     }
 
-    v31 = v18;
+    v32 = v19;
     do
     {
-      v32 = 0;
-      v33 = -352;
+      v33 = 0;
+      v34 = -352;
       do
       {
-        if (*(v17 + v32) <= 5u)
+        if (*(v18 + v33) <= 5u)
         {
-          v22[v32] = 1;
-          v34 = vminnmq_f32(vmaxnmq_f32(vcvtq_f32_f16(*(v18 + 8 * v32)), _Q0), _Q1);
-          v35 = 16 * v32;
-          v34.i32[3] = 1.0;
-          *&v24[v35] = v34;
-          *&v25[v35] = v34;
+          v23[v33] = 1;
+          v35 = vminnmq_f32(vmaxnmq_f32(vcvtq_f32_f16(*(v19 + 8 * v33)), _Q0), _Q1);
+          v36 = 16 * v33;
+          v35.i32[3] = 1.0;
+          *&v25[v36] = v35;
+          *&v26[v36] = v35;
         }
 
-        v31 += 8;
-        ++v32;
-        v33 -= 16;
+        v32 += 8;
+        ++v33;
+        v34 -= 16;
       }
 
-      while (v2 != v32);
-      v17 += v2;
-      v22 += v32 + 22;
-      v24 -= v33;
-      v25 -= v33;
-      ++v20;
-      v18 = v31;
+      while (v3 != v33);
+      v18 += v3;
+      v23 += v33 + 22;
+      v25 -= v34;
+      v26 -= v34;
+      ++v21;
+      v19 = v32;
     }
 
-    while (v20 != v57);
+    while (v21 != v58);
   }
 
-  if (v4 > (*(this + 319) - *(this + 317)) >> 2)
+  if (v5 > (*(this + 319) - *(this + 317)) >> 2)
   {
-    if ((v4 & 0x80000000) == 0)
+    if ((v5 & 0x80000000) == 0)
     {
       operator new();
     }
@@ -1039,110 +1041,110 @@ LABEL_69:
     sub_166A8();
   }
 
-  if (v57 >= 1 && v2 >= 1)
+  if (v58 >= 1 && v3 >= 1)
   {
-    for (i = 0; i != v57; ++i)
+    for (i = 0; i != v58; ++i)
     {
-      v37 = 0;
-      v38 = i + 11;
+      v38 = 0;
+      v39 = i + 11;
       do
       {
-        HIWORD(v58) = i + 11;
-        LOWORD(v58) = v37 + 11;
-        v40 = *(this + 6);
-        v41 = (*(this + 320) + v40 * (v58 >> 16) + (v37 + 11));
-        if (!*v41)
+        HIWORD(v59) = i + 11;
+        LOWORD(v59) = v38 + 11;
+        v41 = *(this + 6);
+        v42 = (*(this + 320) + v41 * (v59 >> 16) + (v38 + 11));
+        if (!*v42)
         {
-          v42 = v41[-v40] == 1;
-          if (v41[-v40] == 1)
+          v43 = v42[-v41] == 1;
+          if (v42[-v41] == 1)
           {
-            v43 = 2;
+            v44 = 2;
           }
 
           else
           {
-            v43 = 1;
+            v44 = 1;
           }
 
-          if (v41[~v40] == 1)
+          if (v42[~v41] == 1)
           {
-            v42 = v43;
+            v43 = v44;
           }
 
-          if (v41[1 - v40] == 1)
+          if (v42[1 - v41] == 1)
           {
-            ++v42;
+            ++v43;
           }
 
-          v44 = &v41[v40];
-          if (*v44 == 1)
+          v45 = &v42[v41];
+          if (*v45 == 1)
           {
-            ++v42;
+            ++v43;
           }
 
-          if (*(v44 - 1) == 1)
+          if (*(v45 - 1) == 1)
           {
-            ++v42;
+            ++v43;
           }
 
-          if (v44[1] == 1)
+          if (v45[1] == 1)
           {
-            v45 = v42 + 1;
+            v46 = v43 + 1;
           }
 
           else
           {
-            v45 = v42;
+            v46 = v43;
           }
 
-          if (*(v41 - 1) == 1)
+          if (*(v42 - 1) == 1)
           {
-            ++v45;
+            ++v46;
           }
 
-          v46 = v41[1] == 1 ? v45 + 1 : v45;
-          if (v46 >= 3)
+          v47 = v42[1] == 1 ? v46 + 1 : v46;
+          if (v47 >= 3)
           {
-            v47 = v37 + 11;
-            v48 = *(this + 318);
-            v49 = *(this + 319);
-            if (v48 < v49)
+            v48 = v38 + 11;
+            v49 = *(this + 318);
+            v50 = *(this + 319);
+            if (v49 < v50)
             {
-              *(v48 + 1) = v38;
-              *v48 = v47;
-              v39 = (v48 + 4);
+              *(v49 + 1) = v39;
+              *v49 = v48;
+              v40 = (v49 + 4);
             }
 
             else
             {
-              v50 = *(this + 317);
-              v51 = v48 - v50;
-              v52 = (v48 - v50) >> 2;
-              v53 = v52 + 1;
-              if ((v52 + 1) >> 62)
+              v51 = *(this + 317);
+              v52 = v49 - v51;
+              v53 = (v49 - v51) >> 2;
+              v54 = v53 + 1;
+              if ((v53 + 1) >> 62)
               {
                 goto LABEL_69;
               }
 
-              v54 = v49 - v50;
-              if (v54 >> 1 > v53)
+              v55 = v50 - v51;
+              if (v55 >> 1 > v54)
               {
-                v53 = v54 >> 1;
+                v54 = v55 >> 1;
               }
 
-              if (v54 >= 0x7FFFFFFFFFFFFFFCLL)
+              if (v55 >= 0x7FFFFFFFFFFFFFFCLL)
               {
-                v55 = 0x3FFFFFFFFFFFFFFFLL;
+                v56 = 0x3FFFFFFFFFFFFFFFLL;
               }
 
               else
               {
-                v55 = v53;
+                v56 = v54;
               }
 
-              if (v55)
+              if (v56)
               {
-                if (!(v55 >> 62))
+                if (!(v56 >> 62))
                 {
                   operator new();
                 }
@@ -1150,28 +1152,28 @@ LABEL_69:
                 sub_165D0();
               }
 
-              v56 = (4 * v52);
-              v56[1] = v38;
-              *v56 = v47;
-              v39 = 4 * v52 + 4;
-              memcpy(0, v50, v51);
+              v57 = (4 * v53);
+              v57[1] = v39;
+              *v57 = v48;
+              v40 = 4 * v53 + 4;
+              memcpy(0, v51, v52);
               *(this + 317) = 0;
-              *(this + 318) = v39;
+              *(this + 318) = v40;
               *(this + 319) = 0;
-              if (v50)
+              if (v51)
               {
-                operator delete(v50);
+                operator delete(v51);
               }
             }
 
-            *(this + 318) = v39;
+            *(this + 318) = v40;
           }
         }
 
-        ++v37;
+        ++v38;
       }
 
-      while (v2 != v37);
+      while (v3 != v38);
     }
   }
 }
@@ -2287,12 +2289,12 @@ CGImageRef _NTKUltraCubeFiller::result(_NTKUltraCubeFiller *this)
 
 CGImageRef NTKUltraCubeCreateContentFillForRGBA16f(uint64_t a1, uint64_t a2, int a3, int a4)
 {
-  _NTKUltraCubeFiller::_NTKUltraCubeFiller(v11, a1, a2, a3, a4);
-  _NTKUltraCubeFiller::setup(v11);
-  _NTKUltraCubeFiller::resolve(v11, v4, v5, v6, v7, v8);
-  v9 = _NTKUltraCubeFiller::result(v11);
-  sub_16604(v11);
-  return v9;
+  _NTKUltraCubeFiller::_NTKUltraCubeFiller(v12, a1, a2, a3, a4);
+  _NTKUltraCubeFiller::setup(v12, v4);
+  _NTKUltraCubeFiller::resolve(v12, v5, v6, v7, v8, v9);
+  v10 = _NTKUltraCubeFiller::result(v12);
+  sub_16604(v12);
+  return v10;
 }
 
 CGImageRef NTKUltraCubeCreateContentFillForCGImage(CGImageRef image, CGImage *a2)
@@ -2314,31 +2316,31 @@ CGImageRef NTKUltraCubeCreateContentFillForCGImage(CGImageRef image, CGImage *a2
           v9 = CGBitmapContextCreate(v7, Width, Height, 0x10uLL, 8 * (Width & 0x1FFFFFFF), v8, 0x1101u);
           CGColorSpaceRelease(v8);
           CGContextSetInterpolationQuality(v9, kCGInterpolationHigh);
-          v20.origin.x = 0.0;
-          v20.origin.y = 0.0;
-          v20.size.width = Width;
-          v20.size.height = Height;
-          CGContextDrawImage(v9, v20, image);
+          v21.origin.x = 0.0;
+          v21.origin.y = 0.0;
+          v21.size.width = Width;
+          v21.size.height = Height;
+          CGContextDrawImage(v9, v21, image);
           CGContextRelease(v9);
           v10 = malloc_type_malloc(Height * Width, 0x100004077774924uLL);
           v11 = CGColorSpaceCreateWithName(kCGColorSpaceGenericGray);
           v12 = CGBitmapContextCreate(v10, Width, Height, 8uLL, Width, v11, 0);
           CGColorSpaceRelease(v11);
           CGContextSetInterpolationQuality(v12, kCGInterpolationHigh);
-          v21.origin.x = 0.0;
-          v21.origin.y = 0.0;
-          v21.size.width = Width;
-          v21.size.height = Height;
-          CGContextDrawImage(v12, v21, a2);
+          v22.origin.x = 0.0;
+          v22.origin.y = 0.0;
+          v22.size.width = Width;
+          v22.size.height = Height;
+          CGContextDrawImage(v12, v22, a2);
           CGContextRelease(v12);
-          _NTKUltraCubeFiller::_NTKUltraCubeFiller(v19, v7, v10, Width, Height);
-          _NTKUltraCubeFiller::setup(v19);
-          _NTKUltraCubeFiller::resolve(v19, v13, v14, v15, v16, v17);
-          v18 = _NTKUltraCubeFiller::result(v19);
-          sub_16604(v19);
+          _NTKUltraCubeFiller::_NTKUltraCubeFiller(v20, v7, v10, Width, Height);
+          _NTKUltraCubeFiller::setup(v20, v13);
+          _NTKUltraCubeFiller::resolve(v20, v14, v15, v16, v17, v18);
+          v19 = _NTKUltraCubeFiller::result(v20);
+          sub_16604(v20);
           free(v7);
           free(v10);
-          return v18;
+          return v19;
         }
 
         else
@@ -2352,9 +2354,9 @@ CGImageRef NTKUltraCubeCreateContentFillForCGImage(CGImageRef image, CGImage *a2
   return result;
 }
 
-void sub_1652C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1652C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_16604(va);
   _Unwind_Resume(a1);
 }
@@ -2542,23 +2544,23 @@ void sub_1786C(id a1)
   qword_581A8 = v1;
 }
 
-uint64_t sub_1939C()
+uint64_t sub_1939C(uint64_t a1, double a2, double a3)
 {
-  memset(&v2, 0, sizeof(v2));
+  memset(&v5, 0, sizeof(v5));
   NTKImagePresentationTransform();
-  CGAffineTransformInvert(&v2, &v1);
-  v1 = v2;
+  CGAffineTransformInvert(&v5, &v4);
+  v4 = v5;
   return NTKImagePresentationSize();
 }
 
-uint64_t sub_19478()
+uint64_t sub_19478(uint64_t a1, double a2, double a3)
 {
-  NTKCGImagePropertyOrientationToUIImageOrientation();
+  v5 = NTKCGImagePropertyOrientationToUIImageOrientation();
 
-  return sub_1939C();
+  return sub_1939C(v5, a2, a3);
 }
 
-uint64_t sub_194B8()
+uint64_t sub_194B8(uint64_t a1, double a2, double a3)
 {
   NTKCGImagePropertyOrientationToUIImageOrientation();
   NTKImagePresentationTransform();
@@ -2567,66 +2569,66 @@ uint64_t sub_194B8()
 
 void sub_19524(CGImage *a1, uint64_t a2, uint64_t a3, void *a4, int *a5, int *a6, int *a7)
 {
-  CGImageGetWidth(a1);
-  CGImageGetHeight(a1);
-  sub_1939C();
-  sub_1939C();
-  v9 = v8;
-  v11 = v10;
-  v12 = v8;
-  v25 = v8;
-  v13 = v10;
+  Width = CGImageGetWidth(a1);
+  Height = CGImageGetHeight(a1);
+  sub_1939C(a2, Width, Height);
+  sub_1939C(a3, v12, v13);
+  v15 = v14;
+  v17 = v16;
+  v18 = v14;
+  v31 = v14;
+  v19 = v16;
   ColorSpace = CGImageGetColorSpace(a1);
   NumberOfComponents = CGColorSpaceGetNumberOfComponents(ColorSpace);
-  v16 = 8 * NumberOfComponents + 14;
+  v22 = 8 * NumberOfComponents + 14;
   if ((NumberOfComponents & 0x10000000) == 0)
   {
-    v16 = (8 * NumberOfComponents) | 7;
+    v22 = (8 * NumberOfComponents) | 7;
   }
 
-  v35 = 0u;
-  v36 = 0u;
-  v17 = (v16 >> 3) * v12;
-  v34 = 0u;
+  v41 = 0u;
+  v42 = 0u;
+  v23 = (v22 >> 3) * v18;
+  v40 = 0u;
   NTKImagePresentationTransform();
-  v32 = 0u;
-  v33 = 0u;
-  v31 = 0u;
+  v38 = 0u;
+  v39 = 0u;
+  v37 = 0u;
   NTKImagePresentationTransform();
-  memset(&v30, 0, sizeof(v30));
+  memset(&v36, 0, sizeof(v36));
   memset(&t1, 0, sizeof(t1));
   CGAffineTransformInvert(&t2, &t1);
   memset(&t1, 0, sizeof(t1));
-  CGAffineTransformConcat(&v30, &t1, &t2);
-  v18 = [NSMutableData dataWithLength:v17 * v13];
-  v19 = [v18 mutableBytes];
+  CGAffineTransformConcat(&v36, &t1, &t2);
+  v24 = [NSMutableData dataWithLength:v23 * v19];
+  v25 = [v24 mutableBytes];
   BitsPerComponent = CGImageGetBitsPerComponent(a1);
-  v21 = CGImageGetColorSpace(a1);
+  v27 = CGImageGetColorSpace(a1);
   AlphaInfo = CGImageGetAlphaInfo(a1);
-  v23 = CGBitmapContextCreate(v19, v12, v13, BitsPerComponent, v17, v21, AlphaInfo);
-  t1 = v30;
-  CGContextSaveGState(v23);
+  v29 = CGBitmapContextCreate(v25, v18, v19, BitsPerComponent, v23, v27, AlphaInfo);
+  t1 = v36;
+  CGContextSaveGState(v29);
   memset(&t2, 0, sizeof(t2));
   sub_197D4(a1, &t1, &t2);
   memset(&t1, 0, sizeof(t1));
   transform = t2;
   CGAffineTransformInvert(&t1, &transform);
   transform = t2;
-  CGContextConcatCTM(v23, &transform);
+  CGContextConcatCTM(v29, &transform);
   transform = t1;
-  v40.origin.x = 0.0;
-  v40.origin.y = 0.0;
-  v40.size.width = v9;
-  v40.size.height = v11;
-  v41 = CGRectApplyAffineTransform(v40, &transform);
-  CGContextDrawImage(v23, v41, a1);
-  CGContextRestoreGState(v23);
-  CGContextRelease(v23);
-  v24 = v18;
-  *a4 = v18;
-  *a5 = v25;
-  *a6 = v13;
-  *a7 = v17;
+  v46.origin.x = 0.0;
+  v46.origin.y = 0.0;
+  v46.size.width = v15;
+  v46.size.height = v17;
+  v47 = CGRectApplyAffineTransform(v46, &transform);
+  CGContextDrawImage(v29, v47, a1);
+  CGContextRestoreGState(v29);
+  CGContextRelease(v29);
+  v30 = v24;
+  *a4 = v24;
+  *a5 = v31;
+  *a6 = v19;
+  *a7 = v23;
 }
 
 CGFloat sub_197D4@<D0>(CGImage *a1@<X0>, _OWORD *a2@<X1>, uint64_t a3@<X8>)
@@ -2744,7 +2746,7 @@ void sub_19B94(id a1)
   _objc_release_x1();
 }
 
-id NTKUltraCubeComputeFaceRectsForCGImage(uint64_t a1, uint64_t a2)
+NSMutableArray *NTKUltraCubeComputeFaceRectsForCGImage(uint64_t a1, uint64_t a2)
 {
   v4 = objc_opt_new();
   v5 = objc_autoreleasePoolPush();
@@ -3163,7 +3165,7 @@ __CVBuffer *NTKUltraCubeResizePixelBufferIfNeeded(__CVBuffer *a1, void *a2, CGFl
   return a1;
 }
 
-id NTKUltraCubeComputeSegmentation(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, void *a7, _DWORD *a8, _DWORD *a9, _DWORD *a10, unsigned __int8 a11)
+id NTKUltraCubeComputeSegmentation(void *a1, uint64_t a2, uint64_t a3, unint64_t a4, unint64_t a5, unsigned int a6, void *a7, _DWORD *a8, _DWORD *a9, _DWORD *a10, unsigned __int8 a11)
 {
   v15 = a1;
   v16 = _NTKLoggingObjectForDomain();
@@ -3600,7 +3602,7 @@ LABEL_12:
   return v12;
 }
 
-id sub_1C0D4(void *a1, void *a2)
+NTKUltraCubePhoto *sub_1C0D4(void *a1, void *a2)
 {
   v3 = a1;
   v195 = a2;
@@ -4623,7 +4625,7 @@ _NTKLayoutDescriptor *sub_1F52C(void *a1, int a2, void *a3, double a4, double a5
   if (!v30)
   {
 LABEL_57:
-    NTKUltraCubeComputeTimeAboveUnitCropUpOrientation(v9, a4, a5, 0.12345, v13, 0.7531, v12, v14, v11, 480.0, 600.0);
+    NTKUltraCubeComputeTimeAboveUnitCropUpOrientation(a4, a5, 0.12345, v13, 0.7531, v12, v14, v11, v9, 480.0, 600.0);
     v38 = v37;
     v40 = v39;
     v42 = v41;
@@ -4788,9 +4790,9 @@ LABEL_33:
   return v30;
 }
 
-void sub_20B10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_20B10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4864,7 +4866,7 @@ void sub_2151C(uint64_t a1, void *a2, uint64_t a3)
   [v7 cropAndScaleWithCompletion:v8];
 }
 
-void sub_21624(uint64_t a1, uint64_t a2)
+void sub_21624(uint64_t a1, void *a2)
 {
   if (a2)
   {
@@ -5068,7 +5070,7 @@ void sub_24558(void *a1)
   [v9 _setupContainerButton];
 }
 
-uint64_t NTK_PUHapticsAllowed()
+uint64_t NTK_PUHapticsAllowed(uint64_t a1, uint64_t a2)
 {
   if (qword_581D0 != -1)
   {
@@ -5078,19 +5080,19 @@ uint64_t NTK_PUHapticsAllowed()
   return byte_581C8;
 }
 
-void NTKUltraCubeComputeTimeAboveUnitCropUpOrientation(void *a1, double a2, double a3, double a4, double a5, double a6, double a7, double a8, double a9, double a10, double a11)
+void NTKUltraCubeComputeTimeAboveUnitCropUpOrientation(double a1, double a2, double a3, double a4, double a5, double a6, double a7, double a8, void *x0_0, double a9, double a10)
 {
-  v24 = sub_25DAC(a1, 0.2, 0.05);
-  v25 = v24 - v22 * a8;
-  if (v25 >= 0.0)
+  v18 = sub_25DAC(x0_0, 0.2, 0.05);
+  v19 = v18 - v16 * a7;
+  if (v19 >= 0.0)
   {
-    v26 = v21;
-    v27 = a8 + a8 + 1.0;
-    v28 = v26 - v23 * a8;
-    v29 = v25 + v27 * v22;
-    if (v28 >= 0.0 && v29 <= 1.0 && v28 + v27 * v23 <= 1.0)
+    v20 = v15;
+    v21 = a7 + a7 + 1.0;
+    v22 = v20 - v17 * a7;
+    v23 = v19 + v21 * v16;
+    if (v22 >= 0.0 && v23 <= 1.0 && v22 + v21 * v17 <= 1.0)
     {
-      sub_25F1C(a2, a3, a10 / a11, a8, 0.5, a5 + a7, v24 + v22 * 0.5, v26);
+      sub_25F1C(a1, a2, a9 / a10, a7, 0.5, a4 + a6, v18 + v16 * 0.5, v20);
     }
   }
 }
@@ -5177,69 +5179,69 @@ double sub_25F1C(double a1, double a2, double a3, double a4, double a5, double a
 
 double NTKUltraCubeComputeTimeBelowUnitCropUpOrientation(void *a1, double a2, double a3, double a4, double a5, double a6, double a7, double a8, double a9, double a10, double a11)
 {
-  v21 = a1;
-  v25 = sub_25DAC(v21, 0.05, 0.05);
-  v26 = v25 - v23 * a8;
-  if (v26 < 0.0)
+  v15 = a1;
+  v19 = sub_25DAC(v15, 0.05, 0.05);
+  v20 = v19 - v17 * a8;
+  if (v20 < 0.0)
   {
     goto LABEL_31;
   }
 
-  v27 = v22;
-  v28 = v23;
-  v29 = v24;
-  v30 = a8 + a8 + 1.0;
-  v31 = v27 - v24 * a8;
-  v32 = v26 + v30 * v23;
-  v33 = v31 < 0.0 || v32 > 1.0;
-  if (v33 || v31 + v30 * v24 > 1.0)
+  v21 = v16;
+  v22 = v17;
+  v23 = v18;
+  v24 = a8 + a8 + 1.0;
+  v25 = v21 - v18 * a8;
+  v26 = v20 + v24 * v17;
+  v27 = v25 < 0.0 || v26 > 1.0;
+  if (v27 || v25 + v24 * v18 > 1.0)
   {
     goto LABEL_31;
   }
 
-  v54 = 0u;
-  v55 = 0u;
-  v52 = 0u;
-  v53 = 0u;
-  v51 = a5 * 0.3;
-  v35 = v21;
-  v36 = [v35 countByEnumeratingWithState:&v52 objects:v56 count:16];
-  if (v36)
+  v48 = 0u;
+  v49 = 0u;
+  v46 = 0u;
+  v47 = 0u;
+  v45 = a5 * 0.3;
+  v29 = v15;
+  v30 = [v29 countByEnumeratingWithState:&v46 objects:v50 count:16];
+  if (v30)
   {
-    v37 = v36;
-    v38 = *v53;
-    v39 = 1.0;
+    v31 = v30;
+    v32 = *v47;
+    v33 = 1.0;
     do
     {
-      for (i = 0; i != v37; i = i + 1)
+      for (i = 0; i != v31; i = i + 1)
       {
-        if (*v53 != v38)
+        if (*v47 != v32)
         {
-          objc_enumerationMutation(v35);
+          objc_enumerationMutation(v29);
         }
 
-        [*(*(&v52 + 1) + 8 * i) rectValue];
-        if (v41 + v42 * 0.3 < v39)
+        [*(*(&v46 + 1) + 8 * i) rectValue];
+        if (v35 + v36 * 0.3 < v33)
         {
-          v39 = v41 + v42 * 0.3;
+          v33 = v35 + v36 * 0.3;
         }
       }
 
-      v37 = [v35 countByEnumeratingWithState:&v52 objects:v56 count:16];
+      v31 = [v29 countByEnumeratingWithState:&v46 objects:v50 count:16];
     }
 
-    while (v37);
+    while (v31);
   }
 
   else
   {
-    v39 = 1.0;
+    v33 = 1.0;
   }
 
-  x = sub_25F1C(a2, a3, a10 / a11, a8, 0.5, v51, v25 + v28 * 0.5, v39);
-  v47 = x > v25 || v43 > v27;
-  v48 = v47 || x + v44 < v25 + v28;
-  if (v48 || v43 + v45 < v27 + v29)
+  x = sub_25F1C(a2, a3, a10 / a11, a8, 0.5, v45, v19 + v22 * 0.5, v33);
+  v41 = x > v19 || v37 > v21;
+  v42 = v41 || x + v38 < v19 + v22;
+  if (v42 || v37 + v39 < v21 + v23)
   {
 LABEL_31:
     x = CGRectNull.origin.x;
@@ -5250,315 +5252,315 @@ LABEL_31:
 
 double NTKUltraCubeComputeIdealCoverageUnitCropUpOrientation(void *a1, void *a2, double a3, double a4, double a5, double a6, double a7, double a8, double a9, double a10, double a11, double a12)
 {
-  v24 = a2;
-  v28 = sub_25DAC(a1, 0.0, 0.2);
-  v29 = v28 - v26 * a9;
-  if (v29 < 0.0 || ((v30 = v25, v31 = a9 + a9 + 1.0, v32 = v25 - v27 * a9, v33 = v29 + v31 * v26, v32 >= 0.0) ? (v34 = v33 > 1.0) : (v34 = 1), !v34 ? (v35 = v32 + v31 * v27 > 1.0) : (v35 = 1), v35))
+  v19 = a2;
+  v23 = sub_25DAC(a1, 0.0, 0.2);
+  v24 = v23 - v21 * a9;
+  if (v24 < 0.0 || ((v25 = v20, v26 = a9 + a9 + 1.0, v27 = v20 - v22 * a9, v28 = v24 + v26 * v21, v27 >= 0.0) ? (v29 = v28 > 1.0) : (v29 = 1), !v29 ? (v30 = v27 + v26 * v22 > 1.0) : (v30 = 1), v30))
   {
     x = CGRectNull.origin.x;
   }
 
   else
   {
-    v102 = a9 + a9 + 1.0;
-    v94 = a5;
-    v95 = a7;
-    v37 = a6 + a8;
-    v38 = v28 + v26 * 0.5;
-    v39 = (v38 + 0.0) / (a9 + 0.5);
-    v40 = (1.0 - v38) / (a9 + 0.5);
-    if (v39 >= v40)
+    v97 = a9 + a9 + 1.0;
+    v89 = a5;
+    v90 = a7;
+    v32 = a6 + a8;
+    v33 = v23 + v21 * 0.5;
+    v34 = (v33 + 0.0) / (a9 + 0.5);
+    v35 = (1.0 - v33) / (a9 + 0.5);
+    if (v34 >= v35)
     {
-      v41 = v40;
+      v36 = v35;
     }
 
     else
     {
-      v41 = v39;
+      v36 = v34;
     }
 
-    v42 = a3 / a4 * (v41 / (a11 / a12));
-    v105 = a6 + a8;
-    if (1.0 / (a9 * 2.0 + 1.0) >= v25 / (v37 + a9))
+    v37 = a3 / a4 * (v36 / (a11 / a12));
+    v100 = a6 + a8;
+    if (1.0 / (a9 * 2.0 + 1.0) >= v20 / (v32 + a9))
     {
-      v43 = v25 / (v37 + a9);
+      v38 = v20 / (v32 + a9);
     }
 
     else
     {
-      v43 = 1.0 / (a9 * 2.0 + 1.0);
+      v38 = 1.0 / (a9 * 2.0 + 1.0);
     }
 
-    if (v42 <= v43)
+    if (v37 <= v38)
     {
-      v43 = a3 / a4 * (v41 / (a11 / a12));
+      v38 = a3 / a4 * (v36 / (a11 / a12));
     }
 
     else
     {
-      v41 = v41 * (v43 / v42);
+      v36 = v36 * (v38 / v37);
     }
 
-    v44 = v28 + (v26 - v41) * 0.5;
-    v45 = CGRectNull.origin.x;
+    v39 = v23 + (v21 - v36) * 0.5;
+    v40 = CGRectNull.origin.x;
     y = CGRectNull.origin.y;
-    if (v44 > v28 || ((v47 = v25 - v43 * v105, v113 = v28 + v26, v47 <= v25) ? (v48 = v44 + v41 < v28 + v26) : (v48 = 1), v48))
+    if (v39 > v23 || ((v42 = v20 - v38 * v100, v108 = v23 + v21, v42 <= v20) ? (v43 = v39 + v36 < v23 + v21) : (v43 = 1), v43))
     {
-      v85 = CGRectNull.origin.x;
-      v86 = CGRectNull.origin.y;
+      v80 = CGRectNull.origin.x;
+      v81 = CGRectNull.origin.y;
       width = CGRectNull.size.width;
-      v87 = width;
+      v82 = width;
       height = CGRectNull.size.height;
-      v50 = height;
-      v92 = CGRectNull.origin.x;
+      v45 = height;
+      v87 = CGRectNull.origin.x;
     }
 
     else
     {
-      v93 = a8;
-      v106 = 8.0 / a4;
-      v101 = 1.0 - 8.0 / a3;
-      v112 = v25 + v27;
-      v49 = 1.0;
-      v103 = a9 + 1.0;
-      v50 = CGRectNull.size.height;
-      v89 = v50;
-      v90 = CGRectNull.size.width;
-      width = v90;
-      v91 = CGRectNull.origin.y;
-      v92 = CGRectNull.origin.x;
-      v87 = v90;
-      height = v50;
-      v85 = CGRectNull.origin.x;
-      v86 = v91;
-      v110 = v25;
-      v111 = v28;
-      v108 = a9;
-      v104 = v26;
+      v88 = a8;
+      v101 = 8.0 / a4;
+      v96 = 1.0 - 8.0 / a3;
+      v107 = v20 + v22;
+      v44 = 1.0;
+      v98 = a9 + 1.0;
+      v45 = CGRectNull.size.height;
+      v84 = v45;
+      v85 = CGRectNull.size.width;
+      width = v85;
+      v86 = CGRectNull.origin.y;
+      v87 = CGRectNull.origin.x;
+      v82 = v85;
+      height = v45;
+      v80 = CGRectNull.origin.x;
+      v81 = v86;
+      v105 = v20;
+      v106 = v23;
+      v103 = a9;
+      v99 = v21;
       do
       {
-        if (v47 + v43 < v112)
+        if (v42 + v38 < v107)
         {
           break;
         }
 
-        v52 = v41;
-        v53 = v47 <= v49 - v43 * v103 ? v47 : v49 - v43 * v103;
-        v54 = v44 - v52 * a9;
-        if (v54 < 0.0 || ((v55 = v54 + v102 * v52, v56 = v53 - v43 * a9, v56 >= 0.0) ? (v57 = v55 > v49) : (v57 = 1), v57))
+        v47 = v36;
+        v48 = v42 <= v44 - v38 * v98 ? v42 : v44 - v38 * v98;
+        v49 = v39 - v47 * a9;
+        if (v49 < 0.0 || ((v50 = v49 + v97 * v47, v51 = v48 - v38 * a9, v51 >= 0.0) ? (v52 = v50 > v44) : (v52 = 1), v52))
         {
-          v67 = v43;
-          v69 = v52;
+          v62 = v38;
+          v64 = v47;
         }
 
         else
         {
-          v97 = v50;
-          v98 = width;
-          v99 = y;
-          v100 = v45;
-          v107 = -v43;
-          v58 = v102 * v43;
-          v59 = v44 + v52;
-          v60 = v44 + v94 * v52;
-          v96 = v52;
-          v61 = v95 * v52;
-          v62 = v93 * v43;
+          v92 = v45;
+          v93 = width;
+          v94 = y;
+          v95 = v40;
+          v102 = -v38;
+          v53 = v97 * v38;
+          v54 = v39 + v47;
+          v55 = v39 + v89 * v47;
+          v91 = v47;
+          v56 = v90 * v47;
+          v57 = v88 * v38;
           while (1)
           {
-            if (v58 + v56 > v49 || v44 > v28 || v53 > v30 || v59 < v113 || v43 + v53 < v112)
+            if (v53 + v51 > v44 || v39 > v23 || v48 > v25 || v54 < v108 || v38 + v48 < v107)
             {
-              v67 = v43;
+              v62 = v38;
 LABEL_54:
-              a9 = v108;
-              y = v99;
-              v45 = v100;
-              v50 = v97;
-              width = v98;
-              v69 = v96;
+              a9 = v103;
+              y = v94;
+              v40 = v95;
+              v45 = v92;
+              width = v93;
+              v64 = v91;
               goto LABEL_81;
             }
 
-            v67 = v43;
-            [v24 coverageOfTimeLabel:{v60, v53 + a6 * v43, v61, v62}];
-            if (v68 < 0.185)
+            v62 = v38;
+            [v19 coverageOfTimeLabel:{v55, v48 + a6 * v38, v56, v57}];
+            if (v63 < 0.185)
             {
               break;
             }
 
-            v53 = v53 - v106;
-            v56 = v53 + v107 * v108;
-            v30 = v110;
-            v28 = v111;
-            v49 = 1.0;
-            v43 = v67;
-            if (v56 < 0.0)
+            v48 = v48 - v101;
+            v51 = v48 + v102 * v103;
+            v25 = v105;
+            v23 = v106;
+            v44 = 1.0;
+            v38 = v62;
+            if (v51 < 0.0)
             {
               goto LABEL_54;
             }
           }
 
-          y = v99;
-          v45 = v100;
-          v50 = v97;
-          width = v98;
-          if (v68 >= 0.0925)
+          y = v94;
+          v40 = v95;
+          v45 = v92;
+          width = v93;
+          if (v63 >= 0.0925)
           {
-            v45 = v44;
-            y = v53;
-            v69 = v96;
-            width = v96;
-            v50 = v67;
+            v40 = v39;
+            y = v48;
+            v64 = v91;
+            width = v91;
+            v45 = v62;
           }
 
           else
           {
-            v70 = v68 <= 0.0;
-            if (v68 <= 0.0)
+            v65 = v63 <= 0.0;
+            if (v63 <= 0.0)
             {
-              v71 = v85;
+              v66 = v80;
             }
 
             else
             {
-              v71 = v44;
+              v66 = v39;
             }
 
-            v72 = v86;
-            if (!v70)
+            v67 = v81;
+            if (!v65)
             {
-              v72 = v53;
+              v67 = v48;
             }
 
-            v85 = v71;
-            v86 = v72;
-            if (v70)
+            v80 = v66;
+            v81 = v67;
+            if (v65)
             {
-              v73 = v87;
+              v68 = v82;
             }
 
             else
             {
-              v73 = v96;
+              v68 = v91;
             }
 
-            v74 = height;
-            if (!v70)
+            v69 = height;
+            if (!v65)
             {
-              v74 = v67;
+              v69 = v62;
             }
 
-            v87 = v73;
-            height = v74;
-            if (v70)
+            v82 = v68;
+            height = v69;
+            if (v65)
             {
-              v75 = v44;
+              v70 = v39;
             }
 
             else
             {
-              v75 = v92;
+              v70 = v87;
             }
 
-            v76 = v91;
-            if (v70)
+            v71 = v86;
+            if (v65)
             {
-              v76 = v53;
+              v71 = v48;
             }
 
-            v69 = v96;
-            v91 = v76;
-            v92 = v75;
-            if (v70)
+            v64 = v91;
+            v86 = v71;
+            v87 = v70;
+            if (v65)
             {
-              v77 = v96;
+              v72 = v91;
             }
 
             else
             {
-              v77 = v90;
+              v72 = v85;
             }
 
-            v78 = v89;
-            if (v70)
+            v73 = v84;
+            if (v65)
             {
-              v78 = v67;
+              v73 = v62;
             }
 
-            v89 = v78;
-            v90 = v77;
+            v84 = v73;
+            v85 = v72;
           }
 
-          a9 = v108;
+          a9 = v103;
         }
 
 LABEL_81:
-        v114.origin.x = v45;
-        v114.origin.y = y;
-        v114.size.width = width;
-        v114.size.height = v50;
-        if (!CGRectIsEmpty(v114))
+        v109.origin.x = v40;
+        v109.origin.y = y;
+        v109.size.width = width;
+        v109.size.height = v45;
+        if (!CGRectIsEmpty(v109))
         {
           break;
         }
 
-        v41 = v101 * v69;
-        v43 = v101 * v67;
-        v30 = v110;
-        v28 = v111;
-        v47 = v110 - v101 * v67 * v105;
-        v44 = v111 + (v104 - v41) * 0.5;
-        v79 = v44 > v111 || v47 > v110;
-        v80 = v79 || v44 + v41 < v113;
-        v49 = 1.0;
+        v36 = v96 * v64;
+        v38 = v96 * v62;
+        v25 = v105;
+        v23 = v106;
+        v42 = v105 - v96 * v62 * v100;
+        v39 = v106 + (v99 - v36) * 0.5;
+        v74 = v39 > v106 || v42 > v105;
+        v75 = v74 || v39 + v36 < v108;
+        v44 = 1.0;
       }
 
-      while (!v80);
+      while (!v75);
     }
 
-    v115.origin.x = v45;
-    v115.origin.y = y;
-    v115.size.width = width;
-    v115.size.height = v50;
-    IsEmpty = CGRectIsEmpty(v115);
+    v110.origin.x = v40;
+    v110.origin.y = y;
+    v110.size.width = width;
+    v110.size.height = v45;
+    IsEmpty = CGRectIsEmpty(v110);
     if (IsEmpty)
     {
-      x = v85;
+      x = v80;
     }
 
     else
     {
-      x = v45;
+      x = v40;
     }
 
     if (IsEmpty)
     {
-      y = v86;
-      v82 = v87;
+      y = v81;
+      v77 = v82;
     }
 
     else
     {
-      v82 = width;
+      v77 = width;
     }
 
     if (IsEmpty)
     {
-      v83 = height;
+      v78 = height;
     }
 
     else
     {
-      v83 = v50;
+      v78 = v45;
     }
 
-    v116.origin.x = x;
-    v116.origin.y = y;
-    v116.size.width = v82;
-    v116.size.height = v83;
-    if (CGRectIsEmpty(v116))
+    v111.origin.x = x;
+    v111.origin.y = y;
+    v111.size.width = v77;
+    v111.size.height = v78;
+    if (CGRectIsEmpty(v111))
     {
-      x = v92;
+      x = v87;
     }
   }
 
@@ -5678,7 +5680,7 @@ void sub_278A8(uint64_t a1, void *a2)
   }
 }
 
-id sub_27EF4(uint64_t a1, void *a2)
+NTK_PUAdjustmentOption *sub_27EF4(uint64_t a1, void *a2)
 {
   v3 = a2;
   v4 = [v3 unsignedIntegerValue];
@@ -5756,6 +5758,27 @@ void sub_29964(void *a1, void *a2, NSObject *a3)
   v10 = 2112;
   v11 = v7;
   _os_log_error_impl(&dword_0, a3, OS_LOG_TYPE_ERROR, "[SANITIZER:%@]: invalid image list item: %@", &v8, 0x16u);
+}
+
+void sub_29A80()
+{
+  v6 = 136315394;
+  sub_14008();
+  sub_1401C(&dword_0, v0, v1, "%s: bad color effect edit option: %@", v2, v3, v4, v5, v6);
+}
+
+void sub_29AF4()
+{
+  v6 = 136315394;
+  sub_14008();
+  sub_1401C(&dword_0, v0, v1, "%s: bad time alignment edit option: %@", v2, v3, v4, v5, v6);
+}
+
+void sub_29B68()
+{
+  v6 = 136315394;
+  sub_14008();
+  sub_1401C(&dword_0, v0, v1, "%s: bad color edit option: %@", v2, v3, v4, v5, v6);
 }
 
 void sub_29BF0(uint64_t a1, NSObject *a2)

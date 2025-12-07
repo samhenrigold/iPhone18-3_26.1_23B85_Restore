@@ -1,6 +1,7 @@
 @interface CDRichComplicationTemplateView
 - (unint64_t)timelineAnimationFadeTypeOverride;
 - (void)setComplicationTemplate:(id)template reason:(int64_t)reason;
+- (void)setTimeTravelDate:(id)date animated:(BOOL)animated;
 @end
 
 @implementation CDRichComplicationTemplateView
@@ -43,6 +44,18 @@
   }
 
   return integerValue;
+}
+
+- (void)setTimeTravelDate:(id)date animated:(BOOL)animated
+{
+  v6.receiver = self;
+  v6.super_class = CDRichComplicationTemplateView;
+  [(CDRichComplicationView *)&v6 setTimeTravelDate:date animated:animated];
+  complicationTemplate = self->_complicationTemplate;
+  if (complicationTemplate)
+  {
+    [(CDRichComplicationTemplateView *)self setComplicationTemplate:complicationTemplate reason:0];
+  }
 }
 
 @end

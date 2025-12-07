@@ -56,7 +56,7 @@
 
 - (NSArray)barcodes
 {
-  v16[2] = *MEMORY[0x277D85DE8];
+  v15[2] = *MEMORY[0x277D85DE8];
   if (!self->_barcodes)
   {
     if ([(NPKPaymentBarcode *)self state]== 1)
@@ -76,9 +76,9 @@
       v9 = [v7 stringWithUTF8String:{objc_msgSend(decryptedBarcodeCredential3, "bytes")}];
       [v5 setAltText:v9];
 
-      v16[0] = v3;
-      v16[1] = v5;
-      v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:2];
+      v15[0] = v3;
+      v15[1] = v5;
+      v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:2];
       barcodes = self->_barcodes;
       self->_barcodes = v10;
     }
@@ -91,7 +91,6 @@
   }
 
   v13 = self->_barcodes;
-  v14 = *MEMORY[0x277D85DE8];
 
   return v13;
 }

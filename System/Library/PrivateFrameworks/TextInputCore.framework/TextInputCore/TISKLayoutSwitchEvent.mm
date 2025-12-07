@@ -1,6 +1,7 @@
 @interface TISKLayoutSwitchEvent
 - (double)touchDownTimestamp;
 - (double)touchUpTimestamp;
+- (id)init:(double)init layout:(id)layout emojiSearchMode:(BOOL)mode order:(int64_t)order;
 - (void)reportToSession:(id)session;
 @end
 
@@ -58,6 +59,22 @@
   }
 
   return result;
+}
+
+- (id)init:(double)init layout:(id)layout emojiSearchMode:(BOOL)mode order:(int64_t)order
+{
+  modeCopy = mode;
+  layoutCopy = layout;
+  v15.receiver = self;
+  v15.super_class = TISKLayoutSwitchEvent;
+  v12 = [(TISKTimestampEvent *)&v15 init:10 timestamp:modeCopy emojiSearchMode:order order:init];
+  v13 = v12;
+  if (v12)
+  {
+    objc_storeStrong(v12 + 5, layout);
+  }
+
+  return v13;
 }
 
 @end

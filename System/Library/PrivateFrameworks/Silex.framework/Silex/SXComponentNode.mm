@@ -1,9 +1,9 @@
 @interface SXComponentNode
 - (BOOL)isEqual:(id)equal;
+- (char)hasDependencyToComponentIdentifier:(uint64_t)identifier attribute:;
 - (id)dependencies;
 - (id)description;
 - (uint64_t)addComponentDependency:(uint64_t)result;
-- (uint64_t)hasDependencyToComponentIdentifier:(uint64_t)identifier attribute:;
 - (void)initWithComponentIdentifier:(uint64_t)identifier andAttribute:;
 @end
 
@@ -128,7 +128,7 @@ LABEL_6:
   return self;
 }
 
-- (uint64_t)hasDependencyToComponentIdentifier:(uint64_t)identifier attribute:
+- (char)hasDependencyToComponentIdentifier:(uint64_t)identifier attribute:
 {
   v5 = a2;
   if (self)
@@ -139,7 +139,7 @@ LABEL_6:
       v6 = 32;
     }
 
-    self = [*(self + v6) containsObject:v5];
+    self = [*&self[v6] containsObject:v5];
   }
 
   return self;

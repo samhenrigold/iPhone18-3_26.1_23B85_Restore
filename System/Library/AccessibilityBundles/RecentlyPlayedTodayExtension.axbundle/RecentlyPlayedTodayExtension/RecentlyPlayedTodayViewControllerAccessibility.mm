@@ -1,6 +1,7 @@
 @interface RecentlyPlayedTodayViewControllerAccessibility
 + (void)_accessibilityPerformValidations:(id)validations;
 - (void)_accessibilityLoadAccessibilityInformation;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation RecentlyPlayedTodayViewControllerAccessibility
@@ -36,6 +37,14 @@
   v7.receiver = self;
   v7.super_class = RecentlyPlayedTodayViewControllerAccessibility;
   [(RecentlyPlayedTodayViewControllerAccessibility *)&v7 _accessibilityLoadAccessibilityInformation];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = RecentlyPlayedTodayViewControllerAccessibility;
+  [(RecentlyPlayedTodayViewControllerAccessibility *)&v4 viewWillAppear:appear];
+  [(RecentlyPlayedTodayViewControllerAccessibility *)self _accessibilityLoadAccessibilityInformation];
 }
 
 @end

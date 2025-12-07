@@ -14,20 +14,20 @@
   v6 = a3;
   v7 = [v5 alloc];
   v8 = MEMORY[0x1E69DCAB8];
-  if (_SSScreenshotsRedesign2025Enabled())
+  if (_SSScreenshotsRedesign2025Enabled(v7, v9))
   {
-    v9 = @"arrow.uturn.backward";
+    v10 = @"arrow.uturn.backward";
   }
 
   else
   {
-    v9 = @"arrow.uturn.backward.circle";
+    v10 = @"arrow.uturn.backward.circle";
   }
 
-  v10 = [v8 systemImageNamed:v9];
-  v11 = [v7 initWithImage:v10 style:0 target:v6 action:a4];
+  v11 = [v8 systemImageNamed:v10];
+  v12 = [v7 initWithImage:v11 style:0 target:v6 action:a4];
 
-  return v11;
+  return v12;
 }
 
 + (id)_sss_redoItemWithTarget:()SSSAdditions action:
@@ -36,20 +36,20 @@
   v6 = a3;
   v7 = [v5 alloc];
   v8 = MEMORY[0x1E69DCAB8];
-  if (_SSScreenshotsRedesign2025Enabled())
+  if (_SSScreenshotsRedesign2025Enabled(v7, v9))
   {
-    v9 = @"arrow.uturn.forward";
+    v10 = @"arrow.uturn.forward";
   }
 
   else
   {
-    v9 = @"arrow.uturn.forward.circle";
+    v10 = @"arrow.uturn.forward.circle";
   }
 
-  v10 = [v8 systemImageNamed:v9];
-  v11 = [v7 initWithImage:v10 style:0 target:v6 action:a4];
+  v11 = [v8 systemImageNamed:v10];
+  v12 = [v7 initWithImage:v11 style:0 target:v6 action:a4];
 
-  return v11;
+  return v12;
 }
 
 + (id)_sss_shareItemWithTarget:()SSSAdditions action:

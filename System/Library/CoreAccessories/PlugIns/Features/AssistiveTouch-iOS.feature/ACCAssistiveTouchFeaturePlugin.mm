@@ -45,10 +45,73 @@
 
 - (void)startPlugin
 {
-  v7 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_2335A9000, MEMORY[0x277D86220], v0, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v1, v2, v3, v4, v6);
-  v5 = *MEMORY[0x277D85DE8];
+  if (gLogObjects)
+  {
+    v3 = gNumLogObjects < 1;
+  }
+
+  else
+  {
+    v3 = 1;
+  }
+
+  if (v3)
+  {
+    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+    {
+      [ACCAssistiveTouchFeaturePlugin startPlugin];
+    }
+
+    v5 = MEMORY[0x277D86220];
+    v4 = MEMORY[0x277D86220];
+  }
+
+  else
+  {
+    v5 = *gLogObjects;
+  }
+
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 0;
+    _os_log_impl(&dword_2335A9000, v5, OS_LOG_TYPE_DEFAULT, "Starting AssistiveTouch feature plugin...", buf, 2u);
+  }
+
+  v6 = dispatch_queue_create("com.apple.coreaccessories.plugin.AssistiveTouch", 0);
+  assistiveTouchQueue = self->_assistiveTouchQueue;
+  self->_assistiveTouchQueue = v6;
+
+  _AXSAssistiveTouchEnabled();
+  v8 = [objc_alloc(MEMORY[0x277CE8050]) initWithDelegate:self initialState:_AXSAssistiveTouchEnabled() != 0];
+  assistiveTouchProvider = self->_assistiveTouchProvider;
+  self->_assistiveTouchProvider = v8;
+
+  if (gLogObjects && gNumLogObjects >= 1)
+  {
+    v10 = *gLogObjects;
+  }
+
+  else
+  {
+    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+    {
+      [ACCAssistiveTouchFeaturePlugin startPlugin];
+    }
+
+    v10 = MEMORY[0x277D86220];
+    v11 = MEMORY[0x277D86220];
+  }
+
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+  {
+    *v13 = 0;
+    _os_log_impl(&dword_2335A9000, v10, OS_LOG_TYPE_INFO, "assistiveTouch Adding observer for kAXSAssistiveTouchEnabledNotification...", v13, 2u);
+  }
+
+  defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
+  [defaultCenter addObserver:self selector:sel__assistiveTouchToggled_ name:*MEMORY[0x277D81C50] object:0];
+
+  [(ACCAssistiveTouchFeaturePlugin *)self setIsRunning:1];
 }
 
 - (void)stopPlugin
@@ -121,7 +184,7 @@
 - (void)assistiveTouch:(id)touch setEnabled:(BOOL)enabled
 {
   enabledCopy = enabled;
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   touchCopy = touch;
   if (gLogObjects)
   {
@@ -151,9 +214,9 @@
 
   if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
-    v11[0] = 67109120;
-    v11[1] = enabledCopy;
-    _os_log_impl(&dword_2335A9000, v9, OS_LOG_TYPE_INFO, "assistiveTouchSetEnabled: enable=%d", v11, 8u);
+    v10[0] = 67109120;
+    v10[1] = enabledCopy;
+    _os_log_impl(&dword_2335A9000, v9, OS_LOG_TYPE_INFO, "assistiveTouchSetEnabled: enable=%d", v10, 8u);
   }
 
   if (enabledCopy)
@@ -165,8 +228,6 @@
   {
     [(ACCAssistiveTouchFeaturePlugin *)self _stopAssistiveTouch:touchCopy];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_assistiveTouchToggled:(id)toggled
@@ -349,11 +410,10 @@ void __54__ACCAssistiveTouchFeaturePlugin__stopAssistiveTouch___block_invoke()
 
 void __57__ACCAssistiveTouchFeaturePlugin__assistiveTouchToggled___block_invoke_cold_2(char a1, NSObject *a2)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v3[0] = 67109120;
-  v3[1] = a1 & 1;
-  _os_log_debug_impl(&dword_2335A9000, a2, OS_LOG_TYPE_DEBUG, "assistiveTouch notifyEnabledState: enabled=%d", v3, 8u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v2[0] = 67109120;
+  v2[1] = a1 & 1;
+  _os_log_debug_impl(&dword_2335A9000, a2, OS_LOG_TYPE_DEBUG, "assistiveTouch notifyEnabledState: enabled=%d", v2, 8u);
 }
 
 @end

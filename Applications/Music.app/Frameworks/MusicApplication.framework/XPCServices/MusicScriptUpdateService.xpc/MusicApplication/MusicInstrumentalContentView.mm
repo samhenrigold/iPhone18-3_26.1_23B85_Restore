@@ -8,7 +8,7 @@
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_10047D3BC();
+  sub_10047D3BC(selfCopy, v2);
 }
 
 - (MusicInstrumentalContentView)initWithFrame:(CGRect)frame

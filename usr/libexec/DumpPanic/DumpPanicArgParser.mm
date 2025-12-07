@@ -1,4 +1,5 @@
 @interface DumpPanicArgParser
++ (id)withArgs:(char *)args count:(int)count;
 - (DumpPanicArgParser)initWithArgs:(char *)args count:(int)count;
 - (void)usage;
 @end
@@ -62,6 +63,13 @@
 
   while (v7 != -1);
   return self;
+}
+
++ (id)withArgs:(char *)args count:(int)count
+{
+  v4 = [[DumpPanicArgParser alloc] initWithArgs:args count:*&count];
+
+  return v4;
 }
 
 @end

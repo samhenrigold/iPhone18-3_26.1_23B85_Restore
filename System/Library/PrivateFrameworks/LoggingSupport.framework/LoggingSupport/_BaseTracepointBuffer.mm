@@ -721,7 +721,6 @@ LABEL_5:
 {
   [(_BaseTracepointBuffer *)self consolidate];
   v5 = self->_count + buffer;
-  events = self->_events;
   self->_events = _os_trace_realloc_typed();
   self->_size = v5;
 }

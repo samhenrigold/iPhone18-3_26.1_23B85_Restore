@@ -1086,9 +1086,17 @@ void __57__UIMenu__copyPreservingMetadataAndSharingLeafObservers___block_invoke(
 {
   equalCopy = equal;
   objc_opt_class();
-  v5 = (objc_opt_isKindOfClass() & 1) != 0 && [(NSString *)self->_identifier isEqualToString:equalCopy[13]];
+  if (objc_opt_isKindOfClass())
+  {
+    isEqualToString = objc_msgSend_isEqualToString_(self->_identifier);
+  }
 
-  return v5;
+  else
+  {
+    isEqualToString = 0;
+  }
+
+  return isEqualToString;
 }
 
 - (id)childElementForElement:(id)element
@@ -1173,7 +1181,7 @@ void __33__UIMenu_childElementForElement___block_invoke(uint64_t a1, void *a2)
 void __33__UIMenu_childElementForElement___block_invoke_2(uint64_t a1, void *a2)
 {
   v4 = a2;
-  if ([v4 isEqual:*(a1 + 32)])
+  if (objc_msgSend_isEqual_(v4))
   {
     objc_storeStrong((*(*(a1 + 40) + 8) + 40), a2);
   }
@@ -1305,10 +1313,10 @@ void __33__UIMenu_childElementForElement___block_invoke_2(uint64_t a1, void *a2)
 
 void __49__UIMenu_updateChildrenForSingleSelectedElement___block_invoke(uint64_t a1, void *a2)
 {
-  v3 = a2;
-  if (([v3 isEqual:*(a1 + 32)] & 1) == 0 && objc_msgSend(v3, "state") == 1)
+  v2 = a2;
+  if ((objc_msgSend_isEqual_(v2) & 1) == 0 && [v2 state] == 1)
   {
-    [v3 _setState:0 notifyingObservers:0];
+    [v2 _setState:0 notifyingObservers:0];
   }
 }
 
@@ -1604,7 +1612,7 @@ void __46__UIMenu_DefaultMenus___defaultMenuImageNames__block_invoke()
 
   if (!v11)
   {
-    if ([identifierCopy isEqualToString:@"com.apple.menu.application"] && (+[UIApplication _applicationNameForMenus](UIApplication, "_applicationNameForMenus"), (v12 = objc_claimAutoreleasedReturnValue()) != 0))
+    if (objc_msgSend_isEqualToString_(identifierCopy) && (+[UIApplication _applicationNameForMenus], (v12 = objc_claimAutoreleasedReturnValue()) != 0))
     {
       v11 = v12;
     }

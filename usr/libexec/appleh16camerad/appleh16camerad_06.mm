@@ -1,3 +1,103 @@
+uint64_t sub_100061720(uint64_t result, unsigned __int16 *a2, uint64_t a3, uint64_t a4, double a5, double a6)
+{
+  v6 = *(a4 + 14);
+  if (*(a4 + 14))
+  {
+    v7 = 0;
+    v8 = 0;
+    v9 = 0;
+    v10 = *(a4 + 12);
+    do
+    {
+      if (v10)
+      {
+        v11 = 0;
+        do
+        {
+          v12 = v11 + v7 * v10;
+          LOWORD(a6) = *(result + 2 * v12);
+          HIWORD(v13) = 17792;
+          LOWORD(v13) = *(a3 + 2 * v12);
+          a6 = fmin(((LODWORD(a6) * 4096.0) / v13), 65535.0);
+          v14 = llround(a6);
+          *(result + 2 * v12) = v14;
+          if (v9 <= v14)
+          {
+            v9 = v14;
+          }
+
+          v10 = *(a4 + 12);
+          ++v11;
+        }
+
+        while (v11 < v10);
+        v6 = *(a4 + 14);
+      }
+
+      ++v8;
+      ++v7;
+    }
+
+    while (v8 < v6);
+  }
+
+  else
+  {
+    v9 = 0;
+  }
+
+  *a2 = v9;
+  return result;
+}
+
+uint64_t sub_1000617C0(uint64_t result, unsigned __int16 *a2, uint64_t a3, uint64_t a4, char a5)
+{
+  v5 = *(a4 + 14);
+  if (*(a4 + 14))
+  {
+    v6 = 0;
+    v7 = 0;
+    v8 = 0;
+    v9 = *(a4 + 12);
+    do
+    {
+      if (v9)
+      {
+        v10 = 0;
+        do
+        {
+          v11 = v10 + v6 * v9;
+          v12 = llround(fmin(1.0 / *(a3 + 8 * v11) * (1 << a5), 65535.0));
+          *(result + 2 * v11) = v12;
+          if (v7 <= v12)
+          {
+            v7 = v12;
+          }
+
+          v9 = *(a4 + 12);
+          ++v10;
+        }
+
+        while (v10 < v9);
+        v5 = *(a4 + 14);
+      }
+
+      ++v8;
+      ++v6;
+    }
+
+    while (v8 < v5);
+  }
+
+  else
+  {
+    v7 = 0;
+  }
+
+  *a2 = v7;
+  return result;
+}
+
 uint64_t sub_100061858(uint64_t result, uint64_t a2, uint64_t a3, char a4)
 {
   v4 = *(a3 + 14);
@@ -1109,42 +1209,42 @@ uint64_t sub_100062954()
   return result;
 }
 
-void sub_100062F08(uint64_t a1, uint64_t a2, unsigned int a3, unsigned int a4, uint64_t a5, uint64_t a6, uint64_t a7, int a8, int a9, uint64_t a10, uint64_t a11)
+void sub_100062F08(uint64_t a1, uint64_t a2, unsigned int a3, unsigned int a4, char a5, uint64_t a6, unsigned int a7, int a8, int a9, uint64_t a10, uint64_t a11, unsigned __int16 a12)
 {
-  v14 = *(a1 + 14) >> 1;
-  v15 = *(a1 + 16) >> 1;
-  v18 = a8 / 2;
-  v19 = a9 / 2;
+  v15 = *(a1 + 14) >> 1;
+  v16 = *(a1 + 16) >> 1;
+  v19 = a8 / 2;
+  v20 = a9 / 2;
   if (a3)
-  {
-    v11 = 0;
-    do
-    {
-      v13[v11] = *(a10 + 4 * v11);
-      ++v11;
-    }
-
-    while (a3 > v11);
-  }
-
-  if (a4)
   {
     v12 = 0;
     do
     {
-      v13[v12 + 27] = *(a11 + 4 * v12);
+      v14[v12] = *(a10 + 4 * v12);
       ++v12;
     }
 
-    while (a4 > v12);
+    while (a3 > v12);
   }
 
-  v20 = a1 + 18;
-  v21 = a1 + 36;
-  v22 = a1 + 54;
-  v23 = a1 + 72;
-  v16 = *(a1 + 20);
-  v17 = *(a1 + 28);
+  if (a4)
+  {
+    v13 = 0;
+    do
+    {
+      v14[v13 + 27] = *(a11 + 4 * v13);
+      ++v13;
+    }
+
+    while (a4 > v13);
+  }
+
+  v21 = a1 + 18;
+  v22 = a1 + 36;
+  v23 = a1 + 54;
+  v24 = a1 + 72;
+  v17 = *(a1 + 20);
+  v18 = *(a1 + 28);
   operator new[]();
 }
 
@@ -1373,42 +1473,42 @@ LABEL_19:
   return result;
 }
 
-void sub_100063638(uint64_t a1, uint64_t a2, unsigned int a3, unsigned int a4, uint64_t a5, uint64_t a6, uint64_t a7, int a8, int a9, uint64_t a10, uint64_t a11)
+void sub_100063638(uint64_t a1, uint64_t a2, unsigned int a3, unsigned int a4, char a5, uint64_t a6, unsigned int a7, int a8, int a9, uint64_t a10, uint64_t a11, unsigned __int16 a12)
 {
-  v14 = *(a1 + 14) >> 1;
-  v15 = *(a1 + 16) >> 1;
-  v18 = a8 / 2;
-  v19 = a9 / 2;
+  v15 = *(a1 + 14) >> 1;
+  v16 = *(a1 + 16) >> 1;
+  v19 = a8 / 2;
+  v20 = a9 / 2;
   if (a3)
-  {
-    v11 = 0;
-    do
-    {
-      v13[v11] = *(a10 + 4 * v11);
-      ++v11;
-    }
-
-    while (a3 > v11);
-  }
-
-  if (a4)
   {
     v12 = 0;
     do
     {
-      v13[v12 + 27] = *(a11 + 4 * v12);
+      v14[v12] = *(a10 + 4 * v12);
       ++v12;
     }
 
-    while (a4 > v12);
+    while (a3 > v12);
   }
 
-  v20 = a1 + 18;
-  v21 = a1 + 36;
-  v22 = a1 + 54;
-  v23 = a1 + 72;
-  v16 = *(a1 + 20);
-  v17 = *(a1 + 28);
+  if (a4)
+  {
+    v13 = 0;
+    do
+    {
+      v14[v13 + 27] = *(a11 + 4 * v13);
+      ++v13;
+    }
+
+    while (a4 > v13);
+  }
+
+  v21 = a1 + 18;
+  v22 = a1 + 36;
+  v23 = a1 + 54;
+  v24 = a1 + 72;
+  v17 = *(a1 + 20);
+  v18 = *(a1 + 28);
   operator new[]();
 }
 
@@ -1641,7 +1741,7 @@ LABEL_19:
   return result;
 }
 
-void sub_100063D70(uint64_t a1, int a2, unsigned int a3, unsigned int a4, uint64_t a5, uint64_t a6, int a7, int __e)
+void sub_100063D70(uint64_t a1, uint64_t a2, unsigned int a3, unsigned int a4, uint64_t a5, uint64_t a6, int a7, int __e)
 {
   v12 = *(a1 + 14) >> 1;
   v13 = *(a1 + 16) >> 1;
@@ -1902,7 +2002,7 @@ LABEL_19:
   }
 }
 
-void sub_1000644F4(uint64_t a1, int a2, unsigned int a3, unsigned int a4, uint64_t a5, uint64_t a6, int a7, int __e)
+void sub_1000644F4(uint64_t a1, uint64_t a2, unsigned int a3, unsigned int a4, uint64_t a5, uint64_t a6, int a7, int __e)
 {
   v12 = *(a1 + 14) >> 1;
   v13 = *(a1 + 16) >> 1;
@@ -1954,7 +2054,7 @@ void sub_1000644F4(uint64_t a1, int a2, unsigned int a3, unsigned int a4, uint64
   operator new[]();
 }
 
-void sub_10006482C(_WORD *a1, int a2, unsigned int a3, unsigned int a4, uint64_t a5, uint64_t a6, int a7, int __e)
+void sub_10006482C(unsigned __int16 *a1, uint64_t a2, unsigned int a3, unsigned int a4, uint64_t a5, uint64_t a6, int a7, int __e)
 {
   v19 = a1[7] >> 1;
   v20 = a1[8] >> 1;
@@ -2037,8 +2137,8 @@ uint64_t sub_100064B34(uint64_t result, uint64_t a2, unsigned __int16 *a3, doubl
     v90 = 0;
     v87 = a3[3];
     v13 = a3[2];
-    v14 = (a4 + 7);
-    v15 = a4 + 82;
+    v14 = a4 + 7;
+    v15 = a4 + 164;
     v94 = a2 - 4;
     v95 = a2 + 2;
     v86 = a3[5];
@@ -2084,7 +2184,7 @@ LABEL_12:
       v27 = 0;
       LOWORD(v21) = *(a4 + 1);
       *&v21 = LODWORD(v21);
-      while (v18 >= (*&v15[2 * v27] * *&v21))
+      while (v18 >= (*&v15[4 * v27] * *&v21))
       {
         if (v20 == ++v27)
         {
@@ -2114,8 +2214,8 @@ LABEL_18:
             do
             {
               v41 = 0;
-              v99[v36] = *&v14[2 * v36 - 4 + 2 * v26];
-              v98[v36] = *&v15[2 * v36 + 2 * v38];
+              v99[v36] = *(v14 + v36 + v26 - 2);
+              v98[v36] = *&v15[4 * v36 + 4 * v38];
               v42 = v39;
               do
               {
@@ -2133,12 +2233,12 @@ LABEL_18:
             while (v36 != 4);
             LOWORD(v37) = *a4;
             v43 = v25 / *&v37;
-            v44 = *&v14[2 * v28];
+            v44 = *(v14 + v28);
             v45 = v43 - v44;
-            *&v46 = (*&v14[2 * v26] - v44);
+            *&v46 = (*(v14 + v26) - v44);
             v47 = v45 / *&v46;
             LOWORD(v46) = *(a4 + 1);
-            sub_100061198(v100, v99, v98, v47, (v18 / v46 - *&v15[2 * v31]) / (*&v15[2 * v30] - *&v15[2 * v31]));
+            sub_100061198(v100, v99, v98, v47, (v18 / v46 - *&v15[4 * v31]) / (*&v15[4 * v30] - *&v15[4 * v31]));
             v21 = 0.125;
             if (v48 < 0.125)
             {
@@ -2177,12 +2277,12 @@ LABEL_18:
         v60 = *(a2 + 2 * (v57 + 1)) / v58;
         LOWORD(a11) = *a4;
         v61 = LODWORD(a11);
-        v62 = roundf(*&v14[2 * v55] * v61);
+        v62 = roundf(*(v14 + v55) * v61);
         LOWORD(v11) = *(a4 + 1);
         v63 = LODWORD(v11);
-        v64 = roundf(*&v15[2 * v56] * v63);
-        a11 = roundf(*&v14[2 * v55 + 2] * v61);
-        v11 = roundf(*&v15[2 * v56 + 2] * v63);
+        v64 = roundf(*&v15[4 * v56] * v63);
+        a11 = roundf(*(v14 + v55 + 1) * v61);
+        v11 = roundf(*&v15[4 * v56 + 4] * v63);
         v65 = v25 - v62;
         v66 = a11 - v25;
         v67 = (*(a2 + 2 * (v55 + (v56 + 1) * v19)) / v58 * v66 + v65 * (*(a2 + 2 * (v55 + (v56 + 1) * v19 + 1)) / v58)) / (v65 + v66);
@@ -2266,10 +2366,10 @@ LABEL_68:
           v76 = *(a4 + 1);
           if (v49)
           {
-            v77 = roundf(*&v14[2 * v49] * v75);
-            v78 = roundf(*&v15[2 * v50] * v76);
-            v79 = roundf(*&v14[2 * v49 + 2] * v75);
-            a11 = roundf(*&v15[2 * v50 + 2] * v76);
+            v77 = roundf(*(v14 + v49) * v75);
+            v78 = roundf(*&v15[4 * v50] * v76);
+            v79 = roundf(*(v14 + v49 + 1) * v75);
+            a11 = roundf(*&v15[4 * v50 + 4] * v76);
             v80 = (*(a2 + 2 * (v49 + v50 * v19)) / a4[6] * (v79 - v25) + (v25 - v77) * (*(a2 + 2 * (v49 + v50 * v19 + 1)) / a4[6])) / (v25 - v77 + v79 - v25);
             v71 = (a11 - v18) * v80 + (v18 - v78) * v80;
             v72 = v18 - v78 + a11 - v18;
@@ -2280,12 +2380,12 @@ LABEL_68:
         v81 = a4[6];
         v82 = *(a2 + 2 * (v49 + (v50 + 1) * v19));
         v83 = *(a2 + 2 * (v49 + v50 * v19)) / v81;
-        a11 = roundf(*&v15[2 * v50 + 2] * v76);
-        v84 = v25 - roundf(*&v14[2 * v49] * v75);
-        v85 = roundf(*&v14[2 * v49 + 2] * v75) - v25;
+        a11 = roundf(*&v15[4 * v50 + 4] * v76);
+        v84 = v25 - roundf(*(v14 + v49) * v75);
+        v85 = roundf(*(v14 + v49 + 1) * v75) - v25;
         v67 = (v82 / v81 * v85 + v84 * (v82 / v81)) / (v84 + v85);
         v68 = (v83 * v85 + v84 * v83) / (v84 + v85);
-        v69 = v18 - roundf(*&v15[2 * v50] * v76);
+        v69 = v18 - roundf(*&v15[4 * v50] * v76);
         v70 = a11 - v18;
       }
 
@@ -2307,7 +2407,7 @@ LABEL_71:
     v26 = 0;
     LOWORD(v21) = *a4;
     *&v21 = LODWORD(v21);
-    while (v25 >= (*&v14[2 * v26] * *&v21))
+    while (v25 >= (*(v14 + v26) * *&v21))
     {
       if (v19 == ++v26)
       {
@@ -2539,34 +2639,30 @@ void sub_10006B6E0(uint64_t a1, unint64_t a2)
   sub_1000196F4();
 }
 
-void *sub_10006B728(void *result, unint64_t a2)
+void sub_10006B728(void *a1, unint64_t a2)
 {
-  if (a2 > (result[2] - *result) >> 3)
+  if (a2 > (a1[2] - *a1) >> 3)
   {
     if (!(a2 >> 61))
     {
-      sub_10006B698(result, a2);
+      sub_10006B698(a1, a2);
     }
 
     sub_1000251B8();
   }
-
-  return result;
 }
 
-void *sub_10006B7C8(void *result, unint64_t a2)
+void sub_10006B7C8(void *a1, unint64_t a2)
 {
-  if (a2 > (result[2] - *result) >> 3)
+  if (a2 > (a1[2] - *a1) >> 3)
   {
     if (!(a2 >> 61))
     {
-      sub_10006B6E0(result, a2);
+      sub_10006B6E0(a1, a2);
     }
 
     sub_1000251B8();
   }
-
-  return result;
 }
 
 void sub_10006B868(uint64_t a1, uint64_t a2, int a3, int a4)
@@ -2590,19 +2686,19 @@ void sub_10006B868(uint64_t a1, uint64_t a2, int a3, int a4)
   operator new[]();
 }
 
-uint64_t sub_10006B954(uint64_t result, int a2, int a3)
+uint64_t sub_10006B954(uint64_t a1, int a2, int a3)
 {
-  *result = off_1000A1CE0;
+  *a1 = off_1000A1CE0;
   if (a3 * a2)
   {
     operator new[]();
   }
 
-  *(result + 8) = 0;
-  *(result + 16) = a2;
-  *(result + 20) = a3;
-  *(result + 24) = 0;
-  return result;
+  *(a1 + 8) = 0;
+  *(a1 + 16) = a2;
+  *(a1 + 20) = a3;
+  *(a1 + 24) = 0;
+  return a1;
 }
 
 uint64_t sub_10006B9E0(char *a1, const char *a2, uint64_t a3, uint64_t a4)
@@ -3162,13 +3258,13 @@ BOOL sub_10006C674(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, _DWORD *a
   return v37 > *(a2 + 712) && v16 > *(a2 + 720);
 }
 
-void sub_10006DF5C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, char a53, uint64_t a54, uint64_t a55, uint64_t a56, char a57, uint64_t a58, uint64_t a59, uint64_t a60, char a61, uint64_t a62, uint64_t a63)
+void sub_10006DF5C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
   sub_100016068(&a53);
   sub_100016068(&a57);
   sub_100016068(&a61);
   sub_100016068(&a65);
-  sub_10006DFD0(&a69);
+  sub_10006DFD0(&a66);
   _Unwind_Resume(a1);
 }
 
@@ -3187,7 +3283,7 @@ uint64_t sub_10006DFD0(uint64_t a1)
   return a1;
 }
 
-void GridArea::PrepareGrid(_DWORD *a1, float *a2, uint64_t a3, float *a4, int a5)
+void GridArea::PrepareGrid(_DWORD *a1, float *a2, float *a3, float *a4, unsigned int a5)
 {
   v5 = ((a4[1] - *a4) / a4[2]);
   v6 = ((((a2[1] - *a2) / a2[2]) + 1.0) + (2 * a5));
@@ -3436,7 +3532,7 @@ void GridArea::FitParabolaModel(GridArea *this, double *a2, double *a3)
     while (v3 != v7);
   }
 
-  v10 = off_1000A1C28;
+  v10 = &off_1000A1C28;
   v11 = this;
   v12 = v3;
   v13 = 1;
@@ -3444,15 +3540,16 @@ void GridArea::FitParabolaModel(GridArea *this, double *a2, double *a3)
   sub_10003C670(v15);
 }
 
-void sub_10006E8A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, char a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, char a25)
+void sub_10006E8A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  sub_100016068(&a25);
+  va_start(va, a24);
+  sub_100016068(va);
   sub_100016068(&a9);
   sub_100016068(&a21);
   sub_100016068(&a17);
   sub_100016068(&a13);
-  sub_100016068(v25 - 112);
-  sub_100016068(v25 - 80);
+  sub_100016068(v24 - 112);
+  sub_100016068(v24 - 80);
   _Unwind_Resume(a1);
 }
 
@@ -3477,8 +3574,8 @@ LABEL_8:
 
 LABEL_4:
   sub_100016114(a3, v6, v6);
-  v7 = sub_10006EFB0(a1);
-  if (v7 == 0.0)
+  v8 = sub_10006EFB0(a1, v7);
+  if (v8 == 0.0)
   {
     if (a2)
     {
@@ -3495,71 +3592,71 @@ LABEL_4:
 
     if (*(a1 + 16) == 2)
     {
-      **(a3 + 8) = *(*(a1 + 8) + 24) / v7;
-      *(*(a3 + 8) + 8) = -*(*(a1 + 8) + 8) / v7;
-      *(*(a3 + 8) + 16) = -*(*(a1 + 8) + 16) / v7;
-      *(*(a3 + 8) + 24) = **(a1 + 8) / v7;
+      **(a3 + 8) = *(*(a1 + 8) + 24) / v8;
+      *(*(a3 + 8) + 8) = -*(*(a1 + 8) + 8) / v8;
+      *(*(a3 + 8) + 16) = -*(*(a1 + 8) + 16) / v8;
+      *(*(a3 + 8) + 24) = **(a1 + 8) / v8;
     }
 
     else
     {
-      v8 = *(a1 + 20);
-      if (v8)
+      v9 = *(a1 + 20);
+      if (v9)
       {
-        v9 = 0;
-        v10 = *(a3 + 16);
-        v11 = 5;
-        v12 = 1;
-        v13 = 8;
-        v14 = 2;
-        v15 = 7;
-        v16 = 4;
+        v10 = 0;
+        v11 = *(a3 + 16);
+        v12 = 5;
+        v13 = 1;
+        v14 = 8;
+        v15 = 2;
+        v16 = 7;
+        v17 = 4;
         do
         {
-          v17 = 0;
           v18 = 0;
-          v19 = 9 * (v12 / 3);
-          v20 = 9 * (v14 / 3);
-          v21 = v9 + 1;
-          v22 = *(a3 + 20);
-          v23 = v11 - v19;
-          v24 = v13 - v20;
-          v25 = v15 - v20;
-          v26 = v16 - v19;
-          v27 = 2;
-          v28 = 1;
+          v19 = 0;
+          v20 = 9 * (v13 / 3);
+          v21 = 9 * (v15 / 3);
+          v22 = v10 + 1;
+          v23 = *(a3 + 20);
+          v24 = v12 - v20;
+          v25 = v14 - v21;
+          v26 = v16 - v21;
+          v27 = v17 - v20;
+          v28 = 2;
+          v29 = 1;
           do
           {
-            if (v18 >= v10 || v9 >= v22)
+            if (v19 >= v11 || v10 >= v23)
             {
               __assert_rtn("operator()", "Matrix.hpp", 119, "row < m_rows && col < m_cols");
             }
 
-            v29 = *(a1 + 8);
-            *(*(a3 + 8) + 8 * v9 + 8 * v17) = (*(v29 + 8 * (v18 + v26 - 3 * (v28 / 3))) * *(v29 + 8 * (v18 + v24 - 3 * (v27 / 3))) - *(v29 + 8 * (v18 + v23 - 3 * (v27 / 3))) * *(v29 + 8 * (v18 + v25 - 3 * (v28 / 3)))) / v7;
-            v17 += v22;
-            ++v27;
+            v30 = *(a1 + 8);
+            *(*(a3 + 8) + 8 * v10 + 8 * v18) = (*(v30 + 8 * (v19 + v27 - 3 * (v29 / 3))) * *(v30 + 8 * (v19 + v25 - 3 * (v28 / 3))) - *(v30 + 8 * (v19 + v24 - 3 * (v28 / 3))) * *(v30 + 8 * (v19 + v26 - 3 * (v29 / 3)))) / v8;
+            v18 += v23;
             ++v28;
-            ++v18;
+            ++v29;
+            ++v19;
           }
 
-          while (v8 != v18);
-          v11 += 3;
-          ++v12;
-          v13 += 3;
-          ++v14;
-          v15 += 3;
+          while (v9 != v19);
+          v12 += 3;
+          ++v13;
+          v14 += 3;
+          ++v15;
           v16 += 3;
-          ++v9;
+          v17 += 3;
+          ++v10;
         }
 
-        while (v21 != v8);
+        while (v22 != v9);
       }
     }
   }
 }
 
-void GridArea::SaveToDictionary()
+void GridArea::SaveToDictionary(uint64_t result, __CFDictionary *a2, int a3, char *a4)
 {
   if (gDbgLvl)
   {
@@ -3587,7 +3684,7 @@ void sub_10006EDFC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *sub_10006EE44(_BYTE *a1, char *__s)
+void *sub_10006EE44(void *a1, char *__s)
 {
   v4 = strlen(__s);
   if (v4 >= 0x7FFFFFFFFFFFFFF8)
@@ -3601,13 +3698,13 @@ _BYTE *sub_10006EE44(_BYTE *a1, char *__s)
     operator new();
   }
 
-  a1[23] = v4;
+  *(a1 + 23) = v4;
   if (v4)
   {
     memmove(a1, __s, v4);
   }
 
-  a1[v5] = 0;
+  *(a1 + v5) = 0;
   return a1;
 }
 
@@ -3675,15 +3772,15 @@ BOOL GridArea::isMinimumOnBorder(float *a1, int a2, void *a3)
   return result;
 }
 
-double sub_10006EFB0(uint64_t a1)
+double sub_10006EFB0(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 16);
-  if (v1 != 2)
+  v2 = *(a1 + 16);
+  if (v2 != 2)
   {
-    if (v1 == 3 && *(a1 + 20) == 3)
+    if (v2 == 3 && *(a1 + 20) == 3)
     {
-      v2 = *(a1 + 8);
-      return *v2 * (v2[4] * v2[8] - v2[5] * v2[7]) - v2[1] * (v2[3] * v2[8] - v2[5] * v2[6]) + v2[2] * (v2[3] * v2[7] - v2[4] * v2[6]);
+      v3 = *(a1 + 8);
+      return *v3 * (v3[4] * v3[8] - v3[5] * v3[7]) - v3[1] * (v3[3] * v3[8] - v3[5] * v3[6]) + v3[2] * (v3[3] * v3[7] - v3[4] * v3[6]);
     }
 
 LABEL_7:
@@ -3762,30 +3859,32 @@ uint64_t MetalObjects::init(MetalObjects *this)
   return _objc_release_x1();
 }
 
-void MetalObjects::createTextureMedian(void *a1, void *a2, int *a3, int a4, int a5, int a6, int a7)
+void MetalObjects::createTextureMedian(void *a1, void *a2, int *a3, uint64_t a4, int a5, uint64_t a6, int a7)
 {
+  v8 = a6;
+  v10 = a4;
   [*a1 setTextureType:2];
-  [*a1 setHeight:a4];
+  [*a1 setHeight:v10];
   [*a1 setWidth:a5];
   if (a7)
   {
     v17 = 0;
-    MetalObjects::createBuffer(a1, &v17, a4, a6);
+    MetalObjects::createBuffer(a1, &v17, v10, v8);
     v15 = v17;
     [*a1 setPixelFormat:10];
     [*a1 setUsage:3];
-    v14 = [v15 newTextureWithDescriptor:*a1 offset:0 bytesPerRow:a6];
+    v14 = [v15 newTextureWithDescriptor:*a1 offset:0 bytesPerRow:v8];
   }
 
   else
   {
     v16 = 0;
-    MetalObjects::createBuffer(a1, &v16, a3, a6 * a4);
+    MetalObjects::createBuffer(a1, &v16, a3, v8 * v10);
     v15 = v16;
     [*a1 setPixelFormat:10];
     [*a1 setUsage:1];
     [*a1 setResourceOptions:*(a1[2] + 96)];
-    v14 = [v15 newTextureWithDescriptor:*a1 offset:0 bytesPerRow:a6];
+    v14 = [v15 newTextureWithDescriptor:*a1 offset:0 bytesPerRow:v8];
   }
 
   *a2 = v14;
@@ -3967,7 +4066,7 @@ void RgbIrCalibration::~RgbIrCalibration(RgbIrCalibration *this)
   }
 }
 
-uint64_t RgbIrCalibration::Calibrate(uint64_t a1, int a2, const __CFDictionary *a3, int a4, int a5, int a6, unsigned int a7, const __CFBoolean *a8, double *a9, const __CFArray *a10, __int16 a11, uint64_t a12, unsigned int *a13, uint64_t a14, uint64_t a15, uint64_t a16)
+uint64_t RgbIrCalibration::Calibrate(uint64_t a1, __CVBuffer *a2, const __CFDictionary *a3, __CVBuffer *a4, void *a5, __CVBuffer *a6, unsigned int a7, const __CFBoolean *a8, double *a9, const __CFArray *a10, __int16 a11, uint64_t a12, unsigned int *a13, double *a14, _DWORD *a15, uint64_t a16)
 {
   context = objc_autoreleasePoolPush();
   *a1 = 1;
@@ -4157,7 +4256,7 @@ LABEL_8:
   return sub_10007043C(v6, " (see CVPixelBufferPrivate.h). Please contact PortableBuffer support.\n", 70);
 }
 
-uint64_t sub_1000703B0(uint64_t result, unint64_t a2)
+uint64_t sub_1000703B0(uint64_t a1, unint64_t a2)
 {
   if (a2 >= 0x7FFFFFFFFFFFFFF8)
   {
@@ -4169,11 +4268,11 @@ uint64_t sub_1000703B0(uint64_t result, unint64_t a2)
     operator new();
   }
 
-  *(result + 8) = 0;
-  *(result + 16) = 0;
-  *result = 0;
-  *(result + 23) = a2;
-  return result;
+  *(a1 + 8) = 0;
+  *(a1 + 16) = 0;
+  *a1 = 0;
+  *(a1 + 23) = a2;
+  return a1;
 }
 
 void *sub_10007043C(void *a1, uint64_t a2, uint64_t a3)
@@ -4182,16 +4281,16 @@ void *sub_10007043C(void *a1, uint64_t a2, uint64_t a3)
   if (v13 == 1)
   {
     v6 = a1 + *(*a1 - 24);
-    v7 = *(v6 + 40);
-    v8 = *(v6 + 8);
-    v9 = *(v6 + 144);
+    v7 = *(v6 + 5);
+    v8 = *(v6 + 2);
+    v9 = *(v6 + 36);
     if (v9 == -1)
     {
       std::ios_base::getloc((a1 + *(*a1 - 24)));
       v10 = std::locale::use_facet(&v14, &std::ctype<char>::id);
       v9 = (v10->__vftable[2].~facet_0)(v10, 32);
       std::locale::~locale(&v14);
-      *(v6 + 144) = v9;
+      *(v6 + 36) = v9;
     }
 
     if ((v8 & 0xB0) == 0x20)
@@ -4370,14 +4469,14 @@ uint64_t CalibrateRgbIr::Init(CalibrateRgbIr *this)
   return result;
 }
 
-void sub_100070C24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_100070C24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va1, a5);
-  va_start(va, a5);
-  v6 = va_arg(va1, void);
-  v8 = va_arg(va1, void);
-  v9 = va_arg(va1, void);
+  va_start(va1, a9);
+  va_start(va, a9);
   v10 = va_arg(va1, void);
+  v12 = va_arg(va1, void);
+  v13 = va_arg(va1, void);
+  v14 = va_arg(va1, void);
   sub_100017658(va);
   sub_100017658(va1);
   _Unwind_Resume(a1);
@@ -4500,7 +4599,7 @@ LABEL_18:
   return result;
 }
 
-void OneDimensionVerticalFilterWithPadding(uint64_t a1, uint64_t a2)
+void OneDimensionVerticalFilterWithPadding(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (*(a2 + 16) == 1)
   {
@@ -4530,70 +4629,70 @@ uint64_t CalibrateRgbIr::SampleWorldPointsOnCam(uint64_t a1, int *a2, void *a3, 
   return 0;
 }
 
-void CalibrateRgbIr::CostFmi(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+void CalibrateRgbIr::CostFmi(uint64_t a1, char *a2, uint64_t a3, uint64_t a4, _DWORD *a5)
 {
-  v7 = objc_autoreleasePoolPush();
-  v8 = *(a1 + 16);
-  v33 = *a1;
-  v34 = v8;
-  v35 = *(a1 + 32);
-  v9 = *(a1 + 48);
-  *&v36[8] = *(a1 + 56);
-  v10 = *(a1 + 72);
-  *v36 = v9;
-  *&v36[24] = v10;
-  v37 = *(a1 + 80);
-  v11 = *(a1 + 96);
-  *&v38[8] = *(a1 + 104);
-  v12 = *(a1 + 120);
-  v13 = *(a1 + 136);
-  v14 = *(a1 + 152);
-  v15 = *(a1 + 168);
-  *v38 = v11;
-  *&v38[72] = v15;
-  *&v38[56] = v14;
-  *&v38[40] = v13;
-  *&v38[24] = v12;
-  v16 = *(a1 + 192);
-  v39[0] = *(a1 + 176);
-  v39[1] = v16;
-  v39[2] = *(a1 + 208);
-  v40 = *(a1 + 224);
-  v37 = vaddq_f64(v37, vcvtq_f64_f32(*(a2 + 4)));
-  *v38 = v11 + *(a2 + 12);
-  sub_100018B48(v37.f64, &v38[8]);
-  v22 = vcvt_f32_f64(v33);
-  v17 = *&v34;
-  v23 = v17;
-  v24 = DWORD2(v34);
-  v25 = vcvt_hight_f32_f64(vcvt_f32_f64(*v36), *&v36[16]);
-  v26 = vcvt_hight_f32_f64(vcvt_f32_f64(v37), *v38);
-  v27 = vcvt_hight_f32_f64(vcvt_f32_f64(*&v38[16]), *&v38[32]);
-  v28 = vcvt_hight_f32_f64(vcvt_f32_f64(*&v38[48]), *&v38[64]);
-  v18 = *v39;
-  v29 = v18;
-  v30 = *(v39 + 8);
-  v31 = 0;
+  v8 = objc_autoreleasePoolPush();
+  v9 = *(a1 + 16);
+  v34 = *a1;
+  v35 = v9;
+  v36 = *(a1 + 32);
+  v10 = *(a1 + 48);
+  *&v37[8] = *(a1 + 56);
+  v11 = *(a1 + 72);
+  *v37 = v10;
+  *&v37[24] = v11;
+  v38 = *(a1 + 80);
+  v12 = *(a1 + 96);
+  *&v39[8] = *(a1 + 104);
+  v13 = *(a1 + 120);
+  v14 = *(a1 + 136);
+  v15 = *(a1 + 152);
+  v16 = *(a1 + 168);
+  *v39 = v12;
+  *&v39[72] = v16;
+  *&v39[56] = v15;
+  *&v39[40] = v14;
+  *&v39[24] = v13;
+  v17 = *(a1 + 192);
+  v40[0] = *(a1 + 176);
+  v40[1] = v17;
+  v40[2] = *(a1 + 208);
+  v41 = *(a1 + 224);
+  v38 = vaddq_f64(v38, vcvtq_f64_f32(*(a2 + 4)));
+  *v39 = v12 + *(a2 + 3);
+  sub_100018B48(v38.f64, &v39[8]);
+  v23 = vcvt_f32_f64(v34);
+  v18 = *&v35;
+  v24 = v18;
+  v25 = DWORD2(v35);
+  v26 = vcvt_hight_f32_f64(vcvt_f32_f64(*v37), *&v37[16]);
+  v27 = vcvt_hight_f32_f64(vcvt_f32_f64(v38), *v39);
+  v28 = vcvt_hight_f32_f64(vcvt_f32_f64(*&v39[16]), *&v39[32]);
+  v29 = vcvt_hight_f32_f64(vcvt_f32_f64(*&v39[48]), *&v39[64]);
+  v19 = *v40;
+  v30 = v19;
+  v31 = *(v40 + 8);
   v32 = 0;
-  v21 = 0;
-  CalibrateRgbIr::SampleWorldPointsOnCam(a1, &v22, &v21, a4);
-  v19 = v21;
-  [v19 width];
-  [v19 height];
-  v20 = [v19 buffer];
-  [v20 contents];
+  v33 = 0;
+  v22 = 0;
+  CalibrateRgbIr::SampleWorldPointsOnCam(a1, &v23, &v22, a4);
+  v20 = v22;
+  [v20 width];
+  [v20 height];
+  v21 = [v20 buffer];
+  [v21 contents];
 
   operator new[]();
 }
 
-void sub_1000714F4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1000714F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v4 = va_arg(va1, void);
-  v6 = va_arg(va1, void);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v5 = va_arg(va1, void);
   v7 = va_arg(va1, void);
   v8 = va_arg(va1, void);
+  v9 = va_arg(va1, void);
   sub_100017658(va);
   sub_100017658(va1);
 
@@ -4651,8 +4750,10 @@ void CalibrateRgbIr::CalculateGrid(uint64_t a1, uint64_t a2, int a3, int a4)
   }
 }
 
-uint64_t CalibrateRgbIr::PrepareGridCalculation(uint64_t a1, uint64_t a2, uint64_t a3, int a4, int a5)
+uint64_t CalibrateRgbIr::PrepareGridCalculation(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
+  v5 = a5;
+  v6 = a4;
   if (a4 && a5)
   {
     v105[0] = 0;
@@ -4661,12 +4762,12 @@ uint64_t CalibrateRgbIr::PrepareGridCalculation(uint64_t a1, uint64_t a2, uint64
     v11 = v105[0];
     objc_storeStrong((a1 + 752), v10);
     v104 = 0;
-    MetalObjects::createTexture((a1 + 608), &v104, (*(a2 + 8) + 4 * *(a2 + 20)), a5, a4);
+    MetalObjects::createTexture((a1 + 608), &v104, (*(a2 + 8) + 4 * *(a2 + 20)), v5, v6);
     v12 = v104;
     v13 = v104;
     objc_storeStrong((a1 + 760), v12);
     v103 = 0;
-    MetalObjects::createTexture((a1 + 608), &v103, (*(a2 + 8) + 4 * (2 * *(a2 + 20))), a5, a4);
+    MetalObjects::createTexture((a1 + 608), &v103, (*(a2 + 8) + 4 * (2 * *(a2 + 20))), v5, v6);
     v14 = v103;
     v15 = v103;
     objc_storeStrong((a1 + 768), v14);
@@ -4686,8 +4787,8 @@ uint64_t CalibrateRgbIr::PrepareGridCalculation(uint64_t a1, uint64_t a2, uint64
       v20 = *(a1 + 408);
       *(a1 + 864) = v20;
       *(a1 + 868) = *(a1 + 416);
-      *(a1 + 884) = a4;
-      *(a1 + 888) = a5;
+      *(a1 + 884) = v6;
+      *(a1 + 888) = v5;
       v102 = 0;
       v78 = v11;
       MetalObjects::createBuffer(a1 + 608, &v102, *(a1 + 272), 4 * *(a1 + 256));
@@ -4809,7 +4910,7 @@ uint64_t CalibrateRgbIr::PrepareGridCalculation(uint64_t a1, uint64_t a2, uint64
       do
       {
         obj = 0;
-        sub_100071FE0(v45 - 1, &obj, a5, a4);
+        sub_100071FE0(v45 - 1, &obj, v5, v6);
         objc_storeStrong(v45, obj);
         v45 += 3;
         --v46;
@@ -4926,10 +5027,12 @@ uint64_t CalibrateRgbIr::PrepareGridCalculation(uint64_t a1, uint64_t a2, uint64
   return v67;
 }
 
-void sub_100071F34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *a9, void *a10, void *a11, void *a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29)
+void sub_100071F34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *a9, void *a10, void *a11, void *a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
 {
-  sub_100017658(&a29);
-  sub_100017658(v35 - 160);
+  va_start(va, a28);
+
+  sub_100017658(va);
+  sub_100017658(v34 - 160);
 
   _Unwind_Resume(a1);
 }
@@ -4990,37 +5093,37 @@ void sub_1000727D0(__CFDictionary *a1, const void *a2, double a3)
   CFRelease(v5);
 }
 
-uint64_t CalibrateRgbIr::ScanCostGrid(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
+uint64_t CalibrateRgbIr::ScanCostGrid(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, _DWORD *a7)
 {
-  v10 = objc_autoreleasePoolPush();
-  v11 = sqrtf(*(a2 + 20));
-  if (CalibrateRgbIr::PrepareGridCalculation(a1, a2, a3, v11 & 0xFFFFFFF0, v11 * v11 / (v11 & 0xFFFFFFF0)))
+  v11 = objc_autoreleasePoolPush();
+  v12 = sqrtf(*(a2 + 20));
+  if (CalibrateRgbIr::PrepareGridCalculation(a1, a2, a3, v12 & 0xFFFFFFF0, v12 * v12 / (v12 & 0xFFFFFFF0)))
   {
-    v12 = *(a6 + 4);
-    v24[1] = v12 + 6.0;
+    v13 = *(a6 + 4);
+    v25[1] = v13 + 6.0;
+    v25[2] = 3.0;
+    v24[0] = v13 + -6.0;
+    v24[1] = v13 + 6.0;
     v24[2] = 3.0;
-    v23[0] = v12 + -6.0;
-    v23[1] = v12 + 6.0;
-    v23[2] = 3.0;
-    v24[0] = -6.0;
-    v22 = 1065353216;
-    v21 = 0;
-    v19[6] = -1061158912;
-    *&v19[7] = v12 + 6.0;
-    *&v19[8] = v12 + -6.0;
-    *&v19[9] = v12 + 6.0;
+    v25[0] = -6.0;
+    v23 = 1065353216;
+    v22 = 0;
+    v20[6] = -1061158912;
+    *&v20[7] = v13 + 6.0;
+    *&v20[8] = v13 + -6.0;
+    *&v20[9] = v13 + 6.0;
     __asm { FMOV            V0.2S, #3.0 }
 
-    v20 = _D0;
-    GridArea::PrepareGrid(v19, v24, v23, &v21, 0);
+    v21 = _D0;
+    GridArea::PrepareGrid(v20, v25, v24, &v22, 0);
   }
 
   NSLog(@"RGB-IR Calib: %s", "PrepareGridCalculation failed.");
-  objc_autoreleasePoolPop(v10);
+  objc_autoreleasePoolPop(v11);
   return 4097;
 }
 
-void sub_100073258(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, int a17, __int16 a18, char a19, char a20, uint64_t a21, char a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, void *a34, uint64_t a35, int a36, __int16 a37, char a38, char a39, uint64_t a40, uint64_t a41, uint64_t a42, int a43, __int16 a44, char a45, char a46, uint64_t a47, uint64_t a48, uint64_t a49, int a50, __int16 a51, char a52, char a53, uint64_t a54, uint64_t a55, uint64_t a56, int a57, __int16 a58, char a59, char a60, char a61)
+void sub_100073258(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, int a17, __int16 a18, char a19, char a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, void *a34, uint64_t a35, int a36, __int16 a37, char a38, char a39, uint64_t a40, uint64_t a41, uint64_t a42, int a43, __int16 a44, char a45, char a46, uint64_t a47, uint64_t a48, uint64_t a49, int a50, __int16 a51, char a52, char a53, uint64_t a54, uint64_t a55, uint64_t a56, int a57, __int16 a58, char a59, char a60, char a61)
 {
   if (a20 < 0)
   {
@@ -5104,14 +5207,14 @@ void CalibrateRgbIr::GetTargetCam(uint64_t a1, unsigned int a2, unsigned int a3,
   operator new[]();
 }
 
-void CalibrateRgbIr::PrepareColorImage(int a1, __CVBuffer *a2)
+void CalibrateRgbIr::PrepareColorImage(int a1, __CVBuffer *a2, unsigned int a3, unsigned int a4, uint64_t a5, uint64_t a6, uint64_t a7)
 {
   memset(&src, 0, sizeof(src));
   PrepareVImgBuffersFromCVPixBuffer(a2, &src);
   operator new[]();
 }
 
-void sub_100073E80(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, int a16, __int16 a17, char a18, char a19, uint64_t a20, void *__p, uint64_t a22, int a23, __int16 a24, char a25, char a26, char a27, uint64_t a28, uint64_t a29, uint64_t a30, char a31, uint64_t a32, uint64_t a33, uint64_t a34, void *a35, uint64_t a36, int a37, __int16 a38, char a39, char a40, uint64_t a41, uint64_t a42, uint64_t a43, int a44, __int16 a45, char a46, char a47)
+void sub_100073E80(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, int a16, __int16 a17, char a18, char a19, uint64_t a20, void *__p, uint64_t a22, int a23, __int16 a24, char a25, char a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, void *a35, uint64_t a36, int a37, __int16 a38, char a39, char a40, uint64_t a41, uint64_t a42, uint64_t a43, int a44, __int16 a45, char a46, char a47)
 {
   sub_100017658(&a14);
   sub_100017658(&a27);
@@ -5119,8 +5222,10 @@ void sub_100073E80(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_100073F24(_DWORD *a1, unint64_t a2, unint64_t a3, unint64_t a4, uint64_t a5, int a6, int a7, unint64_t a8)
+void sub_100073F24(_DWORD *a1, unint64_t a2, unint64_t a3, unint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, unint64_t a8)
 {
+  v8 = a7;
+  v9 = a6;
   if (byte_10041DFC7 >= 0)
   {
     v15 = byte_10041DFC7;
@@ -5182,7 +5287,7 @@ void sub_100073F24(_DWORD *a1, unint64_t a2, unint64_t a3, unint64_t a4, uint64_
   v21->__r_.__value_.__l.__size_ = 0;
   v21->__r_.__value_.__r.__words[2] = 0;
   v21->__r_.__value_.__r.__words[0] = 0;
-  sub_100076F54(a1, a2, a3, a4, __p, a6, a7, a8);
+  sub_100076F54(a1, a2, a3, a4, __p, v9, v8, a8);
   if (SHIBYTE(v26) < 0)
   {
     operator delete(__p[0]);
@@ -5211,7 +5316,8 @@ void sub_10007406C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void sub_1000740A0(float *a1, uint64_t a2, uint64_t a3, unsigned int a4, float *a5)
 {
-  v8 = __chkstk_darwin();
+  v7 = a1;
+  v8 = __chkstk_darwin(a1, a2, a3);
   v10 = &v20 - v9;
   v13 = (v12 * v11);
   sub_100077738(v8, (&v20 - v9), v14, v13);
@@ -5220,7 +5326,7 @@ void sub_1000740A0(float *a1, uint64_t a2, uint64_t a3, unsigned int a4, float *
     v15 = v13;
     do
     {
-      v16 = *a1++;
+      v16 = *v7++;
       v17 = v16 / (1.0 / a4);
       v18 = vcvtmd_u64_f64(v17);
       if (v18 >= a4)
@@ -5260,7 +5366,7 @@ uint64_t CalibrateRgbIr::ApplyGaussian2DFilter(uint64_t a1, uint64_t a2, uint64_
     v8 = *(a2 + 20);
   }
 
-  sub_1000777E0(v26, v7 + 4, v8 + 4);
+  sub_1000777E0(v26, v7 + 4, v8 + 4, 0.0);
   v9 = v7 + 2;
   if ((v7 + 2) >= 3)
   {
@@ -5329,11 +5435,12 @@ uint64_t CalibrateRgbIr::ApplyGaussian2DFilter(uint64_t a1, uint64_t a2, uint64_
   return 0;
 }
 
-void sub_10007446C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, char a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17)
+void sub_10007446C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
+  va_start(va, a16);
   sub_100017658(&a9);
   sub_100017658(&a13);
-  sub_100017658(&a17);
+  sub_100017658(va);
   _Unwind_Resume(a1);
 }
 
@@ -5348,7 +5455,7 @@ uint64_t CalibrateRgbIr::InitDebugDictionary(CFMutableDictionaryRef *this)
   return 0;
 }
 
-void CalibrateRgbIr::ScaleImage(uint64_t a1, void *a2, vImagePixelCount a3, vImagePixelCount a4, uint64_t a5, uint64_t a6, uint64_t a7, unint64_t *a8)
+void CalibrateRgbIr::ScaleImage(uint64_t a1, void *a2, vImagePixelCount a3, vImagePixelCount a4, vImagePixelCount a5, vImagePixelCount a6, void **a7, unint64_t *a8)
 {
   src.data = a2;
   src.height = a4;
@@ -5475,7 +5582,7 @@ void sub_100074954(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t CalibrateRgbIr::PrepareIrImage(uint64_t a1, CVPixelBufferRef pixelBuffer, uint64_t a3, size_t *a4, size_t *a5)
+uint64_t CalibrateRgbIr::PrepareIrImage(uint64_t a1, CVPixelBufferRef pixelBuffer, uint64_t a3, vImagePixelCount *a4, vImagePixelCount *a5)
 {
   *a4 = CVPixelBufferGetWidth(pixelBuffer);
   Height = CVPixelBufferGetHeight(pixelBuffer);
@@ -5525,7 +5632,7 @@ uint64_t CalibrateRgbIr::PrepareIrImage(uint64_t a1, CVPixelBufferRef pixelBuffe
   }
 }
 
-void sub_100074EA0(int a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, int a15, __int16 a16, char a17, char a18, uint64_t a19, void *__p, uint64_t a21, int a22, __int16 a23, char a24, char a25, void *a26, uint64_t a27, int a28, __int16 a29, char a30, char a31, uint64_t a32, void *a33, uint64_t a34, int a35, __int16 a36, char a37, char a38)
+void sub_100074EA0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, int a15, __int16 a16, char a17, char a18, uint64_t a19, void *__p, uint64_t a21, int a22, __int16 a23, char a24, char a25, void *a26, uint64_t a27, int a28, __int16 a29, char a30, char a31, uint64_t a32, void *a33, uint64_t a34, int a35, __int16 a36, char a37, char a38)
 {
   if (a25 < 0)
   {
@@ -5551,21 +5658,21 @@ void sub_100074FAC(__CFDictionary *a1, const void *a2, CGSize *a3)
   CFRelease(DictionaryRepresentation);
 }
 
-uint64_t CalibrateRgbIr::PrepareDepthImage(uint64_t a1, CVPixelBufferRef pixelBuffer)
+uint64_t CalibrateRgbIr::PrepareDepthImage(uint64_t a1, CVPixelBufferRef pixelBuffer, unint64_t a3, unint64_t a4, float **a5)
 {
   PixelFormatType = CVPixelBufferGetPixelFormatType(pixelBuffer);
-  v5 = *(a1 + 464);
-  if (v5 == 1 && PixelFormatType != 825306677)
+  v8 = *(a1 + 464);
+  if (v8 == 1 && PixelFormatType != 825306677)
   {
-    v7 = "Depth pixel buffer format should be kCVPixelFormatType_FixedPointUnsigned11_5 if it is normalized dx";
+    v10 = "Depth pixel buffer format should be kCVPixelFormatType_FixedPointUnsigned11_5 if it is normalized dx";
 LABEL_9:
-    NSLog(@"RGB-IR Calib: %s", v7);
+    NSLog(@"RGB-IR Calib: %s", v10);
     return 12291;
   }
 
-  if ((v5 & 1) == 0 && PixelFormatType != 825437747)
+  if ((v8 & 1) == 0 && PixelFormatType != 825437747)
   {
-    v7 = "Depth pixel buffer format should be kCVPixelFormatType_FixedPointUnsigned13_3 if they are absolute values (not normalized dx)";
+    v10 = "Depth pixel buffer format should be kCVPixelFormatType_FixedPointUnsigned13_3 if they are absolute values (not normalized dx)";
     goto LABEL_9;
   }
 
@@ -5573,15 +5680,15 @@ LABEL_9:
   {
     if (*(a1 + 464))
     {
-      v9 = &kCFBooleanTrue;
+      v12 = &kCFBooleanTrue;
     }
 
     else
     {
-      v9 = &kCFBooleanFalse;
+      v12 = &kCFBooleanFalse;
     }
 
-    CFDictionarySetValue(*(a1 + 1008), @"isNormalizedDx", *v9);
+    CFDictionarySetValue(*(a1 + 1008), @"isNormalizedDx", *v12);
   }
 
   CVPixelBufferGetBytesPerRow(pixelBuffer);
@@ -5734,13 +5841,13 @@ uint64_t CalibrateRgbIr::CalculateFinalResult(float64x2_t *a1, uint64_t a2, floa
   return 0;
 }
 
-uint64_t CalibrateRgbIr::Calibrate(uint64_t a1, int a2, const __CFDictionary *a3, int a4, int a5, int a6, uint64_t a7, const __CFBoolean *a8, double *a9, CFArrayRef theArray, __int16 a11, uint64_t a12, uint64_t a13, uint64_t a14)
+uint64_t CalibrateRgbIr::Calibrate(uint64_t a1, __CVBuffer *a2, const __CFDictionary *a3, __CVBuffer *a4, void *a5, __CVBuffer *a6, uint64_t a7, const __CFBoolean *a8, double *a9, CFArrayRef theArray, __int16 a11, uint64_t a12, double *a13, _DWORD *a14)
 {
   v15 = a7;
   *(a1 + 976) = 0;
   NSLog(@"RGB-IR Calib: Starting Mutual Information v%d.%d.%d. NormalizedDX: %d, perception corrected: %@, shift offset: %d", 1, 12, 0, a7, a8, a11);
   v16 = sub_10006EE44(&valuePtr, "PCECalib.bin");
-  SaveToFileWithPrefix(v16);
+  SaveToFileWithPrefix(v16, a9, 13312);
   if (v42 < 0)
   {
     operator delete(valuePtr);
@@ -6016,7 +6123,7 @@ void sub_10007674C(__CFDictionary *a1, const void *a2, int a3)
   CFRelease(v5);
 }
 
-void CalibrateRgbIr::PrepareXyzWorld(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
+void CalibrateRgbIr::PrepareXyzWorld(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, unsigned int *a6, _DWORD *a7)
 {
   if (a6)
   {
@@ -6134,20 +6241,20 @@ void CalibrateRgbIr::PrepareXyzWorld(uint64_t a1, uint64_t a2, uint64_t a3, uint
   sub_100077D28();
 }
 
-void sub_100076E50(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_100076E50(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va2, a8);
-  va_start(va1, a8);
-  va_start(va, a8);
-  v9 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
+  va_start(va2, a15);
+  va_start(va1, a15);
+  va_start(va, a15);
+  v16 = va_arg(va1, void);
+  v18 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
   va_copy(va2, va1);
-  v14 = va_arg(va2, void);
-  v16 = va_arg(va2, void);
-  v17 = va_arg(va2, void);
-  v18 = va_arg(va2, void);
+  v21 = va_arg(va2, void);
+  v23 = va_arg(va2, void);
+  v24 = va_arg(va2, void);
+  v25 = va_arg(va2, void);
   sub_100017658(va);
   sub_100017658(va1);
   sub_100017658(va2);
@@ -6173,7 +6280,7 @@ BOOL sub_100076EAC(_DWORD *a1, double *a2, double a3)
   return result;
 }
 
-void sub_100076F10(uint64_t a1, uint64_t a2, uint64_t a3, float *a4, int a5)
+void sub_100076F10(uint64_t a1, uint64_t a2, uint64_t a3, float *a4, unsigned int a5)
 {
   *(a1 + 24) = *a2;
   v5 = *(a3 + 8);
@@ -6495,34 +6602,34 @@ void sub_100077738(float *a1, _DWORD *a2, unsigned int a3, unsigned int a4)
   }
 }
 
-uint64_t sub_1000777E0(uint64_t result, int a2, int a3)
+uint64_t sub_1000777E0(uint64_t a1, int a2, int a3, float a4)
 {
-  *result = off_1000A1CE0;
+  *a1 = off_1000A1CE0;
   if (a3 * a2)
   {
     operator new[]();
   }
 
-  *(result + 8) = 0;
-  *(result + 16) = a2;
-  *(result + 20) = a3;
-  *(result + 24) = 0;
-  return result;
+  *(a1 + 8) = 0;
+  *(a1 + 16) = a2;
+  *(a1 + 20) = a3;
+  *(a1 + 24) = 0;
+  return a1;
 }
 
-uint64_t sub_100077930(uint64_t result, int a2, int a3)
+uint64_t sub_100077930(uint64_t a1, int a2, int a3)
 {
-  *result = off_1000ACA48;
+  *a1 = &off_1000ACA48;
   if (a3 * a2)
   {
     operator new[]();
   }
 
-  *(result + 8) = 0;
-  *(result + 16) = a2;
-  *(result + 20) = a3;
-  *(result + 24) = 0;
-  return result;
+  *(a1 + 8) = 0;
+  *(a1 + 16) = a2;
+  *(a1 + 20) = a3;
+  *(a1 + 24) = 0;
+  return a1;
 }
 
 void sub_1000779BC(uint64_t a1)
@@ -6532,16 +6639,16 @@ void sub_1000779BC(uint64_t a1)
   operator delete();
 }
 
-uint64_t sub_1000779F4(uint64_t result)
+uint64_t sub_1000779F4(uint64_t a1)
 {
-  *result = off_1000ACA48;
-  if (*(result + 8) && *(result + 24) == 1)
+  *a1 = &off_1000ACA48;
+  if (*(a1 + 8) && *(a1 + 24) == 1)
   {
     operator delete[]();
   }
 
-  *(result + 16) = 0;
-  return result;
+  *(a1 + 16) = 0;
+  return a1;
 }
 
 void sub_100077B14(os_log_t log)
@@ -6567,125 +6674,125 @@ void sub_100077C7C()
   _os_log_error_impl(&_mh_execute_header, v0, OS_LOG_TYPE_ERROR, "RGB-IR: %s: rdar://112006283 numOfGoodPts is %d < 256 => Aborting Rgb-Ir run\n", v1, 0x12u);
 }
 
-uint64_t SaveToFile(uint64_t result)
+uint64_t SaveToFile(uint64_t result, uint64_t a2, uint64_t a3)
 {
   if ((gDbgLvl & 4) != 0)
   {
-    v1 = result;
-    v22 = 0;
-    *(&v20[-1] + *(v19 - 3)) = v2;
-    v3 = (&v20[-1] + *(v19 - 3));
-    std::ios_base::init(v3, v20);
-    v3[1].__vftable = 0;
-    v3[1].__fmtflags_ = -1;
+    v3 = result;
+    v24 = 0;
+    *(&v22[-1] + *(v21 - 3)) = v4;
+    v5 = (&v22[-1] + *(v21 - 3));
+    std::ios_base::init(v5, v22);
+    v5[1].__vftable = 0;
+    v5[1].__fmtflags_ = -1;
     std::filebuf::basic_filebuf();
     if (byte_10041DFAF >= 0)
     {
-      v4 = byte_10041DFAF;
+      v6 = byte_10041DFAF;
     }
 
     else
     {
-      v4 = qword_10041DFA0;
+      v6 = qword_10041DFA0;
     }
 
-    v5 = &v16;
-    sub_1000703B0(&v16, v4 + 1);
-    if ((v16.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+    v7 = &v18;
+    sub_1000703B0(&v18, v6 + 1);
+    if ((v18.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
     {
-      v5 = v16.__r_.__value_.__r.__words[0];
+      v7 = v18.__r_.__value_.__r.__words[0];
     }
 
-    if (v4)
+    if (v6)
     {
       if (byte_10041DFAF >= 0)
       {
-        v6 = &gOutputDirName;
+        v8 = &gOutputDirName;
       }
 
       else
       {
-        v6 = gOutputDirName;
+        v8 = gOutputDirName;
       }
 
-      memmove(v5, v6, v4);
+      memmove(v7, v8, v6);
     }
 
-    *(&v5->__r_.__value_.__l.__data_ + v4) = 47;
-    v7 = *(v1 + 23);
-    if (v7 >= 0)
+    *(&v7->__r_.__value_.__l.__data_ + v6) = 47;
+    v9 = *(v3 + 23);
+    if (v9 >= 0)
     {
-      v8 = v1;
-    }
-
-    else
-    {
-      v8 = *v1;
-    }
-
-    if (v7 >= 0)
-    {
-      v9 = *(v1 + 23);
+      v10 = v3;
     }
 
     else
     {
-      v9 = *(v1 + 8);
+      v10 = *v3;
     }
 
-    v10 = std::string::append(&v16, v8, v9);
-    v11 = *&v10->__r_.__value_.__l.__data_;
-    v18 = v10->__r_.__value_.__r.__words[2];
-    *__p = v11;
-    v10->__r_.__value_.__l.__size_ = 0;
-    v10->__r_.__value_.__r.__words[2] = 0;
-    v10->__r_.__value_.__r.__words[0] = 0;
-    if (SHIBYTE(v16.__r_.__value_.__r.__words[2]) < 0)
+    if (v9 >= 0)
     {
-      operator delete(v16.__r_.__value_.__l.__data_);
+      v11 = *(v3 + 23);
+    }
+
+    else
+    {
+      v11 = *(v3 + 8);
+    }
+
+    v12 = std::string::append(&v18, v10, v11);
+    v13 = *&v12->__r_.__value_.__l.__data_;
+    v20 = v12->__r_.__value_.__r.__words[2];
+    *__p = v13;
+    v12->__r_.__value_.__l.__size_ = 0;
+    v12->__r_.__value_.__r.__words[2] = 0;
+    v12->__r_.__value_.__r.__words[0] = 0;
+    if (SHIBYTE(v18.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(v18.__r_.__value_.__l.__data_);
     }
 
     if (!CreateDirForFile(__p))
     {
       std::ofstream::open();
-      if (v20[15])
+      if (v22[15])
       {
         std::ostream::write();
         if (!std::filebuf::close())
         {
-          std::ios_base::clear((&v20[-1] + *(v19 - 3)), *(&v20[3] + *(v19 - 3)) | 4);
+          std::ios_base::clear((&v22[-1] + *(v21 - 3)), *(&v22[3] + *(v21 - 3)) | 4);
         }
       }
 
       else
       {
-        v12 = sub_10007043C(&std::cout, "Could not open file [", 21);
-        if (v18 >= 0)
+        v14 = sub_10007043C(&std::cout, "Could not open file [", 21);
+        if (v20 >= 0)
         {
-          v13 = __p;
+          v15 = __p;
         }
 
         else
         {
-          v13 = __p[0];
+          v15 = __p[0];
         }
 
-        if (v18 >= 0)
+        if (v20 >= 0)
         {
-          v14 = HIBYTE(v18);
+          v16 = HIBYTE(v20);
         }
 
         else
         {
-          v14 = __p[1];
+          v16 = __p[1];
         }
 
-        v15 = sub_10007043C(v12, v13, v14);
-        sub_10007043C(v15, "] for writing.\n", 15);
+        v17 = sub_10007043C(v14, v15, v16);
+        sub_10007043C(v17, "] for writing.\n", 15);
       }
     }
 
-    if (SHIBYTE(v18) < 0)
+    if (SHIBYTE(v20) < 0)
     {
       operator delete(__p[0]);
     }
@@ -6777,78 +6884,78 @@ void *sub_1000782C8(void *a1)
   return a1;
 }
 
-void SaveToFileWithPrefix(uint64_t a1)
+void SaveToFileWithPrefix(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (byte_10041DFC7 >= 0)
   {
-    v2 = byte_10041DFC7;
+    v6 = byte_10041DFC7;
   }
 
   else
   {
-    v2 = *(&gCurrFrameId + 1);
+    v6 = *(&gCurrFrameId + 1);
   }
 
-  v3 = &v10;
-  sub_1000703B0(&v10, v2 + 1);
-  if ((v10.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+  v7 = &v14;
+  sub_1000703B0(&v14, v6 + 1);
+  if ((v14.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
   {
-    v3 = v10.__r_.__value_.__r.__words[0];
+    v7 = v14.__r_.__value_.__r.__words[0];
   }
 
-  if (v2)
+  if (v6)
   {
     if (byte_10041DFC7 >= 0)
     {
-      v4 = &gCurrFrameId;
+      v8 = &gCurrFrameId;
     }
 
     else
     {
-      v4 = gCurrFrameId;
+      v8 = gCurrFrameId;
     }
 
-    memmove(v3, v4, v2);
+    memmove(v7, v8, v6);
   }
 
-  *(&v3->__r_.__value_.__l.__data_ + v2) = 95;
-  v5 = *(a1 + 23);
-  if (v5 >= 0)
+  *(&v7->__r_.__value_.__l.__data_ + v6) = 95;
+  v9 = *(a1 + 23);
+  if (v9 >= 0)
   {
-    v6 = a1;
+    v10 = a1;
   }
 
   else
   {
-    v6 = *a1;
+    v10 = *a1;
   }
 
-  if (v5 >= 0)
+  if (v9 >= 0)
   {
-    v7 = *(a1 + 23);
+    v11 = *(a1 + 23);
   }
 
   else
   {
-    v7 = *(a1 + 8);
+    v11 = *(a1 + 8);
   }
 
-  v8 = std::string::append(&v10, v6, v7);
-  v9 = *&v8->__r_.__value_.__l.__data_;
-  v12 = v8->__r_.__value_.__r.__words[2];
-  *__p = v9;
-  v8->__r_.__value_.__l.__size_ = 0;
-  v8->__r_.__value_.__r.__words[2] = 0;
-  v8->__r_.__value_.__r.__words[0] = 0;
-  SaveToFile(__p);
-  if (SHIBYTE(v12) < 0)
+  v12 = std::string::append(&v14, v10, v11);
+  v13 = *&v12->__r_.__value_.__l.__data_;
+  v16 = v12->__r_.__value_.__r.__words[2];
+  *__p = v13;
+  v12->__r_.__value_.__l.__size_ = 0;
+  v12->__r_.__value_.__r.__words[2] = 0;
+  v12->__r_.__value_.__r.__words[0] = 0;
+  SaveToFile(__p, a2, a3);
+  if (SHIBYTE(v16) < 0)
   {
     operator delete(__p[0]);
   }
 
-  if (SHIBYTE(v10.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v14.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v10.__r_.__value_.__l.__data_);
+    operator delete(v14.__r_.__value_.__l.__data_);
   }
 }
 
@@ -6923,9 +7030,9 @@ BOOL H16ISP::savePeridotCalib(H16ISP *this, H16ISPDevice *a2, H16ISPServicesRemo
 
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v26 = 136315138;
-    v27 = "savePeridotCalib";
-    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "%s - saving calibration\n", &v26, 0xCu);
+    v27 = 136315138;
+    v28 = "savePeridotCalib";
+    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "%s - saving calibration\n", &v27, 0xCu);
   }
 
   if (!a4)
@@ -6945,12 +7052,12 @@ BOOL H16ISP::savePeridotCalib(H16ISP *this, H16ISPDevice *a2, H16ISPServicesRemo
 
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
-    v26 = 136315138;
-    v27 = "savePeridotCalib";
-    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "%s - updating firmware\n", &v26, 0xCu);
+    v27 = 136315138;
+    v28 = "savePeridotCalib";
+    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "%s - updating firmware\n", &v27, 0xCu);
   }
 
-  if (sub_100078A64(this, v6))
+  if (sub_100078A64(this, v6, a4))
   {
     v15 = off_10041DD70;
     if (a2)
@@ -6966,17 +7073,17 @@ BOOL H16ISP::savePeridotCalib(H16ISP *this, H16ISPDevice *a2, H16ISPServicesRemo
 
       if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
-        v26 = 136315138;
-        v27 = "savePeridotCalib";
-        _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "%s - sending to daemon to store\n", &v26, 0xCu);
+        v27 = 136315138;
+        v28 = "savePeridotCalib";
+        _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "%s - sending to daemon to store\n", &v27, 0xCu);
       }
 
       BinaryRepresentation = PDPeridotCalibCreateBinaryRepresentation();
       if (BinaryRepresentation)
       {
-        v19 = BinaryRepresentation;
-        sub_10002C370();
-        CFRelease(v19);
+        v20 = BinaryRepresentation;
+        sub_10002C370(a2, BinaryRepresentation, v19);
+        CFRelease(v20);
       }
     }
 
@@ -6984,18 +7091,18 @@ BOOL H16ISP::savePeridotCalib(H16ISP *this, H16ISPDevice *a2, H16ISPServicesRemo
     {
       if (off_10041DD70 == &_os_log_default)
       {
-        v24 = os_log_create("com.apple.isp", "general");
-        v25 = off_10041DD70;
-        off_10041DD70 = v24;
+        v25 = os_log_create("com.apple.isp", "general");
+        v26 = off_10041DD70;
+        off_10041DD70 = v25;
 
         v15 = off_10041DD70;
       }
 
       if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
-        v26 = 136315138;
-        v27 = "savePeridotCalib";
-        _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "%s - storing locally\n", &v26, 0xCu);
+        v27 = 136315138;
+        v28 = "savePeridotCalib";
+        _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "%s - storing locally\n", &v27, 0xCu);
       }
 
       sub_10001CD84(a4);
@@ -7004,110 +7111,110 @@ BOOL H16ISP::savePeridotCalib(H16ISP *this, H16ISPDevice *a2, H16ISPServicesRemo
     return 1;
   }
 
-  v20 = off_10041DD70;
+  v21 = off_10041DD70;
   if (off_10041DD70 == &_os_log_default)
   {
-    v21 = os_log_create("com.apple.isp", "general");
-    v22 = off_10041DD70;
-    off_10041DD70 = v21;
+    v22 = os_log_create("com.apple.isp", "general");
+    v23 = off_10041DD70;
+    off_10041DD70 = v22;
 
-    v20 = off_10041DD70;
+    v21 = off_10041DD70;
   }
 
-  result = os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT);
+  result = os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT);
   if (result)
   {
-    v26 = 136315138;
-    v27 = "savePeridotCalib";
-    _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "%s - failed to update calibration in firmware\n", &v26, 0xCu);
+    v27 = 136315138;
+    v28 = "savePeridotCalib";
+    _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "%s - failed to update calibration in firmware\n", &v27, 0xCu);
     return 0;
   }
 
   return result;
 }
 
-BOOL sub_100078A64(uint64_t a1, int a2)
+BOOL sub_100078A64(uint64_t a1, int a2, uint64_t a3)
 {
   sub_100017338();
   IspFirmwareCalibWithOptions = PDPeridotCalibCreateIspFirmwareCalibWithOptions();
   if (IspFirmwareCalibWithOptions)
   {
-    v5 = IspFirmwareCalibWithOptions;
+    v6 = IspFirmwareCalibWithOptions;
     if (CFDataGetLength(IspFirmwareCalibWithOptions) == 536)
     {
       bzero(buf, 0x228uLL);
-      LOWORD(v24) = 14087;
-      HIDWORD(v24) = a2;
-      v29.location = 0;
-      v29.length = 536;
-      CFDataGetBytes(v5, v29, &Length + 2);
-      v6 = sub_10000BE84(a1, buf, 0x228u, 0, 0xFFFFFFFF);
-      v7 = off_10041DD70;
+      LOWORD(v25) = 14087;
+      HIDWORD(v25) = a2;
+      v30.location = 0;
+      v30.length = 536;
+      CFDataGetBytes(v6, v30, &Length + 2);
+      v7 = sub_10000BE84(a1, buf, 0x228u, 0, 0xFFFFFFFF);
+      v8 = off_10041DD70;
       if (off_10041DD70 == &_os_log_default)
       {
-        v8 = os_log_create("com.apple.isp", "general");
-        v9 = off_10041DD70;
-        off_10041DD70 = v8;
+        v9 = os_log_create("com.apple.isp", "general");
+        v10 = off_10041DD70;
+        off_10041DD70 = v9;
 
-        v7 = off_10041DD70;
+        v8 = off_10041DD70;
       }
 
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
-        v19 = 136315394;
-        v20 = "savePeridotCalibToFW";
-        v21 = 1024;
-        v22 = v6;
-        _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "%s - updating firmware: %d\n", &v19, 0x12u);
+        v20 = 136315394;
+        v21 = "savePeridotCalibToFW";
+        v22 = 1024;
+        v23 = v7;
+        _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "%s - updating firmware: %d\n", &v20, 0x12u);
       }
 
-      CFRelease(v5);
-      return v6 == 0;
+      CFRelease(v6);
+      return v7 == 0;
     }
 
-    v15 = off_10041DD70;
+    v16 = off_10041DD70;
     if (off_10041DD70 == &_os_log_default)
     {
-      v16 = os_log_create("com.apple.isp", "general");
-      v17 = off_10041DD70;
-      off_10041DD70 = v16;
+      v17 = os_log_create("com.apple.isp", "general");
+      v18 = off_10041DD70;
+      off_10041DD70 = v17;
 
-      v15 = off_10041DD70;
+      v16 = off_10041DD70;
     }
 
-    v18 = v15;
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+    v19 = v16;
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315650;
-      v24 = "savePeridotCalibToFW";
-      v25 = 2048;
-      Length = CFDataGetLength(v5);
-      v27 = 2048;
-      v28 = 536;
-      _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "%s - updating firmware: unexpected size: %ld != %lu\n", buf, 0x20u);
+      v25 = "savePeridotCalibToFW";
+      v26 = 2048;
+      Length = CFDataGetLength(v6);
+      v28 = 2048;
+      v29 = 536;
+      _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "%s - updating firmware: unexpected size: %ld != %lu\n", buf, 0x20u);
     }
 
-    CFRelease(v5);
+    CFRelease(v6);
     return 0;
   }
 
-  v11 = off_10041DD70;
+  v12 = off_10041DD70;
   if (off_10041DD70 == &_os_log_default)
   {
-    v12 = os_log_create("com.apple.isp", "general");
-    v13 = off_10041DD70;
-    off_10041DD70 = v12;
+    v13 = os_log_create("com.apple.isp", "general");
+    v14 = off_10041DD70;
+    off_10041DD70 = v13;
 
-    v11 = off_10041DD70;
+    v12 = off_10041DD70;
   }
 
-  v14 = os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
+  v15 = os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT);
   result = 0;
-  if (v14)
+  if (v15)
   {
     *buf = 136315138;
-    v24 = "savePeridotCalibToFW";
-    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "%s - updating firmware: bad input\n", buf, 0xCu);
+    v25 = "savePeridotCalibToFW";
+    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "%s - updating firmware: bad input\n", buf, 0xCu);
     return 0;
   }
 
@@ -7418,7 +7525,7 @@ LABEL_34:
   return v22;
 }
 
-void sub_1000797CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, char a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, id a32, char a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, id a38)
+void sub_1000797CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, id a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, id a38)
 {
   _Block_object_dispose(&a23, 8);
   _Block_object_dispose(&a27, 8);
@@ -8410,7 +8517,7 @@ uint64_t sub_10007B59C(void *a1, unint64_t a2, uint64_t a3, unint64_t a4, unsign
   return result;
 }
 
-uint64_t DERImg4DecodeFindPropertyInSequence(unint64_t *a1, uint64_t a2, unint64_t a3, unint64_t a4)
+uint64_t DERImg4DecodeFindPropertyInSequence(unint64_t *a1, uint64_t a2, unint64_t a3, void *a4)
 {
   v10 = 0;
   v11 = 0uLL;
@@ -8536,29 +8643,29 @@ LABEL_10:
   return result;
 }
 
-uint64_t Img4DecodeGetBooleanFromSection(uint64_t a1, unsigned int a2, uint64_t a3, BOOL *a4)
+uint64_t Img4DecodeGetBooleanFromSection(uint64_t a1, uint64_t a2, uint64_t a3, BOOL *a4, uint64_t a5, uint64_t a6)
 {
-  memset(v8, 0, sizeof(v8));
-  v4 = 6;
+  memset(v10, 0, sizeof(v10));
+  v6 = 6;
   if (a1)
   {
     if (a4)
     {
-      Img4DecodeGetPropertyFromSection(a1, a2, a3 | 0xE000000000000000, 1uLL, v8);
-      v4 = v6;
-      if (!v6)
+      Img4DecodeGetPropertyFromSection(a1, a2, a3 | 0xE000000000000000, 1uLL, v10);
+      v6 = v8;
+      if (!v8)
       {
-        return DERParseBoolean(&v8[1] + 1, a4);
+        return DERParseBoolean(&v10[1] + 1, a4);
       }
     }
   }
 
-  return v4;
+  return v6;
 }
 
 double Img4DecodeGetPropertyFromSection(uint64_t a1, unsigned int a2, uint64_t a3, unint64_t a4, _OWORD *a5)
 {
-  *v11 = 0uLL;
+  v11 = 0uLL;
   if (a2 <= 1 && a1 && a5)
   {
     v12 = 0;
@@ -8566,14 +8673,14 @@ double Img4DecodeGetPropertyFromSection(uint64_t a1, unsigned int a2, uint64_t a
     {
       if (a2)
       {
-        *v11 = *(a1 + 440);
+        v11 = *(a1 + 440);
         goto LABEL_9;
       }
 
-      if (!DERImg4DecodeParseManifestProperties(a1, 0, v11))
+      if (!DERImg4DecodeParseManifestProperties(a1, 0, &v11))
       {
 LABEL_9:
-        if (!DERImg4DecodeFindProperty(v11, a3, a4, a5))
+        if (!DERImg4DecodeFindProperty(&v11, a3, a4, a5))
         {
           return result;
         }
@@ -9297,6 +9404,34 @@ LABEL_58:
   return 3;
 }
 
+void sub_10007C3AC(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "QueryDeviceImpactsInternal";
+  sub_100018678(&_mh_execute_header, a1, a3, "%s - device impact manager is unavailable, unable to query device impacts\n", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_10007C424(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "QueryDeviceImpactsInternal";
+  sub_100018678(&_mh_execute_header, a1, a3, "%s - queries must provide a valid dispatch group and impact context\n", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_10007C49C(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "QueryDeviceImpactsInternal";
+  sub_100018678(&_mh_execute_header, a1, a3, "%s - invalid instance of device impact manager\n", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_10007C514(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "SendDeviceImpacts";
+  sub_100018678(&_mh_execute_header, a1, a3, "%s - H16ISPDevice is NULL\n", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
 void sub_10007C58C(int a1, NSObject *a2)
 {
   v2 = 136315394;
@@ -9335,6 +9470,69 @@ void sub_10007CA4C()
   v0 = 136315138;
   v1 = "SetupDeviceController";
   _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "%s - IONotificationPortCreate returned NULL\n", &v0, 0xCu);
+}
+
+void sub_10007CAD4()
+{
+  v6 = 136315394;
+  sub_10002777C();
+  sub_100008260(&_mh_execute_header, v0, v1, "Failed to send the %s event into the diagnostics system %08X\n\n", v2, v3, v4, v5, v6);
+}
+
+void sub_10007CB48()
+{
+  v6 = 136315394;
+  sub_10002777C();
+  sub_100008260(&_mh_execute_header, v0, v1, "Failed to send the %s event into the diagnostics system %08X\n\n", v2, v3, v4, v5, v6);
+}
+
+void sub_10007CBBC()
+{
+  v6 = 136315394;
+  sub_10002777C();
+  sub_100008260(&_mh_execute_header, v0, v1, "Failed to send the %s event into the diagnostics system %08X\n\n", v2, v3, v4, v5, v6);
+}
+
+void sub_10007CC30()
+{
+  v6 = 136315394;
+  sub_10002777C();
+  sub_100008260(&_mh_execute_header, v0, v1, "Failed to send the %s event into the diagnostics system %08X\n\n", v2, v3, v4, v5, v6);
+}
+
+void sub_10007CCA4()
+{
+  v6 = 136315394;
+  sub_10002777C();
+  sub_100008260(&_mh_execute_header, v0, v1, "Failed to send the %s event into the diagnostics system %08X\n\n", v2, v3, v4, v5, v6);
+}
+
+void sub_10007CD18()
+{
+  v6 = 136315394;
+  sub_10002777C();
+  sub_100008260(&_mh_execute_header, v0, v1, "Failed to send the %s event into the diagnostics system %08X\n\n", v2, v3, v4, v5, v6);
+}
+
+void sub_10007CD8C(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "SetupDevice";
+  sub_100018678(&_mh_execute_header, a1, a3, "%s - IONotificationPortGetRunLoopSource returned NULL\n", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_10007CE04(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "SetupDevice";
+  sub_100018678(&_mh_execute_header, a1, a3, "%s - IONotificationPortCreate returned NULL\n", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_10007CE7C(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "SetupDevice";
+  sub_100018678(&_mh_execute_header, a1, a3, "%s - Could not create a device array\n", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void sub_10007CF20()
@@ -9579,250 +9777,4 @@ void sub_10007E218()
   sub_10000827C();
   sub_100014120();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-}
-
-void sub_10007E288()
-{
-  sub_10000827C();
-  sub_100014120();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-}
-
-void sub_10007E470()
-{
-  sub_10000827C();
-  sub_100014120();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-}
-
-void sub_10007E560()
-{
-  sub_10000827C();
-  sub_100014120();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-}
-
-void sub_10007E5D0()
-{
-  sub_10000827C();
-  sub_100014120();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-}
-
-void sub_10007E640()
-{
-  sub_10000827C();
-  sub_100014120();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-}
-
-void sub_10007E6B0()
-{
-  sub_10000827C();
-  sub_100014120();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-}
-
-void sub_10007E720()
-{
-  sub_10000827C();
-  sub_100014120();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-}
-
-void sub_10007E790()
-{
-  sub_1000082AC();
-  sub_100008294();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-}
-
-void sub_10007E80C(os_log_t log)
-{
-  v1 = 136315138;
-  v2 = "sendMessageSync";
-  _os_log_debug_impl(&_mh_execute_header, log, OS_LOG_TYPE_DEBUG, "%s - received reply\n", &v1, 0xCu);
-}
-
-void sub_10007E910()
-{
-  sub_1000082AC();
-  sub_100008294();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-}
-
-void sub_10007EB70(uint64_t a1)
-{
-  v1 = 136315138;
-  v2 = a1;
-  _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "createXpcFromType got a dictionary with null value (for key %s)", &v1, 0xCu);
-}
-
-void sub_10007F3F8(uint64_t a1)
-{
-  v25 = 255;
-  if (!a1)
-  {
-    return;
-  }
-
-  if (!sub_10005E5B8(a1, &v25))
-  {
-    goto LABEL_42;
-  }
-
-  v2 = IOServiceNameMatching("AppleH16CamIn");
-  MatchingService = IOServiceGetMatchingService(kIOMainPortDefault, v2);
-  v4 = IORegistryEntrySearchCFProperty(MatchingService, "IOService", @"LoadHPR", kCFAllocatorDefault, 0);
-  v5 = v4;
-  if (v4)
-  {
-    v6 = CFGetTypeID(v4);
-    if (v6 == CFBooleanGetTypeID() && !CFBooleanGetValue(v5))
-    {
-      CFRelease(v5);
-      v24 = off_10041DCA8;
-      if (off_10041DCA8 == &_os_log_default)
-      {
-        v24 = os_log_create("com.apple.isp", "general");
-        off_10041DCA8 = v24;
-      }
-
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
-      {
-        *buf = 136315138;
-        v27 = "LoadFrontIRHPRFile";
-        _os_log_error_impl(&_mh_execute_header, v24, OS_LOG_TYPE_ERROR, "%s - noHPR boot-arg set\n", buf, 0xCu);
-      }
-
-LABEL_42:
-      v15 = 0;
-      goto LABEL_43;
-    }
-  }
-
-  v7 = IORegistryEntrySearchCFProperty(MatchingService, "IOService", @"SavageChipID", kCFAllocatorDefault, 3u);
-  if (v7)
-  {
-    v8 = v7;
-    v9 = AMFDRCreateInstanceString();
-    if (v9)
-    {
-      v10 = v9;
-      v11 = IORegistryEntrySearchCFProperty(MatchingService, "IOService", @"SavageUID", kCFAllocatorDefault, 3u);
-      if (v11)
-      {
-        v12 = v11;
-        v13 = AMFDRCreateInstanceString();
-        if (v13)
-        {
-          v14 = v13;
-          v15 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%@-%@", v10, v13);
-          CFRelease(v12);
-          CFRelease(v14);
-          goto LABEL_11;
-        }
-
-        NSLog(@"Couldn't create SavageUID string ref");
-        CFRelease(v12);
-      }
-
-      else
-      {
-        NSLog(@"Couldn't read SavageUID");
-      }
-
-      v15 = 0;
-LABEL_11:
-      CFRelease(v8);
-      CFRelease(v10);
-      if (!v5)
-      {
-        goto LABEL_13;
-      }
-
-      goto LABEL_12;
-    }
-
-    NSLog(@"Couldn't create SavageChipID string ref");
-    CFRelease(v8);
-  }
-
-  else
-  {
-    NSLog(@"Couldn't read SavageChipID");
-  }
-
-  v15 = 0;
-  if (v5)
-  {
-LABEL_12:
-    CFRelease(v5);
-  }
-
-LABEL_13:
-  if (!v15)
-  {
-    NSLog(@"Couldn't combine frontIR chipIDStr and uidStr");
-LABEL_43:
-    v21 = 0;
-    v17 = 0;
-    goto LABEL_20;
-  }
-
-  v16 = [NSData dataWithContentsOfFile:@"/usr/local/share/firmware/isp/Savage/FrontIRHPR.DER"];
-  if (v16)
-  {
-    v17 = v16;
-    NSLog(@"Found FrontIR override (has highest precedence) HPR file - camChannel = %d", v25);
-    goto LABEL_16;
-  }
-
-  v17 = AMFDRSealingMapCopyLocalMinimalManifestForInstance();
-  if (v17)
-  {
-LABEL_16:
-    BytePtr = CFDataGetBytePtr(v17);
-    Length = CFDataGetLength(v17);
-    v20 = sub_10005D4E0(a1, v25 | 0x80000000, BytePtr, Length, 0x501u);
-    v21 = CFCopyDescription(v17);
-    v22 = off_10041DCA8;
-    if (off_10041DCA8 == &_os_log_default)
-    {
-      v22 = os_log_create("com.apple.isp", "general");
-      off_10041DCA8 = v22;
-    }
-
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
-    {
-      CStringPtr = CFStringGetCStringPtr(v21, 0);
-      *buf = 136315650;
-      v27 = "LoadFrontIRHPRFile";
-      v28 = 1024;
-      v29[0] = v20;
-      LOWORD(v29[1]) = 2080;
-      *(&v29[1] + 2) = CStringPtr;
-      _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "%s - Status = %08x; HPR - %s\n", buf, 0x1Cu);
-    }
-
-    goto LABEL_20;
-  }
-
-  NSLog(@"No HPR file for frontIR found");
-  v21 = 0;
-LABEL_20:
-  if (v15)
-  {
-    CFRelease(v15);
-  }
-
-  if (v17)
-  {
-    CFRelease(v17);
-  }
-
-  if (v21)
-  {
-    CFRelease(v21);
-  }
 }

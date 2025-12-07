@@ -12,49 +12,49 @@
 {
   valueCopy = value;
   keyCopy = key;
-  if (objc_msgSend_hasPrefix_(keyCopy, v8, @"inputLateralCAMap", v9, v10))
+  if ([keyCopy hasPrefix:@"inputLateralCAMap"])
   {
     mapImg = self->mapImg;
     self->mapImg = 0;
   }
 
-  v12.receiver = self;
-  v12.super_class = RAWLensCorrectionLateralCAFilter;
-  [(RAWLensCorrectionLateralCAFilter *)&v12 setValue:valueCopy forKey:keyCopy];
+  v9.receiver = self;
+  v9.super_class = RAWLensCorrectionLateralCAFilter;
+  [(RAWLensCorrectionLateralCAFilter *)&v9 setValue:valueCopy forKey:keyCopy];
 }
 
 + (id)customAttributes
 {
-  v13[1] = *MEMORY[0x277D85DE8];
-  v12 = @"inputLateralCAAmount";
+  v12[1] = *MEMORY[0x277D85DE8];
+  v11 = @"inputLateralCAAmount";
   v2 = *MEMORY[0x277CBF7E8];
-  v10[0] = *MEMORY[0x277CBF7D0];
-  v10[1] = v2;
-  v11[0] = &unk_284958A38;
-  v11[1] = &unk_284958A38;
+  v9[0] = *MEMORY[0x277CBF7D0];
+  v9[1] = v2;
+  v10[0] = &unk_284958A38;
+  v10[1] = &unk_284958A38;
   v3 = *MEMORY[0x277CBF7C8];
-  v10[2] = *MEMORY[0x277CBF7E0];
-  v10[3] = v3;
+  v9[2] = *MEMORY[0x277CBF7E0];
+  v9[3] = v3;
   v4 = *MEMORY[0x277CBF7F0];
-  v10[4] = *MEMORY[0x277CBF798];
-  v10[5] = v4;
-  v11[2] = &unk_284958A48;
-  v11[3] = &unk_284958A48;
+  v9[4] = *MEMORY[0x277CBF798];
+  v9[5] = v4;
+  v10[2] = &unk_284958A48;
+  v10[3] = &unk_284958A48;
   v5 = *MEMORY[0x277CBF850];
-  v11[4] = &unk_284958A48;
-  v11[5] = v5;
-  v6 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], a2, v11, v10, 6);
-  v13[0] = v6;
-  v8 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v7, v13, &v12, 1);
+  v10[4] = &unk_284958A48;
+  v10[5] = v5;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:6];
+  v12[0] = v6;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:&v11 count:1];
 
-  return v8;
+  return v7;
 }
 
 - (id)customAttributes
 {
   v2 = objc_opt_class();
 
-  return MEMORY[0x2821F9670](v2, sel_customAttributes, v3, v4, v5);
+  return MEMORY[0x2821F9670](v2, sel_customAttributes);
 }
 
 - (BOOL)makeMapImages
@@ -64,19 +64,19 @@
     return 1;
   }
 
-  v7 = objc_msgSend_unsignedIntValue(self->inputLateralCAMapWidth, a2, v2, v3, v4);
-  v12 = objc_msgSend_unsignedIntValue(self->inputLateralCAMapHeight, v8, v9, v10, v11);
-  if (v7 >= 4 && v12 > 3)
+  unsignedIntValue = [(NSNumber *)self->inputLateralCAMapWidth unsignedIntValue];
+  unsignedIntValue2 = [(NSNumber *)self->inputLateralCAMapHeight unsignedIntValue];
+  if (unsignedIntValue >= 4 && unsignedIntValue2 > 3)
   {
-    v14 = v12;
+    v7 = unsignedIntValue2;
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      if (objc_msgSend_length(self->inputLateralCAMap, v15, v16, v17, v18) == 4 * 4 * v7 * v14)
+      if ([(NSData *)self->inputLateralCAMap length]== 4 * 4 * unsignedIntValue * v7)
       {
-        v20 = objc_msgSend_imageWithBitmapData_bytesPerRow_size_format_colorSpace_(MEMORY[0x277CBF758], v19, self->inputLateralCAMap, 16 * v7, *MEMORY[0x277CBF9D0], 0, v7, v14);
+        v8 = [MEMORY[0x277CBF758] imageWithBitmapData:self->inputLateralCAMap bytesPerRow:16 * unsignedIntValue size:*MEMORY[0x277CBF9D0] format:0 colorSpace:{unsignedIntValue, v7}];
         mapImg = self->mapImg;
-        self->mapImg = v20;
+        self->mapImg = v8;
 
         return 1;
       }
@@ -100,8 +100,8 @@
 
 - (id)outputImage
 {
-  v97[2] = *MEMORY[0x277D85DE8];
-  v3 = sub_23378E104();
+  v56[2] = *MEMORY[0x277D85DE8];
+  v3 = sub_23378E104(self);
   v4 = v3;
   if (&self->super.super.super.isa + 1 >= 2 && os_signpost_enabled(v3))
   {
@@ -109,78 +109,78 @@
     _os_signpost_emit_with_name_impl(&dword_23371F000, v4, OS_SIGNPOST_INTERVAL_BEGIN, self, "RAWLensCorrectionLateralCAFilter", &unk_233945DBE, buf, 2u);
   }
 
-  v96[0] = MEMORY[0x277D85DD0];
-  v96[1] = 3221225472;
-  v96[2] = sub_233744F04;
-  v96[3] = &unk_2789EE800;
-  v96[4] = self;
-  v9 = MEMORY[0x2383AC810](v96);
-  if (self->inputImage && (objc_msgSend_makeMapImages(self, v5, v6, v7, v8) & 1) != 0)
+  v55[0] = MEMORY[0x277D85DD0];
+  v55[1] = 3221225472;
+  v55[2] = sub_233744F04;
+  v55[3] = &unk_2789EE800;
+  v55[4] = self;
+  v5 = MEMORY[0x2383AC810](v55);
+  if (self->inputImage && [(RAWLensCorrectionLateralCAFilter *)self makeMapImages])
   {
-    objc_msgSend_floatValue(self->inputLateralCAAmount, v10, v11, v12, v13);
-    if (self->mapImg && (v18 = fminf(fmaxf(v17, 0.0), 1.0), v18 >= 0.001))
+    [(NSNumber *)self->inputLateralCAAmount floatValue];
+    if (self->mapImg && (v7 = fminf(fmaxf(v6, 0.0), 1.0), v7 >= 0.001))
     {
-      v19 = objc_msgSend_kernelWithName_(LCKernels, v14, @"lensCorrect_lca", v15, v16, v18);
-      objc_msgSend_extent(self->inputImage, v20, v21, v22, v23);
-      v25 = v24;
-      v27 = v26;
-      v29 = v28;
-      v31 = v30;
-      v36 = objc_msgSend_vectorWithX_Y_Z_W_(MEMORY[0x277CBF788], v32, v33, v34, v35, v24 + v28 * 0.5, v26 + v30 * 0.5, v28 * 0.5, v30 * 0.5);
-      objc_msgSend_doubleValue(self->inputLateralCAMapWidth, v37, v38, v39, v40);
-      v42 = v41;
-      objc_msgSend_doubleValue(self->inputLateralCAMapHeight, v43, v44, v45, v46);
-      v48 = v47;
-      v53 = objc_msgSend_imageByClampingToExtent(self->mapImg, v49, v50, v51, v52);
-      v54.f64[0] = v29 / (v42 + -1.0);
-      *buf = v54.f64[0];
-      v92 = 0;
-      v93 = 0;
-      v94 = v31 / (v48 + -1.0);
-      v54.f64[1] = v94;
+      v8 = [LCKernels kernelWithName:@"lensCorrect_lca", v7];
+      [(CIImage *)self->inputImage extent];
+      v10 = v9;
+      v12 = v11;
+      v14 = v13;
+      v16 = v15;
+      v17 = [MEMORY[0x277CBF788] vectorWithX:v9 + v13 * 0.5 Y:v11 + v15 * 0.5 Z:v13 * 0.5 W:v15 * 0.5];
+      [(NSNumber *)self->inputLateralCAMapWidth doubleValue];
+      v19 = v18;
+      [(NSNumber *)self->inputLateralCAMapHeight doubleValue];
+      v21 = v20;
+      imageByClampingToExtent = [(CIImage *)self->mapImg imageByClampingToExtent];
+      v23.f64[0] = v14 / (v19 + -1.0);
+      *buf = v23.f64[0];
+      v51 = 0;
+      v52 = 0;
+      v53 = v16 / (v21 + -1.0);
+      v23.f64[1] = v53;
       __asm { FMOV            V1.2D, #-0.5 }
 
-      v95 = vmulq_f64(v54, _Q1);
-      v63 = objc_msgSend_imageByApplyingTransform_(v53, v60, buf, v61, v62);
+      v54 = vmulq_f64(v23, _Q1);
+      v29 = [imageByClampingToExtent imageByApplyingTransform:buf];
 
-      v84[0] = MEMORY[0x277D85DD0];
-      v84[1] = 3221225472;
-      v84[2] = sub_2337451F0;
-      v84[3] = &unk_2789EE998;
-      v84[4] = self;
-      v85 = &unk_284904BD0;
-      v86 = v25;
-      v87 = v27;
-      v88 = v29;
-      v89 = v31;
-      v90 = v18;
-      v64 = MEMORY[0x2383AC810](v84);
+      v43[0] = MEMORY[0x277D85DD0];
+      v43[1] = 3221225472;
+      v43[2] = sub_2337451F0;
+      v43[3] = &unk_2789EE998;
+      v43[4] = self;
+      v44 = &unk_284904BD0;
+      v45 = v10;
+      v46 = v12;
+      v47 = v14;
+      v48 = v16;
+      v49 = v7;
+      v30 = MEMORY[0x2383AC810](v43);
       inputImage = self->inputImage;
-      objc_msgSend_extent(inputImage, v66, v67, v68, v69);
-      v71 = v70;
-      v73 = v72;
-      v75 = v74;
-      v77 = v76;
-      v97[0] = v63;
-      v97[1] = v36;
-      v80 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v78, v97, 2, v79);
-      v82 = objc_msgSend_apply_image_extent_roiCallback_arguments_inoutSpace_(self, v81, v19, inputImage, v64, v80, self->inputColorSpace, v71, v73, v75, v77);
+      [(CIImage *)inputImage extent];
+      v33 = v32;
+      v35 = v34;
+      v37 = v36;
+      v39 = v38;
+      v56[0] = v29;
+      v56[1] = v17;
+      v40 = [MEMORY[0x277CBEA60] arrayWithObjects:v56 count:2];
+      v41 = [(RAWFilter *)self apply:v8 image:inputImage extent:v30 roiCallback:v40 arguments:self->inputColorSpace inoutSpace:v33, v35, v37, v39];
     }
 
     else
     {
-      v82 = self->inputImage;
+      v41 = self->inputImage;
     }
   }
 
   else
   {
-    v82 = 0;
+    v41 = 0;
   }
 
-  v9[2](v9);
+  v5[2](v5);
 
-  return v82;
+  return v41;
 }
 
 @end

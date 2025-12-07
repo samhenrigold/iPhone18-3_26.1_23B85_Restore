@@ -1,4 +1,5 @@
 @interface SDController
++ (id)datastoreForDomain:(unsigned int)domain;
 + (id)datastores;
 + (id)getMeContactIdentifier;
 + (id)getMeEmailAddresses;
@@ -19,6 +20,7 @@
 - (id)extraTTRInfo;
 - (id)indexDirectory;
 - (id)taskForTopHitQueryWithQueryString:(id)string queryContext:(id)context eventHandler:(id)handler resultsHandler:(id)resultsHandler completionHandler:(id)completionHandler;
+- (void)deviceStateWillChange:(BOOL)change;
 - (void)didReceiveMemoryPressureNotification:(unint64_t)notification;
 - (void)didReceiveSignal:(unint64_t)signal;
 - (void)dumpTTRDebugFiles;
@@ -37,6 +39,7 @@
 - (void)unlockAppUninstallMonitor;
 - (void)unlockMigrationMonitor;
 - (void)unlocked;
+- (void)updateApplicationsWithCompletion:(id)completion clean:(BOOL)clean;
 - (void)updateParsecEnabled;
 @end
 
@@ -145,6 +148,17 @@
   firstUnlockedInSB = [v2 firstUnlockedInSB];
 
   return firstUnlockedInSB;
+}
+
+- (void)deviceStateWillChange:(BOOL)change
+{
+  changeCopy = change;
+  if (change)
+  {
+    [(SDController *)self startIndexer];
+  }
+
+  [SPCoreSpotlightIndexer deviceStateWillChange:changeCopy];
 }
 
 - (void)migrationCompleted
@@ -710,6 +724,17 @@ LABEL_8:
   return v2;
 }
 
++ (id)datastoreForDomain:(unsigned int)domain
+{
+  v3 = *&domain;
+  [self readyForQueries];
+  domainMap = [self domainMap];
+  v6 = [NSNumber numberWithInt:v3];
+  v7 = [domainMap objectForKey:v6];
+
+  return v7;
+}
+
 - (void)updateParsecEnabled
 {
   v3 = SPGetDisabledDomainSet();
@@ -897,6 +922,14 @@ LABEL_15:
 LABEL_16:
 
   return v6;
+}
+
+- (void)updateApplicationsWithCompletion:(id)completion clean:(BOOL)clean
+{
+  cleanCopy = clean;
+  completionCopy = completion;
+  v6 = +[SPApplicationMetadataUpdater sharedInstance];
+  [v6 updateWithCompletionHandler:completionCopy clean:cleanCopy activity:0];
 }
 
 - (id)taskForTopHitQueryWithQueryString:(id)string queryContext:(id)context eventHandler:(id)handler resultsHandler:(id)resultsHandler completionHandler:(id)completionHandler

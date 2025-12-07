@@ -59,15 +59,14 @@ LABEL_4:
     if (v5)
     {
       v6 = MEMORY[0x2318925A0]();
-      v7 = (24 * *v6 + 31) & 0xFFFFFFFFFFFFFFF0;
       MEMORY[0x28223BE20](v6);
-      v9 = (error - v8);
       [(__CFData *)v5 length];
       [(__CFData *)v5 bytes];
-      if (ccec_x963_import_pub())
+      v7 = ccec_x963_import_pub();
+      if (v7)
       {
-        v10 = MessageProtectionLog();
-        if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+        v8 = MessageProtectionLog(v7);
+        if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
         {
           [SecKeyP256Public dataRepresentation];
         }
@@ -77,13 +76,12 @@ LABEL_4:
 
       else
       {
-        v18 = *v9;
-        v19 = [objc_alloc(MEMORY[0x277CBEB28]) initWithLength:(cczp_bitlen() + 7) >> 3];
-        [(NSData *)v19 bytes];
+        v16 = [objc_alloc(MEMORY[0x277CBEB28]) initWithLength:(cczp_bitlen() + 7) >> 3];
+        [(NSData *)v16 bytes];
         ccec_compact_export_pub();
-        v20 = self->_serializedKey;
-        self->_serializedKey = v19;
-        v10 = v19;
+        v17 = self->_serializedKey;
+        self->_serializedKey = v16;
+        v8 = v16;
 
         v3 = self->_serializedKey;
       }
@@ -91,10 +89,10 @@ LABEL_4:
 
     else
     {
-      v11 = MessageProtectionLog();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v9 = MessageProtectionLog(0);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
-        [(SecKeyP256Public *)error dataRepresentation:v11];
+        [(SecKeyP256Public *)error dataRepresentation:v9];
       }
 
       if (error[0])
@@ -106,56 +104,51 @@ LABEL_4:
     }
   }
 
-  v21 = *MEMORY[0x277D85DE8];
-
   return v3;
 }
 
 - (SecKeyP256Public)initWithData:(id)data error:(id *)error
 {
-  v26[4] = *MEMORY[0x277D85DE8];
+  v22[4] = *MEMORY[0x277D85DE8];
   dataCopy = data;
   v7 = MEMORY[0x2318925A0]();
-  v8 = (24 * *v7 + 31) & 0xFFFFFFFFFFFFFFF0;
   MEMORY[0x28223BE20](v7);
-  v10 = (&v25[-1] - v9);
   [dataCopy length];
   [dataCopy bytes];
   if (ccec_compact_import_pub())
   {
-    v11 = MEMORY[0x277CCACA8];
-    v12 = [dataCopy description];
-    v13 = [v11 stringWithFormat:@"Incorrect data for public key: %@", v12];
-    MPLogAndAssignError(7, error, v13);
+    v8 = MEMORY[0x277CCACA8];
+    v9 = [dataCopy description];
+    v10 = [v8 stringWithFormat:@"Incorrect data for public key: %@", v9];
+    MPLogAndAssignError(7, error, v10);
   }
 
   else
   {
-    v14 = *v10;
-    v12 = [objc_alloc(MEMORY[0x277CBEB28]) initWithLength:((cczp_bitlen() + 7) >> 2) | 1];
-    [v12 bytes];
+    v9 = [objc_alloc(MEMORY[0x277CBEB28]) initWithLength:((cczp_bitlen() + 7) >> 2) | 1];
+    [v9 bytes];
     ccec_export_pub();
-    v15 = *MEMORY[0x277CDC040];
-    v16 = *MEMORY[0x277CDBFE0];
-    v25[0] = *MEMORY[0x277CDC028];
-    v25[1] = v16;
-    v17 = *MEMORY[0x277CDC000];
-    v26[0] = v15;
-    v26[1] = v17;
-    v18 = *MEMORY[0x277CDBFD0];
-    v25[2] = *MEMORY[0x277CDC018];
-    v25[3] = v18;
-    v26[2] = &unk_283F13BB0;
-    v26[3] = MEMORY[0x277CBEC28];
-    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:v25 count:4];
+    v11 = *MEMORY[0x277CDC040];
+    v12 = *MEMORY[0x277CDBFE0];
+    v21[0] = *MEMORY[0x277CDC028];
+    v21[1] = v12;
+    v13 = *MEMORY[0x277CDC000];
+    v22[0] = v11;
+    v22[1] = v13;
+    v14 = *MEMORY[0x277CDBFD0];
+    v21[2] = *MEMORY[0x277CDC018];
+    v21[3] = v14;
+    v22[2] = &unk_283F13BB0;
+    v22[3] = MEMORY[0x277CBEC28];
+    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:v21 count:4];
     error = 0;
-    v19 = SecKeyCreateWithData(v12, v13, &error);
-    v20 = [(SecKeyP256Public *)self init];
-    self = v20;
-    if (v19)
+    v15 = SecKeyCreateWithData(v9, v10, &error);
+    v16 = [(SecKeyP256Public *)self init];
+    self = v16;
+    if (v15)
     {
-      v20->_publicKeyRef = v19;
-      error = v20;
+      v16->_publicKeyRef = v15;
+      error = v16;
       goto LABEL_6;
     }
 
@@ -164,18 +157,18 @@ LABEL_4:
       goto LABEL_6;
     }
 
-    *error = error;
-    v23 = MessageProtectionLog();
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+    errorCopy = error;
+    *error = errorCopy;
+    v19 = MessageProtectionLog(errorCopy);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
-      [(SecKeyP256Public *)error initWithData:dataCopy error:v23];
+      [(SecKeyP256Public *)error initWithData:dataCopy error:v19];
     }
   }
 
   error = 0;
 LABEL_6:
 
-  v21 = *MEMORY[0x277D85DE8];
   return error;
 }
 
@@ -196,7 +189,7 @@ LABEL_6:
   if (error)
   {
     v14 = CFErrorCopyDescription(error);
-    v15 = MessageProtectionLog();
+    v15 = MessageProtectionLog(v14);
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       [SecKeyP256Public verifySignature:data:];
@@ -216,7 +209,6 @@ LABEL_6:
 
 - (void)dataRepresentation
 {
-  v11 = *MEMORY[0x277D85DE8];
   v8 = *self;
   if (*self)
   {
@@ -228,32 +220,23 @@ LABEL_6:
     v9 = @"No error set";
   }
 
-  OUTLINED_FUNCTION_1_1(&dword_22B404000, a2, a3, "Failed to get the data representation of the SecKeyP256 public key: %@", a5, a6, a7, a8, 2u);
+  LODWORD(v10) = 138412290;
+  HIDWORD(v10) = v9;
+  OUTLINED_FUNCTION_1_1(&dword_22B404000, a2, a3, "Failed to get the data representation of the SecKeyP256 public key: %@", a5, a6, a7, a8, v10, HIDWORD(v9));
   if (v8)
   {
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithData:(os_log_t)log error:.cold.1(uint64_t *a1, uint64_t a2, os_log_t log)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = *a1;
-  v5 = 138412546;
-  v6 = v3;
-  v7 = 2112;
-  v8 = a2;
-  _os_log_error_impl(&dword_22B404000, log, OS_LOG_TYPE_ERROR, "Failed to initialize public key from data with error: %@ for data: %@.", &v5, 0x16u);
-  v4 = *MEMORY[0x277D85DE8];
-}
-
-- (void)verifySignature:data:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_6();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = 138412546;
+  v5 = v3;
+  v6 = 2112;
+  v7 = a2;
+  _os_log_error_impl(&dword_22B404000, log, OS_LOG_TYPE_ERROR, "Failed to initialize public key from data with error: %@ for data: %@.", &v4, 0x16u);
 }
 
 @end

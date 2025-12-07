@@ -229,7 +229,7 @@ LABEL_3:
     }
 
     v8 = fromCopy;
-    [(HKCodableDayIndexRange *)analyzedRange mergeFrom:?];
+    analyzedRange = [(HKCodableDayIndexRange *)analyzedRange mergeFrom:?];
   }
 
   else
@@ -240,7 +240,7 @@ LABEL_3:
     }
 
     v8 = fromCopy;
-    [(HKCodableSleepingSampleBaselineAvailability *)self setAnalyzedRange:?];
+    analyzedRange = [(HKCodableSleepingSampleBaselineAvailability *)self setAnalyzedRange:?];
   }
 
   fromCopy = v8;
@@ -259,7 +259,7 @@ LABEL_7:
     *&self->_has |= 2u;
   }
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](analyzedRange, fromCopy);
 }
 
 @end

@@ -9,40 +9,40 @@
 
 - (BOOL)addSamples:(const void *)samples numSamples:(int64_t)numSamples
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   v4 = 1;
   if (numSamples >= 1 && self->isWriting)
   {
     numSamplesCopy = numSamples;
-    v23[1] = v23;
+    v22[1] = v22;
     mBytesPerFrame = self->inASBD.mBytesPerFrame;
     mChannelsPerFrame = self->inASBD.mChannelsPerFrame;
-    v24 = (v23 - ((24 * mChannelsPerFrame + 15) & 0x3FFFFFFFF0));
-    v24->mNumberBuffers = mChannelsPerFrame;
+    v23 = (v22 - ((24 * mChannelsPerFrame + 15) & 0x3FFFFFFFF0));
+    v23->mNumberBuffers = mChannelsPerFrame;
+    v25 = 0u;
     v26 = 0u;
     v27 = 0u;
     v28 = 0u;
-    v29 = 0u;
-    v23[0] = self;
+    v22[0] = self;
     v8 = self->selectedChannelList;
-    v9 = [(NSArray *)v8 countByEnumeratingWithState:&v26 objects:v34 count:16];
+    v9 = [(NSArray *)v8 countByEnumeratingWithState:&v25 objects:v33 count:16];
     if (v9)
     {
       v10 = v9;
       v11 = 0;
       v12 = mBytesPerFrame * numSamplesCopy;
-      v13 = *v27;
-      mBuffers = v24->mBuffers;
+      v13 = *v26;
+      mBuffers = v23->mBuffers;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v27 != v13)
+          if (*v26 != v13)
           {
             objc_enumerationMutation(v8);
           }
 
-          v16 = *(*(&v26 + 1) + 8 * i);
+          v16 = *(*(&v25 + 1) + 8 * i);
           v17 = &mBuffers[v11];
           v17->mNumberChannels = 1;
           v17->mDataByteSize = v12;
@@ -50,13 +50,13 @@
           ++v11;
         }
 
-        v10 = [(NSArray *)v8 countByEnumeratingWithState:&v26 objects:v34 count:16];
+        v10 = [(NSArray *)v8 countByEnumeratingWithState:&v25 objects:v33 count:16];
       }
 
       while (v10);
     }
 
-    v18 = ExtAudioFileWrite(*(v23[0] + 16), numSamplesCopy, v24);
+    v18 = ExtAudioFileWrite(*(v22[0] + 16), numSamplesCopy, v23);
     v4 = v18 == 0;
     if (v18)
     {
@@ -65,15 +65,14 @@
       if (os_log_type_enabled(CSLogCategoryAudio, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v31 = "[CSSelectiveChannelAudioFileWriter addSamples:numSamples:]";
-        v32 = 2050;
-        v33 = v19;
+        v30 = "[CSSelectiveChannelAudioFileWriter addSamples:numSamples:]";
+        v31 = 2050;
+        v32 = v19;
         _os_log_error_impl(&dword_1DDA4B000, v20, OS_LOG_TYPE_ERROR, "%s ::: Error writing to output wave file. : %{public}ld", buf, 0x16u);
       }
     }
   }
 
-  v21 = *MEMORY[0x1E69E9840];
   return v4;
 }
 
@@ -99,11 +98,11 @@
 
 - (CSSelectiveChannelAudioFileWriter)initWithURL:(id)l inputFormat:(AudioStreamBasicDescription *)format outputFormat:(AudioStreamBasicDescription *)outputFormat channelBitset:(unint64_t)bitset
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   lCopy = l;
-  v27.receiver = self;
-  v27.super_class = CSSelectiveChannelAudioFileWriter;
-  v11 = [(CSSelectiveChannelAudioFileWriter *)&v27 init];
+  v26.receiver = self;
+  v26.super_class = CSSelectiveChannelAudioFileWriter;
+  v11 = [(CSSelectiveChannelAudioFileWriter *)&v26 init];
   v12 = v11;
   if (v11)
   {
@@ -120,7 +119,7 @@
         *&buf[12] = 2114;
         *&buf[14] = lCopy;
         *&buf[22] = 1026;
-        LODWORD(v29) = v13;
+        LODWORD(v28) = v13;
         _os_log_error_impl(&dword_1DDA4B000, v14, OS_LOG_TYPE_ERROR, "%s ::: Error creating output file %{public}@, err: %{public}d", buf, 0x1Cu);
       }
     }
@@ -158,15 +157,15 @@
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x3032000000;
-    v29 = __Block_byref_object_copy__14838;
-    v30 = __Block_byref_object_dispose__14839;
-    v31 = objc_alloc_init(MEMORY[0x1E695DF70]);
-    v26[0] = MEMORY[0x1E69E9820];
-    v26[1] = 3221225472;
-    v26[2] = __88__CSSelectiveChannelAudioFileWriter_initWithURL_inputFormat_outputFormat_channelBitset___block_invoke;
-    v26[3] = &unk_1E865C998;
-    v26[4] = buf;
-    [CSUtils iterateBitset:bitset block:v26];
+    v28 = __Block_byref_object_copy__14838;
+    v29 = __Block_byref_object_dispose__14839;
+    v30 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v25[0] = MEMORY[0x1E69E9820];
+    v25[1] = 3221225472;
+    v25[2] = __88__CSSelectiveChannelAudioFileWriter_initWithURL_inputFormat_outputFormat_channelBitset___block_invoke;
+    v25[3] = &unk_1E865C998;
+    v25[4] = buf;
+    [CSUtils iterateBitset:bitset block:v25];
     v22 = [*(*&buf[8] + 40) mutableCopy];
     selectedChannelList = v12->selectedChannelList;
     v12->selectedChannelList = v22;
@@ -174,7 +173,6 @@
     _Block_object_dispose(buf, 8);
   }
 
-  v24 = *MEMORY[0x1E69E9840];
   return v12;
 }
 

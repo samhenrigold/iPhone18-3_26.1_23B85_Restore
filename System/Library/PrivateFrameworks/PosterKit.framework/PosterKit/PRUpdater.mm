@@ -16,7 +16,7 @@
   delegateCopy = delegate;
   if (!delegateCopy)
   {
-    [PRUpdater initWithDelegate:a2];
+    [(PRUpdater *)a2 initWithDelegate:?];
   }
 
   v7 = delegateCopy;
@@ -49,7 +49,7 @@
   os_unfair_lock_lock(&self->_lock);
   if ([(NSMutableSet *)self->_lock_connections containsObject:connectionCopy])
   {
-    [PRUpdater shouldAcceptConnection:a2];
+    [(PRUpdater *)a2 shouldAcceptConnection:?];
   }
 
   [(NSMutableSet *)self->_lock_connections addObject:connectionCopy];
@@ -1139,7 +1139,7 @@ void __81__PRUpdater_updateSuggestionDescriptors_forConfiguration_sessionInfo_co
     }
 
     v9();
-    (*(v8[9] + 16))();
+    (*(*(v8 + 72) + 16))();
 LABEL_5:
     objc_autoreleasePoolPop(v7);
   }
@@ -1306,44 +1306,44 @@ void __42__PRUpdater__dequeueNextCallOutIfPossible__block_invoke_2(uint64_t a1)
   os_unfair_lock_lock(&self->_lock);
   if (([(NSMutableSet *)self->_lock_connections containsObject:_disconnectCopy]& 1) == 0)
   {
-    [PRUpdater _disconnect:a2];
+    [(PRUpdater *)a2 _disconnect:?];
   }
 
   [(NSMutableSet *)self->_lock_connections removeObject:_disconnectCopy];
   os_unfair_lock_unlock(&self->_lock);
 }
 
-- (void)initWithDelegate:(const char *)a1 .cold.1(const char *a1)
+- (void)initWithDelegate:(const char *)a1 .cold.1(const char *a1, uint64_t a2)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"delegate"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v3 = NSStringFromSelector(a1);
-    v4 = objc_opt_class();
-    v5 = NSStringFromClass(v4);
+    v4 = NSStringFromSelector(a1);
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_2(&dword_1A8AA7000, MEMORY[0x1E69E9C10], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, @"delegate", v11, v12);
+    OUTLINED_FUNCTION_1_2(&dword_1A8AA7000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
-  [v2 UTF8String];
+  [v3 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }
 
-- (void)shouldAcceptConnection:(const char *)a1 .cold.1(const char *a1)
+- (void)shouldAcceptConnection:(const char *)a1 .cold.1(const char *a1, uint64_t a2)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"![_lock_connections containsObject:connection]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v3 = NSStringFromSelector(a1);
-    v4 = objc_opt_class();
-    v5 = NSStringFromClass(v4);
+    v4 = NSStringFromSelector(a1);
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_2(&dword_1A8AA7000, MEMORY[0x1E69E9C10], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, @"![_lock_connections containsObject:connection]", v12, v13);
+    OUTLINED_FUNCTION_1_2(&dword_1A8AA7000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v13, v14);
   }
 
-  v11 = v2;
-  [v2 UTF8String];
+  v12 = v3;
+  [v3 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }
@@ -1360,7 +1360,7 @@ void __36__PRUpdater_shouldAcceptConnection___block_invoke_cold_1()
 
 void __54__PRUpdater_updateDescriptors_sessionInfo_completion___block_invoke_2_cold_1(uint64_t a1)
 {
-  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:NSArrayClass]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(*(a1 + 80));
@@ -1368,7 +1368,7 @@ void __54__PRUpdater_updateDescriptors_sessionInfo_completion___block_invoke_2_c
     v4 = OUTLINED_FUNCTION_7();
     v5 = NSStringFromClass(v4);
     OUTLINED_FUNCTION_0_13();
-    OUTLINED_FUNCTION_1_2(&dword_1A8AA7000, MEMORY[0x1E69E9C10], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, @"[_bs_assert_object isKindOfClass:NSArrayClass]", v11, v12);
+    OUTLINED_FUNCTION_1_2(&dword_1A8AA7000, MEMORY[0x1E69E9C10], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, v11, v12);
   }
 
   [v3 UTF8String];
@@ -1378,7 +1378,7 @@ void __54__PRUpdater_updateDescriptors_sessionInfo_completion___block_invoke_2_c
 
 void __54__PRUpdater_updateDescriptors_sessionInfo_completion___block_invoke_2_cold_2(uint64_t a1)
 {
-  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:PRPosterDescriptorClass]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(*(a1 + 80));
@@ -1386,7 +1386,7 @@ void __54__PRUpdater_updateDescriptors_sessionInfo_completion___block_invoke_2_c
     v4 = OUTLINED_FUNCTION_7();
     v5 = NSStringFromClass(v4);
     OUTLINED_FUNCTION_0_13();
-    OUTLINED_FUNCTION_1_2(&dword_1A8AA7000, MEMORY[0x1E69E9C10], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, @"[_bs_assert_object isKindOfClass:PRPosterDescriptorClass]", v11, v12);
+    OUTLINED_FUNCTION_1_2(&dword_1A8AA7000, MEMORY[0x1E69E9C10], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, v11, v12);
   }
 
   [v3 UTF8String];
@@ -1396,7 +1396,7 @@ void __54__PRUpdater_updateDescriptors_sessionInfo_completion___block_invoke_2_c
 
 void __54__PRUpdater_updateDescriptors_sessionInfo_completion___block_invoke_2_cold_3(uint64_t a1)
 {
-  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(*(a1 + 80));
@@ -1404,7 +1404,7 @@ void __54__PRUpdater_updateDescriptors_sessionInfo_completion___block_invoke_2_c
     v4 = OUTLINED_FUNCTION_7();
     v5 = NSStringFromClass(v4);
     OUTLINED_FUNCTION_0_13();
-    OUTLINED_FUNCTION_1_2(&dword_1A8AA7000, MEMORY[0x1E69E9C10], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, @"_bs_assert_object != nil", v11, v12);
+    OUTLINED_FUNCTION_1_2(&dword_1A8AA7000, MEMORY[0x1E69E9C10], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, v11, v12);
   }
 
   [v3 UTF8String];
@@ -1426,28 +1426,27 @@ void __54__PRUpdater_updateDescriptors_sessionInfo_completion___block_invoke_2_c
 void __54__PRUpdater_updateDescriptors_sessionInfo_completion___block_invoke_2_cold_5(void *a1, uint64_t a2)
 {
   v4 = MEMORY[0x1E696AEC0];
-  v13 = [a1 descriptorIdentifier];
-  v14 = a1;
-  v5 = [v4 stringWithFormat:@"replaced descriptor '%@' has changed its role? : %@"];
+  v5 = [a1 descriptorIdentifier];
+  v6 = [v4 stringWithFormat:@"replaced descriptor '%@' has changed its role? : %@", v5, a1];
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(*(a2 + 80));
     objc_claimAutoreleasedReturnValue();
-    v6 = OUTLINED_FUNCTION_7();
-    v7 = NSStringFromClass(v6);
+    v7 = OUTLINED_FUNCTION_7();
+    v8 = NSStringFromClass(v7);
     OUTLINED_FUNCTION_0_13();
-    OUTLINED_FUNCTION_1_2(&dword_1A8AA7000, MEMORY[0x1E69E9C10], v8, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v9, v10, v11, v12, v13, v14, v15);
+    OUTLINED_FUNCTION_1_2(&dword_1A8AA7000, MEMORY[0x1E69E9C10], v9, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v10, v11, v12, v13, v14, v15);
   }
 
-  [v5 UTF8String];
+  [v6 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }
 
 void __54__PRUpdater_updateDescriptors_sessionInfo_completion___block_invoke_2_cold_6(uint64_t a1, uint64_t a2)
 {
-  v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"replacement descriptor doesn't look valid : %@"];
+  v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"replacement descriptor doesn't look valid : %@", a1];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(*(a2 + 80));
@@ -1455,7 +1454,7 @@ void __54__PRUpdater_updateDescriptors_sessionInfo_completion___block_invoke_2_c
     v5 = OUTLINED_FUNCTION_7();
     v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_0_13();
-    OUTLINED_FUNCTION_1_2(&dword_1A8AA7000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, a1, v13, v14);
+    OUTLINED_FUNCTION_1_2(&dword_1A8AA7000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v4 UTF8String];
@@ -1484,7 +1483,7 @@ void __54__PRUpdater_updateDescriptors_sessionInfo_completion___block_invoke_2_5
 
 void __56__PRUpdater_updateConfiguration_sessionInfo_completion___block_invoke_2_cold_1(uint64_t a1)
 {
-  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:PRPosterConfigurationClass]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(*(a1 + 80));
@@ -1492,7 +1491,7 @@ void __56__PRUpdater_updateConfiguration_sessionInfo_completion___block_invoke_2
     v4 = OUTLINED_FUNCTION_7();
     v5 = NSStringFromClass(v4);
     OUTLINED_FUNCTION_0_13();
-    OUTLINED_FUNCTION_1_2(&dword_1A8AA7000, MEMORY[0x1E69E9C10], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, @"[_bs_assert_object isKindOfClass:PRPosterConfigurationClass]", v11, v12);
+    OUTLINED_FUNCTION_1_2(&dword_1A8AA7000, MEMORY[0x1E69E9C10], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, v11, v12);
   }
 
   [v3 UTF8String];
@@ -1514,21 +1513,20 @@ void __56__PRUpdater_updateConfiguration_sessionInfo_completion___block_invoke_2
 void __56__PRUpdater_updateConfiguration_sessionInfo_completion___block_invoke_2_cold_3(void *a1, uint64_t a2)
 {
   v4 = MEMORY[0x1E696AEC0];
-  v13 = [a1 descriptorIdentifier];
-  v14 = a1;
-  v5 = [v4 stringWithFormat:@"replaced configuration '%@' has changed its role? : %@"];
+  v5 = [a1 descriptorIdentifier];
+  v6 = [v4 stringWithFormat:@"replaced configuration '%@' has changed its role? : %@", v5, a1];
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(*(a2 + 80));
     objc_claimAutoreleasedReturnValue();
-    v6 = OUTLINED_FUNCTION_7();
-    v7 = NSStringFromClass(v6);
+    v7 = OUTLINED_FUNCTION_7();
+    v8 = NSStringFromClass(v7);
     OUTLINED_FUNCTION_0_13();
-    OUTLINED_FUNCTION_1_2(&dword_1A8AA7000, MEMORY[0x1E69E9C10], v8, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v9, v10, v11, v12, v13, v14, v15);
+    OUTLINED_FUNCTION_1_2(&dword_1A8AA7000, MEMORY[0x1E69E9C10], v9, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v10, v11, v12, v13, v14, v15);
   }
 
-  [v5 UTF8String];
+  [v6 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }
@@ -1565,7 +1563,7 @@ void __56__PRUpdater_updateConfiguration_sessionInfo_completion___block_invoke_2
 
 void __81__PRUpdater_updateSuggestionDescriptors_forConfiguration_sessionInfo_completion___block_invoke_2_cold_1(uint64_t a1)
 {
-  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:NSArrayClass]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(*(a1 + 80));
@@ -1573,7 +1571,7 @@ void __81__PRUpdater_updateSuggestionDescriptors_forConfiguration_sessionInfo_co
     v4 = OUTLINED_FUNCTION_7();
     v5 = NSStringFromClass(v4);
     OUTLINED_FUNCTION_0_13();
-    OUTLINED_FUNCTION_1_2(&dword_1A8AA7000, MEMORY[0x1E69E9C10], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, @"[_bs_assert_object isKindOfClass:NSArrayClass]", v11, v12);
+    OUTLINED_FUNCTION_1_2(&dword_1A8AA7000, MEMORY[0x1E69E9C10], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, v11, v12);
   }
 
   [v3 UTF8String];
@@ -1583,7 +1581,7 @@ void __81__PRUpdater_updateSuggestionDescriptors_forConfiguration_sessionInfo_co
 
 void __81__PRUpdater_updateSuggestionDescriptors_forConfiguration_sessionInfo_completion___block_invoke_2_cold_2(uint64_t a1)
 {
-  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:PRPosterDescriptorClass]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(*(a1 + 80));
@@ -1591,7 +1589,7 @@ void __81__PRUpdater_updateSuggestionDescriptors_forConfiguration_sessionInfo_co
     v4 = OUTLINED_FUNCTION_7();
     v5 = NSStringFromClass(v4);
     OUTLINED_FUNCTION_0_13();
-    OUTLINED_FUNCTION_1_2(&dword_1A8AA7000, MEMORY[0x1E69E9C10], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, @"[_bs_assert_object isKindOfClass:PRPosterDescriptorClass]", v11, v12);
+    OUTLINED_FUNCTION_1_2(&dword_1A8AA7000, MEMORY[0x1E69E9C10], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, v11, v12);
   }
 
   [v3 UTF8String];
@@ -1601,7 +1599,7 @@ void __81__PRUpdater_updateSuggestionDescriptors_forConfiguration_sessionInfo_co
 
 void __81__PRUpdater_updateSuggestionDescriptors_forConfiguration_sessionInfo_completion___block_invoke_2_cold_3(uint64_t a1)
 {
-  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(*(a1 + 80));
@@ -1609,7 +1607,7 @@ void __81__PRUpdater_updateSuggestionDescriptors_forConfiguration_sessionInfo_co
     v4 = OUTLINED_FUNCTION_7();
     v5 = NSStringFromClass(v4);
     OUTLINED_FUNCTION_0_13();
-    OUTLINED_FUNCTION_1_2(&dword_1A8AA7000, MEMORY[0x1E69E9C10], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, @"_bs_assert_object != nil", v11, v12);
+    OUTLINED_FUNCTION_1_2(&dword_1A8AA7000, MEMORY[0x1E69E9C10], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, v11, v12);
   }
 
   [v3 UTF8String];
@@ -1620,28 +1618,27 @@ void __81__PRUpdater_updateSuggestionDescriptors_forConfiguration_sessionInfo_co
 void __81__PRUpdater_updateSuggestionDescriptors_forConfiguration_sessionInfo_completion___block_invoke_2_cold_4(void *a1, uint64_t a2)
 {
   v4 = MEMORY[0x1E696AEC0];
-  v13 = [a1 descriptorIdentifier];
-  v14 = a1;
-  v5 = [v4 stringWithFormat:@"replaced suggestion descriptor '%@' has changed its role? : %@"];
+  v5 = [a1 descriptorIdentifier];
+  v6 = [v4 stringWithFormat:@"replaced suggestion descriptor '%@' has changed its role? : %@", v5, a1];
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(*(a2 + 80));
     objc_claimAutoreleasedReturnValue();
-    v6 = OUTLINED_FUNCTION_7();
-    v7 = NSStringFromClass(v6);
+    v7 = OUTLINED_FUNCTION_7();
+    v8 = NSStringFromClass(v7);
     OUTLINED_FUNCTION_0_13();
-    OUTLINED_FUNCTION_1_2(&dword_1A8AA7000, MEMORY[0x1E69E9C10], v8, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v9, v10, v11, v12, v13, v14, v15);
+    OUTLINED_FUNCTION_1_2(&dword_1A8AA7000, MEMORY[0x1E69E9C10], v9, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v10, v11, v12, v13, v14, v15);
   }
 
-  [v5 UTF8String];
+  [v6 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }
 
 void __81__PRUpdater_updateSuggestionDescriptors_forConfiguration_sessionInfo_completion___block_invoke_2_cold_5(uint64_t a1, uint64_t a2)
 {
-  v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"replacement suggestion descriptor doesn't look valid : %@"];
+  v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"replacement suggestion descriptor doesn't look valid : %@", a1];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(*(a2 + 80));
@@ -1649,7 +1646,7 @@ void __81__PRUpdater_updateSuggestionDescriptors_forConfiguration_sessionInfo_co
     v5 = OUTLINED_FUNCTION_7();
     v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_0_13();
-    OUTLINED_FUNCTION_1_2(&dword_1A8AA7000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, a1, v13, v14);
+    OUTLINED_FUNCTION_1_2(&dword_1A8AA7000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v4 UTF8String];
@@ -1685,19 +1682,19 @@ void __81__PRUpdater_updateSuggestionDescriptors_forConfiguration_sessionInfo_co
   _os_log_debug_impl(v2, v3, OS_LOG_TYPE_DEBUG, v4, v5, 0x16u);
 }
 
-- (void)_disconnect:(const char *)a1 .cold.1(const char *a1)
+- (void)_disconnect:(const char *)a1 .cold.1(const char *a1, uint64_t a2)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_lock_connections containsObject:connection]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v3 = NSStringFromSelector(a1);
-    v4 = objc_opt_class();
-    v5 = NSStringFromClass(v4);
+    v4 = NSStringFromSelector(a1);
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_2(&dword_1A8AA7000, MEMORY[0x1E69E9C10], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, @"[_lock_connections containsObject:connection]", v11, v12);
+    OUTLINED_FUNCTION_1_2(&dword_1A8AA7000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
-  [v2 UTF8String];
+  [v3 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }

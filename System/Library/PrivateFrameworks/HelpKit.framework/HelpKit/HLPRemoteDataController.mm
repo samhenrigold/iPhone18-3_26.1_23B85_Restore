@@ -35,7 +35,7 @@
 
 - (void)fetchDataWithDataType:(int64_t)type identifier:(id)identifier completionHandler:(id)handler
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   handlerCopy = handler;
   if (![(HLPRemoteDataController *)self loading])
@@ -52,7 +52,7 @@
       block[2] = __78__HLPRemoteDataController_fetchDataWithDataType_identifier_completionHandler___block_invoke;
       block[3] = &unk_279706BE8;
       block[4] = self;
-      v34 = handlerCopy;
+      v33 = handlerCopy;
       dispatch_async(v12, block);
 
       goto LABEL_17;
@@ -103,32 +103,30 @@ LABEL_16:
       if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v36 = v16;
+        v35 = v16;
         _os_log_impl(&dword_2522BC000, v20, OS_LOG_TYPE_DEFAULT, "Fetching: %@", buf, 0xCu);
       }
 
-      v25 = MEMORY[0x277D85DD0];
-      v26 = 3221225472;
-      v27 = __78__HLPRemoteDataController_fetchDataWithDataType_identifier_completionHandler___block_invoke_7;
-      v28 = &unk_279706C60;
-      objc_copyWeak(&v31, &location);
+      v24 = MEMORY[0x277D85DD0];
+      v25 = 3221225472;
+      v26 = __78__HLPRemoteDataController_fetchDataWithDataType_identifier_completionHandler___block_invoke_7;
+      v27 = &unk_279706C60;
+      objc_copyWeak(&v30, &location);
       selfCopy = self;
-      v30 = handlerCopy;
-      v21 = [sharedInstance formattedDataForRequest:v16 identifier:identifierCopy completionHandler:&v25];
+      v29 = handlerCopy;
+      v21 = [sharedInstance formattedDataForRequest:v16 identifier:identifierCopy completionHandler:&v24];
       URLSessionItem = self->_URLSessionItem;
       p_URLSessionItem = &self->_URLSessionItem;
       *p_URLSessionItem = v21;
 
-      [v17 resumeSessionItem:{*p_URLSessionItem, v25, v26, v27, v28}];
-      objc_destroyWeak(&v31);
+      [v17 resumeSessionItem:{*p_URLSessionItem, v24, v25, v26, v27}];
+      objc_destroyWeak(&v30);
     }
 
     goto LABEL_16;
   }
 
 LABEL_17:
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 void __78__HLPRemoteDataController_fetchDataWithDataType_identifier_completionHandler___block_invoke(uint64_t a1)
@@ -207,11 +205,10 @@ uint64_t __78__HLPRemoteDataController_fetchDataWithDataType_identifier_completi
 {
   [*(a1 + 32) setLoading:0];
   [*(a1 + 32) setHasLoaded:1];
-  v2 = *(a1 + 40);
   (*(*(a1 + 48) + 16))();
-  v3 = *(a1 + 32);
+  v2 = *(a1 + 32);
 
-  return [v3 setURLSessionItem:0];
+  return [v2 setURLSessionItem:0];
 }
 
 - (void)processFileURLWithCompletionHandler:(id)handler

@@ -31,8 +31,8 @@
 
 - (CGPoint)startPointValue
 {
-  start = [(VCPProtoLine *)self start];
-  [start pointValue];
+  v2 = objc_msgSend_start(self, a2);
+  [v2 pointValue];
   v4 = v3;
   v6 = v5;
 

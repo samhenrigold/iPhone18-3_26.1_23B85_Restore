@@ -80,16 +80,16 @@
   if (m_ptr && (v4 = *(m_ptr + 1)) != 0)
   {
     v5 = _Block_copy(handler);
-    v6 = WTF::fastMalloc(0x10);
-    *v6 = &unk_1F11079A0;
-    v6[1] = v5;
-    v8 = v6;
-    WebKit::WebPageProxy::sendWithAsyncReply<Messages::DigitalCredentialsCoordinator::ProvideRawDigitalCredentialRequests,WTF::CompletionHandler<void ()(WTF::Vector<mpark::variant<WebCore::MobileDocumentRequest,WebCore::OpenID4VPRequest>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>)>>(v4 - 16, &v9, &v8);
-    v7 = v8;
-    v8 = 0;
-    if (v7)
+    v7 = WTF::fastMalloc(v6, 0x10);
+    *v7 = &unk_1F11079A0;
+    v7[1] = v5;
+    v9 = v7;
+    WebKit::WebPageProxy::sendWithAsyncReply<Messages::DigitalCredentialsCoordinator::ProvideRawDigitalCredentialRequests,WTF::CompletionHandler<void ()(WTF::Vector<mpark::variant<WebCore::MobileDocumentRequest,WebCore::OpenID4VPRequest>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>)>>(v4 - 16, &v10, &v9);
+    v8 = v9;
+    v9 = 0;
+    if (v8)
     {
-      (*(*v7 + 8))(v7);
+      (*(*v8 + 8))(v8);
     }
 
     _Block_release(0);

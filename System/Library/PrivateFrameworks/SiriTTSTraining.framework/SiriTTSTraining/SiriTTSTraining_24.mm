@@ -1,2516 +1,3 @@
-void std::vector<std::vector<float>>::__move_range(uint64_t a1, uint64_t a2, unint64_t a3, char *a4)
-{
-  v4 = *(a1 + 8);
-  v5 = (a2 + v4 - a4);
-  v6 = v4;
-  while (v5 < a3)
-  {
-    *v6 = 0;
-    *(v6 + 1) = 0;
-    *(v6 + 2) = 0;
-    *v6 = *v5;
-    *(v6 + 2) = *(v5 + 2);
-    *v5 = 0;
-    *(v5 + 1) = 0;
-    *(v5 + 2) = 0;
-    v5 += 24;
-    v6 += 24;
-  }
-
-  *(a1 + 8) = v6;
-  if (v4 != a4)
-  {
-    v7 = (v4 - 24);
-    v8 = a4 - v4;
-    v9 = (a2 + v4 - 24 - a4);
-    do
-    {
-      std::vector<float>::__move_assign(v7, v9);
-      v7 -= 24;
-      v9 = (v9 - 24);
-      v8 += 24;
-    }
-
-    while (v8);
-  }
-}
-
-uint64_t std::__split_buffer<std::vector<float>>::__construct_at_end_with_size<std::__wrap_iter<std::vector<float>*>>(uint64_t result, uint64_t *a2, uint64_t a3)
-{
-  v3 = result;
-  v4 = *(result + 16);
-  if (a3)
-  {
-    v6 = &v4[3 * a3];
-    v7 = 24 * a3;
-    do
-    {
-      *v4 = 0;
-      v4[1] = 0;
-      v4[2] = 0;
-      result = std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(v4, *a2, a2[1], (a2[1] - *a2) >> 2);
-      v4 += 3;
-      a2 += 3;
-      v7 -= 24;
-    }
-
-    while (v7);
-    v4 = v6;
-  }
-
-  *(v3 + 16) = v4;
-  return result;
-}
-
-boost::filesystem::path *InferenceEngine::DataUtils::get_type_string<float>@<X0>(boost::filesystem::path *a1@<X8>)
-{
-  {
-    v2 = "fp32";
-  }
-
-  else
-  {
-    {
-      InferenceEngine::DataUtils::get_type_string<float>();
-    }
-
-    v2 = "int32";
-  }
-
-  return boost::filesystem::path::path(a1, v2);
-}
-
-void *std::__shared_ptr_emplace<InferenceEngine::DataTensor>::__shared_ptr_emplace[abi:ne200100]<std::string const&,std::string,std::vector<unsigned long> &,std::allocator<InferenceEngine::DataTensor>,0>(void *a1)
-{
-  a1[1] = 0;
-  a1[2] = 0;
-  *a1 = off_283588;
-  InferenceEngine::DataTensor::DataTensor(a1 + 3);
-  return a1;
-}
-
-void std::__shared_ptr_emplace<InferenceEngine::DataTensor>::~__shared_ptr_emplace(std::__shared_weak_count *a1)
-{
-  a1->__vftable = off_283588;
-  std::__shared_weak_count::~__shared_weak_count(a1);
-
-  operator delete();
-}
-
-uint64_t std::vector<std::string>::__init_with_size[abi:ne200100]<std::string const*,std::string const*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
-{
-  if (a4)
-  {
-    std::vector<std::string>::__vallocate[abi:ne200100](result, a4);
-  }
-
-  return result;
-}
-
-void sub_1C3D24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void **a9)
-{
-  *(v9 + 8) = v10;
-  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&a9);
-  _Unwind_Resume(a1);
-}
-
-std::string *std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<std::string>,std::string const*,std::string const*,std::string*>(uint64_t a1, __int128 *a2, __int128 *a3, std::string *this)
-{
-  v4 = this;
-  v11 = this;
-  v12 = this;
-  v9[0] = a1;
-  v9[1] = &v11;
-  v9[2] = &v12;
-  v10 = 0;
-  if (a2 != a3)
-  {
-    v6 = a2;
-    do
-    {
-      if (*(v6 + 23) < 0)
-      {
-        std::string::__init_copy_ctor_external(v4, *v6, *(v6 + 1));
-        v4 = v12;
-      }
-
-      else
-      {
-        v7 = *v6;
-        v4->__r_.__value_.__r.__words[2] = *(v6 + 2);
-        *&v4->__r_.__value_.__l.__data_ = v7;
-      }
-
-      v6 = (v6 + 24);
-      v12 = ++v4;
-    }
-
-    while (v6 != a3);
-  }
-
-  v10 = 1;
-  std::__exception_guard_exceptions<std::_AllocatorDestroyRangeReverse<std::allocator<std::string>,std::string*>>::~__exception_guard_exceptions[abi:ne200100](v9);
-  return v4;
-}
-
-void **std::vector<std::vector<std::vector<float>>>::push_back[abi:ne200100](void **result, uint64_t a2)
-{
-  v3 = result;
-  v4 = result[1];
-  v5 = result[2];
-  if (v4 >= v5)
-  {
-    v7 = 0xAAAAAAAAAAAAAAABLL * ((v4 - *result) >> 3);
-    v8 = v7 + 1;
-    if (v7 + 1 > 0xAAAAAAAAAAAAAAALL)
-    {
-      std::vector<float>::__throw_length_error[abi:ne200100]();
-    }
-
-    v9 = 0xAAAAAAAAAAAAAAABLL * ((v5 - *result) >> 3);
-    if (2 * v9 > v8)
-    {
-      v8 = 2 * v9;
-    }
-
-    if (v9 >= 0x555555555555555)
-    {
-      v10 = 0xAAAAAAAAAAAAAAALL;
-    }
-
-    else
-    {
-      v10 = v8;
-    }
-
-    v16[4] = result;
-    if (v10)
-    {
-      std::__allocate_at_least[abi:ne200100]<std::allocator<std::vector<kaldi::HmmTopology::HmmState>>>(result, v10);
-    }
-
-    v11 = 24 * v7;
-    *v11 = 0;
-    *(v11 + 8) = 0;
-    *(v11 + 16) = 0;
-    *v11 = *a2;
-    *(v11 + 16) = *(a2 + 16);
-    *a2 = 0;
-    *(a2 + 8) = 0;
-    *(a2 + 16) = 0;
-    v6 = 24 * v7 + 24;
-    v12 = result[1] - *result;
-    v13 = v11 - v12;
-    memcpy((v11 - v12), *result, v12);
-    v14 = *v3;
-    *v3 = v13;
-    v3[1] = v6;
-    v15 = v3[2];
-    v3[2] = 0;
-    v16[2] = v14;
-    v16[3] = v15;
-    v16[0] = v14;
-    v16[1] = v14;
-    result = std::__split_buffer<std::vector<std::vector<std::pair<int,int>>>>::~__split_buffer(v16);
-  }
-
-  else
-  {
-    *v4 = 0;
-    *(v4 + 1) = 0;
-    *(v4 + 2) = 0;
-    *v4 = *a2;
-    *(v4 + 2) = *(a2 + 16);
-    *a2 = 0;
-    *(a2 + 8) = 0;
-    *(a2 + 16) = 0;
-    v6 = (v4 + 24);
-  }
-
-  v3[1] = v6;
-  return result;
-}
-
-void InferenceEngine::DataUtils::convert_data_to_2d_array<float>(uint64_t a1@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
-{
-  v4 = *a2;
-  if (*(a2 + 8) - *a2 != 16)
-  {
-    InferenceEngine::DataUtils::convert_data_to_2d_array<float>();
-  }
-
-  v7 = *v4;
-  std::vector<float>::vector[abi:ne200100](__p, v4[1]);
-  std::vector<std::vector<float>>::vector[abi:ne200100](a3, v7);
-  if (__p[0])
-  {
-    __p[1] = __p[0];
-    operator delete(__p[0]);
-  }
-
-  v8 = *a2;
-  if (**a2)
-  {
-    v9 = 0;
-    v10 = 0;
-    do
-    {
-      memcpy(*(*a3 + v9), (a1 + 4 * v8[1] * v10++), 4 * v8[1]);
-      v8 = *a2;
-      v9 += 24;
-    }
-
-    while (v10 < **a2);
-  }
-}
-
-void sub_1C4014(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11)
-{
-  if (__p)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void InferenceEngine::DataUtils::convert_data_to_3d_array<float>(uint64_t a1@<X0>, unint64_t **a2@<X1>, void *a3@<X8>)
-{
-  v4 = *a2;
-  if (a2[1] - *a2 != 24)
-  {
-    InferenceEngine::DataUtils::convert_data_to_3d_array<float>();
-  }
-
-  v7 = *v4;
-  v8 = v4[1];
-  std::vector<float>::vector[abi:ne200100](__p, v4[2]);
-  std::vector<std::vector<float>>::vector[abi:ne200100](v16, v8);
-  std::vector<std::vector<std::vector<float>>>::vector[abi:ne200100](a3, v7);
-  v17 = v16;
-  std::vector<std::vector<std::pair<int,int>>>::__destroy_vector::operator()[abi:ne200100](&v17);
-  if (__p[0])
-  {
-    __p[1] = __p[0];
-    operator delete(__p[0]);
-  }
-
-  v9 = *a2;
-  v10 = **a2;
-  if (v10)
-  {
-    for (i = 0; i < v10; ++i)
-    {
-      v12 = v9[1];
-      if (v12)
-      {
-        v13 = 0;
-        v14 = 0;
-        do
-        {
-          memcpy(*(*(*a3 + 24 * i) + v13), (a1 + 4 * v9[2] * v14++ + 4 * v12 * i * v9[2]), 4 * v9[2]);
-          v9 = *a2;
-          v12 = (*a2)[1];
-          v13 += 24;
-        }
-
-        while (v14 < v12);
-        v10 = *v9;
-      }
-    }
-  }
-}
-
-void sub_1C4160(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16)
-{
-  std::vector<std::vector<std::pair<int,int>>>::__destroy_vector::operator()[abi:ne200100](&a16);
-  if (__p)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-void std::__shared_ptr_emplace<InferenceEngine::BaseInferenceController>::__shared_ptr_emplace[abi:ne200100]<std::string &,char const(&)[9],std::allocator<InferenceEngine::BaseInferenceController>,0>(void *a1, uint64_t a2, char *a3)
-{
-  a1[1] = 0;
-  a1[2] = 0;
-  *a1 = off_2835D8;
-  std::allocator<InferenceEngine::BaseInferenceController>::construct[abi:ne200100]<InferenceEngine::BaseInferenceController,std::string &,char const(&)[9]>(&v3, a1 + 3, a2, a3);
-}
-
-void std::__shared_ptr_emplace<InferenceEngine::BaseInferenceController>::~__shared_ptr_emplace(std::__shared_weak_count *a1)
-{
-  a1->__vftable = off_2835D8;
-  std::__shared_weak_count::~__shared_weak_count(a1);
-
-  operator delete();
-}
-
-void sub_1C4350(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
-{
-  if (a15 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void *std::__shared_ptr_emplace<InferenceEngine::P2ASoundStormPromptExtractionIOProcessor>::__shared_ptr_emplace[abi:ne200100]<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,std::allocator<InferenceEngine::P2ASoundStormPromptExtractionIOProcessor>,0>(void *a1, uint64_t a2)
-{
-  a1[1] = 0;
-  a1[2] = 0;
-  *a1 = off_283628;
-  std::allocator<InferenceEngine::P2ASoundStormPromptExtractionIOProcessor>::construct[abi:ne200100]<InferenceEngine::P2ASoundStormPromptExtractionIOProcessor,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>(&v4, (a1 + 3), a2);
-  return a1;
-}
-
-void std::__shared_ptr_emplace<InferenceEngine::P2ASoundStormPromptExtractionIOProcessor>::~__shared_ptr_emplace(std::__shared_weak_count *a1)
-{
-  a1->__vftable = off_283628;
-  std::__shared_weak_count::~__shared_weak_count(a1);
-
-  operator delete();
-}
-
-void std::allocator<InferenceEngine::P2ASoundStormPromptExtractionIOProcessor>::construct[abi:ne200100]<InferenceEngine::P2ASoundStormPromptExtractionIOProcessor,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v5[0] = *a3;
-  v6 = *(a3 + 8);
-  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(a3);
-  *a3 = 0;
-  *(a3 + 8) = 0;
-  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v5);
-  InferenceEngine::P2ASoundStormPromptExtractionIOProcessor::P2ASoundStormPromptExtractionIOProcessor(a2, v5);
-  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v5);
-  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v6, v5[0]);
-}
-
-uint64_t std::vector<std::vector<std::vector<float>>>::__init_with_size[abi:ne200100]<std::vector<std::vector<float>> const*,std::vector<std::vector<float>> const*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
-{
-  if (a4)
-  {
-    std::vector<SiriTTS::ForcedAlignment::Phoneme>::__vallocate[abi:ne200100](result, a4);
-  }
-
-  return result;
-}
-
-void sub_1C45C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void **a9)
-{
-  *(v9 + 8) = v10;
-  std::vector<std::vector<std::vector<double>>>::__destroy_vector::operator()[abi:ne200100](&a9);
-  _Unwind_Resume(a1);
-}
-
-void *std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<std::vector<std::vector<float>>>,std::vector<std::vector<float>> const*,std::vector<std::vector<float>> const*,std::vector<std::vector<float>>*>(uint64_t a1, uint64_t *a2, uint64_t *a3, void *a4)
-{
-  v4 = a4;
-  v10 = a4;
-  v11 = a4;
-  v8[0] = a1;
-  v8[1] = &v10;
-  v8[2] = &v11;
-  v9 = 0;
-  if (a2 != a3)
-  {
-    v6 = a2;
-    do
-    {
-      *v4 = 0;
-      v4[1] = 0;
-      v4[2] = 0;
-      std::vector<std::vector<float>>::__init_with_size[abi:ne200100]<std::vector<float>*,std::vector<float>*>(v4, *v6, v6[1], 0xAAAAAAAAAAAAAAABLL * ((v6[1] - *v6) >> 3));
-      v6 += 3;
-      v4 = v11 + 3;
-      v11 += 3;
-    }
-
-    while (v6 != a3);
-  }
-
-  v9 = 1;
-  std::__exception_guard_exceptions<std::_AllocatorDestroyRangeReverse<std::allocator<std::vector<std::vector<float>>>,std::vector<std::vector<float>>*>>::~__exception_guard_exceptions[abi:ne200100](v8);
-  return v4;
-}
-
-void std::vector<std::vector<float>>::__assign_with_size[abi:ne200100]<std::vector<float>*,std::vector<float>*>(uint64_t *a1, char **a2, char **a3, unint64_t a4)
-{
-  v8 = *a1;
-  if (0xAAAAAAAAAAAAAAABLL * ((a1[2] - *a1) >> 3) < a4)
-  {
-    std::vector<std::vector<int>>::__vdeallocate(a1);
-    if (a4 <= 0xAAAAAAAAAAAAAAALL)
-    {
-      v9 = 0x5555555555555556 * ((a1[2] - *a1) >> 3);
-      if (v9 <= a4)
-      {
-        v9 = a4;
-      }
-
-      if (0xAAAAAAAAAAAAAAABLL * ((a1[2] - *a1) >> 3) >= 0x555555555555555)
-      {
-        v10 = 0xAAAAAAAAAAAAAAALL;
-      }
-
-      else
-      {
-        v10 = v9;
-      }
-
-      std::vector<std::vector<float>>::__vallocate[abi:ne200100](a1, v10);
-    }
-
-    std::vector<float>::__throw_length_error[abi:ne200100]();
-  }
-
-  v11 = a1[1] - v8;
-  if (0xAAAAAAAAAAAAAAABLL * (v11 >> 3) >= a4)
-  {
-    std::__copy_impl::operator()[abi:ne200100]<std::vector<int> *,std::vector<int> *,std::vector<int> *>(&v19, a2, a3, v8);
-    v13 = v12;
-    v14 = a1[1];
-    if (v14 != v12)
-    {
-      v15 = a1[1];
-      do
-      {
-        v17 = *(v15 - 24);
-        v15 -= 24;
-        v16 = v17;
-        if (v17)
-        {
-          *(v14 - 16) = v16;
-          operator delete(v16);
-        }
-
-        v14 = v15;
-      }
-
-      while (v15 != v13);
-    }
-
-    a1[1] = v13;
-  }
-
-  else
-  {
-    std::__copy_impl::operator()[abi:ne200100]<std::vector<int> *,std::vector<int> *,std::vector<int> *>(&v18, a2, (a2 + v11), v8);
-    a1[1] = std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<std::vector<float>>,std::vector<float>*,std::vector<float>*,std::vector<float>*>(a1, (a2 + v11), a3, a1[1]);
-  }
-}
-
-void *std::vector<std::shared_ptr<InferenceEngine::DataTensor>>::vector[abi:ne200100](void *result, unint64_t a2)
-{
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
-  if (a2)
-  {
-    std::vector<std::shared_ptr<InferenceEngine::DataTensor>>::__vallocate[abi:ne200100](result, a2);
-  }
-
-  return result;
-}
-
-void std::vector<std::shared_ptr<InferenceEngine::DataTensor>>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
-{
-  if (!(a2 >> 60))
-  {
-    std::__allocate_at_least[abi:ne200100]<std::allocator<std::shared_ptr<InferenceEngine::DataTensor>>>(a1, a2);
-  }
-
-  std::vector<float>::__throw_length_error[abi:ne200100]();
-}
-
-void std::__allocate_at_least[abi:ne200100]<std::allocator<std::shared_ptr<InferenceEngine::DataTensor>>>(uint64_t a1, unint64_t a2)
-{
-  if (!(a2 >> 60))
-  {
-    operator new();
-  }
-
-  std::__throw_bad_array_new_length[abi:ne200100]();
-}
-
-void Preprocessing::validate_input_audio(char *a1, uint8_t *buf, os_log_t log)
-{
-  if (a1[23] >= 0)
-  {
-    v4 = a1;
-  }
-
-  else
-  {
-    v4 = *a1;
-  }
-
-  *buf = 136315138;
-  *(buf + 4) = v4;
-  _os_log_error_impl(&dword_0, log, OS_LOG_TYPE_ERROR, "Can't read metadata from %s", buf, 0xCu);
-  if (a1[23] < 0)
-  {
-    operator delete(*a1);
-  }
-}
-
-void Preprocessing::validate_input_audio(uint64_t a1, char *a2, uint8_t *buf, os_log_t log)
-{
-  if (a2[23] >= 0)
-  {
-    v5 = a2;
-  }
-
-  else
-  {
-    v5 = *a2;
-  }
-
-  *buf = 136315394;
-  *(buf + 4) = a1;
-  *(buf + 6) = 2080;
-  *(buf + 14) = v5;
-  _os_log_error_impl(&dword_0, log, OS_LOG_TYPE_ERROR, "TaskId: %s, Can't read wavfile from %s", buf, 0x16u);
-  if (a2[23] < 0)
-  {
-    operator delete(*a2);
-  }
-}
-
-void InferenceEngine::DataTensor::get_5d_array<float>()
-{
-  __assert_rtn("get_5d_array", "DataTensor.hpp", 274, "0");
-}
-
-{
-  __assert_rtn("get_5d_array", "DataTensor.hpp", 272, "typeid(T) == typeid(int32_t)");
-}
-
-{
-  __assert_rtn("get_5d_array", "DataTensor.hpp", 268, "typeid(T) == typeid(float)");
-}
-
-void InferenceEngine::DataTensor::get_1d_array<float>()
-{
-  __assert_rtn("get_1d_array", "DataTensor.hpp", 338, "0");
-}
-
-{
-  __assert_rtn("get_1d_array", "DataTensor.hpp", 336, "typeid(T) == typeid(int32_t)");
-}
-
-{
-  __assert_rtn("get_1d_array", "DataTensor.hpp", 332, "typeid(T) == typeid(float)");
-}
-
-void InferenceEngine::DataTensor::get_2d_array<float>()
-{
-  __assert_rtn("get_2d_array", "DataTensor.hpp", 322, "0");
-}
-
-{
-  __assert_rtn("get_2d_array", "DataTensor.hpp", 320, "typeid(T) == typeid(int32_t)");
-}
-
-{
-  __assert_rtn("get_2d_array", "DataTensor.hpp", 316, "typeid(T) == typeid(float)");
-}
-
-void InferenceEngine::DataTensor::get_3d_array<float>()
-{
-  __assert_rtn("get_3d_array", "DataTensor.hpp", 306, "0");
-}
-
-{
-  __assert_rtn("get_3d_array", "DataTensor.hpp", 304, "typeid(T) == typeid(int32_t)");
-}
-
-{
-  __assert_rtn("get_3d_array", "DataTensor.hpp", 300, "typeid(T) == typeid(float)");
-}
-
-void nlohmann::detail::iter_impl<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>> const>::operator*()
-{
-  __assert_rtn("operator*", "iter_impl.hpp", 254, "m_it.array_iterator != m_object->m_value.array->end()");
-}
-
-{
-  __assert_rtn("operator*", "iter_impl.hpp", 248, "m_it.object_iterator != m_object->m_value.object->end()");
-}
-
-{
-  __assert_rtn("operator*", "iter_impl.hpp", 242, "m_object != nullptr");
-}
-
-uint64_t SiriTTS::TTSTrainer::TTSTrainer(uint64_t a1, uint64_t a2, const std::string *a3, const std::string *a4, const std::string *a5)
-{
-  *(a1 + 48) = 0u;
-  v10 = (a1 + 48);
-  *(a1 + 64) = 0u;
-  *(a1 + 80) = 0u;
-  *(a1 + 16) = 0u;
-  *(a1 + 32) = 0u;
-  *a1 = 0u;
-  *(a1 + 104) = 0u;
-  *(a1 + 120) = 0u;
-  *(a1 + 136) = 0u;
-  std::string::operator=(a1, a2);
-  std::string::operator=((a1 + 24), a3);
-  std::string::operator=(v10, a4);
-  *(a1 + 96) = 0;
-  std::string::operator=((a1 + 72), a5);
-  if (*(a2 + 23) < 0)
-  {
-    std::string::__init_copy_ctor_external(&v26, *a2, *(a2 + 8));
-  }
-
-  else
-  {
-    v26 = *a2;
-  }
-
-  boost::filesystem::path::path(v22, "fastspeech2");
-  if (SHIBYTE(v26.__r_.__value_.__r.__words[2]) < 0)
-  {
-    std::string::__init_copy_ctor_external(&v24, v26.__r_.__value_.__l.__data_, v26.__r_.__value_.__l.__size_);
-  }
-
-  else
-  {
-    v24 = v26;
-  }
-
-  boost::filesystem::path::append_v3(&v24, v22);
-  v11 = std::__fs::filesystem::path::path[abi:ne200100]<std::string,void>(&v25, &v24);
-  std::__fs::filesystem::__status(v11, 0);
-  if (v21.__pn_.__r_.__value_.__s.__data_[0] != 255 && v21.__pn_.__r_.__value_.__s.__data_[0])
-  {
-    v12 = 1;
-  }
-
-  else
-  {
-    boost::filesystem::path::path(__p, "wavernn");
-    if (SHIBYTE(v26.__r_.__value_.__r.__words[2]) < 0)
-    {
-      std::string::__init_copy_ctor_external(&v20, v26.__r_.__value_.__l.__data_, v26.__r_.__value_.__l.__size_);
-    }
-
-    else
-    {
-      v20 = v26;
-    }
-
-    boost::filesystem::path::append_v3(&v20, __p);
-    std::__fs::filesystem::path::path[abi:ne200100]<std::string,void>(&v21.__pn_, &v20);
-    std::__fs::filesystem::__status(&v21, 0);
-    if (v27)
-    {
-      v13 = v27 == 255;
-    }
-
-    else
-    {
-      v13 = 1;
-    }
-
-    v12 = !v13;
-    if (SHIBYTE(v21.__pn_.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v21.__pn_.__r_.__value_.__l.__data_);
-    }
-
-    if (SHIBYTE(v20.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v20.__r_.__value_.__l.__data_);
-    }
-
-    if (v19 < 0)
-    {
-      operator delete(__p[0]);
-    }
-  }
-
-  if (SHIBYTE(v25.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v25.__r_.__value_.__l.__data_);
-  }
-
-  if (SHIBYTE(v24.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v24.__r_.__value_.__l.__data_);
-  }
-
-  if (v23 < 0)
-  {
-    operator delete(v22[0]);
-    if (v12)
-    {
-      goto LABEL_31;
-    }
-  }
-
-  else if (v12)
-  {
-LABEL_31:
-    v14 = 1;
-LABEL_45:
-    *(a1 + 152) = v14;
-    goto LABEL_46;
-  }
-
-  boost::filesystem::path::path(v22, "p2a");
-  if (SHIBYTE(v26.__r_.__value_.__r.__words[2]) < 0)
-  {
-    std::string::__init_copy_ctor_external(&v24, v26.__r_.__value_.__l.__data_, v26.__r_.__value_.__l.__size_);
-  }
-
-  else
-  {
-    v24 = v26;
-  }
-
-  boost::filesystem::path::append_v3(&v24, v22);
-  v15 = std::__fs::filesystem::path::path[abi:ne200100]<std::string,void>(&v25, &v24);
-  std::__fs::filesystem::__status(v15, 0);
-  v16 = v21.__pn_.__r_.__value_.__s.__data_[0];
-  if (SHIBYTE(v25.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v25.__r_.__value_.__l.__data_);
-  }
-
-  if (SHIBYTE(v24.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v24.__r_.__value_.__l.__data_);
-  }
-
-  if (v23 < 0)
-  {
-    operator delete(v22[0]);
-  }
-
-  if (v16 && v16 != 255)
-  {
-    v14 = 2;
-    goto LABEL_45;
-  }
-
-LABEL_46:
-  if (SHIBYTE(v26.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v26.__r_.__value_.__l.__data_);
-  }
-
-  return a1;
-}
-
-void sub_1C51A8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *a16, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22, void *a23, uint64_t a24, int a25, __int16 a26, char a27, char a28, void *__p, uint64_t a30, int a31, __int16 a32, char a33, char a34, void *a35, uint64_t a36, int a37, __int16 a38, char a39, char a40)
-{
-  if (a34 < 0)
-  {
-    operator delete(__p);
-  }
-
-  if (*(v42 - 73) < 0)
-  {
-    operator delete(*(v42 - 96));
-  }
-
-  v44 = *(v40 + 144);
-  if (v44)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v44);
-  }
-
-  v45 = *(v40 + 128);
-  if (v45)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v45);
-  }
-
-  v46 = *(v40 + 112);
-  if (v46)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v46);
-  }
-
-  if (*(v40 + 95) < 0)
-  {
-    operator delete(*(v40 + 72));
-  }
-
-  if (*(v40 + 71) < 0)
-  {
-    operator delete(*v41);
-  }
-
-  if (*(v40 + 47) < 0)
-  {
-    operator delete(*(v40 + 24));
-  }
-
-  if (*(v40 + 23) < 0)
-  {
-    operator delete(*v40);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-boost::filesystem::path *boost::filesystem::path::path(boost::filesystem::path *this, const char *__s)
-{
-  v4 = strlen(__s);
-  if (v4 >= 0x7FFFFFFFFFFFFFF8)
-  {
-    std::string::__throw_length_error[abi:ne200100]();
-  }
-
-  v5 = v4;
-  if (v4 >= 0x17)
-  {
-    operator new();
-  }
-
-  *(this + 23) = v4;
-  if (v4)
-  {
-    memmove(this, __s, v4);
-  }
-
-  *(this + v5) = 0;
-  return this;
-}
-
-void SiriTTS::TTSTrainer::~TTSTrainer(SiriTTS::TTSTrainer *this)
-{
-  v2 = *(this + 18);
-  if (v2)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
-  }
-
-  v3 = *(this + 16);
-  if (v3)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v3);
-  }
-
-  v4 = *(this + 14);
-  if (v4)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v4);
-  }
-
-  if (*(this + 95) < 0)
-  {
-    operator delete(*(this + 9));
-  }
-
-  if (*(this + 71) < 0)
-  {
-    operator delete(*(this + 6));
-  }
-
-  if (*(this + 47) < 0)
-  {
-    operator delete(*(this + 3));
-  }
-
-  if (*(this + 23) < 0)
-  {
-    operator delete(*this);
-  }
-}
-
-void SiriTTS::TTSTrainer::get_task_id_(SiriTTS::TTSTrainer *this@<X0>, std::string *a2@<X8>)
-{
-  if (*(this + 95) < 0)
-  {
-    std::string::__init_copy_ctor_external(a2, *(this + 9), *(this + 10));
-  }
-
-  else
-  {
-    *&a2->__r_.__value_.__l.__data_ = *(this + 72);
-    a2->__r_.__value_.__r.__words[2] = *(this + 11);
-  }
-}
-
-uint64_t SiriTTS::TTSTrainer::preprocess(const void **a1, uint64_t a2)
-{
-  std::__function::__value_func<int ()(SiriTTS::TTSTrainer::CallbackMessage)>::__value_func[abi:ne200100](v5, a2);
-  v3 = SiriTTS::TTSTrainer::preprocess_internal(a1, v5);
-  std::__function::__value_func<int ()(SiriTTS::TTSTrainer::CallbackMessage)>::~__value_func[abi:ne200100](v5);
-  return v3;
-}
-
-void sub_1C54D4(_Unwind_Exception *a1, int a2, uint64_t a3, ...)
-{
-  va_start(va, a3);
-  std::__function::__value_func<int ()(SiriTTS::TTSTrainer::CallbackMessage)>::~__value_func[abi:ne200100](va);
-  if (a2 == 1)
-  {
-    v6 = __cxa_begin_catch(a1);
-    LogObject = Diagnostics_GetLogObject();
-    if (os_log_type_enabled(LogObject, OS_LOG_TYPE_ERROR))
-    {
-      SiriTTS::TTSTrainer::preprocess(v3, v6);
-    }
-
-    __cxa_end_catch();
-    JUMPOUT(0x1C54A0);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-uint64_t SiriTTS::TTSTrainer::preprocess_internal(const void **a1, uint64_t a2)
-{
-  if (*(a1 + 97) != 1)
-  {
-    if (*(a2 + 24))
-    {
-      std::function<int ()(SiriTTS::TTSTrainer::CallbackMessage)>::operator()(a2, 1, 0);
-    }
-
-    if (*(a1 + 23) >= 0)
-    {
-      v5 = *(a1 + 23);
-    }
-
-    else
-    {
-      v5 = a1[1];
-    }
-
-    v6 = buf;
-    std::string::basic_string[abi:ne200100](buf, v5 + 9);
-    if (v10 < 0)
-    {
-      v6 = *buf;
-    }
-
-    if (v5)
-    {
-      if (*(a1 + 23) >= 0)
-      {
-        v7 = a1;
-      }
-
-      else
-      {
-        v7 = *a1;
-      }
-
-      memmove(v6, v7, v5);
-    }
-
-    strcpy(&v6[v5], "/am_model");
-    std::allocate_shared[abi:ne200100]<Preprocessing,std::allocator<Preprocessing>,std::string &,std::string &,std::string,std::string &,std::string &,0>();
-  }
-
-  LogObject = Diagnostics_GetLogObject();
-  if (os_log_type_enabled(LogObject, OS_LOG_TYPE_INFO))
-  {
-    v4 = a1 + 9;
-    if (*(a1 + 95) < 0)
-    {
-      v4 = *v4;
-    }
-
-    *buf = 136315138;
-    *&buf[4] = v4;
-    _os_log_impl(&dword_0, LogObject, OS_LOG_TYPE_INFO, "TaskId: %s, Trainer has been stopped/paused, return immediately.", buf, 0xCu);
-  }
-
-  return 0;
-}
-
-void sub_1C5EC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
-{
-  va_start(va, a5);
-  std::__function::__value_func<int ()(SiriTTS::TTSTrainer::CallbackMessage)>::~__value_func[abi:ne200100](va);
-  _Unwind_Resume(a1);
-}
-
-uint64_t SiriTTS::TTSTrainer::train(const void **a1, int a2, uint64_t a3)
-{
-  std::__function::__value_func<int ()(SiriTTS::TTSTrainer::CallbackMessage)>::__value_func[abi:ne200100](v7, a3);
-  v5 = SiriTTS::TTSTrainer::train_internal(a1, a2, v7);
-  std::__function::__value_func<int ()(SiriTTS::TTSTrainer::CallbackMessage)>::~__value_func[abi:ne200100](v7);
-  return v5;
-}
-
-void sub_1C5FA8(_Unwind_Exception *a1, int a2, uint64_t a3, ...)
-{
-  va_start(va, a3);
-  std::__function::__value_func<int ()(SiriTTS::TTSTrainer::CallbackMessage)>::~__value_func[abi:ne200100](va);
-  if (a2 == 1)
-  {
-    v6 = __cxa_begin_catch(a1);
-    LogObject = Diagnostics_GetLogObject();
-    if (os_log_type_enabled(LogObject, OS_LOG_TYPE_ERROR))
-    {
-      SiriTTS::TTSTrainer::train(v3, v6);
-    }
-
-    __cxa_end_catch();
-    JUMPOUT(0x1C5F74);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-uint64_t SiriTTS::TTSTrainer::train_internal(const void **a1, int a2, uint64_t a3)
-{
-  if ((a1[12] & 1) != 0 || *(a1 + 97) == 1)
-  {
-    LogObject = Diagnostics_GetLogObject();
-    v5 = 1;
-    if (os_log_type_enabled(LogObject, OS_LOG_TYPE_INFO))
-    {
-      v6 = a1 + 9;
-      if (*(a1 + 95) < 0)
-      {
-        v6 = *v6;
-      }
-
-      *buf = 136315138;
-      *&buf[4] = v6;
-      v5 = 1;
-      _os_log_impl(&dword_0, LogObject, OS_LOG_TYPE_INFO, "TaskId: %s, Trainer has been stopped or paused, return immediately.", buf, 0xCu);
-    }
-  }
-
-  else
-  {
-    if (*(a3 + 24))
-    {
-      std::function<int ()(SiriTTS::TTSTrainer::CallbackMessage)>::operator()(a3, 15, 0);
-    }
-
-    memset(buf, 0, sizeof(buf));
-    v23 = 0;
-    std::chrono::steady_clock::now();
-    if (a2 == 1)
-    {
-      if (*(a1 + 23) >= 0)
-      {
-        v15 = *(a1 + 23);
-      }
-
-      else
-      {
-        v15 = a1[1];
-      }
-
-      v16 = v20;
-      std::string::basic_string[abi:ne200100](v20, v15 + 8);
-      if (v21 < 0)
-      {
-        v16 = *v20;
-      }
-
-      if (v15)
-      {
-        if (*(a1 + 23) >= 0)
-        {
-          v17 = a1;
-        }
-
-        else
-        {
-          v17 = *a1;
-        }
-
-        memmove(v16, v17, v15);
-      }
-
-      strcpy(&v16[v15], "/wavernn");
-      if (SHIBYTE(v23) < 0)
-      {
-        operator delete(*buf);
-      }
-
-      *buf = *v20;
-      v23 = v21;
-      v18 = Diagnostics_GetLogObject();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
-      {
-        v19 = a1 + 9;
-        if (*(a1 + 95) < 0)
-        {
-          v19 = *v19;
-        }
-
-        *v20 = 136315138;
-        *&v20[4] = v19;
-        _os_log_impl(&dword_0, v18, OS_LOG_TYPE_INFO, "TaskId: %s, Training start with WaveRNN", v20, 0xCu);
-      }
-
-      std::allocate_shared[abi:ne200100]<TrainingEngineV2,std::allocator<TrainingEngineV2>,std::string &,std::string &,std::string &,std::string &,0>();
-    }
-
-    if (!a2)
-    {
-      if (*(a1 + 23) >= 0)
-      {
-        v9 = *(a1 + 23);
-      }
-
-      else
-      {
-        v9 = a1[1];
-      }
-
-      v10 = v20;
-      std::string::basic_string[abi:ne200100](v20, v9 + 12);
-      if (v21 < 0)
-      {
-        v10 = *v20;
-      }
-
-      if (v9)
-      {
-        if (*(a1 + 23) >= 0)
-        {
-          v11 = a1;
-        }
-
-        else
-        {
-          v11 = *a1;
-        }
-
-        memmove(v10, v11, v9);
-      }
-
-      strcpy(&v10[v9], "/fastspeech2");
-      if (SHIBYTE(v23) < 0)
-      {
-        operator delete(*buf);
-      }
-
-      *buf = *v20;
-      v23 = v21;
-      v12 = Diagnostics_GetLogObject();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
-      {
-        v13 = a1 + 9;
-        if (*(a1 + 95) < 0)
-        {
-          v13 = *v13;
-        }
-
-        *v20 = 136315138;
-        *&v20[4] = v13;
-        _os_log_impl(&dword_0, v12, OS_LOG_TYPE_INFO, "TaskId: %s, Training start with Fastspeech2", v20, 0xCu);
-      }
-
-      std::allocate_shared[abi:ne200100]<TrainingEngine,std::allocator<TrainingEngine>,std::string &,std::string &,std::string &,std::string &,0>();
-    }
-
-    if (*(a3 + 24))
-    {
-      std::function<int ()(SiriTTS::TTSTrainer::CallbackMessage)>::operator()(a3, 17, 0);
-    }
-
-    if (SHIBYTE(v23) < 0)
-    {
-      operator delete(*buf);
-    }
-
-    return 0;
-  }
-
-  return v5;
-}
-
-void sub_1C6594(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
-{
-  va_start(va, a3);
-  std::__function::__value_func<int ()(SiriTTS::TTSTrainer::CallbackMessage)>::~__value_func[abi:ne200100](va);
-  if (*(v3 - 57) < 0)
-  {
-    operator delete(*(v3 - 80));
-  }
-
-  _Unwind_Resume(a1);
-}
-
-_BYTE *SiriTTS::TTSTrainer::stop(SiriTTS::TTSTrainer *this)
-{
-  LogObject = Diagnostics_GetLogObject();
-  if (os_log_type_enabled(LogObject, OS_LOG_TYPE_INFO))
-  {
-    v3 = (this + 72);
-    if (*(this + 95) < 0)
-    {
-      v3 = *v3;
-    }
-
-    v7 = 136315138;
-    v8 = v3;
-    _os_log_impl(&dword_0, LogObject, OS_LOG_TYPE_INFO, "TaskId: %s, Stopping training engine", &v7, 0xCu);
-  }
-
-  *(this + 96) = 1;
-  v4 = *(this + 17);
-  if (v4)
-  {
-    Preprocessing::stop(v4);
-  }
-
-  v5 = *(this + 13);
-  if (v5)
-  {
-    TrainingEngine::stop(v5);
-  }
-
-  result = *(this + 15);
-  if (result)
-  {
-    return TrainingEngine::stop(result);
-  }
-
-  return result;
-}
-
-_BYTE *SiriTTS::TTSTrainer::pause(SiriTTS::TTSTrainer *this)
-{
-  LogObject = Diagnostics_GetLogObject();
-  if (os_log_type_enabled(LogObject, OS_LOG_TYPE_INFO))
-  {
-    v3 = (this + 72);
-    if (*(this + 95) < 0)
-    {
-      v3 = *v3;
-    }
-
-    v7 = 136315138;
-    v8 = v3;
-    _os_log_impl(&dword_0, LogObject, OS_LOG_TYPE_INFO, "TaskId: %s, Pausing training engine", &v7, 0xCu);
-  }
-
-  *(this + 97) = 1;
-  v4 = *(this + 17);
-  if (v4)
-  {
-    Preprocessing::stop(v4);
-  }
-
-  v5 = *(this + 13);
-  if (v5)
-  {
-    TrainingEngine::stop(v5);
-  }
-
-  result = *(this + 15);
-  if (result)
-  {
-    return TrainingEngine::stop(result);
-  }
-
-  return result;
-}
-
-uint64_t std::__function::__value_func<int ()(SiriTTS::TTSTrainer::CallbackMessage)>::__value_func[abi:ne200100](uint64_t a1, uint64_t a2)
-{
-  v3 = *(a2 + 24);
-  if (v3)
-  {
-    if (v3 == a2)
-    {
-      *(a1 + 24) = a1;
-      (*(**(a2 + 24) + 24))(*(a2 + 24), a1);
-    }
-
-    else
-    {
-      *(a1 + 24) = (*(*v3 + 16))(v3);
-    }
-  }
-
-  else
-  {
-    *(a1 + 24) = 0;
-  }
-
-  return a1;
-}
-
-uint64_t std::__function::__value_func<int ()(SiriTTS::TTSTrainer::CallbackMessage)>::~__value_func[abi:ne200100](uint64_t a1)
-{
-  v2 = *(a1 + 24);
-  if (v2 == a1)
-  {
-    (*(*v2 + 32))(v2);
-  }
-
-  else if (v2)
-  {
-    (*(*v2 + 40))(v2);
-  }
-
-  return a1;
-}
-
-void *std::__shared_ptr_emplace<Preprocessing>::__shared_ptr_emplace[abi:ne200100]<std::string &,std::string &,std::string,std::string &,std::string &,std::allocator<Preprocessing>,0>(void *a1)
-{
-  a1[1] = 0;
-  a1[2] = 0;
-  *a1 = off_283678;
-  Preprocessing::Preprocessing(a1 + 3);
-  return a1;
-}
-
-void std::__shared_ptr_emplace<Preprocessing>::~__shared_ptr_emplace(std::__shared_weak_count *a1)
-{
-  a1->__vftable = off_283678;
-  std::__shared_weak_count::~__shared_weak_count(a1);
-
-  operator delete();
-}
-
-void Preprocessing::~Preprocessing(void **this)
-{
-  if (*(this + 351) < 0)
-  {
-    operator delete(this[41]);
-  }
-
-  v3 = this + 38;
-  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v3);
-  if (*(this + 295) < 0)
-  {
-    operator delete(this[34]);
-  }
-
-  v2 = this[33];
-  if (v2)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
-  }
-
-  if (*(this + 247) < 0)
-  {
-    operator delete(this[28]);
-  }
-
-  if (*(this + 151) < 0)
-  {
-    operator delete(this[16]);
-  }
-
-  if (*(this + 127) < 0)
-  {
-    operator delete(this[13]);
-  }
-
-  if (*(this + 103) < 0)
-  {
-    operator delete(this[10]);
-  }
-
-  if (*(this + 79) < 0)
-  {
-    operator delete(this[7]);
-  }
-
-  if (*(this + 55) < 0)
-  {
-    operator delete(this[4]);
-  }
-
-  if (*(this + 31) < 0)
-  {
-    operator delete(this[1]);
-  }
-}
-
-void *std::__shared_ptr_emplace<TrainingEngine>::__shared_ptr_emplace[abi:ne200100]<std::string &,std::string &,std::string &,std::string &,std::allocator<TrainingEngine>,0>(void *a1)
-{
-  a1[1] = 0;
-  a1[2] = 0;
-  *a1 = off_2836C8;
-  TrainingEngine::TrainingEngine(a1 + 3);
-  return a1;
-}
-
-void std::__shared_ptr_emplace<TrainingEngine>::~__shared_ptr_emplace(std::__shared_weak_count *a1)
-{
-  a1->__vftable = off_2836C8;
-  std::__shared_weak_count::~__shared_weak_count(a1);
-
-  operator delete();
-}
-
-void *std::__shared_ptr_emplace<TrainingEngineV2>::__shared_ptr_emplace[abi:ne200100]<std::string &,std::string &,std::string &,std::string &,std::allocator<TrainingEngineV2>,0>(void *a1)
-{
-  a1[1] = 0;
-  a1[2] = 0;
-  *a1 = off_283718;
-  TrainingEngineV2::TrainingEngineV2(a1 + 3);
-  return a1;
-}
-
-void std::__shared_ptr_emplace<TrainingEngineV2>::~__shared_ptr_emplace(std::__shared_weak_count *a1)
-{
-  a1->__vftable = off_283718;
-  std::__shared_weak_count::~__shared_weak_count(a1);
-
-  operator delete();
-}
-
-void OUTLINED_FUNCTION_1_1(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
-{
-
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x16u);
-}
-
-void SiriTTS::TTSTrainer::preprocess(uint64_t a1, uint64_t a2)
-{
-  if (*(a1 + 95) < 0)
-  {
-    v2 = *(a1 + 72);
-  }
-
-  (*(*a2 + 16))(a2);
-  OUTLINED_FUNCTION_0_7();
-  OUTLINED_FUNCTION_1_1(&dword_0, v3, v4, "TaskId: %s, preprocess exception: %s", v5, v6, v7, v8, v9);
-}
-
-void SiriTTS::TTSTrainer::train(uint64_t a1, uint64_t a2)
-{
-  if (*(a1 + 95) < 0)
-  {
-    v2 = *(a1 + 72);
-  }
-
-  (*(*a2 + 16))(a2);
-  OUTLINED_FUNCTION_0_7();
-  OUTLINED_FUNCTION_1_1(&dword_0, v3, v4, "TaskId: %s, training exception: %s", v5, v6, v7, v8, v9);
-}
-
-void StringFormatter::append(std::string *this, const char *a2, va_list a3)
-{
-  __s = 0;
-  vasprintf(&__s, a2, a3);
-  std::string::append(this, __s);
-  free(__s);
-}
-
-void StringFormatter::StringFormatter(StringFormatter *this, const char *a2, ...)
-{
-  va_start(va, a2);
-  *this = 0;
-  *(this + 1) = 0;
-  *(this + 2) = 0;
-  StringFormatter::append(this, a2, va);
-}
-
-void sub_1C7000(_Unwind_Exception *exception_object)
-{
-  if (*(v1 + 23) < 0)
-  {
-    operator delete(*v1);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-uint64_t Diagnostics_GetLogObject(void)
-{
-  if (Diagnostics_GetLogObject(void)::onceToken != -1)
-  {
-    Diagnostics_GetLogObject();
-  }
-
-  return Diagnostics_GetLogObject(void)::__profile_log_default;
-}
-
-uint64_t InferenceModel::InferenceModel(uint64_t a1, uint64_t a2)
-{
-  *a1 = &off_283788;
-  *(a1 + 8) = 0;
-  v4 = (a1 + 8);
-  *(a1 + 16) = 0;
-  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant((a1 + 8));
-  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v4);
-  *(a1 + 32) = 0;
-  *(a1 + 24) = a1 + 32;
-  *(a1 + 40) = 0;
-  if (*(a2 + 23) < 0)
-  {
-    std::string::__init_copy_ctor_external(&v11, *a2, *(a2 + 8));
-  }
-
-  else
-  {
-    v11 = *a2;
-  }
-
-  boost::filesystem::path::path(__p, "inference_config.json");
-  if (SHIBYTE(v11.__r_.__value_.__r.__words[2]) < 0)
-  {
-    std::string::__init_copy_ctor_external(&v10, v11.__r_.__value_.__l.__data_, v11.__r_.__value_.__l.__size_);
-  }
-
-  else
-  {
-    v10 = v11;
-  }
-
-  boost::filesystem::path::append_v3(&v10, __p);
-  if (v15 < 0)
-  {
-    operator delete(__p[0]);
-  }
-
-  std::ifstream::basic_ifstream(__p, &v10);
-  v13 = 0;
-  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::parse<std::ifstream &>(__p, v12, 1, v8);
-  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v8);
-  v5 = *(a1 + 8);
-  *(a1 + 8) = v8[0];
-  v8[0] = v5;
-  v6 = *(a1 + 16);
-  *(a1 + 16) = v9;
-  v9 = v6;
-  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v4);
-  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v8);
-  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v9, v8[0]);
-  std::__function::__value_func<BOOL ()(int,nlohmann::detail::parse_event_t,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>> &)>::~__value_func[abi:ne200100](v12);
-  std::filebuf::~filebuf();
-  std::istream::~istream();
-  std::ios::~ios();
-  if (SHIBYTE(v10.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v10.__r_.__value_.__l.__data_);
-  }
-
-  if (SHIBYTE(v11.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v11.__r_.__value_.__l.__data_);
-  }
-
-  return a1;
-}
-
-void sub_1C7318(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17, void *a18, uint64_t a19, int a20, __int16 a21, char a22, char a23, char a24, uint64_t a25, uint64_t a26, uint64_t a27, void *__p, uint64_t a29, int a30, __int16 a31, char a32, char a33)
-{
-  if (a33 < 0)
-  {
-    operator delete(__p);
-  }
-
-  if (a23 < 0)
-  {
-    operator delete(a18);
-  }
-
-  std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(v34, *v35);
-  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::~basic_json(v33);
-  _Unwind_Resume(a1);
-}
-
-void nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::parse<std::ifstream &>(void *a1@<X0>, uint64_t a2@<X1>, char a3@<W2>, uint64_t a4@<X8>)
-{
-  *a4 = 0;
-  *(a4 + 8) = 0;
-  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(a4);
-  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(a4);
-  v8[0] = a1;
-  v8[1] = *(a1 + *(*a1 - 24) + 40);
-  std::__function::__value_func<BOOL ()(int,nlohmann::detail::parse_event_t,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>> &)>::__value_func[abi:ne200100](v9, a2);
-  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::parser<nlohmann::detail::input_stream_adapter>(v8, v9, a3, v10);
-  nlohmann::detail::parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::input_stream_adapter>::parse(v10, 1, a4);
-  nlohmann::detail::lexer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::input_stream_adapter>::~lexer(&v11);
-  std::__function::__value_func<BOOL ()(int,nlohmann::detail::parse_event_t,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>> &)>::~__value_func[abi:ne200100](v10);
-  std::__function::__value_func<BOOL ()(int,nlohmann::detail::parse_event_t,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>> &)>::~__value_func[abi:ne200100](v9);
-  nlohmann::detail::input_stream_adapter::~input_stream_adapter(v8);
-}
-
-void sub_1C74AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, char a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15)
-{
-  nlohmann::detail::lexer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::input_stream_adapter>::~lexer((v16 + 40));
-  std::__function::__value_func<BOOL ()(int,nlohmann::detail::parse_event_t,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>> &)>::~__value_func[abi:ne200100](&a15);
-  std::__function::__value_func<BOOL ()(int,nlohmann::detail::parse_event_t,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>> &)>::~__value_func[abi:ne200100](&a11);
-  nlohmann::detail::input_stream_adapter::~input_stream_adapter(&a9);
-  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::~basic_json(v15);
-  _Unwind_Resume(a1);
-}
-
-void InferenceModel::get_model_weight_precision(InferenceModel *this@<X0>, std::string *a2@<X8>)
-{
-  boost::filesystem::path::path(__p, "model_weights_precision");
-  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::value("fp32", this + 8, __p, a2);
-  if (v5 < 0)
-  {
-    operator delete(__p[0]);
-  }
-}
-
-void sub_1C7554(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
-{
-  if (a15 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void InferenceModel::get_saved_model_checkpoint_config_path(uint64_t a1@<X0>, uint64_t a2@<X1>, char *a3@<X8>)
-{
-  if (*(a1 + 23) < 0)
-  {
-    std::string::__init_copy_ctor_external(&v13, *a1, *(a1 + 8));
-  }
-
-  else
-  {
-    v13 = *a1;
-  }
-
-  if (*(a2 + 23) < 0)
-  {
-    std::string::__init_copy_ctor_external(&v12, *a2, *(a2 + 8));
-  }
-
-  else
-  {
-    v12 = *a2;
-  }
-
-  boost::filesystem::path::path(__p, "inference_config.json");
-  if (SHIBYTE(v13.__r_.__value_.__r.__words[2]) < 0)
-  {
-    std::string::__init_copy_ctor_external(&v11, v13.__r_.__value_.__l.__data_, v13.__r_.__value_.__l.__size_);
-  }
-
-  else
-  {
-    v11 = v13;
-  }
-
-  boost::filesystem::path::append_v3(&v11, __p);
-  if (v18 < 0)
-  {
-    operator delete(__p[0]);
-  }
-
-  std::ifstream::basic_ifstream(__p, &v11);
-  v16 = 0;
-  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::parse<std::ifstream &>(__p, v15, 1, v9);
-  std::__function::__value_func<BOOL ()(int,nlohmann::detail::parse_event_t,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>> &)>::~__value_func[abi:ne200100](v15);
-  boost::filesystem::path::path(&v14, "saved_model_checkpoint_config_file");
-  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::value("", v9, &v14.__r_.__value_.__l.__data_, &__s);
-  if (SHIBYTE(v14.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v14.__r_.__value_.__l.__data_);
-  }
-
-  if (SHIBYTE(__s.__r_.__value_.__r.__words[2]) < 0)
-  {
-    if (__s.__r_.__value_.__l.__size_)
-    {
-      std::string::__init_copy_ctor_external(&v7, __s.__r_.__value_.__l.__data_, __s.__r_.__value_.__l.__size_);
-      goto LABEL_19;
-    }
-
-LABEL_21:
-    boost::filesystem::path::path(a3, "");
-    goto LABEL_34;
-  }
-
-  if (!*(&__s.__r_.__value_.__s + 23))
-  {
-    goto LABEL_21;
-  }
-
-  v7 = __s;
-LABEL_19:
-  if (SHIBYTE(v12.__r_.__value_.__r.__words[2]) < 0)
-  {
-    std::string::__init_copy_ctor_external(&v14, v12.__r_.__value_.__l.__data_, v12.__r_.__value_.__l.__size_);
-  }
-
-  else
-  {
-    v14 = v12;
-  }
-
-  boost::filesystem::path::append_v3(&v14, &v7);
-  if (SHIBYTE(v14.__r_.__value_.__r.__words[2]) < 0)
-  {
-    std::string::__init_copy_ctor_external(a3, v14.__r_.__value_.__l.__data_, v14.__r_.__value_.__l.__size_);
-    if (SHIBYTE(v14.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v14.__r_.__value_.__l.__data_);
-    }
-  }
-
-  else
-  {
-    *a3 = v14;
-  }
-
-  if (SHIBYTE(v7.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v7.__r_.__value_.__l.__data_);
-  }
-
-  LogObject = Diagnostics_GetLogObject();
-  if (os_log_type_enabled(LogObject, OS_LOG_TYPE_INFO))
-  {
-    if (a3[23] >= 0)
-    {
-      v6 = a3;
-    }
-
-    else
-    {
-      v6 = *a3;
-    }
-
-    LODWORD(v14.__r_.__value_.__l.__data_) = 136315138;
-    *(v14.__r_.__value_.__r.__words + 4) = v6;
-    _os_log_impl(&dword_0, LogObject, OS_LOG_TYPE_INFO, "Saved model checkpoint config file: %s\n", &v14, 0xCu);
-  }
-
-LABEL_34:
-  if (SHIBYTE(__s.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(__s.__r_.__value_.__l.__data_);
-  }
-
-  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v9);
-  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v10, v9[0]);
-  std::filebuf::~filebuf();
-  std::istream::~istream();
-  std::ios::~ios();
-  if (SHIBYTE(v11.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v11.__r_.__value_.__l.__data_);
-  }
-
-  if (SHIBYTE(v12.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v12.__r_.__value_.__l.__data_);
-  }
-
-  if (SHIBYTE(v13.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v13.__r_.__value_.__l.__data_);
-  }
-}
-
-void sub_1C78FC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, char a21, uint64_t a22, void *a23, uint64_t a24, int a25, __int16 a26, char a27, char a28, uint64_t a29, void *a30, uint64_t a31, int a32, __int16 a33, char a34, char a35, uint64_t a36, void *a37, uint64_t a38, int a39, __int16 a40, char a41, char a42, uint64_t a43, void *__p, uint64_t a45, int a46, __int16 a47, char a48, char a49, char a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, int a56, __int16 a57, char a58, char a59)
-{
-  if (a49 < 0)
-  {
-    operator delete(__p);
-  }
-
-  if (a14 < 0)
-  {
-    operator delete(a9);
-  }
-
-  if (a20 < 0)
-  {
-    operator delete(a15);
-  }
-
-  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::~basic_json(&a21);
-  std::ifstream::~ifstream(&a54);
-  if (a28 < 0)
-  {
-    operator delete(a23);
-  }
-
-  if (a35 < 0)
-  {
-    operator delete(a30);
-  }
-
-  if (a42 < 0)
-  {
-    operator delete(a37);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-void InferenceModule::InferenceModule(void *a1, uint64_t a2)
-{
-  *a1 = 0;
-  a1[1] = 0;
-  if (*(a2 + 23) < 0)
-  {
-    std::string::__init_copy_ctor_external(&v26, *a2, *(a2 + 8));
-  }
-
-  else
-  {
-    v26 = *a2;
-  }
-
-  boost::filesystem::path::path(__p, "inference_config.json");
-  if (SHIBYTE(v26.__r_.__value_.__r.__words[2]) < 0)
-  {
-    std::string::__init_copy_ctor_external(&v25, v26.__r_.__value_.__l.__data_, v26.__r_.__value_.__l.__size_);
-  }
-
-  else
-  {
-    v25 = v26;
-  }
-
-  boost::filesystem::path::append_v3(&v25, __p);
-  if (v30 < 0)
-  {
-    operator delete(__p[0]);
-  }
-
-  std::ifstream::basic_ifstream(__p, &v25);
-  v28 = 0;
-  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::parse<std::ifstream &>(__p, v27, 1, v24);
-  std::__function::__value_func<BOOL ()(int,nlohmann::detail::parse_event_t,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>> &)>::~__value_func[abi:ne200100](v27);
-  v2 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v24, "model_name");
-  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::get<std::string,std::string,0>(v2, &v23);
-  v3 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v24, "model_type");
-  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::get<std::string,std::string,0>(v3, &v22);
-  if (SHIBYTE(v23.__r_.__value_.__r.__words[2]) < 0)
-  {
-    if (v23.__r_.__value_.__l.__size_ == 11 && *v23.__r_.__value_.__l.__data_ == 0x6565707374736166 && *(v23.__r_.__value_.__r.__words[0] + 3) == 0x3268636565707374)
-    {
-      goto LABEL_17;
-    }
-
-    if (v23.__r_.__value_.__l.__size_ != 7)
-    {
-      goto LABEL_52;
-    }
-
-    v7 = v23.__r_.__value_.__r.__words[0];
-  }
-
-  else
-  {
-    if (HIBYTE(v23.__r_.__value_.__r.__words[2]) != 7)
-    {
-      if (HIBYTE(v23.__r_.__value_.__r.__words[2]) != 11)
-      {
-        goto LABEL_52;
-      }
-
-      if (v23.__r_.__value_.__r.__words[0] != 0x6565707374736166 || *(v23.__r_.__value_.__r.__words + 3) != 0x3268636565707374)
-      {
-        goto LABEL_52;
-      }
-
-LABEL_17:
-      if (SHIBYTE(v22.__r_.__value_.__r.__words[2]) < 0)
-      {
-        if (v22.__r_.__value_.__l.__size_ != 9)
-        {
-          goto LABEL_54;
-        }
-
-        v5 = v22.__r_.__value_.__r.__words[0];
-      }
-
-      else
-      {
-        if (SHIBYTE(v22.__r_.__value_.__r.__words[2]) != 9)
-        {
-          goto LABEL_54;
-        }
-
-        v5 = &v22;
-      }
-
-      v15 = v5->__r_.__value_.__r.__words[0];
-      v16 = v5->__r_.__value_.__s.__data_[8];
-      if (v15 == 0x656C70756F636564 && v16 == 100)
-      {
-        std::allocate_shared[abi:ne200100]<ParallelAMDecoupledInferenceModel,std::allocator<ParallelAMDecoupledInferenceModel>,std::string const&,std::string const&,0>();
-      }
-
-LABEL_54:
-      exception = __cxa_allocate_exception(0x10uLL);
-      StringFormatter::StringFormatter(&v21, "Not supported model type.");
-      std::logic_error::logic_error(exception, &v21);
-    }
-
-    v7 = &v23;
-  }
-
-  data = v7->__r_.__value_.__l.__data_;
-  v9 = *(v7->__r_.__value_.__r.__words + 3);
-  if (data != 1702257015 || v9 != 1852732005)
-  {
-LABEL_52:
-    v18 = __cxa_allocate_exception(0x10uLL);
-    StringFormatter::StringFormatter(&v21, "Not supported model.");
-    std::logic_error::logic_error(v18, &v21);
-  }
-
-  if (SHIBYTE(v22.__r_.__value_.__r.__words[2]) < 0)
-  {
-    if (v22.__r_.__value_.__l.__size_ != 9)
-    {
-      goto LABEL_53;
-    }
-
-    v11 = v22.__r_.__value_.__r.__words[0];
-  }
-
-  else
-  {
-    if (SHIBYTE(v22.__r_.__value_.__r.__words[2]) != 9)
-    {
-      goto LABEL_53;
-    }
-
-    v11 = &v22;
-  }
-
-  v12 = v11->__r_.__value_.__r.__words[0];
-  v13 = v11->__r_.__value_.__s.__data_[8];
-  if (v12 == 0x656C70756F636564 && v13 == 100)
-  {
-    std::allocate_shared[abi:ne200100]<WaveRNNDecoupledInferenceModel,std::allocator<WaveRNNDecoupledInferenceModel>,std::string const&,std::string const&,0>();
-  }
-
-LABEL_53:
-  v19 = __cxa_allocate_exception(0x10uLL);
-  StringFormatter::StringFormatter(&v21, "Not supported model type.");
-  std::logic_error::logic_error(v19, &v21);
-}
-
-void sub_1C7F2C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, void *a16, uint64_t a17, int a18, __int16 a19, char a20, char a21, void *a22, uint64_t a23, int a24, __int16 a25, char a26, char a27, char a28, uint64_t a29, void *a30, uint64_t a31, int a32, __int16 a33, char a34, char a35, uint64_t a36, void *a37, uint64_t a38, int a39, __int16 a40, char a41, char a42, uint64_t a43, uint64_t a44, char a45, uint64_t a46, uint64_t a47, uint64_t a48, void *__p, uint64_t a50, int a51, __int16 a52, char a53, char a54)
-{
-  if (a54 < 0)
-  {
-    operator delete(__p);
-  }
-
-  if (a42 < 0)
-  {
-    operator delete(a37);
-  }
-
-  v56 = *(v54 + 8);
-  if (v56)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v56);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void InferenceModel::set_mil_weights(uint64_t a1, uint64_t *a2, uint64_t *a3, uint64_t *a4, __int128 **a5, void *a6, uint64_t a7, uint64_t a8)
-{
-  v38 = 0;
-  v39 = 0;
-  v40 = 0;
-  __p = 0;
-  v36 = 0;
-  v37 = 0;
-  v9 = *a5;
-  v10 = a5[1];
-  if (*a5 != v10)
-  {
-    v30 = a3;
-    v31 = a4;
-    v14 = a7 + 8;
-    do
-    {
-      if (*(v9 + 23) < 0)
-      {
-        std::string::__init_copy_ctor_external(&v34, *v9, *(v9 + 1));
-      }
-
-      else
-      {
-        v15 = *v9;
-        v34.__r_.__value_.__r.__words[2] = *(v9 + 2);
-        *&v34.__r_.__value_.__l.__data_ = v15;
-      }
-
-      if (v14 != std::__tree<std::__value_type<std::string,kaldi::nnet1::Component::ComponentType>,std::__map_value_compare<std::string,std::__value_type<std::string,kaldi::nnet1::Component::ComponentType>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,kaldi::nnet1::Component::ComponentType>>>::find<std::string>(a7, v9))
-      {
-        v16 = std::map<std::string,std::string>::at(a7, v9);
-        std::string::operator=(&v34, v16);
-      }
-
-      if (std::__hash_table<std::__hash_value_type<std::string,espresso_buffer_t>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,espresso_buffer_t>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,espresso_buffer_t>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,espresso_buffer_t>>>::find<std::string>(a6, &v34.__r_.__value_.__l.__data_))
-      {
-        v17 = std::__hash_table<std::__hash_value_type<std::string,espresso_buffer_t>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,espresso_buffer_t>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,espresso_buffer_t>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,espresso_buffer_t>>>::find<std::string>(a6, &v34.__r_.__value_.__l.__data_);
-        if (!v17)
-        {
-          std::__throw_out_of_range[abi:ne200100]("unordered_map::at: key not found");
-        }
-
-        v33 = v17 + 5;
-        if (*(a8 + 24))
-        {
-          v32 = std::function<espresso_buffer_t const* ()(espresso_buffer_t const*,std::string const&,std::string const&)>::operator()(a8, (v17 + 5));
-          std::vector<espresso_buffer_t const*>::push_back[abi:ne200100](&v38, &v32);
-        }
-
-        else
-        {
-          std::vector<espresso_buffer_t const*>::push_back[abi:ne200100](&v38, &v33);
-        }
-
-        v18 = v9;
-        if (*(v9 + 23) < 0)
-        {
-          v18 = *v9;
-        }
-
-        v19 = v36;
-        if (v36 >= v37)
-        {
-          v21 = (v36 - __p) >> 3;
-          if ((v21 + 1) >> 61)
-          {
-            std::vector<float>::__throw_length_error[abi:ne200100]();
-          }
-
-          v22 = (v37 - __p) >> 2;
-          if (v22 <= v21 + 1)
-          {
-            v22 = v21 + 1;
-          }
-
-          if (v37 - __p >= 0x7FFFFFFFFFFFFFF8)
-          {
-            v23 = 0x1FFFFFFFFFFFFFFFLL;
-          }
-
-          else
-          {
-            v23 = v22;
-          }
-
-          if (v23)
-          {
-            std::__allocate_at_least[abi:ne200100]<std::allocator<char const*>>(&__p, v23);
-          }
-
-          v24 = (8 * v21);
-          *v24 = v18;
-          v20 = 8 * v21 + 8;
-          v25 = v24 - (v36 - __p);
-          memcpy(v25, __p, v36 - __p);
-          v26 = __p;
-          __p = v25;
-          v36 = v20;
-          v37 = 0;
-          if (v26)
-          {
-            operator delete(v26);
-          }
-        }
-
-        else
-        {
-          *v36 = v18;
-          v20 = (v19 + 8);
-        }
-
-        v36 = v20;
-      }
-
-      if (SHIBYTE(v34.__r_.__value_.__r.__words[2]) < 0)
-      {
-        operator delete(v34.__r_.__value_.__l.__data_);
-      }
-
-      v9 = (v9 + 24);
-    }
-
-    while (v9 != v10);
-    a3 = v30;
-    a4 = v31;
-  }
-
-  if (*(a2 + 23) < 0)
-  {
-    v27 = *a2;
-  }
-
-  if (*(a3 + 23) < 0)
-  {
-    v28 = *a3;
-  }
-
-  if (*(a4 + 23) < 0)
-  {
-    v29 = *a4;
-  }
-
-  espresso_set_mil_const_values();
-  if (__p)
-  {
-    v36 = __p;
-    operator delete(__p);
-  }
-
-  if (v38)
-  {
-    v39 = v38;
-    operator delete(v38);
-  }
-}
-
-void sub_1C82C8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, int a15, __int16 a16, char a17, char a18, uint64_t a19, void *__p, uint64_t a21, uint64_t a22, void *a23, uint64_t a24)
-{
-  if (__p)
-  {
-    operator delete(__p);
-  }
-
-  if (a23)
-  {
-    operator delete(a23);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-uint64_t std::map<std::string,std::string>::at(uint64_t a1, const void **a2)
-{
-  v2 = *std::__tree<std::__value_type<std::string,kaldi::nnet1::Component::ComponentType>,std::__map_value_compare<std::string,std::__value_type<std::string,kaldi::nnet1::Component::ComponentType>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,kaldi::nnet1::Component::ComponentType>>>::__find_equal<std::string>(a1, &v4, a2);
-  if (!v2)
-  {
-    std::__throw_out_of_range[abi:ne200100]("map::at:  key not found");
-  }
-
-  return v2 + 56;
-}
-
-uint64_t std::function<espresso_buffer_t const* ()(espresso_buffer_t const*,std::string const&,std::string const&)>::operator()(uint64_t a1, uint64_t a2)
-{
-  v4 = a2;
-  v2 = *(a1 + 24);
-  if (!v2)
-  {
-    std::__throw_bad_function_call[abi:ne200100]();
-  }
-
-  return (*(*v2 + 48))(v2, &v4);
-}
-
-void std::vector<espresso_buffer_t const*>::push_back[abi:ne200100](uint64_t a1, void *a2)
-{
-  v5 = *(a1 + 8);
-  v4 = *(a1 + 16);
-  if (v5 >= v4)
-  {
-    v7 = (v5 - *a1) >> 3;
-    if ((v7 + 1) >> 61)
-    {
-      std::vector<float>::__throw_length_error[abi:ne200100]();
-    }
-
-    v8 = v4 - *a1;
-    v9 = v8 >> 2;
-    if (v8 >> 2 <= (v7 + 1))
-    {
-      v9 = v7 + 1;
-    }
-
-    if (v8 >= 0x7FFFFFFFFFFFFFF8)
-    {
-      v10 = 0x1FFFFFFFFFFFFFFFLL;
-    }
-
-    else
-    {
-      v10 = v9;
-    }
-
-    if (v10)
-    {
-      std::__allocate_at_least[abi:ne200100]<std::allocator<fst::ExpandedFst<fst::ArcTpl<fst::TropicalWeightTpl<float>>> const*>>(a1, v10);
-    }
-
-    v11 = (8 * v7);
-    *v11 = *a2;
-    v6 = 8 * v7 + 8;
-    v12 = *(a1 + 8) - *a1;
-    v13 = v11 - v12;
-    memcpy(v11 - v12, *a1, v12);
-    v14 = *a1;
-    *a1 = v13;
-    *(a1 + 8) = v6;
-    *(a1 + 16) = 0;
-    if (v14)
-    {
-      operator delete(v14);
-    }
-  }
-
-  else
-  {
-    *v5 = *a2;
-    v6 = (v5 + 1);
-  }
-
-  *(a1 + 8) = v6;
-}
-
-uint64_t ParallelAMDecoupledInferenceModel::ParallelAMDecoupledInferenceModel(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v6 = InferenceModel::InferenceModel(a1, a2);
-  *(v6 + 48) = 0u;
-  v7 = (v6 + 48);
-  *(v6 + 96) = 0u;
-  v8 = (v6 + 96);
-  *v6 = off_2837A8;
-  *(v6 + 144) = 0u;
-  v9 = (v6 + 144);
-  v10 = (v6 + 168);
-  *(v6 + 64) = 0u;
-  *(v6 + 80) = 0u;
-  *(v6 + 112) = 0u;
-  *(v6 + 128) = 0u;
-  *(v6 + 160) = 0u;
-  *(v6 + 176) = 0u;
-  if (*(a2 + 23) < 0)
-  {
-    std::string::__init_copy_ctor_external(&v29, *a2, *(a2 + 8));
-  }
-
-  else
-  {
-    v29 = *a2;
-  }
-
-  if (*(a3 + 23) < 0)
-  {
-    std::string::__init_copy_ctor_external(&v28, *a3, *(a3 + 8));
-  }
-
-  else
-  {
-    v28 = *a3;
-  }
-
-  v11 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(a1 + 8, "model_filename_encoder");
-  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::get<std::string,std::string,0>(v11, &v27);
-  v12 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(a1 + 8, "model_filename_decoder");
-  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::get<std::string,std::string,0>(v12, &v26);
-  if (SHIBYTE(v27.__r_.__value_.__r.__words[2]) < 0)
-  {
-    std::string::__init_copy_ctor_external(&v24, v27.__r_.__value_.__l.__data_, v27.__r_.__value_.__l.__size_);
-  }
-
-  else
-  {
-    v24 = v27;
-  }
-
-  if (SHIBYTE(v29.__r_.__value_.__r.__words[2]) < 0)
-  {
-    std::string::__init_copy_ctor_external(&__str, v29.__r_.__value_.__l.__data_, v29.__r_.__value_.__l.__size_);
-  }
-
-  else
-  {
-    __str = v29;
-  }
-
-  boost::filesystem::path::append_v3(&__str, &v24);
-  std::string::operator=(v7, &__str);
-  if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(__str.__r_.__value_.__l.__data_);
-  }
-
-  if (SHIBYTE(v24.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v24.__r_.__value_.__l.__data_);
-  }
-
-  if (SHIBYTE(v26.__r_.__value_.__r.__words[2]) < 0)
-  {
-    std::string::__init_copy_ctor_external(&v24, v26.__r_.__value_.__l.__data_, v26.__r_.__value_.__l.__size_);
-  }
-
-  else
-  {
-    v24 = v26;
-  }
-
-  if (SHIBYTE(v29.__r_.__value_.__r.__words[2]) < 0)
-  {
-    std::string::__init_copy_ctor_external(&__str, v29.__r_.__value_.__l.__data_, v29.__r_.__value_.__l.__size_);
-  }
-
-  else
-  {
-    __str = v29;
-  }
-
-  boost::filesystem::path::append_v3(&__str, &v24);
-  std::string::operator=((a1 + 72), &__str);
-  if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(__str.__r_.__value_.__l.__data_);
-  }
-
-  if (SHIBYTE(v24.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v24.__r_.__value_.__l.__data_);
-  }
-
-  v13 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(a1 + 8, "saved_model_encoder_dir");
-  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::get<std::string,std::string,0>(v13, &__str);
-  v14 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(a1 + 8, "saved_model_decoder_dir");
-  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::get<std::string,std::string,0>(v14, &v24);
-  if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
-  {
-    std::string::__init_copy_ctor_external(&__p, __str.__r_.__value_.__l.__data_, __str.__r_.__value_.__l.__size_);
-  }
-
-  else
-  {
-    __p = __str;
-  }
-
-  if (SHIBYTE(v28.__r_.__value_.__r.__words[2]) < 0)
-  {
-    std::string::__init_copy_ctor_external(&v23, v28.__r_.__value_.__l.__data_, v28.__r_.__value_.__l.__size_);
-  }
-
-  else
-  {
-    v23 = v28;
-  }
-
-  boost::filesystem::path::append_v3(&v23, &__p);
-  std::string::operator=(v8, &v23);
-  if (SHIBYTE(v23.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v23.__r_.__value_.__l.__data_);
-  }
-
-  if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(__p.__r_.__value_.__l.__data_);
-  }
-
-  if (SHIBYTE(v24.__r_.__value_.__r.__words[2]) < 0)
-  {
-    std::string::__init_copy_ctor_external(&__p, v24.__r_.__value_.__l.__data_, v24.__r_.__value_.__l.__size_);
-  }
-
-  else
-  {
-    __p = v24;
-  }
-
-  if (SHIBYTE(v28.__r_.__value_.__r.__words[2]) < 0)
-  {
-    std::string::__init_copy_ctor_external(&v23, v28.__r_.__value_.__l.__data_, v28.__r_.__value_.__l.__size_);
-  }
-
-  else
-  {
-    v23 = v28;
-  }
-
-  boost::filesystem::path::append_v3(&v23, &__p);
-  std::string::operator=((a1 + 120), &v23);
-  if (SHIBYTE(v23.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v23.__r_.__value_.__l.__data_);
-  }
-
-  if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(__p.__r_.__value_.__l.__data_);
-  }
-
-  v15 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(a1 + 8, "encoder_parameter_names");
-  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::get<std::vector<std::string>,std::vector<std::string>,0>(v15, &v23);
-  std::vector<std::string>::__vdeallocate(v9);
-  *(a1 + 144) = v23;
-  memset(&v23, 0, sizeof(v23));
-  __p.__r_.__value_.__r.__words[0] = &v23;
-  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&__p);
-  v16 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(a1 + 8, "decoder_parameter_names");
-  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::get<std::vector<std::string>,std::vector<std::string>,0>(v16, &v23);
-  std::vector<std::string>::__vdeallocate(v10);
-  *(a1 + 168) = v23;
-  memset(&v23, 0, sizeof(v23));
-  __p.__r_.__value_.__r.__words[0] = &v23;
-  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&__p);
-  v17 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(a1 + 8, "parameter_name_mapping");
-  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::get<std::map<std::string,std::string>,std::map<std::string,std::string>,0>(v17, &v23);
-  v18 = a1 + 32;
-  std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(a1 + 24, *(a1 + 32));
-  size = v23.__r_.__value_.__l.__size_;
-  *(a1 + 24) = v23.__r_.__value_.__r.__words[0];
-  *(a1 + 32) = size;
-  v20 = v23.__r_.__value_.__r.__words[2];
-  *(a1 + 40) = *(&v23.__r_.__value_.__l + 2);
-  if (v20)
-  {
-    size[2] = v18;
-    v23.__r_.__value_.__r.__words[0] = &v23.__r_.__value_.__l.__size_;
-    *&v23.__r_.__value_.__r.__words[1] = 0uLL;
-    size = 0;
-  }
-
-  else
-  {
-    *(a1 + 24) = v18;
-  }
-
-  std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(&v23, size);
-  if (SHIBYTE(v24.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v24.__r_.__value_.__l.__data_);
-  }
-
-  if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(__str.__r_.__value_.__l.__data_);
-  }
-
-  if (SHIBYTE(v26.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v26.__r_.__value_.__l.__data_);
-  }
-
-  if (SHIBYTE(v27.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v27.__r_.__value_.__l.__data_);
-  }
-
-  if (SHIBYTE(v28.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v28.__r_.__value_.__l.__data_);
-  }
-
-  if (SHIBYTE(v29.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v29.__r_.__value_.__l.__data_);
-  }
-
-  return a1;
-}
-
 void sub_1C8954(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, void *a16, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22, void *a23, uint64_t a24, int a25, __int16 a26, char a27, char a28, uint64_t a29, void *a30, uint64_t a31, int a32, __int16 a33, char a34, char a35, uint64_t a36, void *a37, uint64_t a38, int a39, __int16 a40, char a41, char a42, void *a43, uint64_t a44, int a45, __int16 a46, char a47, char a48)
 {
   if (a14 < 0)
@@ -2597,60 +84,60 @@ void ParallelAMDecoupledInferenceModel::copy_training_net_to_inference_net(uint6
   v4 = a1 + 12;
   if (*(a1 + 119) < 0)
   {
-    std::string::__init_copy_ctor_external(&v17, a1[12], a1[13]);
+    std::string::__init_copy_ctor_external(&v21, a1[12], a1[13]);
   }
 
   else
   {
-    *&v17.__r_.__value_.__l.__data_ = *v4;
-    v17.__r_.__value_.__r.__words[2] = a1[14];
+    *&v21.__r_.__value_.__l.__data_ = *v4;
+    v21.__r_.__value_.__r.__words[2] = a1[14];
   }
 
-  v5 = std::__fs::filesystem::path::path[abi:ne200100]<std::string,void>(&v23, &v17);
+  v5 = std::__fs::filesystem::path::path[abi:ne200100]<std::string,void>(&v27, &v21);
   std::__fs::filesystem::__remove_all(v5, 0);
-  if (SHIBYTE(v23.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v27.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v23.__r_.__value_.__l.__data_);
+    operator delete(v27.__r_.__value_.__l.__data_);
   }
 
-  v6 = std::__fs::filesystem::path::path[abi:ne200100]<std::string,void>(&v23, &v17);
+  v6 = std::__fs::filesystem::path::path[abi:ne200100]<std::string,void>(&v27, &v21);
   std::__fs::filesystem::__create_directory(v6, 0);
-  if (SHIBYTE(v23.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v27.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v23.__r_.__value_.__l.__data_);
+    operator delete(v27.__r_.__value_.__l.__data_);
   }
 
-  boost::filesystem::path::path(&v22, "model.mil");
-  if (SHIBYTE(v17.__r_.__value_.__r.__words[2]) < 0)
+  boost::filesystem::path::path(&v26, "model.mil");
+  if (SHIBYTE(v21.__r_.__value_.__r.__words[2]) < 0)
   {
-    std::string::__init_copy_ctor_external(&v23, v17.__r_.__value_.__l.__data_, v17.__r_.__value_.__l.__size_);
+    std::string::__init_copy_ctor_external(&v27, v21.__r_.__value_.__l.__data_, v21.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    v23 = v17;
+    v27 = v21;
   }
 
-  boost::filesystem::path::append_v3(&v23, &v22);
+  boost::filesystem::path::append_v3(&v27, &v26);
   boost::filesystem::path::path(&__p, "weights/weight.bin");
-  if (SHIBYTE(v17.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v21.__r_.__value_.__r.__words[2]) < 0)
   {
-    std::string::__init_copy_ctor_external(&v16, v17.__r_.__value_.__l.__data_, v17.__r_.__value_.__l.__size_);
+    std::string::__init_copy_ctor_external(&v20, v21.__r_.__value_.__l.__data_, v21.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    v16 = v17;
+    v20 = v21;
   }
 
-  boost::filesystem::path::append_v3(&v16, &__p);
+  boost::filesystem::path::append_v3(&v20, &__p);
   v7 = *a1;
-  v21 = 0;
-  (*(v7 + 8))(a1, a1 + 6, &v23, &v16, a1 + 18, a2, a1 + 3, v20);
-  std::__function::__value_func<espresso_buffer_t const* ()(espresso_buffer_t const*,std::string const&,std::string const&)>::~__value_func[abi:ne200100](v20);
-  if (SHIBYTE(v16.__r_.__value_.__r.__words[2]) < 0)
+  v25 = 0;
+  (*(v7 + 8))(a1, a1 + 6, &v27, &v20, a1 + 18, a2, a1 + 3, v24);
+  v8 = std::__function::__value_func<espresso_buffer_t const* ()(espresso_buffer_t const*,std::string const&,std::string const&)>::~__value_func[abi:ne200100](v24);
+  if (SHIBYTE(v20.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v16.__r_.__value_.__l.__data_);
+    operator delete(v20.__r_.__value_.__l.__data_);
   }
 
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
@@ -2658,17 +145,17 @@ void ParallelAMDecoupledInferenceModel::copy_training_net_to_inference_net(uint6
     operator delete(__p.__r_.__value_.__l.__data_);
   }
 
-  if (SHIBYTE(v23.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v27.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v23.__r_.__value_.__l.__data_);
+    operator delete(v27.__r_.__value_.__l.__data_);
   }
 
-  if (SHIBYTE(v22.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v26.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v22.__r_.__value_.__l.__data_);
+    operator delete(v26.__r_.__value_.__l.__data_);
   }
 
-  LogObject = Diagnostics_GetLogObject();
+  LogObject = Diagnostics_GetLogObject(v8, v9);
   if (os_log_type_enabled(LogObject, OS_LOG_TYPE_INFO))
   {
     if (*(a1 + 119) < 0)
@@ -2676,105 +163,105 @@ void ParallelAMDecoupledInferenceModel::copy_training_net_to_inference_net(uint6
       v4 = *v4;
     }
 
-    LODWORD(v23.__r_.__value_.__l.__data_) = 136315138;
-    *(v23.__r_.__value_.__r.__words + 4) = v4;
-    _os_log_impl(&dword_0, LogObject, OS_LOG_TYPE_INFO, "saved encoder weights to: %s\n", &v23, 0xCu);
+    LODWORD(v27.__r_.__value_.__l.__data_) = 136315138;
+    *(v27.__r_.__value_.__r.__words + 4) = v4;
+    _os_log_impl(&dword_0, LogObject, OS_LOG_TYPE_INFO, "saved encoder weights to: %s\n", &v27, 0xCu);
   }
 
-  v9 = a1 + 15;
+  v11 = a1 + 15;
   if (*(a1 + 143) < 0)
   {
-    std::string::__init_copy_ctor_external(&v23, a1[15], a1[16]);
+    std::string::__init_copy_ctor_external(&v27, a1[15], a1[16]);
   }
 
   else
   {
-    *&v23.__r_.__value_.__l.__data_ = *v9;
-    v23.__r_.__value_.__r.__words[2] = a1[17];
+    *&v27.__r_.__value_.__l.__data_ = *v11;
+    v27.__r_.__value_.__r.__words[2] = a1[17];
   }
 
-  v10 = std::__fs::filesystem::path::path[abi:ne200100]<std::string,void>(&v22, &v23);
-  std::__fs::filesystem::__remove_all(v10, 0);
-  if (SHIBYTE(v22.__r_.__value_.__r.__words[2]) < 0)
+  v12 = std::__fs::filesystem::path::path[abi:ne200100]<std::string,void>(&v26, &v27);
+  std::__fs::filesystem::__remove_all(v12, 0);
+  if (SHIBYTE(v26.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v22.__r_.__value_.__l.__data_);
+    operator delete(v26.__r_.__value_.__l.__data_);
   }
 
-  v11 = std::__fs::filesystem::path::path[abi:ne200100]<std::string,void>(&v22, &v23);
-  std::__fs::filesystem::__create_directory(v11, 0);
-  if (SHIBYTE(v22.__r_.__value_.__r.__words[2]) < 0)
+  v13 = std::__fs::filesystem::path::path[abi:ne200100]<std::string,void>(&v26, &v27);
+  std::__fs::filesystem::__create_directory(v13, 0);
+  if (SHIBYTE(v26.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v22.__r_.__value_.__l.__data_);
+    operator delete(v26.__r_.__value_.__l.__data_);
   }
 
-  boost::filesystem::path::path(&v16, "model.mil");
-  if (SHIBYTE(v23.__r_.__value_.__r.__words[2]) < 0)
+  boost::filesystem::path::path(&v20, "model.mil");
+  if (SHIBYTE(v27.__r_.__value_.__r.__words[2]) < 0)
   {
-    std::string::__init_copy_ctor_external(&v22, v23.__r_.__value_.__l.__data_, v23.__r_.__value_.__l.__size_);
+    std::string::__init_copy_ctor_external(&v26, v27.__r_.__value_.__l.__data_, v27.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    v22 = v23;
+    v26 = v27;
   }
 
-  boost::filesystem::path::append_v3(&v22, &v16);
-  boost::filesystem::path::path(v13, "weights/weight.bin");
-  if (SHIBYTE(v23.__r_.__value_.__r.__words[2]) < 0)
+  boost::filesystem::path::append_v3(&v26, &v20);
+  boost::filesystem::path::path(v17, "weights/weight.bin");
+  if (SHIBYTE(v27.__r_.__value_.__r.__words[2]) < 0)
   {
-    std::string::__init_copy_ctor_external(&__p, v23.__r_.__value_.__l.__data_, v23.__r_.__value_.__l.__size_);
+    std::string::__init_copy_ctor_external(&__p, v27.__r_.__value_.__l.__data_, v27.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    __p = v23;
+    __p = v27;
   }
 
-  boost::filesystem::path::append_v3(&__p, v13);
-  v19 = 0;
-  (*(*a1 + 8))(a1, a1 + 9, &v22, &__p, a1 + 21, a2, a1 + 3, v18);
-  std::__function::__value_func<espresso_buffer_t const* ()(espresso_buffer_t const*,std::string const&,std::string const&)>::~__value_func[abi:ne200100](v18);
+  boost::filesystem::path::append_v3(&__p, v17);
+  v23 = 0;
+  (*(*a1 + 8))(a1, a1 + 9, &v26, &__p, a1 + 21, a2, a1 + 3, v22);
+  v14 = std::__function::__value_func<espresso_buffer_t const* ()(espresso_buffer_t const*,std::string const&,std::string const&)>::~__value_func[abi:ne200100](v22);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
   }
 
-  if (v14 < 0)
+  if (v18 < 0)
   {
-    operator delete(v13[0]);
+    operator delete(v17[0]);
   }
 
-  if (SHIBYTE(v22.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v26.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v22.__r_.__value_.__l.__data_);
+    operator delete(v26.__r_.__value_.__l.__data_);
   }
 
-  if (SHIBYTE(v16.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v20.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v16.__r_.__value_.__l.__data_);
+    operator delete(v20.__r_.__value_.__l.__data_);
   }
 
-  v12 = Diagnostics_GetLogObject();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+  v16 = Diagnostics_GetLogObject(v14, v15);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
   {
     if (*(a1 + 143) < 0)
     {
-      v9 = *v9;
+      v11 = *v11;
     }
 
-    LODWORD(v22.__r_.__value_.__l.__data_) = 136315138;
-    *(v22.__r_.__value_.__r.__words + 4) = v9;
-    _os_log_impl(&dword_0, v12, OS_LOG_TYPE_INFO, "saved decoder weights to: %s\n", &v22, 0xCu);
+    LODWORD(v26.__r_.__value_.__l.__data_) = 136315138;
+    *(v26.__r_.__value_.__r.__words + 4) = v11;
+    _os_log_impl(&dword_0, v16, OS_LOG_TYPE_INFO, "saved decoder weights to: %s\n", &v26, 0xCu);
   }
 
-  if (SHIBYTE(v23.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v27.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v23.__r_.__value_.__l.__data_);
+    operator delete(v27.__r_.__value_.__l.__data_);
   }
 
-  if (SHIBYTE(v17.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v21.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v17.__r_.__value_.__l.__data_);
+    operator delete(v21.__r_.__value_.__l.__data_);
   }
 }
 
@@ -2808,7 +295,7 @@ void sub_1C8FF8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int
   _Unwind_Resume(exception_object);
 }
 
-uint64_t WaveRNNDecoupledInferenceModel::WaveRNNDecoupledInferenceModel(uint64_t a1, uint64_t a2, uint64_t a3)
+std::string *WaveRNNDecoupledInferenceModel::WaveRNNDecoupledInferenceModel(std::string *a1, uint64_t a2, uint64_t a3)
 {
   v6 = InferenceModel::InferenceModel(a1, a2);
   *v6 = off_2837C8;
@@ -2851,9 +338,9 @@ uint64_t WaveRNNDecoupledInferenceModel::WaveRNNDecoupledInferenceModel(uint64_t
     v28 = *a3;
   }
 
-  v11 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(a1 + 8, "model_filename_linear");
+  v11 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(&a1->__r_.__value_.__s.__data_[8], "model_filename_linear");
   nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::get<std::string,std::string,0>(v11, &v27);
-  v12 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(a1 + 8, "model_filename_gru");
+  v12 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(&a1->__r_.__value_.__s.__data_[8], "model_filename_gru");
   nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::get<std::string,std::string,0>(v12, &v26);
   if (SHIBYTE(v27.__r_.__value_.__r.__words[2]) < 0)
   {
@@ -2908,7 +395,7 @@ uint64_t WaveRNNDecoupledInferenceModel::WaveRNNDecoupledInferenceModel(uint64_t
   }
 
   boost::filesystem::path::append_v3(&__str, &v24);
-  std::string::operator=((a1 + 72), &__str);
+  std::string::operator=(a1 + 3, &__str);
   if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__str.__r_.__value_.__l.__data_);
@@ -2919,9 +406,9 @@ uint64_t WaveRNNDecoupledInferenceModel::WaveRNNDecoupledInferenceModel(uint64_t
     operator delete(v24.__r_.__value_.__l.__data_);
   }
 
-  v13 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(a1 + 8, "saved_model_linear_dir");
+  v13 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(&a1->__r_.__value_.__s.__data_[8], "saved_model_linear_dir");
   nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::get<std::string,std::string,0>(v13, &__str);
-  v14 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(a1 + 8, "saved_model_gru_dir");
+  v14 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(&a1->__r_.__value_.__s.__data_[8], "saved_model_gru_dir");
   nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::get<std::string,std::string,0>(v14, &v24);
   if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
   {
@@ -2976,7 +463,7 @@ uint64_t WaveRNNDecoupledInferenceModel::WaveRNNDecoupledInferenceModel(uint64_t
   }
 
   boost::filesystem::path::append_v3(&v23, &__p);
-  std::string::operator=((a1 + 120), &v23);
+  std::string::operator=(a1 + 5, &v23);
   if (SHIBYTE(v23.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(v23.__r_.__value_.__l.__data_);
@@ -2987,29 +474,29 @@ uint64_t WaveRNNDecoupledInferenceModel::WaveRNNDecoupledInferenceModel(uint64_t
     operator delete(__p.__r_.__value_.__l.__data_);
   }
 
-  v15 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(a1 + 8, "linear_parameter_names");
+  v15 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(&a1->__r_.__value_.__s.__data_[8], "linear_parameter_names");
   nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::get<std::vector<std::string>,std::vector<std::string>,0>(v15, &v23);
   std::vector<std::string>::__vdeallocate(v9);
-  *(a1 + 144) = v23;
+  a1[6] = v23;
   memset(&v23, 0, sizeof(v23));
   __p.__r_.__value_.__r.__words[0] = &v23;
   std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&__p);
-  v16 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(a1 + 8, "gru_parameter_names");
+  v16 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(&a1->__r_.__value_.__s.__data_[8], "gru_parameter_names");
   nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::get<std::vector<std::string>,std::vector<std::string>,0>(v16, &v23);
   std::vector<std::string>::__vdeallocate(v10);
-  *(a1 + 168) = v23;
+  a1[7] = v23;
   memset(&v23, 0, sizeof(v23));
   __p.__r_.__value_.__r.__words[0] = &v23;
   std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&__p);
-  v17 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(a1 + 8, "parameter_name_mapping");
+  v17 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(&a1->__r_.__value_.__s.__data_[8], "parameter_name_mapping");
   nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::get<std::map<std::string,std::string>,std::map<std::string,std::string>,0>(v17, &v23);
-  v18 = a1 + 32;
-  std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(a1 + 24, *(a1 + 32));
+  v18 = &a1[1].__r_.__value_.__s.__data_[8];
+  std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(&a1[1], a1[1].__r_.__value_.__l.__size_);
   size = v23.__r_.__value_.__l.__size_;
-  *(a1 + 24) = v23.__r_.__value_.__r.__words[0];
-  *(a1 + 32) = size;
+  a1[1].__r_.__value_.__r.__words[0] = v23.__r_.__value_.__r.__words[0];
+  a1[1].__r_.__value_.__l.__size_ = size;
   v20 = v23.__r_.__value_.__r.__words[2];
-  *(a1 + 40) = *(&v23.__r_.__value_.__l + 2);
+  a1[1].__r_.__value_.__r.__words[2] = v23.__r_.__value_.__r.__words[2];
   if (v20)
   {
     size[2] = v18;
@@ -3020,7 +507,7 @@ uint64_t WaveRNNDecoupledInferenceModel::WaveRNNDecoupledInferenceModel(uint64_t
 
   else
   {
-    *(a1 + 24) = v18;
+    a1[1].__r_.__value_.__r.__words[0] = v18;
   }
 
   std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(&v23, size);
@@ -3134,7 +621,8 @@ const void **WaveRNNDecoupledInferenceModel::var_transform_function<float>(uint6
       v6 *= *(a2 + i);
     }
 
-    v8 = std::__hash_table<std::__hash_value_type<std::string,espresso_buffer_t>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,espresso_buffer_t>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,espresso_buffer_t>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,espresso_buffer_t>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((a1 + 192), a4);
+    v51 = a4;
+    v8 = std::__hash_table<std::__hash_value_type<std::string,espresso_buffer_t>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,espresso_buffer_t>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,espresso_buffer_t>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,espresso_buffer_t>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((a1 + 192), a4, &std::piecewise_construct, &v51, &v50);
     v8[25] = 0;
     *(v8 + 23) = 0u;
     *(v8 + 21) = 0u;
@@ -3146,7 +634,8 @@ const void **WaveRNNDecoupledInferenceModel::var_transform_function<float>(uint6
     *(v8 + 9) = 0u;
     *(v8 + 7) = 0u;
     *(v8 + 5) = 0u;
-    v9 = std::__hash_table<std::__hash_value_type<std::string,espresso_buffer_t>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,espresso_buffer_t>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,espresso_buffer_t>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,espresso_buffer_t>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((a1 + 192), a4);
+    v51 = a4;
+    v9 = std::__hash_table<std::__hash_value_type<std::string,espresso_buffer_t>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,espresso_buffer_t>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,espresso_buffer_t>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,espresso_buffer_t>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((a1 + 192), a4, &std::piecewise_construct, &v51, &v50);
     v10 = *a2;
     v11 = a2[1];
     *(v9 + 9) = a2[2];
@@ -3212,7 +701,7 @@ const void **WaveRNNDecoupledInferenceModel::var_transform_function<float>(uint6
       goto LABEL_46;
     }
 
-    v24 = v25 + 5;
+    v24 = (v25 + 5);
   }
 
   v26 = *(a3 + 23);
@@ -3228,7 +717,8 @@ LABEL_22:
       goto LABEL_23;
     }
 
-    v31 = std::__hash_table<std::__hash_value_type<std::string,espresso_buffer_t>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,espresso_buffer_t>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,espresso_buffer_t>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,espresso_buffer_t>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((a1 + 232), a3);
+    v51 = a3;
+    v31 = std::__hash_table<std::__hash_value_type<std::string,espresso_buffer_t>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,espresso_buffer_t>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,espresso_buffer_t>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,espresso_buffer_t>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((a1 + 232), a3, &std::piecewise_construct, &v51, &v50);
     v31[25] = 0;
     *(v31 + 23) = 0u;
     *(v31 + 21) = 0u;
@@ -3240,7 +730,8 @@ LABEL_22:
     *(v31 + 9) = 0u;
     *(v31 + 7) = 0u;
     *(v31 + 5) = 0u;
-    v32 = std::__hash_table<std::__hash_value_type<std::string,espresso_buffer_t>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,espresso_buffer_t>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,espresso_buffer_t>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,espresso_buffer_t>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((a1 + 232), a3) + 5;
+    v51 = a3;
+    v32 = std::__hash_table<std::__hash_value_type<std::string,espresso_buffer_t>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,espresso_buffer_t>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,espresso_buffer_t>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,espresso_buffer_t>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((a1 + 232), a3, &std::piecewise_construct, &v51, &v50) + 5;
     v33 = v24;
     v34 = 0;
     v35 = 80;
@@ -3272,7 +763,8 @@ LABEL_22:
 LABEL_36:
     if (!memcmp(v40, v41, v42))
     {
-      v43 = std::__hash_table<std::__hash_value_type<std::string,espresso_buffer_t>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,espresso_buffer_t>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,espresso_buffer_t>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,espresso_buffer_t>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((a1 + 232), a3);
+      v51 = a3;
+      v43 = std::__hash_table<std::__hash_value_type<std::string,espresso_buffer_t>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,espresso_buffer_t>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,espresso_buffer_t>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,espresso_buffer_t>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((a1 + 232), a3, &std::piecewise_construct, &v51, &v50);
       v43[25] = 0;
       *(v43 + 23) = 0u;
       *(v43 + 21) = 0u;
@@ -3284,7 +776,8 @@ LABEL_36:
       *(v43 + 9) = 0u;
       *(v43 + 7) = 0u;
       *(v43 + 5) = 0u;
-      v32 = std::__hash_table<std::__hash_value_type<std::string,espresso_buffer_t>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,espresso_buffer_t>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,espresso_buffer_t>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,espresso_buffer_t>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((a1 + 232), a3) + 5;
+      v51 = a3;
+      v32 = std::__hash_table<std::__hash_value_type<std::string,espresso_buffer_t>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,espresso_buffer_t>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,espresso_buffer_t>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,espresso_buffer_t>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((a1 + 232), a3, &std::piecewise_construct, &v51, &v50) + 5;
       v33 = v24;
       v34 = 80;
       v35 = 81;
@@ -3326,7 +819,8 @@ LABEL_46:
 
   if (!memcmp(v44, v45, v46))
   {
-    v47 = std::__hash_table<std::__hash_value_type<std::string,espresso_buffer_t>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,espresso_buffer_t>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,espresso_buffer_t>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,espresso_buffer_t>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((a1 + 232), a3);
+    v51 = a3;
+    v47 = std::__hash_table<std::__hash_value_type<std::string,espresso_buffer_t>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,espresso_buffer_t>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,espresso_buffer_t>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,espresso_buffer_t>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((a1 + 232), a3, &std::piecewise_construct, &v51, &v50);
     v47[25] = 0;
     *(v47 + 23) = 0u;
     *(v47 + 21) = 0u;
@@ -3338,7 +832,8 @@ LABEL_46:
     *(v47 + 9) = 0u;
     *(v47 + 7) = 0u;
     *(v47 + 5) = 0u;
-    v32 = std::__hash_table<std::__hash_value_type<std::string,espresso_buffer_t>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,espresso_buffer_t>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,espresso_buffer_t>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,espresso_buffer_t>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((a1 + 232), a3) + 5;
+    v51 = a3;
+    v32 = std::__hash_table<std::__hash_value_type<std::string,espresso_buffer_t>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,espresso_buffer_t>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,espresso_buffer_t>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,espresso_buffer_t>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((a1 + 232), a3, &std::piecewise_construct, &v51, &v50) + 5;
     v33 = v24;
     v34 = 80;
     v35 = 82;
@@ -3378,7 +873,8 @@ const void **_ZN30WaveRNNDecoupledInferenceModel22var_transform_functionIDF16_EE
       v7 *= *(a2 + i);
     }
 
-    v9 = std::__hash_table<std::__hash_value_type<std::string,espresso_buffer_t>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,espresso_buffer_t>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,espresso_buffer_t>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,espresso_buffer_t>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((a1 + 192), a4);
+    v51 = a4;
+    v9 = std::__hash_table<std::__hash_value_type<std::string,espresso_buffer_t>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,espresso_buffer_t>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,espresso_buffer_t>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,espresso_buffer_t>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((a1 + 192), a4, &std::piecewise_construct, &v51, &v50);
     v9[25] = 0;
     *(v9 + 23) = 0u;
     *(v9 + 21) = 0u;
@@ -3390,7 +886,8 @@ const void **_ZN30WaveRNNDecoupledInferenceModel22var_transform_functionIDF16_EE
     *(v9 + 9) = 0u;
     *(v9 + 7) = 0u;
     *(v9 + 5) = 0u;
-    v10 = std::__hash_table<std::__hash_value_type<std::string,espresso_buffer_t>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,espresso_buffer_t>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,espresso_buffer_t>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,espresso_buffer_t>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((a1 + 192), a4);
+    v51 = a4;
+    v10 = std::__hash_table<std::__hash_value_type<std::string,espresso_buffer_t>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,espresso_buffer_t>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,espresso_buffer_t>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,espresso_buffer_t>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((a1 + 192), a4, &std::piecewise_construct, &v51, &v50);
     v11 = *a2;
     v12 = a2[1];
     *(v10 + 9) = a2[2];
@@ -3456,7 +953,7 @@ const void **_ZN30WaveRNNDecoupledInferenceModel22var_transform_functionIDF16_EE
       goto LABEL_46;
     }
 
-    v25 = v26 + 5;
+    v25 = (v26 + 5);
   }
 
   v27 = *(a3 + 23);
@@ -3472,7 +969,8 @@ LABEL_22:
       goto LABEL_23;
     }
 
-    v32 = std::__hash_table<std::__hash_value_type<std::string,espresso_buffer_t>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,espresso_buffer_t>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,espresso_buffer_t>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,espresso_buffer_t>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((a1 + 232), a3);
+    v51 = a3;
+    v32 = std::__hash_table<std::__hash_value_type<std::string,espresso_buffer_t>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,espresso_buffer_t>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,espresso_buffer_t>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,espresso_buffer_t>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((a1 + 232), a3, &std::piecewise_construct, &v51, &v50);
     v32[25] = 0;
     *(v32 + 23) = 0u;
     *(v32 + 21) = 0u;
@@ -3484,7 +982,8 @@ LABEL_22:
     *(v32 + 9) = 0u;
     *(v32 + 7) = 0u;
     *(v32 + 5) = 0u;
-    v33 = std::__hash_table<std::__hash_value_type<std::string,espresso_buffer_t>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,espresso_buffer_t>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,espresso_buffer_t>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,espresso_buffer_t>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((a1 + 232), a3) + 5;
+    v51 = a3;
+    v33 = std::__hash_table<std::__hash_value_type<std::string,espresso_buffer_t>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,espresso_buffer_t>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,espresso_buffer_t>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,espresso_buffer_t>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((a1 + 232), a3, &std::piecewise_construct, &v51, &v50) + 5;
     v34 = v25;
     v35 = 0;
     v36 = 80;
@@ -3516,7 +1015,8 @@ LABEL_22:
 LABEL_36:
     if (!memcmp(v41, v42, v43))
     {
-      v44 = std::__hash_table<std::__hash_value_type<std::string,espresso_buffer_t>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,espresso_buffer_t>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,espresso_buffer_t>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,espresso_buffer_t>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((a1 + 232), a3);
+      v51 = a3;
+      v44 = std::__hash_table<std::__hash_value_type<std::string,espresso_buffer_t>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,espresso_buffer_t>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,espresso_buffer_t>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,espresso_buffer_t>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((a1 + 232), a3, &std::piecewise_construct, &v51, &v50);
       v44[25] = 0;
       *(v44 + 23) = 0u;
       *(v44 + 21) = 0u;
@@ -3528,7 +1028,8 @@ LABEL_36:
       *(v44 + 9) = 0u;
       *(v44 + 7) = 0u;
       *(v44 + 5) = 0u;
-      v33 = std::__hash_table<std::__hash_value_type<std::string,espresso_buffer_t>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,espresso_buffer_t>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,espresso_buffer_t>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,espresso_buffer_t>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((a1 + 232), a3) + 5;
+      v51 = a3;
+      v33 = std::__hash_table<std::__hash_value_type<std::string,espresso_buffer_t>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,espresso_buffer_t>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,espresso_buffer_t>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,espresso_buffer_t>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((a1 + 232), a3, &std::piecewise_construct, &v51, &v50) + 5;
       v34 = v25;
       v35 = 80;
       v36 = 81;
@@ -3570,7 +1071,8 @@ LABEL_46:
 
   if (!memcmp(v45, v46, v47))
   {
-    v48 = std::__hash_table<std::__hash_value_type<std::string,espresso_buffer_t>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,espresso_buffer_t>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,espresso_buffer_t>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,espresso_buffer_t>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((a1 + 232), a3);
+    v51 = a3;
+    v48 = std::__hash_table<std::__hash_value_type<std::string,espresso_buffer_t>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,espresso_buffer_t>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,espresso_buffer_t>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,espresso_buffer_t>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((a1 + 232), a3, &std::piecewise_construct, &v51, &v50);
     v48[25] = 0;
     *(v48 + 23) = 0u;
     *(v48 + 21) = 0u;
@@ -3582,7 +1084,8 @@ LABEL_46:
     *(v48 + 9) = 0u;
     *(v48 + 7) = 0u;
     *(v48 + 5) = 0u;
-    v33 = std::__hash_table<std::__hash_value_type<std::string,espresso_buffer_t>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,espresso_buffer_t>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,espresso_buffer_t>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,espresso_buffer_t>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((a1 + 232), a3) + 5;
+    v51 = a3;
+    v33 = std::__hash_table<std::__hash_value_type<std::string,espresso_buffer_t>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,espresso_buffer_t>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,espresso_buffer_t>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,espresso_buffer_t>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((a1 + 232), a3, &std::piecewise_construct, &v51, &v50) + 5;
     v34 = v25;
     v35 = 80;
     v36 = 82;
@@ -3606,118 +1109,42 @@ void WaveRNNDecoupledInferenceModel::copy_training_net_to_inference_net(uint64_t
   v4 = (a1 + 96);
   if (*(a1 + 119) < 0)
   {
-    std::string::__init_copy_ctor_external(&v16, *(a1 + 96), *(a1 + 104));
+    std::string::__init_copy_ctor_external(&v20, *(a1 + 96), *(a1 + 104));
   }
 
   else
   {
-    *&v16.__r_.__value_.__l.__data_ = *v4;
-    v16.__r_.__value_.__r.__words[2] = *(a1 + 112);
+    *&v20.__r_.__value_.__l.__data_ = *v4;
+    v20.__r_.__value_.__r.__words[2] = *(a1 + 112);
   }
 
-  v5 = std::__fs::filesystem::path::path[abi:ne200100]<std::string,void>(&v20, &v16);
+  v5 = std::__fs::filesystem::path::path[abi:ne200100]<std::string,void>(&v24, &v20);
   std::__fs::filesystem::__remove_all(v5, 0);
-  if (SHIBYTE(v20.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v24.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v20.__r_.__value_.__l.__data_);
+    operator delete(v24.__r_.__value_.__l.__data_);
   }
 
-  v6 = std::__fs::filesystem::path::path[abi:ne200100]<std::string,void>(&v20, &v16);
+  v6 = std::__fs::filesystem::path::path[abi:ne200100]<std::string,void>(&v24, &v20);
   std::__fs::filesystem::__create_directory(v6, 0);
-  if (SHIBYTE(v20.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v24.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v20.__r_.__value_.__l.__data_);
+    operator delete(v24.__r_.__value_.__l.__data_);
   }
 
-  boost::filesystem::path::path(&v19, "model.mil");
-  if (SHIBYTE(v16.__r_.__value_.__r.__words[2]) < 0)
+  boost::filesystem::path::path(&v23, "model.mil");
+  if (SHIBYTE(v20.__r_.__value_.__r.__words[2]) < 0)
   {
-    std::string::__init_copy_ctor_external(&v20, v16.__r_.__value_.__l.__data_, v16.__r_.__value_.__l.__size_);
+    std::string::__init_copy_ctor_external(&v24, v20.__r_.__value_.__l.__data_, v20.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    v20 = v16;
+    v24 = v20;
   }
 
-  boost::filesystem::path::append_v3(&v20, &v19);
+  boost::filesystem::path::append_v3(&v24, &v23);
   boost::filesystem::path::path(&__p, "weights/weight.bin");
-  if (SHIBYTE(v16.__r_.__value_.__r.__words[2]) < 0)
-  {
-    std::string::__init_copy_ctor_external(&v15, v16.__r_.__value_.__l.__data_, v16.__r_.__value_.__l.__size_);
-  }
-
-  else
-  {
-    v15 = v16;
-  }
-
-  boost::filesystem::path::append_v3(&v15, &__p);
-  v18[0] = off_283988;
-  v18[1] = a1;
-  v18[3] = v18;
-  (*(*a1 + 8))(a1, a1 + 48, &v20, &v15, a1 + 144, a2, a1 + 24, v18);
-  std::__function::__value_func<espresso_buffer_t const* ()(espresso_buffer_t const*,std::string const&,std::string const&)>::~__value_func[abi:ne200100](v18);
-  if (SHIBYTE(v15.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v15.__r_.__value_.__l.__data_);
-  }
-
-  if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(__p.__r_.__value_.__l.__data_);
-  }
-
-  if (SHIBYTE(v20.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v20.__r_.__value_.__l.__data_);
-  }
-
-  if (SHIBYTE(v19.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v19.__r_.__value_.__l.__data_);
-  }
-
-  LogObject = Diagnostics_GetLogObject();
-  if (os_log_type_enabled(LogObject, OS_LOG_TYPE_INFO))
-  {
-    if (*(a1 + 119) < 0)
-    {
-      v4 = *v4;
-    }
-
-    LODWORD(v20.__r_.__value_.__l.__data_) = 136315138;
-    *(v20.__r_.__value_.__r.__words + 4) = v4;
-    _os_log_impl(&dword_0, LogObject, OS_LOG_TYPE_INFO, "saved linear weights to: %s\n", &v20, 0xCu);
-  }
-
-  v8 = (a1 + 120);
-  if (*(a1 + 143) < 0)
-  {
-    std::string::__init_copy_ctor_external(&v20, *(a1 + 120), *(a1 + 128));
-  }
-
-  else
-  {
-    *&v20.__r_.__value_.__l.__data_ = *v8;
-    v20.__r_.__value_.__r.__words[2] = *(a1 + 136);
-  }
-
-  v9 = std::__fs::filesystem::path::path[abi:ne200100]<std::string,void>(&v19, &v20);
-  std::__fs::filesystem::__remove_all(v9, 0);
-  if (SHIBYTE(v19.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v19.__r_.__value_.__l.__data_);
-  }
-
-  v10 = std::__fs::filesystem::path::path[abi:ne200100]<std::string,void>(&v19, &v20);
-  std::__fs::filesystem::__create_directory(v10, 0);
-  if (SHIBYTE(v19.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v19.__r_.__value_.__l.__data_);
-  }
-
-  boost::filesystem::path::path(&v15, "model.mil");
   if (SHIBYTE(v20.__r_.__value_.__r.__words[2]) < 0)
   {
     std::string::__init_copy_ctor_external(&v19, v20.__r_.__value_.__l.__data_, v20.__r_.__value_.__l.__size_);
@@ -3728,32 +1155,113 @@ void WaveRNNDecoupledInferenceModel::copy_training_net_to_inference_net(uint64_t
     v19 = v20;
   }
 
-  boost::filesystem::path::append_v3(&v19, &v15);
-  boost::filesystem::path::path(v12, "weights/weight.bin");
-  if (SHIBYTE(v20.__r_.__value_.__r.__words[2]) < 0)
+  boost::filesystem::path::append_v3(&v19, &__p);
+  v22[0] = off_283988;
+  v22[1] = a1;
+  v22[3] = v22;
+  (*(*a1 + 8))(a1, a1 + 48, &v24, &v19, a1 + 144, a2, a1 + 24, v22);
+  v7 = std::__function::__value_func<espresso_buffer_t const* ()(espresso_buffer_t const*,std::string const&,std::string const&)>::~__value_func[abi:ne200100](v22);
+  if (SHIBYTE(v19.__r_.__value_.__r.__words[2]) < 0)
   {
-    std::string::__init_copy_ctor_external(&__p, v20.__r_.__value_.__l.__data_, v20.__r_.__value_.__l.__size_);
+    operator delete(v19.__r_.__value_.__l.__data_);
   }
 
-  else
-  {
-    __p = v20;
-  }
-
-  boost::filesystem::path::append_v3(&__p, v12);
-  v17[0] = off_283A18;
-  v17[1] = a1;
-  v17[3] = v17;
-  (*(*a1 + 8))(a1, a1 + 72, &v19, &__p, a1 + 168, a2, a1 + 24, v17);
-  std::__function::__value_func<espresso_buffer_t const* ()(espresso_buffer_t const*,std::string const&,std::string const&)>::~__value_func[abi:ne200100](v17);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
   }
 
-  if (v13 < 0)
+  if (SHIBYTE(v24.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v12[0]);
+    operator delete(v24.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v23.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v23.__r_.__value_.__l.__data_);
+  }
+
+  LogObject = Diagnostics_GetLogObject(v7, v8);
+  if (os_log_type_enabled(LogObject, OS_LOG_TYPE_INFO))
+  {
+    if (*(a1 + 119) < 0)
+    {
+      v4 = *v4;
+    }
+
+    LODWORD(v24.__r_.__value_.__l.__data_) = 136315138;
+    *(v24.__r_.__value_.__r.__words + 4) = v4;
+    _os_log_impl(&dword_0, LogObject, OS_LOG_TYPE_INFO, "saved linear weights to: %s\n", &v24, 0xCu);
+  }
+
+  v10 = (a1 + 120);
+  if (*(a1 + 143) < 0)
+  {
+    std::string::__init_copy_ctor_external(&v24, *(a1 + 120), *(a1 + 128));
+  }
+
+  else
+  {
+    *&v24.__r_.__value_.__l.__data_ = *v10;
+    v24.__r_.__value_.__r.__words[2] = *(a1 + 136);
+  }
+
+  v11 = std::__fs::filesystem::path::path[abi:ne200100]<std::string,void>(&v23, &v24);
+  std::__fs::filesystem::__remove_all(v11, 0);
+  if (SHIBYTE(v23.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v23.__r_.__value_.__l.__data_);
+  }
+
+  v12 = std::__fs::filesystem::path::path[abi:ne200100]<std::string,void>(&v23, &v24);
+  std::__fs::filesystem::__create_directory(v12, 0);
+  if (SHIBYTE(v23.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v23.__r_.__value_.__l.__data_);
+  }
+
+  boost::filesystem::path::path(&v19, "model.mil");
+  if (SHIBYTE(v24.__r_.__value_.__r.__words[2]) < 0)
+  {
+    std::string::__init_copy_ctor_external(&v23, v24.__r_.__value_.__l.__data_, v24.__r_.__value_.__l.__size_);
+  }
+
+  else
+  {
+    v23 = v24;
+  }
+
+  boost::filesystem::path::append_v3(&v23, &v19);
+  boost::filesystem::path::path(v16, "weights/weight.bin");
+  if (SHIBYTE(v24.__r_.__value_.__r.__words[2]) < 0)
+  {
+    std::string::__init_copy_ctor_external(&__p, v24.__r_.__value_.__l.__data_, v24.__r_.__value_.__l.__size_);
+  }
+
+  else
+  {
+    __p = v24;
+  }
+
+  boost::filesystem::path::append_v3(&__p, v16);
+  v21[0] = off_283A18;
+  v21[1] = a1;
+  v21[3] = v21;
+  (*(*a1 + 8))(a1, a1 + 72, &v23, &__p, a1 + 168, a2, a1 + 24, v21);
+  v13 = std::__function::__value_func<espresso_buffer_t const* ()(espresso_buffer_t const*,std::string const&,std::string const&)>::~__value_func[abi:ne200100](v21);
+  if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(__p.__r_.__value_.__l.__data_);
+  }
+
+  if (v17 < 0)
+  {
+    operator delete(v16[0]);
+  }
+
+  if (SHIBYTE(v23.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v23.__r_.__value_.__l.__data_);
   }
 
   if (SHIBYTE(v19.__r_.__value_.__r.__words[2]) < 0)
@@ -3761,32 +1269,27 @@ void WaveRNNDecoupledInferenceModel::copy_training_net_to_inference_net(uint64_t
     operator delete(v19.__r_.__value_.__l.__data_);
   }
 
-  if (SHIBYTE(v15.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v15.__r_.__value_.__l.__data_);
-  }
-
-  v11 = Diagnostics_GetLogObject();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+  v15 = Diagnostics_GetLogObject(v13, v14);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
   {
     if (*(a1 + 143) < 0)
     {
-      v8 = *v8;
+      v10 = *v10;
     }
 
-    LODWORD(v19.__r_.__value_.__l.__data_) = 136315138;
-    *(v19.__r_.__value_.__r.__words + 4) = v8;
-    _os_log_impl(&dword_0, v11, OS_LOG_TYPE_INFO, "saved gru weights to: %s\n", &v19, 0xCu);
+    LODWORD(v23.__r_.__value_.__l.__data_) = 136315138;
+    *(v23.__r_.__value_.__r.__words + 4) = v10;
+    _os_log_impl(&dword_0, v15, OS_LOG_TYPE_INFO, "saved gru weights to: %s\n", &v23, 0xCu);
+  }
+
+  if (SHIBYTE(v24.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v24.__r_.__value_.__l.__data_);
   }
 
   if (SHIBYTE(v20.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(v20.__r_.__value_.__l.__data_);
-  }
-
-  if (SHIBYTE(v16.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v16.__r_.__value_.__l.__data_);
   }
 }
 
@@ -3841,8 +1344,8 @@ void WaveRNNDecoupledInferenceModel::~WaveRNNDecoupledInferenceModel(WaveRNNDeco
     }
   }
 
-  std::__hash_table<std::__hash_value_type<std::string,espresso_buffer_t>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,espresso_buffer_t>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,espresso_buffer_t>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,espresso_buffer_t>>>::~__hash_table(this + 232);
-  std::__hash_table<std::__hash_value_type<std::string,espresso_buffer_t>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,espresso_buffer_t>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,espresso_buffer_t>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,espresso_buffer_t>>>::~__hash_table(this + 192);
+  std::__hash_table<std::__hash_value_type<std::string,espresso_buffer_t>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,espresso_buffer_t>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,espresso_buffer_t>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,espresso_buffer_t>>>::~__hash_table(this + 29);
+  std::__hash_table<std::__hash_value_type<std::string,espresso_buffer_t>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,espresso_buffer_t>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,espresso_buffer_t>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,espresso_buffer_t>>>::~__hash_table(this + 24);
   v6 = (this + 168);
   std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v6);
   v6 = (this + 144);
@@ -3931,7 +1434,7 @@ uint64_t std::pair<std::string const,std::string>::~pair(uint64_t a1)
   return a1;
 }
 
-void *nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::json_value(void *result, int a2)
+_BYTE *nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::json_value(_BYTE *a1, int a2)
 {
   if (a2 <= 3)
   {
@@ -3939,7 +1442,7 @@ void *nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsig
     {
       if (a2 != 2)
       {
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::create<std::string,char const(&)[7]>();
+        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::create<std::string,char const(&)[7]>("");
       }
 
       operator new();
@@ -3966,24 +1469,25 @@ void *nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsig
   if (a2 != 4)
   {
 LABEL_11:
-    *result = 0;
-    return result;
+    *a1 = 0;
+    return a1;
   }
 
-  *result = 0;
-  return result;
+  *a1 = 0;
+  return a1;
 }
 
-uint64_t nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::parser<nlohmann::detail::input_stream_adapter>@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, char a3@<W2>, uint64_t a4@<X8>)
+uint64_t nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::parser<nlohmann::detail::input_stream_adapter>@<X0>(uint64_t a1@<X0>, uint64_t a2@<X2>, uint64_t a3@<X8>, uint64_t a4@<X1>)
 {
-  std::__function::__value_func<BOOL ()(int,nlohmann::detail::parse_event_t,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>> &)>::__value_func[abi:ne200100](v8, a2);
-  nlohmann::detail::parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::input_stream_adapter>::parser(a4, a1, v8, a3);
+  v4 = a2;
+  std::__function::__value_func<BOOL ()(int,nlohmann::detail::parse_event_t,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>> &)>::__value_func[abi:ne200100](v8, a4);
+  nlohmann::detail::parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::input_stream_adapter>::parser(a3, a1, v8, v4);
   return std::__function::__value_func<BOOL ()(int,nlohmann::detail::parse_event_t,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>> &)>::~__value_func[abi:ne200100](v8);
 }
 
-void sub_1CABBC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1CABBC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<BOOL ()(int,nlohmann::detail::parse_event_t,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>> &)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -4008,7 +1512,7 @@ void nlohmann::detail::parser<nlohmann::basic_json<std::map,std::vector,std::str
         v29 = *(a1 + 64);
         v30 = *(a1 + 80);
         boost::filesystem::path::path(v25, "value");
-        nlohmann::detail::parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::input_stream_adapter>::exception_message(a1, 0xFu, v25, __p);
+        nlohmann::detail::parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::input_stream_adapter>::exception_message(a1, 15, v25, __p);
         nlohmann::detail::parse_error::create(101, &v29, __p, &v31);
         nlohmann::detail::json_sax_dom_callback_parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::parse_error(&v35, v7, &v33, &v31);
         v31.__vftable = off_283360;
@@ -4098,7 +1602,7 @@ LABEL_27:
       v29 = *(a1 + 64);
       v30 = *(a1 + 80);
       boost::filesystem::path::path(v25, "value");
-      nlohmann::detail::parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::input_stream_adapter>::exception_message(a1, 0xFu, v25, __p);
+      nlohmann::detail::parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::input_stream_adapter>::exception_message(a1, 15, v25, __p);
       nlohmann::detail::parse_error::create(101, &v29, __p, &v31);
       nlohmann::detail::json_sax_dom_parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::parse_error(&v35, v14, &v33, &v31);
       v31.__vftable = off_283360;
@@ -4428,7 +1932,7 @@ BOOL nlohmann::detail::lexer<nlohmann::basic_json<std::map,std::vector,std::stri
 
   else
   {
-    nlohmann::detail::lexer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::input_stream_adapter>::unget(a1);
+    nlohmann::detail::lexer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::input_stream_adapter>::unget(a1, v2);
     return 1;
   }
 }
@@ -4933,28 +2437,28 @@ LABEL_3:
       if (v7 != 69 && v7 != 101)
       {
 LABEL_9:
-        nlohmann::detail::lexer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::input_stream_adapter>::unget(a1);
+        nlohmann::detail::lexer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::input_stream_adapter>::unget(a1, v8);
         __endptr = 0;
         *__error() = 0;
-        v8 = (a1 + 72);
-        v9 = *(a1 + 95);
-        v10 = (a1 + 72);
+        v9 = (a1 + 72);
+        v10 = *(a1 + 95);
+        v11 = (a1 + 72);
         if (v5 == 5)
         {
-          if (v9 < 0)
+          if (v10 < 0)
           {
-            v10 = *v8;
+            v11 = *v9;
           }
 
-          v11 = strtoull(v10, &__endptr, 10);
-          v12 = *(a1 + 95);
-          if (v12 < 0)
+          v12 = strtoull(v11, &__endptr, 10);
+          v13 = *(a1 + 95);
+          if (v13 < 0)
           {
-            v8 = *(a1 + 72);
-            v12 = *(a1 + 80);
+            v9 = *(a1 + 72);
+            v13 = *(a1 + 80);
           }
 
-          if (__endptr != v8 + v12)
+          if (__endptr != v9 + v13)
           {
             nlohmann::detail::lexer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::input_stream_adapter>::scan_number();
           }
@@ -4962,29 +2466,29 @@ LABEL_9:
           if (!*__error())
           {
             result = 5;
-            v14 = 112;
+            v15 = 112;
 LABEL_30:
-            *(a1 + v14) = v11;
+            *(a1 + v15) = v12;
             return result;
           }
         }
 
         else
         {
-          if (v9 < 0)
+          if (v10 < 0)
           {
-            v10 = *v8;
+            v11 = *v9;
           }
 
-          v11 = strtoll(v10, &__endptr, 10);
-          v15 = *(a1 + 95);
-          if (v15 < 0)
+          v12 = strtoll(v11, &__endptr, 10);
+          v16 = *(a1 + 95);
+          if (v16 < 0)
           {
-            v8 = *(a1 + 72);
-            v15 = *(a1 + 80);
+            v9 = *(a1 + 72);
+            v16 = *(a1 + 80);
           }
 
-          if (__endptr != v8 + v15)
+          if (__endptr != v9 + v16)
           {
             nlohmann::detail::lexer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::input_stream_adapter>::scan_number();
           }
@@ -4992,7 +2496,7 @@ LABEL_30:
           if (!*__error())
           {
             result = 6;
-            v14 = 104;
+            v15 = 104;
             goto LABEL_30;
           }
         }
@@ -5021,17 +2525,17 @@ LABEL_30:
 
     v4 = (a1 + 72);
     std::string::push_back((a1 + 72), 45);
-    v19 = nlohmann::detail::lexer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::input_stream_adapter>::get(a1);
-    if ((v19 - 49) < 9)
+    v20 = nlohmann::detail::lexer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::input_stream_adapter>::get(a1);
+    if ((v20 - 49) < 9)
     {
       v2 = *v3;
       v5 = 6;
       goto LABEL_3;
     }
 
-    if (v19 != 48)
+    if (v20 != 48)
     {
-      v22 = "invalid number; expected digit after '-'";
+      v24 = "invalid number; expected digit after '-'";
       goto LABEL_52;
     }
 
@@ -5039,40 +2543,40 @@ LABEL_30:
     v5 = 6;
   }
 
-  v20 = nlohmann::detail::lexer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::input_stream_adapter>::get(a1);
-  if (v20 == 101 || v20 == 69)
+  v21 = nlohmann::detail::lexer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::input_stream_adapter>::get(a1);
+  if (v21 == 101 || v21 == 69)
   {
     v6 = (a1 + 72);
 LABEL_48:
     std::string::push_back(v6, *(a1 + 16));
-    v23 = nlohmann::detail::lexer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::input_stream_adapter>::get(a1);
-    if ((v23 - 48) < 0xA)
+    v25 = nlohmann::detail::lexer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::input_stream_adapter>::get(a1);
+    if ((v25 - 48) < 0xA)
     {
-      v24 = (a1 + 72);
+      v26 = (a1 + 72);
     }
 
     else
     {
-      if (v23 != 45 && v23 != 43)
+      if (v25 != 45 && v25 != 43)
       {
-        v22 = "invalid number; expected '+', '-', or digit after exponent";
+        v24 = "invalid number; expected '+', '-', or digit after exponent";
         goto LABEL_52;
       }
 
-      v24 = (a1 + 72);
+      v26 = (a1 + 72);
       std::string::push_back((a1 + 72), *(a1 + 16));
       if (nlohmann::detail::lexer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::input_stream_adapter>::get(a1) - 48 >= 0xA)
       {
-        v22 = "invalid number; expected digit after exponent sign";
+        v24 = "invalid number; expected digit after exponent sign";
         goto LABEL_52;
       }
     }
 
-    nlohmann::detail::lexer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::input_stream_adapter>::scan_number(a1, (a1 + 16), v24);
+    nlohmann::detail::lexer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::input_stream_adapter>::scan_number(a1, (a1 + 16), v26);
     goto LABEL_55;
   }
 
-  if (v20 != 46)
+  if (v21 != 46)
   {
     goto LABEL_9;
   }
@@ -5082,9 +2586,9 @@ LABEL_40:
   std::string::push_back(v6, *(a1 + 128));
   if (nlohmann::detail::lexer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::input_stream_adapter>::get(a1) - 48 > 9)
   {
-    v22 = "invalid number; expected digit after '.'";
+    v24 = "invalid number; expected digit after '.'";
 LABEL_52:
-    *(a1 + 96) = v22;
+    *(a1 + 96) = v24;
     return 14;
   }
 
@@ -5092,36 +2596,36 @@ LABEL_52:
   do
   {
     std::string::push_back((a1 + 72), *(a1 + 16));
-    v21 = nlohmann::detail::lexer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::input_stream_adapter>::get(a1);
+    v22 = nlohmann::detail::lexer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::input_stream_adapter>::get(a1);
   }
 
-  while ((v21 - 48) < 0xA);
-  if (v21 == 101 || v21 == 69)
+  while ((v22 - 48) < 0xA);
+  if (v22 == 101 || v22 == 69)
   {
     goto LABEL_48;
   }
 
 LABEL_55:
-  nlohmann::detail::lexer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::input_stream_adapter>::unget(a1);
+  nlohmann::detail::lexer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::input_stream_adapter>::unget(a1, v23);
   __endptr = 0;
   *__error() = 0;
 LABEL_23:
-  v16 = (a1 + 72);
   v17 = (a1 + 72);
+  v18 = (a1 + 72);
   if (*(a1 + 95) < 0)
   {
-    v17 = *v16;
+    v18 = *v17;
   }
 
-  *(a1 + 120) = strtod(v17, &__endptr);
-  v18 = *(a1 + 95);
-  if (v18 < 0)
+  *(a1 + 120) = strtod(v18, &__endptr);
+  v19 = *(a1 + 95);
+  if (v19 < 0)
   {
-    v16 = *(a1 + 72);
-    v18 = *(a1 + 80);
+    v17 = *(a1 + 72);
+    v19 = *(a1 + 80);
   }
 
-  if (__endptr != v16 + v18)
+  if (__endptr != v17 + v19)
   {
     nlohmann::detail::lexer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::input_stream_adapter>::scan_number();
   }
@@ -5129,26 +2633,26 @@ LABEL_23:
   return 7;
 }
 
-uint64_t nlohmann::detail::lexer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::input_stream_adapter>::unget(uint64_t result)
+uint64_t nlohmann::detail::lexer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::input_stream_adapter>::unget(uint64_t result, uint64_t a2)
 {
-  v1 = (result + 32);
-  v2 = *(result + 32);
+  v2 = (result + 32);
+  v3 = *(result + 32);
   *(result + 20) = 1;
   --*(result + 24);
-  if (v2 || (v1 = (result + 40), (v2 = *(result + 40)) != 0))
+  if (v3 || (v2 = (result + 40), (v3 = *(result + 40)) != 0))
   {
-    *v1 = v2 - 1;
+    *v2 = v3 - 1;
   }
 
   if (*(result + 16) != -1)
   {
-    v3 = *(result + 56);
-    if (*(result + 48) == v3)
+    v4 = *(result + 56);
+    if (*(result + 48) == v4)
     {
       nlohmann::detail::lexer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::input_stream_adapter>::unget();
     }
 
-    *(result + 56) = v3 - 1;
+    *(result + 56) = v4 - 1;
   }
 
   return result;
@@ -5198,9 +2702,9 @@ void nlohmann::detail::lexer<nlohmann::basic_json<std::map,std::vector,std::stri
   std::vector<char>::push_back[abi:ne200100](v1, &v3);
 }
 
-uint64_t nlohmann::detail::lexer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::input_stream_adapter>::get_codepoint(int *a1)
+uint64_t nlohmann::detail::lexer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::input_stream_adapter>::get_codepoint(nlohmann::detail::input_stream_adapter *a1)
 {
-  if (a1[4] != 117)
+  if (*(a1 + 4) != 117)
   {
     nlohmann::detail::lexer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::input_stream_adapter>::get_codepoint();
   }
@@ -5258,7 +2762,7 @@ LABEL_2:
 
         else if (v4 == 4)
         {
-          nlohmann::detail::json_sax_dom_callback_parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::handle_value<std::string&>(a2);
+          nlohmann::detail::json_sax_dom_callback_parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::handle_value<std::string&>(a2, a1 + 112, 0);
         }
 
         else
@@ -5382,7 +2886,7 @@ LABEL_53:
     *v30 = *(a1 + 64);
     v31 = *(a1 + 80);
     boost::filesystem::path::path(&v28, "value");
-    nlohmann::detail::parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::input_stream_adapter>::exception_message(a1, 0x10u, &v28, &__p);
+    nlohmann::detail::parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::input_stream_adapter>::exception_message(a1, 16, &v28, &__p);
     nlohmann::detail::parse_error::create(101, v30, &__p, &v32);
     v16 = nlohmann::detail::json_sax_dom_callback_parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::parse_error(a2, v17, &v34, &v32);
     goto LABEL_54;
@@ -5399,7 +2903,7 @@ LABEL_53:
   {
     if (v5 == 4)
     {
-      nlohmann::detail::json_sax_dom_callback_parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::key();
+      nlohmann::detail::json_sax_dom_callback_parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::key(a2, (a1 + 112));
     }
 
     goto LABEL_64;
@@ -5442,7 +2946,7 @@ LABEL_47:
         *v30 = *(a1 + 64);
         v31 = *(a1 + 80);
         boost::filesystem::path::path(&v28, "array");
-        nlohmann::detail::parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::input_stream_adapter>::exception_message(a1, 0xAu, &v28, &__p);
+        nlohmann::detail::parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::input_stream_adapter>::exception_message(a1, 10, &v28, &__p);
         nlohmann::detail::parse_error::create(101, v30, &__p, &v32);
         v19 = nlohmann::detail::json_sax_dom_callback_parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::parse_error(a2, v18, &v34, &v32);
         goto LABEL_65;
@@ -5485,7 +2989,7 @@ LABEL_39:
       *v30 = *(a1 + 64);
       v31 = *(a1 + 80);
       boost::filesystem::path::path(&v28, "object");
-      nlohmann::detail::parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::input_stream_adapter>::exception_message(a1, 0xBu, &v28, &__p);
+      nlohmann::detail::parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::input_stream_adapter>::exception_message(a1, 11, &v28, &__p);
       nlohmann::detail::parse_error::create(101, v30, &__p, &v32);
       v19 = nlohmann::detail::json_sax_dom_callback_parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::parse_error(a2, v21, &v34, &v32);
       goto LABEL_65;
@@ -5511,7 +3015,7 @@ LABEL_67:
   *(a1 + 32) = v12;
   if (v12 == 4)
   {
-    nlohmann::detail::json_sax_dom_callback_parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::key();
+    nlohmann::detail::json_sax_dom_callback_parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::key(a2, (a1 + 112));
   }
 
 LABEL_64:
@@ -5520,7 +3024,7 @@ LABEL_64:
   *v30 = *(a1 + 64);
   v31 = *(a1 + 80);
   boost::filesystem::path::path(&v28, "object key");
-  nlohmann::detail::parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::input_stream_adapter>::exception_message(a1, 4u, &v28, &__p);
+  nlohmann::detail::parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::input_stream_adapter>::exception_message(a1, 4, &v28, &__p);
   nlohmann::detail::parse_error::create(101, v30, &__p, &v32);
   v19 = nlohmann::detail::json_sax_dom_callback_parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::parse_error(a2, v22, &v34, &v32);
 LABEL_65:
@@ -5578,12 +3082,12 @@ void sub_1CCC54(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, i
   _Unwind_Resume(a1);
 }
 
-uint64_t nlohmann::detail::json_sax_dom_callback_parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::parse_error(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t nlohmann::detail::json_sax_dom_callback_parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::parse_error(uint64_t a1, uint64_t a2, uint64_t a3, const nlohmann::detail::parse_error *a4)
 {
   *(a1 + 88) = 1;
   if (*(a1 + 128) == 1)
   {
-    v5 = *(a4 + 8) / 100 % 100;
+    v5 = *(a4 + 2) / 100 % 100;
     if (v5 <= 2)
     {
       if (v5 == 1)
@@ -5634,8 +3138,7 @@ LABEL_15:
 
 void nlohmann::detail::lexer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::input_stream_adapter>::get_token_string(uint64_t a1@<X0>, std::string *a2@<X8>)
 {
-  a2->__r_.__value_.__r.__words[0] = 0;
-  a2->__r_.__value_.__l.__size_ = 0;
+  *&a2->__r_.__value_.__l.__data_ = 0uLL;
   a2->__r_.__value_.__r.__words[2] = 0;
   v3 = *(a1 + 48);
   for (i = *(a1 + 56); v3 != i; ++v3)
@@ -5800,8 +3303,9 @@ void sub_1CD1DC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int
   _Unwind_Resume(exception_object);
 }
 
-void nlohmann::detail::parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::input_stream_adapter>::exception_message(uint64_t a1@<X0>, unsigned int a2@<W1>, uint64_t a3@<X2>, boost::filesystem::path *a4@<X8>)
+void nlohmann::detail::parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::input_stream_adapter>::exception_message(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, boost::filesystem::path *a4@<X8>)
 {
+  v5 = a2;
   boost::filesystem::path::path(a4, "syntax error ");
   v8 = *(a3 + 23);
   if ((v8 & 0x80u) != 0)
@@ -5946,7 +3450,7 @@ void nlohmann::detail::parser<nlohmann::basic_json<std::map,std::vector,std::str
     }
 
 LABEL_46:
-    if (!a2)
+    if (!v5)
     {
       return;
     }
@@ -5997,13 +3501,13 @@ LABEL_46:
   v24 = v38.__r_.__value_.__r.__words[0];
 LABEL_49:
   operator delete(v24);
-  if (!a2)
+  if (!v5)
   {
     return;
   }
 
 LABEL_50:
-  v30 = nlohmann::detail::lexer_base<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::token_type_name(a2);
+  v30 = nlohmann::detail::lexer_base<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::token_type_name(v5);
   boost::filesystem::path::path(&v38, v30);
   v31 = std::string::insert(&v38, 0, "; expected ");
   v32 = *&v31->__r_.__value_.__l.__data_;
@@ -6177,7 +3681,7 @@ LABEL_59:
           *v36 = *(a1 + 64);
           v37 = *(a1 + 80);
           boost::filesystem::path::path(&v34, "object key");
-          nlohmann::detail::parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::input_stream_adapter>::exception_message(a1, 4u, &v34, &__p);
+          nlohmann::detail::parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::input_stream_adapter>::exception_message(a1, 4, &v34, &__p);
           nlohmann::detail::parse_error::create(101, v36, &__p, &v38);
           v24 = nlohmann::detail::json_sax_dom_parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::parse_error(a2, v27, &v40, &v38);
           goto LABEL_63;
@@ -6185,7 +3689,7 @@ LABEL_59:
 
         v7 = *(*(a2[2] - 8) + 8);
         v38.__vftable = v4;
-        a2[4] = std::__tree<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::__map_value_compare<std::string,std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::less<void>,true>,std::allocator<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v7, &v4->~runtime_error) + 56;
+        a2[4] = std::__tree<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::__map_value_compare<std::string,std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::less<void>,true>,std::allocator<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v7, &v4->~runtime_error, &std::piecewise_construct, &v38, &v40) + 7;
         v8 = nlohmann::detail::lexer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::input_stream_adapter>::scan((a1 + 40));
         *(a1 + 32) = v8;
         if (v8 != 12)
@@ -6221,7 +3725,7 @@ LABEL_49:
         *v36 = *(a1 + 64);
         v37 = *(a1 + 80);
         boost::filesystem::path::path(&v34, "value");
-        nlohmann::detail::parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::input_stream_adapter>::exception_message(a1, 0x10u, &v34, &__p);
+        nlohmann::detail::parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::input_stream_adapter>::exception_message(a1, 16, &v34, &__p);
         nlohmann::detail::parse_error::create(101, v36, &__p, &v38);
         v21 = nlohmann::detail::json_sax_dom_parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::parse_error(a2, v22, &v40, &v38);
         goto LABEL_50;
@@ -6240,7 +3744,7 @@ LABEL_49:
     {
       if (v5 == 4)
       {
-        nlohmann::detail::json_sax_dom_parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::handle_value<std::string&>(a2);
+        nlohmann::detail::json_sax_dom_parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::handle_value<std::string&>(a2, v4);
       }
 
       v38.__vftable = *(a1 + 152);
@@ -6291,7 +3795,7 @@ LABEL_43:
         *v36 = *(a1 + 64);
         v37 = *(a1 + 80);
         boost::filesystem::path::path(&v34, "array");
-        nlohmann::detail::parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::input_stream_adapter>::exception_message(a1, 0xAu, &v34, &__p);
+        nlohmann::detail::parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::input_stream_adapter>::exception_message(a1, 10, &v34, &__p);
         nlohmann::detail::parse_error::create(101, v36, &__p, &v38);
         v24 = nlohmann::detail::json_sax_dom_parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::parse_error(a2, v23, &v40, &v38);
         goto LABEL_63;
@@ -6322,7 +3826,7 @@ LABEL_43:
       *v36 = *(a1 + 64);
       v37 = *(a1 + 80);
       boost::filesystem::path::path(&v34, "object");
-      nlohmann::detail::parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::input_stream_adapter>::exception_message(a1, 0xBu, &v34, &__p);
+      nlohmann::detail::parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::input_stream_adapter>::exception_message(a1, 11, &v34, &__p);
       nlohmann::detail::parse_error::create(101, v36, &__p, &v38);
       v24 = nlohmann::detail::json_sax_dom_parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::parse_error(a2, v26, &v40, &v38);
       goto LABEL_63;
@@ -6355,7 +3859,7 @@ LABEL_35:
 
   v16 = *(*(a2[2] - 8) + 8);
   v38.__vftable = v4;
-  a2[4] = std::__tree<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::__map_value_compare<std::string,std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::less<void>,true>,std::allocator<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v16, &v4->~runtime_error) + 56;
+  a2[4] = std::__tree<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::__map_value_compare<std::string,std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::less<void>,true>,std::allocator<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v16, &v4->~runtime_error, &std::piecewise_construct, &v38, &v40) + 7;
   v17 = nlohmann::detail::lexer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::input_stream_adapter>::scan((a1 + 40));
   *(a1 + 32) = v17;
   if (v17 == 12)
@@ -6371,7 +3875,7 @@ LABEL_62:
   *v36 = *(a1 + 64);
   v37 = *(a1 + 80);
   boost::filesystem::path::path(&v34, "object separator");
-  nlohmann::detail::parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::input_stream_adapter>::exception_message(a1, 0xCu, &v34, &__p);
+  nlohmann::detail::parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::input_stream_adapter>::exception_message(a1, 12, &v34, &__p);
   nlohmann::detail::parse_error::create(101, v36, &__p, &v38);
   v24 = nlohmann::detail::json_sax_dom_parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::parse_error(a2, v28, &v40, &v38);
 LABEL_63:
@@ -6429,12 +3933,12 @@ void sub_1CDEFC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, i
   _Unwind_Resume(a1);
 }
 
-uint64_t nlohmann::detail::json_sax_dom_parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::parse_error(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t nlohmann::detail::json_sax_dom_parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::parse_error(uint64_t a1, uint64_t a2, uint64_t a3, const nlohmann::detail::parse_error *a4)
 {
   *(a1 + 40) = 1;
   if (*(a1 + 41) == 1)
   {
-    v5 = *(a4 + 8) / 100 % 100;
+    v5 = *(a4 + 2) / 100 % 100;
     if (v5 <= 2)
     {
       if (v5 == 1)
@@ -6669,13 +4173,13 @@ uint64_t nlohmann::detail::json_sax_dom_callback_parser<nlohmann::basic_json<std
   return 1;
 }
 
-void sub_1CE718(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1CE718(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, void);
-  v5 = va_arg(va1, void);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, void);
   v6 = va_arg(va1, void);
+  v7 = va_arg(va1, void);
   nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::~basic_json(va);
   nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::~basic_json(va1);
   _Unwind_Resume(a1);
@@ -6902,32 +4406,31 @@ uint64_t nlohmann::detail::json_sax_dom_callback_parser<nlohmann::basic_json<std
   if ((*(a1[4] + (((v3 - 1) >> 3) & 0x1FFFFFFFFFFFFFF8)) >> (v3 - 1)))
   {
     v6 = *a2;
-    v30[0] = v6;
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::json_value(&v31, v6);
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v30);
+    v27[0] = v6;
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::json_value(&v28, v6);
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v27);
     if (a3 & 1) != 0 || (std::function<BOOL ()(int,nlohmann::detail::parse_event_t,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>> &)>::operator()((a1 + 12), (a1[2] - a1[1]) >> 3, 5))
     {
       v7 = a1[2];
       if (a1[1] == v7)
       {
-        v28[0] = v30[0];
-        v29 = v31;
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v30);
-        v30[0] = 0;
-        v31 = 0;
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v28);
-        v12 = *a1;
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v28);
-        v13 = *v12;
-        *v12 = v28[0];
-        v28[0] = v13;
-        v14 = *(v12 + 8);
-        *(v12 + 8) = v29;
-        v29 = v14;
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v12);
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v28);
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v29, v28[0]);
-        v15 = *a1;
+        v25[0] = v27[0];
+        v26 = v28;
+        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v27);
+        v27[0] = 0;
+        v28 = 0;
+        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v25);
+        v11 = *a1;
+        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v25);
+        v12 = *v11;
+        *v11 = v25[0];
+        v25[0] = v12;
+        v13 = *(v11 + 8);
+        *(v11 + 8) = v26;
+        v26 = v13;
+        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v11);
+        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v25);
+        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v26, v25[0]);
         goto LABEL_16;
       }
 
@@ -6937,80 +4440,78 @@ uint64_t nlohmann::detail::json_sax_dom_callback_parser<nlohmann::basic_json<std
         v9 = *v8;
         if (v9 == 2)
         {
-          std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::push_back[abi:ne200100](*(v8 + 1), v30);
-          v10 = *(*(*(a1[2] - 8) + 8) + 8) - 16;
+          std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::push_back[abi:ne200100](*(v8 + 1), v27);
 LABEL_16:
-          v11 = 1;
+          v10 = 1;
 LABEL_18:
-          nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v30);
-          nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v31, v30[0]);
-          return v11;
+          nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v27);
+          nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v28, v27[0]);
+          return v10;
         }
 
         if (v9 == 1)
         {
-          v16 = a1[8];
-          if (v16)
+          v14 = a1[8];
+          if (v14)
           {
-            v17 = v16 - 1;
-            v18 = *(a1[7] + ((v17 >> 3) & 0x1FFFFFFFFFFFFFF8));
-            a1[8] = v17;
-            if ((v18 >> v17))
+            v15 = v14 - 1;
+            v16 = *(a1[7] + ((v15 >> 3) & 0x1FFFFFFFFFFFFFF8));
+            a1[8] = v15;
+            if ((v16 >> v15))
             {
               if (!a1[10])
               {
                 __assert_rtn("handle_value", "json_sax.hpp", 624, "object_element");
               }
 
-              v26[0] = v30[0];
-              v27 = v31;
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v30);
-              v30[0] = 0;
-              v31 = 0;
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v26);
-              v19 = a1[10];
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v26);
-              v20 = *v19;
-              *v19 = v26[0];
-              v26[0] = v20;
-              v21 = *(v19 + 8);
-              *(v19 + 8) = v27;
-              v27 = v21;
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v19);
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v26);
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v27, v26[0]);
-              v22 = a1[10];
+              v23[0] = v27[0];
+              v24 = v28;
+              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v27);
+              v27[0] = 0;
+              v28 = 0;
+              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v23);
+              v17 = a1[10];
+              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v23);
+              v18 = *v17;
+              *v17 = v23[0];
+              v23[0] = v18;
+              v19 = *(v17 + 8);
+              *(v17 + 8) = v24;
+              v24 = v19;
+              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v17);
+              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v23);
+              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v24, v23[0]);
               goto LABEL_16;
             }
 
             goto LABEL_17;
           }
 
-          v24 = "not key_keep_stack.empty()";
-          v25 = 615;
+          v21 = "not key_keep_stack.empty()";
+          v22 = 615;
         }
 
         else
         {
-          v24 = "ref_stack.back()->is_array() or ref_stack.back()->is_object()";
-          v25 = 603;
+          v21 = "ref_stack.back()->is_array() or ref_stack.back()->is_object()";
+          v22 = 603;
         }
 
-        __assert_rtn("handle_value", "json_sax.hpp", v25, v24);
+        __assert_rtn("handle_value", "json_sax.hpp", v22, v21);
       }
     }
 
 LABEL_17:
-    v11 = 0;
+    v10 = 0;
     goto LABEL_18;
   }
 
   return 0;
 }
 
-void sub_1CEE4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_1CEE4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::~basic_json(va);
   _Unwind_Resume(a1);
 }
@@ -7161,7 +4662,7 @@ LABEL_13:
 
     v11 = *(a1 + 1);
     v12 = a2[2];
-    std::__move_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100]<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>> *,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>> *,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>> *>(&v23, v12 + 16, *(v11 + 8), v12);
+    std::__move_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100]<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>> *,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>> *,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>> *>(&v23, (v12 + 16), *(v11 + 8), v12);
     result = std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::__base_destruct_at_end[abi:ne200100](v11, v13);
     a3[2] = v12;
   }
@@ -7241,7 +4742,7 @@ uint64_t *std::__tree<std::__value_type<std::string,nlohmann::basic_json<std::ma
   return v3;
 }
 
-uint64_t nlohmann::detail::json_sax_dom_callback_parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::handle_value<double &>(uint64_t *a1, uint64_t *a2, char a3)
+uint64_t nlohmann::detail::json_sax_dom_callback_parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::handle_value<double &>(uint64_t *a1, void ****a2, char a3)
 {
   v3 = a1[5];
   if (!v3)
@@ -7252,33 +4753,32 @@ uint64_t nlohmann::detail::json_sax_dom_callback_parser<nlohmann::basic_json<std
   if ((*(a1[4] + (((v3 - 1) >> 3) & 0x1FFFFFFFFFFFFFF8)) >> (v3 - 1)))
   {
     v6 = *a2;
-    v30[0] = 7;
-    v31 = v6;
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v30);
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v30);
+    v27[0] = 7;
+    v28 = v6;
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v27);
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v27);
     if (a3 & 1) != 0 || (std::function<BOOL ()(int,nlohmann::detail::parse_event_t,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>> &)>::operator()((a1 + 12), (a1[2] - a1[1]) >> 3, 5))
     {
       v7 = a1[2];
       if (a1[1] == v7)
       {
-        v28[0] = v30[0];
-        v29 = v31;
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v30);
-        v30[0] = 0;
-        v31 = 0;
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v28);
-        v12 = *a1;
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v28);
-        v13 = *v12;
-        *v12 = v28[0];
-        v28[0] = v13;
-        v14 = *(v12 + 8);
-        *(v12 + 8) = v29;
-        v29 = v14;
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v12);
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v28);
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v29, v28[0]);
-        v15 = *a1;
+        v25[0] = v27[0];
+        v26 = v28;
+        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v27);
+        v27[0] = 0;
+        v28 = 0;
+        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v25);
+        v11 = *a1;
+        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v25);
+        v12 = *v11;
+        *v11 = v25[0];
+        v25[0] = v12;
+        v13 = *(v11 + 8);
+        *(v11 + 8) = v26;
+        v26 = v13;
+        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v11);
+        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v25);
+        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v26, v25[0]);
         goto LABEL_16;
       }
 
@@ -7288,80 +4788,78 @@ uint64_t nlohmann::detail::json_sax_dom_callback_parser<nlohmann::basic_json<std
         v9 = *v8;
         if (v9 == 2)
         {
-          std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::push_back[abi:ne200100](*(v8 + 1), v30);
-          v10 = *(*(*(a1[2] - 8) + 8) + 8) - 16;
+          std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::push_back[abi:ne200100](*(v8 + 1), v27);
 LABEL_16:
-          v11 = 1;
+          v10 = 1;
 LABEL_18:
-          nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v30);
-          nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v31, v30[0]);
-          return v11;
+          nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v27);
+          nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v28, v27[0]);
+          return v10;
         }
 
         if (v9 == 1)
         {
-          v16 = a1[8];
-          if (v16)
+          v14 = a1[8];
+          if (v14)
           {
-            v17 = v16 - 1;
-            v18 = *(a1[7] + ((v17 >> 3) & 0x1FFFFFFFFFFFFFF8));
-            a1[8] = v17;
-            if ((v18 >> v17))
+            v15 = v14 - 1;
+            v16 = *(a1[7] + ((v15 >> 3) & 0x1FFFFFFFFFFFFFF8));
+            a1[8] = v15;
+            if ((v16 >> v15))
             {
               if (!a1[10])
               {
                 __assert_rtn("handle_value", "json_sax.hpp", 624, "object_element");
               }
 
-              v26[0] = v30[0];
-              v27 = v31;
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v30);
-              v30[0] = 0;
-              v31 = 0;
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v26);
-              v19 = a1[10];
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v26);
-              v20 = *v19;
-              *v19 = v26[0];
-              v26[0] = v20;
-              v21 = *(v19 + 8);
-              *(v19 + 8) = v27;
-              v27 = v21;
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v19);
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v26);
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v27, v26[0]);
-              v22 = a1[10];
+              v23[0] = v27[0];
+              v24 = v28;
+              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v27);
+              v27[0] = 0;
+              v28 = 0;
+              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v23);
+              v17 = a1[10];
+              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v23);
+              v18 = *v17;
+              *v17 = v23[0];
+              v23[0] = v18;
+              v19 = *(v17 + 8);
+              *(v17 + 8) = v24;
+              v24 = v19;
+              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v17);
+              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v23);
+              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v24, v23[0]);
               goto LABEL_16;
             }
 
             goto LABEL_17;
           }
 
-          v24 = "not key_keep_stack.empty()";
-          v25 = 615;
+          v21 = "not key_keep_stack.empty()";
+          v22 = 615;
         }
 
         else
         {
-          v24 = "ref_stack.back()->is_array() or ref_stack.back()->is_object()";
-          v25 = 603;
+          v21 = "ref_stack.back()->is_array() or ref_stack.back()->is_object()";
+          v22 = 603;
         }
 
-        __assert_rtn("handle_value", "json_sax.hpp", v25, v24);
+        __assert_rtn("handle_value", "json_sax.hpp", v22, v21);
       }
     }
 
 LABEL_17:
-    v11 = 0;
+    v10 = 0;
     goto LABEL_18;
   }
 
   return 0;
 }
 
-void sub_1CF5D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_1CF5D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::~basic_json(va);
   _Unwind_Resume(a1);
 }
@@ -7377,33 +4875,32 @@ uint64_t nlohmann::detail::json_sax_dom_callback_parser<nlohmann::basic_json<std
   if ((*(a1[4] + (((v3 - 1) >> 3) & 0x1FFFFFFFFFFFFFF8)) >> (v3 - 1)))
   {
     v6 = *a2;
-    v30[0] = 4;
-    v31 = v6;
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v30);
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v30);
+    v27[0] = 4;
+    v28 = v6;
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v27);
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v27);
     if (a3 & 1) != 0 || (std::function<BOOL ()(int,nlohmann::detail::parse_event_t,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>> &)>::operator()((a1 + 12), (a1[2] - a1[1]) >> 3, 5))
     {
       v7 = a1[2];
       if (a1[1] == v7)
       {
-        v28[0] = v30[0];
-        v29 = v31;
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v30);
-        v30[0] = 0;
-        v31 = 0;
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v28);
-        v12 = *a1;
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v28);
-        v13 = *v12;
-        *v12 = v28[0];
-        v28[0] = v13;
-        v14 = *(v12 + 8);
-        *(v12 + 8) = v29;
-        v29 = v14;
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v12);
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v28);
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v29, v28[0]);
-        v15 = *a1;
+        v25[0] = v27[0];
+        v26 = v28;
+        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v27);
+        v27[0] = 0;
+        v28 = 0;
+        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v25);
+        v11 = *a1;
+        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v25);
+        v12 = *v11;
+        *v11 = v25[0];
+        v25[0] = v12;
+        v13 = *(v11 + 8);
+        *(v11 + 8) = v26;
+        v26 = v13;
+        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v11);
+        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v25);
+        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v26, v25[0]);
         goto LABEL_16;
       }
 
@@ -7413,80 +4910,78 @@ uint64_t nlohmann::detail::json_sax_dom_callback_parser<nlohmann::basic_json<std
         v9 = *v8;
         if (v9 == 2)
         {
-          std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::push_back[abi:ne200100](*(v8 + 1), v30);
-          v10 = *(*(*(a1[2] - 8) + 8) + 8) - 16;
+          std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::push_back[abi:ne200100](*(v8 + 1), v27);
 LABEL_16:
-          v11 = 1;
+          v10 = 1;
 LABEL_18:
-          nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v30);
-          nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v31, v30[0]);
-          return v11;
+          nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v27);
+          nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v28, v27[0]);
+          return v10;
         }
 
         if (v9 == 1)
         {
-          v16 = a1[8];
-          if (v16)
+          v14 = a1[8];
+          if (v14)
           {
-            v17 = v16 - 1;
-            v18 = *(a1[7] + ((v17 >> 3) & 0x1FFFFFFFFFFFFFF8));
-            a1[8] = v17;
-            if ((v18 >> v17))
+            v15 = v14 - 1;
+            v16 = *(a1[7] + ((v15 >> 3) & 0x1FFFFFFFFFFFFFF8));
+            a1[8] = v15;
+            if ((v16 >> v15))
             {
               if (!a1[10])
               {
                 __assert_rtn("handle_value", "json_sax.hpp", 624, "object_element");
               }
 
-              v26[0] = v30[0];
-              v27 = v31;
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v30);
-              v30[0] = 0;
-              v31 = 0;
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v26);
-              v19 = a1[10];
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v26);
-              v20 = *v19;
-              *v19 = v26[0];
-              v26[0] = v20;
-              v21 = *(v19 + 8);
-              *(v19 + 8) = v27;
-              v27 = v21;
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v19);
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v26);
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v27, v26[0]);
-              v22 = a1[10];
+              v23[0] = v27[0];
+              v24 = v28;
+              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v27);
+              v27[0] = 0;
+              v28 = 0;
+              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v23);
+              v17 = a1[10];
+              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v23);
+              v18 = *v17;
+              *v17 = v23[0];
+              v23[0] = v18;
+              v19 = *(v17 + 8);
+              *(v17 + 8) = v24;
+              v24 = v19;
+              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v17);
+              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v23);
+              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v24, v23[0]);
               goto LABEL_16;
             }
 
             goto LABEL_17;
           }
 
-          v24 = "not key_keep_stack.empty()";
-          v25 = 615;
+          v21 = "not key_keep_stack.empty()";
+          v22 = 615;
         }
 
         else
         {
-          v24 = "ref_stack.back()->is_array() or ref_stack.back()->is_object()";
-          v25 = 603;
+          v21 = "ref_stack.back()->is_array() or ref_stack.back()->is_object()";
+          v22 = 603;
         }
 
-        __assert_rtn("handle_value", "json_sax.hpp", v25, v24);
+        __assert_rtn("handle_value", "json_sax.hpp", v22, v21);
       }
     }
 
 LABEL_17:
-    v11 = 0;
+    v10 = 0;
     goto LABEL_18;
   }
 
   return 0;
 }
 
-void sub_1CF894(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_1CF894(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::~basic_json(va);
   _Unwind_Resume(a1);
 }
@@ -7501,33 +4996,32 @@ uint64_t nlohmann::detail::json_sax_dom_callback_parser<nlohmann::basic_json<std
 
   if ((*(a1[4] + (((v3 - 1) >> 3) & 0x1FFFFFFFFFFFFFF8)) >> (v3 - 1)))
   {
-    v29[0] = 0;
-    v30 = 0;
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v29);
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v29);
+    v26[0] = 0;
+    v27 = 0;
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v26);
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v26);
     if (a3 & 1) != 0 || (std::function<BOOL ()(int,nlohmann::detail::parse_event_t,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>> &)>::operator()((a1 + 12), (a1[2] - a1[1]) >> 3, 5))
     {
       v6 = a1[2];
       if (a1[1] == v6)
       {
-        v27[0] = v29[0];
-        v28 = v30;
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v29);
-        v29[0] = 0;
-        v30 = 0;
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v27);
-        v11 = *a1;
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v27);
-        v12 = *v11;
-        *v11 = v27[0];
-        v27[0] = v12;
-        v13 = *(v11 + 8);
-        *(v11 + 8) = v28;
-        v28 = v13;
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v11);
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v27);
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v28, v27[0]);
-        v14 = *a1;
+        v24[0] = v26[0];
+        v25 = v27;
+        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v26);
+        v26[0] = 0;
+        v27 = 0;
+        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v24);
+        v10 = *a1;
+        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v24);
+        v11 = *v10;
+        *v10 = v24[0];
+        v24[0] = v11;
+        v12 = *(v10 + 8);
+        *(v10 + 8) = v25;
+        v25 = v12;
+        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v10);
+        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v24);
+        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v25, v24[0]);
         goto LABEL_16;
       }
 
@@ -7537,66 +5031,186 @@ uint64_t nlohmann::detail::json_sax_dom_callback_parser<nlohmann::basic_json<std
         v8 = *v7;
         if (v8 == 2)
         {
-          std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::push_back[abi:ne200100](*(v7 + 1), v29);
-          v9 = *(*(*(a1[2] - 8) + 8) + 8) - 16;
+          std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::push_back[abi:ne200100](*(v7 + 1), v26);
 LABEL_16:
-          v10 = 1;
+          v9 = 1;
 LABEL_18:
-          nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v29);
-          nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v30, v29[0]);
-          return v10;
+          nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v26);
+          nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v27, v26[0]);
+          return v9;
         }
 
         if (v8 == 1)
         {
-          v15 = a1[8];
-          if (v15)
+          v13 = a1[8];
+          if (v13)
           {
-            v16 = v15 - 1;
-            v17 = *(a1[7] + ((v16 >> 3) & 0x1FFFFFFFFFFFFFF8));
-            a1[8] = v16;
-            if ((v17 >> v16))
+            v14 = v13 - 1;
+            v15 = *(a1[7] + ((v14 >> 3) & 0x1FFFFFFFFFFFFFF8));
+            a1[8] = v14;
+            if ((v15 >> v14))
             {
               if (!a1[10])
               {
                 __assert_rtn("handle_value", "json_sax.hpp", 624, "object_element");
               }
 
-              v25[0] = v29[0];
-              v26 = v30;
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v29);
-              v29[0] = 0;
-              v30 = 0;
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v25);
-              v18 = a1[10];
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v25);
-              v19 = *v18;
-              *v18 = v25[0];
-              v25[0] = v19;
-              v20 = *(v18 + 8);
-              *(v18 + 8) = v26;
-              v26 = v20;
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v18);
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v25);
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v26, v25[0]);
-              v21 = a1[10];
+              v22[0] = v26[0];
+              v23 = v27;
+              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v26);
+              v26[0] = 0;
+              v27 = 0;
+              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v22);
+              v16 = a1[10];
+              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v22);
+              v17 = *v16;
+              *v16 = v22[0];
+              v22[0] = v17;
+              v18 = *(v16 + 8);
+              *(v16 + 8) = v23;
+              v23 = v18;
+              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v16);
+              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v22);
+              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v23, v22[0]);
               goto LABEL_16;
             }
 
             goto LABEL_17;
           }
 
-          v23 = "not key_keep_stack.empty()";
-          v24 = 615;
+          v20 = "not key_keep_stack.empty()";
+          v21 = 615;
         }
 
         else
         {
-          v23 = "ref_stack.back()->is_array() or ref_stack.back()->is_object()";
-          v24 = 603;
+          v20 = "ref_stack.back()->is_array() or ref_stack.back()->is_object()";
+          v21 = 603;
         }
 
-        __assert_rtn("handle_value", "json_sax.hpp", v24, v23);
+        __assert_rtn("handle_value", "json_sax.hpp", v21, v20);
+      }
+    }
+
+LABEL_17:
+    v9 = 0;
+    goto LABEL_18;
+  }
+
+  return 0;
+}
+
+void sub_1CFB48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+{
+  va_start(va, a9);
+  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::~basic_json(va);
+  _Unwind_Resume(a1);
+}
+
+uint64_t nlohmann::detail::json_sax_dom_callback_parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::handle_value<long long &>(uint64_t *a1, void ****a2, char a3)
+{
+  v3 = a1[5];
+  if (!v3)
+  {
+    nlohmann::detail::json_sax_dom_callback_parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::handle_value<nlohmann::detail::value_t>();
+  }
+
+  if ((*(a1[4] + (((v3 - 1) >> 3) & 0x1FFFFFFFFFFFFFF8)) >> (v3 - 1)))
+  {
+    v6 = *a2;
+    v27[0] = 5;
+    v28 = v6;
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v27);
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v27);
+    if (a3 & 1) != 0 || (std::function<BOOL ()(int,nlohmann::detail::parse_event_t,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>> &)>::operator()((a1 + 12), (a1[2] - a1[1]) >> 3, 5))
+    {
+      v7 = a1[2];
+      if (a1[1] == v7)
+      {
+        v25[0] = v27[0];
+        v26 = v28;
+        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v27);
+        v27[0] = 0;
+        v28 = 0;
+        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v25);
+        v11 = *a1;
+        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v25);
+        v12 = *v11;
+        *v11 = v25[0];
+        v25[0] = v12;
+        v13 = *(v11 + 8);
+        *(v11 + 8) = v26;
+        v26 = v13;
+        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v11);
+        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v25);
+        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v26, v25[0]);
+        goto LABEL_16;
+      }
+
+      v8 = *(v7 - 8);
+      if (v8)
+      {
+        v9 = *v8;
+        if (v9 == 2)
+        {
+          std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::push_back[abi:ne200100](*(v8 + 1), v27);
+LABEL_16:
+          v10 = 1;
+LABEL_18:
+          nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v27);
+          nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v28, v27[0]);
+          return v10;
+        }
+
+        if (v9 == 1)
+        {
+          v14 = a1[8];
+          if (v14)
+          {
+            v15 = v14 - 1;
+            v16 = *(a1[7] + ((v15 >> 3) & 0x1FFFFFFFFFFFFFF8));
+            a1[8] = v15;
+            if ((v16 >> v15))
+            {
+              if (!a1[10])
+              {
+                __assert_rtn("handle_value", "json_sax.hpp", 624, "object_element");
+              }
+
+              v23[0] = v27[0];
+              v24 = v28;
+              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v27);
+              v27[0] = 0;
+              v28 = 0;
+              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v23);
+              v17 = a1[10];
+              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v23);
+              v18 = *v17;
+              *v17 = v23[0];
+              v23[0] = v18;
+              v19 = *(v17 + 8);
+              *(v17 + 8) = v24;
+              v24 = v19;
+              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v17);
+              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v23);
+              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v24, v23[0]);
+              goto LABEL_16;
+            }
+
+            goto LABEL_17;
+          }
+
+          v21 = "not key_keep_stack.empty()";
+          v22 = 615;
+        }
+
+        else
+        {
+          v21 = "ref_stack.back()->is_array() or ref_stack.back()->is_object()";
+          v22 = 603;
+        }
+
+        __assert_rtn("handle_value", "json_sax.hpp", v22, v21);
       }
     }
 
@@ -7608,14 +5222,37 @@ LABEL_17:
   return 0;
 }
 
-void sub_1CFB48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_1CFE04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::~basic_json(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t nlohmann::detail::json_sax_dom_callback_parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::handle_value<long long &>(uint64_t *a1, uint64_t *a2, char a3)
+uint64_t nlohmann::detail::json_sax_dom_callback_parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::handle_value<std::string&>(uint64_t *a1, uint64_t a2, char a3)
+{
+  v3 = a1[5];
+  if (!v3)
+  {
+    nlohmann::detail::json_sax_dom_callback_parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::handle_value<nlohmann::detail::value_t>();
+  }
+
+  if ((*(a1[4] + (((v3 - 1) >> 3) & 0x1FFFFFFFFFFFFFF8)) >> (v3 - 1)))
+  {
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<std::string const&,std::string,0>(v5, a2);
+  }
+
+  return 0;
+}
+
+void sub_1D00A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+{
+  va_start(va, a9);
+  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::~basic_json(va);
+  _Unwind_Resume(a1);
+}
+
+uint64_t nlohmann::detail::json_sax_dom_callback_parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::handle_value<unsigned long long &>(uint64_t *a1, void ****a2, char a3)
 {
   v3 = a1[5];
   if (!v3)
@@ -7626,33 +5263,32 @@ uint64_t nlohmann::detail::json_sax_dom_callback_parser<nlohmann::basic_json<std
   if ((*(a1[4] + (((v3 - 1) >> 3) & 0x1FFFFFFFFFFFFFF8)) >> (v3 - 1)))
   {
     v6 = *a2;
-    v30[0] = 5;
-    v31 = v6;
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v30);
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v30);
+    v27[0] = 6;
+    v28 = v6;
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v27);
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v27);
     if (a3 & 1) != 0 || (std::function<BOOL ()(int,nlohmann::detail::parse_event_t,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>> &)>::operator()((a1 + 12), (a1[2] - a1[1]) >> 3, 5))
     {
       v7 = a1[2];
       if (a1[1] == v7)
       {
-        v28[0] = v30[0];
-        v29 = v31;
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v30);
-        v30[0] = 0;
-        v31 = 0;
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v28);
-        v12 = *a1;
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v28);
-        v13 = *v12;
-        *v12 = v28[0];
-        v28[0] = v13;
-        v14 = *(v12 + 8);
-        *(v12 + 8) = v29;
-        v29 = v14;
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v12);
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v28);
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v29, v28[0]);
-        v15 = *a1;
+        v25[0] = v27[0];
+        v26 = v28;
+        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v27);
+        v27[0] = 0;
+        v28 = 0;
+        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v25);
+        v11 = *a1;
+        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v25);
+        v12 = *v11;
+        *v11 = v25[0];
+        v25[0] = v12;
+        v13 = *(v11 + 8);
+        *(v11 + 8) = v26;
+        v26 = v13;
+        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v11);
+        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v25);
+        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v26, v25[0]);
         goto LABEL_16;
       }
 
@@ -7662,228 +5298,78 @@ uint64_t nlohmann::detail::json_sax_dom_callback_parser<nlohmann::basic_json<std
         v9 = *v8;
         if (v9 == 2)
         {
-          std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::push_back[abi:ne200100](*(v8 + 1), v30);
-          v10 = *(*(*(a1[2] - 8) + 8) + 8) - 16;
+          std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::push_back[abi:ne200100](*(v8 + 1), v27);
 LABEL_16:
-          v11 = 1;
+          v10 = 1;
 LABEL_18:
-          nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v30);
-          nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v31, v30[0]);
-          return v11;
+          nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v27);
+          nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v28, v27[0]);
+          return v10;
         }
 
         if (v9 == 1)
         {
-          v16 = a1[8];
-          if (v16)
+          v14 = a1[8];
+          if (v14)
           {
-            v17 = v16 - 1;
-            v18 = *(a1[7] + ((v17 >> 3) & 0x1FFFFFFFFFFFFFF8));
-            a1[8] = v17;
-            if ((v18 >> v17))
+            v15 = v14 - 1;
+            v16 = *(a1[7] + ((v15 >> 3) & 0x1FFFFFFFFFFFFFF8));
+            a1[8] = v15;
+            if ((v16 >> v15))
             {
               if (!a1[10])
               {
                 __assert_rtn("handle_value", "json_sax.hpp", 624, "object_element");
               }
 
-              v26[0] = v30[0];
-              v27 = v31;
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v30);
-              v30[0] = 0;
-              v31 = 0;
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v26);
-              v19 = a1[10];
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v26);
-              v20 = *v19;
-              *v19 = v26[0];
-              v26[0] = v20;
-              v21 = *(v19 + 8);
-              *(v19 + 8) = v27;
-              v27 = v21;
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v19);
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v26);
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v27, v26[0]);
-              v22 = a1[10];
+              v23[0] = v27[0];
+              v24 = v28;
+              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v27);
+              v27[0] = 0;
+              v28 = 0;
+              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v23);
+              v17 = a1[10];
+              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v23);
+              v18 = *v17;
+              *v17 = v23[0];
+              v23[0] = v18;
+              v19 = *(v17 + 8);
+              *(v17 + 8) = v24;
+              v24 = v19;
+              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v17);
+              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v23);
+              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v24, v23[0]);
               goto LABEL_16;
             }
 
             goto LABEL_17;
           }
 
-          v24 = "not key_keep_stack.empty()";
-          v25 = 615;
+          v21 = "not key_keep_stack.empty()";
+          v22 = 615;
         }
 
         else
         {
-          v24 = "ref_stack.back()->is_array() or ref_stack.back()->is_object()";
-          v25 = 603;
+          v21 = "ref_stack.back()->is_array() or ref_stack.back()->is_object()";
+          v22 = 603;
         }
 
-        __assert_rtn("handle_value", "json_sax.hpp", v25, v24);
+        __assert_rtn("handle_value", "json_sax.hpp", v22, v21);
       }
     }
 
 LABEL_17:
-    v11 = 0;
+    v10 = 0;
     goto LABEL_18;
   }
 
   return 0;
 }
 
-void sub_1CFE04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_1D0364(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
-  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::~basic_json(va);
-  _Unwind_Resume(a1);
-}
-
-uint64_t nlohmann::detail::json_sax_dom_callback_parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::handle_value<std::string&>(uint64_t a1)
-{
-  v1 = *(a1 + 40);
-  if (!v1)
-  {
-    nlohmann::detail::json_sax_dom_callback_parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::handle_value<nlohmann::detail::value_t>();
-  }
-
-  if ((*(*(a1 + 32) + (((v1 - 1) >> 3) & 0x1FFFFFFFFFFFFFF8)) >> (v1 - 1)))
-  {
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<std::string const&,std::string,0>(v3);
-  }
-
-  return 0;
-}
-
-void sub_1D00A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
-{
-  va_start(va, a5);
-  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::~basic_json(va);
-  _Unwind_Resume(a1);
-}
-
-uint64_t nlohmann::detail::json_sax_dom_callback_parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::handle_value<unsigned long long &>(uint64_t *a1, uint64_t *a2, char a3)
-{
-  v3 = a1[5];
-  if (!v3)
-  {
-    nlohmann::detail::json_sax_dom_callback_parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::handle_value<nlohmann::detail::value_t>();
-  }
-
-  if ((*(a1[4] + (((v3 - 1) >> 3) & 0x1FFFFFFFFFFFFFF8)) >> (v3 - 1)))
-  {
-    v6 = *a2;
-    v30[0] = 6;
-    v31 = v6;
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v30);
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v30);
-    if (a3 & 1) != 0 || (std::function<BOOL ()(int,nlohmann::detail::parse_event_t,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>> &)>::operator()((a1 + 12), (a1[2] - a1[1]) >> 3, 5))
-    {
-      v7 = a1[2];
-      if (a1[1] == v7)
-      {
-        v28[0] = v30[0];
-        v29 = v31;
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v30);
-        v30[0] = 0;
-        v31 = 0;
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v28);
-        v12 = *a1;
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v28);
-        v13 = *v12;
-        *v12 = v28[0];
-        v28[0] = v13;
-        v14 = *(v12 + 8);
-        *(v12 + 8) = v29;
-        v29 = v14;
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v12);
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v28);
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v29, v28[0]);
-        v15 = *a1;
-        goto LABEL_16;
-      }
-
-      v8 = *(v7 - 8);
-      if (v8)
-      {
-        v9 = *v8;
-        if (v9 == 2)
-        {
-          std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::push_back[abi:ne200100](*(v8 + 1), v30);
-          v10 = *(*(*(a1[2] - 8) + 8) + 8) - 16;
-LABEL_16:
-          v11 = 1;
-LABEL_18:
-          nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v30);
-          nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v31, v30[0]);
-          return v11;
-        }
-
-        if (v9 == 1)
-        {
-          v16 = a1[8];
-          if (v16)
-          {
-            v17 = v16 - 1;
-            v18 = *(a1[7] + ((v17 >> 3) & 0x1FFFFFFFFFFFFFF8));
-            a1[8] = v17;
-            if ((v18 >> v17))
-            {
-              if (!a1[10])
-              {
-                __assert_rtn("handle_value", "json_sax.hpp", 624, "object_element");
-              }
-
-              v26[0] = v30[0];
-              v27 = v31;
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v30);
-              v30[0] = 0;
-              v31 = 0;
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v26);
-              v19 = a1[10];
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v26);
-              v20 = *v19;
-              *v19 = v26[0];
-              v26[0] = v20;
-              v21 = *(v19 + 8);
-              *(v19 + 8) = v27;
-              v27 = v21;
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v19);
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v26);
-              nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v27, v26[0]);
-              v22 = a1[10];
-              goto LABEL_16;
-            }
-
-            goto LABEL_17;
-          }
-
-          v24 = "not key_keep_stack.empty()";
-          v25 = 615;
-        }
-
-        else
-        {
-          v24 = "ref_stack.back()->is_array() or ref_stack.back()->is_object()";
-          v25 = 603;
-        }
-
-        __assert_rtn("handle_value", "json_sax.hpp", v25, v24);
-      }
-    }
-
-LABEL_17:
-    v11 = 0;
-    goto LABEL_18;
-  }
-
-  return 0;
-}
-
-void sub_1D0364(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
-{
-  va_start(va, a5);
+  va_start(va, a9);
   nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::~basic_json(va);
   _Unwind_Resume(a1);
 }
@@ -8155,7 +5641,7 @@ unsigned __int8 *std::vector<nlohmann::basic_json<std::map,std::vector,std::stri
   v4 = *a2;
   v3 = *(a1 + 8);
   *v3 = v4;
-  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::json_value((v3 + 8), v4);
+  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::json_value(v3 + 8, v4);
   result = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v3);
   *(a1 + 8) = v3 + 16;
   return result;
@@ -8192,17 +5678,17 @@ uint64_t std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,
     std::__allocate_at_least[abi:ne200100]<std::allocator<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>>(a1, v7);
   }
 
-  v8 = 16 * v2;
+  v8 = (16 * v2);
   v16 = 0;
   v17 = v8;
   v18 = v8;
   v9 = *a2;
   *v8 = v9;
-  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::json_value((v8 + 8), v9);
+  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::json_value(v8 + 8, v9);
   nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v8);
   *&v18 = v18 + 16;
   v10 = *(a1 + 8);
-  v11 = v17 + *a1 - v10;
+  v11 = &v17[*a1 - v10];
   std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>*>(a1, *a1, v10, v11);
   v12 = *a1;
   *a1 = v11;
@@ -8217,14 +5703,14 @@ uint64_t std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,
   return v15;
 }
 
-void sub_1D0AF4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_1D0AF4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t nlohmann::detail::json_sax_dom_parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::handle_value<double &>(void *a1, uint64_t *a2)
+uint64_t nlohmann::detail::json_sax_dom_parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::handle_value<double &>(void *a1, void ****a2)
 {
   v3 = a1[2];
   if (a1[1] == v3)
@@ -8367,9 +5853,9 @@ uint64_t std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,
   return v15;
 }
 
-void sub_1D0DC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_1D0DC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -8517,9 +6003,9 @@ uint64_t std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,
   return v15;
 }
 
-void sub_1D108C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_1D108C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -8661,14 +6147,14 @@ uint64_t std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,
   return v12;
 }
 
-void sub_1D1324(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_1D1324(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t nlohmann::detail::json_sax_dom_parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::handle_value<long long &>(void *a1, uint64_t *a2)
+uint64_t nlohmann::detail::json_sax_dom_parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::handle_value<long long &>(void *a1, void ****a2)
 {
   v3 = a1[2];
   if (a1[1] == v3)
@@ -8811,36 +6297,36 @@ uint64_t std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,
   return v15;
 }
 
-void sub_1D15F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_1D15F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
 
-void nlohmann::detail::json_sax_dom_parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::handle_value<std::string&>(void *a1)
+void nlohmann::detail::json_sax_dom_parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::handle_value<std::string&>(void *a1, uint64_t a2)
 {
-  v1 = a1[2];
-  if (a1[1] != v1)
+  v2 = a1[2];
+  if (a1[1] != v2)
   {
-    v2 = *(v1 - 8);
-    v3 = *v2;
-    if (v3 == 2)
+    v3 = *(v2 - 8);
+    v4 = *v3;
+    if (v4 == 2)
     {
-      v4 = *(v2 + 1);
-      if (v4[1] < v4[2])
+      v5 = *(v3 + 1);
+      if (v5[1] < v5[2])
       {
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<std::string const&,std::string,0>(v4[1]);
+        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<std::string const&,std::string,0>(v5[1], a2);
       }
 
-      std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::__emplace_back_slow_path<std::string&>(v4);
+      std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::__emplace_back_slow_path<std::string&>(v5, a2);
     }
 
-    if (v3 == 1)
+    if (v4 == 1)
     {
       if (a1[4])
       {
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<std::string const&,std::string,0>(v5);
+        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<std::string const&,std::string,0>(v6, a2);
       }
 
       nlohmann::detail::json_sax_dom_parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::handle_value<nlohmann::detail::value_t>();
@@ -8849,52 +6335,52 @@ void nlohmann::detail::json_sax_dom_parser<nlohmann::basic_json<std::map,std::ve
     nlohmann::detail::json_sax_dom_parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::handle_value<nlohmann::detail::value_t>();
   }
 
-  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<std::string const&,std::string,0>(v6);
+  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<std::string const&,std::string,0>(v7, a2);
 }
 
-void std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::__emplace_back_slow_path<std::string&>(void *a1)
+void std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::__emplace_back_slow_path<std::string&>(void *a1, uint64_t a2)
 {
-  v1 = (a1[1] - *a1) >> 4;
-  v2 = v1 + 1;
-  if (!((v1 + 1) >> 60))
+  v2 = (a1[1] - *a1) >> 4;
+  v3 = v2 + 1;
+  if (!((v2 + 1) >> 60))
   {
-    v3 = a1[2] - *a1;
-    if (v3 >> 3 > v2)
+    v5 = a1[2] - *a1;
+    if (v5 >> 3 > v3)
     {
-      v2 = v3 >> 3;
+      v3 = v5 >> 3;
     }
 
-    if (v3 >= 0x7FFFFFFFFFFFFFF0)
+    if (v5 >= 0x7FFFFFFFFFFFFFF0)
     {
-      v4 = 0xFFFFFFFFFFFFFFFLL;
+      v6 = 0xFFFFFFFFFFFFFFFLL;
     }
 
     else
     {
-      v4 = v2;
+      v6 = v3;
     }
 
-    v6 = a1;
-    if (v4)
+    v8 = a1;
+    if (v6)
     {
-      std::__allocate_at_least[abi:ne200100]<std::allocator<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>>(a1, v4);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>>(a1, v6);
     }
 
-    v5 = (16 * v1);
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<std::string const&,std::string,0>(16 * v1);
+    v7 = (16 * v2);
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<std::string const&,std::string,0>(16 * v2, a2);
   }
 
   std::vector<float>::__throw_length_error[abi:ne200100]();
 }
 
-void sub_1D1868(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_1D1868(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t nlohmann::detail::json_sax_dom_parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::handle_value<unsigned long long &>(void *a1, uint64_t *a2)
+uint64_t nlohmann::detail::json_sax_dom_parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::handle_value<unsigned long long &>(void *a1, void ****a2)
 {
   v3 = a1[2];
   if (a1[1] == v3)
@@ -9037,9 +6523,9 @@ uint64_t std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,
   return v15;
 }
 
-void sub_1D1B34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_1D1B34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -9052,12 +6538,11 @@ void nlohmann::detail::input_stream_adapter::~input_stream_adapter(nlohmann::det
   }
 }
 
-void *std::__shared_ptr_emplace<ParallelAMDecoupledInferenceModel>::__shared_ptr_emplace[abi:ne200100]<std::string const&,std::string const&,std::allocator<ParallelAMDecoupledInferenceModel>,0>(void *a1, uint64_t a2, uint64_t a3)
+std::string *std::__shared_ptr_emplace<ParallelAMDecoupledInferenceModel>::__shared_ptr_emplace[abi:ne200100]<std::string const&,std::string const&,std::allocator<ParallelAMDecoupledInferenceModel>,0>(std::string *a1, uint64_t a2, uint64_t a3)
 {
-  a1[1] = 0;
-  a1[2] = 0;
-  *a1 = off_2838E8;
-  ParallelAMDecoupledInferenceModel::ParallelAMDecoupledInferenceModel((a1 + 3), a2, a3);
+  *&a1->__r_.__value_.__r.__words[1] = 0uLL;
+  a1->__r_.__value_.__r.__words[0] = off_2838E8;
+  ParallelAMDecoupledInferenceModel::ParallelAMDecoupledInferenceModel(a1 + 1, a2, a3);
   return a1;
 }
 
@@ -9102,12 +6587,11 @@ void ParallelAMDecoupledInferenceModel::~ParallelAMDecoupledInferenceModel(Paral
   nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(this + 2, *(this + 8));
 }
 
-void *std::__shared_ptr_emplace<WaveRNNDecoupledInferenceModel>::__shared_ptr_emplace[abi:ne200100]<std::string const&,std::string const&,std::allocator<WaveRNNDecoupledInferenceModel>,0>(void *a1, uint64_t a2, uint64_t a3)
+std::string *std::__shared_ptr_emplace<WaveRNNDecoupledInferenceModel>::__shared_ptr_emplace[abi:ne200100]<std::string const&,std::string const&,std::allocator<WaveRNNDecoupledInferenceModel>,0>(std::string *a1, uint64_t a2, uint64_t a3)
 {
-  a1[1] = 0;
-  a1[2] = 0;
-  *a1 = off_283938;
-  WaveRNNDecoupledInferenceModel::WaveRNNDecoupledInferenceModel((a1 + 3), a2, a3);
+  *&a1->__r_.__value_.__r.__words[1] = 0uLL;
+  a1->__r_.__value_.__r.__words[0] = off_283938;
+  WaveRNNDecoupledInferenceModel::WaveRNNDecoupledInferenceModel(a1 + 1, a2, a3);
   return a1;
 }
 
@@ -9208,7 +6692,7 @@ void nlohmann::detail::from_json<nlohmann::basic_json<std::map,std::vector,std::
   *(&v12 + 1) = 0;
   v13 = 0;
   *&v12 = &v12 + 8;
-  std::transform[abi:ne200100]<std::__map_const_iterator<std::__tree_const_iterator<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::__tree_node<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,void *> *,long>>,std::insert_iterator<std::map<std::string,std::string>>,void nlohmann::detail::from_json<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,std::map<std::string,std::string>,0>(nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>> const&,std::map<std::string,std::string> &)::{lambda(std::pair<std::string const,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>> const&)#1}>(**(a1 + 8), (*(a1 + 8) + 8), &v12, &v12 + 8);
+  std::transform[abi:ne200100]<std::__map_const_iterator<std::__tree_const_iterator<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::__tree_node<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,void *> *,long>>,std::insert_iterator<std::map<std::string,std::string>>,void nlohmann::detail::from_json<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,std::map<std::string,std::string>,0>(nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>> const&,std::map<std::string,std::string> &)::{lambda(std::pair<std::string const,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>> const&)#1}>(**(a1 + 8), (*(a1 + 8) + 8), &v12, &v12 + 1);
   v4 = a2 + 8;
   std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(a2, *(a2 + 8));
   v5 = *(&v12 + 1);
@@ -9233,7 +6717,7 @@ void nlohmann::detail::from_json<nlohmann::basic_json<std::map,std::vector,std::
   std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(&v12, v5);
 }
 
-uint64_t std::transform[abi:ne200100]<std::__map_const_iterator<std::__tree_const_iterator<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::__tree_node<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,void *> *,long>>,std::insert_iterator<std::map<std::string,std::string>>,void nlohmann::detail::from_json<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,std::map<std::string,std::string>,0>(nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>> const&,std::map<std::string,std::string> &)::{lambda(std::pair<std::string const,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>> const&)#1}>(void *a1, void *a2, uint64_t a3, uint64_t a4)
+uint64_t **std::transform[abi:ne200100]<std::__map_const_iterator<std::__tree_const_iterator<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::__tree_node<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,void *> *,long>>,std::insert_iterator<std::map<std::string,std::string>>,void nlohmann::detail::from_json<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,std::map<std::string,std::string>,0>(nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>> const&,std::map<std::string,std::string> &)::{lambda(std::pair<std::string const,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>> const&)#1}>(void *a1, void *a2, uint64_t **a3, uint64_t **a4)
 {
   v12[0] = a3;
   v12[1] = a4;
@@ -9309,11 +6793,11 @@ void sub_1D22BC(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::insert_iterator<std::map<std::string,std::string>>::operator=[abi:ne200100](uint64_t a1, const void **a2)
+uint64_t ***std::insert_iterator<std::map<std::string,std::string>>::operator=[abi:ne200100](uint64_t ***a1, const void **a2)
 {
-  v3 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_hint_unique_key_args<std::string,std::pair<std::string const,std::string>>(*a1, *(a1 + 8), a2);
-  *(a1 + 8) = v3;
-  v4 = *(v3 + 8);
+  v3 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_hint_unique_key_args<std::string,std::pair<std::string const,std::string>>(*a1, a1[1], a2, a2);
+  a1[1] = v3;
+  v4 = v3[1];
   if (v4)
   {
     do
@@ -9329,7 +6813,7 @@ uint64_t std::insert_iterator<std::map<std::string,std::string>>::operator=[abi:
   {
     do
     {
-      v5 = *(v3 + 16);
+      v5 = v3[2];
       v6 = *v5 == v3;
       v3 = v5;
     }
@@ -9337,19 +6821,19 @@ uint64_t std::insert_iterator<std::map<std::string,std::string>>::operator=[abi:
     while (!v6);
   }
 
-  *(a1 + 8) = v5;
+  a1[1] = v5;
   return a1;
 }
 
-uint64_t std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_hint_unique_key_args<std::string,std::pair<std::string const,std::string>>(void *a1, uint64_t a2, const void **a3)
+void *std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_hint_unique_key_args<std::string,std::pair<std::string const,std::string>>(uint64_t **a1, uint64_t a2, const void **a3, uint64_t a4)
 {
-  v3 = *std::__tree<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::__map_value_compare<std::string,std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::less<void>,true>,std::allocator<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>>>::__find_equal<std::string>(a1, a2, &v6, &v5, a3);
-  if (!v3)
+  v4 = *std::__tree<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::__map_value_compare<std::string,std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::less<void>,true>,std::allocator<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>>>::__find_equal<std::string>(a1, a2, &v7, &v6, a3);
+  if (!v4)
   {
     std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__construct_node<std::pair<std::string const,std::string>>();
   }
 
-  return v3;
+  return v4;
 }
 
 uint64_t std::unique_ptr<std::__tree_node<std::__value_type<std::string,std::string>,void *>,std::__tree_node_destructor<std::allocator<std::__tree_node<std::__value_type<std::string,std::string>,void *>>>>::~unique_ptr[abi:ne200100](uint64_t a1)
@@ -9385,9 +6869,9 @@ uint64_t std::__function::__value_func<espresso_buffer_t const* ()(espresso_buff
   return a1;
 }
 
-uint64_t std::__hash_table<std::__hash_value_type<std::string,espresso_buffer_t>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,espresso_buffer_t>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,espresso_buffer_t>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,espresso_buffer_t>>>::~__hash_table(uint64_t a1)
+void **std::__hash_table<std::__hash_value_type<std::string,espresso_buffer_t>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,espresso_buffer_t>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,espresso_buffer_t>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,espresso_buffer_t>>>::~__hash_table(void **a1)
 {
-  std::__hash_table<std::__hash_value_type<std::string,espresso_buffer_t>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,espresso_buffer_t>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,espresso_buffer_t>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,espresso_buffer_t>>>::__deallocate_node(a1, *(a1 + 16));
+  std::__hash_table<std::__hash_value_type<std::string,espresso_buffer_t>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,espresso_buffer_t>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,espresso_buffer_t>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,espresso_buffer_t>>>::__deallocate_node(a1, a1[2]);
   v2 = *a1;
   *a1 = 0;
   if (v2)
@@ -9419,35 +6903,35 @@ void std::__hash_table<std::__hash_value_type<std::string,espresso_buffer_t>,std
   }
 }
 
-const void **std::__hash_table<std::__hash_value_type<std::string,espresso_buffer_t>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,espresso_buffer_t>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,espresso_buffer_t>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,espresso_buffer_t>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(void *a1, const void **a2)
+const void **std::__hash_table<std::__hash_value_type<std::string,espresso_buffer_t>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,espresso_buffer_t>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,espresso_buffer_t>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,espresso_buffer_t>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(void *a1, const void **a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v4 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
+  v7 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
+  v8 = v7;
+  v9 = a1[1];
+  if (!*&v9)
   {
     goto LABEL_18;
   }
 
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
+  v10 = vcnt_s8(v9);
+  v10.i16[0] = vaddlv_u8(v10);
+  v11 = v10.u32[0];
+  if (v10.u32[0] > 1uLL)
   {
-    v9 = v4;
-    if (v4 >= *&v6)
+    v12 = v7;
+    if (v7 >= *&v9)
     {
-      v9 = v4 % *&v6;
+      v12 = v7 % *&v9;
     }
   }
 
   else
   {
-    v9 = (*&v6 - 1) & v4;
+    v12 = (*&v9 - 1) & v7;
   }
 
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
+  v13 = *(*a1 + 8 * v12);
+  if (!v13 || (v14 = *v13) == 0)
   {
 LABEL_18:
     std::__hash_table<std::__hash_value_type<std::string,espresso_buffer_t>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,espresso_buffer_t>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,espresso_buffer_t>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,espresso_buffer_t>>>::__construct_node_hash<std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>();
@@ -9455,44 +6939,44 @@ LABEL_18:
 
   while (1)
   {
-    v12 = v11[1];
-    if (v12 == v5)
+    v15 = v14[1];
+    if (v15 == v8)
     {
       break;
     }
 
-    if (v8 > 1)
+    if (v11 > 1)
     {
-      if (v12 >= *&v6)
+      if (v15 >= *&v9)
       {
-        v12 %= *&v6;
+        v15 %= *&v9;
       }
     }
 
     else
     {
-      v12 &= *&v6 - 1;
+      v15 &= *&v9 - 1;
     }
 
-    if (v12 != v9)
+    if (v15 != v12)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v11 = *v11;
-    if (!v11)
+    v14 = *v14;
+    if (!v14)
     {
       goto LABEL_18;
     }
   }
 
-  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v11 + 2, a2))
+  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v14 + 2, a2))
   {
     goto LABEL_17;
   }
 
-  return v11;
+  return v14;
 }
 
 void sub_1D2840(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void **__p, uint64_t a11)
@@ -9801,16 +7285,16 @@ void nlohmann::detail::json_sax_dom_parser<nlohmann::basic_json<std::map,std::ve
   __assert_rtn("handle_value", "json_sax.hpp", 312, "ref_stack.back()->is_array() or ref_stack.back()->is_object()");
 }
 
-void TrainingEngine::TrainingEngine(uint64_t a1, uint64_t a2, int a3, std::string *__str, const std::string *a5)
+void TrainingEngine::TrainingEngine(uint64_t a1, uint64_t a2, uint64_t a3, std::string *__str, const std::string *a5)
 {
   *(a1 + 64) = 0u;
   *(a1 + 136) = 0;
   v8 = a1 + 136;
   *(a1 + 144) = 0u;
   *(a1 + 160) = 0x3F7AE1483F666666;
-  v126 = (a1 + 160);
+  v120 = (a1 + 160);
   *(a1 + 168) = 814313567;
-  v125 = (a1 + 168);
+  v119 = (a1 + 168);
   *(a1 + 176) = 0u;
   *(a1 + 224) = 0u;
   *(a1 + 192) = 0u;
@@ -9827,7 +7311,7 @@ void TrainingEngine::TrainingEngine(uint64_t a1, uint64_t a2, int a3, std::strin
   *(a1 + 368) = 1065353216;
   *(a1 + 376) = 0u;
   *(a1 + 392) = 0u;
-  v128 = (a1 + 376);
+  v122 = (a1 + 376);
   *(a1 + 408) = 1065353216;
   *(a1 + 416) = 0u;
   *(a1 + 432) = 0u;
@@ -9854,39 +7338,39 @@ void TrainingEngine::TrainingEngine(uint64_t a1, uint64_t a2, int a3, std::strin
   std::string::operator=((a1 + 200), a2);
   if (*(a2 + 23) < 0)
   {
-    std::string::__init_copy_ctor_external(&v159, *a2, *(a2 + 8));
+    std::string::__init_copy_ctor_external(&v153, *a2, *(a2 + 8));
   }
 
   else
   {
-    v159 = *a2;
+    v153 = *a2;
   }
 
-  v127 = (a1 + 712);
+  v121 = (a1 + 712);
   boost::filesystem::path::path(__p, "training_config.json");
-  if (SHIBYTE(v159.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v153.__r_.__value_.__r.__words[2]) < 0)
   {
-    std::string::__init_copy_ctor_external(&v158, v159.__r_.__value_.__l.__data_, v159.__r_.__value_.__l.__size_);
+    std::string::__init_copy_ctor_external(&v152, v153.__r_.__value_.__l.__data_, v153.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    v158 = v159;
+    v152 = v153;
   }
 
-  boost::filesystem::path::append_v3(&v158, __p);
-  if (v166 < 0)
+  boost::filesystem::path::append_v3(&v152, __p);
+  if (v160 < 0)
   {
     operator delete(__p[0]);
   }
 
   std::string::operator=((a1 + 712), a5);
-  std::ifstream::basic_ifstream(__p, &v158);
-  v164 = 0;
-  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::parse<std::ifstream &>(__p, v163, 1, v157);
-  std::__function::__value_func<BOOL ()(int,nlohmann::detail::parse_event_t,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>> &)>::~__value_func[abi:ne200100](v163);
+  std::ifstream::basic_ifstream(__p, &v152, 8);
+  v158 = 0;
+  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::parse<std::ifstream &>(__p, v157, 1, v151);
+  std::__function::__value_func<BOOL ()(int,nlohmann::detail::parse_event_t,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>> &)>::~__value_func[abi:ne200100](v157);
   boost::filesystem::path::path(__stra, "model_file");
-  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::value("", v157, __stra, &__s);
+  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::value(v151, __stra, "", &__s);
   if ((__stra[23] & 0x80000000) != 0)
   {
     operator delete(*__stra);
@@ -9902,104 +7386,104 @@ void TrainingEngine::TrainingEngine(uint64_t a1, uint64_t a2, int a3, std::strin
     *__stra = __s;
   }
 
-  if (SHIBYTE(v159.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v153.__r_.__value_.__r.__words[2]) < 0)
   {
-    std::string::__init_copy_ctor_external(&v155, v159.__r_.__value_.__l.__data_, v159.__r_.__value_.__l.__size_);
+    std::string::__init_copy_ctor_external(&v149, v153.__r_.__value_.__l.__data_, v153.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    v155 = v159;
+    v149 = v153;
   }
 
-  boost::filesystem::path::append_v3(&v155, __stra);
+  boost::filesystem::path::append_v3(&v149, __stra);
   if ((__stra[23] & 0x80000000) != 0)
   {
     operator delete(*__stra);
   }
 
-  v9 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v157, "saved_inference_model_dir");
-  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::get<std::string,std::string,0>(v9, &v154);
-  if (SHIBYTE(v154.__r_.__value_.__r.__words[2]) < 0)
+  v9 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v151, "saved_inference_model_dir");
+  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::get<std::string,std::string,0>(v9, &v148);
+  if (SHIBYTE(v148.__r_.__value_.__r.__words[2]) < 0)
   {
-    std::string::__init_copy_ctor_external(&v153, v154.__r_.__value_.__l.__data_, v154.__r_.__value_.__l.__size_);
+    std::string::__init_copy_ctor_external(&v147, v148.__r_.__value_.__l.__data_, v148.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    v153 = v154;
+    v147 = v148;
   }
 
-  if (SHIBYTE(v159.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v153.__r_.__value_.__r.__words[2]) < 0)
   {
-    std::string::__init_copy_ctor_external(__stra, v159.__r_.__value_.__l.__data_, v159.__r_.__value_.__l.__size_);
+    std::string::__init_copy_ctor_external(__stra, v153.__r_.__value_.__l.__data_, v153.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    *__stra = v159;
+    *__stra = v153;
   }
 
-  boost::filesystem::path::append_v3(__stra, &v153);
+  boost::filesystem::path::append_v3(__stra, &v147);
   std::string::operator=((a1 + 224), __stra);
   if ((__stra[23] & 0x80000000) != 0)
   {
     operator delete(*__stra);
   }
 
-  if (SHIBYTE(v153.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v147.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v153.__r_.__value_.__l.__data_);
+    operator delete(v147.__r_.__value_.__l.__data_);
   }
 
-  v10 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v157, "saved_train_model_dir");
-  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::get<std::string,std::string,0>(v10, &v153);
-  if (SHIBYTE(v153.__r_.__value_.__r.__words[2]) < 0)
+  v10 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v151, "saved_train_model_dir");
+  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::get<std::string,std::string,0>(v10, &v147);
+  if (SHIBYTE(v147.__r_.__value_.__r.__words[2]) < 0)
   {
-    std::string::__init_copy_ctor_external(&v152, v153.__r_.__value_.__l.__data_, v153.__r_.__value_.__l.__size_);
-  }
-
-  else
-  {
-    v152 = v153;
-  }
-
-  if (SHIBYTE(v159.__r_.__value_.__r.__words[2]) < 0)
-  {
-    std::string::__init_copy_ctor_external(__stra, v159.__r_.__value_.__l.__data_, v159.__r_.__value_.__l.__size_);
+    std::string::__init_copy_ctor_external(&v146, v147.__r_.__value_.__l.__data_, v147.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    *__stra = v159;
+    v146 = v147;
   }
 
-  boost::filesystem::path::append_v3(__stra, &v152);
+  if (SHIBYTE(v153.__r_.__value_.__r.__words[2]) < 0)
+  {
+    std::string::__init_copy_ctor_external(__stra, v153.__r_.__value_.__l.__data_, v153.__r_.__value_.__l.__size_);
+  }
+
+  else
+  {
+    *__stra = v153;
+  }
+
+  boost::filesystem::path::append_v3(__stra, &v146);
   std::string::operator=((a1 + 248), __stra);
   if ((__stra[23] & 0x80000000) != 0)
   {
     operator delete(*__stra);
   }
 
-  if (SHIBYTE(v152.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v146.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v152.__r_.__value_.__l.__data_);
+    operator delete(v146.__r_.__value_.__l.__data_);
   }
 
-  v11 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v157, "model_parameter_names");
+  v11 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v151, "model_parameter_names");
   nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::get<std::vector<std::string>,std::vector<std::string>,0>(v11, __stra);
   std::vector<std::string>::__vdeallocate((a1 + 272));
   *(a1 + 272) = *__stra;
   *(a1 + 288) = *&__stra[16];
   memset(__stra, 0, 24);
-  v152.__r_.__value_.__r.__words[0] = __stra;
-  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v152);
-  v12 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v157, "model_parameter_to_grad_names");
+  v146.__r_.__value_.__r.__words[0] = __stra;
+  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v146);
+  v12 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v151, "model_parameter_to_grad_names");
   nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::get<std::unordered_map<std::string,std::string>,std::unordered_map<std::string,std::string>,0>(v12, __stra);
   std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__move_assign(a1 + 296, __stra);
   std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::~__hash_table(__stra);
-  boost::filesystem::path::path(&v152, "model_type");
-  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::value("fastspeech2", v157, &v152.__r_.__value_.__l.__data_, __stra);
+  boost::filesystem::path::path(&v146, "model_type");
+  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::value(v151, &v146.__r_.__value_.__l.__data_, "fastspeech2", __stra);
   if (*(a1 + 159) < 0)
   {
     operator delete(*v8);
@@ -10009,14 +7493,14 @@ void TrainingEngine::TrainingEngine(uint64_t a1, uint64_t a2, int a3, std::strin
   *(v8 + 16) = *&__stra[16];
   __stra[23] = 0;
   __stra[0] = 0;
-  if (SHIBYTE(v152.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v146.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v152.__r_.__value_.__l.__data_);
+    operator delete(v146.__r_.__value_.__l.__data_);
   }
 
   boost::filesystem::path::path(__stra, "learning_rate");
-  v152.__r_.__value_.__r.__words[0] = 0x3FB999999999999ALL;
-  v13 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::value<double,0>(v157, __stra, &v152);
+  v146.__r_.__value_.__r.__words[0] = 0x3FB999999999999ALL;
+  v13 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::value<double,0>(v151, __stra, &v146);
   *(a1 + 80) = v13;
   if ((__stra[23] & 0x80000000) != 0)
   {
@@ -10024,8 +7508,8 @@ void TrainingEngine::TrainingEngine(uint64_t a1, uint64_t a2, int a3, std::strin
   }
 
   boost::filesystem::path::path(__stra, "learning_rate_decay");
-  v152.__r_.__value_.__r.__words[0] = 0x3FE0000000000000;
-  v14 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::value<double,0>(v157, __stra, &v152);
+  v146.__r_.__value_.__r.__words[0] = 0x3FE0000000000000;
+  v14 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::value<double,0>(v151, __stra, &v146);
   *(a1 + 84) = v14;
   if ((__stra[23] & 0x80000000) != 0)
   {
@@ -10033,70 +7517,70 @@ void TrainingEngine::TrainingEngine(uint64_t a1, uint64_t a2, int a3, std::strin
   }
 
   boost::filesystem::path::path(__stra, "learning_rate_decay_steps");
-  LODWORD(v152.__r_.__value_.__l.__data_) = 10000;
-  *(a1 + 88) = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::value<int,0>(v157, __stra, &v152);
+  LODWORD(v146.__r_.__value_.__l.__data_) = 10000;
+  *(a1 + 88) = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::value<int,0>(v151, __stra, &v146);
   if ((__stra[23] & 0x80000000) != 0)
   {
     operator delete(*__stra);
   }
 
   boost::filesystem::path::path(__stra, "num_iter");
-  LODWORD(v152.__r_.__value_.__l.__data_) = 100;
-  *(a1 + 96) = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::value<int,0>(v157, __stra, &v152);
+  LODWORD(v146.__r_.__value_.__l.__data_) = 100;
+  *(a1 + 96) = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::value<int,0>(v151, __stra, &v146);
   if ((__stra[23] & 0x80000000) != 0)
   {
     operator delete(*__stra);
   }
 
   boost::filesystem::path::path(__stra, "batch_size");
-  LODWORD(v152.__r_.__value_.__l.__data_) = 1;
-  *(a1 + 124) = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::value<int,0>(v157, __stra, &v152);
+  LODWORD(v146.__r_.__value_.__l.__data_) = 1;
+  *(a1 + 124) = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::value<int,0>(v151, __stra, &v146);
   if ((__stra[23] & 0x80000000) != 0)
   {
     operator delete(*__stra);
   }
 
   boost::filesystem::path::path(__stra, "checkpoint_steps");
-  LODWORD(v152.__r_.__value_.__l.__data_) = 100;
-  *(a1 + 104) = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::value<int,0>(v157, __stra, &v152);
+  LODWORD(v146.__r_.__value_.__l.__data_) = 100;
+  *(a1 + 104) = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::value<int,0>(v151, __stra, &v146);
   if ((__stra[23] & 0x80000000) != 0)
   {
     operator delete(*__stra);
   }
 
   boost::filesystem::path::path(__stra, "additional_early_stopping_epoch");
-  LODWORD(v152.__r_.__value_.__l.__data_) = 10;
-  *(a1 + 112) = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::value<int,0>(v157, __stra, &v152);
+  LODWORD(v146.__r_.__value_.__l.__data_) = 10;
+  *(a1 + 112) = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::value<int,0>(v151, __stra, &v146);
   if ((__stra[23] & 0x80000000) != 0)
   {
     operator delete(*__stra);
   }
 
   boost::filesystem::path::path(__stra, "disable_min_ma_loss_checkpoint");
-  v152.__r_.__value_.__s.__data_[0] = 0;
-  *(a1 + 120) = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::value<BOOL,0>(v157, __stra, &v152);
+  v146.__r_.__value_.__s.__data_[0] = 0;
+  *(a1 + 120) = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::value<BOOL,0>(v151, __stra, &v146);
   if ((__stra[23] & 0x80000000) != 0)
   {
     operator delete(*__stra);
   }
 
   boost::filesystem::path::path(__stra, "num_of_grad_accum");
-  LODWORD(v152.__r_.__value_.__l.__data_) = 1;
-  *(a1 + 128) = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::value<int,0>(v157, __stra, &v152);
+  LODWORD(v146.__r_.__value_.__l.__data_) = 1;
+  *(a1 + 128) = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::value<int,0>(v151, __stra, &v146);
   if ((__stra[23] & 0x80000000) != 0)
   {
     operator delete(*__stra);
   }
 
   boost::filesystem::path::path(__stra, "min_step_loss_check");
-  *(a1 + 704) = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::value<int,0>(v157, __stra, (a1 + 704));
+  *(a1 + 704) = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::value<int,0>(v151, __stra, (a1 + 704));
   if ((__stra[23] & 0x80000000) != 0)
   {
     operator delete(*__stra);
   }
 
   boost::filesystem::path::path(__stra, "disable_inference_model_saving");
-  *(a1 + 708) = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::value<BOOL,0>(v157, __stra, (a1 + 708));
+  *(a1 + 708) = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::value<BOOL,0>(v151, __stra, (a1 + 708));
   if ((__stra[23] & 0x80000000) != 0)
   {
     operator delete(*__stra);
@@ -10104,37 +7588,37 @@ void TrainingEngine::TrainingEngine(uint64_t a1, uint64_t a2, int a3, std::strin
 
   *(a1 + 8) = espresso_create_context();
   *(a1 + 32) = espresso_create_plan();
-  if ((v155.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  if ((v149.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    size = HIBYTE(v155.__r_.__value_.__r.__words[2]);
+    size = HIBYTE(v149.__r_.__value_.__r.__words[2]);
   }
 
   else
   {
-    size = v155.__r_.__value_.__l.__size_;
+    size = v149.__r_.__value_.__l.__size_;
   }
 
-  std::string::basic_string[abi:ne200100](&v152, size + 5);
-  if ((v152.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  std::string::basic_string[abi:ne200100](&v146, size + 5);
+  if ((v146.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v16 = &v152;
+    v16 = &v146;
   }
 
   else
   {
-    v16 = v152.__r_.__value_.__r.__words[0];
+    v16 = v146.__r_.__value_.__r.__words[0];
   }
 
   if (size)
   {
-    if ((v155.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    if ((v149.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      v17 = &v155;
+      v17 = &v149;
     }
 
     else
     {
-      v17 = v155.__r_.__value_.__r.__words[0];
+      v17 = v149.__r_.__value_.__r.__words[0];
     }
 
     memmove(v16, v17, size);
@@ -10142,88 +7626,86 @@ void TrainingEngine::TrainingEngine(uint64_t a1, uint64_t a2, int a3, std::strin
 
   strcpy(v16 + size, ":init");
   v18 = espresso_plan_add_network();
-  boost::filesystem::path::path(v150, "");
+  boost::filesystem::path::path(v144, "");
   if (v18)
   {
     exception = __cxa_allocate_exception(0x10uLL);
-    v96 = v151;
-    v97 = v150[0];
+    v90 = v145;
+    v91 = v144[0];
     status_string = espresso_get_status_string();
-    v99 = v150;
-    if (v96 < 0)
+    v93 = v144;
+    if (v90 < 0)
     {
-      v99 = v97;
+      v93 = v91;
     }
 
-    StringFormatter::StringFormatter(__stra, "%s Error: %d, %s", v99, v18, status_string);
+    StringFormatter::StringFormatter(__stra, "%s Error: %d, %s", v93, v18, status_string);
     std::logic_error::logic_error(exception, __stra);
   }
 
-  if (v151 < 0)
+  if (v145 < 0)
   {
-    operator delete(v150[0]);
+    operator delete(v144[0]);
   }
 
-  if (SHIBYTE(v152.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v146.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v152.__r_.__value_.__l.__data_);
+    operator delete(v146.__r_.__value_.__l.__data_);
   }
 
-  v19 = *(a1 + 32);
-  v20 = espresso_plan_build();
-  boost::filesystem::path::path(v148, "");
+  v19 = espresso_plan_build();
+  boost::filesystem::path::path(v142, "");
+  if (v19)
+  {
+    v94 = __cxa_allocate_exception(0x10uLL);
+    v95 = v143;
+    v96 = v142[0];
+    v97 = espresso_get_status_string();
+    v98 = v142;
+    if (v95 < 0)
+    {
+      v98 = v96;
+    }
+
+    StringFormatter::StringFormatter(__stra, "%s Error: %d, %s", v98, v19, v97);
+    std::logic_error::logic_error(v94, __stra);
+  }
+
+  if (v143 < 0)
+  {
+    operator delete(v142[0]);
+  }
+
+  v20 = espresso_plan_execute_sync();
+  v21 = boost::filesystem::path::path(v140, "");
   if (v20)
   {
-    v100 = __cxa_allocate_exception(0x10uLL);
-    v101 = v149;
-    v102 = v148[0];
-    v103 = espresso_get_status_string();
-    v104 = v148;
-    if (v101 < 0)
+    v99 = __cxa_allocate_exception(0x10uLL);
+    v100 = v141;
+    v101 = v140[0];
+    v102 = espresso_get_status_string();
+    v103 = v140;
+    if (v100 < 0)
     {
-      v104 = v102;
+      v103 = v101;
     }
 
-    StringFormatter::StringFormatter(__stra, "%s Error: %d, %s", v104, v20, v103);
-    std::logic_error::logic_error(v100, __stra);
+    StringFormatter::StringFormatter(__stra, "%s Error: %d, %s", v103, v20, v102);
+    std::logic_error::logic_error(v99, __stra);
   }
 
-  if (v149 < 0)
+  if (v141 < 0)
   {
-    operator delete(v148[0]);
+    operator delete(v140[0]);
   }
 
-  v21 = *(a1 + 32);
-  v22 = espresso_plan_execute_sync();
-  boost::filesystem::path::path(v146, "");
-  if (v22)
-  {
-    v105 = __cxa_allocate_exception(0x10uLL);
-    v106 = v147;
-    v107 = v146[0];
-    v108 = espresso_get_status_string();
-    v109 = v146;
-    if (v106 < 0)
-    {
-      v109 = v107;
-    }
-
-    StringFormatter::StringFormatter(__stra, "%s Error: %d, %s", v109, v22, v108);
-    std::logic_error::logic_error(v105, __stra);
-  }
-
-  if (v147 < 0)
-  {
-    operator delete(v146[0]);
-  }
-
-  LogObject = Diagnostics_GetLogObject();
+  LogObject = Diagnostics_GetLogObject(v21, v22);
   if (os_log_type_enabled(LogObject, OS_LOG_TYPE_INFO))
   {
     v24 = a1 + 712;
     if (*(a1 + 735) < 0)
     {
-      v24 = *v127;
+      v24 = *v121;
     }
 
     *__stra = 136315138;
@@ -10235,7 +7717,7 @@ void TrainingEngine::TrainingEngine(uint64_t a1, uint64_t a2, int a3, std::strin
   for (i = *(a1 + 280); v26 != i; v26 += 24)
   {
     *__stra = v26;
-    v27 = std::__hash_table<std::__hash_value_type<std::string,espresso_buffer_t>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,espresso_buffer_t>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,espresso_buffer_t>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,espresso_buffer_t>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((a1 + 336), v26);
+    v27 = std::__hash_table<std::__hash_value_type<std::string,espresso_buffer_t>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,espresso_buffer_t>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,espresso_buffer_t>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,espresso_buffer_t>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((a1 + 336), v26, &std::piecewise_construct, __stra, &v146);
     v27[25] = 0;
     *(v27 + 23) = 0u;
     *(v27 + 21) = 0u;
@@ -10247,487 +7729,474 @@ void TrainingEngine::TrainingEngine(uint64_t a1, uint64_t a2, int a3, std::strin
     *(v27 + 9) = 0u;
     *(v27 + 7) = 0u;
     *(v27 + 5) = 0u;
-    if (*(v26 + 23) < 0)
-    {
-      v28 = *v26;
-    }
-
-    v29 = *(a1 + 16);
-    v30 = *(a1 + 24);
     *__stra = v26;
-    std::__hash_table<std::__hash_value_type<std::string,espresso_buffer_t>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,espresso_buffer_t>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,espresso_buffer_t>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,espresso_buffer_t>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((a1 + 336), v26);
-    v31 = espresso_network_bind_buffer();
-    boost::filesystem::path::path(v144, "");
-    if (v31)
+    std::__hash_table<std::__hash_value_type<std::string,espresso_buffer_t>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,espresso_buffer_t>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,espresso_buffer_t>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,espresso_buffer_t>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((a1 + 336), v26, &std::piecewise_construct, __stra, &v146);
+    v28 = espresso_network_bind_buffer();
+    boost::filesystem::path::path(v138, "");
+    if (v28)
     {
-      v88 = __cxa_allocate_exception(0x10uLL);
-      v89 = v145;
-      v90 = v144[0];
-      v91 = espresso_get_status_string();
-      v92 = v144;
-      if (v89 < 0)
+      v82 = __cxa_allocate_exception(0x10uLL);
+      v83 = v139;
+      v84 = v138[0];
+      v85 = espresso_get_status_string();
+      v86 = v138;
+      if (v83 < 0)
       {
-        v92 = v90;
+        v86 = v84;
       }
 
-      StringFormatter::StringFormatter(__stra, "%s Error: %d, %s", v92, v31, v91);
-      std::logic_error::logic_error(v88, __stra);
+      StringFormatter::StringFormatter(__stra, "%s Error: %d, %s", v86, v28, v85);
+      std::logic_error::logic_error(v82, __stra);
     }
 
-    if (v145 < 0)
+    if (v139 < 0)
     {
-      operator delete(v144[0]);
+      operator delete(v138[0]);
     }
 
     if (*(v26 + 23) >= 0)
     {
-      v32 = *(v26 + 23);
+      v29 = *(v26 + 23);
     }
 
     else
     {
-      v32 = *(v26 + 8);
+      v29 = *(v26 + 8);
     }
 
-    std::string::basic_string[abi:ne200100](&v152, v32 + 5);
-    if ((v152.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    std::string::basic_string[abi:ne200100](&v146, v29 + 5);
+    if ((v146.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      v33 = &v152;
+      v30 = &v146;
     }
 
     else
     {
-      v33 = v152.__r_.__value_.__r.__words[0];
+      v30 = v146.__r_.__value_.__r.__words[0];
     }
 
-    if (v32)
+    if (v29)
     {
       if (*(v26 + 23) >= 0)
       {
-        v34 = v26;
+        v31 = v26;
       }
 
       else
       {
-        v34 = *v26;
+        v31 = *v26;
       }
 
-      memmove(v33, v34, v32);
+      memmove(v30, v31, v29);
     }
 
-    strcpy(v33 + v32, "_mean");
+    strcpy(v30 + v29, "_mean");
     *__stra = v26;
-    v35 = std::__hash_table<std::__hash_value_type<std::string,espresso_buffer_t>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,espresso_buffer_t>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,espresso_buffer_t>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,espresso_buffer_t>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v128, v26);
-    v35[25] = 0;
-    *(v35 + 23) = 0u;
-    *(v35 + 21) = 0u;
-    *(v35 + 19) = 0u;
-    *(v35 + 17) = 0u;
-    *(v35 + 15) = 0u;
-    *(v35 + 13) = 0u;
-    *(v35 + 11) = 0u;
-    *(v35 + 9) = 0u;
-    *(v35 + 7) = 0u;
-    *(v35 + 5) = 0u;
-    v36 = *(a1 + 16);
-    v37 = *(a1 + 24);
+    v32 = std::__hash_table<std::__hash_value_type<std::string,espresso_buffer_t>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,espresso_buffer_t>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,espresso_buffer_t>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,espresso_buffer_t>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v122, v26, &std::piecewise_construct, __stra, &v135);
+    v32[25] = 0;
+    *(v32 + 23) = 0u;
+    *(v32 + 21) = 0u;
+    *(v32 + 19) = 0u;
+    *(v32 + 17) = 0u;
+    *(v32 + 15) = 0u;
+    *(v32 + 13) = 0u;
+    *(v32 + 11) = 0u;
+    *(v32 + 9) = 0u;
+    *(v32 + 7) = 0u;
+    *(v32 + 5) = 0u;
     *__stra = v26;
-    std::__hash_table<std::__hash_value_type<std::string,espresso_buffer_t>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,espresso_buffer_t>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,espresso_buffer_t>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,espresso_buffer_t>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v128, v26);
+    std::__hash_table<std::__hash_value_type<std::string,espresso_buffer_t>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,espresso_buffer_t>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,espresso_buffer_t>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,espresso_buffer_t>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v122, v26, &std::piecewise_construct, __stra, &v135);
+    v33 = espresso_network_bind_buffer();
+    boost::filesystem::path::path(v136, "");
+    if (v33)
+    {
+      v77 = __cxa_allocate_exception(0x10uLL);
+      v78 = v137;
+      v79 = v136[0];
+      v80 = espresso_get_status_string();
+      v81 = v136;
+      if (v78 < 0)
+      {
+        v81 = v79;
+      }
+
+      StringFormatter::StringFormatter(__stra, "%s Error: %d, %s", v81, v33, v80);
+      std::logic_error::logic_error(v77, __stra);
+    }
+
+    if (v137 < 0)
+    {
+      operator delete(v136[0]);
+    }
+
+    if (*(v26 + 23) >= 0)
+    {
+      v34 = *(v26 + 23);
+    }
+
+    else
+    {
+      v34 = *(v26 + 8);
+    }
+
+    std::string::basic_string[abi:ne200100](&v135, v34 + 9);
+    if ((v135.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    {
+      v35 = &v135;
+    }
+
+    else
+    {
+      v35 = v135.__r_.__value_.__r.__words[0];
+    }
+
+    if (v34)
+    {
+      if (*(v26 + 23) >= 0)
+      {
+        v36 = v26;
+      }
+
+      else
+      {
+        v36 = *v26;
+      }
+
+      memmove(v35, v36, v34);
+    }
+
+    strcpy(v35 + v34, "_variance");
+    *__stra = v26;
+    v37 = std::__hash_table<std::__hash_value_type<std::string,espresso_buffer_t>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,espresso_buffer_t>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,espresso_buffer_t>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,espresso_buffer_t>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((a1 + 416), v26, &std::piecewise_construct, __stra, v123);
+    v37[25] = 0;
+    *(v37 + 23) = 0u;
+    *(v37 + 21) = 0u;
+    *(v37 + 19) = 0u;
+    *(v37 + 17) = 0u;
+    *(v37 + 15) = 0u;
+    *(v37 + 13) = 0u;
+    *(v37 + 11) = 0u;
+    *(v37 + 9) = 0u;
+    *(v37 + 7) = 0u;
+    *(v37 + 5) = 0u;
+    *__stra = v26;
+    std::__hash_table<std::__hash_value_type<std::string,espresso_buffer_t>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,espresso_buffer_t>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,espresso_buffer_t>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,espresso_buffer_t>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((a1 + 416), v26, &std::piecewise_construct, __stra, v123);
     v38 = espresso_network_bind_buffer();
-    boost::filesystem::path::path(v142, "");
+    boost::filesystem::path::path(v133, "");
     if (v38)
     {
-      v83 = __cxa_allocate_exception(0x10uLL);
-      v84 = v143;
-      v85 = v142[0];
-      v86 = espresso_get_status_string();
-      v87 = v142;
-      if (v84 < 0)
+      v72 = __cxa_allocate_exception(0x10uLL);
+      v73 = v134;
+      v74 = v133[0];
+      v75 = espresso_get_status_string();
+      v76 = v133;
+      if (v73 < 0)
       {
-        v87 = v85;
+        v76 = v74;
       }
 
-      StringFormatter::StringFormatter(__stra, "%s Error: %d, %s", v87, v38, v86);
-      std::logic_error::logic_error(v83, __stra);
+      StringFormatter::StringFormatter(__stra, "%s Error: %d, %s", v76, v38, v75);
+      std::logic_error::logic_error(v72, __stra);
     }
 
-    if (v143 < 0)
+    if (v134 < 0)
     {
-      operator delete(v142[0]);
+      operator delete(v133[0]);
     }
 
-    if (*(v26 + 23) >= 0)
+    if (SHIBYTE(v135.__r_.__value_.__r.__words[2]) < 0)
     {
-      v39 = *(v26 + 23);
+      operator delete(v135.__r_.__value_.__l.__data_);
     }
 
-    else
+    if (SHIBYTE(v146.__r_.__value_.__r.__words[2]) < 0)
     {
-      v39 = *(v26 + 8);
-    }
-
-    std::string::basic_string[abi:ne200100](&v141, v39 + 9);
-    if ((v141.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-    {
-      v40 = &v141;
-    }
-
-    else
-    {
-      v40 = v141.__r_.__value_.__r.__words[0];
-    }
-
-    if (v39)
-    {
-      if (*(v26 + 23) >= 0)
-      {
-        v41 = v26;
-      }
-
-      else
-      {
-        v41 = *v26;
-      }
-
-      memmove(v40, v41, v39);
-    }
-
-    strcpy(v40 + v39, "_variance");
-    *__stra = v26;
-    v42 = std::__hash_table<std::__hash_value_type<std::string,espresso_buffer_t>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,espresso_buffer_t>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,espresso_buffer_t>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,espresso_buffer_t>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((a1 + 416), v26);
-    v42[25] = 0;
-    *(v42 + 23) = 0u;
-    *(v42 + 21) = 0u;
-    *(v42 + 19) = 0u;
-    *(v42 + 17) = 0u;
-    *(v42 + 15) = 0u;
-    *(v42 + 13) = 0u;
-    *(v42 + 11) = 0u;
-    *(v42 + 9) = 0u;
-    *(v42 + 7) = 0u;
-    *(v42 + 5) = 0u;
-    v43 = *(a1 + 16);
-    v44 = *(a1 + 24);
-    *__stra = v26;
-    std::__hash_table<std::__hash_value_type<std::string,espresso_buffer_t>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,espresso_buffer_t>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,espresso_buffer_t>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,espresso_buffer_t>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((a1 + 416), v26);
-    v45 = espresso_network_bind_buffer();
-    boost::filesystem::path::path(v139, "");
-    if (v45)
-    {
-      v78 = __cxa_allocate_exception(0x10uLL);
-      v79 = v140;
-      v80 = v139[0];
-      v81 = espresso_get_status_string();
-      v82 = v139;
-      if (v79 < 0)
-      {
-        v82 = v80;
-      }
-
-      StringFormatter::StringFormatter(__stra, "%s Error: %d, %s", v82, v45, v81);
-      std::logic_error::logic_error(v78, __stra);
-    }
-
-    if (v140 < 0)
-    {
-      operator delete(v139[0]);
-    }
-
-    if (SHIBYTE(v141.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v141.__r_.__value_.__l.__data_);
-    }
-
-    if (SHIBYTE(v152.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v152.__r_.__value_.__l.__data_);
+      operator delete(v146.__r_.__value_.__l.__data_);
     }
   }
 
-  v46 = *(a1 + 32);
-  v47 = espresso_plan_build_clean();
-  boost::filesystem::path::path(v137, "");
-  if (v47)
+  v39 = espresso_plan_build_clean();
+  boost::filesystem::path::path(v131, "");
+  if (v39)
   {
-    v110 = __cxa_allocate_exception(0x10uLL);
-    v111 = v138;
-    v112 = v137[0];
-    v113 = espresso_get_status_string();
-    v114 = v137;
-    if (v111 < 0)
+    v104 = __cxa_allocate_exception(0x10uLL);
+    v105 = v132;
+    v106 = v131[0];
+    v107 = espresso_get_status_string();
+    v108 = v131;
+    if (v105 < 0)
     {
-      v114 = v112;
+      v108 = v106;
     }
 
-    StringFormatter::StringFormatter(__stra, "%s Error: %d, %s", v114, v47, v113);
-    std::logic_error::logic_error(v110, __stra);
+    StringFormatter::StringFormatter(__stra, "%s Error: %d, %s", v108, v39, v107);
+    std::logic_error::logic_error(v104, __stra);
   }
 
-  if (v138 < 0)
+  if (v132 < 0)
   {
-    operator delete(v137[0]);
+    operator delete(v131[0]);
   }
 
-  v48 = *(a1 + 32);
-  v49 = espresso_plan_destroy();
-  boost::filesystem::path::path(v135, "");
-  if (v49)
+  v40 = espresso_plan_destroy();
+  boost::filesystem::path::path(v129, "");
+  if (v40)
   {
-    v115 = __cxa_allocate_exception(0x10uLL);
-    v116 = v136;
-    v117 = v135[0];
-    v118 = espresso_get_status_string();
-    v119 = v135;
-    if (v116 < 0)
+    v109 = __cxa_allocate_exception(0x10uLL);
+    v110 = v130;
+    v111 = v129[0];
+    v112 = espresso_get_status_string();
+    v113 = v129;
+    if (v110 < 0)
     {
-      v119 = v117;
+      v113 = v111;
     }
 
-    StringFormatter::StringFormatter(__stra, "%s Error: %d, %s", v119, v49, v118);
-    std::logic_error::logic_error(v115, __stra);
+    StringFormatter::StringFormatter(__stra, "%s Error: %d, %s", v113, v40, v112);
+    std::logic_error::logic_error(v109, __stra);
   }
 
-  if (v136 < 0)
+  if (v130 < 0)
   {
-    operator delete(v135[0]);
+    operator delete(v129[0]);
   }
 
-  v50 = *(a1 + 8);
   *(a1 + 56) = espresso_create_plan();
-  if ((v155.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  if ((v149.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v51 = HIBYTE(v155.__r_.__value_.__r.__words[2]);
+    v41 = HIBYTE(v149.__r_.__value_.__r.__words[2]);
   }
 
   else
   {
-    v51 = v155.__r_.__value_.__l.__size_;
+    v41 = v149.__r_.__value_.__l.__size_;
   }
 
-  std::string::basic_string[abi:ne200100](&v152, v51 + 5);
-  if ((v152.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  std::string::basic_string[abi:ne200100](&v146, v41 + 5);
+  if ((v146.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v52 = &v152;
+    v42 = &v146;
   }
 
   else
   {
-    v52 = v152.__r_.__value_.__r.__words[0];
+    v42 = v146.__r_.__value_.__r.__words[0];
   }
 
-  if (v51)
+  if (v41)
   {
-    if ((v155.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    if ((v149.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      v53 = &v155;
+      v43 = &v149;
     }
 
     else
     {
-      v53 = v155.__r_.__value_.__r.__words[0];
+      v43 = v149.__r_.__value_.__r.__words[0];
     }
 
-    memmove(v52, v53, v51);
+    memmove(v42, v43, v41);
   }
 
-  strcpy(v52 + v51, ":grad");
-  v54 = espresso_plan_add_network();
-  boost::filesystem::path::path(v133, "");
-  if (v54)
+  strcpy(v42 + v41, ":grad");
+  v44 = espresso_plan_add_network();
+  v45 = boost::filesystem::path::path(v127, "");
+  if (v44)
   {
-    v120 = __cxa_allocate_exception(0x10uLL);
-    v121 = v134;
-    v122 = v133[0];
-    v123 = espresso_get_status_string();
-    v124 = v133;
-    if (v121 < 0)
+    v114 = __cxa_allocate_exception(0x10uLL);
+    v115 = v128;
+    v116 = v127[0];
+    v117 = espresso_get_status_string();
+    v118 = v127;
+    if (v115 < 0)
     {
-      v124 = v122;
+      v118 = v116;
     }
 
-    StringFormatter::StringFormatter(__stra, "%s Error: %d, %s", v124, v54, v123);
-    std::logic_error::logic_error(v120, __stra);
+    StringFormatter::StringFormatter(__stra, "%s Error: %d, %s", v118, v44, v117);
+    std::logic_error::logic_error(v114, __stra);
   }
 
-  if (v134 < 0)
+  if (v128 < 0)
   {
-    operator delete(v133[0]);
+    operator delete(v127[0]);
   }
 
-  if (SHIBYTE(v152.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v146.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v152.__r_.__value_.__l.__data_);
+    operator delete(v146.__r_.__value_.__l.__data_);
   }
 
-  v55 = Diagnostics_GetLogObject();
-  if (os_log_type_enabled(v55, OS_LOG_TYPE_INFO))
+  v47 = Diagnostics_GetLogObject(v45, v46);
+  v48 = os_log_type_enabled(v47, OS_LOG_TYPE_INFO);
+  if (v48)
   {
-    v56 = a1 + 712;
+    v50 = a1 + 712;
     if (*(a1 + 735) < 0)
     {
-      v56 = *v127;
+      v50 = *v121;
     }
 
-    v57 = &v155;
-    if ((v155.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+    v51 = &v149;
+    if ((v149.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
     {
-      v57 = v155.__r_.__value_.__r.__words[0];
+      v51 = v149.__r_.__value_.__r.__words[0];
     }
 
     *__stra = 136315394;
-    *&__stra[4] = v56;
+    *&__stra[4] = v50;
     *&__stra[12] = 2080;
-    *&__stra[14] = v57;
-    _os_log_impl(&dword_0, v55, OS_LOG_TYPE_INFO, "TaskId: %s, Loaded network from %s", __stra, 0x16u);
+    *&__stra[14] = v51;
+    _os_log_impl(&dword_0, v47, OS_LOG_TYPE_INFO, "TaskId: %s, Loaded network from %s", __stra, 0x16u);
   }
 
-  v58 = Diagnostics_GetLogObject();
-  if (os_log_type_enabled(v58, OS_LOG_TYPE_INFO))
+  v52 = Diagnostics_GetLogObject(v48, v49);
+  if (os_log_type_enabled(v52, OS_LOG_TYPE_INFO))
   {
-    v59 = a1 + 712;
+    v53 = a1 + 712;
     if (*(a1 + 735) < 0)
     {
-      v59 = *v127;
+      v53 = *v121;
     }
 
-    v60 = *(a1 + 80);
-    v61 = *(a1 + 124);
-    v62 = *(a1 + 96);
-    v63 = *(a1 + 104);
-    v64 = *(a1 + 112);
+    v54 = *(a1 + 80);
+    v55 = *(a1 + 124);
+    v56 = *(a1 + 96);
+    v57 = *(a1 + 104);
+    v58 = *(a1 + 112);
     *__stra = 136316418;
-    *&__stra[4] = v59;
+    *&__stra[4] = v53;
     *&__stra[12] = 2048;
-    *&__stra[14] = v60;
+    *&__stra[14] = v54;
     *&__stra[22] = 2048;
-    *&__stra[24] = v62;
+    *&__stra[24] = v56;
     *&__stra[32] = 1024;
-    *&__stra[34] = v61;
+    *&__stra[34] = v55;
     *&__stra[38] = 2048;
-    *v161 = v63;
-    *&v161[8] = 2048;
-    *&v161[10] = v64;
-    _os_log_impl(&dword_0, v58, OS_LOG_TYPE_INFO, "TaskId: %s, learning_rate_=%f, num_iters_=%ld, batch_size_=%d, checkpoint_steps=%ld, additional_early_stopping_epoch=%ld", __stra, 0x3Au);
+    *v155 = v57;
+    *&v155[8] = 2048;
+    *&v155[10] = v58;
+    _os_log_impl(&dword_0, v52, OS_LOG_TYPE_INFO, "TaskId: %s, learning_rate_=%f, num_iters_=%ld, batch_size_=%d, checkpoint_steps=%ld, additional_early_stopping_epoch=%ld", __stra, 0x3Au);
   }
 
-  v65 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v157, "optimizer_params");
-  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json(v132, v65);
+  v59 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v151, "optimizer_params");
+  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json(v126, v59);
   boost::filesystem::path::path(__stra, "type");
-  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::value("adam", v132, __stra, &v152);
+  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::value(v126, __stra, "adam", &v146);
   if ((__stra[23] & 0x80000000) != 0)
   {
     operator delete(*__stra);
   }
 
-  if (SHIBYTE(v152.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v146.__r_.__value_.__r.__words[2]) < 0)
   {
-    if (v152.__r_.__value_.__l.__size_ != 4)
+    if (v146.__r_.__value_.__l.__size_ != 4)
     {
-      goto LABEL_176;
+      goto LABEL_174;
     }
 
-    v66 = v152.__r_.__value_.__r.__words[0];
+    v60 = v146.__r_.__value_.__r.__words[0];
   }
 
   else
   {
-    if (SHIBYTE(v152.__r_.__value_.__r.__words[2]) != 4)
+    if (SHIBYTE(v146.__r_.__value_.__r.__words[2]) != 4)
     {
-      goto LABEL_176;
+      goto LABEL_174;
     }
 
-    v66 = &v152;
+    v60 = &v146;
   }
 
-  if (LODWORD(v66->__r_.__value_.__l.__data_) == 1835099233)
+  if (LODWORD(v60->__r_.__value_.__l.__data_) == 1835099233)
   {
     boost::filesystem::path::path(__stra, "beta1");
-    *v126 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::value<float,0>(v132, __stra, v126);
+    *v120 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::value<float,0>(v126, __stra, v120);
     if ((__stra[23] & 0x80000000) != 0)
     {
       operator delete(*__stra);
     }
 
     boost::filesystem::path::path(__stra, "beta2");
-    *(a1 + 164) = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::value<float,0>(v132, __stra, a1 + 164);
+    *(a1 + 164) = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::value<float,0>(v126, __stra, a1 + 164);
     if ((__stra[23] & 0x80000000) != 0)
     {
       operator delete(*__stra);
     }
 
     boost::filesystem::path::path(__stra, "epsilon");
-    *v125 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::value<float,0>(v132, __stra, v125);
+    *v119 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::value<float,0>(v126, __stra, v119);
     if ((__stra[23] & 0x80000000) != 0)
     {
       operator delete(*__stra);
     }
   }
 
-LABEL_176:
+LABEL_174:
   TrainingEngine::setup_optimizer(a1);
-  v67 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v157, "model_params");
-  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json(v131, v67);
+  v61 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v151, "model_params");
+  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json(v125, v61);
   if (*(a1 + 159) < 0)
   {
     if (*(a1 + 144) == 11 && **v8 == 0x6565707374736166 && *(*v8 + 3) == 0x3268636565707374)
     {
-      goto LABEL_184;
+      goto LABEL_182;
     }
 
     if (*(a1 + 144) != 7)
     {
-      goto LABEL_233;
+      goto LABEL_231;
     }
 
-    v69 = *v8;
+    v63 = *v8;
   }
 
   else
   {
-    v68 = *(a1 + 159);
-    v69 = v8;
-    if (v68 != 7)
+    v62 = *(a1 + 159);
+    v63 = v8;
+    if (v62 != 7)
     {
-      if (v68 != 11)
+      if (v62 != 11)
       {
-        goto LABEL_233;
+        goto LABEL_231;
       }
 
       if (*v8 != 0x6565707374736166 || *(v8 + 3) != 0x3268636565707374)
       {
-        goto LABEL_233;
+        goto LABEL_231;
       }
 
-LABEL_184:
+LABEL_182:
       memset(&__stra[8], 0, 32);
-      *v161 = 0u;
-      *v161 = 0x30000000080;
-      *&v161[8] = -1;
-      v71 = *(a1 + 128);
+      *v155 = 0u;
+      *v155 = 0x30000000080;
+      *&v155[8] = -1;
+      v65 = *(a1 + 128);
       *__stra = 1;
-      *&__stra[4] = v71;
-      boost::filesystem::path::path(&v141, "encoder_length");
-      LODWORD(v129[0]) = 256;
-      *v161 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::value<int,0>(v131, &v141.__r_.__value_.__l.__data_, v129);
-      if (SHIBYTE(v141.__r_.__value_.__r.__words[2]) < 0)
+      *&__stra[4] = v65;
+      boost::filesystem::path::path(&v135, "encoder_length");
+      LODWORD(v123[0]) = 256;
+      *v155 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::value<int,0>(v125, &v135.__r_.__value_.__l.__data_, v123);
+      if (SHIBYTE(v135.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v141.__r_.__value_.__l.__data_);
+        operator delete(v135.__r_.__value_.__l.__data_);
       }
 
-      boost::filesystem::path::path(&v141, "decoder_length");
-      LODWORD(v129[0]) = 1280;
-      *&v161[4] = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::value<int,0>(v131, &v141.__r_.__value_.__l.__data_, v129);
-      if (SHIBYTE(v141.__r_.__value_.__r.__words[2]) < 0)
+      boost::filesystem::path::path(&v135, "decoder_length");
+      LODWORD(v123[0]) = 1280;
+      *&v155[4] = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::value<int,0>(v125, &v135.__r_.__value_.__l.__data_, v123);
+      if (SHIBYTE(v135.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v141.__r_.__value_.__l.__data_);
+        operator delete(v135.__r_.__value_.__l.__data_);
       }
 
-      boost::filesystem::path::path(&v141, "input_speaker_id");
-      LODWORD(v129[0]) = -1;
-      *&v161[8] = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::value<int,0>(v131, &v141.__r_.__value_.__l.__data_, v129);
-      if (SHIBYTE(v141.__r_.__value_.__r.__words[2]) < 0)
+      boost::filesystem::path::path(&v135, "input_speaker_id");
+      LODWORD(v123[0]) = -1;
+      *&v155[8] = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::value<int,0>(v125, &v135.__r_.__value_.__l.__data_, v123);
+      if (SHIBYTE(v135.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v141.__r_.__value_.__l.__data_);
+        operator delete(v135.__r_.__value_.__l.__data_);
       }
 
       *__stra = *(a1 + 124);
@@ -10735,109 +8204,1719 @@ LABEL_184:
     }
   }
 
-  v73 = *v69;
-  v74 = *(v69 + 3);
-  if (v73 == 1702257015 && v74 == 1852732005)
+  v67 = *v63;
+  v68 = *(v63 + 3);
+  if (v67 == 1702257015 && v68 == 1852732005)
   {
     memset(&__stra[8], 0, 32);
-    *v161 = xmmword_220EE0;
-    *&v161[16] = 0x4700000000000002;
-    v162 = 0x10000000258;
-    v76 = *(a1 + 128);
+    *v155 = xmmword_220EE0;
+    *&v155[16] = 0x4700000000000002;
+    v156 = 0x10000000258;
+    v70 = *(a1 + 128);
     *__stra = 1;
-    *&__stra[4] = v76;
-    boost::filesystem::path::path(&v141, "step_sequence_length");
-    LODWORD(v129[0]) = 960;
-    *v161 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::value<int,0>(v131, &v141.__r_.__value_.__l.__data_, v129);
-    if (SHIBYTE(v141.__r_.__value_.__r.__words[2]) < 0)
+    *&__stra[4] = v70;
+    boost::filesystem::path::path(&v135, "step_sequence_length");
+    LODWORD(v123[0]) = 960;
+    *v155 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::value<int,0>(v125, &v135.__r_.__value_.__l.__data_, v123);
+    if (SHIBYTE(v135.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v141.__r_.__value_.__l.__data_);
+      operator delete(v135.__r_.__value_.__l.__data_);
     }
 
-    boost::filesystem::path::path(&v141, "step_shift_length");
-    LODWORD(v129[0]) = 240;
-    *&v161[4] = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::value<int,0>(v131, &v141.__r_.__value_.__l.__data_, v129);
-    if (SHIBYTE(v141.__r_.__value_.__r.__words[2]) < 0)
+    boost::filesystem::path::path(&v135, "step_shift_length");
+    LODWORD(v123[0]) = 240;
+    *&v155[4] = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::value<int,0>(v125, &v135.__r_.__value_.__l.__data_, v123);
+    if (SHIBYTE(v135.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v141.__r_.__value_.__l.__data_);
+      operator delete(v135.__r_.__value_.__l.__data_);
     }
 
-    boost::filesystem::path::path(&v141, "samples_per_frame");
-    LODWORD(v129[0]) = 240;
-    *&v161[8] = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::value<int,0>(v131, &v141.__r_.__value_.__l.__data_, v129);
-    if (SHIBYTE(v141.__r_.__value_.__r.__words[2]) < 0)
+    boost::filesystem::path::path(&v135, "samples_per_frame");
+    LODWORD(v123[0]) = 240;
+    *&v155[8] = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::value<int,0>(v125, &v135.__r_.__value_.__l.__data_, v123);
+    if (SHIBYTE(v135.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v141.__r_.__value_.__l.__data_);
+      operator delete(v135.__r_.__value_.__l.__data_);
     }
 
-    boost::filesystem::path::path(&v141, "state_size");
-    LODWORD(v129[0]) = 448;
-    *&v161[12] = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::value<int,0>(v131, &v141.__r_.__value_.__l.__data_, v129);
-    if (SHIBYTE(v141.__r_.__value_.__r.__words[2]) < 0)
+    boost::filesystem::path::path(&v135, "state_size");
+    LODWORD(v123[0]) = 448;
+    *&v155[12] = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::value<int,0>(v125, &v135.__r_.__value_.__l.__data_, v123);
+    if (SHIBYTE(v135.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v141.__r_.__value_.__l.__data_);
+      operator delete(v135.__r_.__value_.__l.__data_);
     }
 
-    boost::filesystem::path::path(&v141, "samples_per_step");
-    LODWORD(v129[0]) = 2;
-    *&v161[16] = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::value<int,0>(v131, &v141.__r_.__value_.__l.__data_, v129);
-    if (SHIBYTE(v141.__r_.__value_.__r.__words[2]) < 0)
+    boost::filesystem::path::path(&v135, "samples_per_step");
+    LODWORD(v123[0]) = 2;
+    *&v155[16] = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::value<int,0>(v125, &v135.__r_.__value_.__l.__data_, v123);
+    if (SHIBYTE(v135.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v141.__r_.__value_.__l.__data_);
+      operator delete(v135.__r_.__value_.__l.__data_);
     }
 
-    boost::filesystem::path::path(&v141, "audio_scalar");
-    v129[0] = 0x40E0000000000000;
-    v77 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::value<double,0>(v131, &v141.__r_.__value_.__l.__data_, v129);
-    *&v161[20] = v77;
-    if (SHIBYTE(v141.__r_.__value_.__r.__words[2]) < 0)
+    boost::filesystem::path::path(&v135, "audio_scalar");
+    v123[0] = 0x40E0000000000000;
+    v71 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::value<double,0>(v125, &v135.__r_.__value_.__l.__data_, v123);
+    *&v155[20] = v71;
+    if (SHIBYTE(v135.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v141.__r_.__value_.__l.__data_);
+      operator delete(v135.__r_.__value_.__l.__data_);
     }
 
-    boost::filesystem::path::path(&v141, "window_length");
-    LODWORD(v129[0]) = 600;
-    LODWORD(v162) = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::value<int,0>(v131, &v141.__r_.__value_.__l.__data_, v129);
-    if (SHIBYTE(v141.__r_.__value_.__r.__words[2]) < 0)
+    boost::filesystem::path::path(&v135, "window_length");
+    LODWORD(v123[0]) = 600;
+    LODWORD(v156) = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::value<int,0>(v125, &v135.__r_.__value_.__l.__data_, v123);
+    if (SHIBYTE(v135.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v141.__r_.__value_.__l.__data_);
+      operator delete(v135.__r_.__value_.__l.__data_);
     }
 
     *__stra = *(a1 + 124);
-    boost::filesystem::path::path(&v141, "enable_debug");
-    LOBYTE(v129[0]) = 0;
-    __stra[8] = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::value<BOOL,0>(v131, &v141.__r_.__value_.__l.__data_, v129);
-    if (SHIBYTE(v141.__r_.__value_.__r.__words[2]) < 0)
+    boost::filesystem::path::path(&v135, "enable_debug");
+    LOBYTE(v123[0]) = 0;
+    __stra[8] = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::value<BOOL,0>(v125, &v135.__r_.__value_.__l.__data_, v123);
+    if (SHIBYTE(v135.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v141.__r_.__value_.__l.__data_);
+      operator delete(v135.__r_.__value_.__l.__data_);
     }
 
-    boost::filesystem::path::path(v129, "debug_data_dir");
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::value("/tmp/iris/debug_data/%d/data", v131, v129, &v141);
+    boost::filesystem::path::path(v123, "debug_data_dir");
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::value(v125, v123, "/tmp/iris/debug_data/%d/data", &v135);
     if ((__stra[39] & 0x80000000) != 0)
     {
       operator delete(*&__stra[16]);
     }
 
-    *&__stra[16] = v141;
-    *(&v141.__r_.__value_.__s + 23) = 0;
-    v141.__r_.__value_.__s.__data_[0] = 0;
-    if (v130 < 0)
+    *&__stra[16] = v135;
+    *(&v135.__r_.__value_.__s + 23) = 0;
+    v135.__r_.__value_.__s.__data_[0] = 0;
+    if (v124 < 0)
     {
-      operator delete(v129[0]);
+      operator delete(v123[0]);
     }
 
     std::allocate_shared[abi:ne200100]<WaveRNNDataFeeder,std::allocator<WaveRNNDataFeeder>,std::string const&,std::string const&,WaveRNNDataFeeder::Config &,0>();
   }
 
-LABEL_233:
-  v93 = __cxa_allocate_exception(0x10uLL);
-  v94 = v8;
+LABEL_231:
+  v87 = __cxa_allocate_exception(0x10uLL);
+  v88 = v8;
   if (*(a1 + 159) < 0)
   {
-    v94 = *v8;
+    v88 = *v8;
   }
 
-  StringFormatter::StringFormatter(__stra, "Model type %s is not supported.", v94);
-  std::logic_error::logic_error(v93, __stra);
+  StringFormatter::StringFormatter(__stra, "Model type %s is not supported.", v88);
+  std::logic_error::logic_error(v87, __stra);
+}
+
+void sub_1D4F10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, void **a12, void **a13, void **a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, void **a20, void **a21, void **a22, void **a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, void *a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, void *a40, uint64_t a41, uint64_t a42, void *a43, uint64_t a44, uint64_t a45, void *a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, void *a61, uint64_t a62, int a63)
+{
+  if (SLOBYTE(STACK[0x287]) < 0)
+  {
+    operator delete(STACK[0x270]);
+  }
+
+  if (a65 < 0)
+  {
+    operator delete(a61);
+  }
+
+  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::~basic_json(&a29);
+  if (a67 < 0)
+  {
+    operator delete(a66);
+  }
+
+  if (a69 < 0)
+  {
+    operator delete(a68);
+  }
+
+  if (SLOBYTE(STACK[0x207]) < 0)
+  {
+    operator delete(a70);
+  }
+
+  if (SLOBYTE(STACK[0x21F]) < 0)
+  {
+    operator delete(STACK[0x208]);
+  }
+
+  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::~basic_json(&STACK[0x220]);
+  std::ios::~ios();
+  if (SLOBYTE(STACK[0x247]) < 0)
+  {
+    operator delete(STACK[0x230]);
+  }
+
+  if (SLOBYTE(STACK[0x267]) < 0)
+  {
+    operator delete(STACK[0x250]);
+  }
+
+  if (*(v70 + 735) < 0)
+  {
+    operator delete(*a22);
+  }
+
+  v72 = *(v70 + 664);
+  if (v72)
+  {
+    *(v70 + 672) = v72;
+    operator delete(v72);
+  }
+
+  v73 = *(v70 + 640);
+  if (v73)
+  {
+    *(v70 + 648) = v73;
+    operator delete(v73);
+  }
+
+  v74 = *(v70 + 616);
+  if (v74)
+  {
+    *(v70 + 624) = v74;
+    operator delete(v74);
+  }
+
+  v75 = *(v70 + 592);
+  if (v75)
+  {
+    *(v70 + 600) = v75;
+    operator delete(v75);
+  }
+
+  v76 = *(v70 + 568);
+  if (v76)
+  {
+    *(v70 + 576) = v76;
+    operator delete(v76);
+  }
+
+  v77 = *a13;
+  if (*a13)
+  {
+    *(v70 + 552) = v77;
+    operator delete(v77);
+  }
+
+  std::__hash_table<std::__hash_value_type<std::string,espresso_buffer_t>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,espresso_buffer_t>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,espresso_buffer_t>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,espresso_buffer_t>>>::~__hash_table(a14);
+  std::__hash_table<std::__hash_value_type<std::string,espresso_buffer_t>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,espresso_buffer_t>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,espresso_buffer_t>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,espresso_buffer_t>>>::~__hash_table((v70 + 416));
+  std::__hash_table<std::__hash_value_type<std::string,espresso_buffer_t>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,espresso_buffer_t>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,espresso_buffer_t>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,espresso_buffer_t>>>::~__hash_table(a23);
+  std::__hash_table<std::__hash_value_type<std::string,espresso_buffer_t>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,espresso_buffer_t>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,espresso_buffer_t>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,espresso_buffer_t>>>::~__hash_table((v70 + 336));
+  std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::~__hash_table(v70 + 296);
+  STACK[0x2D8] = a19;
+  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&STACK[0x2D8]);
+  if (*(v70 + 271) < 0)
+  {
+    operator delete(*(v70 + 248));
+  }
+
+  if (*(v70 + 247) < 0)
+  {
+    operator delete(*a20);
+  }
+
+  if (*(v70 + 223) < 0)
+  {
+    operator delete(*(v70 + 200));
+  }
+
+  if (*(v70 + 199) < 0)
+  {
+    operator delete(*a12);
+  }
+
+  if (*(v70 + 159) < 0)
+  {
+    operator delete(*a21);
+  }
+
+  v78 = *(v70 + 72);
+  if (v78)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v78);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+uint64_t nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::get<std::unordered_map<std::string,std::string>,std::unordered_map<std::string,std::string>,0>@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+{
+  *a2 = 0u;
+  *(a2 + 16) = 0u;
+  *(a2 + 32) = 1065353216;
+  return nlohmann::detail::from_json<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,std::unordered_map<std::string,std::string>,0>(a1, a2);
+}
+
+float nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::value<float,0>(unsigned __int8 *a1, const void **a2, uint64_t a3)
+{
+  if (*a1 != 1)
+  {
+    exception = __cxa_allocate_exception(0x20uLL);
+    v9 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::type_name(a1);
+    boost::filesystem::path::path(&v12, v9);
+    v10 = std::string::insert(&v12, 0, "cannot use value() with ");
+    v11 = *&v10->__r_.__value_.__l.__data_;
+    v14 = v10->__r_.__value_.__r.__words[2];
+    v13 = v11;
+    v10->__r_.__value_.__l.__size_ = 0;
+    v10->__r_.__value_.__r.__words[2] = 0;
+    v10->__r_.__value_.__r.__words[0] = 0;
+    nlohmann::detail::type_error::create(306, &v13, exception);
+  }
+
+  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::find<std::string const&>(a1, a2, &v13);
+  nlohmann::detail::iter_impl<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>> const>::iter_impl(&v12, a1);
+  nlohmann::detail::iter_impl<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>> const>::set_end(&v12);
+  if (nlohmann::detail::iter_impl<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>> const>::operator==(&v13, &v12))
+  {
+    return *a3;
+  }
+
+  v6 = nlohmann::detail::iter_impl<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>> const>::operator*(&v13);
+  LODWORD(v12.__r_.__value_.__l.__data_) = 0;
+  nlohmann::detail::from_json<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,float,0>(v6, &v12, v7);
+  return *&v12.__r_.__value_.__l.__data_;
+}
+
+void sub_1D580C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, uint64_t a16, uint64_t a17, void *__p, uint64_t a19, int a20, __int16 a21, char a22, char a23)
+{
+  if (a23 < 0)
+  {
+    operator delete(__p);
+  }
+
+  if (a15 < 0)
+  {
+    operator delete(a10);
+    if ((v24 & 1) == 0)
+    {
+LABEL_8:
+      _Unwind_Resume(a1);
+    }
+  }
+
+  else if (!v24)
+  {
+    goto LABEL_8;
+  }
+
+  __cxa_free_exception(v23);
+  goto LABEL_8;
+}
+
+void TrainingEngine::setup_optimizer(TrainingEngine *this)
+{
+  v2 = *(this + 42);
+  *(this + 124) = 0;
+  *(this + 500) = *(this + 20);
+  *(this + 127) = 0;
+  *(this + 128) = v2;
+  *(this + 516) = 1065353216;
+  *(this + 524) = 0;
+  *(this + 66) = 0;
+  *(this + 134) = 0;
+  v7[0] = off_283B78;
+  v7[3] = v7;
+  TrainingEngine::populate_descs_from_espresso_bufs(this, this + 68, this + 42, v7);
+  v3 = std::__function::__value_func<std::string ()(std::string const&)>::~__value_func[abi:ne200100](v7);
+  TrainingEngine::populate_desc_ptrs(v3, this + 68, this + 71);
+  v6[0] = off_283C08;
+  v6[3] = v6;
+  TrainingEngine::populate_descs_from_espresso_bufs(this, this + 80, this + 47, v6);
+  std::__function::__value_func<std::string ()(std::string const&)>::~__value_func[abi:ne200100](v6);
+  v5[0] = off_283C88;
+  v5[3] = v5;
+  TrainingEngine::populate_descs_from_espresso_bufs(this, this + 80, this + 52, v5);
+  v4 = std::__function::__value_func<std::string ()(std::string const&)>::~__value_func[abi:ne200100](v5);
+  TrainingEngine::populate_desc_ptrs(v4, this + 80, this + 83);
+}
+
+void sub_1D59CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va, a3);
+  std::__function::__value_func<std::string ()(std::string const&)>::~__value_func[abi:ne200100](va);
+  _Unwind_Resume(a1);
+}
+
+void TrainingEngine::~TrainingEngine(TrainingEngine *this)
+{
+  v2 = espresso_plan_destroy();
+  boost::filesystem::path::path(__p, "");
+  if (v2)
+  {
+    exception = __cxa_allocate_exception(0x10uLL);
+    v18 = v30;
+    v19 = __p[0];
+    status_string = espresso_get_status_string();
+    v21 = __p;
+    if (v18 < 0)
+    {
+      v21 = v19;
+    }
+
+    StringFormatter::StringFormatter(&v31, "%s Error: %d, %s", v21, v2, status_string);
+    std::logic_error::logic_error(exception, &v31);
+  }
+
+  if (v30 < 0)
+  {
+    operator delete(__p[0]);
+  }
+
+  v3 = espresso_context_destroy();
+  boost::filesystem::path::path(v27, "");
+  if (v3)
+  {
+    v22 = __cxa_allocate_exception(0x10uLL);
+    v23 = v28;
+    v24 = v27[0];
+    v25 = espresso_get_status_string();
+    v26 = v27;
+    if (v23 < 0)
+    {
+      v26 = v24;
+    }
+
+    StringFormatter::StringFormatter(&v31, "%s Error: %d, %s", v26, v3, v25);
+    std::logic_error::logic_error(v22, &v31);
+  }
+
+  if (v28 < 0)
+  {
+    operator delete(v27[0]);
+  }
+
+  for (i = *(this + 44); i; i = *i)
+  {
+    v5 = i[5];
+    if (v5)
+    {
+      free(v5);
+    }
+  }
+
+  for (j = *(this + 49); j; j = *j)
+  {
+    v7 = j[5];
+    if (v7)
+    {
+      free(v7);
+    }
+  }
+
+  for (k = *(this + 54); k; k = *k)
+  {
+    v9 = k[5];
+    if (v9)
+    {
+      free(v9);
+    }
+  }
+
+  if (*(this + 735) < 0)
+  {
+    operator delete(*(this + 89));
+  }
+
+  v10 = *(this + 83);
+  if (v10)
+  {
+    *(this + 84) = v10;
+    operator delete(v10);
+  }
+
+  v11 = *(this + 80);
+  if (v11)
+  {
+    *(this + 81) = v11;
+    operator delete(v11);
+  }
+
+  v12 = *(this + 77);
+  if (v12)
+  {
+    *(this + 78) = v12;
+    operator delete(v12);
+  }
+
+  v13 = *(this + 74);
+  if (v13)
+  {
+    *(this + 75) = v13;
+    operator delete(v13);
+  }
+
+  v14 = *(this + 71);
+  if (v14)
+  {
+    *(this + 72) = v14;
+    operator delete(v14);
+  }
+
+  v15 = *(this + 68);
+  if (v15)
+  {
+    *(this + 69) = v15;
+    operator delete(v15);
+  }
+
+  std::__hash_table<std::__hash_value_type<std::string,espresso_buffer_t>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,espresso_buffer_t>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,espresso_buffer_t>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,espresso_buffer_t>>>::~__hash_table(this + 57);
+  std::__hash_table<std::__hash_value_type<std::string,espresso_buffer_t>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,espresso_buffer_t>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,espresso_buffer_t>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,espresso_buffer_t>>>::~__hash_table(this + 52);
+  std::__hash_table<std::__hash_value_type<std::string,espresso_buffer_t>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,espresso_buffer_t>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,espresso_buffer_t>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,espresso_buffer_t>>>::~__hash_table(this + 47);
+  std::__hash_table<std::__hash_value_type<std::string,espresso_buffer_t>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,espresso_buffer_t>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,espresso_buffer_t>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,espresso_buffer_t>>>::~__hash_table(this + 42);
+  std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::~__hash_table(this + 296);
+  v31.__r_.__value_.__r.__words[0] = this + 272;
+  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v31);
+  if (*(this + 271) < 0)
+  {
+    operator delete(*(this + 31));
+  }
+
+  if (*(this + 247) < 0)
+  {
+    operator delete(*(this + 28));
+  }
+
+  if (*(this + 223) < 0)
+  {
+    operator delete(*(this + 25));
+  }
+
+  if (*(this + 199) < 0)
+  {
+    operator delete(*(this + 22));
+  }
+
+  if (*(this + 159) < 0)
+  {
+    operator delete(*(this + 17));
+  }
+
+  v16 = *(this + 9);
+  if (v16)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v16);
+  }
+}
+
+void sub_1D5CE0(void *a1)
+{
+  if (*(v3 - 33) < 0)
+  {
+    operator delete(*(v3 - 56));
+    if ((v2 & 1) == 0)
+    {
+LABEL_6:
+      __clang_call_terminate(a1);
+    }
+  }
+
+  else if (!v2)
+  {
+    goto LABEL_6;
+  }
+
+  __cxa_free_exception(v1);
+  goto LABEL_6;
+}
+
+void TrainingEngine::populate_descs_from_espresso_bufs(uint64_t a1, uint64_t *a2, void *a3, uint64_t a4)
+{
+  v8 = a2[1] - *a2;
+  std::vector<BNNSNDArrayDescriptor>::resize(a2, a3[3] + 0x2E8BA2E8BA2E8BA3 * (v8 >> 4));
+  if (*(a1 + 280) != *(a1 + 272))
+  {
+    v9 = 0;
+    v10 = 0;
+    do
+    {
+      v11 = *(a4 + 24);
+      if (!v11)
+      {
+        std::__throw_bad_function_call[abi:ne200100]();
+      }
+
+      (*(*v11 + 48))(__p);
+      v12 = *a2;
+      v13 = std::__hash_table<std::__hash_value_type<std::string,espresso_buffer_t>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,espresso_buffer_t>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,espresso_buffer_t>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,espresso_buffer_t>>>::find<std::string>(a3, __p);
+      if (!v13)
+      {
+        std::__throw_out_of_range[abi:ne200100]("unordered_map::at: key not found");
+      }
+
+      v14 = (v12 + v8);
+      v14[9] = 0u;
+      v14[10] = 0u;
+      v14[7] = 0u;
+      v14[8] = 0u;
+      v14[5] = 0u;
+      v14[6] = 0u;
+      v14[3] = 0u;
+      v14[4] = 0u;
+      v14[1] = 0u;
+      v14[2] = 0u;
+      *v14 = 0u;
+      v15 = v12 + v8;
+      *(v15 + 4) = 0x10000;
+      *(v15 + 8) = espresso_buffer_get_count();
+      *(v15 + 136) = v13[5];
+      *(v15 + 144) = 65568;
+      *(v15 + 164) = 1065353216;
+      if (v17 < 0)
+      {
+        operator delete(__p[0]);
+      }
+
+      ++v10;
+      v9 += 24;
+      v8 += 176;
+    }
+
+    while (v10 < 0xAAAAAAAAAAAAAAABLL * ((*(a1 + 280) - *(a1 + 272)) >> 3));
+  }
+}
+
+void sub_1D5EBC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
+{
+  if (a15 < 0)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void TrainingEngine::populate_desc_ptrs(uint64_t a1, uint64_t *a2, void *a3)
+{
+  std::vector<fst::QueueBase<int> *,std::allocator<fst::QueueBase<int> *>>::resize(a3, 0x2E8BA2E8BA2E8BA3 * ((a2[1] - *a2) >> 4));
+  v5 = *a2;
+  if (a2[1] != *a2)
+  {
+    v6 = 0;
+    v7 = 0;
+    do
+    {
+      *(*a3 + 8 * v7++) = v5 + v6;
+      v5 = *a2;
+      v6 += 176;
+    }
+
+    while (v7 < 0x2E8BA2E8BA2E8BA3 * ((a2[1] - *a2) >> 4));
+  }
+}
+
+{
+  std::vector<BNNSNDArrayDescriptor const*>::resize(a3, 0x2E8BA2E8BA2E8BA3 * ((a2[1] - *a2) >> 4));
+  v5 = *a2;
+  if (a2[1] != *a2)
+  {
+    v6 = 0;
+    v7 = 0;
+    do
+    {
+      *(*a3 + 8 * v7++) = v5 + v6;
+      v5 = *a2;
+      v6 += 176;
+    }
+
+    while (v7 < 0x2E8BA2E8BA2E8BA3 * ((a2[1] - *a2) >> 4));
+  }
+}
+
+void std::vector<BNNSNDArrayDescriptor>::resize(void *result, unint64_t a2)
+{
+  v2 = 0x2E8BA2E8BA2E8BA3 * ((result[1] - *result) >> 4);
+  v3 = a2 >= v2;
+  v4 = a2 - v2;
+  if (v4 != 0 && v3)
+  {
+    std::vector<BNNSNDArrayDescriptor>::__append(result, v4);
+  }
+
+  else if (!v3)
+  {
+    result[1] = *result + 176 * a2;
+  }
+}
+
+void std::vector<BNNSNDArrayDescriptor const*>::resize(void *result, unint64_t a2)
+{
+  v2 = (result[1] - *result) >> 3;
+  if (a2 <= v2)
+  {
+    if (a2 < v2)
+    {
+      result[1] = *result + 8 * a2;
+    }
+  }
+
+  else
+  {
+    std::vector<BNNSNDArrayDescriptor const*>::__append(result, a2 - v2);
+  }
+}
+
+void TrainingEngine::train(uint64_t a1, uint64_t a2)
+{
+  LogObject = Diagnostics_GetLogObject(a1, a2);
+  if (os_log_type_enabled(LogObject, OS_LOG_TYPE_INFO))
+  {
+    v4 = (a1 + 712);
+    if (*(a1 + 735) < 0)
+    {
+      v4 = *v4;
+    }
+
+    *buf = 136315138;
+    *&buf[4] = v4;
+    _os_log_impl(&dword_0, LogObject, OS_LOG_TYPE_INFO, "TaskId: %s, Init training setup.", buf, 0xCu);
+  }
+
+  v140 = (*(**(*(a1 + 64) + 8) + 32))(*(*(a1 + 64) + 8));
+  v6 = *(a1 + 272);
+  for (i = *(a1 + 280); v6 != i; v6 += 24)
+  {
+    memset(&v156, 0, sizeof(v156));
+    if (*(a1 + 320))
+    {
+      *buf = v6;
+      v7 = std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((a1 + 296), v6, &std::piecewise_construct, buf, &v146);
+      std::string::operator=(&v156, (v7 + 5));
+    }
+
+    else
+    {
+      if (*(v6 + 23) >= 0)
+      {
+        v8 = *(v6 + 23);
+      }
+
+      else
+      {
+        v8 = *(v6 + 8);
+      }
+
+      std::string::basic_string[abi:ne200100](buf, v8 + 5);
+      if (buf[23] >= 0)
+      {
+        v9 = buf;
+      }
+
+      else
+      {
+        v9 = *buf;
+      }
+
+      if (v8)
+      {
+        if (*(v6 + 23) >= 0)
+        {
+          v10 = v6;
+        }
+
+        else
+        {
+          v10 = *v6;
+        }
+
+        memmove(v9, v10, v8);
+      }
+
+      strcpy(&v9[v8], "_grad");
+      if (SHIBYTE(v156.__r_.__value_.__r.__words[2]) < 0)
+      {
+        operator delete(v156.__r_.__value_.__l.__data_);
+      }
+
+      v156 = *buf;
+    }
+
+    v11 = espresso_network_declare_output();
+    boost::filesystem::path::path(__p, "");
+    if (v11)
+    {
+      exception = __cxa_allocate_exception(0x10uLL);
+      v118 = v154;
+      v119 = __p[0];
+      status_string = espresso_get_status_string();
+      v121 = __p;
+      if (v118 < 0)
+      {
+        v121 = v119;
+      }
+
+      StringFormatter::StringFormatter(buf, "%s Error: %d, %s", v121, v11, status_string);
+      std::logic_error::logic_error(exception, buf);
+    }
+
+    if (v154 < 0)
+    {
+      operator delete(__p[0]);
+    }
+
+    if (SHIBYTE(v156.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(v156.__r_.__value_.__l.__data_);
+    }
+  }
+
+  (*(**(*(a1 + 64) + 8) + 16))(*(*(a1 + 64) + 8), a1 + 40);
+  v12 = espresso_plan_build();
+  v13 = boost::filesystem::path::path(v151, "");
+  if (v12)
+  {
+    v128 = __cxa_allocate_exception(0x10uLL);
+    v129 = v152;
+    v130 = v151[0];
+    v131 = espresso_get_status_string();
+    v132 = v151;
+    if (v129 < 0)
+    {
+      v132 = v130;
+    }
+
+    StringFormatter::StringFormatter(buf, "%s Error: %d, %s", v132, v12, v131);
+    std::logic_error::logic_error(v128, buf);
+  }
+
+  if (v152 < 0)
+  {
+    operator delete(v151[0]);
+  }
+
+  v15 = Diagnostics_GetLogObject(v13, v14);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+  {
+    v16 = (a1 + 712);
+    if (*(a1 + 735) < 0)
+    {
+      v16 = *v16;
+    }
+
+    *buf = 136315138;
+    *&buf[4] = v16;
+    _os_log_impl(&dword_0, v15, OS_LOG_TYPE_INFO, "TaskId: %s, Grad net: Binding training vars input.", buf, 0xCu);
+  }
+
+  v18 = *(a1 + 272);
+  for (j = *(a1 + 280); v18 != j; v18 += 3)
+  {
+    *buf = v18;
+    std::__hash_table<std::__hash_value_type<std::string,espresso_buffer_t>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,espresso_buffer_t>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,espresso_buffer_t>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,espresso_buffer_t>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((a1 + 336), v18, &std::piecewise_construct, buf, &v156);
+    v19 = espresso_network_bind_buffer();
+    boost::filesystem::path::path(v149, "");
+    if (v19)
+    {
+      v122 = __cxa_allocate_exception(0x10uLL);
+      v123 = v150;
+      v124 = v149[0];
+      v125 = espresso_get_status_string();
+      v126 = v149;
+      if (v123 < 0)
+      {
+        v126 = v124;
+      }
+
+      StringFormatter::StringFormatter(buf, "%s Error: %d, %s", v126, v19, v125);
+      std::logic_error::logic_error(v122, buf);
+    }
+
+    if (v150 < 0)
+    {
+      operator delete(v149[0]);
+    }
+  }
+
+  v133.__d_.__rep_ = std::chrono::steady_clock::now().__d_.__rep_;
+  v21 = Diagnostics_GetLogObject(v133.__d_.__rep_, v20);
+  if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
+  {
+    v22 = (a1 + 712);
+    if (*(a1 + 735) < 0)
+    {
+      v22 = *v22;
+    }
+
+    *buf = 136315138;
+    *&buf[4] = v22;
+    _os_log_impl(&dword_0, v21, OS_LOG_TYPE_INFO, "TaskId: %s, Training start.", buf, 0xCu);
+  }
+
+  (***(*(a1 + 64) + 8))(*(*(a1 + 64) + 8), a1 + 40);
+  (***(a1 + 64))();
+  (*(**(a1 + 64) + 16))();
+  v23 = std::__function::__value_func<int ()(SiriTTS::TTSTrainer::CallbackMessage)>::__value_func[abi:ne200100](v169, a2);
+  v24 = *(a1 + 96);
+  v25 = (*(a1 + 96) << 32) | 1;
+  *buf = 16;
+  *&buf[4] = v25;
+  std::function<int ()(SiriTTS::TTSTrainer::CallbackMessage)>::operator()(v23, *buf, v24);
+  rep = std::__function::__value_func<int ()(SiriTTS::TTSTrainer::CallbackMessage)>::~__value_func[abi:ne200100](v169);
+  if ((*(a1 + 708) & 1) == 0)
+  {
+    TrainingEngine::save_to_inference_model(a1, v27);
+  }
+
+  if (!*(a1 + 96))
+  {
+    v28 = 1;
+    goto LABEL_170;
+  }
+
+  OptimizerAlgFields = (a1 + 496);
+  v137 = (a1 + 136);
+  v134 = (a1 + 712);
+  v28 = 1;
+  v29 = -1.0;
+  do
+  {
+    v141 = v28;
+    if (*a1 == 1)
+    {
+      v88 = Diagnostics_GetLogObject(rep, v27);
+      if (os_log_type_enabled(v88, OS_LOG_TYPE_INFO))
+      {
+        if (*(a1 + 735) < 0)
+        {
+          v89 = *v134;
+        }
+
+        else
+        {
+          v89 = a1 + 712;
+        }
+
+        *buf = 136315138;
+        *&buf[4] = v89;
+        v90 = "TaskId: %s, Training stopped.";
+        v91 = v88;
+        v92 = 12;
+        goto LABEL_165;
+      }
+
+LABEL_169:
+      v28 = v141;
+      break;
+    }
+
+    if (*(a1 + 159) < 0)
+    {
+      v33 = *(a1 + 144);
+      if (v33 == 7)
+      {
+        v31 = *v137;
+LABEL_66:
+        v35 = *v31;
+        v36 = *(v31 + 3);
+        if (v35 != 1702257015 || v36 != 1852732005)
+        {
+          goto LABEL_76;
+        }
+
+        v38 = *(a1 + 80);
+        v39 = pow(*(a1 + 84), (v28 / *(a1 + 88))) * v38;
+        goto LABEL_75;
+      }
+
+      if (v33 != 11)
+      {
+        goto LABEL_76;
+      }
+
+      if (**v137 != 0x6565707374736166 || *(*v137 + 3) != 0x3268636565707374)
+      {
+        goto LABEL_76;
+      }
+    }
+
+    else
+    {
+      v30 = *(a1 + 159);
+      v31 = (a1 + 136);
+      if (v30 == 7)
+      {
+        goto LABEL_66;
+      }
+
+      if (v30 != 11)
+      {
+        goto LABEL_76;
+      }
+
+      if (*v137 != 0x6565707374736166 || *(a1 + 139) != 0x3268636565707374)
+      {
+        goto LABEL_76;
+      }
+    }
+
+    v40 = *(a1 + 84);
+    v41 = *(a1 + 80);
+    v42 = pow(4000.0, v40) * v41;
+    v29 = -1.0;
+    v43 = pow(4000.0, -(v40 + 1.0)) * v28;
+    v44 = pow(v28, -v40);
+    if (v44 >= v43)
+    {
+      v44 = v43;
+    }
+
+    v39 = v42 * v44;
+LABEL_75:
+    v45 = v39;
+    *OptimizerAlgFields = v45;
+LABEL_76:
+    *(a1 + 508) = v28;
+    v138.__d_.__rep_ = std::chrono::steady_clock::now().__d_.__rep_;
+    v46 = *(a1 + 128);
+    if (v46 < 1)
+    {
+      v48 = 0.0;
+      goto LABEL_119;
+    }
+
+    v47 = 0;
+    v48 = 0.0;
+    do
+    {
+      (*(**(a1 + 64) + 8))(*(a1 + 64), v28, v47);
+      v49 = espresso_plan_execute_sync();
+      boost::filesystem::path::path(v147, "");
+      if (v49)
+      {
+        v112 = __cxa_allocate_exception(0x10uLL);
+        v113 = v148;
+        v114 = v147[0];
+        v115 = espresso_get_status_string();
+        v116 = v147;
+        if (v113 < 0)
+        {
+          v116 = v114;
+        }
+
+        StringFormatter::StringFormatter(buf, "%s Error: %d, %s", v116, v49, v115);
+        std::logic_error::logic_error(v112, buf);
+      }
+
+      if (v148 < 0)
+      {
+        operator delete(v147[0]);
+      }
+
+      (*(**(a1 + 64) + 24))(*(a1 + 64), v47);
+      v50 = **v140;
+      memset(buf, 0, sizeof(buf));
+      *v159 = 1065353216;
+      v52 = *(a1 + 272);
+      v51 = *(a1 + 280);
+      while (v52 != v51)
+      {
+        memset(&v146, 0, sizeof(v146));
+        if (*(a1 + 320))
+        {
+          v156.__r_.__value_.__r.__words[0] = v52;
+          v53 = std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((a1 + 296), v52, &std::piecewise_construct, &v156, &v155);
+          std::string::operator=(&v146, (v53 + 5));
+          if (v47)
+          {
+            goto LABEL_85;
+          }
+        }
+
+        else
+        {
+          if (*(v52 + 23) >= 0)
+          {
+            v57 = *(v52 + 23);
+          }
+
+          else
+          {
+            v57 = *(v52 + 8);
+          }
+
+          std::string::basic_string[abi:ne200100](&v156, v57 + 5);
+          if ((v156.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+          {
+            v58 = &v156;
+          }
+
+          else
+          {
+            v58 = v156.__r_.__value_.__r.__words[0];
+          }
+
+          if (v57)
+          {
+            if (*(v52 + 23) >= 0)
+            {
+              v59 = v52;
+            }
+
+            else
+            {
+              v59 = *v52;
+            }
+
+            memmove(v58, v59, v57);
+          }
+
+          strcpy(v58 + v57, "_grad");
+          if (SHIBYTE(v146.__r_.__value_.__r.__words[2]) < 0)
+          {
+            operator delete(v146.__r_.__value_.__l.__data_);
+          }
+
+          v146 = v156;
+          if (v47)
+          {
+LABEL_85:
+            v156.__r_.__value_.__r.__words[0] = v52;
+            v54 = std::__hash_table<std::__hash_value_type<std::string,espresso_buffer_t>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,espresso_buffer_t>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,espresso_buffer_t>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,espresso_buffer_t>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(buf, v52, &std::piecewise_construct, &v156, &v155);
+            v54[25] = 0;
+            *(v54 + 23) = 0u;
+            *(v54 + 21) = 0u;
+            *(v54 + 19) = 0u;
+            *(v54 + 17) = 0u;
+            *(v54 + 15) = 0u;
+            *(v54 + 13) = 0u;
+            *(v54 + 11) = 0u;
+            *(v54 + 9) = 0u;
+            *(v54 + 7) = 0u;
+            *(v54 + 5) = 0u;
+            v156.__r_.__value_.__r.__words[0] = v52;
+            std::__hash_table<std::__hash_value_type<std::string,espresso_buffer_t>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,espresso_buffer_t>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,espresso_buffer_t>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,espresso_buffer_t>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(buf, v52, &std::piecewise_construct, &v156, &v155);
+            v55 = espresso_network_bind_buffer();
+            boost::filesystem::path::path(v142, "");
+            if (v55)
+            {
+              v102 = __cxa_allocate_exception(0x10uLL);
+              v103 = v143;
+              v104 = v142[0];
+              v105 = espresso_get_status_string();
+              v106 = v142;
+              if (v103 < 0)
+              {
+                v106 = v104;
+              }
+
+              StringFormatter::StringFormatter(&v156, "%s Error: %d, %s", v106, v55, v105);
+              std::logic_error::logic_error(v102, &v156);
+            }
+
+            if (v143 < 0)
+            {
+              v56 = v142;
+LABEL_105:
+              operator delete(*v56);
+              goto LABEL_106;
+            }
+
+            goto LABEL_106;
+          }
+        }
+
+        v156.__r_.__value_.__r.__words[0] = v52;
+        v60 = std::__hash_table<std::__hash_value_type<std::string,espresso_buffer_t>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,espresso_buffer_t>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,espresso_buffer_t>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,espresso_buffer_t>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((a1 + 456), v52, &std::piecewise_construct, &v156, &v155);
+        v60[25] = 0;
+        *(v60 + 23) = 0u;
+        *(v60 + 21) = 0u;
+        *(v60 + 19) = 0u;
+        *(v60 + 17) = 0u;
+        *(v60 + 15) = 0u;
+        *(v60 + 13) = 0u;
+        *(v60 + 11) = 0u;
+        *(v60 + 9) = 0u;
+        *(v60 + 7) = 0u;
+        *(v60 + 5) = 0u;
+        v156.__r_.__value_.__r.__words[0] = v52;
+        std::__hash_table<std::__hash_value_type<std::string,espresso_buffer_t>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,espresso_buffer_t>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,espresso_buffer_t>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,espresso_buffer_t>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((a1 + 456), v52, &std::piecewise_construct, &v156, &v155);
+        v61 = espresso_network_bind_buffer();
+        boost::filesystem::path::path(v144, "");
+        if (v61)
+        {
+          v107 = __cxa_allocate_exception(0x10uLL);
+          v108 = v145;
+          v109 = v144[0];
+          v110 = espresso_get_status_string();
+          v111 = v144;
+          if (v108 < 0)
+          {
+            v111 = v109;
+          }
+
+          StringFormatter::StringFormatter(&v156, "%s Error: %d, %s", v111, v61, v110);
+          std::logic_error::logic_error(v107, &v156);
+        }
+
+        if (v145 < 0)
+        {
+          v56 = v144;
+          goto LABEL_105;
+        }
+
+LABEL_106:
+        if (SHIBYTE(v146.__r_.__value_.__r.__words[2]) < 0)
+        {
+          operator delete(v146.__r_.__value_.__l.__data_);
+        }
+
+        v52 += 24;
+      }
+
+      v62 = *(a1 + 128);
+      if (v47 || v62 <= 1)
+      {
+        v28 = v141;
+        if (v47)
+        {
+          v64 = 1.0 / v62;
+          TrainingEngine::accumulate_weights(a1, buf, (a1 + 456), v64);
+          v65 = *(a1 + 272);
+          v66 = *(a1 + 280);
+          while (v65 != v66)
+          {
+            v156.__r_.__value_.__r.__words[0] = v65;
+            v67 = std::__hash_table<std::__hash_value_type<std::string,espresso_buffer_t>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,espresso_buffer_t>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,espresso_buffer_t>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,espresso_buffer_t>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(buf, v65, &std::piecewise_construct, &v156, &v146);
+            free(v67[5]);
+            v65 += 3;
+          }
+        }
+      }
+
+      else
+      {
+        v63 = 1.0 / v62;
+        TrainingEngine::scale_weights(a1, (a1 + 456), v63);
+        v28 = v141;
+      }
+
+      v48 = v48 + v50;
+      std::__hash_table<std::__hash_value_type<std::string,espresso_buffer_t>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,espresso_buffer_t>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,espresso_buffer_t>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,espresso_buffer_t>>>::~__hash_table(buf);
+      v47 = (v47 + 1);
+      v46 = *(a1 + 128);
+    }
+
+    while (v47 < v46);
+LABEL_119:
+    v168[0] = off_283D08;
+    v168[3] = v168;
+    TrainingEngine::populate_descs_from_espresso_bufs(a1, (a1 + 592), (a1 + 456), v168);
+    v68 = std::__function::__value_func<std::string ()(std::string const&)>::~__value_func[abi:ne200100](v168);
+    TrainingEngine::populate_desc_ptrs(v68, (a1 + 592), (a1 + 616));
+    if (BNNSOptimizerStep(BNNSOptimizerFunctionAdam, OptimizerAlgFields, 0x2E8BA2E8BA2E8BA3 * ((*(a1 + 552) - *(a1 + 544)) >> 4), *(a1 + 568), *(a1 + 616), *(a1 + 664), 0))
+    {
+      v127 = __cxa_allocate_exception(0x10uLL);
+      std::runtime_error::runtime_error(v127, "optimizer step failed");
+    }
+
+    *(a1 + 624) = *(a1 + 616);
+    *(a1 + 600) = *(a1 + 592);
+    v69 = *(a1 + 272);
+    v70 = *(a1 + 280);
+    while (v69 != v70)
+    {
+      *buf = v69;
+      v71 = std::__hash_table<std::__hash_value_type<std::string,espresso_buffer_t>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,espresso_buffer_t>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,espresso_buffer_t>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,espresso_buffer_t>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((a1 + 456), v69, &std::piecewise_construct, buf, &v156);
+      free(v71[5]);
+      v69 += 3;
+    }
+
+    v72 = v48 / v46;
+    v73 = *(a1 + 496);
+    v74 = *(a1 + 700);
+    v75 = v141;
+    if (v74 >= v141)
+    {
+      v74 = v141;
+    }
+
+    *(a1 + 688) = (v72 / v74) + ((*(a1 + 688) * (v74 + v29)) / v74);
+    rep = std::chrono::steady_clock::now().__d_.__rep_;
+    v76 = ((rep - v138.__d_.__rep_) / 1000000) / 1000.0;
+    if (!(v141 % 0x64))
+    {
+      v77 = Diagnostics_GetLogObject(rep, v27);
+      rep = os_log_type_enabled(v77, OS_LOG_TYPE_INFO);
+      v75 = v141;
+      if (rep)
+      {
+        v78 = a1 + 712;
+        if (*(a1 + 735) < 0)
+        {
+          v78 = *v134;
+        }
+
+        v79 = (a1 + 136);
+        if (*(a1 + 159) < 0)
+        {
+          v79 = *v137;
+        }
+
+        v80 = *(a1 + 96);
+        v81 = *(a1 + 688);
+        *buf = 136316930;
+        *&buf[4] = v78;
+        *&buf[12] = 2080;
+        *&buf[14] = v79;
+        *&buf[22] = 2048;
+        *&buf[24] = v141;
+        *v159 = 2048;
+        *&v159[2] = v80;
+        v160 = 2048;
+        v161 = v81;
+        v162 = 2048;
+        v163 = v72;
+        v164 = 2048;
+        v165 = v73;
+        v166 = 2048;
+        v167 = v76;
+        _os_log_impl(&dword_0, v77, OS_LOG_TYPE_INFO, "TaskId: %s, model_type=%s, training_step=%ld / %ld, ma_loss=%f, training_loss=%f, lr=%f, time=%.3f s/step", buf, 0x52u);
+      }
+    }
+
+    if (v76 > 10.0)
+    {
+      v135 &= 0xFFFFFFFF00000000;
+      rep = std::function<int ()(SiriTTS::TTSTrainer::CallbackMessage)>::operator()(a2, 18, 0);
+      v75 = v141;
+    }
+
+    v82 = *(a1 + 704);
+    if (v75 == v82)
+    {
+      *(a1 + 692) = *(a1 + 688);
+    }
+
+    if (v75 >= v82 && !(v75 % *(a1 + 104)))
+    {
+      if (*(a1 + 120) == 1)
+      {
+        if ((*(a1 + 708) & 1) == 0)
+        {
+          TrainingEngine::save_to_inference_model(a1, v27);
+        }
+
+        goto LABEL_149;
+      }
+
+      if (*(a1 + 688) <= *(a1 + 692))
+      {
+        *(a1 + 696) = v75;
+        v83 = Diagnostics_GetLogObject(rep, v27);
+        rep = os_log_type_enabled(v83, OS_LOG_TYPE_INFO);
+        v75 = v141;
+        if (rep)
+        {
+          v84 = a1 + 712;
+          if (*(a1 + 735) < 0)
+          {
+            v84 = *v134;
+          }
+
+          v85 = *(a1 + 688);
+          v86 = *(a1 + 692);
+          *buf = 136315906;
+          *&buf[4] = v84;
+          *&buf[12] = 2048;
+          *&buf[14] = v141;
+          *&buf[22] = 2048;
+          *&buf[24] = v85;
+          *v159 = 2048;
+          *&v159[2] = v86;
+          _os_log_impl(&dword_0, v83, OS_LOG_TYPE_INFO, "TaskId: %s, min_ma_loss detected, training_step=%ld, ma_loss=%f, min_ma_loss=%f", buf, 0x2Au);
+        }
+
+        *(a1 + 692) = *(a1 + 688);
+        if ((*(a1 + 708) & 1) == 0)
+        {
+          TrainingEngine::save_to_inference_model(a1, v27);
+        }
+      }
+
+      if ((v75 - *(a1 + 696)) / *(a1 + 104) >= *(a1 + 112))
+      {
+        v93 = Diagnostics_GetLogObject(rep, v27);
+        if (os_log_type_enabled(v93, OS_LOG_TYPE_INFO))
+        {
+          if (*(a1 + 735) < 0)
+          {
+            v94 = *v134;
+            v28 = v141;
+          }
+
+          else
+          {
+            v28 = v141;
+            v94 = a1 + 712;
+          }
+
+          v100 = *(a1 + 688);
+          v101 = *(a1 + 692);
+          *buf = 136315906;
+          *&buf[4] = v94;
+          *&buf[12] = 2048;
+          *&buf[14] = v28;
+          *&buf[22] = 2048;
+          *&buf[24] = v100;
+          *v159 = 2048;
+          *&v159[2] = v101;
+          v90 = "TaskId: %s, Exceed additional epoch due to early stopping, training_step=%ld, ma_loss=%f, min_ma_loss=%f";
+          v91 = v93;
+          v92 = 42;
+LABEL_165:
+          _os_log_impl(&dword_0, v91, OS_LOG_TYPE_INFO, v90, buf, v92);
+          break;
+        }
+
+        goto LABEL_169;
+      }
+    }
+
+LABEL_149:
+    if (v75 == *(a1 + 96))
+    {
+      rep = boost::filesystem::path::path(buf, "saved_model.espresso.net");
+      if ((buf[23] & 0x80000000) != 0)
+      {
+        operator delete(*buf);
+      }
+
+      v75 = v141;
+    }
+
+    if (*(a2 + 24) && (!(v141 % 0x64) || v75 == *(a1 + 96)))
+    {
+      std::__function::__value_func<int ()(SiriTTS::TTSTrainer::CallbackMessage)>::__value_func[abi:ne200100](v157, a2);
+      v87 = *(a1 + 96);
+      v75 = v141;
+      *buf = 16;
+      buf[4] = v141;
+      buf[5] = BYTE1(v141);
+      buf[6] = BYTE2(v141);
+      buf[7] = BYTE3(v141);
+      *&buf[8] = v87;
+      std::function<int ()(SiriTTS::TTSTrainer::CallbackMessage)>::operator()(v157, *buf, v87);
+      rep = std::__function::__value_func<int ()(SiriTTS::TTSTrainer::CallbackMessage)>::~__value_func[abi:ne200100](v157);
+    }
+
+    v28 = v75 + 1;
+  }
+
+  while (v28 <= *(a1 + 96));
+LABEL_170:
+  v95 = v28;
+  v96.__d_.__rep_ = std::chrono::steady_clock::now().__d_.__rep_;
+  v98 = Diagnostics_GetLogObject(v96.__d_.__rep_, v97);
+  if (os_log_type_enabled(v98, OS_LOG_TYPE_INFO))
+  {
+    v99 = (a1 + 712);
+    if (*(a1 + 735) < 0)
+    {
+      v99 = *v99;
+    }
+
+    *buf = 136315650;
+    *&buf[4] = v99;
+    *&buf[12] = 2048;
+    *&buf[14] = ((v96.__d_.__rep_ - v133.__d_.__rep_) / 1000000) / 1000.0;
+    *&buf[22] = 2048;
+    *&buf[24] = *&buf[14] / v95;
+    _os_log_impl(&dword_0, v98, OS_LOG_TYPE_INFO, "TaskId: %s, Training end. total_time=%.3f s, %.3f s/step", buf, 0x20u);
+  }
+}
+
+void sub_1D744C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, void *a30, uint64_t a31, uint64_t a32, void *a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, void *a42, uint64_t a43, int a44, __int16 a45, char a46, char a47, void *a48, uint64_t a49, uint64_t a50, uint64_t a51, void *a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, void *__p, uint64_t a61, int a62, __int16 a63)
+{
+  if (a65 < 0)
+  {
+    operator delete(__p);
+    if ((v66 & 1) == 0)
+    {
+LABEL_6:
+      if (a47 < 0)
+      {
+        operator delete(a42);
+      }
+
+      _Unwind_Resume(a1);
+    }
+  }
+
+  else if (!v66)
+  {
+    goto LABEL_6;
+  }
+
+  __cxa_free_exception(v65);
+  goto LABEL_6;
+}
+
+void TrainingEngine::save_to_inference_model(TrainingEngine *this, uint64_t a2)
+{
+  LogObject = Diagnostics_GetLogObject(this, a2);
+  if (os_log_type_enabled(LogObject, OS_LOG_TYPE_INFO))
+  {
+    v4 = (this + 712);
+    if (*(this + 735) < 0)
+    {
+      v4 = *v4;
+    }
+
+    v5 = (this + 176);
+    if (*(this + 199) < 0)
+    {
+      v5 = *v5;
+    }
+
+    *buf = 136315394;
+    v7 = v4;
+    v8 = 2080;
+    v9 = v5;
+    _os_log_impl(&dword_0, LogObject, OS_LOG_TYPE_INFO, "TaskId: %s, Saving training model to inference model, output_path=%s", buf, 0x16u);
+  }
+
+  std::allocate_shared[abi:ne200100]<InferenceModule,std::allocator<InferenceModule>,std::string &,std::string &,0>();
+}
+
+void sub_1D7804(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::__shared_weak_count *a10)
+{
+  if (a10)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](a10);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void TrainingEngine::scale_weights(uint64_t result, void *a2, float a3)
+{
+  v3 = *(result + 272);
+  for (i = *(result + 280); v3 != i; v3 += 3)
+  {
+    v9 = v3;
+    v7 = std::__hash_table<std::__hash_value_type<std::string,espresso_buffer_t>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,espresso_buffer_t>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,espresso_buffer_t>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,espresso_buffer_t>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a2, v3, &std::piecewise_construct, &v9, &v8);
+    TrainingUtils::scale_espresso_buffer_data(v7 + 5, a3);
+  }
+}
+
+void TrainingEngine::accumulate_weights(uint64_t result, void *a2, void *a3, float a4)
+{
+  v4 = *(result + 272);
+  for (i = *(result + 280); v4 != i; v4 += 3)
+  {
+    v12 = v4;
+    v9 = std::__hash_table<std::__hash_value_type<std::string,espresso_buffer_t>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,espresso_buffer_t>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,espresso_buffer_t>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,espresso_buffer_t>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a2, v4, &std::piecewise_construct, &v12, &v11);
+    v12 = v4;
+    v10 = std::__hash_table<std::__hash_value_type<std::string,espresso_buffer_t>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,espresso_buffer_t>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,espresso_buffer_t>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,espresso_buffer_t>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a3, v4, &std::piecewise_construct, &v12, &v11);
+    TrainingUtils::accumulate_espresso_buffer_data(v9 + 5, v10 + 5, a4);
+  }
+}
+
+uint64_t std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::~__hash_table(uint64_t a1)
+{
+  std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__deallocate_node(a1, *(a1 + 16));
+  v2 = *a1;
+  *a1 = 0;
+  if (v2)
+  {
+    operator delete(v2);
+  }
+
+  return a1;
+}
+
+void std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__deallocate_node(uint64_t a1, void *a2)
+{
+  if (a2)
+  {
+    v2 = a2;
+    do
+    {
+      v3 = *v2;
+      std::__destroy_at[abi:ne200100]<std::pair<std::string const,std::string>,0>((v2 + 2));
+      operator delete(v2);
+      v2 = v3;
+    }
+
+    while (v3);
+  }
+}
+
+uint64_t nlohmann::detail::from_json<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,std::unordered_map<std::string,std::string>,0>(uint64_t a1, uint64_t a2)
+{
+  if (*a1 != 1)
+  {
+    exception = __cxa_allocate_exception(0x20uLL);
+    v6 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::type_name(a1);
+    boost::filesystem::path::path(&v12, v6);
+    v7 = std::string::insert(&v12, 0, "type must be object, but is ");
+    v8 = *&v7->__r_.__value_.__l.__data_;
+    *&v10 = *(&v7->__r_.__value_.__l + 2);
+    v9 = v8;
+    v7->__r_.__value_.__l.__size_ = 0;
+    v7->__r_.__value_.__r.__words[2] = 0;
+    v7->__r_.__value_.__r.__words[0] = 0;
+    nlohmann::detail::type_error::create(302, &v9, exception);
+  }
+
+  v9 = 0u;
+  v10 = 0u;
+  v11 = 1065353216;
+  std::transform[abi:ne200100]<std::__map_const_iterator<std::__tree_const_iterator<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::__tree_node<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,void *> *,long>>,std::insert_iterator<std::unordered_map<std::string,std::string>>,void nlohmann::detail::from_json<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,std::unordered_map<std::string,std::string>,0>(nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>> const&,std::unordered_map<std::string,std::string> &)::{lambda(std::pair<std::string const,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>> const&)#1}>(**(a1 + 8), (*(a1 + 8) + 8), &v9);
+  std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__move_assign(a2, &v9);
+  return std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::~__hash_table(&v9);
+}
+
+void *std::transform[abi:ne200100]<std::__map_const_iterator<std::__tree_const_iterator<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::__tree_node<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,void *> *,long>>,std::insert_iterator<std::unordered_map<std::string,std::string>>,void nlohmann::detail::from_json<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,std::unordered_map<std::string,std::string>,0>(nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>> const&,std::unordered_map<std::string,std::string> &)::{lambda(std::pair<std::string const,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>> const&)#1}>(void *a1, void *a2, void *a3)
+{
+  if (a1 != a2)
+  {
+    v5 = a1;
+    do
+    {
+      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::get<std::string,std::string,0>((v5 + 7), &v12);
+      if (*(v5 + 55) < 0)
+      {
+        std::string::__init_copy_ctor_external(&v10, v5[4], v5[5]);
+      }
+
+      else
+      {
+        v10 = *(v5 + 4);
+      }
+
+      __p = v12;
+      std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,std::string>>(a3, &v10.__r_.__value_.__l.__data_, &v10);
+      if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
+      {
+        operator delete(__p.__r_.__value_.__l.__data_);
+      }
+
+      if (SHIBYTE(v10.__r_.__value_.__r.__words[2]) < 0)
+      {
+        operator delete(v10.__r_.__value_.__l.__data_);
+      }
+
+      v6 = v5[1];
+      if (v6)
+      {
+        do
+        {
+          v7 = v6;
+          v6 = *v6;
+        }
+
+        while (v6);
+      }
+
+      else
+      {
+        do
+        {
+          v7 = v5[2];
+          v8 = *v7 == v5;
+          v5 = v7;
+        }
+
+        while (!v8);
+      }
+
+      v5 = v7;
+    }
+
+    while (v7 != a2);
+  }
+
+  return a3;
+}
+
+void sub_1D7C6C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21)
+{
+  if (a21 < 0)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+const void **std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,std::string>>(void *a1, const void **a2, uint64_t a3)
+{
+  v5 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
+  v6 = v5;
+  v7 = a1[1];
+  if (!*&v7)
+  {
+    goto LABEL_18;
+  }
+
+  v8 = vcnt_s8(v7);
+  v8.i16[0] = vaddlv_u8(v8);
+  v9 = v8.u32[0];
+  if (v8.u32[0] > 1uLL)
+  {
+    v10 = v5;
+    if (v5 >= *&v7)
+    {
+      v10 = v5 % *&v7;
+    }
+  }
+
+  else
+  {
+    v10 = (*&v7 - 1) & v5;
+  }
+
+  v11 = *(*a1 + 8 * v10);
+  if (!v11 || (v12 = *v11) == 0)
+  {
+LABEL_18:
+    std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__construct_node_hash<std::pair<std::string const,std::string>>();
+  }
+
+  while (1)
+  {
+    v13 = v12[1];
+    if (v13 == v6)
+    {
+      break;
+    }
+
+    if (v9 > 1)
+    {
+      if (v13 >= *&v7)
+      {
+        v13 %= *&v7;
+      }
+    }
+
+    else
+    {
+      v13 &= *&v7 - 1;
+    }
+
+    if (v13 != v10)
+    {
+      goto LABEL_18;
+    }
+
+LABEL_17:
+    v12 = *v12;
+    if (!v12)
+    {
+      goto LABEL_18;
+    }
+  }
+
+  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v12 + 2, a2))
+  {
+    goto LABEL_17;
+  }
+
+  return v12;
 }

@@ -1,10 +1,10 @@
 @interface NSBundle(ISAdditions)
-+ (uint64_t)pathForITunesStoreResource:()ISAdditions ofType:;
++ (void)pathForITunesStoreResource:()ISAdditions ofType:;
 @end
 
 @implementation NSBundle(ISAdditions)
 
-+ (uint64_t)pathForITunesStoreResource:()ISAdditions ofType:
++ (void)pathForITunesStoreResource:()ISAdditions ofType:
 {
   result = [objc_msgSend(MEMORY[0x277CCA8D8] "mainBundle")];
   if (!result)

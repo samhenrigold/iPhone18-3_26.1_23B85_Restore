@@ -28,7 +28,6 @@
   toCopy = to;
   if ([(_CPSafariAttributes *)self hideReason])
   {
-    hideReason = self->_hideReason;
     PBDataWriterWriteInt32Field();
   }
 }

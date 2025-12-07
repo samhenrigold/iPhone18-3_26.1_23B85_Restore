@@ -9,7 +9,7 @@
 
 - (id)knownFields
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   delegate = [(MTEventDataProvider *)self delegate];
   v4 = objc_opt_respondsToSelector();
 
@@ -21,15 +21,13 @@
 
   else
   {
-    v10.receiver = self;
-    v10.super_class = MTAccountEventHandler;
-    delegate2 = [(MTEventHandler *)&v10 knownFields];
-    v11[0] = @"type";
-    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
+    v9.receiver = self;
+    v9.super_class = MTAccountEventHandler;
+    delegate2 = [(MTEventHandler *)&v9 knownFields];
+    v10[0] = @"type";
+    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
     knownFields = [delegate2 arrayByAddingObjectsFromArray:v7];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return knownFields;
 }

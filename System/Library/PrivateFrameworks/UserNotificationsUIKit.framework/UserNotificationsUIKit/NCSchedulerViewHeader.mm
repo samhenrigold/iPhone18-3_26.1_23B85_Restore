@@ -57,7 +57,7 @@
 
 + (double)preferredHeightForWidth:(double)width
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v14[1] = *MEMORY[0x277D85DE8];
   if (!preferredHeightForWidth____drawingContext)
   {
     v5 = objc_alloc_init(MEMORY[0x277D74260]);
@@ -68,14 +68,14 @@
   }
 
   _text = [objc_opt_class() _text];
-  v11 = *MEMORY[0x277D740A8];
+  v13 = *MEMORY[0x277D740A8];
   _font = [self _font];
-  v12[0] = _font;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:&v11 count:1];
+  v14[0] = _font;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:&v13 count:1];
   [_text boundingRectWithSize:1 options:v9 attributes:preferredHeightForWidth____drawingContext context:{fmax(width + -24.0, 0.0), 0.0}];
-  CGRectGetHeight(v13);
+  CGRectGetHeight(v15);
 
-  _NCMainScreenScale();
+  _NCMainScreenScale(v10, v11);
   UICeilToScale();
   if (result < 30.0)
   {
@@ -87,7 +87,7 @@
 
 + (id)_text
 {
-  v2 = NCUserNotificationsUIKitFrameworkBundle();
+  v2 = NCUserNotificationsUIKitFrameworkBundle(self);
   v3 = [v2 localizedStringForKey:@"NOTIFICATION_DIGEST_ONBOARDING_SCHEDULER_ITEM_HEADER" value:&stru_282FE84F8 table:0];
   localizedUppercaseString = [v3 localizedUppercaseString];
 

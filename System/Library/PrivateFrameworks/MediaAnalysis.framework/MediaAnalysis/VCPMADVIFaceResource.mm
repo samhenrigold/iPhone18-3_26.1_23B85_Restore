@@ -25,7 +25,7 @@ VCPMADVIFaceResource *__38__VCPMADVIFaceResource_sharedResource__block_invoke()
 
 - (int64_t)activeCost
 {
-  if (DeviceHasANE())
+  if (DeviceHasANE(self, a2))
   {
     return 75;
   }
@@ -38,7 +38,7 @@ VCPMADVIFaceResource *__38__VCPMADVIFaceResource_sharedResource__block_invoke()
 
 - (int64_t)inactiveCost
 {
-  if (DeviceHasANE())
+  if (DeviceHasANE(self, a2))
   {
     return 35;
   }

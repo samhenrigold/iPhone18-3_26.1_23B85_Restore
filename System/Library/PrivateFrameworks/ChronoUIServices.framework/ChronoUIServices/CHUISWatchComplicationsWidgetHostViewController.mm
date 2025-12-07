@@ -149,16 +149,15 @@ uint64_t __69__CHUISWatchComplicationsWidgetHostViewController_setCornerPosition
 - (void)setCurvedLabelMetrics:(id)metrics
 {
   metricsCopy = metrics;
-  curvedLabelMetrics = self->_curvedLabelMetrics;
   if ((BSEqualObjects() & 1) == 0)
   {
     objc_storeStrong(&self->_curvedLabelMetrics, metrics);
-    v7[0] = MEMORY[0x1E69E9820];
-    v7[1] = 3221225472;
-    v7[2] = __73__CHUISWatchComplicationsWidgetHostViewController_setCurvedLabelMetrics___block_invoke;
-    v7[3] = &unk_1E8575608;
-    v7[4] = self;
-    [(CHUISWidgetHostViewController *)self modifySceneSettings:v7];
+    v6[0] = MEMORY[0x1E69E9820];
+    v6[1] = 3221225472;
+    v6[2] = __73__CHUISWatchComplicationsWidgetHostViewController_setCurvedLabelMetrics___block_invoke;
+    v6[3] = &unk_1E8575608;
+    v6[4] = self;
+    [(CHUISWidgetHostViewController *)self modifySceneSettings:v6];
   }
 }
 
@@ -484,33 +483,33 @@ uint64_t __79__CHUISWatchComplicationsWidgetHostViewController_setGenerateSnapsh
 
 - (id)handleActions:(id)actions
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   actionsCopy = actions;
-  v32.receiver = self;
-  v32.super_class = CHUISWatchComplicationsWidgetHostViewController;
-  v21 = [(CHUISWidgetHostViewController *)&v32 handleActions:actionsCopy];
+  v31.receiver = self;
+  v31.super_class = CHUISWatchComplicationsWidgetHostViewController;
+  v20 = [(CHUISWidgetHostViewController *)&v31 handleActions:actionsCopy];
 
-  v23 = objc_opt_new();
+  v22 = objc_opt_new();
   v5 = objc_opt_new();
-  v30 = 0u;
-  v31 = 0u;
-  v28 = 0u;
   v29 = 0u;
-  obj = v21;
-  v6 = [obj countByEnumeratingWithState:&v28 objects:v34 count:16];
+  v30 = 0u;
+  v27 = 0u;
+  v28 = 0u;
+  obj = v20;
+  v6 = [obj countByEnumeratingWithState:&v27 objects:v33 count:16];
   if (v6)
   {
-    v7 = *v29;
+    v7 = *v28;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v29 != v7)
+        if (*v28 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v28 + 1) + 8 * i);
+        v9 = *(*(&v27 + 1) + 8 * i);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -519,37 +518,37 @@ uint64_t __79__CHUISWatchComplicationsWidgetHostViewController_setGenerateSnapsh
 
         else
         {
-          v10 = v23;
+          v10 = v22;
         }
 
         [v10 addObject:v9];
       }
 
-      v6 = [obj countByEnumeratingWithState:&v28 objects:v34 count:16];
+      v6 = [obj countByEnumeratingWithState:&v27 objects:v33 count:16];
     }
 
     while (v6);
   }
 
-  v26 = 0u;
-  v27 = 0u;
-  v24 = 0u;
   v25 = 0u;
+  v26 = 0u;
+  v23 = 0u;
+  v24 = 0u;
   v11 = v5;
-  v12 = [v11 countByEnumeratingWithState:&v24 objects:v33 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v23 objects:v32 count:16];
   if (v12)
   {
-    v13 = *v25;
+    v13 = *v24;
     do
     {
       for (j = 0; j != v12; ++j)
       {
-        if (*v25 != v13)
+        if (*v24 != v13)
         {
           objc_enumerationMutation(v11);
         }
 
-        v15 = *(*(&v24 + 1) + 8 * j);
+        v15 = *(*(&v23 + 1) + 8 * j);
         metadata = [v15 metadata];
         snapshotMetadata = self->_snapshotMetadata;
         self->_snapshotMetadata = metadata;
@@ -558,15 +557,13 @@ uint64_t __79__CHUISWatchComplicationsWidgetHostViewController_setGenerateSnapsh
         [v15 sendResponse:response];
       }
 
-      v12 = [v11 countByEnumeratingWithState:&v24 objects:v33 count:16];
+      v12 = [v11 countByEnumeratingWithState:&v23 objects:v32 count:16];
     }
 
     while (v12);
   }
 
-  v19 = *MEMORY[0x1E69E9840];
-
-  return v23;
+  return v22;
 }
 
 - (void)sceneDidUpdateToSceneIdentifier:(id)identifier

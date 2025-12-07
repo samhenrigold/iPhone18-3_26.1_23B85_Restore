@@ -66,8 +66,8 @@
   nameCopy = name;
   v10 = [HFSimpleAggregatedCharacteristicValueSource alloc];
   v11 = +[HFHomeKitDispatcher sharedDispatcher];
-  home = [v11 home];
-  hf_characteristicValueManager = [home hf_characteristicValueManager];
+  v12 = objc_msgSend_home(v11);
+  hf_characteristicValueManager = [v12 hf_characteristicValueManager];
   v14 = [MEMORY[0x277CBEB98] set];
   v15 = [(HFSimpleAggregatedCharacteristicValueSource *)v10 initWithValueSource:hf_characteristicValueManager characteristics:v14 primaryServiceDescriptor:0];
 

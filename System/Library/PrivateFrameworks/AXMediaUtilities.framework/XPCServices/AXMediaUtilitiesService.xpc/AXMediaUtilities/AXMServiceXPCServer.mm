@@ -119,7 +119,7 @@ void __74__AXMServiceXPCServer_visionEngine_evaluateSource_context_options_resul
   v22 = 0u;
   if (connectionCopy)
   {
-    [connectionCopy auditToken];
+    objc_msgSend_auditToken(connectionCopy);
   }
 
   HasEntitlement = AXMAuditTokenTaskHasEntitlement();

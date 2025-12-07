@@ -1,12 +1,12 @@
 int main(int argc, const char **argv, const char **envp)
 {
-  type metadata accessor for TGOnDeviceInferenceProviderService();
+  type metadata accessor for TGOnDeviceInferenceProviderService(0);
   lazy protocol witness table accessor for type TGOnDeviceInferenceProviderService and conformance InferenceProviderExtension<A>();
   static AppExtension.main()();
   return 0;
 }
 
-uint64_t type metadata accessor for TGOnDeviceInferenceProviderService()
+uint64_t type metadata accessor for TGOnDeviceInferenceProviderService(uint64_t a1)
 {
   result = type metadata singleton initialization cache for TGOnDeviceInferenceProviderService;
   if (!type metadata singleton initialization cache for TGOnDeviceInferenceProviderService)
@@ -22,20 +22,12 @@ unint64_t lazy protocol witness table accessor for type TGOnDeviceInferenceProvi
   result = lazy protocol witness table cache variable for type TGOnDeviceInferenceProviderService and conformance InferenceProviderExtension<A>;
   if (!lazy protocol witness table cache variable for type TGOnDeviceInferenceProviderService and conformance InferenceProviderExtension<A>)
   {
-    type metadata accessor for TGOnDeviceInferenceProviderService();
+    type metadata accessor for TGOnDeviceInferenceProviderService(255);
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type TGOnDeviceInferenceProviderService and conformance InferenceProviderExtension<A>);
   }
 
   return result;
-}
-
-uint64_t TGOnDeviceInferenceProviderService.__allocating_init()()
-{
-  v1 = *(v0 + 48);
-  v2 = *(v0 + 52);
-  swift_allocObject();
-  return InferenceProviderExtension.init()();
 }
 
 uint64_t TGOnDeviceInferenceProviderService.__deallocating_deinit()

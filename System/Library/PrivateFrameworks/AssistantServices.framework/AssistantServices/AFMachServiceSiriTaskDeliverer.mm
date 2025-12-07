@@ -9,96 +9,94 @@
 
 - (void)deliverSiriTask:(id)task completionHandler:(id)handler
 {
-  v58 = *MEMORY[0x1E69E9840];
+  v57 = *MEMORY[0x1E69E9840];
   taskCopy = task;
   handlerCopy = handler;
-  v44 = 0;
-  v45 = &v44;
-  v46 = 0x3032000000;
-  v47 = __Block_byref_object_copy__35053;
-  v48 = __Block_byref_object_dispose__35054;
-  v49 = [objc_alloc(MEMORY[0x1E696B0B8]) initWithMachServiceName:self->_machServiceName options:0];
-  v8 = v45[5];
+  v43 = 0;
+  v44 = &v43;
+  v45 = 0x3032000000;
+  v46 = __Block_byref_object_copy__35053;
+  v47 = __Block_byref_object_dispose__35054;
+  v48 = [objc_alloc(MEMORY[0x1E696B0B8]) initWithMachServiceName:self->_machServiceName options:0];
+  v8 = v44[5];
   af_siriTaskDeliveringInterface = [MEMORY[0x1E696B0D0] af_siriTaskDeliveringInterface];
   [v8 setRemoteObjectInterface:af_siriTaskDeliveringInterface];
 
-  v42[0] = 0;
-  v42[1] = v42;
-  v42[2] = 0x2020000000;
-  v43 = 0;
-  v40[0] = 0;
-  v40[1] = v40;
-  v40[2] = 0x3032000000;
-  v40[3] = __Block_byref_object_copy__35053;
-  v40[4] = __Block_byref_object_dispose__35054;
+  v41[0] = 0;
+  v41[1] = v41;
+  v41[2] = 0x2020000000;
+  v42 = 0;
+  v39[0] = 0;
+  v39[1] = v39;
+  v39[2] = 0x3032000000;
+  v39[3] = __Block_byref_object_copy__35053;
+  v39[4] = __Block_byref_object_dispose__35054;
   v10 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
-  v41 = dispatch_queue_create("Mach Service Task Delivery Completion Handler", v10);
+  v40 = dispatch_queue_create("Mach Service Task Delivery Completion Handler", v10);
 
-  v35[0] = MEMORY[0x1E69E9820];
-  v35[1] = 3221225472;
-  v35[2] = __68__AFMachServiceSiriTaskDeliverer_deliverSiriTask_completionHandler___block_invoke;
-  v35[3] = &unk_1E73472A0;
-  v37 = v40;
-  v38 = v42;
+  v34[0] = MEMORY[0x1E69E9820];
+  v34[1] = 3221225472;
+  v34[2] = __68__AFMachServiceSiriTaskDeliverer_deliverSiriTask_completionHandler___block_invoke;
+  v34[3] = &unk_1E73472A0;
+  v36 = v39;
+  v37 = v41;
   v11 = handlerCopy;
-  v36 = v11;
-  v39 = &v44;
-  v12 = MEMORY[0x193AFB7B0](v35);
-  v33[0] = MEMORY[0x1E69E9820];
-  v33[1] = 3221225472;
-  v33[2] = __68__AFMachServiceSiriTaskDeliverer_deliverSiriTask_completionHandler___block_invoke_3;
-  v33[3] = &unk_1E73494D8;
+  v35 = v11;
+  v38 = &v43;
+  v12 = MEMORY[0x193AFB7B0](v34);
+  v32[0] = MEMORY[0x1E69E9820];
+  v32[1] = 3221225472;
+  v32[2] = __68__AFMachServiceSiriTaskDeliverer_deliverSiriTask_completionHandler___block_invoke_3;
+  v32[3] = &unk_1E73494D8;
   v13 = v12;
-  v34 = v13;
-  v14 = MEMORY[0x193AFB7B0](v33);
+  v33 = v13;
+  v14 = MEMORY[0x193AFB7B0](v32);
   v15 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
   {
     *buf = 136315906;
-    v51 = "[AFMachServiceSiriTaskDeliverer deliverSiriTask:completionHandler:]";
-    v52 = 2112;
+    v50 = "[AFMachServiceSiriTaskDeliverer deliverSiriTask:completionHandler:]";
+    v51 = 2112;
     selfCopy = self;
-    v54 = 2080;
-    v55 = "[AFMachServiceSiriTaskDeliverer deliverSiriTask:completionHandler:]";
-    v56 = 2112;
-    v57 = taskCopy;
+    v53 = 2080;
+    v54 = "[AFMachServiceSiriTaskDeliverer deliverSiriTask:completionHandler:]";
+    v55 = 2112;
+    v56 = taskCopy;
     _os_log_impl(&dword_1912FE000, v15, OS_LOG_TYPE_INFO, "%s %@ %s %@", buf, 0x2Au);
   }
 
-  v16 = v45[5];
-  v31[0] = MEMORY[0x1E69E9820];
-  v31[1] = 3221225472;
-  v31[2] = __68__AFMachServiceSiriTaskDeliverer_deliverSiriTask_completionHandler___block_invoke_36;
-  v31[3] = &unk_1E7349838;
-  v31[4] = self;
+  v16 = v44[5];
+  v30[0] = MEMORY[0x1E69E9820];
+  v30[1] = 3221225472;
+  v30[2] = __68__AFMachServiceSiriTaskDeliverer_deliverSiriTask_completionHandler___block_invoke_36;
+  v30[3] = &unk_1E7349838;
+  v30[4] = self;
   v17 = v14;
-  v32 = v17;
-  [v16 setInvalidationHandler:v31];
-  v18 = v45[5];
-  v29[0] = MEMORY[0x1E69E9820];
-  v29[1] = 3221225472;
-  v29[2] = __68__AFMachServiceSiriTaskDeliverer_deliverSiriTask_completionHandler___block_invoke_37;
-  v29[3] = &unk_1E7349838;
-  v29[4] = self;
+  v31 = v17;
+  [v16 setInvalidationHandler:v30];
+  v18 = v44[5];
+  v28[0] = MEMORY[0x1E69E9820];
+  v28[1] = 3221225472;
+  v28[2] = __68__AFMachServiceSiriTaskDeliverer_deliverSiriTask_completionHandler___block_invoke_37;
+  v28[3] = &unk_1E7349838;
+  v28[4] = self;
   v19 = v17;
-  v30 = v19;
-  [v18 setInterruptionHandler:v29];
-  [v45[5] resume];
-  v20 = v45[5];
-  v24 = MEMORY[0x1E69E9820];
-  v25 = 3221225472;
-  v26 = __68__AFMachServiceSiriTaskDeliverer_deliverSiriTask_completionHandler___block_invoke_38;
-  v27 = &unk_1E7348AA8;
+  v29 = v19;
+  [v18 setInterruptionHandler:v28];
+  [v44[5] resume];
+  v20 = v44[5];
+  v23 = MEMORY[0x1E69E9820];
+  v24 = 3221225472;
+  v25 = __68__AFMachServiceSiriTaskDeliverer_deliverSiriTask_completionHandler___block_invoke_38;
+  v26 = &unk_1E7348AA8;
   v21 = v13;
-  v28 = v21;
-  v22 = [v20 remoteObjectProxyWithErrorHandler:&v24];
-  [v22 deliverSiriTask:taskCopy completionHandler:{v21, v24, v25, v26, v27}];
+  v27 = v21;
+  v22 = [v20 remoteObjectProxyWithErrorHandler:&v23];
+  [v22 deliverSiriTask:taskCopy completionHandler:{v21, v23, v24, v25, v26}];
 
-  _Block_object_dispose(v40, 8);
-  _Block_object_dispose(v42, 8);
-  _Block_object_dispose(&v44, 8);
-
-  v23 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(v39, 8);
+  _Block_object_dispose(v41, 8);
+  _Block_object_dispose(&v43, 8);
 }
 
 void __68__AFMachServiceSiriTaskDeliverer_deliverSiriTask_completionHandler___block_invoke(uint64_t a1, void *a2)
@@ -127,59 +125,53 @@ void __68__AFMachServiceSiriTaskDeliverer_deliverSiriTask_completionHandler___bl
 
 uint64_t __68__AFMachServiceSiriTaskDeliverer_deliverSiriTask_completionHandler___block_invoke_36(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v2 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_ERROR))
   {
-    v5 = *(*(a1 + 32) + 8);
-    v6 = 136315394;
-    v7 = "[AFMachServiceSiriTaskDeliverer deliverSiriTask:completionHandler:]_block_invoke";
-    v8 = 2114;
-    v9 = v5;
-    _os_log_error_impl(&dword_1912FE000, v2, OS_LOG_TYPE_ERROR, "%s connection to task service %{public}@ was invalidated", &v6, 0x16u);
+    v4 = *(*(a1 + 32) + 8);
+    v5 = 136315394;
+    v6 = "[AFMachServiceSiriTaskDeliverer deliverSiriTask:completionHandler:]_block_invoke";
+    v7 = 2114;
+    v8 = v4;
+    _os_log_error_impl(&dword_1912FE000, v2, OS_LOG_TYPE_ERROR, "%s connection to task service %{public}@ was invalidated", &v5, 0x16u);
   }
 
-  result = (*(*(a1 + 40) + 16))();
-  v4 = *MEMORY[0x1E69E9840];
-  return result;
+  return (*(*(a1 + 40) + 16))();
 }
 
 uint64_t __68__AFMachServiceSiriTaskDeliverer_deliverSiriTask_completionHandler___block_invoke_37(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v2 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_ERROR))
   {
-    v5 = *(*(a1 + 32) + 8);
-    v6 = 136315394;
-    v7 = "[AFMachServiceSiriTaskDeliverer deliverSiriTask:completionHandler:]_block_invoke";
-    v8 = 2114;
-    v9 = v5;
-    _os_log_error_impl(&dword_1912FE000, v2, OS_LOG_TYPE_ERROR, "%s connection to task service %{public}@ was interrupted", &v6, 0x16u);
+    v4 = *(*(a1 + 32) + 8);
+    v5 = 136315394;
+    v6 = "[AFMachServiceSiriTaskDeliverer deliverSiriTask:completionHandler:]_block_invoke";
+    v7 = 2114;
+    v8 = v4;
+    _os_log_error_impl(&dword_1912FE000, v2, OS_LOG_TYPE_ERROR, "%s connection to task service %{public}@ was interrupted", &v5, 0x16u);
   }
 
-  result = (*(*(a1 + 40) + 16))();
-  v4 = *MEMORY[0x1E69E9840];
-  return result;
+  return (*(*(a1 + 40) + 16))();
 }
 
 void __68__AFMachServiceSiriTaskDeliverer_deliverSiriTask_completionHandler___block_invoke_38(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_ERROR))
   {
-    v6 = 136315394;
-    v7 = "[AFMachServiceSiriTaskDeliverer deliverSiriTask:completionHandler:]_block_invoke";
-    v8 = 2114;
-    v9 = v3;
-    _os_log_error_impl(&dword_1912FE000, v4, OS_LOG_TYPE_ERROR, "%s task service was unable to deliver task: %{public}@", &v6, 0x16u);
+    v5 = 136315394;
+    v6 = "[AFMachServiceSiriTaskDeliverer deliverSiriTask:completionHandler:]_block_invoke";
+    v7 = 2114;
+    v8 = v3;
+    _os_log_error_impl(&dword_1912FE000, v4, OS_LOG_TYPE_ERROR, "%s task service was unable to deliver task: %{public}@", &v5, 0x16u);
   }
 
   (*(*(a1 + 32) + 16))();
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __68__AFMachServiceSiriTaskDeliverer_deliverSiriTask_completionHandler___block_invoke_2(void *a1)
@@ -188,14 +180,13 @@ void __68__AFMachServiceSiriTaskDeliverer_deliverSiriTask_completionHandler___bl
   if ((*(v2 + 24) & 1) == 0)
   {
     *(v2 + 24) = 1;
-    v4 = a1[4];
     (*(a1[5] + 16))();
     [*(*(a1[7] + 8) + 40) setInvalidationHandler:0];
     [*(*(a1[7] + 8) + 40) setInterruptionHandler:0];
     [*(*(a1[7] + 8) + 40) invalidate];
-    v5 = *(a1[7] + 8);
-    v6 = *(v5 + 40);
-    *(v5 + 40) = 0;
+    v4 = *(a1[7] + 8);
+    v5 = *(v4 + 40);
+    *(v4 + 40) = 0;
   }
 }
 

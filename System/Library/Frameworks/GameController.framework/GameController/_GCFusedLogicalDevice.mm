@@ -49,30 +49,30 @@
 
 - (id)_makeControllerGamepadEventSource
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
+  v34 = 0u;
   v35 = 0u;
   v36 = 0u;
   v37 = 0u;
-  v38 = 0u;
-  underlyingDevice = [(_GCDefaultLogicalDevice *)self underlyingDevice];
-  components = [underlyingDevice components];
+  v3 = objc_msgSend_underlyingDevice(self, a2);
+  components = [v3 components];
 
-  v5 = [components countByEnumeratingWithState:&v35 objects:v41 count:16];
+  v5 = [components countByEnumeratingWithState:&v34 objects:v40 count:16];
   if (v5)
   {
     v6 = v5;
     v7 = 0;
-    v8 = *v36;
+    v8 = *v35;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v36 != v8)
+        if (*v35 != v8)
         {
           objc_enumerationMutation(components);
         }
 
-        v10 = *(*(&v35 + 1) + 8 * i);
+        v10 = *(*(&v34 + 1) + 8 * i);
         if ([v10 conformsToProtocol:&unk_1F4E9B320])
         {
           v11 = v10;
@@ -81,7 +81,7 @@
         }
       }
 
-      v6 = [components countByEnumeratingWithState:&v35 objects:v41 count:16];
+      v6 = [components countByEnumeratingWithState:&v34 objects:v40 count:16];
     }
 
     while (v6);
@@ -92,29 +92,29 @@
     v7 = 0;
   }
 
-  v33 = 0u;
-  v34 = 0u;
-  v31 = 0u;
   v32 = 0u;
+  v33 = 0u;
+  v30 = 0u;
+  v31 = 0u;
   secondaryDevice = [(_GCFusedLogicalDevice *)self secondaryDevice];
   components2 = [secondaryDevice components];
 
-  v14 = [components2 countByEnumeratingWithState:&v31 objects:v40 count:16];
+  v14 = [components2 countByEnumeratingWithState:&v30 objects:v39 count:16];
   if (v14)
   {
     v15 = v14;
     v16 = 0;
-    v17 = *v32;
+    v17 = *v31;
     do
     {
       for (j = 0; j != v15; ++j)
       {
-        if (*v32 != v17)
+        if (*v31 != v17)
         {
           objc_enumerationMutation(components2);
         }
 
-        v19 = *(*(&v31 + 1) + 8 * j);
+        v19 = *(*(&v30 + 1) + 8 * j);
         if ([v19 conformsToProtocol:&unk_1F4E9B320])
         {
           v20 = v19;
@@ -123,7 +123,7 @@
         }
       }
 
-      v15 = [components2 countByEnumeratingWithState:&v31 objects:v40 count:16];
+      v15 = [components2 countByEnumeratingWithState:&v30 objects:v39 count:16];
     }
 
     while (v15);
@@ -164,13 +164,12 @@ LABEL_31:
   }
 
   v27 = [_GCGamepadEventFusionDescription alloc];
-  v39[0] = gamepadEventSource2;
-  v39[1] = gamepadEventSource3;
-  v28 = [MEMORY[0x1E695DEC8] arrayWithObjects:v39 count:2];
+  v38[0] = gamepadEventSource2;
+  v38[1] = gamepadEventSource3;
+  v28 = [MEMORY[0x1E695DEC8] arrayWithObjects:v38 count:2];
   gamepadEventSource = [(_GCGamepadEventFusionDescription *)v27 initWithConfiguration:v25 sources:v28];
 
 LABEL_35:
-  v29 = *MEMORY[0x1E69E9840];
 
   return gamepadEventSource;
 }

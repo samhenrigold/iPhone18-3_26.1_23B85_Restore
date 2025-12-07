@@ -96,8 +96,8 @@
 
 - (id)description
 {
-  v25[5] = *MEMORY[0x1E69E9840];
-  v24 = MEMORY[0x1E696AEC0];
+  v24[5] = *MEMORY[0x1E69E9840];
+  v23 = MEMORY[0x1E696AEC0];
   v3 = objc_opt_class();
   v4 = self->_rawValue - 1;
   if (v4 > 3)
@@ -111,28 +111,26 @@
   }
 
   v6 = [MEMORY[0x1E696AEC0] stringWithFormat:@"rawValue: %@", v5];
-  v25[0] = v6;
+  v24[0] = v6;
   v7 = MEMORY[0x1E696AEC0];
   [(LACDTORatchetState *)self duration];
   v9 = [v7 stringWithFormat:@"duration: %.2f", v8];
-  v25[1] = v9;
+  v24[1] = v9;
   v10 = MEMORY[0x1E696AEC0];
   [(LACDTORatchetState *)self resetDuration];
   v12 = [v10 stringWithFormat:@"resetDuration: %.2f", v11];
-  v25[2] = v12;
+  v24[2] = v12;
   v13 = MEMORY[0x1E696AEC0];
   [(LACDTORatchetState *)self effectiveDuration];
   v15 = [v13 stringWithFormat:@"effectiveDuration: %.2f", v14];
-  v25[3] = v15;
+  v24[3] = v15;
   v16 = MEMORY[0x1E696AEC0];
   uuid = [(LACDTORatchetState *)self uuid];
   v18 = [v16 stringWithFormat:@"uuid: %@", uuid];
-  v25[4] = v18;
-  v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:v25 count:5];
+  v24[4] = v18;
+  v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:v24 count:5];
   v20 = [v19 componentsJoinedByString:@" "];;
-  v21 = [v24 stringWithFormat:@"<%@ %p %@>", v3, self, v20];;
-
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = [v23 stringWithFormat:@"<%@ %p %@>", v3, self, v20];;
 
   return v21;
 }
@@ -144,24 +142,8 @@
   if (objc_opt_isKindOfClass())
   {
     v5 = equalCopy;
-    rawValue = [(LACDTORatchetState *)self rawValue];
-    if (rawValue != [v5 rawValue])
-    {
-      goto LABEL_6;
-    }
-
-    [(LACDTORatchetState *)self duration];
-    v8 = v7;
-    [v5 duration];
-    if (v8 != v9)
-    {
-      goto LABEL_6;
-    }
-
-    [(LACDTORatchetState *)self resetDuration];
-    v11 = v10;
-    [v5 resetDuration];
-    if (v11 == v12 && (-[LACDTORatchetState effectiveDuration](self, "effectiveDuration"), v14 = v13, [v5 effectiveDuration], v14 == v15))
+    v6 = objc_msgSend_rawValue(self);
+    if (v6 == objc_msgSend_rawValue(v5) && (-[LACDTORatchetState duration](self, "duration"), v8 = v7, [v5 duration], v8 == v9) && (-[LACDTORatchetState resetDuration](self, "resetDuration"), v11 = v10, objc_msgSend(v5, "resetDuration"), v11 == v12) && (-[LACDTORatchetState effectiveDuration](self, "effectiveDuration"), v14 = v13, objc_msgSend(v5, "effectiveDuration"), v14 == v15))
     {
       uuid = [(LACDTORatchetState *)self uuid];
       uuid2 = [v5 uuid];
@@ -180,7 +162,6 @@
 
     else
     {
-LABEL_6:
       v16 = 0;
     }
   }

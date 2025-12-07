@@ -2,7 +2,7 @@
 - (BOOL)hasProtectedContent;
 - (FBSceneSnapshot)initWithScene:(id)scene context:(id)context;
 - (id)_collectLayersToSnapshotFromScene:(void *)scene withSnapshotConfig:(void *)config rootConfig:;
-- (uint64_t)_initWithScene:(void *)scene configuration:;
+- (id)_initWithScene:(void *)scene configuration:;
 - (void)_baseTransformForSnapshotConfig:(void *)config@<X2> rootConfig:(uint64_t)rootConfig@<X8>;
 @end
 
@@ -230,7 +230,7 @@
   }
 }
 
-- (uint64_t)_initWithScene:(void *)scene configuration:
+- (id)_initWithScene:(void *)scene configuration:
 {
   v6 = a2;
   sceneCopy = scene;
@@ -248,7 +248,7 @@
     if (v8)
     {
       objc_storeStrong(v8 + 1, a2);
-      objc_storeStrong((self + 16), scene);
+      objc_storeStrong(self + 2, scene);
       v10 = [(FBSceneSnapshot *)self _collectLayersToSnapshotFromScene:sceneCopy withSnapshotConfig:sceneCopy rootConfig:?];
       v11 = objc_alloc(MEMORY[0x1E699FD08]);
       settings = [v6 settings];
@@ -288,8 +288,8 @@
 
       [v14 setSnapshotSize:{v16, v18}];
       v22 = [objc_alloc(MEMORY[0x1E699FD00]) initWithSnapshotContext:v14];
-      v23 = *(self + 32);
-      *(self + 32) = v22;
+      v23 = self[4];
+      self[4] = v22;
     }
   }
 
@@ -298,12 +298,12 @@
 
 - (id)_collectLayersToSnapshotFromScene:(void *)scene withSnapshotConfig:(void *)config rootConfig:
 {
-  v65 = *MEMORY[0x1E69E9840];
+  v70 = *MEMORY[0x1E69E9840];
   v7 = a2;
   sceneCopy = scene;
   configCopy = config;
-  v54 = configCopy;
-  v52 = sceneCopy;
+  v59 = configCopy;
+  v57 = sceneCopy;
   if (self)
   {
     v10 = configCopy;
@@ -316,41 +316,41 @@
     [v14 minusSet:layersToExclude];
 
     orderedSet = [MEMORY[0x1E695DFA0] orderedSet];
-    v62 = 0u;
-    v63 = 0u;
-    v61 = 0u;
+    v67 = 0u;
+    v68 = 0u;
+    v66 = 0u;
     selfCopy = self;
-    [(FBSceneSnapshot *)self _baseTransformForSnapshotConfig:sceneCopy rootConfig:v10, &v61];
+    [(FBSceneSnapshot *)self _baseTransformForSnapshotConfig:sceneCopy rootConfig:v10, &v66];
     memset(&__src, 0, sizeof(__src));
-    *m = v61;
-    *&m[16] = v62;
-    *&m[32] = v63;
+    *m = v66;
+    *&m[16] = v67;
+    *&m[32] = v68;
     CATransform3DMakeAffineTransform(&__src, m);
     v17 = +[FBSceneManager keyboardScene];
-    v56 = 0u;
-    v57 = 0u;
-    v58 = 0u;
-    v59 = 0u;
+    v61 = 0u;
+    v62 = 0u;
+    v63 = 0u;
+    v64 = 0u;
     v18 = v14;
-    v19 = [v18 countByEnumeratingWithState:&v56 objects:v64 count:16];
+    v19 = [v18 countByEnumeratingWithState:&v61 objects:v69 count:16];
     if (!v19)
     {
       goto LABEL_20;
     }
 
     v20 = v19;
-    v21 = *v57;
+    v21 = *v62;
     while (1)
     {
       v22 = 0;
       do
       {
-        if (*v57 != v21)
+        if (*v62 != v21)
         {
           objc_enumerationMutation(v18);
         }
 
-        proxiedKeyboardOwner = *(*(&v56 + 1) + 8 * v22);
+        proxiedKeyboardOwner = *(*(&v61 + 1) + 8 * v22);
         contextID = [proxiedKeyboardOwner contextID];
         if (contextID)
         {
@@ -371,9 +371,9 @@
           if (v17 == v7)
           {
             v27 = [[FBSceneSnapshotContext alloc] initWithScene:v17 configurator:0];
-            v35 = OUTLINED_FUNCTION_0_3(v27, v28, v29, v30, v31, v32, v33, v34, v52, selfCopy);
-            v36 = [FBSceneSnapshot _collectLayersToSnapshotFromScene:v35 withSnapshotConfig:? rootConfig:?];
-            [orderedSet unionOrderedSet:v36];
+            v35 = OUTLINED_FUNCTION_0_3(v27, v28, v29, v30, v31, v32, v33, v34, v57, selfCopy);
+            v39 = [(FBSceneSnapshot *)v35 _collectLayersToSnapshotFromScene:v36 withSnapshotConfig:v37 rootConfig:v38];
+            [orderedSet unionOrderedSet:v39];
 
 LABEL_10:
           }
@@ -383,14 +383,14 @@ LABEL_10:
         {
           identityToken = [v17 identityToken];
           proxiedKeyboardOwner = [proxiedKeyboardOwner proxiedKeyboardOwner];
-          v38 = [identityToken isEqual:proxiedKeyboardOwner];
+          v41 = [identityToken isEqual:proxiedKeyboardOwner];
 
-          if (v38)
+          if (v41)
           {
-            v39 = [[FBSceneSnapshotContext alloc] initWithScene:v17 configurator:0];
-            v47 = OUTLINED_FUNCTION_0_3(v39, v40, v41, v42, v43, v44, v45, v46, v52, selfCopy);
-            v48 = [FBSceneSnapshot _collectLayersToSnapshotFromScene:v47 withSnapshotConfig:? rootConfig:?];
-            [orderedSet unionOrderedSet:v48];
+            v42 = [[FBSceneSnapshotContext alloc] initWithScene:v17 configurator:0];
+            v50 = OUTLINED_FUNCTION_0_3(v42, v43, v44, v45, v46, v47, v48, v49, v57, selfCopy);
+            v54 = [(FBSceneSnapshot *)v50 _collectLayersToSnapshotFromScene:v51 withSnapshotConfig:v52 rootConfig:v53];
+            [orderedSet unionOrderedSet:v54];
 
             goto LABEL_10;
           }
@@ -400,9 +400,9 @@ LABEL_10:
       }
 
       while (v20 != v22);
-      v49 = [v18 countByEnumeratingWithState:&v56 objects:v64 count:16];
-      v20 = v49;
-      if (!v49)
+      v55 = [v18 countByEnumeratingWithState:&v61 objects:v69 count:16];
+      v20 = v55;
+      if (!v55)
       {
 LABEL_20:
 
@@ -414,19 +414,17 @@ LABEL_20:
   orderedSet = 0;
 LABEL_21:
 
-  v50 = *MEMORY[0x1E69E9840];
-
   return orderedSet;
 }
 
 - (FBSceneSnapshot)initWithScene:(id)scene context:(id)context
 {
   contextCopy = context;
-  v8 = [(FBSceneSnapshot *)self _initWithScene:scene configuration:contextCopy];
+  v8 = [(FBSceneSnapshot *)&self->super.isa _initWithScene:scene configuration:contextCopy];
   v9 = v8;
   if (v8)
   {
-    objc_storeStrong((v8 + 24), context);
+    objc_storeStrong(v8 + 3, context);
   }
 
   return v9;

@@ -66,14 +66,14 @@
 {
   input = [(UIKeyCommand *)self input];
   v4 = _UIMenuLeafKeyboardShortcutGetLocalizedKeyEquivalent(@"+");
-  if ([input isEqualToString:v4] && -[UIKeyCommand modifierFlags](self, "modifierFlags") == 0x100000)
+  if (objc_msgSend_isEqualToString_(input) && [(UIKeyCommand *)self modifierFlags]== 0x100000)
   {
 
     return -1;
   }
 
   input2 = [(UIKeyCommand *)self input];
-  if ([input2 isEqualToString:@"UIKeyInputEscape"])
+  if (objc_msgSend_isEqualToString_(input2))
   {
     modifierFlags = [(UIKeyCommand *)self modifierFlags];
 
@@ -130,7 +130,7 @@
 {
   valueCopy = value;
   keyCopy = key;
-  if (([keyCopy isEqualToString:@"_repeatable"] & 1) != 0 || objc_msgSend(keyCopy, "isEqualToString:", @"repeatable"))
+  if ((objc_msgSend_isEqualToString_(keyCopy) & 1) != 0 || objc_msgSend_isEqualToString_(keyCopy))
   {
     if (dyld_program_sdk_at_least())
     {
@@ -716,11 +716,11 @@ LABEL_9:
       {
         input = [(UIKeyCommand *)self input];
         input2 = [(UIKeyCommand *)v7 input];
-        if (input == input2 || [input isEqual:input2])
+        if (input == input2 || objc_msgSend_isEqual_(input))
         {
           _keyCodes = [(UIKeyCommand *)self _keyCodes];
           _keyCodes2 = [(UIKeyCommand *)v7 _keyCodes];
-          if (_keyCodes == _keyCodes2 || [_keyCodes isEqual:_keyCodes2])
+          if (_keyCodes == _keyCodes2 || objc_msgSend_isEqual_(_keyCodes))
           {
             v13 = *(self + 46);
             v14 = [(UIKeyCommand *)v7 _buttonType]== v13;
@@ -854,7 +854,7 @@ LABEL_9:
   {
     _layoutAwareInput2 = [(UIKeyCommand *)self _layoutAwareInput];
     input = [(UIKeyCommand *)self input];
-    if ([_layoutAwareInput2 isEqualToString:input])
+    if (objc_msgSend_isEqualToString_(_layoutAwareInput2))
     {
       _layoutAwareModifierFlags = [(UIKeyCommand *)self _layoutAwareModifierFlags];
       v7 = _layoutAwareModifierFlags != [(UIKeyCommand *)self modifierFlags];
@@ -950,7 +950,7 @@ LABEL_9:
     goto LABEL_18;
   }
 
-  if ([input isEqualToString:@" "])
+  if (objc_msgSend_isEqualToString_(input))
   {
     v9 = @"<space>";
 LABEL_16:
@@ -959,19 +959,19 @@ LABEL_16:
     goto LABEL_17;
   }
 
-  if ([input isEqualToString:@"\t"])
+  if (objc_msgSend_isEqualToString_(input))
   {
     v9 = @"<tab>";
     goto LABEL_16;
   }
 
-  if ([input isEqualToString:@"\r"])
+  if (objc_msgSend_isEqualToString_(input))
   {
     v9 = @"<return (\\r)>";
     goto LABEL_16;
   }
 
-  if ([input isEqualToString:@"\n"])
+  if (objc_msgSend_isEqualToString_(input))
   {
     v9 = @"<return (\\n)>";
     goto LABEL_16;

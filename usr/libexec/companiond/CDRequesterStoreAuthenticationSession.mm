@@ -15,24 +15,13 @@
   authenticationRequest = self->_authenticationRequest;
   self->_authenticationRequest = authenticationRequest;
 
-  if (!self->_authenticationRequest)
-  {
-    goto LABEL_4;
-  }
-
-  request2 = [(CDRequesterSession *)self request];
-  account = [request2 account];
-  storeAccount = self->_storeAccount;
-  self->_storeAccount = account;
-
-  if (self->_storeAccount)
+  if (self->_authenticationRequest && (-[CDRequesterSession request](self, "request"), v7 = objc_claimAutoreleasedReturnValue(), [v7 account], v8 = objc_claimAutoreleasedReturnValue(), storeAccount = self->_storeAccount, self->_storeAccount = v8, storeAccount, v7, self->_storeAccount))
   {
     handlerCopy[2](handlerCopy, 0);
   }
 
   else
   {
-LABEL_4:
     v10 = CPSErrorMake();
     (handlerCopy)[2](handlerCopy, v10);
   }

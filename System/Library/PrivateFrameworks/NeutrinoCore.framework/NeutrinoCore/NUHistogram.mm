@@ -19,9 +19,9 @@
   v3 = objc_alloc_init(MEMORY[0x1E696AD60]);
   v4 = objc_opt_class();
   binCount = [(NUHistogram *)self binCount];
-  [(NUHistogram *)self range];
+  objc_msgSend_range(self);
   v7 = v6;
-  [(NUHistogram *)self range];
+  objc_msgSend_range(self);
   [v3 appendFormat:@"<%@:%p> count=%ld, range: [%0.3f..%0.3f], sampleCount=%ld\n", v4, self, binCount, v7, v8, -[NUHistogram sampleCount](self, "sampleCount")];
   values = [(NUHistogram *)self values];
   binCount2 = [(NUHistogram *)self binCount];
@@ -29,11 +29,11 @@
   {
     for (i = 0; i != binCount2; ++i)
     {
-      [(NUHistogram *)self range];
+      objc_msgSend_range(self);
       v13 = v12;
-      [(NUHistogram *)self range];
+      objc_msgSend_range(self);
       v15 = v14;
-      [(NUHistogram *)self range];
+      objc_msgSend_range(self);
       [v3 appendFormat:@"\t%4ld\t%0.3f\t%6ld\t%0.5f\n", i, v16 + i / (binCount2 - 1) * (v13 - v15), values[i], values[i] / -[NUHistogram sampleCount](self, "sampleCount")];
     }
   }

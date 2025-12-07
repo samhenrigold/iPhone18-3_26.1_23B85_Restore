@@ -4,16 +4,14 @@ uint64_t Atomic.deinit(uint64_t a1)
   v3 = *(a1 + 16);
   v4 = *(a1 + 24);
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v6 = *(*(AssociatedTypeWitness - 8) + 64);
-  v7 = MEMORY[0x2A1C7C4A8](AssociatedTypeWitness);
-  v9 = &v16 - v8;
-  v10 = *(v3 - 8);
-  v11 = *(v10 + 64);
-  MEMORY[0x2A1C7C4A8](v7);
-  v13 = &v16 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  memcpy(v9, v2, v14);
-  (*(v4 + 24))(v9, v3, v4);
-  (*(v10 + 8))(v13, v3);
+  v6 = MEMORY[0x2A1C7C4A8](AssociatedTypeWitness);
+  v8 = &v14 - v7;
+  v9 = *(v3 - 8);
+  MEMORY[0x2A1C7C4A8](v6);
+  v11 = &v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  memcpy(v8, v2, v12);
+  (*(v4 + 24))(v8, v3, v4);
+  (*(v9 + 8))(v11, v3);
   return UnsafeMutablePointer.deinitialize(count:)();
 }
 
@@ -40,21 +38,21 @@ double protocol witness for static AtomicRepresentable.decodeAtomicRepresentatio
 
 uint64_t AtomicLazyReference.deinit(uint64_t a1)
 {
-  v6[6] = atomic_load_explicit(v1, memory_order_acquire);
-  v6[2] = *(a1 + 16);
+  v9[6] = atomic_load_explicit(v1, memory_order_acquire);
+  v9[2] = *(a1 + 16);
   swift_getCanonicalSpecializedMetadata();
   v2 = type metadata accessor for Unmanaged();
-  _sSq3mapyqd_0_Sgqd_0_xqd__YKXEqd__YKs5ErrorRd__Ri_d_0_r0_lF(protocol witness for static AtomicRepresentable.decodeAtomicRepresentation(_:) in conformance ObjectIdentifier, v6, MEMORY[0x29EDC9F80], v2, v3, &v7);
-  if (v7)
+  _sSq3mapyqd_0_Sgqd_0_xqd__YKXEqd__YKs5ErrorRd__Ri_d_0_r0_lF(protocol witness for static AtomicRepresentable.decodeAtomicRepresentation(_:) in conformance ObjectIdentifier, v9, MEMORY[0x29EDC9F80], v2, v3, &v10);
+  if (v10)
   {
     swift_unknownObjectRelease();
   }
 
-  type metadata accessor for Optional();
-  v6[4] = &protocol witness table for Unmanaged<A>;
-  swift_getWitnessTable();
-  v4 = type metadata accessor for Atomic();
-  return Atomic.deinit(v4);
+  v4 = type metadata accessor for Optional();
+  v9[4] = &protocol witness table for Unmanaged<A>;
+  WitnessTable = swift_getWitnessTable();
+  v7 = type metadata accessor for Atomic(0, v4, WitnessTable, v6);
+  return Atomic.deinit(v7);
 }
 
 uint64_t AtomicLazyReference.storeIfNil(_:)(uint64_t a1, uint64_t a2)
@@ -160,11 +158,11 @@ Swift::Int protocol witness for Hashable.hashValue.getter in conformance AtomicL
   return Hasher._finalize()();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance AtomicLoadOrdering()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance AtomicLoadOrdering(uint64_t a1)
 {
-  v1 = *v0;
+  v2 = *v1;
   Hasher.init(_seed:)();
-  MEMORY[0x29C2AD750](v1);
+  MEMORY[0x29C2AD750](v2);
   return Hasher._finalize()();
 }
 
@@ -229,38 +227,35 @@ void *_sSpyxG15Synchronization19AtomicRepresentableABRi_zrlAbCP06decodeB14Repres
 
 uint64_t _sSq3mapyqd_0_Sgqd_0_xqd__YKXEqd__YKs5ErrorRd__Ri_d_0_r0_lF@<X0>(void (*a1)(char *, char *)@<X0>, uint64_t a2@<X1>, uint64_t a3@<X3>, uint64_t a4@<X4>, uint64_t a5@<X6>, uint64_t a6@<X8>)
 {
-  v29 = a5;
-  v30 = a2;
-  v32 = a4;
-  v31 = a1;
-  v28 = *(a3 - 8);
-  v10 = *(v28 + 64);
-  v11 = (MEMORY[0x2A1C7C4A8])();
-  v13 = &v28 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v15 = *(v14 + 16);
-  v16 = *(v15 - 8);
-  v17 = *(v16 + 64);
-  v18 = MEMORY[0x2A1C7C4A8](v11);
-  v20 = &v28 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v22 = *(*(v21 - 8) + 64);
-  MEMORY[0x2A1C7C4A8](v18);
-  v24 = &v28 - ((v23 + 15) & 0xFFFFFFFFFFFFFFF0);
-  (*(v25 + 16))(v24, v6);
-  v26 = 1;
-  if ((*(v16 + 48))(v24, 1, v15) != 1)
+  v25 = a5;
+  v26 = a2;
+  v28 = a4;
+  v27 = a1;
+  v24 = *(a3 - 8);
+  v10 = MEMORY[0x2A1C7C4A8](a1);
+  v12 = &v24 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v14 = *(v13 + 16);
+  v15 = *(v14 - 8);
+  v16 = MEMORY[0x2A1C7C4A8](v10);
+  v18 = &v24 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x2A1C7C4A8](v16);
+  v20 = &v24 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
+  (*(v21 + 16))(v20, v6);
+  v22 = 1;
+  if ((*(v15 + 48))(v20, 1, v14) != 1)
   {
-    (*(v16 + 32))(v20, v24, v15);
-    v31(v20, v13);
-    (*(v16 + 8))(v20, v15);
+    (*(v15 + 32))(v18, v20, v14);
+    v27(v18, v12);
+    (*(v15 + 8))(v18, v14);
     if (v7)
     {
-      return (*(v28 + 32))(v29, v13, a3);
+      return (*(v24 + 32))(v25, v12, a3);
     }
 
-    v26 = 0;
+    v22 = 0;
   }
 
-  return (*(*(v32 - 8) + 56))(a6, v26, 1);
+  return (*(*(v28 - 8) + 56))(a6, v22, 1);
 }
 
 uint64_t protocol witness for static AtomicOptionalRepresentable.decodeAtomicOptionalRepresentation(_:) in conformance Unmanaged<A>@<X0>(void *a1@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
@@ -379,13 +374,13 @@ uint64_t protocol witness for Hashable.hash(into:) in conformance WordPair()
   return MEMORY[0x29C2AD750](v1);
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance WordPair()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance WordPair(uint64_t a1)
 {
-  v1 = *v0;
-  v2 = v0[1];
+  v2 = *v1;
+  v3 = v1[1];
   Hasher.init(_seed:)();
-  MEMORY[0x29C2AD750](v1);
   MEMORY[0x29C2AD750](v2);
+  MEMORY[0x29C2AD750](v3);
   return Hasher._finalize()();
 }
 
@@ -456,13 +451,6 @@ unint64_t WordPair.description.getter()
   return 0xD000000000000010;
 }
 
-uint64_t (*_s15Synchronization5MutexVAARi_zrlE5valueAA5_CellVyxGvr(uint64_t a1, uint64_t a2))()
-{
-  result = AtomicLazyReference.storage.read;
-  v4 = v2 + *(a2 + 28);
-  return result;
-}
-
 uint64_t _Atomic128BitStorage._storage.setter(uint64_t result, uint64_t a2)
 {
   *v2 = result;
@@ -470,7 +458,7 @@ uint64_t _Atomic128BitStorage._storage.setter(uint64_t result, uint64_t a2)
   return result;
 }
 
-unint64_t lazy protocol witness table accessor for type AtomicLoadOrdering and conformance AtomicLoadOrdering()
+unint64_t lazy protocol witness table accessor for type AtomicLoadOrdering and conformance AtomicLoadOrdering(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = lazy protocol witness table cache variable for type AtomicLoadOrdering and conformance AtomicLoadOrdering;
   if (!lazy protocol witness table cache variable for type AtomicLoadOrdering and conformance AtomicLoadOrdering)
@@ -482,7 +470,7 @@ unint64_t lazy protocol witness table accessor for type AtomicLoadOrdering and c
   return result;
 }
 
-unint64_t lazy protocol witness table accessor for type AtomicStoreOrdering and conformance AtomicStoreOrdering()
+unint64_t lazy protocol witness table accessor for type AtomicStoreOrdering and conformance AtomicStoreOrdering(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = lazy protocol witness table cache variable for type AtomicStoreOrdering and conformance AtomicStoreOrdering;
   if (!lazy protocol witness table cache variable for type AtomicStoreOrdering and conformance AtomicStoreOrdering)
@@ -494,7 +482,7 @@ unint64_t lazy protocol witness table accessor for type AtomicStoreOrdering and 
   return result;
 }
 
-unint64_t lazy protocol witness table accessor for type AtomicUpdateOrdering and conformance AtomicUpdateOrdering()
+unint64_t lazy protocol witness table accessor for type AtomicUpdateOrdering and conformance AtomicUpdateOrdering(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = lazy protocol witness table cache variable for type AtomicUpdateOrdering and conformance AtomicUpdateOrdering;
   if (!lazy protocol witness table cache variable for type AtomicUpdateOrdering and conformance AtomicUpdateOrdering)
@@ -506,7 +494,7 @@ unint64_t lazy protocol witness table accessor for type AtomicUpdateOrdering and
   return result;
 }
 
-unint64_t lazy protocol witness table accessor for type WordPair and conformance WordPair()
+unint64_t lazy protocol witness table accessor for type WordPair and conformance WordPair(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = lazy protocol witness table cache variable for type WordPair and conformance WordPair;
   if (!lazy protocol witness table cache variable for type WordPair and conformance WordPair)
@@ -520,12 +508,9 @@ unint64_t lazy protocol witness table accessor for type WordPair and conformance
 
 uint64_t type metadata completion function for Atomic(uint64_t a1)
 {
-  v2 = *(a1 + 16);
-  v1 = *(a1 + 24);
   result = swift_getAssociatedTypeWitness();
-  if (v4 <= 0x3F)
+  if (v2 <= 0x3F)
   {
-    v5 = *(result - 8);
     swift_initRawStructMetadata2();
     return 0;
   }
@@ -535,19 +520,14 @@ uint64_t type metadata completion function for Atomic(uint64_t a1)
 
 uint64_t destroy for Atomic(uint64_t a1, uint64_t a2)
 {
-  v3 = *(a2 + 16);
-  v4 = *(a2 + 24);
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v6 = *(*(AssociatedTypeWitness - 8) + 8);
+  v4 = *(*(AssociatedTypeWitness - 8) + 8);
 
-  return v6(a1, AssociatedTypeWitness);
+  return v4(a1, AssociatedTypeWitness);
 }
 
 uint64_t assignWithTake for Atomic(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v7 = a3 + 16;
-  v6 = *(a3 + 16);
-  v5 = *(v7 + 8);
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
   (*(*(AssociatedTypeWitness - 8) + 40))(a1, a2, AssociatedTypeWitness);
   return a1;
@@ -555,23 +535,18 @@ uint64_t assignWithTake for Atomic(uint64_t a1, uint64_t a2, uint64_t a3)
 
 uint64_t getEnumTagSinglePayload for Atomic(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v7 = a3 + 16;
-  v6 = *(a3 + 16);
-  v5 = *(v7 + 8);
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v9 = *(*(AssociatedTypeWitness - 8) + 48);
+  v6 = *(*(AssociatedTypeWitness - 8) + 48);
 
-  return v9(a1, a2, AssociatedTypeWitness);
+  return v6(a1, a2, AssociatedTypeWitness);
 }
 
 uint64_t storeEnumTagSinglePayload for Atomic(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v8 = *(a4 + 16);
-  v7 = *(a4 + 24);
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v10 = *(*(AssociatedTypeWitness - 8) + 56);
+  v8 = *(*(AssociatedTypeWitness - 8) + 56);
 
-  return v10(a1, a2, a3, AssociatedTypeWitness);
+  return v8(a1, a2, a3, AssociatedTypeWitness);
 }
 
 uint64_t getEnumTagSinglePayload for AtomicLazyReference(uint64_t a1, int a2)
@@ -614,18 +589,17 @@ uint64_t storeEnumTagSinglePayload for AtomicLazyReference(uint64_t result, int 
   return result;
 }
 
-uint64_t sub_299BD66A0(uint64_t *a1)
+uint64_t sub_299BD66A0(void *a1)
 {
   if (!MEMORY[0x29EDCA1F8])
   {
     return MEMORY[0x29EDCA180] + 8;
   }
 
-  v1 = *a1;
   type metadata accessor for Unmanaged();
-  type metadata accessor for Optional();
-  swift_getWitnessTable();
-  return type metadata accessor for Atomic();
+  v1 = type metadata accessor for Optional();
+  WitnessTable = swift_getWitnessTable();
+  return type metadata accessor for Atomic(0, v1, WitnessTable, v3);
 }
 
 __n128 __swift_memcpy16_8(__n128 *a1, __n128 *a2)
@@ -678,11 +652,9 @@ uint64_t storeEnumTagSinglePayload for WordPair(uint64_t result, int a2, int a3)
 
 uint64_t type metadata completion function for _Cell(uint64_t a1)
 {
-  v1 = *(a1 + 16);
   result = swift_checkMetadataState();
-  if (v3 <= 0x3F)
+  if (v2 <= 0x3F)
   {
-    v4 = *(result - 8);
     swift_initRawStructMetadata2();
     return 0;
   }
@@ -748,7 +720,6 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1, uint64_t
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -756,13 +727,11 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1, uint64_t
   return result;
 }
 
-uint64_t type metadata completion function for Mutex(uint64_t a1)
+uint64_t type metadata completion function for Mutex(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v1 = *(a1 + 16);
-  result = type metadata accessor for _Cell();
-  if (v3 <= 0x3F)
+  result = type metadata accessor for _Cell(319, *(a1 + 16), a3, a4);
+  if (v5 <= 0x3F)
   {
-    v4 = *(result - 8) + 64;
     swift_initStructMetadata();
     return 0;
   }
@@ -1067,15 +1036,17 @@ void *sub_299BD7018()
   }
 }
 
-uint64_t sub_299BD7040(uint64_t *a1)
+uint64_t sub_299BD7040(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  if (!MEMORY[0x29EDCA1F8])
+  if (MEMORY[0x29EDCA1F8])
+  {
+    return type metadata accessor for _Cell(0, *a1, a3, a4);
+  }
+
+  else
   {
     return MEMORY[0x29EDCA180] + 8;
   }
-
-  v1 = *a1;
-  return type metadata accessor for _Cell();
 }
 
 void type metadata accessor for os_unfair_lock_s()

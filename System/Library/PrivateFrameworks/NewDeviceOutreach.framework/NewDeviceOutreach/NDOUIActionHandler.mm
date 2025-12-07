@@ -9,17 +9,16 @@
 - (void)ackPendingAcks
 {
   v3 = sub_10001A078(&qword_1000A7920, &qword_10007AE70);
-  v4 = *(*(v3 - 8) + 64);
   __chkstk_darwin(v3 - 8);
-  v6 = &v10 - v5;
-  v7 = type metadata accessor for TaskPriority();
-  (*(*(v7 - 8) + 56))(v6, 1, 1, v7);
-  v8 = swift_allocObject();
-  v8[2] = 0;
-  v8[3] = 0;
-  v8[4] = self;
+  v5 = &v9 - v4;
+  v6 = type metadata accessor for TaskPriority();
+  (*(*(v6 - 8) + 56))(v5, 1, 1, v6);
+  v7 = swift_allocObject();
+  v7[2] = 0;
+  v7[3] = 0;
+  v7[4] = self;
   selfCopy = self;
-  sub_100041174(0, 0, v6, &unk_100081738, v8);
+  sub_100041174(0, 0, v5, &unk_100081738, v7);
 }
 
 - (void)removeAndAckDismissedPromoFor:(int64_t)for actionData:(id)data

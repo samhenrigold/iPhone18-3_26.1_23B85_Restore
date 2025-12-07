@@ -94,7 +94,7 @@
   return [v3 stringWithFormat:@"<%@: %p %@>", NSStringFromClass(v4), self, -[FigCaptureClientApplicationStateMonitorClient debugDescription](self, "debugDescription")];
 }
 
-uint64_t __80__FigCaptureClientApplicationStateMonitorClient__setUpClientInfoWithAuditToken___block_invoke()
+void *__80__FigCaptureClientApplicationStateMonitorClient__setUpClientInfoWithAuditToken___block_invoke()
 {
   v0 = [MEMORY[0x1E695DF70] arrayWithObjects:{0x1F21853D0, 0x1F21852B0, 0x1F2185430, 0x1F21855B0, 0x1F2185630, 0}];
   v1 = [MEMORY[0x1E695DF70] arrayWithObjects:{0x1F21854D0, 0}];
@@ -142,8 +142,8 @@ uint64_t __80__FigCaptureClientApplicationStateMonitorClient__setUpClientInfoWit
     if (v13)
     {
       v14 = v13;
-      v31 = 0;
-      v15 = [MEMORY[0x1E69C75D0] handleForIdentifier:objc_msgSend(MEMORY[0x1E696AD98] error:{"numberWithInt:", *(token + 48)), &v31}];
+      v42 = 0;
+      v15 = [MEMORY[0x1E69C75D0] handleForIdentifier:objc_msgSend(MEMORY[0x1E696AD98] error:{"numberWithInt:", *(token + 48)), &v42}];
       v16 = [objc_msgSend(objc_msgSend(v15 "bundle")];
       *(token + 56) = v16;
       if (!v16)
@@ -160,7 +160,7 @@ uint64_t __80__FigCaptureClientApplicationStateMonitorClient__setUpClientInfoWit
         *(token + 95) = 1;
       }
 
-      if (([v15 isApplication] & 1) != 0 || (objc_msgSend(*(token + 56), "isEqualToString:", 0x1F21855F0) & 1) != 0 || objc_msgSend(*(token + 56), "isEqualToString:", 0x1F2185230))
+      if (([v15 isApplication] & 1) != 0 || (objc_msgSend_isEqualToString_(*(token + 56)) & 1) != 0 || objc_msgSend_isEqualToString_(*(token + 56)))
       {
         v18 = 1;
       }
@@ -173,7 +173,7 @@ uint64_t __80__FigCaptureClientApplicationStateMonitorClient__setUpClientInfoWit
       else if ([v15 isXPCService])
       {
         *(token + 96) = 1;
-        *(token + 94) = [objc_msgSend(objc_msgSend(v15 "bundle")];
+        *(token + 94) = objc_msgSend_isEqualToString_([objc_msgSend(v15 "bundle")]);
         hostProcess2 = v15;
         do
         {
@@ -201,28 +201,28 @@ uint64_t __80__FigCaptureClientApplicationStateMonitorClient__setUpClientInfoWit
         {
           if (FigCaptureClientIsNonStandardWithSecTask(v14) || FigCaptureClientHasPrivateCaptureEntitlement(v14))
           {
-            v21 = 1;
+            isEqualToString = 1;
           }
 
           else
           {
-            v21 = [*(token + 56) isEqualToString:0x1F2170190];
+            isEqualToString = objc_msgSend_isEqualToString_(*(token + 56));
           }
 
           v22 = [qword_1ED844F28 containsObject:*(token + 56)];
-          if (v21 && v22)
+          if (isEqualToString && v22)
           {
             *(token + 88) = 6;
-            if (([*(token + 56) isEqualToString:0x1F21851B0] & 1) != 0 || objc_msgSend(*(token + 56), "isEqualToString:", 0x1F2170190))
+            if ((objc_msgSend_isEqualToString_(*(token + 56)) & 1) != 0 || objc_msgSend_isEqualToString_(*(token + 56)))
             {
 
               *(token + 56) = [@"com.apple.facetime" copy];
               *(token + 88) = 5;
-              v30[0] = 0x1F2185490;
-              v30[1] = 0x1F21852D0;
-              v30[2] = @"com.apple.VideoConference.AVConferenceTestRunneriOS";
-              v30[3] = @"com.apple.AVConferenceTestRunnertvOS";
-              *(token + 128) = [MEMORY[0x1E695DEC8] arrayWithObjects:v30 count:4];
+              v41[0] = 0x1F2185490;
+              v41[1] = 0x1F21852D0;
+              v41[2] = @"com.apple.VideoConference.AVConferenceTestRunneriOS";
+              v41[3] = @"com.apple.AVConferenceTestRunnertvOS";
+              *(token + 128) = [MEMORY[0x1E695DEC8] arrayWithObjects:v41 count:4];
             }
           }
 
@@ -252,7 +252,7 @@ uint64_t __80__FigCaptureClientApplicationStateMonitorClient__setUpClientInfoWit
               }
 
               OUTLINED_FUNCTION_1_4();
-              OUTLINED_FUNCTION_13_0();
+              OUTLINED_FUNCTION_13_0(v27, v28, v29, v30, v31);
             }
           }
 
@@ -268,28 +268,28 @@ LABEL_15:
       return;
     }
 
-    v27 = OUTLINED_FUNCTION_20_9();
-    OUTLINED_FUNCTION_29_4(v27);
+    v32 = OUTLINED_FUNCTION_20_9();
+    OUTLINED_FUNCTION_29_4(v32);
     OUTLINED_FUNCTION_39_7();
     if (v25)
     {
-      v29 = v28;
+      v34 = v33;
     }
 
     else
     {
-      v29 = v2;
+      v34 = v2;
     }
 
-    if (v29)
+    if (v34)
     {
       OUTLINED_FUNCTION_5();
-      OUTLINED_FUNCTION_18_2();
+      OUTLINED_FUNCTION_18_2(v35, 0, &token, 128, &dword_1AC90E000);
       OUTLINED_FUNCTION_54_1();
     }
 
     OUTLINED_FUNCTION_1_4();
-    OUTLINED_FUNCTION_17_8();
+    OUTLINED_FUNCTION_17_8(v36, v37, v38, v39, v40);
   }
 }
 

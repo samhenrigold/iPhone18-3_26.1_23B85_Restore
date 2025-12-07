@@ -12,21 +12,19 @@
 
 - (NSArray)attributeDescriptions
 {
-  v15[3] = *MEMORY[0x1E69E9840];
+  v14[3] = *MEMORY[0x1E69E9840];
   v3 = objc_alloc(MEMORY[0x1E69A29C8]);
   keyPath = [(HMAccessorySettingFetchResult *)self keyPath];
   v5 = [v3 initWithName:@"keyPath" value:keyPath];
   v6 = objc_alloc(MEMORY[0x1E69A29C8]);
   setting = [(HMAccessorySettingFetchResult *)self setting];
   v8 = [v6 initWithName:@"setting" value:setting];
-  v15[1] = v8;
+  v14[1] = v8;
   v9 = objc_alloc(MEMORY[0x1E69A29C8]);
   v10 = HMAccessorySettingsPartialFetchFailureTypeToString([(HMAccessorySettingFetchResult *)self failureType]);
   v11 = [v9 initWithName:@"failureType" value:v10];
-  v15[2] = v11;
-  v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:3];
-
-  v13 = *MEMORY[0x1E69E9840];
+  v14[2] = v11;
+  v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:3];
 
   return v12;
 }

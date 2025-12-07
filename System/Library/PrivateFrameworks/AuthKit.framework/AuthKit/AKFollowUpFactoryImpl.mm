@@ -380,7 +380,6 @@ LABEL_56:
   objc_storeStrong(&v58, 0);
   objc_storeStrong(&v59, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
   v6 = v62;
 
   return v6;
@@ -432,7 +431,6 @@ LABEL_56:
 LABEL_13:
   objc_storeStrong(&v7, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
   v3 = extensionIdentifier;
 
   return v3;
@@ -975,7 +973,6 @@ id __61__AKFollowUpFactoryImpl__actionsFromPayload_pushMessageInfo___block_invok
   objc_storeStrong(&v95, 0);
   objc_storeStrong(&v96, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 
   return v8;
 }
@@ -1035,7 +1032,6 @@ id __61__AKFollowUpFactoryImpl__actionsFromPayload_pushMessageInfo___block_invok
   objc_storeStrong(&v9, 0);
   objc_storeStrong(&v10, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 
   return v7;
 }

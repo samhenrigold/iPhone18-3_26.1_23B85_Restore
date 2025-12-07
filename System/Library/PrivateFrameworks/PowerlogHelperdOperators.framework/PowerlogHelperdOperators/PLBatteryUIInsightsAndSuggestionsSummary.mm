@@ -53,39 +53,37 @@
 
 - (id)result
 {
-  v16[1] = *MEMORY[0x277D85DE8];
+  v15[1] = *MEMORY[0x277D85DE8];
   v3 = objc_opt_new();
   if ([(NSArray *)self->_suggestionSummaryResult count])
   {
     suggestionSummaryResult = self->_suggestionSummaryResult;
-    v15 = @"suggestionSummary";
-    v16[0] = suggestionSummaryResult;
-    v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:&v15 count:1];
+    v14 = @"suggestionSummary";
+    v15[0] = suggestionSummaryResult;
+    v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:&v14 count:1];
     [v3 addEntriesFromDictionary:v5];
   }
 
   if ([(NSArray *)self->_insightSummaryResult count])
   {
     insightSummaryResult = self->_insightSummaryResult;
-    v13 = @"insightSummary";
-    v14 = insightSummaryResult;
-    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v14 forKeys:&v13 count:1];
+    v12 = @"insightSummary";
+    v13 = insightSummaryResult;
+    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v13 forKeys:&v12 count:1];
     [v3 addEntriesFromDictionary:v7];
   }
 
   if ([v3 count])
   {
-    v11 = @"insightsAndSuggestionsSummaryKey";
-    v12 = v3;
-    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v12 forKeys:&v11 count:1];
+    v10 = @"insightsAndSuggestionsSummaryKey";
+    v11 = v3;
+    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v11 forKeys:&v10 count:1];
   }
 
   else
   {
     v8 = MEMORY[0x277CBEC10];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v8;
 }

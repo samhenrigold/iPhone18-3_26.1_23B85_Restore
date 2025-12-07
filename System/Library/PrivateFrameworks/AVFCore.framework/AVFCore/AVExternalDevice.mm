@@ -698,7 +698,7 @@ void __32__AVExternalDevice_setDelegate___block_invoke(uint64_t a1)
   return self->_externalDevice->_HIDs;
 }
 
-uint64_t __38__AVExternalDevice_externalDeviceHIDs__block_invoke(uint64_t a1)
+void *__38__AVExternalDevice_externalDeviceHIDs__block_invoke(uint64_t a1)
 {
   v16 = *MEMORY[0x1E69E9840];
   v2 = [MEMORY[0x1E695DF70] array];
@@ -854,7 +854,7 @@ LABEL_4:
   return self->_externalDevice->_oemIcons;
 }
 
-uint64_t __28__AVExternalDevice_OEMIcons__block_invoke(uint64_t a1)
+void *__28__AVExternalDevice_OEMIcons__block_invoke(uint64_t a1)
 {
   v15 = *MEMORY[0x1E69E9840];
   v2 = [MEMORY[0x1E695DF70] array];
@@ -983,30 +983,30 @@ uint64_t __28__AVExternalDevice_OEMIcons__block_invoke(uint64_t a1)
   return v4;
 }
 
-id __46__AVExternalDevice_MFiCertificateSerialNumber__block_invoke(uint64_t a1)
+id __46__AVExternalDevice_MFiCertificateSerialNumber__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = *(*(*(a1 + 32) + 8) + 48);
-  if (!v2)
+  v3 = *(*(*(a1 + 32) + 8) + 48);
+  if (!v3)
   {
-    v8 = 0;
+    v9 = 0;
     cf = 0;
     CMBaseObject = FigEndpointGetCMBaseObject();
-    v4 = *(*(CMBaseObjectGetVTable() + 8) + 48);
-    if (v4)
+    v5 = *(*(CMBaseObjectGetVTable() + 8) + 48);
+    if (v5)
     {
-      v4(CMBaseObject, *MEMORY[0x1E6961FC8], 0, &cf);
+      v5(CMBaseObject, *MEMORY[0x1E6961FC8], 0, &cf);
     }
 
     if (FigCFEqual() || FigCFEqual())
     {
-      v5 = FigEndpointGetCMBaseObject();
-      v6 = *(*(CMBaseObjectGetVTable() + 8) + 48);
-      if (v6)
+      v6 = FigEndpointGetCMBaseObject();
+      v7 = *(*(CMBaseObjectGetVTable() + 8) + 48);
+      if (v7)
       {
-        v6(v5, *MEMORY[0x1E6961FC0], 0, &v8);
-        if (v8)
+        v7(v6, *MEMORY[0x1E6961FC0], 0, &v9);
+        if (v9)
         {
-          *(*(*(a1 + 32) + 8) + 48) = v8;
+          *(*(*(a1 + 32) + 8) + 48) = v9;
         }
       }
     }
@@ -1016,10 +1016,10 @@ id __46__AVExternalDevice_MFiCertificateSerialNumber__block_invoke(uint64_t a1)
       CFRelease(cf);
     }
 
-    v2 = *(*(*(a1 + 32) + 8) + 48);
+    v3 = *(*(*(a1 + 32) + 8) + 48);
   }
 
-  result = v2;
+  result = v3;
   *(*(*(a1 + 40) + 8) + 40) = result;
   return result;
 }

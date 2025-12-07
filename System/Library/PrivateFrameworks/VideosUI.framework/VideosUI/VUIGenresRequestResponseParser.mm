@@ -80,7 +80,7 @@
   if (v4)
   {
     v5 = v4;
-    v6 = &unk_1EE28A000;
+    v6 = &qword_1EE28A000;
     v7 = *v43;
     v32 = *v43;
     do
@@ -101,7 +101,7 @@
           v10 = [v9 vui_dictionaryForKey:@"attributes"];
           if (!v10)
           {
-            v11 = *(v6 + 299);
+            v11 = v6[299];
             if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 0;
@@ -171,14 +171,14 @@
             [v13 addObject:v21];
 
 LABEL_23:
-            v6 = &unk_1EE28A000;
+            v6 = &qword_1EE28A000;
             v5 = v34;
             v7 = v32;
           }
 
           else
           {
-            v29 = *(v6 + 299);
+            v29 = v6[299];
             if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 0;
@@ -191,7 +191,7 @@ LABEL_23:
 
         else
         {
-          v24 = *(v6 + 299);
+          v24 = v6[299];
           if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 0;

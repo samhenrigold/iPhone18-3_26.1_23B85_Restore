@@ -19,7 +19,7 @@
   sub_100006D00();
   v4 = static Set._unconditionallyBridgeFromObjectiveC(_:)();
   selfCopy = self;
-  sub_100006D58(v4);
+  sub_100006D58(v4, v6);
 }
 
 - (_TtC21AccessibilityUIServer32AXUIServerGuestPassActionHandler)init

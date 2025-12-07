@@ -8,7 +8,7 @@
 
 - (id)textureSource
 {
-  v3 = scn_default_log();
+  v3 = scn_default_log(self, a2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     [(SCNImageSource *)a2 textureSource];
@@ -29,7 +29,7 @@
 {
   NSStringFromSelector(self);
   OUTLINED_FUNCTION_2_7();
-  OUTLINED_FUNCTION_1_7(&dword_21BEF7000, v1, v2, "Error: SCNImageSource astract method invoked %@", v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_1_7(&dword_21BEF7000, v1, v2, "Error: SCNImageSource astract method invoked %@", v3, v4, v5, v6);
 }
 
 @end

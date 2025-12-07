@@ -32,7 +32,7 @@
 
 - (id)fetchMoreResultsWithLimit:(unint64_t)limit qualityOfService:(int64_t)service callbackQueue:(id)queue completionHandler:(id)handler
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   queueCopy = queue;
   handlerCopy = handler;
   v11 = handlerCopy;
@@ -52,7 +52,6 @@
 
       index = self->_index;
       v14 = [(NSArray *)self->_array count];
-      array = self->_array;
       if (limitCopy >= v14 - self->_index)
       {
         limitCopy = v14 - self->_index;
@@ -64,9 +63,9 @@
       block[1] = 3221225472;
       block[2] = __92__FCArrayStream_fetchMoreResultsWithLimit_qualityOfService_callbackQueue_completionHandler___block_invoke;
       block[3] = &unk_1E7C37778;
-      v22 = limitCopy;
-      v23 = v11;
-      v17 = limitCopy;
+      v20 = limitCopy;
+      v21 = v11;
+      v16 = limitCopy;
       dispatch_async(queueCopy, block);
 
 LABEL_9:
@@ -79,30 +78,30 @@ LABEL_13:
       goto LABEL_14;
     }
 
-    v17 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "completionHandler != nil"];
+    v16 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "completionHandler != nil"];
     *buf = 136315906;
-    v25 = "[FCArrayStream fetchMoreResultsWithLimit:qualityOfService:callbackQueue:completionHandler:]";
-    v26 = 2080;
-    v27 = "FCArrayStream.m";
-    v28 = 1024;
-    v29 = 35;
-    v30 = 2114;
-    v31 = v17;
+    v23 = "[FCArrayStream fetchMoreResultsWithLimit:qualityOfService:callbackQueue:completionHandler:]";
+    v24 = 2080;
+    v25 = "FCArrayStream.m";
+    v26 = 1024;
+    v27 = 35;
+    v28 = 2114;
+    v29 = v16;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
     goto LABEL_9;
   }
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v20 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "callbackQueue != nil"];
+    v18 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "callbackQueue != nil"];
     *buf = 136315906;
-    v25 = "[FCArrayStream fetchMoreResultsWithLimit:qualityOfService:callbackQueue:completionHandler:]";
-    v26 = 2080;
-    v27 = "FCArrayStream.m";
-    v28 = 1024;
-    v29 = 34;
-    v30 = 2114;
-    v31 = v20;
+    v23 = "[FCArrayStream fetchMoreResultsWithLimit:qualityOfService:callbackQueue:completionHandler:]";
+    v24 = 2080;
+    v25 = "FCArrayStream.m";
+    v26 = 1024;
+    v27 = 34;
+    v28 = 2114;
+    v29 = v18;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
@@ -113,7 +112,6 @@ LABEL_13:
 
 LABEL_14:
 
-  v18 = *MEMORY[0x1E69E9840];
   return 0;
 }
 

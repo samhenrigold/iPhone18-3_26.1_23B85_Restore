@@ -62,12 +62,12 @@
 
 - (void)loadView
 {
-  v5.receiver = self;
-  v5.super_class = PKNewDevicePasscodeViewController;
-  [(PKNewDevicePasscodeViewController *)&v5 loadView];
-  v3 = [objc_alloc(getBFFPasscodeViewClass[0]()) initWithFrame:{*MEMORY[0x1E695F058], *(MEMORY[0x1E695F058] + 8), *(MEMORY[0x1E695F058] + 16), *(MEMORY[0x1E695F058] + 24)}];
+  v6.receiver = self;
+  v6.super_class = PKNewDevicePasscodeViewController;
+  loadView = [(PKNewDevicePasscodeViewController *)&v6 loadView];
+  v4 = [objc_alloc(getBFFPasscodeViewClass(loadView)) initWithFrame:{*MEMORY[0x1E695F058], *(MEMORY[0x1E695F058] + 8), *(MEMORY[0x1E695F058] + 16), *(MEMORY[0x1E695F058] + 24)}];
   passcodeView = self->_passcodeView;
-  self->_passcodeView = v3;
+  self->_passcodeView = v4;
 
   [(BFFPasscodeView *)self->_passcodeView setAutoresizingMask:18];
   [(BFFPasscodeView *)self->_passcodeView setPasscodeViewController:self];
@@ -374,12 +374,12 @@ LABEL_10:
 {
   if (type)
   {
-    v6 = [objc_alloc(off_1EE9A1C90[0]()) initWithFrame:type == 1 numericOnly:{*MEMORY[0x1E695F058], *(MEMORY[0x1E695F058] + 8), *(MEMORY[0x1E695F058] + 16), *(MEMORY[0x1E695F058] + 24)}];
+    v6 = [objc_alloc(off_1EE9A1C90(self a2))];
   }
 
   else
   {
-    v6 = [objc_alloc(_MergedGlobals_3_8[0]()) initWithFrame:6 numberOfEntryFields:{*MEMORY[0x1E695F058], *(MEMORY[0x1E695F058] + 8), *(MEMORY[0x1E695F058] + 16), *(MEMORY[0x1E695F058] + 24)}];
+    v6 = [objc_alloc(_MergedGlobals_3_8(self a2))];
   }
 
   v7 = v6;

@@ -191,7 +191,7 @@ id __53__EMSearchableIndexQuery_initWithExpression_builder___block_invoke(uint64
 
 - (EMSearchableIndexQuery)initWithExpression:(id)expression builder:(id)builder queryContext:(id)context querySetup:(id)setup
 {
-  v108[1] = *MEMORY[0x1E69E9840];
+  v107[1] = *MEMORY[0x1E69E9840];
   expressionCopy = expression;
   builderCopy = builder;
   contextCopy = context;
@@ -220,9 +220,9 @@ id __53__EMSearchableIndexQuery_initWithExpression_builder___block_invoke(uint64
   [currentHandler2 handleFailureInMethod:a2 object:self file:@"EMSearchableIndexQuery.m" lineNumber:123 description:{@"Invalid parameter not satisfying: %@", @"querySetup"}];
 
 LABEL_3:
-  v104.receiver = self;
-  v104.super_class = EMSearchableIndexQuery;
-  v14 = [(EMSearchableIndexQuery *)&v104 init];
+  v103.receiver = self;
+  v103.super_class = EMSearchableIndexQuery;
+  v14 = [(EMSearchableIndexQuery *)&v103 init];
   v15 = v14;
   if (!v14)
   {
@@ -266,49 +266,49 @@ LABEL_3:
     block[1] = 3221225472;
     block[2] = __77__EMSearchableIndexQuery_initWithExpression_builder_queryContext_querySetup___block_invoke;
     block[3] = &unk_1E826C098;
-    v103 = v15;
+    v102 = v15;
     dispatch_after(v29, MEMORY[0x1E69E96A0], block);
   }
 
   resultsBlock = [(EMSearchableIndexQuery *)v15 resultsBlock];
-  v69 = resultsBlock;
+  v68 = resultsBlock;
   if (resultsBlock)
   {
     aBlock[0] = MEMORY[0x1E69E9820];
     aBlock[1] = 3221225472;
     aBlock[2] = __77__EMSearchableIndexQuery_initWithExpression_builder_queryContext_querySetup___block_invoke_2;
     aBlock[3] = &unk_1E826F800;
-    v101 = resultsBlock;
+    v100 = resultsBlock;
     v31 = v15;
-    v100 = v31;
+    v99 = v31;
     v32 = _Block_copy(aBlock);
     [(EMSearchableIndexQuery *)v31 setResultsBlock:v32];
   }
 
   completionBlock = [(EMSearchableIndexQuery *)v15 completionBlock];
   future = [(EFPromise *)v15->_resultsPromise future];
-  v96[0] = MEMORY[0x1E69E9820];
-  v96[1] = 3221225472;
-  v96[2] = __77__EMSearchableIndexQuery_initWithExpression_builder_queryContext_querySetup___block_invoke_3;
-  v96[3] = &unk_1E826F828;
+  v95[0] = MEMORY[0x1E69E9820];
+  v95[1] = 3221225472;
+  v95[2] = __77__EMSearchableIndexQuery_initWithExpression_builder_queryContext_querySetup___block_invoke_3;
+  v95[3] = &unk_1E826F828;
   v34 = v15;
-  v97 = v34;
-  v68 = completionBlock;
-  v98 = v68;
-  [future addSuccessBlock:v96];
+  v96 = v34;
+  v67 = completionBlock;
+  v97 = v67;
+  [future addSuccessBlock:v95];
 
   [(EMSearchableIndexQuery *)v34 setCompletionBlock:0];
   failureBlock = [(EMSearchableIndexQuery *)v34 failureBlock];
   future2 = [(EFPromise *)v15->_resultsPromise future];
-  v93[0] = MEMORY[0x1E69E9820];
-  v93[1] = 3221225472;
-  v93[2] = __77__EMSearchableIndexQuery_initWithExpression_builder_queryContext_querySetup___block_invoke_4;
-  v93[3] = &unk_1E826EAC0;
+  v92[0] = MEMORY[0x1E69E9820];
+  v92[1] = 3221225472;
+  v92[2] = __77__EMSearchableIndexQuery_initWithExpression_builder_queryContext_querySetup___block_invoke_4;
+  v92[3] = &unk_1E826EAC0;
   v36 = v34;
-  v94 = v36;
-  v67 = failureBlock;
-  v95 = v67;
-  [future2 addFailureBlock:v93];
+  v93 = v36;
+  v66 = failureBlock;
+  v94 = v66;
+  [future2 addFailureBlock:v92];
 
   [v36 setFailureBlock:0];
   [v36 setExpression:expressionCopy];
@@ -326,8 +326,8 @@ LABEL_3:
   v40 = bundleID;
   if (bundleID)
   {
-    v108[0] = bundleID;
-    v41 = [MEMORY[0x1E695DEC8] arrayWithObjects:v108 count:1];
+    v107[0] = bundleID;
+    v41 = [MEMORY[0x1E695DEC8] arrayWithObjects:v107 count:1];
   }
 
   else
@@ -358,8 +358,8 @@ LABEL_3:
     v45 = v44;
     if (v44)
     {
-      v107 = v44;
-      v46 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v107 count:1];
+      v106 = v44;
+      v46 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v106 count:1];
       [contextCopy setProtectionClasses:v46];
     }
   }
@@ -368,45 +368,45 @@ LABEL_3:
   [v36 setQuery:v47];
 
   objc_initWeak(&location, v36);
-  v90[0] = MEMORY[0x1E69E9820];
-  v90[1] = 3221225472;
-  v90[2] = __77__EMSearchableIndexQuery_initWithExpression_builder_queryContext_querySetup___block_invoke_5;
-  v90[3] = &unk_1E826C070;
-  objc_copyWeak(&v91, &location);
-  [(NSProgress *)v15->_internalProgress setCancellationHandler:v90];
-  v88[0] = MEMORY[0x1E69E9820];
-  v88[1] = 3221225472;
-  v88[2] = __77__EMSearchableIndexQuery_initWithExpression_builder_queryContext_querySetup___block_invoke_63;
-  v88[3] = &unk_1E826F850;
-  objc_copyWeak(&v89, &location);
-  [v36[23] setFoundItemsHandler:v88];
-  v86[0] = MEMORY[0x1E69E9820];
-  v86[1] = 3221225472;
-  v86[2] = __77__EMSearchableIndexQuery_initWithExpression_builder_queryContext_querySetup___block_invoke_2_64;
-  v86[3] = &unk_1E826F878;
-  objc_copyWeak(&v87, &location);
-  [v36[23] setCompletionHandler:v86];
+  v89[0] = MEMORY[0x1E69E9820];
+  v89[1] = 3221225472;
+  v89[2] = __77__EMSearchableIndexQuery_initWithExpression_builder_queryContext_querySetup___block_invoke_5;
+  v89[3] = &unk_1E826C070;
+  objc_copyWeak(&v90, &location);
+  [(NSProgress *)v15->_internalProgress setCancellationHandler:v89];
+  v87[0] = MEMORY[0x1E69E9820];
+  v87[1] = 3221225472;
+  v87[2] = __77__EMSearchableIndexQuery_initWithExpression_builder_queryContext_querySetup___block_invoke_63;
+  v87[3] = &unk_1E826F850;
+  objc_copyWeak(&v88, &location);
+  [v36[23] setFoundItemsHandler:v87];
+  v85[0] = MEMORY[0x1E69E9820];
+  v85[1] = 3221225472;
+  v85[2] = __77__EMSearchableIndexQuery_initWithExpression_builder_queryContext_querySetup___block_invoke_2_64;
+  v85[3] = &unk_1E826F878;
+  objc_copyWeak(&v86, &location);
+  [v36[23] setCompletionHandler:v85];
   if ([v36 live])
   {
     v48 = [MEMORY[0x1E696AE38] progressWithTotalUnitCount:-1 parent:v15->_progress pendingUnitCount:-1];
-    v84[0] = MEMORY[0x1E69E9820];
-    v84[1] = 3221225472;
-    v84[2] = __77__EMSearchableIndexQuery_initWithExpression_builder_queryContext_querySetup___block_invoke_3_65;
-    v84[3] = &unk_1E826C070;
-    objc_copyWeak(&v85, &location);
-    [v36[23] setGatherEndedHandler:v84];
-    v82[0] = MEMORY[0x1E69E9820];
-    v82[1] = 3221225472;
-    v82[2] = __77__EMSearchableIndexQuery_initWithExpression_builder_queryContext_querySetup___block_invoke_4_66;
-    v82[3] = &unk_1E826F850;
-    objc_copyWeak(&v83, &location);
-    [v36[23] setChangedItemsHandler:v82];
-    v80[0] = MEMORY[0x1E69E9820];
-    v80[1] = 3221225472;
-    v80[2] = __77__EMSearchableIndexQuery_initWithExpression_builder_queryContext_querySetup___block_invoke_5_67;
-    v80[3] = &unk_1E826F8A0;
-    objc_copyWeak(&v81, &location);
-    [v36[23] setRemovedItemsHandler:v80];
+    v83[0] = MEMORY[0x1E69E9820];
+    v83[1] = 3221225472;
+    v83[2] = __77__EMSearchableIndexQuery_initWithExpression_builder_queryContext_querySetup___block_invoke_3_65;
+    v83[3] = &unk_1E826C070;
+    objc_copyWeak(&v84, &location);
+    [v36[23] setGatherEndedHandler:v83];
+    v81[0] = MEMORY[0x1E69E9820];
+    v81[1] = 3221225472;
+    v81[2] = __77__EMSearchableIndexQuery_initWithExpression_builder_queryContext_querySetup___block_invoke_4_66;
+    v81[3] = &unk_1E826F850;
+    objc_copyWeak(&v82, &location);
+    [v36[23] setChangedItemsHandler:v81];
+    v79[0] = MEMORY[0x1E69E9820];
+    v79[1] = 3221225472;
+    v79[2] = __77__EMSearchableIndexQuery_initWithExpression_builder_queryContext_querySetup___block_invoke_5_67;
+    v79[3] = &unk_1E826F8A0;
+    objc_copyWeak(&v80, &location);
+    [v36[23] setRemovedItemsHandler:v79];
     if ([v36 attribute])
     {
       v49 = +[EMSearchableIndexQuery log];
@@ -416,9 +416,9 @@ LABEL_3:
       }
     }
 
-    objc_destroyWeak(&v81);
-    objc_destroyWeak(&v83);
-    objc_destroyWeak(&v85);
+    objc_destroyWeak(&v80);
+    objc_destroyWeak(&v82);
+    objc_destroyWeak(&v84);
     goto LABEL_28;
   }
 
@@ -443,13 +443,13 @@ LABEL_28:
   if ([v36 counting])
   {
     v15->_count = 0;
-    v78[0] = MEMORY[0x1E69E9820];
-    v78[1] = 3221225472;
-    v78[2] = __77__EMSearchableIndexQuery_initWithExpression_builder_queryContext_querySetup___block_invoke_72;
-    v78[3] = &unk_1E826F8C8;
-    objc_copyWeak(&v79, &location);
-    [v36[23] setCountChangedHandler:v78];
-    objc_destroyWeak(&v79);
+    v77[0] = MEMORY[0x1E69E9820];
+    v77[1] = 3221225472;
+    v77[2] = __77__EMSearchableIndexQuery_initWithExpression_builder_queryContext_querySetup___block_invoke_72;
+    v77[3] = &unk_1E826F8C8;
+    objc_copyWeak(&v78, &location);
+    [v36[23] setCountChangedHandler:v77];
+    objc_destroyWeak(&v78);
   }
 
   else
@@ -466,20 +466,20 @@ LABEL_28:
 
   if ([v36 attribute])
   {
-    v76[0] = MEMORY[0x1E69E9820];
-    v76[1] = 3221225472;
-    v76[2] = __77__EMSearchableIndexQuery_initWithExpression_builder_queryContext_querySetup___block_invoke_2_77;
-    v76[3] = &unk_1E826F8A0;
-    objc_copyWeak(&v77, &location);
-    [v36[23] setFoundAttributesHandler:v76];
-    v74[0] = MEMORY[0x1E69E9820];
-    v74[1] = 3221225472;
-    v74[2] = __77__EMSearchableIndexQuery_initWithExpression_builder_queryContext_querySetup___block_invoke_3_78;
-    v74[3] = &unk_1E826F8A0;
-    objc_copyWeak(&v75, &location);
-    [v36[23] setChangedAttributesHandler:v74];
-    objc_destroyWeak(&v75);
-    objc_destroyWeak(&v77);
+    v75[0] = MEMORY[0x1E69E9820];
+    v75[1] = 3221225472;
+    v75[2] = __77__EMSearchableIndexQuery_initWithExpression_builder_queryContext_querySetup___block_invoke_2_77;
+    v75[3] = &unk_1E826F8A0;
+    objc_copyWeak(&v76, &location);
+    [v36[23] setFoundAttributesHandler:v75];
+    v73[0] = MEMORY[0x1E69E9820];
+    v73[1] = 3221225472;
+    v73[2] = __77__EMSearchableIndexQuery_initWithExpression_builder_queryContext_querySetup___block_invoke_3_78;
+    v73[3] = &unk_1E826F8A0;
+    objc_copyWeak(&v74, &location);
+    [v36[23] setChangedAttributesHandler:v73];
+    objc_destroyWeak(&v74);
+    objc_destroyWeak(&v76);
   }
 
   else
@@ -503,17 +503,16 @@ LABEL_28:
   {
     v61 = [v36 description];
     *buf = 138412290;
-    v106 = v61;
+    v105 = v61;
     _os_log_impl(&dword_1C6655000, v60, OS_LOG_TYPE_DEFAULT, "%@", buf, 0xCu);
   }
 
-  objc_destroyWeak(&v87);
-  objc_destroyWeak(&v89);
-  objc_destroyWeak(&v91);
+  objc_destroyWeak(&v86);
+  objc_destroyWeak(&v88);
+  objc_destroyWeak(&v90);
   objc_destroyWeak(&location);
 
 LABEL_40:
-  v62 = *MEMORY[0x1E69E9840];
   return v15;
 }
 
@@ -526,10 +525,9 @@ void __77__EMSearchableIndexQuery_initWithExpression_builder_queryContext_queryS
 
 void __77__EMSearchableIndexQuery_initWithExpression_builder_queryContext_querySetup___block_invoke_2(uint64_t a1, void *a2)
 {
-  v5 = a2;
+  v4 = a2;
   (*(*(a1 + 40) + 16))();
-  v3 = *(a1 + 32);
-  v4 = objc_opt_self();
+  v3 = objc_opt_self();
 }
 
 uint64_t __77__EMSearchableIndexQuery_initWithExpression_builder_queryContext_querySetup___block_invoke_3(uint64_t a1)
@@ -560,17 +558,16 @@ void __77__EMSearchableIndexQuery_initWithExpression_builder_queryContext_queryS
 
 void __77__EMSearchableIndexQuery_initWithExpression_builder_queryContext_querySetup___block_invoke_5(uint64_t a1)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v2 = +[EMSearchableIndexQuery log];
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     v3 = [WeakRetained logPrefixString];
-    __77__EMSearchableIndexQuery_initWithExpression_builder_queryContext_querySetup___block_invoke_5_cold_1(v3, v5, v2);
+    __77__EMSearchableIndexQuery_initWithExpression_builder_queryContext_querySetup___block_invoke_5_cold_1(v3, v4, v2);
   }
 
   [WeakRetained _cancel];
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 void __77__EMSearchableIndexQuery_initWithExpression_builder_queryContext_querySetup___block_invoke_63(uint64_t a1, void *a2)
@@ -736,21 +733,19 @@ void __77__EMSearchableIndexQuery_initWithExpression_builder_queryContext_queryS
 
 void __49__EMSearchableIndexQuery__isFinishedQueryStatus___block_invoke()
 {
-  v3[4] = *MEMORY[0x1E69E9840];
-  v3[0] = @"failed";
-  v3[1] = @"gathered";
-  v3[2] = @"completed";
-  v3[3] = @"cancelled";
-  v0 = [MEMORY[0x1E695DEC8] arrayWithObjects:v3 count:4];
+  v2[4] = *MEMORY[0x1E69E9840];
+  v2[0] = @"failed";
+  v2[1] = @"gathered";
+  v2[2] = @"completed";
+  v2[3] = @"cancelled";
+  v0 = [MEMORY[0x1E695DEC8] arrayWithObjects:v2 count:4];
   v1 = _isFinishedQueryStatus__finishedQueryStatuses;
   _isFinishedQueryStatus__finishedQueryStatuses = v0;
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setQueryStatus:(id)status
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   statusCopy = status;
   if (self->_queryStatus != statusCopy)
   {
@@ -758,11 +753,11 @@ void __49__EMSearchableIndexQuery__isFinishedQueryStatus___block_invoke()
     if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
       logPrefixString = [(EMSearchableIndexQuery *)self logPrefixString];
-      v9 = 138543618;
-      v10 = logPrefixString;
-      v11 = 2114;
-      v12 = statusCopy;
-      _os_log_impl(&dword_1C6655000, v6, OS_LOG_TYPE_INFO, "%{public}@ status changed to '%{public}@'", &v9, 0x16u);
+      v8 = 138543618;
+      v9 = logPrefixString;
+      v10 = 2114;
+      v11 = statusCopy;
+      _os_log_impl(&dword_1C6655000, v6, OS_LOG_TYPE_INFO, "%{public}@ status changed to '%{public}@'", &v8, 0x16u);
     }
 
     objc_storeStrong(&self->_queryStatus, status);
@@ -777,8 +772,6 @@ void __49__EMSearchableIndexQuery__isFinishedQueryStatus___block_invoke()
       [(EMSearchableIndexQuery *)self _logSignpostForSearchQueryDidFinishWithStatus:statusCopy];
     }
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (int64_t)count
@@ -1060,29 +1053,27 @@ LABEL_8:
 
 - (void)_searchQueryDidFindItems:(id)items
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   itemsCopy = items;
   v5 = +[EMSearchableIndexQuery log];
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     logPrefixString = [(EMSearchableIndexQuery *)self logPrefixString];
     *buf = 138543618;
-    v12 = logPrefixString;
-    v13 = 2048;
-    v14 = [itemsCopy count];
+    v11 = logPrefixString;
+    v12 = 2048;
+    v13 = [itemsCopy count];
     _os_log_impl(&dword_1C6655000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@ found %lu items", buf, 0x16u);
   }
 
-  v9[0] = MEMORY[0x1E69E9820];
-  v9[1] = 3221225472;
-  v9[2] = __51__EMSearchableIndexQuery__searchQueryDidFindItems___block_invoke;
-  v9[3] = &unk_1E826C148;
-  v9[4] = self;
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __51__EMSearchableIndexQuery__searchQueryDidFindItems___block_invoke;
+  v8[3] = &unk_1E826C148;
+  v8[4] = self;
   v7 = itemsCopy;
-  v10 = v7;
-  [(EMSearchableIndexQuery *)self _performClientWork:v9];
-
-  v8 = *MEMORY[0x1E69E9840];
+  v9 = v7;
+  [(EMSearchableIndexQuery *)self _performClientWork:v8];
 }
 
 uint64_t __51__EMSearchableIndexQuery__searchQueryDidFindItems___block_invoke(uint64_t a1)
@@ -1096,7 +1087,7 @@ uint64_t __51__EMSearchableIndexQuery__searchQueryDidFindItems___block_invoke(ui
 
 - (void)_searchQueryDidFailWithError:(id)error
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   errorCopy = error;
   v5 = +[EMSearchableIndexQuery log];
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
@@ -1106,141 +1097,132 @@ uint64_t __51__EMSearchableIndexQuery__searchQueryDidFindItems___block_invoke(ui
     [(EMSearchableIndexQuery *)logPrefixString _searchQueryDidFailWithError:ef_publicDescription, buf, v5];
   }
 
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 3221225472;
-  v10[2] = __55__EMSearchableIndexQuery__searchQueryDidFailWithError___block_invoke;
-  v10[3] = &unk_1E826C148;
-  v10[4] = self;
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __55__EMSearchableIndexQuery__searchQueryDidFailWithError___block_invoke;
+  v9[3] = &unk_1E826C148;
+  v9[4] = self;
   v8 = errorCopy;
-  v11 = v8;
-  [(EMSearchableIndexQuery *)self _performClientWork:v10];
-
-  v9 = *MEMORY[0x1E69E9840];
+  v10 = v8;
+  [(EMSearchableIndexQuery *)self _performClientWork:v9];
 }
 
 - (void)_searchQueryDidComplete
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = +[EMSearchableIndexQuery log];
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     logPrefixString = [(EMSearchableIndexQuery *)self logPrefixString];
     *buf = 138543362;
-    v8 = logPrefixString;
+    v7 = logPrefixString;
     _os_log_impl(&dword_1C6655000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@ completed", buf, 0xCu);
   }
 
-  v6[0] = MEMORY[0x1E69E9820];
-  v6[1] = 3221225472;
-  v6[2] = __49__EMSearchableIndexQuery__searchQueryDidComplete__block_invoke;
-  v6[3] = &unk_1E826C098;
-  v6[4] = self;
-  [(EMSearchableIndexQuery *)self _performClientWork:v6];
-  v5 = *MEMORY[0x1E69E9840];
+  v5[0] = MEMORY[0x1E69E9820];
+  v5[1] = 3221225472;
+  v5[2] = __49__EMSearchableIndexQuery__searchQueryDidComplete__block_invoke;
+  v5[3] = &unk_1E826C098;
+  v5[4] = self;
+  [(EMSearchableIndexQuery *)self _performClientWork:v5];
 }
 
 - (void)_searchQueryGatherDidEnd
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = +[EMSearchableIndexQuery log];
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     logPrefixString = [(EMSearchableIndexQuery *)self logPrefixString];
     *buf = 138543362;
-    v8 = logPrefixString;
+    v7 = logPrefixString;
     _os_log_impl(&dword_1C6655000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@ gathered", buf, 0xCu);
   }
 
-  v6[0] = MEMORY[0x1E69E9820];
-  v6[1] = 3221225472;
-  v6[2] = __50__EMSearchableIndexQuery__searchQueryGatherDidEnd__block_invoke;
-  v6[3] = &unk_1E826C098;
-  v6[4] = self;
-  [(EMSearchableIndexQuery *)self _performClientWork:v6];
-  v5 = *MEMORY[0x1E69E9840];
+  v5[0] = MEMORY[0x1E69E9820];
+  v5[1] = 3221225472;
+  v5[2] = __50__EMSearchableIndexQuery__searchQueryGatherDidEnd__block_invoke;
+  v5[3] = &unk_1E826C098;
+  v5[4] = self;
+  [(EMSearchableIndexQuery *)self _performClientWork:v5];
 }
 
 - (void)_searchQueryDidChangeItems:(id)items
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   itemsCopy = items;
   v5 = +[EMSearchableIndexQuery log];
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     logPrefixString = [(EMSearchableIndexQuery *)self logPrefixString];
     *buf = 138543618;
-    v12 = logPrefixString;
-    v13 = 2048;
-    v14 = [itemsCopy count];
+    v11 = logPrefixString;
+    v12 = 2048;
+    v13 = [itemsCopy count];
     _os_log_impl(&dword_1C6655000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@ changed %lu items", buf, 0x16u);
   }
 
-  v9[0] = MEMORY[0x1E69E9820];
-  v9[1] = 3221225472;
-  v9[2] = __53__EMSearchableIndexQuery__searchQueryDidChangeItems___block_invoke;
-  v9[3] = &unk_1E826C148;
-  v9[4] = self;
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __53__EMSearchableIndexQuery__searchQueryDidChangeItems___block_invoke;
+  v8[3] = &unk_1E826C148;
+  v8[4] = self;
   v7 = itemsCopy;
-  v10 = v7;
-  [(EMSearchableIndexQuery *)self _performClientWork:v9];
-
-  v8 = *MEMORY[0x1E69E9840];
+  v9 = v7;
+  [(EMSearchableIndexQuery *)self _performClientWork:v8];
 }
 
 - (void)_searchQueryDidRemoveIdentifiers:(id)identifiers
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   identifiersCopy = identifiers;
   v5 = +[EMSearchableIndexQuery log];
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     logPrefixString = [(EMSearchableIndexQuery *)self logPrefixString];
     *buf = 138543618;
-    v12 = logPrefixString;
-    v13 = 2048;
-    v14 = [identifiersCopy count];
+    v11 = logPrefixString;
+    v12 = 2048;
+    v13 = [identifiersCopy count];
     _os_log_impl(&dword_1C6655000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@ removed %lu items", buf, 0x16u);
   }
 
-  v9[0] = MEMORY[0x1E69E9820];
-  v9[1] = 3221225472;
-  v9[2] = __59__EMSearchableIndexQuery__searchQueryDidRemoveIdentifiers___block_invoke;
-  v9[3] = &unk_1E826C148;
-  v9[4] = self;
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __59__EMSearchableIndexQuery__searchQueryDidRemoveIdentifiers___block_invoke;
+  v8[3] = &unk_1E826C148;
+  v8[4] = self;
   v7 = identifiersCopy;
-  v10 = v7;
-  [(EMSearchableIndexQuery *)self _performClientWork:v9];
-
-  v8 = *MEMORY[0x1E69E9840];
+  v9 = v7;
+  [(EMSearchableIndexQuery *)self _performClientWork:v8];
 }
 
 - (void)_searchQueryDidChangeCount:(int64_t)count
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v5 = +[EMSearchableIndexQuery log];
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     logPrefixString = [(EMSearchableIndexQuery *)self logPrefixString];
     *buf = 138543618;
-    v10 = logPrefixString;
-    v11 = 2048;
+    v9 = logPrefixString;
+    v10 = 2048;
     countCopy = count;
     _os_log_impl(&dword_1C6655000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@ count changed %lu items", buf, 0x16u);
   }
 
-  v8[0] = MEMORY[0x1E69E9820];
-  v8[1] = 3221225472;
-  v8[2] = __53__EMSearchableIndexQuery__searchQueryDidChangeCount___block_invoke;
-  v8[3] = &unk_1E826C4F0;
-  v8[4] = self;
-  v8[5] = count;
-  [(EMSearchableIndexQuery *)self _performClientWork:v8];
-  v7 = *MEMORY[0x1E69E9840];
+  v7[0] = MEMORY[0x1E69E9820];
+  v7[1] = 3221225472;
+  v7[2] = __53__EMSearchableIndexQuery__searchQueryDidChangeCount___block_invoke;
+  v7[3] = &unk_1E826C4F0;
+  v7[4] = self;
+  v7[5] = count;
+  [(EMSearchableIndexQuery *)self _performClientWork:v7];
 }
 
 - (void)_searchQueryDidFindAttribute:(id)attribute values:(id)values
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   attributeCopy = attribute;
   valuesCopy = values;
   v8 = +[EMSearchableIndexQuery log];
@@ -1248,26 +1230,24 @@ uint64_t __51__EMSearchableIndexQuery__searchQueryDidFindItems___block_invoke(ui
   {
     logPrefixString = [(EMSearchableIndexQuery *)self logPrefixString];
     *buf = 138543874;
-    v17 = logPrefixString;
-    v18 = 2114;
-    v19 = attributeCopy;
-    v20 = 2048;
-    v21 = [valuesCopy count];
+    v16 = logPrefixString;
+    v17 = 2114;
+    v18 = attributeCopy;
+    v19 = 2048;
+    v20 = [valuesCopy count];
     _os_log_impl(&dword_1C6655000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@ found attribute %{public}@ with %lu values", buf, 0x20u);
   }
 
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 3221225472;
-  v13[2] = __62__EMSearchableIndexQuery__searchQueryDidFindAttribute_values___block_invoke;
-  v13[3] = &unk_1E826C230;
-  v13[4] = self;
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = __62__EMSearchableIndexQuery__searchQueryDidFindAttribute_values___block_invoke;
+  v12[3] = &unk_1E826C230;
+  v12[4] = self;
   v10 = attributeCopy;
-  v14 = v10;
+  v13 = v10;
   v11 = valuesCopy;
-  v15 = v11;
-  [(EMSearchableIndexQuery *)self _performClientWork:v13];
-
-  v12 = *MEMORY[0x1E69E9840];
+  v14 = v11;
+  [(EMSearchableIndexQuery *)self _performClientWork:v12];
 }
 
 uint64_t __62__EMSearchableIndexQuery__searchQueryDidFindAttribute_values___block_invoke(uint64_t a1)
@@ -1281,7 +1261,7 @@ uint64_t __62__EMSearchableIndexQuery__searchQueryDidFindAttribute_values___bloc
 
 - (void)_searchQueryDidChangeAttribute:(id)attribute values:(id)values
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   attributeCopy = attribute;
   valuesCopy = values;
   v8 = +[EMSearchableIndexQuery log];
@@ -1289,26 +1269,24 @@ uint64_t __62__EMSearchableIndexQuery__searchQueryDidFindAttribute_values___bloc
   {
     logPrefixString = [(EMSearchableIndexQuery *)self logPrefixString];
     *buf = 138543874;
-    v17 = logPrefixString;
-    v18 = 2114;
-    v19 = attributeCopy;
-    v20 = 2048;
-    v21 = [valuesCopy count];
+    v16 = logPrefixString;
+    v17 = 2114;
+    v18 = attributeCopy;
+    v19 = 2048;
+    v20 = [valuesCopy count];
     _os_log_impl(&dword_1C6655000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@ change attribute %{public}@ with %lu values", buf, 0x20u);
   }
 
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 3221225472;
-  v13[2] = __64__EMSearchableIndexQuery__searchQueryDidChangeAttribute_values___block_invoke;
-  v13[3] = &unk_1E826C230;
-  v13[4] = self;
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = __64__EMSearchableIndexQuery__searchQueryDidChangeAttribute_values___block_invoke;
+  v12[3] = &unk_1E826C230;
+  v12[4] = self;
   v10 = attributeCopy;
-  v14 = v10;
+  v13 = v10;
   v11 = valuesCopy;
-  v15 = v11;
-  [(EMSearchableIndexQuery *)self _performClientWork:v13];
-
-  v12 = *MEMORY[0x1E69E9840];
+  v14 = v11;
+  [(EMSearchableIndexQuery *)self _performClientWork:v12];
 }
 
 uint64_t __64__EMSearchableIndexQuery__searchQueryDidChangeAttribute_values___block_invoke(uint64_t a1)
@@ -1322,49 +1300,43 @@ uint64_t __64__EMSearchableIndexQuery__searchQueryDidChangeAttribute_values___bl
 
 - (void)_logSignpostForSearchQueryStart
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = +[EMSearchableIndexQuery signpostLog];
   signpostID = [(EMSearchableIndexQuery *)self signpostID];
   if (signpostID - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v3))
   {
     expression = [(EMSearchableIndexQuery *)self expression];
-    v7 = 138477827;
-    v8 = expression;
-    _os_signpost_emit_with_name_impl(&dword_1C6655000, v3, OS_SIGNPOST_INTERVAL_BEGIN, signpostID, "EMSearchableIndexQuery", "QueryStartedWithExpression=%{signpost.description:attribute,private}@", &v7, 0xCu);
+    v6 = 138477827;
+    v7 = expression;
+    _os_signpost_emit_with_name_impl(&dword_1C6655000, v3, OS_SIGNPOST_INTERVAL_BEGIN, signpostID, "EMSearchableIndexQuery", "QueryStartedWithExpression=%{signpost.description:attribute,private}@", &v6, 0xCu);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_logSignpostForSearchQueryDidReceiveFirstResultsWithItemCount:(unint64_t)count
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v5 = +[EMSearchableIndexQuery signpostLog];
   signpostID = [(EMSearchableIndexQuery *)self signpostID];
   if (signpostID - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v5))
   {
-    v8 = 134349056;
+    v7 = 134349056;
     countCopy = count;
-    _os_signpost_emit_with_name_impl(&dword_1C6655000, v5, OS_SIGNPOST_EVENT, signpostID, "EMSearchableIndexQuery", "ReceivedFirstResultsWithItemCount=%{signpost.description:attribute,public}lu", &v8, 0xCu);
+    _os_signpost_emit_with_name_impl(&dword_1C6655000, v5, OS_SIGNPOST_EVENT, signpostID, "EMSearchableIndexQuery", "ReceivedFirstResultsWithItemCount=%{signpost.description:attribute,public}lu", &v7, 0xCu);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_logSignpostForSearchQueryDidFinishWithStatus:(id)status
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   statusCopy = status;
   v5 = +[EMSearchableIndexQuery signpostLog];
   signpostID = [(EMSearchableIndexQuery *)self signpostID];
   if (signpostID - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v5))
   {
-    v8 = 138543362;
-    v9 = statusCopy;
-    _os_signpost_emit_with_name_impl(&dword_1C6655000, v5, OS_SIGNPOST_INTERVAL_END, signpostID, "EMSearchableIndexQuery", "QueryFinishedWithStatus=%{signpost.description:attribute,public}@", &v8, 0xCu);
+    v7 = 138543362;
+    v8 = statusCopy;
+    _os_signpost_emit_with_name_impl(&dword_1C6655000, v5, OS_SIGNPOST_INTERVAL_END, signpostID, "EMSearchableIndexQuery", "QueryFinishedWithStatus=%{signpost.description:attribute,public}@", &v7, 0xCu);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 + (id)_operandStringForOperand:(int64_t)operand
@@ -1500,38 +1472,38 @@ id __152__EMSearchableIndexQuery_EMSearchableIndexQueryStringGeneration___queryS
 
 + (id)searchWordsForPhrase:(id)phrase languages:(id)languages
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   phraseCopy = phrase;
   languagesCopy = languages;
-  v20 = [phraseCopy ef_quotedWordComponentsForLanguages:?];
-  v21 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(v20, "count")}];
+  v19 = [phraseCopy ef_quotedWordComponentsForLanguages:?];
+  v20 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(v19, "count")}];
   v5 = objc_alloc_init(MEMORY[0x1E696AD60]);
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
   v23 = 0u;
-  v6 = v20;
-  v7 = [v6 countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
+  v6 = v19;
+  v7 = [v6 countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v7)
   {
     v8 = 0;
-    v9 = *v23;
+    v9 = *v22;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v23 != v9)
+        if (*v22 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v22 + 1) + 8 * i);
+        v11 = *(*(&v21 + 1) + 8 * i);
         v12 = [v11 length];
         if (((v12 > 3) & v8) == 1)
         {
           if ([v5 length])
           {
-            [v21 addObject:v5];
+            [v20 addObject:v5];
           }
 
           v13 = [objc_alloc(MEMORY[0x1E696AD60]) initWithString:v11];
@@ -1554,7 +1526,7 @@ id __152__EMSearchableIndexQuery_EMSearchableIndexQueryStringGeneration___queryS
         v8 |= v12 > 3;
       }
 
-      v7 = [v6 countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v7 = [v6 countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v7);
@@ -1562,12 +1534,10 @@ id __152__EMSearchableIndexQuery_EMSearchableIndexQueryStringGeneration___queryS
 
   if ([v5 length])
   {
-    [v21 addObject:v5];
+    [v20 addObject:v5];
   }
 
-  v16 = *MEMORY[0x1E69E9840];
-
-  return v21;
+  return v20;
 }
 
 void __77__EMSearchableIndexQuery_initWithExpression_builder_queryContext_querySetup___block_invoke_5_cold_1(void *a1, uint8_t *buf, os_log_t log)
@@ -1579,11 +1549,10 @@ void __77__EMSearchableIndexQuery_initWithExpression_builder_queryContext_queryS
 
 - (void)_performClientWork:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_fault_impl(&dword_1C6655000, a2, OS_LOG_TYPE_FAULT, "#Warning %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_fault_impl(&dword_1C6655000, a2, OS_LOG_TYPE_FAULT, "#Warning %{public}@", &v2, 0xCu);
 }
 
 - (void)_searchQueryDidFailWithError:(uint8_t *)buf .cold.1(void *a1, void *a2, uint8_t *buf, os_log_t log)

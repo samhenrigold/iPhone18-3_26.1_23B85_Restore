@@ -15,7 +15,7 @@
 
 - (void)addContextKey:(id)key fromMetaFile:(id)file
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   keyCopy = key;
   fileCopy = file;
   if (CSIsHorseman_onceToken != -1)
@@ -31,9 +31,9 @@
       if (v8)
       {
         v9 = v8;
-        v16 = 0;
-        v10 = [MEMORY[0x1E696ACB0] JSONObjectWithData:v8 options:0 error:&v16];
-        v11 = v16;
+        v15 = 0;
+        v10 = [MEMORY[0x1E696ACB0] JSONObjectWithData:v8 options:0 error:&v15];
+        v11 = v15;
         v12 = v11;
         if (!v10 || v11)
         {
@@ -41,11 +41,11 @@
           if (os_log_type_enabled(CSLogCategoryAudio, OS_LOG_TYPE_ERROR))
           {
             *buf = 136315650;
-            v18 = "[CSPlainAudioFileWriter addContextKey:fromMetaFile:]";
-            v19 = 2112;
-            v20 = fileCopy;
-            v21 = 2112;
-            v22 = v12;
+            v17 = "[CSPlainAudioFileWriter addContextKey:fromMetaFile:]";
+            v18 = 2112;
+            v19 = fileCopy;
+            v20 = 2112;
+            v21 = v12;
             _os_log_error_impl(&dword_1DDA4B000, v13, OS_LOG_TYPE_ERROR, "%s Could not read existing %@ file: err: %@", buf, 0x20u);
           }
 
@@ -59,9 +59,9 @@
       if (os_log_type_enabled(CSLogCategoryAudio, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v18 = "[CSPlainAudioFileWriter addContextKey:fromMetaFile:]";
-        v19 = 2112;
-        v20 = fileCopy;
+        v17 = "[CSPlainAudioFileWriter addContextKey:fromMetaFile:]";
+        v18 = 2112;
+        v19 = fileCopy;
         _os_log_error_impl(&dword_1DDA4B000, v14, OS_LOG_TYPE_ERROR, "%s Unable to read data from file: %@", buf, 0x16u);
       }
     }
@@ -72,13 +72,11 @@
 LABEL_14:
     [(CSPlainAudioFileWriter *)self addContextKey:keyCopy withContext:v10];
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)createAcousticMetaFileForContext:(id)context withContext:(id)withContext
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   withContextCopy = withContext;
   lastPathComponent = [(NSURL *)self->_fileURL lastPathComponent];
   stringByDeletingPathExtension = [lastPathComponent stringByDeletingPathExtension];
@@ -90,20 +88,20 @@ LABEL_14:
 
   if (withContextCopy)
   {
-    v17 = 0;
-    v12 = [MEMORY[0x1E696ACB0] dataWithJSONObject:withContextCopy options:1 error:&v17];
-    v13 = v17;
+    v16 = 0;
+    v12 = [MEMORY[0x1E696ACB0] dataWithJSONObject:withContextCopy options:1 error:&v16];
+    v13 = v16;
     if (v13 || !v12)
     {
       v15 = CSLogCategoryAudio;
       if (os_log_type_enabled(CSLogCategoryAudio, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315650;
-        v19 = "[CSPlainAudioFileWriter createAcousticMetaFileForContext:withContext:]";
-        v20 = 2114;
-        v21 = v11;
-        v22 = 2114;
-        v23 = v13;
+        v18 = "[CSPlainAudioFileWriter createAcousticMetaFileForContext:withContext:]";
+        v19 = 2114;
+        v20 = v11;
+        v21 = 2114;
+        v22 = v13;
         _os_log_error_impl(&dword_1DDA4B000, v15, OS_LOG_TYPE_ERROR, "%s ERR: Failed to create json %{public}@ with %{public}@", buf, 0x20u);
       }
     }
@@ -120,19 +118,17 @@ LABEL_14:
     if (os_log_type_enabled(CSLogCategoryAudio, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v19 = "[CSPlainAudioFileWriter createAcousticMetaFileForContext:withContext:]";
+      v18 = "[CSPlainAudioFileWriter createAcousticMetaFileForContext:withContext:]";
       _os_log_impl(&dword_1DDA4B000, v14, OS_LOG_TYPE_DEFAULT, "%s metaInfo passed is nil - Bailing out", buf, 0xCu);
     }
 
     v13 = 0;
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addContextKey:(id)key withContext:(id)context
 {
-  v61[5] = *MEMORY[0x1E69E9840];
+  v60[5] = *MEMORY[0x1E69E9840];
   keyCopy = key;
   contextCopy = context;
   uRLByDeletingPathExtension = [(NSURL *)self->_fileURL URLByDeletingPathExtension];
@@ -152,9 +148,9 @@ LABEL_14:
 
       if (v15)
       {
-        v52 = 0;
-        v16 = [MEMORY[0x1E696ACB0] JSONObjectWithData:v15 options:0 error:&v52];
-        v17 = v52;
+        v51 = 0;
+        v16 = [MEMORY[0x1E696ACB0] JSONObjectWithData:v15 options:0 error:&v51];
+        v17 = v51;
         v18 = v17;
         if (!v16 || v17)
         {
@@ -162,11 +158,11 @@ LABEL_14:
           if (os_log_type_enabled(CSLogCategoryAudio, OS_LOG_TYPE_ERROR))
           {
             *buf = 136315650;
-            v55 = "[CSPlainAudioFileWriter addContextKey:withContext:]";
-            v56 = 2112;
-            v57 = v9;
-            v58 = 2112;
-            v59 = v18;
+            v54 = "[CSPlainAudioFileWriter addContextKey:withContext:]";
+            v55 = 2112;
+            v56 = v9;
+            v57 = 2112;
+            v58 = v18;
             _os_log_error_impl(&dword_1DDA4B000, v45, OS_LOG_TYPE_ERROR, "%s Could not read existing %@ file: err: %@", buf, 0x20u);
           }
         }
@@ -175,20 +171,20 @@ LABEL_14:
         {
           v19 = [v16 mutableCopy];
           [v19 setObject:contextCopy forKey:keyCopy];
-          v51 = 0;
-          v20 = [MEMORY[0x1E696ACB0] dataWithJSONObject:v19 options:1 error:&v51];
-          v18 = v51;
+          v50 = 0;
+          v20 = [MEMORY[0x1E696ACB0] dataWithJSONObject:v19 options:1 error:&v50];
+          v18 = v50;
           if (v18 || !v20)
           {
             v46 = CSLogCategoryAudio;
             if (os_log_type_enabled(CSLogCategoryAudio, OS_LOG_TYPE_ERROR))
             {
               *buf = 136315650;
-              v55 = "[CSPlainAudioFileWriter addContextKey:withContext:]";
-              v56 = 2114;
-              v57 = v9;
-              v58 = 2114;
-              v59 = v18;
+              v54 = "[CSPlainAudioFileWriter addContextKey:withContext:]";
+              v55 = 2114;
+              v56 = v9;
+              v57 = 2114;
+              v58 = v18;
               _os_log_error_impl(&dword_1DDA4B000, v46, OS_LOG_TYPE_ERROR, "%s ERR: Failed to create json %{public}@ with %{public}@", buf, 0x20u);
             }
           }
@@ -207,9 +203,9 @@ LABEL_14:
         if (os_log_type_enabled(CSLogCategoryAudio, OS_LOG_TYPE_ERROR))
         {
           *buf = 136315394;
-          v55 = "[CSPlainAudioFileWriter addContextKey:withContext:]";
-          v56 = 2112;
-          v57 = v9;
+          v54 = "[CSPlainAudioFileWriter addContextKey:withContext:]";
+          v55 = 2112;
+          v56 = v9;
           _os_log_error_impl(&dword_1DDA4B000, v44, OS_LOG_TYPE_ERROR, "%s Unable to read data from file: %@", buf, 0x16u);
         }
       }
@@ -221,7 +217,7 @@ LABEL_14:
       if (os_log_type_enabled(CSLogCategoryAudio, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315138;
-        v55 = "[CSPlainAudioFileWriter addContextKey:withContext:]";
+        v54 = "[CSPlainAudioFileWriter addContextKey:withContext:]";
         _os_log_impl(&dword_1DDA4B000, v43, OS_LOG_TYPE_DEFAULT, "%s metaInfo passed is nil - Bailing out", buf, 0xCu);
       }
     }
@@ -229,27 +225,27 @@ LABEL_14:
 
   else
   {
-    v49 = keyCopy;
-    v50 = contextCopy;
+    v48 = keyCopy;
+    v49 = contextCopy;
     v22 = objc_alloc_init(MEMORY[0x1E695DF00]);
     v23 = objc_alloc_init(MEMORY[0x1E696AB78]);
     v24 = [MEMORY[0x1E695DF58] localeWithLocaleIdentifier:@"en_US_POSIX"];
     [v23 setLocale:v24];
 
     [v23 setDateFormat:@"yyyy_MM_dd-HHmmss.SSS"];
-    v48 = v22;
+    v47 = v22;
     v25 = [v23 stringFromDate:v22];
     v26 = MEMORY[0x1E695DF90];
-    v60[0] = @"productType";
+    v59[0] = @"productType";
     v27 = +[CSUtils deviceProductType];
-    v61[0] = v27;
-    v60[1] = @"productVersion";
+    v60[0] = v27;
+    v59[1] = @"productVersion";
     v28 = +[CSUtils deviceProductVersion];
-    v61[1] = v28;
-    v60[2] = @"buildVersion";
+    v60[1] = v28;
+    v59[2] = @"buildVersion";
     v29 = +[CSUtils deviceBuildVersion];
-    v61[2] = v29;
-    v60[3] = @"liveOnHomePod";
+    v60[2] = v29;
+    v59[3] = @"liveOnHomePod";
     v30 = MEMORY[0x1E696AD98];
     if (CSIsHorseman_onceToken != -1)
     {
@@ -269,38 +265,38 @@ LABEL_14:
 
     v34 = [v30 numberWithBool:v33];
     v35 = v34;
-    v60[4] = @"timeStamp";
+    v59[4] = @"timeStamp";
     v36 = &stru_1F58FE330;
     if (v25)
     {
       v36 = v25;
     }
 
-    v61[3] = v34;
-    v61[4] = v36;
-    v37 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v61 forKeys:v60 count:5];
+    v60[3] = v34;
+    v60[4] = v36;
+    v37 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v60 forKeys:v59 count:5];
     v38 = [v26 dictionaryWithDictionary:v37];
 
-    keyCopy = v49;
-    if (v50)
+    keyCopy = v48;
+    if (v49)
     {
-      [v38 setObject:v50 forKey:v49];
+      [v38 setObject:v49 forKey:v48];
     }
 
-    v53 = 0;
-    v39 = [MEMORY[0x1E696ACB0] dataWithJSONObject:v38 options:1 error:&v53];
-    v40 = v53;
+    v52 = 0;
+    v39 = [MEMORY[0x1E696ACB0] dataWithJSONObject:v38 options:1 error:&v52];
+    v40 = v52;
     if (v40 || !v39)
     {
       v42 = CSLogCategoryAudio;
       if (os_log_type_enabled(CSLogCategoryAudio, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315650;
-        v55 = "[CSPlainAudioFileWriter addContextKey:withContext:]";
-        v56 = 2114;
-        v57 = v9;
-        v58 = 2114;
-        v59 = v40;
+        v54 = "[CSPlainAudioFileWriter addContextKey:withContext:]";
+        v55 = 2114;
+        v56 = v9;
+        v57 = 2114;
+        v58 = v40;
         _os_log_error_impl(&dword_1DDA4B000, v42, OS_LOG_TYPE_ERROR, "%s ERR: Failed to create json %{public}@ with %{public}@", buf, 0x20u);
       }
     }
@@ -311,15 +307,13 @@ LABEL_14:
       [v39 writeToFile:path4 atomically:0];
     }
 
-    contextCopy = v50;
+    contextCopy = v49;
   }
-
-  v47 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)addSamples:(const void *)samples numSamples:(int64_t)numSamples
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v4 = 1;
   if (numSamples >= 1 && self->isWriting)
   {
@@ -353,15 +347,14 @@ LABEL_14:
       if (os_log_type_enabled(CSLogCategoryAudio, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v16 = "[CSPlainAudioFileWriter addSamples:numSamples:]";
-        v17 = 2050;
-        v18 = v11;
+        v15 = "[CSPlainAudioFileWriter addSamples:numSamples:]";
+        v16 = 2050;
+        v17 = v11;
         _os_log_error_impl(&dword_1DDA4B000, v12, OS_LOG_TYPE_ERROR, "%s ::: Error writing to output wave file. : %{public}ld", buf, 0x16u);
       }
     }
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return v4;
 }
 
@@ -387,11 +380,11 @@ LABEL_14:
 
 - (CSPlainAudioFileWriter)initWithURL:(id)l inputFormat:(AudioStreamBasicDescription *)format outputFormat:(AudioStreamBasicDescription *)outputFormat
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   lCopy = l;
-  v23.receiver = self;
-  v23.super_class = CSPlainAudioFileWriter;
-  v9 = [(CSPlainAudioFileWriter *)&v23 init];
+  v22.receiver = self;
+  v22.super_class = CSPlainAudioFileWriter;
+  v9 = [(CSPlainAudioFileWriter *)&v22 init];
   v10 = v9;
   if (v9)
   {
@@ -404,11 +397,11 @@ LABEL_14:
       if (os_log_type_enabled(CSLogCategoryAudio, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315650;
-        v25 = "[CSPlainAudioFileWriter initWithURL:inputFormat:outputFormat:]";
-        v26 = 2114;
-        v27 = lCopy;
-        v28 = 1026;
-        v29 = v12;
+        v24 = "[CSPlainAudioFileWriter initWithURL:inputFormat:outputFormat:]";
+        v25 = 2114;
+        v26 = lCopy;
+        v27 = 1026;
+        v28 = v12;
         _os_log_error_impl(&dword_1DDA4B000, v13, OS_LOG_TYPE_ERROR, "%s ::: Error creating output file %{public}@, err: %{public}d", buf, 0x1Cu);
       }
     }
@@ -445,15 +438,14 @@ LABEL_14:
     *&v10->outASBD.mBytesPerPacket = v20;
   }
 
-  v21 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
 - (CSPlainAudioFileWriter)initWithFilepath:(id)filepath
 {
   v4 = [MEMORY[0x1E695DFF8] fileURLWithPath:filepath];
-  +[CSFAudioStreamBasicDescriptionFactory utteranceFileASBD];
-  +[CSFAudioStreamBasicDescriptionFactory lpcmInt16ASBD];
+  objc_msgSend_utteranceFileASBD(CSFAudioStreamBasicDescriptionFactory);
+  objc_msgSend_lpcmInt16ASBD(CSFAudioStreamBasicDescriptionFactory);
   v5 = [(CSPlainAudioFileWriter *)self initWithURL:v4 inputFormat:v8 outputFormat:&v7];
 
   return v5;
@@ -462,8 +454,8 @@ LABEL_14:
 - (CSPlainAudioFileWriter)initWithURL:(id)l
 {
   lCopy = l;
-  +[CSFAudioStreamBasicDescriptionFactory utteranceFileASBD];
-  +[CSFAudioStreamBasicDescriptionFactory lpcmInt16ASBD];
+  objc_msgSend_utteranceFileASBD(CSFAudioStreamBasicDescriptionFactory);
+  objc_msgSend_lpcmInt16ASBD(CSFAudioStreamBasicDescriptionFactory);
   v5 = [(CSPlainAudioFileWriter *)self initWithURL:lCopy inputFormat:v8 outputFormat:&v7];
 
   return v5;
@@ -471,7 +463,7 @@ LABEL_14:
 
 + (void)saveAudioChunck:(id)chunck toURL:(id)l
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   chunckCopy = chunck;
   lCopy = l;
   v7 = CSLogCategoryAudio;
@@ -484,49 +476,47 @@ LABEL_14:
     _os_log_impl(&dword_1DDA4B000, v7, OS_LOG_TYPE_DEFAULT, "%s saveAudioChunk toURL: %{public}@", buf, 0x16u);
   }
 
-  v30 = 0;
+  v27 = 0;
   memset(buf, 0, sizeof(buf));
   +[CSConfig inputRecordingSampleRate];
   v9 = v8;
-  numChannels = [chunckCopy numChannels];
-  LODWORD(v11) = v9;
-  [CSFAudioStreamBasicDescriptionFactory lpcmNonInterleavedASBDWithSampleRate:numChannels numberOfChannels:v11];
-  v25 = 0;
-  v23 = 0u;
-  v24 = 0u;
+  [chunckCopy numChannels];
+  LODWORD(v10) = v9;
+  objc_msgSend_lpcmNonInterleavedASBDWithSampleRate_numberOfChannels_(CSFAudioStreamBasicDescriptionFactory, v10);
+  v22 = 0;
+  v20 = 0u;
+  v21 = 0u;
   +[CSConfig inputRecordingSampleRate];
-  v13 = v12;
-  numChannels2 = [chunckCopy numChannels];
-  LODWORD(v15) = v13;
-  [CSFAudioStreamBasicDescriptionFactory lpcmInterleavedASBDWithSampleRate:numChannels2 numberOfChannels:v15];
-  v16 = [CSPlainAudioFileWriter alloc];
-  *v26 = *buf;
-  v27 = *&buf[16];
-  v28 = v30;
-  v21[0] = v23;
-  v21[1] = v24;
-  v22 = v25;
-  v17 = [(CSPlainAudioFileWriter *)v16 initWithURL:lCopy inputFormat:v26 outputFormat:v21];
+  v12 = v11;
+  [chunckCopy numChannels];
+  LODWORD(v13) = v12;
+  objc_msgSend_lpcmInterleavedASBDWithSampleRate_numberOfChannels_(CSFAudioStreamBasicDescriptionFactory, v13);
+  v14 = [CSPlainAudioFileWriter alloc];
+  *v23 = *buf;
+  v24 = *&buf[16];
+  v25 = v27;
+  v18[0] = v20;
+  v18[1] = v21;
+  v19 = v22;
+  v15 = [(CSPlainAudioFileWriter *)v14 initWithURL:lCopy inputFormat:v23 outputFormat:v18];
   if (chunckCopy)
   {
     data = [chunckCopy data];
-    -[CSPlainAudioFileWriter addSamples:numSamples:](v17, "addSamples:numSamples:", [data bytes], objc_msgSend(chunckCopy, "numSamples"));
+    -[CSPlainAudioFileWriter addSamples:numSamples:](v15, "addSamples:numSamples:", [data bytes], objc_msgSend(chunckCopy, "numSamples"));
   }
 
   else
   {
-    v19 = CSLogCategoryAudio;
+    v17 = CSLogCategoryAudio;
     if (os_log_type_enabled(CSLogCategoryAudio, OS_LOG_TYPE_ERROR))
     {
-      *v26 = 136315138;
-      *&v26[4] = "+[CSPlainAudioFileWriter saveAudioChunck:toURL:]";
-      _os_log_error_impl(&dword_1DDA4B000, v19, OS_LOG_TYPE_ERROR, "%s Invalid request: nothing to write to file", v26, 0xCu);
+      *v23 = 136315138;
+      *&v23[4] = "+[CSPlainAudioFileWriter saveAudioChunck:toURL:]";
+      _os_log_error_impl(&dword_1DDA4B000, v17, OS_LOG_TYPE_ERROR, "%s Invalid request: nothing to write to file", v23, 0xCu);
     }
   }
 
-  [(CSPlainAudioFileWriter *)v17 endAudio];
-
-  v20 = *MEMORY[0x1E69E9840];
+  [(CSPlainAudioFileWriter *)v15 endAudio];
 }
 
 @end

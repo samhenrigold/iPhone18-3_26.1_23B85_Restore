@@ -1,5 +1,4 @@
 @interface CalibrationViewController
-- (CalibrationViewController)init;
 - (CalibrationViewController)initWithOriginPoint:(CGPoint)point;
 - (double)_correctedAngleForCurrentOrientation:(double)orientation;
 - (double)completeCircle;
@@ -16,27 +15,24 @@
 - (void)showTicsBetweenStartAngle:(double)angle endAngle:(double)endAngle withCredit:(double)credit;
 - (void)updateMaskingPath;
 - (void)userDefaultsChanged:(id)changed;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewDidLayoutSubviews;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
+- (void)viewWillDisappear:(BOOL)disappear;
 - (void)viewWillLayoutSubviews;
 @end
 
 @implementation CalibrationViewController
 
-- (CalibrationViewController)init
-{
-  v2 = *MEMORY[0x277CBF348];
-  v3 = *(MEMORY[0x277CBF348] + 8);
-  return MEMORY[0x2821F9670](self, sel_initWithOriginPoint_);
-}
-
 - (CalibrationViewController)initWithOriginPoint:(CGPoint)point
 {
   y = point.y;
   x = point.x;
-  v14.receiver = self;
-  v14.super_class = CalibrationViewController;
-  v5 = [(CalibrationViewController *)&v14 init];
+  v23.receiver = self;
+  v23.super_class = CalibrationViewController;
+  v5 = [(CalibrationViewController *)&v23 init];
   if (v5)
   {
     v5->_ticsShowingArray = malloc_type_calloc(0xB4uLL, 4uLL, 0x100004052888210uLL);
@@ -48,24 +44,24 @@
       v5->_compassOriginPoint.y = y;
     }
 
-    standardUserDefaults = [MEMORY[0x277CBEBD0] standardUserDefaults];
-    [standardUserDefaults doubleForKey:@"CalibrationAwesomeAngle"];
-    v5->_calibrationAngle = v8 * 3.14159265 / 180.0;
+    v9 = objc_msgSend_standardUserDefaults(MEMORY[0x277CBEBD0], v6, v7);
+    objc_msgSend_doubleForKey_(v9, v10, @"CalibrationAwesomeAngle");
+    v5->_calibrationAngle = v11 * 3.14159265 / 180.0;
 
     if (v5->_calibrationAngle == 0.0)
     {
       v5->_calibrationAngle = 0.872664626;
     }
 
-    standardUserDefaults2 = [MEMORY[0x277CBEBD0] standardUserDefaults];
-    v5->_quantizationType = [standardUserDefaults2 integerForKey:@"CalibrationQuantizationType"];
+    v14 = objc_msgSend_standardUserDefaults(MEMORY[0x277CBEBD0], v12, v13);
+    v5->_quantizationType = objc_msgSend_integerForKey_(v14, v15, @"CalibrationQuantizationType");
 
-    standardUserDefaults3 = [MEMORY[0x277CBEBD0] standardUserDefaults];
-    v5->_shouldCompleteTics = [standardUserDefaults3 BOOLForKey:@"CalibrationShouldCompleteTics"];
+    v18 = objc_msgSend_standardUserDefaults(MEMORY[0x277CBEBD0], v16, v17);
+    v5->_shouldCompleteTics = objc_msgSend_BOOLForKey_(v18, v19, @"CalibrationShouldCompleteTics");
 
-    v11 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v20 = objc_alloc_init(MEMORY[0x277CBEB18]);
     calibrationConstraints = v5->_calibrationConstraints;
-    v5->_calibrationConstraints = v11;
+    v5->_calibrationConstraints = v20;
   }
 
   return v5;
@@ -73,247 +69,248 @@
 
 - (void)_updateSizes
 {
-  v40 = *MEMORY[0x277D85DE8];
-  traitCollection = [(CalibrationViewController *)self traitCollection];
-  if ([traitCollection horizontalSizeClass] == 2)
+  v4 = objc_msgSend_traitCollection(self, a2, v2);
+  if (objc_msgSend_horizontalSizeClass(v4, v5, v6) == 2)
   {
-    traitCollection2 = [(CalibrationViewController *)self traitCollection];
-    v5 = [traitCollection2 verticalSizeClass] == 2;
+    v9 = objc_msgSend_traitCollection(self, v7, v8);
+    v12 = objc_msgSend_verticalSizeClass(v9, v10, v11) == 2;
   }
 
   else
   {
-    v5 = 0;
+    v12 = 0;
   }
 
-  view = [(CalibrationViewController *)self view];
-  [view frame];
-  Width = CGRectGetWidth(v41);
+  v15 = objc_msgSend_view(self, v13, v14);
+  objc_msgSend_frame(v15, v16, v17);
+  Width = CGRectGetWidth(v84);
 
-  view2 = [(CalibrationViewController *)self view];
-  [view2 frame];
-  Height = CGRectGetHeight(v42);
+  v21 = objc_msgSend_view(self, v19, v20);
+  objc_msgSend_frame(v21, v22, v23);
+  Height = CGRectGetHeight(v85);
 
   if (Width >= Height)
   {
     Width = Height;
   }
 
-  v10 = 203.0;
-  v11 = round(Width * 100.0 / 320.0);
-  if (!v5)
+  v27 = 203.0;
+  v28 = round(Width * 100.0 / 320.0);
+  if (!v12)
   {
-    v10 = v11;
+    v27 = v28;
   }
 
-  self->_compassRadius = v10;
-  v12 = 0.0;
-  [(CompassBackgroundView *)self->_compassBackgroundView setFrame:0.0, 0.0, Width, Width];
-  [(CompassBackgroundView *)self->_compassBackgroundView setTicRadius:self->_compassRadius];
-  [(CompassBackgroundView *)self->_compassBackgroundView center];
-  v14 = v13 - self->_compassRadius;
-  [(CompassBackgroundView *)self->_compassBackgroundView center];
-  [(UILabel *)self->_titleLabel setFrame:v14, v15 - self->_compassRadius, self->_compassRadius + self->_compassRadius, self->_compassRadius + self->_compassRadius];
-  v16 = MEMORY[0x277D74300];
-  if (v5)
+  self->_compassRadius = v27;
+  v29 = 0.0;
+  objc_msgSend_setFrame_(self->_compassBackgroundView, v25, v26, 0.0, 0.0, Width, Width);
+  objc_msgSend_setTicRadius_(self->_compassBackgroundView, v30, v31, self->_compassRadius);
+  objc_msgSend_center(self->_compassBackgroundView, v32, v33);
+  v35 = v34 - self->_compassRadius;
+  objc_msgSend_center(self->_compassBackgroundView, v36, v37);
+  objc_msgSend_setFrame_(self->_titleLabel, v39, v40, v35, v38 - self->_compassRadius, self->_compassRadius + self->_compassRadius, self->_compassRadius + self->_compassRadius);
+  v43 = MEMORY[0x277D74300];
+  if (v12)
   {
-    v17 = 24.0;
-    v12 = 6.0;
-    v18 = 4.0;
+    v29 = 6.0;
+    v44 = 4.0;
+    objc_msgSend_systemFontOfSize_(MEMORY[0x277D74300], v41, v42, 24.0);
   }
 
   else
   {
-    LODWORD(v38) = -798153473;
-    v37 = xmmword_243D70400;
-    v19 = MGIsDeviceOfType();
-    v20 = 0.850000024;
-    v18 = 1.0;
-    if (!v19)
+    v45 = MGIsDeviceOfType();
+    v48 = 0.850000024;
+    v44 = 1.0;
+    if (!v45)
     {
-      v20 = 1.0;
+      v48 = 1.0;
     }
 
-    v17 = round(Width * 18.0 / 320.0) * v20;
+    objc_msgSend_systemFontOfSize_(v43, v46, v47, round(Width * 18.0 / 320.0) * v48, 0x6C743B9540D7A421, 0xBCD16A8CA16013ECLL, -798153473);
   }
+  v49 = ;
+  objc_msgSend_setFont_(self->_titleLabel, v50, v49);
 
-  v21 = [v16 systemFontOfSize:{v17, v37, v38}];
-  [(UILabel *)self->_titleLabel setFont:v21];
+  v52 = objc_msgSend_preferredFontForTextStyle_(MEMORY[0x277D74300], v51, *MEMORY[0x277D76A20]);
+  objc_msgSend_pointSize(v52, v53, v54);
+  v56 = v55;
 
-  v22 = [MEMORY[0x277D74300] preferredFontForTextStyle:*MEMORY[0x277D76A20]];
-  [v22 pointSize];
-  v24 = v23;
-
-  v25 = fmin(v24, 26.0);
-  v26 = MEMORY[0x277D74300];
-  mainScreen = [MEMORY[0x277D759A0] mainScreen];
-  [mainScreen bounds];
-  v29 = v28;
-  LODWORD(v39) = -798153473;
-  v30 = MGIsDeviceOfType();
-  v31 = 0.850000024;
-  if (!v30)
+  v57 = fmin(v56, 26.0);
+  v58 = MEMORY[0x277D74300];
+  v61 = objc_msgSend_mainScreen(MEMORY[0x277D759A0], v59, v60);
+  objc_msgSend_bounds(v61, v62, v63);
+  v65 = v64;
+  LODWORD(v83) = -798153473;
+  v66 = MGIsDeviceOfType();
+  v69 = 0.850000024;
+  if (!v66)
   {
-    v31 = 1.0;
+    v69 = 1.0;
   }
 
-  v32 = [v26 boldSystemFontOfSize:{v31 * round(v25 * v29 / 320.0), 0x6C743B9540D7A421, 0xBCD16A8CA16013ECLL, v39}];
-  [(UILabel *)self->_instructionLabel setFont:v32];
+  v70 = objc_msgSend_boldSystemFontOfSize_(v58, v67, v68, v69 * round(v57 * v65 / 320.0), 0x6C743B9540D7A421, 0xBCD16A8CA16013ECLL, v83);
+  objc_msgSend_setFont_(self->_instructionLabel, v71, v70);
 
-  [(CompassBackgroundView *)self->_compassBackgroundView ticLength];
-  [(CalibrationBallView *)self->_ballView setBallRadius:v33 - v12];
+  objc_msgSend_ticLength(self->_compassBackgroundView, v72, v73);
+  objc_msgSend_setBallRadius_(self->_ballView, v75, v76, v74 - v29);
   compassRadius = self->_compassRadius;
-  [(CalibrationBallView *)self->_ballView ballRadius];
-  [(CalibrationBallView *)self->_ballView setTrackRadius:compassRadius - v35 - v18];
-  v36 = *MEMORY[0x277D85DE8];
+  objc_msgSend_ballRadius(self->_ballView, v78, v79);
+  objc_msgSend_setTrackRadius_(self->_ballView, v81, v82, compassRadius - v80 - v44);
 }
 
 - (void)viewDidLoad
 {
-  v55.receiver = self;
-  v55.super_class = CalibrationViewController;
-  [(CalibrationViewController *)&v55 viewDidLoad];
-  blackColor = [MEMORY[0x277D75348] blackColor];
-  view = [(CalibrationViewController *)self view];
-  [view setBackgroundColor:blackColor];
+  v179.receiver = self;
+  v179.super_class = CalibrationViewController;
+  [(CalibrationViewController *)&v179 viewDidLoad];
+  v5 = objc_msgSend_blackColor(MEMORY[0x277D75348], v3, v4);
+  v8 = objc_msgSend_view(self, v6, v7);
+  objc_msgSend_setBackgroundColor_(v8, v9, v5);
 
-  view2 = [(CalibrationViewController *)self view];
-  layer = [view2 layer];
-  [layer setBorderWidth:1.0];
+  v12 = objc_msgSend_view(self, v10, v11);
+  v15 = objc_msgSend_layer(v12, v13, v14);
+  objc_msgSend_setBorderWidth_(v15, v16, v17, 1.0);
 
-  blackColor2 = [MEMORY[0x277D75348] blackColor];
-  cGColor = [blackColor2 CGColor];
-  view3 = [(CalibrationViewController *)self view];
-  layer2 = [view3 layer];
-  [layer2 setBorderColor:cGColor];
+  v20 = objc_msgSend_blackColor(MEMORY[0x277D75348], v18, v19);
+  v21 = v20;
+  v24 = objc_msgSend_CGColor(v21, v22, v23);
+  v27 = objc_msgSend_view(self, v25, v26);
+  v30 = objc_msgSend_layer(v27, v28, v29);
+  objc_msgSend_setBorderColor_(v30, v31, v24);
 
-  v11 = [CompassBackgroundView alloc];
-  v12 = *MEMORY[0x277CBF3A0];
-  v13 = *(MEMORY[0x277CBF3A0] + 8);
-  v14 = *(MEMORY[0x277CBF3A0] + 16);
-  v15 = *(MEMORY[0x277CBF3A0] + 24);
-  v16 = [(CompassBackgroundView *)v11 initWithFrame:0 forCompass:*MEMORY[0x277CBF3A0], v13, v14, v15];
+  v32 = [CompassBackgroundView alloc];
+  v33 = *MEMORY[0x277CBF3A0];
+  v34 = *(MEMORY[0x277CBF3A0] + 8);
+  v35 = *(MEMORY[0x277CBF3A0] + 16);
+  v36 = *(MEMORY[0x277CBF3A0] + 24);
+  v38 = objc_msgSend_initWithFrame_forCompass_(v32, v37, 0, *MEMORY[0x277CBF3A0], v34, v35, v36);
   compassBackgroundView = self->_compassBackgroundView;
-  self->_compassBackgroundView = v16;
+  self->_compassBackgroundView = v38;
 
-  [(CompassBackgroundView *)self->_compassBackgroundView setTranslatesAutoresizingMaskIntoConstraints:0];
+  objc_msgSend_setTranslatesAutoresizingMaskIntoConstraints_(self->_compassBackgroundView, v40, 0);
   self->_numCompleteTics = 0;
-  layer3 = [MEMORY[0x277CD9F90] layer];
+  v43 = objc_msgSend_layer(MEMORY[0x277CD9F90], v41, v42);
   compassBackgroundViewMask = self->_compassBackgroundViewMask;
-  self->_compassBackgroundViewMask = layer3;
+  self->_compassBackgroundViewMask = v43;
 
-  blackColor3 = [MEMORY[0x277D75348] blackColor];
-  -[CAShapeLayer setFillColor:](self->_compassBackgroundViewMask, "setFillColor:", [blackColor3 CGColor]);
+  v47 = objc_msgSend_blackColor(MEMORY[0x277D75348], v45, v46);
+  v48 = v47;
+  v51 = objc_msgSend_CGColor(v48, v49, v50);
+  objc_msgSend_setFillColor_(self->_compassBackgroundViewMask, v52, v51);
 
-  [(CAShapeLayer *)self->_compassBackgroundViewMask setLineWidth:0.5];
-  LODWORD(v21) = 1060320051;
-  [(CAShapeLayer *)self->_compassBackgroundViewMask setOpacity:v21];
-  [(CalibrationViewController *)self reset];
-  v22 = [objc_alloc(MEMORY[0x277D756B8]) initWithFrame:{v12, v13, v14, v15}];
+  objc_msgSend_setLineWidth_(self->_compassBackgroundViewMask, v53, v54, 0.5);
+  LODWORD(v55) = 1060320051;
+  objc_msgSend_setOpacity_(self->_compassBackgroundViewMask, v56, v57, v55);
+  objc_msgSend_reset(self, v58, v59);
+  v60 = objc_alloc(MEMORY[0x277D756B8]);
+  v63 = objc_msgSend_initWithFrame_(v60, v61, v62, v33, v34, v35, v36);
   titleLabel = self->_titleLabel;
-  self->_titleLabel = v22;
+  self->_titleLabel = v63;
 
-  [(UILabel *)self->_titleLabel setTranslatesAutoresizingMaskIntoConstraints:0];
-  grayColor = [MEMORY[0x277D75348] grayColor];
-  [(UILabel *)self->_titleLabel setTextColor:grayColor];
+  objc_msgSend_setTranslatesAutoresizingMaskIntoConstraints_(self->_titleLabel, v65, 0);
+  v68 = objc_msgSend_grayColor(MEMORY[0x277D75348], v66, v67);
+  objc_msgSend_setTextColor_(self->_titleLabel, v69, v68);
 
-  [(UILabel *)self->_titleLabel setTextAlignment:1];
-  mainBundle = [MEMORY[0x277CCA8D8] mainBundle];
-  v26 = [mainBundle localizedStringForKey:@"Calibrate" value:&stru_2856FB5D0 table:0];
-  [(UILabel *)self->_titleLabel setText:v26];
+  objc_msgSend_setTextAlignment_(self->_titleLabel, v70, 1);
+  v73 = objc_msgSend_mainBundle(MEMORY[0x277CCA8D8], v71, v72);
+  v75 = objc_msgSend_localizedStringForKey_value_table_(v73, v74, @"Calibrate", &stru_2856FB5D0, 0);
+  objc_msgSend_setText_(self->_titleLabel, v76, v75);
 
-  clearColor = [MEMORY[0x277D75348] clearColor];
-  [(UILabel *)self->_titleLabel setBackgroundColor:clearColor];
+  v79 = objc_msgSend_clearColor(MEMORY[0x277D75348], v77, v78);
+  objc_msgSend_setBackgroundColor_(self->_titleLabel, v80, v79);
 
-  [(UILabel *)self->_titleLabel setAdjustsFontSizeToFitWidth:1];
-  [(UILabel *)self->_titleLabel setMinimumScaleFactor:0.699999988];
-  v28 = [objc_alloc(MEMORY[0x277D756B8]) initWithFrame:{v12, v13, v14, v15}];
+  objc_msgSend_setAdjustsFontSizeToFitWidth_(self->_titleLabel, v81, 1);
+  objc_msgSend_setMinimumScaleFactor_(self->_titleLabel, v82, v83, 0.699999988);
+  v84 = objc_alloc(MEMORY[0x277D756B8]);
+  v87 = objc_msgSend_initWithFrame_(v84, v85, v86, v33, v34, v35, v36);
   instructionLabel = self->_instructionLabel;
-  self->_instructionLabel = v28;
+  self->_instructionLabel = v87;
 
-  [(UILabel *)self->_instructionLabel setTranslatesAutoresizingMaskIntoConstraints:0];
-  grayColor2 = [MEMORY[0x277D75348] grayColor];
-  [(UILabel *)self->_instructionLabel setTextColor:grayColor2];
+  objc_msgSend_setTranslatesAutoresizingMaskIntoConstraints_(self->_instructionLabel, v89, 0);
+  v92 = objc_msgSend_grayColor(MEMORY[0x277D75348], v90, v91);
+  objc_msgSend_setTextColor_(self->_instructionLabel, v93, v92);
 
-  [(UILabel *)self->_instructionLabel setTextAlignment:1];
-  mainBundle2 = [MEMORY[0x277CCA8D8] mainBundle];
-  v32 = [mainBundle2 localizedStringForKey:@"Tilt the screen to roll the ball around the circle" value:&stru_2856FB5D0 table:0];
-  [(UILabel *)self->_instructionLabel setText:v32];
+  objc_msgSend_setTextAlignment_(self->_instructionLabel, v94, 1);
+  v97 = objc_msgSend_mainBundle(MEMORY[0x277CCA8D8], v95, v96);
+  v99 = objc_msgSend_localizedStringForKey_value_table_(v97, v98, @"Tilt the screen to roll the ball around the circle", &stru_2856FB5D0, 0);
+  objc_msgSend_setText_(self->_instructionLabel, v100, v99);
 
-  [(UILabel *)self->_instructionLabel setNumberOfLines:3];
-  [(CompassBackgroundView *)self->_compassBackgroundView center];
-  [(UILabel *)self->_instructionLabel setCenter:?];
-  v33 = [MEMORY[0x277D75220] buttonWithType:1];
+  objc_msgSend_setNumberOfLines_(self->_instructionLabel, v101, 3);
+  objc_msgSend_center(self->_compassBackgroundView, v102, v103);
+  objc_msgSend_setCenter_(self->_instructionLabel, v104, v105);
+  v107 = objc_msgSend_buttonWithType_(MEMORY[0x277D75220], v106, 1);
   cancelButton = self->_cancelButton;
-  self->_cancelButton = v33;
+  self->_cancelButton = v107;
 
-  [(UIButton *)self->_cancelButton setTranslatesAutoresizingMaskIntoConstraints:0];
-  v35 = [MEMORY[0x277D75348] colorWithWhite:0.400000006 alpha:1.0];
-  [(UIButton *)self->_cancelButton setBackgroundColor:v35];
+  objc_msgSend_setTranslatesAutoresizingMaskIntoConstraints_(self->_cancelButton, v109, 0);
+  v112 = objc_msgSend_colorWithWhite_alpha_(MEMORY[0x277D75348], v110, v111, 0.400000006, 1.0);
+  objc_msgSend_setBackgroundColor_(self->_cancelButton, v113, v112);
 
-  layer4 = [(UIButton *)self->_cancelButton layer];
-  [layer4 setCornerRadius:5.0];
+  v116 = objc_msgSend_layer(self->_cancelButton, v114, v115);
+  objc_msgSend_setCornerRadius_(v116, v117, v118, 5.0);
 
-  v37 = [MEMORY[0x277D74300] boldSystemFontOfSize:18.0];
-  titleLabel = [(UIButton *)self->_cancelButton titleLabel];
-  [titleLabel setFont:v37];
+  v121 = objc_msgSend_boldSystemFontOfSize_(MEMORY[0x277D74300], v119, v120, 18.0);
+  v124 = objc_msgSend_titleLabel(self->_cancelButton, v122, v123);
+  objc_msgSend_setFont_(v124, v125, v121);
 
-  v39 = self->_cancelButton;
-  mainBundle3 = [MEMORY[0x277CCA8D8] mainBundle];
-  v41 = [mainBundle3 localizedStringForKey:@"Cancel" value:&stru_2856FB5D0 table:0];
-  [(UIButton *)v39 setTitle:v41 forState:0];
+  v126 = self->_cancelButton;
+  v129 = objc_msgSend_mainBundle(MEMORY[0x277CCA8D8], v127, v128);
+  v131 = objc_msgSend_localizedStringForKey_value_table_(v129, v130, @"Cancel", &stru_2856FB5D0, 0);
+  objc_msgSend_setTitle_forState_(v126, v132, v131, 0);
 
-  v42 = self->_cancelButton;
-  blackColor4 = [MEMORY[0x277D75348] blackColor];
-  [(UIButton *)v42 setTitleColor:blackColor4 forState:0];
+  v133 = self->_cancelButton;
+  v136 = objc_msgSend_blackColor(MEMORY[0x277D75348], v134, v135);
+  objc_msgSend_setTitleColor_forState_(v133, v137, v136, 0);
 
-  v44 = self->_cancelButton;
-  whiteColor = [MEMORY[0x277D75348] whiteColor];
-  [(UIButton *)v44 setTitleColor:whiteColor forState:4];
+  v138 = self->_cancelButton;
+  v141 = objc_msgSend_whiteColor(MEMORY[0x277D75348], v139, v140);
+  objc_msgSend_setTitleColor_forState_(v138, v142, v141, 4);
 
-  [(UIButton *)self->_cancelButton addTarget:self action:sel_cancel forControlEvents:64];
-  v46 = [[CalibrationBallView alloc] initWithFrame:v12 ballRadius:v13, v14, v15, 0.0];
+  objc_msgSend_addTarget_action_forControlEvents_(self->_cancelButton, v143, self, sel_cancel, 64);
+  v144 = [CalibrationBallView alloc];
+  v147 = objc_msgSend_initWithFrame_ballRadius_(v144, v145, v146, v33, v34, v35, v36, 0.0);
   ballView = self->_ballView;
-  self->_ballView = v46;
+  self->_ballView = v147;
 
-  [(CalibrationBallView *)self->_ballView setTranslatesAutoresizingMaskIntoConstraints:0];
-  [(CalibrationViewController *)self _updateSizes];
-  view4 = [(CalibrationViewController *)self view];
-  [view4 addSubview:self->_compassBackgroundView];
+  objc_msgSend_setTranslatesAutoresizingMaskIntoConstraints_(self->_ballView, v149, 0);
+  objc_msgSend__updateSizes(self, v150, v151);
+  v154 = objc_msgSend_view(self, v152, v153);
+  objc_msgSend_addSubview_(v154, v155, self->_compassBackgroundView);
 
-  view5 = [(CalibrationViewController *)self view];
-  [view5 addSubview:self->_instructionLabel];
+  v158 = objc_msgSend_view(self, v156, v157);
+  objc_msgSend_addSubview_(v158, v159, self->_instructionLabel);
 
-  view6 = [(CalibrationViewController *)self view];
-  layer5 = [view6 layer];
-  [layer5 addSublayer:self->_compassBackgroundViewMask];
+  v162 = objc_msgSend_view(self, v160, v161);
+  v165 = objc_msgSend_layer(v162, v163, v164);
+  objc_msgSend_addSublayer_(v165, v166, self->_compassBackgroundViewMask);
 
-  view7 = [(CalibrationViewController *)self view];
-  [view7 addSubview:self->_titleLabel];
+  v169 = objc_msgSend_view(self, v167, v168);
+  objc_msgSend_addSubview_(v169, v170, self->_titleLabel);
 
-  view8 = [(CalibrationViewController *)self view];
-  [view8 addSubview:self->_ballView];
+  v173 = objc_msgSend_view(self, v171, v172);
+  objc_msgSend_addSubview_(v173, v174, self->_ballView);
 
-  view9 = [(CalibrationViewController *)self view];
-  [view9 addSubview:self->_cancelButton];
+  v177 = objc_msgSend_view(self, v175, v176);
+  objc_msgSend_addSubview_(v177, v178, self->_cancelButton);
 }
 
 - (void)userDefaultsChanged:(id)changed
 {
-  standardUserDefaults = [MEMORY[0x277CBEBD0] standardUserDefaults];
-  self->_quantizationType = [standardUserDefaults integerForKey:@"CalibrationQuantizationType"];
+  v4 = objc_msgSend_standardUserDefaults(MEMORY[0x277CBEBD0], a2, changed);
+  self->_quantizationType = objc_msgSend_integerForKey_(v4, v5, @"CalibrationQuantizationType");
 
-  standardUserDefaults2 = [MEMORY[0x277CBEBD0] standardUserDefaults];
-  [standardUserDefaults2 doubleForKey:@"CalibrationAwesomeAngle"];
-  self->_calibrationAngle = v6 * 3.14159265 / 180.0;
+  v8 = objc_msgSend_standardUserDefaults(MEMORY[0x277CBEBD0], v6, v7);
+  objc_msgSend_doubleForKey_(v8, v9, @"CalibrationAwesomeAngle");
+  self->_calibrationAngle = v10 * 3.14159265 / 180.0;
 
   if (self->_calibrationAngle == 0.0)
   {
     self->_calibrationAngle = 0.872664626;
   }
 
-  standardUserDefaults3 = [MEMORY[0x277CBEBD0] standardUserDefaults];
-  self->_shouldCompleteTics = [standardUserDefaults3 BOOLForKey:@"CalibrationShouldCompleteTics"];
+  v14 = objc_msgSend_standardUserDefaults(MEMORY[0x277CBEBD0], v11, v12);
+  self->_shouldCompleteTics = objc_msgSend_BOOLForKey_(v14, v13, @"CalibrationShouldCompleteTics");
 }
 
 - (float)quantizedPercentage:(double)percentage forAngle:(double)angle
@@ -369,261 +366,313 @@
 
 - (void)addConstraints
 {
-  v119[1] = *MEMORY[0x277D85DE8];
-  view = [(CalibrationViewController *)self view];
-  [view removeConstraints:self->_calibrationConstraints];
+  v223[1] = *MEMORY[0x277D85DE8];
+  v4 = objc_msgSend_view(self, a2, v2);
+  objc_msgSend_removeConstraints_(v4, v5, self->_calibrationConstraints);
 
-  [(NSMutableArray *)self->_calibrationConstraints removeAllObjects];
+  objc_msgSend_removeAllObjects(self->_calibrationConstraints, v6, v7);
   calibrationConstraints = self->_calibrationConstraints;
-  v5 = [MEMORY[0x277CCAAD0] constraintWithItem:self->_compassBackgroundView attribute:7 relatedBy:0 toItem:self->_compassBackgroundView attribute:8 multiplier:1.0 constant:0.0];
-  [(NSMutableArray *)calibrationConstraints addObject:v5];
+  v10 = objc_msgSend_constraintWithItem_attribute_relatedBy_toItem_attribute_multiplier_constant_(MEMORY[0x277CCAAD0], v9, self->_compassBackgroundView, 7, 0, self->_compassBackgroundView, 8, 1.0, 0.0);
+  objc_msgSend_addObject_(calibrationConstraints, v11, v10);
 
-  v6 = self->_calibrationConstraints;
-  v7 = MEMORY[0x277CCAAD0];
+  v12 = self->_calibrationConstraints;
+  v13 = MEMORY[0x277CCAAD0];
   compassBackgroundView = self->_compassBackgroundView;
-  view2 = [(CalibrationViewController *)self view];
-  v10 = [v7 constraintWithItem:compassBackgroundView attribute:9 relatedBy:0 toItem:view2 attribute:9 multiplier:1.0 constant:0.0];
-  [(NSMutableArray *)v6 addObject:v10];
+  v17 = objc_msgSend_view(self, v15, v16);
+  v19 = objc_msgSend_constraintWithItem_attribute_relatedBy_toItem_attribute_multiplier_constant_(v13, v18, compassBackgroundView, 9, 0, v17, 9, 1.0, 0.0);
+  objc_msgSend_addObject_(v12, v20, v19);
 
-  view3 = [(CalibrationViewController *)self view];
-  [view3 frame];
-  v13 = v12;
+  v23 = objc_msgSend_view(self, v21, v22);
+  objc_msgSend_frame(v23, v24, v25);
+  v27 = v26;
 
-  view4 = [(CalibrationViewController *)self view];
-  [view4 frame];
-  v16 = v15;
+  v30 = objc_msgSend_view(self, v28, v29);
+  objc_msgSend_frame(v30, v31, v32);
+  v34 = v33;
 
-  if (v13 >= v16)
+  if (v27 >= v34)
   {
-    v17 = v16;
+    v37 = v34;
   }
 
   else
   {
-    v17 = v13;
+    v37 = v27;
   }
-
-  v18 = self->_calibrationConstraints;
-  v19 = MEMORY[0x277CCAAD0];
-  v118 = @"compassWidth";
-  v20 = [MEMORY[0x277CCABB0] numberWithDouble:v17];
-  v119[0] = v20;
-  v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v119 forKeys:&v118 count:1];
-  v22 = _NSDictionaryOfVariableBindings(&cfstr_Compassbackgro_0.isa, self->_compassBackgroundView, 0);
-  v23 = [v19 constraintsWithVisualFormat:@"[_compassBackgroundView(==compassWidth)]" options:0 metrics:v21 views:v22];
-  [(NSMutableArray *)v18 addObjectsFromArray:v23];
-
-  v24 = self->_calibrationConstraints;
-  v25 = [MEMORY[0x277CCAAD0] constraintWithItem:self->_ballView attribute:3 relatedBy:0 toItem:self->_compassBackgroundView attribute:3 multiplier:1.0 constant:0.0];
-  [(NSMutableArray *)v24 addObject:v25];
-
-  v26 = self->_calibrationConstraints;
-  v27 = [MEMORY[0x277CCAAD0] constraintWithItem:self->_ballView attribute:1 relatedBy:0 toItem:self->_compassBackgroundView attribute:1 multiplier:1.0 constant:0.0];
-  [(NSMutableArray *)v26 addObject:v27];
-
-  v28 = self->_calibrationConstraints;
-  v29 = [MEMORY[0x277CCAAD0] constraintWithItem:self->_ballView attribute:4 relatedBy:0 toItem:self->_compassBackgroundView attribute:4 multiplier:1.0 constant:0.0];
-  [(NSMutableArray *)v28 addObject:v29];
-
-  v30 = self->_calibrationConstraints;
-  v31 = [MEMORY[0x277CCAAD0] constraintWithItem:self->_ballView attribute:2 relatedBy:0 toItem:self->_compassBackgroundView attribute:2 multiplier:1.0 constant:0.0];
-  [(NSMutableArray *)v30 addObject:v31];
-
-  v32 = self->_calibrationConstraints;
-  v33 = [MEMORY[0x277CCAAD0] constraintWithItem:self->_titleLabel attribute:10 relatedBy:0 toItem:self->_compassBackgroundView attribute:10 multiplier:1.0 constant:0.0];
-  [(NSMutableArray *)v32 addObject:v33];
-
-  v34 = self->_calibrationConstraints;
-  v35 = [MEMORY[0x277CCAAD0] constraintWithItem:self->_titleLabel attribute:9 relatedBy:0 toItem:self->_compassBackgroundView attribute:9 multiplier:1.0 constant:0.0];
-  [(NSMutableArray *)v34 addObject:v35];
-
-  v36 = self->_calibrationConstraints;
-  v37 = [MEMORY[0x277CCAAD0] constraintWithItem:self->_instructionLabel attribute:9 relatedBy:0 toItem:self->_compassBackgroundView attribute:9 multiplier:1.0 constant:0.0];
-  [(NSMutableArray *)v36 addObject:v37];
 
   v38 = self->_calibrationConstraints;
   v39 = MEMORY[0x277CCAAD0];
+  v222 = @"compassWidth";
+  v40 = objc_msgSend_numberWithDouble_(MEMORY[0x277CCABB0], v35, v36, v37);
+  v223[0] = v40;
+  v42 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v41, v223, &v222, 1);
+  v43 = _NSDictionaryOfVariableBindings(&cfstr_Compassbackgro_0.isa, self->_compassBackgroundView, 0);
+  v45 = objc_msgSend_constraintsWithVisualFormat_options_metrics_views_(v39, v44, @"[_compassBackgroundView(==compassWidth)]", 0, v42, v43);
+  objc_msgSend_addObjectsFromArray_(v38, v46, v45);
+
+  v47 = self->_calibrationConstraints;
+  v49 = objc_msgSend_constraintWithItem_attribute_relatedBy_toItem_attribute_multiplier_constant_(MEMORY[0x277CCAAD0], v48, self->_ballView, 3, 0, self->_compassBackgroundView, 3, 1.0, 0.0);
+  objc_msgSend_addObject_(v47, v50, v49);
+
+  v51 = self->_calibrationConstraints;
+  v53 = objc_msgSend_constraintWithItem_attribute_relatedBy_toItem_attribute_multiplier_constant_(MEMORY[0x277CCAAD0], v52, self->_ballView, 1, 0, self->_compassBackgroundView, 1, 1.0, 0.0);
+  objc_msgSend_addObject_(v51, v54, v53);
+
+  v55 = self->_calibrationConstraints;
+  v57 = objc_msgSend_constraintWithItem_attribute_relatedBy_toItem_attribute_multiplier_constant_(MEMORY[0x277CCAAD0], v56, self->_ballView, 4, 0, self->_compassBackgroundView, 4, 1.0, 0.0);
+  objc_msgSend_addObject_(v55, v58, v57);
+
+  v59 = self->_calibrationConstraints;
+  v61 = objc_msgSend_constraintWithItem_attribute_relatedBy_toItem_attribute_multiplier_constant_(MEMORY[0x277CCAAD0], v60, self->_ballView, 2, 0, self->_compassBackgroundView, 2, 1.0, 0.0);
+  objc_msgSend_addObject_(v59, v62, v61);
+
+  v63 = self->_calibrationConstraints;
+  v65 = objc_msgSend_constraintWithItem_attribute_relatedBy_toItem_attribute_multiplier_constant_(MEMORY[0x277CCAAD0], v64, self->_titleLabel, 10, 0, self->_compassBackgroundView, 10, 1.0, 0.0);
+  objc_msgSend_addObject_(v63, v66, v65);
+
+  v67 = self->_calibrationConstraints;
+  v69 = objc_msgSend_constraintWithItem_attribute_relatedBy_toItem_attribute_multiplier_constant_(MEMORY[0x277CCAAD0], v68, self->_titleLabel, 9, 0, self->_compassBackgroundView, 9, 1.0, 0.0);
+  objc_msgSend_addObject_(v67, v70, v69);
+
+  v71 = self->_calibrationConstraints;
+  v73 = objc_msgSend_constraintWithItem_attribute_relatedBy_toItem_attribute_multiplier_constant_(MEMORY[0x277CCAAD0], v72, self->_instructionLabel, 9, 0, self->_compassBackgroundView, 9, 1.0, 0.0);
+  objc_msgSend_addObject_(v71, v74, v73);
+
+  v75 = self->_calibrationConstraints;
+  v76 = MEMORY[0x277CCAAD0];
   instructionLabel = self->_instructionLabel;
-  view5 = [(CalibrationViewController *)self view];
-  v42 = [v39 constraintWithItem:instructionLabel attribute:7 relatedBy:0 toItem:view5 attribute:7 multiplier:0.660000026 constant:0.0];
-  [(NSMutableArray *)v38 addObject:v42];
+  v80 = objc_msgSend_view(self, v78, v79);
+  v82 = objc_msgSend_constraintWithItem_attribute_relatedBy_toItem_attribute_multiplier_constant_(v76, v81, instructionLabel, 7, 0, v80, 7, 0.660000026, 0.0);
+  objc_msgSend_addObject_(v75, v83, v82);
 
-  v43 = self->_calibrationConstraints;
-  v44 = MEMORY[0x277CCAAD0];
+  v84 = self->_calibrationConstraints;
+  v85 = MEMORY[0x277CCAAD0];
   cancelButton = self->_cancelButton;
-  view6 = [(CalibrationViewController *)self view];
-  v47 = [v44 constraintWithItem:cancelButton attribute:9 relatedBy:0 toItem:view6 attribute:9 multiplier:1.0 constant:0.0];
-  [(NSMutableArray *)v43 addObject:v47];
+  v89 = objc_msgSend_view(self, v87, v88);
+  v91 = objc_msgSend_constraintWithItem_attribute_relatedBy_toItem_attribute_multiplier_constant_(v85, v90, cancelButton, 9, 0, v89, 9, 1.0, 0.0);
+  objc_msgSend_addObject_(v84, v92, v91);
 
-  v48 = self->_calibrationConstraints;
-  v49 = [MEMORY[0x277CCAAD0] constraintWithItem:self->_cancelButton attribute:7 relatedBy:0 toItem:0 attribute:7 multiplier:1.0 constant:150.0];
-  [(NSMutableArray *)v48 addObject:v49];
+  v93 = self->_calibrationConstraints;
+  v95 = objc_msgSend_constraintWithItem_attribute_relatedBy_toItem_attribute_multiplier_constant_(MEMORY[0x277CCAAD0], v94, self->_cancelButton, 7, 0, 0, 7, 1.0, 150.0);
+  objc_msgSend_addObject_(v93, v96, v95);
 
-  view7 = [(CalibrationViewController *)self view];
-  [view7 frame];
-  v52 = v51;
+  v99 = objc_msgSend_view(self, v97, v98);
+  objc_msgSend_frame(v99, v100, v101);
+  v103 = v102;
 
-  v53 = self->_calibrationConstraints;
-  v54 = (v52 - (self->_compassRadius + v52 * 0.5 + 40.0 + 7.0)) * 0.5;
-  v55 = MEMORY[0x277CCAAD0];
-  v116[0] = @"buttonHeight";
-  v116[1] = @"buttonBottomMargin";
-  v117[0] = &unk_2856FC260;
-  v117[1] = &unk_2856FC270;
-  v116[2] = @"instructionBottomMargin";
-  v56 = [MEMORY[0x277CCABB0] numberWithDouble:v54];
-  v117[2] = v56;
-  v57 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v117 forKeys:v116 count:3];
-  v58 = _NSDictionaryOfVariableBindings(&cfstr_Instructionlab.isa, self->_instructionLabel, self->_cancelButton, 0);
-  v59 = [v55 constraintsWithVisualFormat:@"V:[_instructionLabel]-(instructionBottomMargin)-[_cancelButton(==buttonHeight)]-(buttonBottomMargin)-|" options:0 metrics:v57 views:v58];
-  [(NSMutableArray *)v53 addObjectsFromArray:v59];
+  v104 = self->_calibrationConstraints;
+  v105 = (v103 - (self->_compassRadius + v103 * 0.5 + 40.0 + 7.0)) * 0.5;
+  v106 = MEMORY[0x277CCAAD0];
+  v220[0] = @"buttonHeight";
+  v220[1] = @"buttonBottomMargin";
+  v221[0] = &unk_2856FC260;
+  v221[1] = &unk_2856FC270;
+  v220[2] = @"instructionBottomMargin";
+  v109 = objc_msgSend_numberWithDouble_(MEMORY[0x277CCABB0], v107, v108, v105);
+  v221[2] = v109;
+  v111 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v110, v221, v220, 3);
+  v112 = _NSDictionaryOfVariableBindings(&cfstr_Instructionlab.isa, self->_instructionLabel, self->_cancelButton, 0);
+  v114 = objc_msgSend_constraintsWithVisualFormat_options_metrics_views_(v106, v113, @"V:[_instructionLabel]-(instructionBottomMargin)-[_cancelButton(==buttonHeight)]-(buttonBottomMargin)-|", 0, v111, v112);
+  objc_msgSend_addObjectsFromArray_(v104, v115, v114);
 
-  traitCollection = [(CalibrationViewController *)self traitCollection];
-  if ([traitCollection horizontalSizeClass] == 2)
+  v118 = objc_msgSend_traitCollection(self, v116, v117);
+  if (objc_msgSend_horizontalSizeClass(v118, v119, v120) == 2)
   {
-    traitCollection2 = [(CalibrationViewController *)self traitCollection];
-    v62 = [traitCollection2 verticalSizeClass] == 2;
+    v123 = objc_msgSend_traitCollection(self, v121, v122);
+    v126 = objc_msgSend_verticalSizeClass(v123, v124, v125) == 2;
   }
 
   else
   {
-    v62 = 0;
+    v126 = 0;
   }
 
-  view8 = [(CalibrationViewController *)self view];
-  [view8 frame];
-  Width = CGRectGetWidth(v120);
+  v129 = objc_msgSend_view(self, v127, v128);
+  objc_msgSend_frame(v129, v130, v131);
+  Width = CGRectGetWidth(v224);
 
-  view9 = [(CalibrationViewController *)self view];
-  [view9 frame];
-  Height = CGRectGetHeight(v121);
+  v135 = objc_msgSend_view(self, v133, v134);
+  objc_msgSend_frame(v135, v136, v137);
+  Height = CGRectGetHeight(v225);
 
   if (Width >= Height)
   {
     Width = Height;
   }
 
-  view10 = [(CalibrationViewController *)self view];
-  [view10 frame];
-  v68 = CGRectGetWidth(v122);
+  v141 = objc_msgSend_view(self, v139, v140);
+  objc_msgSend_frame(v141, v142, v143);
+  v144 = CGRectGetWidth(v226);
 
   compassRadius = self->_compassRadius;
-  [(CompassBackgroundView *)self->_compassBackgroundView ticLength];
-  v71 = (v68 + (compassRadius - v70) * -2.0) * 0.5;
-  if (v71 >= 0.0)
+  objc_msgSend_ticLength(self->_compassBackgroundView, v146, v147);
+  v151 = (v144 + (compassRadius - v150) * -2.0) * 0.5;
+  if (v151 >= 0.0)
   {
-    v72 = v71;
+    v152 = v151;
   }
 
   else
   {
-    v72 = 0.0;
+    v152 = 0.0;
   }
 
-  v114[0] = @"titleLabelWidth";
-  v73 = MEMORY[0x277CCABB0];
-  v74 = self->_compassRadius;
-  [(CompassBackgroundView *)self->_compassBackgroundView ticLength];
-  v76 = [v73 numberWithDouble:v74 - v75 + v74 - v75];
-  v114[1] = @"titleMarginWidth";
-  v115[0] = v76;
-  v77 = [MEMORY[0x277CCABB0] numberWithDouble:v72];
-  v115[1] = v77;
-  v78 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v115 forKeys:v114 count:2];
+  v218[0] = @"titleLabelWidth";
+  v153 = MEMORY[0x277CCABB0];
+  v154 = self->_compassRadius;
+  objc_msgSend_ticLength(self->_compassBackgroundView, v148, v149);
+  v158 = objc_msgSend_numberWithDouble_(v153, v156, v157, v154 - v155 + v154 - v155);
+  v218[1] = @"titleMarginWidth";
+  v219[0] = v158;
+  v161 = objc_msgSend_numberWithDouble_(MEMORY[0x277CCABB0], v159, v160, v152);
+  v219[1] = v161;
+  v163 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v162, v219, v218, 2);
 
-  v79 = self->_calibrationConstraints;
-  v80 = MEMORY[0x277CCAAD0];
-  v81 = _NSDictionaryOfVariableBindings(&cfstr_Titlelabel.isa, self->_titleLabel, 0);
-  v82 = [v80 constraintsWithVisualFormat:@"|-(>=titleMarginWidth)-[_titleLabel(==titleLabelWidth)]-(>=titleMarginWidth)-|" options:0 metrics:v78 views:v81];
-  [(NSMutableArray *)v79 addObjectsFromArray:v82];
+  v164 = self->_calibrationConstraints;
+  v165 = MEMORY[0x277CCAAD0];
+  v166 = _NSDictionaryOfVariableBindings(&cfstr_Titlelabel.isa, self->_titleLabel, 0);
+  v168 = objc_msgSend_constraintsWithVisualFormat_options_metrics_views_(v165, v167, @"|-(>=titleMarginWidth)-[_titleLabel(==titleLabelWidth)]-(>=titleMarginWidth)-|", 0, v163, v166);
+  objc_msgSend_addObjectsFromArray_(v164, v169, v168);
 
-  if (v62 || (-[CalibrationViewController traitCollection](self, "traitCollection"), v83 = objc_claimAutoreleasedReturnValue(), v84 = [v83 horizontalSizeClass], v83, v84 == 2))
+  if (v126 || (objc_msgSend_traitCollection(self, v170, v171), v172 = objc_claimAutoreleasedReturnValue(), v175 = objc_msgSend_horizontalSizeClass(v172, v173, v174), v172, v175 == 2))
   {
-    v85 = self->_calibrationConstraints;
-    v86 = MEMORY[0x277CCAAD0];
-    v87 = self->_compassBackgroundView;
-    view11 = [(CalibrationViewController *)self view];
-    v89 = [v86 constraintWithItem:v87 attribute:10 relatedBy:0 toItem:view11 attribute:10 multiplier:1.0 constant:-18.0];
-    [(NSMutableArray *)v85 addObject:v89];
+    v176 = self->_calibrationConstraints;
+    v177 = MEMORY[0x277CCAAD0];
+    v178 = self->_compassBackgroundView;
+    v179 = objc_msgSend_view(self, v170, v171);
+    v181 = objc_msgSend_constraintWithItem_attribute_relatedBy_toItem_attribute_multiplier_constant_(v177, v180, v178, 10, 0, v179, 10, 1.0, -18.0);
+    objc_msgSend_addObject_(v176, v182, v181);
 
-    v90 = self->_calibrationConstraints;
-    view13 = [MEMORY[0x277CCAAD0] constraintWithItem:self->_compassBackgroundView attribute:8 relatedBy:0 toItem:0 attribute:0 multiplier:1.0 constant:Width];
-    [(NSMutableArray *)v90 addObject:view13];
+    v183 = self->_calibrationConstraints;
+    v185 = objc_msgSend_constraintWithItem_attribute_relatedBy_toItem_attribute_multiplier_constant_(MEMORY[0x277CCAAD0], v184, self->_compassBackgroundView, 8, 0, 0, 0, 1.0, Width);
+    objc_msgSend_addObject_(v183, v186, v185);
   }
 
   else
   {
-    view12 = [(CalibrationViewController *)self view];
-    [view12 frame];
-    v94 = (v93 + v93) / 3.0;
-    [(CompassBackgroundView *)self->_compassBackgroundView frame];
-    v96 = v95;
+    v187 = objc_msgSend_view(self, v170, v171);
+    objc_msgSend_frame(v187, v188, v189);
+    v191 = (v190 + v190) / 3.0;
+    objc_msgSend_frame(self->_compassBackgroundView, v192, v193);
+    v195 = v194;
 
-    if (v94 <= v96)
+    if (v191 <= v195)
     {
-      v100 = self->_calibrationConstraints;
-      v109 = MEMORY[0x277CCAAD0];
-      v110 = self->_compassBackgroundView;
-      view13 = [(CalibrationViewController *)self view];
-      v103 = 1.0;
-      v108 = 20.0;
-      v104 = v109;
-      v105 = v110;
-      v106 = 3;
-      v107 = view13;
+      v203 = self->_calibrationConstraints;
+      v209 = MEMORY[0x277CCAAD0];
+      v210 = self->_compassBackgroundView;
+      v185 = objc_msgSend_view(self, v196, v197);
+      objc_msgSend_constraintWithItem_attribute_relatedBy_toItem_attribute_multiplier_constant_(v209, v211, v210, 3, 0, v185, 3, 1.0, 20.0);
     }
 
     else
     {
-      view14 = [(CalibrationViewController *)self view];
-      [view14 frame];
-      v99 = round(v98 * 227.0 / 568.0);
+      v198 = objc_msgSend_view(self, v196, v197);
+      objc_msgSend_frame(v198, v199, v200);
+      v202 = round(v201 * 227.0 / 568.0);
 
-      v100 = self->_calibrationConstraints;
-      v101 = MEMORY[0x277CCAAD0];
-      v102 = self->_compassBackgroundView;
-      view13 = [(CalibrationViewController *)self view];
-      v103 = 1.0;
-      v104 = v101;
-      v105 = v102;
-      v106 = 10;
-      v107 = view13;
-      v108 = v99;
+      v203 = self->_calibrationConstraints;
+      v204 = MEMORY[0x277CCAAD0];
+      v205 = self->_compassBackgroundView;
+      v185 = objc_msgSend_view(self, v206, v207);
+      objc_msgSend_constraintWithItem_attribute_relatedBy_toItem_attribute_multiplier_constant_(v204, v208, v205, 10, 0, v185, 3, 1.0, v202);
     }
-
-    v111 = [v104 constraintWithItem:v105 attribute:v106 relatedBy:0 toItem:v107 attribute:3 multiplier:v103 constant:v108];
-    [(NSMutableArray *)v100 addObject:v111];
+    v212 = ;
+    objc_msgSend_addObject_(v203, v213, v212);
   }
 
-  view15 = [(CalibrationViewController *)self view];
-  [view15 addConstraints:self->_calibrationConstraints];
+  v216 = objc_msgSend_view(self, v214, v215);
+  objc_msgSend_addConstraints_(v216, v217, self->_calibrationConstraints);
+}
 
-  v113 = *MEMORY[0x277D85DE8];
+- (void)viewWillAppear:(BOOL)appear
+{
+  v8.receiver = self;
+  v8.super_class = CalibrationViewController;
+  [(CalibrationViewController *)&v8 viewWillAppear:appear];
+  v6 = objc_msgSend_defaultCenter(MEMORY[0x277CCAB98], v4, v5);
+  objc_msgSend_addObserver_selector_name_object_(v6, v7, self, sel_userDefaultsChanged_, *MEMORY[0x277CCA858], 0);
+
+  memset_pattern16(self->_ticsShowingArray, &unk_243D70430, 0x2D0uLL);
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v46.receiver = self;
+  v46.super_class = CalibrationViewController;
+  [(CalibrationViewController *)&v46 viewDidAppear:appear];
+  v6 = objc_msgSend_view(self, v4, v5);
+  objc_msgSend_setNeedsLayout(v6, v7, v8);
+
+  v11 = objc_msgSend_view(self, v9, v10);
+  objc_msgSend_layoutIfNeeded(v11, v12, v13);
+
+  v15 = objc_msgSend_animationWithKeyPath_(MEMORY[0x277CD9FA0], v14, @"path");
+  objc_msgSend_setStiffness_(v15, v16, v17, 1560.0);
+  objc_msgSend_setMass_(v15, v18, v19, 3.0);
+  objc_msgSend_setDamping_(v15, v20, v21, 600.0);
+  objc_msgSend_setDuration_(v15, v22, v23, 0.400000006);
+  v24 = CACurrentMediaTime();
+  objc_msgSend_setBeginTime_(v15, v25, v26, v24 + 0.5);
+  memset_pattern16(self->_ticsShowingArray, &unk_243D70430, 0x2D0uLL);
+  v29 = objc_msgSend_updatedMaskingPath(self, v27, v28);
+  v30 = v29;
+  v33 = objc_msgSend_CGPath(v30, v31, v32);
+  objc_msgSend_setFromValue_(v15, v34, v33);
+
+  memset_pattern16(self->_ticsShowingArray, &unk_243D70420, 0x2D0uLL);
+  v37 = objc_msgSend_updatedMaskingPath(self, v35, v36);
+  v38 = v37;
+  v41 = objc_msgSend_CGPath(v38, v39, v40);
+
+  objc_msgSend_setToValue_(v15, v42, v41);
+  objc_msgSend_setFillMode_(v15, v43, *MEMORY[0x277CDA230]);
+  objc_msgSend_setPath_(self->_compassBackgroundViewMask, v44, v41);
+  objc_msgSend_addAnimation_forKey_(self->_compassBackgroundViewMask, v45, v15, @"growAnimation");
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  v8.receiver = self;
+  v8.super_class = CalibrationViewController;
+  [(CalibrationViewController *)&v8 viewWillDisappear:disappear];
+  v6 = objc_msgSend_defaultCenter(MEMORY[0x277CCAB98], v4, v5);
+  objc_msgSend_removeObserver_(v6, v7, self);
+
+  self->_ignoreMotionUpdates = 1;
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v6.receiver = self;
+  v6.super_class = CalibrationViewController;
+  [(CalibrationViewController *)&v6 viewDidDisappear:disappear];
+  objc_msgSend_hideAllTics(self, v4, v5);
 }
 
 - (void)viewWillLayoutSubviews
 {
-  v3.receiver = self;
-  v3.super_class = CalibrationViewController;
-  [(CalibrationViewController *)&v3 viewWillLayoutSubviews];
-  [(CalibrationViewController *)self _updateSizes];
-  [(CalibrationViewController *)self addConstraints];
+  v7.receiver = self;
+  v7.super_class = CalibrationViewController;
+  [(CalibrationViewController *)&v7 viewWillLayoutSubviews];
+  objc_msgSend__updateSizes(self, v3, v4);
+  objc_msgSend_addConstraints(self, v5, v6);
 }
 
 - (void)viewDidLayoutSubviews
 {
-  v3.receiver = self;
-  v3.super_class = CalibrationViewController;
-  [(CalibrationViewController *)&v3 viewDidLayoutSubviews];
-  [(CompassBackgroundView *)self->_compassBackgroundView frame];
-  [(CAShapeLayer *)self->_compassBackgroundViewMask setFrame:?];
-  [(CalibrationViewController *)self updateMaskingPath];
+  v9.receiver = self;
+  v9.super_class = CalibrationViewController;
+  [(CalibrationViewController *)&v9 viewDidLayoutSubviews];
+  objc_msgSend_frame(self->_compassBackgroundView, v3, v4);
+  objc_msgSend_setFrame_(self->_compassBackgroundViewMask, v5, v6);
+  objc_msgSend_updateMaskingPath(self, v7, v8);
 }
 
 - (void)reset
 {
   self->_ignoreMotionUpdates = 0;
-  [(CalibrationViewController *)self hideAllTics];
+  objc_msgSend_hideAllTics(self, a2, v2);
   self->_previousTimestamp = -1.0;
   self->_startTicAngle = -1.0;
 }
@@ -631,79 +680,80 @@
 - (id)updatedMaskingPath
 {
   compassRadius = self->_compassRadius;
-  [(CompassBackgroundView *)self->_compassBackgroundView ticLength];
-  v20 = compassRadius + v4 * 0.5 + 1.0;
-  [(CompassBackgroundView *)self->_compassBackgroundView frame];
-  v22 = v5 * 0.5;
-  [(CompassBackgroundView *)self->_compassBackgroundView frame];
-  v21 = v6 * 0.5;
-  bezierPath = [MEMORY[0x277D75208] bezierPath];
-  [bezierPath setLineWidth:0.5];
-  v8 = 0;
-  v23 = 0x168uLL;
-  v9 = -1;
-  v19 = 3.14159265;
+  objc_msgSend_ticLength(self->_compassBackgroundView, a2, v2);
+  v41 = compassRadius + v5 * 0.5 + 1.0;
+  objc_msgSend_frame(self->_compassBackgroundView, v6, v7);
+  v43 = v8 * 0.5;
+  objc_msgSend_frame(self->_compassBackgroundView, v9, v10);
+  v42 = v11 * 0.5;
+  v14 = objc_msgSend_bezierPath(MEMORY[0x277D75208], v12, v13);
+  objc_msgSend_setLineWidth_(v14, v15, v16, 0.5);
+  v19 = 0;
+  v44 = 0x168uLL;
+  v20 = -1;
+  v40 = 3.14159265;
   do
   {
-    v10 = (1.0 - self->_ticsShowingArray[v8]);
-    [(CompassBackgroundView *)self->_compassBackgroundView ticLength];
-    v12 = (v11 + 2.0) * v10;
-    v13 = fmod(v9, v23);
-    v14 = __sincos_stret(v13 * v19 / 180.0);
-    [bezierPath moveToPoint:?];
-    v15 = v20 - v12;
-    [bezierPath addLineToPoint:{v22 + v15 * v14.__cosval, v21 + v15 * v14.__sinval}];
-    v9 += 2;
-    v16 = fmod(v9, v23);
-    v17 = __sincos_stret(v16 * v19 / 180.0);
-    [bezierPath addLineToPoint:{v22 + v15 * v17.__cosval, v21 + v15 * v17.__sinval}];
-    [bezierPath addLineToPoint:{v22 + v20 * v17.__cosval, v21 + v20 * v17.__sinval}];
-    [bezierPath addLineToPoint:{v22 + v20 * v14.__cosval, v21 + v20 * v14.__sinval}];
-    ++v8;
+    v21 = (1.0 - self->_ticsShowingArray[v19]);
+    objc_msgSend_ticLength(self->_compassBackgroundView, v17, v18, *&v40);
+    v23 = (v22 + 2.0) * v21;
+    v24 = fmod(v20, v44);
+    v25 = __sincos_stret(v24 * v40 / 180.0);
+    objc_msgSend_moveToPoint_(v14, v26, v27);
+    v28 = v41 - v23;
+    objc_msgSend_addLineToPoint_(v14, v29, v30, v43 + v28 * v25.__cosval, v42 + v28 * v25.__sinval);
+    v20 += 2;
+    v31 = fmod(v20, v44);
+    v32 = __sincos_stret(v31 * v40 / 180.0);
+    objc_msgSend_addLineToPoint_(v14, v33, v34, v43 + v28 * v32.__cosval, v42 + v28 * v32.__sinval);
+    objc_msgSend_addLineToPoint_(v14, v35, v36, v43 + v41 * v32.__cosval, v42 + v41 * v32.__sinval);
+    objc_msgSend_addLineToPoint_(v14, v37, v38, v43 + v41 * v25.__cosval, v42 + v41 * v25.__sinval);
+    ++v19;
   }
 
-  while (v8 != 180);
+  while (v19 != 180);
 
-  return bezierPath;
+  return v14;
 }
 
 - (void)updateMaskingPath
 {
-  updatedMaskingPath = [(CalibrationViewController *)self updatedMaskingPath];
-  v3 = updatedMaskingPath;
-  -[CAShapeLayer setPath:](self->_compassBackgroundViewMask, "setPath:", [updatedMaskingPath CGPath]);
+  v9 = objc_msgSend_updatedMaskingPath(self, a2, v2);
+  v4 = v9;
+  v7 = objc_msgSend_CGPath(v9, v5, v6);
+  objc_msgSend_setPath_(self->_compassBackgroundViewMask, v8, v7);
 }
 
 - (void)showTicAtAngle:(double)angle withCredit:(double)credit
 {
-  v5 = vcvtmd_u64_f64(angle * 0.5);
-  if (v5 <= 0xB3)
+  v6 = vcvtmd_u64_f64(angle * 0.5);
+  if (v6 <= 0xB3)
   {
-    v6 = v5;
+    v7 = v6;
   }
 
   else
   {
-    v6 = v5 % 0xB3;
+    v7 = v6 % 0xB3;
   }
 
   ticsShowingArray = self->_ticsShowingArray;
-  v8 = ticsShowingArray[v6];
-  if (v8 < 1.0)
+  v9 = ticsShowingArray[v7];
+  if (v9 < 1.0)
   {
-    if (v8 < credit)
+    if (v9 < credit)
     {
-      [(CalibrationViewController *)self quantizedPercentage:credit forAngle:angle];
+      objc_msgSend_quantizedPercentage_forAngle_(self, a2, v4, credit, angle);
       ticsShowingArray = self->_ticsShowingArray;
     }
 
-    ticsShowingArray[v6] = v8;
-    if (v8 == 1.0)
+    ticsShowingArray[v7] = v9;
+    if (v9 == 1.0)
     {
       ++self->_numCompleteTics;
     }
 
-    [(CalibrationViewController *)self updateMaskingPath];
+    objc_msgSend_updateMaskingPath(self, a2, v4);
   }
 }
 
@@ -715,58 +765,58 @@
     ;
   }
 
-  v7 = 0;
-  v8 = vcvtmd_u64_f64(angle * 0.5) % 0xB4;
-  v9 = vcvtmd_u64_f64(endAngle * 0.5);
-  if (v8 <= v9 % 0xB4)
+  v8 = 0;
+  v9 = vcvtmd_u64_f64(angle * 0.5) % 0xB4;
+  v10 = vcvtmd_u64_f64(endAngle * 0.5);
+  if (v9 <= v10 % 0xB4)
   {
-    v10 = v9 % 0xB4;
+    v11 = v10 % 0xB4;
   }
 
   else
   {
-    v10 = v8;
+    v11 = v9;
   }
 
-  if (v8 >= v9 % 0xB4)
+  if (v9 >= v10 % 0xB4)
   {
-    v11 = v9 % 0xB4;
+    v12 = v10 % 0xB4;
   }
 
   else
   {
-    v11 = v8;
+    v12 = v9;
   }
 
   ticsShowingArray = self->_ticsShowingArray;
   do
   {
-    v13 = ticsShowingArray[v11];
-    if (v13 < 1.0)
+    v14 = ticsShowingArray[v12];
+    if (v14 < 1.0)
     {
-      if (v13 < credit)
+      if (v14 < credit)
       {
-        [(CalibrationViewController *)self quantizedPercentage:credit forAngle:v11];
+        objc_msgSend_quantizedPercentage_forAngle_(self, a2, v5, credit, v12);
         ticsShowingArray = self->_ticsShowingArray;
       }
 
-      ticsShowingArray[v11] = v13;
-      if (v13 == 1.0)
+      ticsShowingArray[v12] = v14;
+      if (v14 == 1.0)
       {
         ++self->_numCompleteTics;
       }
 
-      v7 = 1;
+      v8 = 1;
     }
 
-    v11 = (v11 + 1);
+    v12 = (v12 + 1);
   }
 
-  while (v10 >= v11);
-  if (v7)
+  while (v11 >= v12);
+  if (v8)
   {
 
-    [(CalibrationViewController *)self updateMaskingPath];
+    objc_msgSend_updateMaskingPath(self, a2, v5);
   }
 }
 
@@ -775,7 +825,7 @@
   memset_pattern16(self->_ticsShowingArray, &unk_243D70420, 0x2D0uLL);
   self->_numCompleteTics = 0;
 
-  [(CalibrationViewController *)self updateMaskingPath];
+  objc_msgSend_updateMaskingPath(self, v3, v4);
 }
 
 - (void)setBallAngle:(double)angle tiltAngle:(double)tiltAngle
@@ -785,44 +835,43 @@
     self->_startTicAngle = angle / 0.0174532925;
   }
 
-  self->_calibrationAngle;
-  [CalibrationViewController showTicsBetweenStartAngle:"showTicsBetweenStartAngle:endAngle:withCredit:" endAngle:? withCredit:?];
+  objc_msgSend_showTicsBetweenStartAngle_endAngle_withCredit_(self, a2, v4);
   self->_startTicAngle = angle / 0.0174532925;
-  [(CalibrationBallView *)self->_ballView setAngle:angle];
-  [(CompassBackgroundView *)self->_compassBackgroundView setNeedsLayout];
+  objc_msgSend_setAngle_(self->_ballView, v7, v8, angle);
+  objc_msgSend_setNeedsLayout(self->_compassBackgroundView, v9, v10);
   ballView = self->_ballView;
 
-  [(CalibrationBallView *)ballView setNeedsLayout];
+  objc_msgSend_setNeedsLayout(ballView, v11, v12);
 }
 
 - (double)_correctedAngleForCurrentOrientation:(double)orientation
 {
-  view = [(CalibrationViewController *)self view];
-  window = [view window];
-  windowScene = [window windowScene];
-  interfaceOrientation = [windowScene interfaceOrientation];
+  v5 = objc_msgSend_view(self, a2, v3);
+  v8 = objc_msgSend_window(v5, v6, v7);
+  v11 = objc_msgSend_windowScene(v8, v9, v10);
+  v14 = objc_msgSend_interfaceOrientation(v11, v12, v13);
 
-  switch(interfaceOrientation)
+  switch(v14)
   {
     case 2:
-      v8 = 3.14159265;
+      v15 = 3.14159265;
       break;
     case 3:
-      v8 = -1.57079633;
+      v15 = -1.57079633;
       break;
     case 4:
-      v8 = 1.57079633;
+      v15 = 1.57079633;
       break;
     default:
       return orientation;
   }
 
-  v9 = orientation + v8;
-  v10 = fmod(orientation + v8, 6.28318531);
-  orientation = v10;
-  if (v9 < 0.0)
+  v16 = orientation + v15;
+  v17 = fmod(orientation + v15, 6.28318531);
+  orientation = v17;
+  if (v16 < 0.0)
   {
-    return v10 + 6.28318531;
+    return v17 + 6.28318531;
   }
 
   return orientation;
@@ -833,87 +882,87 @@
   if (!self->_ignoreMotionUpdates)
   {
     motionCopy = motion;
-    [motionCopy gravity];
-    v6 = v5;
-    v8.f64[1] = v7;
-    __x = v8;
-    v9 = atan2(sqrt(vaddvq_f64(vmulq_f64(v8, v8))), -v5);
-    v10 = fmod(v9, 6.28318531);
-    if (v9 < 0.0)
+    objc_msgSend_gravity(motionCopy, v5, v6);
+    v8 = v7;
+    v10.f64[1] = v9;
+    __x = v10;
+    v11 = atan2(sqrt(vaddvq_f64(vmulq_f64(v10, v10))), -v7);
+    v14 = fmod(v11, 6.28318531);
+    if (v11 < 0.0)
     {
-      v10 = v10 + 6.28318531;
+      v14 = v14 + 6.28318531;
     }
 
-    [(CalibrationViewController *)self _correctedAngleForCurrentOrientation:v10];
-    *&v12 = *&v12 * 1.4037466 + 0.01;
-    if (*&v12 <= 0.5)
+    objc_msgSend__correctedAngleForCurrentOrientation_(self, v12, v13, v14);
+    *&v18 = *&v18 * 1.4037466 + 0.01;
+    if (*&v18 <= 0.5)
     {
-      v13 = *&v12;
+      v19 = *&v18;
     }
 
     else
     {
-      v13 = 0.5;
+      v19 = 0.5;
     }
 
-    __xa = vmlaq_n_f64(vmulq_n_f64(*self->_previousGravity, 1.0 - v13), __x, v13);
-    v14 = *&self->_previousGravity[16] * (1.0 - v13);
-    *&v12 = v14 + v13 * v6;
-    v25 = v12;
-    [motionCopy timestamp];
-    v16 = v15;
+    __xa = vmlaq_n_f64(vmulq_n_f64(*self->_previousGravity, 1.0 - v19), __x, v19);
+    v20 = *&self->_previousGravity[16] * (1.0 - v19);
+    *&v18 = v20 + v19 * v8;
+    v35 = v18;
+    objc_msgSend_timestamp(motionCopy, v15, v16, *&v19, v17);
+    v22 = v21;
 
-    v17 = atan2(-__xa.f64[1], __xa.f64[0]);
-    v18 = fmod(v17, 6.28318531);
-    if (v17 < 0.0)
+    v23 = atan2(-__xa.f64[1], __xa.f64[0]);
+    v26 = fmod(v23, 6.28318531);
+    if (v23 < 0.0)
     {
-      v18 = v18 + 6.28318531;
+      v26 = v26 + 6.28318531;
     }
 
-    [(CalibrationViewController *)self _correctedAngleForCurrentOrientation:v18];
-    v20 = v19;
-    v21 = atan2(sqrt(vaddvq_f64(vmulq_f64(__xa, __xa))), -(v14 + v24 * v6));
-    v22 = fmod(v21, 6.28318531);
-    v23 = v22 + 6.28318531;
-    if (v21 >= 0.0)
+    objc_msgSend__correctedAngleForCurrentOrientation_(self, v24, v25, v26);
+    v28 = v27;
+    v29 = atan2(sqrt(vaddvq_f64(vmulq_f64(__xa, __xa))), -(v20 + v34 * v8));
+    v32 = fmod(v29, 6.28318531);
+    v33 = v32 + 6.28318531;
+    if (v29 >= 0.0)
     {
-      v23 = v22;
+      v33 = v32;
     }
 
-    self->_previousHorizontalAngle = v20;
-    [(CalibrationViewController *)self setBallAngle:v20 tiltAngle:v23];
+    self->_previousHorizontalAngle = v28;
+    objc_msgSend_setBallAngle_tiltAngle_(self, v30, v31, v28, v33);
     *self->_previousGravity = __xa;
-    *&self->_previousGravity[16] = v25;
-    self->_previousTimestamp = v16;
+    *&self->_previousGravity[16] = v35;
+    self->_previousTimestamp = v22;
   }
 }
 
 - (double)completeCircle
 {
   self->_ignoreMotionUpdates = 1;
-  [(CalibrationBallView *)self->_ballView currentAngle];
-  v4 = v3 * 180.0 / 3.14159265;
+  objc_msgSend_currentAngle(self->_ballView, a2, v2);
+  v5 = v4 * 180.0 / 3.14159265;
   objc_initWeak(&location, self);
-  v5 = 0.0;
-  v6 = 360;
-  v7 = MEMORY[0x277D85CD0];
+  v6 = 0.0;
+  v7 = 360;
+  v8 = MEMORY[0x277D85CD0];
   do
   {
-    v8 = dispatch_time(0, (v5 / 360.0 * 1000000000.0));
-    v10[0] = MEMORY[0x277D85DD0];
-    v10[1] = 3221225472;
-    v10[2] = sub_243D6F3AC;
-    v10[3] = &unk_278DF27F8;
-    objc_copyWeak(v11, &location);
-    v11[1] = *&v5;
-    v11[2] = *&v4;
-    dispatch_after(v8, v7, v10);
-    objc_destroyWeak(v11);
-    v5 = v5 + 1.0;
-    --v6;
+    v9 = dispatch_time(0, (v6 / 360.0 * 1000000000.0));
+    v11[0] = MEMORY[0x277D85DD0];
+    v11[1] = 3221225472;
+    v11[2] = sub_243D6F3AC;
+    v11[3] = &unk_278DF27F8;
+    objc_copyWeak(v12, &location);
+    v12[1] = *&v6;
+    v12[2] = *&v5;
+    dispatch_after(v9, v8, v11);
+    objc_destroyWeak(v12);
+    v6 = v6 + 1.0;
+    --v7;
   }
 
-  while (v6);
+  while (v7);
   objc_destroyWeak(&location);
   return 1.0;
 }

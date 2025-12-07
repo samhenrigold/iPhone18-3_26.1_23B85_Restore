@@ -277,7 +277,7 @@ LABEL_35:
 void __41__TESTriggerPhraseCollection_waitForSync__block_invoke(uint64_t a1)
 {
   v6 = *MEMORY[0x1E69E9840];
-  v2 = emf_logging_get_default_log();
+  v2 = emf_logging_get_default_log(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     v3 = [*(a1 + 32) locale];
@@ -384,7 +384,7 @@ void __47__TESTriggerPhraseCollection__buildAndLoadTrie__block_invoke(uint64_t a
         v10 = [v7 lowercaseString];
         CEM::getUTF16StringFromCFString(v10, &__p);
         LOWORD(__src) = v9;
-        std::__tree<std::__value_type<std::basic_string<char16_t>,unsigned short>,std::__map_value_compare<std::basic_string<char16_t>,std::__value_type<std::basic_string<char16_t>,unsigned short>,std::less<std::basic_string<char16_t>>,true>,std::allocator<std::__value_type<std::basic_string<char16_t>,unsigned short>>>::__emplace_unique_key_args<std::basic_string<char16_t>,std::basic_string<char16_t> const&,unsigned short>(&v38, &__p);
+        std::__tree<std::__value_type<std::basic_string<char16_t>,unsigned short>,std::__map_value_compare<std::basic_string<char16_t>,std::__value_type<std::basic_string<char16_t>,unsigned short>,std::less<std::basic_string<char16_t>>,true>,std::allocator<std::__value_type<std::basic_string<char16_t>,unsigned short>>>::__emplace_unique_key_args<std::basic_string<char16_t>,std::basic_string<char16_t> const&,unsigned short>(&v38, &__p, &__p, &__src);
         if (SHIBYTE(v33) < 0)
         {
           operator delete(__p);
@@ -418,13 +418,13 @@ void __47__TESTriggerPhraseCollection__buildAndLoadTrie__block_invoke(uint64_t a
       {
         if (*(v11 + 55) < 0)
         {
-          std::basic_string<char16_t>::__init_copy_ctor_external(v32, *(v11 + 4), *(v11 + 5));
+          std::basic_string<char16_t>::__init_copy_ctor_external(v32, v11[4], v11[5]);
         }
 
         else
         {
-          v13 = v11[2];
-          v32->__r_.__value_.__r.__words[2] = *(v11 + 6);
+          v13 = *(v11 + 2);
+          v32->__r_.__value_.__r.__words[2] = v11[6];
           *&v12->__r_.__value_.__l.__data_ = v13;
         }
 
@@ -490,7 +490,7 @@ void __47__TESTriggerPhraseCollection__buildAndLoadTrie__block_invoke(uint64_t a
       }
 
       v29 = v16;
-      v25 = *(v11 + 1);
+      v25 = v11[1];
       if (v25)
       {
         do
@@ -506,7 +506,7 @@ void __47__TESTriggerPhraseCollection__buildAndLoadTrie__block_invoke(uint64_t a
       {
         do
         {
-          v26 = *(v11 + 2);
+          v26 = v11[2];
           v27 = *v26 == v11;
           v11 = v26;
         }

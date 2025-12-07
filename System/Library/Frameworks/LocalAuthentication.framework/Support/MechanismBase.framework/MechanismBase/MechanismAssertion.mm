@@ -114,25 +114,23 @@ LABEL_4:
 
 - (void)dropWithReason:(id)reason
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   reasonCopy = reason;
   if (self->_acquired)
   {
     v5 = [(MechanismAssertion *)self log];
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = 138543618;
+      v6 = 138543618;
       selfCopy = self;
-      v9 = 2114;
-      v10 = reasonCopy;
-      _os_log_impl(&dword_238B95000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@ dropped (%{public}@)", &v7, 0x16u);
+      v8 = 2114;
+      v9 = reasonCopy;
+      _os_log_impl(&dword_238B95000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@ dropped (%{public}@)", &v6, 0x16u);
     }
 
     [(MechanismAssertion *)self stopMonitoring];
     self->_acquired = 0;
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_assertInStateAndStartMonitoring
@@ -167,19 +165,17 @@ LABEL_4:
 
 - (void)handleAssertionSuccessWithReason:(id)reason
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   reasonCopy = reason;
   v5 = [(MechanismAssertion *)self log];
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138543618;
+    v6 = 138543618;
     selfCopy = self;
-    v9 = 2114;
-    v10 = reasonCopy;
-    _os_log_impl(&dword_238B95000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@ confirmed (%{public}@)", &v7, 0x16u);
+    v8 = 2114;
+    v9 = reasonCopy;
+    _os_log_impl(&dword_238B95000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@ confirmed (%{public}@)", &v6, 0x16u);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleAssertionFailureWithReason:(id)reason error:(id)error
@@ -211,13 +207,12 @@ LABEL_4:
 
 - (void)handleAssertionFailureWithReason:(os_log_t)log error:.cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 138543618;
-  v5 = a1;
-  v6 = 2114;
-  v7 = a2;
-  _os_log_error_impl(&dword_238B95000, log, OS_LOG_TYPE_ERROR, "%{public}@ failed (%{public}@)", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 138543618;
+  v4 = a1;
+  v5 = 2114;
+  v6 = a2;
+  _os_log_error_impl(&dword_238B95000, log, OS_LOG_TYPE_ERROR, "%{public}@ failed (%{public}@)", &v3, 0x16u);
 }
 
 @end

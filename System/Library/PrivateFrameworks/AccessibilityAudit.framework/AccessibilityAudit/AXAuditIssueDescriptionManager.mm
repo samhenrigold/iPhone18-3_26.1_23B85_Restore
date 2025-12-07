@@ -35,7 +35,6 @@
 
 uint64_t __47__AXAuditIssueDescriptionManager_sharedManager__block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   sharedManager_instance_4 = objc_opt_new();
 
   return MEMORY[0x2821F96F8]();
@@ -107,7 +106,7 @@ uint64_t __47__AXAuditIssueDescriptionManager_sharedManager__block_invoke(uint64
 
 - (id)suggestionDescriptionForAuditIssue:(id)issue
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   issueCopy = issue;
   suggestedSelectorsToFix = [issueCopy suggestedSelectorsToFix];
   if ([suggestedSelectorsToFix count])
@@ -121,29 +120,29 @@ uint64_t __47__AXAuditIssueDescriptionManager_sharedManager__block_invoke(uint64
     }
 
     v7 = objc_opt_new();
+    v28 = 0u;
     v29 = 0u;
     v30 = 0u;
     v31 = 0u;
-    v32 = 0u;
     v8 = suggestedSelectorsToFix;
-    v9 = [v8 countByEnumeratingWithState:&v29 objects:v33 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v28 objects:v32 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v30;
+      v11 = *v29;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v30 != v11)
+          if (*v29 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          [v7 appendFormat:@"%@, ", *(*(&v29 + 1) + 8 * i)];
+          [v7 appendFormat:@"%@, ", *(*(&v28 + 1) + 8 * i)];
         }
 
-        v10 = [v8 countByEnumeratingWithState:&v29 objects:v33 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v28 objects:v32 count:16];
       }
 
       while (v10);
@@ -217,7 +216,6 @@ LABEL_19:
   v24 = [v22 stringWithFormat:v23, mlGeneratedDescription2];
 
 LABEL_24:
-  v27 = *MEMORY[0x277D85DE8];
 
   return v24;
 }
@@ -315,86 +313,84 @@ uint64_t __51__AXAuditIssueDescriptionManager__locStringForKey___block_invoke()
 
 void __72__AXAuditIssueDescriptionManager__auditIssueTypeToLocalizationKeyLookup__block_invoke()
 {
-  v4[37] = *MEMORY[0x277D85DE8];
-  v3[0] = &unk_284FC3AD8;
-  v3[1] = &unk_284FC3AF0;
-  v4[0] = @"contrastUnknown";
-  v4[1] = @"contrastAAPass";
-  v3[2] = &unk_284FC3B08;
-  v3[3] = &unk_284FC3B20;
-  v4[2] = @"contrastAAPartialPass";
-  v4[3] = @"contrastAAFail";
-  v3[4] = &unk_284FC3B38;
-  v3[5] = &unk_284FC3B50;
-  v4[4] = @"contrastAAAPass";
-  v4[5] = @"contrastAAAPartialPass";
-  v3[6] = &unk_284FC3B68;
-  v3[7] = &unk_284FC3B80;
-  v4[6] = @"contrastAAAFail";
-  v4[7] = @"hitRegionTooSmall";
-  v3[8] = &unk_284FC3B98;
-  v3[9] = &unk_284FC3BB0;
-  v4[8] = @"elementLabelAndValueEmptyWithMLGeneratedDesc";
-  v4[9] = @"elementLabelAndValueEmpty";
-  v3[10] = &unk_284FC3BC8;
-  v3[11] = &unk_284FC3BE0;
-  v4[10] = @"elementLabelUsesImageName";
-  v4[11] = @"elementLabelNotHumanReadable";
-  v3[12] = &unk_284FC3BF8;
-  v3[13] = &unk_284FC3C10;
-  v4[12] = @"elementMissingTraitNotEnabled";
-  v4[13] = @"elementLabelDuplicateTraitString";
-  v3[14] = &unk_284FC3C28;
-  v3[15] = &unk_284FC3C40;
-  v4[14] = @"elementValueDuplicateTraitString";
-  v4[15] = @"potentialElement";
-  v3[16] = &unk_284FC3C58;
-  v3[17] = &unk_284FC3C70;
-  v4[16] = @"potentialTextElement";
-  v4[17] = @"hitTestButNotInSwipeOrder";
-  v3[18] = &unk_284FC3C88;
-  v3[19] = &unk_284FC3CA0;
-  v4[18] = @"inSwipeOrderButNotHitTested";
-  v4[19] = @"swipeOrderForwardReverseMismatch";
-  v3[20] = &unk_284FC3CB8;
-  v3[21] = &unk_284FC3CD0;
-  v4[20] = @"dynamicTextUnsupported";
-  v4[21] = @"dynamicTextPartiallyUnsupported";
-  v3[22] = &unk_284FC3CE8;
-  v3[23] = &unk_284FC3D00;
-  v4[22] = @"textIsClipped";
-  v4[23] = @"elementLabelAndValueEmpty";
-  v3[24] = &unk_284FC3D18;
-  v3[25] = &unk_284FC3D30;
-  v4[24] = @"elementImageHasNoLabel";
-  v4[25] = @"elementLabelUsesImageName";
-  v3[26] = &unk_284FC3D48;
-  v3[27] = &unk_284FC3D60;
-  v4[26] = @"missingParent";
-  v4[27] = @"notChildOfParent";
-  v3[28] = &unk_284FC3D78;
-  v3[29] = &unk_284FC3D90;
-  v4[28] = @"potentialElement";
-  v4[29] = @"elementLabelAndValueEmpty";
-  v3[30] = &unk_284FC3DA8;
-  v3[31] = &unk_284FC3DC0;
-  v4[30] = @"elementLabelNotHumanReadable";
-  v4[31] = @"elementImageHasNoLabel";
-  v3[32] = &unk_284FC3DD8;
-  v3[33] = &unk_284FC3DF0;
-  v4[32] = @"elementLabelDuplicateRoleDescription";
-  v4[33] = @"elementCouldUseTitle";
-  v3[34] = &unk_284FC3E08;
-  v3[35] = &unk_284FC3E20;
-  v4[34] = @"actionMissing";
-  v4[35] = @"unknownRole";
-  v3[36] = &unk_284FC3E38;
-  v4[36] = @"potentialTextElement";
-  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v4 forKeys:v3 count:37];
+  v3[37] = *MEMORY[0x277D85DE8];
+  v2[0] = &unk_284FC3AD8;
+  v2[1] = &unk_284FC3AF0;
+  v3[0] = @"contrastUnknown";
+  v3[1] = @"contrastAAPass";
+  v2[2] = &unk_284FC3B08;
+  v2[3] = &unk_284FC3B20;
+  v3[2] = @"contrastAAPartialPass";
+  v3[3] = @"contrastAAFail";
+  v2[4] = &unk_284FC3B38;
+  v2[5] = &unk_284FC3B50;
+  v3[4] = @"contrastAAAPass";
+  v3[5] = @"contrastAAAPartialPass";
+  v2[6] = &unk_284FC3B68;
+  v2[7] = &unk_284FC3B80;
+  v3[6] = @"contrastAAAFail";
+  v3[7] = @"hitRegionTooSmall";
+  v2[8] = &unk_284FC3B98;
+  v2[9] = &unk_284FC3BB0;
+  v3[8] = @"elementLabelAndValueEmptyWithMLGeneratedDesc";
+  v3[9] = @"elementLabelAndValueEmpty";
+  v2[10] = &unk_284FC3BC8;
+  v2[11] = &unk_284FC3BE0;
+  v3[10] = @"elementLabelUsesImageName";
+  v3[11] = @"elementLabelNotHumanReadable";
+  v2[12] = &unk_284FC3BF8;
+  v2[13] = &unk_284FC3C10;
+  v3[12] = @"elementMissingTraitNotEnabled";
+  v3[13] = @"elementLabelDuplicateTraitString";
+  v2[14] = &unk_284FC3C28;
+  v2[15] = &unk_284FC3C40;
+  v3[14] = @"elementValueDuplicateTraitString";
+  v3[15] = @"potentialElement";
+  v2[16] = &unk_284FC3C58;
+  v2[17] = &unk_284FC3C70;
+  v3[16] = @"potentialTextElement";
+  v3[17] = @"hitTestButNotInSwipeOrder";
+  v2[18] = &unk_284FC3C88;
+  v2[19] = &unk_284FC3CA0;
+  v3[18] = @"inSwipeOrderButNotHitTested";
+  v3[19] = @"swipeOrderForwardReverseMismatch";
+  v2[20] = &unk_284FC3CB8;
+  v2[21] = &unk_284FC3CD0;
+  v3[20] = @"dynamicTextUnsupported";
+  v3[21] = @"dynamicTextPartiallyUnsupported";
+  v2[22] = &unk_284FC3CE8;
+  v2[23] = &unk_284FC3D00;
+  v3[22] = @"textIsClipped";
+  v3[23] = @"elementLabelAndValueEmpty";
+  v2[24] = &unk_284FC3D18;
+  v2[25] = &unk_284FC3D30;
+  v3[24] = @"elementImageHasNoLabel";
+  v3[25] = @"elementLabelUsesImageName";
+  v2[26] = &unk_284FC3D48;
+  v2[27] = &unk_284FC3D60;
+  v3[26] = @"missingParent";
+  v3[27] = @"notChildOfParent";
+  v2[28] = &unk_284FC3D78;
+  v2[29] = &unk_284FC3D90;
+  v3[28] = @"potentialElement";
+  v3[29] = @"elementLabelAndValueEmpty";
+  v2[30] = &unk_284FC3DA8;
+  v2[31] = &unk_284FC3DC0;
+  v3[30] = @"elementLabelNotHumanReadable";
+  v3[31] = @"elementImageHasNoLabel";
+  v2[32] = &unk_284FC3DD8;
+  v2[33] = &unk_284FC3DF0;
+  v3[32] = @"elementLabelDuplicateRoleDescription";
+  v3[33] = @"elementCouldUseTitle";
+  v2[34] = &unk_284FC3E08;
+  v2[35] = &unk_284FC3E20;
+  v3[34] = @"actionMissing";
+  v3[35] = @"unknownRole";
+  v2[36] = &unk_284FC3E38;
+  v3[36] = @"potentialTextElement";
+  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v3 forKeys:v2 count:37];
   v1 = _auditIssueTypeToLocalizationKeyLookup__AuditIssueTypeToLocalizationKeyLookup;
   _auditIssueTypeToLocalizationKeyLookup__AuditIssueTypeToLocalizationKeyLookup = v0;
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 - (id)humanReadableDescriptionForAuditIssueTestType:(id)type
@@ -495,86 +491,84 @@ void __72__AXAuditIssueDescriptionManager__auditIssueTypeToLocalizationKeyLookup
 
 void __70__AXAuditIssueDescriptionManager_auditIssueTypeToAuditTestTypeMapping__block_invoke()
 {
-  v4[37] = *MEMORY[0x277D85DE8];
-  v3[0] = &unk_284FC3AD8;
-  v3[1] = &unk_284FC3AF0;
-  v4[0] = @"testTypeContrast";
-  v4[1] = @"testTypeContrast";
-  v3[2] = &unk_284FC3B08;
-  v3[3] = &unk_284FC3B20;
-  v4[2] = @"testTypeContrast";
-  v4[3] = @"testTypeContrast";
-  v3[4] = &unk_284FC3B38;
-  v3[5] = &unk_284FC3B50;
-  v4[4] = @"testTypeContrast";
-  v4[5] = @"testTypeContrast";
-  v3[6] = &unk_284FC3B68;
-  v3[7] = &unk_284FC3B80;
-  v4[6] = @"testTypeContrast";
-  v4[7] = @"testTypeHitRegion";
-  v3[8] = &unk_284FC3B98;
-  v3[9] = &unk_284FC3BB0;
-  v4[8] = @"testTypeSufficientElementDescription";
-  v4[9] = @"testTypeSufficientElementDescription";
-  v3[10] = &unk_284FC3BC8;
-  v3[11] = &unk_284FC3BE0;
-  v4[10] = @"testTypeSufficientElementDescription";
-  v4[11] = @"testTypeSufficientElementDescription";
-  v3[12] = &unk_284FC3BF8;
-  v3[13] = &unk_284FC3C10;
-  v4[12] = @"testTypeTrait";
-  v4[13] = @"testTypeTrait";
-  v3[14] = &unk_284FC3C28;
-  v3[15] = &unk_284FC3C40;
-  v4[14] = @"testTypeTrait";
-  v4[15] = @"testTypeElementDetection";
-  v3[16] = &unk_284FC3C58;
-  v3[17] = &unk_284FC3C70;
-  v4[16] = @"testTypeElementDetection";
-  v4[17] = @"testTypeSwipeOrder";
-  v3[18] = &unk_284FC3C88;
-  v3[19] = &unk_284FC3CA0;
-  v4[18] = @"testTypeSwipeOrder";
-  v4[19] = @"testTypeSwipeOrder";
-  v3[20] = &unk_284FC3CB8;
-  v3[21] = &unk_284FC3CD0;
-  v4[20] = @"testTypeDynamicText";
-  v4[21] = @"testTypeDynamicText";
-  v3[22] = &unk_284FC3CE8;
-  v3[23] = &unk_284FC3D00;
-  v4[22] = @"testTypeTextClipped";
-  v4[23] = @"testTypeSufficientElementDescription";
-  v3[24] = &unk_284FC3D18;
-  v3[25] = &unk_284FC3D30;
-  v4[24] = @"testTypeSufficientElementDescription";
-  v4[25] = @"testTypeSufficientElementDescription";
-  v3[26] = &unk_284FC3D48;
-  v3[27] = &unk_284FC3D60;
-  v4[26] = @"testTypeParentChild";
-  v4[27] = @"testTypeParentChild";
-  v3[28] = &unk_284FC3D78;
-  v3[29] = &unk_284FC3D90;
-  v4[28] = @"testTypeElementDetection";
-  v4[29] = @"testTypeSufficientElementDescription";
-  v3[30] = &unk_284FC3DA8;
-  v3[31] = &unk_284FC3DC0;
-  v4[30] = @"testTypeSufficientElementDescription";
-  v4[31] = @"testTypeSufficientElementDescription";
-  v3[32] = &unk_284FC3DD8;
-  v3[33] = &unk_284FC3DF0;
-  v4[32] = @"testTypeSufficientElementDescription";
-  v4[33] = @"testTypeSufficientElementDescription";
-  v3[34] = &unk_284FC3E08;
-  v3[35] = &unk_284FC3E20;
-  v4[34] = @"testTypeAction";
-  v4[35] = @"testTypeSufficientElementDescription";
-  v3[36] = &unk_284FC3E38;
-  v4[36] = @"testTypeElementDetection";
-  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v4 forKeys:v3 count:37];
+  v3[37] = *MEMORY[0x277D85DE8];
+  v2[0] = &unk_284FC3AD8;
+  v2[1] = &unk_284FC3AF0;
+  v3[0] = @"testTypeContrast";
+  v3[1] = @"testTypeContrast";
+  v2[2] = &unk_284FC3B08;
+  v2[3] = &unk_284FC3B20;
+  v3[2] = @"testTypeContrast";
+  v3[3] = @"testTypeContrast";
+  v2[4] = &unk_284FC3B38;
+  v2[5] = &unk_284FC3B50;
+  v3[4] = @"testTypeContrast";
+  v3[5] = @"testTypeContrast";
+  v2[6] = &unk_284FC3B68;
+  v2[7] = &unk_284FC3B80;
+  v3[6] = @"testTypeContrast";
+  v3[7] = @"testTypeHitRegion";
+  v2[8] = &unk_284FC3B98;
+  v2[9] = &unk_284FC3BB0;
+  v3[8] = @"testTypeSufficientElementDescription";
+  v3[9] = @"testTypeSufficientElementDescription";
+  v2[10] = &unk_284FC3BC8;
+  v2[11] = &unk_284FC3BE0;
+  v3[10] = @"testTypeSufficientElementDescription";
+  v3[11] = @"testTypeSufficientElementDescription";
+  v2[12] = &unk_284FC3BF8;
+  v2[13] = &unk_284FC3C10;
+  v3[12] = @"testTypeTrait";
+  v3[13] = @"testTypeTrait";
+  v2[14] = &unk_284FC3C28;
+  v2[15] = &unk_284FC3C40;
+  v3[14] = @"testTypeTrait";
+  v3[15] = @"testTypeElementDetection";
+  v2[16] = &unk_284FC3C58;
+  v2[17] = &unk_284FC3C70;
+  v3[16] = @"testTypeElementDetection";
+  v3[17] = @"testTypeSwipeOrder";
+  v2[18] = &unk_284FC3C88;
+  v2[19] = &unk_284FC3CA0;
+  v3[18] = @"testTypeSwipeOrder";
+  v3[19] = @"testTypeSwipeOrder";
+  v2[20] = &unk_284FC3CB8;
+  v2[21] = &unk_284FC3CD0;
+  v3[20] = @"testTypeDynamicText";
+  v3[21] = @"testTypeDynamicText";
+  v2[22] = &unk_284FC3CE8;
+  v2[23] = &unk_284FC3D00;
+  v3[22] = @"testTypeTextClipped";
+  v3[23] = @"testTypeSufficientElementDescription";
+  v2[24] = &unk_284FC3D18;
+  v2[25] = &unk_284FC3D30;
+  v3[24] = @"testTypeSufficientElementDescription";
+  v3[25] = @"testTypeSufficientElementDescription";
+  v2[26] = &unk_284FC3D48;
+  v2[27] = &unk_284FC3D60;
+  v3[26] = @"testTypeParentChild";
+  v3[27] = @"testTypeParentChild";
+  v2[28] = &unk_284FC3D78;
+  v2[29] = &unk_284FC3D90;
+  v3[28] = @"testTypeElementDetection";
+  v3[29] = @"testTypeSufficientElementDescription";
+  v2[30] = &unk_284FC3DA8;
+  v2[31] = &unk_284FC3DC0;
+  v3[30] = @"testTypeSufficientElementDescription";
+  v3[31] = @"testTypeSufficientElementDescription";
+  v2[32] = &unk_284FC3DD8;
+  v2[33] = &unk_284FC3DF0;
+  v3[32] = @"testTypeSufficientElementDescription";
+  v3[33] = @"testTypeSufficientElementDescription";
+  v2[34] = &unk_284FC3E08;
+  v2[35] = &unk_284FC3E20;
+  v3[34] = @"testTypeAction";
+  v3[35] = @"testTypeSufficientElementDescription";
+  v2[36] = &unk_284FC3E38;
+  v3[36] = @"testTypeElementDetection";
+  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v3 forKeys:v2 count:37];
   v1 = auditIssueTypeToAuditTestTypeMapping__AuditIssueTypeToAuditTestTypeMapping;
   auditIssueTypeToAuditTestTypeMapping__AuditIssueTypeToAuditTestTypeMapping = v0;
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 + (id)allAuditIssueClassificationCodes

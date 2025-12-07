@@ -167,7 +167,7 @@ LABEL_21:
   }
 
   kernel = [objc_opt_class() kernel];
-  [(CIImage *)self->inputImage extent];
+  objc_msgSend_extent(self->inputImage);
   v5 = v4;
   v7 = v6;
   v9 = v8;

@@ -15,7 +15,7 @@
 
 - (SGSuggestionDelegate)suggestionDelegate
 {
-  v2 = sub_1B81B5A24();
+  v2 = sub_1B81B5A24(self);
 
   return v2;
 }
@@ -24,7 +24,7 @@
 {
   swift_unknownObjectRetain();
   selfCopy = self;
-  sub_1B81B5ABC();
+  sub_1B81B5ABC(delegate);
 }
 
 - (id)suggestionCategory
@@ -89,7 +89,7 @@
 
 - (id)suggestionCategorySubtitleForItems:(id)items
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EBA7CBD0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EBA7CBD0, &unk_1B81FD110);
   v4 = sub_1B81F90C8();
   selfCopy = self;
   sub_1B81B7970(v4);

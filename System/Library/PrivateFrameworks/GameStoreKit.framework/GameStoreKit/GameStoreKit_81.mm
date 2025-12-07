@@ -1,13 +1,3112 @@
+uint64_t sub_24EE3AE4C(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  if (a2 == 0x7FFFFFFF)
+  {
+    v4 = *(a1 + 8);
+    if (v4 >= 0xFFFFFFFF)
+    {
+      LODWORD(v4) = -1;
+    }
+
+    return (v4 + 1);
+  }
+
+  else
+  {
+    v8 = type metadata accessor for ASKBootstrapV2(0);
+    v9 = *(*(v8 - 8) + 48);
+    v10 = a1 + *(a3 + 20);
+
+    return v9(v10, a2, v8);
+  }
+}
+
+uint64_t sub_24EE3AF0C(uint64_t result, uint64_t a2, int a3, uint64_t a4)
+{
+  v5 = result;
+  if (a3 == 0x7FFFFFFF)
+  {
+    *(result + 8) = (a2 - 1);
+  }
+
+  else
+  {
+    v7 = type metadata accessor for ASKBootstrapV2(0);
+    v8 = *(*(v7 - 8) + 56);
+    v9 = v5 + *(a4 + 20);
+
+    return v8(v9, a2, a2, v7);
+  }
+
+  return result;
+}
+
+uint64_t sub_24EE3AFB0(uint64_t a1)
+{
+  result = type metadata accessor for ASKBootstrapV2(319);
+  if (v2 <= 0x3F)
+  {
+    result = type metadata accessor for RenderPipelineDiagnostics.Recorder();
+    if (v3 <= 0x3F)
+    {
+      swift_cvw_initStructMetadataWithLayoutString();
+      return 0;
+    }
+  }
+
+  return result;
+}
+
+id sub_24EE3B044(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, char *a5)
+{
+  v35 = a3;
+  v37 = a1;
+  v38 = a2;
+  ObjectType = swift_getObjectType();
+  v36 = sub_24F929078();
+  v7 = *(v36 - 8);
+  MEMORY[0x28223BE20](v36);
+  v9 = &v34 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = sub_24F92AAB8();
+  v11 = *(v10 - 8);
+  MEMORY[0x28223BE20](v10);
+  v13 = &v34 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v14 = sub_24F92AAE8();
+  v15 = *(v14 - 8);
+  MEMORY[0x28223BE20](v14);
+  v17 = &v34 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v42[3] = sub_24E69A5C4(0, &qword_27F231410, 0x277CEC4A8);
+  v42[4] = &protocol witness table for ASDSubscriptionEntitlements;
+  v42[0] = v35;
+  v41[3] = sub_24E69A5C4(0, &qword_27F221568, 0x277CB8F48);
+  v41[4] = &protocol witness table for ACAccountStore;
+  v41[0] = a4;
+  *&a5[OBJC_IVAR____TtC12GameStoreKit25ArcadeSubscriptionManager_paymentQueue] = 0;
+  *&a5[OBJC_IVAR____TtC12GameStoreKit25ArcadeSubscriptionManager_dialogHandler] = 0;
+  v18 = OBJC_IVAR____TtC12GameStoreKit25ArcadeSubscriptionManager_observers;
+  *&a5[v18] = sub_24E60F260(MEMORY[0x277D84F90]);
+  v19 = OBJC_IVAR____TtC12GameStoreKit25ArcadeSubscriptionManager_stateLock;
+  *&a5[v19] = [objc_allocWithZone(MEMORY[0x277CCAC60]) init];
+  *&a5[OBJC_IVAR____TtC12GameStoreKit25ArcadeSubscriptionManager_paymentCallbacks] = MEMORY[0x277D84F98];
+  if (qword_27F210560 != -1)
+  {
+    swift_once();
+  }
+
+  v20 = __swift_project_value_buffer(v10, qword_27F39C380);
+  (*(v11 + 16))(v13, v20, v10);
+  sub_24F92AAD8();
+  v21 = v36;
+  (*(v7 + 104))(v9, *MEMORY[0x277D21DD8], v36);
+  v22 = sub_24F92A578();
+  (*(v7 + 8))(v9, v21);
+  (*(v15 + 8))(v17, v14);
+  v23 = &a5[OBJC_IVAR____TtC12GameStoreKit25ArcadeSubscriptionManager_logger];
+  v24 = sub_24F928EB8();
+  v25 = MEMORY[0x277D21D78];
+  *(v23 + 3) = v24;
+  *(v23 + 4) = v25;
+  *v23 = v22;
+  v26 = &a5[OBJC_IVAR____TtC12GameStoreKit25ArcadeSubscriptionManager_arcadeSubscriptionFamilyId];
+  v27 = v38;
+  *v26 = v37;
+  *(v26 + 1) = v27;
+  sub_24E615E00(v42, &a5[OBJC_IVAR____TtC12GameStoreKit25ArcadeSubscriptionManager_subscriptionEntitlements]);
+  v28 = &a5[OBJC_IVAR____TtC12GameStoreKit25ArcadeSubscriptionManager_subscriptionState];
+  *v28 = 0;
+  v28[8] = -64;
+  sub_24E615E00(v41, &a5[OBJC_IVAR____TtC12GameStoreKit25ArcadeSubscriptionManager_activeStoreAccountProvider]);
+  v40.receiver = a5;
+  v40.super_class = ObjectType;
+  v29 = objc_msgSendSuper2(&v40, sel_init);
+  v30 = objc_opt_self();
+  v31 = v29;
+  v32 = [v30 defaultCenter];
+  [v32 addObserver:v31 selector:sel_entitlementsDidChange name:*MEMORY[0x277CEC318] object:0];
+
+  __swift_destroy_boxed_opaque_existential_1(v41);
+  __swift_destroy_boxed_opaque_existential_1(v42);
+  return v31;
+}
+
+id sub_24EE3B4EC(uint64_t a1)
+{
+  type metadata accessor for ASKBagContract(0);
+  sub_24F928FD8();
+  sub_24F92A758();
+  v1 = ASKBagContract.arcadeProductFamilyId.getter();
+  v3 = v2;
+  v4 = [objc_opt_self() sharedInstance];
+  sub_24E69A5C4(0, &qword_27F221568, 0x277CB8F48);
+  sub_24F92A758();
+  v5 = objc_allocWithZone(type metadata accessor for ArcadeSubscriptionManager());
+  v6 = sub_24EE3B044(v1, v3, v4, v8, v5);
+  LOBYTE(v8) = 1;
+  ArcadeSubscriptionManager.updateStateFromEntitlements(refreshingCache:)(&v8);
+
+  return v6;
+}
+
+uint64_t sub_24EE3B60C(uint64_t a1, uint64_t a2, void *a3, uint64_t a4)
+{
+  v103 = a4;
+  v88 = a3;
+  v98 = a2;
+  v105 = sub_24F928188();
+  v111 = *(v105 - 8);
+  MEMORY[0x28223BE20](v105);
+  v104 = &v87 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v99 = sub_24F928BC8();
+  MEMORY[0x28223BE20](v99);
+  v100 = &v87 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = sub_24F9290F8();
+  v94 = *(v7 - 8);
+  MEMORY[0x28223BE20](v7);
+  v92 = (&v87 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0));
+  MEMORY[0x28223BE20](v9);
+  v91 = &v87 - v10;
+  MEMORY[0x28223BE20](v11);
+  v93 = &v87 - v12;
+  v89 = type metadata accessor for ArcadeSubscriptionStatusFieldsProvider(0);
+  MEMORY[0x28223BE20](v89);
+  v106 = (&v87 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v14 = type metadata accessor for ArcadeSubscriptionFieldsProvider(0);
+  MEMORY[0x28223BE20](v14);
+  v16 = &v87 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v17 = sub_24F929F48();
+  v109 = *(v17 - 8);
+  v110 = v17;
+  MEMORY[0x28223BE20](v17);
+  v96 = &v87 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v19);
+  v21 = &v87 - v20;
+  v22 = sub_24F929158();
+  v95 = *(v22 - 8);
+  MEMORY[0x28223BE20](v22);
+  v24 = &v87 - ((v23 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v25);
+  v112 = &v87 - v26;
+  v27 = sub_24F92A498();
+  v101 = *(v27 - 8);
+  MEMORY[0x28223BE20](v27);
+  v97 = &v87 - ((v28 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v29);
+  v31 = &v87 - v30;
+  sub_24F928FD8();
+  v107 = v31;
+  v102 = v27;
+  sub_24F92A758();
+  v113 = a1;
+  v108 = v22;
+  sub_24F92A758();
+  v114 = v21;
+  sub_24F929098();
+  v90 = v24;
+  sub_24F929148();
+  v32 = *(v14 + 20);
+  v33 = *MEMORY[0x277D22340];
+  v34 = sub_24F92A2D8();
+  v35 = *(*(v34 - 8) + 104);
+  v35(&v16[v32], v33, v34);
+  v36 = v88;
+  *v16 = v88;
+  v119 = v14;
+  v120 = sub_24EE3D180(&qword_27F2313B8, type metadata accessor for ArcadeSubscriptionFieldsProvider, &protocol conformance descriptor for ArcadeSubscriptionFieldsProvider);
+  v37 = __swift_allocate_boxed_opaque_existential_1(&v118);
+  v38 = v16;
+  sub_24EE3D064(v16, v37, type metadata accessor for ArcadeSubscriptionFieldsProvider);
+  v39 = qword_27F210330;
+  v40 = v36;
+  if (v39 != -1)
+  {
+    swift_once();
+  }
+
+  v41 = sub_24F92A278();
+  __swift_project_value_buffer(v41, qword_27F229DE8);
+  sub_24F929F08();
+  __swift_destroy_boxed_opaque_existential_1(&v118);
+  v42 = v89;
+  v43 = v106;
+  v35(v106 + *(v89 + 20), v33, v34);
+  *v43 = v40;
+  v119 = v42;
+  v120 = sub_24EE3D180(&qword_27F2313C0, type metadata accessor for ArcadeSubscriptionStatusFieldsProvider, &protocol conformance descriptor for ArcadeSubscriptionStatusFieldsProvider);
+  v44 = __swift_allocate_boxed_opaque_existential_1(&v118);
+  sub_24EE3D064(v43, v44, type metadata accessor for ArcadeSubscriptionStatusFieldsProvider);
+  v45 = qword_27F210338;
+  v46 = v40;
+  if (v45 != -1)
+  {
+    swift_once();
+  }
+
+  __swift_project_value_buffer(v41, qword_27F229E00);
+  sub_24F929F08();
+  __swift_destroy_boxed_opaque_existential_1(&v118);
+  v47 = v92;
+  sub_24F928F28();
+  v48 = v91;
+  sub_24F9290C8();
+  v49 = v94;
+  v50 = v94[1];
+  v50(v47, v7);
+  v51 = v93;
+  sub_24F9290B8();
+  v50(v48, v7);
+  (v49[2])(v48, v51, v7);
+  sub_24F929118();
+  v50(v51, v7);
+  sub_24EE3D0CC(v106, type metadata accessor for ArcadeSubscriptionStatusFieldsProvider);
+  sub_24EE3D0CC(v38, type metadata accessor for ArcadeSubscriptionFieldsProvider);
+  __swift_destroy_boxed_opaque_existential_1(&v121);
+  v52 = v95;
+  v53 = *(v95 + 8);
+  v54 = v90;
+  v55 = v108;
+  v106 = (v95 + 8);
+  v94 = v53;
+  (v53)(v90, v108);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F213AF8, &qword_24F9BF190);
+  v56 = *(v111 + 72);
+  v57 = (*(v111 + 80) + 32) & ~*(v111 + 80);
+  v58 = swift_allocObject();
+  *(v58 + 16) = xmmword_24F979FB0;
+  v93 = v57;
+  v92 = v58;
+  type metadata accessor for ArcadeSubscriptionManager();
+  v121 = v46;
+  v59 = v46;
+  sub_24F928168();
+  type metadata accessor for ArtworkLoader();
+  type metadata accessor for ArtworkLoaderURLSession();
+  sub_24F928F28();
+  v60 = v121;
+  v61 = [objc_allocWithZone(MEMORY[0x277CCABD8]) init];
+  v62 = sub_24F92B098();
+  [v61 setName_];
+
+  swift_allocObject();
+  v63 = sub_24EAFE4EC(v61, 0, 0, v60);
+
+  v121 = v63;
+  sub_24F928168();
+  type metadata accessor for UpdateStore();
+  if (qword_27F210388 != -1)
+  {
+    swift_once();
+  }
+
+  v121 = qword_27F22A800;
+  v64 = qword_27F22A800;
+  sub_24F928168();
+  v65 = type metadata accessor for URLProtocolDelegate();
+  v66 = objc_allocWithZone(v65);
+  v67 = OBJC_IVAR____TtC12GameStoreKit19URLProtocolDelegate_dialogStyle;
+  *&v66[OBJC_IVAR____TtC12GameStoreKit19URLProtocolDelegate_dialogStyle] = 1;
+  swift_beginAccess();
+  v68 = *&v66[v67];
+  *&v66[v67] = 1;
+  sub_24ED8F464(v68);
+  v117.receiver = v66;
+  v117.super_class = v65;
+  v121 = objc_msgSendSuper2(&v117, sel_init);
+  sub_24F928168();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27F255030, &qword_24F93B050);
+  sub_24E615E00(v98, &v121);
+  sub_24F928168();
+  (*(v52 + 16))(v54, v112, v55);
+  sub_24F928168();
+  (*(v109 + 16))(v96, v114, v110);
+  sub_24F928168();
+  type metadata accessor for DiagnosticsReporter(0);
+  sub_24EE3D180(&qword_27F2313C8, MEMORY[0x277D21CE0], &protocol conformance descriptor for MetricsLogger.Configuration);
+  v69 = v100;
+  sub_24F928F08();
+  swift_allocObject();
+  v121 = sub_24EF9D774(v69, 0, 0, 0, 0, v70);
+  sub_24F928168();
+  v71 = v101;
+  v72 = *(v101 + 16);
+  v73 = v97;
+  v74 = v102;
+  v72(v97, v107, v102);
+  v75 = type metadata accessor for CommerceDialogHandler(0);
+  v76 = objc_allocWithZone(v75);
+  swift_unknownObjectWeakInit();
+  swift_unknownObjectWeakInit();
+  v77 = OBJC_IVAR____TtC12GameStoreKit21CommerceDialogHandler_bag;
+  v72(&v76[OBJC_IVAR____TtC12GameStoreKit21CommerceDialogHandler_bag], v73, v74);
+  (*(v71 + 56))(&v76[v77], 0, 1, v74);
+  swift_beginAccess();
+  swift_unknownObjectWeakAssign();
+  v116.receiver = v76;
+  v116.super_class = v75;
+  v78 = objc_msgSendSuper2(&v116, sel_init);
+  v79 = *(v71 + 8);
+  v79(v73, v74);
+  v115 = v78;
+  v80 = v78;
+  v81 = v104;
+  sub_24F928168();
+  v82 = v92;
+  v84 = v92[2];
+  v83 = v92[3];
+  if (v84 >= v83 >> 1)
+  {
+    v82 = sub_24E6196E4((v83 > 1), v84 + 1, 1, v92);
+  }
+
+  v82[2] = v84 + 1;
+  (*(v111 + 32))(&v93[v82 + v84 * v56], v81, v105);
+  v115 = v82;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F22F750, &qword_24F99D1B0);
+  sub_24E602068(&qword_27F22F758, &qword_27F22F750, &qword_24F99D1B0, MEMORY[0x277D83970]);
+  v85 = sub_24F928F98();
+
+  (*(v109 + 8))(v114, v110);
+  (v94)(v112, v108);
+  v79(v107, v74);
+  return v85;
+}
+
+void sub_24EE3C484(void *a1, uint64_t a2)
+{
+  if (a1)
+  {
+    sub_24E69A5C4(0, &qword_27F222D10, 0x277CEE6F0);
+    sub_24F928FD8();
+    v3 = a1;
+    sub_24F92A758();
+    type metadata accessor for URLProtocolDelegate();
+    sub_24F92A758();
+    v4 = OBJC_IVAR____TtC12GameStoreKit19URLProtocolDelegate_dialogStyle;
+    swift_beginAccess();
+    v5 = *&v8[v4];
+    *&v8[v4] = a1;
+    v6 = v3;
+    sub_24ED8F464(v5);
+    [v8 setDelegate_];
+  }
+
+  else
+  {
+    if (qword_27F210790 != -1)
+    {
+      swift_once();
+    }
+
+    v7 = sub_24F92AAE8();
+    __swift_project_value_buffer(v7, qword_27F39CA50);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27F221870, &unk_24F93B6E0);
+    sub_24F928468();
+    *(swift_allocObject() + 16) = xmmword_24F93DE60;
+    sub_24F9283A8();
+    sub_24F92A588();
+  }
+}
+
+uint64_t sub_24EE3C6C0(uint64_t a1)
+{
+  v1 = sub_24F928C38();
+  v32 = *(v1 - 8);
+  v33 = v1;
+  MEMORY[0x28223BE20](v1);
+  v31 = &v27[-((v2 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v3 = sub_24F92A498();
+  v4 = *(v3 - 8);
+  MEMORY[0x28223BE20](v3);
+  v6 = &v27[-((v5 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  MEMORY[0x28223BE20](v7);
+  v9 = &v27[-v8];
+  MEMORY[0x28223BE20](v10);
+  v12 = &v27[-v11];
+  sub_24F928FD8();
+  sub_24F92A758();
+  type metadata accessor for ASKBagContract(0);
+  sub_24F92A758();
+  v13 = v36[0];
+  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27F22EB90, &unk_24F990A40);
+  sub_24F92A758();
+  v14 = *(v4 + 16);
+  v14(v9, v12, v3);
+  v15 = *(v13 + OBJC_IVAR____TtC12GameStoreKit14ASKBagContract_isOfflineBag);
+  v16 = *(v13 + OBJC_IVAR____TtC12GameStoreKit14ASKBagContract_bagOfflinePolicy);
+  v29 = *(v13 + OBJC_IVAR____TtC12GameStoreKit14ASKBagContract_bagOfflinePolicy + 8);
+  v30 = v16;
+  v28 = *(v13 + OBJC_IVAR____TtC12GameStoreKit14ASKBagContract_bagOfflinePolicy + 16);
+  sub_24E615E00(v36, v35);
+  sub_24E69A5C4(0, &qword_27F2222A8, 0x277CEE620);
+  sub_24F928EF8();
+  v17 = v34[5];
+  v14(v6, v9, v3);
+  type metadata accessor for JSFreshnessWatchdog.BagContract(0);
+  v18 = swift_allocObject();
+  (*(v4 + 32))(v18 + OBJC_IVAR____TtCC12GameStoreKit19JSFreshnessWatchdog11BagContract_bag, v6, v3);
+  *(v18 + OBJC_IVAR____TtCC12GameStoreKit19JSFreshnessWatchdog11BagContract_isOfflineBag) = v15;
+  v19 = v18 + OBJC_IVAR____TtCC12GameStoreKit19JSFreshnessWatchdog11BagContract_bagOfflinePolicy;
+  v20 = v29;
+  *v19 = v30;
+  *(v19 + 8) = v20;
+  *(v19 + 16) = v28;
+  sub_24E615E00(v35, v34);
+  type metadata accessor for JSFreshnessWatchdog(0);
+  v21 = swift_allocObject();
+  v22 = sub_24EA03B10(v18, v34, v17, v21);
+  __swift_destroy_boxed_opaque_existential_1(v35);
+  v23 = *(v4 + 8);
+  v23(v9, v3);
+  v24 = v31;
+  sub_24F928C28();
+
+  __swift_destroy_boxed_opaque_existential_1(v36);
+  v23(v12, v3);
+  v25 = OBJC_IVAR____TtC12GameStoreKit19JSFreshnessWatchdog_lastForegroundTime;
+  swift_beginAccess();
+  (*(v32 + 40))(v22 + v25, v24, v33);
+  swift_endAccess();
+  return v22;
+}
+
+void sub_24EE3CA8C(uint64_t a1)
+{
+  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F224128, &qword_24F970418);
+  MEMORY[0x28223BE20](v1 - 8);
+  v3 = v20 - v2;
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27F22EC30, &qword_24F939880);
+  MEMORY[0x28223BE20](v4 - 8);
+  v6 = v20 - v5;
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F2156F0, &unk_24F969070);
+  v8 = *(v7 - 8);
+  MEMORY[0x28223BE20](v7);
+  v10 = v20 - v9;
+  type metadata accessor for ASKBagContract(0);
+  sub_24F928FD8();
+  sub_24F92A758();
+  if (qword_27F2110D0 != -1)
+  {
+    swift_once();
+  }
+
+  v11 = qword_27F23E380;
+  if (qword_27F210930 != -1)
+  {
+    swift_once();
+  }
+
+  sub_24F92A448();
+  sub_24F92A3F8();
+  (*(v8 + 8))(v10, v7);
+  v12 = v20[1];
+  v13 = v20[2];
+  v14 = (v11 + OBJC_IVAR____TtC12GameStoreKit28AutoPlayVideoSettingsManager_defaultAutoPlayVideoSetting);
+  swift_beginAccess();
+  *v14 = v12;
+  v14[1] = v13;
+
+  sub_24F2DBA44();
+  v15 = objc_opt_self();
+  v16 = [v15 standardUserDefaults];
+  sub_24F91F638();
+  v17 = sub_24F91F648();
+  (*(*(v17 - 8) + 56))(v6, 0, 1, v17);
+  sub_24ED0F7FC(v6);
+
+  v18 = [v15 standardUserDefaults];
+  sub_24F91F9A8();
+  v19 = sub_24F91F9B8();
+  (*(*(v19 - 8) + 56))(v3, 0, 1, v19);
+  sub_24ED0FA4C(v3);
+}
+
+uint64_t sub_24EE3CDEC()
+{
+
+  return swift_deallocObject();
+}
+
+uint64_t sub_24EE3CE24()
+{
+  v1 = type metadata accessor for ASKBootstrapV2(0);
+  v2 = v0 + ((*(*(v1 - 1) + 80) + 16) & ~*(*(v1 - 1) + 80));
+  v3 = v1[5];
+  v4 = sub_24F92A468();
+  (*(*(v4 - 8) + 8))(v2 + v3, v4);
+  __swift_destroy_boxed_opaque_existential_1((v2 + v1[7]));
+  v5 = (v2 + v1[8]);
+  if (v5[3])
+  {
+    __swift_destroy_boxed_opaque_existential_1(v5);
+  }
+
+  if (*(v2 + v1[9]))
+  {
+  }
+
+  v6 = v1[13];
+  v7 = sub_24F91F4A8();
+  v8 = *(v7 - 8);
+  if (!(*(v8 + 48))(v2 + v6, 1, v7))
+  {
+    (*(v8 + 8))(v2 + v6, v7);
+  }
+
+  v9 = (v2 + v1[14]);
+  if (v9[3])
+  {
+    __swift_destroy_boxed_opaque_existential_1(v9);
+  }
+
+  return swift_deallocObject();
+}
+
+uint64_t sub_24EE3D004()
+{
+  v1 = *(type metadata accessor for ASKBootstrapV2(0) - 8);
+  v2 = v0 + ((*(v1 + 80) + 16) & ~*(v1 + 80));
+
+  return sub_24ED350D0(v2);
+}
+
+uint64_t sub_24EE3D064(uint64_t a1, uint64_t a2, uint64_t (*a3)(void))
+{
+  v5 = a3(0);
+  (*(*(v5 - 8) + 16))(a2, a1, v5);
+  return a2;
+}
+
+uint64_t sub_24EE3D0CC(uint64_t a1, uint64_t (*a2)(void))
+{
+  v3 = a2(0);
+  (*(*(v3 - 8) + 8))(a1, v3);
+  return a1;
+}
+
+unint64_t sub_24EE3D12C()
+{
+  result = qword_27F2313F0;
+  if (!qword_27F2313F0)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &qword_27F2313F0);
+  }
+
+  return result;
+}
+
+uint64_t sub_24EE3D180(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
+{
+  result = *a1;
+  if (!result)
+  {
+    a2(255);
+    result = swift_getWitnessTable();
+    atomic_store(result, a1);
+  }
+
+  return result;
+}
+
+id sub_24EE3D1D8()
+{
+  if (*v0)
+  {
+    return sub_24EE3D504();
+  }
+
+  else
+  {
+    return sub_24EE3D7C8();
+  }
+}
+
+void sub_24EE3D1E8(void *a1)
+{
+  if (*v1 == 1)
+  {
+    objc_opt_self();
+    v3 = swift_dynamicCastObjCClass();
+    if (v3)
+    {
+      v4 = v3;
+      sub_24E77ACC8();
+      v5 = qword_27F211278;
+      v6 = a1;
+      if (v5 != -1)
+      {
+        swift_once();
+      }
+
+      v7 = sub_24F92C3B8();
+      [v4 setCustomTintColor_];
+    }
+  }
+}
+
+id sub_24EE3D2EC(uint64_t a1, char a2, uint64_t a3, char a4, id a5)
+{
+  result = [a5 viewIfLoaded];
+  v11 = result;
+  if (result)
+  {
+    if (a4)
+    {
+      v12 = 0.0;
+    }
+
+    else
+    {
+      v12 = *&a3;
+    }
+
+    v13 = *&a1;
+    if (a2)
+    {
+      v13 = 0.0;
+    }
+
+    LODWORD(v10) = 1132068864;
+    [result systemLayoutSizeFittingSize:v13 withHorizontalFittingPriority:v12 verticalFittingPriority:{COERCE_DOUBLE(1144750080), v10}];
+    v15 = v14;
+
+    return v15;
+  }
+
+  return result;
+}
+
+uint64_t sub_24EE3D3BC(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v6 = sub_24EE3DA94();
+
+  return MEMORY[0x28212EF70](a1, a2, a3, v6);
+}
+
+uint64_t sub_24EE3D420(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v6 = sub_24EE3DA94();
+
+  return MEMORY[0x28212EF38](a1, a2, a3, v6);
+}
+
+void sub_24EE3D484(uint64_t a1)
+{
+  sub_24EE3DA94();
+  sub_24F925628();
+  __break(1u);
+}
+
+unint64_t sub_24EE3D4B0()
+{
+  result = qword_27F231418;
+  if (!qword_27F231418)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &qword_27F231418);
+  }
+
+  return result;
+}
+
+id sub_24EE3D504()
+{
+  v0 = sub_24F929888();
+  v1 = *(v0 - 8);
+  MEMORY[0x28223BE20](v0);
+  v3 = v16 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v4 = objc_opt_self();
+  v5 = sub_24F92B588();
+  v6 = [v4 linkWithBundleIdentifiers_];
+
+  if (v6)
+  {
+    v7 = [objc_opt_self() _gkPreferredSystemLanguage];
+    [v6 setDisplayLanguage_];
+
+    v8 = v6;
+    result = [v8 view];
+    if (result)
+    {
+      v10 = result;
+      memset(v17, 0, sizeof(v17));
+      memset(v16, 0, sizeof(v16));
+      sub_24F9297A8();
+      sub_24E857CC8(v16);
+      sub_24E857CC8(v17);
+      MEMORY[0x253051C20](v3);
+
+      (*(v1 + 8))(v3, v0);
+      return v8;
+    }
+
+    else
+    {
+      __break(1u);
+    }
+  }
+
+  else
+  {
+    if (qword_27F211430 != -1)
+    {
+      swift_once();
+    }
+
+    v11 = sub_24F9220D8();
+    __swift_project_value_buffer(v11, qword_27F39E8E0);
+    v12 = sub_24F9220B8();
+    v13 = sub_24F92BDB8();
+    if (os_log_type_enabled(v12, v13))
+    {
+      v14 = swift_slowAlloc();
+      *v14 = 0;
+      _os_log_impl(&dword_24E5DD000, v12, v13, "Failed to create OBPrivacyLinkController.", v14, 2u);
+      MEMORY[0x2530542D0](v14, -1, -1);
+    }
+
+    v15 = objc_allocWithZone(MEMORY[0x277D75D28]);
+
+    return [v15 init];
+  }
+
+  return result;
+}
+
+id sub_24EE3D7C8()
+{
+  v0 = sub_24F929888();
+  v1 = *(v0 - 8);
+  MEMORY[0x28223BE20](v0);
+  v3 = v16 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v4 = objc_opt_self();
+  v5 = sub_24F92B098();
+  v6 = [v4 linkWithBundleIdentifier_];
+
+  if (v6)
+  {
+    v7 = [objc_opt_self() _gkPreferredSystemLanguage];
+    [v6 setDisplayLanguage_];
+
+    v8 = v6;
+    result = [v8 view];
+    if (result)
+    {
+      v10 = result;
+      memset(v17, 0, sizeof(v17));
+      memset(v16, 0, sizeof(v16));
+      sub_24F9297A8();
+      sub_24E857CC8(v16);
+      sub_24E857CC8(v17);
+      MEMORY[0x253051C20](v3);
+
+      (*(v1 + 8))(v3, v0);
+      return v8;
+    }
+
+    else
+    {
+      __break(1u);
+    }
+  }
+
+  else
+  {
+    if (qword_27F211430 != -1)
+    {
+      swift_once();
+    }
+
+    v11 = sub_24F9220D8();
+    __swift_project_value_buffer(v11, qword_27F39E8E0);
+    v12 = sub_24F9220B8();
+    v13 = sub_24F92BDB8();
+    if (os_log_type_enabled(v12, v13))
+    {
+      v14 = swift_slowAlloc();
+      *v14 = 0;
+      _os_log_impl(&dword_24E5DD000, v12, v13, "Failed to create OBPrivacyLinkController.", v14, 2u);
+      MEMORY[0x2530542D0](v14, -1, -1);
+    }
+
+    v15 = objc_allocWithZone(MEMORY[0x277D75D28]);
+
+    return [v15 init];
+  }
+
+  return result;
+}
+
+unint64_t sub_24EE3DA94()
+{
+  result = qword_27F231420;
+  if (!qword_27F231420)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &qword_27F231420);
+  }
+
+  return result;
+}
+
+unint64_t sub_24EE3DAFC()
+{
+  result = qword_27F231428[0];
+  if (!qword_27F231428[0])
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, qword_27F231428);
+  }
+
+  return result;
+}
+
+uint64_t NonconcurrentBox.__allocating_init(value:)(uint64_t a1)
+{
+  v2 = swift_allocObject();
+  (*(*(*(*v2 + 80) - 8) + 32))(v2 + *(*v2 + 88), a1);
+  return v2;
+}
+
+uint64_t NonconcurrentBox.read<A>(with:)(void (*a1)(char *))
+{
+  v3 = *(*v1 + 80);
+  v4 = *(v3 - 8);
+  MEMORY[0x28223BE20](a1);
+  v6 = &v10 - v5;
+  v8 = *(v7 + 88);
+  swift_beginAccess();
+  (*(v4 + 16))(v6, v1 + v8, v3);
+  a1(v6);
+  return (*(v4 + 8))(v6, v3);
+}
+
+uint64_t NonconcurrentBox.write(with:)(void (*a1)(uint64_t))
+{
+  v3 = *(*v1 + 88);
+  swift_beginAccess();
+  a1(v1 + v3);
+  return swift_endAccess();
+}
+
+uint64_t NonconcurrentBox.__deallocating_deinit()
+{
+  (*(*(*(*v0 + 80) - 8) + 8))(v0 + *(*v0 + 88));
+
+  return swift_deallocClassInstance();
+}
+
+uint64_t sub_24EE3DFC4()
+{
+  v1 = *(v0 + 16);
+  v2 = *(v1 + 16);
+  if (!v2)
+  {
+    v3 = *(v1 + 40);
+    type metadata accessor for GamesThreeDimensionalRealityRenderer();
+    v2 = swift_allocObject();
+    *(v2 + 16) = 0u;
+    *(v2 + 32) = 0u;
+    *(v2 + 48) = 0u;
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F2314B0, &unk_24F9A63F0);
+    v4 = swift_allocObject();
+    *(v4 + 16) = 0u;
+    *(v4 + 32) = 0u;
+    *(v4 + 48) = 0u;
+    *(v4 + 64) = 0;
+    *(v2 + 64) = v4;
+    *(v2 + 72) = v3;
+    *(v1 + 16) = v2;
+  }
+
+  v6 = *(v0 + 8);
+
+  return v6(v2);
+}
+
+uint64_t sub_24EE3E0BC()
+{
+
+  return swift_deallocClassInstance();
+}
+
+uint64_t sub_24EE3E14C(uint64_t a1, uint64_t a2)
+{
+  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27F223440, &qword_24F941F10);
+  v5 = swift_allocObject();
+  *(v5 + 16) = xmmword_24F96E2B0;
+  v6 = objc_opt_self();
+  v7 = [v6 defaultCenter];
+  v8 = *MEMORY[0x277CB8DB8];
+  v9 = *(v2 + 16);
+  v10 = swift_allocObject();
+  *(v10 + 16) = a1;
+  *(v10 + 24) = a2;
+  v28 = sub_24E9727BC;
+  v29 = v10;
+  v24 = MEMORY[0x277D85DD0];
+  v25 = 1107296256;
+  v26 = sub_24EEFA694;
+  v27 = &block_descriptor_13_1;
+  v11 = _Block_copy(&v24);
+
+  v12 = [v7 addObserverForName:v8 object:v9 queue:0 usingBlock:v11];
+  _Block_release(v11);
+
+  *(v5 + 32) = v12;
+  v13 = [v6 defaultCenter];
+  v14 = *MEMORY[0x277D25CA0];
+  v15 = swift_allocObject();
+  *(v15 + 16) = a1;
+  *(v15 + 24) = a2;
+  v28 = sub_24E97225C;
+  v29 = v15;
+  v24 = MEMORY[0x277D85DD0];
+  v25 = 1107296256;
+  v26 = sub_24EEFA694;
+  v27 = &block_descriptor_19_1;
+  v16 = _Block_copy(&v24);
+
+  v17 = [v13 addObserverForName:v14 object:0 queue:0 usingBlock:v16];
+  _Block_release(v16);
+
+  *(v5 + 40) = v17;
+  v18 = [v6 defaultCenter];
+  v19 = *MEMORY[0x277D76758];
+  v20 = swift_allocObject();
+  *(v20 + 16) = a1;
+  *(v20 + 24) = a2;
+  v28 = sub_24E9727BC;
+  v29 = v20;
+  v24 = MEMORY[0x277D85DD0];
+  v25 = 1107296256;
+  v26 = sub_24EEFA694;
+  v27 = &block_descriptor_25_2;
+  v21 = _Block_copy(&v24);
+
+  v22 = [v18 addObserverForName:v19 object:0 queue:0 usingBlock:v21];
+  _Block_release(v21);
+
+  *(v5 + 48) = v22;
+  return v5;
+}
+
+uint64_t sub_24EE3E4A0(uint64_t a1, uint64_t a2)
+{
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F2314B8, &qword_24F9A6428);
+  v5 = *(v4 - 8);
+  *&v6 = MEMORY[0x28223BE20](v4).n128_u64[0];
+  v8 = &v22 - v7;
+  v9 = [*(a2 + 16) ams_activeiTunesAccount];
+  if (v9 && (v10 = v9, v11 = [v9 ams_DSID], v10, v11))
+  {
+    v27 = [objc_opt_self() exceptionConnection];
+    [v27 activate];
+    v25 = *(v5 + 16);
+    v25(v8, a1, v4);
+    v12 = (*(v5 + 80) + 16) & ~*(v5 + 80);
+    v13 = swift_allocObject();
+    v26 = v11;
+    v14 = v4;
+    v15 = v13;
+    v24 = *(v5 + 32);
+    v24(v13 + v12, v8, v14);
+    v32 = sub_24EE3F18C;
+    v33 = v15;
+    aBlock = MEMORY[0x277D85DD0];
+    v29 = 1107296256;
+    v30 = sub_24E955CC4;
+    v31 = &block_descriptor_81;
+    v16 = _Block_copy(&aBlock);
+
+    v23 = [v27 asynchronousExceptionServiceWithErrorHandler_];
+    _Block_release(v16);
+    v25(v8, a1, v14);
+    v17 = swift_allocObject();
+    v24(v17 + v12, v8, v14);
+    v32 = sub_24EE3F2B4;
+    v33 = v17;
+    aBlock = MEMORY[0x277D85DD0];
+    v29 = 1107296256;
+    v30 = sub_24EE3F0D0;
+    v31 = &block_descriptor_7;
+    v18 = _Block_copy(&aBlock);
+
+    v19 = v26;
+    [v23 fetchAllAppExceptionsForRequesterDSID:v26 completionHandler:v18];
+    _Block_release(v18);
+
+    return swift_unknownObjectRelease();
+  }
+
+  else
+  {
+    if (qword_27F2105B0 != -1)
+    {
+      swift_once();
+    }
+
+    v21 = sub_24F92AAE8();
+    __swift_project_value_buffer(v21, qword_27F39C470);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27F221870, &unk_24F93B6E0);
+    sub_24F928468();
+    *(swift_allocObject() + 16) = xmmword_24F93DE60;
+    sub_24F9283A8();
+    sub_24F92A5A8();
+
+    aBlock = sub_24E60B368(MEMORY[0x277D84F90]);
+    return sub_24F92B798();
+  }
+}
+
+uint64_t sub_24EE3E914(uint64_t a1)
+{
+  v1 = sub_24F928418();
+  MEMORY[0x28223BE20](v1 - 8);
+  if (qword_27F2105B0 != -1)
+  {
+    swift_once();
+  }
+
+  v2 = sub_24F92AAE8();
+  __swift_project_value_buffer(v2, qword_27F39C470);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27F221870, &unk_24F93B6E0);
+  sub_24F928468();
+  *(swift_allocObject() + 16) = xmmword_24F93DE60;
+  sub_24F928408();
+  sub_24F9283F8();
+  swift_getErrorValue();
+  v6[3] = v5;
+  boxed_opaque_existential_1 = __swift_allocate_boxed_opaque_existential_1(v6);
+  (*(*(v5 - 8) + 16))(boxed_opaque_existential_1);
+  sub_24F9283D8();
+  sub_24E857CC8(v6);
+  sub_24F9283F8();
+  sub_24F928428();
+  sub_24F92A5A8();
+
+  v6[0] = sub_24E60B368(MEMORY[0x277D84F90]);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F2314B8, &qword_24F9A6428);
+  return sub_24F92B798();
+}
+
+uint64_t sub_24EE3EB6C(unint64_t a1, void *a2, uint64_t a3)
+{
+  v40 = a3;
+  v5 = sub_24F928418();
+  MEMORY[0x28223BE20](v5 - 8);
+  v6 = sub_24F92AAE8();
+  v7 = *(v6 - 8);
+  MEMORY[0x28223BE20](v6);
+  v9 = &v39 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v42 = a1;
+  if (!a1 || a2)
+  {
+    if (qword_27F2105B0 != -1)
+    {
+      goto LABEL_40;
+    }
+
+    goto LABEL_4;
+  }
+
+  v14 = sub_24E60B368(MEMORY[0x277D84F90]);
+  v7 = v42 & 0xFFFFFFFFFFFFFF8;
+  if (v42 >> 62)
+  {
+    v15 = sub_24F92C738();
+    if (v15)
+    {
+      goto LABEL_10;
+    }
+
+LABEL_42:
+    *&v45 = v14;
+    goto LABEL_43;
+  }
+
+  v15 = *((v42 & 0xFFFFFFFFFFFFFF8) + 0x10);
+  if (!v15)
+  {
+    goto LABEL_42;
+  }
+
+LABEL_10:
+  v39 = v7;
+  v9 = 0;
+  v41 = v42 & 0xC000000000000001;
+  while (1)
+  {
+    if (v41)
+    {
+      v17 = MEMORY[0x253052270](v9, v42);
+    }
+
+    else
+    {
+      if (v9 >= *(v39 + 16))
+      {
+        goto LABEL_39;
+      }
+
+      v17 = *(v42 + 8 * v9 + 32);
+    }
+
+    a2 = v17;
+    v7 = (v9 + 1);
+    if (__OFADD__(v9, 1))
+    {
+      break;
+    }
+
+    v18 = [v17 bundleIdentifier];
+    v19 = sub_24F92B0D8();
+    v21 = v20;
+
+    if (v14[2] && (v22 = sub_24E76D644(v19, v21), (v23 & 1) != 0))
+    {
+      v6 = *(v14[7] + 8 * v22);
+    }
+
+    else
+    {
+      v6 = 0;
+    }
+
+    v24 = [a2 ratingValue];
+    if (v24 < 0)
+    {
+      goto LABEL_36;
+    }
+
+    if (v24 > v6)
+    {
+      v6 = v24;
+    }
+
+    isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+    *&v45 = v14;
+    v26 = sub_24E76D644(v19, v21);
+    v28 = v14[2];
+    v29 = (v27 & 1) == 0;
+    v30 = __OFADD__(v28, v29);
+    v31 = v28 + v29;
+    if (v30)
+    {
+      goto LABEL_37;
+    }
+
+    v32 = v27;
+    if (v14[3] < v31)
+    {
+      sub_24E89DE90(v31, isUniquelyReferenced_nonNull_native);
+      v26 = sub_24E76D644(v19, v21);
+      if ((v32 & 1) != (v33 & 1))
+      {
+        result = sub_24F92CF88();
+        __break(1u);
+        return result;
+      }
+
+LABEL_30:
+      if (v32)
+      {
+        goto LABEL_11;
+      }
+
+      goto LABEL_31;
+    }
+
+    if (isUniquelyReferenced_nonNull_native)
+    {
+      goto LABEL_30;
+    }
+
+    v37 = v26;
+    sub_24E8B0A94();
+    v26 = v37;
+    if (v32)
+    {
+LABEL_11:
+      v16 = v26;
+
+      v14 = v45;
+      *(*(v45 + 56) + 8 * v16) = v6;
+
+      goto LABEL_12;
+    }
+
+LABEL_31:
+    v14 = v45;
+    *(v45 + 8 * (v26 >> 6) + 64) |= 1 << v26;
+    v34 = (v14[6] + 16 * v26);
+    *v34 = v19;
+    v34[1] = v21;
+    *(v14[7] + 8 * v26) = v6;
+
+    v35 = v14[2];
+    v30 = __OFADD__(v35, 1);
+    v36 = v35 + 1;
+    if (v30)
+    {
+      goto LABEL_38;
+    }
+
+    v14[2] = v36;
+LABEL_12:
+    ++v9;
+    if (v7 == v15)
+    {
+      goto LABEL_42;
+    }
+  }
+
+  __break(1u);
+LABEL_36:
+  __break(1u);
+LABEL_37:
+  __break(1u);
+LABEL_38:
+  __break(1u);
+LABEL_39:
+  __break(1u);
+LABEL_40:
+  swift_once();
+LABEL_4:
+  v10 = __swift_project_value_buffer(v6, qword_27F39C470);
+  (*(v7 + 16))(v9, v10, v6);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27F221870, &unk_24F93B6E0);
+  sub_24F928468();
+  *(swift_allocObject() + 16) = xmmword_24F93DE60;
+  sub_24F928408();
+  sub_24F9283F8();
+  if (a2)
+  {
+    swift_getErrorValue();
+    v11 = v43;
+    v12 = v44;
+    *(&v46 + 1) = v44;
+    boxed_opaque_existential_1 = __swift_allocate_boxed_opaque_existential_1(&v45);
+    (*(*(v12 - 8) + 16))(boxed_opaque_existential_1, v11, v12);
+  }
+
+  else
+  {
+    v45 = 0u;
+    v46 = 0u;
+  }
+
+  sub_24F9283D8();
+  sub_24E857CC8(&v45);
+  sub_24F9283F8();
+  sub_24F928428();
+  sub_24F92A5A8();
+
+  (*(v7 + 8))(v9, v6);
+  *&v45 = sub_24E60B368(MEMORY[0x277D84F90]);
+LABEL_43:
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F2314B8, &qword_24F9A6428);
+  return sub_24F92B798();
+}
+
+uint64_t sub_24EE3F0D0(uint64_t a1, uint64_t a2, void *a3)
+{
+  v4 = a2;
+  v5 = *(a1 + 32);
+  if (a2)
+  {
+    sub_24EE3F340();
+    v4 = sub_24F92B5A8();
+  }
+
+  v6 = a3;
+  v5(v4, a3);
+}
+
+uint64_t sub_24EE3F18C(uint64_t a1)
+{
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F2314B8, &qword_24F9A6428);
+
+  return sub_24EE3E914(a1);
+}
+
+uint64_t block_copy_helper_81(uint64_t a1, uint64_t a2)
+{
+  v2 = *(a2 + 40);
+  *(a1 + 32) = *(a2 + 32);
+  *(a1 + 40) = v2;
+}
+
+uint64_t objectdestroyTm_40()
+{
+  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F2314B8, &qword_24F9A6428);
+  (*(*(v1 - 8) + 8))(v0 + ((*(*(v1 - 8) + 80) + 16) & ~*(*(v1 - 8) + 80)), v1);
+
+  return swift_deallocObject();
+}
+
+uint64_t sub_24EE3F2B4(unint64_t a1, void *a2)
+{
+  v5 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F2314B8, &qword_24F9A6428) - 8);
+  v6 = v2 + ((*(v5 + 80) + 16) & ~*(v5 + 80));
+
+  return sub_24EE3EB6C(a1, a2, v6);
+}
+
+unint64_t sub_24EE3F340()
+{
+  result = qword_27F2314C0;
+  if (!qword_27F2314C0)
+  {
+    objc_opt_self();
+    result = swift_getObjCClassMetadata();
+    atomic_store(result, &qword_27F2314C0);
+  }
+
+  return result;
+}
+
+uint64_t sub_24EE3F38C()
+{
+
+  return swift_deallocObject();
+}
+
+double sub_24EE3F3F0(double a1)
+{
+  sub_24F9275A8();
+  sub_24F926CF8();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F221290, &qword_24F965DC8);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F2212D0, &unk_24F9A6C60);
+  __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27F2212A0, &qword_24F965DD8);
+  sub_24E8F1F9C();
+  swift_getOpaqueTypeConformance2();
+  sub_24E8F20E4();
+  sub_24E8F2138();
+  sub_24F926B08();
+
+  return result;
+}
+
+double sub_24EE3F534(double a1)
+{
+  sub_24F9275A8();
+  sub_24F926CF8();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F2223D0, &qword_24F969270);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F222458, &unk_24F9A6F40);
+  __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27F2223E8, &qword_24F969288);
+  sub_24E9410C4();
+  swift_getOpaqueTypeConformance2();
+  sub_24E8F20E4();
+  sub_24E941238();
+  sub_24F926B08();
+
+  return result;
+}
+
+double sub_24EE3F678(double a1)
+{
+  sub_24F9275A8();
+  sub_24F926CF8();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F222400, &qword_24F9692A0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F222490, &unk_24F9A6F20);
+  __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27F222408, &qword_24F9692A8);
+  sub_24E94137C();
+  swift_getOpaqueTypeConformance2();
+  sub_24E8F20E4();
+  sub_24E94154C();
+  sub_24F926B08();
+
+  return result;
+}
+
+double sub_24EE3F7BC(double a1)
+{
+  sub_24F9275A8();
+  sub_24F926CF8();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F228ED0, &qword_24F984318);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F228EE8, &qword_24F9A6A60);
+  type metadata accessor for SearchResultsPageView.ToolbarView(255);
+  sub_24EE4A2A0(&qword_27F228EE0, type metadata accessor for SearchResultsPageView.ToolbarView, &unk_24F984548);
+  swift_getOpaqueTypeConformance2();
+  sub_24E8F20E4();
+  sub_24EB38750();
+  sub_24F926B08();
+
+  return result;
+}
+
+double sub_24EE3F924(double a1)
+{
+  sub_24F9275A8();
+  sub_24F926CF8();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F22C340, &qword_24F990128);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F22C368, &unk_24F9A6DD0);
+  __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27F22C348, &qword_24F990130);
+  sub_24E602068(&qword_27F22C358, &qword_27F22C348, &qword_24F990130, MEMORY[0x277CE1138]);
+  swift_getOpaqueTypeConformance2();
+  sub_24E8F20E4();
+  sub_24EC5EF9C();
+  sub_24F926B08();
+
+  return result;
+}
+
+double sub_24EE3FA94(double a1)
+{
+  sub_24F9275A8();
+  sub_24F926CF8();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F22C6D0, &qword_24F990B00);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F22C730, &unk_24F990B58);
+  __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27F22C6E0, &qword_24F990B10);
+  sub_24E602068(&qword_27F22C720, &qword_27F22C6E0, &qword_24F990B10, MEMORY[0x277CE1138]);
+  swift_getOpaqueTypeConformance2();
+  sub_24E8F20E4();
+  sub_24EC6FE14();
+  sub_24F926B08();
+
+  return result;
+}
+
+double sub_24EE3FC04(double a1)
+{
+  sub_24F9275A8();
+  sub_24F926CF8();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F2315F0, &qword_24F9A6730);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F231608, &unk_24F9A6740);
+  type metadata accessor for InviteFriendsPageView.ShelfListView(255);
+  sub_24EE4A2A0(&qword_27F231600, type metadata accessor for InviteFriendsPageView.ShelfListView, &unk_24F9A69B8);
+  swift_getOpaqueTypeConformance2();
+  sub_24E8F20E4();
+  sub_24EE4E33C();
+  sub_24F926B08();
+
+  return result;
+}
+
+double sub_24EE3FD6C(double a1)
+{
+  sub_24F9275A8();
+  sub_24F926CF8();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F2316C0, &qword_24F9A6A68);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F231760, &unk_24F9A6AD8);
+  __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27F2316D8, &qword_24F9A6A80);
+  sub_24EE4F0E0();
+  swift_getOpaqueTypeConformance2();
+  sub_24E8F20E4();
+  sub_24EE4F1A8();
+  sub_24F926B08();
+
+  return result;
+}
+
+double sub_24EE3FEB0(double a1)
+{
+  sub_24F9275A8();
+  sub_24F926CF8();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F2319E0, &unk_24F9A6E10);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F2319E8, &qword_24F9BB480);
+  sub_24EE51EA4();
+  swift_getOpaqueTypeConformance2();
+  sub_24E8F20E4();
+  sub_24EE51EF8();
+  sub_24F926B08();
+
+  return result;
+}
+
+double sub_24EE3FFE4(double a1)
+{
+  sub_24F9275A8();
+  sub_24F926CF8();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F231A00, &unk_24F9A6E20);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F231A08, &qword_24F9BB470);
+  type metadata accessor for OverlayGameControllerControls(255);
+  sub_24EE4A2A0(&qword_27F231A10, type metadata accessor for OverlayGameControllerControls, &unk_24F9B9778);
+  swift_getOpaqueTypeConformance2();
+  sub_24E8F20E4();
+  sub_24EE52000();
+  sub_24F926B08();
+
+  return result;
+}
+
+double sub_24EE4014C(double a1)
+{
+  sub_24F9275A8();
+  sub_24F926CF8();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F231A40, &qword_24F9A6E40);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F231A48, &unk_24F9A6E48);
+  sub_24EE52298();
+  swift_getOpaqueTypeConformance2();
+  sub_24E8F20E4();
+  sub_24EE522EC();
+  sub_24F926B08();
+
+  return result;
+}
+
+double sub_24EE40280(double a1)
+{
+  sub_24F9275A8();
+  sub_24F926CF8();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F231A20, &unk_24F9A6E30);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F231A28, &qword_24F9BB3D0);
+  sub_24EE5213C();
+  swift_getOpaqueTypeConformance2();
+  sub_24E8F20E4();
+  sub_24EE52190();
+  sub_24F926B08();
+
+  return result;
+}
+
+double sub_24EE403B4(double a1)
+{
+  sub_24F9275A8();
+  sub_24F926CF8();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F221300, &unk_24F9C5380);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F221380, &qword_24F965EA0);
+  __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27F221308, &unk_24F965E60);
+  sub_24E8F2424();
+  swift_getOpaqueTypeConformance2();
+  sub_24E8F20E4();
+  sub_24E8F2824();
+  sub_24F926B08();
+
+  return result;
+}
+
+double sub_24EE404F8(double a1)
+{
+  sub_24F9275A8();
+  sub_24F926CF8();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F2318A0, &unk_24F9A6C90);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F2318A8, &qword_24F9C5360);
+  __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27F2318B0, &unk_24F9A6CA0);
+  sub_24EE50CBC();
+  swift_getOpaqueTypeConformance2();
+  sub_24E8F20E4();
+  sub_24EE50E00();
+  sub_24F926B08();
+
+  return result;
+}
+
+double sub_24EE4063C(double a1)
+{
+  sub_24F9275A8();
+  sub_24F926CF8();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F231B00, &qword_24F9A6EE0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F231B08, &qword_24F9A6EE8);
+  __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27F231B10, &qword_24F9A6EF0);
+  sub_24EE536D0();
+  swift_getOpaqueTypeConformance2();
+  sub_24E8F20E4();
+  sub_24EE5392C();
+  sub_24F926B08();
+
+  return result;
+}
+
+double sub_24EE40780(double a1)
+{
+  sub_24F9275A8();
+  sub_24F926CF8();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F231AC8, &qword_24F9A6EC0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F231AD0, &qword_24F9A6EC8);
+  __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27F231AD8, &unk_24F9A6ED0);
+  sub_24EE53500();
+  swift_getOpaqueTypeConformance2();
+  sub_24E8F20E4();
+  sub_24EE535B8();
+  sub_24F926B08();
+
+  return result;
+}
+
+double sub_24EE408C4(double a1)
+{
+  sub_24F9275A8();
+  sub_24F926CF8();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F2319A8, &qword_24F9A6DF0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F2319B0, &qword_24F9A6DF8);
+  __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27F2319B8, &qword_24F9A6E00);
+  sub_24EE51CD4();
+  swift_getOpaqueTypeConformance2();
+  sub_24E8F20E4();
+  sub_24EE51D8C();
+  sub_24F926B08();
+
+  return result;
+}
+
+double sub_24EE40A08(double a1)
+{
+  sub_24F9275A8();
+  sub_24F926CF8();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F231640, &unk_24F9A6780);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27F255190, &unk_24FA3AD40);
+  __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27F231648, &qword_24F9A6790);
+  sub_24EE4E504();
+  swift_getOpaqueTypeConformance2();
+  sub_24E8F20E4();
+  sub_24EE4E64C();
+  sub_24F926B08();
+
+  return result;
+}
+
+double sub_24EE40B4C(double a1)
+{
+  sub_24F9275A8();
+  sub_24F926CF8();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F2318E8, &qword_24F9A6CB8);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F2318F0, &unk_24F9A6CC0);
+  __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27F2318F8, &qword_24FA3BC70);
+  sub_24EE50F18();
+  swift_getOpaqueTypeConformance2();
+  sub_24E8F20E4();
+  sub_24EE51288();
+  sub_24F926B08();
+
+  return result;
+}
+
+uint64_t sub_24EE40C90@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t *a7@<X6>, uint64_t *a8@<X7>, uint64_t a9@<X8>, uint64_t *a10, uint64_t *a11)
+{
+  v17 = sub_24F927618();
+  v19 = v18;
+  *&v36 = a2;
+  *(&v36 + 1) = a3;
+  *&v37 = a4;
+  *(&v37 + 1) = a5;
+  v38 = 0u;
+  v39 = 0u;
+  *&v40 = a6;
+  *(&v40 + 1) = 0x4024000000000000;
+  v41 = 0;
+  LOBYTE(v35) = 0;
+  v32 = 0u;
+  v33 = 0u;
+  v34 = v40;
+  v30 = v36;
+  v31 = v37;
+  v42 = v36;
+  v43 = v37;
+  v45 = 0u;
+  v46 = v40;
+  v44 = 0u;
+  *&v47 = v35;
+  *(&v47 + 1) = v17;
+  v48 = v18;
+  v20 = __swift_instantiateConcreteTypeFromMangledNameV2(a7, a8);
+  (*(*(v20 - 8) + 16))(a9, a1, v20);
+  v21 = a9 + *(__swift_instantiateConcreteTypeFromMangledNameV2(a10, a11) + 36);
+  v22 = v47;
+  *(v21 + 64) = v40;
+  *(v21 + 80) = v22;
+  *(v21 + 96) = v48;
+  v23 = v43;
+  *v21 = v42;
+  *(v21 + 16) = v23;
+  v24 = v45;
+  *(v21 + 32) = v44;
+  *(v21 + 48) = v24;
+  v49[0] = v30;
+  v49[1] = v31;
+  v49[3] = v33;
+  v49[4] = v34;
+  v49[2] = v32;
+  v50 = v35;
+  v51 = v17;
+  v52 = v19;
+  sub_24EB1FB58(&v36, &v29);
+  sub_24E60169C(&v42, &v29, &qword_27F215A98, &qword_24F940DC0);
+  return sub_24E601704(v49, &qword_27F215A98, &qword_24F940DC0);
+}
+
+uint64_t InviteFriendsPageView.body.getter@<X0>(uint64_t a1@<X8>)
+{
+  v2 = v1;
+  v91 = a1;
+  v3 = type metadata accessor for InviteFriendsPageView(0);
+  v4 = v3 - 8;
+  v84 = *(v3 - 8);
+  MEMORY[0x28223BE20](v3);
+  v92 = v5;
+  v90 = &v56 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = sub_24F923D08();
+  v88 = *(v6 - 8);
+  v89 = v6;
+  MEMORY[0x28223BE20](v6);
+  v87 = &v56 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v78 = sub_24F925758();
+  v77 = *(v78 - 1);
+  MEMORY[0x28223BE20](v78);
+  v76 = &v56 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v58 = sub_24F924F28();
+  v57 = *(v58 - 8);
+  MEMORY[0x28223BE20](v58);
+  v56 = &v56 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v72 = sub_24F924F58();
+  v70 = *(v72 - 8);
+  MEMORY[0x28223BE20](v72);
+  v64 = &v56 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v67 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F2314C8, &qword_24F9A6430);
+  MEMORY[0x28223BE20](v67);
+  v12 = &v56 - v11;
+  v74 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F2314D0, &qword_24F9A6438);
+  v71 = *(v74 - 8);
+  MEMORY[0x28223BE20](v74);
+  v66 = &v56 - v13;
+  v79 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F2314D8, &qword_24F9A6440);
+  v75 = *(v79 - 8);
+  MEMORY[0x28223BE20](v79);
+  v73 = &v56 - v14;
+  v82 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F2314E0, &qword_24F9A6448);
+  v81 = *(v82 - 8);
+  MEMORY[0x28223BE20](v82);
+  v80 = &v56 - v15;
+  v16 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F2314E8, &qword_24F9A6450);
+  v85 = *(v16 - 8);
+  v86 = v16;
+  MEMORY[0x28223BE20](v16);
+  v83 = &v56 - v17;
+  v18 = (v2 + *(v4 + 32));
+  v20 = v18[1];
+  v99 = *v18;
+  v19 = v99;
+  v100 = v20;
+  v21 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F2314F0, &qword_24F9A6458);
+  sub_24F926F38();
+  sub_24EE41BF0(0, 0);
+
+  *v12 = sub_24F924C88();
+  *(v12 + 1) = 0;
+  v12[16] = 1;
+  v22 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F2314F8, &qword_24F9A6460) + 44);
+  v63 = v12;
+  sub_24EE41EE8(v2, &v12[v22]);
+  v99 = v19;
+  v100 = v20;
+  sub_24F926F38();
+  v23 = swift_allocObject();
+  swift_weakInit();
+  v24 = swift_allocObject();
+  v24[2] = 0;
+  v24[3] = 0;
+  v24[4] = v23;
+  v25 = swift_allocObject();
+  swift_weakInit();
+  v26 = swift_allocObject();
+  v26[2] = 0;
+  v26[3] = 0;
+  v26[4] = v25;
+  sub_24F9271A8();
+
+  v62 = v99;
+  v61 = v101;
+  v69 = v19;
+  v96 = v19;
+  v97 = v20;
+  v68 = v20;
+  v65 = v21;
+  sub_24F926F58();
+  v27 = v99;
+  v28 = v100;
+  v29 = v101;
+  swift_getKeyPath();
+  v99 = v27;
+  v100 = v28;
+  v101 = v29;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F231500, &qword_24F9A6488);
+  sub_24F927188();
+
+  v60 = v97;
+  v59 = v98;
+
+  v93 = v2;
+  if (*(v2 + 16) == 1)
+  {
+    v30 = v56;
+    sub_24F924F18();
+    v31 = v64;
+    sub_24F924F08();
+    (*(v57 + 8))(v30, v58);
+  }
+
+  else
+  {
+    v31 = v64;
+    sub_24F924F38();
+  }
+
+  if (qword_27F211670 != -1)
+  {
+    swift_once();
+  }
+
+  v94 = qword_27F39EDA8;
+  v95 = unk_27F39EDB0;
+  v58 = sub_24E602068(&qword_27F231508, &qword_27F2314C8, &qword_24F9A6430, MEMORY[0x277CE1198]);
+  v64 = sub_24E600AEC();
+
+  v32 = v67;
+  v33 = v66;
+  v34 = v63;
+  sub_24F926128();
+
+  (*(v70 + 8))(v31, v72);
+  sub_24E601704(v34, &qword_27F2314C8, &qword_24F9A6430);
+  v35 = v76;
+  sub_24F925738();
+  v99 = v32;
+  v100 = MEMORY[0x277D837D0];
+  v101 = v58;
+  v102 = v64;
+  OpaqueTypeConformance2 = swift_getOpaqueTypeConformance2();
+  v37 = v73;
+  v38 = v74;
+  sub_24F926898();
+  (*(v77 + 8))(v35, v78);
+  (*(v71 + 8))(v33, v38);
+  v39 = v87;
+  sub_24F923CF8();
+  v78 = type metadata accessor for InviteFriendsPageView;
+  v40 = v90;
+  sub_24EE4A97C(v93, v90, type metadata accessor for InviteFriendsPageView);
+  v41 = (*(v84 + 80) + 16) & ~*(v84 + 80);
+  v42 = swift_allocObject();
+  v84 = type metadata accessor for InviteFriendsPageView;
+  sub_24EE4C4A4(v40, v42 + v41, type metadata accessor for InviteFriendsPageView);
+  v99 = v38;
+  v100 = OpaqueTypeConformance2;
+  v77 = swift_getOpaqueTypeConformance2();
+  v43 = v80;
+  v44 = v79;
+  sub_24F926AD8();
+
+  (*(v88 + 8))(v39, v89);
+  (*(v75 + 8))(v37, v44);
+  v99 = v69;
+  v100 = v68;
+  sub_24F926F38();
+  v45 = v96;
+  swift_getKeyPath();
+  v99 = v45;
+  sub_24EE4A2A0(&qword_27F231520, type metadata accessor for InviteFriendsSearchPagePresenter, &unk_24F9A66E4);
+  sub_24F91FD88();
+
+  LOBYTE(v34) = *(v45 + 49);
+
+  LOBYTE(v96) = v34;
+  v46 = v93;
+  sub_24EE4A97C(v93, v40, v78);
+  v47 = swift_allocObject();
+  sub_24EE4C4A4(v40, v47 + v41, v84);
+  v99 = v44;
+  v100 = v77;
+  swift_getOpaqueTypeConformance2();
+  v48 = v82;
+  v49 = v83;
+  sub_24F926AB8();
+
+  (*(v81 + 8))(v43, v48);
+  v50 = *(type metadata accessor for InviteFriendsPageIntent(0) + 24);
+  v51 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F231528, &unk_24F9A64C0);
+  v52 = v91;
+  v53 = v91 + *(v51 + 36);
+  sub_24E60169C(v46 + v50, v53, &qword_27F21D8F8, &qword_24F95ADB0);
+  v54 = type metadata accessor for PageBackgroundViewModifier(0);
+  *(v53 + *(v54 + 20)) = 3;
+  *(v53 + *(v54 + 24)) = 0;
+  return (*(v85 + 32))(v52, v49, v86);
+}
+
+void sub_24EE41BF0(uint64_t a1, unint64_t a2)
+{
+  swift_getKeyPath();
+  v9.i64[0] = v2;
+  sub_24EE4A2A0(&qword_27F231520, type metadata accessor for InviteFriendsSearchPagePresenter, &unk_24F9A66E4);
+  sub_24F91FD88();
+
+  if (v2[3].i8[0] == 2)
+  {
+    v5 = vorrq_s8(v2[1], v2[2]);
+    if (!*&vorr_s8(*v5.i8, *&vextq_s8(v5, v5, 8uLL)))
+    {
+      if (!a2)
+      {
+        goto LABEL_9;
+      }
+
+      v6 = HIBYTE(a2) & 0xF;
+      if ((a2 & 0x2000000000000000) == 0)
+      {
+        v6 = a1 & 0xFFFFFFFFFFFFLL;
+      }
+
+      if (v6)
+      {
+        swift_beginAccess();
+        v2[3].i8[2] = 1;
+        v9.i64[0] = a1;
+        v9.i64[1] = a2;
+        v10 = 0;
+        v11 = 0;
+        v12 = 1;
+
+        sub_24EE48498(&v9);
+        if (v2[3].i8[1])
+        {
+LABEL_8:
+          KeyPath = swift_getKeyPath();
+          MEMORY[0x28223BE20](KeyPath);
+          sub_24F91FD78();
+
+          return;
+        }
+      }
+
+      else
+      {
+LABEL_9:
+        v9 = 1uLL;
+        v10 = 0;
+        v11 = 0;
+        v12 = 2;
+        v8 = swift_getKeyPath();
+        MEMORY[0x28223BE20](v8);
+        sub_24F91FD78();
+
+        swift_beginAccess();
+        v2[3].i8[2] = 0;
+        if (v2[3].i8[1])
+        {
+          goto LABEL_8;
+        }
+      }
+
+      v2[3].i8[1] = 0;
+    }
+  }
+}
+
+uint64_t sub_24EE41EE8@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X8>)
+{
+  v53 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F216F48, &unk_24F944850);
+  MEMORY[0x28223BE20](v53);
+  v52 = &v44 - v4;
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F2156F0, &unk_24F969070);
+  v50 = *(v5 - 8);
+  v51 = v5;
+  MEMORY[0x28223BE20](v5);
+  v49 = &v44 - v6;
+  v46 = sub_24F92A498();
+  v48 = *(v46 - 8);
+  MEMORY[0x28223BE20](v46);
+  v45 = &v44 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = sub_24F91F648();
+  v9 = *(v8 - 8);
+  MEMORY[0x28223BE20](v8);
+  v44 = &v44 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v11);
+  v13 = &v44 - v12;
+  v14 = type metadata accessor for InviteFriendsPageView(0);
+  v15 = v14 - 8;
+  v16 = *(v14 - 8);
+  v17 = *(v16 + 64);
+  MEMORY[0x28223BE20](v14);
+  sub_24EE426BC(v57);
+  v18 = *(a1 + *(v15 + 28));
+  v47 = *(a1 + *(v15 + 48));
+  sub_24EE4A97C(a1, &v44 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0), type metadata accessor for InviteFriendsPageView);
+  v19 = (*(v16 + 80) + 16) & ~*(v16 + 80);
+  v20 = swift_allocObject();
+  sub_24EE4C4A4(&v44 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0), v20 + v19, type metadata accessor for InviteFriendsPageView);
+  *a2 = swift_getKeyPath();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27F254ED0, &qword_24F9407C0);
+  swift_storeEnumTagMultiPayload();
+  v21 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F231668, &qword_24F9A6810);
+  v22 = v21[13];
+  *(a2 + v22) = swift_getKeyPath();
+  swift_storeEnumTagMultiPayload();
+  v23 = a2 + v21[14];
+  *v23 = swift_getKeyPath();
+  v23[8] = 0;
+  v24 = a2 + v21[15];
+  *v24 = swift_getKeyPath();
+  v24[8] = 0;
+  v25 = v21[16];
+  *(a2 + v25) = swift_getKeyPath();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F216898, &unk_24F944150);
+  swift_storeEnumTagMultiPayload();
+  sub_24F91F618();
+  (*(v9 + 16))(v44, v13, v8);
+  sub_24F926F28();
+  v26 = v13;
+  v27 = v46;
+  (*(v9 + 8))(v26, v8);
+  v28 = v45;
+  v29 = a2 + v21[18];
+  LOBYTE(v54) = 1;
+  sub_24F926F28();
+  v30 = v56;
+  *v29 = v55;
+  *(v29 + 1) = v30;
+  v31 = (a2 + v21[30]);
+  sub_24F929EB8();
+  v54 = sub_24F929EA8();
+  sub_24F926F28();
+  v32 = v56;
+  *v31 = v55;
+  v31[1] = v32;
+  sub_24E615E00(v57, a2 + v21[19]);
+  sub_24F928F28();
+  if (qword_27F2108A8 != -1)
+  {
+    swift_once();
+  }
+
+  v33 = v49;
+  sub_24F92A448();
+  v34 = v51;
+  sub_24F92A408();
+  (*(v50 + 8))(v33, v34);
+  (*(v48 + 8))(v28, v27);
+  v35 = v56;
+  v36 = (a2 + v21[23]);
+  *v36 = v55;
+  v36[1] = v35;
+  sub_24F929158();
+  sub_24F928F28();
+  type metadata accessor for LocalPlayerProvider(0);
+  sub_24F928EF8();
+  *(a2 + v21[25]) = v55;
+  v37 = (a2 + v21[27]);
+  *v37 = CGSizeMake;
+  v37[1] = 0;
+  v38 = (a2 + v21[28]);
+  *v38 = sub_24EE4E8DC;
+  v38[1] = v20;
+  *(a2 + v21[20]) = v18;
+  *(a2 + v21[22]) = v47;
+  *(a2 + v21[21]) = 2;
+  type metadata accessor for FeedRefreshNotifier(0);
+
+  sub_24F928F28();
+  *(a2 + v21[26]) = v55;
+  type metadata accessor for NetworkConnectionMonitor(0);
+  sub_24F928F28();
+  *(a2 + v21[31]) = v55;
+  v39 = __swift_project_boxed_opaque_existential_1(v57, v57[3]);
+  v40 = MEMORY[0x28223BE20](v39);
+  (*(v42 + 16))(&v44 - ((v41 + 15) & 0xFFFFFFFFFFFFFFF0), v40);
+  type metadata accessor for Page(0);
+  sub_24F9217D8();
+  sub_24F926F28();
+
+  return __swift_destroy_boxed_opaque_existential_1(v57);
+}
+
+uint64_t sub_24EE42684()
+{
+  swift_weakDestroy();
+
+  return swift_deallocObject();
+}
+
+uint64_t sub_24EE426BC@<X0>(uint64_t *a1@<X8>)
+{
+  v24 = a1;
+  v23 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F21D8E8, &unk_24F9F7350);
+  v2 = *(v23 - 8);
+  MEMORY[0x28223BE20](v23);
+  v22 = &v20 - v3;
+  v4 = *(type metadata accessor for InviteFriendsPageView(0) + 24);
+  v21 = v1;
+  v5 = (v1 + v4);
+  v7 = *v5;
+  v6 = v5[1];
+  v26 = *v5;
+  v27 = v6;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F2314F0, &qword_24F9A6458);
+  sub_24F926F38();
+  v8 = v25;
+  swift_getKeyPath();
+  v26 = v8;
+  sub_24EE4A2A0(&qword_27F231520, type metadata accessor for InviteFriendsSearchPagePresenter, &unk_24F9A66E4);
+  sub_24F91FD88();
+
+  v10 = *(v8 + 16);
+  v9 = *(v8 + 24);
+  v12 = *(v8 + 32);
+  v11 = *(v8 + 40);
+  v13 = *(v8 + 48);
+  sub_24EE4E888(v10, v9, v12, v11, *(v8 + 48));
+
+  if (!v13)
+  {
+    sub_24EE4E740(v10, v9, v12, v11, 0);
+    goto LABEL_5;
+  }
+
+  if (v13 == 1)
+  {
+
+LABEL_5:
+    v26 = v7;
+    v27 = v6;
+    sub_24F926F38();
+    (*(v2 + 16))(v22, v25 + OBJC_IVAR____TtC12GameStoreKitP33_7A10BEAB54B6DC2FC53A714895EAB37132InviteFriendsSearchPagePresenter_searchTermStream, v23);
+
+    v14 = type metadata accessor for InviteFriendsSearchPageIntent(0);
+    v15 = v24;
+    v24[3] = v14;
+    v15[4] = sub_24EE4A2A0(&qword_27F21D358, type metadata accessor for InviteFriendsSearchPageIntent, &protocol conformance descriptor for InviteFriendsSearchPageIntent);
+    __swift_allocate_boxed_opaque_existential_1(v15);
+    sub_24E602068(&qword_27F231688, &qword_27F21D8E8, &unk_24F9F7350, MEMORY[0x277D857C0]);
+    return sub_24F9280F8();
+  }
+
+  v17 = type metadata accessor for InviteFriendsPageIntent(0);
+  v18 = v24;
+  v24[3] = v17;
+  v18[4] = sub_24EE4A2A0(&qword_27F21D350, type metadata accessor for InviteFriendsPageIntent, &protocol conformance descriptor for InviteFriendsPageIntent);
+  boxed_opaque_existential_1 = __swift_allocate_boxed_opaque_existential_1(v18);
+  return sub_24EE4A97C(v21, boxed_opaque_existential_1, type metadata accessor for InviteFriendsPageIntent);
+}
+
+uint64_t sub_24EE429F8@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
+{
+  v71 = a1;
+  v77 = a3;
+  v78 = sub_24F9248F8();
+  v76 = *(v78 - 8);
+  MEMORY[0x28223BE20](v78);
+  v75 = &v63 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(qword_27F220E38, &unk_24F965190);
+  MEMORY[0x28223BE20](v5 - 8);
+  v70 = &v63 - v6;
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F223138, &unk_24F972860);
+  MEMORY[0x28223BE20](v7 - 8);
+  v64 = (&v63 - v8);
+  v67 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F2156F0, &unk_24F969070);
+  v66 = *(v67 - 8);
+  MEMORY[0x28223BE20](v67);
+  v10 = &v63 - v9;
+  v11 = sub_24F92A498();
+  v65 = *(v11 - 8);
+  MEMORY[0x28223BE20](v11);
+  v13 = &v63 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v69 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F231670, &qword_24F9A68D0);
+  MEMORY[0x28223BE20](v69);
+  v15 = &v63 - v14;
+  v16 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F231678, &unk_24F9A68D8);
+  v73 = *(v16 - 8);
+  v74 = v16;
+  MEMORY[0x28223BE20](v16);
+  v72 = &v63 - v17;
+  v18 = type metadata accessor for InviteFriendsPageView(0);
+  v19 = (a2 + *(v18 + 24));
+  v20 = *v19;
+  v21 = v19[1];
+  v83 = *v19;
+  v84 = v21;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F2314F0, &qword_24F9A6458);
+  sub_24F926F38();
+  v68 = v82[0];
+  v22 = *(a2 + *(v18 + 20));
+  sub_24F928F28();
+  if (qword_27F211860 != -1)
+  {
+    swift_once();
+  }
+
+  sub_24F92A448();
+  v23 = v67;
+  sub_24F92A408();
+  (*(v66 + 8))(v10, v23);
+  (*(v65 + 8))(v13, v11);
+  v24 = v83;
+  v25 = v84;
+  v83 = v20;
+  v84 = v21;
+
+  sub_24F926F38();
+  v26 = swift_allocObject();
+  swift_weakInit();
+  v27 = swift_allocObject();
+  v27[2] = 0;
+  v27[3] = 0;
+  v27[4] = v26;
+  v28 = swift_allocObject();
+  swift_weakInit();
+  v29 = swift_allocObject();
+  v29[2] = 0;
+  v29[3] = 0;
+  v29[4] = v28;
+  sub_24F9271A8();
+
+  v30 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F231198, &qword_24F9A5550);
+  MEMORY[0x25304CAF0](v82, v30);
+  v31 = v82[0];
+  v32 = v82[1];
+
+  v33 = v71;
+  sub_24EE4A97C(v71, v15, type metadata accessor for Page);
+  v34 = type metadata accessor for InviteFriendsPageView.PageContent(0);
+  *&v15[v34[5]] = v68;
+  v35 = &v15[v34[6]];
+  *v35 = v24;
+  *(v35 + 1) = v25;
+  *&v15[v34[7]] = v22;
+  v36 = &v15[v34[8]];
+  *v36 = v31;
+  *(v36 + 1) = v32;
+  v37 = &v15[v34[9]];
+  v79 = MEMORY[0x277D84FA0];
+  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27F21E480, &unk_24F944D20);
+  sub_24F926F28();
+  v38 = v81;
+  *v37 = v80;
+  *(v37 + 1) = v38;
+  v39 = &v15[v34[10]];
+  *v39 = swift_getKeyPath();
+  v39[40] = 0;
+  v40 = v34[11];
+  *&v15[v40] = swift_getKeyPath();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F212938, &qword_24F939770);
+  swift_storeEnumTagMultiPayload();
+  v41 = v69;
+  v42 = *(v69 + 52);
+  v43 = sub_24F92A708();
+  (*(*(v43 - 8) + 16))(&v15[v42], v33, v43);
+  v44 = type metadata accessor for Page(0);
+  v45 = v70;
+  sub_24E60169C(v33 + *(v44 + 80), v70, qword_27F220E38, &unk_24F965190);
+  v46 = type metadata accessor for HeaderPresentation(0);
+  if ((*(*(v46 - 8) + 48))(v45, 1, v46) == 1)
+  {
+    v47 = qword_27F220E38;
+    v48 = &unk_24F965190;
+    v49 = v45;
+  }
+
+  else
+  {
+    v50 = v64;
+    sub_24E60169C(v45, v64, &qword_27F223138, &unk_24F972860);
+    sub_24EE4E98C(v45, type metadata accessor for HeaderPresentation);
+    v51 = type metadata accessor for HeaderPresentation.HeaderLabel(0);
+    if ((*(*(v51 - 8) + 48))(v50, 1, v51) != 1)
+    {
+      v53 = *v50;
+      v52 = v50[1];
+
+      sub_24EE4E98C(v50, type metadata accessor for HeaderPresentation.HeaderLabel);
+      goto LABEL_9;
+    }
+
+    v47 = &qword_27F223138;
+    v48 = &unk_24F972860;
+    v49 = v50;
+  }
+
+  sub_24E601704(v49, v47, v48);
+  v52 = 0xE400000000000000;
+  v53 = 1701736302;
+LABEL_9:
+  v83 = v53;
+  v84 = v52;
+  v54 = sub_24E602068(&qword_27F231680, &qword_27F231670, &qword_24F9A68D0, MEMORY[0x277CE1148]);
+  v55 = sub_24E600AEC();
+  v56 = v72;
+  v57 = MEMORY[0x277D837D0];
+  sub_24F926458();
+
+  sub_24E601704(v15, &qword_27F231670, &qword_24F9A68D0);
+  v59 = v75;
+  v58 = v76;
+  v60 = v78;
+  (*(v76 + 104))(v75, *MEMORY[0x277CDDDB0], v78);
+  v83 = v41;
+  v84 = v57;
+  v85 = v54;
+  v86 = v55;
+  swift_getOpaqueTypeConformance2();
+  v61 = v74;
+  sub_24F926868();
+  (*(v58 + 8))(v59, v60);
+  return (*(v73 + 8))(v56, v61);
+}
+
+double sub_24EE43350(uint64_t a1)
+{
+  v4.i64[1] = *(a1 + *(type metadata accessor for InviteFriendsPageView(0) + 24) + 8);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F2314F0, &qword_24F9A6458);
+  sub_24F926F38();
+  swift_getKeyPath();
+  v4.i64[0] = v3;
+  sub_24EE4A2A0(&qword_27F231520, type metadata accessor for InviteFriendsSearchPagePresenter, &unk_24F9A66E4);
+  sub_24F91FD88();
+
+  if (!*(v3 + 48))
+  {
+    v1 = *(v3 + 24);
+    v4.i64[0] = *(v3 + 16);
+    v4.i64[1] = v1;
+    v5 = 0;
+    v6 = 0;
+    v7 = 1;
+
+    sub_24EE48498(&v4);
+  }
+
+  return result;
+}
+
+uint64_t sub_24EE4345C()
+{
+  swift_getKeyPath();
+  sub_24EE4A2A0(&qword_27F231520, type metadata accessor for InviteFriendsSearchPagePresenter, &unk_24F9A66E4);
+  sub_24F91FD88();
+
+  return *(v0 + 49);
+}
+
+uint64_t sub_24EE434FC(uint64_t a1, char *a2, uint64_t a3)
+{
+  type metadata accessor for InviteFriendsPageView(0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F215670, &unk_24F961D00);
+  return sub_24F923338();
+}
+
+void sub_24EE43578(uint64_t a1@<X8>)
+{
+  swift_getKeyPath();
+  v8 = v1;
+  sub_24EE4A2A0(&qword_27F231520, type metadata accessor for InviteFriendsSearchPagePresenter, &unk_24F9A66E4);
+  sub_24F91FD88();
+
+  v3 = *(v1 + 16);
+  v4 = *(v8 + 24);
+  v5 = *(v8 + 32);
+  v6 = *(v8 + 40);
+  v7 = *(v8 + 48);
+  sub_24EE4E888(v3, v4, v5, v6, v7);
+  *a1 = v3;
+  *(a1 + 8) = v4;
+  *(a1 + 16) = v5;
+  *(a1 + 24) = v6;
+  *(a1 + 32) = v7;
+}
+
+uint64_t sub_24EE43650@<X0>(void *a1@<X1>, uint64_t a2@<X2>, uint64_t a3@<X8>)
+{
+  v25 = a3;
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F2315B8, &qword_24F9DD610);
+  v24 = *(v5 - 8);
+  v6 = v24;
+  MEMORY[0x28223BE20](v5);
+  v8 = &v23 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v23 = v8;
+  MEMORY[0x28223BE20](v9);
+  v11 = &v23 - v10;
+  v12 = type metadata accessor for InviteFriendsPageView.PageContent(0);
+  v13 = *(v12 - 8);
+  v14 = *(v13 + 64);
+  MEMORY[0x28223BE20](v12 - 8);
+  v15 = &v23 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+  sub_24E615E00(a1, v26);
+  sub_24EE4A97C(a2, v15, type metadata accessor for InviteFriendsPageView.PageContent);
+  v16 = (*(v13 + 80) + 56) & ~*(v13 + 80);
+  v17 = swift_allocObject();
+  sub_24E612C80(v26, v17 + 16);
+  sub_24EE4C4A4(v15, v17 + v16, type metadata accessor for InviteFriendsPageView.PageContent);
+  v18 = __swift_project_boxed_opaque_existential_1(a1, a1[3]);
+  v19 = MEMORY[0x28223BE20](v18);
+  (*(v21 + 16))(&v23 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0), v19);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F213768, &unk_24F93F770);
+  sub_24F928D38();
+  (*(v6 + 16))(v8, v11, v5);
+  sub_24F921C98();
+  sub_24F921C78();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F2315C0, &qword_24F9A6728);
+  sub_24E602068(&qword_27F2315C8, &qword_27F2315B8, &qword_24F9DD610, MEMORY[0x277D21CF8]);
+  sub_24EE4A2A0(&qword_27F2315D0, MEMORY[0x277D7ECA0], MEMORY[0x277D7EC98]);
+  sub_24EE4A2A0(&qword_27F2315D8, MEMORY[0x277D7EC90], MEMORY[0x277D7EC88]);
+  sub_24EE4E118();
+  sub_24E602068(&qword_27F21EDE0, &qword_27F213768, &unk_24F93F770, MEMORY[0x277D21AD8]);
+  sub_24F9216F8();
+  return (*(v24 + 8))(v11, v5);
+}
+
+uint64_t sub_24EE43ABC@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
+{
+  v56 = a4;
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F2315F0, &qword_24F9A6730);
+  v54 = *(v7 - 8);
+  MEMORY[0x28223BE20](v7);
+  v9 = v48 - v8;
+  v10 = type metadata accessor for InviteFriendsPageView.ShelfListView(0);
+  MEMORY[0x28223BE20](v10);
+  v12 = v48 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F231618, &qword_24F9A6750);
+  v53 = *(v13 - 8);
+  MEMORY[0x28223BE20](v13);
+  v15 = v48 - v14;
+  v55 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F231620, &qword_24F9A6758);
+  MEMORY[0x28223BE20](v55);
+  v17 = v48 - v16;
+  if (!*(*(a1 + *(type metadata accessor for GSKShelf(0) + 60)) + 16))
+  {
+    sub_24E615E00(a2, &v61);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F213818, &unk_24F974CF0);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F231630, &qword_24F9A6770);
+    if (swift_dynamicCast())
+    {
+      sub_24E612C80(&v57, v67);
+      sub_24E615E00(v67, &v61);
+      v18 = (a3 + *(type metadata accessor for InviteFriendsPageView.PageContent(0) + 32));
+      v19 = v18[1];
+      v65 = *v18;
+      v66 = v19;
+      sub_24EE4E454(&v61, v17);
+      swift_storeEnumTagMultiPayload();
+      sub_24EE4E2C8();
+
+      v20 = __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27F2315F8, &qword_24F9A6738);
+      v21 = sub_24EE4A2A0(&qword_27F231600, type metadata accessor for InviteFriendsPageView.ShelfListView, &unk_24F9A69B8);
+      *&v57 = v10;
+      *(&v57 + 1) = v21;
+      OpaqueTypeConformance2 = swift_getOpaqueTypeConformance2();
+      v23 = sub_24E8F20E4();
+      v24 = __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27F231608, &unk_24F9A6740);
+      v25 = sub_24EE4E33C();
+      *&v57 = v7;
+      *(&v57 + 1) = &type metadata for IsDebugFocusOverlayEnabled;
+      *&v58 = v24;
+      *(&v58 + 1) = OpaqueTypeConformance2;
+      v59 = v23;
+      v60 = v25;
+      v26 = swift_getOpaqueTypeConformance2();
+      *&v57 = v7;
+      *(&v57 + 1) = &type metadata for IsDebugFocusOverlayEnabled;
+      *&v58 = v20;
+      *(&v58 + 1) = OpaqueTypeConformance2;
+      v59 = v23;
+      v60 = v26;
+      swift_getOpaqueTypeConformance2();
+      sub_24F924E28();
+      sub_24EE4E48C(&v61);
+      return __swift_destroy_boxed_opaque_existential_1(v67);
+    }
+
+    v59 = 0;
+    v57 = 0u;
+    v58 = 0u;
+    sub_24E601704(&v57, &qword_27F231638, &qword_24F9A6778);
+  }
+
+  sub_24EE4A97C(a1, v12, type metadata accessor for GSKShelf);
+  v28 = (a3 + *(type metadata accessor for InviteFriendsPageView.PageContent(0) + 36));
+  v30 = *v28;
+  v29 = v28[1];
+  *&v57 = v30;
+  *(&v57 + 1) = v29;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F231628, &unk_24F9A6760);
+  sub_24F926F58();
+  v31 = v62;
+  v32 = &v12[*(v10 + 20)];
+  *v32 = v61;
+  *(v32 + 8) = v31;
+  v33 = sub_24EE4A2A0(&qword_27F231600, type metadata accessor for InviteFriendsPageView.ShelfListView, &unk_24F9A69B8);
+  v50 = v15;
+  v52 = v13;
+  v34 = v33;
+  v51 = v9;
+  sub_24F9262E8();
+  v49 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F2315F8, &qword_24F9A6738);
+  v61 = v10;
+  *&v62 = v34;
+  v35 = swift_getOpaqueTypeConformance2();
+  v36 = sub_24E8F20E4();
+  v37 = __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27F231608, &unk_24F9A6740);
+  v38 = sub_24EE4E33C();
+  v61 = v7;
+  *&v62 = &type metadata for IsDebugFocusOverlayEnabled;
+  *(&v62 + 1) = v37;
+  v63 = v35;
+  v48[0] = v35;
+  v64 = v36;
+  v65 = v38;
+  v48[1] = MEMORY[0x277CE0E68];
+  v39 = swift_getOpaqueTypeConformance2();
+  v40 = v53;
+  v41 = v12;
+  v42 = v54;
+  v43 = v39;
+  v44 = v50;
+  v45 = v49;
+  v46 = v51;
+  sub_24F926B08();
+  (*(v42 + 8))(v46, v7);
+  sub_24EE4E98C(v41, type metadata accessor for InviteFriendsPageView.ShelfListView);
+  v47 = v52;
+  (*(v40 + 16))(v17, v44, v52);
+  swift_storeEnumTagMultiPayload();
+  sub_24EE4E2C8();
+  v61 = v7;
+  *&v62 = &type metadata for IsDebugFocusOverlayEnabled;
+  *(&v62 + 1) = v45;
+  v63 = v48[0];
+  v64 = v36;
+  v65 = v43;
+  swift_getOpaqueTypeConformance2();
+  sub_24F924E28();
+  return (*(v40 + 8))(v44, v47);
+}
+
+uint64_t sub_24EE4419C(uint64_t a1)
+{
+  v2 = *(a1 - 8);
+  v3 = *(v2 + 64);
+  MEMORY[0x28223BE20](a1 - 8);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F21ED68, &unk_24F95E420);
+  MEMORY[0x28223BE20](v4);
+  v9[1] = *(v1 + *(type metadata accessor for Page(0) + 48));
+
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F21ED70, &qword_24F990C40);
+  sub_24E602068(&qword_27F21ED78, &qword_27F21ED70, &qword_24F990C40, MEMORY[0x277D83980]);
+  sub_24F921BA8();
+  swift_getKeyPath();
+  sub_24EE4A97C(v1, v9 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0), type metadata accessor for InviteFriendsPageView.PageContent);
+  v5 = (*(v2 + 80) + 16) & ~*(v2 + 80);
+  v6 = swift_allocObject();
+  sub_24EE4C4A4(v9 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0), v6 + v5, type metadata accessor for InviteFriendsPageView.PageContent);
+  v7 = swift_allocObject();
+  *(v7 + 16) = sub_24EE4C50C;
+  *(v7 + 24) = v6;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F2315A8, &qword_24F9A6720);
+  sub_24E602068(&qword_27F21ED88, &qword_27F21ED68, &unk_24F95E420, MEMORY[0x277D7EC38]);
+  sub_24E602068(&qword_27F2315B0, &qword_27F2315A8, &qword_24F9A6720, MEMORY[0x277D7EAD8]);
+  return sub_24F927228();
+}
+
+uint64_t sub_24EE44478@<X0>(uint64_t a1@<X8>)
+{
+  v28 = a1;
+  v30 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F2316C0, &qword_24F9A6A68);
+  v29 = *(v30 - 8);
+  MEMORY[0x28223BE20](v30);
+  v3 = &v25 - v2;
+  v26 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F2316C8, &qword_24F9A6A70);
+  MEMORY[0x28223BE20](v26);
+  v5 = &v25 - v4;
+  v27 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F2316D0, &qword_24F9A6A78);
+  v6 = *(v27 - 8);
+  MEMORY[0x28223BE20](v27);
+  v8 = &v25 - v7;
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F2316D8, &qword_24F9A6A80);
+  MEMORY[0x28223BE20](v9);
+  v11 = &v25 - v10;
+  v33 = v1;
+  v32 = v1;
+  v31 = v1;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F2316E0, &qword_24F9A6A88);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F2316E8, &unk_24F9A6A90);
+  sub_24EE4EDDC();
+  sub_24EE4EE94();
+  sub_24F925138();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F231730, &qword_24F9CFEA0);
+  inited = swift_initStackObject();
+  *(inited + 16) = xmmword_24F93A400;
+  v13 = sub_24F9257B8();
+  *(inited + 32) = v13;
+  v14 = sub_24F9257D8();
+  *(inited + 33) = v14;
+  sub_24F9257C8();
+  sub_24F9257C8();
+  if (sub_24F9257C8() != v13)
+  {
+    sub_24F9257C8();
+  }
+
+  sub_24F9257C8();
+  if (sub_24F9257C8() != v14)
+  {
+    sub_24F9257C8();
+  }
+
+  sub_24F927618();
+  sub_24EE4EFFC();
+  sub_24F9266F8();
+  sub_24E601704(v5, &qword_27F2316C8, &qword_24F9A6A70);
+  v15 = sub_24F924068();
+  v16 = sub_24F9257F8();
+  (*(v6 + 32))(v11, v8, v27);
+  v17 = &v11[*(v9 + 36)];
+  *v17 = v15;
+  v17[8] = v16;
+  v18 = sub_24EE4F0E0();
+  sub_24F9262E8();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F231758, &qword_24F9A6AD0);
+  v34 = v9;
+  v35 = v18;
+  OpaqueTypeConformance2 = swift_getOpaqueTypeConformance2();
+  v20 = sub_24E8F20E4();
+  v21 = __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27F231760, &unk_24F9A6AD8);
+  v22 = sub_24EE4F1A8();
+  v23 = v30;
+  v34 = v30;
+  v35 = &type metadata for IsDebugFocusOverlayEnabled;
+  v36 = v21;
+  v37 = OpaqueTypeConformance2;
+  v38 = v20;
+  v39 = v22;
+  swift_getOpaqueTypeConformance2();
+  sub_24F926B08();
+  (*(v29 + 8))(v3, v23);
+  return sub_24E601704(v11, &qword_27F2316D8, &qword_24F9A6A80);
+}
+
+uint64_t sub_24EE449A0@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
+{
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F211B58, &unk_24F935650);
+  v5 = *(v4 - 8);
+  MEMORY[0x28223BE20](v4);
+  v7 = &v24 - v6;
+  v25 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F2317B8, &qword_24F9A6B50);
+  MEMORY[0x28223BE20](v25);
+  v9 = &v24 - v8;
+  v10 = a1[3];
+  v11 = a1[4];
+  __swift_project_boxed_opaque_existential_1(a1, v10);
+  (*(v11 + 8))(v10, v11);
+  if (v12)
+  {
+    v24 = a2;
+    v13 = v4;
+    v15 = a1[3];
+    v14 = a1[4];
+    __swift_project_boxed_opaque_existential_1(a1, v15);
+    v26 = (*(v14 + 16))(v15, v14);
+    v27 = v16;
+    sub_24E600AEC();
+    sub_24F926EB8();
+    (*(v5 + 16))(v9, v7, v13);
+    swift_storeEnumTagMultiPayload();
+    sub_24E602068(&qword_27F212910, &qword_27F211B58, &unk_24F935650, MEMORY[0x277CDEFF0]);
+    sub_24F924E28();
+    return (*(v5 + 8))(v7, v13);
+  }
+
+  else
+  {
+    v18 = a1[3];
+    v19 = a1[4];
+    __swift_project_boxed_opaque_existential_1(a1, v18);
+    v26 = (*(v19 + 16))(v18, v19);
+    v27 = v20;
+    sub_24E600AEC();
+    *v9 = sub_24F925E18();
+    *(v9 + 1) = v21;
+    v9[16] = v22 & 1;
+    *(v9 + 3) = v23;
+    swift_storeEnumTagMultiPayload();
+    sub_24E602068(&qword_27F212910, &qword_27F211B58, &unk_24F935650, MEMORY[0x277CDEFF0]);
+    return sub_24F924E28();
+  }
+}
+
+uint64_t sub_24EE44CBC@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
+{
+  v4 = a1[3];
+  v5 = a1[4];
+  __swift_project_boxed_opaque_existential_1(a1, v4);
+  (*(v5 + 24))(a1[5], a1[6], v4, v5);
+  sub_24E600AEC();
+  result = sub_24F925E18();
+  *a2 = result;
+  *(a2 + 8) = v7;
+  *(a2 + 16) = v8 & 1;
+  *(a2 + 24) = v9;
+  return result;
+}
+
+uint64_t sub_24EE44D54@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
+{
+  v65 = sub_24F924C38();
+  v64 = *(v65 - 8);
+  MEMORY[0x28223BE20](v65);
+  v5 = &v59 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27F254FA0, &unk_24F945290);
+  MEMORY[0x28223BE20](v6 - 8);
+  v8 = &v59 - v7;
+  v62 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F231770, &qword_24F9A6AE8);
+  v61 = *(v62 - 8);
+  MEMORY[0x28223BE20](v62);
+  v10 = &v59 - v9;
+  v63 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F231778, &qword_24F9A6AF0);
+  MEMORY[0x28223BE20](v63);
+  v12 = &v59 - v11;
+  v68 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F231780, &unk_24F9A6AF8);
+  v67 = *(v68 - 8);
+  MEMORY[0x28223BE20](v68);
+  v66 = &v59 - v13;
+  v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F231708, &qword_24F9A6AA0);
+  v69 = *(v14 - 8);
+  v70 = v14;
+  MEMORY[0x28223BE20](v14);
+  v16 = &v59 - v15;
+  v17 = a1[3];
+  v18 = a1[4];
+  __swift_project_boxed_opaque_existential_1(a1, v17);
+  (*(v18 + 40))(&v73, v17, v18);
+  if (!*(&v74 + 1))
+  {
+    sub_24E601704(&v73, qword_27F21B590, &unk_24F93BE30);
+    return (*(v69 + 56))(a2, 1, 1, v70);
+  }
+
+  sub_24E612C80(&v73, v78);
+  v19 = a1[3];
+  v20 = a1[4];
+  __swift_project_boxed_opaque_existential_1(a1, v19);
+  v21 = (*(v20 + 32))(v19, v20);
+  if (!v22)
+  {
+    __swift_destroy_boxed_opaque_existential_1(v78);
+    return (*(v69 + 56))(a2, 1, 1, v70);
+  }
+
+  v23 = v21;
+  v24 = v22;
+  v60 = a2;
+  v25 = sub_24F9232F8();
+  (*(*(v25 - 8) + 56))(v8, 1, 1, v25);
+  sub_24E615E00(v78, v77);
+  sub_24EE4E454(a1, &v73);
+  v26 = swift_allocObject();
+  *(v26 + 16) = v23;
+  *(v26 + 24) = v24;
+  v27 = v74;
+  *(v26 + 32) = v73;
+  *(v26 + 48) = v27;
+  *(v26 + 64) = v75;
+  *(v26 + 80) = v76;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F231788, &qword_24F9A6B08);
+  v28 = __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27F231790, &unk_24F9A6B10);
+  v29 = sub_24E602068(&qword_27F231798, &qword_27F231790, &unk_24F9A6B10, MEMORY[0x277CE1138]);
+  v71 = v28;
+  v72 = v29;
+  swift_getOpaqueTypeConformance2();
+  sub_24F921788();
+  sub_24F924C28();
+  sub_24E602068(&qword_27F2317A0, &qword_27F231770, &qword_24F9A6AE8, MEMORY[0x277D7EB00]);
+  sub_24EE4A2A0(&qword_27F21A8C0, MEMORY[0x277CDDEE0], MEMORY[0x277CDDED0]);
+  v30 = v62;
+  v31 = v65;
+  sub_24F926178();
+  (*(v64 + 8))(v5, v31);
+  (*(v61 + 8))(v10, v30);
+  v32 = &v12[*(v63 + 36)];
+  v33 = *MEMORY[0x277CE0118];
+  v34 = sub_24F924B38();
+  v35 = *(*(v34 - 8) + 104);
+  v35(v32, v33, v34);
+  *&v32[*(__swift_instantiateConcreteTypeFromMangledNameV2(&unk_27F2552C0, &qword_24F951970) + 36)] = 256;
+  sub_24EE4F314();
+  v36 = v66;
+  sub_24F9268B8();
+  sub_24E601704(v12, &qword_27F231778, &qword_24F9A6AF0);
+  *(&v74 + 1) = sub_24F9271D8();
+  *&v75 = sub_24EE4A2A0(&qword_27F214E38, MEMORY[0x277CE1260], MEMORY[0x277CE1248]);
+  boxed_opaque_existential_1 = __swift_allocate_boxed_opaque_existential_1(&v73);
+  v35(boxed_opaque_existential_1, v33, v34);
+  sub_24E60169C(&v73, v16, &qword_27F2317B0, &qword_24F9A6B20);
+  v38 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F231728, &unk_24F9A6AB0);
+  v39 = v67;
+  v40 = v68;
+  (*(v67 + 16))(&v16[v38[9]], v36, v68);
+  v41 = &v16[v38[10]];
+  *v41 = sub_24F923398() & 1;
+  *(v41 + 1) = v42;
+  v41[16] = v43 & 1;
+  v44 = &v16[v38[11]];
+  *v44 = swift_getKeyPath();
+  v44[8] = 0;
+  if (qword_27F211808 != -1)
+  {
+    swift_once();
+  }
+
+  v45 = qword_27F24E488;
+  v46 = sub_24F923398();
+  v48 = v47;
+  v50 = v49;
+  v51 = &v16[*(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F231718, &qword_24F9A6AA8) + 36)];
+  *v51 = v45;
+  v51[8] = v46 & 1;
+  *(v51 + 2) = v48;
+  v51[24] = v50 & 1;
+  LOBYTE(v45) = sub_24F923398();
+  v53 = v52;
+  LOBYTE(v48) = v54;
+  sub_24E601704(&v73, &qword_27F2317B0, &qword_24F9A6B20);
+  (*(v39 + 8))(v36, v40);
+  __swift_destroy_boxed_opaque_existential_1(v78);
+  v55 = v70;
+  v56 = &v16[*(v70 + 36)];
+  *v56 = v45 & 1;
+  *(v56 + 1) = v53;
+  v56[16] = v48 & 1;
+  v57 = v60;
+  sub_24EE4F494(v16, v60);
+  return (*(v69 + 56))(v57, 0, 1, v55);
+}
+
+double sub_24EE45620@<D0>(void *a3@<X2>, uint64_t a4@<X8>)
+{
+  v15 = a4;
+  v16 = sub_24F9248C8();
+  v5 = *(v16 - 8);
+  MEMORY[0x28223BE20](v16);
+  v7 = &v15 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = sub_24F9249A8();
+  sub_24EE457D8(a3, &v17);
+  v9 = v17;
+  v10 = v18;
+  v11 = v19;
+  v13 = v20;
+  v12 = v21;
+  v26 = 1;
+  v25 = v19;
+  sub_24F9248B8();
+  v17 = v8;
+  v18 = 0;
+  v19 = 1;
+  v20 = v9;
+  v21 = v10;
+  v22 = v11;
+  v23 = v13;
+  v24 = v12;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F231790, &unk_24F9A6B10);
+  sub_24E602068(&qword_27F231798, &qword_27F231790, &unk_24F9A6B10, MEMORY[0x277CE1138]);
+  _s7SwiftUI4ViewP12GameStoreKitE18componentFocusable_12interactionsQrSb_AA17FocusInteractionsVtF_0();
+  (*(v5 + 8))(v7, v16);
+  sub_24E600B40(v9, v10, v11);
+
+  return result;
+}
+
+uint64_t sub_24EE457D8@<X0>(void *a3@<X2>, uint64_t a4@<X8>)
+{
+  sub_24E600AEC();
+
+  v6 = sub_24F925E18();
+  v8 = v7;
+  v10 = v9;
+  v12 = v11;
+  v13 = a3[3];
+  v14 = a3[4];
+  __swift_project_boxed_opaque_existential_1(a3, v13);
+  (*(v14 + 48))(v13, v14);
+  if (v15)
+  {
+    v16 = sub_24F926E48();
+  }
+
+  else
+  {
+    v16 = 0;
+  }
+
+  v17 = v10 & 1;
+  sub_24E5FD138(v6, v8, v17);
+  *a4 = v6;
+  *(a4 + 8) = v8;
+  *(a4 + 16) = v17;
+  *(a4 + 24) = v12;
+  *(a4 + 32) = v16;
+
+  sub_24E600B40(v6, v8, v17);
+}
+
+uint64_t sub_24EE458EC@<X0>(uint64_t a1@<X8>)
+{
+  v2 = v1;
+  v56 = a1;
+  v57 = sub_24F925128();
+  v55 = *(v57 - 8);
+  MEMORY[0x28223BE20](v57);
+  v54 = &v40 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v4 = sub_24F924118();
+  v5 = *(v4 - 8);
+  v52 = v4;
+  v53 = v5;
+  MEMORY[0x28223BE20](v4);
+  v50 = &v40 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v42 = sub_24F923C68();
+  v44 = *(v42 - 8);
+  MEMORY[0x28223BE20](v42);
+  v8 = &v40 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F2317C0, &qword_24F9A6B58);
+  v41 = *(v9 - 8);
+  MEMORY[0x28223BE20](v9);
+  v11 = &v40 - v10;
+  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F2317C8, &qword_24F9A6B60);
+  v46 = *(v12 - 8);
+  MEMORY[0x28223BE20](v12);
+  v14 = &v40 - v13;
+  v43 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F2317D0, &qword_24F9A6B68);
+  v45 = *(v43 - 8);
+  MEMORY[0x28223BE20](v43);
+  v16 = &v40 - v15;
+  v17 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F2317D8, &qword_24F9A6B70);
+  v18 = *(v17 - 8);
+  v47 = v17;
+  v48 = v18;
+  MEMORY[0x28223BE20](v17);
+  v20 = &v40 - v19;
+  v49 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F2317E0, &qword_24F9A6B78);
+  v51 = *(v49 - 8);
+  MEMORY[0x28223BE20](v49);
+  v40 = &v40 - v21;
+  v58 = v2;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F2317E8, &qword_24F9A6B80);
+  sub_24E602068(&qword_27F2317F0, &qword_27F2317E8, &qword_24F9A6B80, MEMORY[0x277CE14C0]);
+  sub_24F925A98();
+  sub_24F923C58();
+  v22 = sub_24E602068(&qword_27F2317F8, &qword_27F2317C0, &qword_24F9A6B58, MEMORY[0x277CDE5A0]);
+  v23 = MEMORY[0x277CDD980];
+  v24 = v42;
+  sub_24F926B98();
+  (*(v44 + 8))(v8, v24);
+  (*(v41 + 8))(v11, v9);
+  v25 = v50;
+  sub_24F924108();
+  v59 = v9;
+  v60 = v24;
+  v61 = v22;
+  v62 = v23;
+  OpaqueTypeConformance2 = swift_getOpaqueTypeConformance2();
+  v27 = MEMORY[0x277CDDAC8];
+  v28 = v52;
+  sub_24F926B98();
+  (*(v53 + 8))(v25, v28);
+  (*(v46 + 8))(v14, v12);
+  v59 = v12;
+  v60 = v28;
+  v61 = OpaqueTypeConformance2;
+  v62 = v27;
+  v29 = swift_getOpaqueTypeConformance2();
+  v30 = v43;
+  sub_24F926688();
+  (*(v45 + 8))(v16, v30);
+  v59 = v30;
+  v60 = v29;
+  v31 = swift_getOpaqueTypeConformance2();
+  v32 = v40;
+  v33 = v47;
+  sub_24F926778();
+  v34 = v33;
+  (*(v48 + 8))(v20, v33);
+  v35 = sub_24F925818();
+  v36 = v54;
+  sub_24F925118();
+  v59 = v34;
+  v60 = v31;
+  v37 = swift_getOpaqueTypeConformance2();
+  v38 = v49;
+  MEMORY[0x25304BCF0](v35, 0, 0, v36, v49, v37);
+  (*(v55 + 8))(v36, v57);
+  return (*(v51 + 8))(v32, v38);
+}
+
+uint64_t sub_24EE46048@<X0>(uint64_t a1@<X0>, char *a2@<X8>)
+{
+  v42 = a2;
+  v3 = type metadata accessor for InviteFriendsPageView.ShelfListView(0);
+  v36 = *(v3 - 8);
+  v4 = *(v36 + 64);
+  MEMORY[0x28223BE20](v3 - 8);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F231800, &qword_24F9A6B88);
+  MEMORY[0x28223BE20](v5);
+  v7 = v35 - v6;
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F231808, &qword_24F9A6B90);
+  v40 = *(v8 - 8);
+  v41 = v8;
+  MEMORY[0x28223BE20](v8);
+  v39 = v35 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v10);
+  v44 = v35 - v11;
+  v12 = type metadata accessor for InviteFriendsPageView.ShelfHeaderView(0);
+  MEMORY[0x28223BE20](v12);
+  v14 = v35 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v38 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F231810, &qword_24F9A6B98);
+  v43 = *(v38 - 8);
+  MEMORY[0x28223BE20](v38);
+  v37 = v35 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v16);
+  v18 = v35 - v17;
+  sub_24EE4A97C(a1, v14, type metadata accessor for GSKShelf);
+  sub_24F923838();
+  sub_24EE4A2A0(&qword_27F231818, type metadata accessor for InviteFriendsPageView.ShelfHeaderView, &unk_24F9A6D78);
+  v35[0] = v18;
+  sub_24F9264B8();
+  sub_24EE4E98C(v14, type metadata accessor for InviteFriendsPageView.ShelfHeaderView);
+  v45 = *(a1 + *(type metadata accessor for GSKShelf(0) + 60));
+  v35[1] = swift_getKeyPath();
+  sub_24EE4A97C(a1, v35 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0), type metadata accessor for InviteFriendsPageView.ShelfListView);
+  v19 = (*(v36 + 80) + 16) & ~*(v36 + 80);
+  v20 = swift_allocObject();
+  sub_24EE4C4A4(v35 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0), v20 + v19, type metadata accessor for InviteFriendsPageView.ShelfListView);
+
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F22FB80, &qword_24F99E190);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F231820, &qword_24F9A6BD0);
+  sub_24E602068(&qword_27F22FB78, &qword_27F22FB80, &qword_24F99E190, MEMORY[0x277D83980]);
+  sub_24E602068(&qword_27F231828, &qword_27F231820, &qword_24F9A6BD0, MEMORY[0x277CE14C0]);
+  sub_24F927228();
+  *&v7[*(v5 + 36)] = sub_24F927158();
+  sub_24F923838();
+  sub_24EE50A6C();
+  v21 = v44;
+  sub_24F9264B8();
+  sub_24E601704(v7, &qword_27F231800, &qword_24F9A6B88);
+  v22 = *(v43 + 16);
+  v23 = v37;
+  v24 = v18;
+  v25 = v38;
+  v22(v37, v24, v38);
+  v26 = v39;
+  v27 = v40;
+  v28 = *(v40 + 16);
+  v29 = v41;
+  v28(v39, v21, v41);
+  v30 = v42;
+  v22(v42, v23, v25);
+  v31 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F231858, &qword_24F9A6BE8);
+  v28(&v30[*(v31 + 48)], v26, v29);
+  v32 = *(v27 + 8);
+  v32(v44, v29);
+  v33 = *(v43 + 8);
+  v33(v35[0], v25);
+  v32(v26, v29);
+  return v33(v23, v25);
+}
+
 uint64_t sub_24EE46654@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
   v73 = a2;
   v88 = a3;
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F231860);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F231860, &qword_24F9A6BF0);
   v86 = *(v4 - 8);
   v87 = v4;
   MEMORY[0x28223BE20](v4);
   v75 = &v70 - v5;
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F231868);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F231868, &qword_24F9A6BF8);
   MEMORY[0x28223BE20](v6 - 8);
   v83 = &v70 - v7;
   v8 = type metadata accessor for InviteFriendsCardComponent(0);
@@ -15,7 +3114,7 @@ uint64_t sub_24EE46654@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>
   v81 = v8;
   MEMORY[0x28223BE20](v8);
   v74 = &v70 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F231870);
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F231870, &qword_24F9A6C00);
   MEMORY[0x28223BE20](v10 - 8);
   v85 = &v70 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x28223BE20](v12);
@@ -34,28 +3133,28 @@ uint64_t sub_24EE46654@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>
   v22 = type metadata accessor for FriendSuggestion(0);
   MEMORY[0x28223BE20](v22);
   v24 = (&v70 - ((v23 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v25 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F231878);
+  v25 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F231878, &qword_24F9A6C08);
   MEMORY[0x28223BE20](v25 - 8);
   v27 = &v70 - v26;
   v28 = type metadata accessor for InviteFriendsRow(0);
   v29 = *(v28 - 8);
   MEMORY[0x28223BE20](v28);
   v31 = &v70 - ((v30 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v32 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F231880);
+  v32 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F231880, &unk_24F9A6C10);
   MEMORY[0x28223BE20](v32 - 8);
   v79 = &v70 - ((v33 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x28223BE20](v34);
   v36 = &v70 - v35;
   v82 = a1;
   sub_24E615E00(a1, &KeyPath);
-  v76 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27F23A6A0);
+  v76 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27F23A6A0, &unk_24F9549D0);
   v37 = swift_dynamicCast();
   v38 = *(v29 + 56);
   if ((v37 & 1) == 0)
   {
     v46 = 1;
     v38(v27, 1, 1, v28);
-    sub_24E601704(v27, &qword_27F231878);
+    sub_24E601704(v27, &qword_27F231878, &qword_24F9A6C08);
     v47 = v84;
     v48 = v81;
 LABEL_8:
@@ -74,7 +3173,7 @@ LABEL_8:
   v73 = v40;
   v71 = v42;
   v93 = v42;
-  v70 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F231898);
+  v70 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F231898, &unk_24F9A6C50);
   MEMORY[0x25304CAF0](&v89);
   v43 = v89;
   sub_24EE4A97C(&v31[*(v28 + 20)], v24, type metadata accessor for FriendSuggestion);
@@ -123,7 +3222,7 @@ LABEL_8:
   *(v55 + 40) = 0;
   v56 = *(v53 + 28);
   *(v51 + v56) = swift_getKeyPath();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F212938);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F212938, &qword_24F939770);
   swift_storeEnumTagMultiPayload();
   sub_24EE4C4A4(v51, v36, type metadata accessor for InviteFriendsPageView.InviteFriendsRowView);
   v50 = v53;
@@ -156,42 +3255,42 @@ LABEL_10:
   {
     v64 = 1;
     v59(v57, 1, 1, v48);
-    sub_24E601704(v57, &qword_27F231868);
+    sub_24E601704(v57, &qword_27F231868, &qword_24F9A6BF8);
     v63 = v87;
   }
 
   (*(v60 + 56))(v47, v64, 1, v63);
   v65 = v79;
-  sub_24E60169C(v36, v79, &qword_27F231880);
+  sub_24E60169C(v36, v79, &qword_27F231880, &unk_24F9A6C10);
   v66 = v85;
-  sub_24E60169C(v47, v85, &qword_27F231870);
+  sub_24E60169C(v47, v85, &qword_27F231870, &qword_24F9A6C00);
   v67 = v88;
-  sub_24E60169C(v65, v88, &qword_27F231880);
-  v68 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F231888);
-  sub_24E60169C(v66, v67 + *(v68 + 48), &qword_27F231870);
-  sub_24E601704(v47, &qword_27F231870);
-  sub_24E601704(v36, &qword_27F231880);
-  sub_24E601704(v66, &qword_27F231870);
-  return sub_24E601704(v65, &qword_27F231880);
+  sub_24E60169C(v65, v88, &qword_27F231880, &unk_24F9A6C10);
+  v68 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F231888, &qword_24F9A6C20);
+  sub_24E60169C(v66, v67 + *(v68 + 48), &qword_27F231870, &qword_24F9A6C00);
+  sub_24E601704(v47, &qword_27F231870, &qword_24F9A6C00);
+  sub_24E601704(v36, &qword_27F231880, &unk_24F9A6C10);
+  sub_24E601704(v66, &qword_27F231870, &qword_24F9A6C00);
+  return sub_24E601704(v65, &qword_27F231880, &unk_24F9A6C10);
 }
 
 uint64_t sub_24EE470DC@<X0>(uint64_t a1@<X8>)
 {
   v33 = a1;
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F223138);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F223138, &unk_24F972860);
   MEMORY[0x28223BE20](v2 - 8);
   v4 = (&v31 - v3);
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F231990);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F231990, &qword_24F9A6DE0);
   v31 = *(v5 - 8);
   v32 = v5;
   MEMORY[0x28223BE20](v5);
   v7 = &v31 - v6;
-  v8 = type metadata accessor for GSKShelf();
-  sub_24E60169C(v1 + *(v8 + 24), v4, &qword_27F223138);
+  v8 = type metadata accessor for GSKShelf(0);
+  sub_24E60169C(v1 + *(v8 + 24), v4, &qword_27F223138, &unk_24F972860);
   v9 = type metadata accessor for HeaderPresentation.HeaderLabel(0);
   if ((*(*(v9 - 8) + 48))(v4, 1, v9) == 1)
   {
-    sub_24E601704(v4, &qword_27F223138);
+    sub_24E601704(v4, &qword_27F223138, &unk_24F972860);
     if (qword_27F211668 != -1)
     {
       swift_once();
@@ -236,7 +3335,7 @@ uint64_t sub_24EE470DC@<X0>(uint64_t a1@<X8>)
   v37 = v28;
   v38 = v29;
   sub_24F923838();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F231998);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F231998, &qword_24F9A6DE8);
   sub_24EE51BF8();
   sub_24F9264B8();
   sub_24E600B40(v22, v24, v26);
@@ -254,18 +3353,18 @@ uint64_t sub_24EE47430@<X0>(uint64_t a1@<X8>)
   v3 = type metadata accessor for InviteFriendsRowComponent(0);
   MEMORY[0x28223BE20](v3);
   v5 = (&v23 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F231A60);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F231A60, &qword_24F9A6E58);
   v7 = *(v6 - 8);
   MEMORY[0x28223BE20](v6);
   v9 = &v23 - v8;
-  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F231A68);
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F231A68, &qword_24F9A6E60);
   v11 = *(v10 - 8);
   v24 = v10;
   v25 = v11;
   MEMORY[0x28223BE20](v10);
   v13 = &v23 - v12;
   *v5 = swift_getKeyPath();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F216898);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F216898, &unk_24F944150);
   swift_storeEnumTagMultiPayload();
   v31 = 0x402E000000000000;
   sub_24E66ED98();
@@ -276,27 +3375,27 @@ uint64_t sub_24EE47430@<X0>(uint64_t a1@<X8>)
   *(v5 + v14) = sub_24F9258D8();
   v15 = v3[9];
   *(v5 + v15) = sub_24F925A18();
-  v16 = sub_24EE4A2A0(&qword_27F231A70, type metadata accessor for InviteFriendsRowComponent);
+  v16 = sub_24EE4A2A0(&qword_27F231A70, type metadata accessor for InviteFriendsRowComponent, &unk_24FA23C94);
   sub_24F921D38();
   sub_24EE4E98C(v5, type metadata accessor for InviteFriendsRowComponent);
   v30 = v1;
-  v17 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F231A78);
+  v17 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F231A78, &qword_24F9A6E68);
   v31 = v3;
   v32 = v16;
   OpaqueTypeConformance2 = swift_getOpaqueTypeConformance2();
-  v19 = sub_24EE523FC(&qword_27F231A80, &qword_27F231A78, &unk_24F9A6E68, sub_24EE52478);
+  v19 = sub_24EE523FC(&qword_27F231A80, &qword_27F231A78, &qword_24F9A6E68, sub_24EE52478);
   sub_24F926198();
   (*(v7 + 8))(v9, v6);
   v20 = v23;
   sub_24F924928();
   v29 = v1;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F231A98);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F231A98, &qword_24F9A6E78);
   v31 = v6;
   v32 = v17;
   v33 = OpaqueTypeConformance2;
   v34 = v19;
   swift_getOpaqueTypeConformance2();
-  sub_24EE523FC(&qword_27F231AA0, &qword_27F231A98, &unk_24F9A6E78, sub_24EE52564);
+  sub_24EE523FC(&qword_27F231AA0, &qword_27F231A98, &qword_24F9A6E78, sub_24EE52564);
   v21 = v24;
   sub_24F9262C8();
   (*(v26 + 8))(v20, v28);
@@ -305,79 +3404,79 @@ uint64_t sub_24EE47430@<X0>(uint64_t a1@<X8>)
 
 uint64_t sub_24EE47900@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
 {
-  v4 = type metadata accessor for InviteFriendsPageView.InviteFriendsRowView(0);
-  v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
-  MEMORY[0x28223BE20](v4 - 8);
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F231A90);
-  v8 = *(v7 - 8);
-  MEMORY[0x28223BE20](v7);
-  v10 = &v17 - v9;
-  v11 = type metadata accessor for InviteFriendsRow(0);
-  sub_24E60169C(a1 + *(v11 + 52), &v17, &qword_27F213EA8);
-  if (v18)
+  v5 = type metadata accessor for InviteFriendsPageView.InviteFriendsRowView(0);
+  v6 = *(v5 - 8);
+  v7 = *(v6 + 64);
+  MEMORY[0x28223BE20](v5 - 8);
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F231A90, &qword_24F9A6E70);
+  v9 = *(v8 - 8);
+  MEMORY[0x28223BE20](v8);
+  v11 = &v18 - v10;
+  v12 = type metadata accessor for InviteFriendsRow(0);
+  sub_24E60169C(a1 + *(v12 + 52), &v18, &qword_27F213EA8, &unk_24F93D030);
+  if (v19)
   {
-    sub_24E612C80(&v17, v19);
-    sub_24EE4A97C(a1, &v17 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0), type metadata accessor for InviteFriendsPageView.InviteFriendsRowView);
-    sub_24E615E00(v19, &v17);
-    v12 = (*(v5 + 80) + 16) & ~*(v5 + 80);
-    v13 = swift_allocObject();
-    sub_24EE4C4A4(&v17 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0), v13 + v12, type metadata accessor for InviteFriendsPageView.InviteFriendsRowView);
-    sub_24E612C80(&v17, v13 + ((v6 + v12 + 7) & 0xFFFFFFFFFFFFFFF8));
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F211B58);
-    sub_24E602068(&qword_27F212910, &qword_27F211B58);
+    sub_24E612C80(&v18, v20);
+    sub_24EE4A97C(a1, &v18 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0), type metadata accessor for InviteFriendsPageView.InviteFriendsRowView);
+    sub_24E615E00(v20, &v18);
+    v13 = (*(v6 + 80) + 16) & ~*(v6 + 80);
+    v14 = swift_allocObject();
+    sub_24EE4C4A4(&v18 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0), v14 + v13, type metadata accessor for InviteFriendsPageView.InviteFriendsRowView);
+    sub_24E612C80(&v18, v14 + ((v7 + v13 + 7) & 0xFFFFFFFFFFFFFFF8));
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F211B58, &unk_24F935650);
+    sub_24E602068(&qword_27F212910, &qword_27F211B58, &unk_24F935650, MEMORY[0x277CDEFF0]);
     sub_24F926F88();
-    __swift_destroy_boxed_opaque_existential_1(v19);
+    __swift_destroy_boxed_opaque_existential_1(v20);
     KeyPath = swift_getKeyPath();
-    v15 = &v10[*(v7 + 36)];
-    *v15 = KeyPath;
-    v15[1] = 0;
-    sub_24E6009C8(v10, a2, &qword_27F231A90);
-    return (*(v8 + 56))(a2, 0, 1, v7);
+    v16 = &v11[*(v8 + 36)];
+    *v16 = KeyPath;
+    v16[1] = 0;
+    sub_24E6009C8(v11, a2, &qword_27F231A90, &qword_24F9A6E70);
+    return (*(v9 + 56))(a2, 0, 1, v8);
   }
 
   else
   {
-    sub_24E601704(&v17, qword_27F21B590);
-    return (*(v8 + 56))(a2, 1, 1, v7);
+    sub_24E601704(&v18, qword_27F21B590, &unk_24F93BE30);
+    return (*(v9 + 56))(a2, 1, 1, v8);
   }
 }
 
 uint64_t sub_24EE47C04@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
 {
-  v4 = type metadata accessor for InviteFriendsPageView.InviteFriendsRowView(0);
-  v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
-  MEMORY[0x28223BE20](v4 - 8);
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F231AB0);
-  v8 = *(v7 - 8);
-  MEMORY[0x28223BE20](v7);
-  v10 = &v17 - v9;
-  v11 = type metadata accessor for InviteFriendsRow(0);
-  sub_24E60169C(a1 + *(v11 + 52), &v17, &qword_27F213EA8);
-  if (v18)
+  v5 = type metadata accessor for InviteFriendsPageView.InviteFriendsRowView(0);
+  v6 = *(v5 - 8);
+  v7 = *(v6 + 64);
+  MEMORY[0x28223BE20](v5 - 8);
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F231AB0, &qword_24F9A6E80);
+  v9 = *(v8 - 8);
+  MEMORY[0x28223BE20](v8);
+  v11 = &v18 - v10;
+  v12 = type metadata accessor for InviteFriendsRow(0);
+  sub_24E60169C(a1 + *(v12 + 52), &v18, &qword_27F213EA8, &unk_24F93D030);
+  if (v19)
   {
-    sub_24E612C80(&v17, v19);
-    sub_24EE4A97C(a1, &v17 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0), type metadata accessor for InviteFriendsPageView.InviteFriendsRowView);
-    sub_24E615E00(v19, &v17);
-    v12 = (*(v5 + 80) + 16) & ~*(v5 + 80);
-    v13 = swift_allocObject();
-    sub_24EE4C4A4(&v17 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0), v13 + v12, type metadata accessor for InviteFriendsPageView.InviteFriendsRowView);
-    sub_24E612C80(&v17, v13 + ((v6 + v12 + 7) & 0xFFFFFFFFFFFFFFF8));
+    sub_24E612C80(&v18, v20);
+    sub_24EE4A97C(a1, &v18 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0), type metadata accessor for InviteFriendsPageView.InviteFriendsRowView);
+    sub_24E615E00(v20, &v18);
+    v13 = (*(v6 + 80) + 16) & ~*(v6 + 80);
+    v14 = swift_allocObject();
+    sub_24EE4C4A4(&v18 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0), v14 + v13, type metadata accessor for InviteFriendsPageView.InviteFriendsRowView);
+    sub_24E612C80(&v18, v14 + ((v7 + v13 + 7) & 0xFFFFFFFFFFFFFFF8));
     sub_24F926F88();
-    __swift_destroy_boxed_opaque_existential_1(v19);
+    __swift_destroy_boxed_opaque_existential_1(v20);
     KeyPath = swift_getKeyPath();
-    v15 = &v10[*(v7 + 36)];
-    *v15 = KeyPath;
-    v15[1] = 0;
-    sub_24E6009C8(v10, a2, &qword_27F231AB0);
-    return (*(v8 + 56))(a2, 0, 1, v7);
+    v16 = &v11[*(v8 + 36)];
+    *v16 = KeyPath;
+    v16[1] = 0;
+    sub_24E6009C8(v11, a2, &qword_27F231AB0, &qword_24F9A6E80);
+    return (*(v9 + 56))(a2, 0, 1, v8);
   }
 
   else
   {
-    sub_24E601704(&v17, qword_27F21B590);
-    return (*(v8 + 56))(a2, 1, 1, v7);
+    sub_24E601704(&v18, qword_27F21B590, &unk_24F93BE30);
+    return (*(v9 + 56))(a2, 1, 1, v8);
   }
 }
 
@@ -387,7 +3486,7 @@ uint64_t sub_24EE47EC8(uint64_t a1, uint64_t a2)
   v30 = sub_24F921B58();
   v28 = *(v30 - 8);
   MEMORY[0x28223BE20](v30);
-  v27 = v26 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v27 = (v26 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0));
   v4 = type metadata accessor for ActivityFriendSuggestion(0);
   MEMORY[0x28223BE20](v4 - 8);
   v6 = (v26 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0));
@@ -409,7 +3508,7 @@ uint64_t sub_24EE47EC8(uint64_t a1, uint64_t a2)
     v32 = v15;
     v33 = v16;
 
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F231898);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F231898, &unk_24F9A6C50);
     MEMORY[0x25304CAF0](&v39);
     sub_24ED7C5F0(&v40, v11, v12);
 
@@ -437,7 +3536,7 @@ uint64_t sub_24EE47EC8(uint64_t a1, uint64_t a2)
     v32 = v22;
     v33 = v23;
 
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F231898);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F231898, &unk_24F9A6C50);
     MEMORY[0x25304CAF0](&v39);
     sub_24ED7C5F0(&v40, v18, v17);
 
@@ -452,7 +3551,7 @@ uint64_t sub_24EE47EC8(uint64_t a1, uint64_t a2)
   sub_24F7695C8(&v31);
   if (!v34)
   {
-    return sub_24E601704(&v31, &unk_27F212740);
+    return sub_24E601704(&v31, &unk_27F212740, &unk_24F940730);
   }
 
   __swift_project_boxed_opaque_existential_1(&v31, v34);
@@ -487,11 +3586,11 @@ uint64_t sub_24EE48390(uint64_t a1, int8x16_t *a2)
   return sub_24EE4A814(v5, v7) & 1;
 }
 
-uint64_t sub_24EE483DC@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X8>)
+double sub_24EE483DC@<D0>(uint64_t *a1@<X0>, uint64_t a2@<X8>)
 {
   v3 = *a1;
   swift_getKeyPath();
-  sub_24EE4A2A0(&qword_27F231520, type metadata accessor for InviteFriendsSearchPagePresenter);
+  sub_24EE4A2A0(&qword_27F231520, type metadata accessor for InviteFriendsSearchPagePresenter, &unk_24F9A66E4);
   sub_24F91FD88();
 
   v4 = *(v3 + 16);
@@ -507,7 +3606,7 @@ uint64_t sub_24EE483DC@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X8>)
   return sub_24EE4E888(v4, v5, v6, v7, v8);
 }
 
-uint64_t sub_24EE48498(int8x16_t *a1)
+void sub_24EE48498(int8x16_t *a1)
 {
   v3 = *(v1 + 16);
   v4 = *(v1 + 24);
@@ -562,9 +3661,11 @@ LABEL_19:
 LABEL_28:
         KeyPath = swift_getKeyPath();
         MEMORY[0x28223BE20](KeyPath);
-        sub_24EE4A2A0(&qword_27F231520, type metadata accessor for InviteFriendsSearchPagePresenter);
+        sub_24EE4A2A0(&qword_27F231520, type metadata accessor for InviteFriendsSearchPagePresenter, &unk_24F9A66E4);
         sub_24F91FD78();
         sub_24EE4E820(a1);
+
+        return;
       }
     }
 
@@ -597,12 +3698,12 @@ LABEL_28:
   }
 
 LABEL_30:
-  v15 = a1[1];
+  v14 = a1[1];
   *(v1 + 16) = *a1;
-  *(v1 + 32) = v15;
+  *(v1 + 32) = v14;
   *(v1 + 48) = a1[2].i8[0];
 
-  return sub_24EE4E740(v3, v4, v5, v6, v7);
+  sub_24EE4E740(v3, v4, v5, v6, v7);
 }
 
 uint64_t sub_24EE48710(uint64_t a1, uint64_t a2)
@@ -620,46 +3721,43 @@ uint64_t sub_24EE48710(uint64_t a1, uint64_t a2)
   return sub_24EE4E740(v2, v3, v4, v5, v7);
 }
 
-uint64_t sub_24EE48790@<X0>(uint64_t *a1@<X0>, _BYTE *a2@<X8>)
+void sub_24EE48790(uint64_t *a1@<X0>, _BYTE *a2@<X8>)
 {
   v3 = *a1;
   swift_getKeyPath();
-  sub_24EE4A2A0(&qword_27F231520, type metadata accessor for InviteFriendsSearchPagePresenter);
+  sub_24EE4A2A0(&qword_27F231520, type metadata accessor for InviteFriendsSearchPagePresenter, &unk_24F9A66E4);
   sub_24F91FD88();
 
   *a2 = *(v3 + 49);
-  return result;
 }
 
-uint64_t sub_24EE48838(uint64_t result)
+void sub_24EE48838(char a1)
 {
-  if (*(v1 + 49) == (result & 1))
+  if (*(v1 + 49) == (a1 & 1))
   {
-    *(v1 + 49) = result & 1;
+    *(v1 + 49) = a1 & 1;
   }
 
   else
   {
     KeyPath = swift_getKeyPath();
     MEMORY[0x28223BE20](KeyPath);
-    sub_24EE4A2A0(&qword_27F231520, type metadata accessor for InviteFriendsSearchPagePresenter);
+    sub_24EE4A2A0(&qword_27F231520, type metadata accessor for InviteFriendsSearchPagePresenter, &unk_24F9A66E4);
     sub_24F91FD78();
   }
-
-  return result;
 }
 
 uint64_t sub_24EE48948()
 {
-  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F231690);
+  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F231690, &unk_24FA117F0);
   v2 = *(v1 - 8);
   MEMORY[0x28223BE20](v1);
   v4 = &v14 - v3;
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F21EC40);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F21EC40, &qword_24F96E190);
   v6 = *(v5 - 8);
   MEMORY[0x28223BE20](v5);
   v8 = &v14 - v7;
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F21D8E8);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F21D8E8, &unk_24F9F7350);
   v10 = *(v9 - 8);
   MEMORY[0x28223BE20](v9);
   v12 = &v14 - v11;
@@ -679,7 +3777,7 @@ uint64_t sub_24EE48948()
 uint64_t sub_24EE48BD4()
 {
   v1 = v0;
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F21EC40);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F21EC40, &qword_24F96E190);
   v3 = *(v2 - 8);
   v4 = MEMORY[0x28223BE20](v2);
   v6 = &v14 - v5;
@@ -690,7 +3788,7 @@ uint64_t sub_24EE48BD4()
   v8(v6, v2);
   sub_24EE4E740(*(v1 + 16), *(v1 + 24), *(v1 + 32), *(v1 + 40), *(v1 + 48));
   v9 = OBJC_IVAR____TtC12GameStoreKitP33_7A10BEAB54B6DC2FC53A714895EAB37132InviteFriendsSearchPagePresenter_searchTermStream;
-  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F21D8E8);
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F21D8E8, &unk_24F9F7350);
   (*(*(v10 - 8) + 8))(v1 + v9, v10);
   v8((v1 + v7), v2);
   v11 = OBJC_IVAR____TtC12GameStoreKitP33_7A10BEAB54B6DC2FC53A714895EAB37132InviteFriendsSearchPagePresenter___observationRegistrar;
@@ -702,13 +3800,13 @@ uint64_t sub_24EE48BD4()
 uint64_t sub_24EE48DB4(uint64_t a1, unint64_t a2)
 {
   v3 = v2;
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F231660);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F231660, &qword_24F9A67D0);
   v7 = *(v6 - 8);
   MEMORY[0x28223BE20](v6);
   v9 = v18 - v8;
   swift_getKeyPath();
   v21.i64[0] = v2;
-  sub_24EE4A2A0(&qword_27F231520, type metadata accessor for InviteFriendsSearchPagePresenter);
+  sub_24EE4A2A0(&qword_27F231520, type metadata accessor for InviteFriendsSearchPagePresenter, &unk_24F9A66E4);
   sub_24F91FD88();
 
   v11 = *(v2 + 16);
@@ -773,7 +3871,7 @@ LABEL_26:
           v19 = a1;
           v20 = a2;
 
-          __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F21EC40);
+          __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F21EC40, &qword_24F96E190);
           sub_24F92B8C8();
           return (*(v7 + 8))(v9, v6);
         }
@@ -826,73 +3924,71 @@ LABEL_26:
   return result;
 }
 
-uint64_t sub_24EE49198@<X0>(uint64_t *a1@<X8>)
+void sub_24EE49198(uint64_t *a2@<X8>)
 {
   swift_beginAccess();
-  result = swift_weakLoadStrong();
-  if (!result)
+  Strong = swift_weakLoadStrong();
+  if (!Strong)
   {
     goto LABEL_6;
   }
 
-  v3 = result;
+  v4 = Strong;
   swift_getKeyPath();
-  sub_24EE4A2A0(&qword_27F231520, type metadata accessor for InviteFriendsSearchPagePresenter);
+  sub_24EE4A2A0(&qword_27F231520, type metadata accessor for InviteFriendsSearchPagePresenter, &unk_24F9A66E4);
   sub_24F91FD88();
 
-  v4 = *(v3 + 16);
-  v5 = *(v3 + 24);
-  v6 = *(v3 + 32);
-  v7 = *(v3 + 40);
-  v8 = *(v3 + 48);
-  sub_24EE4E888(v4, v5, v6, v7, *(v3 + 48));
+  v5 = *(v4 + 16);
+  v6 = *(v4 + 24);
+  v7 = *(v4 + 32);
+  v8 = *(v4 + 40);
+  v9 = *(v4 + 48);
+  sub_24EE4E888(v5, v6, v7, v8, *(v4 + 48));
 
-  if (!v8)
+  if (!v9)
   {
     goto LABEL_7;
   }
 
-  if (v8 != 1)
+  if (v9 != 1)
   {
 LABEL_6:
-    v4 = 0;
-    v5 = 0xE000000000000000;
+    v5 = 0;
+    v6 = 0xE000000000000000;
     goto LABEL_7;
   }
 
-  if (v7)
+  if (v8)
   {
-    result = sub_24EE4E740(v4, v5, v6, v7, 1);
-    v4 = v6;
+    sub_24EE4E740(v5, v6, v7, v8, 1);
     v5 = v7;
+    v6 = v8;
   }
 
   else
   {
-    result = sub_24EE4E740(v4, v5, v6, 0, 1);
+    sub_24EE4E740(v5, v6, v7, 0, 1);
   }
 
 LABEL_7:
-  *a1 = v4;
-  a1[1] = v5;
-  return result;
+  *a2 = v5;
+  a2[1] = v6;
 }
 
-uint64_t sub_24EE49314(uint64_t *a1)
+double sub_24EE49314(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v1 = *a1;
-  v2 = a1[1];
+  v4 = *a1;
+  v5 = a1[1];
   swift_beginAccess();
-  result = swift_weakLoadStrong();
-  if (result)
+  if (swift_weakLoadStrong())
   {
-    sub_24EE48DB4(v1, v2);
+    sub_24EE48DB4(v4, v5);
   }
 
   return result;
 }
 
-uint64_t sub_24EE49394()
+double sub_24EE49394()
 {
   v1 = *(type metadata accessor for InviteFriendsPageView(0) - 8);
   v2 = v0 + ((*(v1 + 80) + 16) & ~*(v1 + 80));
@@ -905,7 +4001,7 @@ uint64_t objectdestroy_10Tm_1()
   v1 = type metadata accessor for InviteFriendsPageView(0);
   v2 = v0 + ((*(*(v1 - 8) + 80) + 16) & ~*(*(v1 - 8) + 80));
 
-  v3 = v2 + *(type metadata accessor for InviteFriendsPageIntent() + 24);
+  v3 = v2 + *(type metadata accessor for InviteFriendsPageIntent(0) + 24);
   v4 = type metadata accessor for Page.Background(0);
   if (!(*(*(v4 - 8) + 48))(v3, 1, v4))
   {
@@ -918,7 +4014,7 @@ uint64_t objectdestroy_10Tm_1()
         {
           v11 = sub_24F9289E8();
           (*(*(v11 - 8) + 8))(v3, v11);
-          v12 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F2151F8) + 48);
+          v12 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F2151F8, &unk_24F93F910) + 48);
           v13 = sub_24F922348();
           v14 = *(v13 - 8);
           if (!(*(v14 + 48))(v3 + v12, 1, v13))
@@ -944,8 +4040,8 @@ uint64_t objectdestroy_10Tm_1()
         (*(v16 + 8))(v3, v15);
       }
 
-      v17 = v3 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F215200) + 48);
-      v18 = type metadata accessor for GSKVideo();
+      v17 = v3 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F215200, &qword_24F95E450) + 48);
+      v18 = type metadata accessor for GSKVideo(0);
       if (!(*(*(v18 - 1) + 48))(v17, 1, v18))
       {
         v19 = sub_24F91F4A8();
@@ -980,7 +4076,7 @@ uint64_t objectdestroy_10Tm_1()
 
   sub_24E62A5EC(*(v2 + *(v1 + 32)), *(v2 + *(v1 + 32) + 8));
   v5 = *(v1 + 36);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F231510);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F231510, &qword_24F9A6490);
   if (swift_getEnumCaseMultiPayload() == 1)
   {
     v6 = sub_24F9219D8();
@@ -998,16 +4094,17 @@ uint64_t objectdestroy_10Tm_1()
   return swift_deallocObject();
 }
 
-uint64_t sub_24EE49A2C()
+uint64_t sub_24EE49A2C(uint64_t a1, char *a2)
 {
-  type metadata accessor for InviteFriendsPageView(0);
+  v5 = *(type metadata accessor for InviteFriendsPageView(0) - 8);
+  v6 = v2 + ((*(v5 + 80) + 16) & ~*(v5 + 80));
 
-  return sub_24EE434FC();
+  return sub_24EE434FC(a1, a2, v6);
 }
 
 uint64_t sub_24EE49ADC(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v6 = type metadata accessor for InviteFriendsPageIntent();
+  v6 = type metadata accessor for InviteFriendsPageIntent(0);
   v7 = *(v6 - 8);
   if (*(v7 + 84) == a2)
   {
@@ -1029,7 +4126,7 @@ uint64_t sub_24EE49ADC(uint64_t a1, uint64_t a2, uint64_t a3)
 
   else
   {
-    v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F231530);
+    v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F231530, &qword_24F9A6528);
     v12 = *(*(v11 - 8) + 48);
     v13 = a1 + *(a3 + 36);
 
@@ -1039,7 +4136,7 @@ uint64_t sub_24EE49ADC(uint64_t a1, uint64_t a2, uint64_t a3)
 
 uint64_t sub_24EE49C20(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
 {
-  result = type metadata accessor for InviteFriendsPageIntent();
+  result = type metadata accessor for InviteFriendsPageIntent(0);
   v9 = *(result - 8);
   if (*(v9 + 84) == a3)
   {
@@ -1055,7 +4152,7 @@ uint64_t sub_24EE49C20(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
 
   else
   {
-    v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F231530);
+    v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F231530, &qword_24F9A6528);
     v12 = *(*(v11 - 8) + 56);
     v13 = a1 + *(a4 + 36);
 
@@ -1065,25 +4162,25 @@ uint64_t sub_24EE49C20(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
   return result;
 }
 
-void sub_24EE49D50()
+void sub_24EE49D50(uint64_t a1)
 {
-  type metadata accessor for InviteFriendsPageIntent();
-  if (v0 <= 0x3F)
+  type metadata accessor for InviteFriendsPageIntent(319);
+  if (v1 <= 0x3F)
   {
     sub_24F928FD8();
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
       sub_24EE4A730(319, &qword_27F231548, type metadata accessor for InviteFriendsSearchPagePresenter, MEMORY[0x277CE10B8]);
-      if (v2 <= 0x3F)
+      if (v3 <= 0x3F)
       {
         sub_24E65E73C();
-        if (v3 <= 0x3F)
+        if (v4 <= 0x3F)
         {
           sub_24EE4A034(319, &qword_27F2362D0, MEMORY[0x277D839B0], MEMORY[0x277CDF468]);
-          if (v4 <= 0x3F)
+          if (v5 <= 0x3F)
           {
-            sub_24EE4EC40(319, &qword_27F231550, &qword_27F21C330, &unk_24F9DAB90, MEMORY[0x277CDF468]);
-            if (v5 <= 0x3F)
+            sub_24EE4EC40(319, &qword_27F231550, &qword_27F21C330, &qword_24F9DAB90, MEMORY[0x277CDF468]);
+            if (v6 <= 0x3F)
             {
               swift_cvw_initStructMetadataWithLayoutString();
             }
@@ -1094,16 +4191,16 @@ void sub_24EE49D50()
   }
 }
 
-void sub_24EE49ED0()
+void sub_24EE49ED0(uint64_t a1)
 {
   sub_24EE4A034(319, &qword_27F231578, MEMORY[0x277D837D0], MEMORY[0x277D857B8]);
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
     sub_24EE4A034(319, &qword_27F231580, MEMORY[0x277D837D0], MEMORY[0x277D85788]);
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
       sub_24F91FDC8();
-      if (v2 <= 0x3F)
+      if (v3 <= 0x3F)
       {
         swift_updateClassMetadata2();
       }
@@ -1128,18 +4225,18 @@ unint64_t sub_24EE4A088()
   result = qword_27F231588;
   if (!qword_27F231588)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27F231528);
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27F2314E0);
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27F2314D8);
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27F2314D0);
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27F2314C8);
-    sub_24E602068(&qword_27F231508, &qword_27F2314C8);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27F231528, &unk_24F9A64C0);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27F2314E0, &qword_24F9A6448);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27F2314D8, &qword_24F9A6440);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27F2314D0, &qword_24F9A6438);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27F2314C8, &qword_24F9A6430);
+    sub_24E602068(&qword_27F231508, &qword_27F2314C8, &qword_24F9A6430, MEMORY[0x277CE1198]);
     sub_24E600AEC();
     swift_getOpaqueTypeConformance2();
     swift_getOpaqueTypeConformance2();
     swift_getOpaqueTypeConformance2();
     swift_getOpaqueTypeConformance2();
-    sub_24EE4A2A0(&qword_27F22F6D8, type metadata accessor for PageBackgroundViewModifier);
+    sub_24EE4A2A0(&qword_27F22F6D8, type metadata accessor for PageBackgroundViewModifier, &protocol conformance descriptor for PageBackgroundViewModifier);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_27F231588);
   }
@@ -1147,7 +4244,7 @@ unint64_t sub_24EE4A088()
   return result;
 }
 
-uint64_t sub_24EE4A2A0(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t sub_24EE4A2A0(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -1197,7 +4294,7 @@ uint64_t sub_24EE4A328(uint64_t a1, uint64_t a2, uint64_t a3)
 
   else
   {
-    v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F212710);
+    v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F212710, &unk_24F940700);
     v12 = *(*(v11 - 8) + 48);
     v13 = a1 + *(a3 + 44);
 
@@ -1223,7 +4320,7 @@ uint64_t sub_24EE4A46C(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
 
   else
   {
-    v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F212710);
+    v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F212710, &unk_24F940700);
     v12 = *(*(v11 - 8) + 56);
     v13 = a1 + *(a4 + 44);
 
@@ -1233,25 +4330,25 @@ uint64_t sub_24EE4A46C(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
   return result;
 }
 
-void sub_24EE4A5BC()
+void sub_24EE4A5BC(uint64_t a1)
 {
   type metadata accessor for Page(319);
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
     type metadata accessor for InviteFriendsSearchPagePresenter(319);
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
       sub_24F928FD8();
-      if (v2 <= 0x3F)
+      if (v3 <= 0x3F)
       {
         sub_24EE4EC40(319, &qword_27F2315A0, &unk_27F21E480, &unk_24F944D20, MEMORY[0x277CE10B8]);
-        if (v3 <= 0x3F)
+        if (v4 <= 0x3F)
         {
           sub_24EE4EC40(319, &qword_27F22C050, &unk_27F212740, &unk_24F940730, MEMORY[0x277CDF468]);
-          if (v4 <= 0x3F)
+          if (v5 <= 0x3F)
           {
             sub_24EE4A730(319, &qword_27F22C060, MEMORY[0x277D7EC08], MEMORY[0x277CDF468]);
-            if (v5 <= 0x3F)
+            if (v6 <= 0x3F)
             {
               swift_cvw_initStructMetadataWithLayoutString();
             }
@@ -1419,8 +4516,8 @@ LABEL_4:
             }
           }
 
-          v18 = v8 + v10[10];
-          if (*(v18 + 24))
+          v18 = (v8 + v10[10]);
+          if (v18[3])
           {
             __swift_destroy_boxed_opaque_existential_1(v18);
           }
@@ -1435,8 +4532,8 @@ LABEL_4:
       if (!EnumCaseMultiPayload)
       {
 
-        v77 = v12 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F218338) + 48);
-        v78 = type metadata accessor for JSColor();
+        v77 = v12 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F218338, &unk_24F948470) + 48);
+        v78 = type metadata accessor for JSColor(0);
         if (!(*(*(v78 - 8) + 48))(v77, 1, v78))
         {
           v79 = sub_24F928388();
@@ -1455,7 +4552,7 @@ LABEL_4:
           (*(v87 + 8))(v12, v86);
         }
 
-        if (*(v12 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F218340) + 48) + 24))
+        if (*(v12 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F218340, &unk_24F98D3D0) + 48) + 24))
         {
         }
 
@@ -1491,8 +4588,8 @@ LABEL_15:
     if (!v24)
     {
 
-      v80 = v20 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F218338) + 48);
-      v81 = type metadata accessor for JSColor();
+      v80 = v20 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F218338, &unk_24F948470) + 48);
+      v81 = type metadata accessor for JSColor(0);
       if (!(*(*(v81 - 8) + 48))(v80, 1, v81))
       {
         v82 = sub_24F928388();
@@ -1511,7 +4608,7 @@ LABEL_15:
         (*(v108 + 8))(v20, v88);
       }
 
-      if (*(v20 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F218340) + 48) + 24))
+      if (*(v20 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F218340, &unk_24F98D3D0) + 48) + 24))
       {
       }
 
@@ -1556,8 +4653,8 @@ LABEL_17:
     }
   }
 
-  v26 = v19 + v10[10];
-  if (*(v26 + 24))
+  v26 = (v19 + v10[10]);
+  if (v26[3])
   {
     __swift_destroy_boxed_opaque_existential_1(v26);
   }
@@ -1582,8 +4679,8 @@ LABEL_32:
     if (!v32)
     {
 
-      v83 = v28 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F218338) + 48);
-      v84 = type metadata accessor for JSColor();
+      v83 = v28 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F218338, &unk_24F948470) + 48);
+      v84 = type metadata accessor for JSColor(0);
       if (!(*(*(v84 - 8) + 48))(v83, 1, v84))
       {
         v85 = sub_24F928388();
@@ -1602,7 +4699,7 @@ LABEL_32:
         (*(v110 + 8))(v28, v90);
       }
 
-      if (*(v28 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F218340) + 48) + 24))
+      if (*(v28 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F218340, &unk_24F98D3D0) + 48) + 24))
       {
       }
 
@@ -1647,8 +4744,8 @@ LABEL_34:
     }
   }
 
-  v34 = v27 + v10[10];
-  if (*(v34 + 24))
+  v34 = (v27 + v10[10]);
+  if (v34[3])
   {
     __swift_destroy_boxed_opaque_existential_1(v34);
   }
@@ -1664,7 +4761,7 @@ LABEL_49:
 
     if (*(v35 + 40))
     {
-      __swift_destroy_boxed_opaque_existential_1(v35 + 16);
+      __swift_destroy_boxed_opaque_existential_1((v35 + 16));
     }
   }
 
@@ -1723,7 +4820,7 @@ LABEL_49:
             (*(v106 + 8))(v36, v105);
           }
 
-          if (!*(v36 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F218340) + 48) + 24))
+          if (!*(v36 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F218340, &unk_24F98D3D0) + 48) + 24))
           {
             goto LABEL_55;
           }
@@ -1739,8 +4836,8 @@ LABEL_156:
         goto LABEL_55;
       }
 
-      v72 = v36 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F218338) + 48);
-      v73 = type metadata accessor for JSColor();
+      v72 = v36 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F218338, &unk_24F948470) + 48);
+      v73 = type metadata accessor for JSColor(0);
       if ((*(*(v73 - 8) + 48))(v72, 1, v73))
       {
         goto LABEL_55;
@@ -1758,7 +4855,7 @@ LABEL_106:
     if (v69(v36, 1, v68))
     {
 LABEL_104:
-      v70 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F218348);
+      v70 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F218348, &qword_24F948480);
       v71 = v36 + *(v70 + 48);
       if (v69(v71, 1, v68))
       {
@@ -1789,7 +4886,7 @@ LABEL_152:
             (*(v102 + 8))(v71, v101);
           }
 
-          if (*(v71 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F218340) + 48) + 24))
+          if (*(v71 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F218340, &unk_24F98D3D0) + 48) + 24))
           {
           }
         }
@@ -1797,8 +4894,8 @@ LABEL_152:
         else
         {
 
-          v96 = v71 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F218338) + 48);
-          v97 = type metadata accessor for JSColor();
+          v96 = v71 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F218338, &unk_24F948470) + 48);
+          v97 = type metadata accessor for JSColor(0);
           if (!(*(*(v97 - 8) + 48))(v96, 1, v97))
           {
             v98 = sub_24F928388();
@@ -1808,7 +4905,7 @@ LABEL_152:
 
 LABEL_105:
         v72 = v36 + *(v70 + 80);
-        v73 = type metadata accessor for JSColor();
+        v73 = type metadata accessor for JSColor(0);
         if ((*(*(v73 - 8) + 48))(v72, 1, v73))
         {
           goto LABEL_55;
@@ -1859,8 +4956,8 @@ LABEL_105:
       if (!v75)
       {
 
-        v93 = v36 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F218338) + 48);
-        v94 = type metadata accessor for JSColor();
+        v93 = v36 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F218338, &unk_24F948470) + 48);
+        v94 = type metadata accessor for JSColor(0);
         if (!(*(*(v94 - 8) + 48))(v93, 1, v94))
         {
           v95 = sub_24F928388();
@@ -1879,7 +4976,7 @@ LABEL_105:
           (*(v100 + 8))(v36, v99);
         }
 
-        if (*(v36 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F218340) + 48) + 24))
+        if (*(v36 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F218340, &unk_24F98D3D0) + 48) + 24))
         {
         }
 
@@ -1913,7 +5010,7 @@ LABEL_55:
         {
           v50 = sub_24F9289E8();
           (*(*(v50 - 8) + 8))(v38, v50);
-          v51 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F2151F8) + 48);
+          v51 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F2151F8, &unk_24F93F910) + 48);
           v52 = sub_24F922348();
           v53 = *(v52 - 8);
           if (!(*(v53 + 48))(v38 + v51, 1, v52))
@@ -1939,8 +5036,8 @@ LABEL_55:
         (*(v58 + 8))(v38, v57);
       }
 
-      v59 = v38 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F215200) + 48);
-      v60 = type metadata accessor for GSKVideo();
+      v59 = v38 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F215200, &qword_24F95E450) + 48);
+      v60 = type metadata accessor for GSKVideo(0);
       if (!(*(*(v60 - 1) + 48))(v59, 1, v60))
       {
         v61 = sub_24F91F4A8();
@@ -1970,26 +5067,26 @@ LABEL_55:
     }
   }
 
-  v40 = v3 + v5[27];
-  if (*(v40 + 24))
+  v40 = (v3 + v5[27]);
+  if (v40[3])
   {
     __swift_destroy_boxed_opaque_existential_1(v40);
   }
 
-  v41 = v3 + v5[28];
-  if (*(v41 + 24))
+  v41 = (v3 + v5[28]);
+  if (v41[3])
   {
     __swift_destroy_boxed_opaque_existential_1(v41);
   }
 
-  v42 = v3 + v5[29];
-  if (*(v42 + 24))
+  v42 = (v3 + v5[29]);
+  if (v42[3])
   {
     __swift_destroy_boxed_opaque_existential_1(v42);
   }
 
-  v43 = v3 + v5[30];
-  if (*(v43 + 24))
+  v43 = (v3 + v5[30]);
+  if (v43[3])
   {
     __swift_destroy_boxed_opaque_existential_1(v43);
   }
@@ -2008,7 +5105,7 @@ LABEL_55:
   }
 
   v45 = *(v1 + 44);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F212938);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F212938, &qword_24F939770);
   if (swift_getEnumCaseMultiPayload() == 1)
   {
     v46 = sub_24F921B58();
@@ -2047,7 +5144,7 @@ uint64_t sub_24EE4C5CC()
 {
   v1 = type metadata accessor for InviteFriendsPageView.PageContent(0);
   v2 = *(*(v1 - 8) + 80);
-  __swift_destroy_boxed_opaque_existential_1(v0 + 16);
+  __swift_destroy_boxed_opaque_existential_1((v0 + 16));
   v3 = v0 + ((v2 + 56) & ~v2);
   v4 = sub_24F92A708();
   (*(*(v4 - 8) + 8))(v3, v4);
@@ -2107,8 +5204,8 @@ LABEL_4:
             }
           }
 
-          v18 = v8 + v10[10];
-          if (*(v18 + 24))
+          v18 = (v8 + v10[10]);
+          if (v18[3])
           {
             __swift_destroy_boxed_opaque_existential_1(v18);
           }
@@ -2123,8 +5220,8 @@ LABEL_4:
       if (!EnumCaseMultiPayload)
       {
 
-        v77 = v12 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F218338) + 48);
-        v78 = type metadata accessor for JSColor();
+        v77 = v12 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F218338, &unk_24F948470) + 48);
+        v78 = type metadata accessor for JSColor(0);
         if (!(*(*(v78 - 8) + 48))(v77, 1, v78))
         {
           v79 = sub_24F928388();
@@ -2143,7 +5240,7 @@ LABEL_4:
           (*(v87 + 8))(v12, v86);
         }
 
-        if (*(v12 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F218340) + 48) + 24))
+        if (*(v12 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F218340, &unk_24F98D3D0) + 48) + 24))
         {
         }
 
@@ -2179,8 +5276,8 @@ LABEL_15:
     if (!v24)
     {
 
-      v80 = v20 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F218338) + 48);
-      v81 = type metadata accessor for JSColor();
+      v80 = v20 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F218338, &unk_24F948470) + 48);
+      v81 = type metadata accessor for JSColor(0);
       if (!(*(*(v81 - 8) + 48))(v80, 1, v81))
       {
         v82 = sub_24F928388();
@@ -2199,7 +5296,7 @@ LABEL_15:
         (*(v108 + 8))(v20, v88);
       }
 
-      if (*(v20 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F218340) + 48) + 24))
+      if (*(v20 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F218340, &unk_24F98D3D0) + 48) + 24))
       {
       }
 
@@ -2244,8 +5341,8 @@ LABEL_17:
     }
   }
 
-  v26 = v19 + v10[10];
-  if (*(v26 + 24))
+  v26 = (v19 + v10[10]);
+  if (v26[3])
   {
     __swift_destroy_boxed_opaque_existential_1(v26);
   }
@@ -2270,8 +5367,8 @@ LABEL_32:
     if (!v32)
     {
 
-      v83 = v28 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F218338) + 48);
-      v84 = type metadata accessor for JSColor();
+      v83 = v28 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F218338, &unk_24F948470) + 48);
+      v84 = type metadata accessor for JSColor(0);
       if (!(*(*(v84 - 8) + 48))(v83, 1, v84))
       {
         v85 = sub_24F928388();
@@ -2290,7 +5387,7 @@ LABEL_32:
         (*(v110 + 8))(v28, v90);
       }
 
-      if (*(v28 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F218340) + 48) + 24))
+      if (*(v28 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F218340, &unk_24F98D3D0) + 48) + 24))
       {
       }
 
@@ -2335,8 +5432,8 @@ LABEL_34:
     }
   }
 
-  v34 = v27 + v10[10];
-  if (*(v34 + 24))
+  v34 = (v27 + v10[10]);
+  if (v34[3])
   {
     __swift_destroy_boxed_opaque_existential_1(v34);
   }
@@ -2352,7 +5449,7 @@ LABEL_49:
 
     if (*(v35 + 40))
     {
-      __swift_destroy_boxed_opaque_existential_1(v35 + 16);
+      __swift_destroy_boxed_opaque_existential_1((v35 + 16));
     }
   }
 
@@ -2411,7 +5508,7 @@ LABEL_49:
             (*(v106 + 8))(v36, v105);
           }
 
-          if (!*(v36 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F218340) + 48) + 24))
+          if (!*(v36 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F218340, &unk_24F98D3D0) + 48) + 24))
           {
             goto LABEL_55;
           }
@@ -2427,8 +5524,8 @@ LABEL_156:
         goto LABEL_55;
       }
 
-      v72 = v36 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F218338) + 48);
-      v73 = type metadata accessor for JSColor();
+      v72 = v36 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F218338, &unk_24F948470) + 48);
+      v73 = type metadata accessor for JSColor(0);
       if ((*(*(v73 - 8) + 48))(v72, 1, v73))
       {
         goto LABEL_55;
@@ -2446,7 +5543,7 @@ LABEL_106:
     if (v69(v36, 1, v68))
     {
 LABEL_104:
-      v70 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F218348);
+      v70 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F218348, &qword_24F948480);
       v71 = v36 + *(v70 + 48);
       if (v69(v71, 1, v68))
       {
@@ -2477,7 +5574,7 @@ LABEL_152:
             (*(v102 + 8))(v71, v101);
           }
 
-          if (*(v71 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F218340) + 48) + 24))
+          if (*(v71 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F218340, &unk_24F98D3D0) + 48) + 24))
           {
           }
         }
@@ -2485,8 +5582,8 @@ LABEL_152:
         else
         {
 
-          v96 = v71 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F218338) + 48);
-          v97 = type metadata accessor for JSColor();
+          v96 = v71 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F218338, &unk_24F948470) + 48);
+          v97 = type metadata accessor for JSColor(0);
           if (!(*(*(v97 - 8) + 48))(v96, 1, v97))
           {
             v98 = sub_24F928388();
@@ -2496,7 +5593,7 @@ LABEL_152:
 
 LABEL_105:
         v72 = v36 + *(v70 + 80);
-        v73 = type metadata accessor for JSColor();
+        v73 = type metadata accessor for JSColor(0);
         if ((*(*(v73 - 8) + 48))(v72, 1, v73))
         {
           goto LABEL_55;
@@ -2547,8 +5644,8 @@ LABEL_105:
       if (!v75)
       {
 
-        v93 = v36 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F218338) + 48);
-        v94 = type metadata accessor for JSColor();
+        v93 = v36 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F218338, &unk_24F948470) + 48);
+        v94 = type metadata accessor for JSColor(0);
         if (!(*(*(v94 - 8) + 48))(v93, 1, v94))
         {
           v95 = sub_24F928388();
@@ -2567,7 +5664,7 @@ LABEL_105:
           (*(v100 + 8))(v36, v99);
         }
 
-        if (*(v36 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F218340) + 48) + 24))
+        if (*(v36 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F218340, &unk_24F98D3D0) + 48) + 24))
         {
         }
 
@@ -2601,7 +5698,7 @@ LABEL_55:
         {
           v50 = sub_24F9289E8();
           (*(*(v50 - 8) + 8))(v38, v50);
-          v51 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F2151F8) + 48);
+          v51 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F2151F8, &unk_24F93F910) + 48);
           v52 = sub_24F922348();
           v53 = *(v52 - 8);
           if (!(*(v53 + 48))(v38 + v51, 1, v52))
@@ -2627,8 +5724,8 @@ LABEL_55:
         (*(v58 + 8))(v38, v57);
       }
 
-      v59 = v38 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F215200) + 48);
-      v60 = type metadata accessor for GSKVideo();
+      v59 = v38 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F215200, &qword_24F95E450) + 48);
+      v60 = type metadata accessor for GSKVideo(0);
       if (!(*(*(v60 - 1) + 48))(v59, 1, v60))
       {
         v61 = sub_24F91F4A8();
@@ -2658,26 +5755,26 @@ LABEL_55:
     }
   }
 
-  v40 = v3 + v5[27];
-  if (*(v40 + 24))
+  v40 = (v3 + v5[27]);
+  if (v40[3])
   {
     __swift_destroy_boxed_opaque_existential_1(v40);
   }
 
-  v41 = v3 + v5[28];
-  if (*(v41 + 24))
+  v41 = (v3 + v5[28]);
+  if (v41[3])
   {
     __swift_destroy_boxed_opaque_existential_1(v41);
   }
 
-  v42 = v3 + v5[29];
-  if (*(v42 + 24))
+  v42 = (v3 + v5[29]);
+  if (v42[3])
   {
     __swift_destroy_boxed_opaque_existential_1(v42);
   }
 
-  v43 = v3 + v5[30];
-  if (*(v43 + 24))
+  v43 = (v3 + v5[30]);
+  if (v43[3])
   {
     __swift_destroy_boxed_opaque_existential_1(v43);
   }
@@ -2696,7 +5793,7 @@ LABEL_55:
   }
 
   v45 = *(v1 + 44);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F212938);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F212938, &qword_24F939770);
   if (swift_getEnumCaseMultiPayload() == 1)
   {
     v46 = sub_24F921B58();
@@ -2723,15 +5820,15 @@ unint64_t sub_24EE4E118()
   result = qword_27F2315E0;
   if (!qword_27F2315E0)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27F2315C0);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27F2315C0, &qword_24F9A6728);
     sub_24EE4E2C8();
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27F2315F0);
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27F2315F8);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27F2315F0, &qword_24F9A6730);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27F2315F8, &qword_24F9A6738);
     type metadata accessor for InviteFriendsPageView.ShelfListView(255);
-    sub_24EE4A2A0(&qword_27F231600, type metadata accessor for InviteFriendsPageView.ShelfListView);
+    sub_24EE4A2A0(&qword_27F231600, type metadata accessor for InviteFriendsPageView.ShelfListView, &unk_24F9A69B8);
     swift_getOpaqueTypeConformance2();
     sub_24E8F20E4();
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27F231608);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27F231608, &unk_24F9A6740);
     sub_24EE4E33C();
     swift_getOpaqueTypeConformance2();
     swift_getOpaqueTypeConformance2();
@@ -2759,11 +5856,11 @@ unint64_t sub_24EE4E33C()
   result = qword_27F231610;
   if (!qword_27F231610)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27F231608);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27F231608, &unk_24F9A6740);
     type metadata accessor for InviteFriendsPageView.ShelfListView(255);
-    sub_24EE4A2A0(&qword_27F231600, type metadata accessor for InviteFriendsPageView.ShelfListView);
+    sub_24EE4A2A0(&qword_27F231600, type metadata accessor for InviteFriendsPageView.ShelfListView, &unk_24F9A69B8);
     swift_getOpaqueTypeConformance2();
-    sub_24E602068(&qword_27F2551A0, &qword_27F215A98);
+    sub_24E602068(&qword_27F2551A0, &qword_27F215A98, &qword_24F940DC0, MEMORY[0x277CDFC88]);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_27F231610);
   }
@@ -2776,7 +5873,7 @@ unint64_t sub_24EE4E504()
   result = qword_27F255170;
   if (!qword_27F255170)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27F231648);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27F231648, &qword_24F9A6790);
     sub_24EE4E590();
     result = swift_getWitnessTable();
     atomic_store(result, &qword_27F255170);
@@ -2790,8 +5887,8 @@ unint64_t sub_24EE4E590()
   result = qword_27F231650;
   if (!qword_27F231650)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&unk_27F2550B0);
-    sub_24EE4A2A0(&qword_27F254FD0, type metadata accessor for PlayerPickerContinueButton);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&unk_27F2550B0, &unk_24F9A6798);
+    sub_24EE4A2A0(&qword_27F254FD0, type metadata accessor for PlayerPickerContinueButton, &unk_24FA3AFA8);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_27F231650);
   }
@@ -2804,11 +5901,11 @@ unint64_t sub_24EE4E64C()
   result = qword_27F231658;
   if (!qword_27F231658)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&unk_27F255190);
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27F231648);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&unk_27F255190, &unk_24FA3AD40);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27F231648, &qword_24F9A6790);
     sub_24EE4E504();
     swift_getOpaqueTypeConformance2();
-    sub_24E602068(&qword_27F2551A0, &qword_27F215A98);
+    sub_24E602068(&qword_27F2551A0, &qword_27F215A98, &qword_24F940DC0, MEMORY[0x277CDFC88]);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_27F231658);
   }
@@ -2827,17 +5924,17 @@ uint64_t sub_24EE4E740(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, char 
   }
 }
 
-uint64_t sub_24EE4E7B8(int8x16_t *a1)
+void sub_24EE4E7B8(int8x16_t *a1)
 {
   v1 = a1[1];
-  v4[0] = *a1;
-  v4[1] = v1;
-  v5 = a1[2].i8[0];
-  sub_24EE4E850(v4, v3);
-  return sub_24EE48498(v4);
+  v3[0] = *a1;
+  v3[1] = v1;
+  v4 = a1[2].i8[0];
+  sub_24EE4E850(v3, v2);
+  sub_24EE48498(v3);
 }
 
-uint64_t sub_24EE4E888(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, char a5)
+double sub_24EE4E888(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, char a5)
 {
   if (a5)
   {
@@ -2846,6 +5943,8 @@ uint64_t sub_24EE4E888(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, char 
       return result;
     }
   }
+
+  return result;
 }
 
 uint64_t sub_24EE4E8DC@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
@@ -2865,7 +5964,7 @@ uint64_t sub_24EE4E98C(uint64_t a1, uint64_t (*a2)(void))
 
 uint64_t sub_24EE4EA00(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v6 = type metadata accessor for GSKShelf();
+  v6 = type metadata accessor for GSKShelf(0);
   v7 = *(v6 - 8);
   if (*(v7 + 84) == a2)
   {
@@ -2888,7 +5987,7 @@ uint64_t sub_24EE4EA00(uint64_t a1, uint64_t a2, uint64_t a3)
 
 uint64_t sub_24EE4EAD4(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
 {
-  result = type metadata accessor for GSKShelf();
+  result = type metadata accessor for GSKShelf(0);
   v9 = *(result - 8);
   if (*(v9 + 84) == a3)
   {
@@ -2905,24 +6004,24 @@ uint64_t sub_24EE4EAD4(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
   return result;
 }
 
-void sub_24EE4EB90()
+void sub_24EE4EB90(uint64_t a1)
 {
-  type metadata accessor for GSKShelf();
-  if (v0 <= 0x3F)
+  type metadata accessor for GSKShelf(319);
+  if (v1 <= 0x3F)
   {
     sub_24EE4EC40(319, &qword_27F2316A8, &unk_27F21E480, &unk_24F944D20, MEMORY[0x277CE11F8]);
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
       swift_cvw_initStructMetadataWithLayoutString();
     }
   }
 }
 
-void sub_24EE4EC40(uint64_t a1, unint64_t *a2, uint64_t *a3, uint64_t a4, uint64_t (*a5)(uint64_t, uint64_t))
+void sub_24EE4EC40(uint64_t a1, unint64_t *a2, uint64_t *a3, uint64_t *a4, uint64_t (*a5)(uint64_t, uint64_t))
 {
   if (!*a2)
   {
-    v8 = __swift_instantiateConcreteTypeFromMangledNameAbstractV2(a3);
+    v8 = __swift_instantiateConcreteTypeFromMangledNameAbstractV2(a3, a4);
     v9 = a5(a1, v8);
     if (!v10)
     {
@@ -2936,8 +6035,8 @@ unint64_t sub_24EE4ECB8()
   result = qword_27F2316B0;
   if (!qword_27F2316B0)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27F2316B8);
-    sub_24E602068(&qword_27F2315B0, &qword_27F2315A8);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27F2316B8, &qword_24F9A69B0);
+    sub_24E602068(&qword_27F2315B0, &qword_27F2315A8, &qword_24F9A6720, MEMORY[0x277D7EAD8]);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_27F2316B0);
   }
@@ -2950,8 +6049,8 @@ unint64_t sub_24EE4EDDC()
   result = qword_27F2316F0;
   if (!qword_27F2316F0)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27F2316E0);
-    sub_24E602068(&qword_27F212910, &qword_27F211B58);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27F2316E0, &qword_24F9A6A88);
+    sub_24E602068(&qword_27F212910, &qword_27F211B58, &unk_24F935650, MEMORY[0x277CDEFF0]);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_27F2316F0);
   }
@@ -2964,8 +6063,8 @@ unint64_t sub_24EE4EE94()
   result = qword_27F2316F8;
   if (!qword_27F2316F8)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27F2316E8);
-    sub_24EE53A44(&qword_27F231700, &qword_27F231708, &unk_24F9A6AA0, sub_24EE4EF44);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27F2316E8, &unk_24F9A6A90);
+    sub_24EE53A44(&qword_27F231700, &qword_27F231708, &qword_24F9A6AA0, sub_24EE4EF44);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_27F2316F8);
   }
@@ -2978,8 +6077,8 @@ unint64_t sub_24EE4EF44()
   result = qword_27F231710;
   if (!qword_27F231710)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27F231718);
-    sub_24E602068(&qword_27F231720, &qword_27F231728);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27F231718, &qword_24F9A6AA8);
+    sub_24E602068(&qword_27F231720, &qword_27F231728, &unk_24F9A6AB0, &unk_24FA2648C);
     sub_24E600EE8();
     result = swift_getWitnessTable();
     atomic_store(result, &qword_27F231710);
@@ -2993,9 +6092,9 @@ unint64_t sub_24EE4EFFC()
   result = qword_27F231738;
   if (!qword_27F231738)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27F2316C8);
-    sub_24E602068(&qword_27F231740, &qword_27F231748);
-    sub_24E602068(&unk_27F2129E0, &unk_27F22E040);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27F2316C8, &qword_24F9A6A70);
+    sub_24E602068(&qword_27F231740, &qword_27F231748, &unk_24F9A6AC0, MEMORY[0x277CDE158]);
+    sub_24E602068(&unk_27F2129E0, &unk_27F22E040, &unk_24F940690, MEMORY[0x277CE0740]);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_27F231738);
   }
@@ -3008,8 +6107,8 @@ unint64_t sub_24EE4F0E0()
   result = qword_27F231750;
   if (!qword_27F231750)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27F2316D8);
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27F2316C8);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27F2316D8, &qword_24F9A6A80);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27F2316C8, &qword_24F9A6A70);
     sub_24EE4EFFC();
     swift_getOpaqueTypeConformance2();
     result = swift_getWitnessTable();
@@ -3024,11 +6123,11 @@ unint64_t sub_24EE4F1A8()
   result = qword_27F231768;
   if (!qword_27F231768)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27F231760);
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27F2316D8);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27F231760, &unk_24F9A6AD8);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27F2316D8, &qword_24F9A6A80);
     sub_24EE4F0E0();
     swift_getOpaqueTypeConformance2();
-    sub_24E602068(&qword_27F2551A0, &qword_27F215A98);
+    sub_24E602068(&qword_27F2551A0, &qword_27F215A98, &qword_24F940DC0, MEMORY[0x277CDFC88]);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_27F231768);
   }
@@ -3039,7 +6138,7 @@ unint64_t sub_24EE4F1A8()
 uint64_t sub_24EE4F2C0()
 {
 
-  __swift_destroy_boxed_opaque_existential_1(v0 + 32);
+  __swift_destroy_boxed_opaque_existential_1((v0 + 32));
 
   return swift_deallocObject();
 }
@@ -3049,13 +6148,13 @@ unint64_t sub_24EE4F314()
   result = qword_27F2317A8;
   if (!qword_27F2317A8)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27F231778);
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27F231770);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27F231778, &qword_24F9A6AF0);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27F231770, &qword_24F9A6AE8);
     sub_24F924C38();
-    sub_24E602068(&qword_27F2317A0, &qword_27F231770);
-    sub_24EE4A2A0(&qword_27F21A8C0, MEMORY[0x277CDDEE0]);
+    sub_24E602068(&qword_27F2317A0, &qword_27F231770, &qword_24F9A6AE8, MEMORY[0x277D7EB00]);
+    sub_24EE4A2A0(&qword_27F21A8C0, MEMORY[0x277CDDEE0], MEMORY[0x277CDDED0]);
     swift_getOpaqueTypeConformance2();
-    sub_24E602068(&qword_27F21B728, &unk_27F2552C0);
+    sub_24E602068(&qword_27F21B728, &unk_27F2552C0, &qword_24F951970, MEMORY[0x277CDF4F0]);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_27F2317A8);
   }
@@ -3065,7 +6164,7 @@ unint64_t sub_24EE4F314()
 
 uint64_t sub_24EE4F494(uint64_t a1, uint64_t a2)
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F231708);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F231708, &qword_24F9A6AA0);
   (*(*(v4 - 8) + 32))(a2, a1, v4);
   return a2;
 }
@@ -3076,7 +6175,7 @@ uint64_t sub_24EE4F530()
   v2 = v0 + ((v1 + 16) & ~v1);
   v3 = sub_24F92AA48();
   (*(*(v3 - 8) + 8))(v2, v3);
-  v4 = type metadata accessor for GSKShelf();
+  v4 = type metadata accessor for GSKShelf(0);
   v5 = v4[5];
   v6 = sub_24F929608();
   v7 = *(v6 - 8);
@@ -3128,8 +6227,8 @@ LABEL_5:
             }
           }
 
-          v17 = v8 + v9[10];
-          if (*(v17 + 24))
+          v17 = (v8 + v9[10]);
+          if (v17[3])
           {
             __swift_destroy_boxed_opaque_existential_1(v17);
           }
@@ -3144,8 +6243,8 @@ LABEL_5:
       if (!EnumCaseMultiPayload)
       {
 
-        v51 = v11 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F218338) + 48);
-        v52 = type metadata accessor for JSColor();
+        v51 = v11 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F218338, &unk_24F948470) + 48);
+        v52 = type metadata accessor for JSColor(0);
         if (!(*(*(v52 - 8) + 48))(v51, 1, v52))
         {
           v53 = sub_24F928388();
@@ -3164,7 +6263,7 @@ LABEL_5:
           (*(v61 + 8))(v11, v60);
         }
 
-        if (*(v11 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F218340) + 48) + 24))
+        if (*(v11 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F218340, &unk_24F98D3D0) + 48) + 24))
         {
         }
 
@@ -3201,8 +6300,8 @@ LABEL_16:
     if (!v24)
     {
 
-      v54 = v20 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F218338) + 48);
-      v55 = type metadata accessor for JSColor();
+      v54 = v20 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F218338, &unk_24F948470) + 48);
+      v55 = type metadata accessor for JSColor(0);
       if (!(*(*(v55 - 8) + 48))(v54, 1, v55))
       {
         v56 = sub_24F928388();
@@ -3221,7 +6320,7 @@ LABEL_16:
         (*(v86 + 8))(v20, v62);
       }
 
-      if (*(v20 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F218340) + 48) + 24))
+      if (*(v20 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F218340, &unk_24F98D3D0) + 48) + 24))
       {
       }
 
@@ -3266,8 +6365,8 @@ LABEL_18:
     }
   }
 
-  v26 = v19 + v9[10];
-  if (*(v26 + 24))
+  v26 = (v19 + v9[10]);
+  if (v26[3])
   {
     __swift_destroy_boxed_opaque_existential_1(v26);
   }
@@ -3292,8 +6391,8 @@ LABEL_33:
     if (!v32)
     {
 
-      v57 = v28 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F218338) + 48);
-      v58 = type metadata accessor for JSColor();
+      v57 = v28 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F218338, &unk_24F948470) + 48);
+      v58 = type metadata accessor for JSColor(0);
       if (!(*(*(v58 - 8) + 48))(v57, 1, v58))
       {
         v59 = sub_24F928388();
@@ -3312,7 +6411,7 @@ LABEL_33:
         (*(v87 + 8))(v28, v64);
       }
 
-      if (*(v28 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F218340) + 48) + 24))
+      if (*(v28 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F218340, &unk_24F98D3D0) + 48) + 24))
       {
       }
 
@@ -3357,8 +6456,8 @@ LABEL_35:
     }
   }
 
-  v34 = v27 + v9[10];
-  if (*(v34 + 24))
+  v34 = (v27 + v9[10]);
+  if (v34[3])
   {
     __swift_destroy_boxed_opaque_existential_1(v34);
   }
@@ -3374,7 +6473,7 @@ LABEL_50:
 
     if (*(v35 + 40))
     {
-      __swift_destroy_boxed_opaque_existential_1(v35 + 16);
+      __swift_destroy_boxed_opaque_existential_1((v35 + 16));
     }
   }
 
@@ -3433,7 +6532,7 @@ LABEL_50:
             (*(v84 + 8))(v36, v83);
           }
 
-          if (!*(v36 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F218340) + 48) + 24))
+          if (!*(v36 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F218340, &unk_24F98D3D0) + 48) + 24))
           {
             goto LABEL_56;
           }
@@ -3449,10 +6548,10 @@ LABEL_125:
         goto LABEL_56;
       }
 
-      v73 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F218338) + 48);
+      v73 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F218338, &unk_24F948470) + 48);
 LABEL_144:
       v79 = v36 + v73;
-      v80 = type metadata accessor for JSColor();
+      v80 = type metadata accessor for JSColor(0);
       if (!(*(*(v80 - 8) + 48))(v79, 1, v80))
       {
         v81 = sub_24F928388();
@@ -3467,7 +6566,7 @@ LABEL_144:
     if (v46(v36, 1, v45))
     {
 LABEL_75:
-      v47 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F218348);
+      v47 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F218348, &qword_24F948480);
       v48 = v36 + *(v47 + 48);
       if (!v46(v48, 1, v45))
       {
@@ -3478,8 +6577,8 @@ LABEL_75:
           {
             case 0:
 
-              v67 = v48 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F218338) + 48);
-              v68 = type metadata accessor for JSColor();
+              v67 = v48 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F218338, &unk_24F948470) + 48);
+              v68 = type metadata accessor for JSColor(0);
               if (!(*(*(v68 - 8) + 48))(v67, 1, v68))
               {
                 v69 = sub_24F928388();
@@ -3495,7 +6594,7 @@ LABEL_75:
                 (*(v75 + 8))(v48, v74);
               }
 
-              if (!*(v48 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F218340) + 48) + 24))
+              if (!*(v48 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F218340, &unk_24F98D3D0) + 48) + 24))
               {
                 goto LABEL_143;
               }
@@ -3554,8 +6653,8 @@ LABEL_143:
       if (!v50)
       {
 
-        v70 = v36 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F218338) + 48);
-        v71 = type metadata accessor for JSColor();
+        v70 = v36 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F218338, &unk_24F948470) + 48);
+        v71 = type metadata accessor for JSColor(0);
         if (!(*(*(v71 - 8) + 48))(v70, 1, v71))
         {
           v72 = sub_24F928388();
@@ -3574,7 +6673,7 @@ LABEL_143:
           (*(v77 + 8))(v36, v76);
         }
 
-        if (*(v36 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F218340) + 48) + 24))
+        if (*(v36 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F218340, &unk_24F98D3D0) + 48) + 24))
         {
         }
 
@@ -3591,20 +6690,20 @@ LABEL_143:
   }
 
 LABEL_56:
-  v38 = v2 + v4[13];
-  if (*(v38 + 24))
+  v38 = (v2 + v4[13]);
+  if (v38[3])
   {
     __swift_destroy_boxed_opaque_existential_1(v38);
   }
 
-  v39 = v2 + v4[14];
-  if (*(v39 + 24))
+  v39 = (v2 + v4[14]);
+  if (v39[3])
   {
     __swift_destroy_boxed_opaque_existential_1(v39);
   }
 
-  v40 = v2 + v4[16];
-  if (*(v40 + 24))
+  v40 = (v2 + v4[16]);
+  if (v40[3])
   {
     __swift_destroy_boxed_opaque_existential_1(v40);
   }
@@ -3625,9 +6724,9 @@ unint64_t sub_24EE50A6C()
   result = qword_27F231830;
   if (!qword_27F231830)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27F231800);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27F231800, &qword_24F9A6B88);
     sub_24EE50B24();
-    sub_24E602068(&qword_27F231848, &qword_27F231850);
+    sub_24E602068(&qword_27F231848, &qword_27F231850, &qword_24F9A6BE0, MEMORY[0x277CE04A0]);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_27F231830);
   }
@@ -3640,8 +6739,8 @@ unint64_t sub_24EE50B24()
   result = qword_27F231838;
   if (!qword_27F231838)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27F231840);
-    sub_24E602068(&qword_27F231828, &qword_27F231820);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27F231840, &qword_24F9A6BD8);
+    sub_24E602068(&qword_27F231828, &qword_27F231820, &qword_24F9A6BD0, MEMORY[0x277CE14C0]);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_27F231838);
   }
@@ -3666,7 +6765,7 @@ unint64_t sub_24EE50CBC()
   result = qword_27F2318B8;
   if (!qword_27F2318B8)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27F2318B0);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27F2318B0, &unk_24F9A6CA0);
     sub_24EE50D48();
     result = swift_getWitnessTable();
     atomic_store(result, &qword_27F2318B8);
@@ -3680,8 +6779,8 @@ unint64_t sub_24EE50D48()
   result = qword_27F2318C0;
   if (!qword_27F2318C0)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27F2318C8);
-    sub_24E602068(&qword_27F2318D0, &qword_27F2318D8);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27F2318C8, &qword_24F9C5350);
+    sub_24E602068(&qword_27F2318D0, &qword_27F2318D8, &qword_24F9A6CB0, MEMORY[0x277D7ED00]);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_27F2318C0);
   }
@@ -3694,11 +6793,11 @@ unint64_t sub_24EE50E00()
   result = qword_27F2318E0;
   if (!qword_27F2318E0)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27F2318A8);
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27F2318B0);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27F2318A8, &qword_24F9C5360);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27F2318B0, &unk_24F9A6CA0);
     sub_24EE50CBC();
     swift_getOpaqueTypeConformance2();
-    sub_24E602068(&qword_27F2551A0, &qword_27F215A98);
+    sub_24E602068(&qword_27F2551A0, &qword_27F215A98, &qword_24F940DC0, MEMORY[0x277CDFC88]);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_27F2318E0);
   }
@@ -3711,9 +6810,9 @@ unint64_t sub_24EE50F18()
   result = qword_27F231900;
   if (!qword_27F231900)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27F2318F8);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27F2318F8, &qword_24FA3BC70);
     sub_24EE50FD4();
-    sub_24EE4A2A0(&qword_27F255440, type metadata accessor for ComponentBackgroundModifier);
+    sub_24EE4A2A0(&qword_27F255440, type metadata accessor for ComponentBackgroundModifier, &unk_24FA0D0EC);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_27F231900);
   }
@@ -3726,9 +6825,9 @@ unint64_t sub_24EE50FD4()
   result = qword_27F231908;
   if (!qword_27F231908)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27F231910);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27F231910, &unk_24F9A6CD0);
     sub_24EE5108C();
-    sub_24E602068(&unk_27F2129E0, &unk_27F22E040);
+    sub_24E602068(&unk_27F2129E0, &unk_27F22E040, &unk_24F940690, MEMORY[0x277CE0740]);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_27F231908);
   }
@@ -3741,7 +6840,7 @@ unint64_t sub_24EE5108C()
   result = qword_27F231918;
   if (!qword_27F231918)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27F231920);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27F231920, &unk_24FA3BC60);
     sub_24EE51118();
     result = swift_getWitnessTable();
     atomic_store(result, &qword_27F231918);
@@ -3755,7 +6854,7 @@ unint64_t sub_24EE51118()
   result = qword_27F231928;
   if (!qword_27F231928)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27F231930);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27F231930, &unk_24F9A6CE0);
     sub_24EE511A4();
     result = swift_getWitnessTable();
     atomic_store(result, &qword_27F231928);
@@ -3769,9 +6868,9 @@ unint64_t sub_24EE511A4()
   result = qword_27F231938;
   if (!qword_27F231938)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27F231940);
-    sub_24E602068(&qword_27F231948, &qword_27F231950);
-    sub_24E602068(&qword_27F231958, &qword_27F231960);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27F231940, &unk_24FA3BC50);
+    sub_24E602068(&qword_27F231948, &qword_27F231950, &unk_24F9A6CF0, MEMORY[0x277CDF510]);
+    sub_24E602068(&qword_27F231958, &qword_27F231960, &unk_24FA3BCB0, MEMORY[0x277CE14C0]);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_27F231938);
   }
@@ -3784,11 +6883,11 @@ unint64_t sub_24EE51288()
   result = qword_27F231968;
   if (!qword_27F231968)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27F2318F0);
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27F2318F8);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27F2318F0, &unk_24F9A6CC0);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27F2318F8, &qword_24FA3BC70);
     sub_24EE50F18();
     swift_getOpaqueTypeConformance2();
-    sub_24E602068(&qword_27F2551A0, &qword_27F215A98);
+    sub_24E602068(&qword_27F2551A0, &qword_27F215A98, &qword_24F940DC0, MEMORY[0x277CDFC88]);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_27F231968);
   }
@@ -3820,7 +6919,7 @@ uint64_t sub_24EE51390(uint64_t a1, uint64_t a2, uint64_t a3)
 
   else
   {
-    v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F212710);
+    v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F212710, &unk_24F940700);
     v12 = *(*(v11 - 8) + 48);
     v13 = a1 + *(a3 + 28);
 
@@ -3846,7 +6945,7 @@ uint64_t sub_24EE514D8(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
 
   else
   {
-    v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F212710);
+    v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F212710, &unk_24F940700);
     v12 = *(*(v11 - 8) + 56);
     v13 = a1 + *(a4 + 28);
 
@@ -3856,19 +6955,19 @@ uint64_t sub_24EE514D8(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
   return result;
 }
 
-void sub_24EE5160C()
+void sub_24EE5160C(uint64_t a1)
 {
   type metadata accessor for InviteFriendsRow(319);
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
     sub_24EE4EC40(319, &qword_27F2316A8, &unk_27F21E480, &unk_24F944D20, MEMORY[0x277CE11F8]);
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
       sub_24EE4EC40(319, &qword_27F22C050, &unk_27F212740, &unk_24F940730, MEMORY[0x277CDF468]);
-      if (v2 <= 0x3F)
+      if (v3 <= 0x3F)
       {
         sub_24EE4A730(319, &qword_27F22C060, MEMORY[0x277D7EC08], MEMORY[0x277CDF468]);
-        if (v3 <= 0x3F)
+        if (v4 <= 0x3F)
         {
           swift_cvw_initStructMetadataWithLayoutString();
         }
@@ -3879,7 +6978,7 @@ void sub_24EE5160C()
 
 uint64_t sub_24EE5175C(uint64_t a1, uint64_t a2)
 {
-  v4 = type metadata accessor for GSKShelf();
+  v4 = type metadata accessor for GSKShelf(0);
   v5 = *(*(v4 - 8) + 48);
 
   return v5(a1, a2, v4);
@@ -3887,16 +6986,16 @@ uint64_t sub_24EE5175C(uint64_t a1, uint64_t a2)
 
 uint64_t sub_24EE517DC(uint64_t a1, uint64_t a2)
 {
-  v4 = type metadata accessor for GSKShelf();
+  v4 = type metadata accessor for GSKShelf(0);
   v5 = *(*(v4 - 8) + 56);
 
   return v5(a1, a2, a2, v4);
 }
 
-uint64_t sub_24EE5184C()
+uint64_t sub_24EE5184C(uint64_t a1)
 {
-  result = type metadata accessor for GSKShelf();
-  if (v1 <= 0x3F)
+  result = type metadata accessor for GSKShelf(319);
+  if (v2 <= 0x3F)
   {
     swift_cvw_initStructMetadataWithLayoutString();
     return 0;
@@ -3907,13 +7006,13 @@ uint64_t sub_24EE5184C()
 
 uint64_t sub_24EE518B8()
 {
-  __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27F2316C0);
-  __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27F231758);
-  __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27F2316D8);
+  __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27F2316C0, &qword_24F9A6A68);
+  __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27F231758, &qword_24F9A6AD0);
+  __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27F2316D8, &qword_24F9A6A80);
   sub_24EE4F0E0();
   swift_getOpaqueTypeConformance2();
   sub_24E8F20E4();
-  __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27F231760);
+  __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27F231760, &unk_24F9A6AD8);
   sub_24EE4F1A8();
   swift_getOpaqueTypeConformance2();
   return swift_getOpaqueTypeConformance2();
@@ -3921,14 +7020,14 @@ uint64_t sub_24EE518B8()
 
 uint64_t sub_24EE519D8()
 {
-  __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27F2317E0);
-  __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27F2317D8);
-  __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27F2317D0);
-  __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27F2317C8);
+  __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27F2317E0, &qword_24F9A6B78);
+  __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27F2317D8, &qword_24F9A6B70);
+  __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27F2317D0, &qword_24F9A6B68);
+  __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27F2317C8, &qword_24F9A6B60);
   sub_24F924118();
-  __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27F2317C0);
+  __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27F2317C0, &qword_24F9A6B58);
   sub_24F923C68();
-  sub_24E602068(&qword_27F2317F8, &qword_27F2317C0);
+  sub_24E602068(&qword_27F2317F8, &qword_27F2317C0, &qword_24F9A6B58, MEMORY[0x277CDE5A0]);
   swift_getOpaqueTypeConformance2();
   swift_getOpaqueTypeConformance2();
   swift_getOpaqueTypeConformance2();
@@ -3941,8 +7040,8 @@ unint64_t sub_24EE51BF8()
   result = qword_27F2319A0;
   if (!qword_27F2319A0)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27F231998);
-    sub_24E602068(&qword_27F231848, &qword_27F231850);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27F231998, &qword_24F9A6DE8);
+    sub_24E602068(&qword_27F231848, &qword_27F231850, &qword_24F9A6BE0, MEMORY[0x277CE04A0]);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_27F2319A0);
   }
@@ -3955,8 +7054,8 @@ unint64_t sub_24EE51CD4()
   result = qword_27F2319C0;
   if (!qword_27F2319C0)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27F2319B8);
-    sub_24E602068(&qword_27F2319C8, &qword_27F2319D0);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27F2319B8, &qword_24F9A6E00);
+    sub_24E602068(&qword_27F2319C8, &qword_27F2319D0, &qword_24F9A6E08, MEMORY[0x277CE1138]);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_27F2319C0);
   }
@@ -3969,11 +7068,11 @@ unint64_t sub_24EE51D8C()
   result = qword_27F2319D8;
   if (!qword_27F2319D8)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27F2319B0);
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27F2319B8);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27F2319B0, &qword_24F9A6DF8);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27F2319B8, &qword_24F9A6E00);
     sub_24EE51CD4();
     swift_getOpaqueTypeConformance2();
-    sub_24E602068(&qword_27F2551A0, &qword_27F215A98);
+    sub_24E602068(&qword_27F2551A0, &qword_27F215A98, &qword_24F940DC0, MEMORY[0x277CDFC88]);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_27F2319D8);
   }
@@ -3998,10 +7097,10 @@ unint64_t sub_24EE51EF8()
   result = qword_27F2319F8;
   if (!qword_27F2319F8)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27F2319E8);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27F2319E8, &qword_24F9BB480);
     sub_24EE51EA4();
     swift_getOpaqueTypeConformance2();
-    sub_24E602068(&qword_27F2551A0, &qword_27F215A98);
+    sub_24E602068(&qword_27F2551A0, &qword_27F215A98, &qword_24F940DC0, MEMORY[0x277CDFC88]);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_27F2319F8);
   }
@@ -4014,11 +7113,11 @@ unint64_t sub_24EE52000()
   result = qword_27F231A18;
   if (!qword_27F231A18)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27F231A08);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27F231A08, &qword_24F9BB470);
     type metadata accessor for OverlayGameControllerControls(255);
-    sub_24EE4A2A0(&qword_27F231A10, type metadata accessor for OverlayGameControllerControls);
+    sub_24EE4A2A0(&qword_27F231A10, type metadata accessor for OverlayGameControllerControls, &unk_24F9B9778);
     swift_getOpaqueTypeConformance2();
-    sub_24E602068(&qword_27F2551A0, &qword_27F215A98);
+    sub_24E602068(&qword_27F2551A0, &qword_27F215A98, &qword_24F940DC0, MEMORY[0x277CDFC88]);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_27F231A18);
   }
@@ -4043,10 +7142,10 @@ unint64_t sub_24EE52190()
   result = qword_27F231A38;
   if (!qword_27F231A38)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27F231A28);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27F231A28, &qword_24F9BB3D0);
     sub_24EE5213C();
     swift_getOpaqueTypeConformance2();
-    sub_24E602068(&qword_27F2551A0, &qword_27F215A98);
+    sub_24E602068(&qword_27F2551A0, &qword_27F215A98, &qword_24F940DC0, MEMORY[0x277CDFC88]);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_27F231A38);
   }
@@ -4071,10 +7170,10 @@ unint64_t sub_24EE522EC()
   result = qword_27F231A58;
   if (!qword_27F231A58)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27F231A48);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27F231A48, &unk_24F9A6E48);
     sub_24EE52298();
     swift_getOpaqueTypeConformance2();
-    sub_24E602068(&qword_27F2551A0, &qword_27F215A98);
+    sub_24E602068(&qword_27F2551A0, &qword_27F215A98, &qword_24F940DC0, MEMORY[0x277CDFC88]);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_27F231A58);
   }
@@ -4082,12 +7181,12 @@ unint64_t sub_24EE522EC()
   return result;
 }
 
-uint64_t sub_24EE523FC(unint64_t *a1, uint64_t *a2, uint64_t a3, void (*a4)(void))
+uint64_t sub_24EE523FC(unint64_t *a1, uint64_t *a2, uint64_t *a3, void (*a4)(void))
 {
   result = *a1;
   if (!result)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(a2);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(a2, a3);
     a4();
     result = swift_getWitnessTable();
     atomic_store(result, a1);
@@ -4101,9 +7200,9 @@ unint64_t sub_24EE52478()
   result = qword_27F231A88;
   if (!qword_27F231A88)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27F231A90);
-    sub_24E602068(&qword_27F212820, &qword_27F212828);
-    sub_24E602068(&unk_27F2554A0, &qword_27F212B20);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27F231A90, &qword_24F9A6E70);
+    sub_24E602068(&qword_27F212820, &qword_27F212828, &unk_24FA29170, MEMORY[0x277CDF028]);
+    sub_24E602068(&unk_27F2554A0, &qword_27F212B20, qword_24F94A180, MEMORY[0x277CE0868]);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_27F231A88);
   }
@@ -4116,9 +7215,9 @@ unint64_t sub_24EE52564()
   result = qword_27F231AA8;
   if (!qword_27F231AA8)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27F231AB0);
-    sub_24E602068(&qword_27F218C88, &qword_27F218C80);
-    sub_24E602068(&unk_27F2554A0, &qword_27F212B20);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27F231AB0, &qword_24F9A6E80);
+    sub_24E602068(&qword_27F218C88, &qword_27F218C80, &qword_24FA22440, MEMORY[0x277CDF028]);
+    sub_24E602068(&unk_27F2554A0, &qword_27F212B20, qword_24F94A180, MEMORY[0x277CE0868]);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_27F231AA8);
   }
@@ -4134,7 +7233,7 @@ uint64_t objectdestroy_164Tm()
   v3 = (v2 + 16) & ~v2;
   v4 = *(*(v67 - 8) + 64);
   v5 = v0 + v3;
-  __swift_destroy_boxed_opaque_existential_1(v0 + v3);
+  __swift_destroy_boxed_opaque_existential_1((v0 + v3));
   v6 = type metadata accessor for InviteFriendsRow(0);
   v7 = v0 + v3 + v6[5];
   type metadata accessor for FriendSuggestion(0);
@@ -4157,16 +7256,16 @@ uint64_t objectdestroy_164Tm()
     }
 
     v13 = v7 + v9[13];
-    v14 = type metadata accessor for CallProviderConversationHandleSet();
+    v14 = type metadata accessor for CallProviderConversationHandleSet(0);
     v64 = v1;
     if (!(*(*(v14 - 8) + 48))(v13, 1, v14))
     {
-      v15 = type metadata accessor for CallProviderConversationHandle();
+      v15 = type metadata accessor for CallProviderConversationHandle(0);
       v16 = *(*(v15 - 8) + 48);
       if (!v16(v13, 1, v15))
       {
 
-        v17 = *(type metadata accessor for CallProvider() + 24);
+        v17 = *(type metadata accessor for CallProvider(0) + 24);
         if (!(*(v66 + 48))(v13 + v17, 1, v11))
         {
           v65(v13 + v17, v11);
@@ -4177,7 +7276,7 @@ uint64_t objectdestroy_164Tm()
       if (!v16(v18, 1, v15))
       {
 
-        v19 = *(type metadata accessor for CallProvider() + 24);
+        v19 = *(type metadata accessor for CallProvider(0) + 24);
         if (!(*(v66 + 48))(v18 + v19, 1, v11))
         {
           v65(v18 + v19, v11);
@@ -4194,7 +7293,7 @@ uint64_t objectdestroy_164Tm()
     if (!(*(*(PlayedTogetherInfo - 8) + 48))(v20, 1, PlayedTogetherInfo))
     {
 
-      v22 = type metadata accessor for Game();
+      v22 = type metadata accessor for Game(0);
       v65(v20 + v22[18], v11);
       v23 = v22[19];
       if (!(*(v66 + 48))(v20 + v23, 1, v11))
@@ -4216,7 +7315,7 @@ uint64_t objectdestroy_164Tm()
     if (!(*(*(ChallengeInfo - 8) + 48))(v27, 1, ChallengeInfo))
     {
 
-      v29 = type metadata accessor for Game();
+      v29 = type metadata accessor for Game(0);
       v65(v27 + v29[18], v11);
       v30 = v29[19];
       if (!(*(v66 + 48))(v27 + v30, 1, v11))
@@ -4236,7 +7335,7 @@ uint64_t objectdestroy_164Tm()
     v34 = type metadata accessor for ActivityFriendSuggestion(0);
     v35 = v7 + *(v34 + 24);
 
-    v36 = type metadata accessor for Game();
+    v36 = type metadata accessor for Game(0);
     v65(v35 + v36[18], v11);
     v37 = v36[19];
     if (!(*(v66 + 48))(v35 + v37, 1, v11))
@@ -4275,8 +7374,8 @@ uint64_t objectdestroy_164Tm()
     (*(*(v47 - 8) + 8))(v43 + v45, v47);
   }
 
-  v48 = v43 + *(v44 + 24);
-  if (*(v48 + 24))
+  v48 = (v43 + *(v44 + 24));
+  if (v48[3])
   {
     __swift_destroy_boxed_opaque_existential_1(v48);
   }
@@ -4289,14 +7388,14 @@ uint64_t objectdestroy_164Tm()
     (*(v51 + 8))(v5 + v49, v50);
   }
 
-  v52 = v5 + v6[11];
-  if (*(v52 + 24))
+  v52 = (v5 + v6[11]);
+  if (v52[3])
   {
     __swift_destroy_boxed_opaque_existential_1(v52);
   }
 
-  v53 = v5 + v6[13];
-  if (*(v53 + 24))
+  v53 = (v5 + v6[13]);
+  if (v53[3])
   {
     __swift_destroy_boxed_opaque_existential_1(v53);
   }
@@ -4309,8 +7408,8 @@ uint64_t objectdestroy_164Tm()
     (*(v56 + 8))(v5 + v54, v55);
   }
 
-  v57 = v5 + v6[15];
-  if (*(v57 + 24))
+  v57 = (v5 + v6[15]);
+  if (v57[3])
   {
     __swift_destroy_boxed_opaque_existential_1(v57);
   }
@@ -4329,7 +7428,7 @@ uint64_t objectdestroy_164Tm()
   }
 
   v59 = *(v67 + 28);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F212938);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F212938, &qword_24F939770);
   if (swift_getEnumCaseMultiPayload() == 1)
   {
     v60 = sub_24F921B58();
@@ -4340,7 +7439,7 @@ uint64_t objectdestroy_164Tm()
   {
   }
 
-  __swift_destroy_boxed_opaque_existential_1(v1 + ((v4 + v3 + 7) & 0xFFFFFFFFFFFFFFF8));
+  __swift_destroy_boxed_opaque_existential_1((v1 + ((v4 + v3 + 7) & 0xFFFFFFFFFFFFFFF8)));
 
   return swift_deallocObject();
 }
@@ -4359,11 +7458,11 @@ unint64_t sub_24EE53228()
   result = qword_27F231AB8;
   if (!qword_27F231AB8)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27F231AC0);
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27F231998);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27F231AC0, &qword_24F9A6EB8);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27F231998, &qword_24F9A6DE8);
     sub_24EE51BF8();
     swift_getOpaqueTypeConformance2();
-    sub_24E602068(&unk_27F2129E0, &unk_27F22E040);
+    sub_24E602068(&unk_27F2129E0, &unk_27F22E040, &unk_24F940690, MEMORY[0x277CE0740]);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_27F231AB8);
   }
@@ -4373,16 +7472,16 @@ unint64_t sub_24EE53228()
 
 uint64_t sub_24EE5331C()
 {
-  __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27F231A68);
-  __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27F231A98);
-  __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27F231A60);
-  __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27F231A78);
+  __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27F231A68, &qword_24F9A6E60);
+  __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27F231A98, &qword_24F9A6E78);
+  __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27F231A60, &qword_24F9A6E58);
+  __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27F231A78, &qword_24F9A6E68);
   type metadata accessor for InviteFriendsRowComponent(255);
-  sub_24EE4A2A0(&qword_27F231A70, type metadata accessor for InviteFriendsRowComponent);
+  sub_24EE4A2A0(&qword_27F231A70, type metadata accessor for InviteFriendsRowComponent, &unk_24FA23C94);
   swift_getOpaqueTypeConformance2();
-  sub_24EE523FC(&qword_27F231A80, &qword_27F231A78, &unk_24F9A6E68, sub_24EE52478);
+  sub_24EE523FC(&qword_27F231A80, &qword_27F231A78, &qword_24F9A6E68, sub_24EE52478);
   swift_getOpaqueTypeConformance2();
-  sub_24EE523FC(&qword_27F231AA0, &qword_27F231A98, &unk_24F9A6E78, sub_24EE52564);
+  sub_24EE523FC(&qword_27F231AA0, &qword_27F231A98, &qword_24F9A6E78, sub_24EE52564);
   return swift_getOpaqueTypeConformance2();
 }
 
@@ -4391,8 +7490,8 @@ unint64_t sub_24EE53500()
   result = qword_27F231AE0;
   if (!qword_27F231AE0)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27F231AD8);
-    sub_24E602068(&qword_27F231AE8, &qword_27F231AF0);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27F231AD8, &unk_24F9A6ED0);
+    sub_24E602068(&qword_27F231AE8, &qword_27F231AF0, &unk_24FA2C340, MEMORY[0x277CE1138]);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_27F231AE0);
   }
@@ -4405,11 +7504,11 @@ unint64_t sub_24EE535B8()
   result = qword_27F231AF8;
   if (!qword_27F231AF8)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27F231AD0);
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27F231AD8);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27F231AD0, &qword_24F9A6EC8);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27F231AD8, &unk_24F9A6ED0);
     sub_24EE53500();
     swift_getOpaqueTypeConformance2();
-    sub_24E602068(&qword_27F2551A0, &qword_27F215A98);
+    sub_24E602068(&qword_27F2551A0, &qword_27F215A98, &qword_24F940DC0, MEMORY[0x277CDFC88]);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_27F231AF8);
   }
@@ -4422,7 +7521,7 @@ unint64_t sub_24EE536D0()
   result = qword_27F231B18;
   if (!qword_27F231B18)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27F231B10);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27F231B10, &qword_24F9A6EF0);
     sub_24EE5375C();
     result = swift_getWitnessTable();
     atomic_store(result, &qword_27F231B18);
@@ -4436,7 +7535,7 @@ unint64_t sub_24EE5375C()
   result = qword_27F231B20;
   if (!qword_27F231B20)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27F231B28);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27F231B28, &qword_24F9A6EF8);
     sub_24EE537E8();
     result = swift_getWitnessTable();
     atomic_store(result, &qword_27F231B20);
@@ -4450,7 +7549,7 @@ unint64_t sub_24EE537E8()
   result = qword_27F231B30;
   if (!qword_27F231B30)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27F231B38);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27F231B38, &qword_24F9A6F00);
     sub_24EE53874();
     result = swift_getWitnessTable();
     atomic_store(result, &qword_27F231B30);
@@ -4464,8 +7563,8 @@ unint64_t sub_24EE53874()
   result = qword_27F231B40;
   if (!qword_27F231B40)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27F231B48);
-    sub_24E602068(&qword_27F231B50, &qword_27F231B58);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27F231B48, &qword_24F9A6F08);
+    sub_24E602068(&qword_27F231B50, &qword_27F231B58, &unk_24F9A6F10, &unk_24FA1A538);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_27F231B40);
   }
@@ -4478,11 +7577,11 @@ unint64_t sub_24EE5392C()
   result = qword_27F231B60;
   if (!qword_27F231B60)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27F231B08);
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27F231B10);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27F231B08, &qword_24F9A6EE8);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27F231B10, &qword_24F9A6EF0);
     sub_24EE536D0();
     swift_getOpaqueTypeConformance2();
-    sub_24E602068(&qword_27F2551A0, &qword_27F215A98);
+    sub_24E602068(&qword_27F2551A0, &qword_27F215A98, &qword_24F940DC0, MEMORY[0x277CDFC88]);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_27F231B60);
   }
@@ -4490,12 +7589,12 @@ unint64_t sub_24EE5392C()
   return result;
 }
 
-uint64_t sub_24EE53A44(unint64_t *a1, uint64_t *a2, uint64_t a3, void (*a4)(void))
+uint64_t sub_24EE53A44(unint64_t *a1, uint64_t *a2, uint64_t *a3, void (*a4)(void))
 {
   result = *a1;
   if (!result)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(a2);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(a2, a3);
     a4();
     sub_24E600F3C();
     result = swift_getWitnessTable();
@@ -4606,14 +7705,14 @@ uint64_t BadgeViewLayout.Metrics.captionBottomSpace.setter(__int128 *a1)
 
 uint64_t BadgeViewLayout.Metrics.badgeValueStandardCompactSpace.setter(__int128 *a1)
 {
-  __swift_destroy_boxed_opaque_existential_1(v1 + 40);
+  __swift_destroy_boxed_opaque_existential_1((v1 + 40));
 
   return sub_24E612C80(a1, v1 + 40);
 }
 
 uint64_t BadgeViewLayout.Metrics.badgeValueStandardRegularSpace.setter(__int128 *a1)
 {
-  __swift_destroy_boxed_opaque_existential_1(v1 + 80);
+  __swift_destroy_boxed_opaque_existential_1((v1 + 80));
 
   return sub_24E612C80(a1, v1 + 80);
 }
@@ -4671,16 +7770,16 @@ uint64_t BadgeViewLayout.Metrics.init(captionBottomSpace:badgeValueStandardCompa
   return result;
 }
 
-uint64_t BadgeViewLayout.Metrics.badgeValueSpace(with:)@<X0>(uint64_t a1@<X8>)
+uint64_t BadgeViewLayout.Metrics.badgeValueSpace(with:)@<X0>(uint64_t a2@<X8>)
 {
-  v3 = sub_24F92BF68();
-  v4 = 80;
-  if (v3)
+  v4 = sub_24F92BF68();
+  v5 = 80;
+  if (v4)
   {
-    v4 = 40;
+    v5 = 40;
   }
 
-  return sub_24E615E00(v1 + v4, a1);
+  return sub_24E615E00(v2 + v5, a2);
 }
 
 __n128 BadgeViewLayout.init(metrics:captionLabel:valueLabel:valueView:)@<Q0>(uint64_t a1@<X0>, __int128 *a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X8>)
@@ -4714,88 +7813,90 @@ __n128 BadgeViewLayout.init(metrics:captionLabel:valueLabel:valueView:)@<Q0>(uin
   return result;
 }
 
-uint64_t BadgeViewLayout.measurements(fitting:in:)(void *a1)
+uint64_t BadgeViewLayout.measurements(fitting:in:)(void *a1, double a2, double a3)
 {
-  v2 = v1;
-  v4 = sub_24F92CDB8();
-  v5 = *(v4 - 8);
-  MEMORY[0x28223BE20](v4);
-  v7 = &v22[-1] - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  sub_24E60169C(v1 + 208, v22, &unk_27F22B200);
-  if (v23)
+  v4 = v3;
+  v6 = sub_24F92CDB8();
+  v7 = *(v6 - 8);
+  MEMORY[0x28223BE20](v6);
+  v9 = &v26[-1] - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  sub_24E60169C(v3 + 208, v26, &unk_27F22B200, &unk_24F9674C0);
+  if (v27)
   {
-    __swift_project_boxed_opaque_existential_1(v22, v23);
-    sub_24F922298();
-    v9 = v8;
-    __swift_destroy_boxed_opaque_existential_1(v22);
-  }
-
-  else
-  {
-    sub_24E601704(v22, &unk_27F22B200);
-    v9 = 0.0;
-  }
-
-  sub_24E60169C(v1 + 248, v22, &qword_27F229780);
-  if (v23)
-  {
-    __swift_project_boxed_opaque_existential_1(v22, v23);
+    __swift_project_boxed_opaque_existential_1(v26, v27);
     sub_24F922298();
     v11 = v10;
-    __swift_destroy_boxed_opaque_existential_1(v22);
+    __swift_destroy_boxed_opaque_existential_1(v26);
   }
 
   else
   {
-    sub_24E601704(v22, &qword_27F229780);
+    sub_24E601704(v26, &unk_27F22B200, &unk_24F9674C0);
     v11 = 0.0;
   }
 
-  __swift_project_boxed_opaque_existential_1((v1 + 168), *(v1 + 192));
-  sub_24F922298();
-  v13 = 0.0;
-  if (v9 != 0.0 && v11 != 0.0)
+  sub_24E60169C(v3 + 248, v26, &qword_27F229780, &unk_24F965BB0);
+  if (v27)
   {
-    v14 = 128;
-    if (*(v1 + 136))
+    __swift_project_boxed_opaque_existential_1(v26, v27);
+    sub_24F922298();
+    v13 = v12;
+    __swift_destroy_boxed_opaque_existential_1(v26);
+  }
+
+  else
+  {
+    sub_24E601704(v26, &qword_27F229780, &unk_24F965BB0);
+    v13 = 0.0;
+  }
+
+  __swift_project_boxed_opaque_existential_1((v3 + 168), *(v3 + 192));
+  sub_24F922298();
+  v15 = 0.0;
+  if (v11 != 0.0 && v13 != 0.0)
+  {
+    v16 = 128;
+    if (*(v3 + 136))
     {
-      v14 = 120;
+      v16 = 120;
     }
 
-    v13 = *(v1 + v14);
+    v15 = *(v3 + v16);
   }
 
-  v15 = v9 + v11 + v13;
-  if (v15 > v12)
+  v17 = v11 + v13 + v15;
+  if (v17 > v14)
   {
-    v12 = v15;
+    v14 = v17;
   }
 
-  if (*(v1 + 144))
+  if (*(v3 + 144))
   {
-    v12 = v15;
+    v14 = v17;
   }
 
-  v16 = [a1 traitCollection];
-  v17 = sub_24F92BF68();
+  v18 = [a1 traitCollection];
+  v19 = sub_24F92BF68();
 
-  v18 = 10;
-  if (v17)
+  v20 = 10;
+  if (v19)
   {
-    v18 = 5;
+    v20 = 5;
   }
 
-  sub_24E615E00(&v2[v18], v22);
-  __swift_project_boxed_opaque_existential_1(v22, v23);
-  sub_24E8ED7D8();
+  sub_24E615E00(&v4[v20], v26);
+  v21 = v27;
+  __swift_project_boxed_opaque_existential_1(v26, v27);
+  sub_24E8ED7D8(v21);
   sub_24F9223A8();
-  v19 = *(v5 + 8);
-  v19(v7, v4);
-  __swift_project_boxed_opaque_existential_1(v2, v2[3]);
-  sub_24E8ED7D8();
+  v22 = *(v7 + 8);
+  v22(v9, v6);
+  v23 = v4[3];
+  __swift_project_boxed_opaque_existential_1(v4, v23);
+  sub_24E8ED7D8(v23);
   sub_24F9223A8();
-  v19(v7, v4);
-  return __swift_destroy_boxed_opaque_existential_1(v22);
+  v22(v9, v6);
+  return __swift_destroy_boxed_opaque_existential_1(v26);
 }
 
 uint64_t static BadgeViewLayout.measurements(valueLabelWidth:viewSize:captionLabelWidth:fitting:using:in:)(uint64_t a1, void *a2, double a3, double a4, double a5, double a6)
@@ -4803,7 +7904,7 @@ uint64_t static BadgeViewLayout.measurements(valueLabelWidth:viewSize:captionLab
   v11 = sub_24F92CDB8();
   v12 = *(v11 - 8);
   MEMORY[0x28223BE20](v11);
-  v14 = &v25[-1] - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v14 = &v27[-1] - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
   v15 = 0.0;
   if (a3 != 0.0 && a4 != 0.0)
   {
@@ -4841,35 +7942,37 @@ uint64_t static BadgeViewLayout.measurements(valueLabelWidth:viewSize:captionLab
     v21 = 40;
   }
 
-  sub_24E615E00(a1 + v21, v25);
-  __swift_project_boxed_opaque_existential_1(v25, v25[3]);
-  sub_24E8ED7D8();
+  sub_24E615E00(a1 + v21, v27);
+  v22 = v28;
+  __swift_project_boxed_opaque_existential_1(v27, v28);
+  sub_24E8ED7D8(v22);
   sub_24F9223A8();
-  v22 = *(v12 + 8);
-  v22(v14, v11);
-  __swift_project_boxed_opaque_existential_1(a1, *(a1 + 24));
-  sub_24E8ED7D8();
+  v23 = *(v12 + 8);
+  v23(v14, v11);
+  v24 = *(a1 + 24);
+  __swift_project_boxed_opaque_existential_1(a1, v24);
+  sub_24E8ED7D8(v24);
   sub_24F9223A8();
-  v22(v14, v11);
-  return __swift_destroy_boxed_opaque_existential_1(v25);
+  v23(v14, v11);
+  return __swift_destroy_boxed_opaque_existential_1(v27);
 }
 
 id BadgeViewLayout.placeChildren(relativeTo:in:)@<X0>(void *a1@<X0>, uint64_t a2@<X8>, CGFloat a3@<D0>, CGFloat a4@<D1>, CGFloat a5@<D2>, CGFloat a6@<D3>)
 {
   v7 = v6;
-  v104 = a3;
-  v101 = a2;
+  v107 = a3;
+  v104 = a2;
   v13 = sub_24F92CDB8();
   v14 = *(v13 - 8);
   MEMORY[0x28223BE20](v13);
-  v16 = v99 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v16 = v102 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
   __swift_project_boxed_opaque_existential_1((v6 + 168), *(v6 + 192));
   sub_24F922288();
-  v128.origin.x = a3;
-  v128.origin.y = a4;
-  v128.size.width = a5;
-  v128.size.height = a6;
-  MinX = CGRectGetMinX(v128);
+  v131.origin.x = a3;
+  v131.origin.y = a4;
+  v131.size.width = a5;
+  v131.size.height = a6;
+  MinX = CGRectGetMinX(v131);
   v17 = [a1 traitCollection];
   v18 = sub_24F92BF68();
 
@@ -4879,319 +7982,321 @@ id BadgeViewLayout.placeChildren(relativeTo:in:)@<X0>(void *a1@<X0>, uint64_t a2
     v19 = 40;
   }
 
-  sub_24E615E00(v7 + v19, &v111);
-  __swift_project_boxed_opaque_existential_1(&v111, *(&v112 + 1));
-  sub_24E8ED7D8();
+  sub_24E615E00(v7 + v19, &v114);
+  v20 = *(&v115 + 1);
+  __swift_project_boxed_opaque_existential_1(&v114, *(&v115 + 1));
+  sub_24E8ED7D8(v20);
   sub_24F9223A8();
-  v20 = *(v14 + 8);
-  v20(v16, v13);
+  v21 = *(v14 + 8);
+  v21(v16, v13);
   __swift_project_boxed_opaque_existential_1(v7, *(v7 + 24));
   sub_24F9223C8();
-  v21 = v104;
-  __swift_destroy_boxed_opaque_existential_1(&v111);
-  v129.origin.x = v21;
-  v129.origin.y = a4;
-  v129.size.width = a5;
-  v105 = a6;
-  v129.size.height = a6;
-  CGRectGetWidth(v129);
+  v22 = v107;
+  __swift_destroy_boxed_opaque_existential_1(&v114);
+  v132.origin.x = v22;
+  v132.origin.y = a4;
+  v132.size.width = a5;
+  v108 = a6;
+  v132.size.height = a6;
+  CGRectGetWidth(v132);
   __swift_project_boxed_opaque_existential_1((v7 + 168), *(v7 + 192));
   sub_24F922228();
-  sub_24E60169C(v7 + 208, &v111, &unk_27F22B200);
-  v22 = *(&v112 + 1);
-  sub_24E601704(&v111, &unk_27F22B200);
-  if (v22 && *(v7 + 154) == 1)
+  sub_24E60169C(v7 + 208, &v114, &unk_27F22B200, &unk_24F9674C0);
+  v23 = *(&v115 + 1);
+  sub_24E601704(&v114, &unk_27F22B200, &unk_24F9674C0);
+  if (v23 && *(v7 + 154) == 1)
   {
-    sub_24E60169C(v7 + 208, &v125, &unk_27F22B200);
-    v23 = *(&v126 + 1);
+    sub_24E60169C(v7 + 208, &v128, &unk_27F22B200, &unk_24F9674C0);
+    v24 = *(&v129 + 1);
+    if (*(&v129 + 1))
+    {
+      v25 = v130;
+      v26 = __swift_project_boxed_opaque_existential_1(&v128, *(&v129 + 1));
+      *(&v115 + 1) = v24;
+      v116 = *(v25 + 8);
+      boxed_opaque_existential_1 = __swift_allocate_boxed_opaque_existential_1(&v114);
+      (*(*(v24 - 8) + 16))(boxed_opaque_existential_1, v26, v24);
+      __swift_destroy_boxed_opaque_existential_1(&v128);
+    }
+
+    else
+    {
+      sub_24E601704(&v128, &unk_27F22B200, &unk_24F9674C0);
+      v114 = 0u;
+      v115 = 0u;
+      v116 = 0;
+    }
+
+    v128 = v114;
+    v129 = v115;
+    v130 = v116;
+    sub_24E60169C(v7 + 248, &v125, &qword_27F229780, &unk_24F965BB0);
+  }
+
+  else
+  {
+    sub_24E60169C(v7 + 248, &v128, &qword_27F229780, &unk_24F965BB0);
+    sub_24E60169C(v7 + 208, &v125, &unk_27F22B200, &unk_24F9674C0);
+    v28 = *(&v126 + 1);
     if (*(&v126 + 1))
     {
-      v24 = v127;
-      v25 = __swift_project_boxed_opaque_existential_1(&v125, *(&v126 + 1));
-      *(&v112 + 1) = v23;
-      v113 = *(v24 + 8);
-      boxed_opaque_existential_1 = __swift_allocate_boxed_opaque_existential_1(&v111);
-      (*(*(v23 - 8) + 16))(boxed_opaque_existential_1, v25, v23);
+      v29 = v127;
+      v30 = __swift_project_boxed_opaque_existential_1(&v125, *(&v126 + 1));
+      *(&v115 + 1) = v28;
+      v116 = *(v29 + 8);
+      v31 = __swift_allocate_boxed_opaque_existential_1(&v114);
+      (*(*(v28 - 8) + 16))(v31, v30, v28);
       __swift_destroy_boxed_opaque_existential_1(&v125);
     }
 
     else
     {
-      sub_24E601704(&v125, &unk_27F22B200);
-      v111 = 0u;
-      v112 = 0u;
-      v113 = 0;
+      sub_24E601704(&v125, &unk_27F22B200, &unk_24F9674C0);
+      v114 = 0u;
+      v115 = 0u;
+      v116 = 0;
     }
 
-    v125 = v111;
-    v126 = v112;
-    v127 = v113;
-    sub_24E60169C(v7 + 248, &v122, &qword_27F229780);
+    v125 = v114;
+    v126 = v115;
+    v127 = v116;
+  }
+
+  v32 = [a1 traitCollection];
+  v33 = sub_24F92BF88();
+
+  if (v33)
+  {
+    v34 = v121;
   }
 
   else
   {
-    sub_24E60169C(v7 + 248, &v125, &qword_27F229780);
-    sub_24E60169C(v7 + 208, &v122, &unk_27F22B200);
-    v27 = *(&v123 + 1);
-    if (*(&v123 + 1))
-    {
-      v28 = v124;
-      v29 = __swift_project_boxed_opaque_existential_1(&v122, *(&v123 + 1));
-      *(&v112 + 1) = v27;
-      v113 = *(v28 + 8);
-      v30 = __swift_allocate_boxed_opaque_existential_1(&v111);
-      (*(*(v27 - 8) + 16))(v30, v29, v27);
-      __swift_destroy_boxed_opaque_existential_1(&v122);
-    }
-
-    else
-    {
-      sub_24E601704(&v122, &unk_27F22B200);
-      v111 = 0u;
-      v112 = 0u;
-      v113 = 0;
-    }
-
-    v122 = v111;
-    v123 = v112;
-    v124 = v113;
+    v34 = v123;
   }
 
-  v31 = [a1 traitCollection];
-  v32 = sub_24F92BF88();
-
-  if (v32)
+  if (v33)
   {
-    v33 = v118;
+    v35 = v123;
   }
 
   else
   {
-    v33 = v120;
+    v35 = v121;
   }
 
-  if (v32)
+  sub_24E60169C(&v128, v34, &qword_27F229780, &unk_24F965BB0);
+  sub_24E60169C(&v125, v35, &qword_27F229780, &unk_24F965BB0);
+  sub_24E60169C(v123, &v114, &qword_27F229780, &unk_24F965BB0);
+  v36 = *(&v115 + 1);
+  sub_24E601704(&v114, &qword_27F229780, &unk_24F965BB0);
+  if (!v36)
   {
-    v34 = v120;
-  }
-
-  else
-  {
-    v34 = v118;
-  }
-
-  sub_24E60169C(&v125, v33, &qword_27F229780);
-  sub_24E60169C(&v122, v34, &qword_27F229780);
-  sub_24E60169C(v120, &v111, &qword_27F229780);
-  v35 = *(&v112 + 1);
-  sub_24E601704(&v111, &qword_27F229780);
-  if (!v35)
-  {
-    sub_24E60169C(v118, &v111, &qword_27F229780);
-    v36 = *(&v112 + 1);
-    sub_24E601704(&v111, &qword_27F229780);
-    if (!v36)
+    sub_24E60169C(v121, &v114, &qword_27F229780, &unk_24F965BB0);
+    v37 = *(&v115 + 1);
+    sub_24E601704(&v114, &qword_27F229780, &unk_24F965BB0);
+    if (!v37)
     {
       goto LABEL_73;
     }
   }
 
-  sub_24E60169C(v120, &v111, &qword_27F229780);
-  v37 = *(&v112 + 1);
-  sub_24E601704(&v111, &qword_27F229780);
-  v38 = 0.0;
-  if (v37)
+  sub_24E60169C(v123, &v114, &qword_27F229780, &unk_24F965BB0);
+  v38 = *(&v115 + 1);
+  sub_24E601704(&v114, &qword_27F229780, &unk_24F965BB0);
+  v39 = 0.0;
+  if (v38)
   {
-    sub_24E60169C(v118, &v111, &qword_27F229780);
-    v39 = *(&v112 + 1);
-    sub_24E601704(&v111, &qword_27F229780);
-    if (v39)
+    sub_24E60169C(v121, &v114, &qword_27F229780, &unk_24F965BB0);
+    v40 = *(&v115 + 1);
+    sub_24E601704(&v114, &qword_27F229780, &unk_24F965BB0);
+    if (v40)
     {
-      v40 = 128;
+      v41 = 128;
       if (*(v7 + 136))
       {
-        v40 = 120;
+        v41 = 120;
       }
 
-      v38 = *(v7 + v40);
+      v39 = *(v7 + v41);
     }
   }
 
-  sub_24E60169C(v120, &v116, &qword_27F229780);
-  if (v117)
+  sub_24E60169C(v123, &v119, &qword_27F229780, &unk_24F965BB0);
+  if (v120)
   {
-    sub_24E612C80(&v116, &v111);
-    __swift_project_boxed_opaque_existential_1(&v111, *(&v112 + 1));
-    v41 = v105;
+    sub_24E612C80(&v119, &v114);
+    __swift_project_boxed_opaque_existential_1(&v114, *(&v115 + 1));
+    v42 = v108;
     sub_24F922298();
-    v43 = v42;
-    MinX = v44;
-    v130.origin.x = v21;
-    v130.origin.y = a4;
-    v130.size.width = a5;
-    v130.size.height = v41;
-    Width = CGRectGetWidth(v130);
-    if (Width >= v43)
+    v44 = v43;
+    MinX = v45;
+    v133.origin.x = v22;
+    v133.origin.y = a4;
+    v133.size.width = a5;
+    v133.size.height = v42;
+    Width = CGRectGetWidth(v133);
+    if (Width >= v44)
     {
-      v46 = v43;
+      v47 = v44;
     }
 
     else
     {
-      v46 = Width;
+      v47 = Width;
     }
 
-    __swift_destroy_boxed_opaque_existential_1(&v111);
+    __swift_destroy_boxed_opaque_existential_1(&v114);
   }
 
   else
   {
-    sub_24E601704(&v116, &qword_27F229780);
+    sub_24E601704(&v119, &qword_27F229780, &unk_24F965BB0);
     MinX = 0.0;
-    v46 = 0.0;
+    v47 = 0.0;
   }
 
-  sub_24E60169C(v118, &v116, &qword_27F229780);
-  if (v117)
+  sub_24E60169C(v121, &v119, &qword_27F229780, &unk_24F965BB0);
+  if (v120)
   {
-    sub_24E612C80(&v116, &v111);
-    __swift_project_boxed_opaque_existential_1(&v111, *(&v112 + 1));
-    v47 = v105;
+    sub_24E612C80(&v119, &v114);
+    __swift_project_boxed_opaque_existential_1(&v114, *(&v115 + 1));
+    v48 = v108;
     sub_24F922298();
-    v49 = v48;
-    v100 = v50;
-    v131.origin.x = v21;
-    v131.origin.y = a4;
-    v131.size.width = a5;
-    v131.size.height = v47;
-    v51 = CGRectGetWidth(v131) - (v38 + v46);
-    if (v51 >= v49)
-    {
-      v51 = v49;
-    }
-
-    if (v51 > 0.0)
-    {
-      v52 = v51;
-    }
-
-    else
-    {
-      v52 = 0.0;
-    }
-
-    __swift_destroy_boxed_opaque_existential_1(&v111);
-  }
-
-  else
-  {
-    sub_24E601704(&v116, &qword_27F229780);
-    v100 = 0;
-    v52 = 0.0;
-  }
-
-  v53 = *(v7 + 160);
-  *&v99[1] = v52;
-  v54 = v21;
-  v55 = a4;
-  v56 = a5;
-  v57 = v105;
-  if (v53 == 4)
-  {
-    v58 = CGRectGetMinX(*&v54);
-  }
-
-  else
-  {
-    v58 = CGRectGetMidX(*&v54) + (v38 + v46 + v52) * -0.5;
-  }
-
-  sub_24E60169C(v120, &v116, &qword_27F229780);
-  v102 = a4;
-  if (v117)
-  {
-    sub_24E612C80(&v116, &v111);
-    __swift_project_boxed_opaque_existential_1(&v111, *(&v112 + 1));
-    v59 = v105;
-    sub_24F922288();
-    v61 = v60;
-    v132.origin.x = v21;
-    v132.origin.y = a4;
-    v132.size.width = a5;
-    v132.size.height = v59;
-    MinY = CGRectGetMinY(v132);
-    v63 = [a1 traitCollection];
-    v64 = sub_24F92BF68();
-
-    v65 = 80;
-    if (v64)
-    {
-      v65 = 40;
-    }
-
-    sub_24E615E00(v7 + v65, &v116);
-    __swift_project_boxed_opaque_existential_1(&v116, v117);
-    sub_24E8ED7D8();
-    sub_24F9223A8();
-    v67 = v66;
-    v20(v16, v13);
-    __swift_destroy_boxed_opaque_existential_1(&v116);
-    v68 = MinY + v67 - (MinX - v61);
-    __swift_destroy_boxed_opaque_existential_1(&v111);
-    v69 = v58;
-  }
-
-  else
-  {
-    sub_24E601704(&v116, &qword_27F229780);
-    v69 = 0.0;
-    v68 = 0.0;
-    v46 = 0.0;
-    MinX = 0.0;
-  }
-
-  sub_24E60169C(v118, &v116, &qword_27F229780);
-  if (v117)
-  {
-    sub_24E612C80(&v116, &v111);
-    __swift_project_boxed_opaque_existential_1(&v111, *(&v112 + 1));
-    sub_24F922288();
-    sub_24E60169C(v120, &v116, &qword_27F229780);
-    v70 = v117;
-    sub_24E601704(&v116, &qword_27F229780);
-    if (v70)
-    {
-      v133.origin.x = v69;
-      v133.origin.y = v68;
-      v133.size.width = v46;
-      v133.size.height = MinX;
-      CGRectGetMaxX(v133);
-    }
-
-    v134.origin.x = v104;
-    v134.size.height = v105;
-    v134.origin.y = v102;
+    v50 = v49;
+    v103 = v51;
+    v134.origin.x = v22;
+    v134.origin.y = a4;
     v134.size.width = a5;
-    CGRectGetMinY(v134);
-    v71 = [a1 traitCollection];
-    v72 = sub_24F92BF68();
-
-    v73 = 80;
-    if (v72)
+    v134.size.height = v48;
+    v52 = CGRectGetWidth(v134) - (v39 + v47);
+    if (v52 >= v50)
     {
-      v73 = 40;
+      v52 = v50;
     }
 
-    sub_24E615E00(v7 + v73, &v116);
-    __swift_project_boxed_opaque_existential_1(&v116, v117);
-    sub_24E8ED7D8();
+    if (v52 > 0.0)
+    {
+      v53 = v52;
+    }
+
+    else
+    {
+      v53 = 0.0;
+    }
+
+    __swift_destroy_boxed_opaque_existential_1(&v114);
+  }
+
+  else
+  {
+    sub_24E601704(&v119, &qword_27F229780, &unk_24F965BB0);
+    v103 = 0;
+    v53 = 0.0;
+  }
+
+  v54 = *(v7 + 160);
+  *&v102[1] = v53;
+  v55 = v22;
+  v56 = a4;
+  v57 = a5;
+  v58 = v108;
+  if (v54 == 4)
+  {
+    v59 = CGRectGetMinX(*&v55);
+  }
+
+  else
+  {
+    v59 = CGRectGetMidX(*&v55) + (v39 + v47 + v53) * -0.5;
+  }
+
+  sub_24E60169C(v123, &v119, &qword_27F229780, &unk_24F965BB0);
+  v105 = a4;
+  if (v120)
+  {
+    sub_24E612C80(&v119, &v114);
+    __swift_project_boxed_opaque_existential_1(&v114, *(&v115 + 1));
+    v60 = v108;
+    sub_24F922288();
+    v62 = v61;
+    v135.origin.x = v22;
+    v135.origin.y = a4;
+    v135.size.width = a5;
+    v135.size.height = v60;
+    MinY = CGRectGetMinY(v135);
+    v64 = [a1 traitCollection];
+    v65 = sub_24F92BF68();
+
+    v66 = 80;
+    if (v65)
+    {
+      v66 = 40;
+    }
+
+    sub_24E615E00(v7 + v66, &v119);
+    v67 = v120;
+    __swift_project_boxed_opaque_existential_1(&v119, v120);
+    sub_24E8ED7D8(v67);
+    v68 = sub_24F9223A8();
+    v21(v16, v13);
+    __swift_destroy_boxed_opaque_existential_1(&v119);
+    v69 = MinY + v68 - (MinX - v62);
+    __swift_destroy_boxed_opaque_existential_1(&v114);
+    v70 = v59;
+  }
+
+  else
+  {
+    sub_24E601704(&v119, &qword_27F229780, &unk_24F965BB0);
+    v70 = 0.0;
+    v69 = 0.0;
+    v47 = 0.0;
+    MinX = 0.0;
+  }
+
+  sub_24E60169C(v121, &v119, &qword_27F229780, &unk_24F965BB0);
+  if (v120)
+  {
+    sub_24E612C80(&v119, &v114);
+    __swift_project_boxed_opaque_existential_1(&v114, *(&v115 + 1));
+    sub_24F922288();
+    sub_24E60169C(v123, &v119, &qword_27F229780, &unk_24F965BB0);
+    v71 = v120;
+    sub_24E601704(&v119, &qword_27F229780, &unk_24F965BB0);
+    if (v71)
+    {
+      v136.origin.x = v70;
+      v136.origin.y = v69;
+      v136.size.width = v47;
+      v136.size.height = MinX;
+      CGRectGetMaxX(v136);
+    }
+
+    v137.origin.x = v107;
+    v137.size.height = v108;
+    v137.origin.y = v105;
+    v137.size.width = a5;
+    CGRectGetMinY(v137);
+    v72 = [a1 traitCollection];
+    v73 = sub_24F92BF68();
+
+    v74 = 80;
+    if (v73)
+    {
+      v74 = 40;
+    }
+
+    sub_24E615E00(v7 + v74, &v119);
+    v75 = v120;
+    __swift_project_boxed_opaque_existential_1(&v119, v120);
+    sub_24E8ED7D8(v75);
     sub_24F9223A8();
-    v20(v16, v13);
-    __swift_destroy_boxed_opaque_existential_1(&v116);
-    __swift_destroy_boxed_opaque_existential_1(&v111);
-    v74 = v121;
-    if (v121)
+    v21(v16, v13);
+    __swift_destroy_boxed_opaque_existential_1(&v119);
+    __swift_destroy_boxed_opaque_existential_1(&v114);
+    v76 = v124;
+    if (v124)
     {
       goto LABEL_54;
     }
@@ -5199,115 +8304,118 @@ id BadgeViewLayout.placeChildren(relativeTo:in:)@<X0>(void *a1@<X0>, uint64_t a2
 
   else
   {
-    sub_24E601704(&v116, &qword_27F229780);
-    v74 = v121;
-    if (v121)
+    sub_24E601704(&v119, &qword_27F229780, &unk_24F965BB0);
+    v76 = v124;
+    if (v124)
     {
 LABEL_54:
-      v75 = __swift_project_boxed_opaque_existential_1(v120, v74);
-      v76 = *(v74 - 8);
-      v77 = MEMORY[0x28223BE20](v75);
-      v79 = v99 - ((v78 + 15) & 0xFFFFFFFFFFFFFFF0);
-      (*(v76 + 16))(v79, v77);
+      v77 = __swift_project_boxed_opaque_existential_1(v123, v76);
+      v78 = *(v76 - 8);
+      v79 = MEMORY[0x28223BE20](v77);
+      v81 = v102 - ((v80 + 15) & 0xFFFFFFFFFFFFFFF0);
+      (*(v78 + 16))(v81, v79);
       sub_24F922228();
-      (*(v76 + 8))(v79, v74);
+      (*(v78 + 8))(v81, v76);
     }
   }
 
-  v80 = v119;
-  if (v119)
+  v82 = v122;
+  if (v122)
   {
-    v81 = __swift_project_boxed_opaque_existential_1(v118, v119);
-    v82 = *(v80 - 8);
-    v83 = MEMORY[0x28223BE20](v81);
-    v85 = v99 - ((v84 + 15) & 0xFFFFFFFFFFFFFFF0);
-    (*(v82 + 16))(v85, v83);
+    v83 = __swift_project_boxed_opaque_existential_1(v121, v122);
+    v84 = *(v82 - 8);
+    v85 = MEMORY[0x28223BE20](v83);
+    v87 = v102 - ((v86 + 15) & 0xFFFFFFFFFFFFFFF0);
+    (*(v84 + 16))(v87, v85);
     sub_24F922228();
-    (*(v82 + 8))(v85, v80);
+    (*(v84 + 8))(v87, v82);
   }
 
-  LOBYTE(v111) = *(v7 + 155);
-  sub_24E60169C(v7 + 248, &v111 + 8, &qword_27F229780);
-  sub_24E60169C(v7 + 208, &v114, &unk_27F22B200);
-  if (v111 == 2)
+  LOBYTE(v114) = *(v7 + 155);
+  sub_24E60169C(v7 + 248, &v114 + 8, &qword_27F229780, &unk_24F965BB0);
+  sub_24E60169C(v7 + 208, &v117, &unk_27F22B200, &unk_24F9674C0);
+  if (v114 == 2)
   {
-    if (v113)
+    if (v116)
     {
-      sub_24E612C80((&v111 + 8), &v116);
-      __swift_project_boxed_opaque_existential_1(&v116, v117);
-      v97 = sub_24F922208();
-      *(v98 + 8) = 0;
-      v97(v110, 0);
-      __swift_destroy_boxed_opaque_existential_1(&v116);
-      v95 = &unk_27F22B200;
-      v96 = &v114;
+      sub_24E612C80((&v114 + 8), &v119);
+      __swift_project_boxed_opaque_existential_1(&v119, v120);
+      v100 = sub_24F922208();
+      *(v101 + 8) = 0;
+      v100(v113, 0);
+      __swift_destroy_boxed_opaque_existential_1(&v119);
+      v97 = &unk_27F22B200;
+      v98 = &unk_24F9674C0;
+      v99 = &v117;
       goto LABEL_72;
     }
 
 LABEL_71:
-    v95 = &unk_27F231B68;
-    v96 = &v111;
+    v97 = &unk_27F231B68;
+    v98 = &unk_24F9A6F50;
+    v99 = &v114;
     goto LABEL_72;
   }
 
-  if (v111 != 1 || !v113)
+  if (v114 != 1 || !v116)
   {
     goto LABEL_71;
   }
 
-  sub_24E60169C(&v111 + 8, &v116, &qword_27F229780);
-  if (!v115)
+  sub_24E60169C(&v114 + 8, &v119, &qword_27F229780, &unk_24F965BB0);
+  if (!v118)
   {
-    __swift_destroy_boxed_opaque_existential_1(&v116);
+    __swift_destroy_boxed_opaque_existential_1(&v119);
     goto LABEL_71;
   }
 
-  sub_24E612C80(&v116, v110);
-  sub_24E612C80(&v114, v108);
-  __swift_project_boxed_opaque_existential_1(v110, v110[3]);
-  __swift_project_boxed_opaque_existential_1(v108, v109);
+  sub_24E612C80(&v119, v113);
+  sub_24E612C80(&v117, v111);
+  __swift_project_boxed_opaque_existential_1(v113, v113[3]);
+  __swift_project_boxed_opaque_existential_1(v111, v112);
   sub_24F922218();
-  v87 = v86;
-  v88 = sub_24F922208();
-  *(v89 + 8) = v87;
-  v88(v107, 0);
-  sub_24E615E00(v110, v107);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27F235730);
+  v89 = v88;
+  v90 = sub_24F922208();
+  *(v91 + 8) = v89;
+  v90(v110, 0);
+  sub_24E615E00(v113, v110);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27F235730, &unk_24F947310);
   sub_24EE557CC();
   if ((swift_dynamicCast() & 1) == 0)
   {
 LABEL_65:
-    __swift_destroy_boxed_opaque_existential_1(v108);
-    __swift_destroy_boxed_opaque_existential_1(v110);
-    v95 = &qword_27F229780;
-    v96 = (&v111 + 8);
+    __swift_destroy_boxed_opaque_existential_1(v111);
+    __swift_destroy_boxed_opaque_existential_1(v113);
+    v97 = &qword_27F229780;
+    v98 = &unk_24F965BB0;
+    v99 = (&v114 + 8);
 LABEL_72:
-    sub_24E601704(v96, v95);
+    sub_24E601704(v99, v97, v98);
 LABEL_73:
     sub_24F922128();
-    sub_24E601704(&v122, &qword_27F229780);
-    sub_24E601704(&v125, &qword_27F229780);
-    sub_24E601704(v118, &qword_27F229780);
-    return sub_24E601704(v120, &qword_27F229780);
+    sub_24E601704(&v125, &qword_27F229780, &unk_24F965BB0);
+    sub_24E601704(&v128, &qword_27F229780, &unk_24F965BB0);
+    sub_24E601704(v121, &qword_27F229780, &unk_24F965BB0);
+    return sub_24E601704(v123, &qword_27F229780, &unk_24F965BB0);
   }
 
-  v90 = v106;
-  __swift_project_boxed_opaque_existential_1(v108, v109);
+  v92 = v109;
+  __swift_project_boxed_opaque_existential_1(v111, v112);
   result = sub_24F922498();
   if (result)
   {
-    v92 = result;
-    result = [v90 font];
+    v94 = result;
+    result = [v92 font];
     if (result)
     {
-      v93 = result;
-      v94 = v90;
-      [v92 ascender];
-      [v92 capHeight];
-      [v93 ascender];
-      [v93 capHeight];
-      [v94 frame];
-      [v94 setFrame_];
+      v95 = result;
+      v96 = v92;
+      [v94 ascender];
+      [v94 capHeight];
+      [v95 ascender];
+      [v95 capHeight];
+      [v96 frame];
+      [v96 setFrame_];
 
       goto LABEL_65;
     }
@@ -5500,7 +8608,7 @@ uint64_t sub_24EE55A70(uint64_t a1, uint64_t a2, uint64_t a3)
 
   else
   {
-    v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F212A08);
+    v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F212A08, &qword_24F9397D0);
     v11 = *(*(v10 - 8) + 48);
     v12 = a1 + *(a3 + 20);
 
@@ -5521,7 +8629,7 @@ uint64_t sub_24EE55B80(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
 
   else
   {
-    v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F212A08);
+    v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F212A08, &qword_24F9397D0);
     v13 = *(*(v12 - 8) + 56);
     v14 = a1 + *(a4 + 20);
 
@@ -5529,7 +8637,7 @@ uint64_t sub_24EE55B80(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
   }
 }
 
-uint64_t type metadata accessor for CompletedChallengeSummary()
+uint64_t type metadata accessor for CompletedChallengeSummary(uint64_t a1)
 {
   result = qword_27F231B80;
   if (!qword_27F231B80)
@@ -5540,28 +8648,28 @@ uint64_t type metadata accessor for CompletedChallengeSummary()
   return result;
 }
 
-void sub_24EE55CD4()
+void sub_24EE55CD4(uint64_t a1)
 {
   type metadata accessor for Challenge(319);
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
-    sub_24EE55D58();
-    if (v1 <= 0x3F)
+    sub_24EE55D58(319);
+    if (v2 <= 0x3F)
     {
       swift_cvw_initStructMetadataWithLayoutString();
     }
   }
 }
 
-void sub_24EE55D58()
+void sub_24EE55D58(uint64_t a1)
 {
   if (!qword_27F21B7B0)
   {
     type metadata accessor for ChallengeDefinitionDetail(255);
-    v0 = sub_24F92C4A8();
-    if (!v1)
+    v1 = sub_24F92C4A8();
+    if (!v2)
     {
-      atomic_store(v0, &qword_27F21B7B0);
+      atomic_store(v1, &qword_27F21B7B0);
     }
   }
 }
@@ -5599,9 +8707,9 @@ uint64_t sub_24EE55E9C(uint64_t a1)
   return MEMORY[0x2821FE720](a1, v2);
 }
 
-uint64_t sub_24EE55EF8@<X0>(void *a1@<X0>, void *a2@<X8>)
+uint64_t sub_24EE55EF8@<X0>(void *a1@<X0>, double *a2@<X8>)
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F231BB8);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F231BB8, &qword_24F9A7470);
   v6 = *(v5 - 8);
   MEMORY[0x28223BE20](v5);
   v8 = &v12 - v7;
@@ -5630,7 +8738,7 @@ unint64_t sub_24EE56060@<X0>(void *a1@<X8>)
   v7 = v1[4];
   v6 = v1[5];
   v8 = v1[6];
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F212F08);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F212F08, &unk_24F93A2A0);
   inited = swift_initStackObject();
   *(inited + 32) = 0x61746144627568;
   *(inited + 16) = xmmword_24F9479A0;
@@ -5646,23 +8754,23 @@ unint64_t sub_24EE56060@<X0>(void *a1@<X8>)
   v10[6] = v7;
   *(inited + 88) = 0xD000000000000013;
   *(inited + 96) = 0x800000024FA465A0;
-  *(inited + 128) = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F231BE8);
+  *(inited + 128) = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F231BE8, &qword_24F9A7620);
   v11 = sub_24EE56FD0();
   *(inited + 104) = v6;
   *(inited + 136) = v11;
   *(inited + 144) = 0xD00000000000001BLL;
   *(inited + 152) = 0x800000024FA5FBA0;
-  *(inited + 184) = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F231BF8);
+  *(inited + 184) = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F231BF8, qword_24FA24E10);
   *(inited + 192) = sub_24EE57084();
   *(inited + 160) = v8;
 
   v12 = sub_24E607D0C(inited);
   swift_setDeallocating();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F212F18);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F212F18, &unk_24F93A2B0);
   swift_arrayDestroy();
   v13 = sub_24E80FFAC(v12);
 
-  a1[3] = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F212F20);
+  a1[3] = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F212F20, &qword_24F93E370);
   result = sub_24E6060B8();
   a1[4] = result;
   *a1 = v13;
@@ -5672,18 +8780,18 @@ unint64_t sub_24EE56060@<X0>(void *a1@<X8>)
 uint64_t sub_24EE56274@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
 {
   v19 = a2;
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F212A08);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F212A08, &qword_24F9397D0);
   MEMORY[0x28223BE20](v4 - 8);
   v6 = &v18 - v5;
   v20 = type metadata accessor for Challenge(0);
   MEMORY[0x28223BE20](v20);
   v21 = &v18 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F231B90);
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F231B90, &qword_24F9A7298);
   v22 = *(v8 - 8);
   v23 = v8;
   MEMORY[0x28223BE20](v8);
   v10 = &v18 - v9;
-  v11 = type metadata accessor for CompletedChallengeSummary();
+  v11 = type metadata accessor for CompletedChallengeSummary(0);
   MEMORY[0x28223BE20](v11);
   v13 = &v18 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
   __swift_project_boxed_opaque_existential_1(a1, a1[3]);
@@ -5697,14 +8805,14 @@ uint64_t sub_24EE56274@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
   v18 = a1;
   v14 = v13;
   v25 = 0;
-  sub_24EE57138(&qword_27F21AF10, type metadata accessor for Challenge);
+  sub_24EE57138(&qword_27F21AF10, type metadata accessor for Challenge, &protocol conformance descriptor for Challenge);
   v15 = v21;
   v16 = v23;
   sub_24F92CC68();
   sub_24EE56A60(v15, v14);
   type metadata accessor for ChallengeDefinitionDetail(0);
   v24 = 1;
-  sub_24EE57138(&qword_27F21B790, type metadata accessor for ChallengeDefinitionDetail);
+  sub_24EE57138(&qword_27F21B790, type metadata accessor for ChallengeDefinitionDetail, &protocol conformance descriptor for ChallengeDefinitionDetail);
   sub_24F92CC18();
   (*(v22 + 8))(v10, v16);
   sub_24EE56AC4(v6, v14 + *(v11 + 20));
@@ -5777,29 +8885,29 @@ uint64_t sub_24EE56780(uint64_t a1)
 unint64_t sub_24EE567D4@<X0>(uint64_t a1@<X1>, void *a2@<X8>)
 {
   v4 = v2;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F212F08);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F212F08, &unk_24F93A2A0);
   inited = swift_initStackObject();
   *(inited + 16) = xmmword_24F93A400;
   *(inited + 32) = 0x676E656C6C616863;
   *(inited + 40) = 0xE900000000000065;
   *(inited + 72) = type metadata accessor for Challenge(0);
-  *(inited + 80) = sub_24EE57138(&qword_27F21AEF0, type metadata accessor for Challenge);
+  *(inited + 80) = sub_24EE57138(&qword_27F21AEF0, type metadata accessor for Challenge, &protocol conformance descriptor for Challenge);
   boxed_opaque_existential_1 = __swift_allocate_boxed_opaque_existential_1((inited + 48));
   sub_24EE56B34(v4, boxed_opaque_existential_1, type metadata accessor for Challenge);
   *(inited + 88) = 0x6974696E69666564;
   *(inited + 96) = 0xEA00000000006E6FLL;
   v8 = *(a1 + 20);
-  *(inited + 128) = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F212A08);
+  *(inited + 128) = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F212A08, &qword_24F9397D0);
   *(inited + 136) = sub_24E759444();
   v9 = __swift_allocate_boxed_opaque_existential_1((inited + 104));
   sub_24EE5699C(v4 + v8, v9);
   v10 = sub_24E607D0C(inited);
   swift_setDeallocating();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F212F18);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F212F18, &unk_24F93A2B0);
   swift_arrayDestroy();
   v11 = sub_24E80FFAC(v10);
 
-  a2[3] = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F212F20);
+  a2[3] = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F212F20, &qword_24F93E370);
   result = sub_24E6060B8();
   a2[4] = result;
   *a2 = v11;
@@ -5808,7 +8916,7 @@ unint64_t sub_24EE567D4@<X0>(uint64_t a1@<X1>, void *a2@<X8>)
 
 uint64_t sub_24EE5699C(uint64_t a1, uint64_t a2)
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F212A08);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F212A08, &qword_24F9397D0);
   (*(*(v4 - 8) + 16))(a2, a1, v4);
   return a2;
 }
@@ -5834,7 +8942,7 @@ uint64_t sub_24EE56A60(uint64_t a1, uint64_t a2)
 
 uint64_t sub_24EE56AC4(uint64_t a1, uint64_t a2)
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F212A08);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F212A08, &qword_24F9397D0);
   (*(*(v4 - 8) + 32))(a2, a1, v4);
   return a2;
 }
@@ -6019,8 +9127,8 @@ unint64_t sub_24EE56FD0()
   result = qword_27F231BF0;
   if (!qword_27F231BF0)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27F231BE8);
-    sub_24EE57138(&qword_27F21DD30, type metadata accessor for ChallengeDetail);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27F231BE8, &qword_24F9A7620);
+    sub_24EE57138(&qword_27F21DD30, type metadata accessor for ChallengeDetail, &protocol conformance descriptor for ChallengeDetail);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_27F231BF0);
   }
@@ -6033,8 +9141,8 @@ unint64_t sub_24EE57084()
   result = qword_27F231C00;
   if (!qword_27F231C00)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27F231BF8);
-    sub_24EE57138(&qword_27F231C08, type metadata accessor for CompletedChallengeSummary);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27F231BF8, qword_24FA24E10);
+    sub_24EE57138(&qword_27F231C08, type metadata accessor for CompletedChallengeSummary, &unk_24F9A7254);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_27F231C00);
   }
@@ -6042,7 +9150,7 @@ unint64_t sub_24EE57084()
   return result;
 }
 
-uint64_t sub_24EE57138(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t sub_24EE57138(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -6076,7 +9184,7 @@ uint64_t MetricsLogger.log(contentsOf:)(void *a1)
   v54 = *(v55 - 8);
   MEMORY[0x28223BE20](v55);
   v53 = &v49 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F22F7C8);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F22F7C8, &qword_24F99D508);
   MEMORY[0x28223BE20](v3 - 8);
   v52 = &v49 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x28223BE20](v5);
@@ -6097,7 +9205,7 @@ uint64_t MetricsLogger.log(contentsOf:)(void *a1)
   v19 = *(v18 + 3);
   if (v20 >= v19 >> 1)
   {
-    v18 = sub_24E61970C(v19 > 1, v20 + 1, 1, v18);
+    v18 = sub_24E61970C((v19 > 1), v20 + 1, 1, v18);
   }
 
   *(v18 + 2) = v20 + 1;
@@ -6112,20 +9220,20 @@ uint64_t MetricsLogger.log(contentsOf:)(void *a1)
   MetatypeMetadata = swift_getMetatypeMetadata();
   v60[0] = DynamicType;
   sub_24F928438();
-  sub_24E601704(v60, &qword_27F2129B0);
+  sub_24E601704(v60, &qword_27F2129B0, &unk_24F945320);
   v28 = *(v18 + 2);
   v27 = *(v18 + 3);
   if (v28 >= v27 >> 1)
   {
-    v18 = sub_24E61970C(v27 > 1, v28 + 1, 1, v18);
+    v18 = sub_24E61970C((v27 > 1), v28 + 1, 1, v18);
   }
 
   *(v18 + 2) = v28 + 1;
   v21(&v18[v24 + v28 * v25], v14, v7);
   v59 = a1;
   v29 = a1;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27F228600);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F2231C0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27F228600, &qword_24F93B7C0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F2231C0, &qword_24F96D908);
   if (swift_dynamicCast())
   {
     sub_24E612E28(&v56, v60);
@@ -6138,14 +9246,14 @@ uint64_t MetricsLogger.log(contentsOf:)(void *a1)
     *(&v56 + 1) = v33;
     v34 = v49;
     sub_24F928438();
-    sub_24E601704(&v56, &qword_27F2129B0);
+    sub_24E601704(&v56, &qword_27F2129B0, &unk_24F945320);
     v35 = v51;
     v21(v51, v34, v7);
     *&v56 = v18;
     v36 = *(v18 + 2);
     if (v36 >= *(v18 + 3) >> 1)
     {
-      v18 = sub_24E61970C(1uLL, v36 + 1, 1, v18);
+      v18 = sub_24E61970C(1, v36 + 1, 1, v18);
       *&v56 = v18;
     }
 
@@ -6164,7 +9272,7 @@ uint64_t MetricsLogger.log(contentsOf:)(void *a1)
     v58 = 0;
     v56 = 0u;
     v57 = 0u;
-    sub_24E601704(&v56, &qword_27F2231C8);
+    sub_24E601704(&v56, &qword_27F2231C8, &unk_24F96D910);
     swift_getErrorValue();
     v40 = sub_24F92CFE8();
     MetatypeMetadata = MEMORY[0x277D837D0];
@@ -6172,14 +9280,14 @@ uint64_t MetricsLogger.log(contentsOf:)(void *a1)
     v60[1] = v41;
     v42 = v50;
     sub_24F928438();
-    sub_24E601704(v60, &qword_27F2129B0);
+    sub_24E601704(v60, &qword_27F2129B0, &unk_24F945320);
     v43 = v52;
     v21(v52, v42, v7);
     *&v56 = v18;
     v44 = *(v18 + 2);
     if (v44 >= *(v18 + 3) >> 1)
     {
-      v18 = sub_24E61970C(1uLL, v44 + 1, 1, v18);
+      v18 = sub_24E61970C(1, v44 + 1, 1, v18);
       *&v56 = v18;
     }
 
@@ -6195,7 +9303,7 @@ uint64_t MetricsLogger.log(contentsOf:)(void *a1)
   (*(v45 + 8))(v46, v47);
 }
 
-uint64_t sub_24EE57848(uint64_t a1, uint64_t a2, uint64_t a3, void **a4)
+uint64_t sub_24EE57848(uint64_t a1, uint64_t a2, uint64_t a3, char **a4)
 {
   v8 = sub_24F928468();
   v9 = *(v8 - 8);
@@ -6208,75 +9316,75 @@ uint64_t sub_24EE57848(uint64_t a1, uint64_t a2, uint64_t a3, void **a4)
   v30[1] = a2;
 
   sub_24F928438();
-  sub_24E601704(v30, &qword_27F2129B0);
+  sub_24E601704(v30, &qword_27F2129B0, &unk_24F945320);
   v15 = *a4;
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
   *a4 = v15;
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v15 = sub_24E61970C(0, v15[2] + 1, 1, v15);
+    v15 = sub_24E61970C(0, *(v15 + 2) + 1, 1, v15);
     *a4 = v15;
   }
 
-  v18 = v15[2];
-  v17 = v15[3];
+  v18 = *(v15 + 2);
+  v17 = *(v15 + 3);
   if (v18 >= v17 >> 1)
   {
-    v15 = sub_24E61970C(v17 > 1, v18 + 1, 1, v15);
+    v15 = sub_24E61970C((v17 > 1), v18 + 1, 1, v15);
     *a4 = v15;
   }
 
-  v15[2] = v18 + 1;
+  *(v15 + 2) = v18 + 1;
   v21 = *(v9 + 32);
   v20 = v9 + 32;
   v19 = v21;
   v22 = (*(v20 + 48) + 32) & ~*(v20 + 48);
-  v23 = v15 + v22;
+  v23 = &v15[v22];
   v24 = *(v20 + 40);
   v21(&v23[v24 * v18], v14, v8);
   sub_24E643A9C(a3, v30);
   sub_24F928438();
-  sub_24E601704(v30, &qword_27F2129B0);
+  sub_24E601704(v30, &qword_27F2129B0, &unk_24F945320);
   v25 = *a4;
   v26 = swift_isUniquelyReferenced_nonNull_native();
   *a4 = v25;
   if ((v26 & 1) == 0)
   {
-    v25 = sub_24E61970C(0, v25[2] + 1, 1, v25);
+    v25 = sub_24E61970C(0, *(v25 + 2) + 1, 1, v25);
     *a4 = v25;
   }
 
-  v28 = v25[2];
-  v27 = v25[3];
+  v28 = *(v25 + 2);
+  v27 = *(v25 + 3);
   if (v28 >= v27 >> 1)
   {
-    v25 = sub_24E61970C(v27 > 1, v28 + 1, 1, v25);
+    v25 = sub_24E61970C((v27 > 1), v28 + 1, 1, v25);
     *a4 = v25;
   }
 
-  v25[2] = v28 + 1;
-  return v19(v25 + v22 + v28 * v24, v11, v8);
+  *(v25 + 2) = v28 + 1;
+  return v19(&v25[v22 + v28 * v24], v11, v8);
 }
 
 uint64_t MetricsLogger.Configuration.init(asPartOf:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
 {
-  v18 = a2;
-  v3 = sub_24F9288E8();
-  v4 = *(v3 - 8);
-  MEMORY[0x28223BE20](v3);
-  v6 = &v16 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27F2229C0);
-  v8 = *(v7 - 8);
-  MEMORY[0x28223BE20](v7);
-  v10 = &v16 - v9;
-  v11 = sub_24F92A498();
-  v17 = *(v11 - 8);
-  MEMORY[0x28223BE20](v11);
-  v13 = &v16 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v19 = a2;
+  v4 = sub_24F9288E8();
+  v5 = *(v4 - 8);
+  MEMORY[0x28223BE20](v4);
+  v7 = &v17 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27F2229C0, &unk_24F974810);
+  v9 = *(v8 - 8);
+  MEMORY[0x28223BE20](v8);
+  v11 = &v17 - v10;
+  v12 = sub_24F92A498();
+  v18 = *(v12 - 8);
+  MEMORY[0x28223BE20](v12);
+  v14 = &v17 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_24F928FD8();
   sub_24F92A758();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F222260);
-  v19 = a1;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F222260, &unk_24F93B540);
+  v20 = a1;
   sub_24F92A758();
   if (qword_27F2108D0 != -1)
   {
@@ -6285,23 +9393,23 @@ uint64_t MetricsLogger.Configuration.init(asPartOf:)@<X0>(uint64_t a1@<X0>, uint
 
   sub_24F92A438();
   sub_24F92A408();
-  v14 = *(v8 + 8);
-  v14(v10, v7);
+  v15 = *(v9 + 8);
+  v15(v11, v8);
   if (qword_27F2108D8 != -1)
   {
     swift_once();
   }
 
-  (*(v4 + 104))(v6, *MEMORY[0x277D21C38], v3);
+  (*(v5 + 104))(v7, *MEMORY[0x277D21C38], v4);
   sub_24F92A368();
-  (*(v4 + 8))(v6, v3);
+  (*(v5 + 8))(v7, v4);
   sub_24F92A408();
-  v14(v10, v7);
-  sub_24E615E00(v21, v20);
+  v15(v11, v8);
+  sub_24E615E00(v22, v21);
   sub_24F928BA8();
 
-  __swift_destroy_boxed_opaque_existential_1(v21);
-  return (*(v17 + 8))(v13, v11);
+  __swift_destroy_boxed_opaque_existential_1(v22);
+  return (*(v18 + 8))(v14, v12);
 }
 
 uint64_t sub_24EE57EB8(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -6332,7 +9440,7 @@ uint64_t sub_24EE57EB8(uint64_t a1, uint64_t a2, uint64_t a3)
 
     else
     {
-      v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F212F48);
+      v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F212F48, &unk_24F93A2D0);
       v14 = *(*(v13 - 8) + 48);
       v15 = a1 + *(a3 + 28);
 
@@ -6364,7 +9472,7 @@ uint64_t sub_24EE57FFC(uint64_t result, uint64_t a2, int a3, uint64_t a4)
 
     else
     {
-      v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F212F48);
+      v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F212F48, &unk_24F93A2D0);
       v14 = *(*(v13 - 8) + 56);
       v15 = v5 + *(a4 + 28);
 
@@ -6375,7 +9483,7 @@ uint64_t sub_24EE57FFC(uint64_t result, uint64_t a2, int a3, uint64_t a4)
   return result;
 }
 
-uint64_t type metadata accessor for RefreshableGameHighlightsShelfConstructionIntent()
+uint64_t type metadata accessor for RefreshableGameHighlightsShelfConstructionIntent(uint64_t a1)
 {
   result = qword_27F231C10;
   if (!qword_27F231C10)
@@ -6386,35 +9494,35 @@ uint64_t type metadata accessor for RefreshableGameHighlightsShelfConstructionIn
   return result;
 }
 
-void sub_24EE58178()
+void sub_24EE58178(uint64_t a1)
 {
   type metadata accessor for Player(319);
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
-    sub_24EE5820C();
-    if (v1 <= 0x3F)
+    sub_24EE5820C(319);
+    if (v2 <= 0x3F)
     {
       swift_cvw_initStructMetadataWithLayoutString();
     }
   }
 }
 
-void sub_24EE5820C()
+void sub_24EE5820C(uint64_t a1)
 {
   if (!qword_27F231C20)
   {
     sub_24F928388();
-    v0 = sub_24F92C4A8();
-    if (!v1)
+    v1 = sub_24F92C4A8();
+    if (!v2)
     {
-      atomic_store(v0, &qword_27F231C20);
+      atomic_store(v1, &qword_27F231C20);
     }
   }
 }
 
 unint64_t sub_24EE58264@<X0>(void *a1@<X8>)
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F212F08);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F212F08, &unk_24F93A2A0);
   inited = swift_initStackObject();
   *(inited + 16) = xmmword_24F93FC20;
   *(inited + 32) = 0x444965676170;
@@ -6437,27 +9545,27 @@ unint64_t sub_24EE58264@<X0>(void *a1@<X8>)
   *(inited + 112) = v9;
   *(inited + 144) = 0x726579616C70;
   *(inited + 152) = 0xE600000000000000;
-  v10 = type metadata accessor for RefreshableGameHighlightsShelfConstructionIntent();
+  v10 = type metadata accessor for RefreshableGameHighlightsShelfConstructionIntent(0);
   v11 = *(v10 + 24);
   *(inited + 184) = type metadata accessor for Player(0);
-  *(inited + 192) = sub_24EE58F64(&qword_27F215388, type metadata accessor for Player);
+  *(inited + 192) = sub_24EE58F64(&qword_27F215388, type metadata accessor for Player, &protocol conformance descriptor for Player);
   boxed_opaque_existential_1 = __swift_allocate_boxed_opaque_existential_1((inited + 160));
   sub_24EE58E48(v1 + v11, boxed_opaque_existential_1, type metadata accessor for Player);
   *(inited + 200) = 0xD000000000000013;
   *(inited + 208) = 0x800000024FA5FBE0;
   v13 = *(v10 + 28);
-  *(inited + 240) = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F212F48);
+  *(inited + 240) = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F212F48, &unk_24F93A2D0);
   *(inited + 248) = sub_24EE58EB0();
   v14 = __swift_allocate_boxed_opaque_existential_1((inited + 216));
   sub_24EE58FAC(v1 + v13, v14);
 
   v15 = sub_24E607D0C(inited);
   swift_setDeallocating();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F212F18);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F212F18, &unk_24F93A2B0);
   swift_arrayDestroy();
   v16 = sub_24E80FFAC(v15);
 
-  a1[3] = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F212F20);
+  a1[3] = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F212F20, &qword_24F93E370);
   result = sub_24E6060B8();
   a1[4] = result;
   *a1 = v16;
@@ -6466,7 +9574,7 @@ unint64_t sub_24EE58264@<X0>(void *a1@<X8>)
 
 uint64_t sub_24EE58494(void *a1)
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F231C38);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F231C38, &unk_24F9A7778);
   v4 = *(v3 - 8);
   MEMORY[0x28223BE20](v3);
   v6 = &v8[-v5];
@@ -6479,14 +9587,14 @@ uint64_t sub_24EE58494(void *a1)
   {
     v8[14] = 1;
     sub_24F92CD08();
-    type metadata accessor for RefreshableGameHighlightsShelfConstructionIntent();
+    type metadata accessor for RefreshableGameHighlightsShelfConstructionIntent(0);
     v8[13] = 2;
     type metadata accessor for Player(0);
-    sub_24EE58F64(&qword_27F213E28, type metadata accessor for Player);
+    sub_24EE58F64(&qword_27F213E28, type metadata accessor for Player, &protocol conformance descriptor for Player);
     sub_24F92CD48();
     v8[12] = 3;
     sub_24F928388();
-    sub_24EE58F64(&qword_27F231C40, MEMORY[0x277D21B10]);
+    sub_24EE58F64(&qword_27F231C40, MEMORY[0x277D21B10], MEMORY[0x277D21B18]);
     sub_24F92CCF8();
   }
 
@@ -6496,18 +9604,18 @@ uint64_t sub_24EE58494(void *a1)
 uint64_t sub_24EE58728@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
 {
   v22 = a2;
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F212F48);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F212F48, &unk_24F93A2D0);
   MEMORY[0x28223BE20](v3 - 8);
   v23 = v21 - v4;
   v5 = type metadata accessor for Player(0);
   MEMORY[0x28223BE20](v5);
   v7 = v21 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F231C28);
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F231C28, &qword_24F9A7770);
   v24 = *(v8 - 8);
   v25 = v8;
   MEMORY[0x28223BE20](v8);
   v10 = v21 - v9;
-  v11 = type metadata accessor for RefreshableGameHighlightsShelfConstructionIntent();
+  v11 = type metadata accessor for RefreshableGameHighlightsShelfConstructionIntent(0);
   MEMORY[0x28223BE20](v11);
   v13 = (v21 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0));
   __swift_project_boxed_opaque_existential_1(a1, a1[3]);
@@ -6530,13 +9638,13 @@ uint64_t sub_24EE58728@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
   v13[2] = sub_24F92CC28();
   v13[3] = v18;
   v29 = 2;
-  sub_24EE58F64(&qword_27F213E38, type metadata accessor for Player);
+  sub_24EE58F64(&qword_27F213E38, type metadata accessor for Player, &protocol conformance descriptor for Player);
   v21[1] = 0;
   sub_24F92CC68();
   sub_24E61C0A8(v7, v13 + *(v11 + 24));
   sub_24F928388();
   v28 = 3;
-  sub_24EE58F64(&qword_27F21E7D0, MEMORY[0x277D21B10]);
+  sub_24EE58F64(&qword_27F21E7D0, MEMORY[0x277D21B10], MEMORY[0x277D21B20]);
   v19 = v23;
   sub_24F92CC18();
   (*(v15 + 8))(v26, v16);
@@ -6571,10 +9679,10 @@ unint64_t sub_24EE58BA8()
   }
 }
 
-uint64_t sub_24EE58C1C@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
+uint64_t sub_24EE58C1C@<X0>(_BYTE *a1@<X8>, uint64_t a2@<X0>, uint64_t a3@<X1>)
 {
-  result = sub_24EE59134(a1, a2);
-  *a3 = result;
+  result = sub_24EE59134(a2, a3);
+  *a1 = result;
   return result;
 }
 
@@ -6606,7 +9714,7 @@ unint64_t sub_24EE58D24()
 
 uint64_t sub_24EE58D78(uint64_t a1, uint64_t a2)
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F212F48);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F212F48, &unk_24F93A2D0);
   (*(*(v4 - 8) + 32))(a2, a1, v4);
   return a2;
 }
@@ -6630,3115 +9738,11 @@ unint64_t sub_24EE58EB0()
   result = qword_27F231C48;
   if (!qword_27F231C48)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27F212F48);
-    sub_24EE58F64(&qword_27F231C50, MEMORY[0x277D21B10]);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27F212F48, &unk_24F93A2D0);
+    sub_24EE58F64(&qword_27F231C50, MEMORY[0x277D21B10], &protocol conformance descriptor for JSONObject);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_27F231C48);
   }
 
-  return result;
-}
-
-uint64_t sub_24EE58F64(unint64_t *a1, void (*a2)(uint64_t))
-{
-  result = *a1;
-  if (!result)
-  {
-    a2(255);
-    result = swift_getWitnessTable();
-    atomic_store(result, a1);
-  }
-
-  return result;
-}
-
-uint64_t sub_24EE58FAC(uint64_t a1, uint64_t a2)
-{
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F212F48);
-  (*(*(v4 - 8) + 16))(a2, a1, v4);
-  return a2;
-}
-
-unint64_t sub_24EE59030()
-{
-  result = qword_27F231C58;
-  if (!qword_27F231C58)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &qword_27F231C58);
-  }
-
-  return result;
-}
-
-unint64_t sub_24EE59088()
-{
-  result = qword_27F231C60;
-  if (!qword_27F231C60)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &qword_27F231C60);
-  }
-
-  return result;
-}
-
-unint64_t sub_24EE590E0()
-{
-  result = qword_27F231C68;
-  if (!qword_27F231C68)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &qword_27F231C68);
-  }
-
-  return result;
-}
-
-uint64_t sub_24EE59134(uint64_t a1, uint64_t a2)
-{
-  v4 = a1 == 0x444965676170 && a2 == 0xE600000000000000;
-  if (v4 || (sub_24F92CE08() & 1) != 0)
-  {
-
-    return 0;
-  }
-
-  else if (a1 == 0x44496D616461 && a2 == 0xE600000000000000 || (sub_24F92CE08() & 1) != 0)
-  {
-
-    return 1;
-  }
-
-  else if (a1 == 0x726579616C70 && a2 == 0xE600000000000000 || (sub_24F92CE08() & 1) != 0)
-  {
-
-    return 2;
-  }
-
-  else if (a1 == 0xD000000000000013 && 0x800000024FA5FBE0 == a2)
-  {
-
-    return 3;
-  }
-
-  else
-  {
-    v6 = sub_24F92CE08();
-
-    if (v6)
-    {
-      return 3;
-    }
-
-    else
-    {
-      return 4;
-    }
-  }
-}
-
-uint64_t sub_24EE59294(uint64_t a1)
-{
-  v37 = a1;
-  v1 = sub_24F91F8A8();
-  v2 = *(v1 - 8);
-  MEMORY[0x28223BE20](v1);
-  v4 = &v36 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v5 = sub_24F91F7C8();
-  v6 = *(v5 - 8);
-  MEMORY[0x28223BE20](v5);
-  v8 = &v36 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = sub_24F91ED78();
-  v40 = *(v9 - 8);
-  v41 = v9;
-  MEMORY[0x28223BE20](v9);
-  v11 = &v36 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v12 = sub_24F91F648();
-  v38 = *(v12 - 8);
-  v39 = v12;
-  MEMORY[0x28223BE20](v12);
-  v14 = &v36 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  sub_24F91F638();
-  sub_24F91F758();
-  sub_24F91F7B8();
-  (*(v6 + 8))(v8, v5);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F22E080);
-  v15 = sub_24F91F898();
-  v16 = *(v15 - 8);
-  v17 = (*(v16 + 80) + 32) & ~*(v16 + 80);
-  v18 = swift_allocObject();
-  v36 = xmmword_24F93DE60;
-  *(v18 + 16) = xmmword_24F93DE60;
-  (*(v16 + 104))(v18 + v17, *MEMORY[0x277CC9968], v15);
-  sub_24E8026A0(v18);
-  swift_setDeallocating();
-  (*(v16 + 8))(v18 + v17, v15);
-  swift_deallocClassInstance();
-  sub_24F91F808();
-
-  (*(v2 + 8))(v4, v1);
-  v19 = sub_24F91ECA8();
-  countAndFlagsBits = 0;
-  if ((v21 & 1) == 0)
-  {
-    if ((v19 - 2) < 2)
-    {
-      v24._object = 0x800000024FA5FC00;
-      v25 = v19;
-      v24._countAndFlagsBits = 0xD000000000000010;
-      v26._countAndFlagsBits = 0;
-      v26._object = 0xE000000000000000;
-      localizedString(_:comment:)(v24, v26);
-      __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F2218A0);
-      v27 = swift_allocObject();
-      *(v27 + 16) = v36;
-      v42 = v25;
-      v28 = sub_24F92CD88();
-      v30 = v29;
-      *(v27 + 56) = MEMORY[0x277D837D0];
-      *(v27 + 64) = sub_24E90A06C();
-      *(v27 + 32) = v28;
-      *(v27 + 40) = v30;
-      countAndFlagsBits = sub_24F92B118();
-    }
-
-    else
-    {
-      if (v19 == 1)
-      {
-        v22 = 0xD000000000000011;
-        v23 = 0x800000024FA5FC20;
-      }
-
-      else
-      {
-        if (v19)
-        {
-          v32 = [objc_allocWithZone(MEMORY[0x277CCA968]) init];
-          [v32 setDateStyle_];
-          [v32 setTimeStyle_];
-          v33 = sub_24F91F578();
-          v34 = [v32 stringFromDate_];
-
-          countAndFlagsBits = sub_24F92B0D8();
-          goto LABEL_10;
-        }
-
-        v22 = 0x5F5350554B434F4CLL;
-        v23 = 0xED00005941444F54;
-      }
-
-      v31._countAndFlagsBits = 0;
-      v31._object = 0xE000000000000000;
-      countAndFlagsBits = localizedString(_:comment:)(*&v22, v31)._countAndFlagsBits;
-    }
-  }
-
-LABEL_10:
-  (*(v40 + 8))(v11, v41);
-  (*(v38 + 8))(v14, v39);
-  return countAndFlagsBits;
-}
-
-GameStoreKit::SheetActionStyle_optional __swiftcall SheetActionStyle.init(rawValue:)(Swift::String rawValue)
-{
-  v2 = v1;
-  v3 = sub_24F92CB88();
-
-  if (v3 == 1)
-  {
-    v5 = 1;
-  }
-
-  else
-  {
-    v5 = 2;
-  }
-
-  if (!v3)
-  {
-    v5 = 0;
-  }
-
-  *v2 = v5;
-  return result;
-}
-
-uint64_t SheetActionStyle.rawValue.getter()
-{
-  if (*v0)
-  {
-    return 0x5474756F68746977;
-  }
-
-  else
-  {
-    return 0x746C7561666564;
-  }
-}
-
-uint64_t sub_24EE598D4(_BYTE *a1, _BYTE *a2)
-{
-  v2 = *a1 == 0;
-  if (*a1)
-  {
-    v3 = 0x5474756F68746977;
-  }
-
-  else
-  {
-    v3 = 0x746C7561666564;
-  }
-
-  if (v2)
-  {
-    v4 = 0xE700000000000000;
-  }
-
-  else
-  {
-    v4 = 0xEC000000656C7469;
-  }
-
-  if (*a2)
-  {
-    v5 = 0x5474756F68746977;
-  }
-
-  else
-  {
-    v5 = 0x746C7561666564;
-  }
-
-  if (*a2)
-  {
-    v6 = 0xEC000000656C7469;
-  }
-
-  else
-  {
-    v6 = 0xE700000000000000;
-  }
-
-  if (v3 == v5 && v4 == v6)
-  {
-    v8 = 1;
-  }
-
-  else
-  {
-    v8 = sub_24F92CE08();
-  }
-
-  return v8 & 1;
-}
-
-uint64_t sub_24EE59984()
-{
-  sub_24F92D068();
-  sub_24F92B218();
-
-  return sub_24F92D0B8();
-}
-
-uint64_t sub_24EE59A10()
-{
-  sub_24F92B218();
-}
-
-uint64_t sub_24EE59A88()
-{
-  sub_24F92D068();
-  sub_24F92B218();
-
-  return sub_24F92D0B8();
-}
-
-uint64_t sub_24EE59B10@<X0>(char *a1@<X8>)
-{
-  v2 = sub_24F92CB88();
-
-  if (v2 == 1)
-  {
-    v4 = 1;
-  }
-
-  else
-  {
-    v4 = 2;
-  }
-
-  if (!v2)
-  {
-    v4 = 0;
-  }
-
-  *a1 = v4;
-  return result;
-}
-
-void sub_24EE59B70(uint64_t *a1@<X8>)
-{
-  v2 = 0x746C7561666564;
-  if (*v1)
-  {
-    v2 = 0x5474756F68746977;
-  }
-
-  v3 = 0xE700000000000000;
-  if (*v1)
-  {
-    v3 = 0xEC000000656C7469;
-  }
-
-  *a1 = v2;
-  a1[1] = v3;
-}
-
-void *SheetAction.__allocating_init(actions:title:actionMetrics:message:isCancelable:cancelTitle:checkedIndex:destructiveActionIndex:isCustom:style:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, char a7, uint64_t a8, uint64_t a9, uint64_t a10, char a11, uint64_t a12, unsigned __int8 a13, unsigned __int8 a14, _BYTE *a15)
-{
-  v50 = a2;
-  v51 = a3;
-  v48 = a13;
-  v49 = a14;
-  v46 = a4;
-  v47 = a15;
-  v20 = sub_24F91F6B8();
-  v44 = *(v20 - 8);
-  v45 = v20;
-  MEMORY[0x28223BE20](v20);
-  v43 = &v42 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v22 = swift_allocObject();
-  *(v22 + OBJC_IVAR____TtC12GameStoreKit11SheetAction_actions) = a1;
-  v23 = (v22 + OBJC_IVAR____TtC12GameStoreKit11SheetAction_message);
-  *v23 = a5;
-  v23[1] = a6;
-  *(v22 + OBJC_IVAR____TtC12GameStoreKit11SheetAction_isCancelable) = a7;
-  v24 = (v22 + OBJC_IVAR____TtC12GameStoreKit11SheetAction_cancelTitle);
-  *v24 = a8;
-  v24[1] = a9;
-  v25 = v22 + OBJC_IVAR____TtC12GameStoreKit11SheetAction_checkedIndex;
-  *v25 = a10;
-  v25[8] = a11 & 1;
-  v26 = v22 + OBJC_IVAR____TtC12GameStoreKit11SheetAction_destructiveActionIndex;
-  *v26 = a12;
-  v26[8] = v48 & 1;
-  *(v22 + OBJC_IVAR____TtC12GameStoreKit11SheetAction_isCustom) = v49;
-  v27 = v46;
-  *(v22 + OBJC_IVAR____TtC12GameStoreKit11SheetAction_style) = *v47;
-  v58 = 0;
-  memset(v57, 0, sizeof(v57));
-  v28 = OBJC_IVAR____TtC12GameStoreKit6Action_actionMetrics;
-  v29 = sub_24F928AD8();
-  v30 = *(v29 - 8);
-  (*(v30 + 16))(v22 + v28, v27, v29);
-  v31 = OBJC_IVAR____TtC12GameStoreKit6Action_impressionMetrics;
-  v32 = sub_24F929608();
-  (*(*(v32 - 8) + 56))(v22 + v31, 1, 1, v32);
-  v33 = (v22 + OBJC_IVAR____TtC12GameStoreKit6Action_clickSender);
-  *v33 = 0u;
-  v33[1] = 0u;
-  v34 = v22 + OBJC_IVAR____TtC12GameStoreKit6Action_id;
-  sub_24E65E064(v57, &v54);
-  if (*(&v55 + 1))
-  {
-    v35 = v55;
-    *v34 = v54;
-    *(v34 + 1) = v35;
-    *(v34 + 4) = v56;
-  }
-
-  else
-  {
-    v36 = v43;
-    sub_24F91F6A8();
-    v37 = sub_24F91F668();
-    v39 = v38;
-    (*(v44 + 8))(v36, v45);
-    v52 = v37;
-    v53 = v39;
-    sub_24F92C7F8();
-    sub_24E601704(&v54, &qword_27F235830);
-  }
-
-  (*(v30 + 8))(v27, v29);
-  sub_24E601704(v57, &qword_27F235830);
-  v40 = v51;
-  v22[2] = v50;
-  v22[3] = v40;
-  v22[4] = 0;
-  v22[5] = 0;
-  return v22;
-}
-
-void *SheetAction.init(actions:title:actionMetrics:message:isCancelable:cancelTitle:checkedIndex:destructiveActionIndex:isCustom:style:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, int a7, uint64_t a8, uint64_t a9, uint64_t a10, unsigned __int8 a11, uint64_t a12, unsigned __int8 a13, unsigned __int8 a14, _BYTE *a15)
-{
-  v16 = v15;
-  v49 = a8;
-  v48 = a7;
-  v45 = a6;
-  v54 = a2;
-  v55 = a3;
-  v52 = a13;
-  v53 = a14;
-  v50 = a12;
-  v47 = a11;
-  v46 = a10;
-  v51 = a15;
-  v44 = sub_24F91F6B8();
-  v43 = *(v44 - 8);
-  MEMORY[0x28223BE20](v44);
-  v21 = &v43 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v22 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F213E68);
-  MEMORY[0x28223BE20](v22 - 8);
-  v24 = &v43 - v23;
-  v25 = sub_24F928AD8();
-  v26 = *(v25 - 8);
-  MEMORY[0x28223BE20](v25);
-  v28 = &v43 - ((v27 + 15) & 0xFFFFFFFFFFFFFFF0);
-  *(v16 + OBJC_IVAR____TtC12GameStoreKit11SheetAction_actions) = a1;
-  v29 = (v16 + OBJC_IVAR____TtC12GameStoreKit11SheetAction_message);
-  v30 = v45;
-  *v29 = a5;
-  v29[1] = v30;
-  *(v16 + OBJC_IVAR____TtC12GameStoreKit11SheetAction_isCancelable) = v48;
-  v31 = (v16 + OBJC_IVAR____TtC12GameStoreKit11SheetAction_cancelTitle);
-  *v31 = v49;
-  v31[1] = a9;
-  v32 = v16 + OBJC_IVAR____TtC12GameStoreKit11SheetAction_checkedIndex;
-  *v32 = v46;
-  v32[8] = v47 & 1;
-  v33 = v16 + OBJC_IVAR____TtC12GameStoreKit11SheetAction_destructiveActionIndex;
-  *v33 = v50;
-  v33[8] = v52 & 1;
-  *(v16 + OBJC_IVAR____TtC12GameStoreKit11SheetAction_isCustom) = v53;
-  *(v16 + OBJC_IVAR____TtC12GameStoreKit11SheetAction_style) = *v51;
-  v65 = 0;
-  memset(v64, 0, sizeof(v64));
-  (*(v26 + 16))(v28, a4, v25);
-  v34 = sub_24F929608();
-  (*(*(v34 - 8) + 56))(v24, 1, 1, v34);
-  v35 = (v16 + OBJC_IVAR____TtC12GameStoreKit6Action_clickSender);
-  *v35 = 0u;
-  v35[1] = 0u;
-  sub_24E65E064(v64, &v58);
-  if (*(&v59 + 1))
-  {
-    v61 = v58;
-    v62 = v59;
-    v63 = v60;
-  }
-
-  else
-  {
-    sub_24F91F6A8();
-    v36 = sub_24F91F668();
-    v38 = v37;
-    (*(v43 + 8))(v21, v44);
-    v56 = v36;
-    v57 = v38;
-    sub_24F92C7F8();
-    sub_24E601704(&v58, &qword_27F235830);
-  }
-
-  (*(v26 + 8))(a4, v25);
-  sub_24E601704(v64, &qword_27F235830);
-  v39 = v16 + OBJC_IVAR____TtC12GameStoreKit6Action_id;
-  *(v39 + 4) = v63;
-  v40 = v62;
-  *v39 = v61;
-  *(v39 + 1) = v40;
-  sub_24E65E0D4(v24, v16 + OBJC_IVAR____TtC12GameStoreKit6Action_impressionMetrics);
-  v41 = v55;
-  v16[2] = v54;
-  v16[3] = v41;
-  v16[4] = 0;
-  v16[5] = 0;
-  (*(v26 + 32))(v16 + OBJC_IVAR____TtC12GameStoreKit6Action_actionMetrics, v28, v25);
-  return v16;
-}
-
-char *SheetAction.init(deserializing:using:)(char *a1, uint64_t a2)
-{
-  v70 = a2;
-  v3 = sub_24F9285B8();
-  v67 = *(v3 - 8);
-  v68 = v3;
-  MEMORY[0x28223BE20](v3);
-  v66 = &v58 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F2213B0);
-  MEMORY[0x28223BE20](v5 - 8);
-  v7 = &v58 - v6;
-  v8 = sub_24F928388();
-  v9 = *(v8 - 8);
-  v10 = MEMORY[0x28223BE20](v8);
-  v65 = &v58 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v12 = MEMORY[0x28223BE20](v10);
-  v63 = &v58 - v13;
-  v14 = MEMORY[0x28223BE20](v12);
-  v16 = &v58 - v15;
-  v17 = MEMORY[0x28223BE20](v14);
-  v60 = &v58 - v18;
-  MEMORY[0x28223BE20](v17);
-  v20 = &v58 - v19;
-  v21 = sub_24F92AC28();
-  v22 = *(v21 - 8);
-  MEMORY[0x28223BE20](v21);
-  v61 = &v58 - ((v23 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v62 = a1;
-  sub_24F928398();
-  sub_24F9282B8();
-  v64 = v9;
-  v24 = *(v9 + 8);
-  v24(v20, v8);
-  if ((*(v22 + 48))(v7, 1, v21) == 1)
-  {
-    sub_24E601704(v7, &qword_27F2213B0);
-    v25 = v71;
-    *(v71 + OBJC_IVAR____TtC12GameStoreKit11SheetAction_actions) = MEMORY[0x277D84F90];
-    *(v25 + OBJC_IVAR____TtC12GameStoreKit11SheetAction_isCancelable) = 1;
-    v26 = v62;
-  }
-
-  else
-  {
-    v27 = *(v22 + 32);
-    v59 = v21;
-    v27();
-    v28 = type metadata accessor for Action();
-    v29 = MEMORY[0x28223BE20](v28);
-    v31 = v69;
-    v30 = v70;
-    *(&v58 - 2) = v29;
-    *(&v58 - 1) = v30;
-    v32 = sub_24F92ABB8();
-    v69 = v31;
-    *(v71 + OBJC_IVAR____TtC12GameStoreKit11SheetAction_actions) = v32;
-    v33 = v60;
-    v26 = v62;
-    sub_24F928398();
-    v34 = sub_24F928278();
-    v24(v33, v8);
-    (*(v22 + 8))(v61, v59);
-    *(v71 + OBJC_IVAR____TtC12GameStoreKit11SheetAction_isCancelable) = (v34 == 2) | v34 & 1;
-  }
-
-  sub_24F928398();
-  v35 = sub_24F928348();
-  v37 = v36;
-  v24(v16, v8);
-  v38 = v71;
-  v39 = (v71 + OBJC_IVAR____TtC12GameStoreKit11SheetAction_message);
-  *v39 = v35;
-  v39[1] = v37;
-  sub_24F928398();
-  v40 = sub_24F928258();
-  LOBYTE(v37) = v41;
-  v24(v16, v8);
-  v42 = v38 + OBJC_IVAR____TtC12GameStoreKit11SheetAction_checkedIndex;
-  *v42 = v40;
-  *(v42 + 8) = v37 & 1;
-  sub_24F928398();
-  v43 = sub_24F928258();
-  LOBYTE(v37) = v44;
-  v24(v16, v8);
-  v45 = v38 + OBJC_IVAR____TtC12GameStoreKit11SheetAction_destructiveActionIndex;
-  *v45 = v43;
-  *(v45 + 8) = v37 & 1;
-  v46 = v63;
-  sub_24F928398();
-  LOBYTE(v43) = sub_24F928278();
-  v24(v46, v8);
-  *(v38 + OBJC_IVAR____TtC12GameStoreKit11SheetAction_isCustom) = v43 & 1;
-  sub_24F928398();
-  sub_24EE5ADF0();
-  sub_24F928208();
-  v24(v16, v8);
-  *(v38 + OBJC_IVAR____TtC12GameStoreKit11SheetAction_style) = v72;
-  sub_24F928398();
-  v47 = sub_24F928348();
-  v49 = v48;
-  v24(v16, v8);
-  v50 = (v38 + OBJC_IVAR____TtC12GameStoreKit11SheetAction_cancelTitle);
-  *v50 = v47;
-  v50[1] = v49;
-  v51 = v65;
-  (*(v64 + 16))(v65, v26, v8);
-  v52 = v26;
-  v53 = v66;
-  v54 = v67;
-  v55 = v68;
-  (*(v67 + 16))(v66, v70, v68);
-  v56 = Action.init(deserializing:using:)(v51, v53);
-  v24(v52, v8);
-  (*(v54 + 8))(v70, v55);
-  return v56;
-}
-
-uint64_t SheetAction.cancelTitle.getter()
-{
-  v1 = *(v0 + OBJC_IVAR____TtC12GameStoreKit11SheetAction_cancelTitle);
-
-  return v1;
-}
-
-uint64_t SheetAction.message.getter()
-{
-  v1 = *(v0 + OBJC_IVAR____TtC12GameStoreKit11SheetAction_message);
-
-  return v1;
-}
-
-uint64_t sub_24EE5AC38()
-{
-}
-
-uint64_t SheetAction.deinit()
-{
-
-  v1 = OBJC_IVAR____TtC12GameStoreKit6Action_actionMetrics;
-  v2 = sub_24F928AD8();
-  (*(*(v2 - 8) + 8))(v0 + v1, v2);
-  sub_24E6585F8(v0 + OBJC_IVAR____TtC12GameStoreKit6Action_id);
-  sub_24E601704(v0 + OBJC_IVAR____TtC12GameStoreKit6Action_impressionMetrics, &qword_27F213E68);
-  sub_24E601704(v0 + OBJC_IVAR____TtC12GameStoreKit6Action_clickSender, &qword_27F2129B0);
-
-  return v0;
-}
-
-uint64_t SheetAction.__deallocating_deinit()
-{
-  SheetAction.deinit();
-
-  return swift_deallocClassInstance();
-}
-
-unint64_t sub_24EE5ADF0()
-{
-  result = qword_27F231C70;
-  if (!qword_27F231C70)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &qword_27F231C70);
-  }
-
-  return result;
-}
-
-unint64_t sub_24EE5AE48()
-{
-  result = qword_27F231C78;
-  if (!qword_27F231C78)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &qword_27F231C78);
-  }
-
-  return result;
-}
-
-uint64_t type metadata accessor for SheetAction()
-{
-  result = qword_27F231C80;
-  if (!qword_27F231C80)
-  {
-    return swift_getSingletonMetadata();
-  }
-
-  return result;
-}
-
-uint64_t Unimpressable<>.impressionMetrics.getter@<X0>(uint64_t a1@<X8>)
-{
-  v2 = sub_24F929608();
-  v3 = *(*(v2 - 8) + 56);
-
-  return v3(a1, 1, 1, v2);
-}
-
-uint64_t sub_24EE5B05C@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
-{
-  v39 = a2;
-  v6 = sub_24F928388();
-  v7 = *(v6 - 8);
-  MEMORY[0x28223BE20](v6);
-  v9 = &v32 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  if (sub_24F928328())
-  {
-    v37 = v6;
-    v38 = a1;
-    v10 = v7;
-    v11 = 0;
-    v12 = 0;
-    v13 = 0;
-    v14 = 0;
-    v15 = 0;
-    v16 = 3;
-LABEL_3:
-    v17 = sub_24F9285B8();
-    (*(*(v17 - 8) + 8))(v39, v17);
-    result = (*(v10 + 8))(v38, v37);
-    *a3 = v11;
-    *(a3 + 8) = v12;
-    *(a3 + 16) = v13;
-    *(a3 + 24) = v14;
-    *(a3 + 32) = v15;
-    *(a3 + 40) = v16;
-    return result;
-  }
-
-  v35 = v3;
-  sub_24F928398();
-  sub_24EE5C1C0();
-  sub_24F928208();
-  v19 = *(v7 + 8);
-  v19(v9, v6);
-  v20 = v41;
-  sub_24F928398();
-  sub_24EE5C214();
-  sub_24F928248();
-  v19(v9, v6);
-  if (v40 == 2)
-  {
-    v34 = 0;
-    v36 = 0;
-  }
-
-  else
-  {
-    v34 = sub_24F92B0D8();
-    v36 = v21;
-  }
-
-  sub_24F928398();
-  v22 = JSONObject.appStoreColor.getter();
-  v19(v9, v6);
-  if (v20 > 1)
-  {
-    if (v20 != 2)
-    {
-      v37 = v6;
-      v38 = a1;
-      v10 = v7;
-
-      v11 = 0;
-      v12 = 0;
-      v13 = 0;
-      v14 = 0;
-      v15 = 0;
-      v16 = 3;
-      goto LABEL_3;
-    }
-
-    v33 = v22;
-    v25 = v35;
-    v26 = sub_24EE5C268(0xD000000000000012, 0x800000024FA5FCA0);
-    if (!v25)
-    {
-      v27 = a1;
-      v11 = v26;
-      v38 = v27;
-      v12 = sub_24EE5C268(0xD000000000000010, 0x800000024FA5FCE0);
-      v37 = v6;
-      v10 = v7;
-      v16 = 2;
-      v15 = v36;
-      v13 = v33;
-      v14 = v34;
-      goto LABEL_3;
-    }
-  }
-
-  else
-  {
-    v33 = v22;
-    v13 = v34;
-    if (v20)
-    {
-      v28 = v35;
-      v29 = sub_24EE5C268(0xD000000000000012, 0x800000024FA5FCA0);
-      if (!v28)
-      {
-        v30 = a1;
-        v11 = v29;
-        v38 = v30;
-        v12 = sub_24EE5C268(0xD000000000000010, 0x800000024FA5FCE0);
-        v37 = v6;
-        v10 = v7;
-        v16 = 1;
-        v15 = v36;
-        v14 = v13;
-        v13 = v33;
-        goto LABEL_3;
-      }
-    }
-
-    else
-    {
-      v23 = v35;
-      v24 = sub_24EE5C268(0x726F6C6F63, 0xE500000000000000);
-      if (!v23)
-      {
-        v37 = v6;
-        v38 = a1;
-        v10 = v7;
-        v16 = 0;
-        v14 = v36;
-        v12 = v33;
-        v15 = 0;
-        v11 = v24;
-        goto LABEL_3;
-      }
-    }
-  }
-
-  v31 = sub_24F9285B8();
-  (*(*(v31 - 8) + 8))(v39, v31);
-  return (v19)(a1, v6);
-}
-
-uint64_t sub_24EE5B58C()
-{
-  sub_24F92D068();
-  sub_24F92B218();
-
-  return sub_24F92D0B8();
-}
-
-uint64_t sub_24EE5B650()
-{
-  sub_24F92B218();
-}
-
-uint64_t sub_24EE5B700()
-{
-  sub_24F92D068();
-  sub_24F92B218();
-
-  return sub_24F92D0B8();
-}
-
-uint64_t sub_24EE5B7C0@<X0>(_BYTE *a1@<X8>)
-{
-  result = sub_24EE5C570();
-  *a1 = result;
-  return result;
-}
-
-void sub_24EE5B7F0(unint64_t *a1@<X8>)
-{
-  v2 = 0xE500000000000000;
-  v3 = 0x726F6C6F63;
-  v4 = 0x800000024FA41D90;
-  v5 = 0xD000000000000012;
-  if (*v1 != 2)
-  {
-    v5 = 1701736302;
-    v4 = 0xE400000000000000;
-  }
-
-  if (*v1)
-  {
-    v3 = 0xD000000000000010;
-    v2 = 0x800000024FA41D70;
-  }
-
-  if (*v1 <= 1u)
-  {
-    v6 = v3;
-  }
-
-  else
-  {
-    v6 = v5;
-  }
-
-  if (*v1 > 1u)
-  {
-    v2 = v4;
-  }
-
-  *a1 = v6;
-  a1[1] = v2;
-}
-
-uint64_t TitleEffectFilterType.compositingFilter.getter@<X0>(uint64_t *a1@<X8>)
-{
-  result = sub_24F92B0D8();
-  a1[3] = MEMORY[0x277D837D0];
-  *a1 = result;
-  a1[1] = v3;
-  return result;
-}
-
-GameStoreKit::TitleEffectFilterType_optional __swiftcall TitleEffectFilterType.init(rawValue:)(Swift::String rawValue)
-{
-  v2 = v1;
-  v3 = sub_24F92CB88();
-
-  if (v3 == 1)
-  {
-    v5 = 1;
-  }
-
-  else
-  {
-    v5 = 2;
-  }
-
-  if (!v3)
-  {
-    v5 = 0;
-  }
-
-  *v2 = v5;
-  return result;
-}
-
-uint64_t TitleEffectFilterType.rawValue.getter()
-{
-  if (*v0)
-  {
-    return 0x6B72614473756C70;
-  }
-
-  else
-  {
-    return 0x6867694C73756C70;
-  }
-}
-
-uint64_t sub_24EE5B968(_BYTE *a1, _BYTE *a2)
-{
-  v2 = *a1 == 0;
-  if (*a1)
-  {
-    v3 = 0x6B72614473756C70;
-  }
-
-  else
-  {
-    v3 = 0x6867694C73756C70;
-  }
-
-  if (v2)
-  {
-    v4 = 0xE900000000000074;
-  }
-
-  else
-  {
-    v4 = 0xE800000000000000;
-  }
-
-  if (*a2)
-  {
-    v5 = 0x6B72614473756C70;
-  }
-
-  else
-  {
-    v5 = 0x6867694C73756C70;
-  }
-
-  if (*a2)
-  {
-    v6 = 0xE800000000000000;
-  }
-
-  else
-  {
-    v6 = 0xE900000000000074;
-  }
-
-  if (v3 == v5 && v4 == v6)
-  {
-    v8 = 1;
-  }
-
-  else
-  {
-    v8 = sub_24F92CE08();
-  }
-
-  return v8 & 1;
-}
-
-uint64_t sub_24EE5BA14()
-{
-  sub_24F92D068();
-  sub_24F92B218();
-
-  return sub_24F92D0B8();
-}
-
-uint64_t sub_24EE5BA9C()
-{
-  sub_24F92B218();
-}
-
-uint64_t sub_24EE5BB10()
-{
-  sub_24F92D068();
-  sub_24F92B218();
-
-  return sub_24F92D0B8();
-}
-
-uint64_t sub_24EE5BB94@<X0>(char *a1@<X8>)
-{
-  v2 = sub_24F92CB88();
-
-  if (v2 == 1)
-  {
-    v4 = 1;
-  }
-
-  else
-  {
-    v4 = 2;
-  }
-
-  if (!v2)
-  {
-    v4 = 0;
-  }
-
-  *a1 = v4;
-  return result;
-}
-
-void sub_24EE5BBF4(uint64_t *a1@<X8>)
-{
-  v2 = 0x6867694C73756C70;
-  if (*v1)
-  {
-    v2 = 0x6B72614473756C70;
-  }
-
-  v3 = 0xE900000000000074;
-  if (*v1)
-  {
-    v3 = 0xE800000000000000;
-  }
-
-  *a1 = v2;
-  a1[1] = v3;
-}
-
-uint64_t _s12GameStoreKit11TitleEffectO2eeoiySbAC_ACtFZ_0(uint64_t a1, uint64_t a2)
-{
-  v2 = *a1;
-  v3 = *(a1 + 8);
-  v5 = *(a1 + 16);
-  v4 = *(a1 + 24);
-  v6 = *(a1 + 32);
-  v7 = *(a1 + 40);
-  v9 = *a2;
-  v8 = *(a2 + 8);
-  v11 = *(a2 + 16);
-  v10 = *(a2 + 24);
-  v12 = *(a2 + 32);
-  v13 = *(a2 + 40);
-  v36[0] = *a1;
-  v36[1] = v3;
-  v36[2] = v5;
-  v36[3] = v4;
-  v36[4] = v6;
-  v37 = v7;
-  v38 = v9;
-  v39 = v8;
-  v40 = v11;
-  v41 = v10;
-  v42 = v12;
-  v43 = v13;
-  if (v7 > 1)
-  {
-    if (v7 != 2)
-    {
-      if (v13 == 3 && !(v8 | v9 | v11 | v10 | v12))
-      {
-        goto LABEL_44;
-      }
-
-      goto LABEL_26;
-    }
-
-    if (v13 != 2)
-    {
-LABEL_26:
-      sub_24ED21BB0(v9, v8, v11, v10, v12, v13);
-      sub_24ED21BB0(v2, v3, v5, v4, v6, v7);
-      goto LABEL_27;
-    }
-
-    v34 = v6;
-    v18 = v10;
-    sub_24E69A5C4(0, &qword_27F21BCB0);
-    v33 = v18;
-    v19 = v18;
-    v20 = v34;
-    sub_24ED21BB0(v9, v8, v11, v19, v12, 2);
-    v31 = v4;
-    sub_24ED21BB0(v2, v3, v5, v4, v34, 2);
-    if ((sub_24F92C408() & 1) == 0 || (sub_24F92C408() & 1) == 0)
-    {
-      goto LABEL_27;
-    }
-
-    if (v5)
-    {
-      if (!v11)
-      {
-        goto LABEL_27;
-      }
-
-      sub_24E69A5C4(0, &qword_27F2394A0);
-      v21 = v11;
-      v22 = v5;
-      v23 = sub_24F92C408();
-
-      if ((v23 & 1) == 0)
-      {
-        goto LABEL_27;
-      }
-    }
-
-    else if (v11)
-    {
-      goto LABEL_27;
-    }
-
-    if (v34)
-    {
-LABEL_41:
-      if (v12)
-      {
-        if (v31 != v33 || v20 != v12)
-        {
-          goto LABEL_47;
-        }
-
-LABEL_44:
-        sub_24EE5C4A0(v36);
-        return 1;
-      }
-
-      goto LABEL_27;
-    }
-
-LABEL_37:
-
-    sub_24EE5C4A0(v36);
-    if (!v12)
-    {
-      return 1;
-    }
-
-LABEL_38:
-
-    return 0;
-  }
-
-  if (v7)
-  {
-    if (v13 != 1)
-    {
-      goto LABEL_26;
-    }
-
-    v35 = v6;
-    v24 = v10;
-    sub_24E69A5C4(0, &qword_27F21BCB0);
-    v33 = v24;
-    v25 = v24;
-    v20 = v35;
-    sub_24ED21BB0(v9, v8, v11, v25, v12, 1);
-    v31 = v4;
-    sub_24ED21BB0(v2, v3, v5, v4, v35, 1);
-    if ((sub_24F92C408() & 1) == 0 || (sub_24F92C408() & 1) == 0)
-    {
-      goto LABEL_27;
-    }
-
-    if (v5)
-    {
-      if (!v11)
-      {
-        goto LABEL_27;
-      }
-
-      sub_24E69A5C4(0, &qword_27F2394A0);
-      v26 = v11;
-      v27 = v5;
-      v28 = sub_24F92C408();
-
-      if ((v28 & 1) == 0)
-      {
-        goto LABEL_27;
-      }
-    }
-
-    else if (v11)
-    {
-      goto LABEL_27;
-    }
-
-    if (v35)
-    {
-      goto LABEL_41;
-    }
-
-    goto LABEL_37;
-  }
-
-  if (v13)
-  {
-    goto LABEL_26;
-  }
-
-  v32 = v10;
-  sub_24E69A5C4(0, &qword_27F21BCB0);
-  sub_24ED21BB0(v9, v8, v11, v32, v12, 0);
-  v14 = v4;
-  sub_24ED21BB0(v2, v3, v5, v4, v6, 0);
-  if ((sub_24F92C408() & 1) == 0)
-  {
-    goto LABEL_27;
-  }
-
-  if (!v3)
-  {
-    if (!v8)
-    {
-      goto LABEL_30;
-    }
-
-LABEL_27:
-    sub_24EE5C4A0(v36);
-    return 0;
-  }
-
-  if (!v8)
-  {
-    goto LABEL_27;
-  }
-
-  sub_24E69A5C4(0, &qword_27F2394A0);
-  v15 = v8;
-  v16 = v3;
-  v17 = sub_24F92C408();
-
-  if ((v17 & 1) == 0)
-  {
-    goto LABEL_27;
-  }
-
-LABEL_30:
-  if (!v14)
-  {
-
-    sub_24EE5C4A0(v36);
-    if (!v32)
-    {
-      return 1;
-    }
-
-    goto LABEL_38;
-  }
-
-  if (!v32)
-  {
-    goto LABEL_27;
-  }
-
-  if (v5 == v11 && v14 == v32)
-  {
-    goto LABEL_44;
-  }
-
-LABEL_47:
-  v30 = sub_24F92CE08();
-  sub_24EE5C4A0(v36);
-  return v30 & 1;
-}
-
-unint64_t sub_24EE5C090()
-{
-  result = qword_27F231C90;
-  if (!qword_27F231C90)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &qword_27F231C90);
-  }
-
-  return result;
-}
-
-uint64_t sub_24EE5C0E4(uint64_t a1, unsigned int a2)
-{
-  if (!a2)
-  {
-    return 0;
-  }
-
-  if (a2 >= 0xFD && *(a1 + 41))
-  {
-    return (*a1 + 253);
-  }
-
-  v3 = *(a1 + 40);
-  if (v3 <= 3)
-  {
-    v4 = -1;
-  }
-
-  else
-  {
-    v4 = v3 ^ 0xFF;
-  }
-
-  return (v4 + 1);
-}
-
-uint64_t sub_24EE5C12C(uint64_t result, unsigned int a2, unsigned int a3)
-{
-  if (a2 > 0xFC)
-  {
-    *(result + 24) = 0u;
-    *(result + 8) = 0u;
-    *(result + 40) = 0;
-    *result = a2 - 253;
-    if (a3 >= 0xFD)
-    {
-      *(result + 41) = 1;
-    }
-  }
-
-  else
-  {
-    if (a3 >= 0xFD)
-    {
-      *(result + 41) = 0;
-    }
-
-    if (a2)
-    {
-      *(result + 40) = -a2;
-    }
-  }
-
-  return result;
-}
-
-uint64_t sub_24EE5C17C(uint64_t result, unsigned int a2)
-{
-  if (a2 >= 3)
-  {
-    *result = a2 - 3;
-    *(result + 8) = 0u;
-    *(result + 24) = 0u;
-    LOBYTE(a2) = 3;
-  }
-
-  *(result + 40) = a2;
-  return result;
-}
-
-unint64_t sub_24EE5C1C0()
-{
-  result = qword_27F231C98;
-  if (!qword_27F231C98)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &qword_27F231C98);
-  }
-
-  return result;
-}
-
-unint64_t sub_24EE5C214()
-{
-  result = qword_27F231CA0;
-  if (!qword_27F231CA0)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &qword_27F231CA0);
-  }
-
-  return result;
-}
-
-uint64_t sub_24EE5C268(uint64_t a1, uint64_t a2)
-{
-  v22 = a2;
-  v3 = sub_24F928388();
-  v4 = *(v3 - 8);
-  v5 = MEMORY[0x28223BE20](v3);
-  v7 = &v21 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v5);
-  v9 = &v21 - v8;
-  sub_24F928398();
-  v10 = sub_24F9282C8();
-  v11 = *(v4 + 8);
-  v12 = v9;
-  v13 = v22;
-  v11(v12, v3);
-  sub_24F928398();
-  v14 = JSONObject.appStoreColor.getter();
-  v11(v7, v3);
-  if (v14)
-  {
-    v15 = *&v10;
-    if ((v10 & 0x100000000) != 0)
-    {
-      v15 = 1.0;
-    }
-
-    v16 = [v14 colorWithAlphaComponent_];
-
-    return v16;
-  }
-
-  else
-  {
-    v18 = sub_24F92AC38();
-    sub_24E8F2E6C();
-    swift_allocError();
-    v19 = MEMORY[0x277D84F90];
-    *v20 = a1;
-    v20[1] = v13;
-    v20[2] = &type metadata for TitleEffect;
-    v20[3] = v19;
-    (*(*(v18 - 8) + 104))(v20, *MEMORY[0x277D22540], v18);
-    swift_willThrow();
-  }
-}
-
-uint64_t sub_24EE5C4A0(uint64_t a1)
-{
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F231CA8);
-  (*(*(v2 - 8) + 8))(a1, v2);
-  return a1;
-}
-
-unint64_t sub_24EE5C51C()
-{
-  result = qword_27F231CB0;
-  if (!qword_27F231CB0)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &qword_27F231CB0);
-  }
-
-  return result;
-}
-
-uint64_t sub_24EE5C570()
-{
-  v0 = sub_24F92CB88();
-
-  if (v0 >= 4)
-  {
-    return 4;
-  }
-
-  else
-  {
-    return v0;
-  }
-}
-
-void *ArcadeDiffablePageContentPresenter.__allocating_init(objectGraph:subscriptionManager:subscriptionState:stateTimeOut:pageUrl:sidePackedPage:pendingPageRender:pageRenderMetrics:)(uint64_t a1, void *a2, uint64_t *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, double a8)
-{
-  swift_allocObject();
-  v16 = sub_24EE5DFD4(a1, a2, a3, a4, a5, a6, a7, a8);
-
-  return v16;
-}
-
-void *ArcadeDiffablePageContentPresenter.init(objectGraph:subscriptionManager:subscriptionState:stateTimeOut:pageUrl:sidePackedPage:pendingPageRender:pageRenderMetrics:)(uint64_t a1, void *a2, uint64_t *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, double a8)
-{
-  v9 = sub_24EE5DFD4(a1, a2, a3, a4, a5, a6, a7, a8);
-
-  return v9;
-}
-
-uint64_t sub_24EE5C6EC(uint64_t a1, uint64_t a2, uint64_t a3, int a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
-{
-  v74 = a8;
-  v87 = a6;
-  v88 = a7;
-  v83 = a5;
-  LODWORD(v89) = a4;
-  v86 = a3;
-  v84 = type metadata accessor for ArcadePageIntent();
-  MEMORY[0x28223BE20](v84);
-  v10 = &v67 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v11 = sub_24F927D88();
-  v81 = *(v11 - 8);
-  v82 = v11;
-  MEMORY[0x28223BE20](v11);
-  v79 = &v67 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v80 = sub_24F927DC8();
-  v78 = *(v80 - 8);
-  MEMORY[0x28223BE20](v80);
-  v77 = &v67 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v85 = sub_24F927DE8();
-  v76 = *(v85 - 8);
-  MEMORY[0x28223BE20](v85);
-  v15 = &v67 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v16);
-  v75 = &v67 - v17;
-  v73 = sub_24F92AAE8();
-  v72 = *(v73 - 8);
-  MEMORY[0x28223BE20](v73);
-  v19 = &v67 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v20 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F228530);
-  MEMORY[0x28223BE20](v20 - 8);
-  v22 = &v67 - v21;
-  v23 = sub_24F91F4A8();
-  v24 = *(*(v23 - 8) + 64);
-  MEMORY[0x28223BE20](v23);
-  v25 = &v67 - ((v24 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v26);
-  v71 = &v67 - v27;
-  MEMORY[0x28223BE20](v28);
-  v30 = &v67 - v29;
-  v32 = v31;
-  v34 = v33;
-  sub_24E60169C(a2, v22, &qword_27F228530);
-  if ((*(v32 + 48))(v22, 1, v34) == 1)
-  {
-    sub_24E601704(v22, &qword_27F228530);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F229660);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F231CD0);
-    sub_24E602068(&qword_27F231CD8, &qword_27F231CD0);
-    swift_allocError();
-    *v35 = 0;
-    return sub_24F92A978();
-  }
-
-  else
-  {
-    v37 = v89;
-    v38 = *(v32 + 32);
-    v89 = (v32 + 32);
-    v70 = v38;
-    v38(v30, v22, v34);
-    v39 = v34;
-    v40 = v37 >> 6;
-    if (v37 >> 6 == 3)
-    {
-      v68 = v30;
-      v69 = v32;
-      v84 = v39;
-      v41 = v86;
-      if (v86)
-      {
-        sub_24F234048();
-        __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27F221870);
-        sub_24F928468();
-        *(swift_allocObject() + 16) = xmmword_24F9479A0;
-        sub_24F9283A8();
-        v93 = &type metadata for ArcadeState;
-        aBlock = v41;
-        LOBYTE(v91) = v37;
-        sub_24F928438();
-        sub_24E601704(&aBlock, &qword_27F2129B0);
-        sub_24F9283A8();
-        v42 = v73;
-        sub_24F92A5A8();
-
-        (*(v72 + 8))(v19, v42);
-        __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F229660);
-        v43 = sub_24F92A9E8();
-        LOBYTE(aBlock) = -63;
-        swift_retain_n();
-        v86 = ArcadeSubscriptionManager.updateStateFromEntitlements(refreshingCache:)(&aBlock);
-        v44 = v69;
-        v45 = v71;
-        v46 = v68;
-        v47 = v84;
-        (*(v69 + 16))(v71, v68, v84);
-        v48 = (*(v44 + 80) + 16) & ~*(v44 + 80);
-        v49 = (v24 + v48 + 7) & 0xFFFFFFFFFFFFFFF8;
-        v50 = (v49 + 15) & 0xFFFFFFFFFFFFFFF8;
-        v51 = swift_allocObject();
-        v70(v51 + v48, v45, v47);
-        *(v51 + v49) = v87;
-        *(v51 + v50) = v88;
-        *(v51 + ((v50 + 15) & 0xFFFFFFFFFFFFFFF8)) = v43;
-        v52 = sub_24E74EC40();
-
-        v53 = sub_24F92BEF8();
-        v93 = v52;
-        v94 = MEMORY[0x277D225C0];
-        aBlock = v53;
-        sub_24F92A958();
-
-        (*(v44 + 8))(v46, v47);
-        __swift_destroy_boxed_opaque_existential_1(&aBlock);
-        return v43;
-      }
-
-      else
-      {
-        __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F229660);
-        v57 = sub_24F92A9E8();
-        sub_24E74EC40();
-
-        v88 = sub_24F92BEF8();
-        sub_24F927DD8();
-        v58 = v75;
-        sub_24F927E58();
-        v89 = *(v76 + 8);
-        v89(v15, v85);
-        v94 = sub_24EE5F2E4;
-        v95 = v57;
-        aBlock = MEMORY[0x277D85DD0];
-        v91 = 1107296256;
-        v92 = sub_24EAF8248;
-        v93 = &block_descriptor_82;
-        v59 = _Block_copy(&aBlock);
-
-        v60 = v77;
-        sub_24F927DA8();
-        aBlock = MEMORY[0x277D84F90];
-        sub_24E858250();
-        __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F222310);
-        sub_24E602068(&qword_27F222940, &qword_27F222310);
-        v61 = v79;
-        v62 = v82;
-        sub_24F92C6A8();
-        v63 = v88;
-        MEMORY[0x253051820](v58, v60, v61, v59);
-        _Block_release(v59);
-
-        (*(v81 + 8))(v61, v62);
-        (*(v78 + 8))(v60, v80);
-        v89(v58, v85);
-        (*(v69 + 8))(v68, v84);
-        return v57;
-      }
-    }
-
-    else
-    {
-      v54 = v39;
-      (*(v32 + 16))(v25, v30);
-      if (v37 > 0x3F)
-      {
-        if (v40 == 2)
-        {
-          v56 = 0;
-          v55 = (v37 & 0x3F) == 1;
-        }
-
-        else
-        {
-          v55 = 0;
-          v56 = 0;
-        }
-      }
-
-      else
-      {
-        v55 = 0;
-        v56 = v86 == 1;
-      }
-
-      v70(v10, v25, v54);
-      v64 = v84;
-      v10[*(v84 + 20)] = v40 == 2;
-      v10[*(v64 + 24)] = v56;
-      v10[*(v64 + 28)] = v55;
-      type metadata accessor for JSIntentDispatcher();
-      sub_24F928FD8();
-      sub_24F92A758();
-      sub_24F929C28();
-
-      sub_24F928FE8();
-      sub_24F929BF8();
-
-      v65 = sub_24F929C08();
-
-      v66 = sub_24EB4700C(v10, v65, "GameStoreKit/ArcadeDiffablePageContentPresenter.swift", 53, 2);
-
-      sub_24EE5F288(v10);
-      (*(v32 + 8))(v30, v54);
-      return v66;
-    }
-  }
-}
-
-uint64_t sub_24EE5D2B0(unsigned __int8 *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
-{
-  v25[1] = a4;
-  v25[2] = a5;
-  v7 = sub_24F91F4A8();
-  v8 = *(v7 - 8);
-  MEMORY[0x28223BE20](v7);
-  v10 = v25 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v11 = type metadata accessor for ArcadePageIntent();
-  v12 = MEMORY[0x28223BE20](v11);
-  v14 = v25 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v15 = *a1;
-  v16 = a1[8];
-  (*(v8 + 16))(v10, a2, v7, v12);
-  v17 = v16 >> 6;
-  if (v16 > 0x3F)
-  {
-    if (v17 == 2)
-    {
-      v19 = 0;
-      v18 = (v16 & 0x3F) == 1;
-    }
-
-    else
-    {
-      v18 = 0;
-      v19 = 0;
-    }
-  }
-
-  else
-  {
-    v18 = 0;
-    v19 = v15 == 1;
-  }
-
-  v20 = v17 == 2;
-  (*(v8 + 32))(v14, v10, v7);
-  v14[v11[5]] = v20;
-  v14[v11[6]] = v19;
-  v14[v11[7]] = v18;
-  type metadata accessor for JSIntentDispatcher();
-  sub_24F928FD8();
-  sub_24F92A758();
-  sub_24F929C28();
-
-  sub_24F928FE8();
-  sub_24F929BF8();
-
-  v21 = sub_24F929C08();
-
-  sub_24EB4700C(v14, v21, "GameStoreKit/ArcadeDiffablePageContentPresenter.swift", 53, 2);
-  v22 = sub_24E74EC40();
-  swift_retain_n();
-  v23 = sub_24F92BEF8();
-  v26[3] = v22;
-  v26[4] = MEMORY[0x277D225C0];
-  v26[0] = v23;
-  sub_24F92A958();
-
-  sub_24EE5F288(v14);
-  return __swift_destroy_boxed_opaque_existential_1(v26);
-}
-
-void sub_24EE5D5A8()
-{
-  sub_24EE5F4A8();
-  v0 = swift_allocError();
-  sub_24F92A9A8();
-}
-
-uint64_t sub_24EE5D600(uint64_t a1)
-{
-  type metadata accessor for JSIntentDispatcher();
-  sub_24F928FD8();
-  sub_24F92A758();
-  sub_24F929C28();
-
-  sub_24F928FE8();
-  sub_24F929BF8();
-
-  v2 = sub_24F929C18();
-
-  v3 = sub_24EB46264(a1, v2, "GameStoreKit/ArcadeDiffablePageContentPresenter.swift", 53, 2);
-
-  return v3;
-}
-
-uint64_t sub_24EE5D6F0(uint64_t a1, uint64_t a2)
-{
-  sub_24E615E00(a1, v6);
-  sub_24E615E00(a2, &v7);
-  sub_24E60169C(v6, v4, &qword_27F222A30);
-  sub_24EE5D790(v4, v5);
-  sub_24E601704(v6, &qword_27F222A30);
-  __swift_destroy_boxed_opaque_existential_1(v5);
-  return __swift_destroy_boxed_opaque_existential_1(v4);
-}
-
-uint64_t sub_24EE5D790(uint64_t a1, uint64_t a2)
-{
-  sub_24E615E00(a1, v9);
-  sub_24E615E00(a2, &v10);
-  v8 = MEMORY[0x277D84F90];
-  v7 = 0;
-  v4[2] = v9;
-  v4[3] = &v7;
-  v4[4] = &v8;
-  sub_24E962AA4(1, sub_24EE5F27C, v4);
-  v5 = v8;
-  v6 = 17;
-
-  sub_24F92AD88();
-  sub_24E96513C(v5, v6);
-
-  return sub_24E601704(v9, &qword_27F222A30);
-}
-
-uint64_t (*sub_24EE5D874(uint64_t a1))(uint64_t a1)
-{
-  v2 = swift_allocObject();
-  *(v2 + 16) = sub_24EE5F274;
-  *(v2 + 24) = a1;
-
-  return sub_24E965698;
-}
-
-void *sub_24EE5D8EC(void *a1, void *a2, _BYTE *a3, void *a4)
-{
-  v8 = OBJC_IVAR____TtC12GameStoreKit5Shelf_id;
-  __swift_project_boxed_opaque_existential_1(a2, a2[3]);
-  sub_24F928D68();
-  v9 = MEMORY[0x253052150](a1 + v8, v17);
-  v10 = sub_24E6585F8(v17);
-  if (v9)
-  {
-    v11 = a1[3];
-    MEMORY[0x28223BE20](v10);
-    v16[2] = a2;
-
-    v12 = sub_24ED75C20(sub_24E965334, v16, v11);
-    if (*(a1 + OBJC_IVAR____TtC12GameStoreKit5Shelf_isHidden))
-    {
-      v13 = 1;
-    }
-
-    else if (*(v11 + 16))
-    {
-      v13 = *(v12 + 16) == 0;
-    }
-
-    else
-    {
-      v13 = 0;
-    }
-
-    *a3 = v13;
-    v17[0] = 104;
-    a1 = Shelf.withItems(_:ofType:removeMarkers:isHidden:)(v12, v17, 1, v13);
-
-    MEMORY[0x253050F00](v14);
-    if (*((*a4 & 0xFFFFFFFFFFFFFF8) + 0x10) >= *((*a4 & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
-    {
-      sub_24F92B5E8();
-    }
-
-    sub_24F92B638();
-  }
-
-  else
-  {
-  }
-
-  return a1;
-}
-
-uint64_t ArcadeDiffablePageContentPresenter.deinit()
-{
-  v0 = _s12GameStoreKit39TopChartDiffableSegmentContentPresenterCfd_0();
-
-  return v0;
-}
-
-uint64_t ArcadeDiffablePageContentPresenter.__deallocating_deinit()
-{
-  _s12GameStoreKit39TopChartDiffableSegmentContentPresenterCfd_0();
-
-  return swift_deallocClassInstance();
-}
-
-void sub_24EE5DB9C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
-{
-  sub_24E824448(a10);
-  sub_24E824448(a6);
-  sub_24E824448(a4);
-  _swift_stdlib_reportUnimplementedInitializer();
-  __break(1u);
-}
-
-uint64_t sub_24EE5DC04(uint64_t a1, uint64_t a2)
-{
-  v45 = a2;
-  v42 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F2133F0);
-  v3 = *(v42 - 8);
-  MEMORY[0x28223BE20](v42);
-  v40 = v39 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v5);
-  v43 = v39 - v6;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F2135C8);
-  result = sub_24F92CB28();
-  v8 = result;
-  v9 = 0;
-  v47 = a1;
-  v12 = *(a1 + 64);
-  v11 = a1 + 64;
-  v10 = v12;
-  v13 = 1 << *(v11 - 32);
-  v14 = -1;
-  if (v13 < 64)
-  {
-    v14 = ~(-1 << v13);
-  }
-
-  v15 = v14 & v10;
-  v44 = qword_27F231CB8;
-  v16 = (v13 + 63) >> 6;
-  v39[3] = v3 + 16;
-  v39[2] = v3 + 32;
-  v41 = v3;
-  v39[1] = v3 + 8;
-  v46 = result + 64;
-  if ((v14 & v10) != 0)
-  {
-    while (1)
-    {
-      v17 = __clz(__rbit64(v15));
-      v15 &= v15 - 1;
-LABEL_10:
-      v20 = v17 | (v9 << 6);
-      v21 = v47;
-      sub_24E65864C(*(v47 + 48) + 40 * v20, v51);
-      v22 = *(*(v21 + 56) + 8 * v20);
-      v48 = v51[0];
-      v49 = v51[1];
-      v50 = v52;
-      if (*(v22 + OBJC_IVAR____TtC12GameStoreKit5Shelf_onShouldRemoveModel))
-      {
-        break;
-      }
-
-LABEL_18:
-      *(v46 + ((v20 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v20;
-      v34 = v8[6] + 40 * v20;
-      v35 = v49;
-      *v34 = v48;
-      *(v34 + 16) = v35;
-      *(v34 + 32) = v50;
-      *(v8[7] + 8 * v20) = v22;
-      v36 = v8[2];
-      v37 = __OFADD__(v36, 1);
-      v38 = v36 + 1;
-      if (v37)
-      {
-        goto LABEL_23;
-      }
-
-      v8[2] = v38;
-      if (!v15)
-      {
-        goto LABEL_5;
-      }
-    }
-
-    v53 = v15;
-    v24 = v44;
-    v23 = v45;
-    swift_beginAccess();
-    v25 = *(v23 + v24);
-    if (*(v25 + 16))
-    {
-      v26 = OBJC_IVAR____TtC12GameStoreKit5Shelf_id;
-
-      v27 = sub_24E76D934(v22 + v26);
-      if (v28)
-      {
-        v29 = *(v25 + 56);
-        v39[0] = v8;
-        v30 = v41;
-        v31 = v40;
-        v32 = v42;
-        (*(v41 + 16))(v40, v29 + *(v41 + 72) * v27, v42);
-        (*(v30 + 32))(v43, v31, v32);
-        swift_endAccess();
-        sub_24F9280B8();
-
-        v33 = *(v30 + 8);
-        v8 = v39[0];
-        result = v33(v43, v32);
-LABEL_17:
-        v15 = v53;
-        goto LABEL_18;
-      }
-    }
-
-    else
-    {
-    }
-
-    swift_endAccess();
-
-    goto LABEL_17;
-  }
-
-LABEL_5:
-  v18 = v9;
-  while (1)
-  {
-    v9 = v18 + 1;
-    if (__OFADD__(v18, 1))
-    {
-      break;
-    }
-
-    if (v9 >= v16)
-    {
-
-      return v8;
-    }
-
-    v19 = *(v11 + 8 * v9);
-    ++v18;
-    if (v19)
-    {
-      v17 = __clz(__rbit64(v19));
-      v15 = (v19 - 1) & v19;
-      goto LABEL_10;
-    }
-  }
-
-  __break(1u);
-LABEL_23:
-  __break(1u);
-  return result;
-}
-
-void *sub_24EE5DFD4(uint64_t a1, void *a2, uint64_t *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, double a8)
-{
-  v9 = v8;
-  v88 = a5;
-  v97 = a2;
-  v98 = a1;
-  v96 = *v9;
-  v15 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F228530);
-  v91 = *(v15 - 8);
-  MEMORY[0x28223BE20](v15 - 8);
-  v95 = &v87 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v90 = v16;
-  MEMORY[0x28223BE20](v17);
-  v19 = &v87 - v18;
-  v89 = &v87 - v18;
-  v93 = *a3;
-  v92 = *(a3 + 8);
-  v20 = qword_27F231CB8;
-  v21 = MEMORY[0x277D84F90];
-  *(v9 + v20) = sub_24E60A498(MEMORY[0x277D84F90]);
-  v100 = a4;
-  sub_24E60169C(a4, v19, &qword_27F228530);
-  *(v9 + qword_27F22F198) = 0;
-  *(v9 + qword_27F22F1A0) = v21;
-  v22 = qword_27F39C780;
-  v99 = a7;
-
-  v94 = a6;
-
-  *(v9 + v22) = sub_24E60986C(v21);
-  v23 = (v9 + qword_27F22F1A8);
-  *v23 = 0;
-  v23[1] = 0;
-  v24 = (v9 + qword_27F22F1B0);
-  *v24 = 0;
-  v24[1] = 0;
-  v25 = (v9 + qword_27F22F1B8);
-  *v25 = 0;
-  v25[1] = 0;
-  v26 = (v9 + qword_27F22F1C0);
-  *v26 = 0;
-  v26[1] = 0;
-  v27 = (v9 + qword_27F22F1C8);
-  *v27 = 0;
-  v27[1] = 0;
-  v28 = (v9 + qword_27F39C788);
-  *v28 = 0u;
-  v28[1] = 0u;
-  *(v28 + 25) = 0u;
-  *(v9 + qword_27F39C790) = 0;
-  *(v9 + qword_27F22F1D0) = 0;
-  *(v9 + qword_27F22F1D8) = MEMORY[0x277D84FA0];
-  *(v9 + qword_27F39C798) = 0;
-  v29 = qword_27F39C7A0;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F22AD28);
-  swift_allocObject();
-  *(v9 + v29) = sub_24F92ADA8();
-  v30 = qword_27F39C7A8;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F2226B8);
-  swift_allocObject();
-  *(v9 + v30) = sub_24F92ADA8();
-  v31 = qword_27F39C7B0;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F22AD40);
-  swift_allocObject();
-  *(v9 + v31) = sub_24F92ADA8();
-  v32 = qword_27F39C7B8;
-  swift_allocObject();
-  *(v9 + v32) = sub_24F92ADA8();
-  v33 = qword_27F39C7C0;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F2226C8);
-  swift_allocObject();
-  *(v9 + v33) = sub_24F92ADA8();
-  v34 = qword_27F39C7C8;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F2226D0);
-  swift_allocObject();
-  *(v9 + v34) = sub_24F92ADA8();
-  v35 = qword_27F22F1E0;
-  v36 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F2226D8);
-  v37 = *(*(v36 - 8) + 56);
-  v37(v9 + v35, 1, 1, v36);
-  v38 = v36;
-  v39 = v88;
-  v37(v9 + qword_27F22F1E8, 1, 1, v38);
-  v9[2] = v98;
-  sub_24E911D90(v89, v9 + qword_27F39C7D0);
-  v40 = *v23;
-  *v23 = 0;
-  v23[1] = 0;
-  sub_24E824448(v40);
-  v41 = *v25;
-  *v25 = 0;
-  v25[1] = 0;
-  sub_24E824448(v41);
-  if (v39)
-  {
-    v42 = swift_allocObject();
-    *(v42 + 16) = v39;
-    v43 = sub_24E965688;
-  }
-
-  else
-  {
-    v43 = 0;
-    v42 = 0;
-  }
-
-  v44 = *v24;
-  *v24 = v43;
-  v24[1] = v42;
-  sub_24E824448(v44);
-  v45 = *v26;
-  *v26 = 0;
-  v26[1] = 0;
-  sub_24E824448(v45);
-  v46 = *v27;
-  *v27 = 0;
-  v27[1] = 0;
-  sub_24E824448(v46);
-  v47 = v95;
-  *(v9 + qword_27F22F1F0) = v94;
-  v48 = v100;
-  *(v9 + qword_27F39C7D8) = v99;
-  sub_24E60169C(v48, v47, &qword_27F228530);
-  v49 = (*(v91 + 80) + 16) & ~*(v91 + 80);
-  v50 = (v49 + v90 + 7) & 0xFFFFFFFFFFFFFFF8;
-  v51 = (v49 + v90 + 23) & 0xFFFFFFFFFFFFFFF8;
-  v52 = (v51 + 15) & 0xFFFFFFFFFFFFFFF8;
-  v53 = (v52 + 15) & 0xFFFFFFFFFFFFFFF8;
-  v54 = (v53 + 15) & 0xFFFFFFFFFFFFFFF8;
-  v55 = swift_allocObject();
-  sub_24E911D90(v47, v55 + v49);
-  v56 = v55 + v50;
-  *v56 = v93;
-  *(v56 + 8) = v92;
-  v57 = v96;
-  v58 = v97;
-  *(v55 + v51) = v97;
-  v59 = v98;
-  *(v55 + v52) = v98;
-  v60 = v99;
-  *(v55 + v53) = v99;
-  *(v55 + v54) = a8;
-  *(v55 + ((v54 + 15) & 0xFFFFFFFFFFFFFFF8)) = v57;
-  v61 = swift_allocObject();
-  *(v61 + 16) = v59;
-  *(v61 + 24) = v60;
-  v62 = swift_allocObject();
-  swift_weakInit();
-  v63 = swift_allocObject();
-  *(v63 + 16) = sub_24EE5EA9C;
-  *(v63 + 24) = v55;
-  v64 = swift_allocObject();
-  *(v64 + 16) = sub_24E94DEE8;
-  *(v64 + 24) = v63;
-  v65 = (v9 + qword_27F22F1A8);
-  v66 = *(v9 + qword_27F22F1A8);
-  *v65 = sub_24E965630;
-  v65[1] = v64;
-  swift_retain_n();
-  swift_retain_n();
-
-  v67 = v58;
-
-  sub_24E824448(v66);
-  v68 = (v9 + qword_27F22F1B0);
-  v69 = *(v9 + qword_27F22F1B0);
-  v70 = *(v9 + qword_27F22F1B0 + 8);
-  if (v69)
-  {
-    v71 = swift_allocObject();
-    *(v71 + 16) = v69;
-    *(v71 + 24) = v70;
-    v72 = swift_allocObject();
-    *(v72 + 16) = sub_24E94DF50;
-    *(v72 + 24) = v71;
-    v73 = sub_24E965648;
-  }
-
-  else
-  {
-    v73 = 0;
-    v72 = *(v9 + qword_27F22F1B0 + 8);
-  }
-
-  *v68 = v73;
-  v68[1] = v72;
-  sub_24E5FCA4C(v69);
-  sub_24E824448(v69);
-  v74 = swift_allocObject();
-  *(v74 + 16) = sub_24EE5EC08;
-  *(v74 + 24) = v62;
-  v75 = swift_allocObject();
-  *(v75 + 16) = sub_24E94DFB8;
-  *(v75 + 24) = v74;
-  v76 = (v9 + qword_27F22F1B8);
-  v77 = *(v9 + qword_27F22F1B8);
-  *v76 = sub_24E965640;
-  v76[1] = v75;
-
-  sub_24E824448(v77);
-  v78 = (v9 + qword_27F22F1C0);
-  v79 = *(v9 + qword_27F22F1C0);
-  *v78 = sub_24EE5EBC8;
-  v78[1] = v61;
-
-  sub_24E824448(v79);
-  v80 = (v9 + qword_27F22F1C8);
-  v81 = *(v9 + qword_27F22F1C8);
-  v82 = *(v9 + qword_27F22F1C8 + 8);
-  if (v81)
-  {
-    v83 = swift_allocObject();
-    *(v83 + 16) = v81;
-    *(v83 + 24) = v82;
-    v84 = swift_allocObject();
-    *(v84 + 16) = sub_24E94DEE8;
-    *(v84 + 24) = v83;
-    v85 = sub_24E965630;
-  }
-
-  else
-  {
-    v85 = 0;
-    v84 = *(v9 + qword_27F22F1C8 + 8);
-  }
-
-  *v80 = v85;
-  v80[1] = v84;
-  sub_24E5FCA4C(v81);
-  sub_24E824448(v81);
-
-  sub_24E601704(v100, &qword_27F228530);
-  return v9;
-}
-
-uint64_t type metadata accessor for ArcadeDiffablePageContentPresenter()
-{
-  result = qword_27F231CC0;
-  if (!qword_27F231CC0)
-  {
-    return swift_getSingletonMetadata();
-  }
-
-  return result;
-}
-
-uint64_t sub_24EE5E928()
-{
-  v1 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F228530) - 8);
-  v2 = (*(v1 + 80) + 16) & ~*(v1 + 80);
-  v3 = *(v1 + 64);
-  v4 = sub_24F91F4A8();
-  v5 = *(v4 - 8);
-  if (!(*(v5 + 48))(v0 + v2, 1, v4))
-  {
-    (*(v5 + 8))(v0 + v2, v4);
-  }
-
-  sub_24EB6CE70(*(v0 + ((v2 + v3 + 7) & 0xFFFFFFFFFFFFFFF8)), *(v0 + ((v2 + v3 + 7) & 0xFFFFFFFFFFFFFFF8) + 8));
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_24EE5EA9C(uint64_t a1)
-{
-  v3 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F228530) - 8);
-  v4 = (*(v3 + 80) + 16) & ~*(v3 + 80);
-  v5 = v4 + *(v3 + 64);
-  v6 = (v5 + 7) & 0xFFFFFFFFFFFFFFF8;
-  v7 = (v5 + 23) & 0xFFFFFFFFFFFFFFF8;
-  v8 = (v7 + 15) & 0xFFFFFFFFFFFFFFF8;
-  v9 = (v8 + 15) & 0xFFFFFFFFFFFFFFF8;
-  v10 = v1 + v6;
-  v11 = *v10;
-  v12 = *(v1 + v7);
-  v13 = *(v1 + v8);
-  v14 = *(v1 + v9);
-  v15 = *(v1 + ((((v9 + 15) & 0xFFFFFFFFFFFFFFF8) + 15) & 0xFFFFFFFFFFFFFFF8));
-  v16 = *(v10 + 8);
-
-  return sub_24EE5C6EC(a1, v1 + v4, v11, v16, v12, v13, v14, v15);
-}
-
-uint64_t sub_24EE5EB88()
-{
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_24EE5EBD0()
-{
-  swift_weakDestroy();
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_24EE5EC08(uint64_t a1)
-{
-  sub_24EE5ECA4(a1);
-}
-
-uint64_t sub_24EE5EC34()
-{
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_24EE5EC6C()
-{
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_24EE5ECA4(uint64_t a1)
-{
-  isUniquelyReferenced_nonNull_native = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F2133F0);
-  v43 = *(isUniquelyReferenced_nonNull_native - 8);
-  MEMORY[0x28223BE20](isUniquelyReferenced_nonNull_native);
-  v4 = v38 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v5);
-  v42 = v38 - v6;
-  swift_beginAccess();
-  Strong = swift_weakLoadStrong();
-  if (!Strong)
-  {
-    return a1;
-  }
-
-  v8 = Strong;
-  v9 = qword_27F39C780;
-  swift_beginAccess();
-
-  v11 = sub_24EE5DC04(v10, v8);
-
-  *(v8 + v9) = v11;
-
-  v12 = sub_24E60A498(MEMORY[0x277D84F90]);
-  v13 = qword_27F231CB8;
-  swift_beginAccess();
-  v48 = v13;
-  *(v8 + v13) = v12;
-
-  v14 = sub_24EC40820();
-  v15 = v14;
-  v38[0] = a1;
-  if (v14 >> 62)
-  {
-LABEL_30:
-    v16 = sub_24F92C738();
-    if (v16)
-    {
-      goto LABEL_4;
-    }
-
-    goto LABEL_31;
-  }
-
-  v16 = *((v14 & 0xFFFFFFFFFFFFFF8) + 0x10);
-  if (!v16)
-  {
-LABEL_31:
-
-    return v38[0];
-  }
-
-LABEL_4:
-  v17 = v4;
-  v18 = 0;
-  v45 = v15 & 0xC000000000000001;
-  v39 = v15 & 0xFFFFFFFFFFFFFF8;
-  v44 = (v43 + 32);
-  v38[1] = v43 + 40;
-  v41 = v15;
-  v40 = v16;
-  while (1)
-  {
-    if (v45)
-    {
-      v19 = MEMORY[0x253052270](v18, v15);
-      v20 = v18 + 1;
-      if (__OFADD__(v18, 1))
-      {
-        goto LABEL_26;
-      }
-    }
-
-    else
-    {
-      if (v18 >= *(v39 + 16))
-      {
-        goto LABEL_28;
-      }
-
-      v20 = v18 + 1;
-      if (__OFADD__(v18, 1))
-      {
-LABEL_26:
-        __break(1u);
-LABEL_27:
-        __break(1u);
-LABEL_28:
-        __break(1u);
-LABEL_29:
-        __break(1u);
-        goto LABEL_30;
-      }
-    }
-
-    if (*(v19 + OBJC_IVAR____TtC12GameStoreKit5Shelf_onShouldRemoveModel))
-    {
-      break;
-    }
-
-LABEL_6:
-    ++v18;
-    if (v20 == v16)
-    {
-      goto LABEL_31;
-    }
-  }
-
-  v47 = v20;
-  v46 = v19;
-  sub_24E65864C(v19 + OBJC_IVAR____TtC12GameStoreKit5Shelf_id, v51);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F222A50);
-  sub_24E602068(&qword_27F222A58, &qword_27F222A50);
-
-  sub_24F9288B8();
-  type metadata accessor for ArcadeDiffablePageContentPresenter();
-  v21 = v42;
-  sub_24F9288C8();
-  __swift_destroy_boxed_opaque_existential_1(v50);
-  v4 = v48;
-  swift_beginAccess();
-  v22 = v8;
-  v8 = *v44;
-  v23 = v21;
-  v24 = isUniquelyReferenced_nonNull_native;
-  (*v44)(v17, v23, isUniquelyReferenced_nonNull_native);
-  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v49 = *&v4[v22];
-  v25 = v49;
-  v15 = v22;
-  *&v4[v22] = 0x8000000000000000;
-  v27 = sub_24E76D934(v51);
-  v28 = v25[2];
-  v29 = (v26 & 1) == 0;
-  v30 = v28 + v29;
-  if (__OFADD__(v28, v29))
-  {
-    goto LABEL_27;
-  }
-
-  v4 = v26;
-  if (v25[3] >= v30)
-  {
-    if (isUniquelyReferenced_nonNull_native)
-    {
-      v33 = v49;
-      if (v26)
-      {
-        goto LABEL_21;
-      }
-    }
-
-    else
-    {
-      sub_24E8B07F0();
-      v33 = v49;
-      if (v4)
-      {
-        goto LABEL_21;
-      }
-    }
-
-LABEL_23:
-    v33[(v27 >> 6) + 8] |= 1 << v27;
-    sub_24E65864C(v51, v33[6] + 40 * v27);
-    isUniquelyReferenced_nonNull_native = v24;
-    v8(v33[7] + *(v43 + 72) * v27, v17, v24);
-    sub_24E6585F8(v51);
-    v34 = v33[2];
-    v35 = __OFADD__(v34, 1);
-    v36 = v34 + 1;
-    if (v35)
-    {
-      goto LABEL_29;
-    }
-
-    v33[2] = v36;
-    goto LABEL_25;
-  }
-
-  sub_24E89DAE8(v30, isUniquelyReferenced_nonNull_native);
-  v31 = sub_24E76D934(v51);
-  if ((v4 & 1) == (v32 & 1))
-  {
-    v27 = v31;
-    v33 = v49;
-    if ((v4 & 1) == 0)
-    {
-      goto LABEL_23;
-    }
-
-LABEL_21:
-    isUniquelyReferenced_nonNull_native = v24;
-    (*(v43 + 40))(v33[7] + *(v43 + 72) * v27, v17, v24);
-    sub_24E6585F8(v51);
-LABEL_25:
-    v8 = v15;
-    *&v48[v15] = v33;
-
-    swift_endAccess();
-
-    v15 = v41;
-    v16 = v40;
-    v20 = v47;
-    goto LABEL_6;
-  }
-
-  result = sub_24F92CF88();
-  __break(1u);
-  return result;
-}
-
-uint64_t sub_24EE5F288(uint64_t a1)
-{
-  v2 = type metadata accessor for ArcadePageIntent();
-  (*(*(v2 - 8) + 8))(a1, v2);
-  return a1;
-}
-
-uint64_t block_copy_helper_82(uint64_t a1, uint64_t a2)
-{
-  v2 = *(a2 + 40);
-  *(a1 + 32) = *(a2 + 32);
-  *(a1 + 40) = v2;
-}
-
-uint64_t sub_24EE5F304()
-{
-  v1 = sub_24F91F4A8();
-  (*(*(v1 - 8) + 8))(v0 + ((*(*(v1 - 8) + 80) + 16) & ~*(*(v1 - 8) + 80)), v1);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_24EE5F3C8(unsigned __int8 *a1)
-{
-  v3 = *(sub_24F91F4A8() - 8);
-  v4 = (*(v3 + 80) + 16) & ~*(v3 + 80);
-  v5 = (*(v3 + 64) + v4 + 7) & 0xFFFFFFFFFFFFFFF8;
-  v6 = (v5 + 15) & 0xFFFFFFFFFFFFFFF8;
-  v7 = *(v1 + v5);
-  v8 = *(v1 + v6);
-  v9 = *(v1 + ((v6 + 15) & 0xFFFFFFFFFFFFFFF8));
-
-  return sub_24EE5D2B0(a1, v1 + v4, v7, v8, v9);
-}
-
-unint64_t sub_24EE5F4A8()
-{
-  result = qword_27F231CE0;
-  if (!qword_27F231CE0)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &qword_27F231CE0);
-  }
-
-  return result;
-}
-
-uint64_t UpdatesLockup.version.getter()
-{
-  v1 = *(v0 + OBJC_IVAR____TtC12GameStoreKit13UpdatesLockup_version);
-
-  return v1;
-}
-
-uint64_t UpdatesLockup.__allocating_init(adamId:bundleId:icon:heading:title:subtitle:ordinal:rating:whatsNew:version:size:buttonAction:offerDisplayProperties:clickAction:tertiaryTitle:contextMenuData:impressionMetrics:externalVersionId:releaseDate:installDate:)(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, char a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, unsigned __int8 a27, uint64_t a28, uint64_t a29)
-{
-  v75 = a8;
-  v73 = a7;
-  v72 = a6;
-  v71 = a5;
-  v70 = a4;
-  v69 = a3;
-  v68 = a2;
-  v58 = a29;
-  v59 = a28;
-  v80 = a22;
-  v81 = a23;
-  v79 = a21;
-  v78 = a20;
-  v76 = a24;
-  v77 = a19;
-  v74 = a13;
-  v65 = a12;
-  v64 = a11;
-  v67 = a10;
-  v66 = a9;
-  LODWORD(v63) = a27;
-  v57 = a26;
-  v56 = sub_24F91F6B8();
-  v55 = *(v56 - 8);
-  MEMORY[0x28223BE20](v56);
-  v31 = &v55 - ((v30 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v32 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F213E68);
-  MEMORY[0x28223BE20](v32 - 8);
-  v34 = &v55 - v33;
-  v35 = swift_allocObject();
-  v36 = a1[1];
-  v61 = *a1;
-  v60 = v36;
-  v62 = a14;
-  *(v35 + OBJC_IVAR____TtC12GameStoreKit13UpdatesLockup_whatsNew) = a14;
-  v37 = (v35 + OBJC_IVAR____TtC12GameStoreKit13UpdatesLockup_version);
-  *v37 = a15;
-  v37[1] = a16;
-  v38 = v35 + OBJC_IVAR____TtC12GameStoreKit13UpdatesLockup_size;
-  *v38 = a17;
-  v39 = v58;
-  *(v38 + 8) = a18 & 1;
-  v40 = v35 + OBJC_IVAR____TtC12GameStoreKit13UpdatesLockup_externalVersionId;
-  *v40 = v57;
-  v41 = v59;
-  *(v40 + 8) = v63 & 1;
-  sub_24E60169C(v41, v35 + OBJC_IVAR____TtC12GameStoreKit13UpdatesLockup_releaseDate, &unk_27F22EC30);
-  sub_24E60169C(v39, v35 + OBJC_IVAR____TtC12GameStoreKit13UpdatesLockup_installDate, &unk_27F22EC30);
-  v88 = 0;
-  memset(v87, 0, sizeof(v87));
-  v63 = a25;
-  sub_24E60169C(a25, v34, &qword_27F213E68);
-  *(v35 + 424) = 4;
-  sub_24E60169C(v87, &v84, &qword_27F235830);
-  if (*(&v85 + 1))
-  {
-    v42 = v85;
-    *(v35 + 448) = v84;
-    *(v35 + 464) = v42;
-    *(v35 + 480) = v86;
-  }
-
-  else
-  {
-
-    sub_24F91F6A8();
-    v43 = sub_24F91F668();
-    v45 = v44;
-    (*(v55 + 8))(v31, v56);
-    v82 = v43;
-    v83 = v45;
-    sub_24F92C7F8();
-    sub_24E601704(&v84, &qword_27F235830);
-  }
-
-  sub_24E60169C(v34, v35 + OBJC_IVAR____TtC12GameStoreKit6Lockup_impressionMetrics, &qword_27F213E68);
-
-  v46 = v60;
-  *(v35 + 16) = v61;
-  *(v35 + 24) = v46;
-  v47 = v69;
-  *(v35 + 32) = v68;
-  *(v35 + 40) = v47;
-  *(v35 + 48) = v70;
-  *(v35 + 56) = 0;
-  v48 = v65;
-  *(v35 + 64) = v64;
-  *(v35 + 72) = v48;
-  v49 = v72;
-  *(v35 + 80) = v71;
-  *(v35 + 88) = v49;
-  v50 = v75;
-  *(v35 + 96) = v73;
-  *(v35 + 104) = v50;
-  v51 = v67;
-  *(v35 + 112) = v66;
-  *(v35 + 120) = v51;
-  *(v35 + 128) = 0;
-  *(v35 + 136) = 2;
-  *(v35 + 144) = 0;
-  *(v35 + 152) = 0;
-  *(v35 + 184) = 0u;
-  *(v35 + 200) = 0u;
-  *(v35 + 216) = 0u;
-  *(v35 + 376) = 0u;
-  *(v35 + 392) = 0u;
-  *(v35 + 408) = 0x8000;
-  *(v35 + 360) = v76;
-  *(v35 + 416) = 0;
-  *(v35 + 432) = MEMORY[0x277D84FA0];
-  *(v35 + 160) = v74;
-  *(v35 + 168) = 0;
-  *(v35 + 176) = 0;
-  *(v35 + 248) = 0;
-  *(v35 + 256) = 0;
-  v52 = v78;
-  *(v35 + 232) = v77;
-  *(v35 + 240) = v52;
-  v53 = v80;
-  *(v35 + 264) = v79;
-  *(v35 + 272) = 0u;
-  *(v35 + 288) = 0u;
-  *(v35 + 304) = 0;
-  *(v35 + 312) = v53;
-  *(v35 + 328) = 0;
-  *(v35 + 336) = 0;
-  *(v35 + 320) = v81;
-  sub_24E601704(v39, &unk_27F22EC30);
-  sub_24E601704(v41, &unk_27F22EC30);
-  sub_24E601704(v63, &qword_27F213E68);
-  sub_24E601704(v34, &qword_27F213E68);
-  sub_24E601704(v87, &qword_27F235830);
-  *(v35 + 344) = MEMORY[0x277D84F90];
-  *(v35 + 352) = 0;
-  *(v35 + 440) = 0;
-  *(v35 + 368) = 0;
-  return v35;
-}
-
-uint64_t UpdatesLockup.init(adamId:bundleId:icon:heading:title:subtitle:ordinal:rating:whatsNew:version:size:buttonAction:offerDisplayProperties:clickAction:tertiaryTitle:contextMenuData:impressionMetrics:externalVersionId:releaseDate:installDate:)(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, char a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27, uint64_t a28, uint64_t a29)
-{
-  v30 = v29;
-  v77 = a8;
-  v75 = a7;
-  v74 = a6;
-  v73 = a5;
-  v72 = a4;
-  v71 = a3;
-  v70 = a2;
-  v61 = a29;
-  v62 = a28;
-  v78 = a24;
-  v84 = a23;
-  v82 = a22;
-  v81 = a21;
-  v80 = a20;
-  v79 = a19;
-  v76 = a13;
-  v67 = a12;
-  v66 = a11;
-  v69 = a10;
-  v68 = a9;
-  v63 = a25;
-  v60 = sub_24F91F6B8();
-  v59 = *(v60 - 8);
-  MEMORY[0x28223BE20](v60);
-  v33 = &v58 - ((v32 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v34 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F213E68);
-  MEMORY[0x28223BE20](v34 - 8);
-  v36 = &v58 - v35;
-  v37 = a1[1];
-  v65 = *a1;
-  v64 = v37;
-  v83 = a14;
-  *(v30 + OBJC_IVAR____TtC12GameStoreKit13UpdatesLockup_whatsNew) = a14;
-  v38 = v36;
-  v39 = (v30 + OBJC_IVAR____TtC12GameStoreKit13UpdatesLockup_version);
-  *v39 = a15;
-  v39[1] = a16;
-  v40 = v30 + OBJC_IVAR____TtC12GameStoreKit13UpdatesLockup_size;
-  *v40 = a17;
-  v41 = v61;
-  *(v40 + 8) = a18 & 1;
-  v42 = v30 + OBJC_IVAR____TtC12GameStoreKit13UpdatesLockup_externalVersionId;
-  *v42 = a26;
-  v43 = v62;
-  *(v42 + 8) = a27 & 1;
-  sub_24E60169C(v43, v30 + OBJC_IVAR____TtC12GameStoreKit13UpdatesLockup_releaseDate, &unk_27F22EC30);
-  v44 = v63;
-  sub_24E60169C(v41, v30 + OBJC_IVAR____TtC12GameStoreKit13UpdatesLockup_installDate, &unk_27F22EC30);
-  v94 = 0;
-  memset(v93, 0, sizeof(v93));
-  sub_24E60169C(v44, v38, &qword_27F213E68);
-  *(v30 + 424) = 4;
-  sub_24E60169C(v93, &v87, &qword_27F235830);
-  if (*(&v88 + 1))
-  {
-    v90 = v87;
-    v91 = v88;
-    v92 = v89;
-  }
-
-  else
-  {
-
-    sub_24F91F6A8();
-    v45 = sub_24F91F668();
-    v47 = v46;
-    (*(v59 + 8))(v33, v60);
-    v85 = v45;
-    v86 = v47;
-    sub_24F92C7F8();
-    sub_24E601704(&v87, &qword_27F235830);
-  }
-
-  v48 = v91;
-  *(v30 + 448) = v90;
-  *(v30 + 464) = v48;
-  *(v30 + 480) = v92;
-  sub_24E60169C(v38, v30 + OBJC_IVAR____TtC12GameStoreKit6Lockup_impressionMetrics, &qword_27F213E68);
-  v49 = v64;
-  *(v30 + 16) = v65;
-  *(v30 + 24) = v49;
-  v50 = v71;
-  *(v30 + 32) = v70;
-  *(v30 + 40) = v50;
-  *(v30 + 48) = v72;
-  *(v30 + 56) = 0;
-  v51 = v67;
-  *(v30 + 64) = v66;
-  *(v30 + 72) = v51;
-  v52 = v74;
-  *(v30 + 80) = v73;
-  *(v30 + 88) = v52;
-  v53 = v77;
-  *(v30 + 96) = v75;
-  *(v30 + 104) = v53;
-  v54 = v69;
-  *(v30 + 112) = v68;
-  *(v30 + 120) = v54;
-  *(v30 + 128) = 0;
-  *(v30 + 136) = 2;
-  *(v30 + 144) = 0;
-  *(v30 + 152) = 0;
-  *(v30 + 216) = 0u;
-  *(v30 + 200) = 0u;
-  *(v30 + 184) = 0u;
-  *(v30 + 376) = 0u;
-  *(v30 + 392) = 0u;
-  *(v30 + 408) = 0x8000;
-  *(v30 + 360) = v78;
-  *(v30 + 416) = 0;
-  *(v30 + 432) = MEMORY[0x277D84FA0];
-  *(v30 + 160) = v76;
-  *(v30 + 168) = 0;
-  *(v30 + 176) = 0;
-  *(v30 + 248) = 0;
-  *(v30 + 256) = 0;
-  v55 = v80;
-  *(v30 + 232) = v79;
-  *(v30 + 240) = v55;
-  *(v30 + 264) = v81;
-  *(v30 + 272) = 0u;
-  *(v30 + 288) = 0u;
-  v56 = v82;
-  *(v30 + 304) = 0;
-  *(v30 + 312) = v56;
-  *(v30 + 328) = 0;
-  *(v30 + 336) = 0;
-  *(v30 + 320) = v84;
-
-  sub_24E601704(v41, &unk_27F22EC30);
-  sub_24E601704(v43, &unk_27F22EC30);
-  sub_24E601704(v44, &qword_27F213E68);
-  sub_24E601704(v38, &qword_27F213E68);
-  sub_24E601704(v93, &qword_27F235830);
-  *(v30 + 344) = MEMORY[0x277D84F90];
-  *(v30 + 352) = 0;
-  *(v30 + 440) = 0;
-  *(v30 + 368) = 0;
-  return v30;
-}
-
-uint64_t UpdatesLockup.init(deserializing:using:)(char *a1, uint64_t a2)
-{
-  v48 = a2;
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27F22EC30);
-  MEMORY[0x28223BE20](v3 - 8);
-  v45 = &v38 - v4;
-  v5 = sub_24F9285B8();
-  v41 = v5;
-  v6 = *(v5 - 8);
-  MEMORY[0x28223BE20](v5);
-  v46 = &v38 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v8);
-  v10 = &v38 - v9;
-  v11 = sub_24F928388();
-  v39 = *(v11 - 8);
-  v12 = v39;
-  MEMORY[0x28223BE20](v11);
-  v44 = &v38 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v14);
-  v16 = &v38 - v15;
-  type metadata accessor for Paragraph();
-  sub_24F928398();
-  v47 = v6;
-  v17 = *(v6 + 16);
-  v42 = v6 + 16;
-  v43 = v17;
-  (v17)(v10, v48, v5);
-  sub_24EE60684();
-  sub_24F929548();
-  v18 = v40;
-  *(v40 + OBJC_IVAR____TtC12GameStoreKit13UpdatesLockup_whatsNew) = v49;
-  sub_24F928398();
-  v19 = sub_24F928348();
-  v21 = v20;
-  v22 = *(v12 + 8);
-  v22(v16, v11);
-  v23 = (v18 + OBJC_IVAR____TtC12GameStoreKit13UpdatesLockup_version);
-  v24 = v18;
-  *v23 = v19;
-  v23[1] = v21;
-  sub_24F928398();
-  v25 = sub_24F9282D8();
-  LOBYTE(v21) = v26;
-  v22(v16, v11);
-  v27 = v18 + OBJC_IVAR____TtC12GameStoreKit13UpdatesLockup_size;
-  *v27 = v25;
-  *(v27 + 8) = v21 & 1;
-  sub_24F928398();
-  v28 = sub_24F9282D8();
-  LOBYTE(v21) = v29;
-  v22(v16, v11);
-  v30 = v18 + OBJC_IVAR____TtC12GameStoreKit13UpdatesLockup_externalVersionId;
-  *v30 = v28;
-  *(v30 + 8) = v21 & 1;
-  sub_24F928398();
-  v31 = v45;
-  sub_24F928288();
-  v22(v16, v11);
-  sub_24E6C4F90(v31, v24 + OBJC_IVAR____TtC12GameStoreKit13UpdatesLockup_releaseDate);
-  v32 = v48;
-  sub_24F928398();
-  sub_24F928288();
-  v22(v16, v11);
-  sub_24E6C4F90(v31, v24 + OBJC_IVAR____TtC12GameStoreKit13UpdatesLockup_installDate);
-  v33 = v44;
-  (*(v39 + 16))(v44, a1, v11);
-  v34 = v46;
-  v35 = v41;
-  v43(v46, v32);
-  v36 = Lockup.init(deserializing:using:)(v33, v34);
-  (*(v47 + 8))(v32, v35);
-  v22(a1, v11);
-  return v36;
-}
-
-unint64_t sub_24EE60684()
-{
-  result = qword_27F214718;
-  if (!qword_27F214718)
-  {
-    type metadata accessor for Paragraph();
-    result = swift_getWitnessTable();
-    atomic_store(result, &qword_27F214718);
-  }
-
-  return result;
-}
-
-uint64_t sub_24EE60710()
-{
-
-  sub_24E601704(v0 + OBJC_IVAR____TtC12GameStoreKit13UpdatesLockup_releaseDate, &unk_27F22EC30);
-  return sub_24E601704(v0 + OBJC_IVAR____TtC12GameStoreKit13UpdatesLockup_installDate, &unk_27F22EC30);
-}
-
-uint64_t UpdatesLockup.deinit()
-{
-  v0 = Lockup.deinit();
-
-  sub_24E601704(v0 + OBJC_IVAR____TtC12GameStoreKit13UpdatesLockup_releaseDate, &unk_27F22EC30);
-  sub_24E601704(v0 + OBJC_IVAR____TtC12GameStoreKit13UpdatesLockup_installDate, &unk_27F22EC30);
-  return v0;
-}
-
-uint64_t UpdatesLockup.__deallocating_deinit()
-{
-  v0 = Lockup.deinit();
-
-  sub_24E601704(v0 + OBJC_IVAR____TtC12GameStoreKit13UpdatesLockup_releaseDate, &unk_27F22EC30);
-  sub_24E601704(v0 + OBJC_IVAR____TtC12GameStoreKit13UpdatesLockup_installDate, &unk_27F22EC30);
-
-  return swift_deallocClassInstance();
-}
-
-uint64_t type metadata accessor for UpdatesLockup()
-{
-  result = qword_27F231CE8;
-  if (!qword_27F231CE8)
-  {
-    return swift_getSingletonMetadata();
-  }
-
-  return result;
-}
-
-void sub_24EE60960()
-{
-  sub_24E728940();
-  if (v0 <= 0x3F)
-  {
-    swift_updateClassMetadata2();
-  }
-}
-
-id sub_24EE60B4C(uint64_t a1)
-{
-  v2 = objc_opt_self();
-  result = [v2 valueWithNewObjectInContext_];
-  if (result)
-  {
-    v4 = result;
-
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F2218D8);
-    v5 = [v2 valueWithObject:sub_24F92CF68() inContext:a1];
-    result = swift_unknownObjectRelease();
-    if (v5)
-    {
-      sub_24F92C328();
-      return v4;
-    }
-  }
-
-  else
-  {
-    __break(1u);
-  }
-
-  __break(1u);
   return result;
 }

@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)typeAsString:(int)string;
 - (int)StringAsType:(id)type;
 - (int)type;
 - (unint64_t)hash;
@@ -25,6 +26,94 @@
   {
     return 110;
   }
+}
+
+- (id)typeAsString:(int)string
+{
+  if (string <= 159)
+  {
+    if (string <= 129)
+    {
+      if (string == 110)
+      {
+        v4 = @"Email";
+
+        return v4;
+      }
+
+      if (string == 120)
+      {
+        v4 = @"SMS";
+
+        return v4;
+      }
+    }
+
+    else
+    {
+      switch(string)
+      {
+        case 130:
+          v4 = @"InboundPhoneCall";
+
+          return v4;
+        case 140:
+          v4 = @"OutboundPhoneCall";
+
+          return v4;
+        case 150:
+          v4 = @"BankApp";
+
+          return v4;
+      }
+    }
+
+LABEL_48:
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+
+    return v4;
+  }
+
+  if (string > 189)
+  {
+    switch(string)
+    {
+      case 190:
+        v4 = @"WebPage";
+
+        return v4;
+      case 200:
+        v4 = @"URL";
+
+        return v4;
+      case 210:
+        v4 = @"Count";
+
+        return v4;
+    }
+
+    goto LABEL_48;
+  }
+
+  switch(string)
+  {
+    case 160:
+      v4 = @"Statement";
+
+      break;
+    case 170:
+      v4 = @"Other";
+
+      break;
+    case 180:
+      v4 = @"AppClip";
+
+      return v4;
+    default:
+      goto LABEL_48;
+  }
+
+  return v4;
 }
 
 - (int)StringAsType:(id)type
@@ -249,55 +338,53 @@ LABEL_31:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v7 = toCopy;
+  v5 = toCopy;
   if (self->_identifier)
   {
     PBDataWriterWriteStringField();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (*&self->_has)
   {
-    type = self->_type;
     PBDataWriterWriteInt32Field();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (self->_typeDescriptionUnlocalized)
   {
     PBDataWriterWriteStringField();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (self->_typeDescription)
   {
     PBDataWriterWriteStringField();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (self->_organizationName)
   {
     PBDataWriterWriteStringField();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if ((*&self->_has & 2) != 0)
   {
-    requiresUserInteraction = self->_requiresUserInteraction;
     PBDataWriterWriteBOOLField();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (self->_contactPoint)
   {
     PBDataWriterWriteStringField();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (self->_sourceAddress)
   {
     PBDataWriterWriteStringField();
-    toCopy = v7;
+    toCopy = v5;
   }
 }
 
@@ -413,7 +500,6 @@ LABEL_31:
     }
   }
 
-  v6 = *(equalCopy + 68);
   if (*&self->_has)
   {
     if ((*(equalCopy + 68) & 1) == 0 || self->_type != *(equalCopy + 10))
@@ -451,7 +537,6 @@ LABEL_31:
     }
   }
 
-  v10 = *(equalCopy + 68);
   if ((*&self->_has & 2) == 0)
   {
     if ((*(equalCopy + 68) & 2) == 0)
@@ -460,7 +545,7 @@ LABEL_31:
     }
 
 LABEL_22:
-    v13 = 0;
+    v11 = 0;
     goto LABEL_23;
   }
 
@@ -469,7 +554,6 @@ LABEL_22:
     goto LABEL_22;
   }
 
-  v15 = *(equalCopy + 64);
   if (self->_requiresUserInteraction)
   {
     if ((*(equalCopy + 64) & 1) == 0)
@@ -493,17 +577,17 @@ LABEL_17:
   sourceAddress = self->_sourceAddress;
   if (sourceAddress | *(equalCopy + 4))
   {
-    v13 = [(NSString *)sourceAddress isEqual:?];
+    v11 = [(NSString *)sourceAddress isEqual:?];
   }
 
   else
   {
-    v13 = 1;
+    v11 = 1;
   }
 
 LABEL_23:
 
-  return v13;
+  return v11;
 }
 
 - (unint64_t)hash

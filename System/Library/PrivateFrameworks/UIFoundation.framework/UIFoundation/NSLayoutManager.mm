@@ -270,7 +270,7 @@
 
 - (void)_showCGGlyphs:(const unsigned __int16 *)glyphs positions:(const CGPoint *)positions count:(int64_t)count font:(id)font textMatrix:(CGAffineTransform *)matrix attributes:(id)attributes inContext:(CGContext *)context
 {
-  v9 = MEMORY[0x1EEE9AC00](self, a2, glyphs, positions, count, font, matrix, attributes);
+  MEMORY[0x1EEE9AC00](self, a2, glyphs, positions, count, font, matrix, attributes);
   v43 = *MEMORY[0x1E69E9840];
   if (!context)
   {
@@ -847,44 +847,47 @@ LABEL_30:
 id __151__NSLayoutManager_OtherSupport__drawSpellingUnderlineForGlyphRange_spellingState_inGlyphRange_lineFragmentRect_lineFragmentGlyphRange_containerOrigin___block_invoke()
 {
   v0 = __NSGetColorForSpellingState(1);
-  v1 = __NSGetCircledImage(v0, 3.0, 3.0);
-  v2 = __NSGetColorForSpellingState(2);
-  v3 = __NSGetCircledImage(v2, 3.0, 3.0);
-  v4 = __NSGetColorForSpellingState(128);
-  v5 = __NSGetCircledImage(v4, 3.0, 3.0);
-  if (v1)
+  v1.n128_u64[0] = 3.0;
+  v2 = __NSGetCircledImage(v0, 3.0, v1);
+  v3 = __NSGetColorForSpellingState(2);
+  v4.n128_u64[0] = 3.0;
+  v5 = __NSGetCircledImage(v3, 3.0, v4);
+  v6 = __NSGetColorForSpellingState(128);
+  v7.n128_u64[0] = 3.0;
+  v8 = __NSGetCircledImage(v6, 3.0, v7);
+  if (v2)
   {
-    v6 = [getNSColorClass[0]() colorWithPatternImage:v1];
+    v9 = [getNSColorClass[0]() colorWithPatternImage:v2];
   }
 
   else
   {
-    v6 = 0;
+    v9 = 0;
   }
 
-  drawSpellingUnderlineForGlyphRange_spellingState_inGlyphRange_lineFragmentRect_lineFragmentGlyphRange_containerOrigin__spellingPatternColor = v6;
-  if (v3)
-  {
-    v7 = [getNSColorClass[0]() colorWithPatternImage:v3];
-  }
-
-  else
-  {
-    v7 = 0;
-  }
-
-  drawSpellingUnderlineForGlyphRange_spellingState_inGlyphRange_lineFragmentRect_lineFragmentGlyphRange_containerOrigin__grammarPatternColor = v7;
+  drawSpellingUnderlineForGlyphRange_spellingState_inGlyphRange_lineFragmentRect_lineFragmentGlyphRange_containerOrigin__spellingPatternColor = v9;
   if (v5)
   {
-    v8 = [getNSColorClass[0]() colorWithPatternImage:v5];
+    v10 = [getNSColorClass[0]() colorWithPatternImage:v5];
   }
 
   else
   {
-    v8 = 0;
+    v10 = 0;
   }
 
-  result = v8;
+  drawSpellingUnderlineForGlyphRange_spellingState_inGlyphRange_lineFragmentRect_lineFragmentGlyphRange_containerOrigin__grammarPatternColor = v10;
+  if (v8)
+  {
+    v11 = [getNSColorClass[0]() colorWithPatternImage:v8];
+  }
+
+  else
+  {
+    v11 = 0;
+  }
+
+  result = v11;
   drawSpellingUnderlineForGlyphRange_spellingState_inGlyphRange_lineFragmentRect_lineFragmentGlyphRange_containerOrigin__correctionPatternColor = result;
   return result;
 }
@@ -2050,7 +2053,7 @@ LABEL_136:
   }
 }
 
-uint64_t __148__NSLayoutManager_OtherSupport___drawLineForGlyphRange_type_baselineOffset_lineFragmentRect_lineFragmentGlyphRange_containerOrigin_isStrikethrough___block_invoke()
+void *__148__NSLayoutManager_OtherSupport___drawLineForGlyphRange_type_baselineOffset_lineFragmentRect_lineFragmentGlyphRange_containerOrigin_isStrikethrough___block_invoke()
 {
   v0 = [MEMORY[0x1E695E000] standardUserDefaults];
   result = [v0 objectForKey:@"NSUnderlinesBreakForDescenders"];
@@ -2331,7 +2334,7 @@ LABEL_52:
   return _defaultLinkAttributesForLabel_defaultLinkAttributes;
 }
 
-uint64_t __60__NSLayoutManager_NSPrivate___defaultLinkAttributesForLabel__block_invoke()
+void *__60__NSLayoutManager_NSPrivate___defaultLinkAttributesForLabel__block_invoke()
 {
   result = [objc_alloc(MEMORY[0x1E695DF20]) initWithObjectsAndKeys:{objc_msgSend(getNSColorClass_0[0](), "linkColor"), @"NSColor", 0}];
   _defaultLinkAttributesForLabel_defaultLinkAttributes = result;
@@ -2348,7 +2351,7 @@ uint64_t __60__NSLayoutManager_NSPrivate___defaultLinkAttributesForLabel__block_
   return _defaultLinkAttributes_defaultLinkAttributes;
 }
 
-uint64_t __52__NSLayoutManager_NSPrivate___defaultLinkAttributes__block_invoke()
+void *__52__NSLayoutManager_NSPrivate___defaultLinkAttributes__block_invoke()
 {
   v0 = [getNSColorClass_0[0]() linkColor];
   v1 = objc_alloc(MEMORY[0x1E695DF20]);
@@ -4140,7 +4143,7 @@ LABEL_228:
   _NSFastFillAllGlyphHolesForCharacterRange(self, range.location, 1uLL);
   if (length >= 2)
   {
-    _NSFastFillAllGlyphHolesForCharacterRange(self, length + location - 1, 2uLL);
+    _NSFastFillAllGlyphHolesForCharacterRange(self, (length + location - 1), 2uLL);
   }
 
   v6 = _NSGlyphTreeGlyphRangeForCharacterRange(self, location, length, 1, 1, 0, 0);
@@ -9421,7 +9424,7 @@ LABEL_53:
   if (!softCopy && (*(self->_extraData + 23) || [(NSRunStorage *)self->_containerRuns count]))
   {
     v40 = _NSGlyphTreeGlyphIndexForCharacterAtIndex(self, location);
-    v41 = _NSGlyphTreeGlyphIndexForCharacterAtIndex(self, location + length) - v40;
+    v41 = (_NSGlyphTreeGlyphIndexForCharacterAtIndex(self, location + length) - v40);
     if ((*(&self->_lmFlags + 3) & 0x40) == 0 && v40 < [(NSRunStorage *)self->_containerRuns count])
     {
       value = 0;
@@ -10469,7 +10472,7 @@ LABEL_117:
         isVertical = [verticalFont isVertical];
         if (v323)
         {
-          [v323 _textMatrixTransformForContext:v283];
+          objc_msgSend__textMatrixTransformForContext_(v323);
           b = v351[0].b;
           a = v351[0].a;
           d = v351[0].d;
@@ -11693,7 +11696,7 @@ LABEL_146:
   }
 }
 
-uint64_t __63__NSLayoutManager_NSPrivate___drawGlyphsForGlyphRange_atPoint___block_invoke()
+void *__63__NSLayoutManager_NSPrivate___drawGlyphsForGlyphRange_atPoint___block_invoke()
 {
   _drawGlyphsForGlyphRange_atPoint__isBidiDebugging = [objc_msgSend(MEMORY[0x1E695E000] "standardUserDefaults")];
   result = [objc_msgSend(MEMORY[0x1E695E000] "standardUserDefaults")];
@@ -13322,15 +13325,15 @@ LABEL_33:
       applicationFrameworkContext = [(NSLayoutManager *)self applicationFrameworkContext];
       if (v16 != 0.0)
       {
-        v40.origin.x = x;
-        v40.origin.y = y;
-        v40.size.width = width;
-        v40.size.height = height;
-        v41 = NSInsetRect(v40, v16, 0.0);
-        x = v41.origin.x;
-        y = v41.origin.y;
-        width = v41.size.width;
-        height = v41.size.height;
+        v41.origin.x = x;
+        v41.origin.y = y;
+        v41.size.width = width;
+        v41.size.height = height;
+        v42 = NSInsetRect(v41, v16, 0.0);
+        x = v42.origin.x;
+        y = v42.origin.y;
+        width = v42.size.width;
+        height = v42.size.height;
       }
     }
 
@@ -13342,66 +13345,66 @@ LABEL_33:
     if ([attachment usesTextAttachmentView] && (v18 = objc_msgSend(container, "textView")) != 0 && (v19 = v18, v20 = objc_msgSend(attachment, "viewProviderForParentView:characterIndex:layoutManager:", v18, index, self), (v21 = objc_msgSend(v20, "view")) != 0))
     {
       v22 = v21;
-      [v19 contentScaleFactor];
-      (softLinkUIRectIntegralWithScale[0])(x, y - height, width, height, v23);
+      contentScaleFactor = [v19 contentScaleFactor];
+      softLinkUIRectIntegralWithScale(contentScaleFactor, x, y - height, width, height, v24);
       [attachment placeView:v22 withFrame:v19 inParentView:index characterIndex:self layoutManager:?];
-      v24 = *(self->_extraData + 55);
-      if (!v24)
+      v25 = *(self->_extraData + 55);
+      if (!v25)
       {
         *(self->_extraData + 55) = objc_alloc_init(MEMORY[0x1E695DFA8]);
-        v24 = *(self->_extraData + 55);
+        v25 = *(self->_extraData + 55);
       }
 
-      [v24 addObject:v20];
+      [v25 addObject:v20];
       [MEMORY[0x1E6979518] begin];
       [MEMORY[0x1E6979518] setDisableActions:1];
       [v22 setHidden:0];
-      v25 = MEMORY[0x1E6979518];
+      v26 = MEMORY[0x1E6979518];
 
-      [v25 commit];
+      [v26 commit];
     }
 
     else
     {
-      v26 = [attachment imageForBounds:container textContainer:index characterIndex:{x, y, width, height}];
+      v27 = [attachment imageForBounds:container textContainer:index characterIndex:{x, y, width, height}];
       image = [attachment image];
       if (applicationFrameworkContext == 2)
       {
-        v28 = image;
-        if (v26 == image)
+        v29 = image;
+        if (v27 == image)
         {
           if ([image conformsToProtocol:&unk_1F01F0D38])
           {
-            v29 = [objc_msgSend(objc_msgSend(container "layoutManager")];
-            if ([v28 willProvideAdaptedImageForPresentation])
+            v30 = [objc_msgSend(objc_msgSend(container "layoutManager")];
+            if ([v29 willProvideAdaptedImageForPresentation])
             {
-              v26 = [v28 imageForBounds:v29 attributes:0 location:container textContainer:{x, y, width, height}];
+              v27 = [v29 imageForBounds:v30 attributes:0 location:container textContainer:{x, y, width, height}];
             }
           }
         }
       }
 
-      v30 = [-[objc_class graphicsContextForApplicationFrameworkContext:](+[NSTextGraphicsContextProvider textGraphicsContextProviderClass](NSTextGraphicsContextProvider "textGraphicsContextProviderClass")];
-      v31 = y - height;
-      if (v30)
+      v31 = [-[objc_class graphicsContextForApplicationFrameworkContext:](+[NSTextGraphicsContextProvider textGraphicsContextProviderClass](NSTextGraphicsContextProvider "textGraphicsContextProviderClass")];
+      v32 = y - height;
+      if (v31)
       {
-        v32 = v30;
-        v33 = x;
-        v34 = CGContextConvertPointToDeviceSpace(v30, *(&v31 - 1));
-        v39.x = floor(v34.x + 0.5);
-        v39.y = floor(v34.y + 0.5);
-        v37 = CGContextConvertPointToUserSpace(v32, v39);
-        v36 = v37.y;
-        v35 = v37.x;
+        v33 = v31;
+        v34 = x;
+        v35 = CGContextConvertPointToDeviceSpace(v31, *(&v32 - 1));
+        v40.x = floor(v35.x + 0.5);
+        v40.y = floor(v35.y + 0.5);
+        v38 = CGContextConvertPointToUserSpace(v33, v40);
+        v37 = v38.y;
+        v36 = v38.x;
       }
 
       else
       {
-        v35 = floor(x + 0.5);
-        v36 = floor(v31 + 0.5);
+        v36 = floor(x + 0.5);
+        v37 = floor(v32 + 0.5);
       }
 
-      [v26 drawInRect:{v35, v36, width, height}];
+      [v27 drawInRect:{v36, v37, width, height}];
     }
   }
 }
@@ -13589,7 +13592,7 @@ LABEL_9:
   }
 }
 
-uint64_t __66__NSLayoutManager_NSPrivate__beginScrollingForView_textContainer___block_invoke()
+void *__66__NSLayoutManager_NSPrivate__beginScrollingForView_textContainer___block_invoke()
 {
   result = [objc_msgSend(MEMORY[0x1E695E000] "standardUserDefaults")];
   if (result)
@@ -14066,7 +14069,7 @@ LABEL_4:
   [(NSLayoutManager *)&v6 dealloc];
 }
 
-uint64_t __26__NSLayoutManager_dealloc__block_invoke(uint64_t a1, void *a2)
+void *__26__NSLayoutManager_dealloc__block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 _hasLayoutManager:*(a1 + 32)];
   if (result)
@@ -14429,7 +14432,7 @@ uint64_t __26__NSLayoutManager_dealloc__block_invoke(uint64_t a1, void *a2)
   _enableTextViewResizing(self);
 }
 
-uint64_t __34__NSLayoutManager_setTextStorage___block_invoke(uint64_t a1, void *a2)
+void *__34__NSLayoutManager_setTextStorage___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 layoutManager];
   if (result == *(a1 + 32))
@@ -16100,12 +16103,12 @@ LABEL_113:
   }
 }
 
-uint64_t __60__NSLayoutManager__primitiveInvalidateDisplayForGlyphRange___block_invoke(uint64_t result, uint64_t a2, double a3, double a4, double a5, double a6)
+void *__60__NSLayoutManager__primitiveInvalidateDisplayForGlyphRange___block_invoke(void *result, uint64_t a2, double a3, double a4, double a5, double a6)
 {
-  v6 = *(result + 40);
+  v6 = result[5];
   if (*(*(v6 + 8) + 40))
   {
-    v7 = *(result + 32);
+    v7 = result[4];
     v8[0] = MEMORY[0x1E69E9820];
     v8[1] = 3221225472;
     v8[2] = __60__NSLayoutManager__primitiveInvalidateDisplayForGlyphRange___block_invoke_2;
@@ -16864,7 +16867,7 @@ LABEL_26:
 
   if (v3)
   {
-    v4 = v3 - 1;
+    v4 = (v3 - 1);
   }
 
   else
@@ -18097,7 +18100,7 @@ LABEL_11:
     _NSFastFillAllGlyphHolesForCharacterRange(self, charRange.location, 1uLL);
     if (length >= 2)
     {
-      _NSFastFillAllGlyphHolesForCharacterRange(self, length + location - 1, 2uLL);
+      _NSFastFillAllGlyphHolesForCharacterRange(self, (length + location - 1), 2uLL);
     }
 
     v8 = _NSGlyphTreeGlyphRangeForCharacterRange(self, location, length, 1, 1, 1, actualCharRange);
@@ -19329,7 +19332,7 @@ LABEL_94:
   _Block_object_dispose(&v12, 8);
 }
 
-uint64_t __73__NSLayoutManager_fillBackgroundRectArray_count_forCharacterRange_color___block_invoke(uint64_t a1)
+void *__73__NSLayoutManager_fillBackgroundRectArray_count_forCharacterRange_color___block_invoke(uint64_t a1)
 {
   result = [objc_msgSend(MEMORY[0x1E695E000] "standardUserDefaults")];
   if (result)

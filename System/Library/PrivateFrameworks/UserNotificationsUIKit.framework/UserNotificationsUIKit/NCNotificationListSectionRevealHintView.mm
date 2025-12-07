@@ -36,7 +36,7 @@
   if (!self->_revealHintTitle)
   {
     v3 = +[NCNotificationListLegibilityLabelCache sharedInstance];
-    v4 = NCUserNotificationsUIKitFrameworkBundle();
+    v4 = NCUserNotificationsUIKitFrameworkBundle(v3);
     v5 = [v4 localizedStringForKey:@"NO_NOTIFICATION_HISTORY" value:&stru_282FE84F8 table:0];
     _labelFont = [(NCNotificationListSectionRevealHintView *)self _labelFont];
     v7 = [v3 legibilityLabelForTitle:v5 forSuperview:self font:_labelFont];
@@ -95,11 +95,11 @@
 + (double)minimumViewHeight
 {
   v2 = [MEMORY[0x277D74300] preferredFontForTextStyle:*MEMORY[0x277D76918]];
-  [v2 _scaledValueForValue:100.0];
-  _NCMainScreenScale();
+  v3 = [v2 _scaledValueForValue:100.0];
+  _NCMainScreenScale(v3, v4);
   UICeilToScale();
 
-  _NCMainScreenScale();
+  _NCMainScreenScale(v5, v6);
 
   UICeilToScale();
   return result;

@@ -2,32 +2,35 @@
 - (BOOL)startPencilFusionUpdatesToQueue:(id)queue withHandler:(id)handler;
 - (CMAPencilFusion)init;
 - (CMAPencilFusionResult)currentEstimation;
-- (uint64_t)logHostDeviceMotionQuaternion:(uint64_t)quaternion rotationRate:(uint64_t)rate acceleration:(__n128)acceleration timestamp:(__n128)timestamp;
-- (uint64_t)logPencilDeviceMotionQuaternion:(uint64_t)quaternion rotationRate:(uint64_t)rate acceleration:(int)acceleration gyroBias:(uint64_t)bias temperatureGyroBias:(__n128)gyroBias temperatureGyro:(__n128)gyro status:(__n128)status sensorTime:(__n128)self0 timestamp:(double)self1;
 - (void)dealloc;
 - (void)flushMSL;
+- (void)logHostDeviceMotionQuaternion:(__n128)quaternion rotationRate:(__n128)rate acceleration:(double)acceleration timestamp:;
+- (void)logPencilDeviceMotionQuaternion:(__n128)quaternion rotationRate:(__n128)rate acceleration:(__n128)acceleration gyroBias:(double)bias temperatureGyroBias:(uint64_t)gyroBias temperatureGyro:(int)gyro status:(int)status sensorTime:(int)self0 timestamp:(uint64_t)self1;
 - (void)logPencilFusionResult:(id)result;
+- (void)logTouchAltitudeAngle:(float)angle altitudeAngleConfidence:(float)confidence azimuthAngle:(float)azimuthAngle azimuthAngleConfidence:(float)angleConfidence position:(float)position positionConfidence:(double)positionConfidence timestamp:;
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context;
 - (void)readUserDefaults;
-- (void)sendPencilSensorContactTypeStatistics:(CMAPencilSensorContactTypeStatistics *)statistics contactType:(int)type;
 - (void)sendPencilStatistics;
+- (void)setMslEnabled:(BOOL)enabled;
+- (void)setPreciseTipPositionLoggingEnabled:(BOOL)enabled;
 - (void)startUserDefaults;
 - (void)stopPencilFusionUpdates;
 - (void)stopPencilFusionUpdatesPrivate;
 - (void)stopUserDefaults;
 - (void)updateEstimationsWithRealValuesWithQuaternion:(CMOQuaternion)quaternion timestamp:(double)timestamp;
-- (void)updateHostDeviceMotionQuaternion:(uint64_t)quaternion rotationRate:(uint64_t)rate acceleration:(__n128)acceleration timestamp:(__n128)timestamp;
+- (void)updateHostDeviceMotionQuaternion:(__n128)quaternion rotationRate:(__n128)rate acceleration:(double)acceleration timestamp:;
 - (void)updatePencilDeviceMotionPayload:(id)payload;
+- (void)updateTouchAltitudeAngle:(float)angle altitudeAngleConfidence:(float)confidence azimuthAngle:(float)azimuthAngle azimuthAngleConfidence:(float)angleConfidence position:(float)position positionConfidence:(double)positionConfidence timestamp:;
 @end
 
 @implementation CMAPencilFusion
 
 - (CMAPencilFusion)init
 {
-  v6 = *MEMORY[0x277D85DE8];
-  v5.receiver = self;
-  v5.super_class = CMAPencilFusion;
-  v2 = [(CMAPencilFusion *)&v5 init];
+  v5 = *MEMORY[0x277D85DE8];
+  v4.receiver = self;
+  v4.super_class = CMAPencilFusion;
+  v2 = [(CMAPencilFusion *)&v4 init];
   if (v2)
   {
     v2->_queue = dispatch_queue_create("CMAPencilFusion", 0);
@@ -35,7 +38,6 @@
     operator new();
   }
 
-  v3 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
@@ -60,8 +62,8 @@
     _os_log_impl(&dword_245D80000, v7, OS_LOG_TYPE_DEFAULT, "startPencilFusionUpdatesToQueue:withHandler:", buf, 2u);
   }
 
-  objc_msgSend_startUserDefaults(self, v8, v9, v10);
-  v14 = objc_msgSend_queue(self, v11, v12, v13);
+  objc_msgSend_startUserDefaults(self, v8, v9);
+  v12 = objc_msgSend_queue(self, v10, v11);
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = sub_245F26298;
@@ -69,8 +71,8 @@
   block[4] = self;
   block[5] = queue;
   block[6] = handler;
-  dispatch_sync(v14, block);
-  return objc_msgSend_isRunning(self, v15, v16, v17);
+  dispatch_sync(v12, block);
+  return objc_msgSend_isRunning(self, v13, v14);
 }
 
 - (void)stopPencilFusionUpdates
@@ -87,29 +89,29 @@
     _os_log_impl(&dword_245D80000, v3, OS_LOG_TYPE_DEFAULT, "stopPencilFusionUpdates", buf, 2u);
   }
 
-  v7 = objc_msgSend_queue(self, v4, v5, v6);
+  v6 = objc_msgSend_queue(self, v4, v5);
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = sub_245F26414;
   block[3] = &unk_278E97158;
   block[4] = self;
-  dispatch_sync(v7, block);
-  objc_msgSend_stopUserDefaults(self, v8, v9, v10);
-  objc_msgSend_flushMSL(self, v11, v12, v13);
+  dispatch_sync(v6, block);
+  objc_msgSend_stopUserDefaults(self, v7, v8);
+  objc_msgSend_flushMSL(self, v9, v10);
 }
 
 - (void)stopPencilFusionUpdatesPrivate
 {
-  v5 = objc_msgSend_queue(self, a2, v2, v3);
-  dispatch_assert_queue_V2(v5);
-  if (objc_msgSend_isRunning(self, v6, v7, v8))
+  v4 = objc_msgSend_queue(self, a2, v2);
+  dispatch_assert_queue_V2(v4);
+  if (objc_msgSend_isRunning(self, v5, v6))
   {
-    v12 = objc_msgSend_estimations(self, v9, v10, v11);
-    objc_msgSend_removeAllObjects(v12, v13, v14, v15);
-    objc_msgSend_setRunning_(self, v16, 0, v17);
-    objc_msgSend_setHandler_(self, v18, 0, v19);
-    objc_msgSend_setHandlerQueue_(self, v20, 0, v21);
-    objc_msgSend_sendPencilStatistics(self, v22, v23, v24);
+    v9 = objc_msgSend_estimations(self, v7, v8);
+    objc_msgSend_removeAllObjects(v9, v10, v11);
+    objc_msgSend_setRunning_(self, v12, 0);
+    objc_msgSend_setHandler_(self, v13, 0);
+    objc_msgSend_setHandlerQueue_(self, v14, 0);
+    objc_msgSend_sendPencilStatistics(self, v15, v16);
     sub_245F123C0(self->_barrelRollService.__ptr_);
     ptr = self->_barrelRollService.__ptr_;
 
@@ -119,191 +121,109 @@
 
 - (CMAPencilFusionResult)currentEstimation
 {
-  v23 = *MEMORY[0x277D85DE8];
-  v15 = 0;
-  v16 = &v15;
-  v17 = 0x3052000000;
-  v18 = sub_245F2664C;
-  v19 = sub_245F2665C;
-  v20 = 0;
-  v5 = objc_msgSend_queue(self, a2, v2, v3);
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = sub_245F26668;
-  v14[3] = &unk_278E97180;
-  v14[4] = self;
-  v14[5] = &v15;
-  dispatch_sync(v5, v14);
-  if (objc_msgSend_verboseLoggingEnabled(self, v6, v7, v8))
+  v20 = *MEMORY[0x277D85DE8];
+  v12 = 0;
+  v13 = &v12;
+  v14 = 0x3052000000;
+  v15 = sub_245F2664C;
+  v16 = sub_245F2665C;
+  v17 = 0;
+  v4 = objc_msgSend_queue(self, a2, v2);
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = sub_245F26668;
+  v11[3] = &unk_278E97180;
+  v11[4] = self;
+  v11[5] = &v12;
+  dispatch_sync(v4, v11);
+  if (objc_msgSend_verboseLoggingEnabled(self, v5, v6))
   {
     if (qword_27EE374F0 != -1)
     {
       dispatch_once(&qword_27EE374F0, &unk_2858D72A0);
     }
 
-    v9 = qword_27EE374F8;
+    v7 = qword_27EE374F8;
     if (os_log_type_enabled(qword_27EE374F8, OS_LOG_TYPE_DEBUG))
     {
-      v10 = v16[5];
+      v8 = v13[5];
       *buf = 138543362;
-      v22 = v10;
-      _os_log_impl(&dword_245D80000, v9, OS_LOG_TYPE_DEBUG, "Pulled estimated angles, %{public}@", buf, 0xCu);
+      v19 = v8;
+      _os_log_impl(&dword_245D80000, v7, OS_LOG_TYPE_DEBUG, "Pulled estimated angles, %{public}@", buf, 0xCu);
     }
   }
 
-  v11 = v16[5];
-  _Block_object_dispose(&v15, 8);
-  v12 = *MEMORY[0x277D85DE8];
-  return v11;
+  v9 = v13[5];
+  _Block_object_dispose(&v12, 8);
+  return v9;
+}
+
+- (void)updateTouchAltitudeAngle:(float)angle altitudeAngleConfidence:(float)confidence azimuthAngle:(float)azimuthAngle azimuthAngleConfidence:(float)angleConfidence position:(float)position positionConfidence:(double)positionConfidence timestamp:
+{
+  v10 = v9;
+  v11 = *&positionConfidence;
+  v21 = *&position;
+  v49 = *MEMORY[0x277D85DE8];
+  if (objc_msgSend_verboseLoggingEnabled(self, a2, v8))
+  {
+    if (qword_27EE374F0 != -1)
+    {
+      dispatch_once(&qword_27EE374F0, &unk_2858D72A0);
+    }
+
+    v19 = qword_27EE374F8;
+    if (os_log_type_enabled(qword_27EE374F8, OS_LOG_TYPE_DEBUG))
+    {
+      *buf = 134351104;
+      v32 = (angle * 57.296);
+      v33 = 2050;
+      confidenceCopy = confidence;
+      v35 = 2050;
+      v36 = (azimuthAngle * 57.296);
+      v37 = 2050;
+      angleConfidenceCopy = angleConfidence;
+      v39 = 2050;
+      v40 = (floorf(*&v21 / 15.0) * 15.0);
+      v41 = 2050;
+      v42 = (floorf(*(&v21 + 1) / 15.0) * 15.0);
+      v43 = 2050;
+      v44 = *(&v21 + 2);
+      v45 = 2050;
+      v46 = v11;
+      v47 = 2050;
+      v48 = v10;
+      _os_log_impl(&dword_245D80000, v19, OS_LOG_TYPE_DEBUG, "updateTouchAltitudeAngle:%{public}.1f altitudeAngleConfidence:%{public}.2f azimuthAngle:%{public}.1f azimuthAngleConfidence:%{public}.2f position:[%{public}.1f, %{public}.1f, %{public}.1f] positionConfidence:%{public}.2f timestamp:%{public}f", buf, 0x5Cu);
+    }
+  }
+
+  v20 = objc_msgSend_queue(self, v17, v18);
+  block[0] = MEMORY[0x277D85DD0];
+  block[1] = 3221225472;
+  block[2] = sub_245F268C4;
+  block[3] = &unk_278E971A8;
+  selfCopy = self;
+  angleCopy = angle;
+  confidenceCopy2 = confidence;
+  azimuthAngleCopy = azimuthAngle;
+  angleConfidenceCopy2 = angleConfidence;
+  v23 = v21;
+  v30 = v11;
+  v25 = v10;
+  dispatch_async(v20, block);
 }
 
 - (void)updatePencilDeviceMotionPayload:(id)payload
 {
-  v97 = *MEMORY[0x277D85DE8];
-  if (objc_msgSend_length(payload, a2, payload, v3) == 43)
+  v90 = *MEMORY[0x277D85DE8];
+  if (objc_msgSend_length(payload, a2, payload) == 43)
   {
-    v60[47] = 0;
-    *&v60[43] = 0;
+    v53[47] = 0;
+    *&v53[43] = 0;
   }
 
-  else if (objc_msgSend_length(payload, v6, v7, v8) != 48)
+  else if (objc_msgSend_length(payload, v5, v6) != 48)
   {
-    if (objc_msgSend_verboseLoggingEnabled(self, v6, v9, v10))
-    {
-      if (qword_27EE374F0 != -1)
-      {
-        dispatch_once(&qword_27EE374F0, &unk_2858D72A0);
-      }
-
-      v19 = qword_27EE374F8;
-      if (os_log_type_enabled(qword_27EE374F8, OS_LOG_TYPE_DEBUG))
-      {
-        *buf = 134349312;
-        v62 = COERCE_DOUBLE(objc_msgSend_length(payload, v20, v21, v22));
-        v63 = 2050;
-        v64 = 48;
-        v16 = "updateHostDeviceMotionQuaternion: packet size %{public}zd != expected %{public}zd";
-        v17 = v19;
-        v18 = 22;
-        goto LABEL_22;
-      }
-    }
-
-    goto LABEL_29;
-  }
-
-  objc_msgSend_getBytes_length_(payload, v6, v60, 48);
-  if (v60[0] == 136)
-  {
-    if (v60[13] - 135 > 0xFFFFFFFD)
-    {
-      v14.f32[0] = *&v60[23];
-      v14.f32[1] = *&v60[25];
-      v14.f32[2] = *&v60[27];
-      v23.i64[0] = 0x3800000038000000;
-      v23.i64[1] = 0x3800000038000000;
-      v24 = vmulq_f32(v14, v23);
-      v25 = vmulq_f32(v24, v24);
-      v40 = sqrtf(1.0 - (v25.f32[2] + vaddv_f32(*v25.f32)));
-      v41 = v24;
-      v26 = v24;
-      v26.f32[3] = v40;
-      v42 = v26;
-      v26.f32[0] = *&v60[29];
-      v26.f32[1] = *&v60[31];
-      v26.f32[2] = *&v60[33];
-      v23.i64[0] = 0x3B0000003B000000;
-      v23.i64[1] = 0x3B0000003B000000;
-      v24.f32[0] = *&v60[35];
-      v27 = vmulq_f32(v26, v23);
-      v24.f32[1] = *&v60[37];
-      v24.f32[2] = *&v60[39];
-      v26.i64[0] = 0x3A0000003A000000;
-      v26.i64[1] = 0x3A0000003A000000;
-      v28 = vmulq_f32(v24, v26);
-      v44 = v28;
-      v45 = v27;
-      v29 = *&v60[41];
-      v30 = *&v60[15];
-      v31 = *&v60[5] * 0.000001;
-      v28.f32[0] = v60[43];
-      v28.f32[1] = v60[44];
-      v28.f32[2] = v60[45];
-      v43 = vmulq_f32(v28, vdupq_n_s32(0x3C800000u));
-      v32 = v60[46];
-      v33 = v60[47];
-      if (objc_msgSend_verboseLoggingEnabled(self, v11, v12, v13))
-      {
-        if (qword_27EE374F0 != -1)
-        {
-          dispatch_once(&qword_27EE374F0, &unk_2858D72A0);
-        }
-
-        v37 = qword_27EE374F8;
-        if (os_log_type_enabled(qword_27EE374F8, OS_LOG_TYPE_DEBUG))
-        {
-          *buf = 134353408;
-          v62 = v41.f32[0];
-          v63 = 2050;
-          *&v64 = v41.f32[1];
-          v65 = 2050;
-          v66 = v41.f32[2];
-          v67 = 2050;
-          v68 = v40;
-          v69 = 2050;
-          v70 = v45.f32[0];
-          v71 = 2050;
-          v72 = v45.f32[1];
-          v73 = 2050;
-          v74 = v45.f32[2];
-          v75 = 2050;
-          v76 = v44.f32[0];
-          v77 = 2050;
-          v78 = v44.f32[1];
-          v79 = 2050;
-          v80 = v44.f32[2];
-          v81 = 2050;
-          v82 = v43.f32[0];
-          v83 = 2050;
-          v84 = v43.f32[1];
-          v85 = 2050;
-          v86 = v43.f32[2];
-          v87 = 2050;
-          v88 = v32;
-          v89 = 2050;
-          v90 = v33;
-          v91 = 1026;
-          v92 = v29;
-          v93 = 2050;
-          v94 = v30;
-          v95 = 2050;
-          v96 = v31;
-          _os_log_impl(&dword_245D80000, v37, OS_LOG_TYPE_DEBUG, "updatePencilDeviceMotionPayload:[%{public}f, %{public}f, %{public}f, %{public}f] rotationRate:[%{public}f, %{public}f, %{public}f]  acceleration:[%{public}f, %{public}f, %{public}f] gyroBias:[%{public}f, %{public}f, %{public}f] temperatureGyroBias:%{public}f temperatureGyro:%{public}f status:0x%{public}.4x timestamp:%{public}llu timestamp:%{public}f", buf, 0xB2u);
-        }
-      }
-
-      v38 = objc_msgSend_queue(self, v34, v35, v36);
-      block[0] = MEMORY[0x277D85DD0];
-      block[1] = 3221225472;
-      v57 = *v60;
-      block[2] = sub_245F27010;
-      block[3] = &unk_278E971D0;
-      v58 = *&v60[16];
-      v59 = *&v60[32];
-      v47 = v45;
-      v48 = v42;
-      v49 = v44;
-      v50 = v43;
-      v54 = v32;
-      v55 = v33;
-      v56 = v29;
-      selfCopy = self;
-      v52 = v30;
-      v53 = v31;
-      dispatch_async(v38, block);
-    }
-
-    else if (objc_msgSend_verboseLoggingEnabled(self, v11, v12, v13))
+    if (objc_msgSend_verboseLoggingEnabled(self, v5, v7))
     {
       if (qword_27EE374F0 != -1)
       {
@@ -313,196 +233,327 @@
       v15 = qword_27EE374F8;
       if (os_log_type_enabled(qword_27EE374F8, OS_LOG_TYPE_DEBUG))
       {
+        *buf = 134349312;
+        v55 = COERCE_DOUBLE(objc_msgSend_length(payload, v16, v17));
+        v56 = 2050;
+        v57 = 48;
+        v12 = "updateHostDeviceMotionQuaternion: packet size %{public}zd != expected %{public}zd";
+        v13 = v15;
+        v14 = 22;
+        goto LABEL_22;
+      }
+    }
+
+    return;
+  }
+
+  objc_msgSend_getBytes_length_(payload, v5, v53, 48);
+  if (v53[0] == 136)
+  {
+    if (v53[13] - 135 > 0xFFFFFFFD)
+    {
+      v10.f32[0] = *&v53[23];
+      v10.f32[1] = *&v53[25];
+      v10.f32[2] = *&v53[27];
+      v18.i64[0] = 0x3800000038000000;
+      v18.i64[1] = 0x3800000038000000;
+      v19 = vmulq_f32(v10, v18);
+      v20 = vmulq_f32(v19, v19);
+      v33 = sqrtf(1.0 - (v20.f32[2] + vaddv_f32(*v20.f32)));
+      v34 = v19;
+      v21 = v19;
+      v21.f32[3] = v33;
+      v35 = v21;
+      v21.f32[0] = *&v53[29];
+      v21.f32[1] = *&v53[31];
+      v21.f32[2] = *&v53[33];
+      v18.i64[0] = 0x3B0000003B000000;
+      v18.i64[1] = 0x3B0000003B000000;
+      v19.f32[0] = *&v53[35];
+      v22 = vmulq_f32(v21, v18);
+      v19.f32[1] = *&v53[37];
+      v19.f32[2] = *&v53[39];
+      v21.i64[0] = 0x3A0000003A000000;
+      v21.i64[1] = 0x3A0000003A000000;
+      v23 = vmulq_f32(v19, v21);
+      v37 = v23;
+      v38 = v22;
+      v24 = *&v53[41];
+      v25 = *&v53[15];
+      v26 = *&v53[5] * 0.000001;
+      v23.f32[0] = v53[43];
+      v23.f32[1] = v53[44];
+      v23.f32[2] = v53[45];
+      v36 = vmulq_f32(v23, vdupq_n_s32(0x3C800000u));
+      v27 = v53[46];
+      v28 = v53[47];
+      if (objc_msgSend_verboseLoggingEnabled(self, v8, v9))
+      {
+        if (qword_27EE374F0 != -1)
+        {
+          dispatch_once(&qword_27EE374F0, &unk_2858D72A0);
+        }
+
+        v31 = qword_27EE374F8;
+        if (os_log_type_enabled(qword_27EE374F8, OS_LOG_TYPE_DEBUG))
+        {
+          *buf = 134353408;
+          v55 = v34.f32[0];
+          v56 = 2050;
+          *&v57 = v34.f32[1];
+          v58 = 2050;
+          v59 = v34.f32[2];
+          v60 = 2050;
+          v61 = v33;
+          v62 = 2050;
+          v63 = v38.f32[0];
+          v64 = 2050;
+          v65 = v38.f32[1];
+          v66 = 2050;
+          v67 = v38.f32[2];
+          v68 = 2050;
+          v69 = v37.f32[0];
+          v70 = 2050;
+          v71 = v37.f32[1];
+          v72 = 2050;
+          v73 = v37.f32[2];
+          v74 = 2050;
+          v75 = v36.f32[0];
+          v76 = 2050;
+          v77 = v36.f32[1];
+          v78 = 2050;
+          v79 = v36.f32[2];
+          v80 = 2050;
+          v81 = v27;
+          v82 = 2050;
+          v83 = v28;
+          v84 = 1026;
+          v85 = v24;
+          v86 = 2050;
+          v87 = v25;
+          v88 = 2050;
+          v89 = v26;
+          _os_log_impl(&dword_245D80000, v31, OS_LOG_TYPE_DEBUG, "updatePencilDeviceMotionPayload:[%{public}f, %{public}f, %{public}f, %{public}f] rotationRate:[%{public}f, %{public}f, %{public}f]  acceleration:[%{public}f, %{public}f, %{public}f] gyroBias:[%{public}f, %{public}f, %{public}f] temperatureGyroBias:%{public}f temperatureGyro:%{public}f status:0x%{public}.4x timestamp:%{public}llu timestamp:%{public}f", buf, 0xB2u);
+        }
+      }
+
+      v32 = objc_msgSend_queue(self, v29, v30);
+      block[0] = MEMORY[0x277D85DD0];
+      block[1] = 3221225472;
+      v50 = *v53;
+      block[2] = sub_245F27010;
+      block[3] = &unk_278E971D0;
+      v51 = *&v53[16];
+      v52 = *&v53[32];
+      v40 = v38;
+      v41 = v35;
+      v42 = v37;
+      v43 = v36;
+      v47 = v27;
+      v48 = v28;
+      v49 = v24;
+      selfCopy = self;
+      v45 = v25;
+      v46 = v26;
+      dispatch_async(v32, block);
+    }
+
+    else if (objc_msgSend_verboseLoggingEnabled(self, v8, v9))
+    {
+      if (qword_27EE374F0 != -1)
+      {
+        dispatch_once(&qword_27EE374F0, &unk_2858D72A0);
+      }
+
+      v11 = qword_27EE374F8;
+      if (os_log_type_enabled(qword_27EE374F8, OS_LOG_TYPE_DEBUG))
+      {
         *buf = 0;
-        v16 = "updateHostDeviceMotionQuaternion: unknown data type";
+        v12 = "updateHostDeviceMotionQuaternion: unknown data type";
 LABEL_16:
-        v17 = v15;
-        v18 = 2;
+        v13 = v11;
+        v14 = 2;
 LABEL_22:
-        _os_log_impl(&dword_245D80000, v17, OS_LOG_TYPE_DEBUG, v16, buf, v18);
+        _os_log_impl(&dword_245D80000, v13, OS_LOG_TYPE_DEBUG, v12, buf, v14);
       }
     }
   }
 
-  else if (objc_msgSend_verboseLoggingEnabled(self, v11, v12, v13))
+  else if (objc_msgSend_verboseLoggingEnabled(self, v8, v9))
   {
     if (qword_27EE374F0 != -1)
     {
       dispatch_once(&qword_27EE374F0, &unk_2858D72A0);
     }
 
-    v15 = qword_27EE374F8;
+    v11 = qword_27EE374F8;
     if (os_log_type_enabled(qword_27EE374F8, OS_LOG_TYPE_DEBUG))
     {
       *buf = 0;
-      v16 = "updateHostDeviceMotionQuaternion: unknown packet report ID";
+      v12 = "updateHostDeviceMotionQuaternion: unknown packet report ID";
       goto LABEL_16;
     }
   }
-
-LABEL_29:
-  v39 = *MEMORY[0x277D85DE8];
 }
 
-- (void)updateHostDeviceMotionQuaternion:(uint64_t)quaternion rotationRate:(uint64_t)rate acceleration:(__n128)acceleration timestamp:(__n128)timestamp
+- (void)updateHostDeviceMotionQuaternion:(__n128)quaternion rotationRate:(__n128)rate acceleration:(double)acceleration timestamp:
 {
-  v47 = *MEMORY[0x277D85DE8];
-  if (objc_msgSend_verboseLoggingEnabled(self, a2, quaternion, rate))
+  v44 = *MEMORY[0x277D85DE8];
+  if (objc_msgSend_verboseLoggingEnabled(self, v5, v6))
   {
     if (qword_27EE374F0 != -1)
     {
       dispatch_once(&qword_27EE374F0, &unk_2858D72A0);
     }
 
-    v13 = qword_27EE374F8;
+    v11 = qword_27EE374F8;
     if (os_log_type_enabled(qword_27EE374F8, OS_LOG_TYPE_DEBUG))
     {
       *buf = 134351616;
-      v26 = acceleration.n128_f32[0];
-      v27 = 2050;
-      v28 = acceleration.n128_f32[1];
-      v29 = 2050;
-      v30 = acceleration.n128_f32[2];
-      v31 = 2050;
-      v32 = acceleration.n128_f32[3];
-      v33 = 2050;
-      v34 = timestamp.n128_f32[0];
-      v35 = 2050;
-      v36 = timestamp.n128_f32[1];
-      v37 = 2050;
-      v38 = timestamp.n128_f32[2];
-      v39 = 2050;
-      v40 = a7.n128_f32[0];
-      v41 = 2050;
-      v42 = a7.n128_f32[1];
-      v43 = 2050;
-      v44 = a7.n128_f32[2];
-      v45 = 2050;
-      v46 = a8;
-      _os_log_impl(&dword_245D80000, v13, OS_LOG_TYPE_DEBUG, "updateHostDeviceMotionQuaternion:[%{public}f, %{public}f, %{public}f, %{public}f] rotationRate:[%{public}f, %{public}f, %{public}f]  acceleration:[%{public}f, %{public}f, %{public}f] timestamp:%{public}f", buf, 0x70u);
+      v23 = a2.n128_f32[0];
+      v24 = 2050;
+      v25 = a2.n128_f32[1];
+      v26 = 2050;
+      v27 = a2.n128_f32[2];
+      v28 = 2050;
+      v29 = a2.n128_f32[3];
+      v30 = 2050;
+      v31 = quaternion.n128_f32[0];
+      v32 = 2050;
+      v33 = quaternion.n128_f32[1];
+      v34 = 2050;
+      v35 = quaternion.n128_f32[2];
+      v36 = 2050;
+      v37 = rate.n128_f32[0];
+      v38 = 2050;
+      v39 = rate.n128_f32[1];
+      v40 = 2050;
+      v41 = rate.n128_f32[2];
+      v42 = 2050;
+      accelerationCopy = acceleration;
+      _os_log_impl(&dword_245D80000, v11, OS_LOG_TYPE_DEBUG, "updateHostDeviceMotionQuaternion:[%{public}f, %{public}f, %{public}f, %{public}f] rotationRate:[%{public}f, %{public}f, %{public}f]  acceleration:[%{public}f, %{public}f, %{public}f] timestamp:%{public}f", buf, 0x70u);
     }
   }
 
-  v14 = objc_msgSend_queue(self, v10, v11, v12);
+  v12 = objc_msgSend_queue(self, v9, v10);
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = sub_245F27308;
   block[3] = &unk_278E971F8;
   selfCopy = self;
-  v24 = a8;
-  accelerationCopy = acceleration;
-  timestampCopy = timestamp;
-  v22 = a7;
-  dispatch_async(v14, block);
-  v15 = *MEMORY[0x277D85DE8];
+  accelerationCopy2 = acceleration;
+  v17 = a2;
+  quaternionCopy = quaternion;
+  rateCopy = rate;
+  dispatch_async(v12, block);
 }
 
 - (void)updateEstimationsWithRealValuesWithQuaternion:(CMOQuaternion)quaternion timestamp:(double)timestamp
 {
-  v107 = *MEMORY[0x277D85DE8];
-  v96 = *quaternion.var0;
-  v97 = quaternion.var0[2];
-  v98 = quaternion.var0[3];
-  v8 = objc_msgSend_queue(self, a2, v4, v5);
-  dispatch_assert_queue_V2(v8);
-  *buf = sub_245F24A60(&v96, v9);
+  v89 = *MEMORY[0x277D85DE8];
+  v78 = *quaternion.var0;
+  v79 = quaternion.var0[2];
+  v80 = quaternion.var0[3];
+  v7 = objc_msgSend_queue(self, a2, v4);
+  dispatch_assert_queue_V2(v7);
+  *buf = sub_245F24A60(&v78, v8, v9);
   timestampCopy2 = COERCE_DOUBLE(__PAIR64__(v11, v10));
-  *v102 = v12;
+  *v84 = v12;
   v13 = sub_245F0F554(buf);
   v15 = v14;
   v17 = v16;
-  if (objc_msgSend_verboseLoggingEnabled(self, v18, v19, v20))
+  if (objc_msgSend_verboseLoggingEnabled(self, v18, v19))
   {
     if (qword_27EE374F0 != -1)
     {
       dispatch_once(&qword_27EE374F0, &unk_2858D72A0);
     }
 
-    v24 = qword_27EE374F8;
+    v22 = qword_27EE374F8;
     if (os_log_type_enabled(qword_27EE374F8, OS_LOG_TYPE_DEBUG))
     {
       *buf = 134349824;
       timestampCopy2 = (v13 * 57.296);
-      *v102 = 2050;
-      *&v102[2] = (v15 * 57.296);
-      v103 = 2050;
-      v104 = (v17 * 57.296);
-      v105 = 2050;
+      *v84 = 2050;
+      *&v84[2] = (v15 * 57.296);
+      v85 = 2050;
+      v86 = (v17 * 57.296);
+      v87 = 2050;
       timestampCopy = timestamp;
-      _os_log_impl(&dword_245D80000, v24, OS_LOG_TYPE_DEBUG, "updateEstimationsWithRealValuesWithQuaternion angles:[%{public}.1f, %{public}.1f, %{public}.1f] timestamp:%{public}.3f", buf, 0x2Au);
+      _os_log_impl(&dword_245D80000, v22, OS_LOG_TYPE_DEBUG, "updateEstimationsWithRealValuesWithQuaternion angles:[%{public}.1f, %{public}.1f, %{public}.1f] timestamp:%{public}.3f", buf, 0x2Au);
     }
   }
 
-  v94 = 0u;
-  v95 = 0u;
-  v92 = 0u;
-  v93 = 0u;
-  v25 = objc_msgSend_estimations(self, v21, v22, v23);
-  v29 = objc_msgSend_copy(v25, v26, v27, v28);
-  v31 = objc_msgSend_countByEnumeratingWithState_objects_count_(v29, v30, &v92, v99, 16);
-  if (v31)
+  v76 = 0u;
+  v77 = 0u;
+  v74 = 0u;
+  v75 = 0u;
+  v23 = objc_msgSend_estimations(self, v20, v21);
+  v26 = objc_msgSend_copy(v23, v24, v25);
+  v28 = objc_msgSend_countByEnumeratingWithState_objects_count_(v26, v27, &v74, v81, 16);
+  if (v28)
   {
-    v36 = v31;
-    v37 = *v93;
-    *&v35 = 134349056;
-    v90 = v35;
+    v32 = v28;
+    v33 = *v75;
+    *&v31 = 134349056;
+    v72 = v31;
     while (2)
     {
-      v38 = 0;
+      v34 = 0;
       do
       {
-        if (*v93 != v37)
+        if (*v75 != v33)
         {
-          objc_enumerationMutation(v29);
+          objc_enumerationMutation(v26);
         }
 
-        v39 = *(*(&v92 + 1) + 8 * v38);
-        objc_msgSend_timestamp(v39, v32, v33, v34, v90);
-        if (v43 >= timestamp + -0.001)
+        v35 = *(*(&v74 + 1) + 8 * v34);
+        objc_msgSend_timestamp(v35, v29, v30, v72);
+        if (v38 >= timestamp + -0.001)
         {
-          objc_msgSend_timestamp(v39, v40, v41, v42);
-          if (v55 <= timestamp + 0.001)
+          objc_msgSend_timestamp(v35, v36, v37);
+          if (v47 <= timestamp + 0.001)
           {
-            v57 = COERCE_DOUBLE(objc_msgSend_copy(v39, v52, v53, v54));
-            objc_msgSend_setEstimated_(*&v57, v58, 0, v59);
-            *&v60 = v13;
-            objc_msgSend_setAltitudeAngle_(*&v57, v61, v62, v63, v60);
-            *&v64 = v15;
-            objc_msgSend_setAzimuthAngle_(*&v57, v65, v66, v67, v64);
-            *&v68 = v17;
-            objc_msgSend_setRollAngle_(*&v57, v69, v70, v71, v68);
-            if (objc_msgSend_mslEnabled(self, v72, v73, v74))
+            v49 = COERCE_DOUBLE(objc_msgSend_copy(v35, v45, v46));
+            objc_msgSend_setEstimated_(*&v49, v50, 0);
+            *&v51 = v13;
+            objc_msgSend_setAltitudeAngle_(*&v49, v52, v53, v51);
+            *&v54 = v15;
+            objc_msgSend_setAzimuthAngle_(*&v49, v55, v56, v54);
+            *&v57 = v17;
+            objc_msgSend_setRollAngle_(*&v49, v58, v59, v57);
+            if (objc_msgSend_mslEnabled(self, v60, v61))
             {
-              objc_msgSend_logPencilFusionResult_(self, v75, *&v57, v77);
+              objc_msgSend_logPencilFusionResult_(self, v62, *&v49);
             }
 
-            if (objc_msgSend_verboseLoggingEnabled(self, v75, v76, v77))
+            if (objc_msgSend_verboseLoggingEnabled(self, v62, v63))
             {
               if (qword_27EE374F0 != -1)
               {
                 dispatch_once(&qword_27EE374F0, &unk_2858D72A0);
               }
 
-              v81 = qword_27EE374F8;
+              v66 = qword_27EE374F8;
               if (os_log_type_enabled(qword_27EE374F8, OS_LOG_TYPE_DEBUG))
               {
                 *buf = 138543362;
-                timestampCopy2 = v57;
-                _os_log_impl(&dword_245D80000, v81, OS_LOG_TYPE_DEBUG, "Pushing real angles, %{public}@", buf, 0xCu);
+                timestampCopy2 = v49;
+                _os_log_impl(&dword_245D80000, v66, OS_LOG_TYPE_DEBUG, "Pushing real angles, %{public}@", buf, 0xCu);
               }
             }
 
-            v82 = objc_msgSend_handlerQueue(self, v78, v79, v80);
+            v67 = objc_msgSend_handlerQueue(self, v64, v65);
             block[0] = MEMORY[0x277D85DD0];
             block[1] = 3221225472;
             block[2] = sub_245F27870;
             block[3] = &unk_278E97220;
             block[4] = self;
-            *&block[5] = v57;
-            dispatch_async(v82, block);
+            *&block[5] = v49;
+            dispatch_async(v67, block);
 
-            v86 = objc_msgSend_estimations(self, v83, v84, v85);
-            objc_msgSend_removeObject_(v86, v87, v39, v88);
+            v70 = objc_msgSend_estimations(self, v68, v69);
+            objc_msgSend_removeObject_(v70, v71, v35);
           }
 
           else
@@ -512,16 +563,16 @@ LABEL_29:
               dispatch_once(&qword_27EE374F0, &unk_2858D72A0);
             }
 
-            v56 = qword_27EE374F8;
+            v48 = qword_27EE374F8;
             if (os_log_type_enabled(qword_27EE374F8, OS_LOG_TYPE_DEBUG))
             {
-              *buf = v90;
+              *buf = v72;
               timestampCopy2 = timestamp;
-              _os_log_impl(&dword_245D80000, v56, OS_LOG_TYPE_DEBUG, "Received real angles for timestamp %{public}.3f without corresponding estimation", buf, 0xCu);
+              _os_log_impl(&dword_245D80000, v48, OS_LOG_TYPE_DEBUG, "Received real angles for timestamp %{public}.3f without corresponding estimation", buf, 0xCu);
             }
           }
 
-          goto LABEL_32;
+          return;
         }
 
         if (qword_27EE374F0 != -1)
@@ -529,23 +580,23 @@ LABEL_29:
           dispatch_once(&qword_27EE374F0, &unk_2858D72A0);
         }
 
-        v44 = qword_27EE374F8;
+        v39 = qword_27EE374F8;
         if (os_log_type_enabled(qword_27EE374F8, OS_LOG_TYPE_DEBUG))
         {
-          objc_msgSend_timestamp(v39, v45, v46, v47);
-          *buf = v90;
-          timestampCopy2 = v48;
-          _os_log_impl(&dword_245D80000, v44, OS_LOG_TYPE_DEBUG, "Missing real angles for timestamp %{public}.3f", buf, 0xCu);
+          objc_msgSend_timestamp(v35, v40, v41);
+          *buf = v72;
+          timestampCopy2 = v42;
+          _os_log_impl(&dword_245D80000, v39, OS_LOG_TYPE_DEBUG, "Missing real angles for timestamp %{public}.3f", buf, 0xCu);
         }
 
-        v49 = objc_msgSend_estimations(self, v45, v46, v47);
-        objc_msgSend_removeObject_(v49, v50, v39, v51);
-        ++v38;
+        v43 = objc_msgSend_estimations(self, v40, v41);
+        objc_msgSend_removeObject_(v43, v44, v35);
+        ++v34;
       }
 
-      while (v36 != v38);
-      v36 = objc_msgSend_countByEnumeratingWithState_objects_count_(v29, v32, &v92, v99, 16);
-      if (v36)
+      while (v32 != v34);
+      v32 = objc_msgSend_countByEnumeratingWithState_objects_count_(v26, v29, &v74, v81, 16);
+      if (v32)
       {
         continue;
       }
@@ -553,341 +604,452 @@ LABEL_29:
       break;
     }
   }
-
-LABEL_32:
-  v89 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startUserDefaults
 {
-  if (!objc_msgSend_defaults(self, a2, v2, v3))
+  if (!objc_msgSend_defaults(self, a2, v2))
   {
-    v5 = objc_alloc(MEMORY[0x277CBEBD0]);
-    v8 = objc_msgSend_initWithSuiteName_(v5, v6, @"com.apple.CoreMotionAlgorithms.PencilFusion", v7);
-    objc_msgSend_setDefaults_(self, v9, v8, v10);
+    v4 = objc_alloc(MEMORY[0x277CBEBD0]);
+    v6 = objc_msgSend_initWithSuiteName_(v4, v5, @"com.apple.CoreMotionAlgorithms.PencilFusion");
+    objc_msgSend_setDefaults_(self, v7, v6);
     for (i = 0; i != 3; ++i)
     {
-      v15 = off_278E97240[i];
-      v16 = objc_msgSend_defaults(self, v11, v12, v13);
-      v20 = objc_msgSend_defaults(self, v17, v18, v19);
-      objc_msgSend_addObserver_forKeyPath_options_context_(v16, v21, self, v15, 1, v20);
+      v11 = off_278E97240[i];
+      v12 = objc_msgSend_defaults(self, v8, v9);
+      v15 = objc_msgSend_defaults(self, v13, v14);
+      objc_msgSend_addObserver_forKeyPath_options_context_(v12, v16, self, v11, 1, v15);
     }
 
-    MEMORY[0x2821F9670](self, sel_readUserDefaults, v12, v13);
+    MEMORY[0x2821F9670](self, sel_readUserDefaults, v9);
   }
 }
 
 - (void)stopUserDefaults
 {
-  if (objc_msgSend_defaults(self, a2, v2, v3))
+  if (objc_msgSend_defaults(self, a2, v2))
   {
     for (i = 0; i != 3; ++i)
     {
-      v9 = off_278E97240[i];
-      v10 = objc_msgSend_defaults(self, v5, v6, v7);
-      objc_msgSend_removeObserver_forKeyPath_(v10, v11, self, v9);
+      v7 = off_278E97240[i];
+      v8 = objc_msgSend_defaults(self, v4, v5);
+      objc_msgSend_removeObserver_forKeyPath_(v8, v9, self, v7);
     }
 
-    objc_msgSend_setDefaults_(self, v5, 0, v7);
+    objc_msgSend_setDefaults_(self, v4, 0);
   }
 }
 
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context
 {
-  if (objc_msgSend_defaults(self, a2, path, object) == context)
+  if (objc_msgSend_defaults(self, a2, path) == context)
   {
 
-    MEMORY[0x2821F9670](self, sel_readUserDefaults, v11, v12);
+    MEMORY[0x2821F9670](self, sel_readUserDefaults, v11);
   }
 
   else
   {
-    v13.receiver = self;
-    v13.super_class = CMAPencilFusion;
-    [(CMAPencilFusion *)&v13 observeValueForKeyPath:path ofObject:object change:change context:context];
+    v12.receiver = self;
+    v12.super_class = CMAPencilFusion;
+    [(CMAPencilFusion *)&v12 observeValueForKeyPath:path ofObject:object change:change context:context];
   }
 }
 
 - (void)readUserDefaults
 {
-  v40 = *MEMORY[0x277D85DE8];
-  v5 = objc_msgSend_defaults(self, a2, v2, v3);
-  v8 = objc_msgSend_BOOLForKey_(v5, v6, @"VerboseLoggingEnabled", v7);
-  objc_msgSend_setVerboseLoggingEnabled_(self, v9, v8, v10);
-  v14 = objc_msgSend_defaults(self, v11, v12, v13);
-  v17 = objc_msgSend_BOOLForKey_(v14, v15, @"MSLEnabled", v16);
-  objc_msgSend_setMslEnabled_(self, v18, v17, v19);
-  v23 = objc_msgSend_defaults(self, v20, v21, v22);
-  v26 = objc_msgSend_BOOLForKey_(v23, v24, @"PreciseTipPositionLoggingEnabled", v25);
-  objc_msgSend_setPreciseTipPositionLoggingEnabled_(self, v27, v26, v28);
+  v28 = *MEMORY[0x277D85DE8];
+  v4 = objc_msgSend_defaults(self, a2, v2);
+  v6 = objc_msgSend_BOOLForKey_(v4, v5, @"VerboseLoggingEnabled");
+  objc_msgSend_setVerboseLoggingEnabled_(self, v7, v6);
+  v10 = objc_msgSend_defaults(self, v8, v9);
+  v12 = objc_msgSend_BOOLForKey_(v10, v11, @"MSLEnabled");
+  objc_msgSend_setMslEnabled_(self, v13, v12);
+  v16 = objc_msgSend_defaults(self, v14, v15);
+  v18 = objc_msgSend_BOOLForKey_(v16, v17, @"PreciseTipPositionLoggingEnabled");
+  objc_msgSend_setPreciseTipPositionLoggingEnabled_(self, v19, v18);
   if (qword_27EE374F0 != -1)
   {
     dispatch_once(&qword_27EE374F0, &unk_2858D72A0);
   }
 
-  v29 = qword_27EE374F8;
+  v20 = qword_27EE374F8;
   if (os_log_type_enabled(qword_27EE374F8, OS_LOG_TYPE_DEFAULT))
   {
-    v37[0] = 67240448;
-    v37[1] = objc_msgSend_verboseLoggingEnabled(self, v30, v31, v32);
-    v38 = 1026;
-    v39 = objc_msgSend_mslEnabled(self, v33, v34, v35);
-    _os_log_impl(&dword_245D80000, v29, OS_LOG_TYPE_DEFAULT, "verboseLoggingEnabled: %{public}d, mslEnabled: %{public}d", v37, 0xEu);
+    v25[0] = 67240448;
+    v25[1] = objc_msgSend_verboseLoggingEnabled(self, v21, v22);
+    v26 = 1026;
+    v27 = objc_msgSend_mslEnabled(self, v23, v24);
+    _os_log_impl(&dword_245D80000, v20, OS_LOG_TYPE_DEFAULT, "verboseLoggingEnabled: %{public}d, mslEnabled: %{public}d", v25, 0xEu);
   }
-
-  v36 = *MEMORY[0x277D85DE8];
 }
 
 - (void)logPencilFusionResult:(id)result
 {
-  v6 = objc_msgSend_queue(self, a2, result, v3);
-  dispatch_assert_queue_V2(v6);
-  sub_245E55178(v65);
-  sub_245E7A578(v65);
-  v7 = v66;
-  objc_msgSend_timestamp(result, v8, v9, v10);
-  *(v7 + 76) |= 0x10u;
-  *(v7 + 40) = v11;
-  v12 = v66;
-  if (objc_msgSend_preciseTipPositionLoggingEnabled(self, v13, v14, v15))
+  v5 = objc_msgSend_queue(self, a2, result);
+  dispatch_assert_queue_V2(v5);
+  sub_245E55178(v53);
+  sub_245E7A578(v53);
+  v6 = v54;
+  objc_msgSend_timestamp(result, v7, v8);
+  *(v6 + 76) |= 0x10u;
+  *(v6 + 40) = v9;
+  v10 = v54;
+  if (objc_msgSend_preciseTipPositionLoggingEnabled(self, v11, v12))
   {
-    objc_msgSend_position(result, v16, v17, v18);
+    objc_msgSend_position(result, v13, v14);
   }
 
   else
   {
-    objc_msgSend_position(result, v16, v17, v18);
-    v22 = floorf(v23 / 15.0) * 15.0;
+    objc_msgSend_position(result, v13, v14);
+    v17 = floorf(v18 / 15.0) * 15.0;
   }
 
-  *(v12 + 76) |= 0x20u;
-  *(v12 + 48) = v22;
-  v24 = v66;
-  if (objc_msgSend_preciseTipPositionLoggingEnabled(self, v19, v20, v21))
+  *(v10 + 76) |= 0x20u;
+  *(v10 + 48) = v17;
+  v19 = v54;
+  if (objc_msgSend_preciseTipPositionLoggingEnabled(self, v15, v16))
   {
-    objc_msgSend_position(result, v25, v26, v27);
-    v32 = v31;
+    objc_msgSend_position(result, v20, v21);
+    v25 = v24;
   }
 
   else
   {
-    objc_msgSend_position(result, v25, v26, v27);
-    v32 = floorf(v33 / 15.0) * 15.0;
+    objc_msgSend_position(result, v20, v21);
+    v25 = floorf(v26 / 15.0) * 15.0;
   }
 
-  *(v24 + 76) |= 0x40u;
-  *(v24 + 56) = v32;
-  v34 = v66;
-  objc_msgSend_position(result, v28, v29, v30);
-  *(v34 + 76) |= 0x80u;
-  *(v34 + 64) = v35;
-  v36 = v66;
-  objc_msgSend_altitudeAngle(result, v37, v38, v39);
-  *(v36 + 76) |= 1u;
-  *(v36 + 8) = v40;
-  v41 = v66;
-  objc_msgSend_azimuthAngle(result, v42, v43, v44);
-  *(v41 + 76) |= 2u;
-  *(v41 + 16) = v45;
-  v46 = v66;
-  objc_msgSend_rollAngle(result, v47, v48, v49);
-  *(v46 + 76) |= 8u;
-  *(v46 + 32) = v50;
-  v51 = v66;
-  updated = objc_msgSend_estimationUpdateIndex(result, v52, v53, v54);
-  v59 = objc_msgSend_unsignedLongLongValue(updated, v56, v57, v58);
-  *(v51 + 76) |= 4u;
-  *(v51 + 24) = v59;
-  v60 = v66;
-  v64 = objc_msgSend_estimated(result, v61, v62, v63);
-  *(v60 + 76) |= 0x100u;
-  *(v60 + 72) = v64;
-  sub_245F21790(v65);
-  sub_245E5ADCC(v65);
+  *(v19 + 76) |= 0x40u;
+  *(v19 + 56) = v25;
+  v27 = v54;
+  objc_msgSend_position(result, v22, v23);
+  *(v27 + 76) |= 0x80u;
+  *(v27 + 64) = v28;
+  v29 = v54;
+  objc_msgSend_altitudeAngle(result, v30, v31);
+  *(v29 + 76) |= 1u;
+  *(v29 + 8) = v32;
+  v33 = v54;
+  objc_msgSend_azimuthAngle(result, v34, v35);
+  *(v33 + 76) |= 2u;
+  *(v33 + 16) = v36;
+  v37 = v54;
+  objc_msgSend_rollAngle(result, v38, v39);
+  *(v37 + 76) |= 8u;
+  *(v37 + 32) = v40;
+  v41 = v54;
+  updated = objc_msgSend_estimationUpdateIndex(result, v42, v43);
+  v47 = objc_msgSend_unsignedLongLongValue(updated, v45, v46);
+  *(v41 + 76) |= 4u;
+  *(v41 + 24) = v47;
+  v48 = v54;
+  v51 = objc_msgSend_estimated(result, v49, v50);
+  *(v48 + 76) |= 0x100u;
+  *(v48 + 72) = v51;
+  sub_245F21790(v53, v52);
+  sub_245E5ADCC(v53);
 }
 
-- (uint64_t)logPencilDeviceMotionQuaternion:(uint64_t)quaternion rotationRate:(uint64_t)rate acceleration:(int)acceleration gyroBias:(uint64_t)bias temperatureGyroBias:(__n128)gyroBias temperatureGyro:(__n128)gyro status:(__n128)status sensorTime:(__n128)self0 timestamp:(double)self1
+- (void)logTouchAltitudeAngle:(float)angle altitudeAngleConfidence:(float)confidence azimuthAngle:(float)azimuthAngle azimuthAngleConfidence:(float)angleConfidence position:(float)position positionConfidence:(double)positionConfidence timestamp:
 {
-  rateCopy = rate;
-  quaternionCopy = quaternion;
-  v16 = objc_msgSend_queue(self, a2, quaternion, rate);
+  v10 = v9;
+  v11 = *&positionConfidence;
+  v36 = *&position;
+  v17 = objc_msgSend_queue(self, a2, v8);
+  dispatch_assert_queue_V2(v17);
+  sub_245E55178(v37);
+  sub_245E7A458(v37);
+  v18 = v38;
+  *(v38 + 88) |= 0x20u;
+  *(v18 + 48) = v10;
+  v19 = v38;
+  v22 = objc_msgSend_preciseTipPositionLoggingEnabled(self, v20, v21);
+  v25 = *&v36;
+  if ((v22 & 1) == 0)
+  {
+    v25 = floorf(*&v36 / 15.0) * 15.0;
+  }
+
+  *(v19 + 88) |= 0x40u;
+  *(v19 + 56) = v25;
+  v26 = v38;
+  v27 = objc_msgSend_preciseTipPositionLoggingEnabled(self, v23, v24);
+  v29 = *(&v36 + 1);
+  if ((v27 & 1) == 0)
+  {
+    v29 = floorf(*(&v36 + 1) / 15.0) * 15.0;
+  }
+
+  *(v26 + 88) |= 0x80u;
+  *(v26 + 64) = v29;
+  v30 = v38;
+  *(v38 + 88) |= 0x100u;
+  *(v30 + 72) = *(&v36 + 2);
+  v31 = v38;
+  *(v38 + 88) |= 1u;
+  *(v31 + 8) = angle;
+  v32 = v38;
+  *(v38 + 88) |= 4u;
+  *(v32 + 24) = azimuthAngle;
+  v33 = v38;
+  *(v38 + 88) |= 2u;
+  *(v33 + 16) = confidence;
+  v34 = v38;
+  *(v38 + 88) |= 8u;
+  *(v34 + 32) = angleConfidence;
+  v35 = v38;
+  *(v38 + 88) |= 0x10u;
+  *(v35 + 40) = v11;
+  sub_245F21790(v37, v28);
+  sub_245E5ADCC(v37);
+}
+
+- (void)logPencilDeviceMotionQuaternion:(__n128)quaternion rotationRate:(__n128)rate acceleration:(__n128)acceleration gyroBias:(double)bias temperatureGyroBias:(uint64_t)gyroBias temperatureGyro:(int)gyro status:(int)status sensorTime:(int)self0 timestamp:(uint64_t)self1
+{
+  v16 = objc_msgSend_queue(self, gyroBias, *&gyro);
   dispatch_assert_queue_V2(v16);
   sub_245E55178(v38);
   sub_245E7A4E8(v38);
   sub_245EED410(v39);
-  v17 = *(v39 + 32);
+  v17 = v39[4];
   *(v17 + 152) |= 2u;
-  *(v17 + 136) = timestamp;
-  v18 = *(v39 + 32);
-  v37 = gyroBias.n128_u32[0];
-  sub_245F1E970((v18 + 56), &v37);
-  v19 = *(v39 + 32);
-  v37 = gyroBias.n128_u32[1];
-  sub_245F1E970((v19 + 56), &v37);
-  v20 = *(v39 + 32);
-  v37 = gyroBias.n128_u32[2];
-  sub_245F1E970((v20 + 56), &v37);
-  v21 = *(v39 + 32);
-  v37 = gyroBias.n128_u32[3];
-  sub_245F1E970((v21 + 56), &v37);
-  v22 = *(v39 + 32);
-  v37 = status.n128_u32[0];
-  sub_245F1E970((v22 + 104), &v37);
-  v23 = *(v39 + 32);
-  v37 = status.n128_u32[1];
-  sub_245F1E970((v23 + 104), &v37);
-  v24 = *(v39 + 32);
-  v37 = status.n128_u32[2];
-  sub_245F1E970((v24 + 104), &v37);
-  v25 = *(v39 + 32);
-  v37 = gyro.n128_u32[0];
-  sub_245F1E970((v25 + 80), &v37);
-  v26 = *(v39 + 32);
-  v37 = gyro.n128_u32[1];
-  sub_245F1E970((v26 + 80), &v37);
-  v27 = *(v39 + 32);
-  v37 = gyro.n128_u32[2];
-  sub_245F1E970((v27 + 80), &v37);
-  v37 = time.n128_u32[0];
-  sub_245F1E970((v39 + 8), &v37);
-  v37 = time.n128_u32[1];
-  sub_245F1E970((v39 + 8), &v37);
-  v37 = time.n128_u32[2];
-  sub_245F1E970((v39 + 8), &v37);
+  v17[17] = bias;
+  v18 = v39[4];
+  v37 = a2.n128_u32[0];
+  sub_245F1E970(v18 + 7, &v37);
+  v19 = v39[4];
+  v37 = a2.n128_i32[1];
+  sub_245F1E970(v19 + 7, &v37);
+  v20 = v39[4];
+  v37 = a2.n128_i32[2];
+  sub_245F1E970(v20 + 7, &v37);
+  v21 = v39[4];
+  v37 = a2.n128_i32[3];
+  sub_245F1E970(v21 + 7, &v37);
+  v22 = v39[4];
+  v37 = rate.n128_u32[0];
+  sub_245F1E970(v22 + 13, &v37);
+  v23 = v39[4];
+  v37 = rate.n128_i32[1];
+  sub_245F1E970(v23 + 13, &v37);
+  v24 = v39[4];
+  v37 = rate.n128_i32[2];
+  sub_245F1E970(v24 + 13, &v37);
+  v25 = v39[4];
+  v37 = quaternion.n128_u32[0];
+  sub_245F1E970(v25 + 10, &v37);
+  v26 = v39[4];
+  v37 = quaternion.n128_i32[1];
+  sub_245F1E970(v26 + 10, &v37);
+  v27 = v39[4];
+  v37 = quaternion.n128_i32[2];
+  sub_245F1E970(v27 + 10, &v37);
+  v37 = acceleration.n128_u32[0];
+  sub_245F1E970(v39 + 1, &v37);
+  v37 = acceleration.n128_i32[1];
+  sub_245F1E970(v39 + 1, &v37);
+  v37 = acceleration.n128_i32[2];
+  sub_245F1E970(v39 + 1, &v37);
   v28 = v39;
   *(v39 + 48) |= 2u;
-  *(v28 + 44) = quaternionCopy;
+  *(v28 + 11) = gyro;
   v29 = v39;
   *(v39 + 48) |= 1u;
-  *(v29 + 40) = rateCopy;
-  v30 = *(v39 + 32);
-  *(v30 + 152) |= 4u;
-  *(v30 + 144) = acceleration;
-  v31 = *(v39 + 32);
-  *(v31 + 152) |= 1u;
-  *(v31 + 128) = bias;
-  sub_245F21790(v38);
-  return sub_245E5ADCC(v38);
+  *(v29 + 10) = status;
+  v30 = v39[4];
+  v30[152] |= 4u;
+  *(v30 + 36) = time;
+  v31 = v39[4];
+  v31[152] |= 1u;
+  *(v31 + 16) = timestamp;
+  sub_245F21790(v38, v32);
+  sub_245E5ADCC(v38);
 }
 
-- (uint64_t)logHostDeviceMotionQuaternion:(uint64_t)quaternion rotationRate:(uint64_t)rate acceleration:(__n128)acceleration timestamp:(__n128)timestamp
+- (void)logHostDeviceMotionQuaternion:(__n128)quaternion rotationRate:(__n128)rate acceleration:(double)acceleration timestamp:
 {
-  v9 = objc_msgSend_queue(self, a2, quaternion, rate);
-  dispatch_assert_queue_V2(v9);
-  sub_245E55178(v25);
-  sub_245E7A608(v25);
-  v10 = v26;
-  *(v26 + 124) |= 0x10u;
-  *(v10 + 40) = a8;
-  v11 = v26;
-  *(v26 + 124) |= 2u;
-  *(v11 + 16) = acceleration.n128_f32[0];
-  v12 = v26;
-  *(v26 + 124) |= 4u;
-  *(v12 + 24) = acceleration.n128_f32[1];
-  v13 = v26;
-  *(v26 + 124) |= 8u;
-  *(v13 + 32) = acceleration.n128_f32[2];
-  v14 = v26;
-  *(v26 + 124) |= 1u;
-  *(v14 + 8) = acceleration.n128_f32[3];
-  v15 = v26;
-  *(v26 + 124) |= 0x40000u;
-  *(v15 + 100) = a7.n128_u32[0];
-  v16 = v26;
-  *(v26 + 124) |= 0x80000u;
-  *(v16 + 104) = a7.n128_u32[1];
-  v17 = v26;
-  *(v26 + 124) |= 0x100000u;
-  *(v17 + 108) = a7.n128_u32[2];
-  v18 = v26;
-  *(v26 + 124) |= 0x2000u;
-  *(v18 + 80) = timestamp.n128_u32[0];
-  v19 = v26;
-  *(v26 + 124) |= 0x4000u;
-  *(v19 + 84) = timestamp.n128_u32[1];
-  v20 = v26;
-  *(v26 + 124) |= 0x8000u;
-  *(v20 + 88) = timestamp.n128_u32[2];
-  sub_245F21790(v25);
-  return sub_245E5ADCC(v25);
+  v8 = objc_msgSend_queue(self, v5, v6);
+  dispatch_assert_queue_V2(v8);
+  sub_245E55178(v24);
+  sub_245E7A608(v24);
+  v9 = v25;
+  *(v25 + 124) |= 0x10u;
+  *(v9 + 40) = acceleration;
+  v10 = v25;
+  *(v25 + 124) |= 2u;
+  *(v10 + 16) = a2.n128_f32[0];
+  v11 = v25;
+  *(v25 + 124) |= 4u;
+  *(v11 + 24) = a2.n128_f32[1];
+  v12 = v25;
+  *(v25 + 124) |= 8u;
+  *(v12 + 32) = a2.n128_f32[2];
+  v13 = v25;
+  *(v25 + 124) |= 1u;
+  *(v13 + 8) = a2.n128_f32[3];
+  v14 = v25;
+  *(v25 + 124) |= 0x40000u;
+  *(v14 + 100) = rate.n128_u32[0];
+  v15 = v25;
+  *(v25 + 124) |= 0x80000u;
+  *(v15 + 104) = rate.n128_u32[1];
+  v16 = v25;
+  *(v25 + 124) |= 0x100000u;
+  *(v16 + 108) = rate.n128_u32[2];
+  v17 = v25;
+  *(v25 + 124) |= 0x2000u;
+  *(v17 + 80) = quaternion.n128_u32[0];
+  v18 = v25;
+  *(v25 + 124) |= 0x4000u;
+  *(v18 + 84) = quaternion.n128_u32[1];
+  v19 = v25;
+  *(v25 + 124) |= 0x8000u;
+  *(v19 + 88) = quaternion.n128_u32[2];
+  sub_245F21790(v24, v20);
+  sub_245E5ADCC(v24);
+}
+
+- (void)setMslEnabled:(BOOL)enabled
+{
+  if (!enabled)
+  {
+    objc_msgSend_flushMSL(self, a2, enabled);
+  }
+
+  self->_mslEnabled = enabled;
 }
 
 - (void)flushMSL
 {
-  if (objc_msgSend_mslEnabled(self, a2, v2, v3))
+  if (objc_msgSend_mslEnabled(self, a2, v2))
   {
     if (qword_27EE374F0 != -1)
     {
       dispatch_once(&qword_27EE374F0, &unk_2858D72A0);
     }
 
-    v4 = qword_27EE374F8;
-    if (os_log_type_enabled(qword_27EE374F8, OS_LOG_TYPE_DEBUG))
+    v3 = qword_27EE374F8;
+    v4 = os_log_type_enabled(qword_27EE374F8, OS_LOG_TYPE_DEBUG);
+    if (v4)
     {
-      *v6 = 0;
-      _os_log_impl(&dword_245D80000, v4, OS_LOG_TYPE_DEBUG, "Flushing MSL", v6, 2u);
+      *v7 = 0;
+      _os_log_impl(&dword_245D80000, v3, OS_LOG_TYPE_DEBUG, "Flushing MSL", v7, 2u);
     }
 
-    v5 = sub_245F2163C();
-    sub_245DFA37C(v5);
+    v6 = sub_245F2163C(v4, v5);
+    sub_245DFA37C(v6);
+  }
+}
+
+- (void)setPreciseTipPositionLoggingEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  v9 = *MEMORY[0x277D85DE8];
+  if (objc_msgSend_preciseTipPositionLoggingEnabled(self, a2, enabled) != enabled)
+  {
+    self->_preciseTipPositionLoggingEnabled = enabledCopy;
+    if (qword_27EE374F0 != -1)
+    {
+      dispatch_once(&qword_27EE374F0, &unk_2858D72A0);
+    }
+
+    v5 = qword_27EE374F8;
+    if (os_log_type_enabled(qword_27EE374F8, OS_LOG_TYPE_DEBUG))
+    {
+      v8[0] = 67109120;
+      v8[1] = enabledCopy;
+      _os_log_impl(&dword_245D80000, v5, OS_LOG_TYPE_DEBUG, "[BarrelRoll]:[CMAPencilFusion] Setting preciseTipPositionLoggingEnabled to %d", v8, 8u);
+      if (enabledCopy)
+      {
+        if (qword_27EE374F0 != -1)
+        {
+          dispatch_once(&qword_27EE374F0, &unk_2858D72A0);
+        }
+
+        goto LABEL_9;
+      }
+
+      if (qword_27EE374F0 != -1)
+      {
+        dispatch_once(&qword_27EE374F0, &unk_2858D72A0);
+      }
+    }
+
+    else if (enabledCopy)
+    {
+LABEL_9:
+      v6 = qword_27EE374F8;
+      if (!os_log_type_enabled(qword_27EE374F8, OS_LOG_TYPE_DEBUG))
+      {
+        return;
+      }
+
+      LOWORD(v8[0]) = 0;
+      v7 = "[BarrelRoll]:[CMAPencilFusion] Logging pencil tip position in full input precision in accordance with the associated user defaults setting.";
+LABEL_15:
+      _os_log_impl(&dword_245D80000, v6, OS_LOG_TYPE_DEBUG, v7, v8, 2u);
+      return;
+    }
+
+    v6 = qword_27EE374F8;
+    if (!os_log_type_enabled(qword_27EE374F8, OS_LOG_TYPE_DEBUG))
+    {
+      return;
+    }
+
+    LOWORD(v8[0]) = 0;
+    v7 = "[BarrelRoll]:[CMAPencilFusion] Logging pencil tip position in quantized  precision in accordance with the associated user defaults setting.";
+    goto LABEL_15;
   }
 }
 
 - (void)sendPencilStatistics
 {
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
   v21 = 0u;
-  v18 = 0u;
+  v22 = 0u;
   v19 = 0u;
-  memset(v17, 0, sizeof(v17));
-  v3 = v17;
-  sub_245F0CAC4(self->_barrelRollService.__ptr_ + 10032, v17);
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
+  memset(v16, 0, sizeof(v16));
+  v3 = v16;
+  sub_245F0CAC4(self->_barrelRollService.__ptr_ + 10032, v16);
   for (i = 0; i != 3; ++i)
   {
     v6 = v3[3];
-    *v14 = v3[2];
-    *&v14[16] = v6;
-    *&v15 = *(v3 + 8);
+    *v13 = v3[2];
+    *&v13[16] = v6;
+    *&v14 = *(v3 + 8);
     v7 = v3[1];
-    v12 = *v3;
-    v13 = v7;
-    objc_msgSend_sendPencilGyroBiasAxisStatistics_axis_(self, v4, &v12, i);
+    v11 = *v3;
+    v12 = v7;
+    objc_msgSend_sendPencilGyroBiasAxisStatistics_axis_(self, v4, &v11, i);
     v3 = (v3 + 72);
   }
 
   v8 = 0;
-  v9 = (&v17[13] + 8);
+  v9 = (&v16[13] + 8);
   do
   {
     v10 = v9[1];
-    v12 = *v9;
-    v13 = v10;
-    *v14 = v9[2];
-    *&v14[12] = *(v9 + 44);
-    objc_msgSend_sendPencilSensorContactTypeStatistics_contactType_(self, v4, &v12, v8++);
+    v11 = *v9;
+    v12 = v10;
+    *v13 = v9[2];
+    *&v13[12] = *(v9 + 44);
+    objc_msgSend_sendPencilSensorContactTypeStatistics_contactType_(self, v4, &v11, v8++);
     v9 = (v9 + 60);
   }
 
   while (v8 != 3);
-  *v14 = v20;
-  *&v14[16] = v21;
+  *v13 = v19;
+  *&v13[16] = v20;
+  v14 = v21;
   v15 = v22;
-  v16 = v23;
+  v11 = v17;
   v12 = v18;
-  v13 = v19;
-  objc_msgSend_sendPencilTimingStatistics_(self, v4, &v12, v11);
-}
-
-- (void)sendPencilSensorContactTypeStatistics:(CMAPencilSensorContactTypeStatistics *)statistics contactType:(int)type
-{
-  v4 = *&statistics->var0;
-  v5 = *&statistics->var4;
-  *v6 = *&statistics->var8;
-  *&v6[12] = *&statistics->var11;
-  AnalyticsSendEventLazy();
+  objc_msgSend_sendPencilTimingStatistics_(self, v4, &v11);
 }
 
 @end

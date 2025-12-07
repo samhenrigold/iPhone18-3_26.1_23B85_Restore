@@ -8,6 +8,7 @@
 - (void)loadView;
 - (void)setDelegate:(id)delegate;
 - (void)setMode:(int64_t)mode;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation PMSafariAutoFillStrongPasswordIntroductionViewController
@@ -81,7 +82,7 @@
 {
   swift_unknownObjectRetain();
   selfCopy = self;
-  sub_21C995E40();
+  sub_21C995E40(delegate);
 }
 
 - (PMSafariAutoFillStrongPasswordIntroductionViewController)initWithCoder:(id)coder
@@ -96,6 +97,20 @@
 {
   selfCopy = self;
   PMSafariAutoFillStrongPasswordIntroductionViewController.loadView()();
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  v6.receiver = self;
+  v6.super_class = PMSafariAutoFillStrongPasswordIntroductionViewController;
+  selfCopy = self;
+  [(PMSafariAutoFillStrongPasswordIntroductionViewController *)&v6 viewWillAppear:appearCopy];
+  if (*(selfCopy + OBJC_IVAR___PMSafariAutoFillStrongPasswordIntroductionViewController_viewStyle) == 1)
+  {
+    sharedLogger = [objc_opt_self() sharedLogger];
+    [sharedLogger didSurfaceUsePasswordsAppView];
+  }
 }
 
 - (PMSafariAutoFillStrongPasswordIntroductionViewController)initWithNibName:(id)name bundle:(id)bundle

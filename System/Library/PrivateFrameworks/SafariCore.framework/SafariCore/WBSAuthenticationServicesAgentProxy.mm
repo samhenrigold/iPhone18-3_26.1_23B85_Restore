@@ -67,41 +67,41 @@
 {
   identifierCopy = identifier;
   handlerCopy = handler;
-  v9 = WBS_LOG_CHANNEL_PREFIXAutoFill();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+  v10 = WBS_LOG_CHANNEL_PREFIXAutoFill(handlerCopy, v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
-    _os_log_impl(&dword_1B8447000, v9, OS_LOG_TYPE_INFO, "Asking daemon for passkeys.", buf, 2u);
+    _os_log_impl(&dword_1B8447000, v10, OS_LOG_TYPE_INFO, "Asking daemon for passkeys.", buf, 2u);
   }
 
   connection = [(WBSAuthenticationServicesAgentProxy *)self connection];
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = __117__WBSAuthenticationServicesAgentProxy_getPasskeysForRunningAssertionWithApplicationIdentifier_withCompletionHandler___block_invoke;
-  v15[3] = &unk_1E7CF1658;
-  v17 = a2;
-  v11 = handlerCopy;
-  v16 = v11;
-  v12 = [connection remoteObjectProxyWithErrorHandler:v15];
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = __117__WBSAuthenticationServicesAgentProxy_getPasskeysForRunningAssertionWithApplicationIdentifier_withCompletionHandler___block_invoke;
+  v16[3] = &unk_1E7CF1658;
+  v18 = a2;
+  v12 = handlerCopy;
+  v17 = v12;
+  v13 = [connection remoteObjectProxyWithErrorHandler:v16];
 
-  if (v12)
+  if (v13)
   {
-    v13[0] = MEMORY[0x1E69E9820];
-    v13[1] = 3221225472;
-    v13[2] = __117__WBSAuthenticationServicesAgentProxy_getPasskeysForRunningAssertionWithApplicationIdentifier_withCompletionHandler___block_invoke_64;
-    v13[3] = &unk_1E7CF1690;
-    v14 = v11;
-    [v12 getPasskeysForRunningAssertionWithApplicationIdentifier:identifierCopy withCompletionHandler:v13];
+    v14[0] = MEMORY[0x1E69E9820];
+    v14[1] = 3221225472;
+    v14[2] = __117__WBSAuthenticationServicesAgentProxy_getPasskeysForRunningAssertionWithApplicationIdentifier_withCompletionHandler___block_invoke_64;
+    v14[3] = &unk_1E7CF1690;
+    v15 = v12;
+    [v13 getPasskeysForRunningAssertionWithApplicationIdentifier:identifierCopy withCompletionHandler:v14];
   }
 }
 
 void __117__WBSAuthenticationServicesAgentProxy_getPasskeysForRunningAssertionWithApplicationIdentifier_withCompletionHandler___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = WBS_LOG_CHANNEL_PREFIXAutoFill();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v5 = WBS_LOG_CHANNEL_PREFIXAutoFill(v3, v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    __97__WBSAuthenticationServicesAgentCredentialSharingGroupsProxy_leaveGroupWithID_completionHandler___block_invoke_cold_1(a1, v4);
+    __97__WBSAuthenticationServicesAgentCredentialSharingGroupsProxy_leaveGroupWithID_completionHandler___block_invoke_cold_1(a1, v5);
   }
 
   (*(*(a1 + 32) + 16))();
@@ -112,12 +112,12 @@ void __117__WBSAuthenticationServicesAgentProxy_getPasskeysForRunningAssertionWi
   v21 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   handlerCopy = handler;
-  v9 = WBS_LOG_CHANNEL_PREFIXAutoFill();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+  v10 = WBS_LOG_CHANNEL_PREFIXAutoFill(handlerCopy, v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
     *buf = 138543362;
     v20 = identifierCopy;
-    _os_log_impl(&dword_1B8447000, v9, OS_LOG_TYPE_INFO, "Asking daemon for passkeys for %{public}@.", buf, 0xCu);
+    _os_log_impl(&dword_1B8447000, v10, OS_LOG_TYPE_INFO, "Asking daemon for passkeys for %{public}@.", buf, 0xCu);
   }
 
   connection = [(WBSAuthenticationServicesAgentProxy *)self connection];
@@ -126,30 +126,28 @@ void __117__WBSAuthenticationServicesAgentProxy_getPasskeysForRunningAssertionWi
   v16[2] = __110__WBSAuthenticationServicesAgentProxy_getPasskeysForRunningAssertionWithWebFrameIdentifier_completionHandler___block_invoke;
   v16[3] = &unk_1E7CF1658;
   v18 = a2;
-  v11 = handlerCopy;
-  v17 = v11;
-  v12 = [connection remoteObjectProxyWithErrorHandler:v16];
+  v12 = handlerCopy;
+  v17 = v12;
+  v13 = [connection remoteObjectProxyWithErrorHandler:v16];
 
-  if (v12)
+  if (v13)
   {
     v14[0] = MEMORY[0x1E69E9820];
     v14[1] = 3221225472;
     v14[2] = __110__WBSAuthenticationServicesAgentProxy_getPasskeysForRunningAssertionWithWebFrameIdentifier_completionHandler___block_invoke_66;
     v14[3] = &unk_1E7CF1690;
-    v15 = v11;
-    [v12 getPasskeysForRunningAssertionWithWebFrameIdentifier:identifierCopy completionHandler:v14];
+    v15 = v12;
+    [v13 getPasskeysForRunningAssertionWithWebFrameIdentifier:identifierCopy completionHandler:v14];
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 void __110__WBSAuthenticationServicesAgentProxy_getPasskeysForRunningAssertionWithWebFrameIdentifier_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = WBS_LOG_CHANNEL_PREFIXAutoFill();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v5 = WBS_LOG_CHANNEL_PREFIXAutoFill(v3, v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    __97__WBSAuthenticationServicesAgentCredentialSharingGroupsProxy_leaveGroupWithID_completionHandler___block_invoke_cold_1(a1, v4);
+    __97__WBSAuthenticationServicesAgentCredentialSharingGroupsProxy_leaveGroupWithID_completionHandler___block_invoke_cold_1(a1, v5);
   }
 
   (*(*(a1 + 32) + 16))();
@@ -162,14 +160,14 @@ void __110__WBSAuthenticationServicesAgentProxy_getPasskeysForRunningAssertionWi
   contextCopy = context;
   accountContextCopy = accountContext;
   handlerCopy = handler;
-  v15 = WBS_LOG_CHANNEL_PREFIXAutoFill();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+  v16 = WBS_LOG_CHANNEL_PREFIXAutoFill(handlerCopy, v15);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
   {
-    v16 = v15;
+    v17 = v16;
     operationUUID = [passkeyCopy operationUUID];
     *buf = 138543362;
     v29 = operationUUID;
-    _os_log_impl(&dword_1B8447000, v16, OS_LOG_TYPE_INFO, "Informing daemon that user selected passkey for operation %{public}@.", buf, 0xCu);
+    _os_log_impl(&dword_1B8447000, v17, OS_LOG_TYPE_INFO, "Informing daemon that user selected passkey for operation %{public}@.", buf, 0xCu);
   }
 
   connection = [(WBSAuthenticationServicesAgentProxy *)self connection];
@@ -178,31 +176,29 @@ void __110__WBSAuthenticationServicesAgentProxy_getPasskeysForRunningAssertionWi
   v25[2] = __128__WBSAuthenticationServicesAgentProxy_userSelectedAutoFillPasskey_authenticatedLAContext_savedAccountContext_completionHandler___block_invoke;
   v25[3] = &unk_1E7CF1658;
   v27 = a2;
-  v19 = handlerCopy;
-  v26 = v19;
-  v20 = [connection remoteObjectProxyWithErrorHandler:v25];
+  v20 = handlerCopy;
+  v26 = v20;
+  v21 = [connection remoteObjectProxyWithErrorHandler:v25];
 
-  if (v20)
+  if (v21)
   {
     v22[0] = MEMORY[0x1E69E9820];
     v22[1] = 3221225472;
     v22[2] = __128__WBSAuthenticationServicesAgentProxy_userSelectedAutoFillPasskey_authenticatedLAContext_savedAccountContext_completionHandler___block_invoke_67;
     v22[3] = &unk_1E7CF16B8;
     v23 = contextCopy;
-    v24 = v19;
-    [v20 userSelectedAutoFillPasskey:passkeyCopy authenticatedLAContext:v23 savedAccountContext:accountContextCopy completionHandler:v22];
+    v24 = v20;
+    [v21 userSelectedAutoFillPasskey:passkeyCopy authenticatedLAContext:v23 savedAccountContext:accountContextCopy completionHandler:v22];
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 void __128__WBSAuthenticationServicesAgentProxy_userSelectedAutoFillPasskey_authenticatedLAContext_savedAccountContext_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = WBS_LOG_CHANNEL_PREFIXAutoFill();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v5 = WBS_LOG_CHANNEL_PREFIXAutoFill(v3, v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    __97__WBSAuthenticationServicesAgentCredentialSharingGroupsProxy_leaveGroupWithID_completionHandler___block_invoke_cold_1(a1, v4);
+    __97__WBSAuthenticationServicesAgentCredentialSharingGroupsProxy_leaveGroupWithID_completionHandler___block_invoke_cold_1(a1, v5);
   }
 
   (*(*(a1 + 32) + 16))();
@@ -213,14 +209,14 @@ void __128__WBSAuthenticationServicesAgentProxy_userSelectedAutoFillPasskey_auth
   v24 = *MEMORY[0x1E69E9840];
   deviceCopy = device;
   handlerCopy = handler;
-  v9 = WBS_LOG_CHANNEL_PREFIXAutoFill();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+  v10 = WBS_LOG_CHANNEL_PREFIXAutoFill(handlerCopy, v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
-    v10 = v9;
+    v11 = v10;
     operationUUID = [deviceCopy operationUUID];
     *buf = 138543362;
     v23 = operationUUID;
-    _os_log_impl(&dword_1B8447000, v10, OS_LOG_TYPE_INFO, "Informing daemon that user selected nearby device for operation %{public}@.", buf, 0xCu);
+    _os_log_impl(&dword_1B8447000, v11, OS_LOG_TYPE_INFO, "Informing daemon that user selected nearby device for operation %{public}@.", buf, 0xCu);
   }
 
   connection = [(WBSAuthenticationServicesAgentProxy *)self connection];
@@ -229,25 +225,23 @@ void __128__WBSAuthenticationServicesAgentProxy_userSelectedAutoFillPasskey_auth
   v18 = __90__WBSAuthenticationServicesAgentProxy_userSelectedAutoFillNearbyDevice_completionHandler___block_invoke;
   v19 = &unk_1E7CF1658;
   v21 = a2;
-  v13 = handlerCopy;
-  v20 = v13;
-  v14 = [connection remoteObjectProxyWithErrorHandler:&v16];
+  v14 = handlerCopy;
+  v20 = v14;
+  v15 = [connection remoteObjectProxyWithErrorHandler:&v16];
 
-  if (v14)
+  if (v15)
   {
-    [v14 userSelectedAutoFillNearbyDevice:deviceCopy completionHandler:{v13, v16, v17, v18, v19}];
+    [v15 userSelectedAutoFillNearbyDevice:deviceCopy completionHandler:{v14, v16, v17, v18, v19}];
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 void __90__WBSAuthenticationServicesAgentProxy_userSelectedAutoFillNearbyDevice_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = WBS_LOG_CHANNEL_PREFIXAutoFill();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v5 = WBS_LOG_CHANNEL_PREFIXAutoFill(v3, v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    __97__WBSAuthenticationServicesAgentCredentialSharingGroupsProxy_leaveGroupWithID_completionHandler___block_invoke_cold_1(a1, v4);
+    __97__WBSAuthenticationServicesAgentCredentialSharingGroupsProxy_leaveGroupWithID_completionHandler___block_invoke_cold_1(a1, v5);
   }
 
   (*(*(a1 + 32) + 16))();
@@ -260,36 +254,36 @@ void __90__WBSAuthenticationServicesAgentProxy_userSelectedAutoFillNearbyDevice_
   identifierCopy = identifier;
   handleCopy = handle;
   handlerCopy = handler;
-  v18 = WBS_LOG_CHANNEL_PREFIXPasswords();
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
+  v19 = WBS_LOG_CHANNEL_PREFIXPasswords(handlerCopy, v18);
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
-    _os_log_impl(&dword_1B8447000, v18, OS_LOG_TYPE_INFO, "Test runner asking daemon to create passkey.", buf, 2u);
+    _os_log_impl(&dword_1B8447000, v19, OS_LOG_TYPE_INFO, "Test runner asking daemon to create passkey.", buf, 2u);
   }
 
   connection = [(WBSAuthenticationServicesAgentProxy *)self connection];
-  v22 = MEMORY[0x1E69E9820];
-  v23 = 3221225472;
-  v24 = __134__WBSAuthenticationServicesAgentProxy_test_createPasskeyWithUserName_displayName_relyingPartyIdentifier_userHandle_completionHandler___block_invoke;
-  v25 = &unk_1E7CF1658;
-  v27 = a2;
-  v20 = handlerCopy;
-  v26 = v20;
-  v21 = [connection remoteObjectProxyWithErrorHandler:&v22];
+  v23 = MEMORY[0x1E69E9820];
+  v24 = 3221225472;
+  v25 = __134__WBSAuthenticationServicesAgentProxy_test_createPasskeyWithUserName_displayName_relyingPartyIdentifier_userHandle_completionHandler___block_invoke;
+  v26 = &unk_1E7CF1658;
+  v28 = a2;
+  v21 = handlerCopy;
+  v27 = v21;
+  v22 = [connection remoteObjectProxyWithErrorHandler:&v23];
 
-  if (v21)
+  if (v22)
   {
-    [v21 test_createPasskeyWithUserName:nameCopy displayName:displayNameCopy relyingPartyIdentifier:identifierCopy userHandle:handleCopy completionHandler:{v20, v22, v23, v24, v25}];
+    [v22 test_createPasskeyWithUserName:nameCopy displayName:displayNameCopy relyingPartyIdentifier:identifierCopy userHandle:handleCopy completionHandler:{v21, v23, v24, v25, v26}];
   }
 }
 
 void __134__WBSAuthenticationServicesAgentProxy_test_createPasskeyWithUserName_displayName_relyingPartyIdentifier_userHandle_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = WBS_LOG_CHANNEL_PREFIXAutoFill();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v5 = WBS_LOG_CHANNEL_PREFIXAutoFill(v3, v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    __97__WBSAuthenticationServicesAgentCredentialSharingGroupsProxy_leaveGroupWithID_completionHandler___block_invoke_cold_1(a1, v4);
+    __97__WBSAuthenticationServicesAgentCredentialSharingGroupsProxy_leaveGroupWithID_completionHandler___block_invoke_cold_1(a1, v5);
   }
 
   (*(*(a1 + 32) + 16))();
@@ -320,10 +314,10 @@ void __134__WBSAuthenticationServicesAgentProxy_test_createPasskeyWithUserName_d
 void __140__WBSAuthenticationServicesAgentProxy_getExternalPasskeyRequestForWebFrameIdentifier_relyingPartyIdentifier_credentialID_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = WBS_LOG_CHANNEL_PREFIXAutoFill();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v5 = WBS_LOG_CHANNEL_PREFIXAutoFill(v3, v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    __97__WBSAuthenticationServicesAgentCredentialSharingGroupsProxy_leaveGroupWithID_completionHandler___block_invoke_cold_1(a1, v4);
+    __97__WBSAuthenticationServicesAgentCredentialSharingGroupsProxy_leaveGroupWithID_completionHandler___block_invoke_cold_1(a1, v5);
   }
 
   (*(*(a1 + 32) + 16))();
@@ -354,10 +348,10 @@ void __140__WBSAuthenticationServicesAgentProxy_getExternalPasskeyRequestForWebF
 void __143__WBSAuthenticationServicesAgentProxy_getExternalPasskeyRequestForApplicationIdentifier_relyingPartyIdentifier_credentialID_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = WBS_LOG_CHANNEL_PREFIXAutoFill();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v5 = WBS_LOG_CHANNEL_PREFIXAutoFill(v3, v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    __97__WBSAuthenticationServicesAgentCredentialSharingGroupsProxy_leaveGroupWithID_completionHandler___block_invoke_cold_1(a1, v4);
+    __97__WBSAuthenticationServicesAgentCredentialSharingGroupsProxy_leaveGroupWithID_completionHandler___block_invoke_cold_1(a1, v5);
   }
 
   (*(*(a1 + 32) + 16))();
@@ -388,10 +382,10 @@ void __143__WBSAuthenticationServicesAgentProxy_getExternalPasskeyRequestForAppl
 void __172__WBSAuthenticationServicesAgentProxy_completeAssertionWithExternalPasskeyForWebFrameIdentifier_relyingPartyIdentifier_authenticatorData_signature_userHandle_credentialID___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = WBS_LOG_CHANNEL_PREFIXAutoFill();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v5 = WBS_LOG_CHANNEL_PREFIXAutoFill(v3, v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    __114__WBSAuthenticationServicesAgentCredentialSharingGroupsProxy_notifyUserAboutSharedSavedAccountsInRecentlyDeleted___block_invoke_cold_1(a1, v4);
+    __114__WBSAuthenticationServicesAgentCredentialSharingGroupsProxy_notifyUserAboutSharedSavedAccountsInRecentlyDeleted___block_invoke_cold_1(a1, v5);
   }
 }
 
@@ -420,10 +414,10 @@ void __172__WBSAuthenticationServicesAgentProxy_completeAssertionWithExternalPas
 void __175__WBSAuthenticationServicesAgentProxy_completeAssertionWithExternalPasskeyForApplicationIdentifier_relyingPartyIdentifier_authenticatorData_signature_userHandle_credentialID___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = WBS_LOG_CHANNEL_PREFIXAutoFill();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v5 = WBS_LOG_CHANNEL_PREFIXAutoFill(v3, v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    __114__WBSAuthenticationServicesAgentCredentialSharingGroupsProxy_notifyUserAboutSharedSavedAccountsInRecentlyDeleted___block_invoke_cold_1(a1, v4);
+    __114__WBSAuthenticationServicesAgentCredentialSharingGroupsProxy_notifyUserAboutSharedSavedAccountsInRecentlyDeleted___block_invoke_cold_1(a1, v5);
   }
 }
 
@@ -450,10 +444,10 @@ void __175__WBSAuthenticationServicesAgentProxy_completeAssertionWithExternalPas
 void __115__WBSAuthenticationServicesAgentProxy_getPasskeyAssertionRequestParametersForWebFrameIdentifier_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = WBS_LOG_CHANNEL_PREFIXAutoFill();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v5 = WBS_LOG_CHANNEL_PREFIXAutoFill(v3, v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    __97__WBSAuthenticationServicesAgentCredentialSharingGroupsProxy_leaveGroupWithID_completionHandler___block_invoke_cold_1(a1, v4);
+    __97__WBSAuthenticationServicesAgentCredentialSharingGroupsProxy_leaveGroupWithID_completionHandler___block_invoke_cold_1(a1, v5);
   }
 
   (*(*(a1 + 32) + 16))();
@@ -482,10 +476,10 @@ void __115__WBSAuthenticationServicesAgentProxy_getPasskeyAssertionRequestParame
 void __118__WBSAuthenticationServicesAgentProxy_getPasskeyAssertionRequestParametersForApplicationIdentifier_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = WBS_LOG_CHANNEL_PREFIXAutoFill();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v5 = WBS_LOG_CHANNEL_PREFIXAutoFill(v3, v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    __97__WBSAuthenticationServicesAgentCredentialSharingGroupsProxy_leaveGroupWithID_completionHandler___block_invoke_cold_1(a1, v4);
+    __97__WBSAuthenticationServicesAgentCredentialSharingGroupsProxy_leaveGroupWithID_completionHandler___block_invoke_cold_1(a1, v5);
   }
 
   (*(*(a1 + 32) + 16))();
@@ -513,10 +507,10 @@ void __118__WBSAuthenticationServicesAgentProxy_getPasskeyAssertionRequestParame
 void __105__WBSAuthenticationServicesAgentProxy_getPasskeyAssertionRequestParametersForCABLEWithCompletionHandler___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = WBS_LOG_CHANNEL_PREFIXAutoFill();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v5 = WBS_LOG_CHANNEL_PREFIXAutoFill(v3, v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    __97__WBSAuthenticationServicesAgentCredentialSharingGroupsProxy_leaveGroupWithID_completionHandler___block_invoke_cold_1(a1, v4);
+    __97__WBSAuthenticationServicesAgentCredentialSharingGroupsProxy_leaveGroupWithID_completionHandler___block_invoke_cold_1(a1, v5);
   }
 
   (*(*(a1 + 32) + 16))();
@@ -546,10 +540,10 @@ void __105__WBSAuthenticationServicesAgentProxy_getPasskeyAssertionRequestParame
 void __138__WBSAuthenticationServicesAgentProxy_getIsPasskeyAssertionRequestRunningForWebFrameIdentifier_orApplicationIdentifier_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = WBS_LOG_CHANNEL_PREFIXAutoFill();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v5 = WBS_LOG_CHANNEL_PREFIXAutoFill(v3, v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    __97__WBSAuthenticationServicesAgentCredentialSharingGroupsProxy_leaveGroupWithID_completionHandler___block_invoke_cold_1(a1, v4);
+    __97__WBSAuthenticationServicesAgentCredentialSharingGroupsProxy_leaveGroupWithID_completionHandler___block_invoke_cold_1(a1, v5);
   }
 
   (*(*(a1 + 32) + 16))();
@@ -582,10 +576,10 @@ void __138__WBSAuthenticationServicesAgentProxy_getIsPasskeyAssertionRequestRunn
 void __184__WBSAuthenticationServicesAgentProxy_didFillCredentialForUsername_forHost_fromProviderWithBundleIdentifier_inAppWithBundleIdentifier_externalProviderConditionalRegistrationRequester___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = WBS_LOG_CHANNEL_PREFIXAutoFill();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v5 = WBS_LOG_CHANNEL_PREFIXAutoFill(v3, v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    __114__WBSAuthenticationServicesAgentCredentialSharingGroupsProxy_notifyUserAboutSharedSavedAccountsInRecentlyDeleted___block_invoke_cold_1(a1, v4);
+    __114__WBSAuthenticationServicesAgentCredentialSharingGroupsProxy_notifyUserAboutSharedSavedAccountsInRecentlyDeleted___block_invoke_cold_1(a1, v5);
   }
 }
 
@@ -616,10 +610,10 @@ void __184__WBSAuthenticationServicesAgentProxy_didFillCredentialForUsername_for
 void __187__WBSAuthenticationServicesAgentProxy_didFillCredentialForUsername_forURL_fromProviderWithBundleIdentifier_inBrowserWithBundleIdentifier_externalProviderConditionalRegistrationRequester___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = WBS_LOG_CHANNEL_PREFIXAutoFill();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v5 = WBS_LOG_CHANNEL_PREFIXAutoFill(v3, v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    __114__WBSAuthenticationServicesAgentCredentialSharingGroupsProxy_notifyUserAboutSharedSavedAccountsInRecentlyDeleted___block_invoke_cold_1(a1, v4);
+    __114__WBSAuthenticationServicesAgentCredentialSharingGroupsProxy_notifyUserAboutSharedSavedAccountsInRecentlyDeleted___block_invoke_cold_1(a1, v5);
   }
 }
 
@@ -685,10 +679,10 @@ void __187__WBSAuthenticationServicesAgentProxy_didFillCredentialForUsername_for
 void __98__WBSAuthenticationServicesAgentProxy_isOrigin_relatedToRelyingPartyIdentifier_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = WBS_LOG_CHANNEL_PREFIXAutoFill();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v5 = WBS_LOG_CHANNEL_PREFIXAutoFill(v3, v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    __97__WBSAuthenticationServicesAgentCredentialSharingGroupsProxy_leaveGroupWithID_completionHandler___block_invoke_cold_1(a1, v4);
+    __97__WBSAuthenticationServicesAgentCredentialSharingGroupsProxy_leaveGroupWithID_completionHandler___block_invoke_cold_1(a1, v5);
   }
 
   (*(*(a1 + 32) + 16))();
@@ -699,8 +693,8 @@ void __98__WBSAuthenticationServicesAgentProxy_isOrigin_relatedToRelyingPartyIde
   v14 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
-  v6 = WBS_LOG_CHANNEL_PREFIXAutoFill();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+  v7 = WBS_LOG_CHANNEL_PREFIXAutoFill(WeakRetained, v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v8 = 141558530;
     v9 = 1752392040;
@@ -708,18 +702,16 @@ void __98__WBSAuthenticationServicesAgentProxy_isOrigin_relatedToRelyingPartyIde
     v11 = WeakRetained;
     v12 = 2114;
     v13 = identifierCopy;
-    _os_log_impl(&dword_1B8447000, v6, OS_LOG_TYPE_INFO, "Notifying %{mask.hash}@ of new passkeys for %{public}@", &v8, 0x20u);
+    _os_log_impl(&dword_1B8447000, v7, OS_LOG_TYPE_INFO, "Notifying %{mask.hash}@ of new passkeys for %{public}@", &v8, 0x20u);
   }
 
   [WeakRetained newPasskeysAvailableForApplicationIdentifier:identifierCopy];
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_setUpConnection:(id)connection
 {
   connectionCopy = connection;
-  v5 = WBSAuthenticationServicesAgentInterface();
+  v5 = WBSAuthenticationServicesAgentInterface(connectionCopy);
   [connectionCopy setRemoteObjectInterface:v5];
 
   aBlock[0] = MEMORY[0x1E69E9820];
@@ -738,12 +730,12 @@ void __98__WBSAuthenticationServicesAgentProxy_isOrigin_relatedToRelyingPartyIde
   [v6 resume];
 }
 
-uint64_t __56__WBSAuthenticationServicesAgentProxy__setUpConnection___block_invoke(uint64_t a1)
+uint64_t __56__WBSAuthenticationServicesAgentProxy__setUpConnection___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = WBS_LOG_CHANNEL_PREFIXAutoFill();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+  v3 = WBS_LOG_CHANNEL_PREFIXAutoFill(a1, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    __79__WBSAuthenticationServicesAgentCredentialSharingGroupsProxy__setUpConnection___block_invoke_cold_1(v2);
+    __79__WBSAuthenticationServicesAgentCredentialSharingGroupsProxy__setUpConnection___block_invoke_cold_1(v3);
   }
 
   [*(a1 + 32) invalidate];

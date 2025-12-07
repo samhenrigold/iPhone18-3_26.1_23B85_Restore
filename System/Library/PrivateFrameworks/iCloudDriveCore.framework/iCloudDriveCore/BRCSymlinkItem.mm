@@ -31,7 +31,7 @@
 
 - (BOOL)updateWithImportObject:(id)object onlyContentDependentProperties:(BOOL)properties error:(id *)error
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   objectCopy = object;
   symlinkContent = [objectCopy symlinkContent];
 
@@ -51,21 +51,21 @@
       v13 = brc_default_log();
       if (os_log_type_enabled(v13, 0x90u))
       {
-        v17 = "(passed to caller)";
-        v18 = 136315906;
-        v19 = "[BRCSymlinkItem(FPFSAdditions) updateWithImportObject:onlyContentDependentProperties:error:]";
-        v20 = 2080;
+        v16 = "(passed to caller)";
+        v17 = 136315906;
+        v18 = "[BRCSymlinkItem(FPFSAdditions) updateWithImportObject:onlyContentDependentProperties:error:]";
+        v19 = 2080;
         if (!error)
         {
-          v17 = "(ignored by caller)";
+          v16 = "(ignored by caller)";
         }
 
-        v21 = v17;
-        v22 = 2112;
-        v23 = v11;
-        v24 = 2112;
-        v25 = v12;
-        _os_log_error_impl(&dword_223E7A000, v13, 0x90u, "[ERROR] %s: %s error: %@%@", &v18, 0x2Au);
+        v20 = v16;
+        v21 = 2112;
+        v22 = v11;
+        v23 = 2112;
+        v24 = v12;
+        _os_log_error_impl(&dword_223E7A000, v13, 0x90u, "[ERROR] %s: %s error: %@%@", &v17, 0x2Au);
       }
     }
 
@@ -76,7 +76,6 @@
     }
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return symlinkContent != 0;
 }
 
@@ -367,28 +366,26 @@
 
 - (void)diffAgainstServerItem:.cold.1()
 {
-  v9 = *MEMORY[0x277D85DE8];
   v0 = brc_bread_crumbs();
   v1 = brc_default_log();
   if (os_log_type_enabled(v1, OS_LOG_TYPE_FAULT))
   {
-    OUTLINED_FUNCTION_0(&dword_223E7A000, v2, v3, "[CRIT] Assertion failed: !info || info.isSymLink%@", v4, v5, v6, v7, 2u);
+    LODWORD(v8) = 138412290;
+    *(&v8 + 4) = v0;
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v2, v3, "[CRIT] Assertion failed: !info || info.isSymLink%@", v4, v5, v6, v7, v8, DWORD2(v8));
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)diffAgainstLocalItem:.cold.1()
 {
-  v9 = *MEMORY[0x277D85DE8];
   v0 = brc_bread_crumbs();
   v1 = brc_default_log();
   if (os_log_type_enabled(v1, OS_LOG_TYPE_FAULT))
   {
-    OUTLINED_FUNCTION_0(&dword_223E7A000, v2, v3, "[CRIT] Assertion failed: !info || info.isSymLink%@", v4, v5, v6, v7, 2u);
+    LODWORD(v8) = 138412290;
+    *(&v8 + 4) = v0;
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v2, v3, "[CRIT] Assertion failed: !info || info.isSymLink%@", v4, v5, v6, v7, v8, DWORD2(v8));
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 @end

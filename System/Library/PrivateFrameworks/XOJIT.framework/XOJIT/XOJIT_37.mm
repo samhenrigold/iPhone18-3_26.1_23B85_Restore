@@ -1,149 +1,4 @@
-uint64_t llvm::AtomicRMWInst::AtomicRMWInst(uint64_t a1, __int16 a2, uint64_t a3, uint64_t *a4, unsigned __int8 a5, __int16 a6, char a7, uint64_t *a8)
-{
-  v15 = llvm::Instruction::Instruction(a1, *a4, 37, a1 - 64, 2, a8);
-  llvm::AtomicRMWInst::Init(v15, a2, a3, a4, a5, a6, a7);
-  return a1;
-}
-
-void llvm::GetElementPtrInst::init(llvm::Value *a1, uint64_t a2, uint64_t *a3, uint64_t a4, const llvm::Twine *a5)
-{
-  v7 = (a1 - 32 * (*(a1 + 5) & 0x7FFFFFF));
-  if (*v7)
-  {
-    v8 = *(v7 + 1);
-    **(v7 + 2) = v8;
-    if (v8)
-    {
-      *(v8 + 16) = *(v7 + 2);
-    }
-  }
-
-  *v7 = a2;
-  if (a2)
-  {
-    v11 = *(a2 + 8);
-    v9 = (a2 + 8);
-    v10 = v11;
-    *(v7 + 1) = v11;
-    if (v11)
-    {
-      *(v10 + 16) = v7 + 2;
-    }
-
-    *(v7 + 2) = v9;
-    *v9 = v7;
-  }
-
-  std::__copy_impl::operator()[abi:nn200100]<llvm::Constant * const*,llvm::Constant * const*,llvm::Use *>(&v12, a3, &a3[a4], a1 - 32 * (*(a1 + 5) & 0x7FFFFFF) + 32);
-  llvm::Value::setName(a1, a5);
-}
-
-uint64_t llvm::GetElementPtrInst::getTypeAtIndex(llvm::GetElementPtrInst *this, llvm::Type *a2, llvm::Value *a3)
-{
-  v5 = *(this + 8);
-  if (this && v5 == 16)
-  {
-    if (llvm::StructType::indexValid(this, a2))
-    {
-      UniqueInteger = llvm::Constant::getUniqueInteger(a2);
-      if (*(UniqueInteger + 8) >= 0x41u)
-      {
-        v7 = *UniqueInteger;
-      }
-
-      else
-      {
-        v7 = UniqueInteger;
-      }
-
-      v8 = (*(this + 2) + 8 * *v7);
-      return *v8;
-    }
-
-    return 0;
-  }
-
-  if ((*(*a2 + 8) & 0xFE) == 0x12)
-  {
-    v9 = *(**(*a2 + 16) + 8);
-  }
-
-  else
-  {
-    v9 = *(*a2 + 8);
-  }
-
-  if (v9 != 13)
-  {
-    return 0;
-  }
-
-  if (this && v5 == 17 || (result = 0, this) && (v5 & 0xFE) == 0x12)
-  {
-    v8 = this + 24;
-    return *v8;
-  }
-
-  return result;
-}
-
-llvm::ExtractElementInst *llvm::ExtractElementInst::ExtractElementInst(llvm::ExtractElementInst *this, llvm::Value *a2, llvm::Value *a3, const llvm::Twine *a4, llvm::Instruction *a5)
-{
-  v9 = this - 64;
-  if (*(llvm::Instruction::Instruction(this, *(*a2 + 24), 61, this - 64, 2, a5) - 64))
-  {
-    v10 = *(this - 7);
-    **(this - 6) = v10;
-    if (v10)
-    {
-      *(v10 + 16) = *(this - 6);
-    }
-  }
-
-  *(this - 8) = a2;
-  v13 = *(a2 + 1);
-  v12 = (a2 + 8);
-  v11 = v13;
-  *(this - 7) = v13;
-  if (v13)
-  {
-    *(v11 + 16) = this - 56;
-  }
-
-  *(this - 6) = v12;
-  *v12 = v9;
-  v14 = (this - 32);
-  if (*(this - 4))
-  {
-    v15 = *(this - 3);
-    **(this - 2) = v15;
-    if (v15)
-    {
-      *(v15 + 16) = *(this - 2);
-    }
-  }
-
-  *v14 = a3;
-  if (a3)
-  {
-    v18 = *(a3 + 1);
-    v17 = (a3 + 8);
-    v16 = v18;
-    *(this - 3) = v18;
-    if (v18)
-    {
-      *(v16 + 16) = this - 24;
-    }
-
-    *(this - 2) = v17;
-    *v17 = v14;
-  }
-
-  llvm::Value::setName(this, a4);
-  return this;
-}
-
-llvm::ExtractElementInst *llvm::ExtractElementInst::ExtractElementInst(llvm::ExtractElementInst *this, llvm::Value *a2, llvm::Value *a3, const llvm::Twine *a4, llvm::BasicBlock *a5)
+llvm::ExtractElementInst *llvm::ExtractElementInst::ExtractElementInst(llvm::ExtractElementInst *this, llvm::Value *a2, llvm::Value *a3, const char **a4, llvm::BasicBlock *a5)
 {
   *this = *(*a2 + 24);
   *(this + 1) = 0;
@@ -156,7 +11,7 @@ llvm::ExtractElementInst *llvm::ExtractElementInst::ExtractElementInst(llvm::Ext
   *(this + 14) = 0;
   *(this + 24) = 0u;
   v11 = (this + 24);
-  llvm::SymbolTableListTraits<llvm::Instruction>::addNodeToList(a5 + 40, this);
+  llvm::SymbolTableListTraits<llvm::Instruction>::addNodeToList(a5 + 5, this);
   v12 = *(this - 8);
   v13 = *(a5 + 5);
   *(this + 4) = v10;
@@ -216,7 +71,7 @@ llvm::ExtractElementInst *llvm::ExtractElementInst::ExtractElementInst(llvm::Ext
   return this;
 }
 
-llvm::InsertElementInst *llvm::InsertElementInst::InsertElementInst(llvm::InsertElementInst *this, llvm::Value *a2, llvm::Value *a3, llvm::Value *a4, const llvm::Twine *a5, llvm::Instruction *a6)
+llvm::InsertElementInst *llvm::InsertElementInst::InsertElementInst(llvm::InsertElementInst *this, llvm::Value *a2, llvm::Value *a3, llvm::Value *a4, const char **a5, llvm::Instruction *a6)
 {
   v11 = this - 96;
   if (*(llvm::Instruction::Instruction(this, *a2, 62, this - 96, 3, a6) - 96))
@@ -299,7 +154,7 @@ llvm::InsertElementInst *llvm::InsertElementInst::InsertElementInst(llvm::Insert
   return this;
 }
 
-llvm::InsertElementInst *llvm::InsertElementInst::InsertElementInst(llvm::InsertElementInst *this, llvm::Value *a2, llvm::Value *a3, llvm::Value *a4, const llvm::Twine *a5, llvm::BasicBlock *a6)
+llvm::InsertElementInst *llvm::InsertElementInst::InsertElementInst(llvm::InsertElementInst *this, llvm::Value *a2, llvm::Value *a3, llvm::Value *a4, const char **a5, llvm::BasicBlock *a6)
 {
   *this = *a2;
   *(this + 1) = 0;
@@ -311,7 +166,7 @@ llvm::InsertElementInst *llvm::InsertElementInst::InsertElementInst(llvm::Insert
   *(this + 14) = 0;
   *(this + 24) = 0u;
   v14 = (this + 24);
-  llvm::SymbolTableListTraits<llvm::Instruction>::addNodeToList(a6 + 40, this);
+  llvm::SymbolTableListTraits<llvm::Instruction>::addNodeToList(a6 + 5, this);
   v15 = *(this - 12);
   v16 = *(a6 + 5);
   *(this + 4) = v13;
@@ -398,85 +253,84 @@ llvm::InsertElementInst *llvm::InsertElementInst::InsertElementInst(llvm::Insert
   return this;
 }
 
-llvm::ShuffleVectorInst *llvm::ShuffleVectorInst::ShuffleVectorInst(llvm::ShuffleVectorInst *this, llvm::Value *a2, llvm::Value *a3, llvm::Value *a4, const llvm::Twine *a5, llvm::Instruction *a6)
+llvm::ShuffleVectorInst *llvm::ShuffleVectorInst::ShuffleVectorInst(llvm::ShuffleVectorInst *this, llvm::Value *a2, llvm::Value *a3, llvm::Value *a4, const char **a5, llvm::Instruction *a6)
 {
   v30[8] = *MEMORY[0x277D85DE8];
-  llvm::VectorType::get(*(*a2 + 24), (*(*a4 + 32) | ((*(*a4 + 8) == 19) << 32)));
+  llvm::VectorType::get(*(*a2 + 24), (*(*a4 + 32) | ((*(*a4 + 8) == 19) << 32)), a3);
   llvm::Instruction::Instruction(this, v12, 63, this - 64, 2, a6);
   *(this + 8) = this + 80;
   *(this + 9) = 0x400000000;
   if (*(this - 8))
   {
-    v13 = *(this - 7);
-    **(this - 6) = v13;
-    if (v13)
+    v15 = *(this - 7);
+    **(this - 6) = v15;
+    if (v15)
     {
-      *(v13 + 16) = *(this - 6);
+      *(v15 + 16) = *(this - 6);
     }
   }
 
   *(this - 8) = a2;
-  v16 = *(a2 + 1);
-  v15 = (a2 + 8);
-  v14 = v16;
-  *(this - 7) = v16;
-  if (v16)
+  v18 = *(a2 + 1);
+  v17 = (a2 + 8);
+  v16 = v18;
+  *(this - 7) = v18;
+  if (v18)
   {
-    *(v14 + 16) = this - 56;
+    *(v16 + 16) = this - 56;
   }
 
-  *(this - 6) = v15;
-  *v15 = this - 64;
-  v17 = (this - 32);
+  *(this - 6) = v17;
+  *v17 = this - 64;
+  v19 = (this - 32);
   if (*(this - 4))
   {
-    v18 = *(this - 3);
-    **(this - 2) = v18;
-    if (v18)
+    v20 = *(this - 3);
+    **(this - 2) = v20;
+    if (v20)
     {
-      *(v18 + 16) = *(this - 2);
+      *(v20 + 16) = *(this - 2);
     }
   }
 
-  *v17 = a3;
+  *v19 = a3;
   if (a3)
   {
-    v21 = *(a3 + 1);
-    v20 = (a3 + 8);
-    v19 = v21;
-    *(this - 3) = v21;
-    if (v21)
+    v23 = *(a3 + 1);
+    v22 = (a3 + 8);
+    v21 = v23;
+    *(this - 3) = v23;
+    if (v23)
     {
-      *(v19 + 16) = this - 24;
+      *(v21 + 16) = this - 24;
     }
 
-    *(this - 2) = v20;
-    *v20 = v17;
+    *(this - 2) = v22;
+    *v22 = v19;
   }
 
   __src = v30;
   v29 = 0x1000000000;
-  llvm::ShuffleVectorInst::getShuffleMask(a4, &__src);
-  v22 = __src;
-  v23 = v29;
-  v24 = __src + 4 * v29;
+  llvm::ShuffleVectorInst::getShuffleMask(a4, &__src, v13, v14);
+  v24 = __src;
+  v25 = v29;
+  v26 = __src + 4 * v29;
   *(this + 18) = 0;
-  llvm::SmallVectorImpl<unsigned int>::append<unsigned int const*,void>(this + 16, v22, v24);
-  *(this + 12) = llvm::ShuffleVectorInst::convertShuffleMaskForBitcode(v22, v23, *this, v25);
+  llvm::SmallVectorImpl<unsigned int>::append<unsigned int const*,void>(this + 16, v24, v26);
+  *(this + 12) = llvm::ShuffleVectorInst::convertShuffleMaskForBitcode(v24, v25, *this);
   llvm::Value::setName(this, a5);
   if (__src != v30)
   {
     free(__src);
   }
 
-  v26 = *MEMORY[0x277D85DE8];
   return this;
 }
 
-llvm::ShuffleVectorInst *llvm::ShuffleVectorInst::ShuffleVectorInst(llvm::ShuffleVectorInst *this, llvm::Value *a2, llvm::Value *a3, llvm::Value *a4, const llvm::Twine *a5, llvm::BasicBlock *a6)
+llvm::ShuffleVectorInst *llvm::ShuffleVectorInst::ShuffleVectorInst(llvm::ShuffleVectorInst *this, llvm::Value *a2, llvm::Value *a3, llvm::Value *a4, const char **a5, llvm::BasicBlock *a6)
 {
   v33[8] = *MEMORY[0x277D85DE8];
-  llvm::VectorType::get(*(*a2 + 24), (*(*a4 + 32) | ((*(*a4 + 8) == 19) << 32)));
+  llvm::VectorType::get(*(*a2 + 24), (*(*a4 + 32) | ((*(*a4 + 8) == 19) << 32)), a3);
   *this = v12;
   *(this + 1) = 0;
   v13 = *(this + 5) & 0xC0000000 | 2;
@@ -485,120 +339,119 @@ llvm::ShuffleVectorInst *llvm::ShuffleVectorInst::ShuffleVectorInst(llvm::Shuffl
   *(this + 40) = 0u;
   *(this + 14) = 0;
   *(this + 24) = 0u;
-  llvm::SymbolTableListTraits<llvm::Instruction>::addNodeToList(a6 + 40, this);
-  v14 = *(this - 8);
-  v15 = *(a6 + 5);
+  llvm::SymbolTableListTraits<llvm::Instruction>::addNodeToList(a6 + 5, this);
+  v16 = *(this - 8);
+  v17 = *(a6 + 5);
   *(this + 4) = a6 + 40;
-  *(this + 3) = v15;
-  *(v15 + 8) = this + 24;
+  *(this + 3) = v17;
+  *(v17 + 8) = this + 24;
   *(a6 + 5) = this + 24;
   *(this + 8) = this + 80;
   *(this + 9) = 0x400000000;
-  if (v14)
+  if (v16)
   {
-    v16 = *(this - 7);
-    **(this - 6) = v16;
-    if (v16)
+    v18 = *(this - 7);
+    **(this - 6) = v18;
+    if (v18)
     {
-      *(v16 + 16) = *(this - 6);
+      *(v18 + 16) = *(this - 6);
     }
   }
 
   *(this - 8) = a2;
-  v19 = *(a2 + 1);
-  v18 = (a2 + 8);
-  v17 = v19;
-  *(this - 7) = v19;
-  if (v19)
+  v21 = *(a2 + 1);
+  v20 = (a2 + 8);
+  v19 = v21;
+  *(this - 7) = v21;
+  if (v21)
   {
-    *(v17 + 16) = this - 56;
+    *(v19 + 16) = this - 56;
   }
 
-  *(this - 6) = v18;
-  *v18 = this - 64;
-  v20 = (this - 32);
+  *(this - 6) = v20;
+  *v20 = this - 64;
+  v22 = (this - 32);
   if (*(this - 4))
   {
-    v21 = *(this - 3);
-    **(this - 2) = v21;
-    if (v21)
+    v23 = *(this - 3);
+    **(this - 2) = v23;
+    if (v23)
     {
-      *(v21 + 16) = *(this - 2);
+      *(v23 + 16) = *(this - 2);
     }
   }
 
-  *v20 = a3;
+  *v22 = a3;
   if (a3)
   {
-    v24 = *(a3 + 1);
-    v23 = (a3 + 8);
-    v22 = v24;
-    *(this - 3) = v24;
-    if (v24)
+    v26 = *(a3 + 1);
+    v25 = (a3 + 8);
+    v24 = v26;
+    *(this - 3) = v26;
+    if (v26)
     {
-      *(v22 + 16) = this - 24;
+      *(v24 + 16) = this - 24;
     }
 
-    *(this - 2) = v23;
-    *v23 = v20;
+    *(this - 2) = v25;
+    *v25 = v22;
   }
 
   __src = v33;
   v32 = 0x1000000000;
-  llvm::ShuffleVectorInst::getShuffleMask(a4, &__src);
-  v25 = __src;
-  v26 = v32;
-  v27 = __src + 4 * v32;
+  llvm::ShuffleVectorInst::getShuffleMask(a4, &__src, v14, v15);
+  v27 = __src;
+  v28 = v32;
+  v29 = __src + 4 * v32;
   *(this + 18) = 0;
-  llvm::SmallVectorImpl<unsigned int>::append<unsigned int const*,void>(this + 16, v25, v27);
-  *(this + 12) = llvm::ShuffleVectorInst::convertShuffleMaskForBitcode(v25, v26, *this, v28);
+  llvm::SmallVectorImpl<unsigned int>::append<unsigned int const*,void>(this + 16, v27, v29);
+  *(this + 12) = llvm::ShuffleVectorInst::convertShuffleMaskForBitcode(v27, v28, *this);
   llvm::Value::setName(this, a5);
   if (__src != v33)
   {
     free(__src);
   }
 
-  v29 = *MEMORY[0x277D85DE8];
   return this;
 }
 
-uint64_t llvm::ShuffleVectorInst::ShuffleVectorInst(uint64_t a1, void *a2, uint64_t a3, int *a4, llvm::Type *a5, const llvm::Twine *a6, uint64_t *a7)
+llvm::Value *llvm::ShuffleVectorInst::ShuffleVectorInst(llvm::Value *a1, void *a2, uint64_t a3, int *a4, llvm::Type *a5, const char **a6, uint64_t *a7)
 {
-  llvm::VectorType::get(*(*a2 + 24), (a5 | ((*(*a2 + 8) == 19) << 32)));
+  llvm::VectorType::get(*(*a2 + 24), (a5 | ((*(*a2 + 8) == 19) << 32)), a3);
   v15 = llvm::Instruction::Instruction(a1, v14, 63, a1 - 64, 2, a7);
   *(v15 + 64) = a1 + 80;
   v16 = v15 + 64;
   *(v16 + 8) = 0x400000000;
-  if (*(a1 - 64))
+  if (*(a1 - 8))
   {
-    v17 = *(a1 - 56);
-    **(a1 - 48) = v17;
+    v17 = *(a1 - 7);
+    **(a1 - 6) = v17;
     if (v17)
     {
-      *(v17 + 16) = *(a1 - 48);
+      *(v17 + 16) = *(a1 - 6);
     }
   }
 
-  *(a1 - 64) = a2;
+  *(a1 - 8) = a2;
   v20 = a2[1];
   v19 = a2 + 1;
   v18 = v20;
-  *(a1 - 56) = v20;
+  *(a1 - 7) = v20;
   if (v20)
   {
     *(v18 + 16) = a1 - 56;
   }
 
-  *(a1 - 48) = v19;
+  *(a1 - 6) = v19;
   *v19 = a1 - 64;
   v21 = (a1 - 32);
-  if (*(a1 - 32))
+  if (*(a1 - 4))
   {
-    v22 = *(a1 - 24);
-    **(a1 - 16) = v22;
+    v22 = *(a1 - 3);
+    **(a1 - 2) = v22;
     if (v22)
     {
-      *(v22 + 16) = *(a1 - 16);
+      *(v22 + 16) = *(a1 - 2);
     }
   }
 
@@ -608,114 +461,114 @@ uint64_t llvm::ShuffleVectorInst::ShuffleVectorInst(uint64_t a1, void *a2, uint6
     v25 = *(a3 + 8);
     v24 = (a3 + 8);
     v23 = v25;
-    *(a1 - 24) = v25;
+    *(a1 - 3) = v25;
     if (v25)
     {
       *(v23 + 16) = a1 - 24;
     }
 
-    *(a1 - 16) = v24;
+    *(a1 - 2) = v24;
     *v24 = v21;
   }
 
-  *(a1 + 72) = 0;
+  *(a1 + 18) = 0;
   llvm::SmallVectorImpl<unsigned int>::append<unsigned int const*,void>(v16, a4, &a4[a5]);
-  *(a1 + 96) = llvm::ShuffleVectorInst::convertShuffleMaskForBitcode(a4, a5, *a1, v26);
+  *(a1 + 12) = llvm::ShuffleVectorInst::convertShuffleMaskForBitcode(a4, a5, *a1);
   llvm::Value::setName(a1, a6);
   return a1;
 }
 
-unsigned int *llvm::ShuffleVectorInst::getShuffleMask(unsigned int *this, unsigned int *a2)
+unsigned int *llvm::ShuffleVectorInst::getShuffleMask(unsigned int *this, unsigned int *a2, uint64_t a3, BOOL a4)
 {
-  v3 = *(*this + 32);
+  v5 = *(*this + 32);
   if (*(this + 16) == 13)
   {
-    v4 = a2[2];
-    if (v4 != v3)
+    v6 = a2[2];
+    if (v6 != v5)
     {
-      if (v4 <= v3)
+      if (v6 <= v5)
       {
 
-        return llvm::SmallVectorImpl<int>::append(a2, v3 - v4, 0);
+        return llvm::SmallVectorImpl<int>::append(a2, v5 - v6, 0);
       }
 
       else
       {
-        a2[2] = v3;
+        a2[2] = v5;
       }
     }
   }
 
   else
   {
-    v5 = this;
-    v6 = *(*this + 8);
-    if (a2[3] < v3)
+    v7 = this;
+    v8 = *(*this + 8);
+    if (a2[3] < v5)
     {
-      this = llvm::SmallVectorBase<unsigned int>::grow_pod(a2, a2 + 4, v3, 4);
+      this = llvm::SmallVectorBase<unsigned int>::grow_pod(a2, a2 + 4, v5, 4);
     }
 
-    if (v6 == 19)
+    if (v8 == 19)
     {
-      if (v5[16] - 11 >= 2)
+      if (v7[16] - 11 >= 2)
       {
-        v7 = 0;
+        v9 = 0;
       }
 
       else
       {
-        v7 = -1;
+        v9 = -1;
       }
 
-      for (i = v7; v3; LODWORD(v3) = v3 - 1)
+      for (i = v9; v5; LODWORD(v5) = v5 - 1)
       {
         this = llvm::SmallVectorImpl<int>::emplace_back<int &>(a2, &i);
       }
     }
 
-    else if ((v5[16] & 0xFE) == 0xE)
+    else if ((v7[16] & 0xFE) == 0xE)
     {
-      if (v3)
+      if (v5)
       {
-        v8 = 0;
+        v10 = 0;
         do
         {
-          ElementAsInteger = llvm::ConstantDataSequential::getElementAsInteger(v5, v8);
+          ElementAsInteger = llvm::ConstantDataSequential::getElementAsInteger(v7, v10);
           this = llvm::SmallVectorTemplateBase<unsigned int,true>::push_back(a2, ElementAsInteger);
-          ++v8;
+          ++v10;
         }
 
-        while (v3 != v8);
+        while (v5 != v10);
       }
     }
 
-    else if (v3)
+    else if (v5)
     {
-      v10 = 0;
+      v12 = 0;
       do
       {
-        AggregateElement = llvm::Constant::getAggregateElement(v5, v10);
+        AggregateElement = llvm::Constant::getAggregateElement(v7, v12, a3, a4);
         if (*(AggregateElement + 16) - 11 >= 2)
         {
-          v13 = (AggregateElement + 24);
-          if (*(AggregateElement + 32) >= 0x41u)
+          v15 = (AggregateElement + 24);
+          if (*(AggregateElement + 8) >= 0x41u)
           {
-            v13 = *v13;
+            v15 = *v15;
           }
 
-          v12 = *v13;
+          v14 = *v15;
         }
 
         else
         {
-          v12 = -1;
+          v14 = -1;
         }
 
-        this = llvm::SmallVectorTemplateBase<unsigned int,true>::push_back(a2, v12);
-        v10 = (v10 + 1);
+        this = llvm::SmallVectorTemplateBase<unsigned int,true>::push_back(a2, v14);
+        v12 = (v12 + 1);
       }
 
-      while (v3 != v10);
+      while (v5 != v12);
     }
   }
 
@@ -771,39 +624,37 @@ uint64_t llvm::SmallVectorImpl<int>::emplace_back<int &>(unsigned int *a1, int *
   return v4 + 4 * v5 - 4;
 }
 
-uint64_t llvm::ShuffleVectorInst::convertShuffleMaskForBitcode(int *a1, llvm::Type *a2, uint64_t **a3, BOOL a4)
+llvm::Value *llvm::ShuffleVectorInst::convertShuffleMaskForBitcode(int *a1, llvm::Type *a2, uint64_t **a3)
 {
-  v20[16] = *MEMORY[0x277D85DE8];
-  v5 = **a3;
+  v18[16] = *MEMORY[0x277D85DE8];
+  v4 = **a3;
   if (*(a3 + 8) == 19)
   {
-    llvm::VectorType::get((v5 + 1992), (a2 | 0x100000000));
+    llvm::VectorType::get((v4 + 1992), (a2 | 0x100000000), a3);
     if (*a1)
     {
-      v8 = *MEMORY[0x277D85DE8];
 
-      return llvm::UndefValue::get(v6, v7);
+      return llvm::UndefValue::get(v5, v6);
     }
 
     else
     {
-      v15 = *MEMORY[0x277D85DE8];
 
-      return llvm::Constant::getNullValue(v6, v7);
+      return llvm::Constant::getNullValue(v5, v6, v7, v8);
     }
   }
 
   else
   {
-    v18 = v20;
-    v19 = 0x1000000000;
+    v16 = v18;
+    v17 = 0x1000000000;
     if (a2)
     {
       v10 = 4 * a2;
       do
       {
         v11 = *a1;
-        v12 = (v5 + 1992);
+        v12 = (v4 + 1992);
         if (v11 == -1)
         {
           v13 = llvm::UndefValue::get(v12, v11);
@@ -811,36 +662,35 @@ uint64_t llvm::ShuffleVectorInst::convertShuffleMaskForBitcode(int *a1, llvm::Ty
 
         else
         {
-          v13 = llvm::ConstantInt::get(v12, v11, 0, a4);
+          v13 = llvm::ConstantInt::get(v12, v11, 0);
         }
 
-        llvm::SmallVectorTemplateBase<void *,true>::push_back(&v18, v13);
+        llvm::SmallVectorTemplateBase<void *,true>::push_back(&v16, v13);
         ++a1;
         v10 -= 4;
       }
 
       while (v10);
-      v14 = v18;
-      a2 = v19;
+      v14 = v16;
+      a2 = v17;
     }
 
     else
     {
-      v14 = v20;
+      v14 = v18;
     }
 
-    v16 = llvm::ConstantVector::get(v14, a2);
-    if (v18 != v20)
+    v15 = llvm::ConstantVector::get(v14, a2, a3);
+    if (v16 != v18)
     {
-      free(v18);
+      free(v16);
     }
 
-    v17 = *MEMORY[0x277D85DE8];
-    return v16;
+    return v15;
   }
 }
 
-void llvm::InsertValueInst::init(unsigned int *a1, uint64_t a2, uint64_t a3, _BYTE *__src, uint64_t a5, const llvm::Twine *a6)
+void llvm::InsertValueInst::init(unsigned int *a1, uint64_t a2, uint64_t a3, _BYTE *__src, uint64_t a5, const char **a6)
 {
   v8 = a1 - 16;
   if (*(a1 - 8))
@@ -950,7 +800,7 @@ uint64_t llvm::ExtractValueInst::getIndexedType(uint64_t a1, unsigned int *a2, u
   return a1;
 }
 
-llvm::UnaryInstruction *llvm::UnaryOperator::UnaryOperator(llvm::UnaryInstruction *a1, char a2, llvm::Value *a3, llvm::Type *a4, const llvm::Twine *a5, llvm::Instruction *a6)
+llvm::UnaryInstruction *llvm::UnaryOperator::UnaryOperator(llvm::UnaryInstruction *a1, uint64_t a2, llvm::Value *a3, llvm::Type *a4, const char **a5, llvm::Instruction *a6)
 {
   v9 = (llvm::UnaryInstruction::UnaryInstruction(a1, a4, a2, a3, a6) - 32);
   if (*v9)
@@ -983,7 +833,7 @@ llvm::UnaryInstruction *llvm::UnaryOperator::UnaryOperator(llvm::UnaryInstructio
   return a1;
 }
 
-llvm::UnaryInstruction *llvm::UnaryOperator::Create(char a1, llvm::Value *a2, const llvm::Twine *a3, llvm::Instruction *a4)
+llvm::UnaryInstruction *llvm::UnaryOperator::Create(uint64_t a1, llvm::Type **a2, const char **a3, llvm::Instruction *a4)
 {
   v8 = operator new(0x60uLL);
   v8[13] = v8[13] & 0x38000000 | 1;
@@ -997,7 +847,7 @@ llvm::UnaryInstruction *llvm::UnaryOperator::Create(char a1, llvm::Value *a2, co
   return llvm::UnaryOperator::UnaryOperator(v10, a1, a2, v9, a3, a4);
 }
 
-char *llvm::UnaryOperator::Create(char a1, llvm::Value *a2, const llvm::Twine *a3, uint64_t a4)
+char *llvm::UnaryOperator::Create(uint64_t a1, llvm::Value *a2, const char **a3, uint64_t a4)
 {
   v8 = operator new(0x60uLL);
   v9 = (v8 + 8);
@@ -1007,7 +857,7 @@ char *llvm::UnaryOperator::Create(char a1, llvm::Value *a2, const llvm::Twine *a
   *(v8 + 2) = 0;
   *(v8 + 3) = v8 + 8;
   llvm::UnaryOperator::UnaryOperator((v8 + 8), a1, a2, *a2, a3, 0);
-  llvm::SymbolTableListTraits<llvm::Instruction>::addNodeToList(a4 + 40, (v8 + 8));
+  llvm::SymbolTableListTraits<llvm::Instruction>::addNodeToList((a4 + 40), (v8 + 8));
   v10 = *(a4 + 40);
   *(v8 + 7) = v10;
   *(v8 + 8) = a4 + 40;
@@ -1017,7 +867,7 @@ char *llvm::UnaryOperator::Create(char a1, llvm::Value *a2, const llvm::Twine *a
   return v9;
 }
 
-llvm::Value *llvm::BinaryOperator::BinaryOperator(llvm::Value *a1, char a2, uint64_t a3, uint64_t a4, uint64_t a5, const llvm::Twine *a6, uint64_t *a7)
+llvm::Value *llvm::BinaryOperator::BinaryOperator(llvm::Value *a1, char a2, uint64_t a3, uint64_t a4, uint64_t a5, const char **a6, uint64_t *a7)
 {
   v11 = (a1 - 64);
   if (*(llvm::Instruction::Instruction(a1, a5, a2, a1 - 64, 2, a7) - 64))
@@ -1077,7 +927,7 @@ llvm::Value *llvm::BinaryOperator::BinaryOperator(llvm::Value *a1, char a2, uint
   return a1;
 }
 
-llvm::Value *llvm::BinaryOperator::Create(char a1, uint64_t *a2, uint64_t a3, const llvm::Twine *a4, uint64_t *a5)
+llvm::Value *llvm::BinaryOperator::Create(char a1, uint64_t *a2, uint64_t a3, const char **a4, uint64_t *a5)
 {
   v10 = operator new(0x80uLL);
   v10[21] = v10[21] & 0x38000000 | 2;
@@ -1095,7 +945,7 @@ llvm::Value *llvm::BinaryOperator::Create(char a1, uint64_t *a2, uint64_t a3, co
   return llvm::BinaryOperator::BinaryOperator(v12, a1, a2, a3, v11, a4, a5);
 }
 
-char *llvm::BinaryOperator::Create(char a1, uint64_t *a2, uint64_t a3, const llvm::Twine *a4, uint64_t a5)
+char *llvm::BinaryOperator::Create(char a1, uint64_t *a2, uint64_t a3, const char **a4, uint64_t a5)
 {
   v10 = operator new(0x80uLL);
   v10[21] = v10[21] & 0x38000000 | 2;
@@ -1109,7 +959,7 @@ char *llvm::BinaryOperator::Create(char a1, uint64_t *a2, uint64_t a3, const llv
   *(v10 + 6) = 0;
   *(v10 + 7) = v10 + 16;
   llvm::BinaryOperator::BinaryOperator((v10 + 16), a1, a2, a3, *a2, a4, 0);
-  llvm::SymbolTableListTraits<llvm::Instruction>::addNodeToList(a5 + 40, (v10 + 16));
+  llvm::SymbolTableListTraits<llvm::Instruction>::addNodeToList((a5 + 40), (v10 + 16));
   v12 = *(a5 + 40);
   *(v10 + 11) = v12;
   *(v10 + 12) = a5 + 40;
@@ -1420,7 +1270,7 @@ LABEL_72:
   return result;
 }
 
-char *llvm::CastInst::Create(char a1, llvm::Value *a2, llvm::Type *a3, const llvm::Twine *a4, llvm::Instruction *a5)
+char *llvm::CastInst::Create(uint64_t a1, llvm::Value *a2, llvm::Type *a3, const char **a4, llvm::Instruction *a5)
 {
   v10 = operator new(0x60uLL);
   v10[13] = v10[13] & 0x38000000 | 1;
@@ -1434,7 +1284,7 @@ char *llvm::CastInst::Create(char a1, llvm::Value *a2, llvm::Type *a3, const llv
   return v11;
 }
 
-char *llvm::CastInst::Create(char a1, llvm::Value *a2, llvm::Type *a3, const llvm::Twine *a4, llvm::BasicBlock *a5)
+char *llvm::CastInst::Create(char a1, llvm::Value *a2, llvm::Type *a3, const char **a4, llvm::BasicBlock *a5)
 {
   v10 = operator new(0x60uLL);
   v10[13] = v10[13] & 0x38000000 | 1;
@@ -1448,7 +1298,7 @@ char *llvm::CastInst::Create(char a1, llvm::Value *a2, llvm::Type *a3, const llv
   return v11;
 }
 
-char *llvm::CastInst::CreatePointerCast(llvm::CastInst *this, llvm::Value *a2, llvm::Type *a3, const llvm::Twine *a4, llvm::Instruction *a5)
+char *llvm::CastInst::CreatePointerCast(llvm::CastInst *this, llvm::Value *a2, const char **a3, const llvm::Twine *a4, llvm::Instruction *a5)
 {
   if ((*(a2 + 2) & 0xFE) == 0x12)
   {
@@ -1471,7 +1321,7 @@ char *llvm::CastInst::CreatePointerCast(llvm::CastInst *this, llvm::Value *a2, l
   }
 }
 
-char *llvm::CastInst::CreatePointerBitCastOrAddrSpaceCast(llvm::CastInst *this, llvm::Value *a2, llvm::Type *a3, const llvm::Twine *a4, llvm::Instruction *a5)
+char *llvm::CastInst::CreatePointerBitCastOrAddrSpaceCast(llvm::CastInst *this, llvm::Value *a2, const char **a3, const llvm::Twine *a4, llvm::Instruction *a5)
 {
   v9 = *(*this + 8);
   if ((v9 & 0xFE) == 0x12)
@@ -1498,7 +1348,7 @@ char *llvm::CastInst::CreatePointerBitCastOrAddrSpaceCast(llvm::CastInst *this, 
   return llvm::CastInst::Create(v11, this, a2, a3, a4);
 }
 
-char *llvm::CastInst::CreateIntegerCast(llvm::CastInst *this, llvm::Type ***a2, llvm::Type *a3, const llvm::Twine *a4, const llvm::Twine *a5, llvm::Instruction *a6)
+char *llvm::CastInst::CreateIntegerCast(llvm::CastInst *this, llvm::Type ***a2, llvm::Type *a3, const char **a4, const llvm::Twine *a5, llvm::Instruction *a6)
 {
   v8 = a3;
   v11 = *this;
@@ -1543,7 +1393,7 @@ char *llvm::CastInst::CreateIntegerCast(llvm::CastInst *this, llvm::Type ***a2, 
   return llvm::CastInst::Create(v16, this, a2, a4, a5);
 }
 
-uint64_t llvm::CastInst::castIsValid(int a1, uint64_t a2, uint64_t a3)
+BOOL llvm::CastInst::castIsValid(int a1, uint64_t a2, uint64_t a3)
 {
   v3 = *(a2 + 8);
   v4 = v3;
@@ -1947,7 +1797,7 @@ LABEL_137:
   return v10;
 }
 
-_WORD *llvm::CmpInst::CmpInst(_WORD *a1, uint64_t a2, char a3, __int16 a4, uint64_t a5, uint64_t a6, const llvm::Twine *a7, uint64_t *a8, uint64_t a9)
+_WORD *llvm::CmpInst::CmpInst(_WORD *a1, uint64_t a2, char a3, __int16 a4, uint64_t a5, uint64_t a6, const char **a7, uint64_t *a8, uint64_t a9)
 {
   v14 = a1 - 32;
   if (*(llvm::Instruction::Instruction(a1, a2, a3, (a1 - 32), 2, a8) - 64))
@@ -2013,7 +1863,7 @@ _WORD *llvm::CmpInst::CmpInst(_WORD *a1, uint64_t a2, char a3, __int16 a4, uint6
   return a1;
 }
 
-uint64_t llvm::CmpInst::CmpInst(uint64_t a1, uint64_t a2, char a3, __int16 a4, uint64_t a5, uint64_t a6, const llvm::Twine *a7, uint64_t a8)
+uint64_t llvm::CmpInst::CmpInst(uint64_t a1, uint64_t a2, char a3, __int16 a4, uint64_t a5, uint64_t a6, const char **a7, uint64_t a8)
 {
   *a1 = a2;
   *(a1 + 8) = 0;
@@ -2026,7 +1876,7 @@ uint64_t llvm::CmpInst::CmpInst(uint64_t a1, uint64_t a2, char a3, __int16 a4, u
   *(a1 + 56) = 0;
   *(a1 + 24) = 0u;
   v15 = (a1 + 24);
-  llvm::SymbolTableListTraits<llvm::Instruction>::addNodeToList(a8 + 40, a1);
+  llvm::SymbolTableListTraits<llvm::Instruction>::addNodeToList((a8 + 40), a1);
   v16 = (a1 - 64);
   v17 = *(a1 - 64);
   v18 = *(a8 + 40);
@@ -2092,7 +1942,7 @@ uint64_t llvm::CmpInst::CmpInst(uint64_t a1, uint64_t a2, char a3, __int16 a4, u
   return a1;
 }
 
-uint64_t llvm::CmpInst::Create(int a1, __int16 a2, llvm::CmpInst **a3, uint64_t a4, const llvm::Twine *a5, uint64_t a6)
+uint64_t llvm::CmpInst::Create(int a1, __int16 a2, llvm::CmpInst **a3, uint64_t a4, const char **a5, uint64_t a6)
 {
   v12 = operator new(0x80uLL);
   v12[21] = v12[21] & 0x38000000 | 2;
@@ -2105,18 +1955,18 @@ uint64_t llvm::CmpInst::Create(int a1, __int16 a2, llvm::CmpInst **a3, uint64_t 
   *(v12 + 5) = 0;
   *(v12 + 6) = 0;
   *(v12 + 7) = v12 + 16;
-  llvm::CmpInst::makeCmpResultType(*a3, v14);
+  llvm::CmpInst::makeCmpResultType(*a3, v14, v15);
   if (a1 == 53)
   {
-    v16 = 53;
+    v17 = 53;
   }
 
   else
   {
-    v16 = 54;
+    v17 = 54;
   }
 
-  return llvm::CmpInst::CmpInst(v13, v15, v16, a2, a3, a4, a5, a6);
+  return llvm::CmpInst::CmpInst(v13, v16, v17, a2, a3, a4, a5, a6);
 }
 
 const char *llvm::CmpInst::getPredicateName(unsigned int a1)
@@ -2126,11 +1976,13 @@ const char *llvm::CmpInst::getPredicateName(unsigned int a1)
     return "unknown";
   }
 
-  v1 = qword_2750DDD58[a1];
-  return off_279F17588[a1];
+  else
+  {
+    return off_279F17588[a1];
+  }
 }
 
-uint64_t llvm::ICmpInst::compare(unsigned int *a1, const llvm::APInt *a2, int a3)
+uint64_t llvm::ICmpInst::compare(llvm::APInt *a1, const llvm::APInt *a2, int a3)
 {
   if (a3 > 36)
   {
@@ -2185,7 +2037,7 @@ uint64_t llvm::ICmpInst::compare(unsigned int *a1, const llvm::APInt *a2, int a3
 
   if (a3 == 32)
   {
-    v5 = a1[2];
+    v5 = *(a1 + 2);
     if (v5 > 0x40)
     {
       return memcmp(*a1, *a2, ((v5 + 63) >> 3) & 0x3FFFFFF8) == 0;
@@ -2199,7 +2051,7 @@ uint64_t llvm::ICmpInst::compare(unsigned int *a1, const llvm::APInt *a2, int a3
 
   else
   {
-    v10 = a1[2];
+    v10 = *(a1 + 2);
     if (v10 > 0x40)
     {
       v11 = memcmp(*a1, *a2, ((v10 + 63) >> 3) & 0x3FFFFFF8) == 0;
@@ -2215,7 +2067,7 @@ uint64_t llvm::ICmpInst::compare(unsigned int *a1, const llvm::APInt *a2, int a3
   }
 }
 
-uint64_t llvm::FCmpInst::compare(llvm::APFloat *a1, const llvm::APFloat *a2, int a3)
+BOOL llvm::FCmpInst::compare(llvm::APFloat *a1, const llvm::APFloat *a2, int a3)
 {
   v4 = llvm::APFloat::compare(a1, a2);
   result = 0;
@@ -2395,10 +2247,10 @@ void llvm::SwitchInst::addCase(llvm::User *this, uint64_t a2, uint64_t a3)
 
   else
   {
-    v11 = this - 32 * (v8 & 0x7FFFFFF);
+    v11 = (this - 32 * (v8 & 0x7FFFFFF));
   }
 
-  v12 = &v11[32 * v10];
+  v12 = &v11[8 * v10];
   if (*v12)
   {
     v13 = *(v12 + 1);
@@ -2418,7 +2270,7 @@ void llvm::SwitchInst::addCase(llvm::User *this, uint64_t a2, uint64_t a3)
     *(v12 + 1) = v16;
     if (v16)
     {
-      *(v14 + 16) = v12 + 8;
+      *(v14 + 16) = v12 + 2;
     }
 
     *(v12 + 2) = v15;
@@ -2434,10 +2286,10 @@ void llvm::SwitchInst::addCase(llvm::User *this, uint64_t a2, uint64_t a3)
 
   else
   {
-    v19 = this - 32 * (v18 & 0x7FFFFFF);
+    v19 = (this - 32 * (v18 & 0x7FFFFFF));
   }
 
-  v20 = &v19[32 * v17];
+  v20 = &v19[8 * v17];
   if (*v20)
   {
     v21 = *(v20 + 1);
@@ -2457,7 +2309,7 @@ void llvm::SwitchInst::addCase(llvm::User *this, uint64_t a2, uint64_t a3)
     *(v20 + 1) = v24;
     if (v24)
     {
-      *(v22 + 16) = v20 + 8;
+      *(v22 + 16) = v20 + 2;
     }
 
     *(v20 + 2) = v23;
@@ -2535,7 +2387,7 @@ llvm::IndirectBrInst *llvm::IndirectBrInst::IndirectBrInst(llvm::IndirectBrInst 
   return this;
 }
 
-void llvm::IndirectBrInst::addDestination(llvm::IndirectBrInst *this, llvm::BasicBlock *a2)
+void llvm::IndirectBrInst::addDestination(llvm::User *this, llvm::BasicBlock *a2)
 {
   v4 = *(this + 5);
   v5 = v4 & 0x7FFFFFF;
@@ -2556,10 +2408,10 @@ void llvm::IndirectBrInst::addDestination(llvm::IndirectBrInst *this, llvm::Basi
 
   else
   {
-    v8 = this - 32 * (v6 & 0x7FFFFFF);
+    v8 = (this - 32 * (v6 & 0x7FFFFFF));
   }
 
-  v9 = &v8[32 * v5];
+  v9 = &v8[8 * v5];
   if (*v9)
   {
     v10 = *(v9 + 1);
@@ -2579,7 +2431,7 @@ void llvm::IndirectBrInst::addDestination(llvm::IndirectBrInst *this, llvm::Basi
     *(v9 + 1) = v13;
     if (v13)
     {
-      *(v11 + 16) = v9 + 8;
+      *(v11 + 16) = v9 + 2;
     }
 
     *(v9 + 2) = v12;
@@ -2587,7 +2439,7 @@ void llvm::IndirectBrInst::addDestination(llvm::IndirectBrInst *this, llvm::Basi
   }
 }
 
-llvm::FreezeInst *llvm::FreezeInst::FreezeInst(llvm::FreezeInst *this, llvm::Type **a2, const llvm::Twine *a3, llvm::Instruction *a4)
+llvm::FreezeInst *llvm::FreezeInst::FreezeInst(llvm::FreezeInst *this, llvm::Type **a2, const char **a3, llvm::Instruction *a4)
 {
   v6 = llvm::UnaryInstruction::UnaryInstruction(this, *a2, 67, a2, a4);
   llvm::Value::setName(v6, a3);
@@ -2709,7 +2561,7 @@ uint64_t _GLOBAL__sub_I_Instructions_cpp()
   word_2815A50D0 = 256;
   qword_2815A5060 = "Disables inttoptr/ptrtoint roundtrip optimization";
   unk_2815A5068 = 49;
-  llvm::cl::Option::addArgument(&DisableI2pP2iOpt);
+  llvm::cl::Option::addArgument(&DisableI2pP2iOpt, v1);
 
   return __cxa_atexit(llvm::cl::opt<BOOL,false,llvm::cl::parser<BOOL>>::~opt, &DisableI2pP2iOpt, &dword_274E5C000);
 }
@@ -2730,7 +2582,7 @@ uint64_t llvm::DbgVariableIntrinsic::getVariableLocationOp(llvm::DbgVariableIntr
   return *(v2 + 128);
 }
 
-uint64_t llvm::Intrinsic::lookupLLVMIntrinsicByName(const char **a1, uint64_t a2, _BYTE *a3, unint64_t a4)
+unint64_t llvm::Intrinsic::lookupLLVMIntrinsicByName(const char **a1, uint64_t a2, _BYTE *a3, size_t a4)
 {
   v4 = a4;
   v6 = a1;
@@ -3553,7 +3405,7 @@ char *llvm::DenseMap<llvm::Function const*,std::string,llvm::DenseMapInfo<llvm::
         }
 
         v11 += 2;
-        v16 += 8;
+        v16 += 64;
       }
 
       while (v14 != v11);
@@ -3618,7 +3470,7 @@ char *llvm::DenseMap<llvm::Function const*,std::string,llvm::DenseMapInfo<llvm::
       }
 
       v23 += 2;
-      v28 += 8;
+      v28 += 64;
     }
 
     while (v26 != v23);
@@ -3770,13 +3622,13 @@ void llvm::DIArgList::~DIArgList(llvm::DIArgList *this)
   llvm::ContextAndReplaceableUses::~ContextAndReplaceableUses((this + 8));
 }
 
-char **llvm::SmallVector<llvm::MDAttachments::Attachment,1u>::~SmallVector(char **a1)
+char ***llvm::SmallVector<llvm::MDAttachments::Attachment,1u>::~SmallVector(char ***a1)
 {
   v2 = *a1;
   v3 = *(a1 + 2);
   if (v3)
   {
-    v4 = &v2[16 * v3 - 8];
+    v4 = &v2[2 * v3 - 1];
     v5 = -16 * v3;
     do
     {
@@ -3803,41 +3655,38 @@ char **llvm::SmallVector<llvm::MDAttachments::Attachment,1u>::~SmallVector(char 
 
 unint64_t llvm::hashing::detail::hash_combine_range_impl<llvm::MDOperand const*>(uint64_t *a1, uint64_t *a2, uint64_t a3, unint64_t *a4)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   {
-    v19 = llvm::hashing::detail::fixed_seed_override;
+    v18 = llvm::hashing::detail::fixed_seed_override;
     if (!llvm::hashing::detail::fixed_seed_override)
     {
-      v19 = 0xFF51AFD7ED558CCDLL;
+      v18 = 0xFF51AFD7ED558CCDLL;
     }
 
-    llvm::hashing::detail::get_execution_seed(void)::seed = v19;
+    llvm::hashing::detail::get_execution_seed(void)::seed = v18;
   }
 
   v6 = llvm::hashing::detail::get_execution_seed(void)::seed;
   if (a1 == a2)
   {
     v8 = 0;
-LABEL_8:
-    result = llvm::hashing::detail::hash_short(__src, v8, v6);
+    return llvm::hashing::detail::hash_short(__src, v8, v6);
   }
 
   else
   {
-    v7 = 0;
-    while (v7 <= 0x38)
+    for (i = 0; i <= 0x38; i += 8)
     {
-      v8 = v7 + 8;
+      v8 = i + 8;
       v9 = *a1++;
-      *&__src[v7] = v9;
-      v7 += 8;
+      *&__src[i] = v9;
       if (a1 == a2)
       {
-        goto LABEL_8;
+        return llvm::hashing::detail::hash_short(__src, v8, v6);
       }
     }
 
-    llvm::hashing::detail::hash_state::create(__src, v6, v6, a4, v20);
+    llvm::hashing::detail::hash_state::create(v19, __src, v6, v6, a4);
     v11 = 64;
     while (a1 != a2)
     {
@@ -3857,19 +3706,16 @@ LABEL_8:
       }
 
       while (!v15);
-      std::__rotate[abi:nn200100]<std::_ClassicAlgPolicy,char *,char *>(__src, &__src[v13], &v22);
-      llvm::hashing::detail::hash_state::mix(v20, __src, v16, v17);
+      std::__rotate[abi:nn200100]<std::_ClassicAlgPolicy,char *,char *>(__src, &__src[v13], &v21);
+      llvm::hashing::detail::hash_state::mix(v19, __src, v16, v17);
       v11 += v13;
     }
 
-    result = llvm::hashing::detail::hash_state::finalize(v20, v11);
+    return llvm::hashing::detail::hash_state::finalize(v19, v11);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
-uint64_t *llvm::StringMap<unsigned char,llvm::MallocAllocator>::try_emplace<unsigned char>(llvm::StringMapImpl *a1, uint64_t *a2, unint64_t a3, char *a4)
+uint64_t *llvm::StringMap<unsigned char,llvm::MallocAllocator>::try_emplace<unsigned char>(llvm::StringMapImpl *a1, uint64_t *a2, size_t a3, char *a4)
 {
   v8 = llvm::StringMapImpl::LookupBucketFor(a1, a2, a3);
   i = (*a1 + 8 * v8);
@@ -3892,17 +3738,17 @@ uint64_t *llvm::StringMap<unsigned char,llvm::MallocAllocator>::try_emplace<unsi
   }
 
   v12 = operator new(a3 + 17, 8uLL);
-  v13 = v12;
-  v14 = v12 + 16;
+  v14 = v12;
+  v15 = v12 + 16;
   if (a3)
   {
     memcpy(v12 + 16, a2, a3);
   }
 
-  v14[a3] = 0;
-  *v13 = a3;
-  v13[8] = *a4;
-  *i = v13;
+  v15[a3] = 0;
+  *v14 = a3;
+  v14[8] = *a4;
+  *i = v14;
   ++*(a1 + 3);
     ;
   }
@@ -3912,11 +3758,11 @@ uint64_t *llvm::StringMap<unsigned char,llvm::MallocAllocator>::try_emplace<unsi
 
 uint64_t _GLOBAL__sub_I_LLVMContextImpl_cpp()
 {
-  v0 = llvm::cl::Option::Option(OpaquePointersCL, 0, 0);
+  v0 = llvm::cl::Option::Option(&OpaquePointersCL, 0, 0);
   byte_2815AC708 = 0;
   qword_2815AC710 = &unk_2883EAB68;
   *&word_2815AC718 = 0;
-  OpaquePointersCL[0] = &unk_2883EAB00;
+  OpaquePointersCL = &unk_2883EAB00;
   qword_2815AC720 = &unk_2883EA848;
   qword_2815AC728 = &unk_2883EAB88;
   qword_2815AC740 = &qword_2815AC728;
@@ -3925,12 +3771,12 @@ uint64_t _GLOBAL__sub_I_LLVMContextImpl_cpp()
   unk_2815AC6B0 = 19;
   byte_2815AC708 = 1;
   word_2815AC718 = 257;
-  llvm::cl::Option::addArgument(OpaquePointersCL);
+  llvm::cl::Option::addArgument(&OpaquePointersCL, v1);
 
-  return __cxa_atexit(llvm::cl::opt<BOOL,false,llvm::cl::parser<BOOL>>::~opt, OpaquePointersCL, &dword_274E5C000);
+  return __cxa_atexit(llvm::cl::opt<BOOL,false,llvm::cl::parser<BOOL>>::~opt, &OpaquePointersCL, &dword_274E5C000);
 }
 
-uint64_t llvm::LLVMRemarkStreamer::toRemark@<X0>(uint64_t a1@<X1>, uint64_t a2@<X8>)
+uint64_t ***llvm::LLVMRemarkStreamer::toRemark@<X0>(uint64_t a1@<X1>, uint64_t a2@<X8>)
 {
   v8 = 0;
   *(a2 + 104) = a2 + 120;
@@ -3967,7 +3813,7 @@ uint64_t llvm::LLVMRemarkStreamer::toRemark@<X0>(uint64_t a1@<X1>, uint64_t a2@<
   if ((*(result + 23) & 0x10) != 0)
   {
     result = llvm::Value::getValueName(result);
-    v14 = result + 16;
+    v14 = (result + 2);
     v13 = *result;
     if (*result)
     {
@@ -4153,7 +3999,7 @@ uint64_t llvm::SmallVectorImpl<llvm::remarks::Argument>::emplace_back<>(uint64_t
 
 void llvm::LLVMRemarkStreamer::emit(uint64_t *a1, uint64_t a2)
 {
-  v10[40] = *MEMORY[0x277D85DE8];
+  v9[40] = *MEMORY[0x277D85DE8];
   v4 = *a1;
   v5 = *(a2 + 40);
   if (v5)
@@ -4168,15 +4014,13 @@ void llvm::LLVMRemarkStreamer::emit(uint64_t *a1, uint64_t a2)
 
   if (*(v4 + 16) != 1 || llvm::Regex::match(v4, v5, v6, 0, 0))
   {
-    llvm::LLVMRemarkStreamer::toRemark(a2, v8);
-    (*(**(*a1 + 24) + 16))(*(*a1 + 24), v8);
-    if (v9 != v10)
+    llvm::LLVMRemarkStreamer::toRemark(a2, v7);
+    (*(**(*a1 + 24) + 16))(*(*a1 + 24), v7);
+    if (v8 != v9)
     {
-      free(v9);
+      free(v8);
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t llvm::SmallVectorTemplateBase<llvm::remarks::Argument,true>::growAndEmplaceBack<>(uint64_t a1)
@@ -4404,22 +4248,6 @@ void llvm::cl::parser<anonymous namespace::PassDebugLevel>::~parser(void *a1)
   JUMPOUT(0x277C69E40);
 }
 
-uint64_t llvm::cl::parser<anonymous namespace::PassDebugLevel>::getOption(uint64_t a1, unsigned int a2)
-{
-  v2 = (*(a1 + 16) + 48 * a2);
-  result = *v2;
-  v4 = v2[1];
-  return result;
-}
-
-uint64_t llvm::cl::parser<anonymous namespace::PassDebugLevel>::getDescription(uint64_t a1, unsigned int a2)
-{
-  v2 = *(a1 + 16) + 48 * a2;
-  result = *(v2 + 16);
-  v4 = *(v2 + 24);
-  return result;
-}
-
 void llvm::SmallVectorTemplateBase<llvm::cl::parser<anonymous namespace::PassDebugLevel>::OptionInfo,false>::grow(unint64_t a1)
 {
   v9 = 0;
@@ -4507,69 +4335,66 @@ uint64_t _GLOBAL__sub_I_LegacyPassManager_cpp()
   unk_2815A5440 = 46;
   if (v16)
   {
-    v1 = v15;
-    v2 = v15 + 40 * v16;
+    v2 = v15;
+    v3 = v15 + 40 * v16;
     do
     {
-      v3 = *v1;
-      v4 = *(v1 + 1);
-      v5 = *(v1 + 24);
-      v6 = *(v1 + 4);
-      __src = *v1;
-      v19 = v4;
-      v20 = v5;
+      v4 = *v2;
+      v5 = *(v2 + 1);
+      v6 = *(v2 + 24);
+      v7 = *(v2 + 4);
+      __src = *v2;
+      v19 = v5;
+      v20 = v6;
       v21 = &unk_2883F1578;
       BYTE4(v22) = 1;
-      LODWORD(v22) = v6;
-      v7 = qword_2815A54C0;
+      LODWORD(v22) = v7;
+      v8 = qword_2815A54C0;
       if (qword_2815A54C8 >= HIDWORD(qword_2815A54C8))
       {
         if (qword_2815A54C0 <= &__src && qword_2815A54C0 + 48 * qword_2815A54C8 > &__src)
         {
           v14 = &__src - qword_2815A54C0;
-          v7 = qword_2815A54C0;
+          v8 = qword_2815A54C0;
           p_src = &v14[qword_2815A54C0];
           goto LABEL_5;
         }
 
-        v7 = qword_2815A54C0;
+        v8 = qword_2815A54C0;
       }
 
       p_src = &__src;
 LABEL_5:
-      v9 = v7 + 48 * qword_2815A54C8;
-      v10 = *(p_src + 1);
-      *v9 = *p_src;
-      *(v9 + 16) = v10;
-      *(v9 + 32) = &unk_2883F1598;
-      v11 = *(p_src + 10);
-      *(v9 + 44) = *(p_src + 44);
-      *(v9 + 40) = v11;
-      *(v9 + 32) = &unk_2883F1578;
+      v10 = v8 + 48 * qword_2815A54C8;
+      v11 = *(p_src + 1);
+      *v10 = *p_src;
+      *(v10 + 16) = v11;
+      *(v10 + 32) = &unk_2883F1598;
+      v12 = *(p_src + 10);
+      *(v10 + 44) = *(p_src + 44);
+      *(v10 + 40) = v12;
+      *(v10 + 32) = &unk_2883F1578;
       LODWORD(qword_2815A54C8) = qword_2815A54C8 + 1;
-      llvm::cl::AddLiteralOption(qword_2815A54B8, v3, v4);
-      v1 += 40;
+      llvm::cl::AddLiteralOption(qword_2815A54B8, v4, v5);
+      v2 += 40;
     }
 
-    while (v1 != v2);
+    while (v2 != v3);
   }
 
-  llvm::cl::Option::addArgument(&PassDebugging);
+  llvm::cl::Option::addArgument(&PassDebugging, v1);
   if (v15 != v17)
   {
     free(v15);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
-void getNameWithPrefixImpl(llvm::raw_ostream *a1, unsigned __int8 *a2, int a3, llvm::DataLayout *a4, char a5)
+void getNameWithPrefixImpl(llvm::raw_ostream *a1, const char **a2, int a3, llvm::DataLayout *a4, char a5)
 {
-  v23[32] = *MEMORY[0x277D85DE8];
-  v21 = v23;
-  v22 = xmmword_2750C12F0;
-  v9 = llvm::Twine::toStringRef(a2, &v21);
+  v22[32] = *MEMORY[0x277D85DE8];
+  v20 = v22;
+  v21 = xmmword_2750C12F0;
+  v9 = llvm::Twine::toStringRef(a2, &v20);
   v11 = v9;
   v12 = v10;
   v13 = *v9;
@@ -4632,12 +4457,10 @@ LABEL_16:
 
 LABEL_20:
   llvm::raw_ostream::operator<<(a1, v11, v12);
-  if (v21 != v23)
+  if (v20 != v22)
   {
-    free(v21);
+    free(v20);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void llvm::Mangler::getNameWithPrefix(llvm::Mangler *this, llvm::raw_ostream *a2, const llvm::GlobalValue *a3, int a4)
@@ -4665,22 +4488,22 @@ void llvm::Mangler::getNameWithPrefix(llvm::Mangler *this, llvm::raw_ostream *a2
   v8 = *(a3 + 5);
   if ((*(a3 + 23) & 0x10) == 0)
   {
-    v39 = 0;
-    v10 = llvm::DenseMapBase<llvm::DenseMap<llvm::jitlink::Block *,unsigned long,llvm::DenseMapInfo<llvm::jitlink::Block *,void>,llvm::detail::DenseMapPair<llvm::jitlink::Block *,unsigned long>>,llvm::jitlink::Block *,unsigned long,llvm::DenseMapInfo<llvm::jitlink::Block *,void>,llvm::detail::DenseMapPair<llvm::jitlink::Block *,unsigned long>>::LookupBucketFor<llvm::jitlink::Block *>(*this, *(this + 4), a3, &v39);
-    v11 = v39;
+    v40 = 0;
+    v10 = llvm::DenseMapBase<llvm::DenseMap<llvm::jitlink::Block *,unsigned long,llvm::DenseMapInfo<llvm::jitlink::Block *,void>,llvm::detail::DenseMapPair<llvm::jitlink::Block *,unsigned long>>,llvm::jitlink::Block *,unsigned long,llvm::DenseMapInfo<llvm::jitlink::Block *,void>,llvm::detail::DenseMapPair<llvm::jitlink::Block *,unsigned long>>::LookupBucketFor<llvm::jitlink::Block *>(*this, *(this + 4), a3, &v40);
+    v11 = v40;
     if (v10)
     {
-      v12 = *(v39 + 2);
+      v12 = *(v40 + 2);
       if (v12)
       {
 LABEL_26:
-        v39 = "__unnamed_";
-        v41 = v12;
-        v42 = 2051;
+        v40 = "__unnamed_";
+        v42 = v12;
+        v43 = 2051;
         v23 = (v8 + 256);
         v24 = 0x5F005F0000uLL >> (8 * *(v8 + 284));
 LABEL_31:
-        getNameWithPrefixImpl(a2, &v39, v7, v23, v24);
+        getNameWithPrefixImpl(a2, &v40, v7, v23, v24);
         return;
       }
 
@@ -4712,9 +4535,9 @@ LABEL_22:
     }
 
     llvm::DenseMap<llvm::Function *,unsigned int,llvm::DenseMapInfo<llvm::Function *,void>,llvm::detail::DenseMapPair<llvm::Function *,unsigned int>>::grow(this, v22);
-    v39 = 0;
-    llvm::DenseMapBase<llvm::DenseMap<llvm::jitlink::Block *,unsigned long,llvm::DenseMapInfo<llvm::jitlink::Block *,void>,llvm::detail::DenseMapPair<llvm::jitlink::Block *,unsigned long>>,llvm::jitlink::Block *,unsigned long,llvm::DenseMapInfo<llvm::jitlink::Block *,void>,llvm::detail::DenseMapPair<llvm::jitlink::Block *,unsigned long>>::LookupBucketFor<llvm::jitlink::Block *>(*this, *(this + 4), a3, &v39);
-    v11 = v39;
+    v40 = 0;
+    llvm::DenseMapBase<llvm::DenseMap<llvm::jitlink::Block *,unsigned long,llvm::DenseMapInfo<llvm::jitlink::Block *,void>,llvm::detail::DenseMapPair<llvm::jitlink::Block *,unsigned long>>,llvm::jitlink::Block *,unsigned long,llvm::DenseMapInfo<llvm::jitlink::Block *,void>,llvm::detail::DenseMapPair<llvm::jitlink::Block *,unsigned long>>::LookupBucketFor<llvm::jitlink::Block *>(*this, *(this + 4), a3, &v40);
+    v11 = v40;
     goto LABEL_22;
   }
 
@@ -4722,11 +4545,11 @@ LABEL_22:
   v14 = (ValueName + 2);
   v15 = *ValueName;
   v16 = 0x5F005F0000uLL >> (8 * *(v8 + 284));
-  v39 = 0;
   v40 = 0;
-  LODWORD(v41) = 0;
-  v17 = findBaseObject<llvm::GlobalValue::getAliaseeObject(void)::$_0>(a3, &v39);
-  MEMORY[0x277C69E30](v39, 8);
+  v41 = 0;
+  LODWORD(v42) = 0;
+  v17 = findBaseObject<llvm::GlobalValue::getAliaseeObject(void)::$_0>(a3, &v40);
+  MEMORY[0x277C69E30](v40, 8);
   if (v17 && *(v17 + 16))
   {
     v17 = 0;
@@ -4759,9 +4582,9 @@ LABEL_22:
     if (!v17)
     {
 LABEL_30:
-      v42 = 261;
-      v39 = v14;
-      v40 = v15;
+      v43 = 261;
+      v40 = v14;
+      v41 = v15;
       v24 = v18;
       v23 = (v8 + 256);
       goto LABEL_31;
@@ -4784,10 +4607,10 @@ LABEL_30:
     v18 = 0;
   }
 
-  v42 = 261;
-  v39 = v14;
-  v40 = v15;
-  getNameWithPrefixImpl(a2, &v39, v7, (v8 + 256), v18);
+  v43 = 261;
+  v40 = v14;
+  v41 = v15;
+  getNameWithPrefixImpl(a2, &v40, v7, (v8 + 256), v18);
   if (v25 == 80)
   {
     v26 = *(a2 + 4);
@@ -4850,16 +4673,16 @@ LABEL_30:
       v32 = v35;
     }
 
-    v38 = *(a2 + 4);
-    if (v38 >= *(a2 + 3))
+    v39 = *(a2 + 4);
+    if (v39 >= *(a2 + 3))
     {
       llvm::raw_ostream::write(a2, 64);
     }
 
     else
     {
-      *(a2 + 4) = v38 + 1;
-      *v38 = 64;
+      *(a2 + 4) = v39 + 1;
+      *v39 = 64;
     }
 
     write_unsigned<unsigned long>(a2, v32, 0, 0, 0);
@@ -4914,13 +4737,6 @@ void llvm::Mangler::getNameWithPrefix(llvm::Mangler *a1, uint64_t a2, const llvm
   llvm::raw_ostream::~raw_ostream(&v7);
 }
 
-uint64_t llvm::DataLayout::getPrivateGlobalPrefix(llvm::DataLayout *this)
-{
-  v1 = *(this + 7);
-  v2 = qword_2750DDF78[v1];
-  return *(&off_279F176F8 + v1);
-}
-
 uint64_t llvm::MetadataAsValue::MetadataAsValue(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   *a1 = a2;
@@ -4947,7 +4763,7 @@ void llvm::MetadataAsValue::~MetadataAsValue(llvm::MetadataAsValue *this)
     llvm::MetadataTracking::untrack(this + 24, v2);
   }
 
-  llvm::Value::~Value(this);
+  llvm::Value::~Value(this, v2);
 }
 
 uint64_t llvm::MetadataAsValue::get(void *a1, _BYTE *a2)
@@ -5030,16 +4846,16 @@ uint64_t llvm::MetadataAsValue::getIfExists(uint64_t *a1, _BYTE *a2)
 
 uint64_t llvm::MetadataTracking::track(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v6 = llvm::ReplaceableMetadataImpl::getOrCreate(a2);
   if (v6)
   {
     v7 = v6;
     v8 = *(v6 + 8);
-    v12 = a1;
-    *&v13 = a3;
-    *(&v13 + 1) = v8;
-    llvm::DenseMapBase<llvm::SmallDenseMap<void *,std::pair<llvm::PointerUnion<llvm::MetadataAsValue *,llvm::Metadata *>,unsigned long long>,4u,llvm::DenseMapInfo<void *,void>,llvm::detail::DenseMapPair<void *,std::pair<llvm::PointerUnion<llvm::MetadataAsValue *,llvm::Metadata *>,unsigned long long>>>,void *,std::pair<llvm::PointerUnion<llvm::MetadataAsValue *,llvm::Metadata *>,unsigned long long>,llvm::DenseMapInfo<void *,void>,llvm::detail::DenseMapPair<void *,std::pair<llvm::PointerUnion<llvm::MetadataAsValue *,llvm::Metadata *>,unsigned long long>>>::try_emplace<std::pair<llvm::PointerUnion<llvm::MetadataAsValue *,llvm::Metadata *>,unsigned long long>>(v6 + 16, &v12, &v13, v11);
+    v11 = a1;
+    *&v12 = a3;
+    *(&v12 + 1) = v8;
+    llvm::DenseMapBase<llvm::SmallDenseMap<void *,std::pair<llvm::PointerUnion<llvm::MetadataAsValue *,llvm::Metadata *>,unsigned long long>,4u,llvm::DenseMapInfo<void *,void>,llvm::detail::DenseMapPair<void *,std::pair<llvm::PointerUnion<llvm::MetadataAsValue *,llvm::Metadata *>,unsigned long long>>>,void *,std::pair<llvm::PointerUnion<llvm::MetadataAsValue *,llvm::Metadata *>,unsigned long long>,llvm::DenseMapInfo<void *,void>,llvm::detail::DenseMapPair<void *,std::pair<llvm::PointerUnion<llvm::MetadataAsValue *,llvm::Metadata *>,unsigned long long>>>::try_emplace<std::pair<llvm::PointerUnion<llvm::MetadataAsValue *,llvm::Metadata *>,unsigned long long>>(v6 + 16, &v11, &v12, v10);
     ++*(v7 + 8);
   }
 
@@ -5047,17 +4863,13 @@ uint64_t llvm::MetadataTracking::track(uint64_t a1, uint64_t a2, uint64_t a3)
   {
     if (*a2 != 3)
     {
-      result = 0;
-      goto LABEL_6;
+      return 0;
     }
 
     *(a2 + 8) = a1;
   }
 
-  result = 1;
-LABEL_6:
-  v10 = *MEMORY[0x277D85DE8];
-  return result;
+  return 1;
 }
 
 unint64_t llvm::ReplaceableMetadataImpl::getOrCreate(unsigned __int8 *a1)
@@ -5103,13 +4915,13 @@ unint64_t llvm::ReplaceableMetadataImpl::getOrCreate(unsigned __int8 *a1)
   }
 }
 
-unint64_t llvm::MetadataTracking::untrack(uint64_t a1, uint64_t a2)
+unsigned __int8 *llvm::MetadataTracking::untrack(uint64_t a1, uint64_t a2)
 {
   result = llvm::ReplaceableMetadataImpl::getIfExists(a2);
   if (result)
   {
     v5 = a1;
-    return llvm::DenseMapBase<llvm::SmallDenseMap<void *,std::pair<llvm::PointerUnion<llvm::MetadataAsValue *,llvm::Metadata *>,unsigned long long>,4u,llvm::DenseMapInfo<void *,void>,llvm::detail::DenseMapPair<void *,std::pair<llvm::PointerUnion<llvm::MetadataAsValue *,llvm::Metadata *>,unsigned long long>>>,void *,std::pair<llvm::PointerUnion<llvm::MetadataAsValue *,llvm::Metadata *>,unsigned long long>,llvm::DenseMapInfo<void *,void>,llvm::detail::DenseMapPair<void *,std::pair<llvm::PointerUnion<llvm::MetadataAsValue *,llvm::Metadata *>,unsigned long long>>>::erase((result + 16), &v5);
+    return llvm::DenseMapBase<llvm::SmallDenseMap<void *,std::pair<llvm::PointerUnion<llvm::MetadataAsValue *,llvm::Metadata *>,unsigned long long>,4u,llvm::DenseMapInfo<void *,void>,llvm::detail::DenseMapPair<void *,std::pair<llvm::PointerUnion<llvm::MetadataAsValue *,llvm::Metadata *>,unsigned long long>>>,void *,std::pair<llvm::PointerUnion<llvm::MetadataAsValue *,llvm::Metadata *>,unsigned long long>,llvm::DenseMapInfo<void *,void>,llvm::detail::DenseMapPair<void *,std::pair<llvm::PointerUnion<llvm::MetadataAsValue *,llvm::Metadata *>,unsigned long long>>>::erase(result + 4, &v5);
   }
 
   else if (*a2 == 3)
@@ -5120,13 +4932,13 @@ unint64_t llvm::MetadataTracking::untrack(uint64_t a1, uint64_t a2)
   return result;
 }
 
-unint64_t llvm::ReplaceableMetadataImpl::getIfExists(unsigned __int8 *a1)
+unsigned __int8 *llvm::ReplaceableMetadataImpl::getIfExists(unsigned __int8 *a1)
 {
   if (llvm::MDNode::classof(a1))
   {
     if ((a1[1] & 0x7F) == 2 || *(a1 - 2))
     {
-      return *(a1 + 1) & ((*(a1 + 1) << 61) >> 63) & 0xFFFFFFFFFFFFFFF8;
+      return (*(a1 + 1) & ((*(a1 + 1) << 61) >> 63) & 0xFFFFFFFFFFFFFFF8);
     }
 
     else
@@ -5174,21 +4986,19 @@ BOOL llvm::MetadataTracking::retrack(uint64_t a1, unsigned __int8 *a2, uint64_t 
   return v6 != 0;
 }
 
-uint64_t llvm::ReplaceableMetadataImpl::moveRef(uint64_t a1, uint64_t a2, uint64_t a3)
+void *llvm::ReplaceableMetadataImpl::moveRef(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v5 = llvm::DenseMapBase<llvm::SmallDenseMap<void *,std::pair<llvm::PointerUnion<llvm::MetadataAsValue *,llvm::Metadata *>,unsigned long long>,4u,llvm::DenseMapInfo<void *,void>,llvm::detail::DenseMapPair<void *,std::pair<llvm::PointerUnion<llvm::MetadataAsValue *,llvm::Metadata *>,unsigned long long>>>,void *,std::pair<llvm::PointerUnion<llvm::MetadataAsValue *,llvm::Metadata *>,unsigned long long>,llvm::DenseMapInfo<void *,void>,llvm::detail::DenseMapPair<void *,std::pair<llvm::PointerUnion<llvm::MetadataAsValue *,llvm::Metadata *>,unsigned long long>>>::find(a1 + 16, a2);
   v6 = *(v5 + 8);
   *v5 = -8192;
   v7 = *(a1 + 20) + 1;
   *(a1 + 16) -= 2;
   *(a1 + 20) = v7;
-  v11 = a3;
-  v12[0] = v6;
-  v12[1] = v6;
-  result = llvm::DenseMapBase<llvm::SmallDenseMap<void *,std::pair<llvm::PointerUnion<llvm::MetadataAsValue *,llvm::Metadata *>,unsigned long long>,4u,llvm::DenseMapInfo<void *,void>,llvm::detail::DenseMapPair<void *,std::pair<llvm::PointerUnion<llvm::MetadataAsValue *,llvm::Metadata *>,unsigned long long>>>,void *,std::pair<llvm::PointerUnion<llvm::MetadataAsValue *,llvm::Metadata *>,unsigned long long>,llvm::DenseMapInfo<void *,void>,llvm::detail::DenseMapPair<void *,std::pair<llvm::PointerUnion<llvm::MetadataAsValue *,llvm::Metadata *>,unsigned long long>>>::try_emplace<std::pair<llvm::PointerUnion<llvm::MetadataAsValue *,llvm::Metadata *>,unsigned long long>>(a1 + 16, &v11, v12, &v10);
-  v9 = *MEMORY[0x277D85DE8];
-  return result;
+  v10 = a3;
+  v11[0] = v6;
+  v11[1] = v6;
+  return llvm::DenseMapBase<llvm::SmallDenseMap<void *,std::pair<llvm::PointerUnion<llvm::MetadataAsValue *,llvm::Metadata *>,unsigned long long>,4u,llvm::DenseMapInfo<void *,void>,llvm::detail::DenseMapPair<void *,std::pair<llvm::PointerUnion<llvm::MetadataAsValue *,llvm::Metadata *>,unsigned long long>>>,void *,std::pair<llvm::PointerUnion<llvm::MetadataAsValue *,llvm::Metadata *>,unsigned long long>,llvm::DenseMapInfo<void *,void>,llvm::detail::DenseMapPair<void *,std::pair<llvm::PointerUnion<llvm::MetadataAsValue *,llvm::Metadata *>,unsigned long long>>>::try_emplace<std::pair<llvm::PointerUnion<llvm::MetadataAsValue *,llvm::Metadata *>,unsigned long long>>(a1 + 16, &v10, v11, v9);
 }
 
 uint64_t llvm::DenseMapBase<llvm::SmallDenseMap<void *,std::pair<llvm::PointerUnion<llvm::MetadataAsValue *,llvm::Metadata *>,unsigned long long>,4u,llvm::DenseMapInfo<void *,void>,llvm::detail::DenseMapPair<void *,std::pair<llvm::PointerUnion<llvm::MetadataAsValue *,llvm::Metadata *>,unsigned long long>>>,void *,std::pair<llvm::PointerUnion<llvm::MetadataAsValue *,llvm::Metadata *>,unsigned long long>,llvm::DenseMapInfo<void *,void>,llvm::detail::DenseMapPair<void *,std::pair<llvm::PointerUnion<llvm::MetadataAsValue *,llvm::Metadata *>,unsigned long long>>>::erase(_DWORD *a1, void *a2)
@@ -5208,46 +5018,34 @@ uint64_t llvm::DenseMapBase<llvm::SmallDenseMap<void *,std::pair<llvm::PointerUn
 
 uint64_t llvm::DenseMapBase<llvm::SmallDenseMap<void *,std::pair<llvm::PointerUnion<llvm::MetadataAsValue *,llvm::Metadata *>,unsigned long long>,4u,llvm::DenseMapInfo<void *,void>,llvm::detail::DenseMapPair<void *,std::pair<llvm::PointerUnion<llvm::MetadataAsValue *,llvm::Metadata *>,unsigned long long>>>,void *,std::pair<llvm::PointerUnion<llvm::MetadataAsValue *,llvm::Metadata *>,unsigned long long>,llvm::DenseMapInfo<void *,void>,llvm::detail::DenseMapPair<void *,std::pair<llvm::PointerUnion<llvm::MetadataAsValue *,llvm::Metadata *>,unsigned long long>>>::find(uint64_t a1, uint64_t a2)
 {
-  v8 = a2;
-  v9 = 0;
-  v3 = llvm::DenseMapBase<llvm::SmallDenseMap<void *,std::pair<llvm::PointerUnion<llvm::MetadataAsValue *,llvm::Metadata *>,unsigned long long>,4u,llvm::DenseMapInfo<void *,void>,llvm::detail::DenseMapPair<void *,std::pair<llvm::PointerUnion<llvm::MetadataAsValue *,llvm::Metadata *>,unsigned long long>>>,void *,std::pair<llvm::PointerUnion<llvm::MetadataAsValue *,llvm::Metadata *>,unsigned long long>,llvm::DenseMapInfo<void *,void>,llvm::detail::DenseMapPair<void *,std::pair<llvm::PointerUnion<llvm::MetadataAsValue *,llvm::Metadata *>,unsigned long long>>>::LookupBucketFor<void *>(a1, &v8, &v9);
-  v4 = *a1;
-  if (v3)
+  v4 = a2;
+  v5 = 0;
+  if (llvm::DenseMapBase<llvm::SmallDenseMap<void *,std::pair<llvm::PointerUnion<llvm::MetadataAsValue *,llvm::Metadata *>,unsigned long long>,4u,llvm::DenseMapInfo<void *,void>,llvm::detail::DenseMapPair<void *,std::pair<llvm::PointerUnion<llvm::MetadataAsValue *,llvm::Metadata *>,unsigned long long>>>,void *,std::pair<llvm::PointerUnion<llvm::MetadataAsValue *,llvm::Metadata *>,unsigned long long>,llvm::DenseMapInfo<void *,void>,llvm::detail::DenseMapPair<void *,std::pair<llvm::PointerUnion<llvm::MetadataAsValue *,llvm::Metadata *>,unsigned long long>>>::LookupBucketFor<void *>(a1, &v4, &v5))
   {
-    result = v9;
-    if ((v4 & 1) == 0)
-    {
-      v6 = *(a1 + 8);
-      v7 = *(a1 + 16);
-    }
+    return v5;
   }
 
-  else if (v4)
+  if (*a1)
   {
     return a1 + 104;
   }
 
-  else
-  {
-    return *(a1 + 8) + 24 * *(a1 + 16);
-  }
-
-  return result;
+  return *(a1 + 8) + 24 * *(a1 + 16);
 }
 
 void llvm::ReplaceableMetadataImpl::SalvageDebugInfo(uint64_t ***this, const llvm::Constant *a2)
 {
-  v38[24] = *MEMORY[0x277D85DE8];
+  v37[24] = *MEMORY[0x277D85DE8];
   if ((*(this + 23) & 8) == 0)
   {
-    goto LABEL_43;
+    return;
   }
 
   v3 = ***this;
-  v35 = this;
-  v36 = 0;
-  v4 = llvm::DenseMapBase<llvm::DenseMap<llvm::jitlink::Symbol *,llvm::jitlink::Symbol *,llvm::DenseMapInfo<llvm::jitlink::Symbol *,void>,llvm::detail::DenseMapPair<llvm::jitlink::Symbol *,llvm::jitlink::Symbol *>>,llvm::jitlink::Symbol *,llvm::jitlink::Symbol *,llvm::DenseMapInfo<llvm::jitlink::Symbol *,void>,llvm::detail::DenseMapPair<llvm::jitlink::Symbol *,llvm::jitlink::Symbol *>>::LookupBucketFor<llvm::jitlink::Symbol *>((v3 + 432), &v35, &v36);
-  v5 = v36;
+  v34 = this;
+  v35 = 0;
+  v4 = llvm::DenseMapBase<llvm::DenseMap<llvm::jitlink::Symbol *,llvm::jitlink::Symbol *,llvm::DenseMapInfo<llvm::jitlink::Symbol *,void>,llvm::detail::DenseMapPair<llvm::jitlink::Symbol *,llvm::jitlink::Symbol *>>,llvm::jitlink::Symbol *,llvm::jitlink::Symbol *,llvm::DenseMapInfo<llvm::jitlink::Symbol *,void>,llvm::detail::DenseMapPair<llvm::jitlink::Symbol *,llvm::jitlink::Symbol *>>::LookupBucketFor<llvm::jitlink::Symbol *>((v3 + 432), &v34, &v35);
+  v5 = v35;
   if (!v4)
   {
     v5 = (*(v3 + 432) + 16 * *(v3 + 448));
@@ -5318,40 +5116,29 @@ LABEL_20:
 
   v15 = (v6 + 128);
 LABEL_21:
-  v36 = v38;
-  v37 = 0x800000000;
-  llvm::SmallVectorImpl<std::pair<void *,std::pair<llvm::PointerUnion<llvm::MetadataAsValue *,llvm::Metadata *>,unsigned long long>>>::append<llvm::DenseMapIterator<void *,std::pair<llvm::PointerUnion<llvm::MetadataAsValue *,llvm::Metadata *>,unsigned long long>,llvm::DenseMapInfo<void *,void>,llvm::detail::DenseMapPair<void *,std::pair<llvm::PointerUnion<llvm::MetadataAsValue *,llvm::Metadata *>,unsigned long long>>,false>,void>(&v36, v9, v13, v15);
-  v16 = v36;
-  if (v37)
+  v35 = v37;
+  v36 = 0x800000000;
+  llvm::SmallVectorImpl<std::pair<void *,std::pair<llvm::PointerUnion<llvm::MetadataAsValue *,llvm::Metadata *>,unsigned long long>>>::append<llvm::DenseMapIterator<void *,std::pair<llvm::PointerUnion<llvm::MetadataAsValue *,llvm::Metadata *>,unsigned long long>,llvm::DenseMapInfo<void *,void>,llvm::detail::DenseMapPair<void *,std::pair<llvm::PointerUnion<llvm::MetadataAsValue *,llvm::Metadata *>,unsigned long long>>,false>,void>(&v35, v9, v13, v15);
+  v16 = v35;
+  if (v36)
   {
-    v17 = 24 * v37;
-    v18 = (v36 + 8);
+    v17 = 24 * v36;
+    v18 = (v35 + 8);
     do
     {
       v19 = *v18;
-      if (*v18 >= 4)
-      {
-        v20 = (*v18 & 2) == 0;
-        *v18;
-      }
-
-      else
-      {
-        v20 = 1;
-      }
-
-      if (!v20)
+      if (*v18 >= 4 && (*v18 & 2) != 0)
       {
         v21 = (v19 & 0xFFFFFFFFFFFFFFFCLL);
         v22 = llvm::MDNode::classof((v19 & 0xFFFFFFFFFFFFFFFCLL));
         if (v21 && v22 != 0)
         {
-          v25 = v21->n128_u8[0];
+          v25 = *v21;
           if (v25 - 8 < 0x16 || ((v31 = v25 > 0x23, v32 = (1 << v25) & 0xD00000000, !v31) ? (v33 = v32 == 0) : (v33 = 1), !v33))
           {
             v26 = *(v18 - 1);
             v27 = llvm::UndefValue::get(*this, v23);
-            v29 = llvm::ValueAsMetadata::get(v27, v28);
+            llvm::ValueAsMetadata::get(v27, v28);
             llvm::MDNode::handleChangedOperand(v21, v26, v29, v30);
           }
         }
@@ -5362,35 +5149,32 @@ LABEL_21:
     }
 
     while (v17);
-    v16 = v36;
+    v16 = v35;
   }
 
-  if (v16 != v38)
+  if (v16 != v37)
   {
     free(v16);
   }
-
-LABEL_43:
-  v34 = *MEMORY[0x277D85DE8];
 }
 
-void llvm::MDNode::handleChangedOperand(__n128 *this, uint64_t a2, __n128 *a3, unint64_t *a4)
+void llvm::MDNode::handleChangedOperand(llvm::MDNode *this, uint64_t a2, llvm::MDNode *a3, unint64_t *a4)
 {
-  v7 = this - 1;
-  v6 = this[-1].n128_u64[0];
+  v7 = (this - 16);
+  v6 = *(this - 2);
   if ((v6 & 2) != 0)
   {
-    v8 = this[-2].n128_u64[0];
+    v8 = *(this - 4);
   }
 
   else
   {
-    v8 = &v7->n128_u64[-((v6 >> 2) & 0xF)];
+    v8 = &v7[-((v6 >> 2) & 0xF)];
   }
 
   v9 = a2 - v8;
   v10 = (a2 - v8) >> 3;
-  if ((this->n128_u8[1] & 0x7F) != 0)
+  if ((*(this + 1) & 0x7F) != 0)
   {
 
     llvm::MDNode::setOperand(this, v10, a3);
@@ -5398,24 +5182,24 @@ void llvm::MDNode::handleChangedOperand(__n128 *this, uint64_t a2, __n128 *a3, u
   }
 
   llvm::MDNode::eraseFromStore(this, a2, a3, a4);
-  v11 = this[-1].n128_u64[0];
+  v11 = *(this - 2);
   if ((v11 & 2) != 0)
   {
-    v12 = this[-2].n128_u64[0];
+    v12 = *(this - 4);
   }
 
   else
   {
-    v12 = &v7->n128_u64[-((v11 >> 2) & 0xF)];
+    v12 = &v7[-((v11 >> 2) & 0xF)];
   }
 
   v13 = *(v12 + (v9 & 0x7FFFFFFF8));
   llvm::MDNode::setOperand(this, v10, a3);
   if (a3 == this || !a3 && v13 && *v13 == 1)
   {
-    if ((this->n128_u8[1] & 0x7F) == 2 || this[-1].n128_u32[2])
+    if ((*(this + 1) & 0x7F) == 2 || *(this - 2))
     {
-      this[-1].n128_u32[2] = 0;
+      *(this - 2) = 0;
       llvm::MDNode::dropReplaceableUses(this);
     }
 
@@ -5423,17 +5207,17 @@ void llvm::MDNode::handleChangedOperand(__n128 *this, uint64_t a2, __n128 *a3, u
   }
 
   v17 = llvm::MDNode::uniquify(this, v14, v15, v16);
-  v18 = this->n128_u8[1] & 0x7F;
+  v18 = *(this + 1) & 0x7F;
   if (v17 == this)
   {
-    if (v18 == 2 || this[-1].n128_u32[2])
+    if (v18 == 2 || *(this - 2))
     {
       if (v13 && llvm::MDNode::classof(v13) && ((v13[1] & 0x7F) == 2 || *(v13 - 2)))
       {
-        if ((!a3 || !llvm::MDNode::classof(a3) || (a3->n128_u8[1] & 0x7F) != 2 && !a3[-1].n128_u32[2]) && (this->n128_u8[1] & 0x7F) != 2)
+        if ((!a3 || !llvm::MDNode::classof(a3) || (*(a3 + 1) & 0x7F) != 2 && !*(a3 - 2)) && (*(this + 1) & 0x7F) != 2)
         {
-          v21 = this[-1].n128_u32[2] - 1;
-          this[-1].n128_u32[2] = v21;
+          v21 = *(this - 2) - 1;
+          *(this - 2) = v21;
           if (!v21)
           {
 
@@ -5442,9 +5226,9 @@ void llvm::MDNode::handleChangedOperand(__n128 *this, uint64_t a2, __n128 *a3, u
         }
       }
 
-      else if (a3 && llvm::MDNode::classof(a3) && ((a3->n128_u8[1] & 0x7F) == 2 || a3[-1].n128_u32[2]))
+      else if (a3 && llvm::MDNode::classof(a3) && ((*(a3 + 1) & 0x7F) == 2 || *(a3 - 2)))
       {
-        ++this[-1].n128_u32[2];
+        ++*(this - 2);
       }
     }
   }
@@ -5452,7 +5236,7 @@ void llvm::MDNode::handleChangedOperand(__n128 *this, uint64_t a2, __n128 *a3, u
   else
   {
     v19 = v17;
-    if (v18 != 2 && !this[-1].n128_u32[2])
+    if (v18 != 2 && !*(this - 2))
     {
 LABEL_18:
 
@@ -5460,14 +5244,14 @@ LABEL_18:
       return;
     }
 
-    if ((v7->n128_u64[0] & 2) != 0)
+    if ((*v7 & 2) != 0)
     {
-      v20 = this[-2].n128_u32[2];
+      v20 = *(this - 6);
     }
 
     else
     {
-      v20 = (v7->n128_u64[0] >> 6) & 0xF;
+      v20 = (*v7 >> 6) & 0xF;
     }
 
     if (v20)
@@ -5478,7 +5262,7 @@ LABEL_18:
       }
     }
 
-    v23 = this->n128_u64[1];
+    v23 = *(this + 1);
     if ((v23 & 4) != 0)
     {
       llvm::ReplaceableMetadataImpl::replaceAllUsesWith(v23 & 0xFFFFFFFFFFFFFFF8, v19);
@@ -5488,29 +5272,26 @@ LABEL_18:
   }
 }
 
-uint64_t llvm::ValueAsMetadata::get(llvm::ValueAsMetadata *this, llvm::Value *a2)
+double llvm::ValueAsMetadata::get(llvm::ValueAsMetadata *this, llvm::Value *a2)
 {
-  v5 = this;
-  result = llvm::DenseMapBase<llvm::DenseMap<llvm::GlobalValue const*,llvm::DSOLocalEquivalent *,llvm::DenseMapInfo<llvm::GlobalValue const*,void>,llvm::detail::DenseMapPair<llvm::GlobalValue const*,llvm::DSOLocalEquivalent *>>,llvm::GlobalValue const*,llvm::DSOLocalEquivalent *,llvm::DenseMapInfo<llvm::GlobalValue const*,void>,llvm::detail::DenseMapPair<llvm::GlobalValue const*,llvm::DSOLocalEquivalent *>>::FindAndConstruct((***this + 432), &v5)[1];
-  if (!result)
+  v3 = this;
+  if (!llvm::DenseMapBase<llvm::DenseMap<llvm::GlobalValue const*,llvm::DSOLocalEquivalent *,llvm::DenseMapInfo<llvm::GlobalValue const*,void>,llvm::detail::DenseMapPair<llvm::GlobalValue const*,llvm::DSOLocalEquivalent *>>,llvm::GlobalValue const*,llvm::DSOLocalEquivalent *,llvm::DenseMapInfo<llvm::GlobalValue const*,void>,llvm::detail::DenseMapPair<llvm::GlobalValue const*,llvm::DSOLocalEquivalent *>>::FindAndConstruct((***this + 432), &v3)[1])
   {
-    v3 = v5;
-    *(v5 + 5) |= 0x8000000u;
-    v4 = *(v3 + 16);
+    *(v3 + 5) |= 0x8000000u;
     operator new();
   }
 
   return result;
 }
 
-void llvm::ReplaceableMetadataImpl::replaceAllUsesWith(uint64_t a1, __n128 *a2)
+void llvm::ReplaceableMetadataImpl::replaceAllUsesWith(uint64_t a1, llvm::MDNode *a2)
 {
-  v34[24] = *MEMORY[0x277D85DE8];
+  v32[24] = *MEMORY[0x277D85DE8];
   v3 = (a1 + 16);
   v2 = *(a1 + 16);
   if (v2 < 2)
   {
-    goto LABEL_39;
+    return;
   }
 
   if (v2)
@@ -5554,11 +5335,11 @@ void llvm::ReplaceableMetadataImpl::replaceAllUsesWith(uint64_t a1, __n128 *a2)
 LABEL_12:
   v10 = &v5[3 * v8];
 LABEL_14:
-  v32 = v34;
-  v33 = 0x800000000;
-  llvm::SmallVectorImpl<std::pair<void *,std::pair<llvm::PointerUnion<llvm::MetadataAsValue *,llvm::Metadata *>,unsigned long long>>>::append<llvm::DenseMapIterator<void *,std::pair<llvm::PointerUnion<llvm::MetadataAsValue *,llvm::Metadata *>,unsigned long long>,llvm::DenseMapInfo<void *,void>,llvm::detail::DenseMapPair<void *,std::pair<llvm::PointerUnion<llvm::MetadataAsValue *,llvm::Metadata *>,unsigned long long>>,false>,void>(&v32, v9, v7, v10);
-  v11 = 126 - 2 * __clz(v33);
-  if (v33)
+  v30 = v32;
+  v31 = 0x800000000;
+  llvm::SmallVectorImpl<std::pair<void *,std::pair<llvm::PointerUnion<llvm::MetadataAsValue *,llvm::Metadata *>,unsigned long long>>>::append<llvm::DenseMapIterator<void *,std::pair<llvm::PointerUnion<llvm::MetadataAsValue *,llvm::Metadata *>,unsigned long long>,llvm::DenseMapInfo<void *,void>,llvm::detail::DenseMapPair<void *,std::pair<llvm::PointerUnion<llvm::MetadataAsValue *,llvm::Metadata *>,unsigned long long>>,false>,void>(&v30, v9, v7, v10);
+  v11 = 126 - 2 * __clz(v31);
+  if (v31)
   {
     v12 = v11;
   }
@@ -5568,26 +5349,26 @@ LABEL_14:
     v12 = 0;
   }
 
-  std::__introsort<std::_ClassicAlgPolicy,llvm::less_second &,std::pair<void *,std::pair<llvm::PointerUnion<llvm::MetadataAsValue *,llvm::Metadata *>,unsigned long long>> *,false>(v32, v32 + 3 * v33, v12, 1);
-  v13 = v32;
-  if (v33)
+  std::__introsort<std::_ClassicAlgPolicy,llvm::less_second &,std::pair<void *,std::pair<llvm::PointerUnion<llvm::MetadataAsValue *,llvm::Metadata *>,unsigned long long>> *,false>(v30, v30 + 24 * v31, v12, 1);
+  v13 = v30;
+  if (v31)
   {
-    v14 = 24 * v33;
+    v14 = 24 * v31;
     do
     {
       v15 = *v13;
-      v30 = 0;
-      v31 = v15;
-      if (llvm::DenseMapBase<llvm::SmallDenseMap<void *,std::pair<llvm::PointerUnion<llvm::MetadataAsValue *,llvm::Metadata *>,unsigned long long>,4u,llvm::DenseMapInfo<void *,void>,llvm::detail::DenseMapPair<void *,std::pair<llvm::PointerUnion<llvm::MetadataAsValue *,llvm::Metadata *>,unsigned long long>>>,void *,std::pair<llvm::PointerUnion<llvm::MetadataAsValue *,llvm::Metadata *>,unsigned long long>,llvm::DenseMapInfo<void *,void>,llvm::detail::DenseMapPair<void *,std::pair<llvm::PointerUnion<llvm::MetadataAsValue *,llvm::Metadata *>,unsigned long long>>>::LookupBucketFor<void *>(v3, &v31, &v30))
+      v28 = 0;
+      v29 = v15;
+      if (llvm::DenseMapBase<llvm::SmallDenseMap<void *,std::pair<llvm::PointerUnion<llvm::MetadataAsValue *,llvm::Metadata *>,unsigned long long>,4u,llvm::DenseMapInfo<void *,void>,llvm::detail::DenseMapPair<void *,std::pair<llvm::PointerUnion<llvm::MetadataAsValue *,llvm::Metadata *>,unsigned long long>>>,void *,std::pair<llvm::PointerUnion<llvm::MetadataAsValue *,llvm::Metadata *>,unsigned long long>,llvm::DenseMapInfo<void *,void>,llvm::detail::DenseMapPair<void *,std::pair<llvm::PointerUnion<llvm::MetadataAsValue *,llvm::Metadata *>,unsigned long long>>>::LookupBucketFor<void *>(v3, &v29, &v28))
       {
         v17 = v13[1];
         if (v17 <= 3)
         {
-          v25 = *v13;
+          v24 = *v13;
           **v13 = a2;
           if (a2)
           {
-            llvm::MetadataTracking::track(v25, a2, 2);
+            llvm::MetadataTracking::track(v24, a2, 2);
           }
 
           llvm::DenseMapBase<llvm::SmallDenseMap<void *,std::pair<llvm::PointerUnion<llvm::MetadataAsValue *,llvm::Metadata *>,unsigned long long>,4u,llvm::DenseMapInfo<void *,void>,llvm::detail::DenseMapPair<void *,std::pair<llvm::PointerUnion<llvm::MetadataAsValue *,llvm::Metadata *>,unsigned long long>>>,void *,std::pair<llvm::PointerUnion<llvm::MetadataAsValue *,llvm::Metadata *>,unsigned long long>,llvm::DenseMapInfo<void *,void>,llvm::detail::DenseMapPair<void *,std::pair<llvm::PointerUnion<llvm::MetadataAsValue *,llvm::Metadata *>,unsigned long long>>>::erase(v3, v13);
@@ -5598,22 +5379,22 @@ LABEL_14:
           v18 = (v17 & 0xFFFFFFFFFFFFFFFCLL);
           if ((v17 & 2) != 0)
           {
-            v26 = *v13;
+            v25 = *v13;
             if (v18->n128_u8[0] == 33)
             {
-              llvm::DIArgList::handleChangedOperand(v18, v26, a2);
+              llvm::DIArgList::handleChangedOperand(v18, v25, a2);
             }
 
             else
             {
-              llvm::MDNode::handleChangedOperand(v18, v26, a2, v16);
+              llvm::MDNode::handleChangedOperand(v18, v25, a2, v16);
             }
           }
 
           else
           {
             v19 = *v18->n128_u64[0];
-            v31 = canonicalizeMetadataForValue(v19, a2);
+            v29 = canonicalizeMetadataForValue(v19, a2);
             v20 = *v19;
             llvm::DenseMapBase<llvm::DenseMap<llvm::GlobalValue const*,llvm::DSOLocalEquivalent *,llvm::DenseMapInfo<llvm::GlobalValue const*,void>,llvm::detail::DenseMapPair<llvm::GlobalValue const*,llvm::DSOLocalEquivalent *>>,llvm::GlobalValue const*,llvm::DSOLocalEquivalent *,llvm::DenseMapInfo<llvm::GlobalValue const*,void>,llvm::detail::DenseMapPair<llvm::GlobalValue const*,llvm::DSOLocalEquivalent *>>::erase(v20 + 456, &v18[1].n128_u64[1]);
             v21 = v18[1].n128_i64[1];
@@ -5623,26 +5404,26 @@ LABEL_14:
             }
 
             v18[1].n128_u64[1] = 0;
-            v22 = llvm::DenseMapBase<llvm::DenseMap<llvm::GlobalValue const*,llvm::DSOLocalEquivalent *,llvm::DenseMapInfo<llvm::GlobalValue const*,void>,llvm::detail::DenseMapPair<llvm::GlobalValue const*,llvm::DSOLocalEquivalent *>>,llvm::GlobalValue const*,llvm::DSOLocalEquivalent *,llvm::DenseMapInfo<llvm::GlobalValue const*,void>,llvm::detail::DenseMapPair<llvm::GlobalValue const*,llvm::DSOLocalEquivalent *>>::FindAndConstruct((v20 + 456), &v31);
-            v24 = v22[1];
-            if (v24)
+            v22 = llvm::DenseMapBase<llvm::DenseMap<llvm::GlobalValue const*,llvm::DSOLocalEquivalent *,llvm::DenseMapInfo<llvm::GlobalValue const*,void>,llvm::detail::DenseMapPair<llvm::GlobalValue const*,llvm::DSOLocalEquivalent *>>,llvm::GlobalValue const*,llvm::DSOLocalEquivalent *,llvm::DenseMapInfo<llvm::GlobalValue const*,void>,llvm::detail::DenseMapPair<llvm::GlobalValue const*,llvm::DSOLocalEquivalent *>>::FindAndConstruct((v20 + 456), &v29);
+            v23 = v22[1];
+            if (v23)
             {
-              llvm::Value::doRAUW(v18, v24, 1, v23);
+              llvm::Value::doRAUW(v18, v23, 1);
               llvm::MetadataAsValue::~MetadataAsValue(v18);
               MEMORY[0x277C69E40]();
             }
 
             else
             {
-              v27 = v22;
-              v28 = v31;
-              v18[1].n128_u64[1] = v31;
-              if (v28)
+              v26 = v22;
+              v27 = v29;
+              v18[1].n128_u64[1] = v29;
+              if (v27)
               {
-                llvm::MetadataTracking::track(&v18[1].n128_i64[1], v28, v18);
+                llvm::MetadataTracking::track(&v18[1].n128_i64[1], v27, v18);
               }
 
-              v27[1] = v18;
+              v26[1] = v18;
             }
           }
         }
@@ -5653,27 +5434,22 @@ LABEL_14:
     }
 
     while (v14);
-    v13 = v32;
+    v13 = v30;
   }
 
-  if (v13 != v34)
+  if (v13 != v32)
   {
     free(v13);
   }
-
-LABEL_39:
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 void llvm::ReplaceableMetadataImpl::resolveAllUses(llvm::ReplaceableMetadataImpl *this, char a2)
 {
-  v29[24] = *MEMORY[0x277D85DE8];
+  v27[24] = *MEMORY[0x277D85DE8];
   v3 = (this + 16);
   v2 = *(this + 4);
   if (v2 < 2)
   {
-LABEL_39:
-    v26 = *MEMORY[0x277D85DE8];
     return;
   }
 
@@ -5711,90 +5487,89 @@ LABEL_39:
 
     if (v2)
     {
-      v11 = this + 120;
+      v10 = this + 120;
       goto LABEL_18;
     }
 
     v4 = *(this + 3);
     v7 = *(this + 8);
 LABEL_16:
-    v11 = &v4[24 * v7];
+    v10 = &v4[24 * v7];
 LABEL_18:
-    v27 = v29;
-    v28 = 0x800000000;
-    llvm::SmallVectorImpl<std::pair<void *,std::pair<llvm::PointerUnion<llvm::MetadataAsValue *,llvm::Metadata *>,unsigned long long>>>::append<llvm::DenseMapIterator<void *,std::pair<llvm::PointerUnion<llvm::MetadataAsValue *,llvm::Metadata *>,unsigned long long>,llvm::DenseMapInfo<void *,void>,llvm::detail::DenseMapPair<void *,std::pair<llvm::PointerUnion<llvm::MetadataAsValue *,llvm::Metadata *>,unsigned long long>>,false>,void>(&v27, v8, v6, v11);
-    v12 = 126 - 2 * __clz(v28);
-    if (v28)
+    v25 = v27;
+    v26 = 0x800000000;
+    llvm::SmallVectorImpl<std::pair<void *,std::pair<llvm::PointerUnion<llvm::MetadataAsValue *,llvm::Metadata *>,unsigned long long>>>::append<llvm::DenseMapIterator<void *,std::pair<llvm::PointerUnion<llvm::MetadataAsValue *,llvm::Metadata *>,unsigned long long>,llvm::DenseMapInfo<void *,void>,llvm::detail::DenseMapPair<void *,std::pair<llvm::PointerUnion<llvm::MetadataAsValue *,llvm::Metadata *>,unsigned long long>>,false>,void>(&v25, v8, v6, v10);
+    v11 = 126 - 2 * __clz(v26);
+    if (v26)
     {
-      v13 = v12;
+      v12 = v11;
     }
 
     else
     {
-      v13 = 0;
+      v12 = 0;
     }
 
-    std::__introsort<std::_ClassicAlgPolicy,llvm::ReplaceableMetadataImpl::resolveAllUses(BOOL)::$_0 &,std::pair<void *,std::pair<llvm::PointerUnion<llvm::MetadataAsValue *,llvm::Metadata *>,unsigned long long>> *,false>(v27, v27 + 3 * v28, v13, 1);
+    std::__introsort<std::_ClassicAlgPolicy,llvm::ReplaceableMetadataImpl::resolveAllUses(BOOL)::$_0 &,std::pair<void *,std::pair<llvm::PointerUnion<llvm::MetadataAsValue *,llvm::Metadata *>,unsigned long long>> *,false>(v25, v25 + 24 * v26, v12, 1);
     llvm::DenseMapBase<llvm::SmallDenseMap<void *,std::pair<llvm::PointerUnion<llvm::MetadataAsValue *,llvm::Metadata *>,unsigned long long>,4u,llvm::DenseMapInfo<void *,void>,llvm::detail::DenseMapPair<void *,std::pair<llvm::PointerUnion<llvm::MetadataAsValue *,llvm::Metadata *>,unsigned long long>>>,void *,std::pair<llvm::PointerUnion<llvm::MetadataAsValue *,llvm::Metadata *>,unsigned long long>,llvm::DenseMapInfo<void *,void>,llvm::detail::DenseMapPair<void *,std::pair<llvm::PointerUnion<llvm::MetadataAsValue *,llvm::Metadata *>,unsigned long long>>>::clear(v3);
-    v14 = v27;
-    if (v28)
+    v13 = v25;
+    if (v26)
     {
-      v15 = 24 * v28;
-      v16 = (v27 + 8);
+      v14 = 24 * v26;
+      v15 = (v25 + 8);
       do
       {
-        v18 = *v16;
-        v16 += 3;
-        v17 = v18;
-        v19 = v18 & 2;
-        if (v18 >= 4 && v19 != 0)
+        v17 = *v15;
+        v15 += 3;
+        v16 = v17;
+        v18 = v17 & 2;
+        if (v17 >= 4 && v18 != 0)
         {
-          v21 = (v17 & 0xFFFFFFFFFFFFFFFCLL);
-          v22 = llvm::MDNode::classof((v17 & 0xFFFFFFFFFFFFFFFCLL));
-          if (v21)
+          v20 = v16 & 0xFFFFFFFFFFFFFFFCLL;
+          v21 = llvm::MDNode::classof((v16 & 0xFFFFFFFFFFFFFFFCLL));
+          if (v20)
           {
-            v23 = v22 == 0;
+            v22 = v21 == 0;
           }
 
           else
           {
-            v23 = 1;
+            v22 = 1;
           }
 
-          if (!v23 && (v21[1] & 0x7F) != 2)
+          if (!v22 && (*(v20 + 1) & 0x7F) != 2)
           {
-            v24 = *(v21 - 2);
-            if (v24)
+            v23 = *(v20 - 8);
+            if (v23)
             {
-              v25 = v24 - 1;
-              *(v21 - 2) = v25;
-              if (!v25)
+              v24 = v23 - 1;
+              *(v20 - 8) = v24;
+              if (!v24)
               {
-                llvm::MDNode::dropReplaceableUses(v21);
+                llvm::MDNode::dropReplaceableUses(v20);
               }
             }
           }
         }
 
-        v15 -= 24;
+        v14 -= 24;
       }
 
-      while (v15);
-      v14 = v27;
+      while (v14);
+      v13 = v25;
     }
 
-    if (v14 != v29)
+    if (v13 != v27)
     {
-      free(v14);
+      free(v13);
     }
 
-    goto LABEL_39;
+    return;
   }
 
-  v9 = *MEMORY[0x277D85DE8];
-  v10 = (this + 16);
+  v9 = (this + 16);
 
-  llvm::DenseMapBase<llvm::SmallDenseMap<void *,std::pair<llvm::PointerUnion<llvm::MetadataAsValue *,llvm::Metadata *>,unsigned long long>,4u,llvm::DenseMapInfo<void *,void>,llvm::detail::DenseMapPair<void *,std::pair<llvm::PointerUnion<llvm::MetadataAsValue *,llvm::Metadata *>,unsigned long long>>>,void *,std::pair<llvm::PointerUnion<llvm::MetadataAsValue *,llvm::Metadata *>,unsigned long long>,llvm::DenseMapInfo<void *,void>,llvm::detail::DenseMapPair<void *,std::pair<llvm::PointerUnion<llvm::MetadataAsValue *,llvm::Metadata *>,unsigned long long>>>::clear(v10);
+  llvm::DenseMapBase<llvm::SmallDenseMap<void *,std::pair<llvm::PointerUnion<llvm::MetadataAsValue *,llvm::Metadata *>,unsigned long long>,4u,llvm::DenseMapInfo<void *,void>,llvm::detail::DenseMapPair<void *,std::pair<llvm::PointerUnion<llvm::MetadataAsValue *,llvm::Metadata *>,unsigned long long>>>,void *,std::pair<llvm::PointerUnion<llvm::MetadataAsValue *,llvm::Metadata *>,unsigned long long>,llvm::DenseMapInfo<void *,void>,llvm::detail::DenseMapPair<void *,std::pair<llvm::PointerUnion<llvm::MetadataAsValue *,llvm::Metadata *>,unsigned long long>>>::clear(v9);
 }
 
 void *llvm::DenseMapBase<llvm::SmallDenseMap<void *,std::pair<llvm::PointerUnion<llvm::MetadataAsValue *,llvm::Metadata *>,unsigned long long>,4u,llvm::DenseMapInfo<void *,void>,llvm::detail::DenseMapPair<void *,std::pair<llvm::PointerUnion<llvm::MetadataAsValue *,llvm::Metadata *>,unsigned long long>>>,void *,std::pair<llvm::PointerUnion<llvm::MetadataAsValue *,llvm::Metadata *>,unsigned long long>,llvm::DenseMapInfo<void *,void>,llvm::detail::DenseMapPair<void *,std::pair<llvm::PointerUnion<llvm::MetadataAsValue *,llvm::Metadata *>,unsigned long long>>>::clear(void *result)
@@ -5902,15 +5677,15 @@ void llvm::ValueAsMetadata::handleDeletion(llvm::ValueAsMetadata *this, llvm::Va
 
 uint64_t llvm::ValueAsMetadata::handleRAUW(llvm::ValueAsMetadata *this, llvm::Value *a2, llvm::Value *a3)
 {
-  v16 = a2;
+  v17 = a2;
   v5 = ***this;
-  v17 = this;
-  v18 = 0;
-  result = llvm::DenseMapBase<llvm::DenseMap<llvm::jitlink::Symbol *,llvm::jitlink::Symbol *,llvm::DenseMapInfo<llvm::jitlink::Symbol *,void>,llvm::detail::DenseMapPair<llvm::jitlink::Symbol *,llvm::jitlink::Symbol *>>,llvm::jitlink::Symbol *,llvm::jitlink::Symbol *,llvm::DenseMapInfo<llvm::jitlink::Symbol *,void>,llvm::detail::DenseMapPair<llvm::jitlink::Symbol *,llvm::jitlink::Symbol *>>::LookupBucketFor<llvm::jitlink::Symbol *>((v5 + 432), &v17, &v18);
-  v8 = v18;
+  v18 = this;
+  v19 = 0;
+  result = llvm::DenseMapBase<llvm::DenseMap<llvm::jitlink::Symbol *,llvm::jitlink::Symbol *,llvm::DenseMapInfo<llvm::jitlink::Symbol *,void>,llvm::detail::DenseMapPair<llvm::jitlink::Symbol *,llvm::jitlink::Symbol *>>,llvm::jitlink::Symbol *,llvm::jitlink::Symbol *,llvm::DenseMapInfo<llvm::jitlink::Symbol *,void>,llvm::detail::DenseMapPair<llvm::jitlink::Symbol *,llvm::jitlink::Symbol *>>::LookupBucketFor<llvm::jitlink::Symbol *>((v5 + 432), &v18, &v19);
+  v8 = v19;
   if (result)
   {
-    v9 = v18 == (*(v5 + 432) + 16 * *(v5 + 448));
+    v9 = v19 == (*(v5 + 432) + 16 * *(v5 + 448));
   }
 
   else
@@ -5932,7 +5707,8 @@ uint64_t llvm::ValueAsMetadata::handleRAUW(llvm::ValueAsMetadata *this, llvm::Va
   {
     if (v11 <= 0x14)
     {
-      v14 = llvm::ValueAsMetadata::get(a2, v7);
+      llvm::ValueAsMetadata::get(a2, v7);
+      v14 = v16;
 LABEL_15:
       v13 = v10 + 8;
       goto LABEL_16;
@@ -5951,12 +5727,12 @@ LABEL_15:
     }
 
 LABEL_12:
-    result = llvm::DenseMapBase<llvm::DenseMap<llvm::GlobalValue const*,llvm::DSOLocalEquivalent *,llvm::DenseMapInfo<llvm::GlobalValue const*,void>,llvm::detail::DenseMapPair<llvm::GlobalValue const*,llvm::DSOLocalEquivalent *>>,llvm::GlobalValue const*,llvm::DSOLocalEquivalent *,llvm::DenseMapInfo<llvm::GlobalValue const*,void>,llvm::detail::DenseMapPair<llvm::GlobalValue const*,llvm::DSOLocalEquivalent *>>::FindAndConstruct((v5 + 432), &v16);
+    result = llvm::DenseMapBase<llvm::DenseMap<llvm::GlobalValue const*,llvm::DSOLocalEquivalent *,llvm::DenseMapInfo<llvm::GlobalValue const*,void>,llvm::detail::DenseMapPair<llvm::GlobalValue const*,llvm::DSOLocalEquivalent *>>,llvm::GlobalValue const*,llvm::DSOLocalEquivalent *,llvm::DenseMapInfo<llvm::GlobalValue const*,void>,llvm::detail::DenseMapPair<llvm::GlobalValue const*,llvm::DSOLocalEquivalent *>>::FindAndConstruct((v5 + 432), &v17);
     v14 = *(result + 8);
     if (!v14)
     {
-      v15 = v16;
-      *(v16 + 5) |= 0x8000000u;
+      v15 = v17;
+      *(v17 + 5) |= 0x8000000u;
       *(v10 + 128) = v15;
       *(result + 8) = v10;
       return result;
@@ -6011,14 +5787,14 @@ uint64_t getLocalFunctionMetadata(llvm::Value *a1)
   return 0;
 }
 
-uint64_t *llvm::StringMap<llvm::MDString,llvm::BumpPtrAllocatorImpl<llvm::MallocAllocator,4096ul,4096ul,128ul>>::try_emplace<>(llvm::StringMapImpl *a1, uint64_t *a2, unint64_t a3)
+uint64_t *llvm::StringMap<llvm::MDString,llvm::BumpPtrAllocatorImpl<llvm::MallocAllocator,4096ul,4096ul,128ul>>::try_emplace<>(unsigned int *a1, uint64_t *a2, size_t a3)
 {
   v6 = llvm::StringMapImpl::LookupBucketFor(a1, a2, a3);
   i = (*a1 + 8 * v6);
   v8 = *i;
   if (*i == -8)
   {
-    --*(a1 + 4);
+    --a1[4];
   }
 
   else if (v8)
@@ -6033,28 +5809,29 @@ uint64_t *llvm::StringMap<llvm::MDString,llvm::BumpPtrAllocatorImpl<llvm::Malloc
     return i;
   }
 
-  v10 = llvm::BumpPtrAllocatorImpl<llvm::MallocAllocator,4096ul,4096ul,128ul>::Allocate(a1 + 24, a3 + 25, 3);
-  v11 = v10;
-  v12 = v10 + 24;
+  v10 = llvm::BumpPtrAllocatorImpl<llvm::MallocAllocator,4096ul,4096ul,128ul>::Allocate(a1 + 6, a3 + 25, 3);
+  v12 = v10;
+  v13 = v10 + 24;
   if (a3)
   {
     memcpy((v10 + 24), a2, a3);
   }
 
-  *(v12 + a3) = 0;
-  v11[1] = 0;
-  v11[2] = 0;
-  *v11 = a3;
-  *i = v11;
-  ++*(a1 + 3);
+  *(v13 + a3) = 0;
+  v12[1] = 0;
+  v12[2] = 0;
+  *v12 = a3;
+  *i = v12;
+  ++a1[3];
     ;
   }
 
   return i;
 }
 
-char *llvm::MDNode::operator new(uint64_t a1, unint64_t a2, int a3)
+char *llvm::MDNode::operator new(uint64_t a1, unint64_t a2, uint64_t a3)
 {
+  v3 = a3;
   v5 = 2 * (a3 != 0);
   if (v5 <= a2)
   {
@@ -6073,7 +5850,7 @@ char *llvm::MDNode::operator new(uint64_t a1, unint64_t a2, int a3)
   }
 
   v8 = operator new(v7 + a1) + v7;
-  llvm::MDNode::Header::Header((v8 - 16), a2, a3);
+  llvm::MDNode::Header::Header((v8 - 16), a2, v3);
   return v8;
 }
 
@@ -6242,7 +6019,7 @@ uint64_t llvm::MDNode::Header::Header(uint64_t a1, unint64_t a2, int a3)
   return a1;
 }
 
-void llvm::MDNode::Header::~Header(char **this)
+void llvm::MDNode::Header::~Header(char ***this)
 {
   if ((*this & 2) != 0)
   {
@@ -6435,7 +6212,7 @@ uint64_t llvm::MDNode::resolveCycles(uint64_t this)
         this = llvm::MDNode::classof(*v3);
         if (this)
         {
-          if ((*(v6 + 1) & 0x7F) == 2 || *(v6 - 2))
+          if ((*(v6 + 1) & 0x7F) == 2 || *(v6 - 8))
           {
             this = llvm::MDNode::resolveCycles(v6);
           }
@@ -6458,7 +6235,7 @@ __n128 *llvm::MDNode::uniquify(__n128 *this, uint64_t a2, uint64_t a3, unint64_t
   switch(this->n128_u8[0])
   {
     case 5u:
-      v71 = this->n128_u64[1];
+      v71 = this->n128_i64[1];
       v72 = (v71 & 0xFFFFFFFFFFFFFFF8);
       if ((v71 & 4) != 0)
       {
@@ -6491,7 +6268,7 @@ __n128 *llvm::MDNode::uniquify(__n128 *this, uint64_t a2, uint64_t a3, unint64_t
       llvm::DenseMapBase<llvm::DenseMap<llvm::DILocation *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DILocation>,llvm::detail::DenseSetPair<llvm::DILocation *>>,llvm::DILocation *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DILocation>,llvm::detail::DenseSetPair<llvm::DILocation *>>::try_emplace<llvm::detail::DenseSetEmpty&>((v73 + 63), &v144, &v140);
       return v144;
     case 6u:
-      v47 = this->n128_u64[1];
+      v47 = this->n128_i64[1];
       v48 = (v47 & 0xFFFFFFFFFFFFFFF8);
       if ((v47 & 4) != 0)
       {
@@ -6523,10 +6300,10 @@ __n128 *llvm::MDNode::uniquify(__n128 *this, uint64_t a2, uint64_t a3, unint64_t
         }
       }
 
-      llvm::DenseMapBase<llvm::DenseMap<llvm::DIExpression *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DIExpression>,llvm::detail::DenseSetPair<llvm::DIExpression *>>,llvm::DIExpression *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DIExpression>,llvm::detail::DenseSetPair<llvm::DIExpression *>>::try_emplace<llvm::detail::DenseSetEmpty&>((v49 + 66), &v144, v51, &v140);
+      llvm::DenseMapBase<llvm::DenseMap<llvm::DIExpression *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DIExpression>,llvm::detail::DenseSetPair<llvm::DIExpression *>>,llvm::DIExpression *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DIExpression>,llvm::detail::DenseSetPair<llvm::DIExpression *>>::try_emplace<llvm::detail::DenseSetEmpty&>((v49 + 66), &v144, &v140, v51);
       break;
     case 7u:
-      v57 = this->n128_u64[1];
+      v57 = this->n128_i64[1];
       v58 = (v57 & 0xFFFFFFFFFFFFFFF8);
       if ((v57 & 4) != 0)
       {
@@ -6604,7 +6381,7 @@ __n128 *llvm::MDNode::uniquify(__n128 *this, uint64_t a2, uint64_t a3, unint64_t
       llvm::DenseMapBase<llvm::DenseMap<llvm::GenericDINode *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::GenericDINode>,llvm::detail::DenseSetPair<llvm::GenericDINode *>>,llvm::GenericDINode *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::GenericDINode>,llvm::detail::DenseSetPair<llvm::GenericDINode *>>::try_emplace<llvm::detail::DenseSetEmpty&>((v29 + 72), &v144, &v140);
       break;
     case 9u:
-      v87 = this->n128_u64[1];
+      v87 = this->n128_i64[1];
       v88 = (v87 & 0xFFFFFFFFFFFFFFF8);
       if ((v87 & 4) != 0)
       {
@@ -6637,7 +6414,7 @@ __n128 *llvm::MDNode::uniquify(__n128 *this, uint64_t a2, uint64_t a3, unint64_t
       llvm::DenseMapBase<llvm::DenseMap<llvm::DISubrange *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DISubrange>,llvm::detail::DenseSetPair<llvm::DISubrange *>>,llvm::DISubrange *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DISubrange>,llvm::detail::DenseSetPair<llvm::DISubrange *>>::try_emplace<llvm::detail::DenseSetEmpty&>((v89 + 75), &v144, &v140);
       break;
     case 0xAu:
-      v91 = this->n128_u64[1];
+      v91 = this->n128_i64[1];
       v92 = (v91 & 0xFFFFFFFFFFFFFFF8);
       if ((v91 & 4) != 0)
       {
@@ -6677,7 +6454,7 @@ __n128 *llvm::MDNode::uniquify(__n128 *this, uint64_t a2, uint64_t a3, unint64_t
       llvm::DenseMapBase<llvm::DenseMap<llvm::DIEnumerator *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DIEnumerator>,llvm::detail::DenseSetPair<llvm::DIEnumerator *>>,llvm::DIEnumerator *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DIEnumerator>,llvm::detail::DenseSetPair<llvm::DIEnumerator *>>::try_emplace<llvm::detail::DenseSetEmpty&>((v93 + 78), &v144, &v140);
       break;
     case 0xBu:
-      v62 = this->n128_u64[1];
+      v62 = this->n128_i64[1];
       v63 = (v62 & 0xFFFFFFFFFFFFFFF8);
       if ((v62 & 4) != 0)
       {
@@ -6690,16 +6467,16 @@ __n128 *llvm::MDNode::uniquify(__n128 *this, uint64_t a2, uint64_t a3, unint64_t
       v140.n128_u32[0] = this->n128_u16[1];
       if ((v65 & 2) != 0)
       {
-        v66 = this[-2].n128_i64[0];
+        v66 = this[-2].n128_u64[0];
       }
 
       else
       {
-        v66 = &this[-1] - 8 * ((v65 >> 2) & 0xF);
+        v66 = &this[-1] - ((v65 >> 2) & 0xF);
       }
 
-      v137 = this[1].n128_u64[1];
-      v140.n128_u64[1] = *(v66 + 16);
+      v137 = this[1].n128_i64[1];
+      v140.n128_u64[1] = v66[2];
       v141 = v137;
       v142 = this[2].n128_i64[1];
       v143 = this[1].n128_u32[1];
@@ -6726,7 +6503,7 @@ __n128 *llvm::MDNode::uniquify(__n128 *this, uint64_t a2, uint64_t a3, unint64_t
       llvm::DenseMapBase<llvm::DenseMap<llvm::DIBasicType *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DIBasicType>,llvm::detail::DenseSetPair<llvm::DIBasicType *>>,llvm::DIBasicType *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DIBasicType>,llvm::detail::DenseSetPair<llvm::DIBasicType *>>::try_emplace<llvm::detail::DenseSetEmpty&>((v64 + 81), &v144, &v140);
       break;
     case 0xCu:
-      v100 = this->n128_u64[1];
+      v100 = this->n128_i64[1];
       v101 = (v100 & 0xFFFFFFFFFFFFFFF8);
       if ((v100 & 4) != 0)
       {
@@ -6759,7 +6536,7 @@ __n128 *llvm::MDNode::uniquify(__n128 *this, uint64_t a2, uint64_t a3, unint64_t
       llvm::DenseMapBase<llvm::DenseMap<llvm::DIDerivedType *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DIDerivedType>,llvm::detail::DenseSetPair<llvm::DIDerivedType *>>,llvm::DIDerivedType *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DIDerivedType>,llvm::detail::DenseSetPair<llvm::DIDerivedType *>>::try_emplace<llvm::detail::DenseSetEmpty&>((v102 + 84), &v144, &v140);
       break;
     case 0xDu:
-      v43 = this->n128_u64[1];
+      v43 = this->n128_i64[1];
       v44 = (v43 & 0xFFFFFFFFFFFFFFF8);
       if ((v43 & 4) != 0)
       {
@@ -6792,7 +6569,7 @@ __n128 *llvm::MDNode::uniquify(__n128 *this, uint64_t a2, uint64_t a3, unint64_t
       llvm::DenseMapBase<llvm::DenseMap<llvm::DICompositeType *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DICompositeType>,llvm::detail::DenseSetPair<llvm::DICompositeType *>>,llvm::DICompositeType *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DICompositeType>,llvm::detail::DenseSetPair<llvm::DICompositeType *>>::try_emplace<llvm::detail::DenseSetEmpty&>((v45 + 87), &v144, &v140);
       break;
     case 0xEu:
-      v95 = this->n128_u64[1];
+      v95 = this->n128_i64[1];
       v96 = (v95 & 0xFFFFFFFFFFFFFFF8);
       if ((v95 & 4) != 0)
       {
@@ -6806,15 +6583,15 @@ __n128 *llvm::MDNode::uniquify(__n128 *this, uint64_t a2, uint64_t a3, unint64_t
       v140.n128_u8[4] = this[2].n128_u8[12];
       if ((v98 & 2) != 0)
       {
-        v99 = this[-2].n128_i64[0];
+        v99 = this[-2].n128_u64[0];
       }
 
       else
       {
-        v99 = &this[-1] - 8 * ((v98 >> 2) & 0xF);
+        v99 = &this[-1] - ((v98 >> 2) & 0xF);
       }
 
-      v140.n128_u64[1] = *(v99 + 24);
+      v140.n128_u64[1] = v99[3];
       v145 = 0;
       if (llvm::DenseMapBase<llvm::DenseMap<llvm::DISubroutineType *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DISubroutineType>,llvm::detail::DenseSetPair<llvm::DISubroutineType *>>,llvm::DISubroutineType *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DISubroutineType>,llvm::detail::DenseSetPair<llvm::DISubroutineType *>>::LookupBucketFor<llvm::MDNodeKeyImpl<llvm::DISubroutineType>>(v97 + 90, &v140, &v145))
       {
@@ -6838,7 +6615,7 @@ __n128 *llvm::MDNode::uniquify(__n128 *this, uint64_t a2, uint64_t a3, unint64_t
       llvm::DenseMapBase<llvm::DenseMap<llvm::DISubroutineType *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DISubroutineType>,llvm::detail::DenseSetPair<llvm::DISubroutineType *>>,llvm::DISubroutineType *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DISubroutineType>,llvm::detail::DenseSetPair<llvm::DISubroutineType *>>::try_emplace<llvm::detail::DenseSetEmpty&>((v97 + 90), &v144, &v140);
       break;
     case 0xFu:
-      v23 = this->n128_u64[1];
+      v23 = this->n128_i64[1];
       v24 = (v23 & 0xFFFFFFFFFFFFFFF8);
       if ((v23 & 4) != 0)
       {
@@ -6875,7 +6652,7 @@ __n128 *llvm::MDNode::uniquify(__n128 *this, uint64_t a2, uint64_t a3, unint64_t
       __break(1u);
       return this;
     case 0x11u:
-      v19 = this->n128_u64[1];
+      v19 = this->n128_i64[1];
       v20 = (v19 & 0xFFFFFFFFFFFFFFF8);
       if ((v19 & 4) != 0)
       {
@@ -6908,7 +6685,7 @@ __n128 *llvm::MDNode::uniquify(__n128 *this, uint64_t a2, uint64_t a3, unint64_t
       llvm::DenseMapBase<llvm::DenseMap<llvm::DISubprogram *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DISubprogram>,llvm::detail::DenseSetPair<llvm::DISubprogram *>>,llvm::DISubprogram *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DISubprogram>,llvm::detail::DenseSetPair<llvm::DISubprogram *>>::try_emplace<llvm::detail::DenseSetEmpty&>((v21 + 96), &v144, &v140);
       break;
     case 0x12u:
-      v53 = this->n128_u64[1];
+      v53 = this->n128_i64[1];
       v54 = (v53 & 0xFFFFFFFFFFFFFFF8);
       if ((v53 & 4) != 0)
       {
@@ -6941,7 +6718,7 @@ __n128 *llvm::MDNode::uniquify(__n128 *this, uint64_t a2, uint64_t a3, unint64_t
       llvm::DenseMapBase<llvm::DenseMap<llvm::DILexicalBlock *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DILexicalBlock>,llvm::detail::DenseSetPair<llvm::DILexicalBlock *>>,llvm::DILexicalBlock *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DILexicalBlock>,llvm::detail::DenseSetPair<llvm::DILexicalBlock *>>::try_emplace<llvm::detail::DenseSetEmpty&>((v55 + 99), &v144, &v140);
       break;
     case 0x13u:
-      v108 = this->n128_u64[1];
+      v108 = this->n128_i64[1];
       v109 = (v108 & 0xFFFFFFFFFFFFFFF8);
       if ((v108 & 4) != 0)
       {
@@ -6974,7 +6751,7 @@ __n128 *llvm::MDNode::uniquify(__n128 *this, uint64_t a2, uint64_t a3, unint64_t
       llvm::DenseMapBase<llvm::DenseMap<llvm::DILexicalBlockFile *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DILexicalBlockFile>,llvm::detail::DenseSetPair<llvm::DILexicalBlockFile *>>,llvm::DILexicalBlockFile *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DILexicalBlockFile>,llvm::detail::DenseSetPair<llvm::DILexicalBlockFile *>>::try_emplace<llvm::detail::DenseSetEmpty&>((v110 + 102), &v144, &v140);
       break;
     case 0x14u:
-      v35 = this->n128_u64[1];
+      v35 = this->n128_i64[1];
       v36 = (v35 & 0xFFFFFFFFFFFFFFF8);
       if ((v35 & 4) != 0)
       {
@@ -7007,7 +6784,7 @@ __n128 *llvm::MDNode::uniquify(__n128 *this, uint64_t a2, uint64_t a3, unint64_t
       llvm::DenseMapBase<llvm::DenseMap<llvm::DINamespace *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DINamespace>,llvm::detail::DenseSetPair<llvm::DINamespace *>>,llvm::DINamespace *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DINamespace>,llvm::detail::DenseSetPair<llvm::DINamespace *>>::try_emplace<llvm::detail::DenseSetEmpty&>((v37 + 105), &v144, &v140);
       break;
     case 0x15u:
-      v116 = this->n128_u64[1];
+      v116 = this->n128_i64[1];
       v117 = (v116 & 0xFFFFFFFFFFFFFFF8);
       if ((v116 & 4) != 0)
       {
@@ -7040,7 +6817,7 @@ __n128 *llvm::MDNode::uniquify(__n128 *this, uint64_t a2, uint64_t a3, unint64_t
       llvm::DenseMapBase<llvm::DenseMap<llvm::DIModule *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DIModule>,llvm::detail::DenseSetPair<llvm::DIModule *>>,llvm::DIModule *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DIModule>,llvm::detail::DenseSetPair<llvm::DIModule *>>::try_emplace<llvm::detail::DenseSetEmpty&>((v118 + 108), &v144, &v140);
       break;
     case 0x16u:
-      v67 = this->n128_u64[1];
+      v67 = this->n128_i64[1];
       v68 = (v67 & 0xFFFFFFFFFFFFFFF8);
       if ((v67 & 4) != 0)
       {
@@ -7073,7 +6850,7 @@ __n128 *llvm::MDNode::uniquify(__n128 *this, uint64_t a2, uint64_t a3, unint64_t
       llvm::DenseMapBase<llvm::DenseMap<llvm::DITemplateTypeParameter *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DITemplateTypeParameter>,llvm::detail::DenseSetPair<llvm::DITemplateTypeParameter *>>,llvm::DITemplateTypeParameter *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DITemplateTypeParameter>,llvm::detail::DenseSetPair<llvm::DITemplateTypeParameter *>>::try_emplace<llvm::detail::DenseSetEmpty&>((v69 + 111), &v144, &v140);
       break;
     case 0x17u:
-      v83 = this->n128_u64[1];
+      v83 = this->n128_i64[1];
       v84 = (v83 & 0xFFFFFFFFFFFFFFF8);
       if ((v83 & 4) != 0)
       {
@@ -7106,7 +6883,7 @@ __n128 *llvm::MDNode::uniquify(__n128 *this, uint64_t a2, uint64_t a3, unint64_t
       llvm::DenseMapBase<llvm::DenseMap<llvm::DITemplateValueParameter *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DITemplateValueParameter>,llvm::detail::DenseSetPair<llvm::DITemplateValueParameter *>>,llvm::DITemplateValueParameter *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DITemplateValueParameter>,llvm::detail::DenseSetPair<llvm::DITemplateValueParameter *>>::try_emplace<llvm::detail::DenseSetEmpty&>((v85 + 114), &v144, &v140);
       break;
     case 0x18u:
-      v112 = this->n128_u64[1];
+      v112 = this->n128_i64[1];
       v113 = (v112 & 0xFFFFFFFFFFFFFFF8);
       if ((v112 & 4) != 0)
       {
@@ -7139,7 +6916,7 @@ __n128 *llvm::MDNode::uniquify(__n128 *this, uint64_t a2, uint64_t a3, unint64_t
       llvm::DenseMapBase<llvm::DenseMap<llvm::DIGlobalVariable *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DIGlobalVariable>,llvm::detail::DenseSetPair<llvm::DIGlobalVariable *>>,llvm::DIGlobalVariable *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DIGlobalVariable>,llvm::detail::DenseSetPair<llvm::DIGlobalVariable *>>::try_emplace<llvm::detail::DenseSetEmpty&>((v114 + 117), &v144, &v140);
       break;
     case 0x19u:
-      v75 = this->n128_u64[1];
+      v75 = this->n128_i64[1];
       v76 = (v75 & 0xFFFFFFFFFFFFFFF8);
       if ((v75 & 4) != 0)
       {
@@ -7172,7 +6949,7 @@ __n128 *llvm::MDNode::uniquify(__n128 *this, uint64_t a2, uint64_t a3, unint64_t
       llvm::DenseMapBase<llvm::DenseMap<llvm::DILocalVariable *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DILocalVariable>,llvm::detail::DenseSetPair<llvm::DILocalVariable *>>,llvm::DILocalVariable *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DILocalVariable>,llvm::detail::DenseSetPair<llvm::DILocalVariable *>>::try_emplace<llvm::detail::DenseSetEmpty&>((v77 + 120), &v144, &v140);
       break;
     case 0x1Au:
-      v79 = this->n128_u64[1];
+      v79 = this->n128_i64[1];
       v80 = (v79 & 0xFFFFFFFFFFFFFFF8);
       if ((v79 & 4) != 0)
       {
@@ -7205,7 +6982,7 @@ __n128 *llvm::MDNode::uniquify(__n128 *this, uint64_t a2, uint64_t a3, unint64_t
       llvm::DenseMapBase<llvm::DenseMap<llvm::DILabel *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DILabel>,llvm::detail::DenseSetPair<llvm::DILabel *>>,llvm::DILabel *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DILabel>,llvm::detail::DenseSetPair<llvm::DILabel *>>::try_emplace<llvm::detail::DenseSetEmpty&>((v81 + 123), &v144, &v140);
       break;
     case 0x1Bu:
-      v104 = this->n128_u64[1];
+      v104 = this->n128_i64[1];
       v105 = (v104 & 0xFFFFFFFFFFFFFFF8);
       if ((v104 & 4) != 0)
       {
@@ -7238,7 +7015,7 @@ __n128 *llvm::MDNode::uniquify(__n128 *this, uint64_t a2, uint64_t a3, unint64_t
       llvm::DenseMapBase<llvm::DenseMap<llvm::DIObjCProperty *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DIObjCProperty>,llvm::detail::DenseSetPair<llvm::DIObjCProperty *>>,llvm::DIObjCProperty *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DIObjCProperty>,llvm::detail::DenseSetPair<llvm::DIObjCProperty *>>::try_emplace<llvm::detail::DenseSetEmpty&>((v106 + 126), &v144, &v140);
       break;
     case 0x1Cu:
-      v120 = this->n128_u64[1];
+      v120 = this->n128_i64[1];
       v121 = (v120 & 0xFFFFFFFFFFFFFFF8);
       if ((v120 & 4) != 0)
       {
@@ -7271,7 +7048,7 @@ __n128 *llvm::MDNode::uniquify(__n128 *this, uint64_t a2, uint64_t a3, unint64_t
       llvm::DenseMapBase<llvm::DenseMap<llvm::DIImportedEntity *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DIImportedEntity>,llvm::detail::DenseSetPair<llvm::DIImportedEntity *>>,llvm::DIImportedEntity *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DIImportedEntity>,llvm::detail::DenseSetPair<llvm::DIImportedEntity *>>::try_emplace<llvm::detail::DenseSetEmpty&>((v122 + 129), &v144, &v140);
       break;
     case 0x1Eu:
-      v39 = this->n128_u64[1];
+      v39 = this->n128_i64[1];
       v40 = (v39 & 0xFFFFFFFFFFFFFFF8);
       if ((v39 & 4) != 0)
       {
@@ -7304,7 +7081,7 @@ __n128 *llvm::MDNode::uniquify(__n128 *this, uint64_t a2, uint64_t a3, unint64_t
       llvm::DenseMapBase<llvm::DenseMap<llvm::DIMacro *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DIMacro>,llvm::detail::DenseSetPair<llvm::DIMacro *>>,llvm::DIMacro *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DIMacro>,llvm::detail::DenseSetPair<llvm::DIMacro *>>::try_emplace<llvm::detail::DenseSetEmpty&>((v41 + 132), &v144, &v140);
       break;
     case 0x1Fu:
-      v31 = this->n128_u64[1];
+      v31 = this->n128_i64[1];
       v32 = (v31 & 0xFFFFFFFFFFFFFFF8);
       if ((v31 & 4) != 0)
       {
@@ -7337,7 +7114,7 @@ __n128 *llvm::MDNode::uniquify(__n128 *this, uint64_t a2, uint64_t a3, unint64_t
       llvm::DenseMapBase<llvm::DenseMap<llvm::DIMacro *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DIMacro>,llvm::detail::DenseSetPair<llvm::DIMacro *>>,llvm::DIMacro *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DIMacro>,llvm::detail::DenseSetPair<llvm::DIMacro *>>::try_emplace<llvm::detail::DenseSetEmpty&>((v33 + 135), &v144, &v140);
       break;
     case 0x20u:
-      v132 = this->n128_u64[1];
+      v132 = this->n128_i64[1];
       v133 = (v132 & 0xFFFFFFFFFFFFFFF8);
       if ((v132 & 4) != 0)
       {
@@ -7370,7 +7147,7 @@ __n128 *llvm::MDNode::uniquify(__n128 *this, uint64_t a2, uint64_t a3, unint64_t
       llvm::DenseMapBase<llvm::DenseMap<llvm::DICommonBlock *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DICommonBlock>,llvm::detail::DenseSetPair<llvm::DICommonBlock *>>,llvm::DICommonBlock *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DICommonBlock>,llvm::detail::DenseSetPair<llvm::DICommonBlock *>>::try_emplace<llvm::detail::DenseSetEmpty&>((v134 + 138), &v144, &v140);
       break;
     case 0x21u:
-      v12 = this->n128_u64[1];
+      v12 = this->n128_i64[1];
       v13 = (v12 & 0xFFFFFFFFFFFFFFF8);
       if ((v12 & 4) != 0)
       {
@@ -7402,10 +7179,10 @@ __n128 *llvm::MDNode::uniquify(__n128 *this, uint64_t a2, uint64_t a3, unint64_t
         }
       }
 
-      llvm::DenseMapBase<llvm::DenseMap<llvm::DIArgList *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DIArgList>,llvm::detail::DenseSetPair<llvm::DIArgList *>>,llvm::DIArgList *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DIArgList>,llvm::detail::DenseSetPair<llvm::DIArgList *>>::try_emplace<llvm::detail::DenseSetEmpty&>((v14 + 141), &v144, v16, &v140);
+      llvm::DenseMapBase<llvm::DenseMap<llvm::DIArgList *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DIArgList>,llvm::detail::DenseSetPair<llvm::DIArgList *>>,llvm::DIArgList *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DIArgList>,llvm::detail::DenseSetPair<llvm::DIArgList *>>::try_emplace<llvm::detail::DenseSetEmpty&>((v14 + 141), &v144, &v140, v16);
       break;
     case 0x22u:
-      v124 = this->n128_u64[1];
+      v124 = this->n128_i64[1];
       v125 = (v124 & 0xFFFFFFFFFFFFFFF8);
       if ((v124 & 4) != 0)
       {
@@ -7438,7 +7215,7 @@ __n128 *llvm::MDNode::uniquify(__n128 *this, uint64_t a2, uint64_t a3, unint64_t
       llvm::DenseMapBase<llvm::DenseMap<llvm::DIStringType *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DIStringType>,llvm::detail::DenseSetPair<llvm::DIStringType *>>,llvm::DIStringType *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DIStringType>,llvm::detail::DenseSetPair<llvm::DIStringType *>>::try_emplace<llvm::detail::DenseSetEmpty&>((v126 + 144), &v144, &v140);
       break;
     case 0x23u:
-      v128 = this->n128_u64[1];
+      v128 = this->n128_i64[1];
       v129 = (v128 & 0xFFFFFFFFFFFFFFF8);
       if ((v128 & 4) != 0)
       {
@@ -7593,18 +7370,18 @@ uint64_t *llvm::MDNode::dropAllReferences(uint64_t *this)
   }
 
 LABEL_7:
-  v5 = *(v1 + 8);
+  v5 = v1[1];
   if ((v5 & 4) != 0)
   {
     v6 = (v5 & 0xFFFFFFFFFFFFFFF8);
     if (*(v6 + 4) >= 2u)
     {
       llvm::DenseMapBase<llvm::SmallDenseMap<void *,std::pair<llvm::PointerUnion<llvm::MetadataAsValue *,llvm::Metadata *>,unsigned long long>,4u,llvm::DenseMapInfo<void *,void>,llvm::detail::DenseMapPair<void *,std::pair<llvm::PointerUnion<llvm::MetadataAsValue *,llvm::Metadata *>,unsigned long long>>>,void *,std::pair<llvm::PointerUnion<llvm::MetadataAsValue *,llvm::Metadata *>,unsigned long long>,llvm::DenseMapInfo<void *,void>,llvm::detail::DenseMapPair<void *,std::pair<llvm::PointerUnion<llvm::MetadataAsValue *,llvm::Metadata *>,unsigned long long>>>::clear(v6 + 2);
-      v6 = (*(v1 + 8) & ((*(v1 + 8) << 61) >> 63) & 0xFFFFFFFFFFFFFFF8);
+      v6 = (v1[1] & (v1[1] << 61 >> 63) & 0xFFFFFFFFFFFFFFF8);
     }
 
     v7 = v6;
-    *(v1 + 8) = *v6 & 0xFFFFFFFFFFFFFFFBLL;
+    v1[1] = *v6 & 0xFFFFFFFFFFFFFFFBLL;
     return std::unique_ptr<llvm::ReplaceableMetadataImpl>::~unique_ptr[abi:nn200100](&v7);
   }
 
@@ -8138,15 +7915,14 @@ __n128 *llvm::MDNode::eraseFromStore(__n128 *this, uint64_t a2, uint64_t a3, uni
 
 llvm::MDNode *llvm::MDTuple::getImpl(void *a1, llvm::hashing::detail::hash_state *this, unint64_t a3, unint64_t *a4, int a5)
 {
-  v5 = a4;
   if (a4)
   {
     v9 = 0;
 LABEL_8:
-    v13 = llvm::MDNode::operator new(16, a3, v5);
-    v14 = llvm::MDNode::MDNode(v13, a1, 4, v5, this, a3, 0, 0);
+    v13 = llvm::MDNode::operator new(16, a3, a4);
+    v14 = llvm::MDNode::MDNode(v13, a1, 4, a4, this, a3, 0, 0);
     *(v14 + 1) = v9;
-    return llvm::MDNode::storeImpl<llvm::MDTuple,llvm::DenseSet<llvm::MDTuple*,llvm::MDNodeInfo<llvm::MDTuple>>>(v14, v5, *a1 + 480);
+    return llvm::MDNode::storeImpl<llvm::MDTuple,llvm::DenseSet<llvm::MDTuple*,llvm::MDNodeInfo<llvm::MDTuple>>>(v14, a4, *a1 + 480);
   }
 
   v15[0] = this;
@@ -8219,40 +7995,40 @@ void llvm::MDNode::deleteTemporary(llvm::MDNode *this, llvm::MDNode *a2)
   llvm::MDNode::deleteAsSubclass(this);
 }
 
-void llvm::MDNode::replaceOperandWith(__n128 *a1, unsigned int a2, __n128 *a3, unint64_t *a4)
+void llvm::MDNode::replaceOperandWith(llvm::MDNode *result, unsigned int a2, llvm::MDNode *a3, unint64_t *a4)
 {
-  v4 = a1 - 1;
-  v5 = a1[-1].n128_u64[0];
+  v4 = result - 16;
+  v5 = *(result - 2);
   if ((v5 & 2) != 0)
   {
-    v6 = a1[-2].n128_u64[0];
+    v6 = *(result - 4);
   }
 
   else
   {
-    v6 = &v4->n128_u64[-((v5 >> 2) & 0xF)];
+    v6 = &v4[-8 * ((v5 >> 2) & 0xF)];
   }
 
-  if (*(v6 + 8 * a2) != a3)
+  if (*&v6[8 * a2] != a3)
   {
-    if ((a1->n128_u8[1] & 0x7F) != 0)
+    if ((*(result + 1) & 0x7F) != 0)
     {
-      llvm::MDNode::setOperand(a1, a2, a3);
+      llvm::MDNode::setOperand(result, a2, a3);
     }
 
     else
     {
       if ((v5 & 2) != 0)
       {
-        v7 = a1[-2].n128_u64[0];
+        v7 = *(result - 4);
       }
 
       else
       {
-        v7 = &v4->n128_u64[-((v5 >> 2) & 0xF)];
+        v7 = &v4[-8 * ((v5 >> 2) & 0xF)];
       }
 
-      llvm::MDNode::handleChangedOperand(a1, v7 + 8 * a2, a3, a4);
+      llvm::MDNode::handleChangedOperand(result, &v7[8 * a2], a3, a4);
     }
   }
 }
@@ -8268,10 +8044,10 @@ void llvm::NamedMDNode::~NamedMDNode(llvm::NamedMDNode *this)
   }
 }
 
-uint64_t llvm::SmallVectorImpl<llvm::TrackingMDRef>::emplace_back<llvm::MDNode *&>(unint64_t a1, uint64_t *a2)
+unsigned __int8 **llvm::SmallVectorImpl<llvm::TrackingMDRef>::emplace_back<llvm::MDNode *&>(uint64_t *a1, uint64_t *a2)
 {
-  v3 = *(a1 + 8);
-  if (v3 >= *(a1 + 12))
+  v3 = *(a1 + 2);
+  if (v3 >= *(a1 + 3))
   {
 
     return llvm::SmallVectorTemplateBase<llvm::TrackingMDRef,false>::growAndEmplaceBack<llvm::MDNode *&>(a1, a2);
@@ -8286,20 +8062,20 @@ uint64_t llvm::SmallVectorImpl<llvm::TrackingMDRef>::emplace_back<llvm::MDNode *
     if (v6)
     {
       llvm::MetadataTracking::track(v5, v6, 2);
-      LODWORD(v3) = *(a1 + 8);
+      LODWORD(v3) = *(a1 + 2);
       v4 = *a1;
     }
 
     v7 = v3 + 1;
-    *(a1 + 8) = v7;
-    return v4 + 8 * v7 - 8;
+    *(a1 + 2) = v7;
+    return (v4 + 8 * v7 - 8);
   }
 }
 
-unint64_t llvm::SmallVectorImpl<llvm::TrackingMDRef>::clear(unint64_t result)
+unsigned __int8 *llvm::SmallVectorImpl<llvm::TrackingMDRef>::clear(unsigned __int8 *result)
 {
   v1 = result;
-  v2 = *(result + 8);
+  v2 = *(result + 2);
   if (v2)
   {
     v3 = -8 * v2;
@@ -8318,17 +8094,17 @@ unint64_t llvm::SmallVectorImpl<llvm::TrackingMDRef>::clear(unint64_t result)
     while (v3);
   }
 
-  *(v1 + 8) = 0;
+  *(v1 + 2) = 0;
   return result;
 }
 
-void llvm::MDAttachments::getAll(uint64_t *a1, unsigned int *a2, __n128 a3)
+void llvm::MDAttachments::getAll(uint64_t *result, unsigned int *a2, __n128 a3)
 {
-  v4 = *(a1 + 2);
+  v4 = *(result + 2);
   if (v4)
   {
-    v5 = *a1;
-    v6 = *a1 + 16 * v4;
+    v5 = *result;
+    v6 = *result + 16 * v4;
     do
     {
       llvm::SmallVectorImpl<std::pair<unsigned int,llvm::MDNode *>>::emplace_back<unsigned int &,llvm::MDNode *&>(a2, v5, (v5 + 8));
@@ -8354,8 +8130,8 @@ BOOL llvm::MDAttachments::erase(llvm::MDAttachments *this, int a2)
   }
 
   v5 = *this;
-  v6 = (v5 + 16 * v2);
-  if (v2 == 1 && *(v6 - 4) == a2)
+  v6 = v5 + 16 * v2;
+  if (v2 == 1 && *(v6 - 16) == a2)
   {
     *(this + 2) = 0;
     v9 = *(v5 + 8);
@@ -8382,7 +8158,7 @@ BOOL llvm::MDAttachments::erase(llvm::MDAttachments *this, int a2)
       }
     }
 
-    v6 = (v5 + v11);
+    v6 = v5 + v11;
     if (v12 == v11 || v12 - 16 == v11)
     {
 LABEL_19:
@@ -8391,15 +8167,15 @@ LABEL_19:
     }
 
     v13 = v12 - v11 - 16;
-    v14 = v6 + 3;
+    v14 = (v6 + 24);
     do
     {
       v15 = *(v14 - 2);
       if (v15 != a2)
       {
         *v6 = v15;
-        v16 = v6 + 2;
-        llvm::TrackingMDRef::operator=(v6 + 1, v14);
+        v16 = v6 + 16;
+        llvm::TrackingMDRef::operator=((v6 + 8), v14);
         v6 = v16;
       }
 
@@ -8416,7 +8192,7 @@ LABEL_20:
   }
 }
 
-uint64_t llvm::MDAttachments::insert(llvm::MDAttachments *this, int a2, llvm::MDNode *a3)
+unsigned __int8 *llvm::MDAttachments::insert(llvm::MDAttachments *this, int a2, llvm::MDNode *a3)
 {
   v5 = a2;
   v6 = a3;
@@ -8430,7 +8206,7 @@ uint64_t llvm::MDAttachments::insert(llvm::MDAttachments *this, int a2, llvm::MD
   return result;
 }
 
-unint64_t llvm::SmallVectorTemplateBase<llvm::MDAttachments::Attachment,false>::push_back(uint64_t a1, unint64_t a2)
+uint64_t llvm::SmallVectorTemplateBase<llvm::MDAttachments::Attachment,false>::push_back(uint64_t a1, unint64_t a2)
 {
   result = llvm::SmallVectorTemplateCommon<llvm::MDAttachments::Attachment,void>::reserveForParamAndGetAddressImpl<llvm::SmallVectorTemplateBase<llvm::MDAttachments::Attachment,false>>(a1, a2, 1);
   v4 = *(a1 + 8);
@@ -8484,18 +8260,18 @@ uint64_t llvm::Value::getMetadata(uint64_t ***this, int a2)
   return *v9;
 }
 
-uint64_t ***llvm::Value::getMetadata(uint64_t ***result, int a2, unsigned int *a3)
+unsigned int *llvm::Value::getMetadata(unsigned int *result, int a2, unsigned int *a3)
 {
   if ((*(result + 23) & 0x20) != 0)
   {
     v5 = ***result;
     v9 = result;
     result = llvm::DenseMapBase<llvm::DenseMap<llvm::Value const*,llvm::MDAttachments,llvm::DenseMapInfo<llvm::Value const*,void>,llvm::detail::DenseMapPair<llvm::Value const*,llvm::MDAttachments>>,llvm::Value const*,llvm::MDAttachments,llvm::DenseMapInfo<llvm::Value const*,void>,llvm::detail::DenseMapPair<llvm::Value const*,llvm::MDAttachments>>::FindAndConstruct((v5 + 2504), &v9);
-    v6 = *(result + 4);
+    v6 = result[4];
     if (v6)
     {
       v7 = 16 * v6;
-      v8 = (result[1] + 1);
+      v8 = (*(result + 1) + 8);
       do
       {
         if (*(v8 - 2) == a2)
@@ -8514,12 +8290,12 @@ uint64_t ***llvm::Value::getMetadata(uint64_t ***result, int a2, unsigned int *a
   return result;
 }
 
-void llvm::Value::getAllMetadata(uint64_t ***a1, unsigned int *a2)
+void llvm::Value::getAllMetadata(uint64_t ***result, unsigned int *a2)
 {
-  if ((*(a1 + 23) & 0x20) != 0)
+  if ((*(result + 23) & 0x20) != 0)
   {
-    v3 = ***a1;
-    v7 = a1;
+    v3 = ***result;
+    v7 = result;
     v8 = 0;
     v4 = llvm::DenseMapBase<llvm::DenseMap<llvm::Value const*,llvm::MDAttachments,llvm::DenseMapInfo<llvm::Value const*,void>,llvm::detail::DenseMapPair<llvm::Value const*,llvm::MDAttachments>>,llvm::Value const*,llvm::MDAttachments,llvm::DenseMapInfo<llvm::Value const*,void>,llvm::detail::DenseMapPair<llvm::Value const*,llvm::MDAttachments>>::LookupBucketFor<llvm::Value const*>((v3 + 2504), &v7, &v8);
     v6 = v8;
@@ -8560,7 +8336,7 @@ uint64_t llvm::Value::setMetadata(uint64_t this, int a2, llvm::MDNode *a3)
     {
       v11 = ***v4;
       v12 = v4;
-      this = llvm::DenseMapBase<llvm::DenseMap<llvm::Value const*,llvm::MDAttachments,llvm::DenseMapInfo<llvm::Value const*,void>,llvm::detail::DenseMapPair<llvm::Value const*,llvm::MDAttachments>>,llvm::Value const*,llvm::MDAttachments,llvm::DenseMapInfo<llvm::Value const*,void>,llvm::detail::DenseMapPair<llvm::Value const*,llvm::MDAttachments>>::erase(v11 + 2504, &v12);
+      this = llvm::DenseMapBase<llvm::DenseMap<llvm::Value const*,llvm::MDAttachments,llvm::DenseMapInfo<llvm::Value const*,void>,llvm::detail::DenseMapPair<llvm::Value const*,llvm::MDAttachments>>,llvm::Value const*,llvm::MDAttachments,llvm::DenseMapInfo<llvm::Value const*,void>,llvm::detail::DenseMapPair<llvm::Value const*,llvm::MDAttachments>>::erase(v11 + 313, &v12);
       *(v4 + 20) &= ~0x20000000u;
     }
   }
@@ -8568,7 +8344,7 @@ uint64_t llvm::Value::setMetadata(uint64_t this, int a2, llvm::MDNode *a3)
   return this;
 }
 
-uint64_t llvm::DenseMapBase<llvm::DenseMap<llvm::Value const*,llvm::MDAttachments,llvm::DenseMapInfo<llvm::Value const*,void>,llvm::detail::DenseMapPair<llvm::Value const*,llvm::MDAttachments>>,llvm::Value const*,llvm::MDAttachments,llvm::DenseMapInfo<llvm::Value const*,void>,llvm::detail::DenseMapPair<llvm::Value const*,llvm::MDAttachments>>::erase(uint64_t a1, void *a2)
+uint64_t llvm::DenseMapBase<llvm::DenseMap<llvm::Value const*,llvm::MDAttachments,llvm::DenseMapInfo<llvm::Value const*,void>,llvm::detail::DenseMapPair<llvm::Value const*,llvm::MDAttachments>>,llvm::Value const*,llvm::MDAttachments,llvm::DenseMapInfo<llvm::Value const*,void>,llvm::detail::DenseMapPair<llvm::Value const*,llvm::MDAttachments>>::erase(int32x2_t *a1, void *a2)
 {
   v6 = 0;
   v3 = llvm::DenseMapBase<llvm::DenseMap<llvm::Value const*,llvm::MDAttachments,llvm::DenseMapInfo<llvm::Value const*,void>,llvm::detail::DenseMapPair<llvm::Value const*,llvm::MDAttachments>>,llvm::Value const*,llvm::MDAttachments,llvm::DenseMapInfo<llvm::Value const*,void>,llvm::detail::DenseMapPair<llvm::Value const*,llvm::MDAttachments>>::LookupBucketFor<llvm::Value const*>(a1, a2, &v6);
@@ -8577,13 +8353,13 @@ uint64_t llvm::DenseMapBase<llvm::DenseMap<llvm::Value const*,llvm::MDAttachment
     v4 = v6;
     llvm::SmallVector<llvm::MDAttachments::Attachment,1u>::~SmallVector((v6 + 8));
     *v4 = -8192;
-    *(a1 + 8) = vadd_s32(*(a1 + 8), 0x1FFFFFFFFLL);
+    a1[1] = vadd_s32(a1[1], 0x1FFFFFFFFLL);
   }
 
   return v3;
 }
 
-uint64_t llvm::Value::addMetadata(uint64_t ***this, int a2, llvm::MDNode *a3)
+unsigned __int8 *llvm::Value::addMetadata(uint64_t ***this, int a2, llvm::MDNode *a3)
 {
   v5 = *(this + 5);
   if ((v5 & 0x20000000) == 0)
@@ -8616,24 +8392,24 @@ BOOL llvm::Value::eraseMetadata(uint64_t ***this, int a2)
   return v2;
 }
 
-uint64_t ***llvm::Value::clearMetadata(uint64_t ***this)
+uint64_t llvm::Value::clearMetadata(uint64_t this)
 {
   if ((*(this + 23) & 0x20) != 0)
   {
     v1 = this;
     v2 = ***this;
     v3 = this;
-    this = llvm::DenseMapBase<llvm::DenseMap<llvm::Value const*,llvm::MDAttachments,llvm::DenseMapInfo<llvm::Value const*,void>,llvm::detail::DenseMapPair<llvm::Value const*,llvm::MDAttachments>>,llvm::Value const*,llvm::MDAttachments,llvm::DenseMapInfo<llvm::Value const*,void>,llvm::detail::DenseMapPair<llvm::Value const*,llvm::MDAttachments>>::erase(v2 + 2504, &v3);
+    this = llvm::DenseMapBase<llvm::DenseMap<llvm::Value const*,llvm::MDAttachments,llvm::DenseMapInfo<llvm::Value const*,void>,llvm::detail::DenseMapPair<llvm::Value const*,llvm::MDAttachments>>,llvm::Value const*,llvm::MDAttachments,llvm::DenseMapInfo<llvm::Value const*,void>,llvm::detail::DenseMapPair<llvm::Value const*,llvm::MDAttachments>>::erase(v2 + 313, &v3);
     *(v1 + 20) &= ~0x20000000u;
   }
 
   return this;
 }
 
-uint64_t *llvm::Instruction::setMetadata(uint64_t *result, uint64_t *a2, unint64_t a3, llvm::MDNode *a4)
+unsigned __int8 *llvm::Instruction::setMetadata(unsigned __int8 *result, uint64_t *a2, size_t a3, llvm::MDNode *a4)
 {
   v5 = result;
-  if (a4 || result[6] || (*(result + 23) & 0x20) != 0)
+  if (a4 || *(result + 6) || (result[23] & 0x20) != 0)
   {
     v6 = ***result;
     v8 = *(v6 + 2492);
@@ -8645,10 +8421,10 @@ uint64_t *llvm::Instruction::setMetadata(uint64_t *result, uint64_t *a2, unint64
   return result;
 }
 
-uint64_t *llvm::Instruction::setMetadata(uint64_t *this, int a2, llvm::MDNode *a3)
+unsigned __int8 *llvm::Instruction::setMetadata(unsigned __int8 *this, int a2, llvm::MDNode *a3)
 {
   v5 = this;
-  if (!a3 && !this[6] && (*(this + 23) & 0x20) == 0)
+  if (!a3 && !*(this + 6) && (this[23] & 0x20) == 0)
   {
     return this;
   }
@@ -8666,7 +8442,7 @@ uint64_t *llvm::Instruction::setMetadata(uint64_t *this, int a2, llvm::MDNode *a
       llvm::MetadataTracking::track(&v6, a3, 2);
     }
 
-    this = llvm::TrackingMDRef::operator=((v5 + 48), &v6);
+    this = llvm::TrackingMDRef::operator=(v5 + 6, &v6);
     if (v6)
     {
       return llvm::MetadataTracking::untrack(&v6, v6);
@@ -8941,9 +8717,9 @@ LABEL_6:
   return a4;
 }
 
-uint64_t llvm::SmallDenseMap<void *,std::pair<llvm::PointerUnion<llvm::MetadataAsValue *,llvm::Metadata *>,unsigned long long>,4u,llvm::DenseMapInfo<void *,void>,llvm::detail::DenseMapPair<void *,std::pair<llvm::PointerUnion<llvm::MetadataAsValue *,llvm::Metadata *>,unsigned long long>>>::grow(uint64_t a1, unsigned int a2)
+int *llvm::SmallDenseMap<void *,std::pair<llvm::PointerUnion<llvm::MetadataAsValue *,llvm::Metadata *>,unsigned long long>,4u,llvm::DenseMapInfo<void *,void>,llvm::detail::DenseMapPair<void *,std::pair<llvm::PointerUnion<llvm::MetadataAsValue *,llvm::Metadata *>,unsigned long long>>>::grow(uint64_t a1, unsigned int a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   if (a2 >= 5)
   {
     v3 = (a2 - 1) | ((a2 - 1) >> 1);
@@ -8966,9 +8742,9 @@ uint64_t llvm::SmallDenseMap<void *,std::pair<llvm::PointerUnion<llvm::MetadataA
     v7 = *(a1 + 16);
     if (a2 > 4)
     {
-      v14 = a2;
+      v13 = a2;
       *(a1 + 8) = operator new(24 * a2, 8uLL);
-      *(a1 + 16) = v14;
+      *(a1 + 16) = v13;
     }
 
     else
@@ -8977,13 +8753,12 @@ uint64_t llvm::SmallDenseMap<void *,std::pair<llvm::PointerUnion<llvm::MetadataA
     }
 
     llvm::DenseMapBase<llvm::SmallDenseMap<void *,std::pair<llvm::PointerUnion<llvm::MetadataAsValue *,llvm::Metadata *>,unsigned long long>,4u,llvm::DenseMapInfo<void *,void>,llvm::detail::DenseMapPair<void *,std::pair<llvm::PointerUnion<llvm::MetadataAsValue *,llvm::Metadata *>,unsigned long long>>>,void *,std::pair<llvm::PointerUnion<llvm::MetadataAsValue *,llvm::Metadata *>,unsigned long long>,llvm::DenseMapInfo<void *,void>,llvm::detail::DenseMapPair<void *,std::pair<llvm::PointerUnion<llvm::MetadataAsValue *,llvm::Metadata *>,unsigned long long>>>::moveFromOldBuckets(a1, v6, v6 + 24 * v7);
-    v15 = *MEMORY[0x277D85DE8];
 
     JUMPOUT(0x277C69E30);
   }
 
   v8 = 0;
-  v9 = v16;
+  v9 = v14;
   do
   {
     v10 = *(a1 + v8 + 8);
@@ -9006,31 +8781,29 @@ uint64_t llvm::SmallDenseMap<void *,std::pair<llvm::PointerUnion<llvm::MetadataA
     *(a1 + 16) = v11;
   }
 
-  result = llvm::DenseMapBase<llvm::SmallDenseMap<void *,std::pair<llvm::PointerUnion<llvm::MetadataAsValue *,llvm::Metadata *>,unsigned long long>,4u,llvm::DenseMapInfo<void *,void>,llvm::detail::DenseMapPair<void *,std::pair<llvm::PointerUnion<llvm::MetadataAsValue *,llvm::Metadata *>,unsigned long long>>>,void *,std::pair<llvm::PointerUnion<llvm::MetadataAsValue *,llvm::Metadata *>,unsigned long long>,llvm::DenseMapInfo<void *,void>,llvm::detail::DenseMapPair<void *,std::pair<llvm::PointerUnion<llvm::MetadataAsValue *,llvm::Metadata *>,unsigned long long>>>::moveFromOldBuckets(a1, v16, v9);
-  v13 = *MEMORY[0x277D85DE8];
-  return result;
+  return llvm::DenseMapBase<llvm::SmallDenseMap<void *,std::pair<llvm::PointerUnion<llvm::MetadataAsValue *,llvm::Metadata *>,unsigned long long>,4u,llvm::DenseMapInfo<void *,void>,llvm::detail::DenseMapPair<void *,std::pair<llvm::PointerUnion<llvm::MetadataAsValue *,llvm::Metadata *>,unsigned long long>>>,void *,std::pair<llvm::PointerUnion<llvm::MetadataAsValue *,llvm::Metadata *>,unsigned long long>,llvm::DenseMapInfo<void *,void>,llvm::detail::DenseMapPair<void *,std::pair<llvm::PointerUnion<llvm::MetadataAsValue *,llvm::Metadata *>,unsigned long long>>>::moveFromOldBuckets(a1, v14, v9);
 }
 
-uint64_t llvm::DenseMapBase<llvm::SmallDenseMap<void *,std::pair<llvm::PointerUnion<llvm::MetadataAsValue *,llvm::Metadata *>,unsigned long long>,4u,llvm::DenseMapInfo<void *,void>,llvm::detail::DenseMapPair<void *,std::pair<llvm::PointerUnion<llvm::MetadataAsValue *,llvm::Metadata *>,unsigned long long>>>,void *,std::pair<llvm::PointerUnion<llvm::MetadataAsValue *,llvm::Metadata *>,unsigned long long>,llvm::DenseMapInfo<void *,void>,llvm::detail::DenseMapPair<void *,std::pair<llvm::PointerUnion<llvm::MetadataAsValue *,llvm::Metadata *>,unsigned long long>>>::moveFromOldBuckets(uint64_t result, uint64_t a2, uint64_t a3)
+int *llvm::DenseMapBase<llvm::SmallDenseMap<void *,std::pair<llvm::PointerUnion<llvm::MetadataAsValue *,llvm::Metadata *>,unsigned long long>,4u,llvm::DenseMapInfo<void *,void>,llvm::detail::DenseMapPair<void *,std::pair<llvm::PointerUnion<llvm::MetadataAsValue *,llvm::Metadata *>,unsigned long long>>>,void *,std::pair<llvm::PointerUnion<llvm::MetadataAsValue *,llvm::Metadata *>,unsigned long long>,llvm::DenseMapInfo<void *,void>,llvm::detail::DenseMapPair<void *,std::pair<llvm::PointerUnion<llvm::MetadataAsValue *,llvm::Metadata *>,unsigned long long>>>::moveFromOldBuckets(int *result, uint64_t a2, uint64_t a3)
 {
   v5 = result;
   v6 = *result;
   *result = *result & 1;
   if (v6)
   {
-    v8 = (result + 8);
-    v9 = (result + 104);
+    v8 = (result + 2);
+    v9 = (result + 26);
   }
 
   else
   {
-    v7 = *(result + 16);
+    v7 = result[4];
     if (!v7)
     {
       goto LABEL_15;
     }
 
-    v8 = *(result + 8);
+    v8 = *(result + 1);
     v9 = &v8[24 * v7];
   }
 
@@ -9184,7 +8957,7 @@ unsigned int *llvm::SmallVectorImpl<std::pair<void *,std::pair<llvm::PointerUnio
   return result;
 }
 
-unint64_t std::__introsort<std::_ClassicAlgPolicy,llvm::less_second &,std::pair<void *,std::pair<llvm::PointerUnion<llvm::MetadataAsValue *,llvm::Metadata *>,unsigned long long>> *,false>(unint64_t result, uint64_t *a2, uint64_t a3, char a4)
+unint64_t std::__introsort<std::_ClassicAlgPolicy,llvm::less_second &,std::pair<void *,std::pair<llvm::PointerUnion<llvm::MetadataAsValue *,llvm::Metadata *>,unsigned long long>> *,false>(unint64_t result, char *a2, uint64_t a3, char a4)
 {
   v7 = result;
 LABEL_2:
@@ -9193,7 +8966,7 @@ LABEL_2:
   {
     v7 = i;
     v9 = a2 - i;
-    v10 = 0xAAAAAAAAAAAAAAABLL * (a2 - i);
+    v10 = 0xAAAAAAAAAAAAAAABLL * ((a2 - i) >> 3);
     if (v10 > 2)
     {
       switch(v10)
@@ -9373,7 +9146,7 @@ LABEL_156:
             }
 
             while (v95 <= (v94 - 2) / 2);
-            if (v99 == a2 - 3)
+            if (v99 == (a2 - 24))
             {
               *v99 = v96;
               v99[1] = v97;
@@ -9448,7 +9221,7 @@ LABEL_185:
             }
 
 LABEL_187:
-            a2 -= 3;
+            a2 -= 24;
             if (v94-- <= 2)
             {
               return result;
@@ -9505,8 +9278,8 @@ LABEL_20:
       if (v21)
       {
         v26 = *(a2 - 2);
-        v27 = a2 - 1;
-        v28 = a2 - 3;
+        v27 = a2 - 8;
+        v28 = a2 - 24;
         if (v26 >= v18)
         {
           do
@@ -9517,12 +9290,12 @@ LABEL_20:
             }
 
             v26 = *(v27 - 4);
-            v27 -= 3;
+            v27 -= 24;
           }
 
           while (v26 >= v18);
 LABEL_30:
-          v28 = v27 - 2;
+          v28 = v27 - 16;
         }
       }
 
@@ -9532,19 +9305,19 @@ LABEL_30:
         if (v25 < a2)
         {
           v29 = *(a2 - 2);
-          v28 = a2 - 3;
+          v28 = a2 - 24;
           if (v29 >= v18)
           {
-            v27 = a2 - 1;
-            v28 = a2 - 3;
+            v27 = a2 - 8;
+            v28 = a2 - 24;
             while (1)
             {
-              v30 = v27 - 2;
+              v30 = v27 - 16;
               if (v18 >= v29)
               {
                 if (*v27 < v23 || v25 >= v30)
                 {
-                  v28 = v27 - 2;
+                  v28 = v27 - 16;
                   break;
                 }
               }
@@ -9554,9 +9327,9 @@ LABEL_30:
                 break;
               }
 
-              v28 -= 3;
+              v28 -= 24;
               v29 = *(v27 - 4);
-              v27 -= 3;
+              v27 -= 24;
               if (v29 < v18)
               {
                 goto LABEL_30;
@@ -9634,7 +9407,7 @@ LABEL_30:
       if (v25 < v28)
       {
 LABEL_63:
-        result = std::__introsort<std::_ClassicAlgPolicy,llvm::less_second &,std::pair<void *,std::pair<llvm::PointerUnion<llvm::MetadataAsValue *,llvm::Metadata *>,unsigned long long>> *,false>(v7, i - 3, a3, a4 & 1);
+        result = std::__introsort<std::_ClassicAlgPolicy,llvm::less_second &,std::pair<void *,std::pair<llvm::PointerUnion<llvm::MetadataAsValue *,llvm::Metadata *>,unsigned long long>> *,false>(v7, i - 24, a3, a4 & 1);
         a4 = 0;
       }
 
@@ -9644,7 +9417,7 @@ LABEL_63:
         result = std::__insertion_sort_incomplete[abi:nn200100]<std::_ClassicAlgPolicy,llvm::less_second &,std::pair<void *,std::pair<llvm::PointerUnion<llvm::MetadataAsValue *,llvm::Metadata *>,unsigned long long>> *>(i, a2);
         if (result)
         {
-          a2 = i - 3;
+          a2 = (i - 3);
           if (v39)
           {
             return result;
@@ -9728,12 +9501,12 @@ LABEL_63:
       v46 = a2;
       if (i < a2)
       {
-        for (j = a2 - 1; v18 < v40 || v40 >= v18 && v20 < *j; j -= 3)
+        for (j = a2 - 8; v18 < v40 || v40 >= v18 && v20 < *j; j -= 24)
         {
           v40 = *(j - 4);
         }
 
-        v46 = j - 2;
+        v46 = j - 16;
       }
 
       while (i < v46)
@@ -9742,11 +9515,11 @@ LABEL_63:
         *i = *v46;
         *v46 = v48;
         v49 = i[1];
-        i[1] = v46[1];
-        v46[1] = v49;
+        i[1] = *(v46 + 1);
+        *(v46 + 1) = v49;
         v50 = i[2];
-        i[2] = v46[2];
-        v46[2] = v50;
+        i[2] = *(v46 + 2);
+        *(v46 + 2) = v50;
         v51 = i[4];
         if (v18 >= v51)
         {
@@ -9776,14 +9549,14 @@ LABEL_63:
         {
           do
           {
-            v46 -= 3;
-            v54 = v46[1];
+            v46 -= 24;
+            v54 = *(v46 + 1);
           }
 
           while (v18 < v54);
         }
 
-        while (v54 >= v18 && v20 < v46[2]);
+        while (v54 >= v18 && v20 < *(v46 + 2));
       }
 
       if (i - 3 != v7)
@@ -9800,7 +9573,7 @@ LABEL_63:
     }
   }
 
-  v60 = i + 3;
+  v60 = (i + 3);
   v62 = i == a2 || v60 == a2;
   if ((a4 & 1) == 0)
   {
@@ -9892,8 +9665,8 @@ LABEL_200:
     v69 = v65[3];
     v70 = v65[1];
     v65[3] = *v65;
-    v64[1] = v70;
-    v64[2] = v65[2];
+    *(v64 + 1) = v70;
+    *(v64 + 2) = v65[2];
     v71 = i;
     if (v65 == i)
     {
@@ -9945,13 +9718,97 @@ LABEL_138:
     v71[1] = v66;
     v71[2] = v68;
 LABEL_139:
-    v60 = v64 + 3;
+    v60 = v64 + 24;
     v63 += 24;
-    if (v64 + 3 != a2)
+    if (v64 + 24 != a2)
     {
       continue;
     }
 
     return result;
   }
+}
+
+uint64_t *std::__sort3[abi:nn200100]<std::_ClassicAlgPolicy,llvm::less_second &,std::pair<void *,std::pair<llvm::PointerUnion<llvm::MetadataAsValue *,llvm::Metadata *>,unsigned long long>> *,0>(uint64_t *result, uint64_t *a2, uint64_t *a3)
+{
+  v3 = a2[1];
+  v4 = result[1];
+  if (v3 < v4 || v4 >= v3 && a2[2] < result[2])
+  {
+    v5 = a3[1];
+    if (v5 < v3 || v3 >= v5 && a3[2] < a2[2])
+    {
+      v6 = *result;
+      *result = *a3;
+      *a3 = v6;
+      v7 = result[1];
+      result[1] = a3[1];
+      a3[1] = v7;
+      v8 = result + 2;
+    }
+
+    else
+    {
+      v18 = *result;
+      *result = *a2;
+      *a2 = v18;
+      v19 = result[1];
+      result[1] = a2[1];
+      a2[1] = v19;
+      v8 = a2 + 2;
+      v20 = result[2];
+      result[2] = a2[2];
+      a2[2] = v20;
+      v21 = a3[1];
+      v22 = a2[1];
+      if (v21 >= v22 && (v22 < v21 || a3[2] >= v20))
+      {
+        return result;
+      }
+
+      v23 = *a2;
+      *a2 = *a3;
+      *a3 = v23;
+      v24 = a2[1];
+      a2[1] = a3[1];
+      a3[1] = v24;
+    }
+
+    v13 = a3 + 2;
+LABEL_14:
+    v25 = *v8;
+    *v8 = *v13;
+    *v13 = v25;
+    return result;
+  }
+
+  v9 = a3[1];
+  if (v9 < v3 || v3 >= v9 && a3[2] < a2[2])
+  {
+    v10 = *a2;
+    *a2 = *a3;
+    *a3 = v10;
+    v11 = a2[1];
+    a2[1] = a3[1];
+    a3[1] = v11;
+    v13 = a2 + 2;
+    v12 = a2[2];
+    a2[2] = a3[2];
+    a3[2] = v12;
+    v14 = a2[1];
+    v15 = result[1];
+    if (v14 < v15 || v15 >= v14 && *v13 < result[2])
+    {
+      v16 = *result;
+      *result = *a2;
+      *a2 = v16;
+      v17 = result[1];
+      result[1] = a2[1];
+      a2[1] = v17;
+      v8 = result + 2;
+      goto LABEL_14;
+    }
+  }
+
+  return result;
 }

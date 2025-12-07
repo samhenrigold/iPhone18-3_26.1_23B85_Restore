@@ -9,6 +9,7 @@
 - (void)flushChanges;
 - (void)removeCollection:(id)collection;
 - (void)setPositionIndex:(int64_t)index;
+- (void)setPropertiesUnsafeWithManagedObject:(id)object lazyLoad:(BOOL)load parent:(BOOL)parent;
 @end
 
 @implementation MSCollectionItem
@@ -18,7 +19,7 @@
   selfCopy = self;
   sub_1B6298400();
 
-  type metadata accessor for Collection();
+  type metadata accessor for Collection(0);
   v3 = sub_1B63BEC94();
 
   return v3;
@@ -42,7 +43,6 @@
 {
   v3 = OBJC_IVAR____TtC8MapsSync14MapsSyncObject__editBlocks;
   swift_beginAccess();
-  v4 = *(&self->super.super.isa + v3);
   *(&self->super.super.isa + v3) = MEMORY[0x1E69E7CC0];
 }
 
@@ -51,6 +51,13 @@
   type metadata accessor for MapsSyncManagedCollectionItem();
 
   return swift_getObjCClassFromMetadata();
+}
+
+- (void)setPropertiesUnsafeWithManagedObject:(id)object lazyLoad:(BOOL)load parent:(BOOL)parent
+{
+  objectCopy = object;
+  selfCopy = self;
+  sub_1B6289B44(objectCopy, load, parent);
 }
 
 - (int64_t)positionIndex

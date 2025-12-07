@@ -65,7 +65,7 @@
 - (void)viewWillLayoutSubviews
 {
   selfCopy = self;
-  sub_1006F709C();
+  sub_1006F709C(selfCopy);
 }
 
 - (unint64_t)supportedInterfaceOrientations
@@ -127,7 +127,7 @@
 {
   forCopy = for;
   selfCopy = self;
-  sub_1006FB198();
+  sub_1006FB198(selfCopy, v5);
 }
 
 - (_TtC20ProductPageExtension35TopChartsDiffablePageViewController)initWithNibName:(id)name bundle:(id)bundle

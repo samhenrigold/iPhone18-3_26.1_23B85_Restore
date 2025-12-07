@@ -134,7 +134,7 @@ LABEL_24:
 + (void)migratePersistentStorageDefaults
 {
   safari_browserDefaults = [MEMORY[0x277CBEBD0] safari_browserDefaults];
-  v2 = SafariLibraryPath();
+  v2 = SafariLibraryPath(safari_browserDefaults);
   stringByResolvingSymlinksInPath = [v2 stringByResolvingSymlinksInPath];
 
   v4 = [stringByResolvingSymlinksInPath stringByAppendingPathComponent:@"WebKit/WebsiteData/LocalStorage"];

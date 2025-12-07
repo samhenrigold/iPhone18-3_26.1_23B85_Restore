@@ -13,10 +13,10 @@
 
 - (HFReaderWriterCache)init
 {
-  v14 = *MEMORY[0x277D85DE8];
-  v11.receiver = self;
-  v11.super_class = HFReaderWriterCache;
-  v2 = [(HFReaderWriterCache *)&v11 init];
+  v13 = *MEMORY[0x277D85DE8];
+  v10.receiver = self;
+  v10.super_class = HFReaderWriterCache;
+  v2 = [(HFReaderWriterCache *)&v10 init];
   if (v2 && ([MEMORY[0x277CBEB38] dictionary], v3 = objc_claimAutoreleasedReturnValue(), cachedObjects = v2->_cachedObjects, v2->_cachedObjects = v3, cachedObjects, (v5 = pthread_rwlock_init(&v2->_rwlock, 0)) != 0))
   {
     v6 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA5B8] code:v5 userInfo:0];
@@ -24,7 +24,7 @@
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v13 = v6;
+      v12 = v6;
       _os_log_impl(&dword_20D9BF000, v7, OS_LOG_TYPE_DEFAULT, "Failed to init read-write lock: %@", buf, 0xCu);
     }
 
@@ -36,13 +36,12 @@
     v8 = v2;
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
 - (void)dealloc
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = pthread_rwlock_destroy(&self->_rwlock);
   if (v3)
   {
@@ -51,20 +50,19 @@
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v9 = v4;
+      v8 = v4;
       _os_log_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_DEFAULT, "Failed to destroy read-write lock: %@", buf, 0xCu);
     }
   }
 
-  v7.receiver = self;
-  v7.super_class = HFReaderWriterCache;
-  [(HFReaderWriterCache *)&v7 dealloc];
-  v6 = *MEMORY[0x277D85DE8];
+  v6.receiver = self;
+  v6.super_class = HFReaderWriterCache;
+  [(HFReaderWriterCache *)&v6 dealloc];
 }
 
 - (id)objectForKey:(id)key
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   keyCopy = key;
   v5 = pthread_rwlock_rdlock(&self->_rwlock);
   if (v5)
@@ -73,9 +71,9 @@
     v7 = HFLogForCategory(0);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = 138412290;
-      v14 = v6;
-      _os_log_impl(&dword_20D9BF000, v7, OS_LOG_TYPE_DEFAULT, "Failed to take read lock: %@", &v13, 0xCu);
+      v12 = 138412290;
+      v13 = v6;
+      _os_log_impl(&dword_20D9BF000, v7, OS_LOG_TYPE_DEFAULT, "Failed to take read lock: %@", &v12, 0xCu);
     }
 
     v8 = 0;
@@ -87,16 +85,16 @@ LABEL_5:
   cachedObjects = [(HFReaderWriterCache *)self cachedObjects];
   v8 = [cachedObjects objectForKey:keyCopy];
 
-  v12 = pthread_rwlock_unlock(&self->_rwlock);
-  if (v12)
+  v11 = pthread_rwlock_unlock(&self->_rwlock);
+  if (v11)
   {
-    v6 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA5B8] code:v12 userInfo:0];
+    v6 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA5B8] code:v11 userInfo:0];
     v7 = HFLogForCategory(0);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = 138412290;
-      v14 = v6;
-      _os_log_impl(&dword_20D9BF000, v7, OS_LOG_TYPE_DEFAULT, "Failed to unlock read lock: %@", &v13, 0xCu);
+      v12 = 138412290;
+      v13 = v6;
+      _os_log_impl(&dword_20D9BF000, v7, OS_LOG_TYPE_DEFAULT, "Failed to unlock read lock: %@", &v12, 0xCu);
     }
 
     goto LABEL_5;
@@ -104,14 +102,12 @@ LABEL_5:
 
 LABEL_6:
 
-  v9 = *MEMORY[0x277D85DE8];
-
   return v8;
 }
 
 - (id)tryObjectForKey:(id)key
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   keyCopy = key;
   if (pthread_rwlock_tryrdlock(&self->_rwlock))
   {
@@ -130,14 +126,12 @@ LABEL_6:
       v9 = HFLogForCategory(0);
       if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
-        v12 = 138412290;
-        v13 = v8;
-        _os_log_impl(&dword_20D9BF000, v9, OS_LOG_TYPE_DEFAULT, "Failed to unlock read lock: %@", &v12, 0xCu);
+        v11 = 138412290;
+        v12 = v8;
+        _os_log_impl(&dword_20D9BF000, v9, OS_LOG_TYPE_DEFAULT, "Failed to unlock read lock: %@", &v11, 0xCu);
       }
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -197,7 +191,7 @@ void __54__HFReaderWriterCache_setObject_onlyIfNoObjectForKey___block_invoke(uin
 
 - (void)performBlockWithWriteLock:(id)lock
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   lockCopy = lock;
   v5 = pthread_rwlock_wrlock(&self->_rwlock);
   if (v5)
@@ -206,11 +200,11 @@ void __54__HFReaderWriterCache_setObject_onlyIfNoObjectForKey___block_invoke(uin
     v7 = HFLogForCategory(0);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = 138412290;
-      v13 = v6;
+      v11 = 138412290;
+      v12 = v6;
       v8 = "Failed to take write lock: %@";
 LABEL_7:
-      _os_log_impl(&dword_20D9BF000, v7, OS_LOG_TYPE_DEFAULT, v8, &v12, 0xCu);
+      _os_log_impl(&dword_20D9BF000, v7, OS_LOG_TYPE_DEFAULT, v8, &v11, 0xCu);
       goto LABEL_8;
     }
 
@@ -227,16 +221,14 @@ LABEL_7:
     v7 = HFLogForCategory(0);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = 138412290;
-      v13 = v6;
+      v11 = 138412290;
+      v12 = v6;
       v8 = "Failed to unlock write lock: %@";
       goto LABEL_7;
     }
 
 LABEL_8:
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -71,8 +71,8 @@
 
   if ((v6 & 1) == 0)
   {
-    v7 = _UICollectionViewListSectionSeparatorInsetHidden[1];
-    v12 = _UICollectionViewListSectionSeparatorInsetHidden[0];
+    v7 = *&_UICollectionViewListSectionSeparatorInsetHidden[2];
+    v12 = *_UICollectionViewListSectionSeparatorInsetHidden;
     v13 = v7;
   }
 

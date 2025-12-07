@@ -35,61 +35,57 @@
 
 void __101__SHTimeAndPlaceController_affinityGroupsFromData_atLocation_onDate_configuration_completionHandler___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   if (a4)
   {
-    v5 = *(a1 + 56);
-    v6 = *(*(a1 + 56) + 16);
-    v7 = *MEMORY[0x277D85DE8];
+    v5 = *(*(a1 + 56) + 16);
 
-    v6();
+    v5();
   }
 
   else
   {
-    v8 = [*(a1 + 32) sh_geohashOfLength:?];
+    v6 = [*(a1 + 32) sh_geohashOfLength:a3];
+    v19 = 0u;
+    v20 = 0u;
+    v21 = 0u;
     v22 = 0u;
-    v23 = 0u;
-    v24 = 0u;
-    v25 = 0u;
-    v9 = *(a1 + 40);
-    v10 = [v9 countByEnumeratingWithState:&v22 objects:v26 count:16];
-    if (v10)
+    v7 = *(a1 + 40);
+    v8 = [v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
+    if (v8)
     {
-      v11 = v10;
-      v12 = *v23;
+      v9 = v8;
+      v10 = *v20;
       do
       {
-        for (i = 0; i != v11; ++i)
+        for (i = 0; i != v9; ++i)
         {
-          if (*v23 != v12)
+          if (*v20 != v10)
           {
-            objc_enumerationMutation(v9);
+            objc_enumerationMutation(v7);
           }
 
-          v14 = *(*(&v22 + 1) + 8 * i);
-          v15 = [v14 regionsForGeohash:{v8, v22}];
-          v16 = [v15 count];
+          v12 = *(*(&v19 + 1) + 8 * i);
+          v13 = [v12 regionsForGeohash:{v6, v19}];
+          v14 = [v13 count];
 
-          if (v16)
+          if (v14)
           {
-            v17 = *(a1 + 48);
-            v18 = [v14 affinityGroup];
-            [v17 addObject:v18];
+            v15 = *(a1 + 48);
+            v16 = [v12 affinityGroup];
+            [v15 addObject:v16];
           }
         }
 
-        v11 = [v9 countByEnumeratingWithState:&v22 objects:v26 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
       }
 
-      while (v11);
+      while (v9);
     }
 
-    v19 = *(a1 + 56);
-    v20 = [*(a1 + 48) copy];
-    (*(v19 + 16))(v19, v20, 0);
-
-    v21 = *MEMORY[0x277D85DE8];
+    v17 = *(a1 + 56);
+    v18 = [*(a1 + 48) copy];
+    (*(v17 + 16))(v17, v18, 0);
   }
 }
 

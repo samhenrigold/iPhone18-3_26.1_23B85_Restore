@@ -46,7 +46,7 @@
   dispatch_async(MEMORY[0x1E69E96A0], block);
 }
 
-uint64_t __50__UIWebPDFSearchOperation__notifyDelegateOfStatus__block_invoke(uint64_t a1)
+void *__50__UIWebPDFSearchOperation__notifyDelegateOfStatus__block_invoke(uint64_t a1)
 {
   v2 = [*(a1 + 32) isCancelled];
   v3 = *(a1 + 32);
@@ -126,54 +126,54 @@ uint64_t __50__UIWebPDFSearchOperation__notifyDelegateOfStatus__block_invoke(uin
     }
   }
 
-  if (([(__CFString *)v7 isEqualToString:@"Arial, Bold"]& 1) != 0)
+  if (objc_msgSend_isEqualToString_(v7))
   {
     v12 = @"Arial-BoldMT";
   }
 
-  else if (([(__CFString *)v7 isEqualToString:@"Arial, BoldItalic"]& 1) != 0)
+  else if (objc_msgSend_isEqualToString_(v7))
   {
     v12 = @"Arial-BoldItalicMT";
   }
 
-  else if (([(__CFString *)v7 isEqualToString:@"Arial, Italic"]& 1) != 0)
+  else if (objc_msgSend_isEqualToString_(v7))
   {
     v12 = @"Arial-ItalicMT";
   }
 
-  else if (([(__CFString *)v7 isEqualToString:@"Helvetica-Black"]& 1) != 0 || ([(__CFString *)v7 isEqualToString:@"Helvetica-Narrow-Bold"]& 1) != 0)
+  else if (objc_msgSend_isEqualToString_(v7) & 1) != 0 || (objc_msgSend_isEqualToString_(v7))
   {
     v12 = @"Helvetica-Bold";
   }
 
-  else if (([(__CFString *)v7 isEqualToString:@"HelveticaNeue-Black"]& 1) != 0)
+  else if (objc_msgSend_isEqualToString_(v7))
   {
     v12 = @"HelveticaNeue-Bold";
   }
 
-  else if (([(__CFString *)v7 isEqualToString:@"TimesNewRoman"]& 1) != 0)
+  else if (objc_msgSend_isEqualToString_(v7))
   {
     v12 = @"TimesNewRomanPSMT";
   }
 
-  else if (([(__CFString *)v7 isEqualToString:@"TimesNewRoman, Bold"]& 1) != 0)
+  else if (objc_msgSend_isEqualToString_(v7))
   {
     v12 = @"TimesNewRomanPS-BoldMT";
   }
 
-  else if (([(__CFString *)v7 isEqualToString:@"TimesNewRoman, BoldItalic"]& 1) != 0)
+  else if (objc_msgSend_isEqualToString_(v7))
   {
     v12 = @"TimesNewRomanPS-BoldItalicMT";
   }
 
-  else if (([(__CFString *)v7 isEqualToString:@"TimesNewRoman, Italic"]& 1) != 0)
+  else if (objc_msgSend_isEqualToString_(v7))
   {
     v12 = @"TimesNewRomanPS-ItalicMT";
   }
 
   else
   {
-    if (![(__CFString *)v7 isEqualToString:@"ZapfDingbats"]|| ([+[UIDevice userInterfaceIdiom]& 0xFFFFFFFFFFFFFFFBLL currentDevice]!= 1)
+    if (!objc_msgSend_isEqualToString_(v7) || ([+[UIDevice userInterfaceIdiom]& 0xFFFFFFFFFFFFFFFBLL currentDevice]!= 1)
     {
       v12 = 0;
       goto LABEL_19;
@@ -288,7 +288,7 @@ LABEL_26:
             v22 = [v7 length];
             [v7 beginEditing];
             [v7 removeAttribute:v11 range:{0, v22}];
-            [v7 addAttribute:v12 value:-[UIColor CGColor](+[UIColor blackColor](UIColor range:{"blackColor"), "CGColor"), 0, v22}];
+            [v7 addAttribute:v12 value:objc_msgSend(objc_msgSend_blackColor(UIColor) range:{"CGColor"), 0, v22}];
             [v7 endEditing];
             [v7 setAttributes:v15 range:{v26, v27}];
           }
@@ -378,7 +378,7 @@ LABEL_26:
             v25 = v24;
             v27 = v26;
             v29 = v28;
-            [v19 transform];
+            objc_msgSend_transform(v19);
             v52.origin.x = v23;
             v52.origin.y = v25;
             v52.size.width = v27;

@@ -611,7 +611,7 @@ LABEL_57:
   v27 = sub_10030A368;
   v28 = sub_10030A378;
   v29 = 0;
-  v5 = sub_10036C90C();
+  v5 = sub_10036C90C(AppUsageDatabaseStore);
   v21[0] = _NSConcreteStackBlock;
   v21[1] = 3221225472;
   v21[2] = sub_10030A380;
@@ -643,7 +643,7 @@ LABEL_57:
     *&buf[16] = 0x2020000000;
     LOBYTE(v31) = 0;
     v11 = sub_100228670([AppUsageSession alloc], v6);
-    v12 = sub_10036C90C();
+    v12 = sub_10036C90C(AppUsageDatabaseStore);
     v16[0] = _NSConcreteStackBlock;
     v16[1] = 3221225472;
     v16[2] = sub_10030A4D4;
@@ -860,7 +860,7 @@ LABEL_24:
   if (appEventEntityClass)
   {
     v10 = appEventEntityClass;
-    v11 = sub_10036C90C();
+    v11 = sub_10036C90C(AppUsageDatabaseStore);
     v12[0] = _NSConcreteStackBlock;
     v12[1] = 3221225472;
     v12[2] = sub_10030AE10;
@@ -879,7 +879,7 @@ LABEL_24:
   v4 = [(MetricsHandler *)self createAppEventsWithLaunchEvents:launches];
   if ([v4 count])
   {
-    v5 = sub_10036C90C();
+    v5 = sub_10036C90C(AppUsageDatabaseStore);
     v6[0] = _NSConcreteStackBlock;
     v6[1] = 3221225472;
     v6[2] = sub_10030B07C;

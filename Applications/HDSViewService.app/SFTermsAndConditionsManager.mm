@@ -3,6 +3,7 @@
 - (SFTermsAndConditionsManager)initWithPresenter:(id)presenter showWarranty:(BOOL)warranty;
 - (void)_handleAgreeFromObjectModel:(id)model;
 - (void)activate;
+- (void)dismissTerms:(BOOL)terms;
 - (void)loadOfflineTerms;
 - (void)remoteUIController:(id)controller didFinishLoadWithError:(id)error forRequest:(id)request;
 - (void)remoteUIController:(id)controller willPresentModalNavigationController:(id)navigationController;
@@ -128,6 +129,14 @@
   v11 = +[NSBundle mainBundle];
   resourceURL = [v11 resourceURL];
   [(RemoteUIController *)termsController loadData:v9 baseURL:resourceURL];
+}
+
+- (void)dismissTerms:(BOOL)terms
+{
+  termsCopy = terms;
+  v5 = [(RemoteUIController *)self->_termsController dismissObjectModelsAnimated:1 completion:0];
+  completionHandler = [(SFTermsAndConditionsManager *)self completionHandler];
+  completionHandler[2](completionHandler, termsCopy);
 }
 
 - (void)remoteUIController:(id)controller didFinishLoadWithError:(id)error forRequest:(id)request

@@ -10,33 +10,33 @@
 
 - (BOOL)isOnCall
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v3 = objc_msgSend_calls(self->_callCenter, a2, v2, 0);
-  v7 = objc_msgSend_countByEnumeratingWithState_objects_count_(v3, v4, &v12, v16, 16);
+  v7 = objc_msgSend_countByEnumeratingWithState_objects_count_(v3, v4, &v11, v15, 16);
   if (v7)
   {
-    v8 = *v13;
+    v8 = *v12;
     while (2)
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v13 != v8)
+        if (*v12 != v8)
         {
           objc_enumerationMutation(v3);
         }
 
-        if (!objc_msgSend_hasEnded(*(*(&v12 + 1) + 8 * i), v5, v6))
+        if (!objc_msgSend_hasEnded(*(*(&v11 + 1) + 8 * i), v5, v6))
         {
           LOBYTE(v7) = 1;
           goto LABEL_11;
         }
       }
 
-      v7 = objc_msgSend_countByEnumeratingWithState_objects_count_(v3, v5, &v12, v16, 16);
+      v7 = objc_msgSend_countByEnumeratingWithState_objects_count_(v3, v5, &v11, v15, 16);
       if (v7)
       {
         continue;
@@ -48,7 +48,6 @@
 
 LABEL_11:
 
-  v10 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
@@ -96,26 +95,26 @@ LABEL_11:
 
 - (BOOL)isOnTelephonyCall
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v3 = objc_msgSend_calls(self->_callCenter, a2, v2, 0);
-  v7 = objc_msgSend_countByEnumeratingWithState_objects_count_(v3, v4, &v16, v20, 16);
+  v7 = objc_msgSend_countByEnumeratingWithState_objects_count_(v3, v4, &v15, v19, 16);
   if (v7)
   {
-    v8 = *v17;
+    v8 = *v16;
     while (2)
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v17 != v8)
+        if (*v16 != v8)
         {
           objc_enumerationMutation(v3);
         }
 
-        v10 = *(*(&v16 + 1) + 8 * i);
+        v10 = *(*(&v15 + 1) + 8 * i);
         if ((objc_msgSend_hasEnded(v10, v5, v6) & 1) == 0)
         {
           v11 = objc_msgSend_providerIdentifier(v10, v5, v6);
@@ -129,7 +128,7 @@ LABEL_11:
         }
       }
 
-      v7 = objc_msgSend_countByEnumeratingWithState_objects_count_(v3, v5, &v16, v20, 16);
+      v7 = objc_msgSend_countByEnumeratingWithState_objects_count_(v3, v5, &v15, v19, 16);
       if (v7)
       {
         continue;
@@ -141,7 +140,6 @@ LABEL_11:
 
 LABEL_12:
 
-  v14 = *MEMORY[0x1E69E9840];
   return v7;
 }
 

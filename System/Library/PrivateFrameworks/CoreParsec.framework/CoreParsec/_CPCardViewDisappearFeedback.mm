@@ -61,25 +61,23 @@ LABEL_10:
   toCopy = to;
   if ([(_CPCardViewDisappearFeedback *)self timestamp])
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
   }
 
   if ([(_CPCardViewDisappearFeedback *)self cardDisappearEvent])
   {
-    cardDisappearEvent = self->_cardDisappearEvent;
     PBDataWriterWriteInt32Field();
   }
 
   card = [(_CPCardViewDisappearFeedback *)self card];
 
-  v7 = toCopy;
+  v5 = toCopy;
   if (card)
   {
     card2 = [(_CPCardViewDisappearFeedback *)self card];
     PBDataWriterWriteSubmessage();
 
-    v7 = toCopy;
+    v5 = toCopy;
   }
 }
 

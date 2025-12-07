@@ -123,7 +123,7 @@
 
 - (BOOL)setUp
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
@@ -136,7 +136,7 @@
   v4 = 30;
   v5 = MEMORY[0x277D86220];
   *&v6 = 134218240;
-  v16 = v6;
+  v15 = v6;
   while (1)
   {
     processInfo = [MEMORY[0x277CCAC38] processInfo];
@@ -153,10 +153,10 @@
     {
       actualState2 = [(ThermalNominal *)self actualState];
       desiredState = [(ThermalNominal *)self desiredState];
-      *buf = v16;
+      *buf = v15;
       selfCopy2 = actualState2;
-      v19 = 2048;
-      v20 = desiredState;
+      v18 = 2048;
+      v19 = desiredState;
       _os_log_debug_impl(&dword_243E0F000, v5, OS_LOG_TYPE_DEBUG, "Thermal state is at currently at %lu, and the desired state is %lu", buf, 0x16u);
     }
 
@@ -170,10 +170,10 @@
   {
     actualState3 = [(ThermalNominal *)self actualState];
     desiredState2 = [(ThermalNominal *)self desiredState];
-    *buf = v16;
+    *buf = v15;
     selfCopy2 = actualState3;
-    v19 = 2048;
-    v20 = desiredState2;
+    v18 = 2048;
+    v19 = desiredState2;
     _os_log_impl(&dword_243E0F000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Thermal state is at %lu, which is at or above the desired state of %lu", buf, 0x16u);
   }
 
@@ -191,7 +191,6 @@ LABEL_11:
     _os_log_impl(&dword_243E0F000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Finished Setup - %@ Condition", buf, 0xCu);
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
@@ -213,22 +212,20 @@ LABEL_11:
 
 - (void)initWithThermalLevel:(uint64_t)a1 .cold.1(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 134217984;
-  v3 = a1;
-  _os_log_error_impl(&dword_243E0F000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Unknown thermal state passed to enum translator: %lu", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 134217984;
+  v2 = a1;
+  _os_log_error_impl(&dword_243E0F000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Unknown thermal state passed to enum translator: %lu", &v1, 0xCu);
 }
 
 - (void)setUp
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v3 = 134218240;
+  v6 = *MEMORY[0x277D85DE8];
+  v2 = 134218240;
   desiredState = [self desiredState];
-  v5 = 2048;
+  v4 = 2048;
   actualState = [self actualState];
-  _os_log_fault_impl(&dword_243E0F000, MEMORY[0x277D86220], OS_LOG_TYPE_FAULT, "Timed out waiting for thermal mitigation to reach %lu. Last known level was %lu, but we will assume that we actually reached it and move on", &v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  _os_log_fault_impl(&dword_243E0F000, MEMORY[0x277D86220], OS_LOG_TYPE_FAULT, "Timed out waiting for thermal mitigation to reach %lu. Last known level was %lu, but we will assume that we actually reached it and move on", &v2, 0x16u);
 }
 
 @end

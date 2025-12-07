@@ -14,19 +14,8 @@
   entityCopy = entity;
   preCalculatedFloatVector = [objc_opt_class() preCalculatedFloatVector];
 
-  if (preCalculatedFloatVector)
+  if (preCalculatedFloatVector || (v8 = objc_opt_class(), -[PGFeatureExtractorPhotoLibraryAverage assetFeatureExtractor](self, "assetFeatureExtractor"), v9 = objc_claimAutoreleasedReturnValue(), -[PGFeatureExtractorPhotoLibraryAverage assetFetchOptionPropertySet](self, "assetFetchOptionPropertySet"), v10 = objc_claimAutoreleasedReturnValue(), v11 = [v8 preCalculateFeatureVectorWithPhotoLibrary:entityCopy assetFeatureExtractor:v9 assetFetchOptionPropertySet:v10 error:error], v10, v9, v11))
   {
-    goto LABEL_3;
-  }
-
-  v8 = objc_opt_class();
-  assetFeatureExtractor = [(PGFeatureExtractorPhotoLibraryAverage *)self assetFeatureExtractor];
-  assetFetchOptionPropertySet = [(PGFeatureExtractorPhotoLibraryAverage *)self assetFetchOptionPropertySet];
-  v11 = [v8 preCalculateFeatureVectorWithPhotoLibrary:entityCopy assetFeatureExtractor:assetFeatureExtractor assetFetchOptionPropertySet:assetFetchOptionPropertySet error:error];
-
-  if (v11)
-  {
-LABEL_3:
     preCalculatedFloatVector2 = [objc_opt_class() preCalculatedFloatVector];
   }
 
@@ -49,7 +38,7 @@ LABEL_3:
 
 - (NSArray)featureNames
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   featureNames = self->_featureNames;
   if (!featureNames)
   {
@@ -58,36 +47,36 @@ LABEL_3:
     featureNames = [assetFeatureExtractor featureNames];
     v7 = [v4 initWithCapacity:{objc_msgSend(featureNames, "count")}];
 
-    v20 = 0u;
-    v21 = 0u;
-    v18 = 0u;
     v19 = 0u;
+    v20 = 0u;
+    v17 = 0u;
+    v18 = 0u;
     assetFeatureExtractor2 = [(PGFeatureExtractorPhotoLibraryAverage *)self assetFeatureExtractor];
     featureNames2 = [assetFeatureExtractor2 featureNames];
 
-    v10 = [featureNames2 countByEnumeratingWithState:&v18 objects:v22 count:16];
+    v10 = [featureNames2 countByEnumeratingWithState:&v17 objects:v21 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v19;
+      v12 = *v18;
       do
       {
         v13 = 0;
         do
         {
-          if (*v19 != v12)
+          if (*v18 != v12)
           {
             objc_enumerationMutation(featureNames2);
           }
 
-          v14 = [MEMORY[0x277CCACA8] stringWithFormat:@"PhotoLibraryAverage-%@", *(*(&v18 + 1) + 8 * v13)];
+          v14 = [MEMORY[0x277CCACA8] stringWithFormat:@"PhotoLibraryAverage-%@", *(*(&v17 + 1) + 8 * v13)];
           [(NSArray *)v7 addObject:v14];
 
           ++v13;
         }
 
         while (v11 != v13);
-        v11 = [featureNames2 countByEnumeratingWithState:&v18 objects:v22 count:16];
+        v11 = [featureNames2 countByEnumeratingWithState:&v17 objects:v21 count:16];
       }
 
       while (v11);
@@ -98,8 +87,6 @@ LABEL_3:
 
     featureNames = self->_featureNames;
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return featureNames;
 }
@@ -133,7 +120,7 @@ LABEL_3:
 
 + (BOOL)preCalculateFeatureVectorWithPhotoLibrary:(id)library assetFeatureExtractor:(id)extractor assetFetchOptionPropertySet:(id)set error:(id *)error
 {
-  v53[1] = *MEMORY[0x277D85DE8];
+  v52[1] = *MEMORY[0x277D85DE8];
   libraryCopy = library;
   extractorCopy = extractor;
   setCopy = set;
@@ -146,20 +133,20 @@ LABEL_3:
     [librarySpecificFetchOptions setFetchPropertySets:setCopy];
   }
 
-  v43 = [MEMORY[0x277CD97A8] fetchAssetsWithOptions:librarySpecificFetchOptions];
-  v13 = [v43 count];
+  v42 = [MEMORY[0x277CD97A8] fetchAssetsWithOptions:librarySpecificFetchOptions];
+  v13 = [v42 count];
   if (!error || v13)
   {
     selfCopy = self;
     errorCopy = error;
-    v39 = librarySpecificFetchOptions;
-    v40 = setCopy;
-    v41 = libraryCopy;
+    v38 = librarySpecificFetchOptions;
+    v39 = setCopy;
+    v40 = libraryCopy;
     featureNames = [extractorCopy featureNames];
     v18 = [featureNames count];
 
-    v42 = [MEMORY[0x277D22C68] vectorRepeatingFloat:v18 count:0.0];
-    v19 = [v43 count];
+    v41 = [MEMORY[0x277D22C68] vectorRepeatingFloat:v18 count:0.0];
+    v19 = [v42 count];
     if (v19)
     {
       v15 = 0;
@@ -168,14 +155,14 @@ LABEL_3:
       {
         v23 = v15;
         v24 = objc_autoreleasePoolPush();
-        v25 = [v43 objectAtIndexedSubscript:i];
-        v45 = v15;
-        v26 = [extractorCopy floatVectorWithEntity:v25 error:&v45];
-        v15 = v45;
+        v25 = [v42 objectAtIndexedSubscript:i];
+        v44 = v15;
+        v26 = [extractorCopy floatVectorWithEntity:v25 error:&v44];
+        v15 = v44;
 
         if (v26 && [v26 count] == v18)
         {
-          [v42 addVector:v26];
+          [v41 addVector:v26];
           ++v21;
         }
 
@@ -188,9 +175,9 @@ LABEL_3:
           {
             localIdentifier = [v25 localIdentifier];
             *buf = 138412546;
-            v49 = localIdentifier;
-            v50 = 2112;
-            v51 = v15;
+            v48 = localIdentifier;
+            v49 = 2112;
+            v50 = v15;
             _os_log_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_INFO, "Failed to calculate feature vector for asset %@: %@", buf, 0x16u);
           }
         }
@@ -213,17 +200,17 @@ LABEL_3:
       {
         v31 = MEMORY[0x277CCA9B8];
         v32 = *MEMORY[0x277CCA7E8];
-        v46[0] = *MEMORY[0x277CCA450];
-        v46[1] = v32;
+        v45[0] = *MEMORY[0x277CCA450];
+        v45[1] = v32;
         v33 = @"nil";
         if (v15)
         {
           v33 = v15;
         }
 
-        v47[0] = @"Failed to compute mean of asset feature vectors. More than half of the asset feature vector extraction failed. Error: ";
-        v47[1] = v33;
-        v34 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v47 forKeys:v46 count:2];
+        v46[0] = @"Failed to compute mean of asset feature vectors. More than half of the asset feature vector extraction failed. Error: ";
+        v46[1] = v33;
+        v34 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v46 forKeys:v45 count:2];
         [v31 errorWithDomain:@"com.apple.PhotoAnalysis.PGFeatureExtractorPhotoLibraryAverageDomain" code:2 userInfo:v34];
         *errorCopy = v16 = 0;
         goto LABEL_24;
@@ -237,28 +224,27 @@ LABEL_3:
     }
 
     *&v20 = v21;
-    v34 = [v42 vectorByDividingByScalar:v20];
+    v34 = [v41 vectorByDividingByScalar:v20];
     [selfCopy setPreCalculatedFloatVector:v34];
     v16 = 1;
 LABEL_24:
 
 LABEL_25:
-    setCopy = v40;
-    libraryCopy = v41;
-    librarySpecificFetchOptions = v39;
+    setCopy = v39;
+    libraryCopy = v40;
+    librarySpecificFetchOptions = v38;
 
     goto LABEL_26;
   }
 
   v14 = MEMORY[0x277CCA9B8];
-  v52 = *MEMORY[0x277CCA450];
-  v53[0] = @"Library contains no assets.";
-  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v53 forKeys:&v52 count:1];
+  v51 = *MEMORY[0x277CCA450];
+  v52[0] = @"Library contains no assets.";
+  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v52 forKeys:&v51 count:1];
   [v14 errorWithDomain:@"com.apple.PhotoAnalysis.PGFeatureExtractorPhotoLibraryAverageDomain" code:1 userInfo:v15];
   *error = v16 = 0;
 LABEL_26:
 
-  v35 = *MEMORY[0x277D85DE8];
   return v16;
 }
 

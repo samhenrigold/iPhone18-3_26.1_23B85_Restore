@@ -21,7 +21,7 @@ uint64_t gleSetEnable_BLEND(uint64_t result, uint64_t a2, int a3)
   return result;
 }
 
-uint64_t glBlendFunc_Exec(uint64_t result, unsigned int a2, unsigned int a3)
+uint64_t glBlendFunc_Exec(uint64_t result, int a2, int a3)
 {
   v3 = (result + 28652);
   v4 = *(result + 29812);
@@ -33,12 +33,12 @@ uint64_t glBlendFunc_Exec(uint64_t result, unsigned int a2, unsigned int a3)
 
   if (a2 <= 0x8000)
   {
-    if (a2 - 770 < 7)
+    if ((a2 - 770) < 7)
     {
       goto LABEL_2;
     }
 
-    if (a2 - 768 >= 2)
+    if ((a2 - 768) >= 2)
     {
       goto LABEL_35;
     }
@@ -46,7 +46,7 @@ uint64_t glBlendFunc_Exec(uint64_t result, unsigned int a2, unsigned int a3)
     goto LABEL_32;
   }
 
-  if (a2 - 32769 < 4)
+  if ((a2 - 32769) < 4)
   {
 LABEL_32:
     if (*(result + 32501) == 2)
@@ -57,7 +57,7 @@ LABEL_32:
     goto LABEL_2;
   }
 
-  if (a2 - 35065 >= 3 && a2 != 34185)
+  if ((a2 - 35065) >= 3 && a2 != 34185)
   {
     goto LABEL_35;
   }
@@ -103,7 +103,7 @@ LABEL_3:
 
   if (a3 <= 0x8000)
   {
-    if (a3 - 768 > 8)
+    if ((a3 - 768) > 8)
     {
       goto LABEL_35;
     }
@@ -116,7 +116,7 @@ LABEL_3:
     goto LABEL_34;
   }
 
-  if (a3 - 32769 < 4)
+  if ((a3 - 32769) < 4)
   {
 LABEL_34:
     if (*(result + 32501) != 2)
@@ -127,7 +127,7 @@ LABEL_34:
     goto LABEL_35;
   }
 
-  if (a3 - 35065 < 3 || a3 == 34185)
+  if ((a3 - 35065) < 3 || a3 == 34185)
   {
     v5 |= 0xFFu;
     goto LABEL_3;
@@ -1826,9 +1826,9 @@ LABEL_188:
   return result;
 }
 
-uint64_t glGetTexLevelParameteriv_Exec(uint64_t a1, int a2, uint64_t a3, uint64_t a4, int *a5)
+uint64_t glGetTexLevelParameteriv_Exec(int8x16_t *a1, int a2, uint64_t a3, uint64_t a4, int *a5)
 {
-  v10 = a1 + 28672;
+  v10 = &a1[1792];
   result = gleLookUpTexture(a1, a2);
   if (!result)
   {
@@ -1837,11 +1837,11 @@ uint64_t glGetTexLevelParameteriv_Exec(uint64_t a1, int a2, uint64_t a3, uint64_
 
   if (a3 >= 0xF || (v14 = result, v15 = *(result + 768), v16 = v15 & 0xF, a3) && (v16 <= 9 ? (v17 = ((1 << v16) & 0x384) == 0) : (v17 = 1), !v17))
   {
-    if (!*(v10 + 1160))
+    if (!v10[145].i16[0])
     {
       v18 = 1281;
 LABEL_105:
-      *(v10 + 1160) = v18;
+      v10[145].i16[0] = v18;
       return result;
     }
 
@@ -1953,7 +1953,7 @@ LABEL_105:
           {
             if ((v15 & 0x100) != 0 || !*(v21 + 1036) || !*(v21 + 1038) || !*(v21 + 1040) || !*(result + 555))
             {
-              if (!*(v10 + 1160))
+              if (!v10[145].i16[0])
               {
                 v18 = 1282;
                 goto LABEL_105;
@@ -2329,11 +2329,11 @@ LABEL_97:
 LABEL_145:
     if ((*(v14 + 768) & 0x100) != 0)
     {
-      v32 = *(a1 + 2216);
-      v12.n128_u64[0] = vand_s8(*&v32, *(a1 + 1544));
-      if (v12.n128_u32[0] | *(a1 + 2212) & *(a1 + 1540) | v12.n128_u32[1])
+      v32 = a1[138].u64[1];
+      v12.n128_u64[0] = vand_s8(v32, a1[96].u64[1]);
+      if (v12.n128_u32[0] | a1[138].i32[1] & a1[96].i32[1] | v12.n128_u32[1])
       {
-        v33 = *(v10 + 3829);
+        v33 = v10[478].u8[5];
         if ((v33 - 3) >= 2)
         {
           if (v33 == 1)
@@ -2343,7 +2343,7 @@ LABEL_145:
 
           else
           {
-            result = gleUpdateDeferredState(a1, 0, 0, 0, 0, v12, v32, v13);
+            result = gleUpdateDeferredState(a1, 0, 0, 0, 0, v12, *&v32, v13);
           }
         }
 
@@ -2356,13 +2356,13 @@ LABEL_145:
 
     if (v23)
     {
-      result = (*(*(a1 + 29448) + 376))(*(a1 + 29016), *(v14 + 8 * *(v10 + 3827)), v34, a3, a4, &v35);
+      result = (*(a1[1840].i64[1] + 376))(a1[1813].i64[1], *(v14 + 8 * v10[478].u8[3]), v34, a3, a4, &v35);
       v19 = v35;
       if (v23 == 2)
       {
         if (v35)
         {
-          (*(*(a1 + 29448) + 376))(*(a1 + 29016), *(v14 + 8 * *(v10 + 3827)), v34, a3, 4099, &v35);
+          (*(a1[1840].i64[1] + 376))(a1[1813].i64[1], *(v14 + 8 * v10[478].u8[3]), v34, a3, 4099, &v35);
           result = gleGetInternalFormatType(v35);
           v19 = result;
         }
@@ -2374,7 +2374,7 @@ LABEL_145:
   }
 
 LABEL_103:
-  if (!*(v10 + 1160))
+  if (!v10[145].i16[0])
   {
     v18 = 1280;
     goto LABEL_105;
@@ -2769,22 +2769,22 @@ uint64_t glClearColor_Exec(uint64_t result, double a2, double a3, double a4, flo
   }
 
   v7 = (v6 + 1020);
-  if (*(v6 + 3836) || (*(v5[1814].i64[1] + 561) & 0x40) != 0)
+  if (*(v6 + 3836) || (*(*(v5 + 29032) + 561) & 0x40) != 0)
   {
     v12 = *v7;
   }
 
   else
   {
-    f32 = v5[18].f32;
-    v9 = &v5[18].f32[1];
-    v10 = vld1q_dup_f32(f32);
+    v8 = (v5 + 288);
+    v9 = (v5 + 292);
+    v10 = vld1q_dup_f32(v8);
     v11 = vld1q_dup_f32(v9);
     v12 = vminnmq_f32(vmaxnmq_f32(*v7, v10), v11);
   }
 
-  v5[947] = v12;
-  if (!*(v5[1842].i64[1] + 110))
+  *(v5 + 15152) = v12;
+  if (!*(*(v5 + 29480) + 110))
   {
     *v6 = 0;
     *(v6 + 1148) |= 8u;
@@ -2822,12 +2822,12 @@ uint64_t glFlush_Exec(uint64_t a1, double a2, double a3, double a4)
   return result;
 }
 
-void glColorPointer_Exec(uint64_t a1, int a2, uint64_t a3, unsigned int a4, uint64_t a5)
+void glColorPointer_Exec(uint64_t result, int a2, uint64_t a3, unsigned int a4, uint64_t a5)
 {
-  v5 = a1 + 28652;
-  if (a2 < 3 || (v6 = a5, v10 = *(a1 + 26384), (a2 - 3) >= 2) && a2 != 32993 || (a3 != 5121 ? (v11 = a2 == 32993) : (v11 = 0), v11 || (a4 & 0x80000000) != 0 || a2 == 3))
+  v5 = result + 28652;
+  if (a2 < 3 || (v6 = a5, v10 = *(result + 26384), (a2 - 3) >= 2) && a2 != 32993 || (a3 != 5121 ? (v11 = a2 == 32993) : (v11 = 0), v11 || (a4 & 0x80000000) != 0 || a2 == 3))
   {
-    if (*(a1 + 29832))
+    if (*(result + 29832))
     {
       return;
     }
@@ -2836,17 +2836,17 @@ void glColorPointer_Exec(uint64_t a1, int a2, uint64_t a3, unsigned int a4, uint
     goto LABEL_25;
   }
 
-  v12 = *(a1 + 19312);
-  if (!v12 && v10 != *(a1 + 26392) && a5 && !*(a1 + 32502))
+  v12 = *(result + 19312);
+  if (!v12 && v10 != *(result + 26392) && a5 && !*(result + 32502))
   {
-    if (*(a1 + 29832))
+    if (*(result + 29832))
     {
       return;
     }
 
     v15 = 1282;
 LABEL_25:
-    *(a1 + 29832) = v15;
+    *(result + 29832) = v15;
     return;
   }
 
@@ -2858,9 +2858,9 @@ LABEL_25:
 
   else
   {
-    if (a3 != 5126 && (a3 != 5132 || *(a1 + 32501) != 2))
+    if (a3 != 5126 && (a3 != 5132 || *(result + 32501) != 2))
     {
-      if (*(a1 + 29832))
+      if (*(result + 29832))
       {
         return;
       }
@@ -2893,7 +2893,7 @@ LABEL_25:
       v41 = v16;
       v26 = v14;
       v27 = v13;
-      gleUnbindAndFreeBufferObject(a1, v17);
+      gleUnbindAndFreeBufferObject(result, v17);
       v13 = v27;
       v14 = v26;
       v16 = v41;
@@ -2916,7 +2916,7 @@ LABEL_34:
           v40 = v16;
           v20 = v14;
           v21 = v13;
-          gleUpdateDrawArraysFuncs(a1);
+          gleUpdateDrawArraysFuncs(result);
           v13 = v21;
           v14 = v20;
           v16 = v40;
@@ -2954,7 +2954,7 @@ LABEL_34:
       if ((*(v10 + 906) & 4) != 0)
       {
         v29 = v13;
-        gleUpdateDrawArraysFuncs(a1);
+        gleUpdateDrawArraysFuncs(result);
         v13 = v29;
       }
     }
@@ -2992,7 +2992,7 @@ LABEL_53:
     *(v10 + 952) |= 0x40000uLL;
 LABEL_54:
     *v5 = 0;
-    *(a1 + 1532) |= 0x1000u;
+    *(result + 1532) |= 0x1000u;
     *(v10 + 944) |= 0x40010uLL;
     *(v10 + 1256) = v12;
   }
@@ -3036,21 +3036,21 @@ LABEL_54:
   {
     *(v10 + 952) |= 0x40000uLL;
     *(v10 + 200) = v39;
-    *(a1 + 26184) = gleSetVertexArrayFunc;
-    *(a1 + 26192) = gleSetVertexArrayFunc;
-    *(a1 + 26200) = gleSetVertexElemFunc;
-    *(a1 + 26208) = gleSetVertexElemFunc;
+    *(result + 26184) = gleSetVertexArrayFunc;
+    *(result + 26192) = gleSetVertexArrayFunc;
+    *(result + 26200) = gleSetVertexElemFunc;
+    *(result + 26208) = gleSetVertexElemFunc;
     *v5 = 0;
-    *(a1 + 1532) |= 0x1000u;
+    *(result + 1532) |= 0x1000u;
   }
 }
 
-void glVertexPointer_Exec(uint64_t a1, uint64_t a2, int a3, unsigned int a4, uint64_t a5)
+void glVertexPointer_Exec(uint64_t result, uint64_t a2, int a3, unsigned int a4, uint64_t a5)
 {
-  v5 = a1 + 28652;
+  v5 = result + 28652;
   if ((a2 - 5) < 0xFFFFFFFD || (a4 & 0x80000000) != 0)
   {
-    if (!*(a1 + 29832))
+    if (!*(result + 29832))
     {
       v16 = 1281;
       goto LABEL_33;
@@ -3061,15 +3061,15 @@ void glVertexPointer_Exec(uint64_t a1, uint64_t a2, int a3, unsigned int a4, uin
 
   v7 = a5;
   v8 = a3;
-  v11 = *(a1 + 26384);
-  v12 = *(a1 + 19312);
-  if (!v12 && v11 != *(a1 + 26392) && a5 && !*(a1 + 32502))
+  v11 = *(result + 26384);
+  v12 = *(result + 19312);
+  if (!v12 && v11 != *(result + 26392) && a5 && !*(result + 32502))
   {
-    if (!*(a1 + 29832))
+    if (!*(result + 29832))
     {
       v16 = 1282;
 LABEL_33:
-      *(a1 + 29832) = v16;
+      *(result + 29832) = v16;
       return;
     }
 
@@ -3081,7 +3081,7 @@ LABEL_33:
   v13 = v14 >> 1;
   if (v13 > 2)
   {
-    if (v13 != 3 && (v13 != 6 || *(a1 + 32501) != 2))
+    if (v13 != 3 && (v13 != 6 || *(result + 32501) != 2))
     {
       goto LABEL_31;
     }
@@ -3098,7 +3098,7 @@ LABEL_19:
 
     if (v17 && (v18 = *(v17 + 20) - 1, (*(v17 + 20) = v18) == 0))
     {
-      gleUnbindAndFreeBufferObject(a1, v17);
+      gleUnbindAndFreeBufferObject(result, v17);
       if (v12)
       {
         goto LABEL_23;
@@ -3115,7 +3115,7 @@ LABEL_23:
         *(v11 + 912) = v19 | 0x10000;
         if (*(v11 + 906))
         {
-          gleUpdateDrawArraysFuncs(a1);
+          gleUpdateDrawArraysFuncs(result);
         }
       }
 
@@ -3149,7 +3149,7 @@ LABEL_23:
       *(v11 + 912) = v24 & 0xFFFFFFFFFFFEFFFFLL;
       if (*(v11 + 906))
       {
-        gleUpdateDrawArraysFuncs(a1);
+        gleUpdateDrawArraysFuncs(result);
       }
     }
 
@@ -3186,7 +3186,7 @@ LABEL_45:
     *(v11 + 952) |= 0x10000uLL;
 LABEL_46:
     *v5 = 0;
-    *(a1 + 1532) |= 0x1000u;
+    *(result + 1532) |= 0x1000u;
     *(v11 + 944) |= 0x10010uLL;
     *(v11 + 1240) = v12;
 LABEL_47:
@@ -3219,12 +3219,12 @@ LABEL_47:
     {
       *(v11 + 952) |= 0x10000uLL;
       *(v11 + 152) = v33;
-      *(a1 + 26184) = gleSetVertexArrayFunc;
-      *(a1 + 26192) = gleSetVertexArrayFunc;
-      *(a1 + 26200) = gleSetVertexElemFunc;
-      *(a1 + 26208) = gleSetVertexElemFunc;
+      *(result + 26184) = gleSetVertexArrayFunc;
+      *(result + 26192) = gleSetVertexArrayFunc;
+      *(result + 26200) = gleSetVertexElemFunc;
+      *(result + 26208) = gleSetVertexElemFunc;
       *v5 = 0;
-      *(a1 + 1532) |= 0x1000u;
+      *(result + 1532) |= 0x1000u;
     }
 
     return;
@@ -3232,7 +3232,7 @@ LABEL_47:
 
   if (!v13)
   {
-    if (*(a1 + 32501) != 2)
+    if (*(result + 32501) != 2)
     {
       goto LABEL_31;
     }
@@ -3248,30 +3248,30 @@ LABEL_47:
   }
 
 LABEL_31:
-  if (!*(a1 + 29832))
+  if (!*(result + 29832))
   {
     v16 = 1280;
     goto LABEL_33;
   }
 }
 
-void glTexCoordPointer_Exec(uint64_t a1, uint64_t a2, int a3, unsigned int a4, uint64_t a5)
+void glTexCoordPointer_Exec(uint64_t result, uint64_t a2, int a3, unsigned int a4, uint64_t a5)
 {
-  v5 = a1 + 28652;
-  v6 = *(a1 + 23770);
+  v5 = result + 28652;
+  v6 = *(result + 23770);
   if (v6 >= 9)
   {
-    if (!*(a1 + 29832))
+    if (!*(result + 29832))
     {
-      *(a1 + 29832) = 1281;
+      *(result + 29832) = 1281;
     }
 
     return;
   }
 
-  if ((a2 - 5) < 0xFFFFFFFC || (a4 & 0x80000000) != 0 || (v9 = a5, v11 = *(a1 + 26384), v12 = *(a1 + 32501), a2 == 1) && v12 == 2)
+  if ((a2 - 5) < 0xFFFFFFFC || (a4 & 0x80000000) != 0 || (v9 = a5, v11 = *(result + 26384), v12 = *(result + 32501), a2 == 1) && v12 == 2)
   {
-    if (!*(a1 + 29832))
+    if (!*(result + 29832))
     {
       v17 = 1281;
       goto LABEL_36;
@@ -3280,14 +3280,14 @@ void glTexCoordPointer_Exec(uint64_t a1, uint64_t a2, int a3, unsigned int a4, u
     return;
   }
 
-  v13 = *(a1 + 19312);
-  if (!v13 && v11 != *(a1 + 26392) && a5 && !*(a1 + 32502))
+  v13 = *(result + 19312);
+  if (!v13 && v11 != *(result + 26392) && a5 && !*(result + 32502))
   {
-    if (!*(a1 + 29832))
+    if (!*(result + 29832))
     {
       v17 = 1282;
 LABEL_36:
-      *(a1 + 29832) = v17;
+      *(result + 29832) = v17;
       return;
     }
 
@@ -3322,12 +3322,12 @@ LABEL_22:
 
     if (v23 && (v25 = *(v23 + 20) - 1, (*(v23 + 20) = v25) == 0))
     {
-      v59 = a1 + 28652;
+      v59 = result + 28652;
       v46 = v6;
       v53 = v16;
       v56 = a3;
       v50 = v11 + 8 * (v6 + 8);
-      gleUnbindAndFreeBufferObject(a1, v23);
+      gleUnbindAndFreeBufferObject(result, v23);
       v22 = v11 + 1240;
       v24 = v50;
       v16 = v53;
@@ -3356,7 +3356,7 @@ LABEL_26:
           v52 = v16;
           v55 = a3;
           v49 = v24;
-          gleUpdateDrawArraysFuncs(a1);
+          gleUpdateDrawArraysFuncs(result);
           v22 = v47;
           v24 = v49;
           v16 = v52;
@@ -3402,7 +3402,7 @@ LABEL_26:
         v57 = a3;
         v48 = v22;
         v51 = v24;
-        gleUpdateDrawArraysFuncs(a1);
+        gleUpdateDrawArraysFuncs(result);
         v22 = v48;
         v24 = v51;
         v16 = v54;
@@ -3445,7 +3445,7 @@ LABEL_48:
     *(v11 + 952) |= v21;
 LABEL_49:
     *v5 = 0;
-    *(a1 + 1532) |= 0x1000u;
+    *(result + 1532) |= 0x1000u;
     *(v11 + 944) |= v21 | 0x10;
     *(v22 + 8 * v18) = v13;
 LABEL_50:
@@ -3487,17 +3487,17 @@ LABEL_50:
         }
 
         *(v11 + 1220) = v44;
-        *(a1 + 1548) |= 0x4000u;
+        *(result + 1548) |= 0x4000u;
       }
 
       *(v11 + 952) |= v21;
       *(v20 + 16) = v42;
-      *(a1 + 26184) = gleSetVertexArrayFunc;
-      *(a1 + 26192) = gleSetVertexArrayFunc;
-      *(a1 + 26200) = gleSetVertexElemFunc;
-      *(a1 + 26208) = gleSetVertexElemFunc;
+      *(result + 26184) = gleSetVertexArrayFunc;
+      *(result + 26192) = gleSetVertexArrayFunc;
+      *(result + 26200) = gleSetVertexElemFunc;
+      *(result + 26208) = gleSetVertexElemFunc;
       *v5 = 0;
-      *(a1 + 1532) |= 0x1000u;
+      *(result + 1532) |= 0x1000u;
     }
 
     return;
@@ -3521,19 +3521,19 @@ LABEL_50:
   }
 
 LABEL_34:
-  if (!*(a1 + 29832))
+  if (!*(result + 29832))
   {
     v17 = 1280;
     goto LABEL_36;
   }
 }
 
-void glDrawArrays_Exec(unint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, __n128 a5, double a6, double a7)
+void glDrawArrays_Exec(unint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, __n128 a5, double a6, double a7)
 {
-  v7 = (a1 + 26336);
+  v7 = (result + 26336);
   if (a2 >= 7)
   {
-    if (*(a1 + 29832))
+    if (*(result + 29832))
     {
       return;
     }
@@ -3542,43 +3542,43 @@ void glDrawArrays_Exec(unint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, __n1
     goto LABEL_34;
   }
 
-  v9 = *(a1 + 26384);
-  if ((~*(v9 + 904) & 0x900000) != 0 && *(a1 + 17699) != 0 || (*(v9 + 904) & 0x100010000) == 0)
+  v9 = *(result + 26384);
+  if ((~*(v9 + 904) & 0x900000) != 0 && *(result + 17699) != 0 || (*(v9 + 904) & 0x100010000) == 0)
   {
     return;
   }
 
   if (a4 <= 0)
   {
-    if ((a4 & 0x80000000) == 0 || *(a1 + 29832))
+    if ((a4 & 0x80000000) == 0 || *(result + 29832))
     {
       return;
     }
 
     v22 = 1281;
 LABEL_34:
-    *(a1 + 29832) = v22;
+    *(result + 29832) = v22;
     return;
   }
 
-  v15 = *(a1 + 26432);
-  if (*(v15 + 42) == -1 || *(v15 + 41) || (glDrawArrays_Exec_cold_1(v15, a2, a4, a1) & 1) == 0)
+  v15 = *(result + 26432);
+  if (*(v15 + 42) == -1 || *(v15 + 41) || (glDrawArrays_Exec_cold_1(v15, a2, a4, result) & 1) == 0)
   {
     if (*v7 != 5375)
     {
-      *(a1 + 26312) = 0;
+      *(result + 26312) = 0;
       *v7 = 5375;
     }
 
-    v16 = gleDrawArraysOrElements_Entries_Body(a1, 2, a2, 1u, v9 + 40, a5, a6, a7);
+    v16 = gleDrawArraysOrElements_Entries_Body(result, 2, a2, 1, v9 + 40, a5, a6, a7);
     if (v16 != 2)
     {
       v20 = v16;
-      if (!v16 || !(*(a1 + 29232))(*(a1 + 29016), 0, a2, a3, a4, *v7, *(a1 + 26312), 1, 0))
+      if (!v16 || !(*(result + 29232))(*(result + 29016), 0, a2, a3, a4, *v7, *(result + 26312), 1, 0))
       {
         if ((*(v7 + 579) & (1 << a2)) == 0 || (*(v7 + 2345) & 1) == 0 || (*(v7 + 2347) & 2) == 0)
         {
-          if (!gleDoDrawDispatchCore(a1, 1 << a2, 1u, 2u, v17, v18, v19))
+          if (!gleDoDrawDispatchCore(result, 1 << a2, 1u, 2u, v17, v18, v19))
           {
             goto LABEL_21;
           }
@@ -3586,27 +3586,27 @@ LABEL_34:
 LABEL_27:
           if (v20 && *(v9 + 912) && !*(v9 + 1216))
           {
-            gleSynchronizeBuffersInArray(a1, v9 + 40);
+            gleSynchronizeBuffersInArray(result, v9 + 40);
           }
 
-          gleDrawArraysOrElements_ExecCore(a1, a2, a3, a4, 0, v9 + 40, 1);
+          gleDrawArraysOrElements_ExecCore(result, a2, a3, a4, 0, v9 + 40, 1);
           goto LABEL_21;
         }
 
-        if (!*(a1 + 32482))
+        if (!*(result + 32482))
         {
           goto LABEL_27;
         }
       }
 
 LABEL_21:
-      v21 = *(*(a1 + 19296) + 316);
+      v21 = *(*(result + 19296) + 316);
       if (*(v7 + 870) != v21)
       {
-        if (*(a1 + 28960))
+        if (*(result + 28960))
         {
-          gleInvalidateCurrentDrawFramebufferTextures(a1);
-          v21 = *(*(a1 + 19296) + 316);
+          gleInvalidateCurrentDrawFramebufferTextures(result);
+          v21 = *(*(result + 19296) + 316);
         }
 
         *(v7 + 870) = v21;
@@ -4197,9 +4197,9 @@ LABEL_2:
   return result;
 }
 
-void glePPUpdateProgram(uint64_t a1, int16x4_t *a2)
+void glePPUpdateProgram(uint64_t a1, uint64_t a2)
 {
-  if ((a2[53].i8[2] & 0xFB) != 0)
+  if ((*(a2 + 426) & 0xFB) != 0)
   {
     v4 = 0;
   }
@@ -4210,14 +4210,14 @@ void glePPUpdateProgram(uint64_t a1, int16x4_t *a2)
   }
 
   __pattern4 = v4;
-  v5 = a2 + 71;
-  memset_pattern4(&a2[71], &__pattern4, 0xED8uLL);
-  a2[17].i32[1] = 0;
-  v6 = a2[54];
+  v5 = a2 + 568;
+  memset_pattern4((a2 + 568), &__pattern4, 0xED8uLL);
+  *(a2 + 140) = 0;
+  v6 = *(a2 + 432);
   if (v6)
   {
     v13 = v5;
-    if (a2[52].i8[1])
+    if (*(a2 + 417))
     {
       v7 = (*(*(a1 + 19296) + 346) & 1) == 0;
     }
@@ -4227,20 +4227,20 @@ void glePPUpdateProgram(uint64_t a1, int16x4_t *a2)
       v7 = 0;
     }
 
-    a2[52].i8[2] = glePPSetParamRemap(0xFFFFFFFF, *&v6 + 8 * *(*&v6 + 60), *(*&v6 + 56), v7, &v13, &a2[18], &a2[34], &a2[17] + 1);
+    *(a2 + 418) = glePPSetParamRemap(0xFFFFFFFFLL, v6 + 8 * *(v6 + 60), *(v6 + 56), v7, &v13, a2 + 144, a2 + 272, (a2 + 140));
     PPStreamTokenConvertParamBindings();
   }
 
-  if (a2[55])
+  if (*(a2 + 440))
   {
-    v8 = a2[13];
+    v8 = *(a2 + 104);
     if (v8)
     {
       v11 = *v8;
       v9 = (v8 + 4);
       v10 = v11;
       v13 = v5;
-      if (a2[52].i8[1])
+      if (*(a2 + 417))
       {
         v12 = (*(*(a1 + 19296) + 346) & 1) == 0;
       }
@@ -4250,7 +4250,7 @@ void glePPUpdateProgram(uint64_t a1, int16x4_t *a2)
         v12 = 0;
       }
 
-      a2[52].i8[2] = glePPSetParamRemap(0xFFFFFFFF, v9, v10, v12, &v13, &a2[18], &a2[34], &a2[17] + 1);
+      *(a2 + 418) = glePPSetParamRemap(0xFFFFFFFFLL, v9, v10, v12, &v13, a2 + 144, a2 + 272, (a2 + 140));
       PPStreamTokenConvertParamBindingsToGeneric();
     }
   }
@@ -4919,7 +4919,7 @@ float32x2_t *gleUpdateLightRGBASums(float32x2_t *result, float32x2_t *a2, int a3
     v19 = (~v5 & 0xF) == 0 || (v3 & 0xF) == 0;
     v20 = 6 * a3;
     v21 = (*&v4 + 112);
-    v22 = &result[1573];
+    v22 = result + 1573;
     do
     {
       if (v13)
@@ -4933,9 +4933,9 @@ float32x2_t *gleUpdateLightRGBASums(float32x2_t *result, float32x2_t *a2, int a3
 
           else
           {
-            *v14 = vmul_f32(*(v22 - 10), *a2);
+            *v14 = vmul_f32(v22[-5], *a2);
             v23 = a2[1].i32[1];
-            v14[1].f32[0] = *(v22 - 8) * a2[1].f32[0];
+            v14[1].f32[0] = v22[-4].f32[0] * a2[1].f32[0];
             v14[1].i32[1] = v23;
             v24 = result[2406];
             if (v24)
@@ -4990,9 +4990,9 @@ float32x2_t *gleUpdateLightRGBASums(float32x2_t *result, float32x2_t *a2, int a3
 
           else
           {
-            v14[2] = vmul_f32(*(v22 - 6), a2[2]);
+            v14[2] = vmul_f32(v22[-3], a2[2]);
             v30 = a2[3].i32[1];
-            v14[3].f32[0] = *(v22 - 4) * a2[3].f32[0];
+            v14[3].f32[0] = v22[-2].f32[0] * a2[3].f32[0];
             v14[3].i32[1] = v30;
             v31 = result[2406];
             if (v31)
@@ -5041,9 +5041,9 @@ float32x2_t *gleUpdateLightRGBASums(float32x2_t *result, float32x2_t *a2, int a3
 
           else
           {
-            v14[4] = vmul_f32(*(v22 - 2), a2[4]);
+            v14[4] = vmul_f32(v22[-1], a2[4]);
             v37 = a2[5].i32[1];
-            v14[5].f32[0] = *v22 * a2[5].f32[0];
+            v14[5].f32[0] = v22->f32[0] * a2[5].f32[0];
             v14[5].i32[1] = v37;
             v38 = result[2406];
             if (v38)
@@ -5087,7 +5087,7 @@ float32x2_t *gleUpdateLightRGBASums(float32x2_t *result, float32x2_t *a2, int a3
       v20 += 12;
       v21 += 3;
       v14 += 6;
-      v22 += 40;
+      v22 += 20;
       v44 = v13 > 1;
       v13 >>= 1;
     }
@@ -5436,12 +5436,13 @@ uint64_t gleCreateSurfaceLevel(uint64_t a1, uint64_t a2, __int16 a3, __int16 a4,
   return 0;
 }
 
-uint64_t gleDeleteHashNameAndObject(uint64_t a1, void (**a2)(uint64_t, uint64_t), unsigned int a3)
+uint64_t gleDeleteHashNameAndObject(uint64_t a1, void (**a2)(uint64_t, uint64_t), uint64_t a3)
 {
+  v3 = a3;
   result = gleRemoveHashName(a2, a3);
   if (result)
   {
-    result = gleRemoveHashObject(a2, a3);
+    result = gleRemoveHashObject(a2, v3);
     if (result)
     {
       v7 = *(result + 20) - 1;
@@ -5990,7 +5991,7 @@ uint64_t glClientActiveTexture_Exec(uint64_t result, int a2)
   return result;
 }
 
-uint64_t glTexEnvi_Exec(uint64_t result, int a2, int a3, int a4, double a5)
+uint64_t glTexEnvi_Exec(uint64_t result, int a2, int a3, unsigned int a4, double a5)
 {
   v5 = (result + 28652);
   v6 = *(result + 23768);
@@ -6009,7 +6010,7 @@ uint64_t glTexEnvi_Exec(uint64_t result, int a2, int a3, int a4, double a5)
         {
           if (a3 == 34186)
           {
-            if ((a4 - 34166) >= 3 && a4 != 5890)
+            if (a4 - 34166 >= 3 && a4 != 5890)
             {
               goto LABEL_113;
             }
@@ -6032,7 +6033,7 @@ uint64_t glTexEnvi_Exec(uint64_t result, int a2, int a3, int a4, double a5)
 
         else if (a3 == 34184)
         {
-          if ((a4 - 34166) >= 3 && a4 != 5890)
+          if (a4 - 34166 >= 3 && a4 != 5890)
           {
             goto LABEL_113;
           }
@@ -6043,7 +6044,7 @@ uint64_t glTexEnvi_Exec(uint64_t result, int a2, int a3, int a4, double a5)
 
         else
         {
-          if ((a4 - 34166) >= 3 && a4 != 5890)
+          if (a4 - 34166 >= 3 && a4 != 5890)
           {
             goto LABEL_113;
           }
@@ -6120,7 +6121,7 @@ uint64_t glTexEnvi_Exec(uint64_t result, int a2, int a3, int a4, double a5)
       {
         if (a3 == 34177)
         {
-          if ((a4 - 34166) >= 3 && a4 != 5890)
+          if (a4 - 34166 >= 3 && a4 != 5890)
           {
             goto LABEL_113;
           }
@@ -6131,7 +6132,7 @@ uint64_t glTexEnvi_Exec(uint64_t result, int a2, int a3, int a4, double a5)
 
         else
         {
-          if (a3 != 34178 || (a4 - 34166) >= 3 && a4 != 5890)
+          if (a3 != 34178 || a4 - 34166 >= 3 && a4 != 5890)
           {
             goto LABEL_113;
           }
@@ -6145,7 +6146,7 @@ uint64_t glTexEnvi_Exec(uint64_t result, int a2, int a3, int a4, double a5)
 
       if (a3 != 34163)
       {
-        if (a3 != 34176 || (a4 - 34166) >= 3 && a4 != 5890)
+        if (a3 != 34176 || a4 - 34166 >= 3 && a4 != 5890)
         {
           goto LABEL_113;
         }
@@ -6181,7 +6182,7 @@ LABEL_101:
 
         if (a4 > 8447)
         {
-          if ((a4 - 8448) >= 2)
+          if (a4 - 8448 >= 2)
           {
             v18 = 34160;
 LABEL_105:
@@ -6219,7 +6220,7 @@ LABEL_112:
     {
       if (a4 > 34022)
       {
-        if ((a4 - 34164) >= 2)
+        if (a4 - 34164 >= 2)
         {
           v19 = 34023;
 LABEL_109:
@@ -6243,7 +6244,7 @@ LABEL_109:
 
     if (a4 > 34022)
     {
-      if ((a4 - 34164) >= 2 && (a4 - 34478) >= 2)
+      if (a4 - 34164 >= 2 && a4 - 34478 >= 2)
       {
         v20 = 34023;
 LABEL_99:
@@ -6373,12 +6374,12 @@ LABEL_116:
   return result;
 }
 
-void glStencilFunc_Exec(uint64_t a1, int a2, int a3, int a4)
+void glStencilFunc_Exec(uint64_t result, int a2, int a3, int a4)
 {
-  v4 = (a1 + 28652);
+  v4 = (result + 28652);
   if ((a2 - 520) <= 0xFFFFFFF7)
   {
-    if (!*(a1 + 29832))
+    if (!*(result + 29832))
     {
       OUTLINED_FUNCTION_1_2(v4);
     }
@@ -6386,55 +6387,55 @@ void glStencilFunc_Exec(uint64_t a1, int a2, int a3, int a4)
 
   else
   {
-    v5 = (a1 + 15604);
+    v5 = (result + 15604);
     v6 = a3 & ~(a3 >> 31);
-    if (*(a1 + 29776) == 1028)
+    if (*(result + 29776) == 1028)
     {
-      if (*v5 != a2 || *(a1 + 15600) != v6 || *(a1 + 15596) != a4 || *(a1 + 15636) != a2 || *(a1 + 15632) != v6 || *(a1 + 15628) != a4)
+      if (*v5 != a2 || *(result + 15600) != v6 || *(result + 15596) != a4 || *(result + 15636) != a2 || *(result + 15632) != v6 || *(result + 15628) != a4)
       {
         *v5 = a2;
-        *(a1 + 15600) = v6;
-        *(a1 + 15596) = a4;
-        *(a1 + 15636) = a2;
-        *(a1 + 15632) = v6;
-        *(a1 + 15628) = a4;
-        v7 = *(a1 + 15644);
+        *(result + 15600) = v6;
+        *(result + 15596) = a4;
+        *(result + 15636) = a2;
+        *(result + 15632) = v6;
+        *(result + 15628) = a4;
+        v7 = *(result + 15644);
         if (v7 == 17)
         {
-          *(a1 + 15644) = 1;
-          *(a1 + 1548) |= 0x8000u;
+          *(result + 15644) = 1;
+          *(result + 1548) |= 0x8000u;
         }
 
         else
         {
-          *(a1 + 15644) = v7 & 0xFFFFFFEF;
+          *(result + 15644) = v7 & 0xFFFFFFEF;
         }
 
         goto LABEL_16;
       }
     }
 
-    else if (*(a1 + 15620) != a2 || *(a1 + 15616) != v6 || *(a1 + 15612) != a4)
+    else if (*(result + 15620) != a2 || *(result + 15616) != v6 || *(result + 15612) != a4)
     {
-      *(a1 + 15620) = a2;
-      *(a1 + 15616) = v6;
-      *(a1 + 15612) = a4;
+      *(result + 15620) = a2;
+      *(result + 15616) = v6;
+      *(result + 15612) = a4;
 LABEL_16:
-      OUTLINED_FUNCTION_3_2(a1, v4);
+      OUTLINED_FUNCTION_3_2(result, v4);
     }
   }
 }
 
-void glDrawElements_Exec(unint64_t a1, uint64_t a2, uint64_t a3, int a4, uint64_t a5, __n128 a6, double a7, double a8)
+void glDrawElements_Exec(unint64_t result, uint64_t a2, uint64_t a3, int a4, uint64_t a5, __n128 a6, double a7, double a8)
 {
-  v8 = (a1 + 26336);
+  v8 = (result + 26336);
   if (a2 >= 7)
   {
     goto LABEL_47;
   }
 
-  v10 = *(a1 + 26384);
-  if ((~*(v10 + 904) & 0x900000) != 0 && *(a1 + 17699) != 0 || (*(v10 + 904) & 0x100010000) == 0)
+  v10 = *(result + 26384);
+  if ((~*(v10 + 904) & 0x900000) != 0 && *(result + 17699) != 0 || (*(v10 + 904) & 0x100010000) == 0)
   {
     return;
   }
@@ -6442,11 +6443,11 @@ void glDrawElements_Exec(unint64_t a1, uint64_t a2, uint64_t a3, int a4, uint64_
   if (a4 != 5123 && a4 != 5121 && a4 != 5125)
   {
 LABEL_47:
-    if (!*(a1 + 29832))
+    if (!*(result + 29832))
     {
       v26 = 1280;
 LABEL_40:
-      *(a1 + 29832) = v26;
+      *(result + 29832) = v26;
       return;
     }
 
@@ -6455,8 +6456,8 @@ LABEL_40:
 
   if (a3 > 0)
   {
-    v17 = *(a1 + 26432);
-    if (*(v17 + 42) != -1 && !*(v17 + 41) && (glDrawElements_Exec_cold_1(v17, a2, a3, a1) & 1) != 0)
+    v17 = *(result + 26432);
+    if (*(v17 + 42) != -1 && !*(v17 + 41) && (glDrawElements_Exec_cold_1(v17, a2, a3, result) & 1) != 0)
     {
       return;
     }
@@ -6467,30 +6468,21 @@ LABEL_40:
       a5 += *(v18 + 136);
     }
 
-    *(a1 + 26312) = a5;
+    *(result + 26312) = a5;
     *v8 = a4;
-    if ((a4 - 5121) > 4)
-    {
-      LOBYTE(v19) = 1;
-    }
-
-    else
-    {
-      v19 = dword_23A1034D8[a4 - 5121];
-    }
-
-    v20 = gleDrawArraysOrElements_Entries_Body(a1, 2, a2, v19, v10 + 40, a6, a7, a8);
+    v19 = (a4 - 5121) > 4 ? 1 : dword_23A1034D8[a4 - 5121];
+    v20 = gleDrawArraysOrElements_Entries_Body(result, 2, a2, v19, v10 + 40, a6, a7, a8);
     if (v20 == 2)
     {
       return;
     }
 
     v24 = v20;
-    if (!v20 || !(*(a1 + 29232))(*(a1 + 29016), 1, a2, 0, a3, *v8, *(a1 + 26312), 1, 0))
+    if (!v20 || !(*(result + 29232))(*(result + 29016), 1, a2, 0, a3, *v8, *(result + 26312), 1, 0))
     {
       if ((*(v8 + 579) & (1 << a2)) == 0 || (*(v8 + 2345) & 1) == 0 || (*(v8 + 2347) & 2) == 0)
       {
-        if (!gleDoDrawDispatchCore(a1, 1 << a2, 1u, 2u, v21, v22, v23))
+        if (!gleDoDrawDispatchCore(result, 1 << a2, 1u, 2u, v21, v22, v23))
         {
           goto LABEL_25;
         }
@@ -6498,27 +6490,27 @@ LABEL_40:
 LABEL_31:
         if (v24 && *(v10 + 912) && !*(v10 + 1216))
         {
-          gleSynchronizeBuffersInArray(a1, v10 + 40);
+          gleSynchronizeBuffersInArray(result, v10 + 40);
         }
 
-        gleDrawArraysOrElements_ExecCore(a1, a2, 0, a3, 1, v10 + 40, 1);
+        gleDrawArraysOrElements_ExecCore(result, a2, 0, a3, 1, v10 + 40, 1);
         goto LABEL_25;
       }
 
-      if (!*(a1 + 32482))
+      if (!*(result + 32482))
       {
         goto LABEL_31;
       }
     }
 
 LABEL_25:
-    v25 = *(*(a1 + 19296) + 316);
+    v25 = *(*(result + 19296) + 316);
     if (*(v8 + 870) != v25)
     {
-      if (*(a1 + 28960))
+      if (*(result + 28960))
       {
-        gleInvalidateCurrentDrawFramebufferTextures(a1);
-        v25 = *(*(a1 + 19296) + 316);
+        gleInvalidateCurrentDrawFramebufferTextures(result);
+        v25 = *(*(result + 19296) + 316);
       }
 
       *(v8 + 870) = v25;
@@ -6527,7 +6519,7 @@ LABEL_25:
     return;
   }
 
-  if ((a3 & 0x80000000) != 0 && !*(a1 + 29832))
+  if ((a3 & 0x80000000) != 0 && !*(result + 29832))
   {
     v26 = 1281;
     goto LABEL_40;
@@ -6617,13 +6609,13 @@ LABEL_7:
   return result;
 }
 
-void glVertexAttribPointerARB_Exec(uint64_t a1, unsigned int a2, uint64_t a3, int a4, int a5, unsigned int a6, uint64_t a7)
+void glVertexAttribPointerARB_Exec(uint64_t result, unsigned int a2, uint64_t a3, int a4, int a5, unsigned int a6, uint64_t a7)
 {
-  v7 = a1 + 28652;
+  v7 = result + 28652;
   if ((a3 - 5) >= 0xFFFFFFFC && (a6 & 0x80000000) == 0 && a2 < 0x10)
   {
     v8 = a7;
-    v10 = *(a1 + 26384);
+    v10 = *(result + 26384);
     if (!v10)
     {
       if (!a7)
@@ -6635,8 +6627,8 @@ void glVertexAttribPointerARB_Exec(uint64_t a1, unsigned int a2, uint64_t a3, in
     }
 
     v11 = a4;
-    v12 = *(a1 + 19312);
-    if (v12 || !a7 || v10 == *(a1 + 26392))
+    v12 = *(result + 19312);
+    if (v12 || !a7 || v10 == *(result + 26392))
     {
       if (a4 <= 5125)
       {
@@ -6648,7 +6640,7 @@ void glVertexAttribPointerARB_Exec(uint64_t a1, unsigned int a2, uint64_t a3, in
             goto LABEL_30;
           }
 
-          if ((a4 - 5124) < 2 && (*(a1 + 32501) & 0xFE) != 2)
+          if ((a4 - 5124) < 2 && (*(result + 32501) & 0xFE) != 2)
           {
             v13 = 4;
 LABEL_30:
@@ -6673,7 +6665,7 @@ LABEL_22:
           goto LABEL_31;
         }
 
-        if (a4 == 5131 && (*(a1 + 32501) & 0xFE) != 2)
+        if (a4 == 5131 && (*(result + 32501) & 0xFE) != 2)
         {
           v14 = 0;
           v13 = 2;
@@ -6693,12 +6685,12 @@ LABEL_31:
 
           if (v20 && (v22 = *(v20 + 20) - 1, (*(v20 + 20) = v22) == 0))
           {
-            v54 = a1 + 28652;
+            v54 = result + 28652;
             v41 = a3;
             v48 = v13;
             v51 = a6;
             v45 = v14;
-            gleUnbindAndFreeBufferObject(a1, v20);
+            gleUnbindAndFreeBufferObject(result, v20);
             a3 = v41;
             v21 = v10 + 8 * v16;
             v14 = v45;
@@ -6727,7 +6719,7 @@ LABEL_35:
                 v47 = v13;
                 v50 = a6;
                 v44 = v14;
-                gleUpdateDrawArraysFuncs(a1);
+                gleUpdateDrawArraysFuncs(result);
                 a3 = v40;
                 v21 = v42;
                 v14 = v44;
@@ -6773,7 +6765,7 @@ LABEL_35:
               v52 = a6;
               v46 = v14;
               v43 = v21;
-              gleUpdateDrawArraysFuncs(a1);
+              gleUpdateDrawArraysFuncs(result);
               v21 = v43;
               v14 = v46;
               v13 = v49;
@@ -6816,7 +6808,7 @@ LABEL_54:
           *(v10 + 952) |= v19;
 LABEL_55:
           *v7 = 0;
-          *(a1 + 1532) |= 0x1000u;
+          *(result + 1532) |= 0x1000u;
           *(v10 + 944) |= v19 | 0x10;
           *(v10 + 1240 + 8 * v16) = v12;
 LABEL_56:
@@ -6855,12 +6847,12 @@ LABEL_56:
           {
             *(v10 + 952) |= v19;
             *(v18 + 16) = v39;
-            *(a1 + 26184) = gleSetVertexArrayFunc;
-            *(a1 + 26192) = gleSetVertexArrayFunc;
-            *(a1 + 26200) = gleSetVertexElemFunc;
-            *(a1 + 26208) = gleSetVertexElemFunc;
+            *(result + 26184) = gleSetVertexArrayFunc;
+            *(result + 26192) = gleSetVertexArrayFunc;
+            *(result + 26200) = gleSetVertexElemFunc;
+            *(result + 26208) = gleSetVertexElemFunc;
             *v7 = 0;
-            *(a1 + 1532) |= 0x1000u;
+            *(result + 1532) |= 0x1000u;
           }
 
           return;
@@ -6874,7 +6866,7 @@ LABEL_56:
           goto LABEL_31;
         }
 
-        if ((a4 == 33640 || a4 == 36255) && (*(a1 + 32501) & 0xFE) != 2)
+        if ((a4 == 33640 || a4 == 36255) && (*(result + 32501) & 0xFE) != 2)
         {
           if (a3 > 3)
           {
@@ -6886,19 +6878,19 @@ LABEL_56:
       }
 
 LABEL_26:
-      if (*(a1 + 29832))
+      if (*(result + 29832))
       {
         return;
       }
 
       v15 = 1280;
 LABEL_28:
-      *(a1 + 29832) = v15;
+      *(result + 29832) = v15;
       return;
     }
 
 LABEL_20:
-    if (*(a1 + 29832))
+    if (*(result + 29832))
     {
       return;
     }
@@ -6907,9 +6899,9 @@ LABEL_20:
     goto LABEL_28;
   }
 
-  if (!*(a1 + 29832))
+  if (!*(result + 29832))
   {
-    *(a1 + 29832) = 1281;
+    *(result + 29832) = 1281;
   }
 }
 
@@ -7592,13 +7584,18 @@ LABEL_38:
   return result;
 }
 
-uint64_t glCopyTexSubImage2D_Exec(uint64_t result, int a2, uint64_t a3, int a4, int a5, unsigned int a6, unsigned int a7, int a8, double a9, double a10, double a11, int a12)
+uint64_t glCopyTexSubImage2D_Exec(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, unsigned int a7, uint64_t a8, double d0_0, double a10, double a11, int a9)
 {
+  v12 = a8;
+  v14 = a6;
+  v15 = a5;
+  v16 = a4;
+  v18 = a2;
   v19 = result;
   v20 = result + 29632;
   if ((*(result + 1540) & 4) != 0)
   {
-    result = gleGenerateMatrixIdentifier(result, result + 9488, a9, a10, a11);
+    result = gleGenerateMatrixIdentifier(result, result + 9488, d0_0, a10, a11);
     *(v19 + 19152) = *(v19 + 19152) & 0xFFFFFEFF | ((result != -1074791426) << 8);
     *(v20 + 100) = result;
   }
@@ -7617,17 +7614,17 @@ uint64_t glCopyTexSubImage2D_Exec(uint64_t result, int a2, uint64_t a3, int a4, 
     }
   }
 
-  if (!a8)
+  if (!v12)
   {
     return result;
   }
 
-  if (!a12)
+  if (!a9)
   {
     return result;
   }
 
-  result = gleCheckCopyTexSubImage2DArgs(v19, a2, a3, a4, a5, a8, a12);
+  result = gleCheckCopyTexSubImage2DArgs(v19, v18, a3, v16, v15, v12, a9);
   if (!result)
   {
     return result;
@@ -7649,14 +7646,14 @@ uint64_t glCopyTexSubImage2D_Exec(uint64_t result, int a2, uint64_t a3, int a4, 
     v42 = 0;
   }
 
-  if ((a2 - 34069) >= 6)
+  if ((v18 - 34069) >= 6)
   {
     v22 = 0;
   }
 
   else
   {
-    v22 = (a2 - 34069);
+    v22 = (v18 - 34069);
   }
 
   v43 = v22;
@@ -7702,10 +7699,10 @@ uint64_t glCopyTexSubImage2D_Exec(uint64_t result, int a2, uint64_t a3, int a4, 
         v31 = *(v20 + 4);
       }
 
-      v48 = a6;
-      v46 = a8;
+      v48 = v14;
+      v46 = v12;
       v47 = a7;
-      v45 = a12;
+      v45 = a9;
       gleClipReadableRange(v19, v30, v31, &v48, &v47, &v46, &v45, &v44 + 1, &v44);
       v32 = *(v19 + 8 * *(v19 + 23768) + 23936);
       if (v32)
@@ -7724,7 +7721,7 @@ uint64_t glCopyTexSubImage2D_Exec(uint64_t result, int a2, uint64_t a3, int a4, 
       {
         LODWORD(v39) = v45;
         HIDWORD(v39) = (v34 & 1) == 0;
-        result = (*(*(v19 + 29448) + 360))(*(v19 + 29016), *(v21 + 8 * *(v20 + 2867)), v43, a3, (HIDWORD(v44) + a4), (v44 + a5), 0, v48, __PAIR64__(v46, v47), v39);
+        result = (*(*(v19 + 29448) + 360))(*(v19 + 29016), *(v21 + 8 * *(v20 + 2867)), v43, a3, (HIDWORD(v44) + v16), (v44 + v15), 0, v48, __PAIR64__(v46, v47), v39);
         if (result)
         {
           if ((*(v21 + 768) & 0x800) == 0)
@@ -7779,7 +7776,7 @@ uint64_t glCopyTexSubImage2D_Exec(uint64_t result, int a2, uint64_t a3, int a4, 
   v41 = v25;
   if ((v38 & 0x40) != 0)
   {
-    gleSynchronizeTextureLevelOnCurrentDevices(v19, v21);
+    gleSynchronizeTextureLevelOnCurrentDevices(v19, v21, v24, v43, a3);
   }
 
   else if ((*(v24 + 11) & 0x10) == 0)
@@ -7811,7 +7808,7 @@ LABEL_58:
 
   if ((*(v24 + 11) & 0x10) != 0)
   {
-    gleTextureSubImageCopy(v19, v21, v24, a4, a5, 0, a6, a7, a8, a12);
+    gleTextureSubImageCopy(v19, v21, v24, v16, v15, 0, v14, a7, v12, a9);
   }
 
   if ((*(v21 + 898) & 1) == 0 || *(v21 + 884) != a3 || (result = gleGenMipmaps(v19, v21, v43, a3, 1, v41), !result))
@@ -7829,8 +7826,9 @@ LABEL_66:
   return result;
 }
 
-uint64_t gleCheckCopyTexSubImage2DArgs(uint64_t a1, int a2, signed int a3, int a4, int a5, int a6, int a7)
+uint64_t gleCheckCopyTexSubImage2DArgs(uint64_t a1, int a2, uint64_t a3, int a4, int a5, int a6, int a7)
 {
+  v11 = a3;
   v14 = gleLookUpNonProxyTexture2D(a1, a2);
   if (!v14)
   {
@@ -7848,12 +7846,12 @@ uint64_t gleCheckCopyTexSubImage2DArgs(uint64_t a1, int a2, signed int a3, int a
   v16 = *(v14 + 960);
   v18 = v16 == 36975 || v16 - 33329 < 0xC;
   v19 = v16 - 36208 < 0x24 || v18;
-  if (!gleCheckCopyTexSubImageArgs(a1, a3, *(v14 + 772), v16, v19, 0))
+  if (!gleCheckCopyTexSubImageArgs(a1, v11, *(v14 + 772), v16, v19, 0))
   {
     return 0;
   }
 
-  if (a2 == 34037 && a3 >= 1)
+  if (a2 == 34037 && v11 >= 1)
   {
 LABEL_14:
     if (!*(a1 + 29832))
@@ -7874,7 +7872,7 @@ LABEL_30:
     v21 = 0;
   }
 
-  v22 = v15 + 480 * v21 + 32 * a3;
+  v22 = v15 + 480 * v21 + 32 * v11;
   if ((*(v22 + 1043) & 0x20) == 0)
   {
 LABEL_21:
@@ -7975,12 +7973,12 @@ LABEL_47:
   return v15;
 }
 
-void glNormalPointer_Exec(uint64_t a1, int a2, unsigned int a3, uint64_t a4)
+void glNormalPointer_Exec(uint64_t result, int a2, unsigned int a3, uint64_t a4)
 {
-  v4 = a1 + 28652;
+  v4 = result + 28652;
   if ((a3 & 0x80000000) != 0)
   {
-    if (!*(a1 + 29832))
+    if (!*(result + 29832))
     {
       v14 = 1281;
       goto LABEL_18;
@@ -7990,15 +7988,15 @@ void glNormalPointer_Exec(uint64_t a1, int a2, unsigned int a3, uint64_t a4)
   }
 
   v5 = a4;
-  v8 = *(a1 + 26384);
-  v9 = *(a1 + 19312);
-  if (!v9 && v8 != *(a1 + 26392) && a4 && !*(a1 + 32502))
+  v8 = *(result + 26384);
+  v9 = *(result + 19312);
+  if (!v9 && v8 != *(result + 26392) && a4 && !*(result + 32502))
   {
-    if (!*(a1 + 29832))
+    if (!*(result + 29832))
     {
       v14 = 1282;
 LABEL_18:
-      *(a1 + 29832) = v14;
+      *(result + 29832) = v14;
       return;
     }
 
@@ -8010,7 +8008,7 @@ LABEL_18:
   v10 = v11 >> 1;
   if (v10 > 2)
   {
-    if (v10 != 3 && (v10 != 6 || *(a1 + 32501) != 2))
+    if (v10 != 3 && (v10 != 6 || *(result + 32501) != 2))
     {
       goto LABEL_16;
     }
@@ -8028,7 +8026,7 @@ LABEL_20:
 
     if (v15 && (v16 = *(v15 + 20) - 1, (*(v15 + 20) = v16) == 0))
     {
-      gleUnbindAndFreeBufferObject(a1, v15);
+      gleUnbindAndFreeBufferObject(result, v15);
       if (v9)
       {
         goto LABEL_24;
@@ -8045,7 +8043,7 @@ LABEL_24:
         *(v8 + 912) = v17 | 0x20000;
         if ((*(v8 + 906) & 2) != 0)
         {
-          gleUpdateDrawArraysFuncs(a1);
+          gleUpdateDrawArraysFuncs(result);
         }
       }
 
@@ -8079,7 +8077,7 @@ LABEL_24:
       *(v8 + 912) = v22 & 0xFFFFFFFFFFFDFFFFLL;
       if ((*(v8 + 906) & 2) != 0)
       {
-        gleUpdateDrawArraysFuncs(a1);
+        gleUpdateDrawArraysFuncs(result);
       }
     }
 
@@ -8116,7 +8114,7 @@ LABEL_43:
     *(v8 + 952) |= 0x20000uLL;
 LABEL_44:
     *v4 = 0;
-    *(a1 + 1532) |= 0x1000u;
+    *(result + 1532) |= 0x1000u;
     *(v8 + 944) |= 0x20010uLL;
     *(v8 + 1248) = v9;
 LABEL_45:
@@ -8154,12 +8152,12 @@ LABEL_45:
     {
       *(v8 + 952) |= 0x20000uLL;
       *(v8 + 176) = v32;
-      *(a1 + 26184) = gleSetVertexArrayFunc;
-      *(a1 + 26192) = gleSetVertexArrayFunc;
-      *(a1 + 26200) = gleSetVertexElemFunc;
-      *(a1 + 26208) = gleSetVertexElemFunc;
+      *(result + 26184) = gleSetVertexArrayFunc;
+      *(result + 26192) = gleSetVertexArrayFunc;
+      *(result + 26200) = gleSetVertexElemFunc;
+      *(result + 26208) = gleSetVertexElemFunc;
       *v4 = 0;
-      *(a1 + 1532) |= 0x1000u;
+      *(result + 1532) |= 0x1000u;
     }
 
     return;
@@ -8180,20 +8178,23 @@ LABEL_45:
   }
 
 LABEL_16:
-  if (!*(a1 + 29832))
+  if (!*(result + 29832))
   {
     v14 = 1280;
     goto LABEL_18;
   }
 }
 
-uint64_t glCopyTexImage2D_Exec(uint64_t a1, int a2, uint64_t a3, uint64_t a4, unsigned int a5, unsigned int a6, int a7, unsigned int a8, double a9, double a10, double a11, int a12)
+uint64_t glCopyTexImage2D_Exec(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, unsigned int a5, unsigned int a6, uint64_t a7, uint64_t a8, double d0_0, double a10, double a11, unsigned int a9)
 {
+  v12 = a8;
+  v13 = a7;
+  v18 = a2;
   v20 = a1 + 28652;
   v21 = (a1 + 18856);
   if ((*(a1 + 1540) & 4) != 0)
   {
-    MatrixIdentifier = gleGenerateMatrixIdentifier(a1, a1 + 9488, a9, a10, a11);
+    MatrixIdentifier = gleGenerateMatrixIdentifier(a1, a1 + 9488, d0_0, a10, a11);
     *(v21 + 74) = *(v21 + 74) & 0xFFFFFEFF | ((MatrixIdentifier != -1074791426) << 8);
     *(v20 + 1080) = MatrixIdentifier;
   }
@@ -8212,9 +8213,9 @@ uint64_t glCopyTexImage2D_Exec(uint64_t a1, int a2, uint64_t a3, uint64_t a4, un
     }
   }
 
-  v63 = a6;
-  v64 = a5;
-  result = gleCheckCopyTexImage2DArgs(a1, a2, a3, a4, a7, a8, a12);
+  v62 = a6;
+  v63 = a5;
+  result = gleCheckCopyTexImage2DArgs(a1, v18, a3, a4, v13, v12, a9);
   if (!result)
   {
     return result;
@@ -8252,11 +8253,11 @@ uint64_t glCopyTexImage2D_Exec(uint64_t a1, int a2, uint64_t a3, uint64_t a4, un
   {
 LABEL_19:
     v26 = *(v21 + 74);
-    v61 = result;
+    v60 = result;
     if ((v26 & 2) != 0)
     {
-      v27 = a8;
-      v28 = a7;
+      v27 = v12;
+      v28 = v13;
       if (*v21 != 32790)
       {
         goto LABEL_26;
@@ -8268,15 +8269,15 @@ LABEL_19:
 
     else
     {
-      v27 = a8;
-      v28 = a7;
+      v27 = v12;
+      v28 = v13;
       if ((v26 & 4) == 0)
       {
         goto LABEL_26;
       }
 
-      v27 = a8;
-      v28 = a7;
+      v27 = v12;
+      v28 = v13;
       if (v21[36] != 32790)
       {
         goto LABEL_26;
@@ -8286,11 +8287,11 @@ LABEL_19:
       v30 = 18944;
     }
 
-    v28 = a7 - *(a1 + v30) + 1;
-    v27 = a8 - *(a1 + v29) + 1;
+    v28 = v13 - *(a1 + v30) + 1;
+    v27 = v12 - *(a1 + v29) + 1;
 LABEL_26:
-    v59 = a7;
-    v60 = a8;
+    v58 = v13;
+    v59 = v12;
     if (v27)
     {
       v31 = v28;
@@ -8303,7 +8304,7 @@ LABEL_26:
 
     if (v27)
     {
-      v32 = a12;
+      v32 = a9;
     }
 
     else
@@ -8311,24 +8312,23 @@ LABEL_26:
       v32 = 0;
     }
 
-    if ((a2 - 34069) >= 6)
+    if ((v18 - 34069) >= 6)
     {
       v33 = 0;
     }
 
     else
     {
-      v33 = (a2 - 34069);
+      v33 = (v18 - 34069);
     }
 
     v34 = v27;
     Framebuffer = gleTypeFromReadFramebuffer(a1, a4);
-    LOWORD(v56) = 256;
     v54 = v32;
     v36 = v24 + 480 * v33 + 32 * a3 + 1032;
-    v62 = v33;
+    v61 = v33;
     v37 = v34;
-    v38 = gleEvaluateTextureImageChange(a1, v24, v36, v33, a3, v31, v34, 1, v54, a4, 0x1908u, Framebuffer, v56, 0);
+    v38 = gleEvaluateTextureImageChange(a1, v24, v36, v33, a3, v31, v34, 1, v54, a4, 0x1908u, Framebuffer, 256, 0);
     v39 = v38;
     if (!v31)
     {
@@ -8336,23 +8336,23 @@ LABEL_26:
       goto LABEL_56;
     }
 
-    v58 = v38;
+    v57 = v38;
     if (*(v24 + 976) <= a3)
     {
-      v40 = v64;
-      v41 = v60;
-      if (*(v24 + 978) >= a3 && ((*(v24 + 2 * v62 + 984) >> a3) & 1) != 0)
+      v40 = v63;
+      v41 = v59;
+      if (*(v24 + 978) >= a3 && ((*(v24 + 2 * v61 + 984) >> a3) & 1) != 0)
       {
-        v65 = 0;
+        v64 = 0;
         if ((*(v24 + 898) & 1) != 0 && *(v24 + 884) == a3 && (*(v24 + 768) & 0xF) != 2)
         {
-          gleGenerateEmptyMipmaps(a1, v24, v62, a3, *(v24 + 975), 0, 0);
-          v57 = 0;
+          gleGenerateEmptyMipmaps(a1, v24, v61, a3, *(v24 + 975), 0, 0);
+          v56 = 0;
         }
 
         else
         {
-          v57 = 1;
+          v56 = 1;
         }
 
         v42 = *(a1 + 28968);
@@ -8368,11 +8368,11 @@ LABEL_26:
           v44 = *(v20 + 984);
         }
 
-        v69 = v64;
-        v67 = v31;
         v68 = v63;
-        v66 = v37;
-        gleClipReadableRange(a1, v43, v44, &v69, &v68, &v67, &v66, &v65 + 1, &v65);
+        v66 = v31;
+        v67 = v62;
+        v65 = v37;
+        gleClipReadableRange(a1, v43, v44, &v68, &v67, &v66, &v65, &v64 + 1, &v64);
         v48 = *(a1 + 8 * *(a1 + 23768) + 23936);
         if (v48)
         {
@@ -8387,31 +8387,31 @@ LABEL_26:
         v50 = *(v24 + 982);
         if (v50 < 0)
         {
-          --HIDWORD(v65);
+          --HIDWORD(v64);
           if ((v50 & 0x2000) == 0)
           {
-            LODWORD(v65) = v65 - 1;
+            LODWORD(v64) = v64 - 1;
           }
         }
 
         v51 = *v49;
         *(v24 + 968) = 65540;
-        v45 = v59;
-        if (v67 >= 1 && v66 >= 1)
+        v45 = v58;
+        if (v66 >= 1 && v65 >= 1)
         {
-          LODWORD(v55) = v66;
+          LODWORD(v55) = v65;
           HIDWORD(v55) = (v51 & 1) == 0;
-          result = (*(*(a1 + 29448) + 360))(*(a1 + 29016), *(v24 + 8 * *(v20 + 3847)), v62, a3, HIDWORD(v65), v65, 0, v69, __PAIR64__(v67, v68), v55);
+          result = (*(*(a1 + 29448) + 360))(*(a1 + 29016), *(v24 + 8 * *(v20 + 3847)), v61, a3, HIDWORD(v64), v64, 0, v68, __PAIR64__(v66, v67), v55);
           if (result)
           {
             *(v24 + 536) = *(a1 + 29024);
             *(v36 + 11) |= 0x40u;
-            if ((v57 & 1) == 0)
+            if ((v56 & 1) == 0)
             {
               v52 = *(v24 + 975);
               if (v52 > a3)
               {
-                v53 = (32 * a3 + 480 * v62 + v24 + 1075);
+                v53 = (32 * a3 + 480 * v61 + v24 + 1075);
                 do
                 {
                   *v53 |= 0x40u;
@@ -8430,18 +8430,18 @@ LABEL_26:
 LABEL_49:
         if (gfxAllocateTextureLevel())
         {
-          gleTextureImageCopy(a1, v24, v36, a4, v40, v63, v45, v41);
+          gleTextureImageCopy(a1, v24, v36, a4, v40, v62, v45, v41);
           *(v24 + 968) = *(v36 + 16);
           *(v36 + 11) |= 0x10u;
-          *(v24 + 2 * v62 + 996) |= *(v24 + 2 * v62 + 984) & (1 << a3);
+          *(v24 + 2 * v61 + 996) |= *(v24 + 2 * v61 + 984) & (1 << a3);
           v46 = v24 + 24 * *(v20 + 3847);
           *(v46 + 116) |= 4u;
-          *(v46 + 2 * v62 + 104) |= 1 << a3;
+          *(v46 + 2 * v61 + 104) |= 1 << a3;
           if ((*(v24 + 898) & 1) != 0 && *(v24 + 884) == a3)
           {
-            result = gleGenMipmaps(a1, v24, v62, a3, 1, v57);
+            result = gleGenMipmaps(a1, v24, v61, a3, 1, v56);
 LABEL_55:
-            v39 = v58;
+            v39 = v57;
 LABEL_56:
             if ((v39 & 0xC0000001) != 0)
             {
@@ -8469,7 +8469,7 @@ LABEL_63:
             if (*(v20 + 3851))
             {
               result = mach_absolute_time();
-              *(a1 + 19168) += result - v61;
+              *(a1 + 19168) += result - v60;
             }
 
             return result;
@@ -8487,17 +8487,17 @@ LABEL_63:
         goto LABEL_55;
       }
 
-      v57 = 1;
+      v56 = 1;
     }
 
     else
     {
-      v57 = 1;
-      v40 = v64;
-      v41 = v60;
+      v56 = 1;
+      v40 = v63;
+      v41 = v59;
     }
 
-    v45 = v59;
+    v45 = v58;
     goto LABEL_49;
   }
 
@@ -8509,8 +8509,9 @@ LABEL_63:
   return result;
 }
 
-uint64_t gleCheckCopyTexImage2DArgs(uint64_t a1, int a2, signed int a3, signed int a4, int a5, unsigned int a6, int a7)
+uint64_t gleCheckCopyTexImage2DArgs(uint64_t a1, int a2, uint64_t a3, uint64_t a4, int a5, unsigned int a6, uint64_t a7)
 {
+  v7 = a7;
   v13 = a1 + 29832;
   v14 = gleLookUpNonProxyTexture2D(a1, a2);
   if (!v14)
@@ -8540,8 +8541,8 @@ LABEL_68:
     return result;
   }
 
-  v16 = a5 - 2 * a7;
-  v17 = a6 - 2 * a7;
+  v16 = a5 - 2 * v7;
+  v17 = a6 - 2 * v7;
   v18 = *(a1 + 19152);
   if ((v18 & 6) != 0)
   {
@@ -8576,7 +8577,7 @@ LABEL_13:
     {
       if (v23 == 6)
       {
-        if ((v16 & 0x80000000) != 0 || a7 && !v16)
+        if ((v16 & 0x80000000) != 0 || v7 && !v16)
         {
           goto LABEL_65;
         }
@@ -8618,7 +8619,7 @@ LABEL_13:
 
     v24 = *(v28 + 572) >> 31;
 LABEL_36:
-    if ((v16 & 0x80000000) != 0 || a7 && !v16)
+    if ((v16 & 0x80000000) != 0 || v7 && !v16)
     {
       goto LABEL_65;
     }
@@ -8639,7 +8640,7 @@ LABEL_36:
       goto LABEL_65;
     }
 
-    v32 = a7 && v17 == 0;
+    v32 = v7 && v17 == 0;
     v33 = v32;
     if ((v17 & 0x80000000) != 0)
     {
@@ -8670,7 +8671,7 @@ LABEL_36:
 
   if (v23 == 2)
   {
-    if ((v16 & 0x80000000) != 0 || (v25 = *(*(a1 + 29032) + 166), v16 > v25) || v17 > v25 || a3 > 0 || a7)
+    if ((v16 & 0x80000000) != 0 || (v25 = *(*(a1 + 29032) + 166), v16 > v25) || v17 > v25 || a3 > 0 || v7)
     {
 LABEL_65:
       if (*v13)
@@ -8685,7 +8686,7 @@ LABEL_65:
   }
 
 LABEL_53:
-  if (gleCheckCopyTexImageArgs(a1, a3, a4, a7, v24))
+  if (gleCheckCopyTexImageArgs(a1, a3, a4, v7, v24))
   {
     return v15;
   }
@@ -8696,11 +8697,13 @@ LABEL_53:
   }
 }
 
-uint64_t gleCheckCopyTexImageArgs(uint64_t a1, unsigned int a2, signed int a3, int a4, int a5)
+uint64_t gleCheckCopyTexImageArgs(uint64_t a1, uint64_t a2, uint64_t a3, int a4, int a5)
 {
   v5 = a1 + 28672;
   if (!a4)
   {
+    v8 = a3;
+    v9 = a2;
     v11 = 0;
     if (a3 > 35055)
     {
@@ -8939,7 +8942,7 @@ LABEL_32:
           v11 = 1;
 LABEL_52:
           v19 = gfxReqToBase();
-          return gleCheckCopyTexSubImageArgs(a1, a2, v19, a3, v11, a5);
+          return gleCheckCopyTexSubImageArgs(a1, v9, v19, v8, v11, a5);
         }
 
         if ((a3 - 33776) < 4)
@@ -9055,92 +9058,92 @@ uint64_t glFrontFace_Exec(uint64_t result, int a2)
   return result;
 }
 
-void glPointSize_Exec(uint64_t a1, float a2)
+void glPointSize_Exec(uint64_t result, float a2)
 {
-  v2 = (a1 + 28652);
+  v2 = (result + 28652);
   if (a2 <= 0.0)
   {
-    if (!*(a1 + 29832))
+    if (!*(result + 29832))
     {
-      *(a1 + 29832) = 1281;
+      *(result + 29832) = 1281;
     }
   }
 
-  else if (*(a1 + 15344) != a2)
+  else if (*(result + 15344) != a2)
   {
-    *(a1 + 15344) = a2;
-    gleUpdatePointAttenuation(a1);
-    v4 = *(a1 + 19248);
+    *(result + 15344) = a2;
+    gleUpdatePointAttenuation(result);
+    v4 = *(result + 19248);
     if (v4 && *(v4 + 3788) <= 0x3FFu)
     {
       OUTLINED_FUNCTION_0_4();
       *(v5 + 1552) |= v6;
-      *(a1 + 1532) |= 0x800000u;
+      *(result + 1532) |= 0x800000u;
     }
 
-    v7 = *(a1 + 19272);
+    v7 = *(result + 19272);
     if (v7 && *(v7 + 3788) <= 0x3FFu)
     {
       OUTLINED_FUNCTION_0_4();
       *(v8 + 1936) |= v9;
-      *(a1 + 1532) |= 0x4000000u;
+      *(result + 1532) |= 0x4000000u;
     }
 
-    v10 = *(a1 + 19280);
+    v10 = *(result + 19280);
     if (v10)
     {
       if (*(v10 + 3788) <= 0x3FFu)
       {
         OUTLINED_FUNCTION_0_4();
         *(v11 + 2064) |= v12;
-        *(a1 + 1532) |= 0x8000000u;
+        *(result + 1532) |= 0x8000000u;
       }
     }
 
     *v2 = 0;
-    *(a1 + 1520) |= 0x400000u;
+    *(result + 1520) |= 0x400000u;
   }
 }
 
-void glLineWidth_Exec(uint64_t a1, float a2)
+void glLineWidth_Exec(uint64_t result, float a2)
 {
-  v2 = (a1 + 28652);
+  v2 = (result + 28652);
   if (a2 <= 0.0)
   {
-    if (!*(a1 + 29832))
+    if (!*(result + 29832))
     {
       OUTLINED_FUNCTION_0_1(v2);
     }
   }
 
-  else if (*(a1 + 15304) != a2)
+  else if (*(result + 15304) != a2)
   {
-    *(a1 + 15304) = a2;
+    *(result + 15304) = a2;
     *v2 = 0;
-    *(a1 + 1520) |= 0x4000u;
+    *(result + 1520) |= 0x4000u;
   }
 }
 
-void gleSetEnable_COLOR_MATERIAL(uint64_t a1, uint64_t a2, int a3)
+void gleSetEnable_COLOR_MATERIAL(uint64_t result, uint64_t a2, int a3)
 {
-  if (*(a1 + 14891) != a3)
+  if (*(result + 14891) != a3)
   {
-    *(a1 + 14891) = a3;
-    gleSetColorMaterialEnable(a1);
+    *(result + 14891) = a3;
+    gleSetColorMaterialEnable(result);
     if (a3)
     {
-      v5 = *(a1 + 1544) | 0x2000000;
+      v5 = *(result + 1544) | 0x2000000;
     }
 
     else
     {
-      (*(a1 + 1456))(a1, a1 + 8464);
-      v5 = *(a1 + 1544) & 0xFCFFFFFF | 0x1000000;
+      (*(result + 1456))(result, result + 8464);
+      v5 = *(result + 1544) & 0xFCFFFFFF | 0x1000000;
     }
 
-    *(a1 + 1544) = v5;
-    *(a1 + 28652) = 0;
-    OUTLINED_FUNCTION_1_7(*(a1 + 1548));
+    *(result + 1544) = v5;
+    *(result + 28652) = 0;
+    OUTLINED_FUNCTION_1_7(*(result + 1548));
   }
 }
 

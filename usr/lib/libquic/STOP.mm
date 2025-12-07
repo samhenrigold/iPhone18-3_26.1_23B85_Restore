@@ -10,7 +10,7 @@ uint64_t __quic_frame_process_STOP_SENDING_block_invoke(uint64_t a1, uint64_t a2
   {
     v4 = _os_log_pack_size();
     v30 = &v28;
-    v5 = &v28 - ((MEMORY[0x1EEE9AC00](v4, v4) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v5 = &v28 - ((MEMORY[0x1EEE9AC00](v4) + 15) & 0xFFFFFFFFFFFFFFF0);
     _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
     v6 = _os_log_pack_fill();
     v7 = *(a1 + 32);
@@ -136,7 +136,7 @@ uint64_t __quic_frame_process_STOP_SENDING_block_invoke(uint64_t a1, uint64_t a2
   if ((*a2 & 2) != 0 && ((((*(*(a1 + 32) + 1380) & 1) == 0) ^ *a2) & 1) != 0 || (*(a2 + 251) & 0xFE) == 4)
   {
     posix_error = nw_error_create_posix_error();
-    quic_stream_close(*(a1 + 32), a2);
+    quic_stream_close(*(a1 + 32), a2, posix_error);
     if (posix_error)
     {
       nw_release(posix_error);

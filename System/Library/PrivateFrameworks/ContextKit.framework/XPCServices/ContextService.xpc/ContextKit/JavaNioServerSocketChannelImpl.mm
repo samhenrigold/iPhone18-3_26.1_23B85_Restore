@@ -1,5 +1,6 @@
 @interface JavaNioServerSocketChannelImpl
 - (id)accept;
+- (id)bindWithJavaNetSocketAddress:(id)address withInt:(int)int;
 - (id)getFD;
 - (id)getLocalAddress;
 - (id)getOptionWithJavaNetSocketOption:(id)option;
@@ -11,6 +12,42 @@
 @end
 
 @implementation JavaNioServerSocketChannelImpl
+
+- (id)bindWithJavaNetSocketAddress:(id)address withInt:(int)int
+{
+  v4 = *&int;
+  if (![(JavaNioChannelsSpiAbstractInterruptibleChannel *)self isOpen])
+  {
+    v9 = new_JavaNioChannelsClosedChannelException_init();
+    goto LABEL_11;
+  }
+
+  v7 = *(&self->super.super.blockingLock_ + 7);
+  if (!v7)
+  {
+    JreThrowNullPointerException();
+  }
+
+  if ([v7 isBound])
+  {
+    v9 = new_JavaNioChannelsAlreadyBoundException_init();
+    goto LABEL_11;
+  }
+
+  if (address)
+  {
+    objc_opt_class();
+    if ((objc_opt_isKindOfClass() & 1) == 0)
+    {
+      v9 = new_JavaNioChannelsUnsupportedAddressTypeException_init();
+LABEL_11:
+      objc_exception_throw(v9);
+    }
+  }
+
+  [*(&self->super.super.blockingLock_ + 7) bindWithJavaNetSocketAddress:address withInt:v4];
+  return self;
+}
 
 - (id)getLocalAddress
 {

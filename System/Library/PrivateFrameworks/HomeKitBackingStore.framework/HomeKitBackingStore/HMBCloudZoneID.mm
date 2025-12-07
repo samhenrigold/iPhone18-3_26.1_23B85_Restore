@@ -103,7 +103,7 @@
 
 - (HMBCloudZoneID)initWithContainerID:(id)d scope:(int64_t)scope zoneID:(id)iD
 {
-  v51[4] = *MEMORY[0x277D85DE8];
+  v50[4] = *MEMORY[0x277D85DE8];
   dCopy = d;
   iDCopy = iD;
   if (!dCopy)
@@ -146,15 +146,15 @@ LABEL_7:
 
   selfCopy = self;
   scopeCopy = scope;
-  v43 = v22;
+  v42 = v22;
   if ((scope - 1) > 2)
   {
-    v42 = 0;
+    v41 = 0;
   }
 
   else
   {
-    v42 = off_2786E1810[scope - 1];
+    v41 = off_2786E1810[scope - 1];
   }
 
   zoneName2 = [v10 zoneName];
@@ -163,48 +163,47 @@ LABEL_7:
   v26 = zoneName2;
   [v25 environment];
   v27 = CKContainerEnvironmentString();
-  v51[0] = v27;
+  v50[0] = v27;
   containerIdentifier2 = [v25 containerIdentifier];
-  v51[1] = containerIdentifier2;
-  v51[2] = v26;
-  v51[3] = ownerName2;
-  v29 = [MEMORY[0x277CBEA60] arrayWithObjects:v51 count:4];
+  v50[1] = containerIdentifier2;
+  v50[2] = v26;
+  v50[3] = ownerName2;
+  v29 = [MEMORY[0x277CBEA60] arrayWithObjects:v50 count:4];
 
   data = [MEMORY[0x277CBEB28] data];
+  v45 = 0u;
   v46 = 0u;
   v47 = 0u;
   v48 = 0u;
-  v49 = 0u;
   v31 = v29;
-  v32 = [v31 countByEnumeratingWithState:&v46 objects:v50 count:16];
+  v32 = [v31 countByEnumeratingWithState:&v45 objects:v49 count:16];
   if (v32)
   {
     v33 = v32;
-    v34 = *v47;
+    v34 = *v46;
     do
     {
       for (i = 0; i != v33; ++i)
       {
-        if (*v47 != v34)
+        if (*v46 != v34)
         {
           objc_enumerationMutation(v31);
         }
 
-        v36 = [*(*(&v46 + 1) + 8 * i) dataUsingEncoding:4];
+        v36 = [*(*(&v45 + 1) + 8 * i) dataUsingEncoding:4];
         [data appendData:v36];
       }
 
-      v33 = [v31 countByEnumeratingWithState:&v46 objects:v50 count:16];
+      v33 = [v31 countByEnumeratingWithState:&v45 objects:v49 count:16];
     }
 
     while (v33);
   }
 
-  v37 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDString:v42];
+  v37 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDString:v41];
   v38 = [MEMORY[0x277CCAD78] hmf_UUIDWithNamespace:v37 data:data];
 
-  v39 = [(HMBCloudZoneID *)selfCopy initWithContainerID:v25 scope:scopeCopy zoneID:v10 name:v43 modelID:v38];
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = [(HMBCloudZoneID *)selfCopy initWithContainerID:v25 scope:scopeCopy zoneID:v10 name:v42 modelID:v38];
   return v39;
 }
 

@@ -27,7 +27,7 @@
 - (void)setNaturalLightingEnabled:(BOOL)enabled forLightProfiles:(id)profiles completion:(id)completion
 {
   enabledCopy = enabled;
-  v72 = *MEMORY[0x277D85DE8];
+  v71 = *MEMORY[0x277D85DE8];
   profilesCopy = profiles;
   completionCopy = completion;
   v8 = objc_autoreleasePoolPush();
@@ -49,26 +49,26 @@
   objc_autoreleasePoolPop(v8);
   mapTableWithWeakToStrongObjects = [MEMORY[0x277CCAB00] mapTableWithWeakToStrongObjects];
   mapTableWithWeakToStrongObjects2 = [MEMORY[0x277CCAB00] mapTableWithWeakToStrongObjects];
+  v61 = 0u;
   v62 = 0u;
   v63 = 0u;
   v64 = 0u;
-  v65 = 0u;
   obj = profilesCopy;
-  v13 = [obj countByEnumeratingWithState:&v62 objects:v71 count:16];
+  v13 = [obj countByEnumeratingWithState:&v61 objects:v70 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v63;
+    v15 = *v62;
     do
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v63 != v15)
+        if (*v62 != v15)
         {
           objc_enumerationMutation(obj);
         }
 
-        v17 = *(*(&v62 + 1) + 8 * i);
+        v17 = *(*(&v61 + 1) + 8 * i);
         dataSource = [(HMDHomeNaturalLightingCurveWriter *)selfCopy dataSource];
         date = [dataSource date];
         dataSource2 = [(HMDHomeNaturalLightingCurveWriter *)selfCopy dataSource];
@@ -86,7 +86,7 @@
         }
       }
 
-      v14 = [obj countByEnumeratingWithState:&v62 objects:v71 count:16];
+      v14 = [obj countByEnumeratingWithState:&v61 objects:v70 count:16];
     }
 
     while (v14);
@@ -96,30 +96,30 @@
   if ([mapTableWithWeakToStrongObjects2 count])
   {
     v24 = [MEMORY[0x277CBEB58] set];
+    v57 = 0u;
     v58 = 0u;
     v59 = 0u;
     v60 = 0u;
-    v61 = 0u;
     v25 = mapTableWithWeakToStrongObjects2;
-    v26 = [v25 countByEnumeratingWithState:&v58 objects:v70 count:16];
+    v26 = [v25 countByEnumeratingWithState:&v57 objects:v69 count:16];
     if (v26)
     {
       v27 = v26;
-      v28 = *v59;
+      v28 = *v58;
       do
       {
         for (j = 0; j != v27; ++j)
         {
-          if (*v59 != v28)
+          if (*v58 != v28)
           {
             objc_enumerationMutation(v25);
           }
 
-          v30 = [v25 objectForKey:*(*(&v58 + 1) + 8 * j)];
+          v30 = [v25 objectForKey:*(*(&v57 + 1) + 8 * j)];
           [v24 addObject:v30];
         }
 
-        v27 = [v25 countByEnumeratingWithState:&v58 objects:v70 count:16];
+        v27 = [v25 countByEnumeratingWithState:&v57 objects:v69 count:16];
       }
 
       while (v27);
@@ -130,13 +130,13 @@
     aBlock[2] = __91__HMDHomeNaturalLightingCurveWriter_setNaturalLightingEnabled_forLightProfiles_completion___block_invoke;
     aBlock[3] = &unk_2786772E0;
     aBlock[4] = selfCopy;
-    v53 = obj;
+    v52 = obj;
     v31 = mapTableWithWeakToStrongObjects;
-    v54 = mapTableWithWeakToStrongObjects;
+    v53 = mapTableWithWeakToStrongObjects;
     v32 = completionCopy;
-    v56 = completionCopy;
-    v55 = v25;
-    v57 = enabledCopy;
+    v55 = completionCopy;
+    v54 = v25;
+    v56 = enabledCopy;
     v33 = _Block_copy(aBlock);
     uUID = [MEMORY[0x277CCAD78] UUID];
     v35 = objc_autoreleasePoolPush();
@@ -157,18 +157,18 @@
         *buf = *MEMORY[0x277D0F960];
       }
 
-      v66 = *buf;
+      v65 = *buf;
       v43 = [v24 count];
       *buf = 138544386;
       *&buf[4] = v38;
       *&buf[12] = 1042;
       *&buf[14] = 16;
       *&buf[18] = 2098;
-      *&buf[20] = &v66;
+      *&buf[20] = &v65;
       *&buf[28] = 2114;
       *&buf[30] = v36;
-      v68 = 2048;
-      v69 = v43;
+      v67 = 2048;
+      v68 = v43;
       _os_log_impl(&dword_229538000, v37, OS_LOG_TYPE_INFO, "%{public}@Executing write requests with identifier: %{public,uuid_t}.16P from natural lighting curve writer: %{public}@ count: %lu", buf, 0x30u);
     }
 
@@ -202,48 +202,46 @@
     v31 = mapTableWithWeakToStrongObjects;
     (*(completionCopy + 2))(completionCopy, mapTableWithWeakToStrongObjects);
   }
-
-  v46 = *MEMORY[0x277D85DE8];
 }
 
 void __91__HMDHomeNaturalLightingCurveWriter_setNaturalLightingEnabled_forLightProfiles_completion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v50 = *MEMORY[0x277D85DE8];
-  v29 = a2;
-  v32 = a3;
+  v48 = *MEMORY[0x277D85DE8];
+  v27 = a2;
+  v30 = a3;
   if (*(a1 + 32))
   {
     v5 = [MEMORY[0x277CCA9B8] hmfErrorWithCode:15];
+    v32 = 0u;
+    v33 = 0u;
     v34 = 0u;
     v35 = 0u;
-    v36 = 0u;
-    v37 = 0u;
     obj = *(a1 + 56);
-    v6 = [obj countByEnumeratingWithState:&v34 objects:v48 count:16];
+    v6 = [obj countByEnumeratingWithState:&v32 objects:v46 count:16];
     if (v6)
     {
       v8 = v6;
-      v9 = *v35;
+      v9 = *v33;
       *&v7 = 138543874;
-      v28 = v7;
+      v26 = v7;
       do
       {
         v10 = 0;
         v11 = v5;
-        v30 = v8;
+        v28 = v8;
         do
         {
-          if (*v35 != v9)
+          if (*v33 != v9)
           {
             objc_enumerationMutation(obj);
           }
 
-          v12 = *(*(&v34 + 1) + 8 * v10);
-          v13 = [*(a1 + 56) objectForKey:{v12, v28}];
+          v12 = *(*(&v32 + 1) + 8 * v10);
+          v13 = [*(a1 + 56) objectForKey:{v12, v26}];
           v14 = *(a1 + 72);
-          v33 = v11;
-          v15 = [v32 hmd_isValidResponseForWriteRequest:v13 naturalLightingEnabled:v14 error:&v33];
-          v5 = v33;
+          v31 = v11;
+          v15 = [v30 hmd_isValidResponseForWriteRequest:v13 naturalLightingEnabled:v14 error:&v31];
+          v5 = v31;
 
           if ((v15 & 1) == 0)
           {
@@ -255,12 +253,12 @@ void __91__HMDHomeNaturalLightingCurveWriter_setNaturalLightingEnabled_forLightP
             if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
             {
               v21 = HMFGetLogIdentifier();
-              *buf = v28;
-              v43 = v21;
+              *buf = v26;
+              v41 = v21;
+              v42 = 2112;
+              v43 = v30;
               v44 = 2112;
-              v45 = v32;
-              v46 = 2112;
-              v47 = v29;
+              v45 = v27;
               _os_log_impl(&dword_229538000, v20, OS_LOG_TYPE_ERROR, "%{public}@Failed to validate response for write request %@:%@", buf, 0x20u);
             }
 
@@ -268,7 +266,7 @@ void __91__HMDHomeNaturalLightingCurveWriter_setNaturalLightingEnabled_forLightP
             a1 = v18;
             [*(v18 + 48) setObject:v5 forKey:v12];
             v9 = v16;
-            v8 = v30;
+            v8 = v28;
           }
 
           ++v10;
@@ -276,7 +274,7 @@ void __91__HMDHomeNaturalLightingCurveWriter_setNaturalLightingEnabled_forLightP
         }
 
         while (v8 != v10);
-        v8 = [obj countByEnumeratingWithState:&v34 objects:v48 count:16];
+        v8 = [obj countByEnumeratingWithState:&v32 objects:v46 count:16];
       }
 
       while (v8);
@@ -286,39 +284,36 @@ void __91__HMDHomeNaturalLightingCurveWriter_setNaturalLightingEnabled_forLightP
   else
   {
     v5 = [MEMORY[0x277CCA9B8] hmfErrorWithCode:12];
+    v36 = 0u;
+    v37 = 0u;
     v38 = 0u;
     v39 = 0u;
-    v40 = 0u;
-    v41 = 0u;
     obj = *(a1 + 40);
-    v22 = [obj countByEnumeratingWithState:&v38 objects:v49 count:16];
+    v22 = [obj countByEnumeratingWithState:&v36 objects:v47 count:16];
     if (v22)
     {
       v23 = v22;
-      v24 = *v39;
+      v24 = *v37;
       do
       {
         for (i = 0; i != v23; ++i)
         {
-          if (*v39 != v24)
+          if (*v37 != v24)
           {
             objc_enumerationMutation(obj);
           }
 
-          [*(a1 + 48) setObject:v5 forKey:*(*(&v38 + 1) + 8 * i)];
+          [*(a1 + 48) setObject:v5 forKey:*(*(&v36 + 1) + 8 * i)];
         }
 
-        v23 = [obj countByEnumeratingWithState:&v38 objects:v49 count:16];
+        v23 = [obj countByEnumeratingWithState:&v36 objects:v47 count:16];
       }
 
       while (v23);
     }
   }
 
-  v26 = *(a1 + 48);
   (*(*(a1 + 64) + 16))();
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (HMDHomeNaturalLightingCurveWriter)initWithHome:(id)home
@@ -361,10 +356,9 @@ void __91__HMDHomeNaturalLightingCurveWriter_setNaturalLightingEnabled_forLightP
 
 void __48__HMDHomeNaturalLightingCurveWriter_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v5_92005;
-  logCategory__hmf_once_v5_92005 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v5_92005;
+  logCategory__hmf_once_v5_92005 = v0;
 }
 
 @end

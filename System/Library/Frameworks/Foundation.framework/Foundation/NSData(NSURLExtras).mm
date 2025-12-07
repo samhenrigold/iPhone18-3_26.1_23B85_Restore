@@ -243,7 +243,7 @@ LABEL_43:
 {
   _web_guessedMIMEType = [self _web_guessedMIMEType];
   v5 = _web_guessedMIMEType;
-  if (_web_guessedMIMEType && ![_web_guessedMIMEType isEqualToString:@"text/plain"] || !objc_msgSend(a3, "length"))
+  if (_web_guessedMIMEType && !objc_msgSend_isEqualToString_(_web_guessedMIMEType) || ![a3 length])
   {
     return v5;
   }

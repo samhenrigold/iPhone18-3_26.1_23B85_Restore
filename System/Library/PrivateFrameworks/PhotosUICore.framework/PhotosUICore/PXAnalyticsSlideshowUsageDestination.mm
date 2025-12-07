@@ -380,14 +380,14 @@ __CFString *__69__PXAnalyticsSlideshowUsageDestination__createDefaultPayloadForI
 {
   v2 = [a2 integerValue];
 
-  return PXAnalyticsSlideshowTerminationTypeDescription(v2);
+  return PXAnalyticsSlideshowTerminationTypeDescription(v2, v3);
 }
 
 __CFString *__69__PXAnalyticsSlideshowUsageDestination__createDefaultPayloadForInfo___block_invoke_3(uint64_t a1, void *a2)
 {
   v2 = [a2 integerValue];
 
-  return PXAnalyticsSlideshowTriggerTypeDescription(v2);
+  return PXAnalyticsSlideshowTriggerTypeDescription(v2, v3);
 }
 
 void __69__PXAnalyticsSlideshowUsageDestination__createDefaultPayloadForInfo___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -523,10 +523,10 @@ LABEL_7:
 + (id)playbackEndedCPAnalyticsEventNameForTerminationType:(int64_t)type
 {
   v4 = objc_alloc(MEMORY[0x1E696AEC0]);
-  v5 = PXAnalyticsSlideshowTerminationTypeDescription(type);
-  v6 = [v4 initWithFormat:@"com.apple.photos.CPAnalytics.slideshowPlaybackEndedBy%@", v5];
+  v6 = PXAnalyticsSlideshowTerminationTypeDescription(type, v5);
+  v7 = [v4 initWithFormat:@"com.apple.photos.CPAnalytics.slideshowPlaybackEndedBy%@", v6];
 
-  return v6;
+  return v7;
 }
 
 + (id)playbackStartedCPAnalyticsEventNameForTotalAssetCount:(int64_t)count

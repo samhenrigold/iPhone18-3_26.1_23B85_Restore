@@ -191,10 +191,10 @@
 
 - (id)_validParameterCombinationsWithSchema:(id)schema
 {
-  v26 = *MEMORY[0x1E69E9840];
-  v24.receiver = self;
-  v24.super_class = INPlayMediaIntent;
-  v4 = [(INIntent *)&v24 _validParameterCombinationsWithSchema:schema];
+  v25 = *MEMORY[0x1E69E9840];
+  v23.receiver = self;
+  v23.super_class = INPlayMediaIntent;
+  v4 = [(INIntent *)&v23 _validParameterCombinationsWithSchema:schema];
   mediaContainer = [(INPlayMediaIntent *)self mediaContainer];
 
   if (mediaContainer)
@@ -215,32 +215,32 @@
   if ([v7 count])
   {
     v9 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:{objc_msgSend(v4, "count")}];
+    v19 = 0u;
     v20 = 0u;
     v21 = 0u;
     v22 = 0u;
-    v23 = 0u;
     allKeys = [v4 allKeys];
-    v11 = [allKeys countByEnumeratingWithState:&v20 objects:v25 count:16];
+    v11 = [allKeys countByEnumeratingWithState:&v19 objects:v24 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v21;
+      v13 = *v20;
       do
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v21 != v13)
+          if (*v20 != v13)
           {
             objc_enumerationMutation(allKeys);
           }
 
-          v15 = *(*(&v20 + 1) + 8 * i);
+          v15 = *(*(&v19 + 1) + 8 * i);
           v16 = [v4 objectForKey:v15];
           v17 = [v15 setByAddingObjectsFromSet:v7];
           [v9 setObject:v16 forKey:v17];
         }
 
-        v12 = [allKeys countByEnumeratingWithState:&v20 objects:v25 count:16];
+        v12 = [allKeys countByEnumeratingWithState:&v19 objects:v24 count:16];
       }
 
       while (v12);
@@ -251,8 +251,6 @@
   {
     v9 = v4;
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
@@ -293,8 +291,8 @@ uint64_t __59__INPlayMediaIntent__validParameterCombinationsWithSchema___block_i
 
 - (id)_dictionaryRepresentation
 {
-  v26[7] = *MEMORY[0x1E69E9840];
-  v25[0] = @"mediaItems";
+  v25[7] = *MEMORY[0x1E69E9840];
+  v24[0] = @"mediaItems";
   mediaItems = [(INPlayMediaIntent *)self mediaItems];
   v4 = mediaItems;
   if (!mediaItems)
@@ -302,9 +300,9 @@ uint64_t __59__INPlayMediaIntent__validParameterCombinationsWithSchema___block_i
     mediaItems = [MEMORY[0x1E695DFB0] null];
   }
 
-  v24 = mediaItems;
-  v26[0] = mediaItems;
-  v25[1] = @"mediaContainer";
+  v23 = mediaItems;
+  v25[0] = mediaItems;
+  v24[1] = @"mediaContainer";
   mediaContainer = [(INPlayMediaIntent *)self mediaContainer];
   v6 = mediaContainer;
   if (!mediaContainer)
@@ -312,9 +310,9 @@ uint64_t __59__INPlayMediaIntent__validParameterCombinationsWithSchema___block_i
     mediaContainer = [MEMORY[0x1E695DFB0] null];
   }
 
-  v23 = mediaContainer;
-  v26[1] = mediaContainer;
-  v25[2] = @"playShuffled";
+  v22 = mediaContainer;
+  v25[1] = mediaContainer;
+  v24[2] = @"playShuffled";
   playShuffled = [(INPlayMediaIntent *)self playShuffled];
   v8 = playShuffled;
   if (!playShuffled)
@@ -322,8 +320,8 @@ uint64_t __59__INPlayMediaIntent__validParameterCombinationsWithSchema___block_i
     playShuffled = [MEMORY[0x1E695DFB0] null];
   }
 
-  v26[2] = playShuffled;
-  v25[3] = @"playbackRepeatMode";
+  v25[2] = playShuffled;
+  v24[3] = @"playbackRepeatMode";
   playbackRepeatMode = [(INPlayMediaIntent *)self playbackRepeatMode];
   if ((playbackRepeatMode - 1) > 2)
   {
@@ -336,8 +334,8 @@ uint64_t __59__INPlayMediaIntent__validParameterCombinationsWithSchema___block_i
   }
 
   v11 = v10;
-  v26[3] = v11;
-  v25[4] = @"resumePlayback";
+  v25[3] = v11;
+  v24[4] = @"resumePlayback";
   resumePlayback = [(INPlayMediaIntent *)self resumePlayback];
   null = resumePlayback;
   if (!resumePlayback)
@@ -345,8 +343,8 @@ uint64_t __59__INPlayMediaIntent__validParameterCombinationsWithSchema___block_i
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v26[4] = null;
-  v25[5] = @"playbackQueueLocation";
+  v25[4] = null;
+  v24[5] = @"playbackQueueLocation";
   playbackQueueLocation = [(INPlayMediaIntent *)self playbackQueueLocation];
   if ((playbackQueueLocation - 1) > 2)
   {
@@ -359,8 +357,8 @@ uint64_t __59__INPlayMediaIntent__validParameterCombinationsWithSchema___block_i
   }
 
   v16 = v15;
-  v26[5] = v16;
-  v25[6] = @"playbackSpeed";
+  v25[5] = v16;
+  v24[6] = @"playbackSpeed";
   playbackSpeed = [(INPlayMediaIntent *)self playbackSpeed];
   null2 = playbackSpeed;
   if (!playbackSpeed)
@@ -368,8 +366,8 @@ uint64_t __59__INPlayMediaIntent__validParameterCombinationsWithSchema___block_i
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v26[6] = null2;
-  v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v26 forKeys:v25 count:7];
+  v25[6] = null2;
+  v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v25 forKeys:v24 count:7];
   if (!playbackSpeed)
   {
   }
@@ -389,8 +387,6 @@ uint64_t __59__INPlayMediaIntent__validParameterCombinationsWithSchema___block_i
   if (!v4)
   {
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 
   return v19;
 }

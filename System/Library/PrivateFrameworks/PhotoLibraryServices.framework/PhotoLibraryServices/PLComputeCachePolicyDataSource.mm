@@ -126,9 +126,9 @@ void __63__PLComputeCachePolicyDataSource_hasAtLeastExpungedAssetCount___block_i
 
   v10 = v9;
 
-  if (v10 < [v11 count])
+  if (v10 < objc_msgSend_count(v11))
   {
-    *(*(*(a1 + 40) + 8) + 24) += [v11 count] - v10;
+    *(*(*(a1 + 40) + 8) + 24) += objc_msgSend_count(v11) - v10;
   }
 
   *(*(*(a1 + 48) + 8) + 24) = *(*(*(a1 + 40) + 8) + 24) >= *(a1 + 56);

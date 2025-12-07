@@ -62,6 +62,7 @@
 - (void)fetchAllValuesForStaccatoParameter:(id)parameter completion:(id)completion;
 - (void)fetchAvailableStaccatoActions:(id)actions;
 - (void)filterContextualActions:(id)actions forContext:(id)context byType:(unint64_t)type completion:(id)completion;
+- (void)fireTriggerWithIdentifier:(id)identifier force:(BOOL)force completion:(id)completion;
 - (void)generateSingleUseTokenForWorkflowIdentifier:(id)identifier completion:(id)completion;
 - (void)getConfiguredTriggerDescriptionsWithCompletion:(id)completion;
 - (void)getContextualActionsForContext:(id)context completion:(id)completion;
@@ -91,6 +92,7 @@
 - (void)importTopLevelShortcutFromURL:(id)l withName:(id)name completion:(id)completion;
 - (void)listModulesWithCompletionHandler:(id)handler;
 - (void)loadDataWithItemProviderRequestMetadata:(id)metadata type:(id)type completion:(id)completion;
+- (void)loadFileURLWithItemProviderRequestMetadata:(id)metadata type:(id)type openInPlace:(BOOL)place completion:(id)completion;
 - (void)logRunOfContextualAction:(id)action;
 - (void)obliterateShortcuts:(id)shortcuts;
 - (void)postNotificationAboutFailure:(id)failure inWorkflow:(id)workflow dialogAttribution:(id)attribution runningContext:(id)context;
@@ -102,6 +104,7 @@
 - (void)setInteger:(int64_t)integer forKey:(id)key inDomain:(id)domain completionHandler:(id)handler;
 - (void)setPerWorkflowStateData:(id)data forSmartPromptWithActionUUID:(id)d reference:(id)reference completion:(id)completion;
 - (void)setShortcutSuggestions:(id)suggestions forAppWithBundleIdentifier:(id)identifier;
+- (void)setSiriAutoShortcutsEnablement:(BOOL)enablement forBundleIdentifier:(id)identifier completion:(id)completion;
 - (void)setSpotlightAutoShortcutsEnablement:(BOOL)enablement forBundleIdentifier:(id)identifier completion:(id)completion;
 - (void)setSpotlightAutoShortcutsEnablement:(BOOL)enablement forBundleIdentifier:(id)identifier phraseSignature:(id)signature completion:(id)completion;
 - (void)showSingleStepCompletionForWebClip:(id)clip completion:(id)completion;
@@ -133,32 +136,32 @@
 
 uint64_t __39__VCVoiceShortcutClient_standardClient__block_invoke()
 {
-  standardClient_standardClient = [[VCVoiceShortcutClient alloc] initWithMachServiceName:@"com.apple.siri.VoiceShortcuts.xpc" options:0 interfaceSetupBlock:0];
+  v0 = [[VCVoiceShortcutClient alloc] initWithMachServiceName:@"com.apple.siri.VoiceShortcuts.xpc" options:0 interfaceSetupBlock:0];
+  v1 = standardClient_standardClient;
+  standardClient_standardClient = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (void)subscribeToVoiceShortcutDataUpdateNotifications
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
   CFNotificationCenterAddObserver(DarwinNotifyCenter, self, VCVoiceShortcutDataDidUpdateNotificationHandler, @"com.apple.siri.VoiceShortcuts.DataDidUpdateNotification", 0, 0);
   v4 = getWFVoiceShortcutClientLogObject();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
-    v6 = 136315394;
-    v7 = "[VCVoiceShortcutClient subscribeToVoiceShortcutDataUpdateNotifications]";
-    v8 = 2112;
-    v9 = @"com.apple.siri.VoiceShortcuts.DataDidUpdateNotification";
-    _os_log_impl(&dword_1B1DE3000, v4, OS_LOG_TYPE_DEBUG, "%s Subscribed to notification: (%@)", &v6, 0x16u);
+    v5 = 136315394;
+    v6 = "[VCVoiceShortcutClient subscribeToVoiceShortcutDataUpdateNotifications]";
+    v7 = 2112;
+    v8 = @"com.apple.siri.VoiceShortcuts.DataDidUpdateNotification";
+    _os_log_impl(&dword_1B1DE3000, v4, OS_LOG_TYPE_DEBUG, "%s Subscribed to notification: (%@)", &v5, 0x16u);
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)unsafeSetupXPCConnection
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   xpcConnection = self->_xpcConnection;
   xpcQueue = [(VCVoiceShortcutClient *)self xpcQueue];
   [(NSXPCConnection *)xpcConnection _setQueue:xpcQueue];
@@ -174,39 +177,37 @@ uint64_t __39__VCVoiceShortcutClient_standardClient__block_invoke()
 
   [(NSXPCConnection *)self->_xpcConnection setRemoteObjectInterface:v5];
   objc_initWeak(&location, self);
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 3221225472;
-  v13[2] = __49__VCVoiceShortcutClient_unsafeSetupXPCConnection__block_invoke;
-  v13[3] = &unk_1E7B02828;
-  objc_copyWeak(&v14, &location);
-  [(NSXPCConnection *)self->_xpcConnection setInterruptionHandler:v13];
-  v11[0] = MEMORY[0x1E69E9820];
-  v11[1] = 3221225472;
-  v11[2] = __49__VCVoiceShortcutClient_unsafeSetupXPCConnection__block_invoke_181;
-  v11[3] = &unk_1E7B02828;
-  objc_copyWeak(&v12, &location);
-  [(NSXPCConnection *)self->_xpcConnection setInvalidationHandler:v11];
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = __49__VCVoiceShortcutClient_unsafeSetupXPCConnection__block_invoke;
+  v12[3] = &unk_1E7B02828;
+  objc_copyWeak(&v13, &location);
+  [(NSXPCConnection *)self->_xpcConnection setInterruptionHandler:v12];
+  v10[0] = MEMORY[0x1E69E9820];
+  v10[1] = 3221225472;
+  v10[2] = __49__VCVoiceShortcutClient_unsafeSetupXPCConnection__block_invoke_181;
+  v10[3] = &unk_1E7B02828;
+  objc_copyWeak(&v11, &location);
+  [(NSXPCConnection *)self->_xpcConnection setInvalidationHandler:v10];
   [(NSXPCConnection *)self->_xpcConnection resume];
   v8 = getWFVoiceShortcutClientLogObject();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     v9 = self->_xpcConnection;
     *buf = 136315906;
-    v17 = "[VCVoiceShortcutClient unsafeSetupXPCConnection]";
-    v18 = 2112;
+    v16 = "[VCVoiceShortcutClient unsafeSetupXPCConnection]";
+    v17 = 2112;
     selfCopy = self;
-    v20 = 2112;
-    v21 = v9;
-    v22 = 2114;
-    v23 = @"com.apple.siri.VoiceShortcuts.xpc";
+    v19 = 2112;
+    v20 = v9;
+    v21 = 2114;
+    v22 = @"com.apple.siri.VoiceShortcuts.xpc";
     _os_log_impl(&dword_1B1DE3000, v8, OS_LOG_TYPE_DEFAULT, "%s %@ XPCConnection=%@ resumed to machServiceName=%{public}@", buf, 0x2Au);
   }
 
-  objc_destroyWeak(&v12);
-  objc_destroyWeak(&v14);
+  objc_destroyWeak(&v11);
+  objc_destroyWeak(&v13);
   objc_destroyWeak(&location);
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (id)getVaultItemsAccessForBackgroundRunner
@@ -364,7 +365,7 @@ void __69__VCVoiceShortcutClient_MenuBar__runShortcutIntentForWorkflow_error___b
 
 - (id)observableStingWorkflowWithIdentifier:(id)identifier error:(id *)error
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   if ([identifierCopy length])
   {
@@ -377,14 +378,12 @@ void __69__VCVoiceShortcutClient_MenuBar__runShortcutIntentForWorkflow_error___b
     v8 = getWFVoiceShortcutClientLogObject();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
     {
-      v11 = 136315138;
-      v12 = "[VCVoiceShortcutClient(Sting) observableStingWorkflowWithIdentifier:error:]";
+      v10 = 136315138;
+      v11 = "[VCVoiceShortcutClient(Sting) observableStingWorkflowWithIdentifier:error:]";
     }
 
     v7 = 0;
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
@@ -416,6 +415,28 @@ void __69__VCVoiceShortcutClient_MenuBar__runShortcutIntentForWorkflow_error___b
   v15 = v9;
   v13 = v9;
   [v12 loadDataWithItemProviderRequestMetadata:metadataCopy type:typeCopy completion:v14];
+}
+
+- (void)loadFileURLWithItemProviderRequestMetadata:(id)metadata type:(id)type openInPlace:(BOOL)place completion:(id)completion
+{
+  placeCopy = place;
+  completionCopy = completion;
+  v18[0] = MEMORY[0x1E69E9820];
+  v18[1] = 3221225472;
+  v18[2] = __108__VCVoiceShortcutClient_AppIntents__loadFileURLWithItemProviderRequestMetadata_type_openInPlace_completion___block_invoke;
+  v18[3] = &unk_1E7B02940;
+  v11 = completionCopy;
+  v19 = v11;
+  typeCopy = type;
+  metadataCopy = metadata;
+  v14 = [(VCVoiceShortcutClient *)self asynchronousRemoteDataStoreWithErrorHandler:v18];
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = __108__VCVoiceShortcutClient_AppIntents__loadFileURLWithItemProviderRequestMetadata_type_openInPlace_completion___block_invoke_2;
+  v16[3] = &unk_1E7B02998;
+  v17 = v11;
+  v15 = v11;
+  [v14 loadFileURLWithItemProviderRequestMetadata:metadataCopy type:typeCopy openInPlace:placeCopy completion:v16];
 }
 
 - (id)serializedParametersForLinkAction:(id)action actionMetadata:(id)metadata error:(id *)error
@@ -862,7 +883,7 @@ void __91__VCVoiceShortcutClient_VoiceShortcuts__importTopLevelShortcutFromURL_w
 
 - (void)deleteVoiceShortcutWithName:(id)name completion:(id)completion
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   nameCopy = name;
   completionCopy = completion;
   v9 = completionCopy;
@@ -893,29 +914,27 @@ LABEL_3:
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315394;
-    v22 = "[VCVoiceShortcutClient(VoiceShortcuts) deleteVoiceShortcutWithName:completion:]";
-    v23 = 2112;
-    v24 = nameCopy;
+    v21 = "[VCVoiceShortcutClient(VoiceShortcuts) deleteVoiceShortcutWithName:completion:]";
+    v22 = 2112;
+    v23 = nameCopy;
     _os_log_impl(&dword_1B1DE3000, v10, OS_LOG_TYPE_DEBUG, "%s Deleting VoiceShortcut with name=%@", buf, 0x16u);
   }
 
-  v19[0] = MEMORY[0x1E69E9820];
-  v19[1] = 3221225472;
-  v19[2] = __80__VCVoiceShortcutClient_VoiceShortcuts__deleteVoiceShortcutWithName_completion___block_invoke;
-  v19[3] = &unk_1E7B02940;
+  v18[0] = MEMORY[0x1E69E9820];
+  v18[1] = 3221225472;
+  v18[2] = __80__VCVoiceShortcutClient_VoiceShortcuts__deleteVoiceShortcutWithName_completion___block_invoke;
+  v18[3] = &unk_1E7B02940;
   v11 = v9;
-  v20 = v11;
-  v12 = [(VCVoiceShortcutClient *)self asynchronousRemoteDataStoreWithErrorHandler:v19];
-  v17[0] = MEMORY[0x1E69E9820];
-  v17[1] = 3221225472;
-  v17[2] = __80__VCVoiceShortcutClient_VoiceShortcuts__deleteVoiceShortcutWithName_completion___block_invoke_2;
-  v17[3] = &unk_1E7B011C0;
-  v17[4] = self;
-  v18 = v11;
+  v19 = v11;
+  v12 = [(VCVoiceShortcutClient *)self asynchronousRemoteDataStoreWithErrorHandler:v18];
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = __80__VCVoiceShortcutClient_VoiceShortcuts__deleteVoiceShortcutWithName_completion___block_invoke_2;
+  v16[3] = &unk_1E7B011C0;
+  v16[4] = self;
+  v17 = v11;
   v13 = v11;
-  [v12 deleteVoiceShortcutWithIdentifier:0 name:nameCopy completion:v17];
-
-  v14 = *MEMORY[0x1E69E9840];
+  [v12 deleteVoiceShortcutWithIdentifier:0 name:nameCopy completion:v16];
 }
 
 void __80__VCVoiceShortcutClient_VoiceShortcuts__deleteVoiceShortcutWithName_completion___block_invoke_2(uint64_t a1, int a2, void *a3)
@@ -932,7 +951,7 @@ void __80__VCVoiceShortcutClient_VoiceShortcuts__deleteVoiceShortcutWithName_com
 
 - (void)deleteVoiceShortcutWithIdentifier:(id)identifier completion:(id)completion
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   completionCopy = completion;
   v9 = completionCopy;
@@ -963,29 +982,27 @@ LABEL_3:
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315394;
-    v22 = "[VCVoiceShortcutClient(VoiceShortcuts) deleteVoiceShortcutWithIdentifier:completion:]";
-    v23 = 2112;
-    v24 = identifierCopy;
+    v21 = "[VCVoiceShortcutClient(VoiceShortcuts) deleteVoiceShortcutWithIdentifier:completion:]";
+    v22 = 2112;
+    v23 = identifierCopy;
     _os_log_impl(&dword_1B1DE3000, v10, OS_LOG_TYPE_DEBUG, "%s Deleting VoiceShortcut with id=%@", buf, 0x16u);
   }
 
-  v19[0] = MEMORY[0x1E69E9820];
-  v19[1] = 3221225472;
-  v19[2] = __86__VCVoiceShortcutClient_VoiceShortcuts__deleteVoiceShortcutWithIdentifier_completion___block_invoke;
-  v19[3] = &unk_1E7B02940;
+  v18[0] = MEMORY[0x1E69E9820];
+  v18[1] = 3221225472;
+  v18[2] = __86__VCVoiceShortcutClient_VoiceShortcuts__deleteVoiceShortcutWithIdentifier_completion___block_invoke;
+  v18[3] = &unk_1E7B02940;
   v11 = v9;
-  v20 = v11;
-  v12 = [(VCVoiceShortcutClient *)self asynchronousRemoteDataStoreWithErrorHandler:v19];
-  v17[0] = MEMORY[0x1E69E9820];
-  v17[1] = 3221225472;
-  v17[2] = __86__VCVoiceShortcutClient_VoiceShortcuts__deleteVoiceShortcutWithIdentifier_completion___block_invoke_2;
-  v17[3] = &unk_1E7B011C0;
-  v17[4] = self;
-  v18 = v11;
+  v19 = v11;
+  v12 = [(VCVoiceShortcutClient *)self asynchronousRemoteDataStoreWithErrorHandler:v18];
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = __86__VCVoiceShortcutClient_VoiceShortcuts__deleteVoiceShortcutWithIdentifier_completion___block_invoke_2;
+  v16[3] = &unk_1E7B011C0;
+  v16[4] = self;
+  v17 = v11;
   v13 = v11;
-  [v12 deleteVoiceShortcutWithIdentifier:identifierCopy name:0 completion:v17];
-
-  v14 = *MEMORY[0x1E69E9840];
+  [v12 deleteVoiceShortcutWithIdentifier:identifierCopy name:0 completion:v16];
 }
 
 void __86__VCVoiceShortcutClient_VoiceShortcuts__deleteVoiceShortcutWithIdentifier_completion___block_invoke_2(uint64_t a1, int a2, void *a3)
@@ -1064,7 +1081,7 @@ LABEL_3:
 
 void __73__VCVoiceShortcutClient_VoiceShortcuts__getVoiceShortcutsWithCompletion___block_invoke(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v5 = WeakRetained;
@@ -1074,7 +1091,7 @@ void __73__VCVoiceShortcutClient_VoiceShortcuts__getVoiceShortcutsWithCompletion
     if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
       *buf = 136315138;
-      v12 = "[VCVoiceShortcutClient(VoiceShortcuts) getVoiceShortcutsWithCompletion:]_block_invoke";
+      v11 = "[VCVoiceShortcutClient(VoiceShortcuts) getVoiceShortcutsWithCompletion:]_block_invoke";
       _os_log_impl(&dword_1B1DE3000, v6, OS_LOG_TYPE_INFO, "%s Returning cached voice shortcuts.", buf, 0xCu);
     }
 
@@ -1084,16 +1101,14 @@ void __73__VCVoiceShortcutClient_VoiceShortcuts__getVoiceShortcutsWithCompletion
   else
   {
     v7 = [WeakRetained voiceShortcutCache];
-    v9[0] = MEMORY[0x1E69E9820];
-    v9[1] = 3221225472;
-    v9[2] = __73__VCVoiceShortcutClient_VoiceShortcuts__getVoiceShortcutsWithCompletion___block_invoke_65;
-    v9[3] = &unk_1E7B01170;
-    v9[4] = v5;
-    v10 = *(a1 + 32);
-    [v7 setCachedVoiceShortcuts:v9];
+    v8[0] = MEMORY[0x1E69E9820];
+    v8[1] = 3221225472;
+    v8[2] = __73__VCVoiceShortcutClient_VoiceShortcuts__getVoiceShortcutsWithCompletion___block_invoke_65;
+    v8[3] = &unk_1E7B01170;
+    v8[4] = v5;
+    v9 = *(a1 + 32);
+    [v7 setCachedVoiceShortcuts:v8];
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __73__VCVoiceShortcutClient_VoiceShortcuts__getVoiceShortcutsWithCompletion___block_invoke_65(uint64_t a1, void *a2)
@@ -1316,6 +1331,27 @@ LABEL_3:
   completionCopy[2](completionCopy, v7);
 }
 
+- (void)setSiriAutoShortcutsEnablement:(BOOL)enablement forBundleIdentifier:(id)identifier completion:(id)completion
+{
+  enablementCopy = enablement;
+  completionCopy = completion;
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 3221225472;
+  v15[2] = __102__VCVoiceShortcutClient_AutoShortcuts__setSiriAutoShortcutsEnablement_forBundleIdentifier_completion___block_invoke;
+  v15[3] = &unk_1E7B02940;
+  v9 = completionCopy;
+  v16 = v9;
+  identifierCopy = identifier;
+  v11 = [(VCVoiceShortcutClient *)self asynchronousRemoteDataStoreWithErrorHandler:v15];
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __102__VCVoiceShortcutClient_AutoShortcuts__setSiriAutoShortcutsEnablement_forBundleIdentifier_completion___block_invoke_2;
+  v13[3] = &unk_1E7B02940;
+  v14 = v9;
+  v12 = v9;
+  [v11 setSiriAutoShortcutsEnablement:enablementCopy forBundleIdentifier:identifierCopy completion:v13];
+}
+
 - (void)getSiriAutoShortcutsEnablementForBundleIdentifier:(id)identifier completion:(id)completion
 {
   completionCopy = completion;
@@ -1362,7 +1398,7 @@ LABEL_3:
 
 - (id)accessibilityWorkflowForIdentifier:(id)identifier error:(id *)error
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   if ([identifierCopy length])
   {
@@ -1375,14 +1411,12 @@ LABEL_3:
     v8 = getWFVoiceShortcutClientLogObject();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
     {
-      v11 = 136315138;
-      v12 = "[VCVoiceShortcutClient(Accessibility) accessibilityWorkflowForIdentifier:error:]";
+      v10 = 136315138;
+      v11 = "[VCVoiceShortcutClient(Accessibility) accessibilityWorkflowForIdentifier:error:]";
     }
 
     v7 = 0;
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
@@ -1408,31 +1442,29 @@ LABEL_3:
 
 - (void)defaultStaccatoActionWithCompletion:(id)completion
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   v5 = getWFStaccatoLogObject();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v12 = "[VCVoiceShortcutClient(Staccato) defaultStaccatoActionWithCompletion:]";
+    v11 = "[VCVoiceShortcutClient(Staccato) defaultStaccatoActionWithCompletion:]";
     _os_log_impl(&dword_1B1DE3000, v5, OS_LOG_TYPE_DEFAULT, "%s Client requesting default system action.", buf, 0xCu);
   }
 
-  v9[0] = MEMORY[0x1E69E9820];
-  v9[1] = 3221225472;
-  v9[2] = __71__VCVoiceShortcutClient_Staccato__defaultStaccatoActionWithCompletion___block_invoke;
-  v9[3] = &unk_1E7B02940;
-  v10 = completionCopy;
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __71__VCVoiceShortcutClient_Staccato__defaultStaccatoActionWithCompletion___block_invoke;
+  v8[3] = &unk_1E7B02940;
+  v9 = completionCopy;
   v6 = completionCopy;
-  v7 = [(VCVoiceShortcutClient *)self asynchronousRemoteDataStoreWithErrorHandler:v9];
+  v7 = [(VCVoiceShortcutClient *)self asynchronousRemoteDataStoreWithErrorHandler:v8];
   [v7 defaultStaccatoActionWithCompletion:v6];
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)configuredStaccatoActionFromTemplate:(id)template valuesByParameterKey:(id)key completion:(id)completion
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   templateCopy = template;
   keyCopy = key;
   completionCopy = completion;
@@ -1440,24 +1472,22 @@ LABEL_3:
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
-    v18 = "[VCVoiceShortcutClient(Staccato) configuredStaccatoActionFromTemplate:valuesByParameterKey:completion:]";
-    v19 = 2112;
-    v20 = templateCopy;
-    v21 = 2112;
-    v22 = keyCopy;
+    v17 = "[VCVoiceShortcutClient(Staccato) configuredStaccatoActionFromTemplate:valuesByParameterKey:completion:]";
+    v18 = 2112;
+    v19 = templateCopy;
+    v20 = 2112;
+    v21 = keyCopy;
     _os_log_impl(&dword_1B1DE3000, v11, OS_LOG_TYPE_DEFAULT, "%s Client requesting configured system action from template: %@ with parameters by key: %@.", buf, 0x20u);
   }
 
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = __104__VCVoiceShortcutClient_Staccato__configuredStaccatoActionFromTemplate_valuesByParameterKey_completion___block_invoke;
-  v15[3] = &unk_1E7B02940;
-  v16 = completionCopy;
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = __104__VCVoiceShortcutClient_Staccato__configuredStaccatoActionFromTemplate_valuesByParameterKey_completion___block_invoke;
+  v14[3] = &unk_1E7B02940;
+  v15 = completionCopy;
   v12 = completionCopy;
-  v13 = [(VCVoiceShortcutClient *)self asynchronousRemoteDataStoreWithErrorHandler:v15];
+  v13 = [(VCVoiceShortcutClient *)self asynchronousRemoteDataStoreWithErrorHandler:v14];
   [v13 configuredStaccatoActionFromTemplate:templateCopy valuesByParameterKey:keyCopy completion:v12];
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)fetchAllValuesForStaccatoParameter:(id)parameter completion:(id)completion
@@ -1476,68 +1506,63 @@ void __81__VCVoiceShortcutClient_Staccato__fetchAllValuesForStaccatoParameter_co
 {
   if (!a2 || a3)
   {
-    v4 = *(a1 + 32);
-    v5 = *(*(a1 + 32) + 16);
+    v4 = *(*(a1 + 32) + 16);
 
-    v5();
+    v4();
   }
 
   else
   {
-    v6 = [a2 if_flatMap:&__block_literal_global_11661];
+    v5 = [a2 if_flatMap:&__block_literal_global_11661];
     (*(*(a1 + 32) + 16))();
   }
 }
 
 - (void)fetchAllValueSectionsForStaccatoParameter:(id)parameter completion:(id)completion
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   parameterCopy = parameter;
   completionCopy = completion;
   v8 = getWFStaccatoLogObject();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v15 = "[VCVoiceShortcutClient(Staccato) fetchAllValueSectionsForStaccatoParameter:completion:]";
-    v16 = 2112;
-    v17 = parameterCopy;
+    v14 = "[VCVoiceShortcutClient(Staccato) fetchAllValueSectionsForStaccatoParameter:completion:]";
+    v15 = 2112;
+    v16 = parameterCopy;
     _os_log_impl(&dword_1B1DE3000, v8, OS_LOG_TYPE_DEFAULT, "%s Client requesting all values for parameter: %@", buf, 0x16u);
   }
 
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = __88__VCVoiceShortcutClient_Staccato__fetchAllValueSectionsForStaccatoParameter_completion___block_invoke;
-  v12[3] = &unk_1E7B02940;
-  v13 = completionCopy;
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __88__VCVoiceShortcutClient_Staccato__fetchAllValueSectionsForStaccatoParameter_completion___block_invoke;
+  v11[3] = &unk_1E7B02940;
+  v12 = completionCopy;
   v9 = completionCopy;
-  v10 = [(VCVoiceShortcutClient *)self asynchronousRemoteDataStoreWithErrorHandler:v12];
+  v10 = [(VCVoiceShortcutClient *)self asynchronousRemoteDataStoreWithErrorHandler:v11];
   [v10 fetchAllValueSectionsForStaccatoParameter:parameterCopy completion:v9];
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)fetchAvailableStaccatoActions:(id)actions
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   actionsCopy = actions;
   v5 = getWFStaccatoLogObject();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v12 = "[VCVoiceShortcutClient(Staccato) fetchAvailableStaccatoActions:]";
+    v11 = "[VCVoiceShortcutClient(Staccato) fetchAvailableStaccatoActions:]";
     _os_log_impl(&dword_1B1DE3000, v5, OS_LOG_TYPE_DEFAULT, "%s Client requesting all available staccato actions.", buf, 0xCu);
   }
 
-  v9[0] = MEMORY[0x1E69E9820];
-  v9[1] = 3221225472;
-  v9[2] = __65__VCVoiceShortcutClient_Staccato__fetchAvailableStaccatoActions___block_invoke;
-  v9[3] = &unk_1E7B02940;
-  v10 = actionsCopy;
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __65__VCVoiceShortcutClient_Staccato__fetchAvailableStaccatoActions___block_invoke;
+  v8[3] = &unk_1E7B02940;
+  v9 = actionsCopy;
   v6 = actionsCopy;
-  v7 = [(VCVoiceShortcutClient *)self asynchronousRemoteDataStoreWithErrorHandler:v9];
+  v7 = [(VCVoiceShortcutClient *)self asynchronousRemoteDataStoreWithErrorHandler:v8];
   [v7 fetchAvailableStaccatoActions:v6];
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)resetAutomationConfirmationStatusWithError:(id *)error
@@ -1682,29 +1707,27 @@ void __113__VCVoiceShortcutClient_ContextualActions__computeRepresentativeSizesF
   v6 = a3;
   if (v5)
   {
-    v16 = 0;
-    v17 = &v16;
-    v18 = 0x2020000000;
-    v19 = 0;
-    v10 = 0;
-    v11 = &v10;
-    v12 = 0x3032000000;
-    v13 = __Block_byref_object_copy__14950;
-    v14 = __Block_byref_object_dispose__14951;
-    v15 = objc_opt_new();
-    v9[0] = MEMORY[0x1E69E9820];
-    v9[1] = 3221225472;
-    v9[2] = __113__VCVoiceShortcutClient_ContextualActions__computeRepresentativeSizesForFinderResizingImages_toSizes_completion___block_invoke_82;
-    v9[3] = &unk_1E7B01E78;
-    v9[4] = &v16;
-    v9[5] = &v10;
-    [v5 enumerateKeysAndObjectsUsingBlock:v9];
-    v7 = v11[5];
-    v8 = *(v17 + 24);
+    v10[0] = 0;
+    v10[1] = v10;
+    v10[2] = 0x2020000000;
+    v11 = 0;
+    v8[0] = 0;
+    v8[1] = v8;
+    v8[2] = 0x3032000000;
+    v8[3] = __Block_byref_object_copy__14950;
+    v8[4] = __Block_byref_object_dispose__14951;
+    v9 = objc_opt_new();
+    v7[0] = MEMORY[0x1E69E9820];
+    v7[1] = 3221225472;
+    v7[2] = __113__VCVoiceShortcutClient_ContextualActions__computeRepresentativeSizesForFinderResizingImages_toSizes_completion___block_invoke_82;
+    v7[3] = &unk_1E7B01E78;
+    v7[4] = v10;
+    v7[5] = v8;
+    [v5 enumerateKeysAndObjectsUsingBlock:v7];
     (*(*(a1 + 32) + 16))();
-    _Block_object_dispose(&v10, 8);
+    _Block_object_dispose(v8, 8);
 
-    _Block_object_dispose(&v16, 8);
+    _Block_object_dispose(v10, 8);
   }
 
   else
@@ -1750,7 +1773,7 @@ void __113__VCVoiceShortcutClient_ContextualActions__computeRepresentativeSizesF
 
 - (void)logRunOfContextualAction:(id)action
 {
-  v39[1] = *MEMORY[0x1E69E9840];
+  v38[1] = *MEMORY[0x1E69E9840];
   actionCopy = action;
   if (!actionCopy)
   {
@@ -1788,16 +1811,16 @@ void __113__VCVoiceShortcutClient_ContextualActions__computeRepresentativeSizesF
   if (correspondingSystemActionType == 2)
   {
     v14 = [objc_alloc(getBMContextualActionParameterClass()) initWithType:@"WFNumberContentItem" metadata:&unk_1F29317B8];
-    v38 = v14;
-    v15 = &v38;
+    v37 = v14;
+    v15 = &v37;
     goto LABEL_13;
   }
 
   if (correspondingSystemActionType == 1)
   {
     v14 = [objc_alloc(getBMContextualActionParameterClass()) initWithType:@"WFNumberContentItem" metadata:&unk_1F2931790];
-    v39[0] = v14;
-    v15 = v39;
+    v38[0] = v14;
+    v15 = v38;
 LABEL_13:
     v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:1];
 
@@ -1806,52 +1829,50 @@ LABEL_13:
 
   v16 = 0;
 LABEL_15:
-  v34 = 0;
-  v35 = &v34;
-  v36 = 0x2050000000;
+  v33 = 0;
+  v34 = &v33;
+  v35 = 0x2050000000;
   v17 = getBMContextualActionEventClass_softClass;
-  v37 = getBMContextualActionEventClass_softClass;
+  v36 = getBMContextualActionEventClass_softClass;
   if (!getBMContextualActionEventClass_softClass)
   {
-    v29 = MEMORY[0x1E69E9820];
-    v30 = 3221225472;
-    v31 = __getBMContextualActionEventClass_block_invoke;
-    v32 = &unk_1E7B02C60;
-    v33 = &v34;
-    __getBMContextualActionEventClass_block_invoke(&v29);
-    v17 = v35[3];
+    v28 = MEMORY[0x1E69E9820];
+    v29 = 3221225472;
+    v30 = __getBMContextualActionEventClass_block_invoke;
+    v31 = &unk_1E7B02C60;
+    v32 = &v33;
+    __getBMContextualActionEventClass_block_invoke(&v28);
+    v17 = v34[3];
   }
 
   v18 = v17;
-  _Block_object_dispose(&v34, 8);
+  _Block_object_dispose(&v33, 8);
   v19 = [v17 alloc];
   identifier = [action identifier];
   displayString = [action displayString];
   v22 = [v19 initWithIdentifier:identifier appName:v10 actionName:displayString contents:v12 parameters:v16];
 
-  v34 = 0;
-  v35 = &v34;
-  v36 = 0x2050000000;
+  v33 = 0;
+  v34 = &v33;
+  v35 = 0x2050000000;
   v23 = getBMStreamsClass_softClass;
-  v37 = getBMStreamsClass_softClass;
+  v36 = getBMStreamsClass_softClass;
   if (!getBMStreamsClass_softClass)
   {
-    v29 = MEMORY[0x1E69E9820];
-    v30 = 3221225472;
-    v31 = __getBMStreamsClass_block_invoke;
-    v32 = &unk_1E7B02C60;
-    v33 = &v34;
-    __getBMStreamsClass_block_invoke(&v29);
-    v23 = v35[3];
+    v28 = MEMORY[0x1E69E9820];
+    v29 = 3221225472;
+    v30 = __getBMStreamsClass_block_invoke;
+    v31 = &unk_1E7B02C60;
+    v32 = &v33;
+    __getBMStreamsClass_block_invoke(&v28);
+    v23 = v34[3];
   }
 
   v24 = v23;
-  _Block_object_dispose(&v34, 8);
+  _Block_object_dispose(&v33, 8);
   contextualActions = [v23 contextualActions];
   source = [contextualActions source];
   [source sendEvent:v22];
-
-  v27 = *MEMORY[0x1E69E9840];
 }
 
 id __69__VCVoiceShortcutClient_ContextualActions__logRunOfContextualAction___block_invoke(uint64_t a1, void *a2)
@@ -1912,7 +1933,7 @@ id __69__VCVoiceShortcutClient_ContextualActions__logRunOfContextualAction___blo
 
 - (void)generateSingleUseTokenForWorkflowIdentifier:(id)identifier completion:(id)completion
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   completionCopy = completion;
   v9 = completionCopy;
@@ -1943,29 +1964,27 @@ LABEL_3:
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315394;
-    v19 = "[VCVoiceShortcutClient(ShareSheet) generateSingleUseTokenForWorkflowIdentifier:completion:]";
-    v20 = 2114;
-    v21 = identifierCopy;
+    v18 = "[VCVoiceShortcutClient(ShareSheet) generateSingleUseTokenForWorkflowIdentifier:completion:]";
+    v19 = 2114;
+    v20 = identifierCopy;
     _os_log_impl(&dword_1B1DE3000, v10, OS_LOG_TYPE_DEBUG, "%s Generating a single-use token for workflow identifier %{public}@", buf, 0x16u);
   }
 
-  v16[0] = MEMORY[0x1E69E9820];
-  v16[1] = 3221225472;
-  v16[2] = __92__VCVoiceShortcutClient_ShareSheet__generateSingleUseTokenForWorkflowIdentifier_completion___block_invoke;
-  v16[3] = &unk_1E7B02940;
-  v17 = v9;
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 3221225472;
+  v15[2] = __92__VCVoiceShortcutClient_ShareSheet__generateSingleUseTokenForWorkflowIdentifier_completion___block_invoke;
+  v15[3] = &unk_1E7B02940;
+  v16 = v9;
   v11 = v9;
-  v12 = [(VCVoiceShortcutClient *)self asynchronousRemoteDataStoreWithErrorHandler:v16];
+  v12 = [(VCVoiceShortcutClient *)self asynchronousRemoteDataStoreWithErrorHandler:v15];
   [v12 generateSingleUseTokenForWorkflowIdentifier:identifierCopy completion:v11];
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (id)shareSheetWorkflowsForExtensionMatchingDictionaries:(id)dictionaries resolvedActivityItems:(id)items hostBundleIdentifier:(id)identifier iconSize:(CGSize)size iconScale:(double)scale error:(id *)error
 {
   height = size.height;
   width = size.width;
-  v64 = *MEMORY[0x1E69E9840];
+  v63 = *MEMORY[0x1E69E9840];
   dictionariesCopy = dictionaries;
   itemsCopy = items;
   identifierCopy = identifier;
@@ -1977,7 +1996,7 @@ LABEL_3:
     *&buf[12] = 2114;
     *&buf[14] = identifierCopy;
     *&buf[22] = 2114;
-    v61 = dictionariesCopy;
+    v60 = dictionariesCopy;
     _os_log_impl(&dword_1B1DE3000, v18, OS_LOG_TYPE_DEBUG, "%s Loading share sheet shortcuts for %{public}@ with extension matching dictionaries %{public}@", buf, 0x20u);
   }
 
@@ -2015,36 +2034,36 @@ LABEL_15:
       handler[2] = __157__VCVoiceShortcutClient_ShareSheet__shareSheetWorkflowsForExtensionMatchingDictionaries_resolvedActivityItems_hostBundleIdentifier_iconSize_iconScale_error___block_invoke;
       handler[3] = &unk_1E7B02180;
       v23 = v26;
-      v54 = v23;
+      v53 = v23;
       selfCopy = self;
       dispatch_source_set_event_handler(v23, handler);
       dispatch_resume(v23);
       *buf = 0;
       *&buf[8] = buf;
       *&buf[16] = 0x3032000000;
-      v61 = __Block_byref_object_copy__16089;
-      v62 = __Block_byref_object_dispose__16090;
-      v63 = 0;
-      v47 = 0;
-      v48 = &v47;
-      v49 = 0x3032000000;
-      v50 = __Block_byref_object_copy__16089;
-      v51 = __Block_byref_object_dispose__16090;
-      v52 = 0;
-      v46[0] = MEMORY[0x1E69E9820];
-      v46[1] = 3221225472;
-      v46[2] = __157__VCVoiceShortcutClient_ShareSheet__shareSheetWorkflowsForExtensionMatchingDictionaries_resolvedActivityItems_hostBundleIdentifier_iconSize_iconScale_error___block_invoke_53;
-      v46[3] = &unk_1E7B028A0;
-      v46[4] = buf;
-      v28 = [(VCVoiceShortcutClient *)self synchronousRemoteDataStoreWithErrorHandler:v46];
+      v60 = __Block_byref_object_copy__16089;
+      v61 = __Block_byref_object_dispose__16090;
+      v62 = 0;
+      v46 = 0;
+      v47 = &v46;
+      v48 = 0x3032000000;
+      v49 = __Block_byref_object_copy__16089;
+      v50 = __Block_byref_object_dispose__16090;
+      v51 = 0;
       v45[0] = MEMORY[0x1E69E9820];
       v45[1] = 3221225472;
-      v45[2] = __157__VCVoiceShortcutClient_ShareSheet__shareSheetWorkflowsForExtensionMatchingDictionaries_resolvedActivityItems_hostBundleIdentifier_iconSize_iconScale_error___block_invoke_2;
-      v45[3] = &unk_1E7B020B8;
-      v45[4] = &v47;
-      v45[5] = buf;
-      [v28 getShareSheetWorkflowsForExtensionMatchingDictionaries:dictionariesCopy hostBundleIdentifier:identifierCopy completion:v45];
-      if (v48[5])
+      v45[2] = __157__VCVoiceShortcutClient_ShareSheet__shareSheetWorkflowsForExtensionMatchingDictionaries_resolvedActivityItems_hostBundleIdentifier_iconSize_iconScale_error___block_invoke_53;
+      v45[3] = &unk_1E7B028A0;
+      v45[4] = buf;
+      v28 = [(VCVoiceShortcutClient *)self synchronousRemoteDataStoreWithErrorHandler:v45];
+      v44[0] = MEMORY[0x1E69E9820];
+      v44[1] = 3221225472;
+      v44[2] = __157__VCVoiceShortcutClient_ShareSheet__shareSheetWorkflowsForExtensionMatchingDictionaries_resolvedActivityItems_hostBundleIdentifier_iconSize_iconScale_error___block_invoke_2;
+      v44[3] = &unk_1E7B020B8;
+      v44[4] = &v46;
+      v44[5] = buf;
+      [v28 getShareSheetWorkflowsForExtensionMatchingDictionaries:dictionariesCopy hostBundleIdentifier:identifierCopy completion:v44];
+      if (v47[5])
       {
         DeviceRGB = CGColorSpaceCreateDeviceRGB();
         aBlock[0] = MEMORY[0x1E69E9820];
@@ -2054,31 +2073,31 @@ LABEL_15:
         aBlock[4] = DeviceRGB;
         v30 = _Block_copy(aBlock);
         v31 = [WFRemoteImageDrawingContext alloc];
-        v32 = -[WFRemoteImageDrawingContext initWithImageCount:singleImageSize:scale:colorSpace:](v31, "initWithImageCount:singleImageSize:scale:colorSpace:", [v48[5] count], DeviceRGB, width, height, scale);
+        v32 = -[WFRemoteImageDrawingContext initWithImageCount:singleImageSize:scale:colorSpace:](v31, "initWithImageCount:singleImageSize:scale:colorSpace:", [v47[5] count], DeviceRGB, width, height, scale);
         if (v32)
         {
-          v33 = [v48[5] if_map:&__block_literal_global_16093];
+          v33 = [v47[5] if_map:&__block_literal_global_16093];
           [v28 drawGlyphs:v33 withBackgroundColorValues:0 padding:v32 intoContext:&__block_literal_global_62_16094 completion:0.0];
-          v34 = v48[5];
-          v42[0] = MEMORY[0x1E69E9820];
-          v42[1] = 3221225472;
-          v42[2] = __157__VCVoiceShortcutClient_ShareSheet__shareSheetWorkflowsForExtensionMatchingDictionaries_resolvedActivityItems_hostBundleIdentifier_iconSize_iconScale_error___block_invoke_3;
-          v42[3] = &unk_1E7B02100;
-          v43 = v32;
-          [v34 enumerateObjectsUsingBlock:v42];
+          v34 = v47[5];
+          v41[0] = MEMORY[0x1E69E9820];
+          v41[1] = 3221225472;
+          v41[2] = __157__VCVoiceShortcutClient_ShareSheet__shareSheetWorkflowsForExtensionMatchingDictionaries_resolvedActivityItems_hostBundleIdentifier_iconSize_iconScale_error___block_invoke_3;
+          v41[3] = &unk_1E7B02100;
+          v42 = v32;
+          [v34 enumerateObjectsUsingBlock:v41];
           v35 = getWFVoiceShortcutClientLogObject();
           if (os_log_type_enabled(v35, OS_LOG_TYPE_DEBUG))
           {
-            v36 = [v48[5] count];
-            *v56 = 136315394;
-            v57 = "[VCVoiceShortcutClient(ShareSheet) shareSheetWorkflowsForExtensionMatchingDictionaries:resolvedActivityItems:hostBundleIdentifier:iconSize:iconScale:error:]";
-            v58 = 2050;
-            v59 = v36;
-            _os_log_impl(&dword_1B1DE3000, v35, OS_LOG_TYPE_DEBUG, "%s Loading share sheet shortcuts completed with %{public}lu shortcuts", v56, 0x16u);
+            v36 = [v47[5] count];
+            *v55 = 136315394;
+            v56 = "[VCVoiceShortcutClient(ShareSheet) shareSheetWorkflowsForExtensionMatchingDictionaries:resolvedActivityItems:hostBundleIdentifier:iconSize:iconScale:error:]";
+            v57 = 2050;
+            v58 = v36;
+            _os_log_impl(&dword_1B1DE3000, v35, OS_LOG_TYPE_DEBUG, "%s Loading share sheet shortcuts completed with %{public}lu shortcuts", v55, 0x16u);
           }
 
           dispatch_source_cancel(v23);
-          v24 = v48[5];
+          v24 = v47[5];
         }
 
         else
@@ -2086,12 +2105,12 @@ LABEL_15:
           v39 = getWFVoiceShortcutClientLogObject();
           if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
           {
-            *v56 = 136315138;
-            v57 = "[VCVoiceShortcutClient(ShareSheet) shareSheetWorkflowsForExtensionMatchingDictionaries:resolvedActivityItems:hostBundleIdentifier:iconSize:iconScale:error:]";
-            _os_log_impl(&dword_1B1DE3000, v39, OS_LOG_TYPE_ERROR, "%s Could not create remote image drawing context for widget workflow glyphs", v56, 0xCu);
+            *v55 = 136315138;
+            v56 = "[VCVoiceShortcutClient(ShareSheet) shareSheetWorkflowsForExtensionMatchingDictionaries:resolvedActivityItems:hostBundleIdentifier:iconSize:iconScale:error:]";
+            _os_log_impl(&dword_1B1DE3000, v39, OS_LOG_TYPE_ERROR, "%s Could not create remote image drawing context for widget workflow glyphs", v55, 0xCu);
           }
 
-          v24 = v48[5];
+          v24 = v47[5];
         }
 
         v30[2](v30);
@@ -2103,11 +2122,11 @@ LABEL_15:
         if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
         {
           v38 = *(*&buf[8] + 40);
-          *v56 = 136315394;
-          v57 = "[VCVoiceShortcutClient(ShareSheet) shareSheetWorkflowsForExtensionMatchingDictionaries:resolvedActivityItems:hostBundleIdentifier:iconSize:iconScale:error:]";
-          v58 = 2114;
-          v59 = v38;
-          _os_log_impl(&dword_1B1DE3000, v37, OS_LOG_TYPE_ERROR, "%s Could not fetch share sheet shortcuts: %{public}@", v56, 0x16u);
+          *v55 = 136315394;
+          v56 = "[VCVoiceShortcutClient(ShareSheet) shareSheetWorkflowsForExtensionMatchingDictionaries:resolvedActivityItems:hostBundleIdentifier:iconSize:iconScale:error:]";
+          v57 = 2114;
+          v58 = v38;
+          _os_log_impl(&dword_1B1DE3000, v37, OS_LOG_TYPE_ERROR, "%s Could not fetch share sheet shortcuts: %{public}@", v55, 0x16u);
         }
 
         v24 = 0;
@@ -2117,7 +2136,7 @@ LABEL_15:
         }
       }
 
-      _Block_object_dispose(&v47, 8);
+      _Block_object_dispose(&v46, 8);
       _Block_object_dispose(buf, 8);
 
       goto LABEL_29;
@@ -2148,27 +2167,23 @@ LABEL_13:
   v24 = MEMORY[0x1E695E0F0];
 LABEL_29:
 
-  v40 = *MEMORY[0x1E69E9840];
-
   return v24;
 }
 
 void __157__VCVoiceShortcutClient_ShareSheet__shareSheetWorkflowsForExtensionMatchingDictionaries_resolvedActivityItems_hostBundleIdentifier_iconSize_iconScale_error___block_invoke(uint64_t a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   dispatch_source_cancel(*(a1 + 32));
   v2 = getWFVoiceShortcutClientLogObject();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
   {
-    v5 = 136315138;
-    v6 = "[VCVoiceShortcutClient(ShareSheet) shareSheetWorkflowsForExtensionMatchingDictionaries:resolvedActivityItems:hostBundleIdentifier:iconSize:iconScale:error:]_block_invoke";
-    _os_log_impl(&dword_1B1DE3000, v2, OS_LOG_TYPE_FAULT, "%s Loading share sheet shortcuts timed out", &v5, 0xCu);
+    v4 = 136315138;
+    v5 = "[VCVoiceShortcutClient(ShareSheet) shareSheetWorkflowsForExtensionMatchingDictionaries:resolvedActivityItems:hostBundleIdentifier:iconSize:iconScale:error:]_block_invoke";
+    _os_log_impl(&dword_1B1DE3000, v2, OS_LOG_TYPE_FAULT, "%s Loading share sheet shortcuts timed out", &v4, 0xCu);
   }
 
   v3 = [*(a1 + 40) xpcConnection];
   [v3 invalidate];
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 void __157__VCVoiceShortcutClient_ShareSheet__shareSheetWorkflowsForExtensionMatchingDictionaries_resolvedActivityItems_hostBundleIdentifier_iconSize_iconScale_error___block_invoke_2(uint64_t a1, void *a2, void *a3)
@@ -2205,7 +2220,7 @@ uint64_t __157__VCVoiceShortcutClient_ShareSheet__shareSheetWorkflowsForExtensio
 
 - (void)getShortcutSuggestionsForAllAppsWithLimit:(unint64_t)limit completion:(id)completion
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   if (!completionCopy)
   {
@@ -2217,25 +2232,23 @@ uint64_t __157__VCVoiceShortcutClient_ShareSheet__shareSheetWorkflowsForExtensio
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315138;
-    v16 = "[VCVoiceShortcutClient(Suggestions) getShortcutSuggestionsForAllAppsWithLimit:completion:]";
+    v15 = "[VCVoiceShortcutClient(Suggestions) getShortcutSuggestionsForAllAppsWithLimit:completion:]";
     _os_log_impl(&dword_1B1DE3000, v8, OS_LOG_TYPE_DEBUG, "%s Getting shortcut suggestions for all apps", buf, 0xCu);
   }
 
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 3221225472;
-  v13[2] = __91__VCVoiceShortcutClient_Suggestions__getShortcutSuggestionsForAllAppsWithLimit_completion___block_invoke;
-  v13[3] = &unk_1E7B02940;
-  v14 = completionCopy;
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = __91__VCVoiceShortcutClient_Suggestions__getShortcutSuggestionsForAllAppsWithLimit_completion___block_invoke;
+  v12[3] = &unk_1E7B02940;
+  v13 = completionCopy;
   v9 = completionCopy;
-  v10 = [(VCVoiceShortcutClient *)self asynchronousRemoteDataStoreWithErrorHandler:v13];
+  v10 = [(VCVoiceShortcutClient *)self asynchronousRemoteDataStoreWithErrorHandler:v12];
   [v10 getShortcutSuggestionsForAllAppsWithLimit:limit completion:v9];
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)getShortcutSuggestionsForAppWithBundleIdentifier:(id)identifier completion:(id)completion
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   completionCopy = completion;
   v9 = completionCopy;
@@ -2266,27 +2279,25 @@ LABEL_3:
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315394;
-    v19 = "[VCVoiceShortcutClient(Suggestions) getShortcutSuggestionsForAppWithBundleIdentifier:completion:]";
-    v20 = 2114;
-    v21 = identifierCopy;
+    v18 = "[VCVoiceShortcutClient(Suggestions) getShortcutSuggestionsForAppWithBundleIdentifier:completion:]";
+    v19 = 2114;
+    v20 = identifierCopy;
     _os_log_impl(&dword_1B1DE3000, v10, OS_LOG_TYPE_DEBUG, "%s Getting shortcut suggestions for app with bundleID: %{public}@", buf, 0x16u);
   }
 
-  v16[0] = MEMORY[0x1E69E9820];
-  v16[1] = 3221225472;
-  v16[2] = __98__VCVoiceShortcutClient_Suggestions__getShortcutSuggestionsForAppWithBundleIdentifier_completion___block_invoke;
-  v16[3] = &unk_1E7B02940;
-  v17 = v9;
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 3221225472;
+  v15[2] = __98__VCVoiceShortcutClient_Suggestions__getShortcutSuggestionsForAppWithBundleIdentifier_completion___block_invoke;
+  v15[3] = &unk_1E7B02940;
+  v16 = v9;
   v11 = v9;
-  v12 = [(VCVoiceShortcutClient *)self asynchronousRemoteDataStoreWithErrorHandler:v16];
+  v12 = [(VCVoiceShortcutClient *)self asynchronousRemoteDataStoreWithErrorHandler:v15];
   [v12 getShortcutSuggestionsForAppWithBundleIdentifier:identifierCopy completion:v11];
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setShortcutSuggestions:(id)suggestions forAppWithBundleIdentifier:(id)identifier
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   suggestionsCopy = suggestions;
   identifierCopy = identifier;
   if (!suggestionsCopy)
@@ -2299,9 +2310,9 @@ LABEL_3:
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315394;
-    v16 = "[VCVoiceShortcutClient(Suggestions) setShortcutSuggestions:forAppWithBundleIdentifier:]";
-    v17 = 2112;
-    v18 = suggestionsCopy;
+    v15 = "[VCVoiceShortcutClient(Suggestions) setShortcutSuggestions:forAppWithBundleIdentifier:]";
+    v16 = 2112;
+    v17 = suggestionsCopy;
     _os_log_impl(&dword_1B1DE3000, v9, OS_LOG_TYPE_DEBUG, "%s Setting shortcut suggestions: %@", buf, 0x16u);
   }
 
@@ -2311,9 +2322,9 @@ LABEL_3:
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v16 = "[VCVoiceShortcutClient(Suggestions) setShortcutSuggestions:forAppWithBundleIdentifier:]";
-      v17 = 2050;
-      v18 = 100;
+      v15 = "[VCVoiceShortcutClient(Suggestions) setShortcutSuggestions:forAppWithBundleIdentifier:]";
+      v16 = 2050;
+      v17 = 100;
       _os_log_impl(&dword_1B1DE3000, v10, OS_LOG_TYPE_DEFAULT, "%s Limiting to the first %{public}lu suggestions", buf, 0x16u);
     }
 
@@ -2334,12 +2345,10 @@ LABEL_3:
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v16 = "[VCVoiceShortcutClient(Suggestions) setShortcutSuggestions:forAppWithBundleIdentifier:]";
+      v15 = "[VCVoiceShortcutClient(Suggestions) setShortcutSuggestions:forAppWithBundleIdentifier:]";
       _os_log_impl(&dword_1B1DE3000, v12, OS_LOG_TYPE_ERROR, "%s Failed to set shortcut suggestions because of invalid bundle identifier", buf, 0xCu);
     }
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)dismissToastedSessionKitSessionsWithReason:(id)reason completion:(id)completion
@@ -2756,38 +2765,38 @@ void __58__VCVoiceShortcutClient_resolveFilePath_workflowID_error___block_invoke
 {
   height = size.height;
   width = size.width;
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   glyphsCopy = glyphs;
   valuesCopy = values;
-  v26 = 0;
-  v27 = &v26;
-  v28 = 0x3032000000;
-  v29 = __Block_byref_object_copy__20936;
-  v30 = __Block_byref_object_dispose__20937;
-  v31 = 0;
-  v25[0] = MEMORY[0x1E69E9820];
-  v25[1] = 3221225472;
-  v25[2] = __83__VCVoiceShortcutClient_drawGlyphs_atSize_withBackgroundColorValues_padding_error___block_invoke;
-  v25[3] = &unk_1E7B028A0;
-  v25[4] = &v26;
-  v15 = [(VCVoiceShortcutClient *)self synchronousRemoteDataStoreWithErrorHandler:v25];
-  if (v27[5])
+  v25 = 0;
+  v26 = &v25;
+  v27 = 0x3032000000;
+  v28 = __Block_byref_object_copy__20936;
+  v29 = __Block_byref_object_dispose__20937;
+  v30 = 0;
+  v24[0] = MEMORY[0x1E69E9820];
+  v24[1] = 3221225472;
+  v24[2] = __83__VCVoiceShortcutClient_drawGlyphs_atSize_withBackgroundColorValues_padding_error___block_invoke;
+  v24[3] = &unk_1E7B028A0;
+  v24[4] = &v25;
+  v15 = [(VCVoiceShortcutClient *)self synchronousRemoteDataStoreWithErrorHandler:v24];
+  if (v26[5])
   {
     v16 = getWFVoiceShortcutClientLogObject();
     if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      v17 = v27[5];
+      v17 = v26[5];
       *buf = 136315394;
-      v33 = "[VCVoiceShortcutClient drawGlyphs:atSize:withBackgroundColorValues:padding:error:]";
-      v34 = 2114;
-      v35 = v17;
+      v32 = "[VCVoiceShortcutClient drawGlyphs:atSize:withBackgroundColorValues:padding:error:]";
+      v33 = 2114;
+      v34 = v17;
       _os_log_impl(&dword_1B1DE3000, v16, OS_LOG_TYPE_ERROR, "%s Could not fetch first unsorted shortcut: %{public}@", buf, 0x16u);
     }
 
     if (error)
     {
       v18 = 0;
-      *error = v27[5];
+      *error = v26[5];
       goto LABEL_16;
     }
 
@@ -2820,7 +2829,7 @@ LABEL_11:
     if (os_log_type_enabled(v22, OS_LOG_TYPE_FAULT))
     {
       *buf = 136315138;
-      v33 = "[VCVoiceShortcutClient drawGlyphs:atSize:withBackgroundColorValues:padding:error:]";
+      v32 = "[VCVoiceShortcutClient drawGlyphs:atSize:withBackgroundColorValues:padding:error:]";
       _os_log_impl(&dword_1B1DE3000, v22, OS_LOG_TYPE_FAULT, "%s Couldn't create image drawing context on the client side. Not drawing glyphs. See logs from WFRemoteImageDrawingContext", buf, 0xCu);
     }
 
@@ -2828,95 +2837,90 @@ LABEL_11:
   }
 
 LABEL_16:
-  _Block_object_dispose(&v26, 8);
-
-  v23 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v25, 8);
 
   return v18;
 }
 
 void __49__VCVoiceShortcutClient_unsafeSetupXPCConnection__block_invoke(uint64_t a1)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v2 = getWFVoiceShortcutClientLogObject();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
-    v4 = 136315138;
-    v5 = "[VCVoiceShortcutClient unsafeSetupXPCConnection]_block_invoke";
-    _os_log_impl(&dword_1B1DE3000, v2, OS_LOG_TYPE_ERROR, "%s Client connection to VCVoiceShortcut XPC server interrupted", &v4, 0xCu);
+    v3 = 136315138;
+    v4 = "[VCVoiceShortcutClient unsafeSetupXPCConnection]_block_invoke";
+    _os_log_impl(&dword_1B1DE3000, v2, OS_LOG_TYPE_ERROR, "%s Client connection to VCVoiceShortcut XPC server interrupted", &v3, 0xCu);
   }
 
   [WeakRetained handleXPCConnectionInterruption];
-  v3 = *MEMORY[0x1E69E9840];
 }
 
 void __49__VCVoiceShortcutClient_unsafeSetupXPCConnection__block_invoke_181(uint64_t a1)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v2 = getWFVoiceShortcutClientLogObject();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
-    v4 = 136315138;
-    v5 = "[VCVoiceShortcutClient unsafeSetupXPCConnection]_block_invoke";
-    _os_log_impl(&dword_1B1DE3000, v2, OS_LOG_TYPE_ERROR, "%s Client connection invalidated to VoiceShortcut server XPC interface", &v4, 0xCu);
+    v3 = 136315138;
+    v4 = "[VCVoiceShortcutClient unsafeSetupXPCConnection]_block_invoke";
+    _os_log_impl(&dword_1B1DE3000, v2, OS_LOG_TYPE_ERROR, "%s Client connection invalidated to VoiceShortcut server XPC interface", &v3, 0xCu);
   }
 
   [WeakRetained handleXPCConnectionInvalidation];
-  v3 = *MEMORY[0x1E69E9840];
 }
 
 - (void)handleXPCConnectionInvalidation
 {
-  v21 = *MEMORY[0x1E69E9840];
-  v14 = 0;
-  v15 = &v14;
-  v16 = 0x3032000000;
-  v17 = __Block_byref_object_copy__20936;
-  v18 = __Block_byref_object_dispose__20937;
-  v19 = 0;
+  v20 = *MEMORY[0x1E69E9840];
+  v13 = 0;
+  v14 = &v13;
+  v15 = 0x3032000000;
+  v16 = __Block_byref_object_copy__20936;
+  v17 = __Block_byref_object_dispose__20937;
+  v18 = 0;
   internalStateQueue = self->_internalStateQueue;
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __56__VCVoiceShortcutClient_handleXPCConnectionInvalidation__block_invoke;
   block[3] = &unk_1E7B02B78;
   block[4] = self;
-  block[5] = &v14;
+  block[5] = &v13;
   dispatch_sync(internalStateQueue, block);
   v3 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A250] code:4099 userInfo:0];
-  v11 = 0u;
-  v12 = 0u;
-  v9 = 0u;
   v10 = 0u;
-  v4 = v15[5];
-  v5 = [v4 countByEnumeratingWithState:&v9 objects:v20 count:16];
+  v11 = 0u;
+  v8 = 0u;
+  v9 = 0u;
+  v4 = v14[5];
+  v5 = [v4 countByEnumeratingWithState:&v8 objects:v19 count:16];
   if (v5)
   {
-    v6 = *v10;
+    v6 = *v9;
     do
     {
       v7 = 0;
       do
       {
-        if (*v10 != v6)
+        if (*v9 != v6)
         {
           objc_enumerationMutation(v4);
         }
 
-        (*(*(*(&v9 + 1) + 8 * v7) + 16))(*(*(&v9 + 1) + 8 * v7));
+        (*(*(*(&v8 + 1) + 8 * v7) + 16))(*(*(&v8 + 1) + 8 * v7));
         ++v7;
       }
 
       while (v5 != v7);
-      v5 = [v4 countByEnumeratingWithState:&v9 objects:v20 count:16];
+      v5 = [v4 countByEnumeratingWithState:&v8 objects:v19 count:16];
     }
 
     while (v5);
   }
 
-  _Block_object_dispose(&v14, 8);
-  v8 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v13, 8);
 }
 
 uint64_t __56__VCVoiceShortcutClient_handleXPCConnectionInvalidation__block_invoke(uint64_t a1)
@@ -2932,54 +2936,53 @@ uint64_t __56__VCVoiceShortcutClient_handleXPCConnectionInvalidation__block_invo
 
 - (void)handleXPCConnectionInterruption
 {
-  v21 = *MEMORY[0x1E69E9840];
-  v14 = 0;
-  v15 = &v14;
-  v16 = 0x3032000000;
-  v17 = __Block_byref_object_copy__20936;
-  v18 = __Block_byref_object_dispose__20937;
-  v19 = 0;
+  v20 = *MEMORY[0x1E69E9840];
+  v13 = 0;
+  v14 = &v13;
+  v15 = 0x3032000000;
+  v16 = __Block_byref_object_copy__20936;
+  v17 = __Block_byref_object_dispose__20937;
+  v18 = 0;
   internalStateQueue = self->_internalStateQueue;
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __56__VCVoiceShortcutClient_handleXPCConnectionInterruption__block_invoke;
   block[3] = &unk_1E7B02B78;
   block[4] = self;
-  block[5] = &v14;
+  block[5] = &v13;
   dispatch_sync(internalStateQueue, block);
   v3 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A250] code:4097 userInfo:0];
-  v11 = 0u;
-  v12 = 0u;
-  v9 = 0u;
   v10 = 0u;
-  v4 = v15[5];
-  v5 = [v4 countByEnumeratingWithState:&v9 objects:v20 count:16];
+  v11 = 0u;
+  v8 = 0u;
+  v9 = 0u;
+  v4 = v14[5];
+  v5 = [v4 countByEnumeratingWithState:&v8 objects:v19 count:16];
   if (v5)
   {
-    v6 = *v10;
+    v6 = *v9;
     do
     {
       v7 = 0;
       do
       {
-        if (*v10 != v6)
+        if (*v9 != v6)
         {
           objc_enumerationMutation(v4);
         }
 
-        (*(*(*(&v9 + 1) + 8 * v7) + 16))(*(*(&v9 + 1) + 8 * v7));
+        (*(*(*(&v8 + 1) + 8 * v7) + 16))(*(*(&v8 + 1) + 8 * v7));
         ++v7;
       }
 
       while (v5 != v7);
-      v5 = [v4 countByEnumeratingWithState:&v9 objects:v20 count:16];
+      v5 = [v4 countByEnumeratingWithState:&v8 objects:v19 count:16];
     }
 
     while (v5);
   }
 
-  _Block_object_dispose(&v14, 8);
-  v8 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v13, 8);
 }
 
 uint64_t __56__VCVoiceShortcutClient_handleXPCConnectionInterruption__block_invoke(uint64_t a1)
@@ -3033,7 +3036,7 @@ uint64_t __56__VCVoiceShortcutClient_handleXPCConnectionInterruption__block_invo
 
 void __60__VCVoiceShortcutClient_callErrorHandlerIfNeeded_withError___block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) errorHandlers];
   v3 = _Block_copy(*(a1 + 48));
   v4 = [v2 containsObject:v3];
@@ -3050,21 +3053,19 @@ void __60__VCVoiceShortcutClient_callErrorHandlerIfNeeded_withError___block_invo
       v8 = *(a1 + 32);
       v9 = [v8 xpcConnection];
       v10 = *(a1 + 40);
-      v12 = 136315906;
-      v13 = "[VCVoiceShortcutClient callErrorHandlerIfNeeded:withError:]_block_invoke";
-      v14 = 2114;
-      v15 = v8;
-      v16 = 2114;
-      v17 = v9;
-      v18 = 2114;
-      v19 = v10;
-      _os_log_impl(&dword_1B1DE3000, v7, OS_LOG_TYPE_ERROR, "%s %{public}@ received error from connection %{public}@ during remote call: %{public}@", &v12, 0x2Au);
+      v11 = 136315906;
+      v12 = "[VCVoiceShortcutClient callErrorHandlerIfNeeded:withError:]_block_invoke";
+      v13 = 2114;
+      v14 = v8;
+      v15 = 2114;
+      v16 = v9;
+      v17 = 2114;
+      v18 = v10;
+      _os_log_impl(&dword_1B1DE3000, v7, OS_LOG_TYPE_ERROR, "%s %{public}@ received error from connection %{public}@ during remote call: %{public}@", &v11, 0x2Au);
     }
 
     *(*(*(a1 + 56) + 8) + 24) = 1;
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (id)asynchronousRemoteDataStoreWithErrorHandler:(id)handler synchronous:(BOOL)synchronous
@@ -3169,40 +3170,37 @@ void __81__VCVoiceShortcutClient_asynchronousRemoteDataStoreWithErrorHandler_syn
 
 void __81__VCVoiceShortcutClient_asynchronousRemoteDataStoreWithErrorHandler_synchronous___block_invoke_3(uint64_t a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
+  v6 = 0u;
+  v7 = 0u;
+  v8 = 0u;
   v9 = 0u;
-  v10 = 0u;
-  v11 = 0u;
-  v12 = 0u;
-  v2 = *(*(*(a1 + 40) + 8) + 40);
-  v3 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
-  if (v3)
+  v1 = *(*(*(a1 + 40) + 8) + 40);
+  v2 = [v1 countByEnumeratingWithState:&v6 objects:v10 count:16];
+  if (v2)
   {
-    v4 = v3;
-    v5 = *v10;
+    v3 = v2;
+    v4 = *v7;
     do
     {
-      v6 = 0;
+      v5 = 0;
       do
       {
-        if (*v10 != v5)
+        if (*v7 != v4)
         {
-          objc_enumerationMutation(v2);
+          objc_enumerationMutation(v1);
         }
 
-        v7 = *(a1 + 32);
-        (*(*(*(&v9 + 1) + 8 * v6) + 16))(*(*(&v9 + 1) + 8 * v6));
-        ++v6;
+        (*(*(*(&v6 + 1) + 8 * v5) + 16))(*(*(&v6 + 1) + 8 * v5));
+        ++v5;
       }
 
-      while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      while (v3 != v5);
+      v3 = [v1 countByEnumeratingWithState:&v6 objects:v10 count:16];
     }
 
-    while (v4);
+    while (v3);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setPerWorkflowStateData:(id)data forSmartPromptWithActionUUID:(id)d reference:(id)reference completion:(id)completion
@@ -3223,20 +3221,19 @@ void __81__VCVoiceShortcutClient_asynchronousRemoteDataStoreWithErrorHandler_syn
 
 void __99__VCVoiceShortcutClient_setPerWorkflowStateData_forSmartPromptWithActionUUID_reference_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = getWFVoiceShortcutClientLogObject();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v6 = 136315394;
-    v7 = "[VCVoiceShortcutClient setPerWorkflowStateData:forSmartPromptWithActionUUID:reference:completion:]_block_invoke";
-    v8 = 2114;
-    v9 = v3;
-    _os_log_impl(&dword_1B1DE3000, v4, OS_LOG_TYPE_ERROR, "%s Error occured with remote connection: %{public}@", &v6, 0x16u);
+    v5 = 136315394;
+    v6 = "[VCVoiceShortcutClient setPerWorkflowStateData:forSmartPromptWithActionUUID:reference:completion:]_block_invoke";
+    v7 = 2114;
+    v8 = v3;
+    _os_log_impl(&dword_1B1DE3000, v4, OS_LOG_TYPE_ERROR, "%s Error occured with remote connection: %{public}@", &v5, 0x16u);
   }
 
   (*(*(a1 + 32) + 16))();
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (id)getValueForDescriptor:(id)descriptor resultClass:(Class)class error:(id *)error
@@ -3425,75 +3422,74 @@ void __74__VCVoiceShortcutClient_getResultsForQuery_resultClass_resultState_erro
 
 - (id)firstUnsortedWorkflowWithBackgroundColorValue:(id *)value error:(id *)error
 {
-  v37 = *MEMORY[0x1E69E9840];
-  v27 = 0;
-  v28 = &v27;
-  v29 = 0x3032000000;
-  v30 = __Block_byref_object_copy__20936;
-  v31 = __Block_byref_object_dispose__20937;
-  v32 = 0;
-  v21 = 0;
-  v22 = &v21;
-  v23 = 0x3032000000;
-  v24 = __Block_byref_object_copy__20936;
-  v25 = __Block_byref_object_dispose__20937;
+  v36 = *MEMORY[0x1E69E9840];
   v26 = 0;
-  v15 = 0;
-  v16 = &v15;
-  v17 = 0x3032000000;
-  v18 = __Block_byref_object_copy__20936;
-  v19 = __Block_byref_object_dispose__20937;
+  v27 = &v26;
+  v28 = 0x3032000000;
+  v29 = __Block_byref_object_copy__20936;
+  v30 = __Block_byref_object_dispose__20937;
+  v31 = 0;
   v20 = 0;
-  v14[0] = MEMORY[0x1E69E9820];
-  v14[1] = 3221225472;
-  v14[2] = __77__VCVoiceShortcutClient_firstUnsortedWorkflowWithBackgroundColorValue_error___block_invoke;
-  v14[3] = &unk_1E7B028A0;
-  v14[4] = &v15;
-  v6 = [(VCVoiceShortcutClient *)self synchronousRemoteDataStoreWithErrorHandler:v14];
+  v21 = &v20;
+  v22 = 0x3032000000;
+  v23 = __Block_byref_object_copy__20936;
+  v24 = __Block_byref_object_dispose__20937;
+  v25 = 0;
+  v14 = 0;
+  v15 = &v14;
+  v16 = 0x3032000000;
+  v17 = __Block_byref_object_copy__20936;
+  v18 = __Block_byref_object_dispose__20937;
+  v19 = 0;
   v13[0] = MEMORY[0x1E69E9820];
   v13[1] = 3221225472;
-  v13[2] = __77__VCVoiceShortcutClient_firstUnsortedWorkflowWithBackgroundColorValue_error___block_invoke_2;
-  v13[3] = &unk_1E7B02A88;
-  v13[4] = &v27;
-  v13[5] = &v21;
-  v13[6] = &v15;
-  [v6 getFirstUnsortedWorkflowWithCompletion:v13];
-  v7 = v22[5];
+  v13[2] = __77__VCVoiceShortcutClient_firstUnsortedWorkflowWithBackgroundColorValue_error___block_invoke;
+  v13[3] = &unk_1E7B028A0;
+  v13[4] = &v14;
+  v6 = [(VCVoiceShortcutClient *)self synchronousRemoteDataStoreWithErrorHandler:v13];
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = __77__VCVoiceShortcutClient_firstUnsortedWorkflowWithBackgroundColorValue_error___block_invoke_2;
+  v12[3] = &unk_1E7B02A88;
+  v12[4] = &v26;
+  v12[5] = &v20;
+  v12[6] = &v14;
+  [v6 getFirstUnsortedWorkflowWithCompletion:v12];
+  v7 = v21[5];
   if (v7)
   {
     *value = v7;
   }
 
-  if (v16[5])
+  if (v15[5])
   {
     v8 = getWFVoiceShortcutClientLogObject();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v9 = v16[5];
+      v9 = v15[5];
       *buf = 136315394;
-      v34 = "[VCVoiceShortcutClient firstUnsortedWorkflowWithBackgroundColorValue:error:]";
-      v35 = 2114;
-      v36 = v9;
+      v33 = "[VCVoiceShortcutClient firstUnsortedWorkflowWithBackgroundColorValue:error:]";
+      v34 = 2114;
+      v35 = v9;
       _os_log_impl(&dword_1B1DE3000, v8, OS_LOG_TYPE_ERROR, "%s Could not fetch first unsorted shortcut: %{public}@", buf, 0x16u);
     }
 
     v10 = 0;
     if (error)
     {
-      *error = v16[5];
+      *error = v15[5];
     }
   }
 
   else
   {
-    v10 = v28[5];
+    v10 = v27[5];
   }
 
-  _Block_object_dispose(&v15, 8);
-  _Block_object_dispose(&v21, 8);
+  _Block_object_dispose(&v14, 8);
+  _Block_object_dispose(&v20, 8);
 
-  _Block_object_dispose(&v27, 8);
-  v11 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v26, 8);
 
   return v10;
 }
@@ -3669,7 +3665,7 @@ LABEL_3:
 
 - (void)importSharedShortcutFromURL:(id)l withName:(id)name shortcutSource:(id)source completion:(id)completion
 {
-  v47 = *MEMORY[0x1E69E9840];
+  v46 = *MEMORY[0x1E69E9840];
   lCopy = l;
   nameCopy = name;
   sourceCopy = source;
@@ -3708,55 +3704,55 @@ LABEL_3:
     _os_log_impl(&dword_1B1DE3000, v16, OS_LOG_TYPE_DEBUG, "%s Importing shared shortcut at URL %@", buf, 0x16u);
   }
 
-  v40 = 0;
-  v41 = &v40;
-  v42 = 0x2050000000;
+  v39 = 0;
+  v40 = &v39;
+  v41 = 0x2050000000;
   v17 = getWFGallerySessionManagerClass_softClass;
-  v43 = getWFGallerySessionManagerClass_softClass;
+  v42 = getWFGallerySessionManagerClass_softClass;
   if (!getWFGallerySessionManagerClass_softClass)
   {
     *buf = MEMORY[0x1E69E9820];
     *&buf[8] = 3221225472;
     *&buf[16] = __getWFGallerySessionManagerClass_block_invoke;
-    v45 = &unk_1E7B02C60;
-    v46 = &v40;
+    v44 = &unk_1E7B02C60;
+    v45 = &v39;
     __getWFGallerySessionManagerClass_block_invoke(buf);
-    v17 = v41[3];
+    v17 = v40[3];
   }
 
   v18 = v17;
-  _Block_object_dispose(&v40, 8);
+  _Block_object_dispose(&v39, 8);
   v19 = [v17 performSelector:sel_sharedManager];
-  v40 = 0;
-  v41 = &v40;
-  v42 = 0x2050000000;
+  v39 = 0;
+  v40 = &v39;
+  v41 = 0x2050000000;
   v20 = getWFInterchangeURLRequestClass_softClass;
-  v43 = getWFInterchangeURLRequestClass_softClass;
+  v42 = getWFInterchangeURLRequestClass_softClass;
   if (!getWFInterchangeURLRequestClass_softClass)
   {
     *buf = MEMORY[0x1E69E9820];
     *&buf[8] = 3221225472;
     *&buf[16] = __getWFInterchangeURLRequestClass_block_invoke;
-    v45 = &unk_1E7B02C60;
-    v46 = &v40;
+    v44 = &unk_1E7B02C60;
+    v45 = &v39;
     __getWFInterchangeURLRequestClass_block_invoke(buf);
-    v20 = v41[3];
+    v20 = v40[3];
   }
 
   v21 = v20;
-  _Block_object_dispose(&v40, 8);
+  _Block_object_dispose(&v39, 8);
   v22 = [v20 performSelector:sel_requestWithURL_ withObject:lCopy];
   v23 = [v22 performSelector:sel_subAction];
   aBlock[0] = MEMORY[0x1E69E9820];
   aBlock[1] = 3221225472;
   aBlock[2] = __88__VCVoiceShortcutClient_importSharedShortcutFromURL_withName_shortcutSource_completion___block_invoke;
   aBlock[3] = &unk_1E7B02A38;
-  v34 = lCopy;
-  v35 = v19;
-  v36 = nameCopy;
+  v33 = lCopy;
+  v34 = v19;
+  v35 = nameCopy;
   selfCopy = self;
-  v38 = sourceCopy;
-  v39 = v15;
+  v37 = sourceCopy;
+  v38 = v15;
   v24 = sourceCopy;
   v25 = nameCopy;
   v26 = v19;
@@ -3764,13 +3760,11 @@ LABEL_3:
   v28 = lCopy;
   v29 = _Block_copy(aBlock);
   [v26 performSelector:sel_getWorkflowForIdentifier_completionHandler_ withObject:v23 withObject:v29];
-
-  v30 = *MEMORY[0x1E69E9840];
 }
 
 void __88__VCVoiceShortcutClient_importSharedShortcutFromURL_withName_shortcutSource_completion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (v5)
@@ -3779,24 +3773,24 @@ void __88__VCVoiceShortcutClient_importSharedShortcutFromURL_withName_shortcutSo
     aBlock[1] = 3221225472;
     aBlock[2] = __88__VCVoiceShortcutClient_importSharedShortcutFromURL_withName_shortcutSource_completion___block_invoke_147;
     aBlock[3] = &unk_1E7B029E8;
-    v22 = *(a1 + 40);
+    v21 = *(a1 + 40);
     v7 = _Block_copy(aBlock);
-    v17[0] = MEMORY[0x1E69E9820];
-    v17[1] = 3221225472;
-    v17[2] = __88__VCVoiceShortcutClient_importSharedShortcutFromURL_withName_shortcutSource_completion___block_invoke_2;
-    v17[3] = &unk_1E7B02A10;
-    v18 = v5;
+    v16[0] = MEMORY[0x1E69E9820];
+    v16[1] = 3221225472;
+    v16[2] = __88__VCVoiceShortcutClient_importSharedShortcutFromURL_withName_shortcutSource_completion___block_invoke_2;
+    v16[3] = &unk_1E7B02A10;
+    v17 = v5;
     v8 = *(a1 + 72);
     *&v9 = *(a1 + 48);
     *(&v9 + 1) = *(a1 + 56);
-    v16 = v9;
+    v15 = v9;
     *&v10 = *(a1 + 64);
     *(&v10 + 1) = v8;
-    v19 = v16;
-    v20 = v10;
-    v7[2](v7, v18, v17);
+    v18 = v15;
+    v19 = v10;
+    v7[2](v7, v17, v16);
 
-    v11 = v22;
+    v11 = v21;
   }
 
   else
@@ -3806,11 +3800,11 @@ void __88__VCVoiceShortcutClient_importSharedShortcutFromURL_withName_shortcutSo
     {
       v13 = *(a1 + 32);
       *buf = 136315650;
-      v24 = "[VCVoiceShortcutClient importSharedShortcutFromURL:withName:shortcutSource:completion:]_block_invoke";
-      v25 = 2114;
-      v26 = v13;
-      v27 = 2114;
-      v28 = v6;
+      v23 = "[VCVoiceShortcutClient importSharedShortcutFromURL:withName:shortcutSource:completion:]_block_invoke";
+      v24 = 2114;
+      v25 = v13;
+      v26 = 2114;
+      v27 = v6;
       _os_log_impl(&dword_1B1DE3000, v12, OS_LOG_TYPE_ERROR, "%s Error downloading CloudKit record from URL %{public}@: %{public}@", buf, 0x20u);
     }
 
@@ -3818,8 +3812,6 @@ void __88__VCVoiceShortcutClient_importSharedShortcutFromURL_withName_shortcutSo
     v11 = [MEMORY[0x1E696ABC0] vc_voiceShortcutErrorWithCode:8001 reason:@"Error downloading CloudKit record"];
     (*(v14 + 16))(v14, 0, v11);
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 void __88__VCVoiceShortcutClient_importSharedShortcutFromURL_withName_shortcutSource_completion___block_invoke_147(uint64_t a1, void *a2, void *a3)
@@ -3885,14 +3877,14 @@ void __88__VCVoiceShortcutClient_importSharedShortcutFromURL_withName_shortcutSo
 
 void __88__VCVoiceShortcutClient_importSharedShortcutFromURL_withName_shortcutSource_completion___block_invoke_2(uint64_t a1, void *a2)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = v3;
   if (v3)
   {
-    v15 = 0;
-    v5 = [objc_msgSend(v3 performSelector:{sel_fileRepresentation), sel_fileDataWithError_, &v15}];
-    v6 = v15;
+    v14 = 0;
+    v5 = [objc_msgSend(v3 performSelector:{sel_fileRepresentation), sel_fileDataWithError_, &v14}];
+    v6 = v14;
     if (v5)
     {
       v7 = *(a1 + 40);
@@ -3910,9 +3902,9 @@ void __88__VCVoiceShortcutClient_importSharedShortcutFromURL_withName_shortcutSo
       if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v17 = "[VCVoiceShortcutClient importSharedShortcutFromURL:withName:shortcutSource:completion:]_block_invoke";
-        v18 = 2114;
-        v19 = v6;
+        v16 = "[VCVoiceShortcutClient importSharedShortcutFromURL:withName:shortcutSource:completion:]_block_invoke";
+        v17 = 2114;
+        v18 = v6;
         _os_log_impl(&dword_1B1DE3000, v11, OS_LOG_TYPE_ERROR, "%s Failed to serialize workflow record %{public}@", buf, 0x16u);
       }
 
@@ -3929,9 +3921,9 @@ void __88__VCVoiceShortcutClient_importSharedShortcutFromURL_withName_shortcutSo
     {
       v9 = *(a1 + 32);
       *buf = 136315394;
-      v17 = "[VCVoiceShortcutClient importSharedShortcutFromURL:withName:shortcutSource:completion:]_block_invoke_2";
-      v18 = 2114;
-      v19 = v9;
+      v16 = "[VCVoiceShortcutClient importSharedShortcutFromURL:withName:shortcutSource:completion:]_block_invoke_2";
+      v17 = 2114;
+      v18 = v9;
       _os_log_impl(&dword_1B1DE3000, v8, OS_LOG_TYPE_ERROR, "%s Failed to extract workflow record from downloaded CloudKit record %{public}@", buf, 0x16u);
     }
 
@@ -3939,8 +3931,6 @@ void __88__VCVoiceShortcutClient_importSharedShortcutFromURL_withName_shortcutSo
     v6 = [MEMORY[0x1E696ABC0] vc_voiceShortcutErrorWithCode:8001 reason:@"Failed to extract workflow record from downloaded CloudKit record"];
     (*(v10 + 16))(v10, 0, v6);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)obliterateShortcuts:(id)shortcuts
@@ -3991,12 +3981,12 @@ uint64_t __63__VCVoiceShortcutClient_getVaultItemsAccessForBackgroundRunner__blo
   v4 = *(v3 + 40);
   *(v3 + 40) = v2;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2, v4);
 }
 
 - (void)deleteTriggerWithIdentifier:(id)identifier completion:(id)completion
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   completionCopy = completion;
   v9 = completionCopy;
@@ -4027,27 +4017,25 @@ LABEL_3:
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315394;
-    v19 = "[VCVoiceShortcutClient deleteTriggerWithIdentifier:completion:]";
-    v20 = 2112;
-    v21 = identifierCopy;
+    v18 = "[VCVoiceShortcutClient deleteTriggerWithIdentifier:completion:]";
+    v19 = 2112;
+    v20 = identifierCopy;
     _os_log_impl(&dword_1B1DE3000, v10, OS_LOG_TYPE_DEBUG, "%s [Triggers] Deleting trigger (id: %@)", buf, 0x16u);
   }
 
-  v16[0] = MEMORY[0x1E69E9820];
-  v16[1] = 3221225472;
-  v16[2] = __64__VCVoiceShortcutClient_deleteTriggerWithIdentifier_completion___block_invoke;
-  v16[3] = &unk_1E7B02940;
-  v17 = v9;
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 3221225472;
+  v15[2] = __64__VCVoiceShortcutClient_deleteTriggerWithIdentifier_completion___block_invoke;
+  v15[3] = &unk_1E7B02940;
+  v16 = v9;
   v11 = v9;
-  v12 = [(VCVoiceShortcutClient *)self asynchronousRemoteDataStoreWithErrorHandler:v16];
+  v12 = [(VCVoiceShortcutClient *)self asynchronousRemoteDataStoreWithErrorHandler:v15];
   [v12 deleteTriggerWithIdentifier:identifierCopy completion:v11];
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)checkTriggerStateWithKeyPath:(id)path completion:(id)completion
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   pathCopy = path;
   completionCopy = completion;
   v9 = completionCopy;
@@ -4078,27 +4066,25 @@ LABEL_3:
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315394;
-    v19 = "[VCVoiceShortcutClient checkTriggerStateWithKeyPath:completion:]";
-    v20 = 2112;
-    v21 = pathCopy;
+    v18 = "[VCVoiceShortcutClient checkTriggerStateWithKeyPath:completion:]";
+    v19 = 2112;
+    v20 = pathCopy;
     _os_log_impl(&dword_1B1DE3000, v10, OS_LOG_TYPE_DEBUG, "%s [Triggers] Checking state for keyPath: %@", buf, 0x16u);
   }
 
-  v16[0] = MEMORY[0x1E69E9820];
-  v16[1] = 3221225472;
-  v16[2] = __65__VCVoiceShortcutClient_checkTriggerStateWithKeyPath_completion___block_invoke;
-  v16[3] = &unk_1E7B02940;
-  v17 = v9;
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 3221225472;
+  v15[2] = __65__VCVoiceShortcutClient_checkTriggerStateWithKeyPath_completion___block_invoke;
+  v15[3] = &unk_1E7B02940;
+  v16 = v9;
   v11 = v9;
-  v12 = [(VCVoiceShortcutClient *)self asynchronousRemoteDataStoreWithErrorHandler:v16];
+  v12 = [(VCVoiceShortcutClient *)self asynchronousRemoteDataStoreWithErrorHandler:v15];
   [v12 checkTriggerStateWithKeyPath:pathCopy completion:v11];
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)checkTriggerStateWithIdentifier:(id)identifier completion:(id)completion
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   completionCopy = completion;
   v9 = completionCopy;
@@ -4129,27 +4115,75 @@ LABEL_3:
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315394;
-    v19 = "[VCVoiceShortcutClient checkTriggerStateWithIdentifier:completion:]";
-    v20 = 2112;
-    v21 = identifierCopy;
+    v18 = "[VCVoiceShortcutClient checkTriggerStateWithIdentifier:completion:]";
+    v19 = 2112;
+    v20 = identifierCopy;
     _os_log_impl(&dword_1B1DE3000, v10, OS_LOG_TYPE_DEBUG, "%s [Triggers] Checking state for trigger (id: %@)", buf, 0x16u);
   }
 
-  v16[0] = MEMORY[0x1E69E9820];
-  v16[1] = 3221225472;
-  v16[2] = __68__VCVoiceShortcutClient_checkTriggerStateWithIdentifier_completion___block_invoke;
-  v16[3] = &unk_1E7B02940;
-  v17 = v9;
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 3221225472;
+  v15[2] = __68__VCVoiceShortcutClient_checkTriggerStateWithIdentifier_completion___block_invoke;
+  v15[3] = &unk_1E7B02940;
+  v16 = v9;
   v11 = v9;
-  v12 = [(VCVoiceShortcutClient *)self asynchronousRemoteDataStoreWithErrorHandler:v16];
+  v12 = [(VCVoiceShortcutClient *)self asynchronousRemoteDataStoreWithErrorHandler:v15];
   [v12 checkTriggerStateWithIdentifier:identifierCopy completion:v11];
+}
 
-  v13 = *MEMORY[0x1E69E9840];
+- (void)fireTriggerWithIdentifier:(id)identifier force:(BOOL)force completion:(id)completion
+{
+  forceCopy = force;
+  v23 = *MEMORY[0x1E69E9840];
+  identifierCopy = identifier;
+  completionCopy = completion;
+  v11 = completionCopy;
+  if (identifierCopy)
+  {
+    if (completionCopy)
+    {
+      goto LABEL_3;
+    }
+  }
+
+  else
+  {
+    currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
+    [currentHandler handleFailureInMethod:a2 object:self file:@"VCVoiceShortcutClient.m" lineNumber:288 description:{@"Invalid parameter not satisfying: %@", @"triggerIdentifier"}];
+
+    if (v11)
+    {
+      goto LABEL_3;
+    }
+  }
+
+  currentHandler2 = [MEMORY[0x1E696AAA8] currentHandler];
+  [currentHandler2 handleFailureInMethod:a2 object:self file:@"VCVoiceShortcutClient.m" lineNumber:289 description:{@"Invalid parameter not satisfying: %@", @"completionHandler"}];
+
+LABEL_3:
+  v12 = getWFVoiceShortcutClientLogObject();
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+  {
+    *buf = 136315394;
+    v20 = "[VCVoiceShortcutClient fireTriggerWithIdentifier:force:completion:]";
+    v21 = 2112;
+    v22 = identifierCopy;
+    _os_log_impl(&dword_1B1DE3000, v12, OS_LOG_TYPE_DEBUG, "%s [Triggers] Running trigger (id: %@)", buf, 0x16u);
+  }
+
+  v17[0] = MEMORY[0x1E69E9820];
+  v17[1] = 3221225472;
+  v17[2] = __68__VCVoiceShortcutClient_fireTriggerWithIdentifier_force_completion___block_invoke;
+  v17[3] = &unk_1E7B02940;
+  v18 = v11;
+  v13 = v11;
+  v14 = [(VCVoiceShortcutClient *)self asynchronousRemoteDataStoreWithErrorHandler:v17];
+  [v14 fireTriggerWithIdentifier:identifierCopy force:forceCopy completion:v13];
 }
 
 - (void)getConfiguredTriggerDescriptionsWithCompletion:(id)completion
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   if (!completionCopy)
   {
@@ -4161,25 +4195,23 @@ LABEL_3:
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315138;
-    v14 = "[VCVoiceShortcutClient getConfiguredTriggerDescriptionsWithCompletion:]";
+    v13 = "[VCVoiceShortcutClient getConfiguredTriggerDescriptionsWithCompletion:]";
     _os_log_impl(&dword_1B1DE3000, v6, OS_LOG_TYPE_DEBUG, "%s [Triggers] Getting trigger IDs", buf, 0xCu);
   }
 
-  v11[0] = MEMORY[0x1E69E9820];
-  v11[1] = 3221225472;
-  v11[2] = __72__VCVoiceShortcutClient_getConfiguredTriggerDescriptionsWithCompletion___block_invoke;
-  v11[3] = &unk_1E7B02940;
-  v12 = completionCopy;
+  v10[0] = MEMORY[0x1E69E9820];
+  v10[1] = 3221225472;
+  v10[2] = __72__VCVoiceShortcutClient_getConfiguredTriggerDescriptionsWithCompletion___block_invoke;
+  v10[3] = &unk_1E7B02940;
+  v11 = completionCopy;
   v7 = completionCopy;
-  v8 = [(VCVoiceShortcutClient *)self asynchronousRemoteDataStoreWithErrorHandler:v11];
+  v8 = [(VCVoiceShortcutClient *)self asynchronousRemoteDataStoreWithErrorHandler:v10];
   [v8 getConfiguredTriggerDescriptionsWithCompletion:v7];
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)unregisterTriggerWithIdentifier:(id)identifier triggerBacking:(int64_t)backing completion:(id)completion
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   completionCopy = completion;
   if (!completionCopy)
@@ -4192,27 +4224,25 @@ LABEL_3:
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315394;
-    v19 = "[VCVoiceShortcutClient unregisterTriggerWithIdentifier:triggerBacking:completion:]";
-    v20 = 2112;
-    v21 = identifierCopy;
+    v18 = "[VCVoiceShortcutClient unregisterTriggerWithIdentifier:triggerBacking:completion:]";
+    v19 = 2112;
+    v20 = identifierCopy;
     _os_log_impl(&dword_1B1DE3000, v11, OS_LOG_TYPE_DEBUG, "%s [Triggers] Unregistering trigger (id: %@)", buf, 0x16u);
   }
 
-  v16[0] = MEMORY[0x1E69E9820];
-  v16[1] = 3221225472;
-  v16[2] = __83__VCVoiceShortcutClient_unregisterTriggerWithIdentifier_triggerBacking_completion___block_invoke;
-  v16[3] = &unk_1E7B02940;
-  v17 = completionCopy;
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 3221225472;
+  v15[2] = __83__VCVoiceShortcutClient_unregisterTriggerWithIdentifier_triggerBacking_completion___block_invoke;
+  v15[3] = &unk_1E7B02940;
+  v16 = completionCopy;
   v12 = completionCopy;
-  v13 = [(VCVoiceShortcutClient *)self asynchronousRemoteDataStoreWithErrorHandler:v16];
+  v13 = [(VCVoiceShortcutClient *)self asynchronousRemoteDataStoreWithErrorHandler:v15];
   [v13 unregisterTriggerWithIdentifier:identifierCopy triggerBacking:backing completion:v12];
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)refreshTriggerWithIdentifier:(id)identifier completion:(id)completion
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   completionCopy = completion;
   if (!completionCopy)
@@ -4225,22 +4255,20 @@ LABEL_3:
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315394;
-    v17 = "[VCVoiceShortcutClient refreshTriggerWithIdentifier:completion:]";
-    v18 = 2112;
-    v19 = identifierCopy;
+    v16 = "[VCVoiceShortcutClient refreshTriggerWithIdentifier:completion:]";
+    v17 = 2112;
+    v18 = identifierCopy;
     _os_log_impl(&dword_1B1DE3000, v9, OS_LOG_TYPE_DEBUG, "%s [Triggers] Refreshing trigger (id: %@)", buf, 0x16u);
   }
 
-  v14[0] = MEMORY[0x1E69E9820];
-  v14[1] = 3221225472;
-  v14[2] = __65__VCVoiceShortcutClient_refreshTriggerWithIdentifier_completion___block_invoke;
-  v14[3] = &unk_1E7B02940;
-  v15 = completionCopy;
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __65__VCVoiceShortcutClient_refreshTriggerWithIdentifier_completion___block_invoke;
+  v13[3] = &unk_1E7B02940;
+  v14 = completionCopy;
   v10 = completionCopy;
-  v11 = [(VCVoiceShortcutClient *)self asynchronousRemoteDataStoreWithErrorHandler:v14];
+  v11 = [(VCVoiceShortcutClient *)self asynchronousRemoteDataStoreWithErrorHandler:v13];
   [v11 refreshTriggerWithIdentifier:identifierCopy completion:v10];
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)getSiriPodcastsDatabaseURLWithCompletion:(id)completion
@@ -4264,25 +4292,24 @@ LABEL_3:
 
 void __66__VCVoiceShortcutClient_getSiriPodcastsDatabaseURLWithCompletion___block_invoke(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = getWFVoiceShortcutClientLogObject();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
-    v6 = 136315394;
-    v7 = "[VCVoiceShortcutClient getSiriPodcastsDatabaseURLWithCompletion:]_block_invoke";
-    v8 = 2112;
-    v9 = v3;
-    _os_log_impl(&dword_1B1DE3000, v4, OS_LOG_TYPE_DEBUG, "%s Error getting async proxy %@", &v6, 0x16u);
+    v5 = 136315394;
+    v6 = "[VCVoiceShortcutClient getSiriPodcastsDatabaseURLWithCompletion:]_block_invoke";
+    v7 = 2112;
+    v8 = v3;
+    _os_log_impl(&dword_1B1DE3000, v4, OS_LOG_TYPE_DEBUG, "%s Error getting async proxy %@", &v5, 0x16u);
   }
 
   (*(*(a1 + 32) + 16))();
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __66__VCVoiceShortcutClient_getSiriPodcastsDatabaseURLWithCompletion___block_invoke_121(uint64_t a1, void *a2, void *a3)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = [v5 url];
@@ -4292,9 +4319,9 @@ void __66__VCVoiceShortcutClient_getSiriPodcastsDatabaseURLWithCompletion___bloc
   {
     v9 = objc_alloc(MEMORY[0x1E695DEC8]);
     v10 = [v5 url];
-    v16 = v6;
-    v11 = [v9 initWithContentsOfURL:v10 error:&v16];
-    v12 = v16;
+    v15 = v6;
+    v11 = [v9 initWithContentsOfURL:v10 error:&v15];
+    v12 = v15;
 
     v13 = [v5 url];
     [v13 stopAccessingSecurityScopedResource];
@@ -4309,21 +4336,19 @@ void __66__VCVoiceShortcutClient_getSiriPodcastsDatabaseURLWithCompletion___bloc
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136315394;
-      v18 = "[VCVoiceShortcutClient getSiriPodcastsDatabaseURLWithCompletion:]_block_invoke";
-      v19 = 2112;
-      v20 = v6;
+      v17 = "[VCVoiceShortcutClient getSiriPodcastsDatabaseURLWithCompletion:]_block_invoke";
+      v18 = 2112;
+      v19 = v6;
       _os_log_impl(&dword_1B1DE3000, v14, OS_LOG_TYPE_DEBUG, "%s Error getting sirir db %@", buf, 0x16u);
     }
 
     (*(*(a1 + 32) + 16))();
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setInteger:(int64_t)integer forKey:(id)key inDomain:(id)domain completionHandler:(id)handler
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   keyCopy = key;
   domainCopy = domain;
   handlerCopy = handler;
@@ -4369,47 +4394,43 @@ LABEL_4:
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315650;
-    v24 = "[VCVoiceShortcutClient setInteger:forKey:inDomain:completionHandler:]";
-    v25 = 2112;
-    v26 = keyCopy;
-    v27 = 2112;
-    v28 = domainCopy;
+    v23 = "[VCVoiceShortcutClient setInteger:forKey:inDomain:completionHandler:]";
+    v24 = 2112;
+    v25 = keyCopy;
+    v26 = 2112;
+    v27 = domainCopy;
     _os_log_impl(&dword_1B1DE3000, v14, OS_LOG_TYPE_DEBUG, "%s Setting preference object for key=%@ in doamin=%@", buf, 0x20u);
   }
 
-  v21[0] = MEMORY[0x1E69E9820];
-  v21[1] = 3221225472;
-  v21[2] = __70__VCVoiceShortcutClient_setInteger_forKey_inDomain_completionHandler___block_invoke;
-  v21[3] = &unk_1E7B02940;
-  v22 = handlerCopy;
+  v20[0] = MEMORY[0x1E69E9820];
+  v20[1] = 3221225472;
+  v20[2] = __70__VCVoiceShortcutClient_setInteger_forKey_inDomain_completionHandler___block_invoke;
+  v20[3] = &unk_1E7B02940;
+  v21 = handlerCopy;
   v15 = handlerCopy;
-  v16 = [(VCVoiceShortcutClient *)self asynchronousRemoteDataStoreWithErrorHandler:v21];
+  v16 = [(VCVoiceShortcutClient *)self asynchronousRemoteDataStoreWithErrorHandler:v20];
   [v16 setInteger:integer forKey:keyCopy inDomain:domainCopy completionHandler:v15];
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)unsubscribeFromVoiceShortcutDataUpdateNotifications
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
   CFNotificationCenterRemoveObserver(DarwinNotifyCenter, self, @"com.apple.siri.VoiceShortcuts.DataDidUpdateNotification", 0);
   v4 = getWFVoiceShortcutClientLogObject();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
-    v6 = 136315394;
-    v7 = "[VCVoiceShortcutClient unsubscribeFromVoiceShortcutDataUpdateNotifications]";
-    v8 = 2112;
-    v9 = @"com.apple.siri.VoiceShortcuts.DataDidUpdateNotification";
-    _os_log_impl(&dword_1B1DE3000, v4, OS_LOG_TYPE_DEBUG, "%s Unsubscribed from notification: (%@)", &v6, 0x16u);
+    v5 = 136315394;
+    v6 = "[VCVoiceShortcutClient unsubscribeFromVoiceShortcutDataUpdateNotifications]";
+    v7 = 2112;
+    v8 = @"com.apple.siri.VoiceShortcuts.DataDidUpdateNotification";
+    _os_log_impl(&dword_1B1DE3000, v4, OS_LOG_TYPE_DEBUG, "%s Unsubscribed from notification: (%@)", &v5, 0x16u);
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)updateVoiceShortcutWithIdentifier:(id)identifier phrase:(id)phrase shortcut:(id)shortcut completion:(id)completion
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   phraseCopy = phrase;
   shortcutCopy = shortcut;
@@ -4448,27 +4469,25 @@ LABEL_3:
   if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315394;
-    v26 = "[VCVoiceShortcutClient updateVoiceShortcutWithIdentifier:phrase:shortcut:completion:]";
-    v27 = 2112;
-    v28 = identifierCopy;
+    v25 = "[VCVoiceShortcutClient updateVoiceShortcutWithIdentifier:phrase:shortcut:completion:]";
+    v26 = 2112;
+    v27 = identifierCopy;
     _os_log_impl(&dword_1B1DE3000, v16, OS_LOG_TYPE_DEBUG, "%s Updating VoiceShortcut with id=%@", buf, 0x16u);
   }
 
-  v23[0] = MEMORY[0x1E69E9820];
-  v23[1] = 3221225472;
-  v23[2] = __86__VCVoiceShortcutClient_updateVoiceShortcutWithIdentifier_phrase_shortcut_completion___block_invoke;
-  v23[3] = &unk_1E7B02940;
-  v24 = v15;
+  v22[0] = MEMORY[0x1E69E9820];
+  v22[1] = 3221225472;
+  v22[2] = __86__VCVoiceShortcutClient_updateVoiceShortcutWithIdentifier_phrase_shortcut_completion___block_invoke;
+  v22[3] = &unk_1E7B02940;
+  v23 = v15;
   v17 = v15;
-  v18 = [(VCVoiceShortcutClient *)self asynchronousRemoteDataStoreWithErrorHandler:v23];
+  v18 = [(VCVoiceShortcutClient *)self asynchronousRemoteDataStoreWithErrorHandler:v22];
   [v18 updateVoiceShortcutWithIdentifier:identifierCopy phrase:phraseCopy shortcut:shortcutCopy completion:v17];
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (void)createVoiceShortcut:(id)shortcut phrase:(id)phrase completion:(id)completion
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   shortcutCopy = shortcut;
   phraseCopy = phrase;
   completionCopy = completion;
@@ -4514,31 +4533,29 @@ LABEL_4:
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315395;
-    v27 = "[VCVoiceShortcutClient createVoiceShortcut:phrase:completion:]";
-    v28 = 2113;
-    v29 = phraseCopy;
+    v26 = "[VCVoiceShortcutClient createVoiceShortcut:phrase:completion:]";
+    v27 = 2113;
+    v28 = phraseCopy;
     _os_log_impl(&dword_1B1DE3000, v12, OS_LOG_TYPE_DEBUG, "%s Creating VoiceShortcut for %{private}@", buf, 0x16u);
   }
 
-  v24[0] = MEMORY[0x1E69E9820];
-  v24[1] = 3221225472;
-  v24[2] = __63__VCVoiceShortcutClient_createVoiceShortcut_phrase_completion___block_invoke;
-  v24[3] = &unk_1E7B02918;
-  v25 = shortcutCopy;
-  v20[0] = MEMORY[0x1E69E9820];
-  v20[1] = 3221225472;
-  v20[2] = __63__VCVoiceShortcutClient_createVoiceShortcut_phrase_completion___block_invoke_103;
-  v20[3] = &unk_1E7B02968;
-  v20[4] = self;
-  v21 = v25;
-  v22 = phraseCopy;
-  v23 = completionCopy;
+  v23[0] = MEMORY[0x1E69E9820];
+  v23[1] = 3221225472;
+  v23[2] = __63__VCVoiceShortcutClient_createVoiceShortcut_phrase_completion___block_invoke;
+  v23[3] = &unk_1E7B02918;
+  v24 = shortcutCopy;
+  v19[0] = MEMORY[0x1E69E9820];
+  v19[1] = 3221225472;
+  v19[2] = __63__VCVoiceShortcutClient_createVoiceShortcut_phrase_completion___block_invoke_103;
+  v19[3] = &unk_1E7B02968;
+  v19[4] = self;
+  v20 = v24;
+  v21 = phraseCopy;
+  v22 = completionCopy;
   v13 = phraseCopy;
-  v14 = v25;
+  v14 = v24;
   v15 = completionCopy;
-  [v14 _injectProxiesForImages:v24 completion:v20];
-
-  v16 = *MEMORY[0x1E69E9840];
+  [v14 _injectProxiesForImages:v23 completion:v19];
 }
 
 void __63__VCVoiceShortcutClient_createVoiceShortcut_phrase_completion___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -4580,7 +4597,7 @@ void __63__VCVoiceShortcutClient_createVoiceShortcut_phrase_completion___block_i
 
 void __63__VCVoiceShortcutClient_createVoiceShortcut_phrase_completion___block_invoke_2(void *a1, void *a2, void *a3)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -4590,21 +4607,19 @@ void __63__VCVoiceShortcutClient_createVoiceShortcut_phrase_completion___block_i
     {
       v8 = a1[4];
       v9 = a1[5];
-      v11 = 136315906;
-      v12 = "[VCVoiceShortcutClient createVoiceShortcut:phrase:completion:]_block_invoke_2";
-      v13 = 2112;
-      v14 = v8;
-      v15 = 2112;
-      v16 = v9;
-      v17 = 2112;
-      v18 = v6;
-      _os_log_impl(&dword_1B1DE3000, v7, OS_LOG_TYPE_ERROR, "%s Failed to retrieve key image data from proxy %@ for shortcut %@ due to error: %@", &v11, 0x2Au);
+      v10 = 136315906;
+      v11 = "[VCVoiceShortcutClient createVoiceShortcut:phrase:completion:]_block_invoke_2";
+      v12 = 2112;
+      v13 = v8;
+      v14 = 2112;
+      v15 = v9;
+      v16 = 2112;
+      v17 = v6;
+      _os_log_impl(&dword_1B1DE3000, v7, OS_LOG_TYPE_ERROR, "%s Failed to retrieve key image data from proxy %@ for shortcut %@ due to error: %@", &v10, 0x2Au);
     }
   }
 
   (*(a1[6] + 16))();
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)requestDataMigration:(id *)migration

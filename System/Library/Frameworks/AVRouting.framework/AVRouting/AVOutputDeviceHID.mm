@@ -74,7 +74,7 @@
 
 - (void)setInputMode:(int64_t)mode
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   endpoint = self->_endpoint;
   if (endpoint)
   {
@@ -91,14 +91,15 @@
 
       UUID = self->_UUID;
       v9 = *(*(CMBaseObjectGetVTable() + 24) + 56);
-      if (v9 && !v9(endpoint, UUID, v6))
+      if (v9)
       {
-        self->_inputMode = mode;
+        if (!v9(endpoint, UUID, v6))
+        {
+          self->_inputMode = mode;
+        }
       }
     }
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 @end

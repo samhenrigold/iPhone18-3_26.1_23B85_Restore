@@ -112,7 +112,7 @@
   v155 = 0;
   v156 = 0;
   v157 = 0;
-  Geometry2D_mallocCart2D(&v155, 256);
+  Geometry2D_mallocCart2D(&v155, 0x100u);
   v27 = 0;
   v28 = v155;
   v29 = v155 + 2;

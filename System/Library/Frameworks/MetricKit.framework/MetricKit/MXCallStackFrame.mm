@@ -96,7 +96,7 @@ LABEL_6:
 
 - (id)toDictionary
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CBEB38]);
   v4 = v3;
   sampleCount = self->_sampleCount;
@@ -131,30 +131,30 @@ LABEL_6:
   }
 
   v11 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   v12 = self->_subFrames;
-  v13 = [(NSArray *)v12 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v13 = [(NSArray *)v12 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v21;
+    v15 = *v20;
     do
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v21 != v15)
+        if (*v20 != v15)
         {
           objc_enumerationMutation(v12);
         }
 
-        toDictionary = [*(*(&v20 + 1) + 8 * i) toDictionary];
+        toDictionary = [*(*(&v19 + 1) + 8 * i) toDictionary];
         [v11 addObject:toDictionary];
       }
 
-      v14 = [(NSArray *)v12 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v14 = [(NSArray *)v12 countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v14);
@@ -164,8 +164,6 @@ LABEL_6:
   {
     [v4 setObject:v11 forKey:@"subFrames"];
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return v4;
 }

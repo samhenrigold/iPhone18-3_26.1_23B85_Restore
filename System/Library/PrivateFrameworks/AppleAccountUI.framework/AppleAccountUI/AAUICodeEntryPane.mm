@@ -187,7 +187,7 @@
 {
   v1 = [MEMORY[0x1E696AD98] numberWithDouble:*(self + 552)];
   OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_7(&dword_1C5355000, v2, v3, "Starting layout with KB offset: %@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_0_7(&dword_1C5355000, v2, v3, "Starting layout with KB offset: %@", v4, v5, v6, v7);
 }
 
 - (void)_layoutSubviews
@@ -203,25 +203,25 @@
 - (CGRect)_availableHeaderRect
 {
   [(UIScrollView *)self->_containerView bounds];
-  Width = CGRectGetWidth(v12);
+  Width = CGRectGetWidth(v13);
   [(UIScrollView *)self->_containerView bounds];
-  v4 = CGRectGetHeight(v13) - self->_keyboardOffset;
-  [(AAUICodeEntryPane *)self _desiredMinPinHeight];
-  v6 = v4 - v5;
-  v7 = _AAUILogSystem();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+  v4 = CGRectGetHeight(v14) - self->_keyboardOffset;
+  _desiredMinPinHeight = [(AAUICodeEntryPane *)self _desiredMinPinHeight];
+  v7 = v4 - v6;
+  v8 = _AAUILogSystem(_desiredMinPinHeight);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     [(AAUICodeEntryPane *)Width _availableHeaderRect];
   }
 
-  v8 = 0.0;
   v9 = 0.0;
-  v10 = Width;
-  v11 = v6;
-  result.size.height = v11;
-  result.size.width = v10;
-  result.origin.y = v9;
-  result.origin.x = v8;
+  v10 = 0.0;
+  v11 = Width;
+  v12 = v7;
+  result.size.height = v12;
+  result.size.width = v11;
+  result.origin.y = v10;
+  result.origin.x = v9;
   return result;
 }
 
@@ -270,16 +270,16 @@
 - (void)_didFinishResizingHeaderView
 {
   [*(self + 568) bounds];
-  v1 = NSStringFromCGRect(v9);
+  v1 = NSStringFromCGRect(v8);
   OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_7(&dword_1C5355000, v2, v3, "Available frame for remote secret view: %@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_0_7(&dword_1C5355000, v2, v3, "Available frame for remote secret view: %@", v4, v5, v6, v7);
 }
 
 - (void)_layoutPinView
 {
   v4 = NSStringFromCGRect(*&self);
   OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_7(&dword_1C5355000, v5, v6, "Laid out pin view: %@", v7, v8, v9, v10, v11);
+  OUTLINED_FUNCTION_0_7(&dword_1C5355000, v5, v6, "Laid out pin view: %@", v7, v8, v9, v10);
 }
 
 - (void)_didFinishResizingPinView
@@ -465,13 +465,13 @@
 
 - (void)_availableHeaderRect
 {
-  v10.size.height = a2;
-  v10.size.width = self;
-  v10.origin.x = 0.0;
-  v10.origin.y = 0.0;
-  v2 = NSStringFromCGRect(v10);
+  v9.size.height = a2;
+  v9.size.width = self;
+  v9.origin.x = 0.0;
+  v9.origin.y = 0.0;
+  v2 = NSStringFromCGRect(v9);
   OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_7(&dword_1C5355000, v3, v4, "Available header rect: %@", v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_0_7(&dword_1C5355000, v3, v4, "Available header rect: %@", v5, v6, v7, v8);
 }
 
 @end

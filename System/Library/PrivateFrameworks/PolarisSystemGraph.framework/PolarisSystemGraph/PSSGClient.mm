@@ -1,5 +1,7 @@
 @interface PSSGClient
 - (BOOL)requestResourcesWithStrides:(id)strides;
+- (PSSGClient)initWithSessionName:(id)name delegate:(id)delegate options:(unsigned int)options;
+- (PSSGClient)initWithSessionName:(id)name delegate:(id)delegate options:(unsigned int)options comms:(id)comms;
 - (PSSGDelegate)delegate;
 - (id)fetchContextsForSessionNames:(id)names;
 - (id)fetchContextsForSessionsProvidingKeys:(id)keys;
@@ -60,6 +62,39 @@
 @end
 
 @implementation PSSGClient
+
+- (PSSGClient)initWithSessionName:(id)name delegate:(id)delegate options:(unsigned int)options
+{
+  v5 = *&options;
+  delegateCopy = delegate;
+  nameCopy = name;
+  v10 = objc_alloc_init(PSSGComms);
+  v11 = [(PSSGClient *)self initWithSessionName:nameCopy delegate:delegateCopy options:v5 comms:v10];
+
+  return v11;
+}
+
+- (PSSGClient)initWithSessionName:(id)name delegate:(id)delegate options:(unsigned int)options comms:(id)comms
+{
+  v7 = *&options;
+  nameCopy = name;
+  delegateCopy = delegate;
+  commsCopy = comms;
+  v16.receiver = self;
+  v16.super_class = PSSGClient;
+  v13 = [(PSSGClient *)&v16 init];
+  v14 = v13;
+  if (v13)
+  {
+    [(PSSGClient *)v13 setSessionName:nameCopy];
+    [(PSSGClient *)v14 setDelegate:delegateCopy];
+    [(PSSGClient *)v14 setComms:commsCopy];
+    [(PSSGClient *)v14 setOptions:v7];
+    [(PSSGClient *)v14 setStatus:0];
+  }
+
+  return v14;
+}
 
 - (void)publishContext:(id)context
 {
@@ -173,7 +208,7 @@
 
 - (BOOL)requestResourcesWithStrides:(id)strides
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   stridesCopy = strides;
   [(PSSGClient *)self resetInternalState];
   resourceKeysPendingProduction = [(PSSGClient *)self resourceKeysPendingProduction];
@@ -199,32 +234,32 @@
 
   if (v14)
   {
-    v34 = v14;
-    v33 = objc_alloc_init(PSSGResourceRequest);
-    v36 = objc_alloc_init(MEMORY[0x277CBEB58]);
+    v33 = v14;
+    v32 = objc_alloc_init(PSSGResourceRequest);
+    v35 = objc_alloc_init(MEMORY[0x277CBEB58]);
     v15 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v36 = 0u;
     v37 = 0u;
     v38 = 0u;
     v39 = 0u;
-    v40 = 0u;
-    v35 = stridesCopy;
+    v34 = stridesCopy;
     resourcesWantedWithStrides = [stridesCopy resourcesWantedWithStrides];
-    v17 = [resourcesWantedWithStrides countByEnumeratingWithState:&v37 objects:v41 count:16];
+    v17 = [resourcesWantedWithStrides countByEnumeratingWithState:&v36 objects:v40 count:16];
     if (v17)
     {
       v18 = v17;
-      v19 = *v38;
+      v19 = *v37;
       do
       {
         v20 = 0;
         do
         {
-          if (*v38 != v19)
+          if (*v37 != v19)
           {
             objc_enumerationMutation(resourcesWantedWithStrides);
           }
 
-          v21 = *(*(&v37 + 1) + 8 * v20);
+          v21 = *(*(&v36 + 1) + 8 * v20);
           selfCopy = self;
           resourceKeysPendingProduction4 = [(PSSGClient *)self resourceKeysPendingProduction];
           resourceKey = [v21 resourceKey];
@@ -233,7 +268,7 @@
           if ((v25 & 1) == 0)
           {
             resourceKey2 = [v21 resourceKey];
-            [v36 addObject:resourceKey2];
+            [v35 addObject:resourceKey2];
 
             [v15 addObject:v21];
           }
@@ -243,27 +278,26 @@
         }
 
         while (v18 != v20);
-        v18 = [resourcesWantedWithStrides countByEnumeratingWithState:&v37 objects:v41 count:16];
+        v18 = [resourcesWantedWithStrides countByEnumeratingWithState:&v36 objects:v40 count:16];
       }
 
       while (v18);
     }
 
-    [(PSSGResourceRequest *)v33 setResourcesNoLongerWanted:v36];
-    [(PSSGResourceRequest *)v33 setResourcesNoLongerWantedWithStrides:v15];
+    [(PSSGResourceRequest *)v32 setResourcesNoLongerWanted:v35];
+    [(PSSGResourceRequest *)v32 setResourcesNoLongerWantedWithStrides:v15];
     comms2 = [(PSSGClient *)self comms];
     sessionName2 = [(PSSGClient *)self sessionName];
-    v29 = [PSSGMessageRequestResourcesWithStrides messageWithResourceRequest:v33 sender:sessionName2];
+    v29 = [PSSGMessageRequestResourcesWithStrides messageWithResourceRequest:v32 sender:sessionName2];
     [comms2 sendMessage:v29];
 
     resourceKeysPendingProduction5 = [(PSSGClient *)self resourceKeysPendingProduction];
     [resourceKeysPendingProduction5 removeAllObjects];
 
-    v14 = v34;
-    stridesCopy = v35;
+    v14 = v33;
+    stridesCopy = v34;
   }
 
-  v31 = *MEMORY[0x277D85DE8];
   return v14 == 0;
 }
 
@@ -566,43 +600,43 @@ LABEL_5:
 
 - (void)handleResourceRequestWithStridesCompletedMessage:(id)message
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   delegate = [(PSSGClient *)self delegate];
   request = [messageCopy request];
   [delegate didReceiveResponseForResourceRequest:request];
 
   v7 = [MEMORY[0x277CBEB58] set];
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   request2 = [messageCopy request];
   resourcesWantedWithStrides = [request2 resourcesWantedWithStrides];
 
-  v10 = [resourcesWantedWithStrides countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v10 = [resourcesWantedWithStrides countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v21;
+    v12 = *v20;
     do
     {
       v13 = 0;
       do
       {
-        if (*v21 != v12)
+        if (*v20 != v12)
         {
           objc_enumerationMutation(resourcesWantedWithStrides);
         }
 
-        resourceKey = [*(*(&v20 + 1) + 8 * v13) resourceKey];
+        resourceKey = [*(*(&v19 + 1) + 8 * v13) resourceKey];
         [v7 addObject:resourceKey];
 
         ++v13;
       }
 
       while (v11 != v13);
-      v11 = [resourcesWantedWithStrides countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v11 = [resourcesWantedWithStrides countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v11);
@@ -619,8 +653,6 @@ LABEL_5:
     completionSemaphore = [(PSSGClient *)self completionSemaphore];
     dispatch_semaphore_signal(completionSemaphore);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleResourceRequestsFailedMessage:(id)message
@@ -866,36 +898,36 @@ LABEL_5:
 
 - (void)handlePublishResourceStreamsMessage:(char *)a1 .cold.1(char **a1, void *a2)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   *a1 = 0;
   v4 = [a2 sender];
   asprintf(a1, "Internal Polaris error: Received streams from %s before keys", [v4 UTF8String]);
 
-  v5 = __PSSGLogSharedInstance();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
+  v7 = __PSSGLogSharedInstance(v5, v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
   {
-    v6 = [a2 sender];
+    v8 = [a2 sender];
     *buf = 136315650;
-    v13 = "[PSSGClient handlePublishResourceStreamsMessage:]";
-    v14 = 1024;
-    v15 = 381;
-    v16 = 2080;
-    v17 = [v6 UTF8String];
-    _os_log_impl(&dword_25ECD8000, v5, OS_LOG_TYPE_FAULT, "%s:%d Internal Polaris error: Received streams from %s before keys", buf, 0x1Cu);
+    v14 = "[PSSGClient handlePublishResourceStreamsMessage:]";
+    v15 = 1024;
+    v16 = 381;
+    v17 = 2080;
+    v18 = [v8 UTF8String];
+    _os_log_impl(&dword_25ECD8000, v7, OS_LOG_TYPE_FAULT, "%s:%d Internal Polaris error: Received streams from %s before keys", buf, 0x1Cu);
   }
 
-  v7 = OSLogFlushBuffers();
-  if (v7)
+  v9 = OSLogFlushBuffers();
+  if (v9)
   {
-    v8 = v7;
-    v9 = __PSSGLogSharedInstance();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v11 = v9;
+    v12 = __PSSGLogSharedInstance(v9, v10);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v13 = "[PSSGClient handlePublishResourceStreamsMessage:]";
-      v14 = 1024;
-      v15 = v8;
-      _os_log_impl(&dword_25ECD8000, v9, OS_LOG_TYPE_ERROR, "%s() failed to flush buffers with error code: %d", buf, 0x12u);
+      v14 = "[PSSGClient handlePublishResourceStreamsMessage:]";
+      v15 = 1024;
+      v16 = v11;
+      _os_log_impl(&dword_25ECD8000, v12, OS_LOG_TYPE_ERROR, "%s() failed to flush buffers with error code: %d", buf, 0x12u);
     }
   }
 
@@ -904,9 +936,8 @@ LABEL_5:
     usleep(0x1E8480u);
   }
 
-  v10 = *a1;
-  v11 = abort_with_reason();
-  [(PSSGMessageBase *)v11 serialize];
+  abort_with_reason();
+  [PSSGMessageBase serialize];
 }
 
 @end

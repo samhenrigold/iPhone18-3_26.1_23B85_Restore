@@ -22,7 +22,7 @@
   v9 = [objectCopy waveformForOrientation:{orientationCopy, v12.receiver, v12.super_class}];
   [(CKAudioReplyPreviewBalloonView *)self setWaveform:v9];
 
-  [objectCopy duration];
+  objc_msgSend_duration(objectCopy);
   v11 = v10;
 
   [(CKAudioReplyPreviewBalloonView *)self setDuration:v11];
@@ -62,7 +62,7 @@
     [(CKWaveformProgressView *)v7->_waveformProgressView setPlayed:0];
     [(CKWaveformProgressView *)v7->_waveformProgressView setCurrentTime:0.0];
     v10 = v7->_waveformProgressView;
-    [(CKAudioReplyPreviewBalloonView *)v7 duration];
+    objc_msgSend_duration(v7);
     [(CKWaveformProgressView *)v10 setDuration:?];
     [(CKWaveformProgressView *)v7->_waveformProgressView setContentMode:1];
     [(CKAudioReplyPreviewBalloonView *)v7 addSubview:v7->_waveformProgressView];
@@ -141,7 +141,7 @@
   }
 
   v22 = +[CKUIBehavior sharedBehaviors];
-  [(CKColoredBalloonView *)self balloonDescriptor];
+  objc_msgSend_balloonDescriptor(self);
   [v22 balloonMaskSizeWithBalloonDescriptor:v41];
   v24 = v23;
 
@@ -250,7 +250,7 @@ void __46__CKAudioReplyPreviewBalloonView_setWaveform___block_invoke(uint64_t a1
 
   if (partCopy)
   {
-    [partCopy balloonDescriptor];
+    objc_msgSend_balloonDescriptor(partCopy);
   }
 
   else

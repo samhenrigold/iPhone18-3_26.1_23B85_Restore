@@ -33,43 +33,43 @@
 
   if (pendingDOB)
   {
-    v6 = objc_alloc_init(MEMORY[0x1E698DE80]);
-    v7 = objc_alloc(MEMORY[0x1E698DC88]);
+    v7 = objc_alloc_init(MEMORY[0x1E698DE80]);
+    v8 = objc_alloc(MEMORY[0x1E698DC88]);
     pendingDOB2 = [(AAUIAgeMigrationFlowPresenter *)self pendingDOB];
-    v9 = [v7 initWithPendingDOB:pendingDOB2];
+    v10 = [v8 initWithPendingDOB:pendingDOB2];
 
-    [v6 setAccountMigrationContext:v9];
+    [v7 setAccountMigrationContext:v10];
     presentingViewController = [(AAUIAgeMigrationFlowPresenter *)self presentingViewController];
-    [v6 setPresentingViewController:presentingViewController];
+    [v7 setPresentingViewController:presentingViewController];
 
-    [v6 setAuthenticationType:2];
+    [v7 setAuthenticationType:2];
     authenticationController = [(AAUIAgeMigrationFlowPresenter *)self authenticationController];
-    v13[0] = MEMORY[0x1E69E9820];
-    v13[1] = 3221225472;
-    v13[2] = __71__AAUIAgeMigrationFlowPresenter_presentAgeMigrationFlowWithCompletion___block_invoke;
-    v13[3] = &unk_1E820D630;
-    v14 = completionCopy;
-    [authenticationController authenticateWithContext:v6 completion:v13];
+    v14[0] = MEMORY[0x1E69E9820];
+    v14[1] = 3221225472;
+    v14[2] = __71__AAUIAgeMigrationFlowPresenter_presentAgeMigrationFlowWithCompletion___block_invoke;
+    v14[3] = &unk_1E820D630;
+    v15 = completionCopy;
+    [authenticationController authenticateWithContext:v7 completion:v14];
   }
 
   else
   {
-    v12 = _AAUILogSystem();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v13 = _AAUILogSystem(v6);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      [AAUIAgeMigrationFlowPresenter presentAgeMigrationFlowWithCompletion:v12];
+      [AAUIAgeMigrationFlowPresenter presentAgeMigrationFlowWithCompletion:v13];
     }
 
-    v6 = [MEMORY[0x1E696ABC0] errorWithDomain:@"AAUIAgeMigrationErrors" code:-11002 userInfo:0];
+    v7 = [MEMORY[0x1E696ABC0] errorWithDomain:@"AAUIAgeMigrationErrors" code:-11002 userInfo:0];
     [(AAUIAgeMigrationFlowPresenter *)self _dismissAgeMigrationCFU];
-    (*(completionCopy + 2))(completionCopy, v6);
+    (*(completionCopy + 2))(completionCopy, v7);
   }
 }
 
 void __71__AAUIAgeMigrationFlowPresenter_presentAgeMigrationFlowWithCompletion___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
   v4 = a3;
-  v5 = _AAUILogSystem();
+  v5 = _AAUILogSystem(v4);
   v6 = v5;
   if (v4)
   {
@@ -104,7 +104,7 @@ void __71__AAUIAgeMigrationFlowPresenter_presentAgeMigrationFlowWithCompletion__
 void __56__AAUIAgeMigrationFlowPresenter__dismissAgeMigrationCFU__block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
   v3 = a3;
-  v4 = _AAUILogSystem();
+  v4 = _AAUILogSystem(v3);
   v5 = v4;
   if (v3)
   {

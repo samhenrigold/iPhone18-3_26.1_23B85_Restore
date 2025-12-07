@@ -28,7 +28,7 @@
 
 - (id)npto_fetchSyncedAlbum
 {
-  v27[1] = *MEMORY[0x277D85DE8];
+  v26[1] = *MEMORY[0x277D85DE8];
   v3 = [(NPTOPreferencesAccessor *)self objectForKey:@"SyncAlbum"];
   if ([v3 isEqualToString:@"none"])
   {
@@ -40,8 +40,8 @@ LABEL_2:
   if (v3)
   {
     v5 = MEMORY[0x277CD97B8];
-    v27[0] = v3;
-    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:1];
+    v26[0] = v3;
+    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:1];
     _npto_defaultAlbum = [v5 fetchAssetCollectionsWithLocalIdentifiers:v6 options:0];
 
     device = [(NPTOPreferencesAccessor *)self device];
@@ -50,33 +50,33 @@ LABEL_2:
 
     if (bOOLValue)
     {
-      v22 = 0u;
-      v23 = 0u;
-      v20 = 0u;
       v21 = 0u;
+      v22 = 0u;
+      v19 = 0u;
+      v20 = 0u;
       v10 = _npto_defaultAlbum;
-      v11 = [v10 countByEnumeratingWithState:&v20 objects:v26 count:16];
+      v11 = [v10 countByEnumeratingWithState:&v19 objects:v25 count:16];
       if (v11)
       {
         v12 = v11;
-        v13 = *v21;
+        v13 = *v20;
         while (2)
         {
           for (i = 0; i != v12; ++i)
           {
-            if (*v21 != v13)
+            if (*v20 != v13)
             {
               objc_enumerationMutation(v10);
             }
 
-            v15 = *(*(&v20 + 1) + 8 * i);
+            v15 = *(*(&v19 + 1) + 8 * i);
             if ([v15 assetCollectionType] == 1 && objc_msgSend(v15, "assetCollectionSubtype") == 101)
             {
               v16 = nanophotos_log_NanoPhotosCore();
               if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 138412290;
-                v25 = v15;
+                v24 = v15;
                 _os_log_impl(&dword_25B657000, v16, OS_LOG_TYPE_DEFAULT, "Synced album is cloud shared: %@", buf, 0xCu);
               }
 
@@ -85,7 +85,7 @@ LABEL_2:
             }
           }
 
-          v12 = [v10 countByEnumeratingWithState:&v20 objects:v26 count:16];
+          v12 = [v10 countByEnumeratingWithState:&v19 objects:v25 count:16];
           if (v12)
           {
             continue;
@@ -110,7 +110,7 @@ LABEL_2:
       if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v25 = v3;
+        v24 = v3;
         _os_log_impl(&dword_25B657000, v17, OS_LOG_TYPE_DEFAULT, "Synced album is missing: %@", buf, 0xCu);
       }
 
@@ -120,8 +120,6 @@ LABEL_2:
 
   _npto_defaultAlbum = [(NPTOPreferencesAccessor *)self _npto_defaultAlbum];
 LABEL_25:
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return _npto_defaultAlbum;
 }
@@ -166,7 +164,7 @@ LABEL_25:
 
 - (id)npto_syncedAlbumIdentifier
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = [(NPTOPreferencesAccessor *)self objectForKey:@"SyncAlbum"];
   if (!v3)
   {
@@ -186,15 +184,13 @@ LABEL_25:
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       device = [(NPTOPreferencesAccessor *)self device];
-      v13 = 138412546;
-      v14 = device;
-      v15 = 2112;
-      v16 = _npto_defaultAlbum;
-      _os_log_impl(&dword_25B657000, v9, OS_LOG_TYPE_DEFAULT, "No album identifier found for device: %@. Defaulting to %@.", &v13, 0x16u);
+      v12 = 138412546;
+      v13 = device;
+      v14 = 2112;
+      v15 = _npto_defaultAlbum;
+      _os_log_impl(&dword_25B657000, v9, OS_LOG_TYPE_DEFAULT, "No album identifier found for device: %@. Defaulting to %@.", &v12, 0x16u);
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
@@ -424,92 +420,89 @@ void __88__NPTOPreferencesAccessor_WatchFaces__npto_setAlwaysUpdatingEnabled_for
 
 - (id)npto_fetchCountsForAllCollections
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v2 = [(NPTOPreferencesAccessor *)self objectForKey:@"WatchFaceAlbumFetchCounts"];
   dictionary = [MEMORY[0x277CBEB38] dictionary];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v4 = v2;
-  v5 = [v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v16;
+    v7 = *v15;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v16 != v7)
+        if (*v15 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v15 + 1) + 8 * i);
-        v10 = [v4 objectForKeyedSubscript:{v9, v15}];
+        v9 = *(*(&v14 + 1) + 8 * i);
+        v10 = [v4 objectForKeyedSubscript:{v9, v14}];
         v11 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDString:v9];
         [dictionary setObject:v10 forKey:v11];
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v6);
   }
 
   v12 = [dictionary copy];
-  v13 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
 
 - (void)npto_setFetchCountsForAllCollections:(id)collections
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   collectionsCopy = collections;
   dictionary = [MEMORY[0x277CBEB38] dictionary];
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   v6 = collectionsCopy;
-  v7 = [v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v19;
+    v9 = *v18;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v19 != v9)
+        if (*v18 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v18 + 1) + 8 * i);
+        v11 = *(*(&v17 + 1) + 8 * i);
         v12 = [v6 objectForKeyedSubscript:v11];
         uUIDString = [v11 UUIDString];
         [dictionary setObject:v12 forKey:uUIDString];
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v8);
   }
 
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = __76__NPTOPreferencesAccessor_WatchFaces__npto_setFetchCountsForAllCollections___block_invoke;
-  v16[3] = &unk_27995B850;
-  v16[4] = self;
-  v17 = dictionary;
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __76__NPTOPreferencesAccessor_WatchFaces__npto_setFetchCountsForAllCollections___block_invoke;
+  v15[3] = &unk_27995B850;
+  v15[4] = self;
+  v16 = dictionary;
   v14 = dictionary;
-  [(NPTOPreferencesAccessor *)self performBatchUpdates:v16 synchronizeToRemoteDevice:1];
-
-  v15 = *MEMORY[0x277D85DE8];
+  [(NPTOPreferencesAccessor *)self performBatchUpdates:v15 synchronizeToRemoteDevice:1];
 }
 
 void __76__NPTOPreferencesAccessor_WatchFaces__npto_setFetchCountsForAllCollections___block_invoke(uint64_t a1)
@@ -521,94 +514,91 @@ void __76__NPTOPreferencesAccessor_WatchFaces__npto_setFetchCountsForAllCollecti
 
 - (id)npto_alwaysUpdatingEnabledForAllCollections
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v2 = [(NPTOPreferencesAccessor *)self objectForKey:@"WatchFaceAlwaysUpdatingAlbums"];
   v3 = objc_opt_new();
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v4 = v2;
-  v5 = [v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v16;
+    v7 = *v15;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v16 != v7)
+        if (*v15 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v15 + 1) + 8 * i);
+        v9 = *(*(&v14 + 1) + 8 * i);
         v10 = objc_alloc(MEMORY[0x277CCAD78]);
-        v11 = [v10 initWithUUIDString:{v9, v15}];
+        v11 = [v10 initWithUUIDString:{v9, v14}];
         [v3 addObject:v11];
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v6);
   }
 
   v12 = [v3 copy];
-  v13 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
 
 - (void)npto_setAlwaysUpdatingEnabledForAllCollections:(id)collections
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   collectionsCopy = collections;
   array = [MEMORY[0x277CBEB18] array];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v6 = collectionsCopy;
-  v7 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v17;
+    v9 = *v16;
     do
     {
       v10 = 0;
       do
       {
-        if (*v17 != v9)
+        if (*v16 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        uUIDString = [*(*(&v16 + 1) + 8 * v10) UUIDString];
+        uUIDString = [*(*(&v15 + 1) + 8 * v10) UUIDString];
         [array addObject:uUIDString];
 
         ++v10;
       }
 
       while (v8 != v10);
-      v8 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v8);
   }
 
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __86__NPTOPreferencesAccessor_WatchFaces__npto_setAlwaysUpdatingEnabledForAllCollections___block_invoke;
-  v14[3] = &unk_27995B850;
-  v14[4] = self;
-  v15 = array;
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __86__NPTOPreferencesAccessor_WatchFaces__npto_setAlwaysUpdatingEnabledForAllCollections___block_invoke;
+  v13[3] = &unk_27995B850;
+  v13[4] = self;
+  v14 = array;
   v12 = array;
-  [(NPTOPreferencesAccessor *)self performBatchUpdates:v14 synchronizeToRemoteDevice:1];
-
-  v13 = *MEMORY[0x277D85DE8];
+  [(NPTOPreferencesAccessor *)self performBatchUpdates:v13 synchronizeToRemoteDevice:1];
 }
 
 void __86__NPTOPreferencesAccessor_WatchFaces__npto_setAlwaysUpdatingEnabledForAllCollections___block_invoke(uint64_t a1)
@@ -703,7 +693,7 @@ void __86__NPTOPreferencesAccessor_WatchFaces__npto_setAlwaysUpdatingEnabledForA
 - (void)performBatchUpdates:(id)updates synchronizeToRemoteDevice:(BOOL)device
 {
   deviceCopy = device;
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   updatesCopy = updates;
   batchUpdatesKeyStack = self->_batchUpdatesKeyStack;
   if (!batchUpdatesKeyStack)
@@ -722,22 +712,22 @@ void __86__NPTOPreferencesAccessor_WatchFaces__npto_setAlwaysUpdatingEnabledForA
   lastObject = [(NSMutableArray *)self->_batchUpdatesKeyStack lastObject];
   [(NSMutableArray *)self->_batchUpdatesKeyStack removeLastObject];
   synchronize = [(NPSDomainAccessor *)self->_domainAccessor synchronize];
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
   v13 = lastObject;
-  v14 = [v13 countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v14 = [v13 countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v24;
+    v16 = *v23;
     do
     {
       v17 = 0;
       do
       {
-        if (*v24 != v16)
+        if (*v23 != v16)
         {
           objc_enumerationMutation(v13);
         }
@@ -750,7 +740,7 @@ void __86__NPTOPreferencesAccessor_WatchFaces__npto_setAlwaysUpdatingEnabledForA
       }
 
       while (v15 != v17);
-      v15 = [v13 countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v15 = [v13 countByEnumeratingWithState:&v22 objects:v26 count:16];
     }
 
     while (v15);
@@ -762,8 +752,6 @@ void __86__NPTOPreferencesAccessor_WatchFaces__npto_setAlwaysUpdatingEnabledForA
     v21 = [v13 set];
     [v20 synchronizeNanoDomain:@"com.apple.nanophotos" keys:v21];
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (id)changeObserverForKey:(id)key queue:(id)queue block:(id)block

@@ -238,7 +238,7 @@ LABEL_15:
           path = [v16 path];
           if (v16)
           {
-            [v16 transform];
+            objc_msgSend_transform(v16);
           }
 
           else

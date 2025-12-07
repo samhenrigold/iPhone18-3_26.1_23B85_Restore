@@ -141,7 +141,7 @@ void __116__NSDateIntervalFormatter_PhotosUICore__px_attributedStringFromDateInt
   [v2 replaceOccurrencesOfString:v3 withString:@" " options:0 range:{0, objc_msgSend(v2, "length")}];
 }
 
-uint64_t __116__NSDateIntervalFormatter_PhotosUICore__px_attributedStringFromDateInterval_defaultAttributes_emphasizedAttributes___block_invoke_4(uint64_t a1, uint64_t a2, int a3)
+uint64_t __116__NSDateIntervalFormatter_PhotosUICore__px_attributedStringFromDateInterval_defaultAttributes_emphasizedAttributes___block_invoke_4(uint64_t a1, unint64_t a2, int a3)
 {
   v32 = *MEMORY[0x1E69E9840];
   if (a3)
@@ -357,7 +357,7 @@ uint64_t __116__NSDateIntervalFormatter_PhotosUICore__px_attributedStringFromDat
   return result;
 }
 
-uint64_t __116__NSDateIntervalFormatter_PhotosUICore__px_attributedStringFromDateInterval_defaultAttributes_emphasizedAttributes___block_invoke_7(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+void *__116__NSDateIntervalFormatter_PhotosUICore__px_attributedStringFromDateInterval_defaultAttributes_emphasizedAttributes___block_invoke_7(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   result = [*(a1 + 32) containsObject:a2];
   if (result)

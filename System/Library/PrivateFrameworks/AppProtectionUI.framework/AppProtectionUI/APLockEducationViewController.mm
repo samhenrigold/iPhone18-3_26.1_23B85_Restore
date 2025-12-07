@@ -13,15 +13,15 @@
 
 - (id)initForApplication:(id)application
 {
-  v67[1] = *MEMORY[0x1E69E9840];
+  v66[1] = *MEMORY[0x1E69E9840];
   applicationCopy = application;
-  v66.receiver = self;
-  v66.super_class = APLockEducationViewController;
-  v6 = [(APLockEducationViewController *)&v66 initWithNibName:0 bundle:0];
+  v65.receiver = self;
+  v65.super_class = APLockEducationViewController;
+  v6 = [(APLockEducationViewController *)&v65 initWithNibName:0 bundle:0];
   v7 = v6;
   if (v6)
   {
-    v65 = applicationCopy;
+    v64 = applicationCopy;
     objc_storeStrong(&v6->_app, application);
     v8 = [[APWrappingView alloc] initWithFrame:0.0, 0.0, 50.0, 50.0];
     containerView = v7->_containerView;
@@ -51,7 +51,7 @@
     v19 = v7;
     v20 = [(APApplication *)app findApplicationRecordWithError:0];
     localizedName = [v20 localizedName];
-    v64 = v20;
+    v63 = v20;
     bundleIdentifier = [v20 bundleIdentifier];
     v23 = [bundleIdentifier isEqualToString:@"com.apple.Passbook"];
 
@@ -116,28 +116,27 @@
     welcomeController = v19->_welcomeController;
     v19->_welcomeController = v33;
 
-    v67[0] = v19->_welcomeController;
-    v58 = [MEMORY[0x1E695DEC8] arrayWithObjects:v67 count:1];
+    v66[0] = v19->_welcomeController;
+    v58 = [MEMORY[0x1E695DEC8] arrayWithObjects:v66 count:1];
     [(OBNavigationController *)v7->_navController setViewControllers:v58];
 
     [(APLockEducationViewController *)v19 createTCCAccessDisclosureController];
     currentDevice = [MEMORY[0x1E69DC938] currentDevice];
     userInterfaceIdiom = [currentDevice userInterfaceIdiom];
 
-    applicationCopy = v65;
+    applicationCopy = v64;
     if (!userInterfaceIdiom)
     {
       [(APLockEducationViewController *)v19 setModalPresentationStyle:5];
     }
   }
 
-  v61 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
 - (void)phase1ViewCancelButtonPressed:(id)pressed
 {
-  v4 = APUIDefaultFrameworkLog();
+  v4 = APUIDefaultFrameworkLog(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v6 = 0;
@@ -151,7 +150,7 @@
 - (void)phase1ViewContinueButtonPressed:(id)pressed
 {
   pressedCopy = pressed;
-  v5 = APUIDefaultFrameworkLog();
+  v5 = APUIDefaultFrameworkLog(pressedCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -229,7 +228,7 @@ uint64_t __65__APLockEducationViewController_phase1ViewContinueButtonPressed___b
 
   else
   {
-    v4 = APUIDefaultFrameworkLog();
+    v4 = APUIDefaultFrameworkLog(self);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *v6 = 0;
@@ -243,7 +242,7 @@ uint64_t __65__APLockEducationViewController_phase1ViewContinueButtonPressed___b
 
 - (void)phase3ViewContinueButtonPressed:(id)pressed
 {
-  v4 = APUIDefaultFrameworkLog();
+  v4 = APUIDefaultFrameworkLog(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v6 = 0;
@@ -256,7 +255,7 @@ uint64_t __65__APLockEducationViewController_phase1ViewContinueButtonPressed___b
 
 - (void)phase3ViewCancelButtonPressed:(id)pressed
 {
-  v4 = APUIDefaultFrameworkLog();
+  v4 = APUIDefaultFrameworkLog(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v6 = 0;

@@ -825,9 +825,11 @@ LABEL_11:
 
   if (!self->_emDashCharacterSet)
   {
-    self->_emDashCharacterSet = [MEMORY[0x1E696AB08] characterSetWithCharactersInString:@"—"];
+    v9 = [MEMORY[0x1E696AB08] characterSetWithCharactersInString:@"—"];
+    emDashCharacterSet = self->_emDashCharacterSet;
+    self->_emDashCharacterSet = v9;
 
-    MEMORY[0x1EEE66BB8]();
+    MEMORY[0x1EEE66BB8](v9, emDashCharacterSet);
   }
 }
 
@@ -893,9 +895,11 @@ LABEL_11:
 
   if (!self->_bookTitleMarkCharacterSet)
   {
-    self->_bookTitleMarkCharacterSet = [MEMORY[0x1E696AB08] characterSetWithCharactersInString:@"《》〈〉"];
+    v21 = [MEMORY[0x1E696AB08] characterSetWithCharactersInString:@"《》〈〉"];
+    bookTitleMarkCharacterSet = self->_bookTitleMarkCharacterSet;
+    self->_bookTitleMarkCharacterSet = v21;
 
-    MEMORY[0x1EEE66BB8]();
+    MEMORY[0x1EEE66BB8](v21, bookTitleMarkCharacterSet);
   }
 }
 

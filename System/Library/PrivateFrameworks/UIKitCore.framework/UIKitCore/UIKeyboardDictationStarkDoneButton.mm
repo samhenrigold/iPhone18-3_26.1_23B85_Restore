@@ -26,7 +26,7 @@
   [(UIView *)self bounds:rect.origin.x];
   v7 = CGRectInset(v6, 4.0, 4.0);
   v4 = [UIBezierPath bezierPathWithRoundedRect:-1 byRoundingCorners:v7.origin.x cornerRadii:v7.origin.y, v7.size.width, v7.size.height, v7.size.height * 0.5, v7.size.height * 0.5];
-  v3 = +[UIColor blackColor];
+  v3 = objc_msgSend_blackColor(UIColor);
   [v3 set];
 
   [v4 fill];

@@ -50,8 +50,8 @@ WTF::StringImpl *WTF::VectorDestructor<true,std::tuple<Inspector::BackendDispatc
     v3 = result;
     do
     {
-      result = v3[1];
-      v3[1] = 0;
+      result = *(v3 + 1);
+      *(v3 + 1) = 0;
       if (result)
       {
         if (atomic_fetch_add_explicit(result, 0xFFFFFFFE, memory_order_relaxed) == 2)
@@ -60,7 +60,7 @@ WTF::StringImpl *WTF::VectorDestructor<true,std::tuple<Inspector::BackendDispatc
         }
       }
 
-      v3 += 2;
+      v3 = (v3 + 16);
     }
 
     while (v3 != a2);
@@ -100,7 +100,7 @@ uint64_t WTF::HashTable<WTF::String,WTF::KeyValuePair<WTF::String,Inspector::Sup
   return WTF::fastFree((a1 - 2), a2);
 }
 
-uint64_t *WTF::HashMap<WTF::String,WTF::Ref<WTF::JSONImpl::Value,WTF::RawPtrTraits<WTF::JSONImpl::Value>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::Value>>,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WTF::Ref<WTF::JSONImpl::Value,WTF::RawPtrTraits<WTF::JSONImpl::Value>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::Value>>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)0,WTF::FastMalloc>::inlineSet<WTF::String const&,WTF::Ref<WTF::JSONImpl::Value,WTF::RawPtrTraits<WTF::JSONImpl::Value>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::Value>>>@<X0>(uint64_t *a1@<X0>, WTF::StringImpl **a2@<X1>, uint64_t *a3@<X2>, uint64_t a4@<X8>)
+WTF **WTF::HashMap<WTF::String,WTF::Ref<WTF::JSONImpl::Value,WTF::RawPtrTraits<WTF::JSONImpl::Value>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::Value>>,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WTF::Ref<WTF::JSONImpl::Value,WTF::RawPtrTraits<WTF::JSONImpl::Value>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::Value>>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)0,WTF::FastMalloc>::inlineSet<WTF::String const&,WTF::Ref<WTF::JSONImpl::Value,WTF::RawPtrTraits<WTF::JSONImpl::Value>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::Value>>>@<X0>(uint64_t *a1@<X0>, WTF::StringImpl **a2@<X1>, const WTF::StringImpl *a3@<X2>, uint64_t a4@<X8>)
 {
   v25 = a3;
   v8 = *a1;
@@ -242,7 +242,7 @@ uint64_t WTF::HashTable<WTF::String,WTF::KeyValuePair<WTF::String,WTF::Ref<WTF::
   v3 = *a1;
   if (*a1 && (v4 = *(v3 - 4)) != 0)
   {
-    v5 = v4 << (6 * *(v3 - 12) >= (2 * v4));
+    v5 = (v4 << (6 * *(v3 - 12) >= (2 * v4)));
   }
 
   else
@@ -277,8 +277,9 @@ _DWORD *WTF::HashMapTranslator<WTF::HashMap<WTF::String,WTF::Ref<WTF::JSONImpl::
   return result;
 }
 
-uint64_t WTF::HashTable<WTF::String,WTF::KeyValuePair<WTF::String,WTF::Ref<WTF::JSONImpl::Value,WTF::RawPtrTraits<WTF::JSONImpl::Value>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::Value>>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WTF::String,WTF::Ref<WTF::JSONImpl::Value,WTF::RawPtrTraits<WTF::JSONImpl::Value>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::Value>>>>,WTF::DefaultHash<WTF::String>,WTF::HashMap<WTF::String,WTF::Ref<WTF::JSONImpl::Value,WTF::RawPtrTraits<WTF::JSONImpl::Value>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::Value>>,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WTF::Ref<WTF::JSONImpl::Value,WTF::RawPtrTraits<WTF::JSONImpl::Value>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::Value>>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)0,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WTF::String>,WTF::FastMalloc>::rehash(uint64_t *a1, unsigned int a2, uint64_t a3)
+uint64_t WTF::HashTable<WTF::String,WTF::KeyValuePair<WTF::String,WTF::Ref<WTF::JSONImpl::Value,WTF::RawPtrTraits<WTF::JSONImpl::Value>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::Value>>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WTF::String,WTF::Ref<WTF::JSONImpl::Value,WTF::RawPtrTraits<WTF::JSONImpl::Value>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::Value>>>>,WTF::DefaultHash<WTF::String>,WTF::HashMap<WTF::String,WTF::Ref<WTF::JSONImpl::Value,WTF::RawPtrTraits<WTF::JSONImpl::Value>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::Value>>,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WTF::Ref<WTF::JSONImpl::Value,WTF::RawPtrTraits<WTF::JSONImpl::Value>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::Value>>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)0,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WTF::String>,WTF::FastMalloc>::rehash(uint64_t *a1, unint64_t a2, uint64_t a3)
 {
+  v4 = a2;
   v6 = *a1;
   if (*a1)
   {
@@ -294,8 +295,8 @@ uint64_t WTF::HashTable<WTF::String,WTF::KeyValuePair<WTF::String,WTF::Ref<WTF::
 
   v9 = WTF::fastZeroedMalloc((16 * a2 + 16));
   *a1 = (v9 + 4);
-  v9[2] = a2 - 1;
-  v9[3] = a2;
+  v9[2] = v4 - 1;
+  v9[3] = v4;
   *v9 = 0;
   v9[1] = v8;
   v11 = 0;
@@ -490,110 +491,110 @@ uint64_t mpark::detail::move_constructor<mpark::detail::traits<BOOL,WTF::String>
   return a1;
 }
 
-void WTF::HashTable<WTF::String,WTF::KeyValuePair<WTF::String,void (Inspector::AutomationBackendDispatcher::*)(long,WTF::RefPtr<WTF::JSONImpl::Object,WTF::RawPtrTraits<WTF::JSONImpl::Object>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::Object>> &&)>,WTF::KeyValuePairKeyExtractor<void (Inspector::AutomationBackendDispatcher::*)(long,WTF::RefPtr<WTF::JSONImpl::Object,WTF::RawPtrTraits<WTF::JSONImpl::Object>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::Object>> &&)>,WTF::DefaultHash<WTF::String>,WTF::HashMap<WTF::String,void ()(long,WTF::RefPtr<WTF::JSONImpl::Object,WTF::RawPtrTraits<WTF::JSONImpl::Object>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::Object>> &&),WTF::DefaultHash,WTF::HashTraits<WTF::String>,WTF::HashMap<void ()(long,WTF::RefPtr<WTF::JSONImpl::Object,WTF::RawPtrTraits<WTF::JSONImpl::Object>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::Object>> &&)>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits,WTF::ShouldValidateKey>::expand(uint64_t *a1)
+void WTF::HashTable<WTF::String,WTF::KeyValuePair<WTF::String,void (Inspector::AutomationBackendDispatcher::*)(long,WTF::RefPtr<WTF::JSONImpl::Object,WTF::RawPtrTraits<WTF::JSONImpl::Object>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::Object>> &&)>,WTF::KeyValuePairKeyExtractor<void (Inspector::AutomationBackendDispatcher::*)(long,WTF::RefPtr<WTF::JSONImpl::Object,WTF::RawPtrTraits<WTF::JSONImpl::Object>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::Object>> &&)>,WTF::DefaultHash<WTF::String>,WTF::HashMap<WTF::String,void ()(long,WTF::RefPtr<WTF::JSONImpl::Object,WTF::RawPtrTraits<WTF::JSONImpl::Object>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::Object>> &&),WTF::DefaultHash,WTF::HashTraits<WTF::String>,WTF::HashMap<void ()(long,WTF::RefPtr<WTF::JSONImpl::Object,WTF::RawPtrTraits<WTF::JSONImpl::Object>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::Object>> &&)>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits,WTF::ShouldValidateKey>::expand(uint64_t **a1, unint64_t a2)
 {
-  v2 = *a1;
+  v3 = *a1;
   if (*a1)
   {
-    v3 = *(v2 - 4);
-    v4 = *(v2 - 12);
-    if (v3)
+    v4 = *(v3 - 4);
+    v5 = *(v3 - 12);
+    if (v4)
     {
-      v5 = v3 << (6 * v4 >= (2 * v3));
+      v6 = v4 << (6 * v5 >= (2 * v4));
       goto LABEL_6;
     }
   }
 
   else
   {
-    v3 = 0;
     v4 = 0;
+    v5 = 0;
   }
 
-  v5 = 8;
+  v6 = 8;
 LABEL_6:
-  v6 = WTF::fastMalloc((24 * v5 + 16));
-  v8 = v6;
-  v9 = v6 + 16;
-  if (v5)
+  v7 = WTF::fastMalloc(0x18, (24 * v6 + 16));
+  v9 = v7;
+  v10 = v7 + 2;
+  if (v6)
   {
-    bzero((v6 + 16), 24 * v5);
+    bzero(v7 + 2, 24 * v6);
   }
 
-  *a1 = v9;
-  v8[2] = v5 - 1;
-  v8[3] = v5;
-  *v8 = 0;
-  v8[1] = v4;
-  if (v3)
+  *a1 = v10;
+  *(v9 + 2) = v6 - 1;
+  *(v9 + 3) = v6;
+  *v9 = 0;
+  *(v9 + 1) = v5;
+  if (v4)
   {
-    for (i = 0; i != v3; ++i)
+    for (i = 0; i != v4; ++i)
     {
-      v11 = v2 + 24 * i;
-      v12 = *v11;
-      if (*v11 != -1)
+      v12 = v3 + 24 * i;
+      v13 = *v12;
+      if (*v12 != -1)
       {
-        if (v12)
+        if (v13)
         {
-          v13 = *a1;
+          v14 = *a1;
           if (*a1)
           {
-            v14 = *(v13 - 8);
+            v15 = *(v14 - 8);
           }
 
           else
           {
-            v14 = 0;
+            v15 = 0;
           }
 
-          v15 = *(v12 + 4);
-          if (v15 < 0x100)
+          v16 = *(v13 + 4);
+          if (v16 < 0x100)
           {
-            v16 = WTF::StringImpl::hashSlowCase(v12);
+            v17 = WTF::StringImpl::hashSlowCase(v13);
           }
 
           else
           {
-            v16 = v15 >> 8;
+            v17 = v16 >> 8;
           }
 
-          v17 = 0;
+          v18 = 0;
           do
           {
-            v18 = v13 + 24 * (v16 & v14);
-            v16 = ++v17 + (v16 & v14);
+            v19 = v14 + 24 * (v17 & v15);
+            v17 = ++v18 + (v17 & v15);
           }
 
-          while (*v18);
-          v19 = *v11;
-          *v11 = 0;
-          *v18 = v19;
-          *(v18 + 8) = *(v11 + 8);
-          v20 = *v11;
-          *v11 = 0;
-          if (v20 && atomic_fetch_add_explicit(v20, 0xFFFFFFFE, memory_order_relaxed) == 2)
+          while (*v19);
+          v20 = *v12;
+          *v12 = 0;
+          *v19 = v20;
+          *(v19 + 8) = *(v12 + 8);
+          v21 = *v12;
+          *v12 = 0;
+          if (v21 && atomic_fetch_add_explicit(v21, 0xFFFFFFFE, memory_order_relaxed) == 2)
           {
-            WTF::StringImpl::destroy(v20, v7);
+            WTF::StringImpl::destroy(v21, v8);
           }
         }
 
         else
         {
-          *v11 = 0;
+          *v12 = 0;
         }
       }
     }
   }
 
-  else if (!v2)
+  else if (!v3)
   {
     return;
   }
 
-  WTF::fastFree((v2 - 16), v7);
+  WTF::fastFree((v3 - 16), v8);
 }
 
-uint64_t *WTF::stringTypeAdapterAccumulator<char16_t,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<WTF::String,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>>(uint64_t *result, unint64_t a2, int8x16_t *a3, unint64_t a4, uint64_t a5, int8x16_t *a6, unint64_t a7)
+uint64_t *WTF::stringTypeAdapterAccumulator<char16_t,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<WTF::String,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>>(uint64_t *result, unint64_t a2, int8x16_t *a3, unint64_t a4, unint64_t a5, int8x16_t *a6, unint64_t a7)
 {
   if (a4 < 0x40)
   {
@@ -621,11 +622,11 @@ uint64_t *WTF::stringTypeAdapterAccumulator<char16_t,WTF::StringTypeAdapter<WTF:
       v15 += 32;
       v38.val[1] = 0uLL;
       vst2q_s8(v15, v38);
-      v16 = v11 + 64;
+      v16 = (v11 + 8);
       vst2q_s8(v16, v36);
-      v17 = v11 + 96;
+      v17 = (v11 + 12);
       vst2q_s8(v17, *(&v10 - 1));
-      v11 += 128;
+      v11 += 16;
     }
 
     while (v11 != v9);
@@ -734,27 +735,27 @@ WTF::StringImpl *WTF::Detail::CallableWrapper<Inspector::AutomationBackendDispat
     v7 = v18;
     WTF::StringImpl::createWithoutCopyingNonEmpty();
     v16 = v4;
-    WTF::HashMap<WTF::String,WTF::Ref<WTF::JSONImpl::Value,WTF::RawPtrTraits<WTF::JSONImpl::Value>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::Value>>,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WTF::Ref<WTF::JSONImpl::Value,WTF::RawPtrTraits<WTF::JSONImpl::Value>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::Value>>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)0,WTF::FastMalloc>::inlineSet<WTF::String const&,WTF::Ref<WTF::JSONImpl::Value,WTF::RawPtrTraits<WTF::JSONImpl::Value>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::Value>>>((v7 + 16), &v17, &v16, v19);
+    WTF::HashMap<WTF::String,WTF::Ref<WTF::JSONImpl::Value,WTF::RawPtrTraits<WTF::JSONImpl::Value>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::Value>>,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WTF::Ref<WTF::JSONImpl::Value,WTF::RawPtrTraits<WTF::JSONImpl::Value>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::Value>>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)0,WTF::FastMalloc>::inlineSet<WTF::String const&,WTF::Ref<WTF::JSONImpl::Value,WTF::RawPtrTraits<WTF::JSONImpl::Value>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::Value>>>(v7 + 2, &v17, &v16, v19);
     if (v19[16] == 1)
     {
-      v9 = *(v7 + 36);
-      if (v9 == *(v7 + 32))
+      v9 = *(v7 + 9);
+      if (v9 == *(v7 + 8))
       {
         WTF::Vector<WTF::String,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::appendSlowCase<(WTF::FailureAction)0,WTF::String const&>(v7 + 24, &v17);
       }
 
       else
       {
-        v10 = *(v7 + 24);
+        v10 = *(v7 + 3);
         v11 = v17;
         if (v17)
         {
           atomic_fetch_add_explicit(v17, 2u, memory_order_relaxed);
         }
 
-        v12 = *(v7 + 36);
+        v12 = *(v7 + 9);
         *(v10 + 8 * v9) = v11;
-        *(v7 + 36) = v12 + 1;
+        *(v7 + 9) = v12 + 1;
       }
     }
 
@@ -873,27 +874,27 @@ WTF::StringImpl *WTF::Detail::CallableWrapper<Inspector::AutomationBackendDispat
     v7 = v18;
     WTF::StringImpl::createWithoutCopyingNonEmpty();
     v16 = v4;
-    WTF::HashMap<WTF::String,WTF::Ref<WTF::JSONImpl::Value,WTF::RawPtrTraits<WTF::JSONImpl::Value>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::Value>>,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WTF::Ref<WTF::JSONImpl::Value,WTF::RawPtrTraits<WTF::JSONImpl::Value>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::Value>>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)0,WTF::FastMalloc>::inlineSet<WTF::String const&,WTF::Ref<WTF::JSONImpl::Value,WTF::RawPtrTraits<WTF::JSONImpl::Value>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::Value>>>((v7 + 16), &v17, &v16, v19);
+    WTF::HashMap<WTF::String,WTF::Ref<WTF::JSONImpl::Value,WTF::RawPtrTraits<WTF::JSONImpl::Value>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::Value>>,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WTF::Ref<WTF::JSONImpl::Value,WTF::RawPtrTraits<WTF::JSONImpl::Value>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::Value>>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)0,WTF::FastMalloc>::inlineSet<WTF::String const&,WTF::Ref<WTF::JSONImpl::Value,WTF::RawPtrTraits<WTF::JSONImpl::Value>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::Value>>>(v7 + 2, &v17, &v16, v19);
     if (v19[16] == 1)
     {
-      v9 = *(v7 + 36);
-      if (v9 == *(v7 + 32))
+      v9 = *(v7 + 9);
+      if (v9 == *(v7 + 8))
       {
         WTF::Vector<WTF::String,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::appendSlowCase<(WTF::FailureAction)0,WTF::String const&>(v7 + 24, &v17);
       }
 
       else
       {
-        v10 = *(v7 + 24);
+        v10 = *(v7 + 3);
         v11 = v17;
         if (v17)
         {
           atomic_fetch_add_explicit(v17, 2u, memory_order_relaxed);
         }
 
-        v12 = *(v7 + 36);
+        v12 = *(v7 + 9);
         *(v10 + 8 * v9) = v11;
-        *(v7 + 36) = v12 + 1;
+        *(v7 + 9) = v12 + 1;
       }
     }
 
@@ -1064,7 +1065,7 @@ WTF::StringImpl *WTF::Detail::CallableWrapper<Inspector::AutomationBackendDispat
 
     v17 = v30;
     WTF::StringImpl::createWithoutCopyingNonEmpty();
-    Inspector::Protocol::AutomationHelpers::getEnumConstantValue(v32, &v28);
+    Inspector::Protocol::AutomationHelpers::getEnumConstantValue(&v28, v32);
     WTF::JSONImpl::Value::create(&v33, &v28, v18);
     WTF::HashMap<WTF::String,WTF::Ref<WTF::JSONImpl::Value,WTF::RawPtrTraits<WTF::JSONImpl::Value>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::Value>>,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WTF::Ref<WTF::JSONImpl::Value,WTF::RawPtrTraits<WTF::JSONImpl::Value>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::Value>>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)0,WTF::FastMalloc>::inlineSet<WTF::String const&,WTF::Ref<WTF::JSONImpl::Value,WTF::RawPtrTraits<WTF::JSONImpl::Value>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::Value>>>((v17 + 16), &v29, &v33, v34);
     if (v35 == 1)
@@ -1995,27 +1996,27 @@ WTF::StringImpl *WTF::Detail::CallableWrapper<Inspector::AutomationBackendDispat
     v7 = v18;
     WTF::StringImpl::createWithoutCopyingNonEmpty();
     v16 = v4;
-    WTF::HashMap<WTF::String,WTF::Ref<WTF::JSONImpl::Value,WTF::RawPtrTraits<WTF::JSONImpl::Value>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::Value>>,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WTF::Ref<WTF::JSONImpl::Value,WTF::RawPtrTraits<WTF::JSONImpl::Value>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::Value>>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)0,WTF::FastMalloc>::inlineSet<WTF::String const&,WTF::Ref<WTF::JSONImpl::Value,WTF::RawPtrTraits<WTF::JSONImpl::Value>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::Value>>>((v7 + 16), &v17, &v16, v19);
+    WTF::HashMap<WTF::String,WTF::Ref<WTF::JSONImpl::Value,WTF::RawPtrTraits<WTF::JSONImpl::Value>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::Value>>,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WTF::Ref<WTF::JSONImpl::Value,WTF::RawPtrTraits<WTF::JSONImpl::Value>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::Value>>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)0,WTF::FastMalloc>::inlineSet<WTF::String const&,WTF::Ref<WTF::JSONImpl::Value,WTF::RawPtrTraits<WTF::JSONImpl::Value>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::Value>>>(v7 + 2, &v17, &v16, v19);
     if (v19[16] == 1)
     {
-      v9 = *(v7 + 36);
-      if (v9 == *(v7 + 32))
+      v9 = *(v7 + 9);
+      if (v9 == *(v7 + 8))
       {
         WTF::Vector<WTF::String,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::appendSlowCase<(WTF::FailureAction)0,WTF::String const&>(v7 + 24, &v17);
       }
 
       else
       {
-        v10 = *(v7 + 24);
+        v10 = *(v7 + 3);
         v11 = v17;
         if (v17)
         {
           atomic_fetch_add_explicit(v17, 2u, memory_order_relaxed);
         }
 
-        v12 = *(v7 + 36);
+        v12 = *(v7 + 9);
         *(v10 + 8 * v9) = v11;
-        *(v7 + 36) = v12 + 1;
+        *(v7 + 9) = v12 + 1;
       }
     }
 
@@ -2856,7 +2857,7 @@ LABEL_21:
 
   v25 = v35;
   WTF::StringImpl::createWithoutCopyingNonEmpty();
-  WTF::JSONImpl::Value::create((v8 & 1));
+  WTF::JSONImpl::Value::create(&v36, (v8 & 1));
   WTF::HashMap<WTF::String,WTF::Ref<WTF::JSONImpl::Value,WTF::RawPtrTraits<WTF::JSONImpl::Value>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::Value>>,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WTF::Ref<WTF::JSONImpl::Value,WTF::RawPtrTraits<WTF::JSONImpl::Value>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::Value>>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)0,WTF::FastMalloc>::inlineSet<WTF::String const&,WTF::Ref<WTF::JSONImpl::Value,WTF::RawPtrTraits<WTF::JSONImpl::Value>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::Value>>>((v25 + 16), &v34, &v36, v37);
   if (v38 == 1)
   {
@@ -3369,27 +3370,27 @@ WTF::StringImpl *WTF::Detail::CallableWrapper<Inspector::AutomationBackendDispat
     v7 = v18;
     WTF::StringImpl::createWithoutCopyingNonEmpty();
     v16 = v4;
-    WTF::HashMap<WTF::String,WTF::Ref<WTF::JSONImpl::Value,WTF::RawPtrTraits<WTF::JSONImpl::Value>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::Value>>,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WTF::Ref<WTF::JSONImpl::Value,WTF::RawPtrTraits<WTF::JSONImpl::Value>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::Value>>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)0,WTF::FastMalloc>::inlineSet<WTF::String const&,WTF::Ref<WTF::JSONImpl::Value,WTF::RawPtrTraits<WTF::JSONImpl::Value>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::Value>>>((v7 + 16), &v17, &v16, v19);
+    WTF::HashMap<WTF::String,WTF::Ref<WTF::JSONImpl::Value,WTF::RawPtrTraits<WTF::JSONImpl::Value>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::Value>>,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WTF::Ref<WTF::JSONImpl::Value,WTF::RawPtrTraits<WTF::JSONImpl::Value>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::Value>>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)0,WTF::FastMalloc>::inlineSet<WTF::String const&,WTF::Ref<WTF::JSONImpl::Value,WTF::RawPtrTraits<WTF::JSONImpl::Value>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::Value>>>(v7 + 2, &v17, &v16, v19);
     if (v19[16] == 1)
     {
-      v9 = *(v7 + 36);
-      if (v9 == *(v7 + 32))
+      v9 = *(v7 + 9);
+      if (v9 == *(v7 + 8))
       {
         WTF::Vector<WTF::String,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::appendSlowCase<(WTF::FailureAction)0,WTF::String const&>(v7 + 24, &v17);
       }
 
       else
       {
-        v10 = *(v7 + 24);
+        v10 = *(v7 + 3);
         v11 = v17;
         if (v17)
         {
           atomic_fetch_add_explicit(v17, 2u, memory_order_relaxed);
         }
 
-        v12 = *(v7 + 36);
+        v12 = *(v7 + 9);
         *(v10 + 8 * v9) = v11;
-        *(v7 + 36) = v12 + 1;
+        *(v7 + 9) = v12 + 1;
       }
     }
 
@@ -3709,7 +3710,7 @@ WTF::JSONImpl::Value *Inspector::AutomationFrontendDispatcher::fileChooserDismis
   v27 = v58;
   WTF::StringImpl::createWithoutCopyingNonEmpty();
   v57 = v61[0];
-  WTF::JSONImpl::Value::create(a3);
+  WTF::JSONImpl::Value::create(&v60, a3);
   WTF::HashMap<WTF::String,WTF::Ref<WTF::JSONImpl::Value,WTF::RawPtrTraits<WTF::JSONImpl::Value>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::Value>>,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WTF::Ref<WTF::JSONImpl::Value,WTF::RawPtrTraits<WTF::JSONImpl::Value>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::Value>>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)0,WTF::FastMalloc>::inlineSet<WTF::String const&,WTF::Ref<WTF::JSONImpl::Value,WTF::RawPtrTraits<WTF::JSONImpl::Value>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::Value>>>(v27 + 2, &v57, &v60, v61);
   if (v62 == 1)
   {
@@ -4312,7 +4313,7 @@ WTF::JSONImpl::Value *Inspector::AutomationFrontendDispatcher::bidiMessageSent(I
   return result;
 }
 
-uint64_t Inspector::Protocol::AutomationHelpers::getEnumConstantValue@<X0>(uint64_t this@<X0>, void *a2@<X8>)
+uint64_t Inspector::Protocol::AutomationHelpers::getEnumConstantValue@<X0>(uint64_t *__return_ptr a1@<X8>, uint64_t this@<X0>)
 {
   if (this >= 0x85)
   {
@@ -4320,7 +4321,7 @@ uint64_t Inspector::Protocol::AutomationHelpers::getEnumConstantValue@<X0>(uint6
     goto LABEL_7;
   }
 
-  v2 = a2;
+  v2 = a1;
   v3 = (&Inspector::Protocol::AutomationHelpers::enum_constant_values)[2 * this + 1];
   if (!v3)
   {
@@ -4345,7 +4346,7 @@ LABEL_7:
   return this;
 }
 
-uint64_t Inspector::Protocol::AutomationHelpers::parseEnumValueFromString<Inspector::Protocol::Automation::CoordinateSystem>(uint64_t result)
+void *Inspector::Protocol::AutomationHelpers::parseEnumValueFromString<Inspector::Protocol::Automation::CoordinateSystem>(void *result)
 {
   v1 = result;
   v2 = 0;
@@ -4376,14 +4377,14 @@ uint64_t Inspector::Protocol::AutomationHelpers::parseEnumValueFromString<Inspec
     if (result)
     {
       v10 = 0x100000000;
-      return v10 | v3;
+      return (v10 | v3);
     }
 
     if (++v2 == 3)
     {
       v3 = 0;
       v10 = 0;
-      return v10 | v3;
+      return (v10 | v3);
     }
   }
 
@@ -4391,7 +4392,7 @@ uint64_t Inspector::Protocol::AutomationHelpers::parseEnumValueFromString<Inspec
   return result;
 }
 
-uint64_t Inspector::Protocol::AutomationHelpers::parseEnumValueFromString<Inspector::Protocol::Automation::BrowsingContextPresentation>(uint64_t result)
+unint64_t Inspector::Protocol::AutomationHelpers::parseEnumValueFromString<Inspector::Protocol::Automation::BrowsingContextPresentation>(unint64_t result)
 {
   v1 = result;
   v2 = 0;
@@ -4438,7 +4439,7 @@ uint64_t Inspector::Protocol::AutomationHelpers::parseEnumValueFromString<Inspec
   }
 }
 
-uint64_t Inspector::Protocol::AutomationHelpers::parseEnumValueFromString<Inspector::Protocol::Automation::ErrorMessage>(uint64_t result)
+void *Inspector::Protocol::AutomationHelpers::parseEnumValueFromString<Inspector::Protocol::Automation::ErrorMessage>(void *result)
 {
   v1 = result;
   v2 = 0;
@@ -4469,14 +4470,14 @@ uint64_t Inspector::Protocol::AutomationHelpers::parseEnumValueFromString<Inspec
     if (result)
     {
       v10 = 0x100000000;
-      return v10 | v3;
+      return (v10 | v3);
     }
 
     if (++v2 == 22)
     {
       v3 = 0;
       v10 = 0;
-      return v10 | v3;
+      return (v10 | v3);
     }
   }
 
@@ -4484,7 +4485,7 @@ uint64_t Inspector::Protocol::AutomationHelpers::parseEnumValueFromString<Inspec
   return result;
 }
 
-uint64_t Inspector::Protocol::AutomationHelpers::parseEnumValueFromString<Inspector::Protocol::Automation::PageLoadStrategy>(uint64_t result)
+void *Inspector::Protocol::AutomationHelpers::parseEnumValueFromString<Inspector::Protocol::Automation::PageLoadStrategy>(void *result)
 {
   v1 = result;
   v2 = 0;
@@ -4515,14 +4516,14 @@ uint64_t Inspector::Protocol::AutomationHelpers::parseEnumValueFromString<Inspec
     if (result)
     {
       v10 = 0x100000000;
-      return v10 | v3;
+      return (v10 | v3);
     }
 
     if (++v2 == 3)
     {
       v3 = 0;
       v10 = 0;
-      return v10 | v3;
+      return (v10 | v3);
     }
   }
 
@@ -4530,7 +4531,7 @@ uint64_t Inspector::Protocol::AutomationHelpers::parseEnumValueFromString<Inspec
   return result;
 }
 
-uint64_t Inspector::Protocol::AutomationHelpers::parseEnumValueFromString<Inspector::Protocol::Automation::MouseInteraction>(uint64_t result)
+void *Inspector::Protocol::AutomationHelpers::parseEnumValueFromString<Inspector::Protocol::Automation::MouseInteraction>(void *result)
 {
   v1 = result;
   v2 = 0;
@@ -4561,14 +4562,14 @@ uint64_t Inspector::Protocol::AutomationHelpers::parseEnumValueFromString<Inspec
     if (result)
     {
       v10 = 0x100000000;
-      return v10 | v3;
+      return (v10 | v3);
     }
 
     if (++v2 == 5)
     {
       v3 = 0;
       v10 = 0;
-      return v10 | v3;
+      return (v10 | v3);
     }
   }
 
@@ -4576,7 +4577,7 @@ uint64_t Inspector::Protocol::AutomationHelpers::parseEnumValueFromString<Inspec
   return result;
 }
 
-uint64_t Inspector::Protocol::AutomationHelpers::parseEnumValueFromString<Inspector::Protocol::Automation::MouseButton>(uint64_t result)
+void *Inspector::Protocol::AutomationHelpers::parseEnumValueFromString<Inspector::Protocol::Automation::MouseButton>(void *result)
 {
   v1 = result;
   v2 = 0;
@@ -4607,14 +4608,14 @@ uint64_t Inspector::Protocol::AutomationHelpers::parseEnumValueFromString<Inspec
     if (result)
     {
       v10 = 0x100000000;
-      return v10 | v3;
+      return (v10 | v3);
     }
 
     if (++v2 == 4)
     {
       v3 = 0;
       v10 = 0;
-      return v10 | v3;
+      return (v10 | v3);
     }
   }
 
@@ -4622,7 +4623,7 @@ uint64_t Inspector::Protocol::AutomationHelpers::parseEnumValueFromString<Inspec
   return result;
 }
 
-uint64_t Inspector::Protocol::AutomationHelpers::parseEnumValueFromString<Inspector::Protocol::Automation::VirtualKey>(uint64_t result)
+void *Inspector::Protocol::AutomationHelpers::parseEnumValueFromString<Inspector::Protocol::Automation::VirtualKey>(void *result)
 {
   v1 = result;
   v2 = 0;
@@ -4653,14 +4654,14 @@ uint64_t Inspector::Protocol::AutomationHelpers::parseEnumValueFromString<Inspec
     if (result)
     {
       v10 = 0x100000000;
-      return v10 | v3;
+      return (v10 | v3);
     }
 
     if (++v2 == 70)
     {
       v3 = 0;
       v10 = 0;
-      return v10 | v3;
+      return (v10 | v3);
     }
   }
 
@@ -4668,7 +4669,7 @@ uint64_t Inspector::Protocol::AutomationHelpers::parseEnumValueFromString<Inspec
   return result;
 }
 
-uint64_t Inspector::Protocol::AutomationHelpers::parseEnumValueFromString<Inspector::Protocol::Automation::KeyboardInteractionType>(uint64_t result)
+void *Inspector::Protocol::AutomationHelpers::parseEnumValueFromString<Inspector::Protocol::Automation::KeyboardInteractionType>(void *result)
 {
   v1 = result;
   v2 = 0;
@@ -4699,14 +4700,14 @@ uint64_t Inspector::Protocol::AutomationHelpers::parseEnumValueFromString<Inspec
     if (result)
     {
       v10 = 0x100000000;
-      return v10 | v3;
+      return (v10 | v3);
     }
 
     if (++v2 == 3)
     {
       v3 = 0;
       v10 = 0;
-      return v10 | v3;
+      return (v10 | v3);
     }
   }
 
@@ -4714,7 +4715,7 @@ uint64_t Inspector::Protocol::AutomationHelpers::parseEnumValueFromString<Inspec
   return result;
 }
 
-uint64_t Inspector::Protocol::AutomationHelpers::parseEnumValueFromString<Inspector::Protocol::Automation::CookieSameSitePolicy>(uint64_t result)
+void *Inspector::Protocol::AutomationHelpers::parseEnumValueFromString<Inspector::Protocol::Automation::CookieSameSitePolicy>(void *result)
 {
   v1 = result;
   v2 = 0;
@@ -4745,14 +4746,14 @@ uint64_t Inspector::Protocol::AutomationHelpers::parseEnumValueFromString<Inspec
     if (result)
     {
       v10 = 0x100000000;
-      return v10 | v3;
+      return (v10 | v3);
     }
 
     if (++v2 == 3)
     {
       v3 = 0;
       v10 = 0;
-      return v10 | v3;
+      return (v10 | v3);
     }
   }
 
@@ -4760,7 +4761,7 @@ uint64_t Inspector::Protocol::AutomationHelpers::parseEnumValueFromString<Inspec
   return result;
 }
 
-uint64_t Inspector::Protocol::AutomationHelpers::parseEnumValueFromString<Inspector::Protocol::Automation::InputSourceType>(uint64_t result)
+void *Inspector::Protocol::AutomationHelpers::parseEnumValueFromString<Inspector::Protocol::Automation::InputSourceType>(void *result)
 {
   v1 = result;
   v2 = 0;
@@ -4791,14 +4792,14 @@ uint64_t Inspector::Protocol::AutomationHelpers::parseEnumValueFromString<Inspec
     if (result)
     {
       v10 = 0x100000000;
-      return v10 | v3;
+      return (v10 | v3);
     }
 
     if (++v2 == 6)
     {
       v3 = 0;
       v10 = 0;
-      return v10 | v3;
+      return (v10 | v3);
     }
   }
 
@@ -4806,7 +4807,7 @@ uint64_t Inspector::Protocol::AutomationHelpers::parseEnumValueFromString<Inspec
   return result;
 }
 
-uint64_t Inspector::Protocol::AutomationHelpers::parseEnumValueFromString<Inspector::Protocol::Automation::MouseMoveOrigin>(uint64_t result)
+void *Inspector::Protocol::AutomationHelpers::parseEnumValueFromString<Inspector::Protocol::Automation::MouseMoveOrigin>(void *result)
 {
   v1 = result;
   v2 = 0;
@@ -4837,14 +4838,14 @@ uint64_t Inspector::Protocol::AutomationHelpers::parseEnumValueFromString<Inspec
     if (result)
     {
       v10 = 0x100000000;
-      return v10 | v3;
+      return (v10 | v3);
     }
 
     if (++v2 == 3)
     {
       v3 = 0;
       v10 = 0;
-      return v10 | v3;
+      return (v10 | v3);
     }
   }
 
@@ -4852,7 +4853,7 @@ uint64_t Inspector::Protocol::AutomationHelpers::parseEnumValueFromString<Inspec
   return result;
 }
 
-uint64_t Inspector::Protocol::AutomationHelpers::parseEnumValueFromString<Inspector::Protocol::Automation::AuthenticatorTransport>(uint64_t result)
+void *Inspector::Protocol::AutomationHelpers::parseEnumValueFromString<Inspector::Protocol::Automation::AuthenticatorTransport>(void *result)
 {
   v1 = result;
   v2 = 0;
@@ -4883,14 +4884,14 @@ uint64_t Inspector::Protocol::AutomationHelpers::parseEnumValueFromString<Inspec
     if (result)
     {
       v10 = 0x100000000;
-      return v10 | v3;
+      return (v10 | v3);
     }
 
     if (++v2 == 4)
     {
       v3 = 0;
       v10 = 0;
-      return v10 | v3;
+      return (v10 | v3);
     }
   }
 
@@ -4906,8 +4907,8 @@ void WebKit::AuxiliaryProcessProxy::platformStartConnectionTerminationWatchdog(W
     v2 = *(this + 10);
     if (v2)
     {
-      std::__optional_copy_base<WebKit::ExtensionProcess,false>::__optional_copy_base[abi:sn200100](&v26, v2 + 40);
-      if (v28)
+      std::__optional_copy_base<WebKit::ExtensionProcess,false>::__optional_copy_base[abi:sn200100](&v27, v2 + 40);
+      if (v29)
       {
         v3 = *(this + 10);
         if (v3)
@@ -4921,43 +4922,43 @@ void WebKit::AuxiliaryProcessProxy::platformStartConnectionTerminationWatchdog(W
         }
 
         WTF::StringImpl::createWithoutCopyingNonEmpty();
-        v5 = v21;
-        v25 = v21;
-        (*(*this + 152))(&v24, this);
+        v5 = v22;
+        v26 = v22;
+        (*(*this + 152))(&v25, this);
         v7 = *(this + 10);
         if (v7)
         {
-          std::__optional_copy_base<WebKit::ExtensionProcess,false>::__optional_copy_base[abi:sn200100](&v21, v7 + 40);
+          std::__optional_copy_base<WebKit::ExtensionProcess,false>::__optional_copy_base[abi:sn200100](&v22, v7 + 40);
         }
 
         else
         {
-          LOBYTE(v21) = 0;
-          v23 = 0;
+          LOBYTE(v22) = 0;
+          v24 = 0;
         }
 
-        v20 = 0;
+        v21 = 0;
         v8 = WebKit::ProcessAndUIAssertion::operator new(0xC0, v6);
-        v9 = WebKit::ProcessAndUIAssertion::ProcessAndUIAssertion(v8, v4, &v25, 1, &v24, &v21);
-        WebKit::ProcessAssertion::acquireAsync(v9, &v20);
-        v11 = v20;
-        v20 = 0;
+        v9 = WebKit::ProcessAndUIAssertion::ProcessAndUIAssertion(v8, v4, &v26, 1, &v25, &v22);
+        WebKit::ProcessAssertion::acquireAsync(v9, &v21);
+        v11 = v21;
+        v21 = 0;
         if (v11)
         {
           (*(*v11 + 8))(v11);
         }
 
-        if (v23 == 1 && v22 != 255)
+        if (v24 == 1 && v23 != 255)
         {
-          v18 = v21;
-          v21 = 0;
-          if (v18)
+          v19 = v22;
+          v22 = 0;
+          if (v19)
           {
           }
         }
 
-        v12 = v24;
-        v24 = 0;
+        v12 = v25;
+        v25 = 0;
         if (v12 && atomic_fetch_add_explicit(v12, 0xFFFFFFFE, memory_order_relaxed) == 2)
         {
           v12 = WTF::StringImpl::destroy(v12, v10);
@@ -4968,49 +4969,49 @@ void WebKit::AuxiliaryProcessProxy::platformStartConnectionTerminationWatchdog(W
           v12 = WTF::StringImpl::destroy(v5, v10);
         }
 
-        if ((v28 & 1) == 0)
+        if ((v29 & 1) == 0)
         {
           __break(1u);
           return;
         }
 
-        v13 = v27;
-        if (v27 == 255)
+        v13 = v28;
+        if (v28 == 255)
         {
           v14 = 0;
         }
 
         else
         {
-          v14 = v26;
-          v26 = 0;
+          v14 = v27;
+          v27 = 0;
         }
 
         WTF::RunLoop::mainSingleton(v12);
-        v15 = WTF::fastMalloc(0x20);
-        *v15 = &unk_1F10E72A0;
-        *(v15 + 8) = v8;
-        *(v15 + 16) = 0;
-        *(v15 + 24) = -1;
+        v16 = WTF::fastMalloc(v15, 0x20);
+        *v16 = &unk_1F10E72A0;
+        v16[1] = v8;
+        *(v16 + 16) = 0;
+        *(v16 + 24) = -1;
         if (v13 != 255)
         {
-          *(v15 + 16) = v14;
-          *(v15 + 24) = v13;
+          v16[2] = v14;
+          *(v16 + 24) = v13;
           v14 = 0;
         }
 
-        v21 = v15;
+        v22 = v16;
         WTF::RunLoop::dispatchAfter();
-        if (v19)
+        if (v20)
         {
-          WTF::ThreadSafeRefCounted<WTF::RunLoop::DispatchTimer,(WTF::DestructionThread)0>::deref((v19 + 40));
+          WTF::ThreadSafeRefCounted<WTF::RunLoop::DispatchTimer,(WTF::DestructionThread)0>::deref((v20 + 40));
         }
 
-        v16 = v21;
-        v21 = 0;
-        if (v16)
+        v17 = v22;
+        v22 = 0;
+        if (v17)
         {
-          (*(*v16 + 8))(v16);
+          (*(*v17 + 8))(v17);
         }
 
         if (v13 != 255 && v14)
@@ -5021,22 +5022,22 @@ void WebKit::AuxiliaryProcessProxy::platformStartConnectionTerminationWatchdog(W
 
     else
     {
-      LOBYTE(v26) = 0;
-      v28 = 0;
+      LOBYTE(v27) = 0;
+      v29 = 0;
     }
 
-    if (v28 == 1 && v27 != 255)
+    if (v29 == 1 && v28 != 255)
     {
-      v17 = v26;
-      v26 = 0;
-      if (v17)
+      v18 = v27;
+      v27 = 0;
+      if (v18)
       {
       }
     }
   }
 }
 
-void sub_19D684B7C(_Unwind_Exception *exception_object, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, WTF::StringImpl *a14, uint64_t a15, void *a16, unsigned __int8 a17, int a18, __int16 a19, char a20, char a21)
+void sub_19D684B7C(_Unwind_Exception *exception_object, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, WTF::StringImpl *a14, uint64_t a15, void *a16, char a17, int a18, __int16 a19, char a20, char a21)
 {
   if (a14 && atomic_fetch_add_explicit(a14, 0xFFFFFFFE, memory_order_relaxed) == 2)
   {
@@ -5200,7 +5201,7 @@ void *WebKit::AuxiliaryProcessProxy::send<Messages::AuxiliaryProcess::Preference
     if (!HIDWORD(v19))
     {
       v30 = v19;
-      v29 = WTF::fastMalloc(v19);
+      v29 = WTF::fastMalloc(0, v19);
       memcpy(v29, v17, v19);
 LABEL_14:
       v20 = IPC::Encoder::operator new(0x238, v16);
@@ -5649,7 +5650,7 @@ WebKit::BidiBrowserAgent *WebKit::BidiBrowserAgent::BidiBrowserAgent(WebKit::Bid
   v6 = *(a2 + 3);
   atomic_fetch_add(v6, 1u);
   *(this + 1) = v6;
-  v7 = WTF::fastMalloc(0x20);
+  v7 = WTF::fastMalloc(v6, 0x20);
   v8 = Inspector::BidiBrowserBackendDispatcher::BidiBrowserBackendDispatcher(v7, a3, this);
   *(this + 3) = 0;
   *(this + 4) = 0;
@@ -5677,7 +5678,7 @@ void WebKit::BidiBrowserAgent::~BidiBrowserAgent(WebKit::BidiBrowserAgent *this,
   {
     if (v5[2] == 1)
     {
-      (*(*v5 + 8))(v5);
+      (*(*v5 + 8))(v5, a2);
     }
 
     else
@@ -5732,38 +5733,38 @@ WTF::StringImpl *WebKit::BidiBrowserAgent::didCreatePage(WebKit::BidiBrowserAgen
   return result;
 }
 
-WTF::StringImpl *WebKit::anonymous namespace::toUserContextIDProtocolString@<X0>(WTF::StringImpl **a1@<X8>)
+WTF::StringImpl *WebKit::anonymous namespace::toUserContextIDProtocolString@<X0>(WTF::StringImpl **__return_ptr a1@<X8>)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
+  v8 = 0;
   v9 = 0;
   v10 = 0;
-  v11 = 0;
-  v12 = 1;
+  v11 = 1;
   WTF::Internal::appendHex();
-  v15 = v4;
-  v13 = &v14;
-  WTF::StringBuilder::appendFromAdapters<WTF::StringTypeAdapter<WTF::HexNumberBuffer,void>>(&v9, &v13);
+  v14 = v3;
+  v12 = &v13;
+  WTF::StringBuilder::appendFromAdapters<WTF::StringTypeAdapter<WTF::HexNumberBuffer,void>>(&v8, &v12);
+  v5 = v8;
+  if (v8 || (WTF::StringBuilder::shrinkToFit(&v8), WTF::StringBuilder::reifyString(&v8), (v5 = v8) != 0))
+  {
+    atomic_fetch_add_explicit(v5, 2u, memory_order_relaxed);
+  }
+
+  *a1 = v5;
   v6 = v9;
-  if (v9 || (WTF::StringBuilder::shrinkToFit(&v9), WTF::StringBuilder::reifyString(&v9), (v6 = v9) != 0))
-  {
-    atomic_fetch_add_explicit(v6, 2u, memory_order_relaxed);
-  }
-
-  *a1 = v6;
-  v7 = v10;
-  v10 = 0;
-  if (v7 && atomic_fetch_add_explicit(v7, 0xFFFFFFFE, memory_order_relaxed) == 2)
-  {
-    WTF::StringImpl::destroy(v7, v5);
-  }
-
-  result = v9;
   v9 = 0;
+  if (v6 && atomic_fetch_add_explicit(v6, 0xFFFFFFFE, memory_order_relaxed) == 2)
+  {
+    WTF::StringImpl::destroy(v6, v4);
+  }
+
+  result = v8;
+  v8 = 0;
   if (result)
   {
     if (atomic_fetch_add_explicit(result, 0xFFFFFFFE, memory_order_relaxed) == 2)
     {
-      return WTF::StringImpl::destroy(result, v5);
+      return WTF::StringImpl::destroy(result, v4);
     }
   }
 
@@ -5891,7 +5892,7 @@ void WebKit::BidiBrowserAgent::close(WebKit::BidiBrowserAgent *this@<X0>, uint64
 
   else
   {
-    Inspector::Protocol::AutomationHelpers::getEnumConstantValue(5, a2);
+    Inspector::Protocol::AutomationHelpers::getEnumConstantValue(a2, 5);
     *(a2 + 8) = 1;
   }
 }
@@ -5899,55 +5900,55 @@ void WebKit::BidiBrowserAgent::close(WebKit::BidiBrowserAgent *this@<X0>, uint64
 WTF::StringImpl *WebKit::BidiBrowserAgent::createUserContext@<X0>(uint64_t a1@<X8>)
 {
   WTF::StringImpl::createWithoutCopyingNonEmpty();
-  v3 = v9;
-  Inspector::Protocol::AutomationHelpers::getEnumConstantValue(5, &v8);
-  if (v3)
+  v2 = v8;
+  Inspector::Protocol::AutomationHelpers::getEnumConstantValue(&v7, 5);
+  if (v2)
   {
-    atomic_fetch_add_explicit(v3, 2u, memory_order_relaxed);
+    atomic_fetch_add_explicit(v2, 2u, memory_order_relaxed);
   }
 
-  v7 = v3;
-  WTF::makeString<WTF::String,char,WTF::String>(&v8, 59, &v7, &v9);
-  *a1 = v9;
+  v6 = v2;
+  WTF::makeString<WTF::String,char,WTF::String>(&v7, 59, &v6, &v8);
+  *a1 = v8;
   *(a1 + 8) = 1;
-  v9 = 0;
-  v5 = v7;
-  v7 = 0;
-  if (v5 && atomic_fetch_add_explicit(v5, 0xFFFFFFFE, memory_order_relaxed) == 2)
+  v8 = 0;
+  v4 = v6;
+  v6 = 0;
+  if (v4 && atomic_fetch_add_explicit(v4, 0xFFFFFFFE, memory_order_relaxed) == 2)
   {
-    WTF::StringImpl::destroy(v5, v4);
+    WTF::StringImpl::destroy(v4, v3);
   }
 
-  result = v8;
-  v8 = 0;
+  result = v7;
+  v7 = 0;
   if (result && atomic_fetch_add_explicit(result, 0xFFFFFFFE, memory_order_relaxed) == 2)
   {
-    result = WTF::StringImpl::destroy(result, v4);
-    if (!v3)
+    result = WTF::StringImpl::destroy(result, v3);
+    if (!v2)
     {
       return result;
     }
   }
 
-  else if (!v3)
+  else if (!v2)
   {
     return result;
   }
 
-  if (atomic_fetch_add_explicit(v3, 0xFFFFFFFE, memory_order_relaxed) == 2)
+  if (atomic_fetch_add_explicit(v2, 0xFFFFFFFE, memory_order_relaxed) == 2)
   {
-    return WTF::StringImpl::destroy(v3, v4);
+    return WTF::StringImpl::destroy(v2, v3);
   }
 
   return result;
 }
 
-uint64_t WTF::makeString<WTF::String,char,WTF::String>@<X0>(uint64_t *a1@<X0>, char a2@<W1>, uint64_t *a3@<X2>, void *a4@<X8>)
+uint64_t *WTF::makeString<WTF::String,char,WTF::String>@<X0>(uint64_t *a1@<X0>, char a2@<W1>, uint64_t *a3@<X2>, void *a4@<X8>)
 {
   v8 = *a1;
   v7 = a2;
   v6 = *a3;
-  result = WTF::tryMakeStringFromAdapters<WTF::StringTypeAdapter<WTF::String,void>,WTF::StringTypeAdapter<char,void>,WTF::StringTypeAdapter<WTF::String,void>>(&v8, &v7, &v6, a4);
+  result = WTF::tryMakeStringFromAdapters<WTF::StringTypeAdapter<WTF::String,void>,WTF::StringTypeAdapter<char,void>,WTF::StringTypeAdapter<WTF::String,void>>(&v8, &v6, a4, &v7);
   if (!*a4)
   {
     __break(0xC471u);
@@ -5956,38 +5957,38 @@ uint64_t WTF::makeString<WTF::String,char,WTF::String>@<X0>(uint64_t *a1@<X0>, c
   return result;
 }
 
-WTF::JSONImpl::Object *WebKit::BidiBrowserAgent::getUserContexts@<X0>(WebKit::BidiBrowserAgent *this@<X0>, uint64_t a2@<X8>)
+WTF::JSONImpl::Object *WebKit::BidiBrowserAgent::getUserContexts@<X0>(WebKit::BidiBrowserAgent *this@<X0>, uint64_t a3@<X8>)
 {
-  v4 = WTF::fastMalloc(0x20);
-  v5 = WTF::JSONImpl::ArrayBase::ArrayBase(v4);
-  WTF::JSONImpl::Object::create(&v17, v5);
+  v5 = WTF::fastMalloc(a3, 0x20);
+  v6 = WTF::JSONImpl::ArrayBase::ArrayBase(v5);
+  WTF::JSONImpl::Object::create(&v18, v6);
   if ((_MergedGlobals_46 & 1) == 0)
   {
     _MergedGlobals_46 = 1;
   }
 
-  Inspector::Protocol::BidiBrowser::UserContextInfo::Builder<0>::setUserContext(&v17, &qword_1ED641A88);
-  v6 = v17;
-  v17 = 0;
-  v18 = v6;
-  WTF::JSONImpl::ArrayOf<Inspector::Protocol::BidiBrowser::UserContextInfo>::addItem<Inspector::Protocol::BidiBrowser::UserContextInfo>(v4, &v18);
+  Inspector::Protocol::BidiBrowser::UserContextInfo::Builder<0>::setUserContext(&v18, &qword_1ED641A88);
   v7 = v18;
   v18 = 0;
-  if (v7)
+  v19 = v7;
+  WTF::JSONImpl::ArrayOf<Inspector::Protocol::BidiBrowser::UserContextInfo>::addItem<Inspector::Protocol::BidiBrowser::UserContextInfo>(v5, &v19);
+  v8 = v19;
+  v19 = 0;
+  if (v8)
   {
-    if (*v7 == 1)
+    if (*v8 == 1)
     {
       WTF::JSONImpl::Value::operator delete();
     }
 
     else
     {
-      --*v7;
+      --*v8;
     }
   }
 
-  result = v17;
-  v17 = 0;
+  result = v18;
+  v18 = 0;
   if (result)
   {
     if (*result == 1)
@@ -6001,24 +6002,24 @@ WTF::JSONImpl::Object *WebKit::BidiBrowserAgent::getUserContexts@<X0>(WebKit::Bi
     }
   }
 
-  v9 = *(this + 3);
-  if (v9)
+  v10 = *(this + 3);
+  if (v10)
   {
-    v10 = *(v9 - 4);
-    v11 = (v9 + 16 * v10);
-    if (*(v9 - 12))
+    v11 = *(v10 - 4);
+    v12 = (v10 + 16 * v11);
+    if (*(v10 - 12))
     {
-      if (v10)
+      if (v11)
       {
-        v12 = 16 * v10;
-        v13 = *(this + 3);
-        while ((*v13 + 1) <= 1)
+        v13 = 16 * v11;
+        v14 = *(this + 3);
+        while ((*v14 + 1) <= 1)
         {
-          v13 = (v13 + 16);
-          v12 -= 16;
-          if (!v12)
+          v14 = (v14 + 16);
+          v13 -= 16;
+          if (!v13)
           {
-            v13 = v11;
+            v14 = v12;
             goto LABEL_21;
           }
         }
@@ -6026,7 +6027,7 @@ WTF::JSONImpl::Object *WebKit::BidiBrowserAgent::getUserContexts@<X0>(WebKit::Bi
 
       else
       {
-        v13 = *(this + 3);
+        v14 = *(this + 3);
       }
 
       goto LABEL_21;
@@ -6035,47 +6036,47 @@ WTF::JSONImpl::Object *WebKit::BidiBrowserAgent::getUserContexts@<X0>(WebKit::Bi
 
   else
   {
+    v12 = 0;
     v11 = 0;
-    v10 = 0;
   }
 
-  v13 = v11;
-  v11 = (v9 + 16 * v10);
-  if (!v9)
+  v14 = v12;
+  v12 = (v10 + 16 * v11);
+  if (!v10)
   {
-    v14 = 0;
+    v15 = 0;
     goto LABEL_22;
   }
 
 LABEL_21:
-  v14 = (v9 + 16 * *(v9 - 4));
+  v15 = (v10 + 16 * *(v10 - 4));
 LABEL_22:
-  while (v13 != v14)
+  while (v14 != v15)
   {
-    WTF::JSONImpl::Object::create(&v18, result);
-    v17 = v18;
-    Inspector::Protocol::BidiBrowser::UserContextInfo::Builder<0>::setUserContext(&v17, v13);
-    v15 = v17;
-    v17 = 0;
-    v18 = v15;
-    WTF::JSONImpl::ArrayOf<Inspector::Protocol::BidiBrowser::UserContextInfo>::addItem<Inspector::Protocol::BidiBrowser::UserContextInfo>(v4, &v18);
+    WTF::JSONImpl::Object::create(&v19, result);
+    v18 = v19;
+    Inspector::Protocol::BidiBrowser::UserContextInfo::Builder<0>::setUserContext(&v18, v14);
     v16 = v18;
     v18 = 0;
-    if (v16)
+    v19 = v16;
+    WTF::JSONImpl::ArrayOf<Inspector::Protocol::BidiBrowser::UserContextInfo>::addItem<Inspector::Protocol::BidiBrowser::UserContextInfo>(v5, &v19);
+    v17 = v19;
+    v19 = 0;
+    if (v17)
     {
-      if (*v16 == 1)
+      if (*v17 == 1)
       {
         WTF::JSONImpl::Value::operator delete();
       }
 
       else
       {
-        --*v16;
+        --*v17;
       }
     }
 
-    result = v17;
-    v17 = 0;
+    result = v18;
+    v18 = 0;
     if (result)
     {
       if (*result == 1)
@@ -6091,14 +6092,14 @@ LABEL_22:
 
     do
     {
-      v13 = (v13 + 16);
+      v14 = (v14 + 16);
     }
 
-    while (v13 != v11 && (*v13 + 1) <= 1);
+    while (v14 != v12 && (*v14 + 1) <= 1);
   }
 
-  *a2 = v4;
-  *(a2 + 8) = 0;
+  *a3 = v5;
+  *(a3 + 8) = 0;
   return result;
 }
 
@@ -6107,7 +6108,7 @@ uint64_t WTF::JSONImpl::ArrayOf<Inspector::Protocol::BidiBrowser::UserContextInf
   v2 = *(result + 28);
   if (v2 == *(result + 24))
   {
-    return WTF::Vector<WTF::Ref<WTF::JSONImpl::Value,WTF::RawPtrTraits<WTF::JSONImpl::Value>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::Value>>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::appendSlowCase<(WTF::FailureAction)0,WTF::Ref<WTF::JSONImpl::ObjectBase,WTF::RawPtrTraits<WTF::JSONImpl::ObjectBase>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::ObjectBase>>>(result + 16, a2);
+    return WTF::Vector<WTF::Ref<WTF::JSONImpl::Value,WTF::RawPtrTraits<WTF::JSONImpl::Value>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::Value>>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::appendSlowCase<(WTF::FailureAction)0,WTF::Ref<WTF::JSONImpl::ObjectBase,WTF::RawPtrTraits<WTF::JSONImpl::ObjectBase>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::ObjectBase>>>((result + 16), a2);
   }
 
   v3 = *(result + 16);
@@ -6172,7 +6173,7 @@ uint64_t *Inspector::Protocol::BidiBrowser::UserContextInfo::Builder<0>::setUser
   return a1;
 }
 
-uint64_t *WebKit::BidiBrowserAgent::removeUserContext(uint64_t a1, WTF **a2, uint64_t *a3)
+WTF::StringImpl *WebKit::BidiBrowserAgent::removeUserContext(uint64_t a1, WTF **a2, uint64_t *a3)
 {
   if (_MergedGlobals_46 == 1)
   {
@@ -6186,7 +6187,7 @@ uint64_t *WebKit::BidiBrowserAgent::removeUserContext(uint64_t a1, WTF **a2, uin
 
   if (WTF::equal(*a2, v6, a3))
   {
-    Inspector::Protocol::AutomationHelpers::getEnumConstantValue(17, &v64);
+    Inspector::Protocol::AutomationHelpers::getEnumConstantValue(&v64, 17);
     v69 = "Cannot delete default user context.";
     v70 = 36;
     v68 = 59;
@@ -6303,7 +6304,7 @@ LABEL_27:
     }
 
 LABEL_40:
-    Inspector::Protocol::AutomationHelpers::getEnumConstantValue(17, &v61);
+    Inspector::Protocol::AutomationHelpers::getEnumConstantValue(&v61, 17);
     v69 = "no such user context";
     v70 = 21;
     v68 = 59;
@@ -6376,7 +6377,7 @@ LABEL_28:
     WTF::HashTable<WTF::String,WTF::KeyValuePair<WTF::String,std::unique_ptr<WebKit::BidiUserContext>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WTF::String,std::unique_ptr<WebKit::BidiUserContext>>>,WTF::DefaultHash<WTF::String>,WTF::HashMap<WTF::String,std::unique_ptr<WebKit::BidiUserContext>,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<std::unique_ptr<WebKit::BidiUserContext>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WTF::String>,WTF::FastMalloc>::rehash((a1 + 24), v30 >> 1);
   }
 
-  WebKit::BidiUserContext::allPages(v25, &v69);
+  WebKit::BidiUserContext::allPages(&v69, v25);
   v32 = HIDWORD(v70);
   WTF::Vector<WTF::Ref<WebKit::WebPageProxy,WTF::RawPtrTraits<WebKit::WebPageProxy>,WTF::DefaultRefDerefTraits<WebKit::WebPageProxy>>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(&v69, v33);
   if (!v32)
@@ -6693,7 +6694,7 @@ uint64_t *std::unique_ptr<WebKit::BidiBrowserAgent::BidiUserContextDeletionRecor
   return result;
 }
 
-uint64_t WTF::tryMakeStringFromAdapters<WTF::StringTypeAdapter<WTF::String,void>,WTF::StringTypeAdapter<char,void>,WTF::StringTypeAdapter<WTF::String,void>>@<X0>(uint64_t result@<X0>, char *a2@<X1>, uint64_t *a3@<X2>, void *a4@<X8>)
+uint64_t *WTF::tryMakeStringFromAdapters<WTF::StringTypeAdapter<WTF::String,void>,WTF::StringTypeAdapter<char,void>,WTF::StringTypeAdapter<WTF::String,void>>@<X0>(uint64_t *result@<X0>, uint64_t *a2@<X2>, void *a3@<X8>, char *a4@<X1>)
 {
   v5 = *result;
   if (*result)
@@ -6706,8 +6707,8 @@ uint64_t WTF::tryMakeStringFromAdapters<WTF::StringTypeAdapter<WTF::String,void>
     v6 = 0;
   }
 
-  v7 = *a3;
-  if (*a3)
+  v7 = *a2;
+  if (*a2)
   {
     v8 = *(v7 + 4);
     if (v8 < 0)
@@ -6735,27 +6736,27 @@ uint64_t WTF::tryMakeStringFromAdapters<WTF::StringTypeAdapter<WTF::String,void>
         v13 = (v12 >> 2) & 1;
         if (!v7 || (v12 & 4) == 0)
         {
-          return WTF::tryMakeStringImplFromAdaptersInternal<WTF::StringTypeAdapter<WTF::String,void>,WTF::StringTypeAdapter<char,void>,WTF::StringTypeAdapter<WTF::String,void>>(result, v13, v5, *a2, v7, a4);
+          return WTF::tryMakeStringImplFromAdaptersInternal<WTF::StringTypeAdapter<WTF::String,void>,WTF::StringTypeAdapter<char,void>,WTF::StringTypeAdapter<WTF::String,void>>(result, v13, v5, *a4, v7, a3);
         }
       }
 
       else if (!v7)
       {
         v13 = 1;
-        return WTF::tryMakeStringImplFromAdaptersInternal<WTF::StringTypeAdapter<WTF::String,void>,WTF::StringTypeAdapter<char,void>,WTF::StringTypeAdapter<WTF::String,void>>(result, v13, v5, *a2, v7, a4);
+        return WTF::tryMakeStringImplFromAdaptersInternal<WTF::StringTypeAdapter<WTF::String,void>,WTF::StringTypeAdapter<char,void>,WTF::StringTypeAdapter<WTF::String,void>>(result, v13, v5, *a4, v7, a3);
       }
 
       v13 = (*(v7 + 16) >> 2) & 1;
-      return WTF::tryMakeStringImplFromAdaptersInternal<WTF::StringTypeAdapter<WTF::String,void>,WTF::StringTypeAdapter<char,void>,WTF::StringTypeAdapter<WTF::String,void>>(result, v13, v5, *a2, v7, a4);
+      return WTF::tryMakeStringImplFromAdaptersInternal<WTF::StringTypeAdapter<WTF::String,void>,WTF::StringTypeAdapter<char,void>,WTF::StringTypeAdapter<WTF::String,void>>(result, v13, v5, *a4, v7, a3);
     }
   }
 
 LABEL_16:
-  *a4 = 0;
+  *a3 = 0;
   return result;
 }
 
-uint64_t WTF::tryMakeStringImplFromAdaptersInternal<WTF::StringTypeAdapter<WTF::String,void>,WTF::StringTypeAdapter<char,void>,WTF::StringTypeAdapter<WTF::String,void>>@<X0>(uint64_t result@<X0>, int a2@<W1>, uint64_t a3@<X2>, char a4@<W3>, _DWORD *a5@<X4>, void *a6@<X8>)
+uint64_t *WTF::tryMakeStringImplFromAdaptersInternal<WTF::StringTypeAdapter<WTF::String,void>,WTF::StringTypeAdapter<char,void>,WTF::StringTypeAdapter<WTF::String,void>>@<X0>(uint64_t *result@<X0>, unint64_t a2@<X1>, uint64_t a3@<X2>, char a4@<W3>, _DWORD *a5@<X4>, void *a6@<X8>)
 {
   v9 = result;
   if (!a2)
@@ -6764,7 +6765,7 @@ uint64_t WTF::tryMakeStringImplFromAdaptersInternal<WTF::StringTypeAdapter<WTF::
     {
       if (result <= 0x7FFFFFEF)
       {
-        result = WTF::tryFastCompactMalloc((2 * result + 20));
+        result = WTF::tryFastCompactMalloc(&v17, (2 * result + 20));
         v11 = v17;
         if (!v17)
         {
@@ -6811,7 +6812,7 @@ LABEL_11:
     goto LABEL_10;
   }
 
-  result = WTF::tryFastCompactMalloc((result + 20));
+  result = WTF::tryFastCompactMalloc(&v17, (result + 20));
   v11 = v17;
   if (!v17)
   {
@@ -6841,7 +6842,7 @@ LABEL_17:
   return result;
 }
 
-unsigned int *WTF::WeakPtrFactory<IPC::MessageReceiver,WTF::DefaultWeakPtrImpl>::initializeIfNeeded(unsigned int *result, uint64_t a2)
+unsigned int *WTF::WeakPtrFactory<IPC::MessageReceiver,WTF::DefaultWeakPtrImpl>::initializeIfNeeded(unsigned int *result, unint64_t a2)
 {
   if (!*result)
   {
@@ -6954,8 +6955,9 @@ uint64_t *WTF::KeyValuePairHashTraits<WTF::HashTraits<WTF::String>,WTF::HashTrai
   return std::unique_ptr<WebKit::BidiBrowserAgent::BidiUserContextDeletionRecord>::reset[abi:sn200100]((a1 + 8), 0);
 }
 
-uint64_t WTF::HashTable<WTF::String,WTF::KeyValuePair<WTF::String,std::unique_ptr<WebKit::BidiBrowserAgent::BidiUserContextDeletionRecord>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WTF::String,std::unique_ptr<WebKit::BidiBrowserAgent::BidiUserContextDeletionRecord>>>,WTF::DefaultHash<WTF::String>,WTF::HashMap<WTF::String,std::unique_ptr<WebKit::BidiBrowserAgent::BidiUserContextDeletionRecord>,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<std::unique_ptr<WebKit::BidiBrowserAgent::BidiUserContextDeletionRecord>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WTF::String>,WTF::FastMalloc>::rehash(uint64_t *a1, unsigned int a2, __int128 *a3)
+uint64_t WTF::HashTable<WTF::String,WTF::KeyValuePair<WTF::String,std::unique_ptr<WebKit::BidiBrowserAgent::BidiUserContextDeletionRecord>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WTF::String,std::unique_ptr<WebKit::BidiBrowserAgent::BidiUserContextDeletionRecord>>>,WTF::DefaultHash<WTF::String>,WTF::HashMap<WTF::String,std::unique_ptr<WebKit::BidiBrowserAgent::BidiUserContextDeletionRecord>,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<std::unique_ptr<WebKit::BidiBrowserAgent::BidiUserContextDeletionRecord>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WTF::String>,WTF::FastMalloc>::rehash(uint64_t *a1, unint64_t a2, __int128 *a3)
 {
+  v4 = a2;
   v6 = *a1;
   if (*a1)
   {
@@ -6971,8 +6973,8 @@ uint64_t WTF::HashTable<WTF::String,WTF::KeyValuePair<WTF::String,std::unique_pt
 
   v9 = WTF::fastZeroedMalloc((16 * a2 + 16));
   *a1 = (v9 + 4);
-  v9[2] = a2 - 1;
-  v9[3] = a2;
+  v9[2] = v4 - 1;
+  v9[3] = v4;
   *v9 = 0;
   v9[1] = v8;
   if (v7)
@@ -7079,8 +7081,9 @@ uint64_t WTF::HashTable<WTF::String,WTF::KeyValuePair<WTF::String,std::unique_pt
   return v12;
 }
 
-_DWORD *WTF::HashTable<WTF::String,WTF::KeyValuePair<WTF::String,std::unique_ptr<WebKit::BidiUserContext>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WTF::String,std::unique_ptr<WebKit::BidiUserContext>>>,WTF::DefaultHash<WTF::String>,WTF::HashMap<WTF::String,std::unique_ptr<WebKit::BidiUserContext>,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<std::unique_ptr<WebKit::BidiUserContext>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WTF::String>,WTF::FastMalloc>::rehash(uint64_t *a1, unsigned int a2)
+_DWORD *WTF::HashTable<WTF::String,WTF::KeyValuePair<WTF::String,std::unique_ptr<WebKit::BidiUserContext>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WTF::String,std::unique_ptr<WebKit::BidiUserContext>>>,WTF::DefaultHash<WTF::String>,WTF::HashMap<WTF::String,std::unique_ptr<WebKit::BidiUserContext>,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<std::unique_ptr<WebKit::BidiUserContext>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WTF::String>,WTF::FastMalloc>::rehash(uint64_t *a1, unint64_t a2)
 {
+  v2 = a2;
   v4 = *a1;
   if (*a1)
   {
@@ -7096,8 +7099,8 @@ _DWORD *WTF::HashTable<WTF::String,WTF::KeyValuePair<WTF::String,std::unique_ptr
 
   result = WTF::fastZeroedMalloc((16 * a2 + 16));
   *a1 = (result + 4);
-  result[2] = a2 - 1;
-  result[3] = a2;
+  result[2] = v2 - 1;
+  result[3] = v2;
   *result = 0;
   result[1] = v6;
   if (v5)
@@ -7195,10 +7198,10 @@ LABEL_28:
   return result;
 }
 
-uint64_t WTF::Vector<WTF::Ref<WTF::JSONImpl::Value,WTF::RawPtrTraits<WTF::JSONImpl::Value>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::Value>>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::appendSlowCase<(WTF::FailureAction)0,WTF::Ref<WTF::JSONImpl::ObjectBase,WTF::RawPtrTraits<WTF::JSONImpl::ObjectBase>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::ObjectBase>>>(uint64_t a1, uint64_t *a2)
+uint64_t WTF::Vector<WTF::Ref<WTF::JSONImpl::Value,WTF::RawPtrTraits<WTF::JSONImpl::Value>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::Value>>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::appendSlowCase<(WTF::FailureAction)0,WTF::Ref<WTF::JSONImpl::ObjectBase,WTF::RawPtrTraits<WTF::JSONImpl::ObjectBase>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::ObjectBase>>>(uint64_t *a1, uint64_t *a2)
 {
-  v5 = *(a1 + 8);
-  v4 = *(a1 + 12);
+  v5 = *(a1 + 2);
+  v4 = *(a1 + 3);
   if (v5 + (v5 >> 1) <= v5 + 1)
   {
     v6 = v5 + 1;
@@ -7230,12 +7233,12 @@ uint64_t WTF::Vector<WTF::Ref<WTF::JSONImpl::Value,WTF::RawPtrTraits<WTF::JSONIm
   }
 
   WTF::Vector<WTF::Ref<WTF::JSONImpl::Value,WTF::RawPtrTraits<WTF::JSONImpl::Value>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::Value>>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::reserveCapacity<(WTF::FailureAction)0>(a1, v8);
-  v9 = *(a1 + 12);
+  v9 = *(a1 + 3);
   v10 = *a1;
   v11 = *a2;
   *a2 = 0;
   *(v10 + 8 * v9) = v11;
-  *(a1 + 12) = v9 + 1;
+  *(a1 + 3) = v9 + 1;
   return 1;
 }
 
@@ -7252,7 +7255,7 @@ uint64_t WTF::Vector<WTF::Ref<WTF::JSONImpl::Value,WTF::RawPtrTraits<WTF::JSONIm
     v3 = result;
     v4 = *result;
     v5 = *(result + 12);
-    v6 = WTF::fastMalloc((8 * a2));
+    v6 = WTF::fastMalloc(0, (8 * a2));
     *(v3 + 8) = v2;
     *v3 = v6;
     memcpy(v6, v4, 8 * v5);
@@ -7290,7 +7293,7 @@ uint64_t WTF::tryMakeString<WTF::String,char,WTF::ASCIILiteral>@<X0>(uint64_t *a
   v8[1] = v6;
   if (!(v6 >> 31))
   {
-    return WTF::tryMakeStringFromAdapters<WTF::StringTypeAdapter<WTF::String,void>,WTF::StringTypeAdapter<char,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>>(&v10, &v9, v8, a4);
+    return WTF::tryMakeStringFromAdapters<WTF::StringTypeAdapter<WTF::String,void>,WTF::StringTypeAdapter<char,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>>(&v10, v8, a4, &v9);
   }
 
   result = 161;
@@ -7298,7 +7301,7 @@ uint64_t WTF::tryMakeString<WTF::String,char,WTF::ASCIILiteral>@<X0>(uint64_t *a
   return result;
 }
 
-uint64_t WTF::tryMakeStringFromAdapters<WTF::StringTypeAdapter<WTF::String,void>,WTF::StringTypeAdapter<char,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>>@<X0>(uint64_t result@<X0>, char *a2@<X1>, uint64_t a3@<X2>, void *a4@<X8>)
+uint64_t *WTF::tryMakeStringFromAdapters<WTF::StringTypeAdapter<WTF::String,void>,WTF::StringTypeAdapter<char,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>>@<X0>(uint64_t *result@<X0>, uint64_t a2@<X2>, void *a3@<X8>, char *a4@<X1>)
 {
   v5 = *result;
   if (*result)
@@ -7311,22 +7314,22 @@ uint64_t WTF::tryMakeStringFromAdapters<WTF::StringTypeAdapter<WTF::String,void>
     v6 = 0;
   }
 
-  v7 = *(a3 + 8);
+  v7 = *(a2 + 8);
   if ((v7 & 0x80000000) != 0 || ((v8 = v7 + 1, !__OFADD__(v7, 1)) ? (v9 = 0) : (v9 = 1), v6 < 0 || (v9 & 1) != 0 || (result = (v6 + v8), __OFADD__(v6, v8))))
   {
-    *a4 = 0;
+    *a3 = 0;
   }
 
   else
   {
     v10 = !v5 || (*(v5 + 16) & 4) != 0;
-    return WTF::tryMakeStringImplFromAdaptersInternal<WTF::StringTypeAdapter<WTF::String,void>,WTF::StringTypeAdapter<char,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>>(result, v10, v5, *a2, *a3, v7, a4);
+    return WTF::tryMakeStringImplFromAdaptersInternal<WTF::StringTypeAdapter<WTF::String,void>,WTF::StringTypeAdapter<char,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>>(result, v10, v5, *a4, *a2, v7, a3);
   }
 
   return result;
 }
 
-uint64_t WTF::tryMakeStringImplFromAdaptersInternal<WTF::StringTypeAdapter<WTF::String,void>,WTF::StringTypeAdapter<char,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>>@<X0>(uint64_t result@<X0>, int a2@<W1>, _DWORD *a3@<X2>, char a4@<W3>, int8x16_t *a5@<X4>, size_t a6@<X5>, void *a7@<X8>)
+uint64_t *WTF::tryMakeStringImplFromAdaptersInternal<WTF::StringTypeAdapter<WTF::String,void>,WTF::StringTypeAdapter<char,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>>@<X0>(uint64_t *result@<X0>, unint64_t a2@<X1>, _DWORD *a3@<X2>, char a4@<W3>, int8x16_t *a5@<X4>, size_t a6@<X5>, void *a7@<X8>)
 {
   v11 = result;
   if (!a2)
@@ -7335,7 +7338,7 @@ uint64_t WTF::tryMakeStringImplFromAdaptersInternal<WTF::StringTypeAdapter<WTF::
     {
       if (result <= 0x7FFFFFEF)
       {
-        result = WTF::tryFastCompactMalloc((2 * result + 20));
+        result = WTF::tryFastCompactMalloc(&v29, (2 * result + 20));
         v13 = v29;
         if (!v29)
         {
@@ -7423,7 +7426,7 @@ LABEL_13:
     goto LABEL_12;
   }
 
-  result = WTF::tryFastCompactMalloc((result + 20));
+  result = WTF::tryFastCompactMalloc(&v29, (result + 20));
   v13 = v29;
   if (!v29)
   {
@@ -7448,7 +7451,7 @@ LABEL_13:
   }
 
   *(v14 + v15) = a4;
-  result = v14 + v15 + 1;
+  result = (v14 + v15 + 1);
   if (a6)
   {
     if (a6 != 1)
@@ -7471,7 +7474,7 @@ uint64_t WTF::HashTable<WTF::String,WTF::KeyValuePair<WTF::String,std::unique_pt
   v3 = *a1;
   if (*a1 && (v4 = *(v3 - 4)) != 0)
   {
-    v5 = v4 << (6 * *(v3 - 12) >= (2 * v4));
+    v5 = (v4 << (6 * *(v3 - 12) >= (2 * v4)));
   }
 
   else
@@ -7489,7 +7492,7 @@ WebKit::BidiBrowsingContextAgent *WebKit::BidiBrowsingContextAgent::BidiBrowsing
   v6 = *(a2 + 3);
   atomic_fetch_add(v6, 1u);
   *(this + 1) = v6;
-  v7 = WTF::fastMalloc(0x20);
+  v7 = WTF::fastMalloc(v6, 0x20);
   *(this + 2) = Inspector::BidiBrowsingContextBackendDispatcher::BidiBrowsingContextBackendDispatcher(v7, a3, this);
   return this;
 }
@@ -7502,7 +7505,7 @@ void WebKit::BidiBrowsingContextAgent::~BidiBrowsingContextAgent(WebKit::BidiBro
   {
     if (v3[2] == 1)
     {
-      (*(*v3 + 8))(v3);
+      (*(*v3 + 8))(v3, a2);
     }
 
     else
@@ -7535,49 +7538,50 @@ void WebKit::BidiBrowsingContextAgent::activate(uint64_t a1, const WTF::StringIm
   if (v4 && (v5 = *(v4 + 8)) != 0)
   {
     CFRetain(*(v5 - 8));
-    WebKit::WebAutomationSession::webPageProxyForHandle((v5 - 16), a2, v7, &v19);
-    if (v19)
+    WebKit::WebAutomationSession::webPageProxyForHandle(&v20, (v5 - 16), a2, v7);
+    v8 = v20;
+    if (v20)
     {
-      v8 = *a3;
+      v9 = *a3;
       *a3 = 0;
-      v9 = WTF::fastMalloc(0x10);
-      *v9 = &unk_1F10E7360;
-      *(v9 + 1) = v8;
-      v16 = v9;
-      WebKit::WebAutomationSession::switchToBrowsingContext((v5 - 16), a2, MEMORY[0x1E696EBA8], &v16);
-      v10 = v16;
-      v16 = 0;
-      if (v10)
+      v10 = WTF::fastMalloc(v8, 0x10);
+      *v10 = &unk_1F10E7360;
+      v10[1] = v9;
+      v17 = v10;
+      WebKit::WebAutomationSession::switchToBrowsingContext((v5 - 16), a2, MEMORY[0x1E696EBA8], &v17);
+      v11 = v17;
+      v17 = 0;
+      if (v11)
       {
-        (*(*v10 + 8))(v10);
+        (*(*v11 + 8))(v11);
       }
     }
 
     else
     {
-      Inspector::Protocol::AutomationHelpers::getEnumConstantValue(9, &v16);
-      v17 = v16;
-      v18 = 1;
-      WTF::Function<void ()(std::experimental::fundamentals_v3::expected<void,WTF::String>)>::operator()(a3, &v17);
-      if (v18 == 1)
+      Inspector::Protocol::AutomationHelpers::getEnumConstantValue(&v17, 9);
+      v18 = v17;
+      v19 = 1;
+      WTF::Function<void ()(std::experimental::fundamentals_v3::expected<void,WTF::String>)>::operator()(a3, &v18);
+      if (v19 == 1)
       {
-        v14 = v17;
-        v17 = 0;
-        if (v14)
+        v15 = v18;
+        v18 = 0;
+        if (v15)
         {
-          if (atomic_fetch_add_explicit(v14, 0xFFFFFFFE, memory_order_relaxed) == 2)
+          if (atomic_fetch_add_explicit(v15, 0xFFFFFFFE, memory_order_relaxed) == 2)
           {
-            WTF::StringImpl::destroy(v14, v13);
+            WTF::StringImpl::destroy(v15, v14);
           }
         }
       }
     }
 
-    v15 = v19;
-    v19 = 0;
-    if (v15)
+    v16 = v20;
+    v20 = 0;
+    if (v16)
     {
-      CFRelease(*(v15 + 1));
+      CFRelease(v16[1]);
     }
 
     CFRelease(*(v5 - 8));
@@ -7585,19 +7589,19 @@ void WebKit::BidiBrowsingContextAgent::activate(uint64_t a1, const WTF::StringIm
 
   else
   {
-    Inspector::Protocol::AutomationHelpers::getEnumConstantValue(5, &v19);
-    v20 = v19;
-    v21 = 1;
-    WTF::Function<void ()(std::experimental::fundamentals_v3::expected<void,WTF::String>)>::operator()(a3, &v20);
-    if (v21 == 1)
+    Inspector::Protocol::AutomationHelpers::getEnumConstantValue(&v20, 5);
+    v21 = v20;
+    v22 = 1;
+    WTF::Function<void ()(std::experimental::fundamentals_v3::expected<void,WTF::String>)>::operator()(a3, &v21);
+    if (v22 == 1)
     {
-      v12 = v20;
-      v20 = 0;
-      if (v12)
+      v13 = v21;
+      v21 = 0;
+      if (v13)
       {
-        if (atomic_fetch_add_explicit(v12, 0xFFFFFFFE, memory_order_relaxed) == 2)
+        if (atomic_fetch_add_explicit(v13, 0xFFFFFFFE, memory_order_relaxed) == 2)
         {
-          WTF::StringImpl::destroy(v12, v11);
+          WTF::StringImpl::destroy(v13, v12);
         }
       }
     }
@@ -7610,7 +7614,7 @@ void WebKit::BidiBrowsingContextAgent::close(uint64_t a1, const WTF::StringImpl 
   if (v5 && (v6 = *(v5 + 8)) != 0)
   {
     CFRetain(*(v6 - 8));
-    WebKit::WebAutomationSession::webPageProxyForHandle((v6 - 16), a2, v8, &v17);
+    WebKit::WebAutomationSession::webPageProxyForHandle(&v17, (v6 - 16), a2, v8);
     if (v17)
     {
       WebKit::WebAutomationSession::closeBrowsingContext((v6 - 16), a2, a4);
@@ -7618,7 +7622,7 @@ void WebKit::BidiBrowsingContextAgent::close(uint64_t a1, const WTF::StringImpl 
 
     else
     {
-      Inspector::Protocol::AutomationHelpers::getEnumConstantValue(10, &v14);
+      Inspector::Protocol::AutomationHelpers::getEnumConstantValue(&v14, 10);
       v15 = v14;
       v16 = 1;
       WTF::Function<void ()(std::experimental::fundamentals_v3::expected<void,WTF::String>)>::operator()(a4, &v15);
@@ -7640,7 +7644,7 @@ void WebKit::BidiBrowsingContextAgent::close(uint64_t a1, const WTF::StringImpl 
     v17 = 0;
     if (v13)
     {
-      CFRelease(*(v13 + 1));
+      CFRelease(v13[1]);
     }
 
     CFRelease(*(v6 - 8));
@@ -7648,7 +7652,7 @@ void WebKit::BidiBrowsingContextAgent::close(uint64_t a1, const WTF::StringImpl 
 
   else
   {
-    Inspector::Protocol::AutomationHelpers::getEnumConstantValue(5, &v17);
+    Inspector::Protocol::AutomationHelpers::getEnumConstantValue(&v17, 5);
     v18 = v17;
     v19 = 1;
     WTF::Function<void ()(std::experimental::fundamentals_v3::expected<void,WTF::String>)>::operator()(a4, &v18);
@@ -7687,7 +7691,7 @@ void WebKit::BidiBrowsingContextAgent::create(uint64_t a1, int a2, uint64_t a3, 
     BYTE4(v16) = 1;
     v11 = *a6;
     *a6 = 0;
-    v12 = WTF::fastMalloc(0x10);
+    v12 = WTF::fastMalloc(1, 0x10);
     *v12 = &unk_1F10E7388;
     v12[1] = v11;
     v15 = v12;
@@ -7704,7 +7708,7 @@ void WebKit::BidiBrowsingContextAgent::create(uint64_t a1, int a2, uint64_t a3, 
 
   else
   {
-    Inspector::Protocol::AutomationHelpers::getEnumConstantValue(5, &v16);
+    Inspector::Protocol::AutomationHelpers::getEnumConstantValue(&v16, 5);
     v17 = v16;
     v18 = 1;
     WTF::Function<void ()(std::experimental::fundamentals_v3::expected<WTF::String,WTF::String>)>::operator()(a6, &v17);
@@ -7730,7 +7734,7 @@ uint64_t WTF::Function<void ()(std::experimental::fundamentals_v3::expected<WTF:
   return std::experimental::fundamentals_v3::expected<WTF::String,WTF::String>::~expected(&v7, v5);
 }
 
-void WebKit::BidiBrowsingContextAgent::getBrowsingContextID(WTF::StringImpl *a1, uint64_t a2, uint64_t *a3)
+void WebKit::BidiBrowsingContextAgent::getBrowsingContextID(atomic_uint **a1, uint64_t a2, uint64_t *a3)
 {
   if (!a2 || (v4 = *(a2 + 8)) == 0)
   {
@@ -7750,7 +7754,7 @@ void WebKit::BidiBrowsingContextAgent::getBrowsingContextID(WTF::StringImpl *a1,
       if (v8 && (v9 = *(v8 + 8)) != 0)
       {
         CFRetain(*(v9 - 8));
-        WebKit::WebAutomationSession::handleForWebPageProxy((v4 - 16), (v9 - 16), a1);
+        WebKit::WebAutomationSession::handleForWebPageProxy(a1, (v4 - 16), (v9 - 16));
         CFRelease(*(v9 - 8));
       }
 
@@ -7781,37 +7785,37 @@ LABEL_15:
 
 WTF::StringImpl *WebKit::BidiBrowsingContextAgent::getNavigableInfo(WTF::JSONImpl::Object *a1, uint64_t a2, uint64_t a3, uint64_t a4, char a5, int a6)
 {
-  WTF::JSONImpl::Object::create(&v104, a1);
-  WebKit::BidiBrowsingContextAgent::getBrowsingContextID(&v103, *(a2 + 8), (a3 + 248));
-  v12 = v104;
+  WTF::JSONImpl::Object::create(&v105, a1);
+  WebKit::BidiBrowsingContextAgent::getBrowsingContextID(&v104, *(a2 + 8), (a3 + 248));
+  v12 = v105;
   WTF::StringImpl::createWithoutCopyingNonEmpty();
-  WTF::JSONImpl::Value::create(&v106, &v103, v13);
-  WTF::HashMap<WTF::String,WTF::Ref<WTF::JSONImpl::Value,WTF::RawPtrTraits<WTF::JSONImpl::Value>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::Value>>,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WTF::Ref<WTF::JSONImpl::Value,WTF::RawPtrTraits<WTF::JSONImpl::Value>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::Value>>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)0,WTF::FastMalloc>::inlineSet<WTF::String const&,WTF::Ref<WTF::JSONImpl::Value,WTF::RawPtrTraits<WTF::JSONImpl::Value>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::Value>>>((v12 + 16), &v105, &v106, v107);
-  if (v108 == 1)
+  WTF::JSONImpl::Value::create(&v107, &v104, v13);
+  WTF::HashMap<WTF::String,WTF::Ref<WTF::JSONImpl::Value,WTF::RawPtrTraits<WTF::JSONImpl::Value>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::Value>>,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WTF::Ref<WTF::JSONImpl::Value,WTF::RawPtrTraits<WTF::JSONImpl::Value>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::Value>>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)0,WTF::FastMalloc>::inlineSet<WTF::String const&,WTF::Ref<WTF::JSONImpl::Value,WTF::RawPtrTraits<WTF::JSONImpl::Value>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::Value>>>(v12 + 2, &v106, &v107, v108);
+  if (v109 == 1)
   {
-    v15 = *(v12 + 36);
-    if (v15 == *(v12 + 32))
+    v15 = v12[9];
+    if (v15 == v12[8])
     {
-      WTF::Vector<WTF::String,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::appendSlowCase<(WTF::FailureAction)0,WTF::String const&>(v12 + 24, &v105);
+      WTF::Vector<WTF::String,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::appendSlowCase<(WTF::FailureAction)0,WTF::String const&>((v12 + 6), &v106);
     }
 
     else
     {
-      v16 = *(v12 + 24);
-      v17 = v105;
-      if (v105)
+      v16 = *(v12 + 3);
+      v17 = v106;
+      if (v106)
       {
-        atomic_fetch_add_explicit(v105, 2u, memory_order_relaxed);
+        atomic_fetch_add_explicit(v106, 2u, memory_order_relaxed);
       }
 
-      v18 = *(v12 + 36);
+      v18 = v12[9];
       *(v16 + 8 * v15) = v17;
-      *(v12 + 36) = v18 + 1;
+      v12[9] = v18 + 1;
     }
   }
 
-  v19 = v106;
-  v106 = 0;
+  v19 = v107;
+  v107 = 0;
   if (v19)
   {
     if (*v19 == 1)
@@ -7825,43 +7829,43 @@ WTF::StringImpl *WebKit::BidiBrowsingContextAgent::getNavigableInfo(WTF::JSONImp
     }
   }
 
-  v20 = v105;
-  v105 = 0;
+  v20 = v106;
+  v106 = 0;
   if (v20 && atomic_fetch_add_explicit(v20, 0xFFFFFFFE, memory_order_relaxed) == 2)
   {
     WTF::StringImpl::destroy(v20, v14);
   }
 
   v21 = WebCore::ResourceRequestBase::url((a3 + 8));
-  v22 = v104;
+  v22 = v105;
   WTF::StringImpl::createWithoutCopyingNonEmpty();
-  WTF::JSONImpl::Value::create(&v106, v21, v23);
-  WTF::HashMap<WTF::String,WTF::Ref<WTF::JSONImpl::Value,WTF::RawPtrTraits<WTF::JSONImpl::Value>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::Value>>,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WTF::Ref<WTF::JSONImpl::Value,WTF::RawPtrTraits<WTF::JSONImpl::Value>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::Value>>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)0,WTF::FastMalloc>::inlineSet<WTF::String const&,WTF::Ref<WTF::JSONImpl::Value,WTF::RawPtrTraits<WTF::JSONImpl::Value>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::Value>>>((v22 + 16), &v105, &v106, v107);
-  if (v108 == 1)
+  WTF::JSONImpl::Value::create(&v107, v21, v23);
+  WTF::HashMap<WTF::String,WTF::Ref<WTF::JSONImpl::Value,WTF::RawPtrTraits<WTF::JSONImpl::Value>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::Value>>,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WTF::Ref<WTF::JSONImpl::Value,WTF::RawPtrTraits<WTF::JSONImpl::Value>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::Value>>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)0,WTF::FastMalloc>::inlineSet<WTF::String const&,WTF::Ref<WTF::JSONImpl::Value,WTF::RawPtrTraits<WTF::JSONImpl::Value>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::Value>>>(v22 + 2, &v106, &v107, v108);
+  if (v109 == 1)
   {
-    v25 = *(v22 + 36);
-    if (v25 == *(v22 + 32))
+    v25 = v22[9];
+    if (v25 == v22[8])
     {
-      WTF::Vector<WTF::String,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::appendSlowCase<(WTF::FailureAction)0,WTF::String const&>(v22 + 24, &v105);
+      WTF::Vector<WTF::String,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::appendSlowCase<(WTF::FailureAction)0,WTF::String const&>((v22 + 6), &v106);
     }
 
     else
     {
-      v26 = *(v22 + 24);
-      v27 = v105;
-      if (v105)
+      v26 = *(v22 + 3);
+      v27 = v106;
+      if (v106)
       {
-        atomic_fetch_add_explicit(v105, 2u, memory_order_relaxed);
+        atomic_fetch_add_explicit(v106, 2u, memory_order_relaxed);
       }
 
-      v28 = *(v22 + 36);
+      v28 = v22[9];
       *(v26 + 8 * v25) = v27;
-      *(v22 + 36) = v28 + 1;
+      v22[9] = v28 + 1;
     }
   }
 
-  v29 = v106;
-  v106 = 0;
+  v29 = v107;
+  v107 = 0;
   if (v29)
   {
     if (*v29 == 1)
@@ -7875,43 +7879,43 @@ WTF::StringImpl *WebKit::BidiBrowsingContextAgent::getNavigableInfo(WTF::JSONImp
     }
   }
 
-  v30 = v105;
-  v105 = 0;
+  v30 = v106;
+  v106 = 0;
   if (v30 && atomic_fetch_add_explicit(v30, 0xFFFFFFFE, memory_order_relaxed) == 2)
   {
     WTF::StringImpl::destroy(v30, v24);
   }
 
   WTF::StringImpl::createWithoutCopyingNonEmpty();
-  v31 = v104;
+  v31 = v105;
   WTF::StringImpl::createWithoutCopyingNonEmpty();
-  WTF::JSONImpl::Value::create(&v106, &v102, v32);
-  WTF::HashMap<WTF::String,WTF::Ref<WTF::JSONImpl::Value,WTF::RawPtrTraits<WTF::JSONImpl::Value>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::Value>>,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WTF::Ref<WTF::JSONImpl::Value,WTF::RawPtrTraits<WTF::JSONImpl::Value>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::Value>>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)0,WTF::FastMalloc>::inlineSet<WTF::String const&,WTF::Ref<WTF::JSONImpl::Value,WTF::RawPtrTraits<WTF::JSONImpl::Value>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::Value>>>((v31 + 16), &v105, &v106, v107);
-  if (v108 == 1)
+  WTF::JSONImpl::Value::create(&v107, &v103, v32);
+  WTF::HashMap<WTF::String,WTF::Ref<WTF::JSONImpl::Value,WTF::RawPtrTraits<WTF::JSONImpl::Value>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::Value>>,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WTF::Ref<WTF::JSONImpl::Value,WTF::RawPtrTraits<WTF::JSONImpl::Value>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::Value>>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)0,WTF::FastMalloc>::inlineSet<WTF::String const&,WTF::Ref<WTF::JSONImpl::Value,WTF::RawPtrTraits<WTF::JSONImpl::Value>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::Value>>>(v31 + 2, &v106, &v107, v108);
+  if (v109 == 1)
   {
-    v34 = *(v31 + 36);
-    if (v34 == *(v31 + 32))
+    v34 = v31[9];
+    if (v34 == v31[8])
     {
-      WTF::Vector<WTF::String,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::appendSlowCase<(WTF::FailureAction)0,WTF::String const&>(v31 + 24, &v105);
+      WTF::Vector<WTF::String,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::appendSlowCase<(WTF::FailureAction)0,WTF::String const&>((v31 + 6), &v106);
     }
 
     else
     {
-      v35 = *(v31 + 24);
-      v36 = v105;
-      if (v105)
+      v35 = *(v31 + 3);
+      v36 = v106;
+      if (v106)
       {
-        atomic_fetch_add_explicit(v105, 2u, memory_order_relaxed);
+        atomic_fetch_add_explicit(v106, 2u, memory_order_relaxed);
       }
 
-      v37 = *(v31 + 36);
+      v37 = v31[9];
       *(v35 + 8 * v34) = v36;
-      *(v31 + 36) = v37 + 1;
+      v31[9] = v37 + 1;
     }
   }
 
-  v38 = v106;
-  v106 = 0;
+  v38 = v107;
+  v107 = 0;
   if (v38)
   {
     if (*v38 == 1)
@@ -7925,43 +7929,43 @@ WTF::StringImpl *WebKit::BidiBrowsingContextAgent::getNavigableInfo(WTF::JSONImp
     }
   }
 
-  v39 = v105;
-  v105 = 0;
+  v39 = v106;
+  v106 = 0;
   if (v39 && atomic_fetch_add_explicit(v39, 0xFFFFFFFE, memory_order_relaxed) == 2)
   {
     WTF::StringImpl::destroy(v39, v33);
   }
 
   WTF::StringImpl::createWithoutCopyingNonEmpty();
-  v40 = v104;
+  v40 = v105;
   WTF::StringImpl::createWithoutCopyingNonEmpty();
-  WTF::JSONImpl::Value::create(&v106, &v101, v41);
-  WTF::HashMap<WTF::String,WTF::Ref<WTF::JSONImpl::Value,WTF::RawPtrTraits<WTF::JSONImpl::Value>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::Value>>,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WTF::Ref<WTF::JSONImpl::Value,WTF::RawPtrTraits<WTF::JSONImpl::Value>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::Value>>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)0,WTF::FastMalloc>::inlineSet<WTF::String const&,WTF::Ref<WTF::JSONImpl::Value,WTF::RawPtrTraits<WTF::JSONImpl::Value>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::Value>>>((v40 + 16), &v105, &v106, v107);
-  if (v108 == 1)
+  WTF::JSONImpl::Value::create(&v107, &v102, v41);
+  WTF::HashMap<WTF::String,WTF::Ref<WTF::JSONImpl::Value,WTF::RawPtrTraits<WTF::JSONImpl::Value>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::Value>>,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WTF::Ref<WTF::JSONImpl::Value,WTF::RawPtrTraits<WTF::JSONImpl::Value>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::Value>>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)0,WTF::FastMalloc>::inlineSet<WTF::String const&,WTF::Ref<WTF::JSONImpl::Value,WTF::RawPtrTraits<WTF::JSONImpl::Value>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::Value>>>(v40 + 2, &v106, &v107, v108);
+  if (v109 == 1)
   {
-    v43 = *(v40 + 36);
-    if (v43 == *(v40 + 32))
+    v43 = v40[9];
+    if (v43 == v40[8])
     {
-      WTF::Vector<WTF::String,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::appendSlowCase<(WTF::FailureAction)0,WTF::String const&>(v40 + 24, &v105);
+      WTF::Vector<WTF::String,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::appendSlowCase<(WTF::FailureAction)0,WTF::String const&>((v40 + 6), &v106);
     }
 
     else
     {
-      v44 = *(v40 + 24);
-      v45 = v105;
-      if (v105)
+      v44 = *(v40 + 3);
+      v45 = v106;
+      if (v106)
       {
-        atomic_fetch_add_explicit(v105, 2u, memory_order_relaxed);
+        atomic_fetch_add_explicit(v106, 2u, memory_order_relaxed);
       }
 
-      v46 = *(v40 + 36);
+      v46 = v40[9];
       *(v44 + 8 * v43) = v45;
-      *(v40 + 36) = v46 + 1;
+      v40[9] = v46 + 1;
     }
   }
 
-  v47 = v106;
-  v106 = 0;
+  v47 = v107;
+  v107 = 0;
   if (v47)
   {
     if (*v47 == 1)
@@ -7975,42 +7979,42 @@ WTF::StringImpl *WebKit::BidiBrowsingContextAgent::getNavigableInfo(WTF::JSONImp
     }
   }
 
-  v48 = v105;
-  v105 = 0;
+  v48 = v106;
+  v106 = 0;
   if (v48 && atomic_fetch_add_explicit(v48, 0xFFFFFFFE, memory_order_relaxed) == 2)
   {
     WTF::StringImpl::destroy(v48, v42);
   }
 
-  v49 = v104;
+  v49 = v105;
   v50 = WTF::StringImpl::createWithoutCopyingNonEmpty();
-  WTF::JSONImpl::Value::null(&v105, v50);
-  WTF::HashMap<WTF::String,WTF::Ref<WTF::JSONImpl::Value,WTF::RawPtrTraits<WTF::JSONImpl::Value>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::Value>>,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WTF::Ref<WTF::JSONImpl::Value,WTF::RawPtrTraits<WTF::JSONImpl::Value>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::Value>>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)0,WTF::FastMalloc>::inlineSet<WTF::String const&,WTF::Ref<WTF::JSONImpl::Value,WTF::RawPtrTraits<WTF::JSONImpl::Value>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::Value>>>((v49 + 16), &v106, &v105, v107);
-  if (v108 == 1)
+  WTF::JSONImpl::Value::null(&v106, v50);
+  WTF::HashMap<WTF::String,WTF::Ref<WTF::JSONImpl::Value,WTF::RawPtrTraits<WTF::JSONImpl::Value>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::Value>>,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WTF::Ref<WTF::JSONImpl::Value,WTF::RawPtrTraits<WTF::JSONImpl::Value>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::Value>>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)0,WTF::FastMalloc>::inlineSet<WTF::String const&,WTF::Ref<WTF::JSONImpl::Value,WTF::RawPtrTraits<WTF::JSONImpl::Value>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::Value>>>(v49 + 2, &v107, &v106, v108);
+  if (v109 == 1)
   {
-    v52 = *(v49 + 36);
-    if (v52 == *(v49 + 32))
+    v52 = v49[9];
+    if (v52 == v49[8])
     {
-      WTF::Vector<WTF::String,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::appendSlowCase<(WTF::FailureAction)0,WTF::String const&>(v49 + 24, &v106);
+      WTF::Vector<WTF::String,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::appendSlowCase<(WTF::FailureAction)0,WTF::String const&>((v49 + 6), &v107);
     }
 
     else
     {
-      v53 = *(v49 + 24);
-      v54 = v106;
-      if (v106)
+      v53 = *(v49 + 3);
+      v54 = v107;
+      if (v107)
       {
-        atomic_fetch_add_explicit(v106, 2u, memory_order_relaxed);
+        atomic_fetch_add_explicit(v107, 2u, memory_order_relaxed);
       }
 
-      v55 = *(v49 + 36);
+      v55 = v49[9];
       *(v53 + 8 * v52) = v54;
-      *(v49 + 36) = v55 + 1;
+      v49[9] = v55 + 1;
     }
   }
 
-  v56 = v105;
-  v105 = 0;
+  v56 = v106;
+  v106 = 0;
   if (v56)
   {
     if (*v56 == 1)
@@ -8024,91 +8028,111 @@ WTF::StringImpl *WebKit::BidiBrowsingContextAgent::getNavigableInfo(WTF::JSONImp
     }
   }
 
-  v57 = v106;
-  v106 = 0;
+  v57 = v107;
+  v107 = 0;
   if (v57 && atomic_fetch_add_explicit(v57, 0xFFFFFFFE, memory_order_relaxed) == 2)
   {
     WTF::StringImpl::destroy(v57, v51);
   }
 
-  v58 = v104;
+  v58 = v105;
   v59 = WTF::StringImpl::createWithoutCopyingNonEmpty();
-  WTF::JSONImpl::Value::null(&v105, v59);
-  WTF::HashMap<WTF::String,WTF::Ref<WTF::JSONImpl::Value,WTF::RawPtrTraits<WTF::JSONImpl::Value>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::Value>>,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WTF::Ref<WTF::JSONImpl::Value,WTF::RawPtrTraits<WTF::JSONImpl::Value>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::Value>>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)0,WTF::FastMalloc>::inlineSet<WTF::String const&,WTF::Ref<WTF::JSONImpl::Value,WTF::RawPtrTraits<WTF::JSONImpl::Value>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::Value>>>((v58 + 16), &v106, &v105, v107);
-  if (v108 == 1)
+  WTF::JSONImpl::Value::null(&v106, v59);
+  WTF::HashMap<WTF::String,WTF::Ref<WTF::JSONImpl::Value,WTF::RawPtrTraits<WTF::JSONImpl::Value>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::Value>>,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WTF::Ref<WTF::JSONImpl::Value,WTF::RawPtrTraits<WTF::JSONImpl::Value>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::Value>>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)0,WTF::FastMalloc>::inlineSet<WTF::String const&,WTF::Ref<WTF::JSONImpl::Value,WTF::RawPtrTraits<WTF::JSONImpl::Value>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::Value>>>(v58 + 2, &v107, &v106, v108);
+  add_explicit = v109;
+  if (v109 == 1)
   {
-    v61 = *(v58 + 36);
-    if (v61 == *(v58 + 32))
+    v62 = v58[9];
+    if (v62 == v58[8])
     {
-      WTF::Vector<WTF::String,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::appendSlowCase<(WTF::FailureAction)0,WTF::String const&>(v58 + 24, &v106);
+      WTF::Vector<WTF::String,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::appendSlowCase<(WTF::FailureAction)0,WTF::String const&>((v58 + 6), &v107);
     }
 
     else
     {
-      v62 = *(v58 + 24);
-      v63 = v106;
-      if (v106)
+      v63 = *(v58 + 3);
+      v64 = v107;
+      if (v107)
       {
-        atomic_fetch_add_explicit(v106, 2u, memory_order_relaxed);
+        atomic_fetch_add_explicit(v107, 2u, memory_order_relaxed);
       }
 
-      v64 = *(v58 + 36);
-      *(v62 + 8 * v61) = v63;
-      *(v58 + 36) = v64 + 1;
+      v65 = v58[9];
+      *(v63 + 8 * v62) = v64;
+      add_explicit = (v65 + 1);
+      v58[9] = add_explicit;
     }
   }
 
-  v65 = v105;
-  v105 = 0;
-  if (v65)
+  v66 = v106;
+  v106 = 0;
+  if (v66)
   {
-    if (*v65 == 1)
+    add_explicit = (*v66 - 1);
+    if (*v66 == 1)
     {
       WTF::JSONImpl::Value::operator delete();
     }
 
     else
     {
-      --*v65;
+      *v66 = add_explicit;
     }
   }
 
-  v66 = v106;
-  v106 = 0;
-  if (v66 && atomic_fetch_add_explicit(v66, 0xFFFFFFFE, memory_order_relaxed) == 2)
+  v67 = v107;
+  v107 = 0;
+  if (v67)
   {
-    WTF::StringImpl::destroy(v66, v60);
+    add_explicit = atomic_fetch_add_explicit(v67, 0xFFFFFFFE, memory_order_relaxed);
+    if (add_explicit == 2)
+    {
+      WTF::StringImpl::destroy(v67, v60);
+    }
   }
 
-  v67 = v104;
-  v104 = 0;
-  *a1 = v67;
-  v68 = v101;
-  v101 = 0;
-  if (v68 && atomic_fetch_add_explicit(v68, 0xFFFFFFFE, memory_order_relaxed) == 2)
-  {
-    WTF::StringImpl::destroy(v68, v60);
-  }
-
+  v68 = v105;
+  v105 = 0;
+  *a1 = v68;
   v69 = v102;
   v102 = 0;
-  if (v69 && atomic_fetch_add_explicit(v69, 0xFFFFFFFE, memory_order_relaxed) == 2)
+  if (v69)
   {
-    WTF::StringImpl::destroy(v69, v60);
+    add_explicit = atomic_fetch_add_explicit(v69, 0xFFFFFFFE, memory_order_relaxed);
+    if (add_explicit == 2)
+    {
+      WTF::StringImpl::destroy(v69, v60);
+    }
   }
 
   v70 = v103;
   v103 = 0;
-  if (v70 && atomic_fetch_add_explicit(v70, 0xFFFFFFFE, memory_order_relaxed) == 2)
+  if (v70)
   {
-    WTF::StringImpl::destroy(v70, v60);
+    add_explicit = atomic_fetch_add_explicit(v70, 0xFFFFFFFE, memory_order_relaxed);
+    if (add_explicit == 2)
+    {
+      WTF::StringImpl::destroy(v70, v60);
+    }
   }
 
   v71 = v104;
   v104 = 0;
   if (v71)
   {
-    if (*v71 == 1)
+    add_explicit = atomic_fetch_add_explicit(v71, 0xFFFFFFFE, memory_order_relaxed);
+    if (add_explicit == 2)
+    {
+      WTF::StringImpl::destroy(v71, v60);
+    }
+  }
+
+  v72 = v105;
+  v105 = 0;
+  if (v72)
+  {
+    add_explicit = (*v72 - 1);
+    if (*v72 == 1)
     {
       WTF::JSONImpl::Value::operator delete();
       if (!a6)
@@ -8119,7 +8143,7 @@ WTF::StringImpl *WebKit::BidiBrowsingContextAgent::getNavigableInfo(WTF::JSONImp
       goto LABEL_86;
     }
 
-    --*v71;
+    *v72 = add_explicit;
   }
 
   if (!a6)
@@ -8130,92 +8154,59 @@ WTF::StringImpl *WebKit::BidiBrowsingContextAgent::getNavigableInfo(WTF::JSONImp
 LABEL_86:
   if (*(a3 + 256))
   {
-    WebKit::BidiBrowsingContextAgent::getBrowsingContextID(&v104, *(a2 + 8), (a3 + 256));
+    WebKit::BidiBrowsingContextAgent::getBrowsingContextID(&v105, *(a2 + 8), (a3 + 256));
     WTF::StringImpl::createWithoutCopyingNonEmpty();
-    WTF::JSONImpl::Value::create(&v106, &v104, v72);
-    WTF::HashMap<WTF::String,WTF::Ref<WTF::JSONImpl::Value,WTF::RawPtrTraits<WTF::JSONImpl::Value>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::Value>>,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WTF::Ref<WTF::JSONImpl::Value,WTF::RawPtrTraits<WTF::JSONImpl::Value>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::Value>>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)0,WTF::FastMalloc>::inlineSet<WTF::String const&,WTF::Ref<WTF::JSONImpl::Value,WTF::RawPtrTraits<WTF::JSONImpl::Value>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::Value>>>((v67 + 16), &v105, &v106, v107);
-    if (v108 == 1)
+    WTF::JSONImpl::Value::create(&v107, &v105, v73);
+    WTF::HashMap<WTF::String,WTF::Ref<WTF::JSONImpl::Value,WTF::RawPtrTraits<WTF::JSONImpl::Value>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::Value>>,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WTF::Ref<WTF::JSONImpl::Value,WTF::RawPtrTraits<WTF::JSONImpl::Value>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::Value>>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)0,WTF::FastMalloc>::inlineSet<WTF::String const&,WTF::Ref<WTF::JSONImpl::Value,WTF::RawPtrTraits<WTF::JSONImpl::Value>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::Value>>>(v68 + 2, &v106, &v107, v108);
+    add_explicit = v109;
+    if (v109 == 1)
     {
-      v74 = *(v67 + 36);
-      if (v74 == *(v67 + 32))
+      v75 = v68[9];
+      if (v75 == v68[8])
       {
-        WTF::Vector<WTF::String,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::appendSlowCase<(WTF::FailureAction)0,WTF::String const&>(v67 + 24, &v105);
+        WTF::Vector<WTF::String,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::appendSlowCase<(WTF::FailureAction)0,WTF::String const&>((v68 + 6), &v106);
       }
 
       else
       {
-        v77 = *(v67 + 24);
-        v78 = v105;
-        if (v105)
+        v78 = *(v68 + 3);
+        v79 = v106;
+        if (v106)
         {
-          atomic_fetch_add_explicit(v105, 2u, memory_order_relaxed);
+          atomic_fetch_add_explicit(v106, 2u, memory_order_relaxed);
         }
 
-        v79 = *(v67 + 36);
-        *(v77 + 8 * v74) = v78;
-        *(v67 + 36) = v79 + 1;
+        v80 = v68[9];
+        *(v78 + 8 * v75) = v79;
+        add_explicit = (v80 + 1);
+        v68[9] = add_explicit;
       }
     }
 
-    v83 = v106;
-    v106 = 0;
-    if (v83)
+    v84 = v107;
+    v107 = 0;
+    if (v84)
     {
-      if (*v83 == 1)
+      add_explicit = (*v84 - 1);
+      if (*v84 == 1)
       {
         WTF::JSONImpl::Value::operator delete();
       }
 
       else
       {
-        --*v83;
+        *v84 = add_explicit;
       }
     }
 
-    v84 = v105;
-    v105 = 0;
-    if (v84 && atomic_fetch_add_explicit(v84, 0xFFFFFFFE, memory_order_relaxed) == 2)
-    {
-      WTF::StringImpl::destroy(v84, v73);
-    }
-
-    v85 = v104;
-    v104 = 0;
+    v85 = v106;
+    v106 = 0;
     if (v85)
     {
-LABEL_111:
-      if (atomic_fetch_add_explicit(v85, 0xFFFFFFFE, memory_order_relaxed) == 2)
+      add_explicit = atomic_fetch_add_explicit(v85, 0xFFFFFFFE, memory_order_relaxed);
+      if (add_explicit == 2)
       {
-        WTF::StringImpl::destroy(v85, v73);
-      }
-    }
-  }
-
-  else
-  {
-    v75 = WTF::StringImpl::createWithoutCopyingNonEmpty();
-    WTF::JSONImpl::Value::null(&v105, v75);
-    WTF::HashMap<WTF::String,WTF::Ref<WTF::JSONImpl::Value,WTF::RawPtrTraits<WTF::JSONImpl::Value>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::Value>>,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WTF::Ref<WTF::JSONImpl::Value,WTF::RawPtrTraits<WTF::JSONImpl::Value>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::Value>>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)0,WTF::FastMalloc>::inlineSet<WTF::String const&,WTF::Ref<WTF::JSONImpl::Value,WTF::RawPtrTraits<WTF::JSONImpl::Value>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::Value>>>((v67 + 16), &v106, &v105, v107);
-    if (v108 == 1)
-    {
-      v76 = *(v67 + 36);
-      if (v76 == *(v67 + 32))
-      {
-        WTF::Vector<WTF::String,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::appendSlowCase<(WTF::FailureAction)0,WTF::String const&>(v67 + 24, &v106);
-      }
-
-      else
-      {
-        v80 = *(v67 + 24);
-        v81 = v106;
-        if (v106)
-        {
-          atomic_fetch_add_explicit(v106, 2u, memory_order_relaxed);
-        }
-
-        v82 = *(v67 + 36);
-        *(v80 + 8 * v76) = v81;
-        *(v67 + 36) = v82 + 1;
+        WTF::StringImpl::destroy(v85, v74);
       }
     }
 
@@ -8223,20 +8214,64 @@ LABEL_111:
     v105 = 0;
     if (v86)
     {
-      if (*v86 == 1)
+LABEL_111:
+      add_explicit = atomic_fetch_add_explicit(v86, 0xFFFFFFFE, memory_order_relaxed);
+      if (add_explicit == 2)
+      {
+        WTF::StringImpl::destroy(v86, v74);
+      }
+    }
+  }
+
+  else
+  {
+    v76 = WTF::StringImpl::createWithoutCopyingNonEmpty();
+    WTF::JSONImpl::Value::null(&v106, v76);
+    WTF::HashMap<WTF::String,WTF::Ref<WTF::JSONImpl::Value,WTF::RawPtrTraits<WTF::JSONImpl::Value>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::Value>>,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WTF::Ref<WTF::JSONImpl::Value,WTF::RawPtrTraits<WTF::JSONImpl::Value>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::Value>>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)0,WTF::FastMalloc>::inlineSet<WTF::String const&,WTF::Ref<WTF::JSONImpl::Value,WTF::RawPtrTraits<WTF::JSONImpl::Value>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::Value>>>(v68 + 2, &v107, &v106, v108);
+    add_explicit = v109;
+    if (v109 == 1)
+    {
+      v77 = v68[9];
+      if (v77 == v68[8])
+      {
+        WTF::Vector<WTF::String,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::appendSlowCase<(WTF::FailureAction)0,WTF::String const&>((v68 + 6), &v107);
+      }
+
+      else
+      {
+        v81 = *(v68 + 3);
+        v82 = v107;
+        if (v107)
+        {
+          atomic_fetch_add_explicit(v107, 2u, memory_order_relaxed);
+        }
+
+        v83 = v68[9];
+        *(v81 + 8 * v77) = v82;
+        add_explicit = (v83 + 1);
+        v68[9] = add_explicit;
+      }
+    }
+
+    v87 = v106;
+    v106 = 0;
+    if (v87)
+    {
+      add_explicit = (*v87 - 1);
+      if (*v87 == 1)
       {
         WTF::JSONImpl::Value::operator delete();
       }
 
       else
       {
-        --*v86;
+        *v87 = add_explicit;
       }
     }
 
-    v85 = v106;
-    v106 = 0;
-    if (v85)
+    v86 = v107;
+    v107 = 0;
+    if (v86)
     {
       goto LABEL_111;
     }
@@ -8245,107 +8280,107 @@ LABEL_111:
 LABEL_113:
   if ((a5 & 1) == 0 || a4)
   {
-    v89 = WTF::fastMalloc(0x20);
-    WTF::JSONImpl::ArrayBase::ArrayBase(v89);
-    v90 = *(a3 + 364);
-    if (v90)
+    v90 = WTF::fastMalloc(add_explicit, 0x20);
+    WTF::JSONImpl::ArrayBase::ArrayBase(v90);
+    v91 = *(a3 + 364);
+    if (v91)
     {
-      v91 = *(a3 + 352);
+      v92 = *(a3 + 352);
       if (a5)
       {
-        v92 = a4 - 1;
+        v93 = a4 - 1;
       }
 
       else
       {
-        v92 = 0;
+        v93 = 0;
       }
 
-      v93 = 368 * v90;
+      v94 = 368 * v91;
       do
       {
-        WebKit::BidiBrowsingContextAgent::getNavigableInfo(&v106, a2, v91, v92, a5 & 1, 0);
-        v107[0] = v106;
-        WTF::JSONImpl::ArrayOf<Inspector::Protocol::BidiBrowser::UserContextInfo>::addItem<Inspector::Protocol::BidiBrowser::UserContextInfo>(v89, v107);
-        v94 = v107[0];
-        v107[0] = 0;
-        if (v94)
+        WebKit::BidiBrowsingContextAgent::getNavigableInfo(&v107, a2, v92, v93, a5 & 1, 0);
+        v108[0] = v107;
+        WTF::JSONImpl::ArrayOf<Inspector::Protocol::BidiBrowser::UserContextInfo>::addItem<Inspector::Protocol::BidiBrowser::UserContextInfo>(v90, v108);
+        v95 = v108[0];
+        v108[0] = 0;
+        if (v95)
         {
-          if (*v94 == 1)
+          if (*v95 == 1)
           {
             WTF::JSONImpl::Value::operator delete();
           }
 
           else
           {
-            --*v94;
+            --*v95;
           }
         }
 
-        v91 += 368;
-        v93 -= 368;
+        v92 += 368;
+        v94 -= 368;
       }
 
-      while (v93);
+      while (v94);
     }
 
     WTF::StringImpl::createWithoutCopyingNonEmpty();
-    v105 = v89;
-    WTF::HashMap<WTF::String,WTF::Ref<WTF::JSONImpl::Value,WTF::RawPtrTraits<WTF::JSONImpl::Value>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::Value>>,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WTF::Ref<WTF::JSONImpl::Value,WTF::RawPtrTraits<WTF::JSONImpl::Value>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::Value>>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)0,WTF::FastMalloc>::inlineSet<WTF::String const&,WTF::Ref<WTF::JSONImpl::Value,WTF::RawPtrTraits<WTF::JSONImpl::Value>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::Value>>>((v67 + 16), &v106, &v105, v107);
+    v106 = v90;
+    WTF::HashMap<WTF::String,WTF::Ref<WTF::JSONImpl::Value,WTF::RawPtrTraits<WTF::JSONImpl::Value>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::Value>>,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WTF::Ref<WTF::JSONImpl::Value,WTF::RawPtrTraits<WTF::JSONImpl::Value>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::Value>>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)0,WTF::FastMalloc>::inlineSet<WTF::String const&,WTF::Ref<WTF::JSONImpl::Value,WTF::RawPtrTraits<WTF::JSONImpl::Value>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::Value>>>(v68 + 2, &v107, &v106, v108);
   }
 
   else
   {
-    v87 = WTF::StringImpl::createWithoutCopyingNonEmpty();
-    WTF::JSONImpl::Value::null(&v105, v87);
-    WTF::HashMap<WTF::String,WTF::Ref<WTF::JSONImpl::Value,WTF::RawPtrTraits<WTF::JSONImpl::Value>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::Value>>,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WTF::Ref<WTF::JSONImpl::Value,WTF::RawPtrTraits<WTF::JSONImpl::Value>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::Value>>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)0,WTF::FastMalloc>::inlineSet<WTF::String const&,WTF::Ref<WTF::JSONImpl::Value,WTF::RawPtrTraits<WTF::JSONImpl::Value>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::Value>>>((v67 + 16), &v106, &v105, v107);
+    v88 = WTF::StringImpl::createWithoutCopyingNonEmpty();
+    WTF::JSONImpl::Value::null(&v106, v88);
+    WTF::HashMap<WTF::String,WTF::Ref<WTF::JSONImpl::Value,WTF::RawPtrTraits<WTF::JSONImpl::Value>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::Value>>,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WTF::Ref<WTF::JSONImpl::Value,WTF::RawPtrTraits<WTF::JSONImpl::Value>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::Value>>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)0,WTF::FastMalloc>::inlineSet<WTF::String const&,WTF::Ref<WTF::JSONImpl::Value,WTF::RawPtrTraits<WTF::JSONImpl::Value>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::Value>>>(v68 + 2, &v107, &v106, v108);
   }
 
-  if (v108 == 1)
+  if (v109 == 1)
   {
-    v95 = *(v67 + 36);
-    if (v95 == *(v67 + 32))
+    v96 = v68[9];
+    if (v96 == v68[8])
     {
-      WTF::Vector<WTF::String,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::appendSlowCase<(WTF::FailureAction)0,WTF::String const&>(v67 + 24, &v106);
+      WTF::Vector<WTF::String,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::appendSlowCase<(WTF::FailureAction)0,WTF::String const&>((v68 + 6), &v107);
     }
 
     else
     {
-      v96 = *(v67 + 24);
-      v97 = v106;
-      if (v106)
+      v97 = *(v68 + 3);
+      v98 = v107;
+      if (v107)
       {
-        atomic_fetch_add_explicit(v106, 2u, memory_order_relaxed);
+        atomic_fetch_add_explicit(v107, 2u, memory_order_relaxed);
       }
 
-      v98 = *(v67 + 36);
-      *(v96 + 8 * v95) = v97;
-      *(v67 + 36) = v98 + 1;
+      v99 = v68[9];
+      *(v97 + 8 * v96) = v98;
+      v68[9] = v99 + 1;
     }
   }
 
-  v99 = v105;
-  v105 = 0;
-  if (v99)
+  v100 = v106;
+  v106 = 0;
+  if (v100)
   {
-    if (*v99 == 1)
+    if (*v100 == 1)
     {
       WTF::JSONImpl::Value::operator delete();
     }
 
     else
     {
-      --*v99;
+      --*v100;
     }
   }
 
-  result = v106;
-  v106 = 0;
+  result = v107;
+  v107 = 0;
   if (result)
   {
     if (atomic_fetch_add_explicit(result, 0xFFFFFFFE, memory_order_relaxed) == 2)
     {
-      return WTF::StringImpl::destroy(result, v88);
+      return WTF::StringImpl::destroy(result, v89);
     }
   }
 
@@ -8368,44 +8403,44 @@ void WebKit::BidiBrowsingContextAgent::getNextTree(uint64_t a1, uint64_t a2, uin
     *a3 = 0;
     v18 = *a6;
     *a6 = 0;
-    v24 = v17;
-    v25 = v18;
-    *&v26 = a4;
-    BYTE8(v26) = a5;
+    v25 = v17;
+    v26 = v18;
+    *&v27 = a4;
+    BYTE8(v27) = a5;
     CFRetain(*(v14 + 8));
-    v19 = WTF::fastMalloc(0x48);
-    *v19 = &unk_1F10E73B0;
-    *(v19 + 8) = a1;
-    *(v19 + 16) = v15;
-    v23[0] = 0;
-    v23[1] = 0;
-    *(v19 + 24) = v16;
-    *(v19 + 32) = v17;
-    *(v19 + 40) = v18;
-    *(v19 + 48) = v26;
-    *(v19 + 64) = v14;
-    v28 = v19;
-    WebKit::WebPageProxy::getAllFrameTrees(v14, &v28);
-    if (v28)
+    v20 = WTF::fastMalloc(v19, 0x48);
+    *v20 = &unk_1F10E73B0;
+    v20[1] = a1;
+    v20[2] = v15;
+    v24[0] = 0;
+    v24[1] = 0;
+    v20[3] = v16;
+    v20[4] = v17;
+    v20[5] = v18;
+    *(v20 + 3) = v27;
+    v20[8] = v14;
+    v29 = v20;
+    WebKit::WebPageProxy::getAllFrameTrees(v14, &v29);
+    if (v29)
     {
-      (*(*v28 + 8))(v28);
+      (*(*v29 + 8))(v29);
     }
 
-    v27 = 0;
-    v24 = 0;
+    v28 = 0;
     v25 = 0;
-    WTF::Vector<WTF::Ref<WebKit::WebPageProxy,WTF::RawPtrTraits<WebKit::WebPageProxy>,WTF::DefaultRefDerefTraits<WebKit::WebPageProxy>>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(v23, v20);
+    v26 = 0;
+    WTF::Vector<WTF::Ref<WebKit::WebPageProxy,WTF::RawPtrTraits<WebKit::WebPageProxy>,WTF::DefaultRefDerefTraits<WebKit::WebPageProxy>>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(v24, v21);
     CFRelease(*(v14 + 8));
   }
 
   else
   {
-    v21 = *a3;
+    v22 = *a3;
     *a3 = 0;
-    v29 = v21;
-    v30 = 0;
-    WTF::Function<void ()(std::experimental::fundamentals_v3::expected<WTF::Ref<WTF::JSONImpl::ArrayOf<Inspector::Protocol::BidiBrowsingContext::Info>,WTF::RawPtrTraits<WTF::JSONImpl::ArrayOf<Inspector::Protocol::BidiBrowsingContext::Info>>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::ArrayOf<Inspector::Protocol::BidiBrowsingContext::Info>>>,WTF::String>)>::operator()(*a6, &v29);
-    std::experimental::fundamentals_v3::expected<WTF::Ref<WTF::JSONImpl::ArrayOf<Inspector::Protocol::BidiBrowsingContext::Info>,WTF::RawPtrTraits<WTF::JSONImpl::ArrayOf<Inspector::Protocol::BidiBrowsingContext::Info>>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::ArrayOf<Inspector::Protocol::BidiBrowsingContext::Info>>>,WTF::String>::~expected(&v29, v22);
+    v30 = v22;
+    v31 = 0;
+    WTF::Function<void ()(std::experimental::fundamentals_v3::expected<WTF::Ref<WTF::JSONImpl::ArrayOf<Inspector::Protocol::BidiBrowsingContext::Info>,WTF::RawPtrTraits<WTF::JSONImpl::ArrayOf<Inspector::Protocol::BidiBrowsingContext::Info>>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::ArrayOf<Inspector::Protocol::BidiBrowsingContext::Info>>>,WTF::String>)>::operator()(*a6, &v30);
+    std::experimental::fundamentals_v3::expected<WTF::Ref<WTF::JSONImpl::ArrayOf<Inspector::Protocol::BidiBrowsingContext::Info>,WTF::RawPtrTraits<WTF::JSONImpl::ArrayOf<Inspector::Protocol::BidiBrowsingContext::Info>>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::ArrayOf<Inspector::Protocol::BidiBrowsingContext::Info>>>,WTF::String>::~expected(&v30, v23);
   }
 }
 
@@ -8464,11 +8499,11 @@ void WebKit::BidiBrowsingContextAgent::getTree(uint64_t a1, const WTF::StringImp
   v5 = *(a1 + 8);
   if (!v5 || (v6 = *(v5 + 8)) == 0)
   {
-    Inspector::Protocol::AutomationHelpers::getEnumConstantValue(5, &v70);
-    v78 = v70;
-    v79 = 1;
-    WTF::Function<void ()(std::experimental::fundamentals_v3::expected<WTF::Ref<WTF::JSONImpl::ArrayOf<Inspector::Protocol::BidiBrowsingContext::Info>,WTF::RawPtrTraits<WTF::JSONImpl::ArrayOf<Inspector::Protocol::BidiBrowsingContext::Info>>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::ArrayOf<Inspector::Protocol::BidiBrowsingContext::Info>>>,WTF::String>)>::operator()(*a4, &v78);
-    std::experimental::fundamentals_v3::expected<WTF::Ref<WTF::JSONImpl::ArrayOf<Inspector::Protocol::BidiBrowsingContext::Info>,WTF::RawPtrTraits<WTF::JSONImpl::ArrayOf<Inspector::Protocol::BidiBrowsingContext::Info>>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::ArrayOf<Inspector::Protocol::BidiBrowsingContext::Info>>>,WTF::String>::~expected(&v78, v13);
+    Inspector::Protocol::AutomationHelpers::getEnumConstantValue(&v72, 5);
+    v80 = v72;
+    v81 = 1;
+    WTF::Function<void ()(std::experimental::fundamentals_v3::expected<WTF::Ref<WTF::JSONImpl::ArrayOf<Inspector::Protocol::BidiBrowsingContext::Info>,WTF::RawPtrTraits<WTF::JSONImpl::ArrayOf<Inspector::Protocol::BidiBrowsingContext::Info>>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::ArrayOf<Inspector::Protocol::BidiBrowsingContext::Info>>>,WTF::String>)>::operator()(*a4, &v80);
+    std::experimental::fundamentals_v3::expected<WTF::Ref<WTF::JSONImpl::ArrayOf<Inspector::Protocol::BidiBrowsingContext::Info>,WTF::RawPtrTraits<WTF::JSONImpl::ArrayOf<Inspector::Protocol::BidiBrowsingContext::Info>>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::ArrayOf<Inspector::Protocol::BidiBrowsingContext::Info>>>,WTF::String>::~expected(&v80, v13);
     return;
   }
 
@@ -8479,11 +8514,11 @@ void WebKit::BidiBrowsingContextAgent::getTree(uint64_t a1, const WTF::StringImp
     v10 = *a3;
     if (*a3 < 0.0)
     {
-      Inspector::Protocol::AutomationHelpers::getEnumConstantValue(17, &v70);
-      v76 = v70;
-      v77 = 1;
-      WTF::Function<void ()(std::experimental::fundamentals_v3::expected<WTF::Ref<WTF::JSONImpl::ArrayOf<Inspector::Protocol::BidiBrowsingContext::Info>,WTF::RawPtrTraits<WTF::JSONImpl::ArrayOf<Inspector::Protocol::BidiBrowsingContext::Info>>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::ArrayOf<Inspector::Protocol::BidiBrowsingContext::Info>>>,WTF::String>)>::operator()(*a4, &v76);
-      v12 = &v76;
+      Inspector::Protocol::AutomationHelpers::getEnumConstantValue(&v72, 17);
+      v78 = v72;
+      v79 = 1;
+      WTF::Function<void ()(std::experimental::fundamentals_v3::expected<WTF::Ref<WTF::JSONImpl::ArrayOf<Inspector::Protocol::BidiBrowsingContext::Info>,WTF::RawPtrTraits<WTF::JSONImpl::ArrayOf<Inspector::Protocol::BidiBrowsingContext::Info>>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::ArrayOf<Inspector::Protocol::BidiBrowsingContext::Info>>>,WTF::String>)>::operator()(*a4, &v78);
+      v12 = &v78;
 LABEL_74:
       std::experimental::fundamentals_v3::expected<WTF::Ref<WTF::JSONImpl::ArrayOf<Inspector::Protocol::BidiBrowsingContext::Info>,WTF::RawPtrTraits<WTF::JSONImpl::ArrayOf<Inspector::Protocol::BidiBrowsingContext::Info>>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::ArrayOf<Inspector::Protocol::BidiBrowsingContext::Info>>>,WTF::String>::~expected(v12, v11);
       goto LABEL_75;
@@ -8491,21 +8526,21 @@ LABEL_74:
 
     if (floor(v10) != v10)
     {
-      Inspector::Protocol::AutomationHelpers::getEnumConstantValue(17, &v70);
-      v74 = v70;
-      v75 = 1;
-      WTF::Function<void ()(std::experimental::fundamentals_v3::expected<WTF::Ref<WTF::JSONImpl::ArrayOf<Inspector::Protocol::BidiBrowsingContext::Info>,WTF::RawPtrTraits<WTF::JSONImpl::ArrayOf<Inspector::Protocol::BidiBrowsingContext::Info>>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::ArrayOf<Inspector::Protocol::BidiBrowsingContext::Info>>>,WTF::String>)>::operator()(*a4, &v74);
-      v12 = &v74;
+      Inspector::Protocol::AutomationHelpers::getEnumConstantValue(&v72, 17);
+      v76 = v72;
+      v77 = 1;
+      WTF::Function<void ()(std::experimental::fundamentals_v3::expected<WTF::Ref<WTF::JSONImpl::ArrayOf<Inspector::Protocol::BidiBrowsingContext::Info>,WTF::RawPtrTraits<WTF::JSONImpl::ArrayOf<Inspector::Protocol::BidiBrowsingContext::Info>>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::ArrayOf<Inspector::Protocol::BidiBrowsingContext::Info>>>,WTF::String>)>::operator()(*a4, &v76);
+      v12 = &v76;
       goto LABEL_74;
     }
 
     if (v10 > 9.00719925e15)
     {
-      Inspector::Protocol::AutomationHelpers::getEnumConstantValue(17, &v70);
-      v72 = v70;
-      v73 = 1;
-      WTF::Function<void ()(std::experimental::fundamentals_v3::expected<WTF::Ref<WTF::JSONImpl::ArrayOf<Inspector::Protocol::BidiBrowsingContext::Info>,WTF::RawPtrTraits<WTF::JSONImpl::ArrayOf<Inspector::Protocol::BidiBrowsingContext::Info>>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::ArrayOf<Inspector::Protocol::BidiBrowsingContext::Info>>>,WTF::String>)>::operator()(*a4, &v72);
-      v12 = &v72;
+      Inspector::Protocol::AutomationHelpers::getEnumConstantValue(&v72, 17);
+      v74 = v72;
+      v75 = 1;
+      WTF::Function<void ()(std::experimental::fundamentals_v3::expected<WTF::Ref<WTF::JSONImpl::ArrayOf<Inspector::Protocol::BidiBrowsingContext::Info>,WTF::RawPtrTraits<WTF::JSONImpl::ArrayOf<Inspector::Protocol::BidiBrowsingContext::Info>>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::ArrayOf<Inspector::Protocol::BidiBrowsingContext::Info>>>,WTF::String>)>::operator()(*a4, &v74);
+      v12 = &v74;
       goto LABEL_74;
     }
 
@@ -8519,8 +8554,8 @@ LABEL_74:
     v15 = 0;
   }
 
-  v70 = 0;
-  v71 = 0;
+  v72 = 0;
+  v73 = 0;
   v16 = *(v6 + 32);
   if (v16 && (v17 = *(v16 + 8)) != 0)
   {
@@ -8541,33 +8576,33 @@ LABEL_43:
     goto LABEL_44;
   }
 
-  v54 = v15;
-  v55 = v14;
-  v56 = v9;
-  v57 = a4;
-  v58 = v6;
+  v56 = v15;
+  v57 = v14;
+  v58 = v9;
+  v59 = a4;
+  v60 = v6;
   v20 = (v6 - 16);
-  v53 = v18;
+  v55 = v18;
   v21 = *(v18 + 72);
-  v59 = &v21[v19];
+  v61 = &v21[v19];
   do
   {
     v22 = *v21;
-    v60 = (*v21 + 16);
-    atomic_fetch_add(v60, 1u);
-    WebKit::WebProcessProxy::pages(v22, &v68);
-    if (v69)
+    v62 = (*v21 + 16);
+    atomic_fetch_add(v62, 1u);
+    WebKit::WebProcessProxy::pages(v22, &v70);
+    if (v71)
     {
-      v24 = v68;
-      v25 = 8 * v69;
+      v24 = v70;
+      v25 = 8 * v71;
       while (1)
       {
         v26 = *v24;
         CFRetain(*(*v24 + 8));
-        v67 = v26;
+        v69 = v26;
         if ((*(v26 + 962) & 1) == 0)
         {
-          v67 = 0;
+          v69 = 0;
           v31 = 13;
 LABEL_32:
           CFRelease(*(v26 + 8));
@@ -8576,10 +8611,10 @@ LABEL_32:
 
         if (*a2 && *(*a2 + 1))
         {
-          WebKit::WebAutomationSession::handleForWebPageProxy(v20, v26, &v66);
-          v28 = WTF::equal(v66, *a2, v27);
-          v29 = v66;
-          v66 = 0;
+          WebKit::WebAutomationSession::handleForWebPageProxy(&v68, v20, v26);
+          v28 = WTF::equal(v68, *a2, v27);
+          v29 = v68;
+          v68 = 0;
           if (v29 && atomic_fetch_add_explicit(v29, 0xFFFFFFFE, memory_order_relaxed) == 2)
           {
             WTF::StringImpl::destroy(v29, v23);
@@ -8594,19 +8629,19 @@ LABEL_32:
             goto LABEL_27;
           }
 
-          v30 = HIDWORD(v71);
-          if (HIDWORD(v71) == v71)
+          v30 = HIDWORD(v73);
+          if (HIDWORD(v73) == v73)
           {
-            WTF::Vector<WTF::Ref<WebKit::WebPageProxy,WTF::RawPtrTraits<WebKit::WebPageProxy>,WTF::DefaultRefDerefTraits<WebKit::WebPageProxy>>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::appendSlowCase<(WTF::FailureAction)0,WTF::Ref<WebKit::WebPageProxy,WTF::RawPtrTraits<WebKit::WebPageProxy>,WTF::DefaultRefDerefTraits<WebKit::WebPageProxy>>&>(&v70, &v67);
+            WTF::Vector<WTF::Ref<WebKit::WebPageProxy,WTF::RawPtrTraits<WebKit::WebPageProxy>,WTF::DefaultRefDerefTraits<WebKit::WebPageProxy>>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::appendSlowCase<(WTF::FailureAction)0,WTF::Ref<WebKit::WebPageProxy,WTF::RawPtrTraits<WebKit::WebPageProxy>,WTF::DefaultRefDerefTraits<WebKit::WebPageProxy>>&>(&v72, &v69);
           }
 
           else
           {
-            v34 = v70;
-            v35 = v67;
-            CFRetain(*(v67 + 8));
+            v34 = v72;
+            v35 = v69;
+            CFRetain(*(v69 + 8));
             *(v34 + 8 * v30) = v35;
-            ++HIDWORD(v71);
+            ++HIDWORD(v73);
           }
 
           v31 = 12;
@@ -8614,25 +8649,25 @@ LABEL_32:
 
         else
         {
-          v32 = HIDWORD(v71);
-          if (HIDWORD(v71) == v71)
+          v32 = HIDWORD(v73);
+          if (HIDWORD(v73) == v73)
           {
-            WTF::Vector<WTF::Ref<WebKit::WebPageProxy,WTF::RawPtrTraits<WebKit::WebPageProxy>,WTF::DefaultRefDerefTraits<WebKit::WebPageProxy>>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::appendSlowCase<(WTF::FailureAction)0,WTF::Ref<WebKit::WebPageProxy,WTF::RawPtrTraits<WebKit::WebPageProxy>,WTF::DefaultRefDerefTraits<WebKit::WebPageProxy>>&>(&v70, &v67);
+            WTF::Vector<WTF::Ref<WebKit::WebPageProxy,WTF::RawPtrTraits<WebKit::WebPageProxy>,WTF::DefaultRefDerefTraits<WebKit::WebPageProxy>>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::appendSlowCase<(WTF::FailureAction)0,WTF::Ref<WebKit::WebPageProxy,WTF::RawPtrTraits<WebKit::WebPageProxy>,WTF::DefaultRefDerefTraits<WebKit::WebPageProxy>>&>(&v72, &v69);
 LABEL_27:
             v31 = 0;
             goto LABEL_31;
           }
 
-          v33 = v70;
+          v33 = v72;
           CFRetain(*(v26 + 8));
           v31 = 0;
           *(v33 + 8 * v32) = v26;
-          ++HIDWORD(v71);
+          ++HIDWORD(v73);
         }
 
 LABEL_31:
-        v26 = v67;
-        v67 = 0;
+        v26 = v69;
+        v69 = 0;
         if (v26)
         {
           goto LABEL_32;
@@ -8641,7 +8676,7 @@ LABEL_31:
 LABEL_33:
         if (v31 == 13 || !v31)
         {
-          v24 += 8;
+          ++v24;
           v25 -= 8;
           if (v25)
           {
@@ -8653,23 +8688,23 @@ LABEL_33:
       }
     }
 
-    WTF::Vector<WTF::Ref<WebKit::WebPageProxy,WTF::RawPtrTraits<WebKit::WebPageProxy>,WTF::DefaultRefDerefTraits<WebKit::WebPageProxy>>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(&v68, v23);
+    WTF::Vector<WTF::Ref<WebKit::WebPageProxy,WTF::RawPtrTraits<WebKit::WebPageProxy>,WTF::DefaultRefDerefTraits<WebKit::WebPageProxy>>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(&v70, v23);
     if (v22)
     {
-      WTF::ThreadSafeRefCounted<WebKit::AuxiliaryProcessProxy,(WTF::DestructionThread)2>::deref(v60);
+      WTF::ThreadSafeRefCounted<WebKit::AuxiliaryProcessProxy,(WTF::DestructionThread)2>::deref(v62, v36);
     }
 
     ++v21;
   }
 
-  while (v21 != v59);
-  a4 = v57;
-  v6 = v58;
-  v14 = v55;
-  v9 = v56;
-  v18 = v53;
-  v15 = v54;
-  if (v53)
+  while (v21 != v61);
+  a4 = v59;
+  v6 = v60;
+  v14 = v57;
+  v9 = v58;
+  v18 = v55;
+  v15 = v56;
+  if (v55)
   {
     goto LABEL_43;
   }
@@ -8677,112 +8712,112 @@ LABEL_33:
 LABEL_44:
   if (!*a2)
   {
-    v36 = HIDWORD(v71);
+    v37 = HIDWORD(v73);
     goto LABEL_54;
   }
 
-  v36 = HIDWORD(v71);
+  v37 = HIDWORD(v73);
   if (*(*a2 + 1))
   {
-    v37 = HIDWORD(v71) == 0;
+    v38 = HIDWORD(v73) == 0;
   }
 
   else
   {
-    v37 = 0;
+    v38 = 0;
   }
 
-  if (v37)
+  if (v38)
   {
-    Inspector::Protocol::AutomationHelpers::getEnumConstantValue(10, &v68);
-    v64 = v68;
-    v65 = 1;
-    WTF::Function<void ()(std::experimental::fundamentals_v3::expected<WTF::Ref<WTF::JSONImpl::ArrayOf<Inspector::Protocol::BidiBrowsingContext::Info>,WTF::RawPtrTraits<WTF::JSONImpl::ArrayOf<Inspector::Protocol::BidiBrowsingContext::Info>>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::ArrayOf<Inspector::Protocol::BidiBrowsingContext::Info>>>,WTF::String>)>::operator()(*a4, &v64);
-    v39 = &v64;
+    Inspector::Protocol::AutomationHelpers::getEnumConstantValue(&v70, 10);
+    v66 = v70;
+    v67 = 1;
+    WTF::Function<void ()(std::experimental::fundamentals_v3::expected<WTF::Ref<WTF::JSONImpl::ArrayOf<Inspector::Protocol::BidiBrowsingContext::Info>,WTF::RawPtrTraits<WTF::JSONImpl::ArrayOf<Inspector::Protocol::BidiBrowsingContext::Info>>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::ArrayOf<Inspector::Protocol::BidiBrowsingContext::Info>>>,WTF::String>)>::operator()(*a4, &v66);
+    v40 = &v66;
 LABEL_70:
-    std::experimental::fundamentals_v3::expected<WTF::Ref<WTF::JSONImpl::ArrayOf<Inspector::Protocol::BidiBrowsingContext::Info>,WTF::RawPtrTraits<WTF::JSONImpl::ArrayOf<Inspector::Protocol::BidiBrowsingContext::Info>>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::ArrayOf<Inspector::Protocol::BidiBrowsingContext::Info>>>,WTF::String>::~expected(v39, v38);
+    std::experimental::fundamentals_v3::expected<WTF::Ref<WTF::JSONImpl::ArrayOf<Inspector::Protocol::BidiBrowsingContext::Info>,WTF::RawPtrTraits<WTF::JSONImpl::ArrayOf<Inspector::Protocol::BidiBrowsingContext::Info>>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::ArrayOf<Inspector::Protocol::BidiBrowsingContext::Info>>>,WTF::String>::~expected(v40, v39);
     goto LABEL_71;
   }
 
 LABEL_54:
-  if (!v36)
+  if (!v37)
   {
-    v52 = WTF::fastMalloc(0x20);
-    v62 = WTF::JSONImpl::ArrayBase::ArrayBase(v52);
-    v63 = 0;
-    WTF::Function<void ()(std::experimental::fundamentals_v3::expected<WTF::Ref<WTF::JSONImpl::ArrayOf<Inspector::Protocol::BidiBrowsingContext::Info>,WTF::RawPtrTraits<WTF::JSONImpl::ArrayOf<Inspector::Protocol::BidiBrowsingContext::Info>>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::ArrayOf<Inspector::Protocol::BidiBrowsingContext::Info>>>,WTF::String>)>::operator()(*a4, &v62);
-    v39 = &v62;
+    v54 = WTF::fastMalloc(v37, 0x20);
+    v64 = WTF::JSONImpl::ArrayBase::ArrayBase(v54);
+    v65 = 0;
+    WTF::Function<void ()(std::experimental::fundamentals_v3::expected<WTF::Ref<WTF::JSONImpl::ArrayOf<Inspector::Protocol::BidiBrowsingContext::Info>,WTF::RawPtrTraits<WTF::JSONImpl::ArrayOf<Inspector::Protocol::BidiBrowsingContext::Info>>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::ArrayOf<Inspector::Protocol::BidiBrowsingContext::Info>>>,WTF::String>)>::operator()(*a4, &v64);
+    v40 = &v64;
     goto LABEL_70;
   }
 
-  if (v36 != 1)
+  if (v37 != 1)
   {
-    v40 = 0;
     v41 = 0;
+    v42 = 0;
     do
     {
-      if (v41 >= v36 || (v42 = v40 + v36 - 1, v42 >= v36))
+      if (v42 >= v37 || (v43 = v41 + (v37 - 1), v43 >= v37))
       {
         __break(0xC471u);
         JUMPOUT(0x19D68909CLL);
       }
 
-      v43 = v70;
-      v44 = *(v70 + 8 * v41);
-      *(v70 + 8 * v41) = 0;
-      v45 = *(v43 + 8 * v42);
-      *(v43 + 8 * v42) = 0;
-      v46 = *(v43 + 8 * v41);
-      *(v43 + 8 * v41) = v45;
-      if (v46)
-      {
-        CFRelease(*(v46 + 8));
-      }
-
-      v47 = *(v43 + 8 * v42);
-      *(v43 + 8 * v42) = v44;
+      v44 = v72;
+      v45 = *(v72 + 8 * v42);
+      *(v72 + 8 * v42) = 0;
+      v46 = *(v44 + 8 * v43);
+      *(v44 + 8 * v43) = 0;
+      v47 = *(v44 + 8 * v42);
+      *(v44 + 8 * v42) = v46;
       if (v47)
       {
         CFRelease(*(v47 + 8));
       }
 
-      ++v41;
-      v36 = HIDWORD(v71);
-      --v40;
+      v48 = *(v44 + 8 * v43);
+      *(v44 + 8 * v43) = v45;
+      if (v48)
+      {
+        CFRelease(*(v48 + 8));
+      }
+
+      ++v42;
+      v37 = HIDWORD(v73);
+      --v41;
     }
 
-    while (v41 < HIDWORD(v71) >> 1);
+    while (v42 < HIDWORD(v73) >> 1);
   }
 
-  v48 = WTF::fastMalloc(0x20);
-  v61 = WTF::JSONImpl::ArrayBase::ArrayBase(v48);
-  v49 = *a4;
+  v49 = WTF::fastMalloc(v37, 0x20);
+  v63 = WTF::JSONImpl::ArrayBase::ArrayBase(v49);
+  v50 = *a4;
   *a4 = 0;
-  v50 = WTF::fastMalloc(0x10);
-  *v50 = &unk_1F10E73D8;
-  v50[1] = v49;
-  v68 = v50;
-  WebKit::BidiBrowsingContextAgent::getNextTree(v9, &v70, &v61, v14, v15, &v68);
-  if (v68)
+  v52 = WTF::fastMalloc(v51, 0x10);
+  *v52 = &unk_1F10E73D8;
+  v52[1] = v50;
+  v70 = v52;
+  WebKit::BidiBrowsingContextAgent::getNextTree(v9, &v72, &v63, v14, v15, &v70);
+  if (v70)
   {
-    (*(*v68 + 8))(v68);
+    (*(*v70 + 8))(v70);
   }
 
-  if (v61)
+  if (v63)
   {
-    if (*v61 == 1)
+    if (*v63 == 1)
     {
       WTF::JSONImpl::Value::operator delete();
     }
 
     else
     {
-      --*v61;
+      --*v63;
     }
   }
 
 LABEL_71:
-  WTF::Vector<WTF::Ref<WebKit::WebPageProxy,WTF::RawPtrTraits<WebKit::WebPageProxy>,WTF::DefaultRefDerefTraits<WebKit::WebPageProxy>>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(&v70, v51);
+  WTF::Vector<WTF::Ref<WebKit::WebPageProxy,WTF::RawPtrTraits<WebKit::WebPageProxy>,WTF::DefaultRefDerefTraits<WebKit::WebPageProxy>>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(&v72, v53);
 LABEL_75:
   CFRelease(*(v6 - 8));
 }
@@ -8796,37 +8831,37 @@ void WebKit::BidiBrowsingContextAgent::handleUserPrompt(uint64_t a1, const WTF::
     if (v7)
     {
       CFRetain(*(v7 - 8));
-      if (a3[1] == 1 && *a3 == 1)
+      if (__PAIR64__(a3[1], *a3) == 0x100000001)
       {
-        WebKit::WebAutomationSession::acceptCurrentJavaScriptDialog((v7 - 16), a2, v10, &v17);
+        WebKit::WebAutomationSession::acceptCurrentJavaScriptDialog(&v17, (v7 - 16), a2, v10);
         WTF::Function<void ()(std::experimental::fundamentals_v3::expected<void,WTF::String>)>::operator()(a5, &v17);
         if (v18 != 1)
         {
-          goto LABEL_16;
+          goto LABEL_15;
         }
 
         v12 = v17;
         v17 = 0;
         if (!v12)
         {
-          goto LABEL_16;
+          goto LABEL_15;
         }
       }
 
       else
       {
-        WebKit::WebAutomationSession::dismissCurrentJavaScriptDialog((v7 - 16), a2, v10, &v15);
+        WebKit::WebAutomationSession::dismissCurrentJavaScriptDialog(&v15, (v7 - 16), a2, v10);
         WTF::Function<void ()(std::experimental::fundamentals_v3::expected<void,WTF::String>)>::operator()(a5, &v15);
         if (v16 != 1)
         {
-          goto LABEL_16;
+          goto LABEL_15;
         }
 
         v12 = v15;
         v15 = 0;
         if (!v12)
         {
-          goto LABEL_16;
+          goto LABEL_15;
         }
       }
 
@@ -8835,13 +8870,13 @@ void WebKit::BidiBrowsingContextAgent::handleUserPrompt(uint64_t a1, const WTF::
         WTF::StringImpl::destroy(v12, v11);
       }
 
-LABEL_16:
+LABEL_15:
       CFRelease(*(v7 - 8));
       return;
     }
   }
 
-  Inspector::Protocol::AutomationHelpers::getEnumConstantValue(5, &v19);
+  Inspector::Protocol::AutomationHelpers::getEnumConstantValue(&v19, 5);
   v20 = v19;
   v21 = 1;
   WTF::Function<void ()(std::experimental::fundamentals_v3::expected<void,WTF::String>)>::operator()(a5, &v20);
@@ -8859,7 +8894,7 @@ LABEL_16:
   }
 }
 
-void WebKit::BidiBrowsingContextAgent::navigate(uint64_t a1, const WTF::StringImpl **a2, const WTF::StringImpl *a3, uint64_t a4, uint64_t *a5)
+void WebKit::BidiBrowsingContextAgent::navigate(uint64_t a1, const WTF::StringImpl **a2, atomic_uint **a3, uint64_t a4, uint64_t *a5)
 {
   v6 = *(a1 + 8);
   if (v6 && (v7 = *(v6 + 8)) != 0)
@@ -8885,41 +8920,42 @@ void WebKit::BidiBrowsingContextAgent::navigate(uint64_t a1, const WTF::StringIm
       v12 = v11 + 27;
     }
 
-    v22 = v12;
-    v23 = 1;
-    v20 = 0x41124F8000000000;
-    v21 = 1;
-    v13 = *a3;
+    v23 = v12;
+    add_explicit = 1;
+    v24 = 1;
+    v21 = 0x41124F8000000000;
+    v22 = 1;
+    v14 = *a3;
     if (*a3)
     {
-      atomic_fetch_add_explicit(v13, 2u, memory_order_relaxed);
+      add_explicit = atomic_fetch_add_explicit(v14, 2u, memory_order_relaxed);
     }
 
-    v14 = *a5;
+    v15 = *a5;
     *a5 = 0;
-    v15 = WTF::fastMalloc(0x18);
-    *v15 = &unk_1F10E7400;
-    if (v13)
+    v16 = WTF::fastMalloc(add_explicit, 0x18);
+    *v16 = &unk_1F10E7400;
+    if (v14)
     {
-      atomic_fetch_add_explicit(v13, 2u, memory_order_relaxed);
+      atomic_fetch_add_explicit(v14, 2u, memory_order_relaxed);
     }
 
-    v15[1] = v13;
-    v15[2] = v14;
-    v19 = v15;
-    WebKit::WebAutomationSession::navigateBrowsingContext((v7 - 16), a2, a3, &v22, &v20, &v19);
-    v17 = v19;
-    v19 = 0;
-    if (v17)
+    v16[1] = v14;
+    v16[2] = v15;
+    v20 = v16;
+    WebKit::WebAutomationSession::navigateBrowsingContext((v7 - 16), a2, a3, &v23, &v21, &v20);
+    v18 = v20;
+    v20 = 0;
+    if (v18)
     {
-      (*(*v17 + 8))(v17);
+      (*(*v18 + 8))(v18);
     }
 
-    if (v13)
+    if (v14)
     {
-      if (atomic_fetch_add_explicit(v13, 0xFFFFFFFE, memory_order_relaxed) == 2)
+      if (atomic_fetch_add_explicit(v14, 0xFFFFFFFE, memory_order_relaxed) == 2)
       {
-        WTF::StringImpl::destroy(v13, v16);
+        WTF::StringImpl::destroy(v14, v17);
       }
     }
 
@@ -8928,11 +8964,11 @@ void WebKit::BidiBrowsingContextAgent::navigate(uint64_t a1, const WTF::StringIm
 
   else
   {
-    Inspector::Protocol::AutomationHelpers::getEnumConstantValue(5, &v20);
-    v24[0] = v20;
-    v25 = 1;
-    WTF::Function<void ()(std::experimental::fundamentals_v3::expected<std::tuple<WTF::String,WTF::String>,WTF::String>)>::operator()(*a5, v24);
-    std::experimental::fundamentals_v3::expected<std::tuple<WTF::String,WTF::String>,WTF::String>::~expected(v24, v18);
+    Inspector::Protocol::AutomationHelpers::getEnumConstantValue(&v21, 5);
+    v25[0] = v21;
+    v26 = 1;
+    WTF::Function<void ()(std::experimental::fundamentals_v3::expected<std::tuple<WTF::String,WTF::String>,WTF::String>)>::operator()(*a5, v25);
+    std::experimental::fundamentals_v3::expected<std::tuple<WTF::String,WTF::String>,WTF::String>::~expected(v25, v19);
   }
 }
 
@@ -8989,7 +9025,7 @@ uint64_t std::experimental::fundamentals_v3::expected<std::tuple<WTF::String,WTF
   return a1;
 }
 
-uint64_t WebKit::BidiBrowsingContextAgent::reload(uint64_t a1, const WTF::StringImpl **a2, uint64_t a3, uint64_t a4, uint64_t *a5)
+uint64_t *WebKit::BidiBrowsingContextAgent::reload(uint64_t a1, atomic_uint **a2, uint64_t a3, uint64_t a4, uint64_t *a5)
 {
   v6 = *(a1 + 8);
   if (v6 && (v7 = *(v6 + 8)) != 0)
@@ -9016,53 +9052,54 @@ uint64_t WebKit::BidiBrowsingContextAgent::reload(uint64_t a1, const WTF::String
       v12 = v11 + 27;
     }
 
-    v22 = v12;
-    v23 = 1;
-    v20 = 0x41124F8000000000;
-    v21 = 1;
-    v13 = *a2;
+    v23 = v12;
+    add_explicit = 1;
+    v24 = 1;
+    v21 = 0x41124F8000000000;
+    v22 = 1;
+    v14 = *a2;
     if (*a2)
     {
-      atomic_fetch_add_explicit(v13, 2u, memory_order_relaxed);
+      add_explicit = atomic_fetch_add_explicit(v14, 2u, memory_order_relaxed);
     }
 
-    v14 = *a5;
+    v15 = *a5;
     *a5 = 0;
-    v15 = WTF::fastMalloc(0x20);
-    *v15 = &unk_1F10E7428;
-    v15[1] = v10;
-    if (v13)
+    v16 = WTF::fastMalloc(add_explicit, 0x20);
+    *v16 = &unk_1F10E7428;
+    v16[1] = v10;
+    if (v14)
     {
-      atomic_fetch_add_explicit(v13, 2u, memory_order_relaxed);
+      atomic_fetch_add_explicit(v14, 2u, memory_order_relaxed);
     }
 
-    v15[2] = v13;
-    v15[3] = v14;
-    v19 = v15;
-    WebKit::WebAutomationSession::reloadBrowsingContext(v10, a2, &v22, &v20, &v19);
-    result = v19;
-    v19 = 0;
+    v16[2] = v14;
+    v16[3] = v15;
+    v20 = v16;
+    WebKit::WebAutomationSession::reloadBrowsingContext(v10, a2, &v23, &v21, &v20);
+    result = v20;
+    v20 = 0;
     if (result)
     {
       result = (*(*result + 8))(result);
     }
 
-    if (v13)
+    if (v14)
     {
-      if (atomic_fetch_add_explicit(v13, 0xFFFFFFFE, memory_order_relaxed) == 2)
+      if (atomic_fetch_add_explicit(v14, 0xFFFFFFFE, memory_order_relaxed) == 2)
       {
-        return WTF::StringImpl::destroy(v13, v16);
+        return WTF::StringImpl::destroy(v14, v17);
       }
     }
   }
 
   else
   {
-    Inspector::Protocol::AutomationHelpers::getEnumConstantValue(5, &v20);
-    v24[0] = v20;
-    v25 = 1;
-    WTF::Function<void ()(std::experimental::fundamentals_v3::expected<std::tuple<WTF::String,WTF::String>,WTF::String>)>::operator()(*a5, v24);
-    return std::experimental::fundamentals_v3::expected<std::tuple<WTF::String,WTF::String>,WTF::String>::~expected(v24, v18);
+    Inspector::Protocol::AutomationHelpers::getEnumConstantValue(&v21, 5);
+    v25[0] = v21;
+    v26 = 1;
+    WTF::Function<void ()(std::experimental::fundamentals_v3::expected<std::tuple<WTF::String,WTF::String>,WTF::String>)>::operator()(*a5, v25);
+    return std::experimental::fundamentals_v3::expected<std::tuple<WTF::String,WTF::String>,WTF::String>::~expected(v25, v19);
   }
 
   return result;
@@ -9088,7 +9125,7 @@ uint64_t WTF::Detail::CallableWrapper<WebKit::BidiBrowsingContextAgent::activate
   *(this + 1) = 0;
   if (v3)
   {
-    (*(*v3 + 8))(v3);
+    (*(*v3 + 8))(v3, a2);
   }
 
   return WTF::fastFree(this, a2);
@@ -9151,7 +9188,7 @@ uint64_t WTF::Detail::CallableWrapper<WebKit::BidiBrowsingContextAgent::create(I
   *(this + 1) = 0;
   if (v3)
   {
-    (*(*v3 + 8))(v3);
+    (*(*v3 + 8))(v3, a2);
   }
 
   return WTF::fastFree(this, a2);
@@ -9235,7 +9272,7 @@ void *WTF::Detail::CallableWrapper<WebKit::BidiBrowsingContextAgent::getNextTree
   a1[5] = 0;
   if (v4)
   {
-    (*(*v4 + 8))(v4);
+    (*(*v4 + 8))(v4, a2);
   }
 
   v5 = a1[4];
@@ -9271,7 +9308,7 @@ uint64_t WTF::Detail::CallableWrapper<WebKit::BidiBrowsingContextAgent::getNextT
   *(a1 + 5) = 0;
   if (v4)
   {
-    (*(*v4 + 8))(v4);
+    (*(*v4 + 8))(v4, a2);
   }
 
   v5 = *(a1 + 4);
@@ -9351,25 +9388,25 @@ _DWORD *WTF::Detail::CallableWrapper<WebKit::BidiBrowsingContextAgent::getNextTr
   return result;
 }
 
-CFTypeRef WTF::Vector<WTF::Ref<WebKit::WebPageProxy,WTF::RawPtrTraits<WebKit::WebPageProxy>,WTF::DefaultRefDerefTraits<WebKit::WebPageProxy>>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::appendSlowCase<(WTF::FailureAction)0,WTF::Ref<WebKit::WebPageProxy,WTF::RawPtrTraits<WebKit::WebPageProxy>,WTF::DefaultRefDerefTraits<WebKit::WebPageProxy>>&>(uint64_t a1, unint64_t a2)
+CFTypeRef WTF::Vector<WTF::Ref<WebKit::WebPageProxy,WTF::RawPtrTraits<WebKit::WebPageProxy>,WTF::DefaultRefDerefTraits<WebKit::WebPageProxy>>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::appendSlowCase<(WTF::FailureAction)0,WTF::Ref<WebKit::WebPageProxy,WTF::RawPtrTraits<WebKit::WebPageProxy>,WTF::DefaultRefDerefTraits<WebKit::WebPageProxy>>&>(uint64_t *a1, unint64_t a2)
 {
-  v3 = WTF::Vector<WTF::Ref<WebKit::WebPageProxy,WTF::RawPtrTraits<WebKit::WebPageProxy>,WTF::DefaultRefDerefTraits<WebKit::WebPageProxy>>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::expandCapacity<(WTF::FailureAction)0>(a1, *(a1 + 12) + 1, a2);
-  v4 = *(a1 + 12);
+  v3 = WTF::Vector<WTF::Ref<WebKit::WebPageProxy,WTF::RawPtrTraits<WebKit::WebPageProxy>,WTF::DefaultRefDerefTraits<WebKit::WebPageProxy>>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::expandCapacity<(WTF::FailureAction)0>(a1, *(a1 + 3) + 1, a2);
+  v4 = *(a1 + 3);
   v5 = *a1;
   v6 = *v3;
   result = CFRetain(*(*v3 + 8));
   *(v5 + 8 * v4) = v6;
-  ++*(a1 + 12);
+  ++*(a1 + 3);
   return result;
 }
 
-unint64_t WTF::Vector<WTF::Ref<WebKit::WebPageProxy,WTF::RawPtrTraits<WebKit::WebPageProxy>,WTF::DefaultRefDerefTraits<WebKit::WebPageProxy>>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::expandCapacity<(WTF::FailureAction)0>(uint64_t a1, unint64_t a2, unint64_t a3)
+unint64_t WTF::Vector<WTF::Ref<WebKit::WebPageProxy,WTF::RawPtrTraits<WebKit::WebPageProxy>,WTF::DefaultRefDerefTraits<WebKit::WebPageProxy>>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::expandCapacity<(WTF::FailureAction)0>(uint64_t *a1, unint64_t a2, unint64_t a3)
 {
   v3 = a3;
   v5 = *a1;
-  if (*a1 > a3 || v5 + 8 * *(a1 + 12) <= a3)
+  if (*a1 > a3 || v5 + 8 * *(a1 + 3) <= a3)
   {
-    v10 = *(a1 + 8);
+    v10 = *(a1 + 2);
     if (v10 + (v10 >> 1) <= v10 + 1)
     {
       v11 = v10 + 1;
@@ -9401,7 +9438,7 @@ unint64_t WTF::Vector<WTF::Ref<WebKit::WebPageProxy,WTF::RawPtrTraits<WebKit::We
   else
   {
     v6 = a3 - v5;
-    v7 = *(a1 + 8);
+    v7 = *(a1 + 2);
     if (v7 + (v7 >> 1) <= v7 + 1)
     {
       v8 = v7 + 1;
@@ -9454,13 +9491,13 @@ uint64_t WTF::Detail::CallableWrapper<WebKit::BidiBrowsingContextAgent::getTree(
   *(this + 1) = 0;
   if (v3)
   {
-    (*(*v3 + 8))(v3);
+    (*(*v3 + 8))(v3, a2);
   }
 
   return WTF::fastFree(this, a2);
 }
 
-uint64_t WTF::Detail::CallableWrapper<WebKit::BidiBrowsingContextAgent::getTree(WTF::String const&,std::optional<double> &&,WTF::Function<void ()(std::experimental::fundamentals_v3::expected<WTF::Ref<WTF::JSONImpl::ArrayOf<Inspector::Protocol::BidiBrowsingContext::Info>,WTF::RawPtrTraits<Inspector::Protocol::BidiBrowsingContext::Info>,WTF::DefaultRefDerefTraits<Inspector::Protocol::BidiBrowsingContext::Info>>,WTF::String>)> &&)::$_0,void,WTF::Ref<WTF::JSONImpl::ArrayOf<Inspector::Protocol::BidiBrowsingContext::Info>,WTF::RawPtrTraits<Inspector::Protocol::BidiBrowsingContext::Info>,WTF::DefaultRefDerefTraits<Inspector::Protocol::BidiBrowsingContext::Info>>>::call(uint64_t *a1, uint64_t a2)
+uint64_t WTF::Detail::CallableWrapper<WebKit::BidiBrowsingContextAgent::getTree(WTF::String const&,std::optional<double> &&,WTF::Function<void ()(std::experimental::fundamentals_v3::expected<WTF::Ref<WTF::JSONImpl::ArrayOf<Inspector::Protocol::BidiBrowsingContext::Info>,WTF::RawPtrTraits<Inspector::Protocol::BidiBrowsingContext::Info>,WTF::DefaultRefDerefTraits<Inspector::Protocol::BidiBrowsingContext::Info>>,WTF::String>)> &&)::$_0,void,WTF::Ref<WTF::JSONImpl::ArrayOf<Inspector::Protocol::BidiBrowsingContext::Info>,WTF::RawPtrTraits<Inspector::Protocol::BidiBrowsingContext::Info>,WTF::DefaultRefDerefTraits<Inspector::Protocol::BidiBrowsingContext::Info>>>::call(mpark *a1, uint64_t a2)
 {
   if (*(a2 + 8))
   {
@@ -9471,7 +9508,7 @@ uint64_t WTF::Detail::CallableWrapper<WebKit::BidiBrowsingContextAgent::getTree(
   *v2 = **a2 + 1;
   v5 = v2;
   v6 = 0;
-  WTF::Function<void ()(std::experimental::fundamentals_v3::expected<WTF::Ref<WTF::JSONImpl::ArrayOf<Inspector::Protocol::BidiBrowsingContext::Info>,WTF::RawPtrTraits<WTF::JSONImpl::ArrayOf<Inspector::Protocol::BidiBrowsingContext::Info>>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::ArrayOf<Inspector::Protocol::BidiBrowsingContext::Info>>>,WTF::String>)>::operator()(a1[1], &v5);
+  WTF::Function<void ()(std::experimental::fundamentals_v3::expected<WTF::Ref<WTF::JSONImpl::ArrayOf<Inspector::Protocol::BidiBrowsingContext::Info>,WTF::RawPtrTraits<WTF::JSONImpl::ArrayOf<Inspector::Protocol::BidiBrowsingContext::Info>>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::ArrayOf<Inspector::Protocol::BidiBrowsingContext::Info>>>,WTF::String>)>::operator()(*(a1 + 1), &v5);
   return std::experimental::fundamentals_v3::expected<WTF::Ref<WTF::JSONImpl::ArrayOf<Inspector::Protocol::BidiBrowsingContext::Info>,WTF::RawPtrTraits<WTF::JSONImpl::ArrayOf<Inspector::Protocol::BidiBrowsingContext::Info>>,WTF::DefaultRefDerefTraits<WTF::JSONImpl::ArrayOf<Inspector::Protocol::BidiBrowsingContext::Info>>>,WTF::String>::~expected(&v5, v3);
 }
 
@@ -9482,7 +9519,7 @@ void *WTF::Detail::CallableWrapper<WebKit::BidiBrowsingContextAgent::navigate(WT
   a1[2] = 0;
   if (v3)
   {
-    (*(*v3 + 8))(v3);
+    (*(*v3 + 8))(v3, a2);
   }
 
   v4 = a1[1];
@@ -9502,7 +9539,7 @@ uint64_t WTF::Detail::CallableWrapper<WebKit::BidiBrowsingContextAgent::navigate
   *(this + 2) = 0;
   if (v3)
   {
-    (*(*v3 + 8))(v3);
+    (*(*v3 + 8))(v3, a2);
   }
 
   v4 = *(this + 1);
@@ -9568,9 +9605,9 @@ WTF::StringImpl *WTF::Detail::CallableWrapper<WebKit::BidiBrowsingContextAgent::
   return result;
 }
 
-void *std::__tuple_leaf<1ul,WTF::String,false>::__tuple_leaf[abi:sn200100]<WTF::ASCIILiteral,0>(void *a1, uint64_t a2)
+void *std::__tuple_leaf<1ul,WTF::String,false>::__tuple_leaf[abi:sn200100]<WTF::ASCIILiteral,0>(void *a1, void *a2)
 {
-  v3 = *(a2 + 8);
+  v3 = a2[1];
   if (v3)
   {
     if (v3 == 1)
@@ -9603,7 +9640,7 @@ void *WTF::Detail::CallableWrapper<WebKit::BidiBrowsingContextAgent::reload(WTF:
   a1[3] = 0;
   if (v3)
   {
-    (*(*v3 + 8))(v3);
+    (*(*v3 + 8))(v3, a2);
   }
 
   v4 = a1[2];
@@ -9621,113 +9658,4 @@ void *WTF::Detail::CallableWrapper<WebKit::BidiBrowsingContextAgent::reload(WTF:
   }
 
   return a1;
-}
-
-uint64_t WTF::Detail::CallableWrapper<WebKit::BidiBrowsingContextAgent::reload(WTF::String const&,std::optional<BOOL> &&,std::optional<Inspector::Protocol::BidiBrowsingContext::ReadinessState> &&,WTF::Function<void ()(std::experimental::fundamentals_v3::expected<std::tuple<WTF::String,WTF::String>,WTF::String>)> &&)::$_0,void,std::experimental<void,WTF::String>>::~CallableWrapper(WTF *this, WTF::StringImpl *a2)
-{
-  *this = &unk_1F10E7428;
-  v3 = *(this + 3);
-  *(this + 3) = 0;
-  if (v3)
-  {
-    (*(*v3 + 8))(v3);
-  }
-
-  v4 = *(this + 2);
-  *(this + 2) = 0;
-  if (v4 && atomic_fetch_add_explicit(v4, 0xFFFFFFFE, memory_order_relaxed) == 2)
-  {
-    WTF::StringImpl::destroy(v4, a2);
-  }
-
-  v5 = *(this + 1);
-  *(this + 1) = 0;
-  if (v5)
-  {
-    CFRelease(*(v5 + 8));
-  }
-
-  return WTF::fastFree(this, a2);
-}
-
-void WTF::Detail::CallableWrapper<WebKit::BidiBrowsingContextAgent::reload(WTF::String const&,std::optional<BOOL> &&,std::optional<Inspector::Protocol::BidiBrowsingContext::ReadinessState> &&,WTF::Function<void ()(std::experimental::fundamentals_v3::expected<std::tuple<WTF::String,WTF::String>,WTF::String>)> &&)::$_0,void,std::experimental<void,WTF::String>>::call(uint64_t a1, uint64_t a2, const WTF::StringImpl *a3)
-{
-  if (*(a2 + 8) == 1)
-  {
-    v4 = *a2;
-    if (*a2)
-    {
-      atomic_fetch_add_explicit(v4, 2u, memory_order_relaxed);
-    }
-
-    goto LABEL_16;
-  }
-
-  v5 = *(a1 + 8);
-  if (!v5)
-  {
-    Inspector::Protocol::AutomationHelpers::getEnumConstantValue(5, v18);
-    v4 = v18[0];
-LABEL_16:
-    *&v20 = v4;
-    v21 = 1;
-    WTF::Function<void ()(std::experimental::fundamentals_v3::expected<std::tuple<WTF::String,WTF::String>,WTF::String>)>::operator()(*(a1 + 24), &v20);
-    std::experimental::fundamentals_v3::expected<std::tuple<WTF::String,WTF::String>,WTF::String>::~expected(&v20, v13);
-    return;
-  }
-
-  WebKit::WebAutomationSession::webPageProxyForHandle(v5, (a1 + 16), a3, &v19);
-  if (v19)
-  {
-    WebKit::WebPageProxy::currentURL(v19, &v17);
-    v16[0] = "placeholder_navigation";
-    v16[1] = 23;
-    v6 = v17;
-    v17 = 0;
-    v18[0] = v6;
-    std::__tuple_leaf<1ul,WTF::String,false>::__tuple_leaf[abi:sn200100]<WTF::ASCIILiteral,0>(&v18[1], v16);
-    v7 = *v18;
-    v18[0] = 0;
-    v18[1] = 0;
-    v20 = v7;
-    v21 = 0;
-    WTF::Function<void ()(std::experimental::fundamentals_v3::expected<std::tuple<WTF::String,WTF::String>,WTF::String>)>::operator()(*(a1 + 24), &v20);
-    std::experimental::fundamentals_v3::expected<std::tuple<WTF::String,WTF::String>,WTF::String>::~expected(&v20, v8);
-    v10 = v18[1];
-    v18[1] = 0;
-    if (v10 && atomic_fetch_add_explicit(v10, 0xFFFFFFFE, memory_order_relaxed) == 2)
-    {
-      WTF::StringImpl::destroy(v10, v9);
-    }
-
-    v11 = v18[0];
-    v18[0] = 0;
-    if (v11 && atomic_fetch_add_explicit(v11, 0xFFFFFFFE, memory_order_relaxed) == 2)
-    {
-      WTF::StringImpl::destroy(v11, v9);
-    }
-
-    v12 = v17;
-    v17 = 0;
-    if (v12 && atomic_fetch_add_explicit(v12, 0xFFFFFFFE, memory_order_relaxed) == 2)
-    {
-      WTF::StringImpl::destroy(v12, v9);
-    }
-  }
-
-  else
-  {
-    Inspector::Protocol::AutomationHelpers::getEnumConstantValue(9, v18);
-    *&v20 = v18[0];
-    v21 = 1;
-    WTF::Function<void ()(std::experimental::fundamentals_v3::expected<std::tuple<WTF::String,WTF::String>,WTF::String>)>::operator()(*(a1 + 24), &v20);
-    std::experimental::fundamentals_v3::expected<std::tuple<WTF::String,WTF::String>,WTF::String>::~expected(&v20, v14);
-  }
-
-  v15 = v19;
-  v19 = 0;
-  if (v15)
-  {
-    CFRelease(*(v15 + 1));
-  }
 }

@@ -4,6 +4,7 @@
 + (id)array:(id)array reduce:(id)reduce withInitialValue:(id)value;
 + (id)arrayWithObject:(id)object repeated:(unint64_t)repeated;
 + (id)fetchDeviceInUseDateIntervalsFromStore:(id)store whichIntersectInterval:(id)interval;
++ (id)fetchFirstEventDateIntervalFromStore:(id)store forStream:(id)stream sortDateAscending:(BOOL)ascending intersectingInterval:(id)interval;
 + (id)findAllSleepPeriodsInDayStarting:(id)starting FromActivityProbabilities:(id)probabilities;
 + (id)findSleepPeriodInDayStarting:(id)starting FromActivityProbabilities:(id)probabilities;
 + (id)gatherBitmapHistoryFromStore:(id)store forPeriod:(id)period;
@@ -198,7 +199,7 @@
 
 + (id)fetchDeviceInUseDateIntervalsFromStore:(id)store whichIntersectInterval:(id)interval
 {
-  v31[1] = *MEMORY[0x1E69E9840];
+  v30[1] = *MEMORY[0x1E69E9840];
   storeCopy = store;
   intervalCopy = interval;
   v7 = objc_alloc_init(_DKEventQuery);
@@ -208,15 +209,15 @@
 
   [(_DKQuery *)v7 setTracker:&__block_literal_global_20];
   v10 = +[_DKSystemEventStreams deviceInUseProxyStream];
-  v31[0] = v10;
-  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v31 count:1];
+  v30[0] = v10;
+  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v30 count:1];
   [(_DKEventQuery *)v7 setEventStreams:v11];
 
   [(_DKEventQuery *)v7 setOffset:0];
   [(_DKEventQuery *)v7 setLimit:0];
   v12 = [_DKQuery startDateSortDescriptorAscending:1];
-  v30 = v12;
-  v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v30 count:1];
+  v29 = v12;
+  v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v29 count:1];
   [(_DKEventQuery *)v7 setSortDescriptors:v13];
 
   startDate = [intervalCopy startDate];
@@ -225,9 +226,9 @@
 
   v17 = +[_CDSleepPredictor predicateForInUseVaue];
   v18 = MEMORY[0x1E696AB28];
-  v29[0] = v16;
-  v29[1] = v17;
-  v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:v29 count:2];
+  v28[0] = v16;
+  v28[1] = v17;
+  v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:v28 count:2];
   v20 = [v18 andPredicateWithSubpredicates:v19];
   [(_DKEventQuery *)v7 setPredicate:v20];
 
@@ -238,9 +239,9 @@
     +[_CDSleepPredictor fetchDeviceInUseDateIntervalsFromStore:whichIntersectInterval:];
   }
 
-  v28 = 0;
-  v22 = [storeCopy executeQuery:v7 error:&v28];
-  v23 = v28;
+  v27 = 0;
+  v22 = [storeCopy executeQuery:v7 error:&v27];
+  v23 = v27;
   if (v23)
   {
     v24 = +[_CDLogging knowledgeChannel];
@@ -257,9 +258,79 @@
     v25 = v22;
   }
 
-  v26 = *MEMORY[0x1E69E9840];
-
   return v25;
+}
+
++ (id)fetchFirstEventDateIntervalFromStore:(id)store forStream:(id)stream sortDateAscending:(BOOL)ascending intersectingInterval:(id)interval
+{
+  ascendingCopy = ascending;
+  v38[1] = *MEMORY[0x1E69E9840];
+  storeCopy = store;
+  streamCopy = stream;
+  intervalCopy = interval;
+  v12 = objc_alloc_init(_DKEventQuery);
+  v13 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"_CDSleepPredictor.m"];
+  v14 = [v13 stringByAppendingFormat:@":%d", 201];
+  [(_DKQuery *)v12 setClientName:v14];
+
+  [(_DKQuery *)v12 setTracker:&__block_literal_global_27];
+  v38[0] = streamCopy;
+  v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v38 count:1];
+  [(_DKEventQuery *)v12 setEventStreams:v15];
+
+  [(_DKEventQuery *)v12 setOffset:0];
+  [(_DKEventQuery *)v12 setLimit:1];
+  v16 = [_DKQuery startDateSortDescriptorAscending:ascendingCopy];
+  v37 = v16;
+  v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v37 count:1];
+  [(_DKEventQuery *)v12 setSortDescriptors:v17];
+
+  startDate = [intervalCopy startDate];
+  endDate = [intervalCopy endDate];
+  v20 = [_DKQuery predicateForEventsIntersectingDateRangeFrom:startDate to:endDate];
+  [(_DKEventQuery *)v12 setPredicate:v20];
+
+  [(_DKEventQuery *)v12 setResultType:2];
+  v21 = +[_CDLogging knowledgeChannel];
+  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
+  {
+    v27 = @"last";
+    *buf = 138413058;
+    if (ascendingCopy)
+    {
+      v27 = @"first";
+    }
+
+    v30 = v27;
+    v31 = 2112;
+    v32 = storeCopy;
+    v33 = 2112;
+    v34 = streamCopy;
+    v35 = 2112;
+    v36 = intervalCopy;
+    _os_log_debug_impl(&dword_191750000, v21, OS_LOG_TYPE_DEBUG, "Executing query for %@ event in stream %@ on store %@ in date range %@", buf, 0x2Au);
+  }
+
+  v28 = 0;
+  v22 = [storeCopy executeQuery:v12 error:&v28];
+  v23 = v28;
+  if (v23)
+  {
+    v24 = +[_CDLogging knowledgeChannel];
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
+    {
+      +[_CDSleepPredictor fetchDeviceInUseDateIntervalsFromStore:whichIntersectInterval:];
+    }
+
+    firstObject = 0;
+  }
+
+  else
+  {
+    firstObject = [v22 firstObject];
+  }
+
+  return firstObject;
 }
 
 + (id)gatherBitmapHistoryFromStore:(id)store forPeriod:(id)period
@@ -391,30 +462,26 @@ LABEL_10:
 
 + (void)fetchDeviceInUseDateIntervalsFromStore:whichIntersectInterval:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
-  v4 = 2112;
-  v5 = v0;
-  _os_log_debug_impl(&dword_191750000, v1, OS_LOG_TYPE_DEBUG, "Executing query for unlock events on store %@ in date range %@", v3, 0x16u);
-  v2 = *MEMORY[0x1E69E9840];
+  v3 = 2112;
+  v4 = v0;
+  _os_log_debug_impl(&dword_191750000, v1, OS_LOG_TYPE_DEBUG, "Executing query for unlock events on store %@ in date range %@", v2, 0x16u);
 }
 
 + (void)fetchDeviceInUseDateIntervalsFromStore:whichIntersectInterval:.cold.2()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_8();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 + (void)gatherBitmapHistoryFromStore:(void *)a1 forPeriod:(NSObject *)a2 .cold.1(void *a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
   [a1 count];
   OUTLINED_FUNCTION_1();
-  _os_log_debug_impl(&dword_191750000, a2, OS_LOG_TYPE_DEBUG, "Obtained %lu screen unlock events", v4, 0xCu);
-  v3 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(&dword_191750000, a2, OS_LOG_TYPE_DEBUG, "Obtained %lu screen unlock events", v3, 0xCu);
 }
 
 @end

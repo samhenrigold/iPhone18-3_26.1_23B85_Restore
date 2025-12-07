@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)resultAsString:(int)string;
 - (int)StringAsResult:(id)result;
 - (unint64_t)hash;
 - (void)copyTo:(id)to;
@@ -11,6 +12,21 @@
 @end
 
 @implementation NPKProtoRemotePassActionSelectItemResponse
+
+- (id)resultAsString:(int)string
+{
+  if (string >= 5)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_279945978[string];
+  }
+
+  return v4;
+}
 
 - (int)StringAsResult:(id)result
 {
@@ -112,9 +128,8 @@
     [NPKProtoRemotePassActionSelectItemResponse writeTo:];
   }
 
-  v8 = toCopy;
+  v6 = toCopy;
   PBDataWriterWriteStringField();
-  result = self->_result;
   PBDataWriterWriteInt32Field();
   if (self->_incrementCurrency)
   {
@@ -123,15 +138,14 @@
 
   if (*&self->_has)
   {
-    incrementAmount = self->_incrementAmount;
     PBDataWriterWriteSint64Field();
   }
 
-  v7 = v8;
+  v5 = v6;
   if (self->_serviceProviderDataData)
   {
     PBDataWriterWriteDataField();
-    v7 = v8;
+    v5 = v6;
   }
 }
 
@@ -216,7 +230,6 @@
     }
   }
 
-  v7 = *(equalCopy + 48);
   if (*&self->_has)
   {
     if ((*(equalCopy + 48) & 1) == 0 || self->_incrementAmount != *(equalCopy + 1))
@@ -228,24 +241,24 @@
   else if (*(equalCopy + 48))
   {
 LABEL_14:
-    v9 = 0;
+    v8 = 0;
     goto LABEL_15;
   }
 
   serviceProviderDataData = self->_serviceProviderDataData;
   if (serviceProviderDataData | *(equalCopy + 5))
   {
-    v9 = [(NSData *)serviceProviderDataData isEqual:?];
+    v8 = [(NSData *)serviceProviderDataData isEqual:?];
   }
 
   else
   {
-    v9 = 1;
+    v8 = 1;
   }
 
 LABEL_15:
 
-  return v9;
+  return v8;
 }
 
 - (unint64_t)hash

@@ -64,7 +64,7 @@
 
 - (BOOL)canThrowRenderOutput:(id)output withInputA:(id)a withInputB:(id)b withTimeFraction:(float)fraction withInfo:(id *)info
 {
-  ReadyEffect = FracturedUtils::getReadyEffect(&self->_fxPool.__begin_, self->_fxPoolLock);
+  ReadyEffect = FracturedUtils::getReadyEffect(&self->_fxPool, self->_fxPoolLock);
   FracturedUtils::renderOutput(self, self->super.super._apiManager, ReadyEffect, self->_fxParams, output, a, b, &info->var0.var0, fraction, 1);
   return 1;
 }

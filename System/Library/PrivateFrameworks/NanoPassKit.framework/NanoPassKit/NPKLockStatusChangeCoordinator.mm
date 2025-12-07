@@ -115,17 +115,17 @@ LABEL_6:
 - (void)performBlocksIfPossible
 {
   v11 = *MEMORY[0x277D85DE8];
-  v3 = pk_General_log();
+  v3 = pk_General_log(self);
   v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
 
   if (v4)
   {
-    v5 = pk_General_log();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = pk_General_log(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
       selfCopy = self;
-      _os_log_impl(&dword_25B300000, v5, OS_LOG_TYPE_DEFAULT, "Notice: %{public}@: Requested perform blocks if possible.", buf, 0xCu);
+      _os_log_impl(&dword_25B300000, v6, OS_LOG_TYPE_DEFAULT, "Notice: %{public}@: Requested perform blocks if possible.", buf, 0xCu);
     }
   }
 
@@ -136,7 +136,6 @@ LABEL_6:
   block[3] = &unk_279944F98;
   block[4] = self;
   dispatch_async(queue, block);
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setWipeBlocksAfterPerform:(BOOL)perform
@@ -201,33 +200,33 @@ LABEL_6:
 
 - (int)_lockState
 {
-  v7[1] = *MEMORY[0x277D85DE8];
-  v6 = @"ExtendedDeviceLockState";
-  v7[0] = MEMORY[0x277CBEC38];
-  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
+  v6[1] = *MEMORY[0x277D85DE8];
+  v5 = @"ExtendedDeviceLockState";
+  v6[0] = MEMORY[0x277CBEC38];
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
   v3 = MKBGetDeviceLockState();
 
-  v4 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
 - (void)_registerForLockStatusChanges
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   p_notifyLockStatesToken = &self->_notifyLockStatesToken;
-  if (!notify_is_valid_token(self->_notifyLockStatesToken))
+  is_valid_token = notify_is_valid_token(self->_notifyLockStatesToken);
+  if (!is_valid_token)
   {
-    v4 = pk_General_log();
-    v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
+    v5 = pk_General_log(is_valid_token);
+    v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
 
-    if (v5)
+    if (v6)
     {
-      v6 = pk_General_log();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      v8 = pk_General_log(v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543362;
         selfCopy = self;
-        _os_log_impl(&dword_25B300000, v6, OS_LOG_TYPE_DEFAULT, "Notice: %{public}@: Registering for lock state notifications", buf, 0xCu);
+        _os_log_impl(&dword_25B300000, v8, OS_LOG_TYPE_DEFAULT, "Notice: %{public}@: Registering for lock state notifications", buf, 0xCu);
       }
     }
 
@@ -237,13 +236,11 @@ LABEL_6:
     handler[1] = 3221225472;
     handler[2] = __63__NPKLockStatusChangeCoordinator__registerForLockStatusChanges__block_invoke;
     handler[3] = &unk_279944F20;
-    objc_copyWeak(&v10, buf);
+    objc_copyWeak(&v11, buf);
     notify_register_dispatch("com.apple.mobile.keybagd.lock_status", p_notifyLockStatesToken, queue, handler);
-    objc_destroyWeak(&v10);
+    objc_destroyWeak(&v11);
     objc_destroyWeak(buf);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __63__NPKLockStatusChangeCoordinator__registerForLockStatusChanges__block_invoke(uint64_t a1)
@@ -259,35 +256,36 @@ void __63__NPKLockStatusChangeCoordinator__registerForLockStatusChanges__block_i
 
 - (void)_handleLockStateChange
 {
-  v20 = *MEMORY[0x277D85DE8];
-  v3 = pk_General_log();
+  v24 = *MEMORY[0x277D85DE8];
+  v3 = pk_General_log(self);
   v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
 
   if (v4)
   {
-    v5 = pk_General_log();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = pk_General_log(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v16 = 138543362;
+      v20 = 138543362;
       selfCopy4 = self;
-      _os_log_impl(&dword_25B300000, v5, OS_LOG_TYPE_DEFAULT, "Notice: %{public}@: Handling lock state change", &v16, 0xCu);
+      _os_log_impl(&dword_25B300000, v6, OS_LOG_TYPE_DEFAULT, "Notice: %{public}@: Handling lock state change", &v20, 0xCu);
     }
   }
 
   _lockState = [(NPKLockStatusChangeCoordinator *)self _lockState];
-  if ([(NPKLockStatusChangeCoordinator *)self _isUnlockedForLockState:_lockState])
+  v8 = [(NPKLockStatusChangeCoordinator *)self _isUnlockedForLockState:_lockState];
+  if (v8)
   {
-    v7 = pk_General_log();
-    v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
+    v9 = pk_General_log(v8);
+    v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
 
-    if (v8)
+    if (v10)
     {
-      v9 = pk_General_log();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      v12 = pk_General_log(v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
-        v16 = 138543362;
+        v20 = 138543362;
         selfCopy4 = self;
-        _os_log_impl(&dword_25B300000, v9, OS_LOG_TYPE_DEFAULT, "Notice: %{public}@: Device is unlocked", &v16, 0xCu);
+        _os_log_impl(&dword_25B300000, v12, OS_LOG_TYPE_DEFAULT, "Notice: %{public}@: Device is unlocked", &v20, 0xCu);
       }
     }
 
@@ -296,62 +294,62 @@ void __63__NPKLockStatusChangeCoordinator__registerForLockStatusChanges__block_i
 
   else
   {
-    v10 = [(NPKLockStatusChangeCoordinator *)self _isLockedForLockState:_lockState];
-    v11 = pk_General_log();
-    v12 = os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
+    v13 = [(NPKLockStatusChangeCoordinator *)self _isLockedForLockState:_lockState];
+    v14 = v13;
+    v15 = pk_General_log(v13);
+    v16 = os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT);
 
-    if (v10)
+    if (v14)
     {
-      if (v12)
+      if (v16)
       {
-        v13 = pk_General_log();
-        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+        v18 = pk_General_log(v17);
+        if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
         {
-          v16 = 138543362;
+          v20 = 138543362;
           selfCopy4 = self;
-          _os_log_impl(&dword_25B300000, v13, OS_LOG_TYPE_DEFAULT, "Notice: %{public}@: Device is locked", &v16, 0xCu);
+          _os_log_impl(&dword_25B300000, v18, OS_LOG_TYPE_DEFAULT, "Notice: %{public}@: Device is locked", &v20, 0xCu);
         }
       }
 
       [(NPKLockStatusChangeCoordinator *)self _performLockWork];
     }
 
-    else if (v12)
+    else if (v16)
     {
-      v14 = pk_General_log();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+      v19 = pk_General_log(v17);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
       {
-        v16 = 138543618;
+        v20 = 138543618;
         selfCopy4 = self;
-        v18 = 1024;
-        v19 = _lockState;
-        _os_log_impl(&dword_25B300000, v14, OS_LOG_TYPE_DEFAULT, "Notice: %{public}@: Unhandled lock state with value %i", &v16, 0x12u);
+        v22 = 1024;
+        v23 = _lockState;
+        _os_log_impl(&dword_25B300000, v19, OS_LOG_TYPE_DEFAULT, "Notice: %{public}@: Unhandled lock state with value %i", &v20, 0x12u);
       }
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_performUnlockWork
 {
-  v13 = *MEMORY[0x277D85DE8];
-  if ([(NPKLockStatusChangeCoordinator *)self _hasUnlockBlocksToPerform])
+  v14 = *MEMORY[0x277D85DE8];
+  _hasUnlockBlocksToPerform = [(NPKLockStatusChangeCoordinator *)self _hasUnlockBlocksToPerform];
+  if (_hasUnlockBlocksToPerform)
   {
-    v3 = pk_General_log();
-    v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
+    v4 = pk_General_log(_hasUnlockBlocksToPerform);
+    v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
 
-    if (v4)
+    if (v5)
     {
-      v5 = pk_General_log();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+      v7 = pk_General_log(v6);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
         blocksToPerformAfterDeviceUnlock = [(NPKLockStatusChangeCoordinator *)self blocksToPerformAfterDeviceUnlock];
-        v9 = 138543618;
+        v10 = 138543618;
         selfCopy = self;
-        v11 = 2048;
-        v12 = [blocksToPerformAfterDeviceUnlock count];
-        _os_log_impl(&dword_25B300000, v5, OS_LOG_TYPE_DEFAULT, "Notice: %{public}@: Performing work in response to device unlock - %lu block(s) to execute", &v9, 0x16u);
+        v12 = 2048;
+        v13 = [blocksToPerformAfterDeviceUnlock count];
+        _os_log_impl(&dword_25B300000, v7, OS_LOG_TYPE_DEFAULT, "Notice: %{public}@: Performing work in response to device unlock - %lu block(s) to execute", &v10, 0x16u);
       }
     }
 
@@ -363,29 +361,28 @@ void __63__NPKLockStatusChangeCoordinator__registerForLockStatusChanges__block_i
       [(NPKLockStatusChangeCoordinator *)self setBlocksToPerformAfterDeviceUnlock:0];
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_performLockWork
 {
-  v13 = *MEMORY[0x277D85DE8];
-  if ([(NPKLockStatusChangeCoordinator *)self _hasLockBlocksToPerform])
+  v14 = *MEMORY[0x277D85DE8];
+  _hasLockBlocksToPerform = [(NPKLockStatusChangeCoordinator *)self _hasLockBlocksToPerform];
+  if (_hasLockBlocksToPerform)
   {
-    v3 = pk_General_log();
-    v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
+    v4 = pk_General_log(_hasLockBlocksToPerform);
+    v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
 
-    if (v4)
+    if (v5)
     {
-      v5 = pk_General_log();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+      v7 = pk_General_log(v6);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
         blocksToPerformAfterDeviceLock = [(NPKLockStatusChangeCoordinator *)self blocksToPerformAfterDeviceLock];
-        v9 = 138543618;
+        v10 = 138543618;
         selfCopy = self;
-        v11 = 2048;
-        v12 = [blocksToPerformAfterDeviceLock count];
-        _os_log_impl(&dword_25B300000, v5, OS_LOG_TYPE_DEFAULT, "Notice: %{public}@: Performing work in response to device lock - %lu block(s) to execute", &v9, 0x16u);
+        v12 = 2048;
+        v13 = [blocksToPerformAfterDeviceLock count];
+        _os_log_impl(&dword_25B300000, v7, OS_LOG_TYPE_DEFAULT, "Notice: %{public}@: Performing work in response to device lock - %lu block(s) to execute", &v10, 0x16u);
       }
     }
 
@@ -397,8 +394,6 @@ void __63__NPKLockStatusChangeCoordinator__registerForLockStatusChanges__block_i
       [(NPKLockStatusChangeCoordinator *)self setBlocksToPerformAfterDeviceLock:0];
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_performWorkForEvent:(unint64_t)event withBlocks:(id)blocks

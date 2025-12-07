@@ -46,7 +46,7 @@ void __29__PPUtils_preferredLanguages__block_invoke()
 + (BOOL)localizedTimeStructForSecondsFrom1970:(double)from1970 tm:(tm *)tm
 {
   v5 = 0;
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   if (from1970 >= -2147483650.0 && from1970 <= 2147483650.0)
   {
     from1970Copy = from1970;
@@ -58,21 +58,20 @@ void __29__PPUtils_preferredLanguages__block_invoke()
       v8 = pp_default_log_handle();
       if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
       {
-        v11 = __error();
-        v12 = strerror(*v11);
-        v13 = *__error();
+        v10 = __error();
+        v11 = strerror(*v10);
+        v12 = *__error();
         *buf = 134218498;
         from1970Copy2 = from1970;
-        v17 = 2080;
-        v18 = v12;
-        v19 = 1024;
-        v20 = v13;
+        v16 = 2080;
+        v17 = v11;
+        v18 = 1024;
+        v19 = v12;
         _os_log_fault_impl(&dword_1A7FD3000, v8, OS_LOG_TYPE_FAULT, "localtime_r() failure when converting %.1f : %s (%d)", buf, 0x1Cu);
       }
     }
   }
 
-  v9 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -322,7 +321,7 @@ void __41__PPUtils_jaroSimilarityForString_other___block_invoke(uint64_t a1, uin
 
 void __41__PPUtils_jaroSimilarityForString_other___block_invoke_2(void *a1, uint64_t a2)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v4 = objc_autoreleasePoolPush();
   v5 = a1[4];
   v6 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:a2];
@@ -333,15 +332,15 @@ void __41__PPUtils_jaroSimilarityForString_other___block_invoke_2(void *a1, uint
     goto LABEL_17;
   }
 
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   v8 = a1[4];
   v9 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:{a2, 0}];
   v10 = [v8 objectForKeyedSubscript:v9];
 
-  v11 = [v10 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (!v11)
   {
 
@@ -350,17 +349,17 @@ void __41__PPUtils_jaroSimilarityForString_other___block_invoke_2(void *a1, uint
 
   v12 = v11;
   v13 = 0;
-  v14 = *v19;
+  v14 = *v18;
   while (2)
   {
     for (i = 0; i != v12; ++i)
     {
-      if (*v19 != v14)
+      if (*v18 != v14)
       {
         objc_enumerationMutation(v10);
       }
 
-      v16 = *(*(&v18 + 1) + 8 * i);
+      v16 = *(*(&v17 + 1) + 8 * i);
       if (([v16 unsignedIntegerValue] - *(*(a1[5] + 8) + 24)) <= a1[8])
       {
         if ([v16 unsignedIntegerValue] != *(*(a1[5] + 8) + 24))
@@ -376,7 +375,7 @@ LABEL_15:
       }
     }
 
-    v12 = [v10 countByEnumeratingWithState:&v18 objects:v22 count:16];
+    v12 = [v10 countByEnumeratingWithState:&v17 objects:v21 count:16];
     if (v12)
     {
       continue;
@@ -393,12 +392,11 @@ LABEL_15:
 LABEL_17:
   ++*(*(a1[5] + 8) + 24);
   objc_autoreleasePoolPop(v4);
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 + (id)reduceSpotlightDomainIdentifiers:(id)identifiers
 {
-  v15[1] = *MEMORY[0x1E69E9840];
+  v14[1] = *MEMORY[0x1E69E9840];
   identifiersCopy = identifiers;
   if (!identifiersCopy)
   {
@@ -410,12 +408,11 @@ LABEL_17:
   v7 = [objc_alloc(MEMORY[0x1E69C5D18]) initWithDomainsFromArray:identifiersCopy];
   allDomains = [v7 allDomains];
   v9 = [objc_alloc(MEMORY[0x1E696AEB0]) initWithKey:@"self" ascending:1];
-  v15[0] = v9;
-  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:1];
+  v14[0] = v9;
+  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:1];
   v11 = [allDomains sortedArrayUsingDescriptors:v10];
 
   objc_autoreleasePoolPop(v6);
-  v12 = *MEMORY[0x1E69E9840];
 
   return v11;
 }
@@ -434,7 +431,7 @@ LABEL_17:
 + (id)coordinatesToGeoHashWithLength:(unint64_t)length latitude:(double)latitude longitude:(double)longitude
 {
   lengthCopy = length;
-  v26[2] = *MEMORY[0x1E69E9840];
+  v25[2] = *MEMORY[0x1E69E9840];
   if (length >= 0xD)
   {
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
@@ -494,11 +491,11 @@ LABEL_17:
   }
 
   while (v17);
-  memset(v26, 0, 13);
+  memset(v25, 0, 13);
   if (lengthCopy)
   {
     v18 = 5 * lengthCopy - 5;
-    v19 = v26;
+    v19 = v25;
     do
     {
       *v19++ = geoHashBase32Map[(v8 >> v18) & 0x1F];
@@ -509,8 +506,7 @@ LABEL_17:
     while (lengthCopy);
   }
 
-  v20 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithCString:v26 encoding:4];
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithCString:v25 encoding:4];
 
   return v20;
 }
@@ -561,14 +557,13 @@ LABEL_17:
 
 + (id)hexUUID
 {
-  v6[2] = *MEMORY[0x1E69E9840];
-  v6[0] = 0;
-  v6[1] = 0;
+  v5[2] = *MEMORY[0x1E69E9840];
+  v5[0] = 0;
+  v5[1] = 0;
   v2 = objc_opt_new();
-  [v2 getUUIDBytes:v6];
+  [v2 getUUIDBytes:v5];
 
-  v3 = [PPUtils hexOfBytes:v6 size:16];
-  v4 = *MEMORY[0x1E69E9840];
+  v3 = [PPUtils hexOfBytes:v5 size:16];
 
   return v3;
 }
@@ -607,27 +602,25 @@ LABEL_17:
 
 + (id)Sha256ForData:(id)data withSalt:(id)salt
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   saltCopy = salt;
-  memset(&v13, 0, sizeof(v13));
+  memset(&v12, 0, sizeof(v12));
   dataCopy = data;
-  CC_SHA256_Init(&v13);
+  CC_SHA256_Init(&v12);
   v7 = dataCopy;
   bytes = [v7 bytes];
   v9 = [dataCopy length];
 
-  CC_SHA256_Update(&v13, bytes, v9);
+  CC_SHA256_Update(&v12, bytes, v9);
   if (saltCopy)
   {
-    CC_SHA256_Update(&v13, [saltCopy bytes], objc_msgSend(saltCopy, "length"));
+    CC_SHA256_Update(&v12, [saltCopy bytes], objc_msgSend(saltCopy, "length"));
   }
 
   *md = 0u;
-  v15 = 0u;
-  CC_SHA256_Final(md, &v13);
+  v14 = 0u;
+  CC_SHA256_Final(md, &v12);
   v10 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytes:md length:32];
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }

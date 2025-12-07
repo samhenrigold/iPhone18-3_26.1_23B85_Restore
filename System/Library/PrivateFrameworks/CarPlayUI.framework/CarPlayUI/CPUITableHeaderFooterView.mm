@@ -24,7 +24,7 @@
 {
   v3 = *(&self->super.super.super.super.isa + OBJC_IVAR___CPUITableHeaderFooterView_viewModel);
   swift_getKeyPath();
-  lazy protocol witness table accessor for type CPUITableHeaderFooterView.ViewModel and conformance CPUITableHeaderFooterView.ViewModel(&lazy protocol witness table cache variable for type CPUITableHeaderFooterView.ViewModel and conformance CPUITableHeaderFooterView.ViewModel, type metadata accessor for CPUITableHeaderFooterView.ViewModel);
+  lazy protocol witness table accessor for type CPUITableHeaderFooterView.ViewModel and conformance CPUITableHeaderFooterView.ViewModel(&lazy protocol witness table cache variable for type CPUITableHeaderFooterView.ViewModel and conformance CPUITableHeaderFooterView.ViewModel, type metadata accessor for CPUITableHeaderFooterView.ViewModel, &protocol conformance descriptor for CPUITableHeaderFooterView.ViewModel);
   selfCopy = self;
   ObservationRegistrar.access<A, B>(_:keyPath:)();
 
@@ -49,13 +49,13 @@
   v3 = *(&self->super.super.super.super.isa + OBJC_IVAR___CPUITableHeaderFooterView_viewModel);
   swift_getKeyPath();
   v8[0] = v3;
-  lazy protocol witness table accessor for type CPUITableHeaderFooterView.ViewModel and conformance CPUITableHeaderFooterView.ViewModel(&lazy protocol witness table cache variable for type CPUITableHeaderFooterView.ViewModel and conformance CPUITableHeaderFooterView.ViewModel, type metadata accessor for CPUITableHeaderFooterView.ViewModel);
+  lazy protocol witness table accessor for type CPUITableHeaderFooterView.ViewModel and conformance CPUITableHeaderFooterView.ViewModel(&lazy protocol witness table cache variable for type CPUITableHeaderFooterView.ViewModel and conformance CPUITableHeaderFooterView.ViewModel, type metadata accessor for CPUITableHeaderFooterView.ViewModel, &protocol conformance descriptor for CPUITableHeaderFooterView.ViewModel);
   selfCopy = self;
   ObservationRegistrar.access<A, B>(_:keyPath:)();
 
   v5 = *(v3 + 32);
   v6 = *(v3 + 40);
-  _sxRi_zRi0_zlyytIsegr_SgWOy_0(v5);
+  _sxRi_zRi0_zlyytIsegr_SgWOy_0(v5, v6);
 
   if (v5)
   {
@@ -76,21 +76,24 @@
   v4 = _Block_copy(action);
   if (v4)
   {
-    *(swift_allocObject() + 16) = v4;
-    v5 = partial apply for thunk for @escaping @callee_unowned @convention(block) () -> ();
+    v5 = v4;
+    v6 = swift_allocObject();
+    *(v6 + 16) = v5;
+    v7 = partial apply for thunk for @escaping @callee_unowned @convention(block) () -> ();
   }
 
   else
   {
-    v5 = 0;
+    v7 = 0;
+    v6 = 0;
   }
 
   KeyPath = swift_getKeyPath();
   MEMORY[0x28223BE20](KeyPath);
-  lazy protocol witness table accessor for type CPUITableHeaderFooterView.ViewModel and conformance CPUITableHeaderFooterView.ViewModel(&lazy protocol witness table cache variable for type CPUITableHeaderFooterView.ViewModel and conformance CPUITableHeaderFooterView.ViewModel, type metadata accessor for CPUITableHeaderFooterView.ViewModel);
+  lazy protocol witness table accessor for type CPUITableHeaderFooterView.ViewModel and conformance CPUITableHeaderFooterView.ViewModel(&lazy protocol witness table cache variable for type CPUITableHeaderFooterView.ViewModel and conformance CPUITableHeaderFooterView.ViewModel, type metadata accessor for CPUITableHeaderFooterView.ViewModel, &protocol conformance descriptor for CPUITableHeaderFooterView.ViewModel);
   selfCopy = self;
   ObservationRegistrar.withMutation<A, B, C>(of:keyPath:_:)();
-  outlined consume of (@escaping @callee_guaranteed () -> ())?(v5);
+  outlined consume of (@escaping @callee_guaranteed () -> ())?(v7, v6);
 }
 
 - (CPUITableHeaderFooterView)initWithReuseIdentifier:(id)identifier
@@ -147,7 +150,7 @@
   [(CPUITableHeaderFooterView *)&v3 prepareForReuse];
   CPUITableHeaderFooterView.ViewModel.title.setter(0, 0xE000000000000000);
   swift_getKeyPath();
-  lazy protocol witness table accessor for type CPUITableHeaderFooterView.ViewModel and conformance CPUITableHeaderFooterView.ViewModel(&lazy protocol witness table cache variable for type CPUITableHeaderFooterView.ViewModel and conformance CPUITableHeaderFooterView.ViewModel, type metadata accessor for CPUITableHeaderFooterView.ViewModel);
+  lazy protocol witness table accessor for type CPUITableHeaderFooterView.ViewModel and conformance CPUITableHeaderFooterView.ViewModel(&lazy protocol witness table cache variable for type CPUITableHeaderFooterView.ViewModel and conformance CPUITableHeaderFooterView.ViewModel, type metadata accessor for CPUITableHeaderFooterView.ViewModel, &protocol conformance descriptor for CPUITableHeaderFooterView.ViewModel);
   ObservationRegistrar.withMutation<A, B, C>(of:keyPath:_:)();
 }
 

@@ -7,6 +7,7 @@
 - (IDSGroupSessionUnicastConnector)initWithGroupSessionID:(id)d participantID:(unint64_t)iD dataMode:(int64_t)mode;
 - (IDSGroupSessionUnicastConnector)initWithGroupSessionIDAlias:(id)alias participantIDAlias:(unint64_t)dAlias salt:(id)salt dataMode:(int64_t)mode;
 - (id)copyWithZone:(_NSZone *)zone;
+- (id)createDataBlobFrom:(id)from port:(unsigned __int16)port;
 - (unint64_t)hash;
 - (void)encodeWithCoder:(id)coder;
 - (void)listenForIncomingConnection:(id)connection;
@@ -59,9 +60,39 @@
   return v12;
 }
 
+- (id)createDataBlobFrom:(id)from port:(unsigned __int16)port
+{
+  portCopy = port;
+  v22 = *MEMORY[0x1E69E9840];
+  v6 = MEMORY[0x1E696AEC0];
+  participantIDAlias = self->_participantIDAlias;
+  fromCopy = from;
+  participantIDAlias = [v6 stringWithFormat:@"%llu", participantIDAlias];
+  v10 = MEMORY[0x1E695DF20];
+  v11 = [fromCopy copy];
+
+  v12 = [MEMORY[0x1E696AD98] numberWithUnsignedShort:portCopy];
+  groupSessionIDAlias = self->_groupSessionIDAlias;
+  salt = self->_salt;
+  v15 = [MEMORY[0x1E696AD98] numberWithInteger:self->_dataMode];
+  v16 = [v10 dictionaryWithObjectsAndKeys:{v11, @"psk", v12, @"listeningPort", groupSessionIDAlias, @"groupSessionIDAlias", participantIDAlias, @"participantIDAlias", salt, @"salt", v15, @"dataMode", 0}];
+
+  v17 = +[IDSLogging _IDSGroupSession];
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 138412290;
+    v21 = v16;
+    _os_log_impl(&dword_1959FF000, v17, OS_LOG_TYPE_DEFAULT, "createDataBlobFrom: encoded %@", buf, 0xCu);
+  }
+
+  v18 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:v16 requiringSecureCoding:1 error:0];
+
+  return v18;
+}
+
 + (id)extractDictionaryFromDataBlobFrom:(id)from error:(id *)error
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   fromCopy = from;
   v6 = MEMORY[0x1E696ACD0];
   v7 = MEMORY[0x1E695DFD8];
@@ -77,7 +108,7 @@
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v21 = v12;
+      v20 = v12;
       _os_log_impl(&dword_1959FF000, v13, OS_LOG_TYPE_DEFAULT, "extractDictionaryFromDataBlobFrom: decoded %@", buf, 0xCu);
     }
 
@@ -93,8 +124,6 @@
       v12 = 0;
     }
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 
   return v12;
 }
@@ -124,7 +153,7 @@
     if (((1 << dataMode) & 9) == 0 && ((1 << dataMode) & 0x12) == 0)
     {
       v10 = nw_parameters_copy_default_protocol_stack(v5);
-      v11 = sub_195A15A18();
+      v11 = sub_195A15A18(v10);
       options = nw_framer_create_options(v11);
       nw_protocol_stack_prepend_application_protocol(v10, options);
 
@@ -209,24 +238,24 @@
 
 + (void)requestNWConnectionWithDataBlob:(id)blob completionHandler:(id)handler
 {
-  v67 = *MEMORY[0x1E69E9840];
+  v66 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
-  v62 = 0;
-  v6 = [IDSGroupSessionUnicastConnector extractDictionaryFromDataBlobFrom:blob error:&v62];
-  v7 = v62;
+  v61 = 0;
+  v6 = [IDSGroupSessionUnicastConnector extractDictionaryFromDataBlobFrom:blob error:&v61];
+  v7 = v61;
   if (v7)
   {
     handlerCopy[2](handlerCopy, 0, v7);
   }
 
-  v58 = handlerCopy;
+  v57 = handlerCopy;
   v8 = [v6 objectForKeyedSubscript:@"groupSessionIDAlias"];
   v9 = [v6 objectForKeyedSubscript:@"participantIDAlias"];
-  v60 = [v6 objectForKeyedSubscript:@"salt"];
+  v59 = [v6 objectForKeyedSubscript:@"salt"];
   v10 = [v6 objectForKeyedSubscript:@"dataMode"];
   integerValue = [v10 integerValue];
 
-  v59 = [v6 objectForKeyedSubscript:@"psk"];
+  v58 = [v6 objectForKeyedSubscript:@"psk"];
   v12 = [v6 objectForKeyedSubscript:@"listeningPort"];
   integerValue2 = [v12 integerValue];
 
@@ -237,16 +266,16 @@
   xpc_array_set_string(v14, 0xFFFFFFFFFFFFFFFFLL, [v16 UTF8String]);
 
   xpc_array_set_string(v15, 0xFFFFFFFFFFFFFFFFLL, [*MEMORY[0x1E69A4ED0] UTF8String]);
-  v56 = v15;
-  v57 = v14;
+  v55 = v15;
+  v56 = v14;
   nw_parameters_set_required_netagent_classes();
   if (integerValue > 5)
   {
-    v48 = objc_alloc(MEMORY[0x1E695DF20]);
-    v24 = [v48 initWithObjectsAndKeys:{@"Unknown parameter", *MEMORY[0x1E696A578], 0}];
+    v47 = objc_alloc(MEMORY[0x1E695DF20]);
+    v24 = [v47 initWithObjectsAndKeys:{@"Unknown parameter", *MEMORY[0x1E696A578], 0}];
     v46 = [objc_alloc(MEMORY[0x1E696ABC0]) initWithDomain:@"com.apple.identityservices.error" code:42 userInfo:v24];
-    v42 = v58;
-    (*(v58 + 2))(v58, 0, v46);
+    v42 = v57;
+    (*(v57 + 2))(v57, 0, v46);
   }
 
   else
@@ -254,16 +283,16 @@
     if (((1 << integerValue) & 9) != 0)
     {
       v18 = 0x1E696A000;
-      v17 = v60;
+      v17 = v59;
     }
 
     else
     {
-      v17 = v60;
+      v17 = v59;
       if (((1 << integerValue) & 0x12) == 0)
       {
         v19 = nw_parameters_copy_default_protocol_stack(v13);
-        v20 = sub_195A15A18();
+        v20 = sub_195A15A18(v19);
         v21 = v9;
         options = nw_framer_create_options(v20);
         nw_protocol_stack_prepend_application_protocol(v19, options);
@@ -280,29 +309,29 @@
       nw_parameters_set_context();
     }
 
-    v52 = v7;
-    v53 = v6;
+    v51 = v7;
+    v52 = v6;
     nw_parameters_set_data_mode();
     v24 = objc_alloc_init(MEMORY[0x1E69A5298]);
     [v24 setMultiplexer:@"groupsession"];
-    v51 = v8;
+    v50 = v8;
     [v24 setSessionID:v8];
     [MEMORY[0x1E696AE88] scannerWithString:v9];
-    v49 = v61 = 0;
-    [v49 scanUnsignedLongLong:&v61];
-    [v24 setParticipantID:v61];
+    v48 = v60 = 0;
+    [v48 scanUnsignedLongLong:&v60];
+    [v24 setParticipantID:v60];
     v25 = +[IDSLogging _IDSGroupSession];
     if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
     {
       participantID = [v24 participantID];
       *buf = 134218242;
-      v64 = participantID;
-      v65 = 2112;
-      v66 = v9;
+      v63 = participantID;
+      v64 = 2112;
+      v65 = v9;
       _os_log_impl(&dword_1959FF000, v25, OS_LOG_TYPE_DEFAULT, "requestNWConnectionWithDataBlob: decoded participantIDAlias %llu from %@", buf, 0x16u);
     }
 
-    v50 = v9;
+    v49 = v9;
 
     [v24 setSalt:v17];
     stringRepresentation = [v24 stringRepresentation];
@@ -316,12 +345,12 @@
     v31 = [*(v29 + 3776) stringWithFormat:@"%d", integerValue2 + 1];
     v32 = nw_endpoint_create_host("::", [v31 UTF8String]);
 
-    v55 = v32;
+    v54 = v32;
     MEMORY[0x19A8BBA70](v13, v32);
     v33 = nw_parameters_copy_default_protocol_stack(v13);
     v34 = nw_tls_create_options();
     v35 = v34;
-    v36 = dispatch_data_create([v59 bytes], 0x20uLL, 0, 0);
+    v36 = dispatch_data_create([v58 bytes], 0x20uLL, 0, 0);
     v37 = dispatch_data_create("IDSToolTestOnlyPSKIdentity", 0x1AuLL, 0, 0);
     sec_protocol_options_add_pre_shared_key(v35, v36, v37);
 
@@ -330,8 +359,8 @@
     v39 = host;
     v40 = v38;
     v41 = nw_connection_create(host, v38);
-    v42 = v58;
-    (*(v58 + 2))(v58, v41, 0);
+    v42 = v57;
+    (*(v57 + 2))(v57, v41, 0);
     v43 = 0;
     if (!v41)
     {
@@ -339,57 +368,54 @@
       v45 = [v44 initWithObjectsAndKeys:{@"Unable to create nw_connection. The failure was caused due to invalid parameters or not being able to extract the address from the socket.", *MEMORY[0x1E696A578], 0}];
       v43 = [objc_alloc(MEMORY[0x1E696ABC0]) initWithDomain:@"com.apple.identityservices.error" code:42 userInfo:v45];
 
-      v42 = v58;
+      v42 = v57;
     }
 
     (v42)[2](v42, v41, v43);
 
-    v7 = v52;
-    v6 = v53;
-    v9 = v50;
-    v8 = v51;
-    v46 = v49;
+    v7 = v51;
+    v6 = v52;
+    v9 = v49;
+    v8 = v50;
+    v46 = v48;
     v13 = v40;
   }
-
-  v47 = *MEMORY[0x1E69E9840];
 }
 
 + (void)requestNWConnectionToVirtualParticipant:(unint64_t)participant forSession:(id)session completionHandler:(id)handler
 {
   handlerCopy = handler;
-  v7 = *MEMORY[0x1E6977EB8];
   sessionCopy = session;
   quic_stream = nw_parameters_create_quic_stream();
+  v9 = xpc_array_create(0, 0);
   v10 = xpc_array_create(0, 0);
-  v11 = xpc_array_create(0, 0);
-  v12 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@%u", *MEMORY[0x1E69A4EC8], getuid()];
-  xpc_array_set_string(v10, 0xFFFFFFFFFFFFFFFFLL, [v12 UTF8String]);
+  v11 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@%u", *MEMORY[0x1E69A4EC8], getuid()];
+  xpc_array_set_string(v9, 0xFFFFFFFFFFFFFFFFLL, [v11 UTF8String]);
 
-  xpc_array_set_string(v11, 0xFFFFFFFFFFFFFFFFLL, [*MEMORY[0x1E69A4ED0] UTF8String]);
+  xpc_array_set_string(v10, 0xFFFFFFFFFFFFFFFFLL, [*MEMORY[0x1E69A4ED0] UTF8String]);
   nw_parameters_set_required_netagent_classes();
   participant = [MEMORY[0x1E696AEC0] stringWithFormat:@"%llu", participant];
-  v14 = [MEMORY[0x1E696AEC0] stringWithFormat:@"groupsession:%@:ids:%@:L", sessionCopy, participant];
+  v13 = [MEMORY[0x1E696AEC0] stringWithFormat:@"groupsession:%@:ids:%@:L", sessionCopy, participant];
 
-  [v14 UTF8String];
+  [v13 UTF8String];
   nw_parameters_set_account_id();
   3030 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%d", 3030];
   host = nw_endpoint_create_host("::", [3030 UTF8String]);
 
-  v17 = nw_endpoint_create_host("::", "0");
-  MEMORY[0x19A8BBA70](quic_stream, v17);
-  v18 = nw_connection_create(host, quic_stream);
-  v19 = 0;
-  if (!v18)
+  v16 = nw_endpoint_create_host("::", "0");
+  MEMORY[0x19A8BBA70](quic_stream, v16);
+  v17 = nw_connection_create(host, quic_stream);
+  v18 = 0;
+  if (!v17)
   {
-    v20 = objc_alloc(MEMORY[0x1E695DF20]);
-    v21 = [v20 initWithObjectsAndKeys:{@"Unable to create connection to the virtual participant.", *MEMORY[0x1E696A578], 0}];
-    v19 = [objc_alloc(MEMORY[0x1E696ABC0]) initWithDomain:@"com.apple.identityservices.error" code:42 userInfo:v21];
+    v19 = objc_alloc(MEMORY[0x1E695DF20]);
+    v20 = [v19 initWithObjectsAndKeys:{@"Unable to create connection to the virtual participant.", *MEMORY[0x1E696A578], 0}];
+    v18 = [objc_alloc(MEMORY[0x1E696ABC0]) initWithDomain:@"com.apple.identityservices.error" code:42 userInfo:v20];
   }
 
   if (handlerCopy)
   {
-    handlerCopy[2](handlerCopy, v18, v19);
+    handlerCopy[2](handlerCopy, v17, v18);
   }
 }
 

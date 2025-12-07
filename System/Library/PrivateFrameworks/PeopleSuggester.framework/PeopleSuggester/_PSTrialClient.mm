@@ -236,7 +236,7 @@
 
 - (void)updateConfigWithTrialOverrides:(id)overrides
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   overridesCopy = overrides;
   if ([(_PSTrialClient *)self containsKey:@"timeInterval"])
   {
@@ -313,47 +313,45 @@
     sortOrderFeatureNames = [overridesCopy sortOrderFeatureNames];
     v20 = [MEMORY[0x1E696AD98] numberWithBool:{objc_msgSend(overridesCopy, "shouldUseSuggestionEngaged")}];
     defaultValues = [overridesCopy defaultValues];
-    v25 = 134219266;
-    v26 = v14;
-    v27 = 2048;
-    v28 = fetchLimit;
-    v29 = 2048;
-    v30 = v18;
-    v31 = 2112;
-    v32 = sortOrderFeatureNames;
-    v33 = 2112;
-    v34 = v20;
-    v35 = 2112;
-    v36 = defaultValues;
-    _os_log_impl(&dword_1B5ED1000, v15, OS_LOG_TYPE_INFO, "Final configuration is: timeInterval %f, fetchLimit %lu,  maxComputationTimeInSeconds %.2f, sortOrderFeatureNames %@, shouldUseSuggestionEngaged %@, statsDefaultValues %@", &v25, 0x3Eu);
+    v24 = 134219266;
+    v25 = v14;
+    v26 = 2048;
+    v27 = fetchLimit;
+    v28 = 2048;
+    v29 = v18;
+    v30 = 2112;
+    v31 = sortOrderFeatureNames;
+    v32 = 2112;
+    v33 = v20;
+    v34 = 2112;
+    v35 = defaultValues;
+    _os_log_impl(&dword_1B5ED1000, v15, OS_LOG_TYPE_INFO, "Final configuration is: timeInterval %f, fetchLimit %lu,  maxComputationTimeInSeconds %.2f, sortOrderFeatureNames %@, shouldUseSuggestionEngaged %@, statsDefaultValues %@", &v24, 0x3Eu);
   }
 
   v22 = +[_PSLogging generalChannel];
   if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
   {
     dynamicFeatureRecipe = [overridesCopy dynamicFeatureRecipe];
-    v25 = 138412290;
-    v26 = dynamicFeatureRecipe;
-    _os_log_impl(&dword_1B5ED1000, v22, OS_LOG_TYPE_INFO, "Final configuration dynamic features: %@", &v25, 0xCu);
+    v24 = 138412290;
+    v25 = dynamicFeatureRecipe;
+    _os_log_impl(&dword_1B5ED1000, v22, OS_LOG_TYPE_INFO, "Final configuration dynamic features: %@", &v24, 0xCu);
   }
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 - (id)suggestionProxyOrder
 {
-  v10[10] = *MEMORY[0x1E69E9840];
-  v10[0] = @"SuggestionProxyTypeInCall";
-  v10[1] = @"SuggestionProxyTypeReturnToSender";
-  v10[2] = @"SuggestionProxyTypeHyperRecencyCallRewrite";
-  v10[3] = @"SuggestionProxyTypeHyperRecencyViewedThreadRewrite";
-  v10[4] = @"SuggestionProxyTypeHyperRecencyRewrite";
-  v10[5] = @"SuggestionProxyTypeFrequencyOfTopDomainURL";
-  v10[6] = @"SuggestionProxyTypePASS";
-  v10[7] = @"SuggestionProxyTypePASSv1";
-  v10[8] = @"SuggestionProxyTypeSASS";
-  v10[9] = @"SuggestionProxyTypeFromStats";
-  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:10];
+  v9[10] = *MEMORY[0x1E69E9840];
+  v9[0] = @"SuggestionProxyTypeInCall";
+  v9[1] = @"SuggestionProxyTypeReturnToSender";
+  v9[2] = @"SuggestionProxyTypeHyperRecencyCallRewrite";
+  v9[3] = @"SuggestionProxyTypeHyperRecencyViewedThreadRewrite";
+  v9[4] = @"SuggestionProxyTypeHyperRecencyRewrite";
+  v9[5] = @"SuggestionProxyTypeFrequencyOfTopDomainURL";
+  v9[6] = @"SuggestionProxyTypePASS";
+  v9[7] = @"SuggestionProxyTypePASSv1";
+  v9[8] = @"SuggestionProxyTypeSASS";
+  v9[9] = @"SuggestionProxyTypeFromStats";
+  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:10];
   if ([(_PSTrialClient *)self containsKey:@"suggestionProxyOrder"])
   {
     v4 = [(_PSTrialClient *)self arrayForKey:@"suggestionProxyOrder"];
@@ -364,12 +362,10 @@
   v5 = +[_PSLogging generalChannel];
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138412290;
-    v9 = v3;
-    _os_log_impl(&dword_1B5ED1000, v5, OS_LOG_TYPE_DEFAULT, "Heuristic order used: %@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = v3;
+    _os_log_impl(&dword_1B5ED1000, v5, OS_LOG_TYPE_DEFAULT, "Heuristic order used: %@", &v7, 0xCu);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
@@ -643,7 +639,7 @@
 
 - (id)mutableDictionaryOfSetsForKey:(id)key
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   keyCopy = key;
   v5 = [(NSUserDefaults *)self->_userDefaults objectForKey:keyCopy];
 
@@ -672,86 +668,83 @@
   }
 
   v10 = objc_opt_new();
-  v40 = 0u;
-  v41 = 0u;
-  v42 = 0u;
-  v43 = 0u;
+  v36 = 0u;
+  v37 = 0u;
+  v38 = 0u;
+  v39 = 0u;
   v11 = v7;
-  v12 = [v11 countByEnumeratingWithState:&v40 objects:v45 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v36 objects:v41 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v41;
-    v15 = 0x1E695D000uLL;
-    v34 = v10;
-    v35 = keyCopy;
-    v32 = *v41;
+    v14 = *v37;
+    v30 = v10;
+    v31 = keyCopy;
+    v28 = *v37;
     while (2)
     {
-      v16 = 0;
-      v33 = v13;
+      v15 = 0;
+      v29 = v13;
       do
       {
-        if (*v41 != v14)
+        if (*v37 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        v17 = *(*(&v40 + 1) + 8 * v16);
-        v18 = [v11 objectForKeyedSubscript:{v17, v32}];
-        v19 = *(v15 + 3784);
+        v16 = *(*(&v36 + 1) + 8 * v15);
+        v17 = [v11 objectForKeyedSubscript:{v16, v28}];
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
-          v20 = +[_PSLogging generalChannel];
-          if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+          v18 = +[_PSLogging generalChannel];
+          if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
           {
             [_PSTrialClient mutableDictionaryOfSetsForKey:];
           }
 
 LABEL_26:
 
-          v28 = 0;
+          v25 = 0;
           goto LABEL_27;
         }
 
-        v38 = 0u;
-        v39 = 0u;
-        v36 = 0u;
-        v37 = 0u;
-        v20 = v18;
-        v21 = [v20 countByEnumeratingWithState:&v36 objects:v44 count:16];
-        if (v21)
+        v34 = 0u;
+        v35 = 0u;
+        v32 = 0u;
+        v33 = 0u;
+        v18 = v17;
+        v19 = [v18 countByEnumeratingWithState:&v32 objects:v40 count:16];
+        if (v19)
         {
-          v22 = v21;
-          v23 = *v37;
+          v20 = v19;
+          v21 = *v33;
           while (2)
           {
-            for (i = 0; i != v22; ++i)
+            for (i = 0; i != v20; ++i)
             {
-              if (*v37 != v23)
+              if (*v33 != v21)
               {
-                objc_enumerationMutation(v20);
+                objc_enumerationMutation(v18);
               }
 
-              v25 = *(*(&v36 + 1) + 8 * i);
               objc_opt_class();
               if ((objc_opt_isKindOfClass() & 1) == 0)
               {
-                v29 = +[_PSLogging generalChannel];
-                if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+                v26 = +[_PSLogging generalChannel];
+                if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
                 {
                   [_PSTrialClient mutableDictionaryOfSetsForKey:];
                 }
 
-                v10 = v34;
-                keyCopy = v35;
+                v10 = v30;
+                keyCopy = v31;
                 goto LABEL_26;
               }
             }
 
-            v22 = [v20 countByEnumeratingWithState:&v36 objects:v44 count:16];
-            if (v22)
+            v20 = [v18 countByEnumeratingWithState:&v32 objects:v40 count:16];
+            if (v20)
             {
               continue;
             }
@@ -760,20 +753,19 @@ LABEL_26:
           }
         }
 
-        v26 = objc_autoreleasePoolPush();
-        v27 = [MEMORY[0x1E695DFD8] setWithArray:v20];
-        objc_autoreleasePoolPop(v26);
-        v10 = v34;
-        [v34 setObject:v27 forKeyedSubscript:v17];
+        v23 = objc_autoreleasePoolPush();
+        v24 = [MEMORY[0x1E695DFD8] setWithArray:v18];
+        objc_autoreleasePoolPop(v23);
+        v10 = v30;
+        [v30 setObject:v24 forKeyedSubscript:v16];
 
-        ++v16;
-        v14 = v32;
-        keyCopy = v35;
-        v15 = 0x1E695D000;
+        ++v15;
+        v14 = v28;
+        keyCopy = v31;
       }
 
-      while (v16 != v33);
-      v13 = [v11 countByEnumeratingWithState:&v40 objects:v45 count:16];
+      while (v15 != v29);
+      v13 = [v11 countByEnumeratingWithState:&v36 objects:v41 count:16];
       if (v13)
       {
         continue;
@@ -783,12 +775,10 @@ LABEL_26:
     }
   }
 
-  v28 = v10;
+  v25 = v10;
 LABEL_27:
 
-  v30 = *MEMORY[0x1E69E9840];
-
-  return v28;
+  return v25;
 }
 
 - (id)arrayOfArraysForKey:(id)key
@@ -819,87 +809,14 @@ LABEL_27:
   return v6;
 }
 
-- (void)loadCoreMLModel:config:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_2(&dword_1B5ED1000, v0, v1, "Couldn't load ML model, error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
 - (void)doubleForKey:(double)a3 .cold.1(uint64_t a1, NSObject *a2, double a3)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v4 = 138412546;
-  v5 = a1;
-  v6 = 2048;
-  v7 = a3;
-  _os_log_debug_impl(&dword_1B5ED1000, a2, OS_LOG_TYPE_DEBUG, "Loading %@ from user defaults %lf", &v4, 0x16u);
-  v3 = *MEMORY[0x1E69E9840];
-}
-
-- (void)doubleForKey:.cold.2()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_1_2(&dword_1B5ED1000, v0, v1, "Loading %@ from recipe %@");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-- (void)integerForKey:.cold.1()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_1_2(&dword_1B5ED1000, v0, v1, "Loading %@ from user defaults %lu");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-- (void)BOOLForKey:.cold.1()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_1_2(&dword_1B5ED1000, v0, v1, "Loading %@ from user defaults %@");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-- (void)BOOLForKey:.cold.2()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_1_2(&dword_1B5ED1000, v0, v1, "Loading %@ from recipe %@");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-- (void)arrayForKey:.cold.1()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_1_2(&dword_1B5ED1000, v0, v1, "Loading %@ from user defaults %@");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-- (void)mutableDictionaryForKey:.cold.2()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_1_2(&dword_1B5ED1000, v0, v1, "Loading %@ from Trial recipe %@");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-- (void)mutableDictionaryOfSetsForKey:.cold.3()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_8(&dword_1B5ED1000, v0, v1, "Value for key %@ was not an array %@");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-- (void)mutableDictionaryOfSetsForKey:.cold.4()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_8(&dword_1B5ED1000, v0, v1, "Element of array for key %@ was not a string %@");
-  v2 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
+  v3 = 138412546;
+  v4 = a1;
+  v5 = 2048;
+  v6 = a3;
+  _os_log_debug_impl(&dword_1B5ED1000, a2, OS_LOG_TYPE_DEBUG, "Loading %@ from user defaults %lf", &v3, 0x16u);
 }
 
 @end

@@ -2,6 +2,7 @@
 - (ATXSuggestionRequestResponse)initWithCoder:(id)coder;
 - (ATXSuggestionRequestResponse)initWithProto:(id)proto;
 - (ATXSuggestionRequestResponse)initWithProtoData:(id)data;
+- (ATXSuggestionRequestResponse)initWithSuggestions:(id)suggestions feedbackMetadata:(id)metadata originalRequest:(id)request responseCode:(int)code error:(id)error;
 - (ATXSuggestionRequestResponse)initWithSuggestions:(id)suggestions feedbackMetadata:(id)metadata originalRequest:(id)request responseCode:(int)code error:(id)error uuid:(id)uuid;
 - (BOOL)checkAndReportDecodingFailureIfNeededForid:(id)forid key:(id)key coder:(id)coder errorDomain:(id)domain errorCode:(int64_t)code;
 - (BOOL)isEqual:(id)equal;
@@ -86,11 +87,8 @@
     [v3 setErrorData:v10];
   }
 
-  originalRequest = self->_originalRequest;
   objc_opt_class();
-  isKindOfClass = objc_opt_isKindOfClass();
-  v13 = self->_originalRequest;
-  if (isKindOfClass)
+  if (objc_opt_isKindOfClass())
   {
     proto = [(ATXSuggestionRequest *)self->_originalRequest proto];
     [v3 setInteractionSuggestionRequest:proto];
@@ -99,9 +97,7 @@
   else
   {
     objc_opt_class();
-    v15 = objc_opt_isKindOfClass();
-    v16 = self->_originalRequest;
-    if (v15)
+    if (objc_opt_isKindOfClass())
     {
       proto = [(ATXSuggestionRequest *)self->_originalRequest proto];
       [v3 setContextualActionSuggestionRequest:proto];
@@ -123,6 +119,19 @@
 LABEL_26:
 
   return v3;
+}
+
+- (ATXSuggestionRequestResponse)initWithSuggestions:(id)suggestions feedbackMetadata:(id)metadata originalRequest:(id)request responseCode:(int)code error:(id)error
+{
+  v7 = *&code;
+  errorCopy = error;
+  requestCopy = request;
+  metadataCopy = metadata;
+  suggestionsCopy = suggestions;
+  v16 = objc_opt_new();
+  v17 = [(ATXSuggestionRequestResponse *)self initWithSuggestions:suggestionsCopy feedbackMetadata:metadataCopy originalRequest:requestCopy responseCode:v7 error:errorCopy uuid:v16];
+
+  return v17;
 }
 
 - (ATXSuggestionRequestResponse)initWithSuggestions:(id)suggestions feedbackMetadata:(id)metadata originalRequest:(id)request responseCode:(int)code error:(id)error uuid:(id)uuid
@@ -255,7 +264,7 @@ LABEL_26:
 
 - (BOOL)checkAndReportDecodingFailureIfNeededForid:(id)forid key:(id)key coder:(id)coder errorDomain:(id)domain errorCode:(int64_t)code
 {
-  v23[1] = *MEMORY[0x1E69E9840];
+  v22[1] = *MEMORY[0x1E69E9840];
   keyCopy = key;
   coderCopy = coder;
   domainCopy = domain;
@@ -272,11 +281,11 @@ LABEL_26:
     if (([coderCopy containsValueForKey:keyCopy] & 1) == 0)
     {
       v16 = objc_alloc(MEMORY[0x1E696ABC0]);
-      v22 = *MEMORY[0x1E696A578];
-      v17 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Failed to decode key %@", keyCopy, v22];
-      v23[0] = v17;
+      v21 = *MEMORY[0x1E696A578];
+      v17 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Failed to decode key %@", keyCopy, v21];
+      v22[0] = v17;
       v14 = 1;
-      v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:&v22 count:1];
+      v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:&v21 count:1];
       v19 = [v16 initWithDomain:domainCopy code:code userInfo:v18];
 
       [coderCopy failWithError:v19];
@@ -287,7 +296,6 @@ LABEL_26:
   v14 = 0;
 LABEL_7:
 
-  v20 = *MEMORY[0x1E69E9840];
   return v14;
 }
 
@@ -332,112 +340,114 @@ LABEL_7:
   if (protoCopy)
   {
     objc_opt_class();
-    if ((objc_opt_isKindOfClass() & 1) == 0)
+    isKindOfClass = objc_opt_isKindOfClass();
+    if ((isKindOfClass & 1) == 0)
     {
-      v5 = __atxlog_handle_default();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
+      v6 = __atxlog_handle_default(isKindOfClass);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
       {
-        [(ATXSuggestionRequestResponse *)self initWithProto:v5];
+        [(ATXSuggestionRequestResponse *)self initWithProto:v6];
       }
 
       selfCopy = 0;
       goto LABEL_38;
     }
 
-    v5 = protoCopy;
-    uuidString = [v5 uuidString];
-    suggestions = [v5 suggestions];
-    v8 = [suggestions _pas_mappedArrayWithTransform:&__block_literal_global];
+    v6 = protoCopy;
+    uuidString = [v6 uuidString];
+    suggestions = [v6 suggestions];
+    v9 = [suggestions _pas_mappedArrayWithTransform:&__block_literal_global];
 
-    feedbackMetadata = [v5 feedbackMetadata];
-    responseCode = [v5 responseCode];
+    feedbackMetadata = [v6 feedbackMetadata];
+    responseCode = [v6 responseCode];
     if (responseCode >= 6)
     {
-      v11 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", responseCode];
+      v12 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", responseCode];
     }
 
     else
     {
-      v11 = off_1E86A3D70[responseCode];
+      v12 = off_1E86A3D70[responseCode];
     }
 
-    v13 = v11;
-    if (([(__CFString *)v13 isEqualToString:@"Unknown"]& 1) != 0)
+    v14 = v12;
+    if (([(__CFString *)v14 isEqualToString:@"Unknown"]& 1) != 0)
     {
-      v14 = 0;
+      v15 = 0;
     }
 
-    else if (([(__CFString *)v13 isEqualToString:@"FallbackToCache"]& 1) != 0)
+    else if (([(__CFString *)v14 isEqualToString:@"FallbackToCache"]& 1) != 0)
     {
-      v14 = 1;
+      v15 = 1;
     }
 
-    else if (([(__CFString *)v13 isEqualToString:@"Success"]& 1) != 0)
+    else if (([(__CFString *)v14 isEqualToString:@"Success"]& 1) != 0)
     {
-      v14 = 2;
+      v15 = 2;
     }
 
-    else if (([(__CFString *)v13 isEqualToString:@"Error"]& 1) != 0)
+    else if (([(__CFString *)v14 isEqualToString:@"Error"]& 1) != 0)
     {
-      v14 = 3;
+      v15 = 3;
     }
 
-    else if (([(__CFString *)v13 isEqualToString:@"SuccessAndReplaceCache"]& 1) != 0)
+    else if (([(__CFString *)v14 isEqualToString:@"SuccessAndReplaceCache"]& 1) != 0)
     {
-      v14 = 4;
+      v15 = 4;
     }
 
-    else if ([(__CFString *)v13 isEqualToString:@"Max"])
+    else if ([(__CFString *)v14 isEqualToString:@"Max"])
     {
-      v14 = 5;
-    }
-
-    else
-    {
-      v14 = 0;
-    }
-
-    if ([v5 hasErrorData])
-    {
-      errorData = [v5 errorData];
-      v16 = [(ATXSuggestionRequestResponse *)self unarchivedNSErrorFromData:errorData];
+      v15 = 5;
     }
 
     else
     {
-      v16 = 0;
+      v15 = 0;
     }
 
-    if ([v5 hasInteractionSuggestionRequest])
+    if ([v6 hasErrorData])
     {
-      v17 = [ATXInteractionSuggestionRequest alloc];
-      interactionSuggestionRequest = [v5 interactionSuggestionRequest];
-    }
-
-    else if ([v5 hasContextualActionSuggestionRequest])
-    {
-      v17 = [ATXContextualActionSuggestionRequest alloc];
-      interactionSuggestionRequest = [v5 contextualActionSuggestionRequest];
+      errorData = [v6 errorData];
+      v17 = [(ATXSuggestionRequestResponse *)self unarchivedNSErrorFromData:errorData];
     }
 
     else
     {
-      if (![v5 hasIntentSuggestionRequest])
+      v17 = 0;
+    }
+
+    if ([v6 hasInteractionSuggestionRequest])
+    {
+      v18 = [ATXInteractionSuggestionRequest alloc];
+      interactionSuggestionRequest = [v6 interactionSuggestionRequest];
+    }
+
+    else if ([v6 hasContextualActionSuggestionRequest])
+    {
+      v18 = [ATXContextualActionSuggestionRequest alloc];
+      interactionSuggestionRequest = [v6 contextualActionSuggestionRequest];
+    }
+
+    else
+    {
+      hasIntentSuggestionRequest = [v6 hasIntentSuggestionRequest];
+      if (!hasIntentSuggestionRequest)
       {
         goto LABEL_34;
       }
 
-      v17 = [ATXIntentSuggestionRequest alloc];
-      interactionSuggestionRequest = [v5 intentSuggestionRequest];
+      v18 = [ATXIntentSuggestionRequest alloc];
+      interactionSuggestionRequest = [v6 intentSuggestionRequest];
     }
 
-    v19 = interactionSuggestionRequest;
-    v20 = [(ATXInteractionSuggestionRequest *)v17 initWithProto:interactionSuggestionRequest];
+    v21 = interactionSuggestionRequest;
+    v22 = [(ATXInteractionSuggestionRequest *)v18 initWithProto:interactionSuggestionRequest];
 
-    if (v20)
+    if (v22)
     {
-      v21 = [objc_alloc(MEMORY[0x1E696AFB0]) initWithUUIDString:uuidString];
-      self = [(ATXSuggestionRequestResponse *)self initWithSuggestions:v8 feedbackMetadata:feedbackMetadata originalRequest:v20 responseCode:v14 error:v16 uuid:v21];
+      v23 = [objc_alloc(MEMORY[0x1E696AFB0]) initWithUUIDString:uuidString];
+      self = [(ATXSuggestionRequestResponse *)self initWithSuggestions:v9 feedbackMetadata:feedbackMetadata originalRequest:v22 responseCode:v15 error:v17 uuid:v23];
 
       selfCopy = self;
 LABEL_37:
@@ -447,8 +457,8 @@ LABEL_38:
     }
 
 LABEL_34:
-    v20 = __atxlog_handle_blending();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_FAULT))
+    v22 = __atxlog_handle_blending(hasIntentSuggestionRequest);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_FAULT))
     {
       [ATXSuggestionRequestResponse initWithProto:];
     }
@@ -470,13 +480,13 @@ ATXProactiveSuggestion *__46__ATXSuggestionRequestResponse_initWithProto___block
 
   if (v3)
   {
-    v4 = v3;
+    v5 = v3;
   }
 
   else
   {
-    v5 = __atxlog_handle_blending();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
+    v6 = __atxlog_handle_blending(v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
     {
       __46__ATXSuggestionRequestResponse_initWithProto___block_invoke_cold_1();
     }
@@ -496,7 +506,7 @@ id __37__ATXSuggestionRequestResponse_proto__block_invoke(uint64_t a1, void *a2)
 
   else
   {
-    v5 = __atxlog_handle_blending();
+    v5 = __atxlog_handle_blending(0);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
       __37__ATXSuggestionRequestResponse_proto__block_invoke_cold_1();
@@ -510,82 +520,64 @@ id __37__ATXSuggestionRequestResponse_proto__block_invoke(uint64_t a1, void *a2)
 {
   dataCopy = data;
   v4 = objc_autoreleasePoolPush();
-  v10 = 0;
-  v5 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClass:objc_opt_class() fromData:dataCopy error:&v10];
-  v6 = v10;
+  v11 = 0;
+  v5 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClass:objc_opt_class() fromData:dataCopy error:&v11];
+  v6 = v11;
   objc_autoreleasePoolPop(v4);
   if (v6)
   {
-    v7 = __atxlog_handle_blending();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
+    v8 = __atxlog_handle_blending(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
     {
       [ATXSuggestionRequestResponse unarchivedNSErrorFromData:];
     }
 
-    v8 = 0;
+    v9 = 0;
   }
 
   else
   {
-    v8 = v5;
+    v9 = v5;
   }
 
-  return v8;
+  return v9;
 }
 
 - (id)dataFromNSError:(id)error
 {
   errorCopy = error;
   v4 = objc_autoreleasePoolPush();
-  v10 = 0;
-  v5 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:errorCopy requiringSecureCoding:1 error:&v10];
-  v6 = v10;
+  v11 = 0;
+  v5 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:errorCopy requiringSecureCoding:1 error:&v11];
+  v6 = v11;
   objc_autoreleasePoolPop(v4);
   if (v6)
   {
-    v7 = __atxlog_handle_blending();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
+    v8 = __atxlog_handle_blending(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
     {
       [ATXSuggestionRequestResponse dataFromNSError:];
     }
 
-    v8 = 0;
+    v9 = 0;
   }
 
   else
   {
-    v8 = v5;
+    v9 = v5;
   }
 
-  return v8;
+  return v9;
 }
 
 - (void)initWithProto:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = objc_opt_class();
   v4 = NSStringFromClass(v3);
-  v6 = 138412290;
-  v7 = v4;
-  _os_log_fault_impl(&dword_1DEFC4000, a2, OS_LOG_TYPE_FAULT, "%@: tried to initialize with a non-ATXPBUIEvent proto", &v6, 0xCu);
-
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-- (void)unarchivedNSErrorFromData:.cold.1()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_1();
-  _os_log_fault_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-- (void)dataFromNSError:.cold.1()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_1();
-  _os_log_fault_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
+  v5 = 138412290;
+  v6 = v4;
+  _os_log_fault_impl(&dword_1DEFC4000, a2, OS_LOG_TYPE_FAULT, "%@: tried to initialize with a non-ATXPBUIEvent proto", &v5, 0xCu);
 }
 
 @end

@@ -11,10 +11,12 @@
 - (unint64_t)endWalltime;
 - (unint64_t)persistStartWalltime;
 - (unint64_t)specialStartWalltime;
+- (void)_enumerateEntriesInRange:(os_timesync_range_s *)range options:(unsigned int)options usingBlock:(id)block;
 - (void)_foreachIndexFile:(id)file;
 - (void)dealloc;
 - (void)enumerateEntriesFrom:(unint64_t)from to:(unint64_t)to options:(unsigned int)options usingBlock:(id)block;
 - (void)enumerateEntriesFromLastBootWithOptions:(unsigned int)options usingBlock:(id)block;
+- (void)enumerateEntriesInRange:(os_timesync_range_s *)range options:(unsigned int)options usingCatalogFilter:(id)filter catalogCacheSize:(unsigned int)size dataCacheSize:(unsigned int)cacheSize usingBlock:(id)block;
 - (void)enumerateFilesUsingBlock:(id)block;
 - (void)insertChunkStore:(id)store;
 @end
@@ -38,33 +40,33 @@
 
 - (void)enumerateFilesUsingBlock:(id)block
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   blockCopy = block;
   uUIDTextReference = [(_OSLogCollectionReference *)self->_lcr UUIDTextReference];
   fileDescriptor = [uUIDTextReference fileDescriptor];
 
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
   v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   v7 = self->_fileq;
-  v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v18;
+    v10 = *v17;
 LABEL_3:
     v11 = 0;
     while (1)
     {
-      if (*v18 != v10)
+      if (*v17 != v10)
       {
         objc_enumerationMutation(v7);
       }
 
-      v12 = *(*(&v17 + 1) + 8 * v11);
+      v12 = *(*(&v16 + 1) + 8 * v11);
       v13 = objc_autoreleasePoolPush();
-      v14 = [v12 copyMappedChunkStore:{0, v17}];
+      v14 = [v12 copyMappedChunkStore:{0, v16}];
       v15 = (*(blockCopy + 2))(blockCopy, fileDescriptor, v14[1], v14[2]);
 
       objc_autoreleasePoolPop(v13);
@@ -75,7 +77,7 @@ LABEL_3:
 
       if (v9 == ++v11)
       {
-        v9 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v9 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
         if (v9)
         {
           goto LABEL_3;
@@ -85,22 +87,148 @@ LABEL_3:
       }
     }
   }
+}
 
-  v16 = *MEMORY[0x277D85DE8];
+- (void)enumerateEntriesInRange:(os_timesync_range_s *)range options:(unsigned int)options usingCatalogFilter:(id)filter catalogCacheSize:(unsigned int)size dataCacheSize:(unsigned int)cacheSize usingBlock:(id)block
+{
+  v10 = *&options;
+  blockCopy = block;
+  fileq = self->_fileq;
+  v37[0] = MEMORY[0x277D85DD0];
+  v37[1] = 3221225472;
+  v37[2] = ___OSLogIndexSortedByBoot_block_invoke;
+  v37[3] = &__block_descriptor_40_e32_B32__0___OSLogIndexFile_8Q16_B24l;
+  v37[4] = range;
+  v15 = fileq;
+  filterCopy = filter;
+  v17 = [(NSMutableArray *)v15 indexesOfObjectsPassingTest:v37];
+  v18 = [(NSMutableArray *)v15 objectsAtIndexes:v17];
+
+  v35[0] = MEMORY[0x277D85DD0];
+  v35[1] = 3221225472;
+  v35[2] = ___OSLogIndexSortedByBoot_block_invoke_2;
+  v35[3] = &__block_descriptor_44_e11_q24__0_8_16l;
+  v35[4] = range;
+  v36 = v10;
+  v19 = [v18 sortedArrayUsingComparator:v35];
+
+  if (self->_metadataValid && ((olim_oldest = self->_metadata.olim_oldest) == 0 || (_timesync_range_intersect(range, olim_oldest, olim_oldest->continuous, self->_metadata.olim_end.uuid, self->_metadata.olim_end.continuous), self->_metadataValid)))
+  {
+    p_metadata = &self->_metadata;
+  }
+
+  else
+  {
+    p_metadata = 0;
+  }
+
+  LODWORD(v28) = cacheSize;
+  v22 = [[_OSLogIndexEnumerator alloc] initWithIndex:self metadata:p_metadata fileBootList:v19 catalogFilter:filterCopy options:v10 catalogCacheSize:size dataCacehSize:v28];
+
+  v23 = +[OSLogEventProxy _make];
+  [v23 _setTimesyncDatabase:self->_tsdb];
+  [v23 _setIncludeSensitive:(v10 & 1) == 0];
+  uUIDTextReference = [(_OSLogCollectionReference *)self->_lcr UUIDTextReference];
+  [v23 _setUUIDDBFileDescriptor:{objc_msgSend(uUIDTextReference, "fileDescriptor")}];
+
+  [v23 _setDoNotTrackActivites:(v10 >> 4) & 1];
+  tsdb = self->_tsdb;
+  v30[0] = MEMORY[0x277D85DD0];
+  v30[1] = 3221225472;
+  v30[2] = __108___OSLogIndex_enumerateEntriesInRange_options_usingCatalogFilter_catalogCacheSize_dataCacheSize_usingBlock___block_invoke;
+  v30[3] = &unk_2787ADE60;
+  v31 = v22;
+  selfCopy = self;
+  v33 = blockCopy;
+  v34 = v23;
+  v26 = blockCopy;
+  v27 = v22;
+  [(_OSLogIndexEnumerator *)v27 enumerateTracepointsInRange:range timesync:tsdb options:v10 usingBlock:v30];
+  [v23 _unmake];
+}
+
+- (void)_enumerateEntriesInRange:(os_timesync_range_s *)range options:(unsigned int)options usingBlock:(id)block
+{
+  v5 = *&options;
+  blockCopy = block;
+  fileq = self->_fileq;
+  v34[0] = MEMORY[0x277D85DD0];
+  v34[1] = 3221225472;
+  v34[2] = ___OSLogIndexSortedByBoot_block_invoke;
+  v34[3] = &__block_descriptor_40_e32_B32__0___OSLogIndexFile_8Q16_B24l;
+  v34[4] = range;
+  v10 = fileq;
+  v11 = [(NSMutableArray *)v10 indexesOfObjectsPassingTest:v34];
+  v12 = [(NSMutableArray *)v10 objectsAtIndexes:v11];
+
+  v29 = MEMORY[0x277D85DD0];
+  v30 = 3221225472;
+  v31 = ___OSLogIndexSortedByBoot_block_invoke_2;
+  v32 = &__block_descriptor_44_e11_q24__0_8_16l;
+  *&v33[0] = range;
+  DWORD2(v33[0]) = v5;
+  v13 = [v12 sortedArrayUsingComparator:&v29];
+
+  if (self->_metadataValid && ((olim_oldest = self->_metadata.olim_oldest) == 0 || (_timesync_range_intersect(range, olim_oldest, olim_oldest->continuous, self->_metadata.olim_end.uuid, self->_metadata.olim_end.continuous), self->_metadataValid)))
+  {
+    p_metadata = &self->_metadata;
+  }
+
+  else
+  {
+    p_metadata = 0;
+  }
+
+  LODWORD(v24) = 0;
+  v16 = [[_OSLogIndexEnumerator alloc] initWithIndex:self metadata:p_metadata fileBootList:v13 catalogFilter:0 options:v5 catalogCacheSize:0 dataCacehSize:v24];
+  v29 = 0;
+  v30 = &v29;
+  v31 = 0x9010000000;
+  v32 = "+a";
+  memset(v33, 0, sizeof(v33));
+  _chunk_support_context_init(v33);
+  uUIDTextReference = [(_OSLogCollectionReference *)self->_lcr UUIDTextReference];
+  fileDescriptor = [uUIDTextReference fileDescriptor];
+  *(v30 + 36) = fileDescriptor;
+
+  tsdb = self->_tsdb;
+  v20 = v30;
+  *(v30 + 120) = tsdb;
+  if (v5)
+  {
+    *(v20 + 32) |= 0x80u;
+  }
+
+  v25[0] = MEMORY[0x277D85DD0];
+  v25[1] = 3221225472;
+  v25[2] = __59___OSLogIndex__enumerateEntriesInRange_options_usingBlock___block_invoke;
+  v25[3] = &unk_2787ADE18;
+  v21 = blockCopy;
+  v27 = v21;
+  v28 = &v29;
+  v22 = v16;
+  v26 = v22;
+  [(_OSLogIndexEnumerator *)v22 enumerateTracepointsInRange:range timesync:tsdb options:v5 usingBlock:v25];
+  v23 = v30;
+  *(v30 + 72) = 0;
+  *(v23 + 36) = -1;
+  _chunk_support_context_clear(v23 + 32);
+
+  _Block_object_dispose(&v29, 8);
 }
 
 - (void)enumerateEntriesFromLastBootWithOptions:(unsigned int)options usingBlock:(id)block
 {
   tsdb = self->_tsdb;
   blockCopy = block;
-  _timesync_range_create_since_last_boot();
+  _timesync_range_create_since_last_boot(tsdb, 0);
 }
 
 - (void)enumerateEntriesFrom:(unint64_t)from to:(unint64_t)to options:(unsigned int)options usingBlock:(id)block
 {
   tsdb = self->_tsdb;
   blockCopy = block;
-  _timesync_range_create_impl();
+  _timesync_range_create_impl(tsdb, from, to, 0);
 }
 
 - (unint64_t)endWalltime
@@ -156,7 +284,7 @@ LABEL_3:
 
 - (BOOL)_buildFileIndex
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   diagnosticsDirectoryReference = [(_OSLogCollectionReference *)self->_lcr diagnosticsDirectoryReference];
   fileDescriptor = [diagnosticsDirectoryReference fileDescriptor];
 
@@ -167,9 +295,9 @@ LABEL_3:
 
   else
   {
-    v17[0] = __s;
-    v17[1] = 0;
-    v5 = fts_open(v17, 2132, 0);
+    v16[0] = __s;
+    v16[1] = 0;
+    v5 = fts_open(v16, 2132, 0);
     if (v5)
     {
       v6 = v5;
@@ -228,7 +356,6 @@ LABEL_3:
     }
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -242,39 +369,37 @@ LABEL_3:
 
 - (void)_foreachIndexFile:(id)file
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   fileCopy = file;
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   v5 = self->_fileq;
-  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v12;
+    v8 = *v11;
     do
     {
       v9 = 0;
       do
       {
-        if (*v12 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        fileCopy[2](fileCopy, *(*(&v11 + 1) + 8 * v9++));
+        fileCopy[2](fileCopy, *(*(&v10 + 1) + 8 * v9++));
       }
 
       while (v7 != v9);
-      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v7);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_addFileToIndex:(const char *)index error:(id *)error
@@ -408,7 +533,7 @@ LABEL_3:
               v29 = v28 != 0;
               if (v28)
               {
-                v55 = v27;
+                v52 = v27;
                 v30 = v28;
                 v31 = [v30 objectForKeyedSubscript:@"UUID"];
                 if (v31)
@@ -429,10 +554,10 @@ LABEL_3:
                   }
                 }
 
-                v54 = [v9 objectForKeyedSubscript:@"SignpostMetadata"];
-                if (v54)
+                v51 = [v9 objectForKeyedSubscript:@"SignpostMetadata"];
+                if (v51)
                 {
-                  v33 = [v54 objectForKeyedSubscript:@"OldestTimeRef"];
+                  v33 = [v51 objectForKeyedSubscript:@"OldestTimeRef"];
                   v34 = [v33 objectForKeyedSubscript:@"UUID"];
                   if (v34)
                   {
@@ -477,12 +602,11 @@ LABEL_3:
                   }
                 }
 
-                v40 = [v55 objectForKeyedSubscript:@"TTL"];
+                v40 = [v52 objectForKeyedSubscript:@"TTL"];
                 if (!v40)
                 {
 LABEL_58:
-                  tsdb = self->_tsdb;
-                  _os_log_index_metadata_determine_oldest();
+                  _os_log_index_metadata_determine_oldest(&self->_metadata, self->_tsdb);
                 }
 
                 v41 = 0;
@@ -492,26 +616,24 @@ LABEL_58:
                   v43 = [*(v14 + 3240) stringWithUTF8String:*(v42 + 1)];
                   v44 = [v40 objectForKeyedSubscript:v43];
 
-                  v45 = v14;
-                  v46 = self + v41 * 32;
-                  v47 = v44;
-                  v48 = [v47 objectForKeyedSubscript:@"UUID"];
+                  v45 = self + v41 * 32;
+                  v46 = v44;
+                  v47 = [v46 objectForKeyedSubscript:@"UUID"];
+                  if (!v47)
+                  {
+                    goto LABEL_56;
+                  }
+
+                  objc_opt_class();
+                  if ((objc_opt_isKindOfClass() & 1) == 0)
+                  {
+                    goto LABEL_56;
+                  }
+
+                  uuid_parse([v47 UTF8String], v45 + 184);
+                  v48 = [v46 objectForKeyedSubscript:@"ContinuousTime"];
                   if (!v48)
                   {
-                    goto LABEL_56;
-                  }
-
-                  v49 = *(v45 + 3240);
-                  objc_opt_class();
-                  if ((objc_opt_isKindOfClass() & 1) == 0)
-                  {
-                    goto LABEL_56;
-                  }
-
-                  uuid_parse([v48 UTF8String], v46 + 184);
-                  v50 = [v47 objectForKeyedSubscript:@"ContinuousTime"];
-                  if (!v50)
-                  {
                     break;
                   }
 
@@ -521,7 +643,7 @@ LABEL_58:
                     break;
                   }
 
-                  *(v46 + 25) = [v50 unsignedLongLongValue];
+                  *(v45 + 25) = [v48 unsignedLongLongValue];
 
                   self->_metadata.olim_ttl[v41].ttl = *v42;
 LABEL_57:
@@ -536,9 +658,9 @@ LABEL_57:
                 }
 
 LABEL_56:
-                v46[208] = *v42;
-                *(v46 + 184) = *self->_metadata.olim_oldestspecial.uuid;
-                *(v46 + 25) = self->_metadata.olim_oldestspecial.continuous;
+                v45[208] = *v42;
+                *(v45 + 184) = *self->_metadata.olim_oldestspecial.uuid;
+                *(v45 + 25) = self->_metadata.olim_oldestspecial.continuous;
                 goto LABEL_57;
               }
             }
@@ -575,8 +697,8 @@ LABEL_56:
 
   else
   {
-    v52 = __error();
-    _OSLogFailWithPOSIXError(*v52, metadata);
+    v49 = __error();
+    _OSLogFailWithPOSIXError(*v49, metadata);
     return 0;
   }
 
@@ -757,7 +879,7 @@ LABEL_37:
           {
             i->ttl = 30;
 
-            _os_log_index_metadata_determine_oldest();
+            _os_log_index_metadata_determine_oldest(&v12->_metadata, timesync);
           }
 
           v39 = 14;

@@ -191,7 +191,7 @@
 
 - (void)_dismissAnimated:(BOOL)animated
 {
-  v4 = sub_100001764();
+  v4 = sub_100001764(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -210,7 +210,7 @@
 
 - (void)dismissAlertAnimated:(BOOL)animated
 {
-  v5 = sub_100001764();
+  v5 = sub_100001764(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -270,7 +270,7 @@
 - (void)handleButtonActions:(id)actions
 {
   actionsCopy = actions;
-  v5 = sub_100001764();
+  v5 = sub_100001764(actionsCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;

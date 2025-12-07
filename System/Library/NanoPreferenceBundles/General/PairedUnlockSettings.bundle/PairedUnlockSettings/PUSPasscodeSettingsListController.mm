@@ -25,6 +25,7 @@
 - (void)_checkGizmoLockState;
 - (void)_checkHasCredentialedPasses;
 - (void)_checkHasPaymentPasses;
+- (void)_finishRemoteAction:(BOOL)action;
 - (void)_handleError:(id)error;
 - (void)_handleUnknownError;
 - (void)_promptForGizmoUnlock;
@@ -34,6 +35,7 @@
 - (void)_setWristDetectFooter:(id)footer reload:(BOOL)reload;
 - (void)_showWristDetectDisableConfirmation;
 - (void)_startRemoteAction:(int64_t)action;
+- (void)_storeAndSyncSimplePasscodeEnabled:(BOOL)enabled;
 - (void)_updateLockoutState;
 - (void)_updateSimplePasscodeState;
 - (void)_updateUnlockPhoneEnabled;
@@ -435,6 +437,66 @@ LABEL_23:
   block[3] = &unk_104F0;
   block[4] = self;
   dispatch_async(&_dispatch_main_q, block);
+}
+
+- (void)_finishRemoteAction:(BOOL)action
+{
+  actionCopy = action;
+  v5 = pu_log();
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+  {
+    v6 = PURemoteActionToString();
+    v7 = [NSNumber numberWithBool:actionCopy];
+    v15 = 138412546;
+    v16 = v6;
+    v17 = 2112;
+    v18 = v7;
+    _os_log_impl(&dword_0, v5, OS_LOG_TYPE_INFO, "Finished remote action %@, completed = %@", &v15, 0x16u);
+  }
+
+  [(PUSPasscodeSettingsListController *)self _removeActivityFlag:4];
+  pendingAction = self->_pendingAction;
+  if (pendingAction == 5)
+  {
+    if (actionCopy)
+    {
+      v10 = +[SFUnlockManager sharedUnlockManager];
+      [v10 disableUnlockWithDevice:IDSDefaultPairedDevice];
+    }
+
+    else
+    {
+      v10 = [(PUSPasscodeSettingsListController *)self specifierForID:@"WRIST_DETECTION_CELL_ID"];
+      v11 = pu_log();
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+      {
+        v12 = [NSNumber numberWithBool:[(PURemoteDeviceState *)self->_gizmoState isWristDetectEnabled]];
+        v15 = 138412290;
+        v16 = v12;
+        _os_log_impl(&dword_0, v11, OS_LOG_TYPE_INFO, "Cancelled remote action wristDetect = %@", &v15, 0xCu);
+      }
+
+      v13 = [NSNumber numberWithBool:[(PURemoteDeviceState *)self->_gizmoState isWristDetectEnabled]];
+      [(PUSPasscodeSettingsListController *)self setPreferenceValue:v13 specifier:v10];
+    }
+  }
+
+  else if (pendingAction == 4)
+  {
+    unlockPairingAssertion = self->_unlockPairingAssertion;
+    if (unlockPairingAssertion)
+    {
+      CFRelease(unlockPairingAssertion);
+      self->_unlockPairingAssertion = 0;
+    }
+  }
+
+  presentedViewController = [(PUSPasscodeSettingsListController *)self presentedViewController];
+
+  if (presentedViewController)
+  {
+    [(PUSPasscodeSettingsListController *)self dismissViewControllerAnimated:1 completion:0];
+  }
 }
 
 - (void)_updateLockoutState
@@ -1232,6 +1294,18 @@ LABEL_6:
   v5 = isModificationAllowed;
 
   return v5;
+}
+
+- (void)_storeAndSyncSimplePasscodeEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  v8 = [[NPSDomainAccessor alloc] initWithDomain:@"com.apple.nanosystemsettings"];
+  self->_wantsSimplePasscode = enabledCopy;
+  [v8 setBool:enabledCopy forKey:@"simple-passcode"];
+  synchronize = [v8 synchronize];
+  syncManager = self->_syncManager;
+  v7 = [NSSet setWithObject:@"simple-passcode"];
+  [(NPSManager *)syncManager synchronizeNanoDomain:@"com.apple.nanosystemsettings" keys:v7];
 }
 
 - (void)setSimplePasscodeEnabledValue:(id)value

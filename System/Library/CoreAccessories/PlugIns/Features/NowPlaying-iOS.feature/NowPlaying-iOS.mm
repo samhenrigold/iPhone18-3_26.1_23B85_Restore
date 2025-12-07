@@ -103,14 +103,14 @@ uint64_t IsAppVisibleInCurrentMode(uint64_t a1)
   return v9;
 }
 
-void sub_233602A94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_233602A94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t __IsAppVisibleInCurrentMode_block_invoke(uint64_t a1, void *a2, _BYTE *a3)
+void *__IsAppVisibleInCurrentMode_block_invoke(uint64_t a1, void *a2, _BYTE *a3)
 {
   result = [a2 isEqual:*(a1 + 32)];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -124,7 +124,7 @@ uint64_t __IsAppVisibleInCurrentMode_block_invoke(uint64_t a1, void *a2, _BYTE *
 
 id ACCGetOSVersion()
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v0 = MGCopyAnswerWithError();
   v1 = v0;
   if (v0)
@@ -156,7 +156,7 @@ id ACCGetOSVersion()
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315138;
-        v13 = "ACCGetOSVersion";
+        v12 = "ACCGetOSVersion";
         _os_log_impl(&dword_233600000, v8, OS_LOG_TYPE_DEFAULT, "%s got non-string when querying key", buf, 0xCu);
       }
 
@@ -195,11 +195,11 @@ id ACCGetOSVersion()
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
-    v13 = "ACCGetOSVersion";
-    v14 = 1024;
-    v15 = 0;
-    v16 = 2112;
-    v17 = @"ProductVersion";
+    v12 = "ACCGetOSVersion";
+    v13 = 1024;
+    v14 = 0;
+    v15 = 2112;
+    v16 = @"ProductVersion";
     _os_log_impl(&dword_233600000, v6, OS_LOG_TYPE_DEFAULT, "%s MG error: 0x%08x retrieving key:(%@)", buf, 0x1Cu);
   }
 
@@ -211,8 +211,6 @@ LABEL_25:
     CFRelease(v1);
     v7 = v5;
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -234,7 +232,7 @@ void init_logging_modules(uint64_t a1, char a2, uint64_t a3)
 
 void __init_logging_modules_block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v2 = "ource: %ld";
   if (*(a1 + 48))
   {
@@ -252,7 +250,7 @@ void __init_logging_modules_block_invoke(uint64_t a1)
         if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
         {
           *buf = 67109120;
-          LODWORD(v14) = v4;
+          LODWORD(v13) = v4;
           _os_log_error_impl(&dword_233600000, v6, OS_LOG_TYPE_ERROR, "Subsystem missing for logging module %d!\n(Check LoggingModuleEntry_t table)", buf, 8u);
           v7 = *(a1 + 32);
           v8 = "<Undefined>";
@@ -265,7 +263,7 @@ void __init_logging_modules_block_invoke(uint64_t a1)
         v9 = "<Undefined>";
         if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
         {
-          __init_logging_modules_block_invoke_cold_1(v17, v4, &v18);
+          __init_logging_modules_block_invoke_cold_1(v16, v4, &v16[4]);
           v9 = "<Undefined>";
         }
       }
@@ -278,9 +276,9 @@ void __init_logging_modules_block_invoke(uint64_t a1)
         if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
         {
           *buf = 136315394;
-          v14 = v8;
-          v15 = 2080;
-          v16 = v9;
+          v13 = v8;
+          v14 = 2080;
+          v15 = v9;
           _os_log_debug_impl(&dword_233600000, v6, OS_LOG_TYPE_DEBUG, "Created log object %s: %s", buf, 0x16u);
         }
       }
@@ -288,9 +286,9 @@ void __init_logging_modules_block_invoke(uint64_t a1)
       else if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v14 = v8;
-        v15 = 2080;
-        v16 = v9;
+        v13 = v8;
+        v14 = 2080;
+        v15 = v9;
         _os_log_error_impl(&dword_233600000, v6, OS_LOG_TYPE_ERROR, "Failed to create os_log_t object %s: %s!", buf, 0x16u);
       }
 
@@ -312,14 +310,13 @@ void __init_logging_modules_block_invoke(uint64_t a1)
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
     *buf = *(v2 + 479);
-    LODWORD(v14) = v5;
+    LODWORD(v13) = v5;
     _os_log_impl(&dword_233600000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Created %d log object(s)!", buf, 8u);
     LODWORD(v11) = *(a1 + 48);
   }
 
   gLogObjects = *(a1 + 40);
   gNumLogObjects = v11;
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t ascii_to_hex(uint64_t result, uint64_t a2, unint64_t a3)
@@ -377,7 +374,7 @@ uint64_t ascii_to_hex(uint64_t result, uint64_t a2, unint64_t a3)
   return result;
 }
 
-unsigned __int8 *printBytes(unsigned __int8 *result, uint64_t a2, char *a3, int a4)
+uint64_t printBytes(uint64_t result, uint64_t a2, char *a3, int a4)
 {
   if (result)
   {
@@ -518,7 +515,7 @@ id logObjectForModule()
 
 double calculateCurrentElapsedTime(void *a1, void *a2, void *a3, void *a4)
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   v7 = a1;
   v8 = a2;
   v9 = a3;
@@ -581,8 +578,8 @@ double calculateCurrentElapsedTime(void *a1, void *a2, void *a3, void *a4)
 
     if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
     {
-      LOWORD(v27) = 0;
-      _os_log_impl(&dword_233600000, v16, OS_LOG_TYPE_INFO, "Cannot calculate currentElapsedTime without elapsedTime and timestamp!", &v27, 2u);
+      LOWORD(v26) = 0;
+      _os_log_impl(&dword_233600000, v16, OS_LOG_TYPE_INFO, "Cannot calculate currentElapsedTime without elapsedTime and timestamp!", &v26, 2u);
     }
 
     v18 = 0.0;
@@ -606,28 +603,27 @@ double calculateCurrentElapsedTime(void *a1, void *a2, void *a3, void *a4)
 
   if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
   {
-    v27 = 138413570;
-    v28 = v7;
-    v29 = 2112;
-    v30 = v8;
-    v31 = 2112;
-    v32 = v9;
-    v33 = 2112;
-    v34 = v10;
-    v35 = 2112;
-    v36 = v11;
-    v37 = 2048;
-    v38 = v18;
-    _os_log_debug_impl(&dword_233600000, v23, OS_LOG_TYPE_DEBUG, "Calculated elapsedTime: %@, duration: %@, playbackRate: %@, timestamp: %@, currentTimestamp: %@ -> currentElapsedTime: %f", &v27, 0x3Eu);
+    v26 = 138413570;
+    v27 = v7;
+    v28 = 2112;
+    v29 = v8;
+    v30 = 2112;
+    v31 = v9;
+    v32 = 2112;
+    v33 = v10;
+    v34 = 2112;
+    v35 = v11;
+    v36 = 2048;
+    v37 = v18;
+    _os_log_debug_impl(&dword_233600000, v23, OS_LOG_TYPE_DEBUG, "Calculated elapsedTime: %@, duration: %@, playbackRate: %@, timestamp: %@, currentTimestamp: %@ -> currentElapsedTime: %f", &v26, 0x3Eu);
   }
 
-  v25 = *MEMORY[0x277D85DE8];
   return v18;
 }
 
 char *calculatePlaybackSpeed(void *a1, void *a2, int a3)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v5 = a1;
   v6 = a2;
   v7 = v6;
@@ -725,19 +721,19 @@ LABEL_24:
 
   if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
   {
-    v25 = "NO";
-    *v26 = 134218498;
-    *&v26[4] = v9;
+    v24 = "NO";
+    *v25 = 134218498;
+    *&v25[4] = v9;
     if (a3)
     {
-      v25 = "YES";
+      v24 = "YES";
     }
 
-    *&v26[12] = 2048;
-    *&v26[14] = v11;
-    v27 = 2080;
-    v28 = v25;
-    _os_log_debug_impl(&dword_233600000, v17, OS_LOG_TYPE_DEBUG, "defaultRate: %f, rate: %f, isMusicApp: %s", v26, 0x20u);
+    *&v25[12] = 2048;
+    *&v25[14] = v11;
+    v26 = 2080;
+    v27 = v24;
+    _os_log_debug_impl(&dword_233600000, v17, OS_LOG_TYPE_DEBUG, "defaultRate: %f, rate: %f, isMusicApp: %s", v25, 0x20u);
   }
 
   if (v7)
@@ -750,7 +746,7 @@ LABEL_24:
     v19 = v11;
   }
 
-  v20 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:{(v19 * 100.0), *v26}];
+  v20 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:{(v19 * 100.0), *v25, *&v25[8]}];
   if (gLogObjects && gNumLogObjects >= 1)
   {
     v21 = *gLogObjects;
@@ -769,35 +765,34 @@ LABEL_24:
 
   if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
   {
-    *v26 = 134218498;
-    *&v26[4] = v9;
-    *&v26[12] = 2048;
-    *&v26[14] = v11;
-    v27 = 2112;
-    v28 = v20;
-    _os_log_debug_impl(&dword_233600000, v21, OS_LOG_TYPE_DEBUG, "Converted defaultRate: %f, rate: %f -> playbackSpeed: %@", v26, 0x20u);
+    *v25 = 134218498;
+    *&v25[4] = v9;
+    *&v25[12] = 2048;
+    *&v25[14] = v11;
+    v26 = 2112;
+    v27 = v20;
+    _os_log_debug_impl(&dword_233600000, v21, OS_LOG_TYPE_DEBUG, "Converted defaultRate: %f, rate: %f -> playbackSpeed: %@", v25, 0x20u);
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 
   return v20;
 }
 
-id convertPlaybackStatus(int a1, void *a2, void *a3)
+id convertPlaybackStatus(uint64_t a1, void *a2, void *a3)
 {
+  v4 = a1;
   v5 = a2;
   v6 = a3;
   v7 = v6;
   v8 = 0;
-  if (a1 <= 3)
+  if (v4 <= 3)
   {
-    if (a1 == 1)
+    if (v4 == 1)
     {
       v8 = 1;
       goto LABEL_20;
     }
 
-    if (a1 != 2)
+    if (v4 != 2)
     {
       goto LABEL_20;
     }
@@ -805,14 +800,14 @@ id convertPlaybackStatus(int a1, void *a2, void *a3)
     goto LABEL_12;
   }
 
-  if (a1 == 4)
+  if (v4 == 4)
   {
 LABEL_12:
     v8 = 2;
     goto LABEL_20;
   }
 
-  if (a1 == 5)
+  if (v4 == 5)
   {
     v9 = 1.0;
     v10 = 1.0;
@@ -998,9 +993,16 @@ id convertShuffleMode(void *a1)
   return v8;
 }
 
-void sub_23360B634(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_23360B634(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_23360C704(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
+{
+  va_start(va, a26);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1019,10 +1021,11 @@ uint64_t __GetMediaLibraryHelper_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-void OUTLINED_FUNCTION_1(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_1(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0x12u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0x12u);
 }
 
 id convertNSDataToNSString(void *a1, void *a2)
@@ -1253,20 +1256,20 @@ uint64_t isNSObjectEqual(unint64_t a1, uint64_t a2)
   }
 }
 
-id castNSObjectToType(void *a1)
+id castNSObjectToType(void *a1, uint64_t a2)
 {
-  v1 = a1;
-  if (v1 && (objc_opt_isKindOfClass() & 1) != 0)
+  v2 = a1;
+  if (v2 && (objc_opt_isKindOfClass() & 1) != 0)
   {
-    v2 = v1;
+    v3 = v2;
   }
 
   else
   {
-    v2 = 0;
+    v3 = 0;
   }
 
-  return v2;
+  return v3;
 }
 
 id readJSONFile(uint64_t a1)
@@ -1338,86 +1341,82 @@ LABEL_7:
 
 id base64EncodeArray(void *a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v1 = a1;
   v2 = [MEMORY[0x277CBEB18] array];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   v3 = v1;
-  v4 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v12;
+    v6 = *v11;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v12 != v6)
+        if (*v11 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = [*(*(&v11 + 1) + 8 * i) base64EncodedStringWithOptions:{0, v11}];
+        v8 = [*(*(&v10 + 1) + 8 * i) base64EncodedStringWithOptions:{0, v10}];
         if (v8)
         {
           [v2 addObject:v8];
         }
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v5);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v2;
 }
 
 id base64DecodeArray(void *a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v1 = a1;
   v2 = [MEMORY[0x277CBEB18] array];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v3 = v1;
-  v4 = [v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v14;
+    v6 = *v13;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v14 != v6)
+        if (*v13 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v13 + 1) + 8 * i);
+        v8 = *(*(&v12 + 1) + 8 * i);
         v9 = objc_alloc(MEMORY[0x277CBEA90]);
-        v10 = [v9 initWithBase64EncodedString:v8 options:{0, v13}];
+        v10 = [v9 initWithBase64EncodedString:v8 options:{0, v12}];
         if (v10)
         {
           [v2 addObject:v10];
         }
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v5);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v2;
 }
@@ -1431,10 +1430,9 @@ uint64_t init_logging()
 
 void ACCGetOSVersion_cold_1()
 {
-  v2 = *MEMORY[0x277D85DE8];
+  v1 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
-  _os_log_error_impl(&dword_233600000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v1, 0x12u);
-  v0 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_233600000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v0, 0x12u);
 }
 
 void __init_logging_modules_block_invoke_cold_1(uint8_t *buf, int a2, _DWORD *a3)
@@ -1452,46 +1450,42 @@ char *createHexString(uint64_t a1, unint64_t a2, int a3)
     {
       if (!a3)
       {
-        v6 = (2 * a2) | 1;
+        v5 = (2 * a2) | 1;
 LABEL_10:
-        v8 = malloc_type_malloc(v6, 0x100004077774924uLL);
-        if (v8)
+        v7 = malloc_type_malloc(v5, 0x100004077774924uLL);
+        if (v7)
         {
-          v9 = 0;
-          v10 = v8;
-          v19 = v8;
-          v11 = v8;
-          v12 = v6;
+          v8 = 0;
+          v9 = v7;
+          v14 = v7;
+          v10 = v7;
+          v11 = v5;
           while (a3)
           {
-            v13 = *(a1 + v9);
-            if (v9 >= a2 - 1)
+            if (v8 >= a2 - 1)
             {
-              v18 = *(a1 + v9);
-              v15 = v11;
-              v16 = v12;
+              v12 = v10;
+              v13 = v11;
               goto LABEL_17;
             }
 
-            v17 = *(a1 + v9);
-            snprintf(v11, v12, "%02X ");
+            snprintf(v10, v11, "%02X ");
 LABEL_18:
-            ++v9;
-            v12 -= 3;
-            v11 += 3;
-            v10 += 2;
-            v6 -= 2;
-            if (a2 == v9)
+            ++v8;
+            v11 -= 3;
+            v10 += 3;
+            v9 += 2;
+            v5 -= 2;
+            if (a2 == v8)
             {
-              return v19;
+              return v14;
             }
           }
 
-          v14 = *(a1 + v9);
-          v15 = v10;
-          v16 = v6;
+          v12 = v9;
+          v13 = v5;
 LABEL_17:
-          snprintf(v15, v16, "%02X");
+          snprintf(v12, v13, "%02X");
           goto LABEL_18;
         }
 
@@ -1500,7 +1494,7 @@ LABEL_17:
 
       if (is_mul_ok(a2, 3uLL))
       {
-        v6 = 3 * a2;
+        v5 = 3 * a2;
         goto LABEL_10;
       }
     }
@@ -1527,9 +1521,11 @@ LABEL_21:
 
 void logObjectForModule_cold_1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1(&dword_233600000, MEMORY[0x277D86220], a3, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", a5, a6, a7, a8, 0);
-  v8 = *MEMORY[0x277D85DE8];
+  *v8 = 134218240;
+  *&v8[4] = gLogObjects;
+  *&v8[12] = 1024;
+  *&v8[14] = gNumLogObjects;
+  OUTLINED_FUNCTION_1(&dword_233600000, MEMORY[0x277D86220], a3, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", a5, a6, a7, a8, *v8, *&v8[8], *&v8[16], *MEMORY[0x277D85DE8]);
 }
 
 void calculatePlaybackSpeed_cold_2()
@@ -1546,28 +1542,16 @@ void calculatePlaybackSpeed_cold_4()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void convertPlaybackStatus_cold_2()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_6();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xEu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
 void convertRepeatMode_cold_2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_6();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void convertShuffleMode_cold_2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_6();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
 }

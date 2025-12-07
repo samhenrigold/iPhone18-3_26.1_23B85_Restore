@@ -53,35 +53,36 @@ void __53__ATXDigestOnboardingSuggestionClient_sharedInstance__block_invoke()
 
 - (ATXDigestOnboardingSuggestionClient)init
 {
-  v13.receiver = self;
-  v13.super_class = ATXDigestOnboardingSuggestionClient;
-  v2 = [(ATXDigestOnboardingSuggestionClient *)&v13 init];
+  v14.receiver = self;
+  v14.super_class = ATXDigestOnboardingSuggestionClient;
+  v2 = [(ATXDigestOnboardingSuggestionClient *)&v14 init];
+  v3 = v2;
   if (v2)
   {
-    v3 = __atxlog_handle_notification_management();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
+    v4 = __atxlog_handle_notification_management(v2);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {
-      [(ATXDigestOnboardingSuggestionClient *)v3 init];
+      [(ATXDigestOnboardingSuggestionClient *)v4 init];
     }
 
     weakObjectsHashTable = [MEMORY[0x1E696AC70] weakObjectsHashTable];
-    observers = v2->_observers;
-    v2->_observers = weakObjectsHashTable;
+    observers = v3->_observers;
+    v3->_observers = weakObjectsHashTable;
 
-    v6 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
-    v7 = dispatch_queue_create("ATXDigestOnboardingSuggestionClient.queue", v6);
-    queue = v2->_queue;
-    v2->_queue = v7;
+    v7 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
+    v8 = dispatch_queue_create("ATXDigestOnboardingSuggestionClient.queue", v7);
+    queue = v3->_queue;
+    v3->_queue = v8;
 
-    v9 = objc_alloc(MEMORY[0x1E695E000]);
-    v10 = [v9 initWithSuiteName:*MEMORY[0x1E69C5AC8]];
-    userDefaults = v2->_userDefaults;
-    v2->_userDefaults = v10;
+    v10 = objc_alloc(MEMORY[0x1E695E000]);
+    v11 = [v10 initWithSuiteName:*MEMORY[0x1E69C5AC8]];
+    userDefaults = v3->_userDefaults;
+    v3->_userDefaults = v11;
 
-    [(ATXDigestOnboardingSuggestionClient *)v2 _setProbabilityOfShowingDigestOnboardingToUser];
+    [(ATXDigestOnboardingSuggestionClient *)v3 _setProbabilityOfShowingDigestOnboardingToUser];
   }
 
-  return v2;
+  return v3;
 }
 
 - (void)registerObserver:(id)observer
@@ -146,39 +147,40 @@ uint64_t __71__ATXDigestOnboardingSuggestionClient_registerForOnboardingSuggesti
 
 - (void)_registerForOnboardingSuggestionOnMainQueueWithThresholdForShowingDigestOnboardingSuggestionToSeedUsers:(double)users thresholdForShowingDigestOnboardingSuggestion:(double)suggestion
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v7 = [(NSUserDefaults *)self->_userDefaults objectForKey:@"probabilityOfShowingDigestOnboardingSuggestion"];
   [v7 doubleValue];
   v9 = v8;
 
-  v10 = __atxlog_handle_notification_management();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
-  {
-    v14 = 134217984;
-    suggestionCopy = users;
-    _os_log_impl(&dword_1BF549000, v10, OS_LOG_TYPE_DEFAULT, "Digest Onboarding Suggestion Threshold for seed user = %f", &v14, 0xCu);
-  }
-
-  v11 = __atxlog_handle_notification_management();
+  v11 = __atxlog_handle_notification_management(v10);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
-    v14 = 134217984;
-    suggestionCopy = suggestion;
-    _os_log_impl(&dword_1BF549000, v11, OS_LOG_TYPE_DEFAULT, "Digest Onboarding Suggestion Threshold for GM = %f", &v14, 0xCu);
+    v17 = 134217984;
+    suggestionCopy = users;
+    _os_log_impl(&dword_1BF549000, v11, OS_LOG_TYPE_DEFAULT, "Digest Onboarding Suggestion Threshold for seed user = %f", &v17, 0xCu);
   }
 
-  if ([MEMORY[0x1E69C5CF8] isBetaBuild])
+  v13 = __atxlog_handle_notification_management(v12);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  {
+    v17 = 134217984;
+    suggestionCopy = suggestion;
+    _os_log_impl(&dword_1BF549000, v13, OS_LOG_TYPE_DEFAULT, "Digest Onboarding Suggestion Threshold for GM = %f", &v17, 0xCu);
+  }
+
+  isBetaBuild = [MEMORY[0x1E69C5CF8] isBetaBuild];
+  if (isBetaBuild)
   {
     if (v9 >= users)
     {
-      v12 = __atxlog_handle_notification_management();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      v15 = __atxlog_handle_notification_management(isBetaBuild);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
-        v14 = 134217984;
+        v17 = 134217984;
         suggestionCopy = v9;
-        v13 = "Not registering for digest onboarding suggestion for seed user since the random number %f assigned to device is not less than threshold";
+        v16 = "Not registering for digest onboarding suggestion for seed user since the random number %f assigned to device is not less than threshold";
 LABEL_13:
-        _os_log_impl(&dword_1BF549000, v12, OS_LOG_TYPE_DEFAULT, v13, &v14, 0xCu);
+        _os_log_impl(&dword_1BF549000, v15, OS_LOG_TYPE_DEFAULT, v16, &v17, 0xCu);
         goto LABEL_14;
       }
 
@@ -195,12 +197,12 @@ LABEL_10:
     goto LABEL_10;
   }
 
-  v12 = __atxlog_handle_notification_management();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  v15 = __atxlog_handle_notification_management(isBetaBuild);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
-    v14 = 134217984;
+    v17 = 134217984;
     suggestionCopy = v9;
-    v13 = "Not registering for digest onboarding suggestion since the random number %f assigned to device is not less than threshold";
+    v16 = "Not registering for digest onboarding suggestion since the random number %f assigned to device is not less than threshold";
     goto LABEL_13;
   }
 
@@ -224,7 +226,7 @@ LABEL_14:
   [v9 setHour:hour];
   [v9 setMinute:minute];
   v12 = [currentCalendar dateFromComponents:v9];
-  v13 = __atxlog_handle_notification_management();
+  v13 = __atxlog_handle_notification_management(v12);
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
@@ -317,113 +319,114 @@ void __86__ATXDigestOnboardingSuggestionClient__suggestDigestOnboardingIfApplica
 
 - (void)_suggestDigestOnboardingIfApplicableOnMainQueueGivenNumberOfActiveNotifications:(unint64_t)notifications numberOfUniqueBundleIds:(unint64_t)ids minActive:(unint64_t)active minUnique:(unint64_t)unique
 {
-  v48 = *MEMORY[0x1E69E9840];
-  v11 = __atxlog_handle_notification_management();
+  v50 = *MEMORY[0x1E69E9840];
+  v11 = __atxlog_handle_notification_management(self);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     v12 = objc_opt_class();
     v13 = NSStringFromClass(v12);
     *buf = 138413314;
-    v39 = v13;
-    v40 = 2048;
-    notificationsCopy = notifications;
+    v41 = v13;
     v42 = 2048;
-    activeCopy = active;
+    notificationsCopy = notifications;
     v44 = 2048;
-    idsCopy = ids;
+    activeCopy = active;
     v46 = 2048;
+    idsCopy = ids;
+    v48 = 2048;
     uniqueCopy = unique;
     _os_log_impl(&dword_1BF549000, v11, OS_LOG_TYPE_DEFAULT, "%@: Active notifications: %ld (min: %ld); unique apps: %ld (min: %ld)", buf, 0x34u);
   }
 
-  v14 = __atxlog_handle_notification_management();
-  v15 = os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT);
+  v15 = __atxlog_handle_notification_management(v14);
+  v16 = os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT);
   if (notifications < active || ids < unique)
   {
-    if (v15)
+    if (v16)
     {
-      v21 = objc_opt_class();
-      v22 = NSStringFromClass(v21);
+      v23 = objc_opt_class();
+      v24 = NSStringFromClass(v23);
       *buf = 138412290;
-      v39 = v22;
-      _os_log_impl(&dword_1BF549000, v14, OS_LOG_TYPE_DEFAULT, "%@: We do not have the minimum active notifications and unique apps", buf, 0xCu);
+      v41 = v24;
+      _os_log_impl(&dword_1BF549000, v15, OS_LOG_TYPE_DEFAULT, "%@: We do not have the minimum active notifications and unique apps", buf, 0xCu);
     }
   }
 
   else
   {
-    if (v15)
+    if (v16)
     {
-      v16 = objc_opt_class();
-      v17 = NSStringFromClass(v16);
+      v17 = objc_opt_class();
+      v18 = NSStringFromClass(v17);
       *buf = 138412290;
-      v39 = v17;
-      _os_log_impl(&dword_1BF549000, v14, OS_LOG_TYPE_DEFAULT, "%@: We have the minimum active notifications and unique apps", buf, 0xCu);
+      v41 = v18;
+      _os_log_impl(&dword_1BF549000, v15, OS_LOG_TYPE_DEFAULT, "%@: We have the minimum active notifications and unique apps", buf, 0xCu);
     }
 
-    v14 = objc_opt_new();
-    if ([v14 digestSetupComplete])
+    v15 = objc_opt_new();
+    if ([v15 digestSetupComplete])
     {
       [(NSUserDefaults *)self->_userDefaults setBool:1 forKey:@"hasSetUpDigestBefore"];
     }
 
-    if ([(NSUserDefaults *)self->_userDefaults BOOLForKey:@"hasSetUpDigestBefore"]|| [(NSUserDefaults *)self->_userDefaults BOOLForKey:@"digestOnboardingSuggestionShown"])
+    v19 = [(NSUserDefaults *)self->_userDefaults BOOLForKey:@"hasSetUpDigestBefore"];
+    if (v19 & 1) != 0 || (v19 = [(NSUserDefaults *)self->_userDefaults BOOLForKey:@"digestOnboardingSuggestionShown"], (v19))
     {
-      v18 = __atxlog_handle_notification_management();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+      v20 = __atxlog_handle_notification_management(v19);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
       {
-        v19 = objc_opt_class();
-        v20 = NSStringFromClass(v19);
+        v21 = objc_opt_class();
+        v22 = NSStringFromClass(v21);
         *buf = 138412290;
-        v39 = v20;
-        _os_log_impl(&dword_1BF549000, v18, OS_LOG_TYPE_DEFAULT, "%@: Digest Onboarding has already been suggested", buf, 0xCu);
+        v41 = v22;
+        _os_log_impl(&dword_1BF549000, v20, OS_LOG_TYPE_DEFAULT, "%@: Digest Onboarding has already been suggested", buf, 0xCu);
       }
     }
 
     else
     {
-      v23 = __atxlog_handle_notification_management();
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+      v25 = __atxlog_handle_notification_management(v19);
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
       {
-        v24 = objc_opt_class();
-        v25 = NSStringFromClass(v24);
+        v26 = objc_opt_class();
+        v27 = NSStringFromClass(v26);
         *buf = 138412290;
-        v39 = v25;
-        _os_log_impl(&dword_1BF549000, v23, OS_LOG_TYPE_DEFAULT, "%@: Suggesting Digest Onboarding to client", buf, 0xCu);
+        v41 = v27;
+        _os_log_impl(&dword_1BF549000, v25, OS_LOG_TYPE_DEFAULT, "%@: Suggesting Digest Onboarding to client", buf, 0xCu);
       }
 
+      v37 = 0u;
+      v38 = 0u;
       v35 = 0u;
       v36 = 0u;
-      v33 = 0u;
-      v34 = 0u;
-      v26 = self->_observers;
-      v27 = [(NSHashTable *)v26 countByEnumeratingWithState:&v33 objects:v37 count:16];
-      if (v27)
+      v28 = self->_observers;
+      v29 = [(NSHashTable *)v28 countByEnumeratingWithState:&v35 objects:v39 count:16];
+      if (v29)
       {
-        v28 = v27;
-        v29 = *v34;
+        v30 = v29;
+        v31 = *v36;
         do
         {
-          v30 = 0;
+          v32 = 0;
           do
           {
-            if (*v34 != v29)
+            if (*v36 != v31)
             {
-              objc_enumerationMutation(v26);
+              objc_enumerationMutation(v28);
             }
 
-            v31 = *(*(&v33 + 1) + 8 * v30);
-            v32 = objc_opt_new();
-            [v31 digestOnboardingSuggestionClient:self didSuggestOnboarding:{v32, v33}];
+            v33 = *(*(&v35 + 1) + 8 * v32);
+            v34 = objc_opt_new();
+            [v33 digestOnboardingSuggestionClient:self didSuggestOnboarding:{v34, v35}];
 
-            ++v30;
+            ++v32;
           }
 
-          while (v28 != v30);
-          v28 = [(NSHashTable *)v26 countByEnumeratingWithState:&v33 objects:v37 count:16];
+          while (v30 != v32);
+          v30 = [(NSHashTable *)v28 countByEnumeratingWithState:&v35 objects:v39 count:16];
         }
 
-        while (v28);
+        while (v30);
       }
 
       [(NSUserDefaults *)self->_userDefaults setBool:1 forKey:@"digestOnboardingSuggestionShown"];
@@ -467,7 +470,7 @@ void __68__ATXDigestOnboardingSuggestionClient_averageNumberOfNotifications___bl
   v15 = &v16;
   v7 = [v5 sinkWithCompletion:&__block_literal_global_27 receiveInput:v13];
   v8 = v17[3];
-  v9 = __atxlog_handle_notification_management();
+  v9 = __atxlog_handle_notification_management(v7);
   v10 = v8 / 7;
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
@@ -502,19 +505,19 @@ void __68__ATXDigestOnboardingSuggestionClient_averageNumberOfNotifications___bl
 
 - (BOOL)hasNotificationProblemForPreviousNumDays:(int64_t)days
 {
-  v49 = *MEMORY[0x1E69E9840];
+  v50 = *MEMORY[0x1E69E9840];
   currentCalendar = [MEMORY[0x1E695DEE8] currentCalendar];
   v6 = objc_opt_new();
-  v31 = [currentCalendar dateByAddingUnit:16 value:-days toDate:v6 options:0];
+  v32 = [currentCalendar dateByAddingUnit:16 value:-days toDate:v6 options:0];
 
-  v30 = objc_opt_new();
-  v7 = __atxlog_handle_notification_management();
+  v31 = objc_opt_new();
+  v7 = __atxlog_handle_notification_management(v31);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
     *&buf[4] = "[ATXDigestOnboardingSuggestionClient hasNotificationProblemForPreviousNumDays:]";
     *&buf[12] = 2112;
-    *&buf[14] = v31;
+    *&buf[14] = v32;
     _os_log_impl(&dword_1BF549000, v7, OS_LOG_TYPE_DEFAULT, "%s: Checking for notification problem from start date: %@", buf, 0x16u);
   }
 
@@ -536,134 +539,134 @@ void __68__ATXDigestOnboardingSuggestionClient_averageNumberOfNotifications___bl
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x2020000000;
-  v48 = 0;
+  v49 = 0;
   v11 = [MEMORY[0x1E695DF00] dateWithTimeIntervalSinceReferenceDate:0.0];
   v12 = [(ATXDigestOnboardingSuggestionClient *)self notificationStreamPublisherForStartDate:v11];
-  v38[0] = MEMORY[0x1E69E9820];
-  v38[1] = 3221225472;
-  v38[2] = __80__ATXDigestOnboardingSuggestionClient_hasNotificationProblemForPreviousNumDays___block_invoke_2;
-  v38[3] = &unk_1E80C0DA0;
-  v29 = currentCalendar;
-  v39 = v29;
-  v40 = buf;
-  v13 = [v12 sinkWithCompletion:&__block_literal_global_32 shouldContinue:v38];
+  v39[0] = MEMORY[0x1E69E9820];
+  v39[1] = 3221225472;
+  v39[2] = __80__ATXDigestOnboardingSuggestionClient_hasNotificationProblemForPreviousNumDays___block_invoke_2;
+  v39[3] = &unk_1E80C0DA0;
+  v30 = currentCalendar;
+  v40 = v30;
+  v41 = buf;
+  v13 = [v12 sinkWithCompletion:&__block_literal_global_32 shouldContinue:v39];
 
   if (*(*&buf[8] + 24))
   {
-    v14 = [(ATXDigestOnboardingSuggestionClient *)self notificationStreamPublisherForStartDate:v31];
-    v32[0] = MEMORY[0x1E69E9820];
-    v32[1] = 3221225472;
-    v32[2] = __80__ATXDigestOnboardingSuggestionClient_hasNotificationProblemForPreviousNumDays___block_invoke_2_38;
-    v32[3] = &unk_1E80C0DC8;
-    v33 = v31;
-    v34 = v29;
+    v15 = [(ATXDigestOnboardingSuggestionClient *)self notificationStreamPublisherForStartDate:v32];
+    v33[0] = MEMORY[0x1E69E9820];
+    v33[1] = 3221225472;
+    v33[2] = __80__ATXDigestOnboardingSuggestionClient_hasNotificationProblemForPreviousNumDays___block_invoke_2_38;
+    v33[3] = &unk_1E80C0DC8;
+    v34 = v32;
     v35 = v30;
+    v36 = v31;
     daysCopy2 = days;
-    v15 = v8;
-    v36 = v15;
-    v16 = [v14 sinkWithCompletion:&__block_literal_global_37 receiveInput:v32];
+    v16 = v8;
+    v37 = v16;
+    v17 = [v15 sinkWithCompletion:&__block_literal_global_37 receiveInput:v33];
 
-    v17 = 0;
+    v18 = 0;
     do
     {
-      v18 = [v15 count];
-      v19 = v17 >= v18;
-      if (v17 >= v18)
+      v19 = [v16 count];
+      v20 = v18 >= v19;
+      if (v18 >= v19)
       {
         break;
       }
 
-      v20 = [v15 objectAtIndexedSubscript:v17];
-      v21 = __atxlog_handle_notification_management();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+      v21 = [v16 objectAtIndexedSubscript:v18];
+      v22 = __atxlog_handle_notification_management(v21);
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
       {
-        v22 = objc_opt_class();
-        v23 = NSStringFromClass(v22);
-        v24 = [v15 objectAtIndexedSubscript:v17];
-        v25 = [v24 count];
-        *v41 = 138412802;
-        v42 = v23;
-        v43 = 2048;
-        v44 = v17 + 1;
-        v45 = 2048;
-        v46 = v25;
-        _os_log_impl(&dword_1BF549000, v21, OS_LOG_TYPE_DEFAULT, "%@: Number of apps receving notifications on day %lu: %lu", v41, 0x20u);
+        v23 = objc_opt_class();
+        v24 = NSStringFromClass(v23);
+        v25 = [v16 objectAtIndexedSubscript:v18];
+        v26 = [v25 count];
+        *v42 = 138412802;
+        v43 = v24;
+        v44 = 2048;
+        v45 = v18 + 1;
+        v46 = 2048;
+        v47 = v26;
+        _os_log_impl(&dword_1BF549000, v22, OS_LOG_TYPE_DEFAULT, "%@: Number of apps receving notifications on day %lu: %lu", v42, 0x20u);
       }
 
-      v26 = [v20 count] > 5;
-      ++v17;
+      v27 = [v21 count] > 5;
+      ++v18;
     }
 
-    while (v26);
+    while (v27);
 
-    v27 = v33;
+    v28 = v34;
   }
 
   else
   {
-    v27 = __atxlog_handle_notification_management();
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+    v28 = __atxlog_handle_notification_management(v14);
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
     {
-      *v41 = 136315138;
-      v42 = "[ATXDigestOnboardingSuggestionClient hasNotificationProblemForPreviousNumDays:]";
-      _os_log_impl(&dword_1BF549000, v27, OS_LOG_TYPE_DEFAULT, "%s: Not suggesting digest onboarding because there likely isn't enough data in the notification database.", v41, 0xCu);
+      *v42 = 136315138;
+      v43 = "[ATXDigestOnboardingSuggestionClient hasNotificationProblemForPreviousNumDays:]";
+      _os_log_impl(&dword_1BF549000, v28, OS_LOG_TYPE_DEFAULT, "%s: Not suggesting digest onboarding because there likely isn't enough data in the notification database.", v42, 0xCu);
     }
 
-    v19 = 0;
+    v20 = 0;
   }
 
   _Block_object_dispose(buf, 8);
-  return v19;
+  return v20;
 }
 
 BOOL __80__ATXDigestOnboardingSuggestionClient_hasNotificationProblemForPreviousNumDays___block_invoke_2(uint64_t a1, void *a2)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v3 = [a2 eventBody];
   v4 = [v3 bundleID];
 
   if (v4)
   {
-    v5 = [v3 absoluteTimestamp];
-    v6 = *(a1 + 32);
-    v7 = objc_opt_new();
-    v8 = [v6 components:16 fromDate:v5 toDate:v7 options:0];
+    v6 = [v3 absoluteTimestamp];
+    v7 = *(a1 + 32);
+    v8 = objc_opt_new();
+    v9 = [v7 components:16 fromDate:v6 toDate:v8 options:0];
 
-    v9 = [v8 day];
-    if (v9 >= 0)
+    v10 = [v9 day];
+    if (v10 >= 0)
     {
-      v10 = v9;
+      v11 = v10;
     }
 
     else
     {
-      v10 = -v9;
+      v11 = -v10;
     }
 
-    v11 = __atxlog_handle_notification_management();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v12 = __atxlog_handle_notification_management(v10);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = [v3 bundleID];
-      v16 = 136315906;
-      v17 = "[ATXDigestOnboardingSuggestionClient hasNotificationProblemForPreviousNumDays:]_block_invoke";
-      v18 = 2048;
-      v19 = v10;
-      v20 = 2112;
-      v21 = v5;
+      v13 = [v3 bundleID];
+      v18 = 136315906;
+      v19 = "[ATXDigestOnboardingSuggestionClient hasNotificationProblemForPreviousNumDays:]_block_invoke";
+      v20 = 2048;
+      v21 = v11;
       v22 = 2112;
-      v23 = v12;
-      _os_log_impl(&dword_1BF549000, v11, OS_LOG_TYPE_DEFAULT, "%s: First valid notification event in the stream occurred %ld days ago on %@ from %@", &v16, 0x2Au);
+      v23 = v6;
+      v24 = 2112;
+      v25 = v13;
+      _os_log_impl(&dword_1BF549000, v12, OS_LOG_TYPE_DEFAULT, "%s: First valid notification event in the stream occurred %ld days ago on %@ from %@", &v18, 0x2Au);
     }
 
-    v13 = __atxlog_handle_notification_management();
-    v14 = os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT);
-    if (v10 > 0xE)
+    v15 = __atxlog_handle_notification_management(v14);
+    v16 = os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT);
+    if (v11 > 0xE)
     {
-      if (v14)
+      if (v16)
       {
-        v16 = 136315138;
-        v17 = "[ATXDigestOnboardingSuggestionClient hasNotificationProblemForPreviousNumDays:]_block_invoke";
-        _os_log_impl(&dword_1BF549000, v13, OS_LOG_TYPE_DEFAULT, "%s: There's enough notification data on the device to show the digest onboarding suggestion.", &v16, 0xCu);
+        v18 = 136315138;
+        v19 = "[ATXDigestOnboardingSuggestionClient hasNotificationProblemForPreviousNumDays:]_block_invoke";
+        _os_log_impl(&dword_1BF549000, v15, OS_LOG_TYPE_DEFAULT, "%s: There's enough notification data on the device to show the digest onboarding suggestion.", &v18, 0xCu);
       }
 
       *(*(*(a1 + 40) + 8) + 24) = 1;
@@ -671,25 +674,25 @@ BOOL __80__ATXDigestOnboardingSuggestionClient_hasNotificationProblemForPrevious
 
     else
     {
-      if (v14)
+      if (v16)
       {
-        v16 = 136315394;
-        v17 = "[ATXDigestOnboardingSuggestionClient hasNotificationProblemForPreviousNumDays:]_block_invoke";
-        v18 = 2048;
-        v19 = 14;
-        _os_log_impl(&dword_1BF549000, v13, OS_LOG_TYPE_DEFAULT, "%s: Not enough notification data to show digest onboarding suggestion since first valid notification event in the stream was less than %ld days old. This means we likely don't have enough data in the notification database to return a correct list of apps ranked by non-time-sensitive / non-message notification counts.", &v16, 0x16u);
+        v18 = 136315394;
+        v19 = "[ATXDigestOnboardingSuggestionClient hasNotificationProblemForPreviousNumDays:]_block_invoke";
+        v20 = 2048;
+        v21 = 14;
+        _os_log_impl(&dword_1BF549000, v15, OS_LOG_TYPE_DEFAULT, "%s: Not enough notification data to show digest onboarding suggestion since first valid notification event in the stream was less than %ld days old. This means we likely don't have enough data in the notification database to return a correct list of apps ranked by non-time-sensitive / non-message notification counts.", &v18, 0x16u);
       }
     }
   }
 
   else
   {
-    v5 = __atxlog_handle_notification_management();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = __atxlog_handle_notification_management(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v16 = 136315138;
-      v17 = "[ATXDigestOnboardingSuggestionClient hasNotificationProblemForPreviousNumDays:]_block_invoke_2";
-      _os_log_impl(&dword_1BF549000, v5, OS_LOG_TYPE_DEFAULT, "%s: Event didn't have bundleId, continuing.", &v16, 0xCu);
+      v18 = 136315138;
+      v19 = "[ATXDigestOnboardingSuggestionClient hasNotificationProblemForPreviousNumDays:]_block_invoke_2";
+      _os_log_impl(&dword_1BF549000, v6, OS_LOG_TYPE_DEFAULT, "%s: Event didn't have bundleId, continuing.", &v18, 0xCu);
     }
   }
 
@@ -760,28 +763,29 @@ uint64_t __69__ATXDigestOnboardingSuggestionClient__notificationStreamFilterBloc
     v4 = [v2 eventBody];
     objc_opt_class();
     isKindOfClass = objc_opt_isKindOfClass();
+    v6 = isKindOfClass;
     if ((isKindOfClass & 1) == 0)
     {
-      v6 = __atxlog_handle_notification_management();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+      v7 = __atxlog_handle_notification_management(isKindOfClass);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
-        __69__ATXDigestOnboardingSuggestionClient__notificationStreamFilterBlock__block_invoke_cold_1(v4, v6);
+        __69__ATXDigestOnboardingSuggestionClient__notificationStreamFilterBlock__block_invoke_cold_1(v4, v7);
       }
 
-      v7 = MEMORY[0x1E695DF30];
-      v8 = *MEMORY[0x1E695D930];
-      v9 = objc_opt_class();
-      v10 = NSStringFromClass(v9);
-      [v7 raise:v8 format:{@"Encountered event in ATXDigestOnboardingSuggestionClient that was of unknown class. Expected BMNotificationUsage. Received: %@", v10}];
+      v8 = MEMORY[0x1E695DF30];
+      v9 = *MEMORY[0x1E695D930];
+      v10 = objc_opt_class();
+      v11 = NSStringFromClass(v10);
+      [v8 raise:v9 format:{@"Encountered event in ATXDigestOnboardingSuggestionClient that was of unknown class. Expected BMNotificationUsage. Received: %@", v11}];
     }
   }
 
   else
   {
-    isKindOfClass = 0;
+    v6 = 0;
   }
 
-  return isKindOfClass & 1;
+  return v6 & 1;
 }
 
 - (void)_unregisterForLocaleChangeOnMainQueue
@@ -805,23 +809,24 @@ uint64_t __69__ATXDigestOnboardingSuggestionClient__notificationStreamFilterBloc
 
 - (void)_setProbabilityOfShowingDigestOnboardingToUser
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v3 = [(NSUserDefaults *)self->_userDefaults objectForKey:@"probabilityOfShowingDigestOnboardingSuggestion"];
 
   if (!v3)
   {
-    v4 = arc4random_uniform(0xFFFFFFFF) / 4294967300.0;
-    v5 = __atxlog_handle_notification_management();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v4 = arc4random_uniform(0xFFFFFFFF);
+    v5 = v4 / 4294967300.0;
+    v6 = __atxlog_handle_notification_management(v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 134217984;
-      v9 = v4;
-      _os_log_impl(&dword_1BF549000, v5, OS_LOG_TYPE_DEFAULT, "Random number being assigned for digest onboarding suggestion = %f", &v8, 0xCu);
+      v9 = 134217984;
+      v10 = v5;
+      _os_log_impl(&dword_1BF549000, v6, OS_LOG_TYPE_DEFAULT, "Random number being assigned for digest onboarding suggestion = %f", &v9, 0xCu);
     }
 
     userDefaults = self->_userDefaults;
-    v7 = [MEMORY[0x1E696AD98] numberWithDouble:v4];
-    [(NSUserDefaults *)userDefaults setObject:v7 forKey:@"probabilityOfShowingDigestOnboardingSuggestion"];
+    v8 = [MEMORY[0x1E696AD98] numberWithDouble:v5];
+    [(NSUserDefaults *)userDefaults setObject:v8 forKey:@"probabilityOfShowingDigestOnboardingSuggestion"];
   }
 }
 
@@ -848,8 +853,7 @@ uint64_t __69__ATXDigestOnboardingSuggestionClient__notificationStreamFilterBloc
 {
   v2 = objc_alloc(MEMORY[0x1E695E000]);
   v3 = [v2 initWithSuiteName:*MEMORY[0x1E69C5AC8]];
-  [v3 setObject:&unk_1F3E60D68 forKey:@"probabilityOfShowingDigestOnboardingSuggestion"];
-  v4 = __atxlog_handle_notification_management();
+  v4 = __atxlog_handle_notification_management([v3 setObject:&unk_1F3E60D68 forKey:@"probabilityOfShowingDigestOnboardingSuggestion"]);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v5 = 0;
@@ -861,8 +865,7 @@ uint64_t __69__ATXDigestOnboardingSuggestionClient__notificationStreamFilterBloc
 {
   v2 = objc_alloc(MEMORY[0x1E695E000]);
   v3 = [v2 initWithSuiteName:*MEMORY[0x1E69C5AC8]];
-  [v3 removeObjectForKey:@"probabilityOfShowingDigestOnboardingSuggestion"];
-  v4 = __atxlog_handle_notification_management();
+  v4 = __atxlog_handle_notification_management([v3 removeObjectForKey:@"probabilityOfShowingDigestOnboardingSuggestion"]);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v5 = 0;
@@ -875,8 +878,7 @@ uint64_t __69__ATXDigestOnboardingSuggestionClient__notificationStreamFilterBloc
   v9 = *MEMORY[0x1E69E9840];
   v4 = objc_alloc(MEMORY[0x1E695E000]);
   v5 = [v4 initWithSuiteName:*MEMORY[0x1E69C5AC8]];
-  [v5 setInteger:days forKey:@"numPreviousDaysToCheckForNotificationProblem"];
-  v6 = __atxlog_handle_notification_management();
+  v6 = __atxlog_handle_notification_management([v5 setInteger:days forKey:@"numPreviousDaysToCheckForNotificationProblem"]);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = 134217984;
@@ -939,45 +941,46 @@ uint64_t __69__ATXDigestOnboardingSuggestionClient__notificationStreamFilterBloc
 
 void __86__ATXDigestOnboardingSuggestionClient_observeValueForKeyPath_ofObject_change_context___block_invoke(uint64_t a1)
 {
-  if ([*(a1 + 32) isEqualToString:@"probabilityOfShowingDigestOnboardingSuggestion"])
+  v2 = [*(a1 + 32) isEqualToString:@"probabilityOfShowingDigestOnboardingSuggestion"];
+  if (v2)
   {
-    v2 = [*(*(a1 + 40) + 16) objectForKey:@"probabilityOfShowingDigestOnboardingSuggestion"];
+    v3 = [*(*(a1 + 40) + 16) objectForKey:@"probabilityOfShowingDigestOnboardingSuggestion"];
 
-    if (!v2)
+    if (!v3)
     {
-      [*(a1 + 40) _setProbabilityOfShowingDigestOnboardingToUser];
+      v4 = [*(a1 + 40) _setProbabilityOfShowingDigestOnboardingToUser];
     }
 
-    v3 = __atxlog_handle_notification_management();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v5 = __atxlog_handle_notification_management(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      v4 = "registering for onboarding suggestions again, since the random number has been changed";
+      v6 = "registering for onboarding suggestions again, since the random number has been changed";
 LABEL_8:
-      _os_log_impl(&dword_1BF549000, v3, OS_LOG_TYPE_DEFAULT, v4, buf, 2u);
+      _os_log_impl(&dword_1BF549000, v5, OS_LOG_TYPE_DEFAULT, v6, buf, 2u);
     }
   }
 
   else
   {
-    v3 = __atxlog_handle_notification_management();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v5 = __atxlog_handle_notification_management(v2);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      v4 = "registering for onboarding suggestions again, since the suggestion time has been changed";
+      v6 = "registering for onboarding suggestions again, since the suggestion time has been changed";
       goto LABEL_8;
     }
   }
 
   [*(a1 + 40) _invalidateTriggerOnMainQueue];
-  v5 = *(a1 + 40);
-  v6 = *(v5 + 24);
+  v7 = *(a1 + 40);
+  v8 = *(v7 + 24);
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __86__ATXDigestOnboardingSuggestionClient_observeValueForKeyPath_ofObject_change_context___block_invoke_50;
   block[3] = &unk_1E80C0C90;
-  block[4] = v5;
-  dispatch_async(v6, block);
+  block[4] = v7;
+  dispatch_async(v8, block);
 }
 
 void __86__ATXDigestOnboardingSuggestionClient_observeValueForKeyPath_ofObject_change_context___block_invoke_50(uint64_t a1)
@@ -1020,7 +1023,7 @@ void __86__ATXDigestOnboardingSuggestionClient_observeValueForKeyPath_ofObject_c
 
 - (void)clientDidRejectOnboardingSuggestion
 {
-  v3 = __atxlog_handle_notification_management();
+  v3 = __atxlog_handle_notification_management(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;

@@ -32,7 +32,7 @@
   y = v11[1];
   width = v11[2];
   height = v11[3];
-  v17 = [dictionary objectForKeyedSubscript:{*MEMORY[0x1E69910D8], v19}];
+  v17 = objc_msgSend_objectForKeyedSubscript_(dictionary, a2, *MEMORY[0x1E69910D8], v19);
   if (v17)
   {
     memset(&rect, 0, sizeof(rect));
@@ -67,7 +67,7 @@
   [v13 appendFormat:@", groupID=%ld, syntheticFocusMode=%lu", -[AVMetadataObject groupID](self, "groupID"), -[AVMetadataObject syntheticFocusMode](self, "syntheticFocusMode")];
   if (self)
   {
-    [(AVMetadataObject *)self time];
+    objc_msgSend_time(self);
     v14 = v16;
   }
 
@@ -95,8 +95,8 @@
   {
     if (object)
     {
-      [object time];
-      [object duration];
+      objc_msgSend_time(object);
+      objc_msgSend_duration(object);
     }
 
     else

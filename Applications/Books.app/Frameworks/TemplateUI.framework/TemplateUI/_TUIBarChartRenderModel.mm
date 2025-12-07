@@ -29,7 +29,7 @@
         {
           chartType = [(_TUIBarChartRenderModel *)self chartType];
           chartType2 = [v6 chartType];
-          if (![chartType isEqualToString:chartType2])
+          if (!objc_msgSend_isEqualToString_(chartType))
           {
             v23 = 0;
 LABEL_22:
@@ -39,7 +39,7 @@ LABEL_22:
 
           title = [(_TUIBarChartRenderModel *)self title];
           title2 = [v6 title];
-          if (![title isEqualToString:title2])
+          if (!objc_msgSend_isEqualToString_(title))
           {
             v23 = 0;
 LABEL_21:
@@ -49,7 +49,7 @@ LABEL_21:
 
           footer = [(_TUIBarChartRenderModel *)self footer];
           footer2 = [v6 footer];
-          v20 = [footer isEqualToString:footer2];
+          v20 = objc_msgSend_isEqualToString_(footer);
 
           if (v20)
           {

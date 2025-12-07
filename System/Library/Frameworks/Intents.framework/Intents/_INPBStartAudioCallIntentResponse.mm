@@ -1,6 +1,7 @@
 @interface _INPBStartAudioCallIntentResponse
 - (BOOL)isEqual:(id)equal;
 - (_INPBStartAudioCallIntentResponse)initWithCoder:(id)coder;
+- (id)audioRouteAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)dictionaryRepresentation;
 - (int)StringAsAudioRoute:(id)route;
@@ -230,11 +231,10 @@ LABEL_22:
 
 - (void)writeTo:(id)to
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   toCopy = to;
   if ([(_INPBStartAudioCallIntentResponse *)self hasAudioRoute])
   {
-    audioRoute = self->_audioRoute;
     PBDataWriterWriteInt32Field();
   }
 
@@ -250,43 +250,39 @@ LABEL_22:
 
   if (status)
   {
-    status = self->_status;
     PBDataWriterWriteStringField();
   }
 
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
-  v18 = 0u;
-  v10 = self->_targetContacts;
-  v11 = [(NSArray *)v10 countByEnumeratingWithState:&v17 objects:v21 count:16];
-  if (v11)
+  v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
+  v8 = self->_targetContacts;
+  v9 = [(NSArray *)v8 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  if (v9)
   {
-    v12 = v11;
-    v13 = *v18;
+    v10 = v9;
+    v11 = *v14;
     do
     {
-      v14 = 0;
+      v12 = 0;
       do
       {
-        if (*v18 != v13)
+        if (*v14 != v11)
         {
-          objc_enumerationMutation(v10);
+          objc_enumerationMutation(v8);
         }
 
-        v15 = *(*(&v17 + 1) + 8 * v14);
         PBDataWriterWriteStringField();
-        ++v14;
+        ++v12;
       }
 
-      while (v12 != v14);
-      v12 = [(NSArray *)v10 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      while (v10 != v12);
+      v10 = [(NSArray *)v8 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
-    while (v12);
+    while (v10);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addTargetContacts:(id)contacts
@@ -346,6 +342,21 @@ LABEL_22:
   else
   {
     v4 = 2;
+  }
+
+  return v4;
+}
+
+- (id)audioRouteAsString:(int)string
+{
+  if ((string - 2) >= 3)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E7281FA0[string - 2];
   }
 
   return v4;

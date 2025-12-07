@@ -381,15 +381,15 @@
     [EAGLContext setCurrentContext:?];
   }
 
-  v16 = 0u;
-  *v17 = 0u;
-  v14 = 0u;
-  v15 = 0u;
+  v22 = 0u;
+  *v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   if (mode <= 1)
   {
     if (!mode)
     {
-      [(MRContext *)self setPixelSize:self->mPixelSize.width, self->mPixelSize.height, v14, v15, v16];
+      [(MRContext *)self setPixelSize:self->mPixelSize.width, self->mPixelSize.height, v20, v21, v22];
       glViewport(0, 0, self->mPixelSize.width, self->mPixelSize.height);
       width = self->mPixelSize.width;
       height = self->mPixelSize.height;
@@ -401,31 +401,37 @@
       goto LABEL_18;
     }
 
-    [(MRContext *)self setPixelSize:self->mPixelSize.width, self->mPixelSize.height, v14, v15, v16];
+    [(MRContext *)self setPixelSize:self->mPixelSize.width, self->mPixelSize.height, v20, v21, v22];
     glViewport(0, 0, (self->mPixelSize.width * 0.5), self->mPixelSize.height);
     glScissor(0, 0, (self->mPixelSize.width * 0.5), self->mPixelSize.height);
-    MRMatrix_Clear(&v14);
-    MRMatrix_SetRotationFromAnglesYXZDeg(&v14, 3.0, 0.0, 0.0);
-    v10 = v17[0];
-    v11 = -0.08;
+    v10.n128_f64[0] = MRMatrix_Clear(&v20);
+    v10.n128_u32[0] = 3.0;
+    v11.n128_u64[0] = 0;
+    v12.n128_u64[0] = 0;
+    MRMatrix_SetRotationFromAnglesYXZDeg(v10, v11, v12, &v20);
+    v13 = v23[0];
+    v14 = -0.08;
 LABEL_13:
-    v17[0] = v10 + v11;
-    [(MRContext *)self _computeProjectionMatrixWithOrientationCorrection:MRMatrix_PreMultiply(&v14];
+    v23[0] = v13 + v14;
+    [(MRContext *)self _computeProjectionMatrixWithOrientationCorrection:MRMatrix_PreMultiply(&v20];
     goto LABEL_18;
   }
 
   switch(mode)
   {
     case 2:
-      [(MRContext *)self setPixelSize:self->mPixelSize.width, self->mPixelSize.height, v14, v15, v16];
+      [(MRContext *)self setPixelSize:self->mPixelSize.width, self->mPixelSize.height, v20, v21, v22];
       glViewport((self->mPixelSize.width * 0.5), 0, (self->mPixelSize.width * 0.5), self->mPixelSize.height);
       glScissor((self->mPixelSize.width * 0.5), 0, (self->mPixelSize.width * 0.5), self->mPixelSize.height);
-      MRMatrix_SetRotationFromAnglesYXZDeg(&v14, -3.0, 0.0, 0.0);
-      v10 = v17[0];
-      v11 = 0.08;
+      v15.n128_u32[0] = -3.0;
+      v16.n128_u64[0] = 0;
+      v17.n128_u64[0] = 0;
+      MRMatrix_SetRotationFromAnglesYXZDeg(v15, v16, v17, &v20);
+      v13 = v23[0];
+      v14 = 0.08;
       goto LABEL_13;
     case 3:
-      [(MRContext *)self setPixelSize:self->mPixelSize.width, self->mPixelSize.height, v14, v15, v16];
+      [(MRContext *)self setPixelSize:self->mPixelSize.width, self->mPixelSize.height, v20, v21, v22];
       glViewport(0, 0, (self->mPixelSize.width * 0.5), self->mPixelSize.height);
       height = self->mPixelSize.height;
       width = self->mPixelSize.width * 0.5;
@@ -435,7 +441,7 @@ LABEL_16:
       v7 = 0;
       goto LABEL_17;
     case 4:
-      [(MRContext *)self setPixelSize:self->mPixelSize.width, self->mPixelSize.height, v14, v15, v16];
+      [(MRContext *)self setPixelSize:self->mPixelSize.width, self->mPixelSize.height, v20, v21, v22];
       glViewport((self->mPixelSize.width * 0.5), 0, (self->mPixelSize.width * 0.5), self->mPixelSize.height);
       v7 = (self->mPixelSize.width * 0.5);
       v8 = self->mPixelSize.height;
@@ -446,7 +452,7 @@ LABEL_17:
   }
 
 LABEL_18:
-  if ([EAGLContext currentContext:v14]!= v5)
+  if ([EAGLContext currentContext:v20]!= v5)
   {
     [EAGLContext setCurrentContext:v5];
   }

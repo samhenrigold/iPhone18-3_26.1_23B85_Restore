@@ -46,12 +46,10 @@
 
 - (NSArray)requiredEntitlements
 {
-  v6[1] = *MEMORY[0x1E69E9840];
+  v5[1] = *MEMORY[0x1E69E9840];
   v2 = +[HKFeatureAvailabilityRequirementEntitlement mobileGestaltAllowedKeysToAccessDeviceInfoEntitlement];
-  v6[0] = v2;
-  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:1];
-
-  v4 = *MEMORY[0x1E69E9840];
+  v5[0] = v2;
+  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:1];
 
   return v3;
 }
@@ -133,9 +131,10 @@ void __122__HKFeatureAvailabilityRequirementActiveWatchIsNotUnderInternalDevelop
   {
     v6 = *(a1 + 32);
     v5 = (a1 + 32);
-    v10 = 0;
-    v7 = [v6 isSatisfiedWithDataSource:WeakRetained error:&v10];
-    v8 = v10;
+    v14 = 0;
+    v7 = [v6 isSatisfiedWithDataSource:WeakRetained error:&v14];
+    v8 = v14;
+    v10 = v8;
     if (v7)
     {
       [v3 featureAvailabilityRequirement:*v5 didUpdateSatisfaction:{objc_msgSend(v7, "BOOLValue")}];
@@ -143,11 +142,11 @@ void __122__HKFeatureAvailabilityRequirementActiveWatchIsNotUnderInternalDevelop
 
     else
     {
-      _HKInitializeLogging();
-      v9 = HKLogInfrastructure();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      _HKInitializeLogging(v8, v9);
+      v13 = HKLogInfrastructure(v11, v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
-        __109__HKFeatureAvailabilityOnboardingEligibilityObservingRemoteDeviceRequirement_registerObserver_forDataSource___block_invoke_cold_1(v5, v8, v9);
+        __109__HKFeatureAvailabilityOnboardingEligibilityObservingRemoteDeviceRequirement_registerObserver_forDataSource___block_invoke_cold_1(v5, v10, v13);
       }
     }
   }

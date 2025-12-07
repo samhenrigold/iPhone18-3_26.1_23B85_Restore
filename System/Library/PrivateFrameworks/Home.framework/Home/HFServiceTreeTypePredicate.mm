@@ -2,6 +2,7 @@
 + (NAIdentity)na_identity;
 + (id)anyServiceTypePredicate;
 + (id)anyServiceTypePredicateIncludingChildServices;
++ (id)predicateWithServiceType:(id)type includeChildServices:(BOOL)services;
 - (BOOL)_matchesService:(id)service;
 - (BOOL)isEqual:(id)equal;
 - (HFServiceTreeTypePredicate)initWithServiceTypes:(id)types serviceSubtypes:(id)subtypes includeChildServices:(BOOL)services;
@@ -30,6 +31,19 @@
   v5 = [v2 initWithServiceTypes:v3 serviceSubtypes:v4 includeChildServices:1];
 
   return v5;
+}
+
++ (id)predicateWithServiceType:(id)type includeChildServices:(BOOL)services
+{
+  servicesCopy = services;
+  typeCopy = type;
+  v7 = [self alloc];
+  v8 = [MEMORY[0x277CBEB98] setWithObject:typeCopy];
+
+  v9 = [MEMORY[0x277CBEB98] set];
+  v10 = [v7 initWithServiceTypes:v8 serviceSubtypes:v9 includeChildServices:servicesCopy];
+
+  return v10;
 }
 
 - (HFServiceTreeTypePredicate)initWithServiceTypes:(id)types serviceSubtypes:(id)subtypes includeChildServices:(BOOL)services
@@ -93,37 +107,37 @@ LABEL_8:
 
 - (id)matchingServicesForRootService:(id)service
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   serviceCopy = service;
   if ([(HFServiceTreeTypePredicate *)self _matchesService:serviceCopy])
   {
     v5 = [MEMORY[0x277CBEB58] setWithObject:serviceCopy];
     if ([(HFServiceTreeTypePredicate *)self includeChildServices])
     {
-      v16 = 0u;
-      v17 = 0u;
-      v14 = 0u;
       v15 = 0u;
+      v16 = 0u;
+      v13 = 0u;
+      v14 = 0u;
       hf_childServices = [serviceCopy hf_childServices];
-      v7 = [hf_childServices countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v7 = [hf_childServices countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v7)
       {
         v8 = v7;
-        v9 = *v15;
+        v9 = *v14;
         do
         {
           for (i = 0; i != v8; ++i)
           {
-            if (*v15 != v9)
+            if (*v14 != v9)
             {
               objc_enumerationMutation(hf_childServices);
             }
 
-            v11 = [(HFServiceTreeTypePredicate *)self matchingServicesForRootService:*(*(&v14 + 1) + 8 * i)];
+            v11 = [(HFServiceTreeTypePredicate *)self matchingServicesForRootService:*(*(&v13 + 1) + 8 * i)];
             [v5 unionSet:v11];
           }
 
-          v8 = [hf_childServices countByEnumeratingWithState:&v14 objects:v18 count:16];
+          v8 = [hf_childServices countByEnumeratingWithState:&v13 objects:v17 count:16];
         }
 
         while (v8);
@@ -135,8 +149,6 @@ LABEL_8:
   {
     v5 = [MEMORY[0x277CBEB98] set];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v5;
 }

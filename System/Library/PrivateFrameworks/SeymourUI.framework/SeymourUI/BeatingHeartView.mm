@@ -25,7 +25,7 @@
 - (void)layoutSubviews
 {
   v5.receiver = self;
-  v5.super_class = type metadata accessor for BeatingHeartView();
+  v5.super_class = type metadata accessor for BeatingHeartView(0);
   v2 = v5.receiver;
   [(BeatingHeartView *)&v5 layoutSubviews];
   v3 = OBJC_IVAR____TtC9SeymourUI16BeatingHeartView_imageView;

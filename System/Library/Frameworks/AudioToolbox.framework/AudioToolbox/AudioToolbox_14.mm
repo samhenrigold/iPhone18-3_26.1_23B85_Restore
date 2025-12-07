@@ -1,4 +1,4 @@
-char **std::__copy_impl::operator()[abi:ne200100]<std::vector<float> *,std::vector<float> *,std::vector<float> *>(char **a1, char **a2, char **a3)
+char **std::__copy_impl::operator()[abi:ne200100]<std::vector<float> *,std::vector<float> *,std::vector<float> *>(char **a1, char **a2, uint64_t *a3)
 {
   v4 = a1;
   if (a1 != a2)
@@ -2997,7 +2997,7 @@ void std::vector<std::unique_ptr<VPTimeFreqConverter>>::__destroy_vector::operat
   }
 }
 
-void *AWeight<float>::Generate(void *a1, unint64_t a2, float a3)
+uint64_t *AWeight<float>::Generate(uint64_t *a1, unint64_t a2, float a3)
 {
   result = std::vector<float>::vector[abi:ne200100](a1, a2);
   if (a2)

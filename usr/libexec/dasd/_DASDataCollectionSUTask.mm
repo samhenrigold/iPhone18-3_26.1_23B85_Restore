@@ -274,7 +274,7 @@ LABEL_27:
     while (v6);
   }
 
-  v20 = [v4 count];
+  v20 = objc_msgSend_count(v4);
   logger = selfCopy->_logger;
   v22 = os_log_type_enabled(logger, OS_LOG_TYPE_DEFAULT);
   if (v20)
@@ -282,7 +282,7 @@ LABEL_27:
     if (v22)
     {
       v23 = logger;
-      v24 = [v4 count];
+      v24 = objc_msgSend_count(v4);
       *buf = 134217984;
       v39 = v24;
       _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "SUTelemetryTask: found %lu blockers.", buf, 0xCu);
@@ -294,7 +294,7 @@ LABEL_27:
     v27 = v26 = v4;
     [(NSMutableSet *)blockReasonsSoFar addObjectsFromArray:v27];
 
-    v28 = [(NSMutableSet *)selfCopy->_persistentBlockers count];
+    v28 = objc_msgSend_count(selfCopy->_persistentBlockers);
     persistentBlockers = selfCopy->_persistentBlockers;
     if (v28)
     {
@@ -583,7 +583,7 @@ LABEL_27:
 
   dictionary2 = [(NSErrorUserInfoKey *)v5[121] dictionary];
   [(_DASDataCollectionSUTask *)self addExperimentInformationWithDictionary:dictionary2];
-  v18 = [NSNumber numberWithUnsignedInteger:[(NSMutableSet *)self->_blockReasonsSoFar count]];
+  v18 = [NSNumber numberWithUnsignedInteger:objc_msgSend_count(self->_blockReasonsSoFar)];
   [dictionary2 setObject:v18 forKeyedSubscript:@"NumberOfBlockers"];
 
   [dictionary2 setObject:&__kCFBooleanTrue forKeyedSubscript:@"Expired"];

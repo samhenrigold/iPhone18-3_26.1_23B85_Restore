@@ -20,7 +20,7 @@
 {
   if (gLogCategory_CoreRCInterface <= 60 && (gLogCategory_CoreRCInterface != -1 || _LogCategory_Initialize()))
   {
-    [CoreRCInterface doesNotImplement:implement error:?];
+    [CoreRCInterface doesNotImplement:implement error:self];
     if (!error)
     {
       return 0;
@@ -42,12 +42,10 @@ LABEL_5:
 {
   if (gLogCategory_CoreRCInterface <= 10 && (gLogCategory_CoreRCInterface != -1 || _LogCategory_Initialize()))
   {
-    keyCopy = key;
-    propertyCopy = property;
-    LogPrintF();
+    LogPrintF(&gLogCategory_CoreRCInterface, "[CoreRCInterface setProperty:forKey:error:]", 10, "setProperty:forKey:error: key=%@ value=%@\n", key, property);
   }
 
-  v9 = [key isEqualToString:{@"CoreRCInterfaceTest", keyCopy, propertyCopy}];
+  v9 = [key isEqualToString:@"CoreRCInterfaceTest"];
   if (v9)
   {
     [(CoreRCInterface *)self setTestProperty:property];
@@ -65,7 +63,7 @@ LABEL_5:
 {
   if (gLogCategory_CoreRCInterface <= 10 && (gLogCategory_CoreRCInterface != -1 || _LogCategory_Initialize()))
   {
-    [CoreRCInterface propertyForKey:error:];
+    [CoreRCInterface propertyForKey:key error:?];
   }
 
   if ([key isEqualToString:@"CoreRCInterfaceTest"])

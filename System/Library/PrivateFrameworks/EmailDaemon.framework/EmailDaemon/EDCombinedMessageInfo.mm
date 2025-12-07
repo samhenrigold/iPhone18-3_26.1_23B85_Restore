@@ -5,7 +5,7 @@
 
 void __45___EDCombinedMessageInfo_deduplicatedMessage__block_invoke(uint64_t a1, void *a2)
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [*(a1 + 32) combinedDate];
   [v3 setDate:v4];
@@ -76,7 +76,7 @@ void __45___EDCombinedMessageInfo_deduplicatedMessage__block_invoke(uint64_t a1,
     v23 = +[EDMessagePersistence log];
     if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
     {
-      __45___EDCombinedMessageInfo_deduplicatedMessage__block_invoke_cold_1(v26, [*(a1 + 32) lowestDatabaseID], v23);
+      __45___EDCombinedMessageInfo_deduplicatedMessage__block_invoke_cold_1(v25, [*(a1 + 32) lowestDatabaseID], v23);
     }
   }
 
@@ -86,8 +86,6 @@ void __45___EDCombinedMessageInfo_deduplicatedMessage__block_invoke(uint64_t a1,
   [v3 setIsVIP:{objc_msgSend(*(a1 + 40), "isVIP")}];
   v24 = [*(a1 + 40) loaderBlock];
   [v3 setLoaderBlock:v24];
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 id __38___EDCombinedMessageInfo_combinedDate__block_invoke(uint64_t a1, void *a2)

@@ -13,12 +13,12 @@
   v7 = identifier;
   if (specificPresetIdentifier)
   {
-    [v3 stringWithFormat:@"%@ is %@ and self is %@", v5, identifier, self->_specificPresetIdentifier];
+    [v3 stringWithFormat:v5, identifier, self->_specificPresetIdentifier];
   }
 
   else
   {
-    [v3 stringWithFormat:@"%@ is %@", v5, identifier, v10];
+    [v3 stringWithFormat:v5, identifier, v10];
   }
   v8 = ;
 

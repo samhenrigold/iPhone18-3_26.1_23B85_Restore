@@ -123,29 +123,7 @@ LABEL_14:
   v14.receiver = self;
   v14.super_class = SBKZipDeflateMemoryOutputStream;
   v6 = [(SBKZipDeflateMemoryOutputStream *)&v14 init];
-  if (!v6)
-  {
-    goto LABEL_10;
-  }
-
-  data = [MEMORY[0x277CBEB28] data];
-  deflatedData = v6->deflatedData;
-  v6->deflatedData = data;
-
-  v9 = malloc_type_malloc(size, 0x100004077774924uLL);
-  *&v6->zstream.next_in = 0u;
-  v6->_outputBuffer = v9;
-  *&v6->zstream.total_in = 0u;
-  *&v6->zstream.avail_out = 0u;
-  *&v6->zstream.msg = 0u;
-  *&v6->zstream.zalloc = 0u;
-  *&v6->zstream.opaque = 0u;
-  *&v6->zstream.adler = 0u;
-  v6->zstream.avail_out = v6->_bufferingSize;
-  v6->zstream.next_out = v9;
-  v10 = type == 1 ? 1 : -1;
-  v11 = type == 2 ? 9 : v10;
-  if (deflateInit2_(&v6->zstream, v11, 8, -15, 9, 0, "1.2.12", 112))
+  if (v6 && (([MEMORY[0x277CBEB28] data], v7 = objc_claimAutoreleasedReturnValue(), deflatedData = v6->deflatedData, v6->deflatedData = v7, deflatedData, v9 = malloc_type_malloc(size, 0x100004077774924uLL), *&v6->zstream.next_in = 0u, v6->_outputBuffer = v9, *&v6->zstream.total_in = 0u, *&v6->zstream.avail_out = 0u, *&v6->zstream.msg = 0u, *&v6->zstream.zalloc = 0u, *&v6->zstream.opaque = 0u, *&v6->zstream.adler = 0u, v6->zstream.avail_out = v6->_bufferingSize, v6->zstream.next_out = v9, type == 1) ? (v10 = 1) : (v10 = -1), type != 2 ? (v11 = v10) : (v11 = 9), deflateInit2_(&v6->zstream, v11, 8, -15, 9, 0, "1.2.12", 112)))
   {
     NSLog(&cfstr_Deflateinit2Fa.isa, v6->zstream.msg);
     v12 = 0;
@@ -153,7 +131,6 @@ LABEL_14:
 
   else
   {
-LABEL_10:
     v12 = v6;
   }
 

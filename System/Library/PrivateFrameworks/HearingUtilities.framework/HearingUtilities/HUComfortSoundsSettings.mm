@@ -7,17 +7,23 @@
 - (void)logMessage:(id)message;
 - (void)reset;
 - (void)resetTimers;
-- (void)selectedComfortSound;
 - (void)setActiveTimerEndTimeStamp:(double)stamp;
+- (void)setComfortSoundsEnabled:(BOOL)enabled;
+- (void)setForceMixingBehavior:(BOOL)behavior;
 - (void)setLastEnablementTimestamp:(double)timestamp;
 - (void)setMediaVolume:(double)volume;
+- (void)setMixesWithMedia:(BOOL)media;
 - (void)setRelativeVolume:(double)volume;
 - (void)setSelectedComfortSound:(id)sound;
+- (void)setStopsOnLock:(BOOL)lock;
 - (void)setTimerDurationInSeconds:(double)seconds;
+- (void)setTimerEnabled:(BOOL)enabled;
 - (void)setTimerEndInterval:(double)interval;
 - (void)setTimerInHoursAndMinutes:(int64_t)minutes minutes:(int64_t)a4;
+- (void)setTimerOnlyOnFirstSession:(BOOL)session;
 - (void)setTimerOption:(unint64_t)option;
 - (void)setTinnitusBalance:(double)balance;
+- (void)setTinnitusFilterEnabled:(BOOL)enabled;
 - (void)setTinnitusFilterMode:(unint64_t)mode;
 - (void)setTinnitusFilterPoint:(id)point;
 - (void)setValue:(id)value forPreferenceKey:(id)key;
@@ -65,9 +71,11 @@
 
 uint64_t __41__HUComfortSoundsSettings_sharedInstance__block_invoke()
 {
-  sharedInstance_Settings = objc_alloc_init(HUComfortSoundsSettings);
+  v0 = objc_alloc_init(HUComfortSoundsSettings);
+  v1 = sharedInstance_Settings;
+  sharedInstance_Settings = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (void)reset
@@ -130,24 +138,42 @@ void __52__HUComfortSoundsSettings_preferenceKeyForSelector___block_invoke()
 
 uint64_t __50__HUComfortSoundsSettings_keysMonitoredForUpdates__block_invoke()
 {
-  keysMonitoredForUpdates_KeysMonitoredForUpdates = [MEMORY[0x1E695DFD8] setWithObjects:{@"comfortSoundsEnabled", 0}];
+  v0 = [MEMORY[0x1E695DFD8] setWithObjects:{@"comfortSoundsEnabled", 0}];
+  v1 = keysMonitoredForUpdates_KeysMonitoredForUpdates;
+  keysMonitoredForUpdates_KeysMonitoredForUpdates = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (void)logMessage:(id)message
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   messageCopy = message;
   v4 = HCLogComfortSounds();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 138412290;
-    v7 = messageCopy;
-    _os_log_impl(&dword_1DA5E2000, v4, OS_LOG_TYPE_DEFAULT, "%@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = messageCopy;
+    _os_log_impl(&dword_1DA5E2000, v4, OS_LOG_TYPE_DEFAULT, "%@", &v5, 0xCu);
   }
+}
 
-  v5 = *MEMORY[0x1E69E9840];
+- (void)setComfortSoundsEnabled:(BOOL)enabled
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:enabled];
+  [(HUComfortSoundsSettings *)self setValue:v4 forPreferenceKey:@"comfortSoundsEnabled"];
+}
+
+- (void)setMixesWithMedia:(BOOL)media
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:media];
+  [(HUComfortSoundsSettings *)self setValue:v4 forPreferenceKey:@"mixesWithMedia"];
+}
+
+- (void)setStopsOnLock:(BOOL)lock
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:lock];
+  [(HUComfortSoundsSettings *)self setValue:v4 forPreferenceKey:@"stopsOnLock"];
 }
 
 - (void)setRelativeVolume:(double)volume
@@ -166,6 +192,24 @@ uint64_t __50__HUComfortSoundsSettings_keysMonitoredForUpdates__block_invoke()
 {
   v4 = [MEMORY[0x1E696AD98] numberWithDouble:timestamp];
   [(HUComfortSoundsSettings *)self setValue:v4 forPreferenceKey:@"lastEnablementTimestamp"];
+}
+
+- (void)setForceMixingBehavior:(BOOL)behavior
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:behavior];
+  [(HUComfortSoundsSettings *)self setValue:v4 forPreferenceKey:@"forceMixingBehavior"];
+}
+
+- (void)setTimerEnabled:(BOOL)enabled
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:enabled];
+  [(HUComfortSoundsSettings *)self setValue:v4 forPreferenceKey:@"timerEnabled"];
+}
+
+- (void)setTimerOnlyOnFirstSession:(BOOL)session
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:session];
+  [(HUComfortSoundsSettings *)self setValue:v4 forPreferenceKey:@"timerOnlyOnFirstSession"];
 }
 
 - (void)setTimerOption:(unint64_t)option
@@ -192,6 +236,12 @@ uint64_t __50__HUComfortSoundsSettings_keysMonitoredForUpdates__block_invoke()
   [(HUComfortSoundsSettings *)self setValue:v4 forPreferenceKey:@"activeTimerEndTimeStamp"];
 }
 
+- (void)setTinnitusFilterEnabled:(BOOL)enabled
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:enabled];
+  [(HUComfortSoundsSettings *)self setValue:v4 forPreferenceKey:@"tinnitusFilterEnabled"];
+}
+
 - (void)setTinnitusBalance:(double)balance
 {
   v4 = [MEMORY[0x1E696AD98] numberWithDouble:balance];
@@ -206,7 +256,7 @@ uint64_t __50__HUComfortSoundsSettings_keysMonitoredForUpdates__block_invoke()
 
 - (void)setTimerInHoursAndMinutes:(int64_t)minutes minutes:(int64_t)a4
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   if (a4 > 59 || (a4 | minutes) < 0)
   {
     v8 = HCLogComfortSounds();
@@ -222,16 +272,14 @@ uint64_t __50__HUComfortSoundsSettings_keysMonitoredForUpdates__block_invoke()
     v6 = HCLogComfortSounds();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = 134217984;
-      v11 = v5;
-      _os_log_impl(&dword_1DA5E2000, v6, OS_LOG_TYPE_DEFAULT, "Setting timer for duration - %f.", &v10, 0xCu);
+      v9 = 134217984;
+      v10 = v5;
+      _os_log_impl(&dword_1DA5E2000, v6, OS_LOG_TYPE_DEFAULT, "Setting timer for duration - %f.", &v9, 0xCu);
     }
 
     [MEMORY[0x1E695DF00] timeIntervalSinceReferenceDate];
     [(HUComfortSoundsSettings *)self setTimerEndInterval:v7 + v5];
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setSelectedComfortSound:(id)sound
@@ -305,22 +353,6 @@ uint64_t __50__HUComfortSoundsSettings_keysMonitoredForUpdates__block_invoke()
   v9.receiver = self;
   v9.super_class = HUComfortSoundsSettings;
   [(HCSettings *)&v9 setValue:valueCopy forPreferenceKey:keyCopy];
-}
-
-- (void)selectedComfortSound
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_0(&dword_1DA5E2000, v0, v1, "Exception decoding data: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)setSelectedComfortSound:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_0(&dword_1DA5E2000, v0, v1, "Exception encoding data: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 @end

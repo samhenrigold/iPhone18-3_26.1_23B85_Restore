@@ -256,7 +256,7 @@
 
 - (CGSize)sizeThatFits:(CGSize)fits
 {
-  v27[2] = *MEMORY[0x277D85DE8];
+  v26[2] = *MEMORY[0x277D85DE8];
   [(CNFRegNavigationBarTitleView *)self _updateTitleLabel:fits.width];
   text = [(UILabel *)self->_titleLabel text];
   font = [(UILabel *)self->_titleLabel font];
@@ -265,11 +265,11 @@
 
   [v7 setLineBreakMode:4];
   v8 = *MEMORY[0x277D74118];
-  v26[0] = *MEMORY[0x277D740A8];
-  v26[1] = v8;
-  v27[0] = font;
-  v27[1] = v7;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:v26 count:2];
+  v25[0] = *MEMORY[0x277D740A8];
+  v25[1] = v8;
+  v26[0] = font;
+  v26[1] = v7;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:v25 count:2];
   v10 = objc_alloc_init(MEMORY[0x277D74260]);
   [(UILabel *)self->_titleLabel minimumScaleFactor];
   [v10 setMinimumScaleFactor:?];
@@ -294,11 +294,10 @@
   [(UIActivityIndicatorView *)self->_activityIndicator bounds];
   v22 = v21;
 
-  v23 = *MEMORY[0x277D85DE8];
-  v24 = v16 + 7.0 + v20;
-  v25 = fmax(v18 + 1.0 + 2.0, v22);
-  result.height = v25;
-  result.width = v24;
+  v23 = v16 + 7.0 + v20;
+  v24 = fmax(v18 + 1.0 + 2.0, v22);
+  result.height = v24;
+  result.width = v23;
   return result;
 }
 

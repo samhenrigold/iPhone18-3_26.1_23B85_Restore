@@ -3,7 +3,7 @@ uint64_t SpatialTrackingSession.Configuration.filteredBy(arConfiguration:)@<X0>(
   v5 = type metadata accessor for SpatialTrackingSession.Configuration.Camera();
   MEMORY[0x1EEE9AC00](v5 - 8);
   v24[1] = v24 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s17RealityFoundation22SpatialTrackingSessionC13ConfigurationVSgMd);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s17RealityFoundation22SpatialTrackingSessionC13ConfigurationVSgMd, &_s17RealityFoundation22SpatialTrackingSessionC13ConfigurationVSgMR);
   MEMORY[0x1EEE9AC00](v7 - 8);
   v9 = v24 - v8;
   v10 = type metadata accessor for SpatialTrackingSession.Configuration();
@@ -21,10 +21,10 @@ uint64_t SpatialTrackingSession.Configuration.filteredBy(arConfiguration:)@<X0>(
   v14 = a1;
   ARWorldTrackingConfigurationBuilder.filterSupportingConfiguration(requestedConfiguration:arConfiguration:)(v2, a1, v9);
   v15 = *(v11 + 48);
-  if (v15(v9, 1, v10) == 1 && (outlined destroy of ARConfigurationCreateResult?(v9, &_s17RealityFoundation22SpatialTrackingSessionC13ConfigurationVSgMd), v25 = a2, v16 = v29, v17 = v30, __swift_project_boxed_opaque_existential_1(v28, v29), v18 = v16, a2 = v25, (v17[3])(v26, v14, v18, v17), v15(v9, 1, v10) == 1) && (outlined destroy of ARConfigurationCreateResult?(v9, &_s17RealityFoundation22SpatialTrackingSessionC13ConfigurationVSgMd), v19 = v32, v20 = v33, __swift_project_boxed_opaque_existential_1(v31, v32), v21 = v19, a2 = v25, (v20[3])(v26, v14, v21, v20), v15(v9, 1, v10) == 1))
+  if (v15(v9, 1, v10) == 1 && (outlined destroy of ARConfigurationCreateResult?(v9, &_s17RealityFoundation22SpatialTrackingSessionC13ConfigurationVSgMd, &_s17RealityFoundation22SpatialTrackingSessionC13ConfigurationVSgMR), v25 = a2, v16 = v29, v17 = v30, __swift_project_boxed_opaque_existential_1(v28, v29), v18 = v16, a2 = v25, (v17[3])(v26, v14, v18, v17), v15(v9, 1, v10) == 1) && (outlined destroy of ARConfigurationCreateResult?(v9, &_s17RealityFoundation22SpatialTrackingSessionC13ConfigurationVSgMd, &_s17RealityFoundation22SpatialTrackingSessionC13ConfigurationVSgMR), v19 = v32, v20 = v33, __swift_project_boxed_opaque_existential_1(v31, v32), v21 = v19, a2 = v25, (v20[3])(v26, v14, v21, v20), v15(v9, 1, v10) == 1))
   {
-    outlined destroy of ARConfigurationCreateResult?(v9, &_s17RealityFoundation22SpatialTrackingSessionC13ConfigurationVSgMd);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit22ARConfigurationBuilder_pMd);
+    outlined destroy of ARConfigurationCreateResult?(v9, &_s17RealityFoundation22SpatialTrackingSessionC13ConfigurationVSgMd, &_s17RealityFoundation22SpatialTrackingSessionC13ConfigurationVSgMR);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit22ARConfigurationBuilder_pMd, &_s10RealityKit22ARConfigurationBuilder_pMR);
     swift_arrayDestroy();
     SpatialTrackingSession.Configuration.camera.getter();
     SpatialTrackingSession.Configuration.init(tracking:sceneUnderstanding:camera:)();
@@ -32,7 +32,7 @@ uint64_t SpatialTrackingSession.Configuration.filteredBy(arConfiguration:)@<X0>(
 
   else
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit22ARConfigurationBuilder_pMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit22ARConfigurationBuilder_pMd, &_s10RealityKit22ARConfigurationBuilder_pMR);
     swift_arrayDestroy();
     v22 = *(v11 + 32);
     v22(v13, v9, v10);
@@ -173,7 +173,7 @@ LABEL_44:
           v70 = v51;
           v54 = *(v7 + 16);
           v54(v75, v52 + v53 * v51, v6, v15);
-          lazy protocol witness table accessor for type SpatialTrackingSession.Configuration.Camera and conformance SpatialTrackingSession.Configuration.Camera(&lazy protocol witness table cache variable for type SpatialTrackingSession.Configuration.SceneUnderstandingCapability and conformance SpatialTrackingSession.Configuration.SceneUnderstandingCapability, MEMORY[0x1E697A660]);
+          lazy protocol witness table accessor for type SpatialTrackingSession.Configuration.Camera and conformance SpatialTrackingSession.Configuration.Camera(&lazy protocol witness table cache variable for type SpatialTrackingSession.Configuration.SceneUnderstandingCapability and conformance SpatialTrackingSession.Configuration.SceneUnderstandingCapability, MEMORY[0x1E697A660], MEMORY[0x1E697A668]);
           v55 = dispatch thunk of Hashable._rawHashValue(seed:)();
           v56 = -1 << *(a4 + 32);
           v57 = v55 & ~v56;
@@ -184,7 +184,7 @@ LABEL_44:
             while (1)
             {
               (v54)(v11, *(v73 + 48) + v57 * v53, v6);
-              lazy protocol witness table accessor for type SpatialTrackingSession.Configuration.Camera and conformance SpatialTrackingSession.Configuration.Camera(&lazy protocol witness table cache variable for type SpatialTrackingSession.Configuration.SceneUnderstandingCapability and conformance SpatialTrackingSession.Configuration.SceneUnderstandingCapability, MEMORY[0x1E697A660]);
+              lazy protocol witness table accessor for type SpatialTrackingSession.Configuration.Camera and conformance SpatialTrackingSession.Configuration.Camera(&lazy protocol witness table cache variable for type SpatialTrackingSession.Configuration.SceneUnderstandingCapability and conformance SpatialTrackingSession.Configuration.SceneUnderstandingCapability, MEMORY[0x1E697A660], MEMORY[0x1E697A670]);
               v59 = dispatch thunk of static Equatable.== infix(_:_:)();
               v60 = *v76;
               (*v76)(v11, v6);
@@ -303,7 +303,7 @@ LABEL_10:
           v72 = v31;
           i(v65, v32, v6, v15);
           (*(v7 + 32))(v76, v33, v6);
-          lazy protocol witness table accessor for type SpatialTrackingSession.Configuration.Camera and conformance SpatialTrackingSession.Configuration.Camera(&lazy protocol witness table cache variable for type SpatialTrackingSession.Configuration.SceneUnderstandingCapability and conformance SpatialTrackingSession.Configuration.SceneUnderstandingCapability, MEMORY[0x1E697A660]);
+          lazy protocol witness table accessor for type SpatialTrackingSession.Configuration.Camera and conformance SpatialTrackingSession.Configuration.Camera(&lazy protocol witness table cache variable for type SpatialTrackingSession.Configuration.SceneUnderstandingCapability and conformance SpatialTrackingSession.Configuration.SceneUnderstandingCapability, MEMORY[0x1E697A660], MEMORY[0x1E697A668]);
           v34 = dispatch thunk of Hashable._rawHashValue(seed:)();
           v35 = -1 << *(a3 + 32);
           v36 = v34 & ~v35;
@@ -316,7 +316,7 @@ LABEL_10:
             while (1)
             {
               (i)(v11, *(v74 + 48) + v36 * v72, v6);
-              lazy protocol witness table accessor for type SpatialTrackingSession.Configuration.Camera and conformance SpatialTrackingSession.Configuration.Camera(&lazy protocol witness table cache variable for type SpatialTrackingSession.Configuration.SceneUnderstandingCapability and conformance SpatialTrackingSession.Configuration.SceneUnderstandingCapability, MEMORY[0x1E697A660]);
+              lazy protocol witness table accessor for type SpatialTrackingSession.Configuration.Camera and conformance SpatialTrackingSession.Configuration.Camera(&lazy protocol witness table cache variable for type SpatialTrackingSession.Configuration.SceneUnderstandingCapability and conformance SpatialTrackingSession.Configuration.SceneUnderstandingCapability, MEMORY[0x1E697A660], MEMORY[0x1E697A670]);
               v40 = dispatch thunk of static Equatable.== infix(_:_:)();
               v41 = *v75;
               (*v75)(v11, v6);
@@ -458,7 +458,7 @@ LABEL_44:
           v70 = v51;
           v54 = *(v7 + 16);
           v54(v75, v52 + v53 * v51, v6, v15);
-          lazy protocol witness table accessor for type SpatialTrackingSession.Configuration.Camera and conformance SpatialTrackingSession.Configuration.Camera(&lazy protocol witness table cache variable for type SpatialTrackingSession.Configuration.AnchorCapability and conformance SpatialTrackingSession.Configuration.AnchorCapability, MEMORY[0x1E697A640]);
+          lazy protocol witness table accessor for type SpatialTrackingSession.Configuration.Camera and conformance SpatialTrackingSession.Configuration.Camera(&lazy protocol witness table cache variable for type SpatialTrackingSession.Configuration.AnchorCapability and conformance SpatialTrackingSession.Configuration.AnchorCapability, MEMORY[0x1E697A640], MEMORY[0x1E697A648]);
           v55 = dispatch thunk of Hashable._rawHashValue(seed:)();
           v56 = -1 << *(a4 + 32);
           v57 = v55 & ~v56;
@@ -469,7 +469,7 @@ LABEL_44:
             while (1)
             {
               (v54)(v11, *(v73 + 48) + v57 * v53, v6);
-              lazy protocol witness table accessor for type SpatialTrackingSession.Configuration.Camera and conformance SpatialTrackingSession.Configuration.Camera(&lazy protocol witness table cache variable for type SpatialTrackingSession.Configuration.AnchorCapability and conformance SpatialTrackingSession.Configuration.AnchorCapability, MEMORY[0x1E697A640]);
+              lazy protocol witness table accessor for type SpatialTrackingSession.Configuration.Camera and conformance SpatialTrackingSession.Configuration.Camera(&lazy protocol witness table cache variable for type SpatialTrackingSession.Configuration.AnchorCapability and conformance SpatialTrackingSession.Configuration.AnchorCapability, MEMORY[0x1E697A640], MEMORY[0x1E697A650]);
               v59 = dispatch thunk of static Equatable.== infix(_:_:)();
               v60 = *v76;
               (*v76)(v11, v6);
@@ -588,7 +588,7 @@ LABEL_10:
           v72 = v31;
           i(v65, v32, v6, v15);
           (*(v7 + 32))(v76, v33, v6);
-          lazy protocol witness table accessor for type SpatialTrackingSession.Configuration.Camera and conformance SpatialTrackingSession.Configuration.Camera(&lazy protocol witness table cache variable for type SpatialTrackingSession.Configuration.AnchorCapability and conformance SpatialTrackingSession.Configuration.AnchorCapability, MEMORY[0x1E697A640]);
+          lazy protocol witness table accessor for type SpatialTrackingSession.Configuration.Camera and conformance SpatialTrackingSession.Configuration.Camera(&lazy protocol witness table cache variable for type SpatialTrackingSession.Configuration.AnchorCapability and conformance SpatialTrackingSession.Configuration.AnchorCapability, MEMORY[0x1E697A640], MEMORY[0x1E697A648]);
           v34 = dispatch thunk of Hashable._rawHashValue(seed:)();
           v35 = -1 << *(a3 + 32);
           v36 = v34 & ~v35;
@@ -601,7 +601,7 @@ LABEL_10:
             while (1)
             {
               (i)(v11, *(v74 + 48) + v36 * v72, v6);
-              lazy protocol witness table accessor for type SpatialTrackingSession.Configuration.Camera and conformance SpatialTrackingSession.Configuration.Camera(&lazy protocol witness table cache variable for type SpatialTrackingSession.Configuration.AnchorCapability and conformance SpatialTrackingSession.Configuration.AnchorCapability, MEMORY[0x1E697A640]);
+              lazy protocol witness table accessor for type SpatialTrackingSession.Configuration.Camera and conformance SpatialTrackingSession.Configuration.Camera(&lazy protocol witness table cache variable for type SpatialTrackingSession.Configuration.AnchorCapability and conformance SpatialTrackingSession.Configuration.AnchorCapability, MEMORY[0x1E697A640], MEMORY[0x1E697A650]);
               v40 = dispatch thunk of static Equatable.== infix(_:_:)();
               v41 = *v75;
               (*v75)(v11, v6);
@@ -674,7 +674,7 @@ uint64_t specialized Set._Variant.insert(_:)(uint64_t a1, char *a2)
   MEMORY[0x1EEE9AC00](v6);
   v9 = v26 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   v10 = *v2;
-  lazy protocol witness table accessor for type SpatialTrackingSession.Configuration.Camera and conformance SpatialTrackingSession.Configuration.Camera(&lazy protocol witness table cache variable for type SpatialTrackingSession.Configuration.AnchorCapability and conformance SpatialTrackingSession.Configuration.AnchorCapability, MEMORY[0x1E697A640]);
+  lazy protocol witness table accessor for type SpatialTrackingSession.Configuration.Camera and conformance SpatialTrackingSession.Configuration.Camera(&lazy protocol witness table cache variable for type SpatialTrackingSession.Configuration.AnchorCapability and conformance SpatialTrackingSession.Configuration.AnchorCapability, MEMORY[0x1E697A640], MEMORY[0x1E697A648]);
   v33 = a2;
   v11 = dispatch thunk of Hashable._rawHashValue(seed:)();
   v12 = v10 + 56;
@@ -698,7 +698,7 @@ uint64_t specialized Set._Variant.insert(_:)(uint64_t a1, char *a2)
     {
       v20 = v15;
       v15(v9, *(v32 + 48) + v18 * v14, v6);
-      lazy protocol witness table accessor for type SpatialTrackingSession.Configuration.Camera and conformance SpatialTrackingSession.Configuration.Camera(&lazy protocol witness table cache variable for type SpatialTrackingSession.Configuration.AnchorCapability and conformance SpatialTrackingSession.Configuration.AnchorCapability, MEMORY[0x1E697A640]);
+      lazy protocol witness table accessor for type SpatialTrackingSession.Configuration.Camera and conformance SpatialTrackingSession.Configuration.Camera(&lazy protocol witness table cache variable for type SpatialTrackingSession.Configuration.AnchorCapability and conformance SpatialTrackingSession.Configuration.AnchorCapability, MEMORY[0x1E697A640], MEMORY[0x1E697A650]);
       v21 = dispatch thunk of static Equatable.== infix(_:_:)();
       v22 = *v19;
       (*v19)(v9, v6);
@@ -745,7 +745,7 @@ LABEL_7:
   MEMORY[0x1EEE9AC00](v6);
   v9 = v26 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   v10 = *v2;
-  lazy protocol witness table accessor for type SpatialTrackingSession.Configuration.Camera and conformance SpatialTrackingSession.Configuration.Camera(&lazy protocol witness table cache variable for type SpatialTrackingSession.Configuration.SceneUnderstandingCapability and conformance SpatialTrackingSession.Configuration.SceneUnderstandingCapability, MEMORY[0x1E697A660]);
+  lazy protocol witness table accessor for type SpatialTrackingSession.Configuration.Camera and conformance SpatialTrackingSession.Configuration.Camera(&lazy protocol witness table cache variable for type SpatialTrackingSession.Configuration.SceneUnderstandingCapability and conformance SpatialTrackingSession.Configuration.SceneUnderstandingCapability, MEMORY[0x1E697A660], MEMORY[0x1E697A668]);
   v33 = a2;
   v11 = dispatch thunk of Hashable._rawHashValue(seed:)();
   v12 = v10 + 56;
@@ -769,7 +769,7 @@ LABEL_7:
     {
       v20 = v15;
       v15(v9, *(v32 + 48) + v18 * v14, v6);
-      lazy protocol witness table accessor for type SpatialTrackingSession.Configuration.Camera and conformance SpatialTrackingSession.Configuration.Camera(&lazy protocol witness table cache variable for type SpatialTrackingSession.Configuration.SceneUnderstandingCapability and conformance SpatialTrackingSession.Configuration.SceneUnderstandingCapability, MEMORY[0x1E697A660]);
+      lazy protocol witness table accessor for type SpatialTrackingSession.Configuration.Camera and conformance SpatialTrackingSession.Configuration.Camera(&lazy protocol witness table cache variable for type SpatialTrackingSession.Configuration.SceneUnderstandingCapability and conformance SpatialTrackingSession.Configuration.SceneUnderstandingCapability, MEMORY[0x1E697A660], MEMORY[0x1E697A670]);
       v21 = dispatch thunk of static Equatable.== infix(_:_:)();
       v22 = *v19;
       (*v19)(v9, v6);
@@ -809,7 +809,7 @@ LABEL_7:
   }
 }
 
-uint64_t specialized Set._Variant.insert(_:)(void *a1, uint64_t a2)
+uint64_t specialized Set._Variant.insert(_:)(uint64_t *a1, uint64_t a2)
 {
   v3 = v2;
   v6 = *v2;
@@ -833,7 +833,7 @@ uint64_t specialized Set._Variant.insert(_:)(void *a1, uint64_t a2)
       type metadata accessor for Entity();
       swift_dynamicCast();
       result = 0;
-      *a1 = v18;
+      *a1 = v19;
       return result;
     }
 
@@ -845,19 +845,20 @@ uint64_t specialized Set._Variant.insert(_:)(void *a1, uint64_t a2)
     }
 
     v16 = _ss10_NativeSetV_8capacityAByxGs07__CocoaB0Vn_SitcfC10RealityKit6EntityC_Tt1g5(v7, result + 1);
-    if (*(v16 + 24) <= *(v16 + 16))
+    v17 = *(v16 + 16);
+    if (*(v16 + 24) <= v17)
     {
-      specialized _NativeSet.resize(capacity:)();
+      specialized _NativeSet.resize(capacity:)(v17 + 1);
     }
 
-    specialized _NativeSet._unsafeInsertNew(_:)(v17, v16);
+    specialized _NativeSet._unsafeInsertNew(_:)(v18, v16);
 
     *v3 = v16;
     goto LABEL_16;
   }
 
   type metadata accessor for Entity();
-  lazy protocol witness table accessor for type SpatialTrackingSession.Configuration.Camera and conformance SpatialTrackingSession.Configuration.Camera(&lazy protocol witness table cache variable for type Entity and conformance Entity, MEMORY[0x1E697A3A8]);
+  lazy protocol witness table accessor for type SpatialTrackingSession.Configuration.Camera and conformance SpatialTrackingSession.Configuration.Camera(&lazy protocol witness table cache variable for type Entity and conformance Entity, MEMORY[0x1E697A3A8], MEMORY[0x1E697A3B0]);
   v10 = dispatch thunk of Hashable._rawHashValue(seed:)();
   v11 = -1 << *(v6 + 32);
   v12 = v10 & ~v11;
@@ -865,17 +866,17 @@ uint64_t specialized Set._Variant.insert(_:)(void *a1, uint64_t a2)
   {
 LABEL_11:
     isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    v19 = *v2;
+    v20 = *v2;
 
     specialized _NativeSet.insertNew(_:at:isUnique:)(v15, v12, isUniquelyReferenced_nonNull_native);
-    *v2 = v19;
+    *v2 = v20;
 LABEL_16:
     *a1 = a2;
     return 1;
   }
 
   v13 = ~v11;
-  lazy protocol witness table accessor for type SpatialTrackingSession.Configuration.Camera and conformance SpatialTrackingSession.Configuration.Camera(&lazy protocol witness table cache variable for type Entity and conformance Entity, MEMORY[0x1E697A3A8]);
+  lazy protocol witness table accessor for type SpatialTrackingSession.Configuration.Camera and conformance SpatialTrackingSession.Configuration.Camera(&lazy protocol witness table cache variable for type Entity and conformance Entity, MEMORY[0x1E697A3A8], MEMORY[0x1E697A3B8]);
   while ((dispatch thunk of static Equatable.== infix(_:_:)() & 1) == 0)
   {
     v12 = (v12 + 1) & v13;
@@ -890,7 +891,7 @@ LABEL_16:
   return 0;
 }
 
-uint64_t specialized Set._Variant.insert(_:)(void *a1, void *a2)
+uint64_t specialized Set._Variant.insert(_:)(uint64_t *a1, void *a2)
 {
   v3 = v2;
   v6 = *v2;
@@ -913,7 +914,7 @@ uint64_t specialized Set._Variant.insert(_:)(void *a1, void *a2)
     if (v9)
     {
 
-      type metadata accessor for ARReferenceObject(0, &lazy cache variable for type metadata for ARReferenceImage);
+      type metadata accessor for ARReferenceObject(0, &lazy cache variable for type metadata for ARReferenceImage, 0x1E69864C0);
       swift_dynamicCast();
       result = 0;
       *a1 = v23;
@@ -941,7 +942,7 @@ uint64_t specialized Set._Variant.insert(_:)(void *a1, void *a2)
     goto LABEL_16;
   }
 
-  type metadata accessor for ARReferenceObject(0, &lazy cache variable for type metadata for ARReferenceImage);
+  type metadata accessor for ARReferenceObject(0, &lazy cache variable for type metadata for ARReferenceImage, 0x1E69864C0);
   v11 = NSObject._rawHashValue(seed:)(*(v6 + 40));
   v12 = -1 << *(v6 + 32);
   v13 = v11 & ~v12;
@@ -1004,7 +1005,7 @@ LABEL_16:
     if (v9)
     {
 
-      type metadata accessor for ARReferenceObject(0, &lazy cache variable for type metadata for ARReferenceObject);
+      type metadata accessor for ARReferenceObject(0, &lazy cache variable for type metadata for ARReferenceObject, 0x1E69864C8);
       swift_dynamicCast();
       result = 0;
       *a1 = v23;
@@ -1032,7 +1033,7 @@ LABEL_16:
     goto LABEL_16;
   }
 
-  type metadata accessor for ARReferenceObject(0, &lazy cache variable for type metadata for ARReferenceObject);
+  type metadata accessor for ARReferenceObject(0, &lazy cache variable for type metadata for ARReferenceObject, 0x1E69864C8);
   v11 = NSObject._rawHashValue(seed:)(*(v6 + 40));
   v12 = -1 << *(v6 + 32);
   v13 = v11 & ~v12;
@@ -1084,7 +1085,7 @@ uint64_t _sSh21_nonEmptyArrayLiteralShyxGSayxG_tcfC17RealityFoundation22SpatialT
   v8 = *(a1 + 16);
   if (v8)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss11_SetStorageCy17RealityFoundation22SpatialTrackingSessionC13ConfigurationV16AnchorCapabilityVGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss11_SetStorageCy17RealityFoundation22SpatialTrackingSessionC13ConfigurationV16AnchorCapabilityVGMd, &_ss11_SetStorageCy17RealityFoundation22SpatialTrackingSessionC13ConfigurationV16AnchorCapabilityVGMR);
     v9 = static _SetStorage.allocate(capacity:)();
     v10 = 0;
     v12 = *(v3 + 16);
@@ -1101,7 +1102,7 @@ uint64_t _sSh21_nonEmptyArrayLiteralShyxGSayxG_tcfC17RealityFoundation22SpatialT
     {
       v34 = v10;
       v35(v37, v33 + v14 * v10, v2);
-      lazy protocol witness table accessor for type SpatialTrackingSession.Configuration.Camera and conformance SpatialTrackingSession.Configuration.Camera(&lazy protocol witness table cache variable for type SpatialTrackingSession.Configuration.AnchorCapability and conformance SpatialTrackingSession.Configuration.AnchorCapability, MEMORY[0x1E697A640]);
+      lazy protocol witness table accessor for type SpatialTrackingSession.Configuration.Camera and conformance SpatialTrackingSession.Configuration.Camera(&lazy protocol witness table cache variable for type SpatialTrackingSession.Configuration.AnchorCapability and conformance SpatialTrackingSession.Configuration.AnchorCapability, MEMORY[0x1E697A640], MEMORY[0x1E697A648]);
       v16 = dispatch thunk of Hashable._rawHashValue(seed:)();
       v17 = ~(-1 << *(v9 + 32));
       v18 = v16 & v17;
@@ -1114,7 +1115,7 @@ uint64_t _sSh21_nonEmptyArrayLiteralShyxGSayxG_tcfC17RealityFoundation22SpatialT
         {
           v22 = v11;
           v35(v5, *(v9 + 48) + v18 * v14, v2);
-          lazy protocol witness table accessor for type SpatialTrackingSession.Configuration.Camera and conformance SpatialTrackingSession.Configuration.Camera(&lazy protocol witness table cache variable for type SpatialTrackingSession.Configuration.AnchorCapability and conformance SpatialTrackingSession.Configuration.AnchorCapability, MEMORY[0x1E697A640]);
+          lazy protocol witness table accessor for type SpatialTrackingSession.Configuration.Camera and conformance SpatialTrackingSession.Configuration.Camera(&lazy protocol witness table cache variable for type SpatialTrackingSession.Configuration.AnchorCapability and conformance SpatialTrackingSession.Configuration.AnchorCapability, MEMORY[0x1E697A640], MEMORY[0x1E697A650]);
           v23 = dispatch thunk of static Equatable.== infix(_:_:)();
           v24 = *v15;
           (*v15)(v5, v2);
@@ -1178,7 +1179,7 @@ uint64_t _sSh21_nonEmptyArrayLiteralShyxGSayxG_tcfC17RealityFoundation22SpatialT
   v8 = *(a1 + 16);
   if (v8)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss11_SetStorageCy17RealityFoundation22SpatialTrackingSessionC13ConfigurationV28SceneUnderstandingCapabilityVGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss11_SetStorageCy17RealityFoundation22SpatialTrackingSessionC13ConfigurationV28SceneUnderstandingCapabilityVGMd, &_ss11_SetStorageCy17RealityFoundation22SpatialTrackingSessionC13ConfigurationV28SceneUnderstandingCapabilityVGMR);
     v9 = static _SetStorage.allocate(capacity:)();
     v10 = 0;
     v12 = *(v3 + 16);
@@ -1195,7 +1196,7 @@ uint64_t _sSh21_nonEmptyArrayLiteralShyxGSayxG_tcfC17RealityFoundation22SpatialT
     {
       v34 = v10;
       v35(v37, v33 + v14 * v10, v2);
-      lazy protocol witness table accessor for type SpatialTrackingSession.Configuration.Camera and conformance SpatialTrackingSession.Configuration.Camera(&lazy protocol witness table cache variable for type SpatialTrackingSession.Configuration.SceneUnderstandingCapability and conformance SpatialTrackingSession.Configuration.SceneUnderstandingCapability, MEMORY[0x1E697A660]);
+      lazy protocol witness table accessor for type SpatialTrackingSession.Configuration.Camera and conformance SpatialTrackingSession.Configuration.Camera(&lazy protocol witness table cache variable for type SpatialTrackingSession.Configuration.SceneUnderstandingCapability and conformance SpatialTrackingSession.Configuration.SceneUnderstandingCapability, MEMORY[0x1E697A660], MEMORY[0x1E697A668]);
       v16 = dispatch thunk of Hashable._rawHashValue(seed:)();
       v17 = ~(-1 << *(v9 + 32));
       v18 = v16 & v17;
@@ -1208,7 +1209,7 @@ uint64_t _sSh21_nonEmptyArrayLiteralShyxGSayxG_tcfC17RealityFoundation22SpatialT
         {
           v22 = v11;
           v35(v5, *(v9 + 48) + v18 * v14, v2);
-          lazy protocol witness table accessor for type SpatialTrackingSession.Configuration.Camera and conformance SpatialTrackingSession.Configuration.Camera(&lazy protocol witness table cache variable for type SpatialTrackingSession.Configuration.SceneUnderstandingCapability and conformance SpatialTrackingSession.Configuration.SceneUnderstandingCapability, MEMORY[0x1E697A660]);
+          lazy protocol witness table accessor for type SpatialTrackingSession.Configuration.Camera and conformance SpatialTrackingSession.Configuration.Camera(&lazy protocol witness table cache variable for type SpatialTrackingSession.Configuration.SceneUnderstandingCapability and conformance SpatialTrackingSession.Configuration.SceneUnderstandingCapability, MEMORY[0x1E697A660], MEMORY[0x1E697A670]);
           v23 = dispatch thunk of static Equatable.== infix(_:_:)();
           v24 = *v15;
           (*v15)(v5, v2);
@@ -1263,18 +1264,18 @@ LABEL_8:
 
 uint64_t outlined init with copy of ARConfigurationCreateResult(uint64_t a1, uint64_t a2)
 {
-  v4 = type metadata accessor for ARConfigurationCreateResult();
+  v4 = type metadata accessor for ARConfigurationCreateResult(0);
   (*(*(v4 - 8) + 16))(a2, a1, v4);
   return a2;
 }
 
-uint64_t type metadata completion function for ARConfigurationCreateResult()
+uint64_t type metadata completion function for ARConfigurationCreateResult(uint64_t a1)
 {
-  result = type metadata accessor for ARReferenceObject(319, &lazy cache variable for type metadata for ARConfiguration);
-  if (v1 <= 0x3F)
+  result = type metadata accessor for ARReferenceObject(319, &lazy cache variable for type metadata for ARConfiguration, 0x1E6986438);
+  if (v2 <= 0x3F)
   {
     result = type metadata accessor for SpatialTrackingSession.Configuration();
-    if (v2 <= 0x3F)
+    if (v3 <= 0x3F)
     {
       swift_cvw_initStructMetadataWithLayoutString();
       return 0;
@@ -1284,7 +1285,7 @@ uint64_t type metadata completion function for ARConfigurationCreateResult()
   return result;
 }
 
-uint64_t lazy protocol witness table accessor for type SpatialTrackingSession.Configuration.Camera and conformance SpatialTrackingSession.Configuration.Camera(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t lazy protocol witness table accessor for type SpatialTrackingSession.Configuration.Camera and conformance SpatialTrackingSession.Configuration.Camera(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -1347,15 +1348,15 @@ void SpotLightComponent.color.modify(void **a1, char a2)
   }
 }
 
-void SpotLightComponent.init(color:intensity:innerAngleInDegrees:outerAngleInDegrees:attenuationRadius:)(void *a1)
+void SpotLightComponent.init(color:intensity:innerAngleInDegrees:outerAngleInDegrees:attenuationRadius:)(void *a1, float a2, float a3, float a4, float a5)
 {
-  v1 = [a1 CGColor];
+  v5 = [a1 CGColor];
   SpotLightComponent.init(cgColor:intensity:innerAngleInDegrees:outerAngleInDegrees:attenuationRadius:)();
 }
 
-void SpotLightComponent.init(color:intensity:innerAngleInDegrees:outerAngleInDegrees:attenuationRadius:attenuationFalloffExponent:)(void *a1)
+void SpotLightComponent.init(color:intensity:innerAngleInDegrees:outerAngleInDegrees:attenuationRadius:attenuationFalloffExponent:)(void *a1, float a2, float a3, float a4, float a5, float a6)
 {
-  v1 = [a1 CGColor];
+  v6 = [a1 CGColor];
   SpotLightComponent.init(cgColor:intensity:innerAngleInDegrees:outerAngleInDegrees:attenuationRadius:attenuationFalloffExponent:)();
 }
 
@@ -1366,13 +1367,13 @@ uint64_t SpotLightComponent.customMirror.getter@<X0>(uint64_t a1@<X8>)
   v3 = *(v2 - 8);
   MEMORY[0x1EEE9AC00](v2);
   v5 = v25 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss6MirrorV12DisplayStyleOSgMd);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss6MirrorV12DisplayStyleOSgMd, &_ss6MirrorV12DisplayStyleOSgMR);
   MEMORY[0x1EEE9AC00](v6 - 8);
   v8 = v25 - v7;
   v9 = type metadata accessor for SpotLightComponent();
   v10 = MEMORY[0x1EEE9AC00](v9);
   (*(v12 + 16))(v25 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0), v1, v9, v10);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySS_yptGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySS_yptGMd, &_ss23_ContiguousArrayStorageCySS_yptGMR);
   v13 = swift_allocObject();
   *(v13 + 16) = xmmword_1E1254740;
   *(v13 + 32) = 0x726F6C6F63;
@@ -1415,30 +1416,30 @@ uint64_t SpotLightComponent.customMirror.getter@<X0>(uint64_t a1@<X8>)
   return Mirror.init<A>(_:children:displayStyle:ancestorRepresentation:)();
 }
 
-void RealityFusionSession.update(scene:with:by:)(uint64_t a1, char *a2)
+void RealityFusionSession.update(scene:with:by:)(uint64_t a1, char *a2, float a3)
 {
   specialized RealityFusionSession.getCameraTransform(arView:)(a2);
   Camera = RFAnchorCreateCamera();
-  v4 = dispatch thunk of RealityFusionSession.serviceManager.getter();
-  if (v4)
+  v5 = dispatch thunk of RealityFusionSession.serviceManager.getter();
+  if (v5)
   {
-    v5 = v4;
-    v6 = RFServiceManagerGetAnchorDataProvider();
+    v6 = v5;
+    v7 = RFServiceManagerGetAnchorDataProvider();
 
-    if (v6)
+    if (v7)
     {
       RFAnchorDataProviderUpdateLocalAnchor();
     }
   }
 
-  v7 = dispatch thunk of RealityFusionSession.serviceManager.getter();
-  if (!v7)
+  v8 = dispatch thunk of RealityFusionSession.serviceManager.getter();
+  if (!v8)
   {
     __break(1u);
     goto LABEL_46;
   }
 
-  v8 = v7;
+  v9 = v8;
   type metadata accessor for __ServiceLocator();
   static __ServiceLocator.shared.getter();
   dispatch thunk of __ServiceLocator.coreServiceLocator.getter();
@@ -1454,97 +1455,97 @@ LABEL_47:
 
   RFServiceManagerUpdate();
 
-  v9 = dispatch thunk of RealityFusionSession.serviceManager.getter();
-  if (v9)
+  v10 = dispatch thunk of RealityFusionSession.serviceManager.getter();
+  if (v10)
   {
-    v10 = v9;
-    v11 = RFServiceManagerGetMeshReconstructionService();
+    v11 = v10;
+    v12 = RFServiceManagerGetMeshReconstructionService();
 
-    if (v11)
+    if (v12)
     {
       RFMeshReconstructionServiceUpdateByDeltaTime();
     }
   }
 
-  v12 = dispatch thunk of RealityFusionSession.serviceManager.getter();
-  if (v12)
+  v13 = dispatch thunk of RealityFusionSession.serviceManager.getter();
+  if (v13)
   {
-    v13 = v12;
-    v14 = RFServiceManagerGetAnchorManagementService();
+    v14 = v13;
+    v15 = RFServiceManagerGetAnchorManagementService();
 
-    if (v14)
+    if (v15)
     {
       RFAnchorManagementServiceUpdateByDeltaTime();
     }
   }
 
-  v15 = dispatch thunk of RealityFusionSession.serviceManager.getter();
-  if (v15)
+  v16 = dispatch thunk of RealityFusionSession.serviceManager.getter();
+  if (v16)
   {
-    v16 = v15;
-    v17 = RFServiceManagerGetLoggingService();
+    v17 = v16;
+    v18 = RFServiceManagerGetLoggingService();
 
-    if (v17)
+    if (v18)
     {
       RFLoggingServiceUpdateByDeltaTime();
     }
   }
 
-  v18 = dispatch thunk of RealityFusionSession.serviceManager.getter();
-  if (v18)
+  v19 = dispatch thunk of RealityFusionSession.serviceManager.getter();
+  if (v19)
   {
-    v19 = v18;
-    v20 = RFServiceManagerGetDebugService();
+    v20 = v19;
+    v21 = RFServiceManagerGetDebugService();
 
-    if (v20)
+    if (v21)
     {
       RFDebugServiceUpdateByDeltaTime();
     }
   }
 
-  v21 = dispatch thunk of RealityFusionSession.serviceManager.getter();
-  if (v21)
+  v22 = dispatch thunk of RealityFusionSession.serviceManager.getter();
+  if (v22)
   {
-    v22 = v21;
-    v23 = RFServiceManagerGetSyntheticEnvironmentService();
+    v23 = v22;
+    v24 = RFServiceManagerGetSyntheticEnvironmentService();
 
-    if (v23)
+    if (v24)
     {
       RFSyntheticEnvironmentServiceUpdateByDeltaTime();
     }
   }
 
-  v24 = dispatch thunk of RealityFusionSession.serviceManager.getter();
-  if (v24)
+  v25 = dispatch thunk of RealityFusionSession.serviceManager.getter();
+  if (v25)
   {
-    v25 = v24;
-    v26 = RFServiceManagerGetAtmospherePlacementService();
+    v26 = v25;
+    v27 = RFServiceManagerGetAtmospherePlacementService();
 
-    if (v26)
+    if (v27)
     {
       RFAtmospherePlacementServiceUpdateByDeltaTime();
     }
   }
 
-  v27 = [a2 session];
-  v36 = [v27 configuration];
+  v28 = [a2 session];
+  v37 = [v28 configuration];
 
-  if (!v36 || (objc_opt_self(), (v28 = swift_dynamicCastObjCClass()) == 0) || [v28 environmentTexturing] || (objc_opt_self(), (v34 = swift_dynamicCastObjCClass()) == 0) || objc_msgSend(v34, sel_environmentTexturing) || (objc_opt_self(), (v35 = swift_dynamicCastObjCClass()) == 0) || objc_msgSend(v35, sel_environmentTexturing))
+  if (!v37 || (objc_opt_self(), (v29 = swift_dynamicCastObjCClass()) == 0) || [v29 environmentTexturing] || (objc_opt_self(), (v35 = swift_dynamicCastObjCClass()) == 0) || objc_msgSend(v35, sel_environmentTexturing) || (objc_opt_self(), (v36 = swift_dynamicCastObjCClass()) == 0) || objc_msgSend(v36, sel_environmentTexturing))
   {
-    v29 = dispatch thunk of RealityFusionSession.serviceManager.getter();
-    if (v29)
+    v30 = dispatch thunk of RealityFusionSession.serviceManager.getter();
+    if (v30)
     {
-      v30 = v29;
-      v31 = RFServiceManagerGetEnvironmentProbePlacementService();
-      if (v31)
+      v31 = v30;
+      v32 = RFServiceManagerGetEnvironmentProbePlacementService();
+      if (v32)
       {
-        v32 = v31;
+        v33 = v32;
         if (one-time initialization token for gpuClass != -1)
         {
           swift_once();
         }
 
-        if (static RealityFusionSession.gpuClass != 3 && (v33 = OBJC_IVAR____TtC10RealityKit6ARView___forceLocalizedProbes, swift_beginAccess(), a2[v33] != 1) || *&a2[OBJC_IVAR____TtC10RealityKit6ARView_arSystem])
+        if (static RealityFusionSession.gpuClass != 3 && (v34 = OBJC_IVAR____TtC10RealityKit6ARView___forceLocalizedProbes, swift_beginAccess(), a2[v34] != 1) || *&a2[OBJC_IVAR____TtC10RealityKit6ARView_arSystem])
         {
           swift_beginAccess();
           RFEnvironmentProbePlacementServiceSetLocalizedProbeEnabled();
@@ -1622,7 +1623,7 @@ __n128 specialized RealityFusionSession.getCameraTransform(arView:)(char *a1)
   return result;
 }
 
-uint64_t specialized Array.remove(at:)(unint64_t a1)
+unint64_t specialized Array.remove(at:)(unint64_t a1)
 {
   v3 = *v1;
   result = swift_isUniquelyReferenced_nonNull_bridgeObject();
@@ -1667,7 +1668,7 @@ uint64_t closure #1 in Array<A>.first(with:)(uint64_t a1, uint64_t a2)
   return a2 & 1;
 }
 
-uint64_t specialized Collection.firstIndex(where:)(uint64_t (*a1)(uint64_t *), uint64_t a2, unint64_t a3)
+unint64_t specialized Collection.firstIndex(where:)(uint64_t (*a1)(uint64_t *), uint64_t a2, unint64_t a3)
 {
   v5 = a3 & 0xFFFFFFFFFFFFFF8;
   if (a3 >> 62)
@@ -1893,11 +1894,11 @@ uint64_t thunk for @escaping @callee_guaranteed () -> (@unowned RESyncAuthData)@
   return result;
 }
 
-void closure #4 in GroupActivitiesSynchronizationDiscoveryView.init(protocolLayer:)()
+void closure #4 in GroupActivitiesSynchronizationDiscoveryView.init(protocolLayer:)(uint64_t a1)
 {
   _StringGuts.grow(_:)(35);
   MEMORY[0x1E12F4010](0xD000000000000020, 0x80000001E1257B30);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSPys4Int8VGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSPys4Int8VGMd, "P_");
   _print_unlocked<A, B>(_:_:)();
   MEMORY[0x1E12F4010](46, 0xE100000000000000);
   _assertionFailure(_:_:file:line:flags:)();
@@ -2091,12 +2092,12 @@ uint64_t AccessibilityEvents.CustomAction.key.setter(uint64_t a1)
   return v4(v1, a1, v3);
 }
 
-uint64_t AccessibilityEvents.RotorNavigation.hostEntity.getter(void (*a1)(void))
+uint64_t AccessibilityEvents.RotorNavigation.hostEntity.getter(uint64_t (*a1)(void))
 {
   a1(0);
 }
 
-uint64_t type metadata accessor for AccessibilityComponent.RotorType(uint64_t a1, uint64_t *a2)
+uint64_t type metadata accessor for AccessibilityComponent.RotorType(uint64_t a1, uint64_t *a2, uint64_t a3)
 {
   result = *a2;
   if (!*a2)
@@ -2147,14 +2148,14 @@ uint64_t protocol witness for PublishingEvent.publish(_:on:componentType:) in co
 
 uint64_t protocol witness for PublishingEvent.publish(_:on:componentType:) in conformance AccessibilityEvents.CustomAction(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v10 = lazy protocol witness table accessor for type AccessibilityEvents.CustomAction and conformance AccessibilityEvents.CustomAction(&lazy protocol witness table cache variable for type AccessibilityEvents.CustomAction and conformance AccessibilityEvents.CustomAction, type metadata accessor for AccessibilityEvents.CustomAction);
+  v10 = lazy protocol witness table accessor for type AccessibilityEvents.CustomAction and conformance AccessibilityEvents.CustomAction(&lazy protocol witness table cache variable for type AccessibilityEvents.CustomAction and conformance AccessibilityEvents.CustomAction, type metadata accessor for AccessibilityEvents.CustomAction, &protocol conformance descriptor for AccessibilityEvents.CustomAction);
 
   return MEMORY[0x1EEDD79E0](a1, a2, a3, a4, a5, v10);
 }
 
 uint64_t protocol witness for PublishingEvent.publish(_:on:componentType:) in conformance AccessibilityEvents.RotorNavigation(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v10 = lazy protocol witness table accessor for type AccessibilityEvents.CustomAction and conformance AccessibilityEvents.CustomAction(&lazy protocol witness table cache variable for type AccessibilityEvents.RotorNavigation and conformance AccessibilityEvents.RotorNavigation, type metadata accessor for AccessibilityEvents.RotorNavigation);
+  v10 = lazy protocol witness table accessor for type AccessibilityEvents.CustomAction and conformance AccessibilityEvents.CustomAction(&lazy protocol witness table cache variable for type AccessibilityEvents.RotorNavigation and conformance AccessibilityEvents.RotorNavigation, type metadata accessor for AccessibilityEvents.RotorNavigation, &protocol conformance descriptor for AccessibilityEvents.RotorNavigation);
 
   return MEMORY[0x1EEDD79F8](a1, a2, a3, a4, a5, v10);
 }
@@ -2168,7 +2169,7 @@ uint64_t (*AccessibilityComponent.traits.modify(uint64_t *a1))()
 
 void *AccessibilityComponent.customRotors.getter()
 {
-  v0 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s17RealityFoundation22AccessibilityComponentV0A3KitE9RotorTypeOSgMd);
+  v0 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s17RealityFoundation22AccessibilityComponentV0A3KitE9RotorTypeOSgMd, &_s17RealityFoundation22AccessibilityComponentV0A3KitE9RotorTypeOSgMR);
   MEMORY[0x1EEE9AC00](v0 - 8);
   v2 = (&v27 - v1);
   v3 = type metadata accessor for AccessibilityComponent.RotorType(0);
@@ -2177,9 +2178,9 @@ void *AccessibilityComponent.customRotors.getter()
   v40 = &v27 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   v6 = type metadata accessor for AccessibilityComponent.RotorTypeInternal();
   v7 = *(v6 - 8);
-  v8 = MEMORY[0x1EEE9AC00](v6);
-  v10 = (&v27 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0));
-  MEMORY[0x1EEE9AC00](v8);
+  MEMORY[0x1EEE9AC00](v6);
+  v9 = (&v27 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0));
+  MEMORY[0x1EEE9AC00](v10);
   v39 = &v27 - v11;
   v12 = AccessibilityComponent.customRotorsRawValue.getter();
   v13 = *(v12 + 16);
@@ -2212,12 +2213,12 @@ void *AccessibilityComponent.customRotors.getter()
   {
     v21 = v39;
     v38(v39, v17, v6);
-    (*v36)(v10, v21, v6);
-    v22 = (*v35)(v10, v6);
+    (*v36)(v9, v21, v6);
+    v22 = (*v35)(v9, v6);
     if (v22 == v34)
     {
-      (*v32)(v10, v6);
-      *v2 = *v10;
+      (*v32)(v9, v6);
+      *v2 = *v9;
 LABEL_9:
       swift_storeEnumTagMultiPayload();
       (*v33)(v2, 0, 1, v3);
@@ -2226,18 +2227,18 @@ LABEL_9:
 
     if (v22 == v29)
     {
-      (*v32)(v10, v6);
+      (*v32)(v9, v6);
       v23 = type metadata accessor for LocalizedStringResource();
-      (*(*(v23 - 8) + 32))(v2, v10, v23);
+      (*(*(v23 - 8) + 32))(v2, v9, v23);
       goto LABEL_9;
     }
 
     (*v33)(v2, 1, 1, v3);
-    (*v28)(v10, v6);
+    (*v28)(v9, v6);
 LABEL_11:
     if ((*v19)(v2, 1, v3) == 1)
     {
-      outlined destroy of ARConfigurationCreateResult?(v2, &_s17RealityFoundation22AccessibilityComponentV0A3KitE9RotorTypeOSgMd);
+      outlined destroy of ARConfigurationCreateResult?(v2, &_s17RealityFoundation22AccessibilityComponentV0A3KitE9RotorTypeOSgMd, &_s17RealityFoundation22AccessibilityComponentV0A3KitE9RotorTypeOSgMR);
     }
 
     else
@@ -2252,7 +2253,7 @@ LABEL_11:
       v24 = v20[3];
       if (v25 >= v24 >> 1)
       {
-        v20 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(v24 > 1, v25 + 1, 1, v20);
+        v20 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v24 > 1), v25 + 1, 1, v20);
       }
 
       v20[2] = v25 + 1;
@@ -2270,74 +2271,74 @@ LABEL_11:
 
 uint64_t AccessibilityComponent.customRotors.setter(uint64_t a1)
 {
-  v24 = type metadata accessor for AccessibilityComponent.RotorType(0);
-  v3 = *(v24 - 8);
-  v4 = MEMORY[0x1EEE9AC00](v24);
-  v6 = (v23 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0));
-  MEMORY[0x1EEE9AC00](v4);
-  v30 = v23 - v7;
+  v26 = type metadata accessor for AccessibilityComponent.RotorType(0);
+  v3 = *(v26 - 8);
+  MEMORY[0x1EEE9AC00](v26);
+  v5 = (v25 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0));
+  MEMORY[0x1EEE9AC00](v6);
+  v32 = v25 - v7;
   v8 = type metadata accessor for AccessibilityComponent.RotorTypeInternal();
   v9 = *(v8 - 8);
-  MEMORY[0x1EEE9AC00](v8);
-  v11 = (v23 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v12 = *(a1 + 16);
-  if (v12)
+  v10 = MEMORY[0x1EEE9AC00](v8);
+  v12 = (v25 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v13 = *(a1 + 16);
+  if (v13)
   {
-    v23[2] = v1;
-    v31 = MEMORY[0x1E69E7CC0];
-    specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v12, 0);
-    v13 = v31;
-    v14 = *(v3 + 80);
-    v23[1] = a1;
-    v15 = a1 + ((v14 + 32) & ~v14);
-    v29 = *(v3 + 72);
-    v26 = *MEMORY[0x1E697A608];
-    v28 = (v9 + 104);
-    v25 = *MEMORY[0x1E697A600];
-    v27 = v9 + 32;
+    v25[2] = v1;
+    v33 = MEMORY[0x1E69E7CC0];
+    specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v13, 0, v10);
+    v14 = v33;
+    v15 = *(v3 + 80);
+    v25[1] = a1;
+    v16 = a1 + ((v15 + 32) & ~v15);
+    v31 = *(v3 + 72);
+    v28 = *MEMORY[0x1E697A608];
+    v30 = (v9 + 104);
+    v27 = *MEMORY[0x1E697A600];
+    v29 = v9 + 32;
     do
     {
-      v16 = v30;
-      outlined init with copy of AccessibilityComponent.RotorType(v15, v30);
-      outlined init with take of AccessibilityComponent.RotorType(v16, v6);
+      v17 = v32;
+      outlined init with copy of AccessibilityComponent.RotorType(v16, v32);
+      outlined init with take of AccessibilityComponent.RotorType(v17, v5);
       if (swift_getEnumCaseMultiPayload() == 1)
       {
-        v17 = type metadata accessor for LocalizedStringResource();
-        (*(*(v17 - 8) + 32))(v11, v6, v17);
-        v18 = v25;
+        v18 = type metadata accessor for LocalizedStringResource();
+        (*(*(v18 - 8) + 32))(v12, v5, v18);
+        v19 = v27;
       }
 
       else
       {
-        *v11 = *v6;
-        v18 = v26;
+        *v12 = *v5;
+        v19 = v28;
       }
 
-      (*v28)(v11, v18, v8);
-      v31 = v13;
-      v19 = v8;
-      v21 = *(v13 + 16);
-      v20 = *(v13 + 24);
-      if (v21 >= v20 >> 1)
+      (*v30)(v12, v19, v8);
+      v33 = v14;
+      v21 = v8;
+      v23 = *(v14 + 16);
+      v22 = *(v14 + 24);
+      if (v23 >= v22 >> 1)
       {
-        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(v20 > 1, v21 + 1, 1);
-        v13 = v31;
+        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v22 > 1), v23 + 1, 1, v20);
+        v14 = v33;
       }
 
-      *(v13 + 16) = v21 + 1;
-      (*(v9 + 32))(v13 + ((*(v9 + 80) + 32) & ~*(v9 + 80)) + *(v9 + 72) * v21, v11, v19);
-      v15 += v29;
-      --v12;
-      v8 = v19;
+      *(v14 + 16) = v23 + 1;
+      (*(v9 + 32))(v14 + ((*(v9 + 80) + 32) & ~*(v9 + 80)) + *(v9 + 72) * v23, v12, v21);
+      v16 += v31;
+      --v13;
+      v8 = v21;
     }
 
-    while (v12);
+    while (v13);
   }
 
   return AccessibilityComponent.customRotorsRawValue.setter();
 }
 
-uint64_t (*AccessibilityComponent.customRotors.modify(void *a1))(uint64_t *a1, char a2)
+uint64_t (*AccessibilityComponent.customRotors.modify(uint64_t *a1))(uint64_t *a1, char a2)
 {
   a1[1] = v1;
   *a1 = AccessibilityComponent.customRotors.getter();
@@ -2356,14 +2357,14 @@ uint64_t AccessibilityComponent.customRotors.modify(uint64_t *a1, char a2)
 
 uint64_t Entity.accessibilityComponent.getter@<X0>(uint64_t a1@<X8>)
 {
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s17RealityFoundation22AccessibilityComponentVSgMd);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s17RealityFoundation22AccessibilityComponentVSgMd, &_s17RealityFoundation22AccessibilityComponentVSgMR);
   MEMORY[0x1EEE9AC00](v2 - 8);
   v4 = &v16 - v3;
   v5 = type metadata accessor for Entity.ComponentSet();
   v6 = *(v5 - 8);
-  v7 = MEMORY[0x1EEE9AC00](v5);
-  v9 = &v16 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v7);
+  MEMORY[0x1EEE9AC00](v5);
+  v8 = &v16 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v9);
   v11 = &v16 - v10;
   dispatch thunk of Entity.components.getter();
   v12 = type metadata accessor for AccessibilityComponent();
@@ -2376,14 +2377,14 @@ uint64_t Entity.accessibilityComponent.getter@<X0>(uint64_t a1@<X8>)
     return (*(v14 + 32))(a1, v4, v12);
   }
 
-  outlined destroy of ARConfigurationCreateResult?(v4, &_s17RealityFoundation22AccessibilityComponentVSgMd);
+  outlined destroy of ARConfigurationCreateResult?(v4, &_s17RealityFoundation22AccessibilityComponentVSgMd, &_s17RealityFoundation22AccessibilityComponentVSgMR);
   AccessibilityComponent.init()();
   dispatch thunk of Entity.components.getter();
   Entity.ComponentSet.set<A>(_:)();
-  return (v13)(v9, v5);
+  return (v13)(v8, v5);
 }
 
-void (*Entity.accessibilityLabelKey.modify(uint64_t *a1))(uint64_t a1, char a2)
+void (*Entity.accessibilityLabelKey.modify(uint64_t *a1))(uint64_t a1, uint64_t a2)
 {
   v3 = MEMORY[0x1E69E7D08];
   if (MEMORY[0x1E69E7D08])
@@ -2399,7 +2400,7 @@ void (*Entity.accessibilityLabelKey.modify(uint64_t *a1))(uint64_t a1, char a2)
   v5 = v4;
   *a1 = v4;
   *(v4 + 64) = v1;
-  v6 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s17RealityFoundation22AccessibilityComponentVSgMd) - 8) + 64);
+  v6 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s17RealityFoundation22AccessibilityComponentVSgMd, &_s17RealityFoundation22AccessibilityComponentVSgMR) - 8) + 64);
   if (v3)
   {
     v7 = swift_coroFrameAlloc();
@@ -2428,7 +2429,7 @@ void (*Entity.accessibilityLabelKey.modify(uint64_t *a1))(uint64_t a1, char a2)
 
   v12 = v11;
   v5[12] = v11;
-  v13 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation23LocalizedStringResourceVSgMd) - 8) + 64);
+  v13 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation23LocalizedStringResourceVSgMd, &_s10Foundation23LocalizedStringResourceVSgMR) - 8) + 64);
   if (v3)
   {
     v5[13] = swift_coroFrameAlloc();
@@ -2455,27 +2456,27 @@ void (*Entity.accessibilityLabelKey.modify(uint64_t *a1))(uint64_t a1, char a2)
 
 uint64_t key path setter for Entity.accessibilityLabelKey : Entity(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t (*a5)(char *))
 {
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation23LocalizedStringResourceVSgMd);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation23LocalizedStringResourceVSgMd, &_s10Foundation23LocalizedStringResourceVSgMR);
   MEMORY[0x1EEE9AC00](v7 - 8);
   v9 = &v11 - v8;
-  outlined init with copy of CheckedContinuation<related decl 'e' for ARErrorCode?, Never>?(a1, &v11 - v8, &_s10Foundation23LocalizedStringResourceVSgMd);
+  outlined init with copy of CheckedContinuation<related decl 'e' for ARErrorCode?, Never>?(a1, &v11 - v8, &_s10Foundation23LocalizedStringResourceVSgMd, &_s10Foundation23LocalizedStringResourceVSgMR);
   return a5(v9);
 }
 
 uint64_t Entity.accessibilityLabelKey.setter(uint64_t a1, void (*a2)(char *))
 {
   v16 = a2;
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s17RealityFoundation22AccessibilityComponentVSgMd);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s17RealityFoundation22AccessibilityComponentVSgMd, &_s17RealityFoundation22AccessibilityComponentVSgMR);
   MEMORY[0x1EEE9AC00](v3 - 8);
   v5 = &v15 - v4;
   v6 = type metadata accessor for AccessibilityComponent();
   v7 = *(v6 - 8);
   MEMORY[0x1EEE9AC00](v6);
   v9 = &v15 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation23LocalizedStringResourceVSgMd);
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation23LocalizedStringResourceVSgMd, &_s10Foundation23LocalizedStringResourceVSgMR);
   MEMORY[0x1EEE9AC00](v10 - 8);
   v12 = &v15 - v11;
-  outlined init with copy of CheckedContinuation<related decl 'e' for ARErrorCode?, Never>?(a1, &v15 - v11, &_s10Foundation23LocalizedStringResourceVSgMd);
+  outlined init with copy of CheckedContinuation<related decl 'e' for ARErrorCode?, Never>?(a1, &v15 - v11, &_s10Foundation23LocalizedStringResourceVSgMd, &_s10Foundation23LocalizedStringResourceVSgMR);
   Entity.accessibilityComponent.getter(v9);
   v16(v12);
   (*(v7 + 16))(v5, v9, v6);
@@ -2483,11 +2484,11 @@ uint64_t Entity.accessibilityLabelKey.setter(uint64_t a1, void (*a2)(char *))
   v13 = dispatch thunk of Entity.components.modify();
   Entity.ComponentSet.subscript.setter();
   v13(v17, 0);
-  outlined destroy of ARConfigurationCreateResult?(a1, &_s10Foundation23LocalizedStringResourceVSgMd);
+  outlined destroy of ARConfigurationCreateResult?(a1, &_s10Foundation23LocalizedStringResourceVSgMd, &_s10Foundation23LocalizedStringResourceVSgMR);
   return (*(v7 + 8))(v9, v6);
 }
 
-void (*Entity.accessibilityValue.modify(uint64_t *a1))(uint64_t a1, char a2)
+void (*Entity.accessibilityValue.modify(uint64_t *a1))(uint64_t a1, uint64_t a2)
 {
   v3 = MEMORY[0x1E69E7D08];
   if (MEMORY[0x1E69E7D08])
@@ -2503,7 +2504,7 @@ void (*Entity.accessibilityValue.modify(uint64_t *a1))(uint64_t a1, char a2)
   v5 = v4;
   *a1 = v4;
   *(v4 + 64) = v1;
-  v6 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s17RealityFoundation22AccessibilityComponentVSgMd) - 8) + 64);
+  v6 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s17RealityFoundation22AccessibilityComponentVSgMd, &_s17RealityFoundation22AccessibilityComponentVSgMR) - 8) + 64);
   if (v3)
   {
     v7 = swift_coroFrameAlloc();
@@ -2532,7 +2533,7 @@ void (*Entity.accessibilityValue.modify(uint64_t *a1))(uint64_t a1, char a2)
 
   v12 = v11;
   v5[12] = v11;
-  v13 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation23LocalizedStringResourceVSgMd) - 8) + 64);
+  v13 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation23LocalizedStringResourceVSgMd, &_s10Foundation23LocalizedStringResourceVSgMR) - 8) + 64);
   if (v3)
   {
     v5[13] = swift_coroFrameAlloc();
@@ -2560,7 +2561,7 @@ void (*Entity.accessibilityValue.modify(uint64_t *a1))(uint64_t a1, char a2)
 void Entity.accessibilityLabelKey.modify(uint64_t a1, char a2, void (*a3)(uint64_t))
 {
   v5 = *a1;
-  outlined init with copy of CheckedContinuation<related decl 'e' for ARErrorCode?, Never>?(*(*a1 + 120), *(*a1 + 112), &_s10Foundation23LocalizedStringResourceVSgMd);
+  outlined init with copy of CheckedContinuation<related decl 'e' for ARErrorCode?, Never>?(*(*a1 + 120), *(*a1 + 112), &_s10Foundation23LocalizedStringResourceVSgMd, &_s10Foundation23LocalizedStringResourceVSgMR);
   v16 = v5[16];
   v6 = v5[14];
   if (a2)
@@ -2571,7 +2572,7 @@ void Entity.accessibilityLabelKey.modify(uint64_t a1, char a2, void (*a3)(uint64
     v10 = v5[10];
     v9 = v5[11];
     v11 = v5[9];
-    outlined init with copy of CheckedContinuation<related decl 'e' for ARErrorCode?, Never>?(v5[14], v8, &_s10Foundation23LocalizedStringResourceVSgMd);
+    outlined init with copy of CheckedContinuation<related decl 'e' for ARErrorCode?, Never>?(v5[14], v8, &_s10Foundation23LocalizedStringResourceVSgMd, &_s10Foundation23LocalizedStringResourceVSgMR);
     Entity.accessibilityComponent.getter(v7);
     v17 = v8;
     a3(v8);
@@ -2581,7 +2582,7 @@ void Entity.accessibilityLabelKey.modify(uint64_t a1, char a2, void (*a3)(uint64
     Entity.ComponentSet.subscript.setter();
     v12(v5, 0);
     v16(v7, v10);
-    outlined destroy of ARConfigurationCreateResult?(v6, &_s10Foundation23LocalizedStringResourceVSgMd);
+    outlined destroy of ARConfigurationCreateResult?(v6, &_s10Foundation23LocalizedStringResourceVSgMd, &_s10Foundation23LocalizedStringResourceVSgMR);
   }
 
   else
@@ -2602,7 +2603,7 @@ void Entity.accessibilityLabelKey.modify(uint64_t a1, char a2, void (*a3)(uint64
     v16(v7, v14);
   }
 
-  outlined destroy of ARConfigurationCreateResult?(v18, &_s10Foundation23LocalizedStringResourceVSgMd);
+  outlined destroy of ARConfigurationCreateResult?(v18, &_s10Foundation23LocalizedStringResourceVSgMd, &_s10Foundation23LocalizedStringResourceVSgMR);
   free(v18);
   free(v6);
   free(v17);
@@ -2625,23 +2626,23 @@ uint64_t key path getter for Entity.accessibilityTraits : Entity@<X0>(uint64_t *
   return result;
 }
 
-uint64_t key path setter for Entity.accessibilityTraits : Entity()
+uint64_t key path setter for Entity.accessibilityTraits : Entity(uint64_t *a1)
 {
-  v0 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s17RealityFoundation22AccessibilityComponentVSgMd);
-  MEMORY[0x1EEE9AC00](v0 - 8);
-  v2 = &v9[-v1];
-  v3 = type metadata accessor for AccessibilityComponent();
-  v4 = *(v3 - 8);
-  MEMORY[0x1EEE9AC00](v3);
-  v6 = &v9[-((v5 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  Entity.accessibilityComponent.getter(v6);
+  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s17RealityFoundation22AccessibilityComponentVSgMd, &_s17RealityFoundation22AccessibilityComponentVSgMR);
+  MEMORY[0x1EEE9AC00](v1 - 8);
+  v3 = &v10[-v2];
+  v4 = type metadata accessor for AccessibilityComponent();
+  v5 = *(v4 - 8);
+  MEMORY[0x1EEE9AC00](v4);
+  v7 = &v10[-((v6 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  Entity.accessibilityComponent.getter(v7);
   AccessibilityComponent.traitsRawValue.setter();
-  (*(v4 + 16))(v2, v6, v3);
-  (*(v4 + 56))(v2, 0, 1, v3);
-  v7 = dispatch thunk of Entity.components.modify();
+  (*(v5 + 16))(v3, v7, v4);
+  (*(v5 + 56))(v3, 0, 1, v4);
+  v8 = dispatch thunk of Entity.components.modify();
   Entity.ComponentSet.subscript.setter();
-  v7(v9, 0);
-  return (*(v4 + 8))(v6, v3);
+  v8(v10, 0);
+  return (*(v5 + 8))(v7, v4);
 }
 
 void (*Entity.accessibilityTraits.modify(uint64_t *a1))(uint64_t a1, char a2)
@@ -2660,7 +2661,7 @@ void (*Entity.accessibilityTraits.modify(uint64_t *a1))(uint64_t a1, char a2)
   v5 = v4;
   *a1 = v4;
   *(v4 + 72) = v1;
-  v6 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s17RealityFoundation22AccessibilityComponentVSgMd) - 8) + 64);
+  v6 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s17RealityFoundation22AccessibilityComponentVSgMd, &_s17RealityFoundation22AccessibilityComponentVSgMR) - 8) + 64);
   if (v3)
   {
     v7 = swift_coroFrameAlloc();
@@ -2731,7 +2732,7 @@ void Entity.accessibilityTraits.modify(uint64_t a1, char a2)
   free(v3);
 }
 
-void (*Entity.accessibilityCustomContent.modify(uint64_t *a1))(uint64_t a1, char a2)
+void (*Entity.accessibilityCustomContent.modify(uint64_t *a1))(uint64_t a1, uint64_t a2)
 {
   v3 = MEMORY[0x1E69E7D08];
   if (MEMORY[0x1E69E7D08])
@@ -2747,7 +2748,7 @@ void (*Entity.accessibilityCustomContent.modify(uint64_t *a1))(uint64_t a1, char
   v5 = v4;
   *a1 = v4;
   *(v4 + 72) = v1;
-  v6 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s17RealityFoundation22AccessibilityComponentVSgMd) - 8) + 64);
+  v6 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s17RealityFoundation22AccessibilityComponentVSgMd, &_s17RealityFoundation22AccessibilityComponentVSgMR) - 8) + 64);
   if (v3)
   {
     v7 = swift_coroFrameAlloc();
@@ -2786,7 +2787,7 @@ void (*Entity.accessibilityCustomContent.modify(uint64_t *a1))(uint64_t a1, char
   return Entity.accessibilityCustomContent.modify;
 }
 
-void (*Entity.accessibilityCustomRotors.modify(uint64_t *a1))(uint64_t a1, char a2)
+void (*Entity.accessibilityCustomRotors.modify(uint64_t *a1))(uint64_t a1, uint64_t a2)
 {
   v3 = MEMORY[0x1E69E7D08];
   if (MEMORY[0x1E69E7D08])
@@ -2802,7 +2803,7 @@ void (*Entity.accessibilityCustomRotors.modify(uint64_t *a1))(uint64_t a1, char 
   v5 = v4;
   *a1 = v4;
   *(v4 + 72) = v1;
-  v6 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s17RealityFoundation22AccessibilityComponentVSgMd) - 8) + 64);
+  v6 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s17RealityFoundation22AccessibilityComponentVSgMd, &_s17RealityFoundation22AccessibilityComponentVSgMR) - 8) + 64);
   if (v3)
   {
     v7 = swift_coroFrameAlloc();
@@ -2874,7 +2875,7 @@ uint64_t key path setter for Entity.accessibilitySystemActions : Entity(uint64_t
 
 uint64_t Entity.accessibilitySystemActions.setter(uint64_t a1)
 {
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s17RealityFoundation22AccessibilityComponentVSgMd);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s17RealityFoundation22AccessibilityComponentVSgMd, &_s17RealityFoundation22AccessibilityComponentVSgMR);
   MEMORY[0x1EEE9AC00](v2 - 8);
   v4 = &v15[-v3];
   v5 = type metadata accessor for AccessibilityComponent();
@@ -2912,7 +2913,7 @@ void (*Entity.accessibilitySystemActions.modify(uint64_t *a1))(uint64_t a1, char
   v5 = v4;
   *a1 = v4;
   *(v4 + 64) = v1;
-  v6 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s17RealityFoundation22AccessibilityComponentVSgMd) - 8) + 64);
+  v6 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s17RealityFoundation22AccessibilityComponentVSgMd, &_s17RealityFoundation22AccessibilityComponentVSgMR) - 8) + 64);
   if (v3)
   {
     v7 = swift_coroFrameAlloc();
@@ -3063,7 +3064,7 @@ uint64_t key path getter for Entity.accessibilityCustomContent : Entity@<X0>(uin
 
 uint64_t key path setter for Entity.accessibilityCustomContent : Entity(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, void (*a5)(uint64_t))
 {
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s17RealityFoundation22AccessibilityComponentVSgMd);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s17RealityFoundation22AccessibilityComponentVSgMd, &_s17RealityFoundation22AccessibilityComponentVSgMR);
   MEMORY[0x1EEE9AC00](v7 - 8);
   v9 = &v17[-v8];
   v10 = type metadata accessor for AccessibilityComponent();
@@ -3084,7 +3085,7 @@ uint64_t key path setter for Entity.accessibilityCustomContent : Entity(uint64_t
 
 uint64_t Entity.accessibilityTraits.setter(uint64_t a1, void (*a2)(uint64_t))
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s17RealityFoundation22AccessibilityComponentVSgMd);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s17RealityFoundation22AccessibilityComponentVSgMd, &_s17RealityFoundation22AccessibilityComponentVSgMR);
   MEMORY[0x1EEE9AC00](v4 - 8);
   v6 = &v13[-v5];
   v7 = type metadata accessor for AccessibilityComponent();
@@ -3101,7 +3102,7 @@ uint64_t Entity.accessibilityTraits.setter(uint64_t a1, void (*a2)(uint64_t))
   return (*(v8 + 8))(v10, v7);
 }
 
-void (*Entity.accessibilityCustomActions.modify(uint64_t *a1))(uint64_t a1, char a2)
+void (*Entity.accessibilityCustomActions.modify(uint64_t *a1))(uint64_t a1, uint64_t a2)
 {
   v3 = MEMORY[0x1E69E7D08];
   if (MEMORY[0x1E69E7D08])
@@ -3117,7 +3118,7 @@ void (*Entity.accessibilityCustomActions.modify(uint64_t *a1))(uint64_t a1, char
   v5 = v4;
   *a1 = v4;
   *(v4 + 72) = v1;
-  v6 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s17RealityFoundation22AccessibilityComponentVSgMd) - 8) + 64);
+  v6 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s17RealityFoundation22AccessibilityComponentVSgMd, &_s17RealityFoundation22AccessibilityComponentVSgMR) - 8) + 64);
   if (v3)
   {
     v7 = swift_coroFrameAlloc();
@@ -3208,13 +3209,13 @@ uint64_t AccessibilityComponent.customMirror.getter@<X0>(uint64_t a1@<X8>)
   v3 = *(v2 - 8);
   MEMORY[0x1EEE9AC00](v2);
   v5 = v26 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss6MirrorV12DisplayStyleOSgMd);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss6MirrorV12DisplayStyleOSgMd, &_ss6MirrorV12DisplayStyleOSgMR);
   MEMORY[0x1EEE9AC00](v6 - 8);
   v8 = v26 - v7;
   v9 = type metadata accessor for AccessibilityComponent();
   v10 = MEMORY[0x1EEE9AC00](v9);
   (*(v12 + 16))(v26 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0), v1, v9, v10);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySS_yptGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySS_yptGMd, &_ss23_ContiguousArrayStorageCySS_yptGMR);
   v13 = swift_allocObject();
   *(v13 + 16) = xmmword_1E12547F0;
   *(v13 + 32) = 0xD000000000000016;
@@ -3225,7 +3226,7 @@ uint64_t AccessibilityComponent.customMirror.getter@<X0>(uint64_t a1@<X8>)
   *(v13 + 72) = v15;
   *(v13 + 80) = 0x6C6562616CLL;
   *(v13 + 88) = 0xE500000000000000;
-  v16 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation23LocalizedStringResourceVSgMd);
+  v16 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation23LocalizedStringResourceVSgMd, &_s10Foundation23LocalizedStringResourceVSgMR);
   *(v13 + 120) = v16;
   __swift_allocate_boxed_opaque_existential_0((v13 + 96));
   AccessibilityComponent.label.getter();
@@ -3248,20 +3249,20 @@ uint64_t AccessibilityComponent.customMirror.getter@<X0>(uint64_t a1@<X8>)
   strcpy((v13 + 272), "customActions");
   *(v13 + 286) = -4864;
   v19 = AccessibilityComponent.customActions.getter();
-  v20 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay10Foundation23LocalizedStringResourceVGMd);
+  v20 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay10Foundation23LocalizedStringResourceVGMd, &_sSay10Foundation23LocalizedStringResourceVGMR);
   *(v13 + 288) = v19;
   *(v13 + 312) = v20;
   strcpy((v13 + 320), "customContent");
   *(v13 + 334) = -4864;
   v21 = AccessibilityComponent.customContent.getter();
-  v22 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay17RealityFoundation22AccessibilityComponentV13CustomContentVGMd);
+  v22 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay17RealityFoundation22AccessibilityComponentV13CustomContentVGMd, &_sSay17RealityFoundation22AccessibilityComponentV13CustomContentVGMR);
   *(v13 + 336) = v21;
   *(v13 + 360) = v22;
   strcpy((v13 + 368), "customRotors");
   *(v13 + 381) = 0;
   *(v13 + 382) = -5120;
   v23 = AccessibilityComponent.customRotors.getter();
-  *(v13 + 408) = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay17RealityFoundation22AccessibilityComponentV0A3KitE9RotorTypeOGMd);
+  *(v13 + 408) = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay17RealityFoundation22AccessibilityComponentV0A3KitE9RotorTypeOGMd, &_sSay17RealityFoundation22AccessibilityComponentV0A3KitE9RotorTypeOGMR);
   *(v13 + 384) = v23;
   v24 = type metadata accessor for Mirror.DisplayStyle();
   (*(*(v24 - 8) + 56))(v8, 1, 1, v24);
@@ -3269,27 +3270,27 @@ uint64_t AccessibilityComponent.customMirror.getter@<X0>(uint64_t a1@<X8>)
   return Mirror.init<A>(_:children:displayStyle:ancestorRepresentation:)();
 }
 
-char *specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(char *a1, int64_t a2, char a3)
+char *specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(char *a1, uint64_t a2, uint64_t a3)
 {
   result = specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, *v3);
   *v3 = result;
   return result;
 }
 
-size_t specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(size_t a1, int64_t a2, char a3)
+void *specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(void *a1, uint64_t a2, uint64_t a3, __n128 a4)
+{
+  result = specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, *v4, a4);
+  *v4 = result;
+  return result;
+}
+
+void *specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(void *a1, uint64_t a2, uint64_t a3)
 {
   result = specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, *v3);
   *v3 = result;
   return result;
 }
 
-{
-  result = specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, *v3);
-  *v3 = result;
-  return result;
-}
-
-void *specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(void *a1, int64_t a2, char a3)
 {
   result = specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, *v3);
   *v3 = result;
@@ -3337,7 +3338,7 @@ char *specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:min
 
   if (v9)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySSGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySSGMd, &_ss23_ContiguousArrayStorageCySSGMR);
     v10 = swift_allocObject();
     v11 = _swift_stdlib_malloc_size(v10);
     v12 = v11 - 32;
@@ -3375,59 +3376,59 @@ char *specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:min
   return v10;
 }
 
-size_t specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(size_t result, int64_t a2, char a3, void *a4)
+void *specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(void *result, int64_t a2, char a3, void *a4, __n128 a5)
 {
-  v5 = result;
+  v6 = result;
   if (a3)
   {
-    v6 = a4[3];
-    v7 = v6 >> 1;
-    if ((v6 >> 1) < a2)
+    v7 = a4[3];
+    v8 = v7 >> 1;
+    if ((v7 >> 1) < a2)
     {
-      if (v7 + 0x4000000000000000 < 0)
+      if (v8 + 0x4000000000000000 < 0)
       {
 LABEL_30:
         __break(1u);
         return result;
       }
 
-      v7 = v6 & 0xFFFFFFFFFFFFFFFELL;
-      if ((v6 & 0xFFFFFFFFFFFFFFFELL) <= a2)
+      v8 = v7 & 0xFFFFFFFFFFFFFFFELL;
+      if ((v7 & 0xFFFFFFFFFFFFFFFELL) <= a2)
       {
-        v7 = a2;
+        v8 = a2;
       }
     }
   }
 
   else
   {
-    v7 = a2;
+    v8 = a2;
   }
 
-  v8 = a4[2];
-  if (v7 <= v8)
+  v9 = a4[2];
+  if (v8 <= v9)
   {
-    v9 = a4[2];
+    v10 = a4[2];
   }
 
   else
   {
-    v9 = v7;
+    v10 = v8;
   }
 
-  if (!v9)
+  if (!v10)
   {
-    v13 = MEMORY[0x1E69E7CC0];
+    v14 = MEMORY[0x1E69E7CC0];
     goto LABEL_19;
   }
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy17RealityFoundation22AccessibilityComponentV17RotorTypeInternalOGMd);
-  v10 = *(type metadata accessor for AccessibilityComponent.RotorTypeInternal() - 8);
-  v11 = *(v10 + 72);
-  v12 = (*(v10 + 80) + 32) & ~*(v10 + 80);
-  v13 = swift_allocObject();
-  result = _swift_stdlib_malloc_size(v13);
-  if (!v11)
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy17RealityFoundation22AccessibilityComponentV17RotorTypeInternalOGMd, &_ss23_ContiguousArrayStorageCy17RealityFoundation22AccessibilityComponentV17RotorTypeInternalOGMR);
+  v11 = *(type metadata accessor for AccessibilityComponent.RotorTypeInternal() - 8);
+  v12 = *(v11 + 72);
+  v13 = (*(v11 + 80) + 32) & ~*(v11 + 80);
+  v14 = swift_allocObject();
+  result = _swift_stdlib_malloc_size(v14);
+  if (!v12)
   {
     __break(1u);
 LABEL_29:
@@ -3435,23 +3436,23 @@ LABEL_29:
     goto LABEL_30;
   }
 
-  if (result - v12 == 0x8000000000000000 && v11 == -1)
+  if ((result - v13) == 0x8000000000000000 && v12 == -1)
   {
     goto LABEL_29;
   }
 
-  v13[2] = v8;
-  v13[3] = 2 * ((result - v12) / v11);
+  v14[2] = v9;
+  v14[3] = 2 * ((result - v13) / v12);
 LABEL_19:
-  v15 = *(type metadata accessor for AccessibilityComponent.RotorTypeInternal() - 8);
-  if (v5)
+  v16 = *(type metadata accessor for AccessibilityComponent.RotorTypeInternal() - 8);
+  if (v6)
   {
-    if (v13 < a4 || (v16 = (*(v15 + 80) + 32) & ~*(v15 + 80), v13 + v16 >= a4 + v16 + *(v15 + 72) * v8))
+    if (v14 < a4 || (v17 = (*(v16 + 80) + 32) & ~*(v16 + 80), v14 + v17 >= a4 + v17 + *(v16 + 72) * v9))
     {
       swift_arrayInitWithTakeFrontToBack();
     }
 
-    else if (v13 != a4)
+    else if (v14 != a4)
     {
       swift_arrayInitWithTakeBackToFront();
     }
@@ -3464,98 +3465,7 @@ LABEL_19:
     swift_arrayInitWithCopy();
   }
 
-  return v13;
-}
-
-{
-  v5 = result;
-  if (a3)
-  {
-    v6 = a4[3];
-    v7 = v6 >> 1;
-    if ((v6 >> 1) < a2)
-    {
-      if (v7 + 0x4000000000000000 < 0)
-      {
-LABEL_30:
-        __break(1u);
-        return result;
-      }
-
-      v7 = v6 & 0xFFFFFFFFFFFFFFFELL;
-      if ((v6 & 0xFFFFFFFFFFFFFFFELL) <= a2)
-      {
-        v7 = a2;
-      }
-    }
-  }
-
-  else
-  {
-    v7 = a2;
-  }
-
-  v8 = a4[2];
-  if (v7 <= v8)
-  {
-    v9 = a4[2];
-  }
-
-  else
-  {
-    v9 = v7;
-  }
-
-  if (!v9)
-  {
-    v13 = MEMORY[0x1E69E7CC0];
-    goto LABEL_19;
-  }
-
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10Foundation4UUIDV_So8ARAnchorCtGMd);
-  v10 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDV_So8ARAnchorCtMd) - 8);
-  v11 = *(v10 + 72);
-  v12 = (*(v10 + 80) + 32) & ~*(v10 + 80);
-  v13 = swift_allocObject();
-  result = _swift_stdlib_malloc_size(v13);
-  if (!v11)
-  {
-    __break(1u);
-LABEL_29:
-    __break(1u);
-    goto LABEL_30;
-  }
-
-  if (result - v12 == 0x8000000000000000 && v11 == -1)
-  {
-    goto LABEL_29;
-  }
-
-  v13[2] = v8;
-  v13[3] = 2 * ((result - v12) / v11);
-LABEL_19:
-  v15 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDV_So8ARAnchorCtMd) - 8);
-  if (v5)
-  {
-    if (v13 < a4 || (v16 = (*(v15 + 80) + 32) & ~*(v15 + 80), v13 + v16 >= a4 + v16 + *(v15 + 72) * v8))
-    {
-      swift_arrayInitWithTakeFrontToBack();
-    }
-
-    else if (v13 != a4)
-    {
-      swift_arrayInitWithTakeBackToFront();
-    }
-
-    a4[2] = 0;
-  }
-
-  else
-  {
-    swift_arrayInitWithCopy();
-  }
-
-  return v13;
+  return v14;
 }
 
 void *specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(void *result, int64_t a2, char a3, void *a4)
@@ -3599,7 +3509,7 @@ void *specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:min
 
   if (v9)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10RealityKit8Material_pGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10RealityKit8Material_pGMd, &_ss23_ContiguousArrayStorageCy10RealityKit8Material_pGMR);
     v10 = swift_allocObject();
     v11 = _swift_stdlib_malloc_size(v10);
     v10[2] = v8;
@@ -3623,11 +3533,102 @@ void *specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:min
 
   else
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit8Material_pMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit8Material_pMd, &_s10RealityKit8Material_pMR);
     swift_arrayInitWithCopy();
   }
 
   return v10;
+}
+
+{
+  v5 = result;
+  if (a3)
+  {
+    v6 = a4[3];
+    v7 = v6 >> 1;
+    if ((v6 >> 1) < a2)
+    {
+      if (v7 + 0x4000000000000000 < 0)
+      {
+LABEL_30:
+        __break(1u);
+        return result;
+      }
+
+      v7 = v6 & 0xFFFFFFFFFFFFFFFELL;
+      if ((v6 & 0xFFFFFFFFFFFFFFFELL) <= a2)
+      {
+        v7 = a2;
+      }
+    }
+  }
+
+  else
+  {
+    v7 = a2;
+  }
+
+  v8 = a4[2];
+  if (v7 <= v8)
+  {
+    v9 = a4[2];
+  }
+
+  else
+  {
+    v9 = v7;
+  }
+
+  if (!v9)
+  {
+    v13 = MEMORY[0x1E69E7CC0];
+    goto LABEL_19;
+  }
+
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10Foundation4UUIDV_So8ARAnchorCtGMd, &_ss23_ContiguousArrayStorageCy10Foundation4UUIDV_So8ARAnchorCtGMR);
+  v10 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDV_So8ARAnchorCtMd, &_s10Foundation4UUIDV_So8ARAnchorCtMR) - 8);
+  v11 = *(v10 + 72);
+  v12 = (*(v10 + 80) + 32) & ~*(v10 + 80);
+  v13 = swift_allocObject();
+  result = _swift_stdlib_malloc_size(v13);
+  if (!v11)
+  {
+    __break(1u);
+LABEL_29:
+    __break(1u);
+    goto LABEL_30;
+  }
+
+  if ((result - v12) == 0x8000000000000000 && v11 == -1)
+  {
+    goto LABEL_29;
+  }
+
+  v13[2] = v8;
+  v13[3] = 2 * ((result - v12) / v11);
+LABEL_19:
+  v15 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDV_So8ARAnchorCtMd, &_s10Foundation4UUIDV_So8ARAnchorCtMR) - 8);
+  if (v5)
+  {
+    if (v13 < a4 || (v16 = (*(v15 + 80) + 32) & ~*(v15 + 80), v13 + v16 >= a4 + v16 + *(v15 + 72) * v8))
+    {
+      swift_arrayInitWithTakeFrontToBack();
+    }
+
+    else if (v13 != a4)
+    {
+      swift_arrayInitWithTakeBackToFront();
+    }
+
+    a4[2] = 0;
+  }
+
+  else
+  {
+    swift_arrayInitWithCopy();
+  }
+
+  return v13;
 }
 
 uint64_t specialized static AccessibilityComponent.RotorType.== infix(_:_:)(uint64_t a1, uint64_t a2)
@@ -3641,7 +3642,7 @@ uint64_t specialized static AccessibilityComponent.RotorType.== infix(_:_:)(uint
   v10 = &v22 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v11);
   v13 = (&v22 - v12);
-  v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s17RealityFoundation22AccessibilityComponentV0A3KitE9RotorTypeO_AFtMd);
+  v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s17RealityFoundation22AccessibilityComponentV0A3KitE9RotorTypeO_AFtMd, &_s17RealityFoundation22AccessibilityComponentV0A3KitE9RotorTypeO_AFtMR);
   MEMORY[0x1EEE9AC00](v14 - 8);
   v16 = &v22 - v15;
   v18 = *(v17 + 56);
@@ -3657,7 +3658,7 @@ uint64_t specialized static AccessibilityComponent.RotorType.== infix(_:_:)(uint
     }
 
 LABEL_8:
-    outlined destroy of ARConfigurationCreateResult?(v16, &_s17RealityFoundation22AccessibilityComponentV0A3KitE9RotorTypeO_AFtMd);
+    outlined destroy of ARConfigurationCreateResult?(v16, &_s17RealityFoundation22AccessibilityComponentV0A3KitE9RotorTypeO_AFtMd, &_s17RealityFoundation22AccessibilityComponentV0A3KitE9RotorTypeO_AFtMR);
     v19 = 0;
     return v19 & 1;
   }
@@ -3748,7 +3749,7 @@ unint64_t lazy protocol witness table accessor for type AccessibilityEvents.Decr
   return result;
 }
 
-uint64_t lazy protocol witness table accessor for type AccessibilityEvents.CustomAction and conformance AccessibilityEvents.CustomAction(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t lazy protocol witness table accessor for type AccessibilityEvents.CustomAction and conformance AccessibilityEvents.CustomAction(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -3761,22 +3762,22 @@ uint64_t lazy protocol witness table accessor for type AccessibilityEvents.Custo
   return result;
 }
 
-void type metadata completion function for AccessibilityEvents.RotorNavigation()
+void type metadata completion function for AccessibilityEvents.RotorNavigation(uint64_t a1)
 {
   type metadata accessor for AccessibilityComponent.RotorType(319);
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
     type metadata accessor for Entity();
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
       type metadata accessor for Any?();
-      if (v2 <= 0x3F)
+      if (v3 <= 0x3F)
       {
         type metadata accessor for UIAccessibilityCustomRotorDirection(319);
-        if (v3 <= 0x3F)
+        if (v4 <= 0x3F)
         {
           type metadata accessor for ()();
-          if (v4 <= 0x3F)
+          if (v5 <= 0x3F)
           {
             swift_cvw_initStructMetadataWithLayoutString();
           }
@@ -3810,21 +3811,21 @@ unint64_t type metadata accessor for ()()
   return result;
 }
 
-void *__swift_initWithCopy_strong(void *a1, void *a2)
+uint64_t *__swift_initWithCopy_strong(uint64_t *a1, uint64_t *a2)
 {
   *a1 = *a2;
 
   return a1;
 }
 
-void *__swift_assignWithCopy_strong(void *a1, void *a2)
+uint64_t *__swift_assignWithCopy_strong(uint64_t *a1, uint64_t *a2)
 {
   *a1 = *a2;
 
   return a1;
 }
 
-void *__swift_assignWithTake_strong(void *a1, void *a2)
+uint64_t *__swift_assignWithTake_strong(uint64_t *a1, uint64_t *a2)
 {
   *a1 = *a2;
 
@@ -3929,13 +3930,13 @@ uint64_t __swift_store_extra_inhabitant_indexTm(uint64_t a1, uint64_t a2, int a3
   return result;
 }
 
-uint64_t type metadata completion function for AccessibilityEvents.CustomAction()
+uint64_t type metadata completion function for AccessibilityEvents.CustomAction(uint64_t a1)
 {
   result = type metadata accessor for LocalizedStringResource();
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     result = type metadata accessor for Entity();
-    if (v2 <= 0x3F)
+    if (v3 <= 0x3F)
     {
       swift_cvw_initStructMetadataWithLayoutString();
       return 0;
@@ -3945,13 +3946,13 @@ uint64_t type metadata completion function for AccessibilityEvents.CustomAction(
   return result;
 }
 
-void type metadata completion function for AccessibilityComponent.RotorType()
+void type metadata completion function for AccessibilityComponent.RotorType(uint64_t a1)
 {
   type metadata accessor for UIAccessibilityCustomSystemRotorType(319);
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
     type metadata accessor for LocalizedStringResource();
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
       swift_cvw_initEnumMetadataMultiPayloadWithLayoutString();
     }
@@ -3971,7 +3972,7 @@ void HoverEffectComponent.SpotlightHoverEffectStyle.color.setter(void *a1)
   HoverEffectComponent.HighlightHoverEffectStyle._color.setter();
 }
 
-void (*HoverEffectComponent.SpotlightHoverEffectStyle.color.modify(void *a1))(void **a1, char a2)
+void (*HoverEffectComponent.SpotlightHoverEffectStyle.color.modify(void *a1))(void **a1, uint64_t a2)
 {
   a1[1] = v1;
   v3 = HoverEffectComponent.HighlightHoverEffectStyle._color.getter();
@@ -4003,7 +4004,7 @@ void HoverEffectComponent.HighlightHoverEffectStyle.color.setter(void *a1)
   HoverEffectComponent.HighlightHoverEffectStyle._color.setter();
 }
 
-void (*HoverEffectComponent.HighlightHoverEffectStyle.color.modify(void *a1))(void **a1, char a2)
+void (*HoverEffectComponent.HighlightHoverEffectStyle.color.modify(void *a1))(void **a1, uint64_t a2)
 {
   a1[1] = v1;
   v3 = HoverEffectComponent.HighlightHoverEffectStyle._color.getter();
@@ -4077,13 +4078,13 @@ uint64_t HoverEffectComponent.customMirror.getter()
   v2 = *(v1 - 8);
   MEMORY[0x1EEE9AC00](v1);
   v4 = &v15 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss6MirrorV12DisplayStyleOSgMd);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss6MirrorV12DisplayStyleOSgMd, &_ss6MirrorV12DisplayStyleOSgMR);
   MEMORY[0x1EEE9AC00](v5 - 8);
   v7 = &v15 - v6;
   v8 = type metadata accessor for HoverEffectComponent();
   v9 = MEMORY[0x1EEE9AC00](v8);
   (*(v11 + 16))(&v15 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0), v0, v8, v9);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySS_yptGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySS_yptGMd, &_ss23_ContiguousArrayStorageCySS_yptGMR);
   v12 = swift_allocObject();
   *(v12 + 16) = xmmword_1E12531A0;
   *(v12 + 32) = 0x6666457265766F68;
@@ -4103,12 +4104,12 @@ uint64_t protocol witness for CustomReflectable.customMirror.getter in conforman
   v4 = *(v3 - 8);
   MEMORY[0x1EEE9AC00](v3);
   v6 = &v17 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss6MirrorV12DisplayStyleOSgMd);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss6MirrorV12DisplayStyleOSgMd, &_ss6MirrorV12DisplayStyleOSgMR);
   MEMORY[0x1EEE9AC00](v7 - 8);
   v9 = &v17 - v8;
   v11 = MEMORY[0x1EEE9AC00](v10);
   (*(v13 + 16))(&v17 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0), v1, a1, v11);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySS_yptGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySS_yptGMd, &_ss23_ContiguousArrayStorageCySS_yptGMR);
   v14 = swift_allocObject();
   *(v14 + 16) = xmmword_1E12531A0;
   *(v14 + 32) = 0x6666457265766F68;
@@ -4131,13 +4132,13 @@ uint64_t HoverEffectComponent.SpotlightHoverEffectStyle.customMirror.getter@<X0>
   v9 = *(v8 - 8);
   MEMORY[0x1EEE9AC00](v8);
   v11 = &v28 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss6MirrorV12DisplayStyleOSgMd);
+  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss6MirrorV12DisplayStyleOSgMd, &_ss6MirrorV12DisplayStyleOSgMR);
   v13 = MEMORY[0x1EEE9AC00](v12 - 8);
   v15 = &v28 - v14;
   v16 = a1(0, v13);
   v17 = MEMORY[0x1EEE9AC00](v16);
   (*(v19 + 16))(&v28 - v18, v5, v16, v17);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySS_yptGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySS_yptGMd, &_ss23_ContiguousArrayStorageCySS_yptGMR);
   v20 = swift_allocObject();
   *(v20 + 16) = xmmword_1E12545E0;
   *(v20 + 32) = 0x726F6C6F63;
@@ -4171,13 +4172,13 @@ uint64_t HoverEffectComponent.ShaderHoverEffectInputs.customMirror.getter()
   v2 = *(v1 - 8);
   MEMORY[0x1EEE9AC00](v1);
   v4 = &v18 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss6MirrorV12DisplayStyleOSgMd);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss6MirrorV12DisplayStyleOSgMd, &_ss6MirrorV12DisplayStyleOSgMR);
   MEMORY[0x1EEE9AC00](v5 - 8);
   v7 = &v18 - v6;
   v8 = type metadata accessor for HoverEffectComponent.ShaderHoverEffectInputs();
   v9 = MEMORY[0x1EEE9AC00](v8);
   (*(v11 + 16))(&v18 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0), v0, v8, v9);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySS_yptGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySS_yptGMd, &_ss23_ContiguousArrayStorageCySS_yptGMR);
   v12 = swift_allocObject();
   *(v12 + 16) = xmmword_1E1252F40;
   strcpy((v12 + 32), "fadeInDuration");
@@ -4199,7 +4200,7 @@ uint64_t HoverEffectComponent.ShaderHoverEffectInputs.customMirror.getter()
 
 uint64_t static ParticleEmitterComponent.Presets.sparks.getter()
 {
-  v0 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s17RealityFoundation24ParticleEmitterComponentV0cD0VSgMd);
+  v0 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s17RealityFoundation24ParticleEmitterComponentV0cD0VSgMd, &_s17RealityFoundation24ParticleEmitterComponentV0cD0VSgMR);
   MEMORY[0x1EEE9AC00](v0 - 8);
   v96 = &v83 - v1;
   v92 = type metadata accessor for ParticleEmitterComponent.ParticleEmitter.SortOrder();
@@ -4647,7 +4648,7 @@ uint64_t GroupActivitiesSynchronizationComponent.init(from:)@<X0>(void *a1@<X0>,
   v16 = *(v4 - 8);
   MEMORY[0x1EEE9AC00](v4);
   v19 = &v15 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy10RealityKit39GroupActivitiesSynchronizationComponentV10CodingKeys33_0ADC807939DA11D678B7AD00138C7A29LLOGMd);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy10RealityKit39GroupActivitiesSynchronizationComponentV10CodingKeys33_0ADC807939DA11D678B7AD00138C7A29LLOGMd, &_ss22KeyedDecodingContainerVy10RealityKit39GroupActivitiesSynchronizationComponentV10CodingKeys33_0ADC807939DA11D678B7AD00138C7A29LLOGMR);
   v17 = *(v6 - 8);
   MEMORY[0x1EEE9AC00](v6);
   v8 = &v15 - v7;
@@ -4661,7 +4662,7 @@ uint64_t GroupActivitiesSynchronizationComponent.init(from:)@<X0>(void *a1@<X0>,
   {
     v12 = v16;
     v13 = v18;
-    lazy protocol witness table accessor for type Participant and conformance Participant(&lazy protocol witness table cache variable for type UUID and conformance UUID, MEMORY[0x1E69695A8]);
+    lazy protocol witness table accessor for type Participant and conformance Participant(&lazy protocol witness table cache variable for type UUID and conformance UUID, MEMORY[0x1E69695A8], MEMORY[0x1E69695D0]);
     KeyedDecodingContainer.decode<A>(_:forKey:)();
     (*(v17 + 8))(v8, v6);
     (*(v12 + 32))(v11, v19, v4);
@@ -4678,7 +4679,7 @@ Swift::Int protocol witness for Hashable.hashValue.getter in conformance GroupAc
   return Hasher._finalize()();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance GroupActivitiesSynchronizationComponent.CodingKeys()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance GroupActivitiesSynchronizationComponent.CodingKeys(uint64_t a1)
 {
   Hasher.init(_seed:)();
   MEMORY[0x1E12F47F0](0);
@@ -4720,7 +4721,7 @@ uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.gett
 
 uint64_t protocol witness for Encodable.encode(to:) in conformance GroupActivitiesSynchronizationComponent(void *a1)
 {
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy10RealityKit39GroupActivitiesSynchronizationComponentV10CodingKeys33_0ADC807939DA11D678B7AD00138C7A29LLOGMd);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy10RealityKit39GroupActivitiesSynchronizationComponentV10CodingKeys33_0ADC807939DA11D678B7AD00138C7A29LLOGMd, &_ss22KeyedEncodingContainerVy10RealityKit39GroupActivitiesSynchronizationComponentV10CodingKeys33_0ADC807939DA11D678B7AD00138C7A29LLOGMR);
   v3 = *(v2 - 8);
   MEMORY[0x1EEE9AC00](v2);
   v5 = &v7 - v4;
@@ -4728,7 +4729,7 @@ uint64_t protocol witness for Encodable.encode(to:) in conformance GroupActiviti
   lazy protocol witness table accessor for type GroupActivitiesSynchronizationComponent.CodingKeys and conformance GroupActivitiesSynchronizationComponent.CodingKeys();
   dispatch thunk of Encoder.container<A>(keyedBy:)();
   type metadata accessor for UUID();
-  lazy protocol witness table accessor for type Participant and conformance Participant(&lazy protocol witness table cache variable for type UUID and conformance UUID, MEMORY[0x1E69695A8]);
+  lazy protocol witness table accessor for type Participant and conformance Participant(&lazy protocol witness table cache variable for type UUID and conformance UUID, MEMORY[0x1E69695A8], MEMORY[0x1E69695B0]);
   KeyedEncodingContainer.encode<A>(_:forKey:)();
   return (*(v3 + 8))(v5, v2);
 }
@@ -4756,10 +4757,10 @@ uint64_t GroupActivitiesSynchronizationPeer.init(_:)@<X0>(uint64_t a1@<X0>, uint
   return v5(a2, a1, v4);
 }
 
-uint64_t GroupActivitiesSynchronizationPeer.hash(into:)()
+uint64_t GroupActivitiesSynchronizationPeer.hash(into:)(uint64_t a1)
 {
   type metadata accessor for Participant();
-  lazy protocol witness table accessor for type Participant and conformance Participant(&lazy protocol witness table cache variable for type Participant and conformance Participant, MEMORY[0x1E696B330]);
+  lazy protocol witness table accessor for type Participant and conformance Participant(&lazy protocol witness table cache variable for type Participant and conformance Participant, MEMORY[0x1E696B330], MEMORY[0x1E696B338]);
 
   return dispatch thunk of Hashable.hash(into:)();
 }
@@ -4768,7 +4769,7 @@ Swift::Int GroupActivitiesSynchronizationPeer.hashValue.getter()
 {
   Hasher.init(_seed:)();
   type metadata accessor for Participant();
-  lazy protocol witness table accessor for type Participant and conformance Participant(&lazy protocol witness table cache variable for type Participant and conformance Participant, MEMORY[0x1E696B330]);
+  lazy protocol witness table accessor for type Participant and conformance Participant(&lazy protocol witness table cache variable for type Participant and conformance Participant, MEMORY[0x1E696B330], MEMORY[0x1E696B338]);
   dispatch thunk of Hashable.hash(into:)();
   return Hasher._finalize()();
 }
@@ -4784,32 +4785,32 @@ Swift::Int protocol witness for Hashable.hashValue.getter in conformance GroupAc
 {
   Hasher.init(_seed:)();
   type metadata accessor for Participant();
-  lazy protocol witness table accessor for type Participant and conformance Participant(&lazy protocol witness table cache variable for type Participant and conformance Participant, MEMORY[0x1E696B330]);
+  lazy protocol witness table accessor for type Participant and conformance Participant(&lazy protocol witness table cache variable for type Participant and conformance Participant, MEMORY[0x1E696B330], MEMORY[0x1E696B338]);
   dispatch thunk of Hashable.hash(into:)();
   return Hasher._finalize()();
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance GroupActivitiesSynchronizationPeer()
+uint64_t protocol witness for Hashable.hash(into:) in conformance GroupActivitiesSynchronizationPeer(uint64_t a1)
 {
   type metadata accessor for Participant();
-  lazy protocol witness table accessor for type Participant and conformance Participant(&lazy protocol witness table cache variable for type Participant and conformance Participant, MEMORY[0x1E696B330]);
+  lazy protocol witness table accessor for type Participant and conformance Participant(&lazy protocol witness table cache variable for type Participant and conformance Participant, MEMORY[0x1E696B330], MEMORY[0x1E696B338]);
 
   return dispatch thunk of Hashable.hash(into:)();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance GroupActivitiesSynchronizationPeer()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance GroupActivitiesSynchronizationPeer(uint64_t a1)
 {
   Hasher.init(_seed:)();
   type metadata accessor for Participant();
-  lazy protocol witness table accessor for type Participant and conformance Participant(&lazy protocol witness table cache variable for type Participant and conformance Participant, MEMORY[0x1E696B330]);
+  lazy protocol witness table accessor for type Participant and conformance Participant(&lazy protocol witness table cache variable for type Participant and conformance Participant, MEMORY[0x1E696B330], MEMORY[0x1E696B338]);
   dispatch thunk of Hashable.hash(into:)();
   return Hasher._finalize()();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance GroupActivitiesSynchronizationService<A>.SynchronizationError()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance GroupActivitiesSynchronizationService<A>.SynchronizationError(uint64_t a1)
 {
   Hasher.init(_seed:)();
-  GroupActivitiesSynchronizationService.SynchronizationError.hash(into:)(v2, *v0);
+  GroupActivitiesSynchronizationService.SynchronizationError.hash(into:)(v3, *v1);
   return Hasher._finalize()();
 }
 
@@ -4829,7 +4830,7 @@ uint64_t GroupActivitiesSynchronizationService.entities.getter()
   return v1;
 }
 
-uint64_t GroupActivitiesSynchronizationService.entities.setter()
+uint64_t GroupActivitiesSynchronizationService.entities.setter(uint64_t a1)
 {
   swift_getKeyPath();
   swift_getKeyPath();
@@ -4839,7 +4840,7 @@ uint64_t GroupActivitiesSynchronizationService.entities.setter()
 
 uint64_t key path setter for GroupActivitiesSynchronizationService.$entities : <A>GroupActivitiesSynchronizationService<A>(uint64_t a1)
 {
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedV9PublisherVyShy10RealityKit6EntityCG_GMd);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedV9PublisherVyShy10RealityKit6EntityCG_GMd, &_s7Combine9PublishedV9PublisherVyShy10RealityKit6EntityCG_GMR);
   v3 = MEMORY[0x1EEE9AC00](v2);
   v5 = &v8 - v4;
   (*(v6 + 16))(&v8 - v4, a1, v3);
@@ -4849,19 +4850,19 @@ uint64_t key path setter for GroupActivitiesSynchronizationService.$entities : <
 uint64_t GroupActivitiesSynchronizationService.$entities.getter()
 {
   swift_beginAccess();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVyShy10RealityKit6EntityCGGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVyShy10RealityKit6EntityCGGMd, &_s7Combine9PublishedVyShy10RealityKit6EntityCGGMR);
   Published.projectedValue.getter();
   return swift_endAccess();
 }
 
 uint64_t GroupActivitiesSynchronizationService.$entities.setter(uint64_t a1)
 {
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedV9PublisherVyShy10RealityKit6EntityCG_GMd);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedV9PublisherVyShy10RealityKit6EntityCG_GMd, &_s7Combine9PublishedV9PublisherVyShy10RealityKit6EntityCG_GMR);
   v3 = *(v2 - 8);
   v4 = MEMORY[0x1EEE9AC00](v2);
   (*(v3 + 16))(&v7 - v5, a1, v2, v4);
   swift_beginAccess();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVyShy10RealityKit6EntityCGGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVyShy10RealityKit6EntityCGGMd, &_s7Combine9PublishedVyShy10RealityKit6EntityCGGMR);
   Published.projectedValue.setter();
   swift_endAccess();
   return (*(v3 + 8))(a1, v2);
@@ -4878,17 +4879,17 @@ char *GroupActivitiesSynchronizationService.init(session:)(uint64_t a1)
 {
   v2 = v1;
   v4 = *v1;
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVyShy10RealityKit6EntityCGGMd);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVyShy10RealityKit6EntityCGGMd, &_s7Combine9PublishedVyShy10RealityKit6EntityCGGMR);
   v6 = *(v5 - 8);
   MEMORY[0x1EEE9AC00](v5);
-  v8 = &v22 - v7;
+  v8 = &v24 - v7;
   *(v2 + 4) = 0;
   *(v2 + 5) = 0;
   v9 = direct field offset for GroupActivitiesSynchronizationService._entities;
   v10 = *(v4 + 80);
   v11 = *(v4 + 88);
   aBlock = MEMORY[0x1E69E7CD0];
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sShy10RealityKit6EntityCGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sShy10RealityKit6EntityCGMd, &_sShy10RealityKit6EntityCGMR);
   Published.init(initialValue:)();
   (*(v6 + 32))(&v2[v9], v8, v5);
   type metadata accessor for __ServiceLocator();
@@ -4902,75 +4903,75 @@ char *GroupActivitiesSynchronizationService.init(session:)(uint64_t a1)
     *(v2 + 2) = v13;
 
     *(v2 + 3) = RENetworkSystemObserverCreateEx();
-    v14 = swift_allocObject();
-    swift_weakInit();
     v15 = swift_allocObject();
-    v15[2] = v10;
-    v15[3] = v11;
-    v15[4] = v14;
-    v27 = partial apply for closure #1 in GroupActivitiesSynchronizationService.init(session:);
-    v28 = v15;
+    swift_weakInit();
+    v16 = swift_allocObject();
+    v16[2] = v10;
+    v16[3] = v11;
+    v16[4] = v15;
+    v29 = partial apply for closure #1 in GroupActivitiesSynchronizationService.init(session:);
+    v30 = v16;
     aBlock = MEMORY[0x1E69E9820];
-    v24 = 1107296256;
-    v25 = thunk for @escaping @callee_guaranteed (@unowned OpaquePointer) -> ();
-    v26 = &block_descriptor_5;
-    v16 = _Block_copy(&aBlock);
+    v26 = 1107296256;
+    v27 = thunk for @escaping @callee_guaranteed (@unowned OpaquePointer) -> ();
+    v28 = &block_descriptor_5;
+    v17 = _Block_copy(&aBlock);
 
     RENetworkSystemObserverOnEntityWillDestroy();
-    _Block_release(v16);
-    v17 = swift_allocObject();
+    _Block_release(v17);
+    v18 = swift_allocObject();
     swift_weakInit();
 
-    v18 = swift_allocObject();
-    v18[2] = v10;
-    v18[3] = v11;
-    v18[4] = v17;
-    v27 = partial apply for closure #2 in GroupActivitiesSynchronizationService.init(session:);
-    v28 = v18;
+    v19 = swift_allocObject();
+    v19[2] = v10;
+    v19[3] = v11;
+    v19[4] = v18;
+    v29 = partial apply for closure #2 in GroupActivitiesSynchronizationService.init(session:);
+    v30 = v19;
     aBlock = MEMORY[0x1E69E9820];
-    v24 = 1107296256;
-    v25 = thunk for @escaping @callee_guaranteed (@unowned OpaquePointer, @unowned OpaquePointer) -> (@unowned RENetworkNewUnboundTLEHandlerResult);
-    v26 = &block_descriptor_11;
-    v19 = _Block_copy(&aBlock);
+    v26 = 1107296256;
+    v27 = thunk for @escaping @callee_guaranteed (@unowned OpaquePointer, @unowned OpaquePointer) -> (@unowned RENetworkNewUnboundTLEHandlerResult);
+    v28 = &block_descriptor_11;
+    v20 = _Block_copy(&aBlock);
 
     RENetworkSystemObserverOnTopLevelEntityDidCreate();
-    _Block_release(v19);
+    _Block_release(v20);
     type metadata accessor for GroupActivitiesSynchronizationComponent(0);
     static Component.registerComponent()();
   }
 
   else
   {
-    type metadata accessor for GroupActivitiesSynchronizationService.SynchronizationError();
+    type metadata accessor for GroupActivitiesSynchronizationService.SynchronizationError(0, v10, v11, v14);
     swift_getWitnessTable();
     swift_allocError();
-    *v20 = 0;
+    *v21 = 0;
     swift_willThrow();
 
     (*(v6 + 8))(&v2[direct field offset for GroupActivitiesSynchronizationService._entities], v5);
-    type metadata accessor for GroupActivitiesSynchronizationService();
+    type metadata accessor for GroupActivitiesSynchronizationService(0, v10, v11, v22);
     swift_deallocPartialClassInstance();
   }
 
   return v2;
 }
 
-uint64_t closure #1 in GroupActivitiesSynchronizationService.init(session:)()
+uint64_t closure #1 in GroupActivitiesSynchronizationService.init(session:)(uint64_t a1, uint64_t a2)
 {
   swift_beginAccess();
   result = swift_weakLoadStrong();
   if (result)
   {
     type metadata accessor for Entity();
-    v1 = static Entity.fromCore(_:ignoringEntityInfo:)();
-    MEMORY[0x1EEE9AC00](v1);
+    v3 = static Entity.fromCore(_:ignoringEntityInfo:)();
+    MEMORY[0x1EEE9AC00](v3);
     KeyPath = swift_getKeyPath();
     MEMORY[0x1EEE9AC00](KeyPath);
     swift_getKeyPath();
-    v3 = static Published.subscript.modify();
-    specialized Set._Variant.remove(_:)();
+    v5 = static Published.subscript.modify();
+    specialized Set._Variant.remove(_:)(v3);
 
-    v3(v4, 0);
+    v5(v6, 0);
   }
 
   return result;
@@ -4992,21 +4993,21 @@ uint64_t closure #2 in GroupActivitiesSynchronizationService.init(session:)(uint
   v55 = *(v52 - 8);
   MEMORY[0x1EEE9AC00](v52);
   v47 = &v45 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v51 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSg_ADtMd);
+  v51 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSg_ADtMd, &_s10Foundation4UUIDVSg_ADtMR);
   MEMORY[0x1EEE9AC00](v51);
   v7 = &v45 - v6;
   v8 = type metadata accessor for GroupActivitiesSynchronizationComponent(0);
   v9 = *(v8 - 8);
   MEMORY[0x1EEE9AC00](v8);
   v48 = &v45 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit39GroupActivitiesSynchronizationComponentVSgMd);
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit39GroupActivitiesSynchronizationComponentVSgMd, &_s10RealityKit39GroupActivitiesSynchronizationComponentVSgMR);
   MEMORY[0x1EEE9AC00](v11 - 8);
   v13 = &v45 - v12;
   v14 = type metadata accessor for Entity.ComponentSet();
   v15 = *(v14 - 8);
   MEMORY[0x1EEE9AC00](v14);
   v17 = &v45 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v18 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd);
+  v18 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
   MEMORY[0x1EEE9AC00](v18 - 8);
   v50 = &v45 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v20);
@@ -5025,7 +5026,7 @@ uint64_t closure #2 in GroupActivitiesSynchronizationService.init(session:)(uint
     (*(v15 + 8))(v17, v14);
     if ((*(v9 + 48))(v13, 1, v8))
     {
-      outlined destroy of ARConfigurationCreateResult?(v13, &_s10RealityKit39GroupActivitiesSynchronizationComponentVSgMd);
+      outlined destroy of ARConfigurationCreateResult?(v13, &_s10RealityKit39GroupActivitiesSynchronizationComponentVSgMd, &_s10RealityKit39GroupActivitiesSynchronizationComponentVSgMR);
       v27 = 1;
       v28 = v52;
       v29 = v55;
@@ -5035,7 +5036,7 @@ uint64_t closure #2 in GroupActivitiesSynchronizationService.init(session:)(uint
     {
       v30 = v48;
       outlined init with copy of GroupActivitiesSynchronizationComponent(v13, v48);
-      outlined destroy of ARConfigurationCreateResult?(v13, &_s10RealityKit39GroupActivitiesSynchronizationComponentVSgMd);
+      outlined destroy of ARConfigurationCreateResult?(v13, &_s10RealityKit39GroupActivitiesSynchronizationComponentVSgMd, &_s10RealityKit39GroupActivitiesSynchronizationComponentVSgMR);
       v29 = v55;
       v28 = v52;
       (*(v55 + 32))(v25, v30, v52);
@@ -5052,11 +5053,11 @@ uint64_t closure #2 in GroupActivitiesSynchronizationService.init(session:)(uint
     v33 = *(v29 + 48);
     if (v33(v7, 1, v28) == 1)
     {
-      outlined destroy of ARConfigurationCreateResult?(v22, &_s10Foundation4UUIDVSgMd);
-      outlined destroy of ARConfigurationCreateResult?(v25, &_s10Foundation4UUIDVSgMd);
+      outlined destroy of ARConfigurationCreateResult?(v22, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
+      outlined destroy of ARConfigurationCreateResult?(v25, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
       if (v33(&v7[v32], 1, v28) == 1)
       {
-        outlined destroy of ARConfigurationCreateResult?(v7, &_s10Foundation4UUIDVSgMd);
+        outlined destroy of ARConfigurationCreateResult?(v7, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
 LABEL_13:
         if (*(v54 + 32))
         {
@@ -5097,14 +5098,14 @@ LABEL_11:
         v35 = v55;
         v36 = v47;
         (*(v55 + 32))(v47, &v7[v32], v28);
-        lazy protocol witness table accessor for type Participant and conformance Participant(&lazy protocol witness table cache variable for type UUID and conformance UUID, MEMORY[0x1E69695A8]);
+        lazy protocol witness table accessor for type Participant and conformance Participant(&lazy protocol witness table cache variable for type UUID and conformance UUID, MEMORY[0x1E69695A8], MEMORY[0x1E69695C8]);
         v37 = dispatch thunk of static Equatable.== infix(_:_:)();
         v38 = *(v35 + 8);
         v38(v36, v28);
-        outlined destroy of ARConfigurationCreateResult?(v22, &_s10Foundation4UUIDVSgMd);
-        outlined destroy of ARConfigurationCreateResult?(v25, &_s10Foundation4UUIDVSgMd);
+        outlined destroy of ARConfigurationCreateResult?(v22, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
+        outlined destroy of ARConfigurationCreateResult?(v25, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
         v38(v34, v28);
-        outlined destroy of ARConfigurationCreateResult?(v7, &_s10Foundation4UUIDVSgMd);
+        outlined destroy of ARConfigurationCreateResult?(v7, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
         if ((v37 & 1) == 0)
         {
           goto LABEL_11;
@@ -5113,12 +5114,12 @@ LABEL_11:
         goto LABEL_13;
       }
 
-      outlined destroy of ARConfigurationCreateResult?(v22, &_s10Foundation4UUIDVSgMd);
-      outlined destroy of ARConfigurationCreateResult?(v25, &_s10Foundation4UUIDVSgMd);
+      outlined destroy of ARConfigurationCreateResult?(v22, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
+      outlined destroy of ARConfigurationCreateResult?(v25, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
       (*(v55 + 8))(v34, v28);
     }
 
-    outlined destroy of ARConfigurationCreateResult?(v7, &_s10Foundation4UUIDVSg_ADtMd);
+    outlined destroy of ARConfigurationCreateResult?(v7, &_s10Foundation4UUIDVSg_ADtMd, &_s10Foundation4UUIDVSg_ADtMR);
     goto LABEL_11;
   }
 
@@ -5134,12 +5135,12 @@ uint64_t thunk for @escaping @callee_guaranteed (@unowned OpaquePointer, @unowne
   return v6;
 }
 
-uint64_t GroupActivitiesSynchronizationService.deinit()
+char *GroupActivitiesSynchronizationService.deinit()
 {
   RESyncRelease();
 
   v1 = direct field offset for GroupActivitiesSynchronizationService._entities;
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVyShy10RealityKit6EntityCGGMd);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVyShy10RealityKit6EntityCGGMd, &_s7Combine9PublishedVyShy10RealityKit6EntityCGGMR);
   (*(*(v2 - 8) + 8))(v0 + v1, v2);
   return v0;
 }
@@ -5151,7 +5152,7 @@ uint64_t GroupActivitiesSynchronizationService.__deallocating_deinit()
   return swift_deallocClassInstance();
 }
 
-uint64_t GroupActivitiesSynchronizationService.entity(for:)()
+uint64_t GroupActivitiesSynchronizationService.entity(for:)(uint64_t a1)
 {
   result = RENetworkSystemFindEntityWithGuid();
   if (result)
@@ -5256,7 +5257,7 @@ LABEL_22:
         v23(v29, v22, v20);
         v25 = type metadata accessor for GroupActivitiesSynchronizationPeer(0);
         v26 = v32;
-        v32[3] = v25;
+        *(v32 + 24) = v25;
         v26[4] = &protocol witness table for GroupActivitiesSynchronizationPeer;
         boxed_opaque_existential_0 = __swift_allocate_boxed_opaque_existential_0(v26);
         v23(boxed_opaque_existential_0, v24, v20);
@@ -5270,14 +5271,14 @@ LABEL_22:
   }
 
   v19 = v32;
-  v32[4] = 0;
+  *(v32 + 32) = 0;
   *v19 = 0u;
-  *(v19 + 1) = 0u;
+  v19[1] = 0u;
 }
 
 uint64_t GroupActivitiesSynchronizationService.giveOwnership(of:toPeer:)(uint64_t a1, uint64_t a2)
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit34GroupActivitiesSynchronizationPeerVSgMd);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit34GroupActivitiesSynchronizationPeerVSgMd, &_s10RealityKit34GroupActivitiesSynchronizationPeerVSgMR);
   MEMORY[0x1EEE9AC00](v4 - 8);
   v6 = &v23[-v5 - 8];
   v7 = type metadata accessor for GroupActivitiesSynchronizationPeer(0);
@@ -5285,7 +5286,7 @@ uint64_t GroupActivitiesSynchronizationService.giveOwnership(of:toPeer:)(uint64_
   MEMORY[0x1EEE9AC00](v7);
   v10 = &v23[-((v9 + 15) & 0xFFFFFFFFFFFFFFF0) - 8];
   outlined init with copy of SynchronizationPeerID(a2, v23);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit21SynchronizationPeerID_pMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit21SynchronizationPeerID_pMd, _s10RealityKit21SynchronizationPeerID_pMR);
   v11 = swift_dynamicCast();
   v12 = *(v8 + 56);
   if (v11)
@@ -5336,13 +5337,13 @@ uint64_t GroupActivitiesSynchronizationService.giveOwnership(of:toPeer:)(uint64_
   else
   {
     v12(v6, 1, 1, v7);
-    outlined destroy of ARConfigurationCreateResult?(v6, &_s10RealityKit34GroupActivitiesSynchronizationPeerVSgMd);
+    outlined destroy of ARConfigurationCreateResult?(v6, &_s10RealityKit34GroupActivitiesSynchronizationPeerVSgMd, &_s10RealityKit34GroupActivitiesSynchronizationPeerVSgMR);
   }
 
   return 0;
 }
 
-uint64_t GroupActivitiesSynchronizationService.__fromCore(peerID:)@<X0>(uint64_t a1@<X8>)
+void *GroupActivitiesSynchronizationService.__fromCore(peerID:)@<X0>(uint64_t a1@<X8>)
 {
   v3 = type metadata accessor for Participant();
   v4 = *(v3 - 8);
@@ -5438,7 +5439,7 @@ LABEL_20:
 
 uint64_t GroupActivitiesSynchronizationService.__toCore(peerID:)(uint64_t a1)
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit34GroupActivitiesSynchronizationPeerVSgMd);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit34GroupActivitiesSynchronizationPeerVSgMd, &_s10RealityKit34GroupActivitiesSynchronizationPeerVSgMR);
   MEMORY[0x1EEE9AC00](v3 - 8);
   v5 = &v19[-v4];
   v6 = type metadata accessor for GroupActivitiesSynchronizationPeer(0);
@@ -5446,13 +5447,13 @@ uint64_t GroupActivitiesSynchronizationService.__toCore(peerID:)(uint64_t a1)
   MEMORY[0x1EEE9AC00](v6);
   v9 = &v19[-((v8 + 15) & 0xFFFFFFFFFFFFFFF0)];
   outlined init with copy of SynchronizationPeerID(a1, v20);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit21SynchronizationPeerID_pMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit21SynchronizationPeerID_pMd, _s10RealityKit21SynchronizationPeerID_pMR);
   v10 = swift_dynamicCast();
   v11 = *(v7 + 56);
   if ((v10 & 1) == 0)
   {
     v11(v5, 1, 1, v6);
-    outlined destroy of ARConfigurationCreateResult?(v5, &_s10RealityKit34GroupActivitiesSynchronizationPeerVSgMd);
+    outlined destroy of ARConfigurationCreateResult?(v5, &_s10RealityKit34GroupActivitiesSynchronizationPeerVSgMd, &_s10RealityKit34GroupActivitiesSynchronizationPeerVSgMR);
 LABEL_7:
     v21 = MEMORY[0x1E69E76D8];
     v20[0] = 0;
@@ -5483,22 +5484,23 @@ Swift::Void __swiftcall GroupActivitiesSynchronizationService.startSync()()
   if (!v0[4])
   {
     v1 = v0;
+    v2 = *v0;
     RENetworkSystemAddObserver();
     type metadata accessor for GroupActivitiesSynchronizationProtocolLayer();
-    v2 = v0[6];
-    v3 = swift_retain_n();
-    GroupActivitiesSynchronizationProtocolLayer.__allocating_init<A>(session:)(v3);
+    v3 = v0[6];
+    v4 = swift_retain_n();
+    GroupActivitiesSynchronizationProtocolLayer.__allocating_init<A>(session:)(v4);
     type metadata accessor for GroupActivitiesSynchronizationDiscoveryView();
     swift_allocObject();
 
-    v5 = GroupActivitiesSynchronizationDiscoveryView.init(protocolLayer:)(v4);
-    v0[5] = v5;
+    v6 = GroupActivitiesSynchronizationDiscoveryView.init(protocolLayer:)(v5);
+    v0[5] = v6;
 
-    type metadata accessor for GroupActivitiesSynchronizationSession();
+    type metadata accessor for GroupActivitiesSynchronizationSession(0, *(v2 + 80), *(v2 + 88), v7);
 
-    v6 = specialized GroupActivitiesSynchronizationSession.__allocating_init(session:discoveryView:)(v2, v5);
+    v10 = specialized GroupActivitiesSynchronizationSession.__allocating_init(session:discoveryView:)(v3, v6, v8, v9);
 
-    v1[4] = v6;
+    v1[4] = v10;
   }
 }
 
@@ -5516,67 +5518,67 @@ Swift::Void __swiftcall GroupActivitiesSynchronizationService.stopSync()()
 uint64_t GroupActivitiesSynchronizationService.add(entity:)(uint64_t a1)
 {
   v3 = *v1;
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit39GroupActivitiesSynchronizationComponentVSgMd);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit39GroupActivitiesSynchronizationComponentVSgMd, &_s10RealityKit39GroupActivitiesSynchronizationComponentVSgMR);
   MEMORY[0x1EEE9AC00](v4 - 8);
-  v6 = v17 - v5;
+  v7 = v18 - v6;
   if (v1[4])
   {
 
     GroupSession.id.getter();
-    v7 = type metadata accessor for GroupActivitiesSynchronizationComponent(0);
-    (*(*(v7 - 8) + 56))(v6, 0, 1, v7);
-    v8 = dispatch thunk of Entity.components.modify();
+    v8 = type metadata accessor for GroupActivitiesSynchronizationComponent(0);
+    (*(*(v8 - 8) + 56))(v7, 0, 1, v8);
+    v9 = dispatch thunk of Entity.components.modify();
     Entity.ComponentSet.subscript.setter();
-    v8(v17, 0);
+    v9(v18, 0);
     Entity.coreEntity.getter();
     RENetworkComponentGetComponentType();
-    v9 = REEntityGetOrAddComponentByClass();
-    MEMORY[0x1E12F4F80](v9, 3);
-    v10 = REEntitySetParent();
-    MEMORY[0x1EEE9AC00](v10);
-    v11 = *(v3 + 80);
-    v12 = *(v3 + 88);
-    v17[-2] = v11;
-    v17[-1] = v12;
+    v10 = REEntityGetOrAddComponentByClass();
+    MEMORY[0x1E12F4F80](v10, 3);
+    v11 = REEntitySetParent();
+    MEMORY[0x1EEE9AC00](v11);
+    v12 = *(v3 + 80);
+    v13 = *(v3 + 88);
+    v18[-2] = v12;
+    v18[-1] = v13;
     KeyPath = swift_getKeyPath();
     MEMORY[0x1EEE9AC00](KeyPath);
-    v17[-2] = v11;
-    v17[-1] = v12;
+    v18[-2] = v12;
+    v18[-1] = v13;
     swift_getKeyPath();
-    v14 = static Published.subscript.modify();
+    v15 = static Published.subscript.modify();
 
-    specialized Set._Variant.insert(_:)(&v18, a1);
+    specialized Set._Variant.insert(_:)(&v19, a1);
 
-    v14(v17, 0);
+    v15(v18, 0);
   }
 
   else
   {
-    type metadata accessor for GroupActivitiesSynchronizationService.SynchronizationError();
+    type metadata accessor for GroupActivitiesSynchronizationService.SynchronizationError(0, *(v3 + 80), *(v3 + 88), v5);
     swift_getWitnessTable();
     swift_allocError();
-    *v16 = 1;
+    *v17 = 1;
     return swift_willThrow();
   }
 }
 
-void GroupActivitiesSynchronizationService.remove(entity:)()
+void GroupActivitiesSynchronizationService.remove(entity:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  if (*(v0 + 32))
+  if (v4[4])
   {
     type metadata accessor for Entity();
-    v1 = HasSynchronization.isOwner.getter();
-    if (v1)
+    v6 = HasSynchronization.isOwner.getter();
+    if (v6)
     {
-      MEMORY[0x1EEE9AC00](v1);
+      MEMORY[0x1EEE9AC00](v6);
       KeyPath = swift_getKeyPath();
       MEMORY[0x1EEE9AC00](KeyPath);
       swift_getKeyPath();
-      v3 = static Published.subscript.modify();
-      v4 = specialized Set._Variant.remove(_:)();
-      v3(v6, 0);
+      v8 = static Published.subscript.modify();
+      v9 = specialized Set._Variant.remove(_:)(a1);
+      v8(v11, 0);
 
-      if (v4)
+      if (v9)
       {
 
         HasHierarchy.removeFromParent(preservingWorldTransform:)(0);
@@ -5586,10 +5588,10 @@ void GroupActivitiesSynchronizationService.remove(entity:)()
 
   else
   {
-    type metadata accessor for GroupActivitiesSynchronizationService.SynchronizationError();
+    type metadata accessor for GroupActivitiesSynchronizationService.SynchronizationError(0, *(*v4 + 80), *(*v4 + 88), a4);
     swift_getWitnessTable();
     swift_allocError();
-    *v5 = 1;
+    *v10 = 1;
     swift_willThrow();
   }
 }
@@ -5601,7 +5603,7 @@ uint64_t specialized Set._Variant.remove(_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@
   MEMORY[0x1EEE9AC00](v5);
   v8 = &v25 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   v9 = *v2;
-  lazy protocol witness table accessor for type Participant and conformance Participant(&lazy protocol witness table cache variable for type Participant and conformance Participant, MEMORY[0x1E696B330]);
+  lazy protocol witness table accessor for type Participant and conformance Participant(&lazy protocol witness table cache variable for type Participant and conformance Participant, MEMORY[0x1E696B330], MEMORY[0x1E696B338]);
   v31 = a1;
   v10 = dispatch thunk of Hashable._rawHashValue(seed:)();
   v11 = v9 + 56;
@@ -5622,7 +5624,7 @@ uint64_t specialized Set._Variant.remove(_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@
     while (1)
     {
       v15(v8, *(v30 + 48) + v18 * v13, v5);
-      lazy protocol witness table accessor for type Participant and conformance Participant(&lazy protocol witness table cache variable for type Participant and conformance Participant, MEMORY[0x1E696B330]);
+      lazy protocol witness table accessor for type Participant and conformance Participant(&lazy protocol witness table cache variable for type Participant and conformance Participant, MEMORY[0x1E696B330], MEMORY[0x1E696B340]);
       v19 = dispatch thunk of static Equatable.== infix(_:_:)();
       (*(v16 - 8))(v8, v5);
       if (v19)
@@ -5672,7 +5674,7 @@ uint64_t specialized Set._Variant.remove(_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@
   MEMORY[0x1EEE9AC00](v5);
   v8 = &v25 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   v9 = *v2;
-  lazy protocol witness table accessor for type Participant and conformance Participant(&lazy protocol witness table cache variable for type SpatialTrackingSession.Configuration.SceneUnderstandingCapability and conformance SpatialTrackingSession.Configuration.SceneUnderstandingCapability, MEMORY[0x1E697A660]);
+  lazy protocol witness table accessor for type Participant and conformance Participant(&lazy protocol witness table cache variable for type SpatialTrackingSession.Configuration.SceneUnderstandingCapability and conformance SpatialTrackingSession.Configuration.SceneUnderstandingCapability, MEMORY[0x1E697A660], MEMORY[0x1E697A668]);
   v31 = a1;
   v10 = dispatch thunk of Hashable._rawHashValue(seed:)();
   v11 = v9 + 56;
@@ -5693,7 +5695,7 @@ uint64_t specialized Set._Variant.remove(_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@
     while (1)
     {
       v15(v8, *(v30 + 48) + v18 * v13, v5);
-      lazy protocol witness table accessor for type Participant and conformance Participant(&lazy protocol witness table cache variable for type SpatialTrackingSession.Configuration.SceneUnderstandingCapability and conformance SpatialTrackingSession.Configuration.SceneUnderstandingCapability, MEMORY[0x1E697A660]);
+      lazy protocol witness table accessor for type Participant and conformance Participant(&lazy protocol witness table cache variable for type SpatialTrackingSession.Configuration.SceneUnderstandingCapability and conformance SpatialTrackingSession.Configuration.SceneUnderstandingCapability, MEMORY[0x1E697A660], MEMORY[0x1E697A670]);
       v19 = dispatch thunk of static Equatable.== infix(_:_:)();
       (*(v16 - 8))(v8, v5);
       if (v19)
@@ -5743,7 +5745,7 @@ uint64_t specialized Set._Variant.remove(_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@
   MEMORY[0x1EEE9AC00](v5);
   v8 = &v25 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   v9 = *v2;
-  lazy protocol witness table accessor for type Participant and conformance Participant(&lazy protocol witness table cache variable for type SpatialTrackingSession.Configuration.AnchorCapability and conformance SpatialTrackingSession.Configuration.AnchorCapability, MEMORY[0x1E697A640]);
+  lazy protocol witness table accessor for type Participant and conformance Participant(&lazy protocol witness table cache variable for type SpatialTrackingSession.Configuration.AnchorCapability and conformance SpatialTrackingSession.Configuration.AnchorCapability, MEMORY[0x1E697A640], MEMORY[0x1E697A648]);
   v31 = a1;
   v10 = dispatch thunk of Hashable._rawHashValue(seed:)();
   v11 = v9 + 56;
@@ -5764,7 +5766,7 @@ uint64_t specialized Set._Variant.remove(_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@
     while (1)
     {
       v15(v8, *(v30 + 48) + v18 * v13, v5);
-      lazy protocol witness table accessor for type Participant and conformance Participant(&lazy protocol witness table cache variable for type SpatialTrackingSession.Configuration.AnchorCapability and conformance SpatialTrackingSession.Configuration.AnchorCapability, MEMORY[0x1E697A640]);
+      lazy protocol witness table accessor for type Participant and conformance Participant(&lazy protocol witness table cache variable for type SpatialTrackingSession.Configuration.AnchorCapability and conformance SpatialTrackingSession.Configuration.AnchorCapability, MEMORY[0x1E697A640], MEMORY[0x1E697A650]);
       v19 = dispatch thunk of static Equatable.== infix(_:_:)();
       (*(v16 - 8))(v8, v5);
       if (v19)
@@ -5808,58 +5810,67 @@ uint64_t specialized Set._Variant.remove(_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@
   return (*(v6 + 56))(a2, v20, 1, v5);
 }
 
-uint64_t specialized Set._Variant.remove(_:)()
+uint64_t specialized Set._Variant.remove(_:)(uint64_t a1)
 {
-  v1 = *v0;
-  if ((*v0 & 0xC000000000000001) != 0)
+  v2 = *v1;
+  if ((*v1 & 0xC000000000000001) != 0)
   {
-
-    v2 = __CocoaSet.contains(_:)();
-
-    if (v2)
+    if (v2 < 0)
     {
-      v3 = specialized Set._Variant._migrateToNative(_:removing:)();
+      v4 = *v1;
+    }
 
-      return v3;
+    else
+    {
+      v4 = v2 & 0xFFFFFFFFFFFFFF8;
+    }
+
+    v5 = __CocoaSet.contains(_:)();
+
+    if (v5)
+    {
+      v6 = specialized Set._Variant._migrateToNative(_:removing:)(v4, a1);
+
+      return v6;
     }
 
     return 0;
   }
 
   type metadata accessor for Entity();
-  lazy protocol witness table accessor for type Participant and conformance Participant(&lazy protocol witness table cache variable for type Entity and conformance Entity, MEMORY[0x1E697A3A8]);
-  v5 = dispatch thunk of Hashable._rawHashValue(seed:)();
-  v6 = -1 << *(v1 + 32);
-  v7 = v5 & ~v6;
-  if (((*(v1 + 56 + ((v7 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v7) & 1) == 0)
+  lazy protocol witness table accessor for type Participant and conformance Participant(&lazy protocol witness table cache variable for type Entity and conformance Entity, MEMORY[0x1E697A3A8], MEMORY[0x1E697A3B0]);
+  v8 = dispatch thunk of Hashable._rawHashValue(seed:)();
+  v9 = -1 << *(v2 + 32);
+  v10 = v8 & ~v9;
+  if (((*(v2 + 56 + ((v10 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v10) & 1) == 0)
   {
     return 0;
   }
 
-  v8 = ~v6;
-  lazy protocol witness table accessor for type Participant and conformance Participant(&lazy protocol witness table cache variable for type Entity and conformance Entity, MEMORY[0x1E697A3A8]);
+  v11 = ~v9;
+  lazy protocol witness table accessor for type Participant and conformance Participant(&lazy protocol witness table cache variable for type Entity and conformance Entity, MEMORY[0x1E697A3A8], MEMORY[0x1E697A3B8]);
   while ((dispatch thunk of static Equatable.== infix(_:_:)() & 1) == 0)
   {
-    v7 = (v7 + 1) & v8;
-    if (((*(v1 + 56 + ((v7 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v7) & 1) == 0)
+    v10 = (v10 + 1) & v11;
+    if (((*(v2 + 56 + ((v10 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v10) & 1) == 0)
     {
       return 0;
     }
   }
 
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v10 = *v0;
-  v12 = *v0;
+  v13 = *v1;
+  v15 = *v1;
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
     specialized _NativeSet.copy()();
-    v10 = v12;
+    v13 = v15;
   }
 
-  v11 = *(*(v10 + 48) + 8 * v7);
-  specialized _NativeSet._delete(at:)(v7);
-  result = v11;
-  *v0 = v12;
+  v14 = *(*(v13 + 48) + 8 * v10);
+  specialized _NativeSet._delete(at:)(v10);
+  result = v14;
+  *v1 = v15;
   return result;
 }
 
@@ -5878,7 +5889,7 @@ uint64_t specialized Set._Variant.remove(_:)(void *a1)
   v12 = [a1 identifier];
   static UUID._unconditionallyBridgeFromObjectiveC(_:)();
 
-  lazy protocol witness table accessor for type Participant and conformance Participant(&lazy protocol witness table cache variable for type UUID and conformance UUID, MEMORY[0x1E69695A8]);
+  lazy protocol witness table accessor for type Participant and conformance Participant(&lazy protocol witness table cache variable for type UUID and conformance UUID, MEMORY[0x1E69695A8], MEMORY[0x1E69695B8]);
   dispatch thunk of Hashable.hash(into:)();
   v13 = *(v5 + 8);
   v13(v10, v4);
@@ -5936,27 +5947,27 @@ uint64_t specialized Set._Variant.remove(_:)(void *a1)
   return result;
 }
 
-uint64_t specialized Set._Variant._migrateToNative(_:removing:)()
+uint64_t specialized Set._Variant._migrateToNative(_:removing:)(uint64_t a1, uint64_t a2)
 {
 
-  v1 = __CocoaSet.count.getter();
-  v2 = swift_unknownObjectRetain();
-  v3 = _ss10_NativeSetV_8capacityAByxGs07__CocoaB0Vn_SitcfC10RealityKit6EntityC_Tt1g5(v2, v1);
-  v10 = v3;
+  v3 = __CocoaSet.count.getter();
+  v4 = swift_unknownObjectRetain();
+  v5 = _ss10_NativeSetV_8capacityAByxGs07__CocoaB0Vn_SitcfC10RealityKit6EntityC_Tt1g5(v4, v3);
+  v12 = v5;
   type metadata accessor for Entity();
-  lazy protocol witness table accessor for type Participant and conformance Participant(&lazy protocol witness table cache variable for type Entity and conformance Entity, MEMORY[0x1E697A3A8]);
+  lazy protocol witness table accessor for type Participant and conformance Participant(&lazy protocol witness table cache variable for type Entity and conformance Entity, MEMORY[0x1E697A3A8], MEMORY[0x1E697A3B0]);
 
-  v4 = dispatch thunk of Hashable._rawHashValue(seed:)();
-  v5 = -1 << *(v3 + 32);
-  v6 = v4 & ~v5;
-  if ((*(v3 + 56 + ((v6 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v6))
+  v6 = dispatch thunk of Hashable._rawHashValue(seed:)();
+  v7 = -1 << *(v5 + 32);
+  v8 = v6 & ~v7;
+  if ((*(v5 + 56 + ((v8 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v8))
   {
-    v7 = ~v5;
-    lazy protocol witness table accessor for type Participant and conformance Participant(&lazy protocol witness table cache variable for type Entity and conformance Entity, MEMORY[0x1E697A3A8]);
+    v9 = ~v7;
+    lazy protocol witness table accessor for type Participant and conformance Participant(&lazy protocol witness table cache variable for type Entity and conformance Entity, MEMORY[0x1E697A3A8], MEMORY[0x1E697A3B8]);
     while ((dispatch thunk of static Equatable.== infix(_:_:)() & 1) == 0)
     {
-      v6 = (v6 + 1) & v7;
-      if (((*(v3 + 56 + ((v6 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v6) & 1) == 0)
+      v8 = (v8 + 1) & v9;
+      if (((*(v5 + 56 + ((v8 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v8) & 1) == 0)
       {
         goto LABEL_5;
       }
@@ -5970,13 +5981,13 @@ LABEL_5:
     __break(1u);
   }
 
-  v8 = *(*(v3 + 48) + 8 * v6);
-  specialized _NativeSet._delete(at:)(v6);
+  v10 = *(*(v5 + 48) + 8 * v8);
+  specialized _NativeSet._delete(at:)(v8);
   result = dispatch thunk of static Equatable.== infix(_:_:)();
   if (result)
   {
-    *v0 = v10;
-    return v8;
+    *v2 = v12;
+    return v10;
   }
 
   else
@@ -6003,7 +6014,7 @@ unint64_t specialized _NativeSet._delete(at:)(unint64_t result)
     {
       v9 = (v8 + 1) & v7;
       type metadata accessor for Entity();
-      lazy protocol witness table accessor for type Participant and conformance Participant(&lazy protocol witness table cache variable for type Entity and conformance Entity, MEMORY[0x1E697A3A8]);
+      lazy protocol witness table accessor for type Participant and conformance Participant(&lazy protocol witness table cache variable for type Entity and conformance Entity, MEMORY[0x1E697A3A8], MEMORY[0x1E697A3B0]);
       do
       {
         v10 = dispatch thunk of Hashable._rawHashValue(seed:)() & v7;
@@ -6059,7 +6070,7 @@ LABEL_16:
   return result;
 }
 
-void specialized _NativeSet._delete(at:)(int64_t a1, uint64_t (*a2)(void), unint64_t *a3, void (*a4)(uint64_t), uint64_t a5)
+void specialized _NativeSet._delete(at:)(int64_t a1, uint64_t (*a2)(void), unint64_t *a3, uint64_t (*a4)(uint64_t), uint64_t a5)
 {
   v41 = a4;
   v42 = a5;
@@ -6093,7 +6104,7 @@ void specialized _NativeSet._delete(at:)(int64_t a1, uint64_t (*a2)(void), unint
         v22 = v19;
         v37(v10, *(v18 + 48) + v43 * v14, v7);
         v23 = v18;
-        lazy protocol witness table accessor for type Participant and conformance Participant(v40, v41);
+        lazy protocol witness table accessor for type Participant and conformance Participant(v40, v41, v42);
         v24 = dispatch thunk of Hashable._rawHashValue(seed:)();
         (*v17)(v10, v7);
         v19 = v22;
@@ -6171,7 +6182,7 @@ LABEL_28:
   }
 }
 
-void specialized _NativeSet._delete(at:)(unint64_t a1)
+void specialized _NativeSet._delete(at:)(int64_t a1)
 {
   v3 = type metadata accessor for UUID();
   v4 = *(v3 - 8);
@@ -6199,7 +6210,7 @@ void specialized _NativeSet._delete(at:)(unint64_t a1)
         v17 = [v16 identifier];
         static UUID._unconditionallyBridgeFromObjectiveC(_:)();
 
-        lazy protocol witness table accessor for type Participant and conformance Participant(&lazy protocol witness table cache variable for type UUID and conformance UUID, MEMORY[0x1E69695A8]);
+        lazy protocol witness table accessor for type Participant and conformance Participant(&lazy protocol witness table cache variable for type UUID and conformance UUID, MEMORY[0x1E69695A8], MEMORY[0x1E69695B8]);
         dispatch thunk of Hashable.hash(into:)();
         (*v14)(v6, v3);
         v18 = Hasher._finalize()();
@@ -6282,7 +6293,7 @@ uint64_t outlined destroy of GroupActivitiesSynchronizationPeer(uint64_t a1)
   return a1;
 }
 
-uint64_t lazy protocol witness table accessor for type Participant and conformance Participant(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t lazy protocol witness table accessor for type Participant and conformance Participant(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -6295,31 +6306,31 @@ uint64_t lazy protocol witness table accessor for type Participant and conforman
   return result;
 }
 
-void type metadata completion function for GroupActivitiesSynchronizationService()
+void type metadata completion function for GroupActivitiesSynchronizationService(uint64_t a1)
 {
-  type metadata accessor for Published<Set<Entity>>();
-  if (v0 <= 0x3F)
+  type metadata accessor for Published<Set<Entity>>(319);
+  if (v1 <= 0x3F)
   {
     swift_initClassMetadata2();
   }
 }
 
-void type metadata accessor for Published<Set<Entity>>()
+void type metadata accessor for Published<Set<Entity>>(uint64_t a1)
 {
   if (!lazy cache variable for type metadata for Published<Set<Entity>>)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sShy10RealityKit6EntityCGMd);
-    v0 = type metadata accessor for Published();
-    if (!v1)
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sShy10RealityKit6EntityCGMd, &_sShy10RealityKit6EntityCGMR);
+    v1 = type metadata accessor for Published();
+    if (!v2)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for Published<Set<Entity>>);
+      atomic_store(v1, &lazy cache variable for type metadata for Published<Set<Entity>>);
     }
   }
 }
 
 uint64_t __swift_get_extra_inhabitant_indexTm_0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(void))
 {
-  v6 = a4(0);
+  v6 = (a4)(0, a2, a3);
   v7 = *(*(v6 - 8) + 48);
 
   return v7(a1, a2, v6);
@@ -6327,15 +6338,15 @@ uint64_t __swift_get_extra_inhabitant_indexTm_0(uint64_t a1, uint64_t a2, uint64
 
 uint64_t __swift_store_extra_inhabitant_indexTm_0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t (*a5)(void))
 {
-  v7 = a5(0);
+  v7 = (a5)(0, a2, a3, a4);
   v8 = *(*(v7 - 8) + 56);
 
   return v8(a1, a2, a2, v7);
 }
 
-uint64_t type metadata completion function for GroupActivitiesSynchronizationPeer(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(uint64_t))
+uint64_t type metadata completion function for GroupActivitiesSynchronizationPeer(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(uint64_t, uint64_t, uint64_t))
 {
-  result = a4(319);
+  result = a4(319, a2, a3);
   if (v5 <= 0x3F)
   {
     swift_cvw_initStructMetadataWithLayoutString();
@@ -6399,7 +6410,7 @@ uint64_t outlined init with take of GroupActivitiesSynchronizationPeer(uint64_t 
 
 uint64_t outlined init with copy of UUID?(uint64_t a1, uint64_t a2)
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
   (*(*(v4 - 8) + 16))(a2, a1, v4);
   return a2;
 }
@@ -6413,10 +6424,10 @@ uint64_t outlined init with copy of GroupActivitiesSynchronizationComponent(uint
 
 uint64_t static ParticleEmitterComponent.Presets.magic.getter@<X0>(uint64_t a1@<X8>)
 {
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s17RealityFoundation24ParticleEmitterComponentV0cD0VSgMd);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s17RealityFoundation24ParticleEmitterComponentV0cD0VSgMd, &_s17RealityFoundation24ParticleEmitterComponentV0cD0VSgMR);
   MEMORY[0x1EEE9AC00](v2 - 8);
   v120 = &v100 - v3;
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s17RealityFoundation24ParticleEmitterComponentV0cD0V13ImageSequenceVSgMd);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s17RealityFoundation24ParticleEmitterComponentV0cD0V13ImageSequenceVSgMd, &_s17RealityFoundation24ParticleEmitterComponentV0cD0V13ImageSequenceVSgMR);
   MEMORY[0x1EEE9AC00](v4 - 8);
   v119 = &v100 - v5;
   v114 = type metadata accessor for ParticleEmitterComponent.ParticleEmitter.ImageSequence.AnimationRepeatMode();
@@ -6790,7 +6801,7 @@ void ARView.resizeDrawable(size:scaleFactor:)(double a1, double a2, double a3)
       static __ServiceLocator.shared.getter();
       dispatch thunk of __ServiceLocator.renderService.getter();
 
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit15__RenderService_pMd);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit15__RenderService_pMd, &_s10RealityKit15__RenderService_pMR);
       type metadata accessor for RERenderManager();
       swift_dynamicCast();
       dispatch thunk of RERenderManager.getLayerSize(_:)();
@@ -6833,15 +6844,6 @@ void ARView.resizeDrawable(size:scaleFactor:)(double a1, double a2, double a3)
 LABEL_17:
     __break(1u);
   }
-}
-
-uint64_t ARView._lastHitEntityForGestures.getter()
-{
-  return ARView._lastHitEntityForGestures.getter();
-}
-
-{
-  swift_beginAccess();
 }
 
 uint64_t ARView.scene.getter()
@@ -7069,7 +7071,7 @@ void ARView.debugOptions.getter(void *a1@<X8>)
   }
 }
 
-void ARView.debugOptions.setter(uint64_t *a1)
+void ARView.debugOptions.setter(unint64_t *a1)
 {
   v2 = OBJC_IVAR____TtC10RealityKit6ARView_arSystem;
   v3 = *(v1 + OBJC_IVAR____TtC10RealityKit6ARView_arSystem);
@@ -7112,7 +7114,7 @@ LABEL_10:
   }
 }
 
-void (*ARView.debugOptions.modify(void (*result)(uint64_t *a1)))(uint64_t *a1)
+void (*ARView.debugOptions.modify(void (*result)(unint64_t *a1)))(unint64_t *a1)
 {
   *(result + 1) = v1;
   v2 = *(v1 + OBJC_IVAR____TtC10RealityKit6ARView_arSystem);
@@ -7282,7 +7284,7 @@ void *key path getter for ARView.audioListener : ARView@<X0>(void *result@<X0>, 
   return result;
 }
 
-uint64_t key path setter for ARView.audioListener : ARView(uint64_t a1, void *a2)
+void *key path setter for ARView.audioListener : ARView(void *result, void *a2)
 {
   if (*(*a2 + OBJC_IVAR____TtC10RealityKit6ARView__scene))
   {
@@ -7295,7 +7297,7 @@ uint64_t key path setter for ARView.audioListener : ARView(uint64_t a1, void *a2
     __break(1u);
   }
 
-  return result;
+  return v2;
 }
 
 void ARView.audioListener.getter()
@@ -7312,9 +7314,9 @@ void ARView.audioListener.getter()
   }
 }
 
-uint64_t ARView.audioListener.setter()
+uint64_t ARView.audioListener.setter(uint64_t result)
 {
-  if (*(v0 + OBJC_IVAR____TtC10RealityKit6ARView__scene))
+  if (*(v1 + OBJC_IVAR____TtC10RealityKit6ARView__scene))
   {
 
     dispatch thunk of Scene.__audioListener.setter();
@@ -7325,10 +7327,10 @@ uint64_t ARView.audioListener.setter()
     __break(1u);
   }
 
-  return result;
+  return v2;
 }
 
-uint64_t (*ARView.audioListener.modify(uint64_t (*result)(uint64_t result, char a2)))(uint64_t result, char a2)
+uint64_t (*ARView.audioListener.modify(uint64_t (*result)()))()
 {
   v2 = OBJC_IVAR____TtC10RealityKit6ARView__scene;
   *(result + 1) = v1;
@@ -7351,9 +7353,9 @@ uint64_t (*ARView.audioListener.modify(uint64_t (*result)(uint64_t result, char 
   return result;
 }
 
-uint64_t ARView.audioListener.modify(uint64_t result, char a2)
+void *ARView.audioListener.modify(void *result, char a2)
 {
-  v2 = *(*(result + 8) + *(result + 16));
+  v2 = *(result[1] + result[2]);
   if ((a2 & 1) == 0)
   {
     if (v2)
@@ -7487,7 +7489,7 @@ id ARView.init(coder:)(void *a1)
   *&v1[OBJC_IVAR____TtC10RealityKit6ARView___statisticsOptions] = 545;
   v1[OBJC_IVAR____TtC10RealityKit6ARView___disableStatisticsRendering] = 0;
   v18.receiver = v1;
-  v18.super_class = type metadata accessor for ARView();
+  v18.super_class = type metadata accessor for ARView(0);
   v14 = objc_msgSendSuper2(&v18, sel_initWithCoder_, a1);
   v15 = v14;
   if (v14)
@@ -7577,7 +7579,7 @@ id ARView.init(frame:)(double a1, double a2, double a3, double a4)
   *&v4[OBJC_IVAR____TtC10RealityKit6ARView___statisticsOptions] = 545;
   v4[OBJC_IVAR____TtC10RealityKit6ARView___disableStatisticsRendering] = 0;
   v22.receiver = v4;
-  v22.super_class = type metadata accessor for ARView();
+  v22.super_class = type metadata accessor for ARView(0);
   v20 = objc_msgSendSuper2(&v22, sel_initWithFrame_, a1, a2, a3, a4);
   specialized ARView.commonInit(_:)();
 
@@ -7606,6 +7608,13 @@ char *ARView.__allocating_init(frame:cameraMode:)(char *a1, double a2, double a3
   }
 
   return result;
+}
+
+void ARView.__allocating_init(frame:cameraMode:automaticallyConfigureSession:)(char *a1, uint64_t a2, double a3, double a4, double a5, double a6)
+{
+  v7 = a2;
+  v13 = objc_allocWithZone(v6);
+  ARView.init(frame:cameraMode:automaticallyConfigureSession:)(a1, v7, a3, a4, a5, a6);
 }
 
 void ARView.init(frame:cameraMode:automaticallyConfigureSession:)(char *a1, char a2, double a3, double a4, double a5, double a6)
@@ -7680,7 +7689,7 @@ void ARView.init(frame:cameraMode:automaticallyConfigureSession:)(char *a1, char
   *&v6[OBJC_IVAR____TtC10RealityKit6ARView___statisticsOptions] = 545;
   v6[OBJC_IVAR____TtC10RealityKit6ARView___disableStatisticsRendering] = 0;
   v30.receiver = v6;
-  v30.super_class = type metadata accessor for ARView();
+  v30.super_class = type metadata accessor for ARView(0);
   v24 = objc_msgSendSuper2(&v30, sel_initWithFrame_, a3, a4, a5, a6);
   specialized ARView.commonInit(_:)();
   v25 = *&v24[OBJC_IVAR____TtC10RealityKit6ARView_arSystem];
@@ -7701,6 +7710,13 @@ void ARView.init(frame:cameraMode:automaticallyConfigureSession:)(char *a1, char
   {
     __break(1u);
   }
+}
+
+_BYTE *ARView.__allocating_init(frame:forRealityView:)(uint64_t a1, double a2, double a3, double a4, double a5)
+{
+  v6 = a1;
+  v11 = objc_allocWithZone(v5);
+  return ARView.init(frame:forRealityView:)(v6, a2, a3, a4, a5);
 }
 
 _BYTE *ARView.init(frame:forRealityView:)(char a1, double a2, double a3, double a4, double a5)
@@ -7774,7 +7790,7 @@ _BYTE *ARView.init(frame:forRealityView:)(char a1, double a2, double a3, double 
   *&v5[OBJC_IVAR____TtC10RealityKit6ARView___statisticsOptions] = 545;
   v5[OBJC_IVAR____TtC10RealityKit6ARView___disableStatisticsRendering] = 0;
   v25.receiver = v5;
-  v25.super_class = type metadata accessor for ARView();
+  v25.super_class = type metadata accessor for ARView(0);
   v22 = objc_msgSendSuper2(&v25, sel_initWithFrame_, a2, a3, a4, a5);
   if (v22[OBJC_IVAR____TtC10RealityKit6ARView__enableGroundingShadowsByDefault] == 2)
   {
@@ -7787,24 +7803,24 @@ _BYTE *ARView.init(frame:forRealityView:)(char a1, double a2, double a3, double 
   return v23;
 }
 
-void closure #1 in ARView.extendedDynamicRangeOutput.didset()
+void closure #1 in ARView.extendedDynamicRangeOutput.didset(uint64_t a1)
 {
   swift_beginAccess();
   Strong = swift_unknownObjectWeakLoadStrong();
   if (Strong)
   {
-    v1 = Strong;
-    v2 = OBJC_IVAR____TtC10RealityKit6ARView_extendedDynamicRangeOutput;
+    v2 = Strong;
+    v3 = OBJC_IVAR____TtC10RealityKit6ARView_extendedDynamicRangeOutput;
     swift_beginAccess();
-    if (*(v1 + v2) == 1)
+    if (*(v2 + v3) == 1)
     {
-      v3 = [v1 window];
-      if (v3)
+      v4 = [v2 window];
+      if (v4)
       {
-        v4 = v3;
-        v5 = [v3 screen];
+        v5 = v4;
+        v6 = [v4 screen];
 
-        [v5 currentEDRHeadroom];
+        [v6 currentEDRHeadroom];
       }
     }
 
@@ -7941,7 +7957,7 @@ uint64_t ARView.__renderGraphEmitter.setter(uint64_t a1)
     static __ServiceLocator.shared.getter();
     dispatch thunk of __ServiceLocator.renderService.getter();
 
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit15__RenderService_pMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit15__RenderService_pMd, &_s10RealityKit15__RenderService_pMR);
     type metadata accessor for RERenderManager();
     swift_dynamicCast();
     dispatch thunk of __RERenderGraphEmitter.unsetup(mgr:)();
@@ -7955,7 +7971,7 @@ uint64_t ARView.__renderGraphEmitter.setter(uint64_t a1)
     static __ServiceLocator.shared.getter();
     dispatch thunk of __ServiceLocator.renderService.getter();
 
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit15__RenderService_pMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit15__RenderService_pMd, &_s10RealityKit15__RenderService_pMR);
     type metadata accessor for RERenderManager();
     swift_dynamicCast();
     dispatch thunk of __RERenderGraphEmitter.setup(mgr:)();
@@ -7964,7 +7980,7 @@ uint64_t ARView.__renderGraphEmitter.setter(uint64_t a1)
   return result;
 }
 
-void (*ARView.__renderGraphEmitter.modify(uint64_t *a1))(uint64_t a1, char a2)
+void (*ARView.__renderGraphEmitter.modify(uint64_t *a1))(void **a1, char a2)
 {
   if (MEMORY[0x1E69E7D08])
   {
@@ -7986,10 +8002,10 @@ void (*ARView.__renderGraphEmitter.modify(uint64_t *a1))(uint64_t a1, char a2)
   return ARView.__renderGraphEmitter.modify;
 }
 
-void ARView.__renderGraphEmitter.modify(uint64_t a1, char a2)
+void ARView.__renderGraphEmitter.modify(void **a1, char a2)
 {
   v2 = *a1;
-  v3 = *(*a1 + 24);
+  v3 = *(*a1 + 3);
   if (a2)
   {
 
@@ -8119,13 +8135,13 @@ dispatch_semaphore_t one-time initialization function for uniqueTokenGenerator()
   return result;
 }
 
-void closure #1 in ARView.commonInit(_:)()
+void closure #1 in ARView.commonInit(_:)(uint64_t a1, uint64_t a2)
 {
   swift_beginAccess();
   Strong = swift_unknownObjectWeakLoadStrong();
   if (Strong)
   {
-    v1 = Strong;
+    v3 = Strong;
     type metadata accessor for __ServiceLocator();
     static __ServiceLocator.shared.getter();
     dispatch thunk of __ServiceLocator.engine.getter();
@@ -8134,20 +8150,20 @@ void closure #1 in ARView.commonInit(_:)()
   }
 }
 
-uint64_t closure #2 in ARView.commonInit(_:)()
+void *closure #2 in ARView.commonInit(_:)(uint64_t a1, uint64_t a2)
 {
   swift_beginAccess();
   result = swift_unknownObjectWeakLoadStrong();
   if (result)
   {
-    v1 = result;
+    v3 = result;
     type metadata accessor for __ServiceLocator();
     static __ServiceLocator.shared.getter();
-    v2 = dispatch thunk of __ServiceLocator.engine.getter();
+    v4 = dispatch thunk of __ServiceLocator.engine.getter();
 
     SceneEvents.Update.deltaTime.getter();
-    *&v3 = v3;
-    ARView.doUpdateCallback(engine:deltaTime:)(v2, *&v3);
+    *&v5 = v5;
+    ARView.doUpdateCallback(engine:deltaTime:)(v4, *&v5);
   }
 
   return result;
@@ -8414,7 +8430,7 @@ LABEL_36:
           {
             v52 = RFARKitDataProviderGetARSession();
             v53 = [v3 session];
-            type metadata accessor for ARReferenceObject(0, &lazy cache variable for type metadata for ARSession);
+            type metadata accessor for ARReferenceObject(0, &lazy cache variable for type metadata for ARSession, 0x1E69864D8);
             v54 = static NSObject.== infix(_:_:)();
 
             if ((v54 & 1) == 0)
@@ -8453,7 +8469,7 @@ LABEL_36:
   if (*&v3[v48])
   {
 
-    RealityFusionSession.update(scene:with:by:)(v59, v3);
+    RealityFusionSession.update(scene:with:by:)(v59, v3, a2);
   }
 
   ARView.checkProximity()();
@@ -8511,7 +8527,7 @@ Swift::Void __swiftcall ARView.shutdownEngine()()
     static __ServiceLocator.shared.getter();
     dispatch thunk of __ServiceLocator.renderService.getter();
 
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit15__RenderService_pMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit15__RenderService_pMd, &_s10RealityKit15__RenderService_pMR);
     type metadata accessor for RERenderManager();
     swift_dynamicCast();
     dispatch thunk of RERenderManager.unregisterRenderLayer(_:)();
@@ -8526,7 +8542,7 @@ Swift::Void __swiftcall ARView.shutdownEngine()()
     static __ServiceLocator.shared.getter();
     dispatch thunk of __ServiceLocator.renderService.getter();
 
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit15__RenderService_pMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit15__RenderService_pMd, &_s10RealityKit15__RenderService_pMR);
     type metadata accessor for RERenderManager();
     swift_dynamicCast();
     dispatch thunk of __RERenderGraphEmitter.unsetup(mgr:)();
@@ -8644,7 +8660,7 @@ LABEL_14:
 
   ARView.shutdownEngine()();
   v12.receiver = v1;
-  v12.super_class = type metadata accessor for ARView();
+  v12.super_class = type metadata accessor for ARView(0);
   return objc_msgSendSuper2(&v12, sel_dealloc);
 }
 
@@ -8655,7 +8671,7 @@ Swift::Void __swiftcall ARView.onDrawingManagerCreated()()
   static __ServiceLocator.shared.getter();
   dispatch thunk of __ServiceLocator.renderService.getter();
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit15__RenderService_pMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit15__RenderService_pMd, &_s10RealityKit15__RenderService_pMR);
   type metadata accessor for RERenderManager();
   swift_dynamicCast();
   v2 = *&v0[OBJC_IVAR____TtC10RealityKit6ARView_backingLayer];
@@ -8761,7 +8777,7 @@ LABEL_23:
   __break(1u);
 }
 
-uint64_t ARView.commonRenderCallback()()
+void ARView.commonRenderCallback()()
 {
   v1 = v0;
   type metadata accessor for __ServiceLocator();
@@ -8780,10 +8796,10 @@ uint64_t ARView.commonRenderCallback()()
     static __ServiceLocator.shared.getter();
     dispatch thunk of __ServiceLocator.renderService.getter();
 
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit15__RenderService_pMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit15__RenderService_pMd, &_s10RealityKit15__RenderService_pMR);
     type metadata accessor for RERenderManager();
     swift_dynamicCast();
-    if (*(v1 + OBJC_IVAR____TtC10RealityKit6ARView_useCAMetalLayer) != 1 || (dispatch thunk of RERenderManager.getLayerSize(_:)(), v5 != 0.0) && v4 != 0.0)
+    if (*(v1 + OBJC_IVAR____TtC10RealityKit6ARView_useCAMetalLayer) != 1 || (dispatch thunk of RERenderManager.getLayerSize(_:)(), v4 != 0.0) && v3 != 0.0)
     {
       static __ServiceLocator.shared.getter();
       dispatch thunk of __ServiceLocator.engine.getter();
@@ -8795,9 +8811,9 @@ uint64_t ARView.commonRenderCallback()()
       dispatch thunk of RERenderFrameSettings.setTotalTime(_:)();
       dispatch thunk of RERenderManager.createRenderFrameWorkload()();
       dispatch thunk of RERenderFrameWorkload.configure(_:)();
-      v6 = OBJC_IVAR____TtC10RealityKit6ARView___renderGraphEmitter;
-      result = swift_beginAccess();
-      if (!*(v1 + v6))
+      v5 = OBJC_IVAR____TtC10RealityKit6ARView___renderGraphEmitter;
+      swift_beginAccess();
+      if (!*(v1 + v5))
       {
 LABEL_17:
         __break(1u);
@@ -8807,32 +8823,32 @@ LABEL_17:
       dispatch thunk of __RERenderGraphEmitter.execute(mgr:)();
 
       specialized static ARView.fulfillPixelCastRequests(renderManager:)();
-      v7 = OBJC_IVAR____TtC10RealityKit6ARView_presentsWithTransactionFrames;
+      v6 = OBJC_IVAR____TtC10RealityKit6ARView_presentsWithTransactionFrames;
       if (*(v1 + OBJC_IVAR____TtC10RealityKit6ARView_presentsWithTransactionFrames) && *(v1 + OBJC_IVAR____TtC10RealityKit6ARView_enablePresentsWithTransaction) == 1)
       {
-        result = dispatch thunk of RERenderFrameWorkload.commitWithImmediatePresent()();
-        v8 = *(v1 + v7);
-        v9 = v8 != 0;
-        v10 = v8 - 1;
-        if (!v9)
+        dispatch thunk of RERenderFrameWorkload.commitWithImmediatePresent()();
+        v7 = *(v1 + v6);
+        v8 = v7 != 0;
+        v9 = v7 - 1;
+        if (!v8)
         {
           __break(1u);
           goto LABEL_17;
         }
 
-        *(v1 + v7) = v10;
-        if (!v10)
+        *(v1 + v6) = v9;
+        if (!v9)
         {
-          v11 = *(v1 + OBJC_IVAR____TtC10RealityKit6ARView_backingLayer);
-          if (!v11)
+          v10 = *(v1 + OBJC_IVAR____TtC10RealityKit6ARView_backingLayer);
+          if (!v10)
           {
 LABEL_18:
             __break(1u);
-            return result;
+            return;
           }
 
-          v12 = v11;
-          [v12 setPresentsWithTransaction_];
+          v11 = v10;
+          [v11 setPresentsWithTransaction_];
         }
       }
 
@@ -8842,8 +8858,6 @@ LABEL_18:
       }
     }
   }
-
-  return result;
 }
 
 uint64_t key path getter for ARView.__proto_antialiasingMode_v1 : ARView@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X8>)
@@ -9209,7 +9223,7 @@ LABEL_77:
   if (active)
   {
     v9 = dispatch thunk of __RKEntityInteractionManager.__interactions.getter();
-    v40 = MEMORY[0x1E69E7CC0];
+    v40[0] = MEMORY[0x1E69E7CC0];
     if (v9 >> 62)
     {
       goto LABEL_70;
@@ -9354,13 +9368,13 @@ LABEL_70:
 LABEL_32:
 
             MEMORY[0x1E12F4070](v17);
-            if (*((v40 & 0xFFFFFFFFFFFFFF8) + 0x10) >= *((v40 & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
+            if (*((v40[0] & 0xFFFFFFFFFFFFFF8) + 0x10) >= *((v40[0] & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
             {
               specialized Array._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)();
             }
 
             v9 = specialized Array._appendElementAssumeUniqueAndCapacity(_:newElement:)();
-            v39 = v40;
+            v39 = v40[0];
             goto LABEL_12;
           }
         }
@@ -9503,38 +9517,40 @@ LABEL_40:
 Swift::Void __swiftcall ARView.handleTapAtPoint(point:)(CGPoint point)
 {
   v2 = v1;
-  v3 = type metadata accessor for CollisionCastHit();
-  v37 = *(v3 - 8);
-  v38 = v3;
-  MEMORY[0x1EEE9AC00](v3);
-  v35 = v34 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  y = point.y;
+  x = point.x;
+  v5 = type metadata accessor for CollisionCastHit();
+  v40 = *(v5 - 8);
+  v41 = v5;
   MEMORY[0x1EEE9AC00](v5);
-  v36 = v34 - v6;
-  v7 = type metadata accessor for CollisionGroup();
-  v39 = *(v7 - 8);
-  v40 = v7;
+  v38 = v37 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v7);
-  v9 = v34 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v39 = v37 - v8;
+  v9 = type metadata accessor for CollisionGroup();
+  v42 = *(v9 - 8);
+  v43 = v9;
+  MEMORY[0x1EEE9AC00](v9);
+  v11 = v37 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
   Type = type metadata accessor for CollisionCastQueryType();
-  v41 = *(Type - 8);
-  v42 = Type;
+  v44 = *(Type - 8);
+  v45 = Type;
   MEMORY[0x1EEE9AC00](Type);
-  v12 = v34 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v13 = type metadata accessor for Scene.AnchorCollection();
-  v14 = *(v13 - 8);
-  MEMORY[0x1EEE9AC00](v13);
-  v16 = v34 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v17 = v1 + OBJC_IVAR____TtC10RealityKit6ARView___delegatePrivate;
+  v14 = v37 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v15 = type metadata accessor for Scene.AnchorCollection();
+  v16 = *(v15 - 8);
+  MEMORY[0x1EEE9AC00](v15);
+  v18 = v37 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v19 = v1 + OBJC_IVAR____TtC10RealityKit6ARView___delegatePrivate;
   swift_beginAccess();
   if (swift_unknownObjectWeakLoadStrong())
   {
-    v18 = *(v17 + 8);
+    v20 = *(v19 + 8);
     ObjectType = swift_getObjectType();
-    (*(v18 + 8))(v1, ObjectType, v18);
+    (*(v20 + 8))(v1, ObjectType, v20);
     swift_unknownObjectRelease();
   }
 
-  v20 = OBJC_IVAR____TtC10RealityKit6ARView__scene;
+  v22 = OBJC_IVAR____TtC10RealityKit6ARView__scene;
   if (!*(v1 + OBJC_IVAR____TtC10RealityKit6ARView__scene))
   {
     __break(1u);
@@ -9548,14 +9564,14 @@ LABEL_26:
   lazy protocol witness table accessor for type Scene.AnchorCollection and conformance Scene.AnchorCollection();
   dispatch thunk of Collection.startIndex.getter();
   dispatch thunk of Collection.endIndex.getter();
-  v21 = dispatch thunk of Collection.distance(from:to:)();
-  (*(v14 + 8))(v16, v13);
-  if (v21 < 1)
+  v23 = dispatch thunk of Collection.distance(from:to:)();
+  (*(v16 + 8))(v18, v15);
+  if (v23 < 1)
   {
     goto LABEL_14;
   }
 
-  if (!*(v2 + v20))
+  if (!*(v2 + v22))
   {
     goto LABEL_26;
   }
@@ -9567,7 +9583,7 @@ LABEL_26:
     goto LABEL_14;
   }
 
-  if (!*(v2 + v20))
+  if (!*(v2 + v22))
   {
 LABEL_27:
     __break(1u);
@@ -9581,54 +9597,55 @@ LABEL_27:
   {
     if (dispatch thunk of __RKEntityInteractionManager.areInteractionsEnabled.getter())
     {
-      v22 = dispatch thunk of __RKEntityInteractionManager.__interactions.getter();
-      v23 = specialized ARView.hasTapInteractions(_:)(v22);
+      v24 = dispatch thunk of __RKEntityInteractionManager.__interactions.getter();
+      specialized ARView.hasTapInteractions(_:)(v24);
+      v26 = v25;
 
-      if (v23)
+      if (v26)
       {
-        (*(v41 + 104))(v12, *MEMORY[0x1E697A2D8], v42);
+        (*(v44 + 104))(v14, *MEMORY[0x1E697A2D8], v45);
         static CollisionGroup.all.getter();
-        ARView.ray(through:)(v43);
-        if (v44)
+        ARView.ray(through:)(v46, x, y);
+        if (v47)
         {
-          v24 = MEMORY[0x1E69E7CC0];
+          v27 = MEMORY[0x1E69E7CC0];
 LABEL_20:
-          (*(v39 + 8))(v9, v40);
-          (*(v41 + 8))(v12, v42);
-          if (*(v24 + 16))
+          (*(v42 + 8))(v11, v43);
+          (*(v44 + 8))(v14, v45);
+          if (*(v27 + 16))
           {
-            v28 = v37;
-            v27 = v38;
-            v29 = v35;
-            (*(v37 + 16))(v35, v24 + ((*(v28 + 80) + 32) & ~*(v28 + 80)), v38);
+            v31 = v40;
+            v30 = v41;
+            v32 = v38;
+            (*(v40 + 16))(v38, v27 + ((*(v31 + 80) + 32) & ~*(v31 + 80)), v41);
 
-            v30 = v36;
-            (*(v28 + 32))(v36, v29, v27);
-            v31 = CollisionCastHit.entity.getter();
-            ARView.handleTapForEntity(_:shouldNotifyDelegateAlways:)(v31, 1);
+            v33 = v39;
+            (*(v31 + 32))(v39, v32, v30);
+            v34 = CollisionCastHit.entity.getter();
+            ARView.handleTapForEntity(_:shouldNotifyDelegateAlways:)(v34, 1);
             swift_unknownObjectRelease();
 
-            (*(v28 + 8))(v30, v27);
+            (*(v31 + 8))(v33, v30);
             return;
           }
 
           if (swift_unknownObjectWeakLoadStrong())
           {
-            v32 = *(v17 + 8);
-            v33 = swift_getObjectType();
-            (*(v32 + 16))(v2, 0, 0, v33, v32);
+            v35 = *(v19 + 8);
+            v36 = swift_getObjectType();
+            (*(v35 + 16))(v2, 0, 0, v36, v35);
             swift_unknownObjectRelease();
           }
 
           goto LABEL_16;
         }
 
-        if (*(v2 + v20))
+        if (*(v2 + v22))
         {
-          v34[1] = v43[0];
-          v34[0] = v43[1];
+          v37[1] = v46[0];
+          v37[0] = v46[1];
 
-          v24 = Scene.raycast(origin:direction:length:query:mask:relativeTo:)();
+          v27 = Scene.raycast(origin:direction:length:query:mask:relativeTo:)();
 
           goto LABEL_20;
         }
@@ -9647,9 +9664,9 @@ LABEL_14:
     return;
   }
 
-  v25 = *(v17 + 8);
-  v26 = swift_getObjectType();
-  (*(v25 + 16))(v2, 0, 0, v26, v25);
+  v28 = *(v19 + 8);
+  v29 = swift_getObjectType();
+  (*(v28 + 16))(v2, 0, 0, v29, v28);
 LABEL_16:
   swift_unknownObjectRelease();
 }
@@ -9657,7 +9674,7 @@ LABEL_16:
 void ARView.handleTapForEntity(_:shouldNotifyDelegateAlways:)(uint64_t a1, int a2)
 {
   v3 = v2;
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
   MEMORY[0x1EEE9AC00](v6 - 8);
   v8 = &v17 - v7;
   if (!*(v2 + OBJC_IVAR____TtC10RealityKit6ARView__scene))
@@ -9684,7 +9701,7 @@ void ARView.handleTapForEntity(_:shouldNotifyDelegateAlways:)(uint64_t a1, int a
       Entity.__interactionIdentifier.getter();
       v10 = type metadata accessor for UUID();
       v11 = (*(*(v10 - 8) + 48))(v8, 1, v10);
-      outlined destroy of ARConfigurationCreateResult?(v8, &_s10Foundation4UUIDVSgMd);
+      outlined destroy of ARConfigurationCreateResult?(v8, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
       if (v11 != 1)
       {
         type metadata accessor for __RKEntityTapTrigger();
@@ -9747,26 +9764,4 @@ uint64_t key path setter for ARView.__statisticsOptions : ARView(int *a1, uint64
   *(v3 + v4) = v2;
   v7 = v5;
   return ARView.__statisticsOptions.didset(&v7);
-}
-
-uint64_t ARView.__statisticsOptions.didset(int *a1)
-{
-  v2 = v1;
-  v3 = *a1;
-  v4 = OBJC_IVAR____TtC10RealityKit6ARView___statisticsOptions;
-  result = swift_beginAccess();
-  if (*(v2 + v4) != v3)
-  {
-    type metadata accessor for __ServiceLocator();
-    static __ServiceLocator.shared.getter();
-    dispatch thunk of __ServiceLocator.coreServiceLocator.getter();
-
-    result = REServiceLocatorGetFrameStatisticsHUD();
-    if (result)
-    {
-      return REFrameStatisticsHUDSetStatisticsOptions();
-    }
-  }
-
-  return result;
 }

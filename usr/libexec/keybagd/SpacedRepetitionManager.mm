@@ -163,7 +163,7 @@
 
   NSLog(@"handling verification epoch");
   v8 = 0;
-  if (!sub_1000156CC(0xFFFFFFFFLL, &v8))
+  if (!sub_1000156CC(-1, &v8))
   {
     NSLog(@"unable to get device state");
     goto LABEL_7;

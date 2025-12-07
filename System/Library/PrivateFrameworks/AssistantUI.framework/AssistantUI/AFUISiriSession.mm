@@ -719,12 +719,16 @@ void __54__AFUISiriSession__handleDidChangeAudioRecordingPower__block_invoke(uin
 
 uint64_t __45__AFUISiriSession__performBlockWithDelegate___block_invoke(uint64_t a1)
 {
-  if (objc_loadWeakRetained((a1 + 40)))
+  WeakRetained = objc_loadWeakRetained((a1 + 40));
+  v3 = WeakRetained;
+  if (WeakRetained)
   {
-    (*(*(a1 + 32) + 16))();
+    v5 = WeakRetained;
+    WeakRetained = (*(*(a1 + 32) + 16))();
+    v3 = v5;
   }
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](WeakRetained, v3);
 }
 
 - (void)idleAndQuietStatusDidChange:(BOOL)change
@@ -5431,7 +5435,7 @@ LABEL_16:
       v20 = *MEMORY[0x277CEF098];
       if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_ERROR))
       {
-        [AFUISiriSession _performAceCommand:v20 turnIdentifier:? machAbsoluteTime:? conflictHandler:?];
+        [AFUISiriSession _performAceCommand:v20 turnIdentifier:commandCopy machAbsoluteTime:? conflictHandler:?];
       }
 
 LABEL_25:
@@ -5478,7 +5482,7 @@ LABEL_25:
     [AFUISiriSession siriUIDidPresentDynamicSnippetWithInfo:];
   }
 
-  if (CoreDuetLibraryCore())
+  if (CoreDuetLibraryCore(0))
   {
     v11 = 0;
     v12 = &v11;
@@ -5514,9 +5518,11 @@ LABEL_25:
 
 uint64_t __58__AFUISiriSession_siriUIDidPresentDynamicSnippetWithInfo___block_invoke()
 {
-  siriUIDidPresentDynamicSnippetWithInfo__sDuetQueue = dispatch_queue_create("Core duet logging queue", 0);
+  v0 = dispatch_queue_create("Core duet logging queue", 0);
+  v1 = siriUIDidPresentDynamicSnippetWithInfo__sDuetQueue;
+  siriUIDidPresentDynamicSnippetWithInfo__sDuetQueue = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 + (id)effectiveCoreLocationBundle

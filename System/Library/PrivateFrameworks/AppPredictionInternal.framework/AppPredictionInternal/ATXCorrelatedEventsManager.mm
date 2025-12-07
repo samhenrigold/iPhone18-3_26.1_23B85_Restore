@@ -63,7 +63,7 @@
 
   else
   {
-    v32 = __atxlog_handle_default();
+    v32 = __atxlog_handle_default(dateBufferCopy);
     if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
     {
       [ATXCorrelatedEventsManager initWithFirstEventType:firstEventTypeDateBuffer:secondEventType:secondEventTypeDateBuffer:];
@@ -82,7 +82,6 @@
   if (type == 1)
   {
     firstObject = [eventsCopy firstObject];
-    secondEventType = self->_secondEventType;
     isKindOfClass = objc_opt_isKindOfClass();
 
     if (isKindOfClass)
@@ -98,7 +97,7 @@
       goto LABEL_7;
     }
 
-    v17 = __atxlog_handle_default();
+    v17 = __atxlog_handle_default(v16);
     if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_13;
@@ -109,7 +108,7 @@
 
   if (type)
   {
-    v17 = __atxlog_handle_default();
+    v17 = __atxlog_handle_default(eventsCopy);
     if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       [ATXCorrelatedEventsManager insertEvents:forEventType:];
@@ -119,12 +118,11 @@
   }
 
   firstObject2 = [eventsCopy firstObject];
-  firstEventType = self->_firstEventType;
-  v10 = objc_opt_isKindOfClass();
+  v9 = objc_opt_isKindOfClass();
 
-  if ((v10 & 1) == 0)
+  if ((v9 & 1) == 0)
   {
-    v17 = __atxlog_handle_default();
+    v17 = __atxlog_handle_default(v10);
     if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
 LABEL_13:
@@ -214,12 +212,12 @@ void __45__ATXCorrelatedEventsManager_correlateEvents__block_invoke_2(uint64_t a
 
 void __45__ATXCorrelatedEventsManager_correlateEvents__block_invoke_3(uint64_t a1, void *a2)
 {
-  v22 = a2;
+  v21 = a2;
   v3 = *(*(a1 + 32) + 16);
-  v21 = a1;
+  v20 = a1;
   v4 = *(*(a1 + 32) + 8);
   v5 = *(*(a1 + 40) + 16);
-  v6 = *(v22 + 2);
+  v6 = *(v21 + 2);
   if (v4 >= [v3 count])
   {
     goto LABEL_17;
@@ -235,12 +233,12 @@ void __45__ATXCorrelatedEventsManager_correlateEvents__block_invoke_3(uint64_t a
     v7 = v6;
   }
 
-  v20 = v7;
+  v19 = v7;
   do
   {
-    v8 = v21;
-    v9 = v20;
-    if (v20 >= [v5 count])
+    v8 = v20;
+    v9 = v19;
+    if (v19 >= [v5 count])
     {
       goto LABEL_16;
     }
@@ -250,34 +248,33 @@ void __45__ATXCorrelatedEventsManager_correlateEvents__block_invoke_3(uint64_t a
       v10 = objc_autoreleasePoolPush();
       v11 = [v3 objectAtIndexedSubscript:v4];
       v12 = [v5 objectAtIndexedSubscript:v9];
-      v13 = *(v8 + 48);
-      if ([objc_opt_class() eventsOverlapForEventA:v11 withDateBuffer:*(v13 + 48) eventB:v12 withDateBuffer:*(v13 + 56)])
+      if ([objc_opt_class() eventsOverlapForEventA:v11 withDateBuffer:*(*(v8 + 48) + 48) eventB:v12 withDateBuffer:*(*(v8 + 48) + 56)])
       {
-        v14 = [[ATXCorrelatedEvents alloc] initWithFirstEvent:v11 secondEvent:v12];
-        [*(v22 + 1) addObject:v14];
-        if (*(v22 + 24) == 1)
+        v13 = [[ATXCorrelatedEvents alloc] initWithFirstEvent:v11 secondEvent:v12];
+        [*(v21 + 1) addObject:v13];
+        if (*(v21 + 24) == 1)
         {
-          *(v22 + 2) = v9;
+          *(v21 + 2) = v9;
         }
 
         goto LABEL_13;
       }
 
-      v15 = v4;
-      v16 = v3;
-      v17 = [*(*(v8 + 48) + 56) startDateWithBufferForEvent:v12];
-      v18 = [*(*(v8 + 48) + 48) endDateWithBufferForEvent:v11];
-      v19 = [v17 compare:v18];
+      v14 = v4;
+      v15 = v3;
+      v16 = [*(*(v8 + 48) + 56) startDateWithBufferForEvent:v12];
+      v17 = [*(*(v8 + 48) + 48) endDateWithBufferForEvent:v11];
+      v18 = [v16 compare:v17];
 
-      if (v19 == 1)
+      if (v18 == 1)
       {
         break;
       }
 
-      v8 = v21;
-      *(v22 + 24) = 1;
-      v3 = v16;
-      v4 = v15;
+      v8 = v20;
+      *(v21 + 24) = 1;
+      v3 = v15;
+      v4 = v14;
 LABEL_13:
 
       objc_autoreleasePoolPop(v10);
@@ -287,18 +284,18 @@ LABEL_13:
       }
     }
 
-    v20 = *(v22 + 2);
+    v19 = *(v21 + 2);
 
     objc_autoreleasePoolPop(v10);
-    v3 = v16;
-    v4 = v15;
+    v3 = v15;
+    v4 = v14;
 LABEL_16:
     ++v4;
   }
 
   while (v4 < [v3 count]);
 LABEL_17:
-  *(v22 + 25) = 1;
+  *(v21 + 25) = 1;
 }
 
 - (id)correlatedEvents

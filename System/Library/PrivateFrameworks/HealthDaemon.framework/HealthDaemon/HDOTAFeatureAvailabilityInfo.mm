@@ -41,7 +41,7 @@
   v5 = [(HDOTAFeatureAvailabilityInfo *)&v9 init];
   if (v5)
   {
-    v6 = [setCopy copy];
+    v6 = objc_msgSend_copy(setCopy);
     allowedCountrySet = v5->_allowedCountrySet;
     v5->_allowedCountrySet = v6;
   }

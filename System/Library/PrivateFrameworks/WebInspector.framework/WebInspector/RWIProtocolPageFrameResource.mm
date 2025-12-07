@@ -7,6 +7,8 @@
 - (NSString)url;
 - (RWIProtocolPageFrameResource)initWithUrl:(id)url type:(int64_t)type mimeType:(id)mimeType;
 - (int64_t)type;
+- (void)setCanceled:(BOOL)canceled;
+- (void)setFailed:(BOOL)failed;
 - (void)setMimeType:(id)type;
 - (void)setSourceMapURL:(id)l;
 - (void)setTargetId:(id)id;
@@ -144,11 +146,25 @@ LABEL_8:
   return v2;
 }
 
+- (void)setFailed:(BOOL)failed
+{
+  v3.receiver = self;
+  v3.super_class = RWIProtocolPageFrameResource;
+  [(RWIProtocolJSONObject *)&v3 setBool:failed forKey:@"failed"];
+}
+
 - (BOOL)failed
 {
   v3.receiver = self;
   v3.super_class = RWIProtocolPageFrameResource;
   return [(RWIProtocolJSONObject *)&v3 BOOLForKey:@"failed"];
+}
+
+- (void)setCanceled:(BOOL)canceled
+{
+  v3.receiver = self;
+  v3.super_class = RWIProtocolPageFrameResource;
+  [(RWIProtocolJSONObject *)&v3 setBool:canceled forKey:@"canceled"];
 }
 
 - (BOOL)canceled

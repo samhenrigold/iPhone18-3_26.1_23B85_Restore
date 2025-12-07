@@ -17,15 +17,13 @@
   return v3;
 }
 
-void __46__HFLightCategoryStatusItem_statusItemClasses__block_invoke_2()
+void __46__HFLightCategoryStatusItem_statusItemClasses__block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v3[1] = *MEMORY[0x277D85DE8];
-  v3[0] = objc_opt_class();
-  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v3 count:1];
-  v1 = qword_280E03CC8;
-  qword_280E03CC8 = v0;
-
-  v2 = *MEMORY[0x277D85DE8];
+  v4[1] = *MEMORY[0x277D85DE8];
+  v4[0] = objc_opt_class();
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:1];
+  v3 = qword_280E03CC8;
+  qword_280E03CC8 = v2;
 }
 
 - (id)_subclass_updateWithOptions:(id)options

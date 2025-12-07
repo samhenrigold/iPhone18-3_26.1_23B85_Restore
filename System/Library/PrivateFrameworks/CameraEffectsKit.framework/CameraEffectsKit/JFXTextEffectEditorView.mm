@@ -25,9 +25,9 @@
   v16 = v15;
   v18 = v17;
   v20 = v19;
-  v69.receiver = self;
-  v69.super_class = JFXTextEffectEditorView;
-  height = [(JFXTextEffectEditorView *)&v69 initWithFrame:x, y, width, height];
+  v73.receiver = self;
+  v73.super_class = JFXTextEffectEditorView;
+  height = [(JFXTextEffectEditorView *)&v73 initWithFrame:x, y, width, height];
   v22 = height;
   if (height)
   {
@@ -56,11 +56,11 @@
     editField2 = [(JFXTextEffectEditorView *)v22 editField];
     [transformView2 addSubview:editField2];
 
-    v30 = JFX_getDrawOverlayBoundsOptionsDictionary();
-    v31 = [JFXOverlayEffectDebugViewOptions debugViewOptionsWithDictionary:v30];
-    [(JFXTextEffectEditorView *)v22 setDebugOptions:v31];
+    v32 = JFX_getDrawOverlayBoundsOptionsDictionary(v30, v31);
+    v33 = [JFXOverlayEffectDebugViewOptions debugViewOptionsWithDictionary:v32];
+    [(JFXTextEffectEditorView *)v22 setDebugOptions:v33];
 
-    if (JFX_isDrawOverlayBoundsEnabled())
+    if (JFX_isDrawOverlayBoundsEnabled(v34, v35))
     {
       debugOptions = [(JFXTextEffectEditorView *)v22 debugOptions];
       showTextBoundingBoxes = [debugOptions showTextBoundingBoxes];
@@ -88,10 +88,10 @@
         debugView = [(JFXTextEffectEditorView *)v22 debugView];
         [debugView removeFromSuperview];
 
-        v45 = objc_alloc(MEMORY[0x277D75D18]);
+        v49 = objc_alloc(MEMORY[0x277D75D18]);
         [(JFXTextEffectEditorView *)v22 frame];
-        v46 = [v45 initWithFrame:?];
-        [(JFXTextEffectEditorView *)v22 setDebugView:v46];
+        v50 = [v49 initWithFrame:?];
+        [(JFXTextEffectEditorView *)v22 setDebugView:v50];
 
         debugView2 = [(JFXTextEffectEditorView *)v22 debugView];
         [debugView2 setUserInteractionEnabled:0];
@@ -115,8 +115,8 @@
         [layer7 setBorderColor:{objc_msgSend(grayColor, "CGColor")}];
 
         [layer7 setBorderWidth:3.0];
-        v58 = [MEMORY[0x277D75348] colorWithRed:1.0 green:1.0 blue:1.0 alpha:0.25];
-        [layer7 setBackgroundColor:{objc_msgSend(v58, "CGColor")}];
+        v62 = [MEMORY[0x277D75348] colorWithRed:1.0 green:1.0 blue:1.0 alpha:0.25];
+        [layer7 setBackgroundColor:{objc_msgSend(v62, "CGColor")}];
 
         debugView6 = [(JFXTextEffectEditorView *)v22 debugView];
         layer8 = [debugView6 layer];
@@ -136,8 +136,8 @@
     textEditingProperties = [(JFXTextEffectEditorView *)v22 textEditingProperties];
     [(JFXTextEffectEditorView *)v22 applyTextEditingProperties:textEditingProperties];
 
-    v66 = [objc_alloc(MEMORY[0x277D755F8]) initWithDelegate:v22];
-    [(JFXTextEffectEditorView *)v22 addInteraction:v66];
+    v70 = [objc_alloc(MEMORY[0x277D755F8]) initWithDelegate:v22];
+    [(JFXTextEffectEditorView *)v22 addInteraction:v70];
     uUID = [MEMORY[0x277CCAD78] UUID];
     [(JFXTextEffectEditorView *)v22 setPencilTextEditingElementID:uUID];
   }
@@ -152,7 +152,7 @@
   editField = [(JFXTextEffectEditorView *)self editField];
   [editField applyTextEditingProperties:propertiesCopy];
 
-  if (JFX_isDrawOverlayBoundsEnabled())
+  if (JFX_isDrawOverlayBoundsEnabled(v6, v7))
   {
     debugOptions = [(JFXTextEffectEditorView *)self debugOptions];
     showTextBoundingBoxes = [debugOptions showTextBoundingBoxes];
@@ -161,38 +161,38 @@
     {
       editField2 = [(JFXTextEffectEditorView *)self editField];
       [editField2 textFrameWithoutFudge];
-      v10 = v9;
       v12 = v11;
       v14 = v13;
       v16 = v15;
+      v18 = v17;
       debugView = [(JFXTextEffectEditorView *)self debugView];
-      [debugView setFrame:{v10, v12, v14, v16}];
+      [debugView setFrame:{v12, v14, v16, v18}];
 
       editField3 = [(JFXTextEffectEditorView *)self editField];
       [editField3 frame];
-      v20 = v19;
       v22 = v21;
+      v24 = v23;
 
-      v24 = *MEMORY[0x277CBF348];
-      v23 = *(MEMORY[0x277CBF348] + 8);
+      v26 = *MEMORY[0x277CBF348];
+      v25 = *(MEMORY[0x277CBF348] + 8);
       debugView2 = [(JFXTextEffectEditorView *)self debugView];
       layer = [debugView2 layer];
       sublayers = [layer sublayers];
-      v28 = [sublayers objectAtIndexedSubscript:1];
-      [v28 setFrame:{v24, v23, v20, v22}];
+      v30 = [sublayers objectAtIndexedSubscript:1];
+      [v30 setFrame:{v26, v25, v22, v24}];
 
       editField4 = [(JFXTextEffectEditorView *)self editField];
       [editField4 textContainerInset];
-      v31 = v30;
       v33 = v32;
       v35 = v34;
       v37 = v36;
+      v39 = v38;
 
       debugView3 = [(JFXTextEffectEditorView *)self debugView];
       layer2 = [debugView3 layer];
       sublayers2 = [layer2 sublayers];
-      v40 = [sublayers2 objectAtIndexedSubscript:0];
-      [v40 setFrame:{v24 + v33, v23 + v31, v20 - (v33 + v37), v22 - (v31 + v35)}];
+      v42 = [sublayers2 objectAtIndexedSubscript:0];
+      [v42 setFrame:{v26 + v35, v25 + v33, v22 - (v35 + v39), v24 - (v33 + v37)}];
     }
   }
 }

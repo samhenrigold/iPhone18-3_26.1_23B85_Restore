@@ -18,15 +18,15 @@
 {
   ptr = connection.__ptr_;
   v8 = message.__ptr_;
-  v25.receiver = self;
-  v25.super_class = CSConnection;
-  v9 = [(CSConnection *)&v25 init];
+  v23.receiver = self;
+  v23.super_class = CSConnection;
+  v9 = [(CSConnection *)&v23 init];
   if (v9)
   {
     if (!*ptr)
     {
-      v18 = +[NSAssertionHandler currentHandler];
-      [v18 handleFailureInMethod:a2 object:v9 file:@"CSConnection.mm" lineNumber:26 description:@"connection cannot be null"];
+      v16 = +[NSAssertionHandler currentHandler];
+      [v16 handleFailureInMethod:a2 object:v9 file:@"CSConnection.mm" lineNumber:26 description:@"connection cannot be null"];
     }
 
     if (qword_100456878 != -1)
@@ -37,74 +37,72 @@
     v10 = qword_100456880;
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
-      CLConnection::getName(&__p, *ptr);
-      v11 = v24;
-      v12 = __p;
+      CLConnection::getName(*ptr);
       RemotePid = CLConnection::getRemotePid(*ptr);
       p_p = &__p;
-      if (v11 < 0)
+      if (v22 < 0)
       {
-        p_p = v12;
+        p_p = __p;
       }
 
       *buf = 136315394;
-      v27 = p_p;
-      v28 = 1024;
-      v29 = RemotePid;
+      v25 = p_p;
+      v26 = 1024;
+      v27 = RemotePid;
       _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEBUG, "Creating Connection, name: %s, pid: %d", buf, 0x12u);
-      if (v24 < 0)
+      if (v22 < 0)
       {
         operator delete(__p);
       }
     }
 
     objc_storeWeak(v9 + 1, v8);
-    v15 = *ptr;
+    v13 = *ptr;
     *ptr = 0;
     *(ptr + 1) = 0;
-    v16 = *(v9 + 3);
-    *(v9 + 1) = v15;
-    if (v16)
+    v14 = *(v9 + 3);
+    *(v9 + 1) = v13;
+    if (v14)
     {
-      sub_100009A48(v16);
+      sub_100009A48(v14);
     }
 
     objc_initWeak(buf, v9);
-    [v9 connection];
-    v20[1] = _NSConcreteStackBlock;
-    v20[2] = 3221225472;
-    v20[3] = sub_100356AB4;
-    v20[4] = &unk_100435F28;
-    objc_copyWeak(&v21, buf);
+    objc_msgSend_connection(v9);
+    v18[1] = _NSConcreteStackBlock;
+    v18[2] = 3221225472;
+    v18[3] = sub_100356AB4;
+    v18[4] = &unk_100435F28;
+    objc_copyWeak(&v19, buf);
     CLConnection::setDisconnectionHandler();
-    if (v23)
+    if (v21)
     {
-      sub_100009A48(v23);
+      sub_100009A48(v21);
     }
 
-    [v9 connection];
-    v19[1] = _NSConcreteStackBlock;
-    v19[2] = 3221225472;
-    v19[3] = sub_100356B30;
-    v19[4] = &unk_100435F28;
-    objc_copyWeak(v20, buf);
+    objc_msgSend_connection(v9);
+    v17[1] = _NSConcreteStackBlock;
+    v17[2] = 3221225472;
+    v17[3] = sub_100356B30;
+    v17[4] = &unk_100435F28;
+    objc_copyWeak(v18, buf);
     CLConnection::setInterruptionHandler();
-    if (v23)
+    if (v21)
     {
-      sub_100009A48(v23);
+      sub_100009A48(v21);
     }
 
-    [v9 connection];
-    objc_copyWeak(v19, buf);
+    objc_msgSend_connection(v9);
+    objc_copyWeak(v17, buf);
     CLConnection::setDefaultMessageHandler();
-    if (v23)
+    if (v21)
     {
-      sub_100009A48(v23);
+      sub_100009A48(v21);
     }
 
-    objc_destroyWeak(v19);
-    objc_destroyWeak(v20);
-    objc_destroyWeak(&v21);
+    objc_destroyWeak(v17);
+    objc_destroyWeak(v18);
+    objc_destroyWeak(&v19);
     objc_destroyWeak(buf);
   }
 
@@ -113,7 +111,7 @@
 
 - (void)dealloc
 {
-  [(CSConnection *)self connection];
+  objc_msgSend_connection(self, a2);
   v3 = v6;
   v5 = 0;
   v6 = 0;
@@ -129,7 +127,7 @@
 
 - (void)start
 {
-  [(CSConnection *)self connection];
+  objc_msgSend_connection(self, a2);
   CLConnection::start(v2);
   if (v3)
   {
@@ -139,7 +137,7 @@
 
 - (NSString)name
 {
-  [(CSConnection *)self connection];
+  objc_msgSend_connection(self, a2);
   v3 = __p;
   if (v9)
   {
@@ -148,8 +146,8 @@
 
   if (__p)
   {
-    [(CSConnection *)self connection];
-    CLConnection::getName(&__p, v6);
+    objc_msgSend_connection(self);
+    CLConnection::getName(v6);
     if (v10 >= 0)
     {
       p_p = &__p;
@@ -177,7 +175,7 @@
 
 - (int)remotePid
 {
-  [(CSConnection *)self connection];
+  objc_msgSend_connection(self, a2);
   if (v6)
   {
     sub_100009A48(v6);
@@ -188,7 +186,7 @@
     return -1;
   }
 
-  [(CSConnection *)self connection];
+  objc_msgSend_connection(self);
   RemotePid = CLConnection::getRemotePid(v5);
   if (v6)
   {
@@ -216,7 +214,7 @@
 
 - (id)description
 {
-  [(CSConnection *)self connection];
+  objc_msgSend_connection(self, a2);
   if (v7)
   {
     sub_100009A48(v7);

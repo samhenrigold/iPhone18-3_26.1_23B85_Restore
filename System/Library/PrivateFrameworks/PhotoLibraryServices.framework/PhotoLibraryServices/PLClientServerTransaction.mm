@@ -158,12 +158,12 @@ void __60__PLClientServerTransaction_addPostDelayedSaveActionsReply___block_invo
   managerCopy = manager;
   v5 = [self _allTransactionPathsForPathManager:managerCopy];
   string = [MEMORY[0x1E696AD60] string];
-  if ([v5 count])
+  if (objc_msgSend_count(v5))
   {
     v25 = managerCopy;
     v7 = [managerCopy privateCacheDirectoryWithSubType:2];
-    v8 = [v5 count];
-    v9 = [v5 count];
+    v8 = objc_msgSend_count(v5);
+    v9 = objc_msgSend_count(v5);
     v10 = @"s";
     if (v9 == 1)
     {
@@ -623,12 +623,12 @@ void __100__PLClientServerTransaction_handleOutstandingTransactionsForPathManage
       [*(a1 + 72) _cleanupAllTransactionsScopesByPath:v6];
     }
 
-    else if ([(__CFString *)v6 count])
+    else if (objc_msgSend_count(v6))
     {
       v11 = PLClientServerTransactionsGetLog();
       if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
-        v12 = [(__CFString *)v6 count];
+        v12 = objc_msgSend_count(v6);
         *buf = 67109120;
         LODWORD(v28) = v12;
         _os_log_impl(&dword_19BF1F000, v11, OS_LOG_TYPE_ERROR, "handling %d outstanding transactions...", buf, 8u);
@@ -911,7 +911,7 @@ LABEL_5:
   v4 = [objc_opt_class() _recoveryHistoryFilePathForPathManager:managerCopy];
 
   v5 = [MEMORY[0x1E695DEC8] arrayWithContentsOfFile:v4];
-  if ([v5 count] >= 0xA)
+  if (objc_msgSend_count(v5) >= 0xA)
   {
     v7 = [v5 sortedArrayUsingSelector:sel_compare_];
     if ([v7 isEqualToArray:v5])
@@ -927,7 +927,7 @@ LABEL_5:
         if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
         {
           v14 = 134218240;
-          v15 = [v5 count];
+          v15 = objc_msgSend_count(v5);
           v16 = 2048;
           v17 = v11;
           _os_log_impl(&dword_19BF1F000, v12, OS_LOG_TYPE_ERROR, "found excessive recovery attempts (count: %lu within: %g seconds)", &v14, 0x16u);
@@ -964,7 +964,7 @@ LABEL_5:
   v4 = [MEMORY[0x1E695DF70] arrayWithContentsOfFile:v8];
   date = [MEMORY[0x1E695DF00] date];
   [v4 addObject:date];
-  if ([v4 count] >= 0xB)
+  if (objc_msgSend_count(v4) >= 0xB)
   {
     [v4 removeObjectAtIndex:0];
   }

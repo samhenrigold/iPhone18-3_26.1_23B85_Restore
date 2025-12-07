@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)suppressedReasonAsString:(int)string;
 - (int)StringAsSuppressedReason:(id)reason;
 - (int)suppressedReason;
 - (unint64_t)hash;
@@ -186,6 +187,19 @@
   }
 
   *&self->_has = *&self->_has & 0xFEFF | v3;
+}
+
+- (id)suppressedReasonAsString:(int)string
+{
+  if (string >= 0xB)
+  {
+    return [MEMORY[0x29EDBA0F8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    return off_29EE33158[string];
+  }
 }
 
 - (int)StringAsSuppressedReason:(id)reason
@@ -476,7 +490,6 @@ LABEL_14:
   has = self->_has;
   if ((has & 0x800) != 0)
   {
-    screenStateOn = self->_screenStateOn;
     PBDataWriterWriteBOOLField();
     has = self->_has;
     if ((has & 0x400) == 0)
@@ -496,7 +509,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  quickDpsResetRecommendation = self->_quickDpsResetRecommendation;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((has & 0x1000) == 0)
@@ -511,7 +523,6 @@ LABEL_4:
   }
 
 LABEL_17:
-  stallPrediction = self->_stallPrediction;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((has & 0x80) == 0)
@@ -526,7 +537,6 @@ LABEL_5:
   }
 
 LABEL_18:
-  stallProbability = self->_stallProbability;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 8) == 0)
@@ -541,7 +551,6 @@ LABEL_6:
   }
 
 LABEL_19:
-  probabilityThreshold = self->_probabilityThreshold;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 4) == 0)
@@ -556,7 +565,6 @@ LABEL_7:
   }
 
 LABEL_20:
-  ccaThreshold = self->_ccaThreshold;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x10) == 0)
@@ -571,7 +579,6 @@ LABEL_8:
   }
 
 LABEL_21:
-  rssiThreshold = self->_rssiThreshold;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x40) == 0)
@@ -586,7 +593,6 @@ LABEL_9:
   }
 
 LABEL_22:
-  screenOnThreshold = self->_screenOnThreshold;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x20) == 0)
@@ -601,7 +607,6 @@ LABEL_10:
   }
 
 LABEL_23:
-  screenOffThreshold = self->_screenOffThreshold;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x100) == 0)
@@ -616,7 +621,6 @@ LABEL_11:
   }
 
 LABEL_24:
-  suppressedReason = self->_suppressedReason;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 0x200) == 0)
@@ -628,7 +632,6 @@ LABEL_12:
     }
 
 LABEL_26:
-    awdlActivityThreshold = self->_awdlActivityThreshold;
     PBDataWriterWriteUint32Field();
     if ((*&self->_has & 1) == 0)
     {
@@ -639,7 +642,6 @@ LABEL_26:
   }
 
 LABEL_25:
-  isDpsValidationDisabled = self->_isDpsValidationDisabled;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((has & 2) != 0)
@@ -654,7 +656,6 @@ LABEL_13:
   }
 
 LABEL_27:
-  quickDpsTimeSincePreviousTriggerMinutes = self->_quickDpsTimeSincePreviousTriggerMinutes;
 
   PBDataWriterWriteUint64Field();
 }
@@ -1051,7 +1052,6 @@ LABEL_14:
       goto LABEL_77;
     }
 
-    v8 = *(equal + 50);
     if (self->_screenStateOn)
     {
       if ((*(equal + 50) & 1) == 0)
@@ -1078,7 +1078,6 @@ LABEL_14:
       goto LABEL_77;
     }
 
-    v9 = *(equal + 49);
     if (self->_quickDpsResetRecommendation)
     {
       if ((*(equal + 49) & 1) == 0)
@@ -1105,7 +1104,6 @@ LABEL_14:
       goto LABEL_77;
     }
 
-    v10 = *(equal + 51);
     if (self->_stallPrediction)
     {
       if ((*(equal + 51) & 1) == 0)
@@ -1233,7 +1231,6 @@ LABEL_77:
     goto LABEL_77;
   }
 
-  v11 = *(equal + 48);
   if (self->_isDpsValidationDisabled)
   {
     if ((*(equal + 48) & 1) == 0)

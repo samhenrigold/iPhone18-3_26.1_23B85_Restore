@@ -18,33 +18,32 @@
 {
   v4 = sub_100007794();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   __chkstk_darwin();
-  v8 = v14 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  if (sub_1000077C4() == 3157553 && v9 == 0xE300000000000000)
+  v7 = v13 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  if (sub_1000077C4() == 3157553 && v8 == 0xE300000000000000)
   {
     selfCopy = self;
 
 LABEL_5:
-    v14[1] = self;
-    (*(v5 + 104))(v8, enum case for RestrictedSandboxRevision.revision1(_:), v4);
+    v13[1] = self;
+    (*(v5 + 104))(v7, enum case for RestrictedSandboxRevision.revision1(_:), v4);
     type metadata accessor for NetworkingProcessExtension();
-    sub_100007330(&qword_10000C120, v12, type metadata accessor for NetworkingProcessExtension);
+    sub_100007330(&qword_10000C120, v11, type metadata accessor for NetworkingProcessExtension, &unk_100007998);
     sub_1000077A4();
-    (*(v5 + 8))(v8, v4);
+    (*(v5 + 8))(v7, v4);
 
     return;
   }
 
-  v11 = sub_1000077D4();
-  v14[0] = self;
+  v10 = sub_1000077D4();
+  v13[0] = self;
 
-  if (v11)
+  if (v10)
   {
     goto LABEL_5;
   }
 
-  v13 = v14[0];
+  v12 = v13[0];
 }
 
 @end

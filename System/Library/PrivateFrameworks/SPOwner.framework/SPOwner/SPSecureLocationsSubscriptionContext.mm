@@ -49,7 +49,7 @@
 
 - (SPSecureLocationsSubscriptionContext)initWithCoder:(id)coder
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"clientApp"];
   clientApp = self->_clientApp;
@@ -58,17 +58,16 @@
   self->_subscriptionMode = [coderCopy decodeIntegerForKey:@"subscriptionMode"];
   self->_fetchMode = [coderCopy decodeIntegerForKey:@"fetchMode"];
   v7 = MEMORY[0x277CBEB98];
+  v13 = objc_opt_class();
   v14 = objc_opt_class();
   v15 = objc_opt_class();
-  v16 = objc_opt_class();
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:&v14 count:3];
-  v9 = [v7 setWithArray:{v8, v14, v15}];
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:&v13 count:3];
+  v9 = [v7 setWithArray:{v8, v13, v14}];
   v10 = [coderCopy decodeObjectOfClasses:v9 forKey:@"pushIdentifiers"];
 
   pushIdentifiers = self->_pushIdentifiers;
   self->_pushIdentifiers = v10;
 
-  v12 = *MEMORY[0x277D85DE8];
   return self;
 }
 

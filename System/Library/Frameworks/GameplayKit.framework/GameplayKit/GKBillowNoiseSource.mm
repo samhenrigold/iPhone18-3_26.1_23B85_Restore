@@ -1,9 +1,37 @@
 @interface GKBillowNoiseSource
++ (GKBillowNoiseSource)billowNoiseSourceWithFrequency:(double)frequency octaveCount:(NSInteger)octaveCount persistence:(double)persistence lacunarity:(double)lacunarity seed:(int32_t)seed;
+- (GKBillowNoiseSource)initWithFrequency:(double)frequency octaveCount:(NSInteger)octaveCount persistence:(double)persistence lacunarity:(double)lacunarity seed:(int32_t)seed;
 - (double)valueAt:(GKBillowNoiseSource *)self;
 - (id)cloneModule;
 @end
 
 @implementation GKBillowNoiseSource
+
++ (GKBillowNoiseSource)billowNoiseSourceWithFrequency:(double)frequency octaveCount:(NSInteger)octaveCount persistence:(double)persistence lacunarity:(double)lacunarity seed:(int32_t)seed
+{
+  v7 = [objc_alloc(objc_opt_class()) initWithFrequency:octaveCount octaveCount:*&seed persistence:frequency lacunarity:persistence seed:lacunarity];
+
+  return v7;
+}
+
+- (GKBillowNoiseSource)initWithFrequency:(double)frequency octaveCount:(NSInteger)octaveCount persistence:(double)persistence lacunarity:(double)lacunarity seed:(int32_t)seed
+{
+  v7 = *&seed;
+  v15.receiver = self;
+  v15.super_class = GKBillowNoiseSource;
+  v12 = [(GKBillowNoiseSource *)&v15 init];
+  v13 = v12;
+  if (v12)
+  {
+    [(GKCoherentNoiseSource *)v12 setFrequency:frequency];
+    [(GKCoherentNoiseSource *)v13 setOctaveCount:octaveCount];
+    [(GKBillowNoiseSource *)v13 setPersistence:persistence];
+    [(GKCoherentNoiseSource *)v13 setLacunarity:lacunarity];
+    [(GKCoherentNoiseSource *)v13 setSeed:v7];
+  }
+
+  return v13;
+}
 
 - (double)valueAt:(GKBillowNoiseSource *)self
 {

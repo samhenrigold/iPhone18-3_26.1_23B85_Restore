@@ -1,6 +1,7 @@
 @interface SKUIModalSourceViewProvider
 - (SKUIModalSourceViewProviderDelegate)delegate;
 - (id)animationView;
+- (void)animationView;
 - (void)hideOriginalSourceView;
 - (void)setOriginalSourceView:(id)view;
 - (void)showOriginalSourceView;
@@ -38,20 +39,8 @@
 
 - (void)hideOriginalSourceView
 {
-  if (os_variant_has_internal_content())
-  {
-    if (_os_feature_enabled_impl())
-    {
-      v3 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT);
-      if (v3)
-      {
-        [(SKUIModalSourceViewProvider *)v3 hideOriginalSourceView:v4];
-      }
-    }
-  }
-
-  self->_hideOriginalSourceView = 1;
-  [(UIView *)self->_originalSourceView setHidden:1];
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIModalSourceViewProvider hideOriginalSourceView]";
 }
 
 - (void)setOriginalSourceView:(id)view
@@ -78,20 +67,8 @@
 
 - (void)showOriginalSourceView
 {
-  if (os_variant_has_internal_content())
-  {
-    if (_os_feature_enabled_impl())
-    {
-      v3 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT);
-      if (v3)
-      {
-        [(SKUIModalSourceViewProvider *)v3 showOriginalSourceView:v4];
-      }
-    }
-  }
-
-  self->_hideOriginalSourceView = 0;
-  [(UIView *)self->_originalSourceView setHidden:0];
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIModalSourceViewProvider showOriginalSourceView]";
 }
 
 - (SKUIModalSourceViewProviderDelegate)delegate
@@ -99,6 +76,18 @@
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
 
   return WeakRetained;
+}
+
+- (void)animationView
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIModalSourceViewProvider animationView]";
+}
+
+- (void)setOriginalSourceView:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIModalSourceViewProvider setOriginalSourceView:]";
 }
 
 @end

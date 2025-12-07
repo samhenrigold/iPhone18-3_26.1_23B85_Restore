@@ -75,9 +75,7 @@
 
 - (void)setAuthFlowCompletion:(id)completion
 {
-  v4 = MEMORY[0x24C1BC830](completion, a2);
-  completion = self->_completion;
-  self->_completion = v4;
+  self->_completion = MEMORY[0x24C1BC830](completion, a2);
 
   MEMORY[0x2821F96F8]();
 }
@@ -145,7 +143,7 @@
 
 - (BOOL)shouldHideWebViewForLoadWithRequest:(id)request
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   v5 = [requestCopy URL];
   v6 = [DAEASOAuthRequest urlPageWillContainAuthorizationCode:v5];
@@ -172,9 +170,9 @@
       if (os_log_type_enabled(v14, v15))
       {
         *buf = 138412546;
-        v34 = v12;
-        v35 = 2112;
-        v36 = v13;
+        v33 = v12;
+        v34 = 2112;
+        v35 = v13;
         _os_log_impl(&dword_247E05000, v14, v15, "Exchange Hotmail OAuth:Failed with error %@, error_description %@", buf, 0x16u);
       }
 
@@ -185,7 +183,7 @@
 
     else
     {
-      v29 = v11;
+      v28 = v11;
       if (v10 && (-[DAEASOAuthFlowController state](self, "state"), v18 = objc_claimAutoreleasedReturnValue(), v19 = [v11 isEqualToString:v18], v18, v19))
       {
         v20 = DALoggingwithCategory();
@@ -198,13 +196,13 @@
         challenge = [(DAEASOAuthFlowController *)self challenge];
         codeVerifier = [challenge codeVerifier];
         claimsChallenge = [(DAEASOAuthFlowController *)self claimsChallenge];
-        v30[0] = MEMORY[0x277D85DD0];
-        v30[1] = 3221225472;
-        v30[2] = __64__DAEASOAuthFlowController_shouldHideWebViewForLoadWithRequest___block_invoke;
-        v30[3] = &unk_278EE0568;
-        v31 = v10;
+        v29[0] = MEMORY[0x277D85DD0];
+        v29[1] = 3221225472;
+        v29[2] = __64__DAEASOAuthFlowController_shouldHideWebViewForLoadWithRequest___block_invoke;
+        v29[3] = &unk_278EE0568;
+        v30 = v10;
         selfCopy = self;
-        [(DAEASOAuthFlowController *)self exchangeAuthCode:v31 codeVerifier:codeVerifier claims:claimsChallenge forTokensAndUsernameWithCompletion:v30];
+        [(DAEASOAuthFlowController *)self exchangeAuthCode:v30 codeVerifier:codeVerifier claims:claimsChallenge forTokensAndUsernameWithCompletion:v29];
       }
 
       else
@@ -215,22 +213,21 @@
         {
           state = [(DAEASOAuthFlowController *)self state];
           *buf = 138412802;
-          v34 = v10;
-          v35 = 2112;
-          v36 = v29;
-          v37 = 2112;
-          v38 = state;
+          v33 = v10;
+          v34 = 2112;
+          v35 = v28;
+          v36 = 2112;
+          v37 = state;
           _os_log_impl(&dword_247E05000, v24, v25, "Exchange Hotmail OAuth:Failed with authCode %@, state %@ self.state %@", buf, 0x20u);
         }
 
         (*(self->_completion + 2))();
       }
 
-      v11 = v29;
+      v11 = v28;
     }
   }
 
-  v27 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -264,45 +261,44 @@ void __64__DAEASOAuthFlowController_shouldHideWebViewForLoadWithRequest___block_
 
 void __64__DAEASOAuthFlowController_shouldHideWebViewForLoadWithRequest___block_invoke_2(uint64_t a1)
 {
-  v24[10] = *MEMORY[0x277D85DE8];
+  v21[10] = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   if (v2 && (v3 = *(a1 + 40)) != 0 && (v4 = *(a1 + 48)) != 0 && (v5 = *(a1 + 56)) != 0)
   {
-    v23[0] = @"authCode";
-    v23[1] = @"accessToken";
-    v7 = *(a1 + 64);
+    v20[0] = @"authCode";
+    v20[1] = @"accessToken";
     v6 = *(a1 + 72);
-    v24[0] = *(a1 + 64);
-    v24[1] = v2;
-    v23[2] = @"refreshToken";
-    v23[3] = @"username";
-    v24[2] = v3;
-    v24[3] = v4;
-    v24[4] = v5;
-    v23[4] = @"displayName";
-    v23[5] = @"oauthURI";
-    v8 = [v6 oauthURI];
-    v24[5] = v8;
-    v23[6] = @"tokenRequestURI";
-    v9 = [*(a1 + 72) tokenRequestURI];
-    v24[6] = v9;
-    v23[7] = @"jwksURI";
-    v10 = [*(a1 + 72) jwksURI];
-    v24[7] = v10;
-    v23[8] = @"issuer";
-    v11 = [*(a1 + 72) issuer];
-    v24[8] = v11;
-    v23[9] = @"jwksData";
-    v12 = [*(a1 + 72) jwksData];
-    v24[9] = v12;
-    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:v23 count:10];
+    v21[0] = *(a1 + 64);
+    v21[1] = v2;
+    v20[2] = @"refreshToken";
+    v20[3] = @"username";
+    v21[2] = v3;
+    v21[3] = v4;
+    v21[4] = v5;
+    v20[4] = @"displayName";
+    v20[5] = @"oauthURI";
+    v7 = [v6 oauthURI];
+    v21[5] = v7;
+    v20[6] = @"tokenRequestURI";
+    v8 = [*(a1 + 72) tokenRequestURI];
+    v21[6] = v8;
+    v20[7] = @"jwksURI";
+    v9 = [*(a1 + 72) jwksURI];
+    v21[7] = v9;
+    v20[8] = @"issuer";
+    v10 = [*(a1 + 72) issuer];
+    v21[8] = v10;
+    v20[9] = @"jwksData";
+    v11 = [*(a1 + 72) jwksData];
+    v21[9] = v11;
+    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:v20 count:10];
 
-    v14 = DALoggingwithCategory();
-    v15 = *(MEMORY[0x277D03988] + 7);
-    if (os_log_type_enabled(v14, v15))
+    v13 = DALoggingwithCategory();
+    v14 = *(MEMORY[0x277D03988] + 7);
+    if (os_log_type_enabled(v13, v14))
     {
-      LOWORD(v21) = 0;
-      _os_log_impl(&dword_247E05000, v14, v15, "Exchange Hotmail OAuth:Completed Fetching Tokens", &v21, 2u);
+      LOWORD(v18) = 0;
+      _os_log_impl(&dword_247E05000, v13, v14, "Exchange Hotmail OAuth:Completed Fetching Tokens", &v18, 2u);
     }
 
     (*(*(*(a1 + 72) + 8) + 16))();
@@ -310,21 +306,18 @@ void __64__DAEASOAuthFlowController_shouldHideWebViewForLoadWithRequest___block_
 
   else
   {
-    v16 = DALoggingwithCategory();
-    v17 = *(MEMORY[0x277D03988] + 3);
-    if (os_log_type_enabled(v16, v17))
+    v15 = DALoggingwithCategory();
+    v16 = *(MEMORY[0x277D03988] + 3);
+    if (os_log_type_enabled(v15, v16))
     {
-      v18 = *(a1 + 80);
-      v21 = 138543362;
-      v22 = v18;
-      _os_log_impl(&dword_247E05000, v16, v17, "Exchange Hotmail OAuth:Completed Fetching Tokens With Error %{public}@", &v21, 0xCu);
+      v17 = *(a1 + 80);
+      v18 = 138543362;
+      v19 = v17;
+      _os_log_impl(&dword_247E05000, v15, v16, "Exchange Hotmail OAuth:Completed Fetching Tokens With Error %{public}@", &v18, 0xCu);
     }
 
-    v19 = *(a1 + 80);
     (*(*(*(a1 + 72) + 8) + 16))();
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_urlRequestForOAuthTokenFromAuthCode:(id)code codeVerifier:(id)verifier claims:(id)claims
@@ -468,22 +461,21 @@ uint64_t __100__DAEASOAuthFlowController_exchangeAuthCode_codeVerifier_claims_fo
 {
   if (a3)
   {
-    v4 = *(a1 + 64);
-    v5 = *(*(a1 + 64) + 16);
+    v4 = *(*(a1 + 64) + 16);
 
-    return v5();
+    return v4();
   }
 
   else
   {
     [*(a1 + 32) setJwksData:a2];
-    v7 = *(a1 + 32);
-    v8 = *(a1 + 40);
-    v9 = *(a1 + 48);
-    v10 = *(a1 + 56);
-    v11 = *(a1 + 64);
+    v6 = *(a1 + 32);
+    v7 = *(a1 + 40);
+    v8 = *(a1 + 48);
+    v9 = *(a1 + 56);
+    v10 = *(a1 + 64);
 
-    return [v7 _exchangeAuthCode:v8 codeVerifier:v9 claims:v10 forTokensAndUsernameWithCompletion:v11];
+    return [v6 _exchangeAuthCode:v7 codeVerifier:v8 claims:v9 forTokensAndUsernameWithCompletion:v10];
   }
 }
 
@@ -524,7 +516,7 @@ void __73__DAEASOAuthFlowController_retrieveOpenIDMetadataFromURI_withCompletion
 
 void __73__DAEASOAuthFlowController_retrieveOpenIDMetadataFromURI_withCompletion___block_invoke_2(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v7 = a4;
   v8 = a3;
   v9 = a2;
@@ -536,31 +528,31 @@ void __73__DAEASOAuthFlowController_retrieveOpenIDMetadataFromURI_withCompletion
     goto LABEL_2;
   }
 
-  v18 = [(DAEASOpenIDMetadataResponse *)v10 tokenRequestURI];
-  if (!v18)
+  v17 = [(DAEASOpenIDMetadataResponse *)v10 tokenRequestURI];
+  if (!v17)
   {
     goto LABEL_3;
   }
 
-  v11 = v18;
-  v19 = [(DAEASOpenIDMetadataResponse *)v10 jwksURI];
-  if (!v19)
+  v11 = v17;
+  v18 = [(DAEASOpenIDMetadataResponse *)v10 jwksURI];
+  if (!v18)
   {
 LABEL_2:
   }
 
   else
   {
-    v20 = v19;
-    v21 = [(DAEASOpenIDMetadataResponse *)v10 issuer];
+    v19 = v18;
+    v20 = [(DAEASOpenIDMetadataResponse *)v10 issuer];
 
-    if (v21)
+    if (v20)
     {
-      v22 = *(a1 + 40);
+      v21 = *(a1 + 40);
       v16 = [(DAEASOpenIDMetadataResponse *)v10 tokenRequestURI];
-      v23 = [(DAEASOpenIDMetadataResponse *)v10 jwksURI];
-      v24 = [(DAEASOpenIDMetadataResponse *)v10 issuer];
-      (*(v22 + 16))(v22, v16, v23, v24, 0);
+      v22 = [(DAEASOpenIDMetadataResponse *)v10 jwksURI];
+      v23 = [(DAEASOpenIDMetadataResponse *)v10 issuer];
+      (*(v21 + 16))(v21, v16, v22, v23, 0);
 
       goto LABEL_6;
     }
@@ -572,19 +564,17 @@ LABEL_3:
   if (os_log_type_enabled(v12, v13))
   {
     v14 = *(a1 + 32);
-    v25 = 138412546;
-    v26 = v14;
-    v27 = 2112;
-    v28 = v7;
-    _os_log_impl(&dword_247E05000, v12, v13, "DAEASOAuthFlowController couldn't retrieve OpenID metadata from URI: %@ Error: %@", &v25, 0x16u);
+    v24 = 138412546;
+    v25 = v14;
+    v26 = 2112;
+    v27 = v7;
+    _os_log_impl(&dword_247E05000, v12, v13, "DAEASOAuthFlowController couldn't retrieve OpenID metadata from URI: %@ Error: %@", &v24, 0x16u);
   }
 
   v15 = *(a1 + 40);
   v16 = [(DAEASOpenIDMetadataResponse *)v10 error];
   (*(v15 + 16))(v15, 0, 0, 0, v16);
 LABEL_6:
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)retrieveJWKSDataFromURI:(id)i withCompletion:(id)completion
@@ -625,7 +615,7 @@ void __67__DAEASOAuthFlowController_retrieveJWKSDataFromURI_withCompletion___blo
 
 void __67__DAEASOAuthFlowController_retrieveJWKSDataFromURI_withCompletion___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v6 = a4;
   v7 = v6;
   if (!a2 || v6)
@@ -635,11 +625,11 @@ void __67__DAEASOAuthFlowController_retrieveJWKSDataFromURI_withCompletion___blo
     if (os_log_type_enabled(v9, v10))
     {
       v11 = *(a1 + 32);
-      v13 = 138412546;
-      v14 = v11;
-      v15 = 2112;
-      v16 = v7;
-      _os_log_impl(&dword_247E05000, v9, v10, "DAEASOAuthFlowController couldn't retrieve JWKS data from URI: %@ Error: %@", &v13, 0x16u);
+      v12 = 138412546;
+      v13 = v11;
+      v14 = 2112;
+      v15 = v7;
+      _os_log_impl(&dword_247E05000, v9, v10, "DAEASOAuthFlowController couldn't retrieve JWKS data from URI: %@ Error: %@", &v12, 0x16u);
     }
 
     v8 = *(*(a1 + 40) + 16);
@@ -651,8 +641,6 @@ void __67__DAEASOAuthFlowController_retrieveJWKSDataFromURI_withCompletion___blo
   }
 
   v8();
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_exchangeAuthCode:(id)code codeVerifier:(id)verifier claims:(id)claims forTokensAndUsernameWithCompletion:(id)completion
@@ -720,7 +708,7 @@ void __101__DAEASOAuthFlowController__exchangeAuthCode_codeVerifier_claims_forTo
 
 void __90__DAEASOAuthFlowController__exchangeAuthCode_codeVerifier_claims_forTokensWithCompletion___block_invoke(uint64_t a1)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) _urlRequestForOAuthTokenFromAuthCode:*(a1 + 40) codeVerifier:*(a1 + 48) claims:*(a1 + 56)];
   v3 = [v2 mutableCopy];
 
@@ -734,30 +722,28 @@ void __90__DAEASOAuthFlowController__exchangeAuthCode_codeVerifier_claims_forTok
     v8 = [v3 HTTPBody];
     v9 = [v7 initWithData:v8 encoding:4];
     *buf = 138412546;
-    v21 = v6;
-    v22 = 2112;
-    v23 = v9;
+    v20 = v6;
+    v21 = 2112;
+    v22 = v9;
     _os_log_impl(&dword_247E05000, v4, v5, "DAEASOAuthFlowController: Sending request: %@ %@", buf, 0x16u);
   }
 
   v10 = [MEMORY[0x277CCAD38] ephemeralSessionConfiguration];
   [*(a1 + 32) _assignConnectionPropertiesToSessionConfiguration:v10];
   v11 = [MEMORY[0x277CCAD30] sessionWithConfiguration:v10];
-  v14 = MEMORY[0x277D85DD0];
-  v15 = 3221225472;
-  v16 = __90__DAEASOAuthFlowController__exchangeAuthCode_codeVerifier_claims_forTokensWithCompletion___block_invoke_60;
-  v17 = &unk_278EE0658;
-  v18 = *(a1 + 32);
-  v19 = *(a1 + 64);
-  v12 = [v11 dataTaskWithRequest:v3 completionHandler:&v14];
+  v13 = MEMORY[0x277D85DD0];
+  v14 = 3221225472;
+  v15 = __90__DAEASOAuthFlowController__exchangeAuthCode_codeVerifier_claims_forTokensWithCompletion___block_invoke_60;
+  v16 = &unk_278EE0658;
+  v17 = *(a1 + 32);
+  v18 = *(a1 + 64);
+  v12 = [v11 dataTaskWithRequest:v3 completionHandler:&v13];
   [v12 resume];
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __90__DAEASOAuthFlowController__exchangeAuthCode_codeVerifier_claims_forTokensWithCompletion___block_invoke_60(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v46[1] = *MEMORY[0x277D85DE8];
+  v45[1] = *MEMORY[0x277D85DE8];
   v7 = a4;
   v8 = a3;
   v9 = a2;
@@ -805,11 +791,11 @@ LABEL_16:
 
     v35 = MEMORY[0x277CCA9B8];
     v36 = *MEMORY[0x277CB8DC0];
-    v43 = *MEMORY[0x277CCA450];
-    v44 = v13;
+    v42 = *MEMORY[0x277CCA450];
+    v43 = v13;
     v37 = MEMORY[0x277CBEAC0];
-    v38 = &v44;
-    v39 = &v43;
+    v38 = &v43;
+    v39 = &v42;
 LABEL_15:
     v40 = [v37 dictionaryWithObjects:v38 forKeys:v39 count:1];
     v41 = [v35 errorWithDomain:v36 code:1 userInfo:v40];
@@ -834,11 +820,11 @@ LABEL_15:
       v13 = [MEMORY[0x277CCACA8] stringWithFormat:@"Could not validate the id_token received from the server"];
       v35 = MEMORY[0x277CCA9B8];
       v36 = *MEMORY[0x277CB8DC0];
-      v45 = *MEMORY[0x277CCA450];
-      v46[0] = v13;
+      v44 = *MEMORY[0x277CCA450];
+      v45[0] = v13;
       v37 = MEMORY[0x277CBEAC0];
-      v38 = v46;
-      v39 = &v45;
+      v38 = v45;
+      v39 = &v44;
       goto LABEL_15;
     }
   }
@@ -850,7 +836,6 @@ LABEL_15:
   (*(v28 + 16))(v28, v29, v30, v31, 0);
 
 LABEL_17:
-  v42 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_assignConnectionPropertiesToSessionConfiguration:(id)configuration

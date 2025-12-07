@@ -1,6 +1,6 @@
-void sub_229487FF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_229487FF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -34,15 +34,16 @@ id OUTLINED_FUNCTION_2(id a1)
   return a1;
 }
 
-void OUTLINED_FUNCTION_3(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_3(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x16u);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
 }
 
-void sub_22948C218(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+void sub_22948C218(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  va_start(va, a17);
+  va_start(va, a24);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -82,21 +83,20 @@ id _SampleClassificationFromRow(uint64_t a1, uint64_t a2)
 
 id HDHRSampleClassificationEntityPropertiesForModel()
 {
-  v3[5] = *MEMORY[0x277D85DE8];
-  v3[0] = @"sample_uuid";
-  v3[1] = @"classification";
-  v3[2] = @"sample_start_date";
-  v3[3] = @"sample_duration";
-  v3[4] = @"sample_time_zone";
-  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v3 count:5];
-  v1 = *MEMORY[0x277D85DE8];
+  v2[5] = *MEMORY[0x277D85DE8];
+  v2[0] = @"sample_uuid";
+  v2[1] = @"classification";
+  v2[2] = @"sample_start_date";
+  v2[3] = @"sample_duration";
+  v2[4] = @"sample_time_zone";
+  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v2 count:5];
 
   return v0;
 }
 
-void sub_22948CBC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_22948CBC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -150,13 +150,14 @@ uint64_t _PairedWatchDeviceSupportsCountryCode(void *a1, void *a2)
   return v7 & 1;
 }
 
-void OUTLINED_FUNCTION_3_0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_3_0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
-uint64_t OUTLINED_FUNCTION_5()
+uint64_t OUTLINED_FUNCTION_5(uint64_t a1, uint64_t a2)
 {
 
   return objc_opt_class();
@@ -168,15 +169,15 @@ id OUTLINED_FUNCTION_6(id a1)
   return a1;
 }
 
-uint64_t OUTLINED_FUNCTION_7()
+uint64_t OUTLINED_FUNCTION_7(uint64_t a1, uint64_t a2)
 {
 
   return objc_opt_class();
 }
 
-void sub_22948FCCC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_22948FCCC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -188,30 +189,30 @@ uint64_t __Block_byref_object_copy__1(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_22948FEE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_22948FEE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_2294900F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2294900F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22949030C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_22949030C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_229490494(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_229490494(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -232,32 +233,26 @@ void sub_229491FE4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void OUTLINED_FUNCTION_1_2(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_1_2(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_fault_impl(a1, a2, OS_LOG_TYPE_FAULT, a4, &a9, 0x16u);
+  _os_log_fault_impl(a1, a2, OS_LOG_TYPE_FAULT, a4, va, 0x16u);
 }
 
-uint64_t OUTLINED_FUNCTION_2_1@<X0>(uint64_t result@<X0>, uint64_t a2@<X8>)
-{
-  *(v2 - 8) = a2;
-  v3 = *(result + 16);
-  return result;
-}
-
-id HRHeartHealthDaemonBundle()
+id HRHeartHealthDaemonBundle(uint64_t a1)
 {
   if (HRHeartHealthDaemonBundle_onceToken != -1)
   {
     HRHeartHealthDaemonBundle_cold_1();
   }
 
-  v1 = HRHeartHealthDaemonBundle_bundle;
+  v2 = HRHeartHealthDaemonBundle_bundle;
 
-  return v1;
+  return v2;
 }
 
-uint64_t __HRHeartHealthDaemonBundle_block_invoke()
+uint64_t __HRHeartHealthDaemonBundle_block_invoke(uint64_t a1, uint64_t a2)
 {
   HRHeartHealthDaemonBundle_bundle = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
 
@@ -267,38 +262,39 @@ uint64_t __HRHeartHealthDaemonBundle_block_invoke()
 id HRLocalizedStringWithKey(void *a1)
 {
   v1 = a1;
-  v2 = HRHeartHealthDaemonBundle();
+  v2 = HRHeartHealthDaemonBundle(v1);
   v3 = [v2 localizedStringForKey:v1 value:&stru_283CC4740 table:@"Localizable-Antimony"];
 
   return v3;
 }
 
-id HRLogSensitiveClassName()
+id HRLogSensitiveClassName(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  v1 = NSStringFromClass(v0);
-  v2 = [MEMORY[0x277CCDD30] sharedBehavior];
-  v3 = [v2 showSensitiveLogItems];
+  v2 = objc_opt_class();
+  v3 = NSStringFromClass(v2);
+  v4 = [MEMORY[0x277CCDD30] sharedBehavior];
+  v5 = [v4 showSensitiveLogItems];
 
-  if (v3)
+  if (v5)
   {
-    v4 = v1;
+    v6 = v3;
   }
 
   else
   {
-    v5 = [MEMORY[0x277CCA900] lowercaseLetterCharacterSet];
-    v6 = [v1 componentsSeparatedByCharactersInSet:v5];
-    v4 = [v6 componentsJoinedByString:&stru_283CC4740];
+    v7 = [MEMORY[0x277CCA900] lowercaseLetterCharacterSet];
+    v8 = [v3 componentsSeparatedByCharactersInSet:v7];
+    v6 = [v8 componentsJoinedByString:&stru_283CC4740];
   }
 
-  return v4;
+  return v6;
 }
 
-void OUTLINED_FUNCTION_3_1(void *a1, int a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint8_t buf)
+void OUTLINED_FUNCTION_3_1(void *a1, int a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, ...)
 {
+  va_start(va, a10);
 
-  _os_log_error_impl(a1, v11, OS_LOG_TYPE_ERROR, a4, &buf, 0x16u);
+  _os_log_error_impl(a1, v10, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
 }
 
 __CFString *HDHRBloodPressureClassificationAnalyticsString(void *a1)
@@ -337,21 +333,23 @@ __CFString *HDHRBloodPressureClassificationAnalyticsString(void *a1)
   return v2;
 }
 
-void OUTLINED_FUNCTION_0_4(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_4(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
-void OUTLINED_FUNCTION_1_5(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_1_5(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x2Au);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0x2Au);
 }
 
-void sub_229498998(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_229498998(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -365,7 +363,7 @@ uint64_t __Block_byref_object_copy__2(uint64_t result, uint64_t a2)
 
 id HKHRElectrocardiogramRecordingV1AllowedCountrySet()
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v0 = HKElectrocardiogramSupportedCountries();
   v1 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v2 = [MEMORY[0x277CCDD30] sharedBehavior];
@@ -376,50 +374,50 @@ id HKHRElectrocardiogramRecordingV1AllowedCountrySet()
     v4 = [MEMORY[0x277CCDD30] sharedBehavior];
     [v4 isRunningSeedBuild];
 
+    v20 = 0;
     v21 = 0;
     v22 = 0;
-    v23 = 0;
     v5 = [MEMORY[0x277CCDD30] sharedBehavior];
     v6 = v5;
     if (v5)
     {
-      [v5 currentOSVersionStruct];
+      objc_msgSend_currentOSVersionStruct(v5);
     }
 
     else
     {
+      v20 = 0;
       v21 = 0;
       v22 = 0;
-      v23 = 0;
     }
 
+    v16 = 0u;
     v17 = 0u;
     v18 = 0u;
     v19 = 0u;
-    v20 = 0u;
     v8 = v0;
-    v9 = [v8 countByEnumeratingWithState:&v17 objects:v24 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v16 objects:v23 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v18;
+      v11 = *v17;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v18 != v11)
+          if (*v17 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          v13 = *(*(&v17 + 1) + 8 * i);
+          v13 = *(*(&v16 + 1) + 8 * i);
           if (HKElectrocardiogramSupportedStatedForGeolocatedCountryCodeAndWatchOSVersion() <= 1)
           {
-            [v1 addObject:{v13, v17}];
+            [v1 addObject:{v13, v16}];
           }
         }
 
-        v10 = [v8 countByEnumeratingWithState:&v17 objects:v24 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v16 objects:v23 count:16];
       }
 
       while (v10);
@@ -433,8 +431,6 @@ id HKHRElectrocardiogramRecordingV1AllowedCountrySet()
   }
 
   v14 = [objc_alloc(MEMORY[0x277CCD260]) initWithSupportedCountryCodes:v1 contentVersion:1 provenance:3];
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v14;
 }
@@ -679,7 +675,7 @@ id HKHRAtrialFibrillationEventMinutesBetweenLastSampleAndDate(void *a1, void *a2
   return v15;
 }
 
-uint64_t HKHRElectrocardiogramAnalyticsBucketForSampleCount(uint64_t a1)
+uint64_t HKHRElectrocardiogramAnalyticsBucketForSampleCount(unint64_t a1)
 {
   v1 = 1;
   v2 = 6;
@@ -804,16 +800,18 @@ __CFString *NSStringFromHKElectPrivaterocardiogramSymptom(uint64_t a1)
   }
 }
 
-void OUTLINED_FUNCTION_0_6(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_6(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, v9, OS_LOG_TYPE_DEBUG, a4, &a9, 0x16u);
+  _os_log_debug_impl(a1, v8, OS_LOG_TYPE_DEBUG, a4, va, 0x16u);
 }
 
-void OUTLINED_FUNCTION_3_2(void *a1, int a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint8_t buf)
+void OUTLINED_FUNCTION_3_2(void *a1, int a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
 {
+  va_start(va, a26);
 
-  _os_log_error_impl(a1, v27, OS_LOG_TYPE_ERROR, a4, &buf, 0x16u);
+  _os_log_error_impl(a1, v26, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
 }
 
 void OUTLINED_FUNCTION_4_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint8_t *a5)
@@ -829,15 +827,16 @@ void sub_22949F07C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void OUTLINED_FUNCTION_1_7(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_1_7(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x16u);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
 }
 
-void sub_2294A11F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2294A11F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -863,10 +862,11 @@ void OUTLINED_FUNCTION_3_3(void *a1, uint64_t a2, os_log_t log, const char *a4, 
   _os_log_fault_impl(a1, log, OS_LOG_TYPE_FAULT, a4, va, 0x16u);
 }
 
-void OUTLINED_FUNCTION_5_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_5_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_fault_impl(a1, a2, OS_LOG_TYPE_FAULT, a4, &a9, 0xCu);
+  _os_log_fault_impl(a1, a2, OS_LOG_TYPE_FAULT, a4, va, 0xCu);
 }
 
 void sub_2294A9818(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, id location)
@@ -899,23 +899,23 @@ uint64_t __Block_byref_object_copy__4(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_2294B0198(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_2294B0198(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_2294B148C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2294B148C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va1, a7);
-  va_start(va, a7);
-  v8 = va_arg(va1, void);
-  v10 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
+  va_start(va1, a13);
+  va_start(va, a13);
   v14 = va_arg(va1, void);
+  v16 = va_arg(va1, void);
+  v17 = va_arg(va1, void);
+  v18 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -940,29 +940,29 @@ id HDHRBackgroundHeartRateContextPredicate(void *a1)
   return v4;
 }
 
-id HDHRAnalyticsCountOfSamples(uint64_t a1, void *a2)
+id HDHRAnalyticsCountOfSamples(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
 {
-  v2 = a2;
-  v3 = HDAnalyticsCountOfSamples();
-  v4 = 0;
-  if (v3)
+  v4 = a2;
+  v5 = HDAnalyticsCountOfSamples();
+  v6 = 0;
+  if (v5)
   {
-    v5 = v3;
+    v7 = v5;
   }
 
   else
   {
     _HKInitializeLogging();
-    v6 = HKLogAnalytics();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v8 = HKLogAnalytics();
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      HDHRAnalyticsCountOfSamples_cold_1(v2, v4, v6);
+      HDHRAnalyticsCountOfSamples_cold_1(v4, v6, v8);
     }
 
-    v5 = &unk_283CD2B30;
+    v7 = &unk_283CD2B30;
   }
 
-  return v5;
+  return v7;
 }
 
 void sub_2294B6464(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, id location)
@@ -1002,39 +1002,37 @@ void OUTLINED_FUNCTION_2_5(void *a1, NSObject *a2, uint64_t a3, const char *a4, 
 
 id _heartbeatSeriesDataForPulseTimes(void *a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v1 = a1;
   v2 = [MEMORY[0x277CBEB28] dataWithCapacity:{16 * objc_msgSend(v1, "count")}];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   v3 = v1;
-  v4 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v11;
+    v6 = *v10;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v11 != v6)
+        if (*v10 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        [*(*(&v10 + 1) + 8 * i) doubleValue];
+        [*(*(&v9 + 1) + 8 * i) doubleValue];
         HKHeartbeatSeriesAppendDatum();
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v5);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v2;
 }
@@ -1079,7 +1077,7 @@ id OUTLINED_FUNCTION_3_4(id a1)
   return a1;
 }
 
-uint64_t OUTLINED_FUNCTION_4_2()
+uint64_t OUTLINED_FUNCTION_4_2(uint64_t a1, uint64_t a2)
 {
 
   return objc_opt_class();
@@ -1100,95 +1098,91 @@ void sub_2294C3588(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 id bloodPressureSystolicDiastolicSampleUUIDsFromCodableObjectCollection(void *a1)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v1 = a1;
   v2 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v15 = v1;
+  v14 = v1;
   v3 = [v1 quantitySamples];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
-  v4 = [v3 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v17;
+    v6 = *v16;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v17 != v6)
+        if (*v16 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
         v8 = MEMORY[0x277CCAD78];
-        v9 = [*(*(&v16 + 1) + 8 * i) sample];
+        v9 = [*(*(&v15 + 1) + 8 * i) sample];
         v10 = [v9 object];
         v11 = [v10 uuid];
         v12 = [v8 hk_UUIDWithData:v11];
         [v2 hk_addNonNilObject:v12];
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v5);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v2;
 }
 
 id correlationSampleUUIDsFromCodableObjectCollection(void *a1)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v1 = a1;
   v2 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v15 = v1;
+  v14 = v1;
   v3 = [v1 correlations];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
-  v4 = [v3 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v17;
+    v6 = *v16;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v17 != v6)
+        if (*v16 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
         v8 = MEMORY[0x277CCAD78];
-        v9 = [*(*(&v16 + 1) + 8 * i) sample];
+        v9 = [*(*(&v15 + 1) + 8 * i) sample];
         v10 = [v9 object];
         v11 = [v10 uuid];
         v12 = [v8 hk_UUIDWithData:v11];
         [v2 hk_addNonNilObject:v12];
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v5);
   }
 
-  v13 = *MEMORY[0x277D85DE8];
-
   return v2;
 }
 
-void sub_2294C799C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_2294C799C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1202,49 +1196,46 @@ uint64_t __Block_byref_object_copy__6(uint64_t result, uint64_t a2)
 
 double HDHRHypertensionNotificationsAnalysisWindowIntervalRespectingOverride()
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v0 = [MEMORY[0x277CCDD30] sharedBehavior];
   v1 = [v0 isAppleInternalInstall];
 
-  if (v1)
+  if (!v1)
   {
-    v2 = [MEMORY[0x277CBEBD0] hkhr_hypertensionNotificationsDefaults];
-    v3 = [v2 objectForKey:@"AnalysisWindowIntervalOverride"];
-    v4 = v3;
-    if (v3)
+    return 2592000.0;
+  }
+
+  v2 = [MEMORY[0x277CBEBD0] hkhr_hypertensionNotificationsDefaults];
+  v3 = [v2 objectForKey:@"AnalysisWindowIntervalOverride"];
+  v4 = v3;
+  if (v3)
+  {
+    [v3 doubleValue];
+    v6 = v5;
+    _HKInitializeLogging();
+    v7 = HKLogHeartRateCategory();
+    v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
+    if (v6 > 0.0)
     {
-      [v3 doubleValue];
-      v6 = v5;
-      _HKInitializeLogging();
-      v7 = HKLogHeartRateCategory();
-      v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
-      if (v6 > 0.0)
+      if (v8)
       {
-        if (v8)
-        {
-          v10 = [MEMORY[0x277CCABB0] numberWithDouble:v6];
-          v13 = 138412290;
-          v14 = v10;
-          _os_log_impl(&dword_229486000, v7, OS_LOG_TYPE_DEFAULT, "!!! [HDHRHypertensionNotificationsAnalysisScheduler] Using overriden scheduler analysis window interval: %@", &v13, 0xCu);
-        }
-      }
-
-      else
-      {
-        if (v8)
-        {
-          v9 = [MEMORY[0x277CCABB0] numberWithDouble:v6];
-          v13 = 138412290;
-          v14 = v9;
-          _os_log_impl(&dword_229486000, v7, OS_LOG_TYPE_DEFAULT, "[HDHRHypertensionNotificationsAnalysisScheduler] Overriden scheduler analysis window interval is %@, which is equal or less than zero, returning default value", &v13, 0xCu);
-        }
-
-        v6 = 2592000.0;
+        v10 = [MEMORY[0x277CCABB0] numberWithDouble:v6];
+        v12 = 138412290;
+        v13 = v10;
+        _os_log_impl(&dword_229486000, v7, OS_LOG_TYPE_DEFAULT, "!!! [HDHRHypertensionNotificationsAnalysisScheduler] Using overriden scheduler analysis window interval: %@", &v12, 0xCu);
       }
     }
 
     else
     {
+      if (v8)
+      {
+        v9 = [MEMORY[0x277CCABB0] numberWithDouble:v6];
+        v12 = 138412290;
+        v13 = v9;
+        _os_log_impl(&dword_229486000, v7, OS_LOG_TYPE_DEFAULT, "[HDHRHypertensionNotificationsAnalysisScheduler] Overriden scheduler analysis window interval is %@, which is equal or less than zero, returning default value", &v12, 0xCu);
+      }
+
       v6 = 2592000.0;
     }
   }
@@ -1254,135 +1245,126 @@ double HDHRHypertensionNotificationsAnalysisWindowIntervalRespectingOverride()
     v6 = 2592000.0;
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
 double HDHRHypertensionNotificationsAnalysisWindowGraceIntervalRespectingOverride()
 {
-  v15 = *MEMORY[0x277D85DE8];
-  v0 = [MEMORY[0x277CCDD30] sharedBehavior];
-  v1 = [v0 isAppleInternalInstall];
-
-  if (v1)
-  {
-    v2 = [MEMORY[0x277CBEBD0] hkhr_hypertensionNotificationsDefaults];
-    v3 = [v2 objectForKey:@"AnalysisWindowGraceIntervalOverride"];
-    v4 = v3;
-    if (v3)
-    {
-      [v3 doubleValue];
-      v6 = v5;
-      _HKInitializeLogging();
-      v7 = HKLogHeartRateCategory();
-      v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
-      if (v6 >= 0.0)
-      {
-        if (v8)
-        {
-          v10 = [MEMORY[0x277CCABB0] numberWithDouble:v6];
-          v13 = 138412290;
-          v14 = v10;
-          _os_log_impl(&dword_229486000, v7, OS_LOG_TYPE_DEFAULT, "!!! [HDHRHypertensionNotificationsAnalysisScheduler] Using overriden scheduler analysis window grace interval: %@", &v13, 0xCu);
-        }
-      }
-
-      else
-      {
-        if (v8)
-        {
-          v9 = [MEMORY[0x277CCABB0] numberWithDouble:v6];
-          v13 = 138412290;
-          v14 = v9;
-          _os_log_impl(&dword_229486000, v7, OS_LOG_TYPE_DEFAULT, "[HDHRHypertensionNotificationsAnalysisScheduler] Overriden scheduler analysis window grace interval is %@, which is equal or less than zero, returning default value", &v13, 0xCu);
-        }
-
-        v6 = 86400.0;
-      }
-    }
-
-    else
-    {
-      v6 = 86400.0;
-    }
-  }
-
-  else
-  {
-    v6 = 86400.0;
-  }
-
-  v11 = *MEMORY[0x277D85DE8];
-  return v6;
-}
-
-double HDHRHypertensionNotificationsAnalysisCadenceIntervalRespectingOverride()
-{
-  v15 = *MEMORY[0x277D85DE8];
-  v0 = [MEMORY[0x277CCDD30] sharedBehavior];
-  v1 = [v0 isAppleInternalInstall];
-
-  if (v1)
-  {
-    v2 = [MEMORY[0x277CBEBD0] hkhr_hypertensionNotificationsDefaults];
-    v3 = [v2 objectForKey:@"AnalysisCadenceIntervalOverride"];
-    v4 = v3;
-    if (v3)
-    {
-      [v3 doubleValue];
-      v6 = v5;
-      _HKInitializeLogging();
-      v7 = HKLogHeartRateCategory();
-      v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
-      if (v6 >= 360.0)
-      {
-        if (v8)
-        {
-          v10 = [MEMORY[0x277CCABB0] numberWithDouble:v6];
-          v13 = 138412290;
-          v14 = v10;
-          _os_log_impl(&dword_229486000, v7, OS_LOG_TYPE_DEFAULT, "!!! [HDHRHypertensionNotificationsAnalysisScheduler] Using overriden scheduler analysis cadence interval: %@", &v13, 0xCu);
-        }
-      }
-
-      else
-      {
-        if (v8)
-        {
-          v9 = [MEMORY[0x277CCABB0] numberWithDouble:v6];
-          v13 = 138412290;
-          v14 = v9;
-          _os_log_impl(&dword_229486000, v7, OS_LOG_TYPE_DEFAULT, "[HDHRHypertensionNotificationsAnalysisScheduler] Overriden scheduler analysis cadence interval is %@, which is equal or less than zero, returning default value", &v13, 0xCu);
-        }
-
-        v6 = 86400.0;
-      }
-    }
-
-    else
-    {
-      v6 = 86400.0;
-    }
-  }
-
-  else
-  {
-    v6 = 86400.0;
-  }
-
-  v11 = *MEMORY[0x277D85DE8];
-  return v6;
-}
-
-double HDHRHypertensionNotificationsAnalysisSchedulerRetryIntervalRespectingOverride()
-{
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v0 = [MEMORY[0x277CCDD30] sharedBehavior];
   v1 = [v0 isAppleInternalInstall];
 
   if (!v1)
   {
-    goto LABEL_8;
+    return 86400.0;
+  }
+
+  v2 = [MEMORY[0x277CBEBD0] hkhr_hypertensionNotificationsDefaults];
+  v3 = [v2 objectForKey:@"AnalysisWindowGraceIntervalOverride"];
+  v4 = v3;
+  if (v3)
+  {
+    [v3 doubleValue];
+    v6 = v5;
+    _HKInitializeLogging();
+    v7 = HKLogHeartRateCategory();
+    v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
+    if (v6 >= 0.0)
+    {
+      if (v8)
+      {
+        v10 = [MEMORY[0x277CCABB0] numberWithDouble:v6];
+        v12 = 138412290;
+        v13 = v10;
+        _os_log_impl(&dword_229486000, v7, OS_LOG_TYPE_DEFAULT, "!!! [HDHRHypertensionNotificationsAnalysisScheduler] Using overriden scheduler analysis window grace interval: %@", &v12, 0xCu);
+      }
+    }
+
+    else
+    {
+      if (v8)
+      {
+        v9 = [MEMORY[0x277CCABB0] numberWithDouble:v6];
+        v12 = 138412290;
+        v13 = v9;
+        _os_log_impl(&dword_229486000, v7, OS_LOG_TYPE_DEFAULT, "[HDHRHypertensionNotificationsAnalysisScheduler] Overriden scheduler analysis window grace interval is %@, which is equal or less than zero, returning default value", &v12, 0xCu);
+      }
+
+      v6 = 86400.0;
+    }
+  }
+
+  else
+  {
+    v6 = 86400.0;
+  }
+
+  return v6;
+}
+
+double HDHRHypertensionNotificationsAnalysisCadenceIntervalRespectingOverride()
+{
+  v14 = *MEMORY[0x277D85DE8];
+  v0 = [MEMORY[0x277CCDD30] sharedBehavior];
+  v1 = [v0 isAppleInternalInstall];
+
+  if (!v1)
+  {
+    return 86400.0;
+  }
+
+  v2 = [MEMORY[0x277CBEBD0] hkhr_hypertensionNotificationsDefaults];
+  v3 = [v2 objectForKey:@"AnalysisCadenceIntervalOverride"];
+  v4 = v3;
+  if (v3)
+  {
+    [v3 doubleValue];
+    v6 = v5;
+    _HKInitializeLogging();
+    v7 = HKLogHeartRateCategory();
+    v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
+    if (v6 >= 360.0)
+    {
+      if (v8)
+      {
+        v10 = [MEMORY[0x277CCABB0] numberWithDouble:v6];
+        v12 = 138412290;
+        v13 = v10;
+        _os_log_impl(&dword_229486000, v7, OS_LOG_TYPE_DEFAULT, "!!! [HDHRHypertensionNotificationsAnalysisScheduler] Using overriden scheduler analysis cadence interval: %@", &v12, 0xCu);
+      }
+    }
+
+    else
+    {
+      if (v8)
+      {
+        v9 = [MEMORY[0x277CCABB0] numberWithDouble:v6];
+        v12 = 138412290;
+        v13 = v9;
+        _os_log_impl(&dword_229486000, v7, OS_LOG_TYPE_DEFAULT, "[HDHRHypertensionNotificationsAnalysisScheduler] Overriden scheduler analysis cadence interval is %@, which is equal or less than zero, returning default value", &v12, 0xCu);
+      }
+
+      v6 = 86400.0;
+    }
+  }
+
+  else
+  {
+    v6 = 86400.0;
+  }
+
+  return v6;
+}
+
+double HDHRHypertensionNotificationsAnalysisSchedulerRetryIntervalRespectingOverride()
+{
+  v14 = *MEMORY[0x277D85DE8];
+  v0 = [MEMORY[0x277CCDD30] sharedBehavior];
+  v1 = [v0 isAppleInternalInstall];
+
+  if (!v1)
+  {
+    return *MEMORY[0x277D862A0];
   }
 
   v2 = [MEMORY[0x277CBEBD0] hkhr_hypertensionNotificationsDefaults];
@@ -1392,9 +1374,7 @@ double HDHRHypertensionNotificationsAnalysisSchedulerRetryIntervalRespectingOver
   {
 LABEL_7:
 
-LABEL_8:
-    v6 = *MEMORY[0x277D862A0];
-    goto LABEL_9;
+    return *MEMORY[0x277D862A0];
   }
 
   [v3 doubleValue];
@@ -1407,9 +1387,9 @@ LABEL_8:
     if (v8)
     {
       v9 = [MEMORY[0x277CCABB0] numberWithDouble:v6];
-      v13 = 138412290;
-      v14 = v9;
-      _os_log_impl(&dword_229486000, v7, OS_LOG_TYPE_DEFAULT, "[HDHRHypertensionNotificationsAnalysisScheduler] Using scheduler retry interval: %@", &v13, 0xCu);
+      v12 = 138412290;
+      v13 = v9;
+      _os_log_impl(&dword_229486000, v7, OS_LOG_TYPE_DEFAULT, "[HDHRHypertensionNotificationsAnalysisScheduler] Using scheduler retry interval: %@", &v12, 0xCu);
     }
 
     goto LABEL_7;
@@ -1417,20 +1397,18 @@ LABEL_8:
 
   if (v8)
   {
-    v12 = [MEMORY[0x277CCABB0] numberWithDouble:v6];
-    v13 = 138412290;
-    v14 = v12;
-    _os_log_impl(&dword_229486000, v7, OS_LOG_TYPE_DEFAULT, "!!! [HDHRHypertensionNotificationsAnalysisScheduler] Using overriden scheduler retry interval: %@", &v13, 0xCu);
+    v11 = [MEMORY[0x277CCABB0] numberWithDouble:v6];
+    v12 = 138412290;
+    v13 = v11;
+    _os_log_impl(&dword_229486000, v7, OS_LOG_TYPE_DEFAULT, "!!! [HDHRHypertensionNotificationsAnalysisScheduler] Using overriden scheduler retry interval: %@", &v12, 0xCu);
   }
 
-LABEL_9:
-  v10 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
 id HDHRHypertensionNotificationsAnalysisResultForceHypertensionOverride()
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v0 = [MEMORY[0x277CCDD30] sharedBehavior];
   v1 = [v0 isAppleInternalInstall];
 
@@ -1444,9 +1422,9 @@ id HDHRHypertensionNotificationsAnalysisResultForceHypertensionOverride()
       v4 = HKLogHeartRateCategory();
       if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
       {
-        v7 = 138412290;
-        v8 = v3;
-        _os_log_impl(&dword_229486000, v4, OS_LOG_TYPE_DEFAULT, "!!! [HDHRHypertensionMeasurementAnalyzer] Overriding analyzer result, should force hypertension: %@", &v7, 0xCu);
+        v6 = 138412290;
+        v7 = v3;
+        _os_log_impl(&dword_229486000, v4, OS_LOG_TYPE_DEFAULT, "!!! [HDHRHypertensionMeasurementAnalyzer] Overriding analyzer result, should force hypertension: %@", &v6, 0xCu);
       }
     }
   }
@@ -1455,8 +1433,6 @@ id HDHRHypertensionNotificationsAnalysisResultForceHypertensionOverride()
   {
     v3 = 0;
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
@@ -1534,9 +1510,9 @@ void sub_2294CA908(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_2294CC504(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2294CC504(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1548,9 +1524,9 @@ uint64_t __Block_byref_object_copy__7(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_2294CC714(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_2294CC714(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1597,12 +1573,13 @@ id OUTLINED_FUNCTION_5_3()
   return objc_loadWeakRetained((v0 + 32));
 }
 
-void sub_2294D55D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, char a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, char a32)
+void sub_2294D55D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, ...)
 {
+  va_start(va, a31);
   _Block_object_dispose(&a26, 8);
-  _Block_object_dispose(&a32, 8);
-  _Block_object_dispose((v32 - 176), 8);
-  _Block_object_dispose((v32 - 128), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v31 - 176), 8);
+  _Block_object_dispose((v31 - 128), 8);
   _Unwind_Resume(a1);
 }
 
@@ -1620,30 +1597,33 @@ void sub_2294D6290(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_2294D6BFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, char a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, char a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, char a50)
+void sub_2294D6BFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, ...)
 {
+  va_start(va, a49);
   _Block_object_dispose(&a31, 8);
   _Block_object_dispose(&a37, 8);
-  _Block_object_dispose(&a50, 8);
-  _Block_object_dispose((v50 - 216), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v49 - 216), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_2294D71A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, char a33)
+void sub_2294D71A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, ...)
 {
+  va_start(va, a32);
   _Block_object_dispose(&a27, 8);
-  _Block_object_dispose(&a33, 8);
-  _Block_object_dispose((v33 - 192), 8);
-  _Block_object_dispose((v33 - 144), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v32 - 192), 8);
+  _Block_object_dispose((v32 - 144), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_2294D761C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, char a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, char a32)
+void sub_2294D761C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, ...)
 {
+  va_start(va, a31);
   _Block_object_dispose(&a26, 8);
-  _Block_object_dispose(&a32, 8);
-  _Block_object_dispose((v32 - 176), 8);
-  _Block_object_dispose((v32 - 128), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v31 - 176), 8);
+  _Block_object_dispose((v31 - 128), 8);
   _Unwind_Resume(a1);
 }
 
@@ -1665,7 +1645,6 @@ void OUTLINED_FUNCTION_7_0(void *a1, uint64_t a2, uint64_t a3, const char *a4)
 
 id OUTLINED_FUNCTION_8(uint64_t a1, void *a2)
 {
-  v3 = *(a1 + 32);
 
   return a2;
 }
@@ -1695,7 +1674,7 @@ void sub_2294D9754(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 id HDMigrateHeartRateNotificationsUserDefaultsIfNecessary(void *a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v1 = a1;
   v2 = [v1 integerForKey:@"MigrationVersion"];
   _HKInitializeLogging();
@@ -1703,11 +1682,11 @@ id HDMigrateHeartRateNotificationsUserDefaultsIfNecessary(void *a1)
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = [MEMORY[0x277CCABB0] numberWithInteger:v2];
-    v11 = 138543618;
-    v12 = v4;
-    v13 = 2114;
-    v14 = &unk_283CD3418;
-    _os_log_impl(&dword_229486000, v3, OS_LOG_TYPE_DEFAULT, "[Migration] Migrating if necessary from version %{public}@ to %{public}@", &v11, 0x16u);
+    v10 = 138543618;
+    v11 = v4;
+    v12 = 2114;
+    v13 = &unk_283CD3418;
+    _os_log_impl(&dword_229486000, v3, OS_LOG_TYPE_DEFAULT, "[Migration] Migrating if necessary from version %{public}@ to %{public}@", &v10, 0x16u);
   }
 
   v5 = objc_alloc_init(MEMORY[0x277CBEB58]);
@@ -1727,8 +1706,6 @@ id HDMigrateHeartRateNotificationsUserDefaultsIfNecessary(void *a1)
 
   v8 = [v5 copy];
 
-  v9 = *MEMORY[0x277D85DE8];
-
   return v8;
 }
 
@@ -1739,12 +1716,13 @@ void sub_2294E15CC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_2294E1CB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, char a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, char a32)
+void sub_2294E1CB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, ...)
 {
+  va_start(va, a31);
   _Block_object_dispose(&a26, 8);
-  _Block_object_dispose(&a32, 8);
-  _Block_object_dispose((v32 - 176), 8);
-  _Block_object_dispose((v32 - 128), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v31 - 176), 8);
+  _Block_object_dispose((v31 - 128), 8);
   _Unwind_Resume(a1);
 }
 
@@ -1762,20 +1740,22 @@ void sub_2294E2CA0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_2294E3418(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, char a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, char a32)
+void sub_2294E3418(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, ...)
 {
+  va_start(va, a31);
   _Block_object_dispose(&a26, 8);
-  _Block_object_dispose(&a32, 8);
-  _Block_object_dispose((v32 - 176), 8);
-  _Block_object_dispose((v32 - 128), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v31 - 176), 8);
+  _Block_object_dispose((v31 - 128), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_2294E4C8C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, char a30)
+void sub_2294E4C8C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, ...)
 {
-  _Block_object_dispose(&a30, 8);
-  _Block_object_dispose((v30 - 248), 8);
-  _Block_object_dispose((v30 - 216), 8);
+  va_start(va, a29);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v29 - 248), 8);
+  _Block_object_dispose((v29 - 216), 8);
   _Unwind_Resume(a1);
 }
 
@@ -1788,23 +1768,19 @@ uint64_t __Block_byref_object_copy__10(uint64_t result, uint64_t a2)
 
 void _PairedWatchDeviceSupportsCountryCode_cold_1(void *a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
   v2 = a1;
-  OUTLINED_FUNCTION_7();
+  OUTLINED_FUNCTION_7(v2, v3);
   OUTLINED_FUNCTION_2_0();
-  v4 = v3;
-  OUTLINED_FUNCTION_3_0(&dword_229486000, v5, v6, "[%{public}@] Watch version is nil", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x277D85DE8];
+  v5 = v4;
+  OUTLINED_FUNCTION_3_0(&dword_229486000, v6, v7, "[%{public}@] Watch version is nil", v8, v9, v10, v11);
 }
 
 void HDHRAnalyticsCountOfSamples_cold_1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 138543618;
-  v5 = a1;
-  v6 = 2114;
-  v7 = a2;
-  _os_log_error_impl(&dword_229486000, log, OS_LOG_TYPE_ERROR, "Could not get count of samples of type %{public}@ with error: %{public}@", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 138543618;
+  v4 = a1;
+  v5 = 2114;
+  v6 = a2;
+  _os_log_error_impl(&dword_229486000, log, OS_LOG_TYPE_ERROR, "Could not get count of samples of type %{public}@ with error: %{public}@", &v3, 0x16u);
 }

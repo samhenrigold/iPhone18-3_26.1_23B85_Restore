@@ -258,7 +258,7 @@ LABEL_10:
           if (isRunningBoardApp)
           {
             systemStatusPublisher = self->_systemStatusPublisher;
-            [resourcesManager clientAuditToken];
+            objc_msgSend_clientAuditToken(resourcesManager);
             [(NIServerSystemStatusPublisher *)systemStatusPublisher publishWithAuditToken:buf];
           }
         }
@@ -395,28 +395,8 @@ LABEL_10:
 
 - (void)_resetSessionStateForOperation:(int)operation
 {
-  if (operation > 1)
+  if (operation > 1 || (+[NSUserDefaults standardUserDefaults](NSUserDefaults, "standardUserDefaults"), v5 = objc_claimAutoreleasedReturnValue(), v6 = [v5 BOOLForKey:@"FindingDisableClientPausingService"], v5, (v6 & 1) != 0) || (v17.receiver = self, v17.super_class = NIServerFindingSession, -[NIServerBaseSession resourcesManager](&v17, "resourcesManager"), v7 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v7, "clientProcessNameBestGuess"), v8 = objc_claimAutoreleasedReturnValue(), v9 = objc_msgSend(v8, "isEqualToString:", @"com.apple.NanoSettingsViewService"), v8, v7, (v9 & 1) != 0))
   {
-    goto LABEL_4;
-  }
-
-  v5 = +[NSUserDefaults standardUserDefaults];
-  v6 = [v5 BOOLForKey:@"FindingDisableClientPausingService"];
-
-  if (v6)
-  {
-    goto LABEL_4;
-  }
-
-  v17.receiver = self;
-  v17.super_class = NIServerFindingSession;
-  resourcesManager = [(NIServerBaseSession *)&v17 resourcesManager];
-  clientProcessNameBestGuess = [resourcesManager clientProcessNameBestGuess];
-  v9 = [clientProcessNameBestGuess isEqualToString:@"com.apple.NanoSettingsViewService"];
-
-  if (v9)
-  {
-LABEL_4:
     [(NIServerFindingService *)self->_findingService removeClientWithIdentifier:self->_sessionIdentifier dueToTimeout:operation == 1];
     findingService = self->_findingService;
     self->_findingService = 0;

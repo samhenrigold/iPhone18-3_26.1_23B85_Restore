@@ -80,16 +80,17 @@
     hasBeenUnlockedSinceBootBlock = [(CSDDeviceLockStateObserver *)self hasBeenUnlockedSinceBootBlock];
     v5 = hasBeenUnlockedSinceBootBlock[2]();
 
-    if (v5 != [(CSDDeviceLockStateObserver *)self hasBeenUnlockedSinceBoot])
+    hasBeenUnlockedSinceBoot = [(CSDDeviceLockStateObserver *)self hasBeenUnlockedSinceBoot];
+    if (v5 != hasBeenUnlockedSinceBoot)
     {
-      v6 = sub_100004778();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      v7 = sub_100004778(hasBeenUnlockedSinceBoot);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
-        v7[0] = 67109376;
-        v7[1] = [(CSDDeviceLockStateObserver *)self hasBeenUnlockedSinceBoot];
-        v8 = 1024;
-        v9 = v5;
-        _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "hasBeenUnlockedSinceBoot changing from %d to %d", v7, 0xEu);
+        v8[0] = 67109376;
+        v8[1] = [(CSDDeviceLockStateObserver *)self hasBeenUnlockedSinceBoot];
+        v9 = 1024;
+        v10 = v5;
+        _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "hasBeenUnlockedSinceBoot changing from %d to %d", v8, 0xEu);
       }
 
       [(CSDDeviceLockStateObserver *)self setHasBeenUnlockedSinceBoot:v5];
@@ -160,49 +161,49 @@
 
     if (v8)
     {
-      v9 = sub_100004778();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      v10 = sub_100004778(v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 67109376;
         mobileKeyLockState = [(CSDDeviceLockStateObserver *)self mobileKeyLockState];
-        v24 = 1024;
-        v25 = v5;
-        _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "mobileKeyLockState changing from %d to %d", buf, 0xEu);
+        v25 = 1024;
+        v26 = v5;
+        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "mobileKeyLockState changing from %d to %d", buf, 0xEu);
       }
     }
 
     whenUnlockedObserver = [(CSDDeviceLockStateObserver *)self whenUnlockedObserver];
     [whenUnlockedObserver endObserving];
 
-    v19 = 0u;
     v20 = 0u;
-    v17 = 0u;
+    v21 = 0u;
     v18 = 0u;
+    v19 = 0u;
     whenUnlockedCallbacks2 = [(CSDDeviceLockStateObserver *)self whenUnlockedCallbacks];
-    v12 = [whenUnlockedCallbacks2 countByEnumeratingWithState:&v17 objects:v21 count:16];
-    if (v12)
+    v13 = [whenUnlockedCallbacks2 countByEnumeratingWithState:&v18 objects:v22 count:16];
+    if (v13)
     {
-      v13 = v12;
-      v14 = *v18;
+      v14 = v13;
+      v15 = *v19;
       do
       {
-        v15 = 0;
+        v16 = 0;
         do
         {
-          if (*v18 != v14)
+          if (*v19 != v15)
           {
             objc_enumerationMutation(whenUnlockedCallbacks2);
           }
 
-          (*(*(*(&v17 + 1) + 8 * v15) + 16))();
-          v15 = v15 + 1;
+          (*(*(*(&v18 + 1) + 8 * v16) + 16))();
+          v16 = v16 + 1;
         }
 
-        while (v13 != v15);
-        v13 = [whenUnlockedCallbacks2 countByEnumeratingWithState:&v17 objects:v21 count:16];
+        while (v14 != v16);
+        v14 = [whenUnlockedCallbacks2 countByEnumeratingWithState:&v18 objects:v22 count:16];
       }
 
-      while (v13);
+      while (v14);
     }
 
     whenUnlockedCallbacks3 = [(CSDDeviceLockStateObserver *)self whenUnlockedCallbacks];
@@ -220,14 +221,15 @@
 
   [(CSDDeviceLockStateObserver *)self _refreshHasBeenUnlockedSinceBoot];
   hasBeenUnlockedSinceBoot = [(CSDDeviceLockStateObserver *)self hasBeenUnlockedSinceBoot];
-  v7 = sub_100004778();
-  v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
-  if (hasBeenUnlockedSinceBoot)
+  v7 = hasBeenUnlockedSinceBoot;
+  v8 = sub_100004778(hasBeenUnlockedSinceBoot);
+  v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
+  if (v7)
   {
-    if (v8)
+    if (v9)
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Device has been unlocked since boot, so invoking block immediately", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Device has been unlocked since boot, so invoking block immediately", buf, 2u);
     }
 
     unlockCopy[2](unlockCopy);
@@ -236,32 +238,32 @@ LABEL_12:
     return;
   }
 
-  if (v8)
+  if (v9)
   {
-    *v18 = 0;
-    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Device has not been unlocked since boot, so storing block to be performed upon first unlock after boot", v18, 2u);
+    *v20 = 0;
+    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Device has not been unlocked since boot, so storing block to be performed upon first unlock after boot", v20, 2u);
   }
 
   firstUnlockCallbacks = [(CSDDeviceLockStateObserver *)self firstUnlockCallbacks];
-  v10 = [unlockCopy copy];
+  v11 = [unlockCopy copy];
 
-  v11 = objc_retainBlock(v10);
-  [firstUnlockCallbacks addObject:v11];
+  v12 = objc_retainBlock(v11);
+  [firstUnlockCallbacks addObject:v12];
 
   firstUnlockObserver = [(CSDDeviceLockStateObserver *)self firstUnlockObserver];
   if (firstUnlockObserver)
   {
-    v13 = firstUnlockObserver;
+    v14 = firstUnlockObserver;
     firstUnlockObserver2 = [(CSDDeviceLockStateObserver *)self firstUnlockObserver];
     isObserving = [firstUnlockObserver2 isObserving];
 
     if ((isObserving & 1) == 0)
     {
-      v16 = sub_100004778();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+      v18 = sub_100004778(v17);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
-        *v17 = 0;
-        _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Device has not been unlocked-after-boot and is not yet observing device lock-after-boot changes, so begin to observe device unlock-after-boot changes", v17, 2u);
+        *v19 = 0;
+        _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "Device has not been unlocked-after-boot and is not yet observing device lock-after-boot changes, so begin to observe device unlock-after-boot changes", v19, 2u);
       }
 
       unlockCopy = [(CSDDeviceLockStateObserver *)self firstUnlockObserver];
@@ -283,34 +285,35 @@ LABEL_12:
     [(CSDDeviceLockStateObserver *)self setMobileKeyLockState:mobileKeyLockStateBlock[2]()];
   }
 
-  if ([(CSDDeviceLockStateObserver *)self mobileKeyLockState]&& [(CSDDeviceLockStateObserver *)self mobileKeyLockState]!= 3)
+  mobileKeyLockState = [(CSDDeviceLockStateObserver *)self mobileKeyLockState];
+  if (mobileKeyLockState && (mobileKeyLockState = [(CSDDeviceLockStateObserver *)self mobileKeyLockState], mobileKeyLockState != 3))
   {
-    v8 = sub_100004778();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = sub_100004778(mobileKeyLockState);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      *v19 = 0;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Adding callback to perform on next unlock", v19, 2u);
+      *v21 = 0;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Adding callback to perform on next unlock", v21, 2u);
     }
 
     whenUnlockedCallbacks = [(CSDDeviceLockStateObserver *)self whenUnlockedCallbacks];
-    v10 = [unlockedCopy copy];
-    v11 = objc_retainBlock(v10);
-    [whenUnlockedCallbacks addObject:v11];
+    v11 = [unlockedCopy copy];
+    v12 = objc_retainBlock(v11);
+    [whenUnlockedCallbacks addObject:v12];
 
     whenUnlockedObserver = [(CSDDeviceLockStateObserver *)self whenUnlockedObserver];
     if (whenUnlockedObserver)
     {
-      v13 = whenUnlockedObserver;
+      v14 = whenUnlockedObserver;
       whenUnlockedObserver2 = [(CSDDeviceLockStateObserver *)self whenUnlockedObserver];
       isObserving = [whenUnlockedObserver2 isObserving];
 
       if ((isObserving & 1) == 0)
       {
-        v16 = sub_100004778();
-        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+        v18 = sub_100004778(v17);
+        if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
         {
-          *v18 = 0;
-          _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Device is not yet observing device unlock changes, beginning to observe device unlock changes", v18, 2u);
+          *v20 = 0;
+          _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "Device is not yet observing device unlock changes, beginning to observe device unlock changes", v20, 2u);
         }
 
         whenUnlockedObserver3 = [(CSDDeviceLockStateObserver *)self whenUnlockedObserver];
@@ -321,11 +324,11 @@ LABEL_12:
 
   else
   {
-    v7 = sub_100004778();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = sub_100004778(mobileKeyLockState);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Device unlocked, performing callback immediately", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Device unlocked, performing callback immediately", buf, 2u);
     }
 
     unlockedCopy[2](unlockedCopy);

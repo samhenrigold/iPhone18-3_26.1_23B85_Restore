@@ -143,37 +143,37 @@ LABEL_21:
 
 - (id)serializeWithError:(id *)error
 {
-  v42 = *MEMORY[0x277D85DE8];
-  v40 = 0u;
-  v41 = 0u;
-  v38 = 0u;
+  v41 = *MEMORY[0x277D85DE8];
   v39 = 0u;
-  v36 = 0u;
+  v40 = 0u;
   v37 = 0u;
-  v34 = 0u;
+  v38 = 0u;
   v35 = 0u;
-  v32 = 0u;
+  v36 = 0u;
   v33 = 0u;
-  v30 = 0u;
+  v34 = 0u;
   v31 = 0u;
-  v28 = 0u;
+  v32 = 0u;
   v29 = 0u;
-  v26 = 0u;
+  v30 = 0u;
   v27 = 0u;
-  v24 = 0u;
+  v28 = 0u;
   v25 = 0u;
-  v22 = 0u;
+  v26 = 0u;
   v23 = 0u;
+  v24 = 0u;
   v21 = 0u;
+  v22 = 0u;
+  v20 = 0u;
   TLV8BufferInit();
   clientIdentifier = [(HMDNetworkRouterAccessViolation *)self clientIdentifier];
 
   if (clientIdentifier)
   {
     clientIdentifier2 = [(HMDNetworkRouterAccessViolation *)self clientIdentifier];
-    v20 = 0;
-    v7 = [clientIdentifier2 serializeWithError:&v20];
-    v8 = v20;
+    v19 = 0;
+    v7 = [clientIdentifier2 serializeWithError:&v19];
+    v8 = v19;
 
     if (v8)
     {
@@ -207,9 +207,9 @@ LABEL_17:
   if (lastViolationTimestamp)
   {
     lastViolationTimestamp2 = [(HMDNetworkRouterAccessViolation *)self lastViolationTimestamp];
-    v19 = 0;
-    v7 = [lastViolationTimestamp2 serializeWithError:&v19];
-    v8 = v19;
+    v18 = 0;
+    v7 = [lastViolationTimestamp2 serializeWithError:&v18];
+    v8 = v18;
 
     if (v8)
     {
@@ -229,9 +229,9 @@ LABEL_17:
   if (lastResetTimestamp)
   {
     lastResetTimestamp2 = [(HMDNetworkRouterAccessViolation *)self lastResetTimestamp];
-    v18 = 0;
-    v7 = [lastResetTimestamp2 serializeWithError:&v18];
-    v8 = v18;
+    v17 = 0;
+    v7 = [lastResetTimestamp2 serializeWithError:&v17];
+    v8 = v17;
 
     if (v8)
     {
@@ -258,12 +258,10 @@ LABEL_15:
     }
   }
 
-  v11 = [MEMORY[0x277CBEA90] dataWithBytes:v21 length:?];
+  v11 = [MEMORY[0x277CBEA90] dataWithBytes:v20 length:?];
   v8 = 0;
 LABEL_20:
   TLV8BufferFree();
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v11;
 }

@@ -102,7 +102,7 @@
           offset = 0.0;
         }
 
-        [v15 duration];
+        objc_msgSend_duration(v15);
         v14 = v13 + -0.01;
         if (offset >= v14)
         {

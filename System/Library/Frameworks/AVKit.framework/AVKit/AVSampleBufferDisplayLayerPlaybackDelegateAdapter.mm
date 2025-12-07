@@ -80,7 +80,7 @@
     v10 = playbackDelegate2;
     if (playbackDelegate2)
     {
-      [playbackDelegate2 pictureInPictureControllerTimeRangeForPlayback:v6];
+      objc_msgSend_pictureInPictureControllerTimeRangeForPlayback_(playbackDelegate2);
       goto LABEL_7;
     }
 
@@ -98,7 +98,7 @@ LABEL_6:
     goto LABEL_6;
   }
 
-  [playbackDelegate3 pictureInPictureControllerPlaybackTimeRange:v6];
+  objc_msgSend_pictureInPictureControllerPlaybackTimeRange_(playbackDelegate3);
 LABEL_7:
   *&retstr->var0.var0 = v13;
   *&retstr->var0.var3 = v14;

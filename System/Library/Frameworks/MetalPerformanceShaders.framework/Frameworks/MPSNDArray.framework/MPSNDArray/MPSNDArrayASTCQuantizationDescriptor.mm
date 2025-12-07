@@ -1,5 +1,6 @@
 @interface MPSNDArrayASTCQuantizationDescriptor
 - (MPSNDArrayASTCQuantizationDescriptor)init;
+- (MPSNDArrayASTCQuantizationDescriptor)initWithDataType:(unsigned int)type hasMinValue:(BOOL)value;
 - (id)copyWithZone:(_NSZone *)zone;
 @end
 
@@ -13,6 +14,19 @@
   if (result)
   {
     result->_hasMinValue = 0;
+  }
+
+  return result;
+}
+
+- (MPSNDArrayASTCQuantizationDescriptor)initWithDataType:(unsigned int)type hasMinValue:(BOOL)value
+{
+  v6.receiver = self;
+  v6.super_class = MPSNDArrayASTCQuantizationDescriptor;
+  result = [(MPSNDArrayQuantizationDescriptor *)&v6 initWithDataType:*&type quantizationScheme:4];
+  if (result)
+  {
+    result->_hasMinValue = value;
   }
 
   return result;

@@ -163,7 +163,7 @@ LABEL_8:
   {
     v10 = [(PLBackgroundJobSyndicationSyncWorker *)self _syncManagerWithPhotoLibrary:libraryCopy];
     workItemsNeedingProcessing = [v10 workItemsNeedingProcessing];
-    v12 = [workItemsNeedingProcessing count];
+    v12 = objc_msgSend_count(workItemsNeedingProcessing);
     v13 = [PLBackgroundJobWorkerPendingWorkItems alloc];
     if (v12)
     {

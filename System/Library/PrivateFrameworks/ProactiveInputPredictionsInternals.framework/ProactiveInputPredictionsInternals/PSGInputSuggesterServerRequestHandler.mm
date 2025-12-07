@@ -10,8 +10,10 @@
 - (void)_forwardFeedbackToQuickResponsesPersonalizationWithResponseItems:(id)items request:(id)request isSelected:(BOOL)selected;
 - (void)inputSuggestionsWithRequest:(id)request completion:(id)completion;
 - (void)logEngagement:(id)engagement request:(id)request position:(unint64_t)position;
+- (void)logErrorForRequest:(id)request trigger:(id)trigger errorType:(unsigned __int8)type;
 - (void)logImpression:(id)impression request:(id)request;
 - (void)logPrediction:(id)prediction request:(id)request latencyMillis:(double)millis;
+- (void)logSpeedMetricForLocaleIdentifier:(id)identifier messageDurationMilliseconds:(int)milliseconds messageLength:(int)length messageWords:(int)words;
 - (void)logTrigger:(id)trigger request:(id)request;
 - (void)warmUpWithCompletion:(id)completion;
 @end
@@ -181,9 +183,44 @@ id __69__PSGInputSuggesterServerRequestHandler__mlStringsFromResponseItems___blo
   return v11;
 }
 
+- (void)logSpeedMetricForLocaleIdentifier:(id)identifier messageDurationMilliseconds:(int)milliseconds messageLength:(int)length messageWords:(int)words
+{
+  v6 = *&words;
+  v7 = *&length;
+  v8 = *&milliseconds;
+  v22 = *MEMORY[0x277D85DE8];
+  identifierCopy = identifier;
+  v11 = psg_default_log_handle();
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+  {
+    v14 = 138413058;
+    v15 = identifierCopy;
+    v16 = 1024;
+    v17 = v8;
+    v18 = 1024;
+    v19 = v7;
+    v20 = 1024;
+    v21 = v6;
+    _os_log_debug_impl(&dword_260D36000, v11, OS_LOG_TYPE_DEBUG, "[SpeedMetric] %@, %d, %d, %d", &v14, 0x1Eu);
+  }
+
+  v12 = [(PSGExperimentResolver *)self->_experimentResolver getResponseSuggestionsExperimentConfig:identifierCopy shouldDownloadAssets:0];
+  v13 = [(PSGExperimentResolver *)self->_experimentResolver getWordBoundarySuggestionsExperimentConfig:identifierCopy shouldDownloadAssets:0];
+  [(PSGInputSuggesterMetricsLogger *)self->_metricsLogger logSpeedMetricForLocaleIdentifier:identifierCopy messageDurationMilliseconds:v8 messageLength:v7 messageWords:v6 zkwConfig:v12 wordBoundaryConfig:v13];
+}
+
+- (void)logErrorForRequest:(id)request trigger:(id)trigger errorType:(unsigned __int8)type
+{
+  typeCopy = type;
+  triggerCopy = trigger;
+  requestCopy = request;
+  v10 = [(PSGInputSuggesterServerRequestHandler *)self _getExperimentConfigForLogging:requestCopy];
+  [(PSGInputSuggesterMetricsLogger *)self->_metricsLogger logError:typeCopy request:requestCopy trigger:triggerCopy config:v10];
+}
+
 - (void)logEngagement:(id)engagement request:(id)request position:(unint64_t)position
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   engagementCopy = engagement;
   requestCopy = request;
   v10 = [(PSGInputSuggesterServerRequestHandler *)self _getExperimentConfigForLogging:requestCopy];
@@ -197,9 +234,9 @@ id __69__PSGInputSuggesterServerRequestHandler__mlStringsFromResponseItems___blo
     }
 
     v11 = [engagementCopy objectAtIndexedSubscript:position - 1];
-    v14 = v11;
-    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:&v14 count:1];
-    [(PSGInputSuggesterServerRequestHandler *)self _forwardFeedbackToQuickResponsesPersonalizationWithResponseItems:v13 request:requestCopy isSelected:1];
+    v13 = v11;
+    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:&v13 count:1];
+    [(PSGInputSuggesterServerRequestHandler *)self _forwardFeedbackToQuickResponsesPersonalizationWithResponseItems:v12 request:requestCopy isSelected:1];
   }
 
   else
@@ -208,15 +245,14 @@ id __69__PSGInputSuggesterServerRequestHandler__mlStringsFromResponseItems___blo
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       *buf = 134218240;
-      v16 = [engagementCopy count];
-      v17 = 2048;
+      v15 = [engagementCopy count];
+      v16 = 2048;
       positionCopy = position;
       _os_log_error_impl(&dword_260D36000, v11, OS_LOG_TYPE_ERROR, "[ZKW-ML] Position argument expected to be between 1 and response count %lu. Position %lu is out of bounds.", buf, 0x16u);
     }
   }
 
 LABEL_6:
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)logImpression:(id)impression request:(id)request
@@ -250,7 +286,7 @@ LABEL_6:
 
 - (void)_forwardFeedbackToPortraitWithResponseItems:(id)items feedbackType:(unsigned int)type
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v5 = [items _pas_mappedArrayWithTransform:&__block_literal_global_10];
   if ([v5 count])
   {
@@ -295,17 +331,15 @@ LABEL_9:
     v6 = psg_default_log_handle();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
     {
-      v12[0] = 67109120;
-      v12[1] = type;
-      _os_log_fault_impl(&dword_260D36000, v6, OS_LOG_TYPE_FAULT, "Unhandled feedback type in forwardFeedbackToPortraitWithResponseItems: %d", v12, 8u);
+      v11[0] = 67109120;
+      v11[1] = type;
+      _os_log_fault_impl(&dword_260D36000, v6, OS_LOG_TYPE_FAULT, "Unhandled feedback type in forwardFeedbackToPortraitWithResponseItems: %d", v11, 8u);
     }
 
     goto LABEL_13;
   }
 
 LABEL_14:
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 id __98__PSGInputSuggesterServerRequestHandler__forwardFeedbackToPortraitWithResponseItems_feedbackType___block_invoke(uint64_t a1, void *a2)
@@ -396,7 +430,7 @@ id __98__PSGInputSuggesterServerRequestHandler__forwardFeedbackToPortraitWithRes
 
 - (id)_zkwResponseForRequest:(id)request config:(id)config
 {
-  v55 = *MEMORY[0x277D85DE8];
+  v54 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   configCopy = config;
   responseContext = [requestCopy responseContext];
@@ -415,9 +449,9 @@ id __98__PSGInputSuggesterServerRequestHandler__forwardFeedbackToPortraitWithRes
         treatmentName = [configCopy treatmentName];
         v15 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(configCopy, "isMLModelEnabled")}];
         *buf = 138412546;
-        v52 = treatmentName;
-        v53 = 2112;
-        v54 = v15;
+        v51 = treatmentName;
+        v52 = 2112;
+        v53 = v15;
         _os_log_impl(&dword_260D36000, v13, OS_LOG_TYPE_DEFAULT, "[ZKW-ML] ML config treatment name %@ enabled %@", buf, 0x16u);
       }
 
@@ -447,9 +481,9 @@ id __98__PSGInputSuggesterServerRequestHandler__forwardFeedbackToPortraitWithRes
             experimentIdentifiers2 = [configCopy experimentIdentifiers];
             treatmentId = [experimentIdentifiers2 treatmentId];
             *buf = 138412546;
-            v52 = experimentId;
-            v53 = 2112;
-            v54 = treatmentId;
+            v51 = experimentId;
+            v52 = 2112;
+            v53 = treatmentId;
             _os_log_fault_impl(&dword_260D36000, v22, OS_LOG_TYPE_FAULT, "[ZKW-ML] Some required file is missing for zkw experiment: %@, treatment: %@", buf, 0x16u);
           }
 
@@ -470,33 +504,33 @@ id __98__PSGInputSuggesterServerRequestHandler__forwardFeedbackToPortraitWithRes
 
         else
         {
-          v41 = v12;
+          v40 = v12;
           [requestCopy conversationTurns];
-          v42 = v23 = espressoBinFilePath;
-          v45 = inferenceModelConfigPath;
+          v41 = v23 = espressoBinFilePath;
+          v44 = inferenceModelConfigPath;
           textualResponseLimit = [requestCopy textualResponseLimit];
           structuredInfoLimit = [requestCopy structuredInfoLimit];
           recipients = [requestCopy recipients];
           v27 = structuredInfoLimit + textualResponseLimit;
-          inferenceModelConfigPath = v45;
-          v43 = v23;
-          v28 = [(PSGInputSuggesterServerRequestHandler *)self _quickResponsesForResponseContext:responseContext conversationTurns:v42 localeIdentifier:localeIdentifier maxResponses:v27 recipients:recipients chunkPath:inferenceModelFilePath plistPath:v45 espressoBinFilePath:v23 vocabFilePath:vocabFilePath];
+          inferenceModelConfigPath = v44;
+          v42 = v23;
+          v28 = [(PSGInputSuggesterServerRequestHandler *)self _quickResponsesForResponseContext:responseContext conversationTurns:v41 localeIdentifier:localeIdentifier maxResponses:v27 recipients:recipients chunkPath:inferenceModelFilePath plistPath:v44 espressoBinFilePath:v23 vocabFilePath:vocabFilePath];
 
           if ([v28 count])
           {
-            v48[0] = MEMORY[0x277D85DD0];
-            v48[1] = 3221225472;
-            v48[2] = __71__PSGInputSuggesterServerRequestHandler__zkwResponseForRequest_config___block_invoke;
-            v48[3] = &unk_279ABDF10;
-            v50 = v41;
-            v49 = requestCopy;
-            v29 = [v28 _pas_mappedArrayWithTransform:v48];
+            v47[0] = MEMORY[0x277D85DD0];
+            v47[1] = 3221225472;
+            v47[2] = __71__PSGInputSuggesterServerRequestHandler__zkwResponseForRequest_config___block_invoke;
+            v47[3] = &unk_279ABDF10;
+            v49 = v40;
+            v48 = requestCopy;
+            v29 = [v28 _pas_mappedArrayWithTransform:v47];
             v30 = psg_default_log_handle();
             if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
             {
               v31 = [v29 count];
               *buf = 134217984;
-              v52 = v31;
+              v51 = v31;
               _os_log_impl(&dword_260D36000, v30, OS_LOG_TYPE_DEFAULT, "[ZKW-ML] Server generated zkw %tu result(s)", buf, 0xCu);
             }
 
@@ -515,7 +549,7 @@ id __98__PSGInputSuggesterServerRequestHandler__forwardFeedbackToPortraitWithRes
             v20 = [objc_alloc(MEMORY[0x277D41EB8]) initWithResponseItems:0 explanationSet:0];
           }
 
-          espressoBinFilePath = v43;
+          espressoBinFilePath = v42;
         }
 
         goto LABEL_35;
@@ -529,9 +563,9 @@ id __98__PSGInputSuggesterServerRequestHandler__forwardFeedbackToPortraitWithRes
         experimentIdentifiers4 = [configCopy experimentIdentifiers];
         treatmentId2 = [experimentIdentifiers4 treatmentId];
         *buf = 138412546;
-        v52 = experimentId2;
-        v53 = 2112;
-        v54 = treatmentId2;
+        v51 = experimentId2;
+        v52 = 2112;
+        v53 = treatmentId2;
         _os_log_debug_impl(&dword_260D36000, inferenceModelFilePath, OS_LOG_TYPE_DEBUG, "[ZKW-ML] ML disabled for zkw experiment: %@, treatment: %@", buf, 0x16u);
       }
     }
@@ -561,8 +595,6 @@ LABEL_35:
 
   v20 = 0;
 LABEL_36:
-
-  v33 = *MEMORY[0x277D85DE8];
 
   return v20;
 }
@@ -631,7 +663,7 @@ id __71__PSGInputSuggesterServerRequestHandler__zkwResponseForRequest_config___b
 
 - (id)_wordBoundaryResponseForRequest:(id)request config:(id)config
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   configCopy = config;
   contextBeforeInput = [requestCopy contextBeforeInput];
@@ -651,11 +683,11 @@ id __71__PSGInputSuggesterServerRequestHandler__zkwResponseForRequest_config___b
           if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
           {
             *buf = 138412290;
-            v34 = v12;
+            v33 = v12;
             _os_log_debug_impl(&dword_260D36000, v13, OS_LOG_TYPE_DEBUG, "ML model - word-boundary triggers %@", buf, 0xCu);
           }
 
-          v31 = v12;
+          v30 = v12;
           if ([v12 count])
           {
             v14 = objc_opt_new();
@@ -676,7 +708,7 @@ id __71__PSGInputSuggesterServerRequestHandler__zkwResponseForRequest_config___b
           {
             v21 = [v14 count];
             *buf = 134217984;
-            v34 = v21;
+            v33 = v21;
             _os_log_impl(&dword_260D36000, v20, OS_LOG_TYPE_DEFAULT, "Server generated word boundary %tu results", buf, 0xCu);
           }
 
@@ -693,9 +725,9 @@ id __71__PSGInputSuggesterServerRequestHandler__zkwResponseForRequest_config___b
             experimentIdentifiers2 = [configCopy experimentIdentifiers];
             treatmentId = [experimentIdentifiers2 treatmentId];
             *buf = 138412546;
-            v34 = experimentId;
-            v35 = 2112;
-            v36 = treatmentId;
+            v33 = experimentId;
+            v34 = 2112;
+            v35 = treatmentId;
             _os_log_fault_impl(&dword_260D36000, v14, OS_LOG_TYPE_FAULT, "Some required file is missing for word boundary experiment: %@, treatment: %@", buf, 0x16u);
           }
 
@@ -713,9 +745,9 @@ id __71__PSGInputSuggesterServerRequestHandler__zkwResponseForRequest_config___b
         experimentIdentifiers4 = [configCopy experimentIdentifiers];
         treatmentId2 = [experimentIdentifiers4 treatmentId];
         *buf = 138412546;
-        v34 = experimentId2;
-        v35 = 2112;
-        v36 = treatmentId2;
+        v33 = experimentId2;
+        v34 = 2112;
+        v35 = treatmentId2;
         _os_log_debug_impl(&dword_260D36000, inferenceModelConfigPath, OS_LOG_TYPE_DEBUG, "ML not enabled for word boundary experiment: %@, treatment: %@", buf, 0x16u);
       }
     }
@@ -745,8 +777,6 @@ LABEL_26:
 
   v19 = 0;
 LABEL_27:
-
-  v22 = *MEMORY[0x277D85DE8];
 
   return v19;
 }

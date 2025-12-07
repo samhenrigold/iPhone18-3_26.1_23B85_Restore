@@ -12,7 +12,7 @@ void sub_11D8(uint64_t a1, void *a2)
   dispatch_async(&_dispatch_main_q, v6);
 }
 
-uint64_t TPSPhonebookLog()
+uint64_t TPSPhonebookLog(uint64_t a1, uint64_t a2)
 {
   if (qword_D6D8 != -1)
   {
@@ -25,58 +25,58 @@ uint64_t TPSPhonebookLog()
 void sub_1BB8(uint64_t a1, int a2, void *a3)
 {
   v5 = a3;
-  v6 = v5;
+  v7 = v5;
   if (!a2)
   {
-    v12 = [v5 domain];
+    v13 = [v5 domain];
 
-    if (v12)
+    if (v13)
     {
-      v14 = TPSPhonebookLog();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+      v17 = TPSPhonebookLog(v15, v16);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
       {
-        v15 = *(a1 + 32);
+        v18 = *(a1 + 32);
         *buf = 138412546;
-        v18 = v15;
-        v19 = 2112;
-        v20 = v6;
-        _os_log_impl(&dword_0, v14, OS_LOG_TYPE_DEFAULT, "Failed to update subscription telephone number to %@ due to error %@.", buf, 0x16u);
+        v21 = v18;
+        v22 = 2112;
+        v23 = v7;
+        _os_log_impl(&dword_0, v17, OS_LOG_TYPE_DEFAULT, "Failed to update subscription telephone number to %@ due to error %@.", buf, 0x16u);
       }
 
       if (CPIsInternalDevice())
       {
-        v12 = [NSString stringWithFormat:@"Apple Internal Error: %@", v6];
+        v13 = [NSString stringWithFormat:@"Apple Internal Error: %@", v7];
       }
 
       else
       {
-        v12 = 0;
+        v13 = 0;
       }
     }
 
-    v16 = [*(a1 + 40) errorAlertControllerWithMessage:v12];
-    [*(a1 + 40) presentViewController:v16 animated:1 completion:0];
+    v19 = [*(a1 + 40) errorAlertControllerWithMessage:v13];
+    [*(a1 + 40) presentViewController:v19 animated:1 completion:0];
 
     goto LABEL_13;
   }
 
-  v7 = TPSPhonebookLog();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v8 = TPSPhonebookLog(v5, v6);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = *(a1 + 32);
+    v9 = *(a1 + 32);
     *buf = 138412290;
-    v18 = v8;
-    _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEFAULT, "Successfully updated subscription telephone number to %@.", buf, 0xCu);
+    v21 = v9;
+    _os_log_impl(&dword_0, v8, OS_LOG_TYPE_DEFAULT, "Successfully updated subscription telephone number to %@.", buf, 0xCu);
   }
 
-  v9 = *(a1 + 40);
-  v10 = [v9 navigationController];
-  v11 = [v10 topViewController];
+  v10 = *(a1 + 40);
+  v11 = [v10 navigationController];
+  v12 = [v11 topViewController];
 
-  if (v9 == v11)
+  if (v10 == v12)
   {
-    v12 = [*(a1 + 40) navigationController];
-    v13 = [v12 popViewControllerAnimated:1];
+    v13 = [*(a1 + 40) navigationController];
+    v14 = [v13 popViewControllerAnimated:1];
 LABEL_13:
   }
 }

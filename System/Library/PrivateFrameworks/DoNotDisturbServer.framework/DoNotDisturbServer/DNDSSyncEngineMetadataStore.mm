@@ -123,29 +123,29 @@
 
 - (void)removeRecordsWithZoneID:(id)d
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   dCopy = d;
   array = [MEMORY[0x277CBEB18] array];
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
   v6 = self->_systemFieldsByRecordID;
-  v7 = [(NSMutableDictionary *)v6 countByEnumeratingWithState:&v24 objects:v29 count:16];
+  v7 = [(NSMutableDictionary *)v6 countByEnumeratingWithState:&v23 objects:v28 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v25;
+    v9 = *v24;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v25 != v9)
+        if (*v24 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v24 + 1) + 8 * i);
+        v11 = *(*(&v23 + 1) + 8 * i);
         zoneID = [v11 zoneID];
         v13 = [zoneID isEqual:dCopy];
 
@@ -155,7 +155,7 @@
         }
       }
 
-      v8 = [(NSMutableDictionary *)v6 countByEnumeratingWithState:&v24 objects:v29 count:16];
+      v8 = [(NSMutableDictionary *)v6 countByEnumeratingWithState:&v23 objects:v28 count:16];
     }
 
     while (v8);
@@ -163,29 +163,29 @@
 
   if ([array count])
   {
-    v22 = 0u;
-    v23 = 0u;
-    v20 = 0u;
     v21 = 0u;
+    v22 = 0u;
+    v19 = 0u;
+    v20 = 0u;
     v14 = array;
-    v15 = [v14 countByEnumeratingWithState:&v20 objects:v28 count:16];
+    v15 = [v14 countByEnumeratingWithState:&v19 objects:v27 count:16];
     if (v15)
     {
       v16 = v15;
-      v17 = *v21;
+      v17 = *v20;
       do
       {
         for (j = 0; j != v16; ++j)
         {
-          if (*v21 != v17)
+          if (*v20 != v17)
           {
             objc_enumerationMutation(v14);
           }
 
-          [(DNDSSyncEngineMetadataStore *)self _removeSystemFieldsForRecordID:*(*(&v20 + 1) + 8 * j), v20];
+          [(DNDSSyncEngineMetadataStore *)self _removeSystemFieldsForRecordID:*(*(&v19 + 1) + 8 * j), v19];
         }
 
-        v16 = [v14 countByEnumeratingWithState:&v20 objects:v28 count:16];
+        v16 = [v14 countByEnumeratingWithState:&v19 objects:v27 count:16];
       }
 
       while (v16);
@@ -193,44 +193,41 @@
 
     [(DNDSSyncEngineMetadataStore *)self _write];
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)purge
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
   selfCopy = self;
-  _os_log_error_impl(&dword_24912E000, a2, OS_LOG_TYPE_ERROR, "Failed to delete metadata store: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_24912E000, a2, OS_LOG_TYPE_ERROR, "Failed to delete metadata store: %@", &v2, 0xCu);
 }
 
 - (id)recordIDsWithZoneID:(id)d
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   dCopy = d;
   array = [MEMORY[0x277CBEB18] array];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v6 = self->_systemFieldsByRecordID;
-  v7 = [(NSMutableDictionary *)v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v7 = [(NSMutableDictionary *)v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v17;
+    v9 = *v16;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v17 != v9)
+        if (*v16 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v16 + 1) + 8 * i);
+        v11 = *(*(&v15 + 1) + 8 * i);
         zoneID = [v11 zoneID];
         v13 = [zoneID isEqual:dCopy];
 
@@ -240,13 +237,11 @@
         }
       }
 
-      v8 = [(NSMutableDictionary *)v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v8 = [(NSMutableDictionary *)v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v8);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return array;
 }
@@ -298,23 +293,21 @@
 
 - (void)_read
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = *self;
-  v5 = 138412546;
-  v6 = v3;
-  v7 = 2112;
-  v8 = a2;
-  _os_log_error_impl(&dword_24912E000, log, OS_LOG_TYPE_ERROR, "Failed to load metadata store at url %@: %@", &v5, 0x16u);
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138412546;
+  v5 = v3;
+  v6 = 2112;
+  v7 = a2;
+  _os_log_error_impl(&dword_24912E000, log, OS_LOG_TYPE_ERROR, "Failed to load metadata store at url %@: %@", &v4, 0x16u);
 }
 
 - (void)_write
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138543362;
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
   selfCopy = self;
-  _os_log_error_impl(&dword_24912E000, a2, OS_LOG_TYPE_ERROR, "Failed to write metadata store: %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_24912E000, a2, OS_LOG_TYPE_ERROR, "Failed to write metadata store: %{public}@", &v2, 0xCu);
 }
 
 - (void)_updateSystemFieldsForRecord:(id)record
@@ -363,16 +356,14 @@
 
 - (void)recordWithID:(uint64_t)a3 .cold.1(void *a1, void *a2, uint64_t a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v5 = a1;
   v6 = [a2 recordName];
-  v8 = 138543618;
-  v9 = v6;
-  v10 = 2114;
-  v11 = a3;
-  _os_log_error_impl(&dword_24912E000, v5, OS_LOG_TYPE_ERROR, "Failed to decode system fields for record %{public}@: %{public}@", &v8, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
+  v7 = 138543618;
+  v8 = v6;
+  v9 = 2114;
+  v10 = a3;
+  _os_log_error_impl(&dword_24912E000, v5, OS_LOG_TYPE_ERROR, "Failed to decode system fields for record %{public}@: %{public}@", &v7, 0x16u);
 }
 
 @end

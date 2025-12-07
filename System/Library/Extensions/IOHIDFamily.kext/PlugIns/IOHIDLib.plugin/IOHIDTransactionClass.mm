@@ -294,21 +294,21 @@ LABEL_10:
 
 - (int)commit:(void *)commit timeout:(unsigned int)timeout callback:(void *)callback options:(unsigned int)options
 {
-  v189 = *MEMORY[0x29EDCA608];
+  v187 = *MEMORY[0x29EDCA608];
   sub_29D3F13D4();
-  v175 = 0;
+  v173 = 0;
   entryID = 0xAAAAAAAAAAAAAAAALL;
   input = 0;
-  v187 = 0;
+  v185 = 0;
   optionsCopy = 0;
   v15 = objc_msgSend_count(*(v12 + 32), v13, v14);
   cf = 0xAAAAAAAAAAAAAAAALL;
   *&v16 = 0xAAAAAAAAAAAAAAAALL;
   *(&v16 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v184 = v16;
-  v185 = v16;
-  *reference = v16;
+  v182 = v16;
   v183 = v16;
+  *reference = v16;
+  v181 = v16;
   LODWORD(v17) = v6 - 1;
   v18 = v15;
   if (!v15)
@@ -348,9 +348,9 @@ LABEL_69:
   v25[4] = 0;
 
   reference[1] = sub_29D3F05CC;
-  *&v183 = v25;
+  *&v181 = v25;
 LABEL_6:
-  v167 = v25;
+  v165 = v25;
   if (self->_direction == 1)
   {
     inputStructCnt = 0;
@@ -369,15 +369,15 @@ LABEL_6:
 
       if (v17)
       {
-        v127 = _IOHIDLogCategory();
-        if (os_log_type_enabled(v127, OS_LOG_TYPE_ERROR))
+        v125 = _IOHIDLogCategory();
+        if (os_log_type_enabled(v125, OS_LOG_TYPE_ERROR))
         {
-          v178 = 134218240;
-          v179 = entryID;
-          v180 = 1024;
-          v181 = v17;
+          v176 = 134218240;
+          v177 = entryID;
+          v178 = 1024;
+          v179 = v17;
           sub_29D3EFB54();
-          _os_log_error_impl(v131, v132, v133, v134, v135, v136);
+          _os_log_error_impl(v129, v130, v131, v132, v133, v134);
         }
 
         goto LABEL_56;
@@ -385,7 +385,7 @@ LABEL_6:
 
       v41 = objc_msgSend_valueRef(v30, v39, v40);
       inputStructCnt += IOHIDValueGetLength(v41) + 8;
-      v175 = inputStructCnt;
+      v173 = inputStructCnt;
       ++v29;
     }
 
@@ -420,7 +420,7 @@ LABEL_6:
       v55 = objc_loadWeakRetained(&self->_device);
       objc_msgSend_getPort(v55, v56, v57);
       sub_29D3F13EC();
-      LODWORD(v17) = IOConnectCallAsyncMethod(v54, 0xBu, v58, reference, 3u, &input, 1u, v44, inputStructCnt, v162, v163, v164, v165);
+      LODWORD(v17) = IOConnectCallAsyncMethod(v54, 0xBu, v58, reference, 3u, &input, 1u, v44, inputStructCnt, v160, v161, v162, v163);
     }
 
     else
@@ -428,7 +428,7 @@ LABEL_6:
       LODWORD(v17) = IOConnectCallMethod(v53, 0xBu, &input, 1u, v44, inputStructCnt, 0, 0, 0, 0);
     }
 
-    v25 = v167;
+    v25 = v165;
 
     if (v17)
     {
@@ -437,7 +437,7 @@ LABEL_6:
       {
         sub_29D3F13B8(entryID, 3.8521e-34);
         sub_29D3EFB54();
-        _os_log_error_impl(v150, v151, v152, v153, v154, v155);
+        _os_log_error_impl(v148, v149, v150, v151, v152, v153);
       }
     }
 
@@ -456,7 +456,7 @@ LABEL_6:
     objc_msgSend_elementRef(v30, v62, v63);
     v59 += _IOHIDElementGetLength() + 24;
     cf = objc_msgSend_valueRef(v30, v64, v65);
-    v175 = v59;
+    v173 = v59;
     v66 = objc_loadWeakRetained(&self->_device);
     objc_msgSend_elementRef(v30, v67, v68);
     sub_29D3F1400();
@@ -464,15 +464,15 @@ LABEL_6:
 
     if (v17)
     {
-      v128 = _IOHIDLogCategory();
-      if (os_log_type_enabled(v128, OS_LOG_TYPE_ERROR))
+      v126 = _IOHIDLogCategory();
+      if (os_log_type_enabled(v126, OS_LOG_TYPE_ERROR))
       {
-        v178 = 134218240;
-        v179 = entryID;
-        v180 = 1024;
-        v181 = v17;
+        v176 = 134218240;
+        v177 = entryID;
+        v178 = 1024;
+        v179 = v17;
         sub_29D3EFB54();
-        _os_log_error_impl(v137, v138, v139, v140, v141, v142);
+        _os_log_error_impl(v135, v136, v137, v138, v139, v140);
       }
 
       goto LABEL_66;
@@ -487,13 +487,13 @@ LABEL_6:
   {
     sub_29D3F13D4();
 LABEL_66:
-    v25 = v167;
+    v25 = v165;
     goto LABEL_56;
   }
 
   v74 = v72;
   v17 = 0;
-  v25 = v167;
+  v25 = v165;
   do
   {
     v75 = v30;
@@ -505,10 +505,10 @@ LABEL_66:
   while (v18 != v17);
   if (obj)
   {
-    v187 = v59;
+    v185 = v59;
     v78 = objc_msgSend_arrayWithArray_(MEMORY[0x29EDB8D80], v73, self->_elements);
-    v79 = v167[4];
-    v167[4] = v78;
+    v79 = v165[4];
+    v165[4] = v78;
 
     sub_29D3F13D4();
     if (v78)
@@ -518,16 +518,16 @@ LABEL_66:
       v84 = objc_loadWeakRetained(&self->_device);
       objc_msgSend_getPort(v84, v85, v86);
       sub_29D3F13EC();
-      LODWORD(v17) = IOConnectCallAsyncMethod(v83, 0xAu, v87, reference, 3u, &input, 3u, v74, size, v162, v163, v164, v165);
+      LODWORD(v17) = IOConnectCallAsyncMethod(v83, 0xAu, v87, reference, 3u, &input, 3u, v74, size, v160, v161, v162, v163);
 
       if (v17)
       {
-        v143 = _IOHIDLogCategory();
-        if (os_log_type_enabled(v143, OS_LOG_TYPE_ERROR))
+        v141 = _IOHIDLogCategory();
+        if (os_log_type_enabled(v141, OS_LOG_TYPE_ERROR))
         {
           sub_29D3F13B8(entryID, 3.8521e-34);
           sub_29D3EFB54();
-          _os_log_error_impl(v156, v157, v158, v159, v160, v161);
+          _os_log_error_impl(v154, v155, v156, v157, v158, v159);
         }
       }
     }
@@ -547,7 +547,7 @@ LABEL_24:
   v44 = v90;
   v91 = objc_loadWeakRetained(&self->_device);
   v94 = objc_msgSend_connect(v91, v92, v93);
-  LODWORD(v17) = IOConnectCallMethod(v94, 0xAu, &input, 3u, v74, size, 0, 0, v44, &v175);
+  LODWORD(v17) = IOConnectCallMethod(v94, 0xAu, &input, 3u, v74, size, 0, 0, v44, &v173);
 
   if (v17)
   {
@@ -556,71 +556,70 @@ LABEL_24:
     {
       sub_29D3F13B8(entryID, 3.8521e-34);
       sub_29D3EFB54();
-      _os_log_error_impl(v144, v145, v146, v147, v148, v149);
+      _os_log_error_impl(v142, v143, v144, v145, v146, v147);
     }
 
     goto LABEL_53;
   }
 
-  v172 = 0u;
-  v173 = 0u;
   v170 = 0u;
   v171 = 0u;
+  v168 = 0u;
+  v169 = 0u;
   obja = self->_elements;
-  v96 = objc_msgSend_countByEnumeratingWithState_objects_count_(obja, v95, &v170, v177, 16);
+  v96 = objc_msgSend_countByEnumeratingWithState_objects_count_(obja, v95, &v168, v175, 16);
   if (!v96)
   {
-    v114 = 0;
+    v113 = 0;
     goto LABEL_52;
   }
 
   v97 = v96;
   v98 = 0;
-  v99 = *v171;
-  v100 = *MEMORY[0x29EDB8ED8];
-  v101 = v30;
+  v99 = *v169;
+  v100 = v30;
   while (2)
   {
-    v102 = 0;
-    v103 = v101;
+    v101 = 0;
+    v102 = v100;
     while (2)
     {
-      if (*v171 != v99)
+      if (*v169 != v99)
       {
         objc_enumerationMutation(obja);
       }
 
-      v101 = *(*(&v170 + 1) + 8 * v102);
+      v100 = *(*(&v168 + 1) + 8 * v101);
 
-      v106 = &v44[v98];
-      v107 = *&v44[v98 + 4];
-      v98 += v107 >> 8;
-      if (v107 >> 10 < 5 || v98 > v175)
+      v105 = &v44[v98];
+      v106 = *&v44[v98 + 4];
+      v98 += v106 >> 8;
+      if (v106 >> 10 < 5 || v98 > v173)
       {
         v30 = _IOHIDLogCategory();
         if (!os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
         {
 LABEL_51:
-          v114 = v101;
+          v113 = v100;
           goto LABEL_52;
         }
 
-        v115 = *(v106 + 1) >> 8;
-        v178 = 67109120;
-        LODWORD(v179) = v115;
-        v116 = &dword_29D3EE000;
-        v117 = "Unable to copy back value for element, unexpected size(%d)\n";
-        v118 = &v178;
-        v119 = v30;
-        v120 = OS_LOG_TYPE_ERROR;
-        v121 = 8;
+        v114 = *(v105 + 1) >> 8;
+        v176 = 67109120;
+        LODWORD(v177) = v114;
+        v115 = &dword_29D3EE000;
+        v116 = "Unable to copy back value for element, unexpected size(%d)\n";
+        v117 = &v176;
+        v118 = v30;
+        v119 = OS_LOG_TYPE_ERROR;
+        v120 = 8;
 LABEL_68:
-        _os_log_error_impl(v116, v119, v120, v117, v118, v121);
+        _os_log_error_impl(v115, v118, v119, v116, v117, v120);
         goto LABEL_51;
       }
 
-      v109 = *v106;
-      if (v109 != objc_msgSend_elementCookie(v101, v104, v105))
+      v108 = *v105;
+      if (v108 != objc_msgSend_elementCookie(v100, v103, v104))
       {
         v30 = _IOHIDLogCategory();
         if (!os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
@@ -628,27 +627,27 @@ LABEL_68:
           goto LABEL_51;
         }
 
-        v129 = *v106;
-        v130 = objc_msgSend_elementCookie(v101, v122, v123);
-        v178 = 134218240;
-        v179 = v129;
-        v180 = 1024;
-        v181 = v130;
+        v127 = *v105;
+        v128 = objc_msgSend_elementCookie(v100, v121, v122);
+        v176 = 134218240;
+        v177 = v127;
+        v178 = 1024;
+        v179 = v128;
         sub_29D3EFB54();
         goto LABEL_68;
       }
 
-      objc_msgSend_elementRef(v101, v110, v111);
+      objc_msgSend_elementRef(v100, v109, v110);
       cf = _IOHIDValueCreateWithElementValuePtr();
-      objc_msgSend_setValueRef_(v101, v112, cf);
+      objc_msgSend_setValueRef_(v100, v111, cf);
       if (cf)
       {
         CFRelease(cf);
       }
 
-      ++v102;
-      v103 = v101;
-      if (v97 != v102)
+      ++v101;
+      v102 = v100;
+      if (v97 != v101)
       {
         continue;
       }
@@ -656,9 +655,9 @@ LABEL_68:
       break;
     }
 
-    v97 = objc_msgSend_countByEnumeratingWithState_objects_count_(obja, v113, &v170, v177, 16);
-    v114 = 0;
-    v30 = v101;
+    v97 = objc_msgSend_countByEnumeratingWithState_objects_count_(obja, v112, &v168, v175, 16);
+    v113 = 0;
+    v30 = v100;
     if (v97)
     {
       continue;
@@ -670,11 +669,11 @@ LABEL_68:
 LABEL_52:
 
   LODWORD(v17) = 0;
-  v30 = v114;
+  v30 = v113;
 LABEL_53:
 
   free(v74);
-  v25 = v167;
+  v25 = v165;
 LABEL_54:
   v88 = v44;
 LABEL_55:
@@ -682,7 +681,7 @@ LABEL_55:
 LABEL_56:
   if (v25 && v17)
   {
-    v124 = v25[4];
+    v123 = v25[4];
     v25[4] = 0;
 
     free(v25);
@@ -690,7 +689,6 @@ LABEL_56:
 
 LABEL_59:
 
-  v125 = *MEMORY[0x29EDCA608];
   return v17;
 }
 

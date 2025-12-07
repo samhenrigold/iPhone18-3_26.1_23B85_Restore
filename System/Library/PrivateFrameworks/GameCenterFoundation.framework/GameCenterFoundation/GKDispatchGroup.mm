@@ -26,10 +26,10 @@
 
 - (GKDispatchGroup)initWithName:(id)name
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v8.receiver = self;
-  v8.super_class = GKDispatchGroup;
-  v4 = [(GKDispatchGroup *)&v8 init];
+  v10 = *MEMORY[0x277D85DE8];
+  v7.receiver = self;
+  v7.super_class = GKDispatchGroup;
+  v4 = [(GKDispatchGroup *)&v7 init];
   if (v4)
   {
     v4->_name = name;
@@ -46,12 +46,11 @@
     if (os_log_type_enabled(os_log_GKDispatch, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v10 = v4;
+      v9 = v4;
       _os_log_impl(&dword_227904000, v5, OS_LOG_TYPE_INFO, "%@: initialized", buf, 0xCu);
     }
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
@@ -117,7 +116,7 @@
 
 uint64_t __27__GKDispatchGroup_perform___block_invoke(uint64_t a1)
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) isDebugLoggingEnabled];
   v3 = *(a1 + 32);
   if (v2)
@@ -132,47 +131,44 @@ uint64_t __27__GKDispatchGroup_perform___block_invoke(uint64_t a1)
     v6 = os_log_GKDispatch;
     if (os_log_type_enabled(os_log_GKDispatch, OS_LOG_TYPE_DEBUG))
     {
-      v23 = *(a1 + 32);
+      v22 = *(a1 + 32);
       *buf = 138412802;
-      v32 = v23;
-      v33 = 1024;
-      v34 = v4;
-      v35 = 2048;
-      v36 = Current;
+      v31 = v22;
+      v32 = 1024;
+      v33 = v4;
+      v34 = 2048;
+      v35 = Current;
       _os_log_debug_impl(&dword_227904000, v6, OS_LOG_TYPE_DEBUG, "%@, PERFORM, %d, %f, ", buf, 0x1Cu);
     }
 
     dispatch_group_enter(*(*(a1 + 32) + 16));
-    v29[0] = MEMORY[0x277D85DD0];
-    v29[1] = 3221225472;
-    v29[2] = __27__GKDispatchGroup_perform___block_invoke_11;
-    v29[3] = &unk_2785E26D0;
+    v28[0] = MEMORY[0x277D85DD0];
+    v28[1] = 3221225472;
+    v28[2] = __27__GKDispatchGroup_perform___block_invoke_11;
+    v28[3] = &unk_2785E26D0;
     v7 = *(a1 + 40);
-    v29[4] = *(a1 + 32);
-    v30 = v4;
-    *&v29[5] = Current;
-    result = (*(v7 + 16))(v7, v29, v8, v9, v10, v11, v12, v13, v24, v25, v26, v27);
+    v28[4] = *(a1 + 32);
+    v29 = v4;
+    *&v28[5] = Current;
+    return (*(v7 + 16))(v7, v28, v8, v9, v10, v11, v12, v13, v23, v24, v25, v26);
   }
 
   else
   {
     dispatch_group_enter(*(v3 + 16));
-    v24 = MEMORY[0x277D85DD0];
-    v25 = 3221225472;
-    v26 = __27__GKDispatchGroup_perform___block_invoke_13;
-    v27 = &unk_2785DE110;
+    v23 = MEMORY[0x277D85DD0];
+    v24 = 3221225472;
+    v25 = __27__GKDispatchGroup_perform___block_invoke_13;
+    v26 = &unk_2785DE110;
     v15 = *(a1 + 40);
-    v28 = *(a1 + 32);
-    result = (*(v15 + 16))(v15, &v24, v16, v17, v18, v19, v20, v21, MEMORY[0x277D85DD0], 3221225472, __27__GKDispatchGroup_perform___block_invoke_13, &unk_2785DE110);
+    v27 = *(a1 + 32);
+    return (*(v15 + 16))(v15, &v23, v16, v17, v18, v19, v20, v21, MEMORY[0x277D85DD0], 3221225472, __27__GKDispatchGroup_perform___block_invoke_13, &unk_2785DE110);
   }
-
-  v22 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
 void __27__GKDispatchGroup_perform___block_invoke_11(uint64_t a1)
 {
-  Current = CFAbsoluteTimeGetCurrent();
+  CFAbsoluteTimeGetCurrent();
   if (!os_log_GKGeneral)
   {
     GKOSLoggers();
@@ -180,7 +176,7 @@ void __27__GKDispatchGroup_perform___block_invoke_11(uint64_t a1)
 
   if (os_log_type_enabled(os_log_GKDispatch, OS_LOG_TYPE_DEBUG))
   {
-    __27__GKDispatchGroup_perform___block_invoke_11_cold_1(a1, Current);
+    __27__GKDispatchGroup_perform___block_invoke_11_cold_1();
   }
 
   dispatch_group_leave(*(*(a1 + 32) + 16));
@@ -217,7 +213,7 @@ void __27__GKDispatchGroup_perform___block_invoke_13(uint64_t a1)
 
 void __39__GKDispatchGroup_notifyOnQueue_block___block_invoke(uint64_t a1)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) isDebugLoggingEnabled];
   v3 = *(a1 + 32);
   if (v2)
@@ -233,13 +229,13 @@ void __39__GKDispatchGroup_notifyOnQueue_block___block_invoke(uint64_t a1)
     v7 = os_log_GKDispatch;
     if (os_log_type_enabled(os_log_GKDispatch, OS_LOG_TYPE_DEBUG))
     {
-      v18 = *(a1 + 32);
+      v17 = *(a1 + 32);
       *buf = 138412802;
-      v24 = v18;
-      v25 = 1024;
-      v26 = v5;
-      v27 = 2048;
-      v28 = Current;
+      v23 = v17;
+      v24 = 1024;
+      v25 = v5;
+      v26 = 2048;
+      v27 = Current;
       _os_log_debug_impl(&dword_227904000, v7, OS_LOG_TYPE_DEBUG, "%@, NOTIFY WAITING, %d, %f, ", buf, 0x1Cu);
     }
 
@@ -247,17 +243,17 @@ void __39__GKDispatchGroup_notifyOnQueue_block___block_invoke(uint64_t a1)
     v10 = *(a1 + 32);
     v9 = *(a1 + 40);
     v11 = *(v10 + 16);
-    v20[0] = MEMORY[0x277D85DD0];
-    v20[1] = 3221225472;
-    v20[2] = __39__GKDispatchGroup_notifyOnQueue_block___block_invoke_14;
-    v20[3] = &unk_2785E26F8;
-    v22 = v4;
-    v21 = v5;
-    *&v20[6] = Current;
+    v19[0] = MEMORY[0x277D85DD0];
+    v19[1] = 3221225472;
+    v19[2] = __39__GKDispatchGroup_notifyOnQueue_block___block_invoke_14;
+    v19[3] = &unk_2785E26F8;
+    v21 = v4;
+    v20 = v5;
+    *&v19[6] = Current;
     v12 = *(a1 + 48);
-    v20[4] = v10;
-    v20[5] = v12;
-    v13 = v20;
+    v19[4] = v10;
+    v19[5] = v12;
+    v13 = v19;
   }
 
   else
@@ -266,25 +262,24 @@ void __39__GKDispatchGroup_notifyOnQueue_block___block_invoke(uint64_t a1)
     v15 = *(a1 + 32);
     v9 = *(a1 + 40);
     v11 = *(v15 + 16);
-    v19[0] = MEMORY[0x277D85DD0];
-    v19[1] = 3221225472;
-    v19[2] = __39__GKDispatchGroup_notifyOnQueue_block___block_invoke_15;
-    v19[3] = &unk_2785DE160;
+    v18[0] = MEMORY[0x277D85DD0];
+    v18[1] = 3221225472;
+    v18[2] = __39__GKDispatchGroup_notifyOnQueue_block___block_invoke_15;
+    v18[3] = &unk_2785DE160;
     v16 = *(a1 + 48);
-    v19[4] = v15;
-    v19[5] = v16;
-    v13 = v19;
+    v18[4] = v15;
+    v18[5] = v16;
+    v13 = v18;
   }
 
   dispatch_group_notify(v11, v9, v13);
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __39__GKDispatchGroup_notifyOnQueue_block___block_invoke_14(uint64_t a1)
 {
   if (*(a1 + 60) == 1)
   {
-    Current = CFAbsoluteTimeGetCurrent();
+    CFAbsoluteTimeGetCurrent();
     if (!os_log_GKGeneral)
     {
       GKOSLoggers();
@@ -292,7 +287,7 @@ void __39__GKDispatchGroup_notifyOnQueue_block___block_invoke_14(uint64_t a1)
 
     if (os_log_type_enabled(os_log_GKDispatch, OS_LOG_TYPE_DEBUG))
     {
-      __39__GKDispatchGroup_notifyOnQueue_block___block_invoke_14_cold_1(a1, Current);
+      __39__GKDispatchGroup_notifyOnQueue_block___block_invoke_14_cold_1();
     }
   }
 
@@ -346,90 +341,86 @@ void __39__GKDispatchGroup_notifyOnQueue_block___block_invoke_15(uint64_t a1)
 
 void __44__GKDispatchGroup__waitWithDispatchTimeout___block_invoke(uint64_t a1)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = [*(a1 + 32) isDebugLoggingEnabled];
   v4 = *(a1 + 32);
-  if (v3)
+  if (!v3)
   {
-    v5 = GKAtomicIncrement32((v4 + 48));
-    Current = CFAbsoluteTimeGetCurrent();
+    *(*(*(a1 + 40) + 8) + 24) = dispatch_group_wait(*(v4 + 16), *(a1 + 48));
+    return;
+  }
+
+  v5 = GKAtomicIncrement32((v4 + 48));
+  Current = CFAbsoluteTimeGetCurrent();
+  if (!os_log_GKGeneral)
+  {
+    GKOSLoggers();
+  }
+
+  v7 = os_log_GKDispatch;
+  if (os_log_type_enabled(os_log_GKDispatch, OS_LOG_TYPE_DEBUG))
+  {
+    v12 = *(a1 + 32);
+    v14 = 138412802;
+    v15 = v12;
+    v16 = 1024;
+    v17 = v5;
+    v18 = 2048;
+    v19 = Current;
+    _os_log_debug_impl(&dword_227904000, v7, OS_LOG_TYPE_DEBUG, "%@, WAITING, %d, %f, ", &v14, 0x1Cu);
+  }
+
+  *(*(*(a1 + 40) + 8) + 24) = dispatch_group_wait(*(*(a1 + 32) + 16), *(a1 + 48));
+  v8 = CFAbsoluteTimeGetCurrent();
+  if (*(*(*(a1 + 40) + 8) + 24))
+  {
     if (!os_log_GKGeneral)
     {
       GKOSLoggers();
     }
 
-    v7 = os_log_GKDispatch;
+    v9 = os_log_GKDispatch;
     if (os_log_type_enabled(os_log_GKDispatch, OS_LOG_TYPE_DEBUG))
     {
-      v13 = *(a1 + 32);
-      v15 = 138412802;
-      v16 = v13;
-      v17 = 1024;
-      v18 = v5;
-      v19 = 2048;
-      v20 = Current;
-      _os_log_debug_impl(&dword_227904000, v7, OS_LOG_TYPE_DEBUG, "%@, WAITING, %d, %f, ", &v15, 0x1Cu);
-    }
-
-    *(*(*(a1 + 40) + 8) + 24) = dispatch_group_wait(*(*(a1 + 32) + 16), *(a1 + 48));
-    v8 = CFAbsoluteTimeGetCurrent();
-    if (*(*(*(a1 + 40) + 8) + 24))
-    {
-      if (!os_log_GKGeneral)
-      {
-        GKOSLoggers();
-      }
-
-      v9 = os_log_GKDispatch;
-      if (os_log_type_enabled(os_log_GKDispatch, OS_LOG_TYPE_DEBUG))
-      {
-        v10 = *(a1 + 32);
-        v15 = 138413058;
-        v16 = v10;
-        v17 = 1024;
-        v18 = v5;
-        v19 = 2048;
-        v20 = v8;
-        v21 = 2048;
-        v22 = v8 - Current;
-        v11 = "%@, TIMED OUT, %d, %f, %f";
+      v10 = *(a1 + 32);
+      v14 = 138413058;
+      v15 = v10;
+      v16 = 1024;
+      v17 = v5;
+      v18 = 2048;
+      v19 = v8;
+      v20 = 2048;
+      v21 = v8 - Current;
+      v11 = "%@, TIMED OUT, %d, %f, %f";
 LABEL_17:
-        _os_log_debug_impl(&dword_227904000, v9, OS_LOG_TYPE_DEBUG, v11, &v15, 0x26u);
-      }
-    }
-
-    else
-    {
-      if (!os_log_GKGeneral)
-      {
-        GKOSLoggers();
-      }
-
-      v9 = os_log_GKDispatch;
-      if (os_log_type_enabled(os_log_GKDispatch, OS_LOG_TYPE_DEBUG))
-      {
-        v14 = *(a1 + 32);
-        v15 = 138413058;
-        v16 = v14;
-        v17 = 1024;
-        v18 = v5;
-        v19 = 2048;
-        v20 = v8;
-        v21 = 2048;
-        v22 = v8 - Current;
-        v11 = "%@, WAITED, %d, %f, %f";
-        goto LABEL_17;
-      }
+      _os_log_debug_impl(&dword_227904000, v9, OS_LOG_TYPE_DEBUG, v11, &v14, 0x26u);
     }
   }
 
   else
   {
-    *(*(*(a1 + 40) + 8) + 24) = dispatch_group_wait(*(v4 + 16), *(a1 + 48));
-  }
+    if (!os_log_GKGeneral)
+    {
+      GKOSLoggers();
+    }
 
-  v12 = *MEMORY[0x277D85DE8];
+    v9 = os_log_GKDispatch;
+    if (os_log_type_enabled(os_log_GKDispatch, OS_LOG_TYPE_DEBUG))
+    {
+      v13 = *(a1 + 32);
+      v14 = 138413058;
+      v15 = v13;
+      v16 = 1024;
+      v17 = v5;
+      v18 = 2048;
+      v19 = v8;
+      v20 = 2048;
+      v21 = v8 - Current;
+      v11 = "%@, WAITED, %d, %f, %f";
+      goto LABEL_17;
+    }
+  }
 }
 
 - (void)join:(id)join queue:(id)queue block:(id)block
@@ -537,52 +528,18 @@ uint64_t __36__GKDispatchGroup_join_queue_block___block_invoke_3(uint64_t a1)
   }
 }
 
-- (void)perform:.cold.1()
+void __27__GKDispatchGroup_perform___block_invoke_11_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_7_0();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __27__GKDispatchGroup_perform___block_invoke_11_cold_1(uint64_t a1, double a2)
-{
-  v11 = *MEMORY[0x277D85DE8];
-  v2 = *(a1 + 32);
-  v3 = *(a1 + 48);
-  v4 = a2 - *(a1 + 40);
   OUTLINED_FUNCTION_0_11();
   OUTLINED_FUNCTION_7_0();
-  _os_log_debug_impl(v5, v6, v7, v8, v9, 0x26u);
-  v10 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x26u);
 }
 
-- (void)notifyOnQueue:block:.cold.1()
+void __39__GKDispatchGroup_notifyOnQueue_block___block_invoke_14_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_7_0();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __39__GKDispatchGroup_notifyOnQueue_block___block_invoke_14_cold_1(uint64_t a1, double a2)
-{
-  v11 = *MEMORY[0x277D85DE8];
-  v2 = *(a1 + 32);
-  v3 = *(a1 + 56);
-  v4 = a2 - *(a1 + 48);
   OUTLINED_FUNCTION_0_11();
   OUTLINED_FUNCTION_7_0();
-  _os_log_debug_impl(v5, v6, v7, v8, v9, 0x26u);
-  v10 = *MEMORY[0x277D85DE8];
-}
-
-- (void)join:queue:block:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_7_0();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x26u);
 }
 
 @end

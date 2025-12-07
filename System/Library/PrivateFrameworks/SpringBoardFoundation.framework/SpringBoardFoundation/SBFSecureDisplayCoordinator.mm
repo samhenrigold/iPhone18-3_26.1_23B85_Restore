@@ -83,63 +83,63 @@ LABEL_13:
   }
 }
 
-void __62__SBFSecureDisplayCoordinator_setSecureMode_postNotification___block_invoke(uint64_t a1)
+void __62__SBFSecureDisplayCoordinator_setSecureMode_postNotification___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   if (*(*(a1 + 32) + 8) != *(a1 + 40))
   {
-    v6 = SBLogAuthenticationController();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = SBLogAuthenticationController();
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = *(a1 + 40);
-      v9 = *(*(a1 + 32) + 8);
-      v11[0] = 67109376;
-      v11[1] = v8;
-      v12 = 1024;
-      v13 = v9;
-      _os_log_impl(&dword_1BEA11000, v6, OS_LOG_TYPE_DEFAULT, "Not changing secure mode to %{BOOL}u because the expected state is now %{BOOL}u", v11, 0xEu);
+      v9 = *(a1 + 40);
+      v10 = *(*(a1 + 32) + 8);
+      v12[0] = 67109376;
+      v12[1] = v9;
+      v13 = 1024;
+      v14 = v10;
+      _os_log_impl(&dword_1BEA11000, v7, OS_LOG_TYPE_DEFAULT, "Not changing secure mode to %{BOOL}u because the expected state is now %{BOOL}u", v12, 0xEu);
     }
 
     goto LABEL_15;
   }
 
   BKSDisplaySetSecureMode();
-  v2 = *(a1 + 40);
-  v3 = SBLogAuthenticationController();
-  v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
-  if (v2 != 1)
+  v3 = *(a1 + 40);
+  v4 = SBLogAuthenticationController();
+  v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
+  if (v3 != 1)
   {
-    if (v4)
+    if (v5)
     {
-      LOWORD(v11[0]) = 0;
-      _os_log_impl(&dword_1BEA11000, v3, OS_LOG_TYPE_DEFAULT, "Disabled secure display mode.", v11, 2u);
+      LOWORD(v12[0]) = 0;
+      _os_log_impl(&dword_1BEA11000, v4, OS_LOG_TYPE_DEFAULT, "Disabled secure display mode.", v12, 2u);
     }
 
     if (*(a1 + 41) == 1)
     {
-      v10 = [MEMORY[0x1E696AD88] defaultCenter];
-      [v10 postNotificationName:@"SBDeviceDidDisableDisplaySecureModeNotification" object:*(a1 + 32)];
+      v11 = [MEMORY[0x1E696AD88] defaultCenter];
+      [v11 postNotificationName:@"SBDeviceDidDisableDisplaySecureModeNotification" object:*(a1 + 32)];
     }
 
-    v5 = [MEMORY[0x1E696AD88] defaultCenter];
-    v6 = v5;
-    v7 = MEMORY[0x1E69DEAC0];
+    v6 = [MEMORY[0x1E696AD88] defaultCenter];
+    v7 = v6;
+    v8 = MEMORY[0x1E69DEAC0];
     goto LABEL_14;
   }
 
-  if (v4)
+  if (v5)
   {
-    LOWORD(v11[0]) = 0;
-    _os_log_impl(&dword_1BEA11000, v3, OS_LOG_TYPE_DEFAULT, "Enabled secure display mode.", v11, 2u);
+    LOWORD(v12[0]) = 0;
+    _os_log_impl(&dword_1BEA11000, v4, OS_LOG_TYPE_DEFAULT, "Enabled secure display mode.", v12, 2u);
   }
 
   if (*(a1 + 41) == 1)
   {
-    v5 = [MEMORY[0x1E696AD88] defaultCenter];
-    v6 = v5;
-    v7 = SBDeviceDidEnableDisplaySecureModeNotification;
+    v6 = [MEMORY[0x1E696AD88] defaultCenter];
+    v7 = v6;
+    v8 = SBDeviceDidEnableDisplaySecureModeNotification;
 LABEL_14:
-    [v5 postNotificationName:*v7 object:*(a1 + 32)];
+    [v6 postNotificationName:*v8 object:*(a1 + 32)];
 LABEL_15:
   }
 }

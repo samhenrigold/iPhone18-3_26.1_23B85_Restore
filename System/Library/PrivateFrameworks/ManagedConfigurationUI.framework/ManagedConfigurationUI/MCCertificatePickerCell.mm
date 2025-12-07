@@ -5,6 +5,7 @@
 - (id)_attributeLabelCopy;
 - (id)_labelColor;
 - (void)layoutSubviews;
+- (void)setChecked:(BOOL)checked;
 - (void)setExpirationDate:(id)date;
 - (void)setIssuer:(id)issuer;
 @end
@@ -204,6 +205,23 @@
   }
 
   [(MCCertificatePickerCell *)self setNeedsLayout];
+}
+
+- (void)setChecked:(BOOL)checked
+{
+  checkedCopy = checked;
+  isChecked = [(PSTableCell *)self isChecked];
+  v7.receiver = self;
+  v7.super_class = MCCertificatePickerCell;
+  [(PSTableCell *)&v7 setChecked:checkedCopy];
+  if (isChecked != checkedCopy)
+  {
+    _labelColor = [(MCCertificatePickerCell *)self _labelColor];
+    [(UILabel *)self->_issuerLabel setTextColor:_labelColor];
+    [(UILabel *)self->_issuedByLabel setTextColor:_labelColor];
+    [(UILabel *)self->_expiryDateLabel setTextColor:_labelColor];
+    [(UILabel *)self->_expiresByLabel setTextColor:_labelColor];
+  }
 }
 
 - (void)layoutSubviews

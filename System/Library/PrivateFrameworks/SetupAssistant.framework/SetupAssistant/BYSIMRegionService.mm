@@ -34,116 +34,116 @@
 
   if (v6)
   {
-    v7 = _BYLoggingFacility();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = _BYLoggingFacility(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       [(BYSIMRegionService *)v6 cellularNetworkInformation];
     }
   }
 
-  v8 = v3;
+  v9 = v3;
   v43 = 0u;
   v44 = 0u;
   v41 = 0u;
   v42 = 0u;
   obj = [v5 subscriptions];
-  v9 = [obj countByEnumeratingWithState:&v41 objects:v48 count:16];
-  if (v9)
+  v10 = [obj countByEnumeratingWithState:&v41 objects:v48 count:16];
+  if (v10)
   {
-    v10 = v9;
-    v11 = *v42;
+    v11 = v10;
+    v12 = *v42;
     do
     {
-      v12 = 0;
+      v13 = 0;
       do
       {
-        if (*v42 != v11)
+        if (*v42 != v12)
         {
           objc_enumerationMutation(obj);
         }
 
-        v13 = *(*(&v41 + 1) + 8 * v12);
-        v14 = objc_alloc_init(BYCellularNetworkInformation);
-        v15 = [objc_alloc(MEMORY[0x1E6965090]) initWithSlot:{objc_msgSend(v13, "slotID")}];
-        if (v15)
+        v14 = *(*(&v41 + 1) + 8 * v13);
+        v15 = objc_alloc_init(BYCellularNetworkInformation);
+        v16 = [objc_alloc(MEMORY[0x1E6965090]) initWithSlot:{objc_msgSend(v14, "slotID")}];
+        if (v16)
         {
 
           telephonyClient2 = [(BYSIMRegionService *)self telephonyClient];
           v40 = 0;
-          v17 = [telephonyClient2 copyMobileSubscriberCountryCode:v15 error:&v40];
-          v18 = v40;
-          -[BYCellularNetworkInformation setHomeMCC:](v14, "setHomeMCC:", [v17 integerValue]);
+          v18 = [telephonyClient2 copyMobileSubscriberCountryCode:v16 error:&v40];
+          v19 = v40;
+          -[BYCellularNetworkInformation setHomeMCC:](v15, "setHomeMCC:", [v18 integerValue]);
 
-          [(BYSIMRegionService *)self logTelephonyError:v18];
+          [(BYSIMRegionService *)self logTelephonyError:v19];
           telephonyClient3 = [(BYSIMRegionService *)self telephonyClient];
           v39 = 0;
-          v20 = [telephonyClient3 copyMobileSubscriberNetworkCode:v15 error:&v39];
-          v21 = v39;
-          -[BYCellularNetworkInformation setHomeMNC:](v14, "setHomeMNC:", [v20 integerValue]);
+          v21 = [telephonyClient3 copyMobileSubscriberNetworkCode:v16 error:&v39];
+          v22 = v39;
+          -[BYCellularNetworkInformation setHomeMNC:](v15, "setHomeMNC:", [v21 integerValue]);
 
-          [(BYSIMRegionService *)self logTelephonyError:v21];
+          [(BYSIMRegionService *)self logTelephonyError:v22];
           telephonyClient4 = [(BYSIMRegionService *)self telephonyClient];
           v38 = 0;
-          v23 = [telephonyClient4 copyMobileCountryCode:v15 error:&v38];
-          v24 = v38;
-          -[BYCellularNetworkInformation setNetworkMCC:](v14, "setNetworkMCC:", [v23 integerValue]);
+          v24 = [telephonyClient4 copyMobileCountryCode:v16 error:&v38];
+          v25 = v38;
+          -[BYCellularNetworkInformation setNetworkMCC:](v15, "setNetworkMCC:", [v24 integerValue]);
 
-          [(BYSIMRegionService *)self logTelephonyError:v24];
+          [(BYSIMRegionService *)self logTelephonyError:v25];
           telephonyClient5 = [(BYSIMRegionService *)self telephonyClient];
           v37 = 0;
-          v26 = [telephonyClient5 copyMobileNetworkCode:v15 error:&v37];
+          v27 = [telephonyClient5 copyMobileNetworkCode:v16 error:&v37];
           v6 = v37;
-          -[BYCellularNetworkInformation setNetworkMNC:](v14, "setNetworkMNC:", [v26 integerValue]);
+          -[BYCellularNetworkInformation setNetworkMNC:](v15, "setNetworkMNC:", [v27 integerValue]);
 
           [(BYSIMRegionService *)self logTelephonyError:v6];
-          v27 = [(BYSIMRegionService *)self isoCodeForMCC:[(BYCellularNetworkInformation *)v14 homeMCC]];
-          [(BYCellularNetworkInformation *)v14 setHomeCountryISOCode:v27];
+          v28 = [(BYSIMRegionService *)self isoCodeForMCC:[(BYCellularNetworkInformation *)v15 homeMCC]];
+          [(BYCellularNetworkInformation *)v15 setHomeCountryISOCode:v28];
 
-          v28 = [(BYSIMRegionService *)self subregionISOCodesForMCC:[(BYCellularNetworkInformation *)v14 homeMCC] MNC:[(BYCellularNetworkInformation *)v14 homeMNC]];
-          [(BYCellularNetworkInformation *)v14 setHomeSubregionISOCodes:v28];
+          v29 = [(BYSIMRegionService *)self subregionISOCodesForMCC:[(BYCellularNetworkInformation *)v15 homeMCC] MNC:[(BYCellularNetworkInformation *)v15 homeMNC]];
+          [(BYCellularNetworkInformation *)v15 setHomeSubregionISOCodes:v29];
 
-          v29 = [(BYSIMRegionService *)self isoCodeForMCC:[(BYCellularNetworkInformation *)v14 networkMCC]];
-          [(BYCellularNetworkInformation *)v14 setNetworkCountryISOCode:v29];
+          v30 = [(BYSIMRegionService *)self isoCodeForMCC:[(BYCellularNetworkInformation *)v15 networkMCC]];
+          [(BYCellularNetworkInformation *)v15 setNetworkCountryISOCode:v30];
 
-          v30 = [(BYSIMRegionService *)self subregionISOCodesForMCC:[(BYCellularNetworkInformation *)v14 networkMCC] MNC:[(BYCellularNetworkInformation *)v14 networkMNC]];
-          [(BYCellularNetworkInformation *)v14 setNetworkSubregionISOCodes:v30];
+          v31 = [(BYSIMRegionService *)self subregionISOCodesForMCC:[(BYCellularNetworkInformation *)v15 networkMCC] MNC:[(BYCellularNetworkInformation *)v15 networkMNC]];
+          [(BYCellularNetworkInformation *)v15 setNetworkSubregionISOCodes:v31];
 
-          [v8 addObject:v14];
+          [v9 addObject:v15];
         }
 
         else
         {
-          v31 = _BYLoggingFacility();
-          if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+          v32 = _BYLoggingFacility(0);
+          if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
           {
-            [(BYSIMRegionService *)v46 cellularNetworkInformation:v13];
+            [(BYSIMRegionService *)v46 cellularNetworkInformation:v14];
           }
         }
 
-        ++v12;
+        ++v13;
       }
 
-      while (v10 != v12);
-      v10 = [obj countByEnumeratingWithState:&v41 objects:v48 count:16];
+      while (v11 != v13);
+      v11 = [obj countByEnumeratingWithState:&v41 objects:v48 count:16];
     }
 
-    while (v10);
+    while (v11);
   }
 
-  v32 = v8;
-  v33 = *MEMORY[0x1E69E9840];
-  return v8;
+  v33 = v9;
+  return v9;
 }
 
 - (void)logTelephonyError:(id)error
 {
   errorCopy = error;
+  v4 = errorCopy;
   if (errorCopy)
   {
-    v4 = _BYLoggingFacility();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = _BYLoggingFacility(errorCopy);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      [(BYSIMRegionService *)errorCopy logTelephonyError:v4];
+      [(BYSIMRegionService *)v4 logTelephonyError:v5];
     }
   }
 }
@@ -154,17 +154,17 @@
   stringValue = [v4 stringValue];
 
   telephonyClient = [(BYSIMRegionService *)self telephonyClient];
-  v12 = 0;
-  v7 = [telephonyClient copyMobileSubscriberIsoCountryCode:stringValue error:&v12];
-  v8 = v12;
+  v13 = 0;
+  v7 = [telephonyClient copyMobileSubscriberIsoCountryCode:stringValue error:&v13];
+  v8 = v13;
   uppercaseString = [v7 uppercaseString];
 
   if (v8)
   {
-    v10 = _BYLoggingFacility();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = _BYLoggingFacility(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      [(BYSIMRegionService *)stringValue isoCodeForMCC:v8, v10];
+      [(BYSIMRegionService *)stringValue isoCodeForMCC:v8, v11];
     }
   }
 
@@ -187,8 +187,8 @@
 
   if (v12)
   {
-    v13 = _BYLoggingFacility();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v14 = _BYLoggingFacility(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412802;
       v18 = stringValue;
@@ -196,11 +196,9 @@
       v20 = stringValue2;
       v21 = 2112;
       v22 = v12;
-      _os_log_error_impl(&dword_1B862F000, v13, OS_LOG_TYPE_ERROR, "Error getting subregion ISO code from MCC: %@, MNC: %@, error: %@", buf, 0x20u);
+      _os_log_error_impl(&dword_1B862F000, v14, OS_LOG_TYPE_ERROR, "Error getting subregion ISO code from MCC: %@, MNC: %@, error: %@", buf, 0x20u);
     }
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return v11;
 }
@@ -215,22 +213,20 @@
 
 - (void)logTelephonyError:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_1B862F000, a2, OS_LOG_TYPE_ERROR, "Error reading telephony network information { error: %@ }", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_1B862F000, a2, OS_LOG_TYPE_ERROR, "Error reading telephony network information { error: %@ }", &v2, 0xCu);
 }
 
 - (void)isoCodeForMCC:(os_log_t)log .cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v4 = 138412546;
-  v5 = a1;
-  v6 = 2112;
-  v7 = a2;
-  _os_log_error_impl(&dword_1B862F000, log, OS_LOG_TYPE_ERROR, "Error getting ISO code from MCC: %@, error: %@", &v4, 0x16u);
-  v3 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
+  v3 = 138412546;
+  v4 = a1;
+  v5 = 2112;
+  v6 = a2;
+  _os_log_error_impl(&dword_1B862F000, log, OS_LOG_TYPE_ERROR, "Error getting ISO code from MCC: %@, error: %@", &v3, 0x16u);
 }
 
 @end

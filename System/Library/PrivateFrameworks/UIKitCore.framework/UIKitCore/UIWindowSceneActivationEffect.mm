@@ -23,7 +23,7 @@ void __49___UIWindowSceneActivationEffect_advanceToScale___block_invoke_2(uint64
   [v6 setBackgroundAlpha:1.0];
 }
 
-uint64_t __59___UIWindowSceneActivationEffect_endExpanded_withVelocity___block_invoke(uint64_t a1)
+void *__59___UIWindowSceneActivationEffect_endExpanded_withVelocity___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) state];
   if (!result)

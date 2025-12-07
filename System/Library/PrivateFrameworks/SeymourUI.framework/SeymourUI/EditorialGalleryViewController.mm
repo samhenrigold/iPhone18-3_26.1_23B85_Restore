@@ -28,7 +28,7 @@
 {
   appearingCopy = appearing;
   v7.receiver = self;
-  v7.super_class = type metadata accessor for EditorialGalleryViewController();
+  v7.super_class = type metadata accessor for EditorialGalleryViewController(0);
   v4 = v7.receiver;
   [(EditorialGalleryViewController *)&v7 viewIsAppearing:appearingCopy];
   [*(*(*&v4[OBJC_IVAR____TtC9SeymourUI30EditorialGalleryViewController_dataProvider] + OBJC_IVAR____TtC9SeymourUI28EditorialGalleryDataProvider_page) + OBJC_IVAR____TtC9SeymourUI11CatalogPage_collectionView) contentOffset];
@@ -42,18 +42,18 @@
   v6 = *(v5 - 8);
   MEMORY[0x28223BE20](v5);
   v8 = v11 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = type metadata accessor for EditorialGalleryViewController();
+  v9 = type metadata accessor for EditorialGalleryViewController(0);
   v12.receiver = self;
   v12.super_class = v9;
   selfCopy = self;
   [(EditorialGalleryViewController *)&v12 viewDidAppear:appearCopy];
   v11[1] = selfCopy;
   (*(v6 + 16))(v8, *(&selfCopy->super.super.super.isa + OBJC_IVAR____TtC9SeymourUI30EditorialGalleryViewController_dataProvider) + OBJC_IVAR____TtC9SeymourUI28EditorialGalleryDataProvider_metricPage, v5);
-  sub_20BE492C4(&qword_27C76F690);
+  sub_20BE492C4(&qword_27C76F690, &unk_20C17F9A0);
   sub_20C138C54();
   (*(v6 + 8))(v8, v5);
-  sub_20BE492C4(&qword_27C76F680);
-  sub_20BE492C4(&qword_27C76F688);
+  sub_20BE492C4(&qword_27C76F680, &unk_20C17F9E0);
+  sub_20BE492C4(&qword_27C76F688, &unk_20C17F958);
   sub_20C139364();
 }
 
@@ -67,18 +67,18 @@
 {
   disappearCopy = disappear;
   v5.receiver = self;
-  v5.super_class = type metadata accessor for EditorialGalleryViewController();
+  v5.super_class = type metadata accessor for EditorialGalleryViewController(0);
   v4 = v5.receiver;
   [(EditorialGalleryViewController *)&v5 viewDidDisappear:disappearCopy];
-  sub_20BE492C4(&qword_27C76F680);
-  sub_20BE492C4(&qword_27C76F688);
+  sub_20BE492C4(&qword_27C76F680, &unk_20C17F9E0);
+  sub_20BE492C4(&qword_27C76F688, &unk_20C17F958);
   sub_20C139374();
 }
 
 - (void)viewDidLayoutSubviews
 {
   v10.receiver = self;
-  v10.super_class = type metadata accessor for EditorialGalleryViewController();
+  v10.super_class = type metadata accessor for EditorialGalleryViewController(0);
   v2 = v10.receiver;
   [(EditorialGalleryViewController *)&v10 viewDidLayoutSubviews];
   v3 = *(*&v2[OBJC_IVAR____TtC9SeymourUI30EditorialGalleryViewController_dataProvider] + OBJC_IVAR____TtC9SeymourUI28EditorialGalleryDataProvider_page);

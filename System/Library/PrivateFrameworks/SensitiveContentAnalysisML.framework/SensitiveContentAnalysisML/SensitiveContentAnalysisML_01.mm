@@ -1,6 +1,6 @@
-void sub_1B8A53D64(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1B8A53D64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,ik::E5BufferTensor>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,ik::E5BufferTensor>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -157,13 +157,13 @@ void std::__hash_table<std::__hash_value_type<std::string,ik::Tensor>,std::__uno
   }
 }
 
-uint64_t scml::scml_impl::strCat<char const(&)[27],std::string_view &>(void *a1, char *__s, uint64_t *a3)
+void scml::scml_impl::strCat<char const(&)[27],std::string_view &>(void *a1, char *__s, uint64_t *a3)
 {
   v6 = strlen(__s);
   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(a1, __s, v6);
   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(a1, *a3, a3[1]);
 
-  return scml::scml_impl::strCat<>(a1);
+  scml::scml_impl::strCat<>();
 }
 
 uint64_t scml::Config::as<std::unordered_map<std::string,scml::Config>>(uint64_t result)
@@ -179,7 +179,7 @@ uint64_t scml::Config::as<std::unordered_map<std::string,scml::Config>>(uint64_t
   return result;
 }
 
-uint64_t scml::strCat<std::string_view const&,char const(&)[11]>@<X0>(uint64_t *a1@<X0>, char *a2@<X1>, _BYTE *a3@<X8>)
+uint64_t scml::strCat<std::string_view const&,char const(&)[11]>@<X0>(uint64_t *a1@<X0>, char *a2@<X1>, void *a3@<X8>)
 {
   std::ostringstream::basic_ostringstream[abi:ne200100](&v7);
   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v7, *a1, a1[1]);
@@ -199,9 +199,9 @@ uint64_t scml::strCat<std::string_view const&,char const(&)[11]>@<X0>(uint64_t *
   return MEMORY[0x1B8CC71A0](&v11);
 }
 
-void sub_1B8A54378(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1B8A54378(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::ostringstream::~ostringstream(va);
   _Unwind_Resume(a1);
 }
@@ -219,12 +219,12 @@ uint64_t scml::Config::as<std::string>(uint64_t result)
   return result;
 }
 
-uint64_t scml::scml_impl::strCat<char const(&)[11]>(void *a1, char *__s)
+void scml::scml_impl::strCat<char const(&)[11]>(void *a1, char *__s)
 {
   v4 = strlen(__s);
   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(a1, __s, v4);
 
-  return scml::scml_impl::strCat<>(a1);
+  scml::scml_impl::strCat<>();
 }
 
 uint64_t scml::Config::as<std::vector<scml::Config>>(uint64_t result)
@@ -258,22 +258,22 @@ float scml::Config::as<float>(_DWORD *a1)
   return *a1;
 }
 
-uint64_t scml::scml_impl::strCat<char const(&)[16],unsigned long,char const(&)[12],unsigned long &>(void *a1, char *__s, void *a3, char *a4, void *a5)
+void scml::scml_impl::strCat<char const(&)[16],unsigned long,char const(&)[12],unsigned long &>(void *a1, char *__s, void *a3, char *a4, void *a5)
 {
   v10 = strlen(__s);
   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(a1, __s, v10);
   MEMORY[0x1B8CC70E0](a1, *a3);
 
-  return scml::scml_impl::strCat<char const(&)[12],unsigned long &>(a1, a4, a5);
+  scml::scml_impl::strCat<char const(&)[12],unsigned long &>(a1, a4, a5);
 }
 
-uint64_t scml::scml_impl::strCat<char const(&)[12],unsigned long &>(void *a1, char *__s, void *a3)
+void scml::scml_impl::strCat<char const(&)[12],unsigned long &>(void *a1, char *__s, void *a3)
 {
   v6 = strlen(__s);
   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(a1, __s, v6);
   MEMORY[0x1B8CC70E0](a1, *a3);
 
-  return scml::scml_impl::strCat<>(a1);
+  scml::scml_impl::strCat<>();
 }
 
 uint64_t ik::ArrayView<float,-1>::IndexOf<int,unsigned long>(uint64_t a1, int *a2, void *a3)
@@ -330,7 +330,7 @@ void scml::ClipEmbeddingClassifier::Impl::~Impl(void **this)
   std::mutex::~mutex(this);
 }
 
-const void **std::__hash_table<std::__hash_value_type<std::string,ik::E5BufferTensor>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,ik::E5BufferTensor>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,ik::E5BufferTensor>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,ik::E5BufferTensor>>>::find<std::string>(void *a1, const void **a2)
+const void **std::__hash_table<std::__hash_value_type<std::string,ik::E5BufferTensor>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,ik::E5BufferTensor>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,ik::E5BufferTensor>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,ik::E5BufferTensor>>>::find<std::string>(void *a1, uint64_t *a2)
 {
   v4 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
   v5 = a1[1];
@@ -433,19 +433,19 @@ void scml::ClipImageEncoder::~ClipImageEncoder(scml::ClipImageEncoder *this)
 id scml::ClipImageEncoder::getEmbeddingObservation(scml::ClipImageEncoder *this, CVPixelBufferRef pixelBuffer)
 {
   v2 = pixelBuffer;
-  v38[2] = *MEMORY[0x1E69E9840];
-  v36 = 0;
+  v37[2] = *MEMORY[0x1E69E9840];
+  v35 = 0;
   Width = CVPixelBufferGetWidth(pixelBuffer);
   v5 = *(*this + 72);
   if (Width != v5)
   {
     v8 = *(*this + 80);
 LABEL_6:
-    v38[0] = v5;
-    v38[1] = v8;
-    v10 = scaleCVPixelBuffer(v2, v38);
+    v37[0] = v5;
+    v37[1] = v8;
+    v10 = scaleCVPixelBuffer(v2, v37);
     v9 = v10;
-    v36 = v10;
+    v35 = v10;
     if (!v10)
     {
       exception = __cxa_allocate_exception(0x10uLL);
@@ -471,43 +471,43 @@ LABEL_6:
 LABEL_8:
   std::mutex::lock(v7);
   v11 = *(*this + 64);
-  v35 = 0;
-  v30 = v11;
-  v12 = [v11 processImage:v2 withOptions:MEMORY[0x1E695E0F8] error:&v35];
-  v13 = v35;
-  v29 = v13;
+  v34 = 0;
+  v29 = v11;
+  v12 = [v11 processImage:v2 withOptions:MEMORY[0x1E695E0F8] error:&v34];
+  v13 = v34;
+  v28 = v13;
   if (!v12)
   {
-    v27 = v13;
+    v26 = v13;
     v21 = __cxa_allocate_exception(0x18uLL);
     v22 = scml::Exception::~Exception;
-    scml::makeException("Embedding query failed", 0x16uLL, v27, v21);
+    scml::makeException("Embedding query failed", 0x16uLL, v26, v21);
 LABEL_24:
     __cxa_throw(v21, v23, v22);
   }
 
-  v33 = 0u;
-  v34 = 0u;
-  v31 = 0u;
   v32 = 0u;
+  v33 = 0u;
+  v30 = 0u;
+  v31 = 0u;
   v14 = v12;
-  v15 = [v14 countByEnumeratingWithState:&v31 objects:v37 count:16];
+  v15 = [v14 countByEnumeratingWithState:&v30 objects:v36 count:16];
   if (!v15)
   {
     goto LABEL_17;
   }
 
-  v16 = *v32;
+  v16 = *v31;
 LABEL_11:
   v17 = 0;
   while (1)
   {
-    if (*v32 != v16)
+    if (*v31 != v16)
     {
       objc_enumerationMutation(v14);
     }
 
-    v18 = *(*(&v31 + 1) + 8 * v17);
+    v18 = *(*(&v30 + 1) + 8 * v17);
     v19 = [v18 data];
     v20 = [v19 length] == 0;
 
@@ -518,7 +518,7 @@ LABEL_11:
 
     if (v15 == ++v17)
     {
-      v15 = [v14 countByEnumeratingWithState:&v31 objects:v37 count:16];
+      v15 = [v14 countByEnumeratingWithState:&v30 objects:v36 count:16];
       if (!v15)
       {
 LABEL_17:
@@ -537,21 +537,20 @@ LABEL_17:
   v24 = v18;
 
   std::mutex::unlock(v7);
-  v36 = 0;
+  v35 = 0;
   if (v9)
   {
     CVPixelBufferRelease(v9);
   }
 
-  v25 = *MEMORY[0x1E69E9840];
-
   return v24;
 }
 
-void sub_1B8A54CF4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, __CVBuffer *a20)
+void sub_1B8A54CF4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, ...)
 {
-  __cxa_free_exception(v20);
-  std::unique_ptr<__CVBuffer,scml::NonNullDeleter<&(CVPixelBufferRelease)>>::reset[abi:ne200100](&a20, 0);
+  va_start(va, a19);
+  __cxa_free_exception(v19);
+  std::unique_ptr<__CVBuffer,scml::NonNullDeleter<&(CVPixelBufferRelease)>>::reset[abi:ne200100](va, 0);
   _Unwind_Resume(a1);
 }
 
@@ -637,7 +636,7 @@ void scml::ClipImageEncoder::toEmbeddingVec(void *a1@<X0>, const void **a2@<X8>)
           }
 
           *(4 * v16) = *(v9 + 4 * i);
-          v13 = 4 * v16 + 4;
+          v13 = (4 * v16 + 4);
           memcpy(0, v14, v15);
           v20 = *a2;
           *a2 = 0;
@@ -652,7 +651,7 @@ void scml::ClipImageEncoder::toEmbeddingVec(void *a1@<X0>, const void **a2@<X8>)
         else
         {
           *v12 = *(v9 + 4 * i);
-          v13 = (v12 + 4);
+          v13 = v12 + 4;
         }
 
         a2[1] = v13;
@@ -719,7 +718,7 @@ LABEL_41:
       }
 
       *(4 * v38) = _S8;
-      v35 = 4 * v38 + 4;
+      v35 = (4 * v38 + 4);
       memcpy(0, v36, v37);
       v42 = *a2;
       *a2 = 0;
@@ -734,7 +733,7 @@ LABEL_41:
     else
     {
       *v34 = _S8;
-      v35 = (v34 + 4);
+      v35 = v34 + 4;
     }
 
     a2[1] = v35;
@@ -784,7 +783,7 @@ uint64_t scml::ClipImageEncoder::embeddingVersion(void *__s1, size_t __n)
     if (!v5)
     {
       exception = __cxa_allocate_exception(0x10uLL);
-      scml::strCat<char const(&)[27],std::string_view &>("Unsupported embedding version: ", v9, &v8);
+      scml::strCat<char const(&)[27],std::string_view &>("Unsupported embedding version: ", &v8, v9);
       std::runtime_error::runtime_error(exception, &v8);
       __cxa_throw(exception, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
     }
@@ -814,7 +813,7 @@ LABEL_6:
   goto LABEL_6;
 }
 
-char *scml::ClipImageEncoder::embeddingVersionString@<X0>(char *result@<X0>, _BYTE *a2@<X8>)
+char *scml::ClipImageEncoder::embeddingVersionString@<X0>(char *result@<X0>, void *a2@<X8>)
 {
   v9 = result;
   v3 = &off_1E7EB3AC0;
@@ -844,13 +843,13 @@ char *scml::ClipImageEncoder::embeddingVersionString@<X0>(char *result@<X0>, _BY
     operator new();
   }
 
-  a2[23] = v6;
+  *(a2 + 23) = v6;
   if (v6)
   {
     result = memmove(a2, v7, v6);
   }
 
-  a2[v6] = 0;
+  *(a2 + v6) = 0;
   return result;
 }
 
@@ -875,7 +874,7 @@ LABEL_6:
   goto LABEL_6;
 }
 
-uint64_t scml::strCat<char const(&)[32],MADUnifiedEmbeddingVersion &>@<X0>(char *a1@<X0>, void *a2@<X1>, _BYTE *a3@<X8>)
+uint64_t scml::strCat<char const(&)[32],MADUnifiedEmbeddingVersion &>@<X0>(char *a1@<X0>, void *a2@<X1>, void *a3@<X8>)
 {
   std::ostringstream::basic_ostringstream[abi:ne200100](&v7);
   scml::scml_impl::strCat<char const(&)[12],unsigned long &>(&v7, a1, a2);
@@ -894,9 +893,9 @@ uint64_t scml::strCat<char const(&)[32],MADUnifiedEmbeddingVersion &>@<X0>(char 
   return MEMORY[0x1B8CC71A0](&v11);
 }
 
-void sub_1B8A55618(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1B8A55618(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::ostringstream::~ostringstream(va);
   _Unwind_Resume(a1);
 }
@@ -983,20 +982,17 @@ LABEL_6:
   goto LABEL_6;
 }
 
-void *std::vector<float>::reserve(void *result, unint64_t a2)
+void std::vector<float>::reserve(void *a1, unint64_t a2)
 {
-  if (a2 > (result[2] - *result) >> 2)
+  if (a2 > (a1[2] - *a1) >> 2)
   {
     if (!(a2 >> 62))
     {
-      v2 = result[1] - *result;
-      std::__allocate_at_least[abi:ne200100]<std::allocator<float>>(result, a2);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<float>>(a1, a2);
     }
 
     std::vector<float>::__throw_length_error[abi:ne200100]();
   }
-
-  return result;
 }
 
 uint64_t scml::ClipImageEncoder::Impl::Impl(uint64_t a1, uint64_t a2)
@@ -1043,8 +1039,8 @@ LABEL_11:
   _Block_object_dispose(&v17, 8);
   if (!v6)
   {
-    dlerror();
-    abort_report_np();
+    v14 = dlerror();
+    abort_report_np("%s", v14);
     __break(1u);
   }
 
@@ -1068,7 +1064,6 @@ LABEL_11:
   *(a1 + 72) = scml::ClipImageEncoder::imageWidth(a2);
   *(a1 + 80) = scml::ClipImageEncoder::imageHeight(a2);
 
-  v13 = *MEMORY[0x1E69E9840];
   return a1;
 }
 
@@ -1104,9 +1099,9 @@ id getVCPImageEmbeddingRequestClass(void)
   return v1;
 }
 
-void sub_1B8A55C98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B8A55C98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1132,45 +1127,41 @@ Class ___ZL32getVCPImageEmbeddingRequestClassv_block_invoke(uint64_t a1)
 
 uint64_t MediaAnalysisLibrary(void)
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v4[0] = 0;
+  v6 = *MEMORY[0x1E69E9840];
+  v3[0] = 0;
   if (!MediaAnalysisLibraryCore(char **)::frameworkLibrary)
   {
-    v4[1] = MEMORY[0x1E69E9820];
-    v4[2] = 3221225472;
-    v4[3] = ___ZL24MediaAnalysisLibraryCorePPc_block_invoke;
-    v4[4] = &__block_descriptor_40_e5_v8__0l;
-    v4[5] = v4;
-    v5 = xmmword_1E7EB3B60;
-    v6 = 0;
+    v3[1] = MEMORY[0x1E69E9820];
+    v3[2] = 3221225472;
+    v3[3] = ___ZL24MediaAnalysisLibraryCorePPc_block_invoke;
+    v3[4] = &__block_descriptor_40_e5_v8__0l;
+    v3[5] = v3;
+    v4 = xmmword_1E7EB3B60;
+    v5 = 0;
     MediaAnalysisLibraryCore(char **)::frameworkLibrary = _sl_dlopen();
   }
 
   v0 = MediaAnalysisLibraryCore(char **)::frameworkLibrary;
-  v1 = v4[0];
+  v1 = v3[0];
   if (!MediaAnalysisLibraryCore(char **)::frameworkLibrary)
   {
-    v1 = abort_report_np();
+    v1 = abort_report_np("%s", v3[0]);
     goto LABEL_7;
   }
 
-  if (v4[0])
+  if (v3[0])
   {
 LABEL_7:
     free(v1);
   }
 
-  v2 = *MEMORY[0x1E69E9840];
   return v0;
 }
 
 uint64_t ___ZL24MediaAnalysisLibraryCorePPc_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   MediaAnalysisLibraryCore(char **)::frameworkLibrary = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -1194,7 +1185,7 @@ void std::default_delete<scml::ClipImageEncoder::Impl>::operator()[abi:ne200100]
   }
 }
 
-void sub_1B8A58564(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, void *a16, uint64_t a17, void *a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, void *a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, void *a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, void *a45)
+void sub_1B8A58564(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, void *a16, uint64_t a17, void *a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, void *a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, void *a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, void **a45)
 {
   if (*(v45 - 137) < 0)
   {
@@ -1330,7 +1321,7 @@ id anonymous namespace::significantEventRequest(_anonymous_namespace_ *this)
   return v1;
 }
 
-scml::ClipEmbeddingClassifier **std::unique_ptr<scml::ClipEmbeddingClassifier>::~unique_ptr[abi:ne200100](scml::ClipEmbeddingClassifier **a1)
+scml::ClipEmbeddingClassifier::Impl ***std::unique_ptr<scml::ClipEmbeddingClassifier>::~unique_ptr[abi:ne200100](scml::ClipEmbeddingClassifier::Impl ***a1)
 {
   v2 = *a1;
   *a1 = 0;
@@ -1362,15 +1353,16 @@ void sub_1B8A592C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sub_1B8A5A2A4(int a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, char a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, void *__p, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, char a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, char a59)
+void sub_1B8A5A2A4(int a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, char a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, void *__p, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, char a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, ...)
 {
-  __cxa_free_exception(v59);
+  va_start(va, a58);
+  __cxa_free_exception(v58);
 
-  scml::SignpostInterval::~SignpostInterval(&a59);
+  scml::SignpostInterval::~SignpostInterval(va);
   JUMPOUT(0x1B8A5A5B8);
 }
 
-void sub_1B8A5A3F0(void *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, scml::ClipEmbeddingClassifier *a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, int a61, __int16 a62, char a63)
+void sub_1B8A5A3F0(void *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, scml::ClipEmbeddingClassifier *a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t *a59, uint64_t a60, int a61, __int16 a62, char a63)
 {
   scml::ClipEmbeddingClassifier::PredictResult::~PredictResult(&a59);
   if (a2 != 1)
@@ -1428,10 +1420,10 @@ void sub_1B8A5A41C(uint64_t a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, u
   JUMPOUT(0x1B8A5A4A8);
 }
 
-void sub_1B8A5A440(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
+void sub_1B8A5A440(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a14);
-  scml::SignpostInterval::~SignpostInterval((v14 - 160));
+  va_start(va, a22);
+  scml::SignpostInterval::~SignpostInterval((v22 - 160));
   std::__hash_table<std::__hash_value_type<MADUnifiedEmbeddingVersion,std::vector<float>>,std::__unordered_map_hasher<MADUnifiedEmbeddingVersion,std::__hash_value_type<MADUnifiedEmbeddingVersion,std::vector<float>>,std::hash<MADUnifiedEmbeddingVersion>,std::equal_to<MADUnifiedEmbeddingVersion>,true>,std::__unordered_map_equal<MADUnifiedEmbeddingVersion,std::__hash_value_type<MADUnifiedEmbeddingVersion,std::vector<float>>,std::equal_to<MADUnifiedEmbeddingVersion>,std::hash<MADUnifiedEmbeddingVersion>,true>,std::allocator<std::__hash_value_type<MADUnifiedEmbeddingVersion,std::vector<float>>>>::~__hash_table(va);
   JUMPOUT(0x1B8A5A5B0);
 }
@@ -1458,17 +1450,19 @@ LABEL_6:
   goto LABEL_6;
 }
 
-void sub_1B8A5A574(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, void *a20, uint64_t a21, void *a22, char a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, char a49)
+void sub_1B8A5A574(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, void *a20, uint64_t a21, void *a22, void *a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, ...)
 {
-  std::__hash_table<std::__hash_value_type<MADUnifiedEmbeddingVersion,std::vector<float>>,std::__unordered_map_hasher<MADUnifiedEmbeddingVersion,std::__hash_value_type<MADUnifiedEmbeddingVersion,std::vector<float>>,std::hash<MADUnifiedEmbeddingVersion>,std::equal_to<MADUnifiedEmbeddingVersion>,true>,std::__unordered_map_equal<MADUnifiedEmbeddingVersion,std::__hash_value_type<MADUnifiedEmbeddingVersion,std::vector<float>>,std::equal_to<MADUnifiedEmbeddingVersion>,std::hash<MADUnifiedEmbeddingVersion>,true>,std::allocator<std::__hash_value_type<MADUnifiedEmbeddingVersion,std::vector<float>>>>::~__hash_table(&a23);
+  va_start(va, a48);
 
-  scml::SignpostInterval::~SignpostInterval(&a49);
+  std::__hash_table<std::__hash_value_type<MADUnifiedEmbeddingVersion,std::vector<float>>,std::__unordered_map_hasher<MADUnifiedEmbeddingVersion,std::__hash_value_type<MADUnifiedEmbeddingVersion,std::vector<float>>,std::hash<MADUnifiedEmbeddingVersion>,std::equal_to<MADUnifiedEmbeddingVersion>,true>,std::__unordered_map_equal<MADUnifiedEmbeddingVersion,std::__hash_value_type<MADUnifiedEmbeddingVersion,std::vector<float>>,std::equal_to<MADUnifiedEmbeddingVersion>,std::hash<MADUnifiedEmbeddingVersion>,true>,std::allocator<std::__hash_value_type<MADUnifiedEmbeddingVersion,std::vector<float>>>>::~__hash_table(&a23);
+  scml::SignpostInterval::~SignpostInterval(va);
+
   if (a2 == 1)
   {
-    v52 = __cxa_begin_catch(a1);
+    v51 = __cxa_begin_catch(a1);
     if (a12)
     {
-      *a12 = scml::error(0x11u, v52);
+      *a12 = scml::error(0x11u, v51);
     }
 
     __cxa_end_catch();
@@ -1478,24 +1472,24 @@ void sub_1B8A5A574(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint
   _Unwind_Resume(a1);
 }
 
-void sub_1B8A5A580(void *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, void *a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, void *__p, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, ...)
+void sub_1B8A5A580(void *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, void *a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, uint64_t a13, void *a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, void *a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, void *__p, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, void *a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, ...)
 {
-  va_start(va, a42);
-  if (__p)
+  va_start(va, a48);
+  if (a33)
   {
-    a28 = __p;
-    operator delete(__p);
+    a34 = a33;
+    operator delete(a33);
   }
 
-  std::__hash_table<std::__hash_value_type<MADUnifiedEmbeddingVersion,std::vector<float>>,std::__unordered_map_hasher<MADUnifiedEmbeddingVersion,std::__hash_value_type<MADUnifiedEmbeddingVersion,std::vector<float>>,std::hash<MADUnifiedEmbeddingVersion>,std::equal_to<MADUnifiedEmbeddingVersion>,true>,std::__unordered_map_equal<MADUnifiedEmbeddingVersion,std::__hash_value_type<MADUnifiedEmbeddingVersion,std::vector<float>>,std::equal_to<MADUnifiedEmbeddingVersion>,std::hash<MADUnifiedEmbeddingVersion>,true>,std::allocator<std::__hash_value_type<MADUnifiedEmbeddingVersion,std::vector<float>>>>::~__hash_table(&a17);
+  std::__hash_table<std::__hash_value_type<MADUnifiedEmbeddingVersion,std::vector<float>>,std::__unordered_map_hasher<MADUnifiedEmbeddingVersion,std::__hash_value_type<MADUnifiedEmbeddingVersion,std::vector<float>>,std::hash<MADUnifiedEmbeddingVersion>,std::equal_to<MADUnifiedEmbeddingVersion>,true>,std::__unordered_map_equal<MADUnifiedEmbeddingVersion,std::__hash_value_type<MADUnifiedEmbeddingVersion,std::vector<float>>,std::equal_to<MADUnifiedEmbeddingVersion>,std::hash<MADUnifiedEmbeddingVersion>,true>,std::allocator<std::__hash_value_type<MADUnifiedEmbeddingVersion,std::vector<float>>>>::~__hash_table(&a23);
   scml::SignpostInterval::~SignpostInterval(va);
 
   if (a2 == 1)
   {
-    v45 = __cxa_begin_catch(a1);
-    if (a6)
+    v51 = __cxa_begin_catch(a1);
+    if (a12)
     {
-      *a6 = scml::error(0x11u, v45);
+      *a12 = scml::error(0x11u, v51);
     }
 
     __cxa_end_catch();
@@ -1656,8 +1650,7 @@ void std::vector<std::string>::push_back[abi:ne200100](uint64_t a1, __int128 *a2
     v6 = *a2;
     *(v4 + 16) = *(a2 + 2);
     *v4 = v6;
-    *(a2 + 1) = 0;
-    *(a2 + 2) = 0;
+    *(a2 + 8) = 0uLL;
     *a2 = 0;
     v7 = v4 + 24;
   }
@@ -1715,7 +1708,7 @@ void std::__split_buffer<std::pair<unsigned long,std::string>>::__destruct_at_en
   }
 }
 
-void std::vector<std::pair<unsigned long,std::string>>::__assign_with_size[abi:ne200100]<std::pair<unsigned long,std::string> const*,std::pair<unsigned long,std::string> const*>(uint64_t *a1, void *a2, uint64_t a3, unint64_t a4)
+void std::vector<std::pair<unsigned long,std::string>>::__assign_with_size[abi:ne200100]<std::pair<unsigned long,std::string> const*,std::pair<unsigned long,std::string> const*>(char **a1, char *a2, char *a3, unint64_t a4)
 {
   v6 = a2;
   v8 = *a1;
@@ -1748,7 +1741,7 @@ void std::vector<std::pair<unsigned long,std::string>>::__assign_with_size[abi:n
   }
 
   v12 = a1[1];
-  if (a4 <= (v12 - v8) >> 5)
+  if (a4 <= &v12[-v8] >> 5)
   {
     if (a2 != a3)
     {
@@ -1757,10 +1750,10 @@ void std::vector<std::pair<unsigned long,std::string>>::__assign_with_size[abi:n
       do
       {
         v19 = *v17;
-        v17 += 4;
+        v17 += 32;
         *v18 = v19;
         v18 += 4;
-        std::string::operator=((v8 + 8), (v6 + 1));
+        std::string::operator=((v8 + 8), (v6 + 8));
         v8 = v18;
         v6 = v17;
       }
@@ -1777,7 +1770,7 @@ void std::vector<std::pair<unsigned long,std::string>>::__assign_with_size[abi:n
         operator delete(*(v12 - 3));
       }
 
-      v12 -= 4;
+      v12 -= 32;
     }
 
     a1[1] = v8;
@@ -1785,7 +1778,7 @@ void std::vector<std::pair<unsigned long,std::string>>::__assign_with_size[abi:n
 
   else
   {
-    v13 = v12 + a2 - v8;
+    v13 = &v12[a2 - v8];
     if (v12 != v8)
     {
       v14 = a2;
@@ -1793,10 +1786,10 @@ void std::vector<std::pair<unsigned long,std::string>>::__assign_with_size[abi:n
       do
       {
         v16 = *v14;
-        v14 += 4;
+        v14 += 32;
         *v15 = v16;
         v15 += 4;
-        std::string::operator=((v8 + 8), (v6 + 1));
+        std::string::operator=((v8 + 8), (v6 + 8));
         v8 = v15;
         v6 = v14;
       }
@@ -1821,7 +1814,7 @@ void std::vector<std::pair<unsigned long,std::string>>::__vdeallocate(uint64_t *
   }
 }
 
-void std::vector<std::pair<unsigned long,std::string>>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<std::pair<unsigned long,std::string>>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 59))
   {
@@ -2220,7 +2213,7 @@ double scml::Config::as<double>(_DWORD *a1)
   return *a1;
 }
 
-uint64_t std::unordered_map<std::string,SCMLImageSanitizerImageStyle>::unordered_map(uint64_t a1, const void **a2, uint64_t a3)
+uint64_t std::unordered_map<std::string,SCMLImageSanitizerImageStyle>::unordered_map(uint64_t a1, uint64_t *a2, uint64_t a3)
 {
   *a1 = 0u;
   *(a1 + 16) = 0u;
@@ -2230,7 +2223,7 @@ uint64_t std::unordered_map<std::string,SCMLImageSanitizerImageStyle>::unordered
     v5 = 32 * a3;
     do
     {
-      std::__hash_table<std::__hash_value_type<std::string,SCMLImageSanitizerImageStyle>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,SCMLImageSanitizerImageStyle>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,SCMLImageSanitizerImageStyle>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,SCMLImageSanitizerImageStyle>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,SCMLImageSanitizerImageStyle> const&>(a1, a2);
+      std::__hash_table<std::__hash_value_type<std::string,SCMLImageSanitizerImageStyle>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,SCMLImageSanitizerImageStyle>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,SCMLImageSanitizerImageStyle>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,SCMLImageSanitizerImageStyle>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,SCMLImageSanitizerImageStyle> const&>(a1, a2, a2);
       a2 += 4;
       v5 -= 32;
     }
@@ -2241,35 +2234,35 @@ uint64_t std::unordered_map<std::string,SCMLImageSanitizerImageStyle>::unordered
   return a1;
 }
 
-const void **std::__hash_table<std::__hash_value_type<std::string,SCMLImageSanitizerImageStyle>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,SCMLImageSanitizerImageStyle>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,SCMLImageSanitizerImageStyle>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,SCMLImageSanitizerImageStyle>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,SCMLImageSanitizerImageStyle> const&>(void *a1, const void **a2)
+const void **std::__hash_table<std::__hash_value_type<std::string,SCMLImageSanitizerImageStyle>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,SCMLImageSanitizerImageStyle>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,SCMLImageSanitizerImageStyle>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,SCMLImageSanitizerImageStyle>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,SCMLImageSanitizerImageStyle> const&>(void *a1, uint64_t *a2, uint64_t a3)
 {
-  v4 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
+  v5 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
+  v6 = v5;
+  v7 = a1[1];
+  if (!*&v7)
   {
     goto LABEL_18;
   }
 
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
+  v8 = vcnt_s8(v7);
+  v8.i16[0] = vaddlv_u8(v8);
+  v9 = v8.u32[0];
+  if (v8.u32[0] > 1uLL)
   {
-    v9 = v4;
-    if (v4 >= *&v6)
+    v10 = v5;
+    if (v5 >= *&v7)
     {
-      v9 = v4 % *&v6;
+      v10 = v5 % *&v7;
     }
   }
 
   else
   {
-    v9 = (*&v6 - 1) & v4;
+    v10 = (*&v7 - 1) & v5;
   }
 
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
+  v11 = *(*a1 + 8 * v10);
+  if (!v11 || (v12 = *v11) == 0)
   {
 LABEL_18:
     std::__hash_table<std::__hash_value_type<std::string,SCMLImageSanitizerImageStyle>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,SCMLImageSanitizerImageStyle>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,SCMLImageSanitizerImageStyle>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,SCMLImageSanitizerImageStyle>>>::__construct_node_hash<std::pair<std::string const,SCMLImageSanitizerImageStyle> const&>();
@@ -2277,44 +2270,44 @@ LABEL_18:
 
   while (1)
   {
-    v12 = v11[1];
-    if (v12 == v5)
+    v13 = v12[1];
+    if (v13 == v6)
     {
       break;
     }
 
-    if (v8 > 1)
+    if (v9 > 1)
     {
-      if (v12 >= *&v6)
+      if (v13 >= *&v7)
       {
-        v12 %= *&v6;
+        v13 %= *&v7;
       }
     }
 
     else
     {
-      v12 &= *&v6 - 1;
+      v13 &= *&v7 - 1;
     }
 
-    if (v12 != v9)
+    if (v13 != v10)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v11 = *v11;
-    if (!v11)
+    v12 = *v12;
+    if (!v12)
     {
       goto LABEL_18;
     }
   }
 
-  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v11 + 2, a2))
+  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v12 + 2, a2))
   {
     goto LABEL_17;
   }
 
-  return v11;
+  return v12;
 }
 
 void sub_1B8A5C430(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void **__p, uint64_t a11)
@@ -2352,9 +2345,9 @@ void std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_val
   operator delete(__p);
 }
 
-uint64_t std::__hash_table<std::__hash_value_type<std::string,SCMLImageSanitizerImageStyle>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,SCMLImageSanitizerImageStyle>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,SCMLImageSanitizerImageStyle>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,SCMLImageSanitizerImageStyle>>>::~__hash_table(uint64_t a1)
+void **std::__hash_table<std::__hash_value_type<std::string,SCMLImageSanitizerImageStyle>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,SCMLImageSanitizerImageStyle>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,SCMLImageSanitizerImageStyle>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,SCMLImageSanitizerImageStyle>>>::~__hash_table(void **a1)
 {
-  std::__hash_table<std::__hash_value_type<std::string,SCMLImageSanitizerImageStyle>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,SCMLImageSanitizerImageStyle>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,SCMLImageSanitizerImageStyle>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,SCMLImageSanitizerImageStyle>>>::__deallocate_node(a1, *(a1 + 16));
+  std::__hash_table<std::__hash_value_type<std::string,SCMLImageSanitizerImageStyle>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,SCMLImageSanitizerImageStyle>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,SCMLImageSanitizerImageStyle>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,SCMLImageSanitizerImageStyle>>>::__deallocate_node(a1, a1[2]);
   v2 = *a1;
   *a1 = 0;
   if (v2)
@@ -2386,33 +2379,33 @@ void std::__hash_table<std::__hash_value_type<std::string,SCMLImageSanitizerImag
   }
 }
 
-void *std::__hash_table<std::__hash_value_type<MADUnifiedEmbeddingVersion,std::vector<float>>,std::__unordered_map_hasher<MADUnifiedEmbeddingVersion,std::__hash_value_type<MADUnifiedEmbeddingVersion,std::vector<float>>,std::hash<MADUnifiedEmbeddingVersion>,std::equal_to<MADUnifiedEmbeddingVersion>,true>,std::__unordered_map_equal<MADUnifiedEmbeddingVersion,std::__hash_value_type<MADUnifiedEmbeddingVersion,std::vector<float>>,std::equal_to<MADUnifiedEmbeddingVersion>,std::hash<MADUnifiedEmbeddingVersion>,true>,std::allocator<std::__hash_value_type<MADUnifiedEmbeddingVersion,std::vector<float>>>>::__emplace_unique_key_args<MADUnifiedEmbeddingVersion,std::piecewise_construct_t const&,std::tuple<MADUnifiedEmbeddingVersion const&>,std::tuple<>>(void *a1, unint64_t *a2)
+void *std::__hash_table<std::__hash_value_type<MADUnifiedEmbeddingVersion,std::vector<float>>,std::__unordered_map_hasher<MADUnifiedEmbeddingVersion,std::__hash_value_type<MADUnifiedEmbeddingVersion,std::vector<float>>,std::hash<MADUnifiedEmbeddingVersion>,std::equal_to<MADUnifiedEmbeddingVersion>,true>,std::__unordered_map_equal<MADUnifiedEmbeddingVersion,std::__hash_value_type<MADUnifiedEmbeddingVersion,std::vector<float>>,std::equal_to<MADUnifiedEmbeddingVersion>,std::hash<MADUnifiedEmbeddingVersion>,true>,std::allocator<std::__hash_value_type<MADUnifiedEmbeddingVersion,std::vector<float>>>>::__emplace_unique_key_args<MADUnifiedEmbeddingVersion,std::piecewise_construct_t const&,std::tuple<MADUnifiedEmbeddingVersion const&>,std::tuple<>>(void *a1, unint64_t *a2, uint64_t a3, uint64_t **a4)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v4 = *a2;
+  v5 = a1[1];
+  if (!*&v5)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v6 = vcnt_s8(v5);
+  v6.i16[0] = vaddlv_u8(v6);
+  if (v6.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (v2 >= *&v3)
+    v7 = *a2;
+    if (v4 >= *&v5)
     {
-      v5 = v2 % *&v3;
+      v7 = v4 % *&v5;
     }
   }
 
   else
   {
-    v5 = (*&v3 - 1) & v2;
+    v7 = (*&v5 - 1) & v4;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v8 = *(*a1 + 8 * v7);
+  if (!v8 || (v9 = *v8) == 0)
   {
 LABEL_18:
     operator new();
@@ -2420,44 +2413,44 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v10 = v9[1];
+    if (v10 == v4)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v6.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v10 >= *&v5)
       {
-        v8 %= *&v3;
+        v10 %= *&v5;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v10 &= *&v5 - 1;
     }
 
-    if (v8 != v5)
+    if (v10 != v7)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v9 = *v9;
+    if (!v9)
     {
       goto LABEL_18;
     }
   }
 
-  if (v7[2] != v2)
+  if (v9[2] != v4)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v9;
 }
 
 void std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<MADUnifiedEmbeddingVersion,std::vector<float>>,void *>>>::operator()[abi:ne200100](uint64_t a1, void *__p)
@@ -2538,9 +2531,9 @@ BOOL scml::Config::as<BOOL>(uint64_t a1)
   return *a1 != 0;
 }
 
-uint64_t std::__hash_table<std::__hash_value_type<MADUnifiedEmbeddingVersion,std::vector<float>>,std::__unordered_map_hasher<MADUnifiedEmbeddingVersion,std::__hash_value_type<MADUnifiedEmbeddingVersion,std::vector<float>>,std::hash<MADUnifiedEmbeddingVersion>,std::equal_to<MADUnifiedEmbeddingVersion>,true>,std::__unordered_map_equal<MADUnifiedEmbeddingVersion,std::__hash_value_type<MADUnifiedEmbeddingVersion,std::vector<float>>,std::equal_to<MADUnifiedEmbeddingVersion>,std::hash<MADUnifiedEmbeddingVersion>,true>,std::allocator<std::__hash_value_type<MADUnifiedEmbeddingVersion,std::vector<float>>>>::~__hash_table(uint64_t a1)
+void **std::__hash_table<std::__hash_value_type<MADUnifiedEmbeddingVersion,std::vector<float>>,std::__unordered_map_hasher<MADUnifiedEmbeddingVersion,std::__hash_value_type<MADUnifiedEmbeddingVersion,std::vector<float>>,std::hash<MADUnifiedEmbeddingVersion>,std::equal_to<MADUnifiedEmbeddingVersion>,true>,std::__unordered_map_equal<MADUnifiedEmbeddingVersion,std::__hash_value_type<MADUnifiedEmbeddingVersion,std::vector<float>>,std::equal_to<MADUnifiedEmbeddingVersion>,std::hash<MADUnifiedEmbeddingVersion>,true>,std::allocator<std::__hash_value_type<MADUnifiedEmbeddingVersion,std::vector<float>>>>::~__hash_table(void **a1)
 {
-  std::__hash_table<std::__hash_value_type<MADUnifiedEmbeddingVersion,std::vector<float>>,std::__unordered_map_hasher<MADUnifiedEmbeddingVersion,std::__hash_value_type<MADUnifiedEmbeddingVersion,std::vector<float>>,std::hash<MADUnifiedEmbeddingVersion>,std::equal_to<MADUnifiedEmbeddingVersion>,true>,std::__unordered_map_equal<MADUnifiedEmbeddingVersion,std::__hash_value_type<MADUnifiedEmbeddingVersion,std::vector<float>>,std::equal_to<MADUnifiedEmbeddingVersion>,std::hash<MADUnifiedEmbeddingVersion>,true>,std::allocator<std::__hash_value_type<MADUnifiedEmbeddingVersion,std::vector<float>>>>::__deallocate_node(a1, *(a1 + 16));
+  std::__hash_table<std::__hash_value_type<MADUnifiedEmbeddingVersion,std::vector<float>>,std::__unordered_map_hasher<MADUnifiedEmbeddingVersion,std::__hash_value_type<MADUnifiedEmbeddingVersion,std::vector<float>>,std::hash<MADUnifiedEmbeddingVersion>,std::equal_to<MADUnifiedEmbeddingVersion>,true>,std::__unordered_map_equal<MADUnifiedEmbeddingVersion,std::__hash_value_type<MADUnifiedEmbeddingVersion,std::vector<float>>,std::equal_to<MADUnifiedEmbeddingVersion>,std::hash<MADUnifiedEmbeddingVersion>,true>,std::allocator<std::__hash_value_type<MADUnifiedEmbeddingVersion,std::vector<float>>>>::__deallocate_node(a1, a1[2]);
   v2 = *a1;
   *a1 = 0;
   if (v2)
@@ -2609,35 +2602,35 @@ uint64_t scml::Hasher::combineRecursive<NSString * {__strong}&,int &>(unint64_t 
   return result;
 }
 
-const void **std::__hash_table<std::__hash_value_type<std::string,float>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,float>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,float>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(void *a1, const void **a2)
+const void **std::__hash_table<std::__hash_value_type<std::string,float>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,float>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,float>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(void *a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v4 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
+  v7 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
+  v8 = v7;
+  v9 = a1[1];
+  if (!*&v9)
   {
     goto LABEL_18;
   }
 
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
+  v10 = vcnt_s8(v9);
+  v10.i16[0] = vaddlv_u8(v10);
+  v11 = v10.u32[0];
+  if (v10.u32[0] > 1uLL)
   {
-    v9 = v4;
-    if (v4 >= *&v6)
+    v12 = v7;
+    if (v7 >= *&v9)
     {
-      v9 = v4 % *&v6;
+      v12 = v7 % *&v9;
     }
   }
 
   else
   {
-    v9 = (*&v6 - 1) & v4;
+    v12 = (*&v9 - 1) & v7;
   }
 
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
+  v13 = *(*a1 + 8 * v12);
+  if (!v13 || (v14 = *v13) == 0)
   {
 LABEL_18:
     std::__hash_table<std::__hash_value_type<std::string,float>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,float>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,float>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,float>>>::__construct_node_hash<std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>();
@@ -2645,44 +2638,44 @@ LABEL_18:
 
   while (1)
   {
-    v12 = v11[1];
-    if (v12 == v5)
+    v15 = v14[1];
+    if (v15 == v8)
     {
       break;
     }
 
-    if (v8 > 1)
+    if (v11 > 1)
     {
-      if (v12 >= *&v6)
+      if (v15 >= *&v9)
       {
-        v12 %= *&v6;
+        v15 %= *&v9;
       }
     }
 
     else
     {
-      v12 &= *&v6 - 1;
+      v15 &= *&v9 - 1;
     }
 
-    if (v12 != v9)
+    if (v15 != v12)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v11 = *v11;
-    if (!v11)
+    v14 = *v14;
+    if (!v14)
     {
       goto LABEL_18;
     }
   }
 
-  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v11 + 2, a2))
+  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v14 + 2, a2))
   {
     goto LABEL_17;
   }
 
-  return v11;
+  return v14;
 }
 
 void sub_1B8A5D2CC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void **__p, uint64_t a11)
@@ -2733,77 +2726,69 @@ void *std::__hash_table<std::__hash_value_type<MADUnifiedEmbeddingVersion,std::u
     return 0;
   }
 
-  result = *v6;
-  if (*v6)
+  for (result = *v6; result; result = *result)
   {
-    do
+    v8 = result[1];
+    if (v8 == v3)
     {
-      v8 = result[1];
-      if (v8 == v3)
+      if (result[2] == v3)
       {
-        if (result[2] == v3)
+        return result;
+      }
+    }
+
+    else
+    {
+      if (v4.u32[0] > 1uLL)
+      {
+        if (v8 >= *&v2)
         {
-          return result;
+          v8 %= *&v2;
         }
       }
 
       else
       {
-        if (v4.u32[0] > 1uLL)
-        {
-          if (v8 >= *&v2)
-          {
-            v8 %= *&v2;
-          }
-        }
-
-        else
-        {
-          v8 &= *&v2 - 1;
-        }
-
-        if (v8 != v5)
-        {
-          return 0;
-        }
+        v8 &= *&v2 - 1;
       }
 
-      result = *result;
+      if (v8 != v5)
+      {
+        return 0;
+      }
     }
-
-    while (result);
   }
 
   return result;
 }
 
-void *std::__hash_table<std::__hash_value_type<MADUnifiedEmbeddingVersion,std::unique_ptr<scml::ClipImageEncoder>>,std::__unordered_map_hasher<MADUnifiedEmbeddingVersion,std::__hash_value_type<MADUnifiedEmbeddingVersion,std::unique_ptr<scml::ClipImageEncoder>>,std::hash<MADUnifiedEmbeddingVersion>,std::equal_to<MADUnifiedEmbeddingVersion>,true>,std::__unordered_map_equal<MADUnifiedEmbeddingVersion,std::__hash_value_type<MADUnifiedEmbeddingVersion,std::unique_ptr<scml::ClipImageEncoder>>,std::equal_to<MADUnifiedEmbeddingVersion>,std::hash<MADUnifiedEmbeddingVersion>,true>,std::allocator<std::__hash_value_type<MADUnifiedEmbeddingVersion,std::unique_ptr<scml::ClipImageEncoder>>>>::__emplace_unique_key_args<MADUnifiedEmbeddingVersion,std::pair<MADUnifiedEmbeddingVersion const,std::unique_ptr<scml::ClipImageEncoder>>>(void *a1, unint64_t *a2)
+void *std::__hash_table<std::__hash_value_type<MADUnifiedEmbeddingVersion,std::unique_ptr<scml::ClipImageEncoder>>,std::__unordered_map_hasher<MADUnifiedEmbeddingVersion,std::__hash_value_type<MADUnifiedEmbeddingVersion,std::unique_ptr<scml::ClipImageEncoder>>,std::hash<MADUnifiedEmbeddingVersion>,std::equal_to<MADUnifiedEmbeddingVersion>,true>,std::__unordered_map_equal<MADUnifiedEmbeddingVersion,std::__hash_value_type<MADUnifiedEmbeddingVersion,std::unique_ptr<scml::ClipImageEncoder>>,std::equal_to<MADUnifiedEmbeddingVersion>,std::hash<MADUnifiedEmbeddingVersion>,true>,std::allocator<std::__hash_value_type<MADUnifiedEmbeddingVersion,std::unique_ptr<scml::ClipImageEncoder>>>>::__emplace_unique_key_args<MADUnifiedEmbeddingVersion,std::pair<MADUnifiedEmbeddingVersion const,std::unique_ptr<scml::ClipImageEncoder>>>(void *a1, unint64_t *a2, uint64_t *a3)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v3 = *a2;
+  v4 = a1[1];
+  if (!*&v4)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v5 = vcnt_s8(v4);
+  v5.i16[0] = vaddlv_u8(v5);
+  if (v5.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (v2 >= *&v3)
+    v6 = *a2;
+    if (v3 >= *&v4)
     {
-      v5 = v2 % *&v3;
+      v6 = v3 % *&v4;
     }
   }
 
   else
   {
-    v5 = (*&v3 - 1) & v2;
+    v6 = (*&v4 - 1) & v3;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v7 = *(*a1 + 8 * v6);
+  if (!v7 || (v8 = *v7) == 0)
   {
 LABEL_18:
     operator new();
@@ -2811,49 +2796,49 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v9 = v8[1];
+    if (v9 == v3)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v5.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v9 >= *&v4)
       {
-        v8 %= *&v3;
+        v9 %= *&v4;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v9 &= *&v4 - 1;
     }
 
-    if (v8 != v5)
+    if (v9 != v6)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v8 = *v8;
+    if (!v8)
     {
       goto LABEL_18;
     }
   }
 
-  if (v7[2] != v2)
+  if (v8[2] != v3)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v8;
 }
 
-void sub_1B8A5DB14(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1B8A5DB14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<MADUnifiedEmbeddingVersion,std::unique_ptr<scml::ClipImageEncoder>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<MADUnifiedEmbeddingVersion,std::unique_ptr<scml::ClipImageEncoder>>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -2875,17 +2860,17 @@ uint64_t std::unique_ptr<std::__hash_node<std::__hash_value_type<MADUnifiedEmbed
   return a1;
 }
 
-uint64_t std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,anonymous namespace::IVSThresholdInfo>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,anonymous namespace::IVSThresholdInfo>,void *>>>>::~unique_ptr[abi:ne200100](uint64_t a1)
+char **std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,anonymous namespace::IVSThresholdInfo>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,anonymous namespace::IVSThresholdInfo>,void *>>>>::~unique_ptr[abi:ne200100](char **a1, uint64_t a2)
 {
-  v2 = *a1;
+  v3 = *a1;
   *a1 = 0;
-  if (v2)
+  if (v3)
   {
     if (*(a1 + 16) == 1)
     {
     }
 
-    operator delete(v2);
+    operator delete(v3);
   }
 
   return a1;
@@ -2908,33 +2893,33 @@ void std::allocator_traits<std::allocator<std::__hash_node<std::__hash_value_typ
   }
 }
 
-void *std::__hash_table<std::__hash_value_type<MADUnifiedEmbeddingVersion,std::vector<float>>,std::__unordered_map_hasher<MADUnifiedEmbeddingVersion,std::__hash_value_type<MADUnifiedEmbeddingVersion,std::vector<float>>,std::hash<MADUnifiedEmbeddingVersion>,std::equal_to<MADUnifiedEmbeddingVersion>,true>,std::__unordered_map_equal<MADUnifiedEmbeddingVersion,std::__hash_value_type<MADUnifiedEmbeddingVersion,std::vector<float>>,std::equal_to<MADUnifiedEmbeddingVersion>,std::hash<MADUnifiedEmbeddingVersion>,true>,std::allocator<std::__hash_value_type<MADUnifiedEmbeddingVersion,std::vector<float>>>>::__emplace_unique_key_args<MADUnifiedEmbeddingVersion,MADUnifiedEmbeddingVersion const&,std::vector<float>>(void *a1, unint64_t *a2)
+void *std::__hash_table<std::__hash_value_type<MADUnifiedEmbeddingVersion,std::vector<float>>,std::__unordered_map_hasher<MADUnifiedEmbeddingVersion,std::__hash_value_type<MADUnifiedEmbeddingVersion,std::vector<float>>,std::hash<MADUnifiedEmbeddingVersion>,std::equal_to<MADUnifiedEmbeddingVersion>,true>,std::__unordered_map_equal<MADUnifiedEmbeddingVersion,std::__hash_value_type<MADUnifiedEmbeddingVersion,std::vector<float>>,std::equal_to<MADUnifiedEmbeddingVersion>,std::hash<MADUnifiedEmbeddingVersion>,true>,std::allocator<std::__hash_value_type<MADUnifiedEmbeddingVersion,std::vector<float>>>>::__emplace_unique_key_args<MADUnifiedEmbeddingVersion,MADUnifiedEmbeddingVersion const&,std::vector<float>>(void *a1, unint64_t *a2, void *a3, uint64_t a4)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v4 = *a2;
+  v5 = a1[1];
+  if (!*&v5)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v6 = vcnt_s8(v5);
+  v6.i16[0] = vaddlv_u8(v6);
+  if (v6.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (v2 >= *&v3)
+    v7 = *a2;
+    if (v4 >= *&v5)
     {
-      v5 = v2 % *&v3;
+      v7 = v4 % *&v5;
     }
   }
 
   else
   {
-    v5 = (*&v3 - 1) & v2;
+    v7 = (*&v5 - 1) & v4;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v8 = *(*a1 + 8 * v7);
+  if (!v8 || (v9 = *v8) == 0)
   {
 LABEL_18:
     operator new();
@@ -2942,44 +2927,44 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v10 = v9[1];
+    if (v10 == v4)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v6.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v10 >= *&v5)
       {
-        v8 %= *&v3;
+        v10 %= *&v5;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v10 &= *&v5 - 1;
     }
 
-    if (v8 != v5)
+    if (v10 != v7)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v9 = *v9;
+    if (!v9)
     {
       goto LABEL_18;
     }
   }
 
-  if (v7[2] != v2)
+  if (v9[2] != v4)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v9;
 }
 
 uint64_t _ZNKSt3__110__function6__funcIZZ70__SCMLImageSanitizer_sanitizeRequestAsynchronously_completionHandler__EUb_E4__12NS_9allocatorIS2_EEFvvEE6targetERKSt9type_info(uint64_t a1, uint64_t a2)
@@ -3049,9 +3034,9 @@ id getMADImageEmbeddingRequestClass(void)
   return v1;
 }
 
-void sub_1B8A5EBB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B8A5EBB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3103,9 +3088,9 @@ id getMADServiceClass(void)
   return v1;
 }
 
-void sub_1B8A5ED10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B8A5ED10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3128,74 +3113,67 @@ void ___ZL32getMADImageEmbeddingRequestClassv_block_invoke(uint64_t a1)
 
 void MediaAnalysisLibrary(void)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v2[0] = 0;
+  v4 = *MEMORY[0x1E69E9840];
+  v1[0] = 0;
   if (!MediaAnalysisLibraryCore(char **)::frameworkLibrary)
   {
-    v2[1] = MEMORY[0x1E69E9820];
-    v2[2] = 3221225472;
-    v2[3] = ___ZL24MediaAnalysisLibraryCorePPc_block_invoke_0;
-    v2[4] = &__block_descriptor_40_e5_v8__0l;
-    v2[5] = v2;
-    v3 = xmmword_1E7EB3BF0;
-    v4 = 0;
+    v1[1] = MEMORY[0x1E69E9820];
+    v1[2] = 3221225472;
+    v1[3] = ___ZL24MediaAnalysisLibraryCorePPc_block_invoke_0;
+    v1[4] = &__block_descriptor_40_e5_v8__0l;
+    v1[5] = v1;
+    v2 = xmmword_1E7EB3BF0;
+    v3 = 0;
     MediaAnalysisLibraryCore(char **)::frameworkLibrary = _sl_dlopen();
   }
 
-  v0 = v2[0];
+  v0 = v1[0];
   if (!MediaAnalysisLibraryCore(char **)::frameworkLibrary)
   {
-    v0 = abort_report_np();
+    v0 = abort_report_np("%s", v1[0]);
     goto LABEL_7;
   }
 
-  if (v2[0])
+  if (v1[0])
   {
 LABEL_7:
     free(v0);
   }
-
-  v1 = *MEMORY[0x1E69E9840];
 }
 
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v2[0] = 0;
+  v4 = *MEMORY[0x1E69E9840];
+  v1[0] = 0;
   if (!MediaAnalysisLibraryCore(char **)::frameworkLibrary)
   {
-    v2[1] = MEMORY[0x1E69E9820];
-    v2[2] = 3221225472;
-    v2[3] = ___ZL24MediaAnalysisLibraryCorePPc_block_invoke_1;
-    v2[4] = &__block_descriptor_40_e5_v8__0l;
-    v2[5] = v2;
-    v3 = xmmword_1E7EB3C08;
-    v4 = 0;
+    v1[1] = MEMORY[0x1E69E9820];
+    v1[2] = 3221225472;
+    v1[3] = ___ZL24MediaAnalysisLibraryCorePPc_block_invoke_1;
+    v1[4] = &__block_descriptor_40_e5_v8__0l;
+    v1[5] = v1;
+    v2 = xmmword_1E7EB3C08;
+    v3 = 0;
     MediaAnalysisLibraryCore(char **)::frameworkLibrary = _sl_dlopen();
   }
 
-  v0 = v2[0];
+  v0 = v1[0];
   if (!MediaAnalysisLibraryCore(char **)::frameworkLibrary)
   {
-    v0 = abort_report_np();
+    v0 = abort_report_np("%s", v1[0]);
     goto LABEL_7;
   }
 
-  if (v2[0])
+  if (v1[0])
   {
 LABEL_7:
     free(v0);
   }
-
-  v1 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t ___ZL24MediaAnalysisLibraryCorePPc_block_invoke_0(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   MediaAnalysisLibraryCore(char **)::frameworkLibrary = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -3283,16 +3261,16 @@ id getMADTextEmbeddingRequestClass(void)
   return v1;
 }
 
-void sub_1B8A5FEE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B8A5FEE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1B8A6003C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B8A6003C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3315,11 +3293,8 @@ void ___ZL31getMADTextEmbeddingRequestClassv_block_invoke(uint64_t a1)
 
 uint64_t ___ZL24MediaAnalysisLibraryCorePPc_block_invoke_1(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   MediaAnalysisLibraryCore(char **)::frameworkLibrary = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -3342,29 +3317,30 @@ SCMLPeopleDetectionAttributeSpan *___ZL18getMADServiceClassv_block_invoke_0(uint
   return result;
 }
 
-void sub_1B8A610BC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17)
+void sub_1B8A610BC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  __cxa_free_exception(v21);
+  va_start(va, a16);
+  __cxa_free_exception(v20);
 
   if (a2 == 2)
   {
-    v25 = __cxa_begin_catch(a1);
-    if (v19)
+    v24 = __cxa_begin_catch(a1);
+    if (v18)
     {
-      *v19 = scml::error(0x12u, v25);
+      *v18 = scml::error(0x12u, v24);
     }
 
-    v26 = [*(v22 + 672) textAnalyzer];
-    if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+    v25 = [*(v21 + 672) textAnalyzer];
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
     {
-      [SCMLPeopleDetector initWithConfiguration:v25 error:v26];
+      [SCMLPeopleDetector initWithConfiguration:v24 error:v25];
     }
 
     __cxa_end_catch();
     JUMPOUT(0x1B8A61024);
   }
 
-  scml::SignpostInterval::~SignpostInterval(&a17);
+  scml::SignpostInterval::~SignpostInterval(va);
 
   _Unwind_Resume(a1);
 }
@@ -3381,24 +3357,24 @@ void sub_1B8A620E4(_Unwind_Exception *a1, int a2)
 
 id scml::anonymous namespace::findAttributeSpans(void *a1, void *a2, NSString *a3, NSUInteger a4)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v7 = a1;
-  v18 = a2;
-  v19 = [MEMORY[0x1E695E0F0] mutableCopy];
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
+  v17 = a2;
+  v18 = [MEMORY[0x1E695E0F0] mutableCopy];
   v22 = 0u;
-  obj = v18;
-  v9 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
+  obj = v17;
+  v9 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v9)
   {
-    v10 = *v22;
+    v10 = *v21;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v22 != v10)
+        if (*v21 != v10)
         {
           objc_enumerationMutation(obj);
         }
@@ -3409,19 +3385,17 @@ id scml::anonymous namespace::findAttributeSpans(void *a1, void *a2, NSString *a
           v14 = v12;
           v15 = objc_opt_new();
           [v15 setRange:{AttributeSpan, v14}];
-          [v19 addObject:v15];
+          [v18 addObject:v15];
         }
       }
 
-      v9 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v9 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v9);
   }
 
-  v16 = *MEMORY[0x1E69E9840];
-
-  return v19;
+  return v18;
 }
 
 uint64_t ___ZN4scml12_GLOBAL__N_117toPeopleDetectionEPNS_18MultiwordGazetteerEP8NSStringP28SCMLPeopleDetectorImplResult_block_invoke(uint64_t a1, void *a2, void *a3)
@@ -3469,90 +3443,90 @@ LABEL_9:
   return v12;
 }
 
-void scml::anonymous namespace::findCandidateWordRanges(scml::_anonymous_namespace_ *this@<X0>, NSString *a2@<X1>, const void **a3@<X8>)
+void scml::anonymous namespace::findCandidateWordRanges(const void **__return_ptr a1@<X8>, scml::_anonymous_namespace_ *this@<X0>, NSString *a3@<X1>)
 {
-  v26 = this;
-  v25 = a2;
-  v24 = [MEMORY[0x1E696AE70] escapedPatternForString:v25];
-  v23 = [MEMORY[0x1E696AEC0] stringWithFormat:@"\\b%@\\b", v24];
-  v6 = [MEMORY[0x1E696AE70] regularExpressionWithPattern:v23 options:65 error:0];
-  *a3 = 0;
-  a3[1] = 0;
-  a3[2] = 0;
-  if (v6)
+  v25 = this;
+  v24 = a3;
+  v23 = [MEMORY[0x1E696AE70] escapedPatternForString:v24];
+  v22 = [MEMORY[0x1E696AEC0] stringWithFormat:@"\\b%@\\b", v23];
+  v5 = [MEMORY[0x1E696AE70] regularExpressionWithPattern:v22 options:65 error:0];
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
+  if (v5)
   {
-    v7 = 0;
+    v6 = 0;
     do
     {
-      v8 = [v6 rangeOfFirstMatchInString:v26 options:0 range:{v7, -[scml::_anonymous_namespace_ length](v26, "length") - v7}];
-      v10 = v8;
-      if (v8 == 0x7FFFFFFFFFFFFFFFLL)
+      v7 = [v5 rangeOfFirstMatchInString:v25 options:0 range:{v6, -[scml::_anonymous_namespace_ length](v25, "length") - v6}];
+      v9 = v7;
+      if (v7 == 0x7FFFFFFFFFFFFFFFLL)
       {
         break;
       }
 
-      v11 = v9;
-      v13 = a3[1];
-      v12 = a3[2];
-      if (v13 >= v12)
+      v10 = v8;
+      v12 = a1[1];
+      v11 = a1[2];
+      if (v12 >= v11)
       {
-        v15 = *a3;
-        v16 = v13 - *a3;
-        v17 = v16 >> 4;
-        v18 = (v16 >> 4) + 1;
-        if (v18 >> 60)
+        v14 = *a1;
+        v15 = v12 - *a1;
+        v16 = v15 >> 4;
+        v17 = (v15 >> 4) + 1;
+        if (v17 >> 60)
         {
           std::vector<float>::__throw_length_error[abi:ne200100]();
         }
 
-        v19 = v12 - v15;
-        if (v19 >> 3 > v18)
+        v18 = v11 - v14;
+        if (v18 >> 3 > v17)
         {
-          v18 = v19 >> 3;
+          v17 = v18 >> 3;
         }
 
-        if (v19 >= 0x7FFFFFFFFFFFFFF0)
+        if (v18 >= 0x7FFFFFFFFFFFFFF0)
         {
-          v20 = 0xFFFFFFFFFFFFFFFLL;
+          v19 = 0xFFFFFFFFFFFFFFFLL;
         }
 
         else
         {
-          v20 = v18;
+          v19 = v17;
         }
 
-        if (v20)
+        if (v19)
         {
-          std::__allocate_at_least[abi:ne200100]<std::allocator<_NSRange>>(a3, v20);
+          std::__allocate_at_least[abi:ne200100]<std::allocator<_NSRange>>(a1, v19);
         }
 
-        v21 = (16 * v17);
-        *v21 = v8;
-        v21[1] = v11;
-        v14 = 16 * v17 + 16;
-        memcpy(0, v15, v16);
-        v22 = *a3;
-        *a3 = 0;
-        a3[1] = v14;
-        a3[2] = 0;
-        if (v22)
+        v20 = (16 * v16);
+        *v20 = v7;
+        v20[1] = v10;
+        v13 = (16 * v16 + 16);
+        memcpy(0, v14, v15);
+        v21 = *a1;
+        *a1 = 0;
+        a1[1] = v13;
+        a1[2] = 0;
+        if (v21)
         {
-          operator delete(v22);
+          operator delete(v21);
         }
       }
 
       else
       {
-        *v13 = v8;
-        v13[1] = v9;
-        v14 = (v13 + 2);
+        *v12 = v7;
+        *(v12 + 1) = v8;
+        v13 = v12 + 16;
       }
 
-      a3[1] = v14;
-      v7 = v10 + v11;
+      a1[1] = v13;
+      v6 = v9 + v10;
     }
 
-    while (v7 < [(scml::_anonymous_namespace_ *)v26 length]);
+    while (v6 < [(scml::_anonymous_namespace_ *)v25 length]);
   }
 }
 
@@ -3647,7 +3621,7 @@ uint64_t _ZNKSt3__110__function6__funcIZZ67__SCMLPeopleDetector_detectPeopleAsyn
   }
 }
 
-void sub_1B8A62BE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, id a22)
+void sub_1B8A62BE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, id a22)
 {
   _Block_object_dispose(&a17, 8);
 
@@ -3669,20 +3643,20 @@ void sub_1B8A62D90(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void std::vector<float>::resize(void *a1, unint64_t a2)
+void std::vector<float>::resize(void *result, unint64_t a2)
 {
-  v2 = (a1[1] - *a1) >> 2;
+  v2 = (result[1] - *result) >> 2;
   if (a2 <= v2)
   {
     if (a2 < v2)
     {
-      a1[1] = *a1 + 4 * a2;
+      result[1] = *result + 4 * a2;
     }
   }
 
   else
   {
-    std::vector<float>::__append(a1, a2 - v2);
+    std::vector<float>::__append(result, a2 - v2);
   }
 }
 
@@ -3747,7 +3721,7 @@ void std::vector<float>::__append(uint64_t a1, unint64_t a2)
   }
 }
 
-void scml::Config::fromJson(void *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, _BYTE *a4@<X8>)
+void scml::Config::fromJson(void *a1@<X0>, uint64_t **a2@<X1>, uint64_t a3@<X2>, void *a4@<X8>)
 {
   v39 = *MEMORY[0x1E69E9840];
   v7 = a1;
@@ -3772,7 +3746,7 @@ void scml::Config::fromJson(void *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, _
 
     else
     {
-      v12 = *(a2 + 8);
+      v12 = a2[1];
     }
 
     scml::Config::Config<decltype(nullptr)>(a4, &v36, v11, v12, a3);
@@ -3803,7 +3777,7 @@ void scml::Config::fromJson(void *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, _
 
     else
     {
-      v16 = *(a2 + 8);
+      v16 = a2[1];
     }
 
     scml::Config::Config<std::unordered_map<std::string,scml::Config>>(a4, &v36, v15, v16, a3);
@@ -3833,7 +3807,7 @@ void scml::Config::fromJson(void *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, _
 
     else
     {
-      v20 = *(a2 + 8);
+      v20 = a2[1];
     }
 
     scml::Config::Config<std::vector<scml::Config>>(a4, &v36, v19, v20, a3);
@@ -3861,7 +3835,7 @@ void scml::Config::fromJson(void *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, _
 
     else
     {
-      v23 = *(a2 + 8);
+      v23 = a2[1];
     }
 
     scml::Config::Config<char const*>(a4, &v36, v22, v23, a3);
@@ -3898,7 +3872,7 @@ void scml::Config::fromJson(void *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, _
 
       else
       {
-        v28 = *(a2 + 8);
+        v28 = a2[1];
       }
 
       scml::Config::Config<double>(a4, &v36, v27, v28, a3);
@@ -3923,7 +3897,7 @@ void scml::Config::fromJson(void *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, _
 
     else
     {
-      v31 = *(a2 + 8);
+      v31 = a2[1];
     }
 
     scml::Config::Config<long>(a4, &v36, v30, v31, a3);
@@ -3948,15 +3922,15 @@ void scml::Config::fromJson(void *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, _
 
   else
   {
-    v34 = *(a2 + 8);
+    v34 = a2[1];
   }
 
   scml::Config::Config<decltype(nullptr)>(&v36, &__p, v33, v34, a3);
 }
 
-void sub_1B8A6436C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, char a24)
+void sub_1B8A6436C(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, char a24)
 {
-  MEMORY[0x1B8CC7230](v25, 0x10A0C408EF24B1CLL);
+  MEMORY[0x1B8CC7230](v25, 0x10A0C408EF24B1CLL, a3, a4, a5, a6, a7, a8);
 
   _Unwind_Resume(a1);
 }
@@ -3965,7 +3939,7 @@ void scml::Config::error(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, s
 {
   v7[0] = a2;
   v7[1] = a3;
-  scml::Config::PathInfo::path(*(a1 + 48), &__p);
+  scml::Config::PathInfo::path(&__p, *(a1 + 48));
   scml::strCat<std::string_view &,char const(&)[3],std::string>(v7, ": ", &__p, &v6);
   std::runtime_error::runtime_error(a4, &v6);
   if (SHIBYTE(v6.__r_.__value_.__r.__words[2]) < 0)
@@ -3994,7 +3968,7 @@ void sub_1B8A64568(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *scml::Config::PathInfo::PathInfo(_BYTE *__dst, void *__src, size_t __len, void *a4)
+void *scml::Config::PathInfo::PathInfo(void *__dst, void *__src, size_t __len, void *a4)
 {
   if (__len >= 0x7FFFFFFFFFFFFFF8)
   {
@@ -4006,16 +3980,16 @@ _BYTE *scml::Config::PathInfo::PathInfo(_BYTE *__dst, void *__src, size_t __len,
     operator new();
   }
 
-  __dst[23] = __len;
+  *(__dst + 23) = __len;
   if (__len)
   {
     memmove(__dst, __src, __len);
   }
 
-  __dst[__len] = 0;
+  *(__dst + __len) = 0;
   v8 = a4[1];
-  *(__dst + 3) = *a4;
-  *(__dst + 4) = v8;
+  __dst[3] = *a4;
+  __dst[4] = v8;
   if (v8)
   {
     atomic_fetch_add_explicit((v8 + 8), 1uLL, memory_order_relaxed);
@@ -4024,52 +3998,52 @@ _BYTE *scml::Config::PathInfo::PathInfo(_BYTE *__dst, void *__src, size_t __len,
   return __dst;
 }
 
-void scml::Config::PathInfo::path(scml::Config::PathInfo *this@<X0>, std::string *a2@<X8>)
+void scml::Config::PathInfo::path(std::string *__return_ptr a1@<X8>, scml::Config::PathInfo *this@<X0>)
 {
   v4 = *(this + 3);
   if (v4)
   {
-    scml::Config::PathInfo::path(__p, v4);
-    if (std::string::ends_with[abi:ne200100](__p, "/"))
+    scml::Config::PathInfo::path(&__p, v4);
+    if (std::string::ends_with[abi:ne200100](&__p, "/"))
     {
-      std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(__p, this, a2);
+      std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&__p.__r_.__value_.__l.__data_, this, a1);
     }
 
     else
     {
-      if ((v17 & 0x80u) == 0)
+      if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
       {
-        v5 = v17;
+        size = HIBYTE(__p.__r_.__value_.__r.__words[2]);
       }
 
       else
       {
-        v5 = __p[1];
+        size = __p.__r_.__value_.__l.__size_;
       }
 
       v6 = &v15;
-      std::string::basic_string[abi:ne200100](&v15, v5 + 1);
+      std::string::basic_string[abi:ne200100](&v15, size + 1);
       if ((v15.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
       {
         v6 = v15.__r_.__value_.__r.__words[0];
       }
 
-      if (v5)
+      if (size)
       {
-        if ((v17 & 0x80u) == 0)
+        if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          v7 = __p;
+          p_p = &__p;
         }
 
         else
         {
-          v7 = __p[0];
+          p_p = __p.__r_.__value_.__r.__words[0];
         }
 
-        memmove(v6, v7, v5);
+        memmove(v6, p_p, size);
       }
 
-      *(&v6->__r_.__value_.__l.__data_ + v5) = 47;
+      *(&v6->__r_.__value_.__l.__data_ + size) = 47;
       v8 = *(this + 23);
       if (v8 >= 0)
       {
@@ -4093,8 +4067,8 @@ void scml::Config::PathInfo::path(scml::Config::PathInfo *this@<X0>, std::string
 
       v11 = std::string::append(&v15, v9, v10);
       v12 = *&v11->__r_.__value_.__l.__data_;
-      a2->__r_.__value_.__r.__words[2] = v11->__r_.__value_.__r.__words[2];
-      *&a2->__r_.__value_.__l.__data_ = v12;
+      a1->__r_.__value_.__r.__words[2] = v11->__r_.__value_.__r.__words[2];
+      *&a1->__r_.__value_.__l.__data_ = v12;
       v11->__r_.__value_.__l.__size_ = 0;
       v11->__r_.__value_.__r.__words[2] = 0;
       v11->__r_.__value_.__r.__words[0] = 0;
@@ -4104,9 +4078,9 @@ void scml::Config::PathInfo::path(scml::Config::PathInfo *this@<X0>, std::string
       }
     }
 
-    if (v17 < 0)
+    if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(__p[0]);
+      operator delete(__p.__r_.__value_.__l.__data_);
     }
   }
 
@@ -4115,13 +4089,12 @@ void scml::Config::PathInfo::path(scml::Config::PathInfo *this@<X0>, std::string
     v13 = *this;
     v14 = *(this + 1);
 
-    std::string::__init_copy_ctor_external(a2, v13, v14);
+    std::string::__init_copy_ctor_external(a1, v13, v14);
   }
 
   else
   {
-    *&a2->__r_.__value_.__l.__data_ = *this;
-    a2->__r_.__value_.__r.__words[2] = *(this + 2);
+    *a1 = *this;
   }
 }
 
@@ -4140,7 +4113,7 @@ void sub_1B8A647DC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>@<X0>(const void **a1@<X0>, const void **a2@<X1>, uint64_t a3@<X8>)
+char *std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>@<X0>(const void **a1@<X0>, const void **a2@<X1>, uint64_t a3@<X8>)
 {
   if (*(a1 + 23) >= 0)
   {
@@ -4163,7 +4136,7 @@ uint64_t std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator
   }
 
   result = std::string::basic_string[abi:ne200100](a3, v6 + v5);
-  if (*(result + 23) >= 0)
+  if (result[23] >= 0)
   {
     v8 = result;
   }
@@ -4208,7 +4181,7 @@ uint64_t std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator
   return result;
 }
 
-void scml::Config::loadJson(const void *a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
+void scml::Config::loadJson(void *a1@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
 {
   v13[0] = a1;
   v13[1] = a2;
@@ -4221,7 +4194,7 @@ void scml::Config::loadJson(const void *a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8
     scml::Config::fromJsonContent([v6 bytes], objc_msgSend(v6, "length"), a1, a2, a3);
   }
 
-  scml::strCat<char const(&)[27],std::string_view &>("Failed to read json ", v13, v10);
+  scml::strCat<char const(&)[27],std::string_view &>("Failed to read json ", v10, v13);
   if ((v11 & 0x80u) == 0)
   {
     v8 = v10;
@@ -4260,7 +4233,7 @@ void scml::anonymous namespace::throwNSError(const void *a1, size_t a2, void *a3
   scml::makeException(a1, a2, v5, exception);
 }
 
-void scml::Config::fromJsonContent(uint64_t a1@<X0>, uint64_t a2@<X1>, const void *a3@<X2>, size_t a4@<X3>, _BYTE *a5@<X8>)
+void scml::Config::fromJsonContent(uint64_t a1@<X0>, uint64_t a2@<X1>, void *a3@<X2>, std::string::size_type a4@<X3>, void *a5@<X8>)
 {
   v18[0] = a3;
   v18[1] = a4;
@@ -4297,7 +4270,7 @@ void scml::Config::fromJsonContent(uint64_t a1@<X0>, uint64_t a2@<X1>, const voi
     std::string::__throw_length_error[abi:ne200100]();
   }
 
-  scml::strCat<char const(&)[27],std::string_view &>("Failed to read json ", v18, __p);
+  scml::strCat<char const(&)[27],std::string_view &>("Failed to read json ", __p, v18);
   if (v16 >= 0)
   {
     v12 = __p;
@@ -4329,7 +4302,7 @@ void sub_1B8A64C64(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t scml::Config::isNull(uint64_t a1, const void *a2, size_t a3)
+BOOL scml::Config::isNull(uint64_t a1, const void *a2, size_t a3)
 {
   v5 = scml::Config::as<std::unordered_map<std::string,scml::Config>>(a1);
   if (a3 >= 0x7FFFFFFFFFFFFFF8)
@@ -4379,7 +4352,7 @@ void sub_1B8A64DD0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t scml::strCat<std::string_view &,char const(&)[3],std::string>@<X0>(uint64_t *a1@<X0>, char *a2@<X1>, uint64_t a3@<X2>, _BYTE *a4@<X8>)
+uint64_t scml::strCat<std::string_view &,char const(&)[3],std::string>@<X0>(uint64_t *a1@<X0>, char *a2@<X1>, uint64_t **a3@<X2>, void *a4@<X8>)
 {
   std::ostringstream::basic_ostringstream[abi:ne200100](&v9);
   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v9, *a1, a1[1]);
@@ -4399,9 +4372,9 @@ uint64_t scml::strCat<std::string_view &,char const(&)[3],std::string>@<X0>(uint
   return MEMORY[0x1B8CC71A0](&v13);
 }
 
-void sub_1B8A64F68(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1B8A64F68(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::ostringstream::~ostringstream(va);
   _Unwind_Resume(a1);
 }
@@ -4462,9 +4435,9 @@ uint64_t std::vector<scml::Config>::__emplace_back_slow_path<scml::Config>(uint6
   return v14;
 }
 
-void sub_1B8A65080(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_1B8A65080(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<scml::Config>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -4504,8 +4477,7 @@ __n128 std::__variant_detail::__visitation::__base::__dispatcher<3ul>::__dispatc
   result = *a2;
   v2[1].n128_u64[0] = a2[1].n128_u64[0];
   *v2 = result;
-  a2->n128_u64[1] = 0;
-  a2[1].n128_u64[0] = 0;
+  *(a2 + 8) = 0uLL;
   a2->n128_u64[0] = 0;
   return result;
 }
@@ -4519,8 +4491,7 @@ __n128 std::__variant_detail::__visitation::__base::__dispatcher<4ul>::__dispatc
   result = *a2;
   *v2 = *a2;
   v2[1].n128_u64[0] = a2[1].n128_u64[0];
-  a2->n128_u64[0] = 0;
-  a2->n128_u64[1] = 0;
+  *a2 = 0uLL;
   a2[1].n128_u64[0] = 0;
   return result;
 }
@@ -4624,7 +4595,6 @@ void scml::Config::Config<decltype(nullptr)>(uint64_t a1, uint64_t a2, uint64_t 
   if (a5)
   {
     v5 = *(a5 + 56);
-    v6 = *(a5 + 48);
     if (v5)
     {
       atomic_fetch_add_explicit((v5 + 8), 1uLL, memory_order_relaxed);
@@ -4645,12 +4615,12 @@ void sub_1B8A653AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-uint64_t std::__shared_ptr_emplace<scml::Config::PathInfo>::__shared_ptr_emplace[abi:ne200100]<std::string_view &,std::shared_ptr<scml::Config::PathInfo>,std::allocator<scml::Config::PathInfo>,0>(uint64_t a1, uint64_t a2, void *a3)
+void *std::__shared_ptr_emplace<scml::Config::PathInfo>::__shared_ptr_emplace[abi:ne200100]<std::string_view &,std::shared_ptr<scml::Config::PathInfo>,std::allocator<scml::Config::PathInfo>,0>(void *a1, uint64_t a2, void *a3)
 {
-  *(a1 + 8) = 0;
-  *(a1 + 16) = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   *a1 = &unk_1F3746098;
-  std::construct_at[abi:ne200100]<scml::Config::PathInfo,std::string_view &,std::shared_ptr<scml::Config::PathInfo>,scml::Config::PathInfo*>((a1 + 24), a2, a3);
+  std::construct_at[abi:ne200100]<scml::Config::PathInfo,std::string_view &,std::shared_ptr<scml::Config::PathInfo>,scml::Config::PathInfo*>(a1 + 3, a2, a3);
   return a1;
 }
 
@@ -4662,7 +4632,7 @@ void std::__shared_ptr_emplace<scml::Config::PathInfo>::~__shared_ptr_emplace(st
   JUMPOUT(0x1B8CC7230);
 }
 
-_BYTE *std::construct_at[abi:ne200100]<scml::Config::PathInfo,std::string_view &,std::shared_ptr<scml::Config::PathInfo>,scml::Config::PathInfo*>(_BYTE *a1, uint64_t a2, void *a3)
+void *std::construct_at[abi:ne200100]<scml::Config::PathInfo,std::string_view &,std::shared_ptr<scml::Config::PathInfo>,scml::Config::PathInfo*>(void *a1, uint64_t a2, void *a3)
 {
   v4 = *a2;
   v5 = *(a2 + 8);
@@ -4696,7 +4666,6 @@ void scml::Config::Config<std::unordered_map<std::string,scml::Config>>(uint64_t
   if (a5)
   {
     v6 = *(a5 + 56);
-    v7 = *(a5 + 48);
     if (v6)
     {
       atomic_fetch_add_explicit((v6 + 8), 1uLL, memory_order_relaxed);
@@ -4717,35 +4686,35 @@ void sub_1B8A65610(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-const void **std::__hash_table<std::__hash_value_type<std::string,scml::Config>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,scml::Config>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,scml::Config>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,scml::Config>>>::__emplace_unique_key_args<std::string,std::string&,scml::Config>(void *a1, const void **a2)
+const void **std::__hash_table<std::__hash_value_type<std::string,scml::Config>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,scml::Config>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,scml::Config>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,scml::Config>>>::__emplace_unique_key_args<std::string,std::string&,scml::Config>(void *a1, uint64_t *a2, uint64_t a3, uint64_t a4)
 {
-  v4 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
+  v6 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
+  v7 = v6;
+  v8 = a1[1];
+  if (!*&v8)
   {
     goto LABEL_18;
   }
 
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
+  v9 = vcnt_s8(v8);
+  v9.i16[0] = vaddlv_u8(v9);
+  v10 = v9.u32[0];
+  if (v9.u32[0] > 1uLL)
   {
-    v9 = v4;
-    if (v4 >= *&v6)
+    v11 = v6;
+    if (v6 >= *&v8)
     {
-      v9 = v4 % *&v6;
+      v11 = v6 % *&v8;
     }
   }
 
   else
   {
-    v9 = (*&v6 - 1) & v4;
+    v11 = (*&v8 - 1) & v6;
   }
 
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
+  v12 = *(*a1 + 8 * v11);
+  if (!v12 || (v13 = *v12) == 0)
   {
 LABEL_18:
     std::__hash_table<std::__hash_value_type<std::string,scml::Config>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,scml::Config>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,scml::Config>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,scml::Config>>>::__construct_node_hash<std::string&,scml::Config>();
@@ -4753,44 +4722,44 @@ LABEL_18:
 
   while (1)
   {
-    v12 = v11[1];
-    if (v12 == v5)
+    v14 = v13[1];
+    if (v14 == v7)
     {
       break;
     }
 
-    if (v8 > 1)
+    if (v10 > 1)
     {
-      if (v12 >= *&v6)
+      if (v14 >= *&v8)
       {
-        v12 %= *&v6;
+        v14 %= *&v8;
       }
     }
 
     else
     {
-      v12 &= *&v6 - 1;
+      v14 &= *&v8 - 1;
     }
 
-    if (v12 != v9)
+    if (v14 != v11)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v11 = *v11;
-    if (!v11)
+    v13 = *v13;
+    if (!v13)
     {
       goto LABEL_18;
     }
   }
 
-  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v11 + 2, a2))
+  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v13 + 2, a2))
   {
     goto LABEL_17;
   }
 
-  return v11;
+  return v13;
 }
 
 void sub_1B8A65874(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11)
@@ -4870,7 +4839,6 @@ void scml::Config::Config<std::vector<scml::Config>>(uint64_t a1, uint64_t a2, u
   if (a5)
   {
     v5 = *(a5 + 56);
-    v6 = *(a5 + 48);
     if (v5)
     {
       atomic_fetch_add_explicit((v5 + 8), 1uLL, memory_order_relaxed);
@@ -4891,13 +4859,12 @@ void sub_1B8A65AC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void scml::Config::Config<char const*>(_BYTE *a1, char **a2, uint64_t a3, uint64_t a4, uint64_t a5)
+void scml::Config::Config<char const*>(void *a1, char **a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   *(std::string::basic_string[abi:ne200100]<0>(a1, *a2) + 10) = 3;
   if (a5)
   {
     v6 = *(a5 + 56);
-    v7 = *(a5 + 48);
     if (v6)
     {
       atomic_fetch_add_explicit((v6 + 8), 1uLL, memory_order_relaxed);
@@ -4928,7 +4895,8 @@ uint64_t std::unordered_set<int>::unordered_set(uint64_t a1, int *a2, uint64_t a
     v5 = 4 * a3;
     do
     {
-      std::__hash_table<int,std::hash<int>,std::equal_to<int>,std::allocator<int>>::__emplace_unique_key_args<int,int const&>(a1, a2++);
+      std::__hash_table<int,std::hash<int>,std::equal_to<int>,std::allocator<int>>::__emplace_unique_key_args<int,int const&>(a1, a2, a2);
+      ++a2;
       v5 -= 4;
     }
 
@@ -4938,33 +4906,33 @@ uint64_t std::unordered_set<int>::unordered_set(uint64_t a1, int *a2, uint64_t a
   return a1;
 }
 
-uint64_t *std::__hash_table<int,std::hash<int>,std::equal_to<int>,std::allocator<int>>::__emplace_unique_key_args<int,int const&>(void *a1, int *a2)
+uint64_t *std::__hash_table<int,std::hash<int>,std::equal_to<int>,std::allocator<int>>::__emplace_unique_key_args<int,int const&>(void *a1, int *a2, _DWORD *a3)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v3 = *a2;
+  v4 = a1[1];
+  if (!*&v4)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v5 = vcnt_s8(v4);
+  v5.i16[0] = vaddlv_u8(v5);
+  if (v5.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (*&v3 <= v2)
+    v6 = *a2;
+    if (*&v4 <= v3)
     {
-      v5 = v2 % *&v3;
+      v6 = v3 % *&v4;
     }
   }
 
   else
   {
-    v5 = (*&v3 - 1) & v2;
+    v6 = (*&v4 - 1) & v3;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v7 = *(*a1 + 8 * v6);
+  if (!v7 || (v8 = *v7) == 0)
   {
 LABEL_18:
     operator new();
@@ -4972,44 +4940,44 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v9 = v8[1];
+    if (v9 == v3)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v5.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v9 >= *&v4)
       {
-        v8 %= *&v3;
+        v9 %= *&v4;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v9 &= *&v4 - 1;
     }
 
-    if (v8 != v5)
+    if (v9 != v6)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v8 = *v8;
+    if (!v8)
     {
       goto LABEL_18;
     }
   }
 
-  if (*(v7 + 4) != v2)
+  if (*(v8 + 4) != v3)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v8;
 }
 
 uint64_t std::__hash_table<int,std::hash<int>,std::equal_to<int>,std::allocator<int>>::~__hash_table(uint64_t a1)
@@ -5111,7 +5079,6 @@ void scml::Config::Config<double>(uint64_t a1, void *a2, uint64_t a3, uint64_t a
   if (a5)
   {
     v5 = *(a5 + 56);
-    v6 = *(a5 + 48);
     if (v5)
     {
       atomic_fetch_add_explicit((v5 + 8), 1uLL, memory_order_relaxed);
@@ -5139,7 +5106,6 @@ void scml::Config::Config<long>(uint64_t a1, void *a2, uint64_t a3, uint64_t a4,
   if (a5)
   {
     v5 = *(a5 + 56);
-    v6 = *(a5 + 48);
     if (v5)
     {
       atomic_fetch_add_explicit((v5 + 8), 1uLL, memory_order_relaxed);
@@ -5220,7 +5186,7 @@ CGImageRef createScaledCGImageFromCGImage(CGImage *a1, unint64_t *a2, CGInterpol
 __CVBuffer *scaleCVPixelBuffer(CVPixelBufferRef pixelBuffer, size_t *a2)
 {
   v2 = pixelBuffer;
-  v11[1] = *MEMORY[0x1E69E9840];
+  v10[1] = *MEMORY[0x1E69E9840];
   if (pixelBuffer)
   {
     if (CVPixelBufferGetPixelFormatType(pixelBuffer) == 1111970369 && CVPixelBufferGetWidth(v2) == *a2 && CVPixelBufferGetHeight(v2) == a2[1])
@@ -5234,15 +5200,15 @@ __CVBuffer *scaleCVPixelBuffer(CVPixelBufferRef pixelBuffer, size_t *a2)
       v4 = *MEMORY[0x1E695E480];
       if (VTPixelTransferSessionCreate(*MEMORY[0x1E695E480], &pixelTransferSessionOut))
       {
-        v2 = 0;
+        return 0;
       }
 
       else
       {
         pixelBufferOut = 0;
-        v10 = *MEMORY[0x1E69660D8];
-        v11[0] = MEMORY[0x1E695E0F8];
-        v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:&v10 count:1];
+        v9 = *MEMORY[0x1E69660D8];
+        v10[0] = MEMORY[0x1E695E0F8];
+        v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:&v9 count:1];
         if (CVPixelBufferCreate(v4, *a2, a2[1], 0x42475241u, v5, &pixelBufferOut) || VTPixelTransferSessionTransferImage(pixelTransferSessionOut, v2, pixelBufferOut))
         {
           CVPixelBufferRelease(pixelBufferOut);
@@ -5259,21 +5225,20 @@ __CVBuffer *scaleCVPixelBuffer(CVPixelBufferRef pixelBuffer, size_t *a2)
     }
   }
 
-  v6 = *MEMORY[0x1E69E9840];
   return v2;
 }
 
 CVPixelBufferRef scaledPixelBuffer32BGRAFromCGImage(CGImage *a1, size_t a2, size_t a3, CGInterpolationQuality a4)
 {
-  v22[3] = *MEMORY[0x1E69E9840];
+  v21[3] = *MEMORY[0x1E69E9840];
   v8 = *MEMORY[0x1E6966030];
-  v21[0] = *MEMORY[0x1E69660D8];
-  v21[1] = v8;
-  v22[0] = MEMORY[0x1E695E0F8];
-  v22[1] = MEMORY[0x1E695E118];
-  v21[2] = *MEMORY[0x1E6966028];
-  v22[2] = MEMORY[0x1E695E118];
-  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:v21 count:3];
+  v20[0] = *MEMORY[0x1E69660D8];
+  v20[1] = v8;
+  v21[0] = MEMORY[0x1E695E0F8];
+  v21[1] = MEMORY[0x1E695E118];
+  v20[2] = *MEMORY[0x1E6966028];
+  v21[2] = MEMORY[0x1E695E118];
+  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v21 forKeys:v20 count:3];
   pixelBuffer = 0;
   CVPixelBufferCreate(*MEMORY[0x1E695E480], a2, a3, 0x42475241u, v9, &pixelBuffer);
   if (!pixelBuffer)
@@ -5304,25 +5269,25 @@ LABEL_8:
   DeviceRGB = CGColorSpaceCreateDeviceRGB();
   BytesPerRow = CVPixelBufferGetBytesPerRow(pixelBuffer);
   BaseAddress = CVPixelBufferGetBaseAddress(pixelBuffer);
-  v17 = CGBitmapContextCreate(BaseAddress, a2, a3, 8uLL, BytesPerRow, DeviceRGB, 0x2006u);
-  v18 = v17;
-  if (v17)
+  v16 = CGBitmapContextCreate(BaseAddress, a2, a3, 8uLL, BytesPerRow, DeviceRGB, 0x2006u);
+  v17 = v16;
+  if (v16)
   {
-    CGContextSetInterpolationQuality(v17, a4);
-    v23.size.width = a2;
-    v23.size.height = a3;
-    v23.origin.x = 0.0;
-    v23.origin.y = 0.0;
-    CGContextDrawImage(v18, v23, a1);
+    CGContextSetInterpolationQuality(v16, a4);
+    v22.size.width = a2;
+    v22.size.height = a3;
+    v22.origin.x = 0.0;
+    v22.origin.y = 0.0;
+    CGContextDrawImage(v17, v22, a1);
     CVPixelBufferUnlockBaseAddress(pixelBuffer, 0);
-    CGContextRelease(v18);
+    CGContextRelease(v17);
     CGColorSpaceRelease(DeviceRGB);
     v11 = pixelBuffer;
     goto LABEL_10;
   }
 
-  v19 = +[SCMLLog imageAnalyzer];
-  if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+  v18 = +[SCMLLog imageAnalyzer];
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
   {
     scaledPixelBuffer32BGRAFromCGImage_cold_2();
   }
@@ -5334,7 +5299,6 @@ LABEL_9:
   v11 = 0;
 LABEL_10:
 
-  v12 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
@@ -5469,7 +5433,7 @@ LABEL_8:
   return v5;
 }
 
-uint64_t scml::ImageUtil::toPixelBuffer@<X0>(scml::ImageUtil *this@<X0>, void *a2@<X8>)
+void *scml::ImageUtil::toPixelBuffer@<X0>(scml::ImageUtil *this@<X0>, void *a2@<X8>)
 {
   result = pixelBufferFromCGImage(this, 0);
   *a2 = result;
@@ -5484,40 +5448,50 @@ uint64_t scml::ImageUtil::toPixelBuffer@<X0>(scml::ImageUtil *this@<X0>, void *a
 
 void scml::ImageUtil::loadPixelBuffer(scml::ImageUtil *this@<X0>, void *a2@<X8>)
 {
-  v4 = this;
-  scml::ImageUtil::loadCGImage(v4, &image);
+  v3 = this;
+  scml::ImageUtil::loadCGImage(&image, v3);
   scml::ImageUtil::toPixelBuffer(image, a2);
-  v5 = image;
+  v4 = image;
   image = 0;
-  if (v5)
+  if (v4)
   {
-    CGImageRelease(v5);
+    CGImageRelease(v4);
   }
 }
 
-void sub_1B8A66B0C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1B8A66B0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<CGImage,scml::NonNullDeleter<&(CGImageRelease)>>::reset[abi:ne200100](va, 0);
 
   _Unwind_Resume(a1);
 }
 
-void scml::ImageUtil::loadCGImage(scml::ImageUtil *this@<X0>, CGImageRef *a2@<X8>)
+void scml::ImageUtil::loadCGImage(CGImageRef *__return_ptr a1@<X8>, scml::ImageUtil *this@<X0>)
 {
-  v14 = this;
-  v4 = [MEMORY[0x1E695DFF8] fileURLWithPath:?];
-  v5 = CGImageSourceCreateWithURL(v4, 0);
-  v6 = v5;
-  v19 = v5;
-  if (!v5)
+  v13 = this;
+  v3 = [MEMORY[0x1E695DFF8] fileURLWithPath:?];
+  v4 = CGImageSourceCreateWithURL(v3, 0);
+  v5 = v4;
+  v18 = v4;
+  if (!v4)
   {
     exception = __cxa_allocate_exception(0x18uLL);
-    scml::strFromNSString(v14, v15);
-    scml::strCat<char const(&)[47],std::string const&>("Failed to open ", v15, &v16);
-    if ((v18 & 0x80u) == 0)
+    scml::strFromNSString(v14, v13);
+    scml::strCat<char const(&)[47],std::string const&>("Failed to open ", v14, &v15);
+    if ((v17 & 0x80u) == 0)
     {
-      v9 = &v16;
+      v8 = &v15;
+    }
+
+    else
+    {
+      v8 = v15;
+    }
+
+    if ((v17 & 0x80u) == 0)
+    {
+      v9 = v17;
     }
 
     else
@@ -5525,29 +5499,29 @@ void scml::ImageUtil::loadCGImage(scml::ImageUtil *this@<X0>, CGImageRef *a2@<X8
       v9 = v16;
     }
 
-    if ((v18 & 0x80u) == 0)
+    scml::Exception::Exception(exception, v8, v9, 0);
+  }
+
+  ImageAtIndex = CGImageSourceCreateImageAtIndex(v4, 0, 0);
+  *a1 = ImageAtIndex;
+  if (!ImageAtIndex)
+  {
+    v10 = __cxa_allocate_exception(0x18uLL);
+    scml::strFromNSString(v14, v13);
+    scml::strCat<char const(&)[47],std::string const&>("Failed to decode ", v14, &v15);
+    if ((v17 & 0x80u) == 0)
     {
-      v10 = v18;
+      v11 = &v15;
     }
 
     else
     {
-      v10 = v17;
+      v11 = v15;
     }
 
-    scml::Exception::Exception(exception, v9, v10, 0);
-  }
-
-  ImageAtIndex = CGImageSourceCreateImageAtIndex(v5, 0, 0);
-  *a2 = ImageAtIndex;
-  if (!ImageAtIndex)
-  {
-    v11 = __cxa_allocate_exception(0x18uLL);
-    scml::strFromNSString(v14, v15);
-    scml::strCat<char const(&)[47],std::string const&>("Failed to decode ", v15, &v16);
-    if ((v18 & 0x80u) == 0)
+    if ((v17 & 0x80u) == 0)
     {
-      v12 = &v16;
+      v12 = v17;
     }
 
     else
@@ -5555,20 +5529,10 @@ void scml::ImageUtil::loadCGImage(scml::ImageUtil *this@<X0>, CGImageRef *a2@<X8
       v12 = v16;
     }
 
-    if ((v18 & 0x80u) == 0)
-    {
-      v13 = v18;
-    }
-
-    else
-    {
-      v13 = v17;
-    }
-
-    scml::Exception::Exception(v11, v12, v13, 0);
+    scml::Exception::Exception(v10, v11, v12, 0);
   }
 
-  CFRelease(v6);
+  CFRelease(v5);
 }
 
 void sub_1B8A66CD4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, id a9, void *a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21, const void *a22)
@@ -5640,7 +5604,7 @@ std::string *scml::typeStr@<X0>(int a1@<W0>, std::string *a2@<X8>)
 
 void scml::TensorSpec::throwBadShape(uint64_t a1, uint64_t **a2)
 {
-  scml::strCat<char const(&)[8],std::string const&,char const(&)[8],std::vector<unsigned long> const&,char const(&)[22],std::vector<std::variant<int,std::string>> const&>("tensor ", a1, " shape ", a2, " does not match spec ", (a1 + 24), &v3);
+  scml::strCat<char const(&)[8],std::string const&,char const(&)[8],std::vector<unsigned long> const&,char const(&)[22],std::vector<std::variant<int,std::string>> const&>("tensor ", &v3, a1, " shape ", a2, " does not match spec ", (a1 + 24));
   exception = __cxa_allocate_exception(0x10uLL);
   std::runtime_error::runtime_error(exception, &v3);
   __cxa_throw(exception, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
@@ -5656,11 +5620,11 @@ void sub_1B8A66EEC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t scml::strCat<char const(&)[8],std::string const&,char const(&)[8],std::vector<unsigned long> const&,char const(&)[22],std::vector<std::variant<int,std::string>> const&>@<X0>(char *a1@<X0>, uint64_t a2@<X1>, char *a3@<X2>, uint64_t **a4@<X3>, char *a5@<X4>, uint64_t *a6@<X5>, _BYTE *a7@<X8>)
+uint64_t scml::strCat<char const(&)[8],std::string const&,char const(&)[8],std::vector<unsigned long> const&,char const(&)[22],std::vector<std::variant<int,std::string>> const&>@<X0>(char *a1@<X0>, void *a2@<X8>, uint64_t **a3@<X1>, char *a4@<X2>, uint64_t **a5@<X3>, char *a6@<X4>, uint64_t *a7@<X5>)
 {
   std::ostringstream::basic_ostringstream[abi:ne200100](&v15);
-  scml::scml_impl::strCat<char const(&)[8],std::string const&,char const(&)[8],std::vector<unsigned long> const&,char const(&)[22],std::vector<std::variant<int,std::string>> const&>(&v15, a1, a2, a3, a4, a5, a6);
-  std::ostringstream::str[abi:ne200100](&v15, a7);
+  scml::scml_impl::strCat<char const(&)[8],std::string const&,char const(&)[8],std::vector<unsigned long> const&,char const(&)[22],std::vector<std::variant<int,std::string>> const&>(&v15, a1, a3, a4, a5, a6, a7);
+  std::ostringstream::str[abi:ne200100](&v15, a2);
   v15 = *MEMORY[0x1E69E54E8];
   *(&v15 + *(v15 - 24)) = *(MEMORY[0x1E69E54E8] + 24);
   v16 = MEMORY[0x1E69E5548] + 16;
@@ -5675,9 +5639,9 @@ uint64_t scml::strCat<char const(&)[8],std::string const&,char const(&)[8],std::
   return MEMORY[0x1B8CC71A0](&v19);
 }
 
-void sub_1B8A670A0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1B8A670A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::ostringstream::~ostringstream(va);
   _Unwind_Resume(a1);
 }
@@ -5686,7 +5650,7 @@ void scml::TensorSpec::throwBadType(uint64_t a1, int a2)
 {
   scml::typeStr(a2, &v5);
   scml::typeStr(*(a1 + 48), &__p);
-  scml::strCat<char const(&)[8],std::string const&,char const(&)[7],std::string,char const(&)[22],std::string>("tensor ", a1, " type ", &v5, " does not match spec ", &__p, &v6);
+  scml::strCat<char const(&)[8],std::string const&,char const(&)[7],std::string,char const(&)[22],std::string>("tensor ", &v6, a1, " type ", &v5, " does not match spec ", &__p);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
@@ -5712,11 +5676,11 @@ void sub_1B8A67168(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t scml::strCat<char const(&)[8],std::string const&,char const(&)[7],std::string,char const(&)[22],std::string>@<X0>(char *a1@<X0>, uint64_t a2@<X1>, char *a3@<X2>, uint64_t a4@<X3>, char *a5@<X4>, uint64_t a6@<X5>, _BYTE *a7@<X8>)
+uint64_t scml::strCat<char const(&)[8],std::string const&,char const(&)[7],std::string,char const(&)[22],std::string>@<X0>(char *a1@<X0>, void *a2@<X8>, uint64_t **a3@<X1>, char *a4@<X2>, uint64_t **a5@<X3>, char *a6@<X4>, uint64_t **a7@<X5>)
 {
   std::ostringstream::basic_ostringstream[abi:ne200100](&v15);
-  scml::scml_impl::strCat<char const(&)[8],std::string const&,char const(&)[7],std::string,char const(&)[22],std::string>(&v15, a1, a2, a3, a4, a5, a6);
-  std::ostringstream::str[abi:ne200100](&v15, a7);
+  scml::scml_impl::strCat<char const(&)[8],std::string const&,char const(&)[7],std::string,char const(&)[22],std::string>(&v15, a1, a3, a4, a5, a6, a7);
+  std::ostringstream::str[abi:ne200100](&v15, a2);
   v15 = *MEMORY[0x1E69E54E8];
   *(&v15 + *(v15 - 24)) = *(MEMORY[0x1E69E54E8] + 24);
   v16 = MEMORY[0x1E69E5548] + 16;
@@ -5731,16 +5695,16 @@ uint64_t scml::strCat<char const(&)[8],std::string const&,char const(&)[7],std::
   return MEMORY[0x1B8CC71A0](&v19);
 }
 
-void sub_1B8A67348(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1B8A67348(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::ostringstream::~ostringstream(va);
   _Unwind_Resume(a1);
 }
 
-void scml::TensorSpec::throwUnhandledPortType(scml::TensorSpec *this)
+void scml::TensorSpec::throwUnhandledPortType(uint64_t **this)
 {
-  scml::strCat<char const(&)[8],std::string const&,char const(&)[21]>("tensor ", this, " unhandled port type", &v2);
+  scml::strCat<char const(&)[8],std::string const&,char const(&)[21]>("tensor ", &v2, this, " unhandled port type");
   exception = __cxa_allocate_exception(0x10uLL);
   std::runtime_error::runtime_error(exception, &v2);
   __cxa_throw(exception, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
@@ -5756,11 +5720,11 @@ void sub_1B8A673C4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t scml::strCat<char const(&)[8],std::string const&,char const(&)[21]>@<X0>(char *a1@<X0>, uint64_t a2@<X1>, char *a3@<X2>, _BYTE *a4@<X8>)
+uint64_t scml::strCat<char const(&)[8],std::string const&,char const(&)[21]>@<X0>(char *a1@<X0>, void *a2@<X8>, uint64_t **a3@<X1>, char *a4@<X2>)
 {
   std::ostringstream::basic_ostringstream[abi:ne200100](&v9);
-  scml::scml_impl::strCat<char const(&)[8],std::string const&,char const(&)[21]>(&v9, a1, a2, a3);
-  std::ostringstream::str[abi:ne200100](&v9, a4);
+  scml::scml_impl::strCat<char const(&)[8],std::string const&,char const(&)[21]>(&v9, a1, a3, a4);
+  std::ostringstream::str[abi:ne200100](&v9, a2);
   v9 = *MEMORY[0x1E69E54E8];
   *(&v9 + *(v9 - 24)) = *(MEMORY[0x1E69E54E8] + 24);
   v10 = MEMORY[0x1E69E5548] + 16;
@@ -5775,9 +5739,9 @@ uint64_t scml::strCat<char const(&)[8],std::string const&,char const(&)[21]>@<X0
   return MEMORY[0x1B8CC71A0](&v13);
 }
 
-void sub_1B8A67558(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1B8A67558(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::ostringstream::~ostringstream(va);
   _Unwind_Resume(a1);
 }
@@ -5804,7 +5768,7 @@ void scml::TensorSpec::validate(uint64_t a1, E5RT::OperandDescriptor *this, uint
   v16 = 0;
   v17 = 0;
   v15 = 0;
-  std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long *,unsigned long *>(&v15, *TensorShape, TensorShape[1], (TensorShape[1] - *TensorShape) >> 3);
+  std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long *,unsigned long *>(&v15, *TensorShape, *(TensorShape + 8), (*(TensorShape + 8) - *TensorShape) >> 3);
   v9 = v15;
   if (v16 - v15 != (*(a1 + 32) - *(a1 + 24)) >> 5)
   {
@@ -5926,103 +5890,103 @@ LABEL_18:
   }
 }
 
-void scml::TensorSpec::createTensor(void *a1, E5RT::TensorDescriptor *this, uint64_t a3)
+void scml::TensorSpec::createTensor(E5RT::TensorDescriptor *this@<X1>, void *a2@<X0>, uint64_t a3@<X2>, void *a4@<X8>)
 {
   __src = 0;
-  v33 = 0;
-  v34 = 0;
+  v35 = 0;
+  v36 = 0;
   TensorShape = E5RT::TensorDescriptor::GetTensorShape(this);
-  v29 = 0;
-  v30 = 0;
   v31 = 0;
-  std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long *,unsigned long *>(&v29, *TensorShape, TensorShape[1], (TensorShape[1] - *TensorShape) >> 3);
-  v6 = v29;
-  if (v30 != v29)
+  v32 = 0;
+  v33 = 0;
+  std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long *,unsigned long *>(&v31, *TensorShape, *(TensorShape + 8), (*(TensorShape + 8) - *TensorShape) >> 3);
+  v7 = v31;
+  if (v32 != v31)
   {
-    v7 = 0;
     v8 = 0;
+    v9 = 0;
     do
     {
-      v9 = v6[v8];
-      __p = a1;
-      v26 = &v29;
-      v27 = a3;
-      v28 = v9;
-      v10 = *(a1[3] + v7 + 24);
-      if (v10 == -1)
+      v10 = v7[v9];
+      __p = a2;
+      v28 = &v31;
+      v29 = a3;
+      v30 = v10;
+      v11 = *(a2[3] + v8 + 24);
+      if (v11 == -1)
       {
         std::__throw_bad_variant_access[abi:ne200100]();
       }
 
       p_p = &__p;
-      v11 = (off_1F37460E8[v10])(&p_p);
-      v12 = v33;
-      if (v33 >= v34)
+      v12 = (off_1F37460E8[v11])(&p_p);
+      v13 = v35;
+      if (v35 >= v36)
       {
-        v14 = __src;
-        v15 = v33 - __src;
-        v16 = (v33 - __src) >> 3;
-        v17 = v16 + 1;
-        if ((v16 + 1) >> 61)
+        v15 = __src;
+        v16 = v35 - __src;
+        v17 = (v35 - __src) >> 3;
+        v18 = v17 + 1;
+        if ((v17 + 1) >> 61)
         {
           std::vector<float>::__throw_length_error[abi:ne200100]();
         }
 
-        v18 = v34 - __src;
-        if ((v34 - __src) >> 2 > v17)
+        v19 = v36 - __src;
+        if ((v36 - __src) >> 2 > v18)
         {
-          v17 = v18 >> 2;
+          v18 = v19 >> 2;
         }
 
-        v19 = v18 >= 0x7FFFFFFFFFFFFFF8;
-        v20 = 0x1FFFFFFFFFFFFFFFLL;
-        if (!v19)
+        v20 = v19 >= 0x7FFFFFFFFFFFFFF8;
+        v21 = 0x1FFFFFFFFFFFFFFFLL;
+        if (!v20)
         {
-          v20 = v17;
+          v21 = v18;
         }
 
-        if (v20)
-        {
-          std::__allocate_at_least[abi:ne200100]<std::allocator<E5RT::ComputeDeviceType>>(&__src, v20);
-        }
-
-        *(8 * v16) = v11;
-        v13 = (8 * v16 + 8);
-        memcpy(0, v14, v15);
-        v21 = __src;
-        __src = 0;
-        v33 = v13;
-        v34 = 0;
         if (v21)
         {
-          operator delete(v21);
+          std::__allocate_at_least[abi:ne200100]<std::allocator<E5RT::ComputeDeviceType>>(&__src, v21);
+        }
+
+        *(8 * v17) = v12;
+        v14 = (8 * v17 + 8);
+        memcpy(0, v15, v16);
+        v22 = __src;
+        __src = 0;
+        v35 = v14;
+        v36 = 0;
+        if (v22)
+        {
+          operator delete(v22);
         }
       }
 
       else
       {
-        *v33 = v11;
-        v13 = v12 + 1;
+        *v35 = v12;
+        v14 = v13 + 1;
       }
 
-      v33 = v13;
-      ++v8;
-      v6 = v29;
-      v7 += 32;
+      v35 = v14;
+      ++v9;
+      v7 = v31;
+      v8 += 32;
     }
 
-    while (v8 < (v30 - v29) >> 3);
+    while (v9 < (v32 - v31) >> 3);
   }
 
   E5RT::TensorDescriptor::GetTensorDataType(&__p, this);
-  v23 = ik::core::AsDataType(&__p, v22);
+  v24 = ik::core::AsDataType(&__p, v23);
   E5RT::TensorDataType::~TensorDataType(&__p);
-  LODWORD(p_p) = v23;
+  LODWORD(p_p) = v24;
   __p = 0;
-  v26 = 0;
-  v27 = 0;
-  std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long *,unsigned long *>(&__p, __src, v33, (v33 - __src) >> 3);
-  ik::E5BufferTensor::E5BufferTensor();
+  v28 = 0;
+  v29 = 0;
+  std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long *,unsigned long *>(&__p, __src, v35, (v35 - __src) >> 3);
+  ik::E5BufferTensor::E5BufferTensor(a4, &p_p, &__p);
 }
 
 void sub_1B8A67A6C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, uint64_t a14, uint64_t a15, void *a16, uint64_t a17, uint64_t a18, void *a19, uint64_t a20)
@@ -6045,12 +6009,12 @@ void sub_1B8A67A6C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void scml::validateTensorNames(uint64_t a1, void ***a2)
+void scml::validateTensorNames(uint64_t a1, uint64_t ****a2)
 {
   v20 = 0;
   v21 = 0;
   v19 = &v20;
-  for (i = (a1 + 16); ; std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(&v19, i + 2))
+  for (i = (a1 + 16); ; std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(&v19, i + 2, (i + 2)))
   {
     i = *i;
     if (!i)
@@ -6073,7 +6037,7 @@ void scml::validateTensorNames(uint64_t a1, void ***a2)
   {
     do
     {
-      std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(&v16, v5);
+      std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(&v16, v5, v5);
       v5 += 7;
     }
 
@@ -6149,7 +6113,7 @@ void scml::validateTensorNames(uint64_t a1, void ***a2)
     }
 
 LABEL_24:
-    scml::strCat<char const(&)[20],std::set<std::string> &,char const(&)[12],std::set<std::string> &>("tensor names found=", &v19, ", expected=", &v16, &v15);
+    scml::strCat<char const(&)[20],std::set<std::string> &,char const(&)[12],std::set<std::string> &>("tensor names found=", &v15, &v19, ", expected=", &v16);
     exception = __cxa_allocate_exception(0x10uLL);
     std::runtime_error::runtime_error(exception, &v15);
     __cxa_throw(exception, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
@@ -6160,7 +6124,7 @@ LABEL_23:
   std::__tree<std::string>::destroy(&v19, v20);
 }
 
-void sub_1B8A67C88(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, char a16, char *a17, uint64_t a18, char a19, char *a20)
+void sub_1B8A67C88(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, uint64_t a16, char *a17, uint64_t a18, uint64_t a19, char *a20)
 {
   if (a15 < 0)
   {
@@ -6172,11 +6136,11 @@ void sub_1B8A67C88(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t scml::strCat<char const(&)[20],std::set<std::string> &,char const(&)[12],std::set<std::string> &>@<X0>(char *a1@<X0>, void *a2@<X1>, char *a3@<X2>, void *a4@<X3>, _BYTE *a5@<X8>)
+uint64_t scml::strCat<char const(&)[20],std::set<std::string> &,char const(&)[12],std::set<std::string> &>@<X0>(char *a1@<X0>, void *a2@<X8>, void *a3@<X1>, char *a4@<X2>, void *a5@<X3>)
 {
   std::ostringstream::basic_ostringstream[abi:ne200100](&v11);
-  scml::scml_impl::strCat<char const(&)[20],std::set<std::string> &,char const(&)[12],std::set<std::string> &>(&v11, a1, a2, a3, a4);
-  std::ostringstream::str[abi:ne200100](&v11, a5);
+  scml::scml_impl::strCat<char const(&)[20],std::set<std::string> &,char const(&)[12],std::set<std::string> &>(&v11, a1, a3, a4, a5);
+  std::ostringstream::str[abi:ne200100](&v11, a2);
   v11 = *MEMORY[0x1E69E54E8];
   *(&v11 + *(v11 - 24)) = *(MEMORY[0x1E69E54E8] + 24);
   v12 = MEMORY[0x1E69E5548] + 16;
@@ -6191,9 +6155,9 @@ uint64_t scml::strCat<char const(&)[20],std::set<std::string> &,char const(&)[12
   return MEMORY[0x1B8CC71A0](&v15);
 }
 
-void sub_1B8A67E50(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1B8A67E50(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::ostringstream::~ostringstream(va);
   _Unwind_Resume(a1);
 }
@@ -6205,7 +6169,7 @@ void scml::setZero(scml *this, ik::Tensor *a2)
   bzero(v2, v3);
 }
 
-void scml::validateTensors(void *a1@<X0>, void ***a2@<X1>, uint64_t a3@<X8>)
+void scml::validateTensors(void *a1@<X0>, uint64_t ****a2@<X1>, uint64_t a3@<X8>)
 {
   scml::validateTensorNames(a1, a2);
   *a3 = 0u;
@@ -6227,21 +6191,21 @@ void scml::validateTensors(void *a1@<X0>, void ***a2@<X1>, uint64_t a3@<X8>)
   }
 }
 
-uint64_t scml::validateInputs(E5RT::ExecutionStreamOperation *a1, void ***a2)
+void **scml::validateInputs(E5RT::ExecutionStreamOperation *a1, uint64_t ****a2)
 {
   InputPorts = E5RT::ExecutionStreamOperation::GetInputPorts(a1);
   scml::validateTensors(InputPorts, a2, v5);
   return std::__hash_table<std::__hash_value_type<std::string,SCMLImageSanitizerImageStyle>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,SCMLImageSanitizerImageStyle>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,SCMLImageSanitizerImageStyle>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,SCMLImageSanitizerImageStyle>>>::~__hash_table(v5);
 }
 
-uint64_t scml::validateOutputs(E5RT::ExecutionStreamOperation *a1, void ***a2)
+void **scml::validateOutputs(E5RT::ExecutionStreamOperation *a1, uint64_t ****a2)
 {
   OutputPorts = E5RT::ExecutionStreamOperation::GetOutputPorts(a1);
   scml::validateTensors(OutputPorts, a2, v5);
   return std::__hash_table<std::__hash_value_type<std::string,SCMLImageSanitizerImageStyle>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,SCMLImageSanitizerImageStyle>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,SCMLImageSanitizerImageStyle>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,SCMLImageSanitizerImageStyle>>>::~__hash_table(v5);
 }
 
-void scml::loadModelWithFallback(std::string *this, std::string *a2, const ik::core::E5LoadMILConfig *a3)
+void scml::loadModelWithFallback(std::string *this, std::string *a3)
 {
   size = HIBYTE(this->__r_.__value_.__r.__words[2]);
   if ((size & 0x80u) != 0)
@@ -6251,10 +6215,10 @@ void scml::loadModelWithFallback(std::string *this, std::string *a2, const ik::c
 
   if (size)
   {
-    v5 = HIBYTE(a2->__r_.__value_.__r.__words[2]);
+    v5 = HIBYTE(a3->__r_.__value_.__r.__words[2]);
     if ((v5 & 0x80u) != 0)
     {
-      v5 = a2->__r_.__value_.__l.__size_;
+      v5 = a3->__r_.__value_.__l.__size_;
     }
 
     if (v5)
@@ -6269,16 +6233,16 @@ void scml::loadModelWithFallback(std::string *this, std::string *a2, const ik::c
         operator delete(v12.__pn_.__r_.__value_.__l.__data_);
       }
 
-      if (!v11[0] || v11[0] == 255)
+      if (!LOBYTE(v11[0]) || LOBYTE(v11[0]) == 255)
       {
-        std::__fs::filesystem::path::path[abi:ne200100]<std::string,void>(&v12.__pn_, a2);
+        std::__fs::filesystem::path::path[abi:ne200100]<std::string,void>(&v12.__pn_, a3);
         std::__fs::filesystem::__status(&v12, 0);
         if (SHIBYTE(v12.__pn_.__r_.__value_.__r.__words[2]) < 0)
         {
           operator delete(v12.__pn_.__r_.__value_.__l.__data_);
         }
 
-        if (v11[0] && v11[0] != 255)
+        if (LOBYTE(v11[0]) && LOBYTE(v11[0]) != 255)
         {
           operator new();
         }
@@ -6288,7 +6252,7 @@ void scml::loadModelWithFallback(std::string *this, std::string *a2, const ik::c
         exception = __cxa_allocate_exception(0x10uLL);
         if (v8 == v9)
         {
-          scml::strCat<char const(&)[37],std::string const&,char const(&)[5],std::string const&>("Model load failed: no file found at ", this, " or ", a2, &v12);
+          scml::strCat<char const(&)[37],std::string const&,char const(&)[5],std::string const&>("Model load failed: no file found at ", &v12, this, " or ", a3);
           std::runtime_error::runtime_error(exception, &v12.__pn_);
           __cxa_throw(exception, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
         }
@@ -6346,11 +6310,11 @@ void sub_1B8A68450(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-uint64_t scml::strCat<char const(&)[37],std::string const&,char const(&)[5],std::string const&>@<X0>(char *a1@<X0>, uint64_t a2@<X1>, char *a3@<X2>, uint64_t a4@<X3>, _BYTE *a5@<X8>)
+uint64_t scml::strCat<char const(&)[37],std::string const&,char const(&)[5],std::string const&>@<X0>(char *a1@<X0>, void *a2@<X8>, uint64_t **a3@<X1>, char *a4@<X2>, uint64_t **a5@<X3>)
 {
   std::ostringstream::basic_ostringstream[abi:ne200100](&v11);
-  scml::scml_impl::strCat<char const(&)[7],std::string,char const(&)[22],std::string>(&v11, a1, a2, a3, a4);
-  std::ostringstream::str[abi:ne200100](&v11, a5);
+  scml::scml_impl::strCat<char const(&)[7],std::string,char const(&)[22],std::string>(&v11, a1, a3, a4, a5);
+  std::ostringstream::str[abi:ne200100](&v11, a2);
   v11 = *MEMORY[0x1E69E54E8];
   *(&v11 + *(v11 - 24)) = *(MEMORY[0x1E69E54E8] + 24);
   v12 = MEMORY[0x1E69E5548] + 16;
@@ -6365,9 +6329,9 @@ uint64_t scml::strCat<char const(&)[37],std::string const&,char const(&)[5],std:
   return MEMORY[0x1B8CC71A0](&v15);
 }
 
-void sub_1B8A685EC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1B8A685EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::ostringstream::~ostringstream(va);
   _Unwind_Resume(a1);
 }
@@ -6430,7 +6394,7 @@ void std::__variant_detail::__visitation::__base::__dispatcher<1ul>::__dispatch[
   }
 
   v13 = v4;
-  v10 = std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,unsigned long>>(v6, &__p.__r_.__value_.__l.__data_);
+  v10 = std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,unsigned long>>(v6, &__p, &__p);
   v11 = v9;
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
@@ -6463,35 +6427,35 @@ void sub_1B8A6873C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-const void **std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,unsigned long>>(void *a1, const void **a2)
+const void **std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,unsigned long>>(void *a1, uint64_t *a2, uint64_t a3)
 {
-  v4 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
+  v5 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
+  v6 = v5;
+  v7 = a1[1];
+  if (!*&v7)
   {
     goto LABEL_18;
   }
 
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
+  v8 = vcnt_s8(v7);
+  v8.i16[0] = vaddlv_u8(v8);
+  v9 = v8.u32[0];
+  if (v8.u32[0] > 1uLL)
   {
-    v9 = v4;
-    if (v4 >= *&v6)
+    v10 = v5;
+    if (v5 >= *&v7)
     {
-      v9 = v4 % *&v6;
+      v10 = v5 % *&v7;
     }
   }
 
   else
   {
-    v9 = (*&v6 - 1) & v4;
+    v10 = (*&v7 - 1) & v5;
   }
 
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
+  v11 = *(*a1 + 8 * v10);
+  if (!v11 || (v12 = *v11) == 0)
   {
 LABEL_18:
     std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__construct_node_hash<std::pair<std::string const,unsigned long>>();
@@ -6499,44 +6463,44 @@ LABEL_18:
 
   while (1)
   {
-    v12 = v11[1];
-    if (v12 == v5)
+    v13 = v12[1];
+    if (v13 == v6)
     {
       break;
     }
 
-    if (v8 > 1)
+    if (v9 > 1)
     {
-      if (v12 >= *&v6)
+      if (v13 >= *&v7)
       {
-        v12 %= *&v6;
+        v13 %= *&v7;
       }
     }
 
     else
     {
-      v12 &= *&v6 - 1;
+      v13 &= *&v7 - 1;
     }
 
-    if (v12 != v9)
+    if (v13 != v10)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v11 = *v11;
-    if (!v11)
+    v12 = *v12;
+    if (!v12)
     {
       goto LABEL_18;
     }
   }
 
-  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v11 + 2, a2))
+  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v12 + 2, a2))
   {
     goto LABEL_17;
   }
 
-  return v11;
+  return v12;
 }
 
 void sub_1B8A68994(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void **__p, uint64_t a11)
@@ -6556,7 +6520,7 @@ void sub_1B8A68A5C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-const void *std::__variant_detail::__visitation::__base::__dispatcher<1ul>::__dispatch[abi:ne200100]<std::__variant_detail::__visitation::__variant::__value_visitor<scml::Overloaded<scml::TensorSpec::createTensor(E5RT::TensorDescriptor const&,std::unordered_map<std::string,unsigned long> const&)::$_0,scml::TensorSpec::createTensor(E5RT::TensorDescriptor const&,std::unordered_map<std::string,unsigned long> const&)::$_1>> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,int,std::string> const&>(uint64_t **a1, const void **a2)
+const void *std::__variant_detail::__visitation::__base::__dispatcher<1ul>::__dispatch[abi:ne200100]<std::__variant_detail::__visitation::__variant::__value_visitor<scml::Overloaded<scml::TensorSpec::createTensor(E5RT::TensorDescriptor const&,std::unordered_map<std::string,unsigned long> const&)::$_0,scml::TensorSpec::createTensor(E5RT::TensorDescriptor const&,std::unordered_map<std::string,unsigned long> const&)::$_1>> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,int,std::string> const&>(uint64_t **a1, uint64_t *a2)
 {
   v2 = *a1;
   v3 = **a1;
@@ -6577,8 +6541,7 @@ const void *std::__variant_detail::__visitation::__base::__dispatcher<1ul>::__di
 
 std::string *std::__fs::filesystem::path::path[abi:ne200100]<std::string,void>(std::string *a1, std::string *a2)
 {
-  a1->__r_.__value_.__r.__words[0] = 0;
-  a1->__r_.__value_.__l.__size_ = 0;
+  *&a1->__r_.__value_.__l.__data_ = 0uLL;
   a1->__r_.__value_.__r.__words[2] = 0;
   v3 = SHIBYTE(a2->__r_.__value_.__r.__words[2]);
   size = a2->__r_.__value_.__l.__size_;
@@ -6606,7 +6569,7 @@ void sub_1B8A68B1C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t scml::scml_impl::strCat<char const(&)[8],std::string const&,char const(&)[8],std::vector<unsigned long> const&,char const(&)[22],std::vector<std::variant<int,std::string>> const&>(void *a1, char *__s, uint64_t a3, char *a4, uint64_t **a5, char *a6, uint64_t *a7)
+void scml::scml_impl::strCat<char const(&)[8],std::string const&,char const(&)[8],std::vector<unsigned long> const&,char const(&)[22],std::vector<std::variant<int,std::string>> const&>(void *a1, char *__s, uint64_t **a3, char *a4, uint64_t **a5, char *a6, uint64_t *a7)
 {
   v14 = strlen(__s);
   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(a1, __s, v14);
@@ -6628,12 +6591,12 @@ uint64_t scml::scml_impl::strCat<char const(&)[8],std::string const&,char const(
 
   else
   {
-    v17 = *(a3 + 8);
+    v17 = a3[1];
   }
 
   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(a1, v16, v17);
 
-  return scml::scml_impl::strCat<char const(&)[8],std::vector<unsigned long> const&,char const(&)[22],std::vector<std::variant<int,std::string>> const&>(a1, a4, a5, a6, a7);
+  scml::scml_impl::strCat<char const(&)[8],std::vector<unsigned long> const&,char const(&)[22],std::vector<std::variant<int,std::string>> const&>(a1, a4, a5, a6, a7);
 }
 
 void *scml::scml_impl::writeStream<std::string>(void *a1, const char *a2, int a3)
@@ -6656,7 +6619,7 @@ void *scml::scml_impl::writeStream<std::string>(void *a1, const char *a2, int a3
 
     if (v5 >= 0)
     {
-      v7 = v3[23];
+      v7 = *(v3 + 23);
     }
 
     else
@@ -6685,13 +6648,13 @@ void *scml::scml_impl::writeStream<std::string>(void *a1, const char *a2, int a3
   return v4;
 }
 
-uint64_t scml::scml_impl::strCat<char const(&)[8],std::vector<unsigned long> const&,char const(&)[22],std::vector<std::variant<int,std::string>> const&>(void *a1, char *__s, uint64_t **a3, char *a4, uint64_t *a5)
+void scml::scml_impl::strCat<char const(&)[8],std::vector<unsigned long> const&,char const(&)[22],std::vector<std::variant<int,std::string>> const&>(void *a1, char *__s, uint64_t **a3, char *a4, uint64_t *a5)
 {
   v10 = strlen(__s);
   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(a1, __s, v10);
   scml::scml_impl::writeStream<std::vector<unsigned long>>(a1, a3);
 
-  return scml::scml_impl::strCat<char const(&)[22],std::vector<std::variant<int,std::string>> const&>(a1, a4, a5);
+  scml::scml_impl::strCat<char const(&)[22],std::vector<std::variant<int,std::string>> const&>(a1, a4, a5);
 }
 
 void *scml::scml_impl::writeStream<std::vector<unsigned long>>(void *a1, uint64_t **a2)
@@ -6721,13 +6684,13 @@ void *scml::scml_impl::writeStream<std::vector<unsigned long>>(void *a1, uint64_
   return a1;
 }
 
-uint64_t scml::scml_impl::strCat<char const(&)[22],std::vector<std::variant<int,std::string>> const&>(void *a1, char *__s, uint64_t *a3)
+void scml::scml_impl::strCat<char const(&)[22],std::vector<std::variant<int,std::string>> const&>(void *a1, char *__s, uint64_t *a3)
 {
   v6 = strlen(__s);
   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(a1, __s, v6);
   scml::scml_impl::writeStream<std::vector<std::variant<int,std::string>>>(a1, a3);
 
-  return scml::scml_impl::strCat<>(a1);
+  scml::scml_impl::strCat<>();
 }
 
 void *scml::scml_impl::writeStream<std::vector<std::variant<int,std::string>>>(void *a1, uint64_t *a2)
@@ -6773,14 +6736,7 @@ uint64_t scml::scml_impl::writeStream<int,std::string>(uint64_t a1, uint64_t a2,
   return a1;
 }
 
-void _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm0EEE10__dispatchB8ne200100IONS1_9__variant15__value_visitorIZN4scml9scml_impl11writeStreamIJiNS_12basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEEEEEERNS_13basic_ostreamIcSD_EESJ_RKNS_7variantIJDpT_EEEbEUlRKT_E_EEJRKNS0_6__baseILNS0_6_TraitE1EJiSG_EEEEEEDcSQ_DpT0_(uint64_t **a1, unsigned int *a2)
-{
-  v2 = **a1;
-  v3 = *a2;
-  JUMPOUT(0x1B8CC70D0);
-}
-
-uint64_t scml::scml_impl::strCat<char const(&)[8],std::string const&,char const(&)[7],std::string,char const(&)[22],std::string>(void *a1, char *__s, uint64_t a3, char *a4, uint64_t a5, char *a6, uint64_t a7)
+void scml::scml_impl::strCat<char const(&)[8],std::string const&,char const(&)[7],std::string,char const(&)[22],std::string>(void *a1, char *__s, uint64_t **a3, char *a4, uint64_t **a5, char *a6, uint64_t **a7)
 {
   v14 = strlen(__s);
   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(a1, __s, v14);
@@ -6802,15 +6758,15 @@ uint64_t scml::scml_impl::strCat<char const(&)[8],std::string const&,char const(
 
   else
   {
-    v17 = *(a3 + 8);
+    v17 = a3[1];
   }
 
   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(a1, v16, v17);
 
-  return scml::scml_impl::strCat<char const(&)[7],std::string,char const(&)[22],std::string>(a1, a4, a5, a6, a7);
+  scml::scml_impl::strCat<char const(&)[7],std::string,char const(&)[22],std::string>(a1, a4, a5, a6, a7);
 }
 
-uint64_t scml::scml_impl::strCat<char const(&)[7],std::string,char const(&)[22],std::string>(void *a1, char *__s, uint64_t a3, char *a4, uint64_t a5)
+void scml::scml_impl::strCat<char const(&)[7],std::string,char const(&)[22],std::string>(void *a1, char *__s, uint64_t **a3, char *a4, uint64_t **a5)
 {
   v10 = strlen(__s);
   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(a1, __s, v10);
@@ -6832,15 +6788,15 @@ uint64_t scml::scml_impl::strCat<char const(&)[7],std::string,char const(&)[22],
 
   else
   {
-    v13 = *(a3 + 8);
+    v13 = a3[1];
   }
 
   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(a1, v12, v13);
 
-  return scml::scml_impl::strCat<char const(&)[38],std::string>(a1, a4, a5);
+  scml::scml_impl::strCat<char const(&)[38],std::string>(a1, a4, a5);
 }
 
-uint64_t scml::scml_impl::strCat<char const(&)[8],std::string const&,char const(&)[21]>(void *a1, char *__s, uint64_t a3, char *a4)
+void scml::scml_impl::strCat<char const(&)[8],std::string const&,char const(&)[21]>(void *a1, char *__s, uint64_t **a3, char *a4)
 {
   v8 = strlen(__s);
   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(a1, __s, v8);
@@ -6862,12 +6818,12 @@ uint64_t scml::scml_impl::strCat<char const(&)[8],std::string const&,char const(
 
   else
   {
-    v11 = *(a3 + 8);
+    v11 = a3[1];
   }
 
   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(a1, v10, v11);
 
-  return scml::scml_impl::strCat<char const(&)[11]>(a1, a4);
+  scml::scml_impl::strCat<char const(&)[11]>(a1, a4);
 }
 
 void std::__tree<std::string>::destroy(uint64_t a1, char *a2)
@@ -6885,9 +6841,9 @@ void std::__tree<std::string>::destroy(uint64_t a1, char *a2)
   }
 }
 
-uint64_t std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(uint64_t a1, void **a2)
+uint64_t std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(uint64_t a1, uint64_t ***a2, uint64_t a3)
 {
-  result = *std::__tree<std::string>::__find_equal<std::string>(a1, &v3, a2);
+  result = *std::__tree<std::string>::__find_equal<std::string>(a1, &v4, a2);
   if (!result)
   {
     std::__tree<std::string>::__construct_node<std::string const&>();
@@ -6896,7 +6852,7 @@ uint64_t std::__tree<std::string>::__emplace_unique_key_args<std::string,std::st
   return result;
 }
 
-void *std::__tree<std::string>::__find_equal<std::string>(uint64_t a1, void *a2, void **a3)
+uint64_t *std::__tree<std::string>::__find_equal<std::string>(uint64_t a1, char **a2, uint64_t ***a3)
 {
   v5 = (a1 + 8);
   v4 = *(a1 + 8);
@@ -6907,7 +6863,7 @@ void *std::__tree<std::string>::__find_equal<std::string>(uint64_t a1, void *a2,
       while (1)
       {
         v7 = v4;
-        if ((std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(a3, (v4 + 32)) & 0x80) == 0)
+        if ((std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(a3, v4 + 32) & 0x80) == 0)
         {
           break;
         }
@@ -6925,8 +6881,8 @@ void *std::__tree<std::string>::__find_equal<std::string>(uint64_t a1, void *a2,
         break;
       }
 
-      v5 = v7 + 1;
-      v4 = v7[1];
+      v5 = v7 + 8;
+      v4 = *(v7 + 1);
     }
 
     while (v4);
@@ -6949,7 +6905,7 @@ void sub_1B8A692F8(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t *std::__tree<std::string>::__insert_node_at(uint64_t **a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
+uint64_t *std::__tree<std::string>::__insert_node_at(uint64_t ***a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
 {
   *a4 = 0;
   a4[1] = 0;
@@ -6967,7 +6923,7 @@ uint64_t *std::__tree<std::string>::__insert_node_at(uint64_t **a1, uint64_t a2,
   return result;
 }
 
-uint64_t std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(void *a1, void **a2)
+uint64_t std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(uint64_t ***a1, char *a2)
 {
   v2 = *(a1 + 23);
   v3 = a1[1];
@@ -6977,7 +6933,7 @@ uint64_t std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocat
     v2 = v3;
   }
 
-  v4 = *(a2 + 23);
+  v4 = a2[23];
   if (v4 >= 0)
   {
     v5 = a2;
@@ -6990,12 +6946,12 @@ uint64_t std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocat
 
   if (v4 >= 0)
   {
-    v6 = *(a2 + 23);
+    v6 = a2[23];
   }
 
   else
   {
-    v6 = a2[1];
+    v6 = *(a2 + 1);
   }
 
   return std::operator<=>[abi:ne200100]<char,std::char_traits<char>>(a1, v2, v5, v6);
@@ -7046,12 +7002,12 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
     do
     {
       v2 = a2[2];
-      if (v2[3])
+      if (*(v2 + 24))
       {
         break;
       }
 
-      v3 = v2[2];
+      v3 = *(v2 + 16);
       v4 = *v3;
       if (*v3 == v2)
       {
@@ -7065,22 +7021,22 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
 
           else
           {
-            v11 = v2[1];
+            v11 = *(v2 + 8);
             v12 = *v11;
-            v2[1] = *v11;
+            *(v2 + 8) = *v11;
             v13 = v2;
             if (v12)
             {
-              v12[2] = v2;
-              v3 = v2[2];
+              *(v12 + 16) = v2;
+              v3 = *(v2 + 16);
               v13 = *v3;
             }
 
-            v11[2] = v3;
+            *(v11 + 16) = v3;
             v3[v13 != v2] = v11;
             *v11 = v2;
-            v2[2] = v11;
-            v3 = v11[2];
+            *(v2 + 16) = v11;
+            v3 = *(v11 + 16);
             v4 = *v3;
           }
 
@@ -7114,13 +7070,13 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
             if (v14)
             {
               *(v14 + 16) = v2;
-              v3 = v2[2];
+              v3 = *(v2 + 16);
             }
 
             v10[2] = v3;
             v3[*v3 != v2] = v10;
             v10[1] = v2;
-            v2[2] = v10;
+            *(v2 + 16) = v10;
             v3 = v10[2];
           }
 
@@ -7180,13 +7136,13 @@ void std::__tree_node_destructor<std::allocator<std::__tree_node<std::string,voi
   operator delete(__p);
 }
 
-uint64_t scml::scml_impl::strCat<char const(&)[20],std::set<std::string> &,char const(&)[12],std::set<std::string> &>(void *a1, char *__s, void *a3, char *a4, void *a5)
+void scml::scml_impl::strCat<char const(&)[20],std::set<std::string> &,char const(&)[12],std::set<std::string> &>(void *a1, char *__s, void *a3, char *a4, void *a5)
 {
   v10 = strlen(__s);
   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(a1, __s, v10);
   scml::scml_impl::writeStream<std::set<std::string>>(a1, a3);
 
-  return scml::scml_impl::strCat<char const(&)[12],std::set<std::string> &>(a1, a4, a5);
+  scml::scml_impl::strCat<char const(&)[12],std::set<std::string> &>(a1, a4, a5);
 }
 
 void *scml::scml_impl::writeStream<std::set<std::string>>(void *a1, void *a2)
@@ -7240,13 +7196,13 @@ void *scml::scml_impl::writeStream<std::set<std::string>>(void *a1, void *a2)
   return a1;
 }
 
-uint64_t scml::scml_impl::strCat<char const(&)[12],std::set<std::string> &>(void *a1, char *__s, void *a3)
+void scml::scml_impl::strCat<char const(&)[12],std::set<std::string> &>(void *a1, char *__s, void *a3)
 {
   v6 = strlen(__s);
   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(a1, __s, v6);
   scml::scml_impl::writeStream<std::set<std::string>>(a1, a3);
 
-  return scml::scml_impl::strCat<>(a1);
+  scml::scml_impl::strCat<>();
 }
 
 void ik::E5Op::E5Op(ik::E5Op *this, const ik::core::E5LoadPreCompiledConfig *a2)
@@ -7710,7 +7666,7 @@ uint64_t std::unordered_map<std::string,std::shared_ptr<E5RT::ProgramFunction>>:
   std::__hash_table<std::__hash_value_type<std::string,std::variant<ik::E5BufferTensor,ik::PixelBufferTensor>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::variant<ik::E5BufferTensor,ik::PixelBufferTensor>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::variant<ik::E5BufferTensor,ik::PixelBufferTensor>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::variant<ik::E5BufferTensor,ik::PixelBufferTensor>>>>::__rehash<true>(a1, *(a2 + 8));
   for (i = *(a2 + 16); i; i = *i)
   {
-    std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,std::shared_ptr<E5RT::IOPort>> const&>(a1, i + 2);
+    std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,std::shared_ptr<E5RT::IOPort>> const&>(a1, i + 2, (i + 2));
   }
 
   return a1;
@@ -7723,7 +7679,7 @@ id scml::strToNSString(uint64_t a1, uint64_t a2)
   return v2;
 }
 
-uint64_t scml::strMul@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, _BYTE *a4@<X8>)
+uint64_t scml::strMul@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, void *a4@<X8>)
 {
   std::ostringstream::basic_ostringstream[abi:ne200100](&v9);
   for (; a3; --a3)
@@ -7746,17 +7702,17 @@ uint64_t scml::strMul@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>,
   return MEMORY[0x1B8CC71A0](&v13);
 }
 
-void sub_1B8A6A604(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1B8A6A604(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::ostringstream::~ostringstream(va);
   _Unwind_Resume(a1);
 }
 
-void scml::strFromNSError(scml *this@<X0>, _BYTE *a2@<X8>)
+void scml::strFromNSError(scml *this@<X0>, uint64_t *a2@<X8>)
 {
-  v4 = [(scml *)this localizedDescription];
-  scml::strFromNSString(v4, a2);
+  v3 = [(scml *)this localizedDescription];
+  scml::strFromNSString(a2, v3);
 }
 
 id scml::regexMake(scml *this, NSString *a2)
@@ -7813,7 +7769,7 @@ id scml::strSplitByRegex(scml *this, NSString *a2, NSRegularExpression *a3)
   return v13;
 }
 
-void sub_1B8A6A944(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, id a26)
+void sub_1B8A6A944(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, id a26)
 {
   _Block_object_dispose(&a17, 8);
   _Block_object_dispose(&a21, 8);
@@ -7868,23 +7824,22 @@ void sub_1B8A6AB9C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-id scml::strTokenizeWords(scml *this, NSString *a2)
-  v2 = {;
+id scml::strTokenizeWords(scml *this, NSString *a2, BOOL a3)
+  v3 = {;
 
-  return v2;
+  return v3;
 }
 
 id scml::anonymous namespace::strTokenizeWords(scml::_anonymous_namespace_ *this, NSString *a2)
 {
   v2 = a2;
-  v41 = *MEMORY[0x1E69E9840];
-  v33 = this;
+  v40 = *MEMORY[0x1E69E9840];
+  v32 = this;
   {
     [MEMORY[0x1E696AE70] regularExpressionWithPattern:@"\\b" options:64 error:0];
   }
 
-  v3 = [MEMORY[0x1E696AB08] whitespaceAndNewlineCharacterSet];
-  v4 = objc_claimAutoreleasedReturnValue();
+  v4 = v3 = [MEMORY[0x1E696AB08] whitespaceAndNewlineCharacterSet];
   v5 = v4;
   if (v2)
   {
@@ -7897,8 +7852,8 @@ id scml::anonymous namespace::strTokenizeWords(scml::_anonymous_namespace_ *this
       [MEMORY[0x1E696AE70] regularExpressionWithPattern:@"^\\p{Letter}" options:64 error:0];
     }
 
-    v38 = 0;
-    std::vector<BOOL>::vector(&__p, [v6 count]);
+    v37 = 0;
+    std::vector<BOOL>::vector(&__p, [v6 count], &v37);
     for (i = 0; i < [v6 count]; ++i)
     {
       v8 = [v6 objectAtIndexedSubscript:i];
@@ -7985,38 +7940,36 @@ id scml::anonymous namespace::strTokenizeWords(scml::_anonymous_namespace_ *this
   }
 
   v25 = [MEMORY[0x1E695E0F0] mutableCopy];
-  v36 = 0u;
-  v37 = 0u;
-  v34 = 0u;
   v35 = 0u;
+  v36 = 0u;
+  v33 = 0u;
+  v34 = 0u;
   v26 = v5;
-  v27 = [v26 countByEnumeratingWithState:&v34 objects:v40 count:16];
+  v27 = [v26 countByEnumeratingWithState:&v33 objects:v39 count:16];
   if (v27)
   {
-    v28 = *v35;
+    v28 = *v34;
     do
     {
       for (k = 0; k != v27; ++k)
       {
-        if (*v35 != v28)
+        if (*v34 != v28)
         {
           objc_enumerationMutation(v26);
         }
 
-        v30 = [*(*(&v34 + 1) + 8 * k) stringByTrimmingCharactersInSet:v3];
+        v30 = [*(*(&v33 + 1) + 8 * k) stringByTrimmingCharactersInSet:v3];
         if ([v30 length])
         {
           [v25 addObject:v30];
         }
       }
 
-      v27 = [v26 countByEnumeratingWithState:&v34 objects:v40 count:16];
+      v27 = [v26 countByEnumeratingWithState:&v33 objects:v39 count:16];
     }
 
     while (v27);
   }
-
-  v31 = *MEMORY[0x1E69E9840];
 
   return v25;
 }
@@ -8035,14 +7988,12 @@ id scml::strTokenizeWordsForNLP(scml *this, NSString *a2)
 
 __n128 __Block_byref_object_copy__8(__n128 *a1, __n128 *a2)
 {
-  a1[3].n128_u64[0] = 0;
-  a1[3].n128_u64[1] = 0;
+  a1[3] = 0uLL;
   a1[4].n128_u64[0] = 0;
   result = a2[3];
   a1[3] = result;
   a1[4].n128_u64[0] = a2[4].n128_u64[0];
-  a2[3].n128_u64[0] = 0;
-  a2[3].n128_u64[1] = 0;
+  a2[3] = 0uLL;
   a2[4].n128_u64[0] = 0;
   return result;
 }
@@ -8078,7 +8029,7 @@ uint64_t std::unordered_map<char,std::string>::unordered_map(uint64_t a1, char *
   return a1;
 }
 
-uint64_t **std::__hash_table<std::__hash_value_type<char,std::string>,std::__unordered_map_hasher<char,std::__hash_value_type<char,std::string>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,std::string>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,std::string>>>::__emplace_unique_key_args<char,std::pair<char const,std::string> const&>(void *a1, char *a2)
+uint64_t ***std::__hash_table<std::__hash_value_type<char,std::string>,std::__unordered_map_hasher<char,std::__hash_value_type<char,std::string>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,std::string>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,std::string>>>::__emplace_unique_key_args<char,std::pair<char const,std::string> const&>(void *a1, char *a2)
 {
   v2 = *a2;
   v3 = a1[1];
@@ -8107,7 +8058,6 @@ uint64_t **std::__hash_table<std::__hash_value_type<char,std::string>,std::__uno
   if (!v6 || (result = *v6) == 0)
   {
 LABEL_18:
-    v9 = *a2;
     std::__hash_table<std::__hash_value_type<char,std::string>,std::__unordered_map_hasher<char,std::__hash_value_type<char,std::string>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,std::string>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,std::string>>>::__construct_node_hash<std::pair<char const,std::string> const&>();
   }
 
@@ -8188,9 +8138,9 @@ void std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_val
   operator delete(__p);
 }
 
-uint64_t std::__hash_table<std::__hash_value_type<char,std::string>,std::__unordered_map_hasher<char,std::__hash_value_type<char,std::string>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,std::string>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,std::string>>>::~__hash_table(uint64_t a1)
+void **std::__hash_table<std::__hash_value_type<char,std::string>,std::__unordered_map_hasher<char,std::__hash_value_type<char,std::string>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,std::string>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,std::string>>>::~__hash_table(void **a1)
 {
-  std::__hash_table<std::__hash_value_type<char,std::string>,std::__unordered_map_hasher<char,std::__hash_value_type<char,std::string>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,std::string>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,std::string>>>::__deallocate_node(a1, *(a1 + 16));
+  std::__hash_table<std::__hash_value_type<char,std::string>,std::__unordered_map_hasher<char,std::__hash_value_type<char,std::string>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,std::string>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,std::string>>>::__deallocate_node(a1, a1[2]);
   v2 = *a1;
   *a1 = 0;
   if (v2)
@@ -8248,7 +8198,7 @@ void scml::MultiwordGazetteer::~MultiwordGazetteer(scml::MultiwordGazetteer *thi
   }
 }
 
-uint64_t scml::MultiwordGazetteer::Impl::hasGazetteerMatch(uint64_t a1, void *a2, uint64_t a3, unint64_t a4)
+uint64_t scml::MultiwordGazetteer::Impl::hasGazetteerMatch(scml::MultiwordGazetteer **a1, void *a2, uint64_t a3, unint64_t a4)
 {
   v7 = a2;
   v9 = scml::MultiwordGazetteer::Impl::fullMatchString(a1, v7, v8);
@@ -8270,7 +8220,7 @@ uint64_t scml::MultiwordGazetteer::Impl::hasGazetteerMatch(uint64_t a1, void *a2
     while (1)
     {
       v13 = v12;
-      v14 = *(a1 + 64);
+      v14 = a1[8];
       if (v12 >= v14)
       {
 LABEL_15:
@@ -8343,40 +8293,40 @@ LABEL_17:
 
 uint64_t scml::MultiwordGazetteer::Impl::hasGazetteerMatch(std::mutex *this, NSString *a2)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v3 = a2;
   std::mutex::lock(this);
   v5 = scml::strTokenizeWordsForNLP(v3, v4);
-  language_modeling::v1::LinguisticContext::LinguisticContext(v22);
+  language_modeling::v1::LinguisticContext::LinguisticContext(v21);
   *(&__p.__r_.__value_.__s + 23) = 0;
   __p.__r_.__value_.__s.__data_[0] = 0;
-  v21 = 1;
-  MEMORY[0x1B8CC6C90](v22, &__p);
+  v20 = 1;
+  MEMORY[0x1B8CC6C90](v21, &__p);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
   }
 
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v6 = v5;
-  v7 = [v6 countByEnumeratingWithState:&v16 objects:v23 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v15 objects:v22 count:16];
   if (v7)
   {
-    v8 = *v17;
+    v8 = *v16;
     while (2)
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v17 != v8)
+        if (*v16 != v8)
         {
           objc_enumerationMutation(v6);
         }
 
-        v10 = *(*(&v16 + 1) + 8 * i);
-        v11 = language_modeling::v1::LinguisticContext::tokenSpan(v22);
+        v10 = *(*(&v15 + 1) + 8 * i);
+        v11 = language_modeling::v1::LinguisticContext::tokenSpan(v21);
         if (scml::MultiwordGazetteer::Impl::hasGazetteerMatch(this, v10, v11, v12))
         {
 
@@ -8384,31 +8334,31 @@ uint64_t scml::MultiwordGazetteer::Impl::hasGazetteerMatch(std::mutex *this, NSS
           goto LABEL_20;
         }
 
-        scml::strFromNSString(v10, &v15);
-        if (SHIBYTE(v15.__r_.__value_.__r.__words[2]) < 0)
+        scml::strFromNSString(&v14, v10);
+        if (SHIBYTE(v14.__r_.__value_.__r.__words[2]) < 0)
         {
-          std::string::__init_copy_ctor_external(&__p, v15.__r_.__value_.__l.__data_, v15.__r_.__value_.__l.__size_);
+          std::string::__init_copy_ctor_external(&__p, v14.__r_.__value_.__l.__data_, v14.__r_.__value_.__l.__size_);
         }
 
         else
         {
-          __p = v15;
+          __p = v14;
         }
 
-        v21 = 0;
-        MEMORY[0x1B8CC6C90](v22, &__p);
+        v20 = 0;
+        MEMORY[0x1B8CC6C90](v21, &__p);
         if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
         {
           operator delete(__p.__r_.__value_.__l.__data_);
         }
 
-        if (SHIBYTE(v15.__r_.__value_.__r.__words[2]) < 0)
+        if (SHIBYTE(v14.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(v15.__r_.__value_.__l.__data_);
+          operator delete(v14.__r_.__value_.__l.__data_);
         }
       }
 
-      v7 = [v6 countByEnumeratingWithState:&v16 objects:v23 count:16];
+      v7 = [v6 countByEnumeratingWithState:&v15 objects:v22 count:16];
       if (v7)
       {
         continue;
@@ -8420,10 +8370,9 @@ uint64_t scml::MultiwordGazetteer::Impl::hasGazetteerMatch(std::mutex *this, NSS
 
 LABEL_20:
 
-  language_modeling::v1::LinguisticContext::~LinguisticContext(v22);
+  language_modeling::v1::LinguisticContext::~LinguisticContext(v21);
   std::mutex::unlock(this);
 
-  v13 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
@@ -8437,61 +8386,61 @@ void sub_1B8A6BC08(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 id scml::MultiwordGazetteer::preprocess(void *a1, int a2)
 {
-  v48[1] = *MEMORY[0x1E69E9840];
-  v28 = a1;
-  v27 = [MEMORY[0x1E695E0F8] mutableCopy];
-  v44 = 0u;
-  v45 = 0u;
-  v42 = 0u;
+  v47[1] = *MEMORY[0x1E69E9840];
+  v27 = a1;
+  v26 = [MEMORY[0x1E695E0F8] mutableCopy];
   v43 = 0u;
-  obj = [v28 allKeys];
-  v26 = [obj countByEnumeratingWithState:&v42 objects:v47 count:16];
-  if (v26)
+  v44 = 0u;
+  v41 = 0u;
+  v42 = 0u;
+  obj = [v27 allKeys];
+  v25 = [obj countByEnumeratingWithState:&v41 objects:v46 count:16];
+  if (v25)
   {
-    v25 = *v43;
+    v24 = *v42;
     do
     {
-      for (i = 0; i != v26; ++i)
+      for (i = 0; i != v25; ++i)
       {
-        if (*v43 != v25)
+        if (*v42 != v24)
         {
           objc_enumerationMutation(obj);
         }
 
-        v2 = *(*(&v42 + 1) + 8 * i);
-        v34 = [MEMORY[0x1E695E0F0] mutableCopy];
-        v40 = 0u;
-        v41 = 0u;
-        v38 = 0u;
+        v2 = *(*(&v41 + 1) + 8 * i);
+        v33 = [MEMORY[0x1E695E0F0] mutableCopy];
         v39 = 0u;
-        v3 = [v28 objectForKeyedSubscript:v2];
-        v4 = [v3 countByEnumeratingWithState:&v38 objects:v46 count:16];
-        v29 = v2;
+        v40 = 0u;
+        v37 = 0u;
+        v38 = 0u;
+        v3 = [v27 objectForKeyedSubscript:v2];
+        v4 = [v3 countByEnumeratingWithState:&v37 objects:v45 count:16];
+        v28 = v2;
         if (v4)
         {
-          v33 = *v39;
-          v31 = v3;
+          v32 = *v38;
+          v30 = v3;
           do
           {
-            v35 = v4;
-            for (j = 0; j != v35; ++j)
+            v34 = v4;
+            for (j = 0; j != v34; ++j)
             {
-              if (*v39 != v33)
+              if (*v38 != v32)
               {
-                objc_enumerationMutation(v31);
+                objc_enumerationMutation(v30);
               }
 
-              v6 = *(*(&v38 + 1) + 8 * j);
-              v37 = 0;
-              v7 = [_TtC26SensitiveContentAnalysisML14SCMLNormalizer normalizeText:v6 lite:0 error:&v37];
-              v36 = v37;
+              v6 = *(*(&v37 + 1) + 8 * j);
+              v36 = 0;
+              v7 = [_TtC26SensitiveContentAnalysisML14SCMLNormalizer normalizeText:v6 lite:0 error:&v36];
+              v35 = v36;
               if (!v7)
               {
                 exception = __cxa_allocate_exception(0x18uLL);
-                scml::makeException("failed to normalize text", 0x18uLL, v36, exception);
+                scml::makeException("failed to normalize text", 0x18uLL, v35, exception);
               }
 
-              v9 = v34;
+              v9 = v33;
               if (a2)
               {
                 v10 = scml::strTokenizeWordsForNLP(v7, v8);
@@ -8530,70 +8479,78 @@ id scml::MultiwordGazetteer::preprocess(void *a1, int a2)
               }
             }
 
-            v3 = v31;
-            v4 = [v31 countByEnumeratingWithState:&v38 objects:v46 count:16];
+            v3 = v30;
+            v4 = [v30 countByEnumeratingWithState:&v37 objects:v45 count:16];
           }
 
           while (v4);
         }
 
-        v17 = [v34 valueForKeyPath:@"@distinctUnionOfObjects.self"];
+        v17 = [v33 valueForKeyPath:@"@distinctUnionOfObjects.self"];
         v18 = [MEMORY[0x1E696AEB0] sortDescriptorWithKey:0 ascending:1];
-        v48[0] = v18;
-        v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:v48 count:1];
+        v47[0] = v18;
+        v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:v47 count:1];
         v20 = [v17 sortedArrayUsingDescriptors:v19];
 
-        [v27 setObject:v20 forKeyedSubscript:v29];
+        [v26 setObject:v20 forKeyedSubscript:v28];
       }
 
-      v26 = [obj countByEnumeratingWithState:&v42 objects:v47 count:16];
+      v25 = [obj countByEnumeratingWithState:&v41 objects:v46 count:16];
     }
 
-    while (v26);
+    while (v25);
   }
 
-  v21 = *MEMORY[0x1E69E9840];
-
-  return v27;
+  return v26;
 }
 
 void scml::MultiwordGazetteer::writePreprocessed(void *a1, void *a2)
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   v3 = a1;
   v4 = a2;
-  v22 = v4;
+  v21 = v4;
   v5 = v3;
   v6 = [MEMORY[0x1E695DF58] localeWithLocaleIdentifier:*MEMORY[0x1E69778B0]];
   v7 = *MEMORY[0x1E6998158];
-  v24[0] = *MEMORY[0x1E6998148];
-  v24[1] = v7;
-  v25 = v5;
-  v26 = MEMORY[0x1E695E118];
-  v24[2] = *MEMORY[0x1E6998150];
-  v27 = v6;
-  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v25 forKeys:v24 count:3];
-  v23 = 0;
+  v23[0] = *MEMORY[0x1E6998148];
+  v23[1] = v7;
+  v24 = v5;
+  v25 = MEMORY[0x1E695E118];
+  v23[2] = *MEMORY[0x1E6998150];
+  v26 = v6;
+  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v24 forKeys:v23 count:3];
+  v22 = 0;
   cf = NLGazetteerCreate();
   if (!cf)
   {
     exception = __cxa_allocate_exception(0x18uLL);
-    scml::makeException("failed to init gazetteer", 0x18uLL, v23, exception);
+    scml::makeException("failed to init gazetteer", 0x18uLL, v22, exception);
   }
 
   v9 = NLGazetteerCopyCompressedModel();
   v10 = [MEMORY[0x1E695DFF8] fileURLWithPath:v4];
-  v20 = 0;
-  v11 = [v9 writeToURL:v10 options:1 error:&v20];
-  v12 = v20;
+  v19 = 0;
+  v11 = [v9 writeToURL:v10 options:1 error:&v19];
+  v12 = v19;
   if ((v11 & 1) == 0)
   {
-    v16 = v12;
-    v17 = __cxa_allocate_exception(0x18uLL);
-    scml::strCat<char const(&)[30],NSString * {__strong}&>("Failed to write gazetteer to ", &v22, &v25);
-    if (SHIBYTE(v27) >= 0)
+    v15 = v12;
+    v16 = __cxa_allocate_exception(0x18uLL);
+    scml::strCat<char const(&)[30],NSString * {__strong}&>("Failed to write gazetteer to ", &v24, &v21);
+    if (SHIBYTE(v26) >= 0)
     {
-      v18 = &v25;
+      v17 = &v24;
+    }
+
+    else
+    {
+      v17 = v24;
+    }
+
+    if (SHIBYTE(v26) >= 0)
+    {
+      v18 = HIBYTE(v26);
     }
 
     else
@@ -8601,17 +8558,7 @@ void scml::MultiwordGazetteer::writePreprocessed(void *a1, void *a2)
       v18 = v25;
     }
 
-    if (SHIBYTE(v27) >= 0)
-    {
-      v19 = HIBYTE(v27);
-    }
-
-    else
-    {
-      v19 = v26;
-    }
-
-    scml::makeException(v18, v19, v16, v17);
+    scml::makeException(v17, v18, v15, v16);
   }
 
   v13 = cf;
@@ -8620,11 +8567,9 @@ void scml::MultiwordGazetteer::writePreprocessed(void *a1, void *a2)
   {
     CFRelease(v13);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
-void sub_1B8A6C474(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, const void *a11, void *a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, void *__p, uint64_t a18, int a19, __int16 a20, char a21, char a22)
+void sub_1B8A6C474(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, void *__p, uint64_t a18, int a19, __int16 a20, char a21, char a22)
 {
   if (a22 < 0)
   {
@@ -8647,10 +8592,10 @@ LABEL_6:
   goto LABEL_6;
 }
 
-uint64_t scml::strCat<char const(&)[30],NSString * {__strong}&>@<X0>(char *a1@<X0>, void *a2@<X1>, _BYTE *a3@<X8>)
+uint64_t scml::strCat<char const(&)[30],NSString * {__strong}&>@<X0>(char *a1@<X0>, _BYTE *a2@<X8>, void *a3@<X1>)
 {
   std::ostringstream::basic_ostringstream[abi:ne200100](&v10);
-  scml::scml_impl::strCat<char const(&)[30],NSString * {__strong}&>(&v10, a1, a2);
+  scml::scml_impl::strCat<char const(&)[30],NSString * {__strong}&>(&v10, a1, a3);
   if ((v17 & 0x10) != 0)
   {
     v7 = v16;
@@ -8668,7 +8613,7 @@ uint64_t scml::strCat<char const(&)[30],NSString * {__strong}&>@<X0>(char *a1@<X
     if ((v17 & 8) == 0)
     {
       v6 = 0;
-      a3[23] = 0;
+      a2[23] = 0;
       goto LABEL_14;
     }
 
@@ -8687,14 +8632,14 @@ uint64_t scml::strCat<char const(&)[30],NSString * {__strong}&>@<X0>(char *a1@<X
     operator new();
   }
 
-  a3[23] = v6;
+  a2[23] = v6;
   if (v6)
   {
-    memmove(a3, locale, v6);
+    memmove(a2, locale, v6);
   }
 
 LABEL_14:
-  a3[v6] = 0;
+  a2[v6] = 0;
   v10 = *MEMORY[0x1E69E54E8];
   *(&v10 + *(v10 - 24)) = *(MEMORY[0x1E69E54E8] + 24);
   v11 = MEMORY[0x1E69E5548] + 16;
@@ -8709,35 +8654,33 @@ LABEL_14:
   return MEMORY[0x1B8CC71A0](&v18);
 }
 
-void sub_1B8A6C760(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1B8A6C760(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::ostringstream::~ostringstream(va, MEMORY[0x1E69E54E8]);
-  MEMORY[0x1B8CC71A0](v2 + 112);
+  MEMORY[0x1B8CC71A0](v3 + 112);
   _Unwind_Resume(a1);
 }
 
 void scml::MultiwordGazetteer::loadGazetteer(scml::MultiwordGazetteer *this@<X0>, const void **a2@<X8>)
 {
-  v12[2] = *MEMORY[0x1E69E9840];
-  v4 = this;
-  v5 = [MEMORY[0x1E695DFF8] fileURLWithPath:v4];
-  v6 = *MEMORY[0x1E6998158];
-  v11[0] = *MEMORY[0x1E6998140];
-  v11[1] = v6;
-  v12[0] = v5;
-  v12[1] = MEMORY[0x1E695E118];
-  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:2];
+  v10[2] = *MEMORY[0x1E69E9840];
+  v3 = this;
+  v4 = [MEMORY[0x1E695DFF8] fileURLWithPath:v3];
+  v5 = *MEMORY[0x1E6998158];
+  v9[0] = *MEMORY[0x1E6998140];
+  v9[1] = v5;
+  v10[0] = v4;
+  v10[1] = MEMORY[0x1E695E118];
+  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:v9 count:2];
   *a2 = 0;
-  v8 = NLGazetteerCreate();
-  std::unique_ptr<void,scml::NonNullDeleter<&(CFRelease)>>::reset[abi:ne200100](a2, v8);
+  v7 = NLGazetteerCreate();
+  std::unique_ptr<void,scml::NonNullDeleter<&(CFRelease)>>::reset[abi:ne200100](a2, v7);
   if (!*a2)
   {
     exception = __cxa_allocate_exception(0x18uLL);
     scml::makeException("failed to init gazetteer", 0x18uLL, 0, exception);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1B8A6C8D4(_Unwind_Exception *a1)
@@ -9288,7 +9231,7 @@ LABEL_33:
     v33 = v30->n128_u64[0];
     if (v30->n128_u64[0] > v11->n128_u64[0])
     {
-      v34 = v30->n128_i64[1];
+      v34 = v30->n128_u64[1];
       v35 = v31;
       while (1)
       {
@@ -9326,17 +9269,17 @@ LABEL_41:
   }
 }
 
-unint64_t *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,scml::MultiwordGazetteer::Impl::replaceMatches(NSString *,NSString *)::{lambda(_NSRange const&,_NSRange const&)#1} &,_NSRange*,_NSRange*>(unint64_t *a1, unint64_t *a2, unint64_t *a3, uint64_t a4)
+__int128 *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,scml::MultiwordGazetteer::Impl::replaceMatches(NSString *,NSString *)::{lambda(_NSRange const&,_NSRange const&)#1} &,_NSRange*,_NSRange*>(__int128 *a1, __int128 *a2, __int128 *a3, uint64_t a4)
 {
   if (a1 != a2)
   {
     v6 = a2;
-    v8 = (a2 - a1) >> 4;
+    v8 = a2 - a1;
     if (v8 >= 2)
     {
       v9 = (v8 - 2) >> 1;
       v10 = v9 + 1;
-      v11 = &a1[2 * v9];
+      v11 = &a1[v9];
       do
       {
         std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,scml::MultiwordGazetteer::Impl::replaceMatches(NSString *,NSString *)::{lambda(_NSRange const&,_NSRange const&)#1} &,_NSRange*>(a1, a4, v8, v11);
@@ -9361,7 +9304,7 @@ unint64_t *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,scml::M
           std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,scml::MultiwordGazetteer::Impl::replaceMatches(NSString *,NSString *)::{lambda(_NSRange const&,_NSRange const&)#1} &,_NSRange*>(a1, a4, v8, a1);
         }
 
-        v12 += 2;
+        ++v12;
       }
 
       while (v12 != a3);
@@ -9376,8 +9319,8 @@ unint64_t *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,scml::M
         v15 = a1;
         do
         {
-          v16 = &v15[2 * v14];
-          v17 = v16 + 2;
+          v16 = &v15[v14];
+          v17 = v16 + 1;
           v18 = (2 * v14) | 1;
           v14 = 2 * v14 + 2;
           if (v14 >= v8)
@@ -9387,8 +9330,8 @@ unint64_t *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,scml::M
 
           else
           {
-            v20 = v16[4];
-            v19 = v16 + 4;
+            v20 = *(v16 + 4);
+            v19 = v16 + 2;
             if (*(v19 - 2) <= v20)
             {
               v14 = v18;
@@ -9405,8 +9348,7 @@ unint64_t *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,scml::M
         }
 
         while (v14 <= ((v8 - 2) >> 1));
-        v6 -= 2;
-        if (v17 == v6)
+        if (v17 == --v6)
         {
           *v17 = v30;
         }
@@ -9421,11 +9363,11 @@ unint64_t *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,scml::M
           if (!v22)
           {
             v24 = v23 >> 1;
-            v25 = &a1[2 * v24];
+            v25 = &a1[v24];
             v26 = *v17;
             if (*v25 > *v17)
             {
-              v27 = v17[1];
+              v27 = *(v17 + 1);
               do
               {
                 v28 = v17;
@@ -9437,12 +9379,12 @@ unint64_t *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,scml::M
                 }
 
                 v24 = (v24 - 1) >> 1;
-                v25 = &a1[2 * v24];
+                v25 = &a1[v24];
               }
 
               while (*v25 > v26);
               *v17 = v26;
-              v17[1] = v27;
+              *(v17 + 1) = v27;
             }
           }
         }
@@ -9569,16 +9511,16 @@ void std::default_delete<scml::MultiwordGazetteer::Impl>::operator()[abi:ne20010
   }
 }
 
-uint64_t scml::scml_impl::strCat<char const(&)[30],NSString * {__strong}&>(void *a1, char *__s, void *a3)
+void scml::scml_impl::strCat<char const(&)[30],NSString * {__strong}&>(void *a1, char *__s, void *a3)
 {
   v6 = strlen(__s);
   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(a1, __s, v6);
   MEMORY[0x1B8CC70C0](a1, *a3 != 0);
 
-  return scml::scml_impl::strCat<>(a1);
+  scml::scml_impl::strCat<>();
 }
 
-void sub_1B8A6E940(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, const void **a10, scml::MultiwordGazetteer **a11, scml::MultiwordGazetteer **a12, scml::MultiwordGazetteer **a13, void *a14, void *a15, void *a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, void *__p, uint64_t a22, int a23, __int16 a24, char a25, char a26, uint64_t a27, uint64_t a28, const void *a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, void *a38, uint64_t a39, int a40, __int16 a41, char a42, char a43, uint64_t a44, uint64_t a45, uint64_t a46, char a47)
+void sub_1B8A6E940(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, const void **a10, scml::MultiwordGazetteer **a11, scml::MultiwordGazetteer **a12, scml::MultiwordGazetteer **a13, void *a14, void *a15, void *a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, void *__p, uint64_t a22, int a23, __int16 a24, char a25, char a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, void *a38, uint64_t a39, int a40, __int16 a41, char a42, char a43, uint64_t a44, uint64_t a45, uint64_t a46, char a47)
 {
   if (*(v52 - 185) < 0)
   {
@@ -9627,7 +9569,7 @@ void sub_1B8A6E940(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 id scml::anonymous namespace::RuleBasedTextSanitizer::toGazetteerPath(uint64_t a1, uint64_t a2)
 {
-  v12[3] = *MEMORY[0x1E69E9840];
+  v11[3] = *MEMORY[0x1E69E9840];
   v2 = MEMORY[0x1E696AEC0];
   v3 = scml::strToNSString(a1, a2);
   v4 = [v2 stringWithFormat:@"%@.gaze", v3];
@@ -9635,13 +9577,11 @@ id scml::anonymous namespace::RuleBasedTextSanitizer::toGazetteerPath(uint64_t a
   v5 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
   v6 = MEMORY[0x1E696AEC0];
   v7 = [v5 resourcePath];
-  v12[0] = v7;
-  v12[1] = @"gaze";
-  v12[2] = v4;
-  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:3];
+  v11[0] = v7;
+  v11[1] = @"gaze";
+  v11[2] = v4;
+  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:3];
   v9 = [v6 pathWithComponents:v8];
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
@@ -9656,16 +9596,16 @@ void sub_1B8A6F35C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_1B8A6F794(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void **__p, uint64_t a10, int a11, __int16 a12, char a13, unsigned __int8 a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, char a19, uint64_t a20, uint64_t a21, uint64_t a22, char a23)
+void sub_1B8A6F794(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void **__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, char a19, uint64_t a20, uint64_t a21, uint64_t a22, char a23)
 {
   v27 = v26;
 
   if (a2 == 2)
   {
     v30 = __cxa_begin_catch(a1);
-    scml::strCat<char const(&)[47],std::string const&>("Failed ", v25 + 56, &__p);
+    scml::strCat<char const(&)[47],std::string const&>("Failed ", (v25 + 56), &__p);
     v31 = *(v25 + 40);
-    if ((a14 & 0x80u) == 0)
+    if (a14 >= 0)
     {
       p_p = &__p;
     }
@@ -9675,7 +9615,7 @@ void sub_1B8A6F794(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
       p_p = __p;
     }
 
-    if ((a14 & 0x80u) == 0)
+    if (a14 >= 0)
     {
       v33 = a14;
     }
@@ -9716,4 +9656,59 @@ void __copy_helper_block_ea8_56c66_ZTSNSt3__112basic_stringIcNS_11char_traitsIcE
     *(a1 + 72) = *(a2 + 72);
     *(a1 + 56) = v2;
   }
+}
+
+void __destroy_helper_block_ea8_56c66_ZTSNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEEE(uint64_t a1)
+{
+  if (*(a1 + 79) < 0)
+  {
+    operator delete(*(a1 + 56));
+  }
+}
+
+void sub_1B8A6FC80(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, void *__p, uint64_t a18, int a19, __int16 a20, char a21, char a22, char a23, uint64_t a24, uint64_t a25, char *a26, uint64_t a27, int a28, __int16 a29, char a30, char a31)
+{
+  if (a22 < 0)
+  {
+    operator delete(__p);
+  }
+
+  a26 = &a23;
+  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&a26);
+
+  _Unwind_Resume(a1);
+}
+
+void sub_1B8A70DB4(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *a9, uint64_t a10, void *a11, void *a12, void (**a13)(void, void, void), uint64_t a14, uint64_t a15, void *a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, void *a21, uint64_t a22)
+{
+  scml::SignpostInterval::~SignpostInterval(&STACK[0x2A0]);
+
+  std::mutex::unlock((a22 + 8));
+  if (a2 == 1)
+  {
+    v25 = __cxa_begin_catch(a1);
+    v26 = scml::error(0xFu, v25);
+    (a13)[2](a13, 0, v26);
+
+    __cxa_end_catch();
+    JUMPOUT(0x1B8A70D0CLL);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+uint64_t std::function<void ()(scml::anonymous namespace::AsyncResponder *)>::~function(uint64_t a1)
+{
+  v2 = *(a1 + 24);
+  if (v2 == a1)
+  {
+    (*(*v2 + 32))(v2);
+  }
+
+  else if (v2)
+  {
+    (*(*v2 + 40))(v2);
+  }
+
+  return a1;
 }

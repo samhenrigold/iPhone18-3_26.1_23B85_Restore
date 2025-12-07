@@ -12,25 +12,23 @@
 
 + (id)tablesAndForeignKeysToResolve:(id *)resolve associationsToResolve:(id *)toResolve
 {
-  v16[5] = *MEMORY[0x1E69E9840];
+  v15[5] = *MEMORY[0x1E69E9840];
   v4 = objc_alloc(MEMORY[0x1E699B958]);
   v5 = [MEMORY[0x1E699B8D0] textColumnWithName:@"account_identifier" collation:0 nullable:1];
-  v16[0] = v5;
+  v15[0] = v5;
   v6 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"action_type" nullable:1];
-  v16[1] = v6;
+  v15[1] = v6;
   v7 = [MEMORY[0x1E699B8D0] textColumnWithName:@"mailbox_name" collation:0 nullable:1];
-  v16[2] = v7;
+  v15[2] = v7;
   v8 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"mailbox" nullable:1 defaultValue:0];
-  v16[3] = v8;
+  v15[3] = v8;
   v9 = [MEMORY[0x1E699B8D0] textColumnWithName:@"new_mailbox_name" collation:0 nullable:1];
-  v16[4] = v9;
-  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:5];
+  v15[4] = v9;
+  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:5];
   v11 = [v4 initWithName:@"mailbox_actions" rowIDType:2 columns:v10];
 
-  v15 = v11;
-  v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v15 count:1];
-
-  v13 = *MEMORY[0x1E69E9840];
+  v14 = v11;
+  v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v14 count:1];
 
   return v12;
 }
@@ -69,17 +67,17 @@
 
 uint64_t __67__EDMailboxActionPersistence_saveMailboxActionForAccountID_action___block_invoke(uint64_t a1, void *a2)
 {
-  v17[5] = *MEMORY[0x1E69E9840];
+  v16[5] = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v15 = [v3 preparedStatementForQueryString:{@"INSERT INTO mailbox_actions (account_identifier, action_type, mailbox, mailbox_name, new_mailbox_name) VALUES (?, ?, ?, ?, ?)"}];
+  v14 = [v3 preparedStatementForQueryString:{@"INSERT INTO mailbox_actions (account_identifier, action_type, mailbox, mailbox_name, new_mailbox_name) VALUES (?, ?, ?, ?, ?)"}];
   v4 = *(a1 + 40);
-  v17[0] = *(a1 + 32);
+  v16[0] = *(a1 + 32);
   v5 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(v4, "actionType")}];
-  v17[1] = v5;
+  v16[1] = v5;
   v6 = [MEMORY[0x1E696AD98] numberWithLongLong:{objc_msgSend(*(a1 + 40), "mailboxID")}];
-  v17[2] = v6;
+  v16[2] = v6;
   v7 = [*(a1 + 40) mailboxName];
-  v17[3] = v7;
+  v16[3] = v7;
   v8 = [*(a1 + 40) renamedMailboxName];
   v9 = v8;
   if (!v8)
@@ -87,11 +85,11 @@ uint64_t __67__EDMailboxActionPersistence_saveMailboxActionForAccountID_action__
     v9 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v17[4] = v9;
-  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:5];
-  v16 = 0;
-  v11 = [v15 executeWithIndexedBindings:v10 usingBlock:0 error:&v16];
-  v12 = v16;
+  v16[4] = v9;
+  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:5];
+  v15 = 0;
+  v11 = [v14 executeWithIndexedBindings:v10 usingBlock:0 error:&v15];
+  v12 = v15;
 
   if (!v8)
   {
@@ -102,7 +100,6 @@ uint64_t __67__EDMailboxActionPersistence_saveMailboxActionForAccountID_action__
     [v3 handleError:v12 message:@"inserting mailbox action"];
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return 1;
 }
 
@@ -130,19 +127,18 @@ uint64_t __67__EDMailboxActionPersistence_saveMailboxActionForAccountID_action__
 
 uint64_t __59__EDMailboxActionPersistence_allMailboxActionForAccountID___block_invoke(uint64_t a1, void *a2)
 {
-  v10[1] = *MEMORY[0x1E69E9840];
+  v9[1] = *MEMORY[0x1E69E9840];
   v3 = [a2 preparedStatementForQueryString:{@"SELECT ROWID, action_type, mailbox, mailbox_name, new_mailbox_name FROM mailbox_actions WHERE (account_identifier = ?) ORDER BY ROWID"}];
   v4 = [MEMORY[0x1E699B8B0] bindingWithString:*(a1 + 32)];
-  v10[0] = v4;
-  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:1];
-  v8[0] = MEMORY[0x1E69E9820];
-  v8[1] = 3221225472;
-  v8[2] = __59__EDMailboxActionPersistence_allMailboxActionForAccountID___block_invoke_2;
-  v8[3] = &unk_1E8250300;
-  v9 = *(a1 + 40);
-  [v3 executeWithIndexedBindings:v5 usingBlock:v8 error:0];
+  v9[0] = v4;
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:1];
+  v7[0] = MEMORY[0x1E69E9820];
+  v7[1] = 3221225472;
+  v7[2] = __59__EDMailboxActionPersistence_allMailboxActionForAccountID___block_invoke_2;
+  v7[3] = &unk_1E8250300;
+  v8 = *(a1 + 40);
+  [v3 executeWithIndexedBindings:v5 usingBlock:v7 error:0];
 
-  v6 = *MEMORY[0x1E69E9840];
   return 1;
 }
 
@@ -195,19 +191,18 @@ void __59__EDMailboxActionPersistence_allMailboxActionForAccountID___block_invok
 
 uint64_t __60__EDMailboxActionPersistence_nextMailboxActionForAccountID___block_invoke(uint64_t a1, void *a2)
 {
-  v9[1] = *MEMORY[0x1E69E9840];
+  v8[1] = *MEMORY[0x1E69E9840];
   v3 = [a2 preparedStatementForQueryString:{@"SELECT ROWID, action_type, mailbox, mailbox_name, new_mailbox_name FROM mailbox_actions WHERE (account_identifier = ?) ORDER BY ROWID LIMIT 1"}];
   v4 = [MEMORY[0x1E699B8B0] bindingWithString:*(a1 + 32)];
-  v9[0] = v4;
-  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:1];
-  v8[0] = MEMORY[0x1E69E9820];
-  v8[1] = 3221225472;
-  v8[2] = __60__EDMailboxActionPersistence_nextMailboxActionForAccountID___block_invoke_2;
-  v8[3] = &unk_1E8250418;
-  v8[4] = *(a1 + 40);
-  [v3 executeWithIndexedBindings:v5 usingBlock:v8 error:0];
+  v8[0] = v4;
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:1];
+  v7[0] = MEMORY[0x1E69E9820];
+  v7[1] = 3221225472;
+  v7[2] = __60__EDMailboxActionPersistence_nextMailboxActionForAccountID___block_invoke_2;
+  v7[3] = &unk_1E8250418;
+  v7[4] = *(a1 + 40);
+  [v3 executeWithIndexedBindings:v5 usingBlock:v7 error:0];
 
-  v6 = *MEMORY[0x1E69E9840];
   return 1;
 }
 
@@ -247,14 +242,13 @@ void __60__EDMailboxActionPersistence_nextMailboxActionForAccountID___block_invo
 
 uint64_t __50__EDMailboxActionPersistence_deleteMailboxAction___block_invoke(uint64_t a1, void *a2)
 {
-  v8[1] = *MEMORY[0x1E69E9840];
+  v7[1] = *MEMORY[0x1E69E9840];
   v3 = [a2 preparedStatementForQueryString:@"DELETE FROM mailbox_actions WHERE ROWID = ?"];
   v4 = [MEMORY[0x1E696AD98] numberWithLongLong:*(a1 + 32)];
-  v8[0] = v4;
-  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:1];
+  v7[0] = v4;
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:1];
   [v3 executeWithIndexedBindings:v5 usingBlock:0 error:0];
 
-  v6 = *MEMORY[0x1E69E9840];
   return 1;
 }
 

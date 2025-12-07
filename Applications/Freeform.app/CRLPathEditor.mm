@@ -376,7 +376,7 @@
   v23 = 0u;
   if (repCopy)
   {
-    [repCopy naturalToEditablePathSpaceTransform];
+    objc_msgSend_naturalToEditablePathSpaceTransform(repCopy);
     v8 = 0uLL;
   }
 
@@ -981,7 +981,7 @@ LABEL_38:
   v46 = layout;
   if (layout)
   {
-    [layout pureTransformInRoot];
+    objc_msgSend_pureTransformInRoot(layout);
   }
 
   else

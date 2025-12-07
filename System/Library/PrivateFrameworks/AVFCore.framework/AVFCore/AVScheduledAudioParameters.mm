@@ -96,34 +96,34 @@
   return _volumeCurveKeysForScheduledRampClassNames_figKeysForRampClassNames;
 }
 
-id __72__AVScheduledAudioParameters__volumeCurveKeysForScheduledRampClassNames__block_invoke()
+id __72__AVScheduledAudioParameters__volumeCurveKeysForScheduledRampClassNames__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v10[8] = *MEMORY[0x1E69E9840];
-  v0 = objc_opt_class();
-  v9[0] = NSStringFromClass(v0);
-  v10[0] = *MEMORY[0x1E69716C0];
-  v1 = objc_opt_class();
-  v9[1] = NSStringFromClass(v1);
-  v10[1] = *MEMORY[0x1E6971690];
+  v12[8] = *MEMORY[0x1E69E9840];
   v2 = objc_opt_class();
-  v9[2] = NSStringFromClass(v2);
-  v10[2] = *MEMORY[0x1E6971680];
+  v11[0] = NSStringFromClass(v2);
+  v12[0] = *MEMORY[0x1E69716C0];
   v3 = objc_opt_class();
-  v9[3] = NSStringFromClass(v3);
-  v10[3] = *MEMORY[0x1E69716A0];
+  v11[1] = NSStringFromClass(v3);
+  v12[1] = *MEMORY[0x1E6971690];
   v4 = objc_opt_class();
-  v9[4] = NSStringFromClass(v4);
-  v10[4] = *MEMORY[0x1E6971698];
+  v11[2] = NSStringFromClass(v4);
+  v12[2] = *MEMORY[0x1E6971680];
   v5 = objc_opt_class();
-  v9[5] = NSStringFromClass(v5);
-  v10[5] = *MEMORY[0x1E6971688];
+  v11[3] = NSStringFromClass(v5);
+  v12[3] = *MEMORY[0x1E69716A0];
   v6 = objc_opt_class();
-  v9[6] = NSStringFromClass(v6);
-  v10[6] = *MEMORY[0x1E69716B0];
+  v11[4] = NSStringFromClass(v6);
+  v12[4] = *MEMORY[0x1E6971698];
   v7 = objc_opt_class();
-  v9[7] = NSStringFromClass(v7);
-  v10[7] = *MEMORY[0x1E69716B8];
-  result = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:v9 count:8];
+  v11[5] = NSStringFromClass(v7);
+  v12[5] = *MEMORY[0x1E6971688];
+  v8 = objc_opt_class();
+  v11[6] = NSStringFromClass(v8);
+  v12[6] = *MEMORY[0x1E69716B0];
+  v9 = objc_opt_class();
+  v11[7] = NSStringFromClass(v9);
+  v12[7] = *MEMORY[0x1E69716B8];
+  result = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:8];
   _volumeCurveKeysForScheduledRampClassNames_figKeysForRampClassNames = result;
   return result;
 }
@@ -429,7 +429,7 @@ id __72__AVScheduledAudioParameters__volumeCurveKeysForScheduledRampClassNames__
       v23 = 0u;
       if (v12)
       {
-        [v12 timeRange];
+        objc_msgSend_timeRange(v12);
         if ((~DWORD1(v24[1]) & 5) == 0)
         {
           v13 = [v8 count];
@@ -441,7 +441,7 @@ id __72__AVScheduledAudioParameters__volumeCurveKeysForScheduledRampClassNames__
             v14 = [v8 objectAtIndex:?];
             if (v14)
             {
-              [v14 timeRange];
+              objc_msgSend_timeRange(v14);
             }
 
             else
@@ -477,7 +477,7 @@ BOOL __101__AVScheduledAudioParameters_AVScheduledAudioParameters_Internal___get
   memset(&v12, 0, sizeof(v12));
   if (a2)
   {
-    [a2 timeRange];
+    objc_msgSend_timeRange(a2);
   }
 
   range = v12;
@@ -519,7 +519,7 @@ BOOL __101__AVScheduledAudioParameters_AVScheduledAudioParameters_Internal___get
       v29 = 0u;
       v30 = 0u;
       v28 = 0u;
-      [ramp timeRange];
+      objc_msgSend_timeRange(ramp);
       v25 = v28;
       v26 = v29;
       v27 = v30;
@@ -565,7 +565,7 @@ BOOL __101__AVScheduledAudioParameters_AVScheduledAudioParameters_Internal___get
         v17 = [array objectAtIndex:v15];
         if (v17)
         {
-          [v17 timeRange];
+          objc_msgSend_timeRange(v17);
         }
 
         else
@@ -597,7 +597,7 @@ BOOL __76__AVScheduledAudioParameters_AVScheduledAudioParameters_Internal___setR
 {
   if (a2)
   {
-    [a2 timeRange];
+    objc_msgSend_timeRange(a2);
   }
 
   else
@@ -634,7 +634,7 @@ BOOL __76__AVScheduledAudioParameters_AVScheduledAudioParameters_Internal___setR
   v9 = [v4 objectAtIndex:0];
   if (v9)
   {
-    [v9 timeRange];
+    objc_msgSend_timeRange(v9);
   }
 
   else
@@ -681,7 +681,7 @@ BOOL __76__AVScheduledAudioParameters_AVScheduledAudioParameters_Internal___setR
       memset(&time1, 0, sizeof(time1));
       if (v14)
       {
-        [v14 timeRange];
+        objc_msgSend_timeRange(v14);
       }
 
       memset(&v26, 0, sizeof(v26));
@@ -701,7 +701,7 @@ BOOL __76__AVScheduledAudioParameters_AVScheduledAudioParameters_Internal___setR
         v17 = v16;
         if (v16)
         {
-          [v16 timeRange];
+          objc_msgSend_timeRange(v16);
         }
 
         else

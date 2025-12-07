@@ -126,7 +126,6 @@
 
   objc_storeStrong(&v28, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x29EDCA608];
   return v31 & 1;
 }
 
@@ -323,7 +322,6 @@
   }
 
   objc_storeStrong(location, 0);
-  *MEMORY[0x29EDCA608];
   return v49;
 }
 
@@ -373,7 +371,6 @@
   [v3 setAccountProperty:? forKey:?];
   MEMORY[0x29EDC9740](date);
   objc_storeStrong(location, 0);
-  *MEMORY[0x29EDCA608];
 }
 
 @end

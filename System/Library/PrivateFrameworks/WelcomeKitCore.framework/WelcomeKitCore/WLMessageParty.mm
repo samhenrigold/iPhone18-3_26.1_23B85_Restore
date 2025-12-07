@@ -292,16 +292,15 @@ LABEL_48:
   if (_guessIccForNumber__icc)
   {
     v4 = [_guessIccForNumber__icc stringByAppendingString:numberCopy];
-    v12 = *MEMORY[0x277D007E8];
-    v13 = *(MEMORY[0x277D007E8] + 16);
-    v14 = *(MEMORY[0x277D007E8] + 32);
-    v15 = *(MEMORY[0x277D007E8] + 48);
+    v12 = *(MEMORY[0x277D007E8] + 16);
+    v13 = *(MEMORY[0x277D007E8] + 32);
+    v14 = *(MEMORY[0x277D007E8] + 48);
     [v4 UTF8String];
     v5 = PNDecomposeForCountry();
     v6 = [MEMORY[0x277CCABB0] numberWithBool:v5];
-    v7 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:DWORD2(v13)];
-    v8 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:DWORD2(v14)];
-    v11 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:DWORD2(v15)];
+    v7 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:DWORD2(v12)];
+    v8 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:DWORD2(v13)];
+    v11 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:DWORD2(v14)];
     _WLLog();
 
     if (v5)

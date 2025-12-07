@@ -12,7 +12,7 @@
 
 @implementation PLManagedObjectPagingIterator
 
-uint64_t __38__PLManagedObjectPagingIterator_reset__block_invoke(uint64_t a1)
+void *__38__PLManagedObjectPagingIterator_reset__block_invoke(uint64_t a1)
 {
   v2 = *(a1 + 32);
   v3 = *(v2 + 32);
@@ -36,13 +36,13 @@ uint64_t __38__PLManagedObjectPagingIterator_reset__block_invoke(uint64_t a1)
 
 - (id)countRemainingWithManagedObjectContext:(id)context logger:(id)logger
 {
-  v84 = *MEMORY[0x1E69E9840];
+  v85 = *MEMORY[0x1E69E9840];
   contextCopy = context;
   loggerCopy = logger;
-  v44 = MEMORY[0x1E69E9820];
-  v45 = 3221225472;
-  v46 = __79__PLManagedObjectPagingIterator_countRemainingWithManagedObjectContext_logger___block_invoke;
-  v47 = &unk_1E7573368;
+  v45 = MEMORY[0x1E69E9820];
+  v46 = 3221225472;
+  v47 = __79__PLManagedObjectPagingIterator_countRemainingWithManagedObjectContext_logger___block_invoke;
+  v48 = &unk_1E7573368;
   selfCopy = self;
   if (PLBoolResultWithUnfairLock())
   {
@@ -51,34 +51,34 @@ uint64_t __38__PLManagedObjectPagingIterator_reset__block_invoke(uint64_t a1)
 
   else
   {
+    v41 = 0;
+    v42 = &v41;
+    v43 = 0x2020000000;
+    v44 = 0;
+    v35 = 0;
+    v36 = &v35;
+    v37 = 0x3032000000;
+    v38 = __Block_byref_object_copy__75749;
+    v39 = __Block_byref_object_dispose__75750;
     v40 = 0;
-    v41 = &v40;
-    v42 = 0x2020000000;
-    v43 = 0;
+    v31 = 0;
+    v32 = &v31;
+    v33 = 0x2020000000;
     v34 = 0;
-    v35 = &v34;
-    v36 = 0x3032000000;
-    v37 = __Block_byref_object_copy__75749;
-    v38 = __Block_byref_object_dispose__75750;
-    v39 = 0;
-    v30 = 0;
-    v31 = &v30;
-    v32 = 0x2020000000;
-    v33 = 0;
     resumeObjectID = [(PLManagedObjectPagingIterator *)self resumeObjectID];
-    v24[0] = MEMORY[0x1E69E9820];
-    v24[1] = 3221225472;
-    v24[2] = __79__PLManagedObjectPagingIterator_countRemainingWithManagedObjectContext_logger___block_invoke_25;
-    v24[3] = &unk_1E7572800;
-    v27 = &v30;
-    v24[4] = self;
+    v25[0] = MEMORY[0x1E69E9820];
+    v25[1] = 3221225472;
+    v25[2] = __79__PLManagedObjectPagingIterator_countRemainingWithManagedObjectContext_logger___block_invoke_25;
+    v25[3] = &unk_1E7572800;
+    v28 = &v31;
+    v25[4] = self;
     v10 = resumeObjectID;
-    v25 = v10;
-    v28 = &v40;
-    v26 = contextCopy;
-    v29 = &v34;
-    [v26 performBlockAndWait:v24];
-    if (*(v31 + 24) == 1 && v41[3] != 0x7FFFFFFFFFFFFFFFLL)
+    v26 = v10;
+    v29 = &v41;
+    v27 = contextCopy;
+    v30 = &v35;
+    [v27 performBlockAndWait:v25];
+    if (*(v32 + 24) == 1 && v42[3] != 0x7FFFFFFFFFFFFFFFLL)
     {
       v11 = PLSearchBackendIndexingEngineGetLog();
       v12 = os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
@@ -87,88 +87,97 @@ uint64_t __38__PLManagedObjectPagingIterator_reset__block_invoke(uint64_t a1)
       {
         if (loggerCopy)
         {
-          v82 = 0u;
           v83 = 0u;
-          v80 = 0u;
+          v84 = 0u;
           v81 = 0u;
-          v78 = 0u;
+          v82 = 0u;
           v79 = 0u;
-          v76 = 0u;
+          v80 = 0u;
           v77 = 0u;
-          v74 = 0u;
+          v78 = 0u;
           v75 = 0u;
-          v72 = 0u;
+          v76 = 0u;
           v73 = 0u;
-          v70 = 0u;
+          v74 = 0u;
           v71 = 0u;
-          v68 = 0u;
+          v72 = 0u;
           v69 = 0u;
-          v66 = 0u;
+          v70 = 0u;
           v67 = 0u;
-          v64 = 0u;
+          v68 = 0u;
           v65 = 0u;
-          v62 = 0u;
+          v66 = 0u;
           v63 = 0u;
-          v60 = 0u;
+          v64 = 0u;
           v61 = 0u;
-          v58 = 0u;
+          v62 = 0u;
           v59 = 0u;
-          v56 = 0u;
+          v60 = 0u;
           v57 = 0u;
-          v54 = 0u;
+          v58 = 0u;
           v55 = 0u;
+          v56 = 0u;
           memset(buf, 0, sizeof(buf));
           v13 = PLSearchBackendIndexingEngineGetLog();
-          os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT);
+          v14 = os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT);
           entityName = [(PLManagedObjectPagingIterator *)self entityName];
-          v15 = v41[3];
-          v49 = 138543618;
-          v50 = entityName;
-          v51 = 2048;
-          v52 = v15;
-          LODWORD(v23) = 22;
-          v16 = _os_log_send_and_compose_impl();
-
-          [loggerCopy logWithMessage:v16 fromCodeLocation:"PLManagedObjectPagingIterator.m" type:{206, 0, &v49, v23}];
-          if (v16 != buf)
+          if (v14)
           {
-            free(v16);
+            v16 = 3;
+          }
+
+          else
+          {
+            v16 = 2;
+          }
+
+          v17 = v42[3];
+          v50 = 138543618;
+          v51 = entityName;
+          v52 = 2048;
+          v53 = v17;
+          v18 = _os_log_send_and_compose_impl(v16, 0, buf, 512, &dword_19BF1F000, v13, 0, "Remaining count for search indexing entity %{public}@: %tu", &v50, 22);
+
+          [loggerCopy logWithMessage:v18 fromCodeLocation:"PLManagedObjectPagingIterator.m" type:{206, 0}];
+          if (v18 != buf)
+          {
+            free(v18);
           }
         }
 
         else
         {
-          v17 = PLSearchBackendIndexingEngineGetLog();
-          if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+          v19 = PLSearchBackendIndexingEngineGetLog();
+          if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
           {
             entityName2 = [(PLManagedObjectPagingIterator *)self entityName];
-            v19 = v41[3];
+            v21 = v42[3];
             *buf = 138543618;
             *&buf[4] = entityName2;
             *&buf[12] = 2048;
-            *&buf[14] = v19;
-            _os_log_impl(&dword_19BF1F000, v17, OS_LOG_TYPE_DEFAULT, "Remaining count for search indexing entity %{public}@: %tu", buf, 0x16u);
+            *&buf[14] = v21;
+            _os_log_impl(&dword_19BF1F000, v19, OS_LOG_TYPE_DEFAULT, "Remaining count for search indexing entity %{public}@: %tu", buf, 0x16u);
           }
         }
       }
     }
 
-    v20 = MEMORY[0x1E69BF2D0];
-    if (v41[3] == 0x7FFFFFFFFFFFFFFFLL)
+    v22 = MEMORY[0x1E69BF2D0];
+    if (v42[3] == 0x7FFFFFFFFFFFFFFFLL)
     {
-      v8 = [MEMORY[0x1E69BF2D0] failureWithError:v35[5]];
+      v8 = [MEMORY[0x1E69BF2D0] failureWithError:v36[5]];
     }
 
     else
     {
-      v21 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:?];
-      v8 = [v20 successWithResult:v21];
+      v23 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:?];
+      v8 = [v22 successWithResult:v23];
     }
 
-    _Block_object_dispose(&v30, 8);
-    _Block_object_dispose(&v34, 8);
+    _Block_object_dispose(&v31, 8);
+    _Block_object_dispose(&v35, 8);
 
-    _Block_object_dispose(&v40, 8);
+    _Block_object_dispose(&v41, 8);
   }
 
   return v8;
@@ -253,11 +262,11 @@ void __79__PLManagedObjectPagingIterator_countRemainingWithManagedObjectContext_
   {
 LABEL_8:
     v9 = PLSafeResultWithUnfairLock();
-    if ([v9 count])
+    if (objc_msgSend_count(v9))
     {
       v5 = [MEMORY[0x1E69BF2D0] successWithResult:v9];
       lastObject = [v9 lastObject];
-      -[PLManagedObjectPagingIterator _updateResumeObjectIDWithObject:progressCount:](self, "_updateResumeObjectIDWithObject:progressCount:", lastObject, [v9 count]);
+      [(PLManagedObjectPagingIterator *)self _updateResumeObjectIDWithObject:lastObject progressCount:objc_msgSend_count(v9)];
     }
 
     else
@@ -455,7 +464,7 @@ void __94__PLManagedObjectPagingIterator__neverCallWithLock_refillResultQueueWit
   else
   {
     v14 = [v8 result];
-    v15 = [v14 count];
+    v15 = objc_msgSend_count(v14);
 
     if (v15)
     {

@@ -270,28 +270,28 @@ LABEL_11:
 
 - (unsigned)type
 {
-  result = _os_crash();
+  result = _os_crash("Must overwrite [RSDRemoteDevice type] in subclass", a2);
   __break(1u);
   return result;
 }
 
 - (const)remote_address
 {
-  result = _os_crash();
+  result = _os_crash("Must overwrite [RSDRemoteDevice remote_address] in subclass", a2);
   __break(1u);
   return result;
 }
 
 - (const)local_address
 {
-  result = _os_crash();
+  result = _os_crash("Must overwrite [RSDRemoteDevice remote_address] in subclass", a2);
   __break(1u);
   return result;
 }
 
 - (int)interface_index
 {
-  result = _os_crash();
+  result = _os_crash("Must overwrite [RSDRemoteDevice interface_index] in subclass", a2);
   __break(1u);
   return result;
 }
@@ -695,7 +695,7 @@ LABEL_14:
 
       if (connection)
       {
-        sub_100039198(&v72, buf);
+        sub_100039198(&v73, buf);
       }
 
       [(RSDRemoteDevice *)self setConnection:connectCopy];
@@ -710,23 +710,23 @@ LABEL_14:
         v9 = sub_10001C540();
         if (!v9)
         {
-          sub_100039204();
+          sub_100039204(0, v10);
         }
 
-        v10 = v9;
-        v11 = qword_1000646E0;
+        v11 = v9;
+        v12 = qword_1000646E0;
         if (os_log_type_enabled(qword_1000646E0, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138543362;
           selfCopy7 = self;
-          _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "%{public}@> Applying TLS to RemoteXPC connection.", buf, 0xCu);
+          _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "%{public}@> Applying TLS to RemoteXPC connection.", buf, 0xCu);
         }
 
         connection2 = [(RSDRemoteDevice *)self connection];
-        v67 = _NSConcreteStackBlock;
-        v68 = 3221225472;
-        v69 = sub_100009598;
-        v70 = &unk_10005D180;
+        v68 = _NSConcreteStackBlock;
+        v69 = 3221225472;
+        v70 = sub_100009598;
+        v71 = &unk_10005D180;
         selfCopy3 = self;
         xpc_remote_connection_set_tls();
 
@@ -741,74 +741,74 @@ LABEL_14:
       [(RSDRemoteDevice *)self setTlsEnabled:enable_tls];
       [(RSDRemoteDevice *)self refreshServiceListeners];
       xpc_remote_connection_set_target_queue();
-      v61 = _NSConcreteStackBlock;
-      v62 = 3221225472;
-      v63 = sub_100009600;
-      v64 = &unk_10005D1D0;
+      v62 = _NSConcreteStackBlock;
+      v63 = 3221225472;
+      v64 = sub_100009600;
+      v65 = &unk_10005D1D0;
       selfCopy4 = self;
-      v45 = connectCopy;
-      v66 = connectCopy;
+      v46 = connectCopy;
+      v67 = connectCopy;
       xpc_remote_connection_set_event_handler();
       xpc_remote_connection_activate();
-      v15 = xpc_dictionary_create(0, 0, 0);
-      xpc_dictionary_set_string(v15, "MessageType", "Handshake");
-      xpc_dictionary_set_uint64(v15, "MessagingProtocolVersion", 7uLL);
-      xpc_dictionary_set_uuid(v15, "UUID", &xmmword_1000646E8);
-      v44 = v15;
-      xpc_dictionary_set_value(v15, "Properties", qword_1000646F8);
+      v16 = xpc_dictionary_create(0, 0, 0);
+      xpc_dictionary_set_string(v16, "MessageType", "Handshake");
+      xpc_dictionary_set_uint64(v16, "MessagingProtocolVersion", 7uLL);
+      xpc_dictionary_set_uuid(v16, "UUID", &xmmword_1000646E8);
+      v45 = v16;
+      xpc_dictionary_set_value(v16, "Properties", qword_1000646F8);
       xdict = xpc_dictionary_create(0, 0, 0);
-      v57 = 0u;
       v58 = 0u;
       v59 = 0u;
       v60 = 0u;
+      v61 = 0u;
       obj = qword_100064700;
-      v16 = [obj countByEnumeratingWithState:&v57 objects:v76 count:16];
+      v17 = [obj countByEnumeratingWithState:&v58 objects:v77 count:16];
       selfCopy5 = self;
-      if (v16)
+      if (v17)
       {
-        v17 = v16;
-        v18 = *v58;
+        v18 = v17;
+        v19 = *v59;
         do
         {
-          for (i = 0; i != v17; i = i + 1)
+          for (i = 0; i != v18; i = i + 1)
           {
-            if (*v58 != v18)
+            if (*v59 != v19)
             {
               objc_enumerationMutation(obj);
             }
 
-            v20 = *(*(&v57 + 1) + 8 * i);
-            v53 = 0u;
+            v21 = *(*(&v58 + 1) + 8 * i);
             v54 = 0u;
             v55 = 0u;
             v56 = 0u;
+            v57 = 0u;
             service_listeners = [(RSDRemoteDevice *)self service_listeners];
-            v22 = [service_listeners countByEnumeratingWithState:&v53 objects:v75 count:16];
-            if (v22)
+            v23 = [service_listeners countByEnumeratingWithState:&v54 objects:v76 count:16];
+            if (v23)
             {
-              v23 = v22;
-              v24 = *v54;
+              v24 = v23;
+              v25 = *v55;
 LABEL_28:
-              v25 = 0;
+              v26 = 0;
               while (1)
               {
-                if (*v54 != v24)
+                if (*v55 != v25)
                 {
                   objc_enumerationMutation(service_listeners);
                 }
 
-                v26 = *(*(&v53 + 1) + 8 * v25);
-                service = [v26 service];
+                v27 = *(*(&v54 + 1) + 8 * v26);
+                service = [v27 service];
 
-                if (service == v20)
+                if (service == v21)
                 {
                   break;
                 }
 
-                if (v23 == ++v25)
+                if (v24 == ++v26)
                 {
-                  v23 = [service_listeners countByEnumeratingWithState:&v53 objects:v75 count:16];
-                  if (v23)
+                  v24 = [service_listeners countByEnumeratingWithState:&v54 objects:v76 count:16];
+                  if (v24)
                   {
                     goto LABEL_28;
                   }
@@ -817,15 +817,15 @@ LABEL_28:
                 }
               }
 
-              v28 = v26;
+              v29 = v27;
 
-              if (!v28)
+              if (!v29)
               {
                 goto LABEL_37;
               }
 
-              name = [v20 name];
-              copyServiceDescription = [v28 copyServiceDescription];
+              name = [v21 name];
+              copyServiceDescription = [v29 copyServiceDescription];
               xpc_dictionary_set_value(xdict, name, copyServiceDescription);
 
               self = selfCopy5;
@@ -836,74 +836,74 @@ LABEL_28:
 LABEL_34:
 
 LABEL_37:
-              v31 = qword_1000646E0;
+              v32 = qword_1000646E0;
               self = selfCopy5;
               if (os_log_type_enabled(qword_1000646E0, OS_LOG_TYPE_ERROR))
               {
-                v32 = v31;
-                name2 = [v20 name];
+                v33 = v32;
+                name2 = [v21 name];
                 *buf = 138543618;
                 selfCopy7 = selfCopy5;
-                v79 = 2080;
-                v80 = name2;
-                _os_log_error_impl(&_mh_execute_header, v32, OS_LOG_TYPE_ERROR, "%{public}@> No listener for %s", buf, 0x16u);
+                v80 = 2080;
+                v81 = name2;
+                _os_log_error_impl(&_mh_execute_header, v33, OS_LOG_TYPE_ERROR, "%{public}@> No listener for %s", buf, 0x16u);
               }
             }
           }
 
-          v17 = [obj countByEnumeratingWithState:&v57 objects:v76 count:16];
+          v18 = [obj countByEnumeratingWithState:&v58 objects:v77 count:16];
         }
 
-        while (v17);
+        while (v18);
       }
 
-      v51 = 0u;
       v52 = 0u;
-      v49 = 0u;
+      v53 = 0u;
       v50 = 0u;
-      v34 = qword_100064708;
-      v35 = [v34 countByEnumeratingWithState:&v49 objects:v74 count:16];
-      if (v35)
+      v51 = 0u;
+      v35 = qword_100064708;
+      v36 = [v35 countByEnumeratingWithState:&v50 objects:v75 count:16];
+      if (v36)
       {
-        v36 = v35;
-        v37 = *v50;
+        v37 = v36;
+        v38 = *v51;
         do
         {
-          for (j = 0; j != v36; j = j + 1)
+          for (j = 0; j != v37; j = j + 1)
           {
-            if (*v50 != v37)
+            if (*v51 != v38)
             {
-              objc_enumerationMutation(v34);
+              objc_enumerationMutation(v35);
             }
 
-            v39 = *(*(&v49 + 1) + 8 * j);
-            name3 = [v39 name];
-            copyServiceDescription2 = [v39 copyServiceDescription];
+            v40 = *(*(&v50 + 1) + 8 * j);
+            name3 = [v40 name];
+            copyServiceDescription2 = [v40 copyServiceDescription];
             xpc_dictionary_set_value(xdict, name3, copyServiceDescription2);
           }
 
-          v36 = [v34 countByEnumeratingWithState:&v49 objects:v74 count:16];
+          v37 = [v35 countByEnumeratingWithState:&v50 objects:v75 count:16];
         }
 
-        while (v36);
+        while (v37);
       }
 
-      xpc_dictionary_set_value(v44, "Services", xdict);
+      xpc_dictionary_set_value(v45, "Services", xdict);
       xpc_remote_connection_send_message();
-      v42 = xpc_copy_clean_description();
-      v43 = qword_1000646E0;
+      v43 = xpc_copy_clean_description();
+      v44 = qword_1000646E0;
       if (os_log_type_enabled(qword_1000646E0, OS_LOG_TYPE_INFO))
       {
         *buf = 138543618;
         selfCopy7 = selfCopy5;
-        v79 = 2080;
-        v80 = v42;
-        _os_log_impl(&_mh_execute_header, v43, OS_LOG_TYPE_INFO, "%{public}@> Sending handshake message: %s", buf, 0x16u);
+        v80 = 2080;
+        v81 = v43;
+        _os_log_impl(&_mh_execute_header, v44, OS_LOG_TYPE_INFO, "%{public}@> Sending handshake message: %s", buf, 0x16u);
       }
 
-      free(v42);
+      free(v43);
 
-      connectCopy = v45;
+      connectCopy = v46;
     }
   }
 
@@ -929,13 +929,13 @@ LABEL_37:
         _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "%{public}@> Device connection failed", buf, 0xCu);
       }
 
-      v14 = dispatch_time(0, 1000000000);
+      v15 = dispatch_time(0, 1000000000);
       block[0] = _NSConcreteStackBlock;
       block[1] = 3221225472;
       block[2] = sub_100009590;
       block[3] = &unk_10005D130;
       block[4] = self;
-      dispatch_after(v14, qword_100064368, block);
+      dispatch_after(v15, qword_100064368, block);
     }
   }
 }

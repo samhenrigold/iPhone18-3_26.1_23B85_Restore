@@ -38,21 +38,7 @@
             systemVersion = [(SPInternalSimpleBeacon *)self systemVersion];
             systemVersion2 = [(SPInternalSimpleBeacon *)v5 systemVersion];
             v144 = systemVersion;
-            if (![systemVersion isEqualToString:?])
-            {
-              goto LABEL_101;
-            }
-
-            [(SPInternalSimpleBeacon *)self txPower];
-            v110 = v109;
-            [(SPInternalSimpleBeacon *)v5 txPower];
-            if (v110 != v111)
-            {
-              goto LABEL_101;
-            }
-
-            vendorId = [(SPInternalSimpleBeacon *)self vendorId];
-            if (vendorId == [(SPInternalSimpleBeacon *)v5 vendorId]&& (v113 = [(SPInternalSimpleBeacon *)self productId], v113 == [(SPInternalSimpleBeacon *)v5 productId]) && (v114 = [(SPInternalSimpleBeacon *)self batteryLevel], v114 == [(SPInternalSimpleBeacon *)v5 batteryLevel]) && (v115 = [(SPInternalSimpleBeacon *)self repairState], v115 == [(SPInternalSimpleBeacon *)v5 repairState]) && (v116 = [(SPInternalSimpleBeacon *)self connectableDeviceCount], v116 == [(SPInternalSimpleBeacon *)v5 connectableDeviceCount]))
+            if ([systemVersion isEqualToString:?] && (-[SPInternalSimpleBeacon txPower](self, "txPower"), v110 = v109, -[SPInternalSimpleBeacon txPower](v5, "txPower"), v110 == v111) && (v112 = -[SPInternalSimpleBeacon vendorId](self, "vendorId"), v112 == -[SPInternalSimpleBeacon vendorId](v5, "vendorId")) && (v113 = -[SPInternalSimpleBeacon productId](self, "productId"), v113 == -[SPInternalSimpleBeacon productId](v5, "productId")) && (v114 = -[SPInternalSimpleBeacon batteryLevel](self, "batteryLevel"), v114 == -[SPInternalSimpleBeacon batteryLevel](v5, "batteryLevel")) && (v115 = -[SPInternalSimpleBeacon repairState](self, "repairState"), v115 == -[SPInternalSimpleBeacon repairState](v5, "repairState")) && (v116 = -[SPInternalSimpleBeacon connectableDeviceCount](self, "connectableDeviceCount"), v116 == -[SPInternalSimpleBeacon connectableDeviceCount](v5, "connectableDeviceCount")))
             {
               productUUID = [(SPInternalSimpleBeacon *)self productUUID];
               productUUID2 = [(SPInternalSimpleBeacon *)v5 productUUID];
@@ -119,7 +105,6 @@
 
             else
             {
-LABEL_101:
               v14 = 0;
             }
           }
@@ -390,19 +375,18 @@ LABEL_101:
   partIdentifier = self->_partIdentifier;
   v8 = [(NSString *)self->_systemVersion hash];
   v9 = (self->_txPower * 100.0);
-  v10 = *&self->_batteryLevel;
-  v73 = v10;
-  v74 = *&self->_vendorId;
+  v72 = *&self->_batteryLevel;
+  v73 = *&self->_vendorId;
   connectableDeviceCount = self->_connectableDeviceCount;
-  v12 = [(NSUUID *)self->_productUUID hash];
-  v13 = veorq_s8(v74, v73);
-  v14 = *&veor_s8(*v13.i8, *&vextq_s8(v13, v13, 8uLL)) ^ partIdentifier ^ connectableDeviceCount ^ self->_internalShareType ^ (connectionAllowed ^ self->_isAppleAudioAccessory ^ self->_isZeus ^ self->_canBeLeashedByHost) & 1 ^ v12 ^ (self->_connected ^ self->_online) & 1 ^ v8 ^ v5 ^ v3 ^ v4 ^ v9;
+  v11 = [(NSUUID *)self->_productUUID hash];
+  v12 = veorq_s8(v73, v72);
+  v13 = *&veor_s8(*v12.i8, *&vextq_s8(v12, v12, 8uLL)) ^ partIdentifier ^ connectableDeviceCount ^ self->_internalShareType ^ (connectionAllowed ^ self->_isAppleAudioAccessory ^ self->_isZeus ^ self->_canBeLeashedByHost) & 1 ^ v11 ^ (self->_connected ^ self->_online) & 1 ^ v8 ^ v5 ^ v3 ^ v4 ^ v9;
   groupIdentifier = [(SPInternalSimpleBeacon *)self groupIdentifier];
 
   if (groupIdentifier)
   {
     groupIdentifier2 = [(SPInternalSimpleBeacon *)self groupIdentifier];
-    v14 ^= [groupIdentifier2 hash];
+    v13 ^= [groupIdentifier2 hash];
   }
 
   ownerBeaconIdentifier = [(SPInternalSimpleBeacon *)self ownerBeaconIdentifier];
@@ -410,7 +394,7 @@ LABEL_101:
   if (ownerBeaconIdentifier)
   {
     ownerBeaconIdentifier2 = [(SPInternalSimpleBeacon *)self ownerBeaconIdentifier];
-    v14 ^= [ownerBeaconIdentifier2 hash];
+    v13 ^= [ownerBeaconIdentifier2 hash];
   }
 
   modelName = [(SPInternalSimpleBeacon *)self modelName];
@@ -418,7 +402,7 @@ LABEL_101:
   if (modelName)
   {
     modelName2 = [(SPInternalSimpleBeacon *)self modelName];
-    v14 ^= [modelName2 hash];
+    v13 ^= [modelName2 hash];
   }
 
   manufacturerName = [(SPInternalSimpleBeacon *)self manufacturerName];
@@ -426,7 +410,7 @@ LABEL_101:
   if (manufacturerName)
   {
     manufacturerName2 = [(SPInternalSimpleBeacon *)self manufacturerName];
-    v14 ^= [manufacturerName2 hash];
+    v13 ^= [manufacturerName2 hash];
   }
 
   serialNumber = [(SPInternalSimpleBeacon *)self serialNumber];
@@ -434,7 +418,7 @@ LABEL_101:
   if (serialNumber)
   {
     serialNumber2 = [(SPInternalSimpleBeacon *)self serialNumber];
-    v14 ^= [serialNumber2 hash];
+    v13 ^= [serialNumber2 hash];
   }
 
   keySyncRecord = [(SPInternalSimpleBeacon *)self keySyncRecord];
@@ -442,7 +426,7 @@ LABEL_101:
   if (keySyncRecord)
   {
     keySyncRecord2 = [(SPInternalSimpleBeacon *)self keySyncRecord];
-    v14 ^= [keySyncRecord2 hash];
+    v13 ^= [keySyncRecord2 hash];
   }
 
   lostModeInfo = [(SPInternalSimpleBeacon *)self lostModeInfo];
@@ -450,7 +434,7 @@ LABEL_101:
   if (lostModeInfo)
   {
     lostModeInfo2 = [(SPInternalSimpleBeacon *)self lostModeInfo];
-    v14 ^= [lostModeInfo2 hash];
+    v13 ^= [lostModeInfo2 hash];
   }
 
   lockedTimestamp = [(SPInternalSimpleBeacon *)self lockedTimestamp];
@@ -458,7 +442,7 @@ LABEL_101:
   if (lockedTimestamp)
   {
     lockedTimestamp2 = [(SPInternalSimpleBeacon *)self lockedTimestamp];
-    v14 &= [lockedTimestamp2 hash];
+    v13 &= [lockedTimestamp2 hash];
   }
 
   wipedTimestamp = [(SPInternalSimpleBeacon *)self wipedTimestamp];
@@ -466,7 +450,7 @@ LABEL_101:
   if (wipedTimestamp)
   {
     wipedTimestamp2 = [(SPInternalSimpleBeacon *)self wipedTimestamp];
-    v14 &= [wipedTimestamp2 hash];
+    v13 &= [wipedTimestamp2 hash];
   }
 
   taskInformation = [(SPInternalSimpleBeacon *)self taskInformation];
@@ -474,7 +458,7 @@ LABEL_101:
   if (taskInformation)
   {
     taskInformation2 = [(SPInternalSimpleBeacon *)self taskInformation];
-    v14 ^= [taskInformation2 hash];
+    v13 ^= [taskInformation2 hash];
   }
 
   owner = [(SPInternalSimpleBeacon *)self owner];
@@ -482,7 +466,7 @@ LABEL_101:
   if (owner)
   {
     owner2 = [(SPInternalSimpleBeacon *)self owner];
-    v14 ^= [owner2 hash];
+    v13 ^= [owner2 hash];
   }
 
   role = [(SPInternalSimpleBeacon *)self role];
@@ -490,7 +474,7 @@ LABEL_101:
   if (role)
   {
     role2 = [(SPInternalSimpleBeacon *)self role];
-    v14 ^= [role2 hash];
+    v13 ^= [role2 hash];
   }
 
   safeLocations = [(SPInternalSimpleBeacon *)self safeLocations];
@@ -498,7 +482,7 @@ LABEL_101:
   if (safeLocations)
   {
     safeLocations2 = [(SPInternalSimpleBeacon *)self safeLocations];
-    v14 ^= [safeLocations2 hash];
+    v13 ^= [safeLocations2 hash];
   }
 
   accessoryProductInfo = [(SPInternalSimpleBeacon *)self accessoryProductInfo];
@@ -506,7 +490,7 @@ LABEL_101:
   if (accessoryProductInfo)
   {
     accessoryProductInfo2 = [(SPInternalSimpleBeacon *)self accessoryProductInfo];
-    v14 ^= [accessoryProductInfo2 hash];
+    v13 ^= [accessoryProductInfo2 hash];
   }
 
   discoveryId = [(SPInternalSimpleBeacon *)self discoveryId];
@@ -514,7 +498,7 @@ LABEL_101:
   if (discoveryId)
   {
     discoveryId2 = [(SPInternalSimpleBeacon *)self discoveryId];
-    v14 ^= [discoveryId2 hash];
+    v13 ^= [discoveryId2 hash];
   }
 
   deviceColor = [(SPInternalSimpleBeacon *)self deviceColor];
@@ -522,7 +506,7 @@ LABEL_101:
   if (deviceColor)
   {
     deviceColor2 = [(SPInternalSimpleBeacon *)self deviceColor];
-    v14 ^= [deviceColor2 hash];
+    v13 ^= [deviceColor2 hash];
   }
 
   deviceClass = [(SPInternalSimpleBeacon *)self deviceClass];
@@ -530,7 +514,7 @@ LABEL_101:
   if (deviceClass)
   {
     deviceClass2 = [(SPInternalSimpleBeacon *)self deviceClass];
-    v14 ^= [deviceClass2 hash];
+    v13 ^= [deviceClass2 hash];
   }
 
   deviceModel = [(SPInternalSimpleBeacon *)self deviceModel];
@@ -538,7 +522,7 @@ LABEL_101:
   if (deviceModel)
   {
     deviceModel2 = [(SPInternalSimpleBeacon *)self deviceModel];
-    v14 ^= [deviceModel2 hash];
+    v13 ^= [deviceModel2 hash];
   }
 
   rawDeviceModel = [(SPInternalSimpleBeacon *)self rawDeviceModel];
@@ -546,7 +530,7 @@ LABEL_101:
   if (rawDeviceModel)
   {
     rawDeviceModel2 = [(SPInternalSimpleBeacon *)self rawDeviceModel];
-    v14 ^= [rawDeviceModel2 hash];
+    v13 ^= [rawDeviceModel2 hash];
   }
 
   deviceDisplayName = [(SPInternalSimpleBeacon *)self deviceDisplayName];
@@ -554,7 +538,7 @@ LABEL_101:
   if (deviceDisplayName)
   {
     deviceDisplayName2 = [(SPInternalSimpleBeacon *)self deviceDisplayName];
-    v14 ^= [deviceDisplayName2 hash];
+    v13 ^= [deviceDisplayName2 hash];
   }
 
   lowPowerMode = [(SPInternalSimpleBeacon *)self lowPowerMode];
@@ -562,7 +546,7 @@ LABEL_101:
   if (lowPowerMode)
   {
     lowPowerMode2 = [(SPInternalSimpleBeacon *)self lowPowerMode];
-    v14 ^= [lowPowerMode2 hash];
+    v13 ^= [lowPowerMode2 hash];
   }
 
   thisDevice = [(SPInternalSimpleBeacon *)self thisDevice];
@@ -570,7 +554,7 @@ LABEL_101:
   if (thisDevice)
   {
     thisDevice2 = [(SPInternalSimpleBeacon *)self thisDevice];
-    v14 ^= [thisDevice2 hash];
+    v13 ^= [thisDevice2 hash];
   }
 
   isMine = [(SPInternalSimpleBeacon *)self isMine];
@@ -578,7 +562,7 @@ LABEL_101:
   if (isMine)
   {
     isMine2 = [(SPInternalSimpleBeacon *)self isMine];
-    v14 ^= [isMine2 hash];
+    v13 ^= [isMine2 hash];
   }
 
   isRepairCapable = [(SPInternalSimpleBeacon *)self isRepairCapable];
@@ -586,7 +570,7 @@ LABEL_101:
   if (isRepairCapable)
   {
     isRepairCapable2 = [(SPInternalSimpleBeacon *)self isRepairCapable];
-    v14 ^= [isRepairCapable2 hash];
+    v13 ^= [isRepairCapable2 hash];
   }
 
   batteryPercentage = [(SPInternalSimpleBeacon *)self batteryPercentage];
@@ -595,7 +579,7 @@ LABEL_101:
   {
     batteryPercentage2 = [(SPInternalSimpleBeacon *)self batteryPercentage];
     [batteryPercentage2 doubleValue];
-    v14 ^= (v65 * 1000.0);
+    v13 ^= (v64 * 1000.0);
   }
 
   multipartStatus = [(SPInternalSimpleBeacon *)self multipartStatus];
@@ -603,7 +587,7 @@ LABEL_101:
   if (multipartStatus)
   {
     multipartStatus2 = [(SPInternalSimpleBeacon *)self multipartStatus];
-    v14 ^= [multipartStatus2 hash];
+    v13 ^= [multipartStatus2 hash];
   }
 
   rawMetadata = [(SPInternalSimpleBeacon *)self rawMetadata];
@@ -611,7 +595,7 @@ LABEL_101:
   if (rawMetadata)
   {
     rawMetadata2 = [(SPInternalSimpleBeacon *)self rawMetadata];
-    v14 ^= [rawMetadata2 hash];
+    v13 ^= [rawMetadata2 hash];
   }
 
   imageBaseUrl = [(SPInternalSimpleBeacon *)self imageBaseUrl];
@@ -619,10 +603,10 @@ LABEL_101:
   if (imageBaseUrl)
   {
     imageBaseUrl2 = [(SPInternalSimpleBeacon *)self imageBaseUrl];
-    v14 ^= [imageBaseUrl2 hash];
+    v13 ^= [imageBaseUrl2 hash];
   }
 
-  return v14;
+  return v13;
 }
 
 - (id)copyWithZone:(_NSZone *)zone
@@ -824,7 +808,7 @@ LABEL_101:
 
 - (SPInternalSimpleBeacon)initWithCoder:(id)coder
 {
-  v87[2] = *MEMORY[0x277D85DE8];
+  v86[2] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"identifier"];
   identifier = self->_identifier;
@@ -910,9 +894,9 @@ LABEL_101:
   self->_role = v44;
 
   v46 = MEMORY[0x277CBEB98];
-  v87[0] = objc_opt_class();
-  v87[1] = objc_opt_class();
-  v47 = [MEMORY[0x277CBEA60] arrayWithObjects:v87 count:2];
+  v86[0] = objc_opt_class();
+  v86[1] = objc_opt_class();
+  v47 = [MEMORY[0x277CBEA60] arrayWithObjects:v86 count:2];
   v48 = [v46 setWithArray:v47];
   v49 = [coderCopy decodeObjectOfClasses:v48 forKey:@"safeLocations"];
   safeLocations = self->_safeLocations;
@@ -969,9 +953,9 @@ LABEL_101:
 
   self->_online = [coderCopy decodeBoolForKey:@"online"];
   v73 = MEMORY[0x277CBEB98];
-  v86[0] = objc_opt_class();
-  v86[1] = objc_opt_class();
-  v74 = [MEMORY[0x277CBEA60] arrayWithObjects:v86 count:2];
+  v85[0] = objc_opt_class();
+  v85[1] = objc_opt_class();
+  v74 = [MEMORY[0x277CBEA60] arrayWithObjects:v85 count:2];
   v75 = [v73 setWithArray:v74];
   v76 = [coderCopy decodeObjectOfClasses:v75 forKey:@"multipartStatus"];
   multipartStatus = self->_multipartStatus;
@@ -990,7 +974,6 @@ LABEL_101:
   imageBaseUrl = self->_imageBaseUrl;
   self->_imageBaseUrl = v82;
 
-  v84 = *MEMORY[0x277D85DE8];
   return self;
 }
 

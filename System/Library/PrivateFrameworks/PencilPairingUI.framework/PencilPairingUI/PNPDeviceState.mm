@@ -174,30 +174,31 @@ LABEL_17:
 
   else
   {
-    v6 = PencilPairingUIBundle();
+    v6 = PencilPairingUIBundle(0);
     v5 = [v6 localizedStringForKey:@"APPLE_PENCIL_NAME" value:&stru_286FDFDB8 table:0];
   }
 
-  if ([(PNPDeviceState *)self deviceType]== 4)
+  deviceType = [(PNPDeviceState *)self deviceType];
+  if (deviceType == 4)
   {
-    v7 = PencilPairingUIBundle();
-    v8 = [v7 localizedStringForKey:@"APPLE_PENCIL_NAME_PRO" value:&stru_286FDFDB8 table:@"PencilPairingSqueeze-B532"];
+    v8 = PencilPairingUIBundle(4);
+    v9 = [v8 localizedStringForKey:@"APPLE_PENCIL_NAME_PRO" value:&stru_286FDFDB8 table:@"PencilPairingSqueeze-B532"];
 
-    v5 = v8;
+    v5 = v9;
   }
 
   if (v5)
   {
-    v9 = v5;
+    v10 = v5;
   }
 
   else
   {
-    v10 = PencilPairingUIBundle();
-    v9 = [v10 localizedStringForKey:@"APPLE_PENCIL_NAME" value:&stru_286FDFDB8 table:0];
+    v11 = PencilPairingUIBundle(deviceType);
+    v10 = [v11 localizedStringForKey:@"APPLE_PENCIL_NAME" value:&stru_286FDFDB8 table:0];
   }
 
-  return v9;
+  return v10;
 }
 
 @end

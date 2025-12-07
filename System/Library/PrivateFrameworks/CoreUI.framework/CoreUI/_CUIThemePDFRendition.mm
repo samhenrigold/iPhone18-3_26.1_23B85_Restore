@@ -76,34 +76,34 @@
     BoxRect = CGPDFPageGetBoxRect(v7, kCGPDFCropBox);
     width = BoxRect.size.width;
     height = BoxRect.size.height;
-    [(CUIThemeRendition *)self scale:BoxRect.origin.x];
-    if (v11 < 1.0)
+    v11 = [(CUIThemeRendition *)self scale:BoxRect.origin.x];
+    if (v13 < 1.0)
     {
-      v11 = 1.0;
+      v13 = 1.0;
     }
 
-    v12 = vcvtad_u64_f64(width * scale / v11);
-    v13 = vcvtad_u64_f64(height * scale / v11);
-    SRGB = _CUIColorSpaceGetSRGB();
-    v17 = CUICGBitmapContextCreate(v12, v13, 8uLL, 4 * (v12 & 0x7FFFFFFFFFFFFFFLL), SRGB, 8194, v15, v16);
+    v14 = vcvtad_u64_f64(width * scale / v13);
+    v15 = vcvtad_u64_f64(height * scale / v13);
+    SRGB = _CUIColorSpaceGetSRGB(v11, v12);
+    v17 = CUICGBitmapContextCreate(v14, v15, 8uLL, 4 * (v14 & 0x7FFFFFFFFFFFFFFLL), SRGB, 0x2002u);
     if (v17)
     {
-      v24 = v17;
-      v28.origin.x = 0.0;
-      v28.origin.y = 0.0;
-      v28.size.width = width;
-      v28.size.height = height;
-      CGPDFPageGetDrawingTransform(&transform, Image, kCGPDFCropBox, v28, 0, 1);
-      CGContextConcatCTM(v24, &transform);
-      CGContextScaleCTM(v24, scale, scale);
-      CGContextDrawPDFPage(v24, Image);
+      v18 = v17;
+      v22.origin.x = 0.0;
+      v22.origin.y = 0.0;
+      v22.size.width = width;
+      v22.size.height = height;
+      CGPDFPageGetDrawingTransform(&transform, Image, kCGPDFCropBox, v22, 0, 1);
+      CGContextConcatCTM(v18, &transform);
+      CGContextScaleCTM(v18, scale, scale);
+      CGContextDrawPDFPage(v18, Image);
       CGPDFPageRelease(Image);
-      Image = CGBitmapContextCreateImage(v24);
-      CGContextRelease(v24);
+      Image = CGBitmapContextCreateImage(v18);
+      CGContextRelease(v18);
       return Image;
     }
 
-    _CUILog(4, "%s %d couldn't create bitmapcontext size:[%zu %zu] bpr %zu", v18, v19, v20, v21, v22, v23, "[_CUIThemePDFRendition createImageFromPDFRenditionWithScale:]");
+    _CUILog(4, "%s %d couldn't create bitmapcontext size:[%zu %zu] bpr %zu", "[_CUIThemePDFRendition createImageFromPDFRenditionWithScale:]", 140, v15, v15, 4 * (v14 & 0x7FFFFFFFFFFFFFFLL));
     CGPDFPageRelease(Image);
     return 0;
   }

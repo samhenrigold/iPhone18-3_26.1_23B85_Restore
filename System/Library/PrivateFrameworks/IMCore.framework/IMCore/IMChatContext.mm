@@ -9,97 +9,95 @@
 
 - (id)_copyWithClass:(Class)class zone:(_NSZone *)zone
 {
-  v8 = objc_opt_class();
-  if ((objc_msgSend_isSubclassOfClass_(class, v9, v8) & 1) == 0)
+  if (([(objc_class *)class isSubclassOfClass:objc_opt_class()]& 1) == 0)
   {
-    sub_1A84DFB20(a2, self, v11);
+    sub_1A84DFB20(a2, self);
   }
 
-  v12 = objc_msgSend_allocWithZone_(class, v10, zone);
-  v15 = objc_msgSend_init(v12, v13, v14);
-  *(v15 + 8) = objc_msgSend_serviceVariant(self, v16, v17);
-  *(v15 + 16) = objc_msgSend_filterCategory(self, v18, v19);
-  *(v15 + 24) = objc_msgSend_isSpam(self, v20, v21);
-  *(v15 + 25) = objc_msgSend_areSendersUnknown(self, v22, v23);
-  *(v15 + 26) = objc_msgSend_hasResponded(self, v24, v25);
-  v28 = objc_msgSend_activeTelephonyConversationUUID(self, v26, v27);
-  v29 = *(v15 + 32);
-  *(v15 + 32) = v28;
+  v8 = [[(objc_class *)class allocWithZone:zone] init];
+  *(v8 + 1) = [(IMChatContext *)self serviceVariant];
+  *(v8 + 2) = [(IMChatContext *)self filterCategory];
+  *(v8 + 24) = [(IMChatContext *)self isSpam];
+  *(v8 + 25) = [(IMChatContext *)self areSendersUnknown];
+  *(v8 + 26) = [(IMChatContext *)self hasResponded];
+  activeTelephonyConversationUUID = [(IMChatContext *)self activeTelephonyConversationUUID];
+  v10 = *(v8 + 4);
+  *(v8 + 4) = activeTelephonyConversationUUID;
 
-  v32 = objc_msgSend_showingEditHistoryForChatItemGUIDs(self, v30, v31);
-  v33 = *(v15 + 40);
-  *(v15 + 40) = v32;
+  showingEditHistoryForChatItemGUIDs = [(IMChatContext *)self showingEditHistoryForChatItemGUIDs];
+  v12 = *(v8 + 5);
+  *(v8 + 5) = showingEditHistoryForChatItemGUIDs;
 
-  *(v15 + 48) = objc_msgSend_isChatBot(self, v34, v35);
-  *(v15 + 49) = objc_msgSend_showTranslationAlternateText(self, v36, v37);
-  return v15;
+  *(v8 + 48) = [(IMChatContext *)self isChatBot];
+  *(v8 + 49) = [(IMChatContext *)self showTranslationAlternateText];
+  return v8;
 }
 
 - (id)description
 {
-  v31 = MEMORY[0x1E696AEC0];
-  v30 = objc_opt_class();
-  v5 = objc_msgSend_serviceVariant(self, v3, v4);
-  v8 = objc_msgSend_filterCategory(self, v6, v7);
-  if (objc_msgSend_isSpam(self, v9, v10))
+  v14 = MEMORY[0x1E696AEC0];
+  v13 = objc_opt_class();
+  serviceVariant = [(IMChatContext *)self serviceVariant];
+  filterCategory = [(IMChatContext *)self filterCategory];
+  if ([(IMChatContext *)self isSpam])
   {
-    v13 = @"YES";
+    v5 = @"YES";
   }
 
   else
   {
-    v13 = @"NO";
+    v5 = @"NO";
   }
 
-  if (objc_msgSend_areSendersUnknown(self, v11, v12))
+  if ([(IMChatContext *)self areSendersUnknown])
   {
-    v16 = @"YES";
+    v6 = @"YES";
   }
 
   else
   {
-    v16 = @"NO";
+    v6 = @"NO";
   }
 
-  if (objc_msgSend_hasResponded(self, v14, v15))
+  if ([(IMChatContext *)self hasResponded])
   {
-    v19 = @"YES";
+    v7 = @"YES";
   }
 
   else
   {
-    v19 = @"NO";
+    v7 = @"NO";
   }
 
-  v20 = objc_msgSend_activeTelephonyConversationUUID(self, v17, v18);
-  v23 = objc_msgSend_UUIDString(v20, v21, v22);
-  if (objc_msgSend_isChatBot(self, v24, v25))
+  activeTelephonyConversationUUID = [(IMChatContext *)self activeTelephonyConversationUUID];
+  uUIDString = [activeTelephonyConversationUUID UUIDString];
+  if ([(IMChatContext *)self isChatBot])
   {
-    v27 = @"YES";
+    v10 = @"YES";
   }
 
   else
   {
-    v27 = @"NO";
+    v10 = @"NO";
   }
 
-  v28 = objc_msgSend_stringWithFormat_(v31, v26, @"<%@, serviceVariant: %lu, filterCategory: %tu, spam: %@, sendersUnknown: %@, responded: %@, activeTelephonyConversationUUID: %@, isChatBot: %@>", v30, v5, v8, v13, v16, v19, v23, v27);
+  v11 = [v14 stringWithFormat:@"<%@, serviceVariant: %lu, filterCategory: %tu, spam: %@, sendersUnknown: %@, responded: %@, activeTelephonyConversationUUID: %@, isChatBot: %@>", v13, serviceVariant, filterCategory, v5, v6, v7, uUIDString, v10];
 
-  return v28;
+  return v11;
 }
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v4 = objc_opt_class();
+  objc_opt_class();
 
-  return MEMORY[0x1EEE66B58](self, sel__copyWithClass_zone_, v4);
+  return MEMORY[0x1EEE66B58](self, sel__copyWithClass_zone_);
 }
 
 - (id)mutableCopyWithZone:(_NSZone *)zone
 {
-  v4 = objc_opt_class();
+  objc_opt_class();
 
-  return MEMORY[0x1EEE66B58](self, sel__copyWithClass_zone_, v4);
+  return MEMORY[0x1EEE66B58](self, sel__copyWithClass_zone_);
 }
 
 @end

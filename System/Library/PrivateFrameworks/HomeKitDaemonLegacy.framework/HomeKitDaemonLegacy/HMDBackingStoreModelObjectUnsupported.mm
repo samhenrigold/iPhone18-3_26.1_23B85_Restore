@@ -6,7 +6,7 @@
 
 - (void)dumpWithVerbosity:(BOOL)verbosity prefix:(id)prefix logType:(unsigned __int8)type
 {
-  v55 = *MEMORY[0x277D85DE8];
+  v54 = *MEMORY[0x277D85DE8];
   prefixCopy = prefix;
   string = [MEMORY[0x277CCAB68] string];
   bsoType = [(HMDBackingStoreModelObject *)self bsoType];
@@ -26,7 +26,7 @@
   }
 
   type = type;
-  v42 = bsoType;
+  v41 = bsoType;
   [string appendFormat:@"%@values: (%@)", prefixCopy, bsoType];
   uuid = [(HMDBackingStoreModelObject *)self uuid];
   uUIDString = [uuid UUIDString];
@@ -47,36 +47,36 @@
     [string appendFormat:@"\n  ignore before: %@", bsoIgnoredBefore];
   }
 
-  v41 = v24;
-  v45 = string;
-  v44 = shouldLogPrivateInformation();
+  v40 = v24;
+  v44 = string;
+  v43 = shouldLogPrivateInformation();
+  v45 = 0u;
   v46 = 0u;
   v47 = 0u;
   v48 = 0u;
-  v49 = 0u;
   allKeys = [(NSMutableDictionary *)self->super._reserved allKeys];
-  v27 = [allKeys countByEnumeratingWithState:&v46 objects:v54 count:16];
+  v27 = [allKeys countByEnumeratingWithState:&v45 objects:v53 count:16];
   if (v27)
   {
     v28 = v27;
-    v29 = *v47;
+    v29 = *v46;
     do
     {
       for (i = 0; i != v28; ++i)
       {
-        if (*v47 != v29)
+        if (*v46 != v29)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v31 = *(*(&v46 + 1) + 8 * i);
+        v31 = *(*(&v45 + 1) + 8 * i);
         if (([v31 hasPrefix:@"_"] & 1) == 0)
         {
           v32 = [(NSMutableDictionary *)selfCopy->super._reserved valueForKey:v31];
           if (v32)
           {
             v33 = v32;
-            if (v44)
+            if (v43)
             {
               v34 = [HMDBackingStoreModelObject formatValue:v32];
             }
@@ -87,12 +87,12 @@
               v35 = @"...";
             }
 
-            [v45 appendFormat:@"\n  %@ (read-only) (unsupported): %@", v31, v34, v41];
+            [v44 appendFormat:@"\n  %@ (read-only) (unsupported): %@", v31, v34, v40];
           }
         }
       }
 
-      v28 = [allKeys countByEnumeratingWithState:&v46 objects:v54 count:16];
+      v28 = [allKeys countByEnumeratingWithState:&v45 objects:v53 count:16];
     }
 
     while (v28);
@@ -105,14 +105,13 @@
   {
     v39 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v51 = v39;
-    v52 = 2112;
-    v53 = v45;
+    v50 = v39;
+    v51 = 2112;
+    v52 = v44;
     _os_log_impl(&dword_2531F8000, v38, type, "%{public}@HMDBackingStoreModelObjectUnsupported %@", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v36);
-  v40 = *MEMORY[0x277D85DE8];
 }
 
 @end

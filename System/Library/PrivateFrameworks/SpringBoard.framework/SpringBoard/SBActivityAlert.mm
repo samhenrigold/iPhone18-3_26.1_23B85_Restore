@@ -139,37 +139,38 @@ void __47__SBActivityAlert__isHostApplicationForeground__block_invoke(uint64_t a
 {
   soundCopy = sound;
   onCopy = on;
-  v17 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   BSDispatchQueueAssertMain();
   identifier = [(SBActivityItem *)self->_item identifier];
+  v8 = identifier;
   if (soundCopy)
   {
-    v8 = SBLogActivity();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = SBLogActivity(identifier);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v16 = identifier;
-      _os_log_impl(&dword_21ED4E000, v8, OS_LOG_TYPE_DEFAULT, "[ActivityID: %{public}@] alerting with sound", buf, 0xCu);
+      v17 = v8;
+      _os_log_impl(&dword_21ED4E000, v9, OS_LOG_TYPE_DEFAULT, "[ActivityID: %{public}@] alerting with sound", buf, 0xCu);
     }
 
-    [(SBActivityAlert *)self _playSound];
+    identifier = [(SBActivityAlert *)self _playSound];
   }
 
   if (onCopy)
   {
-    v9 = SBLogActivity();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = SBLogActivity(identifier);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v16 = identifier;
-      _os_log_impl(&dword_21ED4E000, v9, OS_LOG_TYPE_DEFAULT, "[ActivityID: %{public}@] Turn on screen", buf, 0xCu);
+      v17 = v8;
+      _os_log_impl(&dword_21ED4E000, v10, OS_LOG_TYPE_DEFAULT, "[ActivityID: %{public}@] Turn on screen", buf, 0xCu);
     }
 
-    v10 = +[SBLockScreenManager sharedInstance];
-    v13 = @"SBUIUnlockOptionsTurnOnScreenFirstKey";
-    v14 = MEMORY[0x277CBEC38];
-    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v14 forKeys:&v13 count:1];
-    [v10 unlockUIFromSource:36 withOptions:v11];
+    v11 = +[SBLockScreenManager sharedInstance];
+    v14 = @"SBUIUnlockOptionsTurnOnScreenFirstKey";
+    v15 = MEMORY[0x277CBEC38];
+    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v15 forKeys:&v14 count:1];
+    [v11 unlockUIFromSource:36 withOptions:v12];
   }
 
   return result;
@@ -273,22 +274,23 @@ LABEL_10:
     v20 = +[SBControlCenterCoordinator sharedInstance];
     isVisible = [v20 isVisible];
 
-    v22 = [(SBActivityAlert *)self _isCoverSheetVisible]& (isVisible ^ 1);
+    _isCoverSheetVisible = [(SBActivityAlert *)self _isCoverSheetVisible];
+    v23 = _isCoverSheetVisible & (isVisible ^ 1);
     if (v7)
     {
-      v23 = 0;
-      v24 = v19 & v22;
+      v24 = 0;
+      v25 = v19 & v23;
     }
 
     else
     {
-      _isHostApplicationForeground = [(SBActivityAlert *)self _isHostApplicationForeground];
-      v24 = _isHostApplicationForeground | v19 & v22;
-      v23 = _isHostApplicationForeground;
+      _isCoverSheetVisible = [(SBActivityAlert *)self _isHostApplicationForeground];
+      v25 = _isCoverSheetVisible | v19 & v23;
+      v24 = _isCoverSheetVisible & 1;
     }
 
-    v3 = v24 ^ 1;
-    v26 = SBLogActivity();
+    v3 = v25 ^ 1;
+    v26 = SBLogActivity(_isCoverSheetVisible);
     if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
     {
       identifier = [(SBActivityItem *)self->_item identifier];
@@ -297,9 +299,9 @@ LABEL_10:
       v31 = 1024;
       v32 = v3 & 1;
       v33 = 1024;
-      v34 = v23;
+      v34 = v24;
       v35 = 1024;
-      v36 = v22;
+      v36 = v23;
       v37 = 1024;
       v38 = v15 & 1;
       v39 = 1024;
@@ -383,7 +385,7 @@ LABEL_10:
   v17 = *MEMORY[0x277D85DE8];
   if (self->_playingSound)
   {
-    alertConfiguration = SBLogActivity();
+    alertConfiguration = SBLogActivity(self);
     if (os_log_type_enabled(alertConfiguration, OS_LOG_TYPE_DEFAULT))
     {
       v4 = [(SBUISound *)self->_playingSound description];

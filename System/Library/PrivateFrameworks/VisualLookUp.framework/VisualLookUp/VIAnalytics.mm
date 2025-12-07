@@ -134,10 +134,11 @@
 {
   eventCopy = event;
   feedback = [eventCopy feedback];
+  v4 = feedback;
   if (feedback)
   {
-    v4 = _VISharedAnalytics();
-    [v4 _logEvent:eventCopy];
+    v5 = _VISharedAnalytics(feedback);
+    [v5 _logEvent:eventCopy];
   }
 }
 

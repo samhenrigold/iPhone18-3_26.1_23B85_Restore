@@ -16,22 +16,20 @@
 
 + (id)columns
 {
-  v11[6] = *MEMORY[0x1E69E9840];
+  v10[6] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"version" dataType:0 requestOnly:0 fieldNumber:1 protoDataType:2 convertedType:0];
   v3 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"predictionType" dataType:0 requestOnly:0 fieldNumber:2 protoDataType:4 convertedType:0];
   v4 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"confidenceLevel" dataType:0 requestOnly:0 fieldNumber:3 protoDataType:4 convertedType:0];
   v5 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"confidenceValue" dataType:1 requestOnly:0 fieldNumber:4 protoDataType:0 convertedType:0];
   v6 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"predictedDuration" dataType:1 requestOnly:0 fieldNumber:5 protoDataType:0 convertedType:0];
   v7 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"outputReason" dataType:0 requestOnly:0 fieldNumber:6 protoDataType:4 convertedType:0];
-  v11[0] = v2;
-  v11[1] = v3;
-  v11[2] = v4;
-  v11[3] = v5;
-  v11[4] = v6;
-  v11[5] = v7;
-  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:6];
-
-  v9 = *MEMORY[0x1E69E9840];
+  v10[0] = v2;
+  v10[1] = v3;
+  v10[2] = v4;
+  v10[3] = v5;
+  v10[4] = v6;
+  v10[5] = v7;
+  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:6];
 
   return v8;
 }
@@ -43,59 +41,7 @@
   if (objc_opt_isKindOfClass())
   {
     v5 = equalCopy;
-    if (-[BMDeviceActivityPrediction hasVersion](self, "hasVersion") || [v5 hasVersion])
-    {
-      if (![(BMDeviceActivityPrediction *)self hasVersion])
-      {
-        goto LABEL_21;
-      }
-
-      if (![v5 hasVersion])
-      {
-        goto LABEL_21;
-      }
-
-      version = [(BMDeviceActivityPrediction *)self version];
-      if (version != [v5 version])
-      {
-        goto LABEL_21;
-      }
-    }
-
-    predictionType = [(BMDeviceActivityPrediction *)self predictionType];
-    if (predictionType != [v5 predictionType])
-    {
-      goto LABEL_21;
-    }
-
-    confidenceLevel = [(BMDeviceActivityPrediction *)self confidenceLevel];
-    if (confidenceLevel != [v5 confidenceLevel])
-    {
-      goto LABEL_21;
-    }
-
-    if (-[BMDeviceActivityPrediction hasConfidenceValue](self, "hasConfidenceValue") || [v5 hasConfidenceValue])
-    {
-      if (![(BMDeviceActivityPrediction *)self hasConfidenceValue])
-      {
-        goto LABEL_21;
-      }
-
-      if (![v5 hasConfidenceValue])
-      {
-        goto LABEL_21;
-      }
-
-      [(BMDeviceActivityPrediction *)self confidenceValue];
-      v10 = v9;
-      [v5 confidenceValue];
-      if (v10 != v11)
-      {
-        goto LABEL_21;
-      }
-    }
-
-    if (!-[BMDeviceActivityPrediction hasPredictedDuration](self, "hasPredictedDuration") && ![v5 hasPredictedDuration] || -[BMDeviceActivityPrediction hasPredictedDuration](self, "hasPredictedDuration") && objc_msgSend(v5, "hasPredictedDuration") && (-[BMDeviceActivityPrediction predictedDuration](self, "predictedDuration"), v13 = v12, objc_msgSend(v5, "predictedDuration"), v13 == v14))
+    if ((!-[BMDeviceActivityPrediction hasVersion](self, "hasVersion") && ![v5 hasVersion] || -[BMDeviceActivityPrediction hasVersion](self, "hasVersion") && objc_msgSend(v5, "hasVersion") && (v6 = -[BMDeviceActivityPrediction version](self, "version"), v6 == objc_msgSend(v5, "version"))) && (v7 = -[BMDeviceActivityPrediction predictionType](self, "predictionType"), v7 == objc_msgSend(v5, "predictionType")) && (v8 = -[BMDeviceActivityPrediction confidenceLevel](self, "confidenceLevel"), v8 == objc_msgSend(v5, "confidenceLevel")) && (!-[BMDeviceActivityPrediction hasConfidenceValue](self, "hasConfidenceValue") && !objc_msgSend(v5, "hasConfidenceValue") || -[BMDeviceActivityPrediction hasConfidenceValue](self, "hasConfidenceValue") && objc_msgSend(v5, "hasConfidenceValue") && (-[BMDeviceActivityPrediction confidenceValue](self, "confidenceValue"), v10 = v9, objc_msgSend(v5, "confidenceValue"), v10 == v11)) && (!-[BMDeviceActivityPrediction hasPredictedDuration](self, "hasPredictedDuration") && !objc_msgSend(v5, "hasPredictedDuration") || -[BMDeviceActivityPrediction hasPredictedDuration](self, "hasPredictedDuration") && objc_msgSend(v5, "hasPredictedDuration") && (-[BMDeviceActivityPrediction predictedDuration](self, "predictedDuration"), v13 = v12, objc_msgSend(v5, "predictedDuration"), v13 == v14)))
     {
       outputReason = [(BMDeviceActivityPrediction *)self outputReason];
       v16 = outputReason == [v5 outputReason];
@@ -103,7 +49,6 @@
 
     else
     {
-LABEL_21:
       v16 = 0;
     }
   }
@@ -118,7 +63,7 @@ LABEL_21:
 
 - (id)jsonDictionary
 {
-  v27[6] = *MEMORY[0x1E69E9840];
+  v26[6] = *MEMORY[0x1E69E9840];
   if ([(BMDeviceActivityPrediction *)self hasVersion])
   {
     v3 = [MEMORY[0x1E696AD98] numberWithInt:{-[BMDeviceActivityPrediction version](self, "version")}];
@@ -158,58 +103,58 @@ LABEL_21:
   }
 
   v12 = [MEMORY[0x1E696AD98] numberWithInt:{-[BMDeviceActivityPrediction outputReason](self, "outputReason")}];
-  v25 = v3;
-  v26[0] = @"version";
+  v24 = v3;
+  v25[0] = @"version";
   null = v3;
   if (!v3)
   {
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v22 = null;
-  v24 = v4;
-  v27[0] = null;
-  v26[1] = @"predictionType";
+  v21 = null;
+  v23 = v4;
+  v26[0] = null;
+  v25[1] = @"predictionType";
   null2 = v4;
   if (!v4)
   {
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v27[1] = null2;
-  v26[2] = @"confidenceLevel";
+  v26[1] = null2;
+  v25[2] = @"confidenceLevel";
   null3 = v5;
   if (!v5)
   {
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v27[2] = null3;
-  v26[3] = @"confidenceValue";
+  v26[2] = null3;
+  v25[3] = @"confidenceValue";
   null4 = v8;
   if (!v8)
   {
     null4 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v27[3] = null4;
-  v26[4] = @"predictedDuration";
+  v26[3] = null4;
+  v25[4] = @"predictedDuration";
   null5 = v11;
   if (!v11)
   {
     null5 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v27[4] = null5;
-  v26[5] = @"outputReason";
+  v26[4] = null5;
+  v25[5] = @"outputReason";
   null6 = v12;
   if (!v12)
   {
     null6 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v27[5] = null6;
-  v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v27 forKeys:v26 count:{6, v22}];
+  v26[5] = null6;
+  v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v26 forKeys:v25 count:{6, v21}];
   if (v12)
   {
     if (v11)
@@ -254,22 +199,20 @@ LABEL_27:
 LABEL_38:
 
 LABEL_28:
+  if (!v23)
+  {
+  }
+
   if (!v24)
   {
   }
-
-  if (!v25)
-  {
-  }
-
-  v20 = *MEMORY[0x1E69E9840];
 
   return v19;
 }
 
 - (BMDeviceActivityPrediction)initWithJSONDictionary:(id)dictionary error:(id *)error
 {
-  v63[1] = *MEMORY[0x1E69E9840];
+  v62[1] = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   v6 = [dictionaryCopy objectForKeyedSubscript:@"version"];
   if (v6 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
@@ -285,16 +228,16 @@ LABEL_28:
         goto LABEL_25;
       }
 
-      v22 = objc_alloc(MEMORY[0x1E696ABC0]);
-      v23 = *MEMORY[0x1E698F240];
-      v62 = *MEMORY[0x1E696A578];
-      v49 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"version"];
-      v63[0] = v49;
-      v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v63 forKeys:&v62 count:1];
-      v24 = [v22 initWithDomain:v23 code:2 userInfo:v9];
+      v21 = objc_alloc(MEMORY[0x1E696ABC0]);
+      v22 = *MEMORY[0x1E698F240];
+      v61 = *MEMORY[0x1E696A578];
+      v48 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"version"];
+      v62[0] = v48;
+      v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v62 forKeys:&v61 count:1];
+      v23 = [v21 initWithDomain:v22 code:2 userInfo:v9];
       v7 = 0;
       v19 = 0;
-      *error = v24;
+      *error = v23;
       goto LABEL_63;
     }
 
@@ -307,7 +250,7 @@ LABEL_28:
   }
 
   v8 = [dictionaryCopy objectForKeyedSubscript:@"predictionType"];
-  v47 = v8;
+  v46 = v8;
   if (v8)
   {
     v9 = v8;
@@ -331,22 +274,22 @@ LABEL_28:
 
       if (error)
       {
-        v33 = objc_alloc(MEMORY[0x1E696ABC0]);
-        v34 = v7;
-        v35 = *MEMORY[0x1E698F240];
-        v60 = *MEMORY[0x1E696A578];
+        v32 = objc_alloc(MEMORY[0x1E696ABC0]);
+        v33 = v7;
+        v34 = *MEMORY[0x1E698F240];
+        v59 = *MEMORY[0x1E696A578];
         v17 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (corresponding to enum value), or NSString (string version of enum)", objc_opt_class(), @"predictionType"];
-        v61 = v17;
-        v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v61 forKeys:&v60 count:1];
-        v36 = v35;
-        v7 = v34;
-        v49 = 0;
+        v60 = v17;
+        v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v60 forKeys:&v59 count:1];
+        v35 = v34;
+        v7 = v33;
+        v48 = 0;
         v19 = 0;
-        *errorCopy = [v33 initWithDomain:v36 code:2 userInfo:v11];
+        *errorCopy = [v32 initWithDomain:v35 code:2 userInfo:v11];
         goto LABEL_65;
       }
 
-      v49 = 0;
+      v48 = 0;
       v19 = 0;
 LABEL_63:
       selfCopy7 = self;
@@ -357,8 +300,8 @@ LABEL_63:
   v10 = 0;
 LABEL_7:
   v11 = [dictionaryCopy objectForKeyedSubscript:@"confidenceLevel"];
-  v46 = v6;
-  v49 = v10;
+  v45 = v6;
+  v48 = v10;
   if (v11)
   {
     objc_opt_class();
@@ -367,7 +310,7 @@ LABEL_7:
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v45 = v11;
+        v44 = v11;
         goto LABEL_10;
       }
 
@@ -375,24 +318,24 @@ LABEL_7:
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v45 = [MEMORY[0x1E696AD98] numberWithInt:BMDeviceActivityPredictionConfidenceLevelFromString(v11)];
+        v44 = [MEMORY[0x1E696AD98] numberWithInt:BMDeviceActivityPredictionConfidenceLevelFromString(v11)];
         goto LABEL_10;
       }
 
       if (error)
       {
-        v37 = objc_alloc(MEMORY[0x1E696ABC0]);
-        v38 = v7;
-        v39 = *MEMORY[0x1E698F240];
-        v58 = *MEMORY[0x1E696A578];
-        v50 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (corresponding to enum value), or NSString (string version of enum)", objc_opt_class(), @"confidenceLevel"];
-        v59 = v50;
-        v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v59 forKeys:&v58 count:1];
-        v40 = v39;
-        v7 = v38;
+        v36 = objc_alloc(MEMORY[0x1E696ABC0]);
+        v37 = v7;
+        v38 = *MEMORY[0x1E698F240];
+        v57 = *MEMORY[0x1E696A578];
+        v49 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (corresponding to enum value), or NSString (string version of enum)", objc_opt_class(), @"confidenceLevel"];
+        v58 = v49;
+        v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v58 forKeys:&v57 count:1];
+        v39 = v38;
+        v7 = v37;
         v17 = 0;
         v19 = 0;
-        *errorCopy2 = [v37 initWithDomain:v40 code:2 userInfo:v12];
+        *errorCopy2 = [v36 initWithDomain:v39 code:2 userInfo:v12];
         selfCopy7 = self;
         goto LABEL_22;
       }
@@ -405,10 +348,10 @@ LABEL_65:
     }
   }
 
-  v45 = 0;
+  v44 = 0;
 LABEL_10:
   v12 = [dictionaryCopy objectForKeyedSubscript:@"confidenceValue"];
-  v48 = v7;
+  v47 = v7;
   if (v12 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
   {
     objc_opt_class();
@@ -416,31 +359,31 @@ LABEL_10:
     {
       if (!error)
       {
-        v50 = 0;
+        v49 = 0;
         v19 = 0;
         selfCopy7 = self;
-        v17 = v45;
+        v17 = v44;
         goto LABEL_22;
       }
 
-      v27 = objc_alloc(MEMORY[0x1E696ABC0]);
-      v28 = *MEMORY[0x1E698F240];
-      v56 = *MEMORY[0x1E696A578];
+      v26 = objc_alloc(MEMORY[0x1E696ABC0]);
+      v27 = *MEMORY[0x1E698F240];
+      v55 = *MEMORY[0x1E696A578];
       v14 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"confidenceValue"];
-      v57 = v14;
-      v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v57 forKeys:&v56 count:1];
-      v50 = 0;
+      v56 = v14;
+      v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v56 forKeys:&v55 count:1];
+      v49 = 0;
       v19 = 0;
-      *error = [v27 initWithDomain:v28 code:2 userInfo:v13];
+      *error = [v26 initWithDomain:v27 code:2 userInfo:v13];
       goto LABEL_61;
     }
 
-    v50 = v12;
+    v49 = v12;
   }
 
   else
   {
-    v50 = 0;
+    v49 = 0;
   }
 
   v13 = [dictionaryCopy objectForKeyedSubscript:@"predictedDuration"];
@@ -459,16 +402,16 @@ LABEL_10:
       if (error)
       {
         errorCopy3 = error;
-        v30 = objc_alloc(MEMORY[0x1E696ABC0]);
-        v31 = *MEMORY[0x1E698F240];
-        v54 = *MEMORY[0x1E696A578];
+        v29 = objc_alloc(MEMORY[0x1E696ABC0]);
+        v30 = *MEMORY[0x1E698F240];
+        v53 = *MEMORY[0x1E696A578];
         v16 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"predictedDuration"];
-        v55 = v16;
-        v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v55 forKeys:&v54 count:1];
-        v32 = [v30 initWithDomain:v31 code:2 userInfo:v15];
+        v54 = v16;
+        v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v54 forKeys:&v53 count:1];
+        v31 = [v29 initWithDomain:v30 code:2 userInfo:v15];
         v14 = 0;
         v19 = 0;
-        *errorCopy3 = v32;
+        *errorCopy3 = v31;
         goto LABEL_59;
       }
 
@@ -476,7 +419,7 @@ LABEL_10:
       v19 = 0;
 LABEL_61:
       selfCopy7 = self;
-      v17 = v45;
+      v17 = v44;
       goto LABEL_21;
     }
   }
@@ -505,43 +448,42 @@ LABEL_16:
 
       if (error)
       {
-        v41 = objc_alloc(MEMORY[0x1E696ABC0]);
-        v44 = *MEMORY[0x1E698F240];
-        v52 = *MEMORY[0x1E696A578];
-        v42 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (corresponding to enum value), or NSString (string version of enum)", objc_opt_class(), @"outputReason"];
-        v53 = v42;
-        v43 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v53 forKeys:&v52 count:1];
-        *error = [v41 initWithDomain:v44 code:2 userInfo:v43];
+        v40 = objc_alloc(MEMORY[0x1E696ABC0]);
+        v43 = *MEMORY[0x1E698F240];
+        v51 = *MEMORY[0x1E696A578];
+        v41 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (corresponding to enum value), or NSString (string version of enum)", objc_opt_class(), @"outputReason"];
+        v52 = v41;
+        v42 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v52 forKeys:&v51 count:1];
+        *error = [v40 initWithDomain:v43 code:2 userInfo:v42];
       }
 
       v16 = 0;
       v19 = 0;
 LABEL_59:
       selfCopy7 = self;
-      v17 = v45;
+      v17 = v44;
       goto LABEL_20;
     }
   }
 
   v16 = 0;
 LABEL_19:
-  v17 = v45;
-  selfCopy7 = -[BMDeviceActivityPrediction initWithVersion:predictionType:confidenceLevel:confidenceValue:predictedDuration:outputReason:](self, "initWithVersion:predictionType:confidenceLevel:confidenceValue:predictedDuration:outputReason:", v48, [v10 intValue], objc_msgSend(v45, "intValue"), v50, v14, objc_msgSend(v16, "intValue"));
+  v17 = v44;
+  selfCopy7 = -[BMDeviceActivityPrediction initWithVersion:predictionType:confidenceLevel:confidenceValue:predictedDuration:outputReason:](self, "initWithVersion:predictionType:confidenceLevel:confidenceValue:predictedDuration:outputReason:", v47, [v10 intValue], objc_msgSend(v44, "intValue"), v49, v14, objc_msgSend(v16, "intValue"));
   v19 = selfCopy7;
 LABEL_20:
 
 LABEL_21:
-  v7 = v48;
+  v7 = v47;
 LABEL_22:
 
-  v6 = v46;
+  v6 = v45;
 LABEL_23:
 
-  v9 = v47;
+  v9 = v46;
 LABEL_24:
 
 LABEL_25:
-  v20 = *MEMORY[0x1E69E9840];
   return v19;
 }
 
@@ -559,27 +501,21 @@ LABEL_25:
   toCopy = to;
   if (self->_hasVersion)
   {
-    version = self->_version;
     PBDataWriterWriteInt32Field();
   }
 
-  predictionType = self->_predictionType;
   PBDataWriterWriteUint32Field();
-  confidenceLevel = self->_confidenceLevel;
   PBDataWriterWriteUint32Field();
   if (self->_hasConfidenceValue)
   {
-    confidenceValue = self->_confidenceValue;
     PBDataWriterWriteDoubleField();
   }
 
   if (self->_hasPredictedDuration)
   {
-    predictedDuration = self->_predictedDuration;
     PBDataWriterWriteDoubleField();
   }
 
-  outputReason = self->_outputReason;
   PBDataWriterWriteUint32Field();
 }
 
@@ -997,22 +933,20 @@ LABEL_94:
 
 + (id)protoFields
 {
-  v11[6] = *MEMORY[0x1E69E9840];
+  v10[6] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"version" number:1 type:2 subMessageClass:0];
-  v11[0] = v2;
+  v10[0] = v2;
   v3 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"predictionType" number:2 type:4 subMessageClass:0];
-  v11[1] = v3;
+  v10[1] = v3;
   v4 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"confidenceLevel" number:3 type:4 subMessageClass:0];
-  v11[2] = v4;
+  v10[2] = v4;
   v5 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"confidenceValue" number:4 type:0 subMessageClass:0];
-  v11[3] = v5;
+  v10[3] = v5;
   v6 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"predictedDuration" number:5 type:0 subMessageClass:0];
-  v11[4] = v6;
+  v10[4] = v6;
   v7 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"outputReason" number:6 type:4 subMessageClass:0];
-  v11[5] = v7;
-  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:6];
-
-  v9 = *MEMORY[0x1E69E9840];
+  v10[5] = v7;
+  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:6];
 
   return v8;
 }

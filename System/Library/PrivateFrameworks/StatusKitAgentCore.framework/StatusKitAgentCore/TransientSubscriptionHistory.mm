@@ -1,6 +1,7 @@
 @interface TransientSubscriptionHistory
 + (id)predicateForChannelIdentifier:(id)identifier;
 + (id)predicateForLastSubscriptionDate:(id)date;
++ (id)sortDescriptorForLastSubscriptionDateAscending:(BOOL)ascending;
 @end
 
 @implementation TransientSubscriptionHistory
@@ -23,6 +24,16 @@
   identifierCopy = [v3 predicateWithFormat:@"%K == %@", v5, identifierCopy];
 
   return identifierCopy;
+}
+
++ (id)sortDescriptorForLastSubscriptionDateAscending:(BOOL)ascending
+{
+  ascendingCopy = ascending;
+  v4 = MEMORY[0x277CCAC98];
+  v5 = +[TransientSubscriptionHistory lastSubscriptionDateKeyPath];
+  v6 = [v4 sortDescriptorWithKey:v5 ascending:ascendingCopy];
+
+  return v6;
 }
 
 @end

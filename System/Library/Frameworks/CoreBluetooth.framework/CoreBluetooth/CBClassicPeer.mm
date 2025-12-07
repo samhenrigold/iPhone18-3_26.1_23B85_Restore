@@ -32,21 +32,40 @@
 - (void)handleGetPeerState:(id)state;
 - (void)handleL2CAPChannelClosed:(id)closed;
 - (void)handleL2CAPChannelOpened:(id)opened;
+- (void)handleMsg:(int)msg args:(id)args;
 - (void)handlePeerUpdated:(id)updated;
 - (void)handleRFCOMMChannelClosed:(id)closed;
 - (void)handleRFCOMMChannelOpened:(id)opened;
 - (void)handleSuccessfulConnection:(id)connection;
+- (void)openL2CAPChannel:(unsigned __int16)channel;
 - (void)openRFCOMMChannel:(unsigned __int8)channel options:(id)options;
 - (void)sendMsg:(int)msg requiresConnected:(BOOL)connected args:(id)args;
+- (void)setAutoAnswerCalls:(BOOL)calls;
+- (void)setClickHoldInterval:(unsigned int)interval;
 - (void)setClickHoldModeLeft:(unsigned __int8)left;
 - (void)setClickHoldModeRight:(unsigned __int8)right;
+- (void)setCrownRotationDirection:(unsigned __int8)direction;
+- (void)setDoubleClickInterval:(unsigned int)interval;
+- (void)setDoubleClickMode:(unsigned __int8)mode;
+- (void)setDoubleTapAction:(unsigned __int16)action;
 - (void)setDoubleTapActionLeft:(unsigned __int16)left;
 - (void)setDoubleTapActionRight:(unsigned __int16)right;
+- (void)setEQConfigBass:(unsigned __int8)bass;
+- (void)setEQConfigEnabled:(BOOL)enabled;
+- (void)setEQConfigMid:(unsigned __int8)mid;
+- (void)setEQConfigTreble:(unsigned __int8)treble;
+- (void)setInEarDetectionEnabled:(BOOL)enabled;
+- (void)setLRDetectionEnabled:(BOOL)enabled;
 - (void)setListeningMode:(unsigned __int8)mode;
 - (void)setListeningModeConfigs:(unsigned int)configs;
+- (void)setMicMode:(unsigned __int8)mode;
 - (void)setName:(id)name;
 - (void)setOneBudANCMode:(unsigned __int8)mode;
+- (void)setRemoteTimeSyncEnabled:(BOOL)enabled;
+- (void)setSingleClickMode:(unsigned __int8)mode;
 - (void)setSmartRoutingEnabled:(unsigned __int8)enabled;
+- (void)setSmartRoutingSupported:(BOOL)supported;
+- (void)setSwitchControlMode:(unsigned __int8)mode;
 @end
 
 @implementation CBClassicPeer
@@ -86,7 +105,7 @@
 
 - (void)dealloc
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   if (CBLogInitOnce != -1)
   {
     [CBClassicPeer dealloc];
@@ -96,8 +115,8 @@
   if (os_log_type_enabled(CBLogComponent, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v9 = "[CBClassicPeer dealloc]";
-    v10 = 2112;
+    v8 = "[CBClassicPeer dealloc]";
+    v9 = 2112;
     selfCopy = self;
     _os_log_impl(&dword_1C0AC1000, v3, OS_LOG_TYPE_DEFAULT, "%s %@", buf, 0x16u);
   }
@@ -114,10 +133,9 @@
     [(NSHashTable *)RFCOMMChannels removeAllObjects];
   }
 
-  v7.receiver = self;
-  v7.super_class = CBClassicPeer;
-  [(CBClassicPeer *)&v7 dealloc];
-  v6 = *MEMORY[0x1E69E9840];
+  v6.receiver = self;
+  v6.super_class = CBClassicPeer;
+  [(CBClassicPeer *)&v6 dealloc];
 }
 
 - (id)description
@@ -156,78 +174,76 @@
 
 - (id)importServices:(id)services
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   servicesCopy = services;
-  v22 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(servicesCopy, "count")}];
+  v21 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(servicesCopy, "count")}];
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
   obj = servicesCopy;
-  v4 = [obj countByEnumeratingWithState:&v23 objects:v31 count:16];
+  v4 = [obj countByEnumeratingWithState:&v22 objects:v30 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v24;
+    v6 = *v23;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v24 != v6)
+        if (*v23 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v23 + 1) + 8 * i);
+        v8 = *(*(&v22 + 1) + 8 * i);
         v9 = [v8 objectForKeyedSubscript:@"kCBMsgArgPSM"];
         v10 = [v8 objectForKeyedSubscript:@"kCBMsgArgRFCOMMChannelID"];
         v11 = v10;
         if (v9)
         {
-          v29[0] = @"kCBMsgArgServiceUUID";
+          v28[0] = @"kCBMsgArgServiceUUID";
           v12 = [v8 objectForKeyedSubscript:?];
           v13 = [CBUUID UUIDWithData:v12];
-          v29[1] = @"kCBMsgArgPSM";
-          v30[0] = v13;
+          v28[1] = @"kCBMsgArgPSM";
+          v29[0] = v13;
           v14 = [v8 objectForKeyedSubscript:@"kCBMsgArgPSM"];
-          v30[1] = v14;
+          v29[1] = v14;
           v15 = MEMORY[0x1E695DF20];
-          v16 = v30;
-          v17 = v29;
+          v16 = v29;
+          v17 = v28;
 LABEL_7:
           v18 = [v15 dictionaryWithObjects:v16 forKeys:v17 count:2];
-          [v22 addObject:v18];
+          [v21 addObject:v18];
 
           goto LABEL_8;
         }
 
         if (v10)
         {
-          v27[0] = @"kCBMsgArgServiceUUID";
+          v26[0] = @"kCBMsgArgServiceUUID";
           v12 = [v8 objectForKeyedSubscript:?];
           v13 = [CBUUID UUIDWithData:v12];
-          v27[1] = @"kCBMsgArgRFCOMMChannelID";
-          v28[0] = v13;
+          v26[1] = @"kCBMsgArgRFCOMMChannelID";
+          v27[0] = v13;
           v14 = [v8 objectForKeyedSubscript:?];
-          v28[1] = v14;
+          v27[1] = v14;
           v15 = MEMORY[0x1E695DF20];
-          v16 = v28;
-          v17 = v27;
+          v16 = v27;
+          v17 = v26;
           goto LABEL_7;
         }
 
 LABEL_8:
       }
 
-      v5 = [obj countByEnumeratingWithState:&v23 objects:v31 count:16];
+      v5 = [obj countByEnumeratingWithState:&v22 objects:v30 count:16];
     }
 
     while (v5);
   }
 
-  v19 = *MEMORY[0x1E69E9840];
-
-  return v22;
+  return v21;
 }
 
 - (void)sendMsg:(int)msg requiresConnected:(BOOL)connected args:(id)args
@@ -281,6 +297,77 @@ LABEL_11:
   [CBClassicPeer sendMsg:requiresConnected:args:];
 }
 
+- (void)handleMsg:(int)msg args:(id)args
+{
+  v4 = *&msg;
+  argsCopy = args;
+  if (v4 > 50)
+  {
+    switch(v4)
+    {
+      case '?':
+        v7 = sel_handleRFCOMMChannelClosed_;
+        internalState = [(CBClassicPeer *)self internalState];
+        break;
+      case '>':
+        v7 = sel_handleRFCOMMChannelOpened_;
+        internalState = [(CBClassicPeer *)self internalState];
+        break;
+      case '3':
+        [(CBClassicPeer *)self internalState];
+        [(CBClassicPeer *)self handlePeerUpdated:argsCopy];
+        goto LABEL_21;
+      default:
+        goto LABEL_12;
+    }
+  }
+
+  else
+  {
+    switch(v4)
+    {
+      case 0x1B:
+        v7 = sel_handleL2CAPChannelOpened_;
+        internalState = [(CBClassicPeer *)self internalState];
+        break;
+      case 0x1C:
+        v7 = sel_handleL2CAPChannelClosed_;
+        internalState = [(CBClassicPeer *)self internalState];
+        break;
+      case 0x2F:
+        [(CBClassicPeer *)self internalState];
+        [(CBClassicPeer *)self handleGetPeerState:argsCopy];
+        goto LABEL_21;
+      default:
+LABEL_12:
+        v9.receiver = self;
+        v9.super_class = CBClassicPeer;
+        [(CBPeer *)&v9 handleMsg:v4 args:argsCopy];
+        goto LABEL_21;
+    }
+  }
+
+  if (internalState == 2)
+  {
+    [self v7];
+  }
+
+  else
+  {
+    if (CBLogInitOnce != -1)
+    {
+      [CBClassicPeer dealloc];
+    }
+
+    if (os_log_type_enabled(CBLogComponent, OS_LOG_TYPE_DEBUG))
+    {
+      [CBClassicPeer handleMsg:args:];
+    }
+  }
+
+LABEL_21:
+}
+
 - (void)handleGetPeerState:(id)state
 {
   v4 = [state objectForKeyedSubscript:@"kCBMsgArgState"];
@@ -289,7 +376,7 @@ LABEL_11:
 
 - (void)handlePeerUpdated:(id)updated
 {
-  v284 = *MEMORY[0x1E69E9840];
+  v283 = *MEMORY[0x1E69E9840];
   updatedCopy = updated;
   v5 = [updatedCopy objectForKeyedSubscript:@"kCBMsgArgDeviceType"];
   unsignedIntValue = [v5 unsignedIntValue];
@@ -929,7 +1016,7 @@ LABEL_11:
     [(CBClassicPeer *)self setSdpRecordData:v192];
   }
 
-  v277 = v192;
+  v276 = v192;
   v193 = [updatedCopy objectForKeyedSubscript:@"kCBMsgArgAACPCapabilityBits"];
   if (v193)
   {
@@ -947,7 +1034,7 @@ LABEL_11:
     [(CBClassicPeer *)self setAacpCapabilityBits:v193];
   }
 
-  v276 = v193;
+  v275 = v193;
   v195 = [updatedCopy objectForKeyedSubscript:@"kCBMsgArgAppleFeatureBitMask"];
   unsignedLongValue = [v195 unsignedLongValue];
 
@@ -990,7 +1077,7 @@ LABEL_11:
     }
   }
 
-  v275 = v205;
+  v274 = v205;
   v208 = [updatedCopy objectForKeyedSubscript:@"kCBMsgArgSerialNumber"];
   if (v208)
   {
@@ -1003,7 +1090,7 @@ LABEL_11:
     }
   }
 
-  v274 = v208;
+  v273 = v208;
   v211 = [updatedCopy objectForKeyedSubscript:@"kCBMsgArgTrustedUID"];
   v212 = v211;
   if (v211)
@@ -1076,7 +1163,7 @@ LABEL_11:
     }
   }
 
-  v272 = v232;
+  v271 = v232;
   v235 = [updatedCopy objectForKeyedSubscript:@"kCBMsgArgModesSupported"];
   unsignedCharValue21 = [v235 unsignedCharValue];
 
@@ -1094,7 +1181,7 @@ LABEL_11:
 
   v240 = [updatedCopy objectForKeyedSubscript:@"kCBMsgArgName"];
   addressString3 = v240;
-  v278 = v190;
+  v277 = v190;
   if (v240 && ![v240 length])
   {
 
@@ -1156,7 +1243,7 @@ LABEL_172:
   }
 
 LABEL_174:
-  v271 = addressString3;
+  v270 = addressString3;
   v249 = [updatedCopy objectForKey:@"kCBMsgArgModelIdentifier"];
   if (v249)
   {
@@ -1180,34 +1267,34 @@ LABEL_174:
     }
   }
 
-  v273 = v212;
-  v281 = 0u;
-  v282 = 0u;
-  v279 = 0u;
+  v272 = v212;
   v280 = 0u;
+  v281 = 0u;
+  v278 = 0u;
+  v279 = 0u;
   services = [(CBClassicPeer *)self services];
-  v256 = [services countByEnumeratingWithState:&v279 objects:v283 count:16];
+  v256 = [services countByEnumeratingWithState:&v278 objects:v282 count:16];
   if (v256)
   {
     v257 = v256;
     v258 = 0;
-    v259 = *v280;
+    v259 = *v279;
     do
     {
       for (i = 0; i != v257; ++i)
       {
-        if (*v280 != v259)
+        if (*v279 != v259)
         {
           objc_enumerationMutation(services);
         }
 
-        v261 = [*(*(&v279 + 1) + 8 * i) objectForKeyedSubscript:@"kCBMsgArgServiceUUID"];
+        v261 = [*(*(&v278 + 1) + 8 * i) objectForKeyedSubscript:@"kCBMsgArgServiceUUID"];
         uUIDString3 = [v261 UUIDString];
 
         v258 |= [@"7221EC74-0BAD-4D01-8F77-997B2BE0722A" isEqualToString:uUIDString3];
       }
 
-      v257 = [services countByEnumeratingWithState:&v279 objects:v283 count:16];
+      v257 = [services countByEnumeratingWithState:&v278 objects:v282 count:16];
     }
 
     while (v257);
@@ -1242,8 +1329,6 @@ LABEL_174:
     v268 = [updatedCopy objectForKeyedSubscript:@"kCBMsgArgObjectPushStatus"];
     -[CBClassicPeer setObjectPushEnabled:](self, "setObjectPushEnabled:", [v268 BOOLValue]);
   }
-
-  v269 = *MEMORY[0x1E69E9840];
 }
 
 - (void)handleSuccessfulConnection:(id)connection
@@ -1282,7 +1367,7 @@ LABEL_174:
 
 - (void)handleL2CAPChannelOpened:(id)opened
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   openedCopy = opened;
   v5 = [MEMORY[0x1E696ABC0] errorWithInfo:openedCopy];
   if (v5)
@@ -1337,11 +1422,11 @@ LABEL_174:
   v14 = CBLogComponent;
   if (os_log_type_enabled(CBLogComponent, OS_LOG_TYPE_DEFAULT))
   {
-    v20 = 136315394;
-    v21 = "[CBClassicPeer handleL2CAPChannelOpened:]";
-    v22 = 2112;
-    v23 = v6;
-    _os_log_impl(&dword_1C0AC1000, v14, OS_LOG_TYPE_DEFAULT, "%s %@", &v20, 0x16u);
+    v19 = 136315394;
+    v20 = "[CBClassicPeer handleL2CAPChannelOpened:]";
+    v21 = 2112;
+    v22 = v6;
+    _os_log_impl(&dword_1C0AC1000, v14, OS_LOG_TYPE_DEFAULT, "%s %@", &v19, 0x16u);
   }
 
   l2CAPChannels = [(CBClassicPeer *)self L2CAPChannels];
@@ -1357,8 +1442,6 @@ LABEL_12:
   }
 
 LABEL_13:
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (void)handleL2CAPChannelClosed:(id)closed
@@ -1395,27 +1478,27 @@ LABEL_13:
 - (id)channelWithPSM:(unsigned __int16)m
 {
   mCopy = m;
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   l2CAPChannels = [(CBClassicPeer *)self L2CAPChannels];
-  v5 = [l2CAPChannels countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v5 = [l2CAPChannels countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v14;
+    v7 = *v13;
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v14 != v7)
+        if (*v13 != v7)
         {
           objc_enumerationMutation(l2CAPChannels);
         }
 
-        v9 = *(*(&v13 + 1) + 8 * i);
+        v9 = *(*(&v12 + 1) + 8 * i);
         if ([v9 PSM] == mCopy)
         {
           v10 = v9;
@@ -1424,7 +1507,7 @@ LABEL_13:
         }
       }
 
-      v6 = [l2CAPChannels countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v6 = [l2CAPChannels countByEnumeratingWithState:&v12 objects:v16 count:16];
       if (v6)
       {
         continue;
@@ -1446,14 +1529,13 @@ LABEL_13:
 
   v10 = 0;
 LABEL_15:
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
 
 - (void)handleRFCOMMChannelOpened:(id)opened
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   openedCopy = opened;
   v5 = [MEMORY[0x1E696ABC0] errorWithInfo:openedCopy];
   if (v5)
@@ -1499,11 +1581,11 @@ LABEL_15:
   v9 = CBLogComponent;
   if (os_log_type_enabled(CBLogComponent, OS_LOG_TYPE_DEFAULT))
   {
-    v15 = 136315394;
-    v16 = "[CBClassicPeer handleRFCOMMChannelOpened:]";
-    v17 = 2112;
-    v18 = v7;
-    _os_log_impl(&dword_1C0AC1000, v9, OS_LOG_TYPE_DEFAULT, "%s %@", &v15, 0x16u);
+    v14 = 136315394;
+    v15 = "[CBClassicPeer handleRFCOMMChannelOpened:]";
+    v16 = 2112;
+    v17 = v7;
+    _os_log_impl(&dword_1C0AC1000, v9, OS_LOG_TYPE_DEFAULT, "%s %@", &v14, 0x16u);
   }
 
   rFCOMMChannels = [(CBClassicPeer *)self RFCOMMChannels];
@@ -1519,13 +1601,11 @@ LABEL_12:
   }
 
 LABEL_13:
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)handleRFCOMMChannelClosed:(id)closed
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v4 = MEMORY[0x1E696ABC0];
   closedCopy = closed;
   v6 = [v4 errorWithInfo:closedCopy];
@@ -1541,13 +1621,13 @@ LABEL_13:
   v10 = CBLogComponent;
   if (os_log_type_enabled(CBLogComponent, OS_LOG_TYPE_DEFAULT))
   {
-    v15 = 136315650;
-    v16 = "[CBClassicPeer handleRFCOMMChannelClosed:]";
-    v17 = 2112;
-    v18 = v9;
-    v19 = 2112;
-    v20 = v6;
-    _os_log_impl(&dword_1C0AC1000, v10, OS_LOG_TYPE_DEFAULT, "%s %@ and result: %@", &v15, 0x20u);
+    v14 = 136315650;
+    v15 = "[CBClassicPeer handleRFCOMMChannelClosed:]";
+    v16 = 2112;
+    v17 = v9;
+    v18 = 2112;
+    v19 = v6;
+    _os_log_impl(&dword_1C0AC1000, v10, OS_LOG_TYPE_DEFAULT, "%s %@ and result: %@", &v14, 0x20u);
   }
 
   disconnectRFCOMMCallback = [(CBClassicPeer *)self disconnectRFCOMMCallback];
@@ -1560,34 +1640,32 @@ LABEL_13:
 
   rFCOMMChannels = [(CBClassicPeer *)self RFCOMMChannels];
   [rFCOMMChannels removeObject:v9];
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (id)channelWithID:(unsigned __int8)d
 {
   dCopy = d;
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   rFCOMMChannels = [(CBClassicPeer *)self RFCOMMChannels];
-  v5 = [rFCOMMChannels countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v5 = [rFCOMMChannels countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v14;
+    v7 = *v13;
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v14 != v7)
+        if (*v13 != v7)
         {
           objc_enumerationMutation(rFCOMMChannels);
         }
 
-        v9 = *(*(&v13 + 1) + 8 * i);
+        v9 = *(*(&v12 + 1) + 8 * i);
         if ([v9 channelID] == dCopy)
         {
           v10 = v9;
@@ -1596,7 +1674,7 @@ LABEL_13:
         }
       }
 
-      v6 = [rFCOMMChannels countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v6 = [rFCOMMChannels countByEnumeratingWithState:&v12 objects:v16 count:16];
       if (v6)
       {
         continue;
@@ -1618,35 +1696,34 @@ LABEL_13:
 
   v10 = 0;
 LABEL_15:
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
 
 - (id)service:(id)service
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   serviceCopy = service;
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   services = [(CBClassicPeer *)self services];
-  v6 = [services countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v6 = [services countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v17;
+    v8 = *v16;
     while (2)
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v17 != v8)
+        if (*v16 != v8)
         {
           objc_enumerationMutation(services);
         }
 
-        v10 = *(*(&v16 + 1) + 8 * i);
+        v10 = *(*(&v15 + 1) + 8 * i);
         v11 = [v10 objectForKeyedSubscript:@"kCBMsgArgServiceUUID"];
         v12 = [v11 isEqual:serviceCopy];
 
@@ -1657,7 +1734,7 @@ LABEL_15:
         }
       }
 
-      v7 = [services countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v7 = [services countByEnumeratingWithState:&v15 objects:v19 count:16];
       if (v7)
       {
         continue;
@@ -1670,35 +1747,33 @@ LABEL_15:
   v13 = 0;
 LABEL_11:
 
-  v14 = *MEMORY[0x1E69E9840];
-
   return v13;
 }
 
 - (id)serviceForPSM:(unsigned __int16)m
 {
   mCopy = m;
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   services = [(CBClassicPeer *)self services];
-  v5 = [services countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v5 = [services countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v16;
+    v7 = *v15;
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v16 != v7)
+        if (*v15 != v7)
         {
           objc_enumerationMutation(services);
         }
 
-        v9 = *(*(&v15 + 1) + 8 * i);
+        v9 = *(*(&v14 + 1) + 8 * i);
         v10 = [v9 objectForKeyedSubscript:@"kCBMsgArgPSM"];
         unsignedShortValue = [v10 unsignedShortValue];
 
@@ -1709,7 +1784,7 @@ LABEL_11:
         }
       }
 
-      v6 = [services countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v6 = [services countByEnumeratingWithState:&v14 objects:v18 count:16];
       if (v6)
       {
         continue;
@@ -1721,8 +1796,6 @@ LABEL_11:
 
   v12 = 0;
 LABEL_11:
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return v12;
 }
@@ -1749,27 +1822,27 @@ LABEL_11:
 - (id)serviceForRFCOMMChannelID:(unsigned __int8)d
 {
   dCopy = d;
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   services = [(CBClassicPeer *)self services];
-  v5 = [services countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v5 = [services countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v16;
+    v7 = *v15;
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v16 != v7)
+        if (*v15 != v7)
         {
           objc_enumerationMutation(services);
         }
 
-        v9 = *(*(&v15 + 1) + 8 * i);
+        v9 = *(*(&v14 + 1) + 8 * i);
         v10 = [v9 objectForKeyedSubscript:@"kCBMsgArgRFCOMMChannelID"];
         unsignedCharValue = [v10 unsignedCharValue];
 
@@ -1780,7 +1853,7 @@ LABEL_11:
         }
       }
 
-      v6 = [services countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v6 = [services countByEnumeratingWithState:&v14 objects:v18 count:16];
       if (v6)
       {
         continue;
@@ -1792,8 +1865,6 @@ LABEL_11:
 
   v12 = 0;
 LABEL_11:
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return v12;
 }
@@ -1819,181 +1890,506 @@ LABEL_11:
 
 - (void)setListeningMode:(unsigned __int8)mode
 {
-  v9[1] = *MEMORY[0x1E69E9840];
+  v8[1] = *MEMORY[0x1E69E9840];
   if ([(CBClassicPeer *)self listeningMode]!= mode)
   {
-    v8 = @"kCBMsgArgListeningMode";
+    v7 = @"kCBMsgArgListeningMode";
     v5 = [MEMORY[0x1E696AD98] numberWithChar:mode];
-    v9[0] = v5;
-    v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:&v8 count:1];
+    v8[0] = v5;
+    v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:&v7 count:1];
     [(CBClassicPeer *)self sendMsg:48 args:v6];
 
     [(CBClassicPeer *)self willChangeValueForKey:@"listeningMode"];
     self->_listeningMode = mode;
     [(CBClassicPeer *)self didChangeValueForKey:@"listeningMode"];
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setListeningModeConfigs:(unsigned int)configs
 {
-  v9[1] = *MEMORY[0x1E69E9840];
+  v8[1] = *MEMORY[0x1E69E9840];
   if ([(CBClassicPeer *)self listeningModeConfigs]!= configs)
   {
-    v8 = @"kCBMsgArgListeningConfigs";
+    v7 = @"kCBMsgArgListeningConfigs";
     v5 = [MEMORY[0x1E696AD98] numberWithChar:configs];
-    v9[0] = v5;
-    v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:&v8 count:1];
+    v8[0] = v5;
+    v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:&v7 count:1];
     [(CBClassicPeer *)self sendMsg:48 args:v6];
 
     [(CBClassicPeer *)self willChangeValueForKey:@"listeningModeConfigs"];
     self->_listeningModeConfigs = configs;
     [(CBClassicPeer *)self didChangeValueForKey:@"listeningModeConfigs"];
   }
+}
 
-  v7 = *MEMORY[0x1E69E9840];
+- (void)setLRDetectionEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  v8[1] = *MEMORY[0x1E69E9840];
+  if ([(CBClassicPeer *)self LRDetectionEnabled]!= enabled)
+  {
+    v7 = @"kCBMsgArgLRDetectionModeEnabled";
+    v5 = [MEMORY[0x1E696AD98] numberWithBool:enabledCopy];
+    v8[0] = v5;
+    v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:&v7 count:1];
+    [(CBClassicPeer *)self sendMsg:48 args:v6];
+
+    [(CBClassicPeer *)self willChangeValueForKey:@"LRDetectionEnabled"];
+    self->_LRDetectionEnabled = enabledCopy;
+    [(CBClassicPeer *)self didChangeValueForKey:@"LRDetectionEnabled"];
+  }
+}
+
+- (void)setEQConfigEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  v11[4] = *MEMORY[0x1E69E9840];
+  if ([(CBClassicPeer *)self EQConfigEnabled]!= enabled)
+  {
+    v10[0] = @"kCBMsgArgEQModeEnabled";
+    v5 = [MEMORY[0x1E696AD98] numberWithBool:enabledCopy];
+    v11[0] = v5;
+    v10[1] = @"kCBMsgArgEQTreble";
+    v6 = [MEMORY[0x1E696AD98] numberWithUnsignedChar:{-[CBClassicPeer EQConfigTreble](self, "EQConfigTreble")}];
+    v11[1] = v6;
+    v10[2] = @"kCBMsgArgEQMid";
+    v7 = [MEMORY[0x1E696AD98] numberWithUnsignedChar:{-[CBClassicPeer EQConfigMid](self, "EQConfigMid")}];
+    v11[2] = v7;
+    v10[3] = @"kCBMsgArgEQBass";
+    v8 = [MEMORY[0x1E696AD98] numberWithUnsignedChar:{-[CBClassicPeer EQConfigBass](self, "EQConfigBass")}];
+    v11[3] = v8;
+    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:v10 count:4];
+    [(CBClassicPeer *)self sendMsg:48 args:v9];
+
+    [(CBClassicPeer *)self willChangeValueForKey:@"EQConfigEnabled"];
+    self->_EQConfigEnabled = enabledCopy;
+    [(CBClassicPeer *)self didChangeValueForKey:@"EQConfigEnabled"];
+  }
+}
+
+- (void)setEQConfigTreble:(unsigned __int8)treble
+{
+  trebleCopy = treble;
+  v11[4] = *MEMORY[0x1E69E9840];
+  if ([(CBClassicPeer *)self EQConfigTreble]!= treble)
+  {
+    v10[0] = @"kCBMsgArgEQModeEnabled";
+    v5 = [MEMORY[0x1E696AD98] numberWithBool:{-[CBClassicPeer EQConfigEnabled](self, "EQConfigEnabled")}];
+    v11[0] = v5;
+    v10[1] = @"kCBMsgArgEQTreble";
+    v6 = [MEMORY[0x1E696AD98] numberWithUnsignedChar:trebleCopy];
+    v11[1] = v6;
+    v10[2] = @"kCBMsgArgEQMid";
+    v7 = [MEMORY[0x1E696AD98] numberWithUnsignedChar:{-[CBClassicPeer EQConfigMid](self, "EQConfigMid")}];
+    v11[2] = v7;
+    v10[3] = @"kCBMsgArgEQBass";
+    v8 = [MEMORY[0x1E696AD98] numberWithUnsignedChar:{-[CBClassicPeer EQConfigBass](self, "EQConfigBass")}];
+    v11[3] = v8;
+    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:v10 count:4];
+    [(CBClassicPeer *)self sendMsg:48 args:v9];
+
+    [(CBClassicPeer *)self willChangeValueForKey:@"EQConfigTreble"];
+    self->_EQConfigTreble = trebleCopy;
+    [(CBClassicPeer *)self didChangeValueForKey:@"EQConfigTreble"];
+  }
+}
+
+- (void)setEQConfigMid:(unsigned __int8)mid
+{
+  midCopy = mid;
+  v11[4] = *MEMORY[0x1E69E9840];
+  if ([(CBClassicPeer *)self EQConfigMid]!= mid)
+  {
+    v10[0] = @"kCBMsgArgEQModeEnabled";
+    v5 = [MEMORY[0x1E696AD98] numberWithBool:{-[CBClassicPeer EQConfigEnabled](self, "EQConfigEnabled")}];
+    v11[0] = v5;
+    v10[1] = @"kCBMsgArgEQTreble";
+    v6 = [MEMORY[0x1E696AD98] numberWithUnsignedChar:{-[CBClassicPeer EQConfigTreble](self, "EQConfigTreble")}];
+    v11[1] = v6;
+    v10[2] = @"kCBMsgArgEQMid";
+    v7 = [MEMORY[0x1E696AD98] numberWithUnsignedChar:midCopy];
+    v11[2] = v7;
+    v10[3] = @"kCBMsgArgEQBass";
+    v8 = [MEMORY[0x1E696AD98] numberWithUnsignedChar:{-[CBClassicPeer EQConfigBass](self, "EQConfigBass")}];
+    v11[3] = v8;
+    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:v10 count:4];
+    [(CBClassicPeer *)self sendMsg:48 args:v9];
+
+    [(CBClassicPeer *)self willChangeValueForKey:@"EQConfigMid"];
+    self->_EQConfigMid = midCopy;
+    [(CBClassicPeer *)self didChangeValueForKey:@"EQConfigMid"];
+  }
+}
+
+- (void)setEQConfigBass:(unsigned __int8)bass
+{
+  bassCopy = bass;
+  v11[4] = *MEMORY[0x1E69E9840];
+  if ([(CBClassicPeer *)self EQConfigBass]!= bass)
+  {
+    v10[0] = @"kCBMsgArgEQModeEnabled";
+    v5 = [MEMORY[0x1E696AD98] numberWithBool:{-[CBClassicPeer EQConfigEnabled](self, "EQConfigEnabled")}];
+    v11[0] = v5;
+    v10[1] = @"kCBMsgArgEQTreble";
+    v6 = [MEMORY[0x1E696AD98] numberWithUnsignedChar:{-[CBClassicPeer EQConfigTreble](self, "EQConfigTreble")}];
+    v11[1] = v6;
+    v10[2] = @"kCBMsgArgEQMid";
+    v7 = [MEMORY[0x1E696AD98] numberWithUnsignedChar:{-[CBClassicPeer EQConfigMid](self, "EQConfigMid")}];
+    v11[2] = v7;
+    v10[3] = @"kCBMsgArgEQBass";
+    v8 = [MEMORY[0x1E696AD98] numberWithUnsignedChar:bassCopy];
+    v11[3] = v8;
+    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:v10 count:4];
+    [(CBClassicPeer *)self sendMsg:48 args:v9];
+
+    [(CBClassicPeer *)self willChangeValueForKey:@"EQConfigBass"];
+    self->_EQConfigBass = bassCopy;
+    [(CBClassicPeer *)self didChangeValueForKey:@"EQConfigBass"];
+  }
+}
+
+- (void)setAutoAnswerCalls:(BOOL)calls
+{
+  callsCopy = calls;
+  v8[1] = *MEMORY[0x1E69E9840];
+  if ([(CBClassicPeer *)self autoAnswerCalls]!= calls)
+  {
+    v7 = @"kCBMsgArgAutoAnswerCalls";
+    v5 = [MEMORY[0x1E696AD98] numberWithBool:callsCopy];
+    v8[0] = v5;
+    v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:&v7 count:1];
+    [(CBClassicPeer *)self sendMsg:48 args:v6];
+
+    [(CBClassicPeer *)self willChangeValueForKey:@"autoAnswerCalls"];
+    self->_autoAnswerCalls = callsCopy;
+    [(CBClassicPeer *)self didChangeValueForKey:@"autoAnswerCalls"];
+  }
+}
+
+- (void)setCrownRotationDirection:(unsigned __int8)direction
+{
+  directionCopy = direction;
+  v8[1] = *MEMORY[0x1E69E9840];
+  if ([(CBClassicPeer *)self crownRotationDirection]!= direction)
+  {
+    v7 = @"kCBMsgArgCrownRotationDirection";
+    v5 = [MEMORY[0x1E696AD98] numberWithUnsignedChar:directionCopy];
+    v8[0] = v5;
+    v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:&v7 count:1];
+    [(CBClassicPeer *)self sendMsg:48 args:v6];
+
+    [(CBClassicPeer *)self willChangeValueForKey:@"crownRotationDirection"];
+    self->_crownRotationDirection = directionCopy;
+    [(CBClassicPeer *)self didChangeValueForKey:@"crownRotationDirection"];
+  }
+}
+
+- (void)setSingleClickMode:(unsigned __int8)mode
+{
+  modeCopy = mode;
+  v8[1] = *MEMORY[0x1E69E9840];
+  if ([(CBClassicPeer *)self singleClickMode]!= mode)
+  {
+    v7 = @"kCBMsgArgSingleClickMode";
+    v5 = [MEMORY[0x1E696AD98] numberWithUnsignedChar:modeCopy];
+    v8[0] = v5;
+    v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:&v7 count:1];
+    [(CBClassicPeer *)self sendMsg:48 args:v6];
+
+    [(CBClassicPeer *)self willChangeValueForKey:@"singleClickMode"];
+    self->_singleClickMode = modeCopy;
+    [(CBClassicPeer *)self didChangeValueForKey:@"singleClickMode"];
+  }
+}
+
+- (void)setDoubleClickMode:(unsigned __int8)mode
+{
+  modeCopy = mode;
+  v8[1] = *MEMORY[0x1E69E9840];
+  if ([(CBClassicPeer *)self doubleClickMode]!= mode)
+  {
+    v7 = @"kCBMsgArgDoubleClickMode";
+    v5 = [MEMORY[0x1E696AD98] numberWithUnsignedChar:modeCopy];
+    v8[0] = v5;
+    v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:&v7 count:1];
+    [(CBClassicPeer *)self sendMsg:48 args:v6];
+
+    [(CBClassicPeer *)self willChangeValueForKey:@"doubleClickMode"];
+    self->_doubleClickMode = modeCopy;
+    [(CBClassicPeer *)self didChangeValueForKey:@"doubleClickMode"];
+  }
 }
 
 - (void)setClickHoldModeLeft:(unsigned __int8)left
 {
   leftCopy = left;
-  v10[1] = *MEMORY[0x1E69E9840];
+  v9[1] = *MEMORY[0x1E69E9840];
   if ([(CBClassicPeer *)self clickHoldModeLeft]!= left)
   {
     clickHoldModeRight = [(CBClassicPeer *)self clickHoldModeRight];
-    v9 = @"kCBMsgArgClickHoldMode";
+    v8 = @"kCBMsgArgClickHoldMode";
     v6 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:clickHoldModeRight | (leftCopy << 8)];
-    v10[0] = v6;
-    v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+    v9[0] = v6;
+    v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:&v8 count:1];
     [(CBClassicPeer *)self sendMsg:48 args:v7];
 
     [(CBClassicPeer *)self willChangeValueForKey:@"clickHoldModeLeft"];
     self->_clickHoldModeLeft = leftCopy;
     [(CBClassicPeer *)self didChangeValueForKey:@"clickHoldModeLeft"];
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setClickHoldModeRight:(unsigned __int8)right
 {
   rightCopy = right;
-  v10[1] = *MEMORY[0x1E69E9840];
+  v9[1] = *MEMORY[0x1E69E9840];
   if ([(CBClassicPeer *)self clickHoldModeRight]!= right)
   {
     clickHoldModeLeft = [(CBClassicPeer *)self clickHoldModeLeft];
-    v9 = @"kCBMsgArgClickHoldMode";
+    v8 = @"kCBMsgArgClickHoldMode";
     v6 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:rightCopy | (clickHoldModeLeft << 8)];
-    v10[0] = v6;
-    v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+    v9[0] = v6;
+    v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:&v8 count:1];
     [(CBClassicPeer *)self sendMsg:48 args:v7];
 
     [(CBClassicPeer *)self willChangeValueForKey:@"clickHoldModeRight"];
     self->_clickHoldModeRight = rightCopy;
     [(CBClassicPeer *)self didChangeValueForKey:@"clickHoldModeRight"];
   }
+}
 
-  v8 = *MEMORY[0x1E69E9840];
+- (void)setDoubleClickInterval:(unsigned int)interval
+{
+  v3 = *&interval;
+  v8[1] = *MEMORY[0x1E69E9840];
+  if ([(CBClassicPeer *)self doubleClickInterval]!= interval)
+  {
+    v7 = @"kCBMsgArgDoubleClickInterval";
+    v5 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:v3];
+    v8[0] = v5;
+    v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:&v7 count:1];
+    [(CBClassicPeer *)self sendMsg:48 args:v6];
+
+    [(CBClassicPeer *)self willChangeValueForKey:@"doubleClickInterval"];
+    self->_doubleClickInterval = v3;
+    [(CBClassicPeer *)self didChangeValueForKey:@"doubleClickInterval"];
+  }
+}
+
+- (void)setClickHoldInterval:(unsigned int)interval
+{
+  v3 = *&interval;
+  v8[1] = *MEMORY[0x1E69E9840];
+  if ([(CBClassicPeer *)self clickHoldInterval]!= interval)
+  {
+    v7 = @"kCBMsgArgClickHoldInterval";
+    v5 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:v3];
+    v8[0] = v5;
+    v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:&v7 count:1];
+    [(CBClassicPeer *)self sendMsg:48 args:v6];
+
+    [(CBClassicPeer *)self willChangeValueForKey:@"clickHoldInterval"];
+    self->_clickHoldInterval = v3;
+    [(CBClassicPeer *)self didChangeValueForKey:@"clickHoldInterval"];
+  }
 }
 
 - (void)setOneBudANCMode:(unsigned __int8)mode
 {
-  v9[1] = *MEMORY[0x1E69E9840];
+  v8[1] = *MEMORY[0x1E69E9840];
   if ([(CBClassicPeer *)self oneBudANCMode]!= mode)
   {
-    v8 = @"kCBMsgArgOneBudANCMode";
+    v7 = @"kCBMsgArgOneBudANCMode";
     v5 = [MEMORY[0x1E696AD98] numberWithChar:mode];
-    v9[0] = v5;
-    v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:&v8 count:1];
+    v8[0] = v5;
+    v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:&v7 count:1];
     [(CBClassicPeer *)self sendMsg:48 args:v6];
 
     [(CBClassicPeer *)self willChangeValueForKey:@"oneBudANCMode"];
     self->_oneBudANCMode = mode;
     [(CBClassicPeer *)self didChangeValueForKey:@"oneBudANCMode"];
   }
+}
 
-  v7 = *MEMORY[0x1E69E9840];
+- (void)setSwitchControlMode:(unsigned __int8)mode
+{
+  modeCopy = mode;
+  v8[1] = *MEMORY[0x1E69E9840];
+  if ([(CBClassicPeer *)self switchControlMode]!= mode)
+  {
+    v7 = @"kCBMsgArgSwitchControlMode";
+    v5 = [MEMORY[0x1E696AD98] numberWithUnsignedChar:modeCopy];
+    v8[0] = v5;
+    v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:&v7 count:1];
+    [(CBClassicPeer *)self sendMsg:48 args:v6];
+
+    [(CBClassicPeer *)self willChangeValueForKey:@"switchControlMode"];
+    self->_switchControlMode = modeCopy;
+    [(CBClassicPeer *)self didChangeValueForKey:@"switchControlMode"];
+  }
+}
+
+- (void)setDoubleTapAction:(unsigned __int16)action
+{
+  actionCopy = action;
+  v8[1] = *MEMORY[0x1E69E9840];
+  if ([(CBClassicPeer *)self doubleTapAction]!= action)
+  {
+    v7 = @"kCBMsgArgDoubleTapAction";
+    v5 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:actionCopy];
+    v8[0] = v5;
+    v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:&v7 count:1];
+    [(CBClassicPeer *)self sendMsg:48 args:v6];
+
+    [(CBClassicPeer *)self willChangeValueForKey:@"doubleTapAction"];
+    self->_doubleTapAction = actionCopy;
+    [(CBClassicPeer *)self didChangeValueForKey:@"doubleTapAction"];
+  }
 }
 
 - (void)setDoubleTapActionLeft:(unsigned __int16)left
 {
   leftCopy = left;
-  v10[1] = *MEMORY[0x1E69E9840];
+  v9[1] = *MEMORY[0x1E69E9840];
   if ([(CBClassicPeer *)self doubleTapActionLeft]!= left)
   {
     doubleTapActionRight = [(CBClassicPeer *)self doubleTapActionRight];
-    v9 = @"kCBMsgArgDoubleTapActionEx";
+    v8 = @"kCBMsgArgDoubleTapActionEx";
     v6 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:doubleTapActionRight | (leftCopy << 8)];
-    v10[0] = v6;
-    v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+    v9[0] = v6;
+    v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:&v8 count:1];
     [(CBClassicPeer *)self sendMsg:48 args:v7];
 
     [(CBClassicPeer *)self willChangeValueForKey:@"doubleTapActionLeft"];
     self->_doubleTapActionLeft = leftCopy;
     [(CBClassicPeer *)self didChangeValueForKey:@"doubleTapActionLeft"];
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setDoubleTapActionRight:(unsigned __int16)right
 {
   rightCopy = right;
-  v10[1] = *MEMORY[0x1E69E9840];
+  v9[1] = *MEMORY[0x1E69E9840];
   if ([(CBClassicPeer *)self doubleTapActionRight]!= right)
   {
     doubleTapActionLeft = [(CBClassicPeer *)self doubleTapActionLeft];
-    v9 = @"kCBMsgArgDoubleTapActionEx";
+    v8 = @"kCBMsgArgDoubleTapActionEx";
     v6 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:rightCopy | (doubleTapActionLeft << 8)];
-    v10[0] = v6;
-    v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+    v9[0] = v6;
+    v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:&v8 count:1];
     [(CBClassicPeer *)self sendMsg:48 args:v7];
 
     [(CBClassicPeer *)self willChangeValueForKey:@"doubleTapActionRight"];
     self->_doubleTapActionRight = rightCopy;
     [(CBClassicPeer *)self didChangeValueForKey:@"doubleTapActionRight"];
   }
+}
 
-  v8 = *MEMORY[0x1E69E9840];
+- (void)setMicMode:(unsigned __int8)mode
+{
+  modeCopy = mode;
+  v8[1] = *MEMORY[0x1E69E9840];
+  if ([(CBClassicPeer *)self micMode]!= mode)
+  {
+    v7 = @"kCBMsgArgMicMode";
+    v5 = [MEMORY[0x1E696AD98] numberWithUnsignedChar:modeCopy];
+    v8[0] = v5;
+    v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:&v7 count:1];
+    [(CBClassicPeer *)self sendMsg:48 args:v6];
+
+    [(CBClassicPeer *)self willChangeValueForKey:@"micMode"];
+    self->_micMode = modeCopy;
+    [(CBClassicPeer *)self didChangeValueForKey:@"micMode"];
+  }
+}
+
+- (void)setInEarDetectionEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  v8[1] = *MEMORY[0x1E69E9840];
+  if ([(CBClassicPeer *)self inEarDetectionEnabled]!= enabled)
+  {
+    v7 = @"kCBMsgArgInEarDetectionEnabled";
+    v5 = [MEMORY[0x1E696AD98] numberWithBool:enabledCopy];
+    v8[0] = v5;
+    v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:&v7 count:1];
+    [(CBClassicPeer *)self sendMsg:48 args:v6];
+
+    [(CBClassicPeer *)self willChangeValueForKey:@"inEarDetectionEnabled"];
+    self->_inEarDetectionEnabled = enabledCopy;
+    [(CBClassicPeer *)self didChangeValueForKey:@"inEarDetectionEnabled"];
+  }
 }
 
 - (void)setSmartRoutingEnabled:(unsigned __int8)enabled
 {
-  v9[1] = *MEMORY[0x1E69E9840];
+  v8[1] = *MEMORY[0x1E69E9840];
   if ([(CBClassicPeer *)self smartRoutingEnabled]!= enabled)
   {
-    v8 = @"kCBMsgArgSmartRoutingEnabled";
+    v7 = @"kCBMsgArgSmartRoutingEnabled";
     v5 = [MEMORY[0x1E696AD98] numberWithChar:enabled];
-    v9[0] = v5;
-    v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:&v8 count:1];
+    v8[0] = v5;
+    v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:&v7 count:1];
     [(CBClassicPeer *)self sendMsg:48 args:v6];
 
     [(CBClassicPeer *)self willChangeValueForKey:@"smartRoutingEnabled"];
     self->_smartRoutingEnabled = enabled;
     [(CBClassicPeer *)self didChangeValueForKey:@"smartRoutingEnabled"];
   }
+}
 
-  v7 = *MEMORY[0x1E69E9840];
+- (void)setSmartRoutingSupported:(BOOL)supported
+{
+  supportedCopy = supported;
+  v8[1] = *MEMORY[0x1E69E9840];
+  if ([(CBClassicPeer *)self smartRoutingSupported]!= supported)
+  {
+    v7 = @"kCBMsgArgSmartRoutingSupported";
+    v5 = [MEMORY[0x1E696AD98] numberWithBool:supportedCopy];
+    v8[0] = v5;
+    v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:&v7 count:1];
+    [(CBClassicPeer *)self sendMsg:48 args:v6];
+
+    [(CBClassicPeer *)self willChangeValueForKey:@"smartRoutingSupported"];
+    self->_smartRoutingSupported = supportedCopy;
+    [(CBClassicPeer *)self didChangeValueForKey:@"smartRoutingSupported"];
+  }
+}
+
+- (void)setRemoteTimeSyncEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  v8[1] = *MEMORY[0x1E69E9840];
+  if ([(CBClassicPeer *)self remoteTimeSyncEnabled]!= enabled)
+  {
+    v7 = @"kCBMsgArgRemoteTimeSyncEnabled";
+    v5 = [MEMORY[0x1E696AD98] numberWithBool:enabledCopy];
+    v8[0] = v5;
+    v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:&v7 count:1];
+    [(CBClassicPeer *)self sendMsg:48 args:v6];
+
+    [(CBClassicPeer *)self willChangeValueForKey:@"remoteTimeSyncEnabled"];
+    self->_remoteTimeSyncEnabled = enabledCopy;
+    [(CBClassicPeer *)self didChangeValueForKey:@"remoteTimeSyncEnabled"];
+  }
 }
 
 - (unsigned)getConnectedServices
 {
-  v13[1] = *MEMORY[0x1E69E9840];
+  v11[1] = *MEMORY[0x1E69E9840];
   if ([(CBClassicPeer *)self internalState]== 2)
   {
     manager = [(CBPeer *)self manager];
-    v12 = @"kCBMsgArgDeviceUUID";
+    v10 = @"kCBMsgArgDeviceUUID";
     identifier = [(CBPeer *)self identifier];
-    v13[0] = identifier;
-    v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:&v12 count:1];
+    v11[0] = identifier;
+    v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:&v10 count:1];
     v6 = [manager sendSyncMsg:64 args:v5];
 
     v7 = [v6 objectForKeyedSubscript:@"kCBMsgArgConnectedServices"];
     LODWORD(manager) = [v7 unsignedIntValue];
 
-    result = manager;
-    v9 = *MEMORY[0x1E69E9840];
+    return manager;
   }
 
   else
@@ -2003,15 +2399,13 @@ LABEL_11:
       [CBClassicPeer dealloc];
     }
 
-    v10 = CBLogComponent;
+    v9 = CBLogComponent;
     result = os_log_type_enabled(CBLogComponent, OS_LOG_TYPE_ERROR);
     if (result)
     {
-      [(CBClassicPeer *)v10 getConnectedServices];
-      result = 0;
+      [(CBClassicPeer *)v9 getConnectedServices];
+      return 0;
     }
-
-    v11 = *MEMORY[0x1E69E9840];
   }
 
   return result;
@@ -2172,7 +2566,7 @@ LABEL_11:
 
 - (BOOL)isAACPCapabilityBit:(unsigned int)bit
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   aacpCapabilityBits = [(CBClassicPeer *)self aacpCapabilityBits];
   if (aacpCapabilityBits)
   {
@@ -2187,11 +2581,11 @@ LABEL_11:
 
     else
     {
-      v19 = 0;
+      v18 = 0;
       aacpCapabilityBits3 = [(CBClassicPeer *)self aacpCapabilityBits];
-      [aacpCapabilityBits3 getBytes:&v19 range:{bit >> 3, 1}];
+      [aacpCapabilityBits3 getBytes:&v18 range:{bit >> 3, 1}];
 
-      v10 = (1 << (bit & 7)) & v19;
+      v10 = (1 << (bit & 7)) & v18;
       v11 = v10 != 0;
       if (CBLogInitOnce != -1)
       {
@@ -2201,34 +2595,33 @@ LABEL_11:
       v12 = CBLogComponent;
       if (os_log_type_enabled(CBLogComponent, OS_LOG_TYPE_DEBUG))
       {
-        v14 = v10 != 0;
-        v15 = v12;
+        v13 = v10 != 0;
+        v14 = v12;
         name = [(CBClassicPeer *)self name];
         aacpCapabilityBits4 = [(CBClassicPeer *)self aacpCapabilityBits];
         *buf = 136316930;
-        v21 = "[CBClassicPeer isAACPCapabilityBit:]";
-        v22 = 2112;
-        v23 = name;
-        v24 = 2112;
-        v25 = aacpCapabilityBits4;
-        v26 = 1024;
+        v20 = "[CBClassicPeer isAACPCapabilityBit:]";
+        v21 = 2112;
+        v22 = name;
+        v23 = 2112;
+        v24 = aacpCapabilityBits4;
+        v25 = 1024;
         bitCopy = bit;
-        v28 = 1024;
-        v29 = bit & 7;
-        v30 = 1024;
-        v31 = bit >> 3;
-        v32 = 1024;
-        v33 = v19;
-        v34 = 1024;
-        v35 = v14;
-        _os_log_debug_impl(&dword_1C0AC1000, v15, OS_LOG_TYPE_DEBUG, "%s - “%@” - aacpCapabilityBits=%@ bit #%d is bit %d of byte %d (%2X) bitIsOn:%d", buf, 0x3Eu);
+        v27 = 1024;
+        v28 = bit & 7;
+        v29 = 1024;
+        v30 = bit >> 3;
+        v31 = 1024;
+        v32 = v18;
+        v33 = 1024;
+        v34 = v13;
+        _os_log_debug_impl(&dword_1C0AC1000, v14, OS_LOG_TYPE_DEBUG, "%s - “%@” - aacpCapabilityBits=%@ bit #%d is bit %d of byte %d (%2X) bitIsOn:%d", buf, 0x3Eu);
       }
 
       LOBYTE(aacpCapabilityBits) = v11;
     }
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return aacpCapabilityBits;
 }
 
@@ -2285,6 +2678,14 @@ LABEL_5:
 
     return 0;
   }
+}
+
+- (void)openL2CAPChannel:(unsigned __int16)channel
+{
+  v4 = MEMORY[0x1E695DF90];
+  v6 = [MEMORY[0x1E696AD98] numberWithUnsignedShort:channel];
+  v5 = [v4 dictionaryWithObjectsAndKeys:{v6, @"kCBMsgArgPSM", MEMORY[0x1E695E0F8], @"kCBMsgArgOptions", 0}];
+  [(CBClassicPeer *)self sendMsg:29 args:v5];
 }
 
 - (void)closeL2CAPChannel:(unsigned __int16)channel
@@ -2374,111 +2775,59 @@ LABEL_5:
   }
 }
 
-- (void)sendMsg:requiresConnected:args:.cold.2()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_2_0(&dword_1C0AC1000, v0, v1, "API MISUSE: %@ can only accept commands while in the connected state", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)sendMsg:requiresConnected:args:.cold.4()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_2_0(&dword_1C0AC1000, v0, v1, "WARNING: %@ is not a valid peer", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
 - (void)handleMsg:args:.cold.2()
 {
-  v5 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_5_1();
   _os_log_debug_impl(v0, v1, OS_LOG_TYPE_DEBUG, v2, v3, 0x12u);
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)handlePeerUpdated:(NSObject *)a3 .cold.2(void *a1, uint64_t a2, NSObject *a3)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v5 = [a1 name];
-  v7 = 136315650;
-  v8 = "[CBClassicPeer handlePeerUpdated:]";
-  v9 = 2112;
-  v10 = v5;
-  v11 = 2112;
-  v12 = a2;
-  _os_log_debug_impl(&dword_1C0AC1000, a3, OS_LOG_TYPE_DEBUG, "%s - Received capability bits for “%@”: %@", &v7, 0x20u);
-
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)handleL2CAPChannelOpened:.cold.2()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_2_0(&dword_1C0AC1000, v0, v1, "Failed to open L2CAP channel: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  v6 = 136315650;
+  v7 = "[CBClassicPeer handlePeerUpdated:]";
+  v8 = 2112;
+  v9 = v5;
+  v10 = 2112;
+  v11 = a2;
+  _os_log_debug_impl(&dword_1C0AC1000, a3, OS_LOG_TYPE_DEBUG, "%s - Received capability bits for “%@”: %@", &v6, 0x20u);
 }
 
 - (void)handleL2CAPChannelClosed:.cold.2()
 {
-  v5 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_4_1();
   OUTLINED_FUNCTION_5_1();
   _os_log_debug_impl(v0, v1, OS_LOG_TYPE_DEBUG, v2, v3, 0x1Cu);
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)channelWithPSM:.cold.2()
 {
-  v5 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_4_1();
   OUTLINED_FUNCTION_5_1();
   _os_log_error_impl(v0, v1, OS_LOG_TYPE_ERROR, v2, v3, 0x12u);
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)channelWithID:.cold.2()
 {
-  v5 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_4_1();
   OUTLINED_FUNCTION_5_1();
   _os_log_error_impl(v0, v1, OS_LOG_TYPE_ERROR, v2, v3, 0x12u);
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)getConnectedServices
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   selfCopy = self;
   identifier = [a2 identifier];
-  v6 = 138412546;
-  v7 = identifier;
-  v8 = 2048;
+  v5 = 138412546;
+  v6 = identifier;
+  v7 = 2048;
   internalState = [a2 internalState];
-  _os_log_error_impl(&dword_1C0AC1000, selfCopy, OS_LOG_TYPE_ERROR, "Peer: %@ is not connected %ld", &v6, 0x16u);
-
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-- (void)openRFCOMMChannel:options:.cold.2()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_2_0(&dword_1C0AC1000, v0, v1, "API MISUSE: %@ Invalid RFCOMM CID", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)closeL2CAPChannel:.cold.2()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_2_0(&dword_1C0AC1000, v0, v1, "API MISUSE: %@ Invalid L2CAP PSM", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_1C0AC1000, selfCopy, OS_LOG_TYPE_ERROR, "Peer: %@ is not connected %ld", &v5, 0x16u);
 }
 
 - (void)setName:(uint64_t)a1 .cold.1(uint64_t a1, uint64_t a2)

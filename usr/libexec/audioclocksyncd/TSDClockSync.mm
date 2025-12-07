@@ -2,6 +2,7 @@
 + (id)iokitMatchingDictionaryForClockIdentifier:(unint64_t)identifier;
 - (BOOL)deregisterAsyncCallback;
 - (BOOL)registerAsyncCallback;
+- (TSDClockSync)initWithClockIdentifier:(unint64_t)identifier pid:(int)pid;
 - (id)connection;
 - (id)service;
 - (unint64_t)releaseReference;
@@ -25,6 +26,86 @@
   v5 = [NSDictionary dictionaryWithObjects:v10 forKeys:v9 count:2];
 
   return v5;
+}
+
+- (TSDClockSync)initWithClockIdentifier:(unint64_t)identifier pid:(int)pid
+{
+  v4 = *&pid;
+  v23.receiver = self;
+  v23.super_class = TSDClockSync;
+  v6 = [(TSDClockSync *)&v23 init];
+  v7 = v6;
+  if (v6)
+  {
+    v6->_referenceCount = 1;
+    v6->_clockIdentifier = identifier;
+    v8 = +[NSPointerArray weakObjectsPointerArray];
+    updateClients = v7->_updateClients;
+    v7->_updateClients = v8;
+
+    v7->_updateClientsLock._os_unfair_lock_opaque = 0;
+    os_parse_boot_arg_int();
+    v7->_logNotifyTest = 0;
+    v10 = objc_opt_class();
+    v11 = NSStringFromClass(v10);
+    v12 = v11;
+    if (v4)
+    {
+      [NSString stringWithFormat:@"com.apple.TimeSync.TSDClockSync.%@.0x%016llx.notification.%d", v11, identifier, v4];
+    }
+
+    else
+    {
+      [NSString stringWithFormat:@"com.apple.TimeSync.TSDClockSync.%@.0x%016llx.notification", v11, identifier, v22];
+    }
+    v13 = ;
+
+    v14 = dispatch_queue_create([v13 UTF8String], 0);
+    notificationsQueue = v7->_notificationsQueue;
+    v7->_notificationsQueue = v14;
+
+    if (v7->_notificationsQueue)
+    {
+      v7->_serviceLock._os_unfair_lock_opaque = 0;
+      v16 = [objc_opt_class() iokitMatchingDictionaryForClockIdentifier:identifier];
+      v17 = [IOKService matchingService:v16];
+      service = v7->_service;
+      v7->_service = v17;
+
+      if (v7->_service)
+      {
+        v19 = [[IODConnection alloc] initWithService:v7->_service andType:24];
+        connection = v7->_connection;
+        v7->_connection = v19;
+
+        if (v7->_connection)
+        {
+          v7->_asyncCallbackRefcon = 0;
+          [(TSDClockSync *)v7 registerAsyncCallback];
+LABEL_9:
+
+          return v7;
+        }
+
+        sub_100029C40(v7);
+      }
+
+      else
+      {
+        sub_100029D00(v7);
+      }
+    }
+
+    else
+    {
+      sub_100029DC0(v7);
+    }
+
+    v7 = 0;
+    goto LABEL_9;
+  }
+
+  return v7;
 }
 
 - (id)service

@@ -22,7 +22,7 @@
   hk_gregorianCalendarWithFirstWeekdayFromRegion = [v9 hk_gregorianCalendarWithFirstWeekdayFromRegion];
   sub_1C3D1E384();
 
-  v13 = objc_allocWithZone(type metadata accessor for BalanceChartDataSource());
+  v13 = objc_allocWithZone(type metadata accessor for BalanceChartDataSource(0));
   v14 = sub_1C3CE1444(typeCopy, storeCopy, v8);
   swift_getObjectType();
   swift_deallocPartialClassInstance();
@@ -65,7 +65,7 @@
   v10 = v4;
   v11 = v5;
   v9.receiver = self;
-  v9.super_class = type metadata accessor for BalanceChartDataSource();
+  v9.super_class = type metadata accessor for BalanceChartDataSource(0);
   return [(HKHealthQueryChartCacheDataSource *)&v9 calendarUnitForTimeScope:scope displayType:type];
 }
 
@@ -78,7 +78,7 @@
   selfCopy = self;
   sub_1C3CE1A20(requestCopy, sub_1C3CB46F8, v7);
 
-  sub_1C3C27CB4(0, &qword_1EC080DD8);
+  sub_1C3C27CB4(0, &qword_1EC080DD8, 0x1E696C378);
   v10 = sub_1C3D202A4();
 
   return v10;

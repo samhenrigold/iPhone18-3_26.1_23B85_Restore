@@ -1,6 +1,7 @@
 @interface _TPNumberPadCircleBackgroundView
 - (UIControl)proxyControl;
 - (_TPNumberPadCircleBackgroundView)initWithFrame:(CGRect)frame;
+- (void)setHighlighted:(BOOL)highlighted;
 - (void)touchCancel:(id)cancel;
 - (void)touchDown:(id)down;
 - (void)touchUpInside:(id)inside;
@@ -24,6 +25,16 @@
   }
 
   return v4;
+}
+
+- (void)setHighlighted:(BOOL)highlighted
+{
+  highlightedCopy = highlighted;
+  v6.receiver = self;
+  v6.super_class = _TPNumberPadCircleBackgroundView;
+  [(_TPNumberPadCircleBackgroundView *)&v6 setHighlighted:?];
+  WeakRetained = objc_loadWeakRetained(&self->_proxyControl);
+  [WeakRetained setHighlighted:highlightedCopy];
 }
 
 - (void)touchDown:(id)down

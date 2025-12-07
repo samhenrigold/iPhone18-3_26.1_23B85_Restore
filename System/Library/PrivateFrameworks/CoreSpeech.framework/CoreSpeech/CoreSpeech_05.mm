@@ -1,15 +1,3 @@
-void sub_1001359E8(uint64_t a1)
-{
-  v2 = [*(a1 + 32) observers];
-  [v2 removeObject:*(a1 + 40)];
-}
-
-void sub_100135AD4(uint64_t a1)
-{
-  v2 = [*(a1 + 32) observers];
-  [v2 addObject:*(a1 + 40)];
-}
-
 void sub_100135C00(id a1)
 {
   v1 = objc_alloc_init(CSOpportuneSpeakBehaviorMonitor);
@@ -205,9 +193,9 @@ void sub_10013624C(uint64_t a1)
   }
 }
 
-void sub_100136500(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100136500(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -224,8 +212,8 @@ Class sub_100136520(uint64_t a1)
 
   else
   {
-    v3 = abort_report_np();
-    return sub_100136590(v3);
+    abort_report_np("Unable to find class %s", "AWAttentionAwarenessClient");
+    return sub_100136590();
   }
 
   return result;
@@ -255,9 +243,9 @@ id sub_100136590()
   return v1;
 }
 
-void sub_100136658(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100136658(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -273,7 +261,7 @@ void sub_10013667C(uint64_t a1)
 
   else
   {
-    abort_report_np();
+    abort_report_np("Unable to find class %s", "AWAttentionAwarenessConfiguration");
     sub_1001366EC();
   }
 }
@@ -302,7 +290,7 @@ void sub_1001366EC()
 
     else
     {
-      v0 = abort_report_np();
+      v0 = abort_report_np("%s", v1[0]);
     }
 
     free(v0);
@@ -311,7 +299,6 @@ void sub_1001366EC()
 
 uint64_t sub_1001367F8(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_10029E4B8 = result;
   return result;
@@ -684,9 +671,9 @@ void sub_1001390EC(id *a1)
   }
 }
 
-void sub_1001394E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1001394E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1225,13 +1212,13 @@ uint64_t sub_10013FD64(uint64_t a1)
     v4 = *(a1 + 32);
     v5 = v2;
     v6 = [v4 description];
-    v13 = 136315650;
-    v14 = "[CSContinuousAudioFingerprintProvider _startListenWithCompletion:]_block_invoke_3";
+    v11 = 136315650;
+    v12 = "[CSContinuousAudioFingerprintProvider _startListenWithCompletion:]_block_invoke_3";
+    v13 = 2114;
+    v14 = v3;
     v15 = 2114;
-    v16 = v3;
-    v17 = 2114;
-    v18 = v6;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "%s Start audio stream successfully ? %{public}@, error : %{public}@", &v13, 0x20u);
+    v16 = v6;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "%s Start audio stream successfully ? %{public}@, error : %{public}@", &v11, 0x20u);
   }
 
   v7 = [*(a1 + 40) enablePolicy];
@@ -1242,16 +1229,14 @@ uint64_t sub_10013FD64(uint64_t a1)
     v9 = CSLogContextFacilityCoreSpeech;
     if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_ERROR))
     {
-      v13 = 136315138;
-      v14 = "[CSContinuousAudioFingerprintProvider _startListenWithCompletion:]_block_invoke";
-      _os_log_error_impl(&_mh_execute_header, v9, OS_LOG_TYPE_ERROR, "%s Received didStartRecording when Siri is off", &v13, 0xCu);
+      v11 = 136315138;
+      v12 = "[CSContinuousAudioFingerprintProvider _startListenWithCompletion:]_block_invoke";
+      _os_log_error_impl(&_mh_execute_header, v9, OS_LOG_TYPE_ERROR, "%s Received didStartRecording when Siri is off", &v11, 0xCu);
     }
 
     [*(a1 + 40) _stopListening];
   }
 
-  v10 = *(a1 + 56);
-  v11 = *(a1 + 32);
   return (*(*(a1 + 48) + 16))();
 }
 
@@ -1342,8 +1327,8 @@ void sub_1001405E8(uint64_t a1)
 
     if (v6 == 1)
     {
-      +[CSFAudioStreamBasicDescriptionFactory utteranceFileASBD];
-      +[CSFAudioStreamBasicDescriptionFactory utteranceFileASBD];
+      objc_msgSend_utteranceFileASBD(CSFAudioStreamBasicDescriptionFactory);
+      objc_msgSend_utteranceFileASBD(CSFAudioStreamBasicDescriptionFactory);
       v7 = [CSAudioFileManager createAudioFileWriterForAdBlockerWithInputFormat:v15 outputFormat:&v14 withAccessoryID:0];
       v8 = *(a1 + 32);
       v9 = *(v8 + 48);
@@ -1510,9 +1495,9 @@ void sub_100140F08(uint64_t a1, uint64_t a2)
   [WeakRetained _handleEnablePolicyEvent:a2];
 }
 
-void sub_1001422AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1001422AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2059,9 +2044,9 @@ void sub_100145424(uint64_t a1, void *a2)
   _Block_object_dispose(&v13, 8);
 }
 
-void sub_100145670(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100145670(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3201,9 +3186,9 @@ void sub_100152BE8(uint64_t a1)
   }
 }
 
-void sub_100152DC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100152DC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4203,48 +4188,48 @@ void sub_100158A70(uint64_t a1, void *a2, void *a3)
   dispatch_async(v30, block);
 }
 
-uint64_t sub_10015A00C(uint64_t a1)
+uint64_t sub_10015A00C(uint64_t a1, uint64_t a2)
 {
-  v2 = *(a1 + 32);
-  if (*(v2 + 15))
+  v3 = *(a1 + 32);
+  if (*(v3 + 15))
   {
-    if ([*(v2 + 248) count])
+    if ([*(v3 + 248) count])
     {
-      v13 = 0u;
       v14 = 0u;
-      v11 = 0u;
+      v15 = 0u;
       v12 = 0u;
-      v3 = *(*(a1 + 32) + 248);
-      v4 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
-      if (v4)
+      v13 = 0u;
+      v4 = *(*(a1 + 32) + 248);
+      v5 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      if (v5)
       {
-        v5 = v4;
-        v6 = *v12;
+        v6 = v5;
+        v7 = *v13;
         do
         {
-          v7 = 0;
+          v8 = 0;
           do
           {
-            if (*v12 != v6)
+            if (*v13 != v7)
             {
-              objc_enumerationMutation(v3);
+              objc_enumerationMutation(v4);
             }
 
-            [*(a1 + 32) _handleAudioChunk:{*(*(&v11 + 1) + 8 * v7), v11}];
-            v7 = v7 + 1;
+            [*(a1 + 32) _handleAudioChunk:{*(*(&v12 + 1) + 8 * v8), v12}];
+            v8 = v8 + 1;
           }
 
-          while (v5 != v7);
-          v5 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+          while (v6 != v8);
+          v6 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
         }
 
-        while (v5);
+        while (v6);
       }
 
       [*(*(a1 + 32) + 248) removeAllObjects];
     }
 
-    return [*(a1 + 32) _handleAudioChunk:{*(a1 + 40), v11}];
+    return [*(a1 + 32) _handleAudioChunk:{*(a1 + 40), v12}];
   }
 
   else
@@ -4252,10 +4237,10 @@ uint64_t sub_10015A00C(uint64_t a1)
     result = CSIsHorseman();
     if ((result & 1) == 0)
     {
-      v9 = *(a1 + 40);
-      v10 = *(*(a1 + 32) + 248);
+      v10 = *(a1 + 40);
+      v11 = *(*(a1 + 32) + 248);
 
-      return [v10 addObject:v9];
+      return [v11 addObject:v10];
     }
   }
 
@@ -4584,36 +4569,35 @@ void sub_10015C19C(uint64_t a1, int a2)
       if (os_log_type_enabled(CSLogCategoryVT, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315138;
-        v15 = "[CSBuiltInVoiceTrigger _startListenWithCompletion:]_block_invoke_2";
+        v14 = "[CSBuiltInVoiceTrigger _startListenWithCompletion:]_block_invoke_2";
         _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "%s Entering recordWillStartGroup", buf, 0xCu);
       }
 
       dispatch_group_enter(*(*(a1 + 32) + 224));
       v6 = [*(a1 + 32) audioStream];
-      v12[0] = _NSConcreteStackBlock;
-      v12[1] = 3221225472;
-      v12[2] = sub_10015C3B0;
-      v12[3] = &unk_100253270;
+      v11[0] = _NSConcreteStackBlock;
+      v11[1] = 3221225472;
+      v11[2] = sub_10015C3B0;
+      v11[3] = &unk_100253270;
       v7 = *(a1 + 40);
-      v12[4] = *(a1 + 32);
-      v13 = v7;
-      [v6 startAudioStreamWithOption:v3 completion:v12];
+      v11[4] = *(a1 + 32);
+      v12 = v7;
+      [v6 startAudioStreamWithOption:v3 completion:v11];
     }
 
     else
     {
-      v10 = *(a1 + 40);
-      v11 = [NSError errorWithDomain:CSErrorDomain code:960 userInfo:0];
-      (*(v10 + 16))(v10, 0, v11);
+      v9 = *(a1 + 40);
+      v10 = [NSError errorWithDomain:CSErrorDomain code:960 userInfo:0];
+      (*(v9 + 16))(v9, 0, v10);
     }
   }
 
   else
   {
-    v8 = *(a1 + 40);
-    v9 = *(*(a1 + 40) + 16);
+    v8 = *(*(a1 + 40) + 16);
 
-    v9();
+    v8();
   }
 }
 
@@ -4640,9 +4624,9 @@ uint64_t sub_10015C470(uint64_t a1)
   v2 = CSLogCategoryVT;
   if (os_log_type_enabled(CSLogCategoryVT, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 136315138;
-    v10 = "[CSBuiltInVoiceTrigger _startListenWithCompletion:]_block_invoke_2";
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "%s Leaving recordWillStartGroup", &v9, 0xCu);
+    v7 = 136315138;
+    v8 = "[CSBuiltInVoiceTrigger _startListenWithCompletion:]_block_invoke_2";
+    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "%s Leaving recordWillStartGroup", &v7, 0xCu);
   }
 
   dispatch_group_leave(*(*(a1 + 32) + 224));
@@ -4662,9 +4646,9 @@ uint64_t sub_10015C470(uint64_t a1)
       v5 = CSLogCategoryVT;
       if (os_log_type_enabled(CSLogCategoryVT, OS_LOG_TYPE_ERROR))
       {
-        v9 = 136315138;
-        v10 = "[CSBuiltInVoiceTrigger _startListenWithCompletion:]_block_invoke";
-        _os_log_error_impl(&_mh_execute_header, v5, OS_LOG_TYPE_ERROR, "%s didStartRecording received when VoiceTrigger is turned-off", &v9, 0xCu);
+        v7 = 136315138;
+        v8 = "[CSBuiltInVoiceTrigger _startListenWithCompletion:]_block_invoke";
+        _os_log_error_impl(&_mh_execute_header, v5, OS_LOG_TYPE_ERROR, "%s didStartRecording received when VoiceTrigger is turned-off", &v7, 0xCu);
         v3 = *(a1 + 32);
       }
 
@@ -4672,8 +4656,6 @@ uint64_t sub_10015C470(uint64_t a1)
     }
   }
 
-  v6 = *(a1 + 56);
-  v7 = *(a1 + 40);
   return (*(*(a1 + 48) + 16))();
 }
 
@@ -5337,9 +5319,9 @@ void sub_100162690(uint64_t a1)
   [v4 setRequestId:v5];
 }
 
-void sub_100162B34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
+void sub_100162B34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, ...)
 {
-  va_start(va, a14);
+  va_start(va, a21);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5368,7 +5350,7 @@ Class sub_100162B54(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -5379,7 +5361,7 @@ LABEL_4:
   *(*(*(a1 + 32) + 8) + 24) = result;
   if (!*(*(*(a1 + 32) + 8) + 24))
   {
-    abort_report_np();
+    abort_report_np("Unable to find class %s", "SMTContinuityEnd");
   }
 
   qword_10029E5D0 = *(*(*(a1 + 32) + 8) + 24);
@@ -5388,7 +5370,6 @@ LABEL_4:
 
 uint64_t sub_100162CA8(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_10029E5D8 = result;
   return result;
@@ -5833,27 +5814,25 @@ uint64_t sub_100166A58(int a1, uint64_t a2, uint64_t a3, uint64_t a4, id a5)
 
 id sub_1001672D0(uint64_t a1, uint64_t a2)
 {
-  v2 = *(a1 + 32);
   if (*(a1 + 40))
   {
-    v3 = 1;
+    v2 = 1;
   }
 
   else
   {
-    v3 = 2;
+    v2 = 2;
   }
 
-  return [*(a1 + 32) _notifyObserver:a2 mediaIsPlayingState:v3];
+  return [*(a1 + 32) _notifyObserver:a2 mediaIsPlayingState:v2];
 }
 
 void sub_100167548(uint64_t a1)
 {
   objc_initWeak(&location, *(a1 + 32));
-  v2 = *(*(a1 + 32) + 16);
-  objc_copyWeak(&v3, &location);
+  objc_copyWeak(&v1, &location);
   MRMediaRemoteGetNowPlayingApplicationPlaybackState();
-  objc_destroyWeak(&v3);
+  objc_destroyWeak(&v1);
   objc_destroyWeak(&location);
 }
 
@@ -6289,9 +6268,9 @@ BOOL sub_10016A3CC(id a1)
   return v2 ^ 1;
 }
 
-void sub_10016AC34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10016AC34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6344,9 +6323,9 @@ void sub_10016AC4C(uint64_t a1, void *a2, void *a3)
   _Block_object_dispose(v14, 8);
 }
 
-void sub_10016AEBC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_10016AEBC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }

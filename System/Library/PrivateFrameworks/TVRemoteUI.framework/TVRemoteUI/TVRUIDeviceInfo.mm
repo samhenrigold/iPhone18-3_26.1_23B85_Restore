@@ -154,7 +154,7 @@ uint64_t __32__TVRUIDeviceInfo_hasHomeButton__block_invoke()
     dispatch_once(&_userIntentButtonRect_onceToken, block);
   }
 
-  v2 = _TVRUIDeviceInfoLog();
+  v2 = _TVRUIDeviceInfoLog(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = NSStringFromCGRect(*_userIntentButtonRect_frame);
@@ -163,8 +163,8 @@ uint64_t __32__TVRUIDeviceInfo_hasHomeButton__block_invoke()
     _os_log_impl(&dword_26CFEB000, v2, OS_LOG_TYPE_DEFAULT, "Power button frame - %@", buf, 0xCu);
   }
 
-  v5 = *&_userIntentButtonRect_frame[8];
   v4 = *_userIntentButtonRect_frame;
+  v5 = *&_userIntentButtonRect_frame[8];
   v6 = *&_userIntentButtonRect_frame[16];
   v7 = *&_userIntentButtonRect_frame[24];
   result.size.height = v7;
@@ -184,9 +184,9 @@ void __40__TVRUIDeviceInfo__userIntentButtonRect__block_invoke(uint64_t a1)
     if (v4 == CFDataGetTypeID())
     {
       BytePtr = CFDataGetBytePtr(v3);
-      v6 = BytePtr[1];
-      _userIntentButtonRect_frame = *BytePtr;
-      *&qword_2804DA950 = v6;
+      v6 = *(BytePtr + 1);
+      *_userIntentButtonRect_frame = *BytePtr;
+      *&_userIntentButtonRect_frame[16] = v6;
     }
 
     CFRelease(v3);
@@ -201,14 +201,14 @@ void __40__TVRUIDeviceInfo__userIntentButtonRect__block_invoke(uint64_t a1)
     v40.origin.y = v11;
     v40.size.width = v13;
     v40.size.height = v15;
-    v16 = CGRectGetWidth(v40) * *&_userIntentButtonRect_frame;
+    v16 = CGRectGetWidth(v40) * *_userIntentButtonRect_frame;
     v17 = floorf(v16);
     v41.origin.x = v9;
     v41.origin.y = v11;
     v41.size.width = v13;
     v41.size.height = v15;
     Height = CGRectGetHeight(v41);
-    v38 = *(&_userIntentButtonRect_frame + 1);
+    v38 = *&_userIntentButtonRect_frame[8];
     v42.origin.x = v9;
     v42.origin.y = v11;
     v42.size.width = v13;
@@ -216,12 +216,12 @@ void __40__TVRUIDeviceInfo__userIntentButtonRect__block_invoke(uint64_t a1)
     Width = CGRectGetWidth(v42);
     v19.f64[0] = Height;
     v19.f64[1] = Width;
-    v20 = vrndm_f32(vcvt_f32_f64(vmulq_f64(v19, __PAIR128__(qword_2804DA950, v38))));
+    v20 = vrndm_f32(vcvt_f32_f64(vmulq_f64(v19, __PAIR128__(*&_userIntentButtonRect_frame[16], v38))));
     v21 = v9;
     v19.f64[0] = v11;
     v22 = v13;
     v23 = v15;
-    v24 = CGRectGetHeight(*(&v19 - 8)) * *&qword_2804DA958;
+    v24 = CGRectGetHeight(*(&v19 - 8)) * *&_userIntentButtonRect_frame[24];
     v25 = floorf(v24);
   }
 
@@ -256,9 +256,9 @@ void __40__TVRUIDeviceInfo__userIntentButtonRect__block_invoke(uint64_t a1)
     v25 = 0.0;
   }
 
-  *&_userIntentButtonRect_frame = v17;
-  *(&_userIntentButtonRect_frame + 8) = vcvtq_f64_f32(v20);
-  qword_2804DA958 = *&v25;
+  *_userIntentButtonRect_frame = v17;
+  *&_userIntentButtonRect_frame[8] = vcvtq_f64_f32(v20);
+  *&_userIntentButtonRect_frame[24] = v25;
 }
 
 - (double)_volumeButtonsX

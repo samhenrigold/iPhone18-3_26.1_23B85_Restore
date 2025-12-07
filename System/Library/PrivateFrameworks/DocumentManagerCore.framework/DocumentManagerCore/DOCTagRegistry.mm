@@ -118,39 +118,39 @@ void __32__DOCTagRegistry_sharedInstance__block_invoke()
 
 - (void)updateDesktopServicesWithUserTags
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   if (NSClassFromString(&cfstr_Fialltagsnode.isa))
   {
     userTags = [(DOCTagRegistry *)self userTags];
     if ([userTags count])
     {
       v4 = [objc_alloc(MEMORY[0x277CBEB38]) initWithCapacity:{objc_msgSend(userTags, "count")}];
+      v13 = 0u;
       v14 = 0u;
       v15 = 0u;
       v16 = 0u;
-      v17 = 0u;
       v5 = userTags;
-      v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v6)
       {
         v7 = v6;
-        v8 = *v15;
+        v8 = *v14;
         do
         {
           for (i = 0; i != v7; ++i)
           {
-            if (*v15 != v8)
+            if (*v14 != v8)
             {
               objc_enumerationMutation(v5);
             }
 
-            v10 = *(*(&v14 + 1) + 8 * i);
-            v11 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(v10, "labelIndex", v14)}];
+            v10 = *(*(&v13 + 1) + 8 * i);
+            v11 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(v10, "labelIndex", v13)}];
             displayName = [v10 displayName];
             [v4 setObject:v11 forKeyedSubscript:displayName];
           }
 
-          v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+          v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
         }
 
         while (v7);
@@ -164,8 +164,6 @@ void __32__DOCTagRegistry_sharedInstance__block_invoke()
       [MEMORY[0x277D046B0] setCurrentTagsColorMappings:MEMORY[0x277CBEC10]];
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __22__DOCTagRegistry_init__block_invoke(uint64_t a1, int a2)
@@ -227,11 +225,11 @@ void __22__DOCTagRegistry_init__block_invoke(uint64_t a1, int a2)
   }
 }
 
-uint64_t __39__DOCTagRegistry_removeChangeObserver___block_invoke(uint64_t result, uint64_t a2, uint64_t a3, _BYTE *a4)
+void *__39__DOCTagRegistry_removeChangeObserver___block_invoke(void *result, uint64_t a2, uint64_t a3, _BYTE *a4)
 {
-  if (*(result + 32) == a2)
+  if (result[4] == a2)
   {
-    result = [*(*(result + 40) + 24) removePointerAtIndex:?];
+    result = [*(result[5] + 24) removePointerAtIndex:a3];
     *a4 = 1;
   }
 
@@ -362,38 +360,36 @@ BOOL __65__DOCTagRegistry__notifyDidRemoveTagIfNoLongPresentExistingTags___block
 
 void __34__DOCTagRegistry_addTags_options___block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
+  v7 = 0u;
   v8 = 0u;
   v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
   v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v9;
+    v5 = *v8;
     do
     {
       v6 = 0;
       do
       {
-        if (*v9 != v5)
+        if (*v8 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        [*(a1 + 40) addTag:*(*(&v8 + 1) + 8 * v6++) options:{*(a1 + 48), v8}];
+        [*(a1 + 40) addTag:*(*(&v7 + 1) + 8 * v6++) options:{*(a1 + 48), v7}];
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
     }
 
     while (v4);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addTag:(id)tag options:(int64_t)options
@@ -463,7 +459,7 @@ void __34__DOCTagRegistry_addTags_options___block_invoke(uint64_t a1)
 
 - (BOOL)isValidNewTagName:(id)name
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   v5 = [objc_opt_class() sanitizedTagName:nameCopy];
   v6 = [(DOCTagRegistry *)self _tagNameForComparing:v5];
@@ -474,26 +470,26 @@ void __34__DOCTagRegistry_addTags_options___block_invoke(uint64_t a1)
     v8 = [(NSMutableOrderedSet *)self->_discoveredTags set];
     v9 = [v7 setByAddingObjectsFromSet:v8];
 
-    v23 = 0u;
-    v24 = 0u;
-    v21 = 0u;
     v22 = 0u;
+    v23 = 0u;
+    v20 = 0u;
+    v21 = 0u;
     v10 = v9;
-    v11 = [v10 countByEnumeratingWithState:&v21 objects:v25 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v20 objects:v24 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v22;
+      v13 = *v21;
       while (2)
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v22 != v13)
+          if (*v21 != v13)
           {
             objc_enumerationMutation(v10);
           }
 
-          displayName = [*(*(&v21 + 1) + 8 * i) displayName];
+          displayName = [*(*(&v20 + 1) + 8 * i) displayName];
           v16 = [(DOCTagRegistry *)self _tagNameForComparing:displayName];
           v17 = [v16 isEqualToString:v6];
 
@@ -504,7 +500,7 @@ void __34__DOCTagRegistry_addTags_options___block_invoke(uint64_t a1)
           }
         }
 
-        v12 = [v10 countByEnumeratingWithState:&v21 objects:v25 count:16];
+        v12 = [v10 countByEnumeratingWithState:&v20 objects:v24 count:16];
         if (v12)
         {
           continue;
@@ -523,7 +519,6 @@ LABEL_12:
     v18 = 0;
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return v18;
 }
 
@@ -730,7 +725,7 @@ void __29__DOCTagRegistry_removeTags___block_invoke(uint64_t a1)
     tagsBeforeBatchUpdate = self->_tagsBeforeBatchUpdate;
     self->_tagsBeforeBatchUpdate = _allTags;
 
-    MEMORY[0x2821F96F8]();
+    MEMORY[0x2821F96F8](_allTags, tagsBeforeBatchUpdate);
   }
 }
 
@@ -767,11 +762,11 @@ void __29__DOCTagRegistry_removeTags___block_invoke(uint64_t a1)
 
 - (void)synchronize
 {
-  v35[2] = *MEMORY[0x277D85DE8];
+  v34[2] = *MEMORY[0x277D85DE8];
   if ([(DOCTagRegistry *)self inBatchUpdate])
   {
     self->_shouldSynchronizeAfterBatchUpdate = 1;
-    goto LABEL_16;
+    return;
   }
 
   self->_shouldSynchronizeAfterBatchUpdate = 0;
@@ -829,21 +824,21 @@ LABEL_9:
 
   v22 = self->_iCloudDataSource;
   iCloudDataSource = self->_iCloudDataSource;
-  v31[0] = MEMORY[0x277D85DD0];
-  v31[1] = 3221225472;
-  v31[2] = __29__DOCTagRegistry_synchronize__block_invoke;
-  v31[3] = &unk_278F9B3C0;
-  v32 = v22;
+  v30[0] = MEMORY[0x277D85DD0];
+  v30[1] = 3221225472;
+  v30[2] = __29__DOCTagRegistry_synchronize__block_invoke;
+  v30[3] = &unk_278F9B3C0;
+  v31 = v22;
   selfCopy = self;
   v24 = v22;
-  [(DOCTagCloudSource *)iCloudDataSource isICloudAvailableWithCompletionBlock:v31];
+  [(DOCTagCloudSource *)iCloudDataSource isICloudAvailableWithCompletionBlock:v30];
 
   if (v14)
   {
 LABEL_10:
     if (!(v6 | v15))
     {
-      goto LABEL_16;
+      return;
     }
 
     goto LABEL_14;
@@ -855,22 +850,19 @@ LABEL_13:
 
 LABEL_14:
   defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
-  v34[0] = @"DOCTagRegistryChangeUserTagsDidChangeKey";
+  v33[0] = @"DOCTagRegistryChangeUserTagsDidChangeKey";
   v27 = [MEMORY[0x277CCABB0] numberWithBool:v6];
-  v34[1] = @"DOCTagRegistryChangeDiscoveredTagsDidChangeKey";
-  v35[0] = v27;
+  v33[1] = @"DOCTagRegistryChangeDiscoveredTagsDidChangeKey";
+  v34[0] = v27;
   v28 = [MEMORY[0x277CCABB0] numberWithBool:v15];
-  v35[1] = v28;
-  v29 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v35 forKeys:v34 count:2];
+  v34[1] = v28;
+  v29 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v34 forKeys:v33 count:2];
   [defaultCenter postNotificationName:@"DOCTagRegistryTagsDidChangeNotification" object:self userInfo:v29];
 
   if (v6)
   {
     [(DOCTagRegistry *)self updateDesktopServicesWithUserTags];
   }
-
-LABEL_16:
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __29__DOCTagRegistry_synchronize__block_invoke(uint64_t a1, int a2)

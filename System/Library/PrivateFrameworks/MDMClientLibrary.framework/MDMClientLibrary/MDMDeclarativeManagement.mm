@@ -9,7 +9,7 @@
 
 + (void)executeRequestForEndpoint:(id)endpoint channelType:(unint64_t)type requestData:(id)data completionHandler:(id)handler
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   endpointCopy = endpoint;
   dataCopy = data;
   handlerCopy = handler;
@@ -21,9 +21,9 @@
     _os_log_impl(&dword_22E997000, v12, OS_LOG_TYPE_INFO, "Calling executeRequestForMessageType - channel type: %lu", buf, 0xCu);
   }
 
-  v19 = @"Endpoint";
-  v20 = endpointCopy;
-  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v20 forKeys:&v19 count:1];
+  v18 = @"Endpoint";
+  v19 = endpointCopy;
+  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v19 forKeys:&v18 count:1];
   v14 = [v13 mutableCopy];
 
   if (dataCopy)
@@ -31,15 +31,13 @@
     [v14 setObject:dataCopy forKeyedSubscript:@"Data"];
   }
 
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __96__MDMDeclarativeManagement_executeRequestForEndpoint_channelType_requestData_completionHandler___block_invoke;
-  v17[3] = &unk_278857048;
-  v18 = handlerCopy;
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __96__MDMDeclarativeManagement_executeRequestForEndpoint_channelType_requestData_completionHandler___block_invoke;
+  v16[3] = &unk_278857048;
+  v17 = handlerCopy;
   v15 = handlerCopy;
-  [MDMCheckInRequest executeRequestForMessageType:@"DeclarativeManagement" channelType:type requestDict:v14 completionHandler:v17];
-
-  v16 = *MEMORY[0x277D85DE8];
+  [MDMCheckInRequest executeRequestForMessageType:@"DeclarativeManagement" channelType:type requestDict:v14 completionHandler:v16];
 }
 
 + (void)fetchDataAtURL:(id)l completionHandler:(id)handler
@@ -87,7 +85,7 @@
 
 void __61__MDMDeclarativeManagement_fetchDataAtURL_completionHandler___block_invoke(uint64_t a1)
 {
-  v12[2] = *MEMORY[0x277D85DE8];
+  v11[2] = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) error];
   if (v2)
   {
@@ -96,13 +94,13 @@ void __61__MDMDeclarativeManagement_fetchDataAtURL_completionHandler___block_inv
 
   else
   {
-    v11[0] = @"ResponseStatusCode";
+    v10[0] = @"ResponseStatusCode";
     v3 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(*(a1 + 32), "statusCode")}];
-    v12[0] = v3;
-    v11[1] = @"ResponseHeaders";
+    v11[0] = v3;
+    v10[1] = @"ResponseHeaders";
     v4 = [*(a1 + 32) responseHeaders];
-    v12[1] = v4;
-    v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:2];
+    v11[1] = v4;
+    v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:2];
     v6 = [v5 mutableCopy];
 
     v7 = [*(a1 + 32) responseData];
@@ -112,8 +110,6 @@ void __61__MDMDeclarativeManagement_fetchDataAtURL_completionHandler___block_inv
     v9 = [v6 copy];
     (*(v8 + 16))(v8, v9, 0);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 + (void)downloadDataAtURL:(id)l downloadURL:(id)rL completionHandler:(id)handler
@@ -164,7 +160,7 @@ void __61__MDMDeclarativeManagement_fetchDataAtURL_completionHandler___block_inv
 
 void __76__MDMDeclarativeManagement_downloadDataAtURL_downloadURL_completionHandler___block_invoke(uint64_t a1)
 {
-  v9[3] = *MEMORY[0x277D85DE8];
+  v8[3] = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) error];
   if (v2)
   {
@@ -173,21 +169,19 @@ void __76__MDMDeclarativeManagement_downloadDataAtURL_downloadURL_completionHand
 
   else
   {
-    v8[0] = @"ResponseStatusCode";
+    v7[0] = @"ResponseStatusCode";
     v3 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(*(a1 + 32), "statusCode")}];
-    v9[0] = v3;
-    v8[1] = @"ResponseHeaders";
+    v8[0] = v3;
+    v7[1] = @"ResponseHeaders";
     v4 = [*(a1 + 32) responseHeaders];
-    v8[2] = @"ResponseDownloadURL";
+    v7[2] = @"ResponseDownloadURL";
     v5 = *(a1 + 40);
-    v9[1] = v4;
-    v9[2] = v5;
-    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:3];
+    v8[1] = v4;
+    v8[2] = v5;
+    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:3];
 
     (*(*(a1 + 48) + 16))();
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 + (id)_createNoInstallationError

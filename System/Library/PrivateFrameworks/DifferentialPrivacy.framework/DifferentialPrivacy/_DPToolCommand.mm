@@ -1,4 +1,5 @@
 @interface _DPToolCommand
++ (id)command:(id)command arguments:(id)arguments metadata:(id)metadata recordKey:(id)key databasePath:(id)path writeOK:(BOOL)k;
 + (id)supportedCommands;
 + (id)supportedMetadataKeys;
 - (BOOL)executeCommand;
@@ -98,9 +99,22 @@ LABEL_6:
   return v24;
 }
 
++ (id)command:(id)command arguments:(id)arguments metadata:(id)metadata recordKey:(id)key databasePath:(id)path writeOK:(BOOL)k
+{
+  kCopy = k;
+  pathCopy = path;
+  keyCopy = key;
+  metadataCopy = metadata;
+  argumentsCopy = arguments;
+  commandCopy = command;
+  v19 = [[self alloc] initWithAction:commandCopy arguments:argumentsCopy metadata:metadataCopy recordKey:keyCopy databasePath:pathCopy writeOK:kCopy];
+
+  return v19;
+}
+
 - (BOOL)executeCommand
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   p_metadata = &self->_metadata;
   v4 = [(_DPToolCommand *)self metadataFromCSVString:self->_metadata];
   v5 = v4;
@@ -202,47 +216,46 @@ LABEL_22:
     goto LABEL_9;
   }
 
-  v19 = [(_DPToolCommand *)self queryForKey:self->_recordKey];
+  v18 = [(_DPToolCommand *)self queryForKey:self->_recordKey];
+  v32 = 0u;
   v33 = 0u;
   v34 = 0u;
   v35 = 0u;
-  v36 = 0u;
-  v20 = [v19 countByEnumeratingWithState:&v33 objects:v37 count:16];
-  if (v20)
+  v19 = [v18 countByEnumeratingWithState:&v32 objects:v36 count:16];
+  if (v19)
   {
-    v21 = v20;
-    v22 = *v34;
-    v23 = MEMORY[0x277D85E08];
+    v20 = v19;
+    v21 = *v33;
+    v22 = MEMORY[0x277D85E08];
     do
     {
-      for (i = 0; i != v21; ++i)
+      for (i = 0; i != v20; ++i)
       {
-        if (*v34 != v22)
+        if (*v33 != v21)
         {
-          objc_enumerationMutation(v19);
+          objc_enumerationMutation(v18);
         }
 
-        v25 = *v23;
-        v26 = [*(*(&v33 + 1) + 8 * i) description];
-        fprintf(v25, "%s\n", [v26 UTF8String]);
+        v24 = *v22;
+        v25 = [*(*(&v32 + 1) + 8 * i) description];
+        fprintf(v24, "%s\n", [v25 UTF8String]);
       }
 
-      v21 = [v19 countByEnumeratingWithState:&v33 objects:v37 count:16];
+      v20 = [v18 countByEnumeratingWithState:&v32 objects:v36 count:16];
     }
 
-    while (v21);
+    while (v20);
   }
 
   v16 = 1;
 LABEL_23:
 
-  v17 = *MEMORY[0x277D85DE8];
   return v16;
 }
 
 - (id)floatVectorsFromCSVString:(id)string
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   stringCopy = string;
   dp_floatVectorsFromCSVString = [stringCopy dp_floatVectorsFromCSVString];
   if ([dp_floatVectorsFromCSVString count])
@@ -252,30 +265,30 @@ LABEL_23:
 
   else
   {
-    v18 = dp_floatVectorsFromCSVString;
+    v17 = dp_floatVectorsFromCSVString;
     v5 = objc_opt_new();
+    v19 = 0u;
     v20 = 0u;
     v21 = 0u;
     v22 = 0u;
-    v23 = 0u;
-    v19 = stringCopy;
+    v18 = stringCopy;
     dp_stringsFromCSVString = [stringCopy dp_stringsFromCSVString];
-    v7 = [dp_stringsFromCSVString countByEnumeratingWithState:&v20 objects:v26 count:16];
+    v7 = [dp_stringsFromCSVString countByEnumeratingWithState:&v19 objects:v25 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v21;
+      v9 = *v20;
       do
       {
         v10 = 0;
         do
         {
-          if (*v21 != v9)
+          if (*v20 != v9)
           {
             objc_enumerationMutation(dp_stringsFromCSVString);
           }
 
-          v11 = *(*(&v20 + 1) + 8 * v10);
+          v11 = *(*(&v19 + 1) + 8 * v10);
           whitespaceCharacterSet = [MEMORY[0x277CCA900] whitespaceCharacterSet];
           v13 = [v11 stringByTrimmingCharactersInSet:whitespaceCharacterSet];
 
@@ -291,7 +304,7 @@ LABEL_23:
             if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412290;
-              v25 = v13;
+              v24 = v13;
               _os_log_error_impl(&dword_22622D000, v15, OS_LOG_TYPE_ERROR, "Fail to read (%@) as binary data", buf, 0xCu);
             }
           }
@@ -300,17 +313,15 @@ LABEL_23:
         }
 
         while (v8 != v10);
-        v8 = [dp_stringsFromCSVString countByEnumeratingWithState:&v20 objects:v26 count:16];
+        v8 = [dp_stringsFromCSVString countByEnumeratingWithState:&v19 objects:v25 count:16];
       }
 
       while (v8);
     }
 
-    dp_floatVectorsFromCSVString = v18;
-    stringCopy = v19;
+    dp_floatVectorsFromCSVString = v17;
+    stringCopy = v18;
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -694,7 +705,7 @@ LABEL_13:
 
 - (BOOL)submitRecordsForKey:(id)key
 {
-  v15[1] = *MEMORY[0x277D85DE8];
+  v14[1] = *MEMORY[0x277D85DE8];
   keyCopy = key;
   v5 = self->_databasePath;
   if (v5)
@@ -713,8 +724,8 @@ LABEL_13:
   v9 = [_DPStorage storageWithDirectory:v6 readOnly:v7];
   if (v9)
   {
-    v15[0] = keyCopy;
-    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:1];
+    v14[0] = keyCopy;
+    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:1];
     v11 = [v8 generateReportForKeys:v10 storage:v9];
 
     v12 = v11 != 0;
@@ -725,7 +736,6 @@ LABEL_13:
     v12 = 0;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
@@ -759,31 +769,31 @@ LABEL_7:
 
 - (BOOL)listKeys
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v2 = +[_DPKeyNames allKeyNames];
   v3 = [v2 mutableCopy];
 
   [v3 sortUsingSelector:sel_compare_];
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   v4 = v3;
-  v5 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v15;
+    v7 = *v14;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v14 + 1) + 8 * i);
+        v9 = *(*(&v13 + 1) + 8 * i);
         v10 = [_DPKeyNames keyPropertiesForKey:v9];
         if (v10)
         {
@@ -792,13 +802,12 @@ LABEL_7:
         }
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v6);
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
@@ -814,44 +823,18 @@ LABEL_7:
 
 - (void)executeCommand
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v9 = HIDWORD(*self);
-  OUTLINED_FUNCTION_0(&dword_22622D000, a2, a3, "Failed to parse JSON from string: '%@'", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *self;
+  OUTLINED_FUNCTION_0(&dword_22622D000, a2, a3, "Failed to parse JSON from string: '%@'", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)metadataFromCSVString:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
-  v4 = 2112;
-  v5 = v0;
-  _os_log_error_impl(&dword_22622D000, v1, OS_LOG_TYPE_ERROR, "Cannot parse JSON from file=(%@): error=%@", v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)recordNumbers:metadata:forKey:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_22622D000, v0, v1, "Fail to instantiate recorder for key=%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)recordFloatVectors:metadata:forKey:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_22622D000, v0, v1, "Cannot parse float vectors from \n%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)queryForKey:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_22622D000, v0, v1, "Fail to find entityName for key=(%@)", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  v3 = 2112;
+  v4 = v0;
+  _os_log_error_impl(&dword_22622D000, v1, OS_LOG_TYPE_ERROR, "Cannot parse JSON from file=(%@): error=%@", v2, 0x16u);
 }
 
 @end

@@ -51,13 +51,11 @@ uint64_t MSGStartSync(unsigned int *a1)
 
 uint64_t MSGGetSyncConfig(unsigned int *a1, uint64_t a2, uint64_t a3)
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   if (!a1)
   {
     MSGGetSyncConfig_cold_2();
-LABEL_29:
-    Config = v30;
-    goto LABEL_26;
+    return v29;
   }
 
   if (*(a1 + 4))
@@ -73,73 +71,73 @@ LABEL_29:
   if (!v4)
   {
     MSGGetSyncConfig_cold_1();
-    goto LABEL_29;
+    return v29;
   }
 
   std::mutex::lock(controllerMutex);
-  Config = MSGController::SyncGetConfig(v4, *a1, &v30, a3);
+  Config = MSGController::SyncGetConfig(v4, *a1, &v29, a3);
   std::mutex::unlock(controllerMutex);
   if (Config)
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
       *buf = 136316162;
-      v44 = "retcode == 0 ";
-      v45 = 2080;
-      v46 = &unk_240CB6BAA;
-      v47 = 2080;
-      v48 = "/Library/Caches/com.apple.xbs/Sources/AppleMSG/MSGClientAPI/MSGClientAPI_Syncs.cpp";
-      v49 = 1024;
-      v50 = 85;
-      v51 = 2048;
-      v52 = Config;
+      v43 = "retcode == 0 ";
+      v44 = 2080;
+      v45 = &unk_240CB6BAA;
+      v46 = 2080;
+      v47 = "/Library/Caches/com.apple.xbs/Sources/AppleMSG/MSGClientAPI/MSGClientAPI_Syncs.cpp";
+      v48 = 1024;
+      v49 = 85;
+      v50 = 2048;
+      v51 = Config;
       _os_log_impl(&dword_240CA0000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "MSGClientAPI_Syncs: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", buf, 0x30u);
     }
 
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v44 = "MSGGetSyncConfig";
-      v45 = 1024;
-      LODWORD(v46) = Config;
+      v43 = "MSGGetSyncConfig";
+      v44 = 1024;
+      LODWORD(v45) = Config;
       _os_log_impl(&dword_240CA0000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "MSGClientAPI_Syncs::%s: Error fetching config: %#x\n\n", buf, 0x12u);
     }
   }
 
   else
   {
-    v8 = BYTE1(v30);
-    v9 = BYTE2(v30);
-    v10 = v31;
-    v11 = v33;
-    v12 = v34;
-    v13 = v35;
-    v14 = v37;
-    v15 = v39;
-    v16 = v41;
-    if (v34 == 4)
+    v8 = BYTE1(v29);
+    v9 = BYTE2(v29);
+    v10 = v30;
+    v11 = v32;
+    v12 = v33;
+    v13 = v34;
+    v14 = v36;
+    v15 = v38;
+    v16 = v40;
+    if (v33 == 4)
     {
-      v17 = v40 >> 10;
+      v17 = v39 >> 10;
     }
 
     else
     {
-      v17 = v40;
+      v17 = v39;
     }
 
-    if (v30)
+    if (v29)
     {
-      v18 = v38;
-      v19 = v36;
-      v20 = v32;
-      if (v34 == 4)
+      v18 = v37;
+      v19 = v35;
+      v20 = v31;
+      if (v33 == 4)
       {
-        LOWORD(v21) = v42 >> 10;
+        LOWORD(v21) = v41 >> 10;
       }
 
       else
       {
-        LOWORD(v21) = v42;
+        LOWORD(v21) = v41;
       }
 
       v21 = v21;
@@ -150,14 +148,14 @@ LABEL_29:
       v18 = 0;
       v19 = 0;
       v20 = 0;
-      v22 = v34 == 4;
-      v23 = v42 >> 10;
-      if (v34 != 4)
+      v22 = v33 == 4;
+      v23 = v41 >> 10;
+      if (v33 != 4)
       {
-        v23 = v42;
+        v23 = v41;
       }
 
-      if (v34 < 3)
+      if (v33 < 3)
       {
         v22 = 1;
       }
@@ -169,8 +167,8 @@ LABEL_29:
         v25 = 16;
       }
 
-      v26 = v42 >> v25;
-      v27 = v42 & 0xFFFF00000000;
+      v26 = v41 >> v25;
+      v27 = v41 & 0xFFFF00000000;
       if (v24)
       {
         v27 = 0;
@@ -180,7 +178,7 @@ LABEL_29:
     }
 
     Config = 0;
-    *a2 = v30;
+    *a2 = v29;
     *(a2 + 1) = v8;
     *(a2 + 2) = v9;
     *(a2 + 3) = v10;
@@ -201,42 +199,39 @@ LABEL_29:
     *(a2 + 56) = v21;
   }
 
-LABEL_26:
-  v28 = *MEMORY[0x277D85DE8];
   return Config;
 }
 
-uint64_t MSGResetSync(unsigned int *a1)
+uint64_t MSGResetSync(uint64_t a1)
 {
   if (a1)
   {
-    v2 = &remoteController;
+    v1 = &remoteController;
     if (!*(a1 + 4))
     {
-      v2 = &localController;
+      v1 = &localController;
     }
 
-    v3 = *v2;
-    if (*v2)
+    v2 = *v1;
+    if (*v1)
     {
       std::mutex::lock(controllerMutex);
-      v4 = *a1;
-      v5 = MSGController::SyncReset(v3);
+      v3 = MSGController::SyncReset(v2);
       std::mutex::unlock(controllerMutex);
-      return v5;
+      return v3;
     }
 
     else
     {
       MSGResetSync_cold_1();
-      return v7;
+      return v5;
     }
   }
 
   else
   {
     MSGResetSync_cold_2();
-    return v8;
+    return v6;
   }
 }
 
@@ -377,7 +372,7 @@ uint64_t MSGConfigureBaseSync(unsigned int *a1, uint64_t a2)
   return v19;
 }
 
-uint64_t MSGConfigureDerivedSync(unsigned int *a1, uint64_t a2)
+uint64_t MSGConfigureDerivedSync(unsigned int *a1, int *a2)
 {
   if (!a1)
   {
@@ -401,13 +396,13 @@ uint64_t MSGConfigureDerivedSync(unsigned int *a1, uint64_t a2)
   std::mutex::lock(controllerMutex);
   v6 = *a1;
   v7 = *(a2 + 4);
-  v8 = *(a2 + 6);
-  v9 = *(a2 + 8);
-  v10 = *(a2 + 12);
-  v11 = *(a2 + 16);
-  v12 = *(a2 + 24);
-  v13 = *(a2 + 32);
-  v14 = *(a2 + 40);
+  v8 = *(a2 + 3);
+  v9 = a2[2];
+  v10 = *(a2 + 6);
+  v11 = *(a2 + 2);
+  v12 = *(a2 + 3);
+  v13 = *(a2 + 4);
+  v14 = *(a2 + 5);
   LODWORD(v19) = *a2;
   BYTE4(v19) = v7;
   WORD3(v19) = v8;
@@ -438,22 +433,21 @@ uint64_t MSGConfigureDerivedSync(unsigned int *a1, uint64_t a2)
   return v17;
 }
 
-uint64_t MSGEnableSyncInterrupt(unsigned int *a1)
+uint64_t MSGEnableSyncInterrupt(uint64_t a1, BOOL a2, BOOL a3)
 {
   if (a1)
   {
-    v2 = &remoteController;
+    v3 = &remoteController;
     if (!*(a1 + 4))
     {
-      v2 = &localController;
+      v3 = &localController;
     }
 
-    v3 = *v2;
-    if (*v2)
+    v4 = *v3;
+    if (*v3)
     {
       std::mutex::lock(controllerMutex);
-      v4 = *a1;
-      v5 = MSGController::SyncInterruptEnable(v3);
+      v5 = MSGController::SyncInterruptEnable(v4);
       std::mutex::unlock(controllerMutex);
       return v5;
     }
@@ -525,7 +519,7 @@ uint64_t MSGRegisterForSyncTiming(uint64_t a1, uint64_t a2)
     {
       v4 = localController;
       std::mutex::lock(controllerMutex);
-      v5 = MSGController::registerForTimingInfo(v4, *a1, a2, (a1 + 5));
+      v5 = MSGController::registerForTimingInfo(v4, *a1, a2, (a1 + 5), 0);
       std::mutex::unlock(controllerMutex);
       *(a1 + 5) = 0;
       return v5;
@@ -596,55 +590,53 @@ uint64_t MSGGetCurrentSyncTiming(uint64_t a1, unint64_t *a2)
 
 uint64_t MSGGetFutureSyncTiming(uint64_t a1, unsigned int a2, uint64_t a3, uint64_t a4)
 {
-  v28[5] = *MEMORY[0x277D85DE8];
+  v27[5] = *MEMORY[0x277D85DE8];
   v4 = localController;
-  v17 = 0;
+  v16 = 0;
   if (!a1)
   {
     MSGGetFutureSyncTiming_cold_3();
-LABEL_13:
-    NextNFrames = *buf;
-    goto LABEL_9;
+    return *buf;
   }
 
   if (*(a1 + 4) == 1)
   {
     MSGGetFutureSyncTiming_cold_2();
-    goto LABEL_13;
+    return *buf;
   }
 
   if (*a1)
   {
     MSGGetFutureSyncTiming_cold_1();
-    goto LABEL_13;
+    return *buf;
   }
 
   std::mutex::lock(controllerMutex);
-  NextNFrames = MSGController::getNextNFrames(v4, *(a1 + 5), a2, a3, v28, &v17);
+  NextNFrames = MSGController::getNextNFrames(v4, *(a1 + 5), a2, a3, v27, &v16);
   std::mutex::unlock(controllerMutex);
   if (NextNFrames)
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
       *buf = 136316162;
-      v19 = "retcode == 0 ";
-      v20 = 2080;
-      v21 = &unk_240CB6BAA;
-      v22 = 2080;
-      v23 = "/Library/Caches/com.apple.xbs/Sources/AppleMSG/MSGClientAPI/MSGClientAPI_Syncs.cpp";
-      v24 = 1024;
-      v25 = 315;
-      v26 = 2048;
-      v27 = NextNFrames;
+      v18 = "retcode == 0 ";
+      v19 = 2080;
+      v20 = &unk_240CB6BAA;
+      v21 = 2080;
+      v22 = "/Library/Caches/com.apple.xbs/Sources/AppleMSG/MSGClientAPI/MSGClientAPI_Syncs.cpp";
+      v23 = 1024;
+      v24 = 315;
+      v25 = 2048;
+      v26 = NextNFrames;
       _os_log_impl(&dword_240CA0000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "MSGClientAPI_Syncs: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", buf, 0x30u);
     }
 
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v19 = "MSGGetFutureSyncTiming";
-      v20 = 1024;
-      LODWORD(v21) = NextNFrames;
+      v18 = "MSGGetFutureSyncTiming";
+      v19 = 1024;
+      LODWORD(v20) = NextNFrames;
       _os_log_impl(&dword_240CA0000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "MSGClientAPI_Syncs::%s: getNextNFrames failed with retcode: %#x\n\n", buf, 0x12u);
     }
   }
@@ -653,10 +645,10 @@ LABEL_13:
   {
     if (a2)
     {
-      v10 = v17;
+      v10 = v16;
       v11 = a2;
       v12 = (a4 + 8);
-      v13 = v28;
+      v13 = v27;
       do
       {
         v14 = *v13++;
@@ -670,18 +662,17 @@ LABEL_13:
       while (v11);
     }
 
-    NextNFrames = 0;
+    return 0;
   }
 
-LABEL_9:
-  v15 = *MEMORY[0x277D85DE8];
   return NextNFrames;
 }
 
-void OUTLINED_FUNCTION_5(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_5(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0x30u);
+  _os_log_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0x30u);
 }
 
 _BYTE *MSGAllocateEventTriggerHandle(int a1, char a2)
@@ -702,9 +693,9 @@ _BYTE *MSGAllocateEventTriggerHandle(int a1, char a2)
   return v5;
 }
 
-uint64_t MSGSetEventTriggerConfig(uint64_t a1, void *a2)
+uint64_t MSGSetEventTriggerConfig(unsigned int *a1, void *a2)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v2 = &remoteController;
   if (!*(a1 + 4))
   {
@@ -721,29 +712,29 @@ uint64_t MSGSetEventTriggerConfig(uint64_t a1, void *a2)
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
-        v10 = 136316162;
-        v11 = "retcode == 0 ";
-        v12 = 2080;
-        *v13 = &unk_240CB6BAA;
-        *&v13[8] = 2080;
-        v14 = "/Library/Caches/com.apple.xbs/Sources/AppleMSG/MSGClientAPI/MSGClientAPI_EventTriggers.cpp";
-        v15 = 1024;
-        v16 = 56;
-        v17 = 2048;
-        v18 = v6;
-        _os_log_impl(&dword_240CA0000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "MSGClientAPI_EventTriggers: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", &v10, 0x30u);
+        v9 = 136316162;
+        v10 = "retcode == 0 ";
+        v11 = 2080;
+        *v12 = &unk_240CB6BAA;
+        *&v12[8] = 2080;
+        v13 = "/Library/Caches/com.apple.xbs/Sources/AppleMSG/MSGClientAPI/MSGClientAPI_EventTriggers.cpp";
+        v14 = 1024;
+        v15 = 56;
+        v16 = 2048;
+        v17 = v6;
+        _os_log_impl(&dword_240CA0000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "MSGClientAPI_EventTriggers: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", &v9, 0x30u);
       }
 
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
-        v9 = *a1;
-        v10 = 136315650;
-        v11 = "MSGSetEventTriggerConfig";
-        v12 = 1024;
-        *v13 = v6;
-        *&v13[4] = 1024;
-        *&v13[6] = v9;
-        _os_log_impl(&dword_240CA0000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "MSGClientAPI_EventTriggers::%s: Error (%x) setting event trigger config for id %d\n\n", &v10, 0x18u);
+        v8 = *a1;
+        v9 = 136315650;
+        v10 = "MSGSetEventTriggerConfig";
+        v11 = 1024;
+        *v12 = v6;
+        *&v12[4] = 1024;
+        *&v12[6] = v8;
+        _os_log_impl(&dword_240CA0000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "MSGClientAPI_EventTriggers::%s: Error (%x) setting event trigger config for id %d\n\n", &v9, 0x18u);
       }
     }
   }
@@ -751,16 +742,15 @@ uint64_t MSGSetEventTriggerConfig(uint64_t a1, void *a2)
   else
   {
     MSGSetEventTriggerConfig_cold_1();
-    v6 = v10;
+    return v9;
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
 uint64_t MSGGetEventTriggerConfig(uint64_t a1, uint64_t *a2)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   if (*(a1 + 4))
   {
     v2 = remoteController;
@@ -781,27 +771,27 @@ uint64_t MSGGetEventTriggerConfig(uint64_t a1, uint64_t *a2)
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
         *buf = 136316162;
-        v11 = "retcode == 0 ";
-        v12 = 2080;
-        *v13 = &unk_240CB6BAA;
-        *&v13[8] = 2080;
-        v14 = "/Library/Caches/com.apple.xbs/Sources/AppleMSG/MSGClientAPI/MSGClientAPI_EventTriggers.cpp";
-        v15 = 1024;
-        v16 = 78;
-        v17 = 2048;
-        v18 = EventTriggerConfig;
+        v10 = "retcode == 0 ";
+        v11 = 2080;
+        *v12 = &unk_240CB6BAA;
+        *&v12[8] = 2080;
+        v13 = "/Library/Caches/com.apple.xbs/Sources/AppleMSG/MSGClientAPI/MSGClientAPI_EventTriggers.cpp";
+        v14 = 1024;
+        v15 = 78;
+        v16 = 2048;
+        v17 = EventTriggerConfig;
         _os_log_impl(&dword_240CA0000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "MSGClientAPI_EventTriggers: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", buf, 0x30u);
       }
 
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
-        v8 = *a1;
+        v7 = *a1;
         *buf = 136315650;
-        v11 = "MSGGetEventTriggerConfig";
-        v12 = 1024;
-        *v13 = EventTriggerConfig;
-        *&v13[4] = 1024;
-        *&v13[6] = v8;
+        v10 = "MSGGetEventTriggerConfig";
+        v11 = 1024;
+        *v12 = EventTriggerConfig;
+        *&v12[4] = 1024;
+        *&v12[6] = v7;
         _os_log_impl(&dword_240CA0000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "MSGClientAPI_EventTriggers::%s: Error (%x) fetching event trigger config for id %d\n\n", buf, 0x18u);
       }
     }
@@ -815,16 +805,15 @@ uint64_t MSGGetEventTriggerConfig(uint64_t a1, uint64_t *a2)
   else
   {
     MSGGetEventTriggerConfig_cold_1();
-    EventTriggerConfig = *buf;
+    return *buf;
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return EventTriggerConfig;
 }
 
 uint64_t MSGGetEventTriggerCount(uint64_t a1, void *a2)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   outputStruct = 0;
   if (*(a1 + 4))
   {
@@ -846,27 +835,27 @@ uint64_t MSGGetEventTriggerCount(uint64_t a1, void *a2)
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
         *buf = 136316162;
-        v11 = "retcode == 0 ";
-        v12 = 2080;
-        *v13 = &unk_240CB6BAA;
-        *&v13[8] = 2080;
-        v14 = "/Library/Caches/com.apple.xbs/Sources/AppleMSG/MSGClientAPI/MSGClientAPI_EventTriggers.cpp";
-        v15 = 1024;
-        v16 = 101;
-        v17 = 2048;
-        v18 = EventTriggerCountSnapshot;
+        v10 = "retcode == 0 ";
+        v11 = 2080;
+        *v12 = &unk_240CB6BAA;
+        *&v12[8] = 2080;
+        v13 = "/Library/Caches/com.apple.xbs/Sources/AppleMSG/MSGClientAPI/MSGClientAPI_EventTriggers.cpp";
+        v14 = 1024;
+        v15 = 101;
+        v16 = 2048;
+        v17 = EventTriggerCountSnapshot;
         _os_log_impl(&dword_240CA0000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "MSGClientAPI_EventTriggers: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", buf, 0x30u);
       }
 
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
-        v8 = *a1;
+        v7 = *a1;
         *buf = 136315650;
-        v11 = "MSGGetEventTriggerCount";
-        v12 = 1024;
-        *v13 = EventTriggerCountSnapshot;
-        *&v13[4] = 1024;
-        *&v13[6] = v8;
+        v10 = "MSGGetEventTriggerCount";
+        v11 = 1024;
+        *v12 = EventTriggerCountSnapshot;
+        *&v12[4] = 1024;
+        *&v12[6] = v7;
         _os_log_impl(&dword_240CA0000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "MSGClientAPI_EventTriggers::%s: Error (%x) fetching event trigger count snapshot for id %d\n\n", buf, 0x18u);
       }
     }
@@ -880,16 +869,15 @@ uint64_t MSGGetEventTriggerCount(uint64_t a1, void *a2)
   else
   {
     MSGGetEventTriggerCount_cold_1();
-    EventTriggerCountSnapshot = *buf;
+    return *buf;
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return EventTriggerCountSnapshot;
 }
 
 uint64_t MSGEnableEventTriggerInterrupt(uint64_t a1, unsigned __int8 a2)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v2 = &remoteController;
   if (!*(a1 + 4))
   {
@@ -906,29 +894,29 @@ uint64_t MSGEnableEventTriggerInterrupt(uint64_t a1, unsigned __int8 a2)
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
-        v10 = 136316162;
-        v11 = "retcode == 0 ";
-        v12 = 2080;
-        *v13 = &unk_240CB6BAA;
-        *&v13[8] = 2080;
-        v14 = "/Library/Caches/com.apple.xbs/Sources/AppleMSG/MSGClientAPI/MSGClientAPI_EventTriggers.cpp";
-        v15 = 1024;
-        v16 = 123;
-        v17 = 2048;
-        v18 = v6;
-        _os_log_impl(&dword_240CA0000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "MSGClientAPI_EventTriggers: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", &v10, 0x30u);
+        v9 = 136316162;
+        v10 = "retcode == 0 ";
+        v11 = 2080;
+        *v12 = &unk_240CB6BAA;
+        *&v12[8] = 2080;
+        v13 = "/Library/Caches/com.apple.xbs/Sources/AppleMSG/MSGClientAPI/MSGClientAPI_EventTriggers.cpp";
+        v14 = 1024;
+        v15 = 123;
+        v16 = 2048;
+        v17 = v6;
+        _os_log_impl(&dword_240CA0000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "MSGClientAPI_EventTriggers: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", &v9, 0x30u);
       }
 
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
-        v9 = *a1;
-        v10 = 136315650;
-        v11 = "MSGEnableEventTriggerInterrupt";
-        v12 = 1024;
-        *v13 = v6;
-        *&v13[4] = 1024;
-        *&v13[6] = v9;
-        _os_log_impl(&dword_240CA0000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "MSGClientAPI_EventTriggers::%s: Error (%x) enabling event trigger interrupt for id %d\n\n", &v10, 0x18u);
+        v8 = *a1;
+        v9 = 136315650;
+        v10 = "MSGEnableEventTriggerInterrupt";
+        v11 = 1024;
+        *v12 = v6;
+        *&v12[4] = 1024;
+        *&v12[6] = v8;
+        _os_log_impl(&dword_240CA0000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "MSGClientAPI_EventTriggers::%s: Error (%x) enabling event trigger interrupt for id %d\n\n", &v9, 0x18u);
       }
     }
   }
@@ -936,16 +924,15 @@ uint64_t MSGEnableEventTriggerInterrupt(uint64_t a1, unsigned __int8 a2)
   else
   {
     MSGEnableEventTriggerInterrupt_cold_1();
-    v6 = v10;
+    return v9;
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
 uint64_t MSGGetEventTriggerInterruptEnable(uint64_t a1, _DWORD *a2)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   outputStruct = 0;
   if (*(a1 + 4))
   {
@@ -967,24 +954,24 @@ uint64_t MSGGetEventTriggerInterruptEnable(uint64_t a1, _DWORD *a2)
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
         *buf = 136316162;
-        v9 = "retcode == 0 ";
-        v10 = 2080;
-        v11 = &unk_240CB6BAA;
-        v12 = 2080;
-        v13 = "/Library/Caches/com.apple.xbs/Sources/AppleMSG/MSGClientAPI/MSGClientAPI_EventTriggers.cpp";
-        v14 = 1024;
-        v15 = 144;
-        v16 = 2048;
-        v17 = EventTriggerInterruptEnable;
+        v8 = "retcode == 0 ";
+        v9 = 2080;
+        v10 = &unk_240CB6BAA;
+        v11 = 2080;
+        v12 = "/Library/Caches/com.apple.xbs/Sources/AppleMSG/MSGClientAPI/MSGClientAPI_EventTriggers.cpp";
+        v13 = 1024;
+        v14 = 144;
+        v15 = 2048;
+        v16 = EventTriggerInterruptEnable;
         _os_log_impl(&dword_240CA0000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "MSGClientAPI_EventTriggers: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", buf, 0x30u);
       }
 
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v9 = "MSGGetEventTriggerInterruptEnable";
-        v10 = 1024;
-        LODWORD(v11) = EventTriggerInterruptEnable;
+        v8 = "MSGGetEventTriggerInterruptEnable";
+        v9 = 1024;
+        LODWORD(v10) = EventTriggerInterruptEnable;
         _os_log_impl(&dword_240CA0000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "MSGClientAPI_EventTriggers::%s: Error (%x) getting the event trigger interrupt enable\n\n", buf, 0x12u);
       }
     }
@@ -998,16 +985,15 @@ uint64_t MSGGetEventTriggerInterruptEnable(uint64_t a1, _DWORD *a2)
   else
   {
     MSGGetEventTriggerInterruptEnable_cold_1();
-    EventTriggerInterruptEnable = *buf;
+    return *buf;
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return EventTriggerInterruptEnable;
 }
 
 uint64_t MSGGetEventTriggerInterruptStatus(uint64_t a1, _DWORD *a2)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   outputStruct = 0;
   if (*(a1 + 4))
   {
@@ -1029,24 +1015,24 @@ uint64_t MSGGetEventTriggerInterruptStatus(uint64_t a1, _DWORD *a2)
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
         *buf = 136316162;
-        v9 = "retcode == 0 ";
-        v10 = 2080;
-        v11 = &unk_240CB6BAA;
-        v12 = 2080;
-        v13 = "/Library/Caches/com.apple.xbs/Sources/AppleMSG/MSGClientAPI/MSGClientAPI_EventTriggers.cpp";
-        v14 = 1024;
-        v15 = 166;
-        v16 = 2048;
-        v17 = EventTriggerInterruptStatus;
+        v8 = "retcode == 0 ";
+        v9 = 2080;
+        v10 = &unk_240CB6BAA;
+        v11 = 2080;
+        v12 = "/Library/Caches/com.apple.xbs/Sources/AppleMSG/MSGClientAPI/MSGClientAPI_EventTriggers.cpp";
+        v13 = 1024;
+        v14 = 166;
+        v15 = 2048;
+        v16 = EventTriggerInterruptStatus;
         _os_log_impl(&dword_240CA0000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "MSGClientAPI_EventTriggers: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", buf, 0x30u);
       }
 
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v9 = "MSGGetEventTriggerInterruptStatus";
-        v10 = 1024;
-        LODWORD(v11) = EventTriggerInterruptStatus;
+        v8 = "MSGGetEventTriggerInterruptStatus";
+        v9 = 1024;
+        LODWORD(v10) = EventTriggerInterruptStatus;
         _os_log_impl(&dword_240CA0000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "MSGClientAPI_EventTriggers::%s: Error (%x) getting the event trigger interrupt status\n\n", buf, 0x12u);
       }
     }
@@ -1060,16 +1046,15 @@ uint64_t MSGGetEventTriggerInterruptStatus(uint64_t a1, _DWORD *a2)
   else
   {
     MSGGetEventTriggerInterruptStatus_cold_1();
-    EventTriggerInterruptStatus = *buf;
+    return *buf;
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return EventTriggerInterruptStatus;
 }
 
 uint64_t MSGClearEventTriggerInterruptStatus(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v1 = &remoteController;
   if (!*(a1 + 4))
   {
@@ -1086,29 +1071,29 @@ uint64_t MSGClearEventTriggerInterruptStatus(uint64_t a1)
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
-        v8 = 136316162;
-        v9 = "retcode == 0 ";
-        v10 = 2080;
-        *v11 = &unk_240CB6BAA;
-        *&v11[8] = 2080;
-        v12 = "/Library/Caches/com.apple.xbs/Sources/AppleMSG/MSGClientAPI/MSGClientAPI_EventTriggers.cpp";
-        v13 = 1024;
-        v14 = 188;
-        v15 = 2048;
-        v16 = v4;
-        _os_log_impl(&dword_240CA0000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "MSGClientAPI_EventTriggers: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", &v8, 0x30u);
+        v7 = 136316162;
+        v8 = "retcode == 0 ";
+        v9 = 2080;
+        *v10 = &unk_240CB6BAA;
+        *&v10[8] = 2080;
+        v11 = "/Library/Caches/com.apple.xbs/Sources/AppleMSG/MSGClientAPI/MSGClientAPI_EventTriggers.cpp";
+        v12 = 1024;
+        v13 = 188;
+        v14 = 2048;
+        v15 = v4;
+        _os_log_impl(&dword_240CA0000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "MSGClientAPI_EventTriggers: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", &v7, 0x30u);
       }
 
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
-        v7 = *a1;
-        v8 = 136315650;
-        v9 = "MSGClearEventTriggerInterruptStatus";
-        v10 = 1024;
-        *v11 = v4;
-        *&v11[4] = 1024;
-        *&v11[6] = v7;
-        _os_log_impl(&dword_240CA0000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "MSGClientAPI_EventTriggers::%s: Error (%x) clearing the event trigger interrupt status for id %d\n\n", &v8, 0x18u);
+        v6 = *a1;
+        v7 = 136315650;
+        v8 = "MSGClearEventTriggerInterruptStatus";
+        v9 = 1024;
+        *v10 = v4;
+        *&v10[4] = 1024;
+        *&v10[6] = v6;
+        _os_log_impl(&dword_240CA0000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "MSGClientAPI_EventTriggers::%s: Error (%x) clearing the event trigger interrupt status for id %d\n\n", &v7, 0x18u);
       }
     }
   }
@@ -1116,17 +1101,16 @@ uint64_t MSGClearEventTriggerInterruptStatus(uint64_t a1)
   else
   {
     MSGClearEventTriggerInterruptStatus_cold_1();
-    v4 = v8;
+    return v7;
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
 uint64_t MSGRegisterForEventTriggerTiming(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
-  v7 = 0;
+  v16 = *MEMORY[0x277D85DE8];
+  v6 = 0;
   if (*(a1 + 4))
   {
     v1 = remoteController;
@@ -1140,57 +1124,56 @@ uint64_t MSGRegisterForEventTriggerTiming(uint64_t a1)
   if (v1)
   {
     std::mutex::lock(controllerMutex);
-    v3 = MSGController::registerForEventTriggerInfo(v1, *a1, &v7);
+    v3 = MSGController::registerForEventTriggerInfo(v1, *a1, &v6);
     std::mutex::unlock(controllerMutex);
     if (v3)
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
         *buf = 136316162;
-        v9 = "retcode == 0 ";
-        v10 = 2080;
-        *v11 = &unk_240CB6BAA;
-        *&v11[8] = 2080;
-        v12 = "/Library/Caches/com.apple.xbs/Sources/AppleMSG/MSGClientAPI/MSGClientAPI_EventTriggers.cpp";
-        v13 = 1024;
-        v14 = 210;
-        v15 = 2048;
-        v16 = v3;
+        v8 = "retcode == 0 ";
+        v9 = 2080;
+        *v10 = &unk_240CB6BAA;
+        *&v10[8] = 2080;
+        v11 = "/Library/Caches/com.apple.xbs/Sources/AppleMSG/MSGClientAPI/MSGClientAPI_EventTriggers.cpp";
+        v12 = 1024;
+        v13 = 210;
+        v14 = 2048;
+        v15 = v3;
         _os_log_impl(&dword_240CA0000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "MSGClientAPI_EventTriggers: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", buf, 0x30u);
       }
 
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
-        v6 = *a1;
+        v5 = *a1;
         *buf = 136315650;
-        v9 = "MSGRegisterForEventTriggerTiming";
-        v10 = 1024;
-        *v11 = v3;
-        *&v11[4] = 1024;
-        *&v11[6] = v6;
+        v8 = "MSGRegisterForEventTriggerTiming";
+        v9 = 1024;
+        *v10 = v3;
+        *&v10[4] = 1024;
+        *&v10[6] = v5;
         _os_log_impl(&dword_240CA0000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "MSGClientAPI_EventTriggers::%s: Error (%x) registering for the event trigger timing for id %d\n\n", buf, 0x18u);
       }
     }
 
     else
     {
-      *(a1 + 5) = v7;
+      *(a1 + 5) = v6;
     }
   }
 
   else
   {
     MSGRegisterForEventTriggerTiming_cold_1();
-    v3 = *buf;
+    return *buf;
   }
 
-  v4 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
 uint64_t MSGUnregisterFromEventTriggerTiming(int *a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v1 = &remoteController;
   if (!*(a1 + 4))
   {
@@ -1207,29 +1190,29 @@ uint64_t MSGUnregisterFromEventTriggerTiming(int *a1)
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
-        v8 = 136316162;
-        v9 = "retcode == 0 ";
-        v10 = 2080;
-        *v11 = &unk_240CB6BAA;
-        *&v11[8] = 2080;
-        v12 = "/Library/Caches/com.apple.xbs/Sources/AppleMSG/MSGClientAPI/MSGClientAPI_EventTriggers.cpp";
-        v13 = 1024;
-        v14 = 233;
-        v15 = 2048;
-        v16 = v4;
-        _os_log_impl(&dword_240CA0000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "MSGClientAPI_EventTriggers: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", &v8, 0x30u);
+        v7 = 136316162;
+        v8 = "retcode == 0 ";
+        v9 = 2080;
+        *v10 = &unk_240CB6BAA;
+        *&v10[8] = 2080;
+        v11 = "/Library/Caches/com.apple.xbs/Sources/AppleMSG/MSGClientAPI/MSGClientAPI_EventTriggers.cpp";
+        v12 = 1024;
+        v13 = 233;
+        v14 = 2048;
+        v15 = v4;
+        _os_log_impl(&dword_240CA0000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "MSGClientAPI_EventTriggers: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", &v7, 0x30u);
       }
 
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
-        v7 = *a1;
-        v8 = 136315650;
-        v9 = "MSGUnregisterFromEventTriggerTiming";
-        v10 = 1024;
-        *v11 = v4;
-        *&v11[4] = 1024;
-        *&v11[6] = v7;
-        _os_log_impl(&dword_240CA0000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "MSGClientAPI_EventTriggers::%s: Error (%x) unregistering from the event trigger timing for id %d\n\n", &v8, 0x18u);
+        v6 = *a1;
+        v7 = 136315650;
+        v8 = "MSGUnregisterFromEventTriggerTiming";
+        v9 = 1024;
+        *v10 = v4;
+        *&v10[4] = 1024;
+        *&v10[6] = v6;
+        _os_log_impl(&dword_240CA0000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "MSGClientAPI_EventTriggers::%s: Error (%x) unregistering from the event trigger timing for id %d\n\n", &v7, 0x18u);
       }
     }
   }
@@ -1237,18 +1220,17 @@ uint64_t MSGUnregisterFromEventTriggerTiming(int *a1)
   else
   {
     MSGUnregisterFromEventTriggerTiming_cold_1();
-    v4 = v8;
+    return v7;
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
 uint64_t MSGGetEventTriggerTimings(int *a1, unsigned int *a2, uint64_t a3)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v3 = *a2;
-  v19 = v3;
+  v18 = v3;
   if (*(a1 + 4))
   {
     v4 = remoteController;
@@ -1262,56 +1244,54 @@ uint64_t MSGGetEventTriggerTimings(int *a1, unsigned int *a2, uint64_t a3)
   if (!v4)
   {
     MSGGetEventTriggerTimings_cold_2();
-LABEL_14:
-    v9 = *buf;
-    goto LABEL_11;
+    return *buf;
   }
 
   v7 = malloc_type_malloc(24 * v3, 0x10000404363B735uLL);
   if (!v7)
   {
     MSGGetEventTriggerTimings_cold_1(buf);
-    goto LABEL_14;
+    return *buf;
   }
 
   v8 = v7;
   std::mutex::lock(controllerMutex);
-  v9 = MSGController::dumpMostRecentEventTriggers(v4, *(a1 + 5), &v19, v8);
+  v9 = MSGController::dumpMostRecentEventTriggers(v4, *(a1 + 5), &v18, v8);
   std::mutex::unlock(controllerMutex);
   if (v9)
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
       *buf = 136316162;
-      v21 = "retcode == 0 ";
-      v22 = 2080;
-      *v23 = &unk_240CB6BAA;
-      *&v23[8] = 2080;
-      v24 = "/Library/Caches/com.apple.xbs/Sources/AppleMSG/MSGClientAPI/MSGClientAPI_EventTriggers.cpp";
-      v25 = 1024;
-      v26 = 263;
-      v27 = 2048;
-      v28 = v9;
+      v20 = "retcode == 0 ";
+      v21 = 2080;
+      *v22 = &unk_240CB6BAA;
+      *&v22[8] = 2080;
+      v23 = "/Library/Caches/com.apple.xbs/Sources/AppleMSG/MSGClientAPI/MSGClientAPI_EventTriggers.cpp";
+      v24 = 1024;
+      v25 = 263;
+      v26 = 2048;
+      v27 = v9;
       _os_log_impl(&dword_240CA0000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "MSGClientAPI_EventTriggers: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", buf, 0x30u);
     }
 
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      v18 = *a1;
+      v17 = *a1;
       *buf = 136315650;
-      v21 = "MSGGetEventTriggerTimings";
-      v22 = 1024;
-      *v23 = v9;
-      *&v23[4] = 1024;
-      *&v23[6] = v18;
+      v20 = "MSGGetEventTriggerTimings";
+      v21 = 1024;
+      *v22 = v9;
+      *&v22[4] = 1024;
+      *&v22[6] = v17;
       _os_log_impl(&dword_240CA0000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "MSGClientAPI_EventTriggers::%s: Error (%x) dumping the most recent event trigger information for id %d\n\n", buf, 0x18u);
     }
   }
 
   else
   {
-    v10 = v19;
-    if (v19)
+    v10 = v18;
+    if (v18)
     {
       v11 = (a3 + 16);
       v12 = (v8 + 1);
@@ -1332,11 +1312,9 @@ LABEL_14:
     }
 
     free(v8);
-    v9 = 0;
+    return 0;
   }
 
-LABEL_11:
-  v16 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -1375,56 +1353,54 @@ uint64_t MSGCreate(int a1, uint64_t a2)
   return v2;
 }
 
-uint64_t MSGGetSystemState(BOOL *a1)
+uint64_t MSGGetSystemState(BOOL *a1, unint64_t a2)
 {
-  v2 = localController;
-  v5 = 0;
+  v3 = localController;
+  v6 = 0;
   std::mutex::lock(controllerMutex);
-  IsMSGSystemReady = MSGController::IsMSGSystemReady(v2, &v5);
+  IsMSGSystemReady = MSGController::IsMSGSystemReady(v3, &v6);
   std::mutex::unlock(controllerMutex);
-  *a1 = v5;
+  *a1 = v6;
   return IsMSGSystemReady;
 }
 
 uint64_t AppleMSGClient::syncStart(uint64_t a1, int a2, char a3, char *a4)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v4 = *a4;
-  v9[0] = a3;
-  v9[1] = v4;
-  v10 = 0;
-  v11 = a2;
-  v12 = *a4;
-  v13 = *(a4 + 2);
-  v5 = (*(*a1 + 168))(a1, 0, v9, 32, 0, 0);
+  v8[0] = a3;
+  v8[1] = v4;
+  v9 = 0;
+  v10 = a2;
+  v11 = *a4;
+  v12 = *(a4 + 2);
+  v5 = (*(*a1 + 168))(a1, 0, v8, 32, 0, 0);
   v6 = v5;
   if (v5)
   {
     AppleMSGClient::syncStart();
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
 uint64_t AppleMSGClient::syncStop(uint64_t a1, int a2, char a3, char *a4)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v4 = *a4;
-  v9[0] = a3;
-  v9[1] = v4;
-  v10 = 0;
-  v11 = a2;
-  v12 = *a4;
-  v13 = *(a4 + 2);
-  v5 = (*(*a1 + 168))(a1, 1, v9, 32, 0, 0);
+  v8[0] = a3;
+  v8[1] = v4;
+  v9 = 0;
+  v10 = a2;
+  v11 = *a4;
+  v12 = *(a4 + 2);
+  v5 = (*(*a1 + 168))(a1, 1, v8, 32, 0, 0);
   v6 = v5;
   if (v5)
   {
     AppleMSGClient::syncStop();
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -1443,9 +1419,9 @@ uint64_t AppleMSGClient::syncReset(uint64_t a1, int a2)
 
 uint64_t AppleMSGClient::syncGetRunState(uint64_t a1, int a2, _BYTE *a3, uint64_t a4)
 {
-  v16 = *MEMORY[0x277D85DE8];
-  v11 = a2;
-  v6 = (*(*a1 + 168))(a1, 4, &v11, 4, v12, 48);
+  v15 = *MEMORY[0x277D85DE8];
+  v10 = a2;
+  v6 = (*(*a1 + 168))(a1, 4, &v10, 4, v11, 48);
   v7 = v6;
   if (v6)
   {
@@ -1454,165 +1430,159 @@ uint64_t AppleMSGClient::syncGetRunState(uint64_t a1, int a2, _BYTE *a3, uint64_
 
   else
   {
-    *a3 = v12[0];
-    *(a4 + 32) = v15;
-    v8 = v14;
-    *a4 = v13;
+    *a3 = v11[0];
+    *(a4 + 32) = v14;
+    v8 = v13;
+    *a4 = v12;
     *(a4 + 16) = v8;
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
 uint64_t AppleMSGClient::syncSetInterruptState(uint64_t a1, int a2, char a3, char a4)
 {
-  v19 = *MEMORY[0x277D85DE8];
-  v8 = 0;
-  v9 = a3;
-  v10 = a4;
-  v11 = 0;
-  v12 = a2;
+  v18 = *MEMORY[0x277D85DE8];
+  v7 = 0;
+  v8 = a3;
+  v9 = a4;
+  v10 = 0;
+  v11 = a2;
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
-  v4 = (*(*a1 + 168))(a1, 5, &v8, 112, 0, 0);
+  v4 = (*(*a1 + 168))(a1, 5, &v7, 112, 0, 0);
   v5 = v4;
   if (v4)
   {
     AppleMSGClient::syncSetInterruptState();
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
 uint64_t AppleMSGClient::syncInitialize(uint64_t a1, int a2, char a3, char a4, int a5)
 {
-  v18 = *MEMORY[0x277D85DE8];
-  v9[0] = 0;
-  v9[1] = a3;
-  memset(&v9[2], 0, 7);
-  v9[9] = a4;
-  v10 = 0;
-  v11 = a2;
-  v12 = a5;
+  v17 = *MEMORY[0x277D85DE8];
+  v8[0] = 0;
+  v8[1] = a3;
+  memset(&v8[2], 0, 7);
+  v8[9] = a4;
+  v9 = 0;
+  v10 = a2;
+  v11 = a5;
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
-  memset(v17, 0, sizeof(v17));
-  v5 = (*(*a1 + 168))(a1, 3, v9, 112, 0, 0);
+  memset(v16, 0, sizeof(v16));
+  v5 = (*(*a1 + 168))(a1, 3, v8, 112, 0, 0);
   v6 = v5;
   if (v5)
   {
     AppleMSGClient::syncInitialize();
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
 uint64_t AppleMSGClient::syncSetConfig(uint64_t a1, int a2, __int128 *a3)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v3 = a3[3];
-  v24 = a3[2];
-  v25 = v3;
-  v26 = a3[4];
+  v23 = a3[2];
+  v24 = v3;
+  v25 = a3[4];
   v4 = a3[1];
-  v22 = *a3;
-  v23 = v4;
+  v21 = *a3;
+  v22 = v4;
+  v17 = v23;
   v18 = v24;
   v19 = v25;
-  v20 = v26;
-  v16 = v22;
+  v15 = v21;
   v5 = *(a3 + 1);
   v6 = *(a3 + 24) ^ 1;
-  v27 = *(a3 + 10);
-  v11[0] = v5;
-  v11[1] = v6;
+  v26 = *(a3 + 10);
+  v10[0] = v5;
+  v10[1] = v6;
+  v11 = 0;
   v12 = 0;
-  v13 = 0;
-  v14 = a2;
-  v15 = 0;
-  v21 = v27;
-  v17 = v4;
-  v7 = (*(*a1 + 168))(a1, 7, v11, 112, 0, 0);
+  v13 = a2;
+  v14 = 0;
+  v20 = v26;
+  v16 = v4;
+  v7 = (*(*a1 + 168))(a1, 7, v10, 112, 0, 0);
   v8 = v7;
   if (v7)
   {
     AppleMSGClient::syncSetConfig();
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
 uint64_t AppleMSGClient::syncSetConfigSequence(uint64_t a1, int a2, __int128 *a3, char a4, __int16 a5)
 {
-  *&v26[7] = *MEMORY[0x277D85DE8];
+  *&v25[7] = *MEMORY[0x277D85DE8];
   v5 = a3[2];
-  v20 = a3[3];
+  v19 = a3[3];
   v6 = a3[5];
-  v21 = a3[4];
-  v22 = v6;
+  v20 = a3[4];
+  v21 = v6;
   v7 = a3[1];
-  v17 = *a3;
-  v18 = v7;
-  v15 = 0;
+  v16 = *a3;
+  v17 = v7;
   v14 = 0;
-  v13 = a4;
-  v16 = a2;
+  v13 = 0;
+  v12 = a4;
+  v15 = a2;
   v8 = *(a3 + 12);
-  v19 = v5;
-  v23 = v8;
-  v24 = 0;
-  v25 = a5;
-  *v26 = 0;
-  *&v26[3] = 0;
-  v9 = (*(*a1 + 168))(a1, 9, &v13, 136, 0, 0);
+  v18 = v5;
+  v22 = v8;
+  v23 = 0;
+  v24 = a5;
+  *v25 = 0;
+  *&v25[3] = 0;
+  v9 = (*(*a1 + 168))(a1, 9, &v12, 136, 0, 0);
   v10 = v9;
   if (v9)
   {
     AppleMSGClient::syncSetConfigSequence();
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
 uint64_t AppleMSGClient::syncSetConfigBatch(uint64_t a1, const void *a2, unsigned int a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   bzero(__dst, 0x510uLL);
   if (a3)
   {
     memcpy(__dst, a2, 144 * a3);
   }
 
-  v10[0] = a3;
-  v10[1] = 0;
-  memcpy(v11, __dst, sizeof(v11));
-  v6 = (*(*a1 + 168))(a1, 11, v10, 1304, 0, 0);
+  v9[0] = a3;
+  v9[1] = 0;
+  memcpy(v10, __dst, sizeof(v10));
+  v6 = (*(*a1 + 168))(a1, 11, v9, 1304, 0, 0);
   v7 = v6;
   if (v6)
   {
     AppleMSGClient::syncSetConfigBatch();
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
 uint64_t AppleMSGClient::syncGetInterruptState(uint64_t a1, int a2, _BYTE *a3, _BYTE *a4)
 {
-  v12 = *MEMORY[0x277D85DE8];
-  v10 = a2;
-  v6 = (*(*a1 + 168))(a1, 6, &v10, 4, v11, 176);
+  v11 = *MEMORY[0x277D85DE8];
+  v9 = a2;
+  v6 = (*(*a1 + 168))(a1, 6, &v9, 4, v10, 176);
   v7 = v6;
   if (v6)
   {
@@ -1621,30 +1591,29 @@ uint64_t AppleMSGClient::syncGetInterruptState(uint64_t a1, int a2, _BYTE *a3, _
 
   else
   {
-    *a3 = v11[0];
-    *a4 = v11[1];
+    *a3 = v10[0];
+    *a4 = v10[1];
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
 uint64_t AppleMSGClient::syncGetConfig(uint64_t a1, int a2, _OWORD *a3, int a4, char a5)
 {
-  v28 = *MEMORY[0x277D85DE8];
-  v17[0] = 0;
-  v17[1] = a4;
-  v18 = a5;
+  v27 = *MEMORY[0x277D85DE8];
+  v16[0] = 0;
+  v16[1] = a4;
+  v17 = a5;
+  v18 = 0;
   v19 = 0;
-  v20 = 0;
-  v21 = a2;
+  v20 = a2;
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
-  v6 = (*(*a1 + 168))(a1, 8, v17, 112, v12, 176);
+  v6 = (*(*a1 + 168))(a1, 8, v16, 112, v11, 176);
   v7 = v6;
   if (v6)
   {
@@ -1653,23 +1622,22 @@ uint64_t AppleMSGClient::syncGetConfig(uint64_t a1, int a2, _OWORD *a3, int a4, 
 
   else
   {
-    v8 = v14;
-    *a3 = v13;
+    v8 = v13;
+    *a3 = v12;
     a3[1] = v8;
-    v9 = v16;
-    a3[2] = v15;
+    v9 = v15;
+    a3[2] = v14;
     a3[3] = v9;
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
 uint64_t AppleMSGClient::syncGetConfigSequence(uint64_t a1, int a2, uint64_t a3)
 {
-  v20 = *MEMORY[0x277D85DE8];
-  v11 = a2;
-  v4 = (*(*a1 + 168))(a1, 10, &v11, 4, v12, 176);
+  v19 = *MEMORY[0x277D85DE8];
+  v10 = a2;
+  v4 = (*(*a1 + 168))(a1, 10, &v10, 4, v11, 176);
   v5 = v4;
   if (v4)
   {
@@ -1678,72 +1646,69 @@ uint64_t AppleMSGClient::syncGetConfigSequence(uint64_t a1, int a2, uint64_t a3)
 
   else
   {
-    v6 = v18;
-    *(a3 + 64) = v17;
+    v6 = v17;
+    *(a3 + 64) = v16;
     *(a3 + 80) = v6;
-    *(a3 + 96) = v19;
-    v7 = v14;
-    *a3 = v13;
+    *(a3 + 96) = v18;
+    v7 = v13;
+    *a3 = v12;
     *(a3 + 16) = v7;
-    v8 = v16;
-    *(a3 + 32) = v15;
+    v8 = v15;
+    *(a3 + 32) = v14;
     *(a3 + 48) = v8;
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
 uint64_t AppleMSGClient::timerSetTrackedTime(uint64_t a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, char a6, uint64_t a7, uint64_t a8)
 {
-  v25 = *MEMORY[0x277D85DE8];
-  v15 = 0;
+  v24 = *MEMORY[0x277D85DE8];
   v14 = 0;
-  v23 = 0;
-  v24 = 0;
-  v12 = a2;
-  v13 = a6;
-  v16 = a3;
-  v17 = a4;
-  v18 = a5;
-  v19 = a7;
-  v20 = a8;
-  v21 = 0;
+  v13 = 0;
   v22 = 0;
-  v8 = (*(*a1 + 168))(a1, 12, &v12, 56, 0, 0);
+  v23 = 0;
+  v11 = a2;
+  v12 = a6;
+  v15 = a3;
+  v16 = a4;
+  v17 = a5;
+  v18 = a7;
+  v19 = a8;
+  v20 = 0;
+  v21 = 0;
+  v8 = (*(*a1 + 168))(a1, 12, &v11, 56, 0, 0);
   v9 = v8;
   if (v8)
   {
     AppleMSGClient::timerSetTrackedTime();
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
 uint64_t AppleMSGClient::timerSetCrossTimestampConfig(uint64_t a1, int a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  memset(v6, 0, sizeof(v6));
-  v8 = BYTE2(a2);
-  v7 = a2;
+  v10 = *MEMORY[0x277D85DE8];
+  memset(v5, 0, sizeof(v5));
+  v7 = BYTE2(a2);
+  v6 = a2;
+  v8 = 0;
   v9 = 0;
-  v10 = 0;
-  v2 = (*(*a1 + 168))(a1, 13, v6, 56, 0, 0);
+  v2 = (*(*a1 + 168))(a1, 13, v5, 56, 0, 0);
   v3 = v2;
   if (v2)
   {
     AppleMSGClient::timerSetCrossTimestampConfig();
   }
 
-  v4 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
 uint64_t AppleMSGClient::timerGetCrossTimestamp(uint64_t a1, _OWORD *a2, _OWORD *a3, _OWORD *a4, _OWORD *a5)
 {
-  v16 = *MEMORY[0x277D85DE8];
-  v9 = (*(*a1 + 168))(a1, 15, 0, 0, v15, 72);
+  v15 = *MEMORY[0x277D85DE8];
+  v9 = (*(*a1 + 168))(a1, 15, 0, 0, v14, 72);
   v10 = v9;
   if (v9)
   {
@@ -1752,22 +1717,21 @@ uint64_t AppleMSGClient::timerGetCrossTimestamp(uint64_t a1, _OWORD *a2, _OWORD 
 
   else
   {
-    v11 = v15[1];
-    *a2 = v15[0];
+    v11 = v14[1];
+    *a2 = v14[0];
     *a3 = v11;
-    v12 = v15[3];
-    *a4 = v15[2];
+    v12 = v14[3];
+    *a4 = v14[2];
     *a5 = v12;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
 uint64_t AppleMSGClient::timerGetCrossTimestampConfig(uint64_t a1, uint64_t a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v3 = (*(*a1 + 168))(a1, 14, 0, 0, v7, 72);
+  v8 = *MEMORY[0x277D85DE8];
+  v3 = (*(*a1 + 168))(a1, 14, 0, 0, v6, 72);
   v4 = v3;
   if (v3)
   {
@@ -1776,19 +1740,18 @@ uint64_t AppleMSGClient::timerGetCrossTimestampConfig(uint64_t a1, uint64_t a2)
 
   else
   {
-    *a2 = v7[32];
-    *(a2 + 2) = v8;
+    *a2 = v6[32];
+    *(a2 + 2) = v7;
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
 uint64_t AppleMSGClient::msgBlockIsReady(AppleMSGClient *this, BOOL *a2, uint64_t a3)
 {
-  v9[1] = *MEMORY[0x277D85DE8];
-  v9[0] = a3;
-  v4 = (*(*this + 168))(this, 16, v9, 8, v8, 32);
+  v8[1] = *MEMORY[0x277D85DE8];
+  v8[0] = a3;
+  v4 = (*(*this + 168))(this, 16, v8, 8, v7, 32);
   v5 = v4;
   if (v4)
   {
@@ -1797,17 +1760,16 @@ uint64_t AppleMSGClient::msgBlockIsReady(AppleMSGClient *this, BOOL *a2, uint64_
 
   else
   {
-    *a2 = v8[0];
+    *a2 = v7[0];
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
 uint64_t AppleMSGClient::msgBlockPlatformInfo(uint64_t a1, uint64_t a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v3 = (*(*a1 + 168))(a1, 17, 0, 0, v7, 32);
+  v9 = *MEMORY[0x277D85DE8];
+  v3 = (*(*a1 + 168))(a1, 17, 0, 0, v6, 32);
   v4 = v3;
   if (v3)
   {
@@ -1816,18 +1778,17 @@ uint64_t AppleMSGClient::msgBlockPlatformInfo(uint64_t a1, uint64_t a2)
 
   else
   {
-    *a2 = v8;
-    *(a2 + 8) = v9;
+    *a2 = v7;
+    *(a2 + 8) = v8;
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
 uint64_t AppleMSGClient::msgBlockTargetVersion(AppleMSGClient *this, char *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v3 = (*(*this + 168))(this, 17, 0, 0, v7, 32);
+  v8 = *MEMORY[0x277D85DE8];
+  v3 = (*(*this + 168))(this, 17, 0, 0, v6, 32);
   v4 = v3;
   if (v3)
   {
@@ -1836,18 +1797,17 @@ uint64_t AppleMSGClient::msgBlockTargetVersion(AppleMSGClient *this, char *a2)
 
   else
   {
-    snprintf(a2, 0x10uLL, "%s", v8);
+    snprintf(a2, 0x10uLL, "%s", v7);
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
 uint64_t AppleMSGClient::syncReadEventLog(uint64_t a1, int a2, void *a3)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v8 = a2;
-  v4 = (*(*a1 + 168))(a1, 18, &v8, 4, __src, 2312);
+  v9 = *MEMORY[0x277D85DE8];
+  v7 = a2;
+  v4 = (*(*a1 + 168))(a1, 18, &v7, 4, __src, 2312);
   v5 = v4;
   if (v4)
   {
@@ -1859,41 +1819,37 @@ uint64_t AppleMSGClient::syncReadEventLog(uint64_t a1, int a2, void *a3)
     memcpy(a3, __src, 0x908uLL);
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
 uint64_t AppleMSGClient::frametrackGetBuffers(uint64_t a1, unsigned int a2, void *__src, void *a4)
 {
-  v15 = *MEMORY[0x277D85DE8];
-  v10 = 0;
+  v14 = *MEMORY[0x277D85DE8];
+  v9 = 0;
   if (a2 >= 3)
   {
     AppleMSGClient::frametrackGetBuffers(__srca);
-    result = __srca[0];
+    return __srca[0];
   }
 
   else
   {
-    memcpy(&v10, __src, 4 * a2);
-    v13 = a2;
-    v14 = v10;
-    v7 = (*(*a1 + 168))(a1, 19, &v13, 12, __srca, 794);
+    memcpy(&v9, __src, 4 * a2);
+    v12 = a2;
+    v13 = v9;
+    v7 = (*(*a1 + 168))(a1, 19, &v12, 12, __srca, 794);
     if (v7)
     {
-      AppleMSGClient::frametrackGetBuffers(v7, v7, &v11);
-      result = v11;
+      AppleMSGClient::frametrackGetBuffers(v7, v7, &v10);
+      return v10;
     }
 
     else
     {
       memcpy(a4, __srca, 397 * a2);
-      result = 0;
+      return 0;
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
 const char *AppleMSG::MSGTimerToCStr(unsigned int a1)
@@ -1979,128 +1935,101 @@ uint64_t AppleMSG::MSGTriggerFromCStr(AppleMSG *this, const char *a2)
   }
 }
 
-_BYTE *AppleMSG::getSyncConfigDescription@<X0>(_BYTE *result@<X0>, uint64_t a2@<X8>)
+void *AppleMSG::getSyncConfigDescription@<X0>(void *result@<X0>, void *a2@<X8>)
 {
-  v35 = *MEMORY[0x277D85DE8];
-  if (!result)
+  v17 = *MEMORY[0x277D85DE8];
+  if (result)
   {
-    *a2 = 0;
-    *(a2 + 8) = 0;
-    *(a2 + 16) = 0;
-    v10 = *MEMORY[0x277D85DE8];
-    return result;
-  }
-
-  v3 = MEMORY[0x28223BE20]();
-  v4 = *(v3 + 14);
-  v5 = *(v3 + 1);
-  v6 = *(v3 + 2);
-  v7 = *(v3 + 12);
-  if (*v3 == 1)
-  {
-    v8 = *(v3 + 4);
-    if (v8 > 3)
+    v3 = MEMORY[0x28223BE20]();
+    v4 = *(v3 + 14);
+    v5 = *(v3 + 1);
+    v6 = *(v3 + 2);
+    v7 = *(v3 + 12);
+    if (*v3 == 1)
     {
-      v9 = "INVALID";
+      v8 = *(v3 + 4);
+      if (v8 > 3)
+      {
+        v9 = "INVALID";
+      }
+
+      else
+      {
+        v9 = off_278CB51F8[v8];
+      }
+
+      v12 = *(v3 + 16);
+      if (v12 > 4)
+      {
+        v13 = "INVALID";
+      }
+
+      else
+      {
+        v13 = off_278CB51D0[v12];
+      }
+
+      snprintf(v16, 0xFFuLL, "slave sync: SWID #%d, intr_on_trigger: %d, intr_on_err: %d, preset: #%d, master_sel: %d, trigger:%s, timer:%s, repeat:%d, frame-skip:%u, polarity:%d, assert-duration:%llu + %hu, offset:%lli + %hu", v4, v5, v6, v7, *(v3 + 8), v9, v13, *(v3 + 20));
     }
 
     else
     {
-      v9 = off_278CB51F8[v8];
+      v10 = *(v3 + 4);
+      if (v10 > 3)
+      {
+        v11 = "INVALID";
+      }
+
+      else
+      {
+        v11 = off_278CB51F8[v10];
+      }
+
+      v14 = *(v3 + 16);
+      v15 = "INVALID";
+      if (v14 > 1)
+      {
+        if (v14 == 2)
+        {
+          v15 = "GPTP2";
+        }
+
+        else if (v14 == 4)
+        {
+          v15 = "GTB";
+        }
+      }
+
+      else if (v14)
+      {
+        if (v14 == 1)
+        {
+          v15 = "GPTP1";
+        }
+      }
+
+      else
+      {
+        v15 = "GPTP0";
+      }
+
+      snprintf(v16, 0xFFuLL, "master sync: SWID #%d, intr_on_trigger: %d, intr_on_err: %d,  preset: #%d trigger:%s, timer:%s, repeat:%d, polarity:%d, assert-duration:%llu + %hu, frame-duration:%lli + %hu (%hu/%hu)", v4, v5, v6, v7, v11, v15, *(v3 + 20));
     }
 
-    v13 = *(v3 + 16);
-    if (v13 > 4)
-    {
-      v14 = "INVALID";
-    }
-
-    else
-    {
-      v14 = off_278CB51D0[v13];
-    }
-
-    v17 = *(v3 + 22);
-    v18 = *(v3 + 24) != 0;
-    v19 = *(v3 + 32);
-    v20 = *(v3 + 40);
-    if (v13 == 4)
-    {
-      v21 = *(v3 + 56) >> 10;
-    }
-
-    else
-    {
-      v24 = *(v3 + 56);
-    }
-
-    v32 = *(v3 + 48);
-    snprintf(v34, 0xFFuLL, "slave sync: SWID #%d, intr_on_trigger: %d, intr_on_err: %d, preset: #%d, master_sel: %d, trigger:%s, timer:%s, repeat:%d, frame-skip:%u, polarity:%d, assert-duration:%llu + %hu, offset:%lli + %hu", v4, v5, v6, v7, *(v3 + 8), v9, v14, *(v3 + 20));
-    goto LABEL_28;
-  }
-
-  v11 = *(v3 + 4);
-  if (v11 > 3)
-  {
-    v12 = "INVALID";
+    return std::string::basic_string[abi:ne200100]<0>(a2, v16);
   }
 
   else
   {
-    v12 = off_278CB51F8[v11];
+    *a2 = 0;
+    a2[1] = 0;
+    a2[2] = 0;
   }
 
-  v15 = *(v3 + 16);
-  v16 = "INVALID";
-  if (v15 <= 1)
-  {
-    if (v15)
-    {
-      if (v15 == 1)
-      {
-        v16 = "GPTP1";
-      }
-    }
-
-    else
-    {
-      v16 = "GPTP0";
-    }
-
-    goto LABEL_26;
-  }
-
-  if (v15 == 2)
-  {
-    v16 = "GPTP2";
-    goto LABEL_26;
-  }
-
-  if (v15 != 4)
-  {
-LABEL_26:
-    v25 = *(v3 + 40);
-    v26 = *(v3 + 56);
-    goto LABEL_27;
-  }
-
-  v22 = *(v3 + 40) >> 10;
-  v23 = *(v3 + 56) >> 10;
-  v16 = "GTB";
-LABEL_27:
-  v27 = *(v3 + 32);
-  v28 = *(v3 + 24) != 0;
-  v29 = *(v3 + 58);
-  v33 = *(v3 + 60);
-  v31 = *(v3 + 48);
-  snprintf(v34, 0xFFuLL, "master sync: SWID #%d, intr_on_trigger: %d, intr_on_err: %d,  preset: #%d trigger:%s, timer:%s, repeat:%d, polarity:%d, assert-duration:%llu + %hu, frame-duration:%lli + %hu (%hu/%hu)", v4, v5, v6, v7, v12, v16, *(v3 + 20));
-LABEL_28:
-  result = std::string::basic_string[abi:ne200100]<0>(a2, v34);
-  v30 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-_BYTE *std::string::basic_string[abi:ne200100]<0>(_BYTE *a1, char *__s)
+void *std::string::basic_string[abi:ne200100]<0>(void *a1, char *__s)
 {
   v4 = strlen(__s);
   if (v4 >= 0x7FFFFFFFFFFFFFF8)
@@ -2114,19 +2043,19 @@ _BYTE *std::string::basic_string[abi:ne200100]<0>(_BYTE *a1, char *__s)
     operator new();
   }
 
-  a1[23] = v4;
+  *(a1 + 23) = v4;
   if (v4)
   {
     memmove(a1, __s, v4);
   }
 
-  a1[v5] = 0;
+  *(a1 + v5) = 0;
   return a1;
 }
 
 void AppleMSG::getSyncConfigEDTDescription(uint64_t a1@<X0>, std::string *a2@<X8>)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   if (a1)
   {
     std::string::basic_string[abi:ne200100]<0>(a2, &unk_240CB6BAA);
@@ -2134,7 +2063,7 @@ void AppleMSG::getSyncConfigEDTDescription(uint64_t a1@<X0>, std::string *a2@<X8
     {
       snprintf(__str, 0xCuLL, "0x%08x ", *(a1 + i));
       std::string::basic_string[abi:ne200100]<0>(__p, __str);
-      if ((v9 & 0x80u) == 0)
+      if ((v8 & 0x80u) == 0)
       {
         v5 = __p;
       }
@@ -2144,9 +2073,9 @@ void AppleMSG::getSyncConfigEDTDescription(uint64_t a1@<X0>, std::string *a2@<X8
         v5 = __p[0];
       }
 
-      if ((v9 & 0x80u) == 0)
+      if ((v8 & 0x80u) == 0)
       {
-        v6 = v9;
+        v6 = v8;
       }
 
       else
@@ -2155,7 +2084,7 @@ void AppleMSG::getSyncConfigEDTDescription(uint64_t a1@<X0>, std::string *a2@<X8
       }
 
       std::string::append(a2, v5, v6);
-      if (v9 < 0)
+      if (v8 < 0)
       {
         operator delete(__p[0]);
       }
@@ -2164,12 +2093,9 @@ void AppleMSG::getSyncConfigEDTDescription(uint64_t a1@<X0>, std::string *a2@<X8
 
   else
   {
-    a2->__r_.__value_.__r.__words[0] = 0;
-    a2->__r_.__value_.__l.__size_ = 0;
+    *&a2->__r_.__value_.__l.__data_ = 0uLL;
     a2->__r_.__value_.__r.__words[2] = 0;
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void sub_240CA42EC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16)
@@ -2182,9 +2108,9 @@ void sub_240CA42EC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void AppleMSG::getEventTriggerDescription(uint64_t a1@<X1>, uint64_t a2@<X8>)
+void AppleMSG::getEventTriggerDescription(uint64_t a1@<X1>, void *a2@<X8>)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   if (a1)
   {
     v3 = MEMORY[0x28223BE20]();
@@ -2199,48 +2125,45 @@ void AppleMSG::getEventTriggerDescription(uint64_t a1@<X1>, uint64_t a2@<X8>)
       v6 = off_278CB51D0[v5];
     }
 
-    v8 = *(v4 + 4);
-    if (v8 > 3)
+    v7 = *(v4 + 4);
+    if (v7 > 3)
     {
-      v9 = "INVALID";
+      v8 = "INVALID";
     }
 
     else
     {
-      v9 = off_278CB51F8[v8];
+      v8 = off_278CB51F8[v7];
     }
 
-    snprintf(v11, 0xFFuLL, "event trigger ID %u, timer_sel: %s, trigger_cond: %s", v3, v6, v9);
-    std::string::basic_string[abi:ne200100]<0>(a2, v11);
-    v10 = *MEMORY[0x277D85DE8];
+    snprintf(v9, 0xFFuLL, "event trigger ID %u, timer_sel: %s, trigger_cond: %s", v3, v6, v8);
+    std::string::basic_string[abi:ne200100]<0>(a2, v9);
   }
 
   else
   {
     *a2 = 0;
-    *(a2 + 8) = 0;
-    *(a2 + 16) = 0;
-    v7 = *MEMORY[0x277D85DE8];
+    a2[1] = 0;
+    a2[2] = 0;
   }
 }
 
-_BYTE *AppleMSG::getEventTriggerCountVals@<X0>(_BYTE *result@<X0>, _DWORD *a2@<X1>, uint64_t a3@<X8>)
+void *AppleMSG::getEventTriggerCountVals@<X0>(void *result@<X0>, _DWORD *a2@<X1>, void *a3@<X8>)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   if (a2)
   {
     snprintf(__str, 0xFFuLL, "event trigger ID %u, live count: %u, snapshot count: %u", result, a2[1], *a2);
-    result = std::string::basic_string[abi:ne200100]<0>(a3, __str);
+    return std::string::basic_string[abi:ne200100]<0>(a3, __str);
   }
 
   else
   {
     *a3 = 0;
-    *(a3 + 8) = 0;
-    *(a3 + 16) = 0;
+    a3[1] = 0;
+    a3[2] = 0;
   }
 
-  v4 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -2333,15 +2256,14 @@ unint64_t AppleMSG::getGTBScaled(unint64_t a1, int a2)
   }
 }
 
-void AppleMSG::getPerfReportBoot(uint64_t a1@<X1>, uint64_t a2@<X8>)
+void AppleMSG::getPerfReportBoot(uint64_t a1@<X1>, void *a2@<X8>)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   if (!a1)
   {
     *a2 = 0;
-    *(a2 + 8) = 0;
-    *(a2 + 16) = 0;
-    v11 = *MEMORY[0x277D85DE8];
+    a2[1] = 0;
+    a2[2] = 0;
     return;
   }
 
@@ -2350,9 +2272,9 @@ void AppleMSG::getPerfReportBoot(uint64_t a1@<X1>, uint64_t a2@<X8>)
   if (v5 == 3)
   {
     v7 = v6 / 0x5DC0;
-    v14 = v4[1];
-    v9 = v14 / 0x5DC0;
-    v13 = (v14 - v6) / 0x5DC0;
+    v13 = v4[1];
+    v9 = v13 / 0x5DC0;
+    v12 = (v13 - v6) / 0x5DC0;
   }
 
   else
@@ -2360,9 +2282,9 @@ void AppleMSG::getPerfReportBoot(uint64_t a1@<X1>, uint64_t a2@<X8>)
     if (v5 == 2)
     {
       v7 = v6 / 0x18;
-      v12 = v4[1];
-      v9 = v12 / 0x18;
-      v10 = ((v12 - v6) * 0xAAAAAAAAAAAAAAABLL) >> 64;
+      v11 = v4[1];
+      v9 = v11 / 0x18;
+      v10 = ((v11 - v6) * 0xAAAAAAAAAAAAAAABLL) >> 64;
     }
 
     else
@@ -2370,7 +2292,7 @@ void AppleMSG::getPerfReportBoot(uint64_t a1@<X1>, uint64_t a2@<X8>)
       if (v5 != 1)
       {
         v9 = v4[1];
-        v13 = v9 - v6;
+        v12 = v9 - v6;
         v7 = *v4;
         goto LABEL_11;
       }
@@ -2381,24 +2303,22 @@ void AppleMSG::getPerfReportBoot(uint64_t a1@<X1>, uint64_t a2@<X8>)
       v10 = (1000 * (v8 - v6) * 0xAAAAAAAAAAAAAAABLL) >> 64;
     }
 
-    v13 = v10 >> 4;
+    v12 = v10 >> 4;
   }
 
 LABEL_11:
-  snprintf(v16, 0xFFuLL, "%s\n\tstart: %llu\n\treg'd: %llu\t(+%llu)", v3, v7, v9, v13);
-  std::string::basic_string[abi:ne200100]<0>(a2, v16);
-  v15 = *MEMORY[0x277D85DE8];
+  snprintf(v14, 0xFFuLL, "%s\n\tstart: %llu\n\treg'd: %llu\t(+%llu)", v3, v7, v9, v12);
+  std::string::basic_string[abi:ne200100]<0>(a2, v14);
 }
 
-void AppleMSG::getPerfReportResume(uint64_t a1@<X1>, uint64_t a2@<X8>)
+void AppleMSG::getPerfReportResume(uint64_t a1@<X1>, void *a2@<X8>)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   if (!a1)
   {
     *a2 = 0;
-    *(a2 + 8) = 0;
-    *(a2 + 16) = 0;
-    v16 = *MEMORY[0x277D85DE8];
+    a2[1] = 0;
+    a2[2] = 0;
     return;
   }
 
@@ -2407,14 +2327,14 @@ void AppleMSG::getPerfReportResume(uint64_t a1@<X1>, uint64_t a2@<X8>)
   if (v5 == 3)
   {
     v7 = v6 / 0x5DC0;
-    v21 = v4[4];
-    v22 = v4[5];
-    v10 = v21 / 0x5DC0;
-    v11 = (v21 - v6) / 0x5DC0;
-    v12 = v22 / 0x5DC0;
-    v23 = v4[6];
-    v14 = v23 / 0x5DC0;
-    v20 = (v23 - v22) / 0x5DC0;
+    v20 = v4[4];
+    v21 = v4[5];
+    v10 = v20 / 0x5DC0;
+    v11 = (v20 - v6) / 0x5DC0;
+    v12 = v21 / 0x5DC0;
+    v22 = v4[6];
+    v14 = v22 / 0x5DC0;
+    v19 = (v22 - v21) / 0x5DC0;
   }
 
   else
@@ -2422,14 +2342,14 @@ void AppleMSG::getPerfReportResume(uint64_t a1@<X1>, uint64_t a2@<X8>)
     if (v5 == 2)
     {
       v7 = v6 / 0x18;
-      v17 = v4[4];
-      v18 = v4[5];
-      v10 = v17 / 0x18;
-      v11 = (v17 - v6) / 0x18;
-      v12 = v18 / 0x18;
-      v19 = v4[6];
-      v14 = v19 / 0x18;
-      v15 = ((v19 - v18) * 0xAAAAAAAAAAAAAAABLL) >> 64;
+      v16 = v4[4];
+      v17 = v4[5];
+      v10 = v16 / 0x18;
+      v11 = (v16 - v6) / 0x18;
+      v12 = v17 / 0x18;
+      v18 = v4[6];
+      v14 = v18 / 0x18;
+      v15 = ((v18 - v17) * 0xAAAAAAAAAAAAAAABLL) >> 64;
     }
 
     else
@@ -2440,7 +2360,7 @@ void AppleMSG::getPerfReportResume(uint64_t a1@<X1>, uint64_t a2@<X8>)
         v12 = v4[5];
         v11 = v10 - v6;
         v14 = v4[6];
-        v20 = v14 - v12;
+        v19 = v14 - v12;
         v7 = v4[3];
         goto LABEL_11;
       }
@@ -2456,13 +2376,12 @@ void AppleMSG::getPerfReportResume(uint64_t a1@<X1>, uint64_t a2@<X8>)
       v15 = ((1000 * (v13 - v9)) * 0xAAAAAAAAAAAAAAABLL) >> 64;
     }
 
-    v20 = v15 >> 4;
+    v19 = v15 >> 4;
   }
 
 LABEL_11:
-  snprintf(v25, 0xFFuLL, "%s\n[sleep]\n\tstart: %llu\n\tdone : %llu\t(+%llu)\n[wake]\n\tstart: %llu\n\tdone : %llu\t(+%llu)", v3, v7, v10, v11, v12, v14, v20);
-  std::string::basic_string[abi:ne200100]<0>(a2, v25);
-  v24 = *MEMORY[0x277D85DE8];
+  snprintf(v23, 0xFFuLL, "%s\n[sleep]\n\tstart: %llu\n\tdone : %llu\t(+%llu)\n[wake]\n\tstart: %llu\n\tdone : %llu\t(+%llu)", v3, v7, v10, v11, v12, v14, v19);
+  std::string::basic_string[abi:ne200100]<0>(a2, v23);
 }
 
 void std::__throw_length_error[abi:ne200100](const char *a1)
@@ -2479,7 +2398,7 @@ std::logic_error *std::length_error::length_error[abi:ne200100](std::logic_error
   return result;
 }
 
-void MSGController::MSGController(MSGController *this, char a2, int a3)
+void MSGController::MSGController(MSGController *this, BOOL a2, int a3)
 {
   *(this + 1) = 0;
   *(this + 2) = 0;
@@ -2677,7 +2596,7 @@ uint64_t MSGController::MSGController(uint64_t a1, uint64_t a2)
 
 void MSGController::serviceMatchedCallback(MSGController *this, void *a2, io_iterator_t iterator)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   connect = 0;
   v5 = IOIteratorNext(iterator);
   if (v5)
@@ -2687,13 +2606,13 @@ void MSGController::serviceMatchedCallback(MSGController *this, void *a2, io_ite
     v8 = MEMORY[0x277D85F48];
     while (1)
     {
-      MEMORY[0x245CCF620](v6, v15);
+      MEMORY[0x245CCF620](v6, v14);
       if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
       {
         *buf = 136315394;
-        v12 = "serviceMatchedCallback";
-        v13 = 2080;
-        v14 = v15;
+        v11 = "serviceMatchedCallback";
+        v12 = 2080;
+        v13 = v14;
         _os_log_impl(&dword_240CA0000, v7, OS_LOG_TYPE_INFO, "MSGController::%s: Found service %s\n", buf, 0x16u);
       }
 
@@ -2719,13 +2638,11 @@ LABEL_7:
   {
     dispatch_semaphore_signal(*(this + 4));
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t MSGController::_openServiceInternal(MSGController *this, const char *name, NSObject *a3, unint64_t a4, unsigned int *a5, unsigned int *a6)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v12 = IOServiceMatching(name);
   v13 = 0;
   notification = 0;
@@ -2763,11 +2680,11 @@ uint64_t MSGController::_openServiceInternal(MSGController *this, const char *na
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
       {
         *buf = 136315650;
-        v27 = "_openServiceInternal";
-        v28 = 2080;
-        v29 = name;
-        v30 = 2048;
-        v31 = v15;
+        v26 = "_openServiceInternal";
+        v27 = 2080;
+        v28 = name;
+        v29 = 2048;
+        v30 = v15;
         _os_log_impl(&dword_240CA0000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "MSGController::%s: Connecting to %s (blocking for up to %llu ns)\n", buf, 0x20u);
       }
 
@@ -2795,9 +2712,9 @@ uint64_t MSGController::_openServiceInternal(MSGController *this, const char *na
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
         {
           *buf = 136315394;
-          v27 = "_openServiceInternal";
-          v28 = 2080;
-          v29 = name;
+          v26 = "_openServiceInternal";
+          v27 = 2080;
+          v28 = name;
           _os_log_impl(&dword_240CA0000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "MSGController::%s: Checking for %s in existing matches\n", buf, 0x16u);
           v19 = notification;
         }
@@ -2821,9 +2738,9 @@ LABEL_36:
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
       {
         *buf = 136315394;
-        v27 = "_openServiceInternal";
-        v28 = 2080;
-        v29 = name;
+        v26 = "_openServiceInternal";
+        v27 = 2080;
+        v28 = name;
         _os_log_impl(&dword_240CA0000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "MSGController::%s: Connecting to %s (non-blocking)\n", buf, 0x16u);
       }
 
@@ -2858,7 +2775,6 @@ LABEL_30:
     IOObjectRelease(notification);
   }
 
-  v22 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
@@ -3234,7 +3150,7 @@ uint64_t MSGController::SyncGetTracking(uint64_t a1, uint64_t a2, uint64_t a3)
 uint64_t MSGController::SyncGetFIFOState(MSGController *this, unsigned int a2, BOOL *a3, unsigned __int8 *a4)
 {
   input[1] = *MEMORY[0x277D85DE8];
-  v13 = 0;
+  v12 = 0;
   input[0] = a2;
   output = 0;
   outputCnt = 2;
@@ -3247,12 +3163,11 @@ uint64_t MSGController::SyncGetFIFOState(MSGController *this, unsigned int a2, B
 
   else
   {
-    v8 = v13;
+    v8 = v12;
     *a3 = output != 0;
     *a4 = v8;
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -3307,7 +3222,7 @@ uint64_t MSGController::SyncPulseUnsubscribeFromEvents(MSGController *this, uint
   return result;
 }
 
-uint64_t MSGController::SyncGetCurrentMasterFrame(MSGController *this, int a2, unint64_t *a3, unint64_t *a4, unint64_t *a5)
+uint64_t MSGController::SyncGetCurrentMasterFrame(mach_port_t *this, int a2, unint64_t *a3, unint64_t *a4, unint64_t *a5)
 {
   inputStruct[0] = a2;
   outputStructCnt = 24;
@@ -3319,7 +3234,7 @@ uint64_t MSGController::SyncGetCurrentMasterFrame(MSGController *this, int a2, u
 
   else
   {
-    result = IOConnectCallStructMethod(*(this + 4), 7u, inputStruct, 4uLL, outputStruct, &outputStructCnt);
+    result = IOConnectCallStructMethod(this[4], 7u, inputStruct, 4uLL, outputStruct, &outputStructCnt);
     if (result)
     {
       MSGController::SyncGetCurrentMasterFrame();
@@ -3340,33 +3255,29 @@ uint64_t MSGController::SyncGetCurrentMasterFrame(MSGController *this, int a2, u
 
 uint64_t MSGController::_initMSGManagerObjects(MSGController *this)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   if (*(this + 4) && *(this + 5))
   {
-    v2 = 0;
+    return 0;
   }
 
-  else
+  v2 = MSGController::_openServiceInternal(this, "MSGManager", 0, 0, this + 4, this + 5);
+  if (v2)
   {
-    v2 = MSGController::_openServiceInternal(this, "MSGManager", 0, 0, this + 4, this + 5);
-    if (v2)
+    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
-      {
-        v5 = 136315650;
-        v6 = "_initMSGManagerObjects";
-        v7 = 2080;
-        v8 = "MSGManager";
-        v9 = 1024;
-        v10 = v2;
-        _os_log_impl(&dword_240CA0000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "MSGController::%s: Failed to open %s service with retcode 0x%x\n\n", &v5, 0x1Cu);
-      }
-
-      MSGController::closeService(this);
+      v4 = 136315650;
+      v5 = "_initMSGManagerObjects";
+      v6 = 2080;
+      v7 = "MSGManager";
+      v8 = 1024;
+      v9 = v2;
+      _os_log_impl(&dword_240CA0000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "MSGController::%s: Failed to open %s service with retcode 0x%x\n\n", &v4, 0x1Cu);
     }
+
+    MSGController::closeService(this);
   }
 
-  v3 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
@@ -3436,32 +3347,30 @@ uint64_t MSGController::SetEventTriggerConfig(uint64_t a1, int a2, uint64_t a3)
 uint64_t MSGController::GetEventTriggerConfig(uint64_t a1, unsigned int a2, void *outputStruct)
 {
   input[1] = *MEMORY[0x277D85DE8];
-  v7 = 8;
+  v6 = 8;
   input[0] = a2;
-  v3 = IOConnectCallMethod(*(a1 + 8), 0x25u, input, 1u, 0, 0, 0, 0, outputStruct, &v7);
+  v3 = IOConnectCallMethod(*(a1 + 8), 0x25u, input, 1u, 0, 0, 0, 0, outputStruct, &v6);
   v4 = v3;
   if (v3)
   {
     MSGController::GetEventTriggerConfig();
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
 uint64_t MSGController::GetEventTriggerCountSnapshot(uint64_t a1, unsigned int a2, void *outputStruct)
 {
   input[1] = *MEMORY[0x277D85DE8];
-  v7 = 8;
+  v6 = 8;
   input[0] = a2;
-  v3 = IOConnectCallMethod(*(a1 + 8), 0x2Au, input, 1u, 0, 0, 0, 0, outputStruct, &v7);
+  v3 = IOConnectCallMethod(*(a1 + 8), 0x2Au, input, 1u, 0, 0, 0, 0, outputStruct, &v6);
   v4 = v3;
   if (v3)
   {
     MSGController::GetEventTriggerCountSnapshot();
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
@@ -3507,16 +3416,15 @@ uint64_t MSGController::GetEventTriggerInterruptStatus(uint64_t a1, void *output
 
 uint64_t MSGController::EventTriggerClearInterruptStatus(MSGController *this, unsigned int a2)
 {
-  v6[1] = *MEMORY[0x277D85DE8];
-  v6[0] = a2;
-  v2 = IOConnectCallScalarMethod(*(this + 2), 0x27u, v6, 1u, 0, 0);
+  v5[1] = *MEMORY[0x277D85DE8];
+  v5[0] = a2;
+  v2 = IOConnectCallScalarMethod(*(this + 2), 0x27u, v5, 1u, 0, 0);
   v3 = v2;
   if (v2)
   {
     MSGController::EventTriggerClearInterruptStatus();
   }
 
-  v4 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
@@ -3608,7 +3516,7 @@ uint64_t MSGController::SyncGetDurationInMachAbsoluteTime(uint64_t a1, uint64_t 
   return result;
 }
 
-uint64_t MSGController::SyncComputePulseTime(uint64_t a1, uint64_t a2, int a3, uint64_t a4, __int16 a5, uint64_t *a6)
+uint64_t MSGController::SyncComputePulseTime(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, __int16 a5, uint64_t *a6)
 {
   v6 = *(a4 + 16);
   v8[0] = *a4;
@@ -3630,7 +3538,6 @@ uint64_t MSGController::SyncGetSoftwareID(MSGController *this, unsigned int a2, 
     *a3 = output;
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -3647,7 +3554,6 @@ uint64_t MSGController::SyncGetHardwareID(MSGController *this, unsigned int a2, 
     *a3 = output;
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -3665,29 +3571,29 @@ uint64_t MSGController::dumpCurrentSyncGenState(MSGController *this)
 
 uint64_t MSGController::SyncSetConfigSequence(uint64_t a1, uint64_t a2, __int128 *a3)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   if (*(a1 + 161) == 1)
   {
     v3 = *(a1 + 1464);
     if (v3 >= 9)
     {
       MSGController::SyncSetConfigSequence();
-      v4 = v19;
+      return v18;
     }
 
     else
     {
       v4 = 0;
-      v25 = *(a3 + 12);
+      v24 = *(a3 + 12);
       v5 = a3[5];
-      v23 = a3[4];
-      v24 = v5;
+      v22 = a3[4];
+      v23 = v5;
       v6 = a3[1];
-      v19 = *a3;
-      v20 = v6;
+      v18 = *a3;
+      v19 = v6;
       v7 = a3[3];
-      v21 = a3[2];
-      v22 = v7;
+      v20 = a3[2];
+      v21 = v7;
       v8 = a1 + 144 * v3;
       *(v8 + 168) = 9;
       *(v8 + 172) = 0;
@@ -3696,14 +3602,14 @@ uint64_t MSGController::SyncSetConfigSequence(uint64_t a1, uint64_t a2, __int128
       *(v8 + 196) = 0;
       *(v8 + 200) = a2;
       *(v8 + 204) = 0;
-      v9 = v20;
-      *(v8 + 208) = v19;
+      v9 = v19;
+      *(v8 + 208) = v18;
       *(v8 + 224) = v9;
-      v10 = v21;
-      v11 = v22;
-      v12 = v23;
-      v13 = v24;
-      *(v8 + 304) = v25;
+      v10 = v20;
+      v11 = v21;
+      v12 = v22;
+      v13 = v23;
+      *(v8 + 304) = v24;
       *(v8 + 272) = v12;
       *(v8 + 288) = v13;
       *(v8 + 240) = v10;
@@ -3715,47 +3621,46 @@ uint64_t MSGController::SyncSetConfigSequence(uint64_t a1, uint64_t a2, __int128
   else
   {
     v14 = a3[5];
-    v23 = a3[4];
-    v24 = v14;
-    v25 = *(a3 + 12);
+    v22 = a3[4];
+    v23 = v14;
+    v24 = *(a3 + 12);
     v15 = a3[1];
-    v19 = *a3;
-    v20 = v15;
+    v18 = *a3;
+    v19 = v15;
     v16 = a3[3];
-    v21 = a3[2];
-    v22 = v16;
-    v4 = (*(*a1 + 56))(a1, a2, &v19, 0, 0);
+    v20 = a3[2];
+    v21 = v16;
+    return (*(*a1 + 56))(a1, a2, &v18, 0, 0);
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
 uint64_t MSGController::SyncSetConfigSequenceScheduled(uint64_t a1, uint64_t a2, __int128 *a3, unsigned int a4)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   if (*(a1 + 161) == 1)
   {
     v4 = *(a1 + 1464);
     if (v4 >= 9)
     {
       MSGController::SyncSetConfigSequenceScheduled();
-      v5 = v20;
+      return v19;
     }
 
     else
     {
       v5 = 0;
-      v26 = *(a3 + 12);
+      v25 = *(a3 + 12);
       v6 = a3[5];
-      v24 = a3[4];
-      v25 = v6;
+      v23 = a3[4];
+      v24 = v6;
       v7 = a3[1];
-      v20 = *a3;
-      v21 = v7;
+      v19 = *a3;
+      v20 = v7;
       v8 = a3[3];
-      v22 = a3[2];
-      v23 = v8;
+      v21 = a3[2];
+      v22 = v8;
       v9 = a1 + 144 * v4;
       *(v9 + 168) = 9;
       *(v9 + 176) = 256;
@@ -3766,14 +3671,14 @@ uint64_t MSGController::SyncSetConfigSequenceScheduled(uint64_t a1, uint64_t a2,
       *(v9 + 192) = 0;
       *(v9 + 200) = a2;
       *(v9 + 204) = 0;
-      v10 = v21;
-      *(v9 + 208) = v20;
+      v10 = v20;
+      *(v9 + 208) = v19;
       *(v9 + 224) = v10;
-      v11 = v22;
-      v12 = v23;
-      v13 = v24;
-      v14 = v25;
-      *(v9 + 304) = v26;
+      v11 = v21;
+      v12 = v22;
+      v13 = v23;
+      v14 = v24;
+      *(v9 + 304) = v25;
       *(v9 + 272) = v13;
       *(v9 + 288) = v14;
       *(v9 + 240) = v11;
@@ -3785,100 +3690,89 @@ uint64_t MSGController::SyncSetConfigSequenceScheduled(uint64_t a1, uint64_t a2,
   else
   {
     v15 = a3[5];
-    v24 = a3[4];
-    v25 = v15;
-    v26 = *(a3 + 12);
+    v23 = a3[4];
+    v24 = v15;
+    v25 = *(a3 + 12);
     v16 = a3[1];
-    v20 = *a3;
-    v21 = v16;
+    v19 = *a3;
+    v20 = v16;
     v17 = a3[3];
-    v22 = a3[2];
-    v23 = v17;
-    v5 = (*(*a1 + 56))(a1, a2, &v20, 1, a4);
+    v21 = a3[2];
+    v22 = v17;
+    return (*(*a1 + 56))(a1, a2, &v19, 1, a4);
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
 uint64_t MSGController::TestLogging(MSGController *this)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v5 = "TestLogging";
+    v4 = "TestLogging";
     _os_log_impl(&dword_240CA0000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "MSGController::%s: msg_log test\n", buf, 0xCu);
   }
 
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315138;
-    v5 = "TestLogging";
+    v4 = "TestLogging";
     _os_log_impl(&dword_240CA0000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "MSGController::%s: msg_log_debug test\n", buf, 0xCu);
   }
 
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v5 = "TestLogging";
+    v4 = "TestLogging";
     _os_log_impl(&dword_240CA0000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "MSGController::%s: msg_log_info test\n", buf, 0xCu);
   }
 
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     *buf = 136315138;
-    v5 = "TestLogging";
+    v4 = "TestLogging";
     _os_log_impl(&dword_240CA0000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "MSGController::%s: msg_log_error test\n", buf, 0xCu);
   }
 
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v5 = "TestLogging";
+    v4 = "TestLogging";
     _os_log_impl(&dword_240CA0000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "MSGController::%s: msg_log_always test\n", buf, 0xCu);
   }
 
-  result = IOConnectCallMethod(*(this + 2), 0x1Eu, 0, 0, 0, 0, 0, 0, 0, 0);
-  v3 = *MEMORY[0x277D85DE8];
-  return result;
+  return IOConnectCallMethod(*(this + 2), 0x1Eu, 0, 0, 0, 0, 0, 0, 0, 0);
 }
 
 uint64_t MSGController::AllocateHandle(MSGController *this)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315138;
-    v5 = "AllocateHandle";
+    v4 = "AllocateHandle";
     _os_log_impl(&dword_240CA0000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "MSGController::%s: AllocateHandle\n", buf, 0xCu);
   }
 
-  result = IOConnectCallMethod(*(this + 2), 0x2Du, 0, 0, 0, 0, 0, 0, 0, 0);
-  v3 = *MEMORY[0x277D85DE8];
-  return result;
+  return IOConnectCallMethod(*(this + 2), 0x2Du, 0, 0, 0, 0, 0, 0, 0, 0);
 }
 
 uint64_t MSGController::ReleaseHandle(MSGController *this)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315138;
-    v5 = "ReleaseHandle";
+    v4 = "ReleaseHandle";
     _os_log_impl(&dword_240CA0000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "MSGController::%s: ReleaseHandle\n", buf, 0xCu);
   }
 
-  result = IOConnectCallMethod(*(this + 2), 0x2Eu, 0, 0, 0, 0, 0, 0, 0, 0);
-  v3 = *MEMORY[0x277D85DE8];
-  return result;
+  return IOConnectCallMethod(*(this + 2), 0x2Eu, 0, 0, 0, 0, 0, 0, 0, 0);
 }
 
-uint64_t MSGController::registerForTimingInfo(MSGController *this, unsigned int a2, uint64_t a3, unsigned __int8 *a4)
-{
-  return MSGController::registerForTimingInfo(this, a2, a3, a4);
-}
-
+uint64_t MSGController::registerForTimingInfo(MSGController *this, int a2, uint64_t a3, unsigned __int8 *a4, int a5)
 {
   *a4 = 0;
   if (a3 < 0)
@@ -3903,14 +3797,14 @@ uint64_t MSGController::registerForTimingInfo(MSGController *this, unsigned int 
       goto LABEL_8;
     }
 
-    v4 = 0;
+    v5 = 0;
     do
     {
-      *a4 = ++v4;
+      *a4 = ++v5;
     }
 
-    while (*(this + v4 + 6));
-    if (v4 < 3u)
+    while (*(this + v5 + 6));
+    if (v5 < 3u)
     {
 LABEL_8:
       operator new();
@@ -3919,71 +3813,67 @@ LABEL_8:
     MSGController::registerForTimingInfo();
   }
 
-  return v6;
+  return v7;
 }
 
-uint64_t MSGController::getNextNFrames(MSGController *this, unsigned int a2, signed int a3, uint64_t a4, unint64_t *a5, unint64_t *a6)
+uint64_t MSGController::getNextNFrames(MSGController *this, unsigned int a2, unsigned int a3, uint64_t a4, unint64_t *a5, unint64_t *a6)
 {
-  v55 = *MEMORY[0x277D85DE8];
-  v45 = 0;
+  v54 = *MEMORY[0x277D85DE8];
+  v44 = 0;
   v6 = this + 48;
   v7 = *(this + a2 + 6);
   if (!v7)
   {
     MSGController::getNextNFrames();
-    goto LABEL_63;
+    return *buf;
   }
 
   if (a3 >= 6)
   {
     MSGController::getNextNFrames();
-    goto LABEL_63;
+    return *buf;
   }
 
   v13 = *v7;
   if (RingBufferW1Reader::jumpToLatest((v7 + 1), 1))
   {
     MSGController::getNextNFrames();
-    goto LABEL_63;
+    return *buf;
   }
 
   v14 = 0;
   v15 = a4 - v13;
-  v46 = 0;
+  v45 = 0;
   do
   {
     v16 = *&v6[8 * a2];
     v17 = *(v16 + 1);
     v16 = (v16 + 8);
-    v44 = *(v17 + 8) - 8;
+    v43 = *(v17 + 8) - 8;
     v18 = (*(v16 + 4) + v14 * (*(v17 + 8) - 8));
-    if (RingBufferW1Reader::readNext(v16, v18, &v44))
+    if (RingBufferW1Reader::readNext(v16, v18, &v43))
     {
       MSGController::getNextNFrames();
-LABEL_63:
-      v19 = *buf;
-      goto LABEL_47;
+      return *buf;
     }
 
-    if (v44 <= 0x2Fu)
+    if (v43 <= 0x2Fu)
     {
       MSGController::getNextNFrames();
-      goto LABEL_63;
+      return *buf;
     }
 
-    if (MSGController::_getFirstPulseTimeFromEntry(v18, &v46))
+    if (MSGController::_getFirstPulseTimeFromEntry(v18, &v45))
     {
       MSGController::getNextNFrames();
-      goto LABEL_63;
+      return *buf;
     }
 
-    if (v46 <= v15)
+    if (v45 <= v15)
     {
       if (!a3)
       {
-LABEL_46:
-        v19 = 0;
-        goto LABEL_47;
+        return 0;
       }
 
       v23 = 0;
@@ -4005,19 +3895,19 @@ LABEL_46:
           v19 = 3758097097;
           if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
           {
-            goto LABEL_47;
+            return v19;
           }
 
           *buf = 136316162;
-          v48 = "current_entry->data_type == kVsyncTransitionEntry";
-          v49 = 2080;
-          v50 = &unk_240CB6BAA;
-          v51 = 2080;
-          *v52 = "/Library/Caches/com.apple.xbs/Sources/AppleMSG/MSGController/MSGController.cpp";
-          *&v52[8] = 1024;
-          *&v52[10] = 1137;
-          v53 = 2048;
-          v54 = 0;
+          v47 = "current_entry->data_type == kVsyncTransitionEntry";
+          v48 = 2080;
+          v49 = &unk_240CB6BAA;
+          v50 = 2080;
+          *v51 = "/Library/Caches/com.apple.xbs/Sources/AppleMSG/MSGController/MSGController.cpp";
+          *&v51[8] = 1024;
+          *&v51[10] = 1137;
+          v52 = 2048;
+          v53 = 0;
           v20 = MEMORY[0x277D86220];
           v21 = "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n";
           goto LABEL_12;
@@ -4050,7 +3940,7 @@ LABEL_46:
               if (v38 + v23 != v37)
               {
                 MSGController::getNextNFrames();
-                goto LABEL_63;
+                return *buf;
               }
 
               v15 = v36 + 20;
@@ -4065,7 +3955,7 @@ LABEL_46:
               if (v23 >= a3)
               {
                 MSGController::getNextNFrames();
-                goto LABEL_63;
+                return *buf;
               }
 
               v33 = *(v29 + 8);
@@ -4081,7 +3971,7 @@ LABEL_46:
         if (v23 != a3 && !v27)
         {
           MSGController::getNextNFrames();
-          goto LABEL_63;
+          return *buf;
         }
 
 LABEL_44:
@@ -4089,7 +3979,7 @@ LABEL_44:
 LABEL_45:
         if (v23 >= a3)
         {
-          goto LABEL_46;
+          return 0;
         }
       }
 
@@ -4098,11 +3988,11 @@ LABEL_45:
       {
         v31 = v23;
         a5[v23] = v30;
-        v45 = *(v29 + 24);
+        v44 = *(v29 + 24);
         if (!v23)
         {
 LABEL_20:
-          *a6 = v45;
+          *a6 = v44;
           v32 = a5[v31];
 LABEL_39:
           v40 = *&v6[8 * a2];
@@ -4111,13 +4001,13 @@ LABEL_39:
           a5[v31] = v32 + *v40;
           if (v27)
           {
-            if (MSGController::_getFirstPulseTimeFromEntry(v40[5] + (v27 - 1) * (*(v40[1] + 8) - 8), &v46))
+            if (MSGController::_getFirstPulseTimeFromEntry(v40[5] + (v27 - 1) * (*(v40[1] + 8) - 8), &v45))
             {
               MSGController::getNextNFrames();
-              goto LABEL_63;
+              return *buf;
             }
 
-            v24 = v27 - (v46 <= v15);
+            v24 = v27 - (v45 <= v15);
           }
 
           else
@@ -4131,10 +4021,10 @@ LABEL_39:
 
       else
       {
-        if (SyncComputeNextMSGPulseTime(*(v29 + 8), *(v29 + 16), *(v29 + 40), *(v29 + 24), v30, v15, &a5[v23], &v45))
+        if (SyncComputeNextMSGPulseTime(*(v29 + 8), *(v29 + 16), *(v29 + 40), *(v29 + 24), v30, v15, &a5[v23], &v44))
         {
           MSGController::getNextNFrames();
-          goto LABEL_63;
+          return *buf;
         }
 
         v31 = v23;
@@ -4146,42 +4036,42 @@ LABEL_39:
       }
 
       v32 = v30;
-      if (*a6 + v31 != v45)
+      if (*a6 + v31 != v44)
       {
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
         {
           *buf = 136316162;
-          v48 = "firstPulseFrameID + x == nextFrameID";
-          v49 = 2080;
-          v50 = &unk_240CB6BAA;
-          v51 = 2080;
-          *v52 = "/Library/Caches/com.apple.xbs/Sources/AppleMSG/MSGController/MSGController.cpp";
-          *&v52[8] = 1024;
-          *&v52[10] = 1121;
-          v53 = 2048;
-          v54 = 0;
+          v47 = "firstPulseFrameID + x == nextFrameID";
+          v48 = 2080;
+          v49 = &unk_240CB6BAA;
+          v50 = 2080;
+          *v51 = "/Library/Caches/com.apple.xbs/Sources/AppleMSG/MSGController/MSGController.cpp";
+          *&v51[8] = 1024;
+          *&v51[10] = 1121;
+          v52 = 2048;
+          v53 = 0;
           _os_log_impl(&dword_240CA0000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", buf, 0x30u);
         }
 
         v19 = 3758097104;
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
         {
-          v43 = *a6;
+          v42 = *a6;
           *buf = 136315906;
-          v48 = "getNextNFrames";
-          v49 = 2048;
-          v50 = v43;
-          v51 = 1024;
-          *v52 = v23;
-          *&v52[4] = 2048;
-          *&v52[6] = v45;
+          v47 = "getNextNFrames";
+          v48 = 2048;
+          v49 = v42;
+          v50 = 1024;
+          *v51 = v23;
+          *&v51[4] = 2048;
+          *&v51[6] = v44;
           v20 = MEMORY[0x277D86220];
           v21 = "MSGController::%s: firstPulse: %llu, x: %d, nextFrameID: %llu\n";
           v22 = 38;
           goto LABEL_13;
         }
 
-        goto LABEL_47;
+        return v19;
       }
 
       goto LABEL_39;
@@ -4195,15 +4085,15 @@ LABEL_39:
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     *buf = 136316162;
-    v48 = "cur_entry_buf_idx < kMAX_RT_VSYNC_ENTRIES_NEEDED_TO_POP";
-    v49 = 2080;
-    v50 = &unk_240CB6BAA;
-    v51 = 2080;
-    *v52 = "/Library/Caches/com.apple.xbs/Sources/AppleMSG/MSGController/MSGController.cpp";
-    *&v52[8] = 1024;
-    *&v52[10] = 1095;
-    v53 = 2048;
-    v54 = 0;
+    v47 = "cur_entry_buf_idx < kMAX_RT_VSYNC_ENTRIES_NEEDED_TO_POP";
+    v48 = 2080;
+    v49 = &unk_240CB6BAA;
+    v50 = 2080;
+    *v51 = "/Library/Caches/com.apple.xbs/Sources/AppleMSG/MSGController/MSGController.cpp";
+    *&v51[8] = 1024;
+    *&v51[10] = 1095;
+    v52 = 2048;
+    v53 = 0;
     v20 = MEMORY[0x277D86220];
     v21 = "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n";
 LABEL_12:
@@ -4212,21 +4102,18 @@ LABEL_13:
     _os_log_impl(&dword_240CA0000, v20, OS_LOG_TYPE_ERROR, v21, buf, v22);
   }
 
-LABEL_47:
-  v41 = *MEMORY[0x277D85DE8];
   return v19;
 }
 
 uint64_t MSGController::_getFirstPulseTimeFromEntry(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   if (*a1 == 1)
   {
     if (!*(a1 + 8))
     {
       MSGController::_getFirstPulseTimeFromEntry();
-      v2 = v6;
-      goto LABEL_7;
+      return v5;
     }
 
     v2 = 0;
@@ -4240,27 +4127,25 @@ uint64_t MSGController::_getFirstPulseTimeFromEntry(uint64_t a1, void *a2)
     v3 = *(a1 + 32);
 LABEL_6:
     *a2 = v3;
-    goto LABEL_7;
+    return v2;
   }
 
   v2 = 3758097097;
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v6 = 136316162;
-    v7 = "entry->data_type == kVsyncNominalEntry";
-    v8 = 2080;
-    v9 = &unk_240CB6BAA;
-    v10 = 2080;
-    v11 = "/Library/Caches/com.apple.xbs/Sources/AppleMSG/MSGController/MSGController.cpp";
-    v12 = 1024;
-    v13 = 1175;
-    v14 = 2048;
-    v15 = 0;
-    _os_log_impl(&dword_240CA0000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", &v6, 0x30u);
+    v5 = 136316162;
+    v6 = "entry->data_type == kVsyncNominalEntry";
+    v7 = 2080;
+    v8 = &unk_240CB6BAA;
+    v9 = 2080;
+    v10 = "/Library/Caches/com.apple.xbs/Sources/AppleMSG/MSGController/MSGController.cpp";
+    v11 = 1024;
+    v12 = 1175;
+    v13 = 2048;
+    v14 = 0;
+    _os_log_impl(&dword_240CA0000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", &v5, 0x30u);
   }
 
-LABEL_7:
-  v4 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
@@ -4318,11 +4203,10 @@ uint64_t MSGController::GetSlaveSchedulingMarginForMasterID(MSGController *this,
     *a3 = output;
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-uint64_t MSGController::registerForEventTriggerInfo(MSGController *this, unsigned int a2, unsigned __int8 *a3)
+uint64_t MSGController::registerForEventTriggerInfo(MSGController *this, int a2, unsigned __int8 *a3)
 {
   *a3 = 0;
   if (*(this + 80) >= 2u)
@@ -4463,13 +4347,13 @@ uint64_t MSGController::dumpMostRecentEventTriggers(uint64_t a1, unsigned int a2
       {
         v14 = *(v8 + 2);
         v15 = *v8;
-        v16 = (v13 + 24 * v11);
+        v16 = &v13[24 * v11];
         v17 = *(v16 + 2);
         *v8 = *v16;
         *(v8 + 2) = v17;
-        v18 = v13 + 24 * *a3;
+        v18 = &v13[24 * *a3];
         *v18 = v15;
-        *(v18 + 16) = v14;
+        *(v18 + 2) = v14;
         ++v12;
         v11 = *a3;
         v8 = (v8 + 24);
@@ -4485,11 +4369,11 @@ uint64_t MSGController::dumpMostRecentEventTriggers(uint64_t a1, unsigned int a2
 
 uint64_t MSGController::getEventTriggerInRange(uint64_t a1, unsigned int a2, unint64_t a3, unint64_t a4, uint64_t a5)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   if (a2 >= 4)
   {
     MSGController::getEventTriggerInRange();
-    goto LABEL_23;
+    return *buf;
   }
 
   v6 = a1 + 88;
@@ -4497,54 +4381,54 @@ uint64_t MSGController::getEventTriggerInRange(uint64_t a1, unsigned int a2, uni
   if (!v7)
   {
     MSGController::getEventTriggerInRange();
-    goto LABEL_23;
+    return *buf;
   }
 
   if (RingBufferW1Reader::jumpToLatest(v7, 1))
   {
     MSGController::getEventTriggerInRange();
-    goto LABEL_23;
+    return *buf;
   }
 
-  v19 = 24;
-  v11 = RingBufferW1Reader::readNext(*(v6 + 8 * a2), __dst, &v19);
+  v18 = 24;
+  v11 = RingBufferW1Reader::readNext(*(v6 + 8 * a2), __dst, &v18);
   if (v11)
   {
 LABEL_16:
-    v18 = v11;
+    v17 = v11;
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
       *buf = 136316162;
-      v23 = "retcode == 0 ";
-      v24 = 2080;
-      v25 = &unk_240CB6BAA;
-      v26 = 2080;
-      v27 = "/Library/Caches/com.apple.xbs/Sources/AppleMSG/MSGController/MSGController.cpp";
-      v28 = 1024;
-      v29 = 1354;
-      v30 = 2048;
-      v31 = v18;
+      v22 = "retcode == 0 ";
+      v23 = 2080;
+      v24 = &unk_240CB6BAA;
+      v25 = 2080;
+      v26 = "/Library/Caches/com.apple.xbs/Sources/AppleMSG/MSGController/MSGController.cpp";
+      v27 = 1024;
+      v28 = 1354;
+      v29 = 2048;
+      v30 = v17;
       _os_log_impl(&dword_240CA0000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", buf, 0x30u);
     }
 
-    goto LABEL_20;
+    return v17;
   }
 
   v13 = 0;
   v14 = 1;
   while (1)
   {
-    if (v19 != 24)
+    if (v18 != 24)
     {
       MSGController::getEventTriggerInRange();
-      goto LABEL_23;
+      return *buf;
     }
 
     v15 = *__dst;
     if (!(v14 & 1 | (*__dst <= v12)))
     {
       MSGController::getEventTriggerInRange();
-      goto LABEL_23;
+      return *buf;
     }
 
     if (*__dst <= a4)
@@ -4553,8 +4437,8 @@ LABEL_16:
     }
 
 LABEL_15:
-    v19 = 24;
-    v11 = RingBufferW1Reader::readNext(*(v6 + 8 * a2), __dst, &v19);
+    v18 = 24;
+    v11 = RingBufferW1Reader::readNext(*(v6 + 8 * a2), __dst, &v18);
     v14 = 0;
     v12 = v15;
     if (v11)
@@ -4567,13 +4451,12 @@ LABEL_15:
   {
     if (*__dst < a3)
     {
-      v18 = 3758097112;
-      goto LABEL_20;
+      return 3758097112;
     }
 
 LABEL_14:
     *a5 = *__dst;
-    *(a5 + 16) = v21;
+    *(a5 + 16) = v20;
     v13 = 1;
     goto LABEL_15;
   }
@@ -4583,7 +4466,7 @@ LABEL_14:
     if (*__dst < a3)
     {
       MSGController::getEventTriggerInRange();
-      goto LABEL_23;
+      return *buf;
     }
 
     goto LABEL_14;
@@ -4591,63 +4474,53 @@ LABEL_14:
 
   if (*__dst < a3)
   {
-    v18 = 0;
-    goto LABEL_20;
+    return 0;
   }
 
   MSGController::getEventTriggerInRange();
-LABEL_23:
-  v18 = *buf;
-LABEL_20:
-  v16 = *MEMORY[0x277D85DE8];
-  return v18;
+  return *buf;
 }
 
 uint64_t MSGController::DispatchConfigQueue(MSGController *this)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
     v2 = *(this + 366);
-    v5 = 136315394;
-    v6 = "DispatchConfigQueue";
-    v7 = 1024;
-    v8 = v2;
-    _os_log_impl(&dword_240CA0000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "MSGController::%s: Sending %u configs in a batch\n\n", &v5, 0x12u);
+    v4 = 136315394;
+    v5 = "DispatchConfigQueue";
+    v6 = 1024;
+    v7 = v2;
+    _os_log_impl(&dword_240CA0000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "MSGController::%s: Sending %u configs in a batch\n\n", &v4, 0x12u);
   }
 
-  if (*(this + 366))
+  if (!*(this + 366))
   {
-    result = (*(*this + 64))(this, this + 168);
-    *(this + 366) = 0;
+    return 3758097120;
   }
 
-  else
-  {
-    result = 3758097120;
-  }
-
-  v4 = *MEMORY[0x277D85DE8];
+  result = (*(*this + 64))(this, this + 168);
+  *(this + 366) = 0;
   return result;
 }
 
-uint64_t MSGController::GetState(MSGController *this, unsigned __int8 *a2)
+uint64_t MSGController::GetState(mach_port_t *this, unsigned __int8 *a2)
 {
   output[1] = *MEMORY[0x277D85DE8];
   outputCnt[0] = 1;
   if (MSGController::_initMSGManagerObjects(this))
   {
     MSGController::GetState();
-    result = LODWORD(output[0]);
+    return LODWORD(output[0]);
   }
 
   else
   {
-    result = IOConnectCallScalarMethod(*(this + 4), 0, 0, 0, output, outputCnt);
+    result = IOConnectCallScalarMethod(this[4], 0, 0, 0, output, outputCnt);
     if (result)
     {
       MSGController::GetState();
-      result = outputCnt[1];
+      return outputCnt[1];
     }
 
     else
@@ -4656,11 +4529,10 @@ uint64_t MSGController::GetState(MSGController *this, unsigned __int8 *a2)
     }
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-uint64_t MSGController::initSyncGenPhaseAlignment(MSGController *this, int a2, const char *a3)
+uint64_t MSGController::initSyncGenPhaseAlignment(mach_port_t *this, int a2, const char *a3)
 {
   if (MSGController::_initMSGManagerObjects(this))
   {
@@ -4671,65 +4543,47 @@ uint64_t MSGController::initSyncGenPhaseAlignment(MSGController *this, int a2, c
   else
   {
     inputStruct[0] = a2;
-    return IOConnectCallStructMethod(*(this + 4), 1u, inputStruct, 4uLL, 0, 0);
+    return IOConnectCallStructMethod(this[4], 1u, inputStruct, 4uLL, 0, 0);
   }
 }
 
-uint64_t MSGController::deinitSyncGenPhaseAlignment(MSGController *this, unsigned int a2)
+uint64_t MSGController::deinitSyncGenPhaseAlignment(mach_port_t *this, unsigned int a2)
 {
   input[1] = *MEMORY[0x277D85DE8];
   input[0] = a2;
-  if (MSGController::_initMSGManagerObjects(this))
+  if (!MSGController::_initMSGManagerObjects(this))
   {
-    MSGController::deinitSyncGenPhaseAlignment();
-    result = v5;
+    return IOConnectCallScalarMethod(this[4], 2u, input, 1u, 0, 0);
   }
 
-  else
-  {
-    result = IOConnectCallScalarMethod(*(this + 4), 2u, input, 1u, 0, 0);
-  }
-
-  v4 = *MEMORY[0x277D85DE8];
-  return result;
+  MSGController::deinitSyncGenPhaseAlignment();
+  return v4;
 }
 
-uint64_t MSGController::pauseSyncGenPhaseAlignment(MSGController *this, unsigned int a2)
+uint64_t MSGController::pauseSyncGenPhaseAlignment(mach_port_t *this, unsigned int a2)
 {
   input[1] = *MEMORY[0x277D85DE8];
   input[0] = a2;
-  if (MSGController::_initMSGManagerObjects(this))
+  if (!MSGController::_initMSGManagerObjects(this))
   {
-    MSGController::pauseSyncGenPhaseAlignment();
-    result = v5;
+    return IOConnectCallScalarMethod(this[4], 3u, input, 1u, 0, 0);
   }
 
-  else
-  {
-    result = IOConnectCallScalarMethod(*(this + 4), 3u, input, 1u, 0, 0);
-  }
-
-  v4 = *MEMORY[0x277D85DE8];
-  return result;
+  MSGController::pauseSyncGenPhaseAlignment();
+  return v4;
 }
 
-uint64_t MSGController::unpauseSyncGenPhaseAlignment(MSGController *this, unsigned int a2)
+uint64_t MSGController::unpauseSyncGenPhaseAlignment(mach_port_t *this, unsigned int a2)
 {
   input[1] = *MEMORY[0x277D85DE8];
   input[0] = a2;
-  if (MSGController::_initMSGManagerObjects(this))
+  if (!MSGController::_initMSGManagerObjects(this))
   {
-    MSGController::unpauseSyncGenPhaseAlignment();
-    result = v5;
+    return IOConnectCallScalarMethod(this[4], 4u, input, 1u, 0, 0);
   }
 
-  else
-  {
-    result = IOConnectCallScalarMethod(*(this + 4), 4u, input, 1u, 0, 0);
-  }
-
-  v4 = *MEMORY[0x277D85DE8];
-  return result;
+  MSGController::unpauseSyncGenPhaseAlignment();
+  return v4;
 }
 
 uint64_t MSGController::setTargetSyncAlignmentAndVelocity(mach_port_t *a1, unsigned int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
@@ -4770,23 +4624,17 @@ uint64_t MSGController::getEarliestPhaseRampStart(mach_port_t *a1, uint64_t a2, 
   return result;
 }
 
-uint64_t MSGController::setMinimumPhaseDifference(MSGController *this, uint64_t a2)
+uint64_t MSGController::setMinimumPhaseDifference(mach_port_t *this, uint64_t a2)
 {
   input[1] = *MEMORY[0x277D85DE8];
   input[0] = a2;
-  if (MSGController::_initMSGManagerObjects(this))
+  if (!MSGController::_initMSGManagerObjects(this))
   {
-    MSGController::setMinimumPhaseDifference();
-    result = v5;
+    return IOConnectCallScalarMethod(this[4], 8u, input, 1u, 0, 0);
   }
 
-  else
-  {
-    result = IOConnectCallScalarMethod(*(this + 4), 8u, input, 1u, 0, 0);
-  }
-
-  v4 = *MEMORY[0x277D85DE8];
-  return result;
+  MSGController::setMinimumPhaseDifference();
+  return v4;
 }
 
 uint64_t MSGController::MSGGetFIFODepth(MSGController *this, unsigned __int8 *a2)
@@ -4806,7 +4654,6 @@ uint64_t MSGController::MSGGetFIFODepth(MSGController *this, unsigned __int8 *a2
     *a2 = output[0];
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
@@ -4848,7 +4695,7 @@ uint64_t MSGController::timelockBaseSyncs(uint64_t a1, int a2, int a3, void *a4,
   return v10;
 }
 
-uint64_t MSGController::registerForVirtualFrameIDInfo(MSGController *this, unsigned int a2, unsigned __int8 *a3)
+uint64_t MSGController::registerForVirtualFrameIDInfo(MSGController *this, int a2, unsigned __int8 *a3)
 {
   *a3 = 0;
   if (*(this + 160) == 1)
@@ -4924,7 +4771,7 @@ uint64_t MSGController::unregisterForVirtualFrameIDInfo(MSGController *this, uns
   return result;
 }
 
-uint64_t MSGController::getNextNFramesWithVirtualID(MSGController *this, unsigned int a2, signed int a3, uint64_t a4, unint64_t *a5, unint64_t *a6, int a7, unint64_t *a8)
+uint64_t MSGController::getNextNFramesWithVirtualID(MSGController *this, unsigned int a2, unsigned int a3, uint64_t a4, unint64_t *a5, unint64_t *a6, unsigned int a7, unint64_t *a8)
 {
   v20 = 0;
   if (MSGController::getNextNFrames(this, a2, a3, a4, a5, a6))
@@ -5446,12 +5293,12 @@ LABEL_15:
 
 uint64_t RingBufferW1Reader::dumpStateToLogs(unint64_t **this)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v2 = atomic_load(*this);
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v11 = "dumpStateToLogs";
+    v10 = "dumpStateToLogs";
     _os_log_impl(&dword_240CA0000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "AppleMSGRingBuffer::%s: Ring Buffer data:\n", buf, 0xCu);
   }
 
@@ -5466,9 +5313,9 @@ uint64_t RingBufferW1Reader::dumpStateToLogs(unint64_t **this)
       {
         v6 = this[1][v4 / 8];
         *buf = 136315394;
-        v11 = "dumpStateToLogs";
-        v12 = 2048;
-        v13 = v6;
+        v10 = "dumpStateToLogs";
+        v11 = 2048;
+        v12 = v6;
         _os_log_impl(&dword_240CA0000, v5, OS_LOG_TYPE_DEFAULT, "AppleMSGRingBuffer::%s: 0x%llx\n", buf, 0x16u);
         v3 = *(this + 6);
       }
@@ -5483,21 +5330,20 @@ uint64_t RingBufferW1Reader::dumpStateToLogs(unint64_t **this)
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
-    v11 = "dumpStateToLogs";
-    v12 = 2048;
-    v13 = v2;
-    v14 = 2048;
-    v15 = v7;
+    v10 = "dumpStateToLogs";
+    v11 = 2048;
+    v12 = v2;
+    v13 = 2048;
+    v14 = v7;
     _os_log_impl(&dword_240CA0000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "AppleMSGRingBuffer::%s: Initial Header: 0x%llx, Final Header: 0x%llx\n", buf, 0x20u);
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
 uint64_t MSGWatchdogCreateWithDeadLineFrames(uint64_t a1, uint64_t a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
     *buf = 134218240;
@@ -5527,11 +5373,10 @@ uint64_t MSGWatchdogCreateWithDeadLineFrames(uint64_t a1, uint64_t a2)
       }
 
       MSGWatchdogRelease(v5);
-      v5 = 0;
+      return 0;
     }
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -5619,7 +5464,7 @@ void MSGWatchdogRelease(uint64_t a1)
 
 uint64_t MSGWatchdogUpdateDeadlines(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   if (a1)
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
@@ -5638,7 +5483,7 @@ uint64_t MSGWatchdogUpdateDeadlines(uint64_t a1, uint64_t a2, uint64_t a3)
       MSGWatchdogCreateWithDeadLineFrames_cold_1();
     }
 
-    v6 = IOConnectCallMethod(*(a1 + 4), 0x19u, buf, 2u, 0, 0, 0, 0, 0, 0);
+    return IOConnectCallMethod(*(a1 + 4), 0x19u, buf, 2u, 0, 0, 0, 0, 0, 0);
   }
 
   else
@@ -5650,7 +5495,6 @@ uint64_t MSGWatchdogUpdateDeadlines(uint64_t a1, uint64_t a2, uint64_t a3)
     }
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -5833,21 +5677,21 @@ uint64_t MSGExternalSyncTargeter::MSGExternalSyncTargeter(uint64_t result, uint6
 
 uint64_t MSGExternalSyncTargeter::getTargetAlignmentFromRawTiming(unint64_t *a1, void *a2, unint64_t a3, unint64_t *a4, unint64_t *a5, void *a6)
 {
-  v111 = *MEMORY[0x277D85DE8];
+  v110 = *MEMORY[0x277D85DE8];
   *a6 = -1;
-  v110 = 0;
-  memset(v109, 0, sizeof(v109));
-  bzero(v108, 0x320uLL);
+  v109 = 0;
+  memset(v108, 0, sizeof(v108));
+  bzero(v107, 0x320uLL);
   if (a3 >= 0x65)
   {
     MSGExternalSyncTargeter::getTargetAlignmentFromRawTiming();
-    goto LABEL_72;
+    return *buf;
   }
 
   if (a3 < 2)
   {
     MSGExternalSyncTargeter::getTargetAlignmentFromRawTiming();
-    goto LABEL_72;
+    return *buf;
   }
 
   v10 = 0;
@@ -5858,7 +5702,7 @@ uint64_t MSGExternalSyncTargeter::getTargetAlignmentFromRawTiming(unint64_t *a1,
   v15 = *a2;
   v16 = *a1;
   v17 = a1[1];
-  v18 = v109;
+  v18 = v108;
   v19 = a3 - 1;
   v20 = 1;
   do
@@ -5880,7 +5724,7 @@ uint64_t MSGExternalSyncTargeter::getTargetAlignmentFromRawTiming(unint64_t *a1,
       ++v12;
       if (v19 == 1)
       {
-        *(v109 + v13) = 1;
+        *(v108 + v13) = 1;
       }
     }
 
@@ -5894,9 +5738,9 @@ uint64_t MSGExternalSyncTargeter::getTargetAlignmentFromRawTiming(unint64_t *a1,
   while (v19);
   if (v12 >= 2)
   {
-    v95 = v16;
-    v93 = a5;
-    v94 = a4;
+    v94 = v16;
+    v92 = a5;
+    v93 = a4;
     v25 = __divti3();
     v26 = 0;
     v27 = 0;
@@ -5905,11 +5749,11 @@ uint64_t MSGExternalSyncTargeter::getTargetAlignmentFromRawTiming(unint64_t *a1,
     v30 = &a2[3 * a3 - 3];
     do
     {
-      if (*(v109 + v13) == 1 && v13 > v28)
+      if (*(v108 + v13) == 1 && v13 > v28)
       {
         v27 = 0;
-        v108[v13] = 0;
-        *(v109 + v13) = 1;
+        v107[v13] = 0;
+        *(v108 + v13) = 1;
         ++v26;
         v29 = v13;
         v28 = v13;
@@ -5917,25 +5761,25 @@ uint64_t MSGExternalSyncTargeter::getTargetAlignmentFromRawTiming(unint64_t *a1,
 
       else if (v13 >= v28 || v27 < -199)
       {
-        *(v109 + v13) = 0;
+        *(v108 + v13) = 0;
       }
 
       else
       {
-        v97 = v29;
+        v96 = v29;
         v32 = a2[3 * v29] - *v30;
         v33 = __divti3();
-        if (v33 >= 0x29 || ((v34 = ((v32 << 6) - __PAIR128__((v33 & 0x3F) * v25, (v33 & 0x3F) * v25)) >> 6, v17 >= v34) ? (v35 = v95 > v34) : (v35 = 1), v35))
+        if (v33 >= 0x29 || ((v34 = ((v32 << 6) - __PAIR128__((v33 & 0x3F) * v25, (v33 & 0x3F) * v25)) >> 6, v17 >= v34) ? (v35 = v94 > v34) : (v35 = 1), v35))
         {
-          *(v109 + v13) = 0;
-          v29 = v97;
+          *(v108 + v13) = 0;
+          v29 = v96;
         }
 
         else
         {
           v27 += ~v33;
-          v108[v13] = v27;
-          *(v109 + v13) = 1;
+          v107[v13] = v27;
+          *(v108 + v13) = 1;
           ++v26;
           v29 = v13;
         }
@@ -5977,8 +5821,8 @@ uint64_t MSGExternalSyncTargeter::getTargetAlignmentFromRawTiming(unint64_t *a1,
       v48 = 0;
       v49 = 0;
       v50 = 0;
-      v51 = v108;
-      v52 = v109;
+      v51 = v107;
+      v52 = v108;
       v53 = a3;
       do
       {
@@ -6006,8 +5850,8 @@ uint64_t MSGExternalSyncTargeter::getTargetAlignmentFromRawTiming(unint64_t *a1,
       v58 = 0;
       v59 = 0;
       v60 = buf;
-      v61 = v108;
-      v62 = v109;
+      v61 = v107;
+      v62 = v108;
       do
       {
         v63 = *v62++;
@@ -6030,8 +5874,8 @@ uint64_t MSGExternalSyncTargeter::getTargetAlignmentFromRawTiming(unint64_t *a1,
       v66 = __PAIR128__(v42, v50) * v26 - __PAIR128__(v49, v48) * __PAIR128__(v49, v48);
       v67 = __divti3();
       v69 = (__PAIR128__(v68, v67) + __PAIR128__(v38, v39)) >> 6;
-      *v93 = v69;
-      v93[1] = ((v67 + v39) & 0x3F) << 10;
+      *v92 = v69;
+      v92[1] = ((v67 + v39) & 0x3F) << 10;
       v70 = -__PAIR128__(v69, v56) >> 64;
       if (v66 >= 0)
       {
@@ -6105,29 +5949,27 @@ uint64_t MSGExternalSyncTargeter::getTargetAlignmentFromRawTiming(unint64_t *a1,
         v91 = (v90 << 16) - 0x10000;
       }
 
-      *v94 = v87;
-      v94[1] = v91 & 0xFFFF03FF | ((v86 & 0x3F) << 10) | (v82 << 32);
-      goto LABEL_62;
+      *v93 = v87;
+      v93[1] = v91 & 0xFFFF03FF | ((v86 & 0x3F) << 10) | (v82 << 32);
+      return result;
     }
 
     MSGExternalSyncTargeter::getTargetAlignmentFromRawTiming(buf);
-LABEL_72:
-    result = *buf;
-    goto LABEL_62;
+    return *buf;
   }
 
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     *buf = 136316162;
-    v99 = "numValidPulseGaps > 1";
-    v100 = 2080;
-    v101 = &unk_240CB6BAA;
-    v102 = 2080;
-    v103 = "/Library/Caches/com.apple.xbs/Sources/AppleMSG/MSGController/MSGSyncTargeter.cpp";
-    v104 = 1024;
-    v105 = 93;
-    v106 = 2048;
-    v107 = 0;
+    v98 = "numValidPulseGaps > 1";
+    v99 = 2080;
+    v100 = &unk_240CB6BAA;
+    v101 = 2080;
+    v102 = "/Library/Caches/com.apple.xbs/Sources/AppleMSG/MSGController/MSGSyncTargeter.cpp";
+    v103 = 1024;
+    v104 = 93;
+    v105 = 2048;
+    v106 = 0;
     _os_log_impl(&dword_240CA0000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "MSGSyncTargeter: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", buf, 0x30u);
   }
 
@@ -6142,8 +5984,6 @@ LABEL_72:
   }
 
   *a4 = v22;
-LABEL_62:
-  v92 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -6158,1052 +5998,992 @@ void MSGPenroseSyncTargeter::MSGPenroseSyncTargeter(MSGPenroseSyncTargeter *this
   *(this + 1) = a3;
 }
 
+uint64_t MSGPenroseSyncTargeter::getTargetAlignmentFromPenroseData(void *a1, uint64_t a2, uint64_t a3, void *a4, uint64_t a5, double a6)
+{
+  if (a6 < 1.0)
+  {
+    MSGPenroseSyncTargeter::getTargetAlignmentFromPenroseData();
+  }
+
+  else if (a6 > 255.0)
+  {
+    MSGPenroseSyncTargeter::getTargetAlignmentFromPenroseData();
+  }
+
+  else
+  {
+    *&v11 = (a6 * 9.00719925e15);
+    if (v12 < 0)
+    {
+      v13 = -750000;
+    }
+
+    else
+    {
+      v13 = 750000;
+    }
+
+    v15 = (__PAIR128__(v12 ^ (v12 >> 63), v11 ^ (v12 >> 63)) - __PAIR128__(v12 >> 63, v12 >> 63)) >> 64;
+    v14 = (v11 ^ (v12 >> 63)) - (v12 >> 63);
+    v16 = __divti3();
+    v18 = -(v16 * v14);
+    v19 = v13 - (((__PAIR128__(v17, v16) * __PAIR128__(v15, v14)) >> 64) + (v16 * v14 != 0));
+    if (__PAIR128__(v15, v14) < 0x10000)
+    {
+      v21 = v14;
+      v22 = v15;
+    }
+
+    else
+    {
+      do
+      {
+        *(&v20 + 1) = v19;
+        *&v20 = v18;
+        v18 = v20 >> 1;
+        *(&v20 + 1) = v15;
+        *&v20 = v14;
+        v21 = v20 >> 1;
+        v22 = v15 >> 1;
+        v23 = v15 | (v14 >> 17);
+        v14 = v21;
+        v15 >>= 1;
+        v19 >>= 1;
+      }
+
+      while (v23);
+    }
+
+    v24 = v16 + (v19 >> 63);
+    *(&v26 + 1) = (v19 >> 63) + __CFADD__(v16, v19 >> 63) + v17;
+    *&v26 = v24;
+    v25 = v26 >> 6;
+    v27 = v21 & (v19 >> 63);
+    v28 = __CFADD__(v27, v18);
+    v29 = v27 + v18;
+    if (v29 ^ v21 | (v19 + v28 + (v22 & (v19 >> 63))) ^ v22)
+    {
+      v30 = v29 << 16;
+    }
+
+    else
+    {
+      v30 = (v29 << 16) - 0x10000;
+    }
+
+    *a4 = v25;
+    a4[1] = v30 & 0xFFFF03FF | ((v24 & 0x3F) << 10) | (v21 << 32);
+    *a5 = a2 - a3;
+    *(a5 + 8) = 0;
+    if (*a4 < *a1)
+    {
+      MSGPenroseSyncTargeter::getTargetAlignmentFromPenroseData();
+    }
+
+    else
+    {
+      if (*a4 <= a1[1])
+      {
+        return 0;
+      }
+
+      MSGPenroseSyncTargeter::getTargetAlignmentFromPenroseData();
+    }
+  }
+
+  return v32;
+}
+
 void MSGAllocateSyncHandle_cold_1()
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGClientAPI_Syncs: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGClientAPI_Syncs: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void MSGStartSync_cold_1()
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGClientAPI_Syncs: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGClientAPI_Syncs: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_4(0x2D8u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void MSGStartSync_cold_2()
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGClientAPI_Syncs: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGClientAPI_Syncs: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_2();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void MSGGetSyncConfig_cold_1()
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGClientAPI_Syncs: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGClientAPI_Syncs: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_4(0x2D8u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void MSGGetSyncConfig_cold_2()
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGClientAPI_Syncs: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGClientAPI_Syncs: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_2();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void MSGResetSync_cold_1()
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGClientAPI_Syncs: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGClientAPI_Syncs: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_4(0x2D8u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void MSGResetSync_cold_2()
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGClientAPI_Syncs: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGClientAPI_Syncs: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_2();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void MSGInitBaseSync_cold_1()
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGClientAPI_Syncs: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGClientAPI_Syncs: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_4(0x2D8u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void MSGInitBaseSync_cold_2()
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGClientAPI_Syncs: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGClientAPI_Syncs: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_2();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void MSGInitDerivedSync_cold_1()
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGClientAPI_Syncs: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGClientAPI_Syncs: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_4(0x2D8u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void MSGInitDerivedSync_cold_2()
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGClientAPI_Syncs: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGClientAPI_Syncs: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_2();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void MSGConfigureBaseSync_cold_1()
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGClientAPI_Syncs: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGClientAPI_Syncs: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_4(0x2D8u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void MSGConfigureBaseSync_cold_2()
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGClientAPI_Syncs: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGClientAPI_Syncs: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_2();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void MSGConfigureDerivedSync_cold_1()
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGClientAPI_Syncs: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGClientAPI_Syncs: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_4(0x2D8u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void MSGConfigureDerivedSync_cold_2()
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGClientAPI_Syncs: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGClientAPI_Syncs: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_2();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void MSGEnableSyncInterrupt_cold_1()
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGClientAPI_Syncs: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGClientAPI_Syncs: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_4(0x2D8u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void MSGEnableSyncInterrupt_cold_2()
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGClientAPI_Syncs: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGClientAPI_Syncs: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_2();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void MSGGetSyncRunState_cold_1()
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGClientAPI_Syncs: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGClientAPI_Syncs: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_4(0x2D8u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void MSGGetSyncRunState_cold_2()
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGClientAPI_Syncs: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGClientAPI_Syncs: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_2();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void MSGRegisterForSyncTiming_cold_1()
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGClientAPI_Syncs: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGClientAPI_Syncs: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_4(0x2C7u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void MSGRegisterForSyncTiming_cold_2()
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGClientAPI_Syncs: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGClientAPI_Syncs: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_2();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void MSGUnregisterFromSyncTiming_cold_1()
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGClientAPI_Syncs: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGClientAPI_Syncs: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_4(0x2C7u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void MSGUnregisterFromSyncTiming_cold_2()
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGClientAPI_Syncs: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGClientAPI_Syncs: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_2();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void MSGGetCurrentSyncTiming_cold_1()
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGClientAPI_Syncs: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGClientAPI_Syncs: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_4(0x2C7u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void MSGGetCurrentSyncTiming_cold_2()
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGClientAPI_Syncs: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGClientAPI_Syncs: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_4(0x2C7u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void MSGGetCurrentSyncTiming_cold_3()
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGClientAPI_Syncs: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGClientAPI_Syncs: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_2();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void MSGGetFutureSyncTiming_cold_1()
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGClientAPI_Syncs: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGClientAPI_Syncs: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_4(0x2C7u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void MSGGetFutureSyncTiming_cold_2()
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGClientAPI_Syncs: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGClientAPI_Syncs: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_4(0x2C7u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void MSGGetFutureSyncTiming_cold_3()
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGClientAPI_Syncs: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGClientAPI_Syncs: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_2();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void MSGAllocateEventTriggerHandle_cold_1()
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGClientAPI_EventTriggers: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGClientAPI_EventTriggers: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void MSGSetEventTriggerConfig_cold_1()
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGClientAPI_EventTriggers: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGClientAPI_EventTriggers: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_2_0();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void MSGGetEventTriggerConfig_cold_1()
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGClientAPI_EventTriggers: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGClientAPI_EventTriggers: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_2_0();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void MSGGetEventTriggerCount_cold_1()
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGClientAPI_EventTriggers: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGClientAPI_EventTriggers: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_2_0();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void MSGEnableEventTriggerInterrupt_cold_1()
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGClientAPI_EventTriggers: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGClientAPI_EventTriggers: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_2_0();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void MSGGetEventTriggerInterruptEnable_cold_1()
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGClientAPI_EventTriggers: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGClientAPI_EventTriggers: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_2_0();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void MSGGetEventTriggerInterruptStatus_cold_1()
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGClientAPI_EventTriggers: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGClientAPI_EventTriggers: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_2_0();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void MSGClearEventTriggerInterruptStatus_cold_1()
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGClientAPI_EventTriggers: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGClientAPI_EventTriggers: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_2_0();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void MSGRegisterForEventTriggerTiming_cold_1()
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGClientAPI_EventTriggers: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGClientAPI_EventTriggers: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_2_0();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void MSGUnregisterFromEventTriggerTiming_cold_1()
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGClientAPI_EventTriggers: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGClientAPI_EventTriggers: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_2_0();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void MSGGetEventTriggerTimings_cold_1(_DWORD *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v2, "MSGClientAPI_EventTriggers: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v3, v4, v5, v6, v8);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v2, "MSGClientAPI_EventTriggers: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v3, v4, v5, v6);
   }
 
   *a1 = -536870211;
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void MSGGetEventTriggerTimings_cold_2()
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGClientAPI_EventTriggers: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGClientAPI_EventTriggers: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_2_0();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void MSGCreate_cold_1()
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGClientAPI: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGClientAPI: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   std::mutex::unlock(controllerMutex);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void MSGCreate_cold_2()
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGClientAPI: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGClientAPI: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   std::mutex::unlock(controllerMutex);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void MSGCreate_cold_3(_DWORD *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v2, "MSGClientAPI: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v3, v4, v5, v6, v8);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v2, "MSGClientAPI: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v3, v4, v5, v6);
   }
 
   *a1 = -536870911;
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void MSGCreate_cold_4(_DWORD *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v2, "MSGClientAPI: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v3, v4, v5, v6, v8);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v2, "MSGClientAPI: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v3, v4, v5, v6);
   }
 
   *a1 = -536870911;
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void AppleMSGClient::syncStart()
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_1_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "AppleMSGClient: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "AppleMSGClient: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void AppleMSGClient::syncStop()
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_1_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "AppleMSGClient: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "AppleMSGClient: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void AppleMSGClient::syncReset()
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_1_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "AppleMSGClient: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "AppleMSGClient: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void AppleMSGClient::syncGetRunState()
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_1_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "AppleMSGClient: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "AppleMSGClient: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void AppleMSGClient::syncSetInterruptState()
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_1_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "AppleMSGClient: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "AppleMSGClient: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void AppleMSGClient::syncInitialize()
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_1_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "AppleMSGClient: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "AppleMSGClient: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void AppleMSGClient::syncSetConfig()
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_1_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "AppleMSGClient: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "AppleMSGClient: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void AppleMSGClient::syncSetConfigSequence()
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_1_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "AppleMSGClient: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "AppleMSGClient: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void AppleMSGClient::syncSetConfigBatch()
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_1_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "AppleMSGClient: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "AppleMSGClient: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void AppleMSGClient::syncGetInterruptState()
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_1_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "AppleMSGClient: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "AppleMSGClient: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void AppleMSGClient::syncGetConfig()
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_1_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "AppleMSGClient: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "AppleMSGClient: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void AppleMSGClient::syncGetConfigSequence()
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_1_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "AppleMSGClient: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "AppleMSGClient: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void AppleMSGClient::timerSetTrackedTime()
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_1_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "AppleMSGClient: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "AppleMSGClient: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void AppleMSGClient::timerSetCrossTimestampConfig()
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_1_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "AppleMSGClient: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "AppleMSGClient: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void AppleMSGClient::timerGetCrossTimestamp()
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_1_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "AppleMSGClient: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "AppleMSGClient: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void AppleMSGClient::timerGetCrossTimestampConfig()
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_1_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "AppleMSGClient: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "AppleMSGClient: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void AppleMSGClient::msgBlockIsReady()
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_1_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "AppleMSGClient: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "AppleMSGClient: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void AppleMSGClient::msgBlockPlatformInfo()
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_1_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "AppleMSGClient: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "AppleMSGClient: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void AppleMSGClient::msgBlockTargetVersion()
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_1_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "AppleMSGClient: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "AppleMSGClient: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void AppleMSGClient::syncReadEventLog()
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_1_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "AppleMSGClient: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "AppleMSGClient: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void AppleMSGClient::frametrackGetBuffers(uint64_t a1, int a2, _DWORD *a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v5, "AppleMSGClient: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v6, v7, v8, v9, v11);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v5, "AppleMSGClient: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v6, v7, v8, v9);
   }
 
   *a3 = a2;
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void AppleMSGClient::frametrackGetBuffers(_DWORD *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v2, "AppleMSGClient: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v3, v4, v5, v6, v8);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v2, "AppleMSGClient: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v3, v4, v5, v6);
   }
 
   *a1 = -536870181;
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void MSGController::MSGController(uint64_t a1)
@@ -7258,2606 +7038,2220 @@ void MSGController::MSGController(uint64_t a1)
 
 void MSGController::serviceMatchedCallback()
 {
-  v6 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
+    v5 = 136316162;
     OUTLINED_FUNCTION_6_0();
     OUTLINED_FUNCTION_12();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_4_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, 2u);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v5);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void MSGController::_openServiceInternal()
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_4(0x2F0u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
   OUTLINED_FUNCTION_8();
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_2_1();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_11();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
   OUTLINED_FUNCTION_8();
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_2_1();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_11();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_4(0x2D6u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_4(0x2C2u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void MSGController::MasterSyncConfig()
 {
   OUTLINED_FUNCTION_8();
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_2_1();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_11();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_4(0x2DBu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
   OUTLINED_FUNCTION_8();
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_2_1();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_11();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_4(0x2DBu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void MSGController::SlaveSyncConfig()
 {
   OUTLINED_FUNCTION_8();
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_2_1();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_11();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_4(0x2DBu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
   OUTLINED_FUNCTION_8();
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_2_1();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_11();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_4(0x2DBu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void MSGController::SyncStart()
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_1_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void MSGController::SyncStartMasterScheduled()
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_1_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void MSGController::SyncStartSlaveScheduled()
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_1_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void MSGController::SyncStop()
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_1_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void MSGController::SyncStopMasterScheduled()
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_1_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void MSGController::SyncStopSlaveScheduled()
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_1_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void MSGController::SyncGetTracking()
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_1_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void MSGController::SyncGetFIFOState()
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_1_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void MSGController::SyncPulseSubscribeToEvents()
 {
   OUTLINED_FUNCTION_13();
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_4_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_4(0x2DBu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
   OUTLINED_FUNCTION_13();
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_4_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_4(0x2C9u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void MSGController::SyncPulseUnsubscribeFromEvents()
 {
   OUTLINED_FUNCTION_13();
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_4_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_4(0x2C9u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
   OUTLINED_FUNCTION_13();
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_4_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_4(0x2C9u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void MSGController::SyncGetCurrentMasterFrame()
 {
   OUTLINED_FUNCTION_8();
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_2_1();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_11();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
   OUTLINED_FUNCTION_8();
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_2_1();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_11();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void MSGController::getCurrentMasterFrame()
 {
   OUTLINED_FUNCTION_8();
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_2_1();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_11();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_4(0x2E0u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void MSGController::getMasterFrameWithOffset()
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_1_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void MSGController::SetEventTriggerConfig()
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_1_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void MSGController::GetEventTriggerConfig()
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_1_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void MSGController::GetEventTriggerCountSnapshot()
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_1_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void MSGController::EventTriggerInterruptEnable()
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_1_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void MSGController::GetEventTriggerInterruptEnable()
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_1_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void MSGController::GetEventTriggerInterruptStatus()
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_1_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void MSGController::EventTriggerClearInterruptStatus()
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_1_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void MSGController::GetCrossTimestampImmediate()
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_1_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void MSGController::SyncGetTrackingInfoInMachAbsoluteTime()
 {
   OUTLINED_FUNCTION_8();
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_2_1();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_11();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_4(0x2C7u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void MSGController::GetCurrentDisplayFramerate()
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_1_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void MSGController::SyncGetDurationInMachAbsoluteTime()
 {
   OUTLINED_FUNCTION_8();
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_2_1();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_11();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_4(0x2BCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void MSGController::dumpCurrentSyncGenState()
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_1_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void MSGController::SyncSetConfigSequence()
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_4(0x2DBu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void MSGController::SyncSetConfigSequenceScheduled()
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_4(0x2DBu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void MSGController::registerForTimingInfo()
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_4(0x2BEu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_1_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
   OUTLINED_FUNCTION_8();
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_2_1();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_11();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
   OUTLINED_FUNCTION_8();
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_2_1();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_11();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_4(0x2BDu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
   OUTLINED_FUNCTION_8();
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_2_1();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_11();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_4(0x2BDu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_4(0x2BEu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_4(0x2C7u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_4(0x2C2u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void MSGController::getNextNFrames()
 {
   OUTLINED_FUNCTION_8();
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_2_1();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_11();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
   OUTLINED_FUNCTION_13();
-  v6 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
+    v5 = 136316162;
     OUTLINED_FUNCTION_6_0();
     OUTLINED_FUNCTION_12();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_4_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, 2u);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_14();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
   OUTLINED_FUNCTION_13();
-  v6 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
+    v5 = 136316162;
     OUTLINED_FUNCTION_6_0();
     OUTLINED_FUNCTION_12();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_4_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, 2u);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_14();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_4(0x2D0u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_4(0x2C9u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_4(0x2E7u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
   OUTLINED_FUNCTION_13();
-  v6 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
+    v5 = 136316162;
     OUTLINED_FUNCTION_6_0();
     OUTLINED_FUNCTION_12();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_4_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, 2u);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_14();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
   OUTLINED_FUNCTION_13();
-  v6 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
+    v5 = 136316162;
     OUTLINED_FUNCTION_6_0();
     OUTLINED_FUNCTION_12();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_4_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, 2u);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_14();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_4(0x2C9u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_4(0x2C2u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_4(0x2F0u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void MSGController::_getFirstPulseTimeFromEntry()
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_4(0x2C9u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void MSGController::unregisterForTimingInfo()
 {
   OUTLINED_FUNCTION_8();
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_2_1();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_11();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_4(0x2F0u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void MSGController::registerForEventTriggerInfo()
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_4(0x2BEu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
   OUTLINED_FUNCTION_8();
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_2_1();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_11();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
   OUTLINED_FUNCTION_8();
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_2_1();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_11();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_4(0x2BDu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
   OUTLINED_FUNCTION_8();
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_2_1();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_11();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_4(0x2BDu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_4(0x2BEu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void MSGController::unregisterForEventTriggerInfo()
 {
   OUTLINED_FUNCTION_8();
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_2_1();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_11();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_4(0x2F0u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void MSGController::dumpMostRecentEventTriggers()
 {
   OUTLINED_FUNCTION_8();
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_2_1();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_11();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
   OUTLINED_FUNCTION_13();
-  v6 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
+    v5 = 136316162;
     OUTLINED_FUNCTION_6_0();
     OUTLINED_FUNCTION_12();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_4_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, 2u);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_14();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_4(0x2C9u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_4(0x2EFu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_4(0x2C2u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_4(0x2C2u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_4(0x2C2u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_4(0x2C2u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void MSGController::getEventTriggerInRange()
 {
   OUTLINED_FUNCTION_8();
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_2_1();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_11();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_4(0x2C9u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_4(0x2E5u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_4(0x2F0u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_4(0x2D0u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_4(0x2C2u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_4(0x2C2u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void MSGController::GetState()
 {
   OUTLINED_FUNCTION_8();
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_2_1();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_11();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
   OUTLINED_FUNCTION_8();
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_2_1();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_11();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void MSGController::initSyncGenPhaseAlignment()
 {
   OUTLINED_FUNCTION_8();
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_2_1();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_11();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void MSGController::deinitSyncGenPhaseAlignment()
 {
   OUTLINED_FUNCTION_8();
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_2_1();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_11();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void MSGController::pauseSyncGenPhaseAlignment()
 {
   OUTLINED_FUNCTION_8();
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_2_1();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_11();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void MSGController::unpauseSyncGenPhaseAlignment()
 {
   OUTLINED_FUNCTION_8();
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_2_1();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_11();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void MSGController::setTargetSyncAlignmentAndVelocity()
 {
   OUTLINED_FUNCTION_8();
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_2_1();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_11();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void MSGController::getEarliestPhaseRampStart()
 {
   OUTLINED_FUNCTION_8();
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_2_1();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_11();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void MSGController::setMinimumPhaseDifference()
 {
   OUTLINED_FUNCTION_8();
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_2_1();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_11();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void MSGController::MSGGetFIFODepth()
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_1_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void MSGController::getEDTData()
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_1_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void MSGController::timelockBaseSyncs()
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_1_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void MSGController::registerForVirtualFrameIDInfo()
 {
   OUTLINED_FUNCTION_8();
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_2_1();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_11();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
   OUTLINED_FUNCTION_8();
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_2_1();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_11();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
   OUTLINED_FUNCTION_8();
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_2_1();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_11();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_4(0x2BDu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
   OUTLINED_FUNCTION_8();
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_2_1();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_11();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_4(0x2BDu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_4(0x2BEu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_4(0x2BEu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_4(0x2C7u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void MSGController::unregisterForVirtualFrameIDInfo()
 {
   OUTLINED_FUNCTION_8();
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_2_1();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_11();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_4(0x2F0u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void MSGController::getNextNFramesWithVirtualID()
 {
   OUTLINED_FUNCTION_8();
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_2_1();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_11();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
   OUTLINED_FUNCTION_13();
-  v6 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
+    v5 = 136316162;
     OUTLINED_FUNCTION_6_0();
     OUTLINED_FUNCTION_12();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_4_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, 2u);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_14();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
   OUTLINED_FUNCTION_13();
-  v13 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
+    *v7 = 136316162;
     OUTLINED_FUNCTION_6_0();
     OUTLINED_FUNCTION_12();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_4_0();
-    v12 = v1;
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v2, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v3, v4, v5, v6, 2u);
+    v10 = v1;
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v2, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v3, v4, v5, v6, *v7);
   }
 
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 136315394;
-    v9 = "getNextNFramesWithVirtualID";
-    v10 = 1024;
-    v11 = v0;
-    _os_log_impl(&dword_240CA0000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "MSGController::%s: readNext failed with the error code 0x%x\n", &v8, 0x12u);
+    *v7 = 136315394;
+    *&v7[4] = "getNextNFramesWithVirtualID";
+    v8 = 1024;
+    v9 = v0;
+    _os_log_impl(&dword_240CA0000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "MSGController::%s: readNext failed with the error code 0x%x\n", v7, 0x12u);
   }
 
   OUTLINED_FUNCTION_14();
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_4(0x2C9u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_4(0x2F0u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void MSGController::SyncGetCurrentPulseRateCalibration()
 {
   OUTLINED_FUNCTION_8();
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_2_1();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_11();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
   OUTLINED_FUNCTION_8();
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_2_1();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_11();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void MSGController::SyncRegisterForPulseRateCalibrationUpdates()
 {
   OUTLINED_FUNCTION_13();
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_4_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_4(0x2DBu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
   OUTLINED_FUNCTION_8();
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_2_1();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_11();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
   OUTLINED_FUNCTION_13();
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_4_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_4(0x2BCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void MSGController::SyncUnregisterForPulseRateCalibrationUpdates()
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_1_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_1_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_1_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGController: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void RingBufferW1Writer::init()
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "AppleMSGRingBuffer: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "AppleMSGRingBuffer: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_4(0x2E8u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "AppleMSGRingBuffer: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "AppleMSGRingBuffer: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_4(0x2C2u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "AppleMSGRingBuffer: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "AppleMSGRingBuffer: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_4(0x2C2u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void RingBufferW1Writer::write()
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "AppleMSGRingBuffer: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "AppleMSGRingBuffer: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_4(0x2C7u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "AppleMSGRingBuffer: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "AppleMSGRingBuffer: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_4(0x2E8u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void RingBufferW1Reader::init()
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "AppleMSGRingBuffer: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "AppleMSGRingBuffer: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_4(0x2E8u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "AppleMSGRingBuffer: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "AppleMSGRingBuffer: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_4(0x2C2u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void RingBufferW1Reader::jumpToLatest()
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "AppleMSGRingBuffer: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "AppleMSGRingBuffer: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_4(0x2C7u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void RingBufferW1Reader::readNext()
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "AppleMSGRingBuffer: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "AppleMSGRingBuffer: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_4(0x2F0u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "AppleMSGRingBuffer: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "AppleMSGRingBuffer: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_4(0x2C9u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "AppleMSGRingBuffer: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "AppleMSGRingBuffer: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_6_1();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "AppleMSGRingBuffer: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "AppleMSGRingBuffer: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_6_1();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "AppleMSGRingBuffer: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "AppleMSGRingBuffer: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_6_1();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "AppleMSGRingBuffer: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "AppleMSGRingBuffer: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_4(0x2C9u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "AppleMSGRingBuffer: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "AppleMSGRingBuffer: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_6_1();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "AppleMSGRingBuffer: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "AppleMSGRingBuffer: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_6_1();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "AppleMSGRingBuffer: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "AppleMSGRingBuffer: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_4(0x2DBu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "AppleMSGRingBuffer: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "AppleMSGRingBuffer: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_4(0x2D8u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void RingBufferW1Reader::readNext(_BYTE *a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v4, "AppleMSGRingBuffer: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v5, v6, v7, v8, v10);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v4, "AppleMSGRingBuffer: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v5, v6, v7, v8);
   }
 
   *a1 = 1;
   *a2 = 0;
-  v9 = *MEMORY[0x277D85DE8];
-}
-
-void MSGWatchdogCreateWithDeadLineFrames_cold_1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void MSGWatchdogCreateWithDeadLineFrames_cold_2()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void MSGWatchdogOpen_cold_1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void MSGWatchdogOpen_cold_2()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void MSGWatchdogOpen_cold_3()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void SyncComputeMSGPulseTime()
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "AppleMSGTypeUtils: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "AppleMSGTypeUtils: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_6_2();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "AppleMSGTypeUtils: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "AppleMSGTypeUtils: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_2();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "AppleMSGTypeUtils: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "AppleMSGTypeUtils: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_2();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void SyncComputeNextMSGPulseTime()
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "AppleMSGTypeUtils: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "AppleMSGTypeUtils: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_6_2();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "AppleMSGTypeUtils: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "AppleMSGTypeUtils: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_2();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "AppleMSGTypeUtils: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "AppleMSGTypeUtils: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_2();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "AppleMSGTypeUtils: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "AppleMSGTypeUtils: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_2();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void MSGExternalSyncTargeter::getTargetAlignmentFromRawTiming(_DWORD *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v2, "MSGSyncTargeter: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v3, v4, v5, v6, v8);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v2, "MSGSyncTargeter: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v3, v4, v5, v6);
   }
 
   *a1 = -536870184;
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void MSGExternalSyncTargeter::getTargetAlignmentFromRawTiming()
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGSyncTargeter: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGSyncTargeter: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_2();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGSyncTargeter: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGSyncTargeter: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_2();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void MSGPenroseSyncTargeter::getTargetAlignmentFromPenroseData()
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGSyncTargeter: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGSyncTargeter: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_2();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGSyncTargeter: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGSyncTargeter: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_2();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGSyncTargeter: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGSyncTargeter: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_2();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGSyncTargeter: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_5(&dword_240CA0000, MEMORY[0x277D86220], v0, "MSGSyncTargeter: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_2();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void operator delete[]()

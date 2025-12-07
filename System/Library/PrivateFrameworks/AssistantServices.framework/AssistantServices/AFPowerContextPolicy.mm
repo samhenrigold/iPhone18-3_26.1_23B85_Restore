@@ -66,84 +66,84 @@
   cpuContext = self->_asrAssistantPolicy.cpuContext;
   if (equalCopy)
   {
-    [equalCopy asrAssistantPolicy];
+    objc_msgSend_asrAssistantPolicy(equalCopy);
     if (cpuContext != v34)
     {
       goto LABEL_28;
     }
 
     aneContext = self->_asrAssistantPolicy.aneContext;
-    [v5 asrAssistantPolicy];
+    objc_msgSend_asrAssistantPolicy(v5);
     if (aneContext != v33)
     {
       goto LABEL_28;
     }
 
     gpuContext = self->_asrAssistantPolicy.gpuContext;
-    [v5 asrAssistantPolicy];
+    objc_msgSend_asrAssistantPolicy(v5);
     if (gpuContext != v32)
     {
       goto LABEL_28;
     }
 
     v9 = self->_asrDictationPolicy.cpuContext;
-    [v5 asrDictationPolicy];
+    objc_msgSend_asrDictationPolicy(v5);
     if (v9 != v31)
     {
       goto LABEL_28;
     }
 
     v10 = self->_asrDictationPolicy.aneContext;
-    [v5 asrDictationPolicy];
+    objc_msgSend_asrDictationPolicy(v5);
     if (v10 != v30)
     {
       goto LABEL_28;
     }
 
     v11 = self->_asrDictationPolicy.gpuContext;
-    [v5 asrDictationPolicy];
+    objc_msgSend_asrDictationPolicy(v5);
     if (v11 != v29)
     {
       goto LABEL_28;
     }
 
     v12 = self->_ttsPolicy.cpuContext;
-    [v5 ttsPolicy];
+    objc_msgSend_ttsPolicy(v5);
     if (v12 != v28)
     {
       goto LABEL_28;
     }
 
     v13 = self->_ttsPolicy.aneContext;
-    [v5 ttsPolicy];
+    objc_msgSend_ttsPolicy(v5);
     if (v13 != v27)
     {
       goto LABEL_28;
     }
 
     v14 = self->_ttsPolicy.gpuContext;
-    [v5 ttsPolicy];
+    objc_msgSend_ttsPolicy(v5);
     if (v14 != v26)
     {
       goto LABEL_28;
     }
 
     v15 = self->_siriUIPolicy.cpuContext;
-    [v5 siriUIPolicy];
+    objc_msgSend_siriUIPolicy(v5);
     if (v15 != v25)
     {
       goto LABEL_28;
     }
 
     v16 = self->_siriUIPolicy.aneContext;
-    [v5 siriUIPolicy];
+    objc_msgSend_siriUIPolicy(v5);
     if (v16 != v24)
     {
       goto LABEL_28;
     }
 
     v17 = self->_siriUIPolicy.gpuContext;
-    [v5 siriUIPolicy];
+    objc_msgSend_siriUIPolicy(v5);
     v18 = v23;
   }
 

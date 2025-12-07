@@ -36,8 +36,8 @@
 
 - (id)toDict
 {
-  v31[8] = *MEMORY[0x277D85DE8];
-  v30[0] = @"userStartMonth";
+  v30[8] = *MEMORY[0x277D85DE8];
+  v29[0] = @"userStartMonth";
   userStartMonth = [(ICASDeviceSnapshotData *)self userStartMonth];
   if (userStartMonth)
   {
@@ -49,9 +49,9 @@
     userStartMonth2 = objc_opt_new();
   }
 
-  v28 = userStartMonth2;
-  v31[0] = userStartMonth2;
-  v30[1] = @"userStartYear";
+  v27 = userStartMonth2;
+  v30[0] = userStartMonth2;
+  v29[1] = @"userStartYear";
   userStartYear = [(ICASDeviceSnapshotData *)self userStartYear];
   if (userStartYear)
   {
@@ -63,9 +63,9 @@
     userStartYear2 = objc_opt_new();
   }
 
-  v26 = userStartYear2;
-  v31[1] = userStartYear2;
-  v30[2] = @"saltVersion";
+  v25 = userStartYear2;
+  v30[1] = userStartYear2;
+  v29[2] = @"saltVersion";
   saltVersion = [(ICASDeviceSnapshotData *)self saltVersion];
   if (saltVersion)
   {
@@ -77,9 +77,9 @@
     saltVersion2 = objc_opt_new();
   }
 
-  v24 = saltVersion2;
-  v31[2] = saltVersion2;
-  v30[3] = @"accountTypeSummary";
+  v23 = saltVersion2;
+  v30[2] = saltVersion2;
+  v29[3] = @"accountTypeSummary";
   accountTypeSummary = [(ICASDeviceSnapshotData *)self accountTypeSummary];
   if (accountTypeSummary)
   {
@@ -92,8 +92,8 @@
   }
 
   v7 = accountTypeSummary2;
-  v31[3] = accountTypeSummary2;
-  v30[4] = @"collabFoldersSummary";
+  v30[3] = accountTypeSummary2;
+  v29[4] = @"collabFoldersSummary";
   collabFoldersSummary = [(ICASDeviceSnapshotData *)self collabFoldersSummary];
   if (collabFoldersSummary)
   {
@@ -106,8 +106,8 @@
   }
 
   v10 = collabFoldersSummary2;
-  v31[4] = collabFoldersSummary2;
-  v30[5] = @"totalCountOfPinnedNotes";
+  v30[4] = collabFoldersSummary2;
+  v29[5] = @"totalCountOfPinnedNotes";
   totalCountOfPinnedNotes = [(ICASDeviceSnapshotData *)self totalCountOfPinnedNotes];
   if (totalCountOfPinnedNotes)
   {
@@ -120,8 +120,8 @@
   }
 
   v13 = totalCountOfPinnedNotes2;
-  v31[5] = totalCountOfPinnedNotes2;
-  v30[6] = @"deviceSnapshotSummary";
+  v30[5] = totalCountOfPinnedNotes2;
+  v29[6] = @"deviceSnapshotSummary";
   deviceSnapshotSummary = [(ICASDeviceSnapshotData *)self deviceSnapshotSummary];
   if (deviceSnapshotSummary)
   {
@@ -134,8 +134,8 @@
   }
 
   v16 = deviceSnapshotSummary2;
-  v31[6] = deviceSnapshotSummary2;
-  v30[7] = @"userSnapshotSummary";
+  v30[6] = deviceSnapshotSummary2;
+  v29[7] = @"userSnapshotSummary";
   userSnapshotSummary = [(ICASDeviceSnapshotData *)self userSnapshotSummary];
   if (userSnapshotSummary)
   {
@@ -148,10 +148,8 @@
   }
 
   v19 = userSnapshotSummary2;
-  v31[7] = userSnapshotSummary2;
-  v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v31 forKeys:v30 count:8];
-
-  v21 = *MEMORY[0x277D85DE8];
+  v30[7] = userSnapshotSummary2;
+  v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:v29 count:8];
 
   return v20;
 }

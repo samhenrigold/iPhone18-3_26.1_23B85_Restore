@@ -41,7 +41,7 @@ void __37__VOSBluetoothManager_sharedInstance__block_invoke()
 
 - (BOOL)isValidBrailleDevice:(id)device
 {
-  v60 = *MEMORY[0x277D85DE8];
+  v59 = *MEMORY[0x277D85DE8];
   deviceCopy = device;
   name = [deviceCopy name];
   if ([deviceCopy isNameCached])
@@ -54,32 +54,32 @@ void __37__VOSBluetoothManager_sharedInstance__block_invoke()
     }
 
     expressionForEvaluatedObject = [MEMORY[0x277CCA9C0] expressionForEvaluatedObject];
+    v47 = 0u;
     v48 = 0u;
     v49 = 0u;
     v50 = 0u;
-    v51 = 0u;
     v8 = self->_brailleDriverDeviceDetectionInfo;
-    v9 = [(NSDictionary *)v8 countByEnumeratingWithState:&v48 objects:v59 count:16];
+    v9 = [(NSDictionary *)v8 countByEnumeratingWithState:&v47 objects:v58 count:16];
     if (v9)
     {
       v10 = v9;
-      v42 = *v49;
-      v39 = deviceCopy;
-      v40 = v8;
+      v41 = *v48;
+      v38 = deviceCopy;
+      v39 = v8;
       selfCopy = self;
       do
       {
         v11 = 0;
         v12 = MEMORY[0x277D4B848];
-        v38 = v10;
+        v37 = v10;
         do
         {
-          if (*v49 != v42)
+          if (*v48 != v41)
           {
             objc_enumerationMutation(v8);
           }
 
-          v13 = *(*(&v48 + 1) + 8 * v11);
+          v13 = *(*(&v47 + 1) + 8 * v11);
           buf[0] = 0;
           v14 = [(NSDictionary *)self->_brailleDriverDeviceDetectionInfo objectForKey:v13];
           v15 = __UIAccessibilitySafeClass();
@@ -95,28 +95,28 @@ void __37__VOSBluetoothManager_sharedInstance__block_invoke()
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              v41 = v16;
+              v40 = v16;
               v17 = [v16 objectForKey:*MEMORY[0x277D4B840]];
+              v43 = 0u;
               v44 = 0u;
               v45 = 0u;
               v46 = 0u;
-              v47 = 0u;
               v18 = v17;
-              v19 = [v18 countByEnumeratingWithState:&v44 objects:v58 count:16];
+              v19 = [v18 countByEnumeratingWithState:&v43 objects:v57 count:16];
               if (v19)
               {
                 v20 = v19;
-                v21 = *v45;
+                v21 = *v44;
                 while (2)
                 {
                   for (i = 0; i != v20; ++i)
                   {
-                    if (*v45 != v21)
+                    if (*v44 != v21)
                     {
                       objc_enumerationMutation(v18);
                     }
 
-                    v23 = [objc_allocWithZone(MEMORY[0x277CCA938]) initWithObject:*(*(&v44 + 1) + 8 * i)];
+                    v23 = [objc_allocWithZone(MEMORY[0x277CCA938]) initWithObject:*(*(&v43 + 1) + 8 * i)];
                     v24 = expressionForEvaluatedObject;
                     v25 = [objc_allocWithZone(MEMORY[0x277CCA918]) initWithLeftExpression:expressionForEvaluatedObject rightExpression:v23 modifier:0 type:6 options:0];
                     v26 = [v25 evaluateWithObject:name];
@@ -125,7 +125,7 @@ void __37__VOSBluetoothManager_sharedInstance__block_invoke()
                     {
 
                       v27 = 1;
-                      deviceCopy = v39;
+                      deviceCopy = v38;
                       expressionForEvaluatedObject = v24;
                       goto LABEL_30;
                     }
@@ -133,7 +133,7 @@ void __37__VOSBluetoothManager_sharedInstance__block_invoke()
                     expressionForEvaluatedObject = v24;
                   }
 
-                  v20 = [v18 countByEnumeratingWithState:&v44 objects:v58 count:16];
+                  v20 = [v18 countByEnumeratingWithState:&v43 objects:v57 count:16];
                   if (v20)
                   {
                     continue;
@@ -144,9 +144,9 @@ void __37__VOSBluetoothManager_sharedInstance__block_invoke()
               }
 
               self = selfCopy;
-              v8 = v40;
-              v16 = v41;
-              v10 = v38;
+              v8 = v39;
+              v16 = v40;
+              v10 = v37;
               v12 = MEMORY[0x277D4B848];
             }
           }
@@ -155,8 +155,8 @@ void __37__VOSBluetoothManager_sharedInstance__block_invoke()
         }
 
         while (v11 != v10);
-        v10 = [(NSDictionary *)v8 countByEnumeratingWithState:&v48 objects:v59 count:16];
-        deviceCopy = v39;
+        v10 = [(NSDictionary *)v8 countByEnumeratingWithState:&v47 objects:v58 count:16];
+        deviceCopy = v38;
       }
 
       while (v10);
@@ -175,11 +175,11 @@ void __37__VOSBluetoothManager_sharedInstance__block_invoke()
       [MEMORY[0x277CCABB0] numberWithUnsignedInt:0];
       v32 = v31 = expressionForEvaluatedObject;
       *buf = 138412802;
-      v53 = v29;
-      v54 = 2112;
-      v55 = v30;
-      v56 = 2112;
-      v57 = v32;
+      v52 = v29;
+      v53 = 2112;
+      v54 = v30;
+      v55 = 2112;
+      v56 = v32;
       _os_log_impl(&dword_223C70000, v28, OS_LOG_TYPE_DEFAULT, "Check service type: %@ = %@ %@", buf, 0x20u);
 
       expressionForEvaluatedObject = v31;
@@ -191,9 +191,9 @@ LABEL_30:
     {
       v34 = [MEMORY[0x277CCABB0] numberWithBool:v27];
       *buf = 138412546;
-      v53 = v34;
-      v54 = 2112;
-      v55 = name;
+      v52 = v34;
+      v53 = 2112;
+      v54 = name;
       _os_log_impl(&dword_223C70000, v33, OS_LOG_TYPE_DEFAULT, "Valid braille device %@ %@", buf, 0x16u);
     }
   }
@@ -210,37 +210,36 @@ LABEL_30:
     LOBYTE(v27) = 0;
   }
 
-  v35 = *MEMORY[0x277D85DE8];
   return v27;
 }
 
 - (BOOL)isPairedDeviceBrailleDisplay:(id)display
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   displayCopy = display;
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   mEMORY[0x277CE7E20] = [MEMORY[0x277CE7E20] sharedInstance];
   voiceOverBrailleDisplays = [mEMORY[0x277CE7E20] voiceOverBrailleDisplays];
 
-  v6 = [voiceOverBrailleDisplays countByEnumeratingWithState:&v18 objects:v24 count:16];
+  v6 = [voiceOverBrailleDisplays countByEnumeratingWithState:&v17 objects:v23 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v19;
+    v8 = *v18;
     v9 = MEMORY[0x277D4B838];
     while (2)
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v19 != v8)
+        if (*v18 != v8)
         {
           objc_enumerationMutation(voiceOverBrailleDisplays);
         }
 
-        v11 = [*(*(&v18 + 1) + 8 * i) objectForKey:*v9];
+        v11 = [*(*(&v17 + 1) + 8 * i) objectForKey:*v9];
         address = [displayCopy address];
         v13 = [v11 isEqualToString:address];
 
@@ -251,7 +250,7 @@ LABEL_30:
         }
       }
 
-      v7 = [voiceOverBrailleDisplays countByEnumeratingWithState:&v18 objects:v24 count:16];
+      v7 = [voiceOverBrailleDisplays countByEnumeratingWithState:&v17 objects:v23 count:16];
       if (v7)
       {
         continue;
@@ -266,14 +265,13 @@ LABEL_30:
   {
     address2 = [displayCopy address];
     *buf = 138412290;
-    v23 = address2;
+    v22 = address2;
     _os_log_impl(&dword_223C70000, voiceOverBrailleDisplays, OS_LOG_TYPE_INFO, "Skipping paired device %@ because did not match paired Braille devices", buf, 0xCu);
   }
 
   v15 = 0;
 LABEL_13:
 
-  v16 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
@@ -349,7 +347,7 @@ uint64_t __42__VOSBluetoothManager_btleDeviceIsPaired___block_invoke(uint64_t a1
 
 - (void)_removeDeviceFromBrailleCache:(id)cache
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   cacheCopy = cache;
   mEMORY[0x277CE6970] = [MEMORY[0x277CE6970] sharedInstance];
   ignoreLogging = [mEMORY[0x277CE6970] ignoreLogging];
@@ -363,12 +361,12 @@ uint64_t __42__VOSBluetoothManager_btleDeviceIsPaired___block_invoke(uint64_t a1
     if (os_log_type_enabled(v8, v9))
     {
       v10 = AXColorizeFormatLog();
-      v34 = cacheCopy;
+      v33 = cacheCopy;
       v11 = _AXStringForArgs();
       if (os_log_type_enabled(v8, v9))
       {
         *buf = 138543362;
-        v42 = v11;
+        v41 = v11;
         _os_log_impl(&dword_223C70000, v8, v9, "%{public}@", buf, 0xCu);
       }
     }
@@ -378,13 +376,13 @@ uint64_t __42__VOSBluetoothManager_btleDeviceIsPaired___block_invoke(uint64_t a1
   voiceOverBrailleDisplays = [mEMORY[0x277CE7E20] voiceOverBrailleDisplays];
   v14 = [voiceOverBrailleDisplays mutableCopy];
 
-  v36 = MEMORY[0x277D85DD0];
-  v37 = 3221225472;
-  v38 = __53__VOSBluetoothManager__removeDeviceFromBrailleCache___block_invoke;
-  v39 = &unk_2784F3878;
+  v35 = MEMORY[0x277D85DD0];
+  v36 = 3221225472;
+  v37 = __53__VOSBluetoothManager__removeDeviceFromBrailleCache___block_invoke;
+  v38 = &unk_2784F3878;
   v15 = cacheCopy;
-  v40 = v15;
-  [v14 ax_removeObjectsFromArrayUsingBlock:&v36];
+  v39 = v15;
+  [v14 ax_removeObjectsFromArrayUsingBlock:&v35];
   mEMORY[0x277CE6970]2 = [MEMORY[0x277CE6970] sharedInstance];
   LOBYTE(voiceOverBrailleDisplays) = [mEMORY[0x277CE6970]2 ignoreLogging];
 
@@ -397,12 +395,12 @@ uint64_t __42__VOSBluetoothManager_btleDeviceIsPaired___block_invoke(uint64_t a1
     if (os_log_type_enabled(v18, v19))
     {
       v20 = AXColorizeFormatLog();
-      v35 = v14;
+      v34 = v14;
       v21 = _AXStringForArgs();
       if (os_log_type_enabled(v18, v19))
       {
         *buf = 138543362;
-        v42 = v21;
+        v41 = v21;
         _os_log_impl(&dword_223C70000, v18, v19, "%{public}@", buf, 0xCu);
       }
     }
@@ -434,7 +432,7 @@ uint64_t __42__VOSBluetoothManager_btleDeviceIsPaired___block_invoke(uint64_t a1
         if (os_log_type_enabled(v29, v30))
         {
           *buf = 138543362;
-          v42 = v32;
+          v41 = v32;
           _os_log_impl(&dword_223C70000, v29, v30, "%{public}@", buf, 0xCu);
         }
       }
@@ -442,8 +440,6 @@ uint64_t __42__VOSBluetoothManager_btleDeviceIsPaired___block_invoke(uint64_t a1
   }
 
   [(AXUIBluetoothHelper *)self postNotificationName:*MEMORY[0x277CE7EC0] object:v15];
-
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __53__VOSBluetoothManager__removeDeviceFromBrailleCache___block_invoke(uint64_t a1, void *a2)

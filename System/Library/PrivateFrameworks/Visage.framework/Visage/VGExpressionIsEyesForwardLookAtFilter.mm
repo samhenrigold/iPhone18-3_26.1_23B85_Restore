@@ -47,8 +47,8 @@
       v24 = vmulq_n_f32(v23, vmul_f32(*v13.f32, vrsqrts_f32(v14, vmul_f32(*v13.f32, *v13.f32))).f32[0]);
       v15 = atan2f(v24.f32[0], v24.f32[2]);
       v16 = asinf(v24.f32[1]);
-      v17 = __VGLogSharedInstance();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+      v18 = __VGLogSharedInstance(v17);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
       {
         eyesForwardYawSensitivityInRadians = self->_eyesForwardYawSensitivityInRadians;
         eyesForwardPitchSensitivityInRadians = self->_eyesForwardPitchSensitivityInRadians;
@@ -60,12 +60,12 @@
         v30 = eyesForwardYawSensitivityInRadians;
         v31 = 2049;
         v32 = eyesForwardPitchSensitivityInRadians;
-        _os_log_impl(&dword_270F06000, v17, OS_LOG_TYPE_DEBUG, " Look-at gaze (yaw/pitch radians): %{private}g %{private}g [abs value threshold (yaw/pitch radians): %{private}g %{private}g] ", buf, 0x2Au);
+        _os_log_impl(&dword_270F06000, v18, OS_LOG_TYPE_DEBUG, " Look-at gaze (yaw/pitch radians): %{private}g %{private}g [abs value threshold (yaw/pitch radians): %{private}g %{private}g] ", buf, 0x2Au);
       }
 
-      v20 = fabsf(v16);
+      v21 = fabsf(v16);
       v6 = 0.0;
-      if (v20 < self->_eyesForwardPitchSensitivityInRadians)
+      if (v21 < self->_eyesForwardPitchSensitivityInRadians)
       {
         if (fabsf(v15) >= self->_eyesForwardYawSensitivityInRadians)
         {
@@ -80,7 +80,6 @@
     }
   }
 
-  v21 = *MEMORY[0x277D85DE8];
   return v6;
 }
 

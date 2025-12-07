@@ -7,7 +7,7 @@
 
 - (void)touchesBegan:(id)began withEvent:(id)event
 {
-  sub_20B51C88C(0, &qword_27C769700);
+  sub_20B51C88C(0, &qword_27C769700, 0x277D75C68);
   sub_20BA646BC();
   sub_20C13CF74();
   eventCopy = event;

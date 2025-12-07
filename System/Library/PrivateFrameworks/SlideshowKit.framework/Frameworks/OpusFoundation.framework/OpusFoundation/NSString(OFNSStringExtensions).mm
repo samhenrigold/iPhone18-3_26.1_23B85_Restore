@@ -4,13 +4,13 @@
 + (uint64_t)durationFromFullTimeCodeString:()OFNSStringExtensions;
 + (uint64_t)generateUUID;
 + (uint64_t)shortTimeCodeStringWithDuration:()OFNSStringExtensions;
-- (uint64_t)firstline;
 - (uint64_t)stringByAddingPercentEscapes;
 - (uint64_t)stringByAddingPercentEscapesForURLPath;
 - (uint64_t)stringByCapitalizingFirstCharacter;
-- (uint64_t)stringByDeletingTrailingSlash;
+- (void)firstline;
 - (void)javaScriptEscapedString;
 - (void)pathRelativeTo:()OFNSStringExtensions;
+- (void)stringByDeletingTrailingSlash;
 @end
 
 @implementation NSString(OFNSStringExtensions)
@@ -169,7 +169,7 @@
   return v17;
 }
 
-- (uint64_t)firstline
+- (void)firstline
 {
   v2 = [self rangeOfString:@"\n"];
   if (v2 == 0x7FFFFFFFFFFFFFFFLL)
@@ -294,7 +294,7 @@ LABEL_32:
   return string;
 }
 
-- (uint64_t)stringByDeletingTrailingSlash
+- (void)stringByDeletingTrailingSlash
 {
   if (![self length] || objc_msgSend(self, "characterAtIndex:", objc_msgSend(self, "length") - 1) != 47)
   {

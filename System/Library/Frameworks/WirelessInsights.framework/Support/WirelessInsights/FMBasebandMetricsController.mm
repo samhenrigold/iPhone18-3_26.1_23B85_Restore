@@ -84,7 +84,7 @@
             }
 
             *(&__dst + v18) = 0;
-            sub_100023844(&v27, &__dst);
+            sub_100023844(&v27, &__dst, &__dst);
             if (v31 < 0)
             {
               operator delete(__dst);

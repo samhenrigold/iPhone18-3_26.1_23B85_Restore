@@ -46,47 +46,47 @@
 + (id)uniqueTitleForMyBooksCollection:(id)collection
 {
   collectionCopy = collection;
-  v4 = IMCommonCoreBundle();
+  v4 = IMCommonCoreBundle(collectionCopy);
   v5 = [v4 localizedStringForKey:@"My Books" value:&stru_2D2930 table:@"BCCommonCoreLocalizable"];
 
-  v6 = IMCommonCoreBundle();
-  v7 = [v6 localizedStringForKey:@"My Books %lu" value:&stru_2D2930 table:@"BCCommonCoreLocalizable"];
+  v7 = IMCommonCoreBundle(v6);
+  v8 = [v7 localizedStringForKey:@"My Books %lu" value:&stru_2D2930 table:@"BCCommonCoreLocalizable"];
 
   if ([collectionCopy count] == -1)
   {
 LABEL_8:
-    v10 = v5;
+    v11 = v5;
   }
 
   else
   {
-    v8 = 0;
+    v9 = 0;
     while (1)
     {
-      if (v8)
+      if (v9)
       {
-        v9 = [NSString localizedStringWithFormat:v7, v8];
+        v10 = [NSString localizedStringWithFormat:v8, v9];
       }
 
       else
       {
-        v9 = v5;
+        v10 = v5;
       }
 
-      v10 = v9;
-      if (([collectionCopy bu_containsLocalizedStringCaseInsensitive:v9] & 1) == 0)
+      v11 = v10;
+      if (([collectionCopy bu_containsLocalizedStringCaseInsensitive:v10] & 1) == 0)
       {
         break;
       }
 
-      if (++v8 >= [collectionCopy count] + 1)
+      if (++v9 >= [collectionCopy count] + 1)
       {
         goto LABEL_8;
       }
     }
   }
 
-  return v10;
+  return v11;
 }
 
 + (id)sortKeyForDefaultCollectionID:(id)d

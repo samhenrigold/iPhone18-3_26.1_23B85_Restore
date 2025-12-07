@@ -22,8 +22,7 @@
 - (BOOL)account:(id)account shouldDisplay:(id)display forReason:(id)reason dismissedInSession:(BOOL)session supressUntil:(double)until
 {
   v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2809F9D78, &qword_2755F3850);
-  v13 = *(*(v12 - 8) + 64);
-  MEMORY[0x28223BE20](v12 - 8);
+  MEMORY[0x28223BE20](v12 - 8, v13);
   v15 = &v26 - v14;
   if (display)
   {
@@ -51,8 +50,7 @@
 - (id)account:(id)account lastUpdated:(id)updated decayUntil:(double)until
 {
   v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2809F9D78, &qword_2755F3850);
-  v9 = *(*(v8 - 8) + 64);
-  MEMORY[0x28223BE20](v8 - 8);
+  MEMORY[0x28223BE20](v8 - 8, v9);
   v11 = &v23 - v10;
   v12 = sub_2755EC98C();
   v14 = v13;

@@ -4,6 +4,7 @@
 - (BOOL)recentLocationsForConsumer:(unint64_t)consumer criteria:(id)criteria limit:(unint64_t)limit explanationSet:(id)set client:(id)client error:(id *)error handleBatch:(id)batch;
 - (PPConnectionsClient)init;
 - (void)_unblockPendingQueries;
+- (void)recentLocationsBatch:(id)batch isLast:(BOOL)last error:(id)error queryId:(unint64_t)id completion:(id)completion;
 - (void)registerFeedback:(id)feedback completion:(id)completion;
 @end
 
@@ -34,9 +35,25 @@
   [_remoteObjectProxy registerFeedback:feedbackCopy completion:completionCopy];
 }
 
+- (void)recentLocationsBatch:(id)batch isLast:(BOOL)last error:(id)error queryId:(unint64_t)id completion:(id)completion
+{
+  lastCopy = last;
+  completionCopy = completion;
+  errorCopy = error;
+  batchCopy = batch;
+  v15 = pp_xpc_client_log_handle();
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+  {
+    *v16 = 0;
+    _os_log_debug_impl(&dword_1A7FD3000, v15, OS_LOG_TYPE_DEBUG, "recentLocationsBatch called", v16, 2u);
+  }
+
+  [(PPXPCClientPipelinedBatchQueryManager *)self->_queryManager handleReplyWithName:@"recentLocationsBatch" batch:batchCopy isLast:lastCopy error:errorCopy queryId:id completion:completionCopy];
+}
+
 - (BOOL)recentLocationsForConsumer:(unint64_t)consumer criteria:(id)criteria limit:(unint64_t)limit explanationSet:(id)set client:(id)client error:(id *)error handleBatch:(id)batch
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   criteriaCopy = criteria;
   setCopy = set;
   clientCopy = client;
@@ -46,39 +63,38 @@
   {
     *buf = 134218498;
     consumerCopy = consumer;
-    v41 = 2112;
-    v42 = criteriaCopy;
-    v43 = 2048;
+    v40 = 2112;
+    v41 = criteriaCopy;
+    v42 = 2048;
     limitCopy = limit;
     _os_log_debug_impl(&dword_1A7FD3000, v19, OS_LOG_TYPE_DEBUG, "recentLocationsForConsumer: %lu criteria: %@ limit: %lu called", buf, 0x20u);
   }
 
   v20 = objc_opt_class();
   queryManager = self->_queryManager;
-  v33[0] = MEMORY[0x1E69E9820];
-  v33[1] = 3221225472;
-  v33[2] = __105__PPConnectionsClient_recentLocationsForConsumer_criteria_limit_explanationSet_client_error_handleBatch___block_invoke;
-  v33[3] = &unk_1E77F6F00;
-  v33[4] = self;
-  v34 = criteriaCopy;
+  v32[0] = MEMORY[0x1E69E9820];
+  v32[1] = 3221225472;
+  v32[2] = __105__PPConnectionsClient_recentLocationsForConsumer_criteria_limit_explanationSet_client_error_handleBatch___block_invoke;
+  v32[3] = &unk_1E77F6F00;
+  v32[4] = self;
+  v33 = criteriaCopy;
   consumerCopy2 = consumer;
   limitCopy2 = limit;
-  v35 = setCopy;
-  v36 = clientCopy;
-  v29[0] = MEMORY[0x1E69E9820];
-  v29[1] = 3221225472;
-  v29[2] = __105__PPConnectionsClient_recentLocationsForConsumer_criteria_limit_explanationSet_client_error_handleBatch___block_invoke_2;
-  v29[3] = &unk_1E77F79C0;
-  v31 = batchCopy;
-  v32 = v20;
-  v30 = @"recentLocationsForConsumer";
+  v34 = setCopy;
+  v35 = clientCopy;
+  v28[0] = MEMORY[0x1E69E9820];
+  v28[1] = 3221225472;
+  v28[2] = __105__PPConnectionsClient_recentLocationsForConsumer_criteria_limit_explanationSet_client_error_handleBatch___block_invoke_2;
+  v28[3] = &unk_1E77F79C0;
+  v30 = batchCopy;
+  v31 = v20;
+  v29 = @"recentLocationsForConsumer";
   v22 = batchCopy;
   v23 = clientCopy;
   v24 = setCopy;
   v25 = criteriaCopy;
-  v26 = [(PPXPCClientPipelinedBatchQueryManager *)queryManager syncExecuteQueryWithName:@"recentLocationsForConsumer" error:error queryInitializer:v33 handleBatch:v29];
+  v26 = [(PPXPCClientPipelinedBatchQueryManager *)queryManager syncExecuteQueryWithName:@"recentLocationsForConsumer" error:error queryInitializer:v32 handleBatch:v28];
 
-  v27 = *MEMORY[0x1E69E9840];
   return v26;
 }
 
@@ -99,7 +115,7 @@ void __105__PPConnectionsClient_recentLocationsForConsumer_criteria_limit_explan
 
 - (BOOL)recentLocationDonationsSinceDate:(id)date client:(id)client error:(id *)error handleBatch:(id)batch
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   dateCopy = date;
   clientCopy = client;
   batchCopy = batch;
@@ -107,34 +123,33 @@ void __105__PPConnectionsClient_recentLocationsForConsumer_criteria_limit_explan
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412546;
-    v30 = dateCopy;
-    v31 = 2112;
-    v32 = clientCopy;
+    v29 = dateCopy;
+    v30 = 2112;
+    v31 = clientCopy;
     _os_log_debug_impl(&dword_1A7FD3000, v13, OS_LOG_TYPE_DEBUG, "recentLocationDonationsSinceDate: %@ client: %@ called", buf, 0x16u);
   }
 
   v14 = objc_opt_class();
   queryManager = self->_queryManager;
-  v26[0] = MEMORY[0x1E69E9820];
-  v26[1] = 3221225472;
-  v26[2] = __81__PPConnectionsClient_recentLocationDonationsSinceDate_client_error_handleBatch___block_invoke;
-  v26[3] = &unk_1E77F7948;
-  v26[4] = self;
-  v27 = dateCopy;
-  v28 = clientCopy;
-  v22[0] = MEMORY[0x1E69E9820];
-  v22[1] = 3221225472;
-  v22[2] = __81__PPConnectionsClient_recentLocationDonationsSinceDate_client_error_handleBatch___block_invoke_2;
-  v22[3] = &unk_1E77F79C0;
-  v24 = batchCopy;
-  v25 = v14;
-  v23 = @"recentLocationDonationsSinceDate";
+  v25[0] = MEMORY[0x1E69E9820];
+  v25[1] = 3221225472;
+  v25[2] = __81__PPConnectionsClient_recentLocationDonationsSinceDate_client_error_handleBatch___block_invoke;
+  v25[3] = &unk_1E77F7948;
+  v25[4] = self;
+  v26 = dateCopy;
+  v27 = clientCopy;
+  v21[0] = MEMORY[0x1E69E9820];
+  v21[1] = 3221225472;
+  v21[2] = __81__PPConnectionsClient_recentLocationDonationsSinceDate_client_error_handleBatch___block_invoke_2;
+  v21[3] = &unk_1E77F79C0;
+  v23 = batchCopy;
+  v24 = v14;
+  v22 = @"recentLocationDonationsSinceDate";
   v16 = batchCopy;
   v17 = clientCopy;
   v18 = dateCopy;
-  v19 = [(PPXPCClientPipelinedBatchQueryManager *)queryManager syncExecuteQueryWithName:@"recentLocationDonationsSinceDate" error:error queryInitializer:v26 handleBatch:v22];
+  v19 = [(PPXPCClientPipelinedBatchQueryManager *)queryManager syncExecuteQueryWithName:@"recentLocationDonationsSinceDate" error:error queryInitializer:v25 handleBatch:v21];
 
-  v20 = *MEMORY[0x1E69E9840];
   return v19;
 }
 
@@ -155,17 +170,16 @@ void __81__PPConnectionsClient_recentLocationDonationsSinceDate_client_error_han
 
 - (void)_unblockPendingQueries
 {
-  v10[1] = *MEMORY[0x1E69E9840];
+  v9[1] = *MEMORY[0x1E69E9840];
   v3 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"connection to %@ was unexpectedly terminated", @"com.apple.proactive.PersonalizationPortrait.Connections"];
   v4 = objc_alloc(MEMORY[0x1E696ABC0]);
   v5 = *MEMORY[0x1E696A798];
-  v9 = *MEMORY[0x1E696A588];
-  v10[0] = v3;
-  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+  v8 = *MEMORY[0x1E696A588];
+  v9[0] = v3;
+  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:&v8 count:1];
   v7 = [v4 initWithDomain:v5 code:5 userInfo:v6];
 
   [(PPXPCClientPipelinedBatchQueryManager *)self->_queryManager cancelPendingQueriesWithError:v7];
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (PPConnectionsClient)init
@@ -218,47 +232,42 @@ void __81__PPConnectionsClient_recentLocationDonationsSinceDate_client_error_han
 
 void __27__PPConnectionsClient_init__block_invoke(uint64_t a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v2 = pp_xpc_client_log_handle();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
-    v5 = 138412290;
-    v6 = @"com.apple.proactive.PersonalizationPortrait.Connections";
-    _os_log_error_impl(&dword_1A7FD3000, v2, OS_LOG_TYPE_ERROR, "Connection to %@ interrupted.", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = @"com.apple.proactive.PersonalizationPortrait.Connections";
+    _os_log_error_impl(&dword_1A7FD3000, v2, OS_LOG_TYPE_ERROR, "Connection to %@ interrupted.", &v4, 0xCu);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   [WeakRetained _unblockPendingQueries];
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 void __27__PPConnectionsClient_init__block_invoke_82(uint64_t a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v2 = pp_xpc_client_log_handle();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
-    v5 = 138412290;
-    v6 = @"com.apple.proactive.PersonalizationPortrait.Connections";
-    _os_log_impl(&dword_1A7FD3000, v2, OS_LOG_TYPE_INFO, "Connection to %@ invalidated.", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = @"com.apple.proactive.PersonalizationPortrait.Connections";
+    _os_log_impl(&dword_1A7FD3000, v2, OS_LOG_TYPE_INFO, "Connection to %@ invalidated.", &v4, 0xCu);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   [WeakRetained _unblockPendingQueries];
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 void __37__PPConnectionsClient_sharedInstance__block_invoke(uint64_t a1)
 {
-  v2 = objc_autoreleasePoolPush();
-  v3 = *(a1 + 32);
-  v4 = objc_opt_new();
-  v5 = sharedInstance__pasExprOnceResult_5194;
-  sharedInstance__pasExprOnceResult_5194 = v4;
+  v1 = objc_autoreleasePoolPush();
+  v2 = objc_opt_new();
+  v3 = sharedInstance__pasExprOnceResult_5194;
+  sharedInstance__pasExprOnceResult_5194 = v2;
 
-  objc_autoreleasePoolPop(v2);
+  objc_autoreleasePoolPop(v1);
 }
 
 @end

@@ -21,9 +21,9 @@
 {
   accessories = [self accessories];
   firstObject = [accessories firstObject];
-  home = [firstObject home];
+  v3 = objc_msgSend_home(firstObject);
 
-  return home;
+  return v3;
 }
 
 - (id)hf_title
@@ -40,29 +40,29 @@
 
 - (uint64_t)hf_displayCurrentProtectionMode
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   hf_networkConfigurationProfiles = [self hf_networkConfigurationProfiles];
   v3 = [hf_networkConfigurationProfiles na_map:&__block_literal_global_14_1];
 
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
   v16 = 0u;
-  v4 = [&unk_282525780 countByEnumeratingWithState:&v15 objects:v21 count:16];
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
+  v4 = [&unk_282525780 countByEnumeratingWithState:&v14 objects:v20 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v16;
+    v6 = *v15;
     while (2)
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v16 != v6)
+        if (*v15 != v6)
         {
           objc_enumerationMutation(&unk_282525780);
         }
 
-        v8 = *(*(&v15 + 1) + 8 * i);
+        v8 = *(*(&v14 + 1) + 8 * i);
         if ([v3 containsObject:v8])
         {
           unsignedIntegerValue = [v8 unsignedIntegerValue];
@@ -70,7 +70,7 @@
         }
       }
 
-      v5 = [&unk_282525780 countByEnumeratingWithState:&v15 objects:v21 count:16];
+      v5 = [&unk_282525780 countByEnumeratingWithState:&v14 objects:v20 count:16];
       if (v5)
       {
         continue;
@@ -93,7 +93,6 @@
   unsignedIntegerValue = [firstObject currentProtectionMode];
 
 LABEL_13:
-  v13 = *MEMORY[0x277D85DE8];
   return unsignedIntegerValue;
 }
 

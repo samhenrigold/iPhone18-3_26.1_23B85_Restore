@@ -1,6 +1,7 @@
 @interface DALocalNetworkScanner
 - (DALocalNetworkScanner)initWithConfiguration:(id)configuration error:(id *)error;
 - (void)_browserResultChangedFromOldResult:(id)result newResult:(id)newResult batchComplete:(BOOL)complete;
+- (void)_browserStateChanged:(int)changed error:(id)error;
 - (void)_handleBrowseResults:(id)results;
 - (void)discoverEndpointWithCompletion:(id)completion;
 @end
@@ -17,7 +18,7 @@
   {
     if (error)
     {
-      DAErrorF();
+      DAErrorF(350004, "Bonjour service type missing");
       *error = selfCopy = 0;
       goto LABEL_7;
     }
@@ -94,9 +95,60 @@ LABEL_7:
       sub_10002EA78();
     }
 
-    v14 = DAErrorF();
+    v14 = DAErrorF(350004, "Unable to start network browser");
     completionCopy[2](completionCopy, 0, v14);
   }
+}
+
+- (void)_browserStateChanged:(int)changed error:(id)error
+{
+  v4 = *&changed;
+  errorCopy = error;
+  if (dword_100060190 <= 50 && (dword_100060190 != -1 || _LogCategory_Initialize()))
+  {
+    LogPrintF(&dword_100060190, "[DALocalNetworkScanner _browserStateChanged:error:]", 50, "Browser state changed: %u error: %@", v4, errorCopy);
+  }
+
+  v13 = 0;
+  v14 = &v13;
+  v15 = 0x3032000000;
+  v16 = sub_100002094;
+  v17 = sub_1000020A4;
+  v18 = 0;
+  v12[0] = _NSConcreteStackBlock;
+  v12[1] = 3221225472;
+  v12[2] = sub_1000020AC;
+  v12[3] = &unk_100058AE0;
+  v12[4] = self;
+  v12[5] = &v13;
+  v7 = objc_retainBlock(v12);
+  if ((v4 - 2) < 2)
+  {
+    nw_browser_cancel(self->_browser);
+    if (dword_100060190 <= 90 && (dword_100060190 != -1 || _LogCategory_Initialize()))
+    {
+      LogPrintF(&dword_100060190, "[DALocalNetworkScanner _browserStateChanged:error:]", 90, "Browser failed with error, stopping.");
+    }
+
+    v11 = DAErrorF(350004, "Browser failed with error: %@", errorCopy);
+    discoveryConfiguration = v14[5];
+    v14[5] = v11;
+    goto LABEL_15;
+  }
+
+  if (v4 == 1 && dword_100060190 <= 50 && (dword_100060190 != -1 || _LogCategory_Initialize()))
+  {
+    discoveryConfiguration = [(DALocalNetworkScanner *)self discoveryConfiguration];
+    bonjourServiceTypes = [discoveryConfiguration bonjourServiceTypes];
+    firstObject = [bonjourServiceTypes firstObject];
+    LogPrintF(&dword_100060190, "[DALocalNetworkScanner _browserStateChanged:error:]", 50, "Browser for Bonjour Service Type, %@, ready.", firstObject);
+
+LABEL_15:
+  }
+
+  (v7[2])(v7);
+
+  _Block_object_dispose(&v13, 8);
 }
 
 - (void)_handleBrowseResults:(id)results
@@ -129,7 +181,7 @@ LABEL_7:
 
           if (dword_100060190 <= 50 && (dword_100060190 != -1 || _LogCategory_Initialize()))
           {
-            sub_10002EA98();
+            sub_10002EA98(v11);
           }
 
           completionHandler = [(DALocalNetworkScanner *)self completionHandler];

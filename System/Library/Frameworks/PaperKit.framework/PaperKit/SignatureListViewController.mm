@@ -27,7 +27,7 @@
   }
 
   bundleCopy = bundle;
-  return SignatureListViewController.init(nibName:bundle:)(v5, v7, bundle);
+  return SignatureListViewController.init(nibName:bundle:)(v9, v5, v7, bundle);
 }
 
 - (_TtC8PaperKit27SignatureListViewController)initWithCoder:(id)coder
@@ -37,7 +37,7 @@
   *(&self->super.super.super.super.isa + OBJC_IVAR____TtC8PaperKit27SignatureListViewController_maximumEditRows) = 4;
   *(&self->super.super.super.super.isa + OBJC_IVAR____TtC8PaperKit27SignatureListViewController_signatureRowHeight) = 0x4055800000000000;
   *(&self->super.super.super.super.isa + OBJC_IVAR____TtC8PaperKit27SignatureListViewController_showDescriptions) = 0;
-  v3 = (&self->super.super.super.super.isa + OBJC_IVAR____TtC8PaperKit27SignatureListViewController_completion);
+  v3 = (self + OBJC_IVAR____TtC8PaperKit27SignatureListViewController_completion);
   *v3 = UnknownCanvasElementView.flags.modify;
   v3[1] = 0;
   result = _assertionFailure(_:_:file:line:flags:)();

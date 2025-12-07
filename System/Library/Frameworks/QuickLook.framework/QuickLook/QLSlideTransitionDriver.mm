@@ -10,7 +10,7 @@
 {
   gestureTracker = [(QLTransitionDriver *)self gestureTracker];
   v4 = gestureTracker;
-  if (!gestureTracker || ([gestureTracker trackedTransform], CGAffineTransformIsIdentity(&v5)) || -[QLTransitionDriver presenting](self, "presenting"))
+  if (!gestureTracker || (objc_msgSend_trackedTransform(gestureTracker), CGAffineTransformIsIdentity(&v5)) || [(QLTransitionDriver *)self presenting])
   {
     [(QLSlideTransitionDriver *)self _animateTransition];
   }
@@ -38,7 +38,7 @@
     v5 = destinationView;
     if (destinationView)
     {
-      [destinationView transform];
+      objc_msgSend_transform(destinationView);
     }
 
     else
@@ -76,7 +76,7 @@
 
   [(QLTransitionDriver *)self presenting];
   v12 = MEMORY[0x277D75D18];
-  [(QLTransitionDriver *)self duration];
+  objc_msgSend_duration(self);
   v13[0] = MEMORY[0x277D85DD0];
   v13[1] = 3221225472;
   v14 = v18;
@@ -84,6 +84,22 @@
   v13[3] = &unk_278B58FF0;
   v13[4] = self;
   [v12 animateWithDuration:0 delay:v13 usingSpringWithDamping:0 initialSpringVelocity:? options:? animations:? completion:?];
+}
+
+uint64_t __45__QLSlideTransitionDriver__animateTransition__block_invoke(uint64_t a1)
+{
+  v2 = MEMORY[0x277D75D18];
+  v9 = CAFrameRateRangeMake(80.0, 120.0, 120.0);
+  v5[0] = MEMORY[0x277D85DD0];
+  v5[1] = 3221225472;
+  v5[2] = __45__QLSlideTransitionDriver__animateTransition__block_invoke_2;
+  v5[3] = &unk_278B58FF0;
+  v5[4] = *(a1 + 32);
+  v3 = *(a1 + 56);
+  v6 = *(a1 + 40);
+  v7 = v3;
+  v8 = *(a1 + 72);
+  return [v2 _modifyAnimationsWithPreferredFrameRateRange:2097155 updateReason:v5 animations:{*&v9.minimum, *&v9.maximum, *&v9.preferred}];
 }
 
 void __45__QLSlideTransitionDriver__animateTransition__block_invoke_2(uint64_t a1)
@@ -156,7 +172,7 @@ void __45__QLSlideTransitionDriver__animateTransition__block_invoke_2(uint64_t a
   v23 = destinationView;
   if (destinationView)
   {
-    [destinationView transform];
+    objc_msgSend_transform(destinationView);
   }
 
   else
@@ -165,9 +181,9 @@ void __45__QLSlideTransitionDriver__animateTransition__block_invoke_2(uint64_t a
   }
 
   v35 = v36;
-  [(QLTransitionDriver *)self duration];
+  objc_msgSend_duration(self);
   v25 = v19 * v24;
-  [(QLTransitionDriver *)self duration];
+  objc_msgSend_duration(self);
   v34 = v35;
   CGAffineTransformTranslate(&v35, &v34, v25, v21 * v26);
   v33 = v35;
@@ -175,7 +191,7 @@ void __45__QLSlideTransitionDriver__animateTransition__block_invoke_2(uint64_t a
   v35 = v34;
   if (v9 != 0.0)
   {
-    [(QLTransitionDriver *)self duration];
+    objc_msgSend_duration(self);
     v33 = v35;
     CGAffineTransformRotate(&v34, &v33, v9 * v27 + v9 * v27);
     v35 = v34;
@@ -187,7 +203,7 @@ void __45__QLSlideTransitionDriver__animateTransition__block_invoke_2(uint64_t a
   [destinationView2 setTransform:&v34];
 
   v29 = MEMORY[0x277D75D18];
-  [(QLTransitionDriver *)self duration];
+  objc_msgSend_duration(self);
   v30[0] = MEMORY[0x277D85DD0];
   v30[1] = 3221225472;
   v31 = v35;
@@ -195,6 +211,22 @@ void __45__QLSlideTransitionDriver__animateTransition__block_invoke_2(uint64_t a
   v30[3] = &unk_278B58FF0;
   v30[4] = self;
   [v29 animateWithDuration:0x20000 delay:v30 usingSpringWithDamping:0 initialSpringVelocity:? options:? animations:? completion:?];
+}
+
+uint64_t __63__QLSlideTransitionDriver__animateTransitionUserSlideDismissal__block_invoke(uint64_t a1)
+{
+  v2 = MEMORY[0x277D75D18];
+  v9 = CAFrameRateRangeMake(80.0, 120.0, 120.0);
+  v5[0] = MEMORY[0x277D85DD0];
+  v5[1] = 3221225472;
+  v5[2] = __63__QLSlideTransitionDriver__animateTransitionUserSlideDismissal__block_invoke_2;
+  v5[3] = &unk_278B58FF0;
+  v5[4] = *(a1 + 32);
+  v3 = *(a1 + 56);
+  v6 = *(a1 + 40);
+  v7 = v3;
+  v8 = *(a1 + 72);
+  return [v2 _modifyAnimationsWithPreferredFrameRateRange:2097155 updateReason:v5 animations:{*&v9.minimum, *&v9.maximum, *&v9.preferred}];
 }
 
 void __63__QLSlideTransitionDriver__animateTransitionUserSlideDismissal__block_invoke_2(uint64_t a1)

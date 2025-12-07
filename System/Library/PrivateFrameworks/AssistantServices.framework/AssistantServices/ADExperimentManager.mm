@@ -183,7 +183,7 @@
       }
 
       v35 = [dataCopy objectForKeyedSubscript:@"TrialNamespace"];
-      v36 = [emittedCopy objectForKey:v35];
+      v36 = objc_msgSend_objectForKey_(emittedCopy);
 
       if (v29 && !v36)
       {
@@ -570,7 +570,7 @@ LABEL_41:
             }
 
             emittedCopy = v52;
-            v33 = [v52 objectForKey:experimentNamespace];
+            v33 = objc_msgSend_objectForKey_(v52);
 
             if (v33)
             {
@@ -624,7 +624,7 @@ LABEL_16:
         if (v40)
         {
           v41 = v40;
-          v42 = [emittedCopy objectForKey:experimentNamespace];
+          v42 = objc_msgSend_objectForKey_(emittedCopy);
           if (v42)
           {
             v43 = v42;
@@ -1304,7 +1304,7 @@ LABEL_13:
     {
       _getConfigurationsByIdentifier = [(ADExperimentManager *)self _getConfigurationsByIdentifier];
       configurationIdentifier = [infoCopy configurationIdentifier];
-      configurationIdentifier2 = [_getConfigurationsByIdentifier objectForKey:configurationIdentifier];
+      configurationIdentifier2 = objc_msgSend_objectForKey_(_getConfigurationsByIdentifier);
 
       if (configurationIdentifier2)
       {

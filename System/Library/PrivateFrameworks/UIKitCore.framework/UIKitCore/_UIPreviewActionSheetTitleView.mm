@@ -33,7 +33,7 @@
     [(UILabel *)v15 setTextAlignment:1];
     if (_AXDarkenSystemColors())
     {
-      +[UIColor blackColor];
+      objc_msgSend_blackColor(UIColor);
     }
 
     else

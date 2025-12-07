@@ -58,37 +58,36 @@ uint64_t __26__WuluDecoder_getInstance__block_invoke()
 
 - (WuluDecoder)init
 {
-  v6.receiver = self;
-  v6.super_class = WuluDecoder;
-  v2 = [(WuluDecoder *)&v6 init];
-  v3 = v2;
+  v8.receiver = self;
+  v8.super_class = WuluDecoder;
+  v2 = [(WuluDecoder *)&v8 init];
+  v4 = v2;
   if (v2)
   {
     v2->decoderState = 0;
     if ((+[AppletTranslator isInternalBuild]& 1) != 0)
     {
-      v4 = +[AppletTranslator userDefaults];
-      v3->debug = [v4 BOOLForKey:@"debug.wulu"];
+      v6 = +[AppletTranslator userDefaults];
+      v4->debug = [v6 BOOLForKey:@"debug.wulu"];
     }
 
     else
     {
-      v3->debug = 0;
+      v4->debug = 0;
     }
   }
 
-  return v3;
+  return v4;
 }
 
 - (id)GetAppletProperties:(id)properties withPackage:(id)package withModule:(id)module withTransceiver:(id)transceiver withError:(id *)error
 {
-  v11[2] = *MEMORY[0x277D85DE8];
-  v10[0] = @"Supported";
-  v10[1] = @"DelayExpressReentry";
-  v11[0] = MEMORY[0x277CBEC38];
-  v11[1] = &unk_2843C63E0;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:{2, transceiver, error}];
-  v8 = *MEMORY[0x277D85DE8];
+  v10[2] = *MEMORY[0x277D85DE8];
+  v9[0] = @"Supported";
+  v9[1] = @"DelayExpressReentry";
+  v10[0] = MEMORY[0x277CBEC38];
+  v10[1] = &unk_2843C63E0;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:{2, transceiver, error}];
 
   return v7;
 }
@@ -131,7 +130,7 @@ uint64_t __26__WuluDecoder_getInstance__block_invoke()
 
 - (id)getAppletStateAndHistory:(id)history withError:(id *)error
 {
-  v15[3] = *MEMORY[0x277D85DE8];
+  v14[3] = *MEMORY[0x277D85DE8];
   historyCopy = history;
   v7 = [(WuluDecoder *)self getState:historyCopy];
   v8 = [(WuluDecoder *)self getHistory:historyCopy state:v7 error:error];
@@ -141,13 +140,13 @@ uint64_t __26__WuluDecoder_getInstance__block_invoke()
     v10 = [(WuluDecoder *)self adjustHistory:v8];
 
     [(WuluDecoder *)self adjustState:v7 history:v10 ctx:historyCopy];
-    v14[0] = @"State";
-    v14[1] = @"TransactionHistory";
-    v15[0] = v7;
-    v15[1] = v10;
-    v14[2] = @"ATLInternal";
-    v15[2] = historyCopy;
-    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:3];
+    v13[0] = @"State";
+    v13[1] = @"TransactionHistory";
+    v14[0] = v7;
+    v14[1] = v10;
+    v13[2] = @"ATLInternal";
+    v14[2] = historyCopy;
+    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:3];
   }
 
   else
@@ -155,14 +154,12 @@ uint64_t __26__WuluDecoder_getInstance__block_invoke()
     v11 = 0;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
-
   return v11;
 }
 
 - (id)getState:(id)state
 {
-  v44[9] = *MEMORY[0x277D85DE8];
+  v43[9] = *MEMORY[0x277D85DE8];
   stateCopy = state;
   v4 = MEMORY[0x277CBEAB8];
   file15 = [stateCopy file15];
@@ -170,7 +167,7 @@ uint64_t __26__WuluDecoder_getInstance__block_invoke()
   file152 = [stateCopy file15];
   v8 = DecodeBCD([file152 bytes], 26, 1);
   file153 = [stateCopy file15];
-  v42 = [v4 dateWithYear:v6 month:v8 day:{DecodeBCD(objc_msgSend(file153, "bytes"), 27, 1)}];
+  v41 = [v4 dateWithYear:v6 month:v8 day:{DecodeBCD(objc_msgSend(file153, "bytes"), 27, 1)}];
 
   v10 = MEMORY[0x277CCABB0];
   file17 = [stateCopy file17];
@@ -267,34 +264,32 @@ LABEL_6:
   v37 = ;
   v38 = [v36 decimalNumberWithMantissa:objc_msgSend(v37 exponent:"unsignedIntegerValue") isNegative:{4294967294, unsignedIntValue != 0}];
 
-  v43[0] = @"Balance";
-  v43[1] = @"SP";
-  v44[0] = v38;
-  v44[1] = @"UNKNOWN";
-  v43[2] = @"SPRaw";
-  v43[3] = @"CardExpirationDate";
-  v44[2] = v12;
-  v44[3] = v42;
-  v43[4] = @"CardIdentifier";
-  v43[5] = @"CardCurrency";
-  v44[4] = v14;
-  v44[5] = @"CNY";
-  v43[6] = @"CardCurrencyCode";
-  v43[7] = @"CardCurrencyExponent";
-  v44[6] = &unk_2843C63F8;
-  v44[7] = &unk_2843C6410;
-  v43[8] = @"TransactionInProgress";
-  v44[8] = v15;
-  v39 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v44 forKeys:v43 count:9];
-
-  v40 = *MEMORY[0x277D85DE8];
+  v42[0] = @"Balance";
+  v42[1] = @"SP";
+  v43[0] = v38;
+  v43[1] = @"UNKNOWN";
+  v42[2] = @"SPRaw";
+  v42[3] = @"CardExpirationDate";
+  v43[2] = v12;
+  v43[3] = v41;
+  v42[4] = @"CardIdentifier";
+  v42[5] = @"CardCurrency";
+  v43[4] = v14;
+  v43[5] = @"CNY";
+  v42[6] = @"CardCurrencyCode";
+  v42[7] = @"CardCurrencyExponent";
+  v43[6] = &unk_2843C63F8;
+  v43[7] = &unk_2843C6410;
+  v42[8] = @"TransactionInProgress";
+  v43[8] = v15;
+  v39 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v43 forKeys:v42 count:9];
 
   return v39;
 }
 
 - (id)getHistory:(id)history state:(id)state error:(id *)error
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v54 = *MEMORY[0x277D85DE8];
   historyCopy = history;
   stateCopy = state;
   v8 = MEMORY[0x277CBEB18];
@@ -302,34 +297,34 @@ LABEL_6:
   v10 = [v8 arrayWithCapacity:{objc_msgSend(file18, "count")}];
 
   v11 = historyCopy;
-  v48 = 0u;
   v49 = 0u;
-  v46 = 0u;
+  v50 = 0u;
   v47 = 0u;
+  v48 = 0u;
   obj = [historyCopy file18];
-  v12 = [obj countByEnumeratingWithState:&v46 objects:v52 count:16];
+  v12 = [obj countByEnumeratingWithState:&v47 objects:v53 count:16];
   if (v12)
   {
     v14 = v12;
-    v15 = *v47;
+    v15 = *v48;
     *&v13 = 67109120;
-    v34 = v13;
-    v38 = v10;
-    v39 = historyCopy;
-    v37 = *v47;
+    v35 = v13;
+    v39 = v10;
+    v40 = historyCopy;
+    v38 = *v48;
     selfCopy = self;
     do
     {
       v16 = 0;
-      v40 = v14;
+      v41 = v14;
       do
       {
-        if (*v47 != v15)
+        if (*v48 != v15)
         {
           objc_enumerationMutation(obj);
         }
 
-        v17 = *(*(&v46 + 1) + 8 * v16);
+        v17 = *(*(&v47 + 1) + 8 * v16);
         data = [v17 data];
         v19 = [(WuluDecoder *)self parseFile18:data];
 
@@ -347,60 +342,60 @@ LABEL_6:
             v22 = bswap32(*[data2 bytes]) >> 16;
 
             file1E = [v11 file1E];
-            v44[0] = MEMORY[0x277D85DD0];
-            v44[1] = 3221225472;
-            v44[2] = __38__WuluDecoder_getHistory_state_error___block_invoke;
-            v44[3] = &__block_descriptor_34_e20_B16__0__WuluRecord_8l;
-            v45 = v22;
-            v24 = [file1E firstWhere:v44];
+            v45[0] = MEMORY[0x277D85DD0];
+            v45[1] = 3221225472;
+            v45[2] = __38__WuluDecoder_getHistory_state_error___block_invoke;
+            v45[3] = &__block_descriptor_34_e20_B16__0__WuluRecord_8l;
+            v46 = v22;
+            v24 = [file1E firstWhere:v45];
 
             [v11 file1A];
             v26 = v25 = v11;
-            v42[0] = MEMORY[0x277D85DD0];
-            v42[1] = 3221225472;
-            v42[2] = __38__WuluDecoder_getHistory_state_error___block_invoke_2;
-            v42[3] = &__block_descriptor_34_e20_B16__0__WuluRecord_8l;
-            v43 = v22;
-            v27 = [v26 firstWhere:v42];
+            v43[0] = MEMORY[0x277D85DD0];
+            v43[1] = 3221225472;
+            v43[2] = __38__WuluDecoder_getHistory_state_error___block_invoke_2;
+            v43[3] = &__block_descriptor_34_e20_B16__0__WuluRecord_8l;
+            v44 = v22;
+            v27 = [v26 firstWhere:v43];
 
             if (v24)
             {
-              v28 = v25;
+              v29 = v25;
               self = selfCopy;
-              [(WuluDecoder *)selfCopy parseTransit:v17 file1E:v24 file1A:v27 ctx:v28 state:stateCopy into:v19];
+              [(WuluDecoder *)selfCopy parseTransit:v17 file1E:v24 file1A:v27 ctx:v29 state:stateCopy into:v19];
             }
 
             else
             {
-              v29 = ATLLogObject();
-              if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
+              v30 = ATLLogObject(v28);
+              if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
               {
                 *buf = 0;
-                _os_log_impl(&dword_22EEF5000, v29, OS_LOG_TYPE_DEBUG, "No matching 0x1E entry found, parsing as basic", buf, 2u);
+                _os_log_impl(&dword_22EEF5000, v30, OS_LOG_TYPE_DEBUG, "No matching 0x1E entry found, parsing as basic", buf, 2u);
               }
 
               self = selfCopy;
             }
 
-            v30 = [v19 objectForKeyedSubscript:@"TypeDetail"];
+            v31 = [v19 objectForKeyedSubscript:@"TypeDetail"];
 
-            v15 = v37;
-            if (!v30)
+            v15 = v38;
+            if (!v31)
             {
-              v31 = ATLLogObject();
-              if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+              v33 = ATLLogObject(v32);
+              if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
               {
-                *buf = v34;
-                v51 = v22;
-                _os_log_impl(&dword_22EEF5000, v31, OS_LOG_TYPE_DEFAULT, "Transit details were incomplete for SN 0x%x", buf, 8u);
+                *buf = v35;
+                v52 = v22;
+                _os_log_impl(&dword_22EEF5000, v33, OS_LOG_TYPE_DEFAULT, "Transit details were incomplete for SN 0x%x", buf, 8u);
               }
 
               [v19 setObject:@"Purchase" forKeyedSubscript:@"TypeDetail"];
             }
 
-            v10 = v38;
-            v11 = v39;
-            v14 = v40;
+            v10 = v39;
+            v11 = v40;
+            v14 = v41;
           }
 
           [v10 addObject:v19];
@@ -410,13 +405,11 @@ LABEL_6:
       }
 
       while (v14 != v16);
-      v14 = [obj countByEnumeratingWithState:&v46 objects:v52 count:16];
+      v14 = [obj countByEnumeratingWithState:&v47 objects:v53 count:16];
     }
 
     while (v14);
   }
-
-  v32 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -504,22 +497,22 @@ LABEL_6:
 
   if (!v34)
   {
-    v36 = ATLLogObject();
-    if (!os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
+    v37 = ATLLogObject(v35);
+    if (!os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
     {
 LABEL_12:
 
-      v40 = transitCopy;
+      v41 = transitCopy;
       goto LABEL_13;
     }
 
     *buf = 138412290;
     v48 = v18;
-    v37 = "Configuration does not define city rules for city code %@";
-    v38 = v36;
-    v39 = OS_LOG_TYPE_DEFAULT;
+    v38 = "Configuration does not define city rules for city code %@";
+    v39 = v37;
+    v40 = OS_LOG_TYPE_DEFAULT;
 LABEL_11:
-    _os_log_impl(&dword_22EEF5000, v38, v39, v37, buf, 0xCu);
+    _os_log_impl(&dword_22EEF5000, v39, v40, v38, buf, 0xCu);
     goto LABEL_12;
   }
 
@@ -532,9 +525,9 @@ LABEL_11:
       {
         if (unsignedIntValue == 4)
         {
-          v41 = ctxCopy;
-          v40 = transitCopy;
-          v42 = stateCopy;
+          v42 = ctxCopy;
+          v41 = transitCopy;
+          v43 = stateCopy;
           [(WuluDecoder *)self parseTransitGalileo:transitCopy file1E:eCopy file1A:aCopy ctx:ctxCopy state:stateCopy into:intoCopy];
           goto LABEL_20;
         }
@@ -542,25 +535,25 @@ LABEL_11:
         goto LABEL_18;
       }
 
-      v40 = transitCopy;
+      v41 = transitCopy;
       [(WuluDecoder *)self parseTransitPioneer:transitCopy file1E:eCopy file1A:aCopy into:intoCopy];
 LABEL_13:
-      v41 = ctxCopy;
+      v42 = ctxCopy;
 LABEL_19:
-      v42 = stateCopy;
+      v43 = stateCopy;
       goto LABEL_20;
     }
 
     if (unsignedIntValue == 1)
     {
-      v40 = transitCopy;
+      v41 = transitCopy;
       [(WuluDecoder *)self parseTransitKepler:transitCopy file1E:eCopy file1A:aCopy into:intoCopy];
       goto LABEL_13;
     }
 
     if (unsignedIntValue == 2)
     {
-      v40 = transitCopy;
+      v41 = transitCopy;
       [(WuluDecoder *)self parseTransitApollo:transitCopy file1E:eCopy file1A:aCopy into:intoCopy];
       goto LABEL_13;
     }
@@ -571,15 +564,15 @@ LABEL_19:
   if ((unsignedIntValue - 7) < 2)
   {
 LABEL_18:
-    v41 = ctxCopy;
-    v40 = transitCopy;
+    v42 = ctxCopy;
+    v41 = transitCopy;
     [(WuluDecoder *)self parseTransitSettingBased:transitCopy file1E:eCopy file1A:aCopy ctx:ctxCopy into:intoCopy];
     goto LABEL_19;
   }
 
   if (unsignedIntValue == 6)
   {
-    v40 = transitCopy;
+    v41 = transitCopy;
     [(WuluDecoder *)self parseTransitNoLocal:transitCopy file1E:eCopy file1A:aCopy into:intoCopy];
     goto LABEL_13;
   }
@@ -587,32 +580,30 @@ LABEL_18:
   if (unsignedIntValue != 99)
   {
 LABEL_28:
-    v36 = ATLLogObject();
-    if (!os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
+    v37 = ATLLogObject(unsignedIntValue);
+    if (!os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_12;
     }
 
     *buf = 138412290;
     v48 = v34;
-    v37 = "Configuration gave us unknown rule type %@";
-    v38 = v36;
-    v39 = OS_LOG_TYPE_ERROR;
+    v38 = "Configuration gave us unknown rule type %@";
+    v39 = v37;
+    v40 = OS_LOG_TYPE_ERROR;
     goto LABEL_11;
   }
 
-  v41 = ctxCopy;
-  v40 = transitCopy;
-  v42 = stateCopy;
+  v42 = ctxCopy;
+  v41 = transitCopy;
+  v43 = stateCopy;
   [(WuluDecoder *)self parseUnreliable1ECities:transitCopy file1E:eCopy file1A:aCopy ctx:ctxCopy state:stateCopy into:intoCopy];
 LABEL_20:
-
-  v43 = *MEMORY[0x277D85DE8];
 }
 
 - (void)parseTransitApollo:(id)apollo file1E:(id)e file1A:(id)a into:(id)into
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   eCopy = e;
   aCopy = a;
   intoCopy = into;
@@ -640,12 +631,13 @@ LABEL_5:
 
   if (aCopy && v12 == 1)
   {
-    if ([aCopy number] == 1)
+    number = [aCopy number];
+    if (number == 1)
     {
       data4 = [aCopy data];
       v23 = *([data4 bytes] + 14);
 
-      v25 = v14 == 8 && v23 == 2;
+      v26 = v14 == 8 && v23 == 2;
       if (v14 == 6 && v23 == 1)
       {
         [intoCopy setObject:@"EnRoute" forKeyedSubscript:@"IgnoreReason"];
@@ -662,11 +654,11 @@ LABEL_23:
         goto LABEL_23;
       }
 
-      if (v14 == 4 || v25)
+      if (v14 == 4 || v26)
       {
         data5 = [aCopy data];
-        v30 = [data5 subdataWithOffset:38 length:5];
-        [intoCopy setObject:v30 forKeyedSubscript:@"StartStation"];
+        v31 = [data5 subdataWithOffset:38 length:5];
+        [intoCopy setObject:v31 forKeyedSubscript:@"StartStation"];
 
         data6 = [aCopy data];
         v19 = [data6 subdataWithOffset:46 length:5];
@@ -677,9 +669,9 @@ LABEL_23:
       if (v14 == 8)
       {
         data7 = [aCopy data];
-        v32 = [data7 u8:99];
+        v33 = [data7 u8:99];
 
-        if (v32)
+        if (v33)
         {
           [intoCopy setObject:@"TransitMetroUpgrade" forKeyedSubscript:@"TypeDetail"];
           [intoCopy removeObjectForKey:@"IgnoreReason"];
@@ -688,54 +680,52 @@ LABEL_23:
         goto LABEL_6;
       }
 
-      data6 = ATLLogObject();
+      data6 = ATLLogObject(v24);
       if (!os_log_type_enabled(data6, OS_LOG_TYPE_DEFAULT))
       {
         goto LABEL_5;
       }
 
-      v33 = 67109632;
+      v34 = 67109632;
       associatedSerialNumber = [aCopy associatedSerialNumber];
-      v35 = 1024;
-      v36 = v14;
-      v37 = 1024;
-      number = 1;
-      v26 = "SN 0x%x with type %d but modality %d";
-      v27 = data6;
-      v28 = OS_LOG_TYPE_DEFAULT;
+      v36 = 1024;
+      v37 = v14;
+      v38 = 1024;
+      number2 = 1;
+      v27 = "SN 0x%x with type %d but modality %d";
+      v28 = data6;
+      v29 = OS_LOG_TYPE_DEFAULT;
     }
 
     else
     {
-      data6 = ATLLogObject();
+      data6 = ATLLogObject(number);
       if (!os_log_type_enabled(data6, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_5;
       }
 
-      v33 = 67109632;
+      v34 = 67109632;
       associatedSerialNumber = [aCopy associatedSerialNumber];
-      v35 = 1024;
-      v36 = 1;
-      v37 = 1024;
-      number = [aCopy number];
-      v26 = "Inconsistency in SN 0x%x b/t modality %d in 0x1E and file 0x1A record %d";
-      v27 = data6;
-      v28 = OS_LOG_TYPE_ERROR;
+      v36 = 1024;
+      v37 = 1;
+      v38 = 1024;
+      number2 = [aCopy number];
+      v27 = "Inconsistency in SN 0x%x b/t modality %d in 0x1E and file 0x1A record %d";
+      v28 = data6;
+      v29 = OS_LOG_TYPE_ERROR;
     }
 
-    _os_log_impl(&dword_22EEF5000, v27, v28, v26, &v33, 0x14u);
+    _os_log_impl(&dword_22EEF5000, v28, v29, v27, &v34, 0x14u);
     goto LABEL_5;
   }
 
 LABEL_6:
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)parseTransitKepler:(id)kepler file1E:(id)e file1A:(id)a into:(id)into
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   aCopy = a;
   intoCopy = into;
   eCopy = e;
@@ -747,30 +737,31 @@ LABEL_6:
   v14 = *[data2 bytes];
   if (aCopy && v12 == 1)
   {
-    if ([aCopy number] == 1)
+    number = [aCopy number];
+    if (number == 1)
     {
       data3 = [aCopy data];
-      v16 = *([data3 bytes] + 14);
+      v17 = *([data3 bytes] + 14);
 
-      v17 = v14 == 8;
-      if (v16 != 4)
+      v19 = v14 == 8;
+      if (v17 != 4)
       {
-        v17 = 0;
+        v19 = 0;
       }
 
-      if (v14 == 8 && v16 == 3)
+      if (v14 == 8 && v17 == 3)
       {
         [intoCopy setObject:@"EnRoute" forKeyedSubscript:@"IgnoreReason"];
 LABEL_14:
         data4 = [aCopy data];
-        v23 = [data4 subdataWithOffset:85 length:1];
-        v24 = [v23 mutableCopy];
+        v25 = [data4 subdataWithOffset:85 length:1];
+        v26 = [v25 mutableCopy];
 
         data5 = [aCopy data];
-        v26 = [data5 subdataWithOffset:35 length:8];
-        [v24 appendData:v26];
+        v28 = [data5 subdataWithOffset:35 length:8];
+        [v26 appendData:v28];
 
-        [intoCopy setObject:v24 forKeyedSubscript:@"StartStation"];
+        [intoCopy setObject:v26 forKeyedSubscript:@"StartStation"];
         goto LABEL_15;
       }
 
@@ -779,79 +770,77 @@ LABEL_14:
         goto LABEL_14;
       }
 
-      if (v14 == 4 || v17)
+      if (v14 == 4 || v19)
       {
         data6 = [aCopy data];
-        v29 = [data6 subdataWithOffset:85 length:1];
-        v30 = [v29 mutableCopy];
+        v30 = [data6 subdataWithOffset:85 length:1];
+        v31 = [v30 mutableCopy];
 
         data7 = [aCopy data];
-        v32 = [data7 subdataWithOffset:35 length:8];
-        [v30 appendData:v32];
+        v33 = [data7 subdataWithOffset:35 length:8];
+        [v31 appendData:v33];
 
-        [intoCopy setObject:v30 forKeyedSubscript:@"StartStation"];
+        [intoCopy setObject:v31 forKeyedSubscript:@"StartStation"];
         data8 = [aCopy data];
-        v34 = [data8 subdataWithOffset:86 length:1];
-        v35 = [v34 mutableCopy];
+        v35 = [data8 subdataWithOffset:86 length:1];
+        v36 = [v35 mutableCopy];
 
         data9 = [aCopy data];
-        v37 = [data9 subdataWithOffset:43 length:8];
-        [v35 appendData:v37];
+        v38 = [data9 subdataWithOffset:43 length:8];
+        [v36 appendData:v38];
 
-        [intoCopy setObject:v35 forKeyedSubscript:@"EndStation"];
+        [intoCopy setObject:v36 forKeyedSubscript:@"EndStation"];
         goto LABEL_15;
       }
 
-      v18 = ATLLogObject();
-      if (!os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+      v20 = ATLLogObject(v18);
+      if (!os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
       {
         goto LABEL_12;
       }
 
-      v38 = 67109632;
+      v39 = 67109632;
       associatedSerialNumber = [aCopy associatedSerialNumber];
-      v40 = 1024;
-      v41 = v14;
-      v42 = 1024;
-      number = 1;
-      v19 = "SN 0x%x with type %d but modality %d";
-      v20 = v18;
-      v21 = OS_LOG_TYPE_DEFAULT;
+      v41 = 1024;
+      v42 = v14;
+      v43 = 1024;
+      number2 = 1;
+      v21 = "SN 0x%x with type %d but modality %d";
+      v22 = v20;
+      v23 = OS_LOG_TYPE_DEFAULT;
     }
 
     else
     {
-      v18 = ATLLogObject();
-      if (!os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+      v20 = ATLLogObject(number);
+      if (!os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
 LABEL_12:
 
         goto LABEL_15;
       }
 
-      v38 = 67109632;
+      v39 = 67109632;
       associatedSerialNumber = [aCopy associatedSerialNumber];
-      v40 = 1024;
-      v41 = 1;
-      v42 = 1024;
-      number = [aCopy number];
-      v19 = "Inconsistency in SN 0x%x b/t modality %d in 0x1E and file 0x1A record %d";
-      v20 = v18;
-      v21 = OS_LOG_TYPE_ERROR;
+      v41 = 1024;
+      v42 = 1;
+      v43 = 1024;
+      number2 = [aCopy number];
+      v21 = "Inconsistency in SN 0x%x b/t modality %d in 0x1E and file 0x1A record %d";
+      v22 = v20;
+      v23 = OS_LOG_TYPE_ERROR;
     }
 
-    _os_log_impl(&dword_22EEF5000, v20, v21, v19, &v38, 0x14u);
+    _os_log_impl(&dword_22EEF5000, v22, v23, v21, &v39, 0x14u);
     goto LABEL_12;
   }
 
 LABEL_15:
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (void)parseTransitPioneer:(id)pioneer file1E:(id)e file1A:(id)a into:(id)into
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   aCopy = a;
   intoCopy = into;
   eCopy = e;
@@ -866,80 +855,84 @@ LABEL_15:
     goto LABEL_23;
   }
 
-  if ([aCopy number] != 1 && objc_msgSend(aCopy, "number") != 14)
+  if ([aCopy number] != 1)
   {
-    v24 = ATLLogObject();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+    number = [aCopy number];
+    if (number != 14)
     {
-      v39 = 67109632;
-      associatedSerialNumber = [aCopy associatedSerialNumber];
-      v41 = 1024;
-      v42 = v12;
-      v43 = 1024;
-      number = [aCopy number];
-      v25 = "Inconsistency in SN 0x%x b/t modality %d in 0x1E and file 0x1A record %d";
-      v26 = v24;
-      v27 = OS_LOG_TYPE_ERROR;
+      v26 = ATLLogObject(number);
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+      {
+        v40 = 67109632;
+        associatedSerialNumber = [aCopy associatedSerialNumber];
+        v42 = 1024;
+        v43 = v12;
+        v44 = 1024;
+        number2 = [aCopy number];
+        v27 = "Inconsistency in SN 0x%x b/t modality %d in 0x1E and file 0x1A record %d";
+        v28 = v26;
+        v29 = OS_LOG_TYPE_ERROR;
 LABEL_21:
-      _os_log_impl(&dword_22EEF5000, v26, v27, v25, &v39, 0x14u);
-    }
+        _os_log_impl(&dword_22EEF5000, v28, v29, v27, &v40, 0x14u);
+      }
 
 LABEL_22:
 
-    goto LABEL_23;
+      goto LABEL_23;
+    }
   }
 
   data3 = [aCopy data];
-  v16 = *([data3 bytes] + 14);
+  v17 = *([data3 bytes] + 14);
 
-  v17 = v14 == 8;
-  if (v16 != 4)
+  v19 = v14 == 8;
+  if (v17 != 4)
   {
-    v17 = 0;
+    v19 = 0;
   }
 
-  if (v14 != 8 || v16 != 3)
+  if (v14 != 8 || v17 != 3)
   {
     if (v14 == 3)
     {
       goto LABEL_12;
     }
 
-    if (v14 == 4 || v17)
+    if (v14 == 4 || v19)
     {
       data4 = [aCopy data];
-      v29 = [data4 subdataWithOffset:85 length:1];
-      v30 = [v29 mutableCopy];
+      v31 = [data4 subdataWithOffset:85 length:1];
+      v32 = [v31 mutableCopy];
 
       data5 = [aCopy data];
-      v32 = [data5 subdataWithOffset:35 length:8];
-      [v30 appendData:v32];
+      v34 = [data5 subdataWithOffset:35 length:8];
+      [v32 appendData:v34];
 
-      [intoCopy setObject:v30 forKeyedSubscript:@"StartStation"];
+      [intoCopy setObject:v32 forKeyedSubscript:@"StartStation"];
       data6 = [aCopy data];
-      v34 = [data6 subdataWithOffset:86 length:1];
-      v35 = [v34 mutableCopy];
+      v36 = [data6 subdataWithOffset:86 length:1];
+      v37 = [v36 mutableCopy];
 
       data7 = [aCopy data];
-      v37 = [data7 subdataWithOffset:43 length:8];
-      [v35 appendData:v37];
+      v39 = [data7 subdataWithOffset:43 length:8];
+      [v37 appendData:v39];
 
-      [intoCopy setObject:v35 forKeyedSubscript:@"EndStation"];
+      [intoCopy setObject:v37 forKeyedSubscript:@"EndStation"];
       goto LABEL_23;
     }
 
-    v24 = ATLLogObject();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+    v26 = ATLLogObject(v18);
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
     {
-      v39 = 67109632;
+      v40 = 67109632;
       associatedSerialNumber = [aCopy associatedSerialNumber];
-      v41 = 1024;
-      v42 = v14;
-      v43 = 1024;
-      number = v12;
-      v25 = "SN 0x%x with type %d but modality %d";
-      v26 = v24;
-      v27 = OS_LOG_TYPE_DEFAULT;
+      v42 = 1024;
+      v43 = v14;
+      v44 = 1024;
+      number2 = v12;
+      v27 = "SN 0x%x with type %d but modality %d";
+      v28 = v26;
+      v29 = OS_LOG_TYPE_DEFAULT;
       goto LABEL_21;
     }
 
@@ -949,30 +942,29 @@ LABEL_22:
   [intoCopy setObject:@"EnRoute" forKeyedSubscript:@"IgnoreReason"];
 LABEL_12:
   data8 = [aCopy data];
-  v19 = [data8 subdataWithOffset:85 length:1];
-  v20 = [v19 mutableCopy];
+  v21 = [data8 subdataWithOffset:85 length:1];
+  v22 = [v21 mutableCopy];
 
   data9 = [aCopy data];
-  v22 = [data9 subdataWithOffset:35 length:8];
-  [v20 appendData:v22];
+  v24 = [data9 subdataWithOffset:35 length:8];
+  [v22 appendData:v24];
 
-  [intoCopy setObject:v20 forKeyedSubscript:@"StartStation"];
+  [intoCopy setObject:v22 forKeyedSubscript:@"StartStation"];
   data10 = [aCopy data];
-  LODWORD(v22) = [data10 u8:100];
+  LODWORD(v24) = [data10 u8:100];
 
-  if (v22 == 11)
+  if (v24 == 11)
   {
     [intoCopy setObject:@"TransitMetroUpgrade" forKeyedSubscript:@"TypeDetail"];
     [intoCopy removeObjectForKey:@"IgnoreReason"];
   }
 
 LABEL_23:
-  v38 = *MEMORY[0x277D85DE8];
 }
 
 - (void)parseTransitGalileo:(id)galileo file1E:(id)e file1A:(id)a ctx:(id)ctx state:(id)state into:(id)into
 {
-  v106 = *MEMORY[0x277D85DE8];
+  v108 = *MEMORY[0x277D85DE8];
   galileoCopy = galileo;
   aCopy = a;
   ctxCopy = ctx;
@@ -993,132 +985,133 @@ LABEL_23:
 
     if (v25)
     {
-      if ([ctxCopy localRecordFormat] == 1)
+      localRecordFormat = [ctxCopy localRecordFormat];
+      if (localRecordFormat == 1)
       {
-        v92 = galileoCopy;
+        v94 = galileoCopy;
         data3 = [galileoCopy data];
-        v27 = bswap32(*[data3 bytes]) >> 16;
+        v29 = bswap32(*[data3 bytes]) >> 16;
 
         localRecords = [ctxCopy localRecords];
-        v100[0] = MEMORY[0x277D85DD0];
-        v100[1] = 3221225472;
-        v100[2] = __64__WuluDecoder_parseTransitGalileo_file1E_file1A_ctx_state_into___block_invoke;
-        v100[3] = &__block_descriptor_34_e20_B16__0__WuluRecord_8l;
-        v101 = v27;
-        v29 = [localRecords firstWhere:v100];
+        v102[0] = MEMORY[0x277D85DD0];
+        v102[1] = 3221225472;
+        v102[2] = __64__WuluDecoder_parseTransitGalileo_file1E_file1A_ctx_state_into___block_invoke;
+        v102[3] = &__block_descriptor_34_e20_B16__0__WuluRecord_8l;
+        v103 = v29;
+        v31 = [localRecords firstWhere:v102];
 
         localRecords2 = [ctxCopy localRecords];
-        v98[0] = MEMORY[0x277D85DD0];
-        v98[1] = 3221225472;
-        v98[2] = __64__WuluDecoder_parseTransitGalileo_file1E_file1A_ctx_state_into___block_invoke_2;
-        v98[3] = &unk_278874AD0;
-        v31 = v29;
-        v99 = v31;
-        v32 = [localRecords2 firstWhere:v98];
+        v100[0] = MEMORY[0x277D85DD0];
+        v100[1] = 3221225472;
+        v100[2] = __64__WuluDecoder_parseTransitGalileo_file1E_file1A_ctx_state_into___block_invoke_2;
+        v100[3] = &unk_278874AD0;
+        v33 = v31;
+        v101 = v33;
+        v34 = [localRecords2 firstWhere:v100];
 
         localRecords3 = [ctxCopy localRecords];
-        v96[0] = MEMORY[0x277D85DD0];
-        v96[1] = 3221225472;
-        v96[2] = __64__WuluDecoder_parseTransitGalileo_file1E_file1A_ctx_state_into___block_invoke_3;
-        v96[3] = &unk_278874AD0;
-        v34 = v31;
-        v97 = v34;
-        v35 = [localRecords3 firstWhere:v96];
+        v98[0] = MEMORY[0x277D85DD0];
+        v98[1] = 3221225472;
+        v98[2] = __64__WuluDecoder_parseTransitGalileo_file1E_file1A_ctx_state_into___block_invoke_3;
+        v98[3] = &unk_278874AD0;
+        v36 = v33;
+        v99 = v36;
+        v37 = [localRecords3 firstWhere:v98];
 
-        if (!v34 || !(v32 | v35))
+        if (!v36 || !(v34 | v37))
         {
-          v36 = ATLLogObject();
-          if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
+          v39 = ATLLogObject(v38);
+          if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
           {
             *buf = 0;
-            _os_log_impl(&dword_22EEF5000, v36, OS_LOG_TYPE_ERROR, "Missing mandatory records.", buf, 2u);
+            _os_log_impl(&dword_22EEF5000, v39, OS_LOG_TYPE_ERROR, "Missing mandatory records.", buf, 2u);
           }
 
-          galileoCopy = v92;
+          galileoCopy = v94;
           goto LABEL_70;
         }
 
-        v91 = v35;
-        v51 = [v34 sfi];
-        if (v51 == 20)
+        v93 = v37;
+        v54 = [v36 sfi];
+        if (v54 == 20)
         {
           [intoCopy setObject:@"TransitTrain" forKeyedSubscript:@"TypeDetail"];
-          galileoCopy = v92;
+          galileoCopy = v94;
         }
 
         else
         {
-          galileoCopy = v92;
-          if (v51 == 19)
+          galileoCopy = v94;
+          if (v54 == 19)
           {
-            v52 = @"TransitTrainMaglev";
+            v55 = @"TransitTrainMaglev";
           }
 
           else
           {
-            if (v51 != 17)
+            if (v54 != 17)
             {
-              v76 = ATLLogObject();
-              if (os_log_type_enabled(v76, OS_LOG_TYPE_ERROR))
+              v79 = ATLLogObject(v54);
+              if (os_log_type_enabled(v79, OS_LOG_TYPE_ERROR))
               {
-                v77 = [v34 sfi];
+                v80 = [v36 sfi];
                 *buf = 67109120;
-                *v103 = v77;
-                _os_log_impl(&dword_22EEF5000, v76, OS_LOG_TYPE_ERROR, "Metro in 1E but local SFI %d not in the list.", buf, 8u);
+                *v105 = v80;
+                _os_log_impl(&dword_22EEF5000, v79, OS_LOG_TYPE_ERROR, "Metro in 1E but local SFI %d not in the list.", buf, 8u);
               }
 
               goto LABEL_62;
             }
 
-            v52 = @"TransitMetro";
+            v55 = @"TransitMetro";
           }
 
-          [intoCopy setObject:v52 forKeyedSubscript:@"TypeDetail"];
+          [intoCopy setObject:v55 forKeyedSubscript:@"TypeDetail"];
         }
 
 LABEL_62:
-        v95 = v32;
-        data4 = [v32 data];
-        v79 = [data4 subdataWithOffset:6 length:2];
-        v80 = [v79 copy];
+        v97 = v34;
+        data4 = [v34 data];
+        v82 = [data4 subdataWithOffset:6 length:2];
+        v83 = [v82 copy];
 
-        v89 = v80;
-        [intoCopy setObject:v80 forKeyedSubscript:@"StartStation"];
-        v81 = MEMORY[0x277CCABB0];
-        data5 = [v34 data];
-        v83 = [v81 numberWithUnsignedChar:{objc_msgSend(data5, "u8:", 0)}];
-        LODWORD(v80) = [&unk_2843C7250 containsObject:v83];
+        v91 = v83;
+        [intoCopy setObject:v83 forKeyedSubscript:@"StartStation"];
+        v84 = MEMORY[0x277CCABB0];
+        data5 = [v36 data];
+        v86 = [v84 numberWithUnsignedChar:{objc_msgSend(data5, "u8:", 0)}];
+        LODWORD(v83) = [&unk_2843C7250 containsObject:v86];
 
-        if (v80)
+        if (v83)
         {
           [intoCopy setObject:@"EnRoute" forKeyedSubscript:@"IgnoreReason"];
-          v85 = v89;
-          v84 = v91;
+          v88 = v91;
+          v87 = v93;
         }
 
         else
         {
-          v84 = v91;
-          data6 = [v91 data];
-          v86 = [data6 subdataWithOffset:6 length:2];
-          v85 = [v86 copy];
+          v87 = v93;
+          data6 = [v93 data];
+          v89 = [data6 subdataWithOffset:6 length:2];
+          v88 = [v89 copy];
 
-          [intoCopy setObject:v85 forKeyedSubscript:@"EndStation"];
+          [intoCopy setObject:v88 forKeyedSubscript:@"EndStation"];
         }
 
         goto LABEL_70;
       }
 
-      v34 = ATLLogObject();
-      if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+      v36 = ATLLogObject(localRecordFormat);
+      if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
       {
         *buf = 0;
-        v47 = "Galileo Metro: The local file format is not extended format with associated SN.";
-        v48 = v34;
-        v49 = OS_LOG_TYPE_ERROR;
-        v50 = 2;
+        v50 = "Galileo Metro: The local file format is not extended format with associated SN.";
+        v51 = v36;
+        v52 = OS_LOG_TYPE_ERROR;
+        v53 = 2;
 LABEL_30:
-        _os_log_impl(&dword_22EEF5000, v48, v49, v47, buf, v50);
+        _os_log_impl(&dword_22EEF5000, v51, v52, v50, buf, v53);
         goto LABEL_70;
       }
 
@@ -1127,15 +1120,15 @@ LABEL_30:
 
     if (!aCopy)
     {
-      v34 = ATLLogObject();
-      if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
+      v36 = ATLLogObject(v26);
+      if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 67109120;
-        *v103 = [galileoCopy number];
-        v47 = "No 1A associated with this metro transaction, an old transaction, pass. %d";
-        v48 = v34;
-        v49 = OS_LOG_TYPE_DEFAULT;
-        v50 = 8;
+        *v105 = [galileoCopy number];
+        v50 = "No 1A associated with this metro transaction, an old transaction, pass. %d";
+        v51 = v36;
+        v52 = OS_LOG_TYPE_DEFAULT;
+        v53 = 8;
         goto LABEL_30;
       }
 
@@ -1149,56 +1142,55 @@ LABEL_70:
     {
       if (number != 2)
       {
-        v34 = ATLLogObject();
-        if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+        v36 = ATLLogObject(number);
+        if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
         {
           *buf = 67109632;
-          *v103 = [aCopy associatedSerialNumber];
-          *&v103[4] = 1024;
-          *&v103[6] = 1;
-          v104 = 1024;
+          *v105 = [aCopy associatedSerialNumber];
+          *&v105[4] = 1024;
+          *&v105[6] = 1;
+          v106 = 1024;
           number2 = [aCopy number];
-          v47 = "Inconsistency in SN 0x%x b/t modality %d in 0x1E and file 0x1A record %d";
-          v48 = v34;
-          v49 = OS_LOG_TYPE_ERROR;
-          v50 = 20;
+          v50 = "Inconsistency in SN 0x%x b/t modality %d in 0x1E and file 0x1A record %d";
+          v51 = v36;
+          v52 = OS_LOG_TYPE_ERROR;
+          v53 = 20;
           goto LABEL_30;
         }
 
         goto LABEL_70;
       }
 
-      v38 = [stateCopy objectForKeyedSubscript:@"TransactionInProgress"];
-      [v38 removeObject:@"TransitBus"];
+      v41 = [stateCopy objectForKeyedSubscript:@"TransactionInProgress"];
+      [v41 removeObject:@"TransitBus"];
 
       data7 = [aCopy data];
-      v40 = [data7 subdataWithOffset:26 length:1];
-      v41 = [v40 u8:0];
+      v43 = [data7 subdataWithOffset:26 length:1];
+      v44 = [v43 u8:0];
 
-      v42 = @"TransitMetro";
-      if (v41 == 34)
+      v45 = @"TransitMetro";
+      if (v44 == 34)
       {
-        v42 = @"TransitTrain";
+        v45 = @"TransitTrain";
       }
 
-      if (v41 == 144)
+      if (v44 == 144)
       {
-        v43 = @"TransitTrainMaglev";
+        v46 = @"TransitTrainMaglev";
       }
 
       else
       {
-        v43 = v42;
+        v46 = v45;
       }
 
-      [intoCopy setObject:v43 forKeyedSubscript:@"TypeDetail"];
-      data9 = ATLLogObject();
+      data9 = ATLLogObject([intoCopy setObject:v46 forKeyedSubscript:@"TypeDetail"]);
       if (os_log_type_enabled(data9, OS_LOG_TYPE_DEFAULT))
       {
         data8 = [aCopy data];
-        v45 = [data8 subdataWithOffset:26 length:1];
+        v48 = [data8 subdataWithOffset:26 length:1];
         *buf = 138412290;
-        *v103 = v45;
+        *v105 = v48;
         _os_log_impl(&dword_22EEF5000, data9, OS_LOG_TYPE_DEFAULT, "1A-02 associated with this metro transaction, special type. %@", buf, 0xCu);
       }
     }
@@ -1206,23 +1198,24 @@ LABEL_70:
     if (v23 == 8 || v23 == 3)
     {
       data9 = [aCopy data];
-      if (*([data9 bytes]+ 14) == 1)
+      number = [data9 bytes];
+      if (*(number + 14) == 1)
       {
-        v46 = 1;
+        v49 = 1;
       }
 
       else
       {
         data10 = [aCopy data];
-        v54 = *([data10 bytes] + 14) == 3;
+        v57 = *([data10 bytes] + 14) == 3;
 
-        v46 = v54;
+        v49 = v57;
       }
     }
 
     else
     {
-      v46 = 0;
+      v49 = 0;
     }
 
     switch(v23)
@@ -1238,18 +1231,19 @@ LABEL_40:
         {
 LABEL_41:
           data9 = [aCopy data];
-          if (*([data9 bytes]+ 14) == 2)
+          number = [data9 bytes];
+          if (*(number + 14) == 2)
           {
-            v55 = 1;
+            v58 = 1;
           }
 
           else
           {
             [aCopy data];
-            v56 = v93 = v46;
-            v55 = *([v56 bytes] + 14) == 4;
+            v59 = v95 = v49;
+            v58 = *([v59 bytes] + 14) == 4;
 
-            v46 = v93;
+            v49 = v95;
           }
 
           goto LABEL_45;
@@ -1258,57 +1252,57 @@ LABEL_41:
         break;
     }
 
-    v55 = 0;
+    v58 = 0;
 LABEL_45:
     if (v23 == 8 || v23 == 4)
     {
     }
 
-    if (v46)
+    if (v49)
     {
       data11 = [aCopy data];
-      v58 = [data11 subdataWithOffset:26 length:1];
-      v34 = [v58 mutableCopy];
+      v61 = [data11 subdataWithOffset:26 length:1];
+      v36 = [v61 mutableCopy];
 
       data12 = [aCopy data];
-      v60 = [data12 subdataWithOffset:42 length:1];
-      [v34 appendData:v60];
+      v63 = [data12 subdataWithOffset:42 length:1];
+      [v36 appendData:v63];
 
-      [intoCopy setObject:v34 forKeyedSubscript:@"StartStation"];
-      v61 = @"EnRoute";
-      v62 = @"IgnoreReason";
-      v63 = intoCopy;
+      [intoCopy setObject:v36 forKeyedSubscript:@"StartStation"];
+      v64 = @"EnRoute";
+      v65 = @"IgnoreReason";
+      v66 = intoCopy;
     }
 
     else
     {
-      if (!v55)
+      if (!v58)
       {
-        v34 = ATLLogObject();
-        if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+        v36 = ATLLogObject(number);
+        if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
         {
           associatedSerialNumber = [aCopy associatedSerialNumber];
           data13 = [aCopy data];
-          v74 = *([data13 bytes] + 14);
-          if (v74 == 1)
+          v77 = *([data13 bytes] + 14);
+          if (v77 == 1)
           {
-            v75 = 1;
+            v78 = 1;
           }
 
           else
           {
             data14 = [aCopy data];
-            v75 = *([data14 bytes] + 14) == 3;
+            v78 = *([data14 bytes] + 14) == 3;
           }
 
           *buf = 67109632;
-          *v103 = associatedSerialNumber;
-          *&v103[4] = 1024;
-          *&v103[6] = v23;
-          v104 = 1024;
-          number2 = v75;
-          _os_log_impl(&dword_22EEF5000, v34, OS_LOG_TYPE_ERROR, "Galileo Metro: SN 0x%x with type %d, 1A entry type %d", buf, 0x14u);
-          if (v74 != 1)
+          *v105 = associatedSerialNumber;
+          *&v105[4] = 1024;
+          *&v105[6] = v23;
+          v106 = 1024;
+          number2 = v78;
+          _os_log_impl(&dword_22EEF5000, v36, OS_LOG_TYPE_ERROR, "Galileo Metro: SN 0x%x with type %d, 1A entry type %d", buf, 0x14u);
+          if (v77 != 1)
           {
           }
         }
@@ -1317,34 +1311,32 @@ LABEL_45:
       }
 
       data15 = [aCopy data];
-      v65 = [data15 subdataWithOffset:26 length:1];
-      v66 = [v65 mutableCopy];
+      v68 = [data15 subdataWithOffset:26 length:1];
+      v69 = [v68 mutableCopy];
 
       data16 = [aCopy data];
-      v68 = [data16 subdataWithOffset:42 length:1];
-      [v66 appendData:v68];
+      v71 = [data16 subdataWithOffset:42 length:1];
+      [v69 appendData:v71];
 
-      [intoCopy setObject:v66 forKeyedSubscript:@"StartStation"];
+      [intoCopy setObject:v69 forKeyedSubscript:@"StartStation"];
       data17 = [aCopy data];
-      v70 = [data17 subdataWithOffset:34 length:1];
-      v34 = [v70 mutableCopy];
+      v73 = [data17 subdataWithOffset:34 length:1];
+      v36 = [v73 mutableCopy];
 
       data18 = [aCopy data];
-      v72 = [data18 subdataWithOffset:50 length:1];
-      [v34 appendData:v72];
+      v75 = [data18 subdataWithOffset:50 length:1];
+      [v36 appendData:v75];
 
-      v62 = @"EndStation";
-      v63 = intoCopy;
-      v61 = v34;
+      v65 = @"EndStation";
+      v66 = intoCopy;
+      v64 = v36;
     }
 
-    [v63 setObject:v61 forKeyedSubscript:v62];
+    [v66 setObject:v64 forKeyedSubscript:v65];
     goto LABEL_70;
   }
 
 LABEL_71:
-
-  v87 = *MEMORY[0x277D85DE8];
 }
 
 BOOL __64__WuluDecoder_parseTransitGalileo_file1E_file1A_ctx_state_into___block_invoke(uint64_t a1, void *a2)
@@ -1399,7 +1391,7 @@ BOOL __64__WuluDecoder_parseTransitGalileo_file1E_file1A_ctx_state_into___block_
 
 - (void)parseTransitSettingBased:(id)based file1E:(id)e file1A:(id)a ctx:(id)ctx into:(id)into
 {
-  v101 = *MEMORY[0x277D85DE8];
+  v110 = *MEMORY[0x277D85DE8];
   basedCopy = based;
   eCopy = e;
   aCopy = a;
@@ -1415,86 +1407,87 @@ BOOL __64__WuluDecoder_parseTransitGalileo_file1E_file1A_ctx_state_into___block_
   {
     if (aCopy)
     {
-      if ([aCopy number] != 1)
+      number = [aCopy number];
+      if (number != 1)
       {
-        firstObject = ATLLogObject();
+        firstObject = ATLLogObject(number);
         if (os_log_type_enabled(firstObject, OS_LOG_TYPE_ERROR))
         {
           *buf = 67109632;
-          *v98 = [aCopy associatedSerialNumber];
-          *&v98[4] = 1024;
-          *&v98[6] = 1;
-          v99 = 1024;
-          number = [aCopy number];
+          *v107 = [aCopy associatedSerialNumber];
+          *&v107[4] = 1024;
+          *&v107[6] = 1;
+          v108 = 1024;
+          number2 = [aCopy number];
           _os_log_impl(&dword_22EEF5000, firstObject, OS_LOG_TYPE_ERROR, "Inconsistency in SN 0x%x b/t modality %d in 0x1E and file 0x1A record %d", buf, 0x14u);
         }
 
         goto LABEL_66;
       }
 
-      v90 = ctxCopy;
-      v21 = intoCopy;
-      v94 = basedCopy;
+      v99 = ctxCopy;
+      v22 = intoCopy;
+      v103 = basedCopy;
       data3 = [eCopy data];
       firstObject = [data3 subdataWithOffset:32 length:2];
 
-      v24 = +[AppletConfigurationData getWuluSettings];
-      v25 = [v24 objectForKeyedSubscript:@"defaultLogSettings"];
+      v25 = +[AppletConfigurationData getWuluSettings];
+      v26 = [v25 objectForKeyedSubscript:@"defaultLogSettings"];
       asHexString = [firstObject asHexString];
-      v27 = [v25 objectForKeyedSubscript:asHexString];
+      v28 = [v26 objectForKeyedSubscript:asHexString];
 
-      v28 = MEMORY[0x277CBEA90];
-      v93 = v27;
-      v29 = [v27 objectForKeyedSubscript:@"metroEntryStationCode"];
-      v30 = [v28 dataWithHexString:v29];
+      v29 = MEMORY[0x277CBEA90];
+      v102 = v28;
+      v30 = [v28 objectForKeyedSubscript:@"metroEntryStationCode"];
+      v31 = [v29 dataWithHexString:v30];
 
       selfCopy = self;
-      v88 = v30;
-      v31 = [(WuluDecoder *)self getStationCode:aCopy codeSetting:v30 swapByteOrdering:@"00" convertFormat:@"00" cityCode:firstObject];
+      v97 = v31;
+      v32 = [(WuluDecoder *)self getStationCode:aCopy codeSetting:v31 swapByteOrdering:@"00" convertFormat:@"00" cityCode:firstObject];
       data4 = [aCopy data];
       if (*([data4 bytes] + 14) == 1)
       {
 
-        intoCopy = v21;
+        intoCopy = v22;
 LABEL_19:
-        if (v31)
+        if (v32)
         {
-          v46 = v31;
-          [intoCopy setObject:v31 forKeyedSubscript:@"StartStation"];
-          basedCopy = v94;
-          ctxCopy = v90;
+          v52 = v32;
+          [intoCopy setObject:v32 forKeyedSubscript:@"StartStation"];
+          basedCopy = v103;
+          ctxCopy = v99;
         }
 
         else
         {
-          v46 = 0;
-          v51 = ATLLogObject();
-          basedCopy = v94;
-          ctxCopy = v90;
-          if (os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
+          v52 = 0;
+          v57 = ATLLogObject(v34);
+          basedCopy = v103;
+          ctxCopy = v99;
+          if (os_log_type_enabled(v57, OS_LOG_TYPE_ERROR))
           {
             *buf = 0;
-            _os_log_impl(&dword_22EEF5000, v51, OS_LOG_TYPE_ERROR, "Failed to get start station code", buf, 2u);
+            _os_log_impl(&dword_22EEF5000, v57, OS_LOG_TYPE_ERROR, "Failed to get start station code", buf, 2u);
           }
         }
 
-        v52 = [intoCopy objectForKeyedSubscript:@"Amount"];
-        intValue = [v52 intValue];
+        v58 = [intoCopy objectForKeyedSubscript:@"Amount"];
+        intValue = [v58 intValue];
 
         if (!intValue)
         {
           [intoCopy setObject:@"EnRoute" forKeyedSubscript:@"IgnoreReason"];
         }
 
-        v44 = v88;
+        v49 = v97;
         goto LABEL_65;
       }
 
       data5 = [aCopy data];
-      v50 = *([data5 bytes] + 14);
+      v56 = *([data5 bytes] + 14);
 
-      intoCopy = v21;
-      if (v50 == 3)
+      intoCopy = v22;
+      if (v56 == 3)
       {
         goto LABEL_19;
       }
@@ -1507,72 +1500,72 @@ LABEL_19:
       else
       {
         data7 = [aCopy data];
-        v58 = *([data7 bytes] + 14);
+        v65 = *([data7 bytes] + 14);
 
-        if (v58 != 4)
+        if (v65 != 4)
         {
-          v75 = v31;
-          v76 = ATLLogObject();
-          if (os_log_type_enabled(v76, OS_LOG_TYPE_DEFAULT))
+          v84 = v32;
+          v85 = ATLLogObject(v61);
+          if (os_log_type_enabled(v85, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 67109632;
-            *v98 = [aCopy associatedSerialNumber];
-            *&v98[4] = 1024;
-            *&v98[6] = v20;
-            v99 = 1024;
-            number = 1;
-            _os_log_impl(&dword_22EEF5000, v76, OS_LOG_TYPE_DEFAULT, "SN 0x%x with type %d but modality %d", buf, 0x14u);
+            *v107 = [aCopy associatedSerialNumber];
+            *&v107[4] = 1024;
+            *&v107[6] = v20;
+            v108 = 1024;
+            number2 = 1;
+            _os_log_impl(&dword_22EEF5000, v85, OS_LOG_TYPE_DEFAULT, "SN 0x%x with type %d but modality %d", buf, 0x14u);
           }
 
-          v44 = v88;
-          ctxCopy = v90;
-          basedCopy = v94;
-          v46 = v75;
+          v49 = v97;
+          ctxCopy = v99;
+          basedCopy = v103;
+          v52 = v84;
           goto LABEL_65;
         }
       }
 
-      if (v31)
+      if (v32)
       {
-        [v21 setObject:v31 forKeyedSubscript:@"StartStation"];
+        [v22 setObject:v32 forKeyedSubscript:@"StartStation"];
       }
 
       else
       {
-        v69 = ATLLogObject();
-        if (os_log_type_enabled(v69, OS_LOG_TYPE_ERROR))
+        v77 = ATLLogObject(v61);
+        if (os_log_type_enabled(v77, OS_LOG_TYPE_ERROR))
         {
           *buf = 0;
-          _os_log_impl(&dword_22EEF5000, v69, OS_LOG_TYPE_ERROR, "Failed to get start station code", buf, 2u);
+          _os_log_impl(&dword_22EEF5000, v77, OS_LOG_TYPE_ERROR, "Failed to get start station code", buf, 2u);
         }
       }
 
-      basedCopy = v94;
-      v70 = v31;
-      v71 = MEMORY[0x277CBEA90];
-      v72 = [v93 objectForKeyedSubscript:@"metroExitStationCode"];
-      v44 = [v71 dataWithHexString:v72];
+      basedCopy = v103;
+      v78 = v32;
+      v79 = MEMORY[0x277CBEA90];
+      v80 = [v102 objectForKeyedSubscript:@"metroExitStationCode"];
+      v49 = [v79 dataWithHexString:v80];
 
-      v73 = [(WuluDecoder *)selfCopy getStationCode:aCopy codeSetting:v44 swapByteOrdering:@"00" convertFormat:@"00" cityCode:firstObject];
+      v81 = [(WuluDecoder *)selfCopy getStationCode:aCopy codeSetting:v49 swapByteOrdering:@"00" convertFormat:@"00" cityCode:firstObject];
 
-      if (v73)
+      if (v81)
       {
-        [intoCopy setObject:v73 forKeyedSubscript:@"EndStation"];
-        v46 = v73;
-        ctxCopy = v90;
+        [intoCopy setObject:v81 forKeyedSubscript:@"EndStation"];
+        v52 = v81;
+        ctxCopy = v99;
       }
 
       else
       {
-        v74 = ATLLogObject();
-        ctxCopy = v90;
-        if (os_log_type_enabled(v74, OS_LOG_TYPE_ERROR))
+        v83 = ATLLogObject(v82);
+        ctxCopy = v99;
+        if (os_log_type_enabled(v83, OS_LOG_TYPE_ERROR))
         {
           *buf = 0;
-          _os_log_impl(&dword_22EEF5000, v74, OS_LOG_TYPE_ERROR, "Failed to get end station code", buf, 2u);
+          _os_log_impl(&dword_22EEF5000, v83, OS_LOG_TYPE_ERROR, "Failed to get end station code", buf, 2u);
         }
 
-        v46 = 0;
+        v52 = 0;
       }
 
 LABEL_65:
@@ -1581,16 +1574,16 @@ LABEL_65:
     }
 
     localRecords = [ctxCopy localRecords];
-    v34 = [localRecords count];
+    v36 = [localRecords count];
 
-    if (v34 != 3)
+    if (v36 != 3)
     {
-      firstObject = ATLLogObject();
+      firstObject = ATLLogObject(v37);
       if (os_log_type_enabled(firstObject, OS_LOG_TYPE_DEFAULT))
       {
         localRecords2 = [ctxCopy localRecords];
         *buf = 134217984;
-        *v98 = [localRecords2 count];
+        *v107 = [localRecords2 count];
         _os_log_impl(&dword_22EEF5000, firstObject, OS_LOG_TYPE_DEFAULT, "Only %lu records retrived, expecting 3.", buf, 0xCu);
       }
 
@@ -1602,59 +1595,60 @@ LABEL_65:
 
     if (firstObject)
     {
-      if ([ctxCopy localRecordFormat] != 1 || (objc_msgSend(basedCopy, "data"), v36 = objc_claimAutoreleasedReturnValue(), v37 = bswap32(*objc_msgSend(v36, "bytes")), v36, -[NSObject associatedSerialNumber](firstObject, "associatedSerialNumber") == HIWORD(v37)))
+      if ([ctxCopy localRecordFormat] != 1 || (objc_msgSend(basedCopy, "data"), v40 = objc_claimAutoreleasedReturnValue(), v41 = bswap32(*objc_msgSend(v40, "bytes")), v40, v42 = -[NSObject associatedSerialNumber](firstObject, "associatedSerialNumber"), v42 == HIWORD(v41)))
       {
-        v91 = firstObject;
-        v95 = basedCopy;
+        v100 = firstObject;
+        v104 = basedCopy;
         file17 = [ctxCopy file17];
-        v39 = [file17 subdataWithRange:{6, 2}];
+        v44 = [file17 subdataWithRange:{6, 2}];
 
-        v40 = +[AppletConfigurationData getWuluSettings];
-        v41 = [v40 objectForKeyedSubscript:@"localLogSettings"];
-        asHexString2 = [v39 asHexString];
-        v43 = [v41 objectForKeyedSubscript:asHexString2];
+        v45 = +[AppletConfigurationData getWuluSettings];
+        v46 = [v45 objectForKeyedSubscript:@"localLogSettings"];
+        asHexString2 = [v44 asHexString];
+        v48 = [v46 objectForKeyedSubscript:asHexString2];
 
-        v44 = v43;
-        v96 = 0;
-        v93 = v39;
-        v45 = [(WuluDecoder *)self isMetroEntry:ctxCopy cityCode:v39 setting:v43 error:&v96];
-        v46 = v96;
-        if (v46)
+        v49 = v48;
+        v105 = 0;
+        v102 = v44;
+        v50 = [(WuluDecoder *)self isMetroEntry:ctxCopy cityCode:v44 setting:v48 error:&v105];
+        v51 = v105;
+        v52 = v51;
+        if (v51)
         {
-          v47 = ATLLogObject();
-          firstObject = v91;
-          if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
+          v53 = ATLLogObject(v51);
+          firstObject = v100;
+          if (os_log_type_enabled(v53, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412290;
-            *v98 = v93;
-            _os_log_impl(&dword_22EEF5000, v47, OS_LOG_TYPE_ERROR, "Entry information is not obtained correctly for city %@.", buf, 0xCu);
+            *v107 = v102;
+            _os_log_impl(&dword_22EEF5000, v53, OS_LOG_TYPE_ERROR, "Entry information is not obtained correctly for city %@.", buf, 0xCu);
           }
 
-          basedCopy = v95;
+          basedCopy = v104;
           goto LABEL_64;
         }
 
-        v59 = [v43 objectForKeyedSubscript:@"stationCodeSwapByteOrdering"];
-        v60 = [v43 objectForKeyedSubscript:@"stationCodeConvertFormat"];
-        v61 = MEMORY[0x277CBEA90];
-        v86 = v44;
-        v62 = [v44 objectForKeyedSubscript:@"metroEntryStationCode"];
-        v89 = [v61 dataWithHexString:v62];
+        v66 = [v48 objectForKeyedSubscript:@"stationCodeSwapByteOrdering"];
+        v67 = [v48 objectForKeyedSubscript:@"stationCodeConvertFormat"];
+        v68 = MEMORY[0x277CBEA90];
+        v95 = v49;
+        v69 = [v49 objectForKeyedSubscript:@"metroEntryStationCode"];
+        v98 = [v68 dataWithHexString:v69];
 
         localRecords4 = [ctxCopy localRecords];
-        v64 = [localRecords4 objectAtIndexedSubscript:1];
+        v71 = [localRecords4 objectAtIndexedSubscript:1];
 
-        v85 = v60;
-        if (v64)
+        v94 = v67;
+        if (v71)
         {
-          v92 = v59;
-          v65 = [(WuluDecoder *)self getStationCode:v64 codeSetting:v89 swapByteOrdering:v59 convertFormat:v60 cityCode:v93];
-          [intoCopy setObject:v65 forKeyedSubscript:@"StartStation"];
-          if (v45)
+          v101 = v66;
+          v73 = [(WuluDecoder *)self getStationCode:v71 codeSetting:v98 swapByteOrdering:v66 convertFormat:v67 cityCode:v102];
+          [intoCopy setObject:v73 forKeyedSubscript:@"StartStation"];
+          if (v50)
           {
-            v66 = v89;
-            v67 = [intoCopy objectForKeyedSubscript:@"Amount"];
-            intValue2 = [v67 intValue];
+            v74 = v98;
+            v75 = [intoCopy objectForKeyedSubscript:@"Amount"];
+            intValue2 = [v75 intValue];
 
             if (!intValue2)
             {
@@ -1662,96 +1656,94 @@ LABEL_65:
             }
 
 LABEL_62:
-            basedCopy = v95;
-            v46 = 0;
-            v47 = v92;
+            basedCopy = v104;
+            v52 = 0;
+            v53 = v101;
             goto LABEL_63;
           }
 
-          v77 = MEMORY[0x277CBEA90];
-          v78 = [v86 objectForKeyedSubscript:@"metroExitStationCode"];
-          v66 = [v77 dataWithHexString:v78];
+          v86 = MEMORY[0x277CBEA90];
+          v87 = [v95 objectForKeyedSubscript:@"metroExitStationCode"];
+          v74 = [v86 dataWithHexString:v87];
 
           localRecords5 = [ctxCopy localRecords];
-          v80 = [localRecords5 objectAtIndexedSubscript:2];
+          v89 = [localRecords5 objectAtIndexedSubscript:2];
 
-          if (!v80)
+          if (!v89)
           {
-            v83 = ATLLogObject();
-            if (os_log_type_enabled(v83, OS_LOG_TYPE_DEFAULT))
+            v93 = ATLLogObject(v90);
+            if (os_log_type_enabled(v93, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 0;
-              _os_log_impl(&dword_22EEF5000, v83, OS_LOG_TYPE_DEFAULT, "No local exit log retrived.", buf, 2u);
+              _os_log_impl(&dword_22EEF5000, v93, OS_LOG_TYPE_DEFAULT, "No local exit log retrived.", buf, 2u);
             }
 
-            v64 = 0;
+            v71 = 0;
             goto LABEL_62;
           }
 
           selfCopy2 = self;
-          v47 = v92;
-          v82 = [(WuluDecoder *)selfCopy2 getStationCode:v80 codeSetting:v66 swapByteOrdering:v92 convertFormat:v85 cityCode:v93];
+          v53 = v101;
+          v92 = [(WuluDecoder *)selfCopy2 getStationCode:v89 codeSetting:v74 swapByteOrdering:v101 convertFormat:v94 cityCode:v102];
 
-          [intoCopy setObject:v82 forKeyedSubscript:@"EndStation"];
-          v65 = v82;
-          v64 = v80;
+          [intoCopy setObject:v92 forKeyedSubscript:@"EndStation"];
+          v73 = v92;
+          v71 = v89;
         }
 
         else
         {
-          v47 = v59;
-          v65 = ATLLogObject();
-          if (os_log_type_enabled(v65, OS_LOG_TYPE_DEFAULT))
+          v53 = v66;
+          v73 = ATLLogObject(v72);
+          if (os_log_type_enabled(v73, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 0;
-            _os_log_impl(&dword_22EEF5000, v65, OS_LOG_TYPE_DEFAULT, "No local entry log retrived.", buf, 2u);
+            _os_log_impl(&dword_22EEF5000, v73, OS_LOG_TYPE_DEFAULT, "No local entry log retrived.", buf, 2u);
           }
 
-          v64 = 0;
-          v66 = v89;
+          v71 = 0;
+          v74 = v98;
         }
 
-        basedCopy = v95;
-        v46 = 0;
+        basedCopy = v104;
+        v52 = 0;
 LABEL_63:
 
-        firstObject = v64;
-        v44 = v86;
+        firstObject = v71;
+        v49 = v95;
 LABEL_64:
 
         goto LABEL_65;
       }
 
-      v55 = ATLLogObject();
-      if (os_log_type_enabled(v55, OS_LOG_TYPE_DEFAULT))
+      v62 = ATLLogObject(v42);
+      if (os_log_type_enabled(v62, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        v56 = "Local log is not updated in the latest transaction.";
+        v63 = "Local log is not updated in the latest transaction.";
         goto LABEL_40;
       }
     }
 
     else
     {
-      v55 = ATLLogObject();
-      if (os_log_type_enabled(v55, OS_LOG_TYPE_DEFAULT))
+      v62 = ATLLogObject(v39);
+      if (os_log_type_enabled(v62, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        v56 = "No local log retrived.";
+        v63 = "No local log retrived.";
 LABEL_40:
-        _os_log_impl(&dword_22EEF5000, v55, OS_LOG_TYPE_DEFAULT, v56, buf, 2u);
+        _os_log_impl(&dword_22EEF5000, v62, OS_LOG_TYPE_DEFAULT, v63, buf, 2u);
       }
     }
 
 LABEL_66:
   }
-
-  v84 = *MEMORY[0x277D85DE8];
 }
 
 - (void)parseTransitNoLocal:(id)local file1E:(id)e file1A:(id)a into:(id)into
 {
-  v55 = *MEMORY[0x277D85DE8];
+  v58 = *MEMORY[0x277D85DE8];
   eCopy = e;
   aCopy = a;
   intoCopy = into;
@@ -1763,37 +1755,38 @@ LABEL_66:
 
   if (aCopy && v13 == 1)
   {
-    if ([aCopy number] != 1)
+    number = [aCopy number];
+    if (number != 1)
     {
-      v17 = ATLLogObject();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+      v18 = ATLLogObject(number);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
         *buf = 67109632;
         associatedSerialNumber = [aCopy associatedSerialNumber];
-        v51 = 1024;
-        v52 = 1;
-        v53 = 1024;
-        number = [aCopy number];
-        _os_log_impl(&dword_22EEF5000, v17, OS_LOG_TYPE_ERROR, "Inconsistency in SN 0x%x b/t modality %d in 0x1E and file 0x1A record %d", buf, 0x14u);
+        v54 = 1024;
+        v55 = 1;
+        v56 = 1024;
+        number2 = [aCopy number];
+        _os_log_impl(&dword_22EEF5000, v18, OS_LOG_TYPE_ERROR, "Inconsistency in SN 0x%x b/t modality %d in 0x1E and file 0x1A record %d", buf, 0x14u);
       }
 
       goto LABEL_19;
     }
 
     data3 = [eCopy data];
-    v17 = [data3 subdataWithOffset:32 length:2];
+    v18 = [data3 subdataWithOffset:32 length:2];
 
-    v18 = +[AppletConfigurationData getWuluSettings];
-    v19 = [v18 objectForKeyedSubscript:@"defaultLogSettings"];
-    asHexString = [v17 asHexString];
-    v21 = [v19 objectForKeyedSubscript:asHexString];
+    v19 = +[AppletConfigurationData getWuluSettings];
+    v20 = [v19 objectForKeyedSubscript:@"defaultLogSettings"];
+    asHexString = [v18 asHexString];
+    v22 = [v20 objectForKeyedSubscript:asHexString];
 
-    v22 = MEMORY[0x277CBEA90];
-    v23 = [v21 objectForKeyedSubscript:@"metroEntryStationCode"];
-    v24 = [v22 dataWithHexString:v23];
+    v23 = MEMORY[0x277CBEA90];
+    v24 = [v22 objectForKeyedSubscript:@"metroEntryStationCode"];
+    v25 = [v23 dataWithHexString:v24];
 
-    v48 = v24;
-    v25 = [(WuluDecoder *)self getStationCode:aCopy codeSetting:v24 swapByteOrdering:@"00" convertFormat:@"00" cityCode:v17];
+    v51 = v25;
+    v26 = [(WuluDecoder *)self getStationCode:aCopy codeSetting:v25 swapByteOrdering:@"00" convertFormat:@"00" cityCode:v18];
     data4 = [aCopy data];
     if (*([data4 bytes] + 14) == 1)
     {
@@ -1803,106 +1796,106 @@ LABEL_66:
     {
       selfCopy = self;
       data5 = [aCopy data];
-      v28 = v21;
-      v29 = *([data5 bytes] + 14);
+      v30 = v22;
+      v31 = *([data5 bytes] + 14);
 
-      v30 = v29 == 3;
-      v21 = v28;
-      if (!v30)
+      v32 = v31 == 3;
+      v22 = v30;
+      if (!v32)
       {
         data6 = [aCopy data];
         if (*([data6 bytes] + 14) == 2)
         {
 
-          v37 = 0x277CBE000;
+          v39 = 0x277CBE000;
         }
 
         else
         {
           data7 = [aCopy data];
-          v39 = *([data7 bytes] + 14);
+          v41 = *([data7 bytes] + 14);
 
-          v30 = v39 == 4;
-          v21 = v28;
-          v37 = 0x277CBE000uLL;
-          if (!v30)
+          v32 = v41 == 4;
+          v22 = v30;
+          v39 = 0x277CBE000uLL;
+          if (!v32)
           {
-            v45 = ATLLogObject();
-            if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
+            v48 = ATLLogObject(v38);
+            if (os_log_type_enabled(v48, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 67109632;
               associatedSerialNumber = [aCopy associatedSerialNumber];
-              v51 = 1024;
-              v52 = v15;
-              v53 = 1024;
-              number = 1;
-              _os_log_impl(&dword_22EEF5000, v45, OS_LOG_TYPE_DEFAULT, "SN 0x%x with type %d but modality %d", buf, 0x14u);
+              v54 = 1024;
+              v55 = v15;
+              v56 = 1024;
+              number2 = 1;
+              _os_log_impl(&dword_22EEF5000, v48, OS_LOG_TYPE_DEFAULT, "SN 0x%x with type %d but modality %d", buf, 0x14u);
             }
 
             goto LABEL_17;
           }
         }
 
-        if (v25)
+        if (v26)
         {
-          [intoCopy setObject:v25 forKeyedSubscript:@"StartStation"];
+          [intoCopy setObject:v26 forKeyedSubscript:@"StartStation"];
         }
 
         else
         {
-          v40 = ATLLogObject();
-          if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
+          v42 = ATLLogObject(v38);
+          if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
           {
             *buf = 0;
-            _os_log_impl(&dword_22EEF5000, v40, OS_LOG_TYPE_ERROR, "Failed to get start station code", buf, 2u);
+            _os_log_impl(&dword_22EEF5000, v42, OS_LOG_TYPE_ERROR, "Failed to get start station code", buf, 2u);
           }
         }
 
-        v41 = *(v37 + 2704);
-        v42 = [v21 objectForKeyedSubscript:@"metroExitStationCode"];
-        v34 = [v41 dataWithHexString:v42];
+        v43 = *(v39 + 2704);
+        v44 = [v22 objectForKeyedSubscript:@"metroExitStationCode"];
+        v36 = [v43 dataWithHexString:v44];
 
-        v43 = [(WuluDecoder *)selfCopy getStationCode:aCopy codeSetting:v34 swapByteOrdering:@"00" convertFormat:@"00" cityCode:v17];
+        v45 = [(WuluDecoder *)selfCopy getStationCode:aCopy codeSetting:v36 swapByteOrdering:@"00" convertFormat:@"00" cityCode:v18];
 
-        if (v43)
+        if (v45)
         {
-          [intoCopy setObject:v43 forKeyedSubscript:@"EndStation"];
-          v25 = v43;
+          [intoCopy setObject:v45 forKeyedSubscript:@"EndStation"];
+          v26 = v45;
         }
 
         else
         {
-          v44 = ATLLogObject();
-          if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
+          v47 = ATLLogObject(v46);
+          if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
           {
             *buf = 0;
-            _os_log_impl(&dword_22EEF5000, v44, OS_LOG_TYPE_ERROR, "Failed to get end station code", buf, 2u);
+            _os_log_impl(&dword_22EEF5000, v47, OS_LOG_TYPE_ERROR, "Failed to get end station code", buf, 2u);
           }
 
-          v25 = 0;
+          v26 = 0;
         }
 
         goto LABEL_18;
       }
     }
 
-    if (v25)
+    if (v26)
     {
-      [intoCopy setObject:v25 forKeyedSubscript:@"StartStation"];
+      [intoCopy setObject:v26 forKeyedSubscript:@"StartStation"];
     }
 
     else
     {
-      v31 = ATLLogObject();
-      if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+      v33 = ATLLogObject(v28);
+      if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
       {
         *buf = 0;
-        _os_log_impl(&dword_22EEF5000, v31, OS_LOG_TYPE_ERROR, "Failed to get start station code", buf, 2u);
+        _os_log_impl(&dword_22EEF5000, v33, OS_LOG_TYPE_ERROR, "Failed to get start station code", buf, 2u);
       }
     }
 
-    v32 = [intoCopy objectForKeyedSubscript:@"Amount"];
-    intValue = [v32 intValue];
+    v34 = [intoCopy objectForKeyedSubscript:@"Amount"];
+    intValue = [v34 intValue];
 
     if (!intValue)
     {
@@ -1910,13 +1903,11 @@ LABEL_66:
     }
 
 LABEL_17:
-    v34 = v48;
+    v36 = v51;
 LABEL_18:
 
 LABEL_19:
   }
-
-  v35 = *MEMORY[0x277D85DE8];
 }
 
 - (void)parseUnreliable1ECities:(id)cities file1E:(id)e file1A:(id)a ctx:(id)ctx state:(id)state into:(id)into
@@ -1928,7 +1919,7 @@ LABEL_19:
 
 - (id)getStationCode:(id)code codeSetting:(id)setting swapByteOrdering:(id)ordering convertFormat:(id)format cityCode:(id)cityCode
 {
-  v74 = *MEMORY[0x277D85DE8];
+  v79 = *MEMORY[0x277D85DE8];
   codeCopy = code;
   settingCopy = setting;
   orderingCopy = ordering;
@@ -1941,175 +1932,177 @@ LABEL_19:
 
   if (!v17)
   {
-    v23 = ATLLogObject();
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+    v25 = ATLLogObject(v18);
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v73 = cityCodeCopy;
-      _os_log_impl(&dword_22EEF5000, v23, OS_LOG_TYPE_DEFAULT, "Configuration does not define city rules for city code %@", buf, 0xCu);
+      v78 = cityCodeCopy;
+      _os_log_impl(&dword_22EEF5000, v25, OS_LOG_TYPE_DEFAULT, "Configuration does not define city rules for city code %@", buf, 0xCu);
     }
 
     goto LABEL_16;
   }
 
   unsignedIntValue = [v17 unsignedIntValue];
-  v19 = [settingCopy u8:0];
-  v20 = [settingCopy u8:1];
+  v20 = [settingCopy u8:0];
+  v21 = [settingCopy u8:1];
   if (unsignedIntValue == 8)
   {
-    LODWORD(v68) = [settingCopy u8:2];
-    v21 = [settingCopy u8:3];
+    LODWORD(v73) = [settingCopy u8:2];
+    v22 = [settingCopy u8:3];
     data = [codeCopy data];
-    if ([data length] < v20 + v19)
+    if ([data length] < v21 + v20)
     {
 
 LABEL_13:
-      v36 = ATLLogObject();
-      if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
+      v39 = ATLLogObject(v24);
+      if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v73 = cityCodeCopy;
-        _os_log_impl(&dword_22EEF5000, v36, OS_LOG_TYPE_ERROR, "City %@ local log's station code offset too big.", buf, 0xCu);
+        v78 = cityCodeCopy;
+        _os_log_impl(&dword_22EEF5000, v39, OS_LOG_TYPE_ERROR, "City %@ local log's station code offset too big.", buf, 0xCu);
       }
 
 LABEL_16:
-      v28 = 0;
+      v31 = 0;
       goto LABEL_17;
     }
 
-    v69 = v20;
+    v74 = v21;
     [codeCopy data];
-    v30 = v29 = codeCopy;
-    v67 = formatCopy;
-    v31 = [v30 length];
-    v66 = v21;
-    v32 = v21;
-    v33 = cityCodeCopy;
-    v65 = v32;
-    v34 = v32 + v68;
+    v33 = v32 = codeCopy;
+    v72 = formatCopy;
+    v34 = [v33 length];
+    v71 = v22;
+    v35 = v22;
+    v36 = cityCodeCopy;
+    v70 = v35;
+    v37 = v35 + v73;
 
-    codeCopy = v29;
-    v35 = v31 >= v34;
-    cityCodeCopy = v33;
-    formatCopy = v67;
-    if (!v35)
+    codeCopy = v32;
+    v38 = v34 >= v37;
+    cityCodeCopy = v36;
+    formatCopy = v72;
+    if (!v38)
     {
       goto LABEL_13;
     }
 
-    v40 = v19;
-    data2 = [v29 data];
-    data6 = [data2 subdataWithRange:{v40, v20}];
+    v42 = v20;
+    data2 = [v32 data];
+    data6 = [data2 subdataWithRange:{v42, v21}];
 
-    data3 = [v29 data];
-    formatCopy = v67;
-    v43 = [data3 subdataWithRange:{v68, v65}];
+    data3 = [v32 data];
+    formatCopy = v72;
+    v45 = [data3 subdataWithRange:{v73, v70}];
 
     data4 = [MEMORY[0x277CBEB28] data];
     [data4 appendData:data6];
-    [data4 appendData:v43];
-    v28 = [data4 copy];
-    v69 = v66 + v69;
+    [data4 appendData:v45];
+    v31 = [data4 copy];
+    v74 = v71 + v74;
   }
 
   else
   {
     data5 = [codeCopy data];
-    v25 = [data5 length];
-    v26 = v20;
+    v27 = [data5 length];
+    v28 = v21;
 
-    if (v25 < v20 + v19)
+    if (v27 < v21 + v20)
     {
-      v27 = ATLLogObject();
-      if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+      v30 = ATLLogObject(v29);
+      if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v73 = cityCodeCopy;
-        _os_log_impl(&dword_22EEF5000, v27, OS_LOG_TYPE_ERROR, "City %@ local log's station code offset too big.", buf, 0xCu);
+        v78 = cityCodeCopy;
+        _os_log_impl(&dword_22EEF5000, v30, OS_LOG_TYPE_ERROR, "City %@ local log's station code offset too big.", buf, 0xCu);
       }
 
-      v28 = 0;
+      v31 = 0;
       goto LABEL_17;
     }
 
-    v69 = v20;
+    v74 = v21;
     data6 = [codeCopy data];
-    v28 = [data6 subdataWithRange:{v19, v26}];
+    v31 = [data6 subdataWithRange:{v20, v28}];
   }
 
   if ([orderingCopy isEqualToString:@"01"])
   {
-    v45 = [MEMORY[0x277CBEA90] dataWithReversedBytes:objc_msgSend(v28 length:{"bytes"), v69}];
+    v47 = [MEMORY[0x277CBEA90] dataWithReversedBytes:objc_msgSend(v31 length:{"bytes"), v74}];
 
-    v28 = v45;
+    v31 = v47;
   }
 
-  if ([formatCopy isEqualToString:@"01"])
+  v48 = [formatCopy isEqualToString:@"01"];
+  if (v48)
   {
-    v68 = cityCodeCopy;
-    v46 = formatCopy;
-    v47 = codeCopy;
-    v48 = v69;
-    MEMORY[0x28223BE20]();
-    v50 = &v64 - v49;
-    if (v51)
+    v73 = cityCodeCopy;
+    v49 = formatCopy;
+    v50 = codeCopy;
+    v51 = v74;
+    v52 = MEMORY[0x28223BE20](v48);
+    v54 = &v69 - v53;
+    if (v55)
     {
-      v52 = 0;
+      v56 = 0;
       do
       {
-        v53 = [v28 encodeBCDAtOffset:v52 length:1];
-        v50[v52] = [v53 unsignedCharValue];
+        v57 = [v31 encodeBCDAtOffset:v56 length:{1, v52}];
+        v54[v56] = [v57 unsignedCharValue];
 
-        ++v52;
+        ++v56;
       }
 
-      while (v48 != v52);
+      while (v51 != v56);
     }
 
 LABEL_28:
-    v54 = [MEMORY[0x277CBEA90] dataWithBytes:v50 length:v48];
+    v58 = [MEMORY[0x277CBEA90] dataWithBytes:v54 length:{v51, v52}];
 
-    v28 = v54;
-    codeCopy = v47;
-    formatCopy = v46;
-    cityCodeCopy = v68;
+    v31 = v58;
+    codeCopy = v50;
+    formatCopy = v49;
+    cityCodeCopy = v73;
     goto LABEL_17;
   }
 
   if ([formatCopy isEqualToString:@"03"])
   {
-    encodeBCD = [v28 encodeBCD];
+    encodeBCD = [v31 encodeBCD];
 LABEL_31:
-    v56 = encodeBCD;
+    v60 = encodeBCD;
     unsignedLongValue = [encodeBCD unsignedLongValue];
 
-    v58 = [MEMORY[0x277CBEA90] dataWithLongBE:unsignedLongValue];
-    v59 = [v58 subdataWithOffset:8 - v69 length:v69];
+    v62 = [MEMORY[0x277CBEA90] dataWithLongBE:unsignedLongValue];
+    v63 = [v62 subdataWithOffset:8 - v74 length:v74];
 
-    v28 = v59;
+    v31 = v63;
     goto LABEL_17;
   }
 
-  if ([formatCopy isEqualToString:@"02"])
+  v64 = [formatCopy isEqualToString:@"02"];
+  if (v64)
   {
-    v68 = cityCodeCopy;
-    v46 = formatCopy;
-    v47 = codeCopy;
-    v48 = v69;
-    MEMORY[0x28223BE20]();
-    v50 = &v64 - v60;
-    if (v61)
+    v73 = cityCodeCopy;
+    v49 = formatCopy;
+    v50 = codeCopy;
+    v51 = v74;
+    v52 = MEMORY[0x28223BE20](v64);
+    v54 = &v69 - v65;
+    if (v66)
     {
-      v62 = 0;
+      v67 = 0;
       do
       {
-        v63 = [v28 decodeBCDAtOffset:v62 length:1];
-        v50[v62] = [v63 unsignedCharValue];
+        v68 = [v31 decodeBCDAtOffset:v67 length:{1, v52}];
+        v54[v67] = [v68 unsignedCharValue];
 
-        ++v62;
+        ++v67;
       }
 
-      while (v48 != v62);
+      while (v51 != v67);
     }
 
     goto LABEL_28;
@@ -2117,15 +2110,13 @@ LABEL_31:
 
   if ([formatCopy isEqualToString:@"04"])
   {
-    encodeBCD = [v28 decodeBCD];
+    encodeBCD = [v31 decodeBCD];
     goto LABEL_31;
   }
 
 LABEL_17:
 
-  v37 = *MEMORY[0x277D85DE8];
-
-  return v28;
+  return v31;
 }
 
 - (void)adjustState:(id)state history:(id)history ctx:(id)ctx
@@ -2264,14 +2255,15 @@ LABEL_19:
       v32 = 0;
       v27 = [(WuluDecoder *)self isMetroEntry:ctxCopy cityCode:v10 setting:v26 error:&v32];
       v28 = v32;
+      v29 = v28;
       if (v28)
       {
-        v29 = ATLLogObject();
-        if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+        v30 = ATLLogObject(v28);
+        if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412290;
           v38 = v10;
-          _os_log_impl(&dword_22EEF5000, v29, OS_LOG_TYPE_ERROR, "Entry information is not obtained correctly for city %@.", buf, 0xCu);
+          _os_log_impl(&dword_22EEF5000, v30, OS_LOG_TYPE_ERROR, "Entry information is not obtained correctly for city %@.", buf, 0xCu);
         }
 
         v9 = v22;
@@ -2289,8 +2281,6 @@ LABEL_19:
 
 LABEL_28:
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __45__WuluDecoder_setMetroEntryWithLocalLog_ctx___block_invoke(uint64_t a1, void *a2)
@@ -2374,37 +2364,37 @@ LABEL_11:
 
 - (void)removeUnreliable1EEntryFlag:(id)flag ctx:(id)ctx
 {
-  v59 = *MEMORY[0x277D85DE8];
+  v62 = *MEMORY[0x277D85DE8];
   flagCopy = flag;
   ctxCopy = ctx;
   file1E = [ctxCopy file1E];
-  v41 = [file1E firstWhere:&__block_literal_global_762];
+  v44 = [file1E firstWhere:&__block_literal_global_762];
 
-  v40 = flagCopy;
-  v43 = [flagCopy objectForKeyedSubscript:@"TransactionInProgress"];
+  v43 = flagCopy;
+  v46 = [flagCopy objectForKeyedSubscript:@"TransactionInProgress"];
   v8 = [MEMORY[0x277CBEA60] arrayWithArray:?];
-  v50 = 0u;
-  v51 = 0u;
-  v52 = 0u;
   v53 = 0u;
-  v9 = [v8 countByEnumeratingWithState:&v50 objects:v58 count:16];
+  v54 = 0u;
+  v55 = 0u;
+  v56 = 0u;
+  v9 = [v8 countByEnumeratingWithState:&v53 objects:v61 count:16];
   if (v9)
   {
     v10 = v9;
-    v45 = *v51;
-    v42 = v8;
+    v48 = *v54;
+    v45 = v8;
     do
     {
       v11 = 0;
-      v44 = v10;
+      v47 = v10;
       do
       {
-        if (*v51 != v45)
+        if (*v54 != v48)
         {
           objc_enumerationMutation(v8);
         }
 
-        v12 = *(*(&v50 + 1) + 8 * v11);
+        v12 = *(*(&v53 + 1) + 8 * v11);
         if ([v12 isEqualToString:@"TransitMetro"])
         {
           v13 = 1;
@@ -2412,14 +2402,15 @@ LABEL_11:
 
         else
         {
-          if (([v12 isEqualToString:@"TransitBus"] & 1) == 0)
+          v14 = [v12 isEqualToString:@"TransitBus"];
+          if ((v14 & 1) == 0)
           {
-            v15 = ATLLogObject();
-            if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+            v16 = ATLLogObject(v14);
+            if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138412290;
-              v55 = v12;
-              _os_log_impl(&dword_22EEF5000, v15, OS_LOG_TYPE_DEFAULT, "Unreliable city only has bus and metro, skip processing for type %@.", buf, 0xCu);
+              v58 = v12;
+              _os_log_impl(&dword_22EEF5000, v16, OS_LOG_TYPE_DEFAULT, "Unreliable city only has bus and metro, skip processing for type %@.", buf, 0xCu);
             }
 
             goto LABEL_35;
@@ -2429,28 +2420,28 @@ LABEL_11:
         }
 
         file1A = [ctxCopy file1A];
-        v48[0] = MEMORY[0x277D85DD0];
-        v48[1] = 3221225472;
-        v48[2] = __47__WuluDecoder_removeUnreliable1EEntryFlag_ctx___block_invoke_764;
-        v48[3] = &__block_descriptor_36_e20_B16__0__WuluRecord_8l;
-        v49 = v13;
-        v15 = [file1A firstWhere:v48];
+        v51[0] = MEMORY[0x277D85DD0];
+        v51[1] = 3221225472;
+        v51[2] = __47__WuluDecoder_removeUnreliable1EEntryFlag_ctx___block_invoke_764;
+        v51[3] = &__block_descriptor_36_e20_B16__0__WuluRecord_8l;
+        v52 = v13;
+        v16 = [file1A firstWhere:v51];
 
-        if (!v15)
+        if (!v16)
         {
           goto LABEL_30;
         }
 
-        data = [v15 data];
+        data = [v16 data];
         if (*([data bytes] + 14) != 1)
         {
-          data2 = [v15 data];
+          data2 = [v16 data];
           if (*([data2 bytes] + 14) != 3)
           {
-            data3 = [v15 data];
-            v36 = *([data3 bytes] + 14);
+            data3 = [v16 data];
+            v40 = *([data3 bytes] + 14);
 
-            if (v36 != 1)
+            if (v40 != 1)
             {
 LABEL_30:
               if ([v12 isEqualToString:@"TransitMetro"])
@@ -2458,37 +2449,39 @@ LABEL_30:
                 goto LABEL_35;
               }
 
-              v19 = v41;
-              if (v19)
+              v21 = v44;
+              v20 = v21;
+              if (v21)
               {
 LABEL_17:
-                v20 = ctxCopy;
-                data4 = [v19 data];
-                v22 = [data4 subdataWithOffset:32 length:2];
+                v22 = ctxCopy;
+                data4 = [v20 data];
+                v24 = [data4 subdataWithOffset:32 length:2];
 
-                v23 = +[AppletConfigurationData getWuluSettings];
-                v24 = [v23 objectForKeyedSubscript:@"cityRules"];
-                asHexString = [v22 asHexString];
-                v26 = [v24 objectForKeyedSubscript:asHexString];
+                v25 = +[AppletConfigurationData getWuluSettings];
+                v26 = [v25 objectForKeyedSubscript:@"cityRules"];
+                asHexString = [v24 asHexString];
+                v28 = [v26 objectForKeyedSubscript:asHexString];
 
-                if ([v26 intValue] == 99)
+                intValue = [v28 intValue];
+                if (intValue == 99)
                 {
-                  v27 = ATLLogObject();
-                  if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+                  v30 = ATLLogObject(intValue);
+                  if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
                   {
                     *buf = 138412546;
-                    v55 = v12;
-                    v56 = 2112;
-                    v57 = v22;
-                    _os_log_impl(&dword_22EEF5000, v27, OS_LOG_TYPE_DEFAULT, "%@ entry flag removed as city code %@ in unreliable 1E city list.", buf, 0x16u);
+                    v58 = v12;
+                    v59 = 2112;
+                    v60 = v24;
+                    _os_log_impl(&dword_22EEF5000, v30, OS_LOG_TYPE_DEFAULT, "%@ entry flag removed as city code %@ in unreliable 1E city list.", buf, 0x16u);
                   }
 
-                  [v43 removeObject:v12];
+                  [v46 removeObject:v12];
                 }
 
-                ctxCopy = v20;
-                v8 = v42;
-                v10 = v44;
+                ctxCopy = v22;
+                v8 = v45;
+                v10 = v47;
                 goto LABEL_35;
               }
 
@@ -2500,101 +2493,100 @@ LABEL_17:
         }
 
 LABEL_15:
-        if ([v15 associatedSerialNumber])
+        if ([v16 associatedSerialNumber])
         {
           file1E2 = [ctxCopy file1E];
-          v46[0] = MEMORY[0x277D85DD0];
-          v46[1] = 3221225472;
-          v46[2] = __47__WuluDecoder_removeUnreliable1EEntryFlag_ctx___block_invoke_766;
-          v46[3] = &unk_278874AD0;
-          v47 = v15;
-          v19 = [file1E2 firstWhere:v46];
+          v49[0] = MEMORY[0x277D85DD0];
+          v49[1] = 3221225472;
+          v49[2] = __47__WuluDecoder_removeUnreliable1EEntryFlag_ctx___block_invoke_766;
+          v49[3] = &unk_278874AD0;
+          v50 = v16;
+          v20 = [file1E2 firstWhere:v49];
 
-          if (v19)
+          if (v20)
           {
             goto LABEL_17;
           }
 
 LABEL_32:
-          v37 = ATLLogObject();
-          if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
+          v41 = ATLLogObject(v21);
+          if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
           {
-            associatedSerialNumber = [v15 associatedSerialNumber];
+            associatedSerialNumber = [v16 associatedSerialNumber];
             *buf = 138412546;
-            v55 = v12;
-            v56 = 1024;
-            LODWORD(v57) = associatedSerialNumber;
-            _os_log_impl(&dword_22EEF5000, v37, OS_LOG_TYPE_DEFAULT, "Associated 1E record for %@ with associated SN = %u cannot be found, remove the entry flag.", buf, 0x12u);
+            v58 = v12;
+            v59 = 1024;
+            LODWORD(v60) = associatedSerialNumber;
+            _os_log_impl(&dword_22EEF5000, v41, OS_LOG_TYPE_DEFAULT, "Associated 1E record for %@ with associated SN = %u cannot be found, remove the entry flag.", buf, 0x12u);
           }
 
-          [v43 removeObject:v12];
+          [v46 removeObject:v12];
           goto LABEL_35;
         }
 
-        data5 = [v15 data];
-        v29 = [data5 subdataWithOffset:15 length:2];
+        data5 = [v16 data];
+        v32 = [data5 subdataWithOffset:15 length:2];
 
-        v30 = +[AppletConfigurationData getWuluSettings];
-        v31 = [v30 objectForKeyedSubscript:@"cityRules"];
-        asHexString2 = [v29 asHexString];
-        v33 = [v31 objectForKeyedSubscript:asHexString2];
+        v33 = +[AppletConfigurationData getWuluSettings];
+        v34 = [v33 objectForKeyedSubscript:@"cityRules"];
+        asHexString2 = [v32 asHexString];
+        v36 = [v34 objectForKeyedSubscript:asHexString2];
 
-        if ([v33 intValue] == 99)
+        intValue2 = [v36 intValue];
+        if (intValue2 == 99)
         {
-          v34 = ATLLogObject();
-          if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
+          v38 = ATLLogObject(intValue2);
+          if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412546;
-            v55 = v12;
-            v56 = 2112;
-            v57 = v29;
-            _os_log_impl(&dword_22EEF5000, v34, OS_LOG_TYPE_DEFAULT, "%@ entry flag removed as city code %@ in unreliable city list and 1A's associated SN is 0.", buf, 0x16u);
+            v58 = v12;
+            v59 = 2112;
+            v60 = v32;
+            _os_log_impl(&dword_22EEF5000, v38, OS_LOG_TYPE_DEFAULT, "%@ entry flag removed as city code %@ in unreliable city list and 1A's associated SN is 0.", buf, 0x16u);
           }
 
-          [v43 removeObject:v12];
+          [v46 removeObject:v12];
         }
 
-        v10 = v44;
+        v10 = v47;
 LABEL_35:
 
         ++v11;
       }
 
       while (v10 != v11);
-      v10 = [v8 countByEnumeratingWithState:&v50 objects:v58 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v53 objects:v61 count:16];
     }
 
     while (v10);
   }
-
-  v39 = *MEMORY[0x277D85DE8];
 }
 
 - (id)adjustHistory:(id)history
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   historyCopy = history;
   v5 = [historyCopy mutableCopy];
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   obj = historyCopy;
-  v6 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v6 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v22;
+    v8 = *v21;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v22 != v8)
+        if (*v21 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v21 + 1) + 8 * i);
+        v10 = *(*(&v20 + 1) + 8 * i);
         v11 = MEMORY[0x277CBEA90];
         v12 = [v10 objectForKeyedSubscript:@"CityCode"];
         v13 = [v11 dataWithShortBE:{objc_msgSend(v12, "unsignedShortValue")}];
@@ -2608,20 +2600,18 @@ LABEL_35:
         [(WuluDecoder *)self addFakeBusTxnGuangdong:v10 history:v5 cityCode:v17];
       }
 
-      v7 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v7 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v7);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
 
 - (void)removeDoubleMetroTapGuangdong:(id)guangdong history:(id)history cityCode:(id)code
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   guangdongCopy = guangdong;
   historyCopy = history;
   codeCopy = code;
@@ -2658,18 +2648,17 @@ LABEL_35:
 
             if (v24)
             {
-              [historyCopy removeObject:guangdongCopy];
-              v25 = ATLLogObject();
+              v25 = ATLLogObject([historyCopy removeObject:guangdongCopy]);
               if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
               {
                 v26 = [guangdongCopy objectForKeyedSubscript:@"SerialNumber"];
-                v28 = 138412802;
-                v29 = v26;
-                v30 = 1024;
-                v31 = v21;
-                v32 = 1024;
-                v33 = 3;
-                _os_log_impl(&dword_22EEF5000, v25, OS_LOG_TYPE_DEFAULT, "SN %@ with type=%d, next transaction type=%d, both modality are metro, remove this transaction.", &v28, 0x18u);
+                v27 = 138412802;
+                v28 = v26;
+                v29 = 1024;
+                v30 = v21;
+                v31 = 1024;
+                v32 = 3;
+                _os_log_impl(&dword_22EEF5000, v25, OS_LOG_TYPE_DEFAULT, "SN %@ with type=%d, next transaction type=%d, both modality are metro, remove this transaction.", &v27, 0x18u);
               }
             }
           }
@@ -2681,13 +2670,11 @@ LABEL_35:
       }
     }
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addFakeBusTxnGuangdong:(id)guangdong history:(id)history cityCode:(id)code
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   guangdongCopy = guangdong;
   historyCopy = history;
   codeCopy = code;
@@ -2723,17 +2710,16 @@ LABEL_35:
               v23 = [v21 numberWithInt:{objc_msgSend(v22, "intValue") + 1}];
               [v20 setObject:v23 forKeyedSubscript:@"SerialNumber"];
 
-              [historyCopy insertObject:v20 atIndex:{objc_msgSend(historyCopy, "indexOfObject:", guangdongCopy)}];
-              v24 = ATLLogObject();
+              v24 = ATLLogObject([historyCopy insertObject:v20 atIndex:{objc_msgSend(historyCopy, "indexOfObject:", guangdongCopy)}]);
               if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
               {
                 v25 = [guangdongCopy objectForKeyedSubscript:@"SerialNumber"];
                 v26 = [v16 objectForKeyedSubscript:@"SerialNumber"];
-                v28 = 138412546;
-                v29 = v25;
-                v30 = 2112;
-                v31 = v26;
-                _os_log_impl(&dword_22EEF5000, v24, OS_LOG_TYPE_DEFAULT, "SN %@, previous transaction != bus or is an entry at %@, add a fake tap-out.", &v28, 0x16u);
+                v27 = 138412546;
+                v28 = v25;
+                v29 = 2112;
+                v30 = v26;
+                _os_log_impl(&dword_22EEF5000, v24, OS_LOG_TYPE_DEFAULT, "SN %@, previous transaction != bus or is an entry at %@, add a fake tap-out.", &v27, 0x16u);
               }
             }
           }
@@ -2741,8 +2727,6 @@ LABEL_35:
       }
     }
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (id)findNextCappPuchaseEntry:(id)entry history:(id)history
@@ -2814,8 +2798,8 @@ BOOL __48__WuluDecoder_findNextCappPuchaseEntry_history___block_invoke(uint64_t 
     v27 = [v25 dataWithHexString:v26];
     v28 = [v27 u8:0];
 
-    v29 = ATLLogObject();
-    if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+    v30 = ATLLogObject(v29);
+    if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412802;
       v83 = codeCopy;
@@ -2823,7 +2807,7 @@ BOOL __48__WuluDecoder_findNextCappPuchaseEntry_history___block_invoke(uint64_t 
       v85 = v16;
       v86 = 1024;
       v87 = v20;
-      _os_log_impl(&dword_22EEF5000, v29, OS_LOG_TYPE_DEFAULT, "City %@ local record %02X(%02X) is being checked for enroute.", buf, 0x18u);
+      _os_log_impl(&dword_22EEF5000, v30, OS_LOG_TYPE_DEFAULT, "City %@ local record %02X(%02X) is being checked for enroute.", buf, 0x18u);
     }
 
     localRecords = [entryCopy localRecords];
@@ -2831,86 +2815,90 @@ BOOL __48__WuluDecoder_findNextCappPuchaseEntry_history___block_invoke(uint64_t 
 
     if (firstObject)
     {
-      if ([firstObject sfi] == v16 && objc_msgSend(firstObject, "number") == v20)
+      number = [firstObject sfi];
+      if (number == v16)
       {
-        data = [firstObject data];
-        v33 = [data length];
-
-        if (v33 >= v24)
+        number = [firstObject number];
+        if (number == v20)
         {
-          data2 = [firstObject data];
-          v73 = [data2 u8:v24] == v28;
-        }
+          data = [firstObject data];
+          v36 = [data length];
 
-        else
-        {
-          v34 = ATLLogObject();
-          if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+          if (v36 >= v24)
           {
-            data3 = [firstObject data];
-            v36 = [data3 length];
-            *buf = 138413314;
-            v83 = codeCopy;
-            v84 = 1024;
-            v85 = v16;
-            v86 = 1024;
-            v87 = v20;
-            v88 = 2048;
-            *v89 = v36;
-            *&v89[8] = 1024;
-            v90 = v24;
-            _os_log_impl(&dword_22EEF5000, v34, OS_LOG_TYPE_ERROR, "City %@ local record %02X(%02X) was expected but not enough data provided. (actual length = %lu, expected minimum %u).", buf, 0x28u);
+            data2 = [firstObject data];
+            v74 = [data2 u8:v24] == v28;
           }
 
-          v37 = objc_alloc(MEMORY[0x277CCACA8]);
-          data4 = [firstObject data];
-          data2 = [v37 initWithFormat:@"City %@ local record %02X(%02X) was expected but not enough data provided. (actual length = %lu, expected minimum %u).", codeCopy, v16, v20, objc_msgSend(data4, "length"), v24];
-
-          if (error)
+          else
           {
-            v40 = *error;
-            v41 = MEMORY[0x277CCA9B8];
-            v42 = *MEMORY[0x277CCA450];
-            if (*error)
+            v38 = ATLLogObject(v37);
+            if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
             {
-              v43 = *MEMORY[0x277CCA7E8];
-              v78[0] = *MEMORY[0x277CCA450];
-              v78[1] = v43;
-              v79[0] = data2;
-              v79[1] = v40;
-              v44 = MEMORY[0x277CBEAC0];
-              v45 = v79;
-              v46 = v78;
-              v47 = 2;
+              data3 = [firstObject data];
+              v40 = [data3 length];
+              *buf = 138413314;
+              v83 = codeCopy;
+              v84 = 1024;
+              v85 = v16;
+              v86 = 1024;
+              v87 = v20;
+              v88 = 2048;
+              *v89 = v40;
+              *&v89[8] = 1024;
+              v90 = v24;
+              _os_log_impl(&dword_22EEF5000, v38, OS_LOG_TYPE_ERROR, "City %@ local record %02X(%02X) was expected but not enough data provided. (actual length = %lu, expected minimum %u).", buf, 0x28u);
             }
 
-            else
+            v41 = objc_alloc(MEMORY[0x277CCACA8]);
+            data4 = [firstObject data];
+            data2 = [v41 initWithFormat:@"City %@ local record %02X(%02X) was expected but not enough data provided. (actual length = %lu, expected minimum %u).", codeCopy, v16, v20, objc_msgSend(data4, "length"), v24];
+
+            if (error)
             {
-              v80 = *MEMORY[0x277CCA450];
-              v81 = data2;
-              v44 = MEMORY[0x277CBEAC0];
-              v45 = &v81;
-              v46 = &v80;
-              v47 = 1;
+              v44 = *error;
+              v45 = MEMORY[0x277CCA9B8];
+              if (*error)
+              {
+                v46 = *MEMORY[0x277CCA7E8];
+                v78[0] = *MEMORY[0x277CCA450];
+                v78[1] = v46;
+                v79[0] = data2;
+                v79[1] = v44;
+                v47 = MEMORY[0x277CBEAC0];
+                v48 = v79;
+                v49 = v78;
+                v50 = 2;
+              }
+
+              else
+              {
+                v80 = *MEMORY[0x277CCA450];
+                v81 = data2;
+                v47 = MEMORY[0x277CBEAC0];
+                v48 = &v81;
+                v49 = &v80;
+                v50 = 1;
+              }
+
+              v75 = [v47 dictionaryWithObjects:v48 forKeys:v49 count:v50];
+              entryCopy = v77;
+              goto LABEL_36;
             }
 
-            v74 = [v44 dictionaryWithObjects:v45 forKeys:v46 count:v47];
-            entryCopy = v77;
-            goto LABEL_36;
+            v74 = 0;
           }
 
-          v73 = 0;
+          entryCopy = v77;
+          goto LABEL_38;
         }
-
-        entryCopy = v77;
-        goto LABEL_38;
       }
 
-      v58 = ATLLogObject();
-      if (os_log_type_enabled(v58, OS_LOG_TYPE_ERROR))
+      v60 = ATLLogObject(number);
+      if (os_log_type_enabled(v60, OS_LOG_TYPE_ERROR))
       {
-        v59 = [firstObject sfi];
-        number = [firstObject number];
+        v61 = [firstObject sfi];
+        number2 = [firstObject number];
         *buf = 138413314;
         v83 = codeCopy;
         v84 = 1024;
@@ -2918,61 +2906,60 @@ BOOL __48__WuluDecoder_findNextCappPuchaseEntry_history___block_invoke(uint64_t 
         v86 = 1024;
         v87 = v20;
         v88 = 1024;
-        *v89 = v59;
+        *v89 = v61;
         *&v89[4] = 1024;
-        *&v89[6] = number;
-        _os_log_impl(&dword_22EEF5000, v58, OS_LOG_TYPE_ERROR, "City %@ local record %02X(%02X) was expected but got %02X(%02X)", buf, 0x24u);
+        *&v89[6] = number2;
+        _os_log_impl(&dword_22EEF5000, v60, OS_LOG_TYPE_ERROR, "City %@ local record %02X(%02X) was expected but got %02X(%02X)", buf, 0x24u);
       }
 
-      v61 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"City %@ local record %02X(%02X) was expected but got %02X(%02X)", codeCopy, v16, v20, objc_msgSend(firstObject, "sfi"), objc_msgSend(firstObject, "number")];
-      data2 = v61;
+      v63 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"City %@ local record %02X(%02X) was expected but got %02X(%02X)", codeCopy, v16, v20, objc_msgSend(firstObject, "sfi"), objc_msgSend(firstObject, "number")];
+      data2 = v63;
       if (!error)
       {
         goto LABEL_37;
       }
 
-      v62 = *error;
-      v41 = MEMORY[0x277CCA9B8];
-      v63 = *MEMORY[0x277CCA450];
+      v64 = *error;
+      v45 = MEMORY[0x277CCA9B8];
       if (*error)
       {
-        v64 = *MEMORY[0x277CCA7E8];
+        v65 = *MEMORY[0x277CCA7E8];
         v91[0] = *MEMORY[0x277CCA450];
-        v91[1] = v64;
-        v92[0] = v61;
-        v92[1] = v62;
-        v65 = MEMORY[0x277CBEAC0];
-        v66 = v92;
-        v67 = v91;
+        v91[1] = v65;
+        v92[0] = v63;
+        v92[1] = v64;
+        v66 = MEMORY[0x277CBEAC0];
+        v67 = v92;
+        v68 = v91;
 LABEL_28:
-        v72 = 2;
+        v73 = 2;
 LABEL_35:
-        v74 = [v65 dictionaryWithObjects:v66 forKeys:v67 count:v72];
+        v75 = [v66 dictionaryWithObjects:v67 forKeys:v68 count:v73];
 LABEL_36:
-        *error = [v41 errorWithDomain:@"ATL" code:8 userInfo:v74];
+        *error = [v45 errorWithDomain:@"ATL" code:8 userInfo:v75];
 
 LABEL_37:
-        v73 = 0;
+        v74 = 0;
 LABEL_38:
 
         goto LABEL_39;
       }
 
       v93 = *MEMORY[0x277CCA450];
-      v94 = v61;
-      v65 = MEMORY[0x277CBEAC0];
-      v66 = &v94;
-      v67 = &v93;
+      v94 = v63;
+      v66 = MEMORY[0x277CBEAC0];
+      v67 = &v94;
+      v68 = &v93;
     }
 
     else
     {
-      v68 = ATLLogObject();
-      if (os_log_type_enabled(v68, OS_LOG_TYPE_ERROR))
+      v69 = ATLLogObject(v33);
+      if (os_log_type_enabled(v69, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
         v83 = codeCopy;
-        _os_log_impl(&dword_22EEF5000, v68, OS_LOG_TYPE_ERROR, "City %@ local record is missing.", buf, 0xCu);
+        _os_log_impl(&dword_22EEF5000, v69, OS_LOG_TYPE_ERROR, "City %@ local record is missing.", buf, 0xCu);
       }
 
       codeCopy = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"City %@ local record is missing.", codeCopy];
@@ -2982,80 +2969,78 @@ LABEL_38:
         goto LABEL_37;
       }
 
-      v70 = *error;
-      v41 = MEMORY[0x277CCA9B8];
+      v71 = *error;
+      v45 = MEMORY[0x277CCA9B8];
       if (*error)
       {
-        v71 = *MEMORY[0x277CCA7E8];
+        v72 = *MEMORY[0x277CCA7E8];
         v95[0] = *MEMORY[0x277CCA450];
-        v95[1] = v71;
+        v95[1] = v72;
         v96[0] = codeCopy;
-        v96[1] = v70;
-        v65 = MEMORY[0x277CBEAC0];
-        v66 = v96;
-        v67 = v95;
+        v96[1] = v71;
+        v66 = MEMORY[0x277CBEAC0];
+        v67 = v96;
+        v68 = v95;
         goto LABEL_28;
       }
 
       v97 = *MEMORY[0x277CCA450];
       v98 = codeCopy;
-      v65 = MEMORY[0x277CBEAC0];
-      v66 = &v98;
-      v67 = &v97;
+      v66 = MEMORY[0x277CBEAC0];
+      v67 = &v98;
+      v68 = &v97;
     }
 
-    v72 = 1;
+    v73 = 1;
     goto LABEL_35;
   }
 
-  v48 = ATLLogObject();
-  if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
+  v51 = ATLLogObject(0);
+  if (os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
   {
     *buf = 0;
-    _os_log_impl(&dword_22EEF5000, v48, OS_LOG_TYPE_ERROR, "No setting.", buf, 2u);
+    _os_log_impl(&dword_22EEF5000, v51, OS_LOG_TYPE_ERROR, "No setting.", buf, 2u);
   }
 
-  v49 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"No setting."];
-  firstObject = v49;
+  v52 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"No setting."];
+  firstObject = v52;
   if (error)
   {
-    v50 = *error;
-    v51 = MEMORY[0x277CCA9B8];
-    v52 = *MEMORY[0x277CCA450];
+    v53 = *error;
+    v54 = MEMORY[0x277CCA9B8];
     if (*error)
     {
-      v53 = *MEMORY[0x277CCA7E8];
+      v55 = *MEMORY[0x277CCA7E8];
       v99[0] = *MEMORY[0x277CCA450];
-      v99[1] = v53;
-      v100[0] = v49;
-      v100[1] = v50;
-      v54 = MEMORY[0x277CBEAC0];
-      v55 = v100;
-      v56 = v99;
-      v57 = 2;
+      v99[1] = v55;
+      v100[0] = v52;
+      v100[1] = v53;
+      v56 = MEMORY[0x277CBEAC0];
+      v57 = v100;
+      v58 = v99;
+      v59 = 2;
     }
 
     else
     {
       v101 = *MEMORY[0x277CCA450];
-      v102[0] = v49;
-      v54 = MEMORY[0x277CBEAC0];
-      v55 = v102;
-      v56 = &v101;
-      v57 = 1;
+      v102[0] = v52;
+      v56 = MEMORY[0x277CBEAC0];
+      v57 = v102;
+      v58 = &v101;
+      v59 = 1;
     }
 
-    data2 = [v54 dictionaryWithObjects:v55 forKeys:v56 count:v57];
-    [v51 errorWithDomain:@"ATL" code:8 userInfo:data2];
-    *error = v73 = 0;
+    data2 = [v56 dictionaryWithObjects:v57 forKeys:v58 count:v59];
+    [v54 errorWithDomain:@"ATL" code:8 userInfo:data2];
+    *error = v74 = 0;
     goto LABEL_38;
   }
 
-  v73 = 0;
+  v74 = 0;
 LABEL_39:
 
-  v75 = *MEMORY[0x277D85DE8];
-  return v73;
+  return v74;
 }
 
 - (id)parseHCIEvent:(id)event withApplet:(id)applet withPackage:(id)package withModule:(id)module withTransceiver:(id)transceiver withError:(id *)error
@@ -3063,229 +3048,228 @@ LABEL_39:
   v45 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   appletCopy = applet;
-  if ([eventCopy length] > 1)
+  v13 = [eventCopy length];
+  if (v13 > 1)
   {
-    v23 = *[eventCopy bytes];
-    switch(v23)
+    bytes = [eventCopy bytes];
+    v25 = *bytes;
+    switch(v25)
     {
       case 0x12:
-        v26 = ATLLogObject();
-        if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+        v28 = ATLLogObject(bytes);
+        if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&dword_22EEF5000, v26, OS_LOG_TYPE_DEFAULT, "Deselect event, nothing to do here", buf, 2u);
+          _os_log_impl(&dword_22EEF5000, v28, OS_LOG_TYPE_DEFAULT, "Deselect event, nothing to do here", buf, 2u);
         }
 
         goto LABEL_26;
       case 2:
-        v24 = [(WuluDecoder *)self parseEndEvent:eventCopy withApplet:appletCopy withError:error];
+        v26 = [(WuluDecoder *)self parseEndEvent:eventCopy withApplet:appletCopy withError:error];
         break;
       case 1:
-        v24 = [(WuluDecoder *)self parseStartEvent:eventCopy withApplet:appletCopy withError:error];
+        v26 = [(WuluDecoder *)self parseStartEvent:eventCopy withApplet:appletCopy withError:error];
         break;
       default:
-        v27 = ATLLogObject();
-        if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+        v29 = ATLLogObject(bytes);
+        if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
         {
           *buf = 67109120;
-          v44 = v23;
-          _os_log_impl(&dword_22EEF5000, v27, OS_LOG_TYPE_ERROR, "Unknown event type %u", buf, 8u);
+          v44 = v25;
+          _os_log_impl(&dword_22EEF5000, v29, OS_LOG_TYPE_ERROR, "Unknown event type %u", buf, 8u);
         }
 
-        v28 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Unknown event type %u", v23];
-        v15 = v28;
+        v30 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Unknown event type %u", v25];
+        v16 = v30;
         if (!error)
         {
           goto LABEL_25;
         }
 
-        v29 = *error;
-        v17 = MEMORY[0x277CCA9B8];
-        v30 = *MEMORY[0x277CCA450];
+        v31 = *error;
+        v18 = MEMORY[0x277CCA9B8];
         if (*error)
         {
-          v31 = *MEMORY[0x277CCA7E8];
+          v32 = *MEMORY[0x277CCA7E8];
           v35[0] = *MEMORY[0x277CCA450];
-          v35[1] = v31;
-          v36[0] = v28;
-          v36[1] = v29;
-          v19 = MEMORY[0x277CBEAC0];
-          v20 = v36;
-          v21 = v35;
+          v35[1] = v32;
+          v36[0] = v30;
+          v36[1] = v31;
+          v20 = MEMORY[0x277CBEAC0];
+          v21 = v36;
+          v22 = v35;
           goto LABEL_7;
         }
 
         v37 = *MEMORY[0x277CCA450];
-        v38 = v28;
-        v19 = MEMORY[0x277CBEAC0];
-        v20 = &v38;
-        v21 = &v37;
+        v38 = v30;
+        v20 = MEMORY[0x277CBEAC0];
+        v21 = &v38;
+        v22 = &v37;
 LABEL_23:
-        v22 = 1;
+        v23 = 1;
         goto LABEL_24;
     }
 
-    v25 = v24;
+    v27 = v26;
     goto LABEL_27;
   }
 
-  v13 = ATLLogObject();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+  v14 = ATLLogObject(v13);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
   {
     *buf = 67109120;
     v44 = [eventCopy length];
-    _os_log_impl(&dword_22EEF5000, v13, OS_LOG_TYPE_ERROR, "Short eventData? %u", buf, 8u);
+    _os_log_impl(&dword_22EEF5000, v14, OS_LOG_TYPE_ERROR, "Short eventData? %u", buf, 8u);
   }
 
-  v14 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Short eventData? %u", objc_msgSend(eventCopy, "length")];
-  v15 = v14;
+  v15 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Short eventData? %u", objc_msgSend(eventCopy, "length")];
+  v16 = v15;
   if (!error)
   {
     goto LABEL_25;
   }
 
-  v16 = *error;
-  v17 = MEMORY[0x277CCA9B8];
+  v17 = *error;
+  v18 = MEMORY[0x277CCA9B8];
   if (!*error)
   {
     v41 = *MEMORY[0x277CCA450];
-    v42 = v14;
-    v19 = MEMORY[0x277CBEAC0];
-    v20 = &v42;
-    v21 = &v41;
+    v42 = v15;
+    v20 = MEMORY[0x277CBEAC0];
+    v21 = &v42;
+    v22 = &v41;
     goto LABEL_23;
   }
 
-  v18 = *MEMORY[0x277CCA7E8];
+  v19 = *MEMORY[0x277CCA7E8];
   v39[0] = *MEMORY[0x277CCA450];
-  v39[1] = v18;
-  v40[0] = v14;
-  v40[1] = v16;
-  v19 = MEMORY[0x277CBEAC0];
-  v20 = v40;
-  v21 = v39;
+  v39[1] = v19;
+  v40[0] = v15;
+  v40[1] = v17;
+  v20 = MEMORY[0x277CBEAC0];
+  v21 = v40;
+  v22 = v39;
 LABEL_7:
-  v22 = 2;
+  v23 = 2;
 LABEL_24:
-  v32 = [v19 dictionaryWithObjects:v20 forKeys:v21 count:v22];
-  *error = [v17 errorWithDomain:@"ATL" code:6 userInfo:v32];
+  v33 = [v20 dictionaryWithObjects:v21 forKeys:v22 count:v23];
+  *error = [v18 errorWithDomain:@"ATL" code:6 userInfo:v33];
 
 LABEL_25:
 LABEL_26:
-  v25 = 0;
+  v27 = 0;
 LABEL_27:
 
-  v33 = *MEMORY[0x277D85DE8];
-
-  return v25;
+  return v27;
 }
 
 - (id)parseStartEvent:(id)event withApplet:(id)applet withError:(id *)error
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   appletCopy = applet;
-  if ([eventCopy length] != 5)
+  v10 = [eventCopy length];
+  if (v10 != 5)
   {
-    v16 = ATLLogObject();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v17 = ATLLogObject(v10);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       *buf = 67109376;
-      v48 = [eventCopy length];
-      v49 = 2048;
-      v50 = 5;
-      _os_log_impl(&dword_22EEF5000, v16, OS_LOG_TYPE_ERROR, "Start event length %u expected %lu", buf, 0x12u);
+      v47 = [eventCopy length];
+      v48 = 2048;
+      v49 = 5;
+      _os_log_impl(&dword_22EEF5000, v17, OS_LOG_TYPE_ERROR, "Start event length %u expected %lu", buf, 0x12u);
     }
 
-    v17 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Start event length %u expected %lu", objc_msgSend(eventCopy, "length"), 5];
-    v14 = v17;
+    v18 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Start event length %u expected %lu", objc_msgSend(eventCopy, "length"), 5];
+    v15 = v18;
     if (!error)
     {
       goto LABEL_28;
     }
 
-    v18 = *error;
-    v19 = MEMORY[0x277CCA9B8];
-    v20 = *MEMORY[0x277CCA450];
+    v19 = *error;
+    v20 = MEMORY[0x277CCA9B8];
     if (*error)
     {
       v21 = *MEMORY[0x277CCA7E8];
-      v43[0] = *MEMORY[0x277CCA450];
-      v43[1] = v21;
-      v44[0] = v17;
-      v44[1] = v18;
+      v42[0] = *MEMORY[0x277CCA450];
+      v42[1] = v21;
+      v43[0] = v18;
+      v43[1] = v19;
       v22 = MEMORY[0x277CBEAC0];
-      v23 = v44;
-      v24 = v43;
+      v23 = v43;
+      v24 = v42;
 LABEL_17:
       v30 = 2;
 LABEL_27:
       v34 = [v22 dictionaryWithObjects:v23 forKeys:v24 count:v30];
-      *error = [v19 errorWithDomain:@"ATL" code:6 userInfo:v34];
+      *error = [v20 errorWithDomain:@"ATL" code:6 userInfo:v34];
 
       goto LABEL_28;
     }
 
-    v45 = *MEMORY[0x277CCA450];
-    v46 = v17;
+    v44 = *MEMORY[0x277CCA450];
+    v45 = v18;
     v22 = MEMORY[0x277CBEAC0];
-    v23 = &v46;
-    v24 = &v45;
+    v23 = &v45;
+    v24 = &v44;
 LABEL_26:
     v30 = 1;
     goto LABEL_27;
   }
 
   bytes = [eventCopy bytes];
-  v11 = bytes;
+  v12 = bytes;
   if (*(bytes + 1) != 8)
   {
-    v25 = ATLLogObject();
+    v25 = ATLLogObject(bytes);
     if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
     {
-      v26 = *(v11 + 1);
+      v26 = *(v12 + 1);
       *buf = 67109120;
-      v48 = v26;
+      v47 = v26;
       _os_log_impl(&dword_22EEF5000, v25, OS_LOG_TYPE_ERROR, "Start event got unexpected version 0x%x", buf, 8u);
     }
 
-    v27 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Start event got unexpected version 0x%x", *(v11 + 1)];
-    v14 = v27;
+    v27 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Start event got unexpected version 0x%x", *(v12 + 1)];
+    v15 = v27;
     if (!error)
     {
       goto LABEL_28;
     }
 
     v28 = *error;
-    v19 = MEMORY[0x277CCA9B8];
+    v20 = MEMORY[0x277CCA9B8];
     if (*error)
     {
       v29 = *MEMORY[0x277CCA7E8];
-      v39[0] = *MEMORY[0x277CCA450];
-      v39[1] = v29;
-      v40[0] = v27;
-      v40[1] = v28;
+      v38[0] = *MEMORY[0x277CCA450];
+      v38[1] = v29;
+      v39[0] = v27;
+      v39[1] = v28;
       v22 = MEMORY[0x277CBEAC0];
-      v23 = v40;
-      v24 = v39;
+      v23 = v39;
+      v24 = v38;
       goto LABEL_17;
     }
 
-    v41 = *MEMORY[0x277CCA450];
-    v42 = v27;
+    v40 = *MEMORY[0x277CCA450];
+    v41 = v27;
     v22 = MEMORY[0x277CBEAC0];
-    v23 = &v42;
-    v24 = &v41;
+    v23 = &v41;
+    v24 = &v40;
     goto LABEL_26;
   }
 
   if (!*(bytes + 2))
   {
-    v14 = ATLLogObject();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v15 = ATLLogObject(bytes);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      v15 = "Dropping Start event over contact";
+      v16 = "Dropping Start event over contact";
       goto LABEL_21;
     }
 
@@ -3295,115 +3279,114 @@ LABEL_28:
   }
 
   decoderState = self->decoderState;
-  v13 = ATLLogObject();
-  v14 = v13;
+  v14 = ATLLogObject(bytes);
+  v15 = v14;
   if (decoderState == 1)
   {
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      v15 = "Dropping Start event because already started";
+      v16 = "Dropping Start event because already started";
 LABEL_21:
-      _os_log_impl(&dword_22EEF5000, v14, OS_LOG_TYPE_DEFAULT, v15, buf, 2u);
+      _os_log_impl(&dword_22EEF5000, v15, OS_LOG_TYPE_DEFAULT, v16, buf, 2u);
       goto LABEL_28;
     }
 
     goto LABEL_28;
   }
 
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
-    _os_log_impl(&dword_22EEF5000, v14, OS_LOG_TYPE_INFO, "Got CL Start Event, setting state to Active", buf, 2u);
+    _os_log_impl(&dword_22EEF5000, v15, OS_LOG_TYPE_INFO, "Got CL Start Event, setting state to Active", buf, 2u);
   }
 
   self->decoderState = 1;
   [AppletTranslator registerForCleanup:?];
-  v37[0] = @"EventType";
-  v37[1] = @"appletIdentifier";
-  v38[0] = @"StartEvent";
-  v38[1] = appletCopy;
-  v37[2] = @"Version";
-  v14 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:*(v11 + 1)];
-  v38[2] = v14;
-  v37[3] = @"Interface";
-  v31 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:*(v11 + 2)];
-  v38[3] = v31;
-  v37[4] = @"selectStatus";
-  v32 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:bswap32(*(v11 + 3)) >> 16];
-  v37[5] = @"IgnoreRFEvents";
-  v37[6] = @"DontWaitForEOT";
-  v38[4] = v32;
-  v38[5] = MEMORY[0x277CBEC38];
-  v38[6] = MEMORY[0x277CBEC38];
-  v38[7] = MEMORY[0x277CBEC28];
-  v37[7] = @"RequiresPowerCycle";
-  v37[8] = @"DelayExpressReentry";
-  v38[8] = &unk_2843C63E0;
-  v33 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v38 forKeys:v37 count:9];
+  v36[0] = @"EventType";
+  v36[1] = @"appletIdentifier";
+  v37[0] = @"StartEvent";
+  v37[1] = appletCopy;
+  v36[2] = @"Version";
+  v15 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:*(v12 + 1)];
+  v37[2] = v15;
+  v36[3] = @"Interface";
+  v31 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:*(v12 + 2)];
+  v37[3] = v31;
+  v36[4] = @"selectStatus";
+  v32 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:bswap32(*(v12 + 3)) >> 16];
+  v36[5] = @"IgnoreRFEvents";
+  v36[6] = @"DontWaitForEOT";
+  v37[4] = v32;
+  v37[5] = MEMORY[0x277CBEC38];
+  v37[6] = MEMORY[0x277CBEC38];
+  v37[7] = MEMORY[0x277CBEC28];
+  v36[7] = @"RequiresPowerCycle";
+  v36[8] = @"DelayExpressReentry";
+  v37[8] = &unk_2843C63E0;
+  v33 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v37 forKeys:v36 count:9];
 
 LABEL_29:
-  v35 = *MEMORY[0x277D85DE8];
 
   return v33;
 }
 
 - (id)parseEndEvent:(id)event withApplet:(id)applet withError:(id *)error
 {
-  v64[1] = *MEMORY[0x277D85DE8];
+  v62[1] = *MEMORY[0x277D85DE8];
   eventCopy = event;
   appletCopy = applet;
-  if ([eventCopy length] <= 8)
+  v10 = [eventCopy length];
+  if (v10 <= 8)
   {
-    v10 = ATLLogObject();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = ATLLogObject(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       LODWORD(buf) = 134217984;
       *(&buf + 4) = [eventCopy length];
-      _os_log_impl(&dword_22EEF5000, v10, OS_LOG_TYPE_ERROR, "End event length %zu", &buf, 0xCu);
+      _os_log_impl(&dword_22EEF5000, v11, OS_LOG_TYPE_ERROR, "End event length %zu", &buf, 0xCu);
     }
 
-    v11 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"End event length %zu", objc_msgSend(eventCopy, "length")];
-    v12 = v11;
+    v12 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"End event length %zu", objc_msgSend(eventCopy, "length")];
+    v13 = v12;
     if (!error)
     {
       goto LABEL_29;
     }
 
-    v13 = *error;
-    v14 = MEMORY[0x277CCA9B8];
-    v15 = *MEMORY[0x277CCA450];
+    v14 = *error;
+    v15 = MEMORY[0x277CCA9B8];
     if (*error)
     {
       v16 = *MEMORY[0x277CCA7E8];
-      v61[0] = *MEMORY[0x277CCA450];
-      v61[1] = v16;
-      v62[0] = v11;
-      v62[1] = v13;
+      v59[0] = *MEMORY[0x277CCA450];
+      v59[1] = v16;
+      v60[0] = v12;
+      v60[1] = v14;
       v17 = MEMORY[0x277CBEAC0];
-      v18 = v62;
-      v19 = v61;
+      v18 = v60;
+      v19 = v59;
       v20 = 2;
     }
 
     else
     {
-      v63 = *MEMORY[0x277CCA450];
-      v64[0] = v11;
+      v61 = *MEMORY[0x277CCA450];
+      v62[0] = v12;
       v17 = MEMORY[0x277CBEAC0];
-      v18 = v64;
-      v19 = &v63;
+      v18 = v62;
+      v19 = &v61;
       v20 = 1;
     }
 
-    v37 = [v17 dictionaryWithObjects:v18 forKeys:v19 count:v20];
-    v38 = v14;
-    v39 = 3;
+    v36 = [v17 dictionaryWithObjects:v18 forKeys:v19 count:v20];
+    v37 = v15;
+    v38 = 3;
 LABEL_28:
-    *error = [v38 errorWithDomain:@"ATL" code:v39 userInfo:v37];
+    *error = [v37 errorWithDomain:@"ATL" code:v38 userInfo:v36];
 
 LABEL_29:
-    v43 = 0;
+    v42 = 0;
     goto LABEL_32;
   }
 
@@ -3411,7 +3394,7 @@ LABEL_29:
   v22 = bytes;
   if (*(bytes + 1) != 8)
   {
-    v26 = ATLLogObject();
+    v26 = ATLLogObject(bytes);
     if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
     {
       v27 = *(v22 + 1);
@@ -3421,7 +3404,7 @@ LABEL_29:
     }
 
     v28 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"End event got unexpected version 0x%x", *(v22 + 1)];
-    v12 = v28;
+    v13 = v28;
     if (!error)
     {
       goto LABEL_29;
@@ -3429,40 +3412,39 @@ LABEL_29:
 
     v29 = *error;
     v30 = MEMORY[0x277CCA9B8];
-    v31 = *MEMORY[0x277CCA450];
     if (*error)
     {
-      v32 = *MEMORY[0x277CCA7E8];
-      v57[0] = *MEMORY[0x277CCA450];
-      v57[1] = v32;
-      v58[0] = v28;
-      v58[1] = v29;
-      v33 = MEMORY[0x277CBEAC0];
-      v34 = v58;
-      v35 = v57;
-      v36 = 2;
+      v31 = *MEMORY[0x277CCA7E8];
+      v55[0] = *MEMORY[0x277CCA450];
+      v55[1] = v31;
+      v56[0] = v28;
+      v56[1] = v29;
+      v32 = MEMORY[0x277CBEAC0];
+      v33 = v56;
+      v34 = v55;
+      v35 = 2;
     }
 
     else
     {
-      v59 = *MEMORY[0x277CCA450];
-      v60 = v28;
-      v33 = MEMORY[0x277CBEAC0];
-      v34 = &v60;
-      v35 = &v59;
-      v36 = 1;
+      v57 = *MEMORY[0x277CCA450];
+      v58 = v28;
+      v32 = MEMORY[0x277CBEAC0];
+      v33 = &v58;
+      v34 = &v57;
+      v35 = 1;
     }
 
-    v37 = [v33 dictionaryWithObjects:v34 forKeys:v35 count:v36];
-    v38 = v30;
-    v39 = 6;
+    v36 = [v32 dictionaryWithObjects:v33 forKeys:v34 count:v35];
+    v37 = v30;
+    v38 = 6;
     goto LABEL_28;
   }
 
   if (*(bytes + 2) == 1)
   {
     decoderState = self->decoderState;
-    v24 = ATLLogObject();
+    v24 = ATLLogObject(bytes);
     v25 = v24;
     if (decoderState == 1)
     {
@@ -3486,71 +3468,70 @@ LABEL_29:
     }
   }
 
-  v40 = *(v22 + 5);
-  v41 = *(v22 + 3);
-  v12 = [eventCopy subdataWithRange:{9, objc_msgSend(eventCopy, "length") - 9}];
-  *&buf = [v12 bytes];
-  *(&buf + 1) = [v12 length];
-  v42 = [(WuluDecoder *)self DecodeEndE1TLV:&buf error:error];
-  if (v42 && !*error)
+  v39 = *(v22 + 5);
+  v40 = *(v22 + 3);
+  v13 = [eventCopy subdataWithRange:{9, objc_msgSend(eventCopy, "length") - 9}];
+  *&buf = [v13 bytes];
+  *(&buf + 1) = [v13 length];
+  v41 = [(WuluDecoder *)self DecodeEndE1TLV:&buf error:error];
+  if (v41 && !*error)
   {
-    v54[0] = @"EventType";
-    v54[1] = @"appletIdentifier";
-    v55[0] = @"EndEvent";
-    v55[1] = appletCopy;
-    v54[2] = @"Version";
-    v53 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:*(v22 + 1)];
-    v55[2] = v53;
-    v54[3] = @"Interface";
-    v52 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:*(v22 + 2)];
-    v55[3] = v52;
-    v54[4] = @"didError";
-    v51 = [MEMORY[0x277CCABB0] numberWithBool:v41 != 144];
-    v55[4] = v51;
-    v54[5] = @"command";
-    v44 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:bswap32(v40)];
-    v55[5] = v44;
-    v54[6] = @"status";
-    v45 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:__rev16(v41)];
-    v55[6] = v45;
-    v54[7] = @"result";
-    v46 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:(v41 == 144) << 6];
-    v55[7] = v46;
-    v55[8] = &unk_2843C64A0;
-    v54[8] = @"informative";
-    v54[9] = @"type";
-    v55[9] = &unk_2843C64B8;
-    v54[10] = @"ReadOperationInfo";
-    v47 = [v42 objectForKeyedSubscript:?];
-    v55[10] = v47;
-    v54[11] = @"WriteOperationInfo";
-    v48 = [v42 objectForKeyedSubscript:?];
-    v55[11] = v48;
-    v43 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v55 forKeys:v54 count:12];
+    v52[0] = @"EventType";
+    v52[1] = @"appletIdentifier";
+    v53[0] = @"EndEvent";
+    v53[1] = appletCopy;
+    v52[2] = @"Version";
+    v51 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:*(v22 + 1)];
+    v53[2] = v51;
+    v52[3] = @"Interface";
+    v50 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:*(v22 + 2)];
+    v53[3] = v50;
+    v52[4] = @"didError";
+    v49 = [MEMORY[0x277CCABB0] numberWithBool:v40 != 144];
+    v53[4] = v49;
+    v52[5] = @"command";
+    v43 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:bswap32(v39)];
+    v53[5] = v43;
+    v52[6] = @"status";
+    v44 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:__rev16(v40)];
+    v53[6] = v44;
+    v52[7] = @"result";
+    v45 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:(v40 == 144) << 6];
+    v53[7] = v45;
+    v53[8] = &unk_2843C64A0;
+    v52[8] = @"informative";
+    v52[9] = @"type";
+    v53[9] = &unk_2843C64B8;
+    v52[10] = @"ReadOperationInfo";
+    v46 = [v41 objectForKeyedSubscript:?];
+    v53[10] = v46;
+    v52[11] = @"WriteOperationInfo";
+    v47 = [v41 objectForKeyedSubscript:?];
+    v53[11] = v47;
+    v42 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v53 forKeys:v52 count:12];
   }
 
   else
   {
-    v43 = 0;
+    v42 = 0;
   }
 
 LABEL_32:
-  v49 = *MEMORY[0x277D85DE8];
 
-  return v43;
+  return v42;
 }
 
 - (id)DecodeEndE1TLV:(id *)v error:(id *)error
 {
-  v69[1] = *MEMORY[0x277D85DE8];
-  v52 = 0;
-  v53[0] = 0;
-  v53[1] = 0;
-  v6 = DERDecodeItemCtx(v, &v52);
+  v66[1] = *MEMORY[0x277D85DE8];
+  v49 = 0;
+  v50[0] = 0;
+  v50[1] = 0;
+  v6 = DERDecodeItemCtx(v, &v49);
   if (v6)
   {
     v7 = v6;
-    v8 = ATLLogObject();
+    v8 = ATLLogObject(v6);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       *buf = 67109120;
@@ -3564,32 +3545,31 @@ LABEL_32:
     {
       v11 = *error;
       v12 = MEMORY[0x277CCA9B8];
-      v13 = *MEMORY[0x277CCA450];
       if (*error)
       {
-        v14 = *MEMORY[0x277CCA7E8];
-        v66[0] = *MEMORY[0x277CCA450];
-        v66[1] = v14;
-        v67[0] = v9;
-        v67[1] = v11;
-        v15 = MEMORY[0x277CBEAC0];
-        v16 = v67;
-        v17 = v66;
-        v18 = 2;
+        v13 = *MEMORY[0x277CCA7E8];
+        v63[0] = *MEMORY[0x277CCA450];
+        v63[1] = v13;
+        v64[0] = v9;
+        v64[1] = v11;
+        v14 = MEMORY[0x277CBEAC0];
+        v15 = v64;
+        v16 = v63;
+        v17 = 2;
       }
 
       else
       {
-        v68 = *MEMORY[0x277CCA450];
-        v69[0] = v9;
-        v15 = MEMORY[0x277CBEAC0];
-        v16 = v69;
-        v17 = &v68;
-        v18 = 1;
+        v65 = *MEMORY[0x277CCA450];
+        v66[0] = v9;
+        v14 = MEMORY[0x277CBEAC0];
+        v15 = v66;
+        v16 = &v65;
+        v17 = 1;
       }
 
-      v43 = [v15 dictionaryWithObjects:v16 forKeys:v17 count:v18];
-      *error = [v12 errorWithDomain:@"ATL" code:3 userInfo:v43];
+      v41 = [v14 dictionaryWithObjects:v15 forKeys:v16 count:v17];
+      *error = [v12 errorWithDomain:@"ATL" code:3 userInfo:v41];
     }
 
 LABEL_27:
@@ -3597,101 +3577,100 @@ LABEL_27:
     goto LABEL_28;
   }
 
-  if (v52 != 0xE000000000000001)
+  if (v49 != 0xE000000000000001)
   {
-    v32 = ATLLogObject();
-    if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+    v30 = ATLLogObject(v6);
+    if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
     {
       *buf = 134217984;
-      *&buf[4] = v52;
-      _os_log_impl(&dword_22EEF5000, v32, OS_LOG_TYPE_ERROR, "Unexpected tag 0x%llx", buf, 0xCu);
+      *&buf[4] = v49;
+      _os_log_impl(&dword_22EEF5000, v30, OS_LOG_TYPE_ERROR, "Unexpected tag 0x%llx", buf, 0xCu);
     }
 
-    v33 = objc_alloc(MEMORY[0x277CCACA8]);
-    v51 = v52;
-    v34 = [v33 initWithFormat:@"Unexpected tag 0x%llx"];
-    v35 = v34;
+    v31 = objc_alloc(MEMORY[0x277CCACA8]);
+    v48 = v49;
+    v32 = [v31 initWithFormat:@"Unexpected tag 0x%llx"];
+    v33 = v32;
     if (error)
     {
-      v36 = *error;
-      v37 = MEMORY[0x277CCA9B8];
+      v34 = *error;
+      v35 = MEMORY[0x277CCA9B8];
       if (*error)
       {
-        v38 = *MEMORY[0x277CCA7E8];
-        v62[0] = *MEMORY[0x277CCA450];
-        v62[1] = v38;
-        v63[0] = v34;
-        v63[1] = v36;
-        v39 = MEMORY[0x277CBEAC0];
-        v40 = v63;
-        v41 = v62;
-        v42 = 2;
+        v36 = *MEMORY[0x277CCA7E8];
+        v59[0] = *MEMORY[0x277CCA450];
+        v59[1] = v36;
+        v60[0] = v32;
+        v60[1] = v34;
+        v37 = MEMORY[0x277CBEAC0];
+        v38 = v60;
+        v39 = v59;
+        v40 = 2;
       }
 
       else
       {
-        v64 = *MEMORY[0x277CCA450];
-        v65 = v34;
-        v39 = MEMORY[0x277CBEAC0];
-        v40 = &v65;
-        v41 = &v64;
-        v42 = 1;
+        v61 = *MEMORY[0x277CCA450];
+        v62 = v32;
+        v37 = MEMORY[0x277CBEAC0];
+        v38 = &v62;
+        v39 = &v61;
+        v40 = 1;
       }
 
-      v45 = [v39 dictionaryWithObjects:v40 forKeys:v41 count:v42];
-      *error = [v37 errorWithDomain:@"ATL" code:3 userInfo:v45];
+      v43 = [v37 dictionaryWithObjects:v38 forKeys:v39 count:v40];
+      *error = [v35 errorWithDomain:@"ATL" code:3 userInfo:v43];
     }
 
-    LogBinary(OS_LOG_TYPE_ERROR, "[WuluDecoder DecodeEndE1TLV:error:]", 1416, v->var0, v->var1, @"E1 TLV data", v46, v47, v51);
+    LogBinary(OS_LOG_TYPE_ERROR, "[WuluDecoder DecodeEndE1TLV:error:]", 1416, v->var0, v->var1, @"E1 TLV data", v44, v45, v48);
     goto LABEL_27;
   }
 
   *buf = 0u;
-  v61 = 0;
-  v19 = DERParseSequenceSpec(v53, &EndEventE1ContentSpec, buf, 0x20uLL);
-  if (v19)
+  v58 = 0;
+  v18 = DERParseSequenceSpec(v50, &EndEventE1ContentSpec, buf, 0x20uLL);
+  if (v18)
   {
-    v20 = v19;
-    v21 = ATLLogObject();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    v19 = v18;
+    v20 = ATLLogObject(v18);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
-      *v58 = 67109120;
-      v59 = v20;
-      _os_log_impl(&dword_22EEF5000, v21, OS_LOG_TYPE_ERROR, "Failed to decode E1 contents %d", v58, 8u);
+      *v55 = 67109120;
+      v56 = v19;
+      _os_log_impl(&dword_22EEF5000, v20, OS_LOG_TYPE_ERROR, "Failed to decode E1 contents %d", v55, 8u);
     }
 
-    v22 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Failed to decode E1 contents %d", v20];
-    v23 = v22;
+    v21 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Failed to decode E1 contents %d", v19];
+    v22 = v21;
     if (error)
     {
-      v24 = *error;
-      v25 = MEMORY[0x277CCA9B8];
-      v26 = *MEMORY[0x277CCA450];
+      v23 = *error;
+      v24 = MEMORY[0x277CCA9B8];
       if (*error)
       {
-        v27 = *MEMORY[0x277CCA7E8];
-        v54[0] = *MEMORY[0x277CCA450];
-        v54[1] = v27;
-        v55[0] = v22;
-        v55[1] = v24;
-        v28 = MEMORY[0x277CBEAC0];
-        v29 = v55;
-        v30 = v54;
-        v31 = 2;
+        v25 = *MEMORY[0x277CCA7E8];
+        v51[0] = *MEMORY[0x277CCA450];
+        v51[1] = v25;
+        v52[0] = v21;
+        v52[1] = v23;
+        v26 = MEMORY[0x277CBEAC0];
+        v27 = v52;
+        v28 = v51;
+        v29 = 2;
       }
 
       else
       {
-        v56 = *MEMORY[0x277CCA450];
-        v57 = v22;
-        v28 = MEMORY[0x277CBEAC0];
-        v29 = &v57;
-        v30 = &v56;
-        v31 = 1;
+        v53 = *MEMORY[0x277CCA450];
+        v54 = v21;
+        v26 = MEMORY[0x277CBEAC0];
+        v27 = &v54;
+        v28 = &v53;
+        v29 = 1;
       }
 
-      v50 = [v28 dictionaryWithObjects:v29 forKeys:v30 count:v31];
-      *error = [v25 errorWithDomain:@"ATL" code:3 userInfo:v50];
+      v47 = [v26 dictionaryWithObjects:v27 forKeys:v28 count:v29];
+      *error = [v24 errorWithDomain:@"ATL" code:3 userInfo:v47];
 
       error = 0;
     }
@@ -3705,27 +3684,26 @@ LABEL_27:
       goto LABEL_28;
     }
 
-    v44 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:ReadS32BE(buf)];
-    [error setObject:v44 forKeyedSubscript:@"ReadOperationInfo"];
+    v42 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:ReadS32BE(buf)];
+    [error setObject:v42 forKeyedSubscript:@"ReadOperationInfo"];
 
-    v23 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:ReadS32BE(&v61)];
-    [error setObject:v23 forKeyedSubscript:@"WriteOperationInfo"];
+    v22 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:ReadS32BE(&v58)];
+    [error setObject:v22 forKeyedSubscript:@"WriteOperationInfo"];
   }
 
 LABEL_28:
-  v48 = *MEMORY[0x277D85DE8];
 
   return error;
 }
 
 - (id)processEndOfTransaction:(id)transaction withApplet:(id)applet withPackage:(id)package withModule:(id)module withError:(id *)error
 {
-  v26[1] = *MEMORY[0x277D85DE8];
-  v8 = ATLLogObject();
+  v24[1] = *MEMORY[0x277D85DE8];
+  v8 = ATLLogObject(self);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
   {
-    *v22 = 0;
-    _os_log_impl(&dword_22EEF5000, v8, OS_LOG_TYPE_ERROR, "Wulu decoder doesn't expect processEndOfTransaction", v22, 2u);
+    *v20 = 0;
+    _os_log_impl(&dword_22EEF5000, v8, OS_LOG_TYPE_ERROR, "Wulu decoder doesn't expect processEndOfTransaction", v20, 2u);
   }
 
   v9 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Wulu decoder doesn't expect processEndOfTransaction"];
@@ -3734,61 +3712,59 @@ LABEL_28:
   {
     v11 = *error;
     v12 = MEMORY[0x277CCA9B8];
-    v13 = *MEMORY[0x277CCA450];
     if (*error)
     {
-      v14 = *MEMORY[0x277CCA7E8];
-      v23[0] = *MEMORY[0x277CCA450];
-      v23[1] = v14;
-      v24[0] = v9;
-      v24[1] = v11;
-      v15 = MEMORY[0x277CBEAC0];
-      v16 = v24;
-      v17 = v23;
-      v18 = 2;
+      v13 = *MEMORY[0x277CCA7E8];
+      v21[0] = *MEMORY[0x277CCA450];
+      v21[1] = v13;
+      v22[0] = v9;
+      v22[1] = v11;
+      v14 = MEMORY[0x277CBEAC0];
+      v15 = v22;
+      v16 = v21;
+      v17 = 2;
     }
 
     else
     {
-      v25 = *MEMORY[0x277CCA450];
-      v26[0] = v9;
-      v15 = MEMORY[0x277CBEAC0];
-      v16 = v26;
-      v17 = &v25;
-      v18 = 1;
+      v23 = *MEMORY[0x277CCA450];
+      v24[0] = v9;
+      v14 = MEMORY[0x277CBEAC0];
+      v15 = v24;
+      v16 = &v23;
+      v17 = 1;
     }
 
-    v19 = [v15 dictionaryWithObjects:v16 forKeys:v17 count:v18];
-    *error = [v12 errorWithDomain:@"ATL" code:7 userInfo:v19];
+    v18 = [v14 dictionaryWithObjects:v15 forKeys:v16 count:v17];
+    *error = [v12 errorWithDomain:@"ATL" code:7 userInfo:v18];
   }
 
-  v20 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
 - (id)setTimer:(id)timer history:(id)history
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   timerCopy = timer;
   historyCopy = history;
   v7 = historyCopy;
   if (!historyCopy)
   {
-    v25 = 0;
+    v30 = 0;
     goto LABEL_35;
   }
 
   v8 = [historyCopy count];
   if (!v8)
   {
-    v11 = ATLLogObject();
+    v11 = ATLLogObject(0);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
       _os_log_impl(&dword_22EEF5000, v11, OS_LOG_TYPE_DEFAULT, "No history found.", buf, 2u);
     }
 
-    v25 = 0;
+    v30 = 0;
     goto LABEL_34;
   }
 
@@ -3798,135 +3774,139 @@ LABEL_28:
 
   if (!v11)
   {
-    v13 = ATLLogObject();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v14 = ATLLogObject(v12);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_22EEF5000, v13, OS_LOG_TYPE_DEFAULT, "No city code in the last history record.", buf, 2u);
+      _os_log_impl(&dword_22EEF5000, v14, OS_LOG_TYPE_DEFAULT, "No city code in the last history record.", buf, 2u);
     }
 
-    v25 = 0;
+    v30 = 0;
     goto LABEL_33;
   }
 
-  v12 = [v7 objectAtIndexedSubscript:0];
-  v13 = [v12 objectForKeyedSubscript:@"TerminalIdentifier"];
+  v13 = [v7 objectAtIndexedSubscript:0];
+  v14 = [v13 objectForKeyedSubscript:@"TerminalIdentifier"];
 
   if (v9 == 1)
   {
 LABEL_9:
-    v15 = [MEMORY[0x277CBEA90] dataWithShortBE:{-[NSObject intValue](v11, "intValue")}];
-    v18 = +[AppletConfigurationData getWuluSettings];
-    v19 = [v18 objectForKeyedSubscript:@"timerScript"];
-    asHexString = [v15 asHexString];
-    v17 = [v19 objectForKeyedSubscript:asHexString];
+    v16 = [MEMORY[0x277CBEA90] dataWithShortBE:{-[NSObject intValue](v11, "intValue")}];
+    v21 = +[AppletConfigurationData getWuluSettings];
+    v22 = [v21 objectForKeyedSubscript:@"timerScript"];
+    asHexString = [v16 asHexString];
+    v18 = [v22 objectForKeyedSubscript:asHexString];
 
-    if (v17)
+    if (v18)
     {
-      goto LABEL_13;
+      goto LABEL_40;
     }
 
-    v21 = ATLLogObject();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+    v25 = ATLLogObject(v24);
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109120;
-      LODWORD(v36) = [v11 intValue];
-      _os_log_impl(&dword_22EEF5000, v21, OS_LOG_TYPE_DEFAULT, "No available timer for %02X, use the default one.", buf, 8u);
+      LODWORD(v40) = [v11 intValue];
+      _os_log_impl(&dword_22EEF5000, v25, OS_LOG_TYPE_DEFAULT, "No available timer for %02X, use the default one.", buf, 8u);
     }
 
-    v22 = +[AppletConfigurationData getWuluSettings];
-    v23 = [v22 objectForKeyedSubscript:@"timerScript"];
-    v17 = [v23 objectForKeyedSubscript:@"default"];
+    v26 = +[AppletConfigurationData getWuluSettings];
+    v27 = [v26 objectForKeyedSubscript:@"timerScript"];
+    v18 = [v27 objectForKeyedSubscript:@"default"];
 
-    if (v17)
+    if (v18)
     {
-LABEL_13:
-      if ([v17 count] == 3)
+LABEL_40:
+      v28 = [v18 count];
+      if (v28 == 3)
       {
-        v24 = ATLLogObject();
-        if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+        v29 = ATLLogObject(3);
+        if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v36 = v11;
-          _os_log_impl(&dword_22EEF5000, v24, OS_LOG_TYPE_DEFAULT, "Set timer for city code = %@.", buf, 0xCu);
+          v40 = v11;
+          _os_log_impl(&dword_22EEF5000, v29, OS_LOG_TYPE_DEFAULT, "Set timer for city code = %@.", buf, 0xCu);
         }
 
-        v34 = 0;
-        [timerCopy applyScript:v17 error:&v34];
-        v25 = v34;
+        v38 = 0;
+        [timerCopy applyScript:v18 error:&v38];
+        v30 = v38;
         goto LABEL_32;
       }
     }
 
-    v26 = ATLLogObject();
-    if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+    v31 = ATLLogObject(v28);
+    if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
     {
-      v27 = [v17 count];
+      v32 = [v18 count];
       *buf = 67109120;
-      LODWORD(v36) = v27;
-      v28 = "No available timer or timers count %u != 3";
-      v29 = v26;
-      v30 = OS_LOG_TYPE_ERROR;
-      v31 = 8;
+      LODWORD(v40) = v32;
+      v33 = "No available timer or timers count %u != 3";
+      v34 = v31;
+      v35 = OS_LOG_TYPE_ERROR;
+      v36 = 8;
 LABEL_30:
-      _os_log_impl(&dword_22EEF5000, v29, v30, v28, buf, v31);
+      _os_log_impl(&dword_22EEF5000, v34, v35, v33, buf, v36);
       goto LABEL_31;
     }
 
     goto LABEL_31;
   }
 
-  v14 = [v7 objectAtIndexedSubscript:1];
-  v15 = [v14 objectForKeyedSubscript:@"CityCode"];
+  v15 = [v7 objectAtIndexedSubscript:1];
+  v16 = [v15 objectForKeyedSubscript:@"CityCode"];
 
-  v16 = [v7 objectAtIndexedSubscript:1];
-  v17 = [v16 objectForKeyedSubscript:@"TerminalIdentifier"];
+  v17 = [v7 objectAtIndexedSubscript:1];
+  v18 = [v17 objectForKeyedSubscript:@"TerminalIdentifier"];
 
-  if (v17)
+  if (v18)
   {
-    if ([v15 isEqualToNumber:v11] && (-[NSObject isEqualToData:](v13, "isEqualToData:", v17) & 1) == 0)
+    if ([v16 isEqualToNumber:v11])
     {
-      v26 = ATLLogObject();
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+      v20 = [v14 isEqualToData:v18];
+      if ((v20 & 1) == 0)
       {
-        *buf = 138412290;
-        v36 = v11;
-        v28 = "Same city city code = %@ and same on terminal, ignore the timer set.";
-        v29 = v26;
-        v30 = OS_LOG_TYPE_DEFAULT;
-        v31 = 12;
-        goto LABEL_30;
-      }
+        v31 = ATLLogObject(v20);
+        if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+        {
+          *buf = 138412290;
+          v40 = v11;
+          v33 = "Same city city code = %@ and same on terminal, ignore the timer set.";
+          v34 = v31;
+          v35 = OS_LOG_TYPE_DEFAULT;
+          v36 = 12;
+          goto LABEL_30;
+        }
 
-      goto LABEL_31;
+        goto LABEL_31;
+      }
     }
 
     goto LABEL_9;
   }
 
-  v26 = ATLLogObject();
-  if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+  v31 = ATLLogObject(v19);
+  if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
   {
     *buf = 0;
-    v28 = "No terminal id in transaction.";
-    v29 = v26;
-    v30 = OS_LOG_TYPE_ERROR;
-    v31 = 2;
+    v33 = "No terminal id in transaction.";
+    v34 = v31;
+    v35 = OS_LOG_TYPE_ERROR;
+    v36 = 2;
     goto LABEL_30;
   }
 
 LABEL_31:
 
-  v25 = 0;
+  v30 = 0;
 LABEL_32:
 
 LABEL_33:
 LABEL_34:
 
 LABEL_35:
-  v32 = *MEMORY[0x277D85DE8];
 
-  return v25;
+  return v30;
 }
 
 @end

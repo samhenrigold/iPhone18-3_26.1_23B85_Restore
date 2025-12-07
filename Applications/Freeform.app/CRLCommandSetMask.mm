@@ -29,7 +29,7 @@
   static UUID._unconditionallyBridgeFromObjectiveC(_:)();
   (*(v7 + 16))(self + OBJC_IVAR____TtC8Freeform17CRLCommandSetMask_id, v9, v6);
   *(self + OBJC_IVAR____TtC8Freeform17CRLCommandSetMask_maskInfo) = info;
-  v10 = type metadata accessor for CRLCommandSetMask();
+  v10 = type metadata accessor for CRLCommandSetMask(0);
   v14.receiver = self;
   v14.super_class = v10;
   infoCopy = info;

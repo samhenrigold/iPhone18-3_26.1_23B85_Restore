@@ -139,19 +139,18 @@ LABEL_8:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v10 = toCopy;
+  v6 = toCopy;
   if (self->_pairingData)
   {
     PBDataWriterWriteDataField();
-    toCopy = v10;
+    toCopy = v6;
   }
 
   has = self->_has;
   if ((has & 2) != 0)
   {
-    status = self->_status;
     PBDataWriterWriteInt32Field();
-    toCopy = v10;
+    toCopy = v6;
     has = self->_has;
     if ((has & 4) == 0)
     {
@@ -170,9 +169,8 @@ LABEL_5:
     goto LABEL_5;
   }
 
-  isRetrying = self->_isRetrying;
   PBDataWriterWriteBOOLField();
-  toCopy = v10;
+  toCopy = v6;
   has = self->_has;
   if ((has & 8) == 0)
   {
@@ -186,15 +184,13 @@ LABEL_6:
   }
 
 LABEL_13:
-  isUsingSystemPairing = self->_isUsingSystemPairing;
   PBDataWriterWriteBOOLField();
-  toCopy = v10;
+  toCopy = v6;
   if (*&self->_has)
   {
 LABEL_7:
-    state = self->_state;
     PBDataWriterWriteInt32Field();
-    toCopy = v10;
+    toCopy = v6;
   }
 
 LABEL_8:
@@ -354,7 +350,6 @@ LABEL_5:
       goto LABEL_28;
     }
 
-    v7 = *(equalCopy + 24);
     if (self->_isRetrying)
     {
       if ((*(equalCopy + 24) & 1) == 0)
@@ -391,7 +386,6 @@ LABEL_28:
     goto LABEL_28;
   }
 
-  v8 = *(equalCopy + 25);
   if (self->_isUsingSystemPairing)
   {
     if ((*(equalCopy + 25) & 1) == 0)

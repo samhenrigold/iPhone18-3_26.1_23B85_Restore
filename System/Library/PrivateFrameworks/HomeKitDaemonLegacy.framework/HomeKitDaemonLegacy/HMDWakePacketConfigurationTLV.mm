@@ -196,37 +196,37 @@ LABEL_31:
 
 - (id)serializeWithError:(id *)error
 {
-  v57 = *MEMORY[0x277D85DE8];
-  v55 = 0u;
-  v56 = 0u;
-  v53 = 0u;
+  v56 = *MEMORY[0x277D85DE8];
   v54 = 0u;
-  v51 = 0u;
+  v55 = 0u;
   v52 = 0u;
-  v49 = 0u;
+  v53 = 0u;
   v50 = 0u;
-  v47 = 0u;
+  v51 = 0u;
   v48 = 0u;
-  v45 = 0u;
+  v49 = 0u;
   v46 = 0u;
-  v43 = 0u;
+  v47 = 0u;
   v44 = 0u;
+  v45 = 0u;
   v42 = 0u;
-  v40 = 0u;
+  v43 = 0u;
   v41 = 0u;
-  v38 = 0u;
   v39 = 0u;
-  v36 = 0u;
+  v40 = 0u;
   v37 = 0u;
+  v38 = 0u;
+  v35 = 0u;
+  v36 = 0u;
   TLV8BufferInit();
   wakePacketType = [(HMDWakePacketConfigurationTLV *)self wakePacketType];
 
   if (wakePacketType)
   {
     wakePacketType2 = [(HMDWakePacketConfigurationTLV *)self wakePacketType];
-    v35 = 0;
-    v7 = [wakePacketType2 serializeWithError:&v35];
-    v8 = v35;
+    v34 = 0;
+    v7 = [wakePacketType2 serializeWithError:&v34];
+    v8 = v34;
 
     if (v8)
     {
@@ -260,9 +260,9 @@ LABEL_30:
   if (wakeDestinationPort)
   {
     wakeDestinationPort2 = [(HMDWakePacketConfigurationTLV *)self wakeDestinationPort];
-    v34 = 0;
-    v7 = [wakeDestinationPort2 serializeWithError:&v34];
-    v8 = v34;
+    v33 = 0;
+    v7 = [wakeDestinationPort2 serializeWithError:&v33];
+    v8 = v33;
 
     if (v8)
     {
@@ -282,9 +282,9 @@ LABEL_30:
   if (wakeDestinationAddress)
   {
     wakeDestinationAddress2 = [(HMDWakePacketConfigurationTLV *)self wakeDestinationAddress];
-    v33 = 0;
-    v7 = [wakeDestinationAddress2 serializeWithError:&v33];
-    v8 = v33;
+    v32 = 0;
+    v7 = [wakeDestinationAddress2 serializeWithError:&v32];
+    v8 = v32;
 
     if (!v8)
     {
@@ -326,9 +326,9 @@ LABEL_22:
   if (wakeType)
   {
     wakeType2 = [(HMDWakePacketConfigurationTLV *)self wakeType];
-    v32 = 0;
-    v7 = [wakeType2 serializeWithError:&v32];
-    v8 = v32;
+    v31 = 0;
+    v7 = [wakeType2 serializeWithError:&v31];
+    v8 = v31;
 
     if (v8)
     {
@@ -348,9 +348,9 @@ LABEL_22:
   if (wakePattern)
   {
     wakePattern2 = [(HMDWakePacketConfigurationTLV *)self wakePattern];
-    v31 = 0;
-    v7 = [wakePattern2 serializeWithError:&v31];
-    v8 = v31;
+    v30 = 0;
+    v7 = [wakePattern2 serializeWithError:&v30];
+    v8 = v30;
 
     if (v8)
     {
@@ -358,57 +358,55 @@ LABEL_22:
     }
 
     bytes2 = [v7 bytes];
-    v25 = bytes2 + [v7 length];
+    v24 = bytes2 + [v7 length];
     do
     {
-      if ((v25 - bytes2) >= 255)
+      if ((v24 - bytes2) >= 255)
       {
-        v26 = 255;
+        v25 = 255;
       }
 
       else
       {
-        v26 = v25 - bytes2;
+        v25 = v24 - bytes2;
       }
 
-      v27 = TLV8BufferAppend();
-      if (v27)
+      v26 = TLV8BufferAppend();
+      if (v26)
       {
-        v28 = 0;
-      }
-
-      else
-      {
-        v28 = v26;
-      }
-
-      bytes2 += v28;
-      if (v27)
-      {
-        v29 = 1;
+        v27 = 0;
       }
 
       else
       {
-        v29 = bytes2 >= v25;
+        v27 = v25;
+      }
+
+      bytes2 += v27;
+      if (v26)
+      {
+        v28 = 1;
+      }
+
+      else
+      {
+        v28 = bytes2 >= v24;
       }
     }
 
-    while (!v29);
-    v30 = v27;
+    while (!v28);
+    v29 = v26;
 
-    if (v30)
+    if (v29)
     {
       goto LABEL_9;
     }
   }
 
-  v11 = [MEMORY[0x277CBEA90] dataWithBytes:v36 length:?];
+  v11 = [MEMORY[0x277CBEA90] dataWithBytes:v35 length:?];
   v8 = 0;
 LABEL_31:
   TLV8BufferFree();
-
-  v22 = *MEMORY[0x277D85DE8];
 
   return v11;
 }

@@ -1,5 +1,6 @@
 @interface CALNPersistentTriggeredEventNotificationDataStorage
 + (id)notificationDataFromPersistentStorageWithPath:(id)path error:(id *)error;
++ (id)persistentStorageWithPath:(id)path isProtectedStorage:(BOOL)storage;
 - (BOOL)_loadDataWithError:(id *)error;
 - (BOOL)_saveDataWithError:(id *)error;
 - (CALNPersistentTriggeredEventNotificationDataStorage)initWithPath:(id)path isProtectedStorage:(BOOL)storage;
@@ -15,9 +16,31 @@
 
 @implementation CALNPersistentTriggeredEventNotificationDataStorage
 
++ (id)persistentStorageWithPath:(id)path isProtectedStorage:(BOOL)storage
+{
+  storageCopy = storage;
+  pathCopy = path;
+  v7 = [[self alloc] initWithPath:pathCopy isProtectedStorage:storageCopy];
+  workQueue = [v7 workQueue];
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __100__CALNPersistentTriggeredEventNotificationDataStorage_persistentStorageWithPath_isProtectedStorage___block_invoke;
+  v14[3] = &unk_278D6F278;
+  v15 = pathCopy;
+  v9 = v7;
+  v16 = v9;
+  v10 = pathCopy;
+  dispatch_sync(workQueue, v14);
+
+  v11 = v16;
+  v12 = v9;
+
+  return v9;
+}
+
 void __100__CALNPersistentTriggeredEventNotificationDataStorage_persistentStorageWithPath_isProtectedStorage___block_invoke(uint64_t a1)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CCAA00] defaultManager];
   v4 = *(a1 + 32);
   v3 = (a1 + 32);
@@ -26,9 +49,9 @@ void __100__CALNPersistentTriggeredEventNotificationDataStorage_persistentStorag
   v6 = v3[1];
   if (v5)
   {
-    v18 = 0;
-    v7 = [v6 _loadDataWithError:&v18];
-    v8 = v18;
+    v17 = 0;
+    v7 = [v6 _loadDataWithError:&v17];
+    v8 = v17;
     v9 = +[CALNLogSubsystem defaultCategory];
     v10 = v9;
     if (v7)
@@ -37,7 +60,7 @@ void __100__CALNPersistentTriggeredEventNotificationDataStorage_persistentStorag
       {
         v11 = *v3;
         *buf = 138543362;
-        v20 = v11;
+        v19 = v11;
         v12 = "Triggered event notification storage file loaded from path %{public}@.";
 LABEL_8:
         _os_log_impl(&dword_242909000, v10, OS_LOG_TYPE_DEFAULT, v12, buf, 0xCu);
@@ -52,9 +75,9 @@ LABEL_8:
 
   else
   {
-    v17 = 0;
-    v13 = [v6 _saveDataWithError:&v17];
-    v8 = v17;
+    v16 = 0;
+    v13 = [v6 _saveDataWithError:&v16];
+    v8 = v16;
     v14 = +[CALNLogSubsystem defaultCategory];
     v10 = v14;
     if (v13)
@@ -63,7 +86,7 @@ LABEL_8:
       {
         v15 = *v3;
         *buf = 138543362;
-        v20 = v15;
+        v19 = v15;
         v12 = "Triggered event notificationß storage file did not exist at path = %{public}@. Created a new file.";
         goto LABEL_8;
       }
@@ -74,8 +97,6 @@ LABEL_8:
       __100__CALNPersistentTriggeredEventNotificationDataStorage_persistentStorageWithPath_isProtectedStorage___block_invoke_cold_1(v3);
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 + (id)notificationDataFromPersistentStorageWithPath:(id)path error:(id *)error
@@ -94,19 +115,17 @@ LABEL_8:
   return v8;
 }
 
-void __107__CALNPersistentTriggeredEventNotificationDataStorage_notificationDataFromPersistentStorageWithPath_error___block_invoke()
+void __107__CALNPersistentTriggeredEventNotificationDataStorage_notificationDataFromPersistentStorageWithPath_error___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = MEMORY[0x277CBEB98];
-  v5 = objc_opt_class();
+  v9 = *MEMORY[0x277D85DE8];
+  v2 = MEMORY[0x277CBEB98];
   v6 = objc_opt_class();
   v7 = objc_opt_class();
-  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:&v5 count:3];
-  v2 = [v0 setWithArray:{v1, v5, v6}];
-  v3 = notificationDataFromPersistentStorageWithPath_error__allowedClasses;
-  notificationDataFromPersistentStorageWithPath_error__allowedClasses = v2;
-
-  v4 = *MEMORY[0x277D85DE8];
+  v8 = objc_opt_class();
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:&v6 count:3];
+  v4 = [v2 setWithArray:{v3, v6, v7}];
+  v5 = notificationDataFromPersistentStorageWithPath_error__allowedClasses;
+  notificationDataFromPersistentStorageWithPath_error__allowedClasses = v4;
 }
 
 - (CALNPersistentTriggeredEventNotificationDataStorage)initWithPath:(id)path isProtectedStorage:(BOOL)storage
@@ -250,7 +269,7 @@ void __86__CALNPersistentTriggeredEventNotificationDataStorage_notificationDataW
 
 - (void)_addNotificationData:(id)data withIdentifier:(id)identifier
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   identifierCopy = identifier;
   workQueue = [(CALNPersistentTriggeredEventNotificationDataStorage *)self workQueue];
@@ -259,25 +278,23 @@ void __86__CALNPersistentTriggeredEventNotificationDataStorage_notificationDataW
   inMemoryStorage = [(CALNPersistentTriggeredEventNotificationDataStorage *)self inMemoryStorage];
   [inMemoryStorage addNotificationData:dataCopy withIdentifier:identifierCopy];
 
-  v13 = 0;
-  LOBYTE(inMemoryStorage) = [(CALNPersistentTriggeredEventNotificationDataStorage *)self _saveDataWithError:&v13];
-  v10 = v13;
+  v12 = 0;
+  LOBYTE(inMemoryStorage) = [(CALNPersistentTriggeredEventNotificationDataStorage *)self _saveDataWithError:&v12];
+  v10 = v12;
   if ((inMemoryStorage & 1) == 0)
   {
     v11 = +[CALNLogSubsystem calendar];
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543874;
-      v15 = v10;
-      v16 = 2114;
-      v17 = identifierCopy;
-      v18 = 2112;
-      v19 = dataCopy;
+      v14 = v10;
+      v15 = 2114;
+      v16 = identifierCopy;
+      v17 = 2112;
+      v18 = dataCopy;
       _os_log_error_impl(&dword_242909000, v11, OS_LOG_TYPE_ERROR, "Could not save notification data. error = %{public}@, identifier = %{public}@, data = %@", buf, 0x20u);
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_removeNotificationDataWithIdentifier:(id)identifier
@@ -325,7 +342,7 @@ void __86__CALNPersistentTriggeredEventNotificationDataStorage_notificationDataW
 
 - (BOOL)_loadDataWithError:(id *)error
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   workQueue = [(CALNPersistentTriggeredEventNotificationDataStorage *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
@@ -339,19 +356,18 @@ void __86__CALNPersistentTriggeredEventNotificationDataStorage_notificationDataW
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
-      v14 = [v8 count];
+      v13 = [v8 count];
       _os_log_impl(&dword_242909000, v9, OS_LOG_TYPE_DEFAULT, "Loaded notification meta data, count = %lu", buf, 0xCu);
     }
 
-    v12[0] = MEMORY[0x277D85DD0];
-    v12[1] = 3221225472;
-    v12[2] = __74__CALNPersistentTriggeredEventNotificationDataStorage__loadDataWithError___block_invoke;
-    v12[3] = &unk_278D6FD10;
-    v12[4] = self;
-    [v8 enumerateKeysAndObjectsUsingBlock:v12];
+    v11[0] = MEMORY[0x277D85DD0];
+    v11[1] = 3221225472;
+    v11[2] = __74__CALNPersistentTriggeredEventNotificationDataStorage__loadDataWithError___block_invoke;
+    v11[3] = &unk_278D6FD10;
+    v11[4] = self;
+    [v8 enumerateKeysAndObjectsUsingBlock:v11];
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return v8 != 0;
 }
 
@@ -437,39 +453,25 @@ LABEL_15:
 
 void __100__CALNPersistentTriggeredEventNotificationDataStorage_persistentStorageWithPath_isProtectedStorage___block_invoke_cold_1(void *a1)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  LODWORD(v4) = 138543618;
-  *(&v4 + 4) = *a1;
+  LODWORD(v3) = 138543618;
+  *(&v3 + 4) = *a1;
   OUTLINED_FUNCTION_1_4();
-  OUTLINED_FUNCTION_2_0(&dword_242909000, v1, v2, "Triggered event notification storage file did not exist at path = %{public}@. Creating a new file FAILED with error: %@", v4, DWORD2(v4));
-  v3 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2_0(&dword_242909000, v1, v2, "Triggered event notification storage file did not exist at path = %{public}@. Creating a new file FAILED with error: %@", v3, DWORD2(v3));
 }
 
 void __100__CALNPersistentTriggeredEventNotificationDataStorage_persistentStorageWithPath_isProtectedStorage___block_invoke_cold_2(void *a1)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  LODWORD(v4) = 138543618;
-  *(&v4 + 4) = *a1;
+  LODWORD(v3) = 138543618;
+  *(&v3 + 4) = *a1;
   OUTLINED_FUNCTION_1_4();
-  OUTLINED_FUNCTION_2_0(&dword_242909000, v1, v2, "Couldn't read existing persistent triggered event notification storage at path %{public}@. Will proceed anyway, which may mean contents will be overwritten. Error: %@", v4, DWORD2(v4));
-  v3 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_removeNotificationDataWithIdentifier:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_2_0(&dword_242909000, v0, v1, "Could not save after removing notification data. error = %{public}@, identifier = %{public}@");
-  v2 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2_0(&dword_242909000, v1, v2, "Couldn't read existing persistent triggered event notification storage at path %{public}@. Will proceed anyway, which may mean contents will be overwritten. Error: %@", v3, DWORD2(v3));
 }
 
 - (void)_saveDataWithError:.cold.2()
 {
-  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_1_4();
   OUTLINED_FUNCTION_2_0(&dword_242909000, v0, v1, "Error archiving notification data (%@). error = %@");
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 @end

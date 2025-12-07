@@ -241,7 +241,7 @@ LABEL_13:
 
 void __78__SUScriptStorePageViewController_loadWebArchiveWithIdentifier_fromDirectory___block_invoke(uint64_t a1)
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) _pathForWebArchiveWithIdentifier:*(a1 + 40) inDirectory:*(a1 + 48)];
   v3 = [MEMORY[0x1E69DC668] sharedApplication];
   v4 = [v3 launchedToTest];
@@ -258,9 +258,9 @@ void __78__SUScriptStorePageViewController_loadWebArchiveWithIdentifier_fromDire
 
   if (!v5)
   {
-    v25 = 0;
-    v6 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithContentsOfFile:v2 options:0 error:&v25];
-    v7 = v25;
+    v24 = 0;
+    v6 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithContentsOfFile:v2 options:0 error:&v24];
+    v7 = v24;
     if (v6)
     {
       v8 = [objc_alloc(MEMORY[0x1E69E2F30]) initWithData:v6];
@@ -272,49 +272,53 @@ void __78__SUScriptStorePageViewController_loadWebArchiveWithIdentifier_fromDire
         [v9 reloadWithStorePage:v8 ofType:1 forURL:v11];
 
         *(*(*(a1 + 56) + 8) + 24) = 1;
-LABEL_26:
+LABEL_28:
 
-        goto LABEL_27;
+        goto LABEL_29;
       }
 
       v14 = [MEMORY[0x1E69D4938] sharedConfig];
       v18 = [v14 shouldLog];
       if ([v14 shouldLogToDisk])
       {
-        v19 = v18 | 2;
+        LODWORD(v19) = v18 | 2;
       }
 
       else
       {
-        v19 = v18;
+        LODWORD(v19) = v18;
       }
 
       v20 = [v14 OSLogObject];
-      if (!os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+      {
+        v19 = v19;
+      }
+
+      else
       {
         v19 &= 2u;
       }
 
       if (!v19)
       {
-        goto LABEL_24;
+        goto LABEL_26;
       }
 
       v21 = objc_opt_class();
-      v26 = 138412546;
-      v27 = v21;
-      v28 = 2112;
-      v29 = v2;
+      v25 = 138412546;
+      v26 = v21;
+      v27 = 2112;
+      v28 = v2;
       v22 = v21;
-      LODWORD(v24) = 22;
-      v23 = _os_log_send_and_compose_impl();
+      v23 = _os_log_send_and_compose_impl(v19, 0, 0, 0, &dword_1C21AF000, v20, 0, "%@: Could not load web archive %@", &v25, 22);
 
       if (v23)
       {
-        v20 = [MEMORY[0x1E696AEC0] stringWithCString:v23 encoding:{4, &v26, v24}];
+        v20 = [MEMORY[0x1E696AEC0] stringWithCString:v23 encoding:4];
         free(v23);
         SSFileLog();
-LABEL_24:
+LABEL_26:
       }
     }
 
@@ -324,16 +328,21 @@ LABEL_24:
       v12 = [v8 shouldLog];
       if ([v8 shouldLogToDisk])
       {
-        v13 = v12 | 2;
+        LODWORD(v13) = v12 | 2;
       }
 
       else
       {
-        v13 = v12;
+        LODWORD(v13) = v12;
       }
 
       v14 = [v8 OSLogObject];
-      if (!os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+      {
+        v13 = v13;
+      }
+
+      else
       {
         v13 &= 2u;
       }
@@ -341,31 +350,30 @@ LABEL_24:
       if (v13)
       {
         v15 = objc_opt_class();
-        v26 = 138412802;
-        v27 = v15;
-        v28 = 2112;
-        v29 = v2;
-        v30 = 2112;
-        v31 = v7;
+        v25 = 138412802;
+        v26 = v15;
+        v27 = 2112;
+        v28 = v2;
+        v29 = 2112;
+        v30 = v7;
         v16 = v15;
-        LODWORD(v24) = 32;
-        v17 = _os_log_send_and_compose_impl();
+        v17 = _os_log_send_and_compose_impl(v13, 0, 0, 0, &dword_1C21AF000, v14, 0, "%@: Could not load web archive data %@: %@", &v25, 32);
 
         if (!v17)
         {
-          goto LABEL_26;
+          goto LABEL_28;
         }
 
-        v14 = [MEMORY[0x1E696AEC0] stringWithCString:v17 encoding:{4, &v26, v24}];
+        v14 = [MEMORY[0x1E696AEC0] stringWithCString:v17 encoding:4];
         free(v17);
         SSFileLog();
       }
     }
 
-    goto LABEL_26;
+    goto LABEL_28;
   }
 
-LABEL_27:
+LABEL_29:
 }
 
 - (void)reloadWithCallback:(id)callback
@@ -427,13 +435,13 @@ uint64_t __54__SUScriptStorePageViewController_reloadWithCallback___block_invoke
 
 - (id)saveWebArchiveWithIdentifier:(id)identifier toDirectory:(id)directory
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   directoryCopy = directory;
-  v28 = 0;
-  v29 = &v28;
-  v30 = 0x2020000000;
-  v31 = 0;
+  v27 = 0;
+  v28 = &v27;
+  v29 = 0x2020000000;
+  v30 = 0;
   objc_opt_class();
   if (objc_opt_isKindOfClass() & 1) != 0 || (objc_opt_class(), (objc_opt_isKindOfClass()))
   {
@@ -449,17 +457,17 @@ uint64_t __54__SUScriptStorePageViewController_reloadWithCallback___block_invoke
       v8 = [(SUScriptStorePageViewController *)self _pathForWebArchiveWithIdentifier:identifierCopy inDirectory:directoryCopy];
       if (v8)
       {
-        v27[1] = MEMORY[0x1E69E9820];
-        v27[2] = 3221225472;
-        v27[3] = __76__SUScriptStorePageViewController_saveWebArchiveWithIdentifier_toDirectory___block_invoke;
-        v27[4] = &unk_1E8164320;
-        v27[5] = &v28;
+        v26[1] = MEMORY[0x1E69E9820];
+        v26[2] = 3221225472;
+        v26[3] = __76__SUScriptStorePageViewController_saveWebArchiveWithIdentifier_toDirectory___block_invoke;
+        v26[4] = &unk_1E8164320;
+        v26[5] = &v27;
         WebThreadRunOnMainThread();
       }
 
-      if (*(v29 + 24) != 1)
+      if (*(v28 + 24) != 1)
       {
-        goto LABEL_21;
+        goto LABEL_22;
       }
 
       webFrame = [(SUScriptObject *)self webFrame];
@@ -467,66 +475,70 @@ uint64_t __54__SUScriptStorePageViewController_reloadWithCallback___block_invoke
       webArchive = [dataSource webArchive];
 
       data = [webArchive data];
-      v27[0] = 0;
-      v12 = [data writeToFile:v8 options:0 error:v27];
-      v13 = v27[0];
-      *(v29 + 24) = v12;
+      v26[0] = 0;
+      v12 = [data writeToFile:v8 options:0 error:v26];
+      v13 = v26[0];
+      *(v28 + 24) = v12;
 
-      if (v29[3])
+      if (v28[3])
       {
-LABEL_20:
-
 LABEL_21:
-        goto LABEL_23;
+
+LABEL_22:
+        goto LABEL_24;
       }
 
       mEMORY[0x1E69D4938] = [MEMORY[0x1E69D4938] sharedConfig];
-      shouldLog = [mEMORY[0x1E69D4938] shouldLog];
+      LODWORD(v15) = [mEMORY[0x1E69D4938] shouldLog];
       shouldLogToDisk = [mEMORY[0x1E69D4938] shouldLogToDisk];
       oSLogObject = [mEMORY[0x1E69D4938] OSLogObject];
       v18 = oSLogObject;
       if (shouldLogToDisk)
       {
-        shouldLog |= 2u;
+        LODWORD(v15) = v15 | 2;
       }
 
-      if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
       {
-        shouldLog &= 2u;
+        v15 = v15;
       }
 
-      if (shouldLog)
+      else
+      {
+        v15 &= 2u;
+      }
+
+      if (v15)
       {
         v19 = objc_opt_class();
-        v32 = 138412802;
-        v33 = v19;
-        v34 = 2112;
-        v35 = v8;
-        v36 = 2112;
-        v37 = v13;
+        v31 = 138412802;
+        v32 = v19;
+        v33 = 2112;
+        v34 = v8;
+        v35 = 2112;
+        v36 = v13;
         v20 = v19;
-        LODWORD(v25) = 32;
-        v21 = _os_log_send_and_compose_impl();
+        v21 = _os_log_send_and_compose_impl(v15, 0, 0, 0, &dword_1C21AF000, v18, 0, "%@: Could not save web archive %@: %@", &v31, 32);
 
         if (!v21)
         {
-LABEL_19:
+LABEL_20:
 
-          goto LABEL_20;
+          goto LABEL_21;
         }
 
-        v18 = [MEMORY[0x1E696AEC0] stringWithCString:v21 encoding:{4, &v32, v25}];
+        v18 = [MEMORY[0x1E696AEC0] stringWithCString:v21 encoding:4];
         free(v21);
         SSFileLog();
       }
 
-      goto LABEL_19;
+      goto LABEL_20;
     }
   }
 
   [MEMORY[0x1E69E2F88] throwException:@"Invalid argument"];
-LABEL_23:
-  if (*(v29 + 24))
+LABEL_24:
+  if (*(v28 + 24))
   {
     v22 = MEMORY[0x1E695E4D0];
   }
@@ -537,7 +549,7 @@ LABEL_23:
   }
 
   v23 = *v22;
-  _Block_object_dispose(&v28, 8);
+  _Block_object_dispose(&v27, 8);
 
   return v23;
 }

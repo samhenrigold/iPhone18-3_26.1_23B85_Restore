@@ -7,20 +7,20 @@
 - (NSDictionary)payload
 {
   v14[4] = *MEMORY[0x1E69E9840];
-  endTime = [(PIPerfPowerRecord *)self endTime];
-  startTime = [(PIPerfPowerRecord *)self startTime];
-  [endTime timeIntervalSinceDate:startTime];
+  v3 = objc_msgSend_endTime(self, a2);
+  v4 = objc_msgSend_startTime(self);
+  [v3 timeIntervalSinceDate:v4];
   v6 = v5;
 
   v13[0] = @"durationInSeconds";
   v7 = [MEMORY[0x1E696AD98] numberWithDouble:v6];
   v14[0] = v7;
   v13[1] = @"startTime";
-  startTime2 = [(PIPerfPowerRecord *)self startTime];
-  v14[1] = startTime2;
+  v8 = objc_msgSend_startTime(self);
+  v14[1] = v8;
   v13[2] = @"endTime";
-  endTime2 = [(PIPerfPowerRecord *)self endTime];
-  v14[2] = endTime2;
+  v9 = objc_msgSend_endTime(self);
+  v14[2] = v9;
   v13[3] = @"operation";
   v10 = [MEMORY[0x1E696AD98] numberWithInteger:{-[PIPerfPowerRecord operation](self, "operation")}];
   v14[3] = v10;

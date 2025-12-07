@@ -74,11 +74,11 @@ void *__39__FKTextDetector_disableMultithreading__block_invoke()
 
 - (void)setRecognitionLanguage:(id)language
 {
-  v5[1] = *MEMORY[0x1E69E9840];
+  v4[1] = *MEMORY[0x1E69E9840];
   if (language)
   {
-    v5[0] = language;
-    -[FKTextDetector setRecognitionLanguages:](self, "setRecognitionLanguages:", [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:1]);
+    v4[0] = language;
+    -[FKTextDetector setRecognitionLanguages:](self, "setRecognitionLanguages:", [MEMORY[0x1E695DEC8] arrayWithObjects:v4 count:1]);
   }
 
   else
@@ -86,39 +86,37 @@ void *__39__FKTextDetector_disableMultithreading__block_invoke()
 
     self->_recognitionLanguages = 0;
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setRecognitionLanguages:(id)languages
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
 
   self->_recognitionLanguages = 0;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
     array = [MEMORY[0x1E695DF70] array];
+    v11 = 0u;
     v12 = 0u;
     v13 = 0u;
     v14 = 0u;
-    v15 = 0u;
-    v6 = [languages countByEnumeratingWithState:&v12 objects:v16 count:16];
+    v6 = [languages countByEnumeratingWithState:&v11 objects:v15 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v13;
+      v8 = *v12;
       do
       {
         v9 = 0;
         do
         {
-          if (*v13 != v8)
+          if (*v12 != v8)
           {
             objc_enumerationMutation(languages);
           }
 
-          v10 = *(*(&v12 + 1) + 8 * v9);
+          v10 = *(*(&v11 + 1) + 8 * v9);
           objc_opt_class();
           if ((objc_opt_isKindOfClass() & 1) != 0 && [v10 length])
           {
@@ -129,7 +127,7 @@ void *__39__FKTextDetector_disableMultithreading__block_invoke()
         }
 
         while (v7 != v9);
-        v7 = [languages countByEnumeratingWithState:&v12 objects:v16 count:16];
+        v7 = [languages countByEnumeratingWithState:&v11 objects:v15 count:16];
       }
 
       while (v7);
@@ -144,8 +142,6 @@ void *__39__FKTextDetector_disableMultithreading__block_invoke()
     {
     }
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (FKTextDetector)initWithDimensions:(CGSize)dimensions
@@ -529,8 +525,8 @@ LABEL_35:
   v9 = i.size.width;
   y = i.origin.y;
   x = i.origin.x;
-  v31 = *MEMORY[0x1E69E9840];
-  v29 = 0;
+  v30 = *MEMORY[0x1E69E9840];
+  v28 = 0;
   v13 = [MEMORY[0x1E695DF70] arrayWithCapacity:16];
   LODWORD(v14) = [(FKTextDetector *)self mergeSettings];
   mergeSettings = [(FKTextDetector *)self mergeSettings];
@@ -545,33 +541,33 @@ LABEL_35:
         break;
       }
 
-      height = [(FKTextDetector *)self createFeaturesForSessionScale:v14 roi:&v29 originalSize:x startID:y, v9, v8, width, height];
+      height = [(FKTextDetector *)self createFeaturesForSessionScale:v14 roi:&v28 originalSize:x startID:y, v9, v8, width, height];
+      v24 = 0u;
       v25 = 0u;
       v26 = 0u;
       v27 = 0u;
-      v28 = 0u;
-      v18 = [height countByEnumeratingWithState:&v25 objects:v30 count:16];
+      v18 = [height countByEnumeratingWithState:&v24 objects:v29 count:16];
       if (v18)
       {
         v19 = v18;
-        v20 = *v26;
+        v20 = *v25;
         do
         {
           for (i = 0; i != v19; ++i)
           {
-            if (*v26 != v20)
+            if (*v25 != v20)
             {
               objc_enumerationMutation(height);
             }
 
-            v22 = *(*(&v25 + 1) + 8 * i);
+            v22 = *(*(&v24 + 1) + 8 * i);
             if (![v22 type])
             {
               [(FKTextDetector *)self mergeFeature:v22 withArray:v13];
             }
           }
 
-          v19 = [height countByEnumeratingWithState:&v25 objects:v30 count:16];
+          v19 = [height countByEnumeratingWithState:&v24 objects:v29 count:16];
         }
 
         while (v19);
@@ -581,17 +577,16 @@ LABEL_35:
     }
 
     while (v14 < [(FKTextDetector *)self mergeSettings]>> 32);
-    v16 = v29;
+    v16 = v28;
   }
 
   *d = v16;
-  v23 = *MEMORY[0x1E69E9840];
   return v13;
 }
 
 - (unsigned)isValidPixelBuffer:(__CVBuffer *)buffer regionOfInterest:(CGRect)interest error:(id *)error
 {
-  v32[1] = *MEMORY[0x1E69E9840];
+  v31[1] = *MEMORY[0x1E69E9840];
   if (buffer)
   {
     height = interest.size.height;
@@ -609,8 +604,41 @@ LABEL_35:
       v12 = 875704934;
     }
 
-    else if (PixelFormatType > 875836533)
+    else
     {
+      if (PixelFormatType <= 875836533)
+      {
+        if (PixelFormatType != 875704950)
+        {
+          v12 = 875836518;
+          goto LABEL_13;
+        }
+
+LABEL_14:
+        v17 = CVPixelBufferGetWidth(buffer);
+        v18 = CVPixelBufferGetHeight(buffer);
+        interest.origin.x = y + height;
+        interest.origin.y = v18;
+        v19 = x + width <= v17 && interest.origin.x <= interest.origin.y;
+        if (v19 && x >= 0.0 && y >= 0.0 && width > 0.0 && height > 0.0)
+        {
+          return 1;
+        }
+
+        if (error)
+        {
+          v13 = MEMORY[0x1E696ABC0];
+          v26 = *MEMORY[0x1E696A578];
+          v27 = @"Region of interest is outside of input pixel buffer";
+          v14 = MEMORY[0x1E695DF20];
+          v15 = &v27;
+          v16 = &v26;
+          goto LABEL_20;
+        }
+
+        return 0;
+      }
+
       if (PixelFormatType == 875836534)
       {
         goto LABEL_14;
@@ -619,87 +647,51 @@ LABEL_35:
       v12 = 1278226488;
     }
 
-    else
-    {
-      if (PixelFormatType == 875704950)
-      {
-        goto LABEL_14;
-      }
-
-      v12 = 875836518;
-    }
-
+LABEL_13:
     if (PixelFormatType != v12)
     {
       if (error)
       {
         v25 = MEMORY[0x1E696ABC0];
-        v29 = *MEMORY[0x1E696A578];
-        v30 = @"Unsupported pixel format";
-        v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v30 forKeys:&v29 count:1];
+        v28 = *MEMORY[0x1E696A578];
+        v29 = @"Unsupported pixel format";
+        v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v29 forKeys:&v28 count:1];
         v21 = v25;
         v22 = 2;
         goto LABEL_21;
       }
 
-      goto LABEL_29;
+      return 0;
     }
 
-LABEL_14:
-    v17 = CVPixelBufferGetWidth(buffer);
-    v18 = CVPixelBufferGetHeight(buffer);
-    interest.origin.x = y + height;
-    interest.origin.y = v18;
-    v19 = x + width <= v17 && interest.origin.x <= interest.origin.y;
-    if (v19 && x >= 0.0 && y >= 0.0 && width > 0.0 && height > 0.0)
-    {
-      result = 1;
-      goto LABEL_30;
-    }
-
-    if (error)
-    {
-      v13 = MEMORY[0x1E696ABC0];
-      v27 = *MEMORY[0x1E696A578];
-      v28 = @"Region of interest is outside of input pixel buffer";
-      v14 = MEMORY[0x1E695DF20];
-      v15 = &v28;
-      v16 = &v27;
-      goto LABEL_20;
-    }
-
-LABEL_29:
-    result = 0;
-    goto LABEL_30;
+    goto LABEL_14;
   }
 
-  if (!error)
+  if (error)
   {
-    goto LABEL_29;
+    v13 = MEMORY[0x1E696ABC0];
+    v30 = *MEMORY[0x1E696A578];
+    v31[0] = @"pixelBuffer may not be NULL";
+    v14 = MEMORY[0x1E695DF20];
+    v15 = v31;
+    v16 = &v30;
+LABEL_20:
+    v20 = [v14 dictionaryWithObjects:v15 forKeys:v16 count:{1, interest.origin.x, interest.origin.y, interest.size.width, interest.size.height}];
+    v21 = v13;
+    v22 = 1;
+LABEL_21:
+    v23 = [v21 errorWithDomain:@"FKTextDetector" code:v22 userInfo:v20];
+    result = 0;
+    *error = v23;
+    return result;
   }
 
-  v13 = MEMORY[0x1E696ABC0];
-  v31 = *MEMORY[0x1E696A578];
-  v32[0] = @"pixelBuffer may not be NULL";
-  v14 = MEMORY[0x1E695DF20];
-  v15 = v32;
-  v16 = &v31;
-LABEL_20:
-  v20 = [v14 dictionaryWithObjects:v15 forKeys:v16 count:{1, interest.origin.x, interest.origin.y, interest.size.width, interest.size.height}];
-  v21 = v13;
-  v22 = 1;
-LABEL_21:
-  v23 = [v21 errorWithDomain:@"FKTextDetector" code:v22 userInfo:v20];
-  result = 0;
-  *error = v23;
-LABEL_30:
-  v26 = *MEMORY[0x1E69E9840];
-  return result;
+  return 0;
 }
 
 - (void)runRecognizerOnFeatures:(id)features roi:(CGRect)roi size:(CGSize)size lastID:(int64_t *)d
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   if ([(FKTextDetector *)self recognitionLanguage:roi.origin.x])
   {
     if (self->_recognizer || (Recognizer = FKSessionCreateRecognizer(), (self->_recognizer = Recognizer) != 0))
@@ -715,50 +707,49 @@ LABEL_30:
           *(v11 + 344) = self->_recognizer;
           v12 = *(v10 + 2);
           v13 = *(v11 + 312) + 104 * v12;
-          multiThreadingQueue = self->_multiThreadingQueue;
-          if (FKRecognizeSequence(v11, v13, v15))
+          if (FKRecognizeSequence(v11, v13, v14))
           {
             origin = self->_roi.origin;
-            v36[0] = self->_size;
-            v37 = 0;
-            v36[1] = origin;
-            LODWORD(v37) = *(v10 + 6);
-            v10 = [FKTextFeature featureFromSequenceIndex:v12 session:v11 scaling:v36 createConcompFeatures:[(FKTextDetector *)self returnSubFeatures] createDiacriticFeatures:[(FKTextDetector *)self detectDiacritics] featureID:d];
+            v34[0] = self->_size;
+            v35 = 0;
+            v34[1] = origin;
+            LODWORD(v35) = *(v10 + 6);
+            v10 = [FKTextFeature featureFromSequenceIndex:v12 session:v11 scaling:v34 createConcompFeatures:[(FKTextDetector *)self returnSubFeatures] createDiacriticFeatures:[(FKTextDetector *)self detectDiacritics] featureID:d];
             [features setObject:v10 atIndexedSubscript:v9];
           }
 
           [v10 setText:{objc_msgSend(MEMORY[0x1E696AEC0], "stringWithUTF8String:", *(v13 + 80))}];
           [v10 setConfidence:{FKSeqMatchGetConfidence(v11, v13)}];
-          v34 = 0u;
-          v35 = 0u;
           v32 = 0u;
           v33 = 0u;
+          v30 = 0u;
+          v31 = 0u;
           subFeatures = [v10 subFeatures];
-          v18 = [subFeatures countByEnumeratingWithState:&v32 objects:v38 count:16];
-          if (v18)
+          v17 = [subFeatures countByEnumeratingWithState:&v30 objects:v36 count:16];
+          if (v17)
           {
-            v19 = v18;
-            v20 = *v33;
+            v18 = v17;
+            v19 = *v31;
             do
             {
-              for (i = 0; i != v19; ++i)
+              for (i = 0; i != v18; ++i)
               {
-                if (*v33 != v20)
+                if (*v31 != v19)
                 {
                   objc_enumerationMutation(subFeatures);
                 }
 
-                v22 = *(*(&v32 + 1) + 8 * i);
-                v23 = *(*(v22 + 16) + 280) + 100 * *(v22 + 8);
-                [v22 setText:{objc_msgSend(MEMORY[0x1E696AEC0], "stringWithUTF8String:", v23 + 40)}];
-                *&v24 = FKCCMatchGetConfidence(v23);
-                [v22 setConfidence:v24];
+                v21 = *(*(&v30 + 1) + 8 * i);
+                v22 = *(*(v21 + 16) + 280) + 100 * *(v21 + 8);
+                [v21 setText:{objc_msgSend(MEMORY[0x1E696AEC0], "stringWithUTF8String:", v22 + 40)}];
+                *&v23 = FKCCMatchGetConfidence(v22);
+                [v21 setConfidence:v23];
               }
 
-              v19 = [subFeatures countByEnumeratingWithState:&v32 objects:v38 count:16];
+              v18 = [subFeatures countByEnumeratingWithState:&v30 objects:v36 count:16];
             }
 
-            while (v19);
+            while (v18);
           }
 
           ++v9;
@@ -768,29 +759,27 @@ LABEL_30:
         while ([featuresCopy count] > v9);
       }
 
-      v25 = [features count];
-      if (v25 - 1 >= 0)
+      v24 = [features count];
+      if (v24 - 1 >= 0)
       {
-        v26 = v25;
+        v25 = v24;
         do
         {
-          v27 = [features objectAtIndexedSubscript:--v26];
-          if (*(v27[2] + 20))
+          v26 = [features objectAtIndexedSubscript:--v25];
+          if (*(v26[2] + 20))
           {
-            [v27 confidence];
-            if (v28 <= 0.5)
+            [v26 confidence];
+            if (v27 <= 0.5)
             {
-              [features removeObjectAtIndex:v26];
+              [features removeObjectAtIndex:v25];
             }
           }
         }
 
-        while (v26 > 0);
+        while (v25 > 0);
       }
     }
   }
-
-  v29 = *MEMORY[0x1E69E9840];
 }
 
 - (void)resetTimers
@@ -813,10 +802,10 @@ LABEL_30:
   width = interest.size.width;
   y = interest.origin.y;
   x = interest.origin.x;
-  v88[1] = *MEMORY[0x1E69E9840];
+  v87[1] = *MEMORY[0x1E69E9840];
   if (![FKTextDetector isValidPixelBuffer:"isValidPixelBuffer:regionOfInterest:error:" regionOfInterest:? error:?])
   {
-    goto LABEL_14;
+    return 0;
   }
 
   v12 = 0;
@@ -848,38 +837,36 @@ LABEL_30:
   {
     if (error)
     {
-      v87 = *MEMORY[0x1E696A578];
-      v88[0] = @"Could not create sessions";
-      v18 = [MEMORY[0x1E696ABC0] errorWithDomain:@"FKTextDetector" code:v17 userInfo:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", v88, &v87, 1)}];
+      v86 = *MEMORY[0x1E696A578];
+      v87[0] = @"Could not create sessions";
+      v18 = [MEMORY[0x1E696ABC0] errorWithDomain:@"FKTextDetector" code:v17 userInfo:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", v87, &v86, 1)}];
 LABEL_13:
       v19 = 0;
       *error = v18;
-      goto LABEL_15;
+      return v19;
     }
 
-    goto LABEL_14;
+    return 0;
   }
 
   if (CVPixelBufferLockBaseAddress(buffer, 1uLL))
   {
     if (error)
     {
-      v85 = *MEMORY[0x1E696A578];
-      v86 = @"Could not lock pixelBuffer for reading";
-      v18 = [MEMORY[0x1E696ABC0] errorWithDomain:@"FKTextDetector" code:3 userInfo:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", &v86, &v85, 1)}];
+      v84 = *MEMORY[0x1E696A578];
+      v85 = @"Could not lock pixelBuffer for reading";
+      v18 = [MEMORY[0x1E696ABC0] errorWithDomain:@"FKTextDetector" code:3 userInfo:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", &v85, &v84, 1)}];
       goto LABEL_13;
     }
 
-LABEL_14:
-    v19 = 0;
-    goto LABEL_15;
+    return 0;
   }
 
   [(FKTextDetector *)self translatePropertiesToOptionsWithNumSessions:v14];
-  v22 = CVPixelBufferGetWidth(buffer);
-  v23 = CVPixelBufferGetHeight(buffer);
-  self->_size.width = v22;
-  self->_size.height = v23;
+  v21 = CVPixelBufferGetWidth(buffer);
+  v22 = CVPixelBufferGetHeight(buffer);
+  self->_size.width = v21;
+  self->_size.height = v22;
   self->_roi.origin.x = x;
   self->_roi.origin.y = y;
   self->_roi.size.width = width;
@@ -900,115 +887,115 @@ LABEL_14:
     BytesPerRowOfPlane = CVPixelBufferGetBytesPerRow(buffer);
   }
 
-  v26 = v14 - 1;
-  v27 = *sessions;
-  v27->var11.width = width;
-  v27->var11.rowBytes = BytesPerRowOfPlane;
-  v27->var11.data = &BaseAddressOfPlane[BytesPerRowOfPlane * y + x];
-  v27->var11.height = height;
+  v25 = v14 - 1;
+  v26 = *sessions;
+  v26->var11.width = width;
+  v26->var11.rowBytes = BytesPerRowOfPlane;
+  v26->var11.data = &BaseAddressOfPlane[BytesPerRowOfPlane * y + x];
+  v26->var11.height = height;
   if (v14 >= 2)
   {
-    v28 = 0;
+    v27 = 0;
     do
     {
-      v29 = self->_sessions[v28 + 1];
-      var7 = v29->var7;
-      var8 = v29->var8;
-      v29->var11.height = var8;
-      v29->var11.width = var7;
-      v29->var11.rowBytes = var7;
-      v29->var11.data = malloc_type_malloc(var8 * var7, 0x847020D9uLL);
-      ++v28;
+      v28 = self->_sessions[v27 + 1];
+      var7 = v28->var7;
+      var8 = v28->var8;
+      v28->var11.height = var8;
+      v28->var11.width = var7;
+      v28->var11.rowBytes = var7;
+      v28->var11.data = malloc_type_malloc(var8 * var7, 0x847020D9uLL);
+      ++v27;
     }
 
-    while (v26 != v28);
+    while (v25 != v27);
   }
 
-  v75 = 0;
-  v76 = &v75;
-  v77 = 0x2020000000;
-  v78 = 0;
+  v74 = 0;
+  v75 = &v74;
+  v76 = 0x2020000000;
+  v77 = 0;
   self->_timeDownscale[0] = 0;
   timeDownscale = self->_timeDownscale;
   thresholdingAlgorithm = [(FKTextDetector *)self thresholdingAlgorithm];
-  v33 = 0;
-  v64 = thresholdingAlgorithm;
+  v32 = 0;
+  v63 = thresholdingAlgorithm;
   if ([(FKTextDetector *)self multiThreadingQueue])
   {
-    v34 = thresholdingAlgorithm == 4;
+    v33 = thresholdingAlgorithm == 4;
   }
 
   else
   {
-    v34 = 1;
+    v33 = 1;
   }
 
-  v35 = v34;
-  v74 = 0;
+  v34 = v33;
+  v73 = 0;
   do
   {
     while (1)
     {
-      if (v33)
+      if (v32)
       {
-        v36 = mach_absolute_time();
-        v37 = &sessions[v33];
-        v39 = *(v37 - 1);
-        v38 = *v37;
-        v40 = *(v39 + 184);
-        *&src.data = *(v39 + 168);
-        *&src.width = v40;
-        v41 = *&v38->var11.width;
-        *&dest.data = *&v38->var11.data;
-        *&dest.width = v41;
-        v42 = vImageScale_Planar8(&src, &dest, 0, 0);
-        v43 = sessions;
-        if (!v42)
+        v35 = mach_absolute_time();
+        v36 = &sessions[v32];
+        v38 = *(v36 - 1);
+        v37 = *v36;
+        v39 = *(v38 + 184);
+        *&src.data = *(v38 + 168);
+        *&src.width = v39;
+        v40 = *&v37->var11.width;
+        *&dest.data = *&v37->var11.data;
+        *&dest.width = v40;
+        v41 = vImageScale_Planar8(&src, &dest, 0, 0);
+        v42 = sessions;
+        if (!v41)
         {
-          v44 = dest.rowBytes - dest.width;
+          v43 = dest.rowBytes - dest.width;
           if (dest.rowBytes > dest.width)
           {
             if (dest.height)
             {
-              v45 = 0;
-              v46 = dest.data + dest.width;
+              v44 = 0;
+              v45 = dest.data + dest.width;
               do
               {
-                memset(v46, *(v46 - 1), v44);
-                v46 += dest.rowBytes;
-                ++v45;
+                memset(v45, *(v45 - 1), v43);
+                v45 += dest.rowBytes;
+                ++v44;
               }
 
-              while (dest.height > v45);
+              while (dest.height > v44);
             }
           }
         }
 
-        v47 = mach_absolute_time();
-        sessions = v43;
-        v48 = dword_1ECEA795C;
+        v46 = mach_absolute_time();
+        sessions = v42;
+        v47 = dword_1ECEA795C;
         if (!dword_1ECEA795C)
         {
           mach_timebase_info(&getTimeInMicro_sTimebaseInfo);
-          v48 = dword_1ECEA795C;
+          v47 = dword_1ECEA795C;
         }
 
-        timeDownscale[v33] = (v47 - v36) * getTimeInMicro_sTimebaseInfo / (1000 * v48);
-        if (v42)
+        timeDownscale[v32] = (v46 - v35) * getTimeInMicro_sTimebaseInfo / (1000 * v47);
+        if (v41)
         {
           if (!errorCopy)
           {
             goto LABEL_66;
           }
 
-          v83 = *MEMORY[0x1E696A578];
-          v84 = @"Downscaling failed";
-          v53 = [MEMORY[0x1E696ABC0] errorWithDomain:@"FKTextDetector" code:4 userInfo:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", &v84, &v83, 1)}];
+          v82 = *MEMORY[0x1E696A578];
+          v83 = @"Downscaling failed";
+          v52 = [MEMORY[0x1E696ABC0] errorWithDomain:@"FKTextDetector" code:4 userInfo:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", &v83, &v82, 1)}];
           goto LABEL_49;
         }
       }
 
-      if (v35)
+      if (v34)
       {
         break;
       }
@@ -1018,72 +1005,72 @@ LABEL_14:
       block[1] = 3221225472;
       block[2] = __68__FKTextDetector_detectFeaturesInBuffer_withRegionOfInterest_error___block_invoke;
       block[3] = &unk_1E8704878;
-      v71 = v33;
+      v70 = v32;
       block[4] = selfCopy;
-      block[5] = &v75;
+      block[5] = &v74;
       dispatch_async(multiThreadingQueue, block);
-      if (++v33 == v14)
+      if (++v32 == v14)
       {
         dispatch_barrier_sync([(FKTextDetector *)selfCopy multiThreadingQueue], &__block_literal_global_108);
         goto LABEL_43;
       }
     }
 
-    ++v33;
+    ++v32;
   }
 
-  while (v33 != v14);
-  if (v64 == 4)
+  while (v32 != v14);
+  if (v63 == 4)
   {
-    v54 = &v74;
+    v53 = &v73;
   }
 
   else
   {
-    v54 = 0;
+    v53 = 0;
   }
 
-  for (i = v14; ; runDetectionOnSession(selfCopy, i, v74, v54))
+  for (i = v14; ; runDetectionOnSession(selfCopy, i, v73, v53))
   {
-    v56 = __OFSUB__(i--, 1);
-    if (i < 0 != v56)
+    v55 = __OFSUB__(i--, 1);
+    if (i < 0 != v55)
     {
       break;
     }
   }
 
 LABEL_43:
-  v50 = v76[3];
-  if (!v50)
+  v49 = v75[3];
+  if (!v49)
   {
-    v69 = 0;
-    v19 = [(FKTextDetector *)selfCopy createFeaturesForROI:&v69 originalSize:x lastID:y, width, height, v22, v23];
+    v68 = 0;
+    v19 = [(FKTextDetector *)selfCopy createFeaturesForROI:&v68 originalSize:x lastID:y, width, height, v21, v22];
     if ([v19 count])
     {
-      v57 = 0x1ECEA7000uLL;
+      v56 = 0x1ECEA7000uLL;
 LABEL_58:
+      v57 = mach_absolute_time();
+      [(FKTextDetector *)selfCopy runRecognizerOnFeatures:v19 roi:&v68 size:x lastID:y, width, height, v21, v22];
       v58 = mach_absolute_time();
-      [(FKTextDetector *)selfCopy runRecognizerOnFeatures:v19 roi:&v69 size:x lastID:y, width, height, v22, v23];
-      v59 = mach_absolute_time();
-      v60 = *(v57 + 2396);
-      if (!v60)
+      v59 = *(v56 + 2396);
+      if (!v59)
       {
         mach_timebase_info(&getTimeInMicro_sTimebaseInfo);
-        v60 = *(v57 + 2396);
+        v59 = *(v56 + 2396);
       }
 
-      selfCopy->_timeRecognizer[0] = (v59 - v58) * getTimeInMicro_sTimebaseInfo / (1000 * v60);
+      selfCopy->_timeRecognizer[0] = (v58 - v57) * getTimeInMicro_sTimebaseInfo / (1000 * v59);
       sortSequencesInSensibleOrder(v19);
       goto LABEL_67;
     }
 
-    v61 = *(&selfCopy->super.isa + v14);
-    if (*(v61 + 200))
+    v60 = *(&selfCopy->super.isa + v14);
+    if (*(v60 + 200))
     {
-      v57 = 0x1ECEA7000;
-      if (FKSequenceOneBox(v61))
+      v56 = 0x1ECEA7000;
+      if (FKSequenceOneBox(v60))
       {
-        v19 = [(FKTextDetector *)selfCopy createFeaturesForROI:&v69 originalSize:x lastID:y, width, height, v22, v23];
+        v19 = [(FKTextDetector *)selfCopy createFeaturesForROI:&v68 originalSize:x lastID:y, width, height, v21, v22];
       }
 
       goto LABEL_58;
@@ -1094,25 +1081,25 @@ LABEL_58:
       goto LABEL_66;
     }
 
-    v51 = MEMORY[0x1E696ABC0];
-    v79 = *MEMORY[0x1E696A578];
-    v80 = @"Detection failed due to unsupported input dimensions";
-    v52 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v80 forKeys:&v79 count:1];
-    v50 = 2;
+    v50 = MEMORY[0x1E696ABC0];
+    v78 = *MEMORY[0x1E696A578];
+    v79 = @"Detection failed due to unsupported input dimensions";
+    v51 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v79 forKeys:&v78 count:1];
+    v49 = 2;
 LABEL_46:
-    v53 = [v51 errorWithDomain:@"FKTextDetector" code:v50 userInfo:{v52, v64, pixelBuffer}];
+    v52 = [v50 errorWithDomain:@"FKTextDetector" code:v49 userInfo:{v51, v63, pixelBuffer}];
 LABEL_49:
     v19 = 0;
-    *errorCopy = v53;
+    *errorCopy = v52;
     goto LABEL_67;
   }
 
   if (errorCopy)
   {
-    v51 = MEMORY[0x1E696ABC0];
-    v81 = *MEMORY[0x1E696A578];
-    v82 = @"Detection failed with";
-    v52 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v82 forKeys:&v81 count:1];
+    v50 = MEMORY[0x1E696ABC0];
+    v80 = *MEMORY[0x1E696A578];
+    v81 = @"Detection failed with";
+    v51 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v81 forKeys:&v80 count:1];
     goto LABEL_46;
   }
 
@@ -1122,21 +1109,19 @@ LABEL_67:
   CVPixelBufferUnlockBaseAddress(pixelBuffer, 1uLL);
   if (v14 >= 2)
   {
-    v62 = &selfCopy->_sessions[1];
+    v61 = &selfCopy->_sessions[1];
     do
     {
-      free((*v62)->var11.data);
-      v63 = *v62++;
-      *(v63 + 168) = 0;
-      --v26;
+      free((*v61)->var11.data);
+      v62 = *v61++;
+      *(v62 + 168) = 0;
+      --v25;
     }
 
-    while (v26);
+    while (v25);
   }
 
-  _Block_object_dispose(&v75, 8);
-LABEL_15:
-  v20 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v74, 8);
   return v19;
 }
 

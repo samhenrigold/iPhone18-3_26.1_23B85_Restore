@@ -26,38 +26,38 @@
 
 - (id)coalescedLogEventsFromLogEvents:(id)events homeUUID:(id)d
 {
-  v58 = *MEMORY[0x277D85DE8];
+  v57 = *MEMORY[0x277D85DE8];
   eventsCopy = events;
   dCopy = d;
-  v36 = [MEMORY[0x277CBEB58] set];
+  v35 = [MEMORY[0x277CBEB58] set];
+  v51 = 0u;
   v52 = 0u;
   v53 = 0u;
   v54 = 0u;
-  v55 = 0u;
   obj = eventsCopy;
-  v40 = [obj countByEnumeratingWithState:&v52 objects:v57 count:16];
+  v39 = [obj countByEnumeratingWithState:&v51 objects:v56 count:16];
   v6 = 0;
   v7 = 0;
-  if (v40)
+  if (v39)
   {
-    v48 = 0;
-    v49 = 0;
-    v8 = 0;
-    v50 = 0;
-    v51 = 0;
-    v46 = 0;
     v47 = 0;
-    v39 = *v53;
+    v48 = 0;
+    v8 = 0;
+    v49 = 0;
+    v50 = 0;
+    v45 = 0;
+    v46 = 0;
+    v38 = *v52;
     do
     {
-      for (i = 0; i != v40; ++i)
+      for (i = 0; i != v39; ++i)
       {
-        if (*v53 != v39)
+        if (*v52 != v38)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v52 + 1) + 8 * i);
+        v10 = *(*(&v51 + 1) + 8 * i);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -73,9 +73,9 @@
 
         if (v12)
         {
-          v43 = v7;
-          v44 = v6;
-          v45 = v8;
+          v42 = v7;
+          v43 = v6;
+          v44 = v8;
           numWifiAssociations = [v12 numWifiAssociations];
           numWifiDisassociations = [v12 numWifiDisassociations];
           numAPChanges = [v12 numAPChanges];
@@ -100,58 +100,58 @@
           if (!v22)
           {
             [MEMORY[0x277CCACA8] stringWithFormat:@"%@/%@", ssid, gatewayMACAddress];
-            v38 = numReadErrors;
+            v37 = numReadErrors;
             v23 = numReadWrites;
             v24 = numGatewayChanges;
             v25 = numAPChanges;
             v26 = numWifiDisassociations;
             v28 = v27 = numWifiAssociations;
-            [v36 addObject:v28];
+            [v35 addObject:v28];
 
             numWifiAssociations = v27;
             numWifiDisassociations = v26;
             numAPChanges = v25;
             numGatewayChanges = v24;
             numReadWrites = v23;
-            numReadErrors = v38;
+            numReadErrors = v37;
           }
 
-          v46 += numWifiAssociations;
-          v47 += numWifiDisassociations;
-          v50 += numAPChanges;
-          ++v51;
-          v8 = numGatewayChanges + v45;
-          v48 += numReadWrites;
-          v49 += numReadErrors;
-          v7 = numWriteErrors + v43;
-          v6 = numSessionErrors + v44;
+          v45 += numWifiAssociations;
+          v46 += numWifiDisassociations;
+          v49 += numAPChanges;
+          ++v50;
+          v8 = numGatewayChanges + v44;
+          v47 += numReadWrites;
+          v48 += numReadErrors;
+          v7 = numWriteErrors + v42;
+          v6 = numSessionErrors + v43;
         }
       }
 
-      v40 = [obj countByEnumeratingWithState:&v52 objects:v57 count:16];
+      v39 = [obj countByEnumeratingWithState:&v51 objects:v56 count:16];
     }
 
-    while (v40);
+    while (v39);
   }
 
   else
   {
-    v48 = 0;
-    v49 = 0;
-    v8 = 0;
-    v50 = 0;
-    v51 = 0;
-    v46 = 0;
     v47 = 0;
+    v48 = 0;
+    v8 = 0;
+    v49 = 0;
+    v50 = 0;
+    v45 = 0;
+    v46 = 0;
   }
 
-  v29 = [v36 count];
-  if (v51)
+  v29 = [v35 count];
+  if (v50)
   {
     v30 = dCopy;
-    v31 = [[HMDHouseholdNetworkStabilityLogEvent alloc] initWithHomeUUID:dCopy numStabilityReporters:v51 WifiAssociations:v46 wifiDisassociations:v47 apChanges:v50 gatewayChanges:v8 numReadWrites:v48 numReadErrors:v49 numWriteErrors:v7 numSessionErrors:v6 numNetworkSignatures:v29];
-    v56 = v31;
-    v32 = [MEMORY[0x277CBEA60] arrayWithObjects:&v56 count:1];
+    v31 = [[HMDHouseholdNetworkStabilityLogEvent alloc] initWithHomeUUID:dCopy numStabilityReporters:v50 WifiAssociations:v45 wifiDisassociations:v46 apChanges:v49 gatewayChanges:v8 numReadWrites:v47 numReadErrors:v48 numWriteErrors:v7 numSessionErrors:v6 numNetworkSignatures:v29];
+    v55 = v31;
+    v32 = [MEMORY[0x277CBEA60] arrayWithObjects:&v55 count:1];
   }
 
   else
@@ -160,14 +160,12 @@
     v30 = dCopy;
   }
 
-  v33 = *MEMORY[0x277D85DE8];
-
   return v32;
 }
 
 - (id)logEventsFromDictionary:(id)dictionary
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   v3 = [dictionary objectForKeyedSubscript:@"networkStabilityLogEvent"];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -185,8 +183,8 @@
   if (v5 && (v6 = [[HMDNetworkStabilityLogEvent alloc] initWithDictionary:v5]) != 0)
   {
     v7 = v6;
-    v11[0] = v6;
-    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
+    v10[0] = v6;
+    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
   }
 
   else
@@ -194,14 +192,12 @@
     v8 = 0;
   }
 
-  v9 = *MEMORY[0x277D85DE8];
-
   return v8;
 }
 
 - (id)serializeLogEvents:(id)events
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   v3 = [events objectAtIndexedSubscript:0];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -218,10 +214,10 @@
 
   if (v5)
   {
-    v10 = @"networkStabilityLogEvent";
+    v9 = @"networkStabilityLogEvent";
     serializedLogEvent = [v5 serializedLogEvent];
-    v11[0] = serializedLogEvent;
-    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:&v10 count:1];
+    v10[0] = serializedLogEvent;
+    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
   }
 
   else
@@ -229,14 +225,12 @@
     v7 = 0;
   }
 
-  v8 = *MEMORY[0x277D85DE8];
-
   return v7;
 }
 
 - (id)logEventsPopulatedForHomeWithUUID:(id)d associatedWithDate:(id)date
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   dateCopy = date;
   dCopy = d;
   networkObserver = [(HMDHouseholdNetworkStabilityLogEventFactory *)self networkObserver];
@@ -244,16 +238,14 @@
 
   if (v9)
   {
-    v13[0] = v9;
-    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
+    v12[0] = v9;
+    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
   }
 
   else
   {
     v10 = 0;
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }

@@ -11,9 +11,9 @@
     +[RMLog(configurationSubscriberDelegate) configurationSubscriberDelegate];
   }
 
-  v1 = configurationSubscriberDelegate_result;
+  v2 = configurationSubscriberDelegate_result;
 
-  return v1;
+  return v2;
 }
 
 @end

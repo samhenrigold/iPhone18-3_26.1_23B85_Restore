@@ -226,19 +226,8 @@ void __26__ICBufferCache_readQueue__block_invoke(uint64_t a1)
       v16 = [*(a1 + 32) msFile];
       v17 = [v16 readStream:v15 size:0x200000 offset:{objc_msgSend(*(a1 + 32), "readOffset")}];
 
-      if (!v17)
+      if (!v17 || ([*(a1 + 32) bufDict], v18 = objc_claimAutoreleasedReturnValue(), objc_msgSend(*(a1 + 32), "msFile"), v19 = objc_claimAutoreleasedReturnValue(), +[NSNumber numberWithUnsignedLongLong:](NSNumber, "numberWithUnsignedLongLong:", objc_msgSend(v19, "size")), v20 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v18, "objectForKeyedSubscript:", v20), v21 = objc_claimAutoreleasedReturnValue(), v21, v20, v19, v18, v21))
       {
-        goto LABEL_14;
-      }
-
-      v18 = [*(a1 + 32) bufDict];
-      v19 = [*(a1 + 32) msFile];
-      v20 = +[NSNumber numberWithUnsignedLongLong:](NSNumber, "numberWithUnsignedLongLong:", [v19 size]);
-      v21 = [v18 objectForKeyedSubscript:v20];
-
-      if (v21)
-      {
-LABEL_14:
         [*(a1 + 32) setReading:0];
       }
 
@@ -507,7 +496,7 @@ void __45__ICBufferCache_consumeBufferAtOffset_sized___block_invoke(uint64_t a1)
   v4 = v0;
   [v1 UTF8String];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&_mh_execute_header, v5, v6, "%{public}20s ! %{public}@", v7, v8, v9, v10, v11);
+  OUTLINED_FUNCTION_1(&_mh_execute_header, v5, v6, "%{public}20s ! %{public}@", v7, v8, v9, v10);
 }
 
 @end

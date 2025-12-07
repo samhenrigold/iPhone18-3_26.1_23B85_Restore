@@ -492,7 +492,7 @@ LABEL_26:
   {
   }
 
-  else if (sub_10011F368())
+  else if (sub_10011F368(0))
   {
     v11 = 0;
     v12 = &v11;

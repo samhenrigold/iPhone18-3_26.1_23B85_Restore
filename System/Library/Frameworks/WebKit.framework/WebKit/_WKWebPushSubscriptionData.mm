@@ -56,7 +56,7 @@
 
 - (NSURL)endpoint
 {
-  [(_WKWebPushSubscriptionData *)self _protectedData];
+  objc_msgSend__protectedData(self, a2);
   WTF::URL::URL(v10, (v9 + 24));
   WTF::URL::createCFURL(&v11, v10);
   v3 = v11;
@@ -92,135 +92,135 @@
 {
   if (self)
   {
-    [(_WKWebPushSubscriptionData *)self _protectedData];
-    v2 = v9;
+    objc_msgSend__protectedData(self, a2);
+    v3 = v10;
   }
 
   else
   {
-    v2 = 0;
-    v9 = 0;
+    v3 = 0;
+    v10 = 0;
   }
 
-  v3 = *(v2 + 60);
-  if (v3)
-  {
-    v4 = WTF::fastMalloc(*(v2 + 60));
-    memcpy(v4, *(v2 + 48), *(v2 + 60));
-  }
-
-  else
-  {
-    v4 = 0;
-  }
-
-  v5 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytes:v4 length:v3];
-  v7 = v5;
-  if (v5)
-  {
-  }
-
+  v4 = *(v3 + 60);
   if (v4)
   {
-    WTF::fastFree(v4, v6);
+    v5 = WTF::fastMalloc(v2, *(v3 + 60));
+    memcpy(v5, *(v3 + 48), *(v3 + 60));
   }
 
-  if (v9)
+  else
   {
-    CFRelease(*(v9 + 8));
+    v5 = 0;
   }
 
-  return v7;
+  v6 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytes:v5 length:v4];
+  v8 = v6;
+  if (v6)
+  {
+  }
+
+  if (v5)
+  {
+    WTF::fastFree(v5, v7);
+  }
+
+  if (v10)
+  {
+    CFRelease(*(v10 + 8));
+  }
+
+  return v8;
 }
 
 - (NSData)authenticationSecret
 {
   if (self)
   {
-    [(_WKWebPushSubscriptionData *)self _protectedData];
-    v2 = v9;
+    objc_msgSend__protectedData(self, a2);
+    v3 = v10;
   }
 
   else
   {
-    v2 = 0;
-    v9 = 0;
+    v3 = 0;
+    v10 = 0;
   }
 
-  v3 = *(v2 + 92);
-  if (v3)
-  {
-    v4 = WTF::fastMalloc(*(v2 + 92));
-    memcpy(v4, *(v2 + 80), *(v2 + 92));
-  }
-
-  else
-  {
-    v4 = 0;
-  }
-
-  v5 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytes:v4 length:v3];
-  v7 = v5;
-  if (v5)
-  {
-  }
-
+  v4 = *(v3 + 92);
   if (v4)
   {
-    WTF::fastFree(v4, v6);
+    v5 = WTF::fastMalloc(v2, *(v3 + 92));
+    memcpy(v5, *(v3 + 80), *(v3 + 92));
   }
 
-  if (v9)
+  else
   {
-    CFRelease(*(v9 + 8));
+    v5 = 0;
   }
 
-  return v7;
+  v6 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytes:v5 length:v4];
+  v8 = v6;
+  if (v6)
+  {
+  }
+
+  if (v5)
+  {
+    WTF::fastFree(v5, v7);
+  }
+
+  if (v10)
+  {
+    CFRelease(*(v10 + 8));
+  }
+
+  return v8;
 }
 
 - (NSData)ecdhPublicKey
 {
   if (self)
   {
-    [(_WKWebPushSubscriptionData *)self _protectedData];
-    v2 = v9;
+    objc_msgSend__protectedData(self, a2);
+    v3 = v10;
   }
 
   else
   {
-    v2 = 0;
-    v9 = 0;
+    v3 = 0;
+    v10 = 0;
   }
 
-  v3 = *(v2 + 76);
-  if (v3)
-  {
-    v4 = WTF::fastMalloc(*(v2 + 76));
-    memcpy(v4, *(v2 + 64), *(v2 + 76));
-  }
-
-  else
-  {
-    v4 = 0;
-  }
-
-  v5 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytes:v4 length:v3];
-  v7 = v5;
-  if (v5)
-  {
-  }
-
+  v4 = *(v3 + 76);
   if (v4)
   {
-    WTF::fastFree(v4, v6);
+    v5 = WTF::fastMalloc(v2, *(v3 + 76));
+    memcpy(v5, *(v3 + 64), *(v3 + 76));
   }
 
-  if (v9)
+  else
   {
-    CFRelease(*(v9 + 8));
+    v5 = 0;
   }
 
-  return v7;
+  v6 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytes:v5 length:v4];
+  v8 = v6;
+  if (v6)
+  {
+  }
+
+  if (v5)
+  {
+    WTF::fastFree(v5, v7);
+  }
+
+  if (v10)
+  {
+    CFRelease(*(v10 + 8));
+  }
+
+  return v8;
 }
 
 - (Ref<API::WebPushSubscriptionData,)_protectedData

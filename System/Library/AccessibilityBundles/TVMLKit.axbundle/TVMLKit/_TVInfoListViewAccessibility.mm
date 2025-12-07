@@ -16,69 +16,66 @@
 
 - (id)accessibilityElements
 {
-  v29 = *MEMORY[0x29EDCA608];
+  v27 = *MEMORY[0x29EDCA608];
   array = [MEMORY[0x29EDB8DE8] array];
+  v21 = 0u;
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
-  v26 = 0u;
   obj = [(_TVInfoListViewAccessibility *)self safeArrayForKey:@"groupedInfos"];
-  v18 = [obj countByEnumeratingWithState:&v23 objects:v28 count:16];
-  if (v18)
+  v16 = [obj countByEnumeratingWithState:&v21 objects:v26 count:16];
+  if (v16)
   {
-    v17 = *v24;
+    v15 = *v22;
     do
     {
-      for (i = 0; i != v18; ++i)
+      for (i = 0; i != v16; ++i)
       {
-        if (*v24 != v17)
+        if (*v22 != v15)
         {
           objc_enumerationMutation(obj);
         }
 
-        v5 = *(*(&v23 + 1) + 8 * i);
+        v17 = 0u;
+        v18 = 0u;
         v19 = 0u;
         v20 = 0u;
-        v21 = 0u;
-        v22 = 0u;
         objc_opt_class();
-        v6 = __UIAccessibilityCastAsClass();
-        v7 = [v6 countByEnumeratingWithState:&v19 objects:v27 count:16];
-        if (v7)
+        v5 = __UIAccessibilityCastAsClass();
+        v6 = [v5 countByEnumeratingWithState:&v17 objects:v25 count:16];
+        if (v6)
         {
-          v8 = v7;
-          v9 = *v20;
+          v7 = v6;
+          v8 = *v18;
           do
           {
-            for (j = 0; j != v8; ++j)
+            for (j = 0; j != v7; ++j)
             {
-              if (*v20 != v9)
+              if (*v18 != v8)
               {
-                objc_enumerationMutation(v6);
+                objc_enumerationMutation(v5);
               }
 
-              v11 = *(*(&v19 + 1) + 8 * j);
-              v12 = [v11 safeValueForKey:@"headerContentView"];
-              [array axSafelyAddObject:v12];
+              v10 = *(*(&v17 + 1) + 8 * j);
+              v11 = [v10 safeValueForKey:@"headerContentView"];
+              [array axSafelyAddObject:v11];
 
-              v13 = [v11 safeArrayForKey:@"dataViews"];
-              [array axSafelyAddObjectsFromArray:v13];
+              v12 = [v10 safeArrayForKey:@"dataViews"];
+              [array axSafelyAddObjectsFromArray:v12];
             }
 
-            v8 = [v6 countByEnumeratingWithState:&v19 objects:v27 count:16];
+            v7 = [v5 countByEnumeratingWithState:&v17 objects:v25 count:16];
           }
 
-          while (v8);
+          while (v7);
         }
       }
 
-      v18 = [obj countByEnumeratingWithState:&v23 objects:v28 count:16];
+      v16 = [obj countByEnumeratingWithState:&v21 objects:v26 count:16];
     }
 
-    while (v18);
+    while (v16);
   }
-
-  v14 = *MEMORY[0x29EDCA608];
 
   return array;
 }

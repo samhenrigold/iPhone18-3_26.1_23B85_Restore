@@ -86,9 +86,9 @@ LABEL_10:
   pathExtension = [filename pathExtension];
   filename2 = [asset filename];
   pathExtension2 = [filename2 pathExtension];
-  v9 = [pathExtension isEqualToString:pathExtension2];
+  isEqualToString = objc_msgSend_isEqualToString_(pathExtension);
 
-  if ((v9 & 1) == 0)
+  if ((isEqualToString & 1) == 0)
   {
     filename3 = [asset filename];
     pathExtension3 = [filename3 pathExtension];
@@ -135,9 +135,9 @@ LABEL_5:
   asset = [(PLDuplicateMerge *)self asset];
   resourceSwapAssetUUID = [sourceCopy resourceSwapAssetUUID];
   uuid = [asset uuid];
-  v9 = [resourceSwapAssetUUID isEqualToString:uuid];
+  isEqualToString = objc_msgSend_isEqualToString_(resourceSwapAssetUUID);
 
-  if (v9)
+  if (isEqualToString)
   {
     asset2 = [sourceCopy asset];
     originalHeight = [asset2 originalHeight];
@@ -428,7 +428,7 @@ LABEL_23:
   assetCopy = asset;
   primaryStoreOriginalResource = [assetCopy primaryStoreOriginalResource];
   v5 = [assetCopy persistedResourcesMatching:&__block_literal_global_116];
-  if (!primaryStoreOriginalResource || (([assetCopy isRAWPlusJPEG] & 1) != 0 || objc_msgSend(assetCopy, "isPhotoIris")) && objc_msgSend(v5, "count") < 2)
+  if (!primaryStoreOriginalResource || (([assetCopy isRAWPlusJPEG] & 1) != 0 || objc_msgSend(assetCopy, "isPhotoIris")) && objc_msgSend_count(v5) < 2)
   {
     v6 = 0;
   }
@@ -600,7 +600,7 @@ BOOL __76__PLDuplicateMerge__checkCPLDisabledAssetHasValidOriginalResourcesForAs
       [PLManagedAsset fixupCloudPhotoLibraryAsset:asset2 withCloudMaster:master3 inLibrary:self->_library];
 
       allAssetCPLResources = [asset allAssetCPLResources];
-      v22 = [allAssetCPLResources count];
+      v22 = objc_msgSend_count(allAssetCPLResources);
       v116 = v22 != 0;
       if (v22)
       {
@@ -620,7 +620,7 @@ BOOL __76__PLDuplicateMerge__checkCPLDisabledAssetHasValidOriginalResourcesForAs
     v35 = PLDuplicateDetectionGetLog();
     if (os_log_type_enabled(v35, OS_LOG_TYPE_INFO))
     {
-      v36 = [v23 count];
+      v36 = objc_msgSend_count(v23);
       shortDescription7 = [v119 shortDescription];
       targetAsset4 = [(PLDuplicateMerge *)self targetAsset];
       shortDescription8 = [targetAsset4 shortDescription];
@@ -1008,8 +1008,8 @@ void __51__PLDuplicateMerge_mergeResourcesFromSource_error___block_invoke_112(ui
   v61 = legacyFaces2;
   if (![targetAsset facesUpdated] && !faceAdjustmentVersion && faceAdjustmentVersion2)
   {
-    v13 = [detectedFaces count];
-    v14 = v13 + [temporalDetectedFaces count] == 0;
+    v13 = objc_msgSend_count(detectedFaces);
+    v14 = v13 + objc_msgSend_count(temporalDetectedFaces) == 0;
     legacyFaces2 = v61;
     v15 = !v14;
     v62 = v15;
@@ -1017,14 +1017,14 @@ void __51__PLDuplicateMerge_mergeResourcesFromSource_error___block_invoke_112(ui
 
   v55 = faceAdjustmentVersion2;
 
-  if ([legacyFaces2 count])
+  if (objc_msgSend_count(legacyFaces2))
   {
     v16 = 0;
   }
 
   else
   {
-    v16 = [legacyFaces count] != 0;
+    v16 = objc_msgSend_count(legacyFaces) != 0;
   }
 
   v56 = faceAdjustmentVersion;
@@ -1041,14 +1041,14 @@ void __51__PLDuplicateMerge_mergeResourcesFromSource_error___block_invoke_112(ui
     [additionalAttributes2 setFaceRegions:faceRegions];
 
     v20 = objc_alloc_init(MEMORY[0x1E695DFA8]);
-    if ([detectedFaces2 count])
+    if (objc_msgSend_count(detectedFaces2))
     {
       allObjects = [detectedFaces2 allObjects];
       [v20 addObjectsFromArray:allObjects];
     }
 
     v52 = sourceCopy;
-    if ([temporalDetectedFaces2 count])
+    if (objc_msgSend_count(temporalDetectedFaces2))
     {
       allObjects2 = [temporalDetectedFaces2 allObjects];
       [v20 addObjectsFromArray:allObjects2];
@@ -1211,7 +1211,7 @@ void __51__PLDuplicateMerge_mergeResourcesFromSource_error___block_invoke_112(ui
       if (libraryScope3)
       {
         libraryScopeContributors2 = [asset libraryScopeContributors];
-        v14 = [libraryScopeContributors2 count];
+        v14 = objc_msgSend_count(libraryScopeContributors2);
 
         if (!v14)
         {
@@ -1562,7 +1562,7 @@ LABEL_33:
   [currentHandler3 handleFailureInMethod:a2 object:self file:@"PLDuplicateMerge.m" lineNumber:45 description:{@"Invalid parameter not satisfying: %@", @"library"}];
 
 LABEL_4:
-  v42 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(assetsCopy, "count")}];
+  v42 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:objc_msgSend_count(assetsCopy)];
   v43 = 0u;
   v44 = 0u;
   v45 = 0u;

@@ -151,23 +151,22 @@
 
 - (uint64_t)_gkIsGameCenterExtension
 {
-  v9[8] = *MEMORY[0x277D85DE8];
+  v8[8] = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277CBEB98];
-  v9[0] = @"com.apple.GameCenterUI.GameCenterDashboardExtension";
-  v9[1] = @"com.apple.GameCenterUI.GameCenterMatchmakerExtension";
-  v9[2] = @"com.apple.GameCenterUI.GameCenterTurnBasedMatchmakerExtension";
-  v9[3] = @"com.apple.GameCenterUI.GameCenterChallengeIssueExtension";
-  v9[4] = @"com.apple.GameCenterUI.GameCenterFriendRequestExtension";
-  v9[5] = @"com.apple.GameCenterUI.GameCenterAuthenticateExtension";
-  v9[6] = @"com.apple.gamecenter.GameCenterUIService";
-  v9[7] = @"com.apple.gamecenter.GameCenterUIService.GameCenterMessageExtension";
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:8];
+  v8[0] = @"com.apple.GameCenterUI.GameCenterDashboardExtension";
+  v8[1] = @"com.apple.GameCenterUI.GameCenterMatchmakerExtension";
+  v8[2] = @"com.apple.GameCenterUI.GameCenterTurnBasedMatchmakerExtension";
+  v8[3] = @"com.apple.GameCenterUI.GameCenterChallengeIssueExtension";
+  v8[4] = @"com.apple.GameCenterUI.GameCenterFriendRequestExtension";
+  v8[5] = @"com.apple.GameCenterUI.GameCenterAuthenticateExtension";
+  v8[6] = @"com.apple.gamecenter.GameCenterUIService";
+  v8[7] = @"com.apple.gamecenter.GameCenterUIService.GameCenterMessageExtension";
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:8];
   v4 = [v2 setWithArray:v3];
 
   bundleIdentifier = [self bundleIdentifier];
   v6 = [v4 containsObject:bundleIdentifier];
 
-  v7 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -248,7 +247,7 @@
 
 + (id)_gkPreferredUserLanguage
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   _gkPreferredSystemLanguage = [self _gkPreferredSystemLanguage];
   v2 = 0x277CBE000uLL;
   v3 = [objc_alloc(MEMORY[0x277CBEAF8]) initWithLocaleIdentifier:_gkPreferredSystemLanguage];
@@ -256,27 +255,27 @@
 
   if (!countryCode)
   {
-    v19 = _gkPreferredSystemLanguage;
-    v23 = 0u;
-    v24 = 0u;
-    v21 = 0u;
+    v18 = _gkPreferredSystemLanguage;
     v22 = 0u;
+    v23 = 0u;
+    v20 = 0u;
+    v21 = 0u;
     obj = [MEMORY[0x277CBEAF8] preferredLanguages];
-    v6 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
+    v6 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v22;
+      v8 = *v21;
       while (2)
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v22 != v8)
+          if (*v21 != v8)
           {
             objc_enumerationMutation(obj);
           }
 
-          v10 = [objc_alloc(*(v2 + 2808)) initWithLocaleIdentifier:*(*(&v21 + 1) + 8 * i)];
+          v10 = [objc_alloc(*(v2 + 2808)) initWithLocaleIdentifier:*(*(&v20 + 1) + 8 * i)];
           countryCode2 = [v10 countryCode];
           if (countryCode2)
           {
@@ -291,13 +290,13 @@
             {
               localeIdentifier = [v10 localeIdentifier];
 
-              _gkPreferredSystemLanguage = v19;
+              _gkPreferredSystemLanguage = v18;
               goto LABEL_14;
             }
           }
         }
 
-        v7 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
+        v7 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
         if (v7)
         {
           continue;
@@ -307,28 +306,26 @@
       }
     }
 
-    _gkPreferredSystemLanguage = v19;
+    _gkPreferredSystemLanguage = v18;
   }
 
   localeIdentifier = _gkPreferredSystemLanguage;
 LABEL_14:
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return localeIdentifier;
 }
 
 - (id)_gkSystemLocalizedStringForKey:()GKAdditions value:table:
 {
-  v64[2] = *MEMORY[0x277D85DE8];
+  v63[2] = *MEMORY[0x277D85DE8];
   v7 = a3;
-  v48 = a4;
+  v47 = a4;
   v8 = a5;
   v9 = GKGameCenterUIFrameworkBundle();
-  v64[0] = v9;
-  v10 = GKGameCenterFoundationBundle();
-  v64[1] = v10;
-  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v64 count:2];
+  v63[0] = v9;
+  v10 = GKGameCenterFoundationBundle(v9);
+  v63[1] = v10;
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v63 count:2];
 
   if (!_gkSystemLocalizedStringForKey_value_table____localizationLookup)
   {
@@ -337,34 +334,34 @@ LABEL_14:
     localizations = [v12 localizations];
 
     v14 = [objc_alloc(MEMORY[0x277CBEB38]) initWithCapacity:{objc_msgSend(localizations, "count")}];
+    v56 = 0u;
     v57 = 0u;
     v58 = 0u;
     v59 = 0u;
-    v60 = 0u;
     v15 = localizations;
-    v16 = [v15 countByEnumeratingWithState:&v57 objects:v63 count:16];
+    v16 = [v15 countByEnumeratingWithState:&v56 objects:v62 count:16];
     if (v16)
     {
       v17 = v16;
-      v18 = *v58;
+      v18 = *v57;
       do
       {
         for (i = 0; i != v17; ++i)
         {
-          if (*v58 != v18)
+          if (*v57 != v18)
           {
             objc_enumerationMutation(v15);
           }
 
-          v20 = *(*(&v57 + 1) + 8 * i);
-          v21 = [MEMORY[0x277CBEAF8] canonicalLanguageIdentifierFromString:{v20, obj, v48}];
+          v20 = *(*(&v56 + 1) + 8 * i);
+          v21 = [MEMORY[0x277CBEAF8] canonicalLanguageIdentifierFromString:{v20, obj, v47}];
           if (v21)
           {
             [v14 setObject:v20 forKey:v21];
           }
         }
 
-        v17 = [v15 countByEnumeratingWithState:&v57 objects:v63 count:16];
+        v17 = [v15 countByEnumeratingWithState:&v56 objects:v62 count:16];
       }
 
       while (v17);
@@ -378,31 +375,31 @@ LABEL_14:
 
   v23 = v7;
   _gkPreferredSystemLanguage = [MEMORY[0x277CCA8D8] _gkPreferredSystemLanguage];
+  v52 = 0u;
   v53 = 0u;
   v54 = 0u;
   v55 = 0u;
-  v56 = 0u;
   v25 = v11;
-  v26 = [v25 countByEnumeratingWithState:&v53 objects:v62 count:16];
+  v26 = [v25 countByEnumeratingWithState:&v52 objects:v61 count:16];
   v27 = v23;
   obja = v25;
   if (v26)
   {
     v28 = v26;
-    v29 = *v54;
+    v29 = *v53;
     v27 = v23;
     while (2)
     {
       v30 = 0;
       do
       {
-        if (*v54 != v29)
+        if (*v53 != v29)
         {
           objc_enumerationMutation(obja);
         }
 
-        v31 = *(*(&v53 + 1) + 8 * v30);
-        v32 = __68__NSBundle_GKAdditions___gkSystemLocalizedStringForKey_value_table___block_invoke_2(v26, v31, v23, v48, v8, _gkPreferredSystemLanguage);
+        v31 = *(*(&v52 + 1) + 8 * v30);
+        v32 = __68__NSBundle_GKAdditions___gkSystemLocalizedStringForKey_value_table___block_invoke_2(v26, v31, v23, v47, v8, _gkPreferredSystemLanguage);
 
         if ([v32 isEqualToString:v23])
         {
@@ -410,7 +407,7 @@ LABEL_14:
           v34 = v33;
           if (v33)
           {
-            v35 = __68__NSBundle_GKAdditions___gkSystemLocalizedStringForKey_value_table___block_invoke_2(v33, v31, v23, v48, v8, v33);
+            v35 = __68__NSBundle_GKAdditions___gkSystemLocalizedStringForKey_value_table___block_invoke_2(v33, v31, v23, v47, v8, v33);
 
             v32 = v35;
           }
@@ -419,7 +416,7 @@ LABEL_14:
         if ([v32 isEqualToString:{v23, obja}] && (v36 = objc_msgSend(_gkPreferredSystemLanguage, "rangeOfString:options:", @"-", 4), v36 != 0x7FFFFFFFFFFFFFFFLL))
         {
           v37 = [_gkPreferredSystemLanguage substringToIndex:v36];
-          v27 = __68__NSBundle_GKAdditions___gkSystemLocalizedStringForKey_value_table___block_invoke_2(v37, v31, v23, v48, v8, v37);
+          v27 = __68__NSBundle_GKAdditions___gkSystemLocalizedStringForKey_value_table___block_invoke_2(v37, v31, v23, v47, v8, v37);
         }
 
         else
@@ -439,7 +436,7 @@ LABEL_14:
 
       while (v28 != v30);
       v25 = obja;
-      v26 = [obja countByEnumeratingWithState:&v53 objects:v62 count:16];
+      v26 = [obja countByEnumeratingWithState:&v52 objects:v61 count:16];
       v28 = v26;
       if (v26)
       {
@@ -454,27 +451,27 @@ LABEL_30:
 
   if ([v27 isEqualToString:v23])
   {
-    v51 = 0u;
-    v52 = 0u;
-    v49 = 0u;
     v50 = 0u;
+    v51 = 0u;
+    v48 = 0u;
+    v49 = 0u;
     v38 = v25;
-    v39 = [v38 countByEnumeratingWithState:&v49 objects:v61 count:16];
+    v39 = [v38 countByEnumeratingWithState:&v48 objects:v60 count:16];
     if (v39)
     {
       v40 = v39;
-      v41 = *v50;
+      v41 = *v49;
 LABEL_33:
       v42 = 0;
       v43 = v27;
       while (1)
       {
-        if (*v50 != v41)
+        if (*v49 != v41)
         {
           objc_enumerationMutation(v38);
         }
 
-        v27 = __68__NSBundle_GKAdditions___gkSystemLocalizedStringForKey_value_table___block_invoke_2(v39, *(*(&v49 + 1) + 8 * v42), v23, v48, v8, @"en");
+        v27 = __68__NSBundle_GKAdditions___gkSystemLocalizedStringForKey_value_table___block_invoke_2(v39, *(*(&v48 + 1) + 8 * v42), v23, v47, v8, @"en");
 
         v39 = [v27 isEqualToString:v23];
         if (!v39)
@@ -486,7 +483,7 @@ LABEL_33:
         v43 = v27;
         if (v40 == v42)
         {
-          v39 = [v38 countByEnumeratingWithState:&v49 objects:v61 count:16];
+          v39 = [v38 countByEnumeratingWithState:&v48 objects:v60 count:16];
           v40 = v39;
           if (v39)
           {
@@ -500,8 +497,6 @@ LABEL_33:
 
     v25 = obja;
   }
-
-  v44 = *MEMORY[0x277D85DE8];
 
   return v27;
 }
@@ -615,12 +610,11 @@ LABEL_18:
 
 - (void)_gkIsEligibleForNearbyAdvertising
 {
-  v12 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   bundleIdentifier = [a2 bundleIdentifier];
-  OUTLINED_FUNCTION_1_6(&dword_227904000, v5, v6, "[%@]Current game is a known first party process and not eligible for nearby.", v7, v8, v9, v10, 2u);
-
-  v11 = *MEMORY[0x277D85DE8];
+  LODWORD(v11) = 138412290;
+  *(&v11 + 4) = bundleIdentifier;
+  OUTLINED_FUNCTION_1_6(&dword_227904000, v5, v6, "[%@]Current game is a known first party process and not eligible for nearby.", v7, v8, v9, v10, v11, DWORD2(v11));
 }
 
 @end

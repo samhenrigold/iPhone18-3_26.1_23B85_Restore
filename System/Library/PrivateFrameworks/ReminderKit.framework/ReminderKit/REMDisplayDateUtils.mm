@@ -10,34 +10,34 @@
 
 + (id)_displayDateWithDueDateComponents:(id)components alarms:(id)alarms hasAlarmDateComponents:(BOOL)dateComponents floatingDateComponents:(id)floatingDateComponents nonFloatingDateComponents:(id)nonFloatingDateComponents displayDateUtils:(id)utils
 {
-  v67 = *MEMORY[0x1E69E9840];
+  v66 = *MEMORY[0x1E69E9840];
   componentsCopy = components;
   alarmsCopy = alarms;
   floatingDateComponentsCopy = floatingDateComponents;
   nonFloatingDateComponentsCopy = nonFloatingDateComponents;
   utilsCopy = utils;
   array = [MEMORY[0x1E695DF70] array];
+  v60 = 0u;
   v61 = 0u;
   v62 = 0u;
   v63 = 0u;
-  v64 = 0u;
   obj = alarmsCopy;
-  v15 = [obj countByEnumeratingWithState:&v61 objects:v66 count:16];
+  v15 = [obj countByEnumeratingWithState:&v60 objects:v65 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v62;
+    v17 = *v61;
     do
     {
       v18 = 0;
       do
       {
-        if (*v62 != v17)
+        if (*v61 != v17)
         {
           objc_enumerationMutation(obj);
         }
 
-        v19 = *(*(&v61 + 1) + 8 * v18);
+        v19 = *(*(&v60 + 1) + 8 * v18);
         if ([v19 isOriginal])
         {
           v20 = objc_opt_class();
@@ -80,7 +80,7 @@ LABEL_10:
       }
 
       while (v16 != v18);
-      v30 = [obj countByEnumeratingWithState:&v61 objects:v66 count:16];
+      v30 = [obj countByEnumeratingWithState:&v60 objects:v65 count:16];
       v16 = v30;
     }
 
@@ -89,29 +89,29 @@ LABEL_10:
 
   if (dateComponents || [array count])
   {
-    v59 = 0u;
-    v60 = 0u;
-    v57 = 0u;
     v58 = 0u;
+    v59 = 0u;
+    v56 = 0u;
+    v57 = 0u;
     v31 = array;
-    v32 = [v31 countByEnumeratingWithState:&v57 objects:v65 count:16];
+    v32 = [v31 countByEnumeratingWithState:&v56 objects:v64 count:16];
     if (!v32)
     {
       goto LABEL_39;
     }
 
     v33 = v32;
-    v34 = *v58;
+    v34 = *v57;
     while (1)
     {
       for (i = 0; i != v33; ++i)
       {
-        if (*v58 != v34)
+        if (*v57 != v34)
         {
           objc_enumerationMutation(v31);
         }
 
-        v36 = *(*(&v57 + 1) + 8 * i);
+        v36 = *(*(&v56 + 1) + 8 * i);
         timeZone = [v36 timeZone];
 
         if (timeZone)
@@ -157,7 +157,7 @@ LABEL_36:
         }
       }
 
-      v33 = [v31 countByEnumeratingWithState:&v57 objects:v65 count:16];
+      v33 = [v31 countByEnumeratingWithState:&v56 objects:v64 count:16];
       if (!v33)
       {
 LABEL_39:
@@ -173,20 +173,20 @@ LABEL_39:
   v45 = componentsCopy;
   timeZone2 = [componentsCopy timeZone];
 
-  v49 = [REMDisplayDate alloc];
+  v48 = [REMDisplayDate alloc];
   if (timeZone2)
   {
-    v50 = 0;
-    v51 = componentsCopy;
+    v49 = 0;
+    v50 = componentsCopy;
   }
 
   else
   {
-    v50 = componentsCopy;
-    v51 = 0;
+    v49 = componentsCopy;
+    v50 = 0;
   }
 
-  v43 = [(REMDisplayDate *)v49 initWithFloatingDateComponents:v50 nonFloatingDateComponents:v51];
+  v43 = [(REMDisplayDate *)v48 initWithFloatingDateComponents:v49 nonFloatingDateComponents:v50];
   v44 = 0;
 LABEL_40:
   if (utilsCopy)
@@ -197,8 +197,6 @@ LABEL_40:
     [utilsCopy setNonFloatingDateComponents:nonFloatingDateComponentsCopy];
     [utilsCopy setHasAlarmDateComponents:v44];
   }
-
-  v46 = *MEMORY[0x1E69E9840];
 
   return v43;
 }
@@ -223,7 +221,7 @@ LABEL_40:
 
 - (id)updateDisplayDateWithDueDateComponents:(id)components alarm:(id)alarm alarmsProviding:(id)providing
 {
-  v26[1] = *MEMORY[0x1E69E9840];
+  v25[1] = *MEMORY[0x1E69E9840];
   componentsCopy = components;
   alarmCopy = alarm;
   providingCopy = providing;
@@ -247,8 +245,8 @@ LABEL_40:
     [WeakRetained invokeWithCache:1];
 
     v17 = objc_opt_class();
-    v26[0] = alarmCopy;
-    v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:v26 count:1];
+    v25[0] = alarmCopy;
+    v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:v25 count:1];
     hasAlarmDateComponents = [(REMDisplayDateUtils *)self hasAlarmDateComponents];
     floatingDateComponents = [(REMDisplayDateUtils *)self floatingDateComponents];
     nonFloatingDateComponents = [(REMDisplayDateUtils *)self nonFloatingDateComponents];
@@ -262,8 +260,6 @@ LABEL_40:
     alarms = [providingCopy alarms];
     v22 = [(REMDisplayDateUtils *)self displayDateWithDueDateComponents:componentsCopy alarms:alarms];
   }
-
-  v24 = *MEMORY[0x1E69E9840];
 
   return v22;
 }

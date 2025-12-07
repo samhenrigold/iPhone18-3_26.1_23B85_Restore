@@ -16,17 +16,17 @@
 
 - (void)invalidate
 {
-  v22 = *MEMORY[0x1E69E9840];
-  v17.receiver = self;
-  v17.super_class = HMAutoAddWalletKeySupressionAssertion;
-  [(HMFAssertion *)&v17 invalidate];
+  v21 = *MEMORY[0x1E69E9840];
+  v16.receiver = self;
+  v16.super_class = HMAutoAddWalletKeySupressionAssertion;
+  [(HMFAssertion *)&v16 invalidate];
   homeManager = [(HMAutoAddWalletKeySupressionAssertion *)self homeManager];
   if (homeManager)
   {
-    v18 = @"HMHomeManagerMessageKeyHomeUUID";
+    v17 = @"HMHomeManagerMessageKeyHomeUUID";
     homeUUID = [(HMAutoAddWalletKeySupressionAssertion *)self homeUUID];
-    v19 = homeUUID;
-    v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v19 forKeys:&v18 count:1];
+    v18 = homeUUID;
+    v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v18 forKeys:&v17 count:1];
 
     v6 = objc_alloc(MEMORY[0x1E69A2A00]);
     uuid = [homeManager uuid];
@@ -48,19 +48,17 @@
     {
       v15 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v21 = v15;
+      v20 = v15;
       _os_log_impl(&dword_19BB39000, v14, OS_LOG_TYPE_ERROR, "%{public}@Cannot release auto add wallet key suppression assertion, home manager is nil", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v12);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 void __51__HMAutoAddWalletKeySupressionAssertion_invalidate__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v4 = a2;
   v5 = a3;
   v6 = objc_autoreleasePoolPush();
@@ -71,24 +69,24 @@ void __51__HMAutoAddWalletKeySupressionAssertion_invalidate__block_invoke(uint64
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       v9 = HMFGetLogIdentifier();
-      v15 = 138543618;
-      v16 = v9;
-      v17 = 2112;
-      v18 = v4;
+      v14 = 138543618;
+      v15 = v9;
+      v16 = 2112;
+      v17 = v4;
       v10 = "%{public}@Failed to release auto add wallet key suppression assertion: %@";
       v11 = v8;
       v12 = OS_LOG_TYPE_ERROR;
       v13 = 22;
 LABEL_6:
-      _os_log_impl(&dword_19BB39000, v11, v12, v10, &v15, v13);
+      _os_log_impl(&dword_19BB39000, v11, v12, v10, &v14, v13);
     }
   }
 
   else if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v9 = HMFGetLogIdentifier();
-    v15 = 138543362;
-    v16 = v9;
+    v14 = 138543362;
+    v15 = v9;
     v10 = "%{public}@Successfully released auto add wallet key suppression assertion";
     v11 = v8;
     v12 = OS_LOG_TYPE_INFO;
@@ -97,36 +95,35 @@ LABEL_6:
   }
 
   objc_autoreleasePoolPop(v6);
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)acquireWithCompletion:(id)completion
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   homeManager = [(HMAutoAddWalletKeySupressionAssertion *)self homeManager];
   if (homeManager)
   {
-    v25.receiver = self;
-    v25.super_class = HMAutoAddWalletKeySupressionAssertion;
-    [(HMFAssertion *)&v25 acquire:0];
-    v26 = @"HMHomeManagerMessageKeyHomeUUID";
+    v24.receiver = self;
+    v24.super_class = HMAutoAddWalletKeySupressionAssertion;
+    [(HMFAssertion *)&v24 acquire:0];
+    v25 = @"HMHomeManagerMessageKeyHomeUUID";
     homeUUID = [(HMAutoAddWalletKeySupressionAssertion *)self homeUUID];
-    v27 = homeUUID;
-    v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v27 forKeys:&v26 count:1];
+    v26 = homeUUID;
+    v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v26 forKeys:&v25 count:1];
 
     v8 = objc_alloc(MEMORY[0x1E69A2A00]);
     uuid = [homeManager uuid];
     v10 = [v8 initWithTarget:uuid];
 
     v11 = [MEMORY[0x1E69A2A10] messageWithName:@"HMHomeManagerAutoAddWalletKeySupressionAssertionAcquireMessage" destination:v10 payload:v7];
-    v19 = MEMORY[0x1E69E9820];
-    v20 = 3221225472;
-    v21 = __63__HMAutoAddWalletKeySupressionAssertion_acquireWithCompletion___block_invoke;
-    v22 = &unk_1E754DE00;
+    v18 = MEMORY[0x1E69E9820];
+    v19 = 3221225472;
+    v20 = __63__HMAutoAddWalletKeySupressionAssertion_acquireWithCompletion___block_invoke;
+    v21 = &unk_1E754DE00;
     selfCopy = self;
-    v24 = completionCopy;
-    [v11 setResponseHandler:&v19];
+    v23 = completionCopy;
+    [v11 setResponseHandler:&v18];
     context = [homeManager context];
     messageDispatcher = [context messageDispatcher];
     [messageDispatcher sendMessage:v11];
@@ -141,7 +138,7 @@ LABEL_6:
     {
       v17 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v29 = v17;
+      v28 = v17;
       _os_log_impl(&dword_19BB39000, v16, OS_LOG_TYPE_ERROR, "%{public}@Cannot acquire auto add wallet key suppression assertion, home manager is nil", buf, 0xCu);
     }
 
@@ -149,8 +146,6 @@ LABEL_6:
     v7 = [MEMORY[0x1E696ABC0] hmfErrorWithCode:2];
     (*(completionCopy + 2))(completionCopy, v7);
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 void __63__HMAutoAddWalletKeySupressionAssertion_acquireWithCompletion___block_invoke(uint64_t a1, void *a2)

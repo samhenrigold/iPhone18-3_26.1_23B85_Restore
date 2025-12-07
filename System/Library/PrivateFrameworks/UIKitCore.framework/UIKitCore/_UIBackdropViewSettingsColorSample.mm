@@ -20,7 +20,7 @@
   [(_UIBackdropViewSettings *)self setGrayscaleTintAlpha:0.0];
   [(_UIBackdropViewSettings *)self setGrayscaleTintMaskAlpha:0.0];
   [(_UIBackdropViewSettings *)self setGrayscaleTintMaskImage:0];
-  v3 = +[UIColor blackColor];
+  v3 = objc_msgSend_blackColor(UIColor);
   [(_UIBackdropViewSettings *)self setColorTint:v3];
 
   [(_UIBackdropViewSettings *)self setColorTintAlpha:0.0];

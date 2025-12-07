@@ -80,7 +80,7 @@
 
 void __44__AMSUIWebApplicationLookupAction_runAction__block_invoke(uint64_t a1)
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   v2 = [MEMORY[0x1E698C968] sharedWebUIConfig];
   if (!v2)
   {
@@ -90,105 +90,100 @@ void __44__AMSUIWebApplicationLookupAction_runAction__block_invoke(uint64_t a1)
   v3 = [v2 OSLogObject];
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v4 = *(a1 + 32);
-    v5 = objc_opt_class();
-    v6 = AMSLogKey();
-    v7 = [*(a1 + 32) bundleIdentifier];
+    v4 = objc_opt_class();
+    v5 = AMSLogKey();
+    v6 = [*(a1 + 32) bundleIdentifier];
     *buf = 138543874;
-    v34 = v5;
-    v35 = 2114;
-    v36 = v6;
-    v37 = 2114;
-    v38 = v7;
+    v30 = v4;
+    v31 = 2114;
+    v32 = v5;
+    v33 = 2114;
+    v34 = v6;
     _os_log_impl(&dword_1BB036000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Looking up application record: %{public}@", buf, 0x20u);
   }
 
-  v8 = objc_alloc(MEMORY[0x1E69635F8]);
-  v9 = [*(a1 + 32) bundleIdentifier];
-  v32 = 0;
-  v10 = [v8 initWithBundleIdentifier:v9 allowPlaceholder:0 error:&v32];
-  v11 = v32;
+  v7 = objc_alloc(MEMORY[0x1E69635F8]);
+  v8 = [*(a1 + 32) bundleIdentifier];
+  v28 = 0;
+  v9 = [v7 initWithBundleIdentifier:v8 allowPlaceholder:0 error:&v28];
+  v10 = v28;
 
-  if (!v10 || v11)
+  if (!v9 || v10)
   {
-    if (!v11)
+    if (!v10)
     {
-      v11 = AMSError();
+      v10 = AMSError();
     }
 
-    v26 = [MEMORY[0x1E698C968] sharedWebUIConfig];
-    if (!v26)
+    v24 = [MEMORY[0x1E698C968] sharedWebUIConfig];
+    if (!v24)
     {
-      v26 = [MEMORY[0x1E698C968] sharedConfig];
+      v24 = [MEMORY[0x1E698C968] sharedConfig];
     }
 
-    v27 = [v26 OSLogObject];
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+    v25 = [v24 OSLogObject];
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
     {
-      v28 = *(a1 + 32);
-      v29 = objc_opt_class();
-      v30 = AMSLogKey();
+      v26 = objc_opt_class();
+      v27 = AMSLogKey();
       *buf = 138543874;
-      v34 = v29;
-      v35 = 2114;
-      v36 = v30;
-      v37 = 2114;
-      v38 = v11;
-      _os_log_impl(&dword_1BB036000, v27, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] Failed to lookup application record. %{public}@", buf, 0x20u);
+      v30 = v26;
+      v31 = 2114;
+      v32 = v27;
+      v33 = 2114;
+      v34 = v10;
+      _os_log_impl(&dword_1BB036000, v25, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] Failed to lookup application record. %{public}@", buf, 0x20u);
     }
 
-    [*(a1 + 40) finishWithError:v11];
+    [*(a1 + 40) finishWithError:v10];
   }
 
   else
   {
-    v12 = objc_alloc_init(MEMORY[0x1E695DF90]);
-    v13 = [v10 bundleIdentifier];
-    [v12 setObject:v13 forKeyedSubscript:@"bundleIdentifier"];
+    v11 = objc_alloc_init(MEMORY[0x1E695DF90]);
+    v12 = [v9 bundleIdentifier];
+    [v11 setObject:v12 forKeyedSubscript:@"bundleIdentifier"];
 
-    v14 = [v10 bundleVersion];
-    [v12 setObject:v14 forKeyedSubscript:@"bundleVersion"];
+    v13 = [v9 bundleVersion];
+    [v11 setObject:v13 forKeyedSubscript:@"bundleVersion"];
 
-    v15 = [MEMORY[0x1E696AD98] numberWithBool:{objc_msgSend(v10, "isBeta")}];
-    [v12 setObject:v15 forKeyedSubscript:@"beta"];
+    v14 = [MEMORY[0x1E696AD98] numberWithBool:{objc_msgSend(v9, "isBeta")}];
+    [v11 setObject:v14 forKeyedSubscript:@"beta"];
 
-    v16 = [MEMORY[0x1E696AD98] numberWithBool:{objc_msgSend(v10, "isPlaceholder")}];
-    [v12 setObject:v16 forKeyedSubscript:@"placeholder"];
+    v15 = [MEMORY[0x1E696AD98] numberWithBool:{objc_msgSend(v9, "isPlaceholder")}];
+    [v11 setObject:v15 forKeyedSubscript:@"placeholder"];
 
-    v17 = [MEMORY[0x1E696AD98] numberWithBool:{objc_msgSend(v10, "isArcadeApp")}];
-    [v12 setObject:v17 forKeyedSubscript:@"arcadeApp"];
+    v16 = [MEMORY[0x1E696AD98] numberWithBool:{objc_msgSend(v9, "isArcadeApp")}];
+    [v11 setObject:v16 forKeyedSubscript:@"arcadeApp"];
 
-    v18 = MEMORY[0x1E696AD98];
-    v19 = [v10 applicationState];
-    v20 = [v18 numberWithBool:{objc_msgSend(v19, "isInstalled")}];
-    [v12 setObject:v20 forKeyedSubscript:@"installed"];
+    v17 = MEMORY[0x1E696AD98];
+    v18 = [v9 applicationState];
+    v19 = [v17 numberWithBool:{objc_msgSend(v18, "isInstalled")}];
+    [v11 setObject:v19 forKeyedSubscript:@"installed"];
 
-    v21 = [MEMORY[0x1E698C968] sharedWebUIConfig];
-    if (!v21)
+    v20 = [MEMORY[0x1E698C968] sharedWebUIConfig];
+    if (!v20)
     {
-      v21 = [MEMORY[0x1E698C968] sharedConfig];
+      v20 = [MEMORY[0x1E698C968] sharedConfig];
     }
 
-    v22 = [v21 OSLogObject];
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+    v21 = [v20 OSLogObject];
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
     {
-      v23 = *(a1 + 32);
-      v24 = objc_opt_class();
-      v25 = AMSLogKey();
+      v22 = objc_opt_class();
+      v23 = AMSLogKey();
       *buf = 138543874;
-      v34 = v24;
-      v35 = 2114;
-      v36 = v25;
-      v37 = 2114;
-      v38 = v10;
-      _os_log_impl(&dword_1BB036000, v22, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Found application: %{public}@", buf, 0x20u);
+      v30 = v22;
+      v31 = 2114;
+      v32 = v23;
+      v33 = 2114;
+      v34 = v9;
+      _os_log_impl(&dword_1BB036000, v21, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Found application: %{public}@", buf, 0x20u);
     }
 
-    [*(a1 + 40) finishWithResult:v12];
-    v11 = 0;
+    [*(a1 + 40) finishWithResult:v11];
+    v10 = 0;
   }
-
-  v31 = *MEMORY[0x1E69E9840];
 }
 
 @end

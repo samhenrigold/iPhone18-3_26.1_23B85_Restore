@@ -281,30 +281,29 @@
   applier[3] = &unk_100029DC0;
   applier[4] = self;
   xpc_array_apply(items, applier);
-  readingListQueue = self->_readingListQueue;
-  v5 = _CFXPCCreateCFObjectFromXPCObject();
+  v4 = _CFXPCCreateCFObjectFromXPCObject();
   _readingListQueueBackupPath = [(WebBookmarksServerReadingListHandler *)self _readingListQueueBackupPath];
-  if (([v5 writeToFile:_readingListQueueBackupPath atomically:1] & 1) == 0)
+  if (([v4 writeToFile:_readingListQueueBackupPath atomically:1] & 1) == 0)
   {
     if (qword_10002E9D8 != -1)
     {
       sub_100017C34();
     }
 
-    v7 = qword_10002E9D0;
+    v6 = qword_10002E9D0;
     if (os_log_type_enabled(qword_10002E9D0, OS_LOG_TYPE_ERROR))
     {
-      sub_100017DF4(_readingListQueueBackupPath, v7);
+      sub_100017DF4(_readingListQueueBackupPath, v6);
     }
   }
 
-  CFRelease(v5);
+  CFRelease(v4);
   if (!self->_readingListQueueTimer)
   {
     xpc_transaction_begin();
-    v8 = [NSTimer scheduledTimerWithTimeInterval:self target:"_readingListQueueTimerDidFire:" selector:0 userInfo:1 repeats:5.0];
+    v7 = [NSTimer scheduledTimerWithTimeInterval:self target:"_readingListQueueTimerDidFire:" selector:0 userInfo:1 repeats:5.0];
     readingListQueueTimer = self->_readingListQueueTimer;
-    self->_readingListQueueTimer = v8;
+    self->_readingListQueueTimer = v7;
   }
 }
 

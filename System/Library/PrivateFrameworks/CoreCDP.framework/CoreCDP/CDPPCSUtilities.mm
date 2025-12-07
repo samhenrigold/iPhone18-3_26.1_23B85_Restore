@@ -52,11 +52,11 @@
 
   altDSID = [contextCopy altDSID];
 
-  v17 = _CDPLogSystem();
-  altDSID2 = v17;
+  v18 = _CDPLogSystem(v17);
+  altDSID2 = v18;
   if (altDSID)
   {
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
     {
       +[CDPPCSUtilities setupDictionaryWithContext:];
     }
@@ -65,7 +65,7 @@
     [dictionary setObject:altDSID2 forKeyedSubscript:@"kPCSAltDSID"];
   }
 
-  else if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
+  else if (os_log_type_enabled(v18, OS_LOG_TYPE_FAULT))
   {
     +[CDPPCSUtilities setupDictionaryWithContext:];
   }
@@ -73,9 +73,9 @@
   _pcsConfigForPrimaryAccount = [objc_opt_class() _pcsConfigForPrimaryAccount];
   [dictionary addEntriesFromDictionary:_pcsConfigForPrimaryAccount];
 
-  v20 = [dictionary copy];
+  v21 = [dictionary copy];
 
-  return v20;
+  return v21;
 }
 
 + (id)_pcsConfigForPrimaryAccount
@@ -91,15 +91,15 @@
 
   else
   {
-    v5 = _CDPLogSystem();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = _CDPLogSystem(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       +[CDPPCSUtilities _pcsConfigForPrimaryAccount];
     }
   }
 
-  v6 = +[CDPAccount sharedInstance];
-  authToken = [v6 authToken];
+  v7 = +[CDPAccount sharedInstance];
+  authToken = [v7 authToken];
 
   if (authToken)
   {
@@ -108,15 +108,15 @@
 
   else
   {
-    v8 = _CDPLogSystem();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v10 = _CDPLogSystem(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       +[CDPPCSUtilities _pcsConfigForPrimaryAccount];
     }
   }
 
-  v9 = +[CDPAccount sharedInstance];
-  escrowURL = [v9 escrowURL];
+  v11 = +[CDPAccount sharedInstance];
+  escrowURL = [v11 escrowURL];
 
   if (escrowURL)
   {
@@ -125,8 +125,8 @@
 
   else
   {
-    v11 = _CDPLogSystem();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v14 = _CDPLogSystem(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       +[CDPPCSUtilities _pcsConfigForPrimaryAccount];
     }

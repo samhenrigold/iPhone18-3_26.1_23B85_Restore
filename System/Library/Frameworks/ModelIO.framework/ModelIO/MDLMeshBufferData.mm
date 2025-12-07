@@ -14,10 +14,10 @@
 - (id)map
 {
   v3 = [MDLMeshBufferMap alloc];
-  v6 = objc_msgSend_mutableBytes(self->_data, v4, v5);
-  v8 = objc_msgSend_initWithBytes_deallocator_(v3, v7, v6, 0);
+  v15 = objc_msgSend_mutableBytes(self->_data, v4, v5, v6, v11, v12, v13, v14, v7, v8, v9, v10);
+  v25 = objc_msgSend_initWithBytes_deallocator_(v3, v16, v15, 0, v21, v22, v23, v24, v17, v18, v19, v20);
 
-  return v8;
+  return v25;
 }
 
 - (MDLMeshBufferAllocator)allocator
@@ -38,17 +38,17 @@
 
 - (MDLMeshBufferData)initWithType:(MDLMeshBufferType)type length:(NSUInteger)length
 {
-  v16.receiver = self;
-  v16.super_class = MDLMeshBufferData;
-  v6 = [(MDLMeshBufferData *)&v16 init];
+  v25.receiver = self;
+  v25.super_class = MDLMeshBufferData;
+  v6 = [(MDLMeshBufferData *)&v25 init];
   v7 = v6;
   if (v6)
   {
     v6->_length = length;
     v8 = objc_alloc(MEMORY[0x277CBEB28]);
-    v10 = objc_msgSend_initWithLength_(v8, v9, length);
+    v19 = objc_msgSend_initWithLength_(v8, v9, length, v10, v15, v16, v17, v18, v11, v12, v13, v14);
     data = v7->_data;
-    v7->_data = v10;
+    v7->_data = v19;
 
     zone = v7->_zone;
     v7->_zone = 0;
@@ -58,7 +58,7 @@
     v7->_allocator = 0;
 
     v7->_type = type;
-    v14 = v7;
+    v23 = v7;
   }
 
   return v7;
@@ -67,29 +67,29 @@
 - (MDLMeshBufferData)initWithType:(MDLMeshBufferType)type data:(NSData *)data
 {
   v6 = data;
-  v18.receiver = self;
-  v18.super_class = MDLMeshBufferData;
-  v9 = [(MDLMeshBufferData *)&v18 init];
-  if (v9)
+  v36.receiver = self;
+  v36.super_class = MDLMeshBufferData;
+  v14 = [(MDLMeshBufferData *)&v36 init];
+  if (v14)
   {
-    v9->_length = objc_msgSend_length(v6, v7, v8);
-    v10 = objc_alloc(MEMORY[0x277CBEB28]);
-    v12 = objc_msgSend_initWithData_(v10, v11, v6);
-    v13 = v9->_data;
-    v9->_data = v12;
+    v14->_length = objc_msgSend_length(v6, v7, v8, v9, v15, v16, v17, v18, v10, v11, v12, v13);
+    v19 = objc_alloc(MEMORY[0x277CBEB28]);
+    v30 = objc_msgSend_initWithData_(v19, v20, v6, v21, v26, v27, v28, v29, v22, v23, v24, v25);
+    v31 = v14->_data;
+    v14->_data = v30;
 
-    zone = v9->_zone;
-    v9->_zone = 0;
+    zone = v14->_zone;
+    v14->_zone = 0;
 
-    objc_storeStrong(&v9->_zoneDefault, v9->_zone);
-    allocator = v9->_allocator;
-    v9->_allocator = 0;
+    objc_storeStrong(&v14->_zoneDefault, v14->_zone);
+    allocator = v14->_allocator;
+    v14->_allocator = 0;
 
-    v9->_type = type;
-    v16 = v9;
+    v14->_type = type;
+    v34 = v14;
   }
 
-  return v9;
+  return v14;
 }
 
 - (MDLMeshBufferData)initWithLength:(unint64_t)length data:(id)data allocator:(id)allocator zone:(id)zone
@@ -97,37 +97,37 @@
   dataCopy = data;
   allocatorCopy = allocator;
   zoneCopy = zone;
-  v23.receiver = self;
-  v23.super_class = MDLMeshBufferData;
-  v13 = [(MDLMeshBufferData *)&v23 init];
+  v40.receiver = self;
+  v40.super_class = MDLMeshBufferData;
+  v13 = [(MDLMeshBufferData *)&v40 init];
   v14 = v13;
-  if (v13 && ((objc_storeStrong(&v13->_zone, zone), objc_storeStrong(&v14->_zoneDefault, v14->_zone), (zoneDefault = v14->_zoneDefault) == 0) || objc_msgSend_reserveMemory_allocator_(zoneDefault, v15, v14->_length, allocatorCopy)))
+  if (v13 && ((objc_storeStrong(&v13->_zone, zone), objc_storeStrong(&v14->_zoneDefault, v14->_zone), (zoneDefault = v14->_zoneDefault) == 0) || objc_msgSend_reserveMemory_allocator_(zoneDefault, v15, v14->_length, allocatorCopy, v20, v21, v22, v23, v16, v17, v18, v19)))
   {
     objc_storeStrong(&v14->_allocator, allocator);
     v14->_length = length;
-    v17 = objc_alloc(MEMORY[0x277CBEB28]);
+    v25 = objc_alloc(MEMORY[0x277CBEB28]);
     if (dataCopy)
     {
-      v19 = objc_msgSend_initWithData_(v17, v18, dataCopy);
+      v36 = objc_msgSend_initWithData_(v25, v26, dataCopy, v27, v32, v33, v34, v35, v28, v29, v30, v31);
     }
 
     else
     {
-      v19 = objc_msgSend_initWithLength_(v17, v18, length);
+      v36 = objc_msgSend_initWithLength_(v25, v26, length, v27, v32, v33, v34, v35, v28, v29, v30, v31);
     }
 
     data = v14->_data;
-    v14->_data = v19;
+    v14->_data = v36;
 
-    v20 = v14;
+    v37 = v14;
   }
 
   else
   {
-    v20 = 0;
+    v37 = 0;
   }
 
-  return v20;
+  return v37;
 }
 
 - (void)dealloc
@@ -135,39 +135,39 @@
   zoneDefault = self->_zoneDefault;
   if (zoneDefault)
   {
-    objc_msgSend_cancelMemory_(zoneDefault, a2, self->_length);
+    objc_msgSend_cancelMemory_(zoneDefault, a2, self->_length, v2, v7, v8, v9, v10, v3, v4, v5, v6);
   }
 
-  v4.receiver = self;
-  v4.super_class = MDLMeshBufferData;
-  [(MDLMeshBufferData *)&v4 dealloc];
+  v13.receiver = self;
+  v13.super_class = MDLMeshBufferData;
+  [(MDLMeshBufferData *)&v13 dealloc];
 }
 
 - (void)fillData:(id)data offset:(unint64_t)offset
 {
   dataCopy = data;
-  v8 = objc_msgSend_length(dataCopy, v6, v7);
+  v17 = objc_msgSend_length(dataCopy, v6, v7, v8, v13, v14, v15, v16, v9, v10, v11, v12);
   length = self->_length;
-  v12 = objc_msgSend_mutableBytes(self->_data, v10, v11);
-  v13 = dataCopy;
-  v16 = objc_msgSend_bytes(v13, v14, v15);
-  v17 = v8 + offset - length;
-  if (v8 + offset < length)
+  v30 = objc_msgSend_mutableBytes(self->_data, v19, v20, v21, v26, v27, v28, v29, v22, v23, v24, v25);
+  v31 = dataCopy;
+  v43 = objc_msgSend_bytes(v31, v32, v33, v34, v39, v40, v41, v42, v35, v36, v37, v38);
+  v44 = v17 + offset - length;
+  if (v17 + offset < length)
   {
-    v17 = 0;
+    v44 = 0;
   }
 
-  memcpy((v12 + offset), v16, v17 + v8);
+  memcpy((v30 + offset), v43, v44 + v17);
 }
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v4 = objc_msgSend_allocWithZone_(MDLMeshBufferData, a2, zone);
+  v13 = objc_msgSend_allocWithZone_(MDLMeshBufferData, a2, zone, v3, v8, v9, v10, v11, v4, v5, v6, v7);
   data = self->_data;
   length = self->_length;
   allocator = self->_allocator;
 
-  return objc_msgSend_initWithLength_data_allocator_zone_(v4, v5, length, data, allocator, 0);
+  return objc_msgSend_initWithLength_data_allocator_zone_(v13, v14, length, data, v17, v18, v19, v20, allocator, 0, v15, v16);
 }
 
 @end

@@ -9,15 +9,15 @@
 - (HVQueue)initWithIdentifier:(id)identifier biomeStream:(id)stream memoryLimit:(signed __int16)limit contentProtection:(id)protection contentExpectedFromMultipleApps:(BOOL)apps;
 - (_BYTE)_filterBlockForBundleIdentifier:(void *)identifier contentIdentifierSet:(void *)set domainSelection:;
 - (__CFString)_bundleIdForEvent:(__CFString *)event;
-- (id)_identifierForContentWithUniqueIdentifier:(void *)identifier bundleId:;
 - (id)description;
 - (id)diskStorageStreamCount;
 - (id)statsWithError:(id *)error;
 - (id)uniqueIdentifiersInDiskStorage;
 - (id)uniqueIdentifiersInMemoryStorage;
-- (uint64_t)_updateMemoryQueueTransactionExtendingTimer:(uint64_t)result;
 - (unsigned)_identifierForContent:(unsigned __int8 *)content;
 - (void)_deleteWithFilter:(int)filter memory:(int)memory disk:;
+- (void)_identifierForContentWithUniqueIdentifier:(void *)identifier bundleId:;
+- (void)_updateMemoryQueueTransactionExtendingTimer:(void *)result;
 - (void)_writeEventsToDisk:(void *)disk guardedData:;
 @end
 
@@ -25,14 +25,14 @@
 
 void __34__HVQueue__flushMemoryQueueToDisk__block_invoke(uint64_t a1, void *a2)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 diskStorage];
 
   if (!v4)
   {
-    v14 = [MEMORY[0x277CCA890] currentHandler];
-    [v14 handleFailureInMethod:*(a1 + 40) object:*(a1 + 32) file:@"HVQueue.m" lineNumber:283 description:{@"Invalid parameter not satisfying: %@", @"guardedData.diskStorage != nil"}];
+    v13 = [MEMORY[0x277CCA890] currentHandler];
+    [v13 handleFailureInMethod:*(a1 + 40) object:*(a1 + 32) file:@"HVQueue.m" lineNumber:283 description:{@"Invalid parameter not satisfying: %@", @"guardedData.diskStorage != nil"}];
   }
 
   v5 = [v3 memoryStorage];
@@ -46,9 +46,9 @@ void __34__HVQueue__flushMemoryQueueToDisk__block_invoke(uint64_t a1, void *a2)
       v8 = *(*(a1 + 32) + 32);
       v9 = [v3 memoryStorage];
       *buf = 138412546;
-      v16 = v8;
-      v17 = 2048;
-      v18 = [v9 count];
+      v15 = v8;
+      v16 = 2048;
+      v17 = [v9 count];
       _os_log_impl(&dword_2321EC000, v7, OS_LOG_TYPE_DEFAULT, "HVQueue<%@>: Flushing memory queue to disk (%tu items)", buf, 0x16u);
     }
 
@@ -61,8 +61,6 @@ void __34__HVQueue__flushMemoryQueueToDisk__block_invoke(uint64_t a1, void *a2)
 
     [(HVQueue *)*(a1 + 32) _updateMemoryQueueTransactionExtendingTimer:?];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)cleanupWithError:(id *)error shouldContinueBlock:(id)block
@@ -88,7 +86,7 @@ void __34__HVQueue__flushMemoryQueueToDisk__block_invoke(uint64_t a1, void *a2)
 
 void __48__HVQueue_cleanupWithError_shouldContinueBlock___block_invoke(uint64_t a1, void *a2)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (([v3 diskStorageIsKnownToBeEmpty] & 1) == 0)
   {
@@ -107,25 +105,25 @@ void __48__HVQueue_cleanupWithError_shouldContinueBlock___block_invoke(uint64_t 
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x2020000000;
-    v29 = 0;
-    v20 = 0;
-    v21 = &v20;
-    v22 = 0x2020000000;
-    v23 = 0;
+    v28 = 0;
+    v19 = 0;
+    v20 = &v19;
+    v21 = 0x2020000000;
+    v22 = 0;
     v7 = [v3 diskStorage];
-    v12 = MEMORY[0x277D85DD0];
-    v13 = 3221225472;
-    v14 = __48__HVQueue_cleanupWithError_shouldContinueBlock___block_invoke_324;
-    v15 = &unk_278969448;
-    v16 = *(a1 + 48);
-    v17 = &v20;
-    v19 = *(a1 + 56);
-    v18 = buf;
-    [v7 pruneWithPredicateBlock:&v12];
+    v11 = MEMORY[0x277D85DD0];
+    v12 = 3221225472;
+    v13 = __48__HVQueue_cleanupWithError_shouldContinueBlock___block_invoke_324;
+    v14 = &unk_278969448;
+    v15 = *(a1 + 48);
+    v16 = &v19;
+    v18 = *(a1 + 56);
+    v17 = buf;
+    [v7 pruneWithPredicateBlock:&v11];
 
-    if ((v21[3] & 1) == 0)
+    if ((v20[3] & 1) == 0)
     {
-      [v3 setDiskStorageEventCount:{*(*&buf[8] + 24), v12, v13, v14, v15}];
+      [v3 setDiskStorageEventCount:{*(*&buf[8] + 24), v11, v12, v13, v14}];
       if (!*(*&buf[8] + 24))
       {
         [v3 setDiskStorageIsKnownToBeEmpty:1];
@@ -136,7 +134,7 @@ void __48__HVQueue_cleanupWithError_shouldContinueBlock___block_invoke(uint64_t 
     v8 = hv_default_log_handle();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      if (*(v21 + 24))
+      if (*(v20 + 24))
       {
         v9 = @"completed";
       }
@@ -147,18 +145,16 @@ void __48__HVQueue_cleanupWithError_shouldContinueBlock___block_invoke(uint64_t 
       }
 
       v10 = *(*(a1 + 32) + 32);
-      *v24 = 138412546;
-      v25 = v9;
-      v26 = 2114;
-      v27 = v10;
-      _os_log_impl(&dword_2321EC000, v8, OS_LOG_TYPE_DEFAULT, "HVQueue<%@>: %{public}@ cleanup tasks.", v24, 0x16u);
+      *v23 = 138412546;
+      v24 = v9;
+      v25 = 2114;
+      v26 = v10;
+      _os_log_impl(&dword_2321EC000, v8, OS_LOG_TYPE_DEFAULT, "HVQueue<%@>: %{public}@ cleanup tasks.", v23, 0x16u);
     }
 
-    _Block_object_dispose(&v20, 8);
+    _Block_object_dispose(&v19, 8);
     _Block_object_dispose(buf, 8);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 BOOL __48__HVQueue_cleanupWithError_shouldContinueBlock___block_invoke_324(uint64_t a1, void *a2, _BYTE *a3)
@@ -240,63 +236,63 @@ void __33__HVQueue_diskStorageStreamCount__block_invoke(uint64_t a1, void *a2)
 
 void __26__HVQueue_statsWithError___block_invoke(uint64_t a1, void *a2)
 {
-  v34[6] = *MEMORY[0x277D85DE8];
+  v33[6] = *MEMORY[0x277D85DE8];
   v6 = a2;
-  v34[0] = *(*(a1 + 32) + 32);
-  v33[0] = @"Identifier";
-  v33[1] = @"Enqueued Count";
+  v33[0] = *(*(a1 + 32) + 32);
+  v32[0] = @"Identifier";
+  v32[1] = @"Enqueued Count";
   v7 = 0x277CCA000;
-  v28 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:{objc_msgSend(v6, "enqueuedCount")}];
-  v34[1] = v28;
-  v33[2] = @"Dequeued Count";
-  v27 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:{objc_msgSend(v6, "dequeuedCount")}];
-  v34[2] = v27;
-  v33[3] = @"Dequeued Identifiers";
-  v26 = [v6 dequeuedContentIdentifiers];
-  v25 = [v26 allObjects];
-  v34[3] = v25;
-  v33[4] = @"Memory";
-  v31[0] = @"count";
+  v27 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:{objc_msgSend(v6, "enqueuedCount")}];
+  v33[1] = v27;
+  v32[2] = @"Dequeued Count";
+  v26 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:{objc_msgSend(v6, "dequeuedCount")}];
+  v33[2] = v26;
+  v32[3] = @"Dequeued Identifiers";
+  v25 = [v6 dequeuedContentIdentifiers];
+  v24 = [v25 allObjects];
+  v33[3] = v24;
+  v32[4] = @"Memory";
+  v30[0] = @"count";
   v8 = MEMORY[0x277CCABB0];
-  v24 = [v6 memoryStorage];
-  v23 = [v8 numberWithUnsignedInteger:{objc_msgSend(v24, "count")}];
-  v32[0] = v23;
-  v31[1] = @"limit";
-  v22 = [MEMORY[0x277CCABB0] numberWithShort:{objc_msgSend(v6, "memoryStorageLimit")}];
-  v32[1] = v22;
-  v31[2] = @"full";
+  v23 = [v6 memoryStorage];
+  v22 = [v8 numberWithUnsignedInteger:{objc_msgSend(v23, "count")}];
+  v31[0] = v22;
+  v30[1] = @"limit";
+  v21 = [MEMORY[0x277CCABB0] numberWithShort:{objc_msgSend(v6, "memoryStorageLimit")}];
+  v31[1] = v21;
+  v30[2] = @"full";
   v9 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(v6, "isMemoryStorageFull")}];
-  v32[2] = v9;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v32 forKeys:v31 count:3];
-  v34[4] = v10;
-  v33[5] = @"Disk";
+  v31[2] = v9;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v31 forKeys:v30 count:3];
+  v33[4] = v10;
+  v32[5] = @"Disk";
   v11 = [v6 diskStorage];
   if (v11)
   {
-    v29[0] = @"stream";
-    v21 = [v6 diskStorage];
-    v20 = [v21 identifier];
-    v30[0] = v20;
-    v29[1] = @"count";
-    v19 = [*(a1 + 32) diskStorageStreamCount];
-    v30[1] = v19;
-    v29[2] = @"known to be empty";
-    v18 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(v6, "diskStorageIsKnownToBeEmpty")}];
-    v30[2] = v18;
-    v29[3] = @"Bookmark";
-    v17 = [v6 bookmark];
-    v3 = [v17 jsonDict];
-    v30[3] = v3;
-    v29[4] = @"Bloom filter hits";
+    v28[0] = @"stream";
+    v20 = [v6 diskStorage];
+    v19 = [v20 identifier];
+    v29[0] = v19;
+    v28[1] = @"count";
+    v18 = [*(a1 + 32) diskStorageStreamCount];
+    v29[1] = v18;
+    v28[2] = @"known to be empty";
+    v17 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(v6, "diskStorageIsKnownToBeEmpty")}];
+    v29[2] = v17;
+    v28[3] = @"Bookmark";
+    v16 = [v6 bookmark];
+    v3 = [v16 jsonDict];
+    v29[3] = v3;
+    v28[4] = @"Bloom filter hits";
     v4 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:{objc_msgSend(v6, "bloomFilterHits")}];
-    v30[4] = v4;
-    v29[5] = @"Bloom filter hits (false positives)";
+    v29[4] = v4;
+    v28[5] = @"Bloom filter hits (false positives)";
     v2 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:{objc_msgSend(v6, "bloomFilterFalsePositives")}];
-    v30[5] = v2;
-    v29[6] = @"Bloom filter misses";
+    v29[5] = v2;
+    v28[6] = @"Bloom filter misses";
     v7 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:{objc_msgSend(v6, "bloomFilterMisses")}];
-    v30[6] = v7;
-    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:v29 count:7];
+    v29[6] = v7;
+    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:v28 count:7];
   }
 
   else
@@ -304,8 +300,8 @@ void __26__HVQueue_statsWithError___block_invoke(uint64_t a1, void *a2)
     v12 = @"no disk queue";
   }
 
-  v34[5] = v12;
-  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v34 forKeys:v33 count:6];
+  v33[5] = v12;
+  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v33 forKeys:v32 count:6];
   v14 = *(*(a1 + 40) + 8);
   v15 = *(v14 + 40);
   *(v14 + 40) = v13;
@@ -313,8 +309,6 @@ void __26__HVQueue_statsWithError___block_invoke(uint64_t a1, void *a2)
   if (v11)
   {
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)ensureDeletionScanHasOccurredWithError:(id *)error
@@ -364,7 +358,7 @@ void __50__HVQueue_ensureDeletionScanHasOccurredWithError___block_invoke(uint64_
 
 void __41__HVQueue__deleteWithFilter_memory_disk___block_invoke(uint64_t a1, void *a2)
 {
-  v82 = *MEMORY[0x277D85DE8];
+  v81 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 diskContentBloomFilter];
 
@@ -381,16 +375,16 @@ void __41__HVQueue__deleteWithFilter_memory_disk___block_invoke(uint64_t a1, voi
     if ([v6 count])
     {
       v7 = objc_opt_new();
-      v74[0] = MEMORY[0x277D85DD0];
-      v74[1] = 3221225472;
-      v74[2] = __41__HVQueue__deleteWithFilter_memory_disk___block_invoke_2;
-      v74[3] = &unk_278969220;
+      v73[0] = MEMORY[0x277D85DD0];
+      v73[1] = 3221225472;
+      v73[2] = __41__HVQueue__deleteWithFilter_memory_disk___block_invoke_2;
+      v73[3] = &unk_278969220;
       v8 = v7;
-      v75 = v8;
+      v74 = v8;
       v9 = v3;
-      v76 = v9;
-      [v6 enumerateIndexesUsingBlock:v74];
-      v10 = v76;
+      v75 = v9;
+      [v6 enumerateIndexesUsingBlock:v73];
+      v10 = v75;
       v11 = v8;
 
       v12 = hv_default_log_handle();
@@ -398,20 +392,20 @@ void __41__HVQueue__deleteWithFilter_memory_disk___block_invoke(uint64_t a1, voi
       {
         v13 = *(*(a1 + 32) + 32);
         v14 = [v6 count];
-        v73[0] = MEMORY[0x277D85DD0];
-        v73[1] = 3221225472;
-        v73[2] = __41__HVQueue__deleteWithFilter_memory_disk___block_invoke_3;
-        v73[3] = &unk_2789690C0;
-        v73[4] = *(a1 + 32);
-        v15 = [v11 _pas_mappedArrayWithTransform:v73];
+        v72[0] = MEMORY[0x277D85DD0];
+        v72[1] = 3221225472;
+        v72[2] = __41__HVQueue__deleteWithFilter_memory_disk___block_invoke_3;
+        v72[3] = &unk_2789690C0;
+        v72[4] = *(a1 + 32);
+        v15 = [v11 _pas_mappedArrayWithTransform:v72];
         *buf = 138413059;
-        v78 = v13;
-        v79 = 2048;
-        *v80 = v14;
-        *&v80[8] = 2112;
-        *&v80[10] = v15;
-        *&v80[18] = 2117;
-        v81 = v11;
+        v77 = v13;
+        v78 = 2048;
+        *v79 = v14;
+        *&v79[8] = 2112;
+        *&v79[10] = v15;
+        *&v79[18] = 2117;
+        v80 = v11;
         _os_log_impl(&dword_2321EC000, v12, OS_LOG_TYPE_DEFAULT, "HVQueue<%@>: Deleting %tu items from memory %@: %{sensitive}@", buf, 0x2Au);
       }
 
@@ -442,64 +436,64 @@ void __41__HVQueue__deleteWithFilter_memory_disk___block_invoke(uint64_t a1, voi
 
     LODWORD(v18) = 1008981770;
     v20 = [MEMORY[0x277D42548] bloomFilterInMemoryWithNumberOfValuesN:v19 errorRateP:v18];
-    v69 = 0;
-    v70 = &v69;
-    v71 = 0x2020000000;
-    v72 = 0;
-    v65 = 0;
-    v66 = &v65;
-    v67 = 0x2020000000;
     v68 = 0;
+    v69 = &v68;
+    v70 = 0x2020000000;
+    v71 = 0;
+    v64 = 0;
+    v65 = &v64;
+    v66 = 0x2020000000;
+    v67 = 0;
     v21 = objc_opt_new();
     v22 = *(*(a1 + 32) + 32);
-    v62[0] = MEMORY[0x277D85DD0];
-    v62[1] = 3221225472;
-    v62[2] = __41__HVQueue__deleteWithFilter_memory_disk___block_invoke_233;
-    v62[3] = &unk_278969248;
+    v61[0] = MEMORY[0x277D85DD0];
+    v61[1] = 3221225472;
+    v61[2] = __41__HVQueue__deleteWithFilter_memory_disk___block_invoke_233;
+    v61[3] = &unk_278969248;
     v23 = v21;
-    v63 = v23;
+    v62 = v23;
     v24 = v22;
-    v64 = v24;
-    v25 = MEMORY[0x238381E60](v62);
-    v60[0] = 0;
-    v60[1] = v60;
-    v60[2] = 0x2020000000;
-    v61 = 0;
-    v58[0] = 0;
-    v58[1] = v58;
-    v58[2] = 0x2020000000;
-    v59 = 0;
+    v63 = v24;
+    v25 = MEMORY[0x238381E60](v61);
+    v59[0] = 0;
+    v59[1] = v59;
+    v59[2] = 0x2020000000;
+    v60 = 0;
+    v57[0] = 0;
+    v57[1] = v57;
+    v57[2] = 0x2020000000;
+    v58 = 0;
     v26 = [MEMORY[0x277CBEAA8] now];
     [v26 timeIntervalSinceReferenceDate];
     v28 = v27;
 
     v29 = objc_opt_class();
     v30 = [v3 diskStorage];
-    v45[0] = MEMORY[0x277D85DD0];
-    v45[1] = 3221225472;
-    v45[2] = __41__HVQueue__deleteWithFilter_memory_disk___block_invoke_236;
-    v45[3] = &unk_278969270;
-    v52 = v60;
+    v44[0] = MEMORY[0x277D85DD0];
+    v44[1] = 3221225472;
+    v44[2] = __41__HVQueue__deleteWithFilter_memory_disk___block_invoke_236;
+    v44[3] = &unk_278969270;
+    v51 = v59;
     v31 = v24;
-    v46 = v31;
-    v53 = &v69;
-    v57 = v28;
-    v56 = v29;
-    v54 = v58;
-    v50 = *(a1 + 40);
+    v45 = v31;
+    v52 = &v68;
+    v56 = v28;
+    v55 = v29;
+    v53 = v57;
+    v49 = *(a1 + 40);
     v32 = v23;
     v33 = *(a1 + 32);
-    v47 = v32;
-    v48 = v33;
+    v46 = v32;
+    v47 = v33;
     v34 = v25;
-    v51 = v34;
-    v55 = &v65;
+    v50 = v34;
+    v54 = &v64;
     v35 = v20;
-    v49 = v35;
-    [v30 pruneWithPredicateBlock:v45];
+    v48 = v35;
+    [v30 pruneWithPredicateBlock:v44];
 
     (*(v34 + 2))(v34, 1);
-    if (*(v66 + 6))
+    if (*(v65 + 6))
     {
       v36 = 1;
     }
@@ -514,26 +508,26 @@ void __41__HVQueue__deleteWithFilter_memory_disk___block_invoke(uint64_t a1, voi
     if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
     {
       v39 = *(*(a1 + 32) + 32);
-      v40 = *(v66 + 6);
+      v40 = *(v65 + 6);
       v41 = &stru_28474C1D0;
       if (v37)
       {
         v41 = @" (!!! bloom filter false positive !!!!)";
       }
 
-      v42 = *(v70 + 6);
+      v42 = *(v69 + 6);
       *buf = 138413058;
-      v78 = v39;
-      v79 = 1024;
-      *v80 = v40;
-      *&v80[4] = 2112;
-      *&v80[6] = v41;
-      *&v80[14] = 1024;
-      *&v80[16] = v42;
+      v77 = v39;
+      v78 = 1024;
+      *v79 = v40;
+      *&v79[4] = 2112;
+      *&v79[6] = v41;
+      *&v79[14] = 1024;
+      *&v79[16] = v42;
       _os_log_impl(&dword_2321EC000, v38, OS_LOG_TYPE_DEFAULT, "HVQueue<%@>: deleteContentWithRequest: biome enumeration deleted %u events on-disk%@, %u events remain on-disk", buf, 0x22u);
     }
 
-    v43 = *(v70 + 6);
+    v43 = *(v69 + 6);
     if (!v43 || v19 >> 2 > v43)
     {
       if (!v43)
@@ -542,7 +536,7 @@ void __41__HVQueue__deleteWithFilter_memory_disk___block_invoke(uint64_t a1, voi
       }
 
       v35 = 0;
-      v43 = *(v70 + 6);
+      v43 = *(v69 + 6);
     }
 
     [v3 setDiskStorageEventCount:v43];
@@ -552,14 +546,12 @@ void __41__HVQueue__deleteWithFilter_memory_disk___block_invoke(uint64_t a1, voi
       [v3 setBloomFilterFalsePositives:{objc_msgSend(v3, "bloomFilterFalsePositives") + 1}];
     }
 
-    _Block_object_dispose(v58, 8);
-    _Block_object_dispose(v60, 8);
+    _Block_object_dispose(v57, 8);
+    _Block_object_dispose(v59, 8);
 
-    _Block_object_dispose(&v65, 8);
-    _Block_object_dispose(&v69, 8);
+    _Block_object_dispose(&v64, 8);
+    _Block_object_dispose(&v68, 8);
   }
-
-  v44 = *MEMORY[0x277D85DE8];
 }
 
 void __41__HVQueue__deleteWithFilter_memory_disk___block_invoke_2(uint64_t a1, uint64_t a2)
@@ -570,11 +562,11 @@ void __41__HVQueue__deleteWithFilter_memory_disk___block_invoke_2(uint64_t a1, u
   [v3 addObject:v4];
 }
 
-- (uint64_t)_updateMemoryQueueTransactionExtendingTimer:(uint64_t)result
+- (void)_updateMemoryQueueTransactionExtendingTimer:(void *)result
 {
   if (result)
   {
-    v2 = *(result + 8);
+    v2 = result[1];
     v3[0] = MEMORY[0x277D85DD0];
     v3[1] = 3221225472;
     v3[2] = __55__HVQueue__updateMemoryQueueTransactionExtendingTimer___block_invoke;
@@ -589,7 +581,7 @@ void __41__HVQueue__deleteWithFilter_memory_disk___block_invoke_2(uint64_t a1, u
 
 void __41__HVQueue__deleteWithFilter_memory_disk___block_invoke_233(uint64_t a1, int a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v4 = [*(a1 + 32) count];
   v5 = 63;
   if (a2)
@@ -605,35 +597,33 @@ void __41__HVQueue__deleteWithFilter_memory_disk___block_invoke_233(uint64_t a1,
     {
       v9 = *(a1 + 32);
       v8 = *(a1 + 40);
-      v11 = 138412546;
-      v12 = v8;
-      v13 = 2112;
-      v14 = v9;
-      _os_log_impl(&dword_2321EC000, v7, OS_LOG_TYPE_DEFAULT, "HVQueue<%@>: deleteContentWithRequest: deleted identifiers %@", &v11, 0x16u);
+      v10 = 138412546;
+      v11 = v8;
+      v12 = 2112;
+      v13 = v9;
+      _os_log_impl(&dword_2321EC000, v7, OS_LOG_TYPE_DEFAULT, "HVQueue<%@>: deleteContentWithRequest: deleted identifiers %@", &v10, 0x16u);
     }
 
     [*(a1 + 32) removeAllObjects];
     objc_autoreleasePoolPop(v6);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __41__HVQueue__deleteWithFilter_memory_disk___block_invoke_236(uint64_t a1, void *a2)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = [v3 eventBody];
   objc_autoreleasePoolPop(v4);
   if (!v5)
   {
-    v16 = objc_autoreleasePoolPush();
+    v15 = objc_autoreleasePoolPush();
 LABEL_20:
     (*(*(a1 + 72) + 16))(*(a1 + 72), 0);
     ++*(*(*(a1 + 104) + 8) + 24);
-    objc_autoreleasePoolPop(v16);
-    v20 = 1;
+    objc_autoreleasePoolPop(v15);
+    v19 = 1;
     goto LABEL_21;
   }
 
@@ -643,17 +633,17 @@ LABEL_20:
 
     if (!v6)
     {
-      v21 = *(*(a1 + 80) + 8);
-      if ((*(v21 + 24) & 1) == 0)
+      v20 = *(*(a1 + 80) + 8);
+      if ((*(v20 + 24) & 1) == 0)
       {
-        *(v21 + 24) = 1;
-        v11 = hv_default_log_handle();
-        if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+        *(v20 + 24) = 1;
+        v10 = hv_default_log_handle();
+        if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
         {
-          v22 = *(a1 + 32);
-          v27 = 138543362;
-          v28 = v22;
-          v13 = "HVQueue<%{public}@>: deleteContentWithRequest: deleting events likely stored in V1 Biome persistence!";
+          v21 = *(a1 + 32);
+          v25 = 138543362;
+          v26 = v21;
+          v12 = "HVQueue<%{public}@>: deleteContentWithRequest: deleting events likely stored in V1 Biome persistence!";
           goto LABEL_16;
         }
 
@@ -661,70 +651,65 @@ LABEL_17:
       }
 
 LABEL_18:
-      v16 = objc_autoreleasePoolPush();
+      v15 = objc_autoreleasePoolPush();
       goto LABEL_19;
     }
   }
 
-  if (*(*(*(a1 + 88) + 8) + 24) >= 0xFBu)
+  if (*(*(*(a1 + 88) + 8) + 24) >= 0xFBu && (objc_opt_isKindOfClass() & 1) != 0)
   {
-    v7 = *(a1 + 112);
-    if (objc_opt_isKindOfClass())
+    v7 = *(a1 + 120);
+    [v5 absoluteTimestamp];
+    if (v7 - v8 > 432000.0)
     {
-      v8 = *(a1 + 120);
-      [v5 absoluteTimestamp];
-      if (v8 - v9 > 432000.0)
+      v9 = *(*(a1 + 96) + 8);
+      if ((*(v9 + 24) & 1) == 0)
       {
-        v10 = *(*(a1 + 96) + 8);
-        if ((*(v10 + 24) & 1) == 0)
+        *(v9 + 24) = 1;
+        v10 = hv_default_log_handle();
+        if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
         {
-          *(v10 + 24) = 1;
-          v11 = hv_default_log_handle();
-          if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
-          {
-            v12 = *(a1 + 32);
-            v27 = 138543362;
-            v28 = v12;
-            v13 = "HVQueue<%{public}@>: deleteContentWithRequest: deleting old Messages event to mitigate 139207993!";
+          v11 = *(a1 + 32);
+          v25 = 138543362;
+          v26 = v11;
+          v12 = "HVQueue<%{public}@>: deleteContentWithRequest: deleting old Messages event to mitigate 139207993!";
 LABEL_16:
-            _os_log_impl(&dword_2321EC000, v11, OS_LOG_TYPE_DEFAULT, v13, &v27, 0xCu);
-            goto LABEL_17;
-          }
-
+          _os_log_impl(&dword_2321EC000, v10, OS_LOG_TYPE_DEFAULT, v12, &v25, 0xCu);
           goto LABEL_17;
         }
 
-        goto LABEL_18;
+        goto LABEL_17;
       }
+
+      goto LABEL_18;
     }
   }
 
-  v14 = objc_autoreleasePoolPush();
-  v15 = (*(*(a1 + 64) + 16))();
-  objc_autoreleasePoolPop(v14);
-  v16 = objc_autoreleasePoolPush();
-  if (v15)
+  v13 = objc_autoreleasePoolPush();
+  v14 = (*(*(a1 + 64) + 16))();
+  objc_autoreleasePoolPop(v13);
+  v15 = objc_autoreleasePoolPush();
+  if (v14)
   {
 LABEL_19:
-    v23 = *(a1 + 40);
-    v24 = [(HVQueue *)*(a1 + 48) _identifierForContent:v5];
-    [v23 addObject:v24];
+    v22 = *(a1 + 40);
+    v23 = [(HVQueue *)*(a1 + 48) _identifierForContent:v5];
+    [v22 addObject:v23];
 
     goto LABEL_20;
   }
 
-  v17 = [(HVQueue *)*(a1 + 48) _bundleIdForEvent:v5];
-  v18 = [v5 domainId];
-  v19 = [v5 uniqueId];
-  [HVSpotlightDeletionRequest addDeletableContentWithBundleIdentifier:v17 domainIdentifier:v18 uniqueIdentifier:v19 toBloomFilter:*(a1 + 56)];
+  v16 = [(HVQueue *)*(a1 + 48) _bundleIdForEvent:v5];
+  v17 = [v5 domainId];
+  v18 = [v5 uniqueId];
+  [HVSpotlightDeletionRequest addDeletableContentWithBundleIdentifier:v16 domainIdentifier:v17 uniqueIdentifier:v18 toBloomFilter:*(a1 + 56)];
 
   ++*(*(*(a1 + 88) + 8) + 24);
-  objc_autoreleasePoolPop(v16);
-  v20 = 0;
+  objc_autoreleasePoolPop(v15);
+  v19 = 0;
 LABEL_21:
 
-  v25 = *MEMORY[0x277D85DE8];
-  return v20;
+  return v19;
 }
 
 - (unsigned)_identifierForContent:(unsigned __int8 *)content
@@ -770,9 +755,9 @@ LABEL_21:
   return event;
 }
 
-- (id)_identifierForContentWithUniqueIdentifier:(void *)identifier bundleId:
+- (void)_identifierForContentWithUniqueIdentifier:(void *)identifier bundleId:
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v5 = a2;
   identifierCopy = identifier;
   v7 = identifierCopy;
@@ -802,11 +787,11 @@ LABEL_21:
         v11 = hv_default_log_handle();
         if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
         {
-          v15 = *(self + 32);
+          v14 = self[4];
           *buf = 138412546;
-          v19 = v15;
-          v20 = 2112;
-          v21 = v10;
+          v18 = v14;
+          v19 = 2112;
+          v20 = v10;
           _os_log_fault_impl(&dword_2321EC000, v11, OS_LOG_TYPE_FAULT, "HVQueue<%@>: _identifierForContentWithUniqueIdentifier called with nil uniqueId for bundleId %@", buf, 0x16u);
         }
 
@@ -816,9 +801,9 @@ LABEL_21:
         }
       }
 
-      v17[0] = v10;
-      v17[1] = v5;
-      v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:2];
+      v16[0] = v10;
+      v16[1] = v5;
+      v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:2];
       self = [v12 _pas_componentsJoinedByString:@":"];
 
       objc_autoreleasePoolPop(v8);
@@ -836,8 +821,6 @@ LABEL_21:
   {
     v10 = identifierCopy;
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return self;
 }
@@ -921,7 +904,7 @@ LABEL_11:
 
 - (BOOL)deleteContentWithRequest:(id)request error:(id *)error
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   v6 = hv_default_log_handle();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
@@ -939,52 +922,51 @@ LABEL_11:
     requestCopy = v8;
   }
 
-  v21 = 0;
-  v22 = &v21;
-  v23 = 0x2020000000;
-  v24 = 0;
+  v20 = 0;
+  v21 = &v20;
+  v22 = 0x2020000000;
+  v23 = 0;
   lock = self->_lock;
-  v15 = MEMORY[0x277D85DD0];
-  v16 = 3221225472;
-  v17 = __42__HVQueue_deleteContentWithRequest_error___block_invoke;
-  v18 = &unk_278968FF8;
-  v20 = &v21;
+  v14 = MEMORY[0x277D85DD0];
+  v15 = 3221225472;
+  v16 = __42__HVQueue_deleteContentWithRequest_error___block_invoke;
+  v17 = &unk_278968FF8;
+  v19 = &v20;
   v10 = requestCopy;
-  v19 = v10;
-  [(_PASLock *)lock runWithLockAcquired:&v15];
+  v18 = v10;
+  [(_PASLock *)lock runWithLockAcquired:&v14];
   v11 = v10;
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v29 = 0x3032000000;
-  v30 = __Block_byref_object_copy__248;
-  v31 = __Block_byref_object_dispose__249;
-  v32 = 0;
-  v27[0] = MEMORY[0x277D85DD0];
-  v27[1] = 3221225472;
-  v27[2] = __42__HVQueue__filterBlockForDeletionRequest___block_invoke;
-  v27[3] = &unk_2789692E8;
-  v27[4] = self;
-  v27[5] = &buf;
+  v28 = 0x3032000000;
+  v29 = __Block_byref_object_copy__248;
+  v30 = __Block_byref_object_dispose__249;
+  v31 = 0;
   v26[0] = MEMORY[0x277D85DD0];
   v26[1] = 3221225472;
-  v26[2] = __42__HVQueue__filterBlockForDeletionRequest___block_invoke_2;
-  v26[3] = &unk_278969310;
+  v26[2] = __42__HVQueue__filterBlockForDeletionRequest___block_invoke;
+  v26[3] = &unk_2789692E8;
   v26[4] = self;
   v26[5] = &buf;
   v25[0] = MEMORY[0x277D85DD0];
   v25[1] = 3221225472;
-  v25[2] = __42__HVQueue__filterBlockForDeletionRequest___block_invoke_3;
-  v25[3] = &unk_278969360;
+  v25[2] = __42__HVQueue__filterBlockForDeletionRequest___block_invoke_2;
+  v25[3] = &unk_278969310;
   v25[4] = self;
   v25[5] = &buf;
-  [v11 accessCriteriaUsingBundleIdentifierBlock:v27 domainSelectionBlock:v26 uniqueIdentifiersBlock:{v25, v15, v16, v17, v18}];
+  v24[0] = MEMORY[0x277D85DD0];
+  v24[1] = 3221225472;
+  v24[2] = __42__HVQueue__filterBlockForDeletionRequest___block_invoke_3;
+  v24[3] = &unk_278969360;
+  v24[4] = self;
+  v24[5] = &buf;
+  [v11 accessCriteriaUsingBundleIdentifierBlock:v26 domainSelectionBlock:v25 uniqueIdentifiersBlock:{v24, v14, v15, v16, v17}];
   v12 = MEMORY[0x238381E60](*(*(&buf + 1) + 40));
   _Block_object_dispose(&buf, 8);
 
-  [(HVQueue *)self _deleteWithFilter:v12 memory:1 disk:*(v22 + 24)];
-  _Block_object_dispose(&v21, 8);
+  [(HVQueue *)self _deleteWithFilter:v12 memory:1 disk:*(v21 + 24)];
+  _Block_object_dispose(&v20, 8);
 
-  v13 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
@@ -1019,20 +1001,14 @@ uint64_t __42__HVQueue_deleteContentWithRequest_error___block_invoke(uint64_t a1
 
 uint64_t __42__HVQueue__filterBlockForDeletionRequest___block_invoke(uint64_t a1, void *a2)
 {
-  v3 = [(HVQueue *)*(a1 + 32) _filterBlockForBundleIdentifier:a2 contentIdentifierSet:0 domainSelection:0];
-  v4 = *(*(a1 + 40) + 8);
-  v5 = *(v4 + 40);
-  *(v4 + 40) = v3;
+  *(*(*(a1 + 40) + 8) + 40) = [(HVQueue *)*(a1 + 32) _filterBlockForBundleIdentifier:a2 contentIdentifierSet:0 domainSelection:0];
 
   return MEMORY[0x2821F96F8]();
 }
 
 uint64_t __42__HVQueue__filterBlockForDeletionRequest___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v4 = [(HVQueue *)*(a1 + 32) _filterBlockForBundleIdentifier:a2 contentIdentifierSet:0 domainSelection:a3];
-  v5 = *(*(a1 + 40) + 8);
-  v6 = *(v5 + 40);
-  *(v5 + 40) = v4;
+  *(*(*(a1 + 40) + 8) + 40) = [(HVQueue *)*(a1 + 32) _filterBlockForBundleIdentifier:a2 contentIdentifierSet:0 domainSelection:a3];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -1157,7 +1133,7 @@ LABEL_20:
 
 uint64_t __80__HVQueue__filterBlockForBundleIdentifier_contentIdentifierSet_domainSelection___block_invoke(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (objc_opt_respondsToSelector())
   {
@@ -1170,25 +1146,24 @@ uint64_t __80__HVQueue__filterBlockForBundleIdentifier_contentIdentifierSet_doma
     v6 = hv_default_log_handle();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
     {
-      v9 = *(a1 + 40);
-      v10 = *(*(a1 + 32) + 32);
-      v11 = 138412546;
-      v12 = v10;
-      v13 = 2112;
-      v14 = v9;
-      _os_log_fault_impl(&dword_2321EC000, v6, OS_LOG_TYPE_FAULT, "HVQueue<%@>: deletion for bundle %@ encountered event which does not respond to bundleId", &v11, 0x16u);
+      v8 = *(a1 + 40);
+      v9 = *(*(a1 + 32) + 32);
+      v10 = 138412546;
+      v11 = v9;
+      v12 = 2112;
+      v13 = v8;
+      _os_log_fault_impl(&dword_2321EC000, v6, OS_LOG_TYPE_FAULT, "HVQueue<%@>: deletion for bundle %@ encountered event which does not respond to bundleId", &v10, 0x16u);
     }
 
     v5 = 1;
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
 uint64_t __80__HVQueue__filterBlockForBundleIdentifier_contentIdentifierSet_domainSelection___block_invoke_2(uint64_t a1, void *a2)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (!v3)
   {
@@ -1196,13 +1171,13 @@ uint64_t __80__HVQueue__filterBlockForBundleIdentifier_contentIdentifierSet_doma
     if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
     {
       v7 = *(*(a1 + 32) + 32);
-      v20 = 138412290;
-      v21 = v7;
+      v19 = 138412290;
+      v20 = v7;
       v8 = "HVQueue<%@>: deleting null event";
       v9 = v4;
       v10 = 12;
 LABEL_11:
-      _os_log_fault_impl(&dword_2321EC000, v9, OS_LOG_TYPE_FAULT, v8, &v20, v10);
+      _os_log_fault_impl(&dword_2321EC000, v9, OS_LOG_TYPE_FAULT, v8, &v19, v10);
     }
 
 LABEL_16:
@@ -1218,12 +1193,12 @@ LABEL_16:
       v11 = *(a1 + 40);
       v12 = *(*(a1 + 32) + 32);
       v13 = *(a1 + 48);
-      v20 = 138412802;
-      v21 = v12;
-      v22 = 2112;
-      v23 = v11;
-      v24 = 2112;
-      v25 = v13;
+      v19 = 138412802;
+      v20 = v12;
+      v21 = 2112;
+      v22 = v11;
+      v23 = 2112;
+      v24 = v13;
       v8 = "HVQueue<%@>: deletion for bundle %@ domain %@ encountered event which does not respond to bundleId";
       v9 = v4;
       v10 = 32;
@@ -1245,16 +1220,16 @@ LABEL_16:
     v14 = hv_default_log_handle();
     if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
     {
-      v17 = *(a1 + 40);
-      v18 = *(*(a1 + 32) + 32);
-      v19 = *(a1 + 48);
-      v20 = 138412802;
-      v21 = v18;
-      v22 = 2112;
-      v23 = v17;
-      v24 = 2112;
-      v25 = v19;
-      _os_log_fault_impl(&dword_2321EC000, v14, OS_LOG_TYPE_FAULT, "HVQueue<%@>: deletion for bundle %@ domain %@ encountered event which does not respond to domainId", &v20, 0x20u);
+      v16 = *(a1 + 40);
+      v17 = *(*(a1 + 32) + 32);
+      v18 = *(a1 + 48);
+      v19 = 138412802;
+      v20 = v17;
+      v21 = 2112;
+      v22 = v16;
+      v23 = 2112;
+      v24 = v18;
+      _os_log_fault_impl(&dword_2321EC000, v14, OS_LOG_TYPE_FAULT, "HVQueue<%@>: deletion for bundle %@ domain %@ encountered event which does not respond to domainId", &v19, 0x20u);
     }
 
     goto LABEL_16;
@@ -1272,13 +1247,12 @@ LABEL_16:
   }
 
 LABEL_17:
-  v15 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
 uint64_t __80__HVQueue__filterBlockForBundleIdentifier_contentIdentifierSet_domainSelection___block_invoke_270(uint64_t a1, void *a2)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (!v3)
   {
@@ -1292,13 +1266,13 @@ LABEL_8:
     }
 
     v7 = *(*(a1 + 32) + 32);
-    v16 = 138412290;
-    v17 = v7;
+    v15 = 138412290;
+    v16 = v7;
     v8 = "HVQueue<%@>: deleting null event";
     v9 = v6;
     v10 = 12;
 LABEL_13:
-    _os_log_fault_impl(&dword_2321EC000, v9, OS_LOG_TYPE_FAULT, v8, &v16, v10);
+    _os_log_fault_impl(&dword_2321EC000, v9, OS_LOG_TYPE_FAULT, v8, &v15, v10);
     goto LABEL_8;
   }
 
@@ -1310,15 +1284,15 @@ LABEL_13:
       goto LABEL_8;
     }
 
-    v13 = *(a1 + 40);
-    v14 = *(*(a1 + 32) + 32);
-    v15 = *(a1 + 48);
-    v16 = 138412802;
-    v17 = v14;
-    v18 = 2112;
-    v19 = v13;
-    v20 = 2112;
-    v21 = v15;
+    v12 = *(a1 + 40);
+    v13 = *(*(a1 + 32) + 32);
+    v14 = *(a1 + 48);
+    v15 = 138412802;
+    v16 = v13;
+    v17 = 2112;
+    v18 = v12;
+    v19 = 2112;
+    v20 = v14;
     v8 = "HVQueue<%@>: deletion for bundle %@ domain %@ encountered event which does not respond to domainId";
     v9 = v6;
     v10 = 32;
@@ -1337,13 +1311,12 @@ LABEL_13:
   }
 
 LABEL_11:
-  v11 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
 uint64_t __80__HVQueue__filterBlockForBundleIdentifier_contentIdentifierSet_domainSelection___block_invoke_271(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (!v3)
   {
@@ -1351,9 +1324,9 @@ uint64_t __80__HVQueue__filterBlockForBundleIdentifier_contentIdentifierSet_doma
     if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
       v7 = *(*(a1 + 32) + 32);
-      v12 = 138412290;
-      v13 = v7;
-      _os_log_fault_impl(&dword_2321EC000, v5, OS_LOG_TYPE_FAULT, "HVQueue<%@>: deleting null event", &v12, 0xCu);
+      v11 = 138412290;
+      v12 = v7;
+      _os_log_fault_impl(&dword_2321EC000, v5, OS_LOG_TYPE_FAULT, "HVQueue<%@>: deleting null event", &v11, 0xCu);
     }
 
     goto LABEL_9;
@@ -1365,12 +1338,12 @@ uint64_t __80__HVQueue__filterBlockForBundleIdentifier_contentIdentifierSet_doma
     v8 = hv_default_log_handle();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
     {
-      v11 = *(*(a1 + 32) + 32);
-      v12 = 138412547;
-      v13 = v11;
-      v14 = 2117;
-      v15 = v3;
-      _os_log_fault_impl(&dword_2321EC000, v8, OS_LOG_TYPE_FAULT, "HVQueue<%@>: unable to generate content identifier for event, will delete to be safe: %{sensitive}@", &v12, 0x16u);
+      v10 = *(*(a1 + 32) + 32);
+      v11 = 138412547;
+      v12 = v10;
+      v13 = 2117;
+      v14 = v3;
+      _os_log_fault_impl(&dword_2321EC000, v8, OS_LOG_TYPE_FAULT, "HVQueue<%@>: unable to generate content identifier for event, will delete to be safe: %{sensitive}@", &v11, 0x16u);
     }
 
     v5 = 0;
@@ -1383,7 +1356,6 @@ LABEL_9:
   v6 = [*(a1 + 40) containsObject:v4];
 LABEL_10:
 
-  v9 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -1405,7 +1377,7 @@ LABEL_10:
 
 void __44__HVQueue_dequeuedContentNotConsumed_error___block_invoke(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 32);
   v4 = *(a1 + 40);
   v5 = a2;
@@ -1414,17 +1386,16 @@ void __44__HVQueue_dequeuedContentNotConsumed_error___block_invoke(uint64_t a1, 
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = [*(a1 + 32) identifier];
-    v11 = 138412546;
-    v12 = v8;
-    v13 = 2112;
-    v14 = v6;
-    _os_log_impl(&dword_2321EC000, v7, OS_LOG_TYPE_DEFAULT, "HVQueue<%@>: dequeuedContentNotConsumed: %@", &v11, 0x16u);
+    v10 = 138412546;
+    v11 = v8;
+    v12 = 2112;
+    v13 = v6;
+    _os_log_impl(&dword_2321EC000, v7, OS_LOG_TYPE_DEFAULT, "HVQueue<%@>: dequeuedContentNotConsumed: %@", &v10, 0x16u);
   }
 
   v9 = [v5 dequeuedContentIdentifiers];
 
   [v9 removeObject:v6];
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)dequeuedContentConsumedWithError:(id *)error
@@ -1442,7 +1413,7 @@ void __44__HVQueue_dequeuedContentNotConsumed_error___block_invoke(uint64_t a1, 
 
 void __44__HVQueue_dequeuedContentConsumedWithError___block_invoke(uint64_t a1, void *a2)
 {
-  v72 = *MEMORY[0x277D85DE8];
+  v71 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = hv_default_log_handle();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
@@ -1453,10 +1424,10 @@ void __44__HVQueue_dequeuedContentConsumedWithError___block_invoke(uint64_t a1, 
     v8 = [v3 dequeuedContentIdentifiers];
     *buf = 138412802;
     *&buf[4] = v5;
-    v68 = 2048;
-    v69 = v7;
-    v70 = 2112;
-    v71 = v8;
+    v67 = 2048;
+    v68 = v7;
+    v69 = 2112;
+    v70 = v8;
     _os_log_impl(&dword_2321EC000, v4, OS_LOG_TYPE_DEFAULT, "HVQueue<%@>: dequeuedContentConsumedWithError count:%tu, content:%@", buf, 0x20u);
   }
 
@@ -1475,33 +1446,33 @@ void __44__HVQueue_dequeuedContentConsumedWithError___block_invoke(uint64_t a1, 
       {
         if (v12[24])
         {
-          v52 = v12;
-          v50 = a1;
-          v51 = v3;
+          v51 = v12;
+          v49 = a1;
+          v50 = v3;
           context = objc_autoreleasePoolPush();
-          v53 = objc_opt_new();
+          v52 = objc_opt_new();
+          v58 = 0u;
           v59 = 0u;
           v60 = 0u;
           v61 = 0u;
-          v62 = 0u;
-          v49 = v13;
+          v48 = v13;
           obj = v13;
-          v14 = [obj countByEnumeratingWithState:&v59 objects:buf count:16];
+          v14 = [obj countByEnumeratingWithState:&v58 objects:buf count:16];
           if (v14)
           {
             v15 = v14;
-            v16 = *v60;
+            v16 = *v59;
             v17 = @":";
             do
             {
               for (i = 0; i != v15; ++i)
               {
-                if (*v60 != v16)
+                if (*v59 != v16)
                 {
                   objc_enumerationMutation(obj);
                 }
 
-                v19 = *(*(&v59 + 1) + 8 * i);
+                v19 = *(*(&v58 + 1) + 8 * i);
                 v20 = objc_autoreleasePoolPush();
                 v21 = [v19 rangeOfString:v17 options:2];
                 if (v21 == 0x7FFFFFFFFFFFFFFFLL)
@@ -1509,12 +1480,12 @@ void __44__HVQueue_dequeuedContentConsumedWithError___block_invoke(uint64_t a1, 
                   v23 = hv_default_log_handle();
                   if (os_log_type_enabled(v23, OS_LOG_TYPE_FAULT))
                   {
-                    v33 = *(v52 + 4);
-                    *v64 = 138412547;
-                    *&v64[4] = v33;
-                    *&v64[12] = 2113;
-                    *&v64[14] = v19;
-                    _os_log_fault_impl(&dword_2321EC000, v23, OS_LOG_TYPE_FAULT, "HVQueue<%@>: _spotlightDeletionRequestsForContentIdentifiers found a contentIdentifier missing a colon even though _contentExpectedFromMultipleApps=YES: %{private}@", v64, 0x16u);
+                    v33 = *(v51 + 4);
+                    *v63 = 138412547;
+                    *&v63[4] = v33;
+                    *&v63[12] = 2113;
+                    *&v63[14] = v19;
+                    _os_log_fault_impl(&dword_2321EC000, v23, OS_LOG_TYPE_FAULT, "HVQueue<%@>: _spotlightDeletionRequestsForContentIdentifiers found a contentIdentifier missing a colon even though _contentExpectedFromMultipleApps=YES: %{private}@", v63, 0x16u);
                   }
 
                   if (_PASEvaluateLogFaultAndProbCrashCriteria())
@@ -1534,11 +1505,11 @@ void __44__HVQueue_dequeuedContentConsumedWithError___block_invoke(uint64_t a1, 
                   if (!v28)
                   {
                     v34 = [MEMORY[0x277CCA890] currentHandler];
-                    [v34 handleFailureInMethod:sel__spotlightDeletionRequestsForContentIdentifiers_ object:v52 file:@"HVQueue.m" lineNumber:848 description:{@"Invalid parameter not satisfying: %@", @"bundleId"}];
+                    [v34 handleFailureInMethod:sel__spotlightDeletionRequestsForContentIdentifiers_ object:v51 file:@"HVQueue.m" lineNumber:848 description:{@"Invalid parameter not satisfying: %@", @"bundleId"}];
                   }
 
                   v29 = [v19 substringFromIndex:v24 + v25];
-                  v30 = [v53 objectForKeyedSubscript:v28];
+                  v30 = [v52 objectForKeyedSubscript:v28];
                   v31 = v30;
                   if (v30)
                   {
@@ -1548,7 +1519,7 @@ void __44__HVQueue_dequeuedContentConsumedWithError___block_invoke(uint64_t a1, 
                   else
                   {
                     v32 = objc_opt_new();
-                    [v53 setObject:v32 forKeyedSubscript:v28];
+                    [v52 setObject:v32 forKeyedSubscript:v28];
                   }
 
                   v17 = v26;
@@ -1559,25 +1530,25 @@ void __44__HVQueue_dequeuedContentConsumedWithError___block_invoke(uint64_t a1, 
                 objc_autoreleasePoolPop(v20);
               }
 
-              v15 = [obj countByEnumeratingWithState:&v59 objects:buf count:16];
+              v15 = [obj countByEnumeratingWithState:&v58 objects:buf count:16];
             }
 
             while (v15);
           }
 
-          v35 = [v53 allKeys];
-          *v64 = MEMORY[0x277D85DD0];
-          *&v64[8] = 3221225472;
-          *&v64[16] = __59__HVQueue__spotlightDeletionRequestsForContentIdentifiers___block_invoke;
-          v65 = &unk_2789692C0;
-          v66 = v53;
-          v36 = v53;
-          v12 = [v35 _pas_mappedArrayWithTransform:v64];
+          v35 = [v52 allKeys];
+          *v63 = MEMORY[0x277D85DD0];
+          *&v63[8] = 3221225472;
+          *&v63[16] = __59__HVQueue__spotlightDeletionRequestsForContentIdentifiers___block_invoke;
+          v64 = &unk_2789692C0;
+          v65 = v52;
+          v36 = v52;
+          v12 = [v35 _pas_mappedArrayWithTransform:v63];
 
           objc_autoreleasePoolPop(context);
-          a1 = v50;
-          v3 = v51;
-          v13 = v49;
+          a1 = v49;
+          v3 = v50;
+          v13 = v48;
         }
 
         else
@@ -1588,25 +1559,25 @@ void __44__HVQueue_dequeuedContentConsumedWithError___block_invoke(uint64_t a1, 
         }
       }
 
-      v57 = 0u;
-      v58 = 0u;
-      v55 = 0u;
       v56 = 0u;
+      v57 = 0u;
+      v54 = 0u;
+      v55 = 0u;
       v39 = v12;
-      v37 = [v39 countByEnumeratingWithState:&v55 objects:v63 count:16];
+      v37 = [v39 countByEnumeratingWithState:&v54 objects:v62 count:16];
       if (v37)
       {
-        v40 = *v56;
+        v40 = *v55;
         while (2)
         {
           for (j = 0; j != v37; ++j)
           {
-            if (*v56 != v40)
+            if (*v55 != v40)
             {
               objc_enumerationMutation(v39);
             }
 
-            v42 = *(*(&v55 + 1) + 8 * j);
+            v42 = *(*(&v54 + 1) + 8 * j);
             v43 = [v3 diskContentBloomFilter];
             LOBYTE(v42) = [v42 matchesBloomFilter:v43];
 
@@ -1617,7 +1588,7 @@ void __44__HVQueue_dequeuedContentConsumedWithError___block_invoke(uint64_t a1, 
             }
           }
 
-          v37 = [v39 countByEnumeratingWithState:&v55 objects:v63 count:16];
+          v37 = [v39 countByEnumeratingWithState:&v54 objects:v62 count:16];
           if (v37)
           {
             continue;
@@ -1646,8 +1617,6 @@ LABEL_38:
     v46 = [v3 dequeuedContentIdentifiers];
     [v46 removeAllObjects];
   }
-
-  v47 = *MEMORY[0x277D85DE8];
 }
 
 HVSpotlightDeletionRequest *__59__HVQueue__spotlightDeletionRequestsForContentIdentifiers___block_invoke(uint64_t a1, void *a2)
@@ -1703,7 +1672,7 @@ HVSpotlightDeletionRequest *__59__HVQueue__spotlightDeletionRequestsForContentId
 
 void __95__HVQueue_dequeueContent_dataSourceContentState_minimumLevelOfService_inMemoryItemsOnly_error___block_invoke(uint64_t a1, void *a2)
 {
-  v67 = *MEMORY[0x277D85DE8];
+  v66 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 memoryStorage];
   v5 = [v4 count];
@@ -1718,33 +1687,33 @@ void __95__HVQueue_dequeueContent_dataSourceContentState_minimumLevelOfService_i
   {
     v7 = *(*(a1 + 32) + 32);
     *buf = 138412290;
-    v61 = v7;
+    v60 = v7;
     _os_log_impl(&dword_2321EC000, v6, OS_LOG_TYPE_DEFAULT, "HVQueue<%@>: dequeueContent: reading from memory", buf, 0xCu);
   }
 
-  v58 = 0u;
-  v59 = 0u;
-  v56 = 0u;
   v57 = 0u;
+  v58 = 0u;
+  v55 = 0u;
+  v56 = 0u;
   v8 = [v3 memoryStorage];
   v9 = [v8 reverseObjectEnumerator];
 
   obj = v9;
-  v10 = [v9 countByEnumeratingWithState:&v56 objects:v66 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v55 objects:v65 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v57;
+    v12 = *v56;
     while (2)
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v57 != v12)
+        if (*v56 != v12)
         {
           objc_enumerationMutation(obj);
         }
 
-        v14 = *(*(&v56 + 1) + 8 * i);
+        v14 = *(*(&v55 + 1) + 8 * i);
         v15 = objc_autoreleasePoolPush();
         v16 = [(HVQueue *)*(a1 + 32) _identifierForContent:v14];
         v17 = [v3 dequeuedContentIdentifiers];
@@ -1777,7 +1746,7 @@ void __95__HVQueue_dequeueContent_dataSourceContentState_minimumLevelOfService_i
         objc_autoreleasePoolPop(v15);
       }
 
-      v11 = [obj countByEnumeratingWithState:&v56 objects:v66 count:16];
+      v11 = [obj countByEnumeratingWithState:&v55 objects:v65 count:16];
       if (v11)
       {
         continue;
@@ -1800,11 +1769,11 @@ LABEL_17:
       v30 = [(HVQueue *)v28 _identifierForContent:?];
       v31 = **(a1 + 64);
       *buf = 138412803;
-      v61 = v29;
-      v62 = 2112;
-      v63 = v30;
-      v64 = 2117;
-      v65 = v31;
+      v60 = v29;
+      v61 = 2112;
+      v62 = v30;
+      v63 = 2117;
+      v64 = v31;
       _os_log_impl(&dword_2321EC000, v27, OS_LOG_TYPE_DEFAULT, "HVQueue<%@>: dequeueContent: read %@ from memory: %{sensitive}@", buf, 0x20u);
     }
 
@@ -1833,18 +1802,18 @@ LABEL_22:
         [v38 setLos:v37];
       }
 
-      v50[0] = MEMORY[0x277D85DD0];
-      v50[1] = 3221225472;
-      v50[2] = __95__HVQueue_dequeueContent_dataSourceContentState_minimumLevelOfService_inMemoryItemsOnly_error___block_invoke_196;
-      v50[3] = &unk_278969160;
-      v54 = *(a1 + 64);
-      v50[4] = *(a1 + 32);
+      v49[0] = MEMORY[0x277D85DD0];
+      v49[1] = 3221225472;
+      v49[2] = __95__HVQueue_dequeueContent_dataSourceContentState_minimumLevelOfService_inMemoryItemsOnly_error___block_invoke_196;
+      v49[3] = &unk_278969160;
+      v53 = *(a1 + 64);
+      v49[4] = *(a1 + 32);
       v39 = v3;
-      v51 = v39;
-      v52 = *(a1 + 40);
-      v55 = *(a1 + 80);
-      v53 = vextq_s8(*(a1 + 48), *(a1 + 48), 8uLL);
-      v40 = MEMORY[0x238381E60](v50);
+      v50 = v39;
+      v51 = *(a1 + 40);
+      v54 = *(a1 + 80);
+      v52 = vextq_s8(*(a1 + 48), *(a1 + 48), 8uLL);
+      v40 = MEMORY[0x238381E60](v49);
       v40[2](v40, 1);
       if (!**(a1 + 64))
       {
@@ -1862,11 +1831,11 @@ LABEL_22:
           v44 = *(*(a1 + 32) + 32);
           v45 = **(a1 + 64);
           *buf = 138412803;
-          v61 = v44;
-          v62 = 2112;
-          v63 = v42;
-          v64 = 2117;
-          v65 = v45;
+          v60 = v44;
+          v61 = 2112;
+          v62 = v42;
+          v63 = 2117;
+          v64 = v45;
           _os_log_impl(&dword_2321EC000, v43, OS_LOG_TYPE_DEFAULT, "HVQueue<%@>: dequeueContent: read %@ from disk: %{sensitive}@", buf, 0x20u);
         }
 
@@ -1878,8 +1847,6 @@ LABEL_22:
       }
     }
   }
-
-  v47 = *MEMORY[0x277D85DE8];
 }
 
 void __95__HVQueue_dequeueContent_dataSourceContentState_minimumLevelOfService_inMemoryItemsOnly_error___block_invoke_196(uint64_t a1, int a2)
@@ -2044,7 +2011,7 @@ BOOL __95__HVQueue_dequeueContent_dataSourceContentState_minimumLevelOfService_i
 
 void __95__HVQueue_dequeueContent_dataSourceContentState_minimumLevelOfService_inMemoryItemsOnly_error___block_invoke_3(uint64_t a1, void *a2, void *a3)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if ([v5 state])
@@ -2064,13 +2031,13 @@ void __95__HVQueue_dequeueContent_dataSourceContentState_minimumLevelOfService_i
 
       v9 = *(*(a1 + 32) + 32);
       v10 = [v5 error];
-      v18 = 138412802;
-      v19 = v8;
-      v20 = 2112;
-      v21 = v9;
-      v22 = 2112;
-      v23 = v10;
-      _os_log_impl(&dword_2321EC000, v7, OS_LOG_TYPE_DEFAULT, "HVQueue<%@>: dequeueContent: drivableSinkWithBookmark frontfill: %@ error: %@", &v18, 0x20u);
+      v17 = 138412802;
+      v18 = v8;
+      v19 = 2112;
+      v20 = v9;
+      v21 = 2112;
+      v22 = v10;
+      _os_log_impl(&dword_2321EC000, v7, OS_LOG_TYPE_DEFAULT, "HVQueue<%@>: dequeueContent: drivableSinkWithBookmark frontfill: %@ error: %@", &v17, 0x20u);
     }
 
     v11 = *(a1 + 64);
@@ -2093,13 +2060,11 @@ void __95__HVQueue_dequeueContent_dataSourceContentState_minimumLevelOfService_i
 
     *(*(*(a1 + 56) + 8) + 24) = 0;
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __95__HVQueue_dequeueContent_dataSourceContentState_minimumLevelOfService_inMemoryItemsOnly_error___block_invoke_208(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = hv_default_log_handle();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
@@ -2111,11 +2076,11 @@ uint64_t __95__HVQueue_dequeueContent_dataSourceContentState_minimumLevelOfServi
       v6 = @"YES";
     }
 
-    v12 = 138412546;
-    v13 = v5;
-    v14 = 2112;
-    v15 = v6;
-    _os_log_impl(&dword_2321EC000, v4, OS_LOG_TYPE_DEFAULT, "HVQueue<%@>: dequeueContent: reading from disk (frontfill: %@)", &v12, 0x16u);
+    v11 = 138412546;
+    v12 = v5;
+    v13 = 2112;
+    v14 = v6;
+    _os_log_impl(&dword_2321EC000, v4, OS_LOG_TYPE_DEFAULT, "HVQueue<%@>: dequeueContent: reading from disk (frontfill: %@)", &v11, 0x16u);
   }
 
   v7 = [v3 eventBody];
@@ -2125,7 +2090,6 @@ uint64_t __95__HVQueue_dequeueContent_dataSourceContentState_minimumLevelOfServi
   *v8 = v7;
 
   *(*(*(a1 + 40) + 8) + 24) = 1;
-  v10 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
@@ -2154,7 +2118,7 @@ uint64_t __95__HVQueue_dequeueContent_dataSourceContentState_minimumLevelOfServi
 
 void __32__HVQueue_enqueueContent_error___block_invoke(uint64_t a1, void *a2)
 {
-  v54[2] = *MEMORY[0x277D85DE8];
+  v53[2] = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = [(HVQueue *)*(a1 + 32) _identifierForContent:?];
@@ -2164,17 +2128,17 @@ void __32__HVQueue_enqueueContent_error___block_invoke(uint64_t a1, void *a2)
   [v7 removeObject:v5];
 
   v8 = [v3 memoryStorage];
-  v43[0] = MEMORY[0x277D85DD0];
-  v43[1] = 3221225472;
-  v43[2] = __32__HVQueue_enqueueContent_error___block_invoke_2;
-  v43[3] = &unk_278969070;
+  v42[0] = MEMORY[0x277D85DD0];
+  v42[1] = 3221225472;
+  v42[2] = __32__HVQueue_enqueueContent_error___block_invoke_2;
+  v42[3] = &unk_278969070;
   v9 = v5;
   v10 = *(a1 + 32);
-  v44 = v9;
-  v45 = v10;
+  v43 = v9;
+  v44 = v10;
   v11 = v3;
-  v46 = v11;
-  [v8 enumerateObjectsUsingBlock:v43];
+  v45 = v11;
+  [v8 enumerateObjectsUsingBlock:v42];
 
   objc_autoreleasePoolPop(v6);
   if (![v11 isMemoryStorageFull] || objc_msgSend(v11, "memoryStorageLimit") && (objc_msgSend(v11, "diskStorage"), v12 = objc_claimAutoreleasedReturnValue(), v12, v12))
@@ -2201,11 +2165,11 @@ void __32__HVQueue_enqueueContent_error___block_invoke(uint64_t a1, void *a2)
         }
 
         *buf = 138412802;
-        v50 = v16;
-        v51 = 2112;
-        v52 = v9;
-        v53 = 2112;
-        v54[0] = v18;
+        v49 = v16;
+        v50 = 2112;
+        v51 = v9;
+        v52 = 2112;
+        v53[0] = v18;
         _os_log_impl(&dword_2321EC000, v15, OS_LOG_TYPE_DEFAULT, "HVQueue<%@>: enqueueContent: writing %@ to memory (and flushing oldest in-memory item %@ to disk to make room)", buf, 0x20u);
         if (v14)
         {
@@ -2216,8 +2180,8 @@ void __32__HVQueue_enqueueContent_error___block_invoke(uint64_t a1, void *a2)
       {
         v24 = objc_autoreleasePoolPush();
         v25 = *(a1 + 32);
-        v48 = v14;
-        v26 = [MEMORY[0x277CBEA60] arrayWithObjects:&v48 count:1];
+        v47 = v14;
+        v26 = [MEMORY[0x277CBEA60] arrayWithObjects:&v47 count:1];
         [(HVQueue *)v25 _writeEventsToDisk:v26 guardedData:v11];
 
         v27 = [v11 memoryStorage];
@@ -2228,23 +2192,23 @@ void __32__HVQueue_enqueueContent_error___block_invoke(uint64_t a1, void *a2)
 
       else
       {
-        v32 = hv_default_log_handle();
-        if (os_log_type_enabled(v32, OS_LOG_TYPE_FAULT))
+        v31 = hv_default_log_handle();
+        if (os_log_type_enabled(v31, OS_LOG_TYPE_FAULT))
         {
-          v38 = *(*(a1 + 32) + 32);
-          v39 = [v11 memoryStorage];
-          v40 = [v39 count];
-          v41 = [v11 memoryStorageLimit];
-          v42 = [v11 memoryStorage];
+          v37 = *(*(a1 + 32) + 32);
+          v38 = [v11 memoryStorage];
+          v39 = [v38 count];
+          v40 = [v11 memoryStorageLimit];
+          v41 = [v11 memoryStorage];
           *buf = 138413059;
-          v50 = v38;
-          v51 = 2048;
-          v52 = v40;
-          v53 = 1024;
-          LODWORD(v54[0]) = v41;
-          WORD2(v54[0]) = 2113;
-          *(v54 + 6) = v42;
-          _os_log_fault_impl(&dword_2321EC000, v32, OS_LOG_TYPE_FAULT, "HVQueue<%@>: enqueueContent: isMemoryStorageFull==YES but memoryStorage.firstObject was nil (memoryStorage.count=%tu, memoryStorageLimit=%d, memoryStorage=%{private}@)", buf, 0x26u);
+          v49 = v37;
+          v50 = 2048;
+          v51 = v39;
+          v52 = 1024;
+          LODWORD(v53[0]) = v40;
+          WORD2(v53[0]) = 2113;
+          *(v53 + 6) = v41;
+          _os_log_fault_impl(&dword_2321EC000, v31, OS_LOG_TYPE_FAULT, "HVQueue<%@>: enqueueContent: isMemoryStorageFull==YES but memoryStorage.firstObject was nil (memoryStorage.count=%tu, memoryStorageLimit=%d, memoryStorage=%{private}@)", buf, 0x26u);
         }
 
         if (_PASEvaluateLogFaultAndProbCrashCriteria())
@@ -2263,9 +2227,9 @@ void __32__HVQueue_enqueueContent_error___block_invoke(uint64_t a1, void *a2)
       {
         v19 = *(*(a1 + 32) + 32);
         *buf = 138412546;
-        v50 = v19;
-        v51 = 2112;
-        v52 = v9;
+        v49 = v19;
+        v50 = 2112;
+        v51 = v9;
         _os_log_impl(&dword_2321EC000, v14, OS_LOG_TYPE_DEFAULT, "HVQueue<%@>: enqueueContent: writing %@ to memory", buf, 0x16u);
       }
     }
@@ -2276,11 +2240,11 @@ void __32__HVQueue_enqueueContent_error___block_invoke(uint64_t a1, void *a2)
       v29 = *(a1 + 40);
       v30 = *(*(a1 + 32) + 32);
       *buf = 138412803;
-      v50 = v30;
-      v51 = 2112;
-      v52 = v9;
-      v53 = 2117;
-      v54[0] = v29;
+      v49 = v30;
+      v50 = 2112;
+      v51 = v9;
+      v52 = 2117;
+      v53[0] = v29;
       _os_log_impl(&dword_2321EC000, v28, OS_LOG_TYPE_DEFAULT, "HVQueue<%@>: enqueueContent: %@ %{sensitive}@", buf, 0x20u);
     }
 
@@ -2289,7 +2253,7 @@ void __32__HVQueue_enqueueContent_error___block_invoke(uint64_t a1, void *a2)
     v23 = 1;
   }
 
-  else if ([v11 memoryStorageLimit] || (objc_msgSend(v11, "diskStorage"), v33 = objc_claimAutoreleasedReturnValue(), v33, !v33))
+  else if ([v11 memoryStorageLimit] || (objc_msgSend(v11, "diskStorage"), v32 = objc_claimAutoreleasedReturnValue(), v32, !v32))
   {
     v20 = hv_default_log_handle();
     if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
@@ -2297,11 +2261,11 @@ void __32__HVQueue_enqueueContent_error___block_invoke(uint64_t a1, void *a2)
       v21 = *(a1 + 40);
       v22 = *(*(a1 + 32) + 32);
       *buf = 138412803;
-      v50 = v22;
-      v51 = 2112;
-      v52 = v9;
-      v53 = 2117;
-      v54[0] = v21;
+      v49 = v22;
+      v50 = 2112;
+      v51 = v9;
+      v52 = 2117;
+      v53[0] = v21;
       _os_log_impl(&dword_2321EC000, v20, OS_LOG_TYPE_DEFAULT, "HVQueue<%@>: enqueueContent: memory storage full, no disk fallback -- dropping item %@! %{sensitive}@", buf, 0x20u);
     }
 
@@ -2310,25 +2274,25 @@ void __32__HVQueue_enqueueContent_error___block_invoke(uint64_t a1, void *a2)
 
   else
   {
-    v34 = hv_default_log_handle();
-    if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
+    v33 = hv_default_log_handle();
+    if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
     {
-      v35 = *(a1 + 40);
-      v36 = *(*(a1 + 32) + 32);
+      v34 = *(a1 + 40);
+      v35 = *(*(a1 + 32) + 32);
       *buf = 138412803;
-      v50 = v36;
-      v51 = 2112;
-      v52 = v9;
-      v53 = 2117;
-      v54[0] = v35;
-      _os_log_impl(&dword_2321EC000, v34, OS_LOG_TYPE_DEFAULT, "HVQueue<%@>: enqueueContent: memory storage capacity is zero, immediately falling back to disk for newly enqueued item %@! %{sensitive}@", buf, 0x20u);
+      v49 = v35;
+      v50 = 2112;
+      v51 = v9;
+      v52 = 2117;
+      v53[0] = v34;
+      _os_log_impl(&dword_2321EC000, v33, OS_LOG_TYPE_DEFAULT, "HVQueue<%@>: enqueueContent: memory storage capacity is zero, immediately falling back to disk for newly enqueued item %@! %{sensitive}@", buf, 0x20u);
     }
 
-    v37 = *(a1 + 32);
-    v47 = *(a1 + 40);
+    v36 = *(a1 + 32);
+    v46 = *(a1 + 40);
     v23 = 1;
-    v20 = [MEMORY[0x277CBEA60] arrayWithObjects:&v47 count:1];
-    [(HVQueue *)v37 _writeEventsToDisk:v20 guardedData:v11];
+    v20 = [MEMORY[0x277CBEA60] arrayWithObjects:&v46 count:1];
+    [(HVQueue *)v36 _writeEventsToDisk:v20 guardedData:v11];
   }
 
   *(*(*(a1 + 48) + 8) + 24) = v23;
@@ -2338,13 +2302,11 @@ void __32__HVQueue_enqueueContent_error___block_invoke(uint64_t a1, void *a2)
   }
 
   [(HVQueue *)*(a1 + 32) _updateMemoryQueueTransactionExtendingTimer:?];
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 void __32__HVQueue_enqueueContent_error___block_invoke_2(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = *(a1 + 32);
   v9 = objc_autoreleasePoolPush();
@@ -2359,13 +2321,13 @@ void __32__HVQueue_enqueueContent_error___block_invoke_2(uint64_t a1, void *a2, 
     {
       v12 = *(a1 + 32);
       v13 = *(*(a1 + 40) + 32);
-      v16 = 138412802;
-      v17 = v13;
-      v18 = 2112;
-      v19 = v12;
-      v20 = 2048;
-      v21 = a3;
-      _os_log_impl(&dword_2321EC000, v11, OS_LOG_TYPE_DEFAULT, "HVQueue<%@>: enqueueContent: %@ is already in memory queue at position %tu, existing item will be removed for updated item sharing identical identifier", &v16, 0x20u);
+      v15 = 138412802;
+      v16 = v13;
+      v17 = 2112;
+      v18 = v12;
+      v19 = 2048;
+      v20 = a3;
+      _os_log_impl(&dword_2321EC000, v11, OS_LOG_TYPE_DEFAULT, "HVQueue<%@>: enqueueContent: %@ is already in memory queue at position %tu, existing item will be removed for updated item sharing identical identifier", &v15, 0x20u);
     }
 
     v14 = [*(a1 + 48) memoryStorage];
@@ -2373,13 +2335,11 @@ void __32__HVQueue_enqueueContent_error___block_invoke_2(uint64_t a1, void *a2, 
 
     *a4 = 1;
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_writeEventsToDisk:(void *)disk guardedData:
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   v5 = a2;
   diskCopy = disk;
   selfCopy = self;
@@ -2393,18 +2353,18 @@ void __32__HVQueue_enqueueContent_error___block_invoke_2(uint64_t a1, void *a2, 
       {
         isa = self[1].isa;
         v10 = [v5 count];
-        v35[0] = MEMORY[0x277D85DD0];
-        v35[1] = 3221225472;
-        v35[2] = __42__HVQueue__writeEventsToDisk_guardedData___block_invoke;
-        v35[3] = &unk_2789690C0;
-        v35[4] = self;
-        v11 = [v5 _pas_mappedArrayWithTransform:v35];
+        v34[0] = MEMORY[0x277D85DD0];
+        v34[1] = 3221225472;
+        v34[2] = __42__HVQueue__writeEventsToDisk_guardedData___block_invoke;
+        v34[3] = &unk_2789690C0;
+        v34[4] = self;
+        v11 = [v5 _pas_mappedArrayWithTransform:v34];
         *buf = 138412802;
-        v38 = isa;
-        v39 = 2048;
-        v40 = v10;
-        v41 = 2112;
-        v42 = v11;
+        v37 = isa;
+        v38 = 2048;
+        v39 = v10;
+        v40 = 2112;
+        v41 = v11;
         _os_log_impl(&dword_2321EC000, v8, OS_LOG_TYPE_DEFAULT, "HVQueue<%@>: _writeEventsToDisk will write %tu items to disk: %@", buf, 0x20u);
       }
 
@@ -2417,7 +2377,7 @@ void __32__HVQueue_enqueueContent_error___block_invoke_2(uint64_t a1, void *a2, 
       [diskCopy setDiskStorageEventCount:{objc_msgSend(diskCopy, "diskStorageEventCount") + objc_msgSend(v5, "count")}];
       diskContentBloomFilter = [diskCopy diskContentBloomFilter];
       diskStorageSource = [diskCopy diskStorageSource];
-      v27 = v7;
+      v26 = v7;
       if (diskStorageSource)
       {
         source = diskStorageSource;
@@ -2438,27 +2398,27 @@ void __32__HVQueue_enqueueContent_error___block_invoke_2(uint64_t a1, void *a2, 
         }
       }
 
-      v33 = 0u;
-      v34 = 0u;
-      v31 = 0u;
       v32 = 0u;
-      v28 = v5;
+      v33 = 0u;
+      v30 = 0u;
+      v31 = 0u;
+      v27 = v5;
       obj = v5;
-      v16 = [obj countByEnumeratingWithState:&v31 objects:v36 count:16];
+      v16 = [obj countByEnumeratingWithState:&v30 objects:v35 count:16];
       if (v16)
       {
         v17 = v16;
-        v18 = *v32;
+        v18 = *v31;
         do
         {
           for (i = 0; i != v17; ++i)
           {
-            if (*v32 != v18)
+            if (*v31 != v18)
             {
               objc_enumerationMutation(obj);
             }
 
-            v20 = *(*(&v31 + 1) + 8 * i);
+            v20 = *(*(&v30 + 1) + 8 * i);
             v21 = objc_autoreleasePoolPush();
             [source sendEvent:v20];
             if (diskContentBloomFilter)
@@ -2472,20 +2432,18 @@ void __32__HVQueue_enqueueContent_error___block_invoke_2(uint64_t a1, void *a2, 
             objc_autoreleasePoolPop(v21);
           }
 
-          v17 = [obj countByEnumeratingWithState:&v31 objects:v36 count:16];
+          v17 = [obj countByEnumeratingWithState:&v30 objects:v35 count:16];
         }
 
         while (v17);
       }
 
-      v5 = v28;
-      v7 = v27;
+      v5 = v27;
+      v7 = v26;
     }
 
     objc_autoreleasePoolPop(v7);
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (id)description

@@ -16,7 +16,6 @@
 - (id)redactedDescription;
 - (void)markForDeletion;
 - (void)mergeDataFromRecord:(id)record;
-- (void)serverSystemFieldsRecord;
 - (void)setServerSystemFieldsRecord:(id)record;
 - (void)setValue:(id)value;
 - (void)setValue:(id)value withModificationDate:(id)date;
@@ -274,15 +273,15 @@
 
 - (BOOL)updateWithServerRecord:(id)record
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   recordCopy = record;
   if (!recordCopy)
   {
     v6 = SYDGetCloudKitLog();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
-      LOWORD(v19) = 0;
-      _os_log_impl(&dword_26C384000, v6, OS_LOG_TYPE_INFO, "No record provided to compare.", &v19, 2u);
+      LOWORD(v18) = 0;
+      _os_log_impl(&dword_26C384000, v6, OS_LOG_TYPE_INFO, "No record provided to compare.", &v18, 2u);
     }
 
     goto LABEL_14;
@@ -315,11 +314,11 @@
       syd_shortDescription = [recordID3 syd_shortDescription];
       recordID4 = [recordCopy recordID];
       syd_shortDescription2 = [recordID4 syd_shortDescription];
-      v19 = 138412546;
-      v20 = syd_shortDescription;
-      v21 = 2112;
-      v22 = syd_shortDescription2;
-      _os_log_impl(&dword_26C384000, v11, OS_LOG_TYPE_INFO, "Mismatched recordIDs. Keeping current record: %@, ignoring new record: %@", &v19, 0x16u);
+      v18 = 138412546;
+      v19 = syd_shortDescription;
+      v20 = 2112;
+      v21 = syd_shortDescription2;
+      _os_log_impl(&dword_26C384000, v11, OS_LOG_TYPE_INFO, "Mismatched recordIDs. Keeping current record: %@, ignoring new record: %@", &v18, 0x16u);
     }
 
 LABEL_14:
@@ -338,13 +337,12 @@ LABEL_10:
   v12 = 1;
 LABEL_15:
 
-  v17 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
 - (void)mergeDataFromRecord:(id)record
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   recordCopy = record;
   v5 = SYDGetCloudKitLog();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
@@ -448,9 +446,9 @@ LABEL_28:
 
           v31 = MEMORY[0x277CBEA90];
           fileURL2 = [v26 fileURL];
-          v50 = 0;
-          assetContent2 = [v31 dataWithContentsOfURL:fileURL2 options:0 error:&v50];
-          v33 = v50;
+          v49 = 0;
+          assetContent2 = [v31 dataWithContentsOfURL:fileURL2 options:0 error:&v49];
+          v33 = v49;
 
           if (v33)
           {
@@ -477,7 +475,7 @@ LABEL_37:
             v36 = objc_opt_class();
             v37 = NSStringFromClass(v36);
             *buf = 138412290;
-            v52 = v37;
+            v51 = v37;
             _os_log_impl(&dword_26C384000, v35, OS_LOG_TYPE_INFO, "Record's value data was of the wrong class (%@). Expected NSData.", buf, 0xCu);
           }
 
@@ -543,9 +541,9 @@ LABEL_58:
               [SYDKeyValue mergeDataFromRecord:];
             }
 
-            v49 = 0;
-            v45 = [MEMORY[0x277CCAC58] propertyListWithData:assetContent2 options:0 format:0 error:&v49];
-            v46 = v49;
+            v48 = 0;
+            v45 = [MEMORY[0x277CCAC58] propertyListWithData:assetContent2 options:0 format:0 error:&v48];
+            v46 = v48;
             v41 = v46;
             if (!v45 || v46)
             {
@@ -588,7 +586,7 @@ LABEL_47:
         v28 = objc_opt_class();
         v29 = NSStringFromClass(v28);
         *buf = 138412290;
-        v52 = v29;
+        v51 = v29;
         _os_log_impl(&dword_26C384000, v27, OS_LOG_TYPE_INFO, "Record's modification date was of the wrong class (%@). Expected NSDate.", buf, 0xCu);
       }
     }
@@ -623,8 +621,6 @@ LABEL_47:
   }
 
 LABEL_74:
-
-  v48 = *MEMORY[0x277D85DE8];
 }
 
 - (id)recordRepresentationForStoreType:(int64_t)type
@@ -844,36 +840,36 @@ LABEL_9:
 
 + (void)deleteFilesForAssetsInKeyValueRecord:(id)record
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   recordCopy = record;
   if (deleteFilesForAssetsInKeyValueRecord__onceToken != -1)
   {
     +[SYDKeyValue deleteFilesForAssetsInKeyValueRecord:];
   }
 
-  v26 = 0u;
-  v27 = 0u;
-  v24 = 0u;
   v25 = 0u;
+  v26 = 0u;
+  v23 = 0u;
+  v24 = 0u;
   v4 = deleteFilesForAssetsInKeyValueRecord__assetFieldKeys;
-  v5 = [v4 countByEnumeratingWithState:&v24 objects:v32 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v23 objects:v31 count:16];
   if (v5)
   {
     v7 = v5;
-    v8 = *v25;
+    v8 = *v24;
     *&v6 = 138412290;
-    v22 = v6;
+    v21 = v6;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v25 != v8)
+        if (*v24 != v8)
         {
           objc_enumerationMutation(v4);
         }
 
-        v10 = *(*(&v24 + 1) + 8 * i);
-        v11 = [recordCopy objectForKeyedSubscript:{v10, v22}];
+        v10 = *(*(&v23 + 1) + 8 * i);
+        v11 = [recordCopy objectForKeyedSubscript:{v10, v21}];
         v12 = v11;
         if (v11)
         {
@@ -886,25 +882,25 @@ LABEL_9:
             {
               recordID = [recordCopy recordID];
               *buf = 138412546;
-              v29 = v10;
-              v30 = 2112;
-              v31 = recordID;
+              v28 = v10;
+              v29 = 2112;
+              v30 = recordID;
               _os_log_debug_impl(&dword_26C384000, v14, OS_LOG_TYPE_DEBUG, "Deleting file for asset (%@) in key value record %@", buf, 0x16u);
             }
 
             defaultManager = [MEMORY[0x277CCAA00] defaultManager];
             fileURL2 = [v12 fileURL];
-            v23 = 0;
-            v17 = [defaultManager removeItemAtURL:fileURL2 error:&v23];
-            v18 = v23;
+            v22 = 0;
+            v17 = [defaultManager removeItemAtURL:fileURL2 error:&v22];
+            v18 = v22;
 
             if ((v17 & 1) == 0)
             {
               v19 = SYDGetCloudKitLog();
               if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
               {
-                *buf = v22;
-                v29 = v18;
+                *buf = v21;
+                v28 = v18;
                 _os_log_error_impl(&dword_26C384000, v19, OS_LOG_TYPE_ERROR, "Failed to delete asset file: %@", buf, 0xCu);
               }
             }
@@ -912,13 +908,11 @@ LABEL_9:
         }
       }
 
-      v7 = [v4 countByEnumeratingWithState:&v24 objects:v32 count:16];
+      v7 = [v4 countByEnumeratingWithState:&v23 objects:v31 count:16];
     }
 
     while (v7);
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 void __52__SYDKeyValue_deleteFilesForAssetsInKeyValueRecord___block_invoke()
@@ -959,178 +953,111 @@ void __52__SYDKeyValue_deleteFilesForAssetsInKeyValueRecord___block_invoke()
   }
 }
 
-- (void)serverSystemFieldsRecord
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_4(&dword_26C384000, v0, v1, "Error unarchiving server record: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
 - (void)setServerSystemFieldsRecord:(void *)a1 .cold.1(void *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
   v1 = [a1 recordID];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_9();
   _os_log_fault_impl(v2, v3, OS_LOG_TYPE_FAULT, v4, v5, 0xCu);
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateWithServerRecord:(NSObject *)a3 .cold.1(void *a1, void *a2, NSObject *a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v5 = [a1 recordID];
   v6 = [v5 syd_shortDescription];
   v7 = [a2 recordID];
   v8 = [v7 syd_shortDescription];
-  v10 = 138412546;
-  v11 = v6;
-  v12 = 2112;
-  v13 = v8;
-  _os_log_debug_impl(&dword_26C384000, a3, OS_LOG_TYPE_DEBUG, "Replacing current system fields record: %@ with new system fields record: %@", &v10, 0x16u);
-
-  v9 = *MEMORY[0x277D85DE8];
+  v9 = 138412546;
+  v10 = v6;
+  v11 = 2112;
+  v12 = v8;
+  _os_log_debug_impl(&dword_26C384000, a3, OS_LOG_TYPE_DEBUG, "Replacing current system fields record: %@ with new system fields record: %@", &v9, 0x16u);
 }
 
 - (void)updateWithServerRecord:(void *)a1 .cold.2(void *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   v1 = [a1 recordID];
   v2 = [v1 syd_shortDescription];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0_2();
   _os_log_debug_impl(v3, v4, v5, v6, v7, 0xCu);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)mergeDataFromRecord:(void *)a1 .cold.1(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 key];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0_2();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)mergeDataFromRecord:(void *)a1 .cold.2(void *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
   v1 = [a1 recordType];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_9();
   _os_log_error_impl(v2, v3, OS_LOG_TYPE_ERROR, v4, v5, 0xCu);
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)mergeDataFromRecord:(void *)a1 .cold.3(void *a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v3 = [a1 recordType];
   v4 = [a2 recordType];
   OUTLINED_FUNCTION_6_0();
   OUTLINED_FUNCTION_9();
   _os_log_error_impl(v5, v6, OS_LOG_TYPE_ERROR, v7, v8, 0x16u);
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)mergeDataFromRecord:(void *)a1 .cold.4(void *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   v1 = [a1 recordID];
   v2 = [v1 syd_shortDescription];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0_2();
   _os_log_debug_impl(v3, v4, v5, v6, v7, 0xCu);
-
-  v8 = *MEMORY[0x277D85DE8];
-}
-
-- (void)mergeDataFromRecord:.cold.5()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_4(&dword_26C384000, v0, v1, "Error loading data from asset: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)mergeDataFromRecord:(void *)a1 .cold.6(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 recordID];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0_2();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
-}
-
-- (void)mergeDataFromRecord:.cold.11()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_4(&dword_26C384000, v0, v1, "Error decoding value data from record: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)recordRepresentationForStoreType:(uint64_t)a1 .cold.1(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
   v3 = [a2 recordID];
   v4 = [v3 recordName];
   v5 = [a2 recordType];
   OUTLINED_FUNCTION_6_0();
   OUTLINED_FUNCTION_9();
   _os_log_fault_impl(v6, v7, OS_LOG_TYPE_FAULT, v8, v9, 0x20u);
-
-  v10 = *MEMORY[0x277D85DE8];
-}
-
-- (void)recordRepresentationForStoreType:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_4(&dword_26C384000, v0, v1, "Error generating plist value: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)recordRepresentationForStoreType:(void *)a1 .cold.3(void *a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v9 = [a1 recordID];
+  v8 = [a1 recordID];
   [a2 length];
   OUTLINED_FUNCTION_0_2();
   _os_log_debug_impl(v3, v4, v5, v6, v7, 0x16u);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)recordRepresentationForStoreType:(void *)a1 .cold.4(void *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
   v1 = [a1 recordID];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_9();
   _os_log_fault_impl(v2, v3, OS_LOG_TYPE_FAULT, v4, v5, 0xCu);
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 + (void)keyFromKeyValueRecord:(void *)a1 .cold.1(void *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
   v1 = [a1 recordID];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_9();
   _os_log_error_impl(v2, v3, OS_LOG_TYPE_ERROR, v4, v5, 0xCu);
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

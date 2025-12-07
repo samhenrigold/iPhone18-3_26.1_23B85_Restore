@@ -58,13 +58,13 @@
 
 - (void)interruptionHandler:(id)handler
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
-  v5 = LogCategory_UnknownDiscovery();
+  v5 = LogCategory_UnknownDiscovery(handlerCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v11 = handlerCopy;
+    v10 = handlerCopy;
     _os_log_impl(&dword_2643D0000, v5, OS_LOG_TYPE_DEFAULT, "SPUnknownDiscoverySession: interruptionHandler %@", buf, 0xCu);
   }
 
@@ -80,8 +80,6 @@
     block[4] = self;
     dispatch_sync(callbackQueue, block);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __49__SPUnknownDiscoverySession_interruptionHandler___block_invoke(uint64_t a1)
@@ -92,13 +90,13 @@ void __49__SPUnknownDiscoverySession_interruptionHandler___block_invoke(uint64_t
 
 - (void)invalidationHandler:(id)handler
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
-  v5 = LogCategory_UnknownDiscovery();
+  v5 = LogCategory_UnknownDiscovery(handlerCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v11 = handlerCopy;
+    v10 = handlerCopy;
     _os_log_impl(&dword_2643D0000, v5, OS_LOG_TYPE_DEFAULT, "SPUnknownDiscoverySession: invalidationHandler %@", buf, 0xCu);
   }
 
@@ -115,8 +113,6 @@ void __49__SPUnknownDiscoverySession_interruptionHandler___block_invoke(uint64_t
     block[4] = self;
     dispatch_sync(callbackQueue, block);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __49__SPUnknownDiscoverySession_invalidationHandler___block_invoke(uint64_t a1)
@@ -164,14 +160,14 @@ void __49__SPUnknownDiscoverySession_invalidationHandler___block_invoke(uint64_t
     v15 = [v13 initWithServiceDescription:serviceDescription2];
     [(SPUnknownDiscoverySession *)self setSession:v15];
 
-    v16 = LogCategory_UnknownDiscovery();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    v17 = LogCategory_UnknownDiscovery(v16);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
       serviceDescription3 = [(SPUnknownDiscoverySession *)self serviceDescription];
       machService = [serviceDescription3 machService];
       *buf = 138412290;
       v27 = machService;
-      _os_log_impl(&dword_2643D0000, v16, OS_LOG_TYPE_DEFAULT, "SPUnknownDiscoverySession: Establishing XPC connection to %@", buf, 0xCu);
+      _os_log_impl(&dword_2643D0000, v17, OS_LOG_TYPE_DEFAULT, "SPUnknownDiscoverySession: Establishing XPC connection to %@", buf, 0xCu);
     }
 
     session2 = [(SPUnknownDiscoverySession *)self session];
@@ -180,8 +176,6 @@ void __49__SPUnknownDiscoverySession_invalidationHandler___block_invoke(uint64_t
 
   session3 = [(SPUnknownDiscoverySession *)self session];
   proxy = [session3 proxy];
-
-  v22 = *MEMORY[0x277D85DE8];
 
   return proxy;
 }
@@ -239,7 +233,7 @@ uint64_t __44__SPUnknownDiscoverySession_remoteInterface__block_invoke()
 
 void __58__SPUnknownDiscoverySession_startDiscoveryWithCompletion___block_invoke(uint64_t a1)
 {
-  v2 = LogCategory_UnknownDiscovery();
+  v2 = LogCategory_UnknownDiscovery(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -270,18 +264,17 @@ void __58__SPUnknownDiscoverySession_startDiscoveryWithCompletion___block_invoke
 
 void __58__SPUnknownDiscoverySession_startDiscoveryWithCompletion___block_invoke_2(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = LogCategory_UnknownDiscovery();
+  v4 = LogCategory_UnknownDiscovery(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 138412290;
-    v7 = v3;
-    _os_log_impl(&dword_2643D0000, v4, OS_LOG_TYPE_DEFAULT, "[SPUnknownDiscoverySession startDiscoveryWithCompletion] completion. Error %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v3;
+    _os_log_impl(&dword_2643D0000, v4, OS_LOG_TYPE_DEFAULT, "[SPUnknownDiscoverySession startDiscoveryWithCompletion] completion. Error %@", &v5, 0xCu);
   }
 
   (*(*(a1 + 32) + 16))();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startDiscoveryWithScanRate:(int64_t)rate timeout:(double)timeout completion:(id)completion
@@ -301,7 +294,7 @@ void __58__SPUnknownDiscoverySession_startDiscoveryWithCompletion___block_invoke
 
 void __75__SPUnknownDiscoverySession_startDiscoveryWithScanRate_timeout_completion___block_invoke(uint64_t a1)
 {
-  v2 = LogCategory_UnknownDiscovery();
+  v2 = LogCategory_UnknownDiscovery(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -337,18 +330,17 @@ void __75__SPUnknownDiscoverySession_startDiscoveryWithScanRate_timeout_completi
 
 void __75__SPUnknownDiscoverySession_startDiscoveryWithScanRate_timeout_completion___block_invoke_2(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = LogCategory_UnknownDiscovery();
+  v4 = LogCategory_UnknownDiscovery(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 138412290;
-    v7 = v3;
-    _os_log_impl(&dword_2643D0000, v4, OS_LOG_TYPE_DEFAULT, "[SPUnknownDiscoverySession startDiscoveryWithScanRate:timeout:completion:] completion. Error %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v3;
+    _os_log_impl(&dword_2643D0000, v4, OS_LOG_TYPE_DEFAULT, "[SPUnknownDiscoverySession startDiscoveryWithScanRate:timeout:completion:] completion. Error %@", &v5, 0xCu);
   }
 
   (*(*(a1 + 32) + 16))();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stopDiscoveryWithCompletion:(id)completion
@@ -366,7 +358,7 @@ void __75__SPUnknownDiscoverySession_startDiscoveryWithScanRate_timeout_completi
 
 void __57__SPUnknownDiscoverySession_stopDiscoveryWithCompletion___block_invoke(uint64_t a1)
 {
-  v2 = LogCategory_UnknownDiscovery();
+  v2 = LogCategory_UnknownDiscovery(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -397,23 +389,22 @@ void __57__SPUnknownDiscoverySession_stopDiscoveryWithCompletion___block_invoke_
 
 void __57__SPUnknownDiscoverySession_stopDiscoveryWithCompletion___block_invoke_2(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = LogCategory_UnknownDiscovery();
+  v4 = LogCategory_UnknownDiscovery(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 138412290;
-    v7 = v3;
-    _os_log_impl(&dword_2643D0000, v4, OS_LOG_TYPE_DEFAULT, "[SPUnknownDiscoverySession stopUnknownDiscoveryWithCompletion] completion. Error %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v3;
+    _os_log_impl(&dword_2643D0000, v4, OS_LOG_TYPE_DEFAULT, "[SPUnknownDiscoverySession stopUnknownDiscoveryWithCompletion] completion. Error %@", &v5, 0xCu);
   }
 
   (*(*(a1 + 32) + 16))();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stop
 {
-  v3 = LogCategory_UnknownDiscovery();
+  v3 = LogCategory_UnknownDiscovery(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -444,14 +435,14 @@ uint64_t __33__SPUnknownDiscoverySession_stop__block_invoke(uint64_t a1)
 
 - (void)fetchEncryptedPayloadForUnknownBeacon:(id)beacon completion:(id)completion
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   beaconCopy = beacon;
   completionCopy = completion;
-  v8 = LogCategory_UnknownDiscovery();
+  v8 = LogCategory_UnknownDiscovery(completionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v18 = beaconCopy;
+    v17 = beaconCopy;
     _os_log_impl(&dword_2643D0000, v8, OS_LOG_TYPE_DEFAULT, "[SPUnknownDiscoverySession fetchEncryptedPayloadForUnknownBeacon]. Beacon %@", buf, 0xCu);
   }
 
@@ -461,16 +452,15 @@ uint64_t __33__SPUnknownDiscoverySession_stop__block_invoke(uint64_t a1)
   block[1] = 3221225472;
   block[2] = __78__SPUnknownDiscoverySession_fetchEncryptedPayloadForUnknownBeacon_completion___block_invoke;
   block[3] = &unk_279B58BA8;
-  objc_copyWeak(&v16, buf);
-  v14 = beaconCopy;
-  v15 = completionCopy;
+  objc_copyWeak(&v15, buf);
+  v13 = beaconCopy;
+  v14 = completionCopy;
   v10 = completionCopy;
   v11 = beaconCopy;
   dispatch_async(queue, block);
 
-  objc_destroyWeak(&v16);
+  objc_destroyWeak(&v15);
   objc_destroyWeak(buf);
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __78__SPUnknownDiscoverySession_fetchEncryptedPayloadForUnknownBeacon_completion___block_invoke(uint64_t a1)
@@ -483,7 +473,7 @@ void __78__SPUnknownDiscoverySession_fetchEncryptedPayloadForUnknownBeacon_compl
 - (void)discoveredUnknownAccessory:(id)accessory
 {
   accessoryCopy = accessory;
-  v5 = LogCategory_UnknownDiscovery();
+  v5 = LogCategory_UnknownDiscovery(accessoryCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -510,48 +500,46 @@ void __56__SPUnknownDiscoverySession_discoveredUnknownAccessory___block_invoke(u
 
   if (v4)
   {
-    v5 = LogCategory_UnknownDiscovery();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = LogCategory_UnknownDiscovery(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = *(a1 + 40);
+      v7 = *(a1 + 40);
       *buf = 138412290;
-      v22 = v6;
-      _os_log_impl(&dword_2643D0000, v5, OS_LOG_TYPE_DEFAULT, "Ignoring known accessory %@.", buf, 0xCu);
+      v22 = v7;
+      _os_log_impl(&dword_2643D0000, v6, OS_LOG_TYPE_DEFAULT, "Ignoring known accessory %@.", buf, 0xCu);
     }
   }
 
   else
   {
-    v7 = [*(a1 + 32) state];
-    v8 = [v7 unknownAccessories];
+    v8 = [*(a1 + 32) state];
+    v9 = [v8 unknownAccessories];
 
-    if (v8)
+    if (v9)
     {
-      v9 = [*(a1 + 32) state];
-      v10 = [v9 unknownAccessories];
-      v11 = [v10 setByAddingObject:*(a1 + 40)];
+      v10 = [*(a1 + 32) state];
+      v11 = [v10 unknownAccessories];
+      v12 = [v11 setByAddingObject:*(a1 + 40)];
     }
 
     else
     {
-      v11 = [MEMORY[0x277CBEB98] setWithObject:*(a1 + 40)];
+      v12 = [MEMORY[0x277CBEB98] setWithObject:*(a1 + 40)];
     }
 
-    v12 = [*(a1 + 32) callbackQueue];
+    v13 = [*(a1 + 32) callbackQueue];
     v15 = MEMORY[0x277D85DD0];
     v16 = 3221225472;
     v17 = __56__SPUnknownDiscoverySession_discoveredUnknownAccessory___block_invoke_79;
     v18 = &unk_279B58C78;
     v19 = *(a1 + 32);
-    v20 = v11;
-    v5 = v11;
-    dispatch_async(v12, &v15);
+    v20 = v12;
+    v6 = v12;
+    dispatch_async(v13, &v15);
 
-    v13 = [*(a1 + 32) state];
-    [v13 setUnknownAccessories:v5];
+    v14 = [*(a1 + 32) state];
+    [v14 setUnknownAccessories:v6];
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __56__SPUnknownDiscoverySession_discoveredUnknownAccessory___block_invoke_79(uint64_t a1)
@@ -563,7 +551,7 @@ void __56__SPUnknownDiscoverySession_discoveredUnknownAccessory___block_invoke_7
 - (void)lostUnknownAccessory:(id)accessory
 {
   accessoryCopy = accessory;
-  v5 = LogCategory_UnknownDiscovery();
+  v5 = LogCategory_UnknownDiscovery(accessoryCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -618,27 +606,25 @@ void __50__SPUnknownDiscoverySession_lostUnknownAccessory___block_invoke_2(uint6
 
 - (void)unknownAccessoryDiscoveryError:(id)error
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   errorCopy = error;
-  v5 = LogCategory_UnknownDiscovery();
+  v5 = LogCategory_UnknownDiscovery(errorCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v12 = errorCopy;
+    v11 = errorCopy;
     _os_log_impl(&dword_2643D0000, v5, OS_LOG_TYPE_DEFAULT, "[unknownAccessoryDiscoveryError called from client]. Error %@", buf, 0xCu);
   }
 
   callbackQueue = [(SPUnknownDiscoverySession *)self callbackQueue];
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __60__SPUnknownDiscoverySession_unknownAccessoryDiscoveryError___block_invoke;
-  v9[3] = &unk_279B58C78;
-  v9[4] = self;
-  v10 = errorCopy;
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __60__SPUnknownDiscoverySession_unknownAccessoryDiscoveryError___block_invoke;
+  v8[3] = &unk_279B58C78;
+  v8[4] = self;
+  v9 = errorCopy;
   v7 = errorCopy;
-  dispatch_sync(callbackQueue, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  dispatch_sync(callbackQueue, v8);
 }
 
 void __60__SPUnknownDiscoverySession_unknownAccessoryDiscoveryError___block_invoke(uint64_t a1)
@@ -649,7 +635,7 @@ void __60__SPUnknownDiscoverySession_unknownAccessoryDiscoveryError___block_invo
 
 - (void)unknownAccessoryDiscoveryFinished
 {
-  v3 = LogCategory_UnknownDiscovery();
+  v3 = LogCategory_UnknownDiscovery(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;

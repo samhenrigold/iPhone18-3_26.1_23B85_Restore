@@ -9,7 +9,7 @@
 
 + (id)extractionRuleWithDefinition:(id)definition error:(id *)error
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   definitionCopy = definition;
   if ([definitionCopy length])
   {
@@ -18,26 +18,26 @@
 
     if ([v7 count])
     {
-      v20 = 0u;
-      v21 = 0u;
-      v18 = 0u;
       v19 = 0u;
+      v20 = 0u;
+      v17 = 0u;
+      v18 = 0u;
       v8 = v7;
-      v9 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v9 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
       if (v9)
       {
         v10 = v9;
-        v11 = *v19;
+        v11 = *v18;
         while (2)
         {
           for (i = 0; i != v10; ++i)
           {
-            if (*v19 != v11)
+            if (*v18 != v11)
             {
               objc_enumerationMutation(v8);
             }
 
-            if (![*(*(&v18 + 1) + 8 * i) length])
+            if (![*(*(&v17 + 1) + 8 * i) length])
             {
               [MEMORY[0x277CCA9B8] hk_assignError:error code:3 format:@"invalid extraction rule"];
 
@@ -45,7 +45,7 @@
             }
           }
 
-          v10 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
+          v10 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
           if (v10)
           {
             continue;
@@ -73,8 +73,6 @@ LABEL_15:
     [MEMORY[0x277CCA9B8] hk_assignError:error code:3 description:@"empty extraction rule definition"];
     v15 = 0;
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v15;
 }

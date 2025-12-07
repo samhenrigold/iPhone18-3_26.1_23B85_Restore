@@ -259,9 +259,9 @@ LABEL_8:
     lowercaseString = [(NSString *)self->_trustedCallerBundleID lowercaseString];
     whitespaceAndNewlineCharacterSet = [MEMORY[0x1E696AB08] whitespaceAndNewlineCharacterSet];
     v5 = [lowercaseString stringByTrimmingCharactersInSet:whitespaceAndNewlineCharacterSet];
-    v6 = [v5 isEqualToString:@"null"];
+    isEqualToString = objc_msgSend_isEqualToString_(v5);
 
-    if (v6)
+    if (isEqualToString)
     {
       v28 = *MEMORY[0x1E69BF4F8];
       v29[0] = *MEMORY[0x1E69BF500];
@@ -456,7 +456,7 @@ LABEL_8:
 
   if (connectionCopy)
   {
-    if ([(NSString *)self->_trustedCallerBundleID isEqualToString:@"com.apple.photoanalysisd"]|| [(NSString *)self->_trustedCallerBundleID isEqualToString:@"com.apple.PhotoKitEntitledTests.xctrunner"])
+    if ((objc_msgSend_isEqualToString_(self->_trustedCallerBundleID) & 1) != 0 || objc_msgSend_isEqualToString_(self->_trustedCallerBundleID))
     {
       self->_smartSharingCacheWriteEntitled = 1;
     }
@@ -494,7 +494,7 @@ LABEL_8:
 
   if (connectionCopy)
   {
-    if ([(NSString *)self->_trustedCallerBundleID isEqualToString:@"com.apple.photoanalysisd"])
+    if (objc_msgSend_isEqualToString_(self->_trustedCallerBundleID))
     {
       self->_analyticsCacheWriteEntitled = 1;
     }
@@ -531,7 +531,7 @@ LABEL_8:
     v9->_lock._os_unfair_lock_opaque = 0;
     if (connectionCopy)
     {
-      [connectionCopy auditToken];
+      objc_msgSend_auditToken(connectionCopy);
     }
 
     else

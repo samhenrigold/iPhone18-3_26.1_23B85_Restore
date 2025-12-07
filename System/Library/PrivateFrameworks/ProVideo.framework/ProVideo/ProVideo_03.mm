@@ -386,197 +386,197 @@ LABEL_31:
   while (v10 != 8);
 }
 
-float pv_projected_pixels_per_unit(int a1, _DWORD *a2, float32x4_t a3, __n128 a4, __n128 a5, __n128 a6, __n128 a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, simd_float4 a14, simd_float4 a15, float32x4_t a16, float32x2_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24)
+float pv_projected_pixels_per_unit(uint64_t a1, _DWORD *a2, float32x4_t a3, __n128 a4, __n128 a5, __n128 a6, __n128 a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, simd_float4 a14, simd_float4 a15, simd_float4 a16, simd_float4 a17, float32x4_t a18, float32x4_t a19, float32x4_t a20, float32x4_t a21, float32x2_t a22)
 {
-  _Q1.i64[1] = a24;
-  v35 = 0uLL;
+  _Q1.i64[1] = a20.i64[1];
+  v33 = 0uLL;
   __asm { FMOV            V1.2S, #1.0 }
 
-  if (pv_projected_screen_aligned_bounding_rect_around_point(a1, 0, 0, &v35, a3, _Q1, a4, a5, a6, a7, a10, a11, a12, a13, a14, a15, a14, a15, a16, a17))
+  if (pv_projected_screen_aligned_bounding_rect_around_point(a1, 0, 0, &v33, a3, _Q1, a4, a5, a6, a7, a10, a11, a12, a13, a14, a15, a14, a15, a16, a17, a18, a19, a20, a21, a22))
   {
-    result = *(&v35 + 3);
-    *a2 = HIDWORD(v35);
+    result = *(&v33 + 3);
+    *a2 = HIDWORD(v33);
   }
 
   return result;
 }
 
-BOOL pv_projected_screen_aligned_bounding_rect_around_point(int a1, int a2, int a3, _OWORD *a4, float32x4_t a5, float32x4_t a6, __n128 a7, __n128 a8, __n128 a9, __n128 a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, simd_float4 a15, simd_float4 a16, simd_float4 a17, simd_float4 a18, float32x4_t a19, float32x2_t a20)
+BOOL pv_projected_screen_aligned_bounding_rect_around_point(int a1, int a2, int a3, _OWORD *a4, float32x4_t a5, float32x4_t a6, __n128 a7, __n128 a8, __n128 a9, __n128 a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, simd_float4 a15, simd_float4 a16, simd_float4 a17, simd_float4 a18, simd_float4 a19, simd_float4 a20, float32x4_t a21, float32x4_t a22, float32x4_t a23, float32x4_t a24, float32x2_t a25)
 {
-  *&v50[32] = a9;
-  *&v50[48] = a10;
-  *v50 = a7;
-  *&v50[16] = a8;
-  v76.columns[2] = a17;
-  v76.columns[3] = a18;
+  *&v55[32] = a9;
+  *&v55[48] = a10;
+  *v55 = a7;
+  *&v55[16] = a8;
+  v81.columns[2] = a19;
+  v81.columns[3] = a20;
   *a6.f32 = vmul_f32(*a6.f32, 0x3F0000003F000000);
-  *&v24 = -a6.f32[0];
-  v25 = COERCE_UNSIGNED_INT(-a6.f32[0]);
-  HIDWORD(v24) = a6.i32[1];
+  *&v29 = -a6.f32[0];
+  v30 = COERCE_UNSIGNED_INT(-a6.f32[0]);
+  HIDWORD(v29) = a6.i32[1];
   a6.i32[2] = 0;
-  v73 = *MEMORY[0x277D85DE8];
-  v26 = vaddq_f32(a5, a6);
+  v78 = *MEMORY[0x277D85DE8];
+  v31 = vaddq_f32(a5, a6);
   a6.f32[1] = -a6.f32[1];
-  v25.f32[1] = a6.f32[1];
-  v68[0] = vaddq_f32(a5, v25);
-  v68[1] = vaddq_f32(a5, a6);
-  v68[2] = v26;
-  v68[3] = vaddq_f32(a5, v24);
-  v76.columns[0] = a15;
-  v76.columns[1] = a16;
-  v77 = __invert_f4(v76);
-  v27 = 0;
-  v64 = *v50;
-  v65 = *&v50[16];
-  v66 = *&v50[32];
-  v67 = *&v50[48];
-  v69 = 0u;
-  v70 = 0u;
-  v71 = 0u;
-  v72 = 0u;
+  v30.f32[1] = a6.f32[1];
+  v73[0] = vaddq_f32(a5, v30);
+  v73[1] = vaddq_f32(a5, a6);
+  v73[2] = v31;
+  v73[3] = vaddq_f32(a5, v29);
+  v81.columns[0] = a17;
+  v81.columns[1] = a18;
+  v82 = __invert_f4(v81);
+  v32 = 0;
+  v69 = *v55;
+  v70 = *&v55[16];
+  v71 = *&v55[32];
+  v72 = *&v55[48];
+  v74 = 0u;
+  v75 = 0u;
+  v76 = 0u;
+  v77 = 0u;
   do
   {
-    *(&v69 + v27) = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v77.columns[0], COERCE_FLOAT(*(&v64 + v27))), v77.columns[1], *(&v64 + v27), 1), v77.columns[2], *(&v64 + v27), 2), v77.columns[3], *(&v64 + v27), 3);
-    v27 += 16;
+    *(&v74 + v32) = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v82.columns[0], COERCE_FLOAT(*(&v69 + v32))), v82.columns[1], *(&v69 + v32), 1), v82.columns[2], *(&v69 + v32), 2), v82.columns[3], *(&v69 + v32), 3);
+    v32 += 16;
   }
 
-  while (v27 != 64);
-  v62 = v70;
-  v63 = v69;
-  v60 = v72;
-  v61 = v71;
-  *v28.i64 = pv_simd_matrix_get_rotation_matrix(*v50);
-  v28.i32[3] = 0;
-  v29.i32[3] = 0;
-  v52 = v29;
-  v53 = v28;
-  v30.i32[3] = 0;
-  v51 = v30;
-  v78.columns[0] = a15;
-  v78.columns[1] = a16;
-  v78.columns[2] = a17;
-  v78.columns[3] = a18;
-  *&v31 = pv_simd_matrix_get_rotation_matrix(v78);
-  HIDWORD(v31) = 0;
-  HIDWORD(v32) = 0;
-  v56 = v32;
-  v58 = v31;
-  HIDWORD(v33) = 0;
-  v54 = v33;
-  v74.columns[1] = v52;
-  v74.columns[0] = v53;
-  v74.columns[2] = v51;
-  v75 = __invert_f3(v74);
-  v41 = 0;
-  v64 = v58;
-  v65 = v56;
-  v66 = v54;
-  v69 = 0u;
-  v70 = 0u;
-  v71 = 0u;
+  while (v32 != 64);
+  v67 = v75;
+  v68 = v74;
+  v65 = v77;
+  v66 = v76;
+  *v33.i64 = pv_simd_matrix_get_rotation_matrix(*v55);
+  v33.i32[3] = 0;
+  v34.i32[3] = 0;
+  v57 = v34;
+  v58 = v33;
+  v35.i32[3] = 0;
+  v56 = v35;
+  v83.columns[0] = a17;
+  v83.columns[1] = a18;
+  v83.columns[2] = a19;
+  v83.columns[3] = a20;
+  *&v36 = pv_simd_matrix_get_rotation_matrix(v83);
+  HIDWORD(v36) = 0;
+  HIDWORD(v37) = 0;
+  v61 = v37;
+  v63 = v36;
+  HIDWORD(v38) = 0;
+  v59 = v38;
+  v79.columns[1] = v57;
+  v79.columns[0] = v58;
+  v79.columns[2] = v56;
+  v80 = __invert_f3(v79);
+  v46 = 0;
+  v69 = v63;
+  v70 = v61;
+  v71 = v59;
+  v74 = 0u;
+  v75 = 0u;
+  v76 = 0u;
   do
   {
-    *(&v69 + v41) = vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v75.columns[0], COERCE_FLOAT(*(&v64 + v41))), v75.columns[1], *(&v64 + v41), 1), v75.columns[2], *(&v64 + v41), 2);
-    v41 += 16;
+    *(&v74 + v46) = vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v80.columns[0], COERCE_FLOAT(*(&v69 + v46))), v80.columns[1], *(&v69 + v46), 1), v80.columns[2], *(&v69 + v46), 2);
+    v46 += 16;
   }
 
-  while (v41 != 48);
-  v42 = 0;
-  v43 = 0;
-  v57 = v70;
-  v59 = v69;
-  v55 = v71;
+  while (v46 != 48);
+  v47 = 0;
+  v48 = 0;
+  v62 = v75;
+  v64 = v74;
+  v60 = v76;
   while (1)
   {
-    v44 = v68[v42];
-    DWORD2(v64) = 0;
-    *&v64 = 0;
-    if (!pv_simd_matrix_project(a1, a2, a3, &v64, vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v59, v44.f32[0]), v57, *v44.f32, 1), v55, v44, 2), v63, v62, v61, v60, v34, v35, v36, v37, v38, v39, v40, a19, a20))
+    v49 = v73[v47];
+    DWORD2(v69) = 0;
+    *&v69 = 0;
+    if (!pv_simd_matrix_project(a1, a2, a3, &v69, vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v64, v49.f32[0]), v62, *v49.f32, 1), v60, v49, 2), v68, v67, v66, v65, v39, v40, v41, v42, v43, v44, v45, a21, a22, a23, a24, a25))
     {
       break;
     }
 
-    v69.n128_u64[v42] = v64;
-    v43 = v42++ > 2;
-    if (v42 == 4)
+    v74.n128_u64[v47] = v69;
+    v48 = v47++ > 2;
+    if (v47 == 4)
     {
-      v45 = 0;
-      v46 = 0x80000000800000;
-      *&v47 = vneg_f32(0x80000000800000);
+      v50 = 0;
+      v51 = 0x80000000800000;
+      *&v52 = vneg_f32(0x80000000800000);
       do
       {
-        v48 = v69.n128_u64[v45];
-        v46 = vbsl_s8(vcgt_f32(v48, v46), v48, v46);
-        *&v47 = vbsl_s8(vcgt_f32(*&v47, v48), v48, *&v47);
-        ++v45;
+        v53 = v74.n128_u64[v50];
+        v51 = vbsl_s8(vcgt_f32(v53, v51), v53, v51);
+        *&v52 = vbsl_s8(vcgt_f32(*&v52, v53), v53, *&v52);
+        ++v50;
       }
 
-      while (v45 != 4);
-      *(&v47 + 1) = vsub_f32(v46, *&v47);
-      *a4 = v47;
+      while (v50 != 4);
+      *(&v52 + 1) = vsub_f32(v51, *&v52);
+      *a4 = v52;
       return 1;
     }
   }
 
-  return v43;
+  return v48;
 }
 
-BOOL pv_projected_bounding_box_around_point(int a1, int a2, int a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, float32x4_t a9, float32x4_t a10, __n128 a11, __n128 a12, __n128 a13, __n128 a14, double a15, float32x4_t a16, float32x4_t a17, float32x2_t a18, uint64_t a19, uint64_t a20, int a21, __int32 a22)
+BOOL pv_projected_bounding_box_around_point(int a1, int a2, int a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, float32x4_t a9, float32x4_t a10, __n128 a11, __n128 a12, __n128 a13, __n128 a14, double a15, float32x4_t a16, float32x4_t a17, float32x4_t a18, float32x4_t a20, float32x4_t arg30, float32x2_t a21)
 {
-  v26 = 0;
-  v27.i32[3] = a22;
-  *v27.f32 = vmul_f32(*a10.f32, 0x3F0000003F000000);
-  v29.i64[1] = 0;
-  v29.f32[0] = -v27.f32[0];
-  v28 = COERCE_UNSIGNED_INT(-v27.f32[0]);
-  v29.i32[1] = v27.i32[1];
-  v27.i32[2] = 0;
-  v30 = vaddq_f32(a9, v27);
-  v27.f32[1] = -v27.f32[1];
-  v28.f32[1] = v27.f32[1];
-  v53 = *MEMORY[0x277D85DE8];
-  v52[0] = vaddq_f32(a9, v28);
-  v52[1] = vaddq_f32(a9, v27);
-  v52[2] = v30;
-  v52[3] = vaddq_f32(a9, v29.u64[0]);
-  v31 = vmuls_lane_f32(0.5, a10, 2);
-  a9.f32[0] = a9.f32[2] + v31;
-  v32 = a9.f32[2] - v31;
+  v25 = 0;
+  v26.i32[3] = a20.i32[3];
+  *v26.f32 = vmul_f32(*a10.f32, 0x3F0000003F000000);
+  v28.i64[1] = 0;
+  v28.f32[0] = -v26.f32[0];
+  v27 = COERCE_UNSIGNED_INT(-v26.f32[0]);
+  v28.i32[1] = v26.i32[1];
+  v26.i32[2] = 0;
+  v29 = vaddq_f32(a9, v26);
+  v26.f32[1] = -v26.f32[1];
+  v27.f32[1] = v26.f32[1];
+  v52 = *MEMORY[0x277D85DE8];
+  v51[0] = vaddq_f32(a9, v27);
+  v51[1] = vaddq_f32(a9, v26);
+  v51[2] = v29;
+  v51[3] = vaddq_f32(a9, v28.u64[0]);
+  v30 = vmuls_lane_f32(0.5, a10, 2);
+  a9.f32[0] = a9.f32[2] + v30;
+  v31 = a9.f32[2] - v30;
   do
   {
-    v33 = v52[v26];
-    v34 = &v51[v26];
-    v35 = v33;
-    v35.i32[2] = a9.i32[0];
-    *v34 = v35;
-    v33.f32[2] = v32;
-    v34[4] = v33;
-    ++v26;
+    v32 = v51[v25];
+    v33 = &v50[v25];
+    v34 = v32;
+    v34.i32[2] = a9.i32[0];
+    *v33 = v34;
+    v32.f32[2] = v31;
+    v33[4] = v32;
+    ++v25;
   }
 
-  while (v26 != 4);
-  *(v52 + 4) = 0;
-  LODWORD(v52[0]) = 0;
-  v40 = pv_simd_matrix_project(a1, a2, a3, v52, v51[0], a11, a12, a13, a14, a5, a6, a7, a8, v29, v30, a16, a17, a18);
+  while (v25 != 4);
+  *(v51 + 4) = 0;
+  LODWORD(v51[0]) = 0;
+  v39 = pv_simd_matrix_project(a1, a2, a3, v51, v50[0], a11, a12, a13, a14, a5, a6, a7, a8, v28, v29, a16, a17, a18, a20, arg30, a21);
   result = 0;
-  if (v40)
+  if (v39)
   {
-    v45 = 0;
+    v44 = 0;
     while (1)
     {
-      *(a4 + 16 * v45) = v52[0];
-      if (v45 == 7)
+      *(a4 + 16 * v44) = v51[0];
+      if (v44 == 7)
       {
         break;
       }
 
-      v46 = v51[v45 + 1];
-      *(v52 + 4) = 0;
-      LODWORD(v52[0]) = 0;
-      ++v45;
-      if (!pv_simd_matrix_project(a1, a2, a3, v52, v46, a11, a12, a13, a14, v36, v37, v38, v39, v41, v42, v43, a17, a18))
+      v45 = v50[v44 + 1];
+      *(v51 + 4) = 0;
+      LODWORD(v51[0]) = 0;
+      ++v44;
+      if (!pv_simd_matrix_project(a1, a2, a3, v51, v45, a11, a12, a13, a14, v35, v36, v37, v38, v40, v41, v42, a17, a18, a20, arg30, a21))
       {
-        return (v45 - 1) > 6;
+        return (v44 - 1) > 6;
       }
     }
 
@@ -586,7 +586,7 @@ BOOL pv_projected_bounding_box_around_point(int a1, int a2, int a3, uint64_t a4,
   return result;
 }
 
-BOOL pv_projected_bounding_box_around_point(float64x2_t *a1, float64x2_t *a2, __int128 *a3, uint64_t a4, int a5, int a6, int a7, uint64_t a8, float64x2_t a9)
+BOOL pv_projected_bounding_box_around_point(float64x2_t *a1, float64x2_t *a2, float64x2_t *a3, uint64_t a4, int a5, int a6, int a7, uint64_t a8, float64x2_t a9)
 {
   v42 = a9;
   v15 = 0;
@@ -668,47 +668,47 @@ BOOL pv_projected_bounding_box_around_point(float64x2_t *a1, float64x2_t *a2, __
   return v31;
 }
 
-BOOL pv_projected_bounding_rect_around_point(int a1, int a2, int a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, float32x4_t a9, float32x2_t a10, float32x4_t a11, __n128 a12, __n128 a13, __n128 a14, float32x4_t a15, float32x2_t a16)
+BOOL pv_projected_bounding_rect_around_point(int a1, int a2, int a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, float32x4_t a9, float32x2_t a10, float32x4_t a11, __n128 a12, __n128 a13, __n128 a14, float32x4_t a15, float32x2_t a16, float32x4_t a17, float32x4_t a18, float32x4_t a19, float32x4_t a20, float32x2_t a21)
 {
-  v22 = a11;
+  v27 = a11;
   *a11.f32 = vmul_f32(a10, 0x3F0000003F000000);
-  *&v23 = -a11.f32[0];
-  v24 = COERCE_UNSIGNED_INT(-a11.f32[0]);
-  v44 = *MEMORY[0x277D85DE8];
-  HIDWORD(v23) = a11.i32[1];
+  *&v28 = -a11.f32[0];
+  v29 = COERCE_UNSIGNED_INT(-a11.f32[0]);
+  v49 = *MEMORY[0x277D85DE8];
+  HIDWORD(v28) = a11.i32[1];
   a11.i32[2] = 0;
-  v25 = vaddq_f32(a9, a11);
+  v30 = vaddq_f32(a9, a11);
   a11.f32[1] = -a11.f32[1];
-  v24.f32[1] = a11.f32[1];
-  v42 = vaddq_f32(a9, v24);
-  v43[0] = vaddq_f32(a9, a11);
-  v43[1] = v25;
-  v43[2] = vaddq_f32(a9, v23);
-  *(&v41 + 4) = 0;
-  LODWORD(v41) = 0;
-  v37 = v22;
-  v39 = a13;
-  v40 = a14;
-  v30 = pv_simd_matrix_project(a1, a2, a3, &v41, v42, v22, a12, a13, a14, a5, a6, a7, a8, v25, a14, a13, a15, a16);
+  v29.f32[1] = a11.f32[1];
+  v47 = vaddq_f32(a9, v29);
+  v48[0] = vaddq_f32(a9, a11);
+  v48[1] = v30;
+  v48[2] = vaddq_f32(a9, v28);
+  *(&v46 + 4) = 0;
+  LODWORD(v46) = 0;
+  v42 = v27;
+  v44 = a13;
+  v45 = a14;
+  v35 = pv_simd_matrix_project(a1, a2, a3, &v46, v47, v27, a12, a13, a14, a5, a6, a7, a8, v30, a14, a13, a17, a18, a19, a20, a21);
   result = 0;
-  if (v30)
+  if (v35)
   {
-    v35 = 0;
+    v40 = 0;
     while (1)
     {
-      *(a4 + 16 * v35) = v41;
-      if (v35 == 3)
+      *(a4 + 16 * v40) = v46;
+      if (v40 == 3)
       {
         break;
       }
 
-      v36 = v43[v35];
-      *(&v41 + 4) = 0;
-      LODWORD(v41) = 0;
-      ++v35;
-      if (!pv_simd_matrix_project(a1, a2, a3, &v41, v36, v37, a12, v39, v40, v26, v27, v28, v29, v31, v32, v33, a15, a16))
+      v41 = v48[v40];
+      *(&v46 + 4) = 0;
+      LODWORD(v46) = 0;
+      ++v40;
+      if (!pv_simd_matrix_project(a1, a2, a3, &v46, v41, v42, a12, v44, v45, v31, v32, v33, v34, v36, v37, v38, a17, a18, a19, a20, a21))
       {
-        return (v35 - 1) > 2;
+        return (v40 - 1) > 2;
       }
     }
 
@@ -963,7 +963,7 @@ uint64_t getDefaultsBoolValue(NSDictionary *a1, NSString *a2, uint64_t a3)
   return a3;
 }
 
-void sub_25F9A5ADC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
+void sub_25F9A5ADC(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
 {
   if (a15 < 0)
   {
@@ -972,7 +972,7 @@ void sub_25F9A5ADC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
   if (a9)
   {
-    (*(*a9 + 24))(a9);
+    (*(*a9 + 24))(a9, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -1028,10 +1028,10 @@ void sub_25F9A7800(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_25F9A79F0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_25F9A79F0(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   a9.super_class = PVCMSampleBuffer;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -1075,7 +1075,7 @@ id MakePVFaceDetection(AVMetadataFaceObject *a1, AVCaptureVideoOrientation a2)
   v18 = v17;
   if (v3)
   {
-    [(AVMetadataFaceObject *)v3 time];
+    objc_msgSend_time(v3);
   }
 
   else
@@ -1108,7 +1108,7 @@ id MakePVFaceDetection(AVMetadataFaceObject *a1, double a2)
   v18 = v17;
   if (v3)
   {
-    [(AVMetadataFaceObject *)v3 time];
+    objc_msgSend_time(v3);
   }
 
   else
@@ -1134,10 +1134,10 @@ void sub_25F9A9B84(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_25F9A9CE0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, objc_super a11)
+void sub_25F9A9CE0(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, objc_super a11)
 {
   a11.super_class = PVLivePlayer;
-  [(_Unwind_Exception *)&a11 dealloc];
+  [(_Unwind_Exception *)&a11 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -1156,9 +1156,9 @@ __n128 __Block_byref_object_copy__9(__n128 *a1, __n128 *a2)
   return result;
 }
 
-void sub_25F9AAE10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
+void sub_25F9AAE10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, ...)
 {
-  va_start(va, a14);
+  va_start(va, a21);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1170,16 +1170,16 @@ void sub_25F9AB068(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_25F9AB190(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_25F9AB190(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_25F9AB300(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_25F9AB300(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1214,9 +1214,9 @@ uint64_t __destroy_helper_block_ea8_56c29_ZTS5HGRefI15PVRenderLinkJobE(uint64_t 
   return result;
 }
 
-void sub_25F9AC31C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_25F9AC31C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1376,10 +1376,10 @@ void sub_25F9ACFC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 {
   if (a10)
   {
-    (*(*a10 + 24))(a10);
+    (*(*a10 + 24))(a10, a2, a3, a4, a5, a6, a7, a8);
   }
 
-  (*(*v10 + 24))(v10);
+  (*(*v10 + 24))(v10, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
@@ -1415,17 +1415,17 @@ uint64_t __Block_byref_object_copy__11(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_25F9AF03C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, void *a6, void *a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_25F9AF03C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, void *a6, void *a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, void *a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
 
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_25F9B045C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_25F9B045C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1462,7 +1462,7 @@ uint64_t HMaskAlpha::GetDOD(HMaskAlpha *this, HGRenderer *a2, int a3, HGRect a4)
   return HGRectGrow(v5, v4, v7);
 }
 
-char *HMaskAlpha::RenderPageMetal(HGNode *this, HGPage *a2)
+HGBuffer *HMaskAlpha::RenderPageMetal(HGNode *this, HGPage *a2)
 {
   v24 = *MEMORY[0x277D85DE8];
   HGPagePullMetalTexturesGuard::HGPagePullMetalTexturesGuard(&v22, this, a2);
@@ -1535,7 +1535,7 @@ char *HMaskAlpha::RenderPageMetal(HGNode *this, HGPage *a2)
   return Buffer;
 }
 
-void sub_25F9B1580(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *__p, uint64_t a15, int a16, __int16 a17, char a18, char a19, char a20, uint64_t a21, HGPage *a22)
+void sub_25F9B1580(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *__p, uint64_t a15, int a16, __int16 a17, char a18, char a19, uint64_t a20, uint64_t a21, HGPage *a22)
 {
   if (a19 < 0)
   {
@@ -1767,7 +1767,7 @@ uint64_t HGMPSImageEDT::RenderTile(HGNode *this, HGTile *a2)
   return v51;
 }
 
-char *HGMPSImageEDT::RenderPageMetal(HGNode *this, HGRect *a2)
+HGBuffer *HGMPSImageEDT::RenderPageMetal(HGNode *this, HGRect *a2)
 {
   v29 = *MEMORY[0x277D85DE8];
   HGPagePullMetalTexturesGuard::HGPagePullMetalTexturesGuard(&v27, this, a2);
@@ -1913,10 +1913,10 @@ void sub_25F9B5BB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 {
   if (a9)
   {
-    (*(*a9 + 24))(a9);
+    (*(*a9 + 24))(a9, a2, a3, a4, a5, a6, a7, a8);
   }
 
-  (*(*v9 + 24))(v9);
+  (*(*v9 + 24))(v9, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
@@ -1940,18 +1940,18 @@ void HConcentricPolygonsGradient::~HConcentricPolygonsGradient(HGNode *this)
   HGObject::operator delete(v1);
 }
 
-HGNode *HPixellate::GetOutput(HGNode *this, HGRenderer *a2)
+void HPixellate::GetOutput(HGNode *this, HGRenderer *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  (*(*this + 104))(this, 5, v5);
-  if (v6 == 1.0)
+  v6 = *MEMORY[0x277D85DE8];
+  (*(*this + 104))(this, 5, v4);
+  if (v5 == 1.0)
   {
-    return HGRenderer::GetInput(a2, this, 0);
+    HGRenderer::GetInput(a2, this, 0);
   }
 
   else
   {
-    return HgcPixellate::GetOutput(this, a2);
+    HgcPixellate::GetOutput();
   }
 }
 
@@ -2033,10 +2033,10 @@ void sub_25F9B67A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 {
   if (a9)
   {
-    (*(*a9 + 24))(a9);
+    (*(*a9 + 24))(a9, a2, a3, a4, a5, a6, a7, a8);
   }
 
-  (*(*v9 + 24))(v9);
+  (*(*v9 + 24))(v9, a2, a3, a4, a5, a6, a7, a8);
   v12 = *(v10 - 80);
   if (v12)
   {
@@ -2329,7 +2329,7 @@ unint64_t HPoke::GetDOD(HPoke *this, HGRenderer *a2, int a3, HGRect a4)
     return *v4;
   }
 
-  Interval::pixelToFloat(&v25.var0, &v22);
+  Interval::pixelToFloat(&v22, &v25.var0);
   *&v26 = v22;
   *(&v26 + 1) = v23;
   *&v27 = *(&v22 + 1) - *&v22;
@@ -2755,7 +2755,7 @@ void HPoke::~HPoke(HGNode *this)
   HGObject::operator delete(v1);
 }
 
-BOOL PCMatrix44Tmpl<double>::transformRect<double>(double *a1, double *a2, uint64_t a3)
+BOOL PCMatrix44Tmpl<double>::transformRect<double>(double *a1, double *a2, _OWORD *a3)
 {
   v26[8] = *MEMORY[0x277D85DE8];
   v4 = a2[2];
@@ -2763,7 +2763,7 @@ BOOL PCMatrix44Tmpl<double>::transformRect<double>(double *a1, double *a2, uint6
   {
     __asm { FMOV            V0.2D, #-1.0 }
 
-    *(a3 + 16) = _Q0;
+    a3[1] = _Q0;
   }
 
   else
@@ -2816,7 +2816,7 @@ BOOL PCMatrix44Tmpl<double>::transformRect<double>(double *a1, double *a2, uint6
     while (!__CFADD__(v16++, 1));
     v19 = v25;
     *a3 = v24;
-    *(a3 + 16) = v19;
+    a3[1] = v19;
   }
 
   return 1;
@@ -2893,8 +2893,7 @@ float64x2_t PCRect<double>::operator|=(float64x2_t *a1, float64x2_t *a2)
   {
     result = *a2;
     *a1 = *a2;
-    a1[1].f64[0] = 0.0;
-    a1[1].f64[1] = 0.0;
+    a1[1] = 0uLL;
   }
 
   return result;
@@ -2935,20 +2934,20 @@ void boost::numeric::interval_lib::exception_create_empty::operator()()
   __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
 }
 
-void PokeDistortion::operator()(uint64_t a1@<X0>, float64x2_t *a2@<X1>, float64x2_t *a3@<X8>)
+void PokeDistortion::operator()(double *result@<X0>, float64x2_t *a2@<X1>, float64x2_t *a3@<X8>)
 {
-  if (fabs(*(a1 + 16) + -1.0) >= 0.0000001)
+  if (fabs(result[2] + -1.0) >= 0.0000001)
   {
     Interval::normalized(a2, &v12);
-    v9 = *(a1 + 24);
-    v10 = 1.0 - *(a1 + 16);
+    v9 = result[3];
+    v10 = 1.0 - result[2];
     v11 = sqrt(v9 * v9 + v10 * 4.0 * sqrt(vaddvq_f64(vmulq_f64(*a2, *a2))));
     v8 = vmulq_n_f64(v12, (v11 - v9) / (v10 + v10) * ((v11 - v9) / (v10 + v10)));
   }
 
   else
   {
-    v6 = (a1 + 8);
+    v6 = result + 1;
     v7 = vld1q_dup_f64(v6);
     v8 = vdivq_f64(vmulq_n_f64(*a2, sqrt(vaddvq_f64(vmulq_f64(*a2, *a2)))), v7);
   }
@@ -3030,10 +3029,10 @@ void sub_25F9BA83C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 {
   if (a9)
   {
-    (*(*a9 + 24))(a9);
+    (*(*a9 + 24))(a9, a2, a3, a4, a5, a6, a7, a8);
   }
 
-  (*(*v9 + 24))(v9);
+  (*(*v9 + 24))(v9, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
@@ -3597,8 +3596,8 @@ uint64_t HEquirectToSinusoidal::GetROI(HEquirectToSinusoidal *this, HGRenderer *
   var3 = a4.var3;
   var1 = a4.var1;
   (*(*this + 104))(this, 0, v80);
-  v10 = v80[1];
   v11 = v80[0];
+  v10 = v80[1];
   v79 = *v80;
   (*(*this + 104))(this, 1, v80);
   v71 = v80[0];
@@ -3634,8 +3633,8 @@ uint64_t HEquirectToSinusoidal::GetROI(HEquirectToSinusoidal *this, HGRenderer *
       v73[0] = var2;
       v73[1] = v15;
       processPoint(v73, &v79, &v78, &v77, &v76, &v74);
-      v23 = v80[1];
       v22 = v80[0];
+      v23 = v80[1];
       if (v17 >= v80[0])
       {
         v24 = v80[0];
@@ -3913,7 +3912,7 @@ uint64_t HBadTVNoise::GetROI(HGNode *this, HGRenderer *a2, int a3, HGRect a4)
 {
   v4 = *&a4.var2;
   v5 = *&a4.var0;
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   if ((a3 - 1) > 1)
   {
     if (a3)
@@ -3934,54 +3933,54 @@ uint64_t HBadTVNoise::GetROI(HGNode *this, HGRenderer *a2, int a3, HGRect a4)
 
   else
   {
-    (*(*this + 104))(this, 10, v24);
-    v7 = *v24;
-    (*(*this + 104))(this, 8, v24);
-    v8 = *v24;
-    (*(*this + 104))(this, 13, v24);
-    v9 = *v24;
-    (*(*this + 104))(this, 0, v23);
-    v24[0] = vcvtq_f64_f32(*&v23[0]);
-    v24[1] = vcvtq_f64_f32(*(v23 + 8));
-    (*(*this + 104))(this, 1, v23);
-    v24[2] = vcvtq_f64_f32(*&v23[0]);
-    v24[3] = vcvtq_f64_f32(*(v23 + 8));
-    (*(*this + 104))(this, 2, v23);
-    v24[4] = vcvtq_f64_f32(*&v23[0]);
-    v24[5] = vcvtq_f64_f32(*(v23 + 8));
-    (*(*this + 104))(this, 3, v23);
-    v24[6] = vcvtq_f64_f32(*&v23[0]);
-    v24[7] = vcvtq_f64_f32(*(v23 + 8));
+    (*(*this + 104))(this, 10, v23);
+    v7 = *v23;
+    (*(*this + 104))(this, 8, v23);
+    v8 = *v23;
+    (*(*this + 104))(this, 13, v23);
+    v9 = *v23;
+    (*(*this + 104))(this, 0, v22);
+    v23[0] = vcvtq_f64_f32(*&v22[0]);
+    v23[1] = vcvtq_f64_f32(*(v22 + 8));
+    (*(*this + 104))(this, 1, v22);
+    v23[2] = vcvtq_f64_f32(*&v22[0]);
+    v23[3] = vcvtq_f64_f32(*(v22 + 8));
+    (*(*this + 104))(this, 2, v22);
+    v23[4] = vcvtq_f64_f32(*&v22[0]);
+    v23[5] = vcvtq_f64_f32(*(v22 + 8));
+    (*(*this + 104))(this, 3, v22);
+    v23[6] = vcvtq_f64_f32(*&v22[0]);
+    v23[7] = vcvtq_f64_f32(*(v22 + 8));
     (*(*this + 104))(this, 4, &v19);
-    v23[0] = vcvtq_f64_f32(*&v19);
-    v23[1] = vcvtq_f64_f32(*&v20);
+    v22[0] = vcvtq_f64_f32(*&v19);
+    v22[1] = vcvtq_f64_f32(*(&v19 + 8));
     (*(*this + 104))(this, 5, &v19);
-    v23[2] = vcvtq_f64_f32(*&v19);
-    v23[3] = vcvtq_f64_f32(*&v20);
+    v22[2] = vcvtq_f64_f32(*&v19);
+    v22[3] = vcvtq_f64_f32(*(&v19 + 8));
     (*(*this + 104))(this, 6, &v19);
-    v23[4] = vcvtq_f64_f32(*&v19);
-    v23[5] = vcvtq_f64_f32(*&v20);
+    v22[4] = vcvtq_f64_f32(*&v19);
+    v22[5] = vcvtq_f64_f32(*(&v19 + 8));
     (*(*this + 104))(this, 7, &v19);
-    v23[6] = vcvtq_f64_f32(*&v19);
-    v23[7] = vcvtq_f64_f32(*&v20);
-    v19 = v5;
-    v20 = SHIDWORD(v5);
-    v21 = (v4 - v5);
-    v22 = (HIDWORD(v4) - HIDWORD(v5));
+    v22[6] = vcvtq_f64_f32(*&v19);
+    v22[7] = vcvtq_f64_f32(*(&v19 + 8));
+    *&v19 = v5;
+    *(&v19 + 1) = SHIDWORD(v5);
+    v20 = (v4 - v5);
+    v21 = (HIDWORD(v4) - HIDWORD(v5));
+    PCMatrix44Tmpl<double>::transformRect<double>(v22, &v19, &v19);
+    v10 = *&v19 + v20 + v7 + v9;
+    v11 = *(&v19 + 1) + v21 + v8 + 1.9;
+    *&v19 = *&v19 - v7 - v9 + -1.0;
+    *(&v19 + 1) = *(&v19 + 1) + v8 + -1.0;
+    v20 = v10 - *&v19;
+    v21 = v11 - *(&v19 + 1);
     PCMatrix44Tmpl<double>::transformRect<double>(v23, &v19, &v19);
-    v10 = v19 + v21 + v7 + v9;
-    v11 = v20 + v22 + v8 + 1.9;
-    v19 = v19 - v7 - v9 + -1.0;
-    v20 = v20 + v8 + -1.0;
-    v21 = v10 - v19;
-    v22 = v11 - v20;
-    PCMatrix44Tmpl<double>::transformRect<double>(v24, &v19, &v19);
-    v12 = v19;
-    v13 = v20;
-    v14 = (v19 + v21) | ((v20 + v22) << 32);
+    v12 = *&v19;
+    v13 = *(&v19 + 1);
+    v14 = (*&v19 + v20) | ((*(&v19 + 1) + v21) << 32);
   }
 
-  v17 = HGRectMake4i(0xFFFFFFFF, 0xFFFFFFFF, 1u, 1u);
+  v17 = HGRectMake4i(-1, -1, 1, 1);
   return HGRectGrow(v12 | (v13 << 32), v14, v17);
 }
 
@@ -3997,18 +3996,18 @@ _anonymous_namespace_::_Private *anonymous namespace::_Private::_Private(_anonym
   return this;
 }
 
-void sub_25F9BC3F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void **a10)
+void sub_25F9BC3F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10)
 {
   *v10 = &unk_2871D0F28;
-  *(v10 + 32) = &unk_2871D0F68;
-  a10 = (v10 + 56);
+  v10[4] = &unk_2871D0F68;
+  a10 = v10 + 7;
   std::vector<cc::point_t<double,false,false>>::__destroy_vector::operator()[abi:ne200100](&a10);
-  a10 = (v10 + 8);
+  a10 = v10 + 1;
   std::vector<cc::point_t<double,false,false>>::__destroy_vector::operator()[abi:ne200100](&a10);
   _Unwind_Resume(a1);
 }
 
-uint64_t std::vector<cc::point_t<double,false,false>>::push_back[abi:ne200100](uint64_t *a1, uint64_t a2)
+uint64_t std::vector<cc::point_t<double,false,false>>::push_back[abi:ne200100](unint64_t *a1, uint64_t a2)
 {
   v3 = a1[1];
   if (v3 >= a1[2])
@@ -4036,28 +4035,18 @@ void sub_25F9BDA08(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t cc::curve::aspline::hue_t<double>::~hue_t(uint64_t a1)
+void *cc::curve::aspline::hue_t<double>::~hue_t(void *a1)
 {
   *a1 = &unk_2871D0F28;
-  *(a1 + 32) = &unk_2871D0F68;
-  v3 = (a1 + 56);
+  a1[4] = &unk_2871D0F68;
+  v3 = (a1 + 7);
   std::vector<cc::point_t<double,false,false>>::__destroy_vector::operator()[abi:ne200100](&v3);
-  v3 = (a1 + 8);
+  v3 = (a1 + 1);
   std::vector<cc::point_t<double,false,false>>::__destroy_vector::operator()[abi:ne200100](&v3);
   return a1;
 }
 
-{
-  *a1 = &unk_2871D0F28;
-  *(a1 + 32) = &unk_2871D0F68;
-  v3 = (a1 + 56);
-  std::vector<cc::point_t<double,false,false>>::__destroy_vector::operator()[abi:ne200100](&v3);
-  v3 = (a1 + 8);
-  std::vector<cc::point_t<double,false,false>>::__destroy_vector::operator()[abi:ne200100](&v3);
-  return MEMORY[0x2666E9F00](a1, 0x10A1C400ED7C394);
-}
-
-void *anonymous namespace::NewCurve@<X0>(void *a1@<X8>)
+uint64_t *anonymous namespace::NewCurve@<X0>(void *a1@<X8>)
 {
   a1[1] = 0;
   a1[2] = 0;
@@ -4073,30 +4062,30 @@ void *anonymous namespace::NewCurve@<X0>(void *a1@<X8>)
   a1[11] = cc::curve::aspline::bezier_t<double,true>::evalPeriodic;
   a1[12] = 0;
   result = std::vector<cc::point_t<double,false,false>>::resize(a1 + 7, 4uLL);
-  v4 = a1[1];
-  if (v4 == a1[2])
+  v3 = a1[1];
+  if (v3 == a1[2])
   {
-    v5 = 0;
+    v4 = 0;
   }
 
   else
   {
-    v5 = *(v4 + 16);
+    v4 = *(v3 + 16);
   }
 
-  v6 = a1[7];
-  v6[1] = 0;
-  v6[2] = v5;
-  v6[4] = 0x3FD5566CF41F212DLL;
-  v6[5] = v5;
-  v6[7] = 0x3FE554C985F06F6ALL;
-  v6[8] = v5;
-  v6[10] = 0x3FF0000000000000;
-  v6[11] = v5;
+  v5 = a1[7];
+  v5[1] = 0;
+  v5[2] = v4;
+  v5[4] = 0x3FD5566CF41F212DLL;
+  v5[5] = v4;
+  v5[7] = 0x3FE554C985F06F6ALL;
+  v5[8] = v4;
+  v5[10] = 0x3FF0000000000000;
+  v5[11] = v4;
   return result;
 }
 
-void sub_25F9BDCC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void **a10)
+void sub_25F9BDCC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
   v14 = v13;
   *v10 = v11;
@@ -4107,7 +4096,7 @@ void sub_25F9BDCC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-char *std::vector<cc::point_t<double,false,false>>::__insert_with_size[abi:ne200100]<std::__wrap_iter<cc::point_t<double,false,false> const*>,std::__wrap_iter<cc::point_t<double,false,false> const*>>(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+char *std::vector<cc::point_t<double,false,false>>::__insert_with_size[abi:ne200100]<std::__wrap_iter<cc::point_t<double,false,false> const*>,std::__wrap_iter<cc::point_t<double,false,false> const*>>(char **a1, char *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   v5 = a2;
   if (a5 >= 1)
@@ -4120,7 +4109,7 @@ char *std::vector<cc::point_t<double,false,false>>::__insert_with_size[abi:ne200
       if ((0xAAAAAAAAAAAAAAABLL * ((v7 - a2) >> 3)) >= a5)
       {
         v20 = 3 * a5;
-        std::vector<cc::point_t<double,false,false>>::__move_range(a1, a2, v7, a2 + 24 * a5);
+        std::vector<cc::point_t<double,false,false>>::__move_range(a1, a2, v7, &a2[24 * a5]);
         v21 = a3 + 8 * v20;
         v22 = 8;
         do
@@ -4157,7 +4146,7 @@ char *std::vector<cc::point_t<double,false,false>>::__insert_with_size[abi:ne200
         a1[1] = v16;
         if (v14 >= 1)
         {
-          std::vector<cc::point_t<double,false,false>>::__move_range(a1, a2, v7, a2 + 24 * a5);
+          std::vector<cc::point_t<double,false,false>>::__move_range(a1, a2, v7, &a2[24 * a5]);
           v19 = 8;
           do
           {
@@ -4229,9 +4218,9 @@ char *std::vector<cc::point_t<double,false,false>>::__insert_with_size[abi:ne200
   return v5;
 }
 
-void sub_25F9BDF30(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25F9BDF30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<cc::point_t<double,false,false>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -4281,26 +4270,26 @@ __n128 std::vector<cc::point_t<double,false,false>>::__move_range(uint64_t a1, u
   return result;
 }
 
-uint64_t std::vector<cc::point_t<double,false,false>>::__swap_out_circular_buffer(uint64_t a1, void *a2, char *a3)
+uint64_t std::vector<cc::point_t<double,false,false>>::__swap_out_circular_buffer(char **a1, void *a2, char *a3)
 {
   v6 = a2[1];
-  std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<cc::point_t<double,false,false>>,cc::point_t<double,false,false>*>(a1, a3, *(a1 + 8), a2[2]);
+  std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<cc::point_t<double,false,false>>,cc::point_t<double,false,false>*>(a1, a3, a1[1], a2[2]);
   v7 = *a1;
   v8 = a2[1];
-  a2[2] += *(a1 + 8) - a3;
-  *(a1 + 8) = a3;
+  a2[2] += a1[1] - a3;
+  a1[1] = a3;
   v9 = v8 + v7 - a3;
   std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<cc::point_t<double,false,false>>,cc::point_t<double,false,false>*>(a1, v7, a3, v9);
   a2[1] = v9;
   v10 = *a1;
-  *(a1 + 8) = *a1;
+  a1[1] = *a1;
   *a1 = a2[1];
   a2[1] = v10;
-  v11 = *(a1 + 8);
-  *(a1 + 8) = a2[2];
+  v11 = a1[1];
+  a1[1] = a2[2];
   a2[2] = v11;
-  v12 = *(a1 + 16);
-  *(a1 + 16) = a2[3];
+  v12 = a1[2];
+  a1[2] = a2[3];
   a2[3] = v12;
   *a2 = a2[1];
   return v6;
@@ -4369,7 +4358,7 @@ uint64_t std::__split_buffer<cc::point_t<double,false,false>>::~__split_buffer(u
   return a1;
 }
 
-void *std::vector<cc::point_t<double,false,false>>::resize(void *result, unint64_t a2)
+uint64_t *std::vector<cc::point_t<double,false,false>>::resize(uint64_t *result, unint64_t a2)
 {
   v2 = result;
   v3 = result[1];
@@ -4409,17 +4398,17 @@ void *std::vector<cc::point_t<double,false,false>>::resize(void *result, unint64
   return result;
 }
 
-uint64_t std::vector<cc::point_t<double,false,false>>::__append(uint64_t result, unint64_t a2)
+uint64_t *std::vector<cc::point_t<double,false,false>>::__append(uint64_t *result, unint64_t a2)
 {
   v3 = result;
-  v4 = *(result + 8);
-  v5 = *(result + 16);
+  v4 = result[1];
+  v5 = result[2];
   if (0xAAAAAAAAAAAAAAABLL * ((v5 - v4) >> 3) >= a2)
   {
     if (a2)
     {
       v10 = &v4[3 * a2];
-      v11 = *(result + 8);
+      v11 = result[1];
       do
       {
         v4[1] = 0;
@@ -4433,7 +4422,7 @@ uint64_t std::vector<cc::point_t<double,false,false>>::__append(uint64_t result,
       v4 = v10;
     }
 
-    *(result + 8) = v4;
+    result[1] = v4;
   }
 
   else
@@ -4484,13 +4473,13 @@ uint64_t std::vector<cc::point_t<double,false,false>>::__append(uint64_t result,
 
     while (v14 != 24 * v6 + 24 * a2);
     *&v21 = v12 + 24 * a2;
-    v15 = *(result + 8);
+    v15 = result[1];
     v16 = v12 + *result - v15;
     std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<cc::point_t<double,false,false>>,cc::point_t<double,false,false>*>(result, *result, v15, v16);
     v17 = *v3;
     *v3 = v16;
-    v18 = *(v3 + 16);
-    *(v3 + 8) = v21;
+    v18 = v3[2];
+    *(v3 + 1) = v21;
     *&v21 = v17;
     *(&v21 + 1) = v18;
     v19 = v17;
@@ -4501,14 +4490,25 @@ uint64_t std::vector<cc::point_t<double,false,false>>::__append(uint64_t result,
   return result;
 }
 
-void sub_25F9BE480(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25F9BE480(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<cc::point_t<double,false,false>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
 
-unint64_t cc::curve::aspline::hue_t<double>::insertPointIsolation(unint64_t result, uint64_t *a2, int8x16_t a3, int8x16_t a4, double a5)
+uint64_t cc::curve::aspline::hue_t<double>::~hue_t(void *a1)
+{
+  *a1 = &unk_2871D0F28;
+  a1[4] = &unk_2871D0F68;
+  v3 = (a1 + 7);
+  std::vector<cc::point_t<double,false,false>>::__destroy_vector::operator()[abi:ne200100](&v3);
+  v3 = (a1 + 1);
+  std::vector<cc::point_t<double,false,false>>::__destroy_vector::operator()[abi:ne200100](&v3);
+  return MEMORY[0x2666E9F00](a1, 0x10A1C400ED7C394);
+}
+
+uint64_t cc::curve::aspline::hue_t<double>::insertPointIsolation(uint64_t result, unint64_t *a2, int8x16_t a3, int8x16_t a4, double a5)
 {
   v6 = *a4.i64;
   v8 = result;
@@ -5138,24 +5138,24 @@ uint64_t cc::curve::aspline::hue_t<double>::evaluateAsLUT(uint64_t a1, uint64_t 
   return v9(v10, v8, 1024, a3, a4, a5, a6);
 }
 
-void non-virtual thunk tocc::curve::aspline::hue_t<double>::~hue_t(uint64_t a1)
+void non-virtual thunk tocc::curve::aspline::hue_t<double>::~hue_t(void *a1)
 {
-  *(a1 - 32) = &unk_2871D0F28;
+  *(a1 - 4) = &unk_2871D0F28;
   *a1 = &unk_2871D0F68;
-  v2 = (a1 + 24);
+  v2 = (a1 + 3);
   std::vector<cc::point_t<double,false,false>>::__destroy_vector::operator()[abi:ne200100](&v2);
-  v2 = (a1 - 24);
+  v2 = (a1 - 3);
   std::vector<cc::point_t<double,false,false>>::__destroy_vector::operator()[abi:ne200100](&v2);
 }
 
-uint64_t non-virtual thunk tocc::curve::aspline::hue_t<double>::~hue_t(uint64_t a1)
+uint64_t non-virtual thunk tocc::curve::aspline::hue_t<double>::~hue_t(void *a1)
 {
-  v2 = a1 - 32;
-  *(a1 - 32) = &unk_2871D0F28;
+  v2 = a1 - 4;
+  *(a1 - 4) = &unk_2871D0F28;
   *a1 = &unk_2871D0F68;
-  v4 = (a1 + 24);
+  v4 = (a1 + 3);
   std::vector<cc::point_t<double,false,false>>::__destroy_vector::operator()[abi:ne200100](&v4);
-  v4 = (a1 - 24);
+  v4 = (a1 - 3);
   std::vector<cc::point_t<double,false,false>>::__destroy_vector::operator()[abi:ne200100](&v4);
   return MEMORY[0x2666E9F00](v2, 0x10A1C400ED7C394);
 }
@@ -5274,15 +5274,15 @@ void std::vector<cc::point_t<double,false,false>>::__destroy_vector::operator()[
     v5 = **a1;
     if (v4 != v2)
     {
-      v6 = v4 - 24;
-      v7 = v4 - 24;
-      v8 = v4 - 24;
+      v6 = v4 - 3;
+      v7 = v4 - 3;
+      v8 = v4 - 3;
       do
       {
         v9 = *v8;
-        v8 -= 24;
+        v8 -= 3;
         (*v9)(v7);
-        v6 -= 24;
+        v6 -= 3;
         v10 = v7 == v2;
         v7 = v8;
       }
@@ -5583,7 +5583,7 @@ uint64_t non-virtual thunk tocc::curve::aspline::bezier_t<double,true>::evaluate
   }
 }
 
-unint64_t std::vector<cc::point_t<double,false,false>>::insert(void *a1, uint64_t a2, unint64_t a3)
+unint64_t std::vector<cc::point_t<double,false,false>>::insert(char **a1, unint64_t a2, unint64_t a3)
 {
   v4 = a2;
   v6 = a1[1];
@@ -5634,7 +5634,7 @@ unint64_t std::vector<cc::point_t<double,false,false>>::insert(void *a1, uint64_
   {
     *v6 = &unk_2871D0EF8;
     *(v6 + 8) = *(a3 + 8);
-    a1[1] = v6 + 24;
+    a1[1] = (v6 + 24);
   }
 
   else
@@ -5653,9 +5653,9 @@ unint64_t std::vector<cc::point_t<double,false,false>>::insert(void *a1, uint64_
   return v4;
 }
 
-void sub_25F9BFD80(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25F9BFD80(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<cc::point_t<double,false,false>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -5710,7 +5710,7 @@ __n128 std::__split_buffer<cc::point_t<double,false,false>>::emplace_back<cc::po
   return result;
 }
 
-uint64_t std::vector<cc::point_t<double,false,false>>::__emplace_back_slow_path<cc::point_t<double,false,false>>(uint64_t *a1, uint64_t a2)
+uint64_t std::vector<cc::point_t<double,false,false>>::__emplace_back_slow_path<cc::point_t<double,false,false>>(unint64_t *a1, uint64_t a2)
 {
   v3 = 0xAAAAAAAAAAAAAAALL;
   v4 = *a1;
@@ -5760,9 +5760,9 @@ uint64_t std::vector<cc::point_t<double,false,false>>::__emplace_back_slow_path<
   return v14;
 }
 
-void sub_25F9C0050(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_25F9C0050(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<cc::point_t<double,false,false>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -5785,23 +5785,23 @@ void sub_25F9C0628(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 {
   if (a10)
   {
-    (*(*a10 + 24))(a10);
+    (*(*a10 + 24))(a10, a2, a3, a4, a5, a6, a7, a8);
   }
 
-  (*(*v10 + 24))(v10);
+  (*(*v10 + 24))(v10, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_25F9C0B5C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
+void sub_25F9C0B5C(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
   if (a9)
   {
-    (*(*a9 + 24))(a9);
+    (*(*a9 + 24))(a9, a2, a3, a4, a5, a6, a7, a8);
   }
 
   if (a10)
   {
-    (*(*a10 + 24))(a10);
+    (*(*a10 + 24))(a10, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -6011,10 +6011,10 @@ void sub_25F9C1718(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 {
   if (a9)
   {
-    (*(*a9 + 24))(a9);
+    (*(*a9 + 24))(a9, a2, a3, a4, a5, a6, a7, a8);
   }
 
-  (*(*v10 + 24))(v10);
+  (*(*v10 + 24))(v10, a2, a3, a4, a5, a6, a7, a8);
   if (a10)
   {
     (*(*a10 + 24))(a10);
@@ -6325,18 +6325,19 @@ uint64_t HPrism::init(uint64_t a1, double *a2)
   return (*(*v6 + 24))(v6);
 }
 
-void sub_25F9C3C80(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27)
+void sub_25F9C3C80(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
 {
-  HGObject::operator delete(v30);
+  va_start(va, a26);
+  HGObject::operator delete(v29);
   HGTransform::~HGTransform(&a9);
-  (*(*v29 + 24))(v29);
-  HGTransform::~HGTransform(&a27);
-  if (v28)
+  (*(*v28 + 24))(v28);
+  HGTransform::~HGTransform(va);
+  if (v27)
   {
-    (*(*v28 + 24))(v28);
+    (*(*v27 + 24))(v27);
   }
 
-  (*(*v27 + 24))(v27);
+  (*(*v26 + 24))(v26);
   _Unwind_Resume(a1);
 }
 
@@ -6430,7 +6431,7 @@ uint64_t HSoftFocus::GetOutput(HSoftFocus *this, HGRenderer *a2)
   return *(this + 52);
 }
 
-uint64_t *anonymous namespace::doMakeZoom@<X0>(uint64_t *result@<X0>, uint64_t *a2@<X8>, float a3@<S0>, float a4@<S1>, float a5@<S2>, float a6@<S3>)
+HgcZoomBlur **anonymous namespace::doMakeZoom@<X0>(HgcZoomBlur **result@<X0>, HgcZoomBlur **a2@<X8>, float a3@<S0>, float a4@<S1>, float a5@<S2>, float a6@<S3>)
 {
   v6 = result;
   *a2 = 0;
@@ -6605,27 +6606,27 @@ LABEL_23:
   return result;
 }
 
-void sub_25F9C47E0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12)
+void sub_25F9C47E0(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12)
 {
   if (v14)
   {
-    (*(*v14 + 24))(v14);
+    (*(*v14 + 24))(v14, a2, a3, a4, a5, a6, a7, a8);
     v13 = a11;
   }
 
   if (v13)
   {
-    (*(*v13 + 24))(v13);
+    (*(*v13 + 24))(v13, a2, a3, a4, a5, a6, a7, a8);
   }
 
   if (a12)
   {
-    (*(*a12 + 24))(a12);
+    (*(*a12 + 24))(a12, a2, a3, a4, a5, a6, a7, a8);
   }
 
   if (*v12)
   {
-    (*(**v12 + 24))(*v12);
+    (*(**v12 + 24))(*v12, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -6652,7 +6653,7 @@ float anonymous namespace::computeOutputWidthAndHeight(_anonymous_namespace_ *th
   return result;
 }
 
-uint64_t anonymous namespace::blurLerp@<X0>(uint64_t *a1@<X0>, uint64_t *a2@<X1>, void *a3@<X8>, float a4@<S0>)
+HGLegacyBlend *anonymous namespace::blurLerp@<X0>(HGLegacyBlend **a1@<X0>, HGLegacyBlend **a2@<X1>, HGLegacyBlend **a3@<X8>, float a4@<S0>)
 {
   if (fabsf(a4) >= 0.00001)
   {
@@ -6757,13 +6758,13 @@ void HStyleTransfer_GPUImpl::~HStyleTransfer_GPUImpl(id *this)
   HGObject::operator delete(v1);
 }
 
-uint64_t HStyleTransfer_GPUImpl::_renderPage(uint64_t a1, uint64_t a2, int a3)
+uint64_t HStyleTransfer_GPUImpl::_renderPage(uint64_t a1, void *a2, uint64_t a3)
 {
   v6 = *a2;
   [*(HGGPURenderer::GetMetalContext(*a2) + 32) commandBuffer];
   if (*(a1 + 408) && (objc_opt_respondsToSelector() & 1) != 0)
   {
-    Buffer = HGGPURenderer::CreateBuffer(v6, *(a2 + 36), *(a2 + 32), a3, 0, 0);
+    Buffer = HGGPURenderer::CreateBuffer(v6, *(a2 + 36), *(a2 + 8), a3, 0, 0);
     Input = HGRenderer::GetInput(v6, a1, 0);
     NodeBitmap = HGGPURenderer::GetNodeBitmap(v6, Input, *(a2 + 36), Buffer, 1u);
     if (NodeBitmap != Buffer)
@@ -6774,7 +6775,7 @@ uint64_t HStyleTransfer_GPUImpl::_renderPage(uint64_t a1, uint64_t a2, int a3)
     (*(*NodeBitmap + 24))(NodeBitmap);
     (*(*v6 + 144))(v6, 0);
     HGGPURenderer::FlushMetalCommandBuffer(v6);
-    v10 = HGGPURenderer::CreateBuffer(*a2, *(a2 + 16), *(a2 + 32), a3, (*(a1 + 16) >> 12) & 1, 0, 1);
+    v10 = HGGPURenderer::CreateBuffer(*a2, *(a2 + 1), *(a2 + 8), a3, (*(a1 + 16) >> 12) & 1, 0, 1);
     v12[5] = HGGPURenderer::ConvertToMetalTexture(v6, v10);
     v12[4] = HGGPURenderer::ConvertToMetalTexture(v6, Buffer);
     (*(*Buffer + 24))(Buffer);
@@ -6787,26 +6788,26 @@ uint64_t HStyleTransfer_GPUImpl::_renderPage(uint64_t a1, uint64_t a2, int a3)
   return HGNode::RenderPage(a1, a2);
 }
 
-void sub_25F9C52A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_25F9C52A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
-  v17 = *(v15 - 112);
-  if (v17)
+  v24 = *(v22 - 112);
+  if (v24)
   {
-    (*(*v17 + 24))(v17);
+    (*(*v24 + 24))(v24);
   }
 
-  v18 = *(v15 - 104);
-  if (v18)
+  v25 = *(v22 - 104);
+  if (v25)
   {
-    (*(*v18 + 24))(v18);
+    (*(*v25 + 24))(v25);
   }
 
   _Unwind_Resume(a1);
 }
 
-uint64_t std::vector<HGRef<HGMetalTexture>>::push_back[abi:ne200100](uint64_t *a1, uint64_t *a2)
+void *std::vector<HGRef<HGMetalTexture>>::push_back[abi:ne200100](uint64_t *a1, uint64_t *a2)
 {
   v3 = a1[1];
   if (v3 >= a1[2])
@@ -6823,7 +6824,7 @@ uint64_t std::vector<HGRef<HGMetalTexture>>::push_back[abi:ne200100](uint64_t *a
       (*(*v4 + 16))(v4);
     }
 
-    result = (v3 + 1);
+    result = v3 + 1;
     a1[1] = (v3 + 1);
   }
 
@@ -6936,12 +6937,13 @@ HGXForm *HStyleTransfer_GPU::GetOutput(HGNode *this, HGRenderer *a2)
   return v12;
 }
 
-void sub_25F9C58E0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27)
+void sub_25F9C58E0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
 {
-  HGObject::operator delete(v28);
-  (*(*v27 + 24))(v27);
+  va_start(va, a26);
+  HGObject::operator delete(v27);
+  (*(*v26 + 24))(v26);
   HGTransform::~HGTransform(&a9);
-  HGTransform::~HGTransform(&a27);
+  HGTransform::~HGTransform(va);
   _Unwind_Resume(a1);
 }
 
@@ -7175,7 +7177,7 @@ double PCMatrix44Tmpl<double>::rightTranslate(double *a1, double result, double 
 
 void sub_25F9C8D9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18)
 {
-  (*(*v18 + 24))(v18);
+  (*(*v18 + 24))(v18, a2, a3, a4, a5, a6, a7, a8);
   if (a18)
   {
     (*(*a18 + 24))(a18);
@@ -7195,7 +7197,7 @@ uint64_t HGradientRadial::GetROI(HGradientRadial *this, HGRenderer *a2, int a3, 
 {
   v8 = *MEMORY[0x277D85DE8];
   (*(*this + 104))(this, 1, v6, *&a4.var0, *&a4.var2);
-  result = HGRectMake4i(0, 0, v7, 1u);
+  result = HGRectMake4i(0, 0, v7, 1);
   if (a3)
   {
     return 0;
@@ -7224,7 +7226,7 @@ void HSoftGradient::~HSoftGradient(HGNode *this)
 
 void sub_25F9C99E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11)
 {
-  (*(*v11 + 24))(v11);
+  (*(*v11 + 24))(v11, a2, a3, a4, a5, a6, a7, a8);
   if (a11)
   {
     (*(*a11 + 24))(a11);
@@ -7233,21 +7235,21 @@ void sub_25F9C99E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sub_25F9CA7C0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18)
+void sub_25F9CA7C0(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18)
 {
   if (a14)
   {
-    (*(*a14 + 24))(a14);
+    (*(*a14 + 24))(a14, a2, a3, a4, a5, a6, a7, a8);
   }
 
   if (a13)
   {
-    (*(*a13 + 24))(a13);
+    (*(*a13 + 24))(a13, a2, a3, a4, a5, a6, a7, a8);
   }
 
   if (a16)
   {
-    (*(*a16 + 24))(a16);
+    (*(*a16 + 24))(a16, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -7283,17 +7285,17 @@ void sub_25F9CEAD8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_25F9CF128(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9)
+void sub_25F9CF128(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
   if (a9)
   {
-    (*(*a9 + 24))(a9);
+    (*(*a9 + 24))(a9, a2, a3, a4, a5, a6, a7, a8);
   }
 
   v11 = *(v9 - 24);
   if (v11)
   {
-    (*(*v11 + 24))(v11);
+    (*(*v11 + 24))(v11, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -7344,26 +7346,26 @@ double PCMatrix44Tmpl<double>::setRotationFromQuaternion(uint64_t a1, double *a2
   return result;
 }
 
-void sub_25F9D0BD0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_25F9D0BD0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   HGTransform::~HGTransform(va);
-  (*(*v12 + 24))(v12);
-  if (a8)
+  (*(*v19 + 24))(v19);
+  if (a15)
   {
-    (*(*a8 + 24))(a8);
+    (*(*a15 + 24))(a15);
   }
 
-  if (a9)
+  if (a16)
   {
-    (*(*a9 + 24))(a9);
+    (*(*a16 + 24))(a16);
   }
 
-  (*(*v11 + 24))(v11);
-  (*(*v10 + 24))(v10);
-  if (v9)
+  (*(*v18 + 24))(v18);
+  (*(*v17 + 24))(v17);
+  if (v16)
   {
-    (*(*v9 + 24))(v9);
+    (*(*v16 + 24))(v16);
   }
 
   _Unwind_Resume(a1);
@@ -7394,17 +7396,17 @@ double PCQuat<double>::transform<double>(uint64_t a1, uint64_t a2, int64x2_t a3,
   return result;
 }
 
-void sub_25F9D172C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9)
+void sub_25F9D172C(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
   if (a9)
   {
-    (*(*a9 + 24))(a9);
+    (*(*a9 + 24))(a9, a2, a3, a4, a5, a6, a7, a8);
   }
 
   v11 = *(v9 - 40);
   if (v11)
   {
-    (*(*v11 + 24))(v11);
+    (*(*v11 + 24))(v11, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -7604,16 +7606,16 @@ float *PCMatrix44Tmpl<float>::transform<float>(float *a1, float *a2, float *a3)
   return a3;
 }
 
-void sub_25F9D2668(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15)
+void sub_25F9D2668(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15)
 {
   if (a9)
   {
-    (*(*a9 + 24))(a9);
+    (*(*a9 + 24))(a9, a2, a3, a4, a5, a6, a7, a8);
   }
 
   if (a15)
   {
-    (*(*a15 + 24))(a15);
+    (*(*a15 + 24))(a15, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -7623,10 +7625,10 @@ void sub_25F9D3254(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 {
   if (a9)
   {
-    (*(*a9 + 24))(a9);
+    (*(*a9 + 24))(a9, a2, a3, a4, a5, a6, a7, a8);
   }
 
-  (*(*v10 + 24))(v10);
+  (*(*v10 + 24))(v10, a2, a3, a4, a5, a6, a7, a8);
   if (a10)
   {
     (*(*a10 + 24))(a10);
@@ -7671,17 +7673,17 @@ unint64_t HGradientColorize::GetROI(uint64_t a1, uint64_t a2, int a3, uint64_t a
   return v4 | a4;
 }
 
-void sub_25F9D4DEC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11)
+void sub_25F9D4DEC(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11)
 {
   if (a11)
   {
-    (*(*a11 + 24))(a11);
+    (*(*a11 + 24))(a11, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
 }
 
-void sub_25F9D563C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38)
+void sub_25F9D563C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38)
 {
   HGObject::operator delete(v40);
   HGTransform::~HGTransform(&a11);
@@ -7702,7 +7704,7 @@ void sub_25F9D563C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t FracturedUtils::getModeNameStrings(FracturedUtils *this)
+void *FracturedUtils::getModeNameStrings(FracturedUtils *this)
 {
   result = FracturedUtils::getModeNameStrings(void)::s_modeNames;
   if (!FracturedUtils::getModeNameStrings(void)::s_modeNames)
@@ -7714,7 +7716,7 @@ uint64_t FracturedUtils::getModeNameStrings(FracturedUtils *this)
   return result;
 }
 
-uint64_t FracturedUtils::getShapeNameStrings(FracturedUtils *this)
+void *FracturedUtils::getShapeNameStrings(FracturedUtils *this)
 {
   result = FracturedUtils::getShapeNameStrings(void)::s_shapeNames;
   if (!FracturedUtils::getShapeNameStrings(void)::s_shapeNames)
@@ -7726,7 +7728,7 @@ uint64_t FracturedUtils::getShapeNameStrings(FracturedUtils *this)
   return result;
 }
 
-uint64_t FracturedUtils::getAnimationTypeStrings(FracturedUtils *this)
+void *FracturedUtils::getAnimationTypeStrings(FracturedUtils *this)
 {
   result = FracturedUtils::getAnimationTypeStrings(void)::s_animationNames;
   if (!FracturedUtils::getAnimationTypeStrings(void)::s_animationNames)
@@ -7834,9 +7836,9 @@ HGFractured::Effect **FracturedUtils::_findReadyEffect(uint64_t a1)
   return *v1;
 }
 
-uint64_t FracturedUtils::_erasePurgableItemsInPool(uint64_t result)
+id *FracturedUtils::_erasePurgableItemsInPool(id *result)
 {
-  v9 = *(result + 8);
+  v9 = result[1];
   if ((v9 - *result) >= 0x29)
   {
     v16 = v8;
@@ -7850,7 +7852,7 @@ uint64_t FracturedUtils::_erasePurgableItemsInPool(uint64_t result)
     v10 = result;
     do
     {
-      v11 = *(v9 - 8);
+      v11 = *(v9 - 1);
       [*(v11 + 8) timeIntervalSinceNow];
       v13 = v12;
       result = HGFractured::Effect::GetState(*v11);
@@ -7870,7 +7872,7 @@ uint64_t FracturedUtils::_erasePurgableItemsInPool(uint64_t result)
       }
 
       v15 = v10[1];
-      result = *(v15 - 8);
+      result = *(v15 - 1);
       if (result)
       {
         FracturedUtils::FracturedFXPoolItem::~FracturedFXPoolItem(result);
@@ -7878,7 +7880,7 @@ uint64_t FracturedUtils::_erasePurgableItemsInPool(uint64_t result)
         v15 = v10[1];
       }
 
-      v9 = v15 - 8;
+      v9 = v15 - 1;
       v10[1] = v9;
     }
 
@@ -7888,7 +7890,7 @@ uint64_t FracturedUtils::_erasePurgableItemsInPool(uint64_t result)
   return result;
 }
 
-uint64_t FracturedUtils::getReadyEffect(void *a1, void *a2)
+HGFractured::Effect *FracturedUtils::getReadyEffect(uint64_t a1, void *a2)
 {
   [a2 lock];
   ReadyEffect = FracturedUtils::_findReadyEffect(a1);
@@ -7899,7 +7901,7 @@ uint64_t FracturedUtils::getReadyEffect(void *a1, void *a2)
 
   HGFractured::Effect::SetState(*ReadyEffect, 1);
   FracturedUtils::FracturedFXPoolItem::UpdateLastUsedTime(ReadyEffect);
-  if (a1[1] - *a1 >= 0x49uLL)
+  if (*(a1 + 8) - *a1 >= 0x49uLL)
   {
     FracturedUtils::_erasePurgableItemsInPool(a1);
   }
@@ -7989,14 +7991,14 @@ uint64_t FracturedUtils::renderOutput(void *a1, void *a2, HGFractured::Effect *a
   else
   {
     v27 = v17;
-    [v17 getFloatValue:&v252 fromParm:1 atFxTime:*&v16];
-    [v27 getFloatValue:&v251 fromParm:13 atFxTime:*&v16];
-    [v27 getFloatValue:&v250 fromParm:14 atFxTime:*&v16];
-    [v27 getFloatValue:&v249 fromParm:8 atFxTime:*&v16];
-    [v27 getIntValue:&v244[1] fromParm:2 atFxTime:*&v16];
-    [v27 getIntValue:&v243 fromParm:22 atFxTime:*&v16];
+    [v17 getFloatValue:&v252 fromParm:1 atFxTime:v16];
+    [v27 getFloatValue:&v251 fromParm:13 atFxTime:v16];
+    [v27 getFloatValue:&v250 fromParm:14 atFxTime:v16];
+    [v27 getFloatValue:&v249 fromParm:8 atFxTime:v16];
+    [v27 getIntValue:&v244[1] fromParm:2 atFxTime:v16];
+    [v27 getIntValue:&v243 fromParm:22 atFxTime:v16];
     LOBYTE(v232[0]) = 0;
-    [v27 getBoolValue:v232 fromParm:3 atFxTime:*&v16];
+    [v27 getBoolValue:v232 fromParm:3 atFxTime:v16];
     v28 = 0.0;
     if (LOBYTE(v232[0]))
     {
@@ -8004,9 +8006,9 @@ uint64_t FracturedUtils::renderOutput(void *a1, void *a2, HGFractured::Effect *a
     }
 
     v157 = v28;
-    [v27 getFloatValue:&v245 fromParm:28 atFxTime:*&v16];
-    [v27 getFloatValue:&v247 fromParm:21 atFxTime:*&v16];
-    [v27 getBoolValue:v232 fromParm:4 atFxTime:*&v16];
+    [v27 getFloatValue:&v245 fromParm:28 atFxTime:v16];
+    [v27 getFloatValue:&v247 fromParm:21 atFxTime:v16];
+    [v27 getBoolValue:v232 fromParm:4 atFxTime:v16];
     if (LOBYTE(v232[0]))
     {
       v24 = 1.0;
@@ -8017,20 +8019,20 @@ uint64_t FracturedUtils::renderOutput(void *a1, void *a2, HGFractured::Effect *a
       v24 = 0.0;
     }
 
-    [v27 getBoolValue:v232 fromParm:5 atFxTime:*&v16];
+    [v27 getBoolValue:v232 fromParm:5 atFxTime:v16];
     v156 = v232[0];
-    [v27 getBoolValue:v232 fromParm:6 atFxTime:*&v16];
+    [v27 getBoolValue:v232 fromParm:6 atFxTime:v16];
     v155 = v232[0];
-    [v27 getBoolValue:&v242 fromParm:16 atFxTime:*&v16];
-    [v27 getRedValue:&v253 greenValue:&v253 + 8 blueValue:&v254 fromParm:17 atFxTime:*&v16];
-    [v27 getFloatValue:&v240 fromParm:18 atFxTime:*&v16];
-    [v27 getBoolValue:&v242 + 1 fromParm:7 atFxTime:*&v16];
-    [v27 getIntValue:v244 fromParm:12 atFxTime:*&v16];
-    [v27 getFloatValue:&v248 fromParm:10 atFxTime:*&v16];
-    [v27 getBoolValue:&v241 fromParm:27 atFxTime:*&v16];
-    [v27 getRedValue:&v256 greenValue:&v256 + 8 blueValue:&v257 alphaValue:&v257 + 8 fromParm:15 atFxTime:*&v16];
-    [v27 getBoolValue:&v241 + 1 fromParm:23 atFxTime:*&v16];
-    [v27 getFloatValue:&v246 fromParm:24 atFxTime:*&v16];
+    [v27 getBoolValue:&v242 fromParm:16 atFxTime:v16];
+    [v27 getRedValue:&v253 greenValue:&v253 + 8 blueValue:&v254 fromParm:17 atFxTime:v16];
+    [v27 getFloatValue:&v240 fromParm:18 atFxTime:v16];
+    [v27 getBoolValue:&v242 + 1 fromParm:7 atFxTime:v16];
+    [v27 getIntValue:v244 fromParm:12 atFxTime:v16];
+    [v27 getFloatValue:&v248 fromParm:10 atFxTime:v16];
+    [v27 getBoolValue:&v241 fromParm:27 atFxTime:v16];
+    [v27 getRedValue:&v256 greenValue:&v256 + 8 blueValue:&v257 alphaValue:&v257 + 8 fromParm:15 atFxTime:v16];
+    [v27 getBoolValue:&v241 + 1 fromParm:23 atFxTime:v16];
+    [v27 getFloatValue:&v246 fromParm:24 atFxTime:v16];
     v21 = v249;
     v25 = v242;
   }
@@ -8097,8 +8099,8 @@ uint64_t FracturedUtils::renderOutput(void *a1, void *a2, HGFractured::Effect *a
   v239[3] = v34;
   if (a1)
   {
-    [a1 getPixelTransformForImage:a5];
-    [a1 getInversePixelTransformForImage:a5];
+    objc_msgSend_getPixelTransformForImage_(a1);
+    objc_msgSend_getInversePixelTransformForImage_(a1);
   }
 
   else
@@ -8113,12 +8115,11 @@ uint64_t FracturedUtils::renderOutput(void *a1, void *a2, HGFractured::Effect *a
     memset(v231, 0, sizeof(v231));
   }
 
-  v229[1] = 0;
-  v229[0] = 0;
+  v229 = 0uLL;
   __asm { FMOV            V0.2D, #-1.0 }
 
   v230 = _Q0;
-  PCMatrix44Tmpl<double>::transformRect<double>(v232, v239, v229);
+  PCMatrix44Tmpl<double>::transformRect<double>(v232, v239, &v229);
   v41 = v230;
   v160 = *(&v233 + 1);
   if ((a10 & 1) == 0)
@@ -8149,18 +8150,18 @@ uint64_t FracturedUtils::renderOutput(void *a1, void *a2, HGFractured::Effect *a
   if (a10)
   {
     *&v227[0] = 0;
-    [a1 convertTimeFraction:v227 toLocal:0 andDerivative:*&v16 atTime:a9];
+    [a1 convertTimeFraction:v227 toLocal:0 andDerivative:v16 atTime:a9];
     a9 = *v227;
   }
 
   if (a6)
   {
-    [a6 heliumRef];
+    objc_msgSend_heliumRef(a6);
     if (a1)
     {
 LABEL_44:
-      [a1 getPixelTransformForImage:a6];
-      [a1 getInversePixelTransformForImage:a6];
+      objc_msgSend_getPixelTransformForImage_(a1);
+      objc_msgSend_getInversePixelTransformForImage_(a1);
       goto LABEL_47;
     }
   }
@@ -8229,7 +8230,7 @@ LABEL_47:
   {
     if (a7)
     {
-      [a7 heliumRef];
+      objc_msgSend_heliumRef(a7);
       v56 = v208;
       if (v206 == v208)
       {
@@ -8253,8 +8254,8 @@ LABEL_47:
 
     if (a1)
     {
-      [a1 getPixelTransformForImage:a7];
-      [a1 getInversePixelTransformForImage:a7];
+      objc_msgSend_getPixelTransformForImage_(a1);
+      objc_msgSend_getInversePixelTransformForImage_(a1);
     }
 
     else
@@ -8813,7 +8814,7 @@ LABEL_145:
         PCMatrix44Tmpl<double>::operator*(&v194, v231, v207);
         if (v108)
         {
-          [v108 heliumRef];
+          objc_msgSend_heliumRef(v108);
         }
 
         else
@@ -8985,11 +8986,11 @@ uint64_t PCMatrix44Tmpl<double>::operator*@<X0>(uint64_t result@<X0>, __int128 *
   return result;
 }
 
-void sub_25F9D9040(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
+void sub_25F9D9040(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
   if (a10)
   {
-    (*(*a10 + 24))(a10);
+    (*(*a10 + 24))(a10, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -9061,29 +9062,17 @@ void sub_25F9DA2F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void *std::vector<float>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<float>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<float>::__vallocate[abi:ne200100](result, a2);
+    std::vector<float>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
-}
-
-{
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
-  if (a2)
-  {
-    std::vector<float>::__vallocate[abi:ne200100](result, a2);
-  }
-
-  return result;
+  return a1;
 }
 
 void sub_25F9DBB90(_Unwind_Exception *exception_object)
@@ -9098,7 +9087,7 @@ void sub_25F9DBB90(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<float>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<float>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 62))
   {
@@ -9108,7 +9097,7 @@ void std::vector<float>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
   std::vector<double>::__throw_length_error[abi:ne200100]();
 }
 
-double PAEKeyerDrawAlpha::renderPieEdgeSegment_GL@<D0>(void *a1@<X1>, void *a2@<X2>, float *a3@<X3>, char ***a4@<X4>, double *a5@<X8>)
+double PAEKeyerDrawAlpha::renderPieEdgeSegment_GL@<D0>(void *a1@<X1>, void *a2@<X2>, float *a3@<X3>, HGRasterizer ***a4@<X4>, double *a5@<X8>)
 {
   HGGLNode::hglBegin(*a4, 5);
   if (((a1[1] - *a1) >> 3) < 1)
@@ -9151,7 +9140,7 @@ double PAEKeyerDrawAlpha::renderPieEdgeSegment_GL@<D0>(void *a1@<X1>, void *a2@<
   return result;
 }
 
-void PAEKeyerDrawAlpha::renderPieEdgeSegment_TolSoftQuad(float32x2_t *a1@<X1>, float32x2_t *a2@<X2>, float32x2_t *a3@<X3>, float32x2_t *a4@<X4>, float32x2_t *a5@<X5>, float32x2_t *a6@<X6>, float32x2_t *a7@<X7>, double *a8@<X8>, __n128 a9@<Q0>, float a10@<S1>, float32x2_t *a11, float *a12, float32x2_t **a13, float32x2_t **a14, int a15, char ***a16)
+void PAEKeyerDrawAlpha::renderPieEdgeSegment_TolSoftQuad(float32x2_t *a1@<X1>, float32x2_t *a2@<X2>, float32x2_t *a3@<X3>, float32x2_t *a4@<X4>, float32x2_t *a5@<X5>, float32x2_t *a6@<X6>, float32x2_t *a7@<X7>, double *a8@<X8>, __n128 a9@<Q0>, float a10@<S1>, float32x2_t *a11, float *a12, float32x2_t **a13, float32x2_t **a14, int a15, HGRasterizer ***a16)
 {
   v22 = a9.n128_f32[0];
   v24 = 0;
@@ -9178,7 +9167,7 @@ LABEL_10:
 
     else if (a15 == 1)
     {
-      OMPie::getArcOut(a13, v36.n128_f32[0], &__p);
+      OMPie::getArcOut(&__p, a13, v36.n128_f32[0]);
       v26 = v44;
       if (v44 < v45)
       {
@@ -9188,7 +9177,7 @@ LABEL_10:
 
     else if (a15)
     {
-      OMPie::getArcIn(a13, 1.0 - v36.n128_f32[0], &__p);
+      OMPie::getArcIn(&__p, a13, 1.0 - v36.n128_f32[0]);
       v26 = v44;
       if (v44 < v45)
       {
@@ -9242,7 +9231,7 @@ LABEL_14:
       {
         if (a15 == 1)
         {
-          OMPie::getArcOut(a14, v37.n128_f32[0], &v39);
+          OMPie::getArcOut(&v39, a14, v37.n128_f32[0]);
           v30 = v41;
           if (v41 >= v42)
           {
@@ -9257,7 +9246,7 @@ LABEL_27:
 
         if (a15)
         {
-          OMPie::getArcIn(a14, 1.0 - v37.n128_f32[0], &v39);
+          OMPie::getArcIn(&v39, a14, 1.0 - v37.n128_f32[0]);
           v30 = v41;
           if (v41 >= v42)
           {
@@ -9331,7 +9320,7 @@ void sub_25F9DC138(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void PAEKeyerDrawAlpha::renderPieEdgeSegment_TolQuad(float32x2_t *a1@<X1>, float32x2_t *a2@<X2>, float32x2_t *a3@<X3>, float32x2_t *a4@<X4>, float32x2_t *a5@<X5>, float32x2_t *a6@<X6>, float32x2_t *a7@<X7>, double *a8@<X8>, __n128 a9@<Q0>, float a10@<S1>, float *a11, float32x2_t **a12, float32x2_t **a13, int a14, char ***a15)
+void PAEKeyerDrawAlpha::renderPieEdgeSegment_TolQuad(float32x2_t *a1@<X1>, float32x2_t *a2@<X2>, float32x2_t *a3@<X3>, float32x2_t *a4@<X4>, float32x2_t *a5@<X5>, float32x2_t *a6@<X6>, float32x2_t *a7@<X7>, double *a8@<X8>, __n128 a9@<Q0>, float a10@<S1>, float *a11, float32x2_t **a12, float32x2_t **a13, int a14, HGRasterizer ***a15)
 {
   v22 = a9.n128_f32[0];
   v24 = 0;
@@ -9358,7 +9347,7 @@ LABEL_10:
 
     else if (a14 == 1)
     {
-      OMPie::getArcOut(a12, v35.n128_f32[0], &__p);
+      OMPie::getArcOut(&__p, a12, v35.n128_f32[0]);
       v26 = v43;
       if (v43 < v44)
       {
@@ -9368,7 +9357,7 @@ LABEL_10:
 
     else if (a14)
     {
-      OMPie::getArcIn(a12, 1.0 - v35.n128_f32[0], &__p);
+      OMPie::getArcIn(&__p, a12, 1.0 - v35.n128_f32[0]);
       v26 = v43;
       if (v43 < v44)
       {
@@ -9435,7 +9424,7 @@ LABEL_28:
         goto LABEL_27;
       }
 
-      OMPie::getArcOut(a13, v36.n128_f32[0], &v38);
+      OMPie::getArcOut(&v38, a13, v36.n128_f32[0]);
       v30 = v40;
       if (v40 >= v41)
       {
@@ -9512,7 +9501,7 @@ void sub_25F9DC588(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void PAEKeyerDrawAlpha::renderPieEdgeSegment_noQuad(float32x2_t *a1@<X1>, float32x2_t *a2@<X2>, float32x2_t *a3@<X3>, float32x2_t *a4@<X4>, float32x2_t *a5@<X5>, float32x2_t *a6@<X6>, float *a7@<X7>, double *a8@<X8>, __n128 a9@<Q0>, float a10@<S1>, float32x2_t **a11, float32x2_t **a12, int a13, char ***a14)
+void PAEKeyerDrawAlpha::renderPieEdgeSegment_noQuad(float32x2_t *a1@<X1>, float32x2_t *a2@<X2>, float32x2_t *a3@<X3>, float32x2_t *a4@<X4>, float32x2_t *a5@<X5>, float32x2_t *a6@<X6>, float *a7@<X7>, double *a8@<X8>, __n128 a9@<Q0>, float a10@<S1>, float32x2_t **a11, float32x2_t **a12, int a13, HGRasterizer ***a14)
 {
   v20 = a9.n128_f32[0];
   v22 = 0;
@@ -9525,7 +9514,7 @@ void PAEKeyerDrawAlpha::renderPieEdgeSegment_noQuad(float32x2_t *a1@<X1>, float3
   {
     if (a13 == 1)
     {
-      OMPie::getArcOut(a11, v34.n128_f32[0], &__p);
+      OMPie::getArcOut(&__p, a11, v34.n128_f32[0]);
       v24 = v42;
       if (v42 < v43)
       {
@@ -9581,7 +9570,7 @@ LABEL_11:
     {
       if (a13 == 1)
       {
-        OMPie::getArcOut(a12, v35.n128_f32[0], &v37);
+        OMPie::getArcOut(&v37, a12, v35.n128_f32[0]);
         v28 = v39;
         if (v39 >= v40)
         {
@@ -9673,7 +9662,7 @@ void sub_25F9DC93C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void PAEKeyerDrawAlpha::drawAlpha_in_HGGLNode(uint64_t a1, uint64_t a2, HGGLNode **a3)
+void PAEKeyerDrawAlpha::drawAlpha_in_HGGLNode(uint64_t a1, uint64_t a2, HGRasterizer ***a3)
 {
   v5 = (*(*a2 + 96))(a2);
   OMPie::computeArc(v5, v6, v7);
@@ -9724,7 +9713,7 @@ void PAEKeyerDrawAlpha::drawAlpha_in_HGGLNode(uint64_t a1, uint64_t a2, HGGLNode
       do
       {
         v68 = (*(*a2 + 96))(a2);
-        OMPie::getArcOut(v68, v67, &v152);
+        OMPie::getArcOut(&v152, v68, v67);
         HGGLNode::hglVertex2f(*a3, *&v152 * 256.0, *(&v152 + 1) * 256.0);
         HGGLNode::hglVertex2f(*a3, 256.0 * v136.f32[0], v66);
         v67 = v67 + 0.02;
@@ -9733,10 +9722,10 @@ void PAEKeyerDrawAlpha::drawAlpha_in_HGGLNode(uint64_t a1, uint64_t a2, HGGLNode
       while (v67 <= 1.0);
       HGGLNode::hglEnd(*a3);
       v69 = (*(*a2 + 96))(a2);
-      OMPie::getArcOut(v69, 0.01, &v152);
+      OMPie::getArcOut(&v152, v69, 0.01);
       v168 = v152;
       v70 = (*(*a2 + 96))(a2);
-      OMPie::getArcOut(v70, 0.99, &v152);
+      OMPie::getArcOut(&v152, v70, 0.99);
       v71 = vsub_f32(v168, v136);
       v72 = vmul_f32(v71, v71);
       v72.f32[0] = sqrtf(vaddv_f32(v72));
@@ -9747,7 +9736,7 @@ void PAEKeyerDrawAlpha::drawAlpha_in_HGGLNode(uint64_t a1, uint64_t a2, HGGLNode
       v75.f32[0] = sqrtf(vaddv_f32(v75));
       v166 = vadd_f32(v136, vmul_f32(vmul_n_f32(vdiv_f32(v74, vdup_lane_s32(v75, 0)), v75.f32[0]), v73));
       v76 = (*(*a2 + 96))(a2);
-      OMPie::getArcOut(v76, 0.5, &v158);
+      OMPie::getArcOut(&v158, v76, 0.5);
       v77 = vsub_f32(v136, v158);
       v78 = vmul_f32(v77, v77);
       v78.f32[0] = sqrtf(vaddv_f32(v78));
@@ -9777,7 +9766,7 @@ void PAEKeyerDrawAlpha::drawAlpha_in_HGGLNode(uint64_t a1, uint64_t a2, HGGLNode
       v141 = v91;
       if (v91)
       {
-        v90 = (*(*v91 + 16))(v91);
+        v90 = (*(*v91 + 2))(v91);
       }
 
       v90.n128_u32[0] = 1017370378;
@@ -9785,7 +9774,7 @@ void PAEKeyerDrawAlpha::drawAlpha_in_HGGLNode(uint64_t a1, uint64_t a2, HGGLNode
       v151 = v142;
       if (v91)
       {
-        (*(*v91 + 24))(v91);
+        (*(*v91 + 3))(v91);
       }
 
       v92 = (*(*a2 + 112))(a2);
@@ -9793,7 +9782,7 @@ void PAEKeyerDrawAlpha::drawAlpha_in_HGGLNode(uint64_t a1, uint64_t a2, HGGLNode
       v140 = v94;
       if (v94)
       {
-        v93 = (*(*v94 + 16))(v94);
+        v93 = (*(*v94 + 2))(v94);
       }
 
       v93.n128_u32[0] = 1017370378;
@@ -9801,7 +9790,7 @@ void PAEKeyerDrawAlpha::drawAlpha_in_HGGLNode(uint64_t a1, uint64_t a2, HGGLNode
       v151 = v142;
       if (v94)
       {
-        (*(*v94 + 24))(v94);
+        (*(*v94 + 3))(v94);
       }
 
       v95 = (*(*a2 + 112))(a2);
@@ -9809,7 +9798,7 @@ void PAEKeyerDrawAlpha::drawAlpha_in_HGGLNode(uint64_t a1, uint64_t a2, HGGLNode
       v139 = v97;
       if (v97)
       {
-        v96 = (*(*v97 + 16))(v97);
+        v96 = (*(*v97 + 2))(v97);
       }
 
       v96.n128_u32[0] = 1017370378;
@@ -9817,7 +9806,7 @@ void PAEKeyerDrawAlpha::drawAlpha_in_HGGLNode(uint64_t a1, uint64_t a2, HGGLNode
       v151 = v142;
       if (v97)
       {
-        (*(*v97 + 24))(v97);
+        (*(*v97 + 3))(v97);
       }
     }
 
@@ -9828,9 +9817,9 @@ void PAEKeyerDrawAlpha::drawAlpha_in_HGGLNode(uint64_t a1, uint64_t a2, HGGLNode
       do
       {
         v99 = (*(*a2 + 96))(a2);
-        OMPie::getArcIn(v99, v98, &v152);
+        OMPie::getArcIn(&v152, v99, v98);
         v100 = (*(*a2 + 96))(a2);
-        OMPie::getArcOut(v100, v98, &v158);
+        OMPie::getArcOut(&v158, v100, v98);
         HGGLNode::hglVertex2f(*a3, v158.f32[0] * 256.0, v158.f32[1] * 256.0);
         HGGLNode::hglVertex2f(*a3, *&v152 * 256.0, *(&v152 + 1) * 256.0);
         v98 = v98 + 0.02;
@@ -9886,7 +9875,7 @@ void PAEKeyerDrawAlpha::drawAlpha_in_HGGLNode(uint64_t a1, uint64_t a2, HGGLNode
       v146 = v125;
       if (v125)
       {
-        v124 = (*(*v125 + 16))(v125);
+        v124 = (*(*v125 + 2))(v125);
       }
 
       v124.n128_u32[0] = 1017370378;
@@ -9894,7 +9883,7 @@ void PAEKeyerDrawAlpha::drawAlpha_in_HGGLNode(uint64_t a1, uint64_t a2, HGGLNode
       v158 = v151;
       if (v125)
       {
-        (*(*v125 + 24))(v125);
+        (*(*v125 + 3))(v125);
       }
 
       v126 = (*(*a2 + 112))(a2);
@@ -9902,7 +9891,7 @@ void PAEKeyerDrawAlpha::drawAlpha_in_HGGLNode(uint64_t a1, uint64_t a2, HGGLNode
       v145 = v128;
       if (v128)
       {
-        v127 = (*(*v128 + 16))(v128);
+        v127 = (*(*v128 + 2))(v128);
       }
 
       v127.n128_u32[0] = 1017370378;
@@ -9910,7 +9899,7 @@ void PAEKeyerDrawAlpha::drawAlpha_in_HGGLNode(uint64_t a1, uint64_t a2, HGGLNode
       v158 = v151;
       if (v128)
       {
-        (*(*v128 + 24))(v128);
+        (*(*v128 + 3))(v128);
       }
 
       v129 = (*(*a2 + 112))(a2);
@@ -9918,7 +9907,7 @@ void PAEKeyerDrawAlpha::drawAlpha_in_HGGLNode(uint64_t a1, uint64_t a2, HGGLNode
       v144 = v131;
       if (v131)
       {
-        v130 = (*(*v131 + 16))(v131);
+        v130 = (*(*v131 + 2))(v131);
       }
 
       v130.n128_u32[0] = 1017370378;
@@ -9926,7 +9915,7 @@ void PAEKeyerDrawAlpha::drawAlpha_in_HGGLNode(uint64_t a1, uint64_t a2, HGGLNode
       v158 = v151;
       if (v131)
       {
-        (*(*v131 + 24))(v131);
+        (*(*v131 + 3))(v131);
       }
 
       v132 = (*(*a2 + 112))(a2);
@@ -9934,7 +9923,7 @@ void PAEKeyerDrawAlpha::drawAlpha_in_HGGLNode(uint64_t a1, uint64_t a2, HGGLNode
       v143 = v134;
       if (v134)
       {
-        v133 = (*(*v134 + 16))(v134);
+        v133 = (*(*v134 + 2))(v134);
       }
 
       v133.n128_u32[0] = 1017370378;
@@ -9942,7 +9931,7 @@ void PAEKeyerDrawAlpha::drawAlpha_in_HGGLNode(uint64_t a1, uint64_t a2, HGGLNode
       v158 = v151;
       if (v134)
       {
-        (*(*v134 + 24))(v134);
+        (*(*v134 + 3))(v134);
       }
     }
   }
@@ -9957,9 +9946,9 @@ void PAEKeyerDrawAlpha::drawAlpha_in_HGGLNode(uint64_t a1, uint64_t a2, HGGLNode
     do
     {
       v28 = (*(*a2 + 96))(a2);
-      OMPie::getArcIn(v28, v27, &v152);
+      OMPie::getArcIn(&v152, v28, v27);
       v29 = (*(*a2 + 96))(a2);
-      OMPie::getArcOut(v29, v27, &v158);
+      OMPie::getArcOut(&v158, v29, v27);
       HGGLNode::hglVertex2f(*a3, v158.f32[0] * 256.0, v158.f32[1] * 256.0);
       HGGLNode::hglVertex2f(*a3, *&v152 * 256.0, *(&v152 + 1) * 256.0);
       v27 = v27 + 0.02;
@@ -10010,13 +9999,13 @@ void PAEKeyerDrawAlpha::drawAlpha_in_HGGLNode(uint64_t a1, uint64_t a2, HGGLNode
     v49[4].var0[1] = v45;
     OMPie::computeArc(&v152, v50, v51);
     v52 = (*(*a2 + 112))(a2);
-    OMPie::getArcIn(v52, 0.018868, &v158);
+    OMPie::getArcIn(&v158, v52, 0.018868);
     v53 = (*(*a2 + 112))(a2);
     v55 = *a3;
     v150 = v55;
     if (v55)
     {
-      v54 = (*(*v55 + 16))(v55);
+      v54 = (*(*v55 + 2))(v55);
     }
 
     v54.n128_u32[0] = 1017370378;
@@ -10024,7 +10013,7 @@ void PAEKeyerDrawAlpha::drawAlpha_in_HGGLNode(uint64_t a1, uint64_t a2, HGGLNode
     v158 = v151;
     if (v55)
     {
-      (*(*v55 + 24))(v55);
+      (*(*v55 + 3))(v55);
     }
 
     v56 = (*(*a2 + 112))(a2);
@@ -10032,7 +10021,7 @@ void PAEKeyerDrawAlpha::drawAlpha_in_HGGLNode(uint64_t a1, uint64_t a2, HGGLNode
     v149 = v58;
     if (v58)
     {
-      v57 = (*(*v58 + 16))(v58);
+      v57 = (*(*v58 + 2))(v58);
     }
 
     v57.n128_u32[0] = 1017370378;
@@ -10040,7 +10029,7 @@ void PAEKeyerDrawAlpha::drawAlpha_in_HGGLNode(uint64_t a1, uint64_t a2, HGGLNode
     v158 = v151;
     if (v58)
     {
-      (*(*v58 + 24))(v58);
+      (*(*v58 + 3))(v58);
     }
 
     v59 = (*(*a2 + 112))(a2);
@@ -10048,7 +10037,7 @@ void PAEKeyerDrawAlpha::drawAlpha_in_HGGLNode(uint64_t a1, uint64_t a2, HGGLNode
     v148 = v61;
     if (v61)
     {
-      v60 = (*(*v61 + 16))(v61);
+      v60 = (*(*v61 + 2))(v61);
     }
 
     v60.n128_u32[0] = 1017370378;
@@ -10056,7 +10045,7 @@ void PAEKeyerDrawAlpha::drawAlpha_in_HGGLNode(uint64_t a1, uint64_t a2, HGGLNode
     v158 = v151;
     if (v61)
     {
-      (*(*v61 + 24))(v61);
+      (*(*v61 + 3))(v61);
     }
 
     v62 = (*(*a2 + 112))(a2);
@@ -10064,7 +10053,7 @@ void PAEKeyerDrawAlpha::drawAlpha_in_HGGLNode(uint64_t a1, uint64_t a2, HGGLNode
     v147 = v64;
     if (v64)
     {
-      v63 = (*(*v64 + 16))(v64);
+      v63 = (*(*v64 + 2))(v64);
     }
 
     v63.n128_u32[0] = 1017370378;
@@ -10072,7 +10061,7 @@ void PAEKeyerDrawAlpha::drawAlpha_in_HGGLNode(uint64_t a1, uint64_t a2, HGGLNode
     v158 = v151;
     if (v64)
     {
-      (*(*v64 + 24))(v64);
+      (*(*v64 + 3))(v64);
     }
   }
 

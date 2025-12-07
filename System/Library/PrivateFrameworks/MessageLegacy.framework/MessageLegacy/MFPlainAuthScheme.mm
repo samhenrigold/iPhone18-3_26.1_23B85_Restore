@@ -8,37 +8,31 @@
 - (id)authenticatorForAccount:(id)account connection:(id)connection
 {
   saslProfileName = [objc_opt_class() saslProfileName];
-  if ([saslProfileName isEqualToString:@"imap"] & 1) != 0 || (objc_msgSend(saslProfileName, "isEqualToString:", @"pop"))
+  if ([saslProfileName isEqualToString:@"imap"])
+  {
+    return 0;
+  }
+
+  if ([saslProfileName isEqualToString:@"pop"])
   {
     return 0;
   }
 
   authenticationMechanisms = [connection authenticationMechanisms];
-  if ([authenticationMechanisms indexOfObject:@"PLAIN"] == 0x7FFFFFFFFFFFFFFFLL)
-  {
-    if ([authenticationMechanisms indexOfObject:@"LOGIN"] == 0x7FFFFFFFFFFFFFFFLL)
-    {
-      return 0;
-    }
-
-    v9 = off_2798B5790;
-  }
-
-  else
-  {
-    v9 = off_2798B57C0;
-  }
-
-  v10 = *v9;
-  v11 = objc_opt_class();
-  if (!v11)
+  if ([authenticationMechanisms indexOfObject:@"PLAIN"] == 0x7FFFFFFFFFFFFFFFLL && objc_msgSend(authenticationMechanisms, "indexOfObject:", @"LOGIN") == 0x7FFFFFFFFFFFFFFFLL)
   {
     return 0;
   }
 
-  v12 = [[v11 alloc] initWithAuthScheme:self account:account connection:connection];
+  v9 = objc_opt_class();
+  if (!v9)
+  {
+    return 0;
+  }
 
-  return v12;
+  v10 = [[v9 alloc] initWithAuthScheme:self account:account connection:connection];
+
+  return v10;
 }
 
 - (BOOL)canAuthenticateAccountClass:(Class)class connection:(id)connection

@@ -2,6 +2,7 @@
 - (FIAnalyticsRecord)initWithEventName:(id)name;
 - (id)objectForKey:(id)key;
 - (id)objectForKeyedSubscript:(id)subscript;
+- (void)setBool:(BOOL)bool forKey:(id)key;
 @end
 
 @implementation FIAnalyticsRecord
@@ -32,6 +33,14 @@
   v3 = [(NSMutableDictionary *)self->_eventDict objectForKeyedSubscript:key];
 
   return v3;
+}
+
+- (void)setBool:(BOOL)bool forKey:(id)key
+{
+  boolCopy = bool;
+  keyCopy = key;
+  v6 = [MEMORY[0x1E696AD98] numberWithBool:boolCopy];
+  [(NSMutableDictionary *)self->_eventDict setObject:v6 forKeyedSubscript:keyCopy];
 }
 
 @end

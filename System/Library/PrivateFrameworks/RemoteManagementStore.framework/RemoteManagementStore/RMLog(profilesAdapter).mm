@@ -11,9 +11,9 @@
     +[RMLog(profilesAdapter) profilesAdapter];
   }
 
-  v1 = profilesAdapter_result;
+  v2 = profilesAdapter_result;
 
-  return v1;
+  return v2;
 }
 
 @end

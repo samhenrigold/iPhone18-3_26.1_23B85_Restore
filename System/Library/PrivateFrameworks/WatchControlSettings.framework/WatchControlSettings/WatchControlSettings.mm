@@ -13,16 +13,16 @@ uint64_t WCInputSourceTypeIsSupportedOnDevice(uint64_t a1, void *a2)
   return v6;
 }
 
-id WCAvailableInputSourceTypes()
+id WCAvailableInputSourceTypes(uint64_t a1)
 {
   if (WCAvailableInputSourceTypes_onceToken != -1)
   {
     WCAvailableInputSourceTypes_cold_1();
   }
 
-  v1 = WCAvailableInputSourceTypes_AvailableInputSourceTypes;
+  v2 = WCAvailableInputSourceTypes_AvailableInputSourceTypes;
 
-  return v1;
+  return v2;
 }
 
 void __WCAvailableInputSourceTypes_block_invoke()
@@ -77,9 +77,9 @@ void WCSynchronizeDomain(void *a1, void *a2)
   [v5 synchronizeNanoDomain:v4 keys:v3];
 }
 
-void sub_2729FEC88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_2729FEC88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -91,7 +91,7 @@ uint64_t __Block_byref_object_copy_(uint64_t result, uint64_t a2)
   return result;
 }
 
-id WCNameForActionMenuPosition(unint64_t a1)
+id WCNameForActionMenuPosition(unint64_t a1, uint64_t a2)
 {
   if (a1 <= 2)
   {
@@ -117,17 +117,16 @@ id WCLocalizedString(void *a1)
 
 id defaultGreyEventActionCustomizations()
 {
-  v4[4] = *MEMORY[0x277D85DE8];
-  v3[0] = &unk_288205230;
-  v3[1] = &unk_288205248;
-  v4[0] = &unk_288205260;
-  v4[1] = &unk_288205278;
-  v3[2] = &unk_288205200;
-  v3[3] = &unk_288205218;
-  v4[2] = &unk_288205290;
-  v4[3] = &unk_2882052A8;
-  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v4 forKeys:v3 count:4];
-  v1 = *MEMORY[0x277D85DE8];
+  v3[4] = *MEMORY[0x277D85DE8];
+  v2[0] = &unk_288205230;
+  v2[1] = &unk_288205248;
+  v3[0] = &unk_288205260;
+  v3[1] = &unk_288205278;
+  v2[2] = &unk_288205200;
+  v2[3] = &unk_288205218;
+  v3[2] = &unk_288205290;
+  v3[3] = &unk_2882052A8;
+  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v3 forKeys:v2 count:4];
 
   return v0;
 }
@@ -152,38 +151,36 @@ id WCNameForMotionPointerEdge(unint64_t a1)
   return a1;
 }
 
-id defaultMotionPointerEdgeActionCustomizations()
+id defaultMotionPointerEdgeActionCustomizations(uint64_t a1)
 {
   if (defaultMotionPointerEdgeActionCustomizations_onceToken != -1)
   {
     defaultMotionPointerEdgeActionCustomizations_cold_1();
   }
 
-  v1 = defaultMotionPointerEdgeActionCustomizations_DefaultMotionPointerEdgeActions;
+  v2 = defaultMotionPointerEdgeActionCustomizations_DefaultMotionPointerEdgeActions;
 
-  return v1;
+  return v2;
 }
 
 void __defaultMotionPointerEdgeActionCustomizations_block_invoke()
 {
-  v8[4] = *MEMORY[0x277D85DE8];
-  v7[0] = &unk_288205200;
+  v7[4] = *MEMORY[0x277D85DE8];
+  v6[0] = &unk_288205200;
   v0 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:WCDefaultActionForMotionPointerEdge(0)];
-  v8[0] = v0;
-  v7[1] = &unk_288205218;
+  v7[0] = v0;
+  v6[1] = &unk_288205218;
   v1 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:WCDefaultActionForMotionPointerEdge(1uLL)];
-  v8[1] = v1;
-  v7[2] = &unk_288205230;
+  v7[1] = v1;
+  v6[2] = &unk_288205230;
   v2 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:WCDefaultActionForMotionPointerEdge(2uLL)];
-  v8[2] = v2;
-  v7[3] = &unk_288205248;
+  v7[2] = v2;
+  v6[3] = &unk_288205248;
   v3 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:WCDefaultActionForMotionPointerEdge(3uLL)];
-  v8[3] = v3;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:4];
+  v7[3] = v3;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:v6 count:4];
   v5 = defaultMotionPointerEdgeActionCustomizations_DefaultMotionPointerEdgeActions;
   defaultMotionPointerEdgeActionCustomizations_DefaultMotionPointerEdgeActions = v4;
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t AXAssistiveTouchCursorColorForCursorColor(uint64_t result)
@@ -266,28 +263,30 @@ uint64_t WCGreyEventForAXHandGestureEventUsage(uint64_t a1)
   }
 }
 
-void OUTLINED_FUNCTION_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 2u);
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 2u);
 }
 
-void OUTLINED_FUNCTION_2(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_2(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, v9, OS_LOG_TYPE_DEBUG, a4, &a9, 0xCu);
+  _os_log_debug_impl(a1, v8, OS_LOG_TYPE_DEBUG, a4, va, 0xCu);
 }
 
-id wc_general_log()
+id wc_general_log(uint64_t a1)
 {
   if (wc_general_log_onceToken != -1)
   {
     wc_general_log_cold_1();
   }
 
-  v1 = wc_general_log___logger;
+  v2 = wc_general_log___logger;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __wc_general_log_block_invoke()
@@ -297,16 +296,16 @@ uint64_t __wc_general_log_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id wc_action_log()
+id wc_action_log(uint64_t a1)
 {
   if (wc_action_log_onceToken != -1)
   {
     wc_action_log_cold_1();
   }
 
-  v1 = wc_action_log___logger;
+  v2 = wc_action_log___logger;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __wc_action_log_block_invoke()
@@ -316,16 +315,16 @@ uint64_t __wc_action_log_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id wc_autoscroll_log()
+id wc_autoscroll_log(uint64_t a1)
 {
   if (wc_autoscroll_log_onceToken != -1)
   {
     wc_autoscroll_log_cold_1();
   }
 
-  v1 = wc_autoscroll_log___logger;
+  v2 = wc_autoscroll_log___logger;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __wc_autoscroll_log_block_invoke()
@@ -335,16 +334,16 @@ uint64_t __wc_autoscroll_log_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id wc_focus_log()
+id wc_focus_log(uint64_t a1)
 {
   if (wc_focus_log_onceToken != -1)
   {
     wc_focus_log_cold_1();
   }
 
-  v1 = wc_focus_log___logger;
+  v2 = wc_focus_log___logger;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __wc_focus_log_block_invoke()
@@ -354,16 +353,16 @@ uint64_t __wc_focus_log_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id wc_input_source_log()
+id wc_input_source_log(uint64_t a1)
 {
   if (wc_input_source_log_onceToken != -1)
   {
     wc_input_source_log_cold_1();
   }
 
-  v1 = wc_input_source_log___logger;
+  v2 = wc_input_source_log___logger;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __wc_input_source_log_block_invoke()
@@ -373,16 +372,16 @@ uint64_t __wc_input_source_log_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id wc_motion_pointer_log()
+id wc_motion_pointer_log(uint64_t a1)
 {
   if (wc_motion_pointer_log_onceToken != -1)
   {
     wc_motion_pointer_log_cold_1();
   }
 
-  v1 = wc_motion_pointer_log___logger;
+  v2 = wc_motion_pointer_log___logger;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __wc_motion_pointer_log_block_invoke()
@@ -392,16 +391,16 @@ uint64_t __wc_motion_pointer_log_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id wc_services_log()
+id wc_services_log(uint64_t a1)
 {
   if (wc_services_log_onceToken != -1)
   {
     wc_services_log_cold_1();
   }
 
-  v1 = wc_services_log___logger;
+  v2 = wc_services_log___logger;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __wc_services_log_block_invoke()
@@ -411,16 +410,16 @@ uint64_t __wc_services_log_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id wc_shake_gesture_log()
+id wc_shake_gesture_log(uint64_t a1)
 {
   if (wc_shake_gesture_log_onceToken != -1)
   {
     wc_shake_gesture_log_cold_1();
   }
 
-  v1 = wc_shake_gesture_log___logger;
+  v2 = wc_shake_gesture_log___logger;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __wc_shake_gesture_log_block_invoke()
@@ -430,16 +429,16 @@ uint64_t __wc_shake_gesture_log_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id wc_focus_v2_log()
+id wc_focus_v2_log(uint64_t a1)
 {
   if (wc_focus_v2_log_onceToken != -1)
   {
     wc_focus_v2_log_cold_1();
   }
 
-  v1 = wc_focus_v2_log___logger;
+  v2 = wc_focus_v2_log___logger;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __wc_focus_v2_log_block_invoke()
@@ -451,24 +450,13 @@ uint64_t __wc_focus_v2_log_block_invoke()
 
 id WCLocalizedTitleForCustomAction(uint64_t a1, void *a2)
 {
-  if (a1 != 1)
-  {
-    goto LABEL_4;
-  }
-
-  v2 = MEMORY[0x277CE7E38];
-  v3 = a2;
-  v4 = [v2 sharedManager];
-  v5 = [v4 shortcutForIdentifier:v3];
-
-  if (v5)
+  if (a1 == 1 && (v2 = MEMORY[0x277CE7E38], v3 = a2, [v2 sharedManager], v4 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v4, "shortcutForIdentifier:", v3), v5 = objc_claimAutoreleasedReturnValue(), v3, v4, v5))
   {
     v6 = [v5 shortcutName];
   }
 
   else
   {
-LABEL_4:
     v6 = 0;
   }
 
@@ -486,28 +474,29 @@ id WCImageForCustomAction(uint64_t a1, void *a2)
     if (v5)
     {
       v6 = [v5 glyphCharacter];
-      v15 = 0;
-      v16 = &v15;
-      v17 = 0x2020000000;
+      v16 = 0;
+      v17 = &v16;
+      v18 = 0x2020000000;
       v7 = getWFSystemImageNameForGlyphCharacterSymbolLoc_ptr;
-      v18 = getWFSystemImageNameForGlyphCharacterSymbolLoc_ptr;
+      v19 = getWFSystemImageNameForGlyphCharacterSymbolLoc_ptr;
       if (!getWFSystemImageNameForGlyphCharacterSymbolLoc_ptr)
       {
-        v14[0] = MEMORY[0x277D85DD0];
-        v14[1] = 3221225472;
-        v14[2] = __getWFSystemImageNameForGlyphCharacterSymbolLoc_block_invoke;
-        v14[3] = &unk_279E5D0C8;
-        v14[4] = &v15;
-        __getWFSystemImageNameForGlyphCharacterSymbolLoc_block_invoke(v14);
-        v7 = v16[3];
+        v15[0] = MEMORY[0x277D85DD0];
+        v15[1] = 3221225472;
+        v15[2] = __getWFSystemImageNameForGlyphCharacterSymbolLoc_block_invoke;
+        v15[3] = &unk_279E5D0C8;
+        v15[4] = &v16;
+        __getWFSystemImageNameForGlyphCharacterSymbolLoc_block_invoke(v15);
+        v7 = v17[3];
       }
 
-      _Block_object_dispose(&v15, 8);
+      _Block_object_dispose(&v16, 8);
       if (!v7)
       {
-        v13 = WCImageForCustomAction_cold_1();
-        _Block_object_dispose(&v15, 8);
-        _Unwind_Resume(v13);
+        WCImageForCustomAction_cold_1();
+        v14 = v13;
+        _Block_object_dispose(&v16, 8);
+        _Unwind_Resume(v14);
       }
 
       v8 = v7(v6);
@@ -540,19 +529,17 @@ id WCImageForCustomAction(uint64_t a1, void *a2)
 
 id WCPayloadForCustomAction(uint64_t a1, void *a2)
 {
-  v11[2] = *MEMORY[0x277D85DE8];
-  v10[0] = kWCCustomActionTypePayloadTypeKey;
+  v10[2] = *MEMORY[0x277D85DE8];
+  v9[0] = kWCCustomActionTypePayloadTypeKey;
   v3 = MEMORY[0x277CCABB0];
   v4 = a2;
   v5 = [v3 numberWithInteger:a1];
-  v10[1] = kWCCustomActionTypePayloadIdentifierKey;
-  v11[0] = v5;
-  v11[1] = v4;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:2];
+  v9[1] = kWCCustomActionTypePayloadIdentifierKey;
+  v10[0] = v5;
+  v10[1] = v4;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:2];
 
   v7 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v6 requiringSecureCoding:1 error:0];
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -582,17 +569,15 @@ id WCDictionaryForCustomActionPayload(void *a1, uint64_t a2)
 
 void __WCDictionaryForCustomActionPayload_block_invoke()
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v0 = MEMORY[0x277CBEB98];
+  v4 = objc_opt_class();
   v5 = objc_opt_class();
   v6 = objc_opt_class();
-  v7 = objc_opt_class();
-  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:&v5 count:3];
-  v2 = [v0 setWithArray:{v1, v5, v6}];
+  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:&v4 count:3];
+  v2 = [v0 setWithArray:{v1, v4, v5}];
   v3 = WCDictionaryForCustomActionPayload_UnarchiveClasses;
   WCDictionaryForCustomActionPayload_UnarchiveClasses = v2;
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 BOOL WCRetrieveCustomActionFromPayload(void *a1, void *a2, void *a3, uint64_t a4)
@@ -612,23 +597,23 @@ BOOL WCRetrieveCustomActionFromPayload(void *a1, void *a2, void *a3, uint64_t a4
 
 void *__getWFSystemImageNameForGlyphCharacterSymbolLoc_block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v6[0] = 0;
+  v8 = *MEMORY[0x277D85DE8];
+  v5[0] = 0;
   if (!VoiceShortcutClientLibraryCore_frameworkLibrary)
   {
-    v6[1] = MEMORY[0x277D85DD0];
-    v6[2] = 3221225472;
-    v6[3] = __VoiceShortcutClientLibraryCore_block_invoke;
-    v6[4] = &__block_descriptor_40_e5_v8__0l;
-    v6[5] = v6;
-    v7 = xmmword_279E5D0E8;
-    v8 = 0;
+    v5[1] = MEMORY[0x277D85DD0];
+    v5[2] = 3221225472;
+    v5[3] = __VoiceShortcutClientLibraryCore_block_invoke;
+    v5[4] = &__block_descriptor_40_e5_v8__0l;
+    v5[5] = v5;
+    v6 = xmmword_279E5D0E8;
+    v7 = 0;
     VoiceShortcutClientLibraryCore_frameworkLibrary = _sl_dlopen();
-    v3 = v6[0];
+    v3 = v5[0];
     v2 = VoiceShortcutClientLibraryCore_frameworkLibrary;
     if (VoiceShortcutClientLibraryCore_frameworkLibrary)
     {
-      if (!v6[0])
+      if (!v5[0])
       {
         goto LABEL_5;
       }
@@ -636,7 +621,7 @@ void *__getWFSystemImageNameForGlyphCharacterSymbolLoc_block_invoke(uint64_t a1)
 
     else
     {
-      v3 = abort_report_np();
+      v3 = abort_report_np("%s", v5[0]);
     }
 
     free(v3);
@@ -648,30 +633,26 @@ LABEL_5:
   result = dlsym(v2, "WFSystemImageNameForGlyphCharacter");
   *(*(*(a1 + 32) + 8) + 24) = result;
   getWFSystemImageNameForGlyphCharacterSymbolLoc_ptr = *(*(*(a1 + 32) + 8) + 24);
-  v5 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t __VoiceShortcutClientLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   VoiceShortcutClientLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-id WCAvailableActions()
+id WCAvailableActions(uint64_t a1)
 {
   if (WCAvailableActions_onceToken != -1)
   {
     WCAvailableActions_cold_1();
   }
 
-  v1 = WCAvailableActions_AvailableActions;
+  v2 = WCAvailableActions_AvailableActions;
 
-  return v1;
+  return v2;
 }
 
 void __WCAvailableActions_block_invoke()
@@ -1014,28 +995,29 @@ id WCImageForAction(uint64_t a1)
   if (a1 == 12)
   {
     v4 = v2;
-    v14 = 0;
-    v15 = &v14;
-    v16 = 0x2020000000;
+    v15 = 0;
+    v16 = &v15;
+    v17 = 0x2020000000;
     v5 = getWCImageForAssetNameSymbolLoc_ptr;
-    v17 = getWCImageForAssetNameSymbolLoc_ptr;
+    v18 = getWCImageForAssetNameSymbolLoc_ptr;
     if (!getWCImageForAssetNameSymbolLoc_ptr)
     {
-      v13[0] = MEMORY[0x277D85DD0];
-      v13[1] = 3221225472;
-      v13[2] = __getWCImageForAssetNameSymbolLoc_block_invoke;
-      v13[3] = &unk_279E5D0C8;
-      v13[4] = &v14;
-      __getWCImageForAssetNameSymbolLoc_block_invoke(v13);
-      v5 = v15[3];
+      v14[0] = MEMORY[0x277D85DD0];
+      v14[1] = 3221225472;
+      v14[2] = __getWCImageForAssetNameSymbolLoc_block_invoke;
+      v14[3] = &unk_279E5D0C8;
+      v14[4] = &v15;
+      __getWCImageForAssetNameSymbolLoc_block_invoke(v14);
+      v5 = v16[3];
     }
 
-    _Block_object_dispose(&v14, 8);
+    _Block_object_dispose(&v15, 8);
     if (!v5)
     {
-      v12 = WCImageForCustomAction_cold_1();
-      _Block_object_dispose(&v14, 8);
-      _Unwind_Resume(v12);
+      WCImageForCustomAction_cold_1();
+      v13 = v12;
+      _Block_object_dispose(&v15, 8);
+      _Unwind_Resume(v13);
     }
 
     v6 = v5(v4);
@@ -1289,23 +1271,23 @@ unint64_t WCDefaultActionForMotionPointerEdge(unint64_t a1)
 
 void *__getWCImageForAssetNameSymbolLoc_block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v6[0] = 0;
+  v8 = *MEMORY[0x277D85DE8];
+  v5[0] = 0;
   if (!WatchControlAssetsLibraryCore_frameworkLibrary)
   {
-    v6[1] = MEMORY[0x277D85DD0];
-    v6[2] = 3221225472;
-    v6[3] = __WatchControlAssetsLibraryCore_block_invoke;
-    v6[4] = &__block_descriptor_40_e5_v8__0l;
-    v6[5] = v6;
-    v7 = xmmword_279E5D120;
-    v8 = 0;
+    v5[1] = MEMORY[0x277D85DD0];
+    v5[2] = 3221225472;
+    v5[3] = __WatchControlAssetsLibraryCore_block_invoke;
+    v5[4] = &__block_descriptor_40_e5_v8__0l;
+    v5[5] = v5;
+    v6 = xmmword_279E5D120;
+    v7 = 0;
     WatchControlAssetsLibraryCore_frameworkLibrary = _sl_dlopen();
-    v3 = v6[0];
+    v3 = v5[0];
     v2 = WatchControlAssetsLibraryCore_frameworkLibrary;
     if (WatchControlAssetsLibraryCore_frameworkLibrary)
     {
-      if (!v6[0])
+      if (!v5[0])
       {
         goto LABEL_5;
       }
@@ -1313,7 +1295,7 @@ void *__getWCImageForAssetNameSymbolLoc_block_invoke(uint64_t a1)
 
     else
     {
-      v3 = abort_report_np();
+      v3 = abort_report_np("%s", v5[0]);
     }
 
     free(v3);
@@ -1325,17 +1307,13 @@ LABEL_5:
   result = dlsym(v2, "WCImageForAssetName");
   *(*(*(a1 + 32) + 8) + 24) = result;
   getWCImageForAssetNameSymbolLoc_ptr = *(*(*(a1 + 32) + 8) + 24);
-  v5 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t __WatchControlAssetsLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   WatchControlAssetsLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -1557,16 +1535,16 @@ uint64_t isUsingGrey()
   return v3;
 }
 
-id WCAvailableGreyEvents()
+id WCAvailableGreyEvents(uint64_t a1)
 {
   if (WCAvailableGreyEvents_onceToken != -1)
   {
     WCAvailableGreyEvents_cold_1();
   }
 
-  v1 = WCAvailableGreyEvents_AvailableGreyEvents;
+  v2 = WCAvailableGreyEvents_AvailableGreyEvents;
 
-  return v1;
+  return v2;
 }
 
 void __WCAvailableGreyEvents_block_invoke()
@@ -1749,28 +1727,29 @@ LABEL_6:
 id soft_WCImageForAssetName(void *a1)
 {
   v1 = a1;
-  v7 = 0;
-  v8 = &v7;
-  v9 = 0x2020000000;
+  v8 = 0;
+  v9 = &v8;
+  v10 = 0x2020000000;
   v2 = getWCImageForAssetNameSymbolLoc_ptr_0;
-  v10 = getWCImageForAssetNameSymbolLoc_ptr_0;
+  v11 = getWCImageForAssetNameSymbolLoc_ptr_0;
   if (!getWCImageForAssetNameSymbolLoc_ptr_0)
   {
-    v6[0] = MEMORY[0x277D85DD0];
-    v6[1] = 3221225472;
-    v6[2] = __getWCImageForAssetNameSymbolLoc_block_invoke_0;
-    v6[3] = &unk_279E5D0C8;
-    v6[4] = &v7;
-    __getWCImageForAssetNameSymbolLoc_block_invoke_0(v6);
-    v2 = v8[3];
+    v7[0] = MEMORY[0x277D85DD0];
+    v7[1] = 3221225472;
+    v7[2] = __getWCImageForAssetNameSymbolLoc_block_invoke_0;
+    v7[3] = &unk_279E5D0C8;
+    v7[4] = &v8;
+    __getWCImageForAssetNameSymbolLoc_block_invoke_0(v7);
+    v2 = v9[3];
   }
 
-  _Block_object_dispose(&v7, 8);
+  _Block_object_dispose(&v8, 8);
   if (!v2)
   {
-    v5 = WCImageForCustomAction_cold_1();
-    _Block_object_dispose(&v7, 8);
-    _Unwind_Resume(v5);
+    WCImageForCustomAction_cold_1();
+    v6 = v5;
+    _Block_object_dispose(&v8, 8);
+    _Unwind_Resume(v6);
   }
 
   v3 = v2(v1);
@@ -1780,7 +1759,7 @@ id soft_WCImageForAssetName(void *a1)
 
 id WCOnboardingAnimationImagesForGreyEvent(unint64_t a1, double *a2)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   if (a1 > 3)
   {
     v5 = 0;
@@ -1808,11 +1787,11 @@ id WCOnboardingAnimationImagesForGreyEvent(unint64_t a1, double *a2)
 
     else
     {
-      v10 = wc_general_log();
+      v10 = wc_general_log(0);
       if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
       {
         *buf = 138412290;
-        v21 = v8;
+        v20 = v8;
         _os_log_fault_impl(&dword_2729FD000, v10, OS_LOG_TYPE_FAULT, "missing image %@", buf, 0xCu);
       }
     }
@@ -1850,30 +1829,29 @@ id WCOnboardingAnimationImagesForGreyEvent(unint64_t a1, double *a2)
   }
 
   *a2 = v3 + 1.0 + 1.0;
-  v18 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
 
 void *__getWCImageForAssetNameSymbolLoc_block_invoke_0(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v6[0] = 0;
+  v8 = *MEMORY[0x277D85DE8];
+  v5[0] = 0;
   if (!WatchControlAssetsLibraryCore_frameworkLibrary_0)
   {
-    v6[1] = MEMORY[0x277D85DD0];
-    v6[2] = 3221225472;
-    v6[3] = __WatchControlAssetsLibraryCore_block_invoke_0;
-    v6[4] = &__block_descriptor_40_e5_v8__0l;
-    v6[5] = v6;
-    v7 = xmmword_279E5D1B0;
-    v8 = 0;
+    v5[1] = MEMORY[0x277D85DD0];
+    v5[2] = 3221225472;
+    v5[3] = __WatchControlAssetsLibraryCore_block_invoke_0;
+    v5[4] = &__block_descriptor_40_e5_v8__0l;
+    v5[5] = v5;
+    v6 = xmmword_279E5D1B0;
+    v7 = 0;
     WatchControlAssetsLibraryCore_frameworkLibrary_0 = _sl_dlopen();
-    v3 = v6[0];
+    v3 = v5[0];
     v2 = WatchControlAssetsLibraryCore_frameworkLibrary_0;
     if (WatchControlAssetsLibraryCore_frameworkLibrary_0)
     {
-      if (!v6[0])
+      if (!v5[0])
       {
         goto LABEL_5;
       }
@@ -1881,7 +1859,7 @@ void *__getWCImageForAssetNameSymbolLoc_block_invoke_0(uint64_t a1)
 
     else
     {
-      v3 = abort_report_np();
+      v3 = abort_report_np("%s", v5[0]);
     }
 
     free(v3);
@@ -1893,17 +1871,13 @@ LABEL_5:
   result = dlsym(v2, "WCImageForAssetName");
   *(*(*(a1 + 32) + 8) + 24) = result;
   getWCImageForAssetNameSymbolLoc_ptr_0 = *(*(*(a1 + 32) + 8) + 24);
-  v5 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t __WatchControlAssetsLibraryCore_block_invoke_0(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   WatchControlAssetsLibraryCore_frameworkLibrary_0 = result;
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -1937,9 +1911,19 @@ id WCNameForAutoScrollHandlerStatus(unint64_t a1)
   return a1;
 }
 
-uint64_t WCImageForCustomAction_cold_1()
+void WCImageForCustomAction_cold_1()
 {
-  dlerror();
-  v0 = abort_report_np();
-  return WCDictionaryForCustomActionPayload_cold_1(v0);
+  v0 = dlerror();
+  abort_report_np("%s", v0);
+  WCDictionaryForCustomActionPayload_cold_1();
+}
+
+CGRect CGRectInset(CGRect rect, CGFloat dx, CGFloat dy)
+{
+  MEMORY[0x2821115C8](rect.origin, *&rect.origin.y, rect.size, *&rect.size.height, dx, dy);
+  result.size.height = v6;
+  result.size.width = v5;
+  result.origin.y = v4;
+  result.origin.x = v3;
+  return result;
 }

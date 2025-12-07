@@ -229,7 +229,7 @@
   return v4;
 }
 
-uint64_t __57__VCCaptionsStreamSendGroup_setDeviceRole_operatingMode___block_invoke(uint64_t a1)
+void *__57__VCCaptionsStreamSendGroup_setDeviceRole_operatingMode___block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 744) setDeviceRole:*(a1 + 48) operatingMode:*(a1 + 52)];
   *(*(*(a1 + 40) + 8) + 24) = result;

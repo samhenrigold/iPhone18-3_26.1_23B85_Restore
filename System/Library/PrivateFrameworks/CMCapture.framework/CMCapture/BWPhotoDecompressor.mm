@@ -2,9 +2,9 @@
 - (BWPhotoDecompressor)initWithOutputPixelBufferPool:(id)pool;
 - (BWPhotoDecompressor)initWithPoolSize:(int)size outputPixelFormat:(unsigned int)format outputLargestDimension:(int)dimension;
 - (CFDictionaryRef)_setCVColorProperties:(CMSampleBufferRef)sbuf fromSourceBuffer:;
+- (_BYTE)_newUncompressedPixelBufferFromSampleBuffer:(_BYTE *)result pixelBufferTrackingTag:(CMSampleBufferRef)sbuf;
 - (_DWORD)_initWithPoolSize:(int)size outputPixelFormat:(void *)format outputPixelBufferPool:(int)pool outputLargestDimension:;
 - (__CVBuffer)_newUncompressedSampleBufferFromSampleBuffer:(__CVBuffer *)result pixelBufferTrackingTag:(opaqueCMSampleBuffer *)tag;
-- (uint64_t)_newUncompressedPixelBufferFromSampleBuffer:(uint64_t)result pixelBufferTrackingTag:(CMSampleBufferRef)sbuf;
 - (uint64_t)_setupDecompressionOptions;
 - (uint64_t)_setupDecompressionSession;
 - (uint64_t)_setupDecompressionSurfacePool;
@@ -103,26 +103,26 @@ LABEL_9:
     {
       CMPhotoDecompressionSessionReleaseHardwareResources();
       CMPhotoDecompressionSessionFlushCachedBuffers();
-      v2 = *(self + 48);
-      if (v2)
+      v3 = *(self + 48);
+      if (v3)
       {
-        CFRelease(v2);
+        CFRelease(v3);
         *(self + 48) = 0;
       }
     }
 
-    v3 = *(self + 40);
-    if (v3)
+    v4 = *(self + 40);
+    if (v4)
     {
-      CFRelease(v3);
+      CFRelease(v4);
       *(self + 40) = 0;
     }
 
     *(self + 56) = 0;
-    v4 = *(self + 64);
-    if (v4)
+    v5 = *(self + 64);
+    if (v5)
     {
-      CFRelease(v4);
+      CFRelease(v5);
       *(self + 64) = 0;
     }
 
@@ -130,13 +130,13 @@ LABEL_9:
   }
 }
 
-- (uint64_t)_newUncompressedPixelBufferFromSampleBuffer:(uint64_t)result pixelBufferTrackingTag:(CMSampleBufferRef)sbuf
+- (_BYTE)_newUncompressedPixelBufferFromSampleBuffer:(_BYTE *)result pixelBufferTrackingTag:(CMSampleBufferRef)sbuf
 {
   if (result)
   {
     v2 = result;
     CMSampleBufferGetDataBuffer(sbuf);
-    if ((*(v2 + 28) & 1) != 0 || ![(BWPhotoDecompressor *)v2 _setupResources])
+    if ((v2[28] & 1) != 0 || ![(BWPhotoDecompressor *)v2 _setupResources])
     {
       CMPhotoDecompressionSessionCreateContainer();
     }
@@ -164,11 +164,11 @@ LABEL_9:
     _setupDecompressionSurfacePool = [(BWPhotoDecompressor *)self _setupDecompressionSurfacePool];
     if (!*(self + 40))
     {
-LABEL_15:
       fig_log_get_emitter();
       OUTLINED_FUNCTION_0_30();
-      FigSignalErrorAtGM();
-      return _setupDecompressionSurfacePool;
+      v8 = _setupDecompressionSurfacePool;
+      v9 = 241;
+      goto LABEL_16;
     }
   }
 
@@ -177,7 +177,13 @@ LABEL_15:
     _setupDecompressionSurfacePool = [(BWPhotoDecompressor *)self _setupDecompressionSession];
     if (!*(self + 48))
     {
-      goto LABEL_15;
+      fig_log_get_emitter();
+      OUTLINED_FUNCTION_0_30();
+      v8 = _setupDecompressionSurfacePool;
+      v9 = 246;
+LABEL_16:
+      FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v8, "<<<< BWPhotoDecompressor >>>>", v9, v5, v6, v7, v10);
+      return _setupDecompressionSurfacePool;
     }
   }
 
@@ -186,7 +192,11 @@ LABEL_15:
     _setupDecompressionSurfacePool = [(BWPhotoDecompressor *)self _setupDecompressionOptions];
     if (!*(self + 56))
     {
-      goto LABEL_15;
+      fig_log_get_emitter();
+      OUTLINED_FUNCTION_0_30();
+      v8 = _setupDecompressionSurfacePool;
+      v9 = 252;
+      goto LABEL_16;
     }
   }
 

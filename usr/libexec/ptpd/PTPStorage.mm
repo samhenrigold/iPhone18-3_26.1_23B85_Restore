@@ -1,4 +1,5 @@
 @interface PTPStorage
+- (PTPStorage)initWithParent:(id)parent andOptionalID:(unsigned int)d forSessionID:(unsigned int)iD;
 - (id)addAssets:(id)assets createdObjects:(id)objects;
 - (id)cameraFileWithObjectID:(unint64_t)d;
 - (id)cameraFolderWithObjectID:(unint64_t)d;
@@ -10,6 +11,7 @@
 - (id)parent;
 - (id)virtualDirectoryName:(id)name;
 - (timespec)virtualDirectoryDate:(id)date;
+- (unint64_t)appendObjectData:(id)data forObjectFormatCode:(unsigned __int16)code inAssociation:(unsigned int)association withContentType:(unsigned int)type;
 - (unsigned)addGroup:(id)group;
 - (void)addCameraFileToIndex:(id)index;
 - (void)addCameraFolderToIndex:(id)index;
@@ -222,6 +224,112 @@ LABEL_10:
   return result;
 }
 
+- (PTPStorage)initWithParent:(id)parent andOptionalID:(unsigned int)d forSessionID:(unsigned int)iD
+{
+  v5 = *&iD;
+  v6 = *&d;
+  parentCopy = parent;
+  v9 = v6;
+  if (!v6)
+  {
+    v9 = sub_1000041F4();
+  }
+
+  v44.receiver = self;
+  v44.super_class = PTPStorage;
+  v10 = [(PTPStorage *)&v44 init];
+  v11 = v10;
+  v12 = &CopyArrayOfUnsignedShortsFromBufferMaxSize_ptr;
+  if (v10)
+  {
+    memset(&v45, 0, 512);
+    [(PTPStorage *)v10 setParent:parentCopy];
+    hostMediaSupportedFormats = [parentCopy hostMediaSupportedFormats];
+    [(PTPStorage *)v11 setSupportedFormats:hostMediaSupportedFormats];
+
+    v42 = parentCopy;
+    path = [parentCopy path];
+    v15 = [path stringByAppendingPathComponent:@"DCIM"];
+    statfs([v15 fileSystemRepresentation], &v45);
+
+    v16 = v5;
+    v17 = v45.f_blocks * v45.f_bsize;
+    v18 = v45.f_bavail * v45.f_bsize;
+    v19 = [[ICOrderedMediaSet alloc] initWithTypes:&off_10003BF48];
+    v20 = *(&v11->_dcimFolder + 4);
+    *(&v11->_dcimFolder + 4) = v19;
+
+    v11->_sessionID = v9;
+    v21 = objc_alloc_init(PTPStorageInfoDataset);
+    v22 = *(&v11->_duplicateAssetIdentifiers + 4);
+    *(&v11->_duplicateAssetIdentifiers + 4) = v21;
+
+    v23 = sub_10000C470([(PTPItem *)v11 setObjectHandle:v9]);
+    [*(&v11->_duplicateAssetIdentifiers + 4) setAccessCapability:{objc_msgSend(v23, "cplStorageState") != 0}];
+    [*(&v11->_duplicateAssetIdentifiers + 4) setStorageType:3];
+    [*(&v11->_duplicateAssetIdentifiers + 4) setFilesystemType:3];
+    v24 = v17;
+    v5 = v16;
+    [*(&v11->_duplicateAssetIdentifiers + 4) setMaxCapacity:v24];
+    [*(&v11->_duplicateAssetIdentifiers + 4) setFreeSpaceInBytes:v18];
+    v12 = &CopyArrayOfUnsignedShortsFromBufferMaxSize_ptr;
+    [*(&v11->_duplicateAssetIdentifiers + 4) setFreeSpaceInImages:v18 / 0x258];
+    [*(&v11->_duplicateAssetIdentifiers + 4) setStorageDescription:@"Internal Storage"];
+    [*(&v11->_duplicateAssetIdentifiers + 4) setVolumeLabel:@"Internal Storage"];
+    *&v11->_enumerated = v16;
+    v25 = objc_alloc_init(NSMutableArray);
+    v26 = *(&v11->_parent + 4);
+    *(&v11->_parent + 4) = v25;
+
+    v27 = [NSString stringWithFormat:@"%x-GroupNotificationQueue", v11->_sessionID];
+    v28 = dispatch_queue_create([v27 UTF8String], 0);
+    v29 = *(&v11->_groupNotificationTimer + 4);
+    *(&v11->_groupNotificationTimer + 4) = v28;
+
+    if (!v6)
+    {
+      v30 = +[NSDate date];
+      v43[1] = 0;
+      [v30 timeIntervalSince1970];
+      v43[0] = v31;
+      v32 = [[PTPFolder alloc] initWithName:@"DCIM" captureTimeSpec:v43 parent:v11 storage:v11];
+      v33 = *(&v11->_storageInfoDataset + 4);
+      *(&v11->_storageInfoDataset + 4) = v32;
+
+      [(PTPStorage *)v11 addCameraFolderToIndex:*(&v11->_storageInfoDataset + 4)];
+    }
+
+    [(PTPStorage *)v11 setEnumerated:0];
+    [(PTPStorage *)v11 customUpdateToStoreInfoDataset];
+
+    parentCopy = v42;
+  }
+
+  __ICOSLogCreate();
+  v34 = &stru_100038B48;
+  if ([&stru_100038B48 length] >= 0x15)
+  {
+    v35 = [&stru_100038B48 substringWithRange:{0, 18}];
+    v34 = [v35 stringByAppendingString:@".."];
+  }
+
+  v36 = [v12[204] stringWithFormat:@"Created Storage - PTPStorageID: 0x%x SessionID:0x%x", v9, v5];
+  v37 = _gICOSLog;
+  if (os_log_type_enabled(_gICOSLog, OS_LOG_TYPE_DEFAULT))
+  {
+    v38 = v34;
+    v39 = v37;
+    uTF8String = [(__CFString *)v34 UTF8String];
+    v45.f_bsize = 136446466;
+    *&v45.f_iosize = uTF8String;
+    WORD2(v45.f_blocks) = 2114;
+    *(&v45.f_blocks + 6) = v36;
+    _os_log_impl(&_mh_execute_header, v39, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", &v45, 0x16u);
+  }
+
+  return v11;
+}
+
 - (void)customUpdateToStoreInfoDataset
 {
   v3 = MGCopyAnswer();
@@ -286,14 +394,19 @@ LABEL_10:
 - (void)addContent
 {
   dcimFolder = [(PTPStorage *)self dcimFolder];
+  v4 = dcimFolder;
   if (dcimFolder)
   {
-    v4 = sub_10000C470();
+    v5 = sub_10000C470(dcimFolder);
     storageID = [(PTPStorage *)self storageID];
+    v20[0] = 0;
+    v20[1] = v20;
+    v20[2] = 0x2020000000;
+    v21 = 0;
     v19[0] = 0;
     v19[1] = v19;
     v19[2] = 0x2020000000;
-    v20 = 0;
+    v19[3] = 0;
     v18[0] = 0;
     v18[1] = v18;
     v18[2] = 0x2020000000;
@@ -302,33 +415,29 @@ LABEL_10:
     v17[1] = v17;
     v17[2] = 0x2020000000;
     v17[3] = 0;
-    v16[0] = 0;
-    v16[1] = v16;
-    v16[2] = 0x2020000000;
-    v16[3] = 0;
     __ICOSLogCreate();
     if ([&stru_100038B48 length] < 0x15)
     {
-      v7 = &stru_100038B48;
+      v8 = &stru_100038B48;
     }
 
     else
     {
-      v6 = [&stru_100038B48 substringWithRange:{0, 18}];
-      v7 = [v6 stringByAppendingString:@".."];
+      v7 = [&stru_100038B48 substringWithRange:{0, 18}];
+      v8 = [v7 stringByAppendingString:@".."];
     }
 
-    v8 = [NSString stringWithFormat:@"[PTPFolder addContent] PTPStorageID: 0x%x \n", storageID];
-    v9 = _gICOSLog;
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v9 = [NSString stringWithFormat:@"[PTPFolder addContent] PTPStorageID: 0x%x \n", storageID];
+    v10 = _gICOSLog;
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = v7;
-      uTF8String = [(__CFString *)v7 UTF8String];
+      v11 = v8;
+      uTF8String = [(__CFString *)v8 UTF8String];
       *buf = 136446466;
       *&buf[4] = uTF8String;
       *&buf[12] = 2114;
-      *&buf[14] = v8;
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
+      *&buf[14] = v9;
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
     }
 
     dispatch_async(&_dispatch_main_q, &stru_100038930);
@@ -336,25 +445,25 @@ LABEL_10:
     mach_timebase_info(&info);
     _gPTPBenchmarkStartMachTime = 0;
     _gPTPBenchmarkStartMachTime = mach_absolute_time();
-    if (v4)
+    if (v5)
     {
       *buf = 0;
       *&buf[8] = buf;
       *&buf[16] = 0x3032000000;
-      v22 = sub_100016D34;
-      v23 = sub_100016D44;
+      v23 = sub_100016D34;
+      v24 = sub_100016D44;
       selfCopy = self;
-      v14[0] = _NSConcreteStackBlock;
-      v14[1] = 3221225472;
-      v14[2] = sub_100016D4C;
-      v14[3] = &unk_100038980;
-      v14[4] = selfCopy;
-      v14[5] = buf;
-      v14[6] = v19;
-      v14[7] = v18;
-      v14[8] = v17;
-      v14[9] = v16;
-      [v4 ptpEnumerateAllAssetsUsingBlock:v14];
+      v15[0] = _NSConcreteStackBlock;
+      v15[1] = 3221225472;
+      v15[2] = sub_100016D4C;
+      v15[3] = &unk_100038980;
+      v15[4] = selfCopy;
+      v15[5] = buf;
+      v15[6] = v20;
+      v15[7] = v19;
+      v15[8] = v18;
+      v15[9] = v17;
+      [v5 ptpEnumerateAllAssetsUsingBlock:v15];
       _Block_object_dispose(buf, 8);
     }
 
@@ -362,19 +471,19 @@ LABEL_10:
     block[1] = 3221225472;
     block[2] = sub_100016F50;
     block[3] = &unk_1000389A8;
-    block[6] = v18;
-    block[7] = v17;
-    block[8] = v16;
+    block[6] = v19;
+    block[7] = v18;
+    block[8] = v17;
     block[9] = info;
-    v13 = storageID;
+    v14 = storageID;
     block[4] = self;
-    block[5] = v19;
+    block[5] = v20;
     dispatch_async(&_dispatch_main_q, block);
 
-    _Block_object_dispose(v16, 8);
     _Block_object_dispose(v17, 8);
     _Block_object_dispose(v18, 8);
     _Block_object_dispose(v19, 8);
+    _Block_object_dispose(v20, 8);
   }
 }
 
@@ -560,6 +669,51 @@ LABEL_8:
 {
   indexedMediaSet = [(PTPStorage *)self indexedMediaSet];
   [indexedMediaSet removeMediaItemWithHandleFromIndex:index];
+}
+
+- (unint64_t)appendObjectData:(id)data forObjectFormatCode:(unsigned __int16)code inAssociation:(unsigned int)association withContentType:(unsigned int)type
+{
+  v6 = *&type;
+  v7 = *&association;
+  codeCopy = code;
+  dataCopy = data;
+  v11 = 0;
+  v15 = 0;
+  if (codeCopy)
+  {
+LABEL_5:
+    if (v7 == -1)
+    {
+      goto LABEL_7;
+    }
+
+    goto LABEL_6;
+  }
+
+  if ((v7 + 1) < 2 || [*(&self->_storageInfoDataset + 4) objectHandle] == v7)
+  {
+    objectInfoDataset = [*(&self->_storageInfoDataset + 4) objectInfoDataset];
+    v13 = [objectInfoDataset content:v6];
+
+    [dataCopy appendData:v13];
+    v11 = 1;
+    v15 = 1;
+
+    goto LABEL_5;
+  }
+
+  v11 = 0;
+LABEL_6:
+  v11 += [*(&self->_storageInfoDataset + 4) appendObjectData:dataCopy forObjectFormatCode:codeCopy inAssociation:v7 withContentType:v6];
+  v15 = v11;
+LABEL_7:
+  if (v6 == 3)
+  {
+    [dataCopy replaceBytesInRange:0 withBytes:{8, &v15}];
+    v11 = v15;
+  }
+
+  return v11;
 }
 
 - (unsigned)addGroup:(id)group

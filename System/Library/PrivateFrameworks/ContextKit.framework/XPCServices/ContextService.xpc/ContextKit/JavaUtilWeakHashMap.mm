@@ -1,11 +1,11 @@
 @interface JavaUtilWeakHashMap
 - (BOOL)containsValueWithId:(id)id;
+- (IOSObjectArray)rehash;
 - (id)entrySet;
 - (id)getEntryWithId:(id)id;
 - (id)getWithId:(id)id;
 - (id)keySet;
 - (id)putWithId:(id)id withId:(id)withId;
-- (id)rehash;
 - (id)removeWithId:(id)id;
 - (id)values;
 - (void)clear;
@@ -84,7 +84,7 @@
   {
     v4 = [JavaUtilWeakHashMap_ValuesCollection alloc];
     objc_storeWeak(&v4->this$0_, self);
-    JavaUtilAbstractCollection_init(v4, v5);
+    JavaUtilAbstractCollection_init();
     JreStrongAssignAndConsume(&self->super.valuesCollection_, v4);
     return self->super.valuesCollection_;
   }
@@ -128,21 +128,21 @@ LABEL_15:
     JreThrowNullPointerException();
   }
 
-  v5 = JavaUtilCollections_secondaryHashWithId_(id);
-  v6 = self->elementData_;
-  if (!v6)
+  v6 = JavaUtilCollections_secondaryHashWithId_(id, v5);
+  v7 = self->elementData_;
+  if (!v7)
   {
     goto LABEL_15;
   }
 
-  v7 = v5 & 0x7FFFFFFF;
-  v8 = v6->super.size_;
-  if ((v8 & 0x80000000) != 0)
+  v8 = v6 & 0x7FFFFFFF;
+  v9 = v7->super.size_;
+  if ((v9 & 0x80000000) != 0)
   {
-    IOSArray_throwOutOfBoundsWithMsg(v8, (v7 % v8));
+    IOSArray_throwOutOfBoundsWithMsg(v9, (v8 % v9));
   }
 
-  elementType = (&v6->elementType_)[v7 % v8];
+  elementType = (&v7->elementType_)[v8 % v9];
   if (!elementType)
   {
     return 0;
@@ -165,18 +165,18 @@ LABEL_15:
   [(JavaUtilWeakHashMap *)self poll];
   if (id)
   {
-    v5 = JavaUtilCollections_secondaryHashWithId_(id);
+    v6 = JavaUtilCollections_secondaryHashWithId_(id, v5);
     elementData = self->elementData_;
     if (elementData)
     {
-      v7 = v5 & 0x7FFFFFFF;
+      v8 = v6 & 0x7FFFFFFF;
       size = elementData->super.size_;
       if ((size & 0x80000000) != 0)
       {
-        IOSArray_throwOutOfBoundsWithMsg(size, (v7 % size));
+        IOSArray_throwOutOfBoundsWithMsg(size, (v8 % size));
       }
 
-      for (i = (&elementData->elementType_)[v7 % size]; i; i = i[7].super.isa)
+      for (i = (&elementData->elementType_)[v8 % size]; i; i = i[7].super.isa)
       {
         if ([id isEqual:{-[IOSClass get](i, "get")}])
         {
@@ -191,19 +191,19 @@ LABEL_14:
     JreThrowNullPointerException();
   }
 
-  v10 = self->elementData_;
-  if (!v10)
+  v11 = self->elementData_;
+  if (!v11)
   {
     goto LABEL_14;
   }
 
-  v11 = v10->super.size_;
-  if (v11 <= 0)
+  v12 = v11->super.size_;
+  if (v12 <= 0)
   {
-    IOSArray_throwOutOfBoundsWithMsg(v11, 0);
+    IOSArray_throwOutOfBoundsWithMsg(v12, 0);
   }
 
-  for (i = v10->elementType_; i; i = i[7].super.isa)
+  for (i = v11->elementType_; i; i = i[7].super.isa)
   {
     if (BYTE4(i[5].super.isa))
     {
@@ -411,22 +411,22 @@ LABEL_11:
   [(JavaUtilWeakHashMap *)self poll];
   if (id)
   {
-    v7 = JavaUtilCollections_secondaryHashWithId_(id);
+    v8 = JavaUtilCollections_secondaryHashWithId_(id, v7);
     elementData = self->elementData_;
     if (!elementData)
     {
       goto LABEL_24;
     }
 
-    v9 = v7 & 0x7FFFFFFF;
+    v10 = v8 & 0x7FFFFFFF;
     size = elementData->super.size_;
-    v11 = (v9 % size);
+    v12 = (v10 % size);
     if ((size & 0x80000000) != 0)
     {
-      IOSArray_throwOutOfBoundsWithMsg(size, (v9 % size));
+      IOSArray_throwOutOfBoundsWithMsg(size, (v10 % size));
     }
 
-    isa = (&elementData->elementType_)[v11];
+    isa = (&elementData->elementType_)[v12];
     if (isa)
     {
       while (([id isEqual:{-[IOSClass get](isa, "get")}] & 1) == 0)
@@ -439,27 +439,27 @@ LABEL_11:
       }
 
 LABEL_18:
-      v18 = isa[6].super.isa;
+      v20 = isa[6].super.isa;
       JreStrongAssign(&isa[6].super.isa, withId);
-      return v18;
+      return v20;
     }
   }
 
   else
   {
-    v13 = self->elementData_;
-    if (!v13)
+    v14 = self->elementData_;
+    if (!v14)
     {
       goto LABEL_24;
     }
 
-    v14 = v13->super.size_;
-    if (v14 <= 0)
+    v15 = v14->super.size_;
+    if (v15 <= 0)
     {
-      IOSArray_throwOutOfBoundsWithMsg(v14, 0);
+      IOSArray_throwOutOfBoundsWithMsg(v15, 0);
     }
 
-    isa = v13->elementType_;
+    isa = v14->elementType_;
     if (isa)
     {
       while ((BYTE4(isa[5].super.isa) & 1) == 0)
@@ -475,67 +475,67 @@ LABEL_18:
     }
 
 LABEL_13:
-    v11 = 0;
+    v12 = 0;
   }
 
 LABEL_14:
   atomic_fetch_add(&self->modCount_, 1u);
-  v15 = self->elementCount_ + 1;
-  self->elementCount_ = v15;
-  if (v15 > self->threshold_)
+  v16 = self->elementCount_ + 1;
+  self->elementCount_ = v16;
+  if (v16 > self->threshold_)
   {
     [JavaUtilWeakHashMap rehash]_0(self);
     if (id)
     {
-      v16 = JavaUtilCollections_secondaryHashWithId_(id);
-      v17 = self->elementData_;
-      if (!v17)
+      v18 = JavaUtilCollections_secondaryHashWithId_(id, v17);
+      v19 = self->elementData_;
+      if (!v19)
       {
         goto LABEL_24;
       }
 
-      v11 = ((v16 & 0x7FFFFFFF) % v17->super.size_);
+      v12 = ((v18 & 0x7FFFFFFF) % v19->super.size_);
     }
 
     else
     {
-      v11 = 0;
+      v12 = 0;
     }
   }
 
   referenceQueue = self->referenceQueue_;
-  v20 = [JavaUtilWeakHashMap_Entry alloc];
-  JavaUtilWeakHashMap_Entry_initWithId_withId_withJavaLangRefReferenceQueue_(v20, id, withId, referenceQueue);
-  v21 = v20;
-  v22 = self->elementData_;
-  if (!v22)
+  v22 = [JavaUtilWeakHashMap_Entry alloc];
+  JavaUtilWeakHashMap_Entry_initWithId_withId_withJavaLangRefReferenceQueue_(v22, id, withId, referenceQueue);
+  v23 = v22;
+  v24 = self->elementData_;
+  if (!v24)
   {
 LABEL_24:
     JreThrowNullPointerException();
   }
 
-  p_isa = &v21->super.super.super.isa;
-  v24 = v22->super.size_;
-  if (v11 >= v24)
+  p_isa = &v23->super.super.super.isa;
+  v26 = v24->super.size_;
+  if (v12 >= v26)
   {
-    IOSArray_throwOutOfBoundsWithMsg(v24, v11);
+    IOSArray_throwOutOfBoundsWithMsg(v26, v12);
   }
 
-  JreStrongAssign(p_isa + 7, (&v22->elementType_)[v11]);
-  IOSObjectArray_Set(self->elementData_, v11, p_isa);
+  JreStrongAssign(p_isa + 7, (&v24->elementType_)[v12]);
+  IOSObjectArray_Set(self->elementData_, v12, p_isa);
   return 0;
 }
 
-- (id)rehash
+- (IOSObjectArray)rehash
 {
-  v1 = *(self + 32);
+  v1 = result->buffer_[0];
   if (!v1)
   {
     goto LABEL_19;
   }
 
-  selfCopy = self;
-  v3 = 2 * *(v1 + 8);
+  v2 = result;
+  v3 = 2 * v1[2];
   if (v3 <= 1)
   {
     v4 = 1;
@@ -547,15 +547,15 @@ LABEL_24:
   }
 
   v5 = sub_10015A254(v4);
-  v6 = *(selfCopy + 32);
-  if (*(v6 + 8) >= 1)
+  v6 = v2->buffer_[0];
+  if (v6[2] >= 1)
   {
     v7 = 0;
-    v15 = selfCopy;
+    v15 = v2;
     do
     {
       v16 = v7;
-      v8 = *(v6 + 24 + 8 * v7);
+      v8 = *&v6[2 * v7 + 6];
       if (v8)
       {
         do
@@ -591,27 +591,27 @@ LABEL_24:
         }
 
         while (v10);
-        selfCopy = v15;
+        v2 = v15;
       }
 
       v7 = v16 + 1;
-      v6 = *(selfCopy + 32);
+      v6 = v2->buffer_[0];
     }
 
-    while (v16 + 1 < *(v6 + 8));
+    while (v16 + 1 < v6[2]);
   }
 
-  result = JreStrongAssign((selfCopy + 32), v5);
-  v13 = *(selfCopy + 32);
+  v12 = JreStrongAssign(v2->buffer_, v5);
+  v13 = v2->buffer_[0];
   if (!v13)
   {
 LABEL_19:
     JreThrowNullPointerException();
   }
 
-  v14 = (*(selfCopy + 56) * *(v13 + 8) * 0x346DC5D63886594BLL) >> 64;
-  *(selfCopy + 60) = (v14 >> 11) + (v14 >> 63);
-  return result;
+  v14 = (SLODWORD(v2->buffer_[3]) * v13[2] * 0x346DC5D63886594BLL) >> 64;
+  HIDWORD(v2->buffer_[3]) = (v14 >> 11) + (v14 >> 63);
+  return v12;
 }
 
 - (id)removeWithId:(id)id
@@ -619,33 +619,33 @@ LABEL_19:
   [(JavaUtilWeakHashMap *)self poll];
   if (id)
   {
-    v5 = JavaUtilCollections_secondaryHashWithId_(id);
+    v6 = JavaUtilCollections_secondaryHashWithId_(id, v5);
     elementData = self->elementData_;
     if (!elementData)
     {
       goto LABEL_24;
     }
 
-    v7 = v5 & 0x7FFFFFFF;
+    v8 = v6 & 0x7FFFFFFF;
     size = elementData->super.size_;
-    v9 = (v7 % size);
+    v10 = (v8 % size);
     if ((size & 0x80000000) != 0)
     {
-      IOSArray_throwOutOfBoundsWithMsg(size, (v7 % size));
+      IOSArray_throwOutOfBoundsWithMsg(size, (v8 % size));
     }
 
-    isa = (&elementData->elementType_)[v9];
+    isa = (&elementData->elementType_)[v10];
     if (isa)
     {
       if ([id isEqual:{-[IOSClass get](isa, "get")}])
       {
-        v11 = 0;
+        v12 = 0;
         goto LABEL_18;
       }
 
       while (1)
       {
-        v11 = isa;
+        v12 = isa;
         isa = isa[7].super.isa;
         if (!isa)
         {
@@ -662,19 +662,19 @@ LABEL_19:
     return 0;
   }
 
-  v12 = self->elementData_;
-  if (!v12)
+  v13 = self->elementData_;
+  if (!v13)
   {
     goto LABEL_24;
   }
 
-  v13 = v12->super.size_;
-  if (v13 <= 0)
+  v14 = v13->super.size_;
+  if (v14 <= 0)
   {
-    IOSArray_throwOutOfBoundsWithMsg(v13, 0);
+    IOSArray_throwOutOfBoundsWithMsg(v14, 0);
   }
 
-  isa = v12->elementType_;
+  isa = v13->elementType_;
   if (!isa)
   {
     return 0;
@@ -682,15 +682,15 @@ LABEL_19:
 
   if (BYTE4(isa[5].super.isa))
   {
-    v9 = 0;
-    v11 = 0;
+    v10 = 0;
+    v12 = 0;
   }
 
   else
   {
     do
     {
-      v11 = isa;
+      v12 = isa;
       isa = isa[7].super.isa;
       if (!isa)
       {
@@ -699,17 +699,17 @@ LABEL_19:
     }
 
     while ((BYTE4(isa[5].super.isa) & 1) == 0);
-    v9 = 0;
+    v10 = 0;
   }
 
 LABEL_18:
   atomic_fetch_add(&self->modCount_, 1u);
-  if (!v11)
+  if (!v12)
   {
-    v15 = self->elementData_;
-    if (v15)
+    v16 = self->elementData_;
+    if (v16)
     {
-      IOSObjectArray_Set(v15, v9, isa[7].super.isa);
+      IOSObjectArray_Set(v16, v10, isa[7].super.isa);
       goto LABEL_23;
     }
 
@@ -717,7 +717,7 @@ LABEL_24:
     JreThrowNullPointerException();
   }
 
-  JreStrongAssign(&v11[7].super.isa, isa[7].super.isa);
+  JreStrongAssign(&v12[7].super.isa, isa[7].super.isa);
 LABEL_23:
   --self->elementCount_;
   return isa[6].super.isa;

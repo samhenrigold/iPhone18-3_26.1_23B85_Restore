@@ -8,7 +8,7 @@
 
 - (void)signInController:(id)controller didCompleteWithOperationsResults:(id)results
 {
-  sub_100016C60(0, &qword_1009402D0);
+  sub_100016C60(0, &qword_1009402D0, AIDAServiceOperationResult_ptr);
   v6 = sub_100752F44();
   controllerCopy = controller;
   selfCopy = self;

@@ -74,7 +74,7 @@ uint64_t __39__ManagedEventTransport_sharedInstance__block_invoke(uint64_t a1)
 - (void)sendReplyInfo:(id)info onConnection:(id)connection withErrCode:(unint64_t)code forId:(unint64_t)id name:(char *)name date:(id)date reason:(char *)reason reasonCode:(unint64_t)self0 info:(id)self1
 {
   reasonCopy = reason;
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   infoCopy = info;
   connectionCopy = connection;
   dateCopy = date;
@@ -114,15 +114,15 @@ uint64_t __39__ManagedEventTransport_sharedInstance__block_invoke(uint64_t a1)
   {
     v24 = v23;
     v25 = [v22 description];
-    v34 = 134218754;
+    v33 = 134218754;
     codeCopy = code;
-    v36 = 2080;
-    v37 = nameCopy;
-    v38 = 2080;
-    v39 = reasonCopy;
-    v40 = 2080;
+    v35 = 2080;
+    v36 = nameCopy;
+    v37 = 2080;
+    v38 = reasonCopy;
+    v39 = 2080;
     uTF8String = [v25 UTF8String];
-    _os_log_impl(&dword_23255B000, v24, OS_LOG_TYPE_INFO, "Reply with err %lld name %s reason %s info %s", &v34, 0x2Au);
+    _os_log_impl(&dword_23255B000, v24, OS_LOG_TYPE_INFO, "Reply with err %lld name %s reason %s info %s", &v33, 0x2Au);
   }
 
   if (!code)
@@ -164,13 +164,11 @@ uint64_t __39__ManagedEventTransport_sharedInstance__block_invoke(uint64_t a1)
 
   xpc_dictionary_set_uint64(infoCopy, managed_event_key_error, code);
   xpc_connection_send_message(connectionCopy, infoCopy);
-
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_createReply:(id)reply forConnection:(id)connection
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   replyCopy = reply;
   connectionCopy = connection;
   reply = xpc_dictionary_create_reply(replyCopy);
@@ -179,7 +177,7 @@ uint64_t __39__ManagedEventTransport_sharedInstance__block_invoke(uint64_t a1)
   if (os_log_type_enabled(evaluationLogHandle, OS_LOG_TYPE_DEBUG))
   {
     *buf = 134217984;
-    v33 = uint64;
+    v32 = uint64;
     _os_log_impl(&dword_23255B000, v10, OS_LOG_TYPE_DEBUG, "processing request: %lld", buf, 0xCu);
   }
 
@@ -193,8 +191,8 @@ LABEL_27:
       if (os_log_type_enabled(evaluationLogHandle, OS_LOG_TYPE_DEBUG))
       {
         *buf = 134218240;
-        v33 = uint64;
-        v34 = 2048;
+        v32 = uint64;
+        v33 = 2048;
         replyCopy2 = reply;
         _os_log_impl(&dword_23255B000, v24, OS_LOG_TYPE_DEBUG, "processed request: %lld, reply at %p", buf, 0x16u);
       }
@@ -220,7 +218,7 @@ LABEL_27:
         if (os_log_type_enabled(configurationLogHandle, OS_LOG_TYPE_ERROR))
         {
           *buf = 134217984;
-          v33 = v11;
+          v32 = v11;
           _os_log_impl(&dword_23255B000, v23, OS_LOG_TYPE_ERROR, "Managed event request key %lld failed", buf, 0xCu);
         }
       }
@@ -248,27 +246,27 @@ LABEL_27:
         if (os_log_type_enabled(evaluationLogHandle, OS_LOG_TYPE_DEBUG))
         {
           *buf = 134218754;
-          v33 = v16;
-          v34 = 2048;
+          v32 = v16;
+          v33 = 2048;
           replyCopy2 = v11;
-          v36 = 2080;
-          v37 = string;
-          v38 = 2112;
-          v39 = uuid;
+          v35 = 2080;
+          v36 = string;
+          v37 = 2112;
+          v38 = uuid;
           _os_log_impl(&dword_23255B000, v19, OS_LOG_TYPE_DEBUG, "Calling provider %p for key %lld, optional context: %s, optional uuid: %@", buf, 0x2Au);
         }
 
-        v26[0] = MEMORY[0x277D85DD0];
-        v26[1] = 3221225472;
-        v26[2] = __52__ManagedEventTransport__createReply_forConnection___block_invoke;
-        v26[3] = &unk_27898D658;
-        v31 = v11;
-        v27 = v16;
+        v25[0] = MEMORY[0x277D85DD0];
+        v25[1] = 3221225472;
+        v25[2] = __52__ManagedEventTransport__createReply_forConnection___block_invoke;
+        v25[3] = &unk_27898D658;
+        v30 = v11;
+        v26 = v16;
         selfCopy = self;
         replyCopy3 = reply;
-        v30 = connectionCopy;
+        v29 = connectionCopy;
         v20 = v16;
-        [v20 generateInfoForId:v11 context:string uuid:uuid completionBlock:v26];
+        [v20 generateInfoForId:v11 context:string uuid:uuid completionBlock:v25];
 
         goto LABEL_30;
       }
@@ -278,7 +276,7 @@ LABEL_27:
       if (os_log_type_enabled(configurationLogHandle, OS_LOG_TYPE_ERROR))
       {
         *buf = 134217984;
-        v33 = v11;
+        v32 = v11;
         v22 = "Managed event request static key %lld failed";
         goto LABEL_25;
       }
@@ -291,7 +289,7 @@ LABEL_27:
       if (os_log_type_enabled(configurationLogHandle, OS_LOG_TYPE_ERROR))
       {
         *buf = 134217984;
-        v33 = v11;
+        v32 = v11;
         v22 = "Managed event request key %lld failed";
 LABEL_25:
         _os_log_impl(&dword_23255B000, v21, OS_LOG_TYPE_ERROR, v22, buf, 0xCu);
@@ -311,13 +309,11 @@ LABEL_26:
   }
 
 LABEL_30:
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 void __52__ManagedEventTransport__createReply_forConnection___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, void *a4, uint64_t a5, uint64_t a6, void *a7)
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   v13 = a4;
   v14 = a7;
   v15 = evaluationLogHandle;
@@ -326,38 +322,36 @@ void __52__ManagedEventTransport__createReply_forConnection___block_invoke(uint6
     v16 = *(a1 + 32);
     v17 = *(a1 + 64);
     *buf = 134218240;
-    v34 = v16;
-    v35 = 2048;
-    v36 = v17;
+    v33 = v16;
+    v34 = 2048;
+    v35 = v17;
     _os_log_impl(&dword_23255B000, v15, OS_LOG_TYPE_DEBUG, "provider %p calling block for key %lld", buf, 0x16u);
   }
 
-  v23[0] = MEMORY[0x277D85DD0];
-  v23[1] = 3221225472;
-  v23[2] = __52__ManagedEventTransport__createReply_forConnection___block_invoke_7;
-  v23[3] = &unk_27898D630;
+  v22[0] = MEMORY[0x277D85DD0];
+  v22[1] = 3221225472;
+  v22[2] = __52__ManagedEventTransport__createReply_forConnection___block_invoke_7;
+  v22[3] = &unk_27898D630;
   v18 = *(a1 + 48);
-  v23[4] = *(a1 + 40);
-  v24 = v18;
+  v22[4] = *(a1 + 40);
+  v23 = v18;
   v19 = *(a1 + 56);
-  v29 = *(a1 + 64);
-  v30 = a3;
-  v25 = v19;
-  v26 = v13;
-  v31 = a5;
-  v32 = a6;
-  v27 = v14;
-  v28 = a2;
+  v28 = *(a1 + 64);
+  v29 = a3;
+  v24 = v19;
+  v25 = v13;
+  v30 = a5;
+  v31 = a6;
+  v26 = v14;
+  v27 = a2;
   v20 = v14;
   v21 = v13;
-  dispatch_async(MEMORY[0x277D85CD0], v23);
-
-  v22 = *MEMORY[0x277D85DE8];
+  dispatch_async(MEMORY[0x277D85CD0], v22);
 }
 
 - (void)setListeningPort:(const char *)port
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   mach_service = xpc_connection_create_mach_service(port, MEMORY[0x277D85CD0], 1uLL);
   listener = self->_listener;
   self->_listener = mach_service;
@@ -367,8 +361,8 @@ void __52__ManagedEventTransport__createReply_forConnection___block_invoke(uint6
   {
     v8 = self->_listener;
     *buf = 134218242;
-    v13 = v8;
-    v14 = 2080;
+    v12 = v8;
+    v13 = 2080;
     portCopy = port;
     _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_DEBUG, "listener %p set for port %s", buf, 0x16u);
   }
@@ -384,27 +378,25 @@ void __52__ManagedEventTransport__createReply_forConnection___block_invoke(uint6
     xpc_connection_set_event_handler(v9, handler);
     xpc_connection_resume(self->_listener);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __42__ManagedEventTransport_setListeningPort___block_invoke(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = MEMORY[0x238389170]();
   if (v4 == MEMORY[0x277D86450])
   {
     v9 = v3;
     xpc_connection_set_target_queue(v9, MEMORY[0x277D85CD0]);
-    v13[0] = MEMORY[0x277D85DD0];
-    v13[1] = 3221225472;
-    v13[2] = __42__ManagedEventTransport_setListeningPort___block_invoke_2;
-    v13[3] = &unk_27898A350;
-    v13[4] = *(a1 + 32);
-    v14 = v9;
+    v12[0] = MEMORY[0x277D85DD0];
+    v12[1] = 3221225472;
+    v12[2] = __42__ManagedEventTransport_setListeningPort___block_invoke_2;
+    v12[3] = &unk_27898A350;
+    v12[4] = *(a1 + 32);
+    v13 = v9;
     v10 = v9;
-    xpc_connection_set_event_handler(v10, v13);
+    xpc_connection_set_event_handler(v10, v12);
     xpc_connection_resume(v10);
 
     goto LABEL_8;
@@ -438,15 +430,13 @@ LABEL_8:
   }
 
 LABEL_9:
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __42__ManagedEventTransport_setListeningPort___block_invoke_2(uint64_t result, uint64_t a2)
+id *__42__ManagedEventTransport_setListeningPort___block_invoke_2(id *result, uint64_t a2)
 {
   if (a2 != MEMORY[0x277D863F8])
   {
-    return [*(result + 32) _createReply:a2 forConnection:*(result + 40)];
+    return [result[4] _createReply:a2 forConnection:result[5]];
   }
 
   return result;
@@ -503,7 +493,7 @@ uint64_t __42__ManagedEventTransport_setListeningPort___block_invoke_2(uint64_t 
 
 - (BOOL)setInfoProvider:(id)provider forId:(unint64_t)id
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   providerCopy = provider;
   if (id - 1001 > 0xFFFFFFFFFFFFFC17)
   {
@@ -530,7 +520,7 @@ uint64_t __42__ManagedEventTransport_setListeningPort___block_invoke_2(uint64_t 
       {
         *buf = 134218240;
         idCopy3 = providerCopy;
-        v17 = 2048;
+        v16 = 2048;
         idCopy2 = id;
         _os_log_impl(&dword_23255B000, v12, OS_LOG_TYPE_DEBUG, "Setting provider %p for key %lld", buf, 0x16u);
       }
@@ -554,7 +544,6 @@ uint64_t __42__ManagedEventTransport_setListeningPort___block_invoke_2(uint64_t 
     v8 = 0;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return v8;
 }
 

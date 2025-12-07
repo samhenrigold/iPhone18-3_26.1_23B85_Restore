@@ -87,89 +87,83 @@ void __17__U2OwlModel_log__block_invoke(uint64_t a1)
 
 void __40__U2OwlModel_loadWithCompletionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   v5 = WeakRetained;
   if (v3)
   {
-    v6 = *(a1 + 32);
-    v7 = [objc_opt_class() log];
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+    v6 = [objc_opt_class() log];
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412290;
-      v21 = v3;
-      _os_log_impl(&dword_2615A2000, v7, OS_LOG_TYPE_DEBUG, "[QPNLU] Failed to load U2Head error: %@", buf, 0xCu);
+      v19 = v3;
+      _os_log_impl(&dword_2615A2000, v6, OS_LOG_TYPE_DEBUG, "[QPNLU] Failed to load U2Head error: %@", buf, 0xCu);
     }
 
-    v8 = *(a1 + 40);
-    if (v8 && v5)
+    v7 = *(a1 + 40);
+    if (v7 && v5)
     {
-      (*(v8 + 16))(v8, v5, v3);
+      (*(v7 + 16))(v7, v5, v3);
     }
   }
 
   else
   {
-    v9 = [*(WeakRetained + 2) metadata];
-    v10 = [v9 objectForKeyedSubscript:*MEMORY[0x277CBFE90]];
-    v11 = [v10 objectForKeyedSubscript:@"nlx_embeddings_version"];
+    v8 = [*(WeakRetained + 2) metadata];
+    v9 = [v8 objectForKeyedSubscript:*MEMORY[0x277CBFE90]];
+    v10 = [v9 objectForKeyedSubscript:@"nlx_embeddings_version"];
 
-    v12 = [objc_alloc(MEMORY[0x277D072C8]) initWithLocale:v5[3] version:v11];
+    v11 = [objc_alloc(MEMORY[0x277D072C8]) initWithLocale:v5[3] version:v10];
+    v12 = v5[1];
+    v5[1] = v11;
+
     v13 = v5[1];
-    v5[1] = v12;
+    v15[0] = MEMORY[0x277D85DD0];
+    v15[1] = 3221225472;
+    v15[2] = __40__U2OwlModel_loadWithCompletionHandler___block_invoke_4;
+    v15[3] = &unk_279ADA848;
+    objc_copyWeak(&v17, (a1 + 48));
+    v14 = *(a1 + 40);
+    v15[4] = *(a1 + 32);
+    v16 = v14;
+    [v13 loadWithCompletionHandler:v15];
 
-    v14 = v5[1];
-    v17[0] = MEMORY[0x277D85DD0];
-    v17[1] = 3221225472;
-    v17[2] = __40__U2OwlModel_loadWithCompletionHandler___block_invoke_4;
-    v17[3] = &unk_279ADA848;
-    objc_copyWeak(&v19, (a1 + 48));
-    v15 = *(a1 + 40);
-    v17[4] = *(a1 + 32);
-    v18 = v15;
-    [v14 loadWithCompletionHandler:v17];
-
-    objc_destroyWeak(&v19);
+    objc_destroyWeak(&v17);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __40__U2OwlModel_loadWithCompletionHandler___block_invoke_4(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   if (v3)
   {
-    v5 = *(a1 + 32);
-    v6 = [objc_opt_class() log];
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v5 = [objc_opt_class() log];
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v10 = 138412290;
-      v11 = v3;
-      _os_log_impl(&dword_2615A2000, v6, OS_LOG_TYPE_ERROR, "[QPNLU] Failed to load EmbeddingService error: %@", &v10, 0xCu);
+      v8 = 138412290;
+      v9 = v3;
+      _os_log_impl(&dword_2615A2000, v5, OS_LOG_TYPE_ERROR, "[QPNLU] Failed to load EmbeddingService error: %@", &v8, 0xCu);
     }
   }
 
-  v7 = *(a1 + 40);
-  if (v7)
+  v6 = *(a1 + 40);
+  if (v6)
   {
-    v8 = WeakRetained == 0;
+    v7 = WeakRetained == 0;
   }
 
   else
   {
-    v8 = 1;
+    v7 = 1;
   }
 
-  if (!v8)
+  if (!v7)
   {
-    (*(v7 + 16))(v7, WeakRetained, v3);
+    (*(v6 + 16))(v6, WeakRetained, v3);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (NSDictionary)modelMetadata
@@ -232,35 +226,34 @@ LABEL_3:
   }
 
   v9 = *(a1[4] + 16);
-  v27 = (v8 - v7) * QPTimingNanosecondsSinceAbsoluteTime_sTimebaseInfo / *algn_280B233CC;
+  v26 = (v8 - v7) * QPTimingNanosecondsSinceAbsoluteTime_sTimebaseInfo / *algn_280B233CC;
   v10 = [v5 embedding];
-  v12 = a1[5];
-  v11 = a1[6];
-  v25 = v11;
-  v26 = a1[10];
-  v13 = [v5 tokens];
-  v14 = [v5 tokenRanges];
-  v15 = [v5 subtokenLenForTokens];
-  v16 = [v5 subtokens];
-  v17 = a1[7];
-  v28 = 0;
-  v18 = v9;
-  v19 = v10;
-  v20 = [v18 getU2PredictionsForEmbedding:v10 queryString:v12 queryID:v26 spans:v25 tokens:v13 tokenRanges:v14 subtokenLenForTokens:v15 subtokens:v16 intentHint:v17 error:&v28];
-  v21 = v28;
+  v11 = a1[5];
+  v24 = a1[6];
+  v25 = a1[10];
+  v12 = [v5 tokens];
+  v13 = [v5 tokenRanges];
+  v14 = [v5 subtokenLenForTokens];
+  v15 = [v5 subtokens];
+  v16 = a1[7];
+  v27 = 0;
+  v17 = v9;
+  v18 = v10;
+  v19 = [v17 getU2PredictionsForEmbedding:v10 queryString:v11 queryID:v25 spans:v24 tokens:v12 tokenRanges:v13 subtokenLenForTokens:v14 subtokens:v15 intentHint:v16 error:&v27];
+  v20 = v27;
 
-  v22 = [v5 tokenRanges];
-  [v20 setTokenRanges:v22];
+  v21 = [v5 tokenRanges];
+  [v19 setTokenRanges:v21];
 
-  [v20 setEmbeddingsTime:v27];
-  v23 = a1[9];
-  v24 = mach_absolute_time();
+  [v19 setEmbeddingsTime:v26];
+  v22 = a1[9];
+  v23 = mach_absolute_time();
   if (QPTimingNanosecondsSinceAbsoluteTime_onceToken != -1)
   {
     __92__U2OwlModel_getUnderstandingForQueryString_queryID_spans_intentHint_withCompletionHandler___block_invoke_cold_2();
   }
 
-  [v20 setPredictionTime:(v24 - v23) * QPTimingNanosecondsSinceAbsoluteTime_sTimebaseInfo / *algn_280B233CC];
+  [v19 setPredictionTime:(v23 - v22) * QPTimingNanosecondsSinceAbsoluteTime_sTimebaseInfo / *algn_280B233CC];
   (*(a1[8] + 16))();
 
 LABEL_8:

@@ -9,11 +9,10 @@
 
 - (void)dealloc
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138543362;
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138543362;
   selfCopy = self;
-  _os_log_debug_impl(&dword_1B0233000, a2, OS_LOG_TYPE_DEBUG, "%{public}@ will dealloc", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(&dword_1B0233000, a2, OS_LOG_TYPE_DEBUG, "%{public}@ will dealloc", &v2, 0xCu);
 }
 
 - (LACDTOSensorRepairStateProviderCRAdapter)initWithReplyQueue:(id)queue
@@ -99,73 +98,69 @@ void __75__LACDTOSensorRepairStateProviderCRAdapter_fetchRepairStateWithCompleti
   WeakRetained = objc_loadWeakRetained((a1 + 56));
   if (WeakRetained)
   {
-    v5 = WeakRetained;
-    v3 = *(a1 + 40);
-    v4 = *(a1 + 32);
+    v3 = WeakRetained;
     (*(*(a1 + 48) + 16))();
-    WeakRetained = v5;
+    WeakRetained = v3;
   }
 }
 
 - (void)_fetchRepairStateWithCompletion:(id)completion
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
-  if (CoreRepairCoreLibraryCore() && CoreRepairCoreLibraryCore() && getCRIsSelfRepairedComponentSymbolLoc())
+  if (CoreRepairCoreLibraryCore(0) && CoreRepairCoreLibraryCore(0) && (CRIsSelfRepairedComponentSymbolLoc = getCRIsSelfRepairedComponentSymbolLoc()) != 0)
   {
-    v5 = LACLogDTOSensor();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = LACLogDTOSensor(CRIsSelfRepairedComponentSymbolLoc);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v15 = 138543362;
+      v16 = 138543362;
       selfCopy2 = self;
-      _os_log_impl(&dword_1B0233000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@ will start self-repair query", &v15, 0xCu);
+      _os_log_impl(&dword_1B0233000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@ will start self-repair query", &v16, 0xCu);
     }
 
-    v6 = +[LACDTOSignpostEvent repairStatusQueryWillStart];
-    [v6 send];
+    v7 = +[LACDTOSignpostEvent repairStatusQueryWillStart];
+    [v7 send];
 
-    v7 = __76__LACDTOSensorRepairStateProviderCRAdapter__fetchRepairStateWithCompletion___block_invoke();
-    v8 = +[LACDTOSignpostEvent repairStatusQueryDidFinish];
-    [v8 send];
+    v8 = __76__LACDTOSensorRepairStateProviderCRAdapter__fetchRepairStateWithCompletion___block_invoke();
+    v9 = +[LACDTOSignpostEvent repairStatusQueryDidFinish];
+    [v9 send];
 
-    v9 = LACLogDTOSensor();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v11 = LACLogDTOSensor(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = [MEMORY[0x1E696AD98] numberWithBool:v7];
-      v15 = 138543618;
+      v12 = [MEMORY[0x1E696AD98] numberWithBool:v8];
+      v16 = 138543618;
       selfCopy2 = self;
-      v17 = 2112;
-      v18 = v10;
-      _os_log_impl(&dword_1B0233000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@ did finish self-repair query with result %@", &v15, 0x16u);
+      v18 = 2112;
+      v19 = v12;
+      _os_log_impl(&dword_1B0233000, v11, OS_LOG_TYPE_DEFAULT, "%{public}@ did finish self-repair query with result %@", &v16, 0x16u);
     }
 
-    if (v7)
+    if (v8)
     {
-      v11 = 3;
+      v13 = 3;
     }
 
     else
     {
-      v11 = 0;
+      v13 = 0;
     }
 
-    v12 = [[LACDTOMutableSensorRepairState alloc] initWithFlag:v11];
-    completionCopy[2](completionCopy, v12, 0);
+    v14 = [[LACDTOMutableSensorRepairState alloc] initWithFlag:v13];
+    completionCopy[2](completionCopy, v14, 0);
   }
 
   else
   {
-    v12 = [LACError errorWithCode:-1020 debugDescription:@"Required Core Repair dependency was not found"];
-    v13 = LACLogDTOSensor();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v14 = [LACError errorWithCode:-1020 debugDescription:@"Required Core Repair dependency was not found"];
+    v15 = LACLogDTOSensor(v14);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      [(LACDTOSensorRepairStateProviderCRAdapter *)self _fetchRepairStateWithCompletion:v12, v13];
+      [(LACDTOSensorRepairStateProviderCRAdapter *)self _fetchRepairStateWithCompletion:v14, v15];
     }
 
-    (completionCopy)[2](completionCopy, 0, v12);
+    (completionCopy)[2](completionCopy, 0, v14);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __76__LACDTOSensorRepairStateProviderCRAdapter__fetchRepairStateWithCompletion___block_invoke()
@@ -191,13 +186,12 @@ uint64_t __76__LACDTOSensorRepairStateProviderCRAdapter__fetchRepairStateWithCom
 
 - (void)_fetchRepairStateWithCompletion:(os_log_t)log .cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v4 = 138543618;
-  v5 = a1;
-  v6 = 2114;
-  v7 = a2;
-  _os_log_error_impl(&dword_1B0233000, log, OS_LOG_TYPE_ERROR, "%{public}@ failed %{public}@", &v4, 0x16u);
-  v3 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
+  v3 = 138543618;
+  v4 = a1;
+  v5 = 2114;
+  v6 = a2;
+  _os_log_error_impl(&dword_1B0233000, log, OS_LOG_TYPE_ERROR, "%{public}@ failed %{public}@", &v3, 0x16u);
 }
 
 @end

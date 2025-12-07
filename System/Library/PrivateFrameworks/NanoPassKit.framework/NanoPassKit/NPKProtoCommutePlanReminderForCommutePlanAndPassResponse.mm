@@ -70,26 +70,24 @@
 {
   toCopy = to;
   has = self->_has;
-  v8 = toCopy;
+  v6 = toCopy;
   if ((has & 2) != 0)
   {
-    pending = self->_pending;
     PBDataWriterWriteBOOLField();
-    toCopy = v8;
+    toCopy = v6;
     has = self->_has;
   }
 
   if (has)
   {
-    reminderInterval = self->_reminderInterval;
     PBDataWriterWriteDoubleField();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   if (self->_errorData)
   {
     PBDataWriterWriteDataField();
-    toCopy = v8;
+    toCopy = v6;
   }
 }
 
@@ -151,7 +149,6 @@
     goto LABEL_16;
   }
 
-  v5 = *(equalCopy + 28);
   if ((*&self->_has & 2) == 0)
   {
     if ((*(equalCopy + 28) & 2) == 0)
@@ -160,7 +157,7 @@
     }
 
 LABEL_16:
-    v8 = 0;
+    v6 = 0;
     goto LABEL_17;
   }
 
@@ -169,7 +166,6 @@ LABEL_16:
     goto LABEL_16;
   }
 
-  v6 = *(equalCopy + 24);
   if (self->_pending)
   {
     if ((*(equalCopy + 24) & 1) == 0)
@@ -200,17 +196,17 @@ LABEL_4:
   errorData = self->_errorData;
   if (errorData | *(equalCopy + 2))
   {
-    v8 = [(NSData *)errorData isEqual:?];
+    v6 = [(NSData *)errorData isEqual:?];
   }
 
   else
   {
-    v8 = 1;
+    v6 = 1;
   }
 
 LABEL_17:
 
-  return v8;
+  return v6;
 }
 
 - (unint64_t)hash

@@ -30,11 +30,10 @@
 
 - (id)description
 {
-  v13.receiver = self;
-  v13.super_class = OrgApacheLuceneStoreBaseDirectory;
-  v3 = [(OrgApacheLuceneStoreDirectory *)&v13 description];
-  lockFactory = self->lockFactory_;
-  return JreStrcat("$$@", v4, v5, v6, v7, v8, v9, v10, v3);
+  v11.receiver = self;
+  v11.super_class = OrgApacheLuceneStoreBaseDirectory;
+  v2 = [(OrgApacheLuceneStoreDirectory *)&v11 description];
+  return JreStrcat("$$@", v3, v4, v5, v6, v7, v8, v9, v2);
 }
 
 - (void)dealloc

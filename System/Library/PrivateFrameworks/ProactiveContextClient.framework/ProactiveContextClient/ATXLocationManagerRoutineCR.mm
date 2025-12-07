@@ -55,16 +55,15 @@ void __78__ATXLocationManagerRoutineCR_fetchClosestLOIWithinDistance_ofLocation_
 {
   if (a3)
   {
-    v4 = *(a1 + 40);
-    v5 = *(*(a1 + 40) + 16);
+    v4 = *(*(a1 + 40) + 16);
 
-    v5();
+    v4();
   }
 
   else
   {
-    v7 = [ATXLocationManagerRoutineCR closestLOI:a2 toLocation:*(a1 + 32)];
-    v6 = createLOIFromRTLOI(v7);
+    v6 = [ATXLocationManagerRoutineCR closestLOI:a2 toLocation:*(a1 + 32)];
+    v5 = createLOIFromRTLOI(v6);
     (*(*(a1 + 40) + 16))();
   }
 }
@@ -86,24 +85,23 @@ void __60__ATXLocationManagerRoutineCR_fetchLOILocationOfType_reply___block_invo
 {
   if (a3)
   {
-    v4 = *(a1 + 32);
-    v5 = *(*(a1 + 32) + 16);
+    v4 = *(*(a1 + 32) + 16);
 
-    v5();
+    v4();
   }
 
   else
   {
-    v13 = [a2 firstObject];
-    if (v13)
+    v12 = [a2 firstObject];
+    if (v12)
     {
-      v6 = objc_alloc(MEMORY[0x277CE41F8]);
-      v7 = [v13 location];
-      [v7 latitude];
-      v9 = v8;
-      v10 = [v13 location];
-      [v10 longitude];
-      v12 = [v6 initWithLatitude:v9 longitude:v11];
+      v5 = objc_alloc(MEMORY[0x277CE41F8]);
+      v6 = [v12 location];
+      [v6 latitude];
+      v8 = v7;
+      v9 = [v12 location];
+      [v9 longitude];
+      v11 = [v5 initWithLatitude:v8 longitude:v10];
 
       (*(*(a1 + 32) + 16))();
     }
@@ -134,7 +132,7 @@ void __60__ATXLocationManagerRoutineCR_fetchLOILocationOfType_reply___block_invo
 
 void __59__ATXLocationManagerRoutineCR_fetchLOIVisitedDuring_reply___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -145,34 +143,34 @@ void __59__ATXLocationManagerRoutineCR_fetchLOIVisitedDuring_reply___block_invok
   else
   {
     v7 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(v5, "count")}];
+    v16 = 0u;
     v17 = 0u;
     v18 = 0u;
     v19 = 0u;
-    v20 = 0u;
     v8 = v5;
-    v9 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v18;
+      v11 = *v17;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v18 != v11)
+          if (*v17 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          v13 = *(*(&v17 + 1) + 8 * i);
+          v13 = *(*(&v16 + 1) + 8 * i);
           v14 = objc_autoreleasePoolPush();
           v15 = createLOIFromRTLOI(v13);
-          [v7 addObject:{v15, v17}];
+          [v7 addObject:{v15, v16}];
 
           objc_autoreleasePoolPop(v14);
         }
 
-        v10 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
       }
 
       while (v10);
@@ -180,8 +178,6 @@ void __59__ATXLocationManagerRoutineCR_fetchLOIVisitedDuring_reply___block_invok
 
     (*(*(a1 + 32) + 16))();
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)fetchNextPredictedLOIFromLocation:(id)location startDate:(id)date timeInterval:(double)interval requireHighConfidence:(BOOL)confidence reply:(id)reply
@@ -235,47 +231,47 @@ void __116__ATXLocationManagerRoutineCR_fetchNextPredictedLOIFromLocation_startD
           v11 = [v9 locationOfInterest];
           v12 = [v11 type];
 
-          v13 = __atxlog_handle_dailyroutines();
-          if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+          v14 = __atxlog_handle_dailyroutines(v13);
+          if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
           {
-            v14 = [v9 locationOfInterest];
-            v15 = [v14 type];
+            v15 = [v9 locationOfInterest];
+            v16 = [v15 type];
             [v9 confidence];
             *buf = 134218240;
-            *&buf[4] = v15;
+            *&buf[4] = v16;
             *&buf[12] = 2048;
-            *&buf[14] = v16;
-            _os_log_impl(&dword_260C9F000, v13, OS_LOG_TYPE_INFO, "Predicted next loi type: %ld, confidence: %lf", buf, 0x16u);
+            *&buf[14] = v17;
+            _os_log_impl(&dword_260C9F000, v14, OS_LOG_TYPE_INFO, "Predicted next loi type: %ld, confidence: %lf", buf, 0x16u);
           }
 
           if (*(a1 + 40) == 1)
           {
             [v9 confidence];
-            v18 = v17 >= 1.0;
+            v19 = v18 >= 1.0;
           }
 
           else
           {
-            v18 = 1;
+            v19 = 1;
           }
 
           *buf = 0;
           *&buf[8] = buf;
           *&buf[16] = 0x2020000000;
           v33 = 1;
-          v19 = [v9 sources];
+          v20 = [v9 sources];
           v27[0] = MEMORY[0x277D85DD0];
           v27[1] = 3221225472;
           v27[2] = __116__ATXLocationManagerRoutineCR_fetchNextPredictedLOIFromLocation_startDate_timeInterval_requireHighConfidence_reply___block_invoke_8;
           v27[3] = &unk_279AB7E90;
           v27[4] = buf;
-          [v19 enumerateObjectsUsingBlock:v27];
+          [v20 enumerateObjectsUsingBlock:v27];
 
-          if (v18 && *(*&buf[8] + 24) == 1)
+          if (v19 && *(*&buf[8] + 24) == 1)
           {
-            v20 = [v9 locationOfInterest];
-            v21 = createLOIFromRTLOIAndType(v20, v12);
-            [v24 addObject:v21];
+            v21 = [v9 locationOfInterest];
+            v22 = createLOIFromRTLOIAndType(v21, v12);
+            [v24 addObject:v22];
           }
 
           _Block_object_dispose(buf, 8);
@@ -291,8 +287,6 @@ void __116__ATXLocationManagerRoutineCR_fetchNextPredictedLOIFromLocation_startD
     (*(*(a1 + 32) + 16))();
     v6 = 0;
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 void __116__ATXLocationManagerRoutineCR_fetchNextPredictedLOIFromLocation_startDate_timeInterval_requireHighConfidence_reply___block_invoke_8(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
@@ -324,7 +318,7 @@ void __116__ATXLocationManagerRoutineCR_fetchNextPredictedLOIFromLocation_startD
 
 void __102__ATXLocationManagerRoutineCR_fetchPredictedExitDatesFromLocation_onDate_requireHighConfidence_reply___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   v5 = a2;
   if (a3)
   {
@@ -334,28 +328,29 @@ void __102__ATXLocationManagerRoutineCR_fetchPredictedExitDatesFromLocation_onDa
   else
   {
     v6 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(v5, "count")}];
+    v21 = 0u;
     v22 = 0u;
     v23 = 0u;
     v24 = 0u;
-    v25 = 0u;
-    v21 = v5;
+    v20 = v5;
     v7 = v5;
-    v8 = [v7 countByEnumeratingWithState:&v22 objects:v32 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v21 objects:v31 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v23;
+      v10 = *v22;
       do
       {
-        for (i = 0; i != v9; ++i)
+        v11 = 0;
+        do
         {
-          if (*v23 != v10)
+          if (*v22 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          v12 = *(*(&v22 + 1) + 8 * i);
-          v13 = __atxlog_handle_dailyroutines();
+          v12 = *(*(&v21 + 1) + 8 * v11);
+          v13 = __atxlog_handle_dailyroutines(v8);
           if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
           {
             v14 = [v12 date];
@@ -363,38 +358,34 @@ void __102__ATXLocationManagerRoutineCR_fetchPredictedExitDatesFromLocation_onDa
             v16 = v15;
             [v12 confidence];
             *buf = 138412802;
-            v27 = v14;
-            v28 = 2048;
-            v29 = v16;
-            v30 = 2048;
-            v31 = v17;
+            v26 = v14;
+            v27 = 2048;
+            v28 = v16;
+            v29 = 2048;
+            v30 = v17;
             _os_log_impl(&dword_260C9F000, v13, OS_LOG_TYPE_INFO, "Predicted Exit Time: %@, uncertainty: %lf, confidence %lf", buf, 0x20u);
           }
 
-          if (*(a1 + 40) == 1)
+          if (*(a1 + 40) != 1 || (v8 = [v12 confidence], v18 >= 0.75))
           {
-            [v12 confidence];
-            if (v18 < 0.75)
-            {
-              continue;
-            }
+            v19 = [v12 date];
+            [v6 addObject:v19];
           }
 
-          v19 = [v12 date];
-          [v6 addObject:v19];
+          ++v11;
         }
 
-        v9 = [v7 countByEnumeratingWithState:&v22 objects:v32 count:16];
+        while (v9 != v11);
+        v8 = [v7 countByEnumeratingWithState:&v21 objects:v31 count:16];
+        v9 = v8;
       }
 
-      while (v9);
+      while (v8);
     }
 
     (*(*(a1 + 32) + 16))();
-    v5 = v21;
+    v5 = v20;
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (unint64_t)fetchRoutineModeFromLocation:(id)location
@@ -424,6 +415,7 @@ void __102__ATXLocationManagerRoutineCR_fetchPredictedExitDatesFromLocation_onDa
 void __60__ATXLocationManagerRoutineCR_fetchRoutineModeFromLocation___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
   v5 = a3;
+  v6 = v5;
   if (!v5)
   {
     switch(a2)
@@ -432,67 +424,67 @@ void __60__ATXLocationManagerRoutineCR_fetchRoutineModeFromLocation___block_invo
         *(*(*(a1 + 40) + 8) + 24) = 0;
         goto LABEL_12;
       case 2:
-        v7 = *(*(a1 + 40) + 8);
-        v8 = 1;
+        v8 = *(*(a1 + 40) + 8);
+        v9 = 1;
         break;
       case 1:
-        v7 = *(*(a1 + 40) + 8);
-        v8 = 2;
+        v8 = *(*(a1 + 40) + 8);
+        v9 = 2;
         break;
       default:
         goto LABEL_12;
     }
 
-    *(v7 + 24) = v8;
+    *(v8 + 24) = v9;
     goto LABEL_12;
   }
 
-  v6 = __atxlog_handle_default();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+  v7 = __atxlog_handle_default(v5);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
-    __60__ATXLocationManagerRoutineCR_fetchRoutineModeFromLocation___block_invoke_cold_1(v5, v6);
+    __60__ATXLocationManagerRoutineCR_fetchRoutineModeFromLocation___block_invoke_cold_1(v6, v7);
   }
 
 LABEL_12:
   dispatch_semaphore_signal(*(a1 + 32));
 }
 
-void __60__ATXLocationManagerRoutineCR_fetchRoutineModeFromLocation___block_invoke_13()
+void __60__ATXLocationManagerRoutineCR_fetchRoutineModeFromLocation___block_invoke_13(uint64_t a1)
 {
-  v0 = __atxlog_handle_default();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v1 = __atxlog_handle_default(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
-    __60__ATXLocationManagerRoutineCR_fetchRoutineModeFromLocation___block_invoke_13_cold_1(v0);
+    __60__ATXLocationManagerRoutineCR_fetchRoutineModeFromLocation___block_invoke_13_cold_1(v1);
   }
 }
 
 + (id)closestLOI:(id)i toLocation:(id)location
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   iCopy = i;
   locationCopy = location;
+  v26 = 0u;
   v27 = 0u;
   v28 = 0u;
   v29 = 0u;
-  v30 = 0u;
   obj = iCopy;
-  v7 = [iCopy countByEnumeratingWithState:&v27 objects:v31 count:16];
+  v7 = [iCopy countByEnumeratingWithState:&v26 objects:v30 count:16];
   if (v7)
   {
     v8 = v7;
     v9 = 0;
-    v10 = *v28;
+    v10 = *v27;
     v11 = INFINITY;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v28 != v10)
+        if (*v27 != v10)
         {
           objc_enumerationMutation(obj);
         }
 
-        v13 = *(*(&v27 + 1) + 8 * i);
+        v13 = *(*(&v26 + 1) + 8 * i);
         v14 = objc_alloc(MEMORY[0x277CE41F8]);
         location = [v13 location];
         [location latitude];
@@ -512,7 +504,7 @@ void __60__ATXLocationManagerRoutineCR_fetchRoutineModeFromLocation___block_invo
         }
       }
 
-      v8 = [obj countByEnumeratingWithState:&v27 objects:v31 count:16];
+      v8 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
     }
 
     while (v8);
@@ -523,18 +515,15 @@ void __60__ATXLocationManagerRoutineCR_fetchRoutineModeFromLocation___block_invo
     v9 = 0;
   }
 
-  v24 = *MEMORY[0x277D85DE8];
-
   return v9;
 }
 
 void __60__ATXLocationManagerRoutineCR_fetchRoutineModeFromLocation___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_260C9F000, a2, OS_LOG_TYPE_ERROR, "Error while fetching routine mode from CoreRoutine. Error: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_260C9F000, a2, OS_LOG_TYPE_ERROR, "Error while fetching routine mode from CoreRoutine. Error: %@", &v2, 0xCu);
 }
 
 @end

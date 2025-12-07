@@ -3,11 +3,11 @@
 
 @implementation CFPrefsWeakObservers
 
-uint64_t __46____CFPrefsWeakObservers_mutableCopyWithZone___block_invoke(uint64_t result, uint64_t a2, uint64_t a3)
+id *__46____CFPrefsWeakObservers_mutableCopyWithZone___block_invoke(id *result, uint64_t a2, uint64_t a3)
 {
   if (a3)
   {
-    return [*(result + 32) addObject:?];
+    return [result[4] addObject:?];
   }
 
   return result;

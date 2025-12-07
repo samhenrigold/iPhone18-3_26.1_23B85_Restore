@@ -8,7 +8,6 @@
 - (unint64_t)_currentEnvironment;
 - (void)_clearOutLocalPerfTestDefaults;
 - (void)_fixTestStatesForRetry;
-- (void)_isLoginSession;
 - (void)_loginAccount:(id)account password:(id)password localLoginOnly:(BOOL)only delay:(double)delay;
 - (void)_scheduleRetryWithTimeout:(double)timeout;
 - (void)_setUserSwitchDestinationExpectation:(unint64_t)expectation retryIfFailed:(BOOL)failed completionHandler:(id)handler;
@@ -38,32 +37,32 @@
 
 - (BOOL)startUserSwitchWithType:(unint64_t)type count:(int64_t)count username:(id)username password:(id)password loginDelay:(int64_t)delay logoutDelay:(int64_t)logoutDelay
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   usernameCopy = username;
   passwordCopy = password;
-  v33 = 0;
-  v34 = &v33;
-  v35 = 0x2020000000;
-  v36 = 0;
+  v32 = 0;
+  v33 = &v32;
+  v34 = 0x2020000000;
+  v35 = 0;
   if ([MEMORY[0x277D244C0] isInternalBuild])
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134218240;
       typeCopy = type;
-      v41 = 2048;
+      v40 = 2048;
       countCopy = count;
       _os_log_impl(&dword_2561AB000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Starting user switch cycle with type: %lu for %ld times", buf, 0x16u);
     }
 
     v16 = dispatch_semaphore_create(0);
     mEMORY[0x277D244D0] = [MEMORY[0x277D244D0] sharedStorage];
-    v38[0] = MEMORY[0x277CBEC38];
-    v37[0] = @"LPKIsLocalUserSwitchTestOngoing";
-    v37[1] = @"LPKLocalUserSwitchTestType";
+    v37[0] = MEMORY[0x277CBEC38];
+    v36[0] = @"LPKIsLocalUserSwitchTestOngoing";
+    v36[1] = @"LPKLocalUserSwitchTestType";
     v18 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:type];
-    v38[1] = v18;
-    v37[2] = @"LPKLocalUserSwitchTestRemainCycleCount";
+    v37[1] = v18;
+    v36[2] = @"LPKLocalUserSwitchTestRemainCycleCount";
     v19 = [MEMORY[0x277CCABB0] numberWithInteger:count];
     v20 = v19;
     v21 = @"Local User";
@@ -72,46 +71,45 @@
       v21 = usernameCopy;
     }
 
-    v38[2] = v19;
-    v38[3] = v21;
-    v37[3] = @"LPKLocalUserSwitchTestUsername";
-    v37[4] = @"LPKLocalUserSwitchTestPassword";
+    v37[2] = v19;
+    v37[3] = v21;
+    v36[3] = @"LPKLocalUserSwitchTestUsername";
+    v36[4] = @"LPKLocalUserSwitchTestPassword";
     v22 = &stru_28683D458;
     if (passwordCopy)
     {
       v22 = passwordCopy;
     }
 
-    v38[4] = v22;
-    v37[5] = @"LPKLocalUserSwitchTestLoginDelay";
+    v37[4] = v22;
+    v36[5] = @"LPKLocalUserSwitchTestLoginDelay";
     v23 = [MEMORY[0x277CCABB0] numberWithInteger:delay];
-    v38[5] = v23;
-    v37[6] = @"LPKLocalUserSwitchTestLogoutDelay";
+    v37[5] = v23;
+    v36[6] = @"LPKLocalUserSwitchTestLogoutDelay";
     v24 = [MEMORY[0x277CCABB0] numberWithInteger:logoutDelay];
-    v38[6] = v24;
-    v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v38 forKeys:v37 count:7];
-    v30[0] = MEMORY[0x277D85DD0];
-    v30[1] = 3221225472;
-    v30[2] = __103__LPKUserSwitchCycleController_startUserSwitchWithType_count_username_password_loginDelay_logoutDelay___block_invoke;
-    v30[3] = &unk_279827BD0;
-    v32 = &v33;
-    v30[4] = self;
+    v37[6] = v24;
+    v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v37 forKeys:v36 count:7];
+    v29[0] = MEMORY[0x277D85DD0];
+    v29[1] = 3221225472;
+    v29[2] = __103__LPKUserSwitchCycleController_startUserSwitchWithType_count_username_password_loginDelay_logoutDelay___block_invoke;
+    v29[3] = &unk_279827BD0;
+    v31 = &v32;
+    v29[4] = self;
     v26 = v16;
-    v31 = v26;
-    [mEMORY[0x277D244D0] saveKeyValuePairs:v25 completionHandler:v30];
+    v30 = v26;
+    [mEMORY[0x277D244D0] saveKeyValuePairs:v25 completionHandler:v29];
 
     dispatch_semaphore_wait(v26, 0xFFFFFFFFFFFFFFFFLL);
-    v27 = *(v34 + 24);
+    v27 = *(v33 + 24);
   }
 
   else
   {
-    v27 = *(v34 + 24);
+    v27 = *(v33 + 24);
   }
 
-  _Block_object_dispose(&v33, 8);
+  _Block_object_dispose(&v32, 8);
 
-  v28 = *MEMORY[0x277D85DE8];
   return v27 & 1;
 }
 
@@ -129,13 +127,13 @@ intptr_t __103__LPKUserSwitchCycleController_startUserSwitchWithType_count_usern
 
 - (BOOL)triggerTestUserSwitchIfNeeded
 {
-  v51[1] = *MEMORY[0x277D85DE8];
+  v50[1] = *MEMORY[0x277D85DE8];
   if ([MEMORY[0x277D244C0] isInternalBuild])
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v47 = "[LPKUserSwitchCycleController triggerTestUserSwitchIfNeeded]";
+      v46 = "[LPKUserSwitchCycleController triggerTestUserSwitchIfNeeded]";
       _os_log_impl(&dword_2561AB000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s", buf, 0xCu);
     }
 
@@ -151,7 +149,7 @@ intptr_t __103__LPKUserSwitchCycleController_startUserSwitchWithType_count_usern
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v47 = "[LPKUserSwitchCycleController triggerTestUserSwitchIfNeeded]";
+      v46 = "[LPKUserSwitchCycleController triggerTestUserSwitchIfNeeded]";
       _os_log_impl(&dword_2561AB000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s: Local user switch test is ongoing", buf, 0xCu);
     }
 
@@ -213,9 +211,9 @@ intptr_t __103__LPKUserSwitchCycleController_startUserSwitchWithType_count_usern
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315394;
-        v47 = "[LPKUserSwitchCycleController triggerTestUserSwitchIfNeeded]";
-        v48 = 2048;
-        v49 = unsignedIntegerValue;
+        v46 = "[LPKUserSwitchCycleController triggerTestUserSwitchIfNeeded]";
+        v47 = 2048;
+        v48 = unsignedIntegerValue;
         _os_log_impl(&dword_2561AB000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s: Will perform switch type: %ld", buf, 0x16u);
       }
 
@@ -289,7 +287,7 @@ LABEL_64:
             if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
             {
               *buf = 136315138;
-              v47 = "[LPKUserSwitchCycleController triggerTestUserSwitchIfNeeded]";
+              v46 = "[LPKUserSwitchCycleController triggerTestUserSwitchIfNeeded]";
               _os_log_impl(&dword_2561AB000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s: Will trigger first time login", buf, 0xCu);
             }
 
@@ -302,21 +300,21 @@ LABEL_64:
               if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 136315138;
-                v47 = "[LPKUserSwitchCycleController triggerTestUserSwitchIfNeeded]";
+                v46 = "[LPKUserSwitchCycleController triggerTestUserSwitchIfNeeded]";
                 _os_log_impl(&dword_2561AB000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s: User exist, we need to delete the user first", buf, 0xCu);
               }
 
               mEMORY[0x277D77BF8]2 = [MEMORY[0x277D77BF8] sharedManager];
-              v40[0] = MEMORY[0x277D85DD0];
-              v40[1] = 3221225472;
-              v40[2] = __61__LPKUserSwitchCycleController_triggerTestUserSwitchIfNeeded__block_invoke_46;
-              v40[3] = &unk_279827C20;
-              v40[4] = self;
-              v41 = v14;
-              v44 = v31;
-              v42 = v15;
-              v43 = v19;
-              [mEMORY[0x277D77BF8]2 deleteUser:v22 completionHandler:v40];
+              v39[0] = MEMORY[0x277D85DD0];
+              v39[1] = 3221225472;
+              v39[2] = __61__LPKUserSwitchCycleController_triggerTestUserSwitchIfNeeded__block_invoke_46;
+              v39[3] = &unk_279827C20;
+              v39[4] = self;
+              v40 = v14;
+              v43 = v31;
+              v41 = v15;
+              v42 = v19;
+              [mEMORY[0x277D77BF8]2 deleteUser:v22 completionHandler:v39];
 
               goto LABEL_63;
             }
@@ -357,7 +355,7 @@ LABEL_64:
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v47 = "[LPKUserSwitchCycleController triggerTestUserSwitchIfNeeded]";
+      v46 = "[LPKUserSwitchCycleController triggerTestUserSwitchIfNeeded]";
       _os_log_impl(&dword_2561AB000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s: No more user switch to do", buf, 0xCu);
     }
 
@@ -371,7 +369,7 @@ LABEL_64:
       if (v29)
       {
         *buf = 136315138;
-        v47 = "[LPKUserSwitchCycleController triggerTestUserSwitchIfNeeded]";
+        v46 = "[LPKUserSwitchCycleController triggerTestUserSwitchIfNeeded]";
         _os_log_impl(&dword_2561AB000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s: Not login user, trigger full logout", buf, 0xCu);
       }
 
@@ -382,32 +380,29 @@ LABEL_64:
     if (v29)
     {
       *buf = 136315138;
-      v47 = "[LPKUserSwitchCycleController triggerTestUserSwitchIfNeeded]";
+      v46 = "[LPKUserSwitchCycleController triggerTestUserSwitchIfNeeded]";
       _os_log_impl(&dword_2561AB000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s: Is login user, dump result", buf, 0xCu);
     }
 
     [(LPKUserSwitchCycleController *)self _clearOutLocalPerfTestDefaults];
-    v50 = @"LPKLocalUserSwitchTestHasFinishedSuccessfully";
-    v51[0] = MEMORY[0x277CBEC38];
-    v30 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v51 forKeys:&v50 count:1];
-    v45[0] = MEMORY[0x277D85DD0];
-    v45[1] = 3221225472;
-    v45[2] = __61__LPKUserSwitchCycleController_triggerTestUserSwitchIfNeeded__block_invoke;
-    v45[3] = &unk_279827BF8;
-    v45[4] = self;
-    [mEMORY[0x277D244D0] saveKeyValuePairs:v30 completionHandler:v45];
+    v49 = @"LPKLocalUserSwitchTestHasFinishedSuccessfully";
+    v50[0] = MEMORY[0x277CBEC38];
+    v30 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v50 forKeys:&v49 count:1];
+    v44[0] = MEMORY[0x277D85DD0];
+    v44[1] = 3221225472;
+    v44[2] = __61__LPKUserSwitchCycleController_triggerTestUserSwitchIfNeeded__block_invoke;
+    v44[3] = &unk_279827BF8;
+    v44[4] = self;
+    [mEMORY[0x277D244D0] saveKeyValuePairs:v30 completionHandler:v44];
 
 LABEL_31:
     v25 = 0;
 LABEL_65:
 
-    goto LABEL_66;
+    return v25;
   }
 
-  v25 = 0;
-LABEL_66:
-  v38 = *MEMORY[0x277D85DE8];
-  return v25;
+  return 0;
 }
 
 void __61__LPKUserSwitchCycleController_triggerTestUserSwitchIfNeeded__block_invoke(uint64_t a1)
@@ -418,40 +413,36 @@ void __61__LPKUserSwitchCycleController_triggerTestUserSwitchIfNeeded__block_inv
 
 - (void)_clearOutLocalPerfTestDefaults
 {
-  v7[10] = *MEMORY[0x277D85DE8];
+  v6[10] = *MEMORY[0x277D85DE8];
   mEMORY[0x277D244D0] = [MEMORY[0x277D244D0] sharedStorage];
-  v7[0] = @"LPKIsLocalUserSwitchTestOngoing";
-  v7[1] = @"LPKLocalUserSwitchTestType";
-  v7[2] = @"LPKLocalUserSwitchTestRemainCycleCount";
-  v7[3] = @"LPKLocalUserSwitchTestUsername";
-  v7[4] = @"LPKLocalUserSwitchTestPassword";
-  v7[5] = @"LPKUserSwitchDestination";
-  v7[6] = @"LPKLocalUserSwitchTestHasFinishedSuccessfully";
-  v7[7] = @"LPKLocalUserSwitchTestIsPerformanceTest";
-  v7[8] = @"TestHasBeenPrewarmed";
-  v7[9] = @"LPKLocalUserSwitchTestRetryCount";
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:10];
+  v6[0] = @"LPKIsLocalUserSwitchTestOngoing";
+  v6[1] = @"LPKLocalUserSwitchTestType";
+  v6[2] = @"LPKLocalUserSwitchTestRemainCycleCount";
+  v6[3] = @"LPKLocalUserSwitchTestUsername";
+  v6[4] = @"LPKLocalUserSwitchTestPassword";
+  v6[5] = @"LPKUserSwitchDestination";
+  v6[6] = @"LPKLocalUserSwitchTestHasFinishedSuccessfully";
+  v6[7] = @"LPKLocalUserSwitchTestIsPerformanceTest";
+  v6[8] = @"TestHasBeenPrewarmed";
+  v6[9] = @"LPKLocalUserSwitchTestRetryCount";
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:10];
   [mEMORY[0x277D244D0] clearKeys:v4 completionHandler:0];
 
   delegate = [(LPKUserSwitchCycleController *)self delegate];
   [delegate performanceTestWillTerminate];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateLocalPerfTestCycleCount:(int64_t)count
 {
-  v9[2] = *MEMORY[0x277D85DE8];
+  v8[2] = *MEMORY[0x277D85DE8];
   mEMORY[0x277D244D0] = [MEMORY[0x277D244D0] sharedStorage];
-  v8[0] = @"LPKLocalUserSwitchTestRemainCycleCount";
+  v7[0] = @"LPKLocalUserSwitchTestRemainCycleCount";
   v5 = [MEMORY[0x277CCABB0] numberWithInteger:count];
-  v8[1] = @"TestHasBeenPrewarmed";
-  v9[0] = v5;
-  v9[1] = MEMORY[0x277CBEC38];
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:2];
+  v7[1] = @"TestHasBeenPrewarmed";
+  v8[0] = v5;
+  v8[1] = MEMORY[0x277CBEC38];
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:2];
   [mEMORY[0x277D244D0] saveKeyValuePairs:v6 completionHandler:0];
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_loginAccount:(id)account password:(id)password localLoginOnly:(BOOL)only delay:(double)delay
@@ -505,7 +496,7 @@ void __76__LPKUserSwitchCycleController__loginAccount_password_localLoginOnly_de
 
 void __76__LPKUserSwitchCycleController__loginAccount_password_localLoginOnly_delay___block_invoke_2(uint64_t a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277D244D0] sharedStorage];
   v3 = [v2 retrieveValueForKey:@"LPKIsLocalUserSwitchTestOngoing"];
   v4 = [v3 BOOLValue];
@@ -518,9 +509,9 @@ void __76__LPKUserSwitchCycleController__loginAccount_password_localLoginOnly_de
     {
       v6 = *(a1 + 40);
       *buf = 136315394;
-      v15 = "[LPKUserSwitchCycleController _loginAccount:password:localLoginOnly:delay:]_block_invoke_2";
-      v16 = 2112;
-      v17 = v6;
+      v13 = "[LPKUserSwitchCycleController _loginAccount:password:localLoginOnly:delay:]_block_invoke_2";
+      v14 = 2112;
+      v15 = v6;
       _os_log_impl(&dword_2561AB000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s: Calling into LoginUI to login account: %@", buf, 0x16u);
     }
 
@@ -528,19 +519,16 @@ void __76__LPKUserSwitchCycleController__loginAccount_password_localLoginOnly_de
     v8 = *(a1 + 40);
     v9 = *(a1 + 48);
     v10 = *(a1 + 56);
-    v13[0] = MEMORY[0x277D85DD0];
-    v13[1] = 3221225472;
-    v13[2] = __76__LPKUserSwitchCycleController__loginAccount_password_localLoginOnly_delay___block_invoke_49;
-    v13[3] = &unk_279827C48;
-    v13[4] = *(a1 + 32);
-    [v7 forceLoggingInAppleID:v8 password:v9 localLoginOnly:v10 completionHandler:v13];
-
-    v11 = *MEMORY[0x277D85DE8];
+    v11[0] = MEMORY[0x277D85DD0];
+    v11[1] = 3221225472;
+    v11[2] = __76__LPKUserSwitchCycleController__loginAccount_password_localLoginOnly_delay___block_invoke_49;
+    v11[3] = &unk_279827C48;
+    v11[4] = *(a1 + 32);
+    [v7 forceLoggingInAppleID:v8 password:v9 localLoginOnly:v10 completionHandler:v11];
   }
 
   else
   {
-    v12 = *MEMORY[0x277D85DE8];
 
     [v5 _clearOutLocalPerfTestDefaults];
   }
@@ -590,29 +578,27 @@ LABEL_11:
 
 - (void)_triggerFastLogoutWithDelay:(double)delay
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   if (![(LPKUserSwitchCycleController *)self _isLoginSession])
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v9 = "[LPKUserSwitchCycleController _triggerFastLogoutWithDelay:]";
+      v8 = "[LPKUserSwitchCycleController _triggerFastLogoutWithDelay:]";
       _os_log_impl(&dword_2561AB000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s", buf, 0xCu);
     }
 
     objc_initWeak(buf, self);
-    v6[0] = MEMORY[0x277D85DD0];
-    v6[1] = 3221225472;
-    v6[2] = __60__LPKUserSwitchCycleController__triggerFastLogoutWithDelay___block_invoke;
-    v6[3] = &unk_279827CE8;
-    objc_copyWeak(v7, buf);
-    v7[1] = *&delay;
-    [(LPKUserSwitchCycleController *)self _setUserSwitchDestinationExpectation:0 retryIfFailed:1 completionHandler:v6];
-    objc_destroyWeak(v7);
+    v5[0] = MEMORY[0x277D85DD0];
+    v5[1] = 3221225472;
+    v5[2] = __60__LPKUserSwitchCycleController__triggerFastLogoutWithDelay___block_invoke;
+    v5[3] = &unk_279827CE8;
+    objc_copyWeak(v6, buf);
+    v6[1] = *&delay;
+    [(LPKUserSwitchCycleController *)self _setUserSwitchDestinationExpectation:0 retryIfFailed:1 completionHandler:v5];
+    objc_destroyWeak(v6);
     objc_destroyWeak(buf);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __60__LPKUserSwitchCycleController__triggerFastLogoutWithDelay___block_invoke(uint64_t a1, char a2)
@@ -662,7 +648,7 @@ void __60__LPKUserSwitchCycleController__triggerFastLogoutWithDelay___block_invo
 
 - (void)_triggerFullLogoutWithDelay:(double)delay
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   mEMORY[0x277D77BF8] = [MEMORY[0x277D77BF8] sharedManager];
   currentUser = [mEMORY[0x277D77BF8] currentUser];
   isLoginUser = [currentUser isLoginUser];
@@ -672,23 +658,21 @@ void __60__LPKUserSwitchCycleController__triggerFastLogoutWithDelay___block_invo
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v12 = "[LPKUserSwitchCycleController _triggerFullLogoutWithDelay:]";
+      v11 = "[LPKUserSwitchCycleController _triggerFullLogoutWithDelay:]";
       _os_log_impl(&dword_2561AB000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s", buf, 0xCu);
     }
 
     objc_initWeak(buf, self);
-    v9[0] = MEMORY[0x277D85DD0];
-    v9[1] = 3221225472;
-    v9[2] = __60__LPKUserSwitchCycleController__triggerFullLogoutWithDelay___block_invoke;
-    v9[3] = &unk_279827CE8;
-    objc_copyWeak(v10, buf);
-    v10[1] = *&delay;
-    [(LPKUserSwitchCycleController *)self _setUserSwitchDestinationExpectation:0 retryIfFailed:1 completionHandler:v9];
-    objc_destroyWeak(v10);
+    v8[0] = MEMORY[0x277D85DD0];
+    v8[1] = 3221225472;
+    v8[2] = __60__LPKUserSwitchCycleController__triggerFullLogoutWithDelay___block_invoke;
+    v8[3] = &unk_279827CE8;
+    objc_copyWeak(v9, buf);
+    v9[1] = *&delay;
+    [(LPKUserSwitchCycleController *)self _setUserSwitchDestinationExpectation:0 retryIfFailed:1 completionHandler:v8];
+    objc_destroyWeak(v9);
     objc_destroyWeak(buf);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __60__LPKUserSwitchCycleController__triggerFullLogoutWithDelay___block_invoke(uint64_t a1, char a2)
@@ -738,25 +722,23 @@ void __60__LPKUserSwitchCycleController__triggerFullLogoutWithDelay___block_invo
 
 - (void)_setUserSwitchDestinationExpectation:(unint64_t)expectation retryIfFailed:(BOOL)failed completionHandler:(id)handler
 {
-  v19[1] = *MEMORY[0x277D85DE8];
+  v18[1] = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   mEMORY[0x277D244D0] = [MEMORY[0x277D244D0] sharedStorage];
-  v18 = @"LPKUserSwitchDestination";
+  v17 = @"LPKUserSwitchDestination";
   v10 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:expectation];
-  v19[0] = v10;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:&v18 count:1];
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __101__LPKUserSwitchCycleController__setUserSwitchDestinationExpectation_retryIfFailed_completionHandler___block_invoke;
-  v14[3] = &unk_279827D10;
+  v18[0] = v10;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:&v17 count:1];
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __101__LPKUserSwitchCycleController__setUserSwitchDestinationExpectation_retryIfFailed_completionHandler___block_invoke;
+  v13[3] = &unk_279827D10;
   failedCopy = failed;
-  v15 = handlerCopy;
+  v14 = handlerCopy;
   expectationCopy = expectation;
-  v14[4] = self;
+  v13[4] = self;
   v12 = handlerCopy;
-  [mEMORY[0x277D244D0] saveKeyValuePairs:v11 completionHandler:v14];
-
-  v13 = *MEMORY[0x277D85DE8];
+  [mEMORY[0x277D244D0] saveKeyValuePairs:v11 completionHandler:v13];
 }
 
 void __101__LPKUserSwitchCycleController__setUserSwitchDestinationExpectation_retryIfFailed_completionHandler___block_invoke(uint64_t a1, char a2, void *a3)
@@ -851,11 +833,11 @@ LABEL_8:
 
 - (void)_fixTestStatesForRetry
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v19 = "[LPKUserSwitchCycleController _fixTestStatesForRetry]";
+    v18 = "[LPKUserSwitchCycleController _fixTestStatesForRetry]";
     _os_log_impl(&dword_2561AB000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s", buf, 0xCu);
   }
 
@@ -871,17 +853,15 @@ LABEL_8:
 
   _currentEnvironment = [(LPKUserSwitchCycleController *)self _currentEnvironment];
   v11 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{_currentEnvironment, @"LPKUserSwitchDestination"}];
-  v17[0] = v11;
-  v16[1] = @"LPKLocalUserSwitchTestRemainCycleCount";
+  v16[0] = v11;
+  v15[1] = @"LPKLocalUserSwitchTestRemainCycleCount";
   v12 = [MEMORY[0x277CCABB0] numberWithInteger:integerValue + bOOLValue];
-  v17[1] = v12;
-  v16[2] = @"LPKLocalUserSwitchTestRetryCount";
+  v16[1] = v12;
+  v15[2] = @"LPKLocalUserSwitchTestRetryCount";
   v13 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:unsignedIntValue - 1];
-  v17[2] = v13;
-  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:3];
+  v16[2] = v13;
+  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:3];
   [mEMORY[0x277D244D0] saveKeyValuePairs:v14 error:0];
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_scheduleRetryWithTimeout:(double)timeout
@@ -915,55 +895,37 @@ uint64_t __58__LPKUserSwitchCycleController__scheduleRetryWithTimeout___block_in
 
 - (void)triggerTestUserSwitchIfNeeded
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __76__LPKUserSwitchCycleController__loginAccount_password_localLoginOnly_delay___block_invoke_49_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __76__LPKUserSwitchCycleController__loginAccount_password_localLoginOnly_delay___block_invoke_49_cold_2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __101__LPKUserSwitchCycleController__setUserSwitchDestinationExpectation_retryIfFailed_completionHandler___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_validateUserSwitchExpectation
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_isLoginSession
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

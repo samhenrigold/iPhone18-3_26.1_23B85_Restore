@@ -20,62 +20,59 @@
 - (SKRFlowExtensionContext)init
 {
   v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
-  v3 = *(*(v2 - 8) + 64);
   MEMORY[0x1EEE9AC00](v2 - 8);
-  v5 = &v10 - v4;
+  v4 = &v9 - v3;
   ObjectType = swift_getObjectType();
-  v7 = type metadata accessor for UUID();
-  (*(*(v7 - 8) + 56))(v5, 1, 1, v7);
-  v8 = (*(ObjectType + 216))(MEMORY[0x1E69E7CC0]);
+  v6 = type metadata accessor for UUID();
+  (*(*(v6 - 8) + 56))(v4, 1, 1, v6);
+  v7 = (*(ObjectType + 216))(MEMORY[0x1E69E7CC0]);
   swift_deallocPartialClassInstance();
-  return v8;
+  return v7;
 }
 
 - (SKRFlowExtensionContext)initWithInputItems:(id)items
 {
   v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
-  v4 = *(*(v3 - 8) + 64);
   MEMORY[0x1EEE9AC00](v3 - 8);
-  v6 = &v12 - v5;
-  v7 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
+  v5 = &v11 - v4;
+  v6 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   ObjectType = swift_getObjectType();
-  v9 = type metadata accessor for UUID();
-  (*(*(v9 - 8) + 56))(v6, 1, 1, v9);
-  v10 = (*(ObjectType + 216))(v7, 0, v6, 0, 0, 0, 0, 0, MEMORY[0x1E69E7CC0]);
+  v8 = type metadata accessor for UUID();
+  (*(*(v8 - 8) + 56))(v5, 1, 1, v8);
+  v9 = (*(ObjectType + 216))(v6, 0, v5, 0, 0, 0, 0, 0, MEMORY[0x1E69E7CC0]);
   swift_deallocPartialClassInstance();
-  return v10;
+  return v9;
 }
 
 - (SKRFlowExtensionContext)initWithInputItems:(id)items listenerEndpoint:(id)endpoint contextUUID:(id)d
 {
   v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
-  v8 = *(*(v7 - 8) + 64);
   MEMORY[0x1EEE9AC00](v7 - 8);
-  v10 = &v22 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v11);
-  v13 = &v22 - v12;
-  v14 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
+  v9 = &v21 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v10);
+  v12 = &v21 - v11;
+  v13 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   if (d)
   {
     static UUID._unconditionallyBridgeFromObjectiveC(_:)();
-    v15 = type metadata accessor for UUID();
-    (*(*(v15 - 8) + 56))(v13, 0, 1, v15);
+    v14 = type metadata accessor for UUID();
+    (*(*(v14 - 8) + 56))(v12, 0, 1, v14);
   }
 
   else
   {
-    v16 = type metadata accessor for UUID();
-    (*(*(v16 - 8) + 56))(v13, 1, 1, v16);
+    v15 = type metadata accessor for UUID();
+    (*(*(v15 - 8) + 56))(v12, 1, 1, v15);
   }
 
   ObjectType = swift_getObjectType();
-  outlined init with copy of UUID?(v13, v10);
-  v18 = *(ObjectType + 216);
+  outlined init with copy of UUID?(v12, v9);
+  v17 = *(ObjectType + 216);
   endpointCopy = endpoint;
-  v20 = v18(v14, endpoint, v10, 0, 0, 0, 0, 0, MEMORY[0x1E69E7CC0]);
-  outlined destroy of UUID?(v13);
+  v19 = v17(v13, endpoint, v9, 0, 0, 0, 0, 0, MEMORY[0x1E69E7CC0]);
+  outlined destroy of UUID?(v12);
   swift_deallocPartialClassInstance();
-  return v20;
+  return v19;
 }
 
 - (void)warmupWithRefId:(id)id reply:(id)reply
@@ -146,20 +143,19 @@
 {
   v8 = type metadata accessor for UUID();
   v9 = *(v8 - 8);
-  v10 = *(v9 + 64);
   MEMORY[0x1EEE9AC00](v8);
-  v12 = &v18 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v13 = _Block_copy(reply);
+  v11 = &v17 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = _Block_copy(reply);
   static UUID._unconditionallyBridgeFromObjectiveC(_:)();
-  v14 = swift_allocObject();
-  *(v14 + 16) = v13;
-  v15 = *((*MEMORY[0x1E69E7D40] & self->super.super.isa) + 0xE0);
+  v13 = swift_allocObject();
+  *(v13 + 16) = v12;
+  v14 = *((*MEMORY[0x1E69E7D40] & self->super.super.isa) + 0xE0);
   dataCopy = data;
   selfCopy = self;
-  v15();
-  RemoteConversationService.acceptInitialInput(inputIdentifier:speechData:reply:)(v12, dataCopy, thunk for @escaping @callee_unowned @convention(block) @Sendable (@unowned FlowExtensionUserInputResultXPC) -> ()partial apply, v14);
+  v14();
+  RemoteConversationService.acceptInitialInput(inputIdentifier:speechData:reply:)(v11, dataCopy, thunk for @escaping @callee_unowned @convention(block) @Sendable (@unowned FlowExtensionUserInputResultXPC) -> ()partial apply, v13);
 
-  (*(v9 + 8))(v12, v8);
+  (*(v9 + 8))(v11, v8);
 }
 
 - (void)acceptWithInputData:(id)data speechData:(id)speechData reply:(id)reply
@@ -203,58 +199,56 @@
 - (void)drainAsyncWorkWithReply:(id)reply
 {
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x1EEE9AC00](v5 - 8);
-  v8 = &v19 - v7;
-  v9 = _Block_copy(reply);
-  v10 = swift_allocObject();
-  *(v10 + 16) = v9;
-  v11 = *((*MEMORY[0x1E69E7D40] & self->super.super.isa) + 0xE0);
+  v7 = &v18 - v6;
+  v8 = _Block_copy(reply);
+  v9 = swift_allocObject();
+  *(v9 + 16) = v8;
+  v10 = *((*MEMORY[0x1E69E7D40] & self->super.super.isa) + 0xE0);
   selfCopy = self;
-  v13 = v11();
-  v14 = type metadata accessor for TaskPriority();
-  (*(*(v14 - 8) + 56))(v8, 1, 1, v14);
-  v15 = one-time initialization token for shared;
+  v12 = v10();
+  v13 = type metadata accessor for TaskPriority();
+  (*(*(v13 - 8) + 56))(v7, 1, 1, v13);
+  v14 = one-time initialization token for shared;
 
-  if (v15 != -1)
+  if (v14 != -1)
   {
     swift_once();
   }
 
-  v16 = static ConversationActor.shared;
-  v17 = _s14SiriKitRuntime17ConversationActorCACScAAAWlTm_0(&lazy protocol witness table cache variable for type ConversationActor and conformance ConversationActor, 255, type metadata accessor for ConversationActor);
-  v18 = swift_allocObject();
-  v18[2] = v16;
-  v18[3] = v17;
-  v18[4] = v13;
-  v18[5] = partial apply for thunk for @escaping @callee_unowned @convention(block) @Sendable () -> ();
-  v18[6] = v10;
+  v15 = static ConversationActor.shared;
+  v16 = _s14SiriKitRuntime17ConversationActorCACScAAAWlTm_0(&lazy protocol witness table cache variable for type ConversationActor and conformance ConversationActor, 255, type metadata accessor for ConversationActor, &protocol conformance descriptor for ConversationActor);
+  v17 = swift_allocObject();
+  v17[2] = v15;
+  v17[3] = v16;
+  v17[4] = v12;
+  v17[5] = partial apply for thunk for @escaping @callee_unowned @convention(block) @Sendable () -> ();
+  v17[6] = v9;
 
-  _sScTss5NeverORs_rlE4name8priority9operationScTyxABGSSSg_ScPSgxyYaYAcntcfCyt_Tt2g5(0, 0, v8, &closure #1 in RemoteConversationService.drainAsyncWork(reply:)partial apply, v18);
+  _sScTss5NeverORs_rlE4name8priority9operationScTyxABGSSSg_ScPSgxyYaYAcntcfCyt_Tt2g5(0, 0, v7, &closure #1 in RemoteConversationService.drainAsyncWork(reply:)partial apply, v17);
 }
 
 - (SKRFlowExtensionContext)initWithInputItems:(id)items contextUUID:(id)d
 {
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x1EEE9AC00](v5 - 8);
-  v8 = &v13 - v7;
+  v7 = &v12 - v6;
   if (d)
   {
     static UUID._unconditionallyBridgeFromObjectiveC(_:)();
-    v9 = type metadata accessor for UUID();
-    v11 = 0;
-    v10 = (*(v9 - 8) + 56);
+    v8 = type metadata accessor for UUID();
+    v10 = 0;
+    v9 = (*(v8 - 8) + 56);
   }
 
   else
   {
-    v9 = type metadata accessor for UUID();
-    v10 = (*(v9 - 8) + 56);
-    v11 = 1;
+    v8 = type metadata accessor for UUID();
+    v9 = (*(v8 - 8) + 56);
+    v10 = 1;
   }
 
-  (*v10)(v8, v11, 1, v9);
+  (*v9)(v7, v10, 1, v8);
   result = _swift_stdlib_reportUnimplementedInitializer();
   __break(1u);
   return result;

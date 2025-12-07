@@ -60,19 +60,19 @@
       referenceColor = self->_referenceColor;
       if (referenceColor | equalCopy->_referenceColor)
       {
-        v6 = [(UIColor *)referenceColor isEqual:?];
+        isEqual = objc_msgSend_isEqual_(referenceColor);
       }
 
       else
       {
-        v6 = 1;
+        isEqual = 1;
       }
 
       v8 = vabdd_f64(self->_referenceContrast, equalCopy->_referenceContrast);
       legibilitySettings = self->_legibilitySettings;
       if (legibilitySettings | equalCopy->_legibilitySettings)
       {
-        v10 = [(_UILegibilitySettings *)legibilitySettings isEqual:?];
+        v10 = objc_msgSend_isEqual_(legibilitySettings);
       }
 
       else
@@ -82,7 +82,7 @@
 
       if (v8 < 0.00000011920929)
       {
-        v11 = v6;
+        v11 = isEqual;
       }
 
       else
@@ -195,7 +195,7 @@ LABEL_11:
 
         else
         {
-          +[UIColor blackColor];
+          objc_msgSend_blackColor(UIColor);
         }
         v7 = ;
         v8 = [v7 colorWithAlphaComponent:0.7];
@@ -334,7 +334,7 @@ LABEL_8:
 
       else
       {
-        +[UIColor blackColor];
+        objc_msgSend_blackColor(UIColor);
       }
       v7 = ;
       v14 = [v7 colorWithAlphaComponent:0.7];

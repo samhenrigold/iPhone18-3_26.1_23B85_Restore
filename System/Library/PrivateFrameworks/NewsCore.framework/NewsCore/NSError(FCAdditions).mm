@@ -1,6 +1,7 @@
 @interface NSError(FCAdditions)
 - (BOOL)fc_hasUnderlyingErrorPassingTest:()FCAdditions;
 - (BOOL)fc_isAVUnauthorizedError;
+- (BOOL)fc_isAuthenticationUserCancelled;
 - (BOOL)fc_isBlockedInStoreFrontError;
 - (BOOL)fc_isHTTPNotFoundError;
 - (BOOL)fc_isOperationThrottledError;
@@ -8,7 +9,6 @@
 - (id)fc_errorWithMaximumRetryAfter:()FCAdditions;
 - (id)fc_retryAfter;
 - (uint64_t)fc_failedDueToTaskConstraints;
-- (uint64_t)fc_isAuthenticationUserCancelled;
 - (uint64_t)fc_isCancellationError;
 - (uint64_t)fc_isNetworkUnavailableError;
 - (uint64_t)fc_isOfflineErrorOfflineReason:()FCAdditions;
@@ -319,7 +319,7 @@ LABEL_21:
   return selfCopy3;
 }
 
-- (uint64_t)fc_isAuthenticationUserCancelled
+- (BOOL)fc_isAuthenticationUserCancelled
 {
   domain = [self domain];
   if ([domain isEqualToString:*MEMORY[0x1E698C548]])
@@ -366,32 +366,32 @@ LABEL_21:
 
 - (BOOL)fc_hasUnderlyingErrorPassingTest:()FCAdditions
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v4 = a3;
   userInfo = [self userInfo];
   v6 = [userInfo objectForKeyedSubscript:*MEMORY[0x1E696A750]];
 
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
   v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   v7 = v6;
-  v8 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v18;
+    v10 = *v17;
     while (2)
     {
       v11 = 0;
       do
       {
-        if (*v18 != v10)
+        if (*v17 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        if (v4[2](v4, *(*(&v17 + 1) + 8 * v11)))
+        if (v4[2](v4, *(*(&v16 + 1) + 8 * v11)))
         {
           v14 = 1;
           v13 = v7;
@@ -402,7 +402,7 @@ LABEL_21:
       }
 
       while (v9 != v11);
-      v9 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
       if (v9)
       {
         continue;
@@ -418,7 +418,6 @@ LABEL_21:
   v14 = v13 && ((v4)[2](v4, v13) & 1) != 0;
 LABEL_14:
 
-  v15 = *MEMORY[0x1E69E9840];
   return v14;
 }
 

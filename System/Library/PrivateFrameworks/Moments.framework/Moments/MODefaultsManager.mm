@@ -30,28 +30,26 @@
 
 void __64__MODefaultsManager_MOEventBundleSourceType__onboardingDateKey___block_invoke()
 {
-  v4[8] = *MEMORY[0x277D85DE8];
-  v3[0] = MOEventBundleSourceTypeMedia;
-  v3[1] = MOEventBundleSourceTypePhoto;
-  v4[0] = @"OnboardingEarliestCollectDateMedia";
-  v4[1] = @"OnboardingEarliestCollectDatePhoto";
-  v3[2] = MOEventBundleSourceTypeContact;
-  v3[3] = MOEventBundleSourceTypeActivity;
-  v4[2] = @"OnboardingEarliestCollectDateCommunication";
-  v4[3] = @"OnboardingEarliestCollectDateActivity";
-  v3[4] = MOEventBundleSourceTypeVisitLocation;
-  v3[5] = MOEventBundleSourceTypeThirdPartyMedia;
-  v4[4] = @"OnboardingEarliestCollectDateLocation";
-  v4[5] = @"OnboardingEarliestCollectDateMedia";
-  v3[6] = MOEventBundleSourceTypePeopleContext;
-  v3[7] = MOEventBundleSourceTypeStateOfMind;
-  v4[6] = @"OnboardingEarliestCollectDatePeople";
-  v4[7] = @"OnboardingEarliestCollectDateStateOfMind";
-  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v4 forKeys:v3 count:8];
+  v3[8] = *MEMORY[0x277D85DE8];
+  v2[0] = MOEventBundleSourceTypeMedia;
+  v2[1] = MOEventBundleSourceTypePhoto;
+  v3[0] = @"OnboardingEarliestCollectDateMedia";
+  v3[1] = @"OnboardingEarliestCollectDatePhoto";
+  v2[2] = MOEventBundleSourceTypeContact;
+  v2[3] = MOEventBundleSourceTypeActivity;
+  v3[2] = @"OnboardingEarliestCollectDateCommunication";
+  v3[3] = @"OnboardingEarliestCollectDateActivity";
+  v2[4] = MOEventBundleSourceTypeVisitLocation;
+  v2[5] = MOEventBundleSourceTypeThirdPartyMedia;
+  v3[4] = @"OnboardingEarliestCollectDateLocation";
+  v3[5] = @"OnboardingEarliestCollectDateMedia";
+  v2[6] = MOEventBundleSourceTypePeopleContext;
+  v2[7] = MOEventBundleSourceTypeStateOfMind;
+  v3[6] = @"OnboardingEarliestCollectDatePeople";
+  v3[7] = @"OnboardingEarliestCollectDateStateOfMind";
+  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v3 forKeys:v2 count:8];
   v1 = onboardingDateKey__mapping;
   onboardingDateKey__mapping = v0;
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 - (id)onboardingDateFor:(id)for
@@ -153,7 +151,7 @@ void __64__MODefaultsManager_MOEventBundleSourceType__onboardingDateKey___block_
 
 - (void)deleteObjectForKey:(id)key
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   keyCopy = key;
   if (keyCopy)
   {
@@ -161,9 +159,9 @@ void __64__MODefaultsManager_MOEventBundleSourceType__onboardingDateKey___block_
     if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
       *buf = 136315394;
-      v11 = "[MODefaultsManager deleteObjectForKey:]";
-      v12 = 2112;
-      v13 = keyCopy;
+      v10 = "[MODefaultsManager deleteObjectForKey:]";
+      v11 = 2112;
+      v12 = keyCopy;
       _os_log_impl(&dword_22D8C5000, v6, OS_LOG_TYPE_INFO, "%s, deleting key, %@", buf, 0x16u);
     }
 
@@ -181,13 +179,11 @@ void __64__MODefaultsManager_MOEventBundleSourceType__onboardingDateKey___block_
     currentHandler = [MEMORY[0x277CCA890] currentHandler];
     [currentHandler handleFailureInMethod:a2 object:self file:@"MODefaultsManager.m" lineNumber:66 description:{@"Invalid parameter not satisfying: key (in %s:%d)", "-[MODefaultsManager deleteObjectForKey:]", 66}];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setObject:(id)object forKey:(id)key
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   objectCopy = object;
   keyCopy = key;
   if (keyCopy)
@@ -196,11 +192,11 @@ void __64__MODefaultsManager_MOEventBundleSourceType__onboardingDateKey___block_
     if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
       *buf = 136315650;
-      v14 = "[MODefaultsManager setObject:forKey:]";
-      v15 = 2112;
-      v16 = keyCopy;
-      v17 = 2112;
-      v18 = objectCopy;
+      v13 = "[MODefaultsManager setObject:forKey:]";
+      v14 = 2112;
+      v15 = keyCopy;
+      v16 = 2112;
+      v17 = objectCopy;
       _os_log_impl(&dword_22D8C5000, v9, OS_LOG_TYPE_INFO, "%s, key, %@, value, %@", buf, 0x20u);
     }
 
@@ -218,8 +214,6 @@ void __64__MODefaultsManager_MOEventBundleSourceType__onboardingDateKey___block_
     currentHandler = [MEMORY[0x277CCA890] currentHandler];
     [currentHandler handleFailureInMethod:a2 object:self file:@"MODefaultsManager.m" lineNumber:80 description:{@"Invalid parameter not satisfying: key (in %s:%d)", "-[MODefaultsManager setObject:forKey:]", 80}];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setObjectWithoutLog:(id)log forKey:(id)key
@@ -312,73 +306,30 @@ void __42__MODefaultsManager_momentsDaemonDefaults__block_invoke()
 
 - (void)objectForKey:(os_log_t)log .cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v4 = 136315650;
-  v5 = "[MODefaultsManager objectForKey:]";
-  v6 = 2112;
-  v7 = a1;
-  v8 = 2112;
-  v9 = a2;
-  _os_log_debug_impl(&dword_22D8C5000, log, OS_LOG_TYPE_DEBUG, "%s, key, %@, value, %@", &v4, 0x20u);
-  v3 = *MEMORY[0x277D85DE8];
-}
-
-- (void)objectForKey:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_22D8C5000, v0, v1, "Invalid parameter not satisfying: key (in %s:%d)", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
+  v3 = 136315650;
+  v4 = "[MODefaultsManager objectForKey:]";
+  v5 = 2112;
+  v6 = a1;
+  v7 = 2112;
+  v8 = a2;
+  _os_log_debug_impl(&dword_22D8C5000, log, OS_LOG_TYPE_DEBUG, "%s, key, %@, value, %@", &v3, 0x20u);
 }
 
 - (void)objectForKey:(os_log_t)log .cold.3(os_log_t log)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 136315138;
-  v3 = "[MODefaultsManager objectForKey:]";
-  _os_log_error_impl(&dword_22D8C5000, log, OS_LOG_TYPE_ERROR, "%s, key cannot be nil!", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
-}
-
-- (void)objectForKeyWithoutLog:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_22D8C5000, v0, v1, "Invalid parameter not satisfying: key (in %s:%d)", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 136315138;
+  v2 = "[MODefaultsManager objectForKey:]";
+  _os_log_error_impl(&dword_22D8C5000, log, OS_LOG_TYPE_ERROR, "%s, key cannot be nil!", &v1, 0xCu);
 }
 
 - (void)objectForKeyWithoutLog:(os_log_t)log .cold.2(os_log_t log)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 136315138;
-  v3 = "[MODefaultsManager objectForKeyWithoutLog:]";
-  _os_log_error_impl(&dword_22D8C5000, log, OS_LOG_TYPE_ERROR, "%s, key cannot be nil!", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
-}
-
-- (void)deleteObjectForKey:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_22D8C5000, v0, v1, "Invalid parameter not satisfying: key (in %s:%d)", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)setObject:forKey:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_22D8C5000, v0, v1, "Invalid parameter not satisfying: key (in %s:%d)", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)setObjectWithoutLog:forKey:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_22D8C5000, v0, v1, "Invalid parameter not satisfying: key (in %s:%d)", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 136315138;
+  v2 = "[MODefaultsManager objectForKeyWithoutLog:]";
+  _os_log_error_impl(&dword_22D8C5000, log, OS_LOG_TYPE_ERROR, "%s, key cannot be nil!", &v1, 0xCu);
 }
 
 @end

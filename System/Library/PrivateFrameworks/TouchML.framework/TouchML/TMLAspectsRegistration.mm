@@ -28,205 +28,203 @@
 
 - (TMLAspectsRegistration)init
 {
-  v8.receiver = self;
-  v8.super_class = TMLAspectsRegistration;
-  v3 = [(TMLAspectsRegistration *)&v8 init];
-  if (v3)
+  v6.receiver = self;
+  v6.super_class = TMLAspectsRegistration;
+  v2 = [(TMLAspectsRegistration *)&v6 init];
+  if (v2)
   {
-    v5 = objc_msgSend_strongToStrongObjectsMapTable(MEMORY[0x277CCAB00], v2, v4);
-    registeredAspects = v3->_registeredAspects;
-    v3->_registeredAspects = v5;
+    strongToStrongObjectsMapTable = [MEMORY[0x277CCAB00] strongToStrongObjectsMapTable];
+    registeredAspects = v2->_registeredAspects;
+    v2->_registeredAspects = strongToStrongObjectsMapTable;
   }
 
-  return v3;
+  return v2;
 }
 
 - (id)storageForKey:(id)key createIfMissing:(BOOL)missing
 {
   missingCopy = missing;
   keyCopy = key;
-  v10 = objc_msgSend_objectForKey_(self->_registeredAspects, v7, v8, keyCopy);
-  if (v10)
+  v7 = [(NSMapTable *)self->_registeredAspects objectForKey:keyCopy];
+  if (v7)
   {
-    v12 = 1;
+    v8 = 1;
   }
 
   else
   {
-    v12 = !missingCopy;
+    v8 = !missingCopy;
   }
 
-  if (!v12)
+  if (!v8)
   {
-    v10 = objc_msgSend_arrayWithCapacity_(MEMORY[0x277CBEB18], v9, v11, 3);
-    objc_msgSend_setObject_forKey_(self->_registeredAspects, v13, v14, v10, keyCopy);
+    v7 = [MEMORY[0x277CBEB18] arrayWithCapacity:3];
+    [(NSMapTable *)self->_registeredAspects setObject:v7 forKey:keyCopy];
   }
 
-  return v10;
+  return v7;
 }
 
 - (void)registerAspect:(id)aspect withKey:(id)key
 {
   aspectCopy = aspect;
-  v14 = objc_msgSend_storageForKey_createIfMissing_(self, v7, v8, key, 1);
-  v11 = objc_msgSend_weakReferenceWithObject_(TMLWeakReferenceObject, v9, v10, aspectCopy);
+  v8 = [(TMLAspectsRegistration *)self storageForKey:key createIfMissing:1];
+  v7 = [TMLWeakReferenceObject weakReferenceWithObject:aspectCopy];
 
-  objc_msgSend_addObject_(v14, v12, v13, v11);
+  [v8 addObject:v7];
 }
 
 - (void)unregisterAspect:(id)aspect withKey:(id)key
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   aspectCopy = aspect;
   keyCopy = key;
-  v10 = objc_msgSend_storageForKey_createIfMissing_(self, v8, v9, keyCopy, 0);
-  v26 = 0u;
-  v27 = 0u;
-  v28 = 0u;
-  v29 = 0u;
-  v12 = objc_msgSend_countByEnumeratingWithState_objects_count_(v10, v11, 0.0, &v26, v30, 16);
-  if (!v12)
+  v8 = [(TMLAspectsRegistration *)self storageForKey:keyCopy createIfMissing:0];
+  v19 = 0u;
+  v20 = 0u;
+  v21 = 0u;
+  v22 = 0u;
+  v9 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  if (!v9)
   {
     goto LABEL_17;
   }
 
-  v15 = v12;
+  v10 = v9;
   selfCopy = self;
-  v16 = 0;
-  v17 = *v27;
+  v11 = 0;
+  v12 = *v20;
   do
   {
-    for (i = 0; i != v15; ++i)
+    for (i = 0; i != v10; ++i)
     {
-      if (*v27 != v17)
+      if (*v20 != v12)
       {
-        objc_enumerationMutation(v10);
+        objc_enumerationMutation(v8);
       }
 
-      v19 = *(*(&v26 + 1) + 8 * i);
-      v20 = objc_msgSend_object(v19, v13, v14);
-      v23 = v20;
-      if (v20)
+      v14 = *(*(&v19 + 1) + 8 * i);
+      object = [v14 object];
+      v16 = object;
+      if (object)
       {
-        v24 = v20 == aspectCopy;
+        v17 = object == aspectCopy;
       }
 
       else
       {
-        v24 = 1;
+        v17 = 1;
       }
 
-      if (!v24)
+      if (!v17)
       {
-        if (!v16)
+        if (!v11)
         {
-          v16 = objc_msgSend_arrayWithCapacity_(MEMORY[0x277CBEB18], v21, v22, 3);
+          v11 = [MEMORY[0x277CBEB18] arrayWithCapacity:3];
         }
 
-        objc_msgSend_addObject_(v16, v21, v22, v19);
+        [v11 addObject:v14];
       }
     }
 
-    v15 = objc_msgSend_countByEnumeratingWithState_objects_count_(v10, v13, v14, &v26, v30, 16);
+    v10 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
   }
 
-  while (v15);
+  while (v10);
   self = selfCopy;
-  if (v16)
+  if (v11)
   {
-    objc_msgSend_setObject_forKey_(selfCopy->_registeredAspects, v13, v14, v16, keyCopy);
+    [(NSMapTable *)selfCopy->_registeredAspects setObject:v11 forKey:keyCopy];
   }
 
   else
   {
 LABEL_17:
-    objc_msgSend_removeObjectForKey_(self->_registeredAspects, v13, v14, keyCopy);
+    [(NSMapTable *)self->_registeredAspects removeObjectForKey:keyCopy];
   }
 }
 
 - (id)strongAspectsFromArray:(id)array
 {
   arrayCopy = array;
-  if (objc_msgSend_count(arrayCopy, v4, v5))
+  if ([arrayCopy count])
   {
-    v8 = MEMORY[0x277CBEB18];
-    v9 = objc_msgSend_count(arrayCopy, v6, v7);
-    v12 = objc_msgSend_arrayWithCapacity_(v8, v10, v11, v9);
-    v20[0] = MEMORY[0x277D85DD0];
-    v20[1] = 3221225472;
-    v20[2] = sub_26F1972A0;
-    v20[3] = &unk_279DC5758;
-    v21 = v12;
-    v13 = v12;
-    objc_msgSend_enumerateObjectsUsingBlock_(arrayCopy, v14, v15, v20);
-    v18 = objc_msgSend_arrayWithArray_(MEMORY[0x277CBEA60], v16, v17, v13);
+    v4 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(arrayCopy, "count")}];
+    v8[0] = MEMORY[0x277D85DD0];
+    v8[1] = 3221225472;
+    v8[2] = sub_26F1972A0;
+    v8[3] = &unk_279DC5758;
+    v9 = v4;
+    v5 = v4;
+    [arrayCopy enumerateObjectsUsingBlock:v8];
+    v6 = [MEMORY[0x277CBEA60] arrayWithArray:v5];
   }
 
   else
   {
-    v18 = arrayCopy;
+    v6 = arrayCopy;
   }
 
-  return v18;
+  return v6;
 }
 
 - (id)aspectsWithKeys:(id)keys
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   keysCopy = keys;
-  v22 = 0u;
-  v23 = 0u;
-  v24 = 0u;
-  v25 = 0u;
-  v6 = objc_msgSend_countByEnumeratingWithState_objects_count_(keysCopy, v5, 0.0, &v22, v26, 16);
-  if (v6)
+  v13 = 0u;
+  v14 = 0u;
+  v15 = 0u;
+  v16 = 0u;
+  v5 = [keysCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
+  if (v5)
   {
-    v9 = v6;
-    v10 = 0;
-    v11 = *v23;
+    v6 = v5;
+    v7 = 0;
+    v8 = *v14;
     do
     {
-      for (i = 0; i != v9; ++i)
+      for (i = 0; i != v6; ++i)
       {
-        if (*v23 != v11)
+        if (*v14 != v8)
         {
           objc_enumerationMutation(keysCopy);
         }
 
-        v13 = objc_msgSend_aspectsWithKey_(self, v7, v8, *(*(&v22 + 1) + 8 * i));
-        if (objc_msgSend_count(v13, v14, v15))
+        v10 = [(TMLAspectsRegistration *)self aspectsWithKey:*(*(&v13 + 1) + 8 * i)];
+        if ([v10 count])
         {
-          if (!v10)
+          if (!v7)
           {
-            v10 = objc_msgSend_arrayWithCapacity_(MEMORY[0x277CBEB18], v16, v17, 2);
+            v7 = [MEMORY[0x277CBEB18] arrayWithCapacity:2];
           }
 
-          objc_msgSend_addObjectsFromArray_(v10, v16, v17, v13);
+          [v7 addObjectsFromArray:v10];
         }
       }
 
-      v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(keysCopy, v7, v8, &v22, v26, 16);
+      v6 = [keysCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
-    while (v9);
+    while (v6);
   }
 
   else
   {
-    v10 = 0;
+    v7 = 0;
   }
 
-  if (objc_msgSend_count(v10, v7, v8))
+  if ([v7 count])
   {
-    v20 = objc_msgSend_strongAspectsFromArray_(self, v18, v19, v10);
+    v11 = [(TMLAspectsRegistration *)self strongAspectsFromArray:v7];
   }
 
   else
   {
-    v20 = 0;
+    v11 = 0;
   }
 
-  return v20;
+  return v11;
 }
 
 - (id)aspectsForObject:(id)object signalName:(id)name advice:(int)advice
@@ -234,19 +232,19 @@ LABEL_17:
   v5 = *&advice;
   objectCopy = object;
   nameCopy = name;
-  if (objc_msgSend_count(self->_registeredAspects, v10, v11))
+  if ([(NSMapTable *)self->_registeredAspects count])
   {
-    v14 = objc_msgSend_metaObjects(objectCopy, v12, v13);
-    v17 = objc_msgSend_keysForObject_withMetaObjects_signalName_advice_(TMLAspectsRegistration, v15, v16, objectCopy, v14, nameCopy, v5);
-    v20 = objc_msgSend_aspectsWithKeys_(self, v18, v19, v17);
+    metaObjects = [objectCopy metaObjects];
+    v11 = [TMLAspectsRegistration keysForObject:objectCopy withMetaObjects:metaObjects signalName:nameCopy advice:v5];
+    v12 = [(TMLAspectsRegistration *)self aspectsWithKeys:v11];
   }
 
   else
   {
-    v20 = 0;
+    v12 = 0;
   }
 
-  return v20;
+  return v12;
 }
 
 + (id)keyForProtocolNamed:(id)named signalName:(id)name advice:(int)advice
@@ -254,26 +252,27 @@ LABEL_17:
   v7 = MEMORY[0x277CCAB68];
   nameCopy = name;
   namedCopy = named;
-  v12 = objc_msgSend_stringWithString_(v7, v10, v11, @"P");
-  objc_msgSend_appendString_(v12, v13, v14, namedCopy);
+  v10 = [v7 stringWithString:@"P"];
+  [v10 appendString:namedCopy];
 
-  objc_msgSend_appendString_(v12, v15, v16, @".");
-  objc_msgSend_appendString_(v12, v17, v18, nameCopy);
+  [v10 appendString:@"."];
+  [v10 appendString:nameCopy];
 
-  objc_msgSend_appendString_(v12, v19, v20, @":");
+  [v10 appendString:@":"];
   if (advice)
   {
-    objc_msgSend_appendString_(v12, v21, v22, @"A");
+    v11 = @"A";
   }
 
   else
   {
-    objc_msgSend_appendString_(v12, v21, v22, @"B");
+    v11 = @"B";
   }
 
-  v25 = objc_msgSend_stringWithString_(MEMORY[0x277CCACA8], v23, v24, v12);
+  [v10 appendString:v11];
+  v12 = [MEMORY[0x277CCACA8] stringWithString:v10];
 
-  return v25;
+  return v12;
 }
 
 + (id)keyForClassNamed:(id)named signalName:(id)name advice:(int)advice
@@ -281,133 +280,132 @@ LABEL_17:
   v7 = MEMORY[0x277CCAB68];
   nameCopy = name;
   namedCopy = named;
-  v12 = objc_msgSend_stringWithString_(v7, v10, v11, @"C");
-  objc_msgSend_appendString_(v12, v13, v14, namedCopy);
+  v10 = [v7 stringWithString:@"C"];
+  [v10 appendString:namedCopy];
 
-  objc_msgSend_appendString_(v12, v15, v16, @".");
-  objc_msgSend_appendString_(v12, v17, v18, nameCopy);
+  [v10 appendString:@"."];
+  [v10 appendString:nameCopy];
 
-  objc_msgSend_appendString_(v12, v19, v20, @":");
+  [v10 appendString:@":"];
   if (advice)
   {
-    objc_msgSend_appendString_(v12, v21, v22, @"A");
+    v11 = @"A";
   }
 
   else
   {
-    objc_msgSend_appendString_(v12, v21, v22, @"B");
+    v11 = @"B";
   }
 
-  v25 = objc_msgSend_stringWithString_(MEMORY[0x277CCACA8], v23, v24, v12);
+  [v10 appendString:v11];
+  v12 = [MEMORY[0x277CCACA8] stringWithString:v10];
 
-  return v25;
+  return v12;
 }
 
 + (id)keysForObject:(id)object withMetaObjects:(id)objects signalName:(id)name advice:(int)advice
 {
   v6 = *&advice;
-  v81 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   objectCopy = object;
   objectsCopy = objects;
   nameCopy = name;
-  v14 = objc_msgSend_orderedSetWithCapacity_(MEMORY[0x277CBEB40], v12, v13, 4);
-  v15 = 0x282042000uLL;
-  v18 = objc_msgSend_keyForClassNamed_signalName_advice_(TMLAspectsRegistration, v16, v17, @"*", nameCopy, v6);
-  objc_msgSend_addObject_(v14, v19, v20, v18);
+  v12 = [MEMORY[0x277CBEB40] orderedSetWithCapacity:4];
+  v13 = 0x282042000uLL;
+  v14 = [TMLAspectsRegistration keyForClassNamed:@"*" signalName:nameCopy advice:v6];
+  [v12 addObject:v14];
 
-  v77 = 0u;
-  v78 = 0u;
-  v75 = 0u;
-  v76 = 0u;
-  v21 = objectsCopy;
-  v70 = objc_msgSend_countByEnumeratingWithState_objects_count_(v21, v22, v23, &v75, v80, 16);
-  if (!v70)
+  v44 = 0u;
+  v45 = 0u;
+  v42 = 0u;
+  v43 = 0u;
+  v15 = objectsCopy;
+  v37 = [v15 countByEnumeratingWithState:&v42 objects:v47 count:16];
+  if (!v37)
   {
 
 LABEL_20:
-    v57 = objc_opt_class();
-    v58 = NSStringFromClass(v57);
-    v61 = objc_msgSend_keyForClassNamed_signalName_advice_((v15 + 3656), v59, v60, v58, nameCopy, v6);
-    objc_msgSend_addObject_(v14, v62, v63, v61);
+    v28 = objc_opt_class();
+    v29 = NSStringFromClass(v28);
+    v30 = [v13 + 3656 keyForClassNamed:v29 signalName:nameCopy advice:v6];
+    [v12 addObject:v30];
 
     goto LABEL_21;
   }
 
-  v66 = objectCopy;
-  obj = v21;
-  v68 = 0;
-  v69 = *v76;
+  v33 = objectCopy;
+  obj = v15;
+  v35 = 0;
+  v36 = *v43;
   do
   {
-    for (i = 0; i != v70; ++i)
+    for (i = 0; i != v37; ++i)
     {
-      if (*v76 != v69)
+      if (*v43 != v36)
       {
         objc_enumerationMutation(obj);
       }
 
-      v27 = *(*(&v75 + 1) + 8 * i);
-      v28 = objc_msgSend_type(v27, v24, v25);
+      v17 = *(*(&v42 + 1) + 8 * i);
+      type = [v17 type];
 
-      if (v28)
+      if (type)
       {
-        v30 = objc_opt_class();
-        v33 = objc_msgSend_type(v27, v31, v32);
-        v36 = objc_msgSend_keyForClassNamed_signalName_advice_(v30, v34, v35, v33, nameCopy, v6);
-        objc_msgSend_addObject_(v14, v37, v38, v36);
+        v19 = objc_opt_class();
+        type2 = [v17 type];
+        v21 = [v19 keyForClassNamed:type2 signalName:nameCopy advice:v6];
+        [v12 addObject:v21];
 
-        v68 = 1;
+        v35 = 1;
       }
 
-      v73 = 0u;
-      v74 = 0u;
-      v71 = 0u;
-      v72 = 0u;
-      v39 = objc_msgSend_implements(v27, v29, 0.0);
-      v42 = objc_msgSend_countByEnumeratingWithState_objects_count_(v39, v40, v41, &v71, v79, 16);
-      if (v42)
+      v40 = 0u;
+      v41 = 0u;
+      v38 = 0u;
+      v39 = 0u;
+      implements = [v17 implements];
+      v23 = [implements countByEnumeratingWithState:&v38 objects:v46 count:16];
+      if (v23)
       {
-        v43 = v42;
-        v44 = *v72;
+        v24 = v23;
+        v25 = *v39;
         do
         {
-          for (j = 0; j != v43; ++j)
+          for (j = 0; j != v24; ++j)
           {
-            if (*v72 != v44)
+            if (*v39 != v25)
             {
-              objc_enumerationMutation(v39);
+              objc_enumerationMutation(implements);
             }
 
-            v46 = *(*(&v71 + 1) + 8 * j);
-            v47 = objc_opt_class();
-            v50 = objc_msgSend_keyForProtocolNamed_signalName_advice_(v47, v48, v49, v46, nameCopy, v6);
-            objc_msgSend_addObject_(v14, v51, v52, v50);
+            v27 = [objc_opt_class() keyForProtocolNamed:*(*(&v38 + 1) + 8 * j) signalName:nameCopy advice:v6];
+            [v12 addObject:v27];
           }
 
-          v43 = objc_msgSend_countByEnumeratingWithState_objects_count_(v39, v53, v54, &v71, v79, 16);
+          v24 = [implements countByEnumeratingWithState:&v38 objects:v46 count:16];
         }
 
-        while (v43);
+        while (v24);
       }
     }
 
-    v21 = obj;
-    v70 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v24, v25, &v75, v80, 16);
+    v15 = obj;
+    v37 = [obj countByEnumeratingWithState:&v42 objects:v47 count:16];
   }
 
-  while (v70);
+  while (v37);
 
-  objectCopy = v66;
-  v15 = 0x282042000;
-  if ((v68 & 1) == 0)
+  objectCopy = v33;
+  v13 = 0x282042000;
+  if ((v35 & 1) == 0)
   {
     goto LABEL_20;
   }
 
 LABEL_21:
-  v64 = objc_msgSend_array(v14, v55, v56);
+  array = [v12 array];
 
-  return v64;
+  return array;
 }
 
 @end

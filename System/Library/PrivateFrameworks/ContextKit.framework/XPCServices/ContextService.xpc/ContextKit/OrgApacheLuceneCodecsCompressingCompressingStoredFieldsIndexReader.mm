@@ -3,11 +3,54 @@
 - (NSString)description;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)getChildResources;
+- (int64_t)getStartPointerWithInt:(int)int;
 - (int64_t)ramBytesUsed;
 - (void)dealloc;
 @end
 
 @implementation OrgApacheLuceneCodecsCompressingCompressingStoredFieldsIndexReader
+
+- (int64_t)getStartPointerWithInt:(int)int
+{
+  if (int < 0 || self->maxDoc_ <= int)
+  {
+    v20 = JreStrcat("$I$I", a2, *&int, v3, v4, v5, v6, v7, @"docID out of range [0-");
+    v21 = new_JavaLangIllegalArgumentException_initWithNSString_(v20);
+    objc_exception_throw(v21);
+  }
+
+  v10 = sub_10012EE18(self, int);
+  docBases = self->docBases_;
+  if (!docBases)
+  {
+    goto LABEL_10;
+  }
+
+  v12 = v10;
+  size = docBases->super.size_;
+  if ((v12 & 0x80000000) != 0 || v12 >= size)
+  {
+    IOSArray_throwOutOfBoundsWithMsg(size, v12);
+  }
+
+  v14 = sub_10012F0B0(self, v12, int - *(&docBases->super.size_ + v12 + 1));
+  startPointers = self->startPointers_;
+  if (!startPointers)
+  {
+LABEL_10:
+    JreThrowNullPointerException();
+  }
+
+  v16 = v14;
+  v17 = startPointers->super.size_;
+  if ((v12 & 0x80000000) != 0 || v12 >= v17)
+  {
+    IOSArray_throwOutOfBoundsWithMsg(v17, v12);
+  }
+
+  v18 = startPointers->buffer_[v12];
+  return sub_10012EFD0(self, v12, v16) + v18;
+}
 
 - (int64_t)ramBytesUsed
 {
@@ -85,7 +128,7 @@ LABEL_12:
     }
 
     ++p_elementType;
-    v6 += [v9 ramBytesUsed];
+    v6 = &v6[[v9 ramBytesUsed]];
   }
 
   [(JavaUtilArrayList *)v3 addWithId:OrgApacheLuceneUtilAccountables_namedAccountableWithNSString_withLong_(@"doc base deltas", v6)];
@@ -109,24 +152,22 @@ LABEL_14:
     }
 
     ++v13;
-    v12 += [v15 ramBytesUsed];
+    v12 = &v12[[v15 ramBytesUsed]];
   }
 
   [(JavaUtilArrayList *)v3 addWithId:OrgApacheLuceneUtilAccountables_namedAccountableWithNSString_withLong_(@"start pointer deltas", v12)];
 
-  return JavaUtilCollections_unmodifiableListWithJavaUtilList_(v3);
+  return JavaUtilCollections_unmodifiableListWithJavaUtilList_(v3, v16);
 }
 
 - (NSString)description
 {
   v3 = [-[OrgApacheLuceneCodecsCompressingCompressingStoredFieldsIndexReader getClass](self "getClass")];
-  docBases = self->docBases_;
-  if (!docBases)
+  if (!self->docBases_)
   {
     JreThrowNullPointerException();
   }
 
-  size = docBases->super.size_;
   return JreStrcat("$$IC", v4, v5, v6, v7, v8, v9, v10, v3);
 }
 

@@ -179,7 +179,7 @@
   [path bounds];
   if (self)
   {
-    [(TSDAngleGradient *)self p_shadingTransformForBounds:?];
+    objc_msgSend_p_shadingTransformForBounds_(self);
     v5 = 0u;
     v6 = 0u;
     v7 = 0u;
@@ -204,7 +204,7 @@
   [path bounds];
   if (self)
   {
-    [(TSDAngleGradient *)self p_shadingTransformForBounds:?];
+    objc_msgSend_p_shadingTransformForBounds_(self);
     v5 = 0u;
     v6 = 0u;
     v7 = vmulq_f64(0, 0);
@@ -241,7 +241,7 @@
   {
     if (self)
     {
-      [(TSDGradient *)self centeredRadialTransformInRect:x, y, width, height];
+      objc_msgSend_centeredRadialTransformInRect_(self, x, y, width, height);
     }
 
     else
@@ -481,7 +481,7 @@
   PathBoundingBox = CGPathGetPathBoundingBox(path);
   if (self)
   {
-    [(TSDAngleGradient *)self p_shadingTransformForBounds:PathBoundingBox.origin.x, PathBoundingBox.origin.y, PathBoundingBox.size.width, PathBoundingBox.size.height];
+    objc_msgSend_p_shadingTransformForBounds_(self, PathBoundingBox.origin.x, PathBoundingBox.origin.y, PathBoundingBox.size.width, PathBoundingBox.size.height);
   }
 
   else

@@ -3,6 +3,7 @@
 - (RWIProtocolDOMFlexOverlayConfig)initWithFlexColor:(id)color;
 - (RWIProtocolDOMRGBAColor)flexColor;
 - (void)setFlexColor:(id)color;
+- (void)setShowOrderNumbers:(BOOL)numbers;
 @end
 
 @implementation RWIProtocolDOMFlexOverlayConfig
@@ -45,7 +46,7 @@
     v11.receiver = self;
     v11.super_class = RWIProtocolDOMFlexOverlayConfig;
     v5 = [(RWIProtocolJSONObject *)&v11 objectForKey:@"flexColor"];
-    [v5 toJSONObject];
+    objc_msgSend_toJSONObject(v5);
     v6 = v12;
     ++*v12;
     v13 = v6;
@@ -87,6 +88,13 @@
   }
 
   return v7;
+}
+
+- (void)setShowOrderNumbers:(BOOL)numbers
+{
+  v3.receiver = self;
+  v3.super_class = RWIProtocolDOMFlexOverlayConfig;
+  [(RWIProtocolJSONObject *)&v3 setBool:numbers forKey:@"showOrderNumbers"];
 }
 
 - (BOOL)showOrderNumbers

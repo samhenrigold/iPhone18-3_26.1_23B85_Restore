@@ -296,7 +296,7 @@
 
 - (double)maxTailSize
 {
-  v47[4] = *MEMORY[0x277D85DE8];
+  v56[4] = *MEMORY[0x277D85DE8];
   objc_msgSend_p_tailPosition(self, a2, v2);
   v5 = v4;
   v7 = v6;
@@ -306,17 +306,17 @@
   v15 = v14;
   TSUDistance();
   v17 = v16;
-  v47[0] = v5;
-  v47[1] = v7;
-  v47[2] = v13;
-  v47[3] = v15;
-  v40 = 0.0;
-  v41 = 0.0;
+  v56[0] = v5;
+  v56[1] = v7;
+  v56[2] = v13;
+  v56[3] = v15;
+  v49 = 0.0;
+  v50 = 0.0;
   v20 = objc_msgSend_elementCount(v10, v18, v19);
   if (v20 < 1)
   {
-    v33 = 0.0;
-    v34 = 0.0;
+    v42 = 0.0;
+    v43 = 0.0;
     goto LABEL_11;
   }
 
@@ -327,12 +327,20 @@
   v28 = v27;
   for (i = 0; i != v24; ++i)
   {
-    v30 = objc_msgSend_elementAtIndex_allPoints_(v10, v21, i, &v42);
+    v30 = objc_msgSend_elementAtIndex_allPoints_(v10, v21, i, &v51);
     if (v30 == 2)
     {
-      sub_27668D444(v47, &v41, &v40, v42.f64[0], v42.f64[1], v26, v28, v5, v7, v17);
-      sub_27668D444(v47, &v41, &v40, v45, v46, v26, v28, v5, v7, v17);
-      v31 = TSDPointOnCurve(&v42, 0.5);
+      v31.n128_u64[0] = *&v51.f64[1];
+      v23.n128_u64[0] = *&v51.f64[0];
+      v32.n128_u64[0] = v26;
+      v33.n128_u64[0] = v28;
+      sub_27668D444(v56, &v50, &v49, v23, v31, v32, v33, v5, v7, v17);
+      v38.n128_u64[0] = v54;
+      v39.n128_u64[0] = v55;
+      v40.n128_u64[0] = v26;
+      v41.n128_u64[0] = v28;
+      sub_27668D444(v56, &v50, &v49, v38, v39, v40, v41, v5, v7, v17);
+      v36.n128_f64[0] = TSDPointOnCurve(&v51, 0.5);
     }
 
     else
@@ -342,23 +350,29 @@
         continue;
       }
 
-      sub_27668D444(v47, &v41, &v40, v42.f64[0], v42.f64[1], v26, v28, v5, v7, v17);
-      v31 = v43;
-      v32 = v44;
+      v31.n128_u64[0] = *&v51.f64[1];
+      v23.n128_u64[0] = *&v51.f64[0];
+      v32.n128_u64[0] = v26;
+      v33.n128_u64[0] = v28;
+      sub_27668D444(v56, &v50, &v49, v23, v31, v32, v33, v5, v7, v17);
+      v36.n128_u64[0] = v52;
+      v37.n128_u64[0] = v53;
     }
 
-    v23 = sub_27668D444(v47, &v41, &v40, v31, v32, v26, v28, v5, v7, v17);
+    v34.n128_u64[0] = v26;
+    v35.n128_u64[0] = v28;
+    v23.n128_f64[0] = sub_27668D444(v56, &v50, &v49, v36, v37, v34, v35, v5, v7, v17);
   }
 
-  v33 = v40;
-  v34 = v41;
+  v42 = v49;
+  v43 = v50;
 LABEL_11:
-  objc_msgSend_minTailSize(self, v21, v22, v23);
-  v36 = v35;
+  objc_msgSend_minTailSize(self, v21, v22, v23.n128_f64[0]);
+  v45 = v44;
 
-  v37 = fmin(v34, -v33) * 0.899999976;
-  v38 = v36;
-  return fmaxf(v37, v38);
+  v46 = fmin(v43, -v42) * 0.899999976;
+  v47 = v45;
+  return fmaxf(v46, v47);
 }
 
 - (double)clampedCalloutTailSize
@@ -661,7 +675,7 @@ LABEL_12:
 
 - (void)p_getTailPath:(id)path center:(CGPoint *)center tailSize:(double *)size intersections:(CGPoint)intersections[2]
 {
-  v76[4] = *MEMORY[0x277D85DE8];
+  v84[4] = *MEMORY[0x277D85DE8];
   pathCopy = path;
   objc_msgSend_tailSize(self, v11, v12);
   v14 = v13;
@@ -675,29 +689,29 @@ LABEL_12:
   v29 = fmin(fabs(v14), v28);
   TSUSubtractPoints();
   TSUNormalizePoint();
-  v74 = v29;
+  v82 = v29;
   TSUMultiplyPointScalar();
   TSURotatePoint90Degrees();
-  v76[0] = v18;
-  v76[1] = v20;
+  v84[0] = v18;
+  v84[1] = v20;
   TSUAddPoints();
   TSUSubtractPoints();
   TSUMultiplyPointScalar();
   TSUAddPoints();
-  v76[2] = v30;
-  v76[3] = v31;
-  v75[0] = v18;
-  v75[1] = v20;
+  v84[2] = v30;
+  v84[3] = v31;
+  v83[0] = v18;
+  v83[1] = v20;
   TSUSubtractPoints();
   TSUSubtractPoints();
   TSUMultiplyPointScalar();
   TSUAddPoints();
-  v75[2] = v32;
-  v75[3] = v33;
+  v83[2] = v32;
+  v83[3] = v33;
   v34 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v35 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  objc_msgSend_addIntersectionsWithLine_to_(pathCopy, v36, v76, v34);
-  objc_msgSend_addIntersectionsWithLine_to_(pathCopy, v37, v75, v35);
+  objc_msgSend_addIntersectionsWithLine_to_(pathCopy, v36, v84, v34);
+  objc_msgSend_addIntersectionsWithLine_to_(pathCopy, v37, v83, v35);
   if (objc_msgSend_count(v34, v38, v39))
   {
     v41 = objc_msgSend_objectAtIndexedSubscript_(v34, v40, 0);
@@ -717,18 +731,18 @@ LABEL_12:
   {
     v53 = pathCopy;
     v56 = objc_msgSend_CGPath(v53, v54, v55);
-    v51 = sub_27666B350(v56, v76);
+    v51 = sub_27666B350(v56, v84, v57, v58, v59, v60);
   }
 
-  v57 = v51;
-  v58 = v52;
+  v61 = v51;
+  v62 = v52;
   if (objc_msgSend_count(v35, v49, v50))
   {
-    v60 = objc_msgSend_objectAtIndexedSubscript_(v35, v59, 0);
-    objc_msgSend_point(v60, v61, v62);
+    v64 = objc_msgSend_objectAtIndexedSubscript_(v35, v63, 0);
+    objc_msgSend_point(v64, v65, v66);
 
-    v65 = objc_msgSend_lastObject(v35, v63, v64);
-    objc_msgSend_point(v65, v66, v67);
+    v69 = objc_msgSend_lastObject(v35, v67, v68);
+    objc_msgSend_point(v69, v70, v71);
 
     TSUDistance();
     TSUDistance();
@@ -739,15 +753,15 @@ LABEL_12:
 
   else
   {
-    v70 = pathCopy;
-    v73 = objc_msgSend_CGPath(v70, v71, v72);
-    v68 = sub_27666B350(v73, v75);
+    v74 = pathCopy;
+    v77 = objc_msgSend_CGPath(v74, v75, v76);
+    v72 = sub_27666B350(v77, v83, v78, v79, v80, v81);
   }
 
-  intersections->x = v57;
-  intersections->y = v58;
-  intersections[1].x = v68;
-  intersections[1].y = v69;
+  intersections->x = v61;
+  intersections->y = v62;
+  intersections[1].x = v72;
+  intersections[1].y = v73;
   if (center)
   {
     center->x = v23;
@@ -756,7 +770,7 @@ LABEL_12:
 
   if (size)
   {
-    *size = v74;
+    *size = v82;
   }
 }
 

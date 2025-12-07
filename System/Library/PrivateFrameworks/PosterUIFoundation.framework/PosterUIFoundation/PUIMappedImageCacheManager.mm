@@ -59,56 +59,57 @@ void __49__PUIMappedImageCacheManager_defaultCacheManager__block_invoke()
 
 + (void)cleanupOldCaches
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   scopedSystemContainerForCurrentProcess = [MEMORY[0x1E69C5148] scopedSystemContainerForCurrentProcess];
   v3 = objc_opt_new();
-  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v16 = scopedSystemContainerForCurrentProcess;
+  v22 = 0u;
+  v17 = scopedSystemContainerForCurrentProcess;
   cachesPath = [scopedSystemContainerForCurrentProcess cachesPath];
   v5 = [v3 contentsOfDirectoryAtURL:cachesPath includingPropertiesForKeys:0 options:1 error:0];
 
-  v6 = [v5 countByEnumeratingWithState:&v18 objects:v26 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v19 objects:v27 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v19;
+    v8 = *v20;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v19 != v8)
+        if (*v20 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v18 + 1) + 8 * i);
+        v10 = *(*(&v19 + 1) + 8 * i);
         lastPathComponent = [v10 lastPathComponent];
         v12 = [lastPathComponent hasPrefix:@"PosterViewController"];
 
         if (v12)
         {
-          v17 = 0;
-          v13 = [v3 removeItemAtURL:v10 error:&v17];
-          v14 = v17;
+          v18 = 0;
+          v13 = [v3 removeItemAtURL:v10 error:&v18];
+          v14 = v18;
+          v15 = v14;
           if ((v13 & 1) == 0)
           {
-            v15 = PUILogCaching();
-            if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+            v16 = PUILogCaching(v14);
+            if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412546;
-              v23 = v10;
-              v24 = 2114;
-              v25 = v14;
-              _os_log_error_impl(&dword_1A8C85000, v15, OS_LOG_TYPE_ERROR, "Unable to remove old cache %@: %{public}@", buf, 0x16u);
+              v24 = v10;
+              v25 = 2114;
+              v26 = v15;
+              _os_log_error_impl(&dword_1A8C85000, v16, OS_LOG_TYPE_ERROR, "Unable to remove old cache %@: %{public}@", buf, 0x16u);
             }
           }
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v18 objects:v26 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v19 objects:v27 count:16];
     }
 
     while (v7);
@@ -137,14 +138,14 @@ void __49__PUIMappedImageCacheManager_defaultCacheManager__block_invoke()
       {
         defaultManager = [MEMORY[0x1E696AC08] defaultManager];
         v10 = PFFileProtectionNoneAttributes();
-        v15 = 0;
-        v11 = [defaultManager createDirectoryAtURL:managerCopy withIntermediateDirectories:1 attributes:v10 error:&v15];
-        v12 = v15;
+        v16 = 0;
+        v11 = [defaultManager createDirectoryAtURL:managerCopy withIntermediateDirectories:1 attributes:v10 error:&v16];
+        v12 = v16;
 
         if ((v11 & 1) == 0)
         {
-          v13 = PUILogCaching();
-          if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+          v14 = PUILogCaching(v13);
+          if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
           {
             +[PUIMappedImageCacheManager registerCacheManager:cacheManager:];
           }
@@ -184,7 +185,7 @@ uint64_t __64__PUIMappedImageCacheManager_registerCacheManager_cacheManager___bl
   providerCopy = provider;
   if (!providerCopy)
   {
-    [PUIMappedImageCacheManager initWithNumberOfManagedCaches:a2 pathProvider:?];
+    [PUIMappedImageCacheManager initWithNumberOfManagedCaches:a2 pathProvider:self];
   }
 
   v8 = providerCopy;
@@ -193,16 +194,16 @@ uint64_t __64__PUIMappedImageCacheManager_registerCacheManager_cacheManager___bl
 
   if (([uRLByStandardizingPath isFileURL] & 1) == 0)
   {
-    [PUIMappedImageCacheManager initWithNumberOfManagedCaches:a2 pathProvider:?];
+    [PUIMappedImageCacheManager initWithNumberOfManagedCaches:a2 pathProvider:self];
   }
 
   v11 = [objc_opt_class() registerCacheManager:uRLByStandardizingPath cacheManager:self];
   v12 = v11;
   if (!v11 || v11 == self)
   {
-    v38.receiver = self;
-    v38.super_class = PUIMappedImageCacheManager;
-    v14 = [(PUIMappedImageCacheManager *)&v38 init];
+    v39.receiver = self;
+    v39.super_class = PUIMappedImageCacheManager;
+    v14 = [(PUIMappedImageCacheManager *)&v39 init];
     v15 = v14;
     if (v14)
     {
@@ -226,13 +227,14 @@ uint64_t __64__PUIMappedImageCacheManager_registerCacheManager_cacheManager___bl
       v15->_cacheLock_cacheKeyToWeakCache = strongToWeakObjectsMapTable;
 
       v24 = v15->_manifestURL;
-      v37 = 0;
-      v25 = [MEMORY[0x1E695DEF0] dataWithContentsOfURL:v24 options:1 error:&v37];
-      v26 = v37;
+      v38 = 0;
+      v25 = [MEMORY[0x1E695DEF0] dataWithContentsOfURL:v24 options:1 error:&v38];
+      v26 = v38;
+      v27 = v26;
       if (v26)
       {
-        v27 = PUILogCaching();
-        if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+        v28 = PUILogCaching(v26);
+        if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
         {
           [PUIMappedImageCacheManager initWithNumberOfManagedCaches:pathProvider:];
         }
@@ -240,21 +242,21 @@ uint64_t __64__PUIMappedImageCacheManager_registerCacheManager_cacheManager___bl
 
       if ([v25 length])
       {
-        v28 = [MEMORY[0x1E696AE40] propertyListWithData:v25 options:0 format:0 error:0];
-        v29 = [v28 mutableCopy];
-        v30 = v29;
-        if (v29)
+        v29 = [MEMORY[0x1E696AE40] propertyListWithData:v25 options:0 format:0 error:0];
+        v30 = [v29 mutableCopy];
+        v31 = v30;
+        if (v30)
         {
-          v31 = v29;
+          v32 = v30;
         }
 
         else
         {
-          v31 = objc_opt_new();
+          v32 = objc_opt_new();
         }
 
         cacheLock_manifest = v15->_cacheLock_manifest;
-        v15->_cacheLock_manifest = v31;
+        v15->_cacheLock_manifest = v32;
 
         if (caches != 0x7FFFFFFFFFFFFFFFLL)
         {
@@ -264,9 +266,9 @@ uint64_t __64__PUIMappedImageCacheManager_registerCacheManager_cacheManager___bl
 
       else
       {
-        v32 = objc_opt_new();
-        v33 = v15->_cacheLock_manifest;
-        v15->_cacheLock_manifest = v32;
+        v33 = objc_opt_new();
+        v34 = v15->_cacheLock_manifest;
+        v15->_cacheLock_manifest = v33;
       }
     }
 
@@ -279,9 +281,9 @@ uint64_t __64__PUIMappedImageCacheManager_registerCacheManager_cacheManager___bl
     v13 = v11;
   }
 
-  v35 = v13;
+  v36 = v13;
 
-  return v35;
+  return v36;
 }
 
 - (void)dealloc
@@ -334,7 +336,7 @@ uint64_t __64__PUIMappedImageCacheManager_registerCacheManager_cacheManager___bl
   {
     if (![cacheCopy length])
     {
-      [PUIMappedImageCacheManager checkoutImageCache:a2 date:?];
+      [PUIMappedImageCacheManager checkoutImageCache:a2 date:self];
     }
 
     os_unfair_lock_lock(&self->_cacheLock);
@@ -478,7 +480,7 @@ uint64_t __64__PUIMappedImageCacheManager_registerCacheManager_cacheManager___bl
   v27 = *MEMORY[0x1E69E9840];
   cacheCopy = cache;
   dateCopy = date;
-  v10 = PUILogCaching();
+  v10 = PUILogCaching(dateCopy);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     cacheName = self->_cacheName;
@@ -494,7 +496,7 @@ uint64_t __64__PUIMappedImageCacheManager_registerCacheManager_cacheManager___bl
   }
 
   v12 = [(NSMapTable *)self->_cacheLock_cacheKeyToWeakCache objectForKey:cacheCopy];
-  v13 = PUILogCaching();
+  v13 = PUILogCaching(v12);
   v14 = os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT);
   if (v12)
   {
@@ -548,7 +550,7 @@ LABEL_7:
 {
   v18 = *MEMORY[0x1E69E9840];
   keyCopy = key;
-  v5 = PUILogCaching();
+  v5 = PUILogCaching(keyCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     cacheName = self->_cacheName;
@@ -574,78 +576,78 @@ LABEL_7:
 
 - (BOOL)_cacheLock_teardownCacheForKey:(id)key
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   keyCopy = key;
-  v5 = PUILogCaching();
+  v5 = PUILogCaching(keyCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     cacheName = self->_cacheName;
-    v16 = 138543874;
-    v17 = cacheName;
-    v18 = 2048;
+    v18 = 138543874;
+    v19 = cacheName;
+    v20 = 2048;
     selfCopy4 = self;
-    v20 = 2112;
-    v21 = keyCopy;
-    _os_log_impl(&dword_1A8C85000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@/%p] teardownCacheForKey key %@", &v16, 0x20u);
+    v22 = 2112;
+    v23 = keyCopy;
+    _os_log_impl(&dword_1A8C85000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@/%p] teardownCacheForKey key %@", &v18, 0x20u);
   }
 
   v7 = [(NSMapTable *)self->_cacheLock_cacheKeyToWeakCache objectForKey:keyCopy];
 
   if (v7)
   {
-    v8 = PUILogCaching();
-    if (!os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = PUILogCaching(v8);
+    if (!os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
 LABEL_7:
 
       goto LABEL_12;
     }
 
-    v9 = self->_cacheName;
-    v16 = 138543874;
-    v17 = v9;
-    v18 = 2048;
+    v10 = self->_cacheName;
+    v18 = 138543874;
+    v19 = v10;
+    v20 = 2048;
     selfCopy4 = self;
-    v20 = 2112;
-    v21 = keyCopy;
-    v10 = "[%{public}@/%p] teardownCacheForKey key %@ aborted; cache still alive somewhere";
+    v22 = 2112;
+    v23 = keyCopy;
+    v11 = "[%{public}@/%p] teardownCacheForKey key %@ aborted; cache still alive somewhere";
 LABEL_6:
-    _os_log_impl(&dword_1A8C85000, v8, OS_LOG_TYPE_DEFAULT, v10, &v16, 0x20u);
+    _os_log_impl(&dword_1A8C85000, v9, OS_LOG_TYPE_DEFAULT, v11, &v18, 0x20u);
     goto LABEL_7;
   }
 
-  v11 = [(NSMutableDictionary *)self->_cacheLock_manifest objectForKey:keyCopy];
+  v12 = [(NSMutableDictionary *)self->_cacheLock_manifest objectForKey:keyCopy];
 
-  v8 = PUILogCaching();
-  v12 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
-  if (!v11)
+  v9 = PUILogCaching(v13);
+  v14 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
+  if (!v12)
   {
-    if (!v12)
+    if (!v14)
     {
       goto LABEL_7;
     }
 
-    v15 = self->_cacheName;
-    v16 = 138543874;
-    v17 = v15;
-    v18 = 2048;
+    v17 = self->_cacheName;
+    v18 = 138543874;
+    v19 = v17;
+    v20 = 2048;
     selfCopy4 = self;
-    v20 = 2112;
-    v21 = keyCopy;
-    v10 = "[%{public}@/%p] teardownCacheForKey key %@ ignored - already cleaned up";
+    v22 = 2112;
+    v23 = keyCopy;
+    v11 = "[%{public}@/%p] teardownCacheForKey key %@ ignored - already cleaned up";
     goto LABEL_6;
   }
 
-  if (v12)
+  if (v14)
   {
-    v13 = self->_cacheName;
-    v16 = 138543874;
-    v17 = v13;
-    v18 = 2048;
+    v15 = self->_cacheName;
+    v18 = 138543874;
+    v19 = v15;
+    v20 = 2048;
     selfCopy4 = self;
-    v20 = 2112;
-    v21 = keyCopy;
-    _os_log_impl(&dword_1A8C85000, v8, OS_LOG_TYPE_DEFAULT, "[%{public}@/%p] teardownCacheForKey key %@ finished", &v16, 0x20u);
+    v22 = 2112;
+    v23 = keyCopy;
+    _os_log_impl(&dword_1A8C85000, v9, OS_LOG_TYPE_DEFAULT, "[%{public}@/%p] teardownCacheForKey key %@ finished", &v18, 0x20u);
   }
 
   [(PUIMappedImageCacheManager *)self _cacheLock_truncateCaches:0];
@@ -656,18 +658,18 @@ LABEL_12:
 
 - (BOOL)_cacheLock_removeCacheForKey:(id)key
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   keyCopy = key;
-  v5 = PUILogCaching();
+  v5 = PUILogCaching(keyCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     cacheName = self->_cacheName;
     *buf = 138543874;
-    v22 = cacheName;
-    v23 = 2048;
+    v25 = cacheName;
+    v26 = 2048;
     selfCopy5 = self;
-    v25 = 2112;
-    v26 = keyCopy;
+    v28 = 2112;
+    v29 = keyCopy;
     _os_log_impl(&dword_1A8C85000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@/%p] removeCacheForKey %@", buf, 0x20u);
   }
 
@@ -675,86 +677,87 @@ LABEL_12:
 
   if (v7)
   {
-    v8 = PUILogCaching();
-    if (!os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = PUILogCaching(v8);
+    if (!os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
 LABEL_7:
-      v11 = 0;
+      v12 = 0;
       goto LABEL_16;
     }
 
-    v9 = self->_cacheName;
+    v10 = self->_cacheName;
     *buf = 138543874;
-    v22 = v9;
-    v23 = 2048;
+    v25 = v10;
+    v26 = 2048;
     selfCopy5 = self;
-    v25 = 2112;
-    v26 = keyCopy;
-    v10 = "[%{public}@/%p] removeCacheForKey %@ aborted; cache is live";
+    v28 = 2112;
+    v29 = keyCopy;
+    v11 = "[%{public}@/%p] removeCacheForKey %@ aborted; cache is live";
 LABEL_6:
-    _os_log_impl(&dword_1A8C85000, v8, OS_LOG_TYPE_DEFAULT, v10, buf, 0x20u);
+    _os_log_impl(&dword_1A8C85000, v9, OS_LOG_TYPE_DEFAULT, v11, buf, 0x20u);
     goto LABEL_7;
   }
 
-  v12 = [(NSMutableDictionary *)self->_cacheLock_manifest objectForKey:keyCopy];
+  v13 = [(NSMutableDictionary *)self->_cacheLock_manifest objectForKey:keyCopy];
 
-  if (!v12)
+  if (!v13)
   {
-    v8 = PUILogCaching();
-    if (!os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = PUILogCaching(v14);
+    if (!os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_7;
     }
 
-    v18 = self->_cacheName;
+    v21 = self->_cacheName;
     *buf = 138543874;
-    v22 = v18;
-    v23 = 2048;
+    v25 = v21;
+    v26 = 2048;
     selfCopy5 = self;
-    v25 = 2112;
-    v26 = keyCopy;
-    v10 = "[%{public}@/%p] removeCacheForKey %@ aborted; not currently in manifest";
+    v28 = 2112;
+    v29 = keyCopy;
+    v11 = "[%{public}@/%p] removeCacheForKey %@ aborted; not currently in manifest";
     goto LABEL_6;
   }
 
-  v20 = 0;
-  v13 = [(PUIMappedImageCacheManager *)self _cacheLock_deleteCacheDirectoryForKey:keyCopy error:&v20];
-  v8 = v20;
-  if (!v13)
+  v23 = 0;
+  v15 = [(PUIMappedImageCacheManager *)self _cacheLock_deleteCacheDirectoryForKey:keyCopy error:&v23];
+  v16 = v23;
+  v9 = v16;
+  if (!v15)
   {
-    v14 = PUILogCaching();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v17 = PUILogCaching(v16);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
-      v19 = self->_cacheName;
+      v22 = self->_cacheName;
       *buf = 138544130;
-      v22 = v19;
-      v23 = 2048;
+      v25 = v22;
+      v26 = 2048;
       selfCopy5 = self;
-      v25 = 2112;
-      v26 = keyCopy;
-      v27 = 2114;
-      v28 = v8;
-      _os_log_error_impl(&dword_1A8C85000, v14, OS_LOG_TYPE_ERROR, "[%{public}@/%p] removeCacheForKey; failed to cleanup cache key %@: %{public}@", buf, 0x2Au);
+      v28 = 2112;
+      v29 = keyCopy;
+      v30 = 2114;
+      v31 = v9;
+      _os_log_error_impl(&dword_1A8C85000, v17, OS_LOG_TYPE_ERROR, "[%{public}@/%p] removeCacheForKey; failed to cleanup cache key %@: %{public}@", buf, 0x2Au);
     }
   }
 
-  v15 = PUILogCaching();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+  v18 = PUILogCaching(v16);
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
   {
-    v16 = self->_cacheName;
+    v19 = self->_cacheName;
     *buf = 138543874;
-    v22 = v16;
-    v23 = 2048;
+    v25 = v19;
+    v26 = 2048;
     selfCopy5 = self;
-    v25 = 2112;
-    v26 = keyCopy;
-    _os_log_impl(&dword_1A8C85000, v15, OS_LOG_TYPE_DEFAULT, "[%{public}@/%p] removeCacheForKey %@ completed; cache destroyed", buf, 0x20u);
+    v28 = 2112;
+    v29 = keyCopy;
+    _os_log_impl(&dword_1A8C85000, v18, OS_LOG_TYPE_DEFAULT, "[%{public}@/%p] removeCacheForKey %@ completed; cache destroyed", buf, 0x20u);
   }
 
-  v11 = 1;
+  v12 = 1;
 LABEL_16:
 
-  return v11;
+  return v12;
 }
 
 - (void)_cacheLock_bumpManifestForImageCacheKey:(id)key bumpDate:(id)date
@@ -762,7 +765,7 @@ LABEL_16:
   v20 = *MEMORY[0x1E69E9840];
   keyCopy = key;
   dateCopy = date;
-  v8 = PUILogCaching();
+  v8 = PUILogCaching(dateCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     cacheName = self->_cacheName;
@@ -802,32 +805,33 @@ LABEL_16:
 - (void)_cacheLock_truncateCaches:(BOOL)caches
 {
   cachesCopy = caches;
-  v87 = *MEMORY[0x1E69E9840];
-  if (([(BSAtomicFlag *)self->_invalidationFlag getFlag]& 1) == 0)
+  v94 = *MEMORY[0x1E69E9840];
+  getFlag = [(BSAtomicFlag *)self->_invalidationFlag getFlag];
+  if ((getFlag & 1) == 0)
   {
-    v5 = PUILogCaching();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = PUILogCaching(getFlag);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       cacheName = self->_cacheName;
       *buf = 138543874;
-      v79 = cacheName;
-      v80 = 2048;
+      v86 = cacheName;
+      v87 = 2048;
       selfCopy13 = self;
-      v82 = 1024;
-      LODWORD(v83) = cachesCopy;
-      _os_log_impl(&dword_1A8C85000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@/%p] truncateCaches; truncate on disk caches? %{BOOL}u", buf, 0x1Cu);
+      v89 = 1024;
+      LODWORD(v90) = cachesCopy;
+      _os_log_impl(&dword_1A8C85000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}@/%p] truncateCaches; truncate on disk caches? %{BOOL}u", buf, 0x1Cu);
     }
 
     numberOfManagedCaches = [(PUIMappedImageCacheManager *)self numberOfManagedCaches];
     if (numberOfManagedCaches == 0x7FFFFFFFFFFFFFFFLL)
     {
-      _cacheLock_activeCaches = PUILogCaching();
+      _cacheLock_activeCaches = PUILogCaching(0x7FFFFFFFFFFFFFFFLL);
       if (os_log_type_enabled(_cacheLock_activeCaches, OS_LOG_TYPE_DEFAULT))
       {
-        v9 = self->_cacheName;
+        v10 = self->_cacheName;
         *buf = 138543618;
-        v79 = v9;
-        v80 = 2048;
+        v86 = v10;
+        v87 = 2048;
         selfCopy13 = self;
         _os_log_impl(&dword_1A8C85000, _cacheLock_activeCaches, OS_LOG_TYPE_DEFAULT, "[%{public}@/%p] truncateCaches bailing;  number of managed caches is NSNotFound", buf, 0x16u);
       }
@@ -835,282 +839,290 @@ LABEL_16:
 
     else
     {
-      v10 = numberOfManagedCaches;
+      v11 = numberOfManagedCaches;
       _cacheLock_activeCaches = [(PUIMappedImageCacheManager *)self _cacheLock_activeCaches];
-      v11 = MEMORY[0x1E695DFD8];
+      v12 = MEMORY[0x1E695DFD8];
       allKeys = [(NSMutableDictionary *)self->_cacheLock_manifest allKeys];
-      v13 = [v11 setWithArray:allKeys];
+      v14 = [v12 setWithArray:allKeys];
 
-      v14 = [v13 count];
-      v15 = PUILogCaching();
-      v16 = os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT);
-      if (v14 <= v10)
+      v15 = [v14 count];
+      v16 = PUILogCaching(v15);
+      v17 = os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT);
+      if (v15 <= v11)
       {
-        if (v16)
+        if (v17)
         {
-          v44 = self->_cacheName;
+          v48 = self->_cacheName;
           *buf = 138543618;
-          v79 = v44;
-          v80 = 2048;
+          v86 = v48;
+          v87 = 2048;
           selfCopy13 = self;
-          _os_log_impl(&dword_1A8C85000, v15, OS_LOG_TYPE_DEFAULT, "[%{public}@/%p] truncateCaches; known caches is less than max number of managed caches", buf, 0x16u);
+          _os_log_impl(&dword_1A8C85000, v16, OS_LOG_TYPE_DEFAULT, "[%{public}@/%p] truncateCaches; known caches is less than max number of managed caches", buf, 0x16u);
         }
 
-        v30 = 0;
+        v32 = 0;
       }
 
       else
       {
-        if (v16)
+        if (v17)
         {
-          v17 = self->_cacheName;
+          v18 = self->_cacheName;
           *buf = 138543618;
-          v79 = v17;
-          v80 = 2048;
+          v86 = v18;
+          v87 = 2048;
           selfCopy13 = self;
-          _os_log_impl(&dword_1A8C85000, v15, OS_LOG_TYPE_DEFAULT, "[%{public}@/%p] truncateCaches; will proceed", buf, 0x16u);
+          _os_log_impl(&dword_1A8C85000, v16, OS_LOG_TYPE_DEFAULT, "[%{public}@/%p] truncateCaches; will proceed", buf, 0x16u);
         }
 
-        v18 = objc_alloc(MEMORY[0x1E698E6F8]);
-        v19 = [(NSMutableDictionary *)self->_cacheLock_manifest count];
-        v20 = [MEMORY[0x1E698E720] sortUsingComparator:&__block_literal_global_56_0];
-        v21 = [v18 initWithCapacity:v19 keyOrderingStrategy:v20];
+        v19 = objc_alloc(MEMORY[0x1E698E6F8]);
+        v20 = [(NSMutableDictionary *)self->_cacheLock_manifest count];
+        v21 = [MEMORY[0x1E698E720] sortUsingComparator:&__block_literal_global_56_0];
+        v22 = [v19 initWithCapacity:v20 keyOrderingStrategy:v21];
 
         cacheLock_manifest = self->_cacheLock_manifest;
-        v75[0] = MEMORY[0x1E69E9820];
-        v75[1] = 3221225472;
-        v75[2] = __56__PUIMappedImageCacheManager__cacheLock_truncateCaches___block_invoke_2;
-        v75[3] = &unk_1E7856398;
-        v15 = v21;
-        v76 = v15;
-        [(NSMutableDictionary *)cacheLock_manifest enumerateKeysAndObjectsUsingBlock:v75];
-        v23 = [v15 count]- v10;
-        if (v23 < 1)
+        v82[0] = MEMORY[0x1E69E9820];
+        v82[1] = 3221225472;
+        v82[2] = __56__PUIMappedImageCacheManager__cacheLock_truncateCaches___block_invoke_2;
+        v82[3] = &unk_1E7856398;
+        v16 = v22;
+        v83 = v16;
+        [(NSMutableDictionary *)cacheLock_manifest enumerateKeysAndObjectsUsingBlock:v82];
+        v24 = [v16 count];
+        v25 = v24 - v11;
+        if ((v24 - v11) < 1)
         {
-          v30 = 0;
+          v32 = 0;
         }
 
         else
         {
-          v24 = PUILogCaching();
-          if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+          v26 = PUILogCaching(v24);
+          if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
           {
-            v25 = self->_cacheName;
+            v27 = self->_cacheName;
             *buf = 138543874;
-            v79 = v25;
-            v80 = 2048;
+            v86 = v27;
+            v87 = 2048;
             selfCopy13 = self;
-            v82 = 2048;
-            v83 = v23;
-            _os_log_impl(&dword_1A8C85000, v24, OS_LOG_TYPE_DEFAULT, "[%{public}@/%p] truncateCaches; will attempt to cleanup %lu caches", buf, 0x20u);
+            v89 = 2048;
+            v90 = v25;
+            _os_log_impl(&dword_1A8C85000, v26, OS_LOG_TYPE_DEFAULT, "[%{public}@/%p] truncateCaches; will attempt to cleanup %lu caches", buf, 0x20u);
           }
 
-          v62 = cachesCopy;
+          v69 = cachesCopy;
 
-          v61 = v15;
-          allValues = [v15 allValues];
-          v27 = [allValues subarrayWithRange:{v10, v23}];
+          v68 = v16;
+          allValues = [v16 allValues];
+          v29 = [allValues subarrayWithRange:{v11, v25}];
 
-          v74 = 0u;
-          v72 = 0u;
-          v73 = 0u;
-          v71 = 0u;
-          obj = v27;
-          v28 = [obj countByEnumeratingWithState:&v71 objects:v86 count:16];
-          if (v28)
+          v81 = 0u;
+          v79 = 0u;
+          v80 = 0u;
+          v78 = 0u;
+          obj = v29;
+          v30 = [obj countByEnumeratingWithState:&v78 objects:v93 count:16];
+          if (v30)
           {
-            v29 = v28;
-            v30 = 0;
-            v31 = *v72;
+            v31 = v30;
+            v32 = 0;
+            v33 = *v79;
             do
             {
-              for (i = 0; i != v29; ++i)
+              for (i = 0; i != v31; ++i)
               {
-                if (*v72 != v31)
+                if (*v79 != v33)
                 {
                   objc_enumerationMutation(obj);
                 }
 
-                v33 = *(*(&v71 + 1) + 8 * i);
-                v34 = [_cacheLock_activeCaches containsObject:v33];
-                v35 = PUILogCaching();
-                v36 = os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT);
-                if (v34)
+                v35 = *(*(&v78 + 1) + 8 * i);
+                v36 = [_cacheLock_activeCaches containsObject:v35];
+                v37 = v36;
+                v38 = PUILogCaching(v36);
+                v39 = os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT);
+                if (v37)
                 {
-                  if (v36)
+                  if (v39)
                   {
-                    v37 = self->_cacheName;
+                    v40 = self->_cacheName;
                     *buf = 138543874;
-                    v79 = v37;
-                    v80 = 2048;
+                    v86 = v40;
+                    v87 = 2048;
                     selfCopy13 = self;
-                    v82 = 2114;
-                    v83 = v33;
-                    _os_log_impl(&dword_1A8C85000, v35, OS_LOG_TYPE_DEFAULT, "[%{public}@/%p] truncateCaches; will not cleanup cache %{public}@ as it is still active", buf, 0x20u);
+                    v89 = 2114;
+                    v90 = v35;
+                    _os_log_impl(&dword_1A8C85000, v38, OS_LOG_TYPE_DEFAULT, "[%{public}@/%p] truncateCaches; will not cleanup cache %{public}@ as it is still active", buf, 0x20u);
                   }
                 }
 
                 else
                 {
-                  if (v36)
+                  if (v39)
                   {
-                    v38 = self->_cacheName;
+                    v41 = self->_cacheName;
                     *buf = 138543874;
-                    v79 = v38;
-                    v80 = 2048;
+                    v86 = v41;
+                    v87 = 2048;
                     selfCopy13 = self;
-                    v82 = 2114;
-                    v83 = v33;
-                    _os_log_impl(&dword_1A8C85000, v35, OS_LOG_TYPE_DEFAULT, "[%{public}@/%p] truncateCaches; will cleanup cache %{public}@", buf, 0x20u);
+                    v89 = 2114;
+                    v90 = v35;
+                    _os_log_impl(&dword_1A8C85000, v38, OS_LOG_TYPE_DEFAULT, "[%{public}@/%p] truncateCaches; will cleanup cache %{public}@", buf, 0x20u);
                   }
 
-                  [(NSMutableDictionary *)self->_cacheLock_manifest removeObjectForKey:v33];
-                  v70 = 0;
-                  v39 = [(PUIMappedImageCacheManager *)self _cacheLock_deleteCacheDirectoryForKey:v33 error:&v70];
-                  v35 = v70;
-                  if (!v39)
+                  [(NSMutableDictionary *)self->_cacheLock_manifest removeObjectForKey:v35];
+                  v77 = 0;
+                  v42 = [(PUIMappedImageCacheManager *)self _cacheLock_deleteCacheDirectoryForKey:v35 error:&v77];
+                  v43 = v77;
+                  v38 = v43;
+                  if (!v42)
                   {
-                    v40 = PUILogCaching();
-                    if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
+                    v44 = PUILogCaching(v43);
+                    if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
                     {
-                      v43 = self->_cacheName;
+                      v47 = self->_cacheName;
                       *buf = 138544130;
-                      v79 = v43;
-                      v80 = 2048;
+                      v86 = v47;
+                      v87 = 2048;
                       selfCopy13 = self;
-                      v82 = 2112;
-                      v83 = v33;
-                      v84 = 2114;
-                      v85 = v35;
-                      _os_log_error_impl(&dword_1A8C85000, v40, OS_LOG_TYPE_ERROR, "[%{public}@/%p] truncateCaches; failed to cleanup cache key %@: %{public}@", buf, 0x2Au);
+                      v89 = 2112;
+                      v90 = v35;
+                      v91 = 2114;
+                      v92 = v38;
+                      _os_log_error_impl(&dword_1A8C85000, v44, OS_LOG_TYPE_ERROR, "[%{public}@/%p] truncateCaches; failed to cleanup cache key %@: %{public}@", buf, 0x2Au);
                     }
                   }
 
-                  v41 = PUILogCaching();
-                  if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
+                  v45 = PUILogCaching(v43);
+                  if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
                   {
-                    v42 = self->_cacheName;
+                    v46 = self->_cacheName;
                     *buf = 138543874;
-                    v79 = v42;
-                    v80 = 2048;
+                    v86 = v46;
+                    v87 = 2048;
                     selfCopy13 = self;
-                    v82 = 2114;
-                    v83 = v33;
-                    _os_log_impl(&dword_1A8C85000, v41, OS_LOG_TYPE_DEFAULT, "[%{public}@/%p] truncateCaches; did cleanup cache %{public}@", buf, 0x20u);
+                    v89 = 2114;
+                    v90 = v35;
+                    _os_log_impl(&dword_1A8C85000, v45, OS_LOG_TYPE_DEFAULT, "[%{public}@/%p] truncateCaches; did cleanup cache %{public}@", buf, 0x20u);
                   }
 
-                  v30 = 1;
+                  v32 = 1;
                 }
               }
 
-              v29 = [obj countByEnumeratingWithState:&v71 objects:v86 count:16];
+              v31 = [obj countByEnumeratingWithState:&v78 objects:v93 count:16];
             }
 
-            while (v29);
+            while (v31);
           }
 
           else
           {
-            v30 = 0;
+            v32 = 0;
           }
 
-          cachesCopy = v62;
-          v15 = v61;
+          cachesCopy = v69;
+          v16 = v68;
         }
       }
 
       if (cachesCopy)
       {
-        v63 = v30;
-        v45 = PUILogCaching();
-        if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
+        v70 = v32;
+        v50 = PUILogCaching(v49);
+        if (os_log_type_enabled(v50, OS_LOG_TYPE_DEFAULT))
         {
-          v46 = self->_cacheName;
+          v51 = self->_cacheName;
           *buf = 138543618;
-          v79 = v46;
-          v80 = 2048;
+          v86 = v51;
+          v87 = 2048;
           selfCopy13 = self;
-          _os_log_impl(&dword_1A8C85000, v45, OS_LOG_TYPE_DEFAULT, "[%{public}@/%p] truncateCaches; will truncate on disk caches", buf, 0x16u);
+          _os_log_impl(&dword_1A8C85000, v50, OS_LOG_TYPE_DEFAULT, "[%{public}@/%p] truncateCaches; will truncate on disk caches", buf, 0x16u);
         }
 
         _cacheLock_onDiskCaches = [(PUIMappedImageCacheManager *)self _cacheLock_onDiskCaches];
-        v66 = 0u;
-        v67 = 0u;
-        v68 = 0u;
-        v69 = 0u;
-        v48 = [_cacheLock_onDiskCaches countByEnumeratingWithState:&v66 objects:v77 count:16];
-        if (v48)
+        v73 = 0u;
+        v74 = 0u;
+        v75 = 0u;
+        v76 = 0u;
+        v53 = [_cacheLock_onDiskCaches countByEnumeratingWithState:&v73 objects:v84 count:16];
+        if (v53)
         {
-          v49 = v48;
-          v50 = *v67;
+          v54 = v53;
+          v55 = *v74;
           do
           {
-            for (j = 0; j != v49; ++j)
+            for (j = 0; j != v54; ++j)
             {
-              if (*v67 != v50)
+              if (*v74 != v55)
               {
                 objc_enumerationMutation(_cacheLock_onDiskCaches);
               }
 
-              v52 = *(*(&v66 + 1) + 8 * j);
-              if (([v13 containsObject:v52] & 1) == 0 && (-[NSObject containsObject:](_cacheLock_activeCaches, "containsObject:", v52) & 1) == 0)
+              v57 = *(*(&v73 + 1) + 8 * j);
+              if (([v14 containsObject:v57] & 1) == 0)
               {
-                v53 = PUILogCaching();
-                if (os_log_type_enabled(v53, OS_LOG_TYPE_DEFAULT))
+                v58 = [_cacheLock_activeCaches containsObject:v57];
+                if ((v58 & 1) == 0)
                 {
-                  v54 = self->_cacheName;
-                  *buf = 138543874;
-                  v79 = v54;
-                  v80 = 2048;
-                  selfCopy13 = self;
-                  v82 = 2114;
-                  v83 = v52;
-                  _os_log_impl(&dword_1A8C85000, v53, OS_LOG_TYPE_DEFAULT, "[%{public}@/%p] truncateCaches; truncating on disk cache %{public}@", buf, 0x20u);
-                }
-
-                v65 = 0;
-                v55 = [(PUIMappedImageCacheManager *)self _cacheLock_deleteCacheDirectoryForKey:v52 error:&v65];
-                v56 = v65;
-                if (!v55)
-                {
-                  v57 = PUILogCaching();
-                  if (os_log_type_enabled(v57, OS_LOG_TYPE_ERROR))
+                  v59 = PUILogCaching(v58);
+                  if (os_log_type_enabled(v59, OS_LOG_TYPE_DEFAULT))
                   {
-                    v58 = self->_cacheName;
-                    *buf = 138544130;
-                    v79 = v58;
-                    v80 = 2048;
+                    v60 = self->_cacheName;
+                    *buf = 138543874;
+                    v86 = v60;
+                    v87 = 2048;
                     selfCopy13 = self;
-                    v82 = 2112;
-                    v83 = v52;
-                    v84 = 2114;
-                    v85 = v56;
-                    _os_log_error_impl(&dword_1A8C85000, v57, OS_LOG_TYPE_ERROR, "[%{public}@/%p] truncateOnDiskCaches; failed to cleanup on disk cache key %@: %{public}@", buf, 0x2Au);
+                    v89 = 2114;
+                    v90 = v57;
+                    _os_log_impl(&dword_1A8C85000, v59, OS_LOG_TYPE_DEFAULT, "[%{public}@/%p] truncateCaches; truncating on disk cache %{public}@", buf, 0x20u);
+                  }
+
+                  v72 = 0;
+                  v61 = [(PUIMappedImageCacheManager *)self _cacheLock_deleteCacheDirectoryForKey:v57 error:&v72];
+                  v62 = v72;
+                  v63 = v62;
+                  if (!v61)
+                  {
+                    v64 = PUILogCaching(v62);
+                    if (os_log_type_enabled(v64, OS_LOG_TYPE_ERROR))
+                    {
+                      v65 = self->_cacheName;
+                      *buf = 138544130;
+                      v86 = v65;
+                      v87 = 2048;
+                      selfCopy13 = self;
+                      v89 = 2112;
+                      v90 = v57;
+                      v91 = 2114;
+                      v92 = v63;
+                      _os_log_error_impl(&dword_1A8C85000, v64, OS_LOG_TYPE_ERROR, "[%{public}@/%p] truncateOnDiskCaches; failed to cleanup on disk cache key %@: %{public}@", buf, 0x2Au);
+                    }
                   }
                 }
               }
             }
 
-            v49 = [_cacheLock_onDiskCaches countByEnumeratingWithState:&v66 objects:v77 count:16];
+            v54 = [_cacheLock_onDiskCaches countByEnumeratingWithState:&v73 objects:v84 count:16];
           }
 
-          while (v49);
+          while (v54);
         }
 
-        v30 = v63;
+        v32 = v70;
       }
 
-      if (v30)
+      if (v32)
       {
-        v59 = PUILogCaching();
-        if (os_log_type_enabled(v59, OS_LOG_TYPE_DEFAULT))
+        v66 = PUILogCaching(v49);
+        if (os_log_type_enabled(v66, OS_LOG_TYPE_DEFAULT))
         {
-          v60 = self->_cacheName;
+          v67 = self->_cacheName;
           *buf = 138543618;
-          v79 = v60;
-          v80 = 2048;
+          v86 = v67;
+          v87 = 2048;
           selfCopy13 = self;
-          _os_log_impl(&dword_1A8C85000, v59, OS_LOG_TYPE_DEFAULT, "[%{public}@/%p] truncateCaches; wrinting to manifest", buf, 0x16u);
+          _os_log_impl(&dword_1A8C85000, v66, OS_LOG_TYPE_DEFAULT, "[%{public}@/%p] truncateCaches; wrinting to manifest", buf, 0x16u);
         }
 
         [(PUIMappedImageCacheManager *)self _cacheLock_writeManifest];
@@ -1132,92 +1144,93 @@ LABEL_16:
 
 - (id)_cacheLock_onDiskCaches
 {
-  v43[1] = *MEMORY[0x1E69E9840];
-  v26 = objc_opt_new();
+  v45[1] = *MEMORY[0x1E69E9840];
+  v28 = objc_opt_new();
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
   selfCopy = self;
   cacheURL = self->_cacheURL;
   v5 = *MEMORY[0x1E695DB20];
-  v43[0] = *MEMORY[0x1E695DB20];
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v43 count:1];
-  v33 = 0;
-  v7 = [defaultManager contentsOfDirectoryAtURL:cacheURL includingPropertiesForKeys:v6 options:5 error:&v33];
-  v8 = v33;
+  v45[0] = *MEMORY[0x1E695DB20];
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v45 count:1];
+  v35 = 0;
+  v7 = [defaultManager contentsOfDirectoryAtURL:cacheURL includingPropertiesForKeys:v6 options:5 error:&v35];
+  v8 = v35;
 
   if (v8)
   {
-    v9 = PUILogCaching();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = PUILogCaching(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       [PUIMappedImageCacheManager _cacheLock_onDiskCaches];
     }
   }
 
-  v24 = v8;
+  v26 = v8;
+  v33 = 0u;
+  v34 = 0u;
   v31 = 0u;
   v32 = 0u;
-  v29 = 0u;
-  v30 = 0u;
-  v10 = v7;
-  v11 = [v10 countByEnumeratingWithState:&v29 objects:v42 count:16];
-  if (v11)
+  v11 = v7;
+  v12 = [v11 countByEnumeratingWithState:&v31 objects:v44 count:16];
+  if (v12)
   {
-    v12 = v11;
-    v13 = *v30;
-    v14 = *MEMORY[0x1E695DB18];
+    v13 = v12;
+    v14 = *v32;
+    v15 = *MEMORY[0x1E695DB18];
     do
     {
-      v15 = 0;
+      v16 = 0;
       do
       {
-        if (*v30 != v13)
+        if (*v32 != v14)
         {
-          objc_enumerationMutation(v10);
+          objc_enumerationMutation(v11);
         }
 
-        v16 = *(*(&v29 + 1) + 8 * v15);
-        v27 = 0;
-        v28 = 0;
-        [v16 getResourceValue:&v28 forKey:v5 error:&v27];
-        v17 = v28;
-        v18 = v27;
-        if (v18)
+        v17 = *(*(&v31 + 1) + 8 * v16);
+        v29 = 0;
+        v30 = 0;
+        [v17 getResourceValue:&v30 forKey:v5 error:&v29];
+        v18 = v30;
+        v19 = v29;
+        v20 = v19;
+        if (v19)
         {
-          v19 = PUILogCaching();
-          if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+          v21 = PUILogCaching(v19);
+          if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
           {
             cacheName = selfCopy->_cacheName;
             *buf = 138544130;
-            v35 = cacheName;
-            v36 = 2048;
-            v37 = selfCopy;
-            v38 = 2112;
-            v39 = v16;
-            v40 = 2114;
-            v41 = v18;
-            _os_log_error_impl(&dword_1A8C85000, v19, OS_LOG_TYPE_ERROR, "[%{public}@/%p] onDiskCaches; failed to read resource type for URL %@: %{public}@", buf, 0x2Au);
+            v37 = cacheName;
+            v38 = 2048;
+            v39 = selfCopy;
+            v40 = 2112;
+            v41 = v17;
+            v42 = 2114;
+            v43 = v20;
+            _os_log_error_impl(&dword_1A8C85000, v21, OS_LOG_TYPE_ERROR, "[%{public}@/%p] onDiskCaches; failed to read resource type for URL %@: %{public}@", buf, 0x2Au);
           }
         }
 
-        if ([v17 isEqualToString:v14])
+        if ([v18 isEqualToString:v15])
         {
-          lastPathComponent = [v16 lastPathComponent];
-          [v26 addObject:lastPathComponent];
+          lastPathComponent = [v17 lastPathComponent];
+          [v28 addObject:lastPathComponent];
         }
 
-        ++v15;
+        ++v16;
       }
 
-      while (v12 != v15);
-      v12 = [v10 countByEnumeratingWithState:&v29 objects:v42 count:16];
+      while (v13 != v16);
+      v13 = [v11 countByEnumeratingWithState:&v31 objects:v44 count:16];
     }
 
-    while (v12);
+    while (v13);
   }
 
-  v22 = [v26 copy];
+  v24 = [v28 copy];
 
-  return v22;
+  return v24;
 }
 
 + (void)registerCacheManager:cacheManager:.cold.2()
@@ -1227,19 +1240,19 @@ LABEL_16:
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-- (void)initWithNumberOfManagedCaches:(const char *)a1 pathProvider:.cold.1(const char *a1)
+- (void)initWithNumberOfManagedCaches:(const char *)a1 pathProvider:(uint64_t)a2 .cold.1(const char *a1, uint64_t a2)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[cacheURL isFileURL]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v3 = NSStringFromSelector(a1);
-    v4 = objc_opt_class();
-    v5 = NSStringFromClass(v4);
+    v4 = NSStringFromSelector(a1);
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_0(&dword_1A8C85000, MEMORY[0x1E69E9C10], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, @"[cacheURL isFileURL]", v11, v12);
+    OUTLINED_FUNCTION_1_0(&dword_1A8C85000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
-  [v2 UTF8String];
+  [v3 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }
@@ -1251,36 +1264,36 @@ LABEL_16:
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-- (void)initWithNumberOfManagedCaches:(const char *)a1 pathProvider:.cold.3(const char *a1)
+- (void)initWithNumberOfManagedCaches:(const char *)a1 pathProvider:(uint64_t)a2 .cold.3(const char *a1, uint64_t a2)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"pathProvider"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v3 = NSStringFromSelector(a1);
-    v4 = objc_opt_class();
-    v5 = NSStringFromClass(v4);
+    v4 = NSStringFromSelector(a1);
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_0(&dword_1A8C85000, MEMORY[0x1E69E9C10], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, @"pathProvider", v11, v12);
+    OUTLINED_FUNCTION_1_0(&dword_1A8C85000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
-  [v2 UTF8String];
+  [v3 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }
 
-- (void)checkoutImageCache:(const char *)a1 date:.cold.1(const char *a1)
+- (void)checkoutImageCache:(const char *)a1 date:(uint64_t)a2 .cold.1(const char *a1, uint64_t a2)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[imageCacheKey length] > 0"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v3 = NSStringFromSelector(a1);
-    v4 = objc_opt_class();
-    v5 = NSStringFromClass(v4);
+    v4 = NSStringFromSelector(a1);
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_0(&dword_1A8C85000, MEMORY[0x1E69E9C10], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, @"[imageCacheKey length] > 0", v11, v12);
+    OUTLINED_FUNCTION_1_0(&dword_1A8C85000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
-  [v2 UTF8String];
+  [v3 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }

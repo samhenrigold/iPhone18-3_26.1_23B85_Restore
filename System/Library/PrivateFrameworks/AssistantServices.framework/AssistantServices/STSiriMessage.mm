@@ -102,7 +102,7 @@
 
 - (id)_aceContextObjectValue
 {
-  v36[1] = *MEMORY[0x1E69E9840];
+  v35[1] = *MEMORY[0x1E69E9840];
   v3 = objc_alloc_init(MEMORY[0x1E69C7A98]);
   v4 = MEMORY[0x1E695DFF8];
   identifier = [(STSiriModelObject *)self identifier];
@@ -114,8 +114,8 @@
   {
     v8 = objc_alloc_init(MEMORY[0x1E69C7720]);
     [v8 setIdentifier:attachmentURL];
-    v36[0] = v8;
-    v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v36 count:1];
+    v35[0] = v8;
+    v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v35 count:1];
     [v3 setAttachments:v9];
   }
 
@@ -148,30 +148,30 @@
   recipientAddresses = [(STSiriMessage *)self recipientAddresses];
   v21 = [v19 initWithCapacity:{objc_msgSend(recipientAddresses, "count")}];
 
-  v33 = 0u;
-  v34 = 0u;
-  v31 = 0u;
   v32 = 0u;
+  v33 = 0u;
+  v30 = 0u;
+  v31 = 0u;
   recipientAddresses2 = [(STSiriMessage *)self recipientAddresses];
-  v23 = [recipientAddresses2 countByEnumeratingWithState:&v31 objects:v35 count:16];
+  v23 = [recipientAddresses2 countByEnumeratingWithState:&v30 objects:v34 count:16];
   if (v23)
   {
     v24 = v23;
-    v25 = *v32;
+    v25 = *v31;
     do
     {
       for (i = 0; i != v24; ++i)
       {
-        if (*v32 != v25)
+        if (*v31 != v25)
         {
           objc_enumerationMutation(recipientAddresses2);
         }
 
-        _aceContextObjectValue2 = [*(*(&v31 + 1) + 8 * i) _aceContextObjectValue];
+        _aceContextObjectValue2 = [*(*(&v30 + 1) + 8 * i) _aceContextObjectValue];
         [v21 addObject:_aceContextObjectValue2];
       }
 
-      v24 = [recipientAddresses2 countByEnumeratingWithState:&v31 objects:v35 count:16];
+      v24 = [recipientAddresses2 countByEnumeratingWithState:&v30 objects:v34 count:16];
     }
 
     while (v24);
@@ -180,8 +180,6 @@
   [v3 setMsgRecipients:v21];
   effect = [(STSiriMessage *)self effect];
   [v3 setEffect:effect];
-
-  v29 = *MEMORY[0x1E69E9840];
 
   return v3;
 }

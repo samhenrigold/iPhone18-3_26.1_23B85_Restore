@@ -6,217 +6,218 @@
 
 + (void)initialize
 {
-  if (objc_opt_class() == self)
+  v3 = objc_opt_class();
+  if (v3 == self)
   {
-    v86 = TCBundle();
-    v2 = [v86 localizedStringForKey:@"Out of memory." value:&stru_286EE1130 table:@"TCCompatibility"];
-    v3 = kErrorMessageOutOfMemory;
-    kErrorMessageOutOfMemory = v2;
+    v129 = TCBundle(v3);
+    v4 = [v129 localizedStringForKey:@"Out of memory." value:&stru_286EE1130 table:@"TCCompatibility"];
+    v5 = kErrorMessageOutOfMemory;
+    kErrorMessageOutOfMemory = v4;
 
-    v87 = TCBundle();
-    v4 = [v87 localizedStringForKey:@"An unknown error occurred." value:&stru_286EE1130 table:@"TCCompatibility"];
-    v5 = kErrorMessageUnknown;
-    kErrorMessageUnknown = v4;
+    v130 = TCBundle(v6);
+    v7 = [v130 localizedStringForKey:@"An unknown error occurred." value:&stru_286EE1130 table:@"TCCompatibility"];
+    v8 = kErrorMessageUnknown;
+    kErrorMessageUnknown = v7;
 
-    v88 = TCBundle();
-    v6 = [v88 localizedStringForKey:@"The file format is invalid." value:&stru_286EE1130 table:@"TCCompatibility"];
-    v7 = kErrorMessageInvalid;
-    kErrorMessageInvalid = v6;
+    v131 = TCBundle(v9);
+    v10 = [v131 localizedStringForKey:@"The file format is invalid." value:&stru_286EE1130 table:@"TCCompatibility"];
+    v11 = kErrorMessageInvalid;
+    kErrorMessageInvalid = v10;
 
-    v89 = TCBundle();
-    v8 = [v89 localizedStringForKey:@"The spreadsheet has too many table cells." value:&stru_286EE1130 table:@"TCCompatibility"];
-    v9 = kErrorMessageTooManyCells;
-    kErrorMessageTooManyCells = v8;
+    v132 = TCBundle(v12);
+    v13 = [v132 localizedStringForKey:@"The spreadsheet has too many table cells." value:&stru_286EE1130 table:@"TCCompatibility"];
+    v14 = kErrorMessageTooManyCells;
+    kErrorMessageTooManyCells = v13;
 
-    v90 = TCBundle();
-    v10 = [v90 localizedStringForKey:@"Decryption failed." value:&stru_286EE1130 table:@"TCCompatibility"];
-    v11 = kErrorMessageDecryptionFailed;
-    kErrorMessageDecryptionFailed = v10;
+    v133 = TCBundle(v15);
+    v16 = [v133 localizedStringForKey:@"Decryption failed." value:&stru_286EE1130 table:@"TCCompatibility"];
+    v17 = kErrorMessageDecryptionFailed;
+    kErrorMessageDecryptionFailed = v16;
 
-    v91 = TCBundle();
-    v12 = [v91 localizedStringForKey:@"The document can\\U2019t be opened because it uses an unsupported method of encryption." value:&stru_286EE1130 table:@"TCCompatibility"];
-    v13 = kErrorMessageUnsupportedEncryption;
-    kErrorMessageUnsupportedEncryption = v12;
+    v134 = TCBundle(v18);
+    v19 = [v134 localizedStringForKey:@"The document can\\U2019t be opened because it uses an unsupported method of encryption." value:&stru_286EE1130 table:@"TCCompatibility"];
+    v20 = kErrorMessageUnsupportedEncryption;
+    kErrorMessageUnsupportedEncryption = v19;
 
-    v92 = TCBundle();
-    v14 = [v92 localizedStringForKey:@"Charts of unsupported type or size were either imported as an image or removed." value:&stru_286EE1130 table:@"TCCompatibility"];
-    v15 = kErrorMessageChartUnsupportedContent;
-    kErrorMessageChartUnsupportedContent = v14;
+    v135 = TCBundle(v21);
+    v22 = [v135 localizedStringForKey:@"Charts of unsupported type or size were either imported as an image or removed." value:&stru_286EE1130 table:@"TCCompatibility"];
+    v23 = kErrorMessageChartUnsupportedContent;
+    kErrorMessageChartUnsupportedContent = v22;
 
-    v93 = TCBundle();
-    v16 = [v93 localizedStringForKey:@"Grouped wedges in pie charts were ungrouped." value:&stru_286EE1130 table:@"TCCompatibility"];
-    v17 = kWarningMessageChartsGroupedPieWedgesUngrouped;
-    kWarningMessageChartsGroupedPieWedgesUngrouped = v16;
+    v136 = TCBundle(v24);
+    v25 = [v136 localizedStringForKey:@"Grouped wedges in pie charts were ungrouped." value:&stru_286EE1130 table:@"TCCompatibility"];
+    v26 = kWarningMessageChartsGroupedPieWedgesUngrouped;
+    kWarningMessageChartsGroupedPieWedgesUngrouped = v25;
 
-    v94 = TCBundle();
-    v18 = [v94 localizedStringForKey:@"Custom number formats were removed from charts." value:&stru_286EE1130 table:@"TCCompatibility"];
-    v19 = kWarningMessageChartsCustomNumerFormatRemoved;
-    kWarningMessageChartsCustomNumerFormatRemoved = v18;
+    v137 = TCBundle(v27);
+    v28 = [v137 localizedStringForKey:@"Custom number formats were removed from charts." value:&stru_286EE1130 table:@"TCCompatibility"];
+    v29 = kWarningMessageChartsCustomNumerFormatRemoved;
+    kWarningMessageChartsCustomNumerFormatRemoved = v28;
 
-    v95 = TCBundle();
-    v20 = [v95 localizedStringForKey:@"Interactive charts were converted to regular charts." value:&stru_286EE1130 table:@"TCCompatibility"];
-    v21 = kWarningMessageChartsInteractiveTypesDowngraded;
-    kWarningMessageChartsInteractiveTypesDowngraded = v20;
+    v138 = TCBundle(v30);
+    v31 = [v138 localizedStringForKey:@"Interactive charts were converted to regular charts." value:&stru_286EE1130 table:@"TCCompatibility"];
+    v32 = kWarningMessageChartsInteractiveTypesDowngraded;
+    kWarningMessageChartsInteractiveTypesDowngraded = v31;
 
-    v96 = TCBundle();
-    v22 = [v96 localizedStringForKey:@"Bubble charts were converted to scatter charts." value:&stru_286EE1130 table:@"TCCompatibility"];
-    v23 = kWarningMessageChartsBubbleReplacedWithScatter;
-    kWarningMessageChartsBubbleReplacedWithScatter = v22;
+    v139 = TCBundle(v33);
+    v34 = [v139 localizedStringForKey:@"Bubble charts were converted to scatter charts." value:&stru_286EE1130 table:@"TCCompatibility"];
+    v35 = kWarningMessageChartsBubbleReplacedWithScatter;
+    kWarningMessageChartsBubbleReplacedWithScatter = v34;
 
-    v97 = TCBundle();
-    v24 = [v97 localizedStringForKey:@"Reference Lines were removed from charts." value:&stru_286EE1130 table:@"TCCompatibility"];
-    v25 = kWarningMessageChartsReferenceLinesRemoved;
-    kWarningMessageChartsReferenceLinesRemoved = v24;
+    v140 = TCBundle(v36);
+    v37 = [v140 localizedStringForKey:@"Reference Lines were removed from charts." value:&stru_286EE1130 table:@"TCCompatibility"];
+    v38 = kWarningMessageChartsReferenceLinesRemoved;
+    kWarningMessageChartsReferenceLinesRemoved = v37;
 
-    v98 = TCBundle();
-    v26 = [v98 localizedStringForKey:@"Unsupported media were removed." value:&stru_286EE1130 table:@"TCCompatibility"];
-    v27 = kWarningMessageUnsupportedMediaTypes;
-    kWarningMessageUnsupportedMediaTypes = v26;
+    v141 = TCBundle(v39);
+    v40 = [v141 localizedStringForKey:@"Unsupported media were removed." value:&stru_286EE1130 table:@"TCCompatibility"];
+    v41 = kWarningMessageUnsupportedMediaTypes;
+    kWarningMessageUnsupportedMediaTypes = v40;
 
-    v99 = TCBundle();
-    v28 = [v99 localizedStringForKey:@"Links to other Keynote files were removed." value:&stru_286EE1130 table:@"TCCompatibility"];
-    v29 = kWarningMessageNoKeynoteHyperlinks;
-    kWarningMessageNoKeynoteHyperlinks = v28;
+    v142 = TCBundle(v42);
+    v43 = [v142 localizedStringForKey:@"Links to other Keynote files were removed." value:&stru_286EE1130 table:@"TCCompatibility"];
+    v44 = kWarningMessageNoKeynoteHyperlinks;
+    kWarningMessageNoKeynoteHyperlinks = v43;
 
-    v100 = TCBundle();
-    v30 = [v100 localizedStringForKey:@"Image fills may be missing from shapes value:charts table:{or other objects.", &stru_286EE1130, @"TCCompatibility"}];
-    v31 = kWarningMessageMissingFills;
-    kWarningMessageMissingFills = v30;
+    v143 = TCBundle(v45);
+    v46 = [v143 localizedStringForKey:@"Image fills may be missing from shapes value:charts table:{or other objects.", &stru_286EE1130, @"TCCompatibility"}];
+    v47 = kWarningMessageMissingFills;
+    kWarningMessageMissingFills = v46;
 
-    v101 = TCBundle();
-    v32 = [v101 localizedStringForKey:@"Image fills may be missing from shapes value:charts table:{or other objects because you are not connected to the Internet.", &stru_286EE1130, @"TCCompatibility"}];
-    v33 = kWarningMessageMissingFillsBecauseNetworkNotReachable;
-    kWarningMessageMissingFillsBecauseNetworkNotReachable = v32;
+    v144 = TCBundle(v48);
+    v49 = [v144 localizedStringForKey:@"Image fills may be missing from shapes value:charts table:{or other objects because you are not connected to the Internet.", &stru_286EE1130, @"TCCompatibility"}];
+    v50 = kWarningMessageMissingFillsBecauseNetworkNotReachable;
+    kWarningMessageMissingFillsBecauseNetworkNotReachable = v49;
 
-    v102 = TCBundle();
-    v34 = [v102 localizedStringForKey:@"Rotation was removed from tables and charts." value:&stru_286EE1130 table:@"TCCompatibility"];
-    v35 = kWarningMessageChartsAndTablesUnrotated;
-    kWarningMessageChartsAndTablesUnrotated = v34;
+    v145 = TCBundle(v51);
+    v52 = [v145 localizedStringForKey:@"Rotation was removed from tables and charts." value:&stru_286EE1130 table:@"TCCompatibility"];
+    v53 = kWarningMessageChartsAndTablesUnrotated;
+    kWarningMessageChartsAndTablesUnrotated = v52;
 
-    v103 = TCBundle();
-    v36 = [v103 localizedStringForKey:@"Some movies may not play correctly. When exporting password-protected presentations to Keynote \\U201909 value:movies must be in .mov format." table:{&stru_286EE1130, @"TCCompatibility"}];
-    v37 = kWarningMessageMovieExportFailureLockedDocumentKeynote;
-    kWarningMessageMovieExportFailureLockedDocumentKeynote = v36;
+    v146 = TCBundle(v54);
+    v55 = [v146 localizedStringForKey:@"Some movies may not play correctly. When exporting password-protected presentations to Keynote \\U201909 value:movies must be in .mov format." table:{&stru_286EE1130, @"TCCompatibility"}];
+    v56 = kWarningMessageMovieExportFailureLockedDocumentKeynote;
+    kWarningMessageMovieExportFailureLockedDocumentKeynote = v55;
 
-    v104 = TCBundle();
-    v38 = [v104 localizedStringForKey:@"Some movies may not play correctly. When exporting password-protected spreadsheets to Numbers \\U201909 value:movies must be in .mov format." table:{&stru_286EE1130, @"TCCompatibility"}];
-    v39 = kWarningMessageMovieExportFailureLockedDocumentNumbers;
-    kWarningMessageMovieExportFailureLockedDocumentNumbers = v38;
+    v147 = TCBundle(v57);
+    v58 = [v147 localizedStringForKey:@"Some movies may not play correctly. When exporting password-protected spreadsheets to Numbers \\U201909 value:movies must be in .mov format." table:{&stru_286EE1130, @"TCCompatibility"}];
+    v59 = kWarningMessageMovieExportFailureLockedDocumentNumbers;
+    kWarningMessageMovieExportFailureLockedDocumentNumbers = v58;
 
-    v105 = TCBundle();
-    v40 = [v105 localizedStringForKey:@"Some movies may not play correctly. When exporting password-protected documents to Pages \\U201909 value:movies must be in .mov format." table:{&stru_286EE1130, @"TCCompatibility"}];
-    v41 = kWarningMessageMovieExportFailureLockedDocumentPages;
-    kWarningMessageMovieExportFailureLockedDocumentPages = v40;
+    v148 = TCBundle(v60);
+    v61 = [v148 localizedStringForKey:@"Some movies may not play correctly. When exporting password-protected documents to Pages \\U201909 value:movies must be in .mov format." table:{&stru_286EE1130, @"TCCompatibility"}];
+    v62 = kWarningMessageMovieExportFailureLockedDocumentPages;
+    kWarningMessageMovieExportFailureLockedDocumentPages = v61;
 
-    v106 = TCBundle();
-    v42 = [v106 localizedStringForKey:@"Builds on master slides were removed." value:&stru_286EE1130 table:@"TCCompatibility"];
-    v43 = kWarningMessageNoBuildsOnMasters;
-    kWarningMessageNoBuildsOnMasters = v42;
+    v149 = TCBundle(v63);
+    v64 = [v149 localizedStringForKey:@"Builds on master slides were removed." value:&stru_286EE1130 table:@"TCCompatibility"];
+    v65 = kWarningMessageNoBuildsOnMasters;
+    kWarningMessageNoBuildsOnMasters = v64;
 
-    v107 = TCBundle();
-    v44 = [v107 localizedStringForKey:@"Smart builds were removed." value:&stru_286EE1130 table:@"TCCompatibility"];
-    v45 = kWarningMessageNoSmartBuilds;
-    kWarningMessageNoSmartBuilds = v44;
+    v150 = TCBundle(v66);
+    v67 = [v150 localizedStringForKey:@"Smart builds were removed." value:&stru_286EE1130 table:@"TCCompatibility"];
+    v68 = kWarningMessageNoSmartBuilds;
+    kWarningMessageNoSmartBuilds = v67;
 
-    v108 = TCBundle();
-    v46 = [v108 localizedStringForKey:@"Emphasis builds were removed." value:&stru_286EE1130 table:@"TCCompatibility"];
-    v47 = kWarningMessageNoEmphasisBuilds;
-    kWarningMessageNoEmphasisBuilds = v46;
+    v151 = TCBundle(v69);
+    v70 = [v151 localizedStringForKey:@"Emphasis builds were removed." value:&stru_286EE1130 table:@"TCCompatibility"];
+    v71 = kWarningMessageNoEmphasisBuilds;
+    kWarningMessageNoEmphasisBuilds = v70;
 
-    v109 = TCBundle();
-    v48 = [v109 localizedStringForKey:@"Change tracking is only supported for body text. Other tracked changes were accepted as final." value:&stru_286EE1130 table:@"TCCompatibility"];
-    v49 = kWarningMessageNoTrackChangesButBody;
-    kWarningMessageNoTrackChangesButBody = v48;
+    v152 = TCBundle(v72);
+    v73 = [v152 localizedStringForKey:@"Change tracking is only supported for body text. Other tracked changes were accepted as final." value:&stru_286EE1130 table:@"TCCompatibility"];
+    v74 = kWarningMessageNoTrackChangesButBody;
+    kWarningMessageNoTrackChangesButBody = v73;
 
-    v110 = TCBundle();
-    v50 = [v110 localizedStringForKey:@"Unsupported formulas were replaced by the last calculated value." value:&stru_286EE1130 table:@"TCCompatibility"];
-    v51 = kWarningMessageUnsupportedFormulas;
-    kWarningMessageUnsupportedFormulas = v50;
+    v153 = TCBundle(v75);
+    v76 = [v153 localizedStringForKey:@"Unsupported formulas were replaced by the last calculated value." value:&stru_286EE1130 table:@"TCCompatibility"];
+    v77 = kWarningMessageUnsupportedFormulas;
+    kWarningMessageUnsupportedFormulas = v76;
 
-    v111 = TCBundle();
-    v52 = [v111 localizedStringForKey:@"Table categories were removed." value:&stru_286EE1130 table:@"TCCompatibility"];
-    v53 = kWarningMessageNoCategories;
-    kWarningMessageNoCategories = v52;
+    v154 = TCBundle(v78);
+    v79 = [v154 localizedStringForKey:@"Table categories were removed." value:&stru_286EE1130 table:@"TCCompatibility"];
+    v80 = kWarningMessageNoCategories;
+    kWarningMessageNoCategories = v79;
 
-    v112 = TCBundle();
-    v54 = [v112 localizedStringForKey:@"Unsupported conditional highlighting rules were removed." value:&stru_286EE1130 table:@"TCCompatibility"];
-    v55 = kWarningMessageNoConditionalFormats;
-    kWarningMessageNoConditionalFormats = v54;
+    v155 = TCBundle(v81);
+    v82 = [v155 localizedStringForKey:@"Unsupported conditional highlighting rules were removed." value:&stru_286EE1130 table:@"TCCompatibility"];
+    v83 = kWarningMessageNoConditionalFormats;
+    kWarningMessageNoConditionalFormats = v82;
 
-    v113 = TCBundle();
-    v56 = [v113 localizedStringForKey:@"Table fills were removed." value:&stru_286EE1130 table:@"TCCompatibility"];
-    v57 = kWarningMessageNoTableImageFill;
-    kWarningMessageNoTableImageFill = v56;
+    v156 = TCBundle(v84);
+    v85 = [v156 localizedStringForKey:@"Table fills were removed." value:&stru_286EE1130 table:@"TCCompatibility"];
+    v86 = kWarningMessageNoTableImageFill;
+    kWarningMessageNoTableImageFill = v85;
 
-    v114 = TCBundle();
-    v58 = [v114 localizedStringForKey:@"Pop-up menu cells with more than 250 list items were converted to text cells." value:&stru_286EE1130 table:@"TCCompatibility"];
-    v59 = kWarningMessageTooManyPopupOptionsSomeDropped;
-    kWarningMessageTooManyPopupOptionsSomeDropped = v58;
+    v157 = TCBundle(v87);
+    v88 = [v157 localizedStringForKey:@"Pop-up menu cells with more than 250 list items were converted to text cells." value:&stru_286EE1130 table:@"TCCompatibility"];
+    v89 = kWarningMessageTooManyPopupOptionsSomeDropped;
+    kWarningMessageTooManyPopupOptionsSomeDropped = v88;
 
-    v115 = TCBundle();
-    v60 = [v115 localizedStringForKey:@"Some AND filters were changed to OR." value:&stru_286EE1130 table:@"TCCompatibility"];
-    v61 = kWarningMessageChangedAndFiltersToOrFilters;
-    kWarningMessageChangedAndFiltersToOrFilters = v60;
+    v158 = TCBundle(v90);
+    v91 = [v158 localizedStringForKey:@"Some AND filters were changed to OR." value:&stru_286EE1130 table:@"TCCompatibility"];
+    v92 = kWarningMessageChangedAndFiltersToOrFilters;
+    kWarningMessageChangedAndFiltersToOrFilters = v91;
 
-    v116 = TCBundle();
-    v62 = [v116 localizedStringForKey:@"Duration-based filters and conditional highlights were removed." value:&stru_286EE1130 table:@"TCCompatibility"];
-    v63 = kWarningMessageRemovedDurationFiltersAndConditionalHighlightings;
-    kWarningMessageRemovedDurationFiltersAndConditionalHighlightings = v62;
+    v159 = TCBundle(v93);
+    v94 = [v159 localizedStringForKey:@"Duration-based filters and conditional highlights were removed." value:&stru_286EE1130 table:@"TCCompatibility"];
+    v95 = kWarningMessageRemovedDurationFiltersAndConditionalHighlightings;
+    kWarningMessageRemovedDurationFiltersAndConditionalHighlightings = v94;
 
-    v117 = TCBundle();
-    v64 = [v117 localizedStringForKey:@"Right-to-left text isn\\U2019t fully supported in iWork \\U201909." value:&stru_286EE1130 table:@"TCCompatibility"];
-    v65 = kWarningMessageRTLNotFullySupported;
-    kWarningMessageRTLNotFullySupported = v64;
+    v160 = TCBundle(v96);
+    v97 = [v160 localizedStringForKey:@"Right-to-left text isn\\U2019t fully supported in iWork \\U201909." value:&stru_286EE1130 table:@"TCCompatibility"];
+    v98 = kWarningMessageRTLNotFullySupported;
+    kWarningMessageRTLNotFullySupported = v97;
 
-    v118 = TCBundle();
-    v66 = [v118 localizedStringForKey:@"Unsupported formulas were removed. The last calculated values were exported." value:&stru_286EE1130 table:@"TCCompatibility"];
-    v67 = kWarningMessageRemovedUnsupportedFormulas;
-    kWarningMessageRemovedUnsupportedFormulas = v66;
+    v161 = TCBundle(v99);
+    v100 = [v161 localizedStringForKey:@"Unsupported formulas were removed. The last calculated values were exported." value:&stru_286EE1130 table:@"TCCompatibility"];
+    v101 = kWarningMessageRemovedUnsupportedFormulas;
+    kWarningMessageRemovedUnsupportedFormulas = v100;
 
-    v119 = TCBundle();
-    v68 = [v119 localizedStringForKey:@"No tables" value:&stru_286EE1130 table:@"TCCompatibility"];
-    v69 = kWarningMessageCSVExportFailureNoTables;
-    kWarningMessageCSVExportFailureNoTables = v68;
+    v162 = TCBundle(v102);
+    v103 = [v162 localizedStringForKey:@"No tables" value:&stru_286EE1130 table:@"TCCompatibility"];
+    v104 = kWarningMessageCSVExportFailureNoTables;
+    kWarningMessageCSVExportFailureNoTables = v103;
 
-    v120 = TCBundle();
-    v70 = [v120 localizedStringForKey:@"Numbers creates a CSV file for each table in your spreadsheet." value:&stru_286EE1130 table:@"TCCompatibility"];
-    v71 = kWarningMessageCSVExportFailureNoTablesAdditionalInfo;
-    kWarningMessageCSVExportFailureNoTablesAdditionalInfo = v70;
+    v163 = TCBundle(v105);
+    v106 = [v163 localizedStringForKey:@"Numbers creates a CSV file for each table in your spreadsheet." value:&stru_286EE1130 table:@"TCCompatibility"];
+    v107 = kWarningMessageCSVExportFailureNoTablesAdditionalInfo;
+    kWarningMessageCSVExportFailureNoTablesAdditionalInfo = v106;
 
-    v121 = TCBundle();
-    v72 = [v121 localizedStringForKey:@"Charts in headers and footers were removed." value:&stru_286EE1130 table:@"TCCompatibility"];
-    v73 = kWarningMessagePagesChartsInHeaderFooterNotSupported;
-    kWarningMessagePagesChartsInHeaderFooterNotSupported = v72;
+    v164 = TCBundle(v108);
+    v109 = [v164 localizedStringForKey:@"Charts in headers and footers were removed." value:&stru_286EE1130 table:@"TCCompatibility"];
+    v110 = kWarningMessagePagesChartsInHeaderFooterNotSupported;
+    kWarningMessagePagesChartsInHeaderFooterNotSupported = v109;
 
-    v122 = TCBundle();
-    v74 = [v122 localizedStringForKey:@"Tables in headers and footers were removed." value:&stru_286EE1130 table:@"TCCompatibility"];
-    v75 = kWarningMessagePagesTablesInHeaderFooterNotSupported;
-    kWarningMessagePagesTablesInHeaderFooterNotSupported = v74;
+    v165 = TCBundle(v111);
+    v112 = [v165 localizedStringForKey:@"Tables in headers and footers were removed." value:&stru_286EE1130 table:@"TCCompatibility"];
+    v113 = kWarningMessagePagesTablesInHeaderFooterNotSupported;
+    kWarningMessagePagesTablesInHeaderFooterNotSupported = v112;
 
-    v123 = TCBundle();
-    v76 = [v123 localizedStringForKey:@"Objects in headers and footers were removed." value:&stru_286EE1130 table:@"TCCompatibility"];
-    v77 = kWarningMessagePagesObjectsInHeaderFooterNotSupported;
-    kWarningMessagePagesObjectsInHeaderFooterNotSupported = v76;
+    v166 = TCBundle(v114);
+    v115 = [v166 localizedStringForKey:@"Objects in headers and footers were removed." value:&stru_286EE1130 table:@"TCCompatibility"];
+    v116 = kWarningMessagePagesObjectsInHeaderFooterNotSupported;
+    kWarningMessagePagesObjectsInHeaderFooterNotSupported = v115;
 
-    v124 = TCBundle();
-    v78 = [v124 localizedStringForKey:@"Inline objects that cause text wrap were removed from headers and footers." value:&stru_286EE1130 table:@"TCCompatibility"];
-    v79 = kWarningMessagePagesObjectsWithWrapInHeaderFooterNotSupported;
-    kWarningMessagePagesObjectsWithWrapInHeaderFooterNotSupported = v78;
+    v167 = TCBundle(v117);
+    v118 = [v167 localizedStringForKey:@"Inline objects that cause text wrap were removed from headers and footers." value:&stru_286EE1130 table:@"TCCompatibility"];
+    v119 = kWarningMessagePagesObjectsWithWrapInHeaderFooterNotSupported;
+    kWarningMessagePagesObjectsWithWrapInHeaderFooterNotSupported = v118;
 
-    v125 = TCBundle();
-    v80 = [v125 localizedStringForKey:@"Outline view isn\\U2019t supported. Your document will appear as a regular word processing document." value:&stru_286EE1130 table:@"TCCompatibility"];
-    v81 = kWarningMessagePagesOutlineViewNotSupported;
-    kWarningMessagePagesOutlineViewNotSupported = v80;
+    v168 = TCBundle(v120);
+    v121 = [v168 localizedStringForKey:@"Outline view isn\\U2019t supported. Your document will appear as a regular word processing document." value:&stru_286EE1130 table:@"TCCompatibility"];
+    v122 = kWarningMessagePagesOutlineViewNotSupported;
+    kWarningMessagePagesOutlineViewNotSupported = v121;
 
-    v126 = TCBundle();
-    v82 = [v126 localizedStringForKey:@"Mail merge isn\\U2019t supported. Merge fields were converted to text." value:&stru_286EE1130 table:@"TCCompatibility"];
-    v83 = kWarningMessagePagesMailMergeNotSupported;
-    kWarningMessagePagesMailMergeNotSupported = v82;
+    v169 = TCBundle(v123);
+    v124 = [v169 localizedStringForKey:@"Mail merge isn\\U2019t supported. Merge fields were converted to text." value:&stru_286EE1130 table:@"TCCompatibility"];
+    v125 = kWarningMessagePagesMailMergeNotSupported;
+    kWarningMessagePagesMailMergeNotSupported = v124;
 
-    v127 = TCBundle();
-    v84 = [v127 localizedStringForKey:@"The font %@ is missing. Your text might look different." value:&stru_286EE1130 table:@"TCCompatibility"];
-    v85 = kWarningMessageFontReplaced;
-    kWarningMessageFontReplaced = v84;
+    v170 = TCBundle(v126);
+    v127 = [v170 localizedStringForKey:@"The font %@ is missing. Your text might look different." value:&stru_286EE1130 table:@"TCCompatibility"];
+    v128 = kWarningMessageFontReplaced;
+    kWarningMessageFontReplaced = v127;
   }
 }
 

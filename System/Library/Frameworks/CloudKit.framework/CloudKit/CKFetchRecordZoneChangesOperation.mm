@@ -97,7 +97,7 @@
 - (void)setRecordChangedBlock:(void *)recordChangedBlock
 {
   v6 = recordChangedBlock;
-  if (__sTestOverridesAvailable[0] == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, v4, v5))
+  if (__sTestOverridesAvailable == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, v4, v5))
   {
     objc_msgSend_raise_format_(MEMORY[0x1E695DF30], v4, *MEMORY[0x1E695D920], @"Callback check triggered");
   }
@@ -128,7 +128,7 @@ LABEL_9:
 
 - (void)recordChangedBlock
 {
-  if (__sTestOverridesAvailable[0] == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, a2, v2))
+  if (__sTestOverridesAvailable == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, a2, v2))
   {
     objc_msgSend_raise_format_(MEMORY[0x1E695DF30], a2, *MEMORY[0x1E695D920], @"Callback check triggered");
   }
@@ -165,7 +165,7 @@ LABEL_9:
 - (void)setRecordWasChangedBlock:(void *)recordWasChangedBlock
 {
   v6 = recordWasChangedBlock;
-  if (__sTestOverridesAvailable[0] == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, v4, v5))
+  if (__sTestOverridesAvailable == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, v4, v5))
   {
     objc_msgSend_raise_format_(MEMORY[0x1E695DF30], v4, *MEMORY[0x1E695D920], @"Callback check triggered");
   }
@@ -196,7 +196,7 @@ LABEL_9:
 
 - (void)recordWasChangedBlock
 {
-  if (__sTestOverridesAvailable[0] == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, a2, v2))
+  if (__sTestOverridesAvailable == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, a2, v2))
   {
     objc_msgSend_raise_format_(MEMORY[0x1E695DF30], a2, *MEMORY[0x1E695D920], @"Callback check triggered");
   }
@@ -233,7 +233,7 @@ LABEL_9:
 - (void)setZoneAttributesChangedBlock:(id)block
 {
   blockCopy = block;
-  if (__sTestOverridesAvailable[0] == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, v4, v5))
+  if (__sTestOverridesAvailable == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, v4, v5))
   {
     objc_msgSend_raise_format_(MEMORY[0x1E695DF30], v4, *MEMORY[0x1E695D920], @"Callback check triggered");
   }
@@ -264,7 +264,7 @@ LABEL_9:
 
 - (id)zoneAttributesChangedBlock
 {
-  if (__sTestOverridesAvailable[0] == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, a2, v2))
+  if (__sTestOverridesAvailable == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, a2, v2))
   {
     objc_msgSend_raise_format_(MEMORY[0x1E695DF30], a2, *MEMORY[0x1E695D920], @"Callback check triggered");
   }
@@ -301,7 +301,7 @@ LABEL_9:
 - (void)setPerRecordChangeCompletionBlock:(id)block
 {
   blockCopy = block;
-  if (__sTestOverridesAvailable[0] == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, v4, v5))
+  if (__sTestOverridesAvailable == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, v4, v5))
   {
     objc_msgSend_raise_format_(MEMORY[0x1E695DF30], v4, *MEMORY[0x1E695D920], @"Callback check triggered");
   }
@@ -332,7 +332,7 @@ LABEL_9:
 
 - (id)perRecordChangeCompletionBlock
 {
-  if (__sTestOverridesAvailable[0] == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, a2, v2))
+  if (__sTestOverridesAvailable == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, a2, v2))
   {
     objc_msgSend_raise_format_(MEMORY[0x1E695DF30], a2, *MEMORY[0x1E695D920], @"Callback check triggered");
   }
@@ -369,7 +369,7 @@ LABEL_9:
 - (void)setRecordWithIDWasDeletedBlock:(void *)recordWithIDWasDeletedBlock
 {
   v6 = recordWithIDWasDeletedBlock;
-  if (__sTestOverridesAvailable[0] == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, v4, v5))
+  if (__sTestOverridesAvailable == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, v4, v5))
   {
     objc_msgSend_raise_format_(MEMORY[0x1E695DF30], v4, *MEMORY[0x1E695D920], @"Callback check triggered");
   }
@@ -400,7 +400,7 @@ LABEL_9:
 
 - (void)recordWithIDWasDeletedBlock
 {
-  if (__sTestOverridesAvailable[0] == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, a2, v2))
+  if (__sTestOverridesAvailable == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, a2, v2))
   {
     objc_msgSend_raise_format_(MEMORY[0x1E695DF30], a2, *MEMORY[0x1E695D920], @"Callback check triggered");
   }
@@ -437,7 +437,7 @@ LABEL_9:
 - (void)setRecordZoneChangeTokensUpdatedBlock:(void *)recordZoneChangeTokensUpdatedBlock
 {
   v6 = recordZoneChangeTokensUpdatedBlock;
-  if (__sTestOverridesAvailable[0] == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, v4, v5))
+  if (__sTestOverridesAvailable == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, v4, v5))
   {
     objc_msgSend_raise_format_(MEMORY[0x1E695DF30], v4, *MEMORY[0x1E695D920], @"Callback check triggered");
   }
@@ -468,7 +468,7 @@ LABEL_9:
 
 - (void)recordZoneChangeTokensUpdatedBlock
 {
-  if (__sTestOverridesAvailable[0] == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, a2, v2))
+  if (__sTestOverridesAvailable == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, a2, v2))
   {
     objc_msgSend_raise_format_(MEMORY[0x1E695DF30], a2, *MEMORY[0x1E695D920], @"Callback check triggered");
   }
@@ -505,7 +505,7 @@ LABEL_9:
 - (void)setRecordZoneFetchCompletionBlockIVar:(id)var
 {
   varCopy = var;
-  if (__sTestOverridesAvailable[0] == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, v4, v5))
+  if (__sTestOverridesAvailable == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, v4, v5))
   {
     objc_msgSend_raise_format_(MEMORY[0x1E695DF30], v4, *MEMORY[0x1E695D920], @"Callback check triggered");
   }
@@ -536,7 +536,7 @@ LABEL_9:
 
 - (void)recordZoneFetchCompletionBlock
 {
-  if (__sTestOverridesAvailable[0] == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, a2, v2))
+  if (__sTestOverridesAvailable == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, a2, v2))
   {
     objc_msgSend_raise_format_(MEMORY[0x1E695DF30], a2, *MEMORY[0x1E695D920], @"Callback check triggered");
   }
@@ -573,7 +573,7 @@ LABEL_9:
 - (void)setFetchRecordZoneChangesCompletionBlock:(void *)fetchRecordZoneChangesCompletionBlock
 {
   v6 = fetchRecordZoneChangesCompletionBlock;
-  if (__sTestOverridesAvailable[0] == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, v4, v5))
+  if (__sTestOverridesAvailable == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, v4, v5))
   {
     objc_msgSend_raise_format_(MEMORY[0x1E695DF30], v4, *MEMORY[0x1E695D920], @"Callback check triggered");
   }
@@ -604,7 +604,7 @@ LABEL_9:
 
 - (void)fetchRecordZoneChangesCompletionBlock
 {
-  if (__sTestOverridesAvailable[0] == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, a2, v2))
+  if (__sTestOverridesAvailable == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, a2, v2))
   {
     objc_msgSend_raise_format_(MEMORY[0x1E695DF30], a2, *MEMORY[0x1E695D920], @"Callback check triggered");
   }
@@ -819,43 +819,43 @@ LABEL_9:
 
 - (BOOL)CKOperationShouldRun:(id *)run
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   v5 = objc_msgSend_recordZoneIDs(self, a2, run);
   v8 = objc_msgSend_count(v5, v6, v7);
 
   if (v8)
   {
-    v26 = 0u;
-    v27 = 0u;
-    v24 = 0u;
     v25 = 0u;
+    v26 = 0u;
+    v23 = 0u;
+    v24 = 0u;
     v11 = objc_msgSend_recordZoneIDs(self, v9, v10);
-    v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(v11, v12, &v24, v28, 16);
+    v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(v11, v12, &v23, v27, 16);
     if (v13)
     {
       v15 = v13;
-      v16 = *v25;
+      v16 = *v24;
       while (2)
       {
         v17 = 0;
         do
         {
-          if (*v25 != v16)
+          if (*v24 != v16)
           {
             objc_enumerationMutation(v11);
           }
 
-          if (!objc_msgSend_zoneIDHasCorrectDatabaseScope_error_(self, v14, *(*(&v24 + 1) + 8 * v17), run))
+          if (!objc_msgSend_zoneIDHasCorrectDatabaseScope_error_(self, v14, *(*(&v23 + 1) + 8 * v17), run))
           {
 
-            goto LABEL_14;
+            return 0;
           }
 
           ++v17;
         }
 
         while (v15 != v17);
-        v15 = objc_msgSend_countByEnumeratingWithState_objects_count_(v11, v14, &v24, v28, 16);
+        v15 = objc_msgSend_countByEnumeratingWithState_objects_count_(v11, v14, &v23, v27, 16);
         if (v15)
         {
           continue;
@@ -865,9 +865,9 @@ LABEL_9:
       }
     }
 
-    v23.receiver = self;
-    v23.super_class = CKFetchRecordZoneChangesOperation;
-    result = [(CKDatabaseOperation *)&v23 CKOperationShouldRun:run];
+    v22.receiver = self;
+    v22.super_class = CKFetchRecordZoneChangesOperation;
+    return [(CKDatabaseOperation *)&v22 CKOperationShouldRun:run];
   }
 
   else
@@ -879,17 +879,13 @@ LABEL_9:
       *run = objc_msgSend_errorWithDomain_code_format_(CKPrettyError, v21, @"CKErrorDomain", 12, @"You must pass at least one zone ID to %@", v20);
     }
 
-LABEL_14:
-    result = 0;
+    return 0;
   }
-
-  v22 = *MEMORY[0x1E69E9840];
-  return result;
 }
 
 - (void)performCKOperation
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   if (ck_log_initialization_predicate != -1)
   {
     dispatch_once(&ck_log_initialization_predicate, ck_log_initialization_block);
@@ -898,60 +894,59 @@ LABEL_14:
   v3 = ck_log_facility_ck;
   if (os_log_type_enabled(ck_log_facility_ck, OS_LOG_TYPE_DEBUG))
   {
-    v5 = v3;
-    v8 = objc_msgSend_recordZoneIDs(self, v6, v7);
-    v11 = objc_msgSend_count(v8, v9, v10);
-    v14 = objc_msgSend_recordZoneIDs(self, v12, v13);
-    if (objc_msgSend_count(v14, v15, v16) == 1)
+    v4 = v3;
+    v7 = objc_msgSend_recordZoneIDs(self, v5, v6);
+    v10 = objc_msgSend_count(v7, v8, v9);
+    v13 = objc_msgSend_recordZoneIDs(self, v11, v12);
+    if (objc_msgSend_count(v13, v14, v15) == 1)
     {
-      v19 = &stru_1EFA32970;
+      v18 = &stru_1EFA32970;
     }
 
     else
     {
-      v19 = @"s";
+      v18 = @"s";
     }
 
-    if (objc_msgSend_fetchAllChanges(self, v17, v18))
+    if (objc_msgSend_fetchAllChanges(self, v16, v17))
     {
-      v22 = &stru_1EFA32970;
+      v21 = &stru_1EFA32970;
     }
 
     else
     {
-      v22 = @" NOT";
+      v21 = @" NOT";
     }
 
-    v23 = objc_msgSend_configurationsByRecordZoneID(self, v20, v21);
+    v22 = objc_msgSend_configurationsByRecordZoneID(self, v19, v20);
     *buf = 134218754;
-    v26 = v11;
-    v27 = 2114;
-    v28 = v19;
-    v29 = 2114;
-    v30 = v22;
-    v31 = 2112;
-    v32 = v23;
-    _os_log_debug_impl(&dword_1883EA000, v5, OS_LOG_TYPE_DEBUG, "Fetching changes from the server for %lu zone%{public}@. Will%{public}@ fetch all changes. Options by zone:\n%@", buf, 0x2Au);
+    v25 = v10;
+    v26 = 2114;
+    v27 = v18;
+    v28 = 2114;
+    v29 = v21;
+    v30 = 2112;
+    v31 = v22;
+    _os_log_debug_impl(&dword_1883EA000, v4, OS_LOG_TYPE_DEBUG, "Fetching changes from the server for %lu zone%{public}@. Will%{public}@ fetch all changes. Options by zone:\n%@", buf, 0x2Au);
   }
 
-  v24.receiver = self;
-  v24.super_class = CKFetchRecordZoneChangesOperation;
-  [(CKOperation *)&v24 performCKOperation];
-  v4 = *MEMORY[0x1E69E9840];
+  v23.receiver = self;
+  v23.super_class = CKFetchRecordZoneChangesOperation;
+  [(CKOperation *)&v23 performCKOperation];
 }
 
 - (void)handleChangeForRecordID:(id)d record:(id)record error:(id)error
 {
-  v109 = *MEMORY[0x1E69E9840];
+  v108 = *MEMORY[0x1E69E9840];
   dCopy = d;
   recordCopy = record;
   v12 = objc_msgSend_CKClientSuitableError(error, v10, v11);
-  v98[0] = MEMORY[0x1E69E9820];
-  v98[1] = 3221225472;
-  v98[2] = sub_1885CEF14;
-  v98[3] = &unk_1E70BEBB0;
-  v98[4] = self;
-  objc_msgSend_countMergeableValueMetrics_(recordCopy, v13, v98);
+  v97[0] = MEMORY[0x1E69E9820];
+  v97[1] = 3221225472;
+  v97[2] = sub_1885CEF14;
+  v97[3] = &unk_1E70BEBB0;
+  v97[4] = self;
+  objc_msgSend_countMergeableValueMetrics_(recordCopy, v13, v97);
   if (self)
   {
     signpost = self->super.super._signpost;
@@ -1003,9 +998,9 @@ LABEL_14:
     }
 
     *buf = 138412546;
-    v100 = dCopy;
-    v101 = 2112;
-    v102 = v12;
+    v99 = dCopy;
+    v100 = 2112;
+    v101 = v12;
     v26 = "Record %@ changed with error: %@";
     v27 = v20;
     v28 = v25;
@@ -1047,7 +1042,7 @@ LABEL_14:
   if ((v38 - 1) <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v20))
   {
     *buf = 138412290;
-    v100 = dCopy;
+    v99 = dCopy;
     v26 = "Record %@ changed";
     v27 = v20;
     v28 = v38;
@@ -1081,15 +1076,15 @@ LABEL_22:
 
     v85 = objc_msgSend_recordChangeTag(recordCopy, v82, v83);
     *buf = 138544386;
-    v100 = v79;
-    v101 = 2112;
-    v102 = v84;
-    v103 = 2112;
-    v104 = dCopy;
-    v105 = 2112;
-    v106 = v85;
-    v107 = 2112;
-    v108 = v12;
+    v99 = v79;
+    v100 = 2112;
+    v101 = v84;
+    v102 = 2112;
+    v103 = dCopy;
+    v104 = 2112;
+    v105 = v85;
+    v106 = 2112;
+    v107 = v12;
     _os_log_debug_impl(&dword_1883EA000, v76, OS_LOG_TYPE_DEBUG, "Operation %{public}@ calling out about a changed %@record with id %@ etag=%@, error %@", buf, 0x34u);
 
     if (!v12)
@@ -1146,9 +1141,9 @@ LABEL_51:
       v72 = v61;
       v75 = objc_msgSend_operationID(self, v73, v74);
       *buf = 138543618;
-      v100 = v75;
-      v101 = 2112;
-      v102 = dCopy;
+      v99 = v75;
+      v100 = 2112;
+      v101 = dCopy;
       _os_log_debug_impl(&dword_1883EA000, v72, OS_LOG_TYPE_DEBUG, "Progress callback for operation %{public}@ recordID %@ is done", buf, 0x16u);
 LABEL_52:
     }
@@ -1210,12 +1205,12 @@ LABEL_52:
         if (os_log_type_enabled(ck_log_facility_ck, OS_LOG_TYPE_DEBUG))
         {
           v72 = v86;
-          v75 = objc_msgSend_operationID(self, v93, v94);
-          v97 = objc_msgSend_recordID(recordCopy, v95, v96);
+          v75 = objc_msgSend_operationID(self, v92, v93);
+          v96 = objc_msgSend_recordID(recordCopy, v94, v95);
           *buf = 138543618;
-          v100 = v75;
-          v101 = 2112;
-          v102 = v97;
+          v99 = v75;
+          v100 = 2112;
+          v101 = v96;
           _os_log_debug_impl(&dword_1883EA000, v72, OS_LOG_TYPE_DEBUG, "Operation %{public}@ received a changed record (%@), but no recordWasChangedBlock or recordChangedBlock has been set.", buf, 0x16u);
 
           goto LABEL_52;
@@ -1227,13 +1222,11 @@ LABEL_52:
   v87 = objc_msgSend_configuration(self, v62, v63);
   v90 = objc_msgSend_container(v87, v88, v89);
   objc_msgSend_handleRecordChanged_changeType_record_error_(v90, v91, dCopy, 1, recordCopy, v12);
-
-  v92 = *MEMORY[0x1E69E9840];
 }
 
 - (void)handleDeleteForRecordID:(id)d recordType:(id)type
 {
-  v51 = *MEMORY[0x1E69E9840];
+  v50 = *MEMORY[0x1E69E9840];
   dCopy = d;
   typeCopy = type;
   if (self)
@@ -1278,9 +1271,9 @@ LABEL_52:
 
     if (v21 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v16))
     {
-      *v50 = 138412290;
-      *&v50[4] = dCopy;
-      _os_signpost_emit_with_name_impl(&dword_1883EA000, v16, OS_SIGNPOST_EVENT, v21, "CKFetchRecordZoneChangesOperation", "Record %@ deleted", v50, 0xCu);
+      *v49 = 138412290;
+      *&v49[4] = dCopy;
+      _os_signpost_emit_with_name_impl(&dword_1883EA000, v16, OS_SIGNPOST_EVENT, v21, "CKFetchRecordZoneChangesOperation", "Record %@ deleted", v49, 0xCu);
     }
   }
 
@@ -1307,13 +1300,13 @@ LABEL_52:
     v28 = ck_log_facility_ck;
     if (os_log_type_enabled(ck_log_facility_ck, OS_LOG_TYPE_DEBUG))
     {
-      v44 = v28;
-      v47 = objc_msgSend_operationID(self, v45, v46);
-      *v50 = 138543618;
-      *&v50[4] = v47;
-      *&v50[12] = 2112;
-      *&v50[14] = dCopy;
-      _os_log_debug_impl(&dword_1883EA000, v44, OS_LOG_TYPE_DEBUG, "Operation %{public}@ calling out about a deleted record with id %@", v50, 0x16u);
+      v43 = v28;
+      v46 = objc_msgSend_operationID(self, v44, v45);
+      *v49 = 138543618;
+      *&v49[4] = v46;
+      *&v49[12] = 2112;
+      *&v49[14] = dCopy;
+      _os_log_debug_impl(&dword_1883EA000, v43, OS_LOG_TYPE_DEBUG, "Operation %{public}@ calling out about a deleted record with id %@", v49, 0x16u);
     }
 
     v26[2](v26, dCopy, typeCopy);
@@ -1327,13 +1320,13 @@ LABEL_52:
     {
       v32 = v29;
       v35 = objc_msgSend_operationID(self, v33, v34);
-      *v50 = 138543618;
-      *&v50[4] = v35;
-      *&v50[12] = 2112;
-      *&v50[14] = dCopy;
+      *v49 = 138543618;
+      *&v49[4] = v35;
+      *&v49[12] = 2112;
+      *&v49[14] = dCopy;
       v36 = "Progress callback for operation %{public}@ recordID %@ is done";
 LABEL_29:
-      _os_log_debug_impl(&dword_1883EA000, v32, OS_LOG_TYPE_DEBUG, v36, v50, 0x16u);
+      _os_log_debug_impl(&dword_1883EA000, v32, OS_LOG_TYPE_DEBUG, v36, v49, 0x16u);
     }
   }
 
@@ -1348,26 +1341,24 @@ LABEL_29:
     if (os_log_type_enabled(ck_log_facility_ck, OS_LOG_TYPE_DEBUG))
     {
       v32 = v37;
-      v35 = objc_msgSend_operationID(self, v48, v49);
-      *v50 = 138543618;
-      *&v50[4] = v35;
-      *&v50[12] = 2112;
-      *&v50[14] = dCopy;
+      v35 = objc_msgSend_operationID(self, v47, v48);
+      *v49 = 138543618;
+      *&v49[4] = v35;
+      *&v49[12] = 2112;
+      *&v49[14] = dCopy;
       v36 = "Operation %{public}@ received a deleted record (%@), but no recordWithIDWasDeletedBlock has been set.";
       goto LABEL_29;
     }
   }
 
-  v38 = objc_msgSend_configuration(self, v30, v31, *v50, *&v50[16], v51);
+  v38 = objc_msgSend_configuration(self, v30, v31, *v49, *&v49[8], v50);
   v41 = objc_msgSend_container(v38, v39, v40);
   objc_msgSend_handleRecordChanged_changeType_record_error_(v41, v42, dCopy, 3, 0, 0);
-
-  v43 = *MEMORY[0x1E69E9840];
 }
 
 - (void)handleAttributesChangedForZone:(id)zone
 {
-  v59 = *MEMORY[0x1E69E9840];
+  v58 = *MEMORY[0x1E69E9840];
   zoneCopy = zone;
   if (self)
   {
@@ -1412,9 +1403,9 @@ LABEL_29:
     if (v18 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v13))
     {
       v21 = objc_msgSend_zoneID(zoneCopy, v19, v20);
-      *v58 = 138412290;
-      *&v58[4] = v21;
-      _os_signpost_emit_with_name_impl(&dword_1883EA000, v13, OS_SIGNPOST_EVENT, v18, "CKFetchRecordZoneChangesOperation", "Zone %@ attributes changed", v58, 0xCu);
+      *v57 = 138412290;
+      *&v57[4] = v21;
+      _os_signpost_emit_with_name_impl(&dword_1883EA000, v13, OS_SIGNPOST_EVENT, v18, "CKFetchRecordZoneChangesOperation", "Zone %@ attributes changed", v57, 0xCu);
     }
   }
 
@@ -1441,14 +1432,14 @@ LABEL_29:
     v28 = ck_log_facility_ck;
     if (os_log_type_enabled(ck_log_facility_ck, OS_LOG_TYPE_DEBUG))
     {
-      v47 = v28;
-      v50 = objc_msgSend_operationID(self, v48, v49);
-      v53 = objc_msgSend_zoneID(zoneCopy, v51, v52);
-      *v58 = 138543618;
-      *&v58[4] = v50;
-      *&v58[12] = 2112;
-      *&v58[14] = v53;
-      _os_log_debug_impl(&dword_1883EA000, v47, OS_LOG_TYPE_DEBUG, "Operation %{public}@ calling out about zone attributes changed for zone with ID %@", v58, 0x16u);
+      v46 = v28;
+      v49 = objc_msgSend_operationID(self, v47, v48);
+      v52 = objc_msgSend_zoneID(zoneCopy, v50, v51);
+      *v57 = 138543618;
+      *&v57[4] = v49;
+      *&v57[12] = 2112;
+      *&v57[14] = v52;
+      _os_log_debug_impl(&dword_1883EA000, v46, OS_LOG_TYPE_DEBUG, "Operation %{public}@ calling out about zone attributes changed for zone with ID %@", v57, 0x16u);
     }
 
     v26[2](v26, zoneCopy);
@@ -1463,13 +1454,13 @@ LABEL_29:
       v32 = v29;
       v35 = objc_msgSend_operationID(self, v33, v34);
       v38 = objc_msgSend_zoneID(zoneCopy, v36, v37);
-      *v58 = 138543618;
-      *&v58[4] = v35;
-      *&v58[12] = 2112;
-      *&v58[14] = v38;
+      *v57 = 138543618;
+      *&v57[4] = v35;
+      *&v57[12] = 2112;
+      *&v57[14] = v38;
       v39 = "Progress callback for zone attributes changed operation %{public}@ zoneID %@ is done";
 LABEL_29:
-      _os_log_debug_impl(&dword_1883EA000, v32, OS_LOG_TYPE_DEBUG, v39, v58, 0x16u);
+      _os_log_debug_impl(&dword_1883EA000, v32, OS_LOG_TYPE_DEBUG, v39, v57, 0x16u);
     }
   }
 
@@ -1484,28 +1475,26 @@ LABEL_29:
     if (os_log_type_enabled(ck_log_facility_ck, OS_LOG_TYPE_DEBUG))
     {
       v32 = v40;
-      v35 = objc_msgSend_operationID(self, v54, v55);
-      v38 = objc_msgSend_zoneID(zoneCopy, v56, v57);
-      *v58 = 138543618;
-      *&v58[4] = v35;
-      *&v58[12] = 2112;
-      *&v58[14] = v38;
+      v35 = objc_msgSend_operationID(self, v53, v54);
+      v38 = objc_msgSend_zoneID(zoneCopy, v55, v56);
+      *v57 = 138543618;
+      *&v57[4] = v35;
+      *&v57[12] = 2112;
+      *&v57[14] = v38;
       v39 = "Operation %{public}@ received a zone attributes change (%@), but no zoneAttributesChangedBlock has been set.";
       goto LABEL_29;
     }
   }
 
-  v41 = objc_msgSend_configuration(self, v30, v31, *v58, *&v58[16], v59);
+  v41 = objc_msgSend_configuration(self, v30, v31, *v57, *&v57[8], v58);
   v44 = objc_msgSend_container(v41, v42, v43);
   objc_msgSend_handleAttributesChangedForZone_(v44, v45, zoneCopy);
-
-  v46 = *MEMORY[0x1E69E9840];
 }
 
 - (void)handleChangeSetCompletionForRecordZoneID:(id)d serverChangeToken:(id)token clientChangeTokenData:(id)data recordChangesStatus:(int64_t)status hasPendingArchivedRecords:(BOOL)records syncObligationZoneIDs:(id)ds error:(id)error reply:(id)self0
 {
   recordsCopy = records;
-  v123 = *MEMORY[0x1E69E9840];
+  v122 = *MEMORY[0x1E69E9840];
   dCopy = d;
   tokenCopy = token;
   dataCopy = data;
@@ -1528,15 +1517,15 @@ LABEL_29:
     v25 = ck_log_facility_ck;
     if (os_log_type_enabled(ck_log_facility_ck, OS_LOG_TYPE_DEBUG))
     {
-      v89 = v25;
-      v92 = objc_msgSend_operationID(self, v90, v91);
+      v88 = v25;
+      v91 = objc_msgSend_operationID(self, v89, v90);
       *buf = 138543874;
-      v112 = v92;
-      v113 = 2048;
+      v111 = v91;
+      v112 = 2048;
       statusCopy = status;
-      v115 = 2112;
-      v116 = dCopy;
-      _os_log_debug_impl(&dword_1883EA000, v89, OS_LOG_TYPE_DEBUG, "Operation %{public}@ updating recordChangesStatus to %ld for record zone %@", buf, 0x20u);
+      v114 = 2112;
+      v115 = dCopy;
+      _os_log_debug_impl(&dword_1883EA000, v88, OS_LOG_TYPE_DEBUG, "Operation %{public}@ updating recordChangesStatus to %ld for record zone %@", buf, 0x20u);
     }
 
     v27 = objc_msgSend_numberWithInteger_(MEMORY[0x1E696AD98], v26, status);
@@ -1617,19 +1606,19 @@ LABEL_29:
       v63 = ck_log_facility_ck;
       if (os_log_type_enabled(ck_log_facility_ck, OS_LOG_TYPE_DEBUG))
       {
-        v97 = v63;
-        v100 = objc_msgSend_operationID(self, v98, v99);
+        v96 = v63;
+        v99 = objc_msgSend_operationID(self, v97, v98);
         *buf = 138544386;
-        v112 = v100;
-        v113 = 2114;
+        v111 = v99;
+        v112 = 2114;
         statusCopy = tokenCopy;
-        v115 = 2114;
-        v116 = dataCopy;
-        v117 = 2112;
-        v118 = dCopy;
-        v119 = 2112;
-        v120 = v22;
-        _os_log_debug_impl(&dword_1883EA000, v97, OS_LOG_TYPE_DEBUG, "Operation %{public}@ calling out about per-zone completion with server change token %{public}@, client change token data %{public}@ for zoneID %@. Error was: %@", buf, 0x34u);
+        v114 = 2114;
+        v115 = dataCopy;
+        v116 = 2112;
+        v117 = dCopy;
+        v118 = 2112;
+        v119 = v22;
+        _os_log_debug_impl(&dword_1883EA000, v96, OS_LOG_TYPE_DEBUG, "Operation %{public}@ calling out about per-zone completion with server change token %{public}@, client change token data %{public}@ for zoneID %@. Error was: %@", buf, 0x34u);
       }
 
       v66 = objc_msgSend_recordZoneFetchCompletionBlock_wrapper(self, v64, v65);
@@ -1665,33 +1654,33 @@ LABEL_29:
       v73 = ck_log_facility_ck;
       if (os_log_type_enabled(ck_log_facility_ck, OS_LOG_TYPE_DEBUG))
       {
-        v101 = v73;
-        v104 = objc_msgSend_operationID(self, v102, v103);
+        v100 = v73;
+        v103 = objc_msgSend_operationID(self, v101, v102);
         *buf = 138544642;
-        v105 = @" Error was: ";
-        v112 = v104;
-        v106 = &stru_1EFA32970;
-        v113 = 2112;
+        v104 = @" Error was: ";
+        v111 = v103;
+        v105 = &stru_1EFA32970;
+        v112 = 2112;
         if (!v62)
         {
-          v105 = &stru_1EFA32970;
+          v104 = &stru_1EFA32970;
         }
 
         statusCopy = tokenCopy;
         if (v62)
         {
-          v106 = v62;
+          v105 = v62;
         }
 
-        v115 = 2114;
-        v116 = dataCopy;
-        v117 = 2112;
-        v118 = dCopy;
-        v119 = 2114;
-        v120 = v105;
-        v121 = 2112;
-        v122 = v106;
-        _os_log_debug_impl(&dword_1883EA000, v101, OS_LOG_TYPE_DEBUG, "Operation %{public}@ calling out about per-zone completion with server change token %@, client change token data %{public}@ for zoneID %@.%{public}@%@", buf, 0x3Eu);
+        v114 = 2114;
+        v115 = dataCopy;
+        v116 = 2112;
+        v117 = dCopy;
+        v118 = 2114;
+        v119 = v104;
+        v120 = 2112;
+        v121 = v105;
+        _os_log_debug_impl(&dword_1883EA000, v100, OS_LOG_TYPE_DEBUG, "Operation %{public}@ calling out about per-zone completion with server change token %@, client change token data %{public}@ for zoneID %@.%{public}@%@", buf, 0x3Eu);
       }
 
       v76 = objc_msgSend_recordZoneFetchCompletionBlock_wrapper(self, v74, v75, dsCopy);
@@ -1715,7 +1704,7 @@ LABEL_29:
       }
 
       v55 = dataCopy;
-      dsCopy = v107;
+      dsCopy = v106;
     }
 
     goto LABEL_52;
@@ -1731,17 +1720,17 @@ LABEL_29:
   v56 = ck_log_facility_ck;
   if (os_log_type_enabled(ck_log_facility_ck, OS_LOG_TYPE_DEBUG))
   {
-    v93 = v56;
-    v96 = objc_msgSend_operationID(self, v94, v95);
+    v92 = v56;
+    v95 = objc_msgSend_operationID(self, v93, v94);
     *buf = 138544130;
-    v112 = v96;
-    v113 = 2114;
+    v111 = v95;
+    v112 = 2114;
     statusCopy = tokenCopy;
-    v115 = 2114;
-    v116 = dataCopy;
-    v117 = 2112;
-    v118 = dCopy;
-    _os_log_debug_impl(&dword_1883EA000, v93, OS_LOG_TYPE_DEBUG, "Operation %{public}@ calling out about a server change token %{public}@, client change token data %{public}@ for zoneID %@", buf, 0x2Au);
+    v114 = 2114;
+    v115 = dataCopy;
+    v116 = 2112;
+    v117 = dCopy;
+    _os_log_debug_impl(&dword_1883EA000, v92, OS_LOG_TYPE_DEBUG, "Operation %{public}@ calling out about a server change token %{public}@, client change token data %{public}@ for zoneID %@", buf, 0x2Au);
 
     v55 = dataCopy;
   }
@@ -1763,20 +1752,18 @@ LABEL_52:
   v83 = ck_log_facility_ck;
   if (os_log_type_enabled(ck_log_facility_ck, OS_LOG_TYPE_DEBUG))
   {
-    v85 = v83;
-    v88 = objc_msgSend_operationID(self, v86, v87);
+    v84 = v83;
+    v87 = objc_msgSend_operationID(self, v85, v86);
     *buf = 138543618;
-    v112 = v88;
-    v113 = 2112;
+    v111 = v87;
+    v112 = 2112;
     statusCopy = dCopy;
-    _os_log_debug_impl(&dword_1883EA000, v85, OS_LOG_TYPE_DEBUG, "Progress callback for operation %{public}@ zoneID %@ is done", buf, 0x16u);
+    _os_log_debug_impl(&dword_1883EA000, v84, OS_LOG_TYPE_DEBUG, "Progress callback for operation %{public}@ zoneID %@ is done", buf, 0x16u);
 
     v54 = tokenCopy;
   }
 
   replyCopy[2](replyCopy, 0);
-
-  v84 = *MEMORY[0x1E69E9840];
 }
 
 - (id)partialFailureForItemsInZone:(id)zone
@@ -1818,7 +1805,7 @@ LABEL_52:
 
 - (void)_finishOnCallbackQueueWithError:(id)error
 {
-  v107 = *MEMORY[0x1E69E9840];
+  v106 = *MEMORY[0x1E69E9840];
   errorCopy = error;
   if (self)
   {
@@ -1910,29 +1897,29 @@ LABEL_52:
     v35 = ck_log_facility_ck;
     if (os_log_type_enabled(v35, OS_LOG_TYPE_DEBUG))
     {
-      v92 = objc_msgSend_operationID(self, v36, v37);
-      v93 = &stru_1EFA32970;
+      v91 = objc_msgSend_operationID(self, v36, v37);
+      v92 = &stru_1EFA32970;
       if (errorCopy)
       {
-        v94 = @" Error was: ";
+        v93 = @" Error was: ";
       }
 
       else
       {
-        v94 = &stru_1EFA32970;
+        v93 = &stru_1EFA32970;
       }
 
       if (errorCopy)
       {
-        v93 = objc_msgSend_CKClientSuitableError(errorCopy, v90, v91);
+        v92 = objc_msgSend_CKClientSuitableError(errorCopy, v89, v90);
       }
 
       *buf = 138543874;
-      v102 = v92;
-      v103 = 2114;
-      v104 = v94;
-      v105 = 2112;
-      v106 = v93;
+      v101 = v91;
+      v102 = 2114;
+      v103 = v93;
+      v104 = 2112;
+      v105 = v92;
       _os_log_debug_impl(&dword_1883EA000, v35, OS_LOG_TYPE_DEBUG, "Operation %{public}@ has completed. %{public}@%@", buf, 0x20u);
       if (errorCopy)
       {
@@ -1955,29 +1942,29 @@ LABEL_52:
     v43 = ck_log_facility_ck;
     if (os_log_type_enabled(v43, OS_LOG_TYPE_DEBUG))
     {
-      v97 = objc_msgSend_operationID(self, v44, v45);
-      v98 = &stru_1EFA32970;
+      v96 = objc_msgSend_operationID(self, v44, v45);
+      v97 = &stru_1EFA32970;
       if (errorCopy)
       {
-        v99 = @" Error was: ";
+        v98 = @" Error was: ";
       }
 
       else
       {
-        v99 = &stru_1EFA32970;
+        v98 = &stru_1EFA32970;
       }
 
       if (errorCopy)
       {
-        v98 = objc_msgSend_CKClientSuitableError(errorCopy, v95, v96);
+        v97 = objc_msgSend_CKClientSuitableError(errorCopy, v94, v95);
       }
 
       *buf = 138543874;
-      v102 = v97;
-      v103 = 2114;
-      v104 = v99;
-      v105 = 2112;
-      v106 = v98;
+      v101 = v96;
+      v102 = 2114;
+      v103 = v98;
+      v104 = 2112;
+      v105 = v97;
       _os_log_debug_impl(&dword_1883EA000, v43, OS_LOG_TYPE_DEBUG, "Operation %{public}@ finished but no fetchRecordZoneChangesCompletionBlock was set.%{public}@%@", buf, 0x20u);
       if (errorCopy)
       {
@@ -2034,16 +2021,14 @@ LABEL_52:
     objc_msgSend_setObject_forKeyedSubscript_(v87, v88, v84, @"zoneNames");
   }
 
-  v100.receiver = self;
-  v100.super_class = CKFetchRecordZoneChangesOperation;
-  [(CKOperation *)&v100 _finishOnCallbackQueueWithError:errorCopy];
-
-  v89 = *MEMORY[0x1E69E9840];
+  v99.receiver = self;
+  v99.super_class = CKFetchRecordZoneChangesOperation;
+  [(CKOperation *)&v99 _finishOnCallbackQueueWithError:errorCopy];
 }
 
 - (void)ckSignpostBegin
 {
-  v55 = *MEMORY[0x1E69E9840];
+  v54 = *MEMORY[0x1E69E9840];
   if (self)
   {
     signpost = self->super.super._signpost;
@@ -2096,28 +2081,26 @@ LABEL_52:
       v36 = CKStringForDiscretionaryNetworkBehavior(v35);
       v39 = objc_msgSend_qualityOfService(self, v37, v38);
       v41 = CKStringForQOS(v39, v40);
-      v43 = 138413570;
-      v44 = v17;
-      v45 = 2112;
-      v46 = v20;
-      v47 = 2112;
-      v48 = v26;
-      v49 = 2114;
-      v50 = v29;
-      v51 = 2114;
-      v52 = v36;
-      v53 = 2114;
-      v54 = v41;
-      _os_signpost_emit_with_name_impl(&dword_1883EA000, v9, OS_SIGNPOST_INTERVAL_BEGIN, v14, "CKFetchRecordZoneChangesOperation", "ID=%{signpost.description:attribute}@ Container=%{signpost.description:attribute}@ GroupID=%{signpost.description:attribute}@ GroupName=%{signpost.description:attribute,public}@ Behavior=%{signpost.description:attribute,public}@ QoS=%{signpost.description:attribute,public}@ ", &v43, 0x3Eu);
+      v42 = 138413570;
+      v43 = v17;
+      v44 = 2112;
+      v45 = v20;
+      v46 = 2112;
+      v47 = v26;
+      v48 = 2114;
+      v49 = v29;
+      v50 = 2114;
+      v51 = v36;
+      v52 = 2114;
+      v53 = v41;
+      _os_signpost_emit_with_name_impl(&dword_1883EA000, v9, OS_SIGNPOST_INTERVAL_BEGIN, v14, "CKFetchRecordZoneChangesOperation", "ID=%{signpost.description:attribute}@ Container=%{signpost.description:attribute}@ GroupID=%{signpost.description:attribute}@ GroupName=%{signpost.description:attribute,public}@ Behavior=%{signpost.description:attribute,public}@ QoS=%{signpost.description:attribute,public}@ ", &v42, 0x3Eu);
     }
   }
-
-  v42 = *MEMORY[0x1E69E9840];
 }
 
 - (void)ckSignpostEndWithError:(id)error
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   errorCopy = error;
   if (self)
   {
@@ -2161,13 +2144,11 @@ LABEL_52:
 
     if (v16 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v11))
     {
-      v18 = 138412290;
-      v19 = errorCopy;
-      _os_signpost_emit_with_name_impl(&dword_1883EA000, v11, OS_SIGNPOST_INTERVAL_END, v16, "CKFetchRecordZoneChangesOperation", "Error=%{signpost.description:attribute}@ ", &v18, 0xCu);
+      v17 = 138412290;
+      v18 = errorCopy;
+      _os_signpost_emit_with_name_impl(&dword_1883EA000, v11, OS_SIGNPOST_INTERVAL_END, v16, "CKFetchRecordZoneChangesOperation", "Error=%{signpost.description:attribute}@ ", &v17, 0xCu);
     }
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (id)activityCreate

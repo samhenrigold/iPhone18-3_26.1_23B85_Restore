@@ -226,7 +226,7 @@
     v13 = 0u;
     v14 = 0u;
     v12 = 0u;
-    [v5 circleProperties];
+    objc_msgSend_circleProperties(v5);
     *&self[1]._anon_28[440] = 0;
     [v5 ringCenter];
     [(FIUIBreathingPetalRingMetalRenderer *)self setRingCenter:?];

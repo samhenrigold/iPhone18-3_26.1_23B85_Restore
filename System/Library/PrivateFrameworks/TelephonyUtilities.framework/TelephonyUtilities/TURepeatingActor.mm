@@ -5,6 +5,8 @@
 - (TURepeatingActor)init;
 - (void)_attemptNextIteration;
 - (void)_beginRepeatingAction:(id)action;
+- (void)_completeWithDidFinish:(BOOL)finish;
+- (void)_stopWithDidFinish:(BOOL)finish;
 - (void)beginRepeatingAction:(id)action iterations:(unint64_t)iterations pauseDurationBetweenIterations:(double)betweenIterations completion:(id)completion;
 - (void)setCurrentRepeatingAction:(id)action;
 - (void)stop;
@@ -54,21 +56,19 @@
   os_unfair_lock_lock(&self->_accessorLock);
   if (self->_currentRepeatingAction != actionCopy)
   {
-    v6 = TUDefaultLog();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = TUDefaultLog(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       currentRepeatingAction = self->_currentRepeatingAction;
       v9 = 138412290;
       v10 = currentRepeatingAction;
-      _os_log_impl(&dword_1956FD000, v6, OS_LOG_TYPE_DEFAULT, "setCurrentRepeatingAction to: %@", &v9, 0xCu);
+      _os_log_impl(&dword_1956FD000, v7, OS_LOG_TYPE_DEFAULT, "setCurrentRepeatingAction to: %@", &v9, 0xCu);
     }
 
     objc_storeStrong(&self->_currentRepeatingAction, action);
   }
 
   os_unfair_lock_unlock(&self->_accessorLock);
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)beginRepeatingAction:(id)action iterations:(unint64_t)iterations pauseDurationBetweenIterations:(double)betweenIterations completion:(id)completion
@@ -121,12 +121,12 @@ void __94__TURepeatingActor_beginRepeatingAction_iterations_pauseDurationBetween
 
   if (currentRepeatingAction)
   {
-    v7 = TUDefaultLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = TUDefaultLog(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       v11 = 138412290;
       v12 = actionCopy;
-      _os_log_impl(&dword_1956FD000, v7, OS_LOG_TYPE_DEFAULT, "add to pendingRepeatingAction: %@", &v11, 0xCu);
+      _os_log_impl(&dword_1956FD000, v8, OS_LOG_TYPE_DEFAULT, "add to pendingRepeatingAction: %@", &v11, 0xCu);
     }
 
     [(TURepeatingActor *)self setPendingRepeatingAction:actionCopy];
@@ -134,20 +134,17 @@ void __94__TURepeatingActor_beginRepeatingAction_iterations_pauseDurationBetween
 
   else
   {
-    [(TURepeatingActor *)self setCurrentRepeatingAction:actionCopy];
-    v8 = TUDefaultLog();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = TUDefaultLog([(TURepeatingActor *)self setCurrentRepeatingAction:actionCopy]);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       currentRepeatingAction = self->_currentRepeatingAction;
       v11 = 138412290;
       v12 = currentRepeatingAction;
-      _os_log_impl(&dword_1956FD000, v8, OS_LOG_TYPE_DEFAULT, "currentRepeatingAction changed to: %@", &v11, 0xCu);
+      _os_log_impl(&dword_1956FD000, v9, OS_LOG_TYPE_DEFAULT, "currentRepeatingAction changed to: %@", &v11, 0xCu);
     }
 
     [(TURepeatingActor *)self _attemptNextIteration];
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_attemptNextIteration
@@ -286,6 +283,79 @@ uint64_t __41__TURepeatingActor__attemptNextIteration__block_invoke_3(uint64_t a
   }
 
   return v5;
+}
+
+- (void)_stopWithDidFinish:(BOOL)finish
+{
+  finishCopy = finish;
+  v12 = *MEMORY[0x1E69E9840];
+  queue = [(TURepeatingActor *)self queue];
+  dispatch_assert_queue_V2(queue);
+
+  v7 = TUDefaultLog(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  {
+    v11[0] = 67109120;
+    v11[1] = finishCopy;
+    _os_log_impl(&dword_1956FD000, v7, OS_LOG_TYPE_DEFAULT, "_stopWithDidFinish: %d", v11, 8u);
+  }
+
+  currentRepeatingAction = [(TURepeatingActor *)self currentRepeatingAction];
+
+  if (currentRepeatingAction)
+  {
+    [(TURepeatingActor *)self setStopped:1];
+    attemptNextIterationBlock = [(TURepeatingActor *)self attemptNextIterationBlock];
+    v10 = attemptNextIterationBlock;
+    if (attemptNextIterationBlock)
+    {
+      dispatch_block_cancel(attemptNextIterationBlock);
+      [(TURepeatingActor *)self setAttemptNextIterationBlock:0];
+    }
+
+    if (![(TURepeatingActor *)self isCurrentlyPerformingAction])
+    {
+      [(TURepeatingActor *)self _completeWithDidFinish:finishCopy];
+    }
+  }
+}
+
+- (void)_completeWithDidFinish:(BOOL)finish
+{
+  finishCopy = finish;
+  v14 = *MEMORY[0x1E69E9840];
+  queue = [(TURepeatingActor *)self queue];
+  dispatch_assert_queue_V2(queue);
+
+  [(TURepeatingActor *)self setStopped:0];
+  [(TURepeatingActor *)self setAttemptNextIterationBlock:0];
+  currentRepeatingAction = [(TURepeatingActor *)self currentRepeatingAction];
+  completion = [currentRepeatingAction completion];
+
+  if (completion)
+  {
+    currentRepeatingAction2 = [(TURepeatingActor *)self currentRepeatingAction];
+    completion2 = [currentRepeatingAction2 completion];
+    completion2[2](completion2, finishCopy);
+  }
+
+  v10 = TUDefaultLog([(TURepeatingActor *)self setCurrentRepeatingAction:0]);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  {
+    v13[0] = 67109120;
+    v13[1] = finishCopy;
+    _os_log_impl(&dword_1956FD000, v10, OS_LOG_TYPE_DEFAULT, "completeWithDidFinish: %d currentRepeatingAction changed to nil", v13, 8u);
+  }
+
+  pendingRepeatingAction = [(TURepeatingActor *)self pendingRepeatingAction];
+
+  if (pendingRepeatingAction)
+  {
+    pendingRepeatingAction2 = [(TURepeatingActor *)self pendingRepeatingAction];
+    [(TURepeatingActor *)self _beginRepeatingAction:pendingRepeatingAction2];
+
+    [(TURepeatingActor *)self setPendingRepeatingAction:0];
+  }
 }
 
 @end

@@ -243,20 +243,18 @@ void __50__FMServerInteractionController_cancelAllCommands__block_invoke(uint64_
 
 - (void)URLSession:(id)session didBecomeInvalidWithError:(id)error
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   sessionCopy = session;
   errorCopy = error;
-  v7 = LogCategory_Networking();
+  v7 = LogCategory_Networking(errorCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 138412546;
-    v10 = sessionCopy;
-    v11 = 2112;
-    v12 = errorCopy;
-    _os_log_impl(&dword_24A2EE000, v7, OS_LOG_TYPE_DEFAULT, "session: [%@] didBecomeInvalidWithError: [%@]", &v9, 0x16u);
+    v8 = 138412546;
+    v9 = sessionCopy;
+    v10 = 2112;
+    v11 = errorCopy;
+    _os_log_impl(&dword_24A2EE000, v7, OS_LOG_TYPE_DEFAULT, "session: [%@] didBecomeInvalidWithError: [%@]", &v8, 0x16u);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)processResponseForCommand:(id)command callback:(id)callback

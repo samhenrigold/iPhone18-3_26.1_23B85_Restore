@@ -6,6 +6,7 @@
 - (void)fetchReportsDuringInterval:(id)interval partitionInterval:(double)partitionInterval replyHandler:(id)handler;
 - (void)fetchScheduleForActivity:(id)activity withClient:(id)client replyHandler:(id)handler;
 - (void)fetchUsageForApplications:(id)applications webDomains:(id)domains categories:(id)categories interval:(id)interval replyHandler:(id)handler;
+- (void)overrideDeviceActivityAuthorizationStatus:(BOOL)status replyHandler:(id)handler;
 - (void)startMonitoringActivity:(id)activity withSchedule:(id)schedule events:(id)events forClient:(id)client withExtension:(id)extension replyHandler:(id)handler;
 - (void)startMonitoringBudgets:(id)budgets darwinNotificationName:(id)name notificationTimes:(id)times clientIdentifier:(id)identifier replyHandler:(id)handler;
 - (void)stopMonitoringActivities:(id)activities forClient:(id)client replyHandler:(id)handler;
@@ -277,6 +278,37 @@
   }
 
   handlerCopy[2](handlerCopy, v18, v17);
+}
+
+- (void)overrideDeviceActivityAuthorizationStatus:(BOOL)status replyHandler:(id)handler
+{
+  statusCopy = status;
+  handlerCopy = handler;
+  v6 = +[NSXPCConnection currentConnection];
+  v7 = [USTrackingAgentPrivateConnection connectionHasPrivateEntitlement:v6];
+
+  if (v7)
+  {
+    [_TtC18UsageTrackingAgent29USDeviceActivityAuthorization setIsOverridden:statusCopy];
+    handlerCopy[2](handlerCopy, 0);
+  }
+
+  else
+  {
+    v8 = +[USUsageTrackingBundle usageTrackingBundle];
+    v9 = [v8 localizedStringForKey:@"NotAuthorizedForSPIError" value:&stru_100088840 table:0];
+    v10 = [v8 localizedStringForKey:@"RequiresPrivateUsageTrackingAgentEntitlement" value:&stru_100088840 table:0];
+    v14[0] = NSLocalizedDescriptionKey;
+    v14[1] = NSLocalizedRecoverySuggestionErrorKey;
+    v15[0] = v9;
+    v15[1] = v10;
+    v11 = [NSDictionary dictionaryWithObjects:v15 forKeys:v14 count:2];
+    v12 = [NSError alloc];
+    v13 = [v12 initWithDomain:USErrorDomain code:3 userInfo:v11];
+
+    handlerCopy[2](handlerCopy, v13);
+    handlerCopy = v13;
+  }
 }
 
 - (void)uploadLocalDataWithReplyHandler:(id)handler

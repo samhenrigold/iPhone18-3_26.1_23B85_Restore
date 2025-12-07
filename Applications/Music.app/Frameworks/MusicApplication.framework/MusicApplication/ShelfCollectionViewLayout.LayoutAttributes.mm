@@ -38,7 +38,7 @@
 
   v6 = sub_3254F0(v8);
 
-  sub_12E1C(v8, &unk_DE8E40);
+  sub_12E1C(v8, &unk_DE8E40, &unk_AF8050);
   return v6;
 }
 

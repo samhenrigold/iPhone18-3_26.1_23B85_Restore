@@ -7,6 +7,7 @@
 - (BOOL)tsu_isChildOfPath:()TSUAdditions;
 - (__CFString)tsu_stringByFixingBrokenSurrogatePairs;
 - (__CFString)tsu_stringWithPathRelativeTo:()TSUAdditions;
+- (__CFString)tsu_stringWithPathRelativeTo:()TSUAdditions allowBacktracking:;
 - (char)tsu_stringWithRealpath;
 - (id)tsu_escapeForIcuRegex;
 - (id)tsu_escapeXML;
@@ -20,13 +21,12 @@
 - (uint64_t)tsu_stringByAddingCSVEscapes;
 - (uint64_t)tsu_stringByAppendingSeparator:()TSUAdditions format:;
 - (uint64_t)tsu_stringByReplacingInstancesOfCharactersInSet:()TSUAdditions withString:;
-- (uint64_t)tsu_stringWithPathRelativeTo:()TSUAdditions allowBacktracking:;
-- (uint64_t)tsu_substringWithComposedCharacterSequencesToFileSystemLength:()TSUAdditions;
-- (uint64_t)tsu_substringWithComposedCharacterSequencesToIndex:()TSUAdditions;
-- (uint64_t)tsu_tolerantStringByAppendingPathExtension:()TSUAdditions;
 - (void)tsu_stringByRemovingCharactersInSet:()TSUAdditions options:;
 - (void)tsu_stringByReplacingCharactersInSet:()TSUAdditions withCharacter:;
 - (void)tsu_stringByUniquingPathInsideDirectory:()TSUAdditions withFormat:;
+- (void)tsu_substringWithComposedCharacterSequencesToFileSystemLength:()TSUAdditions;
+- (void)tsu_substringWithComposedCharacterSequencesToIndex:()TSUAdditions;
+- (void)tsu_tolerantStringByAppendingPathExtension:()TSUAdditions;
 @end
 
 @implementation NSString(TSUAdditions)
@@ -341,7 +341,7 @@
 
 - (uint64_t)tsu_stringByAppendingSeparator:()TSUAdditions format:
 {
-  v11 = [MEMORY[0x277CCACA8] tsu_stringWithFormat:a4 arguments:&a9];
+  v11 = [MEMORY[0x277CCACA8] tsu_stringWithFormat:a4 arguments:&a9, a5, a6, a7, a8];
   if ([self length])
   {
     return [self stringByAppendingFormat:@"%@%@", a3, v11];
@@ -633,6 +633,7 @@ LABEL_42:
   selfCopy = self;
   if (a3)
   {
+    v5 = a4;
     if ([self rangeOfCharacterFromSet:?] != 0x7FFFFFFFFFFFFFFFLL)
     {
       string = [MEMORY[0x277CCAB68] string];
@@ -641,7 +642,7 @@ LABEL_42:
       {
         v9 = v8;
         v10 = 0;
-        v11 = a4 & 0xFFFFFFFB;
+        v11 = v5 & 0xFFFFFFFB;
         v12 = v8;
         do
         {
@@ -680,7 +681,7 @@ LABEL_42:
 
   else
   {
-    v17 = +[TSUAssertionHandler currentHandler];
+    v17 = [TSUAssertionHandler currentHandler:0];
     v18 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[NSString(TSUAdditions) tsu_stringByRemovingCharactersInSet:options:]"];
     [v17 handleFailureInFunction:v18 file:objc_msgSend(MEMORY[0x277CCACA8] lineNumber:"stringWithUTF8String:" description:{"/Library/Caches/com.apple.xbs/Sources/AlderShared/utility/NSString_TSUAdditions.m"), 369, @"invalid nil value for '%s'", "charSet"}];
   }
@@ -959,7 +960,7 @@ LABEL_5:
   return result;
 }
 
-- (uint64_t)tsu_substringWithComposedCharacterSequencesToIndex:()TSUAdditions
+- (void)tsu_substringWithComposedCharacterSequencesToIndex:()TSUAdditions
 {
   v5 = [self length];
   v6 = 0;
@@ -986,7 +987,7 @@ LABEL_5:
   return result;
 }
 
-- (uint64_t)tsu_substringWithComposedCharacterSequencesToFileSystemLength:()TSUAdditions
+- (void)tsu_substringWithComposedCharacterSequencesToFileSystemLength:()TSUAdditions
 {
   v5 = [self length];
   v6 = 0;
@@ -1082,7 +1083,7 @@ LABEL_8:
   return v14;
 }
 
-- (uint64_t)tsu_stringWithPathRelativeTo:()TSUAdditions allowBacktracking:
+- (__CFString)tsu_stringWithPathRelativeTo:()TSUAdditions allowBacktracking:
 {
   if (a4)
   {
@@ -1237,18 +1238,18 @@ LABEL_8:
   return v1;
 }
 
-- (uint64_t)tsu_tolerantStringByAppendingPathExtension:()TSUAdditions
+- (void)tsu_tolerantStringByAppendingPathExtension:()TSUAdditions
 {
   if ([self isEqualToString:&stru_287DDF830] & 1) != 0 || (objc_msgSend(a3, "isEqualToString:", &stru_287DDF830))
   {
     return self;
   }
 
-  if ([self isEqualToString:@"\\\\""])
+  if ([self isEqualToString:@"\\\"])
   {
-    v6 = [@"\\"" stringByAppendingPathExtension:a3];
+    v6 = [@"\" stringByAppendingPathExtension:a3];
 
-    return [@"\\"" stringByAppendingString:v6];
+    return [@"\" stringByAppendingString:v6];
   }
 
   else if ([self length] && objc_msgSend(self, "characterAtIndex:", 0) == 126)

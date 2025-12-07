@@ -48,13 +48,13 @@
 - (void)start
 {
   selfCopy = self;
-  sub_1C98FB5E0("(SNSystemAudioAnalyzer:%s) start");
+  sub_1C98FB5E0("(SNSystemAudioAnalyzer:%s) start", v2);
 }
 
 - (void)stop
 {
   selfCopy = self;
-  sub_1C98FB5E0("(SNSystemAudioAnalyzer:%s) stop");
+  sub_1C98FB5E0("(SNSystemAudioAnalyzer:%s) stop", v2);
 }
 
 @end

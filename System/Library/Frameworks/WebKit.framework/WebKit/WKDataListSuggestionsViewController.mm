@@ -42,47 +42,47 @@
   }
 
   control = [(WKDataListSuggestionsViewController *)self control];
-  v10 = [path row];
+  [path row];
   if (!control)
   {
-    v17 = 0;
+    v16 = 0;
     goto LABEL_9;
   }
 
-  [(WKDataListSuggestionsControl *)control suggestionAtIndex:v10];
-  if (!v17)
+  objc_msgSend_suggestionAtIndex_(control);
+  if (!v16)
   {
 LABEL_9:
-    v19 = &stru_1F1147748;
-    v12 = &stru_1F1147748;
+    v18 = &stru_1F1147748;
+    v11 = &stru_1F1147748;
     goto LABEL_10;
   }
 
-  atomic_fetch_add_explicit(v17, 2u, memory_order_relaxed);
-  MEMORY[0x19EB00B70](&v19);
-  if (atomic_fetch_add_explicit(v17, 0xFFFFFFFE, memory_order_relaxed) == 2)
+  atomic_fetch_add_explicit(v16, 2u, memory_order_relaxed);
+  MEMORY[0x19EB00B70](&v18);
+  if (atomic_fetch_add_explicit(v16, 0xFFFFFFFE, memory_order_relaxed) == 2)
   {
-    WTF::StringImpl::destroy(v17, v11);
+    WTF::StringImpl::destroy(v16, v10);
   }
 
 LABEL_10:
   [objc_msgSend(v7 textLabel];
-  v14 = v19;
-  v19 = 0;
-  if (v14)
+  v13 = v18;
+  v18 = 0;
+  if (v13)
   {
   }
 
-  if (v18 && atomic_fetch_add_explicit(v18, 0xFFFFFFFE, memory_order_relaxed) == 2)
+  if (v17 && atomic_fetch_add_explicit(v17, 0xFFFFFFFE, memory_order_relaxed) == 2)
   {
-    WTF::StringImpl::destroy(v18, v13);
+    WTF::StringImpl::destroy(v17, v12);
   }
 
   [objc_msgSend(v7 textLabel];
   [objc_msgSend(v7 "textLabel")];
   if (v7)
   {
-    v15 = v7;
+    v14 = v7;
   }
 
   return v7;

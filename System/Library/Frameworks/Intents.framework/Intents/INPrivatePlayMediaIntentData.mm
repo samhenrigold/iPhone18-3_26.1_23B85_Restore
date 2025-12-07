@@ -16,8 +16,8 @@
 
 - (id)_dictionaryRepresentation
 {
-  v59[18] = *MEMORY[0x1E69E9840];
-  v58[0] = @"appSelectionEnabled";
+  v58[18] = *MEMORY[0x1E69E9840];
+  v57[0] = @"appSelectionEnabled";
   appSelectionEnabled = self->_appSelectionEnabled;
   null = appSelectionEnabled;
   if (!appSelectionEnabled)
@@ -25,112 +25,112 @@
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v59[0] = null;
-  v58[1] = @"appInferred";
+  v58[0] = null;
+  v57[1] = @"appInferred";
   appInferred = self->_appInferred;
-  v54 = appInferred;
+  v53 = appInferred;
   if (!appInferred)
   {
     appInferred = [MEMORY[0x1E695DFB0] null];
   }
 
-  v59[1] = appInferred;
-  v58[2] = @"audioSearchResults";
+  v58[1] = appInferred;
+  v57[2] = @"audioSearchResults";
   audioSearchResults = self->_audioSearchResults;
-  v52 = audioSearchResults;
+  v51 = audioSearchResults;
   if (!audioSearchResults)
   {
     audioSearchResults = [MEMORY[0x1E695DFB0] null];
   }
 
-  v59[2] = audioSearchResults;
-  v58[3] = @"privateMediaIntentData";
+  v58[2] = audioSearchResults;
+  v57[3] = @"privateMediaIntentData";
   privateMediaIntentData = self->_privateMediaIntentData;
-  v50 = privateMediaIntentData;
+  v49 = privateMediaIntentData;
   if (!privateMediaIntentData)
   {
     privateMediaIntentData = [MEMORY[0x1E695DFB0] null];
   }
 
-  v59[3] = privateMediaIntentData;
-  v58[4] = @"appSelectionSignalsEnabled";
+  v58[3] = privateMediaIntentData;
+  v57[4] = @"appSelectionSignalsEnabled";
   appSelectionSignalsEnabled = self->_appSelectionSignalsEnabled;
-  v48 = appSelectionSignalsEnabled;
+  v47 = appSelectionSignalsEnabled;
   if (!appSelectionSignalsEnabled)
   {
     appSelectionSignalsEnabled = [MEMORY[0x1E695DFB0] null];
   }
 
-  v59[4] = appSelectionSignalsEnabled;
-  v58[5] = @"appSelectionSignalsFrequencyDenominator";
+  v58[4] = appSelectionSignalsEnabled;
+  v57[5] = @"appSelectionSignalsFrequencyDenominator";
   appSelectionSignalsFrequencyDenominator = self->_appSelectionSignalsFrequencyDenominator;
-  v46 = appSelectionSignalsFrequencyDenominator;
+  v45 = appSelectionSignalsFrequencyDenominator;
   if (!appSelectionSignalsFrequencyDenominator)
   {
     appSelectionSignalsFrequencyDenominator = [MEMORY[0x1E695DFB0] null];
   }
 
-  v59[5] = appSelectionSignalsFrequencyDenominator;
-  v58[6] = @"shouldSuppressCommonWholeHouseAudioRoutes";
+  v58[5] = appSelectionSignalsFrequencyDenominator;
+  v57[6] = @"shouldSuppressCommonWholeHouseAudioRoutes";
   shouldSuppressCommonWholeHouseAudioRoutes = self->_shouldSuppressCommonWholeHouseAudioRoutes;
-  v44 = shouldSuppressCommonWholeHouseAudioRoutes;
+  v43 = shouldSuppressCommonWholeHouseAudioRoutes;
   if (!shouldSuppressCommonWholeHouseAudioRoutes)
   {
     shouldSuppressCommonWholeHouseAudioRoutes = [MEMORY[0x1E695DFB0] null];
   }
 
-  v59[6] = shouldSuppressCommonWholeHouseAudioRoutes;
-  v58[7] = @"immediatelyStartPlayback";
+  v58[6] = shouldSuppressCommonWholeHouseAudioRoutes;
+  v57[7] = @"immediatelyStartPlayback";
   immediatelyStartPlayback = self->_immediatelyStartPlayback;
-  v42 = immediatelyStartPlayback;
+  v41 = immediatelyStartPlayback;
   if (!immediatelyStartPlayback)
   {
     immediatelyStartPlayback = [MEMORY[0x1E695DFB0] null];
   }
 
-  v59[7] = immediatelyStartPlayback;
-  v58[8] = @"isAmbiguousPlay";
+  v58[7] = immediatelyStartPlayback;
+  v57[8] = @"isAmbiguousPlay";
   isAmbiguousPlay = self->_isAmbiguousPlay;
-  v40 = isAmbiguousPlay;
+  v39 = isAmbiguousPlay;
   if (!isAmbiguousPlay)
   {
     isAmbiguousPlay = [MEMORY[0x1E695DFB0] null];
   }
 
-  v59[8] = isAmbiguousPlay;
-  v58[9] = @"isPersonalizedRequest";
+  v58[8] = isAmbiguousPlay;
+  v57[9] = @"isPersonalizedRequest";
   isPersonalizedRequest = self->_isPersonalizedRequest;
-  v39 = isPersonalizedRequest;
+  v38 = isPersonalizedRequest;
   if (!isPersonalizedRequest)
   {
     isPersonalizedRequest = [MEMORY[0x1E695DFB0] null];
   }
 
-  v38 = isPersonalizedRequest;
-  v59[9] = isPersonalizedRequest;
-  v58[10] = @"internalSignals";
+  v37 = isPersonalizedRequest;
+  v58[9] = isPersonalizedRequest;
+  v57[10] = @"internalSignals";
   internalSignals = self->_internalSignals;
-  v37 = internalSignals;
+  v36 = internalSignals;
   if (!internalSignals)
   {
     internalSignals = [MEMORY[0x1E695DFB0] null];
   }
 
-  v49 = privateMediaIntentData;
-  v57 = internalSignals;
-  v59[10] = internalSignals;
-  v58[11] = @"entityConfidenceSignalsEnabled";
+  v48 = privateMediaIntentData;
+  v56 = internalSignals;
+  v58[10] = internalSignals;
+  v57[11] = @"entityConfidenceSignalsEnabled";
   entityConfidenceSignalsEnabled = self->_entityConfidenceSignalsEnabled;
-  v36 = entityConfidenceSignalsEnabled;
+  v35 = entityConfidenceSignalsEnabled;
   if (!entityConfidenceSignalsEnabled)
   {
     entityConfidenceSignalsEnabled = [MEMORY[0x1E695DFB0] null];
   }
 
-  v47 = appSelectionSignalsEnabled;
-  v34 = entityConfidenceSignalsEnabled;
-  v59[11] = entityConfidenceSignalsEnabled;
-  v58[12] = @"entityConfidenceSignalsFrequencyDenominatorInternal";
+  v46 = appSelectionSignalsEnabled;
+  v33 = entityConfidenceSignalsEnabled;
+  v58[11] = entityConfidenceSignalsEnabled;
+  v57[12] = @"entityConfidenceSignalsFrequencyDenominatorInternal";
   entityConfidenceSignalsFrequencyDenominatorInternal = self->_entityConfidenceSignalsFrequencyDenominatorInternal;
   null2 = entityConfidenceSignalsFrequencyDenominatorInternal;
   if (!entityConfidenceSignalsFrequencyDenominatorInternal)
@@ -138,11 +138,11 @@
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v45 = appSelectionSignalsFrequencyDenominator;
-  v51 = audioSearchResults;
-  v33 = null2;
-  v59[12] = null2;
-  v58[13] = @"entityConfidenceSignalsFrequencyDenominatorProd";
+  v44 = appSelectionSignalsFrequencyDenominator;
+  v50 = audioSearchResults;
+  v32 = null2;
+  v58[12] = null2;
+  v57[13] = @"entityConfidenceSignalsFrequencyDenominatorProd";
   entityConfidenceSignalsFrequencyDenominatorProd = self->_entityConfidenceSignalsFrequencyDenominatorProd;
   null3 = entityConfidenceSignalsFrequencyDenominatorProd;
   if (!entityConfidenceSignalsFrequencyDenominatorProd)
@@ -150,11 +150,11 @@
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v43 = shouldSuppressCommonWholeHouseAudioRoutes;
-  v55 = null;
-  v32 = null3;
-  v59[13] = null3;
-  v58[14] = @"entityConfidenceSignalsMaxItemsToDisambiguate";
+  v42 = shouldSuppressCommonWholeHouseAudioRoutes;
+  v54 = null;
+  v31 = null3;
+  v58[13] = null3;
+  v57[14] = @"entityConfidenceSignalsMaxItemsToDisambiguate";
   entityConfidenceSignalsMaxItemsToDisambiguate = self->_entityConfidenceSignalsMaxItemsToDisambiguate;
   null4 = entityConfidenceSignalsMaxItemsToDisambiguate;
   if (!entityConfidenceSignalsMaxItemsToDisambiguate)
@@ -162,11 +162,11 @@
     null4 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v41 = immediatelyStartPlayback;
-  v53 = appInferred;
-  v31 = null4;
-  v59[14] = null4;
-  v58[15] = @"alternativeProviderBundleIdentifier";
+  v40 = immediatelyStartPlayback;
+  v52 = appInferred;
+  v30 = null4;
+  v58[14] = null4;
+  v57[15] = @"alternativeProviderBundleIdentifier";
   alternativeProviderBundleIdentifier = self->_alternativeProviderBundleIdentifier;
   null5 = alternativeProviderBundleIdentifier;
   if (!alternativeProviderBundleIdentifier)
@@ -175,8 +175,8 @@
   }
 
   v23 = isAmbiguousPlay;
-  v59[15] = null5;
-  v58[16] = @"ampPAFDataSetID";
+  v58[15] = null5;
+  v57[16] = @"ampPAFDataSetID";
   ampPAFDataSetID = self->_ampPAFDataSetID;
   null6 = ampPAFDataSetID;
   if (!ampPAFDataSetID)
@@ -184,8 +184,8 @@
     null6 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v59[16] = null6;
-  v58[17] = @"pegasusMetaData";
+  v58[16] = null6;
+  v57[17] = @"pegasusMetaData";
   pegasusMetaData = self->_pegasusMetaData;
   null7 = pegasusMetaData;
   if (!pegasusMetaData)
@@ -193,50 +193,54 @@
     null7 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v59[17] = null7;
-  v35 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v59 forKeys:v58 count:18];
+  v58[17] = null7;
+  v34 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v58 forKeys:v57 count:18];
   if (!pegasusMetaData)
   {
   }
 
-  v28 = v57;
+  v28 = v56;
   if (!ampPAFDataSetID)
   {
 
-    v28 = v57;
+    v28 = v56;
   }
 
   if (!alternativeProviderBundleIdentifier)
   {
 
-    v28 = v57;
+    v28 = v56;
   }
 
   if (!entityConfidenceSignalsMaxItemsToDisambiguate)
   {
 
-    v28 = v57;
+    v28 = v56;
   }
 
   if (!entityConfidenceSignalsFrequencyDenominatorProd)
   {
 
-    v28 = v57;
+    v28 = v56;
   }
 
   if (!entityConfidenceSignalsFrequencyDenominatorInternal)
   {
 
-    v28 = v57;
+    v28 = v56;
+  }
+
+  if (!v35)
+  {
+
+    v28 = v56;
   }
 
   if (!v36)
   {
-
-    v28 = v57;
   }
 
-  if (!v37)
+  if (!v38)
   {
   }
 
@@ -244,35 +248,31 @@
   {
   }
 
-  if (!v40)
+  if (!v41)
   {
   }
 
-  if (!v42)
+  if (!v43)
   {
   }
 
-  if (!v44)
+  if (!v45)
   {
   }
 
-  if (!v46)
+  if (!v47)
   {
   }
 
-  if (!v48)
+  if (!v49)
   {
   }
 
-  if (!v50)
+  if (!v51)
   {
   }
 
-  if (!v52)
-  {
-  }
-
-  if (!v54)
+  if (!v53)
   {
   }
 
@@ -280,9 +280,7 @@
   {
   }
 
-  v29 = *MEMORY[0x1E69E9840];
-
-  return v35;
+  return v34;
 }
 
 - (id)descriptionAtIndent:(unint64_t)indent
@@ -387,43 +385,42 @@
 
 - (INPrivatePlayMediaIntentData)initWithCoder:(id)coder
 {
-  v33[2] = *MEMORY[0x1E69E9840];
+  v32[2] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
-  v31 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"appSelectionEnabled"];
-  v30 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"appInferred"];
+  v30 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"appSelectionEnabled"];
+  v29 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"appInferred"];
   v4 = MEMORY[0x1E695DFD8];
-  v33[0] = objc_opt_class();
-  v33[1] = objc_opt_class();
-  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v33 count:2];
-  v6 = [v4 setWithArray:v5];
-  v29 = [coderCopy decodeObjectOfClasses:v6 forKey:@"audioSearchResults"];
-
-  v24 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"privateMediaIntentData"];
-  v23 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"appSelectionSignalsEnabled"];
-  v22 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"appSelectionSignalsFrequencyDenominator"];
-  v28 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"shouldSuppressCommonWholeHouseAudioRoutes"];
-  v21 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"immediatelyStartPlayback"];
-  v27 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"isAmbiguousPlay"];
-  v20 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"isPersonalizedRequest"];
-  v7 = MEMORY[0x1E695DFD8];
   v32[0] = objc_opt_class();
   v32[1] = objc_opt_class();
-  v32[2] = objc_opt_class();
-  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v32 count:3];
-  v9 = [v7 setWithArray:v8];
-  v19 = [coderCopy decodeObjectOfClasses:v9 forKey:@"internalSignals"];
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v32 count:2];
+  v6 = [v4 setWithArray:v5];
+  v28 = [coderCopy decodeObjectOfClasses:v6 forKey:@"audioSearchResults"];
 
-  v18 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"entityConfidenceSignalsEnabled"];
-  v17 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"entityConfidenceSignalsFrequencyDenominatorInternal"];
+  v23 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"privateMediaIntentData"];
+  v22 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"appSelectionSignalsEnabled"];
+  v21 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"appSelectionSignalsFrequencyDenominator"];
+  v27 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"shouldSuppressCommonWholeHouseAudioRoutes"];
+  v20 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"immediatelyStartPlayback"];
+  v26 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"isAmbiguousPlay"];
+  v19 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"isPersonalizedRequest"];
+  v7 = MEMORY[0x1E695DFD8];
+  v31[0] = objc_opt_class();
+  v31[1] = objc_opt_class();
+  v31[2] = objc_opt_class();
+  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v31 count:3];
+  v9 = [v7 setWithArray:v8];
+  v18 = [coderCopy decodeObjectOfClasses:v9 forKey:@"internalSignals"];
+
+  v17 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"entityConfidenceSignalsEnabled"];
+  v16 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"entityConfidenceSignalsFrequencyDenominatorInternal"];
   v10 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"entityConfidenceSignalsFrequencyDenominatorProd"];
   v11 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"entityConfidenceSignalsMaxItemsToDisambiguate"];
   v12 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"alternativeProviderBundleIdentifier"];
   v13 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"ampPAFDataSetID"];
   v14 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"pegasusMetaData"];
 
-  v26 = [(INPrivatePlayMediaIntentData *)self initWithAppSelectionEnabled:v31 appInferred:v30 audioSearchResults:v29 privateMediaIntentData:v24 appSelectionSignalsEnabled:v23 appSelectionSignalsFrequencyDenominator:v22 shouldSuppressCommonWholeHouseAudioRoutes:v28 immediatelyStartPlayback:v21 isAmbiguousPlay:v27 isPersonalizedRequest:v20 internalSignals:v19 entityConfidenceSignalsEnabled:v18 entityConfidenceSignalsFrequencyDenominatorInternal:v17 entityConfidenceSignalsFrequencyDenominatorProd:v10 entityConfidenceSignalsMaxItemsToDisambiguate:v11 alternativeProviderBundleIdentifier:v12 ampPAFDataSetID:v13 pegasusMetaData:v14];
-  v15 = *MEMORY[0x1E69E9840];
-  return v26;
+  v25 = [(INPrivatePlayMediaIntentData *)self initWithAppSelectionEnabled:v30 appInferred:v29 audioSearchResults:v28 privateMediaIntentData:v23 appSelectionSignalsEnabled:v22 appSelectionSignalsFrequencyDenominator:v21 shouldSuppressCommonWholeHouseAudioRoutes:v27 immediatelyStartPlayback:v20 isAmbiguousPlay:v26 isPersonalizedRequest:v19 internalSignals:v18 entityConfidenceSignalsEnabled:v17 entityConfidenceSignalsFrequencyDenominatorInternal:v16 entityConfidenceSignalsFrequencyDenominatorProd:v10 entityConfidenceSignalsMaxItemsToDisambiguate:v11 alternativeProviderBundleIdentifier:v12 ampPAFDataSetID:v13 pegasusMetaData:v14];
+  return v25;
 }
 
 - (BOOL)isEqual:(id)equal
@@ -441,80 +438,78 @@
     {
       v5 = equalCopy;
       appSelectionEnabled = self->_appSelectionEnabled;
-      if (appSelectionEnabled != v5->_appSelectionEnabled && ![(NSNumber *)appSelectionEnabled isEqual:?])
+      v24 = 0;
+      if (appSelectionEnabled == v5->_appSelectionEnabled || [(NSNumber *)appSelectionEnabled isEqual:?])
       {
-        goto LABEL_42;
-      }
-
-      appInferred = self->_appInferred;
-      if (appInferred != v5->_appInferred && ![(NSNumber *)appInferred isEqual:?])
-      {
-        goto LABEL_42;
-      }
-
-      audioSearchResults = self->_audioSearchResults;
-      if (audioSearchResults != v5->_audioSearchResults && ![(NSArray *)audioSearchResults isEqual:?])
-      {
-        goto LABEL_42;
-      }
-
-      privateMediaIntentData = self->_privateMediaIntentData;
-      if (privateMediaIntentData != v5->_privateMediaIntentData && ![(INPrivateMediaIntentData *)privateMediaIntentData isEqual:?])
-      {
-        goto LABEL_42;
-      }
-
-      appSelectionSignalsEnabled = self->_appSelectionSignalsEnabled;
-      if (appSelectionSignalsEnabled != v5->_appSelectionSignalsEnabled && ![(NSNumber *)appSelectionSignalsEnabled isEqual:?])
-      {
-        goto LABEL_42;
-      }
-
-      appSelectionSignalsFrequencyDenominator = self->_appSelectionSignalsFrequencyDenominator;
-      if (appSelectionSignalsFrequencyDenominator != v5->_appSelectionSignalsFrequencyDenominator && ![(NSNumber *)appSelectionSignalsFrequencyDenominator isEqual:?])
-      {
-        goto LABEL_42;
-      }
-
-      shouldSuppressCommonWholeHouseAudioRoutes = self->_shouldSuppressCommonWholeHouseAudioRoutes;
-      if (shouldSuppressCommonWholeHouseAudioRoutes != v5->_shouldSuppressCommonWholeHouseAudioRoutes && ![(NSNumber *)shouldSuppressCommonWholeHouseAudioRoutes isEqual:?])
-      {
-        goto LABEL_42;
-      }
-
-      immediatelyStartPlayback = self->_immediatelyStartPlayback;
-      if (immediatelyStartPlayback != v5->_immediatelyStartPlayback && ![(NSNumber *)immediatelyStartPlayback isEqual:?])
-      {
-        goto LABEL_42;
-      }
-
-      isAmbiguousPlay = self->_isAmbiguousPlay;
-      if (isAmbiguousPlay != v5->_isAmbiguousPlay && ![(NSNumber *)isAmbiguousPlay isEqual:?])
-      {
-        goto LABEL_42;
-      }
-
-      isPersonalizedRequest = self->_isPersonalizedRequest;
-      if (isPersonalizedRequest != v5->_isPersonalizedRequest && ![(NSNumber *)isPersonalizedRequest isEqual:?])
-      {
-        goto LABEL_42;
-      }
-
-      internalSignals = self->_internalSignals;
-      if (internalSignals != v5->_internalSignals && ![(NSArray *)internalSignals isEqual:?])
-      {
-        goto LABEL_42;
-      }
-
-      if (((entityConfidenceSignalsEnabled = self->_entityConfidenceSignalsEnabled, entityConfidenceSignalsEnabled == v5->_entityConfidenceSignalsEnabled) || [(NSNumber *)entityConfidenceSignalsEnabled isEqual:?]) && ((entityConfidenceSignalsFrequencyDenominatorInternal = self->_entityConfidenceSignalsFrequencyDenominatorInternal, entityConfidenceSignalsFrequencyDenominatorInternal == v5->_entityConfidenceSignalsFrequencyDenominatorInternal) || [(NSNumber *)entityConfidenceSignalsFrequencyDenominatorInternal isEqual:?]) && ((entityConfidenceSignalsFrequencyDenominatorProd = self->_entityConfidenceSignalsFrequencyDenominatorProd, entityConfidenceSignalsFrequencyDenominatorProd == v5->_entityConfidenceSignalsFrequencyDenominatorProd) || [(NSNumber *)entityConfidenceSignalsFrequencyDenominatorProd isEqual:?]) && ((entityConfidenceSignalsMaxItemsToDisambiguate = self->_entityConfidenceSignalsMaxItemsToDisambiguate, entityConfidenceSignalsMaxItemsToDisambiguate == v5->_entityConfidenceSignalsMaxItemsToDisambiguate) || [(NSNumber *)entityConfidenceSignalsMaxItemsToDisambiguate isEqual:?]) && ((alternativeProviderBundleIdentifier = self->_alternativeProviderBundleIdentifier, alternativeProviderBundleIdentifier == v5->_alternativeProviderBundleIdentifier) || [(NSString *)alternativeProviderBundleIdentifier isEqual:?]) && ((ampPAFDataSetID = self->_ampPAFDataSetID, ampPAFDataSetID == v5->_ampPAFDataSetID) || [(NSString *)ampPAFDataSetID isEqual:?]) && ((pegasusMetaData = self->_pegasusMetaData, pegasusMetaData == v5->_pegasusMetaData) || [(NSData *)pegasusMetaData isEqual:?]))
-      {
-        v24 = 1;
-      }
-
-      else
-      {
-LABEL_42:
-        v24 = 0;
+        appInferred = self->_appInferred;
+        if (appInferred == v5->_appInferred || [(NSNumber *)appInferred isEqual:?])
+        {
+          audioSearchResults = self->_audioSearchResults;
+          if (audioSearchResults == v5->_audioSearchResults || [(NSArray *)audioSearchResults isEqual:?])
+          {
+            privateMediaIntentData = self->_privateMediaIntentData;
+            if (privateMediaIntentData == v5->_privateMediaIntentData || [(INPrivateMediaIntentData *)privateMediaIntentData isEqual:?])
+            {
+              appSelectionSignalsEnabled = self->_appSelectionSignalsEnabled;
+              if (appSelectionSignalsEnabled == v5->_appSelectionSignalsEnabled || [(NSNumber *)appSelectionSignalsEnabled isEqual:?])
+              {
+                appSelectionSignalsFrequencyDenominator = self->_appSelectionSignalsFrequencyDenominator;
+                if (appSelectionSignalsFrequencyDenominator == v5->_appSelectionSignalsFrequencyDenominator || [(NSNumber *)appSelectionSignalsFrequencyDenominator isEqual:?])
+                {
+                  shouldSuppressCommonWholeHouseAudioRoutes = self->_shouldSuppressCommonWholeHouseAudioRoutes;
+                  if (shouldSuppressCommonWholeHouseAudioRoutes == v5->_shouldSuppressCommonWholeHouseAudioRoutes || [(NSNumber *)shouldSuppressCommonWholeHouseAudioRoutes isEqual:?])
+                  {
+                    immediatelyStartPlayback = self->_immediatelyStartPlayback;
+                    if (immediatelyStartPlayback == v5->_immediatelyStartPlayback || [(NSNumber *)immediatelyStartPlayback isEqual:?])
+                    {
+                      isAmbiguousPlay = self->_isAmbiguousPlay;
+                      if (isAmbiguousPlay == v5->_isAmbiguousPlay || [(NSNumber *)isAmbiguousPlay isEqual:?])
+                      {
+                        isPersonalizedRequest = self->_isPersonalizedRequest;
+                        if (isPersonalizedRequest == v5->_isPersonalizedRequest || [(NSNumber *)isPersonalizedRequest isEqual:?])
+                        {
+                          internalSignals = self->_internalSignals;
+                          if (internalSignals == v5->_internalSignals || [(NSArray *)internalSignals isEqual:?])
+                          {
+                            entityConfidenceSignalsEnabled = self->_entityConfidenceSignalsEnabled;
+                            if (entityConfidenceSignalsEnabled == v5->_entityConfidenceSignalsEnabled || [(NSNumber *)entityConfidenceSignalsEnabled isEqual:?])
+                            {
+                              entityConfidenceSignalsFrequencyDenominatorInternal = self->_entityConfidenceSignalsFrequencyDenominatorInternal;
+                              if (entityConfidenceSignalsFrequencyDenominatorInternal == v5->_entityConfidenceSignalsFrequencyDenominatorInternal || [(NSNumber *)entityConfidenceSignalsFrequencyDenominatorInternal isEqual:?])
+                              {
+                                entityConfidenceSignalsFrequencyDenominatorProd = self->_entityConfidenceSignalsFrequencyDenominatorProd;
+                                if (entityConfidenceSignalsFrequencyDenominatorProd == v5->_entityConfidenceSignalsFrequencyDenominatorProd || [(NSNumber *)entityConfidenceSignalsFrequencyDenominatorProd isEqual:?])
+                                {
+                                  entityConfidenceSignalsMaxItemsToDisambiguate = self->_entityConfidenceSignalsMaxItemsToDisambiguate;
+                                  if (entityConfidenceSignalsMaxItemsToDisambiguate == v5->_entityConfidenceSignalsMaxItemsToDisambiguate || [(NSNumber *)entityConfidenceSignalsMaxItemsToDisambiguate isEqual:?])
+                                  {
+                                    alternativeProviderBundleIdentifier = self->_alternativeProviderBundleIdentifier;
+                                    if (alternativeProviderBundleIdentifier == v5->_alternativeProviderBundleIdentifier || [(NSString *)alternativeProviderBundleIdentifier isEqual:?])
+                                    {
+                                      ampPAFDataSetID = self->_ampPAFDataSetID;
+                                      if (ampPAFDataSetID == v5->_ampPAFDataSetID || [(NSString *)ampPAFDataSetID isEqual:?])
+                                      {
+                                        pegasusMetaData = self->_pegasusMetaData;
+                                        if (pegasusMetaData == v5->_pegasusMetaData || [(NSData *)pegasusMetaData isEqual:?])
+                                        {
+                                          v24 = 1;
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
       }
     }
 
@@ -710,73 +705,71 @@ LABEL_42:
 
 - (void)_intents_updateContainerWithCache:(id)cache
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   cacheCopy = cache;
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   audioSearchResults = [(INPrivatePlayMediaIntentData *)self audioSearchResults];
-  v6 = [audioSearchResults countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v6 = [audioSearchResults countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v12;
+    v8 = *v11;
     do
     {
       v9 = 0;
       do
       {
-        if (*v12 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(audioSearchResults);
         }
 
-        [*(*(&v11 + 1) + 8 * v9++) _intents_updateContainerWithCache:cacheCopy];
+        [*(*(&v10 + 1) + 8 * v9++) _intents_updateContainerWithCache:cacheCopy];
       }
 
       while (v7 != v9);
-      v7 = [audioSearchResults countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v7 = [audioSearchResults countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v7);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_intents_cacheableObjects
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v3 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   audioSearchResults = [(INPrivatePlayMediaIntentData *)self audioSearchResults];
-  v5 = [audioSearchResults countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v5 = [audioSearchResults countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v15;
+    v7 = *v14;
     do
     {
       v8 = 0;
       do
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(audioSearchResults);
         }
 
-        _intents_cacheableObjects = [*(*(&v14 + 1) + 8 * v8) _intents_cacheableObjects];
+        _intents_cacheableObjects = [*(*(&v13 + 1) + 8 * v8) _intents_cacheableObjects];
         [v3 unionSet:_intents_cacheableObjects];
 
         ++v8;
       }
 
       while (v6 != v8);
-      v6 = [audioSearchResults countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [audioSearchResults countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v6);
@@ -794,7 +787,6 @@ LABEL_42:
 
   v11 = v10;
 
-  v12 = *MEMORY[0x1E69E9840];
   return v10;
 }
 

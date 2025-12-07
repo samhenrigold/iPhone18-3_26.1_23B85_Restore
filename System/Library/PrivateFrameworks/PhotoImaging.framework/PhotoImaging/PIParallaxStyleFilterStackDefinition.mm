@@ -120,7 +120,7 @@ LABEL_34:
 
   v7 = contextCopy;
   inputImage = [contextCopy inputImage];
-  [inputImage extent];
+  objc_msgSend_extent(inputImage);
   v9 = v8;
   v11 = v10;
   v13 = v12;

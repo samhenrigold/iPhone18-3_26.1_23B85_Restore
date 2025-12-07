@@ -38,12 +38,12 @@
   x = position.x;
   v8 = sub_AB3820();
   v9 = *(v8 - 8);
-  __chkstk_darwin(v8);
+  __chkstk_darwin();
   v11 = &v16 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_AB3790();
   pathCopy = path;
   selfCopy = self;
-  v14 = sub_28F43C(x, y);
+  v14 = sub_28F43C(v11, x, y);
 
   (*(v9 + 8))(v11, v8);
 

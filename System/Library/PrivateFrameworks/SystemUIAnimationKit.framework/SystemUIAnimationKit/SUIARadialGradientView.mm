@@ -35,7 +35,7 @@
 
 + (Class)layerClass
 {
-  sub_26C5CC548(0, &qword_28125E448);
+  sub_26C5CC548(0, &qword_28125E448, 0x277CD9EB0);
 
   return swift_getObjCClassFromMetadata();
 }
@@ -54,7 +54,7 @@
 
   if (v3)
   {
-    sub_26C5CC548(0, &qword_28125E430);
+    sub_26C5CC548(0, &qword_28125E430, 0x277D75348);
     v4 = sub_26C614EB8();
   }
 
@@ -71,7 +71,7 @@
   colorsCopy = colors;
   if (colors)
   {
-    sub_26C5CC548(0, &qword_28125E430);
+    sub_26C5CC548(0, &qword_28125E430, 0x277D75348);
     colorsCopy = sub_26C614EC8();
   }
 
@@ -88,7 +88,7 @@
 
   if (locations)
   {
-    sub_26C5CC548(0, &unk_28125E420);
+    sub_26C5CC548(0, &unk_28125E420, 0x277CCABB0);
     sub_26C614EC8();
 
     v5 = sub_26C614EB8();
@@ -108,7 +108,7 @@
   locationsCopy = locations;
   if (locations)
   {
-    sub_26C5CC548(0, &unk_28125E420);
+    sub_26C5CC548(0, &unk_28125E420, 0x277CCABB0);
     locationsCopy = sub_26C614EC8();
   }
 
@@ -119,7 +119,7 @@
   if (locationsCopy)
   {
     v7 = v6;
-    sub_26C5CC548(0, &unk_28125E420);
+    sub_26C5CC548(0, &unk_28125E420, 0x277CCABB0);
     v8 = sub_26C614EB8();
 
     v6 = v7;

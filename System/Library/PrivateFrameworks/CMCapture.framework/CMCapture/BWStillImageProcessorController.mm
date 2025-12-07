@@ -194,7 +194,7 @@
 
   if (!v5 && !v8)
   {
-    v14 = 0;
+    v14[0] = 0;
     v13 = 0;
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);

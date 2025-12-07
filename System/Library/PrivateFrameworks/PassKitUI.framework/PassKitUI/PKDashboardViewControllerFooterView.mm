@@ -183,14 +183,16 @@
     leading = 18.0;
     if (_UISolariumFeatureFlagEnabled())
     {
-      PKFloatRoundToPixel();
-      leading = v15;
+      v15.n128_u64[0] = 0x4036800000000000;
+      PKFloatRoundToPixel(v15, v16);
+      leading = v17;
     }
 
     if (_UISolariumFeatureFlagEnabled())
     {
-      PKFloatRoundToPixel();
-      trailing = v16;
+      v18.n128_u64[0] = 0x4036800000000000;
+      PKFloatRoundToPixel(v18, v19);
+      trailing = v20;
     }
   }
 
@@ -200,146 +202,171 @@
     trailing = self->_contentInsets.trailing;
   }
 
-  v17 = 18.0;
+  v21 = 18.0;
   if (_UISolariumFeatureFlagEnabled())
   {
-    PKFloatRoundToPixel();
-    v17 = v18;
+    v22.n128_u64[0] = 0x4036800000000000;
+    PKFloatRoundToPixel(v22, v23);
+    v21 = v24;
   }
 
-  memset(&v61, 0, sizeof(v61));
+  memset(&v124, 0, sizeof(v124));
   remainder.origin.x = x;
   remainder.origin.y = y;
   remainder.size.width = width;
   remainder.size.height = height;
   memset(&slice, 0, sizeof(slice));
-  memset(&v59, 0, sizeof(v59));
+  memset(&v122, 0, sizeof(v122));
   text = [(UILabel *)self->_trailingTitle text];
   if ([text length])
   {
-    v20 = 1;
+    v26 = 1;
   }
 
   else
   {
     text2 = [(UILabel *)self->_trailingDetail text];
-    v20 = [text2 length] != 0;
+    v26 = [text2 length] != 0;
   }
 
   titleLabel = [(PKContinuousButton *)self->_payButton titleLabel];
   text3 = [titleLabel text];
-  v24 = [text3 length];
+  v30 = [text3 length];
 
   currentImage = [(PKContinuousButton *)self->_payButton currentImage];
 
-  v26 = 0x404B000000000000;
-  if (v24 >= 4 && !currentImage)
+  v32 = 0x404B000000000000;
+  v33 = 0x404B000000000000;
+  if (v30 >= 4 && !currentImage)
   {
     [(PKContinuousButton *)self->_payButton sizeThatFits:width, height];
   }
 
-  amount = *&v26;
+  v116 = v33;
+  amount = *&v32;
   if (v10)
   {
-    v27 = trailing;
+    v34 = trailing;
   }
 
   else
   {
-    v27 = leading;
+    v34 = leading;
   }
 
   if (v10)
   {
-    v28 = leading;
+    v35 = leading;
   }
 
   else
   {
-    v28 = trailing;
+    v35 = trailing;
   }
 
-  v29 = x + v27;
-  v30 = y + v17;
-  v31 = width - (v27 + v17);
-  remainder.origin.x = v29;
-  remainder.origin.y = y + v17;
-  v32 = height - (v28 + v17);
-  remainder.size.width = v31;
-  remainder.size.height = v32;
-  v63.origin.x = v29;
-  v63.origin.y = y + v17;
-  v63.size.width = v31;
-  v63.size.height = v32;
-  CGRectGetMidX(v63);
-  PKFloatRoundToPixel();
-  v54 = v33;
-  v58 = v17;
-  if (v24 | currentImage)
+  v36 = x + v34;
+  v37 = y + v21;
+  v38 = width - (v34 + v21);
+  remainder.origin.x = v36;
+  remainder.origin.y = y + v21;
+  v39 = height - (v35 + v21);
+  remainder.size.width = v38;
+  remainder.size.height = v39;
+  v126.origin.x = v36;
+  v126.origin.y = y + v21;
+  v126.size.width = v38;
+  v126.size.height = v39;
+  v40.n128_f64[0] = CGRectGetMidX(v126);
+  PKFloatRoundToPixel(v40, v41);
+  v114 = v42;
+  v121 = v21;
+  if (v30 | currentImage)
   {
-    v64.origin.x = v29;
-    v64.origin.y = y + v17;
-    v64.size.width = v31;
-    v64.size.height = v32;
-    CGRectDivide(v64, &slice, &remainder, amount, v12);
-    v59 = remainder;
+    v127.origin.x = v36;
+    v127.origin.y = y + v21;
+    v127.size.width = v38;
+    v127.size.height = v39;
+    CGRectDivide(v127, &slice, &remainder, amount, v12);
+    v122 = remainder;
   }
 
-  else if (v20)
+  else if (v26)
   {
-    v65.origin.x = v29;
-    v65.origin.y = y + v17;
-    v65.size.width = v31;
-    v65.size.height = v32;
-    CGRectGetWidth(v65);
-    PKFloatRoundToPixel();
-    v35 = v34 + -18.0;
-    v66.origin.x = v29;
-    v66.origin.y = v30;
-    v66.size.width = v31;
-    v66.size.height = v32;
-    CGRectDivide(v66, &v59, &remainder, v35, v11);
-    CGRectDivide(remainder, &slice, &remainder, v35, v12);
+    v128.origin.x = v36;
+    v128.origin.y = y + v21;
+    v128.size.width = v38;
+    v128.size.height = v39;
+    v43 = CGRectGetWidth(v128);
+    v44.n128_u64[0] = -1.0;
+    v45.n128_f64[0] = v43 * 0.5 + -1.0;
+    PKFloatRoundToPixel(v45, v44);
+    v47 = v46 + -18.0;
+    v129.origin.x = v36;
+    v129.origin.y = v37;
+    v129.size.width = v38;
+    v129.size.height = v39;
+    CGRectDivide(v129, &v122, &remainder, v47, v11);
+    CGRectDivide(remainder, &slice, &remainder, v47, v12);
   }
 
   else
   {
-    v59 = remainder;
+    v122 = remainder;
   }
 
-  [(UILabel *)self->_leadingTitle pkui_sizeThatFits:v59.size.width, v59.size.height, v54];
-  v37 = v36;
-  [(UILabel *)self->_leadingDetail pkui_sizeThatFits:v59.size.width, v59.size.height];
-  v39 = v38;
-  v40 = v37 + v38 + 2.0;
-  v41 = *(MEMORY[0x1E695F060] + 8);
-  v42 = v41;
-  if (!(v24 | currentImage) && v20)
+  [(UILabel *)self->_leadingTitle pkui_sizeThatFits:v122.size.width, v122.size.height, v114];
+  v49 = v48;
+  v51 = v50;
+  [(UILabel *)self->_leadingDetail pkui_sizeThatFits:v122.size.width, v122.size.height];
+  v117 = v52;
+  v54 = v53;
+  v55 = v51 + v53 + 2.0;
+  v56 = *MEMORY[0x1E695F060];
+  v57 = *(MEMORY[0x1E695F060] + 8);
+  v58 = v57;
+  v59 = *MEMORY[0x1E695F060];
+  if (!(v30 | currentImage) && v26)
   {
-    [(UILabel *)self->_trailingTitle pkui_sizeThatFits:slice.size.width, v59.size.height];
-    v42 = v43;
-    [(UILabel *)self->_trailingDetail pkui_sizeThatFits:slice.size.width, v59.size.height];
-    v41 = v44;
+    [(UILabel *)self->_trailingTitle pkui_sizeThatFits:slice.size.width, v122.size.height];
+    v61 = v60;
+    v58 = v62;
+    [(UILabel *)self->_trailingDetail pkui_sizeThatFits:slice.size.width, v122.size.height];
+    v57 = v63;
+    v59 = v61;
+    v56 = v64;
   }
 
-  v45 = fmax(v40, v41 + v42 + 2.0);
+  v65 = fmax(v55, v57 + v58 + 2.0);
   if (!layout)
   {
-    remainder = v59;
-    CGRectDivide(v59, &v61, &remainder, v37, CGRectMinYEdge);
+    v120 = v59;
+    remainder = v122;
+    CGRectDivide(v122, &v124, &remainder, v51, CGRectMinYEdge);
     leadingTitle = self->_leadingTitle;
-    PKContentAlignmentMake();
-    PKSizeAlignedInRect();
+    v67 = PKContentAlignmentMake();
+    v68.n128_u64[0] = *&v124.origin.x;
+    v69.n128_u64[0] = *&v124.origin.y;
+    v70.n128_u64[0] = *&v124.size.width;
+    v71.n128_u64[0] = *&v124.size.height;
+    v72.n128_u64[0] = v49;
+    v73.n128_f64[0] = v51;
+    PKSizeAlignedInRect(v67, v72, v73, v68, v69, v70, v71, v74);
     [(UILabel *)leadingTitle setFrame:?];
-    CGRectDivide(remainder, &v61, &remainder, 2.0, CGRectMinYEdge);
-    CGRectDivide(remainder, &v61, &remainder, v39, CGRectMinYEdge);
+    CGRectDivide(remainder, &v124, &remainder, 2.0, CGRectMinYEdge);
+    CGRectDivide(remainder, &v124, &remainder, v54, CGRectMinYEdge);
     leadingDetail = self->_leadingDetail;
-    PKContentAlignmentMake();
-    PKSizeAlignedInRect();
+    v76 = PKContentAlignmentMake();
+    v77.n128_u64[0] = *&v124.origin.x;
+    v78.n128_u64[0] = *&v124.origin.y;
+    v79.n128_u64[0] = *&v124.size.width;
+    v80.n128_u64[0] = *&v124.size.height;
+    v81.n128_u64[0] = v117;
+    v82.n128_f64[0] = v54;
+    PKSizeAlignedInRect(v76, v81, v82, v77, v78, v79, v80, v83);
     [(UILabel *)leadingDetail setFrame:?];
-    v48 = (v24 | currentImage) != 0 || !v20;
+    v84 = (v30 | currentImage) != 0 || !v26;
     separatorView = self->_separatorView;
-    if (v48)
+    if (v84)
     {
       [(UIView *)separatorView setHidden:1];
       [(UILabel *)self->_trailingTitle setHidden:1];
@@ -349,34 +376,52 @@
     else
     {
       [(UIView *)separatorView setHidden:0];
-      [(UIView *)self->_separatorView setFrame:v55, v59.origin.y, PKUIPixelLength() * 3.0, v45];
+      [(UIView *)self->_separatorView setFrame:v115, v122.origin.y, PKUIPixelLength() * 3.0, v65];
       remainder = slice;
-      CGRectDivide(slice, &v61, &remainder, v42, CGRectMinYEdge);
+      CGRectDivide(slice, &v124, &remainder, v58, CGRectMinYEdge);
       trailingTitle = self->_trailingTitle;
-      PKContentAlignmentMake();
-      PKSizeAlignedInRect();
+      v88 = PKContentAlignmentMake();
+      v89.n128_u64[0] = *&v124.origin.x;
+      v90.n128_u64[0] = *&v124.origin.y;
+      v91.n128_u64[0] = *&v124.size.width;
+      v92.n128_u64[0] = *&v124.size.height;
+      v93.n128_u64[0] = v120;
+      v94.n128_f64[0] = v58;
+      PKSizeAlignedInRect(v88, v93, v94, v89, v90, v91, v92, v95);
       [(UILabel *)trailingTitle setFrame:?];
-      CGRectDivide(remainder, &v61, &remainder, 2.0, CGRectMinYEdge);
-      CGRectDivide(remainder, &v61, &remainder, v41, CGRectMinYEdge);
+      CGRectDivide(remainder, &v124, &remainder, 2.0, CGRectMinYEdge);
+      CGRectDivide(remainder, &v124, &remainder, v57, CGRectMinYEdge);
       p_trailingDetail = &self->_trailingDetail;
       trailingDetail = self->_trailingDetail;
-      PKContentAlignmentMake();
-      PKSizeAlignedInRect();
+      v97 = PKContentAlignmentMake();
+      v98.n128_u64[0] = *&v124.origin.x;
+      v99.n128_u64[0] = *&v124.origin.y;
+      v100.n128_u64[0] = *&v124.size.width;
+      v101.n128_u64[0] = *&v124.size.height;
+      v102.n128_u64[0] = v56;
+      v103.n128_f64[0] = v57;
+      PKSizeAlignedInRect(v97, v102, v103, v98, v99, v100, v101, v104);
       [(UILabel *)trailingDetail setFrame:?];
       [(UILabel *)self->_trailingTitle setHidden:0];
     }
 
-    [(UILabel *)*p_trailingDetail setHidden:v48];
-    [(PKContinuousButton *)self->_payButton setHidden:(v24 | currentImage) == 0];
-    if (v24 | currentImage)
+    [(UILabel *)*p_trailingDetail setHidden:v84];
+    [(PKContinuousButton *)self->_payButton setHidden:(v30 | currentImage) == 0];
+    if (v30 | currentImage)
     {
-      PKContentAlignmentMake();
-      PKSizeAlignedInRect();
+      v105 = PKContentAlignmentMake();
+      v106.n128_u64[0] = *&slice.origin.x;
+      v107.n128_u64[0] = *&slice.origin.y;
+      v108.n128_u64[0] = *&slice.size.width;
+      v109.n128_u64[0] = *&slice.size.height;
+      v110.n128_f64[0] = amount;
+      v111.n128_u64[0] = v116;
+      PKSizeAlignedInRect(v105, v110, v111, v106, v107, v108, v109, v112);
       [(PKContinuousButton *)self->_payButton setFrame:?];
     }
   }
 
-  return v45 + v58 * 2.0;
+  return v65 + v121 * 2.0;
 }
 
 - (void)setButtonTitle:(id)title
@@ -487,41 +532,45 @@ LABEL_21:
   v5 = PKFontForDefaultDesign(*MEMORY[0x1E69DDCF8], *MEMORY[0x1E69DDC70], 2, 0);
   if (layoutCopy)
   {
-    v14 = 0;
-    *v15 = 0;
-    *&v15[8] = vdupq_n_s64(2uLL);
-    *&v15[24] = 2;
-    v6 = [[PKContinuousButton alloc] initWithConfiguration:&v14];
-    [(PKContinuousButton *)v6 setContentEdgeInsets:1.0, 1.0, 1.0, 1.0];
-    v7 = 1;
+    v20 = 0;
+    *v21 = 0;
+    *&v21[8] = vdupq_n_s64(2uLL);
+    *&v21[24] = 2;
+    v8 = [[PKContinuousButton alloc] initWithConfiguration:&v20];
+    [(PKContinuousButton *)v8 setContentEdgeInsets:1.0, 1.0, 1.0, 1.0];
+    v9 = 1;
   }
 
   else
   {
-    PKFloatRoundToPixel();
-    v9 = v8;
+    v6.n128_u64[0] = 12.0;
+    PKFloatRoundToPixel(v6, v7);
+    v11 = v10;
+    v12 = 24.0 - v10;
     [v5 lineHeight];
-    PKFloatRoundToPixel();
-    v14 = v10;
-    *v15 = xmmword_1BE0B69E0;
-    *&v15[16] = vdupq_n_s64(2uLL);
-    v6 = [[PKContinuousButton alloc] initWithConfiguration:&v14];
-    [(PKContinuousButton *)v6 setContentEdgeInsets:v9, 16.0, 24.0 - v9, 16.0];
-    v7 = 0;
+    v14.n128_u64[0] = 0.5;
+    v15.n128_f64[0] = (v12 + v11 + v13) * 0.5;
+    PKFloatRoundToPixel(v15, v14);
+    v20 = v16;
+    *v21 = xmmword_1BE0B69E0;
+    *&v21[16] = vdupq_n_s64(2uLL);
+    v8 = [[PKContinuousButton alloc] initWithConfiguration:&v20];
+    [(PKContinuousButton *)v8 setContentEdgeInsets:v11, 16.0, 24.0 - v11, 16.0];
+    v9 = 0;
   }
 
-  self->_usingCircleButton = v7;
-  titleLabel = [(PKContinuousButton *)v6 titleLabel];
+  self->_usingCircleButton = v9;
+  titleLabel = [(PKContinuousButton *)v8 titleLabel];
   [titleLabel setFont:v5];
   [titleLabel setAdjustsFontSizeToFitWidth:1];
-  [(PKContinuousButton *)v6 updateTitleColorWithColor:self->_buttonTitleColor];
-  imageView = [(PKContinuousButton *)v6 imageView];
+  [(PKContinuousButton *)v8 updateTitleColorWithColor:self->_buttonTitleColor];
+  imageView = [(PKContinuousButton *)v8 imageView];
   [imageView setTintColor:self->_buttonTitleColor];
 
-  [(PKContinuousButton *)v6 setTintColor:self->_buttonTintColor];
-  [(PKContinuousButton *)v6 addTarget:self action:sel__buttonTapped_ forControlEvents:64];
+  [(PKContinuousButton *)v8 setTintColor:self->_buttonTintColor];
+  [(PKContinuousButton *)v8 addTarget:self action:sel__buttonTapped_ forControlEvents:64];
 
-  return v6;
+  return v8;
 }
 
 - (void)_buttonTapped:(id)tapped

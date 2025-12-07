@@ -47,7 +47,7 @@
 
 - (NSXPCConnection)connection
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   connection = selfCopy->_connection;
@@ -79,20 +79,20 @@
     {
       observer2 = [(IDSDaemonProtocolController *)selfCopy observer];
       *buf = 138412290;
-      v22 = observer2;
+      v21 = observer2;
       _os_log_impl(&dword_1959FF000, v14, OS_LOG_TYPE_DEFAULT, "Client has set export object %@", buf, 0xCu);
     }
 
     objc_initWeak(buf, selfCopy);
-    v19[0] = MEMORY[0x1E69E9820];
-    v19[1] = 3221225472;
-    v19[2] = sub_195A7F140;
-    v19[3] = &unk_1E743EE18;
-    objc_copyWeak(&v20, buf);
-    [(NSXPCConnection *)selfCopy->_connection setInvalidationHandler:v19];
+    v18[0] = MEMORY[0x1E69E9820];
+    v18[1] = 3221225472;
+    v18[2] = sub_195A7F140;
+    v18[3] = &unk_1E743EE18;
+    objc_copyWeak(&v19, buf);
+    [(NSXPCConnection *)selfCopy->_connection setInvalidationHandler:v18];
     [(NSXPCConnection *)selfCopy->_connection setInterruptionHandler:&unk_1F09E61A0];
     [(NSXPCConnection *)selfCopy->_connection resume];
-    objc_destroyWeak(&v20);
+    objc_destroyWeak(&v19);
     objc_destroyWeak(buf);
 
     connection = selfCopy->_connection;
@@ -100,8 +100,6 @@
 
   v16 = connection;
   objc_sync_exit(selfCopy);
-
-  v17 = *MEMORY[0x1E69E9840];
 
   return v16;
 }

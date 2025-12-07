@@ -83,8 +83,8 @@
   while (begin != var0)
   {
     v7 = *begin;
-    v13 = objc_msgSend_copy(v7, v8, v9, v10, v11);
-    sub_22130BAC8((v4 + 8), &v13);
+    v12 = objc_msgSend_copy(v7, v8, v9, v10);
+    sub_22130BAC8((v4 + 8), &v12);
 
     ++begin;
   }
@@ -100,9 +100,9 @@
   {
     v6 = *--var0;
     v7 = v6;
-    v11 = objc_msgSend_lookup_(v7, v8, lookup, v9, v10);
+    v10 = objc_msgSend_lookup_(v7, v8, lookup, v9);
 
-    if (v11)
+    if (v10)
     {
       goto LABEL_8;
     }
@@ -113,10 +113,10 @@
     sub_2216F7714();
   }
 
-  v11 = qword_27CFB5450;
+  v10 = qword_27CFB5450;
 LABEL_8:
 
-  return v11;
+  return v10;
 }
 
 - (void)pushScope
@@ -131,12 +131,12 @@ LABEL_8:
   var0 = self->_bindings.var0;
   if (begin == var0)
   {
-    v7 = MEMORY[0x277D81150];
-    v8 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[TSCEValueBindingEnvironment popScope]", v2, v3);
-    v12 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v9, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCEValueBindingEnvironment.mm", v10, v11);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v7, v13, v8, v12, 156, 0, "Can't popScope with empty ValueBindingEnvironment");
+    v6 = MEMORY[0x277D81150];
+    v7 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[TSCEValueBindingEnvironment popScope]", v2);
+    v10 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v8, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCEValueBindingEnvironment.mm", v9);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v6, v11, v7, v10, 156, 0, "Can't popScope with empty ValueBindingEnvironment");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v14, v15, v16, v17);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v12, v13, v14);
     begin = self->_bindings.__begin_;
     var0 = self->_bindings.var0;
   }

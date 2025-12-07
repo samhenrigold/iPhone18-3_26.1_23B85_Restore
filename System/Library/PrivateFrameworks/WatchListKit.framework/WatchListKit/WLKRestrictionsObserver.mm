@@ -22,9 +22,11 @@
 
 uint64_t __41__WLKRestrictionsObserver_sharedObserver__block_invoke()
 {
-  sharedObserver__observer = objc_alloc_init(WLKRestrictionsObserver);
+  v0 = objc_alloc_init(WLKRestrictionsObserver);
+  v1 = sharedObserver__observer;
+  sharedObserver__observer = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 - (WLKRestrictionsObserver)init
@@ -91,7 +93,7 @@ void __94__WLKRestrictionsObserver_profileConnectionDidReceiveRestrictionChanged
   v25 = *MEMORY[0x277D85DE8];
   v3 = WLKRestrictionsMaximumEffectiveTVShowRanking();
   v4 = WLKRestrictionsMaximumEffectiveMovieRanking();
-  v5 = WLKSystemLogObject();
+  v5 = WLKSystemLogObject(v4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     TVRanking = self->_TVRanking;
@@ -121,16 +123,16 @@ LABEL_15:
 LABEL_16:
       objc_storeStrong(&self->_TVRanking, v3);
       objc_storeStrong(&self->_movieRanking, v4);
-      v17 = WLKSystemLogObject();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+      v18 = WLKSystemLogObject(v17);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
-        v18 = self->_TVRanking;
-        v19 = self->_movieRanking;
+        v19 = self->_TVRanking;
+        v20 = self->_movieRanking;
         v21 = 138412546;
-        v22 = v18;
+        v22 = v19;
         v23 = 2112;
-        v24 = v19;
-        _os_log_impl(&dword_272A0F000, v17, OS_LOG_TYPE_DEFAULT, "WLKRestrictionsObserver - new: %@-%@; posting notification", &v21, 0x16u);
+        v24 = v20;
+        _os_log_impl(&dword_272A0F000, v18, OS_LOG_TYPE_DEFAULT, "WLKRestrictionsObserver - new: %@-%@; posting notification", &v21, 0x16u);
       }
 
       defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
@@ -169,8 +171,6 @@ LABEL_16:
 
 LABEL_20:
 LABEL_21:
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 @end

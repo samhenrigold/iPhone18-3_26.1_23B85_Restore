@@ -56,7 +56,7 @@
 {
   coordinatorCopy = coordinator;
   configCopy = config;
-  v9 = sub_100056898();
+  v9 = sub_100056898(configCopy);
   v10 = [NSNumber numberWithInteger:step];
   v11 = [v9 objectForKeyedSubscript:v10];
   if (!v11)

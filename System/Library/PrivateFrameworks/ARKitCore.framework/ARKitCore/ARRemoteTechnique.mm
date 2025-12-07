@@ -71,7 +71,7 @@
 - (void)dealloc
 {
   v11 = *MEMORY[0x1E69E9840];
-  v3 = _ARLogTechnique_16();
+  v3 = _ARLogTechnique_16(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     v4 = objc_opt_class();
@@ -103,32 +103,32 @@
 
 void __33__ARRemoteTechnique_serviceProxy__block_invoke(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = _ARLogTechnique_16();
+  v4 = _ARLogTechnique_16(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = objc_opt_class();
     v6 = NSStringFromClass(v5);
     v7 = *(a1 + 32);
-    v10 = 138543874;
-    v11 = v6;
-    v12 = 2048;
-    v13 = v7;
-    v14 = 2112;
-    v15 = v3;
-    _os_log_impl(&dword_1C241C000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ <%p>: Failed to send data to service - error: %@", &v10, 0x20u);
+    v11 = 138543874;
+    v12 = v6;
+    v13 = 2048;
+    v14 = v7;
+    v15 = 2112;
+    v16 = v3;
+    _os_log_impl(&dword_1C241C000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ <%p>: Failed to send data to service - error: %@", &v11, 0x20u);
   }
 
   v8 = objc_opt_new();
-  if (ARInternalOSBuild())
+  if (ARInternalOSBuild(v8, v9))
   {
     [v8 setObject:@"Error communicating with XPC proxy. Potential ApprovedListing Issue." forKeyedSubscript:*MEMORY[0x1E696A578]];
     [v8 setObject:v3 forKeyedSubscript:*MEMORY[0x1E696AA08]];
   }
 
-  v9 = ARErrorWithCodeAndUserInfo(501, v8);
-  [*(a1 + 32) techniqueDidFailWithError:v9];
+  v10 = ARErrorWithCodeAndUserInfo(501, v8);
+  [*(a1 + 32) techniqueDidFailWithError:v10];
 }
 
 - (BOOL)isActive
@@ -204,53 +204,54 @@ void __33__ARRemoteTechnique_serviceProxy__block_invoke(uint64_t a1, void *a2)
 
 - (id)processData:(id)data
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   dataCopy = data;
-  v16 = 0;
-  v17 = &v16;
-  v18 = 0x3032000000;
-  v19 = __Block_byref_object_copy__7;
-  v20 = __Block_byref_object_dispose__7;
-  v21 = 0;
-  if ([dataCopy conformsToProtocol:&unk_1F426A800])
+  v17 = 0;
+  v18 = &v17;
+  v19 = 0x3032000000;
+  v20 = __Block_byref_object_copy__7;
+  v21 = __Block_byref_object_dispose__7;
+  v22 = 0;
+  v5 = [dataCopy conformsToProtocol:&unk_1F426A800];
+  if (v5)
   {
     serviceProxy = [(ARRemoteTechnique *)self serviceProxy];
-    v15[0] = MEMORY[0x1E69E9820];
-    v15[1] = 3221225472;
-    v15[2] = __33__ARRemoteTechnique_processData___block_invoke;
-    v15[3] = &unk_1E817E868;
-    v15[4] = &v16;
-    [serviceProxy processData:dataCopy reply:v15];
+    v16[0] = MEMORY[0x1E69E9820];
+    v16[1] = 3221225472;
+    v16[2] = __33__ARRemoteTechnique_processData___block_invoke;
+    v16[3] = &unk_1E817E868;
+    v16[4] = &v17;
+    [serviceProxy processData:dataCopy reply:v16];
   }
 
   else
   {
-    v6 = _ARLogTechnique_16();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+    v7 = _ARLogTechnique_16(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
-      v7 = objc_opt_class();
-      v8 = NSStringFromClass(v7);
-      v9 = objc_opt_class();
+      v8 = objc_opt_class();
+      v9 = NSStringFromClass(v8);
+      v10 = objc_opt_class();
       *buf = 138543874;
-      v23 = v8;
-      v24 = 2048;
+      v24 = v9;
+      v25 = 2048;
       selfCopy = self;
-      v26 = 2112;
-      v27 = v9;
-      v10 = v9;
-      _os_log_impl(&dword_1C241C000, v6, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: Data (%@) is not ARDaemonSecureCodingCompliant!", buf, 0x20u);
+      v27 = 2112;
+      v28 = v10;
+      v11 = v10;
+      _os_log_impl(&dword_1C241C000, v7, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: Data (%@) is not ARDaemonSecureCodingCompliant!", buf, 0x20u);
     }
 
-    v11 = v17;
-    v12 = dataCopy;
-    serviceProxy = v11[5];
-    v11[5] = v12;
+    v12 = v18;
+    v13 = dataCopy;
+    serviceProxy = v12[5];
+    v12[5] = v13;
   }
 
-  v13 = v17[5];
-  _Block_object_dispose(&v16, 8);
+  v14 = v18[5];
+  _Block_object_dispose(&v17, 8);
 
-  return v13;
+  return v14;
 }
 
 - (void)requestResultDataAtTimestamp:(double)timestamp context:(id)context
@@ -346,17 +347,17 @@ void __38__ARRemoteTechnique_resultDataClasses__block_invoke(uint64_t a1, void *
 
 - (void)techniqueDidOutputResultData:(id)data timestamp:(double)timestamp context:(id)context
 {
-  v50 = *MEMORY[0x1E69E9840];
+  v51 = *MEMORY[0x1E69E9840];
   dataCopy = data;
   contextCopy = context;
   os_unfair_lock_lock(&self->_inflightContextsLock);
-  v41 = 0u;
   v42 = 0u;
-  v39 = 0u;
+  v43 = 0u;
   v40 = 0u;
-  v37 = 56;
+  v41 = 0u;
+  v38 = 56;
   v9 = self->_inflightContexts;
-  v10 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v39 objects:v49 count:16];
+  v10 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v40 objects:v50 count:16];
   if (!v10)
   {
 LABEL_9:
@@ -368,56 +369,56 @@ LABEL_13:
       [ARRemoteTechnique techniqueDidOutputResultData:timestamp:context:];
     }
 
-    v26 = ARShouldUseLogTypeError_internalOSVersion_49;
-    v27 = _ARLogTechnique_16();
-    delegate2 = v27;
-    if (v26 == 1)
+    v27 = ARShouldUseLogTypeError_internalOSVersion_49;
+    v28 = _ARLogTechnique_16(v26);
+    delegate2 = v28;
+    if (v27 == 1)
     {
       v25 = dataCopy;
-      if (!os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+      if (!os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_21;
       }
 
-      v28 = objc_opt_class();
-      v29 = NSStringFromClass(v28);
+      v29 = objc_opt_class();
+      v30 = NSStringFromClass(v29);
       imageData = [contextCopy imageData];
-      [imageData timestamp];
+      objc_msgSend_timestamp(imageData);
       *buf = 138543874;
-      v44 = v29;
-      v45 = 2048;
+      v45 = v30;
+      v46 = 2048;
       selfCopy2 = self;
-      v47 = 2048;
-      v48 = v31;
-      v32 = "%{public}@ <%p>: No in flight context found for %f";
-      v33 = delegate2;
-      v34 = OS_LOG_TYPE_ERROR;
+      v48 = 2048;
+      v49 = v32;
+      v33 = "%{public}@ <%p>: No in flight context found for %f";
+      v34 = delegate2;
+      v35 = OS_LOG_TYPE_ERROR;
     }
 
     else
     {
       v25 = dataCopy;
-      if (!os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
+      if (!os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
       {
         goto LABEL_21;
       }
 
-      v35 = objc_opt_class();
-      v29 = NSStringFromClass(v35);
+      v36 = objc_opt_class();
+      v30 = NSStringFromClass(v36);
       imageData = [contextCopy imageData];
-      [imageData timestamp];
+      objc_msgSend_timestamp(imageData);
       *buf = 138543874;
-      v44 = v29;
-      v45 = 2048;
+      v45 = v30;
+      v46 = 2048;
       selfCopy2 = self;
-      v47 = 2048;
-      v48 = v36;
-      v32 = "Error: %{public}@ <%p>: No in flight context found for %f";
-      v33 = delegate2;
-      v34 = OS_LOG_TYPE_INFO;
+      v48 = 2048;
+      v49 = v37;
+      v33 = "Error: %{public}@ <%p>: No in flight context found for %f";
+      v34 = delegate2;
+      v35 = OS_LOG_TYPE_INFO;
     }
 
-    _os_log_impl(&dword_1C241C000, v33, v34, v32, buf, 0x20u);
+    _os_log_impl(&dword_1C241C000, v34, v35, v33, buf, 0x20u);
 
 LABEL_21:
     v21 = 0;
@@ -427,22 +428,22 @@ LABEL_22:
   }
 
   v11 = v10;
-  v12 = *v40;
+  v12 = *v41;
 LABEL_3:
   v13 = 0;
   while (1)
   {
-    if (*v40 != v12)
+    if (*v41 != v12)
     {
       objc_enumerationMutation(v9);
     }
 
-    v14 = *(*(&v39 + 1) + 8 * v13);
+    v14 = *(*(&v40 + 1) + 8 * v13);
     imageData2 = [v14 imageData];
-    [imageData2 timestamp];
+    objc_msgSend_timestamp(imageData2);
     v17 = v16;
     imageData3 = [contextCopy imageData];
-    [imageData3 timestamp];
+    objc_msgSend_timestamp(imageData3);
     v20 = v19;
 
     if (v17 == v20)
@@ -452,7 +453,7 @@ LABEL_3:
 
     if (v11 == ++v13)
     {
-      v11 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v39 objects:v49 count:16];
+      v11 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v40 objects:v50 count:16];
       if (v11)
       {
         goto LABEL_3;
@@ -469,7 +470,7 @@ LABEL_3:
     goto LABEL_13;
   }
 
-  [*(&self->super.super.isa + v37) removeObject:v21];
+  [*(&self->super.super.isa + v38) removeObject:v21];
   os_unfair_lock_unlock(&self->_inflightContextsLock);
   delegate = [(ARTechnique *)self delegate];
   v23 = objc_opt_respondsToSelector();
@@ -488,40 +489,41 @@ LABEL_23:
 
 - (void)serverConnectionInterrupted:(id)interrupted
 {
-  v15 = *MEMORY[0x1E69E9840];
-  v4 = _ARLogTechnique_16();
+  v17 = *MEMORY[0x1E69E9840];
+  v4 = _ARLogTechnique_16(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = objc_opt_class();
     v6 = NSStringFromClass(v5);
-    v11 = 138543618;
-    v12 = v6;
-    v13 = 2048;
+    v13 = 138543618;
+    v14 = v6;
+    v15 = 2048;
     selfCopy = self;
-    _os_log_impl(&dword_1C241C000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ <%p>: Server connection interrupted", &v11, 0x16u);
+    _os_log_impl(&dword_1C241C000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ <%p>: Server connection interrupted", &v13, 0x16u);
   }
 
   os_unfair_lock_lock(&self->_inflightContextsLock);
   [(NSMutableArray *)self->_inflightContexts removeAllObjects];
   os_unfair_lock_unlock(&self->_inflightContextsLock);
   v7 = objc_opt_new();
-  if (ARInternalOSBuild())
+  v9 = ARInternalOSBuild(v7, v8);
+  if (v9)
   {
-    [v7 setObject:@"Server Connection Interrupted" forKeyedSubscript:*MEMORY[0x1E696A578]];
+    v9 = [v7 setObject:@"Server Connection Interrupted" forKeyedSubscript:*MEMORY[0x1E696A578]];
   }
 
-  v8 = ARKitCoreBundle();
-  v9 = [v8 localizedStringForKey:@"Restart the session." value:&stru_1F4208A80 table:@"Localizable"];
-  [v7 setObject:v9 forKeyedSubscript:*MEMORY[0x1E696A598]];
+  v10 = ARKitCoreBundle(v9);
+  v11 = [v10 localizedStringForKey:@"Restart the session." value:&stru_1F4208A80 table:@"Localizable"];
+  [v7 setObject:v11 forKeyedSubscript:*MEMORY[0x1E696A598]];
 
-  v10 = ARErrorWithCodeAndUserInfo(501, v7);
-  [(ARRemoteTechnique *)self techniqueDidFailWithError:v10];
+  v12 = ARErrorWithCodeAndUserInfo(501, v7);
+  [(ARRemoteTechnique *)self techniqueDidFailWithError:v12];
 }
 
 - (void)serverConnectionInvalidated:(id)invalidated
 {
   v11 = *MEMORY[0x1E69E9840];
-  v4 = _ARLogTechnique_16();
+  v4 = _ARLogTechnique_16(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = objc_opt_class();

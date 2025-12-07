@@ -157,12 +157,12 @@
 {
   keyCopy = key;
   cacheCopy = cache;
-  v184 = *MEMORY[0x277D85DE8];
+  v182 = *MEMORY[0x277D85DE8];
   serviceCopy = service;
   if (!serviceCopy)
   {
-    v170 = objc_msgSend_currentHandler(MEMORY[0x277CCA890], v10, v11);
-    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v170, v171, a2, self, @"CKDPCSIdentityManager.m", 161, @"No serviceName provided to _copyIdentityForService");
+    v168 = objc_msgSend_currentHandler(MEMORY[0x277CCA890], v10, v11);
+    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v168, v169, a2, self, @"CKDPCSIdentityManager.m", 161, @"No serviceName provided to _copyIdentityForService");
   }
 
   if (*MEMORY[0x277CBC810] == 1 && objc_msgSend_shouldEnforceIdentityFetchLimit(self, v10, v11))
@@ -177,7 +177,6 @@
         *error = v105 = 0;
 LABEL_107:
 
-        v157 = *MEMORY[0x277D85DE8];
         return v105;
       }
 
@@ -192,7 +191,7 @@ LABEL_100:
     objc_msgSend_setIdentityFetchLimit_(self, v18, Limit - 1);
   }
 
-  v174 = a2;
+  v172 = a2;
   selfCopy = self;
   objc_sync_enter(selfCopy);
   v22 = objc_msgSend_account(selfCopy, v20, v21);
@@ -284,7 +283,7 @@ LABEL_44:
     if (os_log_type_enabled(*MEMORY[0x277CBC858], OS_LOG_TYPE_DEBUG))
     {
       *buf = 138543362;
-      v179 = serviceCopy;
+      v177 = serviceCopy;
       _os_log_debug_impl(&dword_22506F000, v60, OS_LOG_TYPE_DEBUG, "Walrus enabled for service %{public}@", buf, 0xCu);
     }
 
@@ -311,9 +310,9 @@ LABEL_44:
     goto LABEL_44;
   }
 
-  v177 = 0;
-  isManateeAvailableWithError = objc_msgSend_isManateeAvailableWithError_(selfCopy, v63, &v177);
-  v65 = v177;
+  v175 = 0;
+  isManateeAvailableWithError = objc_msgSend_isManateeAvailableWithError_(selfCopy, v63, &v175);
+  v65 = v175;
   if ((isManateeAvailableWithError & 1) == 0)
   {
     if (*MEMORY[0x277CBC880] != -1)
@@ -325,9 +324,9 @@ LABEL_44:
     if (os_log_type_enabled(*MEMORY[0x277CBC858], OS_LOG_TYPE_ERROR))
     {
       *buf = 138543618;
-      v179 = serviceCopy;
-      v180 = 2112;
-      v181 = v65;
+      v177 = serviceCopy;
+      v178 = 2112;
+      v179 = v65;
       _os_log_error_impl(&dword_22506F000, v66, OS_LOG_TYPE_ERROR, "Can't copy identity set for service %{public}@. Manatee not available for current account due to %@.", buf, 0x16u);
     }
 
@@ -411,11 +410,11 @@ LABEL_57:
       v109 = *MEMORY[0x277CBC858];
       if (os_log_type_enabled(v109, OS_LOG_TYPE_DEBUG))
       {
-        v159 = objc_msgSend_accountType(v22, v110, v111);
+        v157 = objc_msgSend_accountType(v22, v110, v111);
         *buf = 134218242;
-        v179 = v159;
-        v180 = 2114;
-        v181 = serviceCopy;
+        v177 = v157;
+        v178 = 2114;
+        v179 = serviceCopy;
         _os_log_debug_impl(&dword_22506F000, v109, OS_LOG_TYPE_DEBUG, "Caching a fresh %lld-type identity set for service %{public}@.", buf, 0x16u);
       }
 
@@ -441,7 +440,6 @@ LABEL_94:
         if (v75)
         {
           v129 = *MEMORY[0x277CBC878];
-          v130 = *MEMORY[0x277CBC880];
           if (v76)
           {
             if (*MEMORY[0x277CBC880] != -1)
@@ -449,24 +447,24 @@ LABEL_94:
               dispatch_once(MEMORY[0x277CBC880], v129);
             }
 
-            v131 = *MEMORY[0x277CBC858];
+            v130 = *MEMORY[0x277CBC858];
             if (os_log_type_enabled(*MEMORY[0x277CBC858], OS_LOG_TYPE_DEBUG))
             {
-              v134 = v131;
-              v176 = objc_msgSend_account(selfCopy, v135, v136);
-              v139 = objc_msgSend_accountID(v176, v137, v138);
-              v142 = objc_msgSend_deviceContext(selfCopy, v140, v141);
-              v145 = objc_msgSend_testDeviceReference(v142, v143, v144);
-              v148 = objc_msgSend_serverReferenceProtocol(v145, v146, v147);
-              v151 = objc_msgSend_dataDirectory(v148, v149, v150);
-              v154 = objc_msgSend_identityString(v76, v152, v153);
+              v133 = v130;
+              v174 = objc_msgSend_account(selfCopy, v134, v135);
+              v138 = objc_msgSend_accountID(v174, v136, v137);
+              v141 = objc_msgSend_deviceContext(selfCopy, v139, v140);
+              v144 = objc_msgSend_testDeviceReference(v141, v142, v143);
+              v147 = objc_msgSend_serverReferenceProtocol(v144, v145, v146);
+              v150 = objc_msgSend_dataDirectory(v147, v148, v149);
+              v153 = objc_msgSend_identityString(v76, v151, v152);
               *buf = 138412802;
-              v179 = v139;
+              v177 = v138;
+              v178 = 2112;
+              v179 = v150;
               v180 = 2112;
-              v181 = v151;
-              v182 = 2112;
-              v183 = v154;
-              _os_log_debug_impl(&dword_22506F000, v134, OS_LOG_TYPE_DEBUG, "Using service identity for account %@ %@:\n%@", buf, 0x20u);
+              v181 = v153;
+              _os_log_debug_impl(&dword_22506F000, v133, OS_LOG_TYPE_DEBUG, "Using service identity for account %@ %@:\n%@", buf, 0x20u);
             }
           }
 
@@ -477,19 +475,19 @@ LABEL_94:
               dispatch_once(MEMORY[0x277CBC880], v129);
             }
 
-            v155 = *MEMORY[0x277CBC858];
+            v154 = *MEMORY[0x277CBC858];
             if (os_log_type_enabled(*MEMORY[0x277CBC858], OS_LOG_TYPE_ERROR))
             {
               *buf = 0;
-              _os_log_error_impl(&dword_22506F000, v155, OS_LOG_TYPE_ERROR, "Couldn't get a service identity set from the PCS framework", buf, 2u);
+              _os_log_error_impl(&dword_22506F000, v154, OS_LOG_TYPE_ERROR, "Couldn't get a service identity set from the PCS framework", buf, 2u);
             }
           }
 
-          v156 = objc_msgSend_identitySet(v76, v132, v133);
-          v105 = v156;
-          if (v156)
+          v155 = objc_msgSend_identitySet(v76, v131, v132);
+          v105 = v155;
+          if (v155)
           {
-            CFRetain(v156);
+            CFRetain(v155);
           }
 
           goto LABEL_107;
@@ -506,9 +504,9 @@ LABEL_94:
       v122 = *MEMORY[0x277CBC858];
       if (os_log_type_enabled(v122, OS_LOG_TYPE_ERROR))
       {
-        v160 = objc_msgSend_identitySet(v76, v123, v124);
+        v158 = objc_msgSend_identitySet(v76, v123, v124);
         *buf = 138412290;
-        v179 = v160;
+        v177 = v158;
         _os_log_error_impl(&dword_22506F000, v122, OS_LOG_TYPE_ERROR, "Identity set %@ does not have a current key set. Not using it and removing it from cache.", buf, 0xCu);
       }
 
@@ -544,15 +542,15 @@ LABEL_93:
     v90 = *MEMORY[0x277CBC858];
     if (os_log_type_enabled(v90, OS_LOG_TYPE_DEBUG))
     {
-      v161 = objc_msgSend_accountType(v22, v91, v92);
-      v162 = CKStringForAccountType(v161);
-      v165 = objc_msgSend_dsid(v22, v163, v164);
+      v159 = objc_msgSend_accountType(v22, v91, v92);
+      v160 = CKStringForAccountType(v159);
+      v163 = objc_msgSend_dsid(v22, v161, v162);
       *buf = 138543874;
-      v179 = serviceCopy;
+      v177 = serviceCopy;
+      v178 = 2112;
+      v179 = v160;
       v180 = 2112;
-      v181 = v162;
-      v182 = 2112;
-      v183 = v165;
+      v181 = v163;
       _os_log_debug_impl(&dword_22506F000, v90, OS_LOG_TYPE_DEBUG, "Returning cached identity for service %{public}@ and %@ account %@", buf, 0x20u);
     }
 
@@ -572,12 +570,12 @@ LABEL_93:
     v113 = *MEMORY[0x277CBC858];
     if (os_log_type_enabled(v113, OS_LOG_TYPE_FAULT))
     {
-      v166 = objc_msgSend_dsid(v22, v114, v115);
-      v169 = objc_msgSend_cachedAccountDSID(selfCopy, v167, v168);
+      v164 = objc_msgSend_dsid(v22, v114, v115);
+      v167 = objc_msgSend_cachedAccountDSID(selfCopy, v165, v166);
       *buf = 138412546;
-      v179 = v166;
-      v180 = 2112;
-      v181 = v169;
+      v177 = v164;
+      v178 = 2112;
+      v179 = v167;
       _os_log_fault_impl(&dword_22506F000, v113, OS_LOG_TYPE_FAULT, "Current dsid: %@. Cached identities dsid: %@. The dsid has changed underneath us and we didn't clear our identity cache. Clearing cache and failing identity request", buf, 0x16u);
     }
 
@@ -586,8 +584,8 @@ LABEL_93:
     goto LABEL_82;
   }
 
-  v172 = objc_msgSend_currentHandler(MEMORY[0x277CCA890], v88, v89);
-  objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v172, v173, v174, selfCopy, @"CKDPCSIdentityManager.m", 244, @"Identity cache missed an invalidation, dsid of backing account has changed");
+  v170 = objc_msgSend_currentHandler(MEMORY[0x277CCA890], v88, v89);
+  objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v170, v171, v172, selfCopy, @"CKDPCSIdentityManager.m", 244, @"Identity cache missed an invalidation, dsid of backing account has changed");
 
   __break(1u);
   return result;
@@ -595,12 +593,12 @@ LABEL_93:
 
 + (_PCSIdentitySetData)_createIdentitySetForService:(id)service dsid:(id)dsid error:(id *)error
 {
-  v24[1] = *MEMORY[0x277D85DE8];
+  v23[1] = *MEMORY[0x277D85DE8];
   serviceCopy = service;
   dsidCopy = dsid;
-  v23 = *MEMORY[0x277D430A8];
-  v24[0] = dsidCopy;
-  v10 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v9, v24, &v23, 1);
+  v22 = *MEMORY[0x277D430A8];
+  v23[0] = dsidCopy;
+  v10 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v9, v23, &v22, 1);
   v11 = PCSIdentitySetCreate();
   v12 = *MEMORY[0x277CBC878];
   v13 = *MEMORY[0x277CBC880];
@@ -615,9 +613,9 @@ LABEL_93:
     if (os_log_type_enabled(*MEMORY[0x277CBC858], OS_LOG_TYPE_ERROR))
     {
       *buf = 138543618;
-      v20 = serviceCopy;
-      v21 = 2112;
-      v22 = 0;
+      v19 = serviceCopy;
+      v20 = 2112;
+      v21 = 0;
       _os_log_error_impl(&dword_22506F000, v15, OS_LOG_TYPE_ERROR, "Couldn't get an identity set for service %{public}@ from the PCS framework: %@", buf, 0x16u);
       if (!error)
       {
@@ -643,13 +641,12 @@ LABEL_93:
   if (os_log_type_enabled(*MEMORY[0x277CBC858], OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412290;
-    v20 = serviceCopy;
+    v19 = serviceCopy;
     _os_log_debug_impl(&dword_22506F000, v14, OS_LOG_TYPE_DEBUG, "Got identity set for service %@ from the PCS framework.", buf, 0xCu);
   }
 
 LABEL_11:
 
-  v17 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
@@ -710,11 +707,11 @@ LABEL_11:
 
 + (BOOL)needsUserKeySyncToPopulateCurrentIdentityForAccount:(id)account serviceName:(id)name
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   nameCopy = name;
-  v21 = 0;
-  v8 = objc_msgSend_createFullKeychainIdentitySetForAccount_serviceName_error_(self, v7, account, nameCopy, &v21);
-  v9 = v21;
+  v20 = 0;
+  v8 = objc_msgSend_createFullKeychainIdentitySetForAccount_serviceName_error_(self, v7, account, nameCopy, &v20);
+  v9 = v20;
   v10 = v9;
   if (v8 && !v9)
   {
@@ -748,9 +745,9 @@ LABEL_13:
   if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_INFO))
   {
     *buf = 138412546;
-    v23 = nameCopy;
-    v24 = 2112;
-    v25 = v10;
+    v22 = nameCopy;
+    v23 = 2112;
+    v24 = v10;
     _os_log_impl(&dword_22506F000, v17, OS_LOG_TYPE_INFO, "Warn: Failed to check if the service %@ has a current identity: %@", buf, 0x16u);
   }
 
@@ -763,13 +760,12 @@ LABEL_13:
 
 LABEL_14:
 
-  v19 = *MEMORY[0x277D85DE8];
   return v18;
 }
 
 + (_PCSIdentitySetData)createFullKeychainIdentitySetForAccount:(id)account serviceName:(id)name error:(id *)error
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   accountCopy = account;
   nameCopy = name;
   v11 = objc_msgSend_dsid(accountCopy, v9, v10);
@@ -782,25 +778,25 @@ LABEL_14:
     {
       v27 = *MEMORY[0x277D43050];
       v20 = objc_msgSend_backingAccount(accountCopy, v18, v19);
-      v36 = 0;
-      v21 = &v36;
-      v23 = objc_msgSend_copyTestAccountIdentitySetForService_forBackingExplicitCredentialsAccount_withError_(CKDPCSIdentityManager, v28, v27, v20, &v36);
+      v35 = 0;
+      v21 = &v35;
+      v23 = objc_msgSend_copyTestAccountIdentitySetForService_forBackingExplicitCredentialsAccount_withError_(CKDPCSIdentityManager, v28, v27, v20, &v35);
     }
 
     else if (v17 == 3)
     {
       v20 = objc_msgSend_backingAccount(accountCopy, v18, v19);
-      v37 = 0;
-      v21 = &v37;
-      v23 = objc_msgSend_copyTestAccountIdentitySetForService_forBackingMockAccount_withError_(CKDPCSIdentityManager, v22, nameCopy, v20, &v37);
+      v36 = 0;
+      v21 = &v36;
+      v23 = objc_msgSend_copyTestAccountIdentitySetForService_forBackingMockAccount_withError_(CKDPCSIdentityManager, v22, nameCopy, v20, &v36);
     }
 
     else
     {
       v20 = objc_msgSend_dsid(accountCopy, v18, v19);
-      v35 = 0;
-      v21 = &v35;
-      v23 = objc_msgSend__createIdentitySetForService_dsid_error_(CKDPCSIdentityManager, v29, 0, v20, &v35);
+      v34 = 0;
+      v21 = &v34;
+      v23 = objc_msgSend__createIdentitySetForService_dsid_error_(CKDPCSIdentityManager, v29, 0, v20, &v34);
     }
 
     v25 = v23;
@@ -840,7 +836,7 @@ LABEL_14:
   if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412290;
-    v39 = v24;
+    v38 = v24;
     _os_log_debug_impl(&dword_22506F000, v31, OS_LOG_TYPE_DEBUG, "Failed to get full identity set: %@.", buf, 0xCu);
     if (!error)
     {
@@ -866,7 +862,6 @@ LABEL_17:
   v25 = 0;
 LABEL_21:
 
-  v33 = *MEMORY[0x277D85DE8];
   return v25;
 }
 
@@ -890,11 +885,11 @@ LABEL_21:
 
 - (BOOL)liverpoolServiceOwnsPublicID:(id)d
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   dCopy = d;
-  v28 = 0;
-  v6 = objc_msgSend_copyIdentitySetWithType_options_error_(self, v5, 3, 0, &v28);
-  v7 = v28;
+  v27 = 0;
+  v6 = objc_msgSend_copyIdentitySetWithType_options_error_(self, v5, 3, 0, &v27);
+  v7 = v27;
   v8 = v7;
   v9 = 0;
   LOBYTE(v10) = 0;
@@ -904,26 +899,26 @@ LABEL_21:
     v14 = v11;
     if (v11)
     {
-      v26 = 0u;
-      v27 = 0u;
-      v24 = 0u;
       v25 = 0u;
+      v26 = 0u;
+      v23 = 0u;
+      v24 = 0u;
       v15 = objc_msgSend_allValues(v11, v12, v13, 0);
-      v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(v15, v16, &v24, v29, 16);
+      v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(v15, v16, &v23, v28, 16);
       if (v10)
       {
         v18 = 0;
-        v19 = *v25;
+        v19 = *v24;
         while (2)
         {
           for (i = 0; i != v10; ++i)
           {
-            if (*v25 != v19)
+            if (*v24 != v19)
             {
               objc_enumerationMutation(v15);
             }
 
-            if (*(*(&v24 + 1) + 8 * i))
+            if (*(*(&v23 + 1) + 8 * i))
             {
               v9 = PCSIdentityGetPublicKey();
 
@@ -937,7 +932,7 @@ LABEL_21:
             }
           }
 
-          v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(v15, v17, &v24, v29, 16);
+          v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(v15, v17, &v23, v28, 16);
           if (v10)
           {
             continue;
@@ -969,18 +964,17 @@ LABEL_18:
     CFRelease(v6);
   }
 
-  v22 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
 - (_PCSPublicIdentityData)copyDiversifiedIdentityForService:(unint64_t)service userIDEntropy:(id)entropy withError:(id *)error
 {
-  v58[1] = *MEMORY[0x277D85DE8];
+  v57[1] = *MEMORY[0x277D85DE8];
   entropyCopy = entropy;
   cf = 0;
-  v57 = *MEMORY[0x277D42FA8];
-  v58[0] = MEMORY[0x277CBEC28];
-  v10 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v9, v58, &v57, 1);
+  v56 = *MEMORY[0x277D42FA8];
+  v57[0] = MEMORY[0x277CBEC28];
+  v10 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v9, v57, &v56, 1);
   if (!objc_msgSend_length(entropyCopy, v11, v12))
   {
     if (*MEMORY[0x277CBC880] != -1)
@@ -999,9 +993,9 @@ LABEL_18:
     goto LABEL_20;
   }
 
-  v51 = 0;
-  v14 = objc_msgSend_copyIdentitySetWithType_options_error_(self, v13, service, 0, &v51);
-  v15 = v51;
+  v50 = 0;
+  v14 = objc_msgSend_copyIdentitySetWithType_options_error_(self, v13, service, 0, &v50);
+  v15 = v50;
   v17 = v15;
   if (!v14 || v15)
   {
@@ -1016,9 +1010,9 @@ LABEL_18:
       v24 = v23;
       v25 = sub_2252927B0(service);
       *buf = 138543618;
-      v54 = v25;
-      v55 = 2112;
-      v56 = v17;
+      v53 = v25;
+      v54 = 2112;
+      v55 = v17;
       _os_log_impl(&dword_22506F000, v24, OS_LOG_TYPE_INFO, "Warn: Couldn't get a %{public}@ identity set: %@", buf, 0x16u);
     }
 
@@ -1050,16 +1044,16 @@ LABEL_20:
         dispatch_once(MEMORY[0x277CBC880], *MEMORY[0x277CBC878]);
       }
 
-      v50 = v10;
+      v49 = v10;
       v39 = *MEMORY[0x277CBC858];
       if (os_log_type_enabled(*MEMORY[0x277CBC858], OS_LOG_TYPE_INFO))
       {
         v40 = v39;
         v41 = sub_2252927B0(service);
         *buf = 138543618;
-        v54 = v41;
-        v55 = 2112;
-        v56 = cf;
+        v53 = v41;
+        v54 = 2112;
+        v55 = cf;
         _os_log_impl(&dword_22506F000, v40, OS_LOG_TYPE_INFO, "Warn: Couldn't create a diversified %{public}@ identity: %@", buf, 0x16u);
       }
 
@@ -1075,7 +1069,7 @@ LABEL_20:
         cf = 0;
       }
 
-      v10 = v50;
+      v10 = v49;
     }
 
     else
@@ -1102,9 +1096,9 @@ LABEL_37:
     v32 = v31;
     v33 = sub_2252927B0(service);
     *buf = 138543618;
-    v54 = v33;
-    v55 = 2112;
-    v56 = cf;
+    v53 = v33;
+    v54 = 2112;
+    v55 = cf;
     _os_log_impl(&dword_22506F000, v32, OS_LOG_TYPE_INFO, "Warn: Couldn't get a %{public}@ identity: %@", buf, 0x16u);
   }
 
@@ -1136,7 +1130,6 @@ LABEL_38:
     *error = v20;
   }
 
-  v48 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
@@ -1182,12 +1175,12 @@ LABEL_8:
 
 + (BOOL)credentialsAreValidForAccount:(id)account
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   accountCopy = account;
   v4 = *MEMORY[0x277D43050];
-  v11 = 0;
-  TestAccountIdentitySetForService_forBackingExplicitCredentialsAccount_withError = objc_msgSend__getTestAccountIdentitySetForService_forBackingExplicitCredentialsAccount_withError_(CKDPCSIdentityManager, v5, v4, accountCopy, &v11);
-  v7 = v11;
+  v10 = 0;
+  TestAccountIdentitySetForService_forBackingExplicitCredentialsAccount_withError = objc_msgSend__getTestAccountIdentitySetForService_forBackingExplicitCredentialsAccount_withError_(CKDPCSIdentityManager, v5, v4, accountCopy, &v10);
+  v7 = v10;
   if (!TestAccountIdentitySetForService_forBackingExplicitCredentialsAccount_withError)
   {
     if (*MEMORY[0x277CBC880] != -1)
@@ -1199,82 +1192,19 @@ LABEL_8:
     if (os_log_type_enabled(*MEMORY[0x277CBC858], OS_LOG_TYPE_ERROR))
     {
       *buf = 138543874;
-      v13 = v4;
-      v14 = 2112;
-      v15 = accountCopy;
-      v16 = 2112;
-      v17 = v7;
+      v12 = v4;
+      v13 = 2112;
+      v14 = accountCopy;
+      v15 = 2112;
+      v16 = v7;
       _os_log_error_impl(&dword_22506F000, v8, OS_LOG_TYPE_ERROR, "Couldn't get a %{public}@ identity for %@: %@", buf, 0x20u);
     }
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return TestAccountIdentitySetForService_forBackingExplicitCredentialsAccount_withError != 0;
 }
 
 - (id)copyPublicKeyForService:(unint64_t)service withError:(id *)error
-{
-  v30 = *MEMORY[0x277D85DE8];
-  v25 = 0;
-  v7 = objc_msgSend_copyIdentitySetWithType_options_error_(self, a2, service, 0, &v25);
-  v8 = v25;
-  v10 = v8;
-  if (!v7 || (v11 = 0, v8))
-  {
-    if (*MEMORY[0x277CBC880] != -1)
-    {
-      dispatch_once(MEMORY[0x277CBC880], *MEMORY[0x277CBC878]);
-    }
-
-    v12 = *MEMORY[0x277CBC858];
-    if (os_log_type_enabled(*MEMORY[0x277CBC858], OS_LOG_TYPE_INFO))
-    {
-      v13 = v12;
-      v14 = sub_2252927B0(service);
-      *buf = 138543618;
-      v27 = v14;
-      v28 = 2112;
-      v29 = v10;
-      _os_log_impl(&dword_22506F000, v13, OS_LOG_TYPE_INFO, "Warn: Couldn't get a %{public}@ identity set: %@", buf, 0x16u);
-    }
-
-    v15 = MEMORY[0x277CBC560];
-    v16 = *MEMORY[0x277CBC120];
-    v17 = sub_2252927B0(service);
-    v11 = objc_msgSend_errorWithDomain_code_format_(v15, v18, v16, 5000, @"Couldn't get a %@ identity set to add to the share PCS", v17);
-  }
-
-  if (!v7 || v11)
-  {
-    v19 = 0;
-    v20 = 0;
-    if (!v7)
-    {
-      goto LABEL_13;
-    }
-  }
-
-  else
-  {
-    v24 = 0;
-    v19 = objc_msgSend__copyPublicKeyDataForIdentitySet_withService_withError_(self, v9, v7, service, &v24);
-    v11 = v24;
-  }
-
-  CFRelease(v7);
-  v20 = v19;
-LABEL_13:
-  if (error)
-  {
-    v21 = v11;
-    *error = v11;
-  }
-
-  v22 = *MEMORY[0x277D85DE8];
-  return v20;
-}
-
-- (id)copyAllPublicKeysForService:(unint64_t)service withError:(id *)error
 {
   v29 = *MEMORY[0x277D85DE8];
   v24 = 0;
@@ -1318,6 +1248,67 @@ LABEL_13:
 
   else
   {
+    v23 = 0;
+    v19 = objc_msgSend__copyPublicKeyDataForIdentitySet_withService_withError_(self, v9, v7, service, &v23);
+    v11 = v23;
+  }
+
+  CFRelease(v7);
+  v20 = v19;
+LABEL_13:
+  if (error)
+  {
+    v21 = v11;
+    *error = v11;
+  }
+
+  return v20;
+}
+
+- (id)copyAllPublicKeysForService:(unint64_t)service withError:(id *)error
+{
+  v28 = *MEMORY[0x277D85DE8];
+  v23 = 0;
+  v7 = objc_msgSend_copyIdentitySetWithType_options_error_(self, a2, service, 0, &v23);
+  v8 = v23;
+  v10 = v8;
+  if (!v7 || (v11 = 0, v8))
+  {
+    if (*MEMORY[0x277CBC880] != -1)
+    {
+      dispatch_once(MEMORY[0x277CBC880], *MEMORY[0x277CBC878]);
+    }
+
+    v12 = *MEMORY[0x277CBC858];
+    if (os_log_type_enabled(*MEMORY[0x277CBC858], OS_LOG_TYPE_INFO))
+    {
+      v13 = v12;
+      v14 = sub_2252927B0(service);
+      *buf = 138543618;
+      v25 = v14;
+      v26 = 2112;
+      v27 = v10;
+      _os_log_impl(&dword_22506F000, v13, OS_LOG_TYPE_INFO, "Warn: Couldn't get a %{public}@ identity set: %@", buf, 0x16u);
+    }
+
+    v15 = MEMORY[0x277CBC560];
+    v16 = *MEMORY[0x277CBC120];
+    v17 = sub_2252927B0(service);
+    v11 = objc_msgSend_errorWithDomain_code_format_(v15, v18, v16, 5000, @"Couldn't get a %@ identity set to add to the share PCS", v17);
+  }
+
+  if (!v7 || v11)
+  {
+    v19 = 0;
+    v20 = 0;
+    if (!v7)
+    {
+      goto LABEL_13;
+    }
+  }
+
+  else
+  {
     v19 = objc_msgSend__copyPublicKeyDataForAllIdentitiesInSet_withService_(self, v9, v7, service);
   }
 
@@ -1330,17 +1321,16 @@ LABEL_13:
     *error = v11;
   }
 
-  v22 = *MEMORY[0x277D85DE8];
   return v20;
 }
 
 - (id)_copyPublicKeyDataForAllIdentitiesInSet:(_PCSIdentitySetData *)set withService:(unint64_t)service
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v6 = objc_opt_new();
   v8 = objc_msgSend_PCSServiceStringFromCKServiceType_(self, v7, service);
   v9 = v6;
-  v15 = v9;
+  v14 = v9;
   PCSIdentitySetEnumeratePublicKeys();
   if (!objc_msgSend_count(v9, v10, v11))
   {
@@ -1353,20 +1343,19 @@ LABEL_13:
     if (os_log_type_enabled(*MEMORY[0x277CBC858], OS_LOG_TYPE_INFO))
     {
       *buf = 138543362;
-      v17 = v8;
+      v16 = v8;
       _os_log_impl(&dword_22506F000, v12, OS_LOG_TYPE_INFO, "Warn: Did not get any public keys for service %{public}@.", buf, 0xCu);
     }
 
     v9 = 0;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
 - (id)_copyPublicKeyDataForIdentitySet:(_PCSIdentitySetData *)set withService:(unint64_t)service withError:(id *)error
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   objc_msgSend_PCSServiceStringFromCKServiceType_(self, a2, service);
   v7 = PCSIdentitySetCopyCurrentPublicIdentityWithError();
   if (v7)
@@ -1385,11 +1374,11 @@ LABEL_13:
       if (os_log_type_enabled(*MEMORY[0x277CBC858], OS_LOG_TYPE_INFO))
       {
         *buf = 138543362;
-        v16 = v8;
+        v15 = v8;
         _os_log_impl(&dword_22506F000, v10, OS_LOG_TYPE_INFO, "Current identity public key data is %{public}@", buf, 0xCu);
       }
 
-      goto LABEL_16;
+      return v8;
     }
   }
 
@@ -1408,7 +1397,7 @@ LABEL_13:
   if (os_log_type_enabled(*MEMORY[0x277CBC858], OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v16 = v9;
+    v15 = v9;
     _os_log_impl(&dword_22506F000, v11, OS_LOG_TYPE_INFO, "Warn: Error generating fingerprint for current self identity: %@", buf, 0xCu);
   }
 
@@ -1418,15 +1407,12 @@ LABEL_13:
     *error = v9;
   }
 
-  v8 = 0;
-LABEL_16:
-  v13 = *MEMORY[0x277D85DE8];
-  return v8;
+  return 0;
 }
 
 + (_PCSIdentitySetData)_copyStingrayIdentitiesForOptions:(id)options withError:(id *)error
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v5 = PCSIdentityRecoverFDE();
   v6 = *MEMORY[0x277CBC878];
   v7 = *MEMORY[0x277CBC880];
@@ -1441,21 +1427,21 @@ LABEL_16:
     if (os_log_type_enabled(*MEMORY[0x277CBC858], OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v16 = 0;
+      v15 = 0;
       _os_log_error_impl(&dword_22506F000, v10, OS_LOG_TYPE_ERROR, "Error fetching Stingray PCS identity set: %@", buf, 0xCu);
       if (!error)
       {
-        goto LABEL_12;
+        return v5;
       }
     }
 
     else if (!error)
     {
-      goto LABEL_12;
+      return v5;
     }
 
     *error = objc_msgSend_errorWithDomain_code_error_format_(MEMORY[0x277CBC560], v11, *MEMORY[0x277CBC120], 5001, 0, @"Couldn't fetch PCS identities from Stingray");
-    goto LABEL_12;
+    return v5;
   }
 
   if (v7 != -1)
@@ -1470,30 +1456,28 @@ LABEL_16:
     _os_log_debug_impl(&dword_22506F000, v8, OS_LOG_TYPE_DEBUG, "PCS identity set fetched:", buf, 2u);
   }
 
-  v14 = PCSIdentitySetCopyService();
-  v9 = v14;
+  v13 = PCSIdentitySetCopyService();
+  v9 = v13;
   PCSIdentitySetEnumeratePublicKeys();
 
-LABEL_12:
-  v12 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
 + (_PCSIdentitySetData)_copyStingrayIdentitiesForService:(id)service forBackingExplicitCredentialsAccount:(id)account withError:(id *)error
 {
-  v64 = *MEMORY[0x277D85DE8];
+  v63 = *MEMORY[0x277D85DE8];
   serviceCopy = service;
   accountCopy = account;
   v8 = 0;
-  v56 = 0;
-  v57 = &v56;
-  v58 = 0x2020000000;
-  v59 = 1;
-  v46 = *MEMORY[0x277CCA7E8];
-  v44 = v50;
+  v55 = 0;
+  v56 = &v55;
+  v57 = 0x2020000000;
+  v58 = 1;
+  v45 = *MEMORY[0x277CCA7E8];
+  v43 = v49;
   v9 = 3;
   *&v10 = 138543618;
-  v43 = v10;
+  v42 = v10;
   while (1)
   {
 
@@ -1514,25 +1498,25 @@ LABEL_12:
     if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
     {
       v40 = objc_msgSend_username(accountCopy, v17, v18);
-      *buf = v43;
-      v61 = serviceCopy;
-      v62 = 2112;
-      v63 = v40;
+      *buf = v42;
+      v60 = serviceCopy;
+      v61 = 2112;
+      v62 = v40;
       _os_log_debug_impl(&dword_22506F000, v16, OS_LOG_TYPE_DEBUG, "Fetching PCS identity set %{public}@ for account %@", buf, 0x16u);
     }
 
-    v55 = 0;
-    v20 = objc_msgSend__copyStingrayIdentitiesForOptions_withError_(self, v19, v15, &v55);
-    v21 = v55;
+    v54 = 0;
+    v20 = objc_msgSend__copyStingrayIdentitiesForOptions_withError_(self, v19, v15, &v54);
+    v21 = v54;
     v8 = v21;
-    *(v57 + 24) = 0;
+    *(v56 + 24) = 0;
     if (v20 && !v21)
     {
       goto LABEL_16;
     }
 
-    v24 = objc_msgSend_userInfo(v21, v22, v23, v43, v44);
-    v26 = objc_msgSend_objectForKeyedSubscript_(v24, v25, v46);
+    v24 = objc_msgSend_userInfo(v21, v22, v23, v42, v43);
+    v26 = objc_msgSend_objectForKeyedSubscript_(v24, v25, v45);
 
     v29 = objc_msgSend_domain(v26, v27, v28);
     if (!objc_msgSend_isEqualToString_(v29, v30, @"CloudServicesErrorDomain"))
@@ -1545,25 +1529,25 @@ LABEL_12:
     if (v33)
     {
       v36 = objc_msgSend_password(accountCopy, v34, v35);
-      v45 = dispatch_semaphore_create(0);
-      v49[0] = MEMORY[0x277D85DD0];
-      v49[1] = 3221225472;
-      v50[0] = sub_22528B6B0;
-      v50[1] = &unk_27854BBB0;
+      v44 = dispatch_semaphore_create(0);
+      v48[0] = MEMORY[0x277D85DD0];
+      v48[1] = 3221225472;
+      v49[0] = sub_22528B6B0;
+      v49[1] = &unk_27854BBB0;
       v37 = accountCopy;
-      v51 = v37;
+      v50 = v37;
       v29 = v36;
-      v52 = v29;
-      v54 = &v56;
-      v38 = v45;
-      v53 = v38;
-      objc_msgSend_renewAuthTokenWithOptions_completionHandler_(v37, v39, MEMORY[0x277CBEC10], v49);
+      v51 = v29;
+      v53 = &v55;
+      v38 = v44;
+      v52 = v38;
+      objc_msgSend_renewAuthTokenWithOptions_completionHandler_(v37, v39, MEMORY[0x277CBEC10], v48);
       dispatch_semaphore_wait(v38, 0xFFFFFFFFFFFFFFFFLL);
 
 LABEL_12:
     }
 
-    if ((v57[3] & 1) != 0 && v20)
+    if ((v56[3] & 1) != 0 && v20)
     {
       CFRelease(v20);
       v20 = 0;
@@ -1571,7 +1555,7 @@ LABEL_12:
 
 LABEL_16:
 
-    if (!--v9 || *(v57 + 24) != 1)
+    if (!--v9 || *(v56 + 24) != 1)
     {
 
       goto LABEL_20;
@@ -1580,9 +1564,8 @@ LABEL_16:
 
   v20 = 0;
 LABEL_20:
-  _Block_object_dispose(&v56, 8);
+  _Block_object_dispose(&v55, 8);
 
-  v41 = *MEMORY[0x277D85DE8];
   return v20;
 }
 
@@ -1669,12 +1652,12 @@ LABEL_20:
 
 + (_PCSIdentitySetData)copyTestAccountIdentitySetForService:(id)service forBackingExplicitCredentialsAccount:(id)account withError:(id *)error
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   serviceCopy = service;
-  v40 = 0;
+  v39 = 0;
   cf = 0;
-  TestAccountIdentitySetForService_forBackingExplicitCredentialsAccount_withError = objc_msgSend__getTestAccountIdentitySetForService_forBackingExplicitCredentialsAccount_withError_(CKDPCSIdentityManager, v8, serviceCopy, account, &v40);
-  v10 = v40;
+  TestAccountIdentitySetForService_forBackingExplicitCredentialsAccount_withError = objc_msgSend__getTestAccountIdentitySetForService_forBackingExplicitCredentialsAccount_withError_(CKDPCSIdentityManager, v8, serviceCopy, account, &v39);
+  v10 = v39;
   if (TestAccountIdentitySetForService_forBackingExplicitCredentialsAccount_withError)
   {
     v12 = v10 == 0;
@@ -1770,26 +1753,26 @@ LABEL_41:
       goto LABEL_35;
     }
 
-    v38 = 0u;
-    v39 = 0u;
-    v36 = 0u;
     v37 = 0u;
+    v38 = 0u;
+    v35 = 0u;
+    v36 = 0u;
     v26 = objc_msgSend_allValues(v15, v24, v25);
-    v28 = objc_msgSend_countByEnumeratingWithState_objects_count_(v26, v27, &v36, v42, 16);
+    v28 = objc_msgSend_countByEnumeratingWithState_objects_count_(v26, v27, &v35, v41, 16);
     if (v28)
     {
       v29 = v28;
-      v30 = *v37;
+      v30 = *v36;
       while (2)
       {
         for (i = 0; i != v29; ++i)
         {
-          if (*v37 != v30)
+          if (*v36 != v30)
           {
             objc_enumerationMutation(v26);
           }
 
-          v32 = *(*(&v36 + 1) + 8 * i);
+          v32 = *(*(&v35 + 1) + 8 * i);
           if ((PCSIdentitySetAddIdentity() & 1) == 0)
           {
             if (error)
@@ -1804,7 +1787,7 @@ LABEL_41:
           }
         }
 
-        v29 = objc_msgSend_countByEnumeratingWithState_objects_count_(v26, v33, &v36, v42, 16);
+        v29 = objc_msgSend_countByEnumeratingWithState_objects_count_(v26, v33, &v35, v41, 16);
         if (v29)
         {
           continue;
@@ -1846,21 +1829,20 @@ LABEL_43:
     CFRelease(v17);
   }
 
-  v34 = *MEMORY[0x277D85DE8];
   return Mutable;
 }
 
 + (id)_generatePCSIdentityOptionsForService:(id)service forBackingExplicitCredentialsAccount:(id)account withError:(id *)error
 {
-  v56 = *MEMORY[0x277D85DE8];
+  v55 = *MEMORY[0x277D85DE8];
   serviceCopy = service;
   accountCopy = account;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v51 = 0;
-    v10 = objc_msgSend_iCloudAuthTokenWithError_(accountCopy, v9, &v51);
-    v11 = v51;
+    v50 = 0;
+    v10 = objc_msgSend_iCloudAuthTokenWithError_(accountCopy, v9, &v50);
+    v11 = v50;
     v12 = v11;
     if (v10 && !v11)
     {
@@ -1903,9 +1885,9 @@ LABEL_15:
       v45 = v43;
       v48 = objc_msgSend_username(accountCopy, v46, v47);
       *buf = 138412546;
-      v53 = v48;
-      v54 = 2112;
-      v55 = v12;
+      v52 = v48;
+      v53 = 2112;
+      v54 = v12;
       _os_log_error_impl(&dword_22506F000, v45, OS_LOG_TYPE_ERROR, "Error fetching iCloud auth token for account %@: %@", buf, 0x16u);
 
       if (error)
@@ -1939,14 +1921,12 @@ LABEL_11:
 
 LABEL_16:
 
-  v49 = *MEMORY[0x277D85DE8];
-
   return v42;
 }
 
 + (BOOL)_rollTestAccountIdentitySetForService:(id)service forBackingExplicitCredentialsAccount:(id)account oldIdentityID:(id *)d newIdentityID:(id *)iD withError:(id *)error
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   serviceCopy = service;
   accountCopy = account;
   v15 = objc_msgSend__generatePCSIdentityOptionsForService_forBackingExplicitCredentialsAccount_withError_(self, v14, serviceCopy, accountCopy, error);
@@ -1964,11 +1944,11 @@ LABEL_16:
     v21 = *MEMORY[0x277CBC858];
     if (os_log_type_enabled(*MEMORY[0x277CBC858], OS_LOG_TYPE_DEBUG))
     {
-      v42 = v21;
-      v45 = objc_msgSend_username(accountCopy, v43, v44);
+      v41 = v21;
+      v44 = objc_msgSend_username(accountCopy, v42, v43);
       *buf = 138412290;
-      v49 = v45;
-      _os_log_debug_impl(&dword_22506F000, v42, OS_LOG_TYPE_DEBUG, "Fetching PCS identity set for account %@", buf, 0xCu);
+      v48 = v44;
+      _os_log_debug_impl(&dword_22506F000, v41, OS_LOG_TYPE_DEBUG, "Fetching PCS identity set for account %@", buf, 0xCu);
     }
 
     v23 = PCSIdentitySetup();
@@ -2012,7 +1992,7 @@ LABEL_22:
 
       if (PCSIdentityRollIdentity())
       {
-        v47 = PCSIdentitySetCopyCurrentPublicIdentityWithError();
+        v46 = PCSIdentitySetCopyCurrentPublicIdentityWithError();
         v30 = PCSPublicIdentityGetPublicID();
         isEqualToString = objc_msgSend_isEqualToString_(v27, v31, v30);
         if (isEqualToString)
@@ -2022,16 +2002,16 @@ LABEL_22:
             goto LABEL_40;
           }
 
-          v46 = isEqualToString;
+          v45 = isEqualToString;
           objc_msgSend_errorWithDomain_code_error_format_(MEMORY[0x277CBC560], v33, *MEMORY[0x277CBC120], 5000, 0, @"Rolling PCS identities for service %@ was unsuccessful", serviceCopy);
         }
 
         else
         {
-          v46 = 0;
+          v45 = 0;
           if (iD)
           {
-            v39 = v30;
+            v38 = v30;
             *iD = v30;
           }
 
@@ -2047,12 +2027,12 @@ LABEL_22:
             dispatch_once(MEMORY[0x277CBC880], *MEMORY[0x277CBC878]);
           }
 
-          v40 = *v20;
+          v39 = *v20;
           if (os_log_type_enabled(*v20, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412290;
-            v49 = 0;
-            _os_log_error_impl(&dword_22506F000, v40, OS_LOG_TYPE_ERROR, "Error setting up PCS identity set: %@", buf, 0xCu);
+            v48 = 0;
+            _os_log_error_impl(&dword_22506F000, v39, OS_LOG_TYPE_ERROR, "Error setting up PCS identity set: %@", buf, 0xCu);
             if (!error)
             {
               goto LABEL_39;
@@ -2062,19 +2042,19 @@ LABEL_22:
           else if (!error)
           {
 LABEL_39:
-            LOBYTE(isEqualToString) = v46;
+            LOBYTE(isEqualToString) = v45;
 LABEL_40:
             v34 = isEqualToString ^ 1;
             CFRelease(v25);
-            if (v47)
+            if (v46)
             {
-              CFRelease(v47);
+              CFRelease(v46);
             }
 
             goto LABEL_22;
           }
 
-          objc_msgSend_errorWithDomain_code_error_format_(MEMORY[0x277CBC560], v41, *MEMORY[0x277CBC120], 5001, 0, @"Couldn't setup PCS identities from stingray");
+          objc_msgSend_errorWithDomain_code_error_format_(MEMORY[0x277CBC560], v40, *MEMORY[0x277CBC120], 5001, 0, @"Couldn't setup PCS identities from stingray");
         }
         *error = ;
         goto LABEL_39;
@@ -2114,52 +2094,51 @@ LABEL_28:
   v34 = 0;
 LABEL_29:
 
-  v37 = *MEMORY[0x277D85DE8];
   return v34;
 }
 
 + (id)_copyPCSIdentitiesForBackingMockAccount:(id)account withError:(id *)error
 {
-  v51[3] = *MEMORY[0x277D85DE8];
+  v50[3] = *MEMORY[0x277D85DE8];
   accountCopy = account;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v42 = accountCopy;
+    v41 = accountCopy;
     v8 = objc_msgSend_testAccount(accountCopy, v6, v7);
     v11 = objc_msgSend_pcsIdentitiesData(v8, v9, v10);
 
     v12 = MEMORY[0x277CCAAC8];
     v13 = MEMORY[0x277CBEB98];
-    v51[0] = objc_opt_class();
-    v51[1] = objc_opt_class();
-    v51[2] = objc_opt_class();
-    v15 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v14, v51, 3);
+    v50[0] = objc_opt_class();
+    v50[1] = objc_opt_class();
+    v50[2] = objc_opt_class();
+    v15 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v14, v50, 3);
     v17 = objc_msgSend_setWithArray_(v13, v16, v15);
-    v41 = v11;
+    v40 = v11;
     v19 = objc_msgSend_unarchivedObjectOfClasses_fromData_error_(v12, v18, v17, v11, 0);
 
     v20 = objc_opt_new();
+    v43 = 0u;
     v44 = 0u;
     v45 = 0u;
     v46 = 0u;
-    v47 = 0u;
     v21 = v19;
-    v23 = objc_msgSend_countByEnumeratingWithState_objects_count_(v21, v22, &v44, v50, 16);
+    v23 = objc_msgSend_countByEnumeratingWithState_objects_count_(v21, v22, &v43, v49, 16);
     if (v23)
     {
       v25 = v23;
-      v26 = *v45;
+      v26 = *v44;
 LABEL_4:
       v27 = 0;
       while (1)
       {
-        if (*v45 != v26)
+        if (*v44 != v26)
         {
           objc_enumerationMutation(v21);
         }
 
-        v28 = *(*(&v44 + 1) + 8 * v27);
+        v28 = *(*(&v43 + 1) + 8 * v27);
         v29 = objc_msgSend_objectForKeyedSubscript_(v21, v24, v28);
         v30 = PCSIdentitySetCreateFromExternalForm();
         v31 = *MEMORY[0x277CBC880];
@@ -2180,8 +2159,8 @@ LABEL_4:
           _os_log_debug_impl(&dword_22506F000, v32, OS_LOG_TYPE_DEBUG, "PCS identity set fetched:", buf, 2u);
         }
 
-        v43 = PCSIdentitySetCopyService();
-        v33 = v43;
+        v42 = PCSIdentitySetCopyService();
+        v33 = v42;
         PCSIdentitySetEnumeratePublicKeys();
 
         objc_msgSend_setObject_forKeyedSubscript_(v20, v34, v30, v28);
@@ -2189,7 +2168,7 @@ LABEL_4:
 
         if (v25 == ++v27)
         {
-          v25 = objc_msgSend_countByEnumeratingWithState_objects_count_(v21, v24, &v44, v50, 16);
+          v25 = objc_msgSend_countByEnumeratingWithState_objects_count_(v21, v24, &v43, v49, 16);
           if (v25)
           {
             goto LABEL_4;
@@ -2204,13 +2183,13 @@ LABEL_4:
         dispatch_once(MEMORY[0x277CBC880], *MEMORY[0x277CBC878]);
       }
 
-      v36 = v41;
-      accountCopy = v42;
+      v36 = v40;
+      accountCopy = v41;
       v37 = *MEMORY[0x277CBC858];
       if (os_log_type_enabled(*MEMORY[0x277CBC858], OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v49 = 0;
+        v48 = 0;
         _os_log_error_impl(&dword_22506F000, v37, OS_LOG_TYPE_ERROR, "Error unarchiving a mock PCS service identity: %@", buf, 0xCu);
         if (!error)
         {
@@ -2233,8 +2212,8 @@ LABEL_22:
 LABEL_14:
 
     v35 = v20;
-    v36 = v41;
-    accountCopy = v42;
+    v36 = v40;
+    accountCopy = v41;
 LABEL_23:
   }
 
@@ -2249,7 +2228,6 @@ LABEL_23:
     v35 = 0;
   }
 
-  v39 = *MEMORY[0x277D85DE8];
   return v35;
 }
 
@@ -2312,7 +2290,7 @@ LABEL_23:
 + (_PCSIdentitySetData)_getTestAccountIdentitySetForService:(id)service forBackingMockAccount:(id)account shouldFaultInIdentities:(BOOL)identities withError:(id *)error
 {
   identitiesCopy = identities;
-  v61 = *MEMORY[0x277D85DE8];
+  v60 = *MEMORY[0x277D85DE8];
   serviceCopy = service;
   accountCopy = account;
   v13 = objc_msgSend_sharedMockIdentitySetsByServiceByIdentifier(CKDPCSIdentityManager, v11, v12);
@@ -2353,9 +2331,9 @@ LABEL_23:
         if (os_log_type_enabled(*MEMORY[0x277CBC858], OS_LOG_TYPE_ERROR))
         {
           *buf = 138412546;
-          v58 = serviceCopy;
-          v59 = 2112;
-          v60 = accountCopy;
+          v57 = serviceCopy;
+          v58 = 2112;
+          v59 = accountCopy;
           _os_log_error_impl(&dword_22506F000, v40, OS_LOG_TYPE_ERROR, "No pre-existing identity for service %@ on account %@. That's unexpected. Filling one out", buf, 0x16u);
         }
 
@@ -2374,11 +2352,11 @@ LABEL_23:
           CFRelease(Master);
         }
 
-        v52 = objc_msgSend_identifier(accountCopy, v43, v44);
-        v54 = objc_msgSend_objectForKeyedSubscript_(v13, v53, v52);
-        objc_msgSend_setObject_forKeyedSubscript_(v54, v55, Mutable, serviceCopy);
+        v51 = objc_msgSend_identifier(accountCopy, v43, v44);
+        v53 = objc_msgSend_objectForKeyedSubscript_(v13, v52, v51);
+        objc_msgSend_setObject_forKeyedSubscript_(v53, v54, Mutable, serviceCopy);
 
-        objc_msgSend__setIdentitySet_forServiceName_backingMockAccount_withError_(CKDPCSIdentityManager, v56, Mutable, serviceCopy, accountCopy, error);
+        objc_msgSend__setIdentitySet_forServiceName_backingMockAccount_withError_(CKDPCSIdentityManager, v55, Mutable, serviceCopy, accountCopy, error);
       }
 
       else if (error)
@@ -2404,16 +2382,15 @@ LABEL_23:
 
   objc_sync_exit(v13);
 
-  v50 = *MEMORY[0x277D85DE8];
   return v49;
 }
 
 + (_PCSIdentitySetData)copyTestAccountIdentitySetForService:(id)service forBackingMockAccount:(id)account withError:(id *)error
 {
-  buf[3] = *MEMORY[0x277D85DE8];
-  v17 = 0;
-  TestAccountIdentitySetForService_forBackingMockAccount_withError = objc_msgSend__getTestAccountIdentitySetForService_forBackingMockAccount_withError_(CKDPCSIdentityManager, a2, service, account, &v17);
-  v7 = v17;
+  v18 = *MEMORY[0x277D85DE8];
+  v16 = 0;
+  TestAccountIdentitySetForService_forBackingMockAccount_withError = objc_msgSend__getTestAccountIdentitySetForService_forBackingMockAccount_withError_(CKDPCSIdentityManager, a2, service, account, &v16);
+  v7 = v16;
   if (TestAccountIdentitySetForService_forBackingMockAccount_withError)
   {
     v8 = v7 == 0;
@@ -2426,13 +2403,13 @@ LABEL_23:
 
   if (v8)
   {
-    buf[0] = 0;
+    *buf = 0;
     v10 = PCSIdentitySetCopySet();
-    v9 = buf[0];
+    v9 = *buf;
     v11 = v10 == 0;
     if (v10)
     {
-      v12 = buf[0] == 0;
+      v12 = *buf == 0;
     }
 
     else
@@ -2479,8 +2456,8 @@ LABEL_19:
     goto LABEL_20;
   }
 
-  LODWORD(buf[0]) = 138412290;
-  *(buf + 4) = v9;
+  *buf = 138412290;
+  *&buf[4] = v9;
   _os_log_error_impl(&dword_22506F000, v13, OS_LOG_TYPE_ERROR, "Error copying per-silo identity set: %@", buf, 0xCu);
   if (!v11)
   {
@@ -2499,7 +2476,6 @@ LABEL_15:
   *error = v9;
 LABEL_20:
 
-  v15 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -2537,7 +2513,6 @@ LABEL_20:
   if (!selfCopy->_debugIdentity)
   {
     Named = PCSIdentitySetCreateNamed();
-    v4 = *MEMORY[0x277D43058];
     selfCopy->_debugIdentity = PCSIdentitySetCopyCurrentIdentityWithError();
     CFRelease(Named);
   }
@@ -2549,7 +2524,7 @@ LABEL_20:
 
 - (_PCSPublicIdentityData)createPublicSharingIdentityFromPublicKey:(id)key error:(id *)error
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   keyCopy = key;
   if (keyCopy)
   {
@@ -2567,9 +2542,9 @@ LABEL_20:
       if (os_log_type_enabled(*MEMORY[0x277CBC858], OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412546;
-        v16 = v6;
-        v17 = 2114;
-        v18 = keyCopy;
+        v15 = v6;
+        v16 = 2114;
+        v17 = keyCopy;
         _os_log_debug_impl(&dword_22506F000, v12, OS_LOG_TYPE_DEBUG, "Created sharing identity %@ from public key %{public}@", buf, 0x16u);
       }
     }
@@ -2585,9 +2560,9 @@ LABEL_20:
       if (os_log_type_enabled(*MEMORY[0x277CBC858], OS_LOG_TYPE_INFO))
       {
         *buf = 138543618;
-        v16 = keyCopy;
-        v17 = 2112;
-        v18 = 0;
+        v15 = keyCopy;
+        v16 = 2112;
+        v17 = 0;
         _os_log_impl(&dword_22506F000, v9, OS_LOG_TYPE_INFO, "Couldn't create a sharing identity from public key %{public}@: %@", buf, 0x16u);
       }
 
@@ -2615,13 +2590,12 @@ LABEL_20:
     v6 = 0;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
 - (_PCSIdentityData)createRandomSharingIdentityWithError:(id *)error
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   RandomCompactRaw = PCSIdentityCreateRandomCompactRaw();
   v5 = *MEMORY[0x277CBC878];
   v6 = *MEMORY[0x277CBC880];
@@ -2636,7 +2610,7 @@ LABEL_20:
     if (os_log_type_enabled(*MEMORY[0x277CBC858], OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412290;
-      v13 = RandomCompactRaw;
+      v12 = RandomCompactRaw;
       _os_log_debug_impl(&dword_22506F000, v9, OS_LOG_TYPE_DEBUG, "Created sharing identity %@", buf, 0xCu);
     }
   }
@@ -2652,11 +2626,11 @@ LABEL_20:
     if (os_log_type_enabled(*MEMORY[0x277CBC858], OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v13 = 0;
+      v12 = 0;
       _os_log_error_impl(&dword_22506F000, v7, OS_LOG_TYPE_ERROR, "Couldn't create a new sharing identity: %@", buf, 0xCu);
       if (!error)
       {
-        goto LABEL_12;
+        return RandomCompactRaw;
       }
 
       goto LABEL_6;
@@ -2669,14 +2643,12 @@ LABEL_6:
     }
   }
 
-LABEL_12:
-  v10 = *MEMORY[0x277D85DE8];
   return RandomCompactRaw;
 }
 
 - (id)dataFromSharingIdentity:(_PCSIdentityData *)identity error:(id *)error
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   if (identity)
   {
     ExportedRawCompact = PCSIdentityCreateExportedRawCompact();
@@ -2694,8 +2666,8 @@ LABEL_12:
       {
         *buf = 138412546;
         identityCopy2 = identity;
-        v17 = 2112;
-        v18 = ExportedRawCompact;
+        v16 = 2112;
+        v17 = ExportedRawCompact;
         _os_log_debug_impl(&dword_22506F000, v12, OS_LOG_TYPE_DEBUG, "Created data from sharing identity %@: %@", buf, 0x16u);
       }
     }
@@ -2712,8 +2684,8 @@ LABEL_12:
       {
         *buf = 138412546;
         identityCopy2 = identity;
-        v17 = 2112;
-        v18 = 0;
+        v16 = 2112;
+        v17 = 0;
         _os_log_impl(&dword_22506F000, v9, OS_LOG_TYPE_INFO, "Couldn't create data from sharing identity %@: %@", buf, 0x16u);
       }
 
@@ -2741,14 +2713,12 @@ LABEL_12:
     ExportedRawCompact = 0;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
-
   return ExportedRawCompact;
 }
 
 - (_PCSIdentityData)createSharingIdentityFromData:(id)data error:(id *)error
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   if (dataCopy)
   {
@@ -2766,9 +2736,9 @@ LABEL_12:
       if (os_log_type_enabled(*MEMORY[0x277CBC858], OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412546;
-        v16 = v6;
-        v17 = 2112;
-        v18 = dataCopy;
+        v15 = v6;
+        v16 = 2112;
+        v17 = dataCopy;
         _os_log_debug_impl(&dword_22506F000, v12, OS_LOG_TYPE_DEBUG, "Created sharing identity %@ from data %@", buf, 0x16u);
       }
     }
@@ -2784,9 +2754,9 @@ LABEL_12:
       if (os_log_type_enabled(*MEMORY[0x277CBC858], OS_LOG_TYPE_INFO))
       {
         *buf = 138412546;
-        v16 = dataCopy;
-        v17 = 2112;
-        v18 = 0;
+        v15 = dataCopy;
+        v16 = 2112;
+        v17 = 0;
         _os_log_impl(&dword_22506F000, v9, OS_LOG_TYPE_INFO, "Couldn't create a sharing identity from data %@: %@", buf, 0x16u);
       }
 
@@ -2814,7 +2784,6 @@ LABEL_12:
     v6 = 0;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -2898,7 +2867,7 @@ LABEL_12:
 
 - (BOOL)_hasCurrentKeyForService:(id)service inIdentitySet:(_PCSIdentitySetData *)set withError:(id *)error
 {
-  v28[1] = *MEMORY[0x277D85DE8];
+  v27[1] = *MEMORY[0x277D85DE8];
   serviceCopy = service;
   v9 = 0;
   if (!serviceCopy || !set)
@@ -2922,9 +2891,9 @@ LABEL_12:
       _os_log_debug_impl(&dword_22506F000, v12, OS_LOG_TYPE_DEBUG, "Forcing error from security when validating the identity", buf, 2u);
     }
 
-    v27 = *MEMORY[0x277CCA068];
-    v28[0] = @"The connection to service named com.apple.securityd.general was invalidated.";
-    v14 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v13, v28, &v27, 1);
+    v26 = *MEMORY[0x277CCA068];
+    v27[0] = @"The connection to service named com.apple.securityd.general was invalidated.";
+    v14 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v13, v27, &v26, 1);
     cf = CFErrorCreate(0, @"NSCocoaErrorDomain", 4099, v14);
 
     v15 = 0;
@@ -2941,10 +2910,10 @@ LABEL_13:
       {
         *buf = 138412802;
         setCopy = set;
-        v23 = 2114;
-        v24 = serviceCopy;
-        v25 = 2112;
-        v26 = cf;
+        v22 = 2114;
+        v23 = serviceCopy;
+        v24 = 2112;
+        v25 = cf;
         _os_log_error_impl(&dword_22506F000, v16, OS_LOG_TYPE_ERROR, "Identity set %@ was expected to have a current key set %{public}@. %@", buf, 0x20u);
         if (!error)
         {
@@ -2995,7 +2964,6 @@ LABEL_20:
 
 LABEL_22:
 
-  v18 = *MEMORY[0x277D85DE8];
   return v9;
 }
 

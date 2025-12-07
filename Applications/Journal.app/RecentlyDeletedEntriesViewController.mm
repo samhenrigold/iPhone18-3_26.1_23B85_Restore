@@ -31,7 +31,7 @@
 
   sub_1003027EC();
 
-  sub_100004F84(v6, &qword_100AD13D0);
+  sub_100004F84(v6, &qword_100AD13D0, &unk_100942DB0);
 }
 
 - (BOOL)canPerformAction:(SEL)action withSender:(id)sender
@@ -52,7 +52,7 @@
 
   v8 = sub_10078F2AC(action, v10);
 
-  sub_100004F84(v10, &qword_100AD13D0);
+  sub_100004F84(v10, &qword_100AD13D0, &unk_100942DB0);
   return v8 & 1;
 }
 
@@ -77,7 +77,7 @@
 - (void)viewWillLayoutSubviews
 {
   v3.receiver = self;
-  v3.super_class = type metadata accessor for RecentlyDeletedEntriesViewController();
+  v3.super_class = type metadata accessor for RecentlyDeletedEntriesViewController(0);
   v2 = v3.receiver;
   [(JournalEntryCollectionViewController *)&v3 viewWillLayoutSubviews];
   sub_10023DCC0();

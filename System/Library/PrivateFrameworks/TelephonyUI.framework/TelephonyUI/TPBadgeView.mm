@@ -183,17 +183,16 @@
 
 - (void)updateFonts
 {
-  v11.receiver = self;
-  v11.super_class = TPBadgeView;
-  [(TPView *)&v11 updateFonts];
+  v9.receiver = self;
+  v9.super_class = TPBadgeView;
+  [(TPView *)&v9 updateFonts];
   if ([(TPBadgeView *)self sizeCategory]== 3)
   {
     v3 = [MEMORY[0x1E69DCA40] metricsForTextStyle:*MEMORY[0x1E69DDD08]];
     v4 = MEMORY[0x1E69DB878];
     [(TPBadgeView *)self titleLabelFontSize];
-    v5 = *MEMORY[0x1E69DB958];
-    v6 = [v4 systemFontOfSize:? weight:?];
-    titleLabel2 = [v3 scaledFontForFont:v6 maximumPointSize:22.3125];
+    v5 = [v4 systemFontOfSize:? weight:?];
+    titleLabel2 = [v3 scaledFontForFont:v5 maximumPointSize:22.3125];
 
     titleLabel = [(TPBadgeView *)self titleLabel];
     [titleLabel setFont:titleLabel2];
@@ -201,11 +200,10 @@
 
   else
   {
-    v9 = MEMORY[0x1E69DB878];
+    v8 = MEMORY[0x1E69DB878];
     [(TPBadgeView *)self titleLabelFontSize];
     [(TPBadgeView *)self scaledLayoutValueForBaseValue:?];
-    v10 = *MEMORY[0x1E69DB958];
-    v3 = [v9 systemFontOfSize:? weight:?];
+    v3 = [v8 systemFontOfSize:? weight:?];
     titleLabel2 = [(TPBadgeView *)self titleLabel];
     [titleLabel2 setFont:v3];
   }

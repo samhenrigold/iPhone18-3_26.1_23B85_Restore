@@ -43,31 +43,31 @@
 
 - (unsigned)sizeUpperBound
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v2 = self->_assetRecords;
-  v4 = objc_msgSend_countByEnumeratingWithState_objects_count_(v2, v3, &v13, v17, 16);
+  v4 = objc_msgSend_countByEnumeratingWithState_objects_count_(v2, v3, &v12, v16, 16);
   if (v4)
   {
     v7 = v4;
     v8 = 0;
-    v9 = *v14;
+    v9 = *v13;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v14 != v9)
+        if (*v13 != v9)
         {
           objc_enumerationMutation(v2);
         }
 
-        v8 += objc_msgSend_sizeUpperBound(*(*(&v13 + 1) + 8 * i), v5, v6, v13);
+        v8 += objc_msgSend_sizeUpperBound(*(*(&v12 + 1) + 8 * i), v5, v6, v12);
       }
 
-      v7 = objc_msgSend_countByEnumeratingWithState_objects_count_(v2, v5, &v13, v17, 16);
+      v7 = objc_msgSend_countByEnumeratingWithState_objects_count_(v2, v5, &v12, v16, 16);
     }
 
     while (v7);
@@ -78,76 +78,73 @@
     v8 = 0;
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
 - (NSArray)allRegularAndSectionAndRereferenceItems
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v3 = objc_opt_new();
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   v4 = self->_assetRecords;
-  v6 = objc_msgSend_countByEnumeratingWithState_objects_count_(v4, v5, &v21, v25, 16);
+  v6 = objc_msgSend_countByEnumeratingWithState_objects_count_(v4, v5, &v20, v24, 16);
   if (v6)
   {
     v9 = v6;
-    v10 = *v22;
+    v10 = *v21;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v22 != v10)
+        if (*v21 != v10)
         {
           objc_enumerationMutation(v4);
         }
 
-        v12 = *(*(&v21 + 1) + 8 * i);
-        v13 = objc_msgSend_allMMCSAndSectionItems(v12, v7, v8, v21);
+        v12 = *(*(&v20 + 1) + 8 * i);
+        v13 = objc_msgSend_allMMCSAndSectionItems(v12, v7, v8, v20);
         objc_msgSend_addObjectsFromArray_(v3, v14, v13);
 
         v17 = objc_msgSend_allRereferenceMMCSPackageItems(v12, v15, v16);
         objc_msgSend_addObjectsFromArray_(v3, v18, v17);
       }
 
-      v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(v4, v7, &v21, v25, 16);
+      v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(v4, v7, &v20, v24, 16);
     }
 
     while (v9);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
 
 - (void)failIfNotDoneAllRegularAndSectionAndRereferenceItemsWithError:(id)error
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   errorCopy = error;
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   v7 = objc_msgSend_allRegularAndSectionAndRereferenceItems(self, v5, v6, 0);
-  v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(v7, v8, &v18, v22, 16);
+  v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(v7, v8, &v17, v21, 16);
   if (v9)
   {
     v12 = v9;
-    v13 = *v19;
+    v13 = *v18;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v19 != v13)
+        if (*v18 != v13)
         {
           objc_enumerationMutation(v7);
         }
 
-        v15 = *(*(&v18 + 1) + 8 * i);
+        v15 = *(*(&v17 + 1) + 8 * i);
         v16 = objc_msgSend_error(v15, v10, v11);
 
         if (!v16)
@@ -156,13 +153,11 @@
         }
       }
 
-      v12 = objc_msgSend_countByEnumeratingWithState_objects_count_(v7, v10, &v18, v22, 16);
+      v12 = objc_msgSend_countByEnumeratingWithState_objects_count_(v7, v10, &v17, v21, 16);
     }
 
     while (v12);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (id)firstMMCSItemError

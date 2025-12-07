@@ -24,21 +24,20 @@
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v5 = objc_opt_class();
-  v8 = objc_msgSend_allocWithZone_(v5, v6, zone, v7);
-  objc_msgSend_height(self, v9, v10, v11);
-  v13 = v12;
-  objc_msgSend_depth(self, v14, v15, v16);
+  v4 = [objc_opt_class() allocWithZone:zone];
+  [(EQKitVSpace *)self height];
+  v6 = v5;
+  [(EQKitVSpace *)self depth];
 
-  return objc_msgSend_initWithHeight_depth_(v8, v17, v18, v19, v13, v20);
+  return [v4 initWithHeight:v6 depth:v7];
 }
 
 - (BOOL)isEqual:(id)equal
 {
   if (self == equal)
   {
-    LOBYTE(isMemberOfClass) = 1;
-    return isMemberOfClass;
+    LOBYTE(v5) = 1;
+    return v5;
   }
 
   if (!equal)
@@ -46,27 +45,26 @@
     goto LABEL_7;
   }
 
-  v5 = objc_opt_class();
-  isMemberOfClass = objc_msgSend_isMemberOfClass_(equal, v6, v5, v7);
-  if (isMemberOfClass)
+  v5 = [equal isMemberOfClass:objc_opt_class()];
+  if (v5)
   {
-    objc_msgSend_height(self, v9, v10, v11);
-    v13 = v12;
-    objc_msgSend_height(equal, v14, v15, v16);
-    if (v13 == v20)
+    [(EQKitVSpace *)self height];
+    v7 = v6;
+    [equal height];
+    if (v7 == v8)
     {
-      objc_msgSend_depth(self, v17, v18, v19);
-      v22 = v21;
-      objc_msgSend_depth(equal, v23, v24, v25);
-      LOBYTE(isMemberOfClass) = v22 == v26;
-      return isMemberOfClass;
+      [(EQKitVSpace *)self depth];
+      v10 = v9;
+      [equal depth];
+      LOBYTE(v5) = v10 == v11;
+      return v5;
     }
 
 LABEL_7:
-    LOBYTE(isMemberOfClass) = 0;
+    LOBYTE(v5) = 0;
   }
 
-  return isMemberOfClass;
+  return v5;
 }
 
 - (unint64_t)hash
@@ -80,10 +78,10 @@ LABEL_7:
 {
   v3 = MEMORY[0x277CCACA8];
   v4 = objc_opt_class();
-  objc_msgSend_height(self, v5, v6, v7);
-  v9 = v8;
-  objc_msgSend_depth(self, v10, v11, v12);
-  return objc_msgSend_stringWithFormat_(v3, v13, @"<%@ %p>: height=%f depth=%f", v14, v4, self, v9, v15);
+  [(EQKitVSpace *)self height];
+  v6 = v5;
+  [(EQKitVSpace *)self depth];
+  return [v3 stringWithFormat:@"<%@ %p>: height=%f depth=%f", v4, self, v6, v7];
 }
 
 @end

@@ -1,7 +1,7 @@
 uint64_t convertAKSErrorToMKB(uint64_t a1)
 {
   v1 = a1;
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   if (a1 <= -536363001)
   {
     v2 = 4294967294;
@@ -11,8 +11,7 @@ uint64_t convertAKSErrorToMKB(uint64_t a1)
       {
         if (a1 == -536870206)
         {
-          v2 = 4294967279;
-          goto LABEL_34;
+          return 4294967279;
         }
 
         if (a1 != -536870199)
@@ -20,7 +19,7 @@ uint64_t convertAKSErrorToMKB(uint64_t a1)
           goto LABEL_25;
         }
 
-        v2 = 4294967287;
+        return 4294967287;
       }
     }
 
@@ -30,8 +29,7 @@ uint64_t convertAKSErrorToMKB(uint64_t a1)
       {
         if (a1 == -536870194)
         {
-          v2 = 4294967293;
-          goto LABEL_34;
+          return 4294967293;
         }
 
         if (a1 != -536870184)
@@ -39,32 +37,29 @@ uint64_t convertAKSErrorToMKB(uint64_t a1)
           goto LABEL_25;
         }
 
-        goto LABEL_29;
+        return 4294967283;
       }
 
       if (a1 != -536870174)
       {
         if (a1 == -536870160)
         {
-          v2 = 4294967288;
-          goto LABEL_34;
+          return 4294967288;
         }
 
 LABEL_25:
         if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
         {
-          v5[0] = 67109120;
-          v5[1] = v1;
-          _os_log_impl(&dword_1C8660000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "Unexpected AppleKeyStore error: %d\n", v5, 8u);
+          v4[0] = 67109120;
+          v4[1] = v1;
+          _os_log_impl(&dword_1C8660000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "Unexpected AppleKeyStore error: %d\n", v4, 8u);
         }
 
-        v2 = 0xFFFFFFFFLL;
+        return 0xFFFFFFFFLL;
       }
     }
 
-LABEL_34:
-    v1 = v2;
-    goto LABEL_35;
+    return v2;
   }
 
   if (a1 <= -536362989)
@@ -73,9 +68,7 @@ LABEL_34:
     {
       if (a1 == -536362994)
       {
-LABEL_29:
-        v2 = 4294967283;
-        goto LABEL_34;
+        return 4294967283;
       }
 
       if (a1 != -536362989)
@@ -83,21 +76,17 @@ LABEL_29:
         goto LABEL_25;
       }
 
-      v2 = 4294967276;
-      goto LABEL_34;
+      return 4294967276;
     }
 
-LABEL_28:
-    v2 = 4294967282;
-    goto LABEL_34;
+    return 4294967282;
   }
 
   if (a1 <= -536362985)
   {
     if (a1 == -536362988)
     {
-      v2 = 0;
-      goto LABEL_34;
+      return 0;
     }
 
     if (a1 != -536362987)
@@ -105,13 +94,12 @@ LABEL_28:
       goto LABEL_25;
     }
 
-    goto LABEL_28;
+    return 4294967282;
   }
 
   if (a1 == -536362984)
   {
-    v2 = 4294967277;
-    goto LABEL_34;
+    return 4294967277;
   }
 
   if (a1)
@@ -119,29 +107,24 @@ LABEL_28:
     goto LABEL_25;
   }
 
-LABEL_35:
-  v3 = *MEMORY[0x1E69E9840];
   return v1;
 }
 
 uint64_t MKBGetDeviceLockState(const __CFDictionary *a1)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v4 = 0;
-  memset(v3, 0, sizeof(v3));
-  LODWORD(result) = _get_device_lock_state(a1, v3);
+  v4 = *MEMORY[0x1E69E9840];
+  v3 = 0;
+  memset(v2, 0, sizeof(v2));
+  LODWORD(result) = _get_device_lock_state(a1, v2);
   if (result)
   {
-    result = result;
+    return result;
   }
 
   else
   {
-    result = DWORD1(v3[0]);
+    return DWORD1(v2[0]);
   }
-
-  v2 = *MEMORY[0x1E69E9840];
-  return result;
 }
 
 uint64_t _get_device_lock_state(const __CFDictionary *a1, uint64_t a2)
@@ -229,7 +212,7 @@ uint64_t _get_userid_from_options(CFDictionaryRef theDict, _DWORD *a2)
 
         else
         {
-          debuglog("_get_userid_from_options", @"handle is of wrong type", v7, v8, v9, v10, v11, v12, v13);
+          debuglog("_get_userid_from_options", @"handle is of wrong type", v7, v8, v9, v10, v11, v12);
           return 0;
         }
       }
@@ -246,13 +229,13 @@ uint64_t MKBDeviceUnlockedSinceBoot()
     return 1;
   }
 
-  handleToUse(0);
+  v1 = handleToUse(0);
   lock_state = aks_get_lock_state();
-  v2 = convertAKSErrorToMKB(lock_state);
-  if (v2)
+  v3 = convertAKSErrorToMKB(lock_state);
+  if (v3)
   {
-    v0 = v2;
-    debuglog("MKBDeviceUnlockedSinceBoot", @"MKBDeviceUnlockedSinceBoot fails with error(%d) for handle(%d) with AKS error(%d)", v3, v4, v5, v6, v7, v8, v2);
+    v0 = v3;
+    debuglog("MKBDeviceUnlockedSinceBoot", @"MKBDeviceUnlockedSinceBoot fails with error(%d) for handle(%d) with AKS error(%d)", v4, v5, v6, v7, v8, v9, v3, v1, lock_state);
   }
 
   else
@@ -307,9 +290,9 @@ uint64_t get_hostmultiuserconfig(uint32_t *a1)
 
 __CFDictionary *MKBUserTypeDeviceMode(uint64_t a1, CFErrorRef *a2)
 {
-  v22 = 0;
+  v21 = 0;
   dict = create_dict();
-  hostmultiuserconfig = get_hostmultiuserconfig(&v22);
+  hostmultiuserconfig = get_hostmultiuserconfig(&v21);
   v11 = hostmultiuserconfig;
   if (hostmultiuserconfig)
   {
@@ -334,12 +317,12 @@ __CFDictionary *MKBUserTypeDeviceMode(uint64_t a1, CFErrorRef *a2)
       v19 = 22;
     }
 
-    debuglog("MKBUserTypeDeviceMode", v18, v12, v13, v14, v15, v16, v17, v21);
+    debuglog("MKBUserTypeDeviceMode", v18, v12, v13, v14, v15, v16, v17);
   }
 
   else
   {
-    if ((v22 & 0x80000000) != 0)
+    if ((v21 & 0x80000000) != 0)
     {
       CFDictionarySetValue(dict, kMKBDeviceModeKey, kMKBDeviceModeSharedIPad);
       CFDictionarySetValue(dict, kMKBUserTypeKey, kMKBUserTypeEphemeral);
@@ -359,25 +342,27 @@ __CFDictionary *MKBUserTypeDeviceMode(uint64_t a1, CFErrorRef *a2)
   return dict;
 }
 
-void aksNotificationCB(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void aksNotificationCB(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  if (!a1)
+  if (!result)
   {
+    v12 = 0;
     v10 = 0;
 LABEL_8:
-    debuglog("aksNotificationCB", @"invalid context %d %d", a3, a4, a5, a6, a7, a8, v10);
+    debuglog("aksNotificationCB", @"invalid context %d %d", a3, a4, a5, a6, a7, a8, v12, v10, v8, v9);
     return;
   }
 
-  if (*(a1 + 20) != 1918985081)
+  v10 = *(result + 20);
+  if (v10 != 1918985081)
   {
-    v10 = 1;
+    v12 = 1;
     goto LABEL_8;
   }
 
   if (a3 == -469774321)
   {
-    v9 = *(*(a1 + 8) + 16);
+    v11 = *(*(result + 8) + 16);
   }
 
   else
@@ -387,112 +372,106 @@ LABEL_8:
       return;
     }
 
-    v9 = *(*(a1 + 8) + 16);
+    v11 = *(*(result + 8) + 16);
   }
 
-  v9();
+  v11();
 }
 
 uint64_t MKBDeviceFormattedForContentProtection()
 {
-  v3 = *MEMORY[0x1E69E9840];
-  memset(&v2, 0, 512);
-  if (statfs("/var", &v2) >= 0)
+  v2 = *MEMORY[0x1E69E9840];
+  memset(&v1, 0, 512);
+  if (statfs("/var", &v1) >= 0)
   {
-    result = (v2.f_flags >> 7) & 1;
+    return (v1.f_flags >> 7) & 1;
   }
 
   else
   {
-    result = 4294967290;
+    return 4294967290;
   }
-
-  v1 = *MEMORY[0x1E69E9840];
-  return result;
 }
 
 __CFDictionary *MKBGetDeviceLockStateInfo(const __CFDictionary *a1)
 {
   Int = a1;
-  v17 = *MEMORY[0x1E69E9840];
-  v16 = 0;
-  memset(v15, 0, sizeof(v15));
-  if (_get_device_lock_state(a1, v15))
+  v18 = *MEMORY[0x1E69E9840];
+  v17 = 0;
+  memset(v16, 0, sizeof(v16));
+  device_lock_state = _get_device_lock_state(a1, v16);
+  if (device_lock_state)
   {
-    v4 = 0;
+    return 0;
   }
 
-  else
+  v4 = is_device_in_device_recovery_environment(device_lock_state, v3);
+  dict = create_dict();
+  v6 = dict;
+  if (dict)
   {
-    v2 = is_device_in_device_recovery_environment();
-    dict = create_dict();
-    v4 = dict;
-    if (dict)
+    set_longlongvalue_for_key(dict, @"ls", DWORD1(v16[0]));
+    set_longlongvalue_for_key(v6, @"state", LODWORD(v16[0]));
+    if ((handleToUse(Int) == 0) | v4 & 1)
     {
-      set_longlongvalue_for_key(dict, @"ls", DWORD1(v15[0]));
-      set_longlongvalue_for_key(v4, @"state", LODWORD(v15[0]));
-      if ((handleToUse(Int) == 0) | v2 & 1)
-      {
-        set_longlongvalue_for_key(v4, @"boff", *(&v15[0] + 1));
-        set_longlongvalue_for_key(v4, @"fa", LODWORD(v15[1]));
-        set_longlongvalue_for_key(v4, @"countdown", *(&v15[1] + 10));
-      }
+      set_longlongvalue_for_key(v6, @"boff", *(&v16[0] + 1));
+      set_longlongvalue_for_key(v6, @"fa", LODWORD(v16[1]));
+      set_longlongvalue_for_key(v6, @"countdown", *(&v16[1] + 10));
+    }
 
-      else
+    else
+    {
+      if (Int)
       {
-        if (Int)
+        if (CFDictionaryContainsKey(Int, kMKBUserSessionIDKey))
         {
-          if (CFDictionaryContainsKey(Int, kMKBUserSessionIDKey))
-          {
-            Int = _getInt(Int, kMKBUserSessionIDKey);
-          }
-
-          else
-          {
-            Int = 0;
-          }
+          Int = _getInt(Int, kMKBUserSessionIDKey);
         }
 
-        v5 = +[MKBKeyStoreDevice sharedService];
-        v6 = [v5 getLockStateForUser:Int];
-
-        if (v6)
+        else
         {
-          v7 = CFGetTypeID(v6);
-          if (v7 == CFDictionaryGetTypeID())
-          {
-            v8 = 0;
-            v14[0] = @"IsWipePending";
-            v14[1] = @"sw";
-            v14[2] = @"IsPermanentlyBlocked";
-            v14[3] = @"pb";
-            v14[4] = @"FailedPasscodeAttempts";
-            v14[5] = @"fa";
-            v14[6] = @"TimeUntilUnblockedSinceReferenceDate";
-            v14[7] = @"boff";
-            do
-            {
-              v9 = v14[v8];
-              if (CFDictionaryContainsKey(v6, v9))
-              {
-                v10 = v14[v8 + 1];
-                Value = CFDictionaryGetValue(v6, v9);
-                CFDictionarySetValue(v4, v10, Value);
-              }
+          Int = 0;
+        }
+      }
 
-              v8 += 2;
+      v7 = +[MKBKeyStoreDevice sharedService];
+      v8 = [v7 getLockStateForUser:Int];
+
+      if (v8)
+      {
+        v9 = CFGetTypeID(v8);
+        if (v9 == CFDictionaryGetTypeID())
+        {
+          v10 = 0;
+          v15[0] = @"IsWipePending";
+          v15[1] = @"sw";
+          v15[2] = @"IsPermanentlyBlocked";
+          v15[3] = @"pb";
+          v15[4] = @"FailedPasscodeAttempts";
+          v15[5] = @"fa";
+          v15[6] = @"TimeUntilUnblockedSinceReferenceDate";
+          v15[7] = @"boff";
+          do
+          {
+            v11 = v15[v10];
+            if (CFDictionaryContainsKey(v8, v11))
+            {
+              v12 = v15[v10 + 1];
+              Value = CFDictionaryGetValue(v8, v11);
+              CFDictionarySetValue(v6, v12, Value);
             }
 
-            while (v8 != 8);
-            CFRelease(v6);
+            v10 += 2;
           }
+
+          while (v10 != 8);
+          CFRelease(v8);
         }
       }
     }
   }
 
-  v12 = *MEMORY[0x1E69E9840];
-  return v4;
+  return v6;
 }
 
 CFMutableDictionaryRef create_dict()
@@ -500,7 +479,7 @@ CFMutableDictionaryRef create_dict()
   result = CFDictionaryCreateMutable(*MEMORY[0x1E695E480], 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
   if (!result)
   {
-    debuglog("create_dict", @"Out of Memory!!! Dying!...so...cold....", v1, v2, v3, v4, v5, v6, vars0);
+    debuglog("create_dict", @"Out of Memory!!! Dying!...so...cold....", v1, v2, v3, v4, v5, v6);
     exit(-1);
   }
 
@@ -531,7 +510,7 @@ uint64_t MKBGetDeviceConfigurations(const __CFDictionary *a1)
   return 0;
 }
 
-uint64_t MKBUserUnlockedSinceBoot(int a1)
+uint64_t MKBUserUnlockedSinceBoot(uint64_t a1)
 {
   if (!a1 && (gSystemUnlockedSinceBoot & 1) != 0)
   {
@@ -539,9 +518,10 @@ uint64_t MKBUserUnlockedSinceBoot(int a1)
   }
 
   lock_state = aks_get_lock_state();
-  if (convertAKSErrorToMKB(lock_state))
+  v4 = convertAKSErrorToMKB(lock_state);
+  if (v4)
   {
-    debuglog("MKBUserUnlockedSinceBoot", @"MKBUserUnlockedSinceBoot for user(%d) fails with error(%d), returning 0", v4, v5, v6, v7, v8, v9, a1);
+    debuglog("MKBUserUnlockedSinceBoot", @"MKBUserUnlockedSinceBoot for user(%d) fails with error(%d), returning 0", v5, v6, v7, v8, v9, v10, a1, v4);
     return 0;
   }
 
@@ -564,7 +544,7 @@ void *MKBEventsRegister(NSObject *a1, const void *a2, uint64_t a3, uint64_t a4, 
   {
     v44 = @"bad arguments";
 LABEL_13:
-    debuglog("MKBEventsRegister", v44, a3, a4, a5, a6, a7, a8, v48);
+    debuglog("MKBEventsRegister", v44, a3, a4, a5, a6, a7, a8);
     return 0;
   }
 
@@ -590,7 +570,7 @@ LABEL_13:
   v29 = v22;
   if (!v22)
   {
-    debuglog("MKBEventsRegister", @"failed to allocate memory for event callback", v23, v24, v25, v26, v27, v28, v48);
+    debuglog("MKBEventsRegister", @"failed to allocate memory for event callback", v23, v24, v25, v26, v27, v28);
     IONotificationPortDestroy(v21);
     return v29;
   }
@@ -610,7 +590,7 @@ LABEL_13:
       return v29;
     }
 
-    debuglog("MKBEventsRegister", @"failed to add interest notification", v38, v39, v40, v41, v42, v43, v48);
+    debuglog("MKBEventsRegister", @"failed to add interest notification", v38, v39, v40, v41, v42, v43);
     if (notification)
     {
       IOObjectRelease(notification);
@@ -619,7 +599,7 @@ LABEL_13:
 
   else
   {
-    debuglog("MKBEventsRegister", @"failed to copy block", v31, v32, v33, v34, v35, v36, v48);
+    debuglog("MKBEventsRegister", @"failed to copy block", v31, v32, v33, v34, v35, v36);
   }
 
   IONotificationPortDestroy(v21);
@@ -639,21 +619,22 @@ LABEL_13:
   return 0;
 }
 
-void debuglog(const char *a1, const __CFString *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+void debuglog(const char *a1, const __CFString *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  va_start(va, a8);
+  v16 = *MEMORY[0x1E69E9840];
   memcpy(__dst, "Error creating CFString", sizeof(__dst));
   if (!a1)
   {
     a1 = &unk_1C867A067;
   }
 
-  v11 = CFStringCreateWithFormatAndArguments(0, 0, a2, &a9);
-  if (v11)
+  v10 = CFStringCreateWithFormatAndArguments(0, 0, a2, va);
+  if (v10)
   {
-    v12 = v11;
-    CFStringGetCString(v11, __dst, 1024, 0x8000100u);
-    CFRelease(v12);
+    v11 = v10;
+    CFStringGetCString(v10, __dst, 1024, 0x8000100u);
+    CFRelease(v11);
   }
 
   snprintf(__str, 0x400uLL, "%s: %s", a1, __dst);
@@ -665,23 +646,23 @@ void debuglog(const char *a1, const __CFString *a2, uint64_t a3, uint64_t a4, ui
   else if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v15 = __str;
+    v13 = __str;
     _os_log_impl(&dword_1C8660000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "%s\n", buf, 0xCu);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 _DWORD *MKBDeviceLockAssertion(const __CFDictionary *a1, CFErrorRef *a2)
 {
   valuePtr = 0;
-  v4 = *MEMORY[0x1E695E480];
   pthread_once(&MKBAssertionGetTypeID_typeIDInit, __MKBAssertionnRegisterClass);
   Instance = _CFRuntimeCreateInstance();
-  v12 = Instance;
-  if (!Instance || (*(Instance + 16) = 0, *(Instance + 24) = 0, v13 = (Instance + 16), *(Instance + 16) = 0, *(Instance + 24) = handleToUse(a1), Value = CFDictionaryGetValue(a1, @"MKBAssertionKey"), (v15 = Value) == 0))
+  v11 = Instance;
+  if (!Instance)
   {
-    v38 = 12;
+    v14 = 0;
+LABEL_41:
+    v35 = 0;
+    v36 = 12;
     if (!a2)
     {
       goto LABEL_35;
@@ -690,72 +671,88 @@ _DWORD *MKBDeviceLockAssertion(const __CFDictionary *a1, CFErrorRef *a2)
     goto LABEL_34;
   }
 
+  *(Instance + 16) = 0;
+  *(Instance + 24) = 0;
+  v12 = (Instance + 16);
+  *(Instance + 16) = 0;
+  *(Instance + 24) = handleToUse(a1);
+  Value = CFDictionaryGetValue(a1, @"MKBAssertionKey");
+  v14 = Value;
+  if (!Value)
+  {
+    goto LABEL_41;
+  }
+
   if (CFEqual(Value, @"Other"))
   {
-    v16 = 0;
-    v17 = 0;
+    v15 = 0;
+    v14 = 0;
   }
 
-  else if (CFEqual(v15, @"RemoteProfile"))
+  else if (CFEqual(v14, @"RemoteProfile"))
   {
-    v16 = 1;
-    v17 = 1;
+    v15 = 1;
+    v14 = 1;
   }
 
-  else if (CFEqual(v15, @"SBTransient"))
+  else if (CFEqual(v14, @"SBTransient"))
   {
-    v16 = 0;
-    v17 = 2;
+    v15 = 0;
+    v14 = 2;
   }
 
-  else if (CFEqual(v15, @"RestoreFromBackup"))
+  else if (CFEqual(v14, @"RestoreFromBackup"))
   {
-    v16 = 0;
-    v17 = 3;
+    v15 = 0;
+    v14 = 3;
   }
 
   else
   {
-    v18 = CFEqual(v15, @"TimeMachine");
-    if (!v18)
+    v16 = CFEqual(v14, @"TimeMachine");
+    if (!v16)
     {
-      MKBDeviceLockAssertion_cold_2(v18, v19, v20, v21, v22, v23, v24, v25, v41);
+      MKBDeviceLockAssertion_cold_2(v16, v17, v18, v19, v20, v21, v22, v23, v40);
+      v14 = 0;
+      v35 = 0;
       goto LABEL_32;
     }
 
-    v16 = 0;
-    v12[6] = -1;
-    v17 = 4;
+    v15 = 0;
+    v11[6] = -1;
+    v14 = 4;
   }
 
-  *v13 = v17;
+  *v12 = v14;
   TypeID = CFDictionaryGetValue(a1, @"MKBAssertionTimeout");
-  if (TypeID && (v34 = TypeID, v35 = CFGetTypeID(TypeID), TypeID = CFNumberGetTypeID(), v35 == TypeID))
+  if (TypeID && (v32 = TypeID, v33 = CFGetTypeID(TypeID), TypeID = CFNumberGetTypeID(), v33 == TypeID))
   {
-    CFNumberGetValue(v34, kCFNumberLongLongType, &valuePtr);
+    CFNumberGetValue(v32, kCFNumberLongLongType, &valuePtr);
   }
 
-  else if (v16)
+  else if (v15)
   {
-    MKBDeviceLockAssertion_cold_1(TypeID, v27, v28, v29, v30, v31, v32, v33, v41);
+    MKBDeviceLockAssertion_cold_1(TypeID, v25, v26, v27, v28, v29, v30, v31, v40);
+    v35 = 0;
+    v14 = 1;
     goto LABEL_32;
   }
 
-  v36 = v12[6];
-  v37 = aks_assert_hold();
-  v38 = 1;
-  if (v37 > -536870175)
+  v34 = aks_assert_hold();
+  v35 = v34;
+  v36 = 1;
+  if (v34 > -536870175)
   {
-    if (v37 <= -536362995)
+    if (v34 <= -536362995)
     {
-      if (v37 == -536870174)
+      if (v34 == -536870174)
       {
         goto LABEL_33;
       }
 
-      if (v37 == -536363000)
+      if (v34 == -536363000)
       {
-        v38 = 103;
+        v36 = 103;
         if (!a2)
         {
           goto LABEL_35;
@@ -767,12 +764,14 @@ _DWORD *MKBDeviceLockAssertion(const __CFDictionary *a1, CFErrorRef *a2)
       goto LABEL_32;
     }
 
-    if (v37 != -536362994)
+    if (v34 != -536362994)
     {
-      if (!v37)
+      if (!v34)
       {
-        v12[5] = 1;
-        v39 = v12[6];
+        v37 = 0;
+        v36 = 0;
+        v11[5] = 1;
+        v38 = v11[6];
         goto LABEL_38;
       }
 
@@ -780,7 +779,7 @@ _DWORD *MKBDeviceLockAssertion(const __CFDictionary *a1, CFErrorRef *a2)
     }
 
 LABEL_29:
-    v38 = 16;
+    v36 = 16;
     if (!a2)
     {
       goto LABEL_35;
@@ -789,36 +788,37 @@ LABEL_29:
     goto LABEL_34;
   }
 
-  if (v37 == -536870207)
+  if (v34 == -536870207)
   {
     goto LABEL_33;
   }
 
-  if (v37 == -536870187)
+  if (v34 == -536870187)
   {
     goto LABEL_29;
   }
 
 LABEL_32:
-  v38 = 22;
+  v36 = 22;
 LABEL_33:
   if (a2)
   {
 LABEL_34:
-    *a2 = CFErrorCreate(0, *MEMORY[0x1E695E640], v38, 0);
+    *a2 = CFErrorCreate(0, *MEMORY[0x1E695E640], v36, 0);
   }
 
 LABEL_35:
-  if (v12)
+  if (v11)
   {
-    CFRelease(v12);
-    v12 = 0;
+    CFRelease(v11);
+    v11 = 0;
   }
 
-  LOBYTE(v39) = -1;
+  v38 = 0xFFFFFFFFLL;
+  v37 = 1;
 LABEL_38:
-  debuglog("MKBDeviceLockAssertion", @"handle:%d, asserttype:%d, timeout:%llu, result:%d, ioret: 0x%x, ret:%d", v6, v7, v8, v9, v10, v11, v39);
-  return v12;
+  debuglog("MKBDeviceLockAssertion", @"handle:%d, asserttype:%d, timeout:%llu, result:%d, ioret: 0x%x, ret:%d", v5, v6, v7, v8, v9, v10, v38, v14, valuePtr, v36, v35, v37);
+  return v11;
 }
 
 void __MKBAssertionFinalize(unsigned int *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
@@ -832,14 +832,14 @@ void __MKBAssertionFinalize(unsigned int *a1, uint64_t a2, uint64_t a3, uint64_t
 
   else
   {
-    LOBYTE(v9) = -1;
+    v11 = 0xFFFFFFFFLL;
+    v9 = 0xFFFFFFFFLL;
+    v10 = 0xFFFFFFFFLL;
   }
 
-  debuglog("__MKBAssertionFinalize", @"dropping lock assertion for: handle:%d, type:%d, status:%d", a3, a4, a5, a6, a7, a8, v9);
+  debuglog("__MKBAssertionFinalize", @"dropping lock assertion for: handle:%d, type:%d, status:%d", a3, a4, a5, a6, a7, a8, v9, v11, v10);
   if (a1[5])
   {
-    v12 = a1[6];
-    v13 = a1[4];
     if (!aks_assert_drop())
     {
       a1[5] = 0;
@@ -867,7 +867,7 @@ uint64_t MKBUnlockDeviceForACMRef(uint64_t a1, const __CFData *a2, const __CFDic
       goto LABEL_5;
     }
 
-    debuglog("verify_only_opt", @"key is of wrong type", v13, v14, v15, v16, v17, v18, v37);
+    debuglog("verify_only_opt", @"key is of wrong type", v13, v14, v15, v16, v17, v18);
   }
 
   v11 = 0;
@@ -937,12 +937,12 @@ LABEL_28:
       v22 = 3758604308;
       if (v19)
       {
-        debuglog("MKBUnlockDeviceForACMRef", @"Skipping enrollment", v25, v26, v27, v28, v29, v30, v37);
+        debuglog("MKBUnlockDeviceForACMRef", @"Skipping enrollment", v25, v26, v27, v28, v29, v30);
       }
 
       else
       {
-        debuglog("MKBUnlockDeviceForACMRef", @"Prompted to SE enroll", v25, v26, v27, v28, v29, v30, v37);
+        debuglog("MKBUnlockDeviceForACMRef", @"Prompted to SE enroll", v25, v26, v27, v28, v29, v30);
         v34 = [v20 + 3096 sharedService];
         [v34 SeshatEnroll:a2 secretIsACM:a1];
       }
@@ -1025,7 +1025,7 @@ LABEL_37:
     block[1] = 3221225472;
     block[2] = __MKBUnlockDeviceForACMRef_block_invoke;
     block[3] = &__block_descriptor_36_e5_v8__0l;
-    v39 = v33;
+    v38 = v33;
     dispatch_async(v35, block);
   }
 
@@ -1048,7 +1048,7 @@ const __CFDictionary *should_use_memento(const __CFDictionary *result)
 
       else
       {
-        debuglog("should_use_memento", @"key is of wrong type", v3, v4, v5, v6, v7, v8, v9);
+        debuglog("should_use_memento", @"key is of wrong type", v3, v4, v5, v6, v7, v8);
         return 0;
       }
     }
@@ -1185,9 +1185,9 @@ uint64_t loadBlastableBytes(unsigned int a1, void *a2, size_t *a3)
 
 uint64_t effaceBlastableBytes(unsigned int a1)
 {
-  v37 = *MEMORY[0x1E69E9840];
-  bzero(v36, 0x400uLL);
-  v35 = 1024;
+  v36 = *MEMORY[0x1E69E9840];
+  bzero(v35, 0x400uLL);
+  v34 = 1024;
   connect = 0;
   input = a1;
   output = 0;
@@ -1207,7 +1207,7 @@ uint64_t effaceBlastableBytes(unsigned int a1)
 
     else
     {
-      v20 = IOConnectCallMethod(connect, 5u, &input, 1u, 0, 0, &output, &outputCnt, v36, &v35);
+      v20 = IOConnectCallMethod(connect, 5u, &input, 1u, 0, 0, &output, &outputCnt, v35, &v34);
       if (!v20)
       {
         v21 = IOConnectCallMethod(connect, 7u, &input, 1u, 0, 0, &output, &outputCnt, 0, 0);
@@ -1236,7 +1236,6 @@ uint64_t effaceBlastableBytes(unsigned int a1)
     IOObjectRelease(v12);
   }
 
-  v28 = *MEMORY[0x1E69E9840];
   return v20;
 }
 
@@ -1488,7 +1487,7 @@ LABEL_32:
               v166 = @"fail indicator is of wrong type";
             }
 
-            debuglog("validate_health_plist", v166, v77, v78, v79, v80, v81, v82, v167);
+            debuglog("validate_health_plist", v166, v77, v78, v79, v80, v81, v82);
             goto LABEL_57;
           }
 
@@ -1516,7 +1515,7 @@ LABEL_34:
     CFRelease(Mutable);
   }
 
-  debuglog("HealthPlistCopyOrCreateNew", @"health plist doesnt exist or wrong version, creating new one", v1, v2, v3, v4, v5, v6, v167);
+  debuglog("HealthPlistCopyOrCreateNew", @"health plist doesnt exist or wrong version, creating new one", v1, v2, v3, v4, v5, v6);
   Mutable = CFDictionaryCreateMutable(0, 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
   if (!Mutable)
   {
@@ -1685,7 +1684,7 @@ LABEL_144:
   {
     v167 = @"cant get version";
 LABEL_149:
-    debuglog("HealthPlistTest", v167, v40, v41, v42, v43, v44, v45, v168);
+    debuglog("HealthPlistTest", v167, v40, v41, v42, v43, v44, v45);
     goto LABEL_56;
   }
 
@@ -2121,7 +2120,7 @@ LABEL_170:
 LABEL_118:
     v165 = @"cant create dict";
 LABEL_177:
-    debuglog("HealthPlistTest", v165, v143, v144, v145, v146, v147, v148, v168);
+    debuglog("HealthPlistTest", v165, v143, v144, v145, v146, v147, v148);
 LABEL_178:
     if (v8)
     {
@@ -2299,14 +2298,15 @@ LABEL_116:
   return v139;
 }
 
-__CFDictionary *_create_plist_with_version(int a1)
+const __CFDictionary *_create_plist_with_version(uint64_t a1)
 {
+  v1 = a1;
   unlink("/var/root/.mkb_seshat_health");
   New = HealthPlistCopyOrCreateNew();
   v10 = New;
   if (New)
   {
-    if (HealthPlistSetVersion(New, a1))
+    if (HealthPlistSetVersion(New, v1))
     {
       CFRelease(v10);
       return 0;
@@ -2321,38 +2321,37 @@ __CFDictionary *_create_plist_with_version(int a1)
   return v10;
 }
 
-const __CFDictionary *KBLoadSystemKeyBag()
+const void *KBLoadSystemKeyBag()
 {
-  v18 = *MEMORY[0x1E69E9840];
-  v16 = 0;
+  v16 = *MEMORY[0x1E69E9840];
+  v14 = 0;
   snprintf(__str, 0x401uLL, "%s%s", "/private/var/", "keybags");
   v6 = 0;
-  if (!KBLoadLoadKeyBagFile(__str, "systembag", &v16))
+  if (!KBLoadLoadKeyBagFile(__str, "systembag", &v14))
   {
-    v6 = v16;
-    if (v16)
+    v6 = v14;
+    if (v14)
     {
-      if (!_getData(v16, @"KeyBagKeys"))
+      if (!_getData(v14, @"KeyBagKeys"))
       {
-        debuglog("KBLoadSystemKeyBag", @"Keybag %s doesn't actually contain keys", v9, v10, v11, v12, v13, v14, __str);
+        debuglog("KBLoadSystemKeyBag", @"Keybag %s doesn't actually contain keys", v8, v9, v10, v11, v12, v13, __str);
         CFRelease(v6);
-        v6 = 0;
+        return 0;
       }
     }
 
     else
     {
-      debuglog("KBLoadSystemKeyBag", @" Empty Keybag returned from KBLoadLoadKeyBagFile", v0, v1, v2, v3, v4, v5, v15);
+      debuglog("KBLoadSystemKeyBag", @" Empty Keybag returned from KBLoadLoadKeyBagFile", v0, v1, v2, v3, v4, v5);
     }
   }
 
-  v7 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
 uint64_t KBLoadLoadKeyBagFile(const char *a1, const char *a2, CFPropertyListRef *a3)
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   snprintf(__str, 0x401uLL, "%s/%s.kb", a1, a2);
   binary_dict = load_binary_dict(__str);
   v5 = binary_dict;
@@ -2374,16 +2373,16 @@ uint64_t KBLoadLoadKeyBagFile(const char *a1, const char *a2, CFPropertyListRef 
     *a3 = v16;
     if (!v16)
     {
-      snprintf(v27, 0x401uLL, "%s.writing", __str);
-      v17 = load_binary_dict(v27);
+      snprintf(v26, 0x401uLL, "%s.writing", __str);
+      v17 = load_binary_dict(v26);
       *a3 = v17;
       if (!v17)
       {
         v15 = 4294967289;
-        debuglog("KBLoadLoadKeyBagFile", @"Unable to load keybag with No Crypto: %d", v18, v19, v20, v21, v22, v23, -7);
+        debuglog("KBLoadLoadKeyBagFile", @"Unable to load keybag with No Crypto: %d", v18, v19, v20, v21, v22, v23, 4294967289);
         if (!v5)
         {
-          goto LABEL_14;
+          return v15;
         }
 
         goto LABEL_13;
@@ -2402,7 +2401,7 @@ uint64_t KBLoadLoadKeyBagFile(const char *a1, const char *a2, CFPropertyListRef 
       debuglog("KBLoadLoadKeyBagFile", @"Unable to load keybag with Crypto: %d", v9, v10, v11, v12, v13, v14, ObjectWithCrypto);
       if (!v5)
       {
-        goto LABEL_14;
+        return v15;
       }
 
       goto LABEL_13;
@@ -2415,14 +2414,12 @@ LABEL_13:
     CFRelease(v5);
   }
 
-LABEL_14:
-  v24 = *MEMORY[0x1E69E9840];
   return v15;
 }
 
 void KBCleanupSystemKeyBag(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   snprintf(__str, 0x401uLL, "%s%s/%s.kb", "/private/var/", "keybags", "systembag");
   if (unlink(__str))
   {
@@ -2432,102 +2429,89 @@ void KBCleanupSystemKeyBag(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, u
       v16 = strerror(*v15);
       debuglog("KBCleanupSystemKeyBag", @"Failed to delete System KeyBag plist: %s", v17, v18, v19, v20, v21, v22, v16);
     }
-
-    v23 = *MEMORY[0x1E69E9840];
   }
 
   else
   {
-    v24 = *MEMORY[0x1E69E9840];
 
-    debuglog("KBCleanupSystemKeyBag", @"Deleted System KeyBag plist", v9, v10, v11, v12, v13, v14, a9);
+    debuglog("KBCleanupSystemKeyBag", @"Deleted System KeyBag plist", v9, v10, v11, v12, v13, v14);
   }
 }
 
 CFMutableDictionaryRef KBLoadUserKeybag(uint64_t a1)
 {
-  v20 = *MEMORY[0x1E69E9840];
-  v18 = 0;
+  v19 = *MEMORY[0x1E69E9840];
+  v17 = 0;
   snprintf(__str, 0x401uLL, "%s%s", "/private/var/", "keybags");
-  KeyBagFile = KBLoadLoadKeyBagFile(__str, "userbag", &v18);
-  v3 = v18;
-  if (KeyBagFile || !v18)
+  KeyBagFile = KBLoadLoadKeyBagFile(__str, "userbag", &v17);
+  v3 = v17;
+  if (!KeyBagFile && v17)
   {
-    MutableCopy = 0;
-    result = 0;
-    if (!v18)
+    v4 = *MEMORY[0x1E695E480];
+    v5 = CFStringCreateWithFormat(*MEMORY[0x1E695E480], 0, @"%d", a1);
+    if (!v5)
     {
-      goto LABEL_11;
+      MutableCopy = 0;
+      goto LABEL_10;
     }
 
-    goto LABEL_10;
-  }
+    v6 = v5;
+    Value = CFDictionaryGetValue(v3, v5);
+    if (Value)
+    {
+      v8 = Value;
+      if (_getData(Value, @"KeyBagKeys"))
+      {
+        MutableCopy = CFDictionaryCreateMutableCopy(v4, 0, v8);
+LABEL_9:
+        CFRelease(v3);
+        v3 = v6;
+LABEL_10:
+        CFRelease(v3);
+        return MutableCopy;
+      }
 
-  v4 = *MEMORY[0x1E695E480];
-  v5 = CFStringCreateWithFormat(*MEMORY[0x1E695E480], 0, @"%d", a1);
-  if (!v5)
-  {
-    MutableCopy = 0;
-    goto LABEL_10;
-  }
+      debuglog("KBLoadUserKeybag", @"Keybag %s doesn't actually contain keys", v9, v10, v11, v12, v13, v14, __str);
+    }
 
-  v6 = v5;
-  Value = CFDictionaryGetValue(v3, v5);
-  if (!Value)
-  {
-    goto LABEL_8;
-  }
-
-  v8 = Value;
-  if (!_getData(Value, @"KeyBagKeys"))
-  {
-    debuglog("KBLoadUserKeybag", @"Keybag %s doesn't actually contain keys", v9, v10, v11, v12, v13, v14, __str);
-LABEL_8:
     MutableCopy = 0;
     goto LABEL_9;
   }
 
-  MutableCopy = CFDictionaryCreateMutableCopy(v4, 0, v8);
-LABEL_9:
-  CFRelease(v3);
-  v3 = v6;
-LABEL_10:
-  CFRelease(v3);
-  result = MutableCopy;
-LABEL_11:
-  v17 = *MEMORY[0x1E69E9840];
+  MutableCopy = 0;
+  result = 0;
+  if (v17)
+  {
+    goto LABEL_10;
+  }
+
   return result;
 }
 
 uint64_t KBSavePublicBackupBag(const void *a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   snprintf(__str, 0x401uLL, "%s/%s", "/private/var/", "keybags");
   v2 = KBLoadSystemKeyBag();
-  if (v2)
+  if (!v2)
   {
-    v6 = v2;
-    if (a1)
-    {
-      CFDictionarySetValue(v2, @"BackupKeyBagKeys", a1);
-    }
+    return 0;
+  }
 
-    else
-    {
-      CFDictionaryRemoveValue(v2, @"BackupKeyBagKeys");
-    }
+  v5 = v2;
+  if (a1)
+  {
+    CFDictionarySetValue(v2, @"BackupKeyBagKeys", a1);
+  }
 
-    if (KBSaveKeyBag(v6, __str, 1111574321, "systembag", 0, v7, v8, v9))
-    {
-      v3 = 0xFFFFFFFFLL;
-    }
+  else
+  {
+    CFDictionaryRemoveValue(v2, @"BackupKeyBagKeys");
+  }
 
-    else
-    {
-      v3 = 0;
-    }
-
-    CFRelease(v6);
+  if (KBSaveKeyBag(v5, __str, 1111574321, "systembag", 0, v6, v7, v8))
+  {
+    v3 = 0xFFFFFFFFLL;
   }
 
   else
@@ -2535,16 +2519,16 @@ uint64_t KBSavePublicBackupBag(const void *a1)
     v3 = 0;
   }
 
-  v4 = *MEMORY[0x1E69E9840];
+  CFRelease(v5);
   return v3;
 }
 
 uint64_t MKBDeviceSupportsEnhancedAPFS()
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   if ((MKBDeviceSupportsEnhancedAPFS_once & 1) == 0)
   {
-    v2 = MKBDeviceTreeContainsKey(":/filesystems", @"e-apfs");
+    v1 = MKBDeviceTreeContainsKey(":/filesystems", @"e-apfs");
     __len = 1023;
     bzero(__big, 0x400uLL);
     if ((check_apfs_shared_datavolume_bootarg_init & 1) == 0)
@@ -2557,29 +2541,27 @@ uint64_t MKBDeviceSupportsEnhancedAPFS()
       check_apfs_shared_datavolume_bootarg_init = 1;
     }
 
-    if (v2 == 1)
+    if (v1 == 1)
     {
-      v9 = 1;
+      v8 = 1;
     }
 
     else
     {
-      v9 = check_apfs_shared_datavolume_bootarg_value;
+      v8 = check_apfs_shared_datavolume_bootarg_value;
     }
 
-    MKBDeviceSupportsEnhancedAPFS_answer = v9;
-    debuglog("MKBDeviceSupportsEnhancedAPFS", @"dt = %d, bootarg = %d", v3, v4, v5, v6, v7, v8, v2);
+    MKBDeviceSupportsEnhancedAPFS_answer = v8;
+    debuglog("MKBDeviceSupportsEnhancedAPFS", @"dt = %d, bootarg = %d", v2, v3, v4, v5, v6, v7, v1, check_apfs_shared_datavolume_bootarg_value);
     MKBDeviceSupportsEnhancedAPFS_once = 1;
   }
 
-  result = MKBDeviceSupportsEnhancedAPFS_answer;
-  v1 = *MEMORY[0x1E69E9840];
-  return result;
+  return MKBDeviceSupportsEnhancedAPFS_answer;
 }
 
 uint64_t getNVRam(char *cStr, _DWORD *a2, char **a3)
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   v5 = CFStringCreateWithCString(0, cStr, 0x8000100u);
   v6 = IORegistryEntryFromPath(*MEMORY[0x1E696CD60], "IODeviceTree:/options");
   if (v6)
@@ -2633,7 +2615,7 @@ uint64_t getNVRam(char *cStr, _DWORD *a2, char **a3)
 
     else
     {
-      debuglog("getNVRam", @"Could not create string for value", v15, v16, v17, v18, v19, v20, v31);
+      debuglog("getNVRam", @"Could not create string for value", v15, v16, v17, v18, v19, v20);
       if (a2)
       {
         *a2 = 0;
@@ -2646,12 +2628,11 @@ uint64_t getNVRam(char *cStr, _DWORD *a2, char **a3)
 
   else
   {
-    debuglog("getNVRam", @"Could not get options entry from the device tree", v7, v8, v9, v10, v11, v12, v31);
+    debuglog("getNVRam", @"Could not get options entry from the device tree", v7, v8, v9, v10, v11, v12);
     v23 = 0xFFFFFFFFLL;
   }
 
   CFRelease(v5);
-  v29 = *MEMORY[0x1E69E9840];
   return v23;
 }
 
@@ -2683,7 +2664,7 @@ uint64_t setNVRam(char *cStr, const char *a2)
 
     else
     {
-      debuglog("setNVRam", @"Could not create string for value", v13, v14, v15, v16, v17, v18, v29);
+      debuglog("setNVRam", @"Could not create string for value", v13, v14, v15, v16, v17, v18);
       v27 = 0xFFFFFFFFLL;
     }
 
@@ -2692,7 +2673,7 @@ uint64_t setNVRam(char *cStr, const char *a2)
 
   else
   {
-    debuglog("setNVRam", @"Could not get options entry from the device tree", v5, v6, v7, v8, v9, v10, v29);
+    debuglog("setNVRam", @"Could not get options entry from the device tree", v5, v6, v7, v8, v9, v10);
     v27 = 0xFFFFFFFFLL;
   }
 
@@ -2700,7 +2681,7 @@ uint64_t setNVRam(char *cStr, const char *a2)
   return v27;
 }
 
-uint64_t KBUpdateKeyBag(int a1, uint64_t a2)
+uint64_t KBUpdateKeyBag(uint64_t a1, uint64_t a2)
 {
   if (a1)
   {
@@ -2723,7 +2704,7 @@ uint64_t KBUpdateKeyBag(int a1, uint64_t a2)
     }
 
     CFRelease(v11);
-    debuglog("KBUpdateKeyBag", @"Got opaqueStuff from ondisk keybag", v14, v15, v16, v17, v18, v19, v29);
+    debuglog("KBUpdateKeyBag", @"Got opaqueStuff from ondisk keybag", v14, v15, v16, v17, v18, v19);
     if (aks_get_system())
     {
       v27 = 0xFFFFFFFFLL;
@@ -2746,7 +2727,7 @@ uint64_t KBUpdateKeyBag(int a1, uint64_t a2)
     }
 
     v27 = v20;
-    debuglog("KBUpdateKeyBag", @"Saved new keybag for handle %d with result %d", v21, v22, v23, v24, v25, v26, a1);
+    debuglog("KBUpdateKeyBag", @"Saved new keybag for handle %d with result %d", v21, v22, v23, v24, v25, v26, a1, v20);
     if (v13)
     {
 LABEL_13:
@@ -2756,29 +2737,29 @@ LABEL_13:
 
   else
   {
-    debuglog("KBUpdateKeyBag", @"failed to open ondisk keybag, failing UpdateKeyBag", v5, v6, v7, v8, v9, v10, v29);
+    debuglog("KBUpdateKeyBag", @"failed to open ondisk keybag, failing UpdateKeyBag", v5, v6, v7, v8, v9, v10);
     return 0xFFFFFFFFLL;
   }
 
   return v27;
 }
 
-void KBSetCookie(uint64_t a1, uint64_t a2, void *a3, void *a4, int a5)
+void KBSetCookie(uint64_t a1, uint64_t a2, void **a3, void *a4, int a5, uint64_t a6)
 {
-  v9 = dlopen("/System/Library/PrivateFrameworks/APFS.framework/APFS", 2);
-  if (!v9)
+  v10 = dlopen("/System/Library/PrivateFrameworks/APFS.framework/APFS", 2);
+  if (!v10)
   {
-    v24 = @"Failed to open APFS framework";
+    v25 = @"Failed to open APFS framework";
     goto LABEL_8;
   }
 
-  v16 = dlsym(v9, "APFSVolumePayloadSet");
-  if (!v16)
+  v17 = dlsym(v10, "APFSVolumePayloadSet");
+  if (!v17)
   {
-    v24 = @"Failed to resolve gAPFSVolumePayloadSet";
+    v25 = @"Failed to resolve gAPFSVolumePayloadSet";
 LABEL_8:
-    debuglog("KBSetCookie", v24, v10, v11, v12, v13, v14, v15, v34);
-    v16 = 0;
+    debuglog("KBSetCookie", v25, v11, v12, v13, v14, v15, v16);
+    v17 = 0;
     if (a5)
     {
       goto LABEL_4;
@@ -2790,39 +2771,39 @@ LABEL_8:
   if (a5)
   {
 LABEL_4:
-    v17 = aks_copy_volume_cookie_persona();
-    if (v17)
+    v18 = aks_copy_volume_cookie_persona();
+    if (v18)
     {
-      debuglog("KBSetCookie", @"Failed to get keybag persona Cookiefrom AKS:0x%x", v18, v19, v20, v21, v22, v23, v17);
+      debuglog("KBSetCookie", @"Failed to get keybag persona Cookiefrom AKS:0x%x", v19, v20, v21, v22, v23, v24, v18);
       goto LABEL_17;
     }
 
-    v26 = @"Retrieved keybag persona Cookie from AKS, setting in APFS volume";
+    v27 = @"Retrieved keybag persona Cookie from AKS, setting in APFS volume";
     goto LABEL_13;
   }
 
 LABEL_9:
-  v25 = aks_copy_volume_cookie();
-  if (v25)
+  v26 = aks_copy_volume_cookie();
+  if (v26)
   {
-    debuglog("KBSetCookie", @"Failed to get keybag Cookie from AKS:0x%x", v18, v19, v20, v21, v22, v23, v25);
+    debuglog("KBSetCookie", @"Failed to get keybag Cookie from AKS:0x%x", v19, v20, v21, v22, v23, v24, v26);
     goto LABEL_17;
   }
 
-  v26 = @"Retrieved keybag Cookie from AKS, setting in APFS volume";
+  v27 = @"Retrieved keybag Cookie from AKS, setting in APFS volume";
 LABEL_13:
-  debuglog("KBSetCookie", v26, v18, v19, v20, v21, v22, v23, v34);
-  if (v16)
+  debuglog("KBSetCookie", v27, v19, v20, v21, v22, v23, v24);
+  if (v17)
   {
-    v27 = (v16)(a2, 0, 0, 0);
-    if (v27)
+    v28 = (v17)(a2, 0, 0, 0);
+    if (v28)
     {
-      debuglog("KBSetCookie", @"APFSVolumePayloadSet failed with %d", v28, v29, v30, v31, v32, v33, v27);
+      debuglog("KBSetCookie", @"APFSVolumePayloadSet failed with %d", v29, v30, v31, v32, v33, v34, v28);
     }
 
     else
     {
-      debuglog("KBSetCookie", @"APFSVolumePayloadSet succeeded", v28, v29, v30, v31, v32, v33, v35);
+      debuglog("KBSetCookie", @"APFSVolumePayloadSet succeeded", v29, v30, v31, v32, v33, v34);
     }
   }
 
@@ -2837,178 +2818,174 @@ LABEL_17:
   }
 }
 
-uint64_t KBMapVolume(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, int a5)
+uint64_t KBMapVolume(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, int a5, uint64_t a6)
 {
   size = 0;
-  v65 = 0;
-  v8 = dlopen("/System/Library/PrivateFrameworks/APFS.framework/APFS", 2);
-  if (!v8)
+  v67 = 0;
+  v10 = dlopen("/System/Library/PrivateFrameworks/APFS.framework/APFS", 2);
+  if (!v10)
   {
-    v43 = @"Failed to open APFS framework";
+    v45 = @"Failed to open APFS framework";
     goto LABEL_11;
   }
 
-  v15 = v8;
-  v22 = dlsym(v8, "APFSVolumePayloadGet");
-  if (!v22)
+  v17 = v10;
+  v24 = dlsym(v10, "APFSVolumePayloadGet");
+  if (!v24)
   {
-    debuglog("KBMapVolume", @"Failed to resolve gAPFSVolumePayloadGet", v16, v17, v18, v19, v20, v21, v63);
+    debuglog("KBMapVolume", @"Failed to resolve gAPFSVolumePayloadGet", v18, v19, v20, v21, v22, v23);
   }
 
-  if (!dlsym(v15, "APFSVolumePayloadSet"))
+  if (!dlsym(v17, "APFSVolumePayloadSet"))
   {
-    debuglog("KBMapVolume", @"Failed to resolve gAPFSVolumePayloadSet", v23, v24, v25, v26, v27, v28, v63);
+    debuglog("KBMapVolume", @"Failed to resolve gAPFSVolumePayloadSet", v25, v26, v27, v28, v29, v30);
   }
 
-  if (v22)
+  if (v24)
   {
-    v29 = (v22)(a3, 0, 0, &size);
-    if (v29)
+    v31 = (v24)(a3, 0, 0, &size);
+    if (v31)
     {
-      v36 = v29;
-      debuglog("KBMapVolume", @"APFSVolumePayloadGet failed with %d", v30, v31, v32, v33, v34, v35, v29);
-      if (v36 == 49154)
+      v38 = v31;
+      debuglog("KBMapVolume", @"APFSVolumePayloadGet failed with %d", v32, v33, v34, v35, v36, v37, v31);
+      if (v38 == 49154)
       {
-        debuglog("KBMapVolume", @"Not cookie in this volume, attempting to write it", v37, v38, v39, v40, v41, v42, v63);
-        KBSetCookie(a1, a3, &v65, &size, a5);
+        debuglog("KBMapVolume", @"Not cookie in this volume, attempting to write it", v39, v40, v41, v42, v43, v44);
+        KBSetCookie(a1, a3, &v67, &size, a5, a6);
       }
 
       goto LABEL_12;
     }
 
-    debuglog("KBMapVolume", @"APFSVolumePayloadGet len reveived to be %zd", v30, v31, v32, v33, v34, v35, size);
-    v55 = malloc_type_malloc(size, 0x8FC181C0uLL);
-    v65 = v55;
-    if (v55)
+    debuglog("KBMapVolume", @"APFSVolumePayloadGet len reveived to be %zd", v32, v33, v34, v35, v36, v37, size);
+    v57 = malloc_type_malloc(size, 0x8FC181C0uLL);
+    v67 = v57;
+    if (v57)
     {
-      v56 = (v22)(a3, 0, v55, &size);
-      if (v56)
+      v58 = (v24)(a3, 0, v57, &size);
+      if (v58)
       {
-        debuglog("KBMapVolume", @"Failed to  obtain cookie from the volume with error %d", v57, v58, v59, v60, v61, v62, v56);
+        debuglog("KBMapVolume", @"Failed to  obtain cookie from the volume with error %d", v59, v60, v61, v62, v63, v64, v58);
       }
 
       else
       {
-        debuglog("KBMapVolume", @"Successfully obtained the cookie for the volume with length:%zd", v57, v58, v59, v60, v61, v62, size);
+        debuglog("KBMapVolume", @"Successfully obtained the cookie for the volume with length:%zd", v59, v60, v61, v62, v63, v64, size);
       }
 
       goto LABEL_12;
     }
 
-    v43 = @"Failed to allocate Cookie malloc space";
+    v45 = @"Failed to allocate Cookie malloc space";
 LABEL_11:
-    debuglog("KBMapVolume", v43, v9, v10, v11, v12, v13, v14, v63);
+    debuglog("KBMapVolume", v45, v11, v12, v13, v14, v15, v16, v65);
   }
 
 LABEL_12:
   if (a5)
   {
-    v44 = aks_set_keybag_for_volume_with_cookie_persona();
-    v51 = v44;
-    if (v44)
+    v46 = aks_set_keybag_for_volume_with_cookie_persona();
+    v53 = v46;
+    if (v46)
     {
-      debuglog("KBMapVolume", @"aks_set_keybag_for_volume_with_cookie_persona FAIL with 0x%x", v45, v46, v47, v48, v49, v50, v44);
+      debuglog("KBMapVolume", @"aks_set_keybag_for_volume_with_cookie_persona FAIL with 0x%x", v47, v48, v49, v50, v51, v52, v46);
       goto LABEL_20;
     }
 
-    v53 = @"aks_set_keybag_for_volume_with_cookie_persona SUCCESS";
+    v55 = @"aks_set_keybag_for_volume_with_cookie_persona SUCCESS";
   }
 
   else
   {
-    v52 = aks_set_keybag_for_volume_with_cookie();
-    v51 = v52;
-    if (v52)
+    v54 = aks_set_keybag_for_volume_with_cookie();
+    v53 = v54;
+    if (v54)
     {
-      debuglog("KBMapVolume", @"aks_set_keybag_for_volume_with_cookie FAIL with 0x%x", v45, v46, v47, v48, v49, v50, v52);
+      debuglog("KBMapVolume", @"aks_set_keybag_for_volume_with_cookie FAIL with 0x%x", v47, v48, v49, v50, v51, v52, v54);
       goto LABEL_20;
     }
 
-    v53 = @"aks_set_keybag_for_volume_with_cookie SUCCESS";
+    v55 = @"aks_set_keybag_for_volume_with_cookie SUCCESS";
   }
 
-  debuglog("KBMapVolume", v53, v45, v46, v47, v48, v49, v50, v63);
+  debuglog("KBMapVolume", v55, v47, v48, v49, v50, v51, v52, v65);
 LABEL_20:
-  if (v65)
+  if (v67)
   {
-    free(v65);
+    free(v67);
   }
 
-  return v51;
+  return v53;
 }
 
-uint64_t KBMapDeviceBag(const char *a1, int a2)
+uint64_t KBMapDeviceBag(const char *a1, int a2, uint64_t a3)
 {
-  v53 = *MEMORY[0x1E69E9840];
-  v47 = 0;
-  v48 = 0;
+  v55 = *MEMORY[0x1E69E9840];
   v49 = 0;
-  memset(v50, 0, 512);
-  memset(&v52, 0, 512);
-  if (statfs(a1, &v52))
+  v50 = 0;
+  v51 = 0;
+  memset(v52, 0, 512);
+  memset(&v54, 0, 512);
+  if (statfs(a1, &v54))
   {
-    v10 = __error();
-    v45 = strerror(*v10);
-    debuglog("has_data_protection", @"Statfs failed due to:%s on  (%s)", v11, v12, v13, v14, v15, v16, v45);
+    v12 = __error();
+    v47 = strerror(*v12);
+    debuglog("has_data_protection", @"Statfs failed due to:%s on  (%s)", v13, v14, v15, v16, v17, v18, v47, a1);
 LABEL_5:
-    debuglog("has_data_protection", @"mount point (%s) does not support Data Protection", v17, v18, v19, v20, v21, v22, a1);
-    v23 = 0;
-    goto LABEL_6;
+    debuglog("has_data_protection", @"mount point (%s) does not support Data Protection", v19, v20, v21, v22, v23, v24, a1);
+    return 0;
   }
 
-  if ((v52.f_flags & 0x80) == 0)
+  if ((v54.f_flags & 0x80) == 0)
   {
-    debuglog("has_data_protection", @"mount is with NO CPROTECT:0x%x on  (%s)", v4, v5, v6, v7, v8, v9, v52.f_flags);
+    debuglog("has_data_protection", @"mount is with NO CPROTECT:0x%x on  (%s)", v6, v7, v8, v9, v10, v11, v54.f_flags, a1);
     goto LABEL_5;
   }
 
-  LOWORD(v47) = 5;
-  LODWORD(v48) = -2147188736;
-  if (getattrlist(a1, &v47, v50, 0x41CuLL, 0))
+  LOWORD(v49) = 5;
+  LODWORD(v50) = -2147188736;
+  if (getattrlist(a1, &v49, v52, 0x41CuLL, 0))
   {
-    v46 = *__error();
-    debuglog("KBMapDeviceBag", @"Could not get %s volume attributes (errno=%d)", v32, v33, v34, v35, v36, v37, a1);
-LABEL_14:
-    v23 = 4294967290;
-    goto LABEL_6;
+    v48 = *__error();
+    debuglog("KBMapDeviceBag", @"Could not get %s volume attributes (errno=%d)", v33, v34, v35, v36, v37, v38, a1, v48);
+    return 4294967290;
   }
 
-  if (SDWORD1(v50[0]) > 1047 || (v26 = v50 + SDWORD1(v50[0]) + 4, &v26[DWORD2(v50[0])] >= &v51))
+  if (SDWORD1(v52[0]) > 1047 || (v27 = v52 + SDWORD1(v52[0]) + 4, &v27[DWORD2(v52[0])] >= &v53))
   {
-    debuglog("KBMapDeviceBag", @"Attribute buffer too small. offset=%d, lenght=%u", v26, v27, v28, v29, v30, v31, SBYTE4(v50[0]));
-    goto LABEL_14;
+    debuglog("KBMapDeviceBag", @"Attribute buffer too small. offset=%d, lenght=%u", v27, v28, v29, v30, v31, v32, SDWORD1(v52[0]), DWORD2(v52[0]));
+    return 4294967290;
   }
 
-  v38 = KBMapVolume(0, 0, v26, v50 | 0xC, a2);
-  v23 = convertAKSErrorToMKB(v38);
-  if (v23)
+  v39 = KBMapVolume(0, 0, v27, v52 | 0xC, a2, a3);
+  v40 = convertAKSErrorToMKB(v39);
+  v25 = v40;
+  if (v40)
   {
-    debuglog("KBMapDeviceBag", @"Could not map %s volume (ret=%d)", v39, v40, v41, v42, v43, v44, a1);
+    debuglog("KBMapDeviceBag", @"Could not map %s volume (ret=%d)", v41, v42, v43, v44, v45, v46, a1, v40);
   }
 
-LABEL_6:
-  v24 = *MEMORY[0x1E69E9840];
-  return v23;
+  return v25;
 }
 
 uint64_t KBSecureLoadObjectWithCrypto(const std::__fs::filesystem::path *a1, CFPropertyListRef *a2)
 {
-  v77 = *MEMORY[0x1E69E9840];
+  v76 = *MEMORY[0x1E69E9840];
   theData = 0;
-  v74 = 0;
-  v71 = 0;
+  v73 = 0;
+  v70 = 0;
   cryptorRef = 0;
   dataOutMoved = 0;
   *a2 = 0;
   bzero(__str, 0x401uLL);
-  v75 = 0;
-  v4 = validateSecureFile(a1, &v75, &v74, &theData);
+  v74 = 0;
+  v4 = validateSecureFile(a1, &v74, &v73, &theData);
   if (v4)
   {
-    debuglog("KBSecureLoadObject", @"Failed to validate keybag file: %d, %d", v5, v6, v7, v8, v9, v10, v4);
+    debuglog("KBSecureLoadObject", @"Failed to validate keybag file: %d, %d", v5, v6, v7, v8, v9, v10, v4, v74 != 0);
     snprintf(__str, 0x401uLL, "%s.writing", a1);
-    v11 = validateSecureFile(__str, &v75, &v74, &theData);
-    if (v11 || !v75)
+    v11 = validateSecureFile(__str, &v74, &v73, &theData);
+    if (v11 || !v74)
     {
       debuglog("KBSecureLoadObject", @"Failed to validate keybag file: %d", v12, v13, v14, v15, v16, v17, v11);
     }
@@ -3021,20 +2998,20 @@ uint64_t KBSecureLoadObjectWithCrypto(const std::__fs::filesystem::path *a1, CFP
         goto LABEL_5;
       }
 
-      KBSecureLoadObjectWithCrypto_cold_1(__str);
+      KBSecureLoadObjectWithCrypto_cold_1(__str, a1);
     }
 
     v61 = 4294967288;
-    debuglog("KBSecureLoadObjectWithCrypto", @"Can't load secure keybag Object: %d", v64, v65, v66, v67, v68, v69, -8);
+    debuglog("KBSecureLoadObjectWithCrypto", @"Can't load secure keybag Object: %d", v63, v64, v65, v66, v67, v68, 4294967288);
     v19 = 0;
     goto LABEL_12;
   }
 
 LABEL_5:
-  v19 = v75;
+  v19 = v74;
   BytePtr = CFDataGetBytePtr(theData);
   Length = CFDataGetLength(theData);
-  v22 = CFDataGetBytePtr(v74);
+  v22 = CFDataGetBytePtr(v73);
   v23 = CCCryptorCreate(1u, 0, 1u, BytePtr, Length, v22, &cryptorRef);
   if (v23)
   {
@@ -3068,11 +3045,11 @@ LABEL_5:
     v51 = cryptorRef;
     v52 = dataOutMoved;
     v53 = CFDataGetLength(v19);
-    v54 = CCCryptorFinal(v51, &v40[v52], v53 - dataOutMoved, &v71);
+    v54 = CCCryptorFinal(v51, &v40[v52], v53 - dataOutMoved, &v70);
     if (!v54)
     {
       v61 = 0;
-      *a2 = convertBinaryToObject(v40, (v71 + dataOutMoved));
+      *a2 = convertBinaryToObject(v40, (v70 + dataOutMoved));
       goto LABEL_10;
     }
 
@@ -3087,10 +3064,10 @@ LABEL_10:
   }
 
 LABEL_12:
-  if (v74)
+  if (v73)
   {
-    CFRelease(v74);
-    v74 = 0;
+    CFRelease(v73);
+    v73 = 0;
   }
 
   if (theData)
@@ -3105,21 +3082,17 @@ LABEL_12:
   }
 
   CCCryptorRelease(cryptorRef);
-  v62 = *MEMORY[0x1E69E9840];
   return v61;
 }
 
 uint64_t validateSecureFile(const char *a1, void *a2, CFTypeRef *a3, CFTypeRef *a4)
 {
-  v7 = a1;
-  v90 = *MEMORY[0x1E69E9840];
+  v88 = *MEMORY[0x1E69E9840];
   binary_dict = load_binary_dict(a1);
   if (!binary_dict)
   {
-    debuglog("validateSecureFile", @"Unable to load %s", v9, v10, v11, v12, v13, v14, v7);
-LABEL_36:
-    v76 = 0xFFFFFFFFLL;
-    goto LABEL_24;
+    debuglog("validateSecureFile", @"Unable to load %s", v9, v10, v11, v12, v13, v14, a1);
+    return 0xFFFFFFFFLL;
   }
 
   v15 = binary_dict;
@@ -3127,47 +3100,47 @@ LABEL_36:
   Value = CFDictionaryGetValue(binary_dict, @"_MKBWIPEID");
   if (!Value || (v23 = Value, v24 = CFGetTypeID(Value), v24 != CFNumberGetTypeID()))
   {
-    debuglog("validateSecureFile", @"%s missing wipeID", v17, v18, v19, v20, v21, v22, v7);
+    debuglog("validateSecureFile", @"%s missing wipeID", v17, v18, v19, v20, v21, v22, a1);
 LABEL_35:
     CFRelease(v15);
-    goto LABEL_36;
+    return 0xFFFFFFFFLL;
   }
 
   v25 = CFDictionaryGetValue(v15, @"_MKBIV");
   if (!v25 || (v32 = v25, v33 = CFGetTypeID(v25), v33 != CFDataGetTypeID()))
   {
-    debuglog("validateSecureFile", @"%s missing IV", v26, v27, v28, v29, v30, v31, v7);
+    debuglog("validateSecureFile", @"%s missing IV", v26, v27, v28, v29, v30, v31, a1);
     goto LABEL_35;
   }
 
   v34 = CFDictionaryGetValue(v15, @"_MKBPAYLOAD");
   if (!v34 || (v41 = v34, v42 = CFGetTypeID(v34), v42 != CFDataGetTypeID()))
   {
-    debuglog("validateSecureFile", @"%s missing payload", v35, v36, v37, v38, v39, v40, v7);
+    debuglog("validateSecureFile", @"%s missing payload", v35, v36, v37, v38, v39, v40, a1);
     goto LABEL_35;
   }
 
   CFNumberGetValue(v23, kCFNumberIntType, &valuePtr);
   v43 = valuePtr;
-  v89 = 0;
-  memset(v88, 0, sizeof(v88));
-  v87 = 52;
-  v44 = loadBlastableBytes(valuePtr, v88, &v87);
+  v87 = 0;
+  memset(v86, 0, sizeof(v86));
+  v85 = 52;
+  v44 = loadBlastableBytes(valuePtr, v86, &v85);
   if (v44)
   {
     debuglog("loadWipeIDInfo", @"Unable to load wipe info: %08x", v45, v46, v47, v48, v49, v50, v44);
 LABEL_34:
-    debuglog("validateSecureFile", @"Can't load wipe info for ID:%08x", v79, v80, v81, v82, v83, v84, valuePtr);
+    debuglog("validateSecureFile", @"Can't load wipe info for ID:%08x", v78, v79, v80, v81, v82, v83, valuePtr);
     goto LABEL_35;
   }
 
-  if (LODWORD(v88[0]) != v43)
+  if (LODWORD(v86[0]) != v43)
   {
-    debuglog("loadWipeIDInfo", @"Wipe Info ID is wrong: %d", v45, v46, v47, v48, v49, v50, v88[0]);
+    debuglog("loadWipeIDInfo", @"Wipe Info ID is wrong: %d", v45, v46, v47, v48, v49, v50, LODWORD(v86[0]));
     goto LABEL_34;
   }
 
-  v51 = CFDataCreate(0, v88 + 4, 16);
+  v51 = CFDataCreate(0, v86 + 4, 16);
   if (!v51)
   {
     validateSecureFile_cold_2(0, v52, v53, v54, v55, v56, v57, v58);
@@ -3175,7 +3148,7 @@ LABEL_34:
   }
 
   v59 = v51;
-  v60 = CFDataCreate(0, &v88[1] + 4, 32);
+  v60 = CFDataCreate(0, &v86[1] + 4, 32);
   if (!v60)
   {
     validateSecureFile_cold_1(v59, v61, v62, v63, v64, v65, v66, v67);
@@ -3206,7 +3179,7 @@ LABEL_34:
     goto LABEL_21;
   }
 
-  debuglog("validateSecureFile", @"fileIV to wipeIV mismatch, no payload returned", v69, v70, v71, v72, v73, v74, v85);
+  debuglog("validateSecureFile", @"fileIV to wipeIV mismatch, no payload returned", v69, v70, v71, v72, v73, v74);
   CFShow(v32);
   CFShow(v59);
   v76 = 4294967287;
@@ -3221,8 +3194,6 @@ LABEL_23:
   CFRelease(v15);
   CFRelease(v59);
   CFRelease(v68);
-LABEL_24:
-  v77 = *MEMORY[0x1E69E9840];
   return v76;
 }
 
@@ -3293,7 +3264,7 @@ uint64_t _MKBVerifyPasswordWithContext(uint64_t a1, const __CFDictionary *a2, co
   v8 = should_use_memento(a2);
   if (a4 && v8)
   {
-    debuglog("_MKBVerifyPasswordWithContext", @"memento verifiers and acm context are unsupported", v9, v10, v11, v12, v13, v14, v21);
+    debuglog("_MKBVerifyPasswordWithContext", @"memento verifiers and acm context are unsupported", v9, v10, v11, v12, v13, v14);
     return 4294967279;
   }
 
@@ -3400,7 +3371,7 @@ uint64_t MKBSetSpacedRepetitionMode(uint64_t a1)
   return v3;
 }
 
-uint64_t _MKBDeviceSetGracePeriod(const __CFData *a1, int a2, const __CFDictionary *a3)
+uint64_t _MKBDeviceSetGracePeriod(const __CFData *a1, uint64_t a2, const __CFDictionary *a3)
 {
   Mutable = CFDictionaryCreateMutable(*MEMORY[0x1E695E480], 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
   if (!Mutable)
@@ -3443,8 +3414,8 @@ uint64_t _MKBDeviceSetGracePeriod(const __CFData *a1, int a2, const __CFDictiona
 
   v15 = v14;
   CFRelease(v7);
-  _getLongLongInt(a3, @"GracePeriod");
-  debuglog("_MKBDeviceSetGracePeriod", @"MKBDeviceSetGracePeriod(acm:%d): To (%lld)AKS return Value is %d\n", v16, v17, v18, v19, v20, v21, a2);
+  LongLongInt = _getLongLongInt(a3, @"GracePeriod");
+  debuglog("_MKBDeviceSetGracePeriod", @"MKBDeviceSetGracePeriod(acm:%d): To (%lld)AKS return Value is %d\n", v17, v18, v19, v20, v21, v22, a2, LongLongInt, v15);
   return v15;
 }
 
@@ -3506,10 +3477,10 @@ uint64_t MKBSetDeviceConfigurationsWithACM(const __CFData *a1, const __CFDiction
   return convertAKSErrorToMKB(v3);
 }
 
-void log_blob(char a1, unsigned __int8 *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void log_blob(uint64_t a1, unsigned __int8 *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   v8 = a3;
-  debuglog("log_blob", @"%s (%d):\n", a3, a4, a5, a6, a7, a8, a1);
+  debuglog("log_blob", @"%s (%d):\n", a3, a4, a5, a6, a7, a8, a1, a3);
   if (v8 >= 1)
   {
     do
@@ -3536,7 +3507,7 @@ void log_blob(char a1, unsigned __int8 *a2, uint64_t a3, uint64_t a4, uint64_t a
       }
 
       while (v11);
-      debuglog("log_blob", @"%d: %s\n", v15, v16, v17, v18, v19, v20, v10);
+      debuglog("log_blob", @"%d: %s\n", v15, v16, v17, v18, v19, v20, v10, &log_blob_buf);
       a2 += v10;
       v21 = __OFSUB__(v8, v10);
       v8 -= v10;
@@ -3575,46 +3546,46 @@ uint64_t MKBKeyBagKeyStashDestroy()
 
 uint64_t MKBKeyBagKeyStashPersistWithOpts(const __CFDictionary *a1)
 {
-  handleToUse(a1);
-  v1 = aks_stash_persist();
-  v2 = convertAKSErrorToMKB(v1);
-  debuglog("MKBKeyBagKeyStashPersistWithOpts", @"result = %d, (handle:%d)", v3, v4, v5, v6, v7, v8, v2);
-  return v2;
+  v1 = handleToUse(a1);
+  v2 = aks_stash_persist();
+  v3 = convertAKSErrorToMKB(v2);
+  debuglog("MKBKeyBagKeyStashPersistWithOpts", @"result = %d, (handle:%d)", v4, v5, v6, v7, v8, v9, v3, v1);
+  return v3;
 }
 
 uint64_t MKBKeyBagKeyStashLoadWithOpts(const __CFDictionary *a1)
 {
-  handleToUse(a1);
+  v1 = handleToUse(a1);
   if (aks_get_current_sep_measurement())
   {
-    debuglog("MKBKeyBagKeyStashLoadWithOpts", @"failed to fetch measurement\n", v1, v2, v3, v4, v5, v6, v17);
+    debuglog("MKBKeyBagKeyStashLoadWithOpts", @"failed to fetch measurement\n", v2, v3, v4, v5, v6, v7);
   }
 
   else
   {
-    log_blob("sep measurement", 0, 0, v2, v3, v4, v5, v6);
+    log_blob("sep measurement", 0, 0, v3, v4, v5, v6, v7);
     free(0);
   }
 
-  v7 = aks_stash_load();
-  if (v7)
+  v8 = aks_stash_load();
+  if (v8)
   {
-    v14 = 4294967287;
+    v15 = 4294967287;
   }
 
   else
-  {
-    v14 = 0;
-  }
-
-  v15 = -9;
-  if (!v7)
   {
     v15 = 0;
   }
 
-  debuglog("MKBKeyBagKeyStashLoadWithOpts", @"result = %d, (handle: %d)", v8, v9, v10, v11, v12, v13, v15);
-  return v14;
+  v16 = -9;
+  if (!v8)
+  {
+    v16 = 0;
+  }
+
+  debuglog("MKBKeyBagKeyStashLoadWithOpts", @"result = %d, (handle: %d)", v9, v10, v11, v12, v13, v14, v16, v1);
+  return v15;
 }
 
 uint64_t MKBKeyBagChangeSystemSecret(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -3646,7 +3617,7 @@ uint64_t MKBKeyBagCopySytemSecretBlob(uint64_t *a1)
   return 0;
 }
 
-uint64_t MKBKeyBagCopySystemOpaqueBlob(void *a1)
+uint64_t MKBKeyBagCopySystemOpaqueBlob(uint64_t *a1)
 {
   v2 = KBSystemKeyBagCopyOpaqueStuff();
   if (a1)
@@ -3662,7 +3633,7 @@ uint64_t MKBKeyBagCleanupAfterMigration()
   Value = KBLoadSystemKeyBag();
   if (Value && (Value = CFDictionaryGetValue(Value, @"KeybagxART")) == 0)
   {
-    debuglog("MKBKeyBagCleanupAfterMigration", @"System KeyBag plist still contains keys! Not xART based! Do not delete!", v2, v3, v4, v5, v6, v7, vars0);
+    debuglog("MKBKeyBagCleanupAfterMigration", @"System KeyBag plist still contains keys! Not xART based! Do not delete!", v2, v3, v4, v5, v6, v7);
     return 0xFFFFFFFFLL;
   }
 
@@ -3695,8 +3666,6 @@ uint64_t MKBDeviceLockAssertionPromote(uint64_t a1)
     return 4294967279;
   }
 
-  v1 = *(a1 + 24);
-  v2 = *(a1 + 16);
   result = aks_assert_promote();
   if (result > -536870188)
   {
@@ -3728,21 +3697,20 @@ uint64_t MKBDeviceLockAssertionPromote(uint64_t a1)
 
 const void *MKBDeviceLockAssertionConsume(const __CFDictionary *a1, CFErrorRef *a2)
 {
-  v4 = *MEMORY[0x1E695E480];
   pthread_once(&MKBAssertionGetTypeID_typeIDInit, __MKBAssertionnRegisterClass);
   Instance = _CFRuntimeCreateInstance();
   if (Instance)
   {
-    v6 = Instance;
+    v5 = Instance;
     *(Instance + 16) = 0;
     *(Instance + 24) = 0;
-    v7 = (Instance + 16);
+    v6 = (Instance + 16);
     *(Instance + 24) = handleToUse(a1);
-    v8 = aks_assert_consume();
-    v9 = 1;
-    if (v8 <= -536870188)
+    v7 = aks_assert_consume();
+    v8 = 1;
+    if (v7 <= -536870188)
     {
-      if (v8 == -536870207)
+      if (v7 == -536870207)
       {
         goto LABEL_11;
       }
@@ -3750,14 +3718,14 @@ const void *MKBDeviceLockAssertionConsume(const __CFDictionary *a1, CFErrorRef *
 
     else
     {
-      switch(v8)
+      switch(v7)
       {
         case 0:
-          *v7 = 0x100000000;
-          return v6;
+          *v6 = 0x100000000;
+          return v5;
         case -536870174:
 LABEL_11:
-          CFRelease(v6);
+          CFRelease(v5);
           if (a2)
           {
             goto LABEL_12;
@@ -3765,22 +3733,22 @@ LABEL_11:
 
           return 0;
         case -536870187:
-          v9 = 16;
+          v8 = 16;
           goto LABEL_11;
       }
     }
 
-    v9 = 22;
+    v8 = 22;
     goto LABEL_11;
   }
 
-  v9 = 12;
+  v8 = 12;
   if (a2)
   {
 LABEL_12:
-    v6 = 0;
-    *a2 = CFErrorCreate(0, *MEMORY[0x1E695E640], v9, 0);
-    return v6;
+    v5 = 0;
+    *a2 = CFErrorCreate(0, *MEMORY[0x1E695E640], v8, 0);
+    return v5;
   }
 
   return 0;
@@ -3801,7 +3769,7 @@ uint64_t MKBKeyBagGetAKSHandle(uint64_t a1, _DWORD *a2)
   return result;
 }
 
-uint64_t MKBKeyBagHandleGetTypeID()
+uint64_t MKBKeyBagHandleGetTypeID(uint64_t a1, uint64_t a2)
 {
   if (MKBKeyBagHandleGetTypeID_onlyOnce != -1)
   {
@@ -3845,8 +3813,10 @@ uint64_t MKBKeyBagCreateEscrow(const __CFData *a1, uint64_t *a2)
   }
 }
 
-uint64_t __kbHandleWithKernelHandle(int a1, char a2)
+uint64_t __kbHandleWithKernelHandle(uint64_t a1, uint64_t a2)
 {
+  v2 = a2;
+  v3 = a1;
   if (MKBKeyBagHandleGetTypeID_onlyOnce != -1)
   {
     MKBKeyBagHandleGetTypeID_cold_1();
@@ -3855,8 +3825,8 @@ uint64_t __kbHandleWithKernelHandle(int a1, char a2)
   result = _CFRuntimeCreateInstance();
   if (result)
   {
-    *(result + 16) = a1;
-    *(result + 20) = a2;
+    *(result + 16) = v3;
+    *(result + 20) = v2;
     *(result + 24) = 0;
   }
 
@@ -3971,7 +3941,6 @@ uint64_t MKBKeyBagCreateBackup(CFDataRef theData, uint64_t *a2)
 
     CFDataGetBytePtr(theData);
     CFDataGetLength(theData);
-    v6 = *a2;
     result = aks_prederived_create();
     if (result)
     {
@@ -4014,7 +3983,7 @@ uint64_t _MKBKeyBagCreateOTABackup(CFDataRef theData, int a2, uint64_t *a3)
     }
   }
 
-  v7 = __kbHandleWithKernelHandle(-1, 1);
+  v7 = __kbHandleWithKernelHandle(0xFFFFFFFFLL, 1);
   *a3 = v7;
   if (v7)
   {
@@ -4065,17 +4034,17 @@ uint64_t MKBBackupDisableForVolume(uint64_t a1)
 
 uint64_t MKBBackupCopyBackupBagUUIDForVolume(const __CFData *a1, CFDataRef *a2)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   memset(dst, 0, sizeof(dst));
   *bytes = 0;
-  v15 = 0;
+  v14 = 0;
   BytePtr = CFDataGetBytePtr(a1);
   uuid_copy(dst, BytePtr);
   v4 = aks_backup_copy_current_bag_uuid();
   v11 = v4;
   if (v4)
   {
-    debuglog("MKBBackupCopyBackupBagUUIDForVolume", @"Failed to get backup bag uuid for volume: %x", v5, v6, v7, v8, v9, v10, v4);
+    debuglog("MKBBackupCopyBackupBagUUIDForVolume", @"Failed to get backup bag uuid for volume: %x", v5, v6, v7, v8, v9, v10, v4, *bytes, v14, *dst, *&dst[8], v16);
   }
 
   else
@@ -4083,23 +4052,21 @@ uint64_t MKBBackupCopyBackupBagUUIDForVolume(const __CFData *a1, CFDataRef *a2)
     *a2 = CFDataCreate(*MEMORY[0x1E695E480], bytes, 16);
   }
 
-  result = convertAKSErrorToMKB(v11);
-  v13 = *MEMORY[0x1E69E9840];
-  return result;
+  return convertAKSErrorToMKB(v11);
 }
 
 uint64_t MKBBackupCopyBackupBagUUIDForBag(const __CFData *a1, CFDataRef *a2)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   *bytes = 0;
-  v15 = 0;
+  v14 = 0;
   CFDataGetBytePtr(a1);
   CFDataGetLength(a1);
   v4 = aks_backup_copy_bag_uuid();
   v11 = v4;
   if (v4)
   {
-    debuglog("MKBBackupCopyBackupBagUUIDForBag", @"Failed to get backup bag uuid from data: %x", v5, v6, v7, v8, v9, v10, v4);
+    debuglog("MKBBackupCopyBackupBagUUIDForBag", @"Failed to get backup bag uuid from data: %x", v5, v6, v7, v8, v9, v10, v4, *bytes, v14, v15);
   }
 
   else
@@ -4107,28 +4074,24 @@ uint64_t MKBBackupCopyBackupBagUUIDForBag(const __CFData *a1, CFDataRef *a2)
     *a2 = CFDataCreate(*MEMORY[0x1E695E480], bytes, 16);
   }
 
-  result = convertAKSErrorToMKB(v11);
-  v13 = *MEMORY[0x1E69E9840];
-  return result;
+  return convertAKSErrorToMKB(v11);
 }
 
 uint64_t MKBKeyBagUnlock(uint64_t a1, CFDataRef theData)
 {
-  v4 = *(a1 + 16);
   if (*(a1 + 24))
   {
     if (theData)
     {
       CFDataGetBytePtr(theData);
       CFDataGetLength(theData);
-      v5 = *(a1 + 24);
     }
 
-    v6 = aks_prederived_unlock_keybag();
-    if (v6)
+    v4 = aks_prederived_unlock_keybag();
+    if (v4)
     {
-      v13 = v6;
-      debuglog("MKBKeyBagUnlock", @"aks_prederived_unlock_keybag() returned %d", v7, v8, v9, v10, v11, v12, v6);
+      v11 = v4;
+      debuglog("MKBKeyBagUnlock", @"aks_prederived_unlock_keybag() returned %d", v5, v6, v7, v8, v9, v10, v4);
       goto LABEL_11;
     }
   }
@@ -4141,20 +4104,20 @@ uint64_t MKBKeyBagUnlock(uint64_t a1, CFDataRef theData)
       CFDataGetLength(theData);
     }
 
-    v14 = aks_unlock_bag();
-    if (v14)
+    v12 = aks_unlock_bag();
+    if (v12)
     {
-      v13 = v14;
-      debuglog("MKBKeyBagUnlock", @"aks_unlock_bag() returned %d", v7, v8, v9, v10, v11, v12, v14);
+      v11 = v12;
+      debuglog("MKBKeyBagUnlock", @"aks_unlock_bag() returned %d", v5, v6, v7, v8, v9, v10, v12);
       goto LABEL_11;
     }
   }
 
-  debuglog("MKBKeyBagUnlock", @"unlocked bag %d", v7, v8, v9, v10, v11, v12, *(a1 + 16));
-  v13 = 0;
+  debuglog("MKBKeyBagUnlock", @"unlocked bag %d", v5, v6, v7, v8, v9, v10, *(a1 + 16));
+  v11 = 0;
 LABEL_11:
 
-  return convertAKSErrorToMKB(v13);
+  return convertAKSErrorToMKB(v11);
 }
 
 uint64_t MKBKeyBagUnlockWithACM(uint64_t a1, CFDataRef theData)
@@ -4166,7 +4129,6 @@ uint64_t MKBKeyBagUnlockWithACM(uint64_t a1, CFDataRef theData)
 
   else
   {
-    v6 = *(a1 + 16);
     if (theData)
     {
       CFDataGetBytePtr(theData);
@@ -4181,7 +4143,6 @@ uint64_t MKBKeyBagUnlockWithACM(uint64_t a1, CFDataRef theData)
 
 uint64_t MKBKeyBagCopyData(uint64_t a1, CFDataRef *a2)
 {
-  v3 = *(a1 + 16);
   if (aks_save_bag())
   {
     return 0xFFFFFFFFLL;
@@ -4189,9 +4150,9 @@ uint64_t MKBKeyBagCopyData(uint64_t a1, CFDataRef *a2)
 
   if (a2)
   {
-    v5 = CFDataCreateWithBytesNoCopy(*MEMORY[0x1E695E480], 0, 0, *MEMORY[0x1E695E480]);
-    *a2 = v5;
-    if (!v5)
+    v4 = CFDataCreateWithBytesNoCopy(*MEMORY[0x1E695E480], 0, 0, *MEMORY[0x1E695E480]);
+    *a2 = v4;
+    if (!v4)
     {
       return 4294967291;
     }
@@ -4227,7 +4188,6 @@ uint64_t MKBKeyBagCreateWithData(const __CFData *a1, uint64_t *a2)
 
 uint64_t MKBKeyBagChangeSecret(uint64_t a1, CFDataRef theData, const __CFData *a3)
 {
-  v5 = *(a1 + 16);
   if (*(a1 + 24))
   {
     if (theData)
@@ -4237,7 +4197,7 @@ uint64_t MKBKeyBagChangeSecret(uint64_t a1, CFDataRef theData, const __CFData *a
       if (!a3)
       {
 LABEL_9:
-        v6 = aks_prederived_change_secret();
+        v5 = aks_prederived_change_secret();
         goto LABEL_12;
       }
     }
@@ -4272,10 +4232,10 @@ LABEL_7:
   }
 
 LABEL_11:
-  v6 = aks_change_secret();
+  v5 = aks_change_secret();
 LABEL_12:
 
-  return convertAKSErrorToMKB(v6);
+  return convertAKSErrorToMKB(v5);
 }
 
 uint64_t MKBKeyBagChangeSecretWithACM(uint64_t a1, CFDataRef theData, const __CFData *a3)
@@ -4285,7 +4245,6 @@ uint64_t MKBKeyBagChangeSecretWithACM(uint64_t a1, CFDataRef theData, const __CF
     return 4294967274;
   }
 
-  v7 = *(a1 + 16);
   if (!theData)
   {
     if (!a3)
@@ -4306,9 +4265,9 @@ LABEL_5:
   }
 
 LABEL_7:
-  v8 = aks_change_secret_opts();
+  v7 = aks_change_secret_opts();
 
-  return convertAKSErrorToMKB(v8);
+  return convertAKSErrorToMKB(v7);
 }
 
 uint64_t MKBDeviceObliterateClassDKey()
@@ -4318,19 +4277,18 @@ uint64_t MKBDeviceObliterateClassDKey()
   return convertAKSErrorToMKB(v0);
 }
 
-uint64_t _MKBKeyBagCreateSystem(const __CFData *a1, const char *a2, uint64_t a3, int a4)
+uint64_t _MKBKeyBagCreateSystem(const __CFData *a1, const char *a2, int a3, int a4)
 {
-  v49 = *MEMORY[0x1E69E9840];
+  v47 = *MEMORY[0x1E69E9840];
   if (!MKBDeviceSupportsEnhancedAPFS())
   {
-    v47 = 0;
-    memset(&v46, 0, sizeof(v46));
+    v45 = 0;
+    memset(&v44, 0, sizeof(v44));
     snprintf(__str, 0x401uLL, "%s/%s/%s.kb", a2, "keybags", "systembag");
-    if (!stat(__str, &v46))
+    if (!stat(__str, &v44))
     {
       debuglog("_MKBKeyBagCreateSystem", @"%s already exists", v14, v15, v16, v17, v18, v19, __str);
-      v13 = 4294967292;
-      goto LABEL_20;
+      return 4294967292;
     }
 
     if (a4)
@@ -4369,7 +4327,7 @@ LABEL_11:
     v28 = aks_set_system();
     if (!v28)
     {
-      v35 = KBSaveSystemBagHandle(0, a2, 0, 0, 0);
+      v35 = KBSaveSystemBagHandle(v28, a2, 0, 0, 0);
       if (v35)
       {
         v13 = v35;
@@ -4382,10 +4340,10 @@ LABEL_11:
         v13 = 0;
 LABEL_19:
         aks_unload_bag();
-        goto LABEL_20;
+        return v13;
       }
 
-      v42 = KBMapDeviceBag(a2, 0);
+      v42 = KBMapDeviceBag(a2, 0, 0);
 LABEL_18:
       v13 = v42;
       goto LABEL_19;
@@ -4398,11 +4356,8 @@ LABEL_22:
     goto LABEL_18;
   }
 
-  debuglog("_MKBKeyBagCreateSystem", @"_MKBKeyBagCreateSystem does nothing, returning success", v7, v8, v9, v10, v11, v12, v45);
-  v13 = 0;
-LABEL_20:
-  v43 = *MEMORY[0x1E69E9840];
-  return v13;
+  debuglog("_MKBKeyBagCreateSystem", @"_MKBKeyBagCreateSystem does nothing, returning success", v7, v8, v9, v10, v11, v12);
+  return 0;
 }
 
 uint64_t _MKBKeyBagPerformRecovery(const __CFData *a1, uint64_t a2, const __CFDictionary *a3)
@@ -4530,7 +4485,7 @@ uint64_t MKBFileReadEncrypted(uint64_t a1, unsigned __int8 *a2, uint64_t a3, uin
 
   if ((v10 & 0xFFF) != 0)
   {
-    debuglog("MKBFileReadEncrypted", @"Buffer size %zu not multiple of %zu\n", a3, a4, a5, a6, a7, a8, v10);
+    debuglog("MKBFileReadEncrypted", @"Buffer size %zu not multiple of %zu\n", a3, a4, a5, a6, a7, a8, v10, 4096);
     return -1;
   }
 
@@ -4595,7 +4550,7 @@ vm_address_t allocate_page_aligned_buffer(vm_size_t size)
   address = 0;
   if (vm_allocate(*MEMORY[0x1E69E9A60], &address, size, -268435455))
   {
-    debuglog("allocate_page_aligned_buffer", @"Failed to allocate page aligned buffer", v1, v2, v3, v4, v5, v6, v8);
+    debuglog("allocate_page_aligned_buffer", @"Failed to allocate page aligned buffer", v1, v2, v3, v4, v5, v6);
   }
 
   return address;
@@ -4701,7 +4656,7 @@ uint64_t MKBFileRead(uint64_t a1, char *a2, int64_t a3, uint64_t a4, uint64_t a5
         return v34 + v42;
       }
 
-      debuglog("MKBFileReadTranscrypt", @"Buffer size %zu not multiple of %d\n", v12, v13, v14, v15, v16, v17, a3);
+      debuglog("MKBFileReadTranscrypt", @"Buffer size %zu not multiple of %d\n", v12, v13, v14, v15, v16, v17, a3, 16);
     }
 
     return -1;
@@ -4762,14 +4717,14 @@ uint64_t MKBFileCopyWrappedKey_OTA(int64x2_t *a1, __CFData **a2)
   CFDataAppendBytes(Mutable, v22, 4);
   if (a1[67].i8[8] != 1 || (v5 = open(a1->i8, 256), v5 < 0))
   {
-    v7 = a1[64].i32[1];
-    v6 = v7;
+    v7 = a1[64].u32[1];
+    v6 = a1[64].i32[1];
   }
 
   else
   {
     v6 = v5;
-    v7 = a1[64].i32[1];
+    v7 = a1[64].u32[1];
   }
 
   v8 = MKBCopyCryptoIDKeysForFileDescriptor(v7, 0, 0);
@@ -4780,19 +4735,19 @@ uint64_t MKBFileCopyWrappedKey_OTA(int64x2_t *a1, __CFData **a2)
     {
       BytePtr = CFDataGetBytePtr(v9);
       v17 = bswap32(*(BytePtr + 6));
-      if (v17 == a1[77].i32[0])
+      v18 = a1[77].u32[0];
+      if (v17 == v18)
       {
-        v18 = BytePtr;
+        v19 = BytePtr;
         CFDataAppendBytes(Mutable, BytePtr + 24, 4);
         Length = CFDataGetLength(v9);
-        CFDataAppendBytes(Mutable, v18 + 36, Length - 36);
+        CFDataAppendBytes(Mutable, v19 + 36, Length - 36);
         *a2 = Mutable;
         CFRelease(v9);
         return 0;
       }
 
-      v21 = a1[77].u32[0];
-      debuglog("MKBFileCopyWrappedKey_OTA", @"Protection class changed from %d to %d", v11, v12, v13, v14, v15, v16, v17);
+      debuglog("MKBFileCopyWrappedKey_OTA", @"Protection class changed from %d to %d", v11, v12, v13, v14, v15, v16, v17, v18);
       CFRelease(v9);
     }
   }
@@ -4811,29 +4766,27 @@ uint64_t MKBFileCopyWrappedKey_OTA(int64x2_t *a1, __CFData **a2)
   return 0xFFFFFFFFLL;
 }
 
-CFMutableDataRef MKBCopyCryptoIDKeysForFileDescriptor(int a1, const __CFData *a2, void *a3)
+CFMutableDataRef MKBCopyCryptoIDKeysForFileDescriptor(uint64_t a1, const __CFData *a2, void *a3)
 {
   v5 = a1;
-  v182[2] = *MEMORY[0x1E69E9840];
-  v182[0] = 0;
-  v182[1] = 0;
+  v170[2] = *MEMORY[0x1E69E9840];
+  v170[0] = 0;
+  v170[1] = 0;
   *uu2 = 0;
-  v181 = 0;
-  if (ffsctl(a1, 0x40104A60uLL, v182, 0))
+  v169 = 0;
+  if (ffsctl(a1, 0x40104A60uLL, v170, 0))
   {
     v6 = __error();
-    strerror(*v6);
-    debuglog("MKBCopyCryptoIDKeysForFileDescriptor", @"Can't get volume uuid for fd %d: %s", v7, v8, v9, v10, v11, v12, v5);
-LABEL_5:
-    v20 = 0;
-    goto LABEL_6;
+    v142 = strerror(*v6);
+    debuglog("MKBCopyCryptoIDKeysForFileDescriptor", @"Can't get volume uuid for fd %d: %s", v7, v8, v9, v10, v11, v12, v5, v142);
+    return 0;
   }
 
   v13 = aks_backup_copy_current_bag_uuid();
   if (v13)
   {
     debuglog("MKBCopyCryptoIDKeysForFileDescriptor", @"Error from aks_backup_copy_current_bag_uuid: %d", v14, v15, v16, v17, v18, v19, v13);
-    goto LABEL_5;
+    return 0;
   }
 
   all_crypto_ids = _apfs_get_all_crypto_ids(v5);
@@ -4842,51 +4795,61 @@ LABEL_5:
     memset(&dst, 0, sizeof(dst));
     if (!fstat(v5, &dst))
     {
-      debuglog("MKBCopyCryptoIDKeysForFileDescriptor", @"file size %lld bytes", v142, v143, v144, v145, v146, v147, dst.st_size);
+      debuglog("MKBCopyCryptoIDKeysForFileDescriptor", @"file size %lld bytes", v135, v136, v137, v138, v139, v140, dst.st_size);
     }
 
-    goto LABEL_5;
+    return 0;
   }
 
-  v30 = all_crypto_ids;
-  all_crypto_ids[4];
-  debuglog("MKBCopyCryptoIDKeysForFileDescriptor", @"found %d extent%s", v24, v25, v26, v27, v28, v29, all_crypto_ids[4]);
-  v31 = v30[4];
-  KBPostAggdDistribution(@"com.apple.mobile.keybagd.db.file.extents.number", 0, 0xAu);
+  v29 = all_crypto_ids;
+  v30 = "s";
+  if (all_crypto_ids[4] == 1)
+  {
+    v30 = &unk_1C867A067;
+  }
+
+  debuglog("MKBCopyCryptoIDKeysForFileDescriptor", @"found %d extent%s", v23, v24, v25, v26, v27, v28, all_crypto_ids[4], v30);
+  LOWORD(v31) = v29[4];
+  KBPostAggdDistribution(@"com.apple.mobile.keybagd.db.file.extents.number", 0, 0xAu, v31);
   Mutable = CFDataCreateMutable(0, 0);
   v20 = Mutable;
-  if (v30[4])
+  if (v29[4])
   {
-    v157 = a3;
+    v145 = a3;
     v39 = 0;
-    v167 = 0;
-    v40 = v30 + 8;
-    v156 = *MEMORY[0x1E696A768];
-    v41 = "MKBCopyCryptoIDKeysForFileDescriptor";
-    v165 = v30 + 8;
+    v155 = 0;
+    v40 = v29 + 8;
+    v41 = "yes";
+    if (!a2)
+    {
+      v41 = "no";
+    }
+
+    v143 = *MEMORY[0x1E696A768];
+    v144 = v41;
+    v42 = "MKBCopyCryptoIDKeysForFileDescriptor";
+    v153 = v29 + 8;
     cf = Mutable;
-    v163 = a2;
-    v164 = v5;
-    v162 = v30;
+    v151 = a2;
+    v152 = v5;
+    v150 = v29;
     while (1)
     {
       memset(&dst.st_atimespec, 0, 76);
       *&dst.st_dev = 0u;
       *&dst.st_uid = 0xFFFFFFFFFFFFFFFFLL;
-      v42 = &v40[12 * v39];
-      v43 = *(v42 + 2);
-      *bytes = bswap64(*(v42 + 1));
-      if (v43 == -1)
+      v43 = &v40[12 * v39];
+      v44 = *(v43 + 2);
+      *bytes = bswap64(*(v43 + 1));
+      if (v44 == -1)
       {
         break;
       }
 
-      v44 = v30[4];
-      if ((v43 & 0x8000000000000000) == 0)
+      if ((v44 & 0x8000000000000000) == 0)
       {
-        v152 = v30[4];
-        debuglog(v41, @"looking for backup key for crypto_id 0x%016qx (%d of %u)", v33, v34, v35, v36, v37, v38, v43);
-        v169 = &v40[12 * v39];
+        debuglog(v42, @"looking for backup key for crypto_id 0x%016qx (%d of %u)", v33, v34, v35, v36, v37, v38, v44, v39, v29[4]);
+        v157 = &v40[12 * v39];
         if (a2)
         {
           BytePtr = CFDataGetBytePtr(a2);
@@ -4906,24 +4869,22 @@ LABEL_5:
               {
                 v61 = bswap32(*(v60 + 8));
                 v62 = bswap64(*(v60 + 2));
-                v150 = bswap64(*&v60[v61 + 36]);
-                v153 = bswap32(*(v60 + 6));
-                debuglog("copy_rewrapped_key_from_existing_key", @"crypto_id = 0x%016llx, extent_size = %llu, key class = %u", v53, v54, v55, v56, v57, v58, v62);
-                if (v62 == v43)
+                debuglog("copy_rewrapped_key_from_existing_key", @"crypto_id = 0x%016llx, extent_size = %llu, key class = %u", v53, v54, v55, v56, v57, v58, v62, bswap64(*&v60[v61 + 36]), bswap32(*(v60 + 6)));
+                if (v62 == v44)
                 {
-                  debuglog("copy_rewrapped_key_from_existing_key", @"Found target crypto_id", v53, v54, v55, v56, v57, v58, v148);
+                  debuglog("copy_rewrapped_key_from_existing_key", @"Found target crypto_id", v53, v54, v55, v56, v57, v58);
                   if (!uuid_compare(v60, uu2))
                   {
                     __memcpy_chk();
-                    v168 = 0;
+                    v156 = 0;
                     v84 = 0;
-                    a2 = v163;
-                    v5 = v164;
-                    v30 = v162;
-                    goto LABEL_33;
+                    a2 = v151;
+                    LODWORD(v5) = v152;
+                    v29 = v150;
+                    goto LABEL_37;
                   }
 
-                  debuglog("copy_rewrapped_key_from_existing_key", @"Bag uuid mismatch, ignore", v63, v64, v65, v66, v67, v68, v148);
+                  debuglog("copy_rewrapped_key_from_existing_key", @"Bag uuid mismatch, ignore", v63, v64, v65, v66, v67, v68);
                 }
 
                 v59 += v61 + 44;
@@ -4931,10 +4892,10 @@ LABEL_5:
                 if (v59 >= Length)
                 {
                   v69 = -8;
-                  a2 = v163;
-                  v5 = v164;
-                  v30 = v162;
-                  goto LABEL_26;
+                  a2 = v151;
+                  LODWORD(v5) = v152;
+                  v29 = v150;
+                  goto LABEL_30;
                 }
               }
             }
@@ -4942,29 +4903,29 @@ LABEL_5:
             v69 = -8;
           }
 
-LABEL_26:
+LABEL_30:
           MKBCopyCryptoIDKeysForFileDescriptor_cold_1(v69, &p_dst);
-          v168 = p_dst;
+          v156 = p_dst;
         }
 
         else
         {
-          v168 = 0;
+          v156 = 0;
         }
 
-        v170 = 0;
-        v85 = [MEMORY[0x1E695DEF0] dataWithBytesNoCopy:v182 length:16 freeWhenDone:0];
+        v158 = 0;
+        v85 = [MEMORY[0x1E695DEF0] dataWithBytesNoCopy:v170 length:16 freeWhenDone:0];
         v86 = +[MKBKeyStoreDevice sharedService];
-        v87 = [v86 getBackupkeyForVolume:v85 andCryptoID:v43 withError:&v170];
+        v87 = [v86 getBackupkeyForVolume:v85 andCryptoID:v44 withError:&v158];
 
         if (v87)
         {
-          debuglog("copy_rewrapped_key_from_db", @"found rewrapped key in MKB backup db", v88, v89, v90, v91, v92, v93, v148);
+          debuglog("copy_rewrapped_key_from_db", @"found rewrapped key in MKB backup db", v88, v89, v90, v91, v92, v93);
           [v87 getBytes:&dst length:{objc_msgSend(v87, "length")}];
           v100 = 0x1E696A000;
           if (uuid_compare(&dst, uu2))
           {
-            debuglog("copy_rewrapped_key_from_db", @"key found in db doesn't match current backup bag!!", v94, v95, v96, v97, v98, v99, v148);
+            debuglog("copy_rewrapped_key_from_db", @"key found in db doesn't match current backup bag!!", v94, v95, v96, v97, v98, v99);
             v101 = 0;
           }
 
@@ -4980,113 +4941,104 @@ LABEL_26:
           v100 = 0x1E696A000;
         }
 
-        v84 = v170;
+        v84 = v158;
         if (v101)
         {
-LABEL_33:
-          v40 = v165;
+LABEL_37:
+          v40 = v153;
           v20 = cf;
-          goto LABEL_34;
+          goto LABEL_38;
         }
 
-        v161 = v84;
-        v172 = 0;
+        v149 = v84;
+        v160 = 0;
         p_dst = &dst;
-        debuglog("copy_rewrapped_key_from_file", @"getting wrapped key from aks", v78, v79, v80, v81, v82, v83, v148);
-        v105 = _apfs_copy_wrapped_key_from_file(v5, v43, &v172);
+        debuglog("copy_rewrapped_key_from_file", @"getting wrapped key from aks", v78, v79, v80, v81, v82, v83);
+        v105 = _apfs_copy_wrapped_key_from_file(v5, v44, &v160);
         if (!v105)
         {
-          v112 = v172;
-          v113 = v172;
-          goto LABEL_46;
+          v108 = v160;
+          v109 = v160;
+          goto LABEL_50;
         }
 
         v106 = v105;
-        if (v167)
+        if (v155)
         {
-          v107 = v167[5];
-          v108 = *(v105 + 5);
-          v109 = *v167;
-          v110 = *(v105 + 4);
-          v148 = &dst;
-          v111 = aks_backup_rewrap_ek();
+          v107 = aks_backup_rewrap_ek();
         }
 
         else
         {
-          v114 = *(v105 + 5);
-          v115 = *v105;
-          v116 = *(v105 + 4);
-          v111 = aks_backup_rewrap_key();
+          v107 = aks_backup_rewrap_key();
         }
 
-        v117 = v111;
+        v110 = v107;
         free(v106);
-        if (v117)
+        if (v110)
         {
-          v112 = [MEMORY[0x1E696ABC0] errorWithDomain:v156 code:v117 userInfo:0];
-          v118 = v112;
-          v149 = v117;
+          v108 = [MEMORY[0x1E696ABC0] errorWithDomain:v143 code:v110 userInfo:0];
+          v111 = v108;
+          v141 = v110;
           v100 = 0x1E696A000;
-          debuglog("copy_rewrapped_key_from_file", @"aks_backup_rewrap_key() failed: %d", v119, v120, v121, v122, v123, v124, v149);
-          goto LABEL_46;
+          debuglog("copy_rewrapped_key_from_file", @"aks_backup_rewrap_key() failed: %d", v112, v113, v114, v115, v116, v117, v141);
+          goto LABEL_50;
         }
 
         if (uuid_compare(&dst, uu2))
         {
-          debuglog("copy_rewrapped_key_from_file", @"backup key doesn't match current bag uuid!!", v78, v79, v80, v81, v82, v83, v148);
-          v112 = 0;
+          debuglog("copy_rewrapped_key_from_file", @"backup key doesn't match current bag uuid!!", v78, v79, v80, v81, v82, v83);
+          v108 = 0;
           v100 = 0x1E696A000uLL;
-LABEL_46:
-          v125 = v112;
-          v155 = v30[4];
-          debuglog("MKBCopyCryptoIDKeysForFileDescriptor", @"Could not get the backup key for crypto ID 0x%016qx (%d of %u, existing keys: %s, found1:%d, found2:%d, found3:%d)", v126, v127, v128, v129, v130, v131, v43);
-          v158 = *(v100 + 3008);
-          v174 = @"cryptoId";
-          v159 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:v43];
-          v178[0] = v159;
-          v175 = @"existingKeyError";
-          v132 = ObjectOrNull(v168);
-          v178[1] = v132;
-          v176 = @"dbError";
-          v133 = ObjectOrNull(v161);
-          v178[2] = v133;
-          v177 = @"fileError";
-          v160 = v125;
-          v134 = ObjectOrNull(v125);
-          v178[3] = v134;
-          v135 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v178 forKeys:&v174 count:4];
-          v102 = [v158 errorWithDomain:@"MobileKeyBagError" code:-8 userInfo:v135];
+LABEL_50:
+          v118 = v108;
+          debuglog("MKBCopyCryptoIDKeysForFileDescriptor", @"Could not get the backup key for crypto ID 0x%016qx (%d of %u, existing keys: %s, found1:%d, found2:%d, found3:%d)", v119, v120, v121, v122, v123, v124, v44, v39, v29[4], v144, 0, v101, 0);
+          v146 = *(v100 + 3008);
+          v162 = @"cryptoId";
+          v147 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:v44];
+          v166[0] = v147;
+          v163 = @"existingKeyError";
+          v125 = ObjectOrNull(v156);
+          v166[1] = v125;
+          v164 = @"dbError";
+          v126 = ObjectOrNull(v149);
+          v166[2] = v126;
+          v165 = @"fileError";
+          v148 = v118;
+          v127 = ObjectOrNull(v118);
+          v166[3] = v127;
+          v128 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v166 forKeys:&v162 count:4];
+          v102 = [v146 errorWithDomain:@"MobileKeyBagError" code:-8 userInfo:v128];
 
-          debuglog("MKBCopyCryptoIDKeysForFileDescriptor", @"Error: %@", v136, v137, v138, v139, v140, v141, v102);
-          if (v157)
+          debuglog("MKBCopyCryptoIDKeysForFileDescriptor", @"Error: %@", v129, v130, v131, v132, v133, v134, v102);
+          if (v145)
           {
-            *v157 = v102;
+            *v145 = v102;
           }
 
-          free(v167);
-          free(v30);
+          free(v155);
+          free(v29);
           v20 = cf;
           CFRelease(cf);
 
           v103 = 0;
           v76 = 0;
-          v40 = v165;
-          v84 = v161;
+          v40 = v153;
+          v84 = v149;
         }
 
         else
         {
-          if (bswap64(*&dst.st_uid) != v43)
+          if (bswap64(*&dst.st_uid) != v44)
           {
-            debuglog("copy_rewrapped_key_from_file", @"whoa, cryptoID does not match backup_key.inode: %llu vs %llu", v78, v79, v80, v81, v82, v83, bswap64(v175));
-            *&p_dst->st_uid = bswap64(v43);
+            debuglog("copy_rewrapped_key_from_file", @"whoa, cryptoID does not match backup_key.inode: %llu vs %llu", v78, v79, v80, v81, v82, v83, bswap64(v163), v44);
+            *&p_dst->st_uid = bswap64(v44);
           }
 
-          v40 = v165;
+          v40 = v153;
           v20 = cf;
-          v84 = v161;
-LABEL_34:
+          v84 = v149;
+LABEL_38:
           if (LODWORD(dst.st_atimespec.tv_sec))
           {
             v102 = 0;
@@ -5097,8 +5049,8 @@ LABEL_34:
           else
           {
             v104 = v84;
-            debuglog("MKBCopyCryptoIDKeysForFileDescriptor", @"got zero-length key for non-sparse crypto id", v78, v79, v80, v81, v82, v83, v148);
-            free(v30);
+            debuglog("MKBCopyCryptoIDKeysForFileDescriptor", @"got zero-length key for non-sparse crypto id", v78, v79, v80, v81, v82, v83);
+            free(v29);
             CFRelease(v20);
             v84 = v104;
             v103 = 0;
@@ -5110,81 +5062,75 @@ LABEL_34:
         v77 = "MKBCopyCryptoIDKeysForFileDescriptor";
         if ((v103 & 1) == 0)
         {
-          goto LABEL_5;
+          return 0;
         }
 
-LABEL_50:
-        debuglog(v77, @"got extent size %llu, keysize %d", v70, v71, v72, v73, v74, v75, *(v169 + 1));
+LABEL_54:
+        debuglog(v77, @"got extent size %llu, keysize %d", v70, v71, v72, v73, v74, v75, *(v157 + 1), v76);
         CFDataAppendBytes(v20, &dst, v76 + 36);
         CFDataAppendBytes(v20, bytes, 8);
-        v41 = v77;
-        goto LABEL_51;
+        v42 = v77;
+        goto LABEL_55;
       }
 
-      v154 = v30[4];
-      debuglog(v41, @"looking for ekwk, crypto_id 0x%016qx (%d of %u)", v33, v34, v35, v36, v37, v38, v43);
-      v167 = _apfs_copy_wrapped_key_from_file(v5, v43, 0);
-LABEL_51:
-      if (++v39 >= v30[4])
+      debuglog(v42, @"looking for ekwk, crypto_id 0x%016qx (%d of %u)", v33, v34, v35, v36, v37, v38, v44, v39, v29[4]);
+      v155 = _apfs_copy_wrapped_key_from_file(v5, v44, 0);
+LABEL_55:
+      if (++v39 >= v29[4])
       {
-        goto LABEL_60;
+        goto LABEL_64;
       }
     }
 
-    v169 = &v40[12 * v39];
-    v151 = v30[4];
-    debuglog(v41, @"found sparse extent (%d of %u)", v33, v34, v35, v36, v37, v38, v39);
+    v157 = &v40[12 * v39];
+    debuglog(v42, @"found sparse extent (%d of %u)", v33, v34, v35, v36, v37, v38, v39, v29[4]);
     uuid_copy(&dst, uu2);
     v76 = 0;
-    v77 = v41;
-    goto LABEL_50;
+    v77 = v42;
+    goto LABEL_54;
   }
 
-  v167 = 0;
-LABEL_60:
-  free(v167);
-  free(v30);
-LABEL_6:
-  v21 = *MEMORY[0x1E69E9840];
+  v155 = 0;
+LABEL_64:
+  free(v155);
+  free(v29);
   return v20;
 }
 
-uint64_t MKBFileCopyWrappedKey()
+uint64_t MKBFileCopyWrappedKey(uint64_t a1)
 {
-  v0 = MEMORY[0x1EEE9AC00]();
-  v2 = v1;
-  v4 = v3;
-  v5 = v0;
-  v26 = *MEMORY[0x1E69E9840];
+  v1 = MEMORY[0x1EEE9AC00](a1);
+  v3 = v2;
+  v4 = v1;
+  v23 = *MEMORY[0x1E69E9840];
   length = 0x8000;
-  if (*(v3 + 20) == 1 && init_ota(v0, 1))
+  if (*(v5 + 20) == 1 && init_ota(v1, 1))
   {
-    goto LABEL_3;
+    return 0xFFFFFFFFLL;
   }
 
-  if (v5[67].i8[8] != 1)
+  if (v4[67].i8[8] != 1)
   {
-    if (!make_random_key(v5))
+    if (!make_random_key(v4))
     {
-      if (v5[77].i32[0] == 7)
+      v8 = v4[77].u32[0];
+      if (v8 == 7)
       {
-        v10 = 17;
+        v9 = 17;
       }
 
       else
       {
-        v10 = v5[77].i32[0];
+        v9 = v8;
       }
 
-      *bytes = v10;
-      v11 = *(v4 + 16);
-      v12 = aks_wrap_key();
-      v13 = convertAKSErrorToMKB(v12);
-      if (v13)
+      *bytes = v9;
+      v10 = aks_wrap_key();
+      v11 = convertAKSErrorToMKB(v10);
+      if (v11)
       {
-        v6 = v13;
-        v22 = v5[77].u32[0];
-        debuglog("MKBFileCopyWrappedKey", @"aks_wrap_key error class: %d (%d) result: %d", v14, v15, v16, v17, v18, v19, v10);
+        v6 = v11;
+        debuglog("MKBFileCopyWrappedKey", @"aks_wrap_key error class: %d (%d) result: %d", v12, v13, v14, v15, v16, v17, v9, v4[77].u32[0], v11);
       }
 
       else
@@ -5192,65 +5138,59 @@ uint64_t MKBFileCopyWrappedKey()
         Mutable = CFDataCreateMutable(0, 172);
         if (Mutable)
         {
-          v21 = Mutable;
+          v19 = Mutable;
           CFDataAppendBytes(Mutable, bytes, 4);
-          CFDataAppendBytes(v21, &length_4, length);
+          CFDataAppendBytes(v19, &length_4, length);
           v6 = 0;
-          *v2 = v21;
+          *v3 = v19;
         }
 
         else
         {
-          v6 = 4294967291;
+          return 4294967291;
         }
       }
 
-      goto LABEL_4;
+      return v6;
     }
 
-LABEL_3:
-    v6 = 0xFFFFFFFFLL;
-LABEL_4:
-    v7 = *MEMORY[0x1E69E9840];
-    return v6;
+    return 0xFFFFFFFFLL;
   }
 
-  v9 = *MEMORY[0x1E69E9840];
-
-  return MKBFileCopyWrappedKey_OTA(v5, v2);
+  return MKBFileCopyWrappedKey_OTA(v4, v3);
 }
 
 void deallocate_page_aligned_buffer(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
 {
-  if (MEMORY[0x1CCA7ACA0](*MEMORY[0x1E69E9A60], a1, a2))
+  if (MEMORY[0x1CCA7ACA0](*MEMORY[0x1E69E9A60], a1, a2, a4, a5, a6, a7, a8))
   {
 
-    debuglog("deallocate_page_aligned_buffer", @"Failed to deallocate page aligned buffer", v9, v10, v11, v12, v13, v14, a9);
+    debuglog("deallocate_page_aligned_buffer", @"Failed to deallocate page aligned buffer", v9, v10, v11, v12, v13, v14);
   }
 }
 
 uint64_t MKBBackupOpen(const char *a1, void *a2)
 {
-  memset(&v33, 0, sizeof(v33));
+  memset(&v35, 0, sizeof(v35));
   v4 = open_dprotected_np(a1, 256, 0, 1);
   v5 = __error();
   if (v4 == -1)
   {
     v8 = *v5;
-    strerror(*v5);
-    debuglog("MKBBackupOpen", @"failed to open_dprotected_np(%s): %s", v21, v22, v23, v24, v25, v26, a1);
+    v21 = strerror(*v5);
+    debuglog("MKBBackupOpen", @"failed to open_dprotected_np(%s): %s", v22, v23, v24, v25, v26, v27, a1, v21);
 LABEL_10:
     *__error() = v8;
     return 0xFFFFFFFFLL;
   }
 
-  v6 = fstat(v4, &v33);
+  v6 = fstat(v4, &v35);
   v7 = __error();
   v8 = *v7;
   if (v6 == -1)
   {
-    strerror(*v7);
-    debuglog("MKBBackupOpen", @"failed to stat(%s): %s", v27, v28, v29, v30, v31, v32, a1);
+    v28 = strerror(*v7);
+    debuglog("MKBBackupOpen", @"failed to stat(%s): %s", v29, v30, v31, v32, v33, v34, a1, v28);
 LABEL_9:
     close(v4);
     goto LABEL_10;
@@ -5270,8 +5210,8 @@ LABEL_9:
   v17[1] = v18;
   *(v17 + 1) = 0;
   *(v17 + 2) = 0;
-  st_size = v33.st_size;
-  *(v17 + 3) = v33.st_ino;
+  st_size = v35.st_size;
+  *(v17 + 3) = v35.st_ino;
   *(v17 + 4) = st_size;
   *a2 = v17;
   return result;
@@ -5293,7 +5233,7 @@ uint64_t MKBBackupGetFileDescriptors(_DWORD *a1, _DWORD *a2, _DWORD *a3)
   return result;
 }
 
-uint64_t MKBBackupCreateFromFileDescriptors(int a1, int a2, int **a3)
+uint64_t MKBBackupCreateFromFileDescriptors(int a1, uint64_t a2, void *a3)
 {
   memset(&v17, 0, sizeof(v17));
   if (fstat(a2, &v17) == -1)
@@ -5322,7 +5262,7 @@ uint64_t MKBBackupCreateFromFileDescriptors(int a1, int a2, int **a3)
   return result;
 }
 
-uint64_t MKBBackupPread(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+size_t MKBBackupPread(uint64_t a1, void *a2, size_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   v8 = 0;
   if (a3 && ((*(a1 + 32) + 15) & 0xFFFFFFFFFFFFFFF0) >= a4)
@@ -5361,8 +5301,7 @@ uint64_t MKBBackupPread(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_
     v25 = *(a1 + 32);
     if (v18 < v14 && v13 <= v25)
     {
-      v37 = *(a1 + 32);
-      debuglog("MKBBackupPread", @"bytes_read(%ld) < read_size(%ld), but effective_start(%lld) + read_size(%ld) <= file_size(%lld)\n", v19, v20, v21, v22, v23, v24, v18);
+      debuglog("MKBBackupPread", @"bytes_read(%ld) < read_size(%ld), but effective_start(%lld) + read_size(%ld) <= file_size(%lld)\n", v19, v20, v21, v22, v23, v24, v18, v13 - (a4 & 0xFFFFFFFFFFFFF000), a4 & 0xFFFFFFFFFFFFF000, v13 - (a4 & 0xFFFFFFFFFFFFF000), v25);
       return -1;
     }
 
@@ -5389,7 +5328,7 @@ uint64_t MKBBackupClose(void **a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64
   v10 = *(*a1 + 2);
   if (v10)
   {
-    v11 = *(v9 + 1);
+    v11 = v9[1];
     if (v11)
     {
       deallocate_page_aligned_buffer(v11, v10, a3, a4, a5, a6, a7, a8, v14);
@@ -5416,7 +5355,7 @@ uint64_t _MKBBackupCheckKey(uint64_t a1, unint64_t a2, uint64_t a3, uint64_t a4,
 {
   if (a2 <= 0x23)
   {
-    debuglog("_MKBBackupCheckKey", @"corrupt blob size %zu, expected at least %zu", a3, a4, a5, a6, a7, a8, a2);
+    debuglog("_MKBBackupCheckKey", @"corrupt blob size %zu, expected at least %zu", a3, a4, a5, a6, a7, a8, a2, 36);
     return 0xFFFFFFFFLL;
   }
 
@@ -5432,20 +5371,19 @@ uint64_t _MKBBackupCheckKey(uint64_t a1, unint64_t a2, uint64_t a3, uint64_t a4,
       {
         if (a2 - v18 <= 0x23)
         {
-          debuglog("_MKBBackupCheckKey", @"remaining blob size too short offset=%zu blob_size=%zu", v12, v13, v14, v15, v16, v17, v18);
+          debuglog("_MKBBackupCheckKey", @"remaining blob size too short offset=%zu blob_size=%zu", v12, v13, v14, v15, v16, v17, v18, a2);
           return 0xFFFFFFFFLL;
         }
 
         v20 = bswap32(*(v19 + 32));
         if (v20 >= 0xA9)
         {
-          debuglog("_MKBBackupCheckKey", @"wrapped key size too big (%lu>%u)", v12, v13, v14, v15, v16, v17, a2);
+          debuglog("_MKBBackupCheckKey", @"wrapped key size too big (%lu>%u)", v12, v13, v14, v15, v16, v17, a2, 168);
           return 0xFFFFFFFFLL;
         }
 
         v21 = v20 + 36;
-        v22 = bswap64(*(v20 + 36 + v19));
-        debuglog("_MKBBackupCheckKey", @"offset = %zu, keysize = %u, extent size = %llu", v12, v13, v14, v15, v16, v17, v18);
+        debuglog("_MKBBackupCheckKey", @"offset = %zu, keysize = %u, extent size = %llu", v12, v13, v14, v15, v16, v17, v18, v20, bswap64(*(v20 + 36 + v19)));
         v18 += v21 + 8;
         v19 = v18 + a1;
       }
@@ -5456,7 +5394,7 @@ uint64_t _MKBBackupCheckKey(uint64_t a1, unint64_t a2, uint64_t a3, uint64_t a4,
         return 0;
       }
 
-      debuglog("_MKBBackupCheckKey", @"odd blob size %zu, offset = %zu", v12, v13, v14, v15, v16, v17, a2);
+      debuglog("_MKBBackupCheckKey", @"odd blob size %zu, offset = %zu", v12, v13, v14, v15, v16, v17, a2, v18);
     }
 
     else
@@ -5473,15 +5411,14 @@ uint64_t _MKBBackupCheckKey(uint64_t a1, unint64_t a2, uint64_t a3, uint64_t a4,
 
 uint64_t MKBKeyBagCopyUUID(uint64_t a1, CFDataRef *a2)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   *bytes = 0;
-  v16 = 0;
-  v4 = *(a1 + 16);
+  v14 = 0;
   bag_uuid = aks_get_bag_uuid();
-  v12 = convertAKSErrorToMKB(bag_uuid);
-  if (v12)
+  v11 = convertAKSErrorToMKB(bag_uuid);
+  if (v11)
   {
-    debuglog("MKBKeyBagCopyUUID", @"failed to get uuid for handle %d", v6, v7, v8, v9, v10, v11, *(a1 + 16));
+    debuglog("MKBKeyBagCopyUUID", @"failed to get uuid for handle %d", v5, v6, v7, v8, v9, v10, *(a1 + 16), *bytes, v14, v15);
   }
 
   else
@@ -5489,11 +5426,10 @@ uint64_t MKBKeyBagCopyUUID(uint64_t a1, CFDataRef *a2)
     *a2 = CFDataCreate(*MEMORY[0x1E695E480], bytes, 16);
   }
 
-  v13 = *MEMORY[0x1E69E9840];
-  return v12;
+  return v11;
 }
 
-uint64_t MKBBackupUpdateKeyWithError(int *a1, const __CFData *a2, CFTypeRef *a3, void *a4)
+uint64_t MKBBackupUpdateKeyWithError(unsigned int *a1, const __CFData *a2, CFMutableDataRef *a3, void *a4)
 {
   if (!a3)
   {
@@ -5523,7 +5459,7 @@ uint64_t MKBBackupUpdateKeyWithError(int *a1, const __CFData *a2, CFTypeRef *a3,
   return result;
 }
 
-uint64_t MKBBackupCopyKeyWithError(int *a1, CFMutableDataRef *a2, void *a3)
+uint64_t MKBBackupCopyKeyWithError(unsigned int *a1, CFMutableDataRef *a2, void *a3)
 {
   v4 = MKBCopyCryptoIDKeysForFileDescriptor(*a1, 0, a3);
   if (!v4)
@@ -5537,7 +5473,7 @@ uint64_t MKBBackupCopyKeyWithError(int *a1, CFMutableDataRef *a2, void *a3)
   return result;
 }
 
-uint64_t MKBBackupCopyKey(int *a1, CFMutableDataRef *a2)
+uint64_t MKBBackupCopyKey(unsigned int *a1, CFMutableDataRef *a2)
 {
   v3 = MKBCopyCryptoIDKeysForFileDescriptor(*a1, 0, 0);
   if (!v3)
@@ -5557,7 +5493,7 @@ uint64_t MKBBackupCopyBackupKeyUUID(const __CFData *a1, CFDataRef *a2)
   Length = CFDataGetLength(a1);
   if (_MKBBackupCheckKey(BytePtr, Length, v6, v7, v8, v9, v10, v11))
   {
-    debuglog("MKBBackupCopyBackupKeyUUID", @"Bad key passed in, does not validate", v12, v13, v14, v15, v16, v17, v21);
+    debuglog("MKBBackupCopyBackupKeyUUID", @"Bad key passed in, does not validate", v12, v13, v14, v15, v16, v17);
     v18 = 0;
     v19 = 0xFFFFFFFFLL;
   }
@@ -5593,177 +5529,174 @@ uint64_t MKBBackupSetKeyEncryptionModeToXTS(const __CFData *a1)
 
 uint64_t __MKBBackupDecryptInPlace(uint64_t a1, uint64_t a2, const char *a3, off_t a4, CFDataRef theData)
 {
-  v164 = *MEMORY[0x1E69E9840];
+  v162 = *MEMORY[0x1E69E9840];
   BytePtr = CFDataGetBytePtr(theData);
   Length = CFDataGetLength(theData);
   data = 0u;
-  v163 = 0u;
-  v149 = 32;
   v161 = 0u;
+  v147 = 32;
   v159 = 0u;
-  v160 = 0u;
+  v157 = 0u;
   v158 = 0u;
-  v148 = ccaes_xts_decrypt_mode();
-  v12 = (*v148 + 15) & 0xFFFFFFFFFFFFFFF0;
-  v13 = MEMORY[0x1EEE9AC00](v148);
-  v15 = &v128[-v14];
-  v16 = (*(v13 + 8) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x1EEE9AC00](v13);
-  v18 = &v128[-v17];
-  v156 = 0;
-  v157 = 0;
-  v25 = _MKBBackupCheckKey(BytePtr, Length, v19, v20, v21, v22, v23, v24);
-  v32 = bswap32(*(BytePtr + 8));
-  if (v25)
+  v156 = 0u;
+  v146 = ccaes_xts_decrypt_mode();
+  v12 = MEMORY[0x1EEE9AC00](v146);
+  v14 = &v126[-v13];
+  MEMORY[0x1EEE9AC00](v12);
+  v16 = &v126[-v15];
+  v154 = 0;
+  v155 = 0;
+  v23 = _MKBBackupCheckKey(BytePtr, Length, v17, v18, v19, v20, v21, v22);
+  v30 = bswap32(*(BytePtr + 8));
+  if (v23)
   {
-    debuglog("__MKBBackupDecryptInPlace", @"corrupt key; blob size %lu, key size %u", v26, v27, v28, v29, v30, v31, Length);
-    v33 = 0xFFFFFFFFLL;
-    goto LABEL_86;
+    debuglog("__MKBBackupDecryptInPlace", @"corrupt key; blob size %lu, key size %u", v24, v25, v26, v27, v28, v29, Length, v30);
+    return 0xFFFFFFFFLL;
   }
 
-  v138 = a1;
-  v140 = a4;
-  v34 = v32 + 36;
-  v35 = "false";
-  v139 = v34;
-  if (Length > v34)
+  v136 = a1;
+  v138 = a4;
+  v32 = v30 + 36;
+  v33 = "false";
+  v137 = v32;
+  if (Length > v32)
   {
-    v35 = "true";
+    v33 = "true";
   }
 
-  debuglog("__MKBBackupDecryptInPlace", @"extents = %s", v26, v27, v28, v29, v30, v31, v35);
-  v36 = open(a3, 2);
-  if (v36 == -1)
+  debuglog("__MKBBackupDecryptInPlace", @"extents = %s", v24, v25, v26, v27, v28, v29, v33);
+  v34 = open(a3, 2);
+  if (v34 == -1)
   {
     __MKBBackupDecryptInPlace_cold_4(a3);
-    v45 = 0;
+    v43 = 0;
 LABEL_96:
-    v33 = 0xFFFFFFFFLL;
+    v31 = 0xFFFFFFFFLL;
     goto LABEL_82;
   }
 
-  v134 = a2;
+  v132 = a2;
   page_aligned_buffer = allocate_page_aligned_buffer(0x8000uLL);
-  v45 = page_aligned_buffer;
+  v43 = page_aligned_buffer;
   if (!page_aligned_buffer)
   {
-    __MKBBackupDecryptInPlace_cold_3(0, v38, v39, v40, v41, v42, v43, v44, v128[0]);
+    __MKBBackupDecryptInPlace_cold_3(0, v36, v37, v38, v39, v40, v41, v42, v126[0]);
     goto LABEL_96;
   }
 
-  v147 = v18;
+  v145 = v16;
   if (&BytePtr[Length] <= BytePtr)
   {
     goto LABEL_78;
   }
 
-  v46 = 0;
-  v135 = 0;
-  v133 = 1;
-  v129 = @"Failed to construct tweak key fixed data";
-  v132 = v128;
-  v146 = v15;
-  v136 = page_aligned_buffer;
-  v143 = v36;
-  v131 = a3;
-  v141 = Length;
-  v130 = &BytePtr[Length];
+  v44 = 0;
+  v133 = 0;
+  v131 = 1;
+  v127 = @"Failed to construct tweak key fixed data";
+  v130 = v126;
+  v144 = v14;
+  v134 = page_aligned_buffer;
+  v141 = v34;
+  v129 = a3;
+  v139 = Length;
+  v128 = &BytePtr[Length];
   while (2)
   {
-    v47 = *(BytePtr + 8);
-    v137 = bswap32(v47);
-    v144 = v47;
-    if (!v47)
+    v45 = *(BytePtr + 8);
+    v135 = bswap32(v45);
+    v142 = v45;
+    if (!v45)
     {
-      v51 = 0;
+      v49 = 0;
       goto LABEL_33;
     }
 
-    v48 = *(BytePtr + 6);
-    v49 = bswap32(v48);
-    debuglog("__MKBBackupDecryptInPlace", @"key class %d", v39, v40, v41, v42, v43, v44, v49);
+    v46 = *(BytePtr + 6);
+    v47 = bswap32(v46);
+    debuglog("__MKBBackupDecryptInPlace", @"key class %d", v37, v38, v39, v40, v41, v42, v47);
     if (*(BytePtr + 7) == 0x1000000)
     {
-      v50 = 0;
+      v48 = 0;
     }
 
     else if (BytePtr[28] == 1)
     {
-      v50 = BytePtr[29];
+      v48 = BytePtr[29];
     }
 
     else
     {
-      v50 = BytePtr[28];
+      v48 = BytePtr[28];
     }
 
-    if (v133)
+    if (v131)
     {
-      v52 = v48 == 285212672 ? 7 : v49;
-      v53 = v52 == 1 ? 2 : v52;
-      if (fcntl(v36, 64, v53))
+      v50 = v46 == 285212672 ? 7 : v47;
+      v51 = v50 == 1 ? 2 : v50;
+      if (fcntl(v34, 64, v51))
       {
-        __MKBBackupDecryptInPlace_cold_1(v53);
-        v33 = 0xFFFFFFFFLL;
+        __MKBBackupDecryptInPlace_cold_1(v51);
+        v31 = 0xFFFFFFFFLL;
 LABEL_81:
-        v45 = v136;
+        v43 = v134;
         goto LABEL_82;
       }
     }
 
-    if (v134 == -1)
+    if (v132 == -1)
     {
-      v62 = aks_backup_unwrap_key();
-      v61 = v146;
-      if (v62)
+      v60 = aks_backup_unwrap_key();
+      v59 = v144;
+      if (v60)
       {
-        debuglog("__MKBBackupDecryptInPlace", @"Failed to unwrap key (%p,%d) in class %d with keypair: 0x%08x", v55, v56, v57, v58, v59, v60, BytePtr + 36);
+        debuglog("__MKBBackupDecryptInPlace", @"Failed to unwrap key (%p,%d) in class %d with keypair: 0x%08x", v53, v54, v55, v56, v57, v58, BytePtr + 36, v135, v47, v60);
         goto LABEL_101;
       }
     }
 
     else
     {
-      LODWORD(md) = v149;
-      v54 = aks_unwrap_key();
-      v149 = md;
-      v61 = v146;
-      if (v54)
+      LODWORD(md) = v147;
+      v52 = aks_unwrap_key();
+      v147 = md;
+      v59 = v144;
+      if (v52)
       {
-        debuglog("__MKBBackupDecryptInPlace", @"Failed to unwrap key (%p,%d) in class %d with handle %d: 0x%08x", v55, v56, v57, v58, v59, v60, BytePtr + 36);
+        debuglog("__MKBBackupDecryptInPlace", @"Failed to unwrap key (%p,%d) in class %d with handle %d: 0x%08x", v53, v54, v55, v56, v57, v58, BytePtr + 36, v135, v47, v132, v52);
 LABEL_101:
-        v33 = 0xFFFFFFFFLL;
+        v31 = 0xFFFFFFFFLL;
         goto LABEL_81;
       }
     }
 
-    if (!v50)
+    if (!v48)
     {
-      debuglog("__MKBBackupDecryptInPlace", @"cbc mode", v55, v56, v57, v58, v59, v60, v128[0]);
-      v135 = 0;
+      debuglog("__MKBBackupDecryptInPlace", @"cbc mode", v53, v54, v55, v56, v57, v58);
       v133 = 0;
-      v51 = v136;
+      v131 = 0;
+      v49 = v134;
       goto LABEL_32;
     }
 
-    v45 = v136;
-    if (v50 == 1)
+    v43 = v134;
+    if (v48 == 1)
     {
-      debuglog("__MKBBackupDecryptInPlace", @"xts mode", v55, v56, v57, v58, v59, v60, v128[0]);
-      (*(v148 + 24))(v148, v61, 16, &data, &v163);
-      v133 = 0;
-      v135 = 1;
-      v51 = v45;
+      debuglog("__MKBBackupDecryptInPlace", @"xts mode", v53, v54, v55, v56, v57, v58);
+      (*(v146 + 24))(v146, v59, 16, &data, &v161);
+      v131 = 0;
+      v133 = 1;
+      v49 = v43;
 LABEL_32:
-      v47 = v144;
+      v45 = v142;
       goto LABEL_33;
     }
 
-    if (v50 != 2)
+    if (v48 != 2)
     {
-      debuglog("__MKBBackupDecryptInPlace", @"error: unexpected encryption mode : %d", v55, v56, v57, v58, v59, v60, v50);
+      debuglog("__MKBBackupDecryptInPlace", @"error: unexpected encryption mode : %d", v53, v54, v55, v56, v57, v58, v48, v123);
 LABEL_88:
-      v33 = 0xFFFFFFFFLL;
+      v31 = 0xFFFFFFFFLL;
       goto LABEL_82;
     }
 
@@ -5771,47 +5704,47 @@ LABEL_88:
     iv[0] = 0x100000000000000;
     *(&md + 7) = 0;
     *&md = 0;
-    debuglog("__MKBBackupDecryptInPlace", @"xts ans kdf2 mode", v55, v56, v57, v58, v59, v60, v128[0]);
+    debuglog("__MKBBackupDecryptInPlace", @"xts ans kdf2 mode", v53, v54, v55, v56, v57, v58);
     if (ANS_AKDF2_construct_fixed_data(&dataIn, 8, &md, 15))
     {
 LABEL_106:
-      debuglog("__MKBBackupDecryptInPlace", v129, v89, v90, v91, v92, v93, v94, v128[0]);
+      debuglog("__MKBBackupDecryptInPlace", v127, v87, v88, v89, v90, v91, v92);
 LABEL_93:
-      v33 = 0xFFFFFFFFLL;
+      v31 = 0xFFFFFFFFLL;
       goto LABEL_81;
     }
 
-    v95 = ANS_AKDF2(&data, v149, &md, 15, &v158, 0x20uLL);
-    v47 = v144;
-    if (v95)
+    v93 = ANS_AKDF2(&data, v147, &md, 15, &v156, 0x20uLL);
+    v45 = v142;
+    if (v93)
     {
-      v127 = @"Failed to construct tweak key";
+      v122 = @"Failed to construct tweak key";
 LABEL_105:
-      v129 = v127;
+      v127 = v122;
       goto LABEL_106;
     }
 
     if (ANS_AKDF2_construct_fixed_data(iv, 8, &md, 15))
     {
-      v127 = @"Failed to construct data key fixed data";
+      v122 = @"Failed to construct data key fixed data";
       goto LABEL_105;
     }
 
-    if (ANS_AKDF2(&data, v149, &md, 15, &v160, 0x20uLL))
+    if (ANS_AKDF2(&data, v147, &md, 15, &v158, 0x20uLL))
     {
-      v127 = @"Failed to construct data key";
+      v122 = @"Failed to construct data key";
       goto LABEL_105;
     }
 
-    (*(v148 + 24))(v148, v61, 32, &v160, &v158);
-    v133 = 0;
-    v135 = 2;
-    v51 = v45;
+    (*(v146 + 24))(v146, v59, 32, &v158, &v156);
+    v131 = 0;
+    v133 = 2;
+    v49 = v43;
 LABEL_33:
-    if (Length <= v139)
+    if (Length <= v137)
     {
-      v64 = -1;
-      if (!v47)
+      v62 = -1;
+      if (!v45)
       {
         goto LABEL_37;
       }
@@ -5819,94 +5752,107 @@ LABEL_33:
 
     else
     {
-      v63 = bswap64(*&BytePtr[v137 + 36]);
-      debuglog("__MKBBackupDecryptInPlace", @"extent = %llu bytes", v39, v40, v41, v42, v43, v44, v63);
-      v64 = v63;
-      if (!v47)
+      v61 = bswap64(*&BytePtr[v135 + 36]);
+      debuglog("__MKBBackupDecryptInPlace", @"extent = %llu bytes", v37, v38, v39, v40, v41, v42, v61);
+      v62 = v61;
+      if (!v45)
       {
 LABEL_37:
-        if ((v64 + v46) <= v140)
+        if ((v62 + v44) <= v138)
         {
           *&md = 0;
-          *(&md + 1) = v46;
-          v67 = v64;
-          v155 = v64;
-          if (fcntl(v36, 99, &md))
+          *(&md + 1) = v44;
+          v65 = v62;
+          v153 = v62;
+          if (fcntl(v34, 99, &md))
           {
-            v120 = __error();
-            strerror(*v120);
-            debuglog("__MKBBackupDecryptInPlace", @"F_PUNCHHOLE failed on %s for range (%lld:%llu): %s", v121, v122, v123, v124, v125, v126, v131);
+            v115 = __error();
+            v125 = strerror(*v115);
+            debuglog("__MKBBackupDecryptInPlace", @"F_PUNCHHOLE failed on %s for range (%lld:%llu): %s", v116, v117, v118, v119, v120, v121, v129, v44, v65, v125);
             goto LABEL_101;
           }
 
-          v64 = v67;
+          v62 = v65;
         }
 
         else
         {
-          v65 = v64;
-          v66 = ftruncate(v36, v46);
-          v64 = v65;
-          if (v66)
+          v63 = v62;
+          v64 = ftruncate(v34, v44);
+          v62 = v63;
+          if (v64)
           {
-            __MKBBackupDecryptInPlace_cold_2(v131);
+            __MKBBackupDecryptInPlace_cold_2(v129, v44);
             goto LABEL_101;
           }
         }
       }
     }
 
-    v68 = v135 - 1;
-    v142 = BytePtr;
+    v66 = v133 - 1;
+    v140 = BytePtr;
     do
     {
-      if (v64 >= 0x8000)
+      if (v62 >= 0x8000)
       {
-        v69 = 0x8000;
+        v67 = 0x8000;
       }
 
       else
       {
-        v69 = v64;
+        v67 = v62;
       }
 
-      if (v47)
+      if (v45)
       {
-        v145 = v64;
-        v70 = pread(v36, v51, v69, v46);
-        debuglog("__MKBBackupDecryptInPlace", @"nbytes = %zd, bytes_read = %zd", v71, v72, v73, v74, v75, v76, v69);
-        if (!v70)
+        v143 = v62;
+        v68 = pread(v34, v49, v67, v44);
+        debuglog("__MKBBackupDecryptInPlace", @"nbytes = %zd, bytes_read = %zd", v69, v70, v71, v72, v73, v74, v67, v68);
+        if (!v68)
         {
           break;
         }
 
-        if (v70 <= 0)
+        if (v68 <= 0)
         {
-          v113 = __error();
-          strerror(*v113);
-          debuglog("__MKBBackupDecryptInPlace", @"Failed to pread(%zu, %llu) from %s (%s)", v114, v115, v116, v117, v118, v119, v69);
+          v108 = __error();
+          v124 = strerror(*v108);
+          debuglog("__MKBBackupDecryptInPlace", @"Failed to pread(%zu, %llu) from %s (%s)", v109, v110, v111, v112, v113, v114, v67, v44, v129, v124);
           goto LABEL_93;
         }
 
-        if ((v70 & 0xF) != 0)
+        if ((v68 & 0xF) != 0)
         {
-          debuglog("__MKBBackupDecryptInPlace", @"bytes_read(%zd) not multiple of encryption block size", v39, v40, v41, v42, v43, v44, v70);
+          debuglog("__MKBBackupDecryptInPlace", @"bytes_read(%zd) not multiple of encryption block size", v37, v38, v39, v40, v41, v42, v68, v123);
           goto LABEL_93;
         }
 
-        if (((v70 + 4095) & 0xFFFFFFFF000) != 0)
+        if (((v68 + 4095) & 0xFFFFFFFF000) != 0)
         {
-          v77 = 0;
-          v78 = v46 >> 12;
-          for (i = ((v70 + 4095) >> 12); i; --i)
+          v75 = 0;
+          v76 = v44 >> 12;
+          for (i = ((v68 + 4095) >> 12); i; --i)
           {
-            if (v68 > 1)
+            if (v66 > 1)
             {
-              CC_SHA1(&data, v149, &md);
-              v85 = ((v46 + v77) >> 1) ^ 0x80000061;
-              if ((v46 & 1) == 0)
+              CC_SHA1(&data, v147, &md);
+              v83 = ((v44 + v75) >> 1) ^ 0x80000061;
+              if ((v44 & 1) == 0)
               {
-                v85 = (v46 + v77) >> 1;
+                v83 = (v44 + v75) >> 1;
+              }
+
+              v84 = v83 >> 1;
+              if (v83)
+              {
+                v84 = (v83 >> 1) ^ 0x80000061;
+              }
+
+              dataIn = __PAIR64__(v84, v83);
+              v85 = v84 >> 1;
+              if (v84)
+              {
+                v85 = (v84 >> 1) ^ 0x80000061;
               }
 
               v86 = v85 >> 1;
@@ -5915,82 +5861,69 @@ LABEL_37:
                 v86 = (v85 >> 1) ^ 0x80000061;
               }
 
-              dataIn = __PAIR64__(v86, v85);
-              v87 = v86 >> 1;
-              if (v86)
+              v150 = v85;
+              v151 = v86;
+              if (CCCrypt(0, 0, 0, &md, 0x10uLL, 0, &dataIn, 0x10uLL, iv, 0x10uLL, 0) || CCCrypt(1u, 0, 0, &data, v147, iv, &v49[v75], 0x1000uLL, &v49[v75], 0x1000uLL, 0))
               {
-                v87 = (v86 >> 1) ^ 0x80000061;
-              }
-
-              v88 = v87 >> 1;
-              if (v87)
-              {
-                v88 = (v87 >> 1) ^ 0x80000061;
-              }
-
-              v152 = v87;
-              v153 = v88;
-              if (CCCrypt(0, 0, 0, &md, 0x10uLL, 0, &dataIn, 0x10uLL, iv, 0x10uLL, 0) || CCCrypt(1u, 0, 0, &data, v149, iv, &v51[v77], 0x1000uLL, &v51[v77], 0x1000uLL, 0))
-              {
-                v33 = 0xFFFFFFFFLL;
-                v36 = v143;
+                v31 = 0xFFFFFFFFLL;
+                v34 = v141;
                 goto LABEL_81;
               }
             }
 
             else
             {
-              v156 = v78;
-              v157 = v78;
-              v80 = v148;
-              v81 = v146;
-              v82 = v46;
-              v83 = v147;
-              (*(v148 + 40))(v146, v147, &v156);
-              v84 = v83;
-              v46 = v82;
-              (*(v80 + 48))(v81, v84, 256, &v51[v77 & 0xFFFFF000], &v51[v77 & 0xFFFFF000]);
+              v154 = v76;
+              v155 = v76;
+              v78 = v146;
+              v79 = v144;
+              v80 = v44;
+              v81 = v145;
+              (*(v146 + 40))(v144, v145, &v154);
+              v82 = v81;
+              v44 = v80;
+              (*(v78 + 48))(v79, v82, 256, &v49[v75 & 0xFFFFF000], &v49[v75 & 0xFFFFF000]);
             }
 
-            v77 += 4096;
-            ++v78;
+            v75 += 4096;
+            ++v76;
           }
         }
 
-        v36 = v143;
-        v69 = pwrite(v143, v51, v70, v46);
-        Length = v141;
-        BytePtr = v142;
-        v47 = v144;
-        v64 = v145;
+        v34 = v141;
+        v67 = pwrite(v141, v49, v68, v44);
+        Length = v139;
+        BytePtr = v140;
+        v45 = v142;
+        v62 = v143;
       }
 
       else
       {
-        v70 = v69;
+        v68 = v67;
       }
 
-      if (v69 <= 0)
+      if (v67 <= 0)
       {
-        debuglog("__MKBBackupDecryptInPlace", @"Failed to pwrite(%lu, %llu) from %s", v39, v40, v41, v42, v43, v44, 0);
+        debuglog("__MKBBackupDecryptInPlace", @"Failed to pwrite(%lu, %llu) from %s", v37, v38, v39, v40, v41, v42, 0x8000, v44, v129, v123);
         goto LABEL_93;
       }
 
-      if (v70 != v69)
+      if (v68 != v67)
       {
-        debuglog("__MKBBackupDecryptInPlace", @"bytes_read(%lu) != bytes_written(%lu)", v39, v40, v41, v42, v43, v44, v70);
+        debuglog("__MKBBackupDecryptInPlace", @"bytes_read(%lu) != bytes_written(%lu)", v37, v38, v39, v40, v41, v42, v68, v67);
         goto LABEL_93;
       }
 
-      v46 += v70;
-      v64 -= v70;
+      v44 += v68;
+      v62 -= v68;
     }
 
-    while (v64);
-    BytePtr += v137 + 44;
-    v45 = v136;
-    LOBYTE(a3) = v131;
-    if (v130 > BytePtr)
+    while (v62);
+    BytePtr += v135 + 44;
+    v43 = v134;
+    a3 = v129;
+    if (v128 > BytePtr)
     {
       continue;
     }
@@ -5999,41 +5932,37 @@ LABEL_37:
   }
 
 LABEL_78:
-  if (ftruncate(v36, v140))
+  v94 = v138;
+  if (ftruncate(v34, v138))
   {
-    debuglog("__MKBBackupDecryptInPlace", @"Failed to truncate %s to %lld", v96, v97, v98, v99, v100, v101, a3);
+    debuglog("__MKBBackupDecryptInPlace", @"Failed to truncate %s to %lld", v95, v96, v97, v98, v99, v100, a3, v94);
     goto LABEL_88;
   }
 
-  v33 = 0;
+  v31 = 0;
 LABEL_82:
   __memset_chk();
-  v159 = 0u;
-  v160 = 0u;
-  v161 = 0u;
+  v157 = 0u;
   v158 = 0u;
-  v102 = v148;
-  v103 = *v148;
-  cc_clear();
-  v104 = *(v102 + 8);
+  v159 = 0u;
+  v156 = 0u;
   cc_clear();
   cc_clear();
-  if (v45)
+  cc_clear();
+  if (v43)
   {
-    deallocate_page_aligned_buffer(v45, 0x8000, v105, v106, v107, v108, v109, v110, v128[0]);
+    deallocate_page_aligned_buffer(v43, 0x8000, v101, v102, v103, v104, v105, v106, v126[0]);
   }
 
-  if (v36 != -1)
+  if (v34 != -1)
   {
-    close(v36);
+    close(v34);
   }
 
-LABEL_86:
-  v111 = *MEMORY[0x1E69E9840];
-  return v33;
+  return v31;
 }
 
-uint64_t MKBOTABackupBagOpen(const __CFData *a1, const __CFData *a2, void *a3)
+uint64_t MKBOTABackupBagOpen(const __CFData *a1, const __CFData *a2, unsigned int **a3)
 {
   v6 = malloc_type_calloc(1uLL, 0x44uLL, 0x100004069DB8102uLL);
   if (v6)
@@ -6050,7 +5979,7 @@ uint64_t MKBOTABackupBagOpen(const __CFData *a1, const __CFData *a2, void *a3)
 
     if (!aks_backup_unwrap_bag())
     {
-      debuglog("MKBOTABackupBagOpen", @"Unwrapped userland backup bag", v15, v16, v17, v18, v19, v20, v37);
+      debuglog("MKBOTABackupBagOpen", @"Unwrapped userland backup bag", v15, v16, v17, v18, v19, v20);
 LABEL_10:
       result = 0;
       *a3 = v14;
@@ -6067,20 +5996,19 @@ LABEL_10:
 
     else
     {
-      v28 = *v14;
       if (a2)
       {
         CFDataGetBytePtr(a2);
         CFDataGetLength(a2);
       }
 
-      v29 = aks_unlock_bag();
-      if (!v29)
+      v28 = aks_unlock_bag();
+      if (!v28)
       {
         goto LABEL_10;
       }
 
-      debuglog("MKBOTABackupBagOpen", @"Failed to unlock in-kernel backup bag: 0x%08x", v30, v31, v32, v33, v34, v35, v29);
+      debuglog("MKBOTABackupBagOpen", @"Failed to unlock in-kernel backup bag: 0x%08x", v29, v30, v31, v32, v33, v34, v28);
     }
 
     if (*v14 != -1)
@@ -6093,7 +6021,7 @@ LABEL_10:
 
   else
   {
-    MKBOTABackupBagOpen_cold_1(0, v7, v8, v9, v10, v11, v12, v13, v37);
+    MKBOTABackupBagOpen_cold_1(0, v7, v8, v9, v10, v11, v12, v13, v36);
   }
 
   return 0xFFFFFFFFLL;
@@ -6114,20 +6042,20 @@ uint64_t MKBOTABackupBagClose(char *a1)
   return 0;
 }
 
-uint64_t MKBOTABackupBagCopyUUID(uint64_t a1, CFDataRef *a2)
+uint64_t MKBOTABackupBagCopyUUID(const UInt8 *a1, CFDataRef *a2)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   if (*a1 == -1)
   {
-    v12 = CFDataCreate(*MEMORY[0x1E695E480], (a1 + 36), 16);
+    v12 = CFDataCreate(*MEMORY[0x1E695E480], a1 + 36, 16);
     v11 = 0;
 LABEL_6:
     *a2 = v12;
-    goto LABEL_7;
+    return v11;
   }
 
   *bytes = 0;
-  v16 = 0;
+  v15 = 0;
   bag_uuid = aks_get_bag_uuid();
   v11 = convertAKSErrorToMKB(bag_uuid);
   if (!v11)
@@ -6136,9 +6064,7 @@ LABEL_6:
     goto LABEL_6;
   }
 
-  debuglog("MKBOTABackupBagCopyUUID", @"failed to get uuid for handle %d", v5, v6, v7, v8, v9, v10, *a1);
-LABEL_7:
-  v13 = *MEMORY[0x1E69E9840];
+  debuglog("MKBOTABackupBagCopyUUID", @"failed to get uuid for handle %d", v5, v6, v7, v8, v9, v10, *a1, *bytes, v15, v16);
   return v11;
 }
 
@@ -6206,7 +6132,7 @@ uint64_t MKBKeyBagChangeSystemGenerationWithACM(uint64_t a1, uint64_t a2)
   return v5;
 }
 
-uint64_t MKBKeyBagGetSystemGeneration()
+uint64_t MKBKeyBagGetSystemGeneration(uint64_t a1)
 {
   if (aks_generation())
   {
@@ -6241,7 +6167,7 @@ uint64_t MKBKeyBagMigrateFS()
   return v1;
 }
 
-uint64_t MKBPrewarmSPS(char a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t MKBPrewarmSPS(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   debuglog("MKBPrewarmSPS", @"Prewarming SPSs with %@", a3, a4, a5, a6, a7, a8, a1);
   result = aks_prewarm_sps();
@@ -6340,7 +6266,7 @@ uint64_t MKBUserSessionLoadWithPasscode(uint64_t a1, uint64_t a2, uint64_t a3)
   {
     v15 = @"Failed to dlopen UserManagement.framework";
 LABEL_8:
-    debuglog("MKBUserSessionLoadWithPasscode", v15, v7, v8, v9, v10, v11, v12, v16);
+    debuglog("MKBUserSessionLoadWithPasscode", v15, v7, v8, v9, v10, v11, v12);
     return 0;
   }
 
@@ -6361,7 +6287,7 @@ uint64_t MKBUserSessionSetSecureBackupBlob(uint64_t a1, uint64_t a2, uint64_t a3
   {
     v15 = @"Failed to dlopen UserManagement.framework";
 LABEL_8:
-    debuglog("MKBUserSessionSetSecureBackupBlob", v15, v7, v8, v9, v10, v11, v12, v16);
+    debuglog("MKBUserSessionSetSecureBackupBlob", v15, v7, v8, v9, v10, v11, v12);
     return 0;
   }
 
@@ -6382,7 +6308,7 @@ uint64_t MKBUserSessionRetrieveSecureBackupBlob(uint64_t a1, uint64_t a2, uint64
   {
     v15 = @"Failed to dlopen UserManagement.framework";
 LABEL_8:
-    debuglog("MKBUserSessionRetrieveSecureBackupBlob", v15, v7, v8, v9, v10, v11, v12, v16);
+    debuglog("MKBUserSessionRetrieveSecureBackupBlob", v15, v7, v8, v9, v10, v11, v12);
     return 0;
   }
 
@@ -6403,7 +6329,7 @@ uint64_t MKBUserSessionDeleteSecureBackupBlob(uint64_t a1, uint64_t a2)
   {
     v13 = @"Failed to dlopen UserManagement.framework";
 LABEL_8:
-    debuglog("MKBUserSessionDeleteSecureBackupBlob", v13, v5, v6, v7, v8, v9, v10, v14);
+    debuglog("MKBUserSessionDeleteSecureBackupBlob", v13, v5, v6, v7, v8, v9, v10);
     return 0;
   }
 
@@ -6419,8 +6345,8 @@ LABEL_8:
 
 uint64_t MKBForegroundUserSessionID(CFErrorRef *a1)
 {
-  v20 = 0;
-  hostmultiuserconfig = get_hostmultiuserconfig(&v20);
+  v19 = 0;
+  hostmultiuserconfig = get_hostmultiuserconfig(&v19);
   if (hostmultiuserconfig)
   {
     v9 = hostmultiuserconfig;
@@ -6445,7 +6371,7 @@ uint64_t MKBForegroundUserSessionID(CFErrorRef *a1)
       v17 = 22;
     }
 
-    debuglog("MKBForegroundUserSessionID", v16, v10, v11, v12, v13, v14, v15, v19);
+    debuglog("MKBForegroundUserSessionID", v16, v10, v11, v12, v13, v14, v15);
     if (!a1)
     {
       return 0xFFFFFFFFLL;
@@ -6456,7 +6382,7 @@ LABEL_9:
     return 0xFFFFFFFFLL;
   }
 
-  if ((v20 & 0x80000000) == 0)
+  if ((v19 & 0x80000000) == 0)
   {
     v17 = 2;
     if (!a1)
@@ -6467,7 +6393,7 @@ LABEL_9:
     goto LABEL_9;
   }
 
-  return v20 & 0x3FFFFFFF;
+  return v19 & 0x3FFFFFFF;
 }
 
 uint64_t MKBUserSessionIsLoginSession(uint64_t a1, uint64_t a2)
@@ -6477,7 +6403,7 @@ uint64_t MKBUserSessionIsLoginSession(uint64_t a1, uint64_t a2)
   {
     v13 = @"Failed to dlopen UserManagement.framework";
 LABEL_8:
-    debuglog("MKBUserSessionIsLoginSession", v13, v5, v6, v7, v8, v9, v10, v14);
+    debuglog("MKBUserSessionIsLoginSession", v13, v5, v6, v7, v8, v9, v10);
     return 0;
   }
 
@@ -6498,7 +6424,7 @@ uint64_t MKBUserSessionConfigureLoginWindow(uint64_t a1, uint64_t a2)
   {
     v13 = @"Failed to dlopen UserManagement.framework";
 LABEL_8:
-    debuglog("MKBUserSessionConfigureLoginWindow", v13, v5, v6, v7, v8, v9, v10, v14);
+    debuglog("MKBUserSessionConfigureLoginWindow", v13, v5, v6, v7, v8, v9, v10);
     return 0;
   }
 
@@ -6519,7 +6445,7 @@ uint64_t MKBUserSessionSwitchToLoginWindow(uint64_t a1, uint64_t a2)
   {
     v13 = @"Failed to dlopen UserManagement.framework";
 LABEL_8:
-    debuglog("MKBUserSessionSwitchToLoginWindow", v13, v5, v6, v7, v8, v9, v10, v14);
+    debuglog("MKBUserSessionSwitchToLoginWindow", v13, v5, v6, v7, v8, v9, v10);
     return 0;
   }
 
@@ -6540,7 +6466,7 @@ uint64_t MKBForegroundUserSession(uint64_t a1, uint64_t a2)
   {
     v13 = @"Failed to dlopen UserManagement.framework";
 LABEL_8:
-    debuglog("MKBForegroundUserSession", v13, v5, v6, v7, v8, v9, v10, v14);
+    debuglog("MKBForegroundUserSession", v13, v5, v6, v7, v8, v9, v10);
     return 0;
   }
 
@@ -6561,7 +6487,7 @@ uint64_t MKBUserSessionListSyncMachServices(uint64_t a1, uint64_t a2)
   {
     v13 = @"Failed to dlopen UserManagement.framework";
 LABEL_8:
-    debuglog("MKBUserSessionListSyncMachServices", v13, v5, v6, v7, v8, v9, v10, v14);
+    debuglog("MKBUserSessionListSyncMachServices", v13, v5, v6, v7, v8, v9, v10);
     return 0;
   }
 
@@ -6582,7 +6508,7 @@ uint64_t MKBCurrentSyncBubbleSessionID(uint64_t a1)
   {
     v11 = @"Failed to dlopen UserManagement.framework";
 LABEL_8:
-    debuglog("MKBCurrentSyncBubbleSessionID", v11, v3, v4, v5, v6, v7, v8, v12);
+    debuglog("MKBCurrentSyncBubbleSessionID", v11, v3, v4, v5, v6, v7, v8);
     return 0xFFFFFFFFLL;
   }
 
@@ -6598,6 +6524,7 @@ LABEL_8:
 
 uint64_t MKBUserSessionLoadKeybagForUser(const __CFDictionary *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, int a6)
 {
+  HIDWORD(v59) = -1;
   if (!a6)
   {
     v19 = +[MKBKeyStoreDevice sharedService];
@@ -6606,6 +6533,7 @@ uint64_t MKBUserSessionLoadKeybagForUser(const __CFDictionary *a1, uint64_t a2, 
     return v20;
   }
 
+  LODWORD(v59) = -1;
   system = aks_get_system();
   if (system != -536870160)
   {
@@ -6618,7 +6546,7 @@ uint64_t MKBUserSessionLoadKeybagForUser(const __CFDictionary *a1, uint64_t a2, 
     return v15;
   }
 
-  debuglog("MKBUserSessionLoadKeybagForUser", @"From EARLYSTART skip check switch between users", v9, v10, v11, v12, v13, v14, v60);
+  debuglog("MKBUserSessionLoadKeybagForUser", @"From EARLYSTART skip check switch between users", v9, v10, v11, v12, v13, v14);
   v22 = KBLoadUserKeybag(a2);
   if (v22)
   {
@@ -6633,7 +6561,7 @@ uint64_t MKBUserSessionLoadKeybagForUser(const __CFDictionary *a1, uint64_t a2, 
       if (bag)
       {
         v45 = bag;
-        debuglog("MKBUserSessionLoadKeybagForUser", @"failed to load bag for user %d: 0x%x", v39, v40, v41, v42, v43, v44, a2);
+        debuglog("MKBUserSessionLoadKeybagForUser", @"failed to load bag for user %d: 0x%x", v39, v40, v41, v42, v43, v44, a2, bag, v57, v59);
       }
 
       else
@@ -6642,27 +6570,35 @@ uint64_t MKBUserSessionLoadKeybagForUser(const __CFDictionary *a1, uint64_t a2, 
         if (v46)
         {
           v45 = v46;
-          debuglog("MKBUserSessionLoadKeybagForUser", @"failed to set bag handle %d as session bag for UID %d: 0x%x", v47, v48, v49, v50, v51, v52, -1);
+          v56 = a2;
+          v58 = v46;
+          v55 = 0xFFFFFFFFLL;
+          v53 = @"failed to set bag handle %d as session bag for UID %d: 0x%x";
         }
 
         else
         {
-          v53 = aks_get_system();
-          if (!v53)
+          v54 = aks_get_system();
+          if (!v54)
           {
             if (a2 != 502)
             {
-              debuglog("MKBUserSessionLoadKeybagForUser", @"seting APFSVolumeID For KeyBag ", v54, v55, v56, v57, v58, v59, v61);
+              debuglog("MKBUserSessionLoadKeybagForUser", @"seting APFSVolumeID For KeyBag ", v47, v48, v49, v50, v51, v52);
               setAPFSVolumeIDForKeyBag(0xFFFFFFFFLL, a2, a1);
             }
 
             v15 = 0;
-            goto LABEL_17;
+            goto LABEL_18;
           }
 
-          v45 = v53;
-          debuglog("MKBUserSessionLoadKeybagForUser", @"loaded bag handle %ld as session bag for %d, but got no session handle back: 0x%x", v54, v55, v56, v57, v58, v59, -1);
+          v45 = v54;
+          v56 = a2;
+          v58 = v54;
+          v55 = -1;
+          v53 = @"loaded bag handle %ld as session bag for %d, but got no session handle back: 0x%x";
         }
+
+        debuglog("MKBUserSessionLoadKeybagForUser", v53, v47, v48, v49, v50, v51, v52, v55, v56, v58, v59);
       }
 
       v15 = convertAKSErrorToMKB(v45);
@@ -6670,12 +6606,17 @@ uint64_t MKBUserSessionLoadKeybagForUser(const __CFDictionary *a1, uint64_t a2, 
 
     else
     {
-      debuglog("MKBUserSessionLoadKeybagForUser", @"no keybag in user bag plist", v31, v32, v33, v34, v35, v36, v61);
+      debuglog("MKBUserSessionLoadKeybagForUser", @"no keybag in user bag plist", v31, v32, v33, v34, v35, v36);
       v15 = 4294966296;
     }
 
-LABEL_17:
+LABEL_18:
     CFRelease(v29);
+    if (HIDWORD(v59) != -1)
+    {
+      aks_unload_bag();
+    }
+
     return v15;
   }
 
@@ -6685,12 +6626,12 @@ LABEL_17:
 
 void setAPFSVolumeIDForKeyBag(uint64_t a1, uint64_t a2, const __CFDictionary *a3)
 {
-  v26 = *MEMORY[0x1E69E9840];
-  bzero(v24, 0x3FBuLL);
-  qmemcpy(v23, "/dev/", sizeof(v23));
-  memset(v25, 0, sizeof(v25));
-  _getCString(a3, kMKBUserSessionVolumeDeviceNodeKey, v25, 256);
-  if (LODWORD(v25[0]) == 1802725732)
+  v24 = *MEMORY[0x1E69E9840];
+  bzero(v22, 0x3FBuLL);
+  qmemcpy(v21, "/dev/", sizeof(v21));
+  memset(v23, 0, sizeof(v23));
+  _getCString(a3, kMKBUserSessionVolumeDeviceNodeKey, v23, 256);
+  if (LODWORD(v23[0]) == 1802725732)
   {
     __strlcat_chk();
   }
@@ -6708,19 +6649,17 @@ void setAPFSVolumeIDForKeyBag(uint64_t a1, uint64_t a2, const __CFDictionary *a3
         _getCString(a3, kMKBUserSessionVolumeUUIDKey, in, 1024);
         if (uuid_parse(in, uu))
         {
-          debuglog("setAPFSVolumeIDForKeyBag", @"uuid_parse failed", v13, v14, v15, v16, v17, v18, v20);
+          debuglog("setAPFSVolumeIDForKeyBag", @"uuid_parse failed", v13, v14, v15, v16, v17, v18);
         }
 
         else
         {
-          debuglog("setAPFSVolumeIDForKeyBag", @"uuid_parse SUCCESS", v13, v14, v15, v16, v17, v18, v20);
-          KBMapVolume(a1, a2, v23, uu, 0);
+          debuglog("setAPFSVolumeIDForKeyBag", @"uuid_parse SUCCESS", v13, v14, v15, v16, v17, v18);
+          KBMapVolume(a1, a2, v21, uu, 0, 0);
         }
       }
     }
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t MKBUserSessionCreateKeybagForUser(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
@@ -6749,11 +6688,9 @@ uint64_t MKBUserSessionDeleteKeybagForUser(uint64_t a1)
 
 uint64_t MKBUserSessionSetVolumeToPersona(const __CFString *a1, const __CFString *a2)
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   memset(uu, 0, sizeof(uu));
   bzero(buffer, 0x400uLL);
-  v37 = 0u;
-  v38 = 0u;
   v35 = 0u;
   v36 = 0u;
   v33 = 0u;
@@ -6766,8 +6703,10 @@ uint64_t MKBUserSessionSetVolumeToPersona(const __CFString *a1, const __CFString
   v28 = 0u;
   v25 = 0u;
   v26 = 0u;
-  *in = 0u;
+  v23 = 0u;
   v24 = 0u;
+  *in = 0u;
+  v22 = 0u;
   if (!CFStringGetCString(a1, buffer, 1024, 0x8000100u))
   {
     v10 = @"Failed to get cstring from volumePath";
@@ -6784,25 +6723,22 @@ uint64_t MKBUserSessionSetVolumeToPersona(const __CFString *a1, const __CFString
   {
     v10 = @"Failed to parse to uuid_t";
 LABEL_7:
-    debuglog("MKBUserSessionSetVolumeToPersona", v10, v4, v5, v6, v7, v8, v9, v21);
-    v11 = 0xFFFFFFFFLL;
-    goto LABEL_8;
+    debuglog("MKBUserSessionSetVolumeToPersona", v10, v4, v5, v6, v7, v8, v9);
+    return 0xFFFFFFFFLL;
   }
 
-  v14 = KBMapDeviceBag(buffer, 1);
-  v11 = v14;
-  if (v14)
+  v13 = KBMapDeviceBag(buffer, 1, uu);
+  v11 = v13;
+  if (v13)
   {
-    debuglog("MKBUserSessionSetVolumeToPersona", @"KBMapDeviceBag failed with error %d", v15, v16, v17, v18, v19, v20, v14);
+    debuglog("MKBUserSessionSetVolumeToPersona", @"KBMapDeviceBag failed with error %d", v14, v15, v16, v17, v18, v19, v13);
   }
 
   else
   {
-    debuglog("MKBUserSessionSetVolumeToPersona", @"KBMapDeviceBag Success", v15, v16, v17, v18, v19, v20, v21);
+    debuglog("MKBUserSessionSetVolumeToPersona", @"KBMapDeviceBag Success", v14, v15, v16, v17, v18, v19);
   }
 
-LABEL_8:
-  v12 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
@@ -6846,12 +6782,12 @@ uint64_t MKBUserSessionRemoveSyncBagForUser(uint64_t a1, uint64_t a2)
   return v5;
 }
 
-uint64_t MKBUserSessionUnloadSessionBags()
+uint64_t MKBUserSessionUnloadSessionBags(uint64_t a1, int a2)
 {
   result = aks_unload_session_bags();
   if (result)
   {
-    debuglog("MKBUserSessionUnloadSessionBags", @"Failed to unload session keybags: 0x%x", v1, v2, v3, v4, v5, v6, result);
+    debuglog("MKBUserSessionUnloadSessionBags", @"Failed to unload session keybags: 0x%x", v3, v4, v5, v6, v7, v8, result);
     return 0xFFFFFFFFLL;
   }
 
@@ -6863,7 +6799,7 @@ CFDataRef MKBUserSessionWrapSession(int a1, CFDataRef theData, uint64_t a3, uint
   *&length[19] = *MEMORY[0x1E69E9840];
   if (!theData)
   {
-    debuglog("MKBUserSessionWrapSession", @"Data to Wrap is NULL", a3, a4, a5, a6, a7, a8, v31);
+    debuglog("MKBUserSessionWrapSession", @"Data to Wrap is NULL", a3, a4, a5, a6, a7, a8);
     goto LABEL_6;
   }
 
@@ -6872,8 +6808,8 @@ CFDataRef MKBUserSessionWrapSession(int a1, CFDataRef theData, uint64_t a3, uint
   if (CFDataGetLength(theData) < 1)
   {
 LABEL_6:
-    debuglog("MKBUserSessionWrapSession", @"Invalid Blob entry for wrap", v16, v17, v18, v19, v20, v21, v32);
-    goto LABEL_7;
+    debuglog("MKBUserSessionWrapSession", @"Invalid Blob entry for wrap", v16, v17, v18, v19, v20, v21, v30);
+    return 0;
   }
 
   CFDataGetBytePtr(theData);
@@ -6882,16 +6818,11 @@ LABEL_6:
   if (!v22)
   {
     debuglog("MKBUserSessionWrapSession", @"key_class_f wrap Completed with size %d", v23, v24, v25, v26, v27, v28, 72);
-    result = CFDataCreate(*MEMORY[0x1E695E480], &length[1], 72);
-    goto LABEL_8;
+    return CFDataCreate(*MEMORY[0x1E695E480], &length[1], 72);
   }
 
   debuglog("MKBUserSessionWrapSession", @"failed to key_class_f wrap by aks_wrap_key: 0x%x", v23, v24, v25, v26, v27, v28, v22);
-LABEL_7:
-  result = 0;
-LABEL_8:
-  v30 = *MEMORY[0x1E69E9840];
-  return result;
+  return 0;
 }
 
 CFDataRef MKBUserSessionUnWrapSession(int a1, CFDataRef theData, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
@@ -6907,8 +6838,7 @@ CFDataRef MKBUserSessionUnWrapSession(int a1, CFDataRef theData, uint64_t a3, ui
     if (!aks_unwrap_key())
     {
       debuglog("MKBUserSessionUnWrapSession", @"deCryptnextsession: session decrypt length:%d(expected: 32)", a3, a4, a5, a6, a7, a8, 32);
-      result = CFDataCreate(*MEMORY[0x1E695E480], &length[4], 32);
-      goto LABEL_7;
+      return CFDataCreate(*MEMORY[0x1E695E480], &length[4], 32);
     }
 
     v16 = @"Failed to unwrap dict blob with classF";
@@ -6919,11 +6849,8 @@ CFDataRef MKBUserSessionUnWrapSession(int a1, CFDataRef theData, uint64_t a3, ui
     v16 = @"Invalid Blob entry for unwrap";
   }
 
-  debuglog("MKBUserSessionUnWrapSession", v16, a3, a4, a5, a6, a7, a8, v19);
-  result = 0;
-LABEL_7:
-  v18 = *MEMORY[0x1E69E9840];
-  return result;
+  debuglog("MKBUserSessionUnWrapSession", v16, a3, a4, a5, a6, a7, a8);
+  return 0;
 }
 
 uint64_t MKBUserSessionCreatePersonaKeyForUser(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
@@ -6955,7 +6882,7 @@ uint64_t MKBUserSessionRemovePersonaKeyForUser(CFDictionaryRef theDict, uint64_t
 
   else
   {
-    debuglog("MKBUserSessionRemovePersonaKeyForUser", @"Cannot find proper VolumeUUID String to remove personakey with volume unmap", v6, v7, v8, v9, v10, v11, v15);
+    debuglog("MKBUserSessionRemovePersonaKeyForUser", @"Cannot find proper VolumeUUID String to remove personakey with volume unmap", v6, v7, v8, v9, v10, v11);
     return 22;
   }
 }
@@ -7177,7 +7104,7 @@ CFPropertyListRef convertBinaryToObject(UInt8 *bytes, CFIndex length)
       v23 = CFPropertyListCreateWithStream(v2, v10, 0, 2uLL, &format, 0);
       if (!v23)
       {
-        debuglog("convertBinaryToObject", @"Could not create object from stream", v17, v18, v19, v20, v21, v22, v25);
+        debuglog("convertBinaryToObject", @"Could not create object from stream", v17, v18, v19, v20, v21, v22);
       }
 
       CFReadStreamClose(v10);
@@ -7185,7 +7112,7 @@ CFPropertyListRef convertBinaryToObject(UInt8 *bytes, CFIndex length)
 
     else
     {
-      debuglog("convertBinaryToObject", @"Could not open the stream", v11, v12, v13, v14, v15, v16, v25);
+      debuglog("convertBinaryToObject", @"Could not open the stream", v11, v12, v13, v14, v15, v16);
       v23 = 0;
     }
 
@@ -7194,7 +7121,7 @@ CFPropertyListRef convertBinaryToObject(UInt8 *bytes, CFIndex length)
 
   else
   {
-    debuglog("convertBinaryToObject", @"Could not create stream for serialized data", v4, v5, v6, v7, v8, v9, v25);
+    debuglog("convertBinaryToObject", @"Could not create stream for serialized data", v4, v5, v6, v7, v8, v9);
     return 0;
   }
 
@@ -7283,12 +7210,11 @@ LABEL_7:
 
 const void *load_binary_dict(const char *a1)
 {
-  v1 = a1;
   memset(&v15.st_size, 0, 48);
   v2 = open(a1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
   if (v2 == -1)
   {
-    load_binary_dict_cold_4(v1);
+    load_binary_dict_cold_4(a1);
     v11 = 0;
     binary_dict_from_buffer = 0;
     goto LABEL_7;
@@ -7297,7 +7223,7 @@ const void *load_binary_dict(const char *a1)
   v3 = v2;
   if (fstat(v2, &v15))
   {
-    load_binary_dict_cold_1(v1);
+    load_binary_dict_cold_1(a1);
     binary_dict_from_buffer = 0;
     v11 = 0;
     goto LABEL_6;
@@ -7315,7 +7241,7 @@ LABEL_12:
   v12 = read(v3, v11, v15.st_size);
   if (v12 != v15.st_size)
   {
-    load_binary_dict_cold_2(v1);
+    load_binary_dict_cold_2(a1);
     goto LABEL_12;
   }
 
@@ -7332,7 +7258,7 @@ CFMutableDictionaryRef create_mutable_dict(CFDictionaryRef theDict)
   result = CFDictionaryCreateMutableCopy(*MEMORY[0x1E695E480], 0, theDict);
   if (!result)
   {
-    debuglog("create_mutable_dict", @"Out of Memory!!! Dying!...so...cold....", v2, v3, v4, v5, v6, v7, vars0);
+    debuglog("create_mutable_dict", @"Out of Memory!!! Dying!...so...cold....", v2, v3, v4, v5, v6, v7);
     exit(-1);
   }
 
@@ -7344,7 +7270,7 @@ CFMutableArrayRef create_array()
   result = CFArrayCreateMutable(*MEMORY[0x1E695E480], 0, MEMORY[0x1E695E9C0]);
   if (!result)
   {
-    debuglog("create_array", @"Out of Memory!!! Dying!...so...cold....", v1, v2, v3, v4, v5, v6, vars0);
+    debuglog("create_array", @"Out of Memory!!! Dying!...so...cold....", v1, v2, v3, v4, v5, v6);
     exit(-1);
   }
 
@@ -7356,7 +7282,7 @@ CFStringRef create_string(char *cStr)
   result = CFStringCreateWithCString(*MEMORY[0x1E695E480], cStr, 0x8000100u);
   if (!result)
   {
-    debuglog("create_string", @"Out of Memory!!! Dying!...so...cold....", v2, v3, v4, v5, v6, v7, vars0);
+    debuglog("create_string", @"Out of Memory!!! Dying!...so...cold....", v2, v3, v4, v5, v6, v7);
     exit(-1);
   }
 
@@ -7422,9 +7348,8 @@ unint64_t twoSigFigsWithRoundUp(unint64_t result)
   return (5 * (i / 0x64) + result) / (i / 0xA) * (i / 0xA);
 }
 
-void log_port_type(mach_port_name_t name)
+void log_port_type(uint64_t name)
 {
-  v1 = name;
   ptype = 0;
   v2 = mach_port_type(*MEMORY[0x1E69E9A60], name, &ptype);
   v9 = ptype;
@@ -7442,13 +7367,13 @@ void log_port_type(mach_port_name_t name)
   {
     v11 = @"Port:%d has NORIGHTS";
 LABEL_16:
-    debuglog("log_port_type", v11, v3, v4, v5, v6, v7, v8, v1);
+    debuglog("log_port_type", v11, v3, v4, v5, v6, v7, v8, name);
     return;
   }
 
   if ((ptype & 0x10000) != 0)
   {
-    debuglog("log_port_type", @"Port:%d has SENDRIGHT", v3, v4, v5, v6, v7, v8, v1);
+    debuglog("log_port_type", @"Port:%d has SENDRIGHT", v3, v4, v5, v6, v7, v8, name);
     if ((v9 & 0x20000) == 0)
     {
 LABEL_9:
@@ -7458,7 +7383,7 @@ LABEL_9:
       }
 
 LABEL_14:
-      debuglog("log_port_type", @"Port:%d has SENDONCERIGHT", v3, v4, v5, v6, v7, v8, v1);
+      debuglog("log_port_type", @"Port:%d has SENDONCERIGHT", v3, v4, v5, v6, v7, v8, name);
       if ((v9 & 0x100000) == 0)
       {
         return;
@@ -7473,7 +7398,7 @@ LABEL_14:
     goto LABEL_9;
   }
 
-  debuglog("log_port_type", @"Port:%d has RECEIVERIGHT", v3, v4, v5, v6, v7, v8, v1);
+  debuglog("log_port_type", @"Port:%d has RECEIVERIGHT", v3, v4, v5, v6, v7, v8, name);
   if ((v9 & 0x40000) != 0)
   {
     goto LABEL_14;
@@ -7490,23 +7415,23 @@ LABEL_15:
 
 unsigned __int16 *_apfs_get_all_crypto_ids(int a1)
 {
-  v26[96] = *MEMORY[0x1E69E9840];
-  v22 = xmmword_1C867ED40;
-  v23 = &v24;
+  v25[96] = *MEMORY[0x1E69E9840];
+  v21 = xmmword_1C867ED40;
+  v22 = &v23;
   v9 = 0;
-  if (ffsctl(a1, 0x80184A07uLL, &v22, 0))
+  if (ffsctl(a1, 0x80184A07uLL, &v21, 0))
   {
 LABEL_12:
     _apfs_get_all_crypto_ids_cold_1(v9, v2, v3, v4, v5, v6, v7, v8);
-    v9 = 0;
+    return 0;
   }
 
   else
   {
     while (1)
     {
-      v10 = v25;
-      if (!v25)
+      v10 = v24;
+      if (!v24)
       {
         break;
       }
@@ -7521,49 +7446,48 @@ LABEL_12:
         v11 = 0;
       }
 
-      v12 = reallocf(v9, 24 * (v11 + v25) + 16);
+      v12 = reallocf(v9, 24 * (v11 + v24) + 16);
       v9 = v12;
       if (!v12)
       {
         _apfs_get_all_crypto_ids_cold_2(0, v13, v14, v15, v16, v17, v18, v19);
-        break;
+        return v9;
       }
 
-      if (v22 == -1)
+      if (v21 == -1)
       {
         memset_s(v12, 0x10uLL, 0, 0x10uLL);
-        v10 = v25;
+        v10 = v24;
       }
 
-      memcpy(&v9[12 * v9[4] + 8], v26, 24 * v10);
+      memcpy(&v9[12 * v9[4] + 8], v25, 24 * v10);
       v9[4] += v10;
       if (v10)
       {
-        *&v22 = v26[3 * (v10 - 1) + 1] + v26[3 * (v10 - 1)];
+        *&v21 = v25[3 * (v10 - 1) + 1] + v25[3 * (v10 - 1)];
       }
 
-      if (ffsctl(a1, 0x80184A07uLL, &v22, 0))
+      if (ffsctl(a1, 0x80184A07uLL, &v21, 0))
       {
         goto LABEL_12;
       }
     }
   }
 
-  v20 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
-void *_apfs_copy_wrapped_key_from_file(int a1, uint64_t a2, CFTypeRef *a3)
+void *_apfs_copy_wrapped_key_from_file(int a1, uint64_t a2, CFErrorRef *a3)
 {
   v6 = malloc_type_malloc(0x400uLL, 0x42DDACE7uLL);
-  v18[0] = a2;
-  v18[1] = 1024;
-  v18[2] = v6;
-  if (ffsctl(a1, 0x80184A08uLL, v18, 0) < 0)
+  v19[0] = a2;
+  v19[1] = 1024;
+  v19[2] = v6;
+  if (ffsctl(a1, 0x80184A08uLL, v19, 0) < 0)
   {
     v7 = __error();
-    strerror(*v7);
-    debuglog("_apfs_copy_wrapped_key_from_file", @"Could not get wrapped crypto key for inode %llu right now: %s", v8, v9, v10, v11, v12, v13, a2);
+    v8 = strerror(*v7);
+    debuglog("_apfs_copy_wrapped_key_from_file", @"Could not get wrapped crypto key for inode %llu right now: %s", v9, v10, v11, v12, v13, v14, a2, v8);
     if (a3)
     {
       if (*a3)
@@ -7572,10 +7496,10 @@ void *_apfs_copy_wrapped_key_from_file(int a1, uint64_t a2, CFTypeRef *a3)
         *a3 = 0;
       }
 
-      v14 = *MEMORY[0x1E695E480];
-      v15 = *MEMORY[0x1E695E640];
-      v16 = __error();
-      *a3 = CFErrorCreate(v14, v15, *v16, 0);
+      v15 = *MEMORY[0x1E695E480];
+      v16 = *MEMORY[0x1E695E640];
+      v17 = __error();
+      *a3 = CFErrorCreate(v15, v16, *v17, 0);
     }
 
     free(v6);
@@ -7585,7 +7509,7 @@ void *_apfs_copy_wrapped_key_from_file(int a1, uint64_t a2, CFTypeRef *a3)
   return v6;
 }
 
-uint64_t is_device_in_device_recovery_environment()
+uint64_t is_device_in_device_recovery_environment(uint64_t a1, uint64_t a2)
 {
   if (is_device_in_device_recovery_environment_once != -1)
   {
@@ -7595,7 +7519,7 @@ uint64_t is_device_in_device_recovery_environment()
   return is_device_in_device_recovery_environment_answer;
 }
 
-uint64_t mkb_time_start(uint64_t result)
+void *mkb_time_start(void *result)
 {
   if (result)
   {
@@ -7631,23 +7555,23 @@ double mkb_time_stop(uint64_t a1, void *a2)
   return result;
 }
 
-void sub_1C866CE00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+void sub_1C866CE00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, ...)
 {
-  va_start(va, a16);
+  va_start(va, a23);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1C866D078(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_1C866D078(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
+{
+  va_start(va, a20);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_1C866D25C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
   va_start(va, a13);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_1C866D25C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
-{
-  va_start(va, a7);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7659,126 +7583,127 @@ uint64_t __Block_byref_object_copy_(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_1C866D524(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
-{
-  va_start(va, a9);
-  _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 96), 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_1C866DD94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
-{
-  va_start(va, a13);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_1C866E58C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
-{
-  va_start(va, a13);
-  _Block_object_dispose(va, 8);
-  _Block_object_dispose((v13 - 128), 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_1C866F390(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
-{
-  va_start(va, a7);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_1C866F5D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
-{
-  va_start(va, a13);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_1C866F888(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
-{
-  va_start(va, a13);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_1C866FFB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
-{
-  va_start(va, a13);
-  _Block_object_dispose(va, 8);
-  _Block_object_dispose((v13 - 96), 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_1C8670240(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
-{
-  va_start(va, a13);
-  _Block_object_dispose(va, 8);
-  _Block_object_dispose((v13 - 80), 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_1C86708CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
-{
-  va_start(va, a7);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_1C8670AF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
-{
-  va_start(va, a13);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_1C8670E40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, char a26)
-{
-  _Block_object_dispose(&a26, 8);
-  _Block_object_dispose((v26 - 136), 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_1C8671124(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
-{
-  va_start(va, a15);
-  _Block_object_dispose(va, 8);
-  _Block_object_dispose((v15 - 112), 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_1C8671670(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
-{
-  va_start(va, a14);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_1C867195C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+void sub_1C866D524(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
   va_start(va, a16);
   _Block_object_dispose(va, 8);
+  _Block_object_dispose((v16 - 96), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1C8671FA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_1C866DD94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
+{
+  va_start(va, a20);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_1C866E58C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
+{
+  va_start(va, a20);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v20 - 128), 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_1C866F390(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
   va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1C8672D00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
+void sub_1C866F5D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a14);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1C8672F3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_1C866F888(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
+{
+  va_start(va, a20);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_1C866FFB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
+{
+  va_start(va, a20);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v20 - 96), 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_1C8670240(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
+{
+  va_start(va, a20);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v20 - 80), 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_1C86708CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
   va_start(va, a13);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_1C8670AF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
+{
+  va_start(va, a20);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_1C8670E40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, ...)
+{
+  va_start(va, a25);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v25 - 136), 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_1C8671124(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
+{
+  va_start(va, a22);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v22 - 112), 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_1C8671670(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, ...)
+{
+  va_start(va, a21);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_1C867195C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, ...)
+{
+  va_start(va, a23);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_1C8671FA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
+{
+  va_start(va, a20);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_1C8672D00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, ...)
+{
+  va_start(va, a21);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_1C8672F3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
+{
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7855,18 +7780,17 @@ uint64_t HealthPlistSetUnlockDate(CFMutableDictionaryRef theDict, uint64_t a2)
       return 0;
     }
 
-    v3 = *MEMORY[0x1E695E480];
     OUTLINED_FUNCTION_0();
-    v7 = CFNumberCreate(v4, v5, v6);
-    if (v7)
+    v6 = CFNumberCreate(v3, v4, v5);
+    if (v6)
     {
-      v14 = v7;
-      CFDictionarySetValue(theDict, @"_DULD", v7);
-      CFRelease(v14);
+      v13 = v6;
+      CFDictionarySetValue(theDict, @"_DULD", v6);
+      CFRelease(v13);
       return 0;
     }
 
-    debuglog("HealthPlistSetUnlockDate", @"unable to allocate", v8, v9, v10, v11, v12, v13, v16);
+    debuglog("HealthPlistSetUnlockDate", @"unable to allocate", v7, v8, v9, v10, v11, v12);
   }
 
   return 0xFFFFFFFFLL;
@@ -7892,18 +7816,17 @@ uint64_t HealthPlistSetLockDate(CFMutableDictionaryRef theDict, uint64_t a2)
       return 0;
     }
 
-    v3 = *MEMORY[0x1E695E480];
     OUTLINED_FUNCTION_0();
-    v7 = CFNumberCreate(v4, v5, v6);
-    if (v7)
+    v6 = CFNumberCreate(v3, v4, v5);
+    if (v6)
     {
-      v14 = v7;
-      CFDictionarySetValue(theDict, @"_DLD", v7);
-      CFRelease(v14);
+      v13 = v6;
+      CFDictionarySetValue(theDict, @"_DLD", v6);
+      CFRelease(v13);
       return 0;
     }
 
-    debuglog("HealthPlistSetLockDate", @"unable to allocate", v8, v9, v10, v11, v12, v13, v16);
+    debuglog("HealthPlistSetLockDate", @"unable to allocate", v7, v8, v9, v10, v11, v12);
   }
 
   return 0xFFFFFFFFLL;
@@ -7939,16 +7862,15 @@ uint64_t HealthPlistSetFailed(__CFDictionary *a1)
 {
   if (a1)
   {
-    v2 = *MEMORY[0x1E695E480];
     OUTLINED_FUNCTION_0();
-    v6 = CFNumberCreate(v3, v4, v5);
-    if (v6)
+    v5 = CFNumberCreate(v2, v3, v4);
+    if (v5)
     {
-      CFDictionarySetValue(a1, @"_DFAIL", v6);
+      CFDictionarySetValue(a1, @"_DFAIL", v5);
       return 0;
     }
 
-    debuglog("HealthPlistSetFailed", @"unable to allocate", v7, v8, v9, v10, v11, v12, v14);
+    debuglog("HealthPlistSetFailed", @"unable to allocate", v6, v7, v8, v9, v10, v11);
   }
 
   return 0xFFFFFFFFLL;
@@ -7964,18 +7886,17 @@ uint64_t HealthPlistSetTTR(CFMutableDictionaryRef theDict, uint64_t a2)
       return 0;
     }
 
-    v3 = *MEMORY[0x1E695E480];
     OUTLINED_FUNCTION_0();
-    v7 = CFNumberCreate(v4, v5, v6);
-    if (v7)
+    v6 = CFNumberCreate(v3, v4, v5);
+    if (v6)
     {
-      v14 = v7;
-      CFDictionarySetValue(theDict, @"_DTTR", v7);
-      CFRelease(v14);
+      v13 = v6;
+      CFDictionarySetValue(theDict, @"_DTTR", v6);
+      CFRelease(v13);
       return 0;
     }
 
-    debuglog("HealthPlistSetTTR", @"unable to allocate", v8, v9, v10, v11, v12, v13, v16);
+    debuglog("HealthPlistSetTTR", @"unable to allocate", v7, v8, v9, v10, v11, v12);
   }
 
   return 0xFFFFFFFFLL;
@@ -8007,7 +7928,7 @@ uint64_t HealthPlistConsumeTTR(CFDictionaryRef theDict, void *a2)
         return result;
       }
 
-      debuglog("HealthPlistConsumeTTR", @"invalid ttr format", v8, v9, v10, v11, v12, v13, v14);
+      debuglog("HealthPlistConsumeTTR", @"invalid ttr format", v8, v9, v10, v11, v12, v13);
     }
 
     return 0xFFFFFFFFLL;
@@ -8043,7 +7964,7 @@ uint64_t HealthPlistSetVersion(__CFDictionary *a1, int a2)
 
   else
   {
-    debuglog("HealthPlistSetVersion", @"cant allocate mem", v4, v5, v6, v7, v8, v9, v11);
+    debuglog("HealthPlistSetVersion", @"cant allocate mem", v4, v5, v6, v7, v8, v9);
     return 0xFFFFFFFFLL;
   }
 }
@@ -8081,18 +8002,17 @@ uint64_t HealthPlistSetTime(__CFDictionary *a1)
     return 0xFFFFFFFFLL;
   }
 
-  v2 = *MEMORY[0x1E695E480];
   OUTLINED_FUNCTION_0();
-  v6 = CFNumberCreate(v3, v4, v5);
-  if (v6)
+  v5 = CFNumberCreate(v2, v3, v4);
+  if (v5)
   {
-    CFDictionarySetValue(a1, @"_DTIME", v6);
+    CFDictionarySetValue(a1, @"_DTIME", v5);
     return 0;
   }
 
   else
   {
-    debuglog("HealthPlistSetTime", @"cant allocate mem", v7, v8, v9, v10, v11, v12, v14);
+    debuglog("HealthPlistSetTime", @"cant allocate mem", v6, v7, v8, v9, v10, v11);
     return 0xFFFFFFFFLL;
   }
 }
@@ -8130,7 +8050,7 @@ uint64_t HealthPlistAddToData(const __CFDictionary *a1, uint64_t a2)
   v4 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberSInt64Type, &valuePtr);
   if (!v4)
   {
-    debuglog("HealthPlistAddToData", @"unable to allocate", v5, v6, v7, v8, v9, v10, v21);
+    debuglog("HealthPlistAddToData", @"unable to allocate", v5, v6, v7, v8, v9, v10);
     return 0xFFFFFFFFLL;
   }
 
@@ -8150,7 +8070,7 @@ uint64_t HealthPlistAddToData(const __CFDictionary *a1, uint64_t a2)
   CFArrayAppendValue(Mutable, v11);
   if (CFArrayGetCount(Mutable) >= 15)
   {
-    debuglog("HealthPlistAddToData", @"at capacity, forgetting oldest data entry", v14, v15, v16, v17, v18, v19, v21);
+    debuglog("HealthPlistAddToData", @"at capacity, forgetting oldest data entry", v14, v15, v16, v17, v18, v19);
     CFArrayRemoveValueAtIndex(Mutable, 0);
   }
 
@@ -8164,7 +8084,7 @@ uint64_t HealthPlistAddToData(const __CFDictionary *a1, uint64_t a2)
   return 0;
 }
 
-const __CFData *KBisxARTBasedKeyBag(int a1, const __CFDictionary *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+const __CFData *KBisxARTBasedKeyBag(uint64_t a1, const __CFDictionary *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   if (a1 != -1)
   {
@@ -8203,9 +8123,8 @@ LABEL_7:
 uint64_t KBSaveKeyBag(const __CFDictionary *a1, const char *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   v8 = a5;
-  v10 = a3;
-  v207 = *MEMORY[0x1E69E9840];
-  v13 = KBisxARTBasedKeyBag(-1, a1, a3, a4, a5, a6, a7, a8);
+  v214 = *MEMORY[0x1E69E9840];
+  v13 = KBisxARTBasedKeyBag(0xFFFFFFFFLL, a1, a3, a4, a5, a6, a7, a8);
   CFDictionarySetValue(a1, @"KeyBagVersion", @"1");
   if (v13)
   {
@@ -8215,10 +8134,9 @@ uint64_t KBSaveKeyBag(const __CFDictionary *a1, const char *a2, uint64_t a3, con
   if (mkdir(a2, 0x1C0u) && *__error() != 17)
   {
     v14 = __error();
-    strerror(*v14);
-    debuglog("KBSaveKeyBag", @"Can't create %s: %s", v15, v16, v17, v18, v19, v20, a2);
-    v21 = 0xFFFFFFFFLL;
-    goto LABEL_6;
+    v15 = strerror(*v14);
+    debuglog("KBSaveKeyBag", @"Can't create %s: %s", v16, v17, v18, v19, v20, v21, a2, v15);
+    return 0xFFFFFFFFLL;
   }
 
   snprintf(__str, 0x401uLL, "%s/%s.kb", a2, a4);
@@ -8229,193 +8147,195 @@ uint64_t KBSaveKeyBag(const __CFDictionary *a1, const char *a2, uint64_t a3, con
       effaceBlastableBytes(0x42414731u);
     }
 
-    bzero(v206, 0x401uLL);
-    v21 = 0xFFFFFFFFLL;
-    v203 = -1;
-    snprintf(v206, 0x401uLL, "%s.writing", __str);
-    if (!store_binary_dict_fd(a1, v206, &v203))
+    bzero(v213, 0x401uLL);
+    v22 = 0xFFFFFFFFLL;
+    v210 = -1;
+    snprintf(v213, 0x401uLL, "%s.writing", __str);
+    if (!store_binary_dict_fd(a1, v213, &v210))
     {
       v24 = OUTLINED_FUNCTION_2();
       if (renamex_np(v24, v25, 2u) && (v26 = *__error(), v27 = OUTLINED_FUNCTION_2(), rename(v27, v28, v29), v30))
       {
-        v182 = __error();
-        strerror(*v182);
-        debuglog("KBSecureSaveObjectNoCrypto", @"could not rename %s to %s: %s (%d)", v183, v184, v185, v186, v187, v188, v206);
+        v184 = __error();
+        v199 = strerror(*v184);
+        debuglog("KBSecureSaveObjectNoCrypto", @"could not rename %s to %s: %s (%d)", v185, v186, v187, v188, v189, v190, v213, __str, v199, v26);
       }
 
-      else if (fcntl(v203, 51))
+      else if (fcntl(v210, 51))
       {
-        v165 = __error();
-        strerror(*v165);
-        debuglog("KBSecureSaveObjectNoCrypto", @"Unable to fsync %s: %s", v166, v167, v168, v169, v170, v171, v206);
+        v167 = __error();
+        v196 = strerror(*v167);
+        debuglog("KBSecureSaveObjectNoCrypto", @"Unable to fsync %s: %s", v168, v169, v170, v171, v172, v173, v213, v196);
       }
 
       else
       {
-        if (unlink(v206))
+        if (unlink(v213))
         {
           v31 = __error();
           v32 = strerror(*v31);
           debuglog("KBSecureSaveObjectNoCrypto", @"unlink failed: %s", v33, v34, v35, v36, v37, v38, v32);
         }
 
-        v21 = 0;
+        v22 = 0;
       }
     }
 
-    if (v203 != -1 && close(v203))
+    if (v210 != -1 && close(v210))
     {
-      v39 = v203;
+      v39 = v210;
       v40 = __error();
-      strerror(*v40);
-      debuglog("KBSecureSaveObjectNoCrypto", @"failed to close(%d): %s", v41, v42, v43, v44, v45, v46, v39);
+      v41 = strerror(*v40);
+      debuglog("KBSecureSaveObjectNoCrypto", @"failed to close(%d): %s", v42, v43, v44, v45, v46, v47, v39, v41);
     }
 
-    goto LABEL_6;
+    return v22;
   }
 
   dataOutMoved = 0;
   cryptorRef = 0;
-  v194 = 52;
-  memset(v201, 0, sizeof(v201));
-  v202 = 0;
+  v201 = 52;
+  memset(v208, 0, sizeof(v208));
+  v209 = 0;
   if (!v8)
   {
-    v53 = *MEMORY[0x1E697B308];
-    if (SecRandomCopyBytes(*MEMORY[0x1E697B308], 0x20uLL, &v201[1] + 4))
+    v54 = *MEMORY[0x1E697B308];
+    if (SecRandomCopyBytes(*MEMORY[0x1E697B308], 0x20uLL, &v208[1] + 4))
     {
-      v190 = @"Can't create key";
+      v192 = @"Can't create key";
     }
 
     else
     {
-      if (!SecRandomCopyBytes(v53, 0x10uLL, v201 + 4))
+      if (!SecRandomCopyBytes(v54, 0x10uLL, v208 + 4))
       {
 LABEL_24:
-        v60 = CFDataCreate(0, &v201[1] + 4, 32);
-        if (v60)
+        v61 = CFDataCreate(0, &v208[1] + 4, 32);
+        if (v61)
         {
-          v67 = v60;
-          v68 = CFDataCreate(0, v201 + 4, 16);
-          if (v68)
+          v68 = v61;
+          v69 = CFDataCreate(0, v208 + 4, 16);
+          if (v69)
           {
-            v75 = v68;
-            v76 = convertObjectToBinary(a1);
-            if (!v76)
+            v76 = v69;
+            v77 = convertObjectToBinary(a1);
+            if (!v77)
             {
-              debuglog("KBSecureSaveObjectWithCrypto", @"Can't serialize object", v77, v78, v79, v80, v81, v82, v191);
-              v100 = 0;
-              v21 = 4294967291;
+              debuglog("KBSecureSaveObjectWithCrypto", @"Can't serialize object", v78, v79, v80, v81, v82, v83);
+              v101 = 0;
+              v22 = 4294967291;
 LABEL_55:
-              CFRelease(v67);
-              CFRelease(v75);
-              if (v100)
+              CFRelease(v68);
+              CFRelease(v76);
+              if (v101)
               {
-                CFRelease(v100);
+                CFRelease(v101);
               }
 
               goto LABEL_57;
             }
 
-            v83 = v76;
-            v84 = CCCryptorCreate(0, 0, 1u, &v201[1] + 4, 0x20uLL, v201 + 4, &cryptorRef);
-            if (v84)
+            v84 = v77;
+            v85 = CCCryptorCreate(0, 0, 1u, &v208[1] + 4, 0x20uLL, v208 + 4, &cryptorRef);
+            if (v85)
             {
-              debuglog("KBSecureSaveObjectWithCrypto", @"Can't create cryptor: %d", v85, v86, v87, v88, v89, v90, v84);
-              v100 = 0;
+              debuglog("KBSecureSaveObjectWithCrypto", @"Can't create cryptor: %d", v86, v87, v88, v89, v90, v91, v85);
+              v101 = 0;
             }
 
             else
             {
-              Length = CFDataGetLength(v83);
+              Length = CFDataGetLength(v84);
               OutputLength = CCCryptorGetOutputLength(cryptorRef, Length, 1);
               Mutable = CFDataCreateMutable(0, OutputLength);
-              v100 = Mutable;
+              v101 = Mutable;
               if (!Mutable)
               {
-                v172 = "KBSecureSaveObjectWithCrypto";
-                v173 = @"Can't create crypt buffer";
+                v174 = "KBSecureSaveObjectWithCrypto";
+                v175 = @"Can't create crypt buffer";
 LABEL_71:
-                debuglog(v172, v173, v94, v95, v96, v97, v98, v99, v191);
-                v21 = 4294967291;
+                debuglog(v174, v175, v95, v96, v97, v98, v99, v100);
+                v22 = 4294967291;
                 goto LABEL_54;
               }
 
               CFDataSetLength(Mutable, OutputLength);
-              v101 = cryptorRef;
-              BytePtr = CFDataGetBytePtr(v83);
-              MutableBytePtr = CFDataGetMutableBytePtr(v100);
-              v104 = CCCryptorUpdate(v101, BytePtr, Length, MutableBytePtr, OutputLength, &dataOutMoved);
-              if (!v104)
+              v102 = cryptorRef;
+              BytePtr = CFDataGetBytePtr(v84);
+              MutableBytePtr = CFDataGetMutableBytePtr(v101);
+              v105 = CCCryptorUpdate(v102, BytePtr, Length, MutableBytePtr, OutputLength, &dataOutMoved);
+              if (!v105)
               {
-                v111 = cryptorRef;
-                v112 = CFDataGetMutableBytePtr(v100);
-                CCCryptorFinal(v111, &v112[dataOutMoved], OutputLength - dataOutMoved, &dataOutMoved);
-                valuePtr = v10;
+                v112 = cryptorRef;
+                v113 = CFDataGetMutableBytePtr(v101);
+                CCCryptorFinal(v112, &v113[dataOutMoved], OutputLength - dataOutMoved, &dataOutMoved);
+                valuePtr = a3;
                 cf = 0;
-                v197 = -1;
-                v113 = CFDictionaryCreateMutable(0, 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
-                if (v113)
+                v204 = -1;
+                v114 = CFDictionaryCreateMutable(0, 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
+                if (v114)
                 {
-                  v114 = v113;
-                  v115 = CFNumberCreate(0, kCFNumberIntType, &valuePtr);
-                  if (!v115)
+                  v115 = v114;
+                  v116 = CFNumberCreate(0, kCFNumberIntType, &valuePtr);
+                  if (!v116)
                   {
                     goto LABEL_78;
                   }
 
-                  CFDictionaryAddValue(v114, @"_MKBIV", v75);
-                  CFDictionaryAddValue(v114, @"_MKBWIPEID", v115);
-                  CFDictionaryAddValue(v114, @"_MKBPAYLOAD", v100);
-                  snprintf(v206, 0x401uLL, "%s.writing", __str);
-                  if (store_binary_dict_fd(v114, v206, &v197))
+                  CFDictionaryAddValue(v115, @"_MKBIV", v76);
+                  CFDictionaryAddValue(v115, @"_MKBWIPEID", v116);
+                  CFDictionaryAddValue(v115, @"_MKBPAYLOAD", v101);
+                  snprintf(v213, 0x401uLL, "%s.writing", __str);
+                  if (store_binary_dict_fd(v115, v213, &v204))
                   {
                     goto LABEL_78;
                   }
 
-                  v116 = OUTLINED_FUNCTION_2();
-                  if (renamex_np(v116, v117, 2u))
+                  v117 = OUTLINED_FUNCTION_2();
+                  if (renamex_np(v117, v118, 2u))
                   {
-                    v118 = *__error();
-                    v119 = OUTLINED_FUNCTION_2();
-                    rename(v119, v120, v121);
-                    if (v122)
+                    v119 = *__error();
+                    v120 = OUTLINED_FUNCTION_2();
+                    rename(v120, v121, v122);
+                    if (v123)
                     {
-                      v189 = __error();
-                      strerror(*v189);
-                      v192 = v206;
-                      v181 = @"could not rename %s to %s: %s (%d)";
+                      v191 = __error();
+                      v198 = strerror(*v191);
+                      v200 = v119;
+                      v194 = v213;
+                      v195 = __str;
+                      v183 = @"could not rename %s to %s: %s (%d)";
 LABEL_77:
-                      debuglog("KBSecureSaveObject", v181, v143, v144, v145, v146, v147, v148, v192);
+                      debuglog("KBSecureSaveObject", v183, v144, v145, v146, v147, v148, v149, v194, v195, v198, v200, v201);
                       goto LABEL_78;
                     }
                   }
 
-                  if (fcntl(v197, 51))
+                  if (fcntl(v204, 51))
                   {
-                    v174 = __error();
-                    strerror(*v174);
-                    debuglog("KBSecureSaveObject", @"Unable to fsync %s: %s", v175, v176, v177, v178, v179, v180, v206);
+                    v176 = __error();
+                    v197 = strerror(*v176);
+                    debuglog("KBSecureSaveObject", @"Unable to fsync %s: %s", v177, v178, v179, v180, v181, v182, v213, v197, v198, v200, v201);
 LABEL_78:
-                    v21 = 0xFFFFFFFFLL;
+                    v22 = 0xFFFFFFFFLL;
 LABEL_47:
-                    if (v197 != -1 && close(v197))
+                    if (v204 != -1 && close(v204))
                     {
-                      v157 = v197;
-                      v158 = __error();
-                      strerror(*v158);
-                      debuglog("KBSecureSaveObject", @"failed to close(%d): %s", v159, v160, v161, v162, v163, v164, v157);
+                      v158 = v204;
+                      v159 = __error();
+                      v160 = strerror(*v159);
+                      debuglog("KBSecureSaveObject", @"failed to close(%d): %s", v161, v162, v163, v164, v165, v166, v158, v160);
                     }
 
-                    CFRelease(v114);
+                    CFRelease(v115);
                     if (cf)
                     {
                       CFRelease(cf);
                     }
 
-                    if (v115)
+                    if (v116)
                     {
-                      CFRelease(v115);
+                      CFRelease(v116);
                     }
 
                     goto LABEL_54;
@@ -8423,108 +8343,106 @@ LABEL_47:
 
                   if ((v8 & 1) == 0)
                   {
-                    v123 = valuePtr;
-                    if (CFDataGetLength(v75) != 16 || CFDataGetLength(v67) != 32)
+                    v124 = valuePtr;
+                    if (CFDataGetLength(v76) != 16 || CFDataGetLength(v68) != 32)
                     {
-                      debuglog("storeWipeIDInfo", @"trying to store invalid iv or secret", v124, v125, v126, v127, v128, v129, v192);
+                      debuglog("storeWipeIDInfo", @"trying to store invalid iv or secret", v125, v126, v127, v128, v129, v130, v194);
                       goto LABEL_42;
                     }
 
-                    memset(v205, 0, 32);
-                    v204 = 0u;
-                    v203 = v123;
-                    v208.location = 0;
-                    v208.length = 16;
-                    CFDataGetBytes(v75, v208, &v204);
-                    v209.location = 0;
-                    v209.length = 32;
-                    CFDataGetBytes(v67, v209, v205);
-                    v130 = storeBlastableBytes(v123, &v203, 0x34uLL);
-                    if (v130)
+                    memset(v212, 0, 32);
+                    v211 = 0u;
+                    v210 = v124;
+                    v215.location = 0;
+                    v215.length = 16;
+                    CFDataGetBytes(v76, v215, &v211);
+                    v216.location = 0;
+                    v216.length = 32;
+                    CFDataGetBytes(v68, v216, v212);
+                    v131 = storeBlastableBytes(v124, &v210, 0x34uLL);
+                    if (v131)
                     {
-                      debuglog("storeWipeIDInfo", @"Unable to save wipe info: %08x", v131, v132, v133, v134, v135, v136, v130);
+                      debuglog("storeWipeIDInfo", @"Unable to save wipe info: %08x", v132, v133, v134, v135, v136, v137, v131);
 LABEL_42:
-                      debuglog("KBSecureSaveObject", @"Oh no! Can't save wipe ID", v137, v138, v139, v140, v141, v142, v193);
+                      debuglog("KBSecureSaveObject", @"Oh no! Can't save wipe ID", v138, v139, v140, v141, v142, v143);
                     }
                   }
 
                   if (!KBSecureLoadObjectWithCrypto(__str, &cf))
                   {
-                    if (unlink(v206))
+                    if (unlink(v213))
                     {
-                      v149 = __error();
-                      v150 = strerror(*v149);
-                      debuglog("KBSecureSaveObject", @"unlink failed: %s", v151, v152, v153, v154, v155, v156, v150);
+                      v150 = __error();
+                      v151 = strerror(*v150);
+                      debuglog("KBSecureSaveObject", @"unlink failed: %s", v152, v153, v154, v155, v156, v157, v151);
                     }
 
-                    v21 = 0;
+                    v22 = 0;
                     goto LABEL_47;
                   }
 
-                  v181 = @"failed to validate newly created bag -- should never happen";
+                  v183 = @"failed to validate newly created bag -- should never happen";
                   goto LABEL_77;
                 }
 
-                v172 = "KBSecureSaveObject";
-                v173 = @"Can't create dict";
+                v174 = "KBSecureSaveObject";
+                v175 = @"Can't create dict";
                 goto LABEL_71;
               }
 
-              debuglog("KBSecureSaveObjectWithCrypto", @"Can't encrypt: %d", v105, v106, v107, v108, v109, v110, v104);
+              debuglog("KBSecureSaveObjectWithCrypto", @"Can't encrypt: %d", v106, v107, v108, v109, v110, v111, v105);
             }
 
-            v21 = 4294967289;
+            v22 = 4294967289;
 LABEL_54:
-            CFRelease(v83);
+            CFRelease(v84);
             goto LABEL_55;
           }
 
-          debuglog("KBSecureSaveObjectWithCrypto", @"Can't create iv data", v69, v70, v71, v72, v73, v74, v191);
-          CFRelease(v67);
+          debuglog("KBSecureSaveObjectWithCrypto", @"Can't create iv data", v70, v71, v72, v73, v74, v75);
+          CFRelease(v68);
         }
 
         else
         {
-          debuglog("KBSecureSaveObjectWithCrypto", @"Can't create key data", v61, v62, v63, v64, v65, v66, v191);
+          debuglog("KBSecureSaveObjectWithCrypto", @"Can't create key data", v62, v63, v64, v65, v66, v67);
         }
 
-        v21 = 4294967291;
+        v22 = 4294967291;
         goto LABEL_57;
       }
 
-      v190 = @"Can't create IV";
+      v192 = @"Can't create IV";
     }
 
-    debuglog("KBSecureSaveObjectWithCrypto", v190, v54, v55, v56, v57, v58, v59, v191);
+    debuglog("KBSecureSaveObjectWithCrypto", v192, v55, v56, v57, v58, v59, v60, v193);
     goto LABEL_82;
   }
 
-  if (!loadBlastableBytes(v10, v201, &v194))
+  if (!loadBlastableBytes(a3, v208, &v201))
   {
     goto LABEL_24;
   }
 
-  debuglog("KBSecureSaveObjectWithCrypto", @"Unable to load wipe info:%08x", v47, v48, v49, v50, v51, v52, v10);
+  debuglog("KBSecureSaveObjectWithCrypto", @"Unable to load wipe info:%08x", v48, v49, v50, v51, v52, v53, a3);
 LABEL_82:
-  v21 = 0xFFFFFFFFLL;
+  v22 = 0xFFFFFFFFLL;
 LABEL_57:
   if (cryptorRef)
   {
     CCCryptorRelease(cryptorRef);
   }
 
-LABEL_6:
-  v22 = *MEMORY[0x1E69E9840];
-  return v21;
+  return v22;
 }
 
-uint64_t KBSaveSystemBagHandle(int a1, const char *a2, const void *a3, int a4, uint64_t a5)
+uint64_t KBSaveSystemBagHandle(uint64_t a1, const char *a2, const void *a3, int a4, uint64_t a5)
 {
-  v42[129] = *MEMORY[0x1E69E9840];
-  if (MKBDeviceSupportsEnhancedAPFS() && a1)
+  v9 = a1;
+  v39[129] = *MEMORY[0x1E69E9840];
+  if (MKBDeviceSupportsEnhancedAPFS() && v9)
   {
-    v36 = 0;
-    goto LABEL_27;
+    return 0;
   }
 
   if (a5)
@@ -8537,15 +8455,15 @@ uint64_t KBSaveSystemBagHandle(int a1, const char *a2, const void *a3, int a4, u
     v16 = @"Saving SystemBag with EFFACEABLE ROLL";
   }
 
-  debuglog("KBSaveSystemBagHandle", v16, v10, v11, v12, v13, v14, v15, v39);
+  debuglog("KBSaveSystemBagHandle", v16, v10, v11, v12, v13, v14, v15);
   v17 = MKBDeviceSupportsEnhancedAPFS();
-  if (a1 || !v17)
+  if (v9 || !v17)
   {
-    v42[0] = 0;
+    v39[0] = 0;
     *bytes = 0;
     if (!aks_save_bag())
     {
-      v26 = CFDataCreateWithBytesNoCopy(*MEMORY[0x1E695E480], v42[0], *bytes, *MEMORY[0x1E695E480]);
+      v26 = CFDataCreateWithBytesNoCopy(*MEMORY[0x1E695E480], v39[0], *bytes, *MEMORY[0x1E695E480]);
       if (v26)
       {
         v25 = v26;
@@ -8553,27 +8471,25 @@ uint64_t KBSaveSystemBagHandle(int a1, const char *a2, const void *a3, int a4, u
       }
     }
 
-LABEL_28:
-    v36 = 0xFFFFFFFFLL;
-    goto LABEL_27;
+    return 0xFFFFFFFFLL;
   }
 
   *bytes = 1752065072;
-  LODWORD(v42[0]) = -1;
+  LODWORD(v39[0]) = -1;
   if (aks_load_bag())
   {
-    goto LABEL_28;
+    return 0xFFFFFFFFLL;
   }
 
   aks_unload_bag();
   v18 = CFDataCreate(*MEMORY[0x1E695E480], bytes, 4);
   if (!v18)
   {
-    goto LABEL_28;
+    return 0xFFFFFFFFLL;
   }
 
   v25 = v18;
-  debuglog("KBSaveSystemBagHandle", @"Saving handle 0 with the magic handle", v19, v20, v21, v22, v23, v24, v40);
+  debuglog("KBSaveSystemBagHandle", @"Saving handle 0 with the magic handle", v19, v20, v21, v22, v23, v24);
 LABEL_14:
   dict = create_dict();
   if (dict)
@@ -8605,8 +8521,8 @@ LABEL_14:
       }
     }
 
-    snprintf(v42, 0x401uLL, "%s/%s", a2, "keybags");
-    if (KBSaveKeyBag(v28, v42, 1111574321, "systembag", a5, v33, v34, v35))
+    snprintf(v39, 0x401uLL, "%s/%s", a2, "keybags");
+    if (KBSaveKeyBag(v28, v39, 1111574321, "systembag", a5, v33, v34, v35))
     {
       v36 = 0xFFFFFFFFLL;
     }
@@ -8625,20 +8541,19 @@ LABEL_14:
   }
 
   CFRelease(v25);
-LABEL_27:
-  v37 = *MEMORY[0x1E69E9840];
   return v36;
 }
 
-uint64_t KBSaveUserBagHandle(int a1, uint64_t a2, const void *a3, int a4)
+uint64_t KBSaveUserBagHandle(uint64_t a1, uint64_t a2, const void *a3, int a4)
 {
+  v7 = a1;
   v36 = *MEMORY[0x1E69E9840];
-  memset(&theDict[1] + 4, 0, 12);
-  theDict[0] = 0;
+  *&length[1] = 0;
+  length[0] = 0;
+  theDict = 0;
   if (MKBDeviceSupportsEnhancedAPFS())
   {
-    KeyBagFile = 0;
-    goto LABEL_40;
+    return 0;
   }
 
   if (a4)
@@ -8653,17 +8568,17 @@ uint64_t KBSaveUserBagHandle(int a1, uint64_t a2, const void *a3, int a4)
 
   debuglog("KBSaveUserBagHandle", v14, v8, v9, v10, v11, v12, v13, a2);
   snprintf(__str, 0x401uLL, "%s%s", "/private/var/", "keybags");
-  KeyBagFile = KBLoadLoadKeyBagFile(__str, "userbag", theDict);
+  KeyBagFile = KBLoadLoadKeyBagFile(__str, "userbag", &theDict);
   v16 = *MEMORY[0x1E695E480];
-  if (!KeyBagFile || (theDict[0] = CFDictionaryCreateMutable(*MEMORY[0x1E695E480], 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8])) != 0)
+  if (!KeyBagFile || (theDict = CFDictionaryCreateMutable(*MEMORY[0x1E695E480], 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8])) != 0)
   {
     v17 = CFStringCreateWithFormat(v16, 0, @"%d", a2);
     if (v17)
     {
-      if (a1 == -1)
+      if (v7 == -1)
       {
-        v22 = theDict[0];
-        CFDictionaryRemoveValue(theDict[0], v17);
+        v22 = theDict;
+        CFDictionaryRemoveValue(theDict, v17);
         v19 = 0;
         v21 = 0;
         goto LABEL_15;
@@ -8671,7 +8586,7 @@ uint64_t KBSaveUserBagHandle(int a1, uint64_t a2, const void *a3, int a4)
 
       if (!aks_save_bag())
       {
-        v18 = CFDataCreateWithBytesNoCopy(v16, theDict[2], SHIDWORD(theDict[1]), v16);
+        v18 = CFDataCreateWithBytesNoCopy(v16, *&length[1], length[0], v16);
         if (v18)
         {
           v19 = v18;
@@ -8683,10 +8598,10 @@ uint64_t KBSaveUserBagHandle(int a1, uint64_t a2, const void *a3, int a4)
 LABEL_31:
             CFRelease(v19);
 LABEL_32:
-            if (theDict[0])
+            if (theDict)
             {
-              CFRelease(theDict[0]);
-              theDict[0] = 0;
+              CFRelease(theDict);
+              theDict = 0;
             }
 
             if (v17)
@@ -8704,7 +8619,7 @@ LABEL_32:
               CFRelease(v28);
             }
 
-            goto LABEL_40;
+            return KeyBagFile;
           }
 
           v21 = Mutable;
@@ -8714,8 +8629,8 @@ LABEL_32:
             CFDictionarySetValue(v21, @"OpaqueStuff", a3);
           }
 
-          v22 = theDict[0];
-          CFDictionarySetValue(theDict[0], v17, v21);
+          v22 = theDict;
+          CFDictionarySetValue(theDict, v17, v21);
 LABEL_15:
           Current = CFAbsoluteTimeGetCurrent();
           v24 = CFDateCreate(v16, Current);
@@ -8779,8 +8694,6 @@ LABEL_25:
     goto LABEL_32;
   }
 
-LABEL_40:
-  v32 = *MEMORY[0x1E69E9840];
   return KeyBagFile;
 }
 
@@ -8804,118 +8717,125 @@ const void *KBSystemKeyBagCopyOpaqueStuff()
   return v3;
 }
 
-uint64_t KBChangeSystemNonSeSecret(int a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, const void *a7, uint64_t a8)
+uint64_t KBChangeSystemNonSeSecret(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, const void *a7, uint64_t a8)
 {
-  v70 = -1;
-  v17 = KBisxARTBasedKeyBag(a1, 0, a3, a4, a5, a6, a7, a8);
-  v18 = "two";
-  if (v17)
+  v72 = -1;
+  v18 = KBisxARTBasedKeyBag(a1, 0, a3, a4, a5, a6, a7, a8);
+  v19 = "two";
+  if (v18)
   {
-    v18 = "single";
-  }
-
-  debuglog("KBChangeSystemNonSeSecret", @"changing non-SE passcode %s phase, (params:%d)", v11, v12, v13, v14, v15, v16, v18);
-  v69 = 0;
-  v19 = aks_change_secret_opts();
-  if (v19)
-  {
-    debuglog("KBChangeSystemNonSeSecret", @"change-secret failed %x", v20, v21, v22, v23, v24, v25, v19);
-    goto LABEL_28;
-  }
-
-  if (v17)
-  {
-    v70 = a1;
-    if (a1)
-    {
-      v30 = KBSaveUserBagHandle(a1, a2, a7, 0);
-      if (!v30)
-      {
-LABEL_10:
-        if ((v17 & 1) == 0)
-        {
-          v38 = aks_set_system_with_opts();
-          if (v38)
-          {
-            debuglog("KBChangeSystemNonSeSecret", @"set-system failed %d", v39, v40, v41, v42, v43, v44, v38);
-            v52 = 1;
-            goto LABEL_30;
-          }
-        }
-
-        v45 = aks_change_secret_epilogue_with_opts();
-        v37 = v45;
-        if (v45)
-        {
-          debuglog("KBChangeSystemNonSeSecret", @"aks_change_secret_epilogue() failed %x", v46, v47, v48, v49, v50, v51, v45);
-        }
-
-LABEL_14:
-        v52 = 0;
-        goto LABEL_15;
-      }
-    }
-
-    else
-    {
-      OUTLINED_FUNCTION_1();
-      v30 = KBSaveSystemBagHandle(v26, v27, v28, v29, 0);
-      if (!v30)
-      {
-        goto LABEL_10;
-      }
-    }
-
-    v37 = v30;
-    debuglog("KBChangeSystemNonSeSecret", @"unable to save bag %d", v31, v32, v33, v34, v35, v36, a1);
-    goto LABEL_14;
-  }
-
-  debuglog("KBChangeSystemNonSeSecret", @"temp handle is invalid: %d", v20, v21, v22, v23, v24, v25, -1);
-LABEL_28:
-  v52 = 0;
-LABEL_30:
-  v37 = 0xFFFFFFFFLL;
-LABEL_15:
-  if (v70 == -1)
-  {
-    v53 = 1;
+    v19 = "single";
+    v20 = 0;
   }
 
   else
   {
-    v53 = v17;
+    v20 = 4;
   }
 
-  if ((v53 & 1) == 0)
+  debuglog("KBChangeSystemNonSeSecret", @"changing non-SE passcode %s phase, (params:%d)", v12, v13, v14, v15, v16, v17, v19, a8);
+  BYTE4(v71) = 0;
+  LODWORD(v71) = 0;
+  v21 = aks_change_secret_opts();
+  if (v21)
   {
-    aks_unload_bag();
+    debuglog("KBChangeSystemNonSeSecret", @"change-secret failed %x", v22, v23, v24, v25, v26, v27, v21, __PAIR64__(a8, v20), &v72);
+    goto LABEL_29;
   }
 
-  if (v52)
+  if (v18)
   {
+    v72 = a1;
     if (a1)
     {
-      OUTLINED_FUNCTION_1();
-      if (!KBSaveUserBagHandle(v65, v66, v67, v68))
+      v32 = KBSaveUserBagHandle(a1, a2, a7, 0);
+      if (!v32)
       {
-        return v37;
+LABEL_11:
+        if ((v18 & 1) == 0)
+        {
+          v40 = aks_set_system_with_opts();
+          if (v40)
+          {
+            debuglog("KBChangeSystemNonSeSecret", @"set-system failed %d", v41, v42, v43, v44, v45, v46, v40, __PAIR64__(a8, v20), &v72);
+            v54 = 1;
+            goto LABEL_31;
+          }
+        }
+
+        v47 = aks_change_secret_epilogue_with_opts();
+        v39 = v47;
+        if (v47)
+        {
+          debuglog("KBChangeSystemNonSeSecret", @"aks_change_secret_epilogue() failed %x", v48, v49, v50, v51, v52, v53, v47, __PAIR64__(a8, v20), &v72);
+        }
+
+LABEL_15:
+        v54 = 0;
+        goto LABEL_16;
       }
     }
 
     else
     {
       OUTLINED_FUNCTION_1();
-      if (!KBSaveSystemBagHandle(v55, v56, v57, v58, 1))
+      v32 = KBSaveSystemBagHandle(v28, v29, v30, v31, 0);
+      if (!v32)
       {
-        return v37;
+        goto LABEL_11;
       }
     }
 
-    debuglog("KBChangeSystemNonSeSecret", @"welp, unable to persist old bag", v59, v60, v61, v62, v63, v64, v69);
+    v39 = v32;
+    debuglog("KBChangeSystemNonSeSecret", @"unable to save bag %d", v33, v34, v35, v36, v37, v38, v72, __PAIR64__(a8, v20), &v72);
+    goto LABEL_15;
   }
 
-  return v37;
+  debuglog("KBChangeSystemNonSeSecret", @"temp handle is invalid: %d", v22, v23, v24, v25, v26, v27, 0xFFFFFFFFLL, __PAIR64__(a8, v20), &v72);
+LABEL_29:
+  v54 = 0;
+LABEL_31:
+  v39 = 0xFFFFFFFFLL;
+LABEL_16:
+  if (v72 == -1)
+  {
+    v55 = 1;
+  }
+
+  else
+  {
+    v55 = v18;
+  }
+
+  if ((v55 & 1) == 0)
+  {
+    aks_unload_bag();
+  }
+
+  if (v54)
+  {
+    if (a1)
+    {
+      OUTLINED_FUNCTION_1();
+      if (!KBSaveUserBagHandle(v67, v68, v69, v70))
+      {
+        return v39;
+      }
+    }
+
+    else
+    {
+      OUTLINED_FUNCTION_1();
+      if (!KBSaveSystemBagHandle(v57, v58, v59, v60, 1))
+      {
+        return v39;
+      }
+    }
+
+    debuglog("KBChangeSystemNonSeSecret", @"welp, unable to persist old bag", v61, v62, v63, v64, v65, v66, v71);
+  }
+
+  return v39;
 }
 
 uint64_t KBChangeSystemSecretWithEscrow(CFDataRef theData, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, int a7)
@@ -9004,27 +8924,28 @@ uint64_t MKBDeviceTreeContainsKey(const char *a1, const __CFString *a2)
   return v10;
 }
 
-void KBSecureLoadObjectWithCrypto_cold_1(char a1)
+void KBSecureLoadObjectWithCrypto_cold_1(uint64_t a1, uint64_t a2)
 {
-  v2 = __error();
-  strerror(*v2);
-  debuglog("KBSecureLoadObject", @"could not rename %s to %s: %s", v3, v4, v5, v6, v7, v8, a1);
+  v4 = __error();
+  v5 = strerror(*v4);
+  debuglog("KBSecureLoadObject", @"could not rename %s to %s: %s", v6, v7, v8, v9, v10, v11, a1, a2, v5);
 }
 
 uint64_t MKBKeyBagKeyStashCreateWithOpts(const __CFDictionary *a1, uint64_t a2, const __CFData *a3, const __CFData *a4)
 {
   handleToUse(0);
   v14 = ShouldSkipSE(a1);
-  v54 = 0;
+  v53 = 0;
   if (a2 && (a3 != 0) != (a4 == 0))
   {
-    debuglog("MKBKeyBagKeyStashCreateWithOpts", @"passcode and acm are mutually exclusive", v8, v9, v10, v11, v12, v13, v53);
+    debuglog("MKBKeyBagKeyStashCreateWithOpts", @"passcode and acm are mutually exclusive", v8, v9, v10, v11, v12, v13);
+    v17 = 0;
     v44 = 4294967279;
   }
 
   else
   {
-    if (_get_userid_from_options(a1, &v54))
+    if (_get_userid_from_options(a1, &v53))
     {
       v15 = 2;
     }
@@ -9100,11 +9021,11 @@ uint64_t MKBKeyBagKeyStashCreateWithOpts(const __CFDictionary *a1, uint64_t a2, 
     }
 
     v43 = +[MKBKeyStoreDevice sharedService];
-    v44 = [v43 stashCreateWithSecret:a3 withMode:a2 withUID:v54 WithFlags:v17];
+    v44 = [v43 stashCreateWithSecret:a3 withMode:a2 withUID:v53 WithFlags:v17];
   }
 
 LABEL_20:
-  debuglog("MKBKeyBagKeyStashCreateWithOpts", @"result = %d (stash_mode:%d, uid:%d, flags:0x%x)", v30, v31, v32, v33, v34, v35, v44);
+  debuglog("MKBKeyBagKeyStashCreateWithOpts", @"result = %d (stash_mode:%d, uid:%d, flags:0x%x)", v30, v31, v32, v33, v34, v35, v44, a2, v53, v17);
   return v44;
 }
 
@@ -9201,14 +9122,14 @@ uint64_t MKBKeyBagKeyStashEnableWithOpts(const __CFDictionary *a1)
   }
 
   v18 = v11;
-  debuglog("MKBKeyBagKeyStashEnableWithOpts", @"result = %d, (handle:%d)", v12, v13, v14, v15, v16, v17, v11);
+  debuglog("MKBKeyBagKeyStashEnableWithOpts", @"result = %d, (handle:%d)", v12, v13, v14, v15, v16, v17, v11, v2);
   return v18;
 }
 
 uint64_t MKBKeyBagKeyStashCommitWithOpts(const __CFDictionary *a1)
 {
-  v13 = 0;
-  userid_from_options = _get_userid_from_options(a1, &v13);
+  v14 = 0;
+  userid_from_options = _get_userid_from_options(a1, &v14);
   v2 = +[MKBKeyStoreDevice sharedService];
   v3 = v2;
   if (userid_from_options)
@@ -9221,19 +9142,29 @@ uint64_t MKBKeyBagKeyStashCommitWithOpts(const __CFDictionary *a1)
     v4 = 0;
   }
 
-  v5 = [v2 stashCommit:v13 WithFlags:v4];
+  if (userid_from_options)
+  {
+    v5 = 2;
+  }
 
-  debuglog("MKBKeyBagKeyStashCommitWithOpts", @"result = %d, (uid:%u, flags:0x%x)", v6, v7, v8, v9, v10, v11, v5);
-  return v5;
+  else
+  {
+    v5 = 0;
+  }
+
+  v6 = [v2 stashCommit:v14 WithFlags:v4];
+
+  debuglog("MKBKeyBagKeyStashCommitWithOpts", @"result = %d, (uid:%u, flags:0x%x)", v7, v8, v9, v10, v11, v12, v6, v14, v5);
+  return v6;
 }
 
 __CFDictionary *MKBKeyBagKeyStashVerifyWithOpts(const __CFDictionary *a1)
 {
-  v12 = 0;
+  v11 = 0;
   valuePtr = 2;
   v1 = MEMORY[0x1E695E4C0];
-  v11 = 0;
-  if (_get_userid_from_options(a1, &v11))
+  v10 = 0;
+  if (_get_userid_from_options(a1, &v10))
   {
     v2 = 2;
   }
@@ -9251,7 +9182,7 @@ __CFDictionary *MKBKeyBagKeyStashVerifyWithOpts(const __CFDictionary *a1)
 
   v4 = *v1;
   v5 = +[MKBKeyStoreDevice sharedService];
-  v6 = [v5 stashVerifywithValidity:&valuePtr WithUID:v11 WithFlags:v2];
+  v6 = [v5 stashVerifywithValidity:&valuePtr WithUID:v10 WithFlags:v2];
 
   if (v6)
   {
@@ -9262,13 +9193,9 @@ __CFDictionary *MKBKeyBagKeyStashVerifyWithOpts(const __CFDictionary *a1)
   OUTLINED_FUNCTION_4(v7, @"StashBagValidOnDisk");
   CFRelease(v7);
   lock_state = aks_get_lock_state();
-  if (!convertAKSErrorToMKB(lock_state))
+  if (!convertAKSErrorToMKB(lock_state) && (v11 & 0x400) != 0)
   {
-    v9 = *MEMORY[0x1E695E4D0];
-    if ((v12 & 0x400) != 0)
-    {
-      v4 = *MEMORY[0x1E695E4D0];
-    }
+    v4 = *MEMORY[0x1E695E4D0];
   }
 
   CFDictionarySetValue(dict, @"StashStagedManifest", v4);
@@ -9295,7 +9222,7 @@ uint64_t _MKBKeyBagChangeSystemSecretOpts(uint64_t a1, uint64_t a2, uint64_t a3,
       goto LABEL_6;
     }
 
-    debuglog("__options_to_change_secret_params", @"key is of wrong type", v16, v17, v18, v19, v20, v21, v36);
+    debuglog("__options_to_change_secret_params", @"key is of wrong type", v16, v17, v18, v19, v20, v21);
 LABEL_15:
     v22 = 0;
     goto LABEL_10;
@@ -9318,7 +9245,7 @@ LABEL_6:
 
     else
     {
-      debuglog("__options_to_change_secret_params", @"key is of wrong type", v26, v27, v28, v29, v30, v31, v36);
+      debuglog("__options_to_change_secret_params", @"key is of wrong type", v26, v27, v28, v29, v30, v31);
     }
   }
 
@@ -9520,184 +9447,181 @@ LABEL_9:
   return v6;
 }
 
-uint64_t MKBFileCreateForRestore(const __CFString *a1, uint64_t a2, CFDataRef theData, void *a4)
+uint64_t MKBFileCreateForRestore(const __CFString *a1, int a2, CFDataRef theData, void *a4)
 {
-  v35 = *MEMORY[0x1E69E9840];
-  if (!theData || (BytePtr = CFDataGetBytePtr(theData), !CFStringGetCString(a1, buffer, 1025, 0x8000100u)))
+  v31[129] = *MEMORY[0x1E69E9840];
+  LODWORD(v31[0]) = 32;
+  if (!theData)
   {
-    v20 = 0xFFFFFFFFLL;
-    goto LABEL_21;
+    return 0xFFFFFFFFLL;
   }
 
-  v9 = OUTLINED_FUNCTION_3();
-  if (!v9)
+  BytePtr = CFDataGetBytePtr(theData);
+  if (!CFStringGetCString(a1, v31 + 7, 1025, 0x8000100u))
   {
-    v20 = 4294967291;
-    goto LABEL_21;
+    return 0xFFFFFFFFLL;
   }
 
-  v10 = v9;
-  bzero(v9, 0x558uLL);
-  *(v10 + 257) = -1;
+  v8 = OUTLINED_FUNCTION_3();
+  if (!v8)
+  {
+    return 4294967291;
+  }
+
+  v9 = v8;
+  bzero(v8, 0x558uLL);
+  *(v9 + 257) = -1;
   if ((CFDataGetLength(theData) & 0xFFFFFFFFFFFFFF7FLL) != 0x2C)
   {
-    CC_SHA1_Init((v10 + 1236));
-    v10[1080] = 1;
-    *(v10 + 271) = bswap32(*(BytePtr + 5));
-    v11 = bswap32(*(BytePtr + 6));
+    CC_SHA1_Init((v9 + 1236));
+    v9[1080] = 1;
+    *(v9 + 271) = bswap32(*(BytePtr + 5));
+    v10 = bswap32(*(BytePtr + 6));
     CFDataGetLength(theData);
-    v21 = *(a2 + 16);
     if (!aks_unwrap_key())
     {
       goto LABEL_13;
     }
 
 LABEL_9:
-    v20 = 0xFFFFFFFFLL;
+    v18 = 0xFFFFFFFFLL;
     goto LABEL_10;
   }
 
-  v11 = *BytePtr;
+  v10 = *BytePtr;
   CFDataGetLength(theData);
-  v12 = *(a2 + 16);
   if (aks_unwrap_key())
   {
     goto LABEL_9;
   }
 
-  if (CCCryptorCreate(1u, 0, 1u, v10 + 1036, 0x20uLL, 0, v10 + 134))
+  if (CCCryptorCreate(1u, 0, 1u, v9 + 1036, 0x20uLL, 0, v9 + 134))
   {
-    v20 = 4294967289;
+    v18 = 4294967289;
     goto LABEL_10;
   }
 
 LABEL_13:
-  if (v11 == 1)
+  if (v10 == 1)
   {
-    v22 = 2;
+    v19 = 2;
   }
 
   else
   {
-    v22 = v11;
+    v19 = v10;
   }
 
-  if (v22 == 17)
+  if (v19 == 17)
   {
-    v23 = 7;
+    v20 = 7;
   }
 
   else
   {
-    v23 = v22;
+    v20 = v19;
   }
 
-  v24 = open_dprotected_np(buffer, 2817, v23, 0, 420);
-  *(v10 + 257) = v24;
-  if (v24 != -1)
+  v21 = open_dprotected_np(v31 + 7, 2817, v20, 0, 420);
+  *(v9 + 257) = v21;
+  if (v21 != -1)
   {
-    v20 = 0;
-    *a4 = v10;
-    goto LABEL_21;
+    v18 = 0;
+    *a4 = v9;
+    return v18;
   }
 
-  v27 = __error();
-  strerror(*v27);
-  debuglog("MKBFileCreateForRestore", @"Can't create file to restore to (class: %d): %s", v28, v29, v30, v31, v32, v33, v22);
-  v20 = 4294967290;
+  v23 = __error();
+  v24 = strerror(*v23);
+  debuglog("MKBFileCreateForRestore", @"Can't create file to restore to (class: %d): %s", v25, v26, v27, v28, v29, v30, v19, v24, v31[0]);
+  v18 = 4294967290;
 LABEL_10:
-  if (*(v10 + 257) != -1)
+  if (*(v9 + 257) != -1)
   {
-    unlink(buffer);
+    unlink(v31 + 7);
   }
 
-  MKBFileClose(v10, v13, v14, v15, v16, v17, v18, v19);
-LABEL_21:
-  v25 = *MEMORY[0x1E69E9840];
-  return v20;
+  MKBFileClose(v9, v11, v12, v13, v14, v15, v16, v17);
+  return v18;
 }
 
 size_t MKBFileWrite(uint64_t a1, char *data, size_t size, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   v8 = size;
-  v73 = *MEMORY[0x1E69E9840];
+  v71 = *MEMORY[0x1E69E9840];
   if (*(a1 + 1080) != 1)
   {
-    v22 = 0;
+    v21 = 0;
     dataOutMoved = 0;
     dataIn = 0;
     if (*(a1 + 1032))
     {
-LABEL_41:
-      v8 = v22;
-      goto LABEL_42;
+      return v21;
     }
 
     if ((size & 0xF) != 0)
     {
-      debuglog("MKBFileWriteTranscrypt", @"buffer size %zu not a multiple of %d\n", size, a4, a5, a6, a7, a8, size);
+      debuglog("MKBFileWriteTranscrypt", @"buffer size %zu not a multiple of %d\n", size, a4, a5, a6, a7, a8, size, 16);
     }
 
     else if (size)
     {
-      v23 = malloc_type_malloc(size, 0x9260009DuLL);
-      if (v23)
+      v22 = malloc_type_malloc(size, 0x9260009DuLL);
+      if (v22)
       {
-        v30 = v23;
-        v31 = CCCryptorUpdate(*(a1 + 1072), data, v8, v23, v8, &dataOutMoved);
-        if (v31)
+        v29 = v22;
+        v30 = CCCryptorUpdate(*(a1 + 1072), data, v8, v22, v8, &dataOutMoved);
+        if (v30)
         {
-          debuglog("MKBFileWriteTranscrypt", @"CCCryptorUpdate() failed: %d\n", v32, v33, v34, v35, v36, v37, v31);
+          debuglog("MKBFileWriteTranscrypt", @"CCCryptorUpdate() failed: %d\n", v31, v32, v33, v34, v35, v36, v30);
         }
 
         else
         {
-          v22 = writen(*(a1 + 1028), v30, dataOutMoved);
-          if (v22 == dataOutMoved)
+          v21 = writen(*(a1 + 1028), v29, dataOutMoved);
+          if (v21 == dataOutMoved)
           {
 LABEL_28:
-            free(v30);
-            goto LABEL_41;
+            free(v29);
+            return v21;
           }
 
-          v51 = __error();
-          dataOuta = strerror(*v51);
-          debuglog("MKBFileWriteTranscrypt", @"write failed: %s\n", v52, v53, v54, v55, v56, v57, dataOuta);
+          v49 = __error();
+          dataOuta = strerror(*v49);
+          debuglog("MKBFileWriteTranscrypt", @"write failed: %s\n", v50, v51, v52, v53, v54, v55, dataOuta);
         }
 
-        v22 = -1;
+        v21 = -1;
         goto LABEL_28;
       }
 
-      debuglog("MKBFileWriteTranscrypt", @"Couldn't allocate work buffer of %zu bytes\n", v24, v25, v26, v27, v28, v29, v8);
+      debuglog("MKBFileWriteTranscrypt", @"Couldn't allocate work buffer of %zu bytes\n", v23, v24, v25, v26, v27, v28, v8);
     }
 
     else
     {
       *(a1 + 1032) = 1;
-      v38 = CCCryptorFinal(*(a1 + 1072), md, 0x10uLL, &dataIn);
-      if (v38)
+      v37 = CCCryptorFinal(*(a1 + 1072), md, 0x10uLL, &dataIn);
+      if (v37)
       {
-        debuglog("MKBFileWriteTranscrypt", @"CCCryptorFinal() failed: %d\n", v39, v40, v41, v42, v43, v44, v38);
+        debuglog("MKBFileWriteTranscrypt", @"CCCryptorFinal() failed: %d\n", v38, v39, v40, v41, v42, v43, v37);
       }
 
       else
       {
-        v47 = writen(*(a1 + 1028), md, dataIn);
-        if (v47 == dataIn)
+        v46 = writen(*(a1 + 1028), md, dataIn);
+        if (v46 == dataIn)
         {
-          v22 = v47;
-          goto LABEL_41;
+          return v46;
         }
 
-        v58 = __error();
-        dataOutb = strerror(*v58);
-        debuglog("MKBFileWriteTranscrypt", @"write failed: %s\n", v59, v60, v61, v62, v63, v64, dataOutb);
+        v56 = __error();
+        dataOutb = strerror(*v56);
+        debuglog("MKBFileWriteTranscrypt", @"write failed: %s\n", v57, v58, v59, v60, v61, v62, dataOutb);
       }
     }
 
-    v22 = -1;
-    goto LABEL_41;
+    return -1;
   }
 
   if (!*(a1 + 1360))
@@ -9707,7 +9631,7 @@ LABEL_28:
 
   if (!v8)
   {
-    goto LABEL_42;
+    return v8;
   }
 
   v11 = v8;
@@ -9727,33 +9651,32 @@ LABEL_28:
     if (!(v12 % *(a1 + 1084)))
     {
       CC_SHA1((a1 + 1036), 0x20u, md);
-      v14 = *(a1 + 1336);
       OUTLINED_FUNCTION_1_0();
       OUTLINED_FUNCTION_1_0();
-      if (!v18)
+      if (!v17)
       {
-        v16 = v17;
+        v15 = v16;
       }
 
-      dataIn = __PAIR64__(v16, v15);
+      dataIn = __PAIR64__(v15, v14);
       OUTLINED_FUNCTION_1_0();
-      if (!v18)
+      if (!v17)
       {
-        v20 = v21;
+        v19 = v20;
       }
 
-      v70 = v19;
-      v71 = v20;
+      v68 = v18;
+      v69 = v19;
       if (CCCrypt(0, 0, 0, md, 0x10uLL, 0, &dataIn, 0x10uLL, (a1 + 1344), 0x10uLL, 0))
       {
-        goto LABEL_32;
+        return -1;
       }
     }
 
     CC_SHA1_Update((a1 + 1236), data, dataOutAvailable);
     if (CCCrypt(1u, 0, 0, (a1 + 1036), 0x20uLL, (a1 + 1344), data, dataOutAvailable, *(a1 + 1360), dataOutAvailable, 0))
     {
-      goto LABEL_32;
+      return -1;
     }
 
     if ((*(a1 + 1336) + dataOutAvailable) % *(a1 + 1084))
@@ -9763,9 +9686,9 @@ LABEL_28:
 
     if (writen(*(a1 + 1028), *(a1 + 1360), dataOutAvailable) != dataOutAvailable)
     {
-      v50 = __error();
-      dataOut = strerror(*v50);
-      v46 = @"write failed: %s\n";
+      v48 = __error();
+      dataOut = strerror(*v48);
+      v45 = @"write failed: %s\n";
       goto LABEL_44;
     }
 
@@ -9774,41 +9697,72 @@ LABEL_28:
     v11 -= dataOutAvailable;
     if (!v11)
     {
-      goto LABEL_42;
+      return v8;
     }
   }
 
   if (v11 != 28)
   {
-    v46 = @"Unknown trailer blob";
+    v45 = @"Unknown trailer blob";
 LABEL_44:
-    debuglog("MKBFileWriteEncrypted", v46, size, a4, a5, a6, a7, a8, dataOut);
-    goto LABEL_32;
+    debuglog("MKBFileWriteEncrypted", v45, size, a4, a5, a6, a7, a8, dataOut);
+    return -1;
   }
 
   CC_SHA1_Final(md, (a1 + 1236));
   if (memcmp(data + 8, md, 0x14uLL))
   {
     ftruncate(*(a1 + 1028), 0);
-LABEL_32:
-    v8 = -1;
-    goto LABEL_42;
+    return -1;
   }
 
-  v45 = bswap64(*data);
-  if (v45 > *(a1 + 1336))
+  v44 = bswap64(*data);
+  if (v44 > *(a1 + 1336))
   {
-    v46 = @"file cannot be larger than backup";
+    v45 = @"file cannot be larger than backup";
     goto LABEL_44;
   }
 
-  if (ftruncate(*(a1 + 1028), v45))
+  if (ftruncate(*(a1 + 1028), v44))
   {
-    v46 = @"ftruncate() failed";
+    v45 = @"ftruncate() failed";
     goto LABEL_44;
   }
 
-LABEL_42:
-  v48 = *MEMORY[0x1E69E9840];
   return v8;
+}
+
+uint64_t MKBBackupValidateKeyUUID(uint64_t a1, CFDataRef theData)
+{
+  theDataa = 0;
+  BytePtr = CFDataGetBytePtr(theData);
+  Length = CFDataGetLength(theData);
+  if (_MKBBackupCheckKey(BytePtr, Length, v6, v7, v8, v9, v10, v11))
+  {
+    return 0xFFFFFFFFLL;
+  }
+
+  if (MKBKeyBagCopyUUID(a1, &theDataa))
+  {
+    debuglog("MKBBackupValidateKeyUUID", @"Failed to get bag uuid", v12, v13, v14, v15, v16, v17);
+    v18 = theDataa;
+    goto LABEL_8;
+  }
+
+  v18 = theDataa;
+  v19 = CFDataGetBytePtr(theDataa);
+  if (memcmp(BytePtr, v19, 0x10uLL))
+  {
+    debuglog("MKBBackupValidateKeyUUID", @"Bag uuid mismatch", v20, v21, v22, v23, v24, v25);
+LABEL_8:
+    if (v18)
+    {
+      CFRelease(v18);
+    }
+
+    return 0xFFFFFFFFLL;
+  }
+
+  CFRelease(v18);
+  return 0;
 }

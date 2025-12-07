@@ -1,4 +1,5 @@
 @interface HFCharacteristicValueDisplayMetadata
++ (id)_errorForSymptomHandler:(id)handler isFixingCurrently:(BOOL)currently withContextProvider:(id)provider;
 + (id)displayMetadataForAccessory:(id)accessory withContextProvider:(id)provider;
 + (id)displayMetadataForMediaProfile:(id)profile withContextProvider:(id)provider;
 + (id)displayMetadataForService:(id)service characteristicReadResponse:(id)response;
@@ -35,49 +36,49 @@
 
 + (id)displayMetadataForService:(id)service characteristicReadResponse:(id)response
 {
-  v101 = *MEMORY[0x277D85DE8];
+  v100 = *MEMORY[0x277D85DE8];
   serviceCopy = service;
   responseCopy = response;
-  v78 = serviceCopy;
+  v77 = serviceCopy;
   hf_serviceDescriptor = [serviceCopy hf_serviceDescriptor];
   serviceType = [hf_serviceDescriptor serviceType];
   selfCopy = self;
-  v72 = hf_serviceDescriptor;
-  v79 = responseCopy;
-  v76 = objc_alloc_init(HFCharacteristicValueDisplayMetadata);
-  -[HFCharacteristicValueDisplayMetadata setPriority:](v76, "setPriority:", [self _unknownStatePriorityForServiceDescriptor:hf_serviceDescriptor characteristicReadResponse:responseCopy]);
+  v71 = hf_serviceDescriptor;
+  v78 = responseCopy;
+  v75 = objc_alloc_init(HFCharacteristicValueDisplayMetadata);
+  -[HFCharacteristicValueDisplayMetadata setPriority:](v75, "setPriority:", [self _unknownStatePriorityForServiceDescriptor:hf_serviceDescriptor characteristicReadResponse:responseCopy]);
   hf_sensorServiceTypes = [MEMORY[0x277CD1D90] hf_sensorServiceTypes];
-  v69 = __HFSimplePowerStateServices_block_invoke();
-  v68 = __HFSimpleActiveStateServices_block_invoke();
-  v73 = __HFCurrentTargetPositionServices_block_invoke();
-  v71 = serviceType;
+  v68 = __HFSimplePowerStateServices_block_invoke();
+  v67 = __HFSimpleActiveStateServices_block_invoke();
+  v72 = __HFCurrentTargetPositionServices_block_invoke();
+  v70 = serviceType;
   v10 = [MEMORY[0x277CD1D90] hf_requiredCharacteristicTypesForDisplayMetadataWithServiceType:serviceType];
   allObjects = [v10 allObjects];
   hf_characteristicSortComparator = [MEMORY[0x277CD1970] hf_characteristicSortComparator];
   v13 = [allObjects sortedArrayUsingComparator:hf_characteristicSortComparator];
 
-  v84 = 0u;
-  v85 = 0u;
-  v82 = 0u;
   v83 = 0u;
+  v84 = 0u;
+  v81 = 0u;
+  v82 = 0u;
   obj = v13;
-  v14 = [obj countByEnumeratingWithState:&v82 objects:v100 count:16];
+  v14 = [obj countByEnumeratingWithState:&v81 objects:v99 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v83;
+    v16 = *v82;
     v17 = 1;
     while (2)
     {
       for (i = 0; i != v15; ++i)
       {
-        if (*v83 != v16)
+        if (*v82 != v16)
         {
           objc_enumerationMutation(obj);
         }
 
-        v19 = *(*(&v82 + 1) + 8 * i);
-        v20 = [v79 responseForCharacteristicType:v19];
+        v19 = *(*(&v81 + 1) + 8 * i);
+        v20 = [v78 responseForCharacteristicType:v19];
         error = [v20 error];
         v22 = error;
         if (v20)
@@ -95,26 +96,26 @@
         {
           v31 = NSStringFromSelector(a2);
           *buf = 138413826;
-          v87 = selfCopy;
-          v88 = 2112;
-          v89 = v31;
-          v90 = 2112;
-          v91 = v78;
-          v92 = 2112;
-          v93 = v19;
-          v94 = 2112;
-          v95 = v20;
-          v96 = 2112;
-          v97 = v22;
-          v98 = 1024;
-          v99 = v23;
+          v86 = selfCopy;
+          v87 = 2112;
+          v88 = v31;
+          v89 = 2112;
+          v90 = v77;
+          v91 = 2112;
+          v92 = v19;
+          v93 = 2112;
+          v94 = v20;
+          v95 = 2112;
+          v96 = v22;
+          v97 = 1024;
+          v98 = v23;
           _os_log_debug_impl(&dword_20D9BF000, v24, OS_LOG_TYPE_DEBUG, "%@:%@ Service: %@ CharacteristicType: %@, aReadResponse: %@, readError: %@, readPolicyDisallowedRead: %{BOOL}d", buf, 0x44u);
         }
 
         v17 &= v20 != 0;
         if (v23)
         {
-          accessory = [v78 accessory];
+          accessory = [v77 accessory];
           hf_isHomePod = [accessory hf_isHomePod];
 
           v17 &= hf_isHomePod;
@@ -129,11 +130,11 @@
         else if (v22)
         {
           readTraits = [v20 readTraits];
-          contextProvider = [v79 contextProvider];
+          contextProvider = [v78 contextProvider];
           v29 = [HFCharacteristicValueDisplayError errorWithUnderlyingError:v22 readTraits:readTraits contextProvider:contextProvider];
-          [(HFCharacteristicValueDisplayMetadata *)v76 setError:v29];
+          [(HFCharacteristicValueDisplayMetadata *)v75 setError:v29];
 
-          error2 = [(HFCharacteristicValueDisplayMetadata *)v76 error];
+          error2 = [(HFCharacteristicValueDisplayMetadata *)v75 error];
 
           if (error2)
           {
@@ -143,7 +144,7 @@
         }
       }
 
-      v15 = [obj countByEnumeratingWithState:&v82 objects:v100 count:16];
+      v15 = [obj countByEnumeratingWithState:&v81 objects:v99 count:16];
       if (v15)
       {
         continue;
@@ -160,17 +161,17 @@
 
 LABEL_22:
 
-  error3 = [(HFCharacteristicValueDisplayMetadata *)v76 error];
+  error3 = [(HFCharacteristicValueDisplayMetadata *)v75 error];
 
   if (!error3 && (v17 & 1) == 0)
   {
-    v80[0] = MEMORY[0x277D85DD0];
-    v80[1] = 3221225472;
-    v80[2] = __93__HFCharacteristicValueDisplayMetadata_displayMetadataForService_characteristicReadResponse___block_invoke;
-    v80[3] = &unk_277DF3130;
-    v33 = v79;
-    v81 = v33;
-    v34 = [obj na_any:v80];
+    v79[0] = MEMORY[0x277D85DD0];
+    v79[1] = 3221225472;
+    v79[2] = __93__HFCharacteristicValueDisplayMetadata_displayMetadataForService_characteristicReadResponse___block_invoke;
+    v79[3] = &unk_277DF3130;
+    v33 = v78;
+    v80 = v33;
+    v34 = [obj na_any:v79];
     allCharacteristics = [v33 allCharacteristics];
     v36 = [allCharacteristics count];
 
@@ -178,7 +179,7 @@ LABEL_22:
     {
       if (!v34)
       {
-        [(HFCharacteristicValueDisplayMetadata *)v76 setPriority:-1];
+        [(HFCharacteristicValueDisplayMetadata *)v75 setPriority:-1];
 LABEL_31:
 
         goto LABEL_32;
@@ -190,11 +191,11 @@ LABEL_31:
       v37 = HFLogForCategory(0x3DuLL);
       if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
       {
-        accessory2 = [v78 accessory];
+        accessory2 = [v77 accessory];
         *buf = 138412546;
-        v87 = v78;
-        v88 = 2112;
-        v89 = accessory2;
+        v86 = v77;
+        v87 = 2112;
+        v88 = accessory2;
         _os_log_error_impl(&dword_20D9BF000, v37, OS_LOG_TYPE_ERROR, "Read response empty for service %@ in accessory %@", buf, 0x16u);
       }
     }
@@ -203,77 +204,77 @@ LABEL_31:
     v39 = [MEMORY[0x277CBEB98] set];
     contextProvider2 = [v33 contextProvider];
     v41 = [HFCharacteristicValueDisplayError errorWithUnderlyingError:v38 readTraits:v39 contextProvider:contextProvider2];
-    [(HFCharacteristicValueDisplayMetadata *)v76 setError:v41];
+    [(HFCharacteristicValueDisplayMetadata *)v75 setError:v41];
 
     goto LABEL_31;
   }
 
 LABEL_32:
-  accessory3 = [v78 accessory];
+  accessory3 = [v77 accessory];
   hf_siriEndpointProfile = [accessory3 hf_siriEndpointProfile];
   if (hf_siriEndpointProfile)
   {
     v44 = hf_siriEndpointProfile;
-    error4 = [(HFCharacteristicValueDisplayMetadata *)v76 error];
+    error4 = [(HFCharacteristicValueDisplayMetadata *)v75 error];
 
     v47 = hf_sensorServiceTypes;
-    v46 = v71;
-    v49 = v68;
-    v48 = v69;
+    v46 = v70;
+    v49 = v67;
+    v48 = v68;
     if (error4)
     {
       goto LABEL_38;
     }
 
-    accessory4 = [v78 accessory];
+    accessory4 = [v77 accessory];
     accessory3 = [accessory4 hf_errorForCurrentSessionState];
 
     if (accessory3)
     {
       v51 = [MEMORY[0x277CBEB98] set];
-      contextProvider3 = [v79 contextProvider];
+      contextProvider3 = [v78 contextProvider];
       v53 = [HFCharacteristicValueDisplayError errorWithUnderlyingError:accessory3 readTraits:v51 contextProvider:contextProvider3];
-      [(HFCharacteristicValueDisplayMetadata *)v76 setError:v53];
+      [(HFCharacteristicValueDisplayMetadata *)v75 setError:v53];
     }
   }
 
   else
   {
     v47 = hf_sensorServiceTypes;
-    v46 = v71;
-    v49 = v68;
-    v48 = v69;
+    v46 = v70;
+    v49 = v67;
+    v48 = v68;
   }
 
 LABEL_38:
   if ((_os_feature_enabled_impl() & 1) != 0 || CFPreferencesGetAppBooleanValue(@"MatteriPhoneOnlyPairingEnabled", @"/Library/Managed Preferences/mobile/com.apple.homed.plist", 0))
   {
-    error5 = [(HFCharacteristicValueDisplayMetadata *)v76 error];
+    error5 = [(HFCharacteristicValueDisplayMetadata *)v75 error];
 
     if (error5)
     {
-      accessory5 = [v78 accessory];
-      [selfCopy _overrideDisplayErrorCategoryWithThreadNetworkErrorForDisplayMetadata:v76 withAccessory:accessory5];
+      accessory5 = [v77 accessory];
+      [selfCopy _overrideDisplayErrorCategoryWithThreadNetworkErrorForDisplayMetadata:v75 withAccessory:accessory5];
     }
   }
 
-  error6 = [(HFCharacteristicValueDisplayMetadata *)v76 error];
+  error6 = [(HFCharacteristicValueDisplayMetadata *)v75 error];
   isPersistentError = [error6 isPersistentError];
 
   if (isPersistentError)
   {
-    [(HFCharacteristicValueDisplayMetadata *)v76 setPriority:0];
+    [(HFCharacteristicValueDisplayMetadata *)v75 setPriority:0];
   }
 
-  v58 = [HFServiceState stateClassForServiceDescriptor:v72];
+  v58 = [HFServiceState stateClassForServiceDescriptor:v71];
   if (v58)
   {
-    v59 = [[v58 alloc] initWithBatchReadResponse:v79];
+    v59 = [[v58 alloc] initWithBatchReadResponse:v78];
     if (v59)
     {
-      [(HFCharacteristicValueDisplayMetadata *)v76 setServiceState:v59];
-      -[HFCharacteristicValueDisplayMetadata setPrimaryState:](v76, "setPrimaryState:", [v59 primaryState]);
-      -[HFCharacteristicValueDisplayMetadata setPriority:](v76, "setPriority:", [v59 priority]);
+      [(HFCharacteristicValueDisplayMetadata *)v75 setServiceState:v59];
+      -[HFCharacteristicValueDisplayMetadata setPrimaryState:](v75, "setPrimaryState:", [v59 primaryState]);
+      -[HFCharacteristicValueDisplayMetadata setPriority:](v75, "setPriority:", [v59 priority]);
       if ([v59 isTransitioning])
       {
         primaryState = [v59 primaryState];
@@ -287,13 +288,13 @@ LABEL_38:
           v61 = 2 * (primaryState == 1);
         }
 
-        [(HFCharacteristicValueDisplayMetadata *)v76 setTransitioningPrimaryState:v61];
+        [(HFCharacteristicValueDisplayMetadata *)v75 setTransitioningPrimaryState:v61];
       }
 
       v62 = MEMORY[0x277CD1D90];
-      serviceType2 = [v72 serviceType];
+      serviceType2 = [v71 serviceType];
       v64 = [v62 localizedDescriptionForServiceType:serviceType2];
-      [(HFCharacteristicValueDisplayMetadata *)v76 setSortKey:v64];
+      [(HFCharacteristicValueDisplayMetadata *)v75 setSortKey:v64];
     }
 
 LABEL_52:
@@ -307,52 +308,52 @@ LABEL_52:
     {
       if ([v48 containsObject:v46])
       {
-        [(HFCharacteristicValueDisplayMetadata *)v76 parsePowerStateForServiceType:v46 response:v79];
+        [(HFCharacteristicValueDisplayMetadata *)v75 parsePowerStateForServiceType:v46 response:v78];
       }
 
       else if ([v49 containsObject:v46])
       {
-        [(HFCharacteristicValueDisplayMetadata *)v76 parseActiveStateForServiceType:v46 response:v79];
+        [(HFCharacteristicValueDisplayMetadata *)v75 parseActiveStateForServiceType:v46 response:v78];
       }
 
-      else if ([v73 containsObject:v46])
+      else if ([v72 containsObject:v46])
       {
-        [(HFCharacteristicValueDisplayMetadata *)v76 parseCurrentTargetPositionForServiceType:v46 response:v79];
+        [(HFCharacteristicValueDisplayMetadata *)v75 parseCurrentTargetPositionForServiceType:v46 response:v78];
       }
 
       else if ([v46 isEqualToString:*MEMORY[0x277CD0E58]])
       {
-        [(HFCharacteristicValueDisplayMetadata *)v76 parseGarageDoorOpenerResponse:v79];
+        [(HFCharacteristicValueDisplayMetadata *)v75 parseGarageDoorOpenerResponse:v78];
       }
 
       else if ([v46 isEqualToString:*MEMORY[0x277CD0EB0]])
       {
-        [(HFCharacteristicValueDisplayMetadata *)v76 parseLockMechanismResponse:v79];
+        [(HFCharacteristicValueDisplayMetadata *)v75 parseLockMechanismResponse:v78];
       }
 
       else if ([v46 isEqualToString:*MEMORY[0x277CD0ED8]])
       {
-        [(HFCharacteristicValueDisplayMetadata *)v76 parseSecuritySystemResponse:v79];
+        [(HFCharacteristicValueDisplayMetadata *)v75 parseSecuritySystemResponse:v78];
       }
 
       else if (([v46 isEqualToString:*MEMORY[0x277CD0F30]] & 1) != 0 || objc_msgSend(v46, "isEqualToString:", *MEMORY[0x277CD0E60]))
       {
-        [(HFCharacteristicValueDisplayMetadata *)v76 parseThermostatResponse:v79 serviceType:v46];
+        [(HFCharacteristicValueDisplayMetadata *)v75 parseThermostatResponse:v78 serviceType:v46];
       }
 
       else if ([v46 isEqualToString:*MEMORY[0x277CD0DD8]])
       {
-        [(HFCharacteristicValueDisplayMetadata *)v76 parseAirPurifierResponse:v79];
+        [(HFCharacteristicValueDisplayMetadata *)v75 parseAirPurifierResponse:v78];
       }
 
       else if ([v46 isEqualToString:*MEMORY[0x277CD0E68]])
       {
-        [(HFCharacteristicValueDisplayMetadata *)v76 parseHumidifierDehumidifierResponse:v79];
+        [(HFCharacteristicValueDisplayMetadata *)v75 parseHumidifierDehumidifierResponse:v78];
       }
 
       else if (([v46 isEqualToString:*MEMORY[0x277CD0F00]] & 1) != 0 || objc_msgSend(v46, "isEqualToString:", *MEMORY[0x277CD0EF8]))
       {
-        [(HFCharacteristicValueDisplayMetadata *)v76 parseProgammableSwitchOfType:v46 response:v79];
+        [(HFCharacteristicValueDisplayMetadata *)v75 parseProgammableSwitchOfType:v46 response:v78];
       }
 
       else
@@ -371,24 +372,22 @@ LABEL_52:
     v59 = qword_280E02F48;
     if ([v59 containsObject:v46])
     {
-      [(HFCharacteristicValueDisplayMetadata *)v76 parseWarningSensorWithServiceType:v46 response:v79];
+      [(HFCharacteristicValueDisplayMetadata *)v75 parseWarningSensorWithServiceType:v46 response:v78];
     }
 
     else
     {
-      [(HFCharacteristicValueDisplayMetadata *)v76 parseInformationalSensorWithServiceType:v46 response:v79];
+      [(HFCharacteristicValueDisplayMetadata *)v75 parseInformationalSensorWithServiceType:v46 response:v78];
     }
 
     goto LABEL_52;
   }
 
-  [(HFCharacteristicValueDisplayMetadata *)v76 setPrimaryState:1];
-  [(HFCharacteristicValueDisplayMetadata *)v76 setPriority:-1];
+  [(HFCharacteristicValueDisplayMetadata *)v75 setPrimaryState:1];
+  [(HFCharacteristicValueDisplayMetadata *)v75 setPriority:-1];
 LABEL_55:
 
-  v65 = *MEMORY[0x277D85DE8];
-
-  return v76;
+  return v75;
 }
 
 uint64_t __93__HFCharacteristicValueDisplayMetadata_displayMetadataForService_characteristicReadResponse___block_invoke(uint64_t a1, void *a2)
@@ -417,8 +416,8 @@ uint64_t __93__HFCharacteristicValueDisplayMetadata_displayMetadataForService_ch
 
 uint64_t __93__HFCharacteristicValueDisplayMetadata_displayMetadataForService_characteristicReadResponse___block_invoke_3(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v2 = [a2 service];
+  v10 = *MEMORY[0x277D85DE8];
+  v2 = objc_msgSend_service(a2);
   v3 = [v2 accessory];
 
   if (v3 && ([v3 isReachable] & 1) == 0)
@@ -426,10 +425,10 @@ uint64_t __93__HFCharacteristicValueDisplayMetadata_displayMetadataForService_ch
     v5 = HFLogForCategory(0x3DuLL);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v8 = [v3 hf_prettyDescription];
-      v9 = 138412290;
-      v10 = v8;
-      _os_log_error_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_ERROR, "Displaying unreachable for accessory: %@", &v9, 0xCu);
+      v7 = [v3 hf_prettyDescription];
+      v8 = 138412290;
+      v9 = v7;
+      _os_log_error_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_ERROR, "Displaying unreachable for accessory: %@", &v8, 0xCu);
     }
 
     v4 = 1;
@@ -440,32 +439,29 @@ uint64_t __93__HFCharacteristicValueDisplayMetadata_displayMetadataForService_ch
     v4 = 0;
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
 void __93__HFCharacteristicValueDisplayMetadata_displayMetadataForService_characteristicReadResponse___block_invoke_2_124()
 {
-  v9[8] = *MEMORY[0x277D85DE8];
+  v8[8] = *MEMORY[0x277D85DE8];
   v0 = MEMORY[0x277CBEB98];
   v1 = *MEMORY[0x277CD0E10];
-  v9[0] = *MEMORY[0x277CD0DE0];
-  v9[1] = v1;
+  v8[0] = *MEMORY[0x277CD0DE0];
+  v8[1] = v1;
   v2 = *MEMORY[0x277CD0E20];
-  v9[2] = *MEMORY[0x277CD0E18];
-  v9[3] = v2;
+  v8[2] = *MEMORY[0x277CD0E18];
+  v8[3] = v2;
   v3 = *MEMORY[0x277CD0EC0];
-  v9[4] = *MEMORY[0x277CD0E90];
-  v9[5] = v3;
+  v8[4] = *MEMORY[0x277CD0E90];
+  v8[5] = v3;
   v4 = *MEMORY[0x277CD0EE8];
-  v9[6] = *MEMORY[0x277CD0EC8];
-  v9[7] = v4;
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:8];
+  v8[6] = *MEMORY[0x277CD0EC8];
+  v8[7] = v4;
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:8];
   v6 = [v0 setWithArray:v5];
   v7 = qword_280E02F48;
   qword_280E02F48 = v6;
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 + (id)displayMetadataForAccessory:(id)accessory withContextProvider:(id)provider
@@ -538,7 +534,7 @@ void __93__HFCharacteristicValueDisplayMetadata_displayMetadataForService_charac
 
 + (void)_overrideDisplayErrorCategoryWithThreadNetworkErrorForDisplayMetadata:(id)metadata withAccessory:(id)accessory
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   metadataCopy = metadata;
   accessoryCopy = accessory;
   if (![accessoryCopy supportsCHIP] || !objc_msgSend(accessoryCopy, "requiresThreadRouter"))
@@ -565,22 +561,22 @@ LABEL_6:
       supportsCHIP = [accessoryCopy supportsCHIP];
       requiresThreadRouter = [accessoryCopy requiresThreadRouter];
       v13 = +[HFUtilities supportsThreadService];
-      home = [accessoryCopy home];
-      hf_hasResident = [home hf_hasResident];
+      v14 = objc_msgSend_home(accessoryCopy);
+      hf_hasResident = [v14 hf_hasResident];
       error3 = [metadataCopy error];
-      v27 = 136316418;
-      v28 = "+[HFCharacteristicValueDisplayMetadata _overrideDisplayErrorCategoryWithThreadNetworkErrorForDisplayMetadata:withAccessory:]";
-      v29 = 1024;
-      v30 = supportsCHIP;
-      v31 = 1024;
-      v32 = requiresThreadRouter;
-      v33 = 1024;
-      v34 = v13;
-      v35 = 1024;
-      v36 = hf_hasResident;
-      v37 = 2048;
+      v26 = 136316418;
+      v27 = "+[HFCharacteristicValueDisplayMetadata _overrideDisplayErrorCategoryWithThreadNetworkErrorForDisplayMetadata:withAccessory:]";
+      v28 = 1024;
+      v29 = supportsCHIP;
+      v30 = 1024;
+      v31 = requiresThreadRouter;
+      v32 = 1024;
+      v33 = v13;
+      v34 = 1024;
+      v35 = hf_hasResident;
+      v36 = 2048;
       category2 = [error3 category];
-      _os_log_impl(&dword_20D9BF000, v10, OS_LOG_TYPE_DEFAULT, "%s not overriding error category due to no thread network: [accessory supportsCHIP = %d, requiresThreadRouter = %d], [HFUtilities supportsThreadService] = %d, hasResident = %d, displayMetadata.error.category = %lu", &v27, 0x2Eu);
+      _os_log_impl(&dword_20D9BF000, v10, OS_LOG_TYPE_DEFAULT, "%s not overriding error category due to no thread network: [accessory supportsCHIP = %d, requiresThreadRouter = %d], [HFUtilities supportsThreadService] = %d, hasResident = %d, displayMetadata.error.category = %lu", &v26, 0x2Eu);
     }
 
     goto LABEL_21;
@@ -592,9 +588,9 @@ LABEL_8:
     v24 = HFLogForCategory(0);
     if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
     {
-      v27 = 136315138;
-      v28 = "+[HFCharacteristicValueDisplayMetadata _overrideDisplayErrorCategoryWithThreadNetworkErrorForDisplayMetadata:withAccessory:]";
-      _os_log_impl(&dword_20D9BF000, v24, OS_LOG_TYPE_DEFAULT, "%s overriding error category to HFCharacteristicValueDisplayErrorCategoryUnreachableCurrentDeviceNoThreadNetwork", &v27, 0xCu);
+      v26 = 136315138;
+      v27 = "+[HFCharacteristicValueDisplayMetadata _overrideDisplayErrorCategoryWithThreadNetworkErrorForDisplayMetadata:withAccessory:]";
+      _os_log_impl(&dword_20D9BF000, v24, OS_LOG_TYPE_DEFAULT, "%s overriding error category to HFCharacteristicValueDisplayErrorCategoryUnreachableCurrentDeviceNoThreadNetwork", &v26, 0xCu);
     }
 
     error4 = [metadataCopy error];
@@ -603,17 +599,17 @@ LABEL_8:
     goto LABEL_20;
   }
 
-  home2 = [accessoryCopy home];
-  hf_hasResident2 = [home2 hf_hasResident];
+  v17 = objc_msgSend_home(accessoryCopy);
+  hf_hasResident2 = [v17 hf_hasResident];
 
   if ((hf_hasResident2 & 1) == 0)
   {
     v25 = HFLogForCategory(0);
     if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
     {
-      v27 = 136315138;
-      v28 = "+[HFCharacteristicValueDisplayMetadata _overrideDisplayErrorCategoryWithThreadNetworkErrorForDisplayMetadata:withAccessory:]";
-      _os_log_impl(&dword_20D9BF000, v25, OS_LOG_TYPE_DEFAULT, "%s overriding error category to HFCharacteristicValueDisplayErrorCategoryUnreachableNoThreadNetworkNoResident", &v27, 0xCu);
+      v26 = 136315138;
+      v27 = "+[HFCharacteristicValueDisplayMetadata _overrideDisplayErrorCategoryWithThreadNetworkErrorForDisplayMetadata:withAccessory:]";
+      _os_log_impl(&dword_20D9BF000, v25, OS_LOG_TYPE_DEFAULT, "%s overriding error category to HFCharacteristicValueDisplayErrorCategoryUnreachableNoThreadNetworkNoResident", &v26, 0xCu);
     }
 
     error4 = [metadataCopy error];
@@ -622,17 +618,17 @@ LABEL_8:
     goto LABEL_20;
   }
 
-  home3 = [accessoryCopy home];
-  hf_hasResidentDeviceCapableOfSupportingThreadBorderRouter = [home3 hf_hasResidentDeviceCapableOfSupportingThreadBorderRouter];
+  v19 = objc_msgSend_home(accessoryCopy);
+  hf_hasResidentDeviceCapableOfSupportingThreadBorderRouter = [v19 hf_hasResidentDeviceCapableOfSupportingThreadBorderRouter];
 
   if ((hf_hasResidentDeviceCapableOfSupportingThreadBorderRouter & 1) == 0)
   {
     v21 = HFLogForCategory(0);
     if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
     {
-      v27 = 136315138;
-      v28 = "+[HFCharacteristicValueDisplayMetadata _overrideDisplayErrorCategoryWithThreadNetworkErrorForDisplayMetadata:withAccessory:]";
-      _os_log_impl(&dword_20D9BF000, v21, OS_LOG_TYPE_DEFAULT, "%s overriding error category to HFCharacteristicValueDisplayErrorCategoryUnreachableNoThreadNetworkResidentWithoutThread", &v27, 0xCu);
+      v26 = 136315138;
+      v27 = "+[HFCharacteristicValueDisplayMetadata _overrideDisplayErrorCategoryWithThreadNetworkErrorForDisplayMetadata:withAccessory:]";
+      _os_log_impl(&dword_20D9BF000, v21, OS_LOG_TYPE_DEFAULT, "%s overriding error category to HFCharacteristicValueDisplayErrorCategoryUnreachableNoThreadNetworkResidentWithoutThread", &v26, 0xCu);
     }
 
     error4 = [metadataCopy error];
@@ -642,27 +638,25 @@ LABEL_20:
     [error4 setCategory:v23];
 LABEL_21:
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 + (id)displayMetadataForMediaProfile:(id)profile withContextProvider:(id)provider
 {
-  v75 = *MEMORY[0x277D85DE8];
+  v74 = *MEMORY[0x277D85DE8];
   profileCopy = profile;
   providerCopy = provider;
   v8 = objc_alloc_init(HFCharacteristicValueDisplayMetadata);
   [(HFCharacteristicValueDisplayMetadata *)v8 setPriority:-1];
-  v61[0] = MEMORY[0x277D85DD0];
-  v61[1] = 3221225472;
-  v61[2] = __91__HFCharacteristicValueDisplayMetadata_displayMetadataForMediaProfile_withContextProvider___block_invoke;
-  v61[3] = &unk_277DFA520;
+  v60[0] = MEMORY[0x277D85DD0];
+  v60[1] = 3221225472;
+  v60[2] = __91__HFCharacteristicValueDisplayMetadata_displayMetadataForMediaProfile_withContextProvider___block_invoke;
+  v60[3] = &unk_277DFA520;
   v9 = profileCopy;
-  v62 = v9;
-  [(HFCharacteristicValueDisplayMetadata *)v8 setPrimaryState:__91__HFCharacteristicValueDisplayMetadata_displayMetadataForMediaProfile_withContextProvider___block_invoke(v61)];
+  v61 = v9;
+  [(HFCharacteristicValueDisplayMetadata *)v8 setPrimaryState:__91__HFCharacteristicValueDisplayMetadata_displayMetadataForMediaProfile_withContextProvider___block_invoke(v60)];
   hf_mediaValueSource = [v9 hf_mediaValueSource];
   hf_mediaRouteIdentifier = [v9 hf_mediaRouteIdentifier];
-  v58 = hf_mediaValueSource;
+  v57 = hf_mediaValueSource;
   v12 = [hf_mediaValueSource cachedPlaybackStateWriteErrorForRouteID:hf_mediaRouteIdentifier];
 
   if (![v9 hf_isReachable] || v12)
@@ -720,12 +714,12 @@ LABEL_12:
   {
 LABEL_14:
     symptoms = [v9 symptoms];
-    v59[0] = MEMORY[0x277D85DD0];
-    v59[1] = 3221225472;
-    v59[2] = __91__HFCharacteristicValueDisplayMetadata_displayMetadataForMediaProfile_withContextProvider___block_invoke_2;
-    v59[3] = &unk_277DFA548;
-    v60 = v9;
-    v22 = [symptoms na_any:v59];
+    v58[0] = MEMORY[0x277D85DD0];
+    v58[1] = 3221225472;
+    v58[2] = __91__HFCharacteristicValueDisplayMetadata_displayMetadataForMediaProfile_withContextProvider___block_invoke_2;
+    v58[3] = &unk_277DFA548;
+    v59 = v9;
+    v22 = [symptoms na_any:v58];
 
     if (!v22)
     {
@@ -782,17 +776,17 @@ LABEL_18:
       hf_backingAccessory5 = [v9 hf_backingAccessory];
       hf_isHomePod = [hf_backingAccessory5 hf_isHomePod];
       *buf = 136316418;
-      v64 = "+[HFCharacteristicValueDisplayMetadata displayMetadataForMediaProfile:withContextProvider:]";
-      v65 = 2112;
-      v66 = uniqueIdentifier3;
-      v67 = 2112;
-      v68 = uniqueIdentifier4;
-      v69 = 1024;
-      v70 = hf_isHomePod;
-      v71 = 1024;
-      v72 = v35;
-      v73 = 1024;
-      v74 = v40;
+      v63 = "+[HFCharacteristicValueDisplayMetadata displayMetadataForMediaProfile:withContextProvider:]";
+      v64 = 2112;
+      v65 = uniqueIdentifier3;
+      v66 = 2112;
+      v67 = uniqueIdentifier4;
+      v68 = 1024;
+      v69 = hf_isHomePod;
+      v70 = 1024;
+      v71 = v35;
+      v72 = 1024;
+      v73 = v40;
       _os_log_impl(&dword_20D9BF000, v41, OS_LOG_TYPE_DEFAULT, "%s mediaProfile.hf_backingAccessory.uniqueIdentifier: %@ mediaProfile.uniqueIdentifier: %@ HomePod: %{BOOL}d IsGroupedAccessoryRestarting: %{BOOL}d IsSoloAccessoryRestarting: %{BOOL}d", buf, 0x32u);
     }
   }
@@ -820,7 +814,7 @@ LABEL_18:
     if (os_log_type_enabled(v54, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v64 = "+[HFCharacteristicValueDisplayMetadata displayMetadataForMediaProfile:withContextProvider:]";
+      v63 = "+[HFCharacteristicValueDisplayMetadata displayMetadataForMediaProfile:withContextProvider:]";
       _os_log_impl(&dword_20D9BF000, v54, OS_LOG_TYPE_DEFAULT, "%s HomePodDeviceRestarting setting displayMetadata", buf, 0xCu);
     }
   }
@@ -834,7 +828,6 @@ LABEL_18:
 LABEL_35:
 
 LABEL_36:
-  v55 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -878,7 +871,7 @@ uint64_t __91__HFCharacteristicValueDisplayMetadata_displayMetadataForMediaProfi
 
 + (void)_displayAppleIDSplitErrorForMediaProfile:(id)profile havingMetadata:(id)metadata withContextProvider:(id)provider
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   profileCopy = profile;
   metadataCopy = metadata;
   providerCopy = provider;
@@ -892,10 +885,10 @@ uint64_t __91__HFCharacteristicValueDisplayMetadata_displayMetadataForMediaProfi
     v16 = NSStringFromSelector(a2);
     *buf = 138412802;
     selfCopy = self;
-    v28 = 2112;
-    v29 = v16;
-    v30 = 1024;
-    v31 = bOOLValue;
+    v27 = 2112;
+    v28 = v16;
+    v29 = 1024;
+    v30 = bOOLValue;
     _os_log_impl(&dword_20D9BF000, v15, OS_LOG_TYPE_DEFAULT, "%@:%@ Was the Split Account warning dismissed? [%d]", buf, 0x1Cu);
   }
 
@@ -913,27 +906,26 @@ uint64_t __91__HFCharacteristicValueDisplayMetadata_displayMetadataForMediaProfi
 
   if ((v18 & 1) == 0)
   {
-    v21[0] = MEMORY[0x277D85DD0];
-    v21[1] = 3221225472;
-    v21[2] = __116__HFCharacteristicValueDisplayMetadata__displayAppleIDSplitErrorForMediaProfile_havingMetadata_withContextProvider___block_invoke;
-    v21[3] = &unk_277DFA598;
-    objc_copyWeak(v25, buf);
-    v22 = metadataCopy;
-    v23 = profileCopy;
-    v24 = providerCopy;
-    v25[1] = a2;
-    v19 = [hf_homePodSupportsMultiUserLanguage addCompletionBlock:v21];
+    v20[0] = MEMORY[0x277D85DD0];
+    v20[1] = 3221225472;
+    v20[2] = __116__HFCharacteristicValueDisplayMetadata__displayAppleIDSplitErrorForMediaProfile_havingMetadata_withContextProvider___block_invoke;
+    v20[3] = &unk_277DFA598;
+    objc_copyWeak(v24, buf);
+    v21 = metadataCopy;
+    v22 = profileCopy;
+    v23 = providerCopy;
+    v24[1] = a2;
+    v19 = [hf_homePodSupportsMultiUserLanguage addCompletionBlock:v20];
 
-    objc_destroyWeak(v25);
+    objc_destroyWeak(v24);
   }
 
   objc_destroyWeak(buf);
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void __116__HFCharacteristicValueDisplayMetadata__displayAppleIDSplitErrorForMediaProfile_havingMetadata_withContextProvider___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 56));
@@ -942,13 +934,13 @@ void __116__HFCharacteristicValueDisplayMetadata__displayAppleIDSplitErrorForMed
     v8 = HFLogForCategory(5uLL);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v15 = NSStringFromSelector(*(a1 + 64));
+      v14 = NSStringFromSelector(*(a1 + 64));
       *location = 138412802;
       *&location[4] = WeakRetained;
-      v20 = 2112;
-      v21 = v15;
-      v22 = 2112;
-      v23 = v6;
+      v19 = 2112;
+      v20 = v14;
+      v21 = 2112;
+      v22 = v6;
       _os_log_error_impl(&dword_20D9BF000, v8, OS_LOG_TYPE_ERROR, "%@:%@ Other Error returned %@", location, 0x20u);
     }
   }
@@ -963,28 +955,26 @@ void __116__HFCharacteristicValueDisplayMetadata__displayAppleIDSplitErrorForMed
     }
 
     v10 = [*(a1 + 32) splitAccountFuture];
-    v16[0] = MEMORY[0x277D85DD0];
-    v16[1] = 3221225472;
-    v16[2] = __116__HFCharacteristicValueDisplayMetadata__displayAppleIDSplitErrorForMediaProfile_havingMetadata_withContextProvider___block_invoke_2;
-    v16[3] = &unk_277DFA570;
-    objc_copyWeak(v18, location);
-    v16[4] = WeakRetained;
+    v15[0] = MEMORY[0x277D85DD0];
+    v15[1] = 3221225472;
+    v15[2] = __116__HFCharacteristicValueDisplayMetadata__displayAppleIDSplitErrorForMediaProfile_havingMetadata_withContextProvider___block_invoke_2;
+    v15[3] = &unk_277DFA570;
+    objc_copyWeak(v17, location);
+    v15[4] = WeakRetained;
     v11 = *(a1 + 48);
     v12 = *(a1 + 64);
-    v17 = v11;
-    v18[1] = v12;
-    v13 = [v10 addCompletionBlock:v16];
+    v16 = v11;
+    v17[1] = v12;
+    v13 = [v10 addCompletionBlock:v15];
 
-    objc_destroyWeak(v18);
+    objc_destroyWeak(v17);
     objc_destroyWeak(location);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __116__HFCharacteristicValueDisplayMetadata__displayAppleIDSplitErrorForMediaProfile_havingMetadata_withContextProvider___block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v4 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   if (!v4)
@@ -999,11 +989,11 @@ LABEL_8:
 
     v7 = *(a1 + 32);
     v8 = NSStringFromSelector(*(a1 + 56));
-    v11 = 138412546;
-    v12 = v7;
-    v13 = 2112;
-    v14 = v8;
-    _os_log_impl(&dword_20D9BF000, v6, OS_LOG_TYPE_DEFAULT, "%@:%@ No Error returned. Accounts don't appear to be split", &v11, 0x16u);
+    v10 = 138412546;
+    v11 = v7;
+    v12 = 2112;
+    v13 = v8;
+    _os_log_impl(&dword_20D9BF000, v6, OS_LOG_TYPE_DEFAULT, "%@:%@ No Error returned. Accounts don't appear to be split", &v10, 0x16u);
 LABEL_6:
 
     goto LABEL_8;
@@ -1017,22 +1007,20 @@ LABEL_6:
       goto LABEL_8;
     }
 
-    v10 = *(a1 + 32);
+    v9 = *(a1 + 32);
     v8 = NSStringFromSelector(*(a1 + 56));
-    v11 = 138412802;
-    v12 = v10;
-    v13 = 2112;
-    v14 = v8;
-    v15 = 2112;
-    v16 = v4;
-    _os_log_error_impl(&dword_20D9BF000, v6, OS_LOG_TYPE_ERROR, "%@:%@ Other Error returned %@", &v11, 0x20u);
+    v10 = 138412802;
+    v11 = v9;
+    v12 = 2112;
+    v13 = v8;
+    v14 = 2112;
+    v15 = v4;
+    _os_log_error_impl(&dword_20D9BF000, v6, OS_LOG_TYPE_ERROR, "%@:%@ Other Error returned %@", &v10, 0x20u);
     goto LABEL_6;
   }
 
   [*(a1 + 32) _populateSplitMediaAccountErrorForMedatadata:WeakRetained withContextProvider:*(a1 + 40)];
 LABEL_9:
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 + (void)_populateSplitMediaAccountErrorForMedatadata:(id)medatadata withContextProvider:(id)provider
@@ -1093,24 +1081,22 @@ LABEL_9:
 
 void __109__HFCharacteristicValueDisplayMetadata__unknownStatePriorityForServiceDescriptor_characteristicReadResponse___block_invoke_2()
 {
-  v8[7] = *MEMORY[0x277D85DE8];
+  v7[7] = *MEMORY[0x277D85DE8];
   v0 = MEMORY[0x277CBEB98];
   v1 = *MEMORY[0x277CD0E30];
-  v8[0] = *MEMORY[0x277CD0E18];
-  v8[1] = v1;
+  v7[0] = *MEMORY[0x277CD0E18];
+  v7[1] = v1;
   v2 = *MEMORY[0x277CD0EB0];
-  v8[2] = *MEMORY[0x277CD0E58];
-  v8[3] = v2;
+  v7[2] = *MEMORY[0x277CD0E58];
+  v7[3] = v2;
   v3 = *MEMORY[0x277CD0EE8];
-  v8[4] = *MEMORY[0x277CD0ED8];
-  v8[5] = v3;
-  v8[6] = *MEMORY[0x277CD0F58];
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:7];
+  v7[4] = *MEMORY[0x277CD0ED8];
+  v7[5] = v3;
+  v7[6] = *MEMORY[0x277CD0F58];
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:7];
   v5 = [v0 setWithArray:v4];
   v6 = qword_280E02F58;
   qword_280E02F58 = v5;
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __109__HFCharacteristicValueDisplayMetadata__unknownStatePriorityForServiceDescriptor_characteristicReadResponse___block_invoke_3(uint64_t a1, void *a2)
@@ -1139,11 +1125,30 @@ uint64_t __109__HFCharacteristicValueDisplayMetadata__unknownStatePriorityForSer
 
 uint64_t __109__HFCharacteristicValueDisplayMetadata__unknownStatePriorityForServiceDescriptor_characteristicReadResponse___block_invoke_5(uint64_t a1, void *a2)
 {
-  v2 = [a2 service];
+  v2 = objc_msgSend_service(a2);
   v3 = [v2 accessory];
   v4 = [v3 hf_isSuspended];
 
   return v4;
+}
+
++ (id)_errorForSymptomHandler:(id)handler isFixingCurrently:(BOOL)currently withContextProvider:(id)provider
+{
+  currentlyCopy = currently;
+  providerCopy = provider;
+  hf_symptomsSortedByPriority = [handler hf_symptomsSortedByPriority];
+  if ([hf_symptomsSortedByPriority count])
+  {
+    v9 = [MEMORY[0x277CD1E88] hf_nextSymptomAfterInternetOutageInSortedList:hf_symptomsSortedByPriority];
+    v10 = [HFCharacteristicValueDisplayError errorWithUnderlyingSymptom:v9 isFixingCurrently:currentlyCopy contextProvider:providerCopy];
+  }
+
+  else
+  {
+    v10 = 0;
+  }
+
+  return v10;
 }
 
 - (void)parseGarageDoorOpenerResponse:(id)response
@@ -1423,7 +1428,7 @@ LABEL_27:
 
 - (void)parseInformationalSensorWithServiceType:(id)type response:(id)response
 {
-  v26[2] = *MEMORY[0x277D85DE8];
+  v25[2] = *MEMORY[0x277D85DE8];
   typeCopy = type;
   responseCopy = response;
   v8 = [responseCopy responseForCharacteristicType:*MEMORY[0x277CCFAB0]];
@@ -1465,9 +1470,9 @@ LABEL_8:
   {
     [(HFCharacteristicValueDisplayMetadata *)self setPrimaryState:1];
     v19 = *MEMORY[0x277CD0E70];
-    v26[0] = v12;
-    v26[1] = v19;
-    v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:2];
+    v25[0] = v12;
+    v25[1] = v19;
+    v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:2];
     -[HFCharacteristicValueDisplayMetadata setPriority:](self, "setPriority:", [v20 containsObject:typeCopy] - 1);
 
     if ([v9 integerValue] || objc_msgSend(v11, "integerValue"))
@@ -1518,8 +1523,6 @@ LABEL_23:
   }
 
 LABEL_24:
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (void)parseWarningSensorWithServiceType:(id)type response:(id)response

@@ -58,56 +58,54 @@
   v19 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[HMDNetworkStabilityLogEvent collectionDurationMinutes](self, "collectionDurationMinutes")}];
   [dictionary setObject:v19 forKeyedSubscript:@"collectionDurationMinutes"];
 
-  v20 = [dictionary copy];
+  v20 = objc_msgSend_copy(dictionary);
 
   return v20;
 }
 
 - (NSDictionary)coreAnalyticsEventDictionary
 {
-  v20[13] = *MEMORY[0x277D85DE8];
-  v19[0] = @"numWifiAssociations";
-  v18 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[HMDNetworkStabilityLogEvent numWifiAssociations](self, "numWifiAssociations")}];
-  v20[0] = v18;
-  v19[1] = @"numWifiDisassociations";
-  v17 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[HMDNetworkStabilityLogEvent numWifiDisassociations](self, "numWifiDisassociations")}];
-  v20[1] = v17;
-  v19[2] = @"numWifiAPChanges";
-  v16 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[HMDNetworkStabilityLogEvent numAPChanges](self, "numAPChanges")}];
-  v20[2] = v16;
-  v19[3] = @"numGatewayChanges";
-  v15 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[HMDNetworkStabilityLogEvent numGatewayChanges](self, "numGatewayChanges")}];
-  v20[3] = v15;
-  v19[4] = @"numReadWrites";
+  v19[13] = *MEMORY[0x277D85DE8];
+  v18[0] = @"numWifiAssociations";
+  v17 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[HMDNetworkStabilityLogEvent numWifiAssociations](self, "numWifiAssociations")}];
+  v19[0] = v17;
+  v18[1] = @"numWifiDisassociations";
+  v16 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[HMDNetworkStabilityLogEvent numWifiDisassociations](self, "numWifiDisassociations")}];
+  v19[1] = v16;
+  v18[2] = @"numWifiAPChanges";
+  v15 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[HMDNetworkStabilityLogEvent numAPChanges](self, "numAPChanges")}];
+  v19[2] = v15;
+  v18[3] = @"numGatewayChanges";
+  v14 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[HMDNetworkStabilityLogEvent numGatewayChanges](self, "numGatewayChanges")}];
+  v19[3] = v14;
+  v18[4] = @"numReadWrites";
   v3 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[HMDNetworkStabilityLogEvent numReadWrites](self, "numReadWrites")}];
-  v20[4] = v3;
-  v19[5] = @"numReadErrors";
+  v19[4] = v3;
+  v18[5] = @"numReadErrors";
   v4 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[HMDNetworkStabilityLogEvent numReadErrors](self, "numReadErrors")}];
-  v20[5] = v4;
-  v19[6] = @"numWriteErrors";
+  v19[5] = v4;
+  v18[6] = @"numWriteErrors";
   v5 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[HMDNetworkStabilityLogEvent numWriteErrors](self, "numWriteErrors")}];
-  v20[6] = v5;
-  v19[7] = @"topReadWriteError";
+  v19[6] = v5;
+  v18[7] = @"topReadWriteError";
   topReadWriteError = [(HMDNetworkStabilityLogEvent *)self topReadWriteError];
-  v20[7] = topReadWriteError;
-  v19[8] = @"topSessionError";
+  v19[7] = topReadWriteError;
+  v18[8] = @"topSessionError";
   topSessionError = [(HMDNetworkStabilityLogEvent *)self topSessionError];
-  v20[8] = topSessionError;
-  v19[9] = @"numSessionErrors";
+  v19[8] = topSessionError;
+  v18[9] = @"numSessionErrors";
   v8 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[HMDNetworkStabilityLogEvent numSessionErrors](self, "numSessionErrors")}];
-  v20[9] = v8;
-  v19[10] = @"APOUI";
+  v19[9] = v8;
+  v18[10] = @"APOUI";
   apOUI = [(HMDNetworkStabilityLogEvent *)self apOUI];
-  v20[10] = apOUI;
-  v19[11] = @"localHourOfDay";
+  v19[10] = apOUI;
+  v18[11] = @"localHourOfDay";
   v10 = [MEMORY[0x277CCABB0] numberWithInteger:{-[HMDNetworkStabilityLogEvent localHourOfDay](self, "localHourOfDay")}];
-  v20[11] = v10;
-  v19[12] = @"collectionDurationMinutes";
+  v19[11] = v10;
+  v18[12] = @"collectionDurationMinutes";
   v11 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[HMDNetworkStabilityLogEvent collectionDurationMinutes](self, "collectionDurationMinutes")}];
-  v20[12] = v11;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:13];
-
-  v13 = *MEMORY[0x277D85DE8];
+  v19[12] = v11;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:13];
 
   return v12;
 }
@@ -461,7 +459,7 @@ LABEL_71:
     v28->_numWriteErrors = writeErrors;
     if (errorCopy)
     {
-      v30 = [errorCopy copy];
+      v30 = objc_msgSend_copy(errorCopy);
     }
 
     else
@@ -476,7 +474,7 @@ LABEL_71:
 
     if (sessionErrorCopy)
     {
-      v31 = [sessionErrorCopy copy];
+      v31 = objc_msgSend_copy(sessionErrorCopy);
     }
 
     else
@@ -492,7 +490,7 @@ LABEL_71:
     v29->_numSessionErrors = sessionErrors;
     if (iCopy)
     {
-      v32 = [iCopy copy];
+      v32 = objc_msgSend_copy(iCopy);
     }
 
     else
@@ -505,11 +503,11 @@ LABEL_71:
     {
     }
 
-    v33 = [ssidCopy copy];
+    v33 = objc_msgSend_copy(ssidCopy, gatewayChanges, writes);
     ssid = v29->_ssid;
     v29->_ssid = v33;
 
-    v35 = [addressCopy copy];
+    v35 = objc_msgSend_copy(addressCopy);
     gatewayMACAddress = v29->_gatewayMACAddress;
     v29->_gatewayMACAddress = v35;
 

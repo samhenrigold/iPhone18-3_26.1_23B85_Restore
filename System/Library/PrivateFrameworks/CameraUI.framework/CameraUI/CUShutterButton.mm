@@ -66,7 +66,7 @@
   {
     v26 = 0u;
     v27 = 0u;
-    [(CUShutterButton *)self _timelapseRingSpecForLayoutStyle:self->_layoutStyle];
+    objc_msgSend__timelapseRingSpecForLayoutStyle_(self);
     v10 = [CAMTimelapseShutterRingView alloc];
     [(CAMShutterButtonRingView *)self->__outerView frame];
     v25[0] = v26;
@@ -652,7 +652,7 @@
 - (CGSize)_sizeForMode:(int64_t)mode
 {
   v4 = [CAMShutterUtilities isStopMode:mode];
-  [(CUShutterButton *)self spec];
+  objc_msgSend_spec(self);
   if (v4)
   {
     v5 = 0.0;
@@ -672,7 +672,7 @@
 - (double)_cornerRadiusForMode:(int64_t)mode
 {
   v4 = [CAMShutterUtilities isStopMode:mode];
-  [(CUShutterButton *)self spec];
+  objc_msgSend_spec(self);
   if (v4)
   {
     return 0.0;
@@ -1218,7 +1218,7 @@ LABEL_43:
     [_innerView bounds];
     UIRectGetCenter();
     [_spinnerView setCenter:?];
-    [(CUShutterButton *)self spec];
+    objc_msgSend_spec(self);
     [_spinnerView setBounds:{0.0, 0.0, v21 + (v22 + v23) * -2.0, v21 + (v22 + v23) * -2.0}];
     [_innerView setBackgroundColor:v8];
     [_spinnerView setAlpha:1.0];
@@ -1264,7 +1264,7 @@ uint64_t __44__CUShutterButton__updateSpinningAnimations__block_invoke(uint64_t 
   return [v2 setAlpha:0.0];
 }
 
-uint64_t __44__CUShutterButton__updateSpinningAnimations__block_invoke_2(uint64_t a1)
+void *__44__CUShutterButton__updateSpinningAnimations__block_invoke_2(uint64_t a1)
 {
   result = [*(a1 + 32) isSpinning];
   if ((result & 1) == 0)

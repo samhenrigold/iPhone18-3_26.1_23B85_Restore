@@ -42,9 +42,11 @@
 
 void __75__MOGroupedInteraction_initWithScoredContact_interactionScore_interaction___block_invoke(id a1)
 {
-  _callLikeMechanismsSet = [[NSSet alloc] initWithObjects:{&off_100369E38, &off_100369E50, &off_100369E68, &off_100369E80, &off_100369E98, &off_100369EB0, &off_100369EC8, &off_100369EE0, 0}];
+  v1 = [[NSSet alloc] initWithObjects:{&off_100369E38, &off_100369E50, &off_100369E68, &off_100369E80, &off_100369E98, &off_100369EB0, &off_100369EC8, &off_100369EE0, 0}];
+  v2 = _callLikeMechanismsSet;
+  _callLikeMechanismsSet = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 - (void)addInteraction:(id)interaction
@@ -63,19 +65,8 @@ void __75__MOGroupedInteraction_initWithScoredContact_interactionScore_interacti
       v7 = +[NSNumber numberWithInteger:](NSNumber, "numberWithInteger:", [interactionCopy mechanism]);
       LODWORD(v6) = [v6 containsObject:v7];
 
-      if (!v6)
+      if (!v6 || ([interactionCopy endDate], v8 = objc_claimAutoreleasedReturnValue(), objc_msgSend(interactionCopy, "startDate"), v9 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v8, "timeIntervalSinceDate:", v9), v11 = v10, v9, v8, v11 >= 5.0))
       {
-        goto LABEL_5;
-      }
-
-      endDate = [interactionCopy endDate];
-      startDate = [interactionCopy startDate];
-      [endDate timeIntervalSinceDate:startDate];
-      v11 = v10;
-
-      if (v11 >= 5.0)
-      {
-LABEL_5:
         [(MOGroupedInteraction *)self setIsScoredContactUsable:1];
       }
     }

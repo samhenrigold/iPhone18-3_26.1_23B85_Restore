@@ -68,19 +68,19 @@
 
 - (BOOL)noteUUID:(id)d forPid:(int)pid
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   dCopy = d;
   if (dCopy)
   {
     v7 = pid_to_coalitionID(pid);
-    v8 = NStatGetLog();
+    v8 = NStatGetLog(v7);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v18 = 138412546;
-      v19 = v7;
-      v20 = 2112;
-      v21 = dCopy;
-      _os_log_impl(&dword_25BA3A000, v8, OS_LOG_TYPE_DEFAULT, "Note coalition name %@ for uuid %@", &v18, 0x16u);
+      v17 = 138412546;
+      v18 = v7;
+      v19 = 2112;
+      v20 = dCopy;
+      _os_log_impl(&dword_25BA3A000, v8, OS_LOG_TYPE_DEFAULT, "Note coalition name %@ for uuid %@", &v17, 0x16u);
     }
 
     if (v7)
@@ -116,12 +116,12 @@
 
         else
         {
-          v15 = NStatGetLog();
+          v15 = NStatGetLog(0);
           if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
           {
-            v18 = 138412290;
-            v19 = v7;
-            _os_log_impl(&dword_25BA3A000, v15, OS_LOG_TYPE_ERROR, "Memory allocation failed for %@", &v18, 0xCu);
+            v17 = 138412290;
+            v18 = v7;
+            _os_log_impl(&dword_25BA3A000, v15, OS_LOG_TYPE_ERROR, "Memory allocation failed for %@", &v17, 0xCu);
           }
         }
       }
@@ -140,7 +140,6 @@
     LOBYTE(v11) = 0;
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v11;
 }
 

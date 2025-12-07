@@ -5,6 +5,7 @@
 - (int64_t)channel_type;
 - (void)setApp_id:(id)app_id;
 - (void)setChannel_type:(int64_t)channel_type;
+- (void)setIs_synthesis:(BOOL)is_synthesis;
 @end
 
 @implementation FTMutableTextToSpeechRequestMeta
@@ -60,6 +61,12 @@
   bOOLValue = [v2 BOOLValue];
 
   return bOOLValue;
+}
+
+- (void)setIs_synthesis:(BOOL)is_synthesis
+{
+  v4 = [objc_alloc(MEMORY[0x277CCABB0]) initWithBool:is_synthesis];
+  [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
 }
 
 @end

@@ -24,8 +24,8 @@
 
 - (id)toDict
 {
-  v13[2] = *MEMORY[0x277D85DE8];
-  v12[0] = @"userID";
+  v12[2] = *MEMORY[0x277D85DE8];
+  v11[0] = @"userID";
   userID = [(ICASUserSnapshotItemData *)self userID];
   if (userID)
   {
@@ -38,8 +38,8 @@
   }
 
   v5 = userID2;
-  v12[1] = @"userStorefrontID";
-  v13[0] = userID2;
+  v11[1] = @"userStorefrontID";
+  v12[0] = userID2;
   userStorefrontID = [(ICASUserSnapshotItemData *)self userStorefrontID];
   if (userStorefrontID)
   {
@@ -52,10 +52,8 @@
   }
 
   v8 = userStorefrontID2;
-  v13[1] = userStorefrontID2;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:2];
-
-  v10 = *MEMORY[0x277D85DE8];
+  v12[1] = userStorefrontID2;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:2];
 
   return v9;
 }

@@ -13,7 +13,7 @@
 
   if (v5)
   {
-    contacts = [v4 contacts];
+    v7 = objc_msgSend_contacts(v4);
     if ((*(*MEMORY[0x1E6996530] + 16))())
     {
       groupName2 = 0;
@@ -21,7 +21,7 @@
 
     else
     {
-      firstObject = [contacts firstObject];
+      firstObject = [v7 firstObject];
       if ([v4 numberOfContacts] <= 1)
       {
         v18 = [MEMORY[0x1E695CD80] stringFromContact:firstObject style:0];
@@ -45,7 +45,7 @@
         v12 = *MEMORY[0x1E6996570];
         if (numberOfContacts == 2 && (*(v12 + 16))(*MEMORY[0x1E6996570], v10))
         {
-          lastObject = [contacts lastObject];
+          lastObject = [v7 lastObject];
           v14 = [self stringFromContact:lastObject];
 
           v15 = MEMORY[0x1E696AEC0];

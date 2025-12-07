@@ -7,60 +7,60 @@
 
 + (id)computeMetricsInterVisit:(id)visit
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   visitCopy = visit;
   dictionary = [MEMORY[0x277CBEB38] dictionary];
+  v38 = 0u;
   v39 = 0u;
   v40 = 0u;
   v41 = 0u;
-  v42 = 0u;
-  v29 = visitCopy;
+  v28 = visitCopy;
   visitState = [visitCopy visitState];
   interVisitMetricSnapshotBuffer = [visitState interVisitMetricSnapshotBuffer];
   bufferCopy = [interVisitMetricSnapshotBuffer bufferCopy];
   reverseObjectEnumerator = [bufferCopy reverseObjectEnumerator];
 
   obj = reverseObjectEnumerator;
-  v32 = [reverseObjectEnumerator countByEnumeratingWithState:&v39 objects:v44 count:16];
-  if (v32)
+  v31 = [reverseObjectEnumerator countByEnumeratingWithState:&v38 objects:v43 count:16];
+  if (v31)
   {
-    v31 = *v40;
-    v34 = 1;
+    v30 = *v39;
+    v33 = 1;
 LABEL_3:
     v9 = 0;
 LABEL_4:
-    if (*v40 != v31)
+    if (*v39 != v30)
     {
       objc_enumerationMutation(obj);
     }
 
-    v10 = *(*(&v39 + 1) + 8 * v9);
+    v10 = *(*(&v38 + 1) + 8 * v9);
     if ([v10 isClosed])
     {
-      v33 = v9;
-      v37 = 0u;
-      v38 = 0u;
-      v35 = 0u;
+      v32 = v9;
       v36 = 0u;
+      v37 = 0u;
+      v34 = 0u;
+      v35 = 0u;
       accumulatedDeviceMetrics = [v10 accumulatedDeviceMetrics];
-      v12 = [accumulatedDeviceMetrics countByEnumeratingWithState:&v35 objects:v43 count:16];
+      v12 = [accumulatedDeviceMetrics countByEnumeratingWithState:&v34 objects:v42 count:16];
       if (!v12)
       {
         goto LABEL_20;
       }
 
       v13 = v12;
-      v14 = *v36;
+      v14 = *v35;
       while (1)
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v36 != v14)
+          if (*v35 != v14)
           {
             objc_enumerationMutation(accumulatedDeviceMetrics);
           }
 
-          v16 = *(*(&v35 + 1) + 8 * i);
+          v16 = *(*(&v34 + 1) + 8 * i);
           accumulatedDeviceMetrics2 = [v10 accumulatedDeviceMetrics];
           v18 = [accumulatedDeviceMetrics2 objectForKey:v16];
 
@@ -75,7 +75,7 @@ LABEL_14:
             goto LABEL_18;
           }
 
-          if (v34)
+          if (v33)
           {
             [v18 duration];
             if (v22 > 0.0)
@@ -95,18 +95,18 @@ LABEL_14:
 LABEL_18:
         }
 
-        v13 = [accumulatedDeviceMetrics countByEnumeratingWithState:&v35 objects:v43 count:16];
+        v13 = [accumulatedDeviceMetrics countByEnumeratingWithState:&v34 objects:v42 count:16];
         if (!v13)
         {
 LABEL_20:
 
-          v34 = 0;
-          v9 = v33 + 1;
-          if (v33 + 1 == v32)
+          v33 = 0;
+          v9 = v32 + 1;
+          if (v32 + 1 == v31)
           {
-            v34 = 0;
-            v32 = [obj countByEnumeratingWithState:&v39 objects:v44 count:16];
-            if (!v32)
+            v33 = 0;
+            v31 = [obj countByEnumeratingWithState:&v38 objects:v43 count:16];
+            if (!v31)
             {
               goto LABEL_22;
             }
@@ -135,14 +135,12 @@ LABEL_22:
     dictionary2 = dictionary;
   }
 
-  v27 = *MEMORY[0x277D85DE8];
-
   return dictionary2;
 }
 
 + (id)computeMetricsVisit:(id)visit withFilterVisitsSettings:(id)settings
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   visitCopy = visit;
   settingsCopy = settings;
   dictionary = [MEMORY[0x277CBEB38] dictionary];
@@ -153,28 +151,28 @@ LABEL_22:
 
   if ([lastObject isClosed])
   {
-    v28 = dictionary;
-    v31 = 0u;
-    v32 = 0u;
-    v29 = 0u;
+    v27 = dictionary;
     v30 = 0u;
-    v26 = lastObject;
+    v31 = 0u;
+    v28 = 0u;
+    v29 = 0u;
+    v25 = lastObject;
     obj = [lastObject latestUtAdvertisements];
-    v12 = [obj countByEnumeratingWithState:&v29 objects:v33 count:16];
+    v12 = [obj countByEnumeratingWithState:&v28 objects:v32 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v30;
+      v14 = *v29;
       do
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v30 != v14)
+          if (*v29 != v14)
           {
             objc_enumerationMutation(obj);
           }
 
-          v16 = *(*(&v29 + 1) + 8 * i);
+          v16 = *(*(&v28 + 1) + 8 * i);
           v17 = [TAMetricsVisit alloc];
           visitState2 = [v8 visitState];
           visitSnapshotBuffer2 = [visitState2 visitSnapshotBuffer];
@@ -183,19 +181,19 @@ LABEL_22:
 
           if (v21)
           {
-            [v28 setObject:v21 forKey:v16];
+            [v27 setObject:v21 forKey:v16];
           }
         }
 
-        v13 = [obj countByEnumeratingWithState:&v29 objects:v33 count:16];
+        v13 = [obj countByEnumeratingWithState:&v28 objects:v32 count:16];
       }
 
       while (v13);
     }
 
-    dictionary = v28;
-    dictionary2 = v28;
-    lastObject = v26;
+    dictionary = v27;
+    dictionary2 = v27;
+    lastObject = v25;
   }
 
   else
@@ -208,8 +206,6 @@ LABEL_22:
 
     dictionary2 = [MEMORY[0x277CBEB38] dictionary];
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 
   return dictionary2;
 }

@@ -1,3 +1,457 @@
+void sub_21837AF48(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, uint64_t a15, void *a16, uint64_t a17)
+{
+  if (__p)
+  {
+    operator delete(__p);
+  }
+
+  if (a16)
+  {
+    operator delete(a16);
+  }
+
+  v19 = *v17;
+  if (*v17)
+  {
+    *(v17 + 8) = v19;
+    operator delete(v19);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseLutToDense<float,MIL::UInt6>(std::string::size_type a1@<X0>, std::string::size_type a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X4>, uint64_t a5@<X5>, uint64_t *a6@<X8>)
+{
+  v12 = *(a4 + 96);
+  std::vector<float>::vector[abi:ne200100](a6, v12 * a2);
+  std::vector<unsigned long>::vector[abi:ne200100](&v35, *(a4 + 96));
+  std::vector<unsigned long>::vector[abi:ne200100](v34, (*(a4 + 32) - *(a4 + 24)) >> 3);
+  std::vector<unsigned long>::vector[abi:ne200100](__p, (*(a4 + 56) - *(a4 + 48)) >> 3);
+  if (a2)
+  {
+    v13 = 0;
+    do
+    {
+      MIL::Operators::Common::Shared::ConstExprs::BlockwiseLutToDenseIndexConverter::InputIndexToOutputIndexes(a4, v13, &v35, v34);
+      v14 = MIL::Operators::Common::Shared::ConstExprs::BlockwiseLutToDenseIndexConverter::InputIndexToBlockIndex(a4, v13, __p, v34);
+      v32.__r_.__value_.__r.__words[0] = a1;
+      v32.__r_.__value_.__l.__size_ = a2;
+      v31.__r_.__value_.__s.__data_[0] = MIL::Util::Span<MIL::UInt6 const,18446744073709551615ul>::ValueAt(&v32, v13);
+      Int = MIL::UInt6::GetInt(&v31);
+      v16 = Int;
+      if ((v16 & 0x80000000) != 0)
+      {
+        v24 = Int;
+        exception = __cxa_allocate_exception(0x10uLL);
+        std::to_string(&v30, v24);
+        v26 = std::string::insert(&v30, 0, "Index ");
+        v27 = *&v26->__r_.__value_.__l.__data_;
+        v31.__r_.__value_.__r.__words[2] = v26->__r_.__value_.__r.__words[2];
+        *&v31.__r_.__value_.__l.__data_ = v27;
+        v26->__r_.__value_.__l.__size_ = 0;
+        v26->__r_.__value_.__r.__words[2] = 0;
+        v26->__r_.__value_.__r.__words[0] = 0;
+        v28 = std::string::append(&v31, " cannot be negative");
+        v29 = *&v28->__r_.__value_.__l.__data_;
+        v32.__r_.__value_.__r.__words[2] = v28->__r_.__value_.__r.__words[2];
+        *&v32.__r_.__value_.__l.__data_ = v29;
+        v28->__r_.__value_.__l.__size_ = 0;
+        v28->__r_.__value_.__r.__words[2] = 0;
+        v28->__r_.__value_.__r.__words[0] = 0;
+        std::runtime_error::runtime_error(exception, &v32);
+        __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+      }
+
+      v17 = v35;
+      if (v36 != v35)
+      {
+        v18 = v36 - v35;
+        v19 = (a3 + 4 * (v14 * a5 + v16) * v12);
+        v20 = *a6;
+        if (v18 <= 1)
+        {
+          v18 = 1;
+        }
+
+        do
+        {
+          v21 = *v19++;
+          v22 = v21;
+          v23 = *v17++;
+          *(v20 + 4 * v23) = v22;
+          --v18;
+        }
+
+        while (v18);
+      }
+
+      ++v13;
+    }
+
+    while (v13 != a2);
+  }
+
+  if (__p[0])
+  {
+    __p[1] = __p[0];
+    operator delete(__p[0]);
+  }
+
+  if (v34[0])
+  {
+    v34[1] = v34[0];
+    operator delete(v34[0]);
+  }
+
+  if (v35)
+  {
+    v36 = v35;
+    operator delete(v35);
+  }
+}
+
+void sub_21837B1D0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *a16, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22, void *a23, uint64_t a24, int a25, __int16 a26, char a27, char a28, void *a29, uint64_t a30, uint64_t a31, void *__p, uint64_t a33)
+{
+  if (__p)
+  {
+    operator delete(__p);
+  }
+
+  v36 = *(v34 - 104);
+  if (v36)
+  {
+    *(v34 - 96) = v36;
+    operator delete(v36);
+  }
+
+  v37 = *v33;
+  if (*v33)
+  {
+    *(v33 + 8) = v37;
+    operator delete(v37);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseLutToDense<float,MIL::UInt4>(std::string::size_type a1@<X0>, std::string::size_type a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X4>, uint64_t a5@<X5>, uint64_t *a6@<X8>)
+{
+  v12 = *(a4 + 96);
+  std::vector<float>::vector[abi:ne200100](a6, v12 * a2);
+  std::vector<unsigned long>::vector[abi:ne200100](&v35, *(a4 + 96));
+  std::vector<unsigned long>::vector[abi:ne200100](v34, (*(a4 + 32) - *(a4 + 24)) >> 3);
+  std::vector<unsigned long>::vector[abi:ne200100](__p, (*(a4 + 56) - *(a4 + 48)) >> 3);
+  if (a2)
+  {
+    v13 = 0;
+    do
+    {
+      MIL::Operators::Common::Shared::ConstExprs::BlockwiseLutToDenseIndexConverter::InputIndexToOutputIndexes(a4, v13, &v35, v34);
+      v14 = MIL::Operators::Common::Shared::ConstExprs::BlockwiseLutToDenseIndexConverter::InputIndexToBlockIndex(a4, v13, __p, v34);
+      v32.__r_.__value_.__r.__words[0] = a1;
+      v32.__r_.__value_.__l.__size_ = a2;
+      v31.__r_.__value_.__s.__data_[0] = MIL::Util::Span<MIL::UInt4 const,18446744073709551615ul>::ValueAt(&v32, v13);
+      Int = MIL::UInt4::GetInt(&v31);
+      v16 = Int;
+      if ((v16 & 0x80000000) != 0)
+      {
+        v24 = Int;
+        exception = __cxa_allocate_exception(0x10uLL);
+        std::to_string(&v30, v24);
+        v26 = std::string::insert(&v30, 0, "Index ");
+        v27 = *&v26->__r_.__value_.__l.__data_;
+        v31.__r_.__value_.__r.__words[2] = v26->__r_.__value_.__r.__words[2];
+        *&v31.__r_.__value_.__l.__data_ = v27;
+        v26->__r_.__value_.__l.__size_ = 0;
+        v26->__r_.__value_.__r.__words[2] = 0;
+        v26->__r_.__value_.__r.__words[0] = 0;
+        v28 = std::string::append(&v31, " cannot be negative");
+        v29 = *&v28->__r_.__value_.__l.__data_;
+        v32.__r_.__value_.__r.__words[2] = v28->__r_.__value_.__r.__words[2];
+        *&v32.__r_.__value_.__l.__data_ = v29;
+        v28->__r_.__value_.__l.__size_ = 0;
+        v28->__r_.__value_.__r.__words[2] = 0;
+        v28->__r_.__value_.__r.__words[0] = 0;
+        std::runtime_error::runtime_error(exception, &v32);
+        __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+      }
+
+      v17 = v35;
+      if (v36 != v35)
+      {
+        v18 = v36 - v35;
+        v19 = (a3 + 4 * (v14 * a5 + v16) * v12);
+        v20 = *a6;
+        if (v18 <= 1)
+        {
+          v18 = 1;
+        }
+
+        do
+        {
+          v21 = *v19++;
+          v22 = v21;
+          v23 = *v17++;
+          *(v20 + 4 * v23) = v22;
+          --v18;
+        }
+
+        while (v18);
+      }
+
+      ++v13;
+    }
+
+    while (v13 != a2);
+  }
+
+  if (__p[0])
+  {
+    __p[1] = __p[0];
+    operator delete(__p[0]);
+  }
+
+  if (v34[0])
+  {
+    v34[1] = v34[0];
+    operator delete(v34[0]);
+  }
+
+  if (v35)
+  {
+    v36 = v35;
+    operator delete(v35);
+  }
+}
+
+void sub_21837B4D4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *a16, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22, void *a23, uint64_t a24, int a25, __int16 a26, char a27, char a28, void *a29, uint64_t a30, uint64_t a31, void *__p, uint64_t a33)
+{
+  if (__p)
+  {
+    operator delete(__p);
+  }
+
+  v36 = *(v34 - 104);
+  if (v36)
+  {
+    *(v34 - 96) = v36;
+    operator delete(v36);
+  }
+
+  v37 = *v33;
+  if (*v33)
+  {
+    *(v33 + 8) = v37;
+    operator delete(v37);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseLutToDense<float,MIL::UInt3>(std::string::size_type a1@<X0>, std::string::size_type a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X4>, uint64_t a5@<X5>, uint64_t *a6@<X8>)
+{
+  v12 = *(a4 + 96);
+  std::vector<float>::vector[abi:ne200100](a6, v12 * a2);
+  std::vector<unsigned long>::vector[abi:ne200100](&v35, *(a4 + 96));
+  std::vector<unsigned long>::vector[abi:ne200100](v34, (*(a4 + 32) - *(a4 + 24)) >> 3);
+  std::vector<unsigned long>::vector[abi:ne200100](__p, (*(a4 + 56) - *(a4 + 48)) >> 3);
+  if (a2)
+  {
+    v13 = 0;
+    do
+    {
+      MIL::Operators::Common::Shared::ConstExprs::BlockwiseLutToDenseIndexConverter::InputIndexToOutputIndexes(a4, v13, &v35, v34);
+      v14 = MIL::Operators::Common::Shared::ConstExprs::BlockwiseLutToDenseIndexConverter::InputIndexToBlockIndex(a4, v13, __p, v34);
+      v32.__r_.__value_.__r.__words[0] = a1;
+      v32.__r_.__value_.__l.__size_ = a2;
+      v31.__r_.__value_.__s.__data_[0] = MIL::Util::Span<MIL::UInt3 const,18446744073709551615ul>::ValueAt(&v32, v13);
+      Int = MIL::UInt3::GetInt(&v31);
+      v16 = Int;
+      if ((v16 & 0x80000000) != 0)
+      {
+        v24 = Int;
+        exception = __cxa_allocate_exception(0x10uLL);
+        std::to_string(&v30, v24);
+        v26 = std::string::insert(&v30, 0, "Index ");
+        v27 = *&v26->__r_.__value_.__l.__data_;
+        v31.__r_.__value_.__r.__words[2] = v26->__r_.__value_.__r.__words[2];
+        *&v31.__r_.__value_.__l.__data_ = v27;
+        v26->__r_.__value_.__l.__size_ = 0;
+        v26->__r_.__value_.__r.__words[2] = 0;
+        v26->__r_.__value_.__r.__words[0] = 0;
+        v28 = std::string::append(&v31, " cannot be negative");
+        v29 = *&v28->__r_.__value_.__l.__data_;
+        v32.__r_.__value_.__r.__words[2] = v28->__r_.__value_.__r.__words[2];
+        *&v32.__r_.__value_.__l.__data_ = v29;
+        v28->__r_.__value_.__l.__size_ = 0;
+        v28->__r_.__value_.__r.__words[2] = 0;
+        v28->__r_.__value_.__r.__words[0] = 0;
+        std::runtime_error::runtime_error(exception, &v32);
+        __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+      }
+
+      v17 = v35;
+      if (v36 != v35)
+      {
+        v18 = v36 - v35;
+        v19 = (a3 + 4 * (v14 * a5 + v16) * v12);
+        v20 = *a6;
+        if (v18 <= 1)
+        {
+          v18 = 1;
+        }
+
+        do
+        {
+          v21 = *v19++;
+          v22 = v21;
+          v23 = *v17++;
+          *(v20 + 4 * v23) = v22;
+          --v18;
+        }
+
+        while (v18);
+      }
+
+      ++v13;
+    }
+
+    while (v13 != a2);
+  }
+
+  if (__p[0])
+  {
+    __p[1] = __p[0];
+    operator delete(__p[0]);
+  }
+
+  if (v34[0])
+  {
+    v34[1] = v34[0];
+    operator delete(v34[0]);
+  }
+
+  if (v35)
+  {
+    v36 = v35;
+    operator delete(v35);
+  }
+}
+
+void sub_21837B7D8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *a16, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22, void *a23, uint64_t a24, int a25, __int16 a26, char a27, char a28, void *a29, uint64_t a30, uint64_t a31, void *__p, uint64_t a33)
+{
+  if (__p)
+  {
+    operator delete(__p);
+  }
+
+  v36 = *(v34 - 104);
+  if (v36)
+  {
+    *(v34 - 96) = v36;
+    operator delete(v36);
+  }
+
+  v37 = *v33;
+  if (*v33)
+  {
+    *(v33 + 8) = v37;
+    operator delete(v37);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseLutToDense<float,MIL::UInt2>(std::string::size_type a1@<X0>, std::string::size_type a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X4>, uint64_t a5@<X5>, uint64_t *a6@<X8>)
+{
+  v12 = *(a4 + 96);
+  std::vector<float>::vector[abi:ne200100](a6, v12 * a2);
+  std::vector<unsigned long>::vector[abi:ne200100](&v35, *(a4 + 96));
+  std::vector<unsigned long>::vector[abi:ne200100](v34, (*(a4 + 32) - *(a4 + 24)) >> 3);
+  std::vector<unsigned long>::vector[abi:ne200100](__p, (*(a4 + 56) - *(a4 + 48)) >> 3);
+  if (a2)
+  {
+    v13 = 0;
+    do
+    {
+      MIL::Operators::Common::Shared::ConstExprs::BlockwiseLutToDenseIndexConverter::InputIndexToOutputIndexes(a4, v13, &v35, v34);
+      v14 = MIL::Operators::Common::Shared::ConstExprs::BlockwiseLutToDenseIndexConverter::InputIndexToBlockIndex(a4, v13, __p, v34);
+      v32.__r_.__value_.__r.__words[0] = a1;
+      v32.__r_.__value_.__l.__size_ = a2;
+      v31.__r_.__value_.__s.__data_[0] = MIL::Util::Span<MIL::UInt2 const,18446744073709551615ul>::ValueAt(&v32, v13);
+      Int = MIL::UInt2::GetInt(&v31);
+      v16 = Int;
+      if ((v16 & 0x80000000) != 0)
+      {
+        v24 = Int;
+        exception = __cxa_allocate_exception(0x10uLL);
+        std::to_string(&v30, v24);
+        v26 = std::string::insert(&v30, 0, "Index ");
+        v27 = *&v26->__r_.__value_.__l.__data_;
+        v31.__r_.__value_.__r.__words[2] = v26->__r_.__value_.__r.__words[2];
+        *&v31.__r_.__value_.__l.__data_ = v27;
+        v26->__r_.__value_.__l.__size_ = 0;
+        v26->__r_.__value_.__r.__words[2] = 0;
+        v26->__r_.__value_.__r.__words[0] = 0;
+        v28 = std::string::append(&v31, " cannot be negative");
+        v29 = *&v28->__r_.__value_.__l.__data_;
+        v32.__r_.__value_.__r.__words[2] = v28->__r_.__value_.__r.__words[2];
+        *&v32.__r_.__value_.__l.__data_ = v29;
+        v28->__r_.__value_.__l.__size_ = 0;
+        v28->__r_.__value_.__r.__words[2] = 0;
+        v28->__r_.__value_.__r.__words[0] = 0;
+        std::runtime_error::runtime_error(exception, &v32);
+        __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+      }
+
+      v17 = v35;
+      if (v36 != v35)
+      {
+        v18 = v36 - v35;
+        v19 = (a3 + 4 * (v14 * a5 + v16) * v12);
+        v20 = *a6;
+        if (v18 <= 1)
+        {
+          v18 = 1;
+        }
+
+        do
+        {
+          v21 = *v19++;
+          v22 = v21;
+          v23 = *v17++;
+          *(v20 + 4 * v23) = v22;
+          --v18;
+        }
+
+        while (v18);
+      }
+
+      ++v13;
+    }
+
+    while (v13 != a2);
+  }
+
+  if (__p[0])
+  {
+    __p[1] = __p[0];
+    operator delete(__p[0]);
+  }
+
+  if (v34[0])
+  {
+    v34[1] = v34[0];
+    operator delete(v34[0]);
+  }
+
+  if (v35)
+  {
+    v36 = v35;
+    operator delete(v35);
+  }
+}
+
 void sub_21837BADC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *a16, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22, void *a23, uint64_t a24, int a25, __int16 a26, char a27, char a28, void *a29, uint64_t a30, uint64_t a31, void *__p, uint64_t a33)
 {
   if (__p)
@@ -211,104 +665,74 @@ void MIL::Operators::Common::ios18::ConstExprs::BlockwiseLutToSparse::Impl::Comp
 {
   if (*(this + 68) == 1)
   {
-    v4 = *(this + 16);
-    if (v4 < 0)
+    v5 = *(this + 16);
+    if (v5 < 0)
     {
-      v5 = (*(**(this + 4) + 32))(*(this + 4));
-      v4 += MIL::IRTensorValueType::Rank(v5);
+      v6 = (*(**(this + 4) + 32))(*(this + 4));
+      v5 += MIL::IRTensorValueType::Rank(v6);
     }
 
-    v6 = v4;
+    v7 = v5;
   }
 
   else
   {
-    v6 = 0;
+    v7 = 0;
   }
 
-  v7 = (*(**(this + 2) + 32))(*(this + 2));
-  v8 = (*(*v7 + 96))(v7);
-  v9 = (*(**(*(v8 + 8) - 8) + 16))(*(*(v8 + 8) - 8));
-  v10 = (*(*v9 + 48))(v9);
-  v12 = *(this + 4);
-  v11 = *(this + 5);
-  if (v11)
+  v8 = (*(**(this + 2) + 32))(*(this + 2));
+  v9 = (*(*v8 + 96))(v8);
+  v10 = (*(**(*(v9 + 8) - 8) + 16))(*(*(v9 + 8) - 8));
+  v11 = (*(*v10 + 48))(v10);
+  v13 = *(this + 4);
+  v12 = *(this + 5);
+  if (v12)
   {
-    atomic_fetch_add_explicit(&v11->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v12->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  v13 = (*(*v12 + 32))(v12);
-  v14 = (*(*v13 + 96))(v13);
-  MIL::Operators::Common::Shared::ConstExprs::ShapeToVector(v14, &v431);
-  v429.__r_.__value_.__r.__words[0] = 1;
-  std::vector<unsigned long>::vector[abi:ne200100](&v430, (v431.__r_.__value_.__l.__size_ - v431.__r_.__value_.__r.__words[0]) >> 3);
-  MIL::Operators::Common::Shared::ConstExprs::BlockwiseLutToDenseIndexConverter::BlockwiseLutToDenseIndexConverter(&v417, &v431, &v430, v10, v6);
-  if (v430.__r_.__value_.__r.__words[0])
+  v14 = (*(*v13 + 32))(v13);
+  v15 = (*(*v14 + 96))(v14);
+  MIL::Operators::Common::Shared::ConstExprs::ShapeToVector(v15, &v432);
+  v430.__r_.__value_.__r.__words[0] = 1;
+  std::vector<unsigned long>::vector[abi:ne200100](&v431, (v432.__r_.__value_.__l.__size_ - v432.__r_.__value_.__r.__words[0]) >> 3, &v430);
+  MIL::Operators::Common::Shared::ConstExprs::BlockwiseLutToDenseIndexConverter::BlockwiseLutToDenseIndexConverter(&v418, &v432, &v431, v11, v7);
+  if (v431.__r_.__value_.__r.__words[0])
   {
-    v430.__r_.__value_.__l.__size_ = v430.__r_.__value_.__r.__words[0];
-    operator delete(v430.__r_.__value_.__l.__data_);
+    v431.__r_.__value_.__l.__size_ = v431.__r_.__value_.__r.__words[0];
+    operator delete(v431.__r_.__value_.__l.__data_);
   }
 
-  v15 = (*(*v12 + 32))(v12);
-  v16 = (*(*v15 + 16))(v15);
-  std::vector<MIL::UInt1>::vector[abi:ne200100](&v416, v16 * v10);
-  std::vector<unsigned long>::vector[abi:ne200100](&v430, v424);
-  std::vector<unsigned long>::vector[abi:ne200100](&v429, (v419 - v418) >> 3);
-  if (v16)
+  v16 = (*(*v13 + 32))(v13);
+  v17 = (*(*v16 + 16))(v16);
+  std::vector<MIL::UInt1>::vector[abi:ne200100](&v417, v17 * v11);
+  std::vector<unsigned long>::vector[abi:ne200100](&v431, v425);
+  std::vector<unsigned long>::vector[abi:ne200100](&v430, (v420 - v419) >> 3);
+  if (v17)
   {
-    for (i = 0; i != v16; ++i)
+    for (i = 0; i != v17; ++i)
     {
-      MIL::Operators::Common::Shared::ConstExprs::BlockwiseLutToDenseIndexConverter::InputIndexToOutputIndexes(&v417, i, &v430, &v429);
-      if (v430.__r_.__value_.__l.__size_ != v430.__r_.__value_.__r.__words[0])
+      MIL::Operators::Common::Shared::ConstExprs::BlockwiseLutToDenseIndexConverter::InputIndexToOutputIndexes(&v418, i, &v431, &v430);
+      if (v431.__r_.__value_.__l.__size_ != v431.__r_.__value_.__r.__words[0])
       {
-        v18 = 0;
+        v19 = 0;
         do
         {
-          v427 = MIL::IRTensorValue::GetDataView<MIL::UInt1>(v12);
-          v428 = v19;
-          v20 = MIL::Util::Span<MIL::UInt1 const,18446744073709551615ul>::ValueAt(&v427, i);
-          *(v416 + *(v430.__r_.__value_.__r.__words[0] + 8 * v18++)) = v20;
+          v428 = MIL::IRTensorValue::GetDataView<MIL::UInt1>(v13);
+          v429 = v20;
+          v21 = MIL::Util::Span<MIL::UInt1 const,18446744073709551615ul>::ValueAt(&v428, i);
+          *(v417 + *(v431.__r_.__value_.__r.__words[0] + 8 * v19++)) = v21;
         }
 
-        while (v18 < (v430.__r_.__value_.__l.__size_ - v430.__r_.__value_.__r.__words[0]) >> 3);
+        while (v19 < (v431.__r_.__value_.__l.__size_ - v431.__r_.__value_.__r.__words[0]) >> 3);
       }
     }
   }
 
-  if (v429.__r_.__value_.__r.__words[0])
-  {
-    v429.__r_.__value_.__l.__size_ = v429.__r_.__value_.__r.__words[0];
-    operator delete(v429.__r_.__value_.__l.__data_);
-  }
-
   if (v430.__r_.__value_.__r.__words[0])
   {
     v430.__r_.__value_.__l.__size_ = v430.__r_.__value_.__r.__words[0];
     operator delete(v430.__r_.__value_.__l.__data_);
-  }
-
-  if (__p)
-  {
-    v423 = __p;
-    operator delete(__p);
-  }
-
-  if (v420)
-  {
-    v421 = v420;
-    operator delete(v420);
-  }
-
-  if (v418)
-  {
-    v419 = v418;
-    operator delete(v418);
-  }
-
-  if (v417.__r_.__value_.__r.__words[0])
-  {
-    v417.__r_.__value_.__l.__size_ = v417.__r_.__value_.__r.__words[0];
-    operator delete(v417.__r_.__value_.__l.__data_);
   }
 
   if (v431.__r_.__value_.__r.__words[0])
@@ -317,167 +741,197 @@ void MIL::Operators::Common::ios18::ConstExprs::BlockwiseLutToSparse::Impl::Comp
     operator delete(v431.__r_.__value_.__l.__data_);
   }
 
-  if (v11)
+  if (__p)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v11);
+    v424 = __p;
+    operator delete(__p);
+  }
+
+  if (v421)
+  {
+    v422 = v421;
+    operator delete(v421);
+  }
+
+  if (v419)
+  {
+    v420 = v419;
+    operator delete(v419);
+  }
+
+  if (v418.__r_.__value_.__r.__words[0])
+  {
+    v418.__r_.__value_.__l.__size_ = v418.__r_.__value_.__r.__words[0];
+    operator delete(v418.__r_.__value_.__l.__data_);
+  }
+
+  if (v432.__r_.__value_.__r.__words[0])
+  {
+    v432.__r_.__value_.__l.__size_ = v432.__r_.__value_.__r.__words[0];
+    operator delete(v432.__r_.__value_.__l.__data_);
+  }
+
+  if (v12)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v12);
   }
 
   if (!a2)
   {
-    v48 = (*(**this + 88))();
-    if (v48 == 21)
+    v49 = (*(**this + 88))();
+    if (v49 == 21)
     {
-      MIL::PackSubByteVec(&v416, &v417);
+      MIL::PackSubByteVec(&v417, &v418);
       MIL::IRTensorValueType::MakeUInt1Value();
     }
 
     exception = __cxa_allocate_exception(0x10uLL);
-    MIL::IRDataTypeToString(v48, &v430);
-    v381 = std::string::insert(&v430, 0, "Constexpr-BlockwiseLutToSparse: Unsupported dtype ");
-    v382 = *&v381->__r_.__value_.__l.__data_;
-    v431.__r_.__value_.__r.__words[2] = v381->__r_.__value_.__r.__words[2];
-    *&v431.__r_.__value_.__l.__data_ = v382;
-    v381->__r_.__value_.__l.__size_ = 0;
-    v381->__r_.__value_.__r.__words[2] = 0;
-    v381->__r_.__value_.__r.__words[0] = 0;
-    v383 = std::string::append(&v431, " for mask output");
-    v384 = *&v383->__r_.__value_.__l.__data_;
-    v417.__r_.__value_.__r.__words[2] = v383->__r_.__value_.__r.__words[2];
-    *&v417.__r_.__value_.__l.__data_ = v384;
-    v383->__r_.__value_.__l.__size_ = 0;
-    v383->__r_.__value_.__r.__words[2] = 0;
-    v383->__r_.__value_.__r.__words[0] = 0;
-    std::runtime_error::runtime_error(exception, &v417);
+    MIL::IRDataTypeToString(v49, &v431);
+    v382 = std::string::insert(&v431, 0, "Constexpr-BlockwiseLutToSparse: Unsupported dtype ");
+    v383 = *&v382->__r_.__value_.__l.__data_;
+    v432.__r_.__value_.__r.__words[2] = v382->__r_.__value_.__r.__words[2];
+    *&v432.__r_.__value_.__l.__data_ = v383;
+    v382->__r_.__value_.__l.__size_ = 0;
+    v382->__r_.__value_.__r.__words[2] = 0;
+    v382->__r_.__value_.__r.__words[0] = 0;
+    v384 = std::string::append(&v432, " for mask output");
+    v385 = *&v384->__r_.__value_.__l.__data_;
+    v418.__r_.__value_.__r.__words[2] = v384->__r_.__value_.__r.__words[2];
+    *&v418.__r_.__value_.__l.__data_ = v385;
+    v384->__r_.__value_.__l.__size_ = 0;
+    v384->__r_.__value_.__r.__words[2] = 0;
+    v384->__r_.__value_.__r.__words[0] = 0;
+    std::runtime_error::runtime_error(exception, &v418);
     __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
   }
 
   if (a2 != 1)
   {
-    v379 = __cxa_allocate_exception(0x10uLL);
-    std::runtime_error::runtime_error(v379, "BlockwiseLutToSparse has two outputs, index i cannot be larger than 1.");
-    __cxa_throw(v379, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+    v380 = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(v380, "BlockwiseLutToSparse has two outputs, index i cannot be larger than 1.");
+    __cxa_throw(v380, MEMORY[0x277D82760], MEMORY[0x277D82600]);
   }
 
-  v21 = (*(**(this + 1) + 88))(*(this + 1));
-  v22 = v21;
-  if (v21 > 6)
+  v22 = (*(**(this + 1) + 88))(*(this + 1));
+  v23 = v22;
+  if (v22 > 6)
   {
-    if (v21 != 7)
+    if (v22 != 7)
     {
-      if (v21 != 9)
+      if (v22 != 9)
       {
-        if (v21 == 14)
+        if (v22 == 14)
         {
-          v24 = *(this + 4);
-          v23 = *(this + 5);
-          if (v23)
+          v25 = *(this + 4);
+          v24 = *(this + 5);
+          if (v24)
           {
-            atomic_fetch_add_explicit((v23 + 8), 1uLL, memory_order_relaxed);
+            atomic_fetch_add_explicit((v24 + 8), 1uLL, memory_order_relaxed);
           }
 
-          v26 = *(this + 6);
-          v25 = *(this + 7);
-          if (v25)
+          v27 = *(this + 6);
+          v26 = *(this + 7);
+          if (v26)
           {
-            atomic_fetch_add_explicit((v25 + 8), 1uLL, memory_order_relaxed);
+            atomic_fetch_add_explicit((v26 + 8), 1uLL, memory_order_relaxed);
           }
 
-          v28 = *(this + 2);
-          v27 = *(this + 3);
-          if (v27)
+          v29 = *(this + 2);
+          v28 = *(this + 3);
+          if (v28)
           {
-            atomic_fetch_add_explicit((v27 + 8), 1uLL, memory_order_relaxed);
+            atomic_fetch_add_explicit((v28 + 8), 1uLL, memory_order_relaxed);
           }
 
-          v29 = (*(*v24 + 32))(v24);
-          v30 = (*(*v29 + 96))(v29);
-          MIL::Operators::Common::Shared::ConstExprs::ShapeToVector(v30, &v427);
-          v31 = (*(*v28 + 32))(v28);
-          v32 = (*(*v31 + 96))(v31);
-          MIL::Operators::Common::Shared::ConstExprs::ShapeToVector(v32, &v425);
-          v34 = *(v426 - 2);
-          v33 = *(v426 - 1);
-          memset(&v431, 0, sizeof(v431));
-          std::vector<unsigned long>::__init_with_size[abi:ne200100]<std::__wrap_iter<unsigned long *>,std::__wrap_iter<unsigned long *>>(&v431, v425, (v426 - 2), ((v426 - 2) - v425) >> 3);
-          MIL::Operators::Common::Shared::ConstExprs::BlockwiseLutToDenseIndexConverter::BlockwiseLutToDenseIndexConverter(&v417, &v427, &v431, v33, v6);
-          if (v431.__r_.__value_.__r.__words[0])
+          v30 = (*(*v25 + 32))(v25);
+          v31 = (*(*v30 + 96))(v30);
+          MIL::Operators::Common::Shared::ConstExprs::ShapeToVector(v31, &v428);
+          v32 = (*(*v29 + 32))(v29);
+          v33 = (*(*v32 + 96))(v32);
+          MIL::Operators::Common::Shared::ConstExprs::ShapeToVector(v33, &v426);
+          v35 = *(v427 - 2);
+          v34 = *(v427 - 1);
+          memset(&v432, 0, sizeof(v432));
+          std::vector<unsigned long>::__init_with_size[abi:ne200100]<std::__wrap_iter<unsigned long *>,std::__wrap_iter<unsigned long *>>(&v432, v426, (v427 - 2), ((v427 - 2) - v426) >> 3);
+          MIL::Operators::Common::Shared::ConstExprs::BlockwiseLutToDenseIndexConverter::BlockwiseLutToDenseIndexConverter(&v418, &v428, &v432, v34, v7);
+          if (v432.__r_.__value_.__r.__words[0])
           {
-            v431.__r_.__value_.__l.__size_ = v431.__r_.__value_.__r.__words[0];
-            operator delete(v431.__r_.__value_.__l.__data_);
+            v432.__r_.__value_.__l.__size_ = v432.__r_.__value_.__r.__words[0];
+            operator delete(v432.__r_.__value_.__l.__data_);
           }
 
-          v35 = (*(*v26 + 32))(v26);
-          v36 = (*(*v35 + 88))(v35);
-          v37 = v36;
-          if (v36 > 20)
+          v36 = (*(*v27 + 32))(v27);
+          v37 = (*(*v36 + 88))(v36);
+          v38 = v37;
+          if (v37 > 20)
           {
-            switch(v36)
+            switch(v37)
             {
               case 21:
-                v353 = MIL::IRTensorValue::GetDataView<MIL::UInt1>(v24);
-                v355 = v354;
-                v356 = MIL::IRTensorValue::GetDataView<MIL::UInt1>(v26);
-                v358 = v357;
-                Data = MIL::IRTensorValue::GetDataView<unsigned char>(v28);
-                MIL::Operators::Common::Shared::ConstExprs::EvaluateBitMask<MIL::UInt1>(v356, v358, v353, v355, &v431);
-                MIL::PackSubByteVec(&v431, &v430);
-                if (v430.__r_.__value_.__l.__size_ == v430.__r_.__value_.__r.__words[0])
+                v354 = MIL::IRTensorValue::GetDataView<MIL::UInt1>(v25);
+                v356 = v355;
+                v357 = MIL::IRTensorValue::GetDataView<MIL::UInt1>(v27);
+                v359 = v358;
+                Data = MIL::IRTensorValue::GetDataView<unsigned char>(v29);
+                MIL::Operators::Common::Shared::ConstExprs::EvaluateBitMask<MIL::UInt1>(v357, v359, v354, v356, &v432);
+                MIL::PackSubByteVec(&v432, &v431);
+                if (v431.__r_.__value_.__l.__size_ == v431.__r_.__value_.__r.__words[0])
                 {
-                  v360 = 0;
+                  v361 = 0;
                 }
 
                 else
                 {
-                  v360 = v430.__r_.__value_.__r.__words[0];
+                  v361 = v431.__r_.__value_.__r.__words[0];
                 }
 
-                MIL::Util::CastToBitSpan<MIL::UInt1 const,unsigned char,true>(v360, v430.__r_.__value_.__l.__size_ - v430.__r_.__value_.__r.__words[0], v431.__r_.__value_.__l.__size_ - v431.__r_.__value_.__r.__words[0]);
-                MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseLutToDense<unsigned char,MIL::UInt1>(v361, v362, Data, &v417, v34, &v429);
-                MIL::Operators::Common::Shared::ConstExprs::ExtractMaskedData<unsigned char>(&v429, &v416, &v415);
+                MIL::Util::CastToBitSpan<MIL::UInt1 const,unsigned char,true>(v361, v431.__r_.__value_.__l.__size_ - v431.__r_.__value_.__r.__words[0], v432.__r_.__value_.__l.__size_ - v432.__r_.__value_.__r.__words[0]);
+                MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseLutToDense<unsigned char,MIL::UInt1>(v362, v363, Data, &v418, v35, &v430);
+                MIL::Operators::Common::Shared::ConstExprs::ExtractMaskedData<unsigned char>(&v430, &v417, &v416);
                 break;
               case 22:
-                v285 = MIL::IRTensorValue::GetDataView<MIL::UInt1>(v24);
-                v287 = v286;
-                v288 = MIL::IRTensorValue::GetDataView<MIL::UInt3>(v26);
-                v290 = v289;
-                v291 = MIL::IRTensorValue::GetDataView<unsigned char>(v28);
-                MIL::Operators::Common::Shared::ConstExprs::EvaluateBitMask<MIL::UInt3>(v288, v290, v285, v287, &v431);
-                MIL::PackSubByteVec(&v431, &v430);
-                if (v430.__r_.__value_.__l.__size_ == v430.__r_.__value_.__r.__words[0])
+                v286 = MIL::IRTensorValue::GetDataView<MIL::UInt1>(v25);
+                v288 = v287;
+                v289 = MIL::IRTensorValue::GetDataView<MIL::UInt3>(v27);
+                v291 = v290;
+                v292 = MIL::IRTensorValue::GetDataView<unsigned char>(v29);
+                MIL::Operators::Common::Shared::ConstExprs::EvaluateBitMask<MIL::UInt3>(v289, v291, v286, v288, &v432);
+                MIL::PackSubByteVec(&v432, &v431);
+                if (v431.__r_.__value_.__l.__size_ == v431.__r_.__value_.__r.__words[0])
                 {
-                  v292 = 0;
+                  v293 = 0;
                 }
 
                 else
                 {
-                  v292 = v430.__r_.__value_.__r.__words[0];
+                  v293 = v431.__r_.__value_.__r.__words[0];
                 }
 
-                MIL::Util::CastToBitSpan<MIL::UInt3 const,unsigned char,true>(v292, v430.__r_.__value_.__l.__size_ - v430.__r_.__value_.__r.__words[0], v431.__r_.__value_.__l.__size_ - v431.__r_.__value_.__r.__words[0]);
-                MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseLutToDense<unsigned char,MIL::UInt3>(v293, v294, v291, &v417, v34, &v429);
-                MIL::Operators::Common::Shared::ConstExprs::ExtractMaskedData<unsigned char>(&v429, &v416, &v415);
+                MIL::Util::CastToBitSpan<MIL::UInt3 const,unsigned char,true>(v293, v431.__r_.__value_.__l.__size_ - v431.__r_.__value_.__r.__words[0], v432.__r_.__value_.__l.__size_ - v432.__r_.__value_.__r.__words[0]);
+                MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseLutToDense<unsigned char,MIL::UInt3>(v294, v295, v292, &v418, v35, &v430);
+                MIL::Operators::Common::Shared::ConstExprs::ExtractMaskedData<unsigned char>(&v430, &v417, &v416);
                 break;
               case 23:
-                v179 = MIL::IRTensorValue::GetDataView<MIL::UInt1>(v24);
-                v181 = v180;
-                v182 = MIL::IRTensorValue::GetDataView<MIL::UInt6>(v26);
-                v184 = v183;
-                v185 = MIL::IRTensorValue::GetDataView<unsigned char>(v28);
-                MIL::Operators::Common::Shared::ConstExprs::EvaluateBitMask<MIL::UInt6>(v182, v184, v179, v181, &v431);
-                MIL::PackSubByteVec(&v431, &v430);
-                if (v430.__r_.__value_.__l.__size_ == v430.__r_.__value_.__r.__words[0])
+                v180 = MIL::IRTensorValue::GetDataView<MIL::UInt1>(v25);
+                v182 = v181;
+                v183 = MIL::IRTensorValue::GetDataView<MIL::UInt6>(v27);
+                v185 = v184;
+                v186 = MIL::IRTensorValue::GetDataView<unsigned char>(v29);
+                MIL::Operators::Common::Shared::ConstExprs::EvaluateBitMask<MIL::UInt6>(v183, v185, v180, v182, &v432);
+                MIL::PackSubByteVec(&v432, &v431);
+                if (v431.__r_.__value_.__l.__size_ == v431.__r_.__value_.__r.__words[0])
                 {
-                  v186 = 0;
+                  v187 = 0;
                 }
 
                 else
                 {
-                  v186 = v430.__r_.__value_.__r.__words[0];
+                  v187 = v431.__r_.__value_.__r.__words[0];
                 }
 
-                MIL::Util::CastToBitSpan<MIL::UInt6 const,unsigned char,true>(v186, v430.__r_.__value_.__l.__size_ - v430.__r_.__value_.__r.__words[0], v431.__r_.__value_.__l.__size_ - v431.__r_.__value_.__r.__words[0]);
-                MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseLutToDense<unsigned char,MIL::UInt6>(v187, v188, v185, &v417, v34, &v429);
-                MIL::Operators::Common::Shared::ConstExprs::ExtractMaskedData<unsigned char>(&v429, &v416, &v415);
+                MIL::Util::CastToBitSpan<MIL::UInt6 const,unsigned char,true>(v187, v431.__r_.__value_.__l.__size_ - v431.__r_.__value_.__r.__words[0], v432.__r_.__value_.__l.__size_ - v432.__r_.__value_.__r.__words[0]);
+                MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseLutToDense<unsigned char,MIL::UInt6>(v188, v189, v186, &v418, v35, &v430);
+                MIL::Operators::Common::Shared::ConstExprs::ExtractMaskedData<unsigned char>(&v430, &v417, &v416);
                 break;
               default:
                 goto LABEL_338;
@@ -486,288 +940,288 @@ void MIL::Operators::Common::ios18::ConstExprs::BlockwiseLutToSparse::Impl::Comp
 
           else
           {
-            if (v36 == 14)
+            if (v37 == 14)
             {
-              v347 = MIL::IRTensorValue::GetDataView<MIL::UInt1>(v24);
-              v349 = v348;
-              v350 = MIL::IRTensorValue::GetDataView<unsigned char>(v26);
-              v351 = MIL::IRTensorValue::GetDataView<unsigned char>(v28);
-              MIL::Operators::Common::Shared::ConstExprs::EvaluateBitMask<unsigned char>(v350, v347, v349, &v431);
-              if (v431.__r_.__value_.__l.__size_ == v431.__r_.__value_.__r.__words[0])
+              v348 = MIL::IRTensorValue::GetDataView<MIL::UInt1>(v25);
+              v350 = v349;
+              v351 = MIL::IRTensorValue::GetDataView<unsigned char>(v27);
+              v352 = MIL::IRTensorValue::GetDataView<unsigned char>(v29);
+              MIL::Operators::Common::Shared::ConstExprs::EvaluateBitMask<unsigned char>(v351, v348, v350, &v432);
+              if (v432.__r_.__value_.__l.__size_ == v432.__r_.__value_.__r.__words[0])
               {
-                v352 = 0;
+                v353 = 0;
               }
 
               else
               {
-                v352 = v431.__r_.__value_.__r.__words[0];
+                v353 = v432.__r_.__value_.__r.__words[0];
               }
 
-              MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseLutToDense<unsigned char,unsigned char>(v352, v431.__r_.__value_.__l.__size_ - v431.__r_.__value_.__r.__words[0], v351, &v417, v34, &v430);
-              MIL::Operators::Common::Shared::ConstExprs::ExtractMaskedData<unsigned char>(&v430, &v416, &v415);
+              MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseLutToDense<unsigned char,unsigned char>(v353, v432.__r_.__value_.__l.__size_ - v432.__r_.__value_.__r.__words[0], v352, &v418, v35, &v431);
+              MIL::Operators::Common::Shared::ConstExprs::ExtractMaskedData<unsigned char>(&v431, &v417, &v416);
               goto LABEL_288;
             }
 
-            if (v36 != 19)
+            if (v37 != 19)
             {
-              if (v36 == 20)
+              if (v37 == 20)
               {
-                v38 = MIL::IRTensorValue::GetDataView<MIL::UInt1>(v24);
-                v40 = v39;
-                v41 = MIL::IRTensorValue::GetDataView<MIL::UInt4>(v26);
-                v43 = v42;
-                v44 = MIL::IRTensorValue::GetDataView<unsigned char>(v28);
-                MIL::Operators::Common::Shared::ConstExprs::EvaluateBitMask<MIL::UInt4>(v41, v43, v38, v40, &v431);
-                MIL::PackSubByteVec(&v431, &v430);
-                if (v430.__r_.__value_.__l.__size_ == v430.__r_.__value_.__r.__words[0])
+                v39 = MIL::IRTensorValue::GetDataView<MIL::UInt1>(v25);
+                v41 = v40;
+                v42 = MIL::IRTensorValue::GetDataView<MIL::UInt4>(v27);
+                v44 = v43;
+                v45 = MIL::IRTensorValue::GetDataView<unsigned char>(v29);
+                MIL::Operators::Common::Shared::ConstExprs::EvaluateBitMask<MIL::UInt4>(v42, v44, v39, v41, &v432);
+                MIL::PackSubByteVec(&v432, &v431);
+                if (v431.__r_.__value_.__l.__size_ == v431.__r_.__value_.__r.__words[0])
                 {
-                  v45 = 0;
+                  v46 = 0;
                 }
 
                 else
                 {
-                  v45 = v430.__r_.__value_.__r.__words[0];
+                  v46 = v431.__r_.__value_.__r.__words[0];
                 }
 
-                MIL::Util::CastToBitSpan<MIL::UInt4 const,unsigned char,true>(v45, v430.__r_.__value_.__l.__size_ - v430.__r_.__value_.__r.__words[0], v431.__r_.__value_.__l.__size_ - v431.__r_.__value_.__r.__words[0]);
-                MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseLutToDense<unsigned char,MIL::UInt4>(v46, v47, v44, &v417, v34, &v429);
-                MIL::Operators::Common::Shared::ConstExprs::ExtractMaskedData<unsigned char>(&v429, &v416, &v415);
+                MIL::Util::CastToBitSpan<MIL::UInt4 const,unsigned char,true>(v46, v431.__r_.__value_.__l.__size_ - v431.__r_.__value_.__r.__words[0], v432.__r_.__value_.__l.__size_ - v432.__r_.__value_.__r.__words[0]);
+                MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseLutToDense<unsigned char,MIL::UInt4>(v47, v48, v45, &v418, v35, &v430);
+                MIL::Operators::Common::Shared::ConstExprs::ExtractMaskedData<unsigned char>(&v430, &v417, &v416);
                 goto LABEL_286;
               }
 
 LABEL_338:
-              v405 = __cxa_allocate_exception(0x10uLL);
-              MIL::IRDataTypeToString(v37, &v429);
-              v406 = std::string::insert(&v429, 0, "Constexpr-BlockwiseLutToSparse: Unsupported dtype ");
-              v407 = *&v406->__r_.__value_.__l.__data_;
-              v430.__r_.__value_.__r.__words[2] = v406->__r_.__value_.__r.__words[2];
-              *&v430.__r_.__value_.__l.__data_ = v407;
-              v406->__r_.__value_.__l.__size_ = 0;
-              v406->__r_.__value_.__r.__words[2] = 0;
-              v406->__r_.__value_.__r.__words[0] = 0;
-              v408 = std::string::append(&v430, " for indices");
-              v409 = *&v408->__r_.__value_.__l.__data_;
-              v431.__r_.__value_.__r.__words[2] = v408->__r_.__value_.__r.__words[2];
-              *&v431.__r_.__value_.__l.__data_ = v409;
-              v408->__r_.__value_.__l.__size_ = 0;
-              v408->__r_.__value_.__r.__words[2] = 0;
-              v408->__r_.__value_.__r.__words[0] = 0;
-              std::runtime_error::runtime_error(v405, &v431);
-              __cxa_throw(v405, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+              v406 = __cxa_allocate_exception(0x10uLL);
+              MIL::IRDataTypeToString(v38, &v430);
+              v407 = std::string::insert(&v430, 0, "Constexpr-BlockwiseLutToSparse: Unsupported dtype ");
+              v408 = *&v407->__r_.__value_.__l.__data_;
+              v431.__r_.__value_.__r.__words[2] = v407->__r_.__value_.__r.__words[2];
+              *&v431.__r_.__value_.__l.__data_ = v408;
+              v407->__r_.__value_.__l.__size_ = 0;
+              v407->__r_.__value_.__r.__words[2] = 0;
+              v407->__r_.__value_.__r.__words[0] = 0;
+              v409 = std::string::append(&v431, " for indices");
+              v410 = *&v409->__r_.__value_.__l.__data_;
+              v432.__r_.__value_.__r.__words[2] = v409->__r_.__value_.__r.__words[2];
+              *&v432.__r_.__value_.__l.__data_ = v410;
+              v409->__r_.__value_.__l.__size_ = 0;
+              v409->__r_.__value_.__r.__words[2] = 0;
+              v409->__r_.__value_.__r.__words[0] = 0;
+              std::runtime_error::runtime_error(v406, &v432);
+              __cxa_throw(v406, MEMORY[0x277D82760], MEMORY[0x277D82600]);
             }
 
-            v259 = MIL::IRTensorValue::GetDataView<MIL::UInt1>(v24);
-            v261 = v260;
-            v262 = MIL::IRTensorValue::GetDataView<MIL::UInt2>(v26);
-            v264 = v263;
-            v265 = MIL::IRTensorValue::GetDataView<unsigned char>(v28);
-            MIL::Operators::Common::Shared::ConstExprs::EvaluateBitMask<MIL::UInt2>(v262, v264, v259, v261, &v431);
-            MIL::PackSubByteVec(&v431, &v430);
-            if (v430.__r_.__value_.__l.__size_ == v430.__r_.__value_.__r.__words[0])
+            v260 = MIL::IRTensorValue::GetDataView<MIL::UInt1>(v25);
+            v262 = v261;
+            v263 = MIL::IRTensorValue::GetDataView<MIL::UInt2>(v27);
+            v265 = v264;
+            v266 = MIL::IRTensorValue::GetDataView<unsigned char>(v29);
+            MIL::Operators::Common::Shared::ConstExprs::EvaluateBitMask<MIL::UInt2>(v263, v265, v260, v262, &v432);
+            MIL::PackSubByteVec(&v432, &v431);
+            if (v431.__r_.__value_.__l.__size_ == v431.__r_.__value_.__r.__words[0])
             {
-              v266 = 0;
+              v267 = 0;
             }
 
             else
             {
-              v266 = v430.__r_.__value_.__r.__words[0];
+              v267 = v431.__r_.__value_.__r.__words[0];
             }
 
-            MIL::Util::CastToBitSpan<MIL::UInt2 const,unsigned char,true>(v266, v430.__r_.__value_.__l.__size_ - v430.__r_.__value_.__r.__words[0], v431.__r_.__value_.__l.__size_ - v431.__r_.__value_.__r.__words[0]);
-            MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseLutToDense<unsigned char,MIL::UInt2>(v267, v268, v265, &v417, v34, &v429);
-            MIL::Operators::Common::Shared::ConstExprs::ExtractMaskedData<unsigned char>(&v429, &v416, &v415);
+            MIL::Util::CastToBitSpan<MIL::UInt2 const,unsigned char,true>(v267, v431.__r_.__value_.__l.__size_ - v431.__r_.__value_.__r.__words[0], v432.__r_.__value_.__l.__size_ - v432.__r_.__value_.__r.__words[0]);
+            MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseLutToDense<unsigned char,MIL::UInt2>(v268, v269, v266, &v418, v35, &v430);
+            MIL::Operators::Common::Shared::ConstExprs::ExtractMaskedData<unsigned char>(&v430, &v417, &v416);
           }
 
 LABEL_286:
-          if (v429.__r_.__value_.__r.__words[0])
-          {
-            v429.__r_.__value_.__l.__size_ = v429.__r_.__value_.__r.__words[0];
-            operator delete(v429.__r_.__value_.__l.__data_);
-          }
-
-LABEL_288:
           if (v430.__r_.__value_.__r.__words[0])
           {
             v430.__r_.__value_.__l.__size_ = v430.__r_.__value_.__r.__words[0];
             operator delete(v430.__r_.__value_.__l.__data_);
           }
 
+LABEL_288:
           if (v431.__r_.__value_.__r.__words[0])
           {
             v431.__r_.__value_.__l.__size_ = v431.__r_.__value_.__r.__words[0];
             operator delete(v431.__r_.__value_.__l.__data_);
           }
 
+          if (v432.__r_.__value_.__r.__words[0])
+          {
+            v432.__r_.__value_.__l.__size_ = v432.__r_.__value_.__r.__words[0];
+            operator delete(v432.__r_.__value_.__l.__data_);
+          }
+
           if (__p)
           {
-            v423 = __p;
+            v424 = __p;
             operator delete(__p);
           }
 
-          if (v420)
+          if (v421)
           {
-            v421 = v420;
-            operator delete(v420);
+            v422 = v421;
+            operator delete(v421);
           }
 
-          if (v418)
+          if (v419)
           {
-            v419 = v418;
-            operator delete(v418);
+            v420 = v419;
+            operator delete(v419);
           }
 
-          if (v417.__r_.__value_.__r.__words[0])
+          if (v418.__r_.__value_.__r.__words[0])
           {
-            v417.__r_.__value_.__l.__size_ = v417.__r_.__value_.__r.__words[0];
-            operator delete(v417.__r_.__value_.__l.__data_);
+            v418.__r_.__value_.__l.__size_ = v418.__r_.__value_.__r.__words[0];
+            operator delete(v418.__r_.__value_.__l.__data_);
           }
 
-          if (v425)
+          if (v426)
           {
-            v426 = v425;
-            operator delete(v425);
+            v427 = v426;
+            operator delete(v426);
           }
 
-          if (v427)
+          if (v428)
           {
-            v428 = v427;
-            operator delete(v427);
+            v429 = v428;
+            operator delete(v428);
           }
 
           MIL::IRTensorValueType::MakeUInt8Value();
         }
 
 LABEL_334:
-        v385 = __cxa_allocate_exception(0x10uLL);
-        MIL::IRDataTypeToString(v22, &v430);
-        v386 = std::string::insert(&v430, 0, "Constexpr-BlockwiseLutToSparse: Unsupported dtype ");
-        v387 = *&v386->__r_.__value_.__l.__data_;
-        v431.__r_.__value_.__r.__words[2] = v386->__r_.__value_.__r.__words[2];
-        *&v431.__r_.__value_.__l.__data_ = v387;
-        v386->__r_.__value_.__l.__size_ = 0;
-        v386->__r_.__value_.__r.__words[2] = 0;
-        v386->__r_.__value_.__r.__words[0] = 0;
-        v388 = std::string::append(&v431, " for nonzero data output");
-        v389 = *&v388->__r_.__value_.__l.__data_;
-        v417.__r_.__value_.__r.__words[2] = v388->__r_.__value_.__r.__words[2];
-        *&v417.__r_.__value_.__l.__data_ = v389;
-        v388->__r_.__value_.__l.__size_ = 0;
-        v388->__r_.__value_.__r.__words[2] = 0;
-        v388->__r_.__value_.__r.__words[0] = 0;
-        std::runtime_error::runtime_error(v385, &v417);
-        __cxa_throw(v385, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+        v386 = __cxa_allocate_exception(0x10uLL);
+        MIL::IRDataTypeToString(v23, &v431);
+        v387 = std::string::insert(&v431, 0, "Constexpr-BlockwiseLutToSparse: Unsupported dtype ");
+        v388 = *&v387->__r_.__value_.__l.__data_;
+        v432.__r_.__value_.__r.__words[2] = v387->__r_.__value_.__r.__words[2];
+        *&v432.__r_.__value_.__l.__data_ = v388;
+        v387->__r_.__value_.__l.__size_ = 0;
+        v387->__r_.__value_.__r.__words[2] = 0;
+        v387->__r_.__value_.__r.__words[0] = 0;
+        v389 = std::string::append(&v432, " for nonzero data output");
+        v390 = *&v389->__r_.__value_.__l.__data_;
+        v418.__r_.__value_.__r.__words[2] = v389->__r_.__value_.__r.__words[2];
+        *&v418.__r_.__value_.__l.__data_ = v390;
+        v389->__r_.__value_.__l.__size_ = 0;
+        v389->__r_.__value_.__r.__words[2] = 0;
+        v389->__r_.__value_.__r.__words[0] = 0;
+        std::runtime_error::runtime_error(v386, &v418);
+        __cxa_throw(v386, MEMORY[0x277D82760], MEMORY[0x277D82600]);
       }
 
-      v100 = *(this + 4);
-      v99 = *(this + 5);
-      if (v99)
+      v101 = *(this + 4);
+      v100 = *(this + 5);
+      if (v100)
       {
-        atomic_fetch_add_explicit((v99 + 8), 1uLL, memory_order_relaxed);
+        atomic_fetch_add_explicit((v100 + 8), 1uLL, memory_order_relaxed);
       }
 
-      v102 = *(this + 6);
-      v101 = *(this + 7);
-      if (v101)
+      v103 = *(this + 6);
+      v102 = *(this + 7);
+      if (v102)
       {
-        atomic_fetch_add_explicit((v101 + 8), 1uLL, memory_order_relaxed);
+        atomic_fetch_add_explicit((v102 + 8), 1uLL, memory_order_relaxed);
       }
 
-      v104 = *(this + 2);
-      v103 = *(this + 3);
-      if (v103)
+      v105 = *(this + 2);
+      v104 = *(this + 3);
+      if (v104)
       {
-        atomic_fetch_add_explicit((v103 + 8), 1uLL, memory_order_relaxed);
+        atomic_fetch_add_explicit((v104 + 8), 1uLL, memory_order_relaxed);
       }
 
-      v105 = (*(*v100 + 32))(v100);
-      v106 = (*(*v105 + 96))(v105);
-      MIL::Operators::Common::Shared::ConstExprs::ShapeToVector(v106, &v427);
-      v107 = (*(*v104 + 32))(v104);
-      v108 = (*(*v107 + 96))(v107);
-      MIL::Operators::Common::Shared::ConstExprs::ShapeToVector(v108, &v425);
-      v110 = *(v426 - 2);
-      v109 = *(v426 - 1);
-      memset(&v431, 0, sizeof(v431));
-      std::vector<unsigned long>::__init_with_size[abi:ne200100]<std::__wrap_iter<unsigned long *>,std::__wrap_iter<unsigned long *>>(&v431, v425, (v426 - 2), ((v426 - 2) - v425) >> 3);
-      MIL::Operators::Common::Shared::ConstExprs::BlockwiseLutToDenseIndexConverter::BlockwiseLutToDenseIndexConverter(&v417, &v427, &v431, v109, v6);
-      if (v431.__r_.__value_.__r.__words[0])
+      v106 = (*(*v101 + 32))(v101);
+      v107 = (*(*v106 + 96))(v106);
+      MIL::Operators::Common::Shared::ConstExprs::ShapeToVector(v107, &v428);
+      v108 = (*(*v105 + 32))(v105);
+      v109 = (*(*v108 + 96))(v108);
+      MIL::Operators::Common::Shared::ConstExprs::ShapeToVector(v109, &v426);
+      v111 = *(v427 - 2);
+      v110 = *(v427 - 1);
+      memset(&v432, 0, sizeof(v432));
+      std::vector<unsigned long>::__init_with_size[abi:ne200100]<std::__wrap_iter<unsigned long *>,std::__wrap_iter<unsigned long *>>(&v432, v426, (v427 - 2), ((v427 - 2) - v426) >> 3);
+      MIL::Operators::Common::Shared::ConstExprs::BlockwiseLutToDenseIndexConverter::BlockwiseLutToDenseIndexConverter(&v418, &v428, &v432, v110, v7);
+      if (v432.__r_.__value_.__r.__words[0])
       {
-        v431.__r_.__value_.__l.__size_ = v431.__r_.__value_.__r.__words[0];
-        operator delete(v431.__r_.__value_.__l.__data_);
+        v432.__r_.__value_.__l.__size_ = v432.__r_.__value_.__r.__words[0];
+        operator delete(v432.__r_.__value_.__l.__data_);
       }
 
-      v111 = (*(*v102 + 32))(v102);
-      v112 = (*(*v111 + 88))(v111);
-      v113 = v112;
-      if (v112 > 20)
+      v112 = (*(*v103 + 32))(v103);
+      v113 = (*(*v112 + 88))(v112);
+      v114 = v113;
+      if (v113 > 20)
       {
-        switch(v112)
+        switch(v113)
         {
           case 21:
-            v311 = MIL::IRTensorValue::GetDataView<MIL::UInt1>(v100);
-            v313 = v312;
-            v314 = MIL::IRTensorValue::GetDataView<MIL::UInt1>(v102);
-            v316 = v315;
-            v317 = MIL::IRTensorValue::GetDataView<signed char>(v104);
-            MIL::Operators::Common::Shared::ConstExprs::EvaluateBitMask<MIL::UInt1>(v314, v316, v311, v313, &v431);
-            MIL::PackSubByteVec(&v431, &v430);
-            if (v430.__r_.__value_.__l.__size_ == v430.__r_.__value_.__r.__words[0])
+            v312 = MIL::IRTensorValue::GetDataView<MIL::UInt1>(v101);
+            v314 = v313;
+            v315 = MIL::IRTensorValue::GetDataView<MIL::UInt1>(v103);
+            v317 = v316;
+            v318 = MIL::IRTensorValue::GetDataView<signed char>(v105);
+            MIL::Operators::Common::Shared::ConstExprs::EvaluateBitMask<MIL::UInt1>(v315, v317, v312, v314, &v432);
+            MIL::PackSubByteVec(&v432, &v431);
+            if (v431.__r_.__value_.__l.__size_ == v431.__r_.__value_.__r.__words[0])
             {
-              v318 = 0;
+              v319 = 0;
             }
 
             else
             {
-              v318 = v430.__r_.__value_.__r.__words[0];
+              v319 = v431.__r_.__value_.__r.__words[0];
             }
 
-            MIL::Util::CastToBitSpan<MIL::UInt1 const,unsigned char,true>(v318, v430.__r_.__value_.__l.__size_ - v430.__r_.__value_.__r.__words[0], v431.__r_.__value_.__l.__size_ - v431.__r_.__value_.__r.__words[0]);
-            MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseLutToDense<signed char,MIL::UInt1>(v319, v320, v317, &v417, v110, &v429);
-            MIL::Operators::Common::Shared::ConstExprs::ExtractMaskedData<signed char>(&v429, &v416, &v415);
+            MIL::Util::CastToBitSpan<MIL::UInt1 const,unsigned char,true>(v319, v431.__r_.__value_.__l.__size_ - v431.__r_.__value_.__r.__words[0], v432.__r_.__value_.__l.__size_ - v432.__r_.__value_.__r.__words[0]);
+            MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseLutToDense<signed char,MIL::UInt1>(v320, v321, v318, &v418, v111, &v430);
+            MIL::Operators::Common::Shared::ConstExprs::ExtractMaskedData<signed char>(&v430, &v417, &v416);
             break;
           case 22:
-            v229 = MIL::IRTensorValue::GetDataView<MIL::UInt1>(v100);
-            v231 = v230;
-            v232 = MIL::IRTensorValue::GetDataView<MIL::UInt3>(v102);
-            v234 = v233;
-            v235 = MIL::IRTensorValue::GetDataView<signed char>(v104);
-            MIL::Operators::Common::Shared::ConstExprs::EvaluateBitMask<MIL::UInt3>(v232, v234, v229, v231, &v431);
-            MIL::PackSubByteVec(&v431, &v430);
-            if (v430.__r_.__value_.__l.__size_ == v430.__r_.__value_.__r.__words[0])
+            v230 = MIL::IRTensorValue::GetDataView<MIL::UInt1>(v101);
+            v232 = v231;
+            v233 = MIL::IRTensorValue::GetDataView<MIL::UInt3>(v103);
+            v235 = v234;
+            v236 = MIL::IRTensorValue::GetDataView<signed char>(v105);
+            MIL::Operators::Common::Shared::ConstExprs::EvaluateBitMask<MIL::UInt3>(v233, v235, v230, v232, &v432);
+            MIL::PackSubByteVec(&v432, &v431);
+            if (v431.__r_.__value_.__l.__size_ == v431.__r_.__value_.__r.__words[0])
             {
-              v236 = 0;
+              v237 = 0;
             }
 
             else
             {
-              v236 = v430.__r_.__value_.__r.__words[0];
+              v237 = v431.__r_.__value_.__r.__words[0];
             }
 
-            MIL::Util::CastToBitSpan<MIL::UInt3 const,unsigned char,true>(v236, v430.__r_.__value_.__l.__size_ - v430.__r_.__value_.__r.__words[0], v431.__r_.__value_.__l.__size_ - v431.__r_.__value_.__r.__words[0]);
-            MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseLutToDense<signed char,MIL::UInt3>(v237, v238, v235, &v417, v110, &v429);
-            MIL::Operators::Common::Shared::ConstExprs::ExtractMaskedData<signed char>(&v429, &v416, &v415);
+            MIL::Util::CastToBitSpan<MIL::UInt3 const,unsigned char,true>(v237, v431.__r_.__value_.__l.__size_ - v431.__r_.__value_.__r.__words[0], v432.__r_.__value_.__l.__size_ - v432.__r_.__value_.__r.__words[0]);
+            MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseLutToDense<signed char,MIL::UInt3>(v238, v239, v236, &v418, v111, &v430);
+            MIL::Operators::Common::Shared::ConstExprs::ExtractMaskedData<signed char>(&v430, &v417, &v416);
             break;
           case 23:
-            v159 = MIL::IRTensorValue::GetDataView<MIL::UInt1>(v100);
-            v161 = v160;
-            v162 = MIL::IRTensorValue::GetDataView<MIL::UInt6>(v102);
-            v164 = v163;
-            v165 = MIL::IRTensorValue::GetDataView<signed char>(v104);
-            MIL::Operators::Common::Shared::ConstExprs::EvaluateBitMask<MIL::UInt6>(v162, v164, v159, v161, &v431);
-            MIL::PackSubByteVec(&v431, &v430);
-            if (v430.__r_.__value_.__l.__size_ == v430.__r_.__value_.__r.__words[0])
+            v160 = MIL::IRTensorValue::GetDataView<MIL::UInt1>(v101);
+            v162 = v161;
+            v163 = MIL::IRTensorValue::GetDataView<MIL::UInt6>(v103);
+            v165 = v164;
+            v166 = MIL::IRTensorValue::GetDataView<signed char>(v105);
+            MIL::Operators::Common::Shared::ConstExprs::EvaluateBitMask<MIL::UInt6>(v163, v165, v160, v162, &v432);
+            MIL::PackSubByteVec(&v432, &v431);
+            if (v431.__r_.__value_.__l.__size_ == v431.__r_.__value_.__r.__words[0])
             {
-              v166 = 0;
+              v167 = 0;
             }
 
             else
             {
-              v166 = v430.__r_.__value_.__r.__words[0];
+              v167 = v431.__r_.__value_.__r.__words[0];
             }
 
-            MIL::Util::CastToBitSpan<MIL::UInt6 const,unsigned char,true>(v166, v430.__r_.__value_.__l.__size_ - v430.__r_.__value_.__r.__words[0], v431.__r_.__value_.__l.__size_ - v431.__r_.__value_.__r.__words[0]);
-            MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseLutToDense<signed char,MIL::UInt6>(v167, v168, v165, &v417, v110, &v429);
-            MIL::Operators::Common::Shared::ConstExprs::ExtractMaskedData<signed char>(&v429, &v416, &v415);
+            MIL::Util::CastToBitSpan<MIL::UInt6 const,unsigned char,true>(v167, v431.__r_.__value_.__l.__size_ - v431.__r_.__value_.__r.__words[0], v432.__r_.__value_.__l.__size_ - v432.__r_.__value_.__r.__words[0]);
+            MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseLutToDense<signed char,MIL::UInt6>(v168, v169, v166, &v418, v111, &v430);
+            MIL::Operators::Common::Shared::ConstExprs::ExtractMaskedData<signed char>(&v430, &v417, &v416);
             break;
           default:
             goto LABEL_336;
@@ -776,267 +1230,267 @@ LABEL_334:
 
       else
       {
-        if (v112 == 14)
+        if (v113 == 14)
         {
-          v305 = MIL::IRTensorValue::GetDataView<MIL::UInt1>(v100);
-          v307 = v306;
-          v308 = MIL::IRTensorValue::GetDataView<unsigned char>(v102);
-          v309 = MIL::IRTensorValue::GetDataView<signed char>(v104);
-          MIL::Operators::Common::Shared::ConstExprs::EvaluateBitMask<unsigned char>(v308, v305, v307, &v431);
-          if (v431.__r_.__value_.__l.__size_ == v431.__r_.__value_.__r.__words[0])
+          v306 = MIL::IRTensorValue::GetDataView<MIL::UInt1>(v101);
+          v308 = v307;
+          v309 = MIL::IRTensorValue::GetDataView<unsigned char>(v103);
+          v310 = MIL::IRTensorValue::GetDataView<signed char>(v105);
+          MIL::Operators::Common::Shared::ConstExprs::EvaluateBitMask<unsigned char>(v309, v306, v308, &v432);
+          if (v432.__r_.__value_.__l.__size_ == v432.__r_.__value_.__r.__words[0])
           {
-            v310 = 0;
+            v311 = 0;
           }
 
           else
           {
-            v310 = v431.__r_.__value_.__r.__words[0];
+            v311 = v432.__r_.__value_.__r.__words[0];
           }
 
-          MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseLutToDense<signed char,unsigned char>(v310, v431.__r_.__value_.__l.__size_ - v431.__r_.__value_.__r.__words[0], v309, &v417, v110, &v430);
-          MIL::Operators::Common::Shared::ConstExprs::ExtractMaskedData<signed char>(&v430, &v416, &v415);
+          MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseLutToDense<signed char,unsigned char>(v311, v432.__r_.__value_.__l.__size_ - v432.__r_.__value_.__r.__words[0], v310, &v418, v111, &v431);
+          MIL::Operators::Common::Shared::ConstExprs::ExtractMaskedData<signed char>(&v431, &v417, &v416);
           goto LABEL_230;
         }
 
-        if (v112 != 19)
+        if (v113 != 19)
         {
-          if (v112 == 20)
+          if (v113 == 20)
           {
-            v114 = MIL::IRTensorValue::GetDataView<MIL::UInt1>(v100);
-            v116 = v115;
-            v117 = MIL::IRTensorValue::GetDataView<MIL::UInt4>(v102);
-            v119 = v118;
-            v120 = MIL::IRTensorValue::GetDataView<signed char>(v104);
-            MIL::Operators::Common::Shared::ConstExprs::EvaluateBitMask<MIL::UInt4>(v117, v119, v114, v116, &v431);
-            MIL::PackSubByteVec(&v431, &v430);
-            if (v430.__r_.__value_.__l.__size_ == v430.__r_.__value_.__r.__words[0])
+            v115 = MIL::IRTensorValue::GetDataView<MIL::UInt1>(v101);
+            v117 = v116;
+            v118 = MIL::IRTensorValue::GetDataView<MIL::UInt4>(v103);
+            v120 = v119;
+            v121 = MIL::IRTensorValue::GetDataView<signed char>(v105);
+            MIL::Operators::Common::Shared::ConstExprs::EvaluateBitMask<MIL::UInt4>(v118, v120, v115, v117, &v432);
+            MIL::PackSubByteVec(&v432, &v431);
+            if (v431.__r_.__value_.__l.__size_ == v431.__r_.__value_.__r.__words[0])
             {
-              v121 = 0;
+              v122 = 0;
             }
 
             else
             {
-              v121 = v430.__r_.__value_.__r.__words[0];
+              v122 = v431.__r_.__value_.__r.__words[0];
             }
 
-            MIL::Util::CastToBitSpan<MIL::UInt4 const,unsigned char,true>(v121, v430.__r_.__value_.__l.__size_ - v430.__r_.__value_.__r.__words[0], v431.__r_.__value_.__l.__size_ - v431.__r_.__value_.__r.__words[0]);
-            MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseLutToDense<signed char,MIL::UInt4>(v122, v123, v120, &v417, v110, &v429);
-            MIL::Operators::Common::Shared::ConstExprs::ExtractMaskedData<signed char>(&v429, &v416, &v415);
+            MIL::Util::CastToBitSpan<MIL::UInt4 const,unsigned char,true>(v122, v431.__r_.__value_.__l.__size_ - v431.__r_.__value_.__r.__words[0], v432.__r_.__value_.__l.__size_ - v432.__r_.__value_.__r.__words[0]);
+            MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseLutToDense<signed char,MIL::UInt4>(v123, v124, v121, &v418, v111, &v430);
+            MIL::Operators::Common::Shared::ConstExprs::ExtractMaskedData<signed char>(&v430, &v417, &v416);
             goto LABEL_228;
           }
 
 LABEL_336:
-          v395 = __cxa_allocate_exception(0x10uLL);
-          MIL::IRDataTypeToString(v113, &v429);
-          v396 = std::string::insert(&v429, 0, "Constexpr-BlockwiseLutToSparse: Unsupported dtype ");
-          v397 = *&v396->__r_.__value_.__l.__data_;
-          v430.__r_.__value_.__r.__words[2] = v396->__r_.__value_.__r.__words[2];
-          *&v430.__r_.__value_.__l.__data_ = v397;
-          v396->__r_.__value_.__l.__size_ = 0;
-          v396->__r_.__value_.__r.__words[2] = 0;
-          v396->__r_.__value_.__r.__words[0] = 0;
-          v398 = std::string::append(&v430, " for indices");
-          v399 = *&v398->__r_.__value_.__l.__data_;
-          v431.__r_.__value_.__r.__words[2] = v398->__r_.__value_.__r.__words[2];
-          *&v431.__r_.__value_.__l.__data_ = v399;
-          v398->__r_.__value_.__l.__size_ = 0;
-          v398->__r_.__value_.__r.__words[2] = 0;
-          v398->__r_.__value_.__r.__words[0] = 0;
-          std::runtime_error::runtime_error(v395, &v431);
-          __cxa_throw(v395, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+          v396 = __cxa_allocate_exception(0x10uLL);
+          MIL::IRDataTypeToString(v114, &v430);
+          v397 = std::string::insert(&v430, 0, "Constexpr-BlockwiseLutToSparse: Unsupported dtype ");
+          v398 = *&v397->__r_.__value_.__l.__data_;
+          v431.__r_.__value_.__r.__words[2] = v397->__r_.__value_.__r.__words[2];
+          *&v431.__r_.__value_.__l.__data_ = v398;
+          v397->__r_.__value_.__l.__size_ = 0;
+          v397->__r_.__value_.__r.__words[2] = 0;
+          v397->__r_.__value_.__r.__words[0] = 0;
+          v399 = std::string::append(&v431, " for indices");
+          v400 = *&v399->__r_.__value_.__l.__data_;
+          v432.__r_.__value_.__r.__words[2] = v399->__r_.__value_.__r.__words[2];
+          *&v432.__r_.__value_.__l.__data_ = v400;
+          v399->__r_.__value_.__l.__size_ = 0;
+          v399->__r_.__value_.__r.__words[2] = 0;
+          v399->__r_.__value_.__r.__words[0] = 0;
+          std::runtime_error::runtime_error(v396, &v432);
+          __cxa_throw(v396, MEMORY[0x277D82760], MEMORY[0x277D82600]);
         }
 
-        v219 = MIL::IRTensorValue::GetDataView<MIL::UInt1>(v100);
-        v221 = v220;
-        v222 = MIL::IRTensorValue::GetDataView<MIL::UInt2>(v102);
-        v224 = v223;
-        v225 = MIL::IRTensorValue::GetDataView<signed char>(v104);
-        MIL::Operators::Common::Shared::ConstExprs::EvaluateBitMask<MIL::UInt2>(v222, v224, v219, v221, &v431);
-        MIL::PackSubByteVec(&v431, &v430);
-        if (v430.__r_.__value_.__l.__size_ == v430.__r_.__value_.__r.__words[0])
+        v220 = MIL::IRTensorValue::GetDataView<MIL::UInt1>(v101);
+        v222 = v221;
+        v223 = MIL::IRTensorValue::GetDataView<MIL::UInt2>(v103);
+        v225 = v224;
+        v226 = MIL::IRTensorValue::GetDataView<signed char>(v105);
+        MIL::Operators::Common::Shared::ConstExprs::EvaluateBitMask<MIL::UInt2>(v223, v225, v220, v222, &v432);
+        MIL::PackSubByteVec(&v432, &v431);
+        if (v431.__r_.__value_.__l.__size_ == v431.__r_.__value_.__r.__words[0])
         {
-          v226 = 0;
+          v227 = 0;
         }
 
         else
         {
-          v226 = v430.__r_.__value_.__r.__words[0];
+          v227 = v431.__r_.__value_.__r.__words[0];
         }
 
-        MIL::Util::CastToBitSpan<MIL::UInt2 const,unsigned char,true>(v226, v430.__r_.__value_.__l.__size_ - v430.__r_.__value_.__r.__words[0], v431.__r_.__value_.__l.__size_ - v431.__r_.__value_.__r.__words[0]);
-        MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseLutToDense<signed char,MIL::UInt2>(v227, v228, v225, &v417, v110, &v429);
-        MIL::Operators::Common::Shared::ConstExprs::ExtractMaskedData<signed char>(&v429, &v416, &v415);
+        MIL::Util::CastToBitSpan<MIL::UInt2 const,unsigned char,true>(v227, v431.__r_.__value_.__l.__size_ - v431.__r_.__value_.__r.__words[0], v432.__r_.__value_.__l.__size_ - v432.__r_.__value_.__r.__words[0]);
+        MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseLutToDense<signed char,MIL::UInt2>(v228, v229, v226, &v418, v111, &v430);
+        MIL::Operators::Common::Shared::ConstExprs::ExtractMaskedData<signed char>(&v430, &v417, &v416);
       }
 
 LABEL_228:
-      if (v429.__r_.__value_.__r.__words[0])
-      {
-        v429.__r_.__value_.__l.__size_ = v429.__r_.__value_.__r.__words[0];
-        operator delete(v429.__r_.__value_.__l.__data_);
-      }
-
-LABEL_230:
       if (v430.__r_.__value_.__r.__words[0])
       {
         v430.__r_.__value_.__l.__size_ = v430.__r_.__value_.__r.__words[0];
         operator delete(v430.__r_.__value_.__l.__data_);
       }
 
+LABEL_230:
       if (v431.__r_.__value_.__r.__words[0])
       {
         v431.__r_.__value_.__l.__size_ = v431.__r_.__value_.__r.__words[0];
         operator delete(v431.__r_.__value_.__l.__data_);
       }
 
+      if (v432.__r_.__value_.__r.__words[0])
+      {
+        v432.__r_.__value_.__l.__size_ = v432.__r_.__value_.__r.__words[0];
+        operator delete(v432.__r_.__value_.__l.__data_);
+      }
+
       if (__p)
       {
-        v423 = __p;
+        v424 = __p;
         operator delete(__p);
       }
 
-      if (v420)
+      if (v421)
       {
-        v421 = v420;
-        operator delete(v420);
+        v422 = v421;
+        operator delete(v421);
       }
 
-      if (v418)
+      if (v419)
       {
-        v419 = v418;
-        operator delete(v418);
+        v420 = v419;
+        operator delete(v419);
       }
 
-      if (v417.__r_.__value_.__r.__words[0])
+      if (v418.__r_.__value_.__r.__words[0])
       {
-        v417.__r_.__value_.__l.__size_ = v417.__r_.__value_.__r.__words[0];
-        operator delete(v417.__r_.__value_.__l.__data_);
+        v418.__r_.__value_.__l.__size_ = v418.__r_.__value_.__r.__words[0];
+        operator delete(v418.__r_.__value_.__l.__data_);
       }
 
-      if (v425)
+      if (v426)
       {
-        v426 = v425;
-        operator delete(v425);
+        v427 = v426;
+        operator delete(v426);
       }
 
-      if (v427)
+      if (v428)
       {
-        v428 = v427;
-        operator delete(v427);
+        v429 = v428;
+        operator delete(v428);
       }
 
       MIL::IRTensorValueType::MakeInt8Value();
     }
 
-    v75 = *(this + 4);
-    v74 = *(this + 5);
-    if (v74)
+    v76 = *(this + 4);
+    v75 = *(this + 5);
+    if (v75)
     {
-      atomic_fetch_add_explicit((v74 + 8), 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit((v75 + 8), 1uLL, memory_order_relaxed);
     }
 
-    v77 = *(this + 6);
-    v76 = *(this + 7);
-    if (v76)
+    v78 = *(this + 6);
+    v77 = *(this + 7);
+    if (v77)
     {
-      atomic_fetch_add_explicit((v76 + 8), 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit((v77 + 8), 1uLL, memory_order_relaxed);
     }
 
-    v79 = *(this + 2);
-    v78 = *(this + 3);
-    if (v78)
+    v80 = *(this + 2);
+    v79 = *(this + 3);
+    if (v79)
     {
-      atomic_fetch_add_explicit((v78 + 8), 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit((v79 + 8), 1uLL, memory_order_relaxed);
     }
 
-    v80 = (*(*v75 + 32))(v75);
-    v81 = (*(*v80 + 96))(v80);
-    MIL::Operators::Common::Shared::ConstExprs::ShapeToVector(v81, &v427);
-    v82 = (*(*v79 + 32))(v79);
-    v83 = (*(*v82 + 96))(v82);
-    MIL::Operators::Common::Shared::ConstExprs::ShapeToVector(v83, &v425);
-    v85 = *(v426 - 2);
-    v84 = *(v426 - 1);
-    memset(&v431, 0, sizeof(v431));
-    std::vector<unsigned long>::__init_with_size[abi:ne200100]<std::__wrap_iter<unsigned long *>,std::__wrap_iter<unsigned long *>>(&v431, v425, (v426 - 2), ((v426 - 2) - v425) >> 3);
-    MIL::Operators::Common::Shared::ConstExprs::BlockwiseLutToDenseIndexConverter::BlockwiseLutToDenseIndexConverter(&v417, &v427, &v431, v84, v6);
-    if (v431.__r_.__value_.__r.__words[0])
+    v81 = (*(*v76 + 32))(v76);
+    v82 = (*(*v81 + 96))(v81);
+    MIL::Operators::Common::Shared::ConstExprs::ShapeToVector(v82, &v428);
+    v83 = (*(*v80 + 32))(v80);
+    v84 = (*(*v83 + 96))(v83);
+    MIL::Operators::Common::Shared::ConstExprs::ShapeToVector(v84, &v426);
+    v86 = *(v427 - 2);
+    v85 = *(v427 - 1);
+    memset(&v432, 0, sizeof(v432));
+    std::vector<unsigned long>::__init_with_size[abi:ne200100]<std::__wrap_iter<unsigned long *>,std::__wrap_iter<unsigned long *>>(&v432, v426, (v427 - 2), ((v427 - 2) - v426) >> 3);
+    MIL::Operators::Common::Shared::ConstExprs::BlockwiseLutToDenseIndexConverter::BlockwiseLutToDenseIndexConverter(&v418, &v428, &v432, v85, v7);
+    if (v432.__r_.__value_.__r.__words[0])
     {
-      v431.__r_.__value_.__l.__size_ = v431.__r_.__value_.__r.__words[0];
-      operator delete(v431.__r_.__value_.__l.__data_);
+      v432.__r_.__value_.__l.__size_ = v432.__r_.__value_.__r.__words[0];
+      operator delete(v432.__r_.__value_.__l.__data_);
     }
 
-    v86 = (*(*v77 + 32))(v77);
-    v87 = (*(*v86 + 88))(v86);
-    v88 = v87;
-    if (v87 > 20)
+    v87 = (*(*v78 + 32))(v78);
+    v88 = (*(*v87 + 88))(v87);
+    v89 = v88;
+    if (v88 > 20)
     {
-      switch(v87)
+      switch(v88)
       {
         case 21:
-          v275 = MIL::IRTensorValue::GetDataView<MIL::UInt1>(v75);
-          v277 = v276;
-          v278 = MIL::IRTensorValue::GetDataView<MIL::UInt1>(v77);
-          v280 = v279;
-          v281 = MIL::IRTensorValue::GetDataView<MIL::Bf16>(v79);
-          MIL::Operators::Common::Shared::ConstExprs::EvaluateBitMask<MIL::UInt1>(v278, v280, v275, v277, &v431);
-          MIL::PackSubByteVec(&v431, &v430);
-          if (v430.__r_.__value_.__l.__size_ == v430.__r_.__value_.__r.__words[0])
+          v276 = MIL::IRTensorValue::GetDataView<MIL::UInt1>(v76);
+          v278 = v277;
+          v279 = MIL::IRTensorValue::GetDataView<MIL::UInt1>(v78);
+          v281 = v280;
+          v282 = MIL::IRTensorValue::GetDataView<MIL::Bf16>(v80);
+          MIL::Operators::Common::Shared::ConstExprs::EvaluateBitMask<MIL::UInt1>(v279, v281, v276, v278, &v432);
+          MIL::PackSubByteVec(&v432, &v431);
+          if (v431.__r_.__value_.__l.__size_ == v431.__r_.__value_.__r.__words[0])
           {
-            v282 = 0;
+            v283 = 0;
           }
 
           else
           {
-            v282 = v430.__r_.__value_.__r.__words[0];
+            v283 = v431.__r_.__value_.__r.__words[0];
           }
 
-          MIL::Util::CastToBitSpan<MIL::UInt1 const,unsigned char,true>(v282, v430.__r_.__value_.__l.__size_ - v430.__r_.__value_.__r.__words[0], v431.__r_.__value_.__l.__size_ - v431.__r_.__value_.__r.__words[0]);
-          MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseLutToDense<MIL::Bf16,MIL::UInt1>(v283, v284, v281, &v417, v85, &v429);
-          MIL::Operators::Common::Shared::ConstExprs::ExtractMaskedData<MIL::Bf16>(&v429, &v416, &v415);
+          MIL::Util::CastToBitSpan<MIL::UInt1 const,unsigned char,true>(v283, v431.__r_.__value_.__l.__size_ - v431.__r_.__value_.__r.__words[0], v432.__r_.__value_.__l.__size_ - v432.__r_.__value_.__r.__words[0]);
+          MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseLutToDense<MIL::Bf16,MIL::UInt1>(v284, v285, v282, &v418, v86, &v430);
+          MIL::Operators::Common::Shared::ConstExprs::ExtractMaskedData<MIL::Bf16>(&v430, &v417, &v416);
           break;
         case 22:
-          v209 = MIL::IRTensorValue::GetDataView<MIL::UInt1>(v75);
-          v211 = v210;
-          v212 = MIL::IRTensorValue::GetDataView<MIL::UInt3>(v77);
-          v214 = v213;
-          v215 = MIL::IRTensorValue::GetDataView<MIL::Bf16>(v79);
-          MIL::Operators::Common::Shared::ConstExprs::EvaluateBitMask<MIL::UInt3>(v212, v214, v209, v211, &v431);
-          MIL::PackSubByteVec(&v431, &v430);
-          if (v430.__r_.__value_.__l.__size_ == v430.__r_.__value_.__r.__words[0])
+          v210 = MIL::IRTensorValue::GetDataView<MIL::UInt1>(v76);
+          v212 = v211;
+          v213 = MIL::IRTensorValue::GetDataView<MIL::UInt3>(v78);
+          v215 = v214;
+          v216 = MIL::IRTensorValue::GetDataView<MIL::Bf16>(v80);
+          MIL::Operators::Common::Shared::ConstExprs::EvaluateBitMask<MIL::UInt3>(v213, v215, v210, v212, &v432);
+          MIL::PackSubByteVec(&v432, &v431);
+          if (v431.__r_.__value_.__l.__size_ == v431.__r_.__value_.__r.__words[0])
           {
-            v216 = 0;
+            v217 = 0;
           }
 
           else
           {
-            v216 = v430.__r_.__value_.__r.__words[0];
+            v217 = v431.__r_.__value_.__r.__words[0];
           }
 
-          MIL::Util::CastToBitSpan<MIL::UInt3 const,unsigned char,true>(v216, v430.__r_.__value_.__l.__size_ - v430.__r_.__value_.__r.__words[0], v431.__r_.__value_.__l.__size_ - v431.__r_.__value_.__r.__words[0]);
-          MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseLutToDense<MIL::Bf16,MIL::UInt3>(v217, v218, v215, &v417, v85, &v429);
-          MIL::Operators::Common::Shared::ConstExprs::ExtractMaskedData<MIL::Bf16>(&v429, &v416, &v415);
+          MIL::Util::CastToBitSpan<MIL::UInt3 const,unsigned char,true>(v217, v431.__r_.__value_.__l.__size_ - v431.__r_.__value_.__r.__words[0], v432.__r_.__value_.__l.__size_ - v432.__r_.__value_.__r.__words[0]);
+          MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseLutToDense<MIL::Bf16,MIL::UInt3>(v218, v219, v216, &v418, v86, &v430);
+          MIL::Operators::Common::Shared::ConstExprs::ExtractMaskedData<MIL::Bf16>(&v430, &v417, &v416);
           break;
         case 23:
-          v149 = MIL::IRTensorValue::GetDataView<MIL::UInt1>(v75);
-          v151 = v150;
-          v152 = MIL::IRTensorValue::GetDataView<MIL::UInt6>(v77);
-          v154 = v153;
-          v155 = MIL::IRTensorValue::GetDataView<MIL::Bf16>(v79);
-          MIL::Operators::Common::Shared::ConstExprs::EvaluateBitMask<MIL::UInt6>(v152, v154, v149, v151, &v431);
-          MIL::PackSubByteVec(&v431, &v430);
-          if (v430.__r_.__value_.__l.__size_ == v430.__r_.__value_.__r.__words[0])
+          v150 = MIL::IRTensorValue::GetDataView<MIL::UInt1>(v76);
+          v152 = v151;
+          v153 = MIL::IRTensorValue::GetDataView<MIL::UInt6>(v78);
+          v155 = v154;
+          v156 = MIL::IRTensorValue::GetDataView<MIL::Bf16>(v80);
+          MIL::Operators::Common::Shared::ConstExprs::EvaluateBitMask<MIL::UInt6>(v153, v155, v150, v152, &v432);
+          MIL::PackSubByteVec(&v432, &v431);
+          if (v431.__r_.__value_.__l.__size_ == v431.__r_.__value_.__r.__words[0])
           {
-            v156 = 0;
+            v157 = 0;
           }
 
           else
           {
-            v156 = v430.__r_.__value_.__r.__words[0];
+            v157 = v431.__r_.__value_.__r.__words[0];
           }
 
-          MIL::Util::CastToBitSpan<MIL::UInt6 const,unsigned char,true>(v156, v430.__r_.__value_.__l.__size_ - v430.__r_.__value_.__r.__words[0], v431.__r_.__value_.__l.__size_ - v431.__r_.__value_.__r.__words[0]);
-          MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseLutToDense<MIL::Bf16,MIL::UInt6>(v157, v158, v155, &v417, v85, &v429);
-          MIL::Operators::Common::Shared::ConstExprs::ExtractMaskedData<MIL::Bf16>(&v429, &v416, &v415);
+          MIL::Util::CastToBitSpan<MIL::UInt6 const,unsigned char,true>(v157, v431.__r_.__value_.__l.__size_ - v431.__r_.__value_.__r.__words[0], v432.__r_.__value_.__l.__size_ - v432.__r_.__value_.__r.__words[0]);
+          MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseLutToDense<MIL::Bf16,MIL::UInt6>(v158, v159, v156, &v418, v86, &v430);
+          MIL::Operators::Common::Shared::ConstExprs::ExtractMaskedData<MIL::Bf16>(&v430, &v417, &v416);
           break;
         default:
           goto LABEL_335;
@@ -1045,274 +1499,274 @@ LABEL_230:
 
     else
     {
-      if (v87 == 14)
+      if (v88 == 14)
       {
-        v269 = MIL::IRTensorValue::GetDataView<MIL::UInt1>(v75);
-        v271 = v270;
-        v272 = MIL::IRTensorValue::GetDataView<unsigned char>(v77);
-        v273 = MIL::IRTensorValue::GetDataView<MIL::Bf16>(v79);
-        MIL::Operators::Common::Shared::ConstExprs::EvaluateBitMask<unsigned char>(v272, v269, v271, &v431);
-        if (v431.__r_.__value_.__l.__size_ == v431.__r_.__value_.__r.__words[0])
+        v270 = MIL::IRTensorValue::GetDataView<MIL::UInt1>(v76);
+        v272 = v271;
+        v273 = MIL::IRTensorValue::GetDataView<unsigned char>(v78);
+        v274 = MIL::IRTensorValue::GetDataView<MIL::Bf16>(v80);
+        MIL::Operators::Common::Shared::ConstExprs::EvaluateBitMask<unsigned char>(v273, v270, v272, &v432);
+        if (v432.__r_.__value_.__l.__size_ == v432.__r_.__value_.__r.__words[0])
         {
-          v274 = 0;
+          v275 = 0;
         }
 
         else
         {
-          v274 = v431.__r_.__value_.__r.__words[0];
+          v275 = v432.__r_.__value_.__r.__words[0];
         }
 
-        MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseLutToDense<MIL::Bf16,unsigned char>(v274, v431.__r_.__value_.__l.__size_ - v431.__r_.__value_.__r.__words[0], v273, &v417, v85, &v430);
-        MIL::Operators::Common::Shared::ConstExprs::ExtractMaskedData<MIL::Bf16>(&v430, &v416, &v415);
+        MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseLutToDense<MIL::Bf16,unsigned char>(v275, v432.__r_.__value_.__l.__size_ - v432.__r_.__value_.__r.__words[0], v274, &v418, v86, &v431);
+        MIL::Operators::Common::Shared::ConstExprs::ExtractMaskedData<MIL::Bf16>(&v431, &v417, &v416);
         goto LABEL_195;
       }
 
-      if (v87 != 19)
+      if (v88 != 19)
       {
-        if (v87 == 20)
+        if (v88 == 20)
         {
-          v89 = MIL::IRTensorValue::GetDataView<MIL::UInt1>(v75);
-          v91 = v90;
-          v92 = MIL::IRTensorValue::GetDataView<MIL::UInt4>(v77);
-          v94 = v93;
-          v95 = MIL::IRTensorValue::GetDataView<MIL::Bf16>(v79);
-          MIL::Operators::Common::Shared::ConstExprs::EvaluateBitMask<MIL::UInt4>(v92, v94, v89, v91, &v431);
-          MIL::PackSubByteVec(&v431, &v430);
-          if (v430.__r_.__value_.__l.__size_ == v430.__r_.__value_.__r.__words[0])
+          v90 = MIL::IRTensorValue::GetDataView<MIL::UInt1>(v76);
+          v92 = v91;
+          v93 = MIL::IRTensorValue::GetDataView<MIL::UInt4>(v78);
+          v95 = v94;
+          v96 = MIL::IRTensorValue::GetDataView<MIL::Bf16>(v80);
+          MIL::Operators::Common::Shared::ConstExprs::EvaluateBitMask<MIL::UInt4>(v93, v95, v90, v92, &v432);
+          MIL::PackSubByteVec(&v432, &v431);
+          if (v431.__r_.__value_.__l.__size_ == v431.__r_.__value_.__r.__words[0])
           {
-            v96 = 0;
+            v97 = 0;
           }
 
           else
           {
-            v96 = v430.__r_.__value_.__r.__words[0];
+            v97 = v431.__r_.__value_.__r.__words[0];
           }
 
-          MIL::Util::CastToBitSpan<MIL::UInt4 const,unsigned char,true>(v96, v430.__r_.__value_.__l.__size_ - v430.__r_.__value_.__r.__words[0], v431.__r_.__value_.__l.__size_ - v431.__r_.__value_.__r.__words[0]);
-          MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseLutToDense<MIL::Bf16,MIL::UInt4>(v97, v98, v95, &v417, v85, &v429);
-          MIL::Operators::Common::Shared::ConstExprs::ExtractMaskedData<MIL::Bf16>(&v429, &v416, &v415);
+          MIL::Util::CastToBitSpan<MIL::UInt4 const,unsigned char,true>(v97, v431.__r_.__value_.__l.__size_ - v431.__r_.__value_.__r.__words[0], v432.__r_.__value_.__l.__size_ - v432.__r_.__value_.__r.__words[0]);
+          MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseLutToDense<MIL::Bf16,MIL::UInt4>(v98, v99, v96, &v418, v86, &v430);
+          MIL::Operators::Common::Shared::ConstExprs::ExtractMaskedData<MIL::Bf16>(&v430, &v417, &v416);
           goto LABEL_193;
         }
 
 LABEL_335:
-        v390 = __cxa_allocate_exception(0x10uLL);
-        MIL::IRDataTypeToString(v88, &v429);
-        v391 = std::string::insert(&v429, 0, "Constexpr-BlockwiseLutToSparse: Unsupported dtype ");
-        v392 = *&v391->__r_.__value_.__l.__data_;
-        v430.__r_.__value_.__r.__words[2] = v391->__r_.__value_.__r.__words[2];
-        *&v430.__r_.__value_.__l.__data_ = v392;
-        v391->__r_.__value_.__l.__size_ = 0;
-        v391->__r_.__value_.__r.__words[2] = 0;
-        v391->__r_.__value_.__r.__words[0] = 0;
-        v393 = std::string::append(&v430, " for indices");
-        v394 = *&v393->__r_.__value_.__l.__data_;
-        v431.__r_.__value_.__r.__words[2] = v393->__r_.__value_.__r.__words[2];
-        *&v431.__r_.__value_.__l.__data_ = v394;
-        v393->__r_.__value_.__l.__size_ = 0;
-        v393->__r_.__value_.__r.__words[2] = 0;
-        v393->__r_.__value_.__r.__words[0] = 0;
-        std::runtime_error::runtime_error(v390, &v431);
-        __cxa_throw(v390, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+        v391 = __cxa_allocate_exception(0x10uLL);
+        MIL::IRDataTypeToString(v89, &v430);
+        v392 = std::string::insert(&v430, 0, "Constexpr-BlockwiseLutToSparse: Unsupported dtype ");
+        v393 = *&v392->__r_.__value_.__l.__data_;
+        v431.__r_.__value_.__r.__words[2] = v392->__r_.__value_.__r.__words[2];
+        *&v431.__r_.__value_.__l.__data_ = v393;
+        v392->__r_.__value_.__l.__size_ = 0;
+        v392->__r_.__value_.__r.__words[2] = 0;
+        v392->__r_.__value_.__r.__words[0] = 0;
+        v394 = std::string::append(&v431, " for indices");
+        v395 = *&v394->__r_.__value_.__l.__data_;
+        v432.__r_.__value_.__r.__words[2] = v394->__r_.__value_.__r.__words[2];
+        *&v432.__r_.__value_.__l.__data_ = v395;
+        v394->__r_.__value_.__l.__size_ = 0;
+        v394->__r_.__value_.__r.__words[2] = 0;
+        v394->__r_.__value_.__r.__words[0] = 0;
+        std::runtime_error::runtime_error(v391, &v432);
+        __cxa_throw(v391, MEMORY[0x277D82760], MEMORY[0x277D82600]);
       }
 
-      v199 = MIL::IRTensorValue::GetDataView<MIL::UInt1>(v75);
-      v201 = v200;
-      v202 = MIL::IRTensorValue::GetDataView<MIL::UInt2>(v77);
-      v204 = v203;
-      v205 = MIL::IRTensorValue::GetDataView<MIL::Bf16>(v79);
-      MIL::Operators::Common::Shared::ConstExprs::EvaluateBitMask<MIL::UInt2>(v202, v204, v199, v201, &v431);
-      MIL::PackSubByteVec(&v431, &v430);
-      if (v430.__r_.__value_.__l.__size_ == v430.__r_.__value_.__r.__words[0])
+      v200 = MIL::IRTensorValue::GetDataView<MIL::UInt1>(v76);
+      v202 = v201;
+      v203 = MIL::IRTensorValue::GetDataView<MIL::UInt2>(v78);
+      v205 = v204;
+      v206 = MIL::IRTensorValue::GetDataView<MIL::Bf16>(v80);
+      MIL::Operators::Common::Shared::ConstExprs::EvaluateBitMask<MIL::UInt2>(v203, v205, v200, v202, &v432);
+      MIL::PackSubByteVec(&v432, &v431);
+      if (v431.__r_.__value_.__l.__size_ == v431.__r_.__value_.__r.__words[0])
       {
-        v206 = 0;
+        v207 = 0;
       }
 
       else
       {
-        v206 = v430.__r_.__value_.__r.__words[0];
+        v207 = v431.__r_.__value_.__r.__words[0];
       }
 
-      MIL::Util::CastToBitSpan<MIL::UInt2 const,unsigned char,true>(v206, v430.__r_.__value_.__l.__size_ - v430.__r_.__value_.__r.__words[0], v431.__r_.__value_.__l.__size_ - v431.__r_.__value_.__r.__words[0]);
-      MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseLutToDense<MIL::Bf16,MIL::UInt2>(v207, v208, v205, &v417, v85, &v429);
-      MIL::Operators::Common::Shared::ConstExprs::ExtractMaskedData<MIL::Bf16>(&v429, &v416, &v415);
+      MIL::Util::CastToBitSpan<MIL::UInt2 const,unsigned char,true>(v207, v431.__r_.__value_.__l.__size_ - v431.__r_.__value_.__r.__words[0], v432.__r_.__value_.__l.__size_ - v432.__r_.__value_.__r.__words[0]);
+      MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseLutToDense<MIL::Bf16,MIL::UInt2>(v208, v209, v206, &v418, v86, &v430);
+      MIL::Operators::Common::Shared::ConstExprs::ExtractMaskedData<MIL::Bf16>(&v430, &v417, &v416);
     }
 
 LABEL_193:
-    if (v429.__r_.__value_.__r.__words[0])
-    {
-      v429.__r_.__value_.__l.__size_ = v429.__r_.__value_.__r.__words[0];
-      operator delete(v429.__r_.__value_.__l.__data_);
-    }
-
-LABEL_195:
     if (v430.__r_.__value_.__r.__words[0])
     {
       v430.__r_.__value_.__l.__size_ = v430.__r_.__value_.__r.__words[0];
       operator delete(v430.__r_.__value_.__l.__data_);
     }
 
+LABEL_195:
     if (v431.__r_.__value_.__r.__words[0])
     {
       v431.__r_.__value_.__l.__size_ = v431.__r_.__value_.__r.__words[0];
       operator delete(v431.__r_.__value_.__l.__data_);
     }
 
+    if (v432.__r_.__value_.__r.__words[0])
+    {
+      v432.__r_.__value_.__l.__size_ = v432.__r_.__value_.__r.__words[0];
+      operator delete(v432.__r_.__value_.__l.__data_);
+    }
+
     if (__p)
     {
-      v423 = __p;
+      v424 = __p;
       operator delete(__p);
     }
 
-    if (v420)
+    if (v421)
     {
-      v421 = v420;
-      operator delete(v420);
+      v422 = v421;
+      operator delete(v421);
     }
 
-    if (v418)
+    if (v419)
     {
-      v419 = v418;
-      operator delete(v418);
+      v420 = v419;
+      operator delete(v419);
     }
 
-    if (v417.__r_.__value_.__r.__words[0])
+    if (v418.__r_.__value_.__r.__words[0])
     {
-      v417.__r_.__value_.__l.__size_ = v417.__r_.__value_.__r.__words[0];
-      operator delete(v417.__r_.__value_.__l.__data_);
+      v418.__r_.__value_.__l.__size_ = v418.__r_.__value_.__r.__words[0];
+      operator delete(v418.__r_.__value_.__l.__data_);
     }
 
-    if (v425)
+    if (v426)
     {
-      v426 = v425;
-      operator delete(v425);
+      v427 = v426;
+      operator delete(v426);
     }
 
-    if (v427)
+    if (v428)
     {
-      v428 = v427;
-      operator delete(v427);
+      v429 = v428;
+      operator delete(v428);
     }
 
     MIL::IRTensorValueType::MakeBFloat16Value();
   }
 
-  if (v21 != 4)
+  if (v22 != 4)
   {
-    if (v21 != 5)
+    if (v22 != 5)
     {
       goto LABEL_334;
     }
 
-    v50 = *(this + 4);
-    v49 = *(this + 5);
-    if (v49)
+    v51 = *(this + 4);
+    v50 = *(this + 5);
+    if (v50)
     {
-      atomic_fetch_add_explicit((v49 + 8), 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit((v50 + 8), 1uLL, memory_order_relaxed);
     }
 
-    v52 = *(this + 6);
-    v51 = *(this + 7);
-    if (v51)
+    v53 = *(this + 6);
+    v52 = *(this + 7);
+    if (v52)
     {
-      atomic_fetch_add_explicit((v51 + 8), 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit((v52 + 8), 1uLL, memory_order_relaxed);
     }
 
-    v54 = *(this + 2);
-    v53 = *(this + 3);
-    if (v53)
+    v55 = *(this + 2);
+    v54 = *(this + 3);
+    if (v54)
     {
-      atomic_fetch_add_explicit((v53 + 8), 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit((v54 + 8), 1uLL, memory_order_relaxed);
     }
 
-    v55 = (*(*v50 + 32))(v50);
-    v56 = (*(*v55 + 96))(v55);
-    MIL::Operators::Common::Shared::ConstExprs::ShapeToVector(v56, &v427);
-    v57 = (*(*v54 + 32))(v54);
-    v58 = (*(*v57 + 96))(v57);
-    MIL::Operators::Common::Shared::ConstExprs::ShapeToVector(v58, &v425);
-    v60 = *(v426 - 2);
-    v59 = *(v426 - 1);
-    memset(&v431, 0, sizeof(v431));
-    std::vector<unsigned long>::__init_with_size[abi:ne200100]<std::__wrap_iter<unsigned long *>,std::__wrap_iter<unsigned long *>>(&v431, v425, (v426 - 2), ((v426 - 2) - v425) >> 3);
-    MIL::Operators::Common::Shared::ConstExprs::BlockwiseLutToDenseIndexConverter::BlockwiseLutToDenseIndexConverter(&v417, &v427, &v431, v59, v6);
-    if (v431.__r_.__value_.__r.__words[0])
+    v56 = (*(*v51 + 32))(v51);
+    v57 = (*(*v56 + 96))(v56);
+    MIL::Operators::Common::Shared::ConstExprs::ShapeToVector(v57, &v428);
+    v58 = (*(*v55 + 32))(v55);
+    v59 = (*(*v58 + 96))(v58);
+    MIL::Operators::Common::Shared::ConstExprs::ShapeToVector(v59, &v426);
+    v61 = *(v427 - 2);
+    v60 = *(v427 - 1);
+    memset(&v432, 0, sizeof(v432));
+    std::vector<unsigned long>::__init_with_size[abi:ne200100]<std::__wrap_iter<unsigned long *>,std::__wrap_iter<unsigned long *>>(&v432, v426, (v427 - 2), ((v427 - 2) - v426) >> 3);
+    MIL::Operators::Common::Shared::ConstExprs::BlockwiseLutToDenseIndexConverter::BlockwiseLutToDenseIndexConverter(&v418, &v428, &v432, v60, v7);
+    if (v432.__r_.__value_.__r.__words[0])
     {
-      v431.__r_.__value_.__l.__size_ = v431.__r_.__value_.__r.__words[0];
-      operator delete(v431.__r_.__value_.__l.__data_);
+      v432.__r_.__value_.__l.__size_ = v432.__r_.__value_.__r.__words[0];
+      operator delete(v432.__r_.__value_.__l.__data_);
     }
 
-    v61 = (*(*v52 + 32))(v52);
-    v62 = (*(*v61 + 88))(v61);
-    v63 = v62;
-    if (v62 > 20)
+    v62 = (*(*v53 + 32))(v53);
+    v63 = (*(*v62 + 88))(v62);
+    v64 = v63;
+    if (v63 > 20)
     {
-      switch(v62)
+      switch(v63)
       {
         case 21:
-          v369 = MIL::IRTensorValue::GetDataView<MIL::UInt1>(v50);
-          v371 = v370;
-          v372 = MIL::IRTensorValue::GetDataView<MIL::UInt1>(v52);
-          v374 = v373;
-          v375 = MIL::IRTensorValue::GetDataView<float>(v54);
-          MIL::Operators::Common::Shared::ConstExprs::EvaluateBitMask<MIL::UInt1>(v372, v374, v369, v371, &v431);
-          MIL::PackSubByteVec(&v431, &v430);
-          if (v430.__r_.__value_.__l.__size_ == v430.__r_.__value_.__r.__words[0])
+          v370 = MIL::IRTensorValue::GetDataView<MIL::UInt1>(v51);
+          v372 = v371;
+          v373 = MIL::IRTensorValue::GetDataView<MIL::UInt1>(v53);
+          v375 = v374;
+          v376 = MIL::IRTensorValue::GetDataView<float>(v55);
+          MIL::Operators::Common::Shared::ConstExprs::EvaluateBitMask<MIL::UInt1>(v373, v375, v370, v372, &v432);
+          MIL::PackSubByteVec(&v432, &v431);
+          if (v431.__r_.__value_.__l.__size_ == v431.__r_.__value_.__r.__words[0])
           {
-            v376 = 0;
+            v377 = 0;
           }
 
           else
           {
-            v376 = v430.__r_.__value_.__r.__words[0];
+            v377 = v431.__r_.__value_.__r.__words[0];
           }
 
-          MIL::Util::CastToBitSpan<MIL::UInt1 const,unsigned char,true>(v376, v430.__r_.__value_.__l.__size_ - v430.__r_.__value_.__r.__words[0], v431.__r_.__value_.__l.__size_ - v431.__r_.__value_.__r.__words[0]);
-          MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseLutToDense<float,MIL::UInt1>(v377, v378, v375, &v417, v60, &v429);
-          MIL::Operators::Common::Shared::ConstExprs::ExtractMaskedData<float>(&v429, &v416, &v415);
+          MIL::Util::CastToBitSpan<MIL::UInt1 const,unsigned char,true>(v377, v431.__r_.__value_.__l.__size_ - v431.__r_.__value_.__r.__words[0], v432.__r_.__value_.__l.__size_ - v432.__r_.__value_.__r.__words[0]);
+          MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseLutToDense<float,MIL::UInt1>(v378, v379, v376, &v418, v61, &v430);
+          MIL::Operators::Common::Shared::ConstExprs::ExtractMaskedData<float>(&v430, &v417, &v416);
           break;
         case 22:
-          v321 = MIL::IRTensorValue::GetDataView<MIL::UInt1>(v50);
-          v323 = v322;
-          v324 = MIL::IRTensorValue::GetDataView<MIL::UInt3>(v52);
-          v326 = v325;
-          v327 = MIL::IRTensorValue::GetDataView<float>(v54);
-          MIL::Operators::Common::Shared::ConstExprs::EvaluateBitMask<MIL::UInt3>(v324, v326, v321, v323, &v431);
-          MIL::PackSubByteVec(&v431, &v430);
-          if (v430.__r_.__value_.__l.__size_ == v430.__r_.__value_.__r.__words[0])
+          v322 = MIL::IRTensorValue::GetDataView<MIL::UInt1>(v51);
+          v324 = v323;
+          v325 = MIL::IRTensorValue::GetDataView<MIL::UInt3>(v53);
+          v327 = v326;
+          v328 = MIL::IRTensorValue::GetDataView<float>(v55);
+          MIL::Operators::Common::Shared::ConstExprs::EvaluateBitMask<MIL::UInt3>(v325, v327, v322, v324, &v432);
+          MIL::PackSubByteVec(&v432, &v431);
+          if (v431.__r_.__value_.__l.__size_ == v431.__r_.__value_.__r.__words[0])
           {
-            v328 = 0;
+            v329 = 0;
           }
 
           else
           {
-            v328 = v430.__r_.__value_.__r.__words[0];
+            v329 = v431.__r_.__value_.__r.__words[0];
           }
 
-          MIL::Util::CastToBitSpan<MIL::UInt3 const,unsigned char,true>(v328, v430.__r_.__value_.__l.__size_ - v430.__r_.__value_.__r.__words[0], v431.__r_.__value_.__l.__size_ - v431.__r_.__value_.__r.__words[0]);
-          MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseLutToDense<float,MIL::UInt3>(v329, v330, v327, &v417, v60, &v429);
-          MIL::Operators::Common::Shared::ConstExprs::ExtractMaskedData<float>(&v429, &v416, &v415);
+          MIL::Util::CastToBitSpan<MIL::UInt3 const,unsigned char,true>(v329, v431.__r_.__value_.__l.__size_ - v431.__r_.__value_.__r.__words[0], v432.__r_.__value_.__l.__size_ - v432.__r_.__value_.__r.__words[0]);
+          MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseLutToDense<float,MIL::UInt3>(v330, v331, v328, &v418, v61, &v430);
+          MIL::Operators::Common::Shared::ConstExprs::ExtractMaskedData<float>(&v430, &v417, &v416);
           break;
         case 23:
-          v189 = MIL::IRTensorValue::GetDataView<MIL::UInt1>(v50);
-          v191 = v190;
-          v192 = MIL::IRTensorValue::GetDataView<MIL::UInt6>(v52);
-          v194 = v193;
-          v195 = MIL::IRTensorValue::GetDataView<float>(v54);
-          MIL::Operators::Common::Shared::ConstExprs::EvaluateBitMask<MIL::UInt6>(v192, v194, v189, v191, &v431);
-          MIL::PackSubByteVec(&v431, &v430);
-          if (v430.__r_.__value_.__l.__size_ == v430.__r_.__value_.__r.__words[0])
+          v190 = MIL::IRTensorValue::GetDataView<MIL::UInt1>(v51);
+          v192 = v191;
+          v193 = MIL::IRTensorValue::GetDataView<MIL::UInt6>(v53);
+          v195 = v194;
+          v196 = MIL::IRTensorValue::GetDataView<float>(v55);
+          MIL::Operators::Common::Shared::ConstExprs::EvaluateBitMask<MIL::UInt6>(v193, v195, v190, v192, &v432);
+          MIL::PackSubByteVec(&v432, &v431);
+          if (v431.__r_.__value_.__l.__size_ == v431.__r_.__value_.__r.__words[0])
           {
-            v196 = 0;
+            v197 = 0;
           }
 
           else
           {
-            v196 = v430.__r_.__value_.__r.__words[0];
+            v197 = v431.__r_.__value_.__r.__words[0];
           }
 
-          MIL::Util::CastToBitSpan<MIL::UInt6 const,unsigned char,true>(v196, v430.__r_.__value_.__l.__size_ - v430.__r_.__value_.__r.__words[0], v431.__r_.__value_.__l.__size_ - v431.__r_.__value_.__r.__words[0]);
-          MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseLutToDense<float,MIL::UInt6>(v197, v198, v195, &v417, v60, &v429);
-          MIL::Operators::Common::Shared::ConstExprs::ExtractMaskedData<float>(&v429, &v416, &v415);
+          MIL::Util::CastToBitSpan<MIL::UInt6 const,unsigned char,true>(v197, v431.__r_.__value_.__l.__size_ - v431.__r_.__value_.__r.__words[0], v432.__r_.__value_.__l.__size_ - v432.__r_.__value_.__r.__words[0]);
+          MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseLutToDense<float,MIL::UInt6>(v198, v199, v196, &v418, v61, &v430);
+          MIL::Operators::Common::Shared::ConstExprs::ExtractMaskedData<float>(&v430, &v417, &v416);
           break;
         default:
           goto LABEL_339;
@@ -1321,267 +1775,267 @@ LABEL_195:
 
     else
     {
-      if (v62 == 14)
+      if (v63 == 14)
       {
-        v363 = MIL::IRTensorValue::GetDataView<MIL::UInt1>(v50);
-        v365 = v364;
-        v366 = MIL::IRTensorValue::GetDataView<unsigned char>(v52);
-        v367 = MIL::IRTensorValue::GetDataView<float>(v54);
-        MIL::Operators::Common::Shared::ConstExprs::EvaluateBitMask<unsigned char>(v366, v363, v365, &v431);
-        if (v431.__r_.__value_.__l.__size_ == v431.__r_.__value_.__r.__words[0])
+        v364 = MIL::IRTensorValue::GetDataView<MIL::UInt1>(v51);
+        v366 = v365;
+        v367 = MIL::IRTensorValue::GetDataView<unsigned char>(v53);
+        v368 = MIL::IRTensorValue::GetDataView<float>(v55);
+        MIL::Operators::Common::Shared::ConstExprs::EvaluateBitMask<unsigned char>(v367, v364, v366, &v432);
+        if (v432.__r_.__value_.__l.__size_ == v432.__r_.__value_.__r.__words[0])
         {
-          v368 = 0;
+          v369 = 0;
         }
 
         else
         {
-          v368 = v431.__r_.__value_.__r.__words[0];
+          v369 = v432.__r_.__value_.__r.__words[0];
         }
 
-        MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseLutToDense<float,unsigned char>(v368, v431.__r_.__value_.__l.__size_ - v431.__r_.__value_.__r.__words[0], v367, &v417, v60, &v430);
-        MIL::Operators::Common::Shared::ConstExprs::ExtractMaskedData<float>(&v430, &v416, &v415);
+        MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseLutToDense<float,unsigned char>(v369, v432.__r_.__value_.__l.__size_ - v432.__r_.__value_.__r.__words[0], v368, &v418, v61, &v431);
+        MIL::Operators::Common::Shared::ConstExprs::ExtractMaskedData<float>(&v431, &v417, &v416);
         goto LABEL_315;
       }
 
-      if (v62 != 19)
+      if (v63 != 19)
       {
-        if (v62 == 20)
+        if (v63 == 20)
         {
-          v64 = MIL::IRTensorValue::GetDataView<MIL::UInt1>(v50);
-          v66 = v65;
-          v67 = MIL::IRTensorValue::GetDataView<MIL::UInt4>(v52);
-          v69 = v68;
-          v70 = MIL::IRTensorValue::GetDataView<float>(v54);
-          MIL::Operators::Common::Shared::ConstExprs::EvaluateBitMask<MIL::UInt4>(v67, v69, v64, v66, &v431);
-          MIL::PackSubByteVec(&v431, &v430);
-          if (v430.__r_.__value_.__l.__size_ == v430.__r_.__value_.__r.__words[0])
+          v65 = MIL::IRTensorValue::GetDataView<MIL::UInt1>(v51);
+          v67 = v66;
+          v68 = MIL::IRTensorValue::GetDataView<MIL::UInt4>(v53);
+          v70 = v69;
+          v71 = MIL::IRTensorValue::GetDataView<float>(v55);
+          MIL::Operators::Common::Shared::ConstExprs::EvaluateBitMask<MIL::UInt4>(v68, v70, v65, v67, &v432);
+          MIL::PackSubByteVec(&v432, &v431);
+          if (v431.__r_.__value_.__l.__size_ == v431.__r_.__value_.__r.__words[0])
           {
-            v71 = 0;
+            v72 = 0;
           }
 
           else
           {
-            v71 = v430.__r_.__value_.__r.__words[0];
+            v72 = v431.__r_.__value_.__r.__words[0];
           }
 
-          MIL::Util::CastToBitSpan<MIL::UInt4 const,unsigned char,true>(v71, v430.__r_.__value_.__l.__size_ - v430.__r_.__value_.__r.__words[0], v431.__r_.__value_.__l.__size_ - v431.__r_.__value_.__r.__words[0]);
-          MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseLutToDense<float,MIL::UInt4>(v72, v73, v70, &v417, v60, &v429);
-          MIL::Operators::Common::Shared::ConstExprs::ExtractMaskedData<float>(&v429, &v416, &v415);
+          MIL::Util::CastToBitSpan<MIL::UInt4 const,unsigned char,true>(v72, v431.__r_.__value_.__l.__size_ - v431.__r_.__value_.__r.__words[0], v432.__r_.__value_.__l.__size_ - v432.__r_.__value_.__r.__words[0]);
+          MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseLutToDense<float,MIL::UInt4>(v73, v74, v71, &v418, v61, &v430);
+          MIL::Operators::Common::Shared::ConstExprs::ExtractMaskedData<float>(&v430, &v417, &v416);
           goto LABEL_313;
         }
 
 LABEL_339:
-        v410 = __cxa_allocate_exception(0x10uLL);
-        MIL::IRDataTypeToString(v63, &v429);
-        v411 = std::string::insert(&v429, 0, "Constexpr-BlockwiseLutToSparse: Unsupported dtype ");
-        v412 = *&v411->__r_.__value_.__l.__data_;
-        v430.__r_.__value_.__r.__words[2] = v411->__r_.__value_.__r.__words[2];
-        *&v430.__r_.__value_.__l.__data_ = v412;
-        v411->__r_.__value_.__l.__size_ = 0;
-        v411->__r_.__value_.__r.__words[2] = 0;
-        v411->__r_.__value_.__r.__words[0] = 0;
-        v413 = std::string::append(&v430, " for indices");
-        v414 = *&v413->__r_.__value_.__l.__data_;
-        v431.__r_.__value_.__r.__words[2] = v413->__r_.__value_.__r.__words[2];
-        *&v431.__r_.__value_.__l.__data_ = v414;
-        v413->__r_.__value_.__l.__size_ = 0;
-        v413->__r_.__value_.__r.__words[2] = 0;
-        v413->__r_.__value_.__r.__words[0] = 0;
-        std::runtime_error::runtime_error(v410, &v431);
-        __cxa_throw(v410, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+        v411 = __cxa_allocate_exception(0x10uLL);
+        MIL::IRDataTypeToString(v64, &v430);
+        v412 = std::string::insert(&v430, 0, "Constexpr-BlockwiseLutToSparse: Unsupported dtype ");
+        v413 = *&v412->__r_.__value_.__l.__data_;
+        v431.__r_.__value_.__r.__words[2] = v412->__r_.__value_.__r.__words[2];
+        *&v431.__r_.__value_.__l.__data_ = v413;
+        v412->__r_.__value_.__l.__size_ = 0;
+        v412->__r_.__value_.__r.__words[2] = 0;
+        v412->__r_.__value_.__r.__words[0] = 0;
+        v414 = std::string::append(&v431, " for indices");
+        v415 = *&v414->__r_.__value_.__l.__data_;
+        v432.__r_.__value_.__r.__words[2] = v414->__r_.__value_.__r.__words[2];
+        *&v432.__r_.__value_.__l.__data_ = v415;
+        v414->__r_.__value_.__l.__size_ = 0;
+        v414->__r_.__value_.__r.__words[2] = 0;
+        v414->__r_.__value_.__r.__words[0] = 0;
+        std::runtime_error::runtime_error(v411, &v432);
+        __cxa_throw(v411, MEMORY[0x277D82760], MEMORY[0x277D82600]);
       }
 
-      v295 = MIL::IRTensorValue::GetDataView<MIL::UInt1>(v50);
-      v297 = v296;
-      v298 = MIL::IRTensorValue::GetDataView<MIL::UInt2>(v52);
-      v300 = v299;
-      v301 = MIL::IRTensorValue::GetDataView<float>(v54);
-      MIL::Operators::Common::Shared::ConstExprs::EvaluateBitMask<MIL::UInt2>(v298, v300, v295, v297, &v431);
-      MIL::PackSubByteVec(&v431, &v430);
-      if (v430.__r_.__value_.__l.__size_ == v430.__r_.__value_.__r.__words[0])
+      v296 = MIL::IRTensorValue::GetDataView<MIL::UInt1>(v51);
+      v298 = v297;
+      v299 = MIL::IRTensorValue::GetDataView<MIL::UInt2>(v53);
+      v301 = v300;
+      v302 = MIL::IRTensorValue::GetDataView<float>(v55);
+      MIL::Operators::Common::Shared::ConstExprs::EvaluateBitMask<MIL::UInt2>(v299, v301, v296, v298, &v432);
+      MIL::PackSubByteVec(&v432, &v431);
+      if (v431.__r_.__value_.__l.__size_ == v431.__r_.__value_.__r.__words[0])
       {
-        v302 = 0;
+        v303 = 0;
       }
 
       else
       {
-        v302 = v430.__r_.__value_.__r.__words[0];
+        v303 = v431.__r_.__value_.__r.__words[0];
       }
 
-      MIL::Util::CastToBitSpan<MIL::UInt2 const,unsigned char,true>(v302, v430.__r_.__value_.__l.__size_ - v430.__r_.__value_.__r.__words[0], v431.__r_.__value_.__l.__size_ - v431.__r_.__value_.__r.__words[0]);
-      MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseLutToDense<float,MIL::UInt2>(v303, v304, v301, &v417, v60, &v429);
-      MIL::Operators::Common::Shared::ConstExprs::ExtractMaskedData<float>(&v429, &v416, &v415);
+      MIL::Util::CastToBitSpan<MIL::UInt2 const,unsigned char,true>(v303, v431.__r_.__value_.__l.__size_ - v431.__r_.__value_.__r.__words[0], v432.__r_.__value_.__l.__size_ - v432.__r_.__value_.__r.__words[0]);
+      MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseLutToDense<float,MIL::UInt2>(v304, v305, v302, &v418, v61, &v430);
+      MIL::Operators::Common::Shared::ConstExprs::ExtractMaskedData<float>(&v430, &v417, &v416);
     }
 
 LABEL_313:
-    if (v429.__r_.__value_.__r.__words[0])
-    {
-      v429.__r_.__value_.__l.__size_ = v429.__r_.__value_.__r.__words[0];
-      operator delete(v429.__r_.__value_.__l.__data_);
-    }
-
-LABEL_315:
     if (v430.__r_.__value_.__r.__words[0])
     {
       v430.__r_.__value_.__l.__size_ = v430.__r_.__value_.__r.__words[0];
       operator delete(v430.__r_.__value_.__l.__data_);
     }
 
+LABEL_315:
     if (v431.__r_.__value_.__r.__words[0])
     {
       v431.__r_.__value_.__l.__size_ = v431.__r_.__value_.__r.__words[0];
       operator delete(v431.__r_.__value_.__l.__data_);
     }
 
+    if (v432.__r_.__value_.__r.__words[0])
+    {
+      v432.__r_.__value_.__l.__size_ = v432.__r_.__value_.__r.__words[0];
+      operator delete(v432.__r_.__value_.__l.__data_);
+    }
+
     if (__p)
     {
-      v423 = __p;
+      v424 = __p;
       operator delete(__p);
     }
 
-    if (v420)
+    if (v421)
     {
-      v421 = v420;
-      operator delete(v420);
+      v422 = v421;
+      operator delete(v421);
     }
 
-    if (v418)
+    if (v419)
     {
-      v419 = v418;
-      operator delete(v418);
+      v420 = v419;
+      operator delete(v419);
     }
 
-    if (v417.__r_.__value_.__r.__words[0])
+    if (v418.__r_.__value_.__r.__words[0])
     {
-      v417.__r_.__value_.__l.__size_ = v417.__r_.__value_.__r.__words[0];
-      operator delete(v417.__r_.__value_.__l.__data_);
+      v418.__r_.__value_.__l.__size_ = v418.__r_.__value_.__r.__words[0];
+      operator delete(v418.__r_.__value_.__l.__data_);
     }
 
-    if (v425)
+    if (v426)
     {
-      v426 = v425;
-      operator delete(v425);
+      v427 = v426;
+      operator delete(v426);
     }
 
-    if (v427)
+    if (v428)
     {
-      v428 = v427;
-      operator delete(v427);
+      v429 = v428;
+      operator delete(v428);
     }
 
     MIL::IRTensorValueType::MakeFloat32Value();
   }
 
-  v125 = *(this + 4);
-  v124 = *(this + 5);
-  if (v124)
+  v126 = *(this + 4);
+  v125 = *(this + 5);
+  if (v125)
   {
-    atomic_fetch_add_explicit((v124 + 8), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v125 + 8), 1uLL, memory_order_relaxed);
   }
 
-  v127 = *(this + 6);
-  v126 = *(this + 7);
-  if (v126)
+  v128 = *(this + 6);
+  v127 = *(this + 7);
+  if (v127)
   {
-    atomic_fetch_add_explicit((v126 + 8), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v127 + 8), 1uLL, memory_order_relaxed);
   }
 
-  v129 = *(this + 2);
-  v128 = *(this + 3);
-  if (v128)
+  v130 = *(this + 2);
+  v129 = *(this + 3);
+  if (v129)
   {
-    atomic_fetch_add_explicit((v128 + 8), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v129 + 8), 1uLL, memory_order_relaxed);
   }
 
-  v130 = (*(*v125 + 32))(v125);
-  v131 = (*(*v130 + 96))(v130);
-  MIL::Operators::Common::Shared::ConstExprs::ShapeToVector(v131, &v427);
-  v132 = (*(*v129 + 32))(v129);
-  v133 = (*(*v132 + 96))(v132);
-  MIL::Operators::Common::Shared::ConstExprs::ShapeToVector(v133, &v425);
-  v135 = *(v426 - 2);
-  v134 = *(v426 - 1);
-  memset(&v431, 0, sizeof(v431));
-  std::vector<unsigned long>::__init_with_size[abi:ne200100]<std::__wrap_iter<unsigned long *>,std::__wrap_iter<unsigned long *>>(&v431, v425, (v426 - 2), ((v426 - 2) - v425) >> 3);
-  MIL::Operators::Common::Shared::ConstExprs::BlockwiseLutToDenseIndexConverter::BlockwiseLutToDenseIndexConverter(&v417, &v427, &v431, v134, v6);
-  if (v431.__r_.__value_.__r.__words[0])
+  v131 = (*(*v126 + 32))(v126);
+  v132 = (*(*v131 + 96))(v131);
+  MIL::Operators::Common::Shared::ConstExprs::ShapeToVector(v132, &v428);
+  v133 = (*(*v130 + 32))(v130);
+  v134 = (*(*v133 + 96))(v133);
+  MIL::Operators::Common::Shared::ConstExprs::ShapeToVector(v134, &v426);
+  v136 = *(v427 - 2);
+  v135 = *(v427 - 1);
+  memset(&v432, 0, sizeof(v432));
+  std::vector<unsigned long>::__init_with_size[abi:ne200100]<std::__wrap_iter<unsigned long *>,std::__wrap_iter<unsigned long *>>(&v432, v426, (v427 - 2), ((v427 - 2) - v426) >> 3);
+  MIL::Operators::Common::Shared::ConstExprs::BlockwiseLutToDenseIndexConverter::BlockwiseLutToDenseIndexConverter(&v418, &v428, &v432, v135, v7);
+  if (v432.__r_.__value_.__r.__words[0])
   {
-    v431.__r_.__value_.__l.__size_ = v431.__r_.__value_.__r.__words[0];
-    operator delete(v431.__r_.__value_.__l.__data_);
+    v432.__r_.__value_.__l.__size_ = v432.__r_.__value_.__r.__words[0];
+    operator delete(v432.__r_.__value_.__l.__data_);
   }
 
-  v136 = (*(*v127 + 32))(v127);
-  v137 = (*(*v136 + 88))(v136);
-  v138 = v137;
-  if (v137 > 20)
+  v137 = (*(*v128 + 32))(v128);
+  v138 = (*(*v137 + 88))(v137);
+  v139 = v138;
+  if (v138 > 20)
   {
-    switch(v137)
+    switch(v138)
     {
       case 21:
-        v337 = MIL::IRTensorValue::GetDataView<MIL::UInt1>(v125);
-        v339 = v338;
-        v340 = MIL::IRTensorValue::GetDataView<MIL::UInt1>(v127);
-        v342 = v341;
-        v343 = MIL::IRTensorValue::GetDataView<MIL::Fp16>(v129);
-        MIL::Operators::Common::Shared::ConstExprs::EvaluateBitMask<MIL::UInt1>(v340, v342, v337, v339, &v431);
-        MIL::PackSubByteVec(&v431, &v430);
-        if (v430.__r_.__value_.__l.__size_ == v430.__r_.__value_.__r.__words[0])
+        v338 = MIL::IRTensorValue::GetDataView<MIL::UInt1>(v126);
+        v340 = v339;
+        v341 = MIL::IRTensorValue::GetDataView<MIL::UInt1>(v128);
+        v343 = v342;
+        v344 = MIL::IRTensorValue::GetDataView<MIL::Fp16>(v130);
+        MIL::Operators::Common::Shared::ConstExprs::EvaluateBitMask<MIL::UInt1>(v341, v343, v338, v340, &v432);
+        MIL::PackSubByteVec(&v432, &v431);
+        if (v431.__r_.__value_.__l.__size_ == v431.__r_.__value_.__r.__words[0])
         {
-          v344 = 0;
+          v345 = 0;
         }
 
         else
         {
-          v344 = v430.__r_.__value_.__r.__words[0];
+          v345 = v431.__r_.__value_.__r.__words[0];
         }
 
-        MIL::Util::CastToBitSpan<MIL::UInt1 const,unsigned char,true>(v344, v430.__r_.__value_.__l.__size_ - v430.__r_.__value_.__r.__words[0], v431.__r_.__value_.__l.__size_ - v431.__r_.__value_.__r.__words[0]);
-        MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseLutToDense<MIL::Fp16,MIL::UInt1>(v345, v346, v343, &v417, v135, &v429);
-        MIL::Operators::Common::Shared::ConstExprs::ExtractMaskedData<MIL::Fp16>(&v429, &v416, &v415);
+        MIL::Util::CastToBitSpan<MIL::UInt1 const,unsigned char,true>(v345, v431.__r_.__value_.__l.__size_ - v431.__r_.__value_.__r.__words[0], v432.__r_.__value_.__l.__size_ - v432.__r_.__value_.__r.__words[0]);
+        MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseLutToDense<MIL::Fp16,MIL::UInt1>(v346, v347, v344, &v418, v136, &v430);
+        MIL::Operators::Common::Shared::ConstExprs::ExtractMaskedData<MIL::Fp16>(&v430, &v417, &v416);
         break;
       case 22:
-        v249 = MIL::IRTensorValue::GetDataView<MIL::UInt1>(v125);
-        v251 = v250;
-        v252 = MIL::IRTensorValue::GetDataView<MIL::UInt3>(v127);
-        v254 = v253;
-        v255 = MIL::IRTensorValue::GetDataView<MIL::Fp16>(v129);
-        MIL::Operators::Common::Shared::ConstExprs::EvaluateBitMask<MIL::UInt3>(v252, v254, v249, v251, &v431);
-        MIL::PackSubByteVec(&v431, &v430);
-        if (v430.__r_.__value_.__l.__size_ == v430.__r_.__value_.__r.__words[0])
+        v250 = MIL::IRTensorValue::GetDataView<MIL::UInt1>(v126);
+        v252 = v251;
+        v253 = MIL::IRTensorValue::GetDataView<MIL::UInt3>(v128);
+        v255 = v254;
+        v256 = MIL::IRTensorValue::GetDataView<MIL::Fp16>(v130);
+        MIL::Operators::Common::Shared::ConstExprs::EvaluateBitMask<MIL::UInt3>(v253, v255, v250, v252, &v432);
+        MIL::PackSubByteVec(&v432, &v431);
+        if (v431.__r_.__value_.__l.__size_ == v431.__r_.__value_.__r.__words[0])
         {
-          v256 = 0;
+          v257 = 0;
         }
 
         else
         {
-          v256 = v430.__r_.__value_.__r.__words[0];
+          v257 = v431.__r_.__value_.__r.__words[0];
         }
 
-        MIL::Util::CastToBitSpan<MIL::UInt3 const,unsigned char,true>(v256, v430.__r_.__value_.__l.__size_ - v430.__r_.__value_.__r.__words[0], v431.__r_.__value_.__l.__size_ - v431.__r_.__value_.__r.__words[0]);
-        MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseLutToDense<MIL::Fp16,MIL::UInt3>(v257, v258, v255, &v417, v135, &v429);
-        MIL::Operators::Common::Shared::ConstExprs::ExtractMaskedData<MIL::Fp16>(&v429, &v416, &v415);
+        MIL::Util::CastToBitSpan<MIL::UInt3 const,unsigned char,true>(v257, v431.__r_.__value_.__l.__size_ - v431.__r_.__value_.__r.__words[0], v432.__r_.__value_.__l.__size_ - v432.__r_.__value_.__r.__words[0]);
+        MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseLutToDense<MIL::Fp16,MIL::UInt3>(v258, v259, v256, &v418, v136, &v430);
+        MIL::Operators::Common::Shared::ConstExprs::ExtractMaskedData<MIL::Fp16>(&v430, &v417, &v416);
         break;
       case 23:
-        v169 = MIL::IRTensorValue::GetDataView<MIL::UInt1>(v125);
-        v171 = v170;
-        v172 = MIL::IRTensorValue::GetDataView<MIL::UInt6>(v127);
-        v174 = v173;
-        v175 = MIL::IRTensorValue::GetDataView<MIL::Fp16>(v129);
-        MIL::Operators::Common::Shared::ConstExprs::EvaluateBitMask<MIL::UInt6>(v172, v174, v169, v171, &v431);
-        MIL::PackSubByteVec(&v431, &v430);
-        if (v430.__r_.__value_.__l.__size_ == v430.__r_.__value_.__r.__words[0])
+        v170 = MIL::IRTensorValue::GetDataView<MIL::UInt1>(v126);
+        v172 = v171;
+        v173 = MIL::IRTensorValue::GetDataView<MIL::UInt6>(v128);
+        v175 = v174;
+        v176 = MIL::IRTensorValue::GetDataView<MIL::Fp16>(v130);
+        MIL::Operators::Common::Shared::ConstExprs::EvaluateBitMask<MIL::UInt6>(v173, v175, v170, v172, &v432);
+        MIL::PackSubByteVec(&v432, &v431);
+        if (v431.__r_.__value_.__l.__size_ == v431.__r_.__value_.__r.__words[0])
         {
-          v176 = 0;
+          v177 = 0;
         }
 
         else
         {
-          v176 = v430.__r_.__value_.__r.__words[0];
+          v177 = v431.__r_.__value_.__r.__words[0];
         }
 
-        MIL::Util::CastToBitSpan<MIL::UInt6 const,unsigned char,true>(v176, v430.__r_.__value_.__l.__size_ - v430.__r_.__value_.__r.__words[0], v431.__r_.__value_.__l.__size_ - v431.__r_.__value_.__r.__words[0]);
-        MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseLutToDense<MIL::Fp16,MIL::UInt6>(v177, v178, v175, &v417, v135, &v429);
-        MIL::Operators::Common::Shared::ConstExprs::ExtractMaskedData<MIL::Fp16>(&v429, &v416, &v415);
+        MIL::Util::CastToBitSpan<MIL::UInt6 const,unsigned char,true>(v177, v431.__r_.__value_.__l.__size_ - v431.__r_.__value_.__r.__words[0], v432.__r_.__value_.__l.__size_ - v432.__r_.__value_.__r.__words[0]);
+        MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseLutToDense<MIL::Fp16,MIL::UInt6>(v178, v179, v176, &v418, v136, &v430);
+        MIL::Operators::Common::Shared::ConstExprs::ExtractMaskedData<MIL::Fp16>(&v430, &v417, &v416);
         break;
       default:
         goto LABEL_337;
@@ -1590,152 +2044,152 @@ LABEL_315:
 
   else
   {
-    if (v137 == 14)
+    if (v138 == 14)
     {
-      v331 = MIL::IRTensorValue::GetDataView<MIL::UInt1>(v125);
-      v333 = v332;
-      v334 = MIL::IRTensorValue::GetDataView<unsigned char>(v127);
-      v335 = MIL::IRTensorValue::GetDataView<MIL::Fp16>(v129);
-      MIL::Operators::Common::Shared::ConstExprs::EvaluateBitMask<unsigned char>(v334, v331, v333, &v431);
-      if (v431.__r_.__value_.__l.__size_ == v431.__r_.__value_.__r.__words[0])
+      v332 = MIL::IRTensorValue::GetDataView<MIL::UInt1>(v126);
+      v334 = v333;
+      v335 = MIL::IRTensorValue::GetDataView<unsigned char>(v128);
+      v336 = MIL::IRTensorValue::GetDataView<MIL::Fp16>(v130);
+      MIL::Operators::Common::Shared::ConstExprs::EvaluateBitMask<unsigned char>(v335, v332, v334, &v432);
+      if (v432.__r_.__value_.__l.__size_ == v432.__r_.__value_.__r.__words[0])
       {
-        v336 = 0;
+        v337 = 0;
       }
 
       else
       {
-        v336 = v431.__r_.__value_.__r.__words[0];
+        v337 = v432.__r_.__value_.__r.__words[0];
       }
 
-      MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseLutToDense<MIL::Fp16,unsigned char>(v336, v431.__r_.__value_.__l.__size_ - v431.__r_.__value_.__r.__words[0], v335, &v417, v135, &v430);
-      MIL::Operators::Common::Shared::ConstExprs::ExtractMaskedData<MIL::Fp16>(&v430, &v416, &v415);
+      MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseLutToDense<MIL::Fp16,unsigned char>(v337, v432.__r_.__value_.__l.__size_ - v432.__r_.__value_.__r.__words[0], v336, &v418, v136, &v431);
+      MIL::Operators::Common::Shared::ConstExprs::ExtractMaskedData<MIL::Fp16>(&v431, &v417, &v416);
       goto LABEL_261;
     }
 
-    if (v137 != 19)
+    if (v138 != 19)
     {
-      if (v137 == 20)
+      if (v138 == 20)
       {
-        v139 = MIL::IRTensorValue::GetDataView<MIL::UInt1>(v125);
-        v141 = v140;
-        v142 = MIL::IRTensorValue::GetDataView<MIL::UInt4>(v127);
-        v144 = v143;
-        v145 = MIL::IRTensorValue::GetDataView<MIL::Fp16>(v129);
-        MIL::Operators::Common::Shared::ConstExprs::EvaluateBitMask<MIL::UInt4>(v142, v144, v139, v141, &v431);
-        MIL::PackSubByteVec(&v431, &v430);
-        if (v430.__r_.__value_.__l.__size_ == v430.__r_.__value_.__r.__words[0])
+        v140 = MIL::IRTensorValue::GetDataView<MIL::UInt1>(v126);
+        v142 = v141;
+        v143 = MIL::IRTensorValue::GetDataView<MIL::UInt4>(v128);
+        v145 = v144;
+        v146 = MIL::IRTensorValue::GetDataView<MIL::Fp16>(v130);
+        MIL::Operators::Common::Shared::ConstExprs::EvaluateBitMask<MIL::UInt4>(v143, v145, v140, v142, &v432);
+        MIL::PackSubByteVec(&v432, &v431);
+        if (v431.__r_.__value_.__l.__size_ == v431.__r_.__value_.__r.__words[0])
         {
-          v146 = 0;
+          v147 = 0;
         }
 
         else
         {
-          v146 = v430.__r_.__value_.__r.__words[0];
+          v147 = v431.__r_.__value_.__r.__words[0];
         }
 
-        MIL::Util::CastToBitSpan<MIL::UInt4 const,unsigned char,true>(v146, v430.__r_.__value_.__l.__size_ - v430.__r_.__value_.__r.__words[0], v431.__r_.__value_.__l.__size_ - v431.__r_.__value_.__r.__words[0]);
-        MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseLutToDense<MIL::Fp16,MIL::UInt4>(v147, v148, v145, &v417, v135, &v429);
-        MIL::Operators::Common::Shared::ConstExprs::ExtractMaskedData<MIL::Fp16>(&v429, &v416, &v415);
+        MIL::Util::CastToBitSpan<MIL::UInt4 const,unsigned char,true>(v147, v431.__r_.__value_.__l.__size_ - v431.__r_.__value_.__r.__words[0], v432.__r_.__value_.__l.__size_ - v432.__r_.__value_.__r.__words[0]);
+        MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseLutToDense<MIL::Fp16,MIL::UInt4>(v148, v149, v146, &v418, v136, &v430);
+        MIL::Operators::Common::Shared::ConstExprs::ExtractMaskedData<MIL::Fp16>(&v430, &v417, &v416);
         goto LABEL_259;
       }
 
 LABEL_337:
-      v400 = __cxa_allocate_exception(0x10uLL);
-      MIL::IRDataTypeToString(v138, &v429);
-      v401 = std::string::insert(&v429, 0, "Constexpr-BlockwiseLutToSparse: Unsupported dtype ");
-      v402 = *&v401->__r_.__value_.__l.__data_;
-      v430.__r_.__value_.__r.__words[2] = v401->__r_.__value_.__r.__words[2];
-      *&v430.__r_.__value_.__l.__data_ = v402;
-      v401->__r_.__value_.__l.__size_ = 0;
-      v401->__r_.__value_.__r.__words[2] = 0;
-      v401->__r_.__value_.__r.__words[0] = 0;
-      v403 = std::string::append(&v430, " for indices");
-      v404 = *&v403->__r_.__value_.__l.__data_;
-      v431.__r_.__value_.__r.__words[2] = v403->__r_.__value_.__r.__words[2];
-      *&v431.__r_.__value_.__l.__data_ = v404;
-      v403->__r_.__value_.__l.__size_ = 0;
-      v403->__r_.__value_.__r.__words[2] = 0;
-      v403->__r_.__value_.__r.__words[0] = 0;
-      std::runtime_error::runtime_error(v400, &v431);
-      __cxa_throw(v400, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+      v401 = __cxa_allocate_exception(0x10uLL);
+      MIL::IRDataTypeToString(v139, &v430);
+      v402 = std::string::insert(&v430, 0, "Constexpr-BlockwiseLutToSparse: Unsupported dtype ");
+      v403 = *&v402->__r_.__value_.__l.__data_;
+      v431.__r_.__value_.__r.__words[2] = v402->__r_.__value_.__r.__words[2];
+      *&v431.__r_.__value_.__l.__data_ = v403;
+      v402->__r_.__value_.__l.__size_ = 0;
+      v402->__r_.__value_.__r.__words[2] = 0;
+      v402->__r_.__value_.__r.__words[0] = 0;
+      v404 = std::string::append(&v431, " for indices");
+      v405 = *&v404->__r_.__value_.__l.__data_;
+      v432.__r_.__value_.__r.__words[2] = v404->__r_.__value_.__r.__words[2];
+      *&v432.__r_.__value_.__l.__data_ = v405;
+      v404->__r_.__value_.__l.__size_ = 0;
+      v404->__r_.__value_.__r.__words[2] = 0;
+      v404->__r_.__value_.__r.__words[0] = 0;
+      std::runtime_error::runtime_error(v401, &v432);
+      __cxa_throw(v401, MEMORY[0x277D82760], MEMORY[0x277D82600]);
     }
 
-    v239 = MIL::IRTensorValue::GetDataView<MIL::UInt1>(v125);
-    v241 = v240;
-    v242 = MIL::IRTensorValue::GetDataView<MIL::UInt2>(v127);
-    v244 = v243;
-    v245 = MIL::IRTensorValue::GetDataView<MIL::Fp16>(v129);
-    MIL::Operators::Common::Shared::ConstExprs::EvaluateBitMask<MIL::UInt2>(v242, v244, v239, v241, &v431);
-    MIL::PackSubByteVec(&v431, &v430);
-    if (v430.__r_.__value_.__l.__size_ == v430.__r_.__value_.__r.__words[0])
+    v240 = MIL::IRTensorValue::GetDataView<MIL::UInt1>(v126);
+    v242 = v241;
+    v243 = MIL::IRTensorValue::GetDataView<MIL::UInt2>(v128);
+    v245 = v244;
+    v246 = MIL::IRTensorValue::GetDataView<MIL::Fp16>(v130);
+    MIL::Operators::Common::Shared::ConstExprs::EvaluateBitMask<MIL::UInt2>(v243, v245, v240, v242, &v432);
+    MIL::PackSubByteVec(&v432, &v431);
+    if (v431.__r_.__value_.__l.__size_ == v431.__r_.__value_.__r.__words[0])
     {
-      v246 = 0;
+      v247 = 0;
     }
 
     else
     {
-      v246 = v430.__r_.__value_.__r.__words[0];
+      v247 = v431.__r_.__value_.__r.__words[0];
     }
 
-    MIL::Util::CastToBitSpan<MIL::UInt2 const,unsigned char,true>(v246, v430.__r_.__value_.__l.__size_ - v430.__r_.__value_.__r.__words[0], v431.__r_.__value_.__l.__size_ - v431.__r_.__value_.__r.__words[0]);
-    MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseLutToDense<MIL::Fp16,MIL::UInt2>(v247, v248, v245, &v417, v135, &v429);
-    MIL::Operators::Common::Shared::ConstExprs::ExtractMaskedData<MIL::Fp16>(&v429, &v416, &v415);
+    MIL::Util::CastToBitSpan<MIL::UInt2 const,unsigned char,true>(v247, v431.__r_.__value_.__l.__size_ - v431.__r_.__value_.__r.__words[0], v432.__r_.__value_.__l.__size_ - v432.__r_.__value_.__r.__words[0]);
+    MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseLutToDense<MIL::Fp16,MIL::UInt2>(v248, v249, v246, &v418, v136, &v430);
+    MIL::Operators::Common::Shared::ConstExprs::ExtractMaskedData<MIL::Fp16>(&v430, &v417, &v416);
   }
 
 LABEL_259:
-  if (v429.__r_.__value_.__r.__words[0])
-  {
-    v429.__r_.__value_.__l.__size_ = v429.__r_.__value_.__r.__words[0];
-    operator delete(v429.__r_.__value_.__l.__data_);
-  }
-
-LABEL_261:
   if (v430.__r_.__value_.__r.__words[0])
   {
     v430.__r_.__value_.__l.__size_ = v430.__r_.__value_.__r.__words[0];
     operator delete(v430.__r_.__value_.__l.__data_);
   }
 
+LABEL_261:
   if (v431.__r_.__value_.__r.__words[0])
   {
     v431.__r_.__value_.__l.__size_ = v431.__r_.__value_.__r.__words[0];
     operator delete(v431.__r_.__value_.__l.__data_);
   }
 
+  if (v432.__r_.__value_.__r.__words[0])
+  {
+    v432.__r_.__value_.__l.__size_ = v432.__r_.__value_.__r.__words[0];
+    operator delete(v432.__r_.__value_.__l.__data_);
+  }
+
   if (__p)
   {
-    v423 = __p;
+    v424 = __p;
     operator delete(__p);
   }
 
-  if (v420)
+  if (v421)
   {
-    v421 = v420;
-    operator delete(v420);
+    v422 = v421;
+    operator delete(v421);
   }
 
-  if (v418)
+  if (v419)
   {
-    v419 = v418;
-    operator delete(v418);
+    v420 = v419;
+    operator delete(v419);
   }
 
-  if (v417.__r_.__value_.__r.__words[0])
+  if (v418.__r_.__value_.__r.__words[0])
   {
-    v417.__r_.__value_.__l.__size_ = v417.__r_.__value_.__r.__words[0];
-    operator delete(v417.__r_.__value_.__l.__data_);
+    v418.__r_.__value_.__l.__size_ = v418.__r_.__value_.__r.__words[0];
+    operator delete(v418.__r_.__value_.__l.__data_);
   }
 
-  if (v425)
+  if (v426)
   {
-    v426 = v425;
-    operator delete(v425);
+    v427 = v426;
+    operator delete(v426);
   }
 
-  if (v427)
+  if (v428)
   {
-    v428 = v427;
-    operator delete(v427);
+    v429 = v428;
+    operator delete(v428);
   }
 
   MIL::IRTensorValueType::MakeFloat16Value();
@@ -1825,17 +2279,6 @@ void MIL::Operators::Common::ios18::ConstExprs::BlockwiseLutToSparse::~Blockwise
   JUMPOUT(0x21CEAFEA0);
 }
 
-void MIL::Operators::Common::ios18::ConstExprs::BlockwiseLutToSparse::BlockwiseLutToSparse(void *a1)
-{
-  *MIL::AbstractConstExpr::AbstractConstExpr(a1) = &unk_2829EC608;
-  std::make_unique[abi:ne200100]<MIL::Operators::Common::ios18::ConstExprs::BlockwiseLutToSparse::Impl,MIL::IRTensorValueType const*&,MIL::IRTensorValueType const*&,std::shared_ptr<MIL::IRTensorValue const>,std::shared_ptr<MIL::IRTensorValue const>,std::shared_ptr<MIL::IRTensorValue const>,int &,0>();
-}
-
-{
-  *MIL::AbstractConstExpr::AbstractConstExpr(a1) = &unk_2829EC608;
-  std::make_unique[abi:ne200100]<MIL::Operators::Common::ios18::ConstExprs::BlockwiseLutToSparse::Impl,MIL::IRTensorValueType const*&,MIL::IRTensorValueType const*&,std::shared_ptr<MIL::IRTensorValue const>,std::shared_ptr<MIL::IRTensorValue const>,std::shared_ptr<MIL::IRTensorValue const>,std::nullopt_t const&,0>();
-}
-
 void sub_21837F94C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, std::__shared_weak_count *a10)
 {
   if (a10)
@@ -1865,6 +2308,19 @@ void MIL::Operators::Common::ios18::ConstExprs::BlockwiseLutToSparse::ComputeOut
   exception = __cxa_allocate_exception(0x10uLL);
   std::runtime_error::runtime_error(exception, "Cannot compute to get a single output since BlockwiseLutToSparse has two outputs.");
   __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+}
+
+uint64_t *std::vector<unsigned long>::vector[abi:ne200100](uint64_t *a1, unint64_t a2, uint64_t *a3)
+{
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
+  if (a2)
+  {
+    std::vector<unsigned long long>::__vallocate[abi:ne200100](a1, a2);
+  }
+
+  return a1;
 }
 
 void sub_21837FC80(_Unwind_Exception *exception_object)
@@ -1958,7 +2414,7 @@ void MIL::Operators::Common::Shared::ConstExprs::ExtractMaskedData<unsigned char
   *a3 = 0;
 }
 
-uint64_t MIL::Operators::Common::Shared::ConstExprs::EvaluateBitMask<MIL::UInt6>@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, void *a5@<X8>)
+uint64_t MIL::Operators::Common::Shared::ConstExprs::EvaluateBitMask<MIL::UInt6>@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t *a5@<X8>)
 {
   v11[0] = a1;
   v11[1] = a2;
@@ -2025,7 +2481,7 @@ void MIL::Util::CastToBitSpan<MIL::UInt4 const,unsigned char,true>(uint64_t a1, 
   }
 }
 
-uint64_t MIL::Operators::Common::Shared::ConstExprs::EvaluateBitMask<MIL::UInt3>@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, void *a5@<X8>)
+uint64_t MIL::Operators::Common::Shared::ConstExprs::EvaluateBitMask<MIL::UInt3>@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t *a5@<X8>)
 {
   v11[0] = a1;
   v11[1] = a2;
@@ -2082,7 +2538,7 @@ void MIL::Util::CastToBitSpan<MIL::UInt3 const,unsigned char,true>(uint64_t a1, 
   }
 }
 
-uint64_t MIL::Operators::Common::Shared::ConstExprs::EvaluateBitMask<MIL::UInt2>@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, void *a5@<X8>)
+uint64_t MIL::Operators::Common::Shared::ConstExprs::EvaluateBitMask<MIL::UInt2>@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t *a5@<X8>)
 {
   v11[0] = a1;
   v11[1] = a2;
@@ -2139,7 +2595,7 @@ void MIL::Util::CastToBitSpan<MIL::UInt2 const,unsigned char,true>(uint64_t a1, 
   }
 }
 
-uint64_t MIL::Operators::Common::Shared::ConstExprs::EvaluateBitMask<MIL::UInt1>@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, void *a5@<X8>)
+uint64_t MIL::Operators::Common::Shared::ConstExprs::EvaluateBitMask<MIL::UInt1>@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t *a5@<X8>)
 {
   v11[0] = a1;
   v11[1] = a2;
@@ -2355,7 +2811,7 @@ void MIL::Operators::Common::Shared::ConstExprs::ExtractMaskedData<MIL::Bf16>(ui
         else
         {
           *v12 = *(v10 + 2 * v8);
-          v13 = v12 + 1;
+          v13 = v12 + 2;
         }
 
         a3[1] = v13;
@@ -2449,7 +2905,7 @@ void MIL::Operators::Common::Shared::ConstExprs::ExtractMaskedData<MIL::Fp16>(ui
         else
         {
           *v12 = *(v10 + 2 * v8);
-          v13 = v12 + 1;
+          v13 = v12 + 2;
         }
 
         a3[1] = v13;
@@ -2536,7 +2992,7 @@ void MIL::Operators::Common::Shared::ConstExprs::ExtractMaskedData<float>(uint64
         else
         {
           *v12 = *(v10 + 4 * v8);
-          v13 = v12 + 1;
+          v13 = v12 + 4;
         }
 
         a3[1] = v13;
@@ -2601,10 +3057,10 @@ void sub_218380C3C(_Unwind_Exception *a1)
 
 void MIL::Operators::Common::ios18::ConstExprs::BlockwiseShiftScale::Impl::ValidateArgsAndTypeConstraints(MIL::Operators::Common::ios18::ConstExprs::BlockwiseShiftScale::Impl *this)
 {
-  std::string::basic_string[abi:ne200100]<0>(&__p, "Constexpr-BlockwiseShiftScale");
+  std::string::basic_string[abi:ne200100]<0>(__p, "Constexpr-BlockwiseShiftScale");
   v2 = (*(**(this + 1) + 32))(*(this + 1));
   std::string::basic_string[abi:ne200100]<0>(&v35, "data");
-  MIL::Operators::Common::Shared::ConstExprs::AssertIsShapeConstant(v2, &v35);
+  MIL::Operators::Common::Shared::ConstExprs::AssertIsShapeConstant(v2, &v35, __p);
   if (SHIBYTE(v37) < 0)
   {
     operator delete(v35);
@@ -2612,7 +3068,7 @@ void MIL::Operators::Common::ios18::ConstExprs::BlockwiseShiftScale::Impl::Valid
 
   v3 = (*(**(this + 3) + 32))(*(this + 3));
   std::string::basic_string[abi:ne200100]<0>(&v35, "scale");
-  MIL::Operators::Common::Shared::ConstExprs::AssertIsShapeConstant(v3, &v35);
+  MIL::Operators::Common::Shared::ConstExprs::AssertIsShapeConstant(v3, &v35, __p);
   if (SHIBYTE(v37) < 0)
   {
     operator delete(v35);
@@ -2622,7 +3078,7 @@ void MIL::Operators::Common::ios18::ConstExprs::BlockwiseShiftScale::Impl::Valid
   v5 = (*(**(this + 3) + 32))(*(this + 3));
   std::string::basic_string[abi:ne200100]<0>(&v35, "data");
   std::string::basic_string[abi:ne200100]<0>(&v32, "scale");
-  MIL::Operators::Common::Shared::ConstExprs::AssertSameRank(v4, v5, &v35, &v32);
+  MIL::Operators::Common::Shared::ConstExprs::AssertSameRank(v4, v5, &v35, &v32, __p);
   if (SHIBYTE(v34) < 0)
   {
     operator delete(v32);
@@ -2638,13 +3094,13 @@ void MIL::Operators::Common::ios18::ConstExprs::BlockwiseShiftScale::Impl::Valid
   v35 = 0;
   v36 = 0;
   v37 = 0;
-  std::vector<MIL::IRDimension const*>::__init_with_size[abi:ne200100]<MIL::IRDimension const**,MIL::IRDimension const**>(&v35, *v7, v7[1], (v7[1] - *v7) >> 3);
+  std::vector<MIL::IRDimension const*>::__init_with_size[abi:ne200100]<MIL::IRDimension const**,MIL::IRDimension const**>(&v35, *v7, *(v7 + 8), (*(v7 + 8) - *v7) >> 3);
   v8 = (*(**(this + 3) + 32))(*(this + 3));
   v9 = (*(*v8 + 96))(v8);
   v32 = 0;
   v33 = 0;
   v34 = 0;
-  std::vector<MIL::IRDimension const*>::__init_with_size[abi:ne200100]<MIL::IRDimension const**,MIL::IRDimension const**>(&v32, *v9, v9[1], (v9[1] - *v9) >> 3);
+  std::vector<MIL::IRDimension const*>::__init_with_size[abi:ne200100]<MIL::IRDimension const**,MIL::IRDimension const**>(&v32, *v9, *(v9 + 8), (*(v9 + 8) - *v9) >> 3);
   v10 = v35;
   if (v36 != v35)
   {
@@ -2733,16 +3189,16 @@ void MIL::Operators::Common::ios18::ConstExprs::BlockwiseShiftScale::Impl::Valid
   }
 
   v15 = (*(**(this + 3) + 32))(*(this + 3));
-  MIL::Operators::Common::Shared::ConstExprs::AssertExpectedOutputDType(v15, *this);
+  MIL::Operators::Common::Shared::ConstExprs::AssertExpectedOutputDType(v15, *this, __p);
   v16 = (*(**(this + 1) + 32))(*(this + 1));
-  MIL::Operators::Common::Shared::ConstExprs::AssertExpectedOutputShape(v16, *this);
+  MIL::Operators::Common::Shared::ConstExprs::AssertExpectedOutputShape(v16, *this, __p);
   if (*(this + 5))
   {
     v17 = (*(**(this + 3) + 32))(*(this + 3));
     v18 = (*(**(this + 5) + 32))(*(this + 5));
     std::string::basic_string[abi:ne200100]<0>(&v35, "scale");
     std::string::basic_string[abi:ne200100]<0>(&v32, "offset");
-    MIL::Operators::Common::Shared::ConstExprs::AssertConstantAndSameShape(v17, v18, &v35);
+    MIL::Operators::Common::Shared::ConstExprs::AssertConstantAndSameShape(v17, v18, &v35, &v32, __p);
     if (SHIBYTE(v34) < 0)
     {
       operator delete(v32);
@@ -2756,7 +3212,7 @@ void MIL::Operators::Common::ios18::ConstExprs::BlockwiseShiftScale::Impl::Valid
 
   if (v27 < 0)
   {
-    operator delete(__p);
+    operator delete(__p[0]);
   }
 }
 
@@ -2789,344 +3245,338 @@ void sub_2183811A8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void MIL::Operators::Common::ios18::ConstExprs::BlockwiseShiftScale::Impl::ComputeOutput(uint64_t **this)
+void MIL::Operators::Common::ios18::ConstExprs::BlockwiseShiftScale::Impl::ComputeOutput(MIL::Operators::Common::ios18::ConstExprs::BlockwiseShiftScale::Impl *this)
 {
-  v2 = (*(**this + 88))(*this);
-  if (v2 != 4)
+  v3 = (*(**this + 88))(*this);
+  if (v3 != 4)
   {
-    v3 = v2;
-    if (v2 != 5)
+    v4 = v3;
+    if (v3 != 5)
     {
-      if (v2 != 7)
+      if (v3 != 7)
       {
         exception = __cxa_allocate_exception(0x10uLL);
-        MIL::IRDataTypeToString(v3, &v306);
-        v257 = std::string::insert(&v306, 0, "Constexpr-BlockwiseShiftScale: Unsupported ");
-        v258 = *&v257->__r_.__value_.__l.__data_;
-        v307.__r_.__value_.__r.__words[2] = v257->__r_.__value_.__r.__words[2];
-        *&v307.__r_.__value_.__l.__data_ = v258;
-        v257->__r_.__value_.__l.__size_ = 0;
-        v257->__r_.__value_.__r.__words[2] = 0;
-        v257->__r_.__value_.__r.__words[0] = 0;
-        v259 = std::string::append(&v307, " output type");
-        v260 = *&v259->__r_.__value_.__l.__data_;
-        v301.__r_.__value_.__r.__words[2] = v259->__r_.__value_.__r.__words[2];
-        *&v301.__r_.__value_.__l.__data_ = v260;
-        v259->__r_.__value_.__l.__size_ = 0;
-        v259->__r_.__value_.__r.__words[2] = 0;
-        v259->__r_.__value_.__r.__words[0] = 0;
-        std::runtime_error::runtime_error(exception, &v301);
+        MIL::IRDataTypeToString(v4, &v307);
+        v258 = std::string::insert(&v307, 0, "Constexpr-BlockwiseShiftScale: Unsupported ");
+        v259 = *&v258->__r_.__value_.__l.__data_;
+        v308.__r_.__value_.__r.__words[2] = v258->__r_.__value_.__r.__words[2];
+        *&v308.__r_.__value_.__l.__data_ = v259;
+        v258->__r_.__value_.__l.__size_ = 0;
+        v258->__r_.__value_.__r.__words[2] = 0;
+        v258->__r_.__value_.__r.__words[0] = 0;
+        v260 = std::string::append(&v308, " output type");
+        v261 = *&v260->__r_.__value_.__l.__data_;
+        v302.__r_.__value_.__r.__words[2] = v260->__r_.__value_.__r.__words[2];
+        *&v302.__r_.__value_.__l.__data_ = v261;
+        v260->__r_.__value_.__l.__size_ = 0;
+        v260->__r_.__value_.__r.__words[2] = 0;
+        v260->__r_.__value_.__r.__words[0] = 0;
+        std::runtime_error::runtime_error(exception, &v302);
         __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
       }
 
-      v4 = this[1];
-      v5 = this[2];
-      if (v5)
-      {
-        atomic_fetch_add_explicit(v5 + 1, 1uLL, memory_order_relaxed);
-      }
-
-      v7 = this[3];
-      v6 = this[4];
+      v5 = *(this + 1);
+      v6 = *(this + 2);
       if (v6)
       {
-        atomic_fetch_add_explicit(v6 + 1, 1uLL, memory_order_relaxed);
+        atomic_fetch_add_explicit((v6 + 8), 1uLL, memory_order_relaxed);
       }
 
-      v9 = this[5];
-      v8 = this[6];
-      if (v8)
+      v8 = *(this + 3);
+      v7 = *(this + 4);
+      if (v7)
       {
-        atomic_fetch_add_explicit((v8 + 8), 1uLL, memory_order_relaxed);
+        atomic_fetch_add_explicit((v7 + 8), 1uLL, memory_order_relaxed);
       }
 
-      v10 = (*(*v4 + 32))(v4);
-      v11 = (*(*v10 + 96))(v10);
-      MIL::Operators::Common::Shared::ConstExprs::ShapeToVector(v11, &v307);
-      v12 = (*(*v7 + 32))(v7);
-      v13 = (*(*v12 + 96))(v12);
-      MIL::Operators::Common::Shared::ConstExprs::ShapeToVector(v13, &v306);
-      MIL::Operators::Common::Shared::ConstExprs::BlockwiseShiftScaleIndexConverter::BlockwiseShiftScaleIndexConverter(&v301, &v307, &v306);
-      v14 = (*(*v4 + 32))(v4);
-      v15 = (*(*v14 + 88))(v14);
-      if (!v9)
+      v10 = *(this + 5);
+      v9 = *(this + 6);
+      if (v9)
       {
-        if (v15 <= 12)
+        atomic_fetch_add_explicit((v9 + 8), 1uLL, memory_order_relaxed);
+      }
+
+      v11 = (*(*v5 + 32))(v5);
+      v12 = (*(*v11 + 96))(v11);
+      MIL::Operators::Common::Shared::ConstExprs::ShapeToVector(v12, &v308);
+      v13 = (*(*v8 + 32))(v8);
+      v14 = (*(*v13 + 96))(v13);
+      MIL::Operators::Common::Shared::ConstExprs::ShapeToVector(v14, &v307);
+      MIL::Operators::Common::Shared::ConstExprs::BlockwiseShiftScaleIndexConverter::BlockwiseShiftScaleIndexConverter(&v302, &v308.__r_.__value_.__l.__data_, &v307);
+      v15 = (*(*v5 + 32))(v5);
+      v16 = (*(*v15 + 88))(v15);
+      if (!v10)
+      {
+        if (v16 <= 12)
         {
-          if (v15 > 6)
+          if (v16 > 6)
           {
-            if (v15 == 7)
+            if (v16 == 7)
             {
-              v216 = MIL::IRTensorValue::GetDataView<MIL::Bf16>(v4);
-              v218 = v217;
-              v219 = MIL::IRTensorValue::GetDataView<MIL::Bf16>(v7);
-              MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Bf16,MIL::Bf16>(v216, v218, v219, &v301, &v297);
+              v217 = MIL::IRTensorValue::GetDataView<MIL::Bf16>(v5);
+              v219 = v218;
+              v220 = MIL::IRTensorValue::GetDataView<MIL::Bf16>(v8);
+              MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Bf16,MIL::Bf16>(v217, v219, v220, &v302.__r_.__value_.__l.__data_, &v298);
               goto LABEL_164;
             }
 
-            if (v15 == 9)
+            if (v16 == 9)
             {
-              Data = MIL::IRTensorValue::GetDataView<signed char>(v4);
-              v122 = v121;
-              v123 = MIL::IRTensorValue::GetDataView<MIL::Bf16>(v7);
-              MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Bf16,signed char>(Data, v122, v123, &v301, &v297);
+              Data = MIL::IRTensorValue::GetDataView<signed char>(v5);
+              v123 = v122;
+              v124 = MIL::IRTensorValue::GetDataView<MIL::Bf16>(v8);
+              MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Bf16,signed char>(Data, v123, v124, &v302.__r_.__value_.__l.__data_, &v298);
               goto LABEL_164;
             }
           }
 
           else
           {
-            if (v15 == 4)
+            if (v16 == 4)
             {
-              v212 = MIL::IRTensorValue::GetDataView<MIL::Fp16>(v4);
-              v214 = v213;
-              v215 = MIL::IRTensorValue::GetDataView<MIL::Bf16>(v7);
-              MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Bf16,MIL::Fp16>(v212, v214, v215, &v301, &v297);
+              v213 = MIL::IRTensorValue::GetDataView<MIL::Fp16>(v5);
+              v215 = v214;
+              v216 = MIL::IRTensorValue::GetDataView<MIL::Bf16>(v8);
+              MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Bf16,MIL::Fp16>(v213, v215, v216, &v302.__r_.__value_.__l.__data_, &v298);
               goto LABEL_164;
             }
 
-            if (v15 == 5)
+            if (v16 == 5)
             {
-              v84 = MIL::IRTensorValue::GetDataView<float>(v4);
-              v86 = v85;
-              v87 = MIL::IRTensorValue::GetDataView<MIL::Bf16>(v7);
-              MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Bf16,float>(v84, v86, v87, &v301, &v297);
+              v85 = MIL::IRTensorValue::GetDataView<float>(v5);
+              v87 = v86;
+              v88 = MIL::IRTensorValue::GetDataView<MIL::Bf16>(v8);
+              MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Bf16,float>(v85, v87, v88, &v302.__r_.__value_.__l.__data_, &v298);
               goto LABEL_164;
             }
           }
         }
 
-        else if (v15 <= 19)
+        else if (v16 <= 19)
         {
-          if (v15 == 13)
+          if (v16 == 13)
           {
-            v232 = MIL::IRTensorValue::GetDataView<MIL::Int4>(v4);
-            v234 = v233;
-            v235 = MIL::IRTensorValue::GetDataView<MIL::Bf16>(v7);
-            MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Bf16,MIL::Int4>(v232, v234, v235, &v301, &v297);
+            v233 = MIL::IRTensorValue::GetDataView<MIL::Int4>(v5);
+            v235 = v234;
+            v236 = MIL::IRTensorValue::GetDataView<MIL::Bf16>(v8);
+            MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Bf16,MIL::Int4>(v233, v235, v236, &v302.__r_.__value_.__l.__data_, &v298);
             goto LABEL_164;
           }
 
-          if (v15 == 14)
+          if (v16 == 14)
           {
-            v132 = MIL::IRTensorValue::GetDataView<unsigned char>(v4);
-            v134 = v133;
-            v135 = MIL::IRTensorValue::GetDataView<MIL::Bf16>(v7);
-            MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Bf16,unsigned char>(v132, v134, v135, &v301, &v297);
+            v133 = MIL::IRTensorValue::GetDataView<unsigned char>(v5);
+            v135 = v134;
+            v136 = MIL::IRTensorValue::GetDataView<MIL::Bf16>(v8);
+            MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Bf16,unsigned char>(v133, v135, v136, &v302.__r_.__value_.__l.__data_, &v298);
             goto LABEL_164;
           }
         }
 
         else
         {
-          switch(v15)
+          switch(v16)
           {
             case 25:
-              v244 = MIL::IRTensorValue::GetDataView<MIL::Fp8E5M2>(v4);
-              v246 = v245;
-              v247 = MIL::IRTensorValue::GetDataView<MIL::Bf16>(v7);
-              MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Bf16,MIL::Fp8E5M2>(v244, v246, v247, &v301, &v297);
+              v245 = MIL::IRTensorValue::GetDataView<MIL::Fp8E5M2>(v5);
+              v247 = v246;
+              v248 = MIL::IRTensorValue::GetDataView<MIL::Bf16>(v8);
+              MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Bf16,MIL::Fp8E5M2>(v245, v247, v248, &v302.__r_.__value_.__l.__data_, &v298);
               goto LABEL_164;
             case 24:
-              v252 = MIL::IRTensorValue::GetDataView<MIL::Fp8E4M3FN>(v4);
-              v254 = v253;
-              v255 = MIL::IRTensorValue::GetDataView<MIL::Bf16>(v7);
-              MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Bf16,MIL::Fp8E4M3FN>(v252, v254, v255, &v301, &v297);
+              v253 = MIL::IRTensorValue::GetDataView<MIL::Fp8E4M3FN>(v5);
+              v255 = v254;
+              v256 = MIL::IRTensorValue::GetDataView<MIL::Bf16>(v8);
+              MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Bf16,MIL::Fp8E4M3FN>(v253, v255, v256, &v302.__r_.__value_.__l.__data_, &v298);
               goto LABEL_164;
             case 20:
-              v60 = MIL::IRTensorValue::GetDataView<MIL::UInt4>(v4);
-              v62 = v61;
-              v63 = MIL::IRTensorValue::GetDataView<MIL::Bf16>(v7);
-              MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Bf16,MIL::UInt4>(v60, v62, v63, &v301, &v297);
+              v61 = MIL::IRTensorValue::GetDataView<MIL::UInt4>(v5);
+              v63 = v62;
+              v64 = MIL::IRTensorValue::GetDataView<MIL::Bf16>(v8);
+              MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Bf16,MIL::UInt4>(v61, v63, v64, &v302.__r_.__value_.__l.__data_, &v298);
               goto LABEL_164;
           }
         }
 
-        v291 = v15;
-        v292 = __cxa_allocate_exception(0x10uLL);
-        MIL::IRDataTypeToString(v291, &v298);
-        v293 = std::string::insert(&v298, 0, "Constexpr-BlockwiseShiftScale: Unsupported dType (");
-        v294 = *&v293->__r_.__value_.__l.__data_;
-        v299.__r_.__value_.__r.__words[2] = v293->__r_.__value_.__r.__words[2];
-        *&v299.__r_.__value_.__l.__data_ = v294;
-        v293->__r_.__value_.__l.__size_ = 0;
-        v293->__r_.__value_.__r.__words[2] = 0;
-        v293->__r_.__value_.__r.__words[0] = 0;
-        v295 = std::string::append(&v299, ") for data.");
-        v296 = *&v295->__r_.__value_.__l.__data_;
-        v300.__r_.__value_.__r.__words[2] = v295->__r_.__value_.__r.__words[2];
-        *&v300.__r_.__value_.__l.__data_ = v296;
-        v295->__r_.__value_.__l.__size_ = 0;
-        v295->__r_.__value_.__r.__words[2] = 0;
-        v295->__r_.__value_.__r.__words[0] = 0;
-        std::runtime_error::runtime_error(v292, &v300);
-        __cxa_throw(v292, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+        v292 = v16;
+        v293 = __cxa_allocate_exception(0x10uLL);
+        MIL::IRDataTypeToString(v292, &v299);
+        v294 = std::string::insert(&v299, 0, "Constexpr-BlockwiseShiftScale: Unsupported dType (");
+        v295 = *&v294->__r_.__value_.__l.__data_;
+        v300.__r_.__value_.__r.__words[2] = v294->__r_.__value_.__r.__words[2];
+        *&v300.__r_.__value_.__l.__data_ = v295;
+        v294->__r_.__value_.__l.__size_ = 0;
+        v294->__r_.__value_.__r.__words[2] = 0;
+        v294->__r_.__value_.__r.__words[0] = 0;
+        v296 = std::string::append(&v300, ") for data.");
+        v297 = *&v296->__r_.__value_.__l.__data_;
+        v301.__r_.__value_.__r.__words[2] = v296->__r_.__value_.__r.__words[2];
+        *&v301.__r_.__value_.__l.__data_ = v297;
+        v296->__r_.__value_.__l.__size_ = 0;
+        v296->__r_.__value_.__r.__words[2] = 0;
+        v296->__r_.__value_.__r.__words[0] = 0;
+        std::runtime_error::runtime_error(v293, &v301);
+        __cxa_throw(v293, MEMORY[0x277D82760], MEMORY[0x277D82600]);
       }
 
-      if (v15 <= 12)
+      if (v16 <= 12)
       {
-        if (v15 > 6)
+        if (v16 > 6)
         {
-          if (v15 == 7)
+          if (v16 == 7)
           {
-            v156 = MIL::IRTensorValue::GetDataView<MIL::Bf16>(v4);
-            v158 = v157;
-            v159 = MIL::IRTensorValue::GetDataView<MIL::Bf16>(v7);
-            v300.__r_.__value_.__r.__words[0] = v9;
-            v300.__r_.__value_.__l.__size_ = v8;
-            MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Bf16,MIL::Bf16>(v156, v158, v159, &v300, &v301, &v297);
+            v157 = MIL::IRTensorValue::GetDataView<MIL::Bf16>(v5);
+            v159 = v158;
+            v160 = MIL::IRTensorValue::GetDataView<MIL::Bf16>(v8);
+            v301.__r_.__value_.__r.__words[0] = v10;
+            v301.__r_.__value_.__l.__size_ = v9;
+            MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Bf16,MIL::Bf16>(v157, v159, v160, &v301.__r_.__value_.__l.__data_, &v302.__r_.__value_.__l.__data_, &v298);
           }
 
           else
           {
-            if (v15 != 9)
+            if (v16 != 9)
             {
               goto LABEL_193;
             }
 
-            v96 = MIL::IRTensorValue::GetDataView<signed char>(v4);
-            v98 = v97;
-            v99 = MIL::IRTensorValue::GetDataView<MIL::Bf16>(v7);
-            v300.__r_.__value_.__r.__words[0] = v9;
-            v300.__r_.__value_.__l.__size_ = v8;
-            MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Bf16,signed char>(v96, v98, v99, &v300, &v301, &v297);
+            v97 = MIL::IRTensorValue::GetDataView<signed char>(v5);
+            v99 = v98;
+            v100 = MIL::IRTensorValue::GetDataView<MIL::Bf16>(v8);
+            v301.__r_.__value_.__r.__words[0] = v10;
+            v301.__r_.__value_.__l.__size_ = v9;
+            MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Bf16,signed char>(v97, v99, v100, &v301.__r_.__value_.__l.__data_, &v302.__r_.__value_.__l.__data_, &v298);
           }
         }
 
-        else if (v15 == 4)
+        else if (v16 == 4)
         {
-          v152 = MIL::IRTensorValue::GetDataView<MIL::Fp16>(v4);
-          v154 = v153;
-          v155 = MIL::IRTensorValue::GetDataView<MIL::Bf16>(v7);
-          v300.__r_.__value_.__r.__words[0] = v9;
-          v300.__r_.__value_.__l.__size_ = v8;
-          MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Bf16,MIL::Fp16>(v152, v154, v155, &v300, &v301, &v297);
+          v153 = MIL::IRTensorValue::GetDataView<MIL::Fp16>(v5);
+          v155 = v154;
+          v156 = MIL::IRTensorValue::GetDataView<MIL::Bf16>(v8);
+          v301.__r_.__value_.__r.__words[0] = v10;
+          v301.__r_.__value_.__l.__size_ = v9;
+          MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Bf16,MIL::Fp16>(v153, v155, v156, &v301.__r_.__value_.__l.__data_, &v302.__r_.__value_.__l.__data_, &v298);
         }
 
         else
         {
-          if (v15 != 5)
+          if (v16 != 5)
           {
             goto LABEL_193;
           }
 
-          v72 = MIL::IRTensorValue::GetDataView<float>(v4);
-          v74 = v73;
-          v75 = MIL::IRTensorValue::GetDataView<MIL::Bf16>(v7);
-          v300.__r_.__value_.__r.__words[0] = v9;
-          v300.__r_.__value_.__l.__size_ = v8;
-          MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Bf16,float>(v72, v74, v75, &v300, &v301, &v297);
+          v73 = MIL::IRTensorValue::GetDataView<float>(v5);
+          v75 = v74;
+          v76 = MIL::IRTensorValue::GetDataView<MIL::Bf16>(v8);
+          v301.__r_.__value_.__r.__words[0] = v10;
+          v301.__r_.__value_.__l.__size_ = v9;
+          MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Bf16,float>(v73, v75, v76, &v301.__r_.__value_.__l.__data_, &v302.__r_.__value_.__l.__data_, &v298);
         }
       }
 
-      else if (v15 <= 19)
+      else if (v16 <= 19)
       {
-        if (v15 == 13)
+        if (v16 == 13)
         {
-          v172 = MIL::IRTensorValue::GetDataView<MIL::Int4>(v4);
-          v174 = v173;
-          v175 = MIL::IRTensorValue::GetDataView<MIL::Bf16>(v7);
-          v300.__r_.__value_.__r.__words[0] = v9;
-          v300.__r_.__value_.__l.__size_ = v8;
-          MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Bf16,MIL::Int4>(v172, v174, v175, &v300, &v301, &v297);
+          v173 = MIL::IRTensorValue::GetDataView<MIL::Int4>(v5);
+          v175 = v174;
+          v176 = MIL::IRTensorValue::GetDataView<MIL::Bf16>(v8);
+          v301.__r_.__value_.__r.__words[0] = v10;
+          v301.__r_.__value_.__l.__size_ = v9;
+          MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Bf16,MIL::Int4>(v173, v175, v176, &v301.__r_.__value_.__l.__data_, &v302.__r_.__value_.__l.__data_, &v298);
         }
 
         else
         {
-          if (v15 != 14)
+          if (v16 != 14)
           {
             goto LABEL_193;
           }
 
-          v108 = MIL::IRTensorValue::GetDataView<unsigned char>(v4);
-          v110 = v109;
-          v111 = MIL::IRTensorValue::GetDataView<MIL::Bf16>(v7);
-          v300.__r_.__value_.__r.__words[0] = v9;
-          v300.__r_.__value_.__l.__size_ = v8;
-          MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Bf16,unsigned char>(v108, v110, v111, &v300, &v301, &v297);
+          v109 = MIL::IRTensorValue::GetDataView<unsigned char>(v5);
+          v111 = v110;
+          v112 = MIL::IRTensorValue::GetDataView<MIL::Bf16>(v8);
+          v301.__r_.__value_.__r.__words[0] = v10;
+          v301.__r_.__value_.__l.__size_ = v9;
+          MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Bf16,unsigned char>(v109, v111, v112, &v301.__r_.__value_.__l.__data_, &v302.__r_.__value_.__l.__data_, &v298);
         }
       }
 
       else
       {
-        switch(v15)
+        switch(v16)
         {
           case 20:
-            v184 = MIL::IRTensorValue::GetDataView<MIL::UInt4>(v4);
-            v186 = v185;
-            v187 = MIL::IRTensorValue::GetDataView<MIL::Bf16>(v7);
-            v300.__r_.__value_.__r.__words[0] = v9;
-            v300.__r_.__value_.__l.__size_ = v8;
-            MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Bf16,MIL::UInt4>(v184, v186, v187, &v300, &v301, &v297);
+            v185 = MIL::IRTensorValue::GetDataView<MIL::UInt4>(v5);
+            v187 = v186;
+            v188 = MIL::IRTensorValue::GetDataView<MIL::Bf16>(v8);
+            v301.__r_.__value_.__r.__words[0] = v10;
+            v301.__r_.__value_.__l.__size_ = v9;
+            MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Bf16,MIL::UInt4>(v185, v187, v188, &v301.__r_.__value_.__l.__data_, &v302.__r_.__value_.__l.__data_, &v298);
             break;
           case 24:
-            v192 = MIL::IRTensorValue::GetDataView<MIL::Fp8E4M3FN>(v4);
-            v194 = v193;
-            v195 = MIL::IRTensorValue::GetDataView<MIL::Bf16>(v7);
-            v300.__r_.__value_.__r.__words[0] = v9;
-            v300.__r_.__value_.__l.__size_ = v8;
-            MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Bf16,MIL::Fp8E4M3FN>(v192, v194, v195, &v300, &v301, &v297);
+            v193 = MIL::IRTensorValue::GetDataView<MIL::Fp8E4M3FN>(v5);
+            v195 = v194;
+            v196 = MIL::IRTensorValue::GetDataView<MIL::Bf16>(v8);
+            v301.__r_.__value_.__r.__words[0] = v10;
+            v301.__r_.__value_.__l.__size_ = v9;
+            MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Bf16,MIL::Fp8E4M3FN>(v193, v195, v196, &v301.__r_.__value_.__l.__data_, &v302.__r_.__value_.__l.__data_, &v298);
             break;
           case 25:
-            v16 = MIL::IRTensorValue::GetDataView<MIL::Fp8E5M2>(v4);
-            v18 = v17;
-            v19 = MIL::IRTensorValue::GetDataView<MIL::Bf16>(v7);
-            v300.__r_.__value_.__r.__words[0] = v9;
-            v300.__r_.__value_.__l.__size_ = v8;
-            MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Bf16,MIL::Fp8E5M2>(v16, v18, v19, &v300, &v301, &v297);
+            v17 = MIL::IRTensorValue::GetDataView<MIL::Fp8E5M2>(v5);
+            v19 = v18;
+            v20 = MIL::IRTensorValue::GetDataView<MIL::Bf16>(v8);
+            v301.__r_.__value_.__r.__words[0] = v10;
+            v301.__r_.__value_.__l.__size_ = v9;
+            MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Bf16,MIL::Fp8E5M2>(v17, v19, v20, &v301.__r_.__value_.__l.__data_, &v302.__r_.__value_.__l.__data_, &v298);
             break;
           default:
 LABEL_193:
-            v273 = v15;
-            v274 = __cxa_allocate_exception(0x10uLL);
-            MIL::IRDataTypeToString(v273, &v298);
-            v275 = std::string::insert(&v298, 0, "Constexpr-BlockwiseShiftScale: Unsupported dType (");
-            v276 = *&v275->__r_.__value_.__l.__data_;
-            v299.__r_.__value_.__r.__words[2] = v275->__r_.__value_.__r.__words[2];
-            *&v299.__r_.__value_.__l.__data_ = v276;
-            v275->__r_.__value_.__l.__size_ = 0;
-            v275->__r_.__value_.__r.__words[2] = 0;
-            v275->__r_.__value_.__r.__words[0] = 0;
-            v277 = std::string::append(&v299, ") for data.");
-            v278 = *&v277->__r_.__value_.__l.__data_;
-            v300.__r_.__value_.__r.__words[2] = v277->__r_.__value_.__r.__words[2];
-            *&v300.__r_.__value_.__l.__data_ = v278;
-            v277->__r_.__value_.__l.__size_ = 0;
-            v277->__r_.__value_.__r.__words[2] = 0;
-            v277->__r_.__value_.__r.__words[0] = 0;
-            std::runtime_error::runtime_error(v274, &v300);
-            __cxa_throw(v274, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+            v274 = v16;
+            v275 = __cxa_allocate_exception(0x10uLL);
+            MIL::IRDataTypeToString(v274, &v299);
+            v276 = std::string::insert(&v299, 0, "Constexpr-BlockwiseShiftScale: Unsupported dType (");
+            v277 = *&v276->__r_.__value_.__l.__data_;
+            v300.__r_.__value_.__r.__words[2] = v276->__r_.__value_.__r.__words[2];
+            *&v300.__r_.__value_.__l.__data_ = v277;
+            v276->__r_.__value_.__l.__size_ = 0;
+            v276->__r_.__value_.__r.__words[2] = 0;
+            v276->__r_.__value_.__r.__words[0] = 0;
+            v278 = std::string::append(&v300, ") for data.");
+            v279 = *&v278->__r_.__value_.__l.__data_;
+            v301.__r_.__value_.__r.__words[2] = v278->__r_.__value_.__r.__words[2];
+            *&v301.__r_.__value_.__l.__data_ = v279;
+            v278->__r_.__value_.__l.__size_ = 0;
+            v278->__r_.__value_.__r.__words[2] = 0;
+            v278->__r_.__value_.__r.__words[0] = 0;
+            std::runtime_error::runtime_error(v275, &v301);
+            __cxa_throw(v275, MEMORY[0x277D82760], MEMORY[0x277D82600]);
         }
       }
 
-      if (v300.__r_.__value_.__l.__size_)
+      if (v301.__r_.__value_.__l.__size_)
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v300.__r_.__value_.__l.__size_);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v301.__r_.__value_.__l.__size_);
       }
 
 LABEL_164:
       if (__p)
       {
-        v305 = __p;
+        v306 = __p;
         operator delete(__p);
       }
 
-      if (v302)
+      if (v303)
       {
-        v303 = v302;
-        operator delete(v302);
+        v304 = v303;
+        operator delete(v303);
       }
 
-      if (v301.__r_.__value_.__r.__words[0])
+      if (v302.__r_.__value_.__r.__words[0])
       {
-        v301.__r_.__value_.__l.__size_ = v301.__r_.__value_.__r.__words[0];
-        operator delete(v301.__r_.__value_.__l.__data_);
-      }
-
-      if (v306.__r_.__value_.__r.__words[0])
-      {
-        v306.__r_.__value_.__l.__size_ = v306.__r_.__value_.__r.__words[0];
-        operator delete(v306.__r_.__value_.__l.__data_);
+        v302.__r_.__value_.__l.__size_ = v302.__r_.__value_.__r.__words[0];
+        operator delete(v302.__r_.__value_.__l.__data_);
       }
 
       if (v307.__r_.__value_.__r.__words[0])
@@ -3135,317 +3585,317 @@ LABEL_164:
         operator delete(v307.__r_.__value_.__l.__data_);
       }
 
+      if (v308.__r_.__value_.__r.__words[0])
+      {
+        v308.__r_.__value_.__l.__size_ = v308.__r_.__value_.__r.__words[0];
+        operator delete(v308.__r_.__value_.__l.__data_);
+      }
+
       MIL::IRTensorValueType::MakeBFloat16Value();
     }
 
-    v20 = this[1];
-    v21 = this[2];
-    if (v21)
-    {
-      atomic_fetch_add_explicit(v21 + 1, 1uLL, memory_order_relaxed);
-    }
-
-    v23 = this[3];
-    v22 = this[4];
+    v21 = *(this + 1);
+    v22 = *(this + 2);
     if (v22)
     {
-      atomic_fetch_add_explicit(v22 + 1, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit((v22 + 8), 1uLL, memory_order_relaxed);
     }
 
-    v25 = this[5];
-    v24 = this[6];
-    if (v24)
+    v24 = *(this + 3);
+    v23 = *(this + 4);
+    if (v23)
     {
-      atomic_fetch_add_explicit((v24 + 8), 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit((v23 + 8), 1uLL, memory_order_relaxed);
     }
 
-    v26 = (*(*v20 + 32))(v20);
-    v27 = (*(*v26 + 96))(v26);
-    MIL::Operators::Common::Shared::ConstExprs::ShapeToVector(v27, &v307);
-    v28 = (*(*v23 + 32))(v23);
-    v29 = (*(*v28 + 96))(v28);
-    MIL::Operators::Common::Shared::ConstExprs::ShapeToVector(v29, &v306);
-    MIL::Operators::Common::Shared::ConstExprs::BlockwiseShiftScaleIndexConverter::BlockwiseShiftScaleIndexConverter(&v301, &v307, &v306);
-    v30 = (*(*v20 + 32))(v20);
-    v31 = (*(*v30 + 88))(v30);
-    if (!v25)
+    v26 = *(this + 5);
+    v25 = *(this + 6);
+    if (v25)
     {
-      if (v31 <= 12)
+      atomic_fetch_add_explicit((v25 + 8), 1uLL, memory_order_relaxed);
+    }
+
+    v27 = (*(*v21 + 32))(v21);
+    v28 = (*(*v27 + 96))(v27);
+    MIL::Operators::Common::Shared::ConstExprs::ShapeToVector(v28, &v308);
+    v29 = (*(*v24 + 32))(v24);
+    v30 = (*(*v29 + 96))(v29);
+    MIL::Operators::Common::Shared::ConstExprs::ShapeToVector(v30, &v307);
+    MIL::Operators::Common::Shared::ConstExprs::BlockwiseShiftScaleIndexConverter::BlockwiseShiftScaleIndexConverter(&v302, &v308.__r_.__value_.__l.__data_, &v307);
+    v31 = (*(*v21 + 32))(v21);
+    v32 = (*(*v31 + 88))(v31);
+    if (!v26)
+    {
+      if (v32 <= 12)
       {
-        if (v31 > 6)
+        if (v32 > 6)
         {
-          if (v31 == 7)
+          if (v32 == 7)
           {
-            v200 = MIL::IRTensorValue::GetDataView<MIL::Bf16>(v20);
-            v202 = v201;
-            v203 = MIL::IRTensorValue::GetDataView<float>(v23);
-            MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<float,MIL::Bf16>(v200, v202, v203, &v301, &v297);
+            v201 = MIL::IRTensorValue::GetDataView<MIL::Bf16>(v21);
+            v203 = v202;
+            v204 = MIL::IRTensorValue::GetDataView<float>(v24);
+            MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<float,MIL::Bf16>(v201, v203, v204, &v302.__r_.__value_.__l.__data_, &v298);
             goto LABEL_135;
           }
 
-          if (v31 == 9)
+          if (v32 == 9)
           {
-            v112 = MIL::IRTensorValue::GetDataView<signed char>(v20);
-            v114 = v113;
-            v115 = MIL::IRTensorValue::GetDataView<float>(v23);
-            MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<float,signed char>(v112, v114, v115, &v301, &v297);
+            v113 = MIL::IRTensorValue::GetDataView<signed char>(v21);
+            v115 = v114;
+            v116 = MIL::IRTensorValue::GetDataView<float>(v24);
+            MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<float,signed char>(v113, v115, v116, &v302.__r_.__value_.__l.__data_, &v298);
             goto LABEL_135;
           }
         }
 
         else
         {
-          if (v31 == 4)
+          if (v32 == 4)
           {
-            v196 = MIL::IRTensorValue::GetDataView<MIL::Fp16>(v20);
-            v198 = v197;
-            v199 = MIL::IRTensorValue::GetDataView<float>(v23);
-            MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<float,MIL::Fp16>(v196, v198, v199, &v301, &v297);
+            v197 = MIL::IRTensorValue::GetDataView<MIL::Fp16>(v21);
+            v199 = v198;
+            v200 = MIL::IRTensorValue::GetDataView<float>(v24);
+            MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<float,MIL::Fp16>(v197, v199, v200, &v302.__r_.__value_.__l.__data_, &v298);
             goto LABEL_135;
           }
 
-          if (v31 == 5)
+          if (v32 == 5)
           {
-            v76 = MIL::IRTensorValue::GetDataView<float>(v20);
-            v78 = v77;
-            v79 = MIL::IRTensorValue::GetDataView<float>(v23);
-            MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<float,float>(v76, v78, v79, &v301, &v297);
+            v77 = MIL::IRTensorValue::GetDataView<float>(v21);
+            v79 = v78;
+            v80 = MIL::IRTensorValue::GetDataView<float>(v24);
+            MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<float,float>(v77, v79, v80, &v302.__r_.__value_.__l.__data_, &v298);
             goto LABEL_135;
           }
         }
       }
 
-      else if (v31 <= 19)
+      else if (v32 <= 19)
       {
-        if (v31 == 13)
+        if (v32 == 13)
         {
-          v220 = MIL::IRTensorValue::GetDataView<MIL::Int4>(v20);
-          v222 = v221;
-          v223 = MIL::IRTensorValue::GetDataView<float>(v23);
-          MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<float,MIL::Int4>(v220, v222, v223, &v301, &v297);
+          v221 = MIL::IRTensorValue::GetDataView<MIL::Int4>(v21);
+          v223 = v222;
+          v224 = MIL::IRTensorValue::GetDataView<float>(v24);
+          MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<float,MIL::Int4>(v221, v223, v224, &v302.__r_.__value_.__l.__data_, &v298);
           goto LABEL_135;
         }
 
-        if (v31 == 14)
+        if (v32 == 14)
         {
-          v124 = MIL::IRTensorValue::GetDataView<unsigned char>(v20);
-          v126 = v125;
-          v127 = MIL::IRTensorValue::GetDataView<float>(v23);
-          MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<float,unsigned char>(v124, v126, v127, &v301, &v297);
+          v125 = MIL::IRTensorValue::GetDataView<unsigned char>(v21);
+          v127 = v126;
+          v128 = MIL::IRTensorValue::GetDataView<float>(v24);
+          MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<float,unsigned char>(v125, v127, v128, &v302.__r_.__value_.__l.__data_, &v298);
           goto LABEL_135;
         }
       }
 
       else
       {
-        switch(v31)
+        switch(v32)
         {
           case 25:
-            v228 = MIL::IRTensorValue::GetDataView<MIL::Fp8E5M2>(v20);
-            v230 = v229;
-            v231 = MIL::IRTensorValue::GetDataView<float>(v23);
-            MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<float,MIL::Fp8E5M2>(v228, v230, v231, &v301, &v297);
+            v229 = MIL::IRTensorValue::GetDataView<MIL::Fp8E5M2>(v21);
+            v231 = v230;
+            v232 = MIL::IRTensorValue::GetDataView<float>(v24);
+            MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<float,MIL::Fp8E5M2>(v229, v231, v232, &v302.__r_.__value_.__l.__data_, &v298);
             goto LABEL_135;
           case 24:
-            v240 = MIL::IRTensorValue::GetDataView<MIL::Fp8E4M3FN>(v20);
-            v242 = v241;
-            v243 = MIL::IRTensorValue::GetDataView<float>(v23);
-            MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<float,MIL::Fp8E4M3FN>(v240, v242, v243, &v301, &v297);
+            v241 = MIL::IRTensorValue::GetDataView<MIL::Fp8E4M3FN>(v21);
+            v243 = v242;
+            v244 = MIL::IRTensorValue::GetDataView<float>(v24);
+            MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<float,MIL::Fp8E4M3FN>(v241, v243, v244, &v302.__r_.__value_.__l.__data_, &v298);
             goto LABEL_135;
           case 20:
-            v52 = MIL::IRTensorValue::GetDataView<MIL::UInt4>(v20);
-            v54 = v53;
-            v55 = MIL::IRTensorValue::GetDataView<float>(v23);
-            MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<float,MIL::UInt4>(v52, v54, v55, &v301, &v297);
+            v53 = MIL::IRTensorValue::GetDataView<MIL::UInt4>(v21);
+            v55 = v54;
+            v56 = MIL::IRTensorValue::GetDataView<float>(v24);
+            MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<float,MIL::UInt4>(v53, v55, v56, &v302.__r_.__value_.__l.__data_, &v298);
             goto LABEL_135;
         }
       }
 
-      v279 = v31;
-      v280 = __cxa_allocate_exception(0x10uLL);
-      MIL::IRDataTypeToString(v279, &v298);
-      v281 = std::string::insert(&v298, 0, "Constexpr-BlockwiseShiftScale: Unsupported dType (");
-      v282 = *&v281->__r_.__value_.__l.__data_;
-      v299.__r_.__value_.__r.__words[2] = v281->__r_.__value_.__r.__words[2];
-      *&v299.__r_.__value_.__l.__data_ = v282;
-      v281->__r_.__value_.__l.__size_ = 0;
-      v281->__r_.__value_.__r.__words[2] = 0;
-      v281->__r_.__value_.__r.__words[0] = 0;
-      v283 = std::string::append(&v299, ") for data.");
-      v284 = *&v283->__r_.__value_.__l.__data_;
-      v300.__r_.__value_.__r.__words[2] = v283->__r_.__value_.__r.__words[2];
-      *&v300.__r_.__value_.__l.__data_ = v284;
-      v283->__r_.__value_.__l.__size_ = 0;
-      v283->__r_.__value_.__r.__words[2] = 0;
-      v283->__r_.__value_.__r.__words[0] = 0;
-      std::runtime_error::runtime_error(v280, &v300);
-      __cxa_throw(v280, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+      v280 = v32;
+      v281 = __cxa_allocate_exception(0x10uLL);
+      MIL::IRDataTypeToString(v280, &v299);
+      v282 = std::string::insert(&v299, 0, "Constexpr-BlockwiseShiftScale: Unsupported dType (");
+      v283 = *&v282->__r_.__value_.__l.__data_;
+      v300.__r_.__value_.__r.__words[2] = v282->__r_.__value_.__r.__words[2];
+      *&v300.__r_.__value_.__l.__data_ = v283;
+      v282->__r_.__value_.__l.__size_ = 0;
+      v282->__r_.__value_.__r.__words[2] = 0;
+      v282->__r_.__value_.__r.__words[0] = 0;
+      v284 = std::string::append(&v300, ") for data.");
+      v285 = *&v284->__r_.__value_.__l.__data_;
+      v301.__r_.__value_.__r.__words[2] = v284->__r_.__value_.__r.__words[2];
+      *&v301.__r_.__value_.__l.__data_ = v285;
+      v284->__r_.__value_.__l.__size_ = 0;
+      v284->__r_.__value_.__r.__words[2] = 0;
+      v284->__r_.__value_.__r.__words[0] = 0;
+      std::runtime_error::runtime_error(v281, &v301);
+      __cxa_throw(v281, MEMORY[0x277D82760], MEMORY[0x277D82600]);
     }
 
-    if (v31 <= 12)
+    if (v32 <= 12)
     {
-      if (v31 > 6)
+      if (v32 > 6)
       {
-        if (v31 == 7)
+        if (v32 == 7)
         {
-          v140 = MIL::IRTensorValue::GetDataView<MIL::Bf16>(v20);
-          v142 = v141;
-          v143 = MIL::IRTensorValue::GetDataView<float>(v23);
-          v300.__r_.__value_.__r.__words[0] = v25;
-          v300.__r_.__value_.__l.__size_ = v24;
-          MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<float,MIL::Bf16>(v140, v142, v143, &v300, &v301, &v297);
+          v141 = MIL::IRTensorValue::GetDataView<MIL::Bf16>(v21);
+          v143 = v142;
+          v144 = MIL::IRTensorValue::GetDataView<float>(v24);
+          v301.__r_.__value_.__r.__words[0] = v26;
+          v301.__r_.__value_.__l.__size_ = v25;
+          MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<float,MIL::Bf16>(v141, v143, v144, &v301.__r_.__value_.__l.__data_, &v302.__r_.__value_.__l.__data_, &v298);
         }
 
         else
         {
-          if (v31 != 9)
+          if (v32 != 9)
           {
             goto LABEL_191;
           }
 
-          v88 = MIL::IRTensorValue::GetDataView<signed char>(v20);
-          v90 = v89;
-          v91 = MIL::IRTensorValue::GetDataView<float>(v23);
-          v300.__r_.__value_.__r.__words[0] = v25;
-          v300.__r_.__value_.__l.__size_ = v24;
-          MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<float,signed char>(v88, v90, v91, &v300, &v301, &v297);
+          v89 = MIL::IRTensorValue::GetDataView<signed char>(v21);
+          v91 = v90;
+          v92 = MIL::IRTensorValue::GetDataView<float>(v24);
+          v301.__r_.__value_.__r.__words[0] = v26;
+          v301.__r_.__value_.__l.__size_ = v25;
+          MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<float,signed char>(v89, v91, v92, &v301.__r_.__value_.__l.__data_, &v302.__r_.__value_.__l.__data_, &v298);
         }
       }
 
-      else if (v31 == 4)
+      else if (v32 == 4)
       {
-        v136 = MIL::IRTensorValue::GetDataView<MIL::Fp16>(v20);
-        v138 = v137;
-        v139 = MIL::IRTensorValue::GetDataView<float>(v23);
-        v300.__r_.__value_.__r.__words[0] = v25;
-        v300.__r_.__value_.__l.__size_ = v24;
-        MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<float,MIL::Fp16>(v136, v138, v139, &v300, &v301, &v297);
+        v137 = MIL::IRTensorValue::GetDataView<MIL::Fp16>(v21);
+        v139 = v138;
+        v140 = MIL::IRTensorValue::GetDataView<float>(v24);
+        v301.__r_.__value_.__r.__words[0] = v26;
+        v301.__r_.__value_.__l.__size_ = v25;
+        MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<float,MIL::Fp16>(v137, v139, v140, &v301.__r_.__value_.__l.__data_, &v302.__r_.__value_.__l.__data_, &v298);
       }
 
       else
       {
-        if (v31 != 5)
+        if (v32 != 5)
         {
           goto LABEL_191;
         }
 
-        v64 = MIL::IRTensorValue::GetDataView<float>(v20);
-        v66 = v65;
-        v67 = MIL::IRTensorValue::GetDataView<float>(v23);
-        v300.__r_.__value_.__r.__words[0] = v25;
-        v300.__r_.__value_.__l.__size_ = v24;
-        MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<float,float>(v64, v66, v67, &v300, &v301, &v297);
+        v65 = MIL::IRTensorValue::GetDataView<float>(v21);
+        v67 = v66;
+        v68 = MIL::IRTensorValue::GetDataView<float>(v24);
+        v301.__r_.__value_.__r.__words[0] = v26;
+        v301.__r_.__value_.__l.__size_ = v25;
+        MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<float,float>(v65, v67, v68, &v301.__r_.__value_.__l.__data_, &v302.__r_.__value_.__l.__data_, &v298);
       }
     }
 
-    else if (v31 <= 19)
+    else if (v32 <= 19)
     {
-      if (v31 == 13)
+      if (v32 == 13)
       {
-        v160 = MIL::IRTensorValue::GetDataView<MIL::Int4>(v20);
-        v162 = v161;
-        v163 = MIL::IRTensorValue::GetDataView<float>(v23);
-        v300.__r_.__value_.__r.__words[0] = v25;
-        v300.__r_.__value_.__l.__size_ = v24;
-        MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<float,MIL::Int4>(v160, v162, v163, &v300, &v301, &v297);
+        v161 = MIL::IRTensorValue::GetDataView<MIL::Int4>(v21);
+        v163 = v162;
+        v164 = MIL::IRTensorValue::GetDataView<float>(v24);
+        v301.__r_.__value_.__r.__words[0] = v26;
+        v301.__r_.__value_.__l.__size_ = v25;
+        MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<float,MIL::Int4>(v161, v163, v164, &v301.__r_.__value_.__l.__data_, &v302.__r_.__value_.__l.__data_, &v298);
       }
 
       else
       {
-        if (v31 != 14)
+        if (v32 != 14)
         {
           goto LABEL_191;
         }
 
-        v100 = MIL::IRTensorValue::GetDataView<unsigned char>(v20);
-        v102 = v101;
-        v103 = MIL::IRTensorValue::GetDataView<float>(v23);
-        v300.__r_.__value_.__r.__words[0] = v25;
-        v300.__r_.__value_.__l.__size_ = v24;
-        MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<float,unsigned char>(v100, v102, v103, &v300, &v301, &v297);
+        v101 = MIL::IRTensorValue::GetDataView<unsigned char>(v21);
+        v103 = v102;
+        v104 = MIL::IRTensorValue::GetDataView<float>(v24);
+        v301.__r_.__value_.__r.__words[0] = v26;
+        v301.__r_.__value_.__l.__size_ = v25;
+        MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<float,unsigned char>(v101, v103, v104, &v301.__r_.__value_.__l.__data_, &v302.__r_.__value_.__l.__data_, &v298);
       }
     }
 
     else
     {
-      switch(v31)
+      switch(v32)
       {
         case 20:
-          v168 = MIL::IRTensorValue::GetDataView<MIL::UInt4>(v20);
-          v170 = v169;
-          v171 = MIL::IRTensorValue::GetDataView<float>(v23);
-          v300.__r_.__value_.__r.__words[0] = v25;
-          v300.__r_.__value_.__l.__size_ = v24;
-          MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<float,MIL::UInt4>(v168, v170, v171, &v300, &v301, &v297);
+          v169 = MIL::IRTensorValue::GetDataView<MIL::UInt4>(v21);
+          v171 = v170;
+          v172 = MIL::IRTensorValue::GetDataView<float>(v24);
+          v301.__r_.__value_.__r.__words[0] = v26;
+          v301.__r_.__value_.__l.__size_ = v25;
+          MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<float,MIL::UInt4>(v169, v171, v172, &v301.__r_.__value_.__l.__data_, &v302.__r_.__value_.__l.__data_, &v298);
           break;
         case 24:
-          v180 = MIL::IRTensorValue::GetDataView<MIL::Fp8E4M3FN>(v20);
-          v182 = v181;
-          v183 = MIL::IRTensorValue::GetDataView<float>(v23);
-          v300.__r_.__value_.__r.__words[0] = v25;
-          v300.__r_.__value_.__l.__size_ = v24;
-          MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<float,MIL::Fp8E4M3FN>(v180, v182, v183, &v300, &v301, &v297);
+          v181 = MIL::IRTensorValue::GetDataView<MIL::Fp8E4M3FN>(v21);
+          v183 = v182;
+          v184 = MIL::IRTensorValue::GetDataView<float>(v24);
+          v301.__r_.__value_.__r.__words[0] = v26;
+          v301.__r_.__value_.__l.__size_ = v25;
+          MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<float,MIL::Fp8E4M3FN>(v181, v183, v184, &v301.__r_.__value_.__l.__data_, &v302.__r_.__value_.__l.__data_, &v298);
           break;
         case 25:
-          v32 = MIL::IRTensorValue::GetDataView<MIL::Fp8E5M2>(v20);
-          v34 = v33;
-          v35 = MIL::IRTensorValue::GetDataView<float>(v23);
-          v300.__r_.__value_.__r.__words[0] = v25;
-          v300.__r_.__value_.__l.__size_ = v24;
-          MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<float,MIL::Fp8E5M2>(v32, v34, v35, &v300, &v301, &v297);
+          v33 = MIL::IRTensorValue::GetDataView<MIL::Fp8E5M2>(v21);
+          v35 = v34;
+          v36 = MIL::IRTensorValue::GetDataView<float>(v24);
+          v301.__r_.__value_.__r.__words[0] = v26;
+          v301.__r_.__value_.__l.__size_ = v25;
+          MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<float,MIL::Fp8E5M2>(v33, v35, v36, &v301.__r_.__value_.__l.__data_, &v302.__r_.__value_.__l.__data_, &v298);
           break;
         default:
 LABEL_191:
-          v261 = v31;
-          v262 = __cxa_allocate_exception(0x10uLL);
-          MIL::IRDataTypeToString(v261, &v298);
-          v263 = std::string::insert(&v298, 0, "Constexpr-BlockwiseShiftScale: Unsupported dType (");
-          v264 = *&v263->__r_.__value_.__l.__data_;
-          v299.__r_.__value_.__r.__words[2] = v263->__r_.__value_.__r.__words[2];
-          *&v299.__r_.__value_.__l.__data_ = v264;
-          v263->__r_.__value_.__l.__size_ = 0;
-          v263->__r_.__value_.__r.__words[2] = 0;
-          v263->__r_.__value_.__r.__words[0] = 0;
-          v265 = std::string::append(&v299, ") for data.");
-          v266 = *&v265->__r_.__value_.__l.__data_;
-          v300.__r_.__value_.__r.__words[2] = v265->__r_.__value_.__r.__words[2];
-          *&v300.__r_.__value_.__l.__data_ = v266;
-          v265->__r_.__value_.__l.__size_ = 0;
-          v265->__r_.__value_.__r.__words[2] = 0;
-          v265->__r_.__value_.__r.__words[0] = 0;
-          std::runtime_error::runtime_error(v262, &v300);
-          __cxa_throw(v262, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+          v262 = v32;
+          v263 = __cxa_allocate_exception(0x10uLL);
+          MIL::IRDataTypeToString(v262, &v299);
+          v264 = std::string::insert(&v299, 0, "Constexpr-BlockwiseShiftScale: Unsupported dType (");
+          v265 = *&v264->__r_.__value_.__l.__data_;
+          v300.__r_.__value_.__r.__words[2] = v264->__r_.__value_.__r.__words[2];
+          *&v300.__r_.__value_.__l.__data_ = v265;
+          v264->__r_.__value_.__l.__size_ = 0;
+          v264->__r_.__value_.__r.__words[2] = 0;
+          v264->__r_.__value_.__r.__words[0] = 0;
+          v266 = std::string::append(&v300, ") for data.");
+          v267 = *&v266->__r_.__value_.__l.__data_;
+          v301.__r_.__value_.__r.__words[2] = v266->__r_.__value_.__r.__words[2];
+          *&v301.__r_.__value_.__l.__data_ = v267;
+          v266->__r_.__value_.__l.__size_ = 0;
+          v266->__r_.__value_.__r.__words[2] = 0;
+          v266->__r_.__value_.__r.__words[0] = 0;
+          std::runtime_error::runtime_error(v263, &v301);
+          __cxa_throw(v263, MEMORY[0x277D82760], MEMORY[0x277D82600]);
       }
     }
 
-    if (v300.__r_.__value_.__l.__size_)
+    if (v301.__r_.__value_.__l.__size_)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v300.__r_.__value_.__l.__size_);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v301.__r_.__value_.__l.__size_);
     }
 
 LABEL_135:
     if (__p)
     {
-      v305 = __p;
+      v306 = __p;
       operator delete(__p);
     }
 
-    if (v302)
+    if (v303)
     {
-      v303 = v302;
-      operator delete(v302);
+      v304 = v303;
+      operator delete(v303);
     }
 
-    if (v301.__r_.__value_.__r.__words[0])
+    if (v302.__r_.__value_.__r.__words[0])
     {
-      v301.__r_.__value_.__l.__size_ = v301.__r_.__value_.__r.__words[0];
-      operator delete(v301.__r_.__value_.__l.__data_);
-    }
-
-    if (v306.__r_.__value_.__r.__words[0])
-    {
-      v306.__r_.__value_.__l.__size_ = v306.__r_.__value_.__r.__words[0];
-      operator delete(v306.__r_.__value_.__l.__data_);
+      v302.__r_.__value_.__l.__size_ = v302.__r_.__value_.__r.__words[0];
+      operator delete(v302.__r_.__value_.__l.__data_);
     }
 
     if (v307.__r_.__value_.__r.__words[0])
@@ -3454,323 +3904,329 @@ LABEL_135:
       operator delete(v307.__r_.__value_.__l.__data_);
     }
 
+    if (v308.__r_.__value_.__r.__words[0])
+    {
+      v308.__r_.__value_.__l.__size_ = v308.__r_.__value_.__r.__words[0];
+      operator delete(v308.__r_.__value_.__l.__data_);
+    }
+
     MIL::IRTensorValueType::MakeFloat32Value();
   }
 
-  v36 = this[1];
-  v37 = this[2];
-  if (v37)
-  {
-    atomic_fetch_add_explicit(v37 + 1, 1uLL, memory_order_relaxed);
-  }
-
-  v39 = this[3];
-  v38 = this[4];
+  v37 = *(this + 1);
+  v38 = *(this + 2);
   if (v38)
   {
-    atomic_fetch_add_explicit(v38 + 1, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v38 + 8), 1uLL, memory_order_relaxed);
   }
 
-  v41 = this[5];
-  v40 = this[6];
-  if (v40)
+  v40 = *(this + 3);
+  v39 = *(this + 4);
+  if (v39)
   {
-    atomic_fetch_add_explicit((v40 + 8), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v39 + 8), 1uLL, memory_order_relaxed);
   }
 
-  v42 = (*(*v36 + 32))(v36);
-  v43 = (*(*v42 + 96))(v42);
-  MIL::Operators::Common::Shared::ConstExprs::ShapeToVector(v43, &v307);
-  v44 = (*(*v39 + 32))(v39);
-  v45 = (*(*v44 + 96))(v44);
-  MIL::Operators::Common::Shared::ConstExprs::ShapeToVector(v45, &v306);
-  MIL::Operators::Common::Shared::ConstExprs::BlockwiseShiftScaleIndexConverter::BlockwiseShiftScaleIndexConverter(&v301, &v307, &v306);
-  v46 = (*(*v36 + 32))(v36);
-  v47 = (*(*v46 + 88))(v46);
-  if (!v41)
+  v42 = *(this + 5);
+  v41 = *(this + 6);
+  if (v41)
   {
-    if (v47 <= 12)
+    atomic_fetch_add_explicit((v41 + 8), 1uLL, memory_order_relaxed);
+  }
+
+  v43 = (*(*v37 + 32))(v37);
+  v44 = (*(*v43 + 96))(v43);
+  MIL::Operators::Common::Shared::ConstExprs::ShapeToVector(v44, &v308);
+  v45 = (*(*v40 + 32))(v40);
+  v46 = (*(*v45 + 96))(v45);
+  MIL::Operators::Common::Shared::ConstExprs::ShapeToVector(v46, &v307);
+  MIL::Operators::Common::Shared::ConstExprs::BlockwiseShiftScaleIndexConverter::BlockwiseShiftScaleIndexConverter(&v302, &v308.__r_.__value_.__l.__data_, &v307);
+  v47 = (*(*v37 + 32))(v37);
+  v48 = (*(*v47 + 88))(v47);
+  if (!v42)
+  {
+    if (v48 <= 12)
     {
-      if (v47 > 6)
+      if (v48 > 6)
       {
-        if (v47 == 7)
+        if (v48 == 7)
         {
-          v208 = MIL::IRTensorValue::GetDataView<MIL::Bf16>(v36);
-          v210 = v209;
-          v211 = MIL::IRTensorValue::GetDataView<MIL::Fp16>(v39);
-          MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Fp16,MIL::Bf16>(v208, v210, v211, &v301, &v297);
+          v209 = MIL::IRTensorValue::GetDataView<MIL::Bf16>(v37);
+          v211 = v210;
+          v212 = MIL::IRTensorValue::GetDataView<MIL::Fp16>(v40);
+          MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Fp16,MIL::Bf16>(v209, v211, v212, &v302.__r_.__value_.__l.__data_, &v298);
           goto LABEL_150;
         }
 
-        if (v47 == 9)
+        if (v48 == 9)
         {
-          v116 = MIL::IRTensorValue::GetDataView<signed char>(v36);
-          v118 = v117;
-          v119 = MIL::IRTensorValue::GetDataView<MIL::Fp16>(v39);
-          MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Fp16,signed char>(v116, v118, v119, &v301, &v297);
+          v117 = MIL::IRTensorValue::GetDataView<signed char>(v37);
+          v119 = v118;
+          v120 = MIL::IRTensorValue::GetDataView<MIL::Fp16>(v40);
+          MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Fp16,signed char>(v117, v119, v120, &v302.__r_.__value_.__l.__data_, &v298);
           goto LABEL_150;
         }
       }
 
       else
       {
-        if (v47 == 4)
+        if (v48 == 4)
         {
-          v204 = MIL::IRTensorValue::GetDataView<MIL::Fp16>(v36);
-          v206 = v205;
-          v207 = MIL::IRTensorValue::GetDataView<MIL::Fp16>(v39);
-          MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Fp16,MIL::Fp16>(v204, v206, v207, &v301, &v297);
+          v205 = MIL::IRTensorValue::GetDataView<MIL::Fp16>(v37);
+          v207 = v206;
+          v208 = MIL::IRTensorValue::GetDataView<MIL::Fp16>(v40);
+          MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Fp16,MIL::Fp16>(v205, v207, v208, &v302.__r_.__value_.__l.__data_, &v298);
           goto LABEL_150;
         }
 
-        if (v47 == 5)
+        if (v48 == 5)
         {
-          v80 = MIL::IRTensorValue::GetDataView<float>(v36);
-          v82 = v81;
-          v83 = MIL::IRTensorValue::GetDataView<MIL::Fp16>(v39);
-          MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Fp16,float>(v80, v82, v83, &v301, &v297);
+          v81 = MIL::IRTensorValue::GetDataView<float>(v37);
+          v83 = v82;
+          v84 = MIL::IRTensorValue::GetDataView<MIL::Fp16>(v40);
+          MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Fp16,float>(v81, v83, v84, &v302.__r_.__value_.__l.__data_, &v298);
           goto LABEL_150;
         }
       }
     }
 
-    else if (v47 <= 19)
+    else if (v48 <= 19)
     {
-      if (v47 == 13)
+      if (v48 == 13)
       {
-        v224 = MIL::IRTensorValue::GetDataView<MIL::Int4>(v36);
-        v226 = v225;
-        v227 = MIL::IRTensorValue::GetDataView<MIL::Fp16>(v39);
-        MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Fp16,MIL::Int4>(v224, v226, v227, &v301, &v297);
+        v225 = MIL::IRTensorValue::GetDataView<MIL::Int4>(v37);
+        v227 = v226;
+        v228 = MIL::IRTensorValue::GetDataView<MIL::Fp16>(v40);
+        MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Fp16,MIL::Int4>(v225, v227, v228, &v302.__r_.__value_.__l.__data_, &v298);
         goto LABEL_150;
       }
 
-      if (v47 == 14)
+      if (v48 == 14)
       {
-        v128 = MIL::IRTensorValue::GetDataView<unsigned char>(v36);
-        v130 = v129;
-        v131 = MIL::IRTensorValue::GetDataView<MIL::Fp16>(v39);
-        MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Fp16,unsigned char>(v128, v130, v131, &v301, &v297);
+        v129 = MIL::IRTensorValue::GetDataView<unsigned char>(v37);
+        v131 = v130;
+        v132 = MIL::IRTensorValue::GetDataView<MIL::Fp16>(v40);
+        MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Fp16,unsigned char>(v129, v131, v132, &v302.__r_.__value_.__l.__data_, &v298);
         goto LABEL_150;
       }
     }
 
     else
     {
-      switch(v47)
+      switch(v48)
       {
         case 25:
-          v236 = MIL::IRTensorValue::GetDataView<MIL::Fp8E5M2>(v36);
-          v238 = v237;
-          v239 = MIL::IRTensorValue::GetDataView<MIL::Fp16>(v39);
-          MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Fp16,MIL::Fp8E5M2>(v236, v238, v239, &v301, &v297);
+          v237 = MIL::IRTensorValue::GetDataView<MIL::Fp8E5M2>(v37);
+          v239 = v238;
+          v240 = MIL::IRTensorValue::GetDataView<MIL::Fp16>(v40);
+          MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Fp16,MIL::Fp8E5M2>(v237, v239, v240, &v302.__r_.__value_.__l.__data_, &v298);
           goto LABEL_150;
         case 24:
-          v248 = MIL::IRTensorValue::GetDataView<MIL::Fp8E4M3FN>(v36);
-          v250 = v249;
-          v251 = MIL::IRTensorValue::GetDataView<MIL::Fp16>(v39);
-          MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Fp16,MIL::Fp8E4M3FN>(v248, v250, v251, &v301, &v297);
+          v249 = MIL::IRTensorValue::GetDataView<MIL::Fp8E4M3FN>(v37);
+          v251 = v250;
+          v252 = MIL::IRTensorValue::GetDataView<MIL::Fp16>(v40);
+          MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Fp16,MIL::Fp8E4M3FN>(v249, v251, v252, &v302.__r_.__value_.__l.__data_, &v298);
           goto LABEL_150;
         case 20:
-          v56 = MIL::IRTensorValue::GetDataView<MIL::UInt4>(v36);
-          v58 = v57;
-          v59 = MIL::IRTensorValue::GetDataView<MIL::Fp16>(v39);
-          MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Fp16,MIL::UInt4>(v56, v58, v59, &v301, &v297);
+          v57 = MIL::IRTensorValue::GetDataView<MIL::UInt4>(v37);
+          v59 = v58;
+          v60 = MIL::IRTensorValue::GetDataView<MIL::Fp16>(v40);
+          MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Fp16,MIL::UInt4>(v57, v59, v60, &v302.__r_.__value_.__l.__data_, &v298);
           goto LABEL_150;
       }
     }
 
-    v285 = v47;
-    v286 = __cxa_allocate_exception(0x10uLL);
-    MIL::IRDataTypeToString(v285, &v298);
-    v287 = std::string::insert(&v298, 0, "Constexpr-BlockwiseShiftScale: Unsupported dType (");
-    v288 = *&v287->__r_.__value_.__l.__data_;
-    v299.__r_.__value_.__r.__words[2] = v287->__r_.__value_.__r.__words[2];
-    *&v299.__r_.__value_.__l.__data_ = v288;
-    v287->__r_.__value_.__l.__size_ = 0;
-    v287->__r_.__value_.__r.__words[2] = 0;
-    v287->__r_.__value_.__r.__words[0] = 0;
-    v289 = std::string::append(&v299, ") for data.");
-    v290 = *&v289->__r_.__value_.__l.__data_;
-    v300.__r_.__value_.__r.__words[2] = v289->__r_.__value_.__r.__words[2];
-    *&v300.__r_.__value_.__l.__data_ = v290;
-    v289->__r_.__value_.__l.__size_ = 0;
-    v289->__r_.__value_.__r.__words[2] = 0;
-    v289->__r_.__value_.__r.__words[0] = 0;
-    std::runtime_error::runtime_error(v286, &v300);
-    __cxa_throw(v286, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+    v286 = v48;
+    v287 = __cxa_allocate_exception(0x10uLL);
+    MIL::IRDataTypeToString(v286, &v299);
+    v288 = std::string::insert(&v299, 0, "Constexpr-BlockwiseShiftScale: Unsupported dType (");
+    v289 = *&v288->__r_.__value_.__l.__data_;
+    v300.__r_.__value_.__r.__words[2] = v288->__r_.__value_.__r.__words[2];
+    *&v300.__r_.__value_.__l.__data_ = v289;
+    v288->__r_.__value_.__l.__size_ = 0;
+    v288->__r_.__value_.__r.__words[2] = 0;
+    v288->__r_.__value_.__r.__words[0] = 0;
+    v290 = std::string::append(&v300, ") for data.");
+    v291 = *&v290->__r_.__value_.__l.__data_;
+    v301.__r_.__value_.__r.__words[2] = v290->__r_.__value_.__r.__words[2];
+    *&v301.__r_.__value_.__l.__data_ = v291;
+    v290->__r_.__value_.__l.__size_ = 0;
+    v290->__r_.__value_.__r.__words[2] = 0;
+    v290->__r_.__value_.__r.__words[0] = 0;
+    std::runtime_error::runtime_error(v287, &v301);
+    __cxa_throw(v287, MEMORY[0x277D82760], MEMORY[0x277D82600]);
   }
 
-  if (v47 <= 12)
+  if (v48 <= 12)
   {
-    if (v47 > 6)
+    if (v48 > 6)
     {
-      if (v47 == 7)
+      if (v48 == 7)
       {
-        v148 = MIL::IRTensorValue::GetDataView<MIL::Bf16>(v36);
-        v150 = v149;
-        v151 = MIL::IRTensorValue::GetDataView<MIL::Fp16>(v39);
-        v300.__r_.__value_.__r.__words[0] = v41;
-        v300.__r_.__value_.__l.__size_ = v40;
-        MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Fp16,MIL::Bf16>(v148, v150, v151, &v300, &v301, &v297);
+        v149 = MIL::IRTensorValue::GetDataView<MIL::Bf16>(v37);
+        v151 = v150;
+        v152 = MIL::IRTensorValue::GetDataView<MIL::Fp16>(v40);
+        v301.__r_.__value_.__r.__words[0] = v42;
+        v301.__r_.__value_.__l.__size_ = v41;
+        MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Fp16,MIL::Bf16>(v149, v151, v152, &v301.__r_.__value_.__l.__data_, &v302.__r_.__value_.__l.__data_, &v298);
       }
 
       else
       {
-        if (v47 != 9)
+        if (v48 != 9)
         {
           goto LABEL_192;
         }
 
-        v92 = MIL::IRTensorValue::GetDataView<signed char>(v36);
-        v94 = v93;
-        v95 = MIL::IRTensorValue::GetDataView<MIL::Fp16>(v39);
-        v300.__r_.__value_.__r.__words[0] = v41;
-        v300.__r_.__value_.__l.__size_ = v40;
-        MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Fp16,signed char>(v92, v94, v95, &v300, &v301, &v297);
+        v93 = MIL::IRTensorValue::GetDataView<signed char>(v37);
+        v95 = v94;
+        v96 = MIL::IRTensorValue::GetDataView<MIL::Fp16>(v40);
+        v301.__r_.__value_.__r.__words[0] = v42;
+        v301.__r_.__value_.__l.__size_ = v41;
+        MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Fp16,signed char>(v93, v95, v96, &v301.__r_.__value_.__l.__data_, &v302.__r_.__value_.__l.__data_, &v298);
       }
     }
 
-    else if (v47 == 4)
+    else if (v48 == 4)
     {
-      v144 = MIL::IRTensorValue::GetDataView<MIL::Fp16>(v36);
-      v146 = v145;
-      v147 = MIL::IRTensorValue::GetDataView<MIL::Fp16>(v39);
-      v300.__r_.__value_.__r.__words[0] = v41;
-      v300.__r_.__value_.__l.__size_ = v40;
-      MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Fp16,MIL::Fp16>(v144, v146, v147, &v300, &v301, &v297);
+      v145 = MIL::IRTensorValue::GetDataView<MIL::Fp16>(v37);
+      v147 = v146;
+      v148 = MIL::IRTensorValue::GetDataView<MIL::Fp16>(v40);
+      v301.__r_.__value_.__r.__words[0] = v42;
+      v301.__r_.__value_.__l.__size_ = v41;
+      MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Fp16,MIL::Fp16>(v145, v147, v148, &v301.__r_.__value_.__l.__data_, &v302.__r_.__value_.__l.__data_, &v298);
     }
 
     else
     {
-      if (v47 != 5)
+      if (v48 != 5)
       {
         goto LABEL_192;
       }
 
-      v68 = MIL::IRTensorValue::GetDataView<float>(v36);
-      v70 = v69;
-      v71 = MIL::IRTensorValue::GetDataView<MIL::Fp16>(v39);
-      v300.__r_.__value_.__r.__words[0] = v41;
-      v300.__r_.__value_.__l.__size_ = v40;
-      MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Fp16,float>(v68, v70, v71, &v300, &v301, &v297);
+      v69 = MIL::IRTensorValue::GetDataView<float>(v37);
+      v71 = v70;
+      v72 = MIL::IRTensorValue::GetDataView<MIL::Fp16>(v40);
+      v301.__r_.__value_.__r.__words[0] = v42;
+      v301.__r_.__value_.__l.__size_ = v41;
+      MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Fp16,float>(v69, v71, v72, &v301.__r_.__value_.__l.__data_, &v302.__r_.__value_.__l.__data_, &v298);
     }
   }
 
-  else if (v47 <= 19)
+  else if (v48 <= 19)
   {
-    if (v47 == 13)
+    if (v48 == 13)
     {
-      v164 = MIL::IRTensorValue::GetDataView<MIL::Int4>(v36);
-      v166 = v165;
-      v167 = MIL::IRTensorValue::GetDataView<MIL::Fp16>(v39);
-      v300.__r_.__value_.__r.__words[0] = v41;
-      v300.__r_.__value_.__l.__size_ = v40;
-      MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Fp16,MIL::Int4>(v164, v166, v167, &v300, &v301, &v297);
+      v165 = MIL::IRTensorValue::GetDataView<MIL::Int4>(v37);
+      v167 = v166;
+      v168 = MIL::IRTensorValue::GetDataView<MIL::Fp16>(v40);
+      v301.__r_.__value_.__r.__words[0] = v42;
+      v301.__r_.__value_.__l.__size_ = v41;
+      MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Fp16,MIL::Int4>(v165, v167, v168, &v301.__r_.__value_.__l.__data_, &v302.__r_.__value_.__l.__data_, &v298);
     }
 
     else
     {
-      if (v47 != 14)
+      if (v48 != 14)
       {
         goto LABEL_192;
       }
 
-      v104 = MIL::IRTensorValue::GetDataView<unsigned char>(v36);
-      v106 = v105;
-      v107 = MIL::IRTensorValue::GetDataView<MIL::Fp16>(v39);
-      v300.__r_.__value_.__r.__words[0] = v41;
-      v300.__r_.__value_.__l.__size_ = v40;
-      MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Fp16,unsigned char>(v104, v106, v107, &v300, &v301, &v297);
+      v105 = MIL::IRTensorValue::GetDataView<unsigned char>(v37);
+      v107 = v106;
+      v108 = MIL::IRTensorValue::GetDataView<MIL::Fp16>(v40);
+      v301.__r_.__value_.__r.__words[0] = v42;
+      v301.__r_.__value_.__l.__size_ = v41;
+      MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Fp16,unsigned char>(v105, v107, v108, &v301.__r_.__value_.__l.__data_, &v302.__r_.__value_.__l.__data_, &v298);
     }
   }
 
   else
   {
-    switch(v47)
+    switch(v48)
     {
       case 20:
-        v176 = MIL::IRTensorValue::GetDataView<MIL::UInt4>(v36);
-        v178 = v177;
-        v179 = MIL::IRTensorValue::GetDataView<MIL::Fp16>(v39);
-        v300.__r_.__value_.__r.__words[0] = v41;
-        v300.__r_.__value_.__l.__size_ = v40;
-        MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Fp16,MIL::UInt4>(v176, v178, v179, &v300, &v301, &v297);
+        v177 = MIL::IRTensorValue::GetDataView<MIL::UInt4>(v37);
+        v179 = v178;
+        v180 = MIL::IRTensorValue::GetDataView<MIL::Fp16>(v40);
+        v301.__r_.__value_.__r.__words[0] = v42;
+        v301.__r_.__value_.__l.__size_ = v41;
+        MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Fp16,MIL::UInt4>(v177, v179, v180, &v301.__r_.__value_.__l.__data_, &v302.__r_.__value_.__l.__data_, &v298);
         break;
       case 24:
-        v188 = MIL::IRTensorValue::GetDataView<MIL::Fp8E4M3FN>(v36);
-        v190 = v189;
-        v191 = MIL::IRTensorValue::GetDataView<MIL::Fp16>(v39);
-        v300.__r_.__value_.__r.__words[0] = v41;
-        v300.__r_.__value_.__l.__size_ = v40;
-        MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Fp16,MIL::Fp8E4M3FN>(v188, v190, v191, &v300, &v301, &v297);
+        v189 = MIL::IRTensorValue::GetDataView<MIL::Fp8E4M3FN>(v37);
+        v191 = v190;
+        v192 = MIL::IRTensorValue::GetDataView<MIL::Fp16>(v40);
+        v301.__r_.__value_.__r.__words[0] = v42;
+        v301.__r_.__value_.__l.__size_ = v41;
+        MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Fp16,MIL::Fp8E4M3FN>(v189, v191, v192, &v301.__r_.__value_.__l.__data_, &v302.__r_.__value_.__l.__data_, &v298);
         break;
       case 25:
-        v48 = MIL::IRTensorValue::GetDataView<MIL::Fp8E5M2>(v36);
-        v50 = v49;
-        v51 = MIL::IRTensorValue::GetDataView<MIL::Fp16>(v39);
-        v300.__r_.__value_.__r.__words[0] = v41;
-        v300.__r_.__value_.__l.__size_ = v40;
-        MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Fp16,MIL::Fp8E5M2>(v48, v50, v51, &v300, &v301, &v297);
+        v49 = MIL::IRTensorValue::GetDataView<MIL::Fp8E5M2>(v37);
+        v51 = v50;
+        v52 = MIL::IRTensorValue::GetDataView<MIL::Fp16>(v40);
+        v301.__r_.__value_.__r.__words[0] = v42;
+        v301.__r_.__value_.__l.__size_ = v41;
+        MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Fp16,MIL::Fp8E5M2>(v49, v51, v52, &v301.__r_.__value_.__l.__data_, &v302.__r_.__value_.__l.__data_, &v298);
         break;
       default:
 LABEL_192:
-        v267 = v47;
-        v268 = __cxa_allocate_exception(0x10uLL);
-        MIL::IRDataTypeToString(v267, &v298);
-        v269 = std::string::insert(&v298, 0, "Constexpr-BlockwiseShiftScale: Unsupported dType (");
-        v270 = *&v269->__r_.__value_.__l.__data_;
-        v299.__r_.__value_.__r.__words[2] = v269->__r_.__value_.__r.__words[2];
-        *&v299.__r_.__value_.__l.__data_ = v270;
-        v269->__r_.__value_.__l.__size_ = 0;
-        v269->__r_.__value_.__r.__words[2] = 0;
-        v269->__r_.__value_.__r.__words[0] = 0;
-        v271 = std::string::append(&v299, ") for data.");
-        v272 = *&v271->__r_.__value_.__l.__data_;
-        v300.__r_.__value_.__r.__words[2] = v271->__r_.__value_.__r.__words[2];
-        *&v300.__r_.__value_.__l.__data_ = v272;
-        v271->__r_.__value_.__l.__size_ = 0;
-        v271->__r_.__value_.__r.__words[2] = 0;
-        v271->__r_.__value_.__r.__words[0] = 0;
-        std::runtime_error::runtime_error(v268, &v300);
-        __cxa_throw(v268, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+        v268 = v48;
+        v269 = __cxa_allocate_exception(0x10uLL);
+        MIL::IRDataTypeToString(v268, &v299);
+        v270 = std::string::insert(&v299, 0, "Constexpr-BlockwiseShiftScale: Unsupported dType (");
+        v271 = *&v270->__r_.__value_.__l.__data_;
+        v300.__r_.__value_.__r.__words[2] = v270->__r_.__value_.__r.__words[2];
+        *&v300.__r_.__value_.__l.__data_ = v271;
+        v270->__r_.__value_.__l.__size_ = 0;
+        v270->__r_.__value_.__r.__words[2] = 0;
+        v270->__r_.__value_.__r.__words[0] = 0;
+        v272 = std::string::append(&v300, ") for data.");
+        v273 = *&v272->__r_.__value_.__l.__data_;
+        v301.__r_.__value_.__r.__words[2] = v272->__r_.__value_.__r.__words[2];
+        *&v301.__r_.__value_.__l.__data_ = v273;
+        v272->__r_.__value_.__l.__size_ = 0;
+        v272->__r_.__value_.__r.__words[2] = 0;
+        v272->__r_.__value_.__r.__words[0] = 0;
+        std::runtime_error::runtime_error(v269, &v301);
+        __cxa_throw(v269, MEMORY[0x277D82760], MEMORY[0x277D82600]);
     }
   }
 
-  if (v300.__r_.__value_.__l.__size_)
+  if (v301.__r_.__value_.__l.__size_)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v300.__r_.__value_.__l.__size_);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v301.__r_.__value_.__l.__size_);
   }
 
 LABEL_150:
   if (__p)
   {
-    v305 = __p;
+    v306 = __p;
     operator delete(__p);
   }
 
-  if (v302)
+  if (v303)
   {
-    v303 = v302;
-    operator delete(v302);
+    v304 = v303;
+    operator delete(v303);
   }
 
-  if (v301.__r_.__value_.__r.__words[0])
+  if (v302.__r_.__value_.__r.__words[0])
   {
-    v301.__r_.__value_.__l.__size_ = v301.__r_.__value_.__r.__words[0];
-    operator delete(v301.__r_.__value_.__l.__data_);
-  }
-
-  if (v306.__r_.__value_.__r.__words[0])
-  {
-    v306.__r_.__value_.__l.__size_ = v306.__r_.__value_.__r.__words[0];
-    operator delete(v306.__r_.__value_.__l.__data_);
+    v302.__r_.__value_.__l.__size_ = v302.__r_.__value_.__r.__words[0];
+    operator delete(v302.__r_.__value_.__l.__data_);
   }
 
   if (v307.__r_.__value_.__r.__words[0])
   {
     v307.__r_.__value_.__l.__size_ = v307.__r_.__value_.__r.__words[0];
     operator delete(v307.__r_.__value_.__l.__data_);
+  }
+
+  if (v308.__r_.__value_.__r.__words[0])
+  {
+    v308.__r_.__value_.__l.__size_ = v308.__r_.__value_.__r.__words[0];
+    operator delete(v308.__r_.__value_.__l.__data_);
   }
 
   MIL::IRTensorValueType::MakeFloat16Value();
@@ -3885,9 +4341,9 @@ void MIL::Operators::Common::ios18::ConstExprs::BlockwiseShiftScale::ComputeOutp
 {
   if (!a2)
   {
-    v2 = *(this + 1);
+    v3 = *(this + 1);
 
-    MIL::Operators::Common::ios18::ConstExprs::BlockwiseShiftScale::Impl::ComputeOutput(v2);
+    MIL::Operators::Common::ios18::ConstExprs::BlockwiseShiftScale::Impl::ComputeOutput(v3);
   }
 
   exception = __cxa_allocate_exception(0x10uLL);
@@ -3895,7 +4351,7 @@ void MIL::Operators::Common::ios18::ConstExprs::BlockwiseShiftScale::ComputeOutp
   __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
 }
 
-void *MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Bf16,MIL::UInt4>@<X0>(std::string::size_type a1@<X0>, std::string::size_type a2@<X1>, uint64_t a3@<X2>, uint64_t **a4@<X4>, unint64_t **a5@<X5>, uint64_t *a6@<X8>)
+uint64_t *MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Bf16,MIL::UInt4>@<X0>(std::string::size_type a1@<X0>, std::string::size_type a2@<X1>, uint64_t a3@<X2>, void **a4@<X4>, char **a5@<X5>, uint64_t *a6@<X8>)
 {
   v12 = (*(**a4 + 32))();
   v13 = (*(*v12 + 88))(v12);
@@ -4213,7 +4669,7 @@ LABEL_10:
   goto LABEL_10;
 }
 
-void *MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Bf16,MIL::Int4>@<X0>(std::string::size_type a1@<X0>, std::string::size_type a2@<X1>, uint64_t a3@<X2>, uint64_t **a4@<X4>, unint64_t **a5@<X5>, uint64_t *a6@<X8>)
+uint64_t *MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Bf16,MIL::Int4>@<X0>(std::string::size_type a1@<X0>, std::string::size_type a2@<X1>, uint64_t a3@<X2>, void **a4@<X4>, char **a5@<X5>, uint64_t *a6@<X8>)
 {
   v12 = (*(**a4 + 32))();
   v13 = (*(*v12 + 88))(v12);
@@ -4531,7 +4987,7 @@ LABEL_10:
   goto LABEL_10;
 }
 
-void *MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Bf16,signed char>@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t **a4@<X4>, unint64_t **a5@<X5>, uint64_t *a6@<X8>)
+uint64_t *MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Bf16,signed char>@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, void **a4@<X4>, char **a5@<X5>, uint64_t *a6@<X8>)
 {
   v12 = (*(**a4 + 32))();
   v13 = (*(*v12 + 88))(v12);
@@ -4822,7 +5278,7 @@ LABEL_10:
   goto LABEL_10;
 }
 
-void *MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Bf16,unsigned char>@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t **a4@<X4>, unint64_t **a5@<X5>, uint64_t *a6@<X8>)
+uint64_t *MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Bf16,unsigned char>@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, void **a4@<X4>, char **a5@<X5>, uint64_t *a6@<X8>)
 {
   v13 = (*(**a4 + 32))();
   v14 = (*(*v13 + 88))(v13);
@@ -5113,7 +5569,7 @@ LABEL_10:
   goto LABEL_10;
 }
 
-void *MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Bf16,MIL::Fp8E4M3FN>@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t **a4@<X4>, unint64_t **a5@<X5>, uint64_t *a6@<X8>)
+uint64_t *MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Bf16,MIL::Fp8E4M3FN>@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, void **a4@<X4>, char **a5@<X5>, uint64_t *a6@<X8>)
 {
   v12 = (*(**a4 + 32))();
   v13 = (*(*v12 + 88))(v12);
@@ -5404,7 +5860,7 @@ LABEL_10:
   goto LABEL_10;
 }
 
-void *MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Bf16,MIL::Fp8E5M2>@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t **a4@<X4>, unint64_t **a5@<X5>, uint64_t *a6@<X8>)
+uint64_t *MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Bf16,MIL::Fp8E5M2>@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, void **a4@<X4>, char **a5@<X5>, uint64_t *a6@<X8>)
 {
   v12 = (*(**a4 + 32))();
   v13 = (*(*v12 + 88))(v12);
@@ -5695,7 +6151,7 @@ LABEL_10:
   goto LABEL_10;
 }
 
-void *MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Bf16,MIL::Bf16>@<X0>(MIL::Bf16 *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t **a4@<X4>, unint64_t **a5@<X5>, uint64_t *a6@<X8>)
+uint64_t *MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Bf16,MIL::Bf16>@<X0>(MIL::Bf16 *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, void **a4@<X4>, char **a5@<X5>, uint64_t *a6@<X8>)
 {
   v12 = (*(**a4 + 32))();
   v13 = (*(*v12 + 88))(v12);
@@ -5995,7 +6451,7 @@ LABEL_10:
   goto LABEL_10;
 }
 
-void *MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Bf16,MIL::Fp16>@<X0>(MIL::Fp16 *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t **a4@<X4>, unint64_t **a5@<X5>, uint64_t *a6@<X8>)
+uint64_t *MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Bf16,MIL::Fp16>@<X0>(MIL::Fp16 *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, void **a4@<X4>, char **a5@<X5>, uint64_t *a6@<X8>)
 {
   v12 = (*(**a4 + 32))();
   v13 = (*(*v12 + 88))(v12);
@@ -6295,7 +6751,7 @@ LABEL_10:
   goto LABEL_10;
 }
 
-void *MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Bf16,float>@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t **a4@<X4>, unint64_t **a5@<X5>, uint64_t *a6@<X8>)
+uint64_t *MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Bf16,float>@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, void **a4@<X4>, char **a5@<X5>, uint64_t *a6@<X8>)
 {
   v12 = (*(**a4 + 32))();
   v13 = (*(*v12 + 88))(v12);
@@ -6586,7 +7042,7 @@ LABEL_10:
   goto LABEL_10;
 }
 
-void *MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Bf16,MIL::UInt4>@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, unint64_t **a4@<X4>, uint64_t *a5@<X8>)
+uint64_t *MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Bf16,MIL::UInt4>@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, char **a4@<X4>, uint64_t *a5@<X8>)
 {
   result = std::vector<MIL::Bf16>::vector[abi:ne200100](a5, a2);
   if (a5[1] != *a5)
@@ -6624,7 +7080,7 @@ void sub_218387670(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void *MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Bf16,MIL::Int4>@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, unint64_t **a4@<X4>, uint64_t *a5@<X8>)
+uint64_t *MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Bf16,MIL::Int4>@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, char **a4@<X4>, uint64_t *a5@<X8>)
 {
   result = std::vector<MIL::Bf16>::vector[abi:ne200100](a5, a2);
   if (a5[1] != *a5)
@@ -6662,7 +7118,7 @@ void sub_218387754(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void *MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Bf16,signed char>@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, unint64_t **a4@<X4>, uint64_t *a5@<X8>)
+uint64_t *MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Bf16,signed char>@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, char **a4@<X4>, uint64_t *a5@<X8>)
 {
   result = std::vector<MIL::Bf16>::vector[abi:ne200100](a5, a2);
   if (a5[1] != *a5)
@@ -6697,7 +7153,7 @@ void sub_218387808(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void *MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Bf16,unsigned char>@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, unint64_t **a4@<X4>, uint64_t *a5@<X8>)
+uint64_t *MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Bf16,unsigned char>@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, char **a4@<X4>, uint64_t *a5@<X8>)
 {
   result = std::vector<MIL::Bf16>::vector[abi:ne200100](a5, a2);
   if (a5[1] != *a5)
@@ -6732,7 +7188,7 @@ void sub_2183878B8(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void *MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Bf16,MIL::Fp8E4M3FN>@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, unint64_t **a4@<X4>, uint64_t *a5@<X8>)
+uint64_t *MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Bf16,MIL::Fp8E4M3FN>@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, char **a4@<X4>, uint64_t *a5@<X8>)
 {
   result = std::vector<MIL::Bf16>::vector[abi:ne200100](a5, a2);
   if (a5[1] != *a5)
@@ -6767,7 +7223,7 @@ void sub_218387978(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void *MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Bf16,MIL::Fp8E5M2>@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, unint64_t **a4@<X4>, uint64_t *a5@<X8>)
+uint64_t *MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Bf16,MIL::Fp8E5M2>@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, char **a4@<X4>, uint64_t *a5@<X8>)
 {
   result = std::vector<MIL::Bf16>::vector[abi:ne200100](a5, a2);
   if (a5[1] != *a5)
@@ -6802,7 +7258,7 @@ void sub_218387A38(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void *MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Bf16,MIL::Bf16>@<X0>(MIL::Bf16 *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, unint64_t **a4@<X4>, uint64_t *a5@<X8>)
+uint64_t *MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Bf16,MIL::Bf16>@<X0>(MIL::Bf16 *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, char **a4@<X4>, uint64_t *a5@<X8>)
 {
   result = std::vector<MIL::Bf16>::vector[abi:ne200100](a5, a2);
   if (a5[1] != *a5)
@@ -6838,7 +7294,7 @@ void sub_218387AFC(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void *MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Bf16,MIL::Fp16>@<X0>(MIL::Fp16 *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, unint64_t **a4@<X4>, uint64_t *a5@<X8>)
+uint64_t *MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Bf16,MIL::Fp16>@<X0>(MIL::Fp16 *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, char **a4@<X4>, uint64_t *a5@<X8>)
 {
   result = std::vector<MIL::Bf16>::vector[abi:ne200100](a5, a2);
   if (a5[1] != *a5)
@@ -6874,7 +7330,7 @@ void sub_218387BC0(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void *MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Bf16,float>@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, unint64_t **a4@<X4>, uint64_t *a5@<X8>)
+uint64_t *MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Bf16,float>@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, char **a4@<X4>, uint64_t *a5@<X8>)
 {
   result = std::vector<MIL::Bf16>::vector[abi:ne200100](a5, a2);
   if (a5[1] != *a5)
@@ -6909,7 +7365,7 @@ void sub_218387C74(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void *MIL::Operators::Common::Shared::ConstExprs::BlockwiseShiftScaleIndexConverter::BlockwiseShiftScaleIndexConverter(void *a1, uint64_t **a2, unint64_t **a3)
+uint64_t *MIL::Operators::Common::Shared::ConstExprs::BlockwiseShiftScaleIndexConverter::BlockwiseShiftScaleIndexConverter(uint64_t *a1, char **a2, unint64_t **a3)
 {
   MIL::Operators::Common::Shared::ConstExprs::GetBlockSizes(a2, a3, a1);
   MIL::Operators::Common::Shared::ConstExprs::GetStrides(a2, a1 + 3);
@@ -6936,10 +7392,10 @@ void sub_218387CF0(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t MIL::Operators::Common::Shared::ConstExprs::BlockwiseShiftScaleIndexConverter::DataIndexToScaleIndex(unint64_t **this, unint64_t a2)
+uint64_t MIL::Operators::Common::Shared::ConstExprs::BlockwiseShiftScaleIndexConverter::DataIndexToScaleIndex(char **this, unint64_t a2)
 {
   MIL::Operators::Common::Shared::ConstExprs::UnravelIndex(a2, this + 3, v14);
-  std::vector<unsigned long>::vector[abi:ne200100](&__p, this[7] - this[6]);
+  std::vector<unsigned long>::vector[abi:ne200100](&__p, (this[7] - this[6]) >> 3);
   v3 = __p;
   if (v13 != __p)
   {
@@ -6955,7 +7411,8 @@ uint64_t MIL::Operators::Common::Shared::ConstExprs::BlockwiseShiftScaleIndexCon
     {
       v8 = *v5++;
       v7 = v8;
-      v9 = *v6++;
+      v9 = *v6;
+      v6 += 8;
       *v3++ = v7 / v9;
       --v4;
     }
@@ -6994,7 +7451,7 @@ void sub_218387DE4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void *MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Fp16,MIL::UInt4>@<X0>(std::string::size_type a1@<X0>, std::string::size_type a2@<X1>, uint64_t a3@<X2>, uint64_t **a4@<X4>, unint64_t **a5@<X5>, uint64_t *a6@<X8>)
+uint64_t *MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Fp16,MIL::UInt4>@<X0>(std::string::size_type a1@<X0>, std::string::size_type a2@<X1>, uint64_t a3@<X2>, void **a4@<X4>, char **a5@<X5>, uint64_t *a6@<X8>)
 {
   v12 = (*(**a4 + 32))();
   v13 = (*(*v12 + 88))(v12);
@@ -7312,7 +7769,7 @@ LABEL_10:
   goto LABEL_10;
 }
 
-void *MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Fp16,MIL::Int4>@<X0>(std::string::size_type a1@<X0>, std::string::size_type a2@<X1>, uint64_t a3@<X2>, uint64_t **a4@<X4>, unint64_t **a5@<X5>, uint64_t *a6@<X8>)
+uint64_t *MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Fp16,MIL::Int4>@<X0>(std::string::size_type a1@<X0>, std::string::size_type a2@<X1>, uint64_t a3@<X2>, void **a4@<X4>, char **a5@<X5>, uint64_t *a6@<X8>)
 {
   v12 = (*(**a4 + 32))();
   v13 = (*(*v12 + 88))(v12);
@@ -7630,7 +8087,7 @@ LABEL_10:
   goto LABEL_10;
 }
 
-void *MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Fp16,signed char>@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t **a4@<X4>, unint64_t **a5@<X5>, uint64_t *a6@<X8>)
+uint64_t *MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Fp16,signed char>@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, void **a4@<X4>, char **a5@<X5>, uint64_t *a6@<X8>)
 {
   v12 = (*(**a4 + 32))();
   v13 = (*(*v12 + 88))(v12);
@@ -7921,7 +8378,7 @@ LABEL_10:
   goto LABEL_10;
 }
 
-void *MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Fp16,unsigned char>@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t **a4@<X4>, unint64_t **a5@<X5>, uint64_t *a6@<X8>)
+uint64_t *MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Fp16,unsigned char>@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, void **a4@<X4>, char **a5@<X5>, uint64_t *a6@<X8>)
 {
   v13 = (*(**a4 + 32))();
   v14 = (*(*v13 + 88))(v13);
@@ -8212,7 +8669,7 @@ LABEL_10:
   goto LABEL_10;
 }
 
-void *MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Fp16,MIL::Fp8E4M3FN>@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t **a4@<X4>, unint64_t **a5@<X5>, uint64_t *a6@<X8>)
+uint64_t *MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Fp16,MIL::Fp8E4M3FN>@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, void **a4@<X4>, char **a5@<X5>, uint64_t *a6@<X8>)
 {
   v12 = (*(**a4 + 32))();
   v13 = (*(*v12 + 88))(v12);
@@ -8503,7 +8960,7 @@ LABEL_10:
   goto LABEL_10;
 }
 
-void *MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Fp16,MIL::Fp8E5M2>@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t **a4@<X4>, unint64_t **a5@<X5>, uint64_t *a6@<X8>)
+uint64_t *MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Fp16,MIL::Fp8E5M2>@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, void **a4@<X4>, char **a5@<X5>, uint64_t *a6@<X8>)
 {
   v12 = (*(**a4 + 32))();
   v13 = (*(*v12 + 88))(v12);
@@ -8794,7 +9251,7 @@ LABEL_10:
   goto LABEL_10;
 }
 
-void *MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Fp16,MIL::Bf16>@<X0>(MIL::Bf16 *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t **a4@<X4>, unint64_t **a5@<X5>, uint64_t *a6@<X8>)
+uint64_t *MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Fp16,MIL::Bf16>@<X0>(MIL::Bf16 *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, void **a4@<X4>, char **a5@<X5>, uint64_t *a6@<X8>)
 {
   v12 = (*(**a4 + 32))();
   v13 = (*(*v12 + 88))(v12);
@@ -9094,7 +9551,7 @@ LABEL_10:
   goto LABEL_10;
 }
 
-void *MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Fp16,MIL::Fp16>@<X0>(MIL::Fp16 *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t **a4@<X4>, unint64_t **a5@<X5>, uint64_t *a6@<X8>)
+uint64_t *MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Fp16,MIL::Fp16>@<X0>(MIL::Fp16 *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, void **a4@<X4>, char **a5@<X5>, uint64_t *a6@<X8>)
 {
   v12 = (*(**a4 + 32))();
   v13 = (*(*v12 + 88))(v12);
@@ -9358,392 +9815,6 @@ LABEL_49:
         std::runtime_error::runtime_error(exception, &v95);
         __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
     }
-  }
-
-  return result;
-}
-
-void sub_21838B994(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *a16, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22, void *__p, uint64_t a24, int a25, __int16 a26, char a27, char a28)
-{
-  if (a28 < 0)
-  {
-    operator delete(__p);
-  }
-
-  if (a21 < 0)
-  {
-    operator delete(a16);
-  }
-
-  if (a15 < 0)
-  {
-    operator delete(a10);
-    if ((v29 & 1) == 0)
-    {
-LABEL_10:
-      _Unwind_Resume(a1);
-    }
-  }
-
-  else if (!v29)
-  {
-    goto LABEL_10;
-  }
-
-  __cxa_free_exception(v28);
-  goto LABEL_10;
-}
-
-void *MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Fp16,float>@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t **a4@<X4>, unint64_t **a5@<X5>, uint64_t *a6@<X8>)
-{
-  v12 = (*(**a4 + 32))();
-  v13 = (*(*v12 + 88))(v12);
-  v14 = v13;
-  if (v13 <= 12)
-  {
-    if (v13 > 6)
-    {
-      if (v13 == 7)
-      {
-        v55 = MIL::IRTensorValue::GetDataView<MIL::Bf16>(*a4);
-        result = std::vector<MIL::Fp16>::vector[abi:ne200100](a6, a2);
-        if (a6[1] != *a6)
-        {
-          v56 = 0;
-          do
-          {
-            v57 = MIL::Operators::Common::Shared::ConstExprs::BlockwiseShiftScaleIndexConverter::DataIndexToScaleIndex(a5, v56);
-            v58 = *(a1 + 4 * v56);
-            Float = MIL::Fp16::GetFloat((a3 + 2 * v57));
-            v60 = MIL::Bf16::GetFloat((v55 + 2 * v57));
-            result = MIL::Fp16::FromFloat(v61, Float * (v58 - v60));
-            v62 = *a6;
-            *(*a6 + 2 * v56++) = result;
-          }
-
-          while (v56 < (a6[1] - v62) >> 1);
-        }
-      }
-
-      else
-      {
-        if (v13 != 9)
-        {
-          goto LABEL_49;
-        }
-
-        Data = MIL::IRTensorValue::GetDataView<signed char>(*a4);
-        result = std::vector<MIL::Fp16>::vector[abi:ne200100](a6, a2);
-        if (a6[1] != *a6)
-        {
-          v33 = 0;
-          do
-          {
-            v34 = MIL::Operators::Common::Shared::ConstExprs::BlockwiseShiftScaleIndexConverter::DataIndexToScaleIndex(a5, v33);
-            v35 = *(a1 + 4 * v33);
-            v36 = MIL::Fp16::GetFloat((a3 + 2 * v34));
-            result = MIL::Fp16::FromFloat(v37, v36 * (v35 - *(Data + v34)));
-            v38 = *a6;
-            *(*a6 + 2 * v33++) = result;
-          }
-
-          while (v33 < (a6[1] - v38) >> 1);
-        }
-      }
-    }
-
-    else if (v13 == 4)
-    {
-      v47 = MIL::IRTensorValue::GetDataView<MIL::Fp16>(*a4);
-      result = std::vector<MIL::Fp16>::vector[abi:ne200100](a6, a2);
-      if (a6[1] != *a6)
-      {
-        v48 = 0;
-        do
-        {
-          v49 = MIL::Operators::Common::Shared::ConstExprs::BlockwiseShiftScaleIndexConverter::DataIndexToScaleIndex(a5, v48);
-          v50 = *(a1 + 4 * v48);
-          v51 = MIL::Fp16::GetFloat((a3 + 2 * v49));
-          v52 = MIL::Fp16::GetFloat((v47 + 2 * v49));
-          result = MIL::Fp16::FromFloat(v53, v51 * (v50 - v52));
-          v54 = *a6;
-          *(*a6 + 2 * v48++) = result;
-        }
-
-        while (v48 < (a6[1] - v54) >> 1);
-      }
-    }
-
-    else
-    {
-      if (v13 != 5)
-      {
-        goto LABEL_49;
-      }
-
-      v25 = MIL::IRTensorValue::GetDataView<float>(*a4);
-      result = std::vector<MIL::Fp16>::vector[abi:ne200100](a6, a2);
-      if (a6[1] != *a6)
-      {
-        v26 = 0;
-        do
-        {
-          v27 = MIL::Operators::Common::Shared::ConstExprs::BlockwiseShiftScaleIndexConverter::DataIndexToScaleIndex(a5, v26);
-          v28 = *(a1 + 4 * v26);
-          v29 = MIL::Fp16::GetFloat((a3 + 2 * v27));
-          result = MIL::Fp16::FromFloat(v30, v29 * (v28 - *(v25 + 4 * v27)));
-          v31 = *a6;
-          *(*a6 + 2 * v26++) = result;
-        }
-
-        while (v26 < (a6[1] - v31) >> 1);
-      }
-    }
-  }
-
-  else if (v13 <= 19)
-  {
-    if (v13 == 13)
-    {
-      v63 = MIL::IRTensorValue::GetDataView<MIL::Int4>(*a4);
-      v65 = v64;
-      result = std::vector<MIL::Fp16>::vector[abi:ne200100](a6, a2);
-      if (a6[1] != *a6)
-      {
-        v66 = 0;
-        do
-        {
-          v67 = MIL::Operators::Common::Shared::ConstExprs::BlockwiseShiftScaleIndexConverter::DataIndexToScaleIndex(a5, v66);
-          v68 = *(a1 + 4 * v66);
-          v69 = MIL::Fp16::GetFloat((a3 + 2 * v67));
-          v95.__r_.__value_.__r.__words[0] = v63;
-          v95.__r_.__value_.__l.__size_ = v65;
-          v94.__r_.__value_.__s.__data_[0] = MIL::Util::Span<MIL::Int4 const,18446744073709551615ul>::ValueAt(&v95, v67);
-          Int = MIL::Int4::GetInt(&v94);
-          result = MIL::Fp16::FromFloat(Int, v69 * (v68 - Int));
-          v71 = *a6;
-          *(*a6 + 2 * v66++) = result;
-        }
-
-        while (v66 < (a6[1] - v71) >> 1);
-      }
-    }
-
-    else
-    {
-      if (v13 != 14)
-      {
-        goto LABEL_49;
-      }
-
-      v39 = MIL::IRTensorValue::GetDataView<unsigned char>(*a4);
-      result = std::vector<MIL::Fp16>::vector[abi:ne200100](a6, a2);
-      if (a6[1] != *a6)
-      {
-        v40 = 0;
-        do
-        {
-          v41 = MIL::Operators::Common::Shared::ConstExprs::BlockwiseShiftScaleIndexConverter::DataIndexToScaleIndex(a5, v40);
-          v42 = *(a1 + 4 * v40);
-          v43 = MIL::Fp16::GetFloat((a3 + 2 * v41));
-          LOBYTE(v44) = *(v39 + v41);
-          result = MIL::Fp16::FromFloat(v45, v43 * (v42 - v44));
-          v46 = *a6;
-          *(*a6 + 2 * v40++) = result;
-        }
-
-        while (v40 < (a6[1] - v46) >> 1);
-      }
-    }
-  }
-
-  else
-  {
-    switch(v13)
-    {
-      case 25:
-        v72 = MIL::IRTensorValue::GetDataView<MIL::Fp8E5M2>(*a4);
-        result = std::vector<MIL::Fp16>::vector[abi:ne200100](a6, a2);
-        if (a6[1] != *a6)
-        {
-          v73 = 0;
-          do
-          {
-            v74 = MIL::Operators::Common::Shared::ConstExprs::BlockwiseShiftScaleIndexConverter::DataIndexToScaleIndex(a5, v73);
-            v75 = *(a1 + 4 * v73);
-            v76 = MIL::Fp16::GetFloat((a3 + 2 * v74));
-            v77 = MIL::Fp8E5M2::GetFloat((v72 + v74));
-            result = MIL::Fp16::FromFloat(v78, v76 * (v75 - v77));
-            v79 = *a6;
-            *(*a6 + 2 * v73++) = result;
-          }
-
-          while (v73 < (a6[1] - v79) >> 1);
-        }
-
-        break;
-      case 24:
-        v80 = MIL::IRTensorValue::GetDataView<MIL::Fp8E4M3FN>(*a4);
-        result = std::vector<MIL::Fp16>::vector[abi:ne200100](a6, a2);
-        if (a6[1] != *a6)
-        {
-          v81 = 0;
-          do
-          {
-            v82 = MIL::Operators::Common::Shared::ConstExprs::BlockwiseShiftScaleIndexConverter::DataIndexToScaleIndex(a5, v81);
-            v83 = *(a1 + 4 * v81);
-            v84 = MIL::Fp16::GetFloat((a3 + 2 * v82));
-            v85 = MIL::Fp8E4M3FN::GetFloat((v80 + v82));
-            result = MIL::Fp16::FromFloat(v86, v84 * (v83 - v85));
-            v87 = *a6;
-            *(*a6 + 2 * v81++) = result;
-          }
-
-          while (v81 < (a6[1] - v87) >> 1);
-        }
-
-        break;
-      case 20:
-        v15 = MIL::IRTensorValue::GetDataView<MIL::UInt4>(*a4);
-        v17 = v16;
-        result = std::vector<MIL::Fp16>::vector[abi:ne200100](a6, a2);
-        if (a6[1] != *a6)
-        {
-          v19 = 0;
-          do
-          {
-            v20 = MIL::Operators::Common::Shared::ConstExprs::BlockwiseShiftScaleIndexConverter::DataIndexToScaleIndex(a5, v19);
-            v21 = *(a1 + 4 * v19);
-            v22 = MIL::Fp16::GetFloat((a3 + 2 * v20));
-            v95.__r_.__value_.__r.__words[0] = v15;
-            v95.__r_.__value_.__l.__size_ = v17;
-            v94.__r_.__value_.__s.__data_[0] = MIL::Util::Span<MIL::UInt4 const,18446744073709551615ul>::ValueAt(&v95, v20);
-            v23 = MIL::UInt4::GetInt(&v94);
-            result = MIL::Fp16::FromFloat(v23, v22 * (v21 - v23));
-            v24 = *a6;
-            *(*a6 + 2 * v19++) = result;
-          }
-
-          while (v19 < (a6[1] - v24) >> 1);
-        }
-
-        return result;
-      default:
-LABEL_49:
-        exception = __cxa_allocate_exception(0x10uLL);
-        MIL::IRDataTypeToString(v14, &v93);
-        v89 = std::string::insert(&v93, 0, "Unsupported dType (");
-        v90 = *&v89->__r_.__value_.__l.__data_;
-        v94.__r_.__value_.__r.__words[2] = v89->__r_.__value_.__r.__words[2];
-        *&v94.__r_.__value_.__l.__data_ = v90;
-        v89->__r_.__value_.__l.__size_ = 0;
-        v89->__r_.__value_.__r.__words[2] = 0;
-        v89->__r_.__value_.__r.__words[0] = 0;
-        v91 = std::string::append(&v94, ") for offset.");
-        v92 = *&v91->__r_.__value_.__l.__data_;
-        v95.__r_.__value_.__r.__words[2] = v91->__r_.__value_.__r.__words[2];
-        *&v95.__r_.__value_.__l.__data_ = v92;
-        v91->__r_.__value_.__l.__size_ = 0;
-        v91->__r_.__value_.__r.__words[2] = 0;
-        v91->__r_.__value_.__r.__words[0] = 0;
-        std::runtime_error::runtime_error(exception, &v95);
-        __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-    }
-  }
-
-  return result;
-}
-
-void sub_21838C09C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *a16, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22, void *__p, uint64_t a24, int a25, __int16 a26, char a27, char a28)
-{
-  if (a28 < 0)
-  {
-    operator delete(__p);
-  }
-
-  if (a21 < 0)
-  {
-    operator delete(a16);
-  }
-
-  if (a15 < 0)
-  {
-    operator delete(a10);
-    if ((v29 & 1) == 0)
-    {
-LABEL_10:
-      _Unwind_Resume(a1);
-    }
-  }
-
-  else if (!v29)
-  {
-    goto LABEL_10;
-  }
-
-  __cxa_free_exception(v28);
-  goto LABEL_10;
-}
-
-void *MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Fp16,MIL::UInt4>@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, unint64_t **a4@<X4>, uint64_t *a5@<X8>)
-{
-  result = std::vector<MIL::Fp16>::vector[abi:ne200100](a5, a2);
-  if (a5[1] != *a5)
-  {
-    v11 = 0;
-    do
-    {
-      v12 = MIL::Operators::Common::Shared::ConstExprs::BlockwiseShiftScaleIndexConverter::DataIndexToScaleIndex(a4, v11);
-      v19[0] = a1;
-      v19[1] = a2;
-      v18 = MIL::Util::Span<MIL::UInt4 const,18446744073709551615ul>::ValueAt(v19, v11);
-      Int = MIL::UInt4::GetInt(&v18);
-      Float = MIL::Fp16::GetFloat((a3 + 2 * v12));
-      result = MIL::Fp16::FromFloat(v15, Float * Int);
-      v16 = *a5;
-      v17 = a5[1];
-      *(*a5 + 2 * v11++) = result;
-    }
-
-    while (v11 < (v17 - v16) >> 1);
-  }
-
-  return result;
-}
-
-void sub_21838C238(_Unwind_Exception *exception_object)
-{
-  v3 = *v1;
-  if (*v1)
-  {
-    *(v1 + 8) = v3;
-    operator delete(v3);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void *MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Fp16,MIL::Int4>@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, unint64_t **a4@<X4>, uint64_t *a5@<X8>)
-{
-  result = std::vector<MIL::Fp16>::vector[abi:ne200100](a5, a2);
-  if (a5[1] != *a5)
-  {
-    v11 = 0;
-    do
-    {
-      v12 = MIL::Operators::Common::Shared::ConstExprs::BlockwiseShiftScaleIndexConverter::DataIndexToScaleIndex(a4, v11);
-      v19[0] = a1;
-      v19[1] = a2;
-      v18 = MIL::Util::Span<MIL::Int4 const,18446744073709551615ul>::ValueAt(v19, v11);
-      Int = MIL::Int4::GetInt(&v18);
-      Float = MIL::Fp16::GetFloat((a3 + 2 * v12));
-      result = MIL::Fp16::FromFloat(v15, Float * Int);
-      v16 = *a5;
-      v17 = a5[1];
-      *(*a5 + 2 * v11++) = result;
-    }
-
-    while (v11 < (v17 - v16) >> 1);
   }
 
   return result;

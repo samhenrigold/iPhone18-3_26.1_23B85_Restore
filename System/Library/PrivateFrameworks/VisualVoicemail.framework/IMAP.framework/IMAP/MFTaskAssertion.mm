@@ -63,32 +63,30 @@
 
 void __60__MFTaskAssertion_initWithName_expiration_preventIdleSleep___block_invoke(uint64_t a1, int a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
-  v4 = vm_imap_log();
+  v11 = *MEMORY[0x277D85DE8];
+  v4 = vm_imap_log(a1);
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
   if (a2)
   {
     if (v5)
     {
       v6 = *(a1 + 32);
-      v10 = 138543362;
-      v11 = v6;
+      v9 = 138543362;
+      v10 = v6;
       v7 = "Acquired task assertion: %{public}@";
 LABEL_6:
-      _os_log_impl(&dword_2720B1000, v4, OS_LOG_TYPE_DEFAULT, v7, &v10, 0xCu);
+      _os_log_impl(&dword_2720B1000, v4, OS_LOG_TYPE_DEFAULT, v7, &v9, 0xCu);
     }
   }
 
   else if (v5)
   {
     v8 = *(a1 + 32);
-    v10 = 138543362;
-    v11 = v8;
+    v9 = 138543362;
+    v10 = v8;
     v7 = "could not aquire task assertion: %{public}@";
     goto LABEL_6;
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cancelTimer
@@ -104,19 +102,18 @@ LABEL_6:
 
 - (void)invalidate
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v3 = vm_imap_log();
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = vm_imap_log(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     name = [(BKSProcessAssertion *)self->_assertion name];
-    v6 = 138543362;
-    v7 = name;
-    _os_log_impl(&dword_2720B1000, v3, OS_LOG_TYPE_DEFAULT, "Invalidating task assertion: %{public}@", &v6, 0xCu);
+    v5 = 138543362;
+    v6 = name;
+    _os_log_impl(&dword_2720B1000, v3, OS_LOG_TYPE_DEFAULT, "Invalidating task assertion: %{public}@", &v5, 0xCu);
   }
 
   [(BKSProcessAssertion *)self->_assertion invalidate];
   [(MFTaskAssertion *)self cancelTimer];
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dealloc

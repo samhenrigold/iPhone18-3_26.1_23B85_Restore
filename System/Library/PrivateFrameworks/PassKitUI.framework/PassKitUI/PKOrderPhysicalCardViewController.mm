@@ -160,11 +160,11 @@ LABEL_12:
   }
 }
 
-uint64_t __70__PKOrderPhysicalCardViewController_explanationViewDidSelectContinue___block_invoke(uint64_t result, char a2)
+id *__70__PKOrderPhysicalCardViewController_explanationViewDidSelectContinue___block_invoke(id *result, char a2)
 {
   if ((a2 & 1) == 0)
   {
-    return [*(result + 32) _handleNextStep];
+    return [result[4] _handleNextStep];
   }
 
   return result;
@@ -205,7 +205,7 @@ void __52__PKOrderPhysicalCardViewController__handleNextStep__block_invoke(uint6
   }
 }
 
-uint64_t __52__PKOrderPhysicalCardViewController__handleNextStep__block_invoke_2(uint64_t a1, char a2)
+void *__52__PKOrderPhysicalCardViewController__handleNextStep__block_invoke_2(uint64_t a1, char a2)
 {
   result = [*(a1 + 32) showNavigationBarSpinner:0];
   if ((a2 & 1) == 0)

@@ -56,7 +56,7 @@ LABEL_6:
   }
 
   v7 = interactivePopGestureRecognizer;
-  sub_10000905C(0, &qword_1006B0A00);
+  sub_10000905C(0, &qword_1006B0A00, UIGestureRecognizer_ptr);
   v8 = beginCopy;
   v9 = static NSObject.== infix(_:_:)();
 

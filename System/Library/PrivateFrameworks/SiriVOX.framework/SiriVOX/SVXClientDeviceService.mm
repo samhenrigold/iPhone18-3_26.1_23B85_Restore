@@ -14,46 +14,42 @@
 
 - (void)_updateSetupContext
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
   {
     currentSetupContext = self->_currentSetupContext;
     *buf = 136315394;
-    v12 = "[SVXClientDeviceService _updateSetupContext]";
-    v13 = 2112;
-    v14 = currentSetupContext;
+    v11 = "[SVXClientDeviceService _updateSetupContext]";
+    v12 = 2112;
+    v13 = currentSetupContext;
     _os_log_impl(&dword_2695B9000, v3, OS_LOG_TYPE_INFO, "%s _currentSetupContext = %@", buf, 0x16u);
   }
 
   v5 = self->_currentSetupContext;
   clientServiceProvider = self->_clientServiceProvider;
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __45__SVXClientDeviceService__updateSetupContext__block_invoke;
-  v9[3] = &unk_279C67900;
-  v10 = v5;
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __45__SVXClientDeviceService__updateSetupContext__block_invoke;
+  v8[3] = &unk_279C67900;
+  v9 = v5;
   v7 = v5;
-  [(SVXClientServiceProviding *)clientServiceProvider getClientServiceUsingBlock:v9 errorHandler:&__block_literal_global_5776];
-
-  v8 = *MEMORY[0x277D85DE8];
+  [(SVXClientServiceProviding *)clientServiceProvider getClientServiceUsingBlock:v8 errorHandler:&__block_literal_global_5776];
 }
 
 void __45__SVXClientDeviceService__updateSetupContext__block_invoke_2(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_ERROR))
   {
-    v5 = 136315394;
-    v6 = "[SVXClientDeviceService _updateSetupContext]_block_invoke_2";
-    v7 = 2112;
-    v8 = v2;
-    _os_log_error_impl(&dword_2695B9000, v3, OS_LOG_TYPE_ERROR, "%s error = %@", &v5, 0x16u);
+    v4 = 136315394;
+    v5 = "[SVXClientDeviceService _updateSetupContext]_block_invoke_2";
+    v6 = 2112;
+    v7 = v2;
+    _os_log_error_impl(&dword_2695B9000, v3, OS_LOG_TYPE_ERROR, "%s error = %@", &v4, 0x16u);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_endSetup
@@ -75,36 +71,34 @@ void __45__SVXClientDeviceService__updateSetupContext__block_invoke_2(uint64_t a
 
 - (void)_prepareForSetupWithContext:(id)context completion:(id)completion
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   completionCopy = completion;
   v8 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v19 = "[SVXClientDeviceService _prepareForSetupWithContext:completion:]";
-    v20 = 2112;
-    v21 = contextCopy;
+    v18 = "[SVXClientDeviceService _prepareForSetupWithContext:completion:]";
+    v19 = 2112;
+    v20 = contextCopy;
     _os_log_impl(&dword_2695B9000, v8, OS_LOG_TYPE_INFO, "%s context = %@", buf, 0x16u);
   }
 
   clientServiceProvider = self->_clientServiceProvider;
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __65__SVXClientDeviceService__prepareForSetupWithContext_completion___block_invoke;
-  v15[3] = &unk_279C67F98;
-  v16 = contextCopy;
-  v17 = completionCopy;
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __65__SVXClientDeviceService__prepareForSetupWithContext_completion___block_invoke_4;
-  v13[3] = &unk_279C680E0;
-  v14 = v17;
-  v10 = v17;
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __65__SVXClientDeviceService__prepareForSetupWithContext_completion___block_invoke;
+  v14[3] = &unk_279C67F98;
+  v15 = contextCopy;
+  v16 = completionCopy;
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __65__SVXClientDeviceService__prepareForSetupWithContext_completion___block_invoke_4;
+  v12[3] = &unk_279C680E0;
+  v13 = v16;
+  v10 = v16;
   v11 = contextCopy;
-  [(SVXClientServiceProviding *)clientServiceProvider getClientServiceUsingBlock:v15 errorHandler:v13];
-
-  v12 = *MEMORY[0x277D85DE8];
+  [(SVXClientServiceProviding *)clientServiceProvider getClientServiceUsingBlock:v14 errorHandler:v12];
 }
 
 void __65__SVXClientDeviceService__prepareForSetupWithContext_completion___block_invoke(uint64_t a1, void *a2)
@@ -120,16 +114,16 @@ void __65__SVXClientDeviceService__prepareForSetupWithContext_completion___block
 
 void __65__SVXClientDeviceService__prepareForSetupWithContext_completion___block_invoke_4(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_ERROR))
   {
-    v7 = 136315394;
-    v8 = "[SVXClientDeviceService _prepareForSetupWithContext:completion:]_block_invoke";
-    v9 = 2112;
-    v10 = v3;
-    _os_log_error_impl(&dword_2695B9000, v4, OS_LOG_TYPE_ERROR, "%s error = %@", &v7, 0x16u);
+    v6 = 136315394;
+    v7 = "[SVXClientDeviceService _prepareForSetupWithContext:completion:]_block_invoke";
+    v8 = 2112;
+    v9 = v3;
+    _os_log_error_impl(&dword_2695B9000, v4, OS_LOG_TYPE_ERROR, "%s error = %@", &v6, 0x16u);
   }
 
   v5 = *(a1 + 32);
@@ -137,13 +131,11 @@ void __65__SVXClientDeviceService__prepareForSetupWithContext_completion___block
   {
     (*(v5 + 16))(v5, 0, v3);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __65__SVXClientDeviceService__prepareForSetupWithContext_completion___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = *MEMORY[0x277CEF098];
@@ -151,21 +143,21 @@ void __65__SVXClientDeviceService__prepareForSetupWithContext_completion___block
   {
     if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_ERROR))
     {
-      v10 = 136315394;
-      v11 = "[SVXClientDeviceService _prepareForSetupWithContext:completion:]_block_invoke_2";
-      v12 = 2112;
-      v13 = v6;
-      _os_log_error_impl(&dword_2695B9000, v7, OS_LOG_TYPE_ERROR, "%s error = %@", &v10, 0x16u);
+      v9 = 136315394;
+      v10 = "[SVXClientDeviceService _prepareForSetupWithContext:completion:]_block_invoke_2";
+      v11 = 2112;
+      v12 = v6;
+      _os_log_error_impl(&dword_2695B9000, v7, OS_LOG_TYPE_ERROR, "%s error = %@", &v9, 0x16u);
     }
   }
 
   else if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
   {
-    v10 = 136315394;
-    v11 = "[SVXClientDeviceService _prepareForSetupWithContext:completion:]_block_invoke";
-    v12 = 2112;
-    v13 = v5;
-    _os_log_impl(&dword_2695B9000, v7, OS_LOG_TYPE_INFO, "%s flow = %@", &v10, 0x16u);
+    v9 = 136315394;
+    v10 = "[SVXClientDeviceService _prepareForSetupWithContext:completion:]_block_invoke";
+    v11 = 2112;
+    v12 = v5;
+    _os_log_impl(&dword_2695B9000, v7, OS_LOG_TYPE_INFO, "%s flow = %@", &v9, 0x16u);
   }
 
   v8 = *(a1 + 32);
@@ -173,86 +165,79 @@ void __65__SVXClientDeviceService__prepareForSetupWithContext_completion___block
   {
     (*(v8 + 16))(v8, v5, v6);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)endSetup
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v8 = "[SVXClientDeviceService endSetup]";
+    v7 = "[SVXClientDeviceService endSetup]";
     _os_log_impl(&dword_2695B9000, v3, OS_LOG_TYPE_INFO, "%s ", buf, 0xCu);
   }
 
   performer = self->_performer;
-  v6[0] = MEMORY[0x277D85DD0];
-  v6[1] = 3221225472;
-  v6[2] = __34__SVXClientDeviceService_endSetup__block_invoke;
-  v6[3] = &unk_279C68FC0;
-  v6[4] = self;
-  [(SVXPerforming *)performer performBlock:v6];
-  v5 = *MEMORY[0x277D85DE8];
+  v5[0] = MEMORY[0x277D85DD0];
+  v5[1] = 3221225472;
+  v5[2] = __34__SVXClientDeviceService_endSetup__block_invoke;
+  v5[3] = &unk_279C68FC0;
+  v5[4] = self;
+  [(SVXPerforming *)performer performBlock:v5];
 }
 
 - (void)beginSetupWithContext:(id)context
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   v5 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v12 = "[SVXClientDeviceService beginSetupWithContext:]";
-    v13 = 2112;
-    v14 = contextCopy;
+    v11 = "[SVXClientDeviceService beginSetupWithContext:]";
+    v12 = 2112;
+    v13 = contextCopy;
     _os_log_impl(&dword_2695B9000, v5, OS_LOG_TYPE_INFO, "%s context = %@", buf, 0x16u);
   }
 
   performer = self->_performer;
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __48__SVXClientDeviceService_beginSetupWithContext___block_invoke;
-  v9[3] = &unk_279C68FE8;
-  v9[4] = self;
-  v10 = contextCopy;
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __48__SVXClientDeviceService_beginSetupWithContext___block_invoke;
+  v8[3] = &unk_279C68FE8;
+  v8[4] = self;
+  v9 = contextCopy;
   v7 = contextCopy;
-  [(SVXPerforming *)performer performBlock:v9];
-
-  v8 = *MEMORY[0x277D85DE8];
+  [(SVXPerforming *)performer performBlock:v8];
 }
 
 - (void)prepareForSetupWithContext:(id)context completion:(id)completion
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   completionCopy = completion;
   v8 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v17 = "[SVXClientDeviceService prepareForSetupWithContext:completion:]";
-    v18 = 2112;
-    v19 = contextCopy;
+    v16 = "[SVXClientDeviceService prepareForSetupWithContext:completion:]";
+    v17 = 2112;
+    v18 = contextCopy;
     _os_log_impl(&dword_2695B9000, v8, OS_LOG_TYPE_INFO, "%s context = %@", buf, 0x16u);
   }
 
   performer = self->_performer;
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __64__SVXClientDeviceService_prepareForSetupWithContext_completion___block_invoke;
-  v13[3] = &unk_279C68EA8;
-  v13[4] = self;
-  v14 = contextCopy;
-  v15 = completionCopy;
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __64__SVXClientDeviceService_prepareForSetupWithContext_completion___block_invoke;
+  v12[3] = &unk_279C68EA8;
+  v12[4] = self;
+  v13 = contextCopy;
+  v14 = completionCopy;
   v10 = completionCopy;
   v11 = contextCopy;
-  [(SVXPerforming *)performer performBlock:v13];
-
-  v12 = *MEMORY[0x277D85DE8];
+  [(SVXPerforming *)performer performBlock:v12];
 }
 
 void __64__SVXClientDeviceService_prepareForSetupWithContext_completion___block_invoke(uint64_t a1)
@@ -300,11 +285,11 @@ void __64__SVXClientDeviceService_prepareForSetupWithContext_completion___block_
   [(SVXPerforming *)performer performBlock:v4];
 }
 
-uint64_t __49__SVXClientDeviceService_clientServiceDidChange___block_invoke(uint64_t result)
+id *__49__SVXClientDeviceService_clientServiceDidChange___block_invoke(id *result)
 {
   if (*(result + 40) == 1)
   {
-    return [*(result + 32) _updateSetupContext];
+    return [result[4] _updateSetupContext];
   }
 
   return result;

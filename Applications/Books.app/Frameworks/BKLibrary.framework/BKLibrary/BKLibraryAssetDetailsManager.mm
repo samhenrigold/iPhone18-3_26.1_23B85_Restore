@@ -116,13 +116,14 @@
   v6 = +[BKLibraryManager predicateForExcludingContainerLibraryAssets];
   [v5 setPredicate:v6];
 
-  v10 = 0;
-  v7 = [cCopy executeFetchRequest:v5 error:&v10];
-  v8 = v10;
+  v11 = 0;
+  v7 = [cCopy executeFetchRequest:v5 error:&v11];
+  v8 = v11;
+  v9 = v8;
   if (v8)
   {
-    v9 = BKLibraryAssetDetailsLog();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = BKLibraryAssetDetailsLog(v8);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       sub_900B8();
     }
@@ -142,32 +143,32 @@
   {
     selfCopy = self;
     libraryManager = [(BKLibraryAssetDetailsManager *)self libraryManager];
-    v31 = cCopy;
+    v32 = cCopy;
     v9 = [libraryManager cloudSyncVersionsForDataType:@"BCAssetDetail" inContext:cCopy];
 
     [v9 setLocalVersion:{objc_msgSend(v9, "localVersion") + 1}];
     localVersion = [v9 localVersion];
     v10 = +[NSMutableDictionary dictionary];
-    v38 = 0u;
     v39 = 0u;
     v40 = 0u;
     v41 = 0u;
+    v42 = 0u;
     v11 = assetsCopy;
-    v12 = [v11 countByEnumeratingWithState:&v38 objects:v44 count:16];
+    v12 = [v11 countByEnumeratingWithState:&v39 objects:v45 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v39;
+      v14 = *v40;
       do
       {
         for (i = 0; i != v13; i = i + 1)
         {
-          if (*v39 != v14)
+          if (*v40 != v14)
           {
             objc_enumerationMutation(v11);
           }
 
-          v16 = *(*(&v38 + 1) + 8 * i);
+          v16 = *(*(&v39 + 1) + 8 * i);
           if ([v16 hasImportantAssetDetails])
           {
             assetDetailRepresentation = [v16 assetDetailRepresentation];
@@ -181,7 +182,7 @@
           }
         }
 
-        v13 = [v11 countByEnumeratingWithState:&v38 objects:v44 count:16];
+        v13 = [v11 countByEnumeratingWithState:&v39 objects:v45 count:16];
       }
 
       while (v13);
@@ -194,13 +195,13 @@
 
       if (verboseLoggingEnabled)
       {
-        v22 = BKLibraryAssetDetailsDevelopmentLog();
-        if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+        v23 = BKLibraryAssetDetailsDevelopmentLog(v22);
+        if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
         {
-          v23 = [v10 count];
+          v24 = [v10 count];
           *buf = 134217984;
-          v43 = v23;
-          _os_log_impl(&dword_0, v22, OS_LOG_TYPE_DEFAULT, "\\BCAssetDetail found %lu details to sync\\"", buf, 0xCu);
+          v44 = v24;
+          _os_log_impl(&dword_0, v23, OS_LOG_TYPE_DEFAULT, "\\BCAssetDetail found %lu details to sync\", buf, 0xCu);
         }
       }
     }
@@ -208,33 +209,33 @@
     if ([v10 count])
     {
       allKeys = [v10 allKeys];
-      v25 = [AEAnnotation predicateForGlobalAnnotationsWithAssetIDs:allKeys];
+      v26 = [AEAnnotation predicateForGlobalAnnotationsWithAssetIDs:allKeys];
       annotationProvider = [(BKLibraryAssetDetailsManager *)selfCopy annotationProvider];
-      v33[0] = _NSConcreteStackBlock;
-      v33[1] = 3221225472;
-      v33[2] = sub_489CC;
-      v33[3] = &unk_D6BB8;
-      v34 = v10;
-      v35 = selfCopy;
-      v36 = allKeys;
-      v37 = localVersion;
-      v27 = allKeys;
-      [annotationProvider onAnnotationsMatchingPredicate:v25 performBlock:v33];
+      v34[0] = _NSConcreteStackBlock;
+      v34[1] = 3221225472;
+      v34[2] = sub_489CC;
+      v34[3] = &unk_D6BB8;
+      v35 = v10;
+      v36 = selfCopy;
+      v37 = allKeys;
+      v38 = localVersion;
+      v28 = allKeys;
+      [annotationProvider onAnnotationsMatchingPredicate:v26 performBlock:v34];
     }
 
     else
     {
       libraryManager2 = [(BKLibraryAssetDetailsManager *)selfCopy libraryManager];
-      v32[0] = _NSConcreteStackBlock;
-      v32[1] = 3221225472;
-      v32[2] = sub_49228;
-      v32[3] = &unk_D6B68;
-      v32[4] = selfCopy;
-      v32[5] = localVersion;
-      [libraryManager2 performBlockOnWorkerQueue:v32];
+      v33[0] = _NSConcreteStackBlock;
+      v33[1] = 3221225472;
+      v33[2] = sub_49228;
+      v33[3] = &unk_D6B68;
+      v33[4] = selfCopy;
+      v33[5] = localVersion;
+      [libraryManager2 performBlockOnWorkerQueue:v33];
     }
 
-    cCopy = v31;
+    cCopy = v32;
   }
 }
 
@@ -249,7 +250,7 @@
   v11 = 0;
   v7 = [cCopy executeFetchRequest:v5 error:&v11];
   v8 = v11;
-  v9 = BKLibraryAssetDetailsLog();
+  v9 = BKLibraryAssetDetailsLog(v8);
   v10 = v9;
   if (v8)
   {
@@ -294,57 +295,31 @@
   context = [notifyCopy context];
   v7 = BUDynamicCast();
 
-  v8 = BKLibraryAssetDetailsLog();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+  v9 = BKLibraryAssetDetailsLog(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
     sub_904A4();
   }
 
-  if (!v7)
+  if (!v7 || (v10 = [v7 sessionContextType], v10 == 2) || (v10 = objc_msgSend(v7, "sessionContextType"), v10 == 3) || (v10 = objc_msgSend(v7, "sessionContextType"), v10 == 1) || (objc_msgSend(v7, "persistentStoreCoordinator"), v11 = objc_claimAutoreleasedReturnValue(), -[BKLibraryAssetDetailsManager libraryManager](self, "libraryManager"), v12 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v12, "persistentStoreCoordinator"), v13 = objc_claimAutoreleasedReturnValue(), v14 = objc_msgSend(v11, "hasStoreInCommonWith:", v13), v13, v12, v11, !v14))
   {
-    goto LABEL_9;
-  }
-
-  if ([v7 sessionContextType] == 2)
-  {
-    goto LABEL_9;
-  }
-
-  if ([v7 sessionContextType] == 3)
-  {
-    goto LABEL_9;
-  }
-
-  if ([v7 sessionContextType] == 1)
-  {
-    goto LABEL_9;
-  }
-
-  persistentStoreCoordinator = [v7 persistentStoreCoordinator];
-  libraryManager = [(BKLibraryAssetDetailsManager *)self libraryManager];
-  persistentStoreCoordinator2 = [libraryManager persistentStoreCoordinator];
-  v12 = [persistentStoreCoordinator hasStoreInCommonWith:persistentStoreCoordinator2];
-
-  if (!v12)
-  {
-LABEL_9:
-    v14 = BKLibraryAssetDetailsLog();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+    v16 = BKLibraryAssetDetailsLog(v10);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
     {
-      sub_904D8(v7, self, v14);
+      sub_904D8(v7, self, v16);
     }
   }
 
   else
   {
     enableCloudMergeQueue = [(BKLibraryAssetDetailsManager *)self enableCloudMergeQueue];
-    v15[0] = _NSConcreteStackBlock;
-    v15[1] = 3221225472;
-    v15[2] = sub_49D40;
-    v15[3] = &unk_D5420;
-    v15[4] = self;
-    v16 = notifyCopy;
-    dispatch_async(enableCloudMergeQueue, v15);
+    v17[0] = _NSConcreteStackBlock;
+    v17[1] = 3221225472;
+    v17[2] = sub_49D40;
+    v17[3] = &unk_D5420;
+    v17[4] = self;
+    v18 = notifyCopy;
+    dispatch_async(enableCloudMergeQueue, v17);
   }
 }
 
@@ -396,22 +371,22 @@ LABEL_9:
 
     if (verboseLoggingEnabled)
     {
-      v10 = BKLibraryAssetDetailsDevelopmentLog();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      v11 = BKLibraryAssetDetailsDevelopmentLog(v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v15 = detailsCopy;
-        _os_log_impl(&dword_0, v10, OS_LOG_TYPE_DEFAULT, "\\_updateGlobalAnnotationsFromDetails with assetDetails: %@\\"", buf, 0xCu);
+        v16 = detailsCopy;
+        _os_log_impl(&dword_0, v11, OS_LOG_TYPE_DEFAULT, "\\_updateGlobalAnnotationsFromDetails with assetDetails: %@\", buf, 0xCu);
       }
     }
 
     allKeys = [v7 allKeys];
-    v12[0] = _NSConcreteStackBlock;
-    v12[1] = 3221225472;
-    v12[2] = sub_4B1E8;
-    v12[3] = &unk_D6C58;
-    v13 = v7;
-    [providerCopy modifyGlobalAnnotationsWithAssetIDs:allKeys type:2 performBlock:v12];
+    v13[0] = _NSConcreteStackBlock;
+    v13[1] = 3221225472;
+    v13[2] = sub_4B1E8;
+    v13[3] = &unk_D6C58;
+    v14 = v7;
+    [providerCopy modifyGlobalAnnotationsWithAssetIDs:allKeys type:2 performBlock:v13];
   }
 }
 
@@ -424,27 +399,27 @@ LABEL_9:
   v10 = [libraryManager cloudSyncVersionsForDataType:@"BCAssetDetail" inContext:cCopy];
 
   v11 = [v10 mutableCopy];
-  v12 = BKLibraryAssetDetailsLog();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  v13 = BKLibraryAssetDetailsLog(v12);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543618;
-    v20 = v11;
-    v21 = 2114;
-    v22 = reasonCopy;
-    _os_log_impl(&dword_0, v12, OS_LOG_TYPE_DEFAULT, "_checkForChangesFromCloudAssetDetailManagerInMOC cloudSyncVersions:%{public}@, reason:%{public}@", buf, 0x16u);
+    v21 = v11;
+    v22 = 2114;
+    v23 = reasonCopy;
+    _os_log_impl(&dword_0, v13, OS_LOG_TYPE_DEFAULT, "_checkForChangesFromCloudAssetDetailManagerInMOC cloudSyncVersions:%{public}@, reason:%{public}@", buf, 0x16u);
   }
 
   cloudAssetDetailManager = [(BKLibraryAssetDetailsManager *)self cloudAssetDetailManager];
-  v16[0] = _NSConcreteStackBlock;
-  v16[1] = 3221225472;
-  v16[2] = sub_4BDE0;
-  v16[3] = &unk_D6CD0;
-  v16[4] = self;
-  v17 = libraryManager;
-  v18 = annotationProvider;
-  v14 = annotationProvider;
-  v15 = libraryManager;
-  [cloudAssetDetailManager getAssetDetailChangesSince:v11 completion:v16];
+  v17[0] = _NSConcreteStackBlock;
+  v17[1] = 3221225472;
+  v17[2] = sub_4BDE0;
+  v17[3] = &unk_D6CD0;
+  v17[4] = self;
+  v18 = libraryManager;
+  v19 = annotationProvider;
+  v15 = annotationProvider;
+  v16 = libraryManager;
+  [cloudAssetDetailManager getAssetDetailChangesSince:v11 completion:v17];
 }
 
 - (void)_BCCloudReadingNowDetailManagerChanged:(id)changed

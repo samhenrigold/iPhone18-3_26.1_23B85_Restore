@@ -187,7 +187,7 @@ LABEL_8:
 
 - (NSString)description
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CCAB68];
   v4 = objc_opt_class();
   label = [(NPKCommutePlanField *)self label];
@@ -217,32 +217,32 @@ LABEL_8:
   if (v14)
   {
     [v8 appendString:@" details:"];
-    v35 = 0u;
-    v36 = 0u;
-    v33 = 0u;
     v34 = 0u;
+    v35 = 0u;
+    v32 = 0u;
+    v33 = 0u;
     details2 = [(NPKCommutePlanField *)self details];
-    v16 = [details2 countByEnumeratingWithState:&v33 objects:v37 count:16];
+    v16 = [details2 countByEnumeratingWithState:&v32 objects:v36 count:16];
     if (v16)
     {
       v17 = v16;
-      v18 = *v34;
+      v18 = *v33;
       do
       {
         for (i = 0; i != v17; ++i)
         {
-          if (*v34 != v18)
+          if (*v33 != v18)
           {
             objc_enumerationMutation(details2);
           }
 
-          v20 = *(*(&v33 + 1) + 8 * i);
+          v20 = *(*(&v32 + 1) + 8 * i);
           label2 = [v20 label];
           value = [v20 value];
           [v8 appendFormat:@" (%@: %@)", label2, value];
         }
 
-        v17 = [details2 countByEnumeratingWithState:&v33 objects:v37 count:16];
+        v17 = [details2 countByEnumeratingWithState:&v32 objects:v36 count:16];
       }
 
       while (v17);
@@ -270,7 +270,6 @@ LABEL_8:
   }
 
   [v8 appendString:@"}"];
-  v31 = *MEMORY[0x277D85DE8];
 
   return v8;
 }

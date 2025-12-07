@@ -205,8 +205,7 @@ LABEL_49:
 
     if ((v8 == 0) != (v9 != 0))
     {
-      [(MNGuidanceSignDescription *)self distanceDetailLevel];
-      v5 = sub_100C168BC(v8, v9);
+      v5 = sub_100C168BC(v8, v9, [(MNGuidanceSignDescription *)self distanceDetailLevel]);
       goto LABEL_27;
     }
 

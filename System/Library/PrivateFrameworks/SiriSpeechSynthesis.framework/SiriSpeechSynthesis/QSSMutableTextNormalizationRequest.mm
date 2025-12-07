@@ -3,12 +3,19 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (int)nbest_variants_max;
 - (void)setLanguage:(id)language;
+- (void)setNbest_variants_max:(int)nbest_variants_max;
 - (void)setSession_id:(id)session_id;
 - (void)setSpeech_id:(id)speech_id;
 - (void)setText:(id)text;
 @end
 
 @implementation QSSMutableTextNormalizationRequest
+
+- (void)setNbest_variants_max:(int)nbest_variants_max
+{
+  v4 = [objc_alloc(MEMORY[0x277CCABB0]) initWithInt:*&nbest_variants_max];
+  [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
+}
 
 - (int)nbest_variants_max
 {

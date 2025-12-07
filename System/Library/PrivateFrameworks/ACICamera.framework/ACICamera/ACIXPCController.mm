@@ -12,9 +12,9 @@
 - (ACIXPCController)initWithDelegate:(void *)delegate connection:(id)connection
 {
   connectionCopy = connection;
-  v23.receiver = self;
-  v23.super_class = ACIXPCController;
-  v8 = [(ACIXPCController *)&v23 init];
+  v22.receiver = self;
+  v22.super_class = ACIXPCController;
+  v8 = [(ACIXPCController *)&v22 init];
   if (v8)
   {
     v9 = fixedPriorityDispatchQueue();
@@ -22,28 +22,27 @@
     *(v8 + 5) = v9;
 
     aci::SP<aci::SourceManager,&(void ACISPRetain<aci::SourceManager>(aci::SourceManager &)),&(void ACISPRelease<aci::SourceManager>(aci::SourceManager &))>::setPtr(v8 + 8, delegate);
-    v11 = *(*(*(v8 + 8) + 200) + 24);
-    v12 = aci2nsString();
-    v13 = *(v8 + 1);
-    *(v8 + 1) = v12;
+    v11 = aci2nsString();
+    v12 = *(v8 + 1);
+    *(v8 + 1) = v11;
 
     uUID = [MEMORY[0x277CCAD78] UUID];
     uUIDString = [uUID UUIDString];
-    v16 = *(v8 + 2);
+    v15 = *(v8 + 2);
     *(v8 + 2) = uUIDString;
 
     objc_storeStrong(v8 + 3, connection);
-    v17 = [*(v8 + 3) synchronousRemoteObjectProxyWithErrorHandler:&__block_literal_global_2];
-    v18 = *(v8 + 7);
-    *(v8 + 7) = v17;
+    v16 = [*(v8 + 3) synchronousRemoteObjectProxyWithErrorHandler:&__block_literal_global_2];
+    v17 = *(v8 + 7);
+    *(v8 + 7) = v16;
 
     anonymousListener = [MEMORY[0x277CCAE98] anonymousListener];
-    v20 = *(v8 + 4);
+    v19 = *(v8 + 4);
     *(v8 + 4) = anonymousListener;
 
     [*(v8 + 4) setDelegate:v8];
     [*(v8 + 4) resume];
-    v21 = v8;
+    v20 = v8;
   }
 
   return v8;
@@ -51,17 +50,15 @@
 
 void __48__ACIXPCController_initWithDelegate_connection___block_invoke(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = _aciLogGeneral();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    v5 = 138412290;
-    v6 = v2;
-    _os_log_impl(&dword_23C3F5000, v3, OS_LOG_TYPE_ERROR, "Sync remote object failed, (error: %@)!", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = v2;
+    _os_log_impl(&dword_23C3F5000, v3, OS_LOG_TYPE_ERROR, "Sync remote object failed, (error: %@)!", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dealloc
@@ -90,18 +87,16 @@ void __48__ACIXPCController_initWithDelegate_connection___block_invoke(uint64_t 
 
 - (void)newEvent:(id)event
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = _aciLogGeneral();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 136315394;
-    v6 = "[ACIXPCController newEvent:]";
-    v7 = 1024;
-    v8 = 76;
-    _os_log_impl(&dword_23C3F5000, v3, OS_LOG_TYPE_DEFAULT, " === %s:%d", &v5, 0x12u);
+    v4 = 136315394;
+    v5 = "[ACIXPCController newEvent:]";
+    v6 = 1024;
+    v7 = 76;
+    _os_log_impl(&dword_23C3F5000, v3, OS_LOG_TYPE_DEFAULT, " === %s:%d", &v4, 0x12u);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (int)start
@@ -158,20 +153,19 @@ void __25__ACIXPCController_start__block_invoke(uint64_t a1, int a2, void *a3)
 
 void __25__ACIXPCController_start__block_invoke_2(uint64_t a1, int a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v4 = _aciLogGeneral();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 32);
-    v7 = 138412546;
-    v8 = v5;
-    v9 = 1024;
-    v10 = a2;
-    _os_log_impl(&dword_23C3F5000, v4, OS_LOG_TYPE_DEFAULT, "Start service %@, errCode(%d)!", &v7, 0x12u);
+    v6 = 138412546;
+    v7 = v5;
+    v8 = 1024;
+    v9 = a2;
+    _os_log_impl(&dword_23C3F5000, v4, OS_LOG_TYPE_DEFAULT, "Start service %@, errCode(%d)!", &v6, 0x12u);
   }
 
   *(*(*(a1 + 40) + 8) + 24) = a2;
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (int)stop
@@ -214,20 +208,19 @@ void __25__ACIXPCController_start__block_invoke_2(uint64_t a1, int a2)
 
 void __24__ACIXPCController_stop__block_invoke(uint64_t a1, int a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v4 = _aciLogGeneral();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 32);
-    v7 = 138412546;
-    v8 = v5;
-    v9 = 1024;
-    v10 = a2;
-    _os_log_impl(&dword_23C3F5000, v4, OS_LOG_TYPE_DEFAULT, "Stop service %@, errCode(%d)!", &v7, 0x12u);
+    v6 = 138412546;
+    v7 = v5;
+    v8 = 1024;
+    v9 = a2;
+    _os_log_impl(&dword_23C3F5000, v4, OS_LOG_TYPE_DEFAULT, "Stop service %@, errCode(%d)!", &v6, 0x12u);
   }
 
   *(*(*(a1 + 40) + 8) + 24) = a2;
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __24__ACIXPCController_stop__block_invoke_8(uint64_t a1, int a2)

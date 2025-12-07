@@ -132,9 +132,9 @@
 
 - (SBHAddWidgetSheetViewController)initWithListLayoutProvider:(id)provider iconViewProvider:(id)viewProvider allowedWidgets:(SBHWidgetFilteringParameters)widgets appCellConfigurator:(id)configurator addWidgetSheetStyle:(unint64_t)style
 {
-  v38.receiver = self;
-  v38.super_class = SBHAddWidgetSheetViewController;
-  style = [(SBHAddWidgetSheetViewControllerBase *)&v38 initWithListLayoutProvider:provider iconViewProvider:viewProvider allowedWidgets:widgets.families appCellConfigurator:*&widgets.includesNonStackable addWidgetSheetStyle:configurator, style];
+  v39.receiver = self;
+  v39.super_class = SBHAddWidgetSheetViewController;
+  style = [(SBHAddWidgetSheetViewControllerBase *)&v39 initWithListLayoutProvider:provider iconViewProvider:viewProvider allowedWidgets:widgets.families appCellConfigurator:*&widgets.includesNonStackable addWidgetSheetStyle:configurator, style];
   v8 = style;
   if (style)
   {
@@ -148,43 +148,43 @@
 
     if ([(SBHAddWidgetSheetViewControllerBase *)v8 addWidgetSheetStyle]== 1)
     {
-      v12 = SBHScreenTypeForCurrentDevice();
-      SBHPadAddWidgetSheetMetricsForScreenTypeAndInterfaceOrientation(v12, 3, &v28);
-      v13 = v29;
-      *&v8->_landscapeMetrics.sheetMargin = v28;
-      *&v8->_landscapeMetrics.sidebarWidth = v13;
+      v13 = SBHScreenTypeForCurrentDevice(1, v12);
+      SBHPadAddWidgetSheetMetricsForScreenTypeAndInterfaceOrientation(v13, 3, &v29);
       v14 = v30;
+      *&v8->_landscapeMetrics.sheetMargin = v29;
+      *&v8->_landscapeMetrics.sidebarWidth = v14;
       v15 = v31;
-      v16 = v33;
-      *&v8->_landscapeMetrics.scaledWidgetSize.height = v32;
-      v8->_landscapeMetrics.detailWidgetPadding = v16;
-      *&v8->_landscapeMetrics.trailingPadding = v14;
-      *&v8->_landscapeMetrics.widgetScaleFactor = v15;
+      v16 = v32;
       v17 = v34;
+      *&v8->_landscapeMetrics.scaledWidgetSize.height = v33;
+      v8->_landscapeMetrics.detailWidgetPadding = v17;
+      *&v8->_landscapeMetrics.trailingPadding = v15;
+      *&v8->_landscapeMetrics.widgetScaleFactor = v16;
       v18 = v35;
       v19 = v36;
-      v8->_landscapeMetrics.sidebarPadding.trailing = v37;
-      *&v8->_landscapeMetrics.detailPageControlTopSpacing = v18;
-      *&v8->_landscapeMetrics.sidebarPadding.leading = v19;
-      *&v8->_landscapeMetrics.detailAddButtonTopSpacing = v17;
-      SBHPadAddWidgetSheetMetricsForScreenTypeAndInterfaceOrientation(v12, 1, &v28);
-      v20 = v29;
-      *&v8->_portraitMetrics.sheetMargin = v28;
-      *&v8->_portraitMetrics.sidebarWidth = v20;
+      v20 = v37;
+      v8->_landscapeMetrics.sidebarPadding.trailing = v38;
+      *&v8->_landscapeMetrics.detailPageControlTopSpacing = v19;
+      *&v8->_landscapeMetrics.sidebarPadding.leading = v20;
+      *&v8->_landscapeMetrics.detailAddButtonTopSpacing = v18;
+      SBHPadAddWidgetSheetMetricsForScreenTypeAndInterfaceOrientation(v13, 1, &v29);
       v21 = v30;
+      *&v8->_portraitMetrics.sheetMargin = v29;
+      *&v8->_portraitMetrics.sidebarWidth = v21;
       v22 = v31;
-      v23 = v33;
-      *&v8->_portraitMetrics.scaledWidgetSize.height = v32;
-      v8->_portraitMetrics.detailWidgetPadding = v23;
-      *&v8->_portraitMetrics.trailingPadding = v21;
-      *&v8->_portraitMetrics.widgetScaleFactor = v22;
+      v23 = v32;
       v24 = v34;
+      *&v8->_portraitMetrics.scaledWidgetSize.height = v33;
+      v8->_portraitMetrics.detailWidgetPadding = v24;
+      *&v8->_portraitMetrics.trailingPadding = v22;
+      *&v8->_portraitMetrics.widgetScaleFactor = v23;
       v25 = v35;
       v26 = v36;
-      v8->_portraitMetrics.sidebarPadding.trailing = v37;
-      *&v8->_portraitMetrics.detailPageControlTopSpacing = v25;
-      *&v8->_portraitMetrics.sidebarPadding.leading = v26;
-      *&v8->_portraitMetrics.detailAddButtonTopSpacing = v24;
+      v27 = v37;
+      v8->_portraitMetrics.sidebarPadding.trailing = v38;
+      *&v8->_portraitMetrics.detailPageControlTopSpacing = v26;
+      *&v8->_portraitMetrics.sidebarPadding.leading = v27;
+      *&v8->_portraitMetrics.detailAddButtonTopSpacing = v25;
     }
 
     else if (![(SBHAddWidgetSheetViewControllerBase *)v8 addWidgetSheetStyle])
@@ -370,7 +370,7 @@ void __67__SBHAddWidgetSheetViewController_setApplicationWidgetCollections___blo
 {
   v13 = *MEMORY[0x1E69E9840];
   collectionsCopy = collections;
-  v6 = SBLogAddWidgetSheet();
+  v6 = SBLogAddWidgetSheet(collectionsCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
@@ -412,7 +412,7 @@ void __74__SBHAddWidgetSheetViewController_setFavoredApplicationWidgetCollection
 {
   v13 = *MEMORY[0x1E69E9840];
   collectionsCopy = collections;
-  v6 = SBLogAddWidgetSheet();
+  v6 = SBLogAddWidgetSheet(collectionsCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
@@ -565,7 +565,7 @@ void __73__SBHAddWidgetSheetViewController_setCustomApplicationWidgetCollections
     self->_backgroundView = _newBackgroundView;
 
     v5 = self->_backgroundView;
-    [view bounds];
+    objc_msgSend_bounds(view);
     [(MTMaterialView *)v5 setFrame:?];
     [(MTMaterialView *)self->_backgroundView setAutoresizingMask:18];
     [view addSubview:self->_backgroundView];
@@ -583,7 +583,7 @@ void __73__SBHAddWidgetSheetViewController_setCustomApplicationWidgetCollections
   [v59 setInterSectionSpacing:16.0];
   [(_SBHCustomUICollectionViewCompositionalLayout *)v58 setConfiguration:v59];
   v7 = [_SBHAddWidgetSheetCollectionView alloc];
-  [view bounds];
+  objc_msgSend_bounds(view);
   v8 = [(_SBHAddWidgetSheetCollectionView *)v7 initWithFrame:v58 collectionViewLayout:?];
   collectionView = self->_collectionView;
   self->_collectionView = v8;
@@ -658,7 +658,7 @@ void __73__SBHAddWidgetSheetViewController_setCustomApplicationWidgetCollections
 
     else
     {
-      v29 = SBHBundle();
+      v29 = SBHBundle(0);
       v28 = [v29 localizedStringForKey:@"WIDGET_ADD_SHEET_SEARCH_PLACEHOLDER" value:&stru_1F3D472A8 table:@"SpringBoardHome"];
     }
 
@@ -838,13 +838,13 @@ LABEL_8:
     self = [($C48D5C44E1E4BC3B38DCA2BDA7A0443F *)selfCopy addWidgetSheetStyle];
     if (self == 1)
     {
-      SBHAddWidgetSheetSplitViewIconMetricsForScale(v13, v8);
+      SBHAddWidgetSheetSplitViewIconMetricsForScale(v13);
       goto LABEL_8;
     }
 
     if (!self)
     {
-      SBHAddWidgetSheetCompactViewIconMetricsForScale(v13, v8);
+      SBHAddWidgetSheetCompactViewIconMetricsForScale(v13);
       goto LABEL_8;
     }
   }
@@ -989,7 +989,7 @@ LABEL_7:
   {
     if ([(SBHAddWidgetSheetViewController *)self shouldShowGalleryOnly])
     {
-      [(SBHAddWidgetSheetViewController *)self _metricsForCurrentOrientation:0];
+      objc_msgSend__metricsForCurrentOrientation(self, 0, 0, 0, 0, 0, 0);
       [(_SBHAddWidgetSheetGalleryWrapperView *)self->_wrapperView setContentScaleFactor:0.0];
       [(_SBHAddWidgetSheetGalleryWrapperView *)self->_wrapperView layoutIfNeeded];
     }
@@ -1168,7 +1168,7 @@ void __51__SBHAddWidgetSheetViewController_setGalleryItems___block_invoke(uint64
   [(SBHAddWidgetSheetViewController *)self bs_addChildViewController:self->_barSwipeViewController];
   view = [(UIViewController *)self->_barSwipeViewController view];
   view2 = [(SBHAddWidgetSheetViewController *)self view];
-  [view2 bounds];
+  objc_msgSend_bounds(view2);
   [view setFrame:?];
 
   [view setUserInteractionEnabled:0];
@@ -1233,7 +1233,7 @@ void __51__SBHAddWidgetSheetViewController_setGalleryItems___block_invoke(uint64
   v20 = v19;
   v22 = v21;
 
-  [view bounds];
+  objc_msgSend_bounds(view);
   v30.origin.x = v23;
   v30.origin.y = v24;
   v30.size.width = v25;
@@ -1606,7 +1606,7 @@ void __71__SBHAddWidgetSheetViewController__generateSnapshotDiffedFromSnapshot__
 - (id)_iconImageForApplicationWidgetCollection:(id)collection
 {
   collectionCopy = collection;
-  [(SBHAddWidgetSheetViewController *)self sheetIconMetrics];
+  objc_msgSend_sheetIconMetrics(self, 0);
   collectionView = [(SBHAddWidgetSheetViewController *)self collectionView];
   traitCollection = [collectionView traitCollection];
 
@@ -1638,7 +1638,7 @@ void __71__SBHAddWidgetSheetViewController__generateSnapshotDiffedFromSnapshot__
     {
       icon = [collectionCopy icon];
       applicationBundleID = [icon applicationBundleID];
-      customImage2 = SBHGetApplicationIconImageWithTraitCollection(applicationBundleID, traitCollection, 0, 0.0, 0.0, 0.0);
+      customImage2 = SBHGetApplicationIconImageWithTraitCollection(applicationBundleID, traitCollection, 0, 0.0, 0.0, 0.0, 0.0);
     }
   }
 
@@ -1663,7 +1663,7 @@ void __71__SBHAddWidgetSheetViewController__generateSnapshotDiffedFromSnapshot__
     v124 = 0.0;
     v122 = 0u;
     v123 = 0u;
-    [(SBHAddWidgetSheetViewController *)self sheetIconMetrics];
+    objc_msgSend_sheetIconMetrics(self);
     configuration = [(SBHAddWidgetSheetViewController *)self configuration];
     if ([configuration applicationCellIncludesGalleryListView])
     {
@@ -1891,7 +1891,7 @@ LABEL_62:
       if ([identifierCopy isEqual:@"kSBHAddWidgetSheetGallerySuggestionsItemIdentifier"])
       {
         textLabel = [v12 textLabel];
-        v32 = SBHBundle();
+        v32 = SBHBundle(textLabel);
         v33 = [v32 localizedStringForKey:@"ADD_WIDGET_SHEET_SUGGESTIONS_CELL_LABEL" value:&stru_1F3D472A8 table:@"SpringBoardHome"];
         [textLabel setText:v33];
 
@@ -1919,7 +1919,7 @@ LABEL_27:
       if ([identifierCopy isEqual:@"kSBHAddWidgetSheetOtherItemIdentifier"])
       {
         textLabel2 = [v12 textLabel];
-        v54 = SBHBundle();
+        v54 = SBHBundle(textLabel2);
         v55 = [v54 localizedStringForKey:@"ADD_WIDGET_SHEET_OTHER_CELL_LABEL" value:&stru_1F3D472A8 table:@"SpringBoardHome"];
         [textLabel2 setText:v55];
 
@@ -2231,7 +2231,8 @@ LABEL_15:
 
     if (__sb__runningInSpringBoard())
     {
-      if (SBFEffectiveDeviceClass() == 2)
+      addWidgetSheetLocation = SBFEffectiveDeviceClass();
+      if (addWidgetSheetLocation == 2)
       {
 LABEL_16:
         v3 = @"ADD_WIDGET_SHEET_OTHER_LOCATION_LABEL_IPAD_HOME_SCREEN";
@@ -2272,9 +2273,9 @@ LABEL_16:
 
 LABEL_11:
   v5 = MEMORY[0x1E696AEC0];
-  v6 = SBHBundle();
+  v6 = SBHBundle(addWidgetSheetLocation);
   v7 = [v6 localizedStringForKey:@"ADD_WIDGET_SHEET_OTHER_DESCRIPTION_LABEL" value:&stru_1F3D472A8 table:@"SpringBoardHome"];
-  v8 = SBHBundle();
+  v8 = SBHBundle(v7);
   v9 = [v8 localizedStringForKey:v3 value:&stru_1F3D472A8 table:@"SpringBoardHome"];
   v10 = [v5 stringWithFormat:v7, v9];
 
@@ -2320,8 +2321,8 @@ LABEL_11:
         else
         {
           applicationWidgetCollectionsToUse = [(SBHAddWidgetSheetViewController *)self applicationWidgetCollectionsToUse];
-          v17 = [applicationWidgetCollectionsToUse objectAtIndex:v10];
-          [(SBHAddWidgetSheetViewController *)self _presentDetailSheetViewControllerForApplicationWidgetCollection:v17];
+          v16 = objc_msgSend_objectAtIndex_(applicationWidgetCollectionsToUse);
+          [(SBHAddWidgetSheetViewController *)self _presentDetailSheetViewControllerForApplicationWidgetCollection:v16];
         }
       }
     }
@@ -2332,11 +2333,10 @@ LABEL_11:
       if (section3 == [(SBHAddWidgetSheetViewController *)self _sectionIndexForSection:3])
       {
         item = [pathCopy item];
-        v15 = item - 2;
         if (item >= 2)
         {
-          v18 = [(NSArray *)self->_disfavoredApplicationWidgetCollections objectAtIndex:v15];
-          [(SBHAddWidgetSheetViewController *)self _presentDetailSheetViewControllerForApplicationWidgetCollection:v18];
+          v17 = objc_msgSend_objectAtIndex_(self->_disfavoredApplicationWidgetCollections);
+          [(SBHAddWidgetSheetViewController *)self _presentDetailSheetViewControllerForApplicationWidgetCollection:v17];
         }
 
         else
@@ -2428,38 +2428,38 @@ LABEL_11:
     delegate = [(SBHAddWidgetSheetViewControllerBase *)self delegate];
     if ((objc_opt_respondsToSelector() & 1) == 0 || ([(SBHAddWidgetSheetViewController *)delegate addWidgetSheetViewController:self detailViewControllerForWidgetCollection:collectionCopy], (indexPathsForSelectedItems = objc_claimAutoreleasedReturnValue()) == 0))
     {
-      v28 = cellCopy;
+      v29 = cellCopy;
       addWidgetSheetStyle = [(SBHAddWidgetSheetViewControllerBase *)self addWidgetSheetStyle];
-      v40 = 0;
-      v38 = 0u;
+      v41 = 0;
       v39 = 0u;
-      v36 = 0u;
+      v40 = 0u;
       v37 = 0u;
-      v34 = 0u;
+      v38 = 0u;
       v35 = 0u;
-      v32 = 0u;
+      v36 = 0u;
       v33 = 0u;
-      v31 = 0u;
-      [(SBHAddWidgetSheetViewController *)self _metricsForCurrentOrientation];
-      v16 = [SBHAddWidgetDetailSheetViewController alloc];
+      v34 = 0u;
+      v32 = 0u;
+      objc_msgSend__metricsForCurrentOrientation(self);
+      v17 = [SBHAddWidgetDetailSheetViewController alloc];
       listLayoutProvider = [(SBHAddWidgetSheetViewControllerBase *)self listLayoutProvider];
       iconViewProvider = [(SBHAddWidgetSheetViewControllerBase *)self iconViewProvider];
       allowedWidgets = [(SBHAddWidgetSheetViewControllerBase *)self allowedWidgets];
-      v21 = v20;
+      v22 = v21;
       appCellConfigurator = [(SBHAddWidgetSheetViewControllerBase *)self appCellConfigurator];
-      indexPathsForSelectedItems = [(SBHAddWidgetSheetViewControllerBase *)v16 initWithListLayoutProvider:listLayoutProvider iconViewProvider:iconViewProvider allowedWidgets:allowedWidgets appCellConfigurator:v21 addWidgetSheetStyle:appCellConfigurator, addWidgetSheetStyle];
+      indexPathsForSelectedItems = [(SBHAddWidgetSheetViewControllerBase *)v17 initWithListLayoutProvider:listLayoutProvider iconViewProvider:iconViewProvider allowedWidgets:allowedWidgets appCellConfigurator:v22 addWidgetSheetStyle:appCellConfigurator, addWidgetSheetStyle];
 
-      v29[6] = v37;
-      v29[7] = v38;
-      v29[8] = v39;
-      v30 = v40;
-      v29[2] = v33;
-      v29[3] = v34;
-      v29[4] = v35;
-      v29[5] = v36;
-      v29[0] = v31;
-      v29[1] = v32;
-      [(SBHAddWidgetSheetViewControllerBase *)indexPathsForSelectedItems setAddWidgetSheetMetrics:v29];
+      v30[6] = v38;
+      v30[7] = v39;
+      v30[8] = v40;
+      v31 = v41;
+      v30[2] = v34;
+      v30[3] = v35;
+      v30[4] = v36;
+      v30[5] = v37;
+      v30[0] = v32;
+      v30[1] = v33;
+      [(SBHAddWidgetSheetViewControllerBase *)indexPathsForSelectedItems setAddWidgetSheetMetrics:v30];
       if (addWidgetSheetStyle == 1)
       {
         selfCopy = delegate;
@@ -2483,10 +2483,10 @@ LABEL_11:
       [(SBHAddWidgetSheetViewControllerBase *)indexPathsForSelectedItems setAddWidgetSheetWidgetBackgroundType:[(SBHAddWidgetSheetViewControllerBase *)self addWidgetSheetWidgetBackgroundType]];
       if (addWidgetSheetStyle == 1)
       {
-        [(SBHAddWidgetDetailSheetViewController *)indexPathsForSelectedItems setAdditionalSafeAreaInsets:*(&v33 + 1), 0.0, 0.0, 0.0];
+        [(SBHAddWidgetDetailSheetViewController *)indexPathsForSelectedItems setAdditionalSafeAreaInsets:*(&v34 + 1), 0.0, 0.0, 0.0];
       }
 
-      cellCopy = v28;
+      cellCopy = v29;
     }
 
     [(SBHAddWidgetSheetViewController *)self _presentDetailViewController:indexPathsForSelectedItems fromCell:cellCopy];
@@ -2494,10 +2494,10 @@ LABEL_11:
 
   else
   {
-    v26 = SBLogAddWidgetSheet();
-    if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+    v27 = SBLogAddWidgetSheet(v13);
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
     {
-      [SBHAddWidgetSheetViewController _presentDetailSheetViewControllerForApplicationWidgetCollection:collectionCopy configuredWithGalleryItem:v26 selectedSizeClass:? fromCell:? atIndexPath:?];
+      [SBHAddWidgetSheetViewController _presentDetailSheetViewControllerForApplicationWidgetCollection:collectionCopy configuredWithGalleryItem:v27 selectedSizeClass:? fromCell:? atIndexPath:?];
     }
 
     collectionView = self->_collectionView;
@@ -2717,15 +2717,16 @@ LABEL_25:
     v28[3] = &unk_1E808AD00;
     v13 = galleryItem;
     v29 = v13;
-    v14 = [(NSArray *)favoredApplicationWidgetCollections indexOfObjectPassingTest:v28];
-    if (v14 == 0x7FFFFFFFFFFFFFFFLL)
+    addWidgetSheetStyle = [(NSArray *)favoredApplicationWidgetCollections indexOfObjectPassingTest:v28];
+    if (addWidgetSheetStyle == 0x7FFFFFFFFFFFFFFFLL)
     {
       goto LABEL_17;
     }
 
-    v15 = v14;
-    v16 = [(NSArray *)self->_favoredApplicationWidgetCollections objectAtIndex:v14];
-    if ([(SBHAddWidgetSheetViewControllerBase *)self addWidgetSheetStyle]== 1)
+    v15 = addWidgetSheetStyle;
+    v16 = objc_msgSend_objectAtIndex_(self->_favoredApplicationWidgetCollections);
+    addWidgetSheetStyle = [(SBHAddWidgetSheetViewControllerBase *)self addWidgetSheetStyle];
+    if (addWidgetSheetStyle == 1)
     {
       v27 = v13;
       parentViewController = [(SBHAddWidgetSheetViewController *)self parentViewController];
@@ -2764,7 +2765,7 @@ LABEL_25:
     if (!v16)
     {
 LABEL_17:
-      v16 = SBLogAddWidgetSheet();
+      v16 = SBLogAddWidgetSheet(addWidgetSheetStyle);
       if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
         [(SBHAddWidgetSheetViewController *)widgetWrapperViewController _presentDetailSheetForGalleryCellAtIndexPath:v16];
@@ -3144,9 +3145,9 @@ BOOL __74__SBHAddWidgetSheetViewController_updateSearchResultsForSearchControlle
   {
     v9 = [v8 substringToIndex:999];
 
-    v10 = SBHBundle();
-    v11 = [v10 localizedStringForKey:@"CONTENT_UNAVAILABLE_TRUNCATION_ELLIPSIS" value:&stru_1F3D472A8 table:@"SpringBoardHome"];
-    v8 = [v9 stringByAppendingString:v11];
+    v11 = SBHBundle(v10);
+    v12 = [v11 localizedStringForKey:@"CONTENT_UNAVAILABLE_TRUNCATION_ELLIPSIS" value:&stru_1F3D472A8 table:@"SpringBoardHome"];
+    v8 = [v9 stringByAppendingString:v12];
   }
 
   return v8;
@@ -4074,30 +4075,29 @@ LABEL_114:
   {
     v12 = v11;
     v13 = 0;
-    v14 = 0;
-    v15 = !layoutCopy;
+    v14 = !layoutCopy;
     if (layoutCopy)
     {
-      v16 = 2;
+      v15 = 2;
     }
 
     else
     {
-      v16 = 1;
+      v15 = 1;
     }
 
     do
     {
-      v17 = [classesCopy objectAtIndex:{v13, groupCopy}];
-      integerValue = [v17 integerValue];
-      v19 = v14 + 1;
-      v20 = SBHItemAtIndexIsOfSize(classesCopy, v14 + 1);
-      v21 = v20;
+      v16 = objc_msgSend_objectAtIndex_(classesCopy, groupCopy);
+      integerValue = [v16 integerValue];
+      v18 = v13 + 1;
+      v19 = SBHItemAtIndexIsOfSize(classesCopy, v13 + 1);
+      v20 = v19;
       if (integerValue == 1)
       {
-        v23 = SBHItemAtIndexIsOfSize(classesCopy, v14 + 2);
-        v22 = groupCopy;
-        if ((v21 & (v15 | v23)) != 1)
+        v22 = SBHItemAtIndexIsOfSize(classesCopy, v13 + 2);
+        v21 = groupCopy;
+        if ((v20 & (v14 | v22)) != 1)
         {
           goto LABEL_9;
         }
@@ -4110,23 +4110,22 @@ LABEL_114:
           goto LABEL_9;
         }
 
-        v22 = smallGroupCopy;
-        v19 = v14;
-        if (((v15 | v20) & 1) == 0)
+        v21 = smallGroupCopy;
+        v18 = v13;
+        if (((v14 | v19) & 1) == 0)
         {
           goto LABEL_9;
         }
       }
 
-      [v10 addObject:v22];
-      v14 = v19;
+      [v10 addObject:v21];
+      v13 = v18;
 LABEL_9:
 
-      v14 += v16;
-      v13 = v14;
+      v13 += v15;
     }
 
-    while (v12 > v14);
+    while (v12 > v13);
   }
 
   if (![v10 count])
@@ -4334,12 +4333,12 @@ LABEL_9:
     do
     {
       v37 = objc_alloc_init(MEMORY[0x1E695DF70]);
-      v38 = [v33 objectAtIndex:v35];
+      v38 = objc_msgSend_objectAtIndex_(v33);
       [v37 addObject:v38];
 
       if (v26[2](v26, v33, v35) && v26[2](v26, v33, v35 + 1))
       {
-        v39 = [v33 objectAtIndex:v35 + 1];
+        v39 = objc_msgSend_objectAtIndex_(v33);
         [v37 addObject:v39];
 
         v40 = v35 + 2;
@@ -4347,7 +4346,7 @@ LABEL_9:
         {
           if (v26[2](v26, v33, v35 + 2))
           {
-            v42 = [v33 objectAtIndex:v35 + 2];
+            v42 = objc_msgSend_objectAtIndex_(v33);
             [v37 addObject:v42];
           }
 
@@ -4534,7 +4533,7 @@ uint64_t __98__SBHAddWidgetSheetViewController__newPadCollectionViewLayoutGaller
 
 uint64_t __98__SBHAddWidgetSheetViewController__newPadCollectionViewLayoutGallerySectionWithWidth_sizeClasses___block_invoke_9(uint64_t a1, void *a2)
 {
-  v2 = [a2 objectAtIndex:?];
+  v2 = objc_msgSend_objectAtIndex_(a2);
   v3 = [v2 integerValue];
 
   return v3;
@@ -4776,7 +4775,7 @@ LABEL_11:
     *&self->_applicationsSectionInsets.bottom = _Q1;
     if (style == 1)
     {
-      [(SBHAddWidgetSheetViewController *)self _metricsForCurrentOrientation];
+      objc_msgSend__metricsForCurrentOrientation(self, 0);
       self->_applicationsSectionInsets.leading = 0.0 + 0.0;
       self->_applicationsSectionInsets.trailing = 0.0 + 0.0;
       top = self->_applicationsSectionInsets.top;
@@ -4939,7 +4938,7 @@ LABEL_11:
 {
   searchController = self->_searchController;
   view = [(SBHAddWidgetSheetViewController *)self view];
-  [view bounds];
+  objc_msgSend_bounds(view);
   [(SBHWidgetSearchController *)searchController updateSearchBarContentInsetsWithWidth:v5];
 
   [(SBHAddWidgetSheetViewController *)self _updateCollectionViewInsets];
@@ -4981,7 +4980,7 @@ LABEL_11:
   v21 = v20;
   if (addWidgetSheetStyle == 1)
   {
-    [(SBHAddWidgetSheetViewController *)self _metricsForCurrentOrientation:0];
+    objc_msgSend__metricsForCurrentOrientation(self, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
     shouldShowGalleryOnly = [(SBHAddWidgetSheetViewController *)self shouldShowGalleryOnly];
     v23 = 120;
     if (shouldShowGalleryOnly)
@@ -5093,7 +5092,8 @@ LABEL_11:
     selfCopy = self;
   }
 
-  [(SBHAddWidgetSheetViewController *)self _metricsForOrientation:[(SBHAddWidgetSheetViewController *)selfCopy interfaceOrientation]];
+  [(SBHAddWidgetSheetViewController *)selfCopy interfaceOrientation];
+  objc_msgSend__metricsForOrientation_(self);
 
   return result;
 }

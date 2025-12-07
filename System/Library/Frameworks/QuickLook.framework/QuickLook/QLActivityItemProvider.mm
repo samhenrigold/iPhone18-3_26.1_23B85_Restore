@@ -32,7 +32,7 @@
 
 - (id)activityViewControllerPlaceholderItems:(id)items
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v4 = objc_opt_new();
   mainItem = [(QLActivityItemProvider *)self mainItem];
 
@@ -54,8 +54,8 @@
 
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v18) = 0;
-      _os_log_impl(&dword_23A714000, v8, OS_LOG_TYPE_ERROR, "No URL to pass to activityViewControllerPlaceholderItems. #Sharing", &v18, 2u);
+      LOWORD(v17) = 0;
+      _os_log_impl(&dword_23A714000, v8, OS_LOG_TYPE_ERROR, "No URL to pass to activityViewControllerPlaceholderItems. #Sharing", &v17, 2u);
     }
   }
 
@@ -93,19 +93,17 @@
 
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
-    v18 = 138412290;
-    v19 = v4;
-    _os_log_impl(&dword_23A714000, v12, OS_LOG_TYPE_DEFAULT, "Returning activity items %@ #Sharing", &v18, 0xCu);
+    v17 = 138412290;
+    v18 = v4;
+    _os_log_impl(&dword_23A714000, v12, OS_LOG_TYPE_DEFAULT, "Returning activity items %@ #Sharing", &v17, 0xCu);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
 
 - (id)activityViewController:(id)controller itemForActivityType:(id)type
 {
-  v30[1] = *MEMORY[0x277D85DE8];
+  v29[1] = *MEMORY[0x277D85DE8];
   controllerCopy = controller;
   typeCopy = type;
   if (([typeCopy isEqualToString:*MEMORY[0x277D54778]] & 1) != 0 || objc_msgSend(typeCopy, "isEqualToString:", *MEMORY[0x277D54740]))
@@ -172,9 +170,9 @@ LABEL_16:
     }
 
     identifier = [*MEMORY[0x277CE1E08] identifier];
-    v29 = identifier;
-    v30[0] = activity;
-    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:&v29 count:1];
+    v28 = identifier;
+    v29[0] = activity;
+    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:&v28 count:1];
     goto LABEL_5;
   }
 
@@ -191,14 +189,12 @@ LABEL_18:
 
   if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
   {
-    v25 = 138412546;
-    v26 = typeCopy;
-    v27 = 2112;
-    v28 = printer2;
-    _os_log_impl(&dword_23A714000, v22, OS_LOG_TYPE_INFO, "Returning activity item for activity type %@ : %@ #Printing", &v25, 0x16u);
+    v24 = 138412546;
+    v25 = typeCopy;
+    v26 = 2112;
+    v27 = printer2;
+    _os_log_impl(&dword_23A714000, v22, OS_LOG_TYPE_INFO, "Returning activity item for activity type %@ : %@ #Printing", &v24, 0x16u);
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 
   return printer2;
 }
@@ -314,9 +310,11 @@ LABEL_15:
 
 uint64_t __47__QLActivityItemProvider__pdfPreviewDataAtURL___block_invoke()
 {
-  _pdfPreviewDataAtURL__sharedPDFPreviewCache = objc_alloc_init(MEMORY[0x277CBEA78]);
+  v0 = objc_alloc_init(MEMORY[0x277CBEA78]);
+  v1 = _pdfPreviewDataAtURL__sharedPDFPreviewCache;
+  _pdfPreviewDataAtURL__sharedPDFPreviewCache = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 - (id)activityViewControllerSuggestionFileURL:(id)l

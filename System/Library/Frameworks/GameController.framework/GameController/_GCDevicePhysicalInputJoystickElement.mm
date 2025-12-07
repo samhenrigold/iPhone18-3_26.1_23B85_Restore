@@ -17,23 +17,23 @@
 - (NSString)description;
 - (_GCDevicePhysicalInputJoystickElement)initWithParameters:(id)parameters;
 - (_GCDevicePhysicalInputJoystickElement)initWithTemplate:(id)template context:(id)context;
+- (id)_pressValueField;
+- (id)_setPressValueField:(id *)result;
+- (id)_setTouchValueField:(id *)result;
+- (id)_setXValueField:(id *)result;
+- (id)_setYValueField:(id *)result;
+- (id)_touchValueField;
+- (id)_xValueField;
+- (id)_yValueField;
 - (uint64_t)_down;
 - (uint64_t)_left;
 - (uint64_t)_press;
-- (uint64_t)_pressValueField;
 - (uint64_t)_right;
-- (uint64_t)_setPressValueField:(uint64_t)result;
-- (uint64_t)_setTouchValueField:(uint64_t)result;
-- (uint64_t)_setXValueField:(uint64_t)result;
-- (uint64_t)_setYValueField:(uint64_t)result;
 - (uint64_t)_touch;
-- (uint64_t)_touchValueField;
 - (uint64_t)_up;
 - (uint64_t)_x;
-- (uint64_t)_xValueField;
 - (uint64_t)_xy;
 - (uint64_t)_y;
-- (uint64_t)_yValueField;
 - (void)postCommit:(const void *)commit sender:(id)sender;
 - (void)preCommit:(const void *)commit sender:(id)sender;
 @end
@@ -634,7 +634,7 @@ LABEL_13:
   return v6;
 }
 
-- (uint64_t)_setXValueField:(uint64_t)result
+- (id)_setXValueField:(id *)result
 {
   if (result)
   {
@@ -644,7 +644,7 @@ LABEL_13:
   return result;
 }
 
-- (uint64_t)_setYValueField:(uint64_t)result
+- (id)_setYValueField:(id *)result
 {
   if (result)
   {
@@ -654,7 +654,7 @@ LABEL_13:
   return result;
 }
 
-- (uint64_t)_setPressValueField:(uint64_t)result
+- (id)_setPressValueField:(id *)result
 {
   if (result)
   {
@@ -664,7 +664,7 @@ LABEL_13:
   return result;
 }
 
-- (uint64_t)_setTouchValueField:(uint64_t)result
+- (id)_setTouchValueField:(id *)result
 {
   if (result)
   {
@@ -970,7 +970,7 @@ LABEL_24:
   return v68 & 1;
 }
 
-- (uint64_t)_xValueField
+- (id)_xValueField
 {
   if (result)
   {
@@ -980,7 +980,7 @@ LABEL_24:
   return result;
 }
 
-- (uint64_t)_yValueField
+- (id)_yValueField
 {
   if (result)
   {
@@ -990,7 +990,7 @@ LABEL_24:
   return result;
 }
 
-- (uint64_t)_pressValueField
+- (id)_pressValueField
 {
   if (result)
   {
@@ -1000,7 +1000,7 @@ LABEL_24:
   return result;
 }
 
-- (uint64_t)_touchValueField
+- (id)_touchValueField
 {
   if (result)
   {
@@ -1167,11 +1167,11 @@ LABEL_24:
 - (BOOL)update:(void *)update forGamepadEvent:(id)event withTimestamp:(double)timestamp
 {
   OUTLINED_FUNCTION_56();
-  v67 = v14;
-  v68 = v15;
+  v75 = v14;
+  v76 = v15;
   OUTLINED_FUNCTION_45();
-  v66.receiver = v16;
-  v66.super_class = _GCDevicePhysicalInputJoystickElement;
+  v74.receiver = v16;
+  v74.super_class = _GCDevicePhysicalInputJoystickElement;
   [_GCDevicePhysicalInputElement update:sel_update_forGamepadEvent_withTimestamp_ forGamepadEvent:? withTimestamp:?];
   OUTLINED_FUNCTION_34();
   if (v18)
@@ -1195,7 +1195,7 @@ LABEL_3:
 
   OUTLINED_FUNCTION_44();
 LABEL_4:
-  v18 = v12 == -1 || v11 + 1 == 0;
+  v18 = v12 == -1 || (v11 + 1) == 0;
   if (v18)
   {
     if (v12 == -1)
@@ -1240,81 +1240,81 @@ LABEL_4:
   v24 = OUTLINED_FUNCTION_42();
   xAxisUpdateContext(v24);
   v25 = OUTLINED_FUNCTION_46();
-  OUTLINED_FUNCTION_53(v25, v26);
+  OUTLINED_FUNCTION_53(v27, v28, v25, v26);
   OUTLINED_FUNCTION_11_2();
-  OUTLINED_FUNCTION_10_3(v27 & 0xFFDF);
-  v29 = v9 | v28;
+  OUTLINED_FUNCTION_10_3(v29 & 0xFFDF);
+  v31 = v9 | v30;
 
   [(_GCDevicePhysicalInputJoystickElement *)v6 _left];
-  v30 = OUTLINED_FUNCTION_13_0();
-  updated = leftButtonUpdateContext(v30);
-  OUTLINED_FUNCTION_15_0(updated);
+  v32 = OUTLINED_FUNCTION_13_0();
+  updated = leftButtonUpdateContext(v32);
+  OUTLINED_FUNCTION_15_0(updated, v34, v35);
   OUTLINED_FUNCTION_11_2();
-  OUTLINED_FUNCTION_10_3(v32 & 0xFDFF);
-  v34 = v29 | v33;
+  OUTLINED_FUNCTION_10_3(v36 & 0xFDFF);
+  v38 = v31 | v37;
 
   [(_GCDevicePhysicalInputJoystickElement *)v6 _right];
-  v35 = OUTLINED_FUNCTION_42();
-  rightButtonUpdateContext(v35);
+  v39 = OUTLINED_FUNCTION_42();
+  rightButtonUpdateContext(v39);
   OUTLINED_FUNCTION_46();
-  v36 = OUTLINED_FUNCTION_25();
-  [_GCDevicePhysicalInputPressInput update:v37 withValue:v38 timestamp:v36];
+  v40 = OUTLINED_FUNCTION_25();
+  [_GCDevicePhysicalInputPressInput update:v41 withValue:v42 timestamp:v40];
   OUTLINED_FUNCTION_11_2();
-  OUTLINED_FUNCTION_10_3(v39 & 0xFBFF);
-  v9 = (v34 | v40);
+  OUTLINED_FUNCTION_10_3(v43 & 0xFBFF);
+  v9 = (v38 | v44);
 
 LABEL_10:
   if (v11 != -1)
   {
     [OUTLINED_FUNCTION_38() floatValueForElement:?];
-    OUTLINED_FUNCTION_9_3(v41);
+    OUTLINED_FUNCTION_9_3(v45);
     [(_GCDevicePhysicalInputJoystickElement *)v6 _y];
-    v42 = OUTLINED_FUNCTION_35();
-    yAxisUpdateContext(v42);
-    v43 = OUTLINED_FUNCTION_47();
-    OUTLINED_FUNCTION_53(v43, v44);
+    v46 = OUTLINED_FUNCTION_35();
+    yAxisUpdateContext(v46);
+    v47 = OUTLINED_FUNCTION_47();
+    OUTLINED_FUNCTION_53(v49, v50, v47, v48);
     OUTLINED_FUNCTION_11_2();
-    OUTLINED_FUNCTION_10_3(v45 & 0xFFBF);
+    OUTLINED_FUNCTION_10_3(v51 & 0xFFBF);
 
     [(_GCDevicePhysicalInputJoystickElement *)v6 _down];
-    v46 = OUTLINED_FUNCTION_13_0();
-    v47 = downButtonUpdateContext(v46);
-    OUTLINED_FUNCTION_15_0(v47);
+    v52 = OUTLINED_FUNCTION_13_0();
+    v53 = downButtonUpdateContext(v52);
+    OUTLINED_FUNCTION_15_0(v53, v54, v55);
     OUTLINED_FUNCTION_11_2();
-    OUTLINED_FUNCTION_10_3(v48 & 0xFEFF);
+    OUTLINED_FUNCTION_10_3(v56 & 0xFEFF);
 
     [(_GCDevicePhysicalInputJoystickElement *)v6 _up];
-    v49 = OUTLINED_FUNCTION_35();
-    upButtonUpdateContext(v49);
+    v57 = OUTLINED_FUNCTION_35();
+    upButtonUpdateContext(v57);
     OUTLINED_FUNCTION_47();
-    v50 = OUTLINED_FUNCTION_25();
-    [_GCDevicePhysicalInputPressInput update:v51 withValue:v52 timestamp:v50];
+    v58 = OUTLINED_FUNCTION_25();
+    [_GCDevicePhysicalInputPressInput update:v59 withValue:v60 timestamp:v58];
     OUTLINED_FUNCTION_11_2();
-    OUTLINED_FUNCTION_10_3(v53 & 0xFF7F);
+    OUTLINED_FUNCTION_10_3(v61 & 0xFF7F);
   }
 
   if (v10 != -1)
   {
     [v7 floatValueForElement:v10];
-    v54 = OUTLINED_FUNCTION_39();
-    _press = [(_GCDevicePhysicalInputJoystickElement *)v54 _press];
+    v62 = OUTLINED_FUNCTION_39();
+    _press = [(_GCDevicePhysicalInputJoystickElement *)v62 _press];
     pressUpdateContext(v5);
-    v56 = OUTLINED_FUNCTION_25();
-    [_GCDevicePhysicalInputPressInput update:v57 withValue:v58 timestamp:v56];
+    v64 = OUTLINED_FUNCTION_25();
+    [_GCDevicePhysicalInputPressInput update:v65 withValue:v66 timestamp:v64];
     OUTLINED_FUNCTION_11_2();
-    OUTLINED_FUNCTION_7_3(v59 & 0xF7FF);
+    OUTLINED_FUNCTION_7_3(v67 & 0xF7FF);
   }
 
   if (v8 != -1)
   {
     [v7 floatValueForElement:v8];
-    v60 = OUTLINED_FUNCTION_39();
-    _touch = [(_GCDevicePhysicalInputJoystickElement *)v60 _touch];
+    v68 = OUTLINED_FUNCTION_39();
+    _touch = [(_GCDevicePhysicalInputJoystickElement *)v68 _touch];
     touchUpdateContext(v5);
-    v62 = OUTLINED_FUNCTION_25();
-    [_GCDevicePhysicalInputTouchInput update:v63 withValue:v64 timestamp:v62];
+    v70 = OUTLINED_FUNCTION_25();
+    [_GCDevicePhysicalInputTouchInput update:v71 withValue:v72 timestamp:v70];
     OUTLINED_FUNCTION_11_2();
-    OUTLINED_FUNCTION_7_3(v65 & 0xEFFF);
+    OUTLINED_FUNCTION_7_3(v73 & 0xEFFF);
   }
 
   OUTLINED_FUNCTION_55();
@@ -1324,11 +1324,11 @@ LABEL_10:
 - (BOOL)update:(void *)update forCollectionEvent:(id)event withTimestamp:(double)timestamp
 {
   OUTLINED_FUNCTION_56();
-  v67 = v14;
-  v68 = v15;
+  v75 = v14;
+  v76 = v15;
   OUTLINED_FUNCTION_45();
-  v66.receiver = v16;
-  v66.super_class = _GCDevicePhysicalInputJoystickElement;
+  v74.receiver = v16;
+  v74.super_class = _GCDevicePhysicalInputJoystickElement;
   [_GCDevicePhysicalInputElement update:sel_update_forCollectionEvent_withTimestamp_ forCollectionEvent:? withTimestamp:?];
   OUTLINED_FUNCTION_34();
   if (v18)
@@ -1352,7 +1352,7 @@ LABEL_3:
 
   OUTLINED_FUNCTION_44();
 LABEL_4:
-  v18 = v12 == -1 || v11 + 1 == 0;
+  v18 = v12 == -1 || (v11 + 1) == 0;
   if (v18)
   {
     if (v12 == -1)
@@ -1397,81 +1397,81 @@ LABEL_4:
   v24 = OUTLINED_FUNCTION_42();
   xAxisUpdateContext(v24);
   v25 = OUTLINED_FUNCTION_46();
-  OUTLINED_FUNCTION_53(v25, v26);
+  OUTLINED_FUNCTION_53(v27, v28, v25, v26);
   OUTLINED_FUNCTION_11_2();
-  OUTLINED_FUNCTION_10_3(v27 & 0xFFDF);
-  v29 = v9 | v28;
+  OUTLINED_FUNCTION_10_3(v29 & 0xFFDF);
+  v31 = v9 | v30;
 
   [(_GCDevicePhysicalInputJoystickElement *)v6 _left];
-  v30 = OUTLINED_FUNCTION_13_0();
-  updated = leftButtonUpdateContext(v30);
-  OUTLINED_FUNCTION_15_0(updated);
+  v32 = OUTLINED_FUNCTION_13_0();
+  updated = leftButtonUpdateContext(v32);
+  OUTLINED_FUNCTION_15_0(updated, v34, v35);
   OUTLINED_FUNCTION_11_2();
-  OUTLINED_FUNCTION_10_3(v32 & 0xFDFF);
-  v34 = v29 | v33;
+  OUTLINED_FUNCTION_10_3(v36 & 0xFDFF);
+  v38 = v31 | v37;
 
   [(_GCDevicePhysicalInputJoystickElement *)v6 _right];
-  v35 = OUTLINED_FUNCTION_42();
-  rightButtonUpdateContext(v35);
+  v39 = OUTLINED_FUNCTION_42();
+  rightButtonUpdateContext(v39);
   OUTLINED_FUNCTION_46();
-  v36 = OUTLINED_FUNCTION_25();
-  [_GCDevicePhysicalInputPressInput update:v37 withValue:v38 timestamp:v36];
+  v40 = OUTLINED_FUNCTION_25();
+  [_GCDevicePhysicalInputPressInput update:v41 withValue:v42 timestamp:v40];
   OUTLINED_FUNCTION_11_2();
-  OUTLINED_FUNCTION_10_3(v39 & 0xFBFF);
-  v9 = (v34 | v40);
+  OUTLINED_FUNCTION_10_3(v43 & 0xFBFF);
+  v9 = (v38 | v44);
 
 LABEL_10:
   if (v11 != -1)
   {
     [OUTLINED_FUNCTION_38() floatValueForKey:?];
-    OUTLINED_FUNCTION_9_3(v41);
+    OUTLINED_FUNCTION_9_3(v45);
     [(_GCDevicePhysicalInputJoystickElement *)v6 _y];
-    v42 = OUTLINED_FUNCTION_35();
-    yAxisUpdateContext(v42);
-    v43 = OUTLINED_FUNCTION_47();
-    OUTLINED_FUNCTION_53(v43, v44);
+    v46 = OUTLINED_FUNCTION_35();
+    yAxisUpdateContext(v46);
+    v47 = OUTLINED_FUNCTION_47();
+    OUTLINED_FUNCTION_53(v49, v50, v47, v48);
     OUTLINED_FUNCTION_11_2();
-    OUTLINED_FUNCTION_10_3(v45 & 0xFFBF);
+    OUTLINED_FUNCTION_10_3(v51 & 0xFFBF);
 
     [(_GCDevicePhysicalInputJoystickElement *)v6 _down];
-    v46 = OUTLINED_FUNCTION_13_0();
-    v47 = downButtonUpdateContext(v46);
-    OUTLINED_FUNCTION_15_0(v47);
+    v52 = OUTLINED_FUNCTION_13_0();
+    v53 = downButtonUpdateContext(v52);
+    OUTLINED_FUNCTION_15_0(v53, v54, v55);
     OUTLINED_FUNCTION_11_2();
-    OUTLINED_FUNCTION_10_3(v48 & 0xFEFF);
+    OUTLINED_FUNCTION_10_3(v56 & 0xFEFF);
 
     [(_GCDevicePhysicalInputJoystickElement *)v6 _up];
-    v49 = OUTLINED_FUNCTION_35();
-    upButtonUpdateContext(v49);
+    v57 = OUTLINED_FUNCTION_35();
+    upButtonUpdateContext(v57);
     OUTLINED_FUNCTION_47();
-    v50 = OUTLINED_FUNCTION_25();
-    [_GCDevicePhysicalInputPressInput update:v51 withValue:v52 timestamp:v50];
+    v58 = OUTLINED_FUNCTION_25();
+    [_GCDevicePhysicalInputPressInput update:v59 withValue:v60 timestamp:v58];
     OUTLINED_FUNCTION_11_2();
-    OUTLINED_FUNCTION_10_3(v53 & 0xFF7F);
+    OUTLINED_FUNCTION_10_3(v61 & 0xFF7F);
   }
 
   if (v10 != -1)
   {
     [v7 floatValueForKey:v10];
-    v54 = OUTLINED_FUNCTION_39();
-    _press = [(_GCDevicePhysicalInputJoystickElement *)v54 _press];
+    v62 = OUTLINED_FUNCTION_39();
+    _press = [(_GCDevicePhysicalInputJoystickElement *)v62 _press];
     pressUpdateContext(v5);
-    v56 = OUTLINED_FUNCTION_25();
-    [_GCDevicePhysicalInputPressInput update:v57 withValue:v58 timestamp:v56];
+    v64 = OUTLINED_FUNCTION_25();
+    [_GCDevicePhysicalInputPressInput update:v65 withValue:v66 timestamp:v64];
     OUTLINED_FUNCTION_11_2();
-    OUTLINED_FUNCTION_7_3(v59 & 0xF7FF);
+    OUTLINED_FUNCTION_7_3(v67 & 0xF7FF);
   }
 
   if (v8 != -1)
   {
     [v7 floatValueForKey:v8];
-    v60 = OUTLINED_FUNCTION_39();
-    _touch = [(_GCDevicePhysicalInputJoystickElement *)v60 _touch];
+    v68 = OUTLINED_FUNCTION_39();
+    _touch = [(_GCDevicePhysicalInputJoystickElement *)v68 _touch];
     touchUpdateContext(v5);
-    v62 = OUTLINED_FUNCTION_25();
-    [_GCDevicePhysicalInputTouchInput update:v63 withValue:v64 timestamp:v62];
+    v70 = OUTLINED_FUNCTION_25();
+    [_GCDevicePhysicalInputTouchInput update:v71 withValue:v72 timestamp:v70];
     OUTLINED_FUNCTION_11_2();
-    OUTLINED_FUNCTION_7_3(v65 & 0xEFFF);
+    OUTLINED_FUNCTION_7_3(v73 & 0xEFFF);
   }
 
   OUTLINED_FUNCTION_55();

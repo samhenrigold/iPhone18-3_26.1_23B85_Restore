@@ -107,7 +107,7 @@ void __79__HFCameraClipFeedbackManager_donateAllCameraClipsForCameraProfile_comp
 
 void __79__HFCameraClipFeedbackManager_donateAllCameraClipsForCameraProfile_completion___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -116,7 +116,7 @@ void __79__HFCameraClipFeedbackManager_donateAllCameraClipsForCameraProfile_comp
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v25 = v6;
+      v24 = v6;
       _os_log_error_impl(&dword_20D9BF000, v7, OS_LOG_TYPE_ERROR, "Unable to donate all clips because there was a problem fetching all clips:%@", buf, 0xCu);
     }
 
@@ -124,47 +124,45 @@ void __79__HFCameraClipFeedbackManager_donateAllCameraClipsForCameraProfile_comp
     block[1] = 3221225472;
     block[2] = __79__HFCameraClipFeedbackManager_donateAllCameraClipsForCameraProfile_completion___block_invoke_7;
     block[3] = &unk_277DF2AD8;
-    v23 = *(a1 + 40);
-    v22 = v6;
+    v22 = *(a1 + 40);
+    v21 = v6;
     dispatch_async(MEMORY[0x277D85CD0], block);
 
-    v8 = v23;
+    v8 = v22;
   }
 
   else
   {
     v9 = objc_alloc_init(MEMORY[0x277CBEB58]);
-    v19[0] = MEMORY[0x277D85DD0];
-    v19[1] = 3221225472;
-    v19[2] = __79__HFCameraClipFeedbackManager_donateAllCameraClipsForCameraProfile_completion___block_invoke_2_9;
-    v19[3] = &unk_277DF67F8;
+    v18[0] = MEMORY[0x277D85DD0];
+    v18[1] = 3221225472;
+    v18[2] = __79__HFCameraClipFeedbackManager_donateAllCameraClipsForCameraProfile_completion___block_invoke_2_9;
+    v18[3] = &unk_277DF67F8;
     v10 = v9;
-    v20 = v10;
-    [v5 enumerateObjectsUsingBlock:v19];
+    v19 = v10;
+    [v5 enumerateObjectsUsingBlock:v18];
     v11 = HFLogForCategory(0x14uLL);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       v12 = [v10 count];
       v13 = *(a1 + 32);
       *buf = 134218242;
-      v25 = v12;
-      v26 = 2112;
-      v27 = v13;
+      v24 = v12;
+      v25 = 2112;
+      v26 = v13;
       _os_log_impl(&dword_20D9BF000, v11, OS_LOG_TYPE_DEFAULT, "Donating all clips:%lu for profile:%@", buf, 0x16u);
     }
 
     v14 = [*(a1 + 32) clipManager];
-    v16[0] = MEMORY[0x277D85DD0];
-    v16[1] = 3221225472;
-    v16[2] = __79__HFCameraClipFeedbackManager_donateAllCameraClipsForCameraProfile_completion___block_invoke_11;
-    v16[3] = &unk_277DF6820;
-    v17 = v10;
-    v18 = *(a1 + 40);
+    v15[0] = MEMORY[0x277D85DD0];
+    v15[1] = 3221225472;
+    v15[2] = __79__HFCameraClipFeedbackManager_donateAllCameraClipsForCameraProfile_completion___block_invoke_11;
+    v15[3] = &unk_277DF6820;
+    v16 = v10;
+    v17 = *(a1 + 40);
     v8 = v10;
-    [v14 donateClipsWithUUIDs:v8 completion:v16];
+    [v14 donateClipsWithUUIDs:v8 completion:v15];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __79__HFCameraClipFeedbackManager_donateAllCameraClipsForCameraProfile_completion___block_invoke_2_9(uint64_t a1, void *a2)

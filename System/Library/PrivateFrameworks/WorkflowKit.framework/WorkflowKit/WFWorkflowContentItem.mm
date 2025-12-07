@@ -38,10 +38,9 @@
 
 + (id)contentCategories
 {
-  v5[1] = *MEMORY[0x1E69E9840];
-  v5[0] = *MEMORY[0x1E6996FE0];
-  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:1];
-  v3 = *MEMORY[0x1E69E9840];
+  v4[1] = *MEMORY[0x1E69E9840];
+  v4[0] = *MEMORY[0x1E6996FE0];
+  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v4 count:1];
 
   return v2;
 }
@@ -80,30 +79,28 @@
 
 + (id)propertyBuilders
 {
-  v21[4] = *MEMORY[0x1E69E9840];
+  v20[4] = *MEMORY[0x1E69E9840];
   v2 = MEMORY[0x1E6996D90];
-  v20 = WFLocalizedContentPropertyNameMarker(@"Folder");
-  v19 = [v2 keyPath:@"folderName" name:v20 class:objc_opt_class()];
-  v21[0] = v19;
+  v19 = WFLocalizedContentPropertyNameMarker(@"Folder");
+  v18 = [v2 keyPath:@"folderName" name:v19 class:objc_opt_class()];
+  v20[0] = v18;
   v3 = MEMORY[0x1E6996D90];
-  v18 = WFLocalizedContentPropertyNameMarker(@"Icon");
-  v4 = [v3 keyPath:@"workflowIcon" name:v18 class:objc_opt_class()];
+  v17 = WFLocalizedContentPropertyNameMarker(@"Icon");
+  v4 = [v3 keyPath:@"workflowIcon" name:v17 class:objc_opt_class()];
   v5 = [v4 filterable:0];
-  v21[1] = v5;
+  v20[1] = v5;
   v6 = MEMORY[0x1E6996D90];
   v7 = WFLocalizedContentPropertyNameMarker(@"Action Count");
   v8 = [v6 keyPath:@"actionCount" name:v7 class:objc_opt_class()];
-  v21[2] = v8;
+  v20[2] = v8;
   v9 = MEMORY[0x1E6996D90];
   v10 = WFLocalizedContentPropertyNameMarker(@"Last Modified Date");
   v11 = [v9 keyPath:@"workflowReference.modificationDate" name:v10 class:objc_opt_class()];
   v12 = [v11 userInfo:*MEMORY[0x1E6997070]];
   v13 = [v12 tense:1];
   v14 = [v13 timeUnits:8444];
-  v21[3] = v14;
-  v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v21 count:4];
-
-  v16 = *MEMORY[0x1E69E9840];
+  v20[3] = v14;
+  v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v20 count:4];
 
   return v15;
 }
@@ -234,7 +231,7 @@ void __68__WFWorkflowContentItem_generateFileRepresentation_options_forType___bl
 
 - (id)generateObjectRepresentationForClass:(Class)class options:(id)options error:(id *)error
 {
-  v74[1] = *MEMORY[0x1E69E9840];
+  v73[1] = *MEMORY[0x1E69E9840];
   optionsCopy = options;
   if (objc_opt_class() == class)
   {
@@ -272,7 +269,7 @@ void __68__WFWorkflowContentItem_generateFileRepresentation_options_forType___bl
     firstObject = [v35 firstObject];
     workflowIcon = [firstObject object];
 
-    v55 = [WFWorkflowReference alloc];
+    v54 = [WFWorkflowReference alloc];
     name2 = [workflowIcon name];
     icon = [workflowIcon icon];
     backgroundColorValue = [icon backgroundColorValue];
@@ -283,19 +280,19 @@ void __68__WFWorkflowContentItem_generateFileRepresentation_options_forType___bl
     workflowSubtitle = [workflowIcon workflowSubtitle];
     actionsDescription = [workflowIcon actionsDescription];
     actions = [workflowIcon actions];
-    v49 = [actions count];
+    v48 = [actions count];
     syncHash = [workflowIcon syncHash];
     creationDate = [workflowIcon creationDate];
     modificationDate = [workflowIcon modificationDate];
     remoteQuarantineHash = [workflowIcon remoteQuarantineHash];
     LOBYTE(firstObject) = [workflowIcon disabledOnLockScreen];
     source = [workflowIcon source];
-    LOBYTE(v48) = 0;
-    BYTE3(v47) = firstObject;
-    BYTE2(v47) = 0;
-    LOWORD(v47) = 0;
+    LOBYTE(v47) = 0;
+    BYTE3(v46) = firstObject;
+    BYTE2(v46) = 0;
     LOWORD(v46) = 0;
-    name = [WFWorkflowReference initWithIdentifier:v55 name:"initWithIdentifier:name:color:glyphCharacter:associatedAppBundleIdentifier:searchAttributionAppBundleIdentifier:subtitle:actionsDescription:actionCount:syncHash:isDeleted:hiddenFromLibraryAndSync:creationDate:modificationDate:lastRunDate:remoteQuarantineStatus:remoteQuarantineHash:showInSearch:receivesInputFromSearch:hasShortcutInputVariables:disabledOnLockScreen:source:runEventsCount:hasOutputAction:" color:@"soup" glyphCharacter:name2 associatedAppBundleIdentifier:backgroundColorValue searchAttributionAppBundleIdentifier:glyphCharacter subtitle:associatedAppBundleIdentifier actionsDescription:searchAttributionAppBundleIdentifier actionCount:workflowSubtitle syncHash:actionsDescription isDeleted:v49 hiddenFromLibraryAndSync:syncHash creationDate:v46 modificationDate:creationDate lastRunDate:modificationDate remoteQuarantineStatus:0 remoteQuarantineHash:0 showInSearch:remoteQuarantineHash receivesInputFromSearch:v47 hasShortcutInputVariables:source disabledOnLockScreen:0 source:v48 runEventsCount:? hasOutputAction:?];
+    LOWORD(v45) = 0;
+    name = [WFWorkflowReference initWithIdentifier:v54 name:"initWithIdentifier:name:color:glyphCharacter:associatedAppBundleIdentifier:searchAttributionAppBundleIdentifier:subtitle:actionsDescription:actionCount:syncHash:isDeleted:hiddenFromLibraryAndSync:creationDate:modificationDate:lastRunDate:remoteQuarantineStatus:remoteQuarantineHash:showInSearch:receivesInputFromSearch:hasShortcutInputVariables:disabledOnLockScreen:source:runEventsCount:hasOutputAction:" color:@"soup" glyphCharacter:name2 associatedAppBundleIdentifier:backgroundColorValue searchAttributionAppBundleIdentifier:glyphCharacter subtitle:associatedAppBundleIdentifier actionsDescription:searchAttributionAppBundleIdentifier actionCount:workflowSubtitle syncHash:actionsDescription isDeleted:v48 hiddenFromLibraryAndSync:syncHash creationDate:v45 modificationDate:creationDate lastRunDate:modificationDate remoteQuarantineStatus:0 remoteQuarantineHash:0 showInSearch:remoteQuarantineHash receivesInputFromSearch:v46 hasShortcutInputVariables:source disabledOnLockScreen:0 source:v47 runEventsCount:? hasOutputAction:?];
 
     v28 = [MEMORY[0x1E6996EC8] object:name];
 LABEL_9:
@@ -332,48 +329,47 @@ LABEL_13:
   v17 = [v13 initWithValue:identifier2 typeName:*MEMORY[0x1E69970F0]];
 
   v18 = objc_alloc(MEMORY[0x1E69ACFB0]);
-  v74[0] = v17;
-  v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:v74 count:1];
+  v73[0] = v17;
+  v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:v73 count:1];
   v20 = [v18 initWithIdentifiers:v19 entityType:v16];
 
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x3032000000;
-  v71 = __Block_byref_object_copy__64724;
-  v72 = __Block_byref_object_dispose__64725;
-  v73 = 0;
-  v64 = 0;
-  v65 = &v64;
-  v66 = 0x3032000000;
-  v67 = __Block_byref_object_copy__64724;
-  v68 = __Block_byref_object_dispose__64725;
-  v69 = 0;
+  v70 = __Block_byref_object_copy__64724;
+  v71 = __Block_byref_object_dispose__64725;
+  v72 = 0;
+  v63 = 0;
+  v64 = &v63;
+  v65 = 0x3032000000;
+  v66 = __Block_byref_object_copy__64724;
+  v67 = __Block_byref_object_dispose__64725;
+  v68 = 0;
   v21 = dispatch_semaphore_create(0);
-  v60[0] = MEMORY[0x1E69E9820];
-  v60[1] = 3221225472;
-  v60[2] = __76__WFWorkflowContentItem_generateObjectRepresentationForClass_options_error___block_invoke;
-  v60[3] = &unk_1E837DC98;
-  v62 = buf;
-  v63 = &v64;
+  v59[0] = MEMORY[0x1E69E9820];
+  v59[1] = 3221225472;
+  v59[2] = __76__WFWorkflowContentItem_generateObjectRepresentationForClass_options_error___block_invoke;
+  v59[3] = &unk_1E837DC98;
+  v61 = buf;
+  v62 = &v63;
   v22 = v21;
-  v61 = v22;
-  [v12 performQuery:v20 completionHandler:v60];
+  v60 = v22;
+  [v12 performQuery:v20 completionHandler:v59];
   v23 = dispatch_time(0, 5000000000);
   dispatch_semaphore_wait(v22, v23);
-  v24 = [MEMORY[0x1E6996EC8] object:*(*&buf[8] + 40) named:v65[5]];
+  v24 = [MEMORY[0x1E6996EC8] object:*(*&buf[8] + 40) named:v64[5]];
 
-  _Block_object_dispose(&v64, 8);
+  _Block_object_dispose(&v63, 8);
   _Block_object_dispose(buf, 8);
 
 LABEL_14:
-  v44 = *MEMORY[0x1E69E9840];
 
   return v24;
 }
 
 void __76__WFWorkflowContentItem_generateObjectRepresentationForClass_options_error___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = getWFAppIntentsLogObject();
@@ -381,13 +377,13 @@ void __76__WFWorkflowContentItem_generateObjectRepresentationForClass_options_er
   {
     v8 = [v5 value];
     v9 = [v8 value];
-    v26 = 136315650;
-    v27 = "[WFWorkflowContentItem generateObjectRepresentationForClass:options:error:]_block_invoke";
-    v28 = 2112;
-    v29 = v9;
-    v30 = 2112;
-    v31 = v6;
-    _os_log_impl(&dword_1CA256000, v7, OS_LOG_TYPE_DEFAULT, "%s Recieved output: %@ error: %@", &v26, 0x20u);
+    v25 = 136315650;
+    v26 = "[WFWorkflowContentItem generateObjectRepresentationForClass:options:error:]_block_invoke";
+    v27 = 2112;
+    v28 = v9;
+    v29 = 2112;
+    v30 = v6;
+    _os_log_impl(&dword_1CA256000, v7, OS_LOG_TYPE_DEFAULT, "%s Recieved output: %@ error: %@", &v25, 0x20u);
   }
 
   v10 = [v5 value];
@@ -450,7 +446,6 @@ void __76__WFWorkflowContentItem_generateObjectRepresentationForClass_options_er
   *(v23 + 40) = v22;
 
   dispatch_semaphore_signal(*(a1 + 32));
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 - (id)folderName

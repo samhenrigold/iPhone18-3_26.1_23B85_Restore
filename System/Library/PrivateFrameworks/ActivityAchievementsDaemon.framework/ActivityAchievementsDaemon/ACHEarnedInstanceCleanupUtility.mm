@@ -31,16 +31,15 @@
 
 - (void)performCleanup
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
   selfCopy = self;
-  _os_log_error_impl(&dword_221DDC000, a2, OS_LOG_TYPE_ERROR, "Error cleaning up achievements: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_221DDC000, a2, OS_LOG_TYPE_ERROR, "Error cleaning up achievements: %@", &v2, 0xCu);
 }
 
 - (id)_firstWorkoutAchievementsToRemoveFromEarnedInstances:(id)instances
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   instancesCopy = instances;
   v4 = [MEMORY[0x277CCAC30] predicateWithBlock:&__block_literal_global_7];
   v5 = [instancesCopy filteredArrayUsingPredicate:v4];
@@ -49,26 +48,26 @@
 
   v7 = objc_alloc_init(MEMORY[0x277CBEB38]);
   v8 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   v9 = v6;
-  v10 = [v9 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v21;
+    v12 = *v20;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v21 != v12)
+        if (*v20 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = *(*(&v20 + 1) + 8 * i);
+        v14 = *(*(&v19 + 1) + 8 * i);
         templateUniqueName = [v14 templateUniqueName];
         v16 = [v7 objectForKeyedSubscript:templateUniqueName];
 
@@ -84,13 +83,11 @@
         }
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v11);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -115,30 +112,30 @@ uint64_t __88__ACHEarnedInstanceCleanupUtility__firstWorkoutAchievementsToRemove
 
 - (id)_largestValueActivityAndWorkoutAchievementsToRemoveFromEarnedInstances:(id)instances
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   instancesCopy = instances;
   v4 = [objc_alloc(MEMORY[0x277CBEB98]) initWithArray:&unk_283555C68];
   v5 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v43 = 0u;
   v44 = 0u;
   v45 = 0u;
   v46 = 0u;
-  v47 = 0u;
   obj = instancesCopy;
-  v6 = [obj countByEnumeratingWithState:&v44 objects:v50 count:16];
+  v6 = [obj countByEnumeratingWithState:&v43 objects:v49 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v45;
+    v8 = *v44;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v45 != v8)
+        if (*v44 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v44 + 1) + 8 * i);
+        v10 = *(*(&v43 + 1) + 8 * i);
         templateUniqueName = [v10 templateUniqueName];
         if (([v4 containsObject:templateUniqueName] & 1) != 0 || objc_msgSend(templateUniqueName, "containsString:", @"BestWorkout"))
         {
@@ -153,59 +150,59 @@ uint64_t __88__ACHEarnedInstanceCleanupUtility__firstWorkoutAchievementsToRemove
         }
       }
 
-      v7 = [obj countByEnumeratingWithState:&v44 objects:v50 count:16];
+      v7 = [obj countByEnumeratingWithState:&v43 objects:v49 count:16];
     }
 
     while (v7);
   }
 
-  v30 = v4;
+  v29 = v4;
 
   v13 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v39 = 0u;
   v40 = 0u;
   v41 = 0u;
   v42 = 0u;
-  v43 = 0u;
-  v29 = v5;
+  v28 = v5;
   allValues = [v5 allValues];
-  v34 = [allValues countByEnumeratingWithState:&v40 objects:v49 count:16];
-  if (v34)
+  v33 = [allValues countByEnumeratingWithState:&v39 objects:v48 count:16];
+  if (v33)
   {
-    v33 = *v41;
+    v32 = *v40;
     do
     {
       v14 = 0;
       do
       {
-        if (*v41 != v33)
+        if (*v40 != v32)
         {
           objc_enumerationMutation(allValues);
         }
 
-        v35 = v14;
-        v15 = *(*(&v40 + 1) + 8 * v14);
+        v34 = v14;
+        v15 = *(*(&v39 + 1) + 8 * v14);
         [v15 sortUsingComparator:&__block_literal_global_328];
-        v38 = 0u;
-        v39 = 0u;
-        v36 = 0u;
         v37 = 0u;
+        v38 = 0u;
+        v35 = 0u;
+        v36 = 0u;
         v16 = v15;
-        v17 = [v16 countByEnumeratingWithState:&v36 objects:v48 count:16];
+        v17 = [v16 countByEnumeratingWithState:&v35 objects:v47 count:16];
         if (v17)
         {
           v18 = v17;
           v19 = 0;
-          v20 = *v37;
+          v20 = *v36;
           do
           {
             for (j = 0; j != v18; ++j)
             {
-              if (*v37 != v20)
+              if (*v36 != v20)
               {
                 objc_enumerationMutation(v16);
               }
 
-              v22 = *(*(&v36 + 1) + 8 * j);
+              v22 = *(*(&v35 + 1) + 8 * j);
               if (!v19 || ([v19 value], v23 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v22, "value"), v24 = objc_claimAutoreleasedReturnValue(), v25 = objc_msgSend(v23, "compare:", v24), v24, v23, v25 == -1))
               {
                 v26 = v22;
@@ -219,7 +216,7 @@ uint64_t __88__ACHEarnedInstanceCleanupUtility__firstWorkoutAchievementsToRemove
               }
             }
 
-            v18 = [v16 countByEnumeratingWithState:&v36 objects:v48 count:16];
+            v18 = [v16 countByEnumeratingWithState:&v35 objects:v47 count:16];
           }
 
           while (v18);
@@ -230,17 +227,15 @@ uint64_t __88__ACHEarnedInstanceCleanupUtility__firstWorkoutAchievementsToRemove
           v19 = 0;
         }
 
-        v14 = v35 + 1;
+        v14 = v34 + 1;
       }
 
-      while (v35 + 1 != v34);
-      v34 = [allValues countByEnumeratingWithState:&v40 objects:v49 count:16];
+      while (v34 + 1 != v33);
+      v33 = [allValues countByEnumeratingWithState:&v39 objects:v48 count:16];
     }
 
-    while (v34);
+    while (v33);
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
@@ -265,30 +260,30 @@ uint64_t __106__ACHEarnedInstanceCleanupUtility__largestValueActivityAndWorkoutA
 
 - (id)_fastestRunAchievementsToRemoveFromEarnedInstances:(id)instances
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   instancesCopy = instances;
   v4 = [objc_alloc(MEMORY[0x277CBEB98]) initWithArray:&unk_283555C80];
   v5 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v44 = 0u;
   v45 = 0u;
   v46 = 0u;
   v47 = 0u;
-  v48 = 0u;
   v6 = instancesCopy;
-  v7 = [v6 countByEnumeratingWithState:&v45 objects:v51 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v44 objects:v50 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v46;
+    v9 = *v45;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v46 != v9)
+        if (*v45 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v45 + 1) + 8 * i);
+        v11 = *(*(&v44 + 1) + 8 * i);
         templateUniqueName = [v11 templateUniqueName];
         if ([v4 containsObject:templateUniqueName])
         {
@@ -303,60 +298,60 @@ uint64_t __106__ACHEarnedInstanceCleanupUtility__largestValueActivityAndWorkoutA
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v45 objects:v51 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v44 objects:v50 count:16];
     }
 
     while (v8);
   }
 
-  v32 = v4;
-  v30 = v6;
+  v31 = v4;
+  v29 = v6;
 
   v14 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v40 = 0u;
   v41 = 0u;
   v42 = 0u;
   v43 = 0u;
-  v44 = 0u;
-  v31 = v5;
+  v30 = v5;
   obj = [v5 allValues];
-  v35 = [obj countByEnumeratingWithState:&v41 objects:v50 count:16];
-  if (v35)
+  v34 = [obj countByEnumeratingWithState:&v40 objects:v49 count:16];
+  if (v34)
   {
-    v34 = *v42;
+    v33 = *v41;
     do
     {
       v15 = 0;
       do
       {
-        if (*v42 != v34)
+        if (*v41 != v33)
         {
           objc_enumerationMutation(obj);
         }
 
-        v36 = v15;
-        v16 = *(*(&v41 + 1) + 8 * v15);
+        v35 = v15;
+        v16 = *(*(&v40 + 1) + 8 * v15);
         [v16 sortUsingComparator:&__block_literal_global_357];
-        v39 = 0u;
-        v40 = 0u;
-        v37 = 0u;
         v38 = 0u;
+        v39 = 0u;
+        v36 = 0u;
+        v37 = 0u;
         v17 = v16;
-        v18 = [v17 countByEnumeratingWithState:&v37 objects:v49 count:16];
+        v18 = [v17 countByEnumeratingWithState:&v36 objects:v48 count:16];
         if (v18)
         {
           v19 = v18;
           v20 = 0;
-          v21 = *v38;
+          v21 = *v37;
           do
           {
             for (j = 0; j != v19; ++j)
             {
-              if (*v38 != v21)
+              if (*v37 != v21)
               {
                 objc_enumerationMutation(v17);
               }
 
-              v23 = *(*(&v37 + 1) + 8 * j);
+              v23 = *(*(&v36 + 1) + 8 * j);
               if (v20 && ([v20 value], v24 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v23, "value"), v25 = objc_claimAutoreleasedReturnValue(), v26 = objc_msgSend(v24, "compare:", v25), v25, v24, v26 != 1))
               {
                 [v14 addObject:v23];
@@ -370,7 +365,7 @@ uint64_t __106__ACHEarnedInstanceCleanupUtility__largestValueActivityAndWorkoutA
               }
             }
 
-            v19 = [v17 countByEnumeratingWithState:&v37 objects:v49 count:16];
+            v19 = [v17 countByEnumeratingWithState:&v36 objects:v48 count:16];
           }
 
           while (v19);
@@ -381,17 +376,15 @@ uint64_t __106__ACHEarnedInstanceCleanupUtility__largestValueActivityAndWorkoutA
           v20 = 0;
         }
 
-        v15 = v36 + 1;
+        v15 = v35 + 1;
       }
 
-      while (v36 + 1 != v35);
-      v35 = [obj countByEnumeratingWithState:&v41 objects:v50 count:16];
+      while (v35 + 1 != v34);
+      v34 = [obj countByEnumeratingWithState:&v40 objects:v49 count:16];
     }
 
-    while (v35);
+    while (v34);
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 
   return v14;
 }
@@ -416,7 +409,7 @@ uint64_t __86__ACHEarnedInstanceCleanupUtility__fastestRunAchievementsToRemoveFr
 
 - (id)_lifetimeMoveGoalAchievementsToRemoveFromEarnedInstances:(id)instances
 {
-  v59 = *MEMORY[0x277D85DE8];
+  v58 = *MEMORY[0x277D85DE8];
   instancesCopy = instances;
   v5 = [MEMORY[0x277CCAC30] predicateWithBlock:&__block_literal_global_359];
   v6 = [instancesCopy filteredArrayUsingPredicate:v5];
@@ -429,58 +422,58 @@ uint64_t __86__ACHEarnedInstanceCleanupUtility__fastestRunAchievementsToRemoveFr
 
   v7 = [v6 sortedArrayUsingComparator:&__block_literal_global_364];
   keyValueClient = [(ACHEarnedInstanceCleanupUtility *)self keyValueClient];
-  v49 = 0;
-  v9 = [keyValueClient valueForKey:@"totalMoveGoalsMade" domain:@"ActivityAwardingSource" error:&v49];
-  v10 = v49;
+  v48 = 0;
+  v9 = [keyValueClient valueForKey:@"totalMoveGoalsMade" domain:@"ActivityAwardingSource" error:&v48];
+  v10 = v48;
 
   if (v9)
   {
     if (!v10)
     {
-      v41 = v9;
+      v40 = v9;
       unsignedIntegerValue = [v9 unsignedIntegerValue];
       _historicalEvaluationAdjustment = [(ACHEarnedInstanceCleanupUtility *)self _historicalEvaluationAdjustment];
-      v44 = _historicalEvaluationAdjustment + unsignedIntegerValue;
+      v43 = _historicalEvaluationAdjustment + unsignedIntegerValue;
       v15 = ACHLogCleanup();
       if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
       {
         *buf = 134218496;
-        v54 = unsignedIntegerValue;
-        v55 = 2048;
-        v56 = _historicalEvaluationAdjustment;
-        v57 = 2048;
-        v58 = _historicalEvaluationAdjustment + unsignedIntegerValue;
+        v53 = unsignedIntegerValue;
+        v54 = 2048;
+        v55 = _historicalEvaluationAdjustment;
+        v56 = 2048;
+        v57 = _historicalEvaluationAdjustment + unsignedIntegerValue;
         _os_log_debug_impl(&dword_221DDC000, v15, OS_LOG_TYPE_DEBUG, "Total move goals completed so far: %ld, adjustment: %ld, adjustedTotal, %ld", buf, 0x20u);
       }
 
       v11 = objc_alloc_init(MEMORY[0x277CBEB58]);
       hk_gregorianCalendar = [MEMORY[0x277CBEA80] hk_gregorianCalendar];
+      v44 = 0u;
       v45 = 0u;
       v46 = 0u;
       v47 = 0u;
-      v48 = 0u;
       obj = v7;
-      v17 = [obj countByEnumeratingWithState:&v45 objects:v52 count:16];
+      v17 = [obj countByEnumeratingWithState:&v44 objects:v51 count:16];
       if (v17)
       {
         v18 = v17;
-        v38 = v7;
-        v39 = v6;
-        v40 = instancesCopy;
+        v37 = v7;
+        v38 = v6;
+        v39 = instancesCopy;
         v19 = 0;
-        v20 = *v46;
-        v42 = v11;
+        v20 = *v45;
+        v41 = v11;
         do
         {
           for (i = 0; i != v18; ++i)
           {
             v22 = v19;
-            if (*v46 != v20)
+            if (*v45 != v20)
             {
               objc_enumerationMutation(obj);
             }
 
-            v23 = *(*(&v45 + 1) + 8 * i);
+            v23 = *(*(&v44 + 1) + 8 * i);
             templateUniqueName = [v23 templateUniqueName];
             v25 = [templateUniqueName stringByReplacingOccurrencesOfString:@"MoveGoals" withString:&stru_283541ED8];
             integerValue = [v25 integerValue];
@@ -491,15 +484,15 @@ uint64_t __86__ACHEarnedInstanceCleanupUtility__fastestRunAchievementsToRemoveFr
               templateUniqueName2 = [v23 templateUniqueName];
               v32 = [MEMORY[0x277CCABB0] numberWithInteger:integerValue];
               *buf = 138412546;
-              v54 = templateUniqueName2;
-              v55 = 2112;
-              v56 = v32;
+              v53 = templateUniqueName2;
+              v54 = 2112;
+              v55 = v32;
               _os_log_debug_impl(&dword_221DDC000, v27, OS_LOG_TYPE_DEBUG, "%@ count: %@", buf, 0x16u);
 
-              v11 = v42;
+              v11 = v41;
             }
 
-            if (integerValue > v44)
+            if (integerValue > v43)
             {
               v28 = ACHLogCleanup();
               if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
@@ -507,9 +500,9 @@ uint64_t __86__ACHEarnedInstanceCleanupUtility__fastestRunAchievementsToRemoveFr
                 templateUniqueName3 = [v23 templateUniqueName];
                 v34 = [MEMORY[0x277CCABB0] numberWithInteger:integerValue];
                 *buf = 138412546;
-                v54 = templateUniqueName3;
-                v55 = 2112;
-                v56 = v34;
+                v53 = templateUniqueName3;
+                v54 = 2112;
+                v55 = v34;
                 _os_log_debug_impl(&dword_221DDC000, v28, OS_LOG_TYPE_DEBUG, "Found a candidate! %@ count: %@", buf, 0x16u);
               }
 
@@ -524,21 +517,21 @@ uint64_t __86__ACHEarnedInstanceCleanupUtility__fastestRunAchievementsToRemoveFr
               v30 = ACHLogCleanup();
               if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
               {
-                [(ACHEarnedInstanceCleanupUtility *)v50 _lifetimeMoveGoalAchievementsToRemoveFromEarnedInstances:v23, &v51, v30];
+                [(ACHEarnedInstanceCleanupUtility *)v49 _lifetimeMoveGoalAchievementsToRemoveFromEarnedInstances:v23, &v50, v30];
               }
 
               [v11 addObject:v23];
             }
           }
 
-          v18 = [obj countByEnumeratingWithState:&v45 objects:v52 count:16];
+          v18 = [obj countByEnumeratingWithState:&v44 objects:v51 count:16];
         }
 
         while (v18);
 
-        v6 = v39;
-        instancesCopy = v40;
-        v7 = v38;
+        v6 = v38;
+        instancesCopy = v39;
+        v7 = v37;
       }
 
       v35 = ACHLogCleanup();
@@ -550,7 +543,7 @@ uint64_t __86__ACHEarnedInstanceCleanupUtility__fastestRunAchievementsToRemoveFr
       allObjects = [v11 allObjects];
 
       v10 = 0;
-      v9 = v41;
+      v9 = v40;
       goto LABEL_34;
     }
 
@@ -574,7 +567,6 @@ uint64_t __86__ACHEarnedInstanceCleanupUtility__fastestRunAchievementsToRemoveFr
 LABEL_34:
 
 LABEL_35:
-  v36 = *MEMORY[0x277D85DE8];
 
   return allObjects;
 }
@@ -765,11 +757,10 @@ LABEL_9:
 
 - (void)_lifetimeMoveGoalAchievementsToRemoveFromEarnedInstances:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_221DDC000, a2, OS_LOG_TYPE_ERROR, "Unable to obtain the total move goals completed so far. Reason: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_221DDC000, a2, OS_LOG_TYPE_ERROR, "Unable to obtain the total move goals completed so far. Reason: %@", &v2, 0xCu);
 }
 
 - (void)_lifetimeMoveGoalAchievementsToRemoveFromEarnedInstances:(void *)a3 .cold.2(uint8_t *a1, void *a2, void *a3, NSObject *a4)
@@ -782,13 +773,11 @@ LABEL_9:
 
 - (void)_lifetimeMoveGoalAchievementsToRemoveFromEarnedInstances:(void *)a1 .cold.3(void *a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(a1, "count")}];
-  v5 = 138412290;
-  v6 = v3;
-  _os_log_debug_impl(&dword_221DDC000, a2, OS_LOG_TYPE_DEBUG, "Move goals earned instances to be removed: %@", &v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138412290;
+  v5 = v3;
+  _os_log_debug_impl(&dword_221DDC000, a2, OS_LOG_TYPE_DEBUG, "Move goals earned instances to be removed: %@", &v4, 0xCu);
 }
 
 @end

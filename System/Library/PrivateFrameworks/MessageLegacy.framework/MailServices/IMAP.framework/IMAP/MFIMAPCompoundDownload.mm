@@ -69,30 +69,30 @@
 
 - (void)addCommandsToPipeline:(id)pipeline withCache:(id)cache
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   if (self->_subdownloads && ([pipeline isFull] & 1) == 0)
   {
     [(MFIMAPCompoundDownload *)self mf_lock];
-    v15 = 0u;
-    v16 = 0u;
-    v13 = 0u;
     v14 = 0u;
+    v15 = 0u;
+    v12 = 0u;
+    v13 = 0u;
     subdownloads = self->_subdownloads;
-    v8 = [(NSMutableArray *)subdownloads countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v8 = [(NSMutableArray *)subdownloads countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v14;
+      v10 = *v13;
 LABEL_5:
       v11 = 0;
       while (1)
       {
-        if (*v14 != v10)
+        if (*v13 != v10)
         {
           objc_enumerationMutation(subdownloads);
         }
 
-        [*(*(&v13 + 1) + 8 * v11) addCommandsToPipeline:pipeline withCache:cache];
+        [*(*(&v12 + 1) + 8 * v11) addCommandsToPipeline:pipeline withCache:cache];
         if ([pipeline isFull])
         {
           break;
@@ -100,7 +100,7 @@ LABEL_5:
 
         if (v9 == ++v11)
         {
-          v9 = [(NSMutableArray *)subdownloads countByEnumeratingWithState:&v13 objects:v17 count:16];
+          v9 = [(NSMutableArray *)subdownloads countByEnumeratingWithState:&v12 objects:v16 count:16];
           if (v9)
           {
             goto LABEL_5;
@@ -113,8 +113,6 @@ LABEL_5:
 
     [(MFIMAPCompoundDownload *)self mf_unlock];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)processResults
@@ -127,114 +125,104 @@ LABEL_5:
 
 - (BOOL)isComplete
 {
-  v16 = *MEMORY[0x277D85DE8];
-  if (self->_subdownloads)
+  v15 = *MEMORY[0x277D85DE8];
+  if (!self->_subdownloads)
   {
-    [(MFIMAPCompoundDownload *)self mf_lock];
-    v13 = 0u;
-    v14 = 0u;
-    v11 = 0u;
-    v12 = 0u;
-    subdownloads = self->_subdownloads;
-    v4 = [(NSMutableArray *)subdownloads countByEnumeratingWithState:&v11 objects:v15 count:16];
-    if (v4)
+    return 1;
+  }
+
+  [(MFIMAPCompoundDownload *)self mf_lock];
+  v12 = 0u;
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
+  subdownloads = self->_subdownloads;
+  v4 = [(NSMutableArray *)subdownloads countByEnumeratingWithState:&v10 objects:v14 count:16];
+  if (v4)
+  {
+    v5 = v4;
+    v6 = *v11;
+    while (2)
     {
-      v5 = v4;
-      v6 = *v12;
-      while (2)
+      for (i = 0; i != v5; ++i)
       {
-        for (i = 0; i != v5; ++i)
+        if (*v11 != v6)
         {
-          if (*v12 != v6)
-          {
-            objc_enumerationMutation(subdownloads);
-          }
-
-          if (![*(*(&v11 + 1) + 8 * i) isComplete])
-          {
-            v8 = 0;
-            goto LABEL_12;
-          }
+          objc_enumerationMutation(subdownloads);
         }
 
-        v5 = [(NSMutableArray *)subdownloads countByEnumeratingWithState:&v11 objects:v15 count:16];
-        if (v5)
+        if (![*(*(&v10 + 1) + 8 * i) isComplete])
         {
-          continue;
+          v8 = 0;
+          goto LABEL_12;
         }
-
-        break;
       }
+
+      v5 = [(NSMutableArray *)subdownloads countByEnumeratingWithState:&v10 objects:v14 count:16];
+      if (v5)
+      {
+        continue;
+      }
+
+      break;
     }
+  }
 
-    v8 = 1;
+  v8 = 1;
 LABEL_12:
-    [(MFIMAPCompoundDownload *)self mf_unlock];
-  }
-
-  else
-  {
-    v8 = 1;
-  }
-
-  v9 = *MEMORY[0x277D85DE8];
+  [(MFIMAPCompoundDownload *)self mf_unlock];
   return v8;
 }
 
 - (unint64_t)expectedLength
 {
-  v18 = *MEMORY[0x277D85DE8];
-  if (self->_subdownloads)
+  v17 = *MEMORY[0x277D85DE8];
+  if (!self->_subdownloads)
   {
-    [(MFIMAPCompoundDownload *)self mf_lock];
-    v15 = 0u;
-    v16 = 0u;
-    v13 = 0u;
-    v14 = 0u;
-    subdownloads = self->_subdownloads;
-    v4 = [(NSMutableArray *)subdownloads countByEnumeratingWithState:&v13 objects:v17 count:16];
-    if (v4)
-    {
-      v5 = v4;
-      v6 = 0;
-      v7 = *v14;
+    return 0;
+  }
+
+  [(MFIMAPCompoundDownload *)self mf_lock];
+  v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
+  subdownloads = self->_subdownloads;
+  v4 = [(NSMutableArray *)subdownloads countByEnumeratingWithState:&v12 objects:v16 count:16];
+  if (v4)
+  {
+    v5 = v4;
+    v6 = 0;
+    v7 = *v13;
 LABEL_4:
-      v8 = 0;
-      while (1)
+    v8 = 0;
+    while (1)
+    {
+      if (*v13 != v7)
       {
-        if (*v14 != v7)
+        objc_enumerationMutation(subdownloads);
+      }
+
+      expectedLength = [*(*(&v12 + 1) + 8 * v8) expectedLength];
+      v10 = 0xFFFFFFFFLL;
+      if (expectedLength == 0xFFFFFFFFLL)
+      {
+        break;
+      }
+
+      v6 += expectedLength;
+      if (v5 == ++v8)
+      {
+        v5 = [(NSMutableArray *)subdownloads countByEnumeratingWithState:&v12 objects:v16 count:16];
+        v10 = v6;
+        if (v5)
         {
-          objc_enumerationMutation(subdownloads);
+          goto LABEL_4;
         }
 
-        expectedLength = [*(*(&v13 + 1) + 8 * v8) expectedLength];
-        v10 = 0xFFFFFFFFLL;
-        if (expectedLength == 0xFFFFFFFFLL)
-        {
-          break;
-        }
-
-        v6 += expectedLength;
-        if (v5 == ++v8)
-        {
-          v5 = [(NSMutableArray *)subdownloads countByEnumeratingWithState:&v13 objects:v17 count:16];
-          v10 = v6;
-          if (v5)
-          {
-            goto LABEL_4;
-          }
-
-          break;
-        }
+        break;
       }
     }
-
-    else
-    {
-      v10 = 0;
-    }
-
-    [(MFIMAPCompoundDownload *)self mf_unlock];
   }
 
   else
@@ -242,51 +230,46 @@ LABEL_4:
     v10 = 0;
   }
 
-  v11 = *MEMORY[0x277D85DE8];
+  [(MFIMAPCompoundDownload *)self mf_unlock];
   return v10;
 }
 
 - (unint64_t)bytesFetched
 {
-  v16 = *MEMORY[0x277D85DE8];
-  if (self->_subdownloads)
+  v15 = *MEMORY[0x277D85DE8];
+  if (!self->_subdownloads)
   {
-    [(MFIMAPCompoundDownload *)self mf_lock];
-    v13 = 0u;
-    v14 = 0u;
-    v11 = 0u;
-    v12 = 0u;
-    subdownloads = self->_subdownloads;
-    v4 = [(NSMutableArray *)subdownloads countByEnumeratingWithState:&v11 objects:v15 count:16];
-    if (v4)
-    {
-      v5 = v4;
-      v6 = 0;
-      v7 = *v12;
-      do
-      {
-        for (i = 0; i != v5; ++i)
-        {
-          if (*v12 != v7)
-          {
-            objc_enumerationMutation(subdownloads);
-          }
+    return 0;
+  }
 
-          v6 += [*(*(&v11 + 1) + 8 * i) bytesFetched];
+  [(MFIMAPCompoundDownload *)self mf_lock];
+  v12 = 0u;
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
+  subdownloads = self->_subdownloads;
+  v4 = [(NSMutableArray *)subdownloads countByEnumeratingWithState:&v10 objects:v14 count:16];
+  if (v4)
+  {
+    v5 = v4;
+    v6 = 0;
+    v7 = *v11;
+    do
+    {
+      for (i = 0; i != v5; ++i)
+      {
+        if (*v11 != v7)
+        {
+          objc_enumerationMutation(subdownloads);
         }
 
-        v5 = [(NSMutableArray *)subdownloads countByEnumeratingWithState:&v11 objects:v15 count:16];
+        v6 += [*(*(&v10 + 1) + 8 * i) bytesFetched];
       }
 
-      while (v5);
+      v5 = [(NSMutableArray *)subdownloads countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
-    else
-    {
-      v6 = 0;
-    }
-
-    [(MFIMAPCompoundDownload *)self mf_unlock];
+    while (v5);
   }
 
   else
@@ -294,43 +277,48 @@ LABEL_4:
     v6 = 0;
   }
 
-  v9 = *MEMORY[0x277D85DE8];
+  [(MFIMAPCompoundDownload *)self mf_unlock];
   return v6;
 }
 
 - (unint64_t)lengthOfDataBeforeLineConversion
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   subdownloads = self->_subdownloads;
-  if (subdownloads && (v12 = 0u, v13 = 0u, v10 = 0u, v11 = 0u, (v3 = [(NSMutableArray *)subdownloads countByEnumeratingWithState:&v10 objects:v14 count:16]) != 0))
+  if (!subdownloads)
   {
-    v4 = v3;
-    v5 = 0;
-    v6 = *v11;
-    do
-    {
-      for (i = 0; i != v4; ++i)
-      {
-        if (*v11 != v6)
-        {
-          objc_enumerationMutation(subdownloads);
-        }
+    return 0;
+  }
 
-        v5 += [*(*(&v10 + 1) + 8 * i) lengthOfDataBeforeLineConversion];
+  v11 = 0u;
+  v12 = 0u;
+  v9 = 0u;
+  v10 = 0u;
+  v3 = [(NSMutableArray *)subdownloads countByEnumeratingWithState:&v9 objects:v13 count:16];
+  if (!v3)
+  {
+    return 0;
+  }
+
+  v4 = v3;
+  v5 = 0;
+  v6 = *v10;
+  do
+  {
+    for (i = 0; i != v4; ++i)
+    {
+      if (*v10 != v6)
+      {
+        objc_enumerationMutation(subdownloads);
       }
 
-      v4 = [(NSMutableArray *)subdownloads countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v5 += [*(*(&v9 + 1) + 8 * i) lengthOfDataBeforeLineConversion];
     }
 
-    while (v4);
+    v4 = [(NSMutableArray *)subdownloads countByEnumeratingWithState:&v9 objects:v13 count:16];
   }
 
-  else
-  {
-    v5 = 0;
-  }
-
-  v8 = *MEMORY[0x277D85DE8];
+  while (v4);
   return v5;
 }
 

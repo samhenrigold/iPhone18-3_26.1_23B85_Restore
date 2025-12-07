@@ -16,7 +16,7 @@
 {
   v3 = MEMORY[0x1E69DC888];
   v4 = a3;
-  v5 = CKFrameworkBundle();
+  v5 = CKFrameworkBundle(v4);
   v6 = [v3 colorNamed:v4 inBundle:v5 compatibleWithTraitCollection:0];
 
   return v6;

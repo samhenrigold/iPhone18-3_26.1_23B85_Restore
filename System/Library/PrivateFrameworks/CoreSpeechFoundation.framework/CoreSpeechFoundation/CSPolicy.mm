@@ -15,34 +15,34 @@
 
 - (BOOL)_checkAllConditionsEnabled
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   v2 = self->_conditions;
-  v3 = [(NSMutableArray *)v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v3 = [(NSMutableArray *)v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v11;
+    v5 = *v10;
     while (2)
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v11 != v5)
+        if (*v10 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        if (!(*(*(*(&v10 + 1) + 8 * i) + 16))(*(*(&v10 + 1) + 8 * i)))
+        if (!(*(*(*(&v9 + 1) + 8 * i) + 16))(*(*(&v9 + 1) + 8 * i)))
         {
           v7 = 0;
           goto LABEL_11;
         }
       }
 
-      v4 = [(NSMutableArray *)v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v4 = [(NSMutableArray *)v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
       if (v4)
       {
         continue;
@@ -55,11 +55,10 @@
   v7 = 1;
 LABEL_11:
 
-  v8 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
-uint64_t __21__CSPolicy_isEnabled__block_invoke(uint64_t a1)
+void *__21__CSPolicy_isEnabled__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _checkAllConditionsEnabled];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -288,38 +287,36 @@ void __26__CSPolicy_addConditions___block_invoke(uint64_t a1)
 
 void __19__CSPolicy_dealloc__block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
+  v7 = 0u;
   v8 = 0u;
   v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
   v2 = *(*(a1 + 32) + 8);
-  v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v9;
+    v5 = *v8;
     do
     {
       v6 = 0;
       do
       {
-        if (*v9 != v5)
+        if (*v8 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        [*(*(&v8 + 1) + 8 * v6++) removeObserver:{*(a1 + 32), v8}];
+        [*(*(&v7 + 1) + 8 * v6++) removeObserver:{*(a1 + 32), v7}];
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
     }
 
     while (v4);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setCallback:(id)callback
@@ -343,7 +340,7 @@ uint64_t __24__CSPolicy_setCallback___block_invoke(uint64_t a1)
   v4 = *(v3 + 24);
   *(v3 + 24) = v2;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2, v4);
 }
 
 @end

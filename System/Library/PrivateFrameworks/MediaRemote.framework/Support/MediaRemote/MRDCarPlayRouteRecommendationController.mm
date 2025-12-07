@@ -30,10 +30,9 @@
     v6 = 0;
   }
 
-  v8 = *(&self->super.isa + OBJC_IVAR___MRDCarPlayRouteRecommendationController_impl);
   selfCopy = self;
   sub_100229A70(v7, v6);
-  sub_1001C7C2C(v7);
+  sub_1001C7C2C(v7, v6);
 }
 
 @end

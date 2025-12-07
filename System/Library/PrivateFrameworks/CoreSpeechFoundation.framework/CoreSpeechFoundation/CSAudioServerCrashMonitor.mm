@@ -42,69 +42,64 @@
 
 - (void)_startMonitoringWithQueue:(id)queue
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   queueCopy = queue;
   objc_initWeak(&location, self);
   v5 = +[CSAVVoiceTriggerClientManager sharedVoiceTriggerClient];
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 3221225472;
-  v10[2] = __55__CSAudioServerCrashMonitor__startMonitoringWithQueue___block_invoke;
-  v10[3] = &unk_1E865CA40;
-  objc_copyWeak(&v11, &location);
-  [v5 setServerCrashedBlock:v10];
-  v8[0] = MEMORY[0x1E69E9820];
-  v8[1] = 3221225472;
-  v8[2] = __55__CSAudioServerCrashMonitor__startMonitoringWithQueue___block_invoke_6;
-  v8[3] = &unk_1E865CA40;
-  objc_copyWeak(&v9, &location);
-  [v5 setServerResetBlock:v8];
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __55__CSAudioServerCrashMonitor__startMonitoringWithQueue___block_invoke;
+  v9[3] = &unk_1E865CA40;
+  objc_copyWeak(&v10, &location);
+  [v5 setServerCrashedBlock:v9];
+  v7[0] = MEMORY[0x1E69E9820];
+  v7[1] = 3221225472;
+  v7[2] = __55__CSAudioServerCrashMonitor__startMonitoringWithQueue___block_invoke_6;
+  v7[3] = &unk_1E865CA40;
+  objc_copyWeak(&v8, &location);
+  [v5 setServerResetBlock:v7];
   v6 = CSLogContextFacilityCoreSpeech;
   if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v14 = "[CSAudioServerCrashMonitor _startMonitoringWithQueue:]";
+    v13 = "[CSAudioServerCrashMonitor _startMonitoringWithQueue:]";
     _os_log_impl(&dword_1DDA4B000, v6, OS_LOG_TYPE_DEFAULT, "%s Start monitoring : audiomxd crash / recover event", buf, 0xCu);
   }
 
-  objc_destroyWeak(&v9);
-  objc_destroyWeak(&v11);
+  objc_destroyWeak(&v8);
+  objc_destroyWeak(&v10);
 
   objc_destroyWeak(&location);
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __55__CSAudioServerCrashMonitor__startMonitoringWithQueue___block_invoke(uint64_t a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v2 = CSLogContextFacilityCoreSpeech;
   if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 136315138;
-    v6 = "[CSAudioServerCrashMonitor _startMonitoringWithQueue:]_block_invoke";
-    _os_log_impl(&dword_1DDA4B000, v2, OS_LOG_TYPE_DEFAULT, "%s Received audiomxd or bridgeaudiod crashes event", &v5, 0xCu);
+    v4 = 136315138;
+    v5 = "[CSAudioServerCrashMonitor _startMonitoringWithQueue:]_block_invoke";
+    _os_log_impl(&dword_1DDA4B000, v2, OS_LOG_TYPE_DEFAULT, "%s Received audiomxd or bridgeaudiod crashes event", &v4, 0xCu);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   [WeakRetained _didReceiveMediaserverNotification:1];
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 void __55__CSAudioServerCrashMonitor__startMonitoringWithQueue___block_invoke_6(uint64_t a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v2 = CSLogContextFacilityCoreSpeech;
   if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 136315138;
-    v6 = "[CSAudioServerCrashMonitor _startMonitoringWithQueue:]_block_invoke";
-    _os_log_impl(&dword_1DDA4B000, v2, OS_LOG_TYPE_DEFAULT, "%s Received audiomxd or bridgeaudiod reset event", &v5, 0xCu);
+    v4 = 136315138;
+    v5 = "[CSAudioServerCrashMonitor _startMonitoringWithQueue:]_block_invoke";
+    _os_log_impl(&dword_1DDA4B000, v2, OS_LOG_TYPE_DEFAULT, "%s Received audiomxd or bridgeaudiod reset event", &v4, 0xCu);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   [WeakRetained _didReceiveMediaserverNotification:2];
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (CSAudioServerCrashMonitor)init

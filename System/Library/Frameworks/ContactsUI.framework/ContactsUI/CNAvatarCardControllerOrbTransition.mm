@@ -254,12 +254,12 @@ LABEL_13:
   viewCopy = view;
   cardViewController = [(CNAvatarCardControllerOrbTransition *)self cardViewController];
   headerContainerView = [cardViewController headerContainerView];
-  [(CNAvatarCardControllerOrbTransition *)self endHeaderTransform];
+  objc_msgSend_endHeaderTransform(self);
   [headerContainerView setTransform:v25];
 
   cardViewController2 = [(CNAvatarCardControllerOrbTransition *)self cardViewController];
   actionsListView = [cardViewController2 actionsListView];
-  [(CNAvatarCardControllerOrbTransition *)self endActionListTransform];
+  objc_msgSend_endActionListTransform(self);
   [actionsListView setTransform:v25];
 
   if ([(CNAvatarCardControllerOrbTransition *)self isDismissing])

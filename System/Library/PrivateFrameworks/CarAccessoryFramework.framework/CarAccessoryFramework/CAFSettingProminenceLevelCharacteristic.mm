@@ -3,6 +3,8 @@
 - (BOOL)hasAppHomeTile;
 - (BOOL)hasHomescreen;
 - (id)formattedValue;
+- (void)setHasAppHomeTile:(BOOL)tile;
+- (void)setHasHomescreen:(BOOL)homescreen;
 @end
 
 @implementation CAFSettingProminenceLevelCharacteristic
@@ -21,11 +23,25 @@
   return [CAFBitMaskUtilities bitmask:settingProminenceLevelValue hasOption:1];
 }
 
+- (void)setHasAppHomeTile:(BOOL)tile
+{
+  v4 = [CAFBitMaskUtilities bitmask:[(CAFSettingProminenceLevelCharacteristic *)self settingProminenceLevelValue] setOption:1 on:tile];
+
+  [(CAFSettingProminenceLevelCharacteristic *)self setSettingProminenceLevelValue:v4];
+}
+
 - (BOOL)hasHomescreen
 {
   settingProminenceLevelValue = [(CAFSettingProminenceLevelCharacteristic *)self settingProminenceLevelValue];
 
   return [CAFBitMaskUtilities bitmask:settingProminenceLevelValue hasOption:8];
+}
+
+- (void)setHasHomescreen:(BOOL)homescreen
+{
+  v4 = [CAFBitMaskUtilities bitmask:[(CAFSettingProminenceLevelCharacteristic *)self settingProminenceLevelValue] setOption:8 on:homescreen];
+
+  [(CAFSettingProminenceLevelCharacteristic *)self setSettingProminenceLevelValue:v4];
 }
 
 - (id)formattedValue

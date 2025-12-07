@@ -28,43 +28,36 @@
   to;
   if ([(_CPIndexStateForFeedback *)self percentMessagesIndexed])
   {
-    percentMessagesIndexed = self->_percentMessagesIndexed;
     PBDataWriterWriteInt32Field();
   }
 
   if ([(_CPIndexStateForFeedback *)self percentAttachmentsIndexed])
   {
-    percentAttachmentsIndexed = self->_percentAttachmentsIndexed;
     PBDataWriterWriteInt32Field();
   }
 
   if ([(_CPIndexStateForFeedback *)self searchIndex])
   {
-    searchIndex = self->_searchIndex;
     PBDataWriterWriteInt32Field();
   }
 
   if ([(_CPIndexStateForFeedback *)self totalMessageCount])
   {
-    totalMessageCount = self->_totalMessageCount;
     PBDataWriterWriteInt32Field();
   }
 
   if ([(_CPIndexStateForFeedback *)self indexedMessageCount])
   {
-    indexedMessageCount = self->_indexedMessageCount;
     PBDataWriterWriteInt32Field();
   }
 
   if ([(_CPIndexStateForFeedback *)self embeddedMessageCount])
   {
-    embeddedMessageCount = self->_embeddedMessageCount;
     PBDataWriterWriteInt32Field();
   }
 
   if ([(_CPIndexStateForFeedback *)self embeddedMessagePercentage])
   {
-    embeddedMessagePercentage = self->_embeddedMessagePercentage;
     PBDataWriterWriteInt32Field();
   }
 

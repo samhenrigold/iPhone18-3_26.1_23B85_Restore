@@ -1,5 +1,5 @@
 @interface NSSQLJoinIntermediate
-+ (id)createJoinIntermediatesForKeypath:(uint64_t)keypath startEntity:(void *)entity startAlias:(void *)alias forScope:(uint64_t)scope inStatementIntermediate:(void *)intermediate inContext:;
++ (id)createJoinIntermediatesForKeypath:(id *)keypath startEntity:(void *)entity startAlias:(void *)alias forScope:(void *)scope inStatementIntermediate:(void *)intermediate inContext:;
 - (id)description;
 - (id)generateSQLStringInContext:(id)context;
 - (void)dealloc;
@@ -44,17 +44,13 @@
   return v13;
 }
 
-+ (id)createJoinIntermediatesForKeypath:(uint64_t)keypath startEntity:(void *)entity startAlias:(void *)alias forScope:(uint64_t)scope inStatementIntermediate:(void *)intermediate inContext:
++ (id)createJoinIntermediatesForKeypath:(id *)keypath startEntity:(void *)entity startAlias:(void *)alias forScope:(void *)scope inStatementIntermediate:(void *)intermediate inContext:
 {
   objc_opt_self();
   isUpdateScoped = [alias isUpdateScoped];
-  if ((isUpdateScoped & 1) == 0 && (!scope || !*(scope + 112)))
+  if ((isUpdateScoped & 1) == 0 && (!scope || !scope[14]))
   {
-    v17 = MEMORY[0x1E695DF30];
-    intermediateCopy3 = intermediate;
-    v19 = *MEMORY[0x1E695D940];
-    keypath = [MEMORY[0x1E696AEC0] stringWithFormat:@"Join being created outside a fetch scope for keypath %@ entity %@", a2, keypath];
-    goto LABEL_70;
+    goto LABEL_69;
   }
 
   if ([alias isOrScoped])
@@ -67,7 +63,7 @@
     isTargetColumnsScoped = [alias isTargetColumnsScoped];
   }
 
-  v46 = isUpdateScoped;
+  v42 = isUpdateScoped;
   if ([alias isOrScoped])
   {
     isTargetColumnsScoped2 = [alias isTargetColumnsScoped];
@@ -87,20 +83,20 @@
     if ([disambiguationKeypath count])
     {
       aliasCopy = alias;
-      v21 = 0;
+      v17 = 0;
       do
       {
-        v22 = [objc_msgSend(disambiguationKeypath objectAtIndex:{v21), "isEqual:", objc_msgSend(a2, "objectAtIndex:", v21)}];
-        if ((v22 & 1) == 0)
+        v18 = [objc_msgSend(disambiguationKeypath objectAtIndex:{v17), "isEqual:", objc_msgSend(a2, "objectAtIndex:", v17)}];
+        if ((v18 & 1) == 0)
         {
           break;
         }
 
-        ++v21;
+        ++v17;
       }
 
-      while (v21 < [disambiguationKeypath count]);
-      v56 = v22 ^ 1;
+      while (v17 < [disambiguationKeypath count]);
+      v52 = v18 ^ 1;
       alias = aliasCopy;
       if (!v14)
       {
@@ -110,22 +106,20 @@
 
     else
     {
-      v56 = 0;
+      v52 = 0;
       if (!v14)
       {
 LABEL_64:
 
-        v43 = 0;
-LABEL_71:
-
-        return v43;
+        v39 = 0;
+        goto LABEL_70;
       }
     }
   }
 
   else
   {
-    v56 = 1;
+    v52 = 1;
     if (!v14)
     {
       goto LABEL_64;
@@ -133,133 +127,133 @@ LABEL_71:
   }
 
   aliasCopy2 = alias;
-  v23 = 0;
-  v55 = 0;
+  v19 = 0;
+  v51 = 0;
   if (scope)
   {
-    v24 = isTargetColumnsScoped2;
+    v20 = isTargetColumnsScoped2;
   }
 
   else
   {
-    v24 = 1;
+    v20 = 1;
   }
 
-  v47 = v24;
+  v43 = v20;
   scopeCopy = scope;
-  v49 = a2;
+  v45 = a2;
   while (1)
   {
-    v25 = [a2 objectAtIndex:v23];
-    v26 = keypath ? [*(keypath + 40) objectForKey:v25] : 0;
-    v27 = v26 ? 1 : v56;
-    if ((v27 & 1) == 0)
+    v21 = [a2 objectAtIndex:v19];
+    v22 = keypath ? [keypath[5] objectForKey:v21] : 0;
+    v23 = v22 ? 1 : v52;
+    if ((v23 & 1) == 0)
     {
       break;
     }
 
 LABEL_32:
-    propertyType = [v26 propertyType];
-    if (!v26)
+    propertyType = [v22 propertyType];
+    if (!v22)
     {
       goto LABEL_66;
     }
 
-    v29 = propertyType;
-    [v15 addObject:v25];
-    if ((v29 - 7) > 2)
+    v25 = propertyType;
+    [v15 addObject:v21];
+    if ((v25 - 7) > 2)
     {
       goto LABEL_60;
     }
 
-    if (v29 == 9)
+    if (v25 == 9)
     {
-      v34 = v14 == 1 && [intermediate objectForKey:@"subqueryCollectionContext"] == 0;
+      v30 = v14 == 1 && [intermediate objectForKey:@"subqueryCollectionContext"] == 0;
       objc_opt_self();
-      if (v55)
+      if (v51)
       {
-        v35 = v55[4];
+        v31 = v51[4];
       }
 
       else
       {
-        v35 = 0;
+        v31 = 0;
       }
 
-      v36 = [objc_msgSend(intermediate objectForKey:{@"aliasGenerator", "generateTableAlias"}];
-      intermediateCopy2 = intermediate;
-      v38 = [objc_msgSend(intermediate objectForKey:{@"aliasGenerator", "generateTableAlias"}];
-      v39 = [NSSQLJoinIntermediate alloc];
-      v40 = v38;
-      intermediate = intermediateCopy2;
-      v31 = [(NSSQLJoinIntermediate *)v39 initForRelationship:v26 sourceAlias:v35 destinationAlias:v40 correlationAlias:v36 direct:v34 inScope:aliasCopy2];
+      v32 = [objc_msgSend(intermediate objectForKey:{@"aliasGenerator", "generateTableAlias"}];
+      intermediateCopy = intermediate;
+      v34 = [objc_msgSend(intermediate objectForKey:{@"aliasGenerator", "generateTableAlias"}];
+      v35 = [NSSQLJoinIntermediate alloc];
+      v36 = v34;
+      intermediate = intermediateCopy;
+      v27 = [(NSSQLJoinIntermediate *)v35 initForRelationship:v22 sourceAlias:v31 destinationAlias:v36 correlationAlias:v32 direct:v30 inScope:aliasCopy2];
       scope = scopeCopy;
-      a2 = v49;
+      a2 = v45;
     }
 
     else
     {
-      if (v29 != 8)
+      if (v25 != 8)
       {
         if (v14 == 1 && ![intermediate objectForKey:@"subqueryCollectionContext"])
         {
           goto LABEL_60;
         }
 
-        v30 = [(NSSQLFetchIntermediate *)scope finalJoinForKeypathWithComponents:v15];
-        if (v30)
+        v26 = [(NSSQLFetchIntermediate *)scope finalJoinForKeypathWithComponents:v15];
+        if (v26)
         {
-          v31 = v30;
-          v32 = v30;
+          v27 = v26;
+          v28 = v26;
 LABEL_52:
-          keypath = [v31[2] destinationEntity];
+          keypath = [v27[2] destinationEntity];
           if (isTargetColumnsScoped)
           {
-            v31[6] = 2;
-            if ((v47 & 1) == 0)
+            v27[6] = 2;
+            if ((v43 & 1) == 0)
             {
-              v41 = *(scope + 64);
-              if (v41)
+              v37 = scope[8];
+              if (v37)
               {
-                *(v41 + 48) = 1;
+                *(v37 + 48) = 1;
               }
             }
           }
 
-          if (entity && !v31[3])
+          if (entity && !v27[3])
           {
             entityCopy = entity;
 
-            v31[3] = entity;
+            v27[3] = entity;
           }
 
-          v55 = v31;
+          v51 = v27;
           goto LABEL_60;
         }
       }
 
       objc_opt_self();
-      if (v55)
+      if (v51)
       {
-        v33 = v55[4];
+        v29 = v51[4];
       }
 
       else
       {
-        v33 = 0;
+        v29 = 0;
       }
 
-      v31 = -[NSSQLJoinIntermediate initForRelationship:sourceAlias:destinationAlias:correlationAlias:direct:inScope:]([NSSQLJoinIntermediate alloc], v26, v33, [objc_msgSend(intermediate objectForKey:{@"aliasGenerator", "generateTableAlias"}], 0, 0, aliasCopy2);
+      v27 = -[NSSQLJoinIntermediate initForRelationship:sourceAlias:destinationAlias:correlationAlias:direct:inScope:]([NSSQLJoinIntermediate alloc], v22, v29, [objc_msgSend(intermediate objectForKey:{@"aliasGenerator", "generateTableAlias"}], 0, 0, aliasCopy2);
     }
 
-    [(NSSQLFetchIntermediate *)scope addJoinIntermediate:v31 atKeypathWithComponents:v15];
-    if (v31)
+    [(NSSQLFetchIntermediate *)scope addJoinIntermediate:v27 atKeypathWithComponents:v15];
+    if (v27)
     {
       goto LABEL_52;
     }
 
 LABEL_60:
-    ++v23;
+    ++v19;
     if (!--v14)
     {
       goto LABEL_66;
@@ -268,46 +262,39 @@ LABEL_60:
 
   if (disambiguatingEntity)
   {
-    v26 = [*(disambiguatingEntity + 40) objectForKey:v25];
+    v22 = [*(disambiguatingEntity + 40) objectForKey:v21];
     goto LABEL_32;
   }
 
   [0 propertyType];
 LABEL_66:
 
-  v43 = v55;
-  v44 = v46;
-  if (!v55)
+  v39 = v51;
+  v40 = v42;
+  if (!v51)
   {
-    v44 = 0;
+    v40 = 0;
   }
 
-  if (v44 != 1)
+  if (v40 == 1)
   {
-    goto LABEL_71;
+LABEL_69:
+    [intermediate setObject:objc_msgSend(MEMORY[0x1E695DF30] forKey:{"exceptionWithName:reason:userInfo:", *MEMORY[0x1E695D940], objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], a2, keypath), 0), @"NSUnderlyingException"}];
+    return 0;
   }
 
-  v17 = MEMORY[0x1E695DF30];
-  intermediateCopy3 = intermediate;
-  v19 = *MEMORY[0x1E695D940];
-  keypath = [MEMORY[0x1E696AEC0] stringWithFormat:@"Join being created inside an update scope for keypath %@ entity %@", a2, keypath];
 LABEL_70:
-  [intermediateCopy3 setObject:objc_msgSend(v17 forKey:{"exceptionWithName:reason:userInfo:", v19, keypath, 0), @"NSUnderlyingException"}];
-  return 0;
+
+  return v39;
 }
 
 - (id)description
 {
   v3 = objc_autoreleasePoolPush();
-  v4 = MEMORY[0x1E696AEC0];
-  v5 = [-[NSSQLProperty entity](self->_relationship "entity")];
-  sourceAlias = self->_sourceAlias;
-  v7 = [-[NSSQLRelationship destinationEntity](self->_relationship "destinationEntity")];
-  destinationAlias = self->_destinationAlias;
-  v9 = [v4 stringWithFormat:@"source (%@, %@), destination (%@, %@), correlation (%@)", v5, sourceAlias, v7, destinationAlias, self->_correlationAlias];
+  v4 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], [-[NSSQLProperty entity](self->_relationship "entity")], self->_sourceAlias, objc_msgSend(-[NSSQLRelationship destinationEntity](self->_relationship, "destinationEntity"), "name"), self->_destinationAlias, self->_correlationAlias);
   objc_autoreleasePoolPop(v3);
 
-  return v9;
+  return v4;
 }
 
 - (id)generateSQLStringInContext:(id)context

@@ -527,7 +527,7 @@ BOOL __41__SKPaymentQueue_addTransactionObserver___block_invoke(uint64_t a1, voi
   }
 }
 
-void __34__SKPaymentQueue_cancelDownloads___block_invoke()
+void __34__SKPaymentQueue_cancelDownloads___block_invoke(uint64_t a1, uint64_t a2)
 {
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
@@ -643,7 +643,7 @@ void __36__SKPaymentQueue_finishTransaction___block_invoke(uint64_t a1)
   }
 }
 
-void __33__SKPaymentQueue_pauseDownloads___block_invoke()
+void __33__SKPaymentQueue_pauseDownloads___block_invoke(uint64_t a1, uint64_t a2)
 {
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
@@ -929,7 +929,7 @@ LABEL_6:
   }
 }
 
-void __34__SKPaymentQueue_resumeDownloads___block_invoke()
+void __34__SKPaymentQueue_resumeDownloads___block_invoke(uint64_t a1, uint64_t a2)
 {
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
@@ -950,7 +950,7 @@ void __34__SKPaymentQueue_resumeDownloads___block_invoke()
   [v4 displayMessageWithType:&unk_1F29D51F8];
 }
 
-void __42__SKPaymentQueue_showPriceConsentIfNeeded__block_invoke()
+void __42__SKPaymentQueue_showPriceConsentIfNeeded__block_invoke(uint64_t a1, uint64_t a2)
 {
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
@@ -972,7 +972,7 @@ void __42__SKPaymentQueue_showPriceConsentIfNeeded__block_invoke()
   [v4 presentCodeRedemptionSheet];
 }
 
-void __44__SKPaymentQueue_presentCodeRedemptionSheet__block_invoke()
+void __44__SKPaymentQueue_presentCodeRedemptionSheet__block_invoke(uint64_t a1, uint64_t a2)
 {
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
@@ -1053,7 +1053,7 @@ void __44__SKPaymentQueue_presentCodeRedemptionSheet__block_invoke()
   }
 }
 
-void __33__SKPaymentQueue_startDownloads___block_invoke()
+void __33__SKPaymentQueue_startDownloads___block_invoke(uint64_t a1, uint64_t a2)
 {
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
@@ -1715,7 +1715,7 @@ void __59__SKPaymentQueue_removedEntitlementsForProductIdentifiers___block_invok
   [v4 checkForMessages];
 }
 
-void __35__SKPaymentQueue__checkForMessages__block_invoke()
+void __35__SKPaymentQueue__checkForMessages__block_invoke(uint64_t a1, uint64_t a2)
 {
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
@@ -1759,7 +1759,7 @@ void __42__SKPaymentQueue__checkServerQueueForced___block_invoke(uint64_t a1)
   [v3 checkServerQueueForClientIfNecessary:v5 forceCheck:v6 reply:v7];
 }
 
-void __42__SKPaymentQueue__checkServerQueueForced___block_invoke_2()
+void __42__SKPaymentQueue__checkServerQueueForced___block_invoke_2(uint64_t a1, uint64_t a2)
 {
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
@@ -2256,7 +2256,7 @@ LABEL_44:
   }
 }
 
-uint64_t __48__SKPaymentQueue__updatedTransactions_restored___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__48__SKPaymentQueue__updatedTransactions_restored___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   result = [a2 canMergeWithTransaction:*(a1 + 32)];
   *a4 = result;
@@ -2492,70 +2492,79 @@ void __29__SKPaymentQueue_addPayment___block_invoke_28_cold_1()
 {
   OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_1B23EF000, MEMORY[0x1E69E9C10], v0, "%{public}@: Payment completed with error: %{public}@", v1, v2, v3, v4, v5);
+  OUTLINED_FUNCTION_1(&dword_1B23EF000, MEMORY[0x1E69E9C10], v0, "%{public}@: Payment completed with error: %{public}@", v1, v2, v3, v4);
 }
 
 void __34__SKPaymentQueue_cancelDownloads___block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_1B23EF000, MEMORY[0x1E69E9C10], v0, "%{public}@: Error in remote proxy while cancelling downloads %{public}@", v1, v2, v3, v4, v5);
+  OUTLINED_FUNCTION_1(&dword_1B23EF000, MEMORY[0x1E69E9C10], v0, "%{public}@: Error in remote proxy while cancelling downloads %{public}@", v1, v2, v3, v4);
+}
+
+void __36__SKPaymentQueue_finishTransaction___block_invoke_cold_1(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  *v8 = 138543618;
+  *&v8[4] = *(a1 + 40);
+  *&v8[12] = 2114;
+  *&v8[14] = *a2;
+  OUTLINED_FUNCTION_1(&dword_1B23EF000, MEMORY[0x1E69E9C10], a3, "%{public}@: Finishing failed transaction %{public}@ with an identifier", a5, a6, a7, a8, *v8, *&v8[8], *&v8[16], *MEMORY[0x1E69E9840]);
 }
 
 void __33__SKPaymentQueue_pauseDownloads___block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_1B23EF000, MEMORY[0x1E69E9C10], v0, "%{public}@: Error in remote proxy while pausing downloads: %{public}@", v1, v2, v3, v4, v5);
+  OUTLINED_FUNCTION_1(&dword_1B23EF000, MEMORY[0x1E69E9C10], v0, "%{public}@: Error in remote proxy while pausing downloads: %{public}@", v1, v2, v3, v4);
 }
 
 void __70__SKPaymentQueue_restoreCompletedTransactionsWithApplicationUsername___block_invoke_45_cold_1()
 {
   OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_1B23EF000, MEMORY[0x1E69E9C10], v0, "%{public}@: Error in remote proxy while restoring transactions: %{public}@", v1, v2, v3, v4, v5);
+  OUTLINED_FUNCTION_1(&dword_1B23EF000, MEMORY[0x1E69E9C10], v0, "%{public}@: Error in remote proxy while restoring transactions: %{public}@", v1, v2, v3, v4);
 }
 
 void __34__SKPaymentQueue_resumeDownloads___block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_1B23EF000, MEMORY[0x1E69E9C10], v0, "%{public}@: Error in remote proxy while resuming downloads: %{public}@", v1, v2, v3, v4, v5);
+  OUTLINED_FUNCTION_1(&dword_1B23EF000, MEMORY[0x1E69E9C10], v0, "%{public}@: Error in remote proxy while resuming downloads: %{public}@", v1, v2, v3, v4);
 }
 
 void __42__SKPaymentQueue_showPriceConsentIfNeeded__block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_1B23EF000, MEMORY[0x1E69E9C10], v0, "%{public}@: Error in remote proxy while showing price consent: %{public}@", v1, v2, v3, v4, v5);
+  OUTLINED_FUNCTION_1(&dword_1B23EF000, MEMORY[0x1E69E9C10], v0, "%{public}@: Error in remote proxy while showing price consent: %{public}@", v1, v2, v3, v4);
 }
 
 void __44__SKPaymentQueue_presentCodeRedemptionSheet__block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_1B23EF000, MEMORY[0x1E69E9C10], v0, "%{public}@: Error in remote proxy while presenting code redemption sheet: %{public}@", v1, v2, v3, v4, v5);
+  OUTLINED_FUNCTION_1(&dword_1B23EF000, MEMORY[0x1E69E9C10], v0, "%{public}@: Error in remote proxy while presenting code redemption sheet: %{public}@", v1, v2, v3, v4);
 }
 
 void __33__SKPaymentQueue_startDownloads___block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_1B23EF000, MEMORY[0x1E69E9C10], v0, "%{public}@: Error in remote proxy while starting downloads: %{public}@", v1, v2, v3, v4, v5);
+  OUTLINED_FUNCTION_1(&dword_1B23EF000, MEMORY[0x1E69E9C10], v0, "%{public}@: Error in remote proxy while starting downloads: %{public}@", v1, v2, v3, v4);
 }
 
 void __35__SKPaymentQueue__checkForMessages__block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_1B23EF000, MEMORY[0x1E69E9C10], v0, "%{public}@: Error in remote proxy while checking for messages: %{public}@", v1, v2, v3, v4, v5);
+  OUTLINED_FUNCTION_1(&dword_1B23EF000, MEMORY[0x1E69E9C10], v0, "%{public}@: Error in remote proxy while checking for messages: %{public}@", v1, v2, v3, v4);
 }
 
 void __42__SKPaymentQueue__checkServerQueueForced___block_invoke_2_cold_1()
 {
   OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_1B23EF000, MEMORY[0x1E69E9C10], v0, "%{public}@: Error in remote proxy while checking server queue: %{public}@", v1, v2, v3, v4, v5);
+  OUTLINED_FUNCTION_1(&dword_1B23EF000, MEMORY[0x1E69E9C10], v0, "%{public}@: Error in remote proxy while checking server queue: %{public}@", v1, v2, v3, v4);
 }
 
 @end

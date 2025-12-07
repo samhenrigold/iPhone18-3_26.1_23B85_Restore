@@ -29,34 +29,34 @@
 
 - (BOOL)_buildMessageAccessoryListFromRequests:(id)requests accessoryList:(id)list
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   obj = requests;
   listCopy = list;
+  v41 = 0u;
   v42 = 0u;
   v43 = 0u;
   v44 = 0u;
-  v45 = 0u;
-  v6 = [obj countByEnumeratingWithState:&v42 objects:v46 count:16];
+  v6 = [obj countByEnumeratingWithState:&v41 objects:v45 count:16];
   if (v6)
   {
     v7 = v6;
     v8 = 0;
-    v9 = *v43;
-    v32 = *MEMORY[0x277CD2678];
-    v34 = *v43;
+    v9 = *v42;
+    v31 = *MEMORY[0x277CD2678];
+    v33 = *v42;
     selfCopy = self;
     do
     {
       v10 = 0;
-      v36 = v7;
+      v35 = v7;
       do
       {
-        if (*v43 != v9)
+        if (*v42 != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v42 + 1) + 8 * v10);
+        v11 = *(*(&v41 + 1) + 8 * v10);
         characteristic = [v11 characteristic];
         service = [v11 service];
         accessory = [v11 accessory];
@@ -90,43 +90,43 @@
           v24 = v18;
           if (isShortActionOperation)
           {
-            [listCopy setObject:MEMORY[0x277CBEC38] forKeyedSubscript:v32];
+            [listCopy setObject:MEMORY[0x277CBEC38] forKeyedSubscript:v31];
             v24 = 1;
           }
 
           if ([v15 hasBTLELink] && (objc_msgSend(v15, "hasIPLink") & 1) == 0)
           {
-            v41 = 0;
-            v40 = 5;
+            v40 = 0;
+            v39 = 5;
             home = [v15 home];
             identifier = [v15 identifier];
-            v39 = 0;
-            [home retrieveStateForTrackedAccessory:identifier stateNumber:0 isReachable:&v41 linkQuality:&v40 lastSeen:&v39];
-            v33 = v39;
+            v38 = 0;
+            [home retrieveStateForTrackedAccessory:identifier stateNumber:0 isReachable:&v40 linkQuality:&v39 lastSeen:&v38];
+            v32 = v38;
 
-            if (v41 == 1)
+            if (v40 == 1)
             {
-              v27 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v40];
+              v27 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v39];
               v28 = [listCopy objectForKeyedSubscript:uUIDString];
               [v28 setObject:v27 forKeyedSubscript:@"kAccessoryLinkQuality"];
 
               v29 = [listCopy objectForKeyedSubscript:uUIDString];
-              [v29 setObject:v33 forKeyedSubscript:@"kAccessoryLastSeen"];
+              [v29 setObject:v32 forKeyedSubscript:@"kAccessoryLastSeen"];
             }
           }
 
           self = selfCopy;
           v8 = [(HMDHAPAccessoryRemoteOperationTask *)selfCopy _appendServiceListWithRequest:v11 serviceList:dictionary]| v24;
 
-          v9 = v34;
-          v7 = v36;
+          v9 = v33;
+          v7 = v35;
         }
 
         ++v10;
       }
 
       while (v7 != v10);
-      v7 = [obj countByEnumeratingWithState:&v42 objects:v46 count:16];
+      v7 = [obj countByEnumeratingWithState:&v41 objects:v45 count:16];
     }
 
     while (v7);
@@ -137,39 +137,38 @@
     LOBYTE(v8) = 0;
   }
 
-  v30 = *MEMORY[0x277D85DE8];
   return v8 & 1;
 }
 
 - (BOOL)_buildMessageAccessoryListFromAccessoryRequestMap:(id)map accessoryList:(id)list
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   mapCopy = map;
   listCopy = list;
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
-  v8 = [mapCopy countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v8 = [mapCopy countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v8)
   {
     v9 = v8;
     v10 = 0;
-    v11 = *v17;
+    v11 = *v16;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v17 != v11)
+        if (*v16 != v11)
         {
           objc_enumerationMutation(mapCopy);
         }
 
-        v13 = [mapCopy objectForKey:*(*(&v16 + 1) + 8 * i)];
+        v13 = [mapCopy objectForKey:*(*(&v15 + 1) + 8 * i)];
         v10 |= [(HMDHAPAccessoryRemoteOperationTask *)self _buildMessageAccessoryListFromRequests:v13 accessoryList:listCopy];
       }
 
-      v9 = [mapCopy countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v9 = [mapCopy countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v9);
@@ -180,13 +179,12 @@
     LOBYTE(v10) = 0;
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v10 & 1;
 }
 
 - (id)_remoteMessageFromAccessoryRequestMap:(id)map
 {
-  v59[5] = *MEMORY[0x277D85DE8];
+  v58[5] = *MEMORY[0x277D85DE8];
   v4 = MEMORY[0x277CBEB38];
   mapCopy = map;
   dictionary = [v4 dictionary];
@@ -214,28 +212,28 @@
 
     v16 = (v15 != 0) | v9;
     v17 = MEMORY[0x277CBEB38];
-    v57 = dictionary;
-    v58[0] = *MEMORY[0x277CCE7A8];
-    v56 = [dictionary copy];
-    v59[0] = v56;
-    v58[1] = *MEMORY[0x277CD0640];
+    v56 = dictionary;
+    v57[0] = *MEMORY[0x277CCE7A8];
+    v55 = objc_msgSend_copy(dictionary);
+    v58[0] = v55;
+    v57[1] = *MEMORY[0x277CD0640];
     context3 = [(HMDHAPAccessoryTask *)self context];
     homeUniqueIdentifier = [context3 homeUniqueIdentifier];
     uUIDString = [homeUniqueIdentifier UUIDString];
-    v59[1] = uUIDString;
-    v58[2] = v8;
+    v58[1] = uUIDString;
+    v57[2] = v8;
     v20 = [MEMORY[0x277CCABB0] numberWithBool:v16 & 1];
-    v59[2] = v20;
-    v58[3] = @"kDoNotForwardMessageKey";
+    v58[2] = v20;
+    v57[3] = @"kDoNotForwardMessageKey";
     v21 = MEMORY[0x277CCABB0];
     delegateDevice = [(HMDHAPAccessoryRemoteOperationTask *)self delegateDevice];
     v23 = [v21 numberWithInt:delegateDevice != 0];
-    v59[3] = v23;
-    v58[4] = @"kRequestIdentifierKey";
+    v58[3] = v23;
+    v57[4] = @"kRequestIdentifierKey";
     requestIdentifier = [(HMDHAPAccessoryTask *)self requestIdentifier];
     uUIDString2 = [requestIdentifier UUIDString];
-    v59[4] = uUIDString2;
-    v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v59 forKeys:v58 count:5];
+    v58[4] = uUIDString2;
+    v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v58 forKeys:v57 count:5];
     v27 = [v17 dictionaryWithDictionary:v26];
 
     context4 = [(HMDHAPAccessoryTask *)self context];
@@ -298,18 +296,16 @@
     v49 = MEMORY[0x277D0F848];
     context10 = [(HMDHAPAccessoryTask *)self context];
     homeMessageDestination = [context10 homeMessageDestination];
-    v52 = [v27 copy];
+    v52 = objc_msgSend_copy(v27);
     v10 = [v49 messageWithName:remoteMessageName qualityOfService:v48 destination:homeMessageDestination payload:v52];
 
-    dictionary = v57;
+    dictionary = v56;
   }
 
   else
   {
     v10 = 0;
   }
-
-  v53 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -475,7 +471,7 @@ void __85__HMDHAPAccessoryRemoteOperationTask__updateLastKnownStateForAccessorie
 
 - (void)execute
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   date = [MEMORY[0x277CBEAA8] date];
   [(HMDHAPAccessoryTask *)self setExecutionTime:date];
 
@@ -493,26 +489,26 @@ void __85__HMDHAPAccessoryRemoteOperationTask__updateLastKnownStateForAccessorie
   v10 = [messagePayload objectForKeyedSubscript:*MEMORY[0x277CCE7A8]];
   obj = [(HMDHAPAccessoryTask *)self logEventsFromAccessoryRequestMap:v7 accessoryList:v10];
 
-  v41 = 0u;
-  v42 = 0u;
-  v39 = 0u;
   v40 = 0u;
+  v41 = 0u;
+  v38 = 0u;
+  v39 = 0u;
   v11 = v7;
-  v12 = [v11 countByEnumeratingWithState:&v39 objects:v51 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v38 objects:v50 count:16];
   if (v12)
   {
-    v13 = *v40;
+    v13 = *v39;
     do
     {
       v14 = 0;
       do
       {
-        if (*v40 != v13)
+        if (*v39 != v13)
         {
           objc_enumerationMutation(v11);
         }
 
-        v15 = *(*(&v39 + 1) + 8 * v14);
+        v15 = *(*(&v38 + 1) + 8 * v14);
         activity = [(HMDHAPAccessoryTask *)self activity];
         [(HMDHAPAccessoryRemoteOperationTask *)self activityRequestEventName];
 
@@ -523,7 +519,7 @@ void __85__HMDHAPAccessoryRemoteOperationTask__updateLastKnownStateForAccessorie
       }
 
       while (v12 != v14);
-      v12 = [v11 countByEnumeratingWithState:&v39 objects:v51 count:16];
+      v12 = [v11 countByEnumeratingWithState:&v38 objects:v50 count:16];
     }
 
     while (v12);
@@ -532,16 +528,16 @@ void __85__HMDHAPAccessoryRemoteOperationTask__updateLastKnownStateForAccessorie
   v17 = dispatch_group_create();
   dispatch_group_enter(v17);
   objc_initWeak(&location, self);
-  v34[0] = MEMORY[0x277D85DD0];
-  v34[1] = 3221225472;
-  v34[2] = __45__HMDHAPAccessoryRemoteOperationTask_execute__block_invoke;
-  v34[3] = &unk_278689460;
-  objc_copyWeak(&v37, &location);
+  v33[0] = MEMORY[0x277D85DD0];
+  v33[1] = 3221225472;
+  v33[2] = __45__HMDHAPAccessoryRemoteOperationTask_execute__block_invoke;
+  v33[3] = &unk_278689460;
+  objc_copyWeak(&v36, &location);
   v18 = v11;
-  v35 = v18;
+  v34 = v18;
   v19 = v17;
-  v36 = v19;
-  [v8 setResponseHandler:v34];
+  v35 = v19;
+  [v8 setResponseHandler:v33];
   objc_storeStrong(&self->_logEvents, obj);
   v20 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -553,13 +549,13 @@ void __85__HMDHAPAccessoryRemoteOperationTask__updateLastKnownStateForAccessorie
     delegateDevice = [(HMDHAPAccessoryRemoteOperationTask *)selfCopy delegateDevice];
     shortDescription2 = [delegateDevice shortDescription];
     *buf = 138544130;
-    v44 = v23;
-    v45 = 2114;
-    v46 = selfCopy;
-    v47 = 2114;
-    v48 = shortDescription;
-    v49 = 2114;
-    v50 = shortDescription2;
+    v43 = v23;
+    v44 = 2114;
+    v45 = selfCopy;
+    v46 = 2114;
+    v47 = shortDescription;
+    v48 = 2114;
+    v49 = shortDescription2;
     _os_log_impl(&dword_229538000, v22, OS_LOG_TYPE_DEFAULT, "%{public}@[%{public}@] Dispatching message: %{public}@ to device: %{public}@", buf, 0x2Au);
   }
 
@@ -576,18 +572,16 @@ void __85__HMDHAPAccessoryRemoteOperationTask__updateLastKnownStateForAccessorie
   block[4] = selfCopy;
   dispatch_group_notify(v19, workQueue, block);
 
-  objc_destroyWeak(&v37);
+  objc_destroyWeak(&v36);
   objc_destroyWeak(&location);
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 void __45__HMDHAPAccessoryRemoteOperationTask_execute__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v63 = *MEMORY[0x277D85DE8];
+  v62 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
-  v43 = a1;
+  v42 = a1;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   v8 = WeakRetained;
   if (WeakRetained)
@@ -599,47 +593,47 @@ void __45__HMDHAPAccessoryRemoteOperationTask_execute__block_invoke(uint64_t a1,
 
     if (v5)
     {
-      v39 = v6;
-      v40 = v5;
+      v38 = v6;
+      v39 = v5;
       v9 = [MEMORY[0x277CBEB18] array];
+      v48 = 0u;
       v49 = 0u;
       v50 = 0u;
       v51 = 0u;
-      v52 = 0u;
       obj = *(a1 + 32);
-      v44 = [obj countByEnumeratingWithState:&v49 objects:v62 count:16];
-      if (v44)
+      v43 = [obj countByEnumeratingWithState:&v48 objects:v61 count:16];
+      if (v43)
       {
-        v42 = *v50;
+        v41 = *v49;
         do
         {
-          for (i = 0; i != v44; ++i)
+          for (i = 0; i != v43; ++i)
           {
-            if (*v50 != v42)
+            if (*v49 != v41)
             {
               objc_enumerationMutation(obj);
             }
 
-            v11 = [*(v43 + 32) objectForKey:*(*(&v49 + 1) + 8 * i)];
+            v11 = [*(v42 + 32) objectForKey:*(*(&v48 + 1) + 8 * i)];
+            v44 = 0u;
             v45 = 0u;
             v46 = 0u;
             v47 = 0u;
-            v48 = 0u;
-            v12 = [v11 countByEnumeratingWithState:&v45 objects:v61 count:16];
+            v12 = [v11 countByEnumeratingWithState:&v44 objects:v60 count:16];
             if (v12)
             {
               v13 = v12;
-              v14 = *v46;
+              v14 = *v45;
               do
               {
                 for (j = 0; j != v13; ++j)
                 {
-                  if (*v46 != v14)
+                  if (*v45 != v14)
                   {
                     objc_enumerationMutation(v11);
                   }
 
-                  v16 = *(*(&v45 + 1) + 8 * j);
+                  v16 = *(*(&v44 + 1) + 8 * j);
                   v17 = [v8 requestToResponseMap];
                   v18 = [v17 objectForKey:v16];
 
@@ -649,21 +643,21 @@ void __45__HMDHAPAccessoryRemoteOperationTask_execute__block_invoke(uint64_t a1,
                   }
                 }
 
-                v13 = [v11 countByEnumeratingWithState:&v45 objects:v61 count:16];
+                v13 = [v11 countByEnumeratingWithState:&v44 objects:v60 count:16];
               }
 
               while (v13);
             }
           }
 
-          v44 = [obj countByEnumeratingWithState:&v49 objects:v62 count:16];
+          v43 = [obj countByEnumeratingWithState:&v48 objects:v61 count:16];
         }
 
-        while (v44);
+        while (v43);
       }
 
-      v5 = v40;
-      v19 = [HMDCharacteristicResponse responsesWithRequests:v9 error:v40];
+      v5 = v39;
+      v19 = [HMDCharacteristicResponse responsesWithRequests:v9 error:v39];
       v20 = objc_autoreleasePoolPush();
       v21 = v8;
       v22 = HMFGetOSLogHandle();
@@ -672,18 +666,18 @@ void __45__HMDHAPAccessoryRemoteOperationTask_execute__block_invoke(uint64_t a1,
         v23 = HMFGetLogIdentifier();
         v24 = [v19 count];
         *buf = 138544130;
-        v54 = v23;
-        v55 = 2112;
-        v56 = v21;
-        v57 = 2048;
-        v58 = v24;
-        v59 = 2112;
-        v60 = v40;
+        v53 = v23;
+        v54 = 2112;
+        v55 = v21;
+        v56 = 2048;
+        v57 = v24;
+        v58 = 2112;
+        v59 = v39;
         _os_log_impl(&dword_229538000, v22, OS_LOG_TYPE_DEFAULT, "%{public}@[%@] Received remote characteristic responses: [%ld] with error: %@", buf, 0x2Au);
       }
 
       objc_autoreleasePoolPop(v20);
-      v6 = v39;
+      v6 = v38;
     }
 
     else
@@ -698,11 +692,11 @@ void __45__HMDHAPAccessoryRemoteOperationTask_execute__block_invoke(uint64_t a1,
       {
         v32 = HMFGetLogIdentifier();
         *buf = 138543874;
-        v54 = v32;
-        v55 = 2112;
-        v56 = v30;
-        v57 = 2048;
-        v58 = [v19 count];
+        v53 = v32;
+        v54 = 2112;
+        v55 = v30;
+        v56 = 2048;
+        v57 = [v19 count];
         _os_log_impl(&dword_229538000, v31, OS_LOG_TYPE_DEFAULT, "%{public}@[%@] Received remote characteristic responses: [%ld]", buf, 0x20u);
       }
 
@@ -711,7 +705,7 @@ void __45__HMDHAPAccessoryRemoteOperationTask_execute__block_invoke(uint64_t a1,
 
     [v8 addCharacteristicResponses:v19 isRemote:1];
     v33 = [v8 characteristicResponses];
-    [v8 _updateCharacteristicsWithResponses:v33 accessoryRequests:*(v43 + 32) completedGroup:*(v43 + 40)];
+    [v8 _updateCharacteristicsWithResponses:v33 accessoryRequests:*(v42 + 32) completedGroup:*(v42 + 40)];
 
     v34 = objc_opt_class();
     v35 = [v8 logEvents];
@@ -728,14 +722,12 @@ void __45__HMDHAPAccessoryRemoteOperationTask_execute__block_invoke(uint64_t a1,
     {
       v27 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v54 = v27;
+      v53 = v27;
       _os_log_impl(&dword_229538000, v26, OS_LOG_TYPE_DEFAULT, "%{public}@Lost self reference for remote operation message response handler", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v25);
   }
-
-  v38 = *MEMORY[0x277D85DE8];
 }
 
 void __45__HMDHAPAccessoryRemoteOperationTask_execute__block_invoke_306(uint64_t a1)

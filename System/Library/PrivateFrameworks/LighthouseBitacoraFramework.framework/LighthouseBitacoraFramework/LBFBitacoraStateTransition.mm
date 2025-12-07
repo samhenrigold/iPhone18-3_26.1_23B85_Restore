@@ -6,11 +6,11 @@
 
 - (LBFBitacoraStateTransition)initWithBitcoraState:(int64_t)state previousState:(int64_t)previousState timestamp:(id)timestamp timedelta:(double)timedelta
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   timestampCopy = timestamp;
-  v17.receiver = self;
-  v17.super_class = LBFBitacoraStateTransition;
-  v12 = [(LBFBitacoraStateTransition *)&v17 init];
+  v16.receiver = self;
+  v16.super_class = LBFBitacoraStateTransition;
+  v12 = [(LBFBitacoraStateTransition *)&v16 init];
   v13 = v12;
   if (v12)
   {
@@ -30,7 +30,6 @@
     }
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v13;
 }
 

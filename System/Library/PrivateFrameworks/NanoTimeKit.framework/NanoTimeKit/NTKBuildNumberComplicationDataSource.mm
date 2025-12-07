@@ -51,7 +51,7 @@
 {
   if (type == 52)
   {
-    return NTKInternalBuild(self, a2, 52, device);
+    return NTKInternalBuild(self, a2);
   }
 
   else

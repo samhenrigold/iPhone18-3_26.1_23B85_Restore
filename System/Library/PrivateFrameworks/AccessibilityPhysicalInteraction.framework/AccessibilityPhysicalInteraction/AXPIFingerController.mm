@@ -56,9 +56,9 @@
 - (AXPIFingerController)initWithDisplayUUID:(id)d
 {
   dCopy = d;
-  v15.receiver = self;
-  v15.super_class = AXPIFingerController;
-  v5 = [(AXPIFingerController *)&v15 init];
+  v16.receiver = self;
+  v16.super_class = AXPIFingerController;
+  v5 = [(AXPIFingerController *)&v16 init];
   if (v5)
   {
     array = [MEMORY[0x277CBEB18] array];
@@ -74,12 +74,12 @@
     fingerContainerView = v5->_fingerContainerView;
     v5->_fingerContainerView = v10;
 
-    [(AXPIFingerContainerView *)v5->_fingerContainerView setUserInteractionEnabled:0];
-    v12 = *(MEMORY[0x277CBF398] + 16);
+    v12 = [(AXPIFingerContainerView *)v5->_fingerContainerView setUserInteractionEnabled:0];
+    v13 = *(MEMORY[0x277CBF398] + 16);
     v5->_fixedReferenceBounds.origin = *MEMORY[0x277CBF398];
-    v5->_fixedReferenceBounds.size = v12;
-    v13 = AXPIDefaultAppearanceForDevice();
-    [(AXPIFingerController *)v5 setAppearanceDelegate:v13];
+    v5->_fixedReferenceBounds.size = v13;
+    v14 = AXPIDefaultAppearanceForDevice(v12);
+    [(AXPIFingerController *)v5 setAppearanceDelegate:v14];
   }
 
   return v5;
@@ -1231,7 +1231,7 @@ void __46__AXPIFingerController_moveFingersTo3DPoints___block_invoke(uint64_t a1
   delegateCopy = delegate;
   if (!delegateCopy)
   {
-    delegateCopy = AXPIDefaultAppearanceForDevice();
+    delegateCopy = AXPIDefaultAppearanceForDevice(0);
   }
 
   v5 = delegateCopy;

@@ -19,11 +19,11 @@
 - (id)menuByReplacingChildren:(id)children
 {
   sub_1B3FDFCD8();
-  sub_1B405D5E4();
+  v4 = sub_1B405D5E4();
   selfCopy = self;
-  v5 = sub_1B3FDFA20();
+  v6 = sub_1B3FDFA20(v4);
 
-  return v5;
+  return v6;
 }
 
 @end

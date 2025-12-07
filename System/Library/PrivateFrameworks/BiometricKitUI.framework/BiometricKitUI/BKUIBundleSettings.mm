@@ -7,6 +7,7 @@
 + (int64_t)integerForUserDefaultsKey:(id)key;
 + (void)isFpEnrollHapticFeedbackDisabled;
 + (void)isUserStudy;
++ (void)setBool:(BOOL)bool forUserDefaultsKey:(id)key;
 + (void)setInteger:(int64_t)integer forUserDefaultsKey:(id)key;
 + (void)synchronize;
 @end
@@ -62,6 +63,21 @@
   }
 
   return v3;
+}
+
++ (void)setBool:(BOOL)bool forUserDefaultsKey:(id)key
+{
+  boolCopy = bool;
+  keyCopy = key;
+  if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
+  {
+    +[BKUIBundleSettings setBool:forUserDefaultsKey:];
+  }
+
+  v7 = [MEMORY[0x277CCABB0] numberWithBool:boolCopy];
+  [self setObject:v7 forKey:keyCopy];
+
+  [self synchronize];
 }
 
 + (void)setInteger:(int64_t)integer forUserDefaultsKey:(id)key
@@ -175,64 +191,44 @@ LABEL_6:
 
 + (void)isFpEnrollHapticFeedbackDisabled
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 + (void)isUserStudy
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 + (void)setBool:forUserDefaultsKey:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-+ (void)setInteger:forUserDefaultsKey:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 + (void)BOOLForUserDefaultsKey:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_0_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 + (void)integerForUserDefaultsKey:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_0_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 + (void)floatForUserDefaultsKey:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_0_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

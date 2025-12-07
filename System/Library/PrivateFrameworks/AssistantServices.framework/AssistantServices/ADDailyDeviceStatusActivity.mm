@@ -252,83 +252,82 @@
 - (void)fetchEnrolledUsersWithCompletion:(id)completion
 {
   completionCopy = completion;
-  v31 = +[ADMultiUserService sharedService];
-  sharedUsersBySharedUserID = [v31 sharedUsersBySharedUserID];
+  v30 = +[ADMultiUserService sharedService];
+  sharedUsersBySharedUserID = [v30 sharedUsersBySharedUserID];
   v6 = [sharedUsersBySharedUserID count];
 
   v7 = AFSiriLogContextDaemon;
   v8 = os_log_type_enabled(AFSiriLogContextDaemon, OS_LOG_TYPE_INFO);
   if (v6)
   {
-    v29 = completionCopy;
+    v28 = completionCopy;
     if (v8)
     {
       v9 = v7;
-      sharedUsersBySharedUserID2 = [v31 sharedUsersBySharedUserID];
+      sharedUsersBySharedUserID2 = [v30 sharedUsersBySharedUserID];
       *buf = 136315395;
-      v47 = "[ADDailyDeviceStatusActivity fetchEnrolledUsersWithCompletion:]";
-      v48 = 2113;
-      v49 = sharedUsersBySharedUserID2;
+      v46 = "[ADDailyDeviceStatusActivity fetchEnrolledUsersWithCompletion:]";
+      v47 = 2113;
+      v48 = sharedUsersBySharedUserID2;
       _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_INFO, "%s Fetching enrolledUsers info: %{private}@", buf, 0x16u);
     }
 
     v11 = dispatch_group_create();
     v12 = [NSMutableArray alloc];
-    sharedUsersBySharedUserID3 = [v31 sharedUsersBySharedUserID];
-    v30 = [v12 initWithCapacity:{objc_msgSend(sharedUsersBySharedUserID3, "count")}];
+    sharedUsersBySharedUserID3 = [v30 sharedUsersBySharedUserID];
+    v29 = [v12 initWithCapacity:{objc_msgSend(sharedUsersBySharedUserID3, "count")}];
 
-    v43 = 0u;
-    v44 = 0u;
     v42 = 0u;
+    v43 = 0u;
     v41 = 0u;
-    sharedUsersBySharedUserID4 = [v31 sharedUsersBySharedUserID];
-    v15 = [sharedUsersBySharedUserID4 countByEnumeratingWithState:&v41 objects:v45 count:16];
+    v40 = 0u;
+    sharedUsersBySharedUserID4 = [v30 sharedUsersBySharedUserID];
+    v15 = [sharedUsersBySharedUserID4 countByEnumeratingWithState:&v40 objects:v44 count:16];
     if (v15)
     {
       v16 = v15;
-      v17 = *v42;
+      v17 = *v41;
       do
       {
         v18 = 0;
         do
         {
-          if (*v42 != v17)
+          if (*v41 != v17)
           {
             objc_enumerationMutation(sharedUsersBySharedUserID4);
           }
 
-          v19 = *(*(&v41 + 1) + 8 * v18);
-          sharedUsersBySharedUserID5 = [v31 sharedUsersBySharedUserID];
-          v21 = [sharedUsersBySharedUserID5 objectForKey:v19];
+          sharedUsersBySharedUserID5 = [v30 sharedUsersBySharedUserID];
+          v20 = objc_msgSend_objectForKey_(sharedUsersBySharedUserID5);
 
-          if (v21)
+          if (v20)
           {
-            v22 = objc_alloc_init(SISchemaEnrolledUserState);
-            speechID = [v21 speechID];
-            [v22 setSiriLinkedSpeechID:speechID];
+            v21 = objc_alloc_init(SISchemaEnrolledUserState);
+            speechID = [v20 speechID];
+            [v21 setSiriLinkedSpeechID:speechID];
 
-            v24 = objc_alloc_init(SISchemaPersonalization);
-            [v24 setPersonalDomainsSetup:{objc_msgSend(v21, "personalDomainsIsEnabled")}];
+            v23 = objc_alloc_init(SISchemaPersonalization);
+            [v23 setPersonalDomainsSetup:{objc_msgSend(v20, "personalDomainsIsEnabled")}];
             dispatch_group_enter(v11);
-            v35[0] = _NSConcreteStackBlock;
-            v35[1] = 3221225472;
-            v35[2] = sub_100087784;
-            v35[3] = &unk_10050FAB8;
-            v36 = v24;
-            v37 = v22;
+            v34[0] = _NSConcreteStackBlock;
+            v34[1] = 3221225472;
+            v34[2] = sub_100087784;
+            v34[3] = &unk_10050FAB8;
+            v35 = v23;
+            v36 = v21;
             selfCopy = self;
-            v39 = v30;
-            v40 = v11;
-            v25 = v22;
-            v26 = v24;
-            [(ADDailyDeviceStatusActivity *)self fetchAppleMusicSubscriptionForSharedUser:v21 completion:v35];
+            v38 = v29;
+            v39 = v11;
+            v24 = v21;
+            v25 = v23;
+            [(ADDailyDeviceStatusActivity *)self fetchAppleMusicSubscriptionForSharedUser:v20 completion:v34];
           }
 
-          v18 = v18 + 1;
+          ++v18;
         }
 
         while (v16 != v18);
-        v16 = [sharedUsersBySharedUserID4 countByEnumeratingWithState:&v41 objects:v45 count:16];
+        v16 = [sharedUsersBySharedUserID4 countByEnumeratingWithState:&v40 objects:v44 count:16];
       }
 
       while (v16);
@@ -339,10 +338,10 @@
     block[1] = 3221225472;
     block[2] = sub_100087854;
     block[3] = &unk_10051E038;
-    completionCopy = v29;
-    v33 = v30;
-    v34 = v29;
-    v28 = v30;
+    completionCopy = v28;
+    v32 = v29;
+    v33 = v28;
+    v27 = v29;
     dispatch_group_notify(v11, queue, block);
   }
 
@@ -351,7 +350,7 @@
     if (v8)
     {
       *buf = 136315138;
-      v47 = "[ADDailyDeviceStatusActivity fetchEnrolledUsersWithCompletion:]";
+      v46 = "[ADDailyDeviceStatusActivity fetchEnrolledUsersWithCompletion:]";
       _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_INFO, "%s No enrolledUsers in sharedService", buf, 0xCu);
     }
 
@@ -466,7 +465,7 @@ LABEL_11:
         }
 
         v12 = *(*(&v37 + 1) + 8 * v11);
-        v13 = [v12 objectForKey:v10];
+        v13 = objc_msgSend_objectForKey_(v12);
         v14 = v13;
         if (v13)
         {
@@ -474,7 +473,7 @@ LABEL_11:
           if (v5 - v15 < 86400.0)
           {
             v16 = objc_alloc_init(MHSchemaMHSelfTriggerSuppressionSession);
-            v17 = [v12 objectForKey:@"numSelfTriggersDetectedDuringEvent"];
+            v17 = objc_msgSend_objectForKey_(v12);
             v18 = v17;
             if (v17)
             {
@@ -482,7 +481,7 @@ LABEL_11:
               [v16 setNumSelfTriggersDetectedInSession:{objc_msgSend(v18, "unsignedIntValue")}];
             }
 
-            v19 = [v12 objectForKey:@"durationOfSelfTriggerEventInSec"];
+            v19 = objc_msgSend_objectForKey_(v12);
             v20 = v19;
             if (v19)
             {
@@ -492,7 +491,7 @@ LABEL_11:
               [v16 setSessionDurationInSeconds:?];
             }
 
-            v22 = [v12 objectForKey:@"audioSource"];
+            v22 = objc_msgSend_objectForKey_(v12);
             v23 = v22;
             if (v18)
             {
@@ -511,14 +510,14 @@ LABEL_11:
 
             v25 = v8;
             v26 = v10;
-            v27 = [v12 objectForKey:@"isBluetoothSpeakerActive"];
+            v27 = objc_msgSend_objectForKey_(v12);
             v28 = v27;
             if (v27)
             {
               [v16 setIsBluetoothSpeakerActive:{objc_msgSend(v27, "BOOLValue")}];
             }
 
-            v29 = [v12 objectForKey:@"isBuiltInSpeakerActive"];
+            v29 = objc_msgSend_objectForKey_(v12);
             v30 = v29;
             if (v29)
             {
@@ -564,14 +563,14 @@ LABEL_11:
 {
   metricsCopy = metrics;
   v4 = objc_alloc_init(SISchemaVoiceTriggerMetrics);
-  v5 = [metricsCopy objectForKey:kCSVoiceTriggerNumImplicitUtt];
+  v5 = objc_msgSend_objectForKey_(metricsCopy);
   v6 = v5;
   if (v5)
   {
     [v4 setImplicitUtterances:{objc_msgSend(v5, "intValue")}];
   }
 
-  v7 = [metricsCopy objectForKey:kCSVoiceTriggerNumExplicitUtt];
+  v7 = objc_msgSend_objectForKey_(metricsCopy);
   v8 = v7;
   if (v7)
   {
@@ -580,7 +579,7 @@ LABEL_11:
 
   v71 = v8;
   v72 = v6;
-  v9 = [metricsCopy objectForKey:kCSVoiceTriggerFirstPassTriggersPerDay];
+  v9 = objc_msgSend_objectForKey_(metricsCopy);
   v10 = v9;
   if (v9)
   {
@@ -589,7 +588,7 @@ LABEL_11:
 
   v70 = v10;
   v73 = metricsCopy;
-  v11 = [metricsCopy objectForKey:kCSVoiceTriggerIsJSEnabled];
+  v11 = objc_msgSend_objectForKey_(metricsCopy);
   bOOLValue = [v11 BOOLValue];
 
   [v4 setIsJSEnabled:bOOLValue];
@@ -624,7 +623,7 @@ LABEL_11:
         }
 
         v23 = *(*(&v93 + 1) + 8 * v22);
-        v24 = [v23 objectForKey:@"absoluteTimestamp"];
+        v24 = objc_msgSend_objectForKey_(v23);
         v25 = v24;
         if (v24 && (v20 - [v24 unsignedLongLongValue]) >> 7 <= 0x2A2 && v19 <= 0xC7)
         {
@@ -632,7 +631,7 @@ LABEL_11:
           v27 = v4;
           v92 = v25;
           v28 = objc_alloc_init(MHSchemaMHVoiceTriggerFirstPassStatistic);
-          v29 = [v23 objectForKey:@"firstPassPeakScoreHS"];
+          v29 = objc_msgSend_objectForKey_(v23);
           v30 = v29;
           if (v29)
           {
@@ -640,7 +639,7 @@ LABEL_11:
             [v28 setFirstPassPeakScoreHS:?];
           }
 
-          v31 = [v23 objectForKey:@"firstPassPeakScoreJS"];
+          v31 = objc_msgSend_objectForKey_(v23);
           v32 = v31;
           if (v31)
           {
@@ -649,7 +648,7 @@ LABEL_11:
           }
 
           v90 = v32;
-          v33 = [v23 objectForKey:@"triggerScoreHS"];
+          v33 = objc_msgSend_objectForKey_(v23);
           v34 = v33;
           if (v33)
           {
@@ -658,7 +657,7 @@ LABEL_11:
           }
 
           v89 = v34;
-          v35 = [v23 objectForKey:@"triggerScoreJS"];
+          v35 = objc_msgSend_objectForKey_(v23);
           v36 = v27;
           v37 = v35;
           if (v35)
@@ -668,7 +667,7 @@ LABEL_11:
           }
 
           v88 = v37;
-          v38 = [v23 objectForKey:@"keywordThresholdHS"];
+          v38 = objc_msgSend_objectForKey_(v23);
           v39 = v38;
           if (v38)
           {
@@ -677,7 +676,7 @@ LABEL_11:
           }
 
           v87 = v39;
-          v40 = [v23 objectForKey:@"keywordThresholdJS"];
+          v40 = objc_msgSend_objectForKey_(v23);
           v82 = v26;
           v41 = v40;
           if (v40)
@@ -687,7 +686,7 @@ LABEL_11:
           }
 
           v86 = v41;
-          v42 = [v23 objectForKey:@"recognizerScoreHS"];
+          v42 = objc_msgSend_objectForKey_(v23);
           v43 = v42;
           if (v42)
           {
@@ -695,7 +694,7 @@ LABEL_11:
             [v28 setRecognizerScoreHS:?];
           }
 
-          v44 = [v23 objectForKey:@"recognizerScoreJS"];
+          v44 = objc_msgSend_objectForKey_(v23);
           v45 = v44;
           if (v44)
           {
@@ -704,21 +703,21 @@ LABEL_11:
           }
 
           v85 = v45;
-          v46 = [v23 objectForKey:@"firstPassTriggerSource"];
+          v46 = objc_msgSend_objectForKey_(v23);
           v47 = v46;
           if (v46)
           {
             [v28 setFirstPassTriggerSource:{objc_msgSend(v46, "intValue")}];
           }
 
-          v48 = [v23 objectForKey:@"absoluteTimestamp"];
+          v48 = objc_msgSend_objectForKey_(v23);
           v49 = v48;
           if (v48)
           {
             [v28 setSecondsSinceEpoch:{objc_msgSend(v48, "unsignedLongLongValue")}];
           }
 
-          v50 = [v23 objectForKey:@"repetitionSimilarityScore"];
+          v50 = objc_msgSend_objectForKey_(v23);
           v51 = v50;
           if (v50)
           {
@@ -727,7 +726,7 @@ LABEL_11:
           }
 
           v81 = v51;
-          v52 = [v23 objectForKey:@"mitigationScore"];
+          v52 = objc_msgSend_objectForKey_(v23);
           v53 = v52;
           if (v52)
           {
@@ -735,7 +734,7 @@ LABEL_11:
             [v28 setMitigationScore:?];
           }
 
-          v54 = [v23 objectForKey:@"invocationTypeID"];
+          v54 = objc_msgSend_objectForKey_(v23);
           v55 = v54;
           if (v54)
           {
@@ -744,7 +743,7 @@ LABEL_11:
 
           v79 = v55;
           v91 = v30;
-          v56 = [v23 objectForKey:@"tdSpeakerRecognizerCombinedScore"];
+          v56 = objc_msgSend_objectForKey_(v23);
           v57 = v56;
           if (v56)
           {
@@ -753,7 +752,7 @@ LABEL_11:
           }
 
           v83 = v49;
-          v58 = [v23 objectForKey:@"tdSpeakerRecognizerCombinedThresholdHS"];
+          v58 = objc_msgSend_objectForKey_(v23);
           v59 = v58;
           if (v58)
           {
@@ -763,7 +762,7 @@ LABEL_11:
 
           v78 = v57;
           v80 = v53;
-          v60 = [v23 objectForKey:@"tdSpeakerRecognizerCombinedThresholdJS"];
+          v60 = objc_msgSend_objectForKey_(v23);
           v61 = v60;
           if (v60)
           {
@@ -773,7 +772,7 @@ LABEL_11:
 
           [v36 addFirstPassStatistics:v28];
           v62 = objc_alloc_init(MHSchemaMHVoiceTriggerFirstPassDailyMetadata);
-          v63 = [v23 objectForKey:@"hwSampleRate"];
+          v63 = objc_msgSend_objectForKey_(v23);
           v64 = v63;
           if (v63)
           {
@@ -781,7 +780,7 @@ LABEL_11:
           }
 
           v84 = v47;
-          v65 = [v23 objectForKey:@"configVersion"];
+          v65 = objc_msgSend_objectForKey_(v23);
           v66 = +[NSNull null];
           v67 = v66;
           if (v65 == v66)
@@ -1129,7 +1128,7 @@ LABEL_10:
         }
 
         v86 = *(*(&v178 + 1) + 8 * j);
-        v87 = [enabledDictationLocales objectForKey:v86];
+        v87 = objc_msgSend_objectForKey_(enabledDictationLocales);
         bOOLValue = [v87 BOOLValue];
 
         if (bOOLValue)
@@ -1186,7 +1185,7 @@ LABEL_10:
 
   [v160 setClientDeviceSamplingTimestampMs:AFGetTimeSinceEpochInMilliseconds()];
   v102 = +[NSLocale currentLocale];
-  v103 = [v102 objectForKey:NSLocaleIdentifier];
+  v103 = objc_msgSend_objectForKey_(v102);
   [v160 setLocale:v103];
 
   v104 = AFProductTypeForInstrumentation();

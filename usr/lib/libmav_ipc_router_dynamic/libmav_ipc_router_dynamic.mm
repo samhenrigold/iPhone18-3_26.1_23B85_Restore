@@ -1,25 +1,22 @@
 uint64_t mav_router::device::pci_shim::handle_transmit(os_unfair_lock_s *this, dispatch_data_t data)
 {
-  v26 = *MEMORY[0x29EDCA608];
-  v18 = 0xAAAAAAAAAAAAAAAALL;
+  v24 = *MEMORY[0x29EDCA608];
+  v16 = 0xAAAAAAAAAAAAAAAALL;
   buffer_ptr = 0xAAAAAAAAAAAAAAAALL;
-  v4 = dispatch_data_create_map(data, &buffer_ptr, &v18);
+  v4 = dispatch_data_create_map(data, &buffer_ptr, &v16);
   if (!v4)
   {
     *buf = MEMORY[0x29EDCA5F8];
-    v21 = 0x40000000;
-    *&v22 = ____mav_log_platform_os_log_handle_block_invoke;
-    *(&v22 + 1) = &__block_descriptor_tmp_0;
-    v23 = 3;
+    v19 = 0x40000000;
+    *&v20 = ____mav_log_platform_os_log_handle_block_invoke;
+    *(&v20 + 1) = &__block_descriptor_tmp_0;
+    v21 = 3;
     if (qword_2A18B79E8 == -1)
     {
       v14 = qword_2A18B79C8;
       if (!os_log_type_enabled(qword_2A18B79C8, OS_LOG_TYPE_INFO))
       {
-LABEL_20:
-        v13 = 7;
-        v15 = *MEMORY[0x29EDCA608];
-        return v13;
+        return 7;
       }
     }
 
@@ -29,22 +26,22 @@ LABEL_20:
       v14 = qword_2A18B79C8;
       if (!os_log_type_enabled(qword_2A18B79C8, OS_LOG_TYPE_INFO))
       {
-        goto LABEL_20;
+        return 7;
       }
     }
 
     *buf = 67110402;
     *&buf[4] = 3;
-    v21 = 0x400000000000400;
-    LODWORD(v22) = 0;
-    WORD2(v22) = 2080;
-    *(&v22 + 6) = "virtual mav_router_result_t mav_router::device::pci_shim::handle_transmit(mav_buffer_t)";
-    HIWORD(v22) = 1024;
-    v23 = 294;
-    v24 = 2048;
-    v25 = data;
+    v19 = 0x400000000000400;
+    LODWORD(v20) = 0;
+    WORD2(v20) = 2080;
+    *(&v20 + 6) = "virtual mav_router_result_t mav_router::device::pci_shim::handle_transmit(mav_buffer_t)";
+    HIWORD(v20) = 1024;
+    v21 = 294;
+    v22 = 2048;
+    v23 = data;
     _os_log_impl(&dword_2990D9000, v14, OS_LOG_TYPE_INFO, "[%04x.%04u.%04u] %s:%u:failed to create mapping of buffer %p", buf, 0x2Eu);
-    goto LABEL_20;
+    return 7;
   }
 
   v5 = v4;
@@ -122,7 +119,7 @@ LABEL_10:
   v12 = *&this[14]._os_unfair_lock_opaque;
   if (v12)
   {
-    if (v12(this + 14, buffer_ptr, v18, buf, 1, 1000, mav_router::device::pci_shim::dtor))
+    if (v12(this + 14, buffer_ptr, v16, buf, 1, 1000, mav_router::device::pci_shim::dtor))
     {
       v13 = 0;
     }
@@ -139,7 +136,6 @@ LABEL_10:
   }
 
   os_unfair_lock_unlock(this + 12);
-  v16 = *MEMORY[0x29EDCA608];
   return v13;
 }
 
@@ -251,7 +247,7 @@ void mav_router::device::pci_shim::handleRead(os_unfair_lock_s *this, const void
       if (LOBYTE(this[54]._os_unfair_lock_opaque) != 1)
       {
 LABEL_9:
-        v20 = dispatch_data_create(a2, v9, 0, *MEMORY[0x29EDCA558]);
+        v17 = dispatch_data_create(a2, v9, 0, *MEMORY[0x29EDCA558]);
         v10 = *(v8 + 16);
         if (!v10)
         {
@@ -284,7 +280,7 @@ LABEL_9:
     }
   }
 
-  v20 = dispatch_data_create(a2, v9, 0, &__block_literal_global_12);
+  v17 = dispatch_data_create(a2, v9, 0, &__block_literal_global_12);
   v10 = *(v8 + 16);
   if (!v10)
   {
@@ -307,30 +303,26 @@ LABEL_10:
           goto LABEL_20;
         }
 
-        v15 = &v20;
-        v16 = *(v10 + 8) + 48 * *v14;
-        v17 = *(v16 + 16);
-        if (!v17)
+        v15 = &v17;
+        v16 = *(*(v10 + 8) + 48 * *v14 + 16);
+        if (!v16)
         {
           goto LABEL_20;
         }
 
 LABEL_19:
-        v18 = *v15;
-        v19 = *(v16 + 24);
-        v17(v10);
+        v16(v10);
         *v15 = 0;
         goto LABEL_20;
       }
 
-      v21 = 0xAAAAAAAAAAAAAAAALL;
-      v22 = 0xAAAAAAAAAAAAAAAALL;
-      if (!mav_mux_decode(&v20, &v21) && *v10 > v21)
+      v18 = 0xAAAAAAAAAAAAAAAALL;
+      v19 = 0xAAAAAAAAAAAAAAAALL;
+      if (!mav_mux_decode(&v17, &v18) && *v10 > v18)
       {
-        v15 = v22;
-        v16 = *(v10 + 8) + 48 * v21;
-        v17 = *(v16 + 16);
-        if (v17)
+        v15 = v19;
+        v16 = *(*(v10 + 8) + 48 * v18 + 16);
+        if (v16)
         {
           goto LABEL_19;
         }
@@ -361,12 +353,12 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
   while (1)
   {
     v2 = a2[2];
-    if (v2[3])
+    if (*(v2 + 24))
     {
       return result;
     }
 
-    v3 = v2[2];
+    v3 = *(v2 + 16);
     v4 = *v3;
     if (*v3 != v2)
     {
@@ -378,10 +370,9 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
     {
       if (*v2 == a2)
       {
-        v20 = a2[2];
         *(v2 + 24) = 1;
         *(v3 + 24) = 0;
-        v13 = v4[1];
+        v13 = *(v4 + 8);
         *v3 = v13;
         if (v13)
         {
@@ -391,26 +382,26 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
 
       else
       {
-        v10 = v2[1];
+        v10 = *(v2 + 8);
         v11 = *v10;
-        v2[1] = *v10;
+        *(v2 + 8) = *v10;
         v12 = v2;
         if (v11)
         {
-          v11[2] = v2;
-          v3 = v2[2];
+          *(v11 + 16) = v2;
+          v3 = *(v2 + 16);
           v12 = *v3;
         }
 
-        v10[2] = v3;
+        *(v10 + 16) = v3;
         v3[v12 != v2] = v10;
         *v10 = v2;
-        v2[2] = v10;
-        v3 = v10[2];
+        *(v2 + 16) = v10;
+        v3 = *(v10 + 16);
         v4 = *v3;
         *(v10 + 24) = 1;
         *(v3 + 24) = 0;
-        v13 = v4[1];
+        v13 = *(v4 + 8);
         *v3 = v13;
         if (v13)
         {
@@ -421,8 +412,8 @@ LABEL_15:
 
       v14 = v3[2];
       v14[*v14 != v3] = v4;
-      v4[1] = v3;
-      v4[2] = v14;
+      *(v4 + 8) = v3;
+      *(v4 + 16) = v14;
       v3[2] = v4;
       return result;
     }
@@ -441,7 +432,7 @@ LABEL_3:
   if (v4)
   {
     v6 = *(v4 + 24);
-    v5 = v4 + 3;
+    v5 = (v4 + 24);
     if (v6 != 1)
     {
       v7 = v5;
@@ -452,19 +443,19 @@ LABEL_3:
   v15 = *v2;
   if (*v2 == a2)
   {
-    v16 = *(v15 + 8);
+    v16 = v15[1];
     *v2 = v16;
     if (v16)
     {
       *(v16 + 16) = v2;
-      v3 = v2[2];
+      v3 = *(v2 + 16);
     }
 
     v3[*v3 != v2] = v15;
-    *(v15 + 8) = v2;
-    *(v15 + 16) = v3;
-    v2[2] = v15;
-    v3 = *(v15 + 16);
+    v15[1] = v2;
+    v15[2] = v3;
+    *(v2 + 16) = v15;
+    v3 = v15[2];
   }
 
   else
@@ -687,7 +678,6 @@ LABEL_39:
   {
     v24 = v17[2];
     v25 = *v24;
-    v26 = *(v17 + 24);
     if (*v24 == v17)
     {
       break;
@@ -697,19 +687,19 @@ LABEL_39:
     {
       *(v17 + 24) = 1;
       *(v24 + 24) = 0;
-      v27 = *(v24 + 8);
-      v28 = *v27;
-      *(v24 + 8) = *v27;
-      if (v28)
+      v26 = *(v24 + 8);
+      v27 = *v26;
+      *(v24 + 8) = *v26;
+      if (v27)
       {
-        *(v28 + 16) = v24;
+        *(v27 + 16) = v24;
       }
 
-      v29 = *(v24 + 16);
-      v27[2] = v29;
-      v29[*v29 != v24] = v27;
-      *v27 = v24;
-      *(v24 + 16) = v27;
+      v28 = *(v24 + 16);
+      v26[2] = v28;
+      v28[*v28 != v24] = v26;
+      *v26 = v24;
+      *(v24 + 16) = v26;
       if (v3 == *v17)
       {
         v3 = v17;
@@ -718,56 +708,56 @@ LABEL_39:
       v17 = *(*v17 + 8);
     }
 
-    v30 = *v17;
-    if (*v17 && *(v30 + 24) != 1)
+    v29 = *v17;
+    if (*v17 && *(v29 + 24) != 1)
     {
-      v31 = v17[1];
-      if (v31 && (v31[3] & 1) == 0)
+      v30 = v17[1];
+      if (v30 && (v30[3] & 1) == 0)
       {
 LABEL_84:
-        v30 = v17;
+        v29 = v17;
       }
 
       else
       {
-        *(v30 + 24) = 1;
+        *(v29 + 24) = 1;
         *(v17 + 24) = 0;
-        v39 = *(v30 + 8);
-        *v17 = v39;
-        if (v39)
+        v38 = *(v29 + 8);
+        *v17 = v38;
+        if (v38)
         {
-          *(v39 + 16) = v17;
+          *(v38 + 16) = v17;
         }
 
-        v40 = v17[2];
-        v40[*v40 != v17] = v30;
-        *(v30 + 8) = v17;
-        *(v30 + 16) = v40;
-        v17[2] = v30;
-        v31 = v17;
+        v39 = v17[2];
+        v39[*v39 != v17] = v29;
+        *(v29 + 8) = v17;
+        *(v29 + 16) = v39;
+        v17[2] = v29;
+        v30 = v17;
       }
 
-      v41 = *(v30 + 16);
-      *(v30 + 24) = *(v41 + 24);
-      *(v41 + 24) = 1;
-      *(v31 + 24) = 1;
-      v42 = *(v41 + 8);
-      v43 = *v42;
-      *(v41 + 8) = *v42;
-      if (v43)
+      v40 = *(v29 + 16);
+      *(v29 + 24) = *(v40 + 24);
+      *(v40 + 24) = 1;
+      *(v30 + 24) = 1;
+      v41 = *(v40 + 8);
+      v42 = *v41;
+      *(v40 + 8) = *v41;
+      if (v42)
       {
-        *(v43 + 16) = v41;
+        *(v42 + 16) = v40;
       }
 
-      v44 = *(v41 + 16);
-      v42[2] = v44;
-      v44[*v44 != v41] = v42;
-      *v42 = v41;
+      v43 = *(v40 + 16);
+      v41[2] = v43;
+      v43[*v43 != v40] = v41;
+      *v41 = v40;
       goto LABEL_92;
     }
 
-    v31 = v17[1];
-    if (v31 && *(v31 + 24) != 1)
+    v30 = v17[1];
+    if (v30 && *(v30 + 24) != 1)
     {
       goto LABEL_84;
     }
@@ -787,35 +777,35 @@ LABEL_47:
   {
     *(v17 + 24) = 1;
     *(v24 + 24) = 0;
-    v32 = v25[1];
-    *v24 = v32;
-    if (v32)
+    v31 = v25[1];
+    *v24 = v31;
+    if (v31)
     {
-      *(v32 + 16) = v24;
+      *(v31 + 16) = v24;
     }
 
-    v33 = *(v24 + 16);
-    v33[*v33 != v24] = v25;
+    v32 = *(v24 + 16);
+    v32[*v32 != v24] = v25;
     v25[1] = v24;
-    v25[2] = v33;
+    v25[2] = v32;
     *(v24 + 16) = v25;
-    v34 = v17[1];
-    if (v3 == v34)
+    v33 = v17[1];
+    if (v3 == v33)
     {
       v3 = v17;
     }
 
-    v17 = *v34;
+    v17 = *v33;
   }
 
-  v35 = *v17;
-  if (*v17 && *(v35 + 24) != 1)
+  v34 = *v17;
+  if (*v17 && *(v34 + 24) != 1)
   {
     goto LABEL_88;
   }
 
-  v36 = v17[1];
-  if (!v36 || *(v36 + 24) == 1)
+  v35 = v17[1];
+  if (!v35 || *(v35 + 24) == 1)
   {
     *(v17 + 24) = 0;
     v22 = v17[2];
@@ -830,47 +820,47 @@ LABEL_78:
     goto LABEL_47;
   }
 
-  if (v35 && (*(v35 + 24) & 1) == 0)
+  if (v34 && (*(v34 + 24) & 1) == 0)
   {
 LABEL_88:
-    v36 = v17;
+    v35 = v17;
     goto LABEL_89;
   }
 
-  *(v36 + 24) = 1;
-  *(v17 + 24) = 0;
-  v37 = *v36;
-  v17[1] = *v36;
-  if (v37)
-  {
-    *(v37 + 16) = v17;
-  }
-
-  v38 = v17[2];
-  v36[2] = v38;
-  v38[*v38 != v17] = v36;
-  *v36 = v17;
-  v17[2] = v36;
-  v35 = v17;
-LABEL_89:
-  v41 = v36[2];
-  *(v36 + 24) = *(v41 + 24);
-  *(v41 + 24) = 1;
   *(v35 + 24) = 1;
-  v42 = *v41;
-  v45 = *(*v41 + 8);
-  *v41 = v45;
-  if (v45)
+  *(v17 + 24) = 0;
+  v36 = *v35;
+  v17[1] = *v35;
+  if (v36)
   {
-    *(v45 + 16) = v41;
+    *(v36 + 16) = v17;
   }
 
-  v46 = *(v41 + 16);
-  v46[*v46 != v41] = v42;
-  v42[1] = v41;
-  v42[2] = v46;
+  v37 = v17[2];
+  v35[2] = v37;
+  v37[*v37 != v17] = v35;
+  *v35 = v17;
+  v17[2] = v35;
+  v34 = v17;
+LABEL_89:
+  v40 = v35[2];
+  *(v35 + 24) = *(v40 + 24);
+  *(v40 + 24) = 1;
+  *(v34 + 24) = 1;
+  v41 = *v40;
+  v44 = *(*v40 + 8);
+  *v40 = v44;
+  if (v44)
+  {
+    *(v44 + 16) = v40;
+  }
+
+  v45 = *(v40 + 16);
+  v45[*v45 != v40] = v41;
+  v41[1] = v40;
+  v41[2] = v45;
 LABEL_92:
-  *(v41 + 16) = v42;
+  *(v40 + 16) = v41;
 LABEL_93:
   operator delete(v4);
   os_unfair_lock_unlock(&mav_router::device::pci_shim::mapLock);
@@ -888,7 +878,6 @@ void ___ZN10mav_router6device8pci_shim6engageEP16dispatch_group_s_block_invoke_5
     if (v6)
     {
       v7 = v6;
-      v8 = a1[5];
       if (a2 && a1[5])
       {
         mav_router::device::pci_shim::handleError(v5);
@@ -946,9 +935,9 @@ uint64_t mav_router::device::controller::exitLowPower(mav_router::device::contro
   return v3;
 }
 
-void sub_2990DA908(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2990DA908(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -973,34 +962,33 @@ uint64_t ___ZN10mav_router6device10controller12exitLowPowerEv_block_invoke(uint6
 
 uint64_t mav_router::device::pci_shim::exitLowPower(mav_router::device::pci_shim *this)
 {
-  v12 = *MEMORY[0x29EDCA608];
-  v6 = MEMORY[0x29EDCA5F8];
-  v7 = 0x40000000;
-  *&v8 = ____mav_log_platform_os_log_handle_block_invoke;
-  *(&v8 + 1) = &__block_descriptor_tmp_0;
-  v9 = 3;
+  v11 = *MEMORY[0x29EDCA608];
+  v5 = MEMORY[0x29EDCA5F8];
+  v6 = 0x40000000;
+  *&v7 = ____mav_log_platform_os_log_handle_block_invoke;
+  *(&v7 + 1) = &__block_descriptor_tmp_0;
+  v8 = 3;
   if (qword_2A18B79E8 != -1)
   {
-    dispatch_once(&qword_2A18B79E8, &v6);
+    dispatch_once(&qword_2A18B79E8, &v5);
   }
 
   v2 = qword_2A18B79C8;
   if (os_log_type_enabled(qword_2A18B79C8, OS_LOG_TYPE_INFO))
   {
     v3 = *(this + 36);
-    v6 = 0x304000602;
-    v7 = 0x400000000010400;
-    LODWORD(v8) = 0;
-    WORD2(v8) = 2080;
-    *(&v8 + 6) = "virtual mav_router_result_t mav_router::device::pci_shim::exitLowPower()";
-    HIWORD(v8) = 1024;
-    v9 = 241;
-    v10 = 1024;
-    v11 = v3;
-    _os_log_impl(&dword_2990D9000, v2, OS_LOG_TYPE_INFO, "[%04x.%04u.%04u] %s:%u:service %u", &v6, 0x2Au);
+    v5 = 0x304000602;
+    v6 = 0x400000000010400;
+    LODWORD(v7) = 0;
+    WORD2(v7) = 2080;
+    *(&v7 + 6) = "virtual mav_router_result_t mav_router::device::pci_shim::exitLowPower()";
+    HIWORD(v7) = 1024;
+    v8 = 241;
+    v9 = 1024;
+    v10 = v3;
+    _os_log_impl(&dword_2990D9000, v2, OS_LOG_TYPE_INFO, "[%04x.%04u.%04u] %s:%u:service %u", &v5, 0x2Au);
   }
 
-  v4 = *MEMORY[0x29EDCA608];
   return 0;
 }
 
@@ -1359,8 +1347,8 @@ uint64_t mav_router_device_receive(uint64_t a1, unsigned int a2, dispatch_data_t
     return 1;
   }
 
-  v17 = v3;
-  v18 = v4;
+  v14 = v3;
+  v15 = v4;
   v5 = *(a1 + 16) + 40 * a2;
   v6 = *(v5 + 16);
   if (!v6)
@@ -1373,16 +1361,13 @@ uint64_t mav_router_device_receive(uint64_t a1, unsigned int a2, dispatch_data_t
     v7 = *(v5 + 8);
     if (v7)
     {
-      v8 = *(a1 + 8) + 48 * *v7;
-      v9 = *(v8 + 16);
-      if (v9)
+      v8 = *(*(a1 + 8) + 48 * *v7 + 16);
+      if (v8)
       {
 LABEL_7:
-        v10 = *a3;
-        v11 = *(v8 + 24);
-        v12 = a3;
-        result = v9();
-        *v12 = 0;
+        v9 = a3;
+        result = v8();
+        *v9 = 0;
         return result;
       }
 
@@ -1394,14 +1379,13 @@ LABEL_7:
 
   else
   {
-    v15 = 0xAAAAAAAAAAAAAAAALL;
-    v16 = 0xAAAAAAAAAAAAAAAALL;
-    if (!mav_mux_decode(a3, &v15) && *a1 > v15)
+    v12 = 0xAAAAAAAAAAAAAAAALL;
+    v13 = 0xAAAAAAAAAAAAAAAALL;
+    if (!mav_mux_decode(a3, &v12) && *a1 > v12)
     {
-      a3 = v16;
-      v8 = *(a1 + 8) + 48 * v15;
-      v9 = *(v8 + 16);
-      if (v9)
+      a3 = v13;
+      v8 = *(*(a1 + 8) + 48 * v12 + 16);
+      if (v8)
       {
         goto LABEL_7;
       }
@@ -1488,7 +1472,7 @@ const char *mav_router_device_get_name_as_cstr(unsigned int a1)
   }
 }
 
-uint64_t mav_router::device::controller::create@<X0>(std::__shared_weak_count **a1@<X0>, void *a2@<X8>)
+uint64_t mav_router::device::controller::create@<X0>(std::__shared_weak_count **a1@<X0>, mav_router::device::controller_ios **a2@<X8>)
 {
   *a2 = 0;
   a2[1] = 0;
@@ -1506,9 +1490,9 @@ uint64_t mav_router::device::controller::create@<X0>(std::__shared_weak_count **
   mav_router::device::controller_ios::controller_ios(v4, v10);
   v8 = operator new(0x20uLL);
   *v8 = &unk_2A1F2E6F8;
-  v8[1] = 0;
-  v8[2] = 0;
-  v8[3] = v5;
+  *(v8 + 1) = 0;
+  *(v8 + 2) = 0;
+  *(v8 + 3) = v5;
   *a2 = v5;
   a2[1] = v8;
   if (v7)
@@ -1679,15 +1663,15 @@ void mav_router::device::controller::~controller(mav_router::device::controller 
 
 uint64_t mav_router::device::controller::engage(uint64_t a1, const void *a2)
 {
-  v14 = *MEMORY[0x29EDCA608];
+  v13 = *MEMORY[0x29EDCA608];
   *buf = MEMORY[0x29EDCA5F8];
-  v11 = 0x40000000;
-  *&v12 = ____mav_log_platform_os_log_handle_block_invoke;
-  *(&v12 + 1) = &__block_descriptor_tmp_0;
-  v13 = 0;
-  if (__mav_log_platform_os_log_handle::once != -1)
+  v10 = 0x40000000;
+  *&v11 = ____mav_log_platform_os_log_handle_block_invoke;
+  *(&v11 + 1) = &__block_descriptor_tmp_0;
+  v12 = 0;
+  if (__mav_log_platform_os_log_handle::once[0] != -1)
   {
-    dispatch_once(&__mav_log_platform_os_log_handle::once, buf);
+    dispatch_once(__mav_log_platform_os_log_handle::once, buf);
   }
 
   v4 = __mav_log_platform_os_log_handle::logger[0];
@@ -1695,25 +1679,24 @@ uint64_t mav_router::device::controller::engage(uint64_t a1, const void *a2)
   {
     *buf = 67110146;
     *&buf[4] = 0;
-    v11 = 0x400000000010400;
-    LODWORD(v12) = 0;
-    WORD2(v12) = 2080;
-    *(&v12 + 6) = "virtual mav_router_result_t mav_router::device::controller::engage(engage_callback_t)";
-    HIWORD(v12) = 1024;
-    v13 = 55;
+    v10 = 0x400000000010400;
+    LODWORD(v11) = 0;
+    WORD2(v11) = 2080;
+    *(&v11 + 6) = "virtual mav_router_result_t mav_router::device::controller::engage(engage_callback_t)";
+    HIWORD(v11) = 1024;
+    v12 = 55;
     _os_log_impl(&dword_2990D9000, v4, OS_LOG_TYPE_INFO, "[%04x.%04u.%04u] %s:%u:engaging", buf, 0x24u);
   }
 
   v5 = _Block_copy(a2);
   global_queue = dispatch_get_global_queue(0, 0);
-  v9[0] = MEMORY[0x29EDCA5F8];
-  v9[1] = 1107296256;
-  v9[2] = ___ZN10mav_router6device10controller6engageEU13block_pointerFv19mav_router_result_tE_block_invoke;
-  v9[3] = &__block_descriptor_tmp_4;
-  v9[4] = v5;
-  v9[5] = a1;
-  dispatch_async(global_queue, v9);
-  v7 = *MEMORY[0x29EDCA608];
+  v8[0] = MEMORY[0x29EDCA5F8];
+  v8[1] = 1107296256;
+  v8[2] = ___ZN10mav_router6device10controller6engageEU13block_pointerFv19mav_router_result_tE_block_invoke;
+  v8[3] = &__block_descriptor_tmp_4;
+  v8[4] = v5;
+  v8[5] = a1;
+  dispatch_async(global_queue, v8);
   return 0;
 }
 
@@ -1880,11 +1863,11 @@ uint64_t mav_router::device::controller::engage(mav_router::device::controller *
   return v7;
 }
 
-void sub_2990DBEC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2990DBEC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
-  std::shared_ptr<mav_router_t>::~shared_ptr[abi:ne200100](v7 - 48);
+  std::shared_ptr<mav_router_t>::~shared_ptr[abi:ne200100](v13 - 48);
   _Unwind_Resume(a1);
 }
 
@@ -1939,16 +1922,16 @@ LABEL_5:
   return v4;
 }
 
-void sub_2990DC004(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2990DC004(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_2990DC01C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2990DC01C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2013,9 +1996,9 @@ uint64_t mav_router::device::controller::recover(mav_router::device::controller 
   return v3;
 }
 
-void sub_2990DC1A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2990DC1A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2080,9 +2063,9 @@ uint64_t mav_router::device::controller::enterLowPower(mav_router::device::contr
   return v3;
 }
 
-void sub_2990DC324(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2990DC324(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2161,11 +2144,11 @@ uint64_t mav_router::device::controller::hasFatalErrorOccurred(mav_router::devic
   return v2;
 }
 
-void sub_2990DC4DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2990DC4DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v7 - 64), 8);
+  _Block_object_dispose((v13 - 64), 8);
   _Unwind_Resume(a1);
 }
 
@@ -2209,7 +2192,7 @@ void __destroy_helper_block_e8_32r40r(uint64_t a1)
   _Block_object_dispose(v2, 8);
 }
 
-uint64_t mav_router::device::controller::getFatalErrorReason(uint64_t a1, uint64_t a2)
+uint64_t mav_router::device::controller::getFatalErrorReason(uint64_t a1, void ***a2)
 {
   v29 = 0;
   v30 = &v29;
@@ -2252,7 +2235,7 @@ uint64_t mav_router::device::controller::getFatalErrorReason(uint64_t a1, uint64
     {
       v10 = v3[5];
       v9 = v3[6];
-      if ((v7 & 0x80u) == 0)
+      if (v7 >= 0)
       {
         v11 = v6;
       }
@@ -2262,7 +2245,7 @@ uint64_t mav_router::device::controller::getFatalErrorReason(uint64_t a1, uint64
         v11 = v10;
       }
 
-      if ((v7 & 0x80u) == 0)
+      if (v7 >= 0)
       {
         v12 = v7;
       }
@@ -2283,7 +2266,7 @@ uint64_t mav_router::device::controller::getFatalErrorReason(uint64_t a1, uint64
     else
     {
       v8 = *v6;
-      *(a2 + 16) = v3[7];
+      a2[2] = v3[7];
       *a2 = v8;
     }
   }
@@ -2309,7 +2292,7 @@ uint64_t mav_router::device::controller::getFatalErrorReason(uint64_t a1, uint64
   return v14;
 }
 
-void sub_2990DC7DC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, void *__p, uint64_t a21, int a22, __int16 a23, char a24, char a25)
+void sub_2990DC7DC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, void *__p, uint64_t a21, int a22, __int16 a23, char a24, char a25)
 {
   _Block_object_dispose(&a15, 8);
   if (a25 < 0)
@@ -2762,7 +2745,7 @@ void *std::string::__assign_no_alias<true>(void *__dst, const void *a2, size_t _
   return __dst;
 }
 
-void **std::string::__assign_no_alias<false>(void **a1, const void *a2, size_t __len)
+void ***std::string::__assign_no_alias<false>(void ***a1, const void *a2, void **__len)
 {
   v5 = a1[2];
   v6 = v5 & 0x7FFFFFFFFFFFFFFFLL;
@@ -2840,7 +2823,7 @@ void **std::string::__assign_no_alias<false>(void **a1, const void *a2, size_t _
     }
   }
 
-  *(v7 + __len) = 0;
+  *(__len + v7) = 0;
   return a1;
 }
 
@@ -2994,22 +2977,22 @@ uint64_t *mav_router::device::pci_shim::getDataBufferMap(mav_router::device::pci
 
 uint64_t *mav_router::device::pci_shim::getIntToPCITransportMap(mav_router::device::pci_shim *this)
 {
-  v8 = *MEMORY[0x29EDCA608];
+  v7 = *MEMORY[0x29EDCA608];
   if ((atomic_load_explicit(&qword_2A18B7A00, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_2A18B7A00))
   {
-    v7 = xmmword_2990E55B0;
-    std::map<unsigned int,PCITransportInterface>::map[abi:ne200100](&v4, &v7, 2);
-    v3 = v5;
-    qword_2A18B7A20 = v4;
-    qword_2A18B7A28 = v5;
-    qword_2A18B7A30 = v6;
-    if (v6)
+    v6 = xmmword_2990E55B0;
+    std::map<unsigned int,PCITransportInterface>::map[abi:ne200100](&v3, &v6, 2);
+    v2 = v4;
+    qword_2A18B7A20 = v3;
+    qword_2A18B7A28 = v4;
+    qword_2A18B7A30 = v5;
+    if (v5)
     {
-      *(v5 + 16) = &qword_2A18B7A28;
-      v4 = &v5;
+      *(v4 + 16) = &qword_2A18B7A28;
+      v3 = &v4;
+      v4 = 0;
       v5 = 0;
-      v6 = 0;
-      v3 = 0;
+      v2 = 0;
     }
 
     else
@@ -3017,11 +3000,10 @@ uint64_t *mav_router::device::pci_shim::getIntToPCITransportMap(mav_router::devi
       qword_2A18B7A20 = &qword_2A18B7A28;
     }
 
-    std::__tree<std::__value_type<unsigned int,PCITransportInterface>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,PCITransportInterface>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,PCITransportInterface>>>::destroy(v3);
+    std::__tree<std::__value_type<unsigned int,PCITransportInterface>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,PCITransportInterface>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,PCITransportInterface>>>::destroy(v2);
     __cxa_guard_release(&qword_2A18B7A00);
   }
 
-  v1 = *MEMORY[0x29EDCA608];
   return &qword_2A18B7A20;
 }
 
@@ -3218,40 +3200,39 @@ void mav_router::device::pci_shim::~pci_shim(void **this)
 
 uint64_t mav_router::device::pci_shim::init(mav_router::device::pci_shim *this)
 {
-  v12 = *MEMORY[0x29EDCA608];
-  v6 = MEMORY[0x29EDCA5F8];
-  v7 = 0x40000000;
-  *&v8 = ____mav_log_platform_os_log_handle_block_invoke;
-  *(&v8 + 1) = &__block_descriptor_tmp_0;
-  v9 = 3;
+  v11 = *MEMORY[0x29EDCA608];
+  v5 = MEMORY[0x29EDCA5F8];
+  v6 = 0x40000000;
+  *&v7 = ____mav_log_platform_os_log_handle_block_invoke;
+  *(&v7 + 1) = &__block_descriptor_tmp_0;
+  v8 = 3;
   if (qword_2A18B79E8 != -1)
   {
-    dispatch_once(&qword_2A18B79E8, &v6);
+    dispatch_once(&qword_2A18B79E8, &v5);
   }
 
   v2 = qword_2A18B79C8;
   if (os_log_type_enabled(qword_2A18B79C8, OS_LOG_TYPE_INFO))
   {
     v3 = *(this + 36);
-    v6 = 0x304000602;
-    v7 = 0x400000000010400;
-    LODWORD(v8) = 0;
-    WORD2(v8) = 2080;
-    *(&v8 + 6) = "BOOL mav_router::device::pci_shim::init()";
-    HIWORD(v8) = 1024;
-    v9 = 69;
-    v10 = 1024;
-    v11 = v3;
-    _os_log_impl(&dword_2990D9000, v2, OS_LOG_TYPE_INFO, "[%04x.%04u.%04u] %s:%u:service %u", &v6, 0x2Au);
+    v5 = 0x304000602;
+    v6 = 0x400000000010400;
+    LODWORD(v7) = 0;
+    WORD2(v7) = 2080;
+    *(&v7 + 6) = "BOOL mav_router::device::pci_shim::init()";
+    HIWORD(v7) = 1024;
+    v8 = 69;
+    v9 = 1024;
+    v10 = v3;
+    _os_log_impl(&dword_2990D9000, v2, OS_LOG_TYPE_INFO, "[%04x.%04u.%04u] %s:%u:service %u", &v5, 0x2Au);
   }
 
-  v4 = *MEMORY[0x29EDCA608];
   return 1;
 }
 
 uint64_t mav_router::device::pci_shim::engage(mav_router::device::pci_shim *this, dispatch_group_s *a2)
 {
-  v42 = *MEMORY[0x29EDCA608];
+  v41 = *MEMORY[0x29EDCA608];
   v3 = *(this + 22);
   if (v3)
   {
@@ -3274,9 +3255,9 @@ uint64_t mav_router::device::pci_shim::engage(mav_router::device::pci_shim *this
 
   *buf = MEMORY[0x29EDCA5F8];
   *&buf[8] = 0x40000000;
-  *&v37 = ____mav_log_platform_os_log_handle_block_invoke;
-  *(&v37 + 1) = &__block_descriptor_tmp_0;
-  LODWORD(v38) = 3;
+  *&v36 = ____mav_log_platform_os_log_handle_block_invoke;
+  *(&v36 + 1) = &__block_descriptor_tmp_0;
+  LODWORD(v37) = 3;
   if (qword_2A18B79E8 != -1)
   {
     dispatch_once(&qword_2A18B79E8, buf);
@@ -3291,24 +3272,24 @@ uint64_t mav_router::device::pci_shim::engage(mav_router::device::pci_shim *this
     *&buf[8] = 1024;
     *&buf[10] = 1;
     *&buf[14] = 1024;
-    LODWORD(v37) = 0;
-    WORD2(v37) = 2080;
-    *(&v37 + 6) = "virtual mav_router_result_t mav_router::device::pci_shim::engage(dispatch_group_t)";
-    HIWORD(v37) = 1024;
-    LODWORD(v38) = 123;
-    WORD2(v38) = 1024;
-    *(&v38 + 6) = v9;
+    LODWORD(v36) = 0;
+    WORD2(v36) = 2080;
+    *(&v36 + 6) = "virtual mav_router_result_t mav_router::device::pci_shim::engage(dispatch_group_t)";
+    HIWORD(v36) = 1024;
+    LODWORD(v37) = 123;
+    WORD2(v37) = 1024;
+    *(&v37 + 6) = v9;
     _os_log_impl(&dword_2990D9000, v8, OS_LOG_TYPE_INFO, "[%04x.%04u.%04u] %s:%u:service %u", buf, 0x2Au);
   }
 
   os_unfair_lock_lock(this + 12);
-  v41 = 0xAAAAAAAAAAAAAAAALL;
+  v40 = 0xAAAAAAAAAAAAAAAALL;
   *&v10 = 0xAAAAAAAAAAAAAAAALL;
   *(&v10 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v39 = v10;
-  v40 = v10;
-  v37 = v10;
   v38 = v10;
+  v39 = v10;
+  v36 = v10;
+  v37 = v10;
   *buf = v10;
   inited = TelephonyBasebandPCITransportInitParameters();
   *(this + 56) = 0u;
@@ -3317,7 +3298,7 @@ uint64_t mav_router::device::pci_shim::engage(mav_router::device::pci_shim *this
   *(this + 120) = 0u;
   *(this + 72) = 0u;
   *(this + 88) = 0u;
-  *&v37 = &__block_literal_global;
+  *&v36 = &__block_literal_global;
   IntToPCITransportMap = mav_router::device::pci_shim::getIntToPCITransportMap(inited);
   v13 = qword_2A18B7A28;
   if (!qword_2A18B7A28)
@@ -3351,10 +3332,10 @@ LABEL_19:
   if (v15 == &qword_2A18B7A28)
   {
     *block = MEMORY[0x29EDCA5F8];
-    v31 = 0x40000000;
-    *&v32 = ____mav_log_platform_os_log_handle_block_invoke;
-    *(&v32 + 1) = &__block_descriptor_tmp_0;
-    v33 = 3;
+    v30 = 0x40000000;
+    *&v31 = ____mav_log_platform_os_log_handle_block_invoke;
+    *(&v31 + 1) = &__block_descriptor_tmp_0;
+    v32 = 3;
     if (qword_2A18B79E8 == -1)
     {
       v21 = qword_2A18B79C8;
@@ -3380,61 +3361,61 @@ LABEL_31:
     v22 = *(this + 36);
     *block = 67110402;
     *&block[4] = 3;
-    v31 = 0x400000000000400;
-    LODWORD(v32) = 0;
-    WORD2(v32) = 2080;
-    *(&v32 + 6) = "virtual mav_router_result_t mav_router::device::pci_shim::engage(dispatch_group_t)";
-    HIWORD(v32) = 1024;
-    v33 = 140;
-    v34 = 1024;
-    v35 = v22;
+    v30 = 0x400000000000400;
+    LODWORD(v31) = 0;
+    WORD2(v31) = 2080;
+    *(&v31 + 6) = "virtual mav_router_result_t mav_router::device::pci_shim::engage(dispatch_group_t)";
+    HIWORD(v31) = 1024;
+    v32 = 140;
+    v33 = 1024;
+    v34 = v22;
     _os_log_impl(&dword_2990D9000, v21, OS_LOG_TYPE_INFO, "[%04x.%04u.%04u] %s:%u:invalid interface %u", block, 0x2Au);
     goto LABEL_31;
   }
 
   *buf = *(v15 + 8);
-  DWORD2(v37) = 5000;
-  LODWORD(v38) = v38 | 4;
+  DWORD2(v36) = 5000;
+  LODWORD(v37) = v37 | 4;
   pthread_once(&ctu::concurrency::Singleton<mav_router_ios_preferences,ctu::concurrency::__DefaultFactory<mav_router_ios_preferences>>::getInstance(void)::sOnce, ctu::concurrency::Singleton<mav_router_ios_preferences,ctu::concurrency::__DefaultFactory<mav_router_ios_preferences>>::__init);
-  *(&v38 + 4) = 0x180000000008;
+  *(&v37 + 4) = 0x180000000008;
   if (*(this + 216) == 1)
   {
-    LODWORD(v38) = v38 | 8;
-    HIDWORD(v38) = 16;
+    LODWORD(v37) = v37 | 8;
+    HIDWORD(v37) = 16;
   }
 
-  v28[0] = MEMORY[0x29EDCA5F8];
-  v28[1] = 1174405120;
-  v28[2] = ___ZN10mav_router6device8pci_shim6engageEP16dispatch_group_s_block_invoke_2;
-  v28[3] = &__block_descriptor_tmp_4_0;
-  v28[4] = this;
-  v28[5] = v5;
-  v29 = v7;
+  v27[0] = MEMORY[0x29EDCA5F8];
+  v27[1] = 1174405120;
+  v27[2] = ___ZN10mav_router6device8pci_shim6engageEP16dispatch_group_s_block_invoke_2;
+  v27[3] = &__block_descriptor_tmp_4_0;
+  v27[4] = this;
+  v27[5] = v5;
+  v28 = v7;
   atomic_fetch_add_explicit(&v7->__shared_weak_owners_, 1uLL, memory_order_relaxed);
-  *&v39 = v28;
-  v26[0] = MEMORY[0x29EDCA5F8];
-  v26[1] = 1174405120;
-  v26[2] = ___ZN10mav_router6device8pci_shim6engageEP16dispatch_group_s_block_invoke_5;
-  v26[3] = &__block_descriptor_tmp_8_0;
-  v26[4] = this;
-  v26[5] = v5;
-  v27 = v7;
+  *&v38 = v27;
+  v25[0] = MEMORY[0x29EDCA5F8];
+  v25[1] = 1174405120;
+  v25[2] = ___ZN10mav_router6device8pci_shim6engageEP16dispatch_group_s_block_invoke_5;
+  v25[3] = &__block_descriptor_tmp_8_0;
+  v25[4] = this;
+  v25[5] = v5;
+  v26 = v7;
   atomic_fetch_add_explicit(&v7->__shared_weak_owners_, 1uLL, memory_order_relaxed);
-  *(&v39 + 1) = v26;
-  *&v40 = 0;
+  *(&v38 + 1) = v25;
+  *&v39 = 0;
   if (*(this + 22))
   {
-    *(&v40 + 1) = *(this + 22);
+    *(&v39 + 1) = *(this + 22);
   }
 
-  LODWORD(v41) = *(this + 46);
+  LODWORD(v40) = *(this + 46);
   if ((TelephonyBasebandPCITransportCreate() & 1) == 0)
   {
     *block = MEMORY[0x29EDCA5F8];
-    v31 = 0x40000000;
-    *&v32 = ____mav_log_platform_os_log_handle_block_invoke;
-    *(&v32 + 1) = &__block_descriptor_tmp_0;
-    v33 = 3;
+    v30 = 0x40000000;
+    *&v31 = ____mav_log_platform_os_log_handle_block_invoke;
+    *(&v31 + 1) = &__block_descriptor_tmp_0;
+    v32 = 3;
     if (qword_2A18B79E8 == -1)
     {
       v23 = qword_2A18B79C8;
@@ -3453,8 +3434,8 @@ LABEL_31:
 LABEL_35:
         v19 = 7;
         os_unfair_lock_unlock(this + 12);
-        v20 = v27;
-        if (!v27)
+        v20 = v26;
+        if (!v26)
         {
           goto LABEL_37;
         }
@@ -3465,34 +3446,33 @@ LABEL_35:
 
     *block = 67110146;
     *&block[4] = 3;
-    v31 = 0x400000000000400;
-    LODWORD(v32) = 0;
-    WORD2(v32) = 2080;
-    *(&v32 + 6) = "virtual mav_router_result_t mav_router::device::pci_shim::engage(dispatch_group_t)";
-    HIWORD(v32) = 1024;
-    v33 = 198;
+    v30 = 0x400000000000400;
+    LODWORD(v31) = 0;
+    WORD2(v31) = 2080;
+    *(&v31 + 6) = "virtual mav_router_result_t mav_router::device::pci_shim::engage(dispatch_group_t)";
+    HIWORD(v31) = 1024;
+    v32 = 198;
     _os_log_impl(&dword_2990D9000, v23, OS_LOG_TYPE_INFO, "[%04x.%04u.%04u] %s:%u:failed to create pci transport", block, 0x24u);
     goto LABEL_35;
   }
 
   v19 = 0;
   os_unfair_lock_unlock(this + 12);
-  v20 = v27;
-  if (v27)
+  v20 = v26;
+  if (v26)
   {
 LABEL_36:
     std::__shared_weak_count::__release_weak(v20);
   }
 
 LABEL_37:
-  if (v29)
+  if (v28)
   {
-    std::__shared_weak_count::__release_weak(v29);
+    std::__shared_weak_count::__release_weak(v28);
   }
 
 LABEL_39:
   std::__shared_weak_count::__release_weak(v7);
-  v24 = *MEMORY[0x29EDCA608];
   return v19;
 }
 
@@ -3526,73 +3506,71 @@ LABEL_3:
 
 void ___ZN10mav_router6device8pci_shim6engageEP16dispatch_group_s_block_invoke(uint64_t a1, int a2, uint64_t a3, uint64_t a4)
 {
-  v19 = *MEMORY[0x29EDCA608];
-  v9 = MEMORY[0x29EDCA5F8];
-  v10 = 0x40000000;
-  *&v11 = ____mav_log_platform_os_log_handle_block_invoke;
-  *(&v11 + 1) = &__block_descriptor_tmp_0;
-  v12 = 3;
+  v18 = *MEMORY[0x29EDCA608];
+  v8 = MEMORY[0x29EDCA5F8];
+  v9 = 0x40000000;
+  *&v10 = ____mav_log_platform_os_log_handle_block_invoke;
+  *(&v10 + 1) = &__block_descriptor_tmp_0;
+  v11 = 3;
   if (qword_2A18B79E8 != -1)
   {
-    dispatch_once(&qword_2A18B79E8, &v9);
+    dispatch_once(&qword_2A18B79E8, &v8);
   }
 
   v7 = qword_2A18B79C8;
   if (os_log_type_enabled(qword_2A18B79C8, OS_LOG_TYPE_INFO))
   {
-    v9 = 0x304000802;
-    v10 = 0x400000000010400;
-    WORD2(v11) = 2080;
-    LODWORD(v11) = 0;
-    *(&v11 + 6) = "virtual mav_router_result_t mav_router::device::pci_shim::engage(dispatch_group_t)_block_invoke";
-    HIWORD(v11) = 1024;
-    v12 = 134;
-    v13 = 1024;
-    v14 = a2;
-    v15 = 2048;
-    v16 = a3;
-    v17 = 2048;
-    v18 = a4;
-    _os_log_impl(&dword_2990D9000, v7, OS_LOG_TYPE_INFO, "[%04x.%04u.%04u] %s:%u:status %u, arg1 %p, arg2 %p", &v9, 0x3Eu);
+    v8 = 0x304000802;
+    v9 = 0x400000000010400;
+    WORD2(v10) = 2080;
+    LODWORD(v10) = 0;
+    *(&v10 + 6) = "virtual mav_router_result_t mav_router::device::pci_shim::engage(dispatch_group_t)_block_invoke";
+    HIWORD(v10) = 1024;
+    v11 = 134;
+    v12 = 1024;
+    v13 = a2;
+    v14 = 2048;
+    v15 = a3;
+    v16 = 2048;
+    v17 = a4;
+    _os_log_impl(&dword_2990D9000, v7, OS_LOG_TYPE_INFO, "[%04x.%04u.%04u] %s:%u:status %u, arg1 %p, arg2 %p", &v8, 0x3Eu);
   }
-
-  v8 = *MEMORY[0x29EDCA608];
 }
 
 uint64_t mav_router::device::pci_shim::handleError(os_unfair_lock_s *this)
 {
-  v62 = *MEMORY[0x29EDCA608];
+  v61 = *MEMORY[0x29EDCA608];
   os_unfair_lock_lock(this + 12);
-  v53 = 0xAAAAAAAAAAAAAAAALL;
+  v52 = 0xAAAAAAAAAAAAAAAALL;
   *&v2 = 0xAAAAAAAAAAAAAAAALL;
   *(&v2 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v52[7] = v2;
-  v52[8] = v2;
-  v52[5] = v2;
-  v52[6] = v2;
-  v52[3] = v2;
-  v52[4] = v2;
-  v52[1] = v2;
-  v52[2] = v2;
-  v52[0] = v2;
+  v51[7] = v2;
+  v51[8] = v2;
+  v51[5] = v2;
+  v51[6] = v2;
+  v51[3] = v2;
+  v51[4] = v2;
+  v51[1] = v2;
+  v51[2] = v2;
+  v51[0] = v2;
+  v49 = v2;
   v50 = v2;
-  v51 = v2;
-  v48 = v2;
-  *__p = v2;
-  v46 = v2;
   v47 = v2;
+  *__p = v2;
   v45 = v2;
-  std::ostringstream::basic_ostringstream[abi:ne200100](&v45);
-  v3 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v45, "pci error: ", 11);
+  v46 = v2;
+  v44 = v2;
+  std::ostringstream::basic_ostringstream[abi:ne200100](&v44);
+  v3 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v44, "pci error: ", 11);
   v4 = MEMORY[0x29C297CF0](v3, this[36]._os_unfair_lock_opaque);
   v5 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v4, ". failed on I/O 0x", 18);
   *(v5 + *(*v5 - 24) + 8) = *(v5 + *(*v5 - 24) + 8) & 0xFFFFFFB5 | 8;
   MEMORY[0x29C297CE0]();
   *buf = MEMORY[0x29EDCA5F8];
-  v55 = 0x40000000;
-  *&v56 = ____mav_log_platform_os_log_handle_block_invoke;
-  *(&v56 + 1) = &__block_descriptor_tmp_0;
-  v57 = 3;
+  v54 = 0x40000000;
+  *&v55 = ____mav_log_platform_os_log_handle_block_invoke;
+  *(&v55 + 1) = &__block_descriptor_tmp_0;
+  v56 = 3;
   if (qword_2A18B79E8 != -1)
   {
     dispatch_once(&qword_2A18B79E8, buf);
@@ -3604,18 +3582,18 @@ uint64_t mav_router::device::pci_shim::handleError(os_unfair_lock_s *this)
     goto LABEL_21;
   }
 
-  if ((BYTE8(v51) & 0x10) != 0)
+  if ((BYTE8(v50) & 0x10) != 0)
   {
-    v9 = v51;
-    if (v51 < *(&v48 + 1))
+    v9 = v50;
+    if (v50 < *(&v47 + 1))
     {
-      *&v51 = *(&v48 + 1);
-      v9 = *(&v48 + 1);
+      *&v50 = *(&v47 + 1);
+      v9 = *(&v47 + 1);
     }
 
-    v10 = v48;
-    v7 = v9 - v48;
-    if ((v9 - v48) > 0x7FFFFFFFFFFFFFF7)
+    v10 = v47;
+    v7 = v9 - v47;
+    if ((v9 - v47) > 0x7FFFFFFFFFFFFFF7)
     {
       goto LABEL_49;
     }
@@ -3623,17 +3601,17 @@ uint64_t mav_router::device::pci_shim::handleError(os_unfair_lock_s *this)
 
   else
   {
-    if ((BYTE8(v51) & 8) == 0)
+    if ((BYTE8(v50) & 8) == 0)
     {
       v7 = 0;
-      HIBYTE(v44) = 0;
+      HIBYTE(v43) = 0;
       v8 = __dst;
       goto LABEL_18;
     }
 
-    v10 = *(&v46 + 1);
-    v7 = *(&v47 + 1) - *(&v46 + 1);
-    if (*(&v47 + 1) - *(&v46 + 1) > 0x7FFFFFFFFFFFFFF7uLL)
+    v10 = *(&v45 + 1);
+    v7 = *(&v46 + 1) - *(&v45 + 1);
+    if (*(&v46 + 1) - *(&v45 + 1) > 0x7FFFFFFFFFFFFFF7uLL)
     {
 LABEL_49:
       std::string::__throw_length_error[abi:ne200100]();
@@ -3654,12 +3632,12 @@ LABEL_49:
 
     v8 = operator new(v11);
     __dst[1] = v7;
-    v44 = v11 | 0x8000000000000000;
+    v43 = v11 | 0x8000000000000000;
     __dst[0] = v8;
     goto LABEL_17;
   }
 
-  HIBYTE(v44) = v7;
+  HIBYTE(v43) = v7;
   v8 = __dst;
   if (v7)
   {
@@ -3670,46 +3648,46 @@ LABEL_17:
 LABEL_18:
   *(v8 + v7) = 0;
   v12 = __dst;
-  if (v44 < 0)
+  if (v43 < 0)
   {
     v12 = __dst[0];
   }
 
   *buf = 67110402;
   *&buf[4] = 3;
-  v55 = 0x400000000010400;
-  LODWORD(v56) = 0;
-  WORD2(v56) = 2080;
-  *(&v56 + 6) = "void mav_router::device::pci_shim::handleError(IOReturn)";
-  HIWORD(v56) = 1024;
-  v57 = 381;
-  v58 = 2080;
-  v59 = v12;
+  v54 = 0x400000000010400;
+  LODWORD(v55) = 0;
+  WORD2(v55) = 2080;
+  *(&v55 + 6) = "void mav_router::device::pci_shim::handleError(IOReturn)";
+  HIWORD(v55) = 1024;
+  v56 = 381;
+  v57 = 2080;
+  v58 = v12;
   _os_log_impl(&dword_2990D9000, v6, OS_LOG_TYPE_INFO, "[%04x.%04u.%04u] %s:%u:got error (%s)", buf, 0x2Eu);
-  if (SHIBYTE(v44) < 0)
+  if (SHIBYTE(v43) < 0)
   {
     operator delete(__dst[0]);
-    v13 = BYTE8(v51);
-    if ((BYTE8(v51) & 0x10) == 0)
+    v13 = BYTE8(v50);
+    if ((BYTE8(v50) & 0x10) == 0)
     {
       goto LABEL_22;
     }
 
 LABEL_26:
-    v17 = v51;
-    if (v51 < *(&v48 + 1))
+    v17 = v50;
+    if (v50 < *(&v47 + 1))
     {
-      *&v51 = *(&v48 + 1);
-      v17 = *(&v48 + 1);
+      *&v50 = *(&v47 + 1);
+      v17 = *(&v47 + 1);
     }
 
-    v16 = &v48;
+    v16 = &v47;
     goto LABEL_29;
   }
 
 LABEL_21:
-  v13 = BYTE8(v51);
-  if ((BYTE8(v51) & 0x10) != 0)
+  v13 = BYTE8(v50);
+  if ((BYTE8(v50) & 0x10) != 0)
   {
     goto LABEL_26;
   }
@@ -3718,13 +3696,13 @@ LABEL_22:
   if ((v13 & 8) == 0)
   {
     v14 = 0;
-    BYTE7(v56) = 0;
+    BYTE7(v55) = 0;
     v15 = buf;
     goto LABEL_38;
   }
 
-  v16 = &v46 + 1;
-  v17 = *(&v47 + 1);
+  v16 = &v45 + 1;
+  v17 = *(&v46 + 1);
 LABEL_29:
   v18 = *v16;
   v14 = v17 - *v16;
@@ -3746,13 +3724,13 @@ LABEL_29:
     }
 
     v15 = operator new(v19);
-    v55 = v14;
-    *&v56 = v19 | 0x8000000000000000;
+    v54 = v14;
+    *&v55 = v19 | 0x8000000000000000;
     *buf = v15;
     goto LABEL_37;
   }
 
-  BYTE7(v56) = v17 - *v16;
+  BYTE7(v55) = v17 - *v16;
   v15 = buf;
   if (v14)
   {
@@ -3763,7 +3741,7 @@ LABEL_37:
 LABEL_38:
   *(v15 + v14) = 0;
   mav_router::device::pci_shim::setErrorReason_sync(this, buf);
-  if (SBYTE7(v56) < 0)
+  if (SBYTE7(v55) < 0)
   {
     operator delete(*buf);
     v20 = *&this[4]._os_unfair_lock_opaque;
@@ -3805,7 +3783,7 @@ LABEL_47:
     if (!v24)
     {
 LABEL_54:
-      v42 = 1;
+      v41 = 1;
       goto LABEL_55;
     }
   }
@@ -3828,19 +3806,19 @@ LABEL_54:
   }
 
   v28 = 0;
-  v42 = 0;
+  v41 = 0;
   do
   {
-    v36 = *(v24 + 1);
-    v37 = v36 + 48 * v28;
-    v38 = *(v37 + 8);
-    if (v38 && *v38 == os_unfair_lock_opaque)
+    v35 = *(v24 + 1);
+    v36 = v35 + 48 * v28;
+    v37 = *(v36 + 8);
+    if (v37 && *v37 == os_unfair_lock_opaque)
     {
-      v39 = *(v37 + 32);
-      if (v39)
+      v38 = *(v36 + 32);
+      if (v38)
       {
 LABEL_68:
-        v39(v24, v28, v25, *(v36 + 48 * v28 + 40));
+        v38(v24, v28, v25, *(v35 + 48 * v28 + 40));
         v27 = *v24;
       }
 
@@ -3849,35 +3827,35 @@ LABEL_68:
         if (v28 + 1 >= v27)
         {
 LABEL_81:
-          v42 = 4;
+          v41 = 4;
           goto LABEL_55;
         }
 
-        v40 = (v36 + 48 * v28++ + 80);
+        v39 = (v35 + 48 * v28++ + 80);
         while (1)
         {
-          v41 = *(v40 - 3);
-          if (!v41 || *v41 != os_unfair_lock_opaque)
+          v40 = *(v39 - 3);
+          if (!v40 || *v40 != os_unfair_lock_opaque)
           {
             break;
           }
 
-          v39 = *v40;
-          if (*v40)
+          v38 = *v39;
+          if (*v39)
           {
-            v42 = 4;
+            v41 = 4;
             goto LABEL_68;
           }
 
           ++v28;
-          v40 += 6;
+          v39 += 6;
           if (v28 >= v27)
           {
             goto LABEL_81;
           }
         }
 
-        v42 = 4;
+        v41 = 4;
       }
     }
 
@@ -3885,17 +3863,17 @@ LABEL_81:
   }
 
   while (v28 < v27);
-  if (!v42)
+  if (!v41)
   {
     goto LABEL_62;
   }
 
 LABEL_55:
   *buf = MEMORY[0x29EDCA5F8];
-  v55 = 0x40000000;
-  *&v56 = ____mav_log_platform_os_log_handle_block_invoke;
-  *(&v56 + 1) = &__block_descriptor_tmp_0;
-  v57 = 3;
+  v54 = 0x40000000;
+  *&v55 = ____mav_log_platform_os_log_handle_block_invoke;
+  *(&v55 + 1) = &__block_descriptor_tmp_0;
+  v56 = 3;
   if (qword_2A18B79E8 != -1)
   {
     dispatch_once(&qword_2A18B79E8, buf);
@@ -3907,23 +3885,23 @@ LABEL_55:
   {
     *buf = 67110402;
     *&buf[4] = 3;
-    v55 = 0x400000000010400;
-    LODWORD(v56) = 0;
-    WORD2(v56) = 2080;
-    *(&v56 + 6) = "void mav_router::device::pci_shim::handleError(IOReturn)";
-    HIWORD(v56) = 1024;
-    v57 = 392;
-    v58 = 1024;
-    LODWORD(v59) = v42;
+    v54 = 0x400000000010400;
+    LODWORD(v55) = 0;
+    WORD2(v55) = 2080;
+    *(&v55 + 6) = "void mav_router::device::pci_shim::handleError(IOReturn)";
+    HIWORD(v55) = 1024;
+    v56 = 392;
+    v57 = 1024;
+    LODWORD(v58) = v41;
     _os_log_impl(&dword_2990D9000, v29, OS_LOG_TYPE_INFO, "[%04x.%04u.%04u] %s:%u:mav_router_device_error returned 0x%x", buf, 0x2Au);
     v30 = qword_2A18B79E8 == -1;
   }
 
   *buf = MEMORY[0x29EDCA5F8];
-  v55 = 0x40000000;
-  *&v56 = ____mav_log_platform_os_log_handle_block_invoke;
-  *(&v56 + 1) = &__block_descriptor_tmp_0;
-  v57 = 3;
+  v54 = 0x40000000;
+  *&v55 = ____mav_log_platform_os_log_handle_block_invoke;
+  *(&v55 + 1) = &__block_descriptor_tmp_0;
+  v56 = 3;
   if (v30)
   {
     v31 = qword_2A18B79C8;
@@ -3944,16 +3922,16 @@ LABEL_61:
     v33 = this[6]._os_unfair_lock_opaque;
     *buf = 67110658;
     *&buf[4] = 3;
-    v55 = 0x400000000010400;
-    LODWORD(v56) = 0;
-    WORD2(v56) = 2080;
-    *(&v56 + 6) = "void mav_router::device::pci_shim::handleError(IOReturn)";
-    HIWORD(v56) = 1024;
-    v57 = 394;
-    v58 = 2048;
-    v59 = v32;
-    v60 = 1024;
-    v61 = v33;
+    v54 = 0x400000000010400;
+    LODWORD(v55) = 0;
+    WORD2(v55) = 2080;
+    *(&v55 + 6) = "void mav_router::device::pci_shim::handleError(IOReturn)";
+    HIWORD(v55) = 1024;
+    v56 = 394;
+    v57 = 2048;
+    v58 = v32;
+    v59 = 1024;
+    v60 = v33;
     _os_log_impl(&dword_2990D9000, v31, OS_LOG_TYPE_INFO, "[%04x.%04u.%04u] %s:%u:router %p, device %u", buf, 0x34u);
   }
 
@@ -3966,20 +3944,18 @@ LABEL_62:
   }
 
 LABEL_64:
-  *&v45 = *MEMORY[0x29EDC9538];
-  *(&v45 + *(v45 - 24)) = *(MEMORY[0x29EDC9538] + 24);
-  *(&v45 + 1) = MEMORY[0x29EDC9570] + 16;
-  if (SHIBYTE(v50) < 0)
+  *&v44 = *MEMORY[0x29EDC9538];
+  *(&v44 + *(v44 - 24)) = *(MEMORY[0x29EDC9538] + 24);
+  *(&v44 + 1) = MEMORY[0x29EDC9570] + 16;
+  if (SHIBYTE(v49) < 0)
   {
     operator delete(__p[1]);
   }
 
-  *(&v45 + 1) = MEMORY[0x29EDC9568] + 16;
-  std::locale::~locale(&v46);
+  *(&v44 + 1) = MEMORY[0x29EDC9568] + 16;
+  std::locale::~locale(&v45);
   std::ostream::~ostream();
-  result = MEMORY[0x29C297D80](v52);
-  v35 = *MEMORY[0x29EDCA608];
-  return result;
+  return MEMORY[0x29C297D80](v51);
 }
 
 void sub_2990DEB30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, char a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27)
@@ -4013,67 +3989,66 @@ void __destroy_helper_block_e8_40c53_ZTSNSt3__18weak_ptrIN10mav_router6device8pc
 
 uint64_t mav_router::device::pci_shim::tearDown(os_unfair_lock_s *this)
 {
-  v12 = *MEMORY[0x29EDCA608];
-  v6 = MEMORY[0x29EDCA5F8];
-  v7 = 0x40000000;
-  *&v8 = ____mav_log_platform_os_log_handle_block_invoke;
-  *(&v8 + 1) = &__block_descriptor_tmp_0;
-  v9 = 3;
+  v11 = *MEMORY[0x29EDCA608];
+  v5 = MEMORY[0x29EDCA5F8];
+  v6 = 0x40000000;
+  *&v7 = ____mav_log_platform_os_log_handle_block_invoke;
+  *(&v7 + 1) = &__block_descriptor_tmp_0;
+  v8 = 3;
   if (qword_2A18B79E8 != -1)
   {
-    dispatch_once(&qword_2A18B79E8, &v6);
+    dispatch_once(&qword_2A18B79E8, &v5);
   }
 
   v2 = qword_2A18B79C8;
   if (os_log_type_enabled(qword_2A18B79C8, OS_LOG_TYPE_INFO))
   {
     os_unfair_lock_opaque = this[36]._os_unfair_lock_opaque;
-    v6 = 0x304000602;
-    v7 = 0x400000000010400;
-    LODWORD(v8) = 0;
-    WORD2(v8) = 2080;
-    *(&v8 + 6) = "virtual mav_router_result_t mav_router::device::pci_shim::tearDown()";
-    HIWORD(v8) = 1024;
-    v9 = 208;
-    v10 = 1024;
-    v11 = os_unfair_lock_opaque;
-    _os_log_impl(&dword_2990D9000, v2, OS_LOG_TYPE_INFO, "[%04x.%04u.%04u] %s:%u:service %u", &v6, 0x2Au);
+    v5 = 0x304000602;
+    v6 = 0x400000000010400;
+    LODWORD(v7) = 0;
+    WORD2(v7) = 2080;
+    *(&v7 + 6) = "virtual mav_router_result_t mav_router::device::pci_shim::tearDown()";
+    HIWORD(v7) = 1024;
+    v8 = 208;
+    v9 = 1024;
+    v10 = os_unfair_lock_opaque;
+    _os_log_impl(&dword_2990D9000, v2, OS_LOG_TYPE_INFO, "[%04x.%04u.%04u] %s:%u:service %u", &v5, 0x2Au);
   }
 
   os_unfair_lock_lock(this + 12);
   TelephonyUtilTransportFree();
   os_unfair_lock_unlock(this + 12);
-  v4 = *MEMORY[0x29EDCA608];
   return 0;
 }
 
 uint64_t mav_router::device::pci_shim::recover(os_unfair_lock_s *this)
 {
-  v12 = *MEMORY[0x29EDCA608];
-  v6 = MEMORY[0x29EDCA5F8];
-  v7 = 0x40000000;
-  *&v8 = ____mav_log_platform_os_log_handle_block_invoke;
-  *(&v8 + 1) = &__block_descriptor_tmp_0;
-  v9 = 3;
+  v11 = *MEMORY[0x29EDCA608];
+  v5 = MEMORY[0x29EDCA5F8];
+  v6 = 0x40000000;
+  *&v7 = ____mav_log_platform_os_log_handle_block_invoke;
+  *(&v7 + 1) = &__block_descriptor_tmp_0;
+  v8 = 3;
   if (qword_2A18B79E8 != -1)
   {
-    dispatch_once(&qword_2A18B79E8, &v6);
+    dispatch_once(&qword_2A18B79E8, &v5);
   }
 
   v2 = qword_2A18B79C8;
   if (os_log_type_enabled(qword_2A18B79C8, OS_LOG_TYPE_INFO))
   {
     os_unfair_lock_opaque = this[36]._os_unfair_lock_opaque;
-    v6 = 0x304000602;
-    v7 = 0x400000000010400;
-    LODWORD(v8) = 0;
-    WORD2(v8) = 2080;
-    *(&v8 + 6) = "virtual mav_router_result_t mav_router::device::pci_shim::recover()";
-    HIWORD(v8) = 1024;
-    v9 = 221;
-    v10 = 1024;
-    v11 = os_unfair_lock_opaque;
-    _os_log_impl(&dword_2990D9000, v2, OS_LOG_TYPE_INFO, "[%04x.%04u.%04u] %s:%u:service %u", &v6, 0x2Au);
+    v5 = 0x304000602;
+    v6 = 0x400000000010400;
+    LODWORD(v7) = 0;
+    WORD2(v7) = 2080;
+    *(&v7 + 6) = "virtual mav_router_result_t mav_router::device::pci_shim::recover()";
+    HIWORD(v7) = 1024;
+    v8 = 221;
+    v9 = 1024;
+    v10 = os_unfair_lock_opaque;
+    _os_log_impl(&dword_2990D9000, v2, OS_LOG_TYPE_INFO, "[%04x.%04u.%04u] %s:%u:service %u", &v5, 0x2Au);
   }
 
   os_unfair_lock_lock(this + 12);
@@ -4090,7 +4065,6 @@ uint64_t mav_router::device::pci_shim::recover(os_unfair_lock_s *this)
   }
 
   os_unfair_lock_unlock(this + 12);
-  v4 = *MEMORY[0x29EDCA608];
   return 0;
 }
 
@@ -4113,34 +4087,33 @@ uint64_t mav_router::device::pci_shim::clearErrorReason_sync(uint64_t this)
 
 uint64_t mav_router::device::pci_shim::enterLowPower(mav_router::device::pci_shim *this)
 {
-  v12 = *MEMORY[0x29EDCA608];
-  v6 = MEMORY[0x29EDCA5F8];
-  v7 = 0x40000000;
-  *&v8 = ____mav_log_platform_os_log_handle_block_invoke;
-  *(&v8 + 1) = &__block_descriptor_tmp_0;
-  v9 = 3;
+  v11 = *MEMORY[0x29EDCA608];
+  v5 = MEMORY[0x29EDCA5F8];
+  v6 = 0x40000000;
+  *&v7 = ____mav_log_platform_os_log_handle_block_invoke;
+  *(&v7 + 1) = &__block_descriptor_tmp_0;
+  v8 = 3;
   if (qword_2A18B79E8 != -1)
   {
-    dispatch_once(&qword_2A18B79E8, &v6);
+    dispatch_once(&qword_2A18B79E8, &v5);
   }
 
   v2 = qword_2A18B79C8;
   if (os_log_type_enabled(qword_2A18B79C8, OS_LOG_TYPE_INFO))
   {
     v3 = *(this + 36);
-    v6 = 0x304000602;
-    v7 = 0x400000000010400;
-    LODWORD(v8) = 0;
-    WORD2(v8) = 2080;
-    *(&v8 + 6) = "virtual mav_router_result_t mav_router::device::pci_shim::enterLowPower()";
-    HIWORD(v8) = 1024;
-    v9 = 234;
-    v10 = 1024;
-    v11 = v3;
-    _os_log_impl(&dword_2990D9000, v2, OS_LOG_TYPE_INFO, "[%04x.%04u.%04u] %s:%u:service %u", &v6, 0x2Au);
+    v5 = 0x304000602;
+    v6 = 0x400000000010400;
+    LODWORD(v7) = 0;
+    WORD2(v7) = 2080;
+    *(&v7 + 6) = "virtual mav_router_result_t mav_router::device::pci_shim::enterLowPower()";
+    HIWORD(v7) = 1024;
+    v8 = 234;
+    v9 = 1024;
+    v10 = v3;
+    _os_log_impl(&dword_2990D9000, v2, OS_LOG_TYPE_INFO, "[%04x.%04u.%04u] %s:%u:service %u", &v5, 0x2Au);
   }
 
-  v4 = *MEMORY[0x29EDCA608];
   return 0;
 }
 
@@ -4208,8 +4181,7 @@ void mav_router::device::pci_shim::getErrorReason_sync(mav_router::device::pci_s
 
   else
   {
-    *&a2->__r_.__value_.__l.__data_ = *(this + 12);
-    a2->__r_.__value_.__r.__words[2] = *(this + 26);
+    *a2 = *(this + 8);
   }
 }
 
@@ -4220,14 +4192,14 @@ uint64_t mav_router::device::pci_shim::getMaxPayload(mav_router::device::pci_shi
   return 0;
 }
 
-void **mav_router::device::pci_shim::setErrorReason_sync(uint64_t a1, const void **a2)
+void ***mav_router::device::pci_shim::setErrorReason_sync(uint64_t a1, void ***a2)
 {
-  v19 = *MEMORY[0x29EDCA608];
-  v13 = MEMORY[0x29EDCA5F8];
-  v14 = 0x40000000;
-  *&v15 = ____mav_log_platform_os_log_handle_block_invoke;
-  *(&v15 + 1) = &__block_descriptor_tmp_0;
-  v16 = 3;
+  v17 = *MEMORY[0x29EDCA608];
+  v11 = MEMORY[0x29EDCA5F8];
+  v12 = 0x40000000;
+  *&v13 = ____mav_log_platform_os_log_handle_block_invoke;
+  *(&v13 + 1) = &__block_descriptor_tmp_0;
+  v14 = 3;
   if (qword_2A18B79E8 == -1)
   {
     v4 = qword_2A18B79C8;
@@ -4239,7 +4211,7 @@ void **mav_router::device::pci_shim::setErrorReason_sync(uint64_t a1, const void
 
   else
   {
-    dispatch_once(&qword_2A18B79E8, &v13);
+    dispatch_once(&qword_2A18B79E8, &v11);
     v4 = qword_2A18B79C8;
     if (!os_log_type_enabled(qword_2A18B79C8, OS_LOG_TYPE_INFO))
     {
@@ -4257,69 +4229,62 @@ void **mav_router::device::pci_shim::setErrorReason_sync(uint64_t a1, const void
     v5 = *a2;
   }
 
-  v13 = 0x304000602;
-  v14 = 0x400000000000400;
-  LODWORD(v15) = 0;
-  WORD2(v15) = 2080;
-  *(&v15 + 6) = "void mav_router::device::pci_shim::setErrorReason_sync(const std::string &)";
-  HIWORD(v15) = 1024;
-  v16 = 350;
-  v17 = 2080;
-  v18 = v5;
-  _os_log_impl(&dword_2990D9000, v4, OS_LOG_TYPE_INFO, "[%04x.%04u.%04u] %s:%u:reason %s", &v13, 0x2Eu);
+  v11 = 0x304000602;
+  v12 = 0x400000000000400;
+  LODWORD(v13) = 0;
+  WORD2(v13) = 2080;
+  *(&v13 + 6) = "void mav_router::device::pci_shim::setErrorReason_sync(const std::string &)";
+  HIWORD(v13) = 1024;
+  v14 = 350;
+  v15 = 2080;
+  v16 = v5;
+  _os_log_impl(&dword_2990D9000, v4, OS_LOG_TYPE_INFO, "[%04x.%04u.%04u] %s:%u:reason %s", &v11, 0x2Eu);
 LABEL_7:
   result = (a1 + 192);
   if (*(a1 + 215) < 0)
   {
     if (result != a2 && !*(a1 + 200))
     {
-      v9 = *(a2 + 23);
-      if (v9 >= 0)
+      v8 = *(a2 + 23);
+      if (v8 >= 0)
       {
-        v10 = a2;
+        v9 = a2;
       }
 
       else
       {
-        v10 = *a2;
+        v9 = *a2;
       }
 
-      if (v9 >= 0)
+      if (v8 >= 0)
       {
-        v11 = *(a2 + 23);
+        v10 = *(a2 + 23);
       }
 
       else
       {
-        v11 = a2[1];
+        v10 = a2[1];
       }
 
-      result = std::string::__assign_no_alias<false>(result, v10, v11);
+      return std::string::__assign_no_alias<false>(result, v9, v10);
+    }
+  }
+
+  else if (result != a2 && !*(a1 + 215))
+  {
+    if (*(a2 + 23) < 0)
+    {
+      return std::string::__assign_no_alias<true>(result, *a2, a2[1]);
     }
 
-    goto LABEL_22;
+    else
+    {
+      v7 = *a2;
+      *(a1 + 208) = a2[2];
+      *result = v7;
+    }
   }
 
-  if (result == a2 || *(a1 + 215))
-  {
-LABEL_22:
-    v12 = *MEMORY[0x29EDCA608];
-    return result;
-  }
-
-  if (*(a2 + 23) < 0)
-  {
-    result = std::string::__assign_no_alias<true>(result, *a2, a2[1]);
-  }
-
-  else
-  {
-    v7 = *a2;
-    *(a1 + 208) = a2[2];
-    *result = v7;
-  }
-
-  v8 = *MEMORY[0x29EDCA608];
   return result;
 }
 
@@ -4699,10 +4664,10 @@ void *std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v
   MEMORY[0x29C297CB0](v14, a1);
   if (LOBYTE(v14[0]) == 1)
   {
-    v6 = a1 + *(*a1 - 24);
-    v7 = *(v6 + 40);
-    v8 = *(v6 + 8);
-    v9 = *(v6 + 144);
+    v6 = (a1 + *(*a1 - 24));
+    rdbuf = v6->__rdbuf_;
+    fmtflags = v6->__fmtflags_;
+    v9 = v6[1].__fmtflags_;
     if (v9 == -1)
     {
       v10 = (a1 + *(*a1 - 24));
@@ -4714,7 +4679,7 @@ void *std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v
       v10[1].__fmtflags_ = v9;
     }
 
-    if ((v8 & 0xB0) == 0x20)
+    if ((fmtflags & 0xB0) == 0x20)
     {
       v12 = a2 + a3;
     }
@@ -4724,7 +4689,7 @@ void *std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v
       v12 = a2;
     }
 
-    if (!std::__pad_and_output[abi:ne200100]<char,std::char_traits<char>>(v7, a2, v12, a2 + a3, v6, v9))
+    if (!std::__pad_and_output[abi:ne200100]<char,std::char_traits<char>>(rdbuf, a2, v12, a2 + a3, v6, v9))
     {
       std::ios_base::clear((a1 + *(*a1 - 24)), *(a1 + *(*a1 - 24) + 32) | 5);
     }
@@ -4734,9 +4699,9 @@ void *std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v
   return a1;
 }
 
-void sub_2990DFC60(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, std::locale a12)
+void sub_2990DFC60(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, std::locale a12)
 {
-  MEMORY[0x29C297CC0](&a10);
+  MEMORY[0x29C297CC0](&a10, a2, a3, a4, a5, a6, a7, a8);
   __cxa_begin_catch(a1);
   std::ios_base::__set_badbit_and_consider_rethrow((v12 + *(*v12 - 24)));
   __cxa_end_catch();
@@ -4953,29 +4918,29 @@ void sub_2990E0160(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 void *mav_router::service::transport_shim::transport_shim(void *a1, uint64_t a2)
 {
-  v15 = *MEMORY[0x29EDCA608];
+  v14 = *MEMORY[0x29EDCA608];
   *a1 = &unk_2A1F2E940;
-  v9 = MEMORY[0x29EDCA5F8];
-  v10 = 0x40000000;
-  *&v11 = ____mav_log_platform_os_log_handle_block_invoke;
-  *(&v11 + 1) = &__block_descriptor_tmp_0;
-  v12 = 2;
+  v8 = MEMORY[0x29EDCA5F8];
+  v9 = 0x40000000;
+  *&v10 = ____mav_log_platform_os_log_handle_block_invoke;
+  *(&v10 + 1) = &__block_descriptor_tmp_0;
+  v11 = 2;
   if (qword_2A18B79E0 == -1)
   {
     v4 = qword_2A18B79C0;
     if (!os_log_type_enabled(qword_2A18B79C0, OS_LOG_TYPE_INFO))
     {
-      goto LABEL_7;
+      return a1;
     }
   }
 
   else
   {
-    dispatch_once(&qword_2A18B79E0, &v9);
+    dispatch_once(&qword_2A18B79E0, &v8);
     v4 = qword_2A18B79C0;
     if (!os_log_type_enabled(qword_2A18B79C0, OS_LOG_TYPE_INFO))
     {
-      goto LABEL_7;
+      return a1;
     }
   }
 
@@ -4990,18 +4955,16 @@ void *mav_router::service::transport_shim::transport_shim(void *a1, uint64_t a2)
     v6 = mav_router_channel_cstrings[v5];
   }
 
-  v9 = 0x204000602;
-  v10 = 0x400000000010400;
-  LODWORD(v11) = 0;
-  WORD2(v11) = 2080;
-  *(&v11 + 6) = "mav_router::service::transport_shim::transport_shim(const parameters &)";
-  HIWORD(v11) = 1024;
-  v12 = 353;
-  v13 = 2080;
-  v14 = v6;
-  _os_log_impl(&dword_2990D9000, v4, OS_LOG_TYPE_INFO, "[%04x.%04u.%04u] %s:%u:with channel %s", &v9, 0x2Eu);
-LABEL_7:
-  v7 = *MEMORY[0x29EDCA608];
+  v8 = 0x204000602;
+  v9 = 0x400000000010400;
+  LODWORD(v10) = 0;
+  WORD2(v10) = 2080;
+  *(&v10 + 6) = "mav_router::service::transport_shim::transport_shim(const parameters &)";
+  HIWORD(v10) = 1024;
+  v11 = 353;
+  v12 = 2080;
+  v13 = v6;
+  _os_log_impl(&dword_2990D9000, v4, OS_LOG_TYPE_INFO, "[%04x.%04u.%04u] %s:%u:with channel %s", &v8, 0x2Eu);
   return a1;
 }
 
@@ -5209,18 +5172,17 @@ LABEL_5:
 
 uint64_t mav_router::service::transport_shim_private::write_func(uint64_t a1, const void *a2, unsigned int a3, unsigned int *a4)
 {
-  v37 = *MEMORY[0x29EDCA608];
+  v36 = *MEMORY[0x29EDCA608];
   if (!*(a1 + 80))
   {
-    result = 0;
-    goto LABEL_24;
+    return 0;
   }
 
   *buf = MEMORY[0x29EDCA5F8];
-  v26 = 0x40000000;
-  *&v27 = ____mav_log_platform_os_log_handle_block_invoke;
-  *(&v27 + 1) = &__block_descriptor_tmp_0;
-  v28 = 2;
+  v25 = 0x40000000;
+  *&v26 = ____mav_log_platform_os_log_handle_block_invoke;
+  *(&v26 + 1) = &__block_descriptor_tmp_0;
+  v27 = 2;
   if (qword_2A18B79E0 != -1)
   {
     dispatch_once(&qword_2A18B79E0, buf);
@@ -5231,20 +5193,20 @@ uint64_t mav_router::service::transport_shim_private::write_func(uint64_t a1, co
   {
     *buf = 67111170;
     *&buf[4] = 2;
-    v26 = 0x400000000030400;
-    LODWORD(v27) = 0;
-    WORD2(v27) = 2080;
-    *(&v27 + 6) = "static void mav_router::service::transport_shim_private::log_write(const unsigned char *, unsigned int)";
-    HIWORD(v27) = 1024;
-    v28 = 153;
-    v29 = 2080;
-    v30 = "";
-    v31 = 1024;
-    v32 = a3;
-    v33 = 1040;
-    v34 = a3;
-    v35 = 2096;
-    v36 = a2;
+    v25 = 0x400000000030400;
+    LODWORD(v26) = 0;
+    WORD2(v26) = 2080;
+    *(&v26 + 6) = "static void mav_router::service::transport_shim_private::log_write(const unsigned char *, unsigned int)";
+    HIWORD(v26) = 1024;
+    v27 = 153;
+    v28 = 2080;
+    v29 = "";
+    v30 = 1024;
+    v31 = a3;
+    v32 = 1040;
+    v33 = a3;
+    v34 = 2096;
+    v35 = a2;
     _os_log_impl(&dword_2990D9000, v8, OS_LOG_TYPE_DEBUG, "[%04x.%04u.%04u] %s:%u:%s (%u bytes): %.*P", buf, 0x44u);
   }
 
@@ -5256,37 +5218,52 @@ uint64_t mav_router::service::transport_shim_private::write_func(uint64_t a1, co
     atomic_fetch_add_explicit(&v10->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  v24 = 0;
+  v23 = 0;
   global_queue = dispatch_get_global_queue(0, 0);
   v13 = dispatch_data_create(a2, a3, global_queue, 0);
   v14 = v13;
   if (v13)
   {
-    v24 = v13;
+    v23 = v13;
   }
 
   v15 = *(*(v11 + 24) + 16);
-  if (!v15 || (v16 = *(v11 + 40), *v15 <= v16) || (v17 = *(*(v15 + 8) + 48 * v16 + 8)) == 0 || (v18 = *(v17 + 3)) == 0 || (v19 = *v17, *(v15 + 4) <= v19))
+  if (!v15)
   {
-LABEL_20:
-    *a4 = 0;
-    dispatch_release(v14);
-    result = 0;
-    if (!v10)
-    {
-      goto LABEL_24;
-    }
+    goto LABEL_20;
+  }
 
-    goto LABEL_21;
+  v16 = *(v11 + 40);
+  if (*v15 <= v16)
+  {
+    goto LABEL_20;
+  }
+
+  v17 = *(*(v15 + 8) + 48 * v16 + 8);
+  if (!v17)
+  {
+    goto LABEL_20;
+  }
+
+  v18 = *(v17 + 3);
+  if (!v18)
+  {
+    goto LABEL_20;
+  }
+
+  v19 = *v17;
+  if (*(v15 + 4) <= v19)
+  {
+    goto LABEL_20;
   }
 
   if (*(*(v15 + 16) + 40 * v19 + 16) >= 2u)
   {
     *&buf[4] = 0;
-    v26 = &v24;
+    v25 = &v23;
     *buf = v16;
     v20 = mav_mux_encode(buf);
-    v14 = v24;
+    v14 = v23;
     if (v20)
     {
       goto LABEL_20;
@@ -5298,15 +5275,24 @@ LABEL_20:
 
   if (v18(v15, v19, v14, *(v17 + 4)))
   {
-    v14 = v24;
-    goto LABEL_20;
+    v14 = v23;
+LABEL_20:
+    *a4 = 0;
+    dispatch_release(v14);
+    result = 0;
+    if (!v10)
+    {
+      return result;
+    }
+
+    goto LABEL_21;
   }
 
   *a4 = a3;
   result = 1;
   if (!v10)
   {
-    goto LABEL_24;
+    return result;
   }
 
 LABEL_21:
@@ -5315,11 +5301,9 @@ LABEL_21:
     v22 = result;
     (v10->__on_zero_shared)(v10);
     std::__shared_weak_count::__release_weak(v10);
-    result = v22;
+    return v22;
   }
 
-LABEL_24:
-  v23 = *MEMORY[0x29EDCA608];
   return result;
 }
 
@@ -5760,23 +5744,23 @@ uint64_t ___ZL19mav_buffer_copy_rawPvS_jjPj_block_invoke(uint64_t a1, uint64_t a
 
 uint64_t mav_router::service::transport_shim_private::handle_receive(uint64_t a1, uint64_t a2, NSObject *a3, uint64_t *a4)
 {
-  v86 = *MEMORY[0x29EDCA608];
+  v85 = *MEMORY[0x29EDCA608];
   v5 = a4[1];
   if (!v5)
   {
-    v75 = 0;
+    v74 = 0;
     goto LABEL_12;
   }
 
   v6 = *a4;
   atomic_fetch_add_explicit(&v5->__shared_weak_owners_, 1uLL, memory_order_relaxed);
-  v75 = std::__shared_weak_count::lock(v5);
-  if (!v75 || !v6)
+  v74 = std::__shared_weak_count::lock(v5);
+  if (!v74 || !v6)
   {
 LABEL_12:
     dispatch_release(a3);
-    v13 = v75;
-    if (!v75)
+    v13 = v74;
+    if (!v74)
     {
       goto LABEL_87;
     }
@@ -5802,7 +5786,7 @@ LABEL_12:
 
     v11 = *(v6 + 88);
     v12 = v11 + *(v6 + 96);
-    v74 = *(v6 + 96);
+    v73 = *(v6 + 96);
     if (v10 != v12)
     {
       v14 = *(v6 + 96);
@@ -5823,10 +5807,10 @@ LABEL_72:
       *(*&v8[(v12 >> 6) & 0x3FFFFFFFFFFFFF8] + 8 * (v12 & 0x1FF)) = a3;
       *(v6 + 96) = v14 + 1;
       applier = MEMORY[0x29EDCA5F8];
-      v81 = 0x40000000;
-      *&v82 = ____mav_log_platform_os_log_handle_block_invoke;
-      *(&v82 + 1) = &__block_descriptor_tmp_0;
-      LODWORD(v83) = 2;
+      v80 = 0x40000000;
+      *&v81 = ____mav_log_platform_os_log_handle_block_invoke;
+      *(&v81 + 1) = &__block_descriptor_tmp_0;
+      LODWORD(v82) = 2;
       if (qword_2A18B79E0 == -1)
       {
         if (os_log_type_enabled(qword_2A18B79C0, OS_LOG_TYPE_DEBUG))
@@ -5846,42 +5830,42 @@ LABEL_74:
           if (size)
           {
             v68 = operator new(size);
-            v73 = v68 + v67;
+            v72 = v68 + v67;
             bzero(v68, v67);
           }
 
           else
           {
             v68 = 0;
-            v73 = 0;
+            v72 = 0;
           }
 
-          v79[0] = 0;
-          v79[1] = v79;
-          v79[2] = 0x2000000000;
-          v79[3] = v68;
-          v77[0] = 0;
-          v77[1] = v77;
-          v77[2] = 0x2000000000;
-          v78 = -1431655766;
-          v76 = 0;
-          v78 = dispatch_data_get_size(a3);
+          v78[0] = 0;
+          v78[1] = v78;
+          v78[2] = 0x2000000000;
+          v78[3] = v68;
+          v76[0] = 0;
+          v76[1] = v76;
+          v76[2] = 0x2000000000;
+          v77 = -1431655766;
+          v75 = 0;
+          v77 = dispatch_data_get_size(a3);
           applier = MEMORY[0x29EDCA5F8];
-          v81 = 1107296256;
-          *&v82 = ___ZL19mav_buffer_copy_rawPvS_jjPj_block_invoke;
-          *(&v82 + 1) = &__block_descriptor_tmp_2;
-          *&v84[8] = 0;
-          *&v83 = v77;
-          *(&v83 + 1) = v79;
-          *v84 = &v76;
+          v80 = 1107296256;
+          *&v81 = ___ZL19mav_buffer_copy_rawPvS_jjPj_block_invoke;
+          *(&v81 + 1) = &__block_descriptor_tmp_2;
+          *&v83[8] = 0;
+          *&v82 = v76;
+          *(&v82 + 1) = v78;
+          *v83 = &v75;
           dispatch_data_apply(a3, &applier);
-          _Block_object_dispose(v77, 8);
-          _Block_object_dispose(v79, 8);
+          _Block_object_dispose(v76, 8);
+          _Block_object_dispose(v78, 8);
           applier = MEMORY[0x29EDCA5F8];
-          v81 = 0x40000000;
-          *&v82 = ____mav_log_platform_os_log_handle_block_invoke;
-          *(&v82 + 1) = &__block_descriptor_tmp_0;
-          LODWORD(v83) = 2;
+          v80 = 0x40000000;
+          *&v81 = ____mav_log_platform_os_log_handle_block_invoke;
+          *(&v81 + 1) = &__block_descriptor_tmp_0;
+          LODWORD(v82) = 2;
           if (qword_2A18B79E0 == -1)
           {
             v69 = qword_2A18B79C0;
@@ -5908,27 +5892,27 @@ LABEL_80:
           }
 
           applier = 0x204000902;
-          v81 = 0x400000000030400;
-          LODWORD(v82) = 0;
+          v80 = 0x400000000030400;
+          LODWORD(v81) = 0;
+          WORD2(v81) = 2080;
+          *(&v81 + 6) = "static void mav_router::service::transport_shim_private::log_received(mav_buffer_t)";
+          HIWORD(v81) = 1024;
+          LODWORD(v82) = 91;
           WORD2(v82) = 2080;
-          *(&v82 + 6) = "static void mav_router::service::transport_shim_private::log_received(mav_buffer_t)";
+          *(&v82 + 6) = "";
           HIWORD(v82) = 1024;
-          LODWORD(v83) = 91;
-          WORD2(v83) = 2080;
-          *(&v83 + 6) = "";
-          HIWORD(v83) = 1024;
-          *v84 = v73 - v68;
-          *&v84[4] = 1040;
-          *&v84[6] = v73 - v68;
-          *&v84[10] = 2096;
-          v85 = v68;
+          *v83 = v72 - v68;
+          *&v83[4] = 1040;
+          *&v83[6] = v72 - v68;
+          *&v83[10] = 2096;
+          v84 = v68;
           _os_log_impl(&dword_2990D9000, v69, OS_LOG_TYPE_DEBUG, "[%04x.%04u.%04u] %s:%u:%s (%u bytes): %.*P", &applier, 0x44u);
           goto LABEL_80;
         }
       }
 
 LABEL_82:
-      if (!v74)
+      if (!v73)
       {
         dispatch_group_leave(*(v6 + 48));
       }
@@ -6064,7 +6048,7 @@ LABEL_95:
     v20 = operator new(8 * v18);
     v21 = operator new(0x1000uLL);
     v22 = &v20[v9];
-    v72 = &v20[v19];
+    v71 = &v20[v19];
     if (v9 == v19)
     {
       if (v9 < 1)
@@ -6085,7 +6069,7 @@ LABEL_95:
         }
 
         v22 = operator new(8 * v24);
-        v72 = &v22[8 * v24];
+        v71 = &v22[8 * v24];
         operator delete(v20);
         v8 = *(v6 + 64);
         v7 = *(v6 + 72);
@@ -6103,7 +6087,7 @@ LABEL_95:
     if (v7 == v8)
     {
       v29 = v22;
-      v26 = v72;
+      v26 = v71;
 LABEL_55:
       v48 = *(v6 + 56);
       *(v6 + 56) = v20;
@@ -6118,7 +6102,7 @@ LABEL_55:
       goto LABEL_71;
     }
 
-    v26 = v72;
+    v26 = v71;
     while (v22 != v20)
     {
       v27 = v22;
@@ -6227,7 +6211,7 @@ LABEL_49:
   dispatch_release(a3);
 LABEL_84:
   os_unfair_lock_unlock((v6 + 44));
-  v13 = v75;
+  v13 = v74;
 LABEL_85:
   if (!atomic_fetch_add(&v13->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
@@ -6241,16 +6225,16 @@ LABEL_87:
     std::__shared_weak_count::__release_weak(v5);
   }
 
-  v70 = *MEMORY[0x29EDCA608];
   return 0;
 }
 
-void sub_2990E1994(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, char a12)
+void sub_2990E1994(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  operator delete(v14);
+  va_start(va, a11);
   operator delete(v13);
-  std::shared_ptr<mav_router_t>::~shared_ptr[abi:ne200100](&a12);
-  std::__shared_weak_count::__release_weak(v12);
+  operator delete(v12);
+  std::shared_ptr<mav_router_t>::~shared_ptr[abi:ne200100](va);
+  std::__shared_weak_count::__release_weak(v11);
   _Unwind_Resume(a1);
 }
 
@@ -6889,18 +6873,18 @@ LABEL_17:
   }
 }
 
-void sub_2990E23B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_2990E23B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
-  std::shared_ptr<mav_router_t>::~shared_ptr[abi:ne200100](v6);
-  v8 = v5[1];
-  if (v8)
+  va_start(va, a9);
+  std::shared_ptr<mav_router_t>::~shared_ptr[abi:ne200100](v10);
+  v12 = v9[1];
+  if (v12)
   {
-    std::__shared_weak_count::__release_weak(v8);
+    std::__shared_weak_count::__release_weak(v12);
   }
 
   mav_router_parameters_t::~mav_router_parameters_t(va);
-  operator delete(v5);
+  operator delete(v9);
   _Unwind_Resume(a1);
 }
 
@@ -6994,16 +6978,17 @@ void mav_router_t::create(void *a1@<X0>, int a2@<W1>, std::__shared_weak_count *
   operator delete(v7);
 }
 
-void sub_2990E269C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17)
+void sub_2990E269C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
+  va_start(va, a16);
   mav_router_parameters_t::~mav_router_parameters_t(&a9);
-  mav_router_parameters_t::~mav_router_parameters_t(&a17);
+  mav_router_parameters_t::~mav_router_parameters_t(va);
   _Unwind_Resume(a1);
 }
 
-void sub_2990E26B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_2990E26B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   mav_router_parameters_t::~mav_router_parameters_t(va);
   _Unwind_Resume(a1);
 }
@@ -7539,34 +7524,34 @@ os_log_t ____mav_log_platform_os_log_handle_block_invoke(uint64_t a1)
   return result;
 }
 
-uint64_t mav_router::device::controller_ios::controller_ios(uint64_t a1, std::__shared_weak_count **a2)
+mav_router::device::controller_ios *mav_router::device::controller_ios::controller_ios(mav_router::device::controller_ios *a1, std::__shared_weak_count **a2)
 {
-  v51 = *MEMORY[0x29EDCA608];
+  v50 = *MEMORY[0x29EDCA608];
   v4 = a2[1];
-  v44[0] = *a2;
-  v44[1] = v4;
+  v43[0] = *a2;
+  v43[1] = v4;
   if (v4)
   {
     atomic_fetch_add_explicit(&v4->__shared_weak_owners_, 1uLL, memory_order_relaxed);
   }
 
-  mav_router::device::controller::controller(a1, v44);
+  mav_router::device::controller::controller(a1, v43);
   if (v4)
   {
     std::__shared_weak_count::__release_weak(v4);
   }
 
   *a1 = &unk_2A1F2EBC0;
-  *(a1 + 64) = 0;
-  *(a1 + 56) = 0;
-  *(a1 + 48) = a1 + 56;
+  *(a1 + 8) = 0;
+  *(a1 + 7) = 0;
+  *(a1 + 6) = a1 + 56;
+  v41 = 0;
   v42 = 0;
-  v43 = 0;
-  v5 = *(a1 + 40);
-  if (v5 && (v43 = std::__shared_weak_count::lock(v5)) != 0)
+  v5 = *(a1 + 5);
+  if (v5 && (v42 = std::__shared_weak_count::lock(v5)) != 0)
   {
-    v6 = *(a1 + 32);
-    v42 = v6;
+    v6 = *(a1 + 4);
+    v41 = v6;
   }
 
   else
@@ -7581,11 +7566,11 @@ uint64_t mav_router::device::controller_ios::controller_ios(uint64_t a1, std::__
     *&v8 = 0xAAAAAAAAAAAAAAAALL;
     *(&v8 + 1) = 0xAAAAAAAAAAAAAAAALL;
     v9 = __p;
-    v38[0] = 0xAAAAAAAAAAAAAAAALL;
+    v37[0] = 0xAAAAAAAAAAAAAAAALL;
     *__p = 0u;
-    v40 = 0u;
-    v41 = v8;
-    v38[1] = 20;
+    v39 = 0u;
+    v40 = v8;
+    v37[1] = 20;
     if (__p != (v6 + 56))
     {
       if (*(v6 + 79) < 0)
@@ -7596,23 +7581,23 @@ uint64_t mav_router::device::controller_ios::controller_ios(uint64_t a1, std::__
       else
       {
         *__p = *(v6 + 56);
-        *&v40 = *(v6 + 72);
+        *&v39 = *(v6 + 72);
       }
     }
 
     v10 = *(v6 + 80);
-    *(&v40 + 1) = *(v6 + 48);
-    *&v41 = v10;
-    DWORD2(v41) = *(v6 + 88);
-    v35 = capabilities::pci::controlChannelCount(v9);
+    *(&v39 + 1) = *(v6 + 48);
+    *&v40 = v10;
+    DWORD2(v40) = *(v6 + 88);
+    v34 = capabilities::pci::controlChannelCount(v9);
     *buf = MEMORY[0x29EDCA5F8];
-    v46 = 0x40000000;
-    *&v47 = ____mav_log_platform_os_log_handle_block_invoke;
-    *(&v47 + 1) = &__block_descriptor_tmp_0;
-    v48 = 0;
-    if (__mav_log_platform_os_log_handle::once != -1)
+    v45 = 0x40000000;
+    *&v46 = ____mav_log_platform_os_log_handle_block_invoke;
+    *(&v46 + 1) = &__block_descriptor_tmp_0;
+    v47 = 0;
+    if (__mav_log_platform_os_log_handle::once[0] != -1)
     {
-      dispatch_once(&__mav_log_platform_os_log_handle::once, buf);
+      dispatch_once(__mav_log_platform_os_log_handle::once, buf);
     }
 
     v11 = __mav_log_platform_os_log_handle::logger[0];
@@ -7620,34 +7605,34 @@ uint64_t mav_router::device::controller_ios::controller_ios(uint64_t a1, std::__
     {
       *buf = 67110402;
       *&buf[4] = 0;
-      v46 = 0x400000000010400;
-      LODWORD(v47) = 0;
-      WORD2(v47) = 2080;
-      *(&v47 + 6) = "mav_router::device::controller_ios::controller_ios(mav_router_weak_ptr_t)";
-      HIWORD(v47) = 1024;
-      v48 = 38;
-      v49 = 1024;
-      v50 = v35;
+      v45 = 0x400000000010400;
+      LODWORD(v46) = 0;
+      WORD2(v46) = 2080;
+      *(&v46 + 6) = "mav_router::device::controller_ios::controller_ios(mav_router_weak_ptr_t)";
+      HIWORD(v46) = 1024;
+      v47 = 38;
+      v48 = 1024;
+      v49 = v34;
       _os_log_impl(&dword_2990D9000, v11, OS_LOG_TYPE_INFO, "[%04x.%04u.%04u] %s:%u:PCI supported with %u control channels", buf, 0x2Au);
     }
 
-    if (v35)
+    if (v34)
     {
       v12 = 0;
       v13 = MEMORY[0x29EDCA5F8];
       while (1)
       {
         *buf = v13;
-        v46 = 0x40000000;
-        *&v47 = ____mav_log_platform_os_log_handle_block_invoke;
-        *(&v47 + 1) = &__block_descriptor_tmp_0;
-        v48 = 0;
-        if (__mav_log_platform_os_log_handle::once == -1)
+        v45 = 0x40000000;
+        *&v46 = ____mav_log_platform_os_log_handle_block_invoke;
+        *(&v46 + 1) = &__block_descriptor_tmp_0;
+        v47 = 0;
+        if (__mav_log_platform_os_log_handle::once[0] == -1)
         {
           break;
         }
 
-        dispatch_once(&__mav_log_platform_os_log_handle::once, buf);
+        dispatch_once(__mav_log_platform_os_log_handle::once, buf);
         v14 = __mav_log_platform_os_log_handle::logger[0];
         if (os_log_type_enabled(__mav_log_platform_os_log_handle::logger[0], OS_LOG_TYPE_INFO))
         {
@@ -7655,18 +7640,18 @@ uint64_t mav_router::device::controller_ios::controller_ios(uint64_t a1, std::__
         }
 
 LABEL_25:
-        LODWORD(v38[0]) = v12;
+        LODWORD(v37[0]) = v12;
         v15 = operator new(0xE0uLL);
         v16 = v15;
         v17 = a2[1];
-        v36 = *a2;
-        v37 = v17;
+        v35 = *a2;
+        v36 = v17;
         if (v17)
         {
           atomic_fetch_add_explicit(&v17->__shared_weak_owners_, 1uLL, memory_order_relaxed);
         }
 
-        mav_router::device::pci_shim::pci_shim(v15, &v36, v12 + 13, v38);
+        mav_router::device::pci_shim::pci_shim(v15, &v35, v12 + 13, v37);
         *buf = v16;
         v18 = operator new(0x20uLL);
         v18->__shared_owners_ = 0;
@@ -7674,7 +7659,7 @@ LABEL_25:
         v18->__vftable = &unk_2A1F2EC78;
         v18->__shared_weak_owners_ = 0;
         v18[1].__vftable = v16;
-        v46 = v18;
+        v45 = v18;
         v20 = *(v16 + 5);
         if (v20)
         {
@@ -7709,35 +7694,35 @@ LABEL_32:
         }
 
 LABEL_33:
-        if (v37)
+        if (v36)
         {
-          std::__shared_weak_count::__release_weak(v37);
+          std::__shared_weak_count::__release_weak(v36);
         }
 
         v21 = *buf;
         mav_router::device::pci_shim::init(*buf);
-        v22 = v46;
-        if (v46)
+        v22 = v45;
+        if (v45)
         {
-          atomic_fetch_add_explicit((v46 + 8), 1uLL, memory_order_relaxed);
+          atomic_fetch_add_explicit((v45 + 8), 1uLL, memory_order_relaxed);
         }
 
         v23 = operator new(0x20uLL);
         v23[2] = v21;
         v23[3] = v22;
-        v24 = *(a1 + 8);
+        v24 = *(a1 + 1);
         *v23 = v24;
         v23[1] = a1 + 8;
         *(v24 + 8) = v23;
-        *(a1 + 8) = v23;
-        ++*(a1 + 24);
+        *(a1 + 1) = v23;
+        ++*(a1 + 3);
         if (v22 && !atomic_fetch_add(&v22->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
         {
           (v22->__on_zero_shared)(v22);
           std::__shared_weak_count::__release_weak(v22);
         }
 
-        if (v35 == ++v12)
+        if (v34 == ++v12)
         {
           goto LABEL_42;
         }
@@ -7752,20 +7737,20 @@ LABEL_33:
 LABEL_24:
       *buf = 67110402;
       *&buf[4] = 0;
-      v46 = 0x400000000010400;
-      LODWORD(v47) = 0;
-      WORD2(v47) = 2080;
-      *(&v47 + 6) = "mav_router::device::controller_ios::controller_ios(mav_router_weak_ptr_t)";
-      HIWORD(v47) = 1024;
-      v48 = 42;
-      v49 = 1024;
-      v50 = v12;
+      v45 = 0x400000000010400;
+      LODWORD(v46) = 0;
+      WORD2(v46) = 2080;
+      *(&v46 + 6) = "mav_router::device::controller_ios::controller_ios(mav_router_weak_ptr_t)";
+      HIWORD(v46) = 1024;
+      v47 = 42;
+      v48 = 1024;
+      v49 = v12;
       _os_log_impl(&dword_2990D9000, v14, OS_LOG_TYPE_INFO, "[%04x.%04u.%04u] %s:%u:Create pci control for interface %u", buf, 0x2Au);
       goto LABEL_25;
     }
 
 LABEL_42:
-    if (SBYTE7(v40) < 0)
+    if (SBYTE7(v39) < 0)
     {
       operator delete(__p[0]);
     }
@@ -7778,21 +7763,21 @@ LABEL_42:
   if (v28)
   {
     atomic_fetch_add_explicit(&v28->__shared_weak_owners_, 1uLL, memory_order_relaxed);
-    v38[0] = v27;
-    v38[1] = v28;
+    v37[0] = v27;
+    v37[1] = v28;
     atomic_fetch_add_explicit(&v28->__shared_weak_owners_, 1uLL, memory_order_relaxed);
   }
 
   else
   {
-    v38[0] = *a2;
-    v38[1] = 0;
+    v37[0] = *a2;
+    v37[1] = 0;
   }
 
-  mav_router::device::shim::shim(v25, v38, 16);
-  if (v38[1])
+  mav_router::device::shim::shim(v25, v37, 16);
+  if (v37[1])
   {
-    std::__shared_weak_count::__release_weak(v38[1]);
+    std::__shared_weak_count::__release_weak(v37[1]);
   }
 
   v26->__vftable = &unk_2A1F2EB00;
@@ -7802,42 +7787,41 @@ LABEL_42:
   v29->__shared_owners_ = 0;
   v29->__shared_weak_owners_ = 0;
   v29[1].__vftable = v26;
-  v46 = v29;
+  v45 = v29;
   if (v28)
   {
     std::__shared_weak_count::__release_weak(v28);
   }
 
-  v38[0] = v26;
-  v38[1] = v29;
+  v37[0] = v26;
+  v37[1] = v29;
   atomic_fetch_add_explicit(&v29->__shared_owners_, 1uLL, memory_order_relaxed);
   v30 = operator new(0x20uLL);
   v30[2] = v26;
   v30[3] = v29;
-  v31 = *(a1 + 8);
+  v31 = *(a1 + 1);
   *v30 = v31;
   v30[1] = a1 + 8;
   *(v31 + 8) = v30;
-  *(a1 + 8) = v30;
-  ++*(a1 + 24);
+  *(a1 + 1) = v30;
+  ++*(a1 + 3);
   if (!atomic_fetch_add(&v29->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
     (v29->__on_zero_shared)(v29);
     std::__shared_weak_count::__release_weak(v29);
   }
 
-  v32 = v43;
-  if (v43 && !atomic_fetch_add(&v43->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  v32 = v42;
+  if (v42 && !atomic_fetch_add(&v42->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
     (v32->__on_zero_shared)(v32);
     std::__shared_weak_count::__release_weak(v32);
   }
 
-  v33 = *MEMORY[0x29EDCA608];
   return a1;
 }
 
-void sub_2990E39B4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, char a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17, std::__shared_weak_count *a18, void *__p, uint64_t a20, int a21, __int16 a22, char a23, char a24, uint64_t a25, uint64_t a26, uint64_t a27, char a28, uint64_t a29, uint64_t a30, uint64_t a31, char a32)
+void sub_2990E39B4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, char a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17, std::__shared_weak_count *a18, void *__p, uint64_t a20, int a21, __int16 a22, char a23, char a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, char a32)
 {
   if (a24 < 0)
   {
@@ -7850,24 +7834,24 @@ void sub_2990E39B4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void mav_router::device::controller_ios::determine_mappings(uint64_t **this)
+void mav_router::device::controller_ios::determine_mappings(uint64_t ***this)
 {
-  v59 = *MEMORY[0x29EDCA608];
-  v40 = 0xAAAAAAAAAAAAAAAALL;
-  v41 = 0x4AAAAAAAAAAAAAALL;
-  v38 = 0xC00000000000000;
-  v39 = 0xAAAAAA0078756D71;
-  BYTE5(v37[1]) = 0;
-  HIWORD(v37[1]) = 0;
-  strcpy(v37, "qmux_control");
+  v57 = *MEMORY[0x29EDCA608];
+  v38 = 0xAAAAAAAAAAAAAAAALL;
+  v39 = 0x4AAAAAAAAAAAAAALL;
+  v36 = 0xC00000000000000;
+  v37 = 0xAAAAAA0078756D71;
+  BYTE5(v35[1]) = 0;
+  HIWORD(v35[1]) = 0;
+  strcpy(v35, "qmux_control");
   *buf = MEMORY[0x29EDCA5F8];
   *&buf[8] = 0x40000000;
-  *&v43 = ____mav_log_platform_os_log_handle_block_invoke;
-  *(&v43 + 1) = &__block_descriptor_tmp_0;
-  LODWORD(v44) = 0;
-  if (__mav_log_platform_os_log_handle::once != -1)
+  *&v41 = ____mav_log_platform_os_log_handle_block_invoke;
+  *(&v41 + 1) = &__block_descriptor_tmp_0;
+  LODWORD(v42) = 0;
+  if (__mav_log_platform_os_log_handle::once[0] != -1)
   {
-    dispatch_once(&__mav_log_platform_os_log_handle::once, buf);
+    dispatch_once(__mav_log_platform_os_log_handle::once, buf);
   }
 
   v2 = __mav_log_platform_os_log_handle::logger[0];
@@ -7878,21 +7862,19 @@ void mav_router::device::controller_ios::determine_mappings(uint64_t **this)
     *&buf[8] = 1024;
     *&buf[10] = 1;
     *&buf[14] = 1024;
-    LODWORD(v43) = 0;
-    WORD2(v43) = 2080;
-    *(&v43 + 6) = "void mav_router::device::controller_ios::determine_mappings()";
-    HIWORD(v43) = 1024;
-    LODWORD(v44) = 107;
-    WORD2(v44) = 1024;
-    *(&v44 + 6) = 2;
+    LODWORD(v41) = 0;
+    WORD2(v41) = 2080;
+    *(&v41 + 6) = "void mav_router::device::controller_ios::determine_mappings()";
+    HIWORD(v41) = 1024;
+    LODWORD(v42) = 107;
+    WORD2(v42) = 1024;
+    *(&v42 + 6) = 2;
     _os_log_impl(&dword_2990D9000, v2, OS_LOG_TYPE_INFO, "[%04x.%04u.%04u] %s:%u:Number of local QMI instances %u", buf, 0x2Au);
   }
 
-  v58 = 0xAAAAAAAAAAAAAAAALL;
+  v56 = 0xAAAAAAAAAAAAAAAALL;
   *&v3 = 0xAAAAAAAAAAAAAAAALL;
   *(&v3 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v56 = v3;
-  v57 = v3;
   v54 = v3;
   v55 = v3;
   v52 = v3;
@@ -7905,49 +7887,51 @@ void mav_router::device::controller_ios::determine_mappings(uint64_t **this)
   v47 = v3;
   v44 = v3;
   v45 = v3;
-  *buf = v3;
+  v42 = v3;
   v43 = v3;
+  *buf = v3;
+  v41 = v3;
   std::ostringstream::basic_ostringstream[abi:ne200100](buf);
-  if (v41 >= 0)
+  if (v39 >= 0)
   {
-    v4 = &v39;
+    v4 = &v37;
   }
 
   else
   {
-    v4 = v39;
+    v4 = v37;
   }
 
-  if (v41 >= 0)
+  if (v39 >= 0)
   {
-    v5 = HIBYTE(v41);
+    v5 = HIBYTE(v39);
   }
 
   else
   {
-    v5 = v40;
+    v5 = v38;
   }
 
   v6 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(buf, v4, v5);
   MEMORY[0x29C297CF0](v6, 1);
-  v7 = &v45;
-  v35 = this;
+  v7 = &v43;
+  v33 = this;
   memset(__dst, 170, sizeof(__dst));
-  if ((BYTE8(v48) & 0x10) != 0)
+  if ((BYTE8(v46) & 0x10) != 0)
   {
-    v10 = v48;
-    v11 = &v45;
-    if (v48 < *(&v45 + 1))
+    v10 = v46;
+    v11 = &v43;
+    if (v46 < *(&v43 + 1))
     {
-      *&v48 = *(&v45 + 1);
-      v10 = *(&v45 + 1);
-      v11 = &v45;
+      *&v46 = *(&v43 + 1);
+      v10 = *(&v43 + 1);
+      v11 = &v43;
     }
   }
 
   else
   {
-    if ((BYTE8(v48) & 8) == 0)
+    if ((BYTE8(v46) & 8) == 0)
     {
       v8 = 0;
       HIBYTE(__dst[2]) = 0;
@@ -7955,8 +7939,8 @@ void mav_router::device::controller_ios::determine_mappings(uint64_t **this)
       goto LABEL_26;
     }
 
-    v10 = *(&v44 + 1);
-    v11 = &v43 + 1;
+    v10 = *(&v42 + 1);
+    v11 = &v41 + 1;
   }
 
   v12 = *v11;
@@ -7982,7 +7966,7 @@ void mav_router::device::controller_ios::determine_mappings(uint64_t **this)
     __dst[1] = v8;
     __dst[2] = (v13 | 0x8000000000000000);
     __dst[0] = v9;
-    this = v35;
+    this = v33;
     goto LABEL_25;
   }
 
@@ -8013,21 +7997,19 @@ LABEL_26:
   *&buf[*(v15 - 24)] = v16;
   v20 = MEMORY[0x29EDC9570] + 16;
   *&buf[8] = MEMORY[0x29EDC9570] + 16;
-  if (SHIBYTE(v47) < 0)
+  if (SHIBYTE(v45) < 0)
   {
-    operator delete(*(&v46 + 1));
+    operator delete(*(&v44 + 1));
   }
 
   v21 = MEMORY[0x29EDC9568] + 16;
   *&buf[8] = MEMORY[0x29EDC9568] + 16;
-  std::locale::~locale(&v43);
+  std::locale::~locale(&v41);
   std::ostream::~ostream();
-  MEMORY[0x29C297D80](&v49);
-  v58 = 0xAAAAAAAAAAAAAAAALL;
+  MEMORY[0x29C297D80](&v47);
+  v56 = 0xAAAAAAAAAAAAAAAALL;
   *&v22 = 0xAAAAAAAAAAAAAAAALL;
   *(&v22 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v56 = v22;
-  v57 = v22;
   v54 = v22;
   v55 = v22;
   v52 = v22;
@@ -8040,45 +8022,47 @@ LABEL_26:
   v47 = v22;
   v44 = v22;
   v45 = v22;
-  *buf = v22;
+  v42 = v22;
   v43 = v22;
+  *buf = v22;
+  v41 = v22;
   std::ostringstream::basic_ostringstream[abi:ne200100](buf);
-  if (v41 >= 0)
+  if (v39 >= 0)
   {
-    v23 = &v39;
+    v23 = &v37;
   }
 
   else
   {
-    v23 = v39;
+    v23 = v37;
   }
 
-  if (v41 >= 0)
+  if (v39 >= 0)
   {
-    v24 = HIBYTE(v41);
+    v24 = HIBYTE(v39);
   }
 
   else
   {
-    v24 = v40;
+    v24 = v38;
   }
 
   v25 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(buf, v23, v24);
   MEMORY[0x29C297CF0](v25, 2);
   memset(__dst, 170, sizeof(__dst));
-  if ((BYTE8(v48) & 0x10) != 0)
+  if ((BYTE8(v46) & 0x10) != 0)
   {
-    v28 = v48;
-    if (v48 < *(&v45 + 1))
+    v28 = v46;
+    if (v46 < *(&v43 + 1))
     {
-      *&v48 = *(&v45 + 1);
-      v28 = *(&v45 + 1);
+      *&v46 = *(&v43 + 1);
+      v28 = *(&v43 + 1);
     }
   }
 
   else
   {
-    if ((BYTE8(v48) & 8) == 0)
+    if ((BYTE8(v46) & 8) == 0)
     {
       v26 = 0;
       HIBYTE(__dst[2]) = 0;
@@ -8086,8 +8070,8 @@ LABEL_26:
       goto LABEL_51;
     }
 
-    v28 = *(&v44 + 1);
-    v7 = &v43 + 1;
+    v28 = *(&v42 + 1);
+    v7 = &v41 + 1;
   }
 
   v29 = *v7;
@@ -8127,7 +8111,7 @@ LABEL_50:
 
 LABEL_51:
   *(v27 + v26) = 0;
-  *(std::__tree<std::__value_type<std::string,mav_router_channel_t>,std::__map_value_compare<std::string,std::__value_type<std::string,mav_router_channel_t>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,mav_router_channel_t>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v35 + 6, __dst, __dst) + 14) = 5;
+  *(std::__tree<std::__value_type<std::string,mav_router_channel_t>,std::__map_value_compare<std::string,std::__value_type<std::string,mav_router_channel_t>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,mav_router_channel_t>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v33 + 6, __dst, __dst) + 14) = 5;
   if (SHIBYTE(__dst[2]) < 0)
   {
     operator delete(__dst[0]);
@@ -8136,24 +8120,24 @@ LABEL_51:
   *buf = v18;
   *&buf[*(v19 - 24)] = v16;
   *&buf[8] = v20;
-  if (SHIBYTE(v47) < 0)
+  if (SHIBYTE(v45) < 0)
   {
-    operator delete(*(&v46 + 1));
+    operator delete(*(&v44 + 1));
   }
 
   *&buf[8] = v21;
-  std::locale::~locale(&v43);
+  std::locale::~locale(&v41);
   std::ostream::~ostream();
-  MEMORY[0x29C297D80](&v49);
+  MEMORY[0x29C297D80](&v47);
   memset(buf, 0, sizeof(buf));
-  v31 = v35[5];
+  v31 = v33[5];
   if (v31)
   {
     v32 = std::__shared_weak_count::lock(v31);
     *&buf[8] = v32;
     if (v32)
     {
-      *buf = v35[4];
+      *buf = v33[4];
     }
   }
 
@@ -8163,42 +8147,35 @@ LABEL_51:
   }
 
   pthread_once(&ctu::concurrency::Singleton<mav_router_ios_preferences,ctu::concurrency::__DefaultFactory<mav_router_ios_preferences>>::getInstance(void)::sOnce, ctu::concurrency::Singleton<mav_router_ios_preferences,ctu::concurrency::__DefaultFactory<mav_router_ios_preferences>>::__init);
-  *(std::__tree<std::__value_type<std::string,mav_router_channel_t>,std::__map_value_compare<std::string,std::__value_type<std::string,mav_router_channel_t>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,mav_router_channel_t>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v35 + 6, v37, v37) + 14) = 4;
-  if (!v32 || atomic_fetch_add(&v32->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  *(std::__tree<std::__value_type<std::string,mav_router_channel_t>,std::__map_value_compare<std::string,std::__value_type<std::string,mav_router_channel_t>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,mav_router_channel_t>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v33 + 6, v35, v35) + 14) = 4;
+  if (v32 && !atomic_fetch_add(&v32->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
-    if ((SHIBYTE(v38) & 0x80000000) == 0)
+    (v32->__on_zero_shared)(v32);
+    std::__shared_weak_count::__release_weak(v32);
+    if ((SHIBYTE(v36) & 0x80000000) == 0)
     {
-      goto LABEL_62;
-    }
-
-LABEL_65:
-    operator delete(v37[0]);
-    if ((SHIBYTE(v41) & 0x80000000) == 0)
-    {
-      goto LABEL_63;
-    }
-
-    goto LABEL_66;
-  }
-
-  (v32->__on_zero_shared)(v32);
-  std::__shared_weak_count::__release_weak(v32);
-  if (SHIBYTE(v38) < 0)
-  {
-    goto LABEL_65;
-  }
-
 LABEL_62:
-  if ((SHIBYTE(v41) & 0x80000000) == 0)
-  {
-LABEL_63:
-    v33 = *MEMORY[0x29EDCA608];
-    return;
-  }
+      if ((SHIBYTE(v39) & 0x80000000) == 0)
+      {
+        return;
+      }
 
 LABEL_66:
-  operator delete(v39);
-  v34 = *MEMORY[0x29EDCA608];
+      operator delete(v37);
+      return;
+    }
+  }
+
+  else if ((SHIBYTE(v36) & 0x80000000) == 0)
+  {
+    goto LABEL_62;
+  }
+
+  operator delete(v35[0]);
+  if (SHIBYTE(v39) < 0)
+  {
+    goto LABEL_66;
+  }
 }
 
 void sub_2990E422C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21, void *a22, uint64_t a23, int a24, __int16 a25, char a26, char a27, char a28)
@@ -8593,7 +8570,7 @@ uint64_t mav_router::device::controller_ios::get_channel_for_service(uint64_t a1
       v8 = *(v3 + 55);
       v9 = v8 >= 0 ? v3 + 4 : v3[4];
       v10 = v8 >= 0 ? *(v3 + 55) : v3[5];
-      v11 = v6 >= v10 ? v10 : v6;
+      v11 = (v6 >= v10 ? v10 : v6);
       v12 = memcmp(v9, v5, v11);
       if (v12)
       {
@@ -8823,7 +8800,7 @@ uint64_t std::__shared_ptr_pointer<mav_router::device::null_shim *,std::shared_p
   return result;
 }
 
-char *std::__tree<std::__value_type<std::string,mav_router_channel_t>,std::__map_value_compare<std::string,std::__value_type<std::string,mav_router_channel_t>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,mav_router_channel_t>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(uint64_t **a1, const void **a2, uint64_t a3)
+uint64_t **std::__tree<std::__value_type<std::string,mav_router_channel_t>,std::__map_value_compare<std::string,std::__value_type<std::string,mav_router_channel_t>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,mav_router_channel_t>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(uint64_t ***a1, const void **a2, uint64_t a3)
 {
   v6 = (a1 + 1);
   v5 = a1[1];
@@ -8967,9 +8944,9 @@ LABEL_29:
   return v21;
 }
 
-void sub_2990E4EB4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2990E4EB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__tree_node<std::__value_type<std::string,mav_router_channel_t>,void *>,std::__tree_node_destructor<std::allocator<std::__tree_node<std::__value_type<std::string,mav_router_channel_t>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }

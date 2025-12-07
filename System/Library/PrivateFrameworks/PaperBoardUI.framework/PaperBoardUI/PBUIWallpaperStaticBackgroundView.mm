@@ -234,7 +234,7 @@ void __102__PBUIWallpaperStaticBackgroundView_setWallpaperStyleTransitionState_f
   }
 }
 
-uint64_t __102__PBUIWallpaperStaticBackgroundView_setWallpaperStyleTransitionState_forVariant_withAnimationFactory___block_invoke_2(uint64_t a1)
+void *__102__PBUIWallpaperStaticBackgroundView_setWallpaperStyleTransitionState_forVariant_withAnimationFactory___block_invoke_2(uint64_t a1)
 {
   v2 = *(a1 + 32);
   v3 = *(*(a1 + 48) + 8);
@@ -301,15 +301,15 @@ void *__102__PBUIWallpaperStaticBackgroundView_setWallpaperStyleTransitionState_
 
   if (!wallpaperStyleAnimationAssertion)
   {
-    v4 = PBUILogCommon();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+    v5 = PBUILogCommon(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
-      *v6 = 0;
-      _os_log_impl(&dword_21E67D000, v4, OS_LOG_TYPE_INFO, "Disabling parallax because of requested wallpaper style", v6, 2u);
+      *v7 = 0;
+      _os_log_impl(&dword_21E67D000, v5, OS_LOG_TYPE_INFO, "Disabling parallax because of requested wallpaper style", v7, 2u);
     }
 
-    v5 = [(PBUIWallpaperPresenting *)self->_wallpaperPresenter suspendWallpaperAnimationForReason:@"PBUIWallpaperEffectViewIsDarkOrHiddenReason"];
-    [(PBUIWallpaperStaticBackgroundView *)self setWallpaperStyleAnimationAssertion:v5];
+    v6 = [(PBUIWallpaperPresenting *)self->_wallpaperPresenter suspendWallpaperAnimationForReason:@"PBUIWallpaperEffectViewIsDarkOrHiddenReason"];
+    [(PBUIWallpaperStaticBackgroundView *)self setWallpaperStyleAnimationAssertion:v6];
   }
 }
 
@@ -319,11 +319,11 @@ void *__102__PBUIWallpaperStaticBackgroundView_setWallpaperStyleTransitionState_
 
   if (wallpaperStyleAnimationAssertion)
   {
-    v4 = PBUILogCommon();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+    v5 = PBUILogCommon(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
-      *v6 = 0;
-      _os_log_impl(&dword_21E67D000, v4, OS_LOG_TYPE_INFO, "Enabling parallax because of requested wallpaper style", v6, 2u);
+      *v7 = 0;
+      _os_log_impl(&dword_21E67D000, v5, OS_LOG_TYPE_INFO, "Enabling parallax because of requested wallpaper style", v7, 2u);
     }
 
     wallpaperStyleAnimationAssertion2 = [(PBUIWallpaperStaticBackgroundView *)self wallpaperStyleAnimationAssertion];

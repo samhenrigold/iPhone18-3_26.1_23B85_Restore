@@ -8,92 +8,94 @@
 
 - (id)elementsOrderedByPromotionFromTemporallyOrderedElements:(id)elements withPreviousOrdering:(id)ordering
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   elementsCopy = elements;
   orderingCopy = ordering;
-  if ([elementsCopy count] <= 1)
+  v8 = [elementsCopy count];
+  if (v8 <= 1)
   {
-    v8 = elementsCopy;
+    v9 = elementsCopy;
+    v10 = v9;
     goto LABEL_29;
   }
 
-  v9 = SBLogSystemApertureMediation();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v11 = SBLogSystemApertureMediation(v8);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = [elementsCopy bs_mapNoNulls:&__block_literal_global_30_2];
-    v11 = [orderingCopy bs_mapNoNulls:&__block_literal_global_32_3];
+    v12 = [elementsCopy bs_mapNoNulls:&__block_literal_global_30_2];
+    v13 = [orderingCopy bs_mapNoNulls:&__block_literal_global_32_3];
     *buf = 138543618;
-    v40 = v10;
-    v41 = 2114;
-    v42 = v11;
-    _os_log_impl(&dword_21ED4E000, v9, OS_LOG_TYPE_DEFAULT, "Ordering elements by promotion: temporallyOrderedElements: %{public}@; previouslyOrderedElements: %{public}@", buf, 0x16u);
+    v43 = v12;
+    v44 = 2114;
+    v45 = v13;
+    _os_log_impl(&dword_21ED4E000, v11, OS_LOG_TYPE_DEFAULT, "Ordering elements by promotion: temporallyOrderedElements: %{public}@; previouslyOrderedElements: %{public}@", buf, 0x16u);
   }
 
   WeakRetained = objc_loadWeakRetained(&self->_elementAuthorityDelegate);
-  v35[0] = MEMORY[0x277D85DD0];
-  v35[1] = 3221225472;
-  v35[2] = __113__SBSystemApertureElementAuthority_elementsOrderedByPromotionFromTemporallyOrderedElements_withPreviousOrdering___block_invoke_33;
-  v35[3] = &unk_2783BAAC0;
-  v13 = WeakRetained;
-  v36 = v13;
+  v38[0] = MEMORY[0x277D85DD0];
+  v38[1] = 3221225472;
+  v38[2] = __113__SBSystemApertureElementAuthority_elementsOrderedByPromotionFromTemporallyOrderedElements_withPreviousOrdering___block_invoke_33;
+  v38[3] = &unk_2783BAAC0;
+  v15 = WeakRetained;
+  v39 = v15;
   selfCopy = self;
-  v38 = elementsCopy;
-  v8 = [v38 sortedArrayUsingComparator:v35];
-  v14 = SBLogSystemApertureMediation();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+  v41 = elementsCopy;
+  v10 = [v41 sortedArrayUsingComparator:v38];
+  v16 = SBLogSystemApertureMediation(v10);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
-    v15 = [v8 bs_mapNoNulls:&__block_literal_global_69_1];
+    v17 = [v10 bs_mapNoNulls:&__block_literal_global_69_1];
     *buf = 138543362;
-    v40 = v15;
-    _os_log_impl(&dword_21ED4E000, v14, OS_LOG_TYPE_DEFAULT, "Ordered elements after initial sort: %{public}@", buf, 0xCu);
+    v43 = v17;
+    _os_log_impl(&dword_21ED4E000, v16, OS_LOG_TYPE_DEFAULT, "Ordered elements after initial sort: %{public}@", buf, 0xCu);
   }
 
-  v16 = [v13 systemApertureApertureElementAuthorityMaximumNumberOfSimultaneouslyVisibleElements:self];
-  if ([v8 count] <= v16)
+  v18 = [v15 systemApertureApertureElementAuthorityMaximumNumberOfSimultaneouslyVisibleElements:self];
+  if ([v10 count] <= v18)
   {
     goto LABEL_28;
   }
 
-  firstObject = [v8 firstObject];
-  v18 = [v13 systemApertureApertureElementAuthority:self preferredLayoutModeForElement:firstObject];
+  firstObject = [v10 firstObject];
+  v20 = [v15 systemApertureApertureElementAuthority:self preferredLayoutModeForElement:firstObject];
 
-  if (v18 > 2)
+  if (v20 > 2)
   {
     goto LABEL_28;
   }
 
-  v33 = orderingCopy;
-  v34 = elementsCopy;
-  if (![v8 count])
+  v36 = orderingCopy;
+  v37 = elementsCopy;
+  if (![v10 count])
   {
-    v20 = 0;
-    v19 = 0;
+    v22 = 0;
+    v21 = 0;
     goto LABEL_25;
   }
 
-  v19 = 0;
-  v20 = 0;
   v21 = 0;
+  v22 = 0;
+  v23 = 0;
   while (1)
   {
-    v22 = [v8 objectAtIndexedSubscript:v21];
-    v23 = [v13 systemApertureApertureElementAuthority:self isElementPreferringToRemainVisible:v22];
-    if (((v23 | [v13 systemApertureApertureElementAuthority:self isElementRequiredPriority:v22]) & 1) != 0 && v21 >= v16)
+    v24 = [v10 objectAtIndexedSubscript:v23];
+    v25 = [v15 systemApertureApertureElementAuthority:self isElementPreferringToRemainVisible:v24];
+    if (((v25 | [v15 systemApertureApertureElementAuthority:self isElementRequiredPriority:v24]) & 1) != 0 && v23 >= v18)
     {
       break;
     }
 
 LABEL_19:
 
-    if (++v21 >= [v8 count])
+    if (++v23 >= [v10 count])
     {
       goto LABEL_25;
     }
   }
 
-  if (v19)
+  if (v21)
   {
-    if (v20)
+    if (v22)
     {
       goto LABEL_15;
     }
@@ -101,59 +103,60 @@ LABEL_19:
 
   else
   {
-    v19 = objc_alloc_init(MEMORY[0x277CBEB18]);
-    if (v20)
+    v21 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    if (v22)
     {
       goto LABEL_15;
     }
   }
 
-  v20 = objc_alloc_init(MEMORY[0x277CCAB58]);
+  v22 = objc_alloc_init(MEMORY[0x277CCAB58]);
 LABEL_15:
-  if ([v19 count] < v16)
+  v26 = [v21 count];
+  if (v26 < v18)
   {
-    v24 = SBLogSystemApertureMediation();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+    v27 = SBLogSystemApertureMediation(v26);
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
     {
-      v25 = _SBShortElementDescription(v22);
+      v28 = _SBShortElementDescription(v24);
       *buf = 138543362;
-      v40 = v25;
-      _os_log_impl(&dword_21ED4E000, v24, OS_LOG_TYPE_DEFAULT, "Prioritizing '%{public}@' since it prefers visibility", buf, 0xCu);
+      v43 = v28;
+      _os_log_impl(&dword_21ED4E000, v27, OS_LOG_TYPE_DEFAULT, "Prioritizing '%{public}@' since it prefers visibility", buf, 0xCu);
     }
 
-    [v19 addObject:v22];
-    [v20 addIndex:v21];
+    [v21 addObject:v24];
+    [v22 addIndex:v23];
     goto LABEL_19;
   }
 
 LABEL_25:
-  v26 = [v19 count];
-  orderingCopy = v33;
-  if (v26)
+  v29 = [v21 count];
+  orderingCopy = v36;
+  if (v29)
   {
-    v27 = v26;
-    v28 = [v8 mutableCopy];
-    [v28 removeObjectsAtIndexes:v20];
-    v29 = [objc_alloc(MEMORY[0x277CCAA78]) initWithIndexesInRange:{v16 - v27, v27}];
-    [v28 insertObjects:v19 atIndexes:v29];
+    v30 = v29;
+    v31 = [v10 mutableCopy];
+    [v31 removeObjectsAtIndexes:v22];
+    v32 = [objc_alloc(MEMORY[0x277CCAA78]) initWithIndexesInRange:{v18 - v30, v30}];
+    [v31 insertObjects:v21 atIndexes:v32];
 
-    v8 = v28;
+    v10 = v31;
   }
 
-  elementsCopy = v34;
+  elementsCopy = v37;
 LABEL_28:
 
 LABEL_29:
-  v30 = SBLogSystemApertureMediation();
-  if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+  v33 = SBLogSystemApertureMediation(v9);
+  if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
   {
-    v31 = [v8 bs_mapNoNulls:&__block_literal_global_75_0];
+    v34 = [v10 bs_mapNoNulls:&__block_literal_global_75_0];
     *buf = 138543362;
-    v40 = v31;
-    _os_log_impl(&dword_21ED4E000, v30, OS_LOG_TYPE_DEFAULT, "Elements ordered by promotion: %{public}@", buf, 0xCu);
+    v43 = v34;
+    _os_log_impl(&dword_21ED4E000, v33, OS_LOG_TYPE_DEFAULT, "Elements ordered by promotion: %{public}@", buf, 0xCu);
   }
 
-  return v8;
+  return v10;
 }
 
 uint64_t __113__SBSystemApertureElementAuthority_elementsOrderedByPromotionFromTemporallyOrderedElements_withPreviousOrdering___block_invoke_33(uint64_t a1, void *a2, void *a3)
@@ -357,7 +360,7 @@ LABEL_29:
 LABEL_40:
 
 LABEL_41:
-  v46 = SBLogSystemApertureMediation();
+  v46 = SBLogSystemApertureMediation(v8);
   if (os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT))
   {
     if (v33 == 1)

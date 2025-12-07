@@ -53,16 +53,17 @@
 
 - (void)didTriggerPrimaryAction:(id)action
 {
-  v4 = (self + OBJC_IVAR____TtC12GameStoreKit18ImageAlignedButton_primaryActionHandler);
+  v4 = self + OBJC_IVAR____TtC12GameStoreKit18ImageAlignedButton_primaryActionHandler;
   swift_beginAccess();
   v5 = *v4;
   if (*v4)
   {
+    v6 = *(v4 + 1);
     selfCopy = self;
-    v7 = sub_24E5FCA4C(v5);
-    v5(v7);
+    v8 = sub_24E5FCA4C(v5, v6);
+    v5(v8);
 
-    sub_24E824448(v5);
+    sub_24E824448(v5, v6);
   }
 }
 

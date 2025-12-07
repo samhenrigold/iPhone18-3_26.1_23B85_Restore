@@ -435,11 +435,11 @@ void __50___UIAssetManager_imageNamed_scale_idiom_subtype___block_invoke(double 
 void __44___UIAssetManager_imageNamed_configuration___block_invoke()
 {
   v2 = _UIMainBundleIdentifier();
-  v1 = [v2 isEqualToString:@"com.tophatch.Concepts"];
-  if ((v1 & 1) == 0)
+  isEqualToString = objc_msgSend_isEqualToString_(v2);
+  if ((isEqualToString & 1) == 0)
   {
     v0 = _UIMainBundleIdentifier();
-    if (([v0 isEqualToString:@"com.dji.go"] & 1) == 0)
+    if ((objc_msgSend_isEqualToString_(v0) & 1) == 0)
     {
       _MergedGlobals_1354 = 0;
       goto LABEL_6;
@@ -447,7 +447,7 @@ void __44___UIAssetManager_imageNamed_configuration___block_invoke()
   }
 
   _MergedGlobals_1354 = dyld_program_sdk_at_least() ^ 1;
-  if ((v1 & 1) == 0)
+  if ((isEqualToString & 1) == 0)
   {
 LABEL_6:
   }

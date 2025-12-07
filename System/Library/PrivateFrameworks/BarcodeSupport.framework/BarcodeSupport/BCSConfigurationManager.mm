@@ -140,22 +140,19 @@ uint64_t __71__BCSConfigurationManager_processAppClipImageWithURL_scale_completi
 
 void __79__BCSConfigurationManager_setUpQRCodeControlCenterModuleWithCompletionHandler___block_invoke_cold_1(void *a1)
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
   v1 = [a1 _bcs_privacyPreservingDescription];
-  v3 = 138543362;
-  v4 = v1;
-  _os_log_error_impl(&dword_241993000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "BCSConfigurationManager: Error getting remote object proxy: %{public}@", &v3, 0xCu);
-
-  v2 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
+  v3 = v1;
+  _os_log_error_impl(&dword_241993000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "BCSConfigurationManager: Error getting remote object proxy: %{public}@", &v2, 0xCu);
 }
 
 void __71__BCSConfigurationManager_processAppClipImageWithURL_scale_completion___block_invoke_cold_1(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 138543362;
-  v3 = a1;
-  _os_log_error_impl(&dword_241993000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "BCSConfigurationManager: Error getting remote object proxy: %{public}@", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 138543362;
+  v2 = a1;
+  _os_log_error_impl(&dword_241993000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "BCSConfigurationManager: Error getting remote object proxy: %{public}@", &v1, 0xCu);
 }
 
 @end

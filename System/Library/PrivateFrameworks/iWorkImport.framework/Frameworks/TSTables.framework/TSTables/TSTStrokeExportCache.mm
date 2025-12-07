@@ -26,31 +26,31 @@
 
 - (id)strokeAtIndex:(unsigned int)index
 {
-  v5 = *&index;
-  v7 = objc_msgSend_range(self, a2, *&index, v3, v4);
-  if (!v8 || v7 > v5 || &v8[v7 - 1] < v5)
+  v4 = *&index;
+  v6 = objc_msgSend_range(self, a2, *&index, v3);
+  if (!v7 || v6 > v4 || &v7[v6 - 1] < v4)
   {
-    v12 = objc_msgSend_mergedStrokes(self, v8, v9, v10, v11);
-    v21[0] = MEMORY[0x277D85DD0];
-    v21[1] = 3221225472;
-    v21[2] = sub_221467864;
-    v21[3] = &unk_278465880;
-    v21[4] = self;
-    objc_msgSend_enumerateStrokesFrom_to_usingBlock_(v12, v13, v5, 2147483646, v21);
+    v10 = objc_msgSend_mergedStrokes(self, v7, v8, v9);
+    v18[0] = MEMORY[0x277D85DD0];
+    v18[1] = 3221225472;
+    v18[2] = sub_221467864;
+    v18[3] = &unk_278465880;
+    v18[4] = self;
+    objc_msgSend_enumerateStrokesFrom_to_usingBlock_(v10, v11, v4, 2147483646, v18);
   }
 
-  v14 = objc_msgSend_range(self, v8, v9, v10, v11);
-  if (v15 && v14 <= v5 && &v15[v14 - 1] >= v5)
+  v12 = objc_msgSend_range(self, v7, v8, v9);
+  if (v13 && v12 <= v4 && &v13[v12 - 1] >= v4)
   {
-    v19 = objc_msgSend_stroke(self, v15, v16, v17, v18);
+    v16 = objc_msgSend_stroke(self, v13, v14, v15);
   }
 
   else
   {
-    v19 = 0;
+    v16 = 0;
   }
 
-  return v19;
+  return v16;
 }
 
 - (TSTSimpleRange)range

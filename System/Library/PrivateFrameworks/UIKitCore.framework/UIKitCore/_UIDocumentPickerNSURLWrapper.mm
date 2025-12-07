@@ -21,7 +21,7 @@
   v7 = objc_alloc_init(_UIDocumentPickerNSURLWrapper);
   [(_UIDocumentPickerNSURLWrapper *)v7 setUrl:lCopy];
   v8 = _CFURLPromiseCopyPhysicalURL();
-  if (([lCopy isEqual:v8] & 1) == 0)
+  if ((objc_msgSend_isEqual_(lCopy) & 1) == 0)
   {
     [(_UIDocumentPickerNSURLWrapper *)v7 setPromiseURL:v8];
   }
@@ -133,7 +133,7 @@ LABEL_15:
   if (scope)
   {
     v10 = _CFURLPromiseCopyPhysicalURL();
-    if (!v10 || ([lCopy isEqual:v10] & 1) != 0 || (-[_UIDocumentPickerNSURLWrapper setPromiseURL:](v6, "setPromiseURL:", v10), objc_msgSend(v10, "ui_issueReadSandboxExtensionWithError:", error), v11 = objc_claimAutoreleasedReturnValue(), -[_UIDocumentPickerNSURLWrapper setPromiseScope:](v6, "setPromiseScope:", v11), v11, -[_UIDocumentPickerNSURLWrapper promiseScope](v6, "promiseScope"), v12 = objc_claimAutoreleasedReturnValue(), v12, v12))
+    if (!v10 || (objc_msgSend_isEqual_(lCopy) & 1) != 0 || (-[_UIDocumentPickerNSURLWrapper setPromiseURL:](v6, "setPromiseURL:", v10), [v10 ui_issueReadSandboxExtensionWithError:error], v11 = objc_claimAutoreleasedReturnValue(), -[_UIDocumentPickerNSURLWrapper setPromiseScope:](v6, "setPromiseScope:", v11), v11, -[_UIDocumentPickerNSURLWrapper promiseScope](v6, "promiseScope"), v12 = objc_claimAutoreleasedReturnValue(), v12, v12))
     {
       v12 = v6;
     }

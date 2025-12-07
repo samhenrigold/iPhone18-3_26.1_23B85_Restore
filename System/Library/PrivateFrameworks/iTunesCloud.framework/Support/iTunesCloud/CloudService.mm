@@ -1,6 +1,7 @@
 @interface CloudService
 - (CloudService)initWithHandlerProvider:(id)provider;
 - (ICDHandlerProviding)handlerProvider;
+- (void)_updateSagaLibraryWithReason:(int64_t)reason allowNoisyAuthPrompt:(BOOL)prompt forConfiguration:(id)configuration completionHandler:(id)handler;
 - (void)addGeniusPlaylistWithPersistentID:(int64_t)d name:(id)name seedItemSagaIDs:(id)ds itemSagaIDs:(id)iDs configuration:(id)configuration completion:(id)completion;
 - (void)addItemWithSagaID:(int64_t)d toPlaylistWithPersistentID:(int64_t)iD configuration:(id)configuration completion:(id)completion;
 - (void)addStoreItemWithAdamID:(int64_t)d referral:(id)referral configuration:(id)configuration completion:(id)completion;
@@ -80,7 +81,9 @@
 - (void)removePinnedAlbumWithPersistentID:(int64_t)d cloudAlbumID:(id)iD configuration:(id)configuration completion:(id)completion;
 - (void)removePinnedArtistWithPersistentID:(int64_t)d cloudArtistID:(id)iD configuration:(id)configuration completion:(id)completion;
 - (void)removePinnedEntityWithPersistentID:(int64_t)d cloudID:(int64_t)iD type:(int64_t)type configuration:(id)configuration completion:(id)completion;
+- (void)removePlaylistsWithSagaIDs:(id)ds performDeltaSync:(BOOL)sync configuration:(id)configuration completion:(id)completion;
 - (void)resetInvitationURLForCollaborationWithPersistentID:(int64_t)d configuration:(id)configuration completion:(id)completion;
+- (void)respondToPendingCollaborator:(id)collaborator onCollaborationWithPersistentID:(int64_t)d withApproval:(BOOL)approval configuration:(id)configuration completion:(id)completion;
 - (void)sdk_addItemWithSagaID:(int64_t)d toPlaylistWithPersistentID:(int64_t)iD configuration:(id)configuration completion:(id)completion;
 - (void)sdk_addStoreItemWithOpaqueID:(id)d configuration:(id)configuration completion:(id)completion;
 - (void)sdk_addStoreItemWithOpaqueID:(id)d toPlaylistWithPersistentID:(int64_t)iD configuration:(id)configuration completion:(id)completion;
@@ -104,6 +107,7 @@
 - (void)updatePinnedLibraryEntityWithPersistentID:(int64_t)d cloudID:(int64_t)iD type:(int64_t)type defaultAction:(int64_t)action configuration:(id)configuration completion:(id)completion;
 - (void)updatePinnedSubscribedPlaylistsWithConfiguration:(id)configuration completion:(id)completion;
 - (void)updateSagaLibraryWithReason:(int64_t)reason forConfiguration:(id)configuration completion:(id)completion;
+- (void)updateSubscribedPlaylistsWithSagaIDs:(id)ds ignoreMinRefreshInterval:(BOOL)interval configuration:(id)configuration completion:(id)completion;
 - (void)uploadArtworkForPlaylistWithPersistentID:(int64_t)d configuration:(id)configuration completion:(id)completion;
 - (void)uploadCloudItemPropertiesForConfiguration:(id)configuration completion:(id)completion;
 - (void)uploadCloudPlaylistPropertiesForConfiguration:(id)configuration completion:(id)completion;
@@ -122,6 +126,53 @@
 {
   v2 = +[ICDServer server];
   [v2 processPendingKeyInvalidations];
+}
+
+- (void)_updateSagaLibraryWithReason:(int64_t)reason allowNoisyAuthPrompt:(BOOL)prompt forConfiguration:(id)configuration completionHandler:(id)handler
+{
+  promptCopy = prompt;
+  configurationCopy = configuration;
+  handlerCopy = handler;
+  v12 = os_log_create("com.apple.amp.itunescloudd", "XPC");
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 0;
+    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Sending request to update Cloud Library...", buf, 2u);
+  }
+
+  v13 = +[ICCloudAvailabilityController sharedController];
+  shouldProhibitMusicActionForCurrentNetworkConditions = [v13 shouldProhibitMusicActionForCurrentNetworkConditions];
+
+  if (shouldProhibitMusicActionForCurrentNetworkConditions)
+  {
+    v15 = os_log_create("com.apple.amp.itunescloudd", "XPC");
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 0;
+      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Can't update cloud library using current network - skipping", buf, 2u);
+    }
+
+    if (handlerCopy)
+    {
+      handlerCopy[2](handlerCopy, 0);
+    }
+  }
+
+  else
+  {
+    handlerProvider = [(CloudService *)self handlerProvider];
+    v22 = 0;
+    v17 = [handlerProvider handlerWithType:0 configuration:configurationCopy error:&v22];
+    v18 = v22;
+
+    clientIdentity = [configurationCopy clientIdentity];
+    v20[0] = _NSConcreteStackBlock;
+    v20[1] = 3221225472;
+    v20[2] = sub_100096870;
+    v20[3] = &unk_1001DD8F0;
+    v21 = handlerCopy;
+    [v17 updateSagaLibraryWithClientIdentity:clientIdentity forReason:reason allowNoisyAuthPrompt:promptCopy isExplicitUserAction:0 completionHandler:v20];
+  }
 }
 
 - (void)listCloudServerOperations
@@ -238,6 +289,58 @@
     if (completionCopy)
     {
       (*(completionCopy + 2))(completionCopy, v17);
+    }
+  }
+}
+
+- (void)respondToPendingCollaborator:(id)collaborator onCollaborationWithPersistentID:(int64_t)d withApproval:(BOOL)approval configuration:(id)configuration completion:(id)completion
+{
+  approvalCopy = approval;
+  collaboratorCopy = collaborator;
+  completionCopy = completion;
+  configurationCopy = configuration;
+  v15 = os_log_create("com.apple.amp.itunescloudd", "XPC");
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 138543874;
+    selfCopy2 = self;
+    v25 = 2114;
+    v26 = collaboratorCopy;
+    v27 = 2048;
+    dCopy = d;
+    _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "%{public}@ responding to pending collaborator request from user %{public}@ for persistentID %lld.", buf, 0x20u);
+  }
+
+  handlerProvider = [(CloudService *)self handlerProvider];
+  v22 = 0;
+  v17 = [handlerProvider handlerWithType:0 configuration:configurationCopy error:&v22];
+
+  v18 = v22;
+  if (v17)
+  {
+    v20[0] = _NSConcreteStackBlock;
+    v20[1] = 3221225472;
+    v20[2] = sub_100097194;
+    v20[3] = &unk_1001DD8F0;
+    v21 = completionCopy;
+    [v17 respondToPendingCollaborator:collaboratorCopy onCollaborationWithPersistentID:d withApproval:approvalCopy completion:v20];
+  }
+
+  else
+  {
+    v19 = os_log_create("com.apple.amp.itunescloudd", "CloudSync");
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 134218242;
+      selfCopy2 = self;
+      v25 = 2114;
+      v26 = v18;
+      _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_ERROR, "CloudService %p - respondToPendingCollaborator Unable to service request for cloud library - error=%{public}@", buf, 0x16u);
+    }
+
+    if (completionCopy)
+    {
+      (*(completionCopy + 2))(completionCopy, v18);
     }
   }
 }
@@ -479,7 +582,7 @@
   v8 = v7;
   if (v7)
   {
-    [v7 auditToken];
+    objc_msgSend_auditToken(v7);
     v9 = MSVTCCIdentityForAuditToken();
   }
 
@@ -2981,6 +3084,60 @@ LABEL_3:
   }
 }
 
+- (void)updateSubscribedPlaylistsWithSagaIDs:(id)ds ignoreMinRefreshInterval:(BOOL)interval configuration:(id)configuration completion:(id)completion
+{
+  intervalCopy = interval;
+  dsCopy = ds;
+  configurationCopy = configuration;
+  completionCopy = completion;
+  handlerProvider = [(CloudService *)self handlerProvider];
+  v20 = 0;
+  v14 = [handlerProvider handlerWithType:0 configuration:configurationCopy error:&v20];
+  v15 = v20;
+
+  if (v14)
+  {
+    v16 = 11;
+    if (intervalCopy)
+    {
+      v16 = 12;
+    }
+
+    if (dsCopy)
+    {
+      v17 = v16;
+    }
+
+    else
+    {
+      v17 = 10;
+    }
+
+    clientIdentity = [configurationCopy clientIdentity];
+    [v14 updateSubscribedPlaylistsWithSagaIDs:dsCopy ignoreMinRefreshInterval:intervalCopy requestReason:v17 pinnedOnly:0 clientIdentity:clientIdentity completionHandler:completionCopy];
+  }
+
+  else
+  {
+    v19 = os_log_create("com.apple.amp.itunescloudd", "CloudSync");
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 134218498;
+      selfCopy = self;
+      v23 = 2114;
+      v24 = dsCopy;
+      v25 = 2114;
+      v26 = v15;
+      _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_ERROR, "CloudService %p - updateSubscribedPlaylistsWithSagaIDs (%{public}@) - Unable to service request for cloud library - error=%{public}@", buf, 0x20u);
+    }
+
+    if (completionCopy)
+    {
+      completionCopy[2](completionCopy, v15);
+    }
+  }
+}
+
 - (void)uploadArtworkForPlaylistWithPersistentID:(int64_t)d configuration:(id)configuration completion:(id)completion
 {
   configurationCopy = configuration;
@@ -3013,6 +3170,44 @@ LABEL_3:
     if (completionCopy)
     {
       completionCopy[2](completionCopy, v12);
+    }
+  }
+}
+
+- (void)removePlaylistsWithSagaIDs:(id)ds performDeltaSync:(BOOL)sync configuration:(id)configuration completion:(id)completion
+{
+  syncCopy = sync;
+  dsCopy = ds;
+  configurationCopy = configuration;
+  completionCopy = completion;
+  handlerProvider = [(CloudService *)self handlerProvider];
+  v18 = 0;
+  v14 = [handlerProvider handlerWithType:0 configuration:configurationCopy error:&v18];
+  v15 = v18;
+
+  if (v14)
+  {
+    clientIdentity = [configurationCopy clientIdentity];
+    [v14 removePlaylistsWithSagaIDs:dsCopy performDeltaSync:syncCopy clientIdentity:clientIdentity completionHandler:completionCopy];
+  }
+
+  else
+  {
+    v17 = os_log_create("com.apple.amp.itunescloudd", "CloudSync");
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 134218498;
+      selfCopy = self;
+      v21 = 2114;
+      v22 = dsCopy;
+      v23 = 2114;
+      v24 = v15;
+      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_ERROR, "CloudService %p - removePlaylistsWithSagaIDs (%{public}@) - Unable to service request for cloud library - error=%{public}@", buf, 0x20u);
+    }
+
+    if (completionCopy)
+    {
+      completionCopy[2](completionCopy, v15);
     }
   }
 }

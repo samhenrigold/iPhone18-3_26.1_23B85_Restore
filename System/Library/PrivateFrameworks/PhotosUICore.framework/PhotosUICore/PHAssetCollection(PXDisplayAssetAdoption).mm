@@ -10,49 +10,49 @@
 - (id)localizedSmartDescription;
 - (id)px_symbolImageName;
 - (uint64_t)px_allowsImplicitSelectionForProjectOrSharingAction;
-- (uint64_t)px_canContainPotentiallySensitiveContent;
 - (uint64_t)px_containsPrivateContent;
 - (uint64_t)px_highlightEnrichmentState;
 - (uint64_t)px_highlightKind;
-- (uint64_t)px_isAllAlbumsVirtualCollection;
-- (uint64_t)px_isAllProjectsVirtualCollection;
-- (uint64_t)px_isBookmarksVirtualCollection;
 - (uint64_t)px_isCloudKitSharedAlbum;
 - (uint64_t)px_isCollectionsVirtualCollection;
-- (uint64_t)px_isContentSyndicationAllPhotosAlbum;
-- (uint64_t)px_isContentSyndicationVirtualCollection;
-- (uint64_t)px_isEventsVirtualCollection;
-- (uint64_t)px_isFeaturedPhotosCollection;
-- (uint64_t)px_isHighlightEnrichedWithAssetMetadataAndScenesProcessed;
-- (uint64_t)px_isImportHistoryCollection;
 - (uint64_t)px_isLemonadeUtilitiesAlbum;
-- (uint64_t)px_isLibraryVirtualCollection;
-- (uint64_t)px_isMapVirtualCollection;
 - (uint64_t)px_isMediaTypeSmartAlbum;
-- (uint64_t)px_isMemoriesVirtualCollection;
-- (uint64_t)px_isMomentShareVirtualCollection;
-- (uint64_t)px_isMomentsVirtualCollection;
-- (uint64_t)px_isOwnedStreamSharedAlbum;
-- (uint64_t)px_isPeopleVirtualCollection;
-- (uint64_t)px_isPerson;
-- (uint64_t)px_isPickerVirtualCollection;
-- (uint64_t)px_isRecentlyEditedCollection;
 - (uint64_t)px_isRecentlySavedCollection;
-- (uint64_t)px_isRecentlySharedCollection;
-- (uint64_t)px_isRecentlyViewedCollection;
-- (uint64_t)px_isRootSmartAlbum;
 - (uint64_t)px_isSavedTodayCollection;
 - (uint64_t)px_isSearchResultsVirtualCollection;
-- (uint64_t)px_isSharedActivityVirtualCollection;
 - (uint64_t)px_isSharedAlbum;
-- (uint64_t)px_isSharedAlbumsVirtualCollection;
 - (uint64_t)px_isSharedLibrarySharingSuggestion;
 - (uint64_t)px_isSmartAlbum;
-- (uint64_t)px_isSocialGroup;
-- (uint64_t)px_isStreamSharedAlbumMultipleContributorsEnabled;
-- (uint64_t)px_isTripsVirtualCollection;
-- (uint64_t)px_isVirtualCollection;
-- (uint64_t)px_isWallpaperSuggestionsVirtualCollection;
+- (void)px_canContainPotentiallySensitiveContent;
+- (void)px_isAllAlbumsVirtualCollection;
+- (void)px_isAllProjectsVirtualCollection;
+- (void)px_isBookmarksVirtualCollection;
+- (void)px_isContentSyndicationAllPhotosAlbum;
+- (void)px_isContentSyndicationVirtualCollection;
+- (void)px_isEventsVirtualCollection;
+- (void)px_isFeaturedPhotosCollection;
+- (void)px_isHighlightEnrichedWithAssetMetadataAndScenesProcessed;
+- (void)px_isImportHistoryCollection;
+- (void)px_isLibraryVirtualCollection;
+- (void)px_isMapVirtualCollection;
+- (void)px_isMemoriesVirtualCollection;
+- (void)px_isMomentShareVirtualCollection;
+- (void)px_isMomentsVirtualCollection;
+- (void)px_isOwnedStreamSharedAlbum;
+- (void)px_isPeopleVirtualCollection;
+- (void)px_isPerson;
+- (void)px_isPickerVirtualCollection;
+- (void)px_isRecentlyEditedCollection;
+- (void)px_isRecentlySharedCollection;
+- (void)px_isRecentlyViewedCollection;
+- (void)px_isRootSmartAlbum;
+- (void)px_isSharedActivityVirtualCollection;
+- (void)px_isSharedAlbumsVirtualCollection;
+- (void)px_isSocialGroup;
+- (void)px_isStreamSharedAlbumMultipleContributorsEnabled;
+- (void)px_isTripsVirtualCollection;
+- (void)px_isVirtualCollection;
+- (void)px_isWallpaperSuggestionsVirtualCollection;
 @end
 
 @implementation PHAssetCollection(PXDisplayAssetAdoption)
@@ -92,7 +92,7 @@
   return v4;
 }
 
-- (uint64_t)px_canContainPotentiallySensitiveContent
+- (void)px_canContainPotentiallySensitiveContent
 {
   result = [self px_isSharedAlbum];
   if (result)
@@ -105,23 +105,39 @@
   return result;
 }
 
-- (uint64_t)px_isStreamSharedAlbumMultipleContributorsEnabled
+- (void)px_isStreamSharedAlbumMultipleContributorsEnabled
 {
   result = [self px_isStreamSharedAlbum];
   if (result)
   {
-    return [self assetCollectionType] == 12 && objc_msgSend(self, "publicPermission") == 3;
+    if ([self assetCollectionType] == 12)
+    {
+      return ([self publicPermission] == 3);
+    }
+
+    else
+    {
+      return 0;
+    }
   }
 
   return result;
 }
 
-- (uint64_t)px_isOwnedStreamSharedAlbum
+- (void)px_isOwnedStreamSharedAlbum
 {
   result = [self px_isStreamSharedAlbum];
   if (result)
   {
-    return [self assetCollectionType] == 12 && objc_msgSend(self, "status") == 1;
+    if ([self assetCollectionType] == 12)
+    {
+      return ([self status] == 1);
+    }
+
+    else
+    {
+      return 0;
+    }
   }
 
   return result;
@@ -191,12 +207,12 @@ LABEL_7:
   return v6;
 }
 
-- (uint64_t)px_isHighlightEnrichedWithAssetMetadataAndScenesProcessed
+- (void)px_isHighlightEnrichedWithAssetMetadataAndScenesProcessed
 {
   result = [self px_isHighlight];
   if (result)
   {
-    return [self px_highlightEnrichmentState] > 2;
+    return ([self px_highlightEnrichmentState] > 2);
   }
 
   return result;
@@ -225,7 +241,7 @@ LABEL_7:
   return px_isPrivacySensitiveAlbum;
 }
 
-- (uint64_t)px_isRecentlySharedCollection
+- (void)px_isRecentlySharedCollection
 {
   result = [self isTransient];
   if (result)
@@ -239,7 +255,7 @@ LABEL_7:
   return result;
 }
 
-- (uint64_t)px_isRecentlyEditedCollection
+- (void)px_isRecentlyEditedCollection
 {
   result = [self isTransient];
   if (result)
@@ -253,7 +269,7 @@ LABEL_7:
   return result;
 }
 
-- (uint64_t)px_isRecentlyViewedCollection
+- (void)px_isRecentlyViewedCollection
 {
   result = [self isTransient];
   if (result)
@@ -267,7 +283,7 @@ LABEL_7:
   return result;
 }
 
-- (uint64_t)px_isMomentShareVirtualCollection
+- (void)px_isMomentShareVirtualCollection
 {
   result = [self isTransient];
   if (result)
@@ -281,7 +297,7 @@ LABEL_7:
   return result;
 }
 
-- (uint64_t)px_isContentSyndicationAllPhotosAlbum
+- (void)px_isContentSyndicationAllPhotosAlbum
 {
   result = [self isTransient];
   if (result)
@@ -295,7 +311,7 @@ LABEL_7:
   return result;
 }
 
-- (uint64_t)px_isMapVirtualCollection
+- (void)px_isMapVirtualCollection
 {
   result = [self isTransient];
   if (result)
@@ -309,7 +325,7 @@ LABEL_7:
   return result;
 }
 
-- (uint64_t)px_isContentSyndicationVirtualCollection
+- (void)px_isContentSyndicationVirtualCollection
 {
   result = [self isTransient];
   if (result)
@@ -323,7 +339,7 @@ LABEL_7:
   return result;
 }
 
-- (uint64_t)px_isSharedAlbumsVirtualCollection
+- (void)px_isSharedAlbumsVirtualCollection
 {
   result = [self isTransient];
   if (result)
@@ -337,7 +353,7 @@ LABEL_7:
   return result;
 }
 
-- (uint64_t)px_isAllProjectsVirtualCollection
+- (void)px_isAllProjectsVirtualCollection
 {
   result = [self isTransient];
   if (result)
@@ -351,7 +367,7 @@ LABEL_7:
   return result;
 }
 
-- (uint64_t)px_isAllAlbumsVirtualCollection
+- (void)px_isAllAlbumsVirtualCollection
 {
   result = [self isTransient];
   if (result)
@@ -365,7 +381,7 @@ LABEL_7:
   return result;
 }
 
-- (uint64_t)px_isImportHistoryCollection
+- (void)px_isImportHistoryCollection
 {
   result = [self isTransient];
   if (result)
@@ -379,7 +395,7 @@ LABEL_7:
   return result;
 }
 
-- (uint64_t)px_isSharedActivityVirtualCollection
+- (void)px_isSharedActivityVirtualCollection
 {
   result = [self isTransient];
   if (result)
@@ -393,7 +409,7 @@ LABEL_7:
   return result;
 }
 
-- (uint64_t)px_isSocialGroup
+- (void)px_isSocialGroup
 {
   result = [self isTransient];
   if (result)
@@ -407,7 +423,7 @@ LABEL_7:
   return result;
 }
 
-- (uint64_t)px_isPerson
+- (void)px_isPerson
 {
   result = [self isTransient];
   if (result)
@@ -421,7 +437,7 @@ LABEL_7:
   return result;
 }
 
-- (uint64_t)px_isPeopleVirtualCollection
+- (void)px_isPeopleVirtualCollection
 {
   result = [self isTransient];
   if (result)
@@ -435,7 +451,7 @@ LABEL_7:
   return result;
 }
 
-- (uint64_t)px_isMemoriesVirtualCollection
+- (void)px_isMemoriesVirtualCollection
 {
   result = [self isTransient];
   if (result)
@@ -457,7 +473,7 @@ LABEL_7:
   return v2;
 }
 
-- (uint64_t)px_isBookmarksVirtualCollection
+- (void)px_isBookmarksVirtualCollection
 {
   result = [self isTransient];
   if (result)
@@ -471,7 +487,7 @@ LABEL_7:
   return result;
 }
 
-- (uint64_t)px_isWallpaperSuggestionsVirtualCollection
+- (void)px_isWallpaperSuggestionsVirtualCollection
 {
   result = [self isTransient];
   if (result)
@@ -493,7 +509,7 @@ LABEL_7:
   return v2;
 }
 
-- (uint64_t)px_isFeaturedPhotosCollection
+- (void)px_isFeaturedPhotosCollection
 {
   result = [self isTransient];
   if (result)
@@ -507,7 +523,7 @@ LABEL_7:
   return result;
 }
 
-- (uint64_t)px_isTripsVirtualCollection
+- (void)px_isTripsVirtualCollection
 {
   result = [self isTransient];
   if (result)
@@ -521,7 +537,7 @@ LABEL_7:
   return result;
 }
 
-- (uint64_t)px_isEventsVirtualCollection
+- (void)px_isEventsVirtualCollection
 {
   result = [self isTransient];
   if (result)
@@ -535,7 +551,7 @@ LABEL_7:
   return result;
 }
 
-- (uint64_t)px_isMomentsVirtualCollection
+- (void)px_isMomentsVirtualCollection
 {
   result = [self isTransient];
   if (result)
@@ -549,7 +565,7 @@ LABEL_7:
   return result;
 }
 
-- (uint64_t)px_isPickerVirtualCollection
+- (void)px_isPickerVirtualCollection
 {
   result = [self isTransient];
   if (result)
@@ -563,7 +579,7 @@ LABEL_7:
   return result;
 }
 
-- (uint64_t)px_isLibraryVirtualCollection
+- (void)px_isLibraryVirtualCollection
 {
   result = [self isTransient];
   if (result)
@@ -614,7 +630,7 @@ LABEL_7:
   return v4;
 }
 
-- (uint64_t)px_isRootSmartAlbum
+- (void)px_isRootSmartAlbum
 {
   result = [self px_isSmartAlbum];
   if (result)
@@ -626,7 +642,7 @@ LABEL_7:
 
     else
     {
-      return [self px_isLemonadeUtilitiesAlbum] ^ 1;
+      return ([self px_isLemonadeUtilitiesAlbum] ^ 1);
     }
   }
 
@@ -659,7 +675,7 @@ LABEL_7:
   }
 }
 
-- (uint64_t)px_isVirtualCollection
+- (void)px_isVirtualCollection
 {
   result = [self isTransient];
   if (result)

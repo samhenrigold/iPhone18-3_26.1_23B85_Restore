@@ -13,13 +13,13 @@
   v5 = [(_ICQOpportunityBubbleImageDetails *)&v10 init];
   if (v5)
   {
-    v6 = [dictionaryCopy objectForKeyedSubscript:@"3x"];
+    v6 = objc_msgSend_objectForKeyedSubscript_(dictionaryCopy);
     [(_ICQOpportunityBubbleImageDetails *)v5 setUrlFor3x:v6];
 
-    v7 = [dictionaryCopy objectForKeyedSubscript:@"2x"];
+    v7 = objc_msgSend_objectForKeyedSubscript_(dictionaryCopy);
     [(_ICQOpportunityBubbleImageDetails *)v5 setUrlFor2x:v7];
 
-    v8 = [dictionaryCopy objectForKeyedSubscript:@"1x"];
+    v8 = objc_msgSend_objectForKeyedSubscript_(dictionaryCopy);
     [(_ICQOpportunityBubbleImageDetails *)v5 setUrlFor1x:v8];
   }
 
@@ -28,7 +28,7 @@
 
 - (id)getURLForScale:(int64_t)scale
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   switch(scale)
   {
     case 3:
@@ -48,15 +48,13 @@ LABEL_7:
   v5 = _ICQGetLogSystem();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 134217984;
+    v8 = 134217984;
     scaleCopy = scale;
-    _os_log_impl(&dword_275572000, v5, OS_LOG_TYPE_DEFAULT, "Invalid scale %ld", &v9, 0xCu);
+    _os_log_impl(&dword_275572000, v5, OS_LOG_TYPE_DEFAULT, "Invalid scale %ld", &v8, 0xCu);
   }
 
   v6 = 0;
 LABEL_11:
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v6;
 }

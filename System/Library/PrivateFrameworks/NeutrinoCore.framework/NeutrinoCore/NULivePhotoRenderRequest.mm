@@ -73,7 +73,7 @@
         v18 = properties;
         if (properties)
         {
-          [properties livePhotoKeyFrameTime];
+          objc_msgSend_livePhotoKeyFrameTime(properties);
         }
 
         else

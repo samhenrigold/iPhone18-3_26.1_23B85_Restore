@@ -5,6 +5,7 @@
 - (id)indexPathForItemIdentifier:(id)identifier;
 - (id)itemIdentifierForIndexPath:(id)path;
 - (unint64_t)_sectionForItem:(id)item assertOnNotFound:(BOOL)found;
+- (void)applySnapshot:(id)snapshot toSection:(id)section animatingDifferences:(BOOL)differences completion:(id)completion;
 - (void)setSections:(id)sections;
 @end
 
@@ -38,6 +39,13 @@
   sections = [snapshot sections];
 
   return sections;
+}
+
+- (void)applySnapshot:(id)snapshot toSection:(id)section animatingDifferences:(BOOL)differences completion:(id)completion
+{
+  currentHandler = [MEMORY[0x277CCA890] currentHandler];
+  v8 = NSStringFromSelector(a2);
+  [currentHandler handleFailureInMethod:a2 object:self file:@"HFCustomDiffableDataSource.m" lineNumber:95 description:{@"%@:%@ Should NOT be called, this ItemManager does not support diffable", self, v8}];
 }
 
 - (id)itemIdentifierForIndexPath:(id)path

@@ -134,7 +134,7 @@ LABEL_9:
   coderCopy = coder;
   v5 = MEMORY[0x277D42620];
   v6 = objc_opt_class();
-  v7 = __atxlog_handle_metrics();
+  v7 = __atxlog_handle_metrics(v6);
   v8 = [v5 robustDecodeObjectOfClass:v6 forKey:@"sessionManager" withCoder:coderCopy expectNonNull:1 errorDomain:@"com.apple.proactive.StackRotationStatus" errorCode:-1 logHandle:v7];
 
   if (v8 && ([coderCopy error], v9 = objc_claimAutoreleasedReturnValue(), v9, !v9))
@@ -145,8 +145,8 @@ LABEL_9:
     v14 = [v12 initWithObjects:{v13, objc_opt_class(), 0}];
     objc_autoreleasePoolPop(v11);
     v15 = MEMORY[0x277D42620];
-    v16 = __atxlog_handle_metrics();
-    v17 = [v15 robustDecodeObjectOfClasses:v14 forKey:@"blendingCaches" withCoder:coderCopy expectNonNull:1 errorDomain:@"com.apple.proactive.StackRotationStatus" errorCode:-1 logHandle:v16];
+    v17 = __atxlog_handle_metrics(v16);
+    v18 = [v15 robustDecodeObjectOfClasses:v14 forKey:@"blendingCaches" withCoder:coderCopy expectNonNull:1 errorDomain:@"com.apple.proactive.StackRotationStatus" errorCode:-1 logHandle:v17];
 
     error = [coderCopy error];
 
@@ -157,7 +157,7 @@ LABEL_9:
 
     else
     {
-      self = [(ATXStackSystemSuggestTrackingContext *)self initWithRotationSessionManager:v8 systemSuggestBlendingCaches:v17];
+      self = [(ATXStackSystemSuggestTrackingContext *)self initWithRotationSessionManager:v8 systemSuggestBlendingCaches:v18];
       selfCopy = self;
     }
   }

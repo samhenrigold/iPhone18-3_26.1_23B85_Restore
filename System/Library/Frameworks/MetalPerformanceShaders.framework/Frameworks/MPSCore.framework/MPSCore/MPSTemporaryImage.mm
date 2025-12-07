@@ -335,7 +335,7 @@ LABEL_30:
         v83 = (*(*MPSDevice + 40))(MPSDevice);
         v84 = *MEMORY[0x277D85FA0] + v80 * v81;
         v5 = v90;
-        v26 = objc_msgSend_heapBufferSizeAndAlignWithLength_options_(*(MPSDevice + 16), v85, (v84 - 1) & -*MEMORY[0x277D85FA0], v83 | (16 * v82), v86);
+        v26 = objc_msgSend_heapBufferSizeAndAlignWithLength_options_(*(MPSDevice + 2), v85, (v84 - 1) & -*MEMORY[0x277D85FA0], v83 | (16 * v82), v86);
       }
 
       if (v26 <= v49)

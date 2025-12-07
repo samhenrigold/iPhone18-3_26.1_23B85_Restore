@@ -1,5 +1,6 @@
 @interface GCHIDDevice
 - (GCHIDDevice)init;
+- (GCHIDDevice)initWithService:(unsigned int)service;
 - (NSArray)elements;
 - (NSNumber)maxFeatureReportSize;
 - (NSNumber)maxInputReportSize;
@@ -16,6 +17,88 @@
 @end
 
 @implementation GCHIDDevice
+
+- (GCHIDDevice)initWithService:(unsigned int)service
+{
+  v40 = *MEMORY[0x1E69E9840];
+  v22.receiver = self;
+  v22.super_class = GCHIDDevice;
+  v3 = [(GCHIDDevice *)&v22 initWithService:*&service];
+  if (v3)
+  {
+    v4 = objc_opt_class();
+    object_setClass(v3, v4);
+    v5 = IOHIDDeviceCopyMatchingElements(v3, 0, 0);
+    if (v5)
+    {
+      v6 = objc_opt_new();
+      v7 = objc_opt_new();
+      v8 = objc_opt_new();
+      v9 = objc_opt_new();
+      v33 = 0;
+      v34 = &v33;
+      v35 = 0x3032000000;
+      v36 = __Block_byref_object_copy__6;
+      v37 = __Block_byref_object_dispose__6;
+      v38 = 0;
+      aBlock[0] = MEMORY[0x1E69E9820];
+      aBlock[1] = 3221225472;
+      aBlock[2] = __ProcessHIDElements_block_invoke;
+      aBlock[3] = &unk_1E8414D80;
+      v21 = v9;
+      v28 = v21;
+      v10 = v7;
+      v29 = v10;
+      v11 = v8;
+      v30 = v11;
+      v12 = v6;
+      v31 = v12;
+      v32 = &v33;
+      v13 = _Block_copy(aBlock);
+      v14 = _Block_copy(v13);
+      v15 = v34[5];
+      v34[5] = v14;
+
+      v25 = 0u;
+      v26 = 0u;
+      v23 = 0u;
+      v24 = 0u;
+      v16 = v5;
+      v17 = [(__CFArray *)v16 countByEnumeratingWithState:&v23 objects:v39 count:16];
+      if (v17)
+      {
+        v18 = *v24;
+        do
+        {
+          v19 = 0;
+          do
+          {
+            if (*v24 != v18)
+            {
+              objc_enumerationMutation(v16);
+            }
+
+            (*(v13 + 2))(v13, *(*(&v23 + 1) + 8 * v19++));
+          }
+
+          while (v17 != v19);
+          v17 = [(__CFArray *)v16 countByEnumeratingWithState:&v23 objects:v39 count:16];
+        }
+
+        while (v17);
+      }
+
+      [v12 enumerateObjectsUsingBlock:&__block_literal_global_10];
+      [v10 enumerateObjectsUsingBlock:&__block_literal_global_78];
+      [v11 enumerateObjectsUsingBlock:&__block_literal_global_83];
+
+      _Block_object_dispose(&v33, 8);
+      CFRelease(v16);
+    }
+  }
+
+  return v3;
+}
 
 - (GCHIDDevice)init
 {

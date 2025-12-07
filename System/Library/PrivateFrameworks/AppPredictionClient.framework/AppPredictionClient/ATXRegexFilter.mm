@@ -47,7 +47,7 @@
 
   else
   {
-    v13 = __atxlog_handle_default();
+    v13 = __atxlog_handle_default(v11);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       [ATXRegexFilter _initWithAssetName:asset:];
@@ -93,16 +93,17 @@ LABEL_5:
   }
 
   v12 = [ATXRegexFilter _compilePatterns:v8 assetName:*(a1 + 40) ruleName:v5];
-  if ([v9 count] && objc_msgSend(v12, "count"))
+  v13 = [v9 count];
+  if (v13 && (v13 = [v12 count]) != 0)
   {
-    v13 = [MEMORY[0x1E69C5D98] tupleWithFirst:v9 second:v12];
-    [*(a1 + 56) setObject:v13 forKeyedSubscript:v5];
+    v14 = [MEMORY[0x1E69C5D98] tupleWithFirst:v9 second:v12];
+    [*(a1 + 56) setObject:v14 forKeyedSubscript:v5];
   }
 
   else
   {
-    v13 = __atxlog_handle_default();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v14 = __atxlog_handle_default(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       __43__ATXRegexFilter__initWithAssetName_asset___block_invoke_cold_1();
     }
@@ -170,7 +171,7 @@ void __55__ATXRegexFilter_shouldFilterOutBundleId_andAttribute___block_invoke(vo
 
 - (BOOL)shouldFilterOutAction:(id)action
 {
-  v3 = __atxlog_handle_default();
+  v3 = __atxlog_handle_default(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     [ATXRegexFilter shouldFilterOutAction:];
@@ -236,7 +237,7 @@ void __55__ATXRegexFilter_shouldFilterOutBundleId_andAttribute___block_invoke(vo
 
   else
   {
-    v8 = __atxlog_handle_default();
+    v8 = __atxlog_handle_default(arrayCopy);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       [ATXRegexFilter _checkString:againstRegexesArray:];
@@ -254,40 +255,41 @@ LABEL_15:
 {
   stringCopy = string;
   dictionaryCopy = dictionary;
+  v8 = dictionaryCopy;
   if (stringCopy)
   {
-    v14 = 0;
-    v15 = &v14;
-    v16 = 0x2020000000;
-    v17 = 0;
-    v11[0] = MEMORY[0x1E69E9820];
-    v11[1] = 3221225472;
-    v11[2] = __61__ATXRegexFilter__checkString_againstRegexesArrayDictionary___block_invoke;
-    v11[3] = &unk_1E80C17A0;
-    v11[4] = self;
-    v12 = stringCopy;
-    v13 = &v14;
-    [dictionaryCopy enumerateKeysAndObjectsUsingBlock:v11];
-    v8 = *(v15 + 24);
+    v15 = 0;
+    v16 = &v15;
+    v17 = 0x2020000000;
+    v18 = 0;
+    v12[0] = MEMORY[0x1E69E9820];
+    v12[1] = 3221225472;
+    v12[2] = __61__ATXRegexFilter__checkString_againstRegexesArrayDictionary___block_invoke;
+    v12[3] = &unk_1E80C17A0;
+    v12[4] = self;
+    v13 = stringCopy;
+    v14 = &v15;
+    [v8 enumerateKeysAndObjectsUsingBlock:v12];
+    v9 = *(v16 + 24);
 
-    _Block_object_dispose(&v14, 8);
+    _Block_object_dispose(&v15, 8);
   }
 
   else
   {
-    v9 = __atxlog_handle_default();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = __atxlog_handle_default(dictionaryCopy);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       [ATXRegexFilter _checkString:againstRegexesArray:];
     }
 
-    v8 = 0;
+    v9 = 0;
   }
 
-  return v8 & 1;
+  return v9 & 1;
 }
 
-uint64_t __61__ATXRegexFilter__checkString_againstRegexesArrayDictionary___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
+void *__61__ATXRegexFilter__checkString_againstRegexesArrayDictionary___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
 {
   result = [*(a1 + 32) _checkString:*(a1 + 40) againstRegexesArray:a3];
   if (result)
@@ -318,38 +320,39 @@ uint64_t __61__ATXRegexFilter__checkString_againstRegexesArrayDictionary___block
 
 id __54__ATXRegexFilter__compilePatterns_assetName_ruleName___block_invoke(uint64_t a1, void *a2)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v11 = 0;
-  v4 = [objc_alloc(MEMORY[0x1E696AE70]) initWithPattern:v3 options:0 error:&v11];
-  v5 = v11;
+  v12 = 0;
+  v4 = [objc_alloc(MEMORY[0x1E696AE70]) initWithPattern:v3 options:0 error:&v12];
+  v5 = v12;
+  v6 = v5;
   if (v5)
   {
-    v6 = __atxlog_handle_default();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = __atxlog_handle_default(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v9 = *(a1 + 32);
-      v10 = *(a1 + 40);
+      v10 = *(a1 + 32);
+      v11 = *(a1 + 40);
       *buf = 138413058;
-      v13 = v9;
-      v14 = 2112;
-      v15 = v10;
-      v16 = 2112;
-      v17 = v3;
-      v18 = 2112;
-      v19 = v5;
-      _os_log_error_impl(&dword_1BF549000, v6, OS_LOG_TYPE_ERROR, "%@ asset for rule %@ is not compiling pattern %@ with error %@", buf, 0x2Au);
+      v14 = v10;
+      v15 = 2112;
+      v16 = v11;
+      v17 = 2112;
+      v18 = v3;
+      v19 = 2112;
+      v20 = v6;
+      _os_log_error_impl(&dword_1BF549000, v7, OS_LOG_TYPE_ERROR, "%@ asset for rule %@ is not compiling pattern %@ with error %@", buf, 0x2Au);
     }
 
-    v7 = 0;
+    v8 = 0;
   }
 
   else
   {
-    v7 = v4;
+    v8 = v4;
   }
 
-  return v7;
+  return v8;
 }
 
 void __43__ATXRegexFilter__initWithAssetName_asset___block_invoke_cold_1()

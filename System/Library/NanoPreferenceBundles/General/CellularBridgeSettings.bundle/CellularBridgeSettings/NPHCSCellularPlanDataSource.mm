@@ -43,7 +43,7 @@
 {
   changeCopy = change;
   statusCopy = status;
-  v8 = nph_general_log();
+  v8 = nph_general_log(statusCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     v11 = 136315650;
@@ -63,87 +63,87 @@
 - (void)_cellularPlanInfoDidChange:(id)change
 {
   changeCopy = change;
-  v5 = nph_general_log();
+  v5 = nph_general_log(changeCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v33 = "[NPHCSCellularPlanDataSource _cellularPlanInfoDidChange:]";
-    v34 = 2112;
-    v35 = changeCopy;
+    v34 = "[NPHCSCellularPlanDataSource _cellularPlanInfoDidChange:]";
+    v35 = 2112;
+    v36 = changeCopy;
     _os_log_impl(&dword_0, v5, OS_LOG_TYPE_DEFAULT, "%s - notification:%@", buf, 0x16u);
   }
 
   v6 = +[NPHCellularBridgeUIManager sharedInstance];
   cellularPlans = [v6 cellularPlans];
 
-  v8 = nph_general_log();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v9 = nph_general_log(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v33 = "[NPHCSCellularPlanDataSource _cellularPlanInfoDidChange:]";
-    v34 = 2112;
-    v35 = cellularPlans;
-    _os_log_impl(&dword_0, v8, OS_LOG_TYPE_DEFAULT, "%s -- cellularPlans:%@", buf, 0x16u);
+    v34 = "[NPHCSCellularPlanDataSource _cellularPlanInfoDidChange:]";
+    v35 = 2112;
+    v36 = cellularPlans;
+    _os_log_impl(&dword_0, v9, OS_LOG_TYPE_DEFAULT, "%s -- cellularPlans:%@", buf, 0x16u);
   }
 
-  v9 = +[NSMutableArray arrayWithCapacity:](NSMutableArray, "arrayWithCapacity:", [cellularPlans count]);
   v10 = +[NSMutableArray arrayWithCapacity:](NSMutableArray, "arrayWithCapacity:", [cellularPlans count]);
-  v25 = 0u;
+  v11 = +[NSMutableArray arrayWithCapacity:](NSMutableArray, "arrayWithCapacity:", [cellularPlans count]);
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v11 = cellularPlans;
-  v12 = [v11 countByEnumeratingWithState:&v25 objects:v31 count:16];
-  if (v12)
+  v29 = 0u;
+  v12 = cellularPlans;
+  v13 = [v12 countByEnumeratingWithState:&v26 objects:v32 count:16];
+  if (v13)
   {
-    v13 = v12;
-    v14 = *v26;
+    v14 = v13;
+    v15 = *v27;
     do
     {
-      for (i = 0; i != v13; i = i + 1)
+      for (i = 0; i != v14; i = i + 1)
       {
-        if (*v26 != v14)
+        if (*v27 != v15)
         {
-          objc_enumerationMutation(v11);
+          objc_enumerationMutation(v12);
         }
 
-        v16 = *(*(&v25 + 1) + 8 * i);
-        if ([v16 shouldDisplay])
+        v17 = *(*(&v26 + 1) + 8 * i);
+        if ([v17 shouldDisplay])
         {
-          if ([v16 isSelectable])
+          if ([v17 isSelectable])
           {
-            v17 = v9;
+            v18 = v10;
           }
 
           else
           {
-            v17 = v10;
+            v18 = v11;
           }
 
-          [v17 addObject:v16];
+          [v18 addObject:v17];
         }
       }
 
-      v13 = [v11 countByEnumeratingWithState:&v25 objects:v31 count:16];
+      v14 = [v12 countByEnumeratingWithState:&v26 objects:v32 count:16];
     }
 
-    while (v13);
+    while (v14);
   }
 
-  v29[0] = kActiveCellularPlans;
-  v18 = [v9 copy];
-  v29[1] = kInactiveCellularPlans;
-  v30[0] = v18;
+  v30[0] = kActiveCellularPlans;
   v19 = [v10 copy];
-  v30[1] = v19;
-  v20 = [NSDictionary dictionaryWithObjects:v30 forKeys:v29 count:2];
-  [(NPHCSCellularPlanDataSource *)self setCellularPlansDictionary:v20];
+  v30[1] = kInactiveCellularPlans;
+  v31[0] = v19;
+  v20 = [v11 copy];
+  v31[1] = v20;
+  v21 = [NSDictionary dictionaryWithObjects:v31 forKeys:v30 count:2];
+  [(NPHCSCellularPlanDataSource *)self setCellularPlansDictionary:v21];
 
   delegate = [(NPHCSCellularPlanDataSource *)self delegate];
   cellularPlansDictionary = [(NPHCSCellularPlanDataSource *)self cellularPlansDictionary];
   userInfo = [changeCopy userInfo];
-  v24 = [userInfo objectForKeyedSubscript:NPHCellularPlanInfoError];
-  [delegate cellularPlansUpdated:cellularPlansDictionary error:v24];
+  v25 = [userInfo objectForKeyedSubscript:NPHCellularPlanInfoError];
+  [delegate cellularPlansUpdated:cellularPlansDictionary error:v25];
 }
 
 @end

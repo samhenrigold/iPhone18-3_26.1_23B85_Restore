@@ -83,15 +83,15 @@
   v7.super_class = _UIVisualEffectBackdropView;
   if ([(_UIVisualEffectSubview *)&v7 _shouldAnimatePropertyWithKey:keyCopy])
   {
-    v5 = 1;
+    isEqualToString = 1;
   }
 
   else
   {
-    v5 = [@"scale" isEqualToString:keyCopy];
+    isEqualToString = objc_msgSend_isEqualToString_(@"scale");
   }
 
-  return v5;
+  return isEqualToString;
 }
 
 - (void)setRenderMode:(int64_t)mode

@@ -107,10 +107,9 @@ LABEL_20:
 {
   v3 = objc_alloc(MEMORY[0x1E696AEC0]);
   v4 = [objc_opt_class() description];
-  domain = self->_domain;
-  v6 = [v3 initWithFormat:@"<%@| type:%hhu reason:%llu name:%@ domain:%@ expl:%@>", v4, self->_type, self->_reason, self->_name, domain, self->_explanation];
+  v5 = [v3 initWithFormat:@"<%@| type:%hhu reason:%llu name:%@ domain:%@ expl:%@>", v4, self->_type, self->_reason, self->_name, self->_domain, self->_explanation];
 
-  return v6;
+  return v5;
 }
 
 - (id)copyWithZone:(_NSZone *)zone

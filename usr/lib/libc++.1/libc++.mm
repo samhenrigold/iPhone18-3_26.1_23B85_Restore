@@ -1,4 +1,4 @@
-char *std::__introsort<std::_ClassicAlgPolicy,std::ranges::less,char *,true>(char *result, char *a2, uint64_t a3, char a4)
+uint64_t std::__introsort<std::_ClassicAlgPolicy,std::ranges::less,char *,true>(uint64_t result, char *a2, uint64_t a3, char a4)
 {
   v6 = result;
 LABEL_2:
@@ -758,7 +758,7 @@ LABEL_203:
   return result;
 }
 
-int *std::__introsort<std::_ClassicAlgPolicy,std::ranges::less,wchar_t *,true>(int *result, int *a2, uint64_t a3, char a4)
+uint64_t std::__introsort<std::_ClassicAlgPolicy,std::ranges::less,wchar_t *,true>(uint64_t result, int *a2, uint64_t a3, char a4)
 {
   v6 = result;
 LABEL_2:
@@ -1507,7 +1507,7 @@ LABEL_200:
   return result;
 }
 
-unsigned __int8 *std::__introsort<std::_ClassicAlgPolicy,std::ranges::less,unsigned char *,true>(unsigned __int8 *result, unsigned __int8 *a2, uint64_t a3, char a4)
+uint64_t std::__introsort<std::_ClassicAlgPolicy,std::ranges::less,unsigned char *,true>(uint64_t result, unsigned __int8 *a2, uint64_t a3, char a4)
 {
   v6 = result;
 LABEL_2:
@@ -2265,7 +2265,7 @@ LABEL_205:
   return result;
 }
 
-__int16 *std::__introsort<std::_ClassicAlgPolicy,std::ranges::less,short *,true>(__int16 *result, __int16 *a2, uint64_t a3, char a4)
+uint64_t std::__introsort<std::_ClassicAlgPolicy,std::ranges::less,short *,true>(uint64_t result, __int16 *a2, uint64_t a3, char a4)
 {
   v6 = result;
 LABEL_2:
@@ -3026,7 +3026,7 @@ LABEL_203:
   return result;
 }
 
-unsigned __int16 *std::__introsort<std::_ClassicAlgPolicy,std::ranges::less,unsigned short *,true>(unsigned __int16 *result, unsigned __int16 *a2, uint64_t a3, char a4)
+uint64_t std::__introsort<std::_ClassicAlgPolicy,std::ranges::less,unsigned short *,true>(uint64_t result, unsigned __int16 *a2, uint64_t a3, char a4)
 {
   v6 = result;
 LABEL_2:
@@ -3785,7 +3785,7 @@ LABEL_205:
   return result;
 }
 
-unsigned int *std::__introsort<std::_ClassicAlgPolicy,std::ranges::less,unsigned int *,true>(unsigned int *result, unsigned int *a2, uint64_t a3, char a4)
+uint64_t std::__introsort<std::_ClassicAlgPolicy,std::ranges::less,unsigned int *,true>(uint64_t result, unsigned int *a2, uint64_t a3, char a4)
 {
   v6 = result;
 LABEL_2:
@@ -4534,7 +4534,7 @@ LABEL_204:
   return result;
 }
 
-uint64_t *std::__introsort<std::_ClassicAlgPolicy,std::ranges::less,long *,true>(uint64_t *result, uint64_t *a2, uint64_t a3, char a4)
+uint64_t std::__introsort<std::_ClassicAlgPolicy,std::ranges::less,long *,true>(uint64_t result, uint64_t *a2, uint64_t a3, char a4)
 {
   v6 = result;
 LABEL_2:
@@ -5278,7 +5278,7 @@ LABEL_199:
   return result;
 }
 
-unint64_t *std::__introsort<std::_ClassicAlgPolicy,std::ranges::less,unsigned long *,true>(unint64_t *result, unint64_t *a2, uint64_t a3, char a4)
+uint64_t std::__introsort<std::_ClassicAlgPolicy,std::ranges::less,unsigned long *,true>(uint64_t result, unint64_t *a2, uint64_t a3, char a4)
 {
   v6 = result;
 LABEL_2:
@@ -6022,7 +6022,7 @@ LABEL_203:
   return result;
 }
 
-uint64_t *std::__introsort<std::_ClassicAlgPolicy,std::ranges::less,long long *,true>(uint64_t *result, uint64_t *a2, uint64_t a3, char a4)
+uint64_t std::__introsort<std::_ClassicAlgPolicy,std::ranges::less,long long *,true>(uint64_t result, uint64_t *a2, uint64_t a3, char a4)
 {
   v6 = result;
 LABEL_2:
@@ -6766,7 +6766,7 @@ LABEL_199:
   return result;
 }
 
-unint64_t *std::__introsort<std::_ClassicAlgPolicy,std::ranges::less,unsigned long long *,true>(unint64_t *result, unint64_t *a2, uint64_t a3, char a4)
+uint64_t std::__introsort<std::_ClassicAlgPolicy,std::ranges::less,unsigned long long *,true>(uint64_t result, unint64_t *a2, uint64_t a3, char a4)
 {
   v6 = result;
 LABEL_2:
@@ -7510,7 +7510,7 @@ LABEL_203:
   return result;
 }
 
-float *std::__introsort<std::_ClassicAlgPolicy,std::ranges::less,float *,true>(float *result, float *a2, uint64_t a3, char a4, double a5)
+uint64_t std::__introsort<std::_ClassicAlgPolicy,std::ranges::less,float *,true>(uint64_t result, float *a2, uint64_t a3, char a4, double a5)
 {
   v7 = result;
 LABEL_2:
@@ -7527,288 +7527,288 @@ LABEL_3:
       switch(v11)
       {
         case 3:
-          v55 = v8[1];
-          v56 = *(a2 - 1);
-          if (v55 < v56)
+          v54 = v8[1];
+          v55 = *(a2 - 1);
+          if (v54 < v55)
           {
-            v57 = *(v8 + 1);
+            v56 = *(v8 + 1);
           }
 
           else
           {
-            v57 = *(a2 - 1);
+            v56 = *(a2 - 1);
           }
 
-          if (v55 < v56)
+          if (v54 < v55)
           {
-            v55 = *(a2 - 1);
+            v54 = *(a2 - 1);
           }
 
-          *(a2 - 1) = v55;
-          *(v8 + 1) = v57;
-          v58 = *(a2 - 1);
-          if (v58 < *v8)
+          *(a2 - 1) = v54;
+          *(v8 + 1) = v56;
+          v57 = *(a2 - 1);
+          if (v57 < *v8)
           {
-            v59 = *(a2 - 1);
+            v58 = *(a2 - 1);
           }
 
           else
-          {
-            v59 = *v8;
-          }
-
-          if (v58 < *v8)
           {
             v58 = *v8;
           }
 
-          *(a2 - 1) = v58;
-          v61 = *v8;
-          v60 = v8[1];
-          if (v59 >= v60)
+          if (v57 < *v8)
           {
-            v61 = v8[1];
-            v60 = v59;
+            v57 = *v8;
           }
 
-          *v8 = v61;
-          v8[1] = v60;
+          *(a2 - 1) = v57;
+          v60 = *v8;
+          v59 = v8[1];
+          if (v58 >= v59)
+          {
+            v60 = v8[1];
+            v59 = v58;
+          }
+
+          *v8 = v60;
+          v8[1] = v59;
           return result;
         case 4:
-          v85 = v8[1];
-          v84 = v8[2];
-          if (*v8 < v84)
+          v84 = v8[1];
+          v83 = v8[2];
+          if (*v8 < v83)
           {
-            v86 = *v8;
+            v85 = *v8;
           }
 
           else
           {
-            v86 = v8[2];
+            v85 = v8[2];
           }
 
-          if (*v8 >= v84)
+          if (*v8 >= v83)
           {
-            v84 = *v8;
+            v83 = *v8;
           }
 
-          v8[2] = v84;
-          *v8 = v86;
-          v87 = *(a2 - 1);
-          if (v85 < v87)
+          v8[2] = v83;
+          *v8 = v85;
+          v86 = *(a2 - 1);
+          if (v84 < v86)
           {
-            v88 = v85;
+            v87 = v84;
           }
 
           else
           {
-            v88 = *(a2 - 1);
+            v87 = *(a2 - 1);
           }
 
-          if (v85 >= v87)
+          if (v84 >= v86)
           {
-            v87 = v85;
+            v86 = v84;
           }
 
-          *(a2 - 1) = v87;
-          v89 = *v8;
-          if (*v8 < v88)
+          *(a2 - 1) = v86;
+          v88 = *v8;
+          if (*v8 < v87)
           {
-            v90 = *v8;
+            v89 = *v8;
           }
 
           else
           {
-            v90 = v88;
+            v89 = v87;
           }
 
-          if (*v8 < v88)
+          if (*v8 < v87)
           {
-            v89 = v88;
+            v88 = v87;
           }
 
-          *v8 = v90;
-          v8[1] = v89;
-          v91 = v8[2];
-          v92 = *(a2 - 1);
-          if (v91 < v92)
+          *v8 = v89;
+          v8[1] = v88;
+          v90 = v8[2];
+          v91 = *(a2 - 1);
+          if (v90 < v91)
           {
-            v93 = v8[2];
+            v92 = v8[2];
           }
 
           else
           {
-            v93 = *(a2 - 1);
+            v92 = *(a2 - 1);
           }
 
-          if (v91 < v92)
+          if (v90 < v91)
           {
-            v91 = *(a2 - 1);
+            v90 = *(a2 - 1);
           }
 
-          *(a2 - 1) = v91;
-          v94 = v8[1];
-          if (v94 < v93)
+          *(a2 - 1) = v90;
+          v93 = v8[1];
+          if (v93 < v92)
           {
-            v95 = v8[1];
+            v94 = v8[1];
           }
 
           else
           {
-            v95 = v93;
+            v94 = v92;
           }
 
-          if (v94 < v93)
+          if (v93 < v92)
           {
-            v94 = v93;
+            v93 = v92;
           }
 
-          v8[1] = v95;
-          v8[2] = v94;
+          v8[1] = v94;
+          v8[2] = v93;
           return result;
         case 5:
-          v62 = *v8;
-          v63 = v8[1];
-          if (*v8 < v63)
+          v61 = *v8;
+          v62 = v8[1];
+          if (*v8 < v62)
           {
-            v64 = *v8;
+            v63 = *v8;
           }
 
           else
           {
-            v64 = v8[1];
+            v63 = v8[1];
           }
 
-          if (*v8 < v63)
+          if (*v8 < v62)
           {
-            v62 = v8[1];
+            v61 = v8[1];
           }
 
-          *v8 = v64;
-          v8[1] = v62;
-          v65 = v8[3];
-          v66 = *(a2 - 1);
-          if (v65 < v66)
+          *v8 = v63;
+          v8[1] = v61;
+          v64 = v8[3];
+          v65 = *(a2 - 1);
+          if (v64 < v65)
           {
-            v67 = *(v8 + 3);
+            v66 = *(v8 + 3);
           }
 
           else
           {
-            v67 = *(a2 - 1);
+            v66 = *(a2 - 1);
           }
 
-          if (v65 < v66)
+          if (v64 < v65)
           {
-            v65 = *(a2 - 1);
+            v64 = *(a2 - 1);
           }
 
-          *(a2 - 1) = v65;
-          *(v8 + 3) = v67;
-          v68 = *(a2 - 1);
-          v69 = v8[2];
-          if (v68 < v69)
+          *(a2 - 1) = v64;
+          *(v8 + 3) = v66;
+          v67 = *(a2 - 1);
+          v68 = v8[2];
+          if (v67 < v68)
           {
-            v70 = *(a2 - 1);
+            v69 = *(a2 - 1);
           }
 
           else
           {
-            v70 = v8[2];
+            v69 = v8[2];
           }
 
-          if (v68 < v69)
+          if (v67 < v68)
           {
-            v68 = v8[2];
+            v67 = v8[2];
           }
 
-          *(a2 - 1) = v68;
-          v72 = *(v8 + 2);
-          v71 = v8[3];
-          v73 = v8[1];
-          if (v70 >= v71)
+          *(a2 - 1) = v67;
+          v71 = *(v8 + 2);
+          v70 = v8[3];
+          v72 = v8[1];
+          if (v69 >= v70)
           {
-            v72 = *(v8 + 3);
-            v71 = v70;
+            v71 = *(v8 + 3);
+            v70 = v69;
           }
 
-          *(v8 + 2) = v72;
-          v8[3] = v71;
-          v74 = *(a2 - 1);
-          if (v73 < v74)
+          *(v8 + 2) = v71;
+          v8[3] = v70;
+          v73 = *(a2 - 1);
+          if (v72 < v73)
           {
-            v75 = v73;
+            v74 = v72;
           }
 
           else
           {
-            v75 = *(a2 - 1);
+            v74 = *(a2 - 1);
           }
 
-          if (v73 >= v74)
+          if (v72 >= v73)
           {
-            v74 = v73;
+            v73 = v72;
           }
 
-          *(a2 - 1) = v74;
-          v76 = *v8;
-          v78 = v8[2];
-          v77 = v8[3];
-          if (v77 < *v8)
+          *(a2 - 1) = v73;
+          v75 = *v8;
+          v77 = v8[2];
+          v76 = v8[3];
+          if (v76 < *v8)
           {
-            v79 = v8[3];
+            v78 = v8[3];
           }
 
           else
           {
-            v79 = *v8;
+            v78 = *v8;
           }
 
-          if (v77 < *v8)
+          if (v76 < *v8)
           {
-            v77 = *v8;
+            v76 = *v8;
           }
 
-          if (v79 >= v78)
+          if (v78 >= v77)
           {
-            v76 = v8[2];
-            v78 = v79;
+            v75 = v8[2];
+            v77 = v78;
           }
 
-          if (v77 < v75)
+          if (v76 < v74)
+          {
+            v79 = v76;
+          }
+
+          else
+          {
+            v79 = v74;
+          }
+
+          if (v76 < v74)
+          {
+            v76 = v74;
+          }
+
+          if (v79 >= v77)
+          {
+            v74 = v77;
+          }
+
+          *v8 = v75;
+          v8[1] = v74;
+          if (v79 < v77)
           {
             v80 = v77;
           }
 
           else
           {
-            v80 = v75;
+            v80 = v79;
           }
 
-          if (v77 < v75)
-          {
-            v77 = v75;
-          }
-
-          if (v80 >= v78)
-          {
-            v75 = v78;
-          }
-
-          *v8 = v76;
-          v8[1] = v75;
-          if (v80 < v78)
-          {
-            v81 = v78;
-          }
-
-          else
-          {
-            v81 = v80;
-          }
-
-          v8[2] = v81;
-          v8[3] = v77;
+          v8[2] = v80;
+          v8[3] = v76;
           return result;
       }
     }
@@ -7822,12 +7822,12 @@ LABEL_3:
 
       if (v11 == 2)
       {
-        v82 = *(a2 - 1);
-        v83 = *v8;
-        if (v82 < *v8)
+        v81 = *(a2 - 1);
+        v82 = *v8;
+        if (v81 < *v8)
         {
-          *v8 = v82;
-          *(a2 - 1) = v83;
+          *v8 = v81;
+          *(a2 - 1) = v82;
         }
 
         return result;
@@ -7843,7 +7843,7 @@ LABEL_3:
     {
       if (v8 != a2)
       {
-        return std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::ranges::less &,float *,float *>(v8, a2, a2, &v108);
+        return std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::ranges::less &,float *,float *>(v8, a2, a2, &v107);
       }
 
       return result;
@@ -7889,8 +7889,7 @@ LABEL_3:
 
       *(a2 - 1) = v46;
       v49 = *v8;
-      v50 = v8[v12];
-      v51 = v48 < *v8;
+      v50 = v48 < *v8;
       if (v48 < *v8)
       {
         v49 = v8[v12];
@@ -7898,7 +7897,7 @@ LABEL_3:
 
       v8[v12] = v49;
       *&a5 = *v8;
-      if (!v51)
+      if (!v50)
       {
         *&a5 = v48;
       }
@@ -8138,20 +8137,20 @@ LABEL_3:
     }
 
 LABEL_90:
-    v52 = std::__bitset_partition[abi:ne200100]<std::_ClassicAlgPolicy,float *,std::ranges::less>(v8, a2, a5);
-    if ((v53 & 1) == 0)
+    v51 = std::__bitset_partition[abi:ne200100]<std::_ClassicAlgPolicy,float *,std::ranges::less>(v8, a2, a5);
+    if ((v52 & 1) == 0)
     {
       goto LABEL_93;
     }
 
-    v54 = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::ranges::less,float *>(v8, v52);
-    v8 = v52 + 1;
-    result = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::ranges::less,float *>(v52 + 1, a2);
+    v53 = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::ranges::less,float *>(v8, v51);
+    v8 = v51 + 1;
+    result = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::ranges::less,float *>(v51 + 1, a2);
     if (result)
     {
       a3 = -v10;
-      a2 = v52;
-      if (v54)
+      a2 = v51;
+      if (v53)
       {
         return result;
       }
@@ -8160,11 +8159,11 @@ LABEL_90:
     }
 
     v9 = v10 + 1;
-    if (!v54)
+    if (!v53)
     {
 LABEL_93:
-      result = std::__introsort<std::_ClassicAlgPolicy,std::ranges::less,float *,true>(v7, v52, -v10, a4 & 1);
-      v8 = v52 + 1;
+      result = std::__introsort<std::_ClassicAlgPolicy,std::ranges::less,float *,true>(v7, v51, -v10, a4 & 1);
+      v8 = v51 + 1;
 LABEL_95:
       a4 = 0;
       a3 = -v10;
@@ -8172,74 +8171,74 @@ LABEL_95:
     }
   }
 
-  v96 = v8 + 1;
-  v98 = v8 == a2 || v96 == a2;
+  v95 = v8 + 1;
+  v97 = v8 == a2 || v95 == a2;
   if (a4)
   {
-    if (!v98)
+    if (!v97)
     {
-      v99 = 0;
-      v100 = v8;
+      v98 = 0;
+      v99 = v8;
       do
       {
-        v102 = *v100;
-        v101 = v100[1];
-        v100 = v96;
-        if (v101 < v102)
+        v101 = *v99;
+        v100 = v99[1];
+        v99 = v95;
+        if (v100 < v101)
         {
-          v103 = v99;
+          v102 = v98;
           while (1)
           {
-            *(v8 + v103 + 4) = v102;
-            if (!v103)
+            *(v8 + v102 + 4) = v101;
+            if (!v102)
             {
               break;
             }
 
-            v102 = *(v8 + v103 - 4);
-            v103 -= 4;
-            if (v101 >= v102)
+            v101 = *(v8 + v102 - 4);
+            v102 -= 4;
+            if (v100 >= v101)
             {
-              v104 = (v8 + v103 + 4);
+              v103 = (v8 + v102 + 4);
               goto LABEL_194;
             }
           }
 
-          v104 = v8;
+          v103 = v8;
 LABEL_194:
-          *v104 = v101;
+          *v103 = v100;
         }
 
-        v96 = v100 + 1;
-        v99 += 4;
+        v95 = v99 + 1;
+        v98 += 4;
       }
 
-      while (v100 + 1 != a2);
+      while (v99 + 1 != a2);
     }
   }
 
-  else if (!v98)
+  else if (!v97)
   {
     do
     {
-      v106 = *v7;
-      v105 = v7[1];
-      v7 = v96;
-      if (v105 < v106)
+      v105 = *v7;
+      v104 = v7[1];
+      v7 = v95;
+      if (v104 < v105)
       {
-        v107 = v96;
+        v106 = v95;
         do
         {
-          *v107 = v106;
-          v106 = *(v107 - 2);
-          --v107;
+          *v106 = v105;
+          v105 = *(v106 - 2);
+          --v106;
         }
 
-        while (v105 < v106);
-        *v107 = v105;
+        while (v104 < v105);
+        *v106 = v104;
       }
 
-      ++v96;
+      ++v95;
     }
 
     while (v7 + 1 != a2);
@@ -8248,7 +8247,7 @@ LABEL_194:
   return result;
 }
 
-double *std::__introsort<std::_ClassicAlgPolicy,std::ranges::less,double *,true>(double *result, double *a2, uint64_t a3, char a4)
+uint64_t std::__introsort<std::_ClassicAlgPolicy,std::ranges::less,double *,true>(uint64_t result, double *a2, uint64_t a3, char a4)
 {
   v6 = result;
 LABEL_2:
@@ -8265,288 +8264,288 @@ LABEL_3:
       switch(v10)
       {
         case 3:
-          v56 = v7[1];
-          v57 = *(a2 - 1);
-          if (v56 < v57)
+          v55 = v7[1];
+          v56 = *(a2 - 1);
+          if (v55 < v56)
           {
-            v58 = *(v7 + 1);
+            v57 = *(v7 + 1);
           }
 
           else
           {
-            v58 = *(a2 - 1);
+            v57 = *(a2 - 1);
           }
 
-          if (v56 < v57)
+          if (v55 < v56)
           {
-            v56 = *(a2 - 1);
+            v55 = *(a2 - 1);
           }
 
-          *(a2 - 1) = v56;
-          *(v7 + 1) = v58;
-          v59 = *(a2 - 1);
-          if (v59 < *v7)
+          *(a2 - 1) = v55;
+          *(v7 + 1) = v57;
+          v58 = *(a2 - 1);
+          if (v58 < *v7)
           {
-            v60 = *(a2 - 1);
+            v59 = *(a2 - 1);
           }
 
           else
-          {
-            v60 = *v7;
-          }
-
-          if (v59 < *v7)
           {
             v59 = *v7;
           }
 
-          *(a2 - 1) = v59;
-          v62 = *v7;
-          v61 = v7[1];
-          if (v60 >= v61)
+          if (v58 < *v7)
           {
-            v62 = v7[1];
-            v61 = v60;
+            v58 = *v7;
           }
 
-          *v7 = v62;
-          v7[1] = v61;
+          *(a2 - 1) = v58;
+          v61 = *v7;
+          v60 = v7[1];
+          if (v59 >= v60)
+          {
+            v61 = v7[1];
+            v60 = v59;
+          }
+
+          *v7 = v61;
+          v7[1] = v60;
           return result;
         case 4:
-          v86 = v7[1];
-          v85 = v7[2];
-          if (*v7 < v85)
+          v85 = v7[1];
+          v84 = v7[2];
+          if (*v7 < v84)
           {
-            v87 = *v7;
+            v86 = *v7;
           }
 
           else
           {
-            v87 = v7[2];
+            v86 = v7[2];
           }
 
-          if (*v7 >= v85)
+          if (*v7 >= v84)
           {
-            v85 = *v7;
+            v84 = *v7;
           }
 
-          v7[2] = v85;
-          *v7 = v87;
-          v88 = *(a2 - 1);
-          if (v86 < v88)
+          v7[2] = v84;
+          *v7 = v86;
+          v87 = *(a2 - 1);
+          if (v85 < v87)
           {
-            v89 = v86;
+            v88 = v85;
           }
 
           else
           {
-            v89 = *(a2 - 1);
+            v88 = *(a2 - 1);
           }
 
-          if (v86 >= v88)
+          if (v85 >= v87)
           {
-            v88 = v86;
+            v87 = v85;
           }
 
-          *(a2 - 1) = v88;
-          v90 = *v7;
-          if (*v7 < v89)
+          *(a2 - 1) = v87;
+          v89 = *v7;
+          if (*v7 < v88)
           {
-            v91 = *v7;
+            v90 = *v7;
           }
 
           else
           {
-            v91 = v89;
+            v90 = v88;
           }
 
-          if (*v7 < v89)
+          if (*v7 < v88)
           {
-            v90 = v89;
+            v89 = v88;
           }
 
-          *v7 = v91;
-          v7[1] = v90;
-          v92 = v7[2];
-          v93 = *(a2 - 1);
-          if (v92 < v93)
+          *v7 = v90;
+          v7[1] = v89;
+          v91 = v7[2];
+          v92 = *(a2 - 1);
+          if (v91 < v92)
           {
-            v94 = v7[2];
+            v93 = v7[2];
           }
 
           else
           {
-            v94 = *(a2 - 1);
+            v93 = *(a2 - 1);
           }
 
-          if (v92 < v93)
+          if (v91 < v92)
           {
-            v92 = *(a2 - 1);
+            v91 = *(a2 - 1);
           }
 
-          *(a2 - 1) = v92;
-          v95 = v7[1];
-          if (v95 < v94)
+          *(a2 - 1) = v91;
+          v94 = v7[1];
+          if (v94 < v93)
           {
-            v96 = v7[1];
+            v95 = v7[1];
           }
 
           else
           {
-            v96 = v94;
+            v95 = v93;
           }
 
-          if (v95 < v94)
+          if (v94 < v93)
           {
-            v95 = v94;
+            v94 = v93;
           }
 
-          v7[1] = v96;
-          v7[2] = v95;
+          v7[1] = v95;
+          v7[2] = v94;
           return result;
         case 5:
-          v63 = *v7;
-          v64 = v7[1];
-          if (*v7 < v64)
+          v62 = *v7;
+          v63 = v7[1];
+          if (*v7 < v63)
           {
-            v65 = *v7;
+            v64 = *v7;
           }
 
           else
           {
-            v65 = v7[1];
+            v64 = v7[1];
           }
 
-          if (*v7 < v64)
+          if (*v7 < v63)
           {
-            v63 = v7[1];
+            v62 = v7[1];
           }
 
-          *v7 = v65;
-          v7[1] = v63;
-          v66 = v7[3];
-          v67 = *(a2 - 1);
-          if (v66 < v67)
+          *v7 = v64;
+          v7[1] = v62;
+          v65 = v7[3];
+          v66 = *(a2 - 1);
+          if (v65 < v66)
           {
-            v68 = *(v7 + 3);
+            v67 = *(v7 + 3);
           }
 
           else
           {
-            v68 = *(a2 - 1);
+            v67 = *(a2 - 1);
           }
 
-          if (v66 < v67)
+          if (v65 < v66)
           {
-            v66 = *(a2 - 1);
+            v65 = *(a2 - 1);
           }
 
-          *(a2 - 1) = v66;
-          *(v7 + 3) = v68;
-          v69 = *(a2 - 1);
-          v70 = v7[2];
-          if (v69 < v70)
+          *(a2 - 1) = v65;
+          *(v7 + 3) = v67;
+          v68 = *(a2 - 1);
+          v69 = v7[2];
+          if (v68 < v69)
           {
-            v71 = *(a2 - 1);
+            v70 = *(a2 - 1);
           }
 
           else
           {
-            v71 = v7[2];
+            v70 = v7[2];
           }
 
-          if (v69 < v70)
+          if (v68 < v69)
           {
-            v69 = v7[2];
+            v68 = v7[2];
           }
 
-          *(a2 - 1) = v69;
-          v73 = *(v7 + 2);
-          v72 = v7[3];
-          v74 = v7[1];
-          if (v71 >= v72)
+          *(a2 - 1) = v68;
+          v72 = *(v7 + 2);
+          v71 = v7[3];
+          v73 = v7[1];
+          if (v70 >= v71)
           {
-            v73 = *(v7 + 3);
-            v72 = v71;
+            v72 = *(v7 + 3);
+            v71 = v70;
           }
 
-          *(v7 + 2) = v73;
-          v7[3] = v72;
-          v75 = *(a2 - 1);
-          if (v74 < v75)
+          *(v7 + 2) = v72;
+          v7[3] = v71;
+          v74 = *(a2 - 1);
+          if (v73 < v74)
           {
-            v76 = v74;
+            v75 = v73;
           }
 
           else
           {
-            v76 = *(a2 - 1);
+            v75 = *(a2 - 1);
           }
 
-          if (v74 >= v75)
+          if (v73 >= v74)
           {
-            v75 = v74;
+            v74 = v73;
           }
 
-          *(a2 - 1) = v75;
-          v77 = *v7;
-          v79 = v7[2];
-          v78 = v7[3];
-          if (v78 < *v7)
+          *(a2 - 1) = v74;
+          v76 = *v7;
+          v78 = v7[2];
+          v77 = v7[3];
+          if (v77 < *v7)
           {
-            v80 = v7[3];
+            v79 = v7[3];
           }
 
           else
           {
-            v80 = *v7;
+            v79 = *v7;
           }
 
-          if (v78 < *v7)
+          if (v77 < *v7)
           {
-            v78 = *v7;
+            v77 = *v7;
           }
 
-          if (v80 >= v79)
+          if (v79 >= v78)
           {
-            v77 = v7[2];
-            v79 = v80;
+            v76 = v7[2];
+            v78 = v79;
           }
 
-          if (v78 < v76)
+          if (v77 < v75)
+          {
+            v80 = v77;
+          }
+
+          else
+          {
+            v80 = v75;
+          }
+
+          if (v77 < v75)
+          {
+            v77 = v75;
+          }
+
+          if (v80 >= v78)
+          {
+            v75 = v78;
+          }
+
+          *v7 = v76;
+          v7[1] = v75;
+          if (v80 < v78)
           {
             v81 = v78;
           }
 
           else
           {
-            v81 = v76;
+            v81 = v80;
           }
 
-          if (v78 < v76)
-          {
-            v78 = v76;
-          }
-
-          if (v81 >= v79)
-          {
-            v76 = v79;
-          }
-
-          *v7 = v77;
-          v7[1] = v76;
-          if (v81 < v79)
-          {
-            v82 = v79;
-          }
-
-          else
-          {
-            v82 = v81;
-          }
-
-          v7[2] = v82;
-          v7[3] = v78;
+          v7[2] = v81;
+          v7[3] = v77;
           return result;
       }
     }
@@ -8560,12 +8559,12 @@ LABEL_3:
 
       if (v10 == 2)
       {
-        v83 = *(a2 - 1);
-        v84 = *v7;
-        if (v83 < *v7)
+        v82 = *(a2 - 1);
+        v83 = *v7;
+        if (v82 < *v7)
         {
-          *v7 = v83;
-          *(a2 - 1) = v84;
+          *v7 = v82;
+          *(a2 - 1) = v83;
         }
 
         return result;
@@ -8581,7 +8580,7 @@ LABEL_3:
     {
       if (v7 != a2)
       {
-        return std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::ranges::less &,double *,double *>(v7, a2, a2, &v109);
+        return std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::ranges::less &,double *,double *>(v7, a2, a2, &v108);
       }
 
       return result;
@@ -8627,21 +8626,20 @@ LABEL_3:
 
       *(a2 - 1) = v46;
       v49 = *v7;
-      v50 = v7[v11];
-      v51 = v48 < *v7;
+      v50 = v48 < *v7;
       if (v48 < *v7)
       {
         v49 = v7[v11];
       }
 
       v7[v11] = v49;
-      v52 = *v7;
-      if (!v51)
+      v51 = *v7;
+      if (!v50)
       {
-        v52 = v48;
+        v51 = v48;
       }
 
-      *v7 = v52;
+      *v7 = v51;
       if (a4)
       {
         goto LABEL_90;
@@ -8875,20 +8873,20 @@ LABEL_3:
     }
 
 LABEL_90:
-    v53 = std::__bitset_partition[abi:ne200100]<std::_ClassicAlgPolicy,double *,std::ranges::less>(v7, a2);
-    if ((v54 & 1) == 0)
+    v52 = std::__bitset_partition[abi:ne200100]<std::_ClassicAlgPolicy,double *,std::ranges::less>(v7, a2);
+    if ((v53 & 1) == 0)
     {
       goto LABEL_93;
     }
 
-    v55 = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::ranges::less,double *>(v7, v53);
-    v7 = v53 + 1;
-    result = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::ranges::less,double *>(v53 + 1, a2);
+    v54 = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::ranges::less,double *>(v7, v52);
+    v7 = v52 + 1;
+    result = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::ranges::less,double *>(v52 + 1, a2);
     if (result)
     {
       a3 = -v9;
-      a2 = v53;
-      if (v55)
+      a2 = v52;
+      if (v54)
       {
         return result;
       }
@@ -8897,11 +8895,11 @@ LABEL_90:
     }
 
     v8 = v9 + 1;
-    if (!v55)
+    if (!v54)
     {
 LABEL_93:
-      result = std::__introsort<std::_ClassicAlgPolicy,std::ranges::less,double *,true>(v6, v53, -v9, a4 & 1);
-      v7 = v53 + 1;
+      result = std::__introsort<std::_ClassicAlgPolicy,std::ranges::less,double *,true>(v6, v52, -v9, a4 & 1);
+      v7 = v52 + 1;
 LABEL_95:
       a4 = 0;
       a3 = -v9;
@@ -8909,74 +8907,74 @@ LABEL_95:
     }
   }
 
-  v97 = v7 + 1;
-  v99 = v7 == a2 || v97 == a2;
+  v96 = v7 + 1;
+  v98 = v7 == a2 || v96 == a2;
   if (a4)
   {
-    if (!v99)
+    if (!v98)
     {
-      v100 = 0;
-      v101 = v7;
+      v99 = 0;
+      v100 = v7;
       do
       {
-        v103 = *v101;
-        v102 = v101[1];
-        v101 = v97;
-        if (v102 < v103)
+        v102 = *v100;
+        v101 = v100[1];
+        v100 = v96;
+        if (v101 < v102)
         {
-          v104 = v100;
+          v103 = v99;
           while (1)
           {
-            *(v7 + v104 + 8) = v103;
-            if (!v104)
+            *(v7 + v103 + 8) = v102;
+            if (!v103)
             {
               break;
             }
 
-            v103 = *(v7 + v104 - 8);
-            v104 -= 8;
-            if (v102 >= v103)
+            v102 = *(v7 + v103 - 8);
+            v103 -= 8;
+            if (v101 >= v102)
             {
-              v105 = (v7 + v104 + 8);
+              v104 = (v7 + v103 + 8);
               goto LABEL_194;
             }
           }
 
-          v105 = v7;
+          v104 = v7;
 LABEL_194:
-          *v105 = v102;
+          *v104 = v101;
         }
 
-        v97 = v101 + 1;
-        v100 += 8;
+        v96 = v100 + 1;
+        v99 += 8;
       }
 
-      while (v101 + 1 != a2);
+      while (v100 + 1 != a2);
     }
   }
 
-  else if (!v99)
+  else if (!v98)
   {
     do
     {
-      v107 = *v6;
-      v106 = v6[1];
-      v6 = v97;
-      if (v106 < v107)
+      v106 = *v6;
+      v105 = v6[1];
+      v6 = v96;
+      if (v105 < v106)
       {
-        v108 = v97;
+        v107 = v96;
         do
         {
-          *v108 = v107;
-          v107 = *(v108 - 2);
-          --v108;
+          *v107 = v106;
+          v106 = *(v107 - 2);
+          --v107;
         }
 
-        while (v106 < v107);
-        *v108 = v106;
+        while (v105 < v106);
+        *v107 = v105;
       }
 
-      ++v97;
+      ++v96;
     }
 
     while (v6 + 1 != a2);

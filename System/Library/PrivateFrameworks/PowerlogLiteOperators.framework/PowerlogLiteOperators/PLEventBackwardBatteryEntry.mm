@@ -105,7 +105,7 @@ void __67__PLEventBackwardBatteryEntry_populateCellWOMForEntry_withRawData___blo
 
 + (void)populatewRaForEntry:(id)entry withRawData:(id)data
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   entryCopy = entry;
   v6 = [data objectForKeyedSubscript:@"BatteryData"];
   v7 = [v6 objectForKeyedSubscript:@"WeightedRa"];
@@ -118,12 +118,12 @@ void __67__PLEventBackwardBatteryEntry_populateCellWOMForEntry_withRawData___blo
 
     if ([v7 count] >= 2)
     {
-      v12[0] = MEMORY[0x277D85DD0];
-      v12[1] = 3221225472;
-      v12[2] = __63__PLEventBackwardBatteryEntry_populatewRaForEntry_withRawData___block_invoke;
-      v12[3] = &unk_278260DE8;
-      v13 = entryCopy;
-      [v7 enumerateObjectsUsingBlock:v12];
+      v11[0] = MEMORY[0x277D85DD0];
+      v11[1] = 3221225472;
+      v11[2] = __63__PLEventBackwardBatteryEntry_populatewRaForEntry_withRawData___block_invoke;
+      v11[3] = &unk_278260DE8;
+      v12 = entryCopy;
+      [v7 enumerateObjectsUsingBlock:v11];
     }
   }
 
@@ -142,13 +142,11 @@ void __67__PLEventBackwardBatteryEntry_populateCellWOMForEntry_withRawData___blo
       {
         className = [objc_opt_class() className];
         *buf = 138412290;
-        v15 = className;
+        v14 = className;
         _os_log_error_impl(&dword_21A4C6000, v9, OS_LOG_TYPE_ERROR, "unknown wRa format: %@", buf, 0xCu);
       }
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __63__PLEventBackwardBatteryEntry_populatewRaForEntry_withRawData___block_invoke(uint64_t a1, void *a2, uint64_t a3)

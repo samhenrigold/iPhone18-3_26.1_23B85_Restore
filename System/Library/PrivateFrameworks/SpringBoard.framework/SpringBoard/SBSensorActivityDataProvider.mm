@@ -635,7 +635,7 @@ SBSensorActivityAttribution *__53__SBSensorActivityDataProvider__handleNewDomain
   return v3;
 }
 
-uint64_t __53__SBSensorActivityDataProvider__handleNewDomainData___block_invoke_3(uint64_t a1)
+void *__53__SBSensorActivityDataProvider__handleNewDomainData___block_invoke_3(uint64_t a1)
 {
   [*(a1 + 32) setMicrophoneAttributionsAwaitingMinimumOnTime:0];
   result = [*(a1 + 32) _updateActiveSensorActivityAttributions];
@@ -649,7 +649,7 @@ uint64_t __53__SBSensorActivityDataProvider__handleNewDomainData___block_invoke_
   return result;
 }
 
-uint64_t __53__SBSensorActivityDataProvider__handleNewDomainData___block_invoke_4(uint64_t a1)
+void *__53__SBSensorActivityDataProvider__handleNewDomainData___block_invoke_4(uint64_t a1)
 {
   [*(a1 + 32) setCameraAttributionsAwaitingMinimumOnTime:0];
   result = [*(a1 + 32) _updateActiveSensorActivityAttributions];

@@ -88,7 +88,7 @@ LABEL_6:
   endDate = [momentCopy endDate];
   v18 = [v15 initWithStartDate:startDate endDate:endDate];
 
-  [v18 duration];
+  objc_msgSend_duration(v18);
   v21 = v19 <= 120.0 && v12 <= v7;
   v22 = v12 <= v5 || v21;
   if (curation)
@@ -337,7 +337,7 @@ LABEL_6:
           v55 = [(NSCalendar *)self->_calendar components:16 fromDate:v74 toDate:localStartDate2 options:0];
           v56 = [v55 day];
           v57 = v81;
-          if (v45 == lastObject2 || (v56 <= v70 ? (v58 = v42 > v69) : (v58 = 1), !v58 || -[NSCalendar isDate:inSameDayAsDate:](self->_calendar, "isDate:inSameDayAsDate:", localStartDate2, v81) || [v66 count] == v67))
+          if (v45 == lastObject2 || (v56 <= v70 ? (v58 = v42 > v69) : (v58 = 1), !v58 || [(NSCalendar *)self->_calendar isDate:localStartDate2 inSameDayAsDate:v81]|| objc_msgSend_count(v66) == v67))
           {
             array2 = v78;
             [(PLMomentCluster *)v78 addObject:v45];
@@ -383,7 +383,7 @@ LABEL_6:
 void __70__PLAggregationProcessor__aggregationMomentClustersForMomentClusters___block_invoke(uint64_t a1, void *a2)
 {
   v4 = a2;
-  if ([v4 count] >= 2)
+  if (objc_msgSend_count(v4) >= 2)
   {
     v3 = [[PLMomentCluster alloc] initWithMomentClusters:v4];
     [*(a1 + 32) addObject:v3];
@@ -396,7 +396,7 @@ void __70__PLAggregationProcessor__aggregationMomentClustersForMomentClusters___
   clustersCopy = clusters;
   highlightsCopy = highlights;
   blockCopy = block;
-  if ([clustersCopy count])
+  if (objc_msgSend_count(clustersCopy))
   {
     v68 = blockCopy;
     v75 = _Block_copy(blockCopy);
@@ -418,7 +418,7 @@ void __70__PLAggregationProcessor__aggregationMomentClustersForMomentClusters___
     v70 = v13;
 
     v64 = mach_absolute_time();
-    v66 = [clustersCopy count];
+    v66 = objc_msgSend_count(clustersCopy);
     currentCalendar = [MEMORY[0x1E695DEE8] currentCalendar];
     v15 = [MEMORY[0x1E695DFE8] timeZoneWithAbbreviation:@"GMT"];
     v74 = currentCalendar;
@@ -566,7 +566,7 @@ LABEL_27:
         }
 
         localStartDate = [v38 localStartDate];
-        v40 = [v35 count];
+        v40 = objc_msgSend_count(v35);
         v41 = [v76 containsObject:v38];
         if (v41)
         {
@@ -677,13 +677,13 @@ LABEL_55:
 LABEL_65:
 
     v52 = array2;
-    if ([v35 count] >= 2)
+    if (objc_msgSend_count(v35) >= 2)
     {
       v53 = [(PLAggregationProcessor *)self _aggregationMomentClustersForMomentClusters:v35];
       [array2 addObjectsFromArray:v53];
     }
 
-    v54 = [array2 count];
+    v54 = objc_msgSend_count(array2);
     v55 = mach_absolute_time();
     numer = info.numer;
     denom = info.denom;

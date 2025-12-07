@@ -11,9 +11,9 @@
     +[NSUnitEnergy(CPChargePrecondition) wattHours];
   }
 
-  v1 = wattHours__wattHours;
+  v2 = wattHours__wattHours;
 
-  return v1;
+  return v2;
 }
 
 @end

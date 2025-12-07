@@ -48,7 +48,7 @@
 
 + (BOOL)_validateLowerBound:(id)bound upperBound:(id)upperBound error:(id *)error
 {
-  v28[1] = *MEMORY[0x1E69E9840];
+  v27[1] = *MEMORY[0x1E69E9840];
   boundCopy = bound;
   upperBoundCopy = upperBound;
   v9 = upperBoundCopy;
@@ -56,9 +56,9 @@
   {
     v10 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Clamped range must have some bound."];
     v11 = MEMORY[0x1E696ABC0];
-    v27 = *MEMORY[0x1E696A578];
-    v28[0] = v10;
-    v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v28 forKeys:&v27 count:1];
+    v26 = *MEMORY[0x1E696A578];
+    v27[0] = v10;
+    v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v27 forKeys:&v26 count:1];
     v13 = [v11 errorWithDomain:@"com.apple.healthkit" code:3 userInfo:v12];
 
     v14 = v13;
@@ -95,9 +95,9 @@ LABEL_10:
       {
         v10 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Lower bound for clamped range must be less than upper bound."];
         v20 = MEMORY[0x1E696ABC0];
-        v25 = *MEMORY[0x1E696A578];
-        v26 = v10;
-        v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v26 forKeys:&v25 count:1];
+        v24 = *MEMORY[0x1E696A578];
+        v25 = v10;
+        v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v25 forKeys:&v24 count:1];
         v22 = [v20 errorWithDomain:@"com.apple.healthkit" code:3 userInfo:v21];
 
         v14 = v22;
@@ -118,7 +118,6 @@ LABEL_10:
 
 LABEL_12:
 
-  v23 = *MEMORY[0x1E69E9840];
   return v16;
 }
 

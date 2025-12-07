@@ -9,20 +9,17 @@
 
 - (NSString)identifier
 {
-  v2 = *(self + OBJC_IVAR____TtC11fmflocatord8FMLFence_identifier);
-  v3 = *(self + OBJC_IVAR____TtC11fmflocatord8FMLFence_identifier + 8);
 
-  v4 = String._bridgeToObjectiveC()();
+  v2 = String._bridgeToObjectiveC()();
 
-  return v4;
+  return v2;
 }
 
 - (FenceScheduleProtocol)schedule
 {
-  v2 = *(self + OBJC_IVAR____TtC11fmflocatord8FMLFence_schedule);
-  v3 = swift_unknownObjectRetain();
+  v2 = swift_unknownObjectRetain();
 
-  return v3;
+  return v2;
 }
 
 - (NSString)description

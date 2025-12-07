@@ -89,25 +89,17 @@
 
 + (Class)templateGeneratorClassForComplicationFamily:(int64_t)family
 {
-  if (NTKComplicationFamilyUtilitarianLargeNarrow == family)
+  if (NTKComplicationFamilyUtilitarianLargeNarrow == family || family <= 0xC && ((0x1FDFu >> family) & 1) != 0)
   {
-    v4 = off_10300;
-    goto LABEL_3;
+    v4 = objc_opt_class();
   }
 
-  if (family <= 0xC && ((0x1FDFu >> family) & 1) != 0)
+  else
   {
-    v4 = (&off_104C0)[family];
-LABEL_3:
-    v5 = *v4;
-    v6 = objc_opt_class();
-
-    return v6;
+    v4 = 0;
   }
 
-  v6 = 0;
-
-  return v6;
+  return v4;
 }
 
 + (id)templateGeneratorForComplicationFamily:(int64_t)family

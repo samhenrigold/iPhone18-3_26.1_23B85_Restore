@@ -3,7 +3,7 @@
 - (SUICSiriLanguage)initWithDelegate:(id)delegate;
 - (SUICSiriLanguageDelegate)_delegate;
 - (id)_computeSpokenLanguageCode;
-- (uint64_t)_computeSpokenLanguageCode;
+- (void)_computeSpokenLanguageCode;
 - (void)_setSpokenLanguageCode:(id)code;
 - (void)_updateSpokenLanguageCode;
 - (void)dealloc;
@@ -75,7 +75,7 @@
 
   else
   {
-    v3 = SetupAssistantLibraryCore() != 0;
+    v3 = SetupAssistantLibraryCore(0) != 0;
     self->_setupAssistantHasCompletedInitialRunAvailable = v3;
     self->_setupAssistantHasCompletedInitialRunChecked = 1;
   }
@@ -90,28 +90,29 @@
 
   if ([(SUICSiriLanguage *)self _setupAssistantHasCompletedInitialRunAvailable])
   {
-    v19 = 0;
-    v20 = &v19;
-    v21 = 0x2020000000;
+    v20 = 0;
+    v21 = &v20;
+    v22 = 0x2020000000;
     v5 = getBYSetupAssistantHasCompletedInitialRunSymbolLoc_ptr;
-    v22 = getBYSetupAssistantHasCompletedInitialRunSymbolLoc_ptr;
+    v23 = getBYSetupAssistantHasCompletedInitialRunSymbolLoc_ptr;
     if (!getBYSetupAssistantHasCompletedInitialRunSymbolLoc_ptr)
     {
-      v18[0] = MEMORY[0x1E69E9820];
-      v18[1] = 3221225472;
-      v18[2] = __getBYSetupAssistantHasCompletedInitialRunSymbolLoc_block_invoke;
-      v18[3] = &unk_1E81E7E68;
-      v18[4] = &v19;
-      __getBYSetupAssistantHasCompletedInitialRunSymbolLoc_block_invoke(v18);
-      v5 = v20[3];
+      v19[0] = MEMORY[0x1E69E9820];
+      v19[1] = 3221225472;
+      v19[2] = __getBYSetupAssistantHasCompletedInitialRunSymbolLoc_block_invoke;
+      v19[3] = &unk_1E81E7E68;
+      v19[4] = &v20;
+      __getBYSetupAssistantHasCompletedInitialRunSymbolLoc_block_invoke(v19);
+      v5 = v21[3];
     }
 
-    _Block_object_dispose(&v19, 8);
+    _Block_object_dispose(&v20, 8);
     if (!v5)
     {
-      _computeSpokenLanguageCode = [SUICSiriLanguage _computeSpokenLanguageCode];
-      _Block_object_dispose(&v19, 8);
-      _Unwind_Resume(_computeSpokenLanguageCode);
+      [SUICSiriLanguage _computeSpokenLanguageCode];
+      v18 = v17;
+      _Block_object_dispose(&v20, 8);
+      _Unwind_Resume(v18);
     }
 
     if ((v5() & 1) == 0)
@@ -188,11 +189,11 @@ LABEL_21:
   return WeakRetained;
 }
 
-- (uint64_t)_computeSpokenLanguageCode
+- (void)_computeSpokenLanguageCode
 {
-  dlerror();
-  v0 = abort_report_np();
-  return [_SUICProgressRingLayer setSpinning:v0];
+  v0 = dlerror();
+  abort_report_np("%s", v0);
+  [_SUICProgressRingLayer setSpinning:];
 }
 
 @end

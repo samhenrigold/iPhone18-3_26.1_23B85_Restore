@@ -10,7 +10,7 @@
 + (id)celebrationMovieURLForGoalType:(int64_t)type
 {
   v4 = [objc_opt_class() _movieNameForGoalType:type variantNumber:1];
-  v5 = FIFitnessUIAssetsBundle();
+  v5 = FIFitnessUIAssetsBundle(v4);
   _celebrationMovieSubdirectory = [self _celebrationMovieSubdirectory];
   v7 = [v5 URLForResource:v4 withExtension:@"mov" subdirectory:_celebrationMovieSubdirectory];
 
@@ -22,11 +22,11 @@
   identiferCopy = identifer;
   v5 = [objc_opt_class() _movieNameForAchievementIdentifier:identiferCopy variantNumber:1];
 
-  v6 = FIFitnessUIAssetsBundle();
+  v7 = FIFitnessUIAssetsBundle(v6);
   _celebrationMovieSubdirectory = [self _celebrationMovieSubdirectory];
-  v8 = [v6 URLForResource:v5 withExtension:@"mov" subdirectory:_celebrationMovieSubdirectory];
+  v9 = [v7 URLForResource:v5 withExtension:@"mov" subdirectory:_celebrationMovieSubdirectory];
 
-  return v8;
+  return v9;
 }
 
 + (id)_movieNameForGoalType:(int64_t)type variantNumber:(unint64_t)number

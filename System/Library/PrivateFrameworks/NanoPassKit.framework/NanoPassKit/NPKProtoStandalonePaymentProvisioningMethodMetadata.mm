@@ -44,7 +44,7 @@
 
 - (id)dictionaryRepresentation
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   v4 = dictionary;
   productIdentifier = self->_productIdentifier;
@@ -80,30 +80,30 @@
   if ([(NSMutableArray *)self->_requiredFields count])
   {
     v10 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{-[NSMutableArray count](self->_requiredFields, "count")}];
+    v23 = 0u;
     v24 = 0u;
     v25 = 0u;
     v26 = 0u;
-    v27 = 0u;
     v11 = self->_requiredFields;
-    v12 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v24 objects:v28 count:16];
+    v12 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v23 objects:v27 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v25;
+      v14 = *v24;
       do
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v25 != v14)
+          if (*v24 != v14)
           {
             objc_enumerationMutation(v11);
           }
 
-          dictionaryRepresentation = [*(*(&v24 + 1) + 8 * i) dictionaryRepresentation];
+          dictionaryRepresentation = [*(*(&v23 + 1) + 8 * i) dictionaryRepresentation];
           [v10 addObject:dictionaryRepresentation];
         }
 
-        v13 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v24 objects:v28 count:16];
+        v13 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v23 objects:v27 count:16];
       }
 
       while (v13);
@@ -137,14 +137,12 @@
     [v4 setObject:minimumReaderModeBalance forKey:@"minimumReaderModeBalance"];
   }
 
-  v22 = *MEMORY[0x277D85DE8];
-
   return v4;
 }
 
 - (void)writeTo:(id)to
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   toCopy = to;
   if (self->_productIdentifier)
   {
@@ -171,33 +169,32 @@
     PBDataWriterWriteStringField();
   }
 
-  v14 = 0u;
-  v15 = 0u;
   v12 = 0u;
   v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
   v5 = self->_requiredFields;
-  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v13;
+    v8 = *v11;
     do
     {
       v9 = 0;
       do
       {
-        if (*v13 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v12 + 1) + 8 * v9);
         PBDataWriterWriteSubmessage();
         ++v9;
       }
 
       while (v7 != v9);
-      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v7);
@@ -222,8 +219,6 @@
   {
     PBDataWriterWriteStringField();
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)copyTo:(id)to
@@ -296,7 +291,7 @@
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   v5 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
   v6 = [(NSString *)self->_productIdentifier copyWithZone:zone];
   v7 = v5[7];
@@ -318,34 +313,34 @@
   v15 = v5[4];
   v5[4] = v14;
 
-  v34 = 0u;
-  v35 = 0u;
-  v32 = 0u;
   v33 = 0u;
+  v34 = 0u;
+  v31 = 0u;
+  v32 = 0u;
   v16 = self->_requiredFields;
-  v17 = [(NSMutableArray *)v16 countByEnumeratingWithState:&v32 objects:v36 count:16];
+  v17 = [(NSMutableArray *)v16 countByEnumeratingWithState:&v31 objects:v35 count:16];
   if (v17)
   {
     v18 = v17;
-    v19 = *v33;
+    v19 = *v32;
     do
     {
       v20 = 0;
       do
       {
-        if (*v33 != v19)
+        if (*v32 != v19)
         {
           objc_enumerationMutation(v16);
         }
 
-        v21 = [*(*(&v32 + 1) + 8 * v20) copyWithZone:{zone, v32}];
+        v21 = [*(*(&v31 + 1) + 8 * v20) copyWithZone:{zone, v31}];
         [v5 addRequiredFields:v21];
 
         ++v20;
       }
 
       while (v18 != v20);
-      v18 = [(NSMutableArray *)v16 countByEnumeratingWithState:&v32 objects:v36 count:16];
+      v18 = [(NSMutableArray *)v16 countByEnumeratingWithState:&v31 objects:v35 count:16];
     }
 
     while (v18);
@@ -367,34 +362,13 @@
   v29 = v5[6];
   v5[6] = v28;
 
-  v30 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
 - (BOOL)isEqual:(id)equal
 {
   equalCopy = equal;
-  if (![equalCopy isMemberOfClass:objc_opt_class()])
-  {
-    goto LABEL_22;
-  }
-
-  productIdentifier = self->_productIdentifier;
-  if (productIdentifier | equalCopy[7])
-  {
-    if (![(NSString *)productIdentifier isEqual:?])
-    {
-      goto LABEL_22;
-    }
-  }
-
-  currency = self->_currency;
-  if (currency | equalCopy[1] && ![(NSString *)currency isEqual:?])
-  {
-    goto LABEL_22;
-  }
-
-  if (((depositAmount = self->_depositAmount, !(depositAmount | equalCopy[2])) || [(NSString *)depositAmount isEqual:?]) && ((minLoadedBalance = self->_minLoadedBalance, !(minLoadedBalance | equalCopy[5])) || [(NSString *)minLoadedBalance isEqual:?]) && ((maxLoadedBalance = self->_maxLoadedBalance, !(maxLoadedBalance | equalCopy[4])) || [(NSString *)maxLoadedBalance isEqual:?]) && ((requiredFields = self->_requiredFields, !(requiredFields | equalCopy[10])) || [(NSMutableArray *)requiredFields isEqual:?]) && ((readerModeMetadataJson = self->_readerModeMetadataJson, !(readerModeMetadataJson | equalCopy[8])) || [(NSString *)readerModeMetadataJson isEqual:?]) && ((digitalIssuanceMetadata = self->_digitalIssuanceMetadata, !(digitalIssuanceMetadata | equalCopy[3])) || [(NPKProtoStandalonePaymentDigitalIssuanceMetadata *)digitalIssuanceMetadata isEqual:?]) && ((readerModeResourcesJson = self->_readerModeResourcesJson, !(readerModeResourcesJson | equalCopy[9])) || [(NSString *)readerModeResourcesJson isEqual:?]))
+  if ([equalCopy isMemberOfClass:objc_opt_class()] && ((productIdentifier = self->_productIdentifier, !(productIdentifier | equalCopy[7])) || -[NSString isEqual:](productIdentifier, "isEqual:")) && ((currency = self->_currency, !(currency | equalCopy[1])) || -[NSString isEqual:](currency, "isEqual:")) && ((depositAmount = self->_depositAmount, !(depositAmount | equalCopy[2])) || -[NSString isEqual:](depositAmount, "isEqual:")) && ((minLoadedBalance = self->_minLoadedBalance, !(minLoadedBalance | equalCopy[5])) || -[NSString isEqual:](minLoadedBalance, "isEqual:")) && ((maxLoadedBalance = self->_maxLoadedBalance, !(maxLoadedBalance | equalCopy[4])) || -[NSString isEqual:](maxLoadedBalance, "isEqual:")) && ((requiredFields = self->_requiredFields, !(requiredFields | equalCopy[10])) || -[NSMutableArray isEqual:](requiredFields, "isEqual:")) && ((readerModeMetadataJson = self->_readerModeMetadataJson, !(readerModeMetadataJson | equalCopy[8])) || -[NSString isEqual:](readerModeMetadataJson, "isEqual:")) && ((digitalIssuanceMetadata = self->_digitalIssuanceMetadata, !(digitalIssuanceMetadata | equalCopy[3])) || -[NPKProtoStandalonePaymentDigitalIssuanceMetadata isEqual:](digitalIssuanceMetadata, "isEqual:")) && ((readerModeResourcesJson = self->_readerModeResourcesJson, !(readerModeResourcesJson | equalCopy[9])) || -[NSString isEqual:](readerModeResourcesJson, "isEqual:")))
   {
     minimumReaderModeBalance = self->_minimumReaderModeBalance;
     if (minimumReaderModeBalance | equalCopy[6])
@@ -410,7 +384,6 @@
 
   else
   {
-LABEL_22:
     v15 = 0;
   }
 
@@ -433,7 +406,7 @@ LABEL_22:
 
 - (void)mergeFrom:(id)from
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   fromCopy = from;
   if (*(fromCopy + 7))
   {
@@ -460,29 +433,29 @@ LABEL_22:
     [(NPKProtoStandalonePaymentProvisioningMethodMetadata *)self setMaxLoadedBalance:?];
   }
 
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
   v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   v5 = *(fromCopy + 10);
-  v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v14;
+    v8 = *v13;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        [(NPKProtoStandalonePaymentProvisioningMethodMetadata *)self addRequiredFields:*(*(&v13 + 1) + 8 * i), v13];
+        [(NPKProtoStandalonePaymentProvisioningMethodMetadata *)self addRequiredFields:*(*(&v12 + 1) + 8 * i), v12];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v7);
@@ -517,8 +490,6 @@ LABEL_22:
   {
     [(NPKProtoStandalonePaymentProvisioningMethodMetadata *)self setMinimumReaderModeBalance:?];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 @end

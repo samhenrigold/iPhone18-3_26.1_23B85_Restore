@@ -31,7 +31,7 @@
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_1003DF128();
+  sub_1003DF128(selfCopy);
 }
 
 - (void)viewWillAppear:(BOOL)appear
@@ -69,7 +69,7 @@
   swift_unknownObjectRelease();
   sub_1003E3740();
 
-  sub_1000074E0(&v8);
+  sub_1000074E0(v8);
 }
 
 - (void)updateTimeRemaining
@@ -114,7 +114,7 @@
   swift_getKeyPath();
   swift_getKeyPath();
   selfCopy = self;
-  sub_10079B9A4();
+  sub_10079B9A4(&v8);
 
   if (v8 >> 62)
   {
@@ -134,15 +134,15 @@
   v6 = sub_100796E74();
   v7 = *(v6 - 8);
   __chkstk_darwin(v6);
-  v9 = &v14 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v15 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_100796E14();
   viewCopy = view;
   selfCopy = self;
-  v12 = sub_1003E2770(viewCopy);
+  v13 = sub_1003E2770(viewCopy, v12);
 
   (*(v7 + 8))(v9, v6);
 
-  return v12;
+  return v13;
 }
 
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path

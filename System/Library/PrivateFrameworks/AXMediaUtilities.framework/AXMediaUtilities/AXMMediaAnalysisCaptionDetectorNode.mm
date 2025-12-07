@@ -316,12 +316,12 @@ LABEL_38:
 LABEL_39:
 }
 
-void __56__AXMMediaAnalysisCaptionDetectorNode_evaluate_metrics___block_invoke()
+void __56__AXMMediaAnalysisCaptionDetectorNode_evaluate_metrics___block_invoke(uint64_t a1, uint64_t a2, double a3)
 {
-  v0 = AXMediaLogCommon();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEBUG))
+  v4 = AXMediaLogCommon();
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
-    __56__AXMMediaAnalysisCaptionDetectorNode_evaluate_metrics___block_invoke_cold_1(v0, v1, v2, v3, v4, v5, v6, v7);
+    __56__AXMMediaAnalysisCaptionDetectorNode_evaluate_metrics___block_invoke_cold_1(v4, v5, v6, v7, v8, v9, v10, v11, a3);
   }
 }
 
@@ -949,24 +949,24 @@ LABEL_22:
   }
 
   firstObject = [resultsCopy firstObject];
-  v27 = 0;
-  v28 = &v27;
-  v29 = 0x2050000000;
-  v13 = getMADCaptionResultClass_softClass;
-  v30 = getMADCaptionResultClass_softClass;
+  v19 = 0;
+  v20 = &v19;
+  v21 = 0x2050000000;
+  v6 = getMADCaptionResultClass_softClass;
+  v22 = getMADCaptionResultClass_softClass;
   if (!getMADCaptionResultClass_softClass)
   {
-    v26[0] = MEMORY[0x1E69E9820];
-    v26[1] = 3221225472;
-    v26[2] = __getMADCaptionResultClass_block_invoke;
-    v26[3] = &unk_1E7A1C700;
-    v26[4] = &v27;
-    __getMADCaptionResultClass_block_invoke(v26, v5, v6, v7, v8, v9, v10, v11, v25);
-    v13 = v28[3];
+    v18[0] = MEMORY[0x1E69E9820];
+    v18[1] = 3221225472;
+    v18[2] = __getMADCaptionResultClass_block_invoke;
+    v18[3] = &unk_1E7A1C700;
+    v18[4] = &v19;
+    __getMADCaptionResultClass_block_invoke(v18);
+    v6 = v20[3];
   }
 
-  v14 = v13;
-  _Block_object_dispose(&v27, 8);
+  v7 = v6;
+  _Block_object_dispose(&v19, 8);
   objc_opt_class();
   isKindOfClass = objc_opt_isKindOfClass();
 
@@ -975,14 +975,14 @@ LABEL_22:
     firstObject2 = [resultsCopy firstObject];
     caption = [firstObject2 caption];
     [firstObject2 score];
-    v19 = v18;
+    v12 = v11;
     isLowConfidence = [firstObject2 isLowConfidence];
     classificationIdentifiers = [firstObject2 classificationIdentifiers];
     array = [MEMORY[0x1E695DF70] array];
     if ([caption length])
     {
-      v23 = [[AXMMediaAnalysisCaptions alloc] initWithText:caption confidence:isLowConfidence isLowConfidence:classificationIdentifiers classificationIdentifiers:v19];
-      [array addObject:v23];
+      v16 = [[AXMMediaAnalysisCaptions alloc] initWithText:caption confidence:isLowConfidence isLowConfidence:classificationIdentifiers classificationIdentifiers:v12];
+      [array addObject:v16];
     }
 
     if ([array count])
@@ -1003,53 +1003,60 @@ LABEL_12:
   return WeakRetained;
 }
 
+void __56__AXMMediaAnalysisCaptionDetectorNode_evaluate_metrics___block_invoke_cold_1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, double a9)
+{
+  LODWORD(v9) = 134217984;
+  *(&v9 + 4) = a9;
+  OUTLINED_FUNCTION_2(&dword_1AE37B000, a1, a3, "AXM Media analysis: progress: %.2f", a5, a6, a7, a8, v9, DWORD2(v9));
+}
+
 void __56__AXMMediaAnalysisCaptionDetectorNode_evaluate_metrics___block_invoke_67_cold_3(id *a1)
 {
   v1 = [*a1 localIdentifier];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_0(&dword_1AE37B000, v2, v3, "AXM Media analysis: AXMMediaAnalysisCaptionsResult is nil for asset with ID: %@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_2_0(&dword_1AE37B000, v2, v3, "AXM Media analysis: AXMMediaAnalysisCaptionsResult is nil for asset with ID: %@", v4, v5, v6, v7);
 }
 
 void __56__AXMMediaAnalysisCaptionDetectorNode_evaluate_metrics___block_invoke_67_cold_4(id *a1)
 {
   v1 = [*a1 localIdentifier];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_0(&dword_1AE37B000, v2, v3, "AXM Media analysis: No analysis dict found for asset with ID: %@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_2_0(&dword_1AE37B000, v2, v3, "AXM Media analysis: No analysis dict found for asset with ID: %@", v4, v5, v6, v7);
 }
 
 void __56__AXMMediaAnalysisCaptionDetectorNode_evaluate_metrics___block_invoke_67_cold_5(uint64_t a1)
 {
   v1 = [*(a1 + 32) localIdentifier];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_0(&dword_1AE37B000, v2, v3, "AXM Media analysis: No analysis result or error produced for asset with ID: %@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_2_0(&dword_1AE37B000, v2, v3, "AXM Media analysis: No analysis result or error produced for asset with ID: %@", v4, v5, v6, v7);
 }
 
 void __56__AXMMediaAnalysisCaptionDetectorNode_evaluate_metrics___block_invoke_73_cold_2()
 {
   OUTLINED_FUNCTION_6_0(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_5_0();
-  OUTLINED_FUNCTION_2(&dword_1AE37B000, v0, v1, "AXM Media analysis: AXMMediaAnalysisCaptionsResult is nil on ciimage : %@", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2(&dword_1AE37B000, v0, v1, "AXM Media analysis: AXMMediaAnalysisCaptionsResult is nil on ciimage : %@", v2, v3, v4, v5);
 }
 
 void __56__AXMMediaAnalysisCaptionDetectorNode_evaluate_metrics___block_invoke_73_cold_3()
 {
   OUTLINED_FUNCTION_6_0(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_5_0();
-  OUTLINED_FUNCTION_2(&dword_1AE37B000, v0, v1, "AXM Media analysis: Invalid request - MADImageCaptionRequest on ciimage : %@", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2(&dword_1AE37B000, v0, v1, "AXM Media analysis: Invalid request - MADImageCaptionRequest on ciimage : %@", v2, v3, v4, v5);
 }
 
 void __56__AXMMediaAnalysisCaptionDetectorNode_evaluate_metrics___block_invoke_75_cold_2()
 {
   OUTLINED_FUNCTION_6_0(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_5_0();
-  OUTLINED_FUNCTION_2(&dword_1AE37B000, v0, v1, "AXM Media analysis: AXMMediaAnalysisCaptionsResult is nil on pixelBuffer : %@", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2(&dword_1AE37B000, v0, v1, "AXM Media analysis: AXMMediaAnalysisCaptionsResult is nil on pixelBuffer : %@", v2, v3, v4, v5);
 }
 
 void __56__AXMMediaAnalysisCaptionDetectorNode_evaluate_metrics___block_invoke_75_cold_3()
 {
   OUTLINED_FUNCTION_6_0(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_5_0();
-  OUTLINED_FUNCTION_2(&dword_1AE37B000, v0, v1, "AXM Media analysis: Invalid request - MADImageCaptionRequest on pixelBuffer : %@", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2(&dword_1AE37B000, v0, v1, "AXM Media analysis: Invalid request - MADImageCaptionRequest on pixelBuffer : %@", v2, v3, v4, v5);
 }
 
 - (void)translatedTextForCaption:withContext:metrics:.cold.1()

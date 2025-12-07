@@ -63,7 +63,7 @@
 
 - (BOOL)wantsPanic
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   abortReason = self->_abortReason;
   if (abortReason > 0x15)
   {
@@ -78,9 +78,9 @@
       v10 = self->_abortReason;
       abortReasonString = [(BLSHOSInterfaceProviderAbortContext *)self abortReasonString];
       *buf = 134218242;
-      v23 = v10;
-      v24 = 2114;
-      v25 = abortReasonString;
+      v22 = v10;
+      v23 = 2114;
+      v24 = abortReasonString;
       v9 = "_abortReason=%llu (%{public}@) wantsPanic:YES";
       goto LABEL_9;
     }
@@ -89,7 +89,7 @@ LABEL_10:
     v11 = 1;
 LABEL_20:
 
-    goto LABEL_21;
+    return v11;
   }
 
   if (((1 << abortReason) & 0x2800) == 0)
@@ -97,9 +97,9 @@ LABEL_20:
     if (abortReason == 20)
     {
       v6 = [objc_alloc(MEMORY[0x277CBEBD0]) initWithSuiteName:@"com.apple.BacklightServices"];
-      v20 = @"panicOnCoreAnimationWatchdog";
-      v21 = MEMORY[0x277CBEC28];
-      v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v21 forKeys:&v20 count:1];
+      v19 = @"panicOnCoreAnimationWatchdog";
+      v20 = MEMORY[0x277CBEC28];
+      v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v20 forKeys:&v19 count:1];
       [v6 registerDefaults:v12];
 
       if ([v6 BOOLForKey:@"panicOnCoreAnimationWatchdog"])
@@ -110,9 +110,9 @@ LABEL_20:
           v14 = self->_abortReason;
           abortReasonString2 = [(BLSHOSInterfaceProviderAbortContext *)self abortReasonString];
           *buf = 134218242;
-          v23 = v14;
-          v24 = 2114;
-          v25 = abortReasonString2;
+          v22 = v14;
+          v23 = 2114;
+          v24 = abortReasonString2;
           _os_log_impl(&dword_21FD11000, v13, OS_LOG_TYPE_DEFAULT, "_abortReason=%llu (%{public}@) com.apple.BacklightServices panicOnCoreAnimationWatchdog:YES wantsPanic:YES", buf, 0x16u);
         }
 
@@ -131,9 +131,9 @@ LABEL_17:
       v16 = self->_abortReason;
       abortReasonString3 = [(BLSHOSInterfaceProviderAbortContext *)self abortReasonString];
       *buf = 134218242;
-      v23 = v16;
-      v24 = 2114;
-      v25 = abortReasonString3;
+      v22 = v16;
+      v23 = 2114;
+      v24 = abortReasonString3;
       _os_log_impl(&dword_21FD11000, v6, OS_LOG_TYPE_DEFAULT, "_abortReason=%llu (%{public}@) wantsPanic:NO", buf, 0x16u);
     }
 
@@ -151,9 +151,9 @@ LABEL_17:
       v7 = self->_abortReason;
       abortReasonString = [(BLSHOSInterfaceProviderAbortContext *)self abortReasonString];
       *buf = 134218242;
-      v23 = v7;
-      v24 = 2114;
-      v25 = abortReasonString;
+      v22 = v7;
+      v23 = 2114;
+      v24 = abortReasonString;
       v9 = "_abortReason=%llu (%{public}@) com.apple.BacklightServices panicOnCoreBrightnessWatchdog:YES wantsPanic:YES";
 LABEL_9:
       _os_log_impl(&dword_21FD11000, v6, OS_LOG_TYPE_DEFAULT, v9, buf, 0x16u);
@@ -164,10 +164,7 @@ LABEL_9:
     goto LABEL_10;
   }
 
-  v11 = 0;
-LABEL_21:
-  v18 = *MEMORY[0x277D85DE8];
-  return v11;
+  return 0;
 }
 
 - (void)setSleepImminentAbortReason
@@ -225,19 +222,18 @@ LABEL_21:
   {
     [v4 appendString:v11 withName:@"pendingCADisplayState"];
 
-    v13 = self->_completedCADisplayState;
     v11 = NSStringFromCADisplayState();
     v12 = @"completedCADisplayState";
   }
 
   [v4 appendString:v11 withName:v12];
 
-  v14 = [v4 appendBool:self->_suppressionServiceActive withName:@"suppressionServiceActive"];
-  v15 = [v4 appendBool:self->_flipbookTransparent withName:@"flipbookTransparent"];
-  v16 = [v4 appendBool:self->_deviceSupportsAlwaysOn withName:@"supportsAlwaysOn"];
-  v17 = [v4 appendBool:self->_deviceSupportsAlwaysOnFlipbook withName:@"supportsFlipbook"];
-  v18 = [v4 appendBool:self->_displayStateClientSupported withName:@"displayStateClientSupported"];
-  v19 = [v4 appendFloat:@"backlightDimmedFactor" withName:self->_backlightDimmedFactor];
+  v13 = [v4 appendBool:self->_suppressionServiceActive withName:@"suppressionServiceActive"];
+  v14 = [v4 appendBool:self->_flipbookTransparent withName:@"flipbookTransparent"];
+  v15 = [v4 appendBool:self->_deviceSupportsAlwaysOn withName:@"supportsAlwaysOn"];
+  v16 = [v4 appendBool:self->_deviceSupportsAlwaysOnFlipbook withName:@"supportsFlipbook"];
+  v17 = [v4 appendBool:self->_displayStateClientSupported withName:@"displayStateClientSupported"];
+  v18 = [v4 appendFloat:@"backlightDimmedFactor" withName:self->_backlightDimmedFactor];
   build = [v4 build];
 
   return build;

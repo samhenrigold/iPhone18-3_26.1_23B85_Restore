@@ -17,7 +17,7 @@
   static Date.distantPast.getter();
   *(&self->super.isa + OBJC_IVAR____TtC8Freeform14CRLRateLimiter_interval) = seconds;
   v8.receiver = self;
-  v8.super_class = type metadata accessor for CRLRateLimiter();
+  v8.super_class = type metadata accessor for CRLRateLimiter(0);
   return [(CRLRateLimiter *)&v8 init];
 }
 

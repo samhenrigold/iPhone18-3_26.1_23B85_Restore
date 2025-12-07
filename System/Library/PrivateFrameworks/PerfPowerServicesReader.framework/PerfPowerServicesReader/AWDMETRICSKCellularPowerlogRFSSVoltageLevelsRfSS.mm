@@ -3,6 +3,9 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)frAsString:(int)string;
+- (id)sleepStateIdAsString:(int)string;
+- (id)vddScenarioIdAsString:(int)string;
 - (int)StringAsFr:(id)fr;
 - (int)StringAsSleepStateId:(id)id;
 - (int)StringAsVddScenarioId:(id)id;
@@ -46,6 +49,21 @@
   }
 
   *&self->_has = *&self->_has & 0xF7 | v3;
+}
+
+- (id)vddScenarioIdAsString:(int)string
+{
+  if (string >= 0xD)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_279A0FED0[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsVddScenarioId:(id)id
@@ -152,6 +170,21 @@
   *&self->_has = *&self->_has & 0xFB | v3;
 }
 
+- (id)sleepStateIdAsString:(int)string
+{
+  if (string >= 5)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_279A0FF38[string];
+  }
+
+  return v4;
+}
+
 - (int)StringAsSleepStateId:(id)id
 {
   idCopy = id;
@@ -214,6 +247,21 @@
   }
 
   *&self->_has = *&self->_has & 0xFD | v3;
+}
+
+- (id)frAsString:(int)string
+{
+  if (string >= 3)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_279A0FF60[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsFr:(id)fr
@@ -350,7 +398,6 @@ LABEL_6:
   has = self->_has;
   if ((has & 8) != 0)
   {
-    vddScenarioId = self->_vddScenarioId;
     PBDataWriterWriteInt32Field();
     has = self->_has;
     if ((has & 4) == 0)
@@ -370,7 +417,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  sleepStateId = self->_sleepStateId;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 2) == 0)
@@ -385,12 +431,10 @@ LABEL_4:
   }
 
 LABEL_11:
-  fr = self->_fr;
   PBDataWriterWriteInt32Field();
   if (*&self->_has)
   {
 LABEL_5:
-    duration = self->_duration;
     PBDataWriterWriteUint32Field();
   }
 

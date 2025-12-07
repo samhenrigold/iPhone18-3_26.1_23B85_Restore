@@ -482,73 +482,77 @@ void __45__SafariImportViewController__startImporting__block_invoke_3(id *a1)
   v8 = [*(a1[4] + 26) lastPathComponent];
   v9 = [v8 stringByDeletingPathExtension];
 
+  v34 = 0;
+  v35 = &v34;
+  v36 = 0x2020000000;
+  v37 = [*v2 count] != 0;
   v30 = 0;
   v31 = &v30;
   v32 = 0x2020000000;
-  v33 = [*v2 count] != 0;
-  v26 = 0;
-  v27 = &v26;
-  v28 = 0x2020000000;
-  v29 = 0;
+  v33 = 0;
   v10 = *v2;
-  v25[0] = _NSConcreteStackBlock;
-  v25[1] = 3221225472;
-  v25[2] = __45__SafariImportViewController__startImporting__block_invoke_4;
-  v25[3] = &unk_8A2D8;
-  v25[4] = &v30;
-  v25[5] = &v26;
-  [v10 enumerateKeysAndObjectsUsingBlock:v25];
-  if (a1[6] || *(v31 + 24) == 1)
+  v29[0] = _NSConcreteStackBlock;
+  v29[1] = 3221225472;
+  v29[2] = __45__SafariImportViewController__startImporting__block_invoke_4;
+  v29[3] = &unk_8A2D8;
+  v29[4] = &v34;
+  v29[5] = &v30;
+  v11 = [v10 enumerateKeysAndObjectsUsingBlock:v29];
+  if (a1[6] || *(v35 + 24) == 1)
   {
-    v11 = WBS_LOG_CHANNEL_PREFIXImport();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v13 = WBS_LOG_CHANNEL_PREFIXImport(v11, v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      v12 = *(a1[4] + 26);
-      v13 = [a1[6] safari_privacyPreservingDescription];
-      __45__SafariImportViewController__startImporting__block_invoke_3_cold_1(v12, v13, buf, v11);
+      v14 = *(a1[4] + 26);
+      v15 = [a1[6] safari_privacyPreservingDescription];
+      __45__SafariImportViewController__startImporting__block_invoke_3_cold_1(v14, v15, buf, v13);
     }
 
-    v14 = [a1[4] navigationController];
-    v22[0] = _NSConcreteStackBlock;
-    v22[1] = 3221225472;
-    v22[2] = __45__SafariImportViewController__startImporting__block_invoke_28;
-    v22[3] = &unk_89CB0;
-    v22[4] = a1[4];
-    v23 = v7;
-    v24 = v9;
-    [v14 dismissViewControllerAnimated:1 completion:v22];
-  }
-
-  else if ([a1[5] count] && (v27[3] & 1) != 0)
-  {
-    v15 = [[SafariImportSuccessViewController alloc] initWithImportedItems:a1[5]];
-    [(SafariImportSuccessViewController *)v15 setDelegate:a1[4]];
     v16 = [a1[4] navigationController];
-    [v16 pushViewController:v15 animated:1];
+    v26[0] = _NSConcreteStackBlock;
+    v26[1] = 3221225472;
+    v26[2] = __45__SafariImportViewController__startImporting__block_invoke_28;
+    v26[3] = &unk_89CB0;
+    v26[4] = a1[4];
+    v27 = v7;
+    v28 = v9;
+    [v16 dismissViewControllerAnimated:1 completion:v26];
   }
 
   else
   {
-    v17 = WBS_LOG_CHANNEL_PREFIXImport();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
+    v17 = [a1[5] count];
+    if (v17 && (v31[3] & 1) != 0)
     {
-      *buf = 0;
-      _os_log_impl(&dword_0, v17, OS_LOG_TYPE_INFO, "Didn't find any importable data.", buf, 2u);
+      v19 = [[SafariImportSuccessViewController alloc] initWithImportedItems:a1[5]];
+      [(SafariImportSuccessViewController *)v19 setDelegate:a1[4]];
+      v20 = [a1[4] navigationController];
+      [v20 pushViewController:v19 animated:1];
     }
 
-    v18 = [a1[4] navigationController];
-    v19[0] = _NSConcreteStackBlock;
-    v19[1] = 3221225472;
-    v19[2] = __45__SafariImportViewController__startImporting__block_invoke_29;
-    v19[3] = &unk_89CB0;
-    v19[4] = a1[4];
-    v20 = v7;
-    v21 = v9;
-    [v18 dismissViewControllerAnimated:1 completion:v19];
+    else
+    {
+      v21 = WBS_LOG_CHANNEL_PREFIXImport(v17, v18);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
+      {
+        *buf = 0;
+        _os_log_impl(&dword_0, v21, OS_LOG_TYPE_INFO, "Didn't find any importable data.", buf, 2u);
+      }
+
+      v22 = [a1[4] navigationController];
+      v23[0] = _NSConcreteStackBlock;
+      v23[1] = 3221225472;
+      v23[2] = __45__SafariImportViewController__startImporting__block_invoke_29;
+      v23[3] = &unk_89CB0;
+      v23[4] = a1[4];
+      v24 = v7;
+      v25 = v9;
+      [v22 dismissViewControllerAnimated:1 completion:v23];
+    }
   }
 
-  _Block_object_dispose(&v26, 8);
   _Block_object_dispose(&v30, 8);
+  _Block_object_dispose(&v34, 8);
 }
 
 void __45__SafariImportViewController__startImporting__block_invoke_4(uint64_t a1, void *a2, void *a3)
@@ -617,6 +621,7 @@ void __45__SafariImportViewController__startImporting__block_invoke_29(void *a1)
 void __45__SafariImportViewController__startImporting__block_invoke_2_33(uint64_t a1, char a2, uint64_t a3, void *a4)
 {
   v6 = a4;
+  v8 = v6;
   if (a2)
   {
     (*(*(a1 + 32) + 16))();
@@ -624,10 +629,10 @@ void __45__SafariImportViewController__startImporting__block_invoke_2_33(uint64_
 
   else
   {
-    v7 = WBS_LOG_CHANNEL_PREFIXExport();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v9 = WBS_LOG_CHANNEL_PREFIXExport(v6, v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      __45__SafariImportViewController__startImporting__block_invoke_2_33_cold_1(v7);
+      __45__SafariImportViewController__startImporting__block_invoke_2_33_cold_1(v9);
     }
   }
 }
@@ -664,17 +669,18 @@ void __63__SafariImportViewController__computeNumberOfItemsToBeImported__block_i
 {
   v5 = a2;
   v6 = a3;
+  v8 = v6;
   if (v6)
   {
-    v7 = WBS_LOG_CHANNEL_PREFIXImport();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v9 = WBS_LOG_CHANNEL_PREFIXImport(v6, v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      __63__SafariImportViewController__computeNumberOfItemsToBeImported__block_invoke_cold_1(v7);
+      __63__SafariImportViewController__computeNumberOfItemsToBeImported__block_invoke_cold_1(v9);
     }
   }
 
-  v8 = [v5 objectForKeyedSubscript:WBSChromeExtensionsExportDataType];
-  if (v8)
+  v10 = [v5 objectForKeyedSubscript:WBSChromeExtensionsExportDataType];
+  if (v10)
   {
 
 LABEL_7:
@@ -682,18 +688,18 @@ LABEL_7:
     goto LABEL_8;
   }
 
-  v9 = [v5 objectForKeyedSubscript:WBSChromeHistoryExportDataType];
+  v11 = [v5 objectForKeyedSubscript:WBSChromeHistoryExportDataType];
 
-  if (v9)
+  if (v11)
   {
     goto LABEL_7;
   }
 
 LABEL_8:
-  v10 = *(a1 + 32);
-  v11 = *(v10 + 264);
-  *(v10 + 264) = v5;
-  v12 = v5;
+  v12 = *(a1 + 32);
+  v13 = *(v12 + 264);
+  *(v12 + 264) = v5;
+  v14 = v5;
 
   [*(a1 + 32) _updateUIAndLayoutStackViewIfNeeded:1];
 }
@@ -998,16 +1004,17 @@ LABEL_11:
 void __68__SafariImportViewController_documentPicker_didPickDocumentsAtURLs___block_invoke(uint64_t a1, char a2, uint64_t a3, void *a4)
 {
   v6 = a4;
+  v8 = v6;
   if (a2)
   {
-    v7 = *(a1 + 32);
-    v8 = *(v7 + 264);
-    *(v7 + 264) = 0;
+    v9 = *(a1 + 32);
+    v10 = *(v9 + 264);
+    *(v9 + 264) = 0;
 
-    v9 = [*(a1 + 40) firstObject];
-    v10 = *(a1 + 32);
-    v11 = *(v10 + 208);
-    *(v10 + 208) = v9;
+    v11 = [*(a1 + 40) firstObject];
+    v12 = *(a1 + 32);
+    v13 = *(v12 + 208);
+    *(v12 + 208) = v11;
 
     *(*(a1 + 32) + 216) = 1;
     [*(a1 + 32) _updateUIAndLayoutStackViewIfNeeded:1];
@@ -1016,10 +1023,10 @@ void __68__SafariImportViewController_documentPicker_didPickDocumentsAtURLs___bl
 
   else
   {
-    v12 = WBS_LOG_CHANNEL_PREFIXExport();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v14 = WBS_LOG_CHANNEL_PREFIXExport(v6, v7);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      __45__SafariImportViewController__startImporting__block_invoke_2_33_cold_1(v12);
+      __45__SafariImportViewController__startImporting__block_invoke_2_33_cold_1(v14);
     }
   }
 }
@@ -1054,7 +1061,7 @@ void __45__SafariImportViewController__startImporting__block_invoke_2_33_cold_1(
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_1() safari_privacyPreservingDescription];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_0, v4, v5, "Failed to authenticate to import browsing data: %{public}@", v6, v7, v8, v9, v10);
+  OUTLINED_FUNCTION_0(&dword_0, v4, v5, "Failed to authenticate to import browsing data: %{public}@", v6, v7, v8, v9);
 }
 
 void __63__SafariImportViewController__computeNumberOfItemsToBeImported__block_invoke_cold_1(void *a1)
@@ -1062,7 +1069,7 @@ void __63__SafariImportViewController__computeNumberOfItemsToBeImported__block_i
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_1() safari_privacyPreservingDescription];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_0, v4, v5, "Failed to compute the number of items to be imported: %{public}@", v6, v7, v8, v9, v10);
+  OUTLINED_FUNCTION_0(&dword_0, v4, v5, "Failed to compute the number of items to be imported: %{public}@", v6, v7, v8, v9);
 }
 
 @end

@@ -9,7 +9,7 @@
 
 - (id)hmd_modelsWithChangeType:()HMDBackingStoreModelObject detached:createManagedObject:error:
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v11 = objc_opt_class();
   if ((HMDManagedObjectClassIsBSORepresentable(v11) & 1) == 0)
   {
@@ -26,7 +26,7 @@
     {
       v16 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v22 = v16;
+      v21 = v16;
       _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_INFO, "%{public}@Since this managed object was created without a managed object context setting model.managedObject to nil", buf, 0xCu);
     }
 
@@ -36,16 +36,14 @@
 
   if (v12)
   {
-    v20 = v12;
-    v17 = [MEMORY[0x277CBEA60] arrayWithObjects:&v20 count:1];
+    v19 = v12;
+    v17 = [MEMORY[0x277CBEA60] arrayWithObjects:&v19 count:1];
   }
 
   else
   {
     v17 = 0;
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return v17;
 }
@@ -104,18 +102,18 @@
   else
   {
     v8 = _HMFPreconditionFailure();
-    return [NSManagedObject(HMDBackingStoreModelObject) hmd_lastKnownValueForKey:v8];
+    return [(NSManagedObject(HMDBackingStoreModelObject) *)v8 hmd_lastKnownValueForKey:v9, v10];
   }
 }
 
 - (id)hmd_lastKnownValueForKey:()HMDBackingStoreModelObject
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   v4 = a3;
   if ([self isDeleted])
   {
-    v13[0] = v4;
-    v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
+    v12[0] = v4;
+    v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
     v6 = [self committedValuesForKeys:v5];
     v7 = [v6 objectForKeyedSubscript:v4];
     v8 = v7;
@@ -136,8 +134,6 @@
   {
     v10 = [self valueForKey:v4];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }

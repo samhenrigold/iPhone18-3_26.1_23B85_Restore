@@ -209,12 +209,11 @@ LABEL_7:
 {
   toCopy = to;
   has = self->_has;
-  v16 = toCopy;
+  v9 = toCopy;
   if ((has & 0x10) != 0)
   {
-    totalDbLifeSecs = self->_totalDbLifeSecs;
     PBDataWriterWriteUint32Field();
-    toCopy = v16;
+    toCopy = v9;
     has = self->_has;
     if ((has & 8) == 0)
     {
@@ -233,9 +232,8 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  minLifeSecs = self->_minLifeSecs;
   PBDataWriterWriteUint32Field();
-  toCopy = v16;
+  toCopy = v9;
   has = self->_has;
   if ((has & 4) == 0)
   {
@@ -249,9 +247,8 @@ LABEL_4:
   }
 
 LABEL_18:
-  maxLifeSecs = self->_maxLifeSecs;
   PBDataWriterWriteUint32Field();
-  toCopy = v16;
+  toCopy = v9;
   has = self->_has;
   if ((has & 1) == 0)
   {
@@ -265,45 +262,41 @@ LABEL_5:
   }
 
 LABEL_19:
-  fetchCnt = self->_fetchCnt;
   PBDataWriterWriteUint32Field();
-  toCopy = v16;
+  toCopy = v9;
   if ((*&self->_has & 2) != 0)
   {
 LABEL_6:
-    fetchCntApWakes = self->_fetchCntApWakes;
     PBDataWriterWriteUint32Field();
-    toCopy = v16;
+    toCopy = v9;
   }
 
 LABEL_7:
   if (self->_fetchStateDurationSecs.count)
   {
-    v7 = 0;
+    v6 = 0;
     do
     {
-      v8 = self->_fetchStateDurationSecs.list[v7];
       PBDataWriterWriteUint32Field();
-      toCopy = v16;
-      ++v7;
+      toCopy = v9;
+      ++v6;
     }
 
-    while (v7 < self->_fetchStateDurationSecs.count);
+    while (v6 < self->_fetchStateDurationSecs.count);
   }
 
   p_boundDurationSecs = &self->_boundDurationSecs;
   if (p_boundDurationSecs->count)
   {
-    v10 = 0;
+    v8 = 0;
     do
     {
-      v11 = p_boundDurationSecs->list[v10];
       PBDataWriterWriteUint32Field();
-      toCopy = v16;
-      ++v10;
+      toCopy = v9;
+      ++v8;
     }
 
-    while (v10 < p_boundDurationSecs->count);
+    while (v8 < p_boundDurationSecs->count);
   }
 }
 
@@ -483,7 +476,6 @@ LABEL_7:
     goto LABEL_29;
   }
 
-  v5 = *(equalCopy + 76);
   if ((*&self->_has & 0x10) != 0)
   {
     if ((*(equalCopy + 76) & 0x10) == 0 || self->_totalDbLifeSecs != *(equalCopy + 18))

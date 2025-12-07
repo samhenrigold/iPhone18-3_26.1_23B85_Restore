@@ -5,6 +5,7 @@
 - (id)_textAttributes;
 - (void)drawRect:(CGRect)rect;
 - (void)layoutSubviews;
+- (void)secondaryImageWidth;
 - (void)setContentRating:(id)rating;
 - (void)setRatingColor:(id)color;
 - (void)setSecondaryContentRatingImages:(id)images;
@@ -566,22 +567,8 @@ LABEL_7:
 
 - (void)layoutSubviews
 {
-  if (os_variant_has_internal_content())
-  {
-    if (_os_feature_enabled_impl())
-    {
-      v3 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT);
-      if (v3)
-      {
-        [(SKUIProductPageHeaderLabel *)v3 layoutSubviews:v4];
-      }
-    }
-  }
-
-  v11.receiver = self;
-  v11.super_class = SKUIProductPageHeaderLabel;
-  [(SKUIProductPageHeaderLabel *)&v11 layoutSubviews];
-  [(SKUIProductPageHeaderLabel *)self setNeedsDisplay];
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIProductPageHeaderLabel layoutSubviews]";
 }
 
 - (__CTFramesetter)_newTextFramesetter
@@ -623,6 +610,48 @@ LABEL_7:
   }
 
   return v7;
+}
+
+- (void)setText:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIProductPageHeaderLabel setText:]";
+}
+
+- (void)setTextColor:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIProductPageHeaderLabel setTextColor:]";
+}
+
+- (void)setContentRating:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIProductPageHeaderLabel setContentRating:]";
+}
+
+- (void)setSecondaryContentRatingImages:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIProductPageHeaderLabel setSecondaryContentRatingImages:]";
+}
+
+- (void)setRatingColor:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIProductPageHeaderLabel setRatingColor:]";
+}
+
+- (void)secondaryImageWidth
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIProductPageHeaderLabel secondaryImageWidth]";
+}
+
+- (void)drawRect:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIProductPageHeaderLabel drawRect:]";
 }
 
 @end

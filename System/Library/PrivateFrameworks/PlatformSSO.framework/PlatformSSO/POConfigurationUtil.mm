@@ -11,7 +11,7 @@
 
 + (BOOL)platformSSOEnabled
 {
-  v2 = PO_LOG_POConfigurationUtil();
+  v2 = PO_LOG_POConfigurationUtil(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     +[POConfigurationUtil platformSSOEnabled];
@@ -23,8 +23,8 @@
 
   if (v5)
   {
-    v6 = PO_LOG_POConfigurationUtil();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+    v7 = PO_LOG_POConfigurationUtil(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
       +[POConfigurationUtil platformSSOEnabled];
     }
@@ -35,7 +35,7 @@
 
 + (BOOL)appSSOEnabled
 {
-  v2 = PO_LOG_POConfigurationUtil();
+  v2 = PO_LOG_POConfigurationUtil(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     +[POConfigurationUtil appSSOEnabled];
@@ -74,17 +74,15 @@
 
 + (void)updateTriggerFile
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 id __40__POConfigurationUtil_updateTriggerFile__block_invoke(uint64_t a1)
 {
   v1 = [MEMORY[0x277D3D1F0] errorWithCode:-1004 underlyingError:*(a1 + 32) description:@"Did not find configuration files."];
-  v2 = PO_LOG_POConfigurationUtil();
+  v2 = PO_LOG_POConfigurationUtil(v1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     __68__PORegistrationManager_createOrRepairDeviceConfigurationWithError___block_invoke_cold_1();
@@ -96,7 +94,7 @@ id __40__POConfigurationUtil_updateTriggerFile__block_invoke(uint64_t a1)
 id __40__POConfigurationUtil_updateTriggerFile__block_invoke_12(uint64_t a1)
 {
   v1 = [MEMORY[0x277D3D1F0] errorWithCode:-1001 underlyingError:*(a1 + 32) description:@"Failed to create trigger file"];
-  v2 = PO_LOG_POConfigurationUtil();
+  v2 = PO_LOG_POConfigurationUtil(v1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     __68__PORegistrationManager_createOrRepairDeviceConfigurationWithError___block_invoke_cold_1();
@@ -108,7 +106,7 @@ id __40__POConfigurationUtil_updateTriggerFile__block_invoke_12(uint64_t a1)
 id __40__POConfigurationUtil_updateTriggerFile__block_invoke_18(uint64_t a1)
 {
   v1 = [MEMORY[0x277D3D1F0] errorWithCode:-1001 underlyingError:*(a1 + 32) description:@"Failed to set trigger file attributes"];
-  v2 = PO_LOG_POConfigurationUtil();
+  v2 = PO_LOG_POConfigurationUtil(v1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     __68__PORegistrationManager_createOrRepairDeviceConfigurationWithError___block_invoke_cold_1();
@@ -120,7 +118,7 @@ id __40__POConfigurationUtil_updateTriggerFile__block_invoke_18(uint64_t a1)
 id __40__POConfigurationUtil_updateTriggerFile__block_invoke_25(uint64_t a1)
 {
   v1 = [MEMORY[0x277D3D1F0] errorWithCode:-1001 underlyingError:*(a1 + 32) description:@"Failed to remove trigger file."];
-  v2 = PO_LOG_POConfigurationUtil();
+  v2 = PO_LOG_POConfigurationUtil(v1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     __68__PORegistrationManager_createOrRepairDeviceConfigurationWithError___block_invoke_cold_1();
@@ -131,20 +129,16 @@ id __40__POConfigurationUtil_updateTriggerFile__block_invoke_25(uint64_t a1)
 
 + (void)platformSSOEnabled
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 + (void)appSSOEnabled
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -59,7 +59,7 @@
 
 - (id)specifiers
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   v2 = *MEMORY[0x277D3FC48];
   v3 = *(&self->super.super.super.super.super.isa + v2);
   if (v3)
@@ -72,26 +72,9 @@
     v6 = objc_alloc_init(MEMORY[0x277CBEB18]);
     specifier = [(PHBusinessCallingListController *)self specifier];
 
-    if (!specifier)
+    if (specifier && (self->_brandedCallingController || (-[PHBusinessCallingListController specifier](self, "specifier"), v8 = objc_claimAutoreleasedReturnValue(), [v8 propertyForKey:@"PHBrandedCallingControllerKey"], v9 = objc_claimAutoreleasedReturnValue(), brandedCallingController = self->_brandedCallingController, self->_brandedCallingController = v9, brandedCallingController, v8, -[PHBrandedCallingController setParentListController:](self->_brandedCallingController, "setParentListController:", self), self->_brandedCallingController)))
     {
-      goto LABEL_14;
-    }
-
-    if (self->_brandedCallingController)
-    {
-      goto LABEL_6;
-    }
-
-    specifier2 = [(PHBusinessCallingListController *)self specifier];
-    v9 = [specifier2 propertyForKey:@"PHBrandedCallingControllerKey"];
-    brandedCallingController = self->_brandedCallingController;
-    self->_brandedCallingController = v9;
-
-    [(PHBrandedCallingController *)self->_brandedCallingController setParentListController:self];
-    if (self->_brandedCallingController)
-    {
-LABEL_6:
-      v31 = v2;
+      v30 = v2;
       specifiers = [(PHBusinessConnectCallingController *)self->_businessConnectCallingController specifiers];
       [v6 addObjectsFromArray:specifiers];
 
@@ -105,27 +88,27 @@ LABEL_6:
       [v16 setProperty:v17 forKey:*MEMORY[0x277D3FF88]];
 
       [v6 addObject:v16];
-      v35 = 0u;
-      v36 = 0u;
-      v33 = 0u;
       v34 = 0u;
+      v35 = 0u;
+      v32 = 0u;
+      v33 = 0u;
       obj = activeContextsSupportingBrandedCalling;
-      v18 = [obj countByEnumeratingWithState:&v33 objects:v37 count:16];
+      v18 = [obj countByEnumeratingWithState:&v32 objects:v36 count:16];
       if (v18)
       {
         v19 = v18;
-        v20 = *v34;
+        v20 = *v33;
         do
         {
           for (i = 0; i != v19; ++i)
           {
             v22 = v6;
-            if (*v34 != v20)
+            if (*v33 != v20)
             {
               objc_enumerationMutation(obj);
             }
 
-            v23 = *(*(&v33 + 1) + 8 * i);
+            v23 = *(*(&v32 + 1) + 8 * i);
             v24 = [PHBrandedCallingSwitchSpecifier alloc];
             ctClient = self->_ctClient;
             context = [v23 context];
@@ -135,24 +118,21 @@ LABEL_6:
             [v22 addObject:v28];
           }
 
-          v19 = [obj countByEnumeratingWithState:&v33 objects:v37 count:16];
+          v19 = [obj countByEnumeratingWithState:&v32 objects:v36 count:16];
         }
 
         while (v19);
       }
 
-      objc_storeStrong((&self->super.super.super.super.super.isa + v31), v6);
-      v4 = *(&self->super.super.super.super.super.isa + v31);
+      objc_storeStrong((&self->super.super.super.super.super.isa + v30), v6);
+      v4 = *(&self->super.super.super.super.super.isa + v30);
     }
 
     else
     {
-LABEL_14:
       v4 = *(&self->super.super.super.super.super.isa + v2);
     }
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 
   return v4;
 }

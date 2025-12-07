@@ -52,10 +52,11 @@
 
   v7 = (self + OBJC_IVAR___ICTagDetailCell_selectionOperatorChangeHandler);
   v8 = *(self + OBJC_IVAR___ICTagDetailCell_selectionOperatorChangeHandler);
+  v9 = *(self + OBJC_IVAR___ICTagDetailCell_selectionOperatorChangeHandler + 8);
   *v7 = v6;
   v7[1] = v4;
   selfCopy = self;
-  sub_10000C840(v8);
+  sub_10000C840(v8, v9);
 }
 
 - (NSString)text

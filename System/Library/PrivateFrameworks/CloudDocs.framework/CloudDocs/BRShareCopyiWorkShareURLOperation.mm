@@ -69,12 +69,4 @@
   [(BROperation *)&v10 finishWithResult:resultCopy error:errorCopy];
 }
 
-- (void)initWithShare:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_7_0(&dword_1AE2A9000, v0, v1, "[ERROR] require a CKShare to craft share URL%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
 @end

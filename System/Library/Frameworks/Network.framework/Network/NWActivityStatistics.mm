@@ -41,7 +41,7 @@ LABEL_14:
     externallyVisibleParentUUID = [externallyVisibleParentUUID2 UUIDString];
   }
 
-  [(NWActivityStatistics *)self report];
+  objc_msgSend_report(self);
   v9 = [NWActivityStatistics createActivityReportDictionary:&v19 uuidString:externallyVisibleActivityUUID parentUUIDString:externallyVisibleParentUUID];
   if (v9)
   {
@@ -112,7 +112,7 @@ LABEL_15:
   v11 = __nwlog_obj();
   *buf = 136446210;
   v24 = "[NWActivityStatistics initWithJSONData:]";
-  v12 = _os_log_send_and_compose_impl();
+  v12 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v11, 16, "%{public}s [super init] failed", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v20 = 0;
@@ -247,7 +247,7 @@ LABEL_6:
     }
   }
 
-  [(NWActivityStatistics *)self report];
+  objc_msgSend_report(self);
   strlcpy(v6, [dCopy UTF8String], 0x100uLL);
 }
 
@@ -255,7 +255,7 @@ LABEL_6:
 {
   v5[33] = *MEMORY[0x1E69E9840];
   v2 = MEMORY[0x1E696AEC0];
-  [(NWActivityStatistics *)self report];
+  objc_msgSend_report(self, a2);
   v3 = [v2 stringWithCString:v5 encoding:134217984];
 
   return v3;
@@ -264,7 +264,7 @@ LABEL_6:
 - (unint64_t)investigation_identifier
 {
   v4 = *MEMORY[0x1E69E9840];
-  [(NWActivityStatistics *)self report];
+  objc_msgSend_report(self, a2);
   return v3;
 }
 
@@ -273,11 +273,11 @@ LABEL_6:
   v10 = *MEMORY[0x1E69E9840];
   if (!self->_parentUUID)
   {
-    [(NWActivityStatistics *)self report];
+    objc_msgSend_report(self, a2);
     if (!uuid_is_null(v9))
     {
       v3 = objc_alloc(MEMORY[0x1E696AFB0]);
-      [(NWActivityStatistics *)self report];
+      objc_msgSend_report(self);
       v4 = [v3 initWithUUIDBytes:&v8];
       parentUUID = self->_parentUUID;
       self->_parentUUID = v4;
@@ -294,11 +294,11 @@ LABEL_6:
   v10 = *MEMORY[0x1E69E9840];
   if (!self->_activityUUID)
   {
-    [(NWActivityStatistics *)self report];
+    objc_msgSend_report(self, a2);
     if (!uuid_is_null(v9))
     {
       v3 = objc_alloc(MEMORY[0x1E696AFB0]);
-      [(NWActivityStatistics *)self report];
+      objc_msgSend_report(self);
       v4 = [v3 initWithUUIDBytes:&v8];
       activityUUID = self->_activityUUID;
       self->_activityUUID = v4;

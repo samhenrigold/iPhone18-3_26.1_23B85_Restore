@@ -82,7 +82,7 @@
 
 - (void)start
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   [self sensitivity];
   v5 = v4;
   motionTrackingMode = [self motionTrackingMode];
@@ -90,38 +90,36 @@
   [self joystickModeMovementThreshold];
   v9 = v8;
   expressionConfiguration = [self expressionConfiguration];
-  v12 = 134219010;
-  v13 = v5;
-  v14 = 2048;
-  v15 = motionTrackingMode;
-  v16 = 2112;
-  v17 = inputConfiguration;
-  v18 = 2048;
-  v19 = v9;
-  v20 = 2112;
-  v21 = expressionConfiguration;
-  _os_log_debug_impl(&dword_1C0E8A000, a2, OS_LOG_TYPE_DEBUG, "AXSSMotionTracker: start: sensitivity %f mode %lu orderedInputPreference %@ joystickModeMovementThreshold %f expressionConfiguration %@", &v12, 0x34u);
-
-  v11 = *MEMORY[0x1E69E9840];
+  v11 = 134219010;
+  v12 = v5;
+  v13 = 2048;
+  v14 = motionTrackingMode;
+  v15 = 2112;
+  v16 = inputConfiguration;
+  v17 = 2048;
+  v18 = v9;
+  v19 = 2112;
+  v20 = expressionConfiguration;
+  _os_log_debug_impl(&dword_1C0E8A000, a2, OS_LOG_TYPE_DEBUG, "AXSSMotionTracker: start: sensitivity %f mode %lu orderedInputPreference %@ joystickModeMovementThreshold %f expressionConfiguration %@", &v11, 0x34u);
 }
 
-void __26__AXSSMotionTracker_start__block_invoke()
-{
-  v0 = AXSSLogForCategory(2);
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_INFO))
-  {
-    *v1 = 0;
-    _os_log_impl(&dword_1C0E8A000, v0, OS_LOG_TYPE_INFO, "AXSSMotionTracker: connection invalidated", v1, 2u);
-  }
-}
-
-void __26__AXSSMotionTracker_start__block_invoke_29(uint64_t a1)
+void __26__AXSSMotionTracker_start__block_invoke(uint64_t a1, uint64_t a2)
 {
   v2 = AXSSLogForCategory(2);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
-    *v4 = 0;
-    _os_log_impl(&dword_1C0E8A000, v2, OS_LOG_TYPE_INFO, "AXSSMotionTracker: connection interrupted", v4, 2u);
+    *v3 = 0;
+    _os_log_impl(&dword_1C0E8A000, v2, OS_LOG_TYPE_INFO, "AXSSMotionTracker: connection invalidated", v3, 2u);
+  }
+}
+
+void __26__AXSSMotionTracker_start__block_invoke_29(uint64_t a1, uint64_t a2)
+{
+  v3 = AXSSLogForCategory(2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
+  {
+    *v5 = 0;
+    _os_log_impl(&dword_1C0E8A000, v3, OS_LOG_TYPE_INFO, "AXSSMotionTracker: connection interrupted", v5, 2u);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 32));
@@ -168,16 +166,16 @@ void __26__AXSSMotionTracker_start__block_invoke_29(uint64_t a1)
 
 - (void)setDebugOverlayEnabled:(BOOL)enabled
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   if (self->_debugOverlayEnabled != enabled)
   {
     enabledCopy = enabled;
     v5 = AXSSLogForCategory(2);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
-      v9[0] = 67109120;
-      v9[1] = enabledCopy;
-      _os_log_impl(&dword_1C0E8A000, v5, OS_LOG_TYPE_INFO, "AXSSMotionTracker:setDebugOverlayEnabled: %d", v9, 8u);
+      v8[0] = 67109120;
+      v8[1] = enabledCopy;
+      _os_log_impl(&dword_1C0E8A000, v5, OS_LOG_TYPE_INFO, "AXSSMotionTracker:setDebugOverlayEnabled: %d", v8, 8u);
     }
 
     self->_debugOverlayEnabled = enabledCopy;
@@ -196,8 +194,6 @@ void __26__AXSSMotionTracker_start__block_invoke_29(uint64_t a1)
       }
     }
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setMotionTrackingMode:(unint64_t)mode
@@ -451,53 +447,12 @@ void __42__AXSSMotionTracker__motionTrackingDaemon__block_invoke(uint64_t a1, vo
   return WeakRetained;
 }
 
-- (void)setMotionTrackingMode:.cold.1()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_4();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-- (void)setSensitivity:.cold.1()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_4();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-- (void)setInputConfiguration:.cold.1()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_4();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-- (void)setExpressionConfiguration:.cold.1()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_4();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-- (void)setJoystickModeMovementThreshold:.cold.1()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_4();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
 void __42__AXSSMotionTracker__motionTrackingDaemon__block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_1C0E8A000, a2, OS_LOG_TYPE_ERROR, "ERROR: XPC connection returned error for remote object proxy: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_1C0E8A000, a2, OS_LOG_TYPE_ERROR, "ERROR: XPC connection returned error for remote object proxy: %@", &v2, 0xCu);
 }
 
 @end

@@ -1,5 +1,6 @@
 @interface DAECalendarDirectorySearchContext
 - (DAECalendarDirectorySearchContext)initWithResultsBlock:(id)block completionBlock:(id)completionBlock;
+- (void)finishedWithError:(id)error exceededResultLimit:(BOOL)limit;
 - (void)resultsReturned:(id)returned;
 @end
 
@@ -35,6 +36,26 @@
   if (resultsBlock)
   {
     resultsBlock[2](resultsBlock, returnedCopy);
+  }
+
+  objc_sync_exit(selfCopy);
+}
+
+- (void)finishedWithError:(id)error exceededResultLimit:(BOOL)limit
+{
+  limitCopy = limit;
+  errorCopy = error;
+  selfCopy = self;
+  objc_sync_enter(selfCopy);
+  completionBlock = selfCopy->_completionBlock;
+  if (completionBlock)
+  {
+    completionBlock[2](completionBlock, errorCopy, limitCopy);
+    v8 = selfCopy->_completionBlock;
+    selfCopy->_completionBlock = 0;
+
+    resultsBlock = selfCopy->_resultsBlock;
+    selfCopy->_resultsBlock = 0;
   }
 
   objc_sync_exit(selfCopy);

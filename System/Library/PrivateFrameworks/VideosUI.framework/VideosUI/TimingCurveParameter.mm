@@ -8,7 +8,7 @@
 
 - (void)setCubicTimingParameters:(id)parameters
 {
-  OUTLINED_FUNCTION_14_0();
+  OUTLINED_FUNCTION_14_0(&self->cubicTimingParameters, a2);
   cubicTimingParameters = self->cubicTimingParameters;
   self->cubicTimingParameters = parameters;
   parametersCopy = parameters;
@@ -16,7 +16,7 @@
 
 - (void)setSpringTimingParameters:(id)parameters
 {
-  OUTLINED_FUNCTION_14_0();
+  OUTLINED_FUNCTION_14_0(&self->springTimingParameters, a2);
   springTimingParameters = self->springTimingParameters;
   self->springTimingParameters = parameters;
   parametersCopy = parameters;

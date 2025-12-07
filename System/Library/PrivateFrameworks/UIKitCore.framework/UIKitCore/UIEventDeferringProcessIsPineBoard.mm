@@ -5,18 +5,18 @@
 
 void ___UIEventDeferringProcessIsPineBoard_block_invoke(uint64_t a1)
 {
-  v3 = _UIMainBundleIdentifier();
-  if ([v3 isEqualToString:*(a1 + 32)])
+  v2 = _UIMainBundleIdentifier();
+  if (objc_msgSend_isEqualToString_(v2))
   {
-    v2 = 1;
+    isEqualToString = 1;
   }
 
   else
   {
-    v2 = [v3 isEqualToString:*(a1 + 40)];
+    isEqualToString = objc_msgSend_isEqualToString_(v2);
   }
 
-  byte_1ED49FF29 = v2;
+  byte_1ED49FF29 = isEqualToString;
 }
 
 @end

@@ -77,37 +77,37 @@
 
 + (id)layoutOptionsForViewSize:(CGSize)size andMosaicSize:(unint64_t)mosaicSize
 {
-  v66 = *MEMORY[0x29EDCA608];
+  v65 = *MEMORY[0x29EDCA608];
   v5 = objc_msgSend_defaultOptionsForViewSize_(MEMORY[0x29EDC54C8], a2, mosaicSize, size.width, size.height);
+  v59 = 0u;
   v60 = 0u;
   v61 = 0u;
   v62 = 0u;
-  v63 = 0u;
   v8 = objc_msgSend_serviceCellOptions(v5, v6, v7, 0);
-  v64[0] = v8;
+  v63[0] = v8;
   v11 = objc_msgSend_sceneCellOptions(v5, v9, v10);
-  v64[1] = v11;
-  v13 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x29EDB8D80], v12, v64, 2);
+  v63[1] = v11;
+  v13 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x29EDB8D80], v12, v63, 2);
 
-  v15 = objc_msgSend_countByEnumeratingWithState_objects_count_(v13, v14, &v60, v65, 16);
+  v15 = objc_msgSend_countByEnumeratingWithState_objects_count_(v13, v14, &v59, v64, 16);
   if (v15)
   {
     v18 = v15;
-    v19 = *v61;
+    v19 = *v60;
     do
     {
       for (i = 0; i != v18; ++i)
       {
-        if (*v61 != v19)
+        if (*v60 != v19)
         {
           objc_enumerationMutation(v13);
         }
 
-        v21 = objc_msgSend_backgroundDisplayOptions(*(*(&v60 + 1) + 8 * i), v16, v17);
+        v21 = objc_msgSend_backgroundDisplayOptions(*(*(&v59 + 1) + 8 * i), v16, v17);
         objc_msgSend_setDisplayStyle_(v21, v22, 3);
       }
 
-      v18 = objc_msgSend_countByEnumeratingWithState_objects_count_(v13, v16, &v60, v65, 16);
+      v18 = objc_msgSend_countByEnumeratingWithState_objects_count_(v13, v16, &v59, v64, 16);
     }
 
     while (v18);
@@ -142,8 +142,6 @@
   }
 
   objc_msgSend_setServiceCellOptions_(v5, v50, v36);
-
-  v58 = *MEMORY[0x29EDCA608];
 
   return v5;
 }

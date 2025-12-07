@@ -45,7 +45,7 @@
   contextCopy = context;
   selfCopy = self;
   sub_100058028(context, v6, v7);
-  sub_10000A788(v6);
+  sub_10000A788(v6, v7);
 }
 
 - (void)prepareForActivationWithContext:(id)context completion:(id)completion
@@ -53,14 +53,20 @@
   v6 = _Block_copy(completion);
   if (v6)
   {
-    *(swift_allocObject() + 16) = v6;
+    v7 = swift_allocObject();
+    *(v7 + 16) = v6;
     v6 = sub_100059D1C;
+  }
+
+  else
+  {
+    v7 = 0;
   }
 
   contextCopy = context;
   selfCopy = self;
   sub_100059954(v6);
-  sub_10000A788(v6);
+  sub_10000A788(v6, v7);
 }
 
 - (void)viewDidLoad

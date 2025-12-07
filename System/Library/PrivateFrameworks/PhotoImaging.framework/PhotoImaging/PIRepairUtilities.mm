@@ -816,7 +816,7 @@ LABEL_138:
   v154 = 0u;
   if (strokeCopy)
   {
-    [strokeCopy extent];
+    objc_msgSend_extent(strokeCopy);
   }
 
   else
@@ -1427,19 +1427,19 @@ LABEL_57:
   v59 = v15;
   v62 = [strokeCopy ciImageTiled:0 closed:1 pressureMode:1];
   v74 = 0u;
-  v75 = 0u;
+  v75[0] = 0u;
   if (strokeCopy)
   {
-    [strokeCopy clipRect];
+    objc_msgSend_clipRect(strokeCopy);
   }
 
   v72 = 0u;
   v73 = 0u;
-  [v15 extent];
+  objc_msgSend_extent(v15);
   NUPixelRectFromCGRect();
   v70 = 0u;
   v71 = 0u;
-  [v62 extent];
+  objc_msgSend_extent(v62);
   NUPixelRectFromCGRect();
   v68 = 0u;
   v69 = 0u;
@@ -1447,21 +1447,21 @@ LABEL_57:
   NUPixelRectIntersection();
   NUPixelSizeLargestDimension();
   *&v65.a = v74;
-  *&v65.c = v75;
+  *&v65.c = v75[0];
   if (NUPixelRectIsEmpty())
   {
     v74 = v72;
-    v75 = v73;
+    v75[0] = v73;
   }
 
   NUWidth();
   NUWidth();
   NUHeight();
   *&v65.a = v74;
-  *&v65.c = v75;
+  *&v65.c = v75[0];
   NUHeight();
   v66 = v74;
-  v67 = v75;
+  v67 = v75[0];
   NUPixelRectConstrainToRect();
   a = v65.a;
   b = v65.b;
@@ -1476,9 +1476,9 @@ LABEL_57:
 
   v28 = [v62 imageByCroppingToRect:{v20, v22, v24, v26}];
 
-  [v27 extent];
+  objc_msgSend_extent(v27);
   v30 = v29;
-  [v27 extent];
+  objc_msgSend_extent(v27);
   memset(&v65, 0, sizeof(v65));
   CGAffineTransformMakeTranslation(&v65, -v30, -v31);
   v64 = v65;
@@ -1496,7 +1496,7 @@ LABEL_57:
   v33 = MEMORY[0x1E695F658];
   whiteColor = [MEMORY[0x1E695F610] whiteColor];
   v35 = [v33 imageWithColor:whiteColor];
-  [v60 extent];
+  objc_msgSend_extent(v60);
   v54 = [v35 imageByCroppingToRect:?];
 
   v36 = [v63 imageByApplyingFilter:@"CIColorInvert"];

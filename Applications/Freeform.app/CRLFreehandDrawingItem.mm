@@ -24,7 +24,7 @@
   v6 = qword_101AD9588;
   swift_beginAccess();
   sub_100B47F20(v5 + v6, v4, type metadata accessor for CRLFreehandDrawingCRDTData);
-  sub_1005B981C(&qword_101A2C810);
+  sub_1005B981C(&qword_101A2C810, &unk_101480B50);
   CRRegister.wrappedValue.getter();
   sub_100B47F88(v4, type metadata accessor for CRLFreehandDrawingCRDTData);
   return v8[7];
@@ -33,14 +33,14 @@
 - (void)setProhibitsClustering:(BOOL)clustering
 {
   selfCopy = self;
-  if (sub_1011255D0(selfCopy))
+  if (sub_1011255D0())
   {
     type metadata accessor for CRLFreehandItemData(0);
     swift_dynamicCastClassUnconditional();
     swift_beginAccess();
     type metadata accessor for CRLFreehandDrawingCRDTData(0);
 
-    sub_1005B981C(&qword_101A2C810);
+    sub_1005B981C(&qword_101A2C810, &unk_101480B50);
     CRRegister.wrappedValue.setter();
     swift_endAccess();
   }
@@ -98,7 +98,7 @@
   v4 = *(v3 - 8);
   __chkstk_darwin(v3);
   v6 = &v10 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  type metadata accessor for CRLFreehandDrawingItem();
+  type metadata accessor for CRLFreehandDrawingItem(0);
   v7 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   sub_100B434D0(v7);
 
@@ -110,21 +110,21 @@
 
 - (Class)layoutClass
 {
-  sub_100006370(0, &qword_101A03810);
+  sub_100006370(0, &qword_101A03810, off_10182F818);
 
   return swift_getObjCClassFromMetadata();
 }
 
 - (Class)repClass
 {
-  sub_100006370(0, &qword_101A12080);
+  sub_100006370(0, &qword_101A12080, off_10182F828);
 
   return swift_getObjCClassFromMetadata();
 }
 
 - (Class)editorClass
 {
-  sub_100006370(0, &qword_101A12078);
+  sub_100006370(0, &qword_101A12078, off_10182F810);
 
   return swift_getObjCClassFromMetadata();
 }
@@ -135,7 +135,7 @@
   v9 = *(v8 - 8);
   __chkstk_darwin(v8);
   v11 = &v19[-((v10 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  v12 = sub_1005B981C(&qword_1019F6990);
+  v12 = sub_1005B981C(&qword_1019F6990, &qword_10146D2F0);
   __chkstk_darwin(v12 - 8);
   v14 = &v19[-v13];
   if (d)
@@ -153,7 +153,7 @@
   helperCopy = helper;
   selfCopy = self;
   v17 = sub_100B43C84(v14, helperCopy);
-  sub_10000CAAC(v14, &qword_1019F6990);
+  sub_10000CAAC(v14, &qword_1019F6990, &qword_10146D2F0);
 
   return v17;
 }

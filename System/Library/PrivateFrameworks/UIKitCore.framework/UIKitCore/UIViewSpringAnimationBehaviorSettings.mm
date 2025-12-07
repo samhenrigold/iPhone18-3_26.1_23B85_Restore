@@ -93,7 +93,7 @@
 - (id)copyWithZone:(_NSZone *)zone
 {
   v4 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
-  if (![(UIViewSpringAnimationBehaviorSettings *)self isEqual:v4])
+  if ((objc_msgSend_isEqual_(self) & 1) == 0)
   {
     objc_storeStrong((v4 + 64), self->_name);
     *(v4 + 56) = self->_behaviorType;

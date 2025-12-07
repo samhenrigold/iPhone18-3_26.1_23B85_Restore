@@ -1,4 +1,5 @@
 @interface Core_Audio_Driver_Service_Client
++ (id)get_driver_name_list:(int)get_driver_name_list;
 - (BOOL)listener:(id)listener shouldAcceptNewConnection:(id)connection;
 - (Core_Audio_Driver_Service_Client)init;
 - (id).cxx_construct;
@@ -122,22 +123,20 @@
 
 - (void)deferred_driver_loaded:(id)deferred_driver_loaded reply:(id)reply
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   deferred_driver_loadedCopy = deferred_driver_loaded;
   replyCopy = reply;
   delegate = [(Core_Audio_Driver_Service_Client *)self delegate];
   if (delegate)
   {
-    [(Core_Audio_Driver_Service_Client *)self queue];
+    objc_msgSend_queue(self);
     v9 = delegate;
     v10 = deferred_driver_loadedCopy;
-    v11 = v13;
+    v11 = v12;
     operator new();
   }
 
   replyCopy[2](replyCopy, 0);
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (id)deferred_driver_loaded:(NSObject  *){objcproto17OS_dispatch_queue} reply:(id)&&
@@ -177,7 +176,7 @@
 
 - (void)tell_driver_service_to_exit
 {
-  [(Core_Audio_Driver_Service_Client *)self driver_file];
+  objc_msgSend_driver_file(self, a2);
   v3 = [(Core_Audio_Driver_Service_Client *)self get_lazy_connection:v6];
   if (v7)
   {
@@ -239,13 +238,13 @@
 {
   ptr = get_lazy_connection.__ptr_;
   queue[42] = *MEMORY[0x1E69E9840];
-  [(Core_Audio_Driver_Service_Client *)self queue:get_lazy_connection.__ptr_];
+  objc_msgSend_queue(self, a2, get_lazy_connection.__ptr_, get_lazy_connection.__cntrl_);
   selfCopy = self;
   v7 = *ptr;
   v6 = *(ptr + 1);
-  v11[0] = selfCopy;
-  v11[1] = v7;
-  v12 = v6;
+  v10[0] = selfCopy;
+  v10[1] = v7;
+  v11 = v6;
   if (v6)
   {
     atomic_fetch_add_explicit(&v6->__shared_owners_, 1uLL, memory_order_relaxed);
@@ -255,16 +254,15 @@
   block[1] = 3221225472;
   block[2] = ___ZN10applesauce8dispatch2v19sync_implIZ56__Core_Audio_Driver_Service_Client_get_lazy_connection__E3__4EEvPU28objcproto17OS_dispatch_queue8NSObjectOT_NSt3__117integral_constantIbLb1EEE_block_invoke;
   block[3] = &__block_descriptor_40_e5_v8__0l;
-  block[4] = v11;
+  block[4] = v10;
   dispatch_sync(queue[0], block);
-  if (v12)
+  if (v11)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v12);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v11);
   }
 
   AMCP::Utility::Dispatch_Queue::~Dispatch_Queue(queue);
   connection_to_driver_service = [(Core_Audio_Driver_Service_Client *)selfCopy connection_to_driver_service];
-  v9 = *MEMORY[0x1E69E9840];
 
   return connection_to_driver_service;
 }
@@ -450,9 +448,9 @@
 - (Core_Audio_Driver_Service_Client)init
 {
   obj[42] = *MEMORY[0x1E69E9840];
-  v9.receiver = self;
-  v9.super_class = Core_Audio_Driver_Service_Client;
-  v2 = [(Core_Audio_Driver_Service_Client *)&v9 init];
+  v8.receiver = self;
+  v8.super_class = Core_Audio_Driver_Service_Client;
+  v2 = [(Core_Audio_Driver_Service_Client *)&v8 init];
   if (v2)
   {
     anonymousListener = [MEMORY[0x1E696B0D8] anonymousListener];
@@ -465,13 +463,41 @@
     *(v2 + 4) = endpoint;
 
     [*(v2 + 3) resume];
-    AMCP::Utility::Dispatch_Queue::Dispatch_Queue(obj, "driver host connection queue");
+    AMCP::Utility::Dispatch_Queue::Dispatch_Queue(obj, "driver host connection queue", 61);
     objc_storeStrong(v2 + 10, obj[0]);
     AMCP::Utility::Dispatch_Queue::~Dispatch_Queue(obj);
   }
 
-  v7 = *MEMORY[0x1E69E9840];
   return v2;
+}
+
++ (id)get_driver_name_list:(int)get_driver_name_list
+{
+  v3 = *&get_driver_name_list;
+  v4 = [objc_alloc(MEMORY[0x1E696B0B8]) initWithServiceName:@"com.apple.audio.Core-Audio-Driver-Service.helper"];
+  [v4 uniquify];
+  v5 = [MEMORY[0x1E696B0D0] interfaceWithProtocol:&unk_1F599D2B8];
+  [v4 setRemoteObjectInterface:v5];
+
+  [v4 resume];
+  v11 = 0;
+  v10[0] = MEMORY[0x1E69E9820];
+  v10[1] = 3321888768;
+  v10[2] = __57__Core_Audio_Driver_Service_Client_get_driver_name_list___block_invoke;
+  v10[3] = &__block_descriptor_33_ea8_32c70_ZTSKZ57__Core_Audio_Driver_Service_Client_get_driver_name_list__E3__7_e17_v16__0__NSError_8l;
+  v6 = [v4 synchronousRemoteObjectProxyWithErrorHandler:v10];
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3321888768;
+  v9[2] = __57__Core_Audio_Driver_Service_Client_get_driver_name_list___block_invoke_33;
+  v9[3] = &__block_descriptor_40_ea8_32c70_ZTSKZ57__Core_Audio_Driver_Service_Client_get_driver_name_list__E3__8_e17_v16__0__NSArray_8l;
+  v9[4] = &v11;
+  [v6 get_driver_name_list:v3 reply:v9];
+  [v6 exit_service];
+  [v4 invalidate];
+  v7 = v11;
+  v11 = 0;
+
+  return v7;
 }
 
 @end

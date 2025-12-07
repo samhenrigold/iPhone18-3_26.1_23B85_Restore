@@ -9,32 +9,31 @@ uint64_t sub_100001310(uint64_t a1, uint64_t a2)
 {
   v5 = sub_100001824();
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
   __chkstk_darwin();
-  v9 = &v13 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = &v12 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   if (a1 == 3157553 && a2 == 0xE300000000000000 || (sub_100001864() & 1) != 0)
   {
-    v14 = v2;
-    v10 = &enum case for RestrictedSandboxRevision.revision1(_:);
+    v13 = v2;
+    v9 = &enum case for RestrictedSandboxRevision.revision1(_:);
 LABEL_5:
-    (*(v6 + 104))(v9, *v10, v5);
+    (*(v6 + 104))(v8, *v9, v5);
     type metadata accessor for WebContentProcessExtension();
-    sub_1000017C8(&qword_100008120, v11, type metadata accessor for WebContentProcessExtension);
+    sub_1000017C8(&qword_100008120, v10, type metadata accessor for WebContentProcessExtension, &unk_1000019E0);
     sub_100001834();
-    return (*(v6 + 8))(v9, v5);
+    return (*(v6 + 8))(v8, v5);
   }
 
   if (a1 == 3157554 && a2 == 0xE300000000000000 || (result = sub_100001864(), (result & 1) != 0))
   {
-    v14 = v2;
-    v10 = &enum case for RestrictedSandboxRevision.revision2(_:);
+    v13 = v2;
+    v9 = &enum case for RestrictedSandboxRevision.revision2(_:);
     goto LABEL_5;
   }
 
   return result;
 }
 
-uint64_t sub_100001548()
+uint64_t sub_100001548(uint64_t a1, uint64_t a2)
 {
   swift_getWitnessTable();
 
@@ -44,7 +43,7 @@ uint64_t sub_100001548()
 uint64_t sub_1000015A8()
 {
   v0 = type metadata accessor for WebContentProcessExtension();
-  v2 = sub_1000017C8(&qword_100008120, v1, type metadata accessor for WebContentProcessExtension);
+  v2 = sub_1000017C8(&qword_100008120, v1, type metadata accessor for WebContentProcessExtension, &unk_1000019E0);
 
   return WebContentExtension.configuration.getter(v0, v2);
 }
@@ -59,12 +58,12 @@ id sub_100001628@<X0>(void *a1@<X8>)
 int main(int argc, const char **argv, const char **envp)
 {
   type metadata accessor for WebContentProcessExtension();
-  sub_1000017C8(&qword_100008118, v3, type metadata accessor for WebContentProcessExtension);
+  sub_1000017C8(&qword_100008118, v3, type metadata accessor for WebContentProcessExtension, &unk_100001A40);
   sub_100001844();
   return 0;
 }
 
-uint64_t sub_1000017C8(unint64_t *a1, uint64_t a2, void (*a3)(uint64_t))
+uint64_t sub_1000017C8(unint64_t *a1, uint64_t a2, void (*a3)(uint64_t), uint64_t a4)
 {
   result = *a1;
   if (!result)

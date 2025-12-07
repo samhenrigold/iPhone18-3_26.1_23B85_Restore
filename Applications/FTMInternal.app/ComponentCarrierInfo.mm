@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)dlBandwidthAsString:(int)string;
 - (int)StringAsDlBandwidth:(id)bandwidth;
 - (int)dlBandwidth;
 - (unint64_t)hash;
@@ -41,6 +42,21 @@
   {
     return 0;
   }
+}
+
+- (id)dlBandwidthAsString:(int)string
+{
+  if (string >= 6)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_100317E38 + string);
+  }
+
+  return v4;
 }
 
 - (int)StringAsDlBandwidth:(id)bandwidth
@@ -168,12 +184,11 @@ LABEL_5:
 {
   toCopy = to;
   has = self->_has;
-  v9 = toCopy;
+  v6 = toCopy;
   if ((has & 2) != 0)
   {
-    dlEarfcn = self->_dlEarfcn;
     PBDataWriterWriteUint32Field();
-    toCopy = v9;
+    toCopy = v6;
     has = self->_has;
     if ((has & 1) == 0)
     {
@@ -192,15 +207,13 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  dlBandwidth = self->_dlBandwidth;
   PBDataWriterWriteInt32Field();
-  toCopy = v9;
+  toCopy = v6;
   if ((*&self->_has & 4) != 0)
   {
 LABEL_4:
-    dlRfBand = self->_dlRfBand;
     PBDataWriterWriteUint32Field();
-    toCopy = v9;
+    toCopy = v6;
   }
 
 LABEL_5:

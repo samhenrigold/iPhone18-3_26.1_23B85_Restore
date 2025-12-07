@@ -14,11 +14,11 @@
 
 - (void)layoutSubviews
 {
-  v3.receiver = self;
-  v3.super_class = type metadata accessor for RevealingVideoView();
-  v2 = v3.receiver;
-  [(RevealingVideoView *)&v3 layoutSubviews];
-  sub_10020E760();
+  v4.receiver = self;
+  v4.super_class = type metadata accessor for RevealingVideoView(0);
+  v2 = v4.receiver;
+  [(RevealingVideoView *)&v4 layoutSubviews];
+  sub_10020E760(v3);
   sub_10020EC38();
 }
 

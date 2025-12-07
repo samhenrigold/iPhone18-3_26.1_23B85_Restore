@@ -43,21 +43,19 @@ void __50__PUIFramebufferSizeChangeNotifier_sharedInstance__block_invoke()
 
 - (id)addListener:(id)listener
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   listenerCopy = listener;
   v5 = self->_listeners;
   objc_sync_enter(v5);
   listeners = self->_listeners;
   v7 = MEMORY[0x2666F2750](listenerCopy);
-  v12[0] = v7;
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
+  v11[0] = v7;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
   [(NSMutableArray *)listeners addObject:v8];
 
   lastObject = [(NSMutableArray *)self->_listeners lastObject];
   NSLog(&cfstr_DidAddNewFrame.isa, lastObject);
   objc_sync_exit(v5);
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return lastObject;
 }
@@ -74,7 +72,7 @@ void __50__PUIFramebufferSizeChangeNotifier_sharedInstance__block_invoke()
 
 - (void)_onMainQueue_notifyListeners
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v3 = self->_listeners;
   objc_sync_enter(v3);
   mainConfiguration = [(FBSDisplayMonitor *)self->_displayMonitor mainConfiguration];
@@ -88,25 +86,25 @@ void __50__PUIFramebufferSizeChangeNotifier_sharedInstance__block_invoke()
   NSLog(&cfstr_WillBroadcastN.isa, v10, v11);
 
   v12 = [(NSMutableArray *)self->_listeners copy];
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
   v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   v13 = v12;
-  v14 = [v13 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v14 = [v13 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v14)
   {
-    v15 = *v21;
+    v15 = *v20;
     do
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v21 != v15)
+        if (*v20 != v15)
         {
           objc_enumerationMutation(v13);
         }
 
-        v17 = *(*(&v20 + 1) + 8 * i);
+        v17 = *(*(&v19 + 1) + 8 * i);
         if ([(NSMutableArray *)self->_listeners containsObject:v17])
         {
           firstObject = [v17 firstObject];
@@ -119,14 +117,13 @@ void __50__PUIFramebufferSizeChangeNotifier_sharedInstance__block_invoke()
         }
       }
 
-      v14 = [v13 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v14 = [v13 countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v14);
   }
 
   objc_sync_exit(v3);
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 @end

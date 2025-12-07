@@ -13,29 +13,27 @@ uint64_t OUTLINED_FUNCTION_2_4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a
 
 id HDOntologyShardRegistryPredicateForEntry(uint64_t a1, void *a2, uint64_t a3)
 {
-  v17[3] = *MEMORY[0x277D85DE8];
+  v16[3] = *MEMORY[0x277D85DE8];
   v5 = MEMORY[0x277D10B20];
   v6 = MEMORY[0x277D10B18];
   v7 = a2;
   v8 = [v6 predicateWithProperty:@"identifier" equalToValue:a1];
   v9 = [MEMORY[0x277D10B18] predicateWithProperty:@"schema_type" equalToValue:{v7, v8}];
 
-  v17[1] = v9;
+  v16[1] = v9;
   v10 = MEMORY[0x277D10B18];
   v11 = [MEMORY[0x277CCABB0] numberWithInteger:a3];
   v12 = [v10 predicateWithProperty:@"schema_version" equalToValue:v11];
-  v17[2] = v12;
-  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:3];
+  v16[2] = v12;
+  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:3];
   v14 = [v5 predicateMatchingAllPredicates:v13];
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v14;
 }
 
-void sub_2514A3E38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_2514A3E38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -47,23 +45,23 @@ uint64_t __Block_byref_object_copy_(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_2514A40F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_2514A40F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_2514A42D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_2514A42D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_2514A4918(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2514A4918(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -75,9 +73,9 @@ uint64_t __Block_byref_object_copy__0(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_2514A4D28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2514A4D28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -90,9 +88,9 @@ void sub_2514A6580(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_2514A6F74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_2514A6F74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -104,16 +102,18 @@ uint64_t __Block_byref_object_copy__1(uint64_t result, uint64_t a2)
   return result;
 }
 
-uint64_t OUTLINED_FUNCTION_6(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, char a18)
+uint64_t OUTLINED_FUNCTION_6(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
+  va_start(va, a17);
 
-  return [v18 countByEnumeratingWithState:&a9 objects:&a18 count:16];
+  return [v17 countByEnumeratingWithState:&a9 objects:va count:{16, a6, a7, a8}];
 }
 
-void OUTLINED_FUNCTION_7(void *a1, int a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint8_t buf)
+void OUTLINED_FUNCTION_7(void *a1, int a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, ...)
 {
+  va_start(va, a10);
 
-  _os_log_error_impl(a1, v11, OS_LOG_TYPE_ERROR, a4, &buf, 0x16u);
+  _os_log_error_impl(a1, v10, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
 }
 
 BOOL OUTLINED_FUNCTION_8(NSObject *a1)
@@ -122,9 +122,9 @@ BOOL OUTLINED_FUNCTION_8(NSObject *a1)
   return os_log_type_enabled(a1, OS_LOG_TYPE_DEFAULT);
 }
 
-void sub_2514A8ACC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_2514A8ACC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -149,18 +149,19 @@ uint64_t HDGraphDatabaseSchemaVersionFutureEnabled(int a1)
   }
 }
 
-void sub_2514ABEE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_2514ABEE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_2514AD908(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, char a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27)
+void sub_2514AD908(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
 {
+  va_start(va, a26);
   _Block_object_dispose(&a23, 8);
-  _Block_object_dispose(&a27, 8);
-  _Block_object_dispose((v27 - 112), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v26 - 112), 8);
   _Unwind_Resume(a1);
 }
 
@@ -213,54 +214,52 @@ LABEL_6:
 
 id HDSimpleGraphRelationshipEntityPredicateForSubject(uint64_t a1, uint64_t a2)
 {
-  v10[2] = *MEMORY[0x277D85DE8];
+  v9[2] = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277D10B20];
   v4 = HDSimpleGraphRelationshipEntityPredicateForFetchType(0, a1);
-  v10[0] = v4;
+  v9[0] = v4;
   v5 = HDSimpleGraphRelationshipEntityPredicateForRelationshipType(a2);
-  v10[1] = v5;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:2];
+  v9[1] = v5;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:2];
   v7 = [v3 predicateMatchingAllPredicates:v6];
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
 
 uint64_t _shardedOntologySupport(void *a1, uint64_t a2)
 {
-  v17[15] = *MEMORY[0x277D85DE8];
+  v16[15] = *MEMORY[0x277D85DE8];
   v3 = a1;
-  v13 = 0;
-  v14 = &v13;
-  v15 = 0x2020000000;
-  v16 = 0;
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = ___shardedOntologySupport_block_invoke_2;
-  v12[3] = &unk_2796B90A8;
-  v12[4] = &v13;
-  if ([v3 executeUncachedSQL:@"SELECT value FROM metadata WHERE key=?" error:a2 bindingHandler:&__block_literal_global_1 enumerationHandler:v12])
+  v12 = 0;
+  v13 = &v12;
+  v14 = 0x2020000000;
+  v15 = 0;
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = ___shardedOntologySupport_block_invoke_2;
+  v11[3] = &unk_2796B90A8;
+  v11[4] = &v12;
+  if ([v3 executeUncachedSQL:@"SELECT value FROM metadata WHERE key=?" error:a2 bindingHandler:&__block_literal_global_1 enumerationHandler:v11])
   {
-    v17[0] = @"CREATE TABLE new_nodes (rowid INTEGER PRIMARY KEY, version INTEGER NOT NULL, slots INTEGER NOT NULL, deleted INTEGER NOT NULL)";
-    v17[1] = @"CREATE TABLE new_attributes (rowid INTEGER PRIMARY KEY, node_id INTEGER NOT NULL REFERENCES new_nodes (rowid) ON DELETE CASCADE, attribute_type INTEGER NOT NULL, value TEXT NOT NULL, version INTEGER NOT NULL, slots INTEGER NOT NULL, UNIQUE(node_id, attribute_type, value))";
-    v17[2] = @"CREATE TABLE new_relationships (rowid INTEGER PRIMARY KEY, subject_id INTEGER NOT NULL REFERENCES new_nodes (rowid) ON DELETE CASCADE, relationship_type INTEGER NOT NULL, object_id INTEGER NOT NULL REFERENCES new_nodes (rowid) ON DELETE CASCADE, version INTEGER NOT NULL, slots INTEGER NOT NULL, UNIQUE(subject_id, relationship_type, object_id))";
-    v17[3] = @"CREATE TABLE IF NOT EXISTS shard_registry (rowid INTEGER PRIMARY KEY, identifier TEXT NOT NULL, schema_type TEXT NOT NULL, schema_version INTEGER NOT NULL, settings INTEGER NOT NULL, slot INTEGER NOT NULL, desired_state INTEGER NOT NULL, desired_state_date REAL NOT NULL, current_version INTEGER NOT NULL, current_version_date REAL NOT NULL, current_region TEXT NOT NULL, current_region_date REAL NOT NULL, current_locale TEXT, current_locale_date REAL NOT NULL, available_version INTEGER NOT NULL, available_version_date REAL NOT NULL, available_region TEXT NOT NULL, available_region_date REAL NOT NULL, available_locale TEXT, available_locale_date REAL NOT NULL, available_url TEXT, available_url_date REAL NOT NULL, available_checksum TEXT, available_checksum_date REAL NOT NULL, available_size INTEGER NOT NULL, available_size_date REAL NOT NULL, available_state INTEGER NOT NULL, available_state_date REAL NOT NULL, UNIQUE(identifier, schema_type, schema_version))";
-    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"INSERT INTO new_nodes SELECT rowid, %lld, 0, 0 FROM nodes", v14[3]];
-    v17[4] = v4;
-    v5 = [MEMORY[0x277CCACA8] stringWithFormat:@"INSERT INTO new_attributes SELECT rowid, node_id, attribute_type, value, %lld, 0 FROM attributes", v14[3]];
-    v17[5] = v5;
-    v6 = [MEMORY[0x277CCACA8] stringWithFormat:@"INSERT INTO new_relationships SELECT rowid, subject_id, relationship_type, object_id, %lld, 0 FROM relationships", v14[3]];
-    v17[6] = v6;
-    v17[7] = @"DROP TABLE attributes";
-    v17[8] = @"DROP TABLE relationships";
-    v17[9] = @"DROP TABLE nodes";
-    v17[10] = @"ALTER TABLE new_nodes RENAME TO nodes";
-    v17[11] = @"ALTER TABLE new_attributes RENAME TO attributes";
-    v17[12] = @"ALTER TABLE new_relationships RENAME TO relationships";
-    v17[13] = @"CREATE INDEX attributes_type_value_index ON attributes(attribute_type, value)";
-    v17[14] = @"CREATE INDEX relationships_object_id_index ON relationships (object_id)";
-    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:15];
+    v16[0] = @"CREATE TABLE new_nodes (rowid INTEGER PRIMARY KEY, version INTEGER NOT NULL, slots INTEGER NOT NULL, deleted INTEGER NOT NULL)";
+    v16[1] = @"CREATE TABLE new_attributes (rowid INTEGER PRIMARY KEY, node_id INTEGER NOT NULL REFERENCES new_nodes (rowid) ON DELETE CASCADE, attribute_type INTEGER NOT NULL, value TEXT NOT NULL, version INTEGER NOT NULL, slots INTEGER NOT NULL, UNIQUE(node_id, attribute_type, value))";
+    v16[2] = @"CREATE TABLE new_relationships (rowid INTEGER PRIMARY KEY, subject_id INTEGER NOT NULL REFERENCES new_nodes (rowid) ON DELETE CASCADE, relationship_type INTEGER NOT NULL, object_id INTEGER NOT NULL REFERENCES new_nodes (rowid) ON DELETE CASCADE, version INTEGER NOT NULL, slots INTEGER NOT NULL, UNIQUE(subject_id, relationship_type, object_id))";
+    v16[3] = @"CREATE TABLE IF NOT EXISTS shard_registry (rowid INTEGER PRIMARY KEY, identifier TEXT NOT NULL, schema_type TEXT NOT NULL, schema_version INTEGER NOT NULL, settings INTEGER NOT NULL, slot INTEGER NOT NULL, desired_state INTEGER NOT NULL, desired_state_date REAL NOT NULL, current_version INTEGER NOT NULL, current_version_date REAL NOT NULL, current_region TEXT NOT NULL, current_region_date REAL NOT NULL, current_locale TEXT, current_locale_date REAL NOT NULL, available_version INTEGER NOT NULL, available_version_date REAL NOT NULL, available_region TEXT NOT NULL, available_region_date REAL NOT NULL, available_locale TEXT, available_locale_date REAL NOT NULL, available_url TEXT, available_url_date REAL NOT NULL, available_checksum TEXT, available_checksum_date REAL NOT NULL, available_size INTEGER NOT NULL, available_size_date REAL NOT NULL, available_state INTEGER NOT NULL, available_state_date REAL NOT NULL, UNIQUE(identifier, schema_type, schema_version))";
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"INSERT INTO new_nodes SELECT rowid, %lld, 0, 0 FROM nodes", v13[3]];
+    v16[4] = v4;
+    v5 = [MEMORY[0x277CCACA8] stringWithFormat:@"INSERT INTO new_attributes SELECT rowid, node_id, attribute_type, value, %lld, 0 FROM attributes", v13[3]];
+    v16[5] = v5;
+    v6 = [MEMORY[0x277CCACA8] stringWithFormat:@"INSERT INTO new_relationships SELECT rowid, subject_id, relationship_type, object_id, %lld, 0 FROM relationships", v13[3]];
+    v16[6] = v6;
+    v16[7] = @"DROP TABLE attributes";
+    v16[8] = @"DROP TABLE relationships";
+    v16[9] = @"DROP TABLE nodes";
+    v16[10] = @"ALTER TABLE new_nodes RENAME TO nodes";
+    v16[11] = @"ALTER TABLE new_attributes RENAME TO attributes";
+    v16[12] = @"ALTER TABLE new_relationships RENAME TO relationships";
+    v16[13] = @"CREATE INDEX attributes_type_value_index ON attributes(attribute_type, value)";
+    v16[14] = @"CREATE INDEX relationships_object_id_index ON relationships (object_id)";
+    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:15];
 
     v8 = [v3 executeSQLStatements:v7 error:a2];
     v9 = v8 ^ 1u;
@@ -271,22 +270,21 @@ uint64_t _shardedOntologySupport(void *a1, uint64_t a2)
     v9 = 1;
   }
 
-  _Block_object_dispose(&v13, 8);
+  _Block_object_dispose(&v12, 8);
 
-  v10 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
-void sub_2514AECD0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2514AECD0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_2514AFD40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_2514AFD40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -298,54 +296,54 @@ uint64_t __Block_byref_object_copy__3(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_2514B0474(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
-{
-  va_start(va, a7);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_2514B0740(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
-{
-  va_start(va, a11);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_2514B10B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
-{
-  va_start(va, a9);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_2514B1D80(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_2514B0474(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
   va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_2514B2988(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2514B0740(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a7);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_2514B2E14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2514B10B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a7);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_2514B5160(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_2514B1D80(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a15);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v15 - 128), 8);
-  _Block_object_dispose((v15 - 96), 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_2514B2988(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va, a13);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_2514B2E14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va, a13);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_2514B5160(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
+{
+  va_start(va, a22);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v22 - 128), 8);
+  _Block_object_dispose((v22 - 96), 8);
   _Unwind_Resume(a1);
 }
 
@@ -358,9 +356,9 @@ id HDSimpleGraphAttributeEntityPredicateForNodeID(uint64_t a1, uint64_t a2)
   return v5;
 }
 
-void sub_2514B6754(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_2514B6754(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -377,10 +375,11 @@ double HDOntologyFeatureDefaultMinimumTimeToLive()
   return result;
 }
 
-void sub_2514B8E48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, char a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, char a26)
+void sub_2514B8E48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, ...)
 {
+  va_start(va, a25);
   _Block_object_dispose(&a20, 8);
-  _Block_object_dispose(&a26, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -391,16 +390,17 @@ uint64_t __Block_byref_object_copy__4(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_2514B9364(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, char a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, char a33)
+void sub_2514B9364(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, ...)
 {
+  va_start(va, a32);
   _Block_object_dispose(&a25, 8);
-  _Block_object_dispose(&a33, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_2514B9DA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_2514B9DA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -455,7 +455,7 @@ id HDSimpleGraphDatabaseNodeEntityPredicateForAttribute(uint64_t a1, void *a2)
 
 id HDSimpleGraphDatabaseNodeEntityPredicateWithoutAttribute(uint64_t a1, void *a2)
 {
-  v18[1] = *MEMORY[0x277D85DE8];
+  v17[1] = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277D10B80];
   v4 = a2;
   v5 = objc_alloc_init(v3);
@@ -470,13 +470,11 @@ id HDSimpleGraphDatabaseNodeEntityPredicateWithoutAttribute(uint64_t a1, void *a
   [v5 setPredicate:v11];
 
   v12 = MEMORY[0x277D10B18];
-  v18[0] = @"node_id";
-  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:1];
+  v17[0] = @"node_id";
+  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:1];
   v14 = [v12 predicateWithProperty:@"rowid" comparisonType:7 subqueryDescriptor:v5 subqueryProperties:v13];
 
   v15 = [MEMORY[0x277D10B20] negatedPredicate:v14];
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v15;
 }
@@ -511,14 +509,14 @@ id HDSimpleGraphDatabaseNodeEntityPredicateForNodesWithRelationshipType(uint64_t
   return v5;
 }
 
-void sub_2514BAE48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_2514BAE48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v10 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v17 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -562,9 +560,9 @@ uint64_t HDOntologyEducationContentSectionDataTypeForAttributeType(uint64_t a1)
   }
 }
 
-void sub_2514BBE48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_2514BBE48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -576,9 +574,9 @@ uint64_t __Block_byref_object_copy__6(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_2514BC8C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2514BC8C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -590,40 +588,40 @@ uint64_t __Block_byref_object_copy__7(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_2514BD0BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_2514BD0BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v11 - 80), 8);
+  _Block_object_dispose((v18 - 80), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_2514BD364(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2514BD364(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_2514BDEF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
-{
-  va_start(va, a9);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_2514BE284(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+void sub_2514BDEF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a10);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_2514BE7C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_2514BE284(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  va_start(va, a9);
+  va_start(va, a17);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 96), 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_2514BE7C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+{
+  va_start(va, a16);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v16 - 96), 8);
   _Unwind_Resume(a1);
 }
 
@@ -637,23 +635,23 @@ id HDOntologyShardRegistryPredicateForCurrentSchemaEntry(void *a1)
   return v4;
 }
 
-void sub_2514BF6A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2514BF6A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_2514BF9A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_2514BF9A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_2514C097C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+void sub_2514C097C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  va_start(va, a17);
+  va_start(va, a24);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -665,19 +663,19 @@ uint64_t __Block_byref_object_copy__8(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_2514C1AE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_2514C1AE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va1, a11);
-  va_start(va, a11);
-  v13 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
-  v17 = va_arg(va1, void);
-  v18 = va_arg(va1, void);
-  v19 = va_arg(va1, void);
+  va_start(va1, a18);
+  va_start(va, a18);
+  v20 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
+  v25 = va_arg(va1, void);
+  v26 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
-  _Block_object_dispose((v11 - 80), 8);
+  _Block_object_dispose((v18 - 80), 8);
   _Unwind_Resume(a1);
 }
 
@@ -688,10 +686,11 @@ uint64_t __Block_byref_object_copy__9(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_2514C27D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, char a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, char a37)
+void sub_2514C27D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, ...)
 {
+  va_start(va, a36);
   _Block_object_dispose(&a28, 8);
-  _Block_object_dispose(&a37, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -721,14 +720,14 @@ void sub_2514C31BC()
   }
 }
 
-uint64_t sub_2514C322C(SEL *a1, unint64_t *a2)
+uint64_t sub_2514C322C(SEL *a1, unint64_t *a2, uint64_t a3)
 {
   sub_2514D0198();
-  v5 = sub_2514D01D8();
+  v7 = sub_2514D01D8();
 
-  v6 = [v2 *a1];
+  v8 = [v3 *a1];
 
-  if (v6)
+  if (v8)
   {
     sub_2514D0228();
     swift_unknownObjectRelease();
@@ -736,18 +735,18 @@ uint64_t sub_2514C322C(SEL *a1, unint64_t *a2)
 
   else
   {
-    v9 = 0u;
-    v10 = 0u;
+    v11 = 0u;
+    v12 = 0u;
   }
 
-  v11[0] = v9;
-  v11[1] = v10;
-  if (*(&v10 + 1))
+  v13[0] = v11;
+  v13[1] = v12;
+  if (*(&v12 + 1))
   {
-    sub_2514C332C(0, a2);
+    sub_2514C332C(0, a2, a3);
     if (swift_dynamicCast())
     {
-      return v8;
+      return v10;
     }
 
     else
@@ -758,12 +757,12 @@ uint64_t sub_2514C322C(SEL *a1, unint64_t *a2)
 
   else
   {
-    sub_2514C3160(v11);
+    sub_2514C3160(v13);
     return 0;
   }
 }
 
-uint64_t sub_2514C332C(uint64_t a1, unint64_t *a2)
+uint64_t sub_2514C332C(uint64_t a1, unint64_t *a2, uint64_t a3)
 {
   result = *a2;
   if (!*a2)
@@ -784,45 +783,43 @@ id HDSimpleGraphDatabase.sqliteDatabase.getter()
 
 id static HDSimpleGraphDatabase.InMemoryDatabase()()
 {
-  v5[1] = *MEMORY[0x277D85DE8];
-  v5[0] = 0;
+  v4[1] = *MEMORY[0x277D85DE8];
+  v4[0] = 0;
   v0 = [objc_opt_self() inMemoryGraphDatabaseWithError_];
   if (v0)
   {
-    v1 = v5[0];
+    v1 = v4[0];
   }
 
   else
   {
-    v2 = v5[0];
+    v2 = v4[0];
     sub_2514D0188();
 
     swift_willThrow();
   }
 
-  v3 = *MEMORY[0x277D85DE8];
   return v0;
 }
 
 id HDOntologyConceptManager.concept(for:)(uint64_t a1)
 {
-  v7[1] = *MEMORY[0x277D85DE8];
-  v7[0] = 0;
-  v2 = [v1 conceptForIdentifier:a1 options:0 error:v7];
+  v6[1] = *MEMORY[0x277D85DE8];
+  v6[0] = 0;
+  v2 = [v1 conceptForIdentifier:a1 options:0 error:v6];
   if (v2)
   {
-    v3 = v7[0];
+    v3 = v6[0];
   }
 
   else
   {
-    v4 = v7[0];
+    v4 = v6[0];
     sub_2514D0188();
 
     swift_willThrow();
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
@@ -831,15 +828,14 @@ double HDProfile.ontologyStore.getter@<D0>(uint64_t a1@<X8>)
   v2 = v1;
   v4 = sub_2514D01C8();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   MEMORY[0x28223BE20]();
-  v8 = &v27 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = &v26 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_2514D0198();
-  v9 = sub_2514D01D8();
+  v8 = sub_2514D01D8();
 
-  v10 = [v2 profileExtensionWithIdentifier_];
+  v9 = [v2 profileExtensionWithIdentifier_];
 
-  if (v10)
+  if (v9)
   {
     sub_2514D0228();
     swift_unknownObjectRelease();
@@ -847,84 +843,84 @@ double HDProfile.ontologyStore.getter@<D0>(uint64_t a1@<X8>)
 
   else
   {
+    v28 = 0u;
     v29 = 0u;
-    v30 = 0u;
   }
 
-  v31[0] = v29;
-  v31[1] = v30;
-  if (*(&v30 + 1))
+  v30[0] = v28;
+  v30[1] = v29;
+  if (*(&v29 + 1))
   {
     sub_2514C39C0();
     if (swift_dynamicCast())
     {
-      if (*(&v33 + 1))
+      if (*(&v32 + 1))
       {
-        sub_2514C4020(&v32, v35);
+        sub_2514C4020(&v31, v34);
+        v10 = v35;
         v11 = v36;
-        v12 = v37;
-        __swift_project_boxed_opaque_existential_1(v35, v36);
-        (*(v12 + 8))(v11, v12);
-        __swift_destroy_boxed_opaque_existential_1Tm(v35);
+        __swift_project_boxed_opaque_existential_1(v34, v35);
+        (*(v11 + 8))(v10, v11);
+        __swift_destroy_boxed_opaque_existential_1Tm(v34);
         return result;
       }
     }
 
     else
     {
-      v34 = 0;
+      v33 = 0;
+      v31 = 0u;
       v32 = 0u;
-      v33 = 0u;
     }
   }
 
   else
   {
-    sub_2514C3160(v31);
+    sub_2514C3160(v30);
+    v31 = 0u;
     v32 = 0u;
-    v33 = 0u;
-    v34 = 0;
+    v33 = 0;
   }
 
-  sub_2514C390C(&v32);
+  sub_2514C390C(&v31);
   sub_2514D01A8();
-  v14 = v2;
-  v15 = sub_2514D01B8();
-  v16 = sub_2514D0208();
+  v13 = v2;
+  v14 = sub_2514D01B8();
+  v15 = sub_2514D0208();
 
-  if (os_log_type_enabled(v15, v16))
+  if (os_log_type_enabled(v14, v15))
   {
+    v16 = swift_slowAlloc();
     v17 = swift_slowAlloc();
-    v18 = swift_slowAlloc();
-    v28 = a1;
-    v19 = v18;
-    v35[0] = v18;
-    *v17 = 136446466;
-    v20 = v14;
-    v21 = [v20 description];
-    v22 = sub_2514D01E8();
-    v27 = v4;
-    v24 = v23;
+    v27 = a1;
+    v18 = v17;
+    v34[0] = v17;
+    *v16 = 136446466;
+    v19 = v13;
+    v20 = [v19 description];
+    v21 = sub_2514D01E8();
+    v26 = v4;
+    v23 = v22;
 
-    v25 = sub_2514C3A48(v22, v24, v35);
+    v24 = sub_2514C3A48(v21, v23, v34);
 
-    *(v17 + 4) = v25;
-    *(v17 + 12) = 2082;
-    *(v17 + 14) = sub_2514C3A48(0xD00000000000001BLL, 0x80000002514D6810, v35);
-    _os_log_impl(&dword_2514A1000, v15, v16, "%{public}s: Unable to locate HealthContent profile extension as %{public}s", v17, 0x16u);
+    *(v16 + 4) = v24;
+    *(v16 + 12) = 2082;
+    *(v16 + 14) = sub_2514C3A48(0xD00000000000001BLL, 0x80000002514D6810, v34);
+    _os_log_impl(&dword_2514A1000, v14, v15, "%{public}s: Unable to locate HealthContent profile extension as %{public}s", v16, 0x16u);
     swift_arrayDestroy();
-    v26 = v19;
-    a1 = v28;
-    MEMORY[0x2530782F0](v26, -1, -1);
-    MEMORY[0x2530782F0](v17, -1, -1);
+    v25 = v18;
+    a1 = v27;
+    MEMORY[0x2530782F0](v25, -1, -1);
+    MEMORY[0x2530782F0](v16, -1, -1);
 
-    (*(v5 + 8))(v8, v27);
+    (*(v5 + 8))(v7, v26);
   }
 
   else
   {
 
-    (*(v5 + 8))(v8, v4);
+    (*(v5 + 8))(v7, v4);
   }
 
   *(a1 + 32) = 0;
@@ -936,20 +932,20 @@ double HDProfile.ontologyStore.getter@<D0>(uint64_t a1@<X8>)
 
 uint64_t sub_2514C390C(uint64_t a1)
 {
-  sub_2514C3968();
+  sub_2514C3968(0);
   (*(*(v2 - 8) + 8))(a1, v2);
   return a1;
 }
 
-void sub_2514C3968()
+void sub_2514C3968(uint64_t a1)
 {
   if (!qword_27F43B9A0)
   {
     sub_2514C39C0();
-    v0 = sub_2514D0218();
-    if (!v1)
+    v1 = sub_2514D0218();
+    if (!v2)
     {
-      atomic_store(v0, &qword_27F43B9A0);
+      atomic_store(v1, &qword_27F43B9A0);
     }
   }
 }
@@ -1064,16 +1060,14 @@ LABEL_8:
   }
 }
 
-uint64_t sub_2514C3C20(uint64_t a1, unint64_t a2)
+void *sub_2514C3C20(uint64_t a1, unint64_t a2)
 {
-  v4 = sub_2514C3C6C(a1, a2);
+  v3 = sub_2514C3C6C(a1, a2);
   sub_2514C3D9C(&unk_28636E6A0);
-  result = v4;
-  v3 = *(v4 + 16) - 1;
-  return result;
+  return v3;
 }
 
-uint64_t sub_2514C3C6C(uint64_t a1, unint64_t a2)
+void *sub_2514C3C6C(uint64_t a1, unint64_t a2)
 {
   if ((a2 & 0x1000000000000000) != 0)
   {
@@ -1170,7 +1164,6 @@ LABEL_16:
   }
 
   v6 = result;
-  v7 = *v1;
   result = swift_isUniquelyReferenced_nonNull_native();
   if (result && v5 <= *(v3 + 24) >> 1)
   {
@@ -1184,15 +1177,15 @@ LABEL_16:
 
   if (v4 <= v5)
   {
-    v12 = v4 + v2;
+    v11 = v4 + v2;
   }
 
   else
   {
-    v12 = v4;
+    v11 = v4;
   }
 
-  result = sub_2514C3F14(result, v12, 1, v3);
+  result = sub_2514C3F14(result, v11, 1, v3);
   v3 = result;
   if (!*(v6 + 16))
   {
@@ -1207,15 +1200,15 @@ LABEL_13:
   }
 
 LABEL_5:
-  v8 = *(v3 + 16);
-  if ((*(v3 + 24) >> 1) - v8 < v2)
+  v7 = *(v3 + 16);
+  if ((*(v3 + 24) >> 1) - v7 < v2)
   {
 LABEL_17:
     __break(1u);
     goto LABEL_18;
   }
 
-  memcpy((v3 + v8 + 32), (v6 + 32), v2);
+  memcpy((v3 + v7 + 32), (v6 + 32), v2);
 
   if (!v2)
   {
@@ -1224,12 +1217,12 @@ LABEL_14:
     return result;
   }
 
-  v9 = *(v3 + 16);
-  v10 = __OFADD__(v9, v2);
-  v11 = v9 + v2;
-  if (!v10)
+  v8 = *(v3 + 16);
+  v9 = __OFADD__(v8, v2);
+  v10 = v8 + v2;
+  if (!v9)
   {
-    *(v3 + 16) = v11;
+    *(v3 + 16) = v10;
     goto LABEL_14;
   }
 

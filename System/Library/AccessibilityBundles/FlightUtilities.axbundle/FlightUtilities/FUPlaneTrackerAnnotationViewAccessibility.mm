@@ -86,15 +86,15 @@
   _Block_object_dispose(v9, 8);
 }
 
-void __87__FUPlaneTrackerAnnotationViewAccessibility__accessibilityLoadAccessibilityInformation__block_invoke(uint64_t a1)
+void __87__FUPlaneTrackerAnnotationViewAccessibility__accessibilityLoadAccessibilityInformation__block_invoke(void *a1)
 {
   v2 = __UIAccessibilityCastAsProtocol();
   [v2 coordinate];
-  v3 = *(*(a1 + 40) + 8);
+  v3 = *(a1[5] + 8);
   *(v3 + 32) = v4;
   *(v3 + 40) = v5;
 
-  *(*(*(a1 + 48) + 8) + 24) = 1;
+  *(*(a1[6] + 8) + 24) = 1;
 }
 
 void __87__FUPlaneTrackerAnnotationViewAccessibility__accessibilityLoadAccessibilityInformation__block_invoke_2(uint64_t a1)

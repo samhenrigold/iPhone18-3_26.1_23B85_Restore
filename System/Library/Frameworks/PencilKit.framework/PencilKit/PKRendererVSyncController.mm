@@ -131,9 +131,9 @@ LABEL_17:
     dispatch_once(&qword_1ED6A5088, &__block_literal_global_27);
   }
 
-  v0 = _MergedGlobals_131;
+  v1 = _MergedGlobals_131;
 
-  return v0;
+  return v1;
 }
 
 void __45__PKRendererVSyncController_sharedController__block_invoke()

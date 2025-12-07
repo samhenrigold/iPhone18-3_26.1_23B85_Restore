@@ -124,27 +124,25 @@ void __54__EKStructuredLocation_knownIdentityKeysForComparison__block_invoke()
 
 void __57__EKStructuredLocation_knownSingleValueKeysForComparison__block_invoke()
 {
-  v8[10] = *MEMORY[0x1E69E9840];
+  v7[10] = *MEMORY[0x1E69E9840];
   v0 = *MEMORY[0x1E6992A48];
-  v8[0] = *MEMORY[0x1E6992A30];
-  v8[1] = v0;
+  v7[0] = *MEMORY[0x1E6992A30];
+  v7[1] = v0;
   v1 = *MEMORY[0x1E6992A58];
-  v8[2] = *MEMORY[0x1E6992A50];
-  v8[3] = v1;
+  v7[2] = *MEMORY[0x1E6992A50];
+  v7[3] = v1;
   v2 = *MEMORY[0x1E6992A68];
-  v8[4] = *MEMORY[0x1E6992A60];
-  v8[5] = v2;
+  v7[4] = *MEMORY[0x1E6992A60];
+  v7[5] = v2;
   v3 = *MEMORY[0x1E6992A78];
-  v8[6] = *MEMORY[0x1E6992A70];
-  v8[7] = v3;
+  v7[6] = *MEMORY[0x1E6992A70];
+  v7[7] = v3;
   v4 = *MEMORY[0x1E6992A88];
-  v8[8] = *MEMORY[0x1E6992A80];
-  v8[9] = v4;
-  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:10];
+  v7[8] = *MEMORY[0x1E6992A80];
+  v7[9] = v4;
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:10];
   v6 = knownSingleValueKeysForComparison_keys_10;
   knownSingleValueKeysForComparison_keys_10 = v5;
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 + (id)knownSingleValueKeysToSkipForUIComparison
@@ -161,15 +159,13 @@ void __57__EKStructuredLocation_knownSingleValueKeysForComparison__block_invoke(
 
 void __65__EKStructuredLocation_knownSingleValueKeysToSkipForUIComparison__block_invoke()
 {
-  v4[2] = *MEMORY[0x1E69E9840];
+  v3[2] = *MEMORY[0x1E69E9840];
   v0 = *MEMORY[0x1E6992A78];
-  v4[0] = *MEMORY[0x1E6992A50];
-  v4[1] = v0;
-  v1 = [MEMORY[0x1E695DEC8] arrayWithObjects:v4 count:2];
+  v3[0] = *MEMORY[0x1E6992A50];
+  v3[1] = v0;
+  v1 = [MEMORY[0x1E695DEC8] arrayWithObjects:v3 count:2];
   v2 = knownSingleValueKeysToSkipForUIComparison_keys;
   knownSingleValueKeysToSkipForUIComparison_keys = v1;
-
-  v3 = *MEMORY[0x1E69E9840];
 }
 
 + (id)knownRelationshipWeakKeys
@@ -186,15 +182,13 @@ void __65__EKStructuredLocation_knownSingleValueKeysToSkipForUIComparison__block
 
 void __49__EKStructuredLocation_knownRelationshipWeakKeys__block_invoke()
 {
-  v4[2] = *MEMORY[0x1E69E9840];
+  v3[2] = *MEMORY[0x1E69E9840];
   v0 = *MEMORY[0x1E6992A38];
-  v4[0] = *MEMORY[0x1E6992A40];
-  v4[1] = v0;
-  v1 = [MEMORY[0x1E695DEC8] arrayWithObjects:v4 count:2];
+  v3[0] = *MEMORY[0x1E6992A40];
+  v3[1] = v0;
+  v1 = [MEMORY[0x1E695DEC8] arrayWithObjects:v3 count:2];
   v2 = knownRelationshipWeakKeys_keys_6;
   knownRelationshipWeakKeys_keys_6 = v1;
-
-  v3 = *MEMORY[0x1E69E9840];
 }
 
 + (EKStructuredLocation)locationWithTitle:(NSString *)title
@@ -794,10 +788,10 @@ LABEL_27:
 
     if (!v14 && v8)
     {
-      v15 = MEMORY[0x1E696AEC0];
-      v16 = EKBundle();
-      v17 = [v16 localizedStringForKey:@"%@’s %@" value:&stru_1F1B49D68 table:0];
-      v18 = [v15 localizedStringWithFormat:v17, v8, capitalizedString];
+      v16 = MEMORY[0x1E696AEC0];
+      v17 = EKBundle(v15);
+      v18 = [v17 localizedStringForKey:@"%@’s %@" value:&stru_1F1B49D68 table:0];
+      v19 = [v16 localizedStringWithFormat:v18, v8, capitalizedString];
 
       goto LABEL_9;
     }
@@ -811,23 +805,23 @@ LABEL_27:
 LABEL_2:
     v11 = v8;
 LABEL_8:
-    v18 = v11;
+    v19 = v11;
     goto LABEL_9;
   }
 
-  v18 = 0;
+  v19 = 0;
 LABEL_9:
-  if ([v18 length])
+  if ([v19 length])
   {
-    v19 = v18;
+    v20 = v19;
   }
 
   else
   {
-    v19 = 0;
+    v20 = 0;
   }
 
-  return v19;
+  return v20;
 }
 
 - (id)semanticIdentifier

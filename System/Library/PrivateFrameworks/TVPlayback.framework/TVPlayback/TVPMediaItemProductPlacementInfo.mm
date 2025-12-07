@@ -28,8 +28,8 @@
 {
   v3 = MEMORY[0x277CCACA8];
   localizedInfoString = [(TVPMediaItemProductPlacementInfo *)self localizedInfoString];
-  duration = [(TVPMediaItemProductPlacementInfo *)self duration];
-  [duration doubleValue];
+  v5 = objc_msgSend_duration(self);
+  [v5 doubleValue];
   v7 = v6;
   imageUrlStringFormat = [(TVPMediaItemProductPlacementInfo *)self imageUrlStringFormat];
   v9 = [v3 stringWithFormat:@"infoString - %@, duration - %f, urlString - %@", localizedInfoString, v7, imageUrlStringFormat];

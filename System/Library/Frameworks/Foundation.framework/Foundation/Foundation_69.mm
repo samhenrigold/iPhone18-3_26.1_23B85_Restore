@@ -416,10 +416,10 @@ uint64_t specialized Date.VerbatimFormatStyle.CodingKeys.init(stringValue:)(uint
   }
 }
 
-uint64_t specialized Date.VerbatimFormatStyle.Attributed.subscript.setter(uint64_t a1)
+uint64_t specialized Date.VerbatimFormatStyle.Attributed.subscript.setter(uint64_t a1, uint64_t a2)
 {
-  v1 = MEMORY[0x1EEE9AC00](a1);
-  (*(v3 + 16))(&v5 - v2, v1);
+  v2 = MEMORY[0x1EEE9AC00](a1);
+  (*(v4 + 16))(&v6 - v3, v2);
   return swift_setAtWritableKeyPath();
 }
 
@@ -639,7 +639,7 @@ unint64_t lazy protocol witness table accessor for type Date.ParseStrategy and c
 
 uint64_t instantiation function for generic protocol witness table for Date.VerbatimFormatStyle(void *a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(void), uint64_t (*a5)(void), uint64_t (*a6)(void))
 {
-  a1[1] = a4();
+  a1[1] = (a4)(a1, a2, a3);
   a1[2] = a5();
   result = a6();
   a1[3] = result;
@@ -759,7 +759,7 @@ uint64_t specialized == infix<A>(_:_:)(char a1, char a2)
   return v2 & 1;
 }
 
-Swift::Int specialized RawRepresentable<>.hashValue.getter()
+Swift::Int specialized RawRepresentable<>.hashValue.getter(unsigned __int8 a1)
 {
   Hasher.init(_seed:)();
   String.hash(into:)();
@@ -823,7 +823,7 @@ uint64_t specialized RawRepresentable<>.hash(into:)(uint64_t a1, uint64_t a2, ch
   String.hash(into:)();
 }
 
-uint64_t specialized RawRepresentable<>.hash(into:)()
+uint64_t specialized RawRepresentable<>.hash(into:)(uint64_t a1, unsigned __int8 a2)
 {
   String.hash(into:)();
 }
@@ -868,9 +868,9 @@ _BYTE *static Date.FormatStyle.Symbol.TimeZone.genericName(_:)@<X0>(_BYTE *resul
   return result;
 }
 
-void Date.FormatStyle.Symbol.Era.hash(into:)()
+void Date.FormatStyle.Symbol.Era.hash(into:)(uint64_t a1)
 {
-  if (*v0 == 3)
+  if (*v1 == 3)
   {
     Hasher._combine(_:)(0);
   }
@@ -900,9 +900,9 @@ Swift::Int Date.FormatStyle.Symbol.Era.hashValue.getter()
   return Hasher._finalize()();
 }
 
-void protocol witness for Hashable.hash(into:) in conformance Date.FormatStyle.Symbol.Era()
+void protocol witness for Hashable.hash(into:) in conformance Date.FormatStyle.Symbol.Era(uint64_t a1)
 {
-  if (*v0 == 3)
+  if (*v1 == 3)
   {
     Hasher._combine(_:)(0);
   }
@@ -914,11 +914,11 @@ void protocol witness for Hashable.hash(into:) in conformance Date.FormatStyle.S
   }
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Date.FormatStyle.Symbol.Era()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Date.FormatStyle.Symbol.Era(uint64_t a1)
 {
-  v1 = *v0;
+  v2 = *v1;
   Hasher.init(_seed:)();
-  if (v1 == 3)
+  if (v2 == 3)
   {
     Hasher._combine(_:)(0);
   }
@@ -965,19 +965,19 @@ BOOL static Date.FormatStyle.Symbol.Year.== infix(_:_:)(uint64_t a1, uint64_t a2
   return 1;
 }
 
-void Date.FormatStyle.Symbol.Year.hash(into:)()
+void Date.FormatStyle.Symbol.Year.hash(into:)(uint64_t a1)
 {
-  v1 = *(v0 + 8);
-  if (v1 == 255)
+  v2 = *(v1 + 8);
+  if (v2 == 255)
   {
     Hasher._combine(_:)(0);
   }
 
   else
   {
-    v2 = *v0;
+    v3 = *v1;
     Hasher._combine(_:)(1u);
-    Date.FormatStyle.Symbol.SymbolType.YearOption.rawValue.getter(v2, v1);
+    Date.FormatStyle.Symbol.SymbolType.YearOption.rawValue.getter(v3, v2);
     String.hash(into:)();
   }
 }
@@ -1022,28 +1022,9 @@ Swift::Int protocol witness for Hashable.hashValue.getter in conformance Date.Fo
   return Hasher._finalize()();
 }
 
-void protocol witness for Hashable.hash(into:) in conformance Date.FormatStyle.Symbol.Year()
+void protocol witness for Hashable.hash(into:) in conformance Date.FormatStyle.Symbol.Year(uint64_t a1)
 {
-  v1 = *(v0 + 8);
-  if (v1 == 255)
-  {
-    Hasher._combine(_:)(0);
-  }
-
-  else
-  {
-    v2 = *v0;
-    Hasher._combine(_:)(1u);
-    Date.FormatStyle.Symbol.SymbolType.YearOption.rawValue.getter(v2, v1);
-    String.hash(into:)();
-  }
-}
-
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Date.FormatStyle.Symbol.Year()
-{
-  v1 = *v0;
-  v2 = *(v0 + 8);
-  Hasher.init(_seed:)();
+  v2 = *(v1 + 8);
   if (v2 == 255)
   {
     Hasher._combine(_:)(0);
@@ -1051,8 +1032,27 @@ Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Dat
 
   else
   {
+    v3 = *v1;
     Hasher._combine(_:)(1u);
-    Date.FormatStyle.Symbol.SymbolType.YearOption.rawValue.getter(v1, v2);
+    Date.FormatStyle.Symbol.SymbolType.YearOption.rawValue.getter(v3, v2);
+    String.hash(into:)();
+  }
+}
+
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Date.FormatStyle.Symbol.Year(uint64_t a1)
+{
+  v2 = *v1;
+  v3 = *(v1 + 8);
+  Hasher.init(_seed:)();
+  if (v3 == 255)
+  {
+    Hasher._combine(_:)(0);
+  }
+
+  else
+  {
+    Hasher._combine(_:)(1u);
+    Date.FormatStyle.Symbol.SymbolType.YearOption.rawValue.getter(v2, v3);
     String.hash(into:)();
   }
 
@@ -1092,39 +1092,39 @@ BOOL protocol witness for static Equatable.== infix(_:_:) in conformance Date.Fo
   return 1;
 }
 
-void Date.FormatStyle.Symbol.YearForWeekOfYear.hash(into:)()
+void Date.FormatStyle.Symbol.YearForWeekOfYear.hash(into:)(uint64_t a1)
 {
-  if (*(v0 + 9) == 1)
+  if (*(v1 + 9) == 1)
   {
     Hasher._combine(_:)(0);
   }
 
   else
   {
-    v1 = *v0;
-    v2 = *(v0 + 8);
+    v2 = *v1;
+    v3 = *(v1 + 8);
     Hasher._combine(_:)(1u);
-    if ((v2 & 1) == 0)
+    if ((v3 & 1) == 0)
     {
-      v3 = 10;
-      if (v1 < 10)
+      v4 = 10;
+      if (v2 < 10)
       {
-        v3 = v1;
+        v4 = v2;
       }
 
-      if (v3 <= 1)
+      if (v4 <= 1)
       {
-        v4 = 1;
+        v5 = 1;
       }
 
       else
       {
-        v4 = v3;
+        v5 = v4;
       }
 
-      v5._countAndFlagsBits = 89;
-      v5._object = 0xE100000000000000;
-      String.init(repeating:count:)(v5, v4);
+      v6._countAndFlagsBits = 89;
+      v6._object = 0xE100000000000000;
+      String.init(repeating:count:)(v6, v5);
     }
 
     String.hash(into:)();
@@ -1174,13 +1174,13 @@ Swift::Int Date.FormatStyle.Symbol.YearForWeekOfYear.hashValue.getter()
   return Hasher._finalize()();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Date.FormatStyle.Symbol.YearForWeekOfYear()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Date.FormatStyle.Symbol.YearForWeekOfYear(uint64_t a1)
 {
-  v1 = *v0;
-  v2 = *(v0 + 8);
-  v3 = *(v0 + 9);
+  v2 = *v1;
+  v3 = *(v1 + 8);
+  v4 = *(v1 + 9);
   Hasher.init(_seed:)();
-  if (v3 == 1)
+  if (v4 == 1)
   {
     Hasher._combine(_:)(0);
   }
@@ -1188,27 +1188,27 @@ Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Dat
   else
   {
     Hasher._combine(_:)(1u);
-    if ((v2 & 1) == 0)
+    if ((v3 & 1) == 0)
     {
-      v4 = 10;
-      if (v1 < 10)
+      v5 = 10;
+      if (v2 < 10)
       {
-        v4 = v1;
+        v5 = v2;
       }
 
-      if (v4 <= 1)
+      if (v5 <= 1)
       {
-        v5 = 1;
+        v6 = 1;
       }
 
       else
       {
-        v5 = v4;
+        v6 = v5;
       }
 
-      v6._countAndFlagsBits = 89;
-      v6._object = 0xE100000000000000;
-      String.init(repeating:count:)(v6, v5);
+      v7._countAndFlagsBits = 89;
+      v7._object = 0xE100000000000000;
+      String.init(repeating:count:)(v7, v6);
     }
 
     String.hash(into:)();
@@ -1217,9 +1217,9 @@ Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Dat
   return Hasher._finalize()();
 }
 
-void Date.FormatStyle.Symbol.CyclicYear.hash(into:)()
+void Date.FormatStyle.Symbol.CyclicYear.hash(into:)(uint64_t a1)
 {
-  if (*v0 == 3)
+  if (*v1 == 3)
   {
     Hasher._combine(_:)(0);
   }
@@ -1249,9 +1249,9 @@ Swift::Int Date.FormatStyle.Symbol.CyclicYear.hashValue.getter()
   return Hasher._finalize()();
 }
 
-void protocol witness for Hashable.hash(into:) in conformance Date.FormatStyle.Symbol.CyclicYear()
+void protocol witness for Hashable.hash(into:) in conformance Date.FormatStyle.Symbol.CyclicYear(uint64_t a1)
 {
-  if (*v0 == 3)
+  if (*v1 == 3)
   {
     Hasher._combine(_:)(0);
   }
@@ -1263,11 +1263,11 @@ void protocol witness for Hashable.hash(into:) in conformance Date.FormatStyle.S
   }
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Date.FormatStyle.Symbol.CyclicYear()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Date.FormatStyle.Symbol.CyclicYear(uint64_t a1)
 {
-  v1 = *v0;
+  v2 = *v1;
   Hasher.init(_seed:)();
-  if (v1 == 3)
+  if (v2 == 3)
   {
     Hasher._combine(_:)(0);
   }
@@ -1281,10 +1281,10 @@ Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Dat
   return Hasher._finalize()();
 }
 
-void Date.FormatStyle.Symbol.Quarter.hash(into:)()
+void Date.FormatStyle.Symbol.Quarter.hash(into:)(uint64_t a1)
 {
-  v1 = *v0;
-  if (v1 == 5)
+  v2 = *v1;
+  if (v2 == 5)
   {
     Hasher._combine(_:)(0);
   }
@@ -1314,11 +1314,11 @@ Swift::Int Date.FormatStyle.Symbol.Quarter.hashValue.getter()
   return Hasher._finalize()();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Date.FormatStyle.Symbol.Quarter()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Date.FormatStyle.Symbol.Quarter(uint64_t a1)
 {
-  v1 = *v0;
+  v2 = *v1;
   Hasher.init(_seed:)();
-  if (v1 == 5)
+  if (v2 == 5)
   {
     Hasher._combine(_:)(0);
   }
@@ -1352,10 +1352,10 @@ uint64_t static Date.FormatStyle.Symbol.Quarter.== infix(_:_:)(unsigned __int8 *
   return 0;
 }
 
-void Date.FormatStyle.Symbol.Month.hash(into:)()
+void Date.FormatStyle.Symbol.Month.hash(into:)(uint64_t a1)
 {
-  v1 = *v0;
-  if (v1 == 5)
+  v2 = *v1;
+  if (v2 == 5)
   {
     Hasher._combine(_:)(0);
   }
@@ -1385,11 +1385,11 @@ Swift::Int Date.FormatStyle.Symbol.Month.hashValue.getter()
   return Hasher._finalize()();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Date.FormatStyle.Symbol.Month()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Date.FormatStyle.Symbol.Month(uint64_t a1)
 {
-  v1 = *v0;
+  v2 = *v1;
   Hasher.init(_seed:)();
-  if (v1 == 5)
+  if (v2 == 5)
   {
     Hasher._combine(_:)(0);
   }
@@ -1415,9 +1415,9 @@ BOOL protocol witness for static Equatable.== infix(_:_:) in conformance Date.Fo
   return v6 == 5;
 }
 
-void Date.FormatStyle.Symbol.Week.hash(into:)()
+void Date.FormatStyle.Symbol.Week.hash(into:)(uint64_t a1)
 {
-  if (*v0 == 3)
+  if (*v1 == 3)
   {
     Hasher._combine(_:)(0);
   }
@@ -1447,9 +1447,9 @@ Swift::Int Date.FormatStyle.Symbol.Week.hashValue.getter()
   return Hasher._finalize()();
 }
 
-void protocol witness for Hashable.hash(into:) in conformance Date.FormatStyle.Symbol.Week()
+void protocol witness for Hashable.hash(into:) in conformance Date.FormatStyle.Symbol.Week(uint64_t a1)
 {
-  if (*v0 == 3)
+  if (*v1 == 3)
   {
     Hasher._combine(_:)(0);
   }
@@ -1461,11 +1461,11 @@ void protocol witness for Hashable.hash(into:) in conformance Date.FormatStyle.S
   }
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Date.FormatStyle.Symbol.Week()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Date.FormatStyle.Symbol.Week(uint64_t a1)
 {
-  v1 = *v0;
+  v2 = *v1;
   Hasher.init(_seed:)();
-  if (v1 == 3)
+  if (v2 == 3)
   {
     Hasher._combine(_:)(0);
   }
@@ -1497,39 +1497,39 @@ uint64_t static Date.FormatStyle.Symbol.YearForWeekOfYear.== infix(_:_:)(uint64_
   return 0;
 }
 
-void Date.FormatStyle.Symbol.Day.hash(into:)()
+void Date.FormatStyle.Symbol.Day.hash(into:)(uint64_t a1)
 {
-  if (*(v0 + 9) == 1)
+  if (*(v1 + 9) == 1)
   {
     Hasher._combine(_:)(0);
   }
 
   else
   {
-    v1 = *v0;
-    v2 = *(v0 + 8);
+    v2 = *v1;
+    v3 = *(v1 + 8);
     Hasher._combine(_:)(1u);
-    if ((v2 & 1) == 0)
+    if ((v3 & 1) == 0)
     {
-      v3 = 10;
-      if (v1 < 10)
+      v4 = 10;
+      if (v2 < 10)
       {
-        v3 = v1;
+        v4 = v2;
       }
 
-      if (v3 <= 1)
+      if (v4 <= 1)
       {
-        v4 = 1;
+        v5 = 1;
       }
 
       else
       {
-        v4 = v3;
+        v5 = v4;
       }
 
-      v5._countAndFlagsBits = 103;
-      v5._object = 0xE100000000000000;
-      String.init(repeating:count:)(v5, v4);
+      v6._countAndFlagsBits = 103;
+      v6._object = 0xE100000000000000;
+      String.init(repeating:count:)(v6, v5);
     }
 
     String.hash(into:)();
@@ -1579,13 +1579,13 @@ Swift::Int Date.FormatStyle.Symbol.Day.hashValue.getter()
   return Hasher._finalize()();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Date.FormatStyle.Symbol.Day()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Date.FormatStyle.Symbol.Day(uint64_t a1)
 {
-  v1 = *v0;
-  v2 = *(v0 + 8);
-  v3 = *(v0 + 9);
+  v2 = *v1;
+  v3 = *(v1 + 8);
+  v4 = *(v1 + 9);
   Hasher.init(_seed:)();
-  if (v3 == 1)
+  if (v4 == 1)
   {
     Hasher._combine(_:)(0);
   }
@@ -1593,27 +1593,27 @@ Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Dat
   else
   {
     Hasher._combine(_:)(1u);
-    if ((v2 & 1) == 0)
+    if ((v3 & 1) == 0)
     {
-      v4 = 10;
-      if (v1 < 10)
+      v5 = 10;
+      if (v2 < 10)
       {
-        v4 = v1;
+        v5 = v2;
       }
 
-      if (v4 <= 1)
+      if (v5 <= 1)
       {
-        v5 = 1;
+        v6 = 1;
       }
 
       else
       {
-        v5 = v4;
+        v6 = v5;
       }
 
-      v6._countAndFlagsBits = 103;
-      v6._object = 0xE100000000000000;
-      String.init(repeating:count:)(v6, v5);
+      v7._countAndFlagsBits = 103;
+      v7._object = 0xE100000000000000;
+      String.init(repeating:count:)(v7, v6);
     }
 
     String.hash(into:)();
@@ -1632,9 +1632,9 @@ BOOL protocol witness for static Equatable.== infix(_:_:) in conformance Date.Fo
   return (*(a2 + 9) & 1) != 0;
 }
 
-void Date.FormatStyle.Symbol.DayOfYear.hash(into:)()
+void Date.FormatStyle.Symbol.DayOfYear.hash(into:)(uint64_t a1)
 {
-  if (*v0 == 3)
+  if (*v1 == 3)
   {
     Hasher._combine(_:)(0);
   }
@@ -1664,9 +1664,9 @@ Swift::Int Date.FormatStyle.Symbol.DayOfYear.hashValue.getter()
   return Hasher._finalize()();
 }
 
-void protocol witness for Hashable.hash(into:) in conformance Date.FormatStyle.Symbol.DayOfYear()
+void protocol witness for Hashable.hash(into:) in conformance Date.FormatStyle.Symbol.DayOfYear(uint64_t a1)
 {
-  if (*v0 == 3)
+  if (*v1 == 3)
   {
     Hasher._combine(_:)(0);
   }
@@ -1678,11 +1678,11 @@ void protocol witness for Hashable.hash(into:) in conformance Date.FormatStyle.S
   }
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Date.FormatStyle.Symbol.DayOfYear()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Date.FormatStyle.Symbol.DayOfYear(uint64_t a1)
 {
-  v1 = *v0;
+  v2 = *v1;
   Hasher.init(_seed:)();
-  if (v1 == 3)
+  if (v2 == 3)
   {
     Hasher._combine(_:)(0);
   }
@@ -1716,10 +1716,10 @@ uint64_t static Date.FormatStyle.Symbol.Weekday.== infix(_:_:)(unsigned __int8 *
   return 0;
 }
 
-void Date.FormatStyle.Symbol.Weekday.hash(into:)()
+void Date.FormatStyle.Symbol.Weekday.hash(into:)(uint64_t a1)
 {
-  v1 = *v0;
-  if (v1 == 6)
+  v2 = *v1;
+  if (v2 == 6)
   {
     Hasher._combine(_:)(0);
   }
@@ -1749,11 +1749,11 @@ Swift::Int Date.FormatStyle.Symbol.Weekday.hashValue.getter()
   return Hasher._finalize()();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Date.FormatStyle.Symbol.Weekday()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Date.FormatStyle.Symbol.Weekday(uint64_t a1)
 {
-  v1 = *v0;
+  v2 = *v1;
   Hasher.init(_seed:)();
-  if (v1 == 6)
+  if (v2 == 6)
   {
     Hasher._combine(_:)(0);
   }
@@ -1799,9 +1799,10 @@ uint64_t static Date.FormatStyle.Symbol.DayPeriod.== infix(_:_:)(unsigned __int8
   return 0;
 }
 
-void Date.FormatStyle.Symbol.DayPeriod.hash(into:)()
+void Date.FormatStyle.Symbol.DayPeriod.hash(into:)(uint64_t a1)
 {
-  if (*v0 == 9)
+  v3 = *v1;
+  if (v3 == 9)
   {
     Hasher._combine(_:)(0);
   }
@@ -1810,7 +1811,7 @@ void Date.FormatStyle.Symbol.DayPeriod.hash(into:)()
   {
     Hasher._combine(_:)(1u);
 
-    specialized RawRepresentable<>.hash(into:)();
+    specialized RawRepresentable<>.hash(into:)(a1, v3);
   }
 }
 
@@ -1826,7 +1827,7 @@ Swift::Int Date.FormatStyle.Symbol.DayPeriod.hashValue.getter()
   else
   {
     Hasher._combine(_:)(1u);
-    specialized RawRepresentable<>.hash(into:)();
+    specialized RawRepresentable<>.hash(into:)(v3, v1);
   }
 
   return Hasher._finalize()();
@@ -1844,15 +1845,16 @@ Swift::Int protocol witness for Hashable.hashValue.getter in conformance Date.Fo
   else
   {
     Hasher._combine(_:)(1u);
-    specialized RawRepresentable<>.hash(into:)();
+    specialized RawRepresentable<>.hash(into:)(v3, v1);
   }
 
   return Hasher._finalize()();
 }
 
-void protocol witness for Hashable.hash(into:) in conformance Date.FormatStyle.Symbol.DayPeriod()
+void protocol witness for Hashable.hash(into:) in conformance Date.FormatStyle.Symbol.DayPeriod(uint64_t a1)
 {
-  if (*v0 == 9)
+  v3 = *v1;
+  if (v3 == 9)
   {
     Hasher._combine(_:)(0);
   }
@@ -1861,15 +1863,15 @@ void protocol witness for Hashable.hash(into:) in conformance Date.FormatStyle.S
   {
     Hasher._combine(_:)(1u);
 
-    specialized RawRepresentable<>.hash(into:)();
+    specialized RawRepresentable<>.hash(into:)(a1, v3);
   }
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Date.FormatStyle.Symbol.DayPeriod()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Date.FormatStyle.Symbol.DayPeriod(uint64_t a1)
 {
-  v1 = *v0;
+  v2 = *v1;
   Hasher.init(_seed:)();
-  if (v1 == 9)
+  if (v2 == 9)
   {
     Hasher._combine(_:)(0);
   }
@@ -1877,7 +1879,7 @@ Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Dat
   else
   {
     Hasher._combine(_:)(1u);
-    specialized RawRepresentable<>.hash(into:)();
+    specialized RawRepresentable<>.hash(into:)(v4, v2);
   }
 
   return Hasher._finalize()();
@@ -1895,7 +1897,7 @@ BOOL protocol witness for static Equatable.== infix(_:_:) in conformance Date.Fo
   return v3 == 9;
 }
 
-uint64_t static Date.FormatStyle.Symbol.Hour.== infix(_:_:)(unsigned __int8 *a1, unsigned __int8 *a2)
+BOOL static Date.FormatStyle.Symbol.Hour.== infix(_:_:)(unsigned __int8 *a1, unsigned __int8 *a2)
 {
   v2 = *a1;
   v3 = *a2;
@@ -1921,10 +1923,10 @@ uint64_t static Date.FormatStyle.Symbol.Hour.== infix(_:_:)(unsigned __int8 *a1,
   return 1;
 }
 
-void Date.FormatStyle.Symbol.Hour.hash(into:)()
+void Date.FormatStyle.Symbol.Hour.hash(into:)(uint64_t a1)
 {
-  v1 = *v0;
-  if (v1 == 14)
+  v2 = *v1;
+  if (v2 == 14)
   {
     Hasher._combine(_:)(0);
   }
@@ -1932,7 +1934,7 @@ void Date.FormatStyle.Symbol.Hour.hash(into:)()
   else
   {
     Hasher._combine(_:)(1u);
-    Date.FormatStyle.Symbol.SymbolType.HourOption.rawValue.getter(v1);
+    Date.FormatStyle.Symbol.SymbolType.HourOption.rawValue.getter(v2);
     String.hash(into:)();
   }
 }
@@ -1975,10 +1977,10 @@ Swift::Int protocol witness for Hashable.hashValue.getter in conformance Date.Fo
   return Hasher._finalize()();
 }
 
-void protocol witness for Hashable.hash(into:) in conformance Date.FormatStyle.Symbol.Hour()
+void protocol witness for Hashable.hash(into:) in conformance Date.FormatStyle.Symbol.Hour(uint64_t a1)
 {
-  v1 = *v0;
-  if (v1 == 14)
+  v2 = *v1;
+  if (v2 == 14)
   {
     Hasher._combine(_:)(0);
   }
@@ -1986,16 +1988,16 @@ void protocol witness for Hashable.hash(into:) in conformance Date.FormatStyle.S
   else
   {
     Hasher._combine(_:)(1u);
-    Date.FormatStyle.Symbol.SymbolType.HourOption.rawValue.getter(v1);
+    Date.FormatStyle.Symbol.SymbolType.HourOption.rawValue.getter(v2);
     String.hash(into:)();
   }
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Date.FormatStyle.Symbol.Hour()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Date.FormatStyle.Symbol.Hour(uint64_t a1)
 {
-  v1 = *v0;
+  v2 = *v1;
   Hasher.init(_seed:)();
-  if (v1 == 14)
+  if (v2 == 14)
   {
     Hasher._combine(_:)(0);
   }
@@ -2003,14 +2005,14 @@ Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Dat
   else
   {
     Hasher._combine(_:)(1u);
-    Date.FormatStyle.Symbol.SymbolType.HourOption.rawValue.getter(v1);
+    Date.FormatStyle.Symbol.SymbolType.HourOption.rawValue.getter(v2);
     String.hash(into:)();
   }
 
   return Hasher._finalize()();
 }
 
-uint64_t protocol witness for static Equatable.== infix(_:_:) in conformance Date.FormatStyle.Symbol.Hour(unsigned __int8 *a1, unsigned __int8 *a2)
+BOOL protocol witness for static Equatable.== infix(_:_:) in conformance Date.FormatStyle.Symbol.Hour(unsigned __int8 *a1, unsigned __int8 *a2)
 {
   v2 = *a1;
   v3 = *a2;
@@ -2036,9 +2038,9 @@ uint64_t protocol witness for static Equatable.== infix(_:_:) in conformance Dat
   return 1;
 }
 
-void Date.FormatStyle.Symbol.Minute.hash(into:)()
+void Date.FormatStyle.Symbol.Minute.hash(into:)(uint64_t a1)
 {
-  if (*v0 == 2)
+  if (*v1 == 2)
   {
     Hasher._combine(_:)(0);
   }
@@ -2068,9 +2070,9 @@ Swift::Int Date.FormatStyle.Symbol.Minute.hashValue.getter()
   return Hasher._finalize()();
 }
 
-void protocol witness for Hashable.hash(into:) in conformance Date.FormatStyle.Symbol.Minute()
+void protocol witness for Hashable.hash(into:) in conformance Date.FormatStyle.Symbol.Minute(uint64_t a1)
 {
-  if (*v0 == 2)
+  if (*v1 == 2)
   {
     Hasher._combine(_:)(0);
   }
@@ -2082,11 +2084,11 @@ void protocol witness for Hashable.hash(into:) in conformance Date.FormatStyle.S
   }
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Date.FormatStyle.Symbol.Minute()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Date.FormatStyle.Symbol.Minute(uint64_t a1)
 {
-  v1 = *v0;
+  v2 = *v1;
   Hasher.init(_seed:)();
-  if (v1 == 2)
+  if (v2 == 2)
   {
     Hasher._combine(_:)(0);
   }
@@ -2100,9 +2102,9 @@ Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Dat
   return Hasher._finalize()();
 }
 
-void Date.FormatStyle.Symbol.Second.hash(into:)()
+void Date.FormatStyle.Symbol.Second.hash(into:)(uint64_t a1)
 {
-  if (*v0 == 2)
+  if (*v1 == 2)
   {
     Hasher._combine(_:)(0);
   }
@@ -2132,9 +2134,9 @@ Swift::Int Date.FormatStyle.Symbol.Second.hashValue.getter()
   return Hasher._finalize()();
 }
 
-void protocol witness for Hashable.hash(into:) in conformance Date.FormatStyle.Symbol.Second()
+void protocol witness for Hashable.hash(into:) in conformance Date.FormatStyle.Symbol.Second(uint64_t a1)
 {
-  if (*v0 == 2)
+  if (*v1 == 2)
   {
     Hasher._combine(_:)(0);
   }
@@ -2146,11 +2148,11 @@ void protocol witness for Hashable.hash(into:) in conformance Date.FormatStyle.S
   }
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Date.FormatStyle.Symbol.Second()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Date.FormatStyle.Symbol.Second(uint64_t a1)
 {
-  v1 = *v0;
+  v2 = *v1;
   Hasher.init(_seed:)();
-  if (v1 == 2)
+  if (v2 == 2)
   {
     Hasher._combine(_:)(0);
   }
@@ -2256,12 +2258,12 @@ void protocol witness for Hashable.hash(into:) in conformance Date.FormatStyle.S
   }
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Date.FormatStyle.Symbol.SecondFraction()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Date.FormatStyle.Symbol.SecondFraction(uint64_t a1)
 {
-  v1 = *v0;
-  v2 = *(v0 + 8);
+  v2 = *v1;
+  v3 = *(v1 + 8);
   Hasher.init(_seed:)();
-  if (v2 == 255)
+  if (v3 == 255)
   {
     Hasher._combine(_:)(0);
   }
@@ -2269,7 +2271,7 @@ Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Dat
   else
   {
     Hasher._combine(_:)(1u);
-    specialized RawRepresentable<>.hash(into:)(v4, v1, v2 & 1);
+    specialized RawRepresentable<>.hash(into:)(v5, v2, v3 & 1);
   }
 
   return Hasher._finalize()();
@@ -2295,7 +2297,7 @@ uint64_t protocol witness for static Equatable.== infix(_:_:) in conformance Dat
   return 0;
 }
 
-uint64_t static Date.FormatStyle.Symbol.TimeZone.== infix(_:_:)(unsigned __int8 *a1, unsigned __int8 *a2)
+BOOL static Date.FormatStyle.Symbol.TimeZone.== infix(_:_:)(unsigned __int8 *a1, unsigned __int8 *a2)
 {
   v2 = *a1;
   v3 = *a2;
@@ -2321,10 +2323,10 @@ uint64_t static Date.FormatStyle.Symbol.TimeZone.== infix(_:_:)(unsigned __int8 
   return 1;
 }
 
-void Date.FormatStyle.Symbol.TimeZone.hash(into:)()
+void Date.FormatStyle.Symbol.TimeZone.hash(into:)(uint64_t a1)
 {
-  v1 = *v0;
-  if (v1 == 12)
+  v2 = *v1;
+  if (v2 == 12)
   {
     Hasher._combine(_:)(0);
   }
@@ -2332,7 +2334,7 @@ void Date.FormatStyle.Symbol.TimeZone.hash(into:)()
   else
   {
     Hasher._combine(_:)(1u);
-    Date.FormatStyle.Symbol.SymbolType.TimeZoneSymbolOption.rawValue.getter(v1);
+    Date.FormatStyle.Symbol.SymbolType.TimeZoneSymbolOption.rawValue.getter(v2);
     String.hash(into:)();
   }
 }
@@ -2375,10 +2377,10 @@ Swift::Int protocol witness for Hashable.hashValue.getter in conformance Date.Fo
   return Hasher._finalize()();
 }
 
-void protocol witness for Hashable.hash(into:) in conformance Date.FormatStyle.Symbol.TimeZone()
+void protocol witness for Hashable.hash(into:) in conformance Date.FormatStyle.Symbol.TimeZone(uint64_t a1)
 {
-  v1 = *v0;
-  if (v1 == 12)
+  v2 = *v1;
+  if (v2 == 12)
   {
     Hasher._combine(_:)(0);
   }
@@ -2386,16 +2388,16 @@ void protocol witness for Hashable.hash(into:) in conformance Date.FormatStyle.S
   else
   {
     Hasher._combine(_:)(1u);
-    Date.FormatStyle.Symbol.SymbolType.TimeZoneSymbolOption.rawValue.getter(v1);
+    Date.FormatStyle.Symbol.SymbolType.TimeZoneSymbolOption.rawValue.getter(v2);
     String.hash(into:)();
   }
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Date.FormatStyle.Symbol.TimeZone()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Date.FormatStyle.Symbol.TimeZone(uint64_t a1)
 {
-  v1 = *v0;
+  v2 = *v1;
   Hasher.init(_seed:)();
-  if (v1 == 12)
+  if (v2 == 12)
   {
     Hasher._combine(_:)(0);
   }
@@ -2403,14 +2405,14 @@ Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Dat
   else
   {
     Hasher._combine(_:)(1u);
-    Date.FormatStyle.Symbol.SymbolType.TimeZoneSymbolOption.rawValue.getter(v1);
+    Date.FormatStyle.Symbol.SymbolType.TimeZoneSymbolOption.rawValue.getter(v2);
     String.hash(into:)();
   }
 
   return Hasher._finalize()();
 }
 
-uint64_t protocol witness for static Equatable.== infix(_:_:) in conformance Date.FormatStyle.Symbol.TimeZone(unsigned __int8 *a1, unsigned __int8 *a2)
+BOOL protocol witness for static Equatable.== infix(_:_:) in conformance Date.FormatStyle.Symbol.TimeZone(unsigned __int8 *a1, unsigned __int8 *a2)
 {
   v2 = *a1;
   v3 = *a2;
@@ -2541,7 +2543,7 @@ uint64_t static Date.FormatStyle.Symbol.StandaloneQuarter.== infix(_:_:)(_BYTE *
   return v20 & 1;
 }
 
-uint64_t Date.FormatStyle.Symbol.StandaloneQuarter.hash(into:)()
+uint64_t Date.FormatStyle.Symbol.StandaloneQuarter.hash(into:)(uint64_t a1)
 {
   String.hash(into:)();
 }
@@ -2659,7 +2661,7 @@ uint64_t static Date.FormatStyle.Symbol.StandaloneMonth.== infix(_:_:)(_BYTE *a1
   return v20 & 1;
 }
 
-uint64_t Date.FormatStyle.Symbol.StandaloneMonth.hash(into:)()
+uint64_t Date.FormatStyle.Symbol.StandaloneMonth.hash(into:)(uint64_t a1)
 {
   String.hash(into:)();
 }
@@ -2777,7 +2779,7 @@ uint64_t static Date.FormatStyle.Symbol.StandaloneWeekday.== infix(_:_:)(_BYTE *
   return v20 & 1;
 }
 
-uint64_t Date.FormatStyle.Symbol.StandaloneWeekday.hash(into:)()
+uint64_t Date.FormatStyle.Symbol.StandaloneWeekday.hash(into:)(uint64_t a1)
 {
   String.hash(into:)();
 }
@@ -2790,7 +2792,7 @@ Swift::Int Date.FormatStyle.Symbol.StandaloneWeekday.hashValue.getter()
   return Hasher._finalize()();
 }
 
-uint64_t Date.FormatStyle.Symbol.VerbatimHour.hash(into:)()
+uint64_t Date.FormatStyle.Symbol.VerbatimHour.hash(into:)(uint64_t a1)
 {
   String.hash(into:)();
 }
@@ -2803,7 +2805,7 @@ Swift::Int Date.FormatStyle.Symbol.VerbatimHour.hashValue.getter()
   return Hasher._finalize()();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Date.FormatStyle.Symbol.VerbatimHour()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Date.FormatStyle.Symbol.VerbatimHour(uint64_t a1)
 {
   Hasher.init(_seed:)();
   String.hash(into:)();
@@ -2930,12 +2932,12 @@ Swift::Int protocol witness for Hashable.hashValue.getter in conformance Date.Fo
   return Hasher._finalize()();
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance Date.FormatStyle.Symbol.SymbolType.EraOption()
+uint64_t protocol witness for Hashable.hash(into:) in conformance Date.FormatStyle.Symbol.SymbolType.EraOption(uint64_t a1)
 {
   String.hash(into:)();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Date.FormatStyle.Symbol.SymbolType.EraOption()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Date.FormatStyle.Symbol.SymbolType.EraOption(uint64_t a1)
 {
   Hasher.init(_seed:)();
   String.hash(into:)();
@@ -2943,9 +2945,9 @@ Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Dat
   return Hasher._finalize()();
 }
 
-uint64_t protocol witness for RawRepresentable.init(rawValue:) in conformance Date.FormatStyle.Symbol.SymbolType.YearOption@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+uint64_t protocol witness for RawRepresentable.init(rawValue:) in conformance Date.FormatStyle.Symbol.SymbolType.YearOption@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X8>)
 {
-  result = specialized Date.FormatStyle.Symbol.SymbolType.YearOption.init(rawValue:)(*a1, *(a1 + 8));
+  result = specialized Date.FormatStyle.Symbol.SymbolType.YearOption.init(rawValue:)(*a1, a1[1]);
   *a2 = result;
   *(a2 + 8) = v4;
   return result;
@@ -2970,18 +2972,18 @@ Swift::Int protocol witness for Hashable.hashValue.getter in conformance Date.Fo
   return Hasher._finalize()();
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance Date.FormatStyle.Symbol.SymbolType.YearOption()
+uint64_t protocol witness for Hashable.hash(into:) in conformance Date.FormatStyle.Symbol.SymbolType.YearOption(uint64_t a1)
 {
-  Date.FormatStyle.Symbol.SymbolType.YearOption.rawValue.getter(*v0, *(v0 + 8));
+  Date.FormatStyle.Symbol.SymbolType.YearOption.rawValue.getter(*v1, *(v1 + 8));
   String.hash(into:)();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Date.FormatStyle.Symbol.SymbolType.YearOption()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Date.FormatStyle.Symbol.SymbolType.YearOption(uint64_t a1)
 {
-  v1 = *v0;
-  v2 = *(v0 + 8);
+  v2 = *v1;
+  v3 = *(v1 + 8);
   Hasher.init(_seed:)();
-  Date.FormatStyle.Symbol.SymbolType.YearOption.rawValue.getter(v1, v2);
+  Date.FormatStyle.Symbol.SymbolType.YearOption.rawValue.getter(v2, v3);
   String.hash(into:)();
 
   return Hasher._finalize()();
@@ -3061,29 +3063,29 @@ uint64_t protocol witness for RawRepresentable.rawValue.getter in conformance Da
   return result;
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance Date.FormatStyle.Symbol.SymbolType.YearForWeekOfYearOption()
+uint64_t protocol witness for Hashable.hash(into:) in conformance Date.FormatStyle.Symbol.SymbolType.YearForWeekOfYearOption(uint64_t a1)
 {
-  v1 = *v0;
-  if (*(v0 + 8) != 1)
+  v2 = *v1;
+  if (*(v1 + 8) != 1)
   {
-    if (v1 >= 10)
+    if (v2 >= 10)
     {
-      v1 = 10;
+      v2 = 10;
     }
 
-    if (v1 <= 1)
+    if (v2 <= 1)
     {
-      v2 = 1;
+      v3 = 1;
     }
 
     else
     {
-      v2 = v1;
+      v3 = v2;
     }
 
-    v3._countAndFlagsBits = 89;
-    v3._object = 0xE100000000000000;
-    String.init(repeating:count:)(v3, v2);
+    v4._countAndFlagsBits = 89;
+    v4._object = 0xE100000000000000;
+    String.init(repeating:count:)(v4, v3);
   }
 
   String.hash(into:)();
@@ -3208,12 +3210,12 @@ Swift::Int protocol witness for Hashable.hashValue.getter in conformance Date.Fo
   return Hasher._finalize()();
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance Date.FormatStyle.Symbol.SymbolType.CyclicYearOption()
+uint64_t protocol witness for Hashable.hash(into:) in conformance Date.FormatStyle.Symbol.SymbolType.CyclicYearOption(uint64_t a1)
 {
   String.hash(into:)();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Date.FormatStyle.Symbol.SymbolType.CyclicYearOption()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Date.FormatStyle.Symbol.SymbolType.CyclicYearOption(uint64_t a1)
 {
   Hasher.init(_seed:)();
   String.hash(into:)();
@@ -3282,12 +3284,12 @@ Swift::Int protocol witness for Hashable.hashValue.getter in conformance Date.Fo
   return Hasher._finalize()();
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance Date.FormatStyle.Symbol.SymbolType.QuarterOption()
+uint64_t protocol witness for Hashable.hash(into:) in conformance Date.FormatStyle.Symbol.SymbolType.QuarterOption(uint64_t a1)
 {
   String.hash(into:)();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Date.FormatStyle.Symbol.SymbolType.QuarterOption()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Date.FormatStyle.Symbol.SymbolType.QuarterOption(uint64_t a1)
 {
   Hasher.init(_seed:)();
   String.hash(into:)();
@@ -3356,12 +3358,12 @@ Swift::Int protocol witness for Hashable.hashValue.getter in conformance Date.Fo
   return Hasher._finalize()();
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance Date.FormatStyle.Symbol.StandaloneQuarter()
+uint64_t protocol witness for Hashable.hash(into:) in conformance Date.FormatStyle.Symbol.StandaloneQuarter(uint64_t a1)
 {
   String.hash(into:)();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Date.FormatStyle.Symbol.StandaloneQuarter()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Date.FormatStyle.Symbol.StandaloneQuarter(uint64_t a1)
 {
   Hasher.init(_seed:)();
   String.hash(into:)();
@@ -3430,12 +3432,12 @@ Swift::Int protocol witness for Hashable.hashValue.getter in conformance Date.Fo
   return Hasher._finalize()();
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance Date.FormatStyle.Symbol.SymbolType.MonthOption()
+uint64_t protocol witness for Hashable.hash(into:) in conformance Date.FormatStyle.Symbol.SymbolType.MonthOption(uint64_t a1)
 {
   String.hash(into:)();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Date.FormatStyle.Symbol.SymbolType.MonthOption()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Date.FormatStyle.Symbol.SymbolType.MonthOption(uint64_t a1)
 {
   Hasher.init(_seed:)();
   String.hash(into:)();
@@ -3504,12 +3506,12 @@ Swift::Int protocol witness for Hashable.hashValue.getter in conformance Date.Fo
   return Hasher._finalize()();
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance Date.FormatStyle.Symbol.StandaloneMonth()
+uint64_t protocol witness for Hashable.hash(into:) in conformance Date.FormatStyle.Symbol.StandaloneMonth(uint64_t a1)
 {
   String.hash(into:)();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Date.FormatStyle.Symbol.StandaloneMonth()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Date.FormatStyle.Symbol.StandaloneMonth(uint64_t a1)
 {
   Hasher.init(_seed:)();
   String.hash(into:)();
@@ -3636,12 +3638,12 @@ Swift::Int protocol witness for Hashable.hashValue.getter in conformance Date.Fo
   return Hasher._finalize()();
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance Date.FormatStyle.Symbol.SymbolType.WeekOption()
+uint64_t protocol witness for Hashable.hash(into:) in conformance Date.FormatStyle.Symbol.SymbolType.WeekOption(uint64_t a1)
 {
   String.hash(into:)();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Date.FormatStyle.Symbol.SymbolType.WeekOption()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Date.FormatStyle.Symbol.SymbolType.WeekOption(uint64_t a1)
 {
   Hasher.init(_seed:)();
   String.hash(into:)();
@@ -3768,12 +3770,12 @@ Swift::Int protocol witness for Hashable.hashValue.getter in conformance Date.Fo
   return Hasher._finalize()();
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance Date.FormatStyle.Symbol.SymbolType.DayOfYearOption()
+uint64_t protocol witness for Hashable.hash(into:) in conformance Date.FormatStyle.Symbol.SymbolType.DayOfYearOption(uint64_t a1)
 {
   String.hash(into:)();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Date.FormatStyle.Symbol.SymbolType.DayOfYearOption()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Date.FormatStyle.Symbol.SymbolType.DayOfYearOption(uint64_t a1)
 {
   Hasher.init(_seed:)();
   String.hash(into:)();
@@ -3912,29 +3914,29 @@ uint64_t protocol witness for RawRepresentable.rawValue.getter in conformance Da
   return result;
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance Date.FormatStyle.Symbol.SymbolType.DayOption()
+uint64_t protocol witness for Hashable.hash(into:) in conformance Date.FormatStyle.Symbol.SymbolType.DayOption(uint64_t a1)
 {
-  v1 = *v0;
-  if (*(v0 + 8) != 1)
+  v2 = *v1;
+  if (*(v1 + 8) != 1)
   {
-    if (v1 >= 10)
+    if (v2 >= 10)
     {
-      v1 = 10;
+      v2 = 10;
     }
 
-    if (v1 <= 1)
+    if (v2 <= 1)
     {
-      v2 = 1;
+      v3 = 1;
     }
 
     else
     {
-      v2 = v1;
+      v3 = v2;
     }
 
-    v3._countAndFlagsBits = 103;
-    v3._object = 0xE100000000000000;
-    String.init(repeating:count:)(v3, v2);
+    v4._countAndFlagsBits = 103;
+    v4._object = 0xE100000000000000;
+    String.init(repeating:count:)(v4, v3);
   }
 
   String.hash(into:)();
@@ -4001,7 +4003,7 @@ void protocol witness for RawRepresentable.rawValue.getter in conformance Date.F
   a1[1] = v3;
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance Date.FormatStyle.Symbol.SymbolType.WeekdayOption()
+uint64_t protocol witness for Hashable.hash(into:) in conformance Date.FormatStyle.Symbol.SymbolType.WeekdayOption(uint64_t a1)
 {
   String.hash(into:)();
 }
@@ -4067,12 +4069,12 @@ Swift::Int protocol witness for Hashable.hashValue.getter in conformance Date.Fo
   return Hasher._finalize()();
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance Date.FormatStyle.Symbol.StandaloneWeekday()
+uint64_t protocol witness for Hashable.hash(into:) in conformance Date.FormatStyle.Symbol.StandaloneWeekday(uint64_t a1)
 {
   String.hash(into:)();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Date.FormatStyle.Symbol.StandaloneWeekday()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Date.FormatStyle.Symbol.StandaloneWeekday(uint64_t a1)
 {
   Hasher.init(_seed:)();
   String.hash(into:)();
@@ -4097,15 +4099,17 @@ uint64_t protocol witness for RawRepresentable.rawValue.getter in conformance Da
 
 Swift::Int protocol witness for Hashable.hashValue.getter in conformance Date.FormatStyle.Symbol.SymbolType.DayPeriodOption()
 {
+  v1 = *v0;
   Hasher.init(_seed:)();
-  specialized RawRepresentable<>.hash(into:)();
+  specialized RawRepresentable<>.hash(into:)(v3, v1);
   return Hasher._finalize()();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Date.FormatStyle.Symbol.SymbolType.DayPeriodOption()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Date.FormatStyle.Symbol.SymbolType.DayPeriodOption(uint64_t a1)
 {
+  v2 = *v1;
   Hasher.init(_seed:)();
-  specialized RawRepresentable<>.hash(into:)();
+  specialized RawRepresentable<>.hash(into:)(v4, v2);
   return Hasher._finalize()();
 }
 
@@ -4282,12 +4286,12 @@ Swift::Int protocol witness for Hashable.hashValue.getter in conformance Date.Fo
   return Hasher._finalize()();
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance Date.FormatStyle.Symbol.SymbolType.MinuteOption()
+uint64_t protocol witness for Hashable.hash(into:) in conformance Date.FormatStyle.Symbol.SymbolType.MinuteOption(uint64_t a1)
 {
   String.hash(into:)();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Date.FormatStyle.Symbol.SymbolType.MinuteOption()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Date.FormatStyle.Symbol.SymbolType.MinuteOption(uint64_t a1)
 {
   Hasher.init(_seed:)();
   String.hash(into:)();
@@ -4400,12 +4404,12 @@ Swift::Int protocol witness for Hashable.hashValue.getter in conformance Date.Fo
   return Hasher._finalize()();
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance Date.FormatStyle.Symbol.SymbolType.SecondOption()
+uint64_t protocol witness for Hashable.hash(into:) in conformance Date.FormatStyle.Symbol.SymbolType.SecondOption(uint64_t a1)
 {
   String.hash(into:)();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Date.FormatStyle.Symbol.SymbolType.SecondOption()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Date.FormatStyle.Symbol.SymbolType.SecondOption(uint64_t a1)
 {
   Hasher.init(_seed:)();
   String.hash(into:)();
@@ -4627,7 +4631,7 @@ uint64_t Date.FormatStyle.Symbol.SymbolType.hash(into:)(uint64_t a1, uint64_t a2
     case 13:
       MEMORY[0x1865CD060](13);
 
-      return specialized RawRepresentable<>.hash(into:)();
+      return specialized RawRepresentable<>.hash(into:)(a1, a2);
     case 14:
       MEMORY[0x1865CD060](14);
       Date.FormatStyle.Symbol.SymbolType.HourOption.rawValue.getter(a2);
@@ -4657,9 +4661,9 @@ LABEL_30:
   String.hash(into:)();
 }
 
-uint64_t protocol witness for RawRepresentable.init(rawValue:) in conformance Date.FormatStyle.Symbol.SymbolType.SecondFractionOption@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+uint64_t protocol witness for RawRepresentable.init(rawValue:) in conformance Date.FormatStyle.Symbol.SymbolType.SecondFractionOption@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X8>)
 {
-  result = specialized Date.FormatStyle.Symbol.SymbolType.SecondFractionOption.init(rawValue:)(*a1, *(a1 + 8));
+  result = specialized Date.FormatStyle.Symbol.SymbolType.SecondFractionOption.init(rawValue:)(*a1, a1[1]);
   *a2 = result;
   *(a2 + 8) = v4;
   return result;
@@ -4682,12 +4686,12 @@ Swift::Int protocol witness for Hashable.hashValue.getter in conformance Date.Fo
   return Hasher._finalize()();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Date.FormatStyle.Symbol.SymbolType.SecondFractionOption()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Date.FormatStyle.Symbol.SymbolType.SecondFractionOption(uint64_t a1)
 {
-  v1 = *v0;
-  v2 = *(v0 + 8);
+  v2 = *v1;
+  v3 = *(v1 + 8);
   Hasher.init(_seed:)();
-  specialized RawRepresentable<>.hash(into:)(v4, v1, v2);
+  specialized RawRepresentable<>.hash(into:)(v5, v2, v3);
   return Hasher._finalize()();
 }
 
@@ -4724,7 +4728,7 @@ uint64_t protocol witness for RawRepresentable.rawValue.getter in conformance Da
   return result;
 }
 
-Swift::Int protocol witness for Hashable.hashValue.getter in conformance Date.FormatStyle.Symbol.SymbolType.HourOption(uint64_t a1, uint64_t a2, void (*a3)(uint64_t))
+Swift::Int protocol witness for Hashable.hashValue.getter in conformance Date.FormatStyle.Symbol.SymbolType.HourOption(uint64_t a1, uint64_t a2, uint64_t (*a3)(uint64_t))
 {
   v5 = *v3;
   Hasher.init(_seed:)();
@@ -4734,13 +4738,13 @@ Swift::Int protocol witness for Hashable.hashValue.getter in conformance Date.Fo
   return Hasher._finalize()();
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance Date.FormatStyle.Symbol.SymbolType.HourOption(uint64_t a1, uint64_t a2, uint64_t a3, void (*a4)(void))
+uint64_t protocol witness for Hashable.hash(into:) in conformance Date.FormatStyle.Symbol.SymbolType.HourOption(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(void))
 {
-  a4(*v4);
+  (a4)(*v4, a2, a3);
   String.hash(into:)();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Date.FormatStyle.Symbol.SymbolType.HourOption(uint64_t a1, uint64_t a2, uint64_t a3, void (*a4)(uint64_t))
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Date.FormatStyle.Symbol.SymbolType.HourOption(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(uint64_t))
 {
   v6 = *v4;
   Hasher.init(_seed:)();
@@ -4759,12 +4763,12 @@ Swift::Int protocol witness for Hashable.hashValue.getter in conformance Date.Fo
   return Hasher._finalize()();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Date.FormatStyle.Symbol.SymbolType()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Date.FormatStyle.Symbol.SymbolType(uint64_t a1)
 {
-  v1 = *v0;
-  v2 = *(v0 + 8);
+  v2 = *v1;
+  v3 = *(v1 + 8);
   Hasher.init(_seed:)();
-  Date.FormatStyle.Symbol.SymbolType.hash(into:)(v4, v1, v2);
+  Date.FormatStyle.Symbol.SymbolType.hash(into:)(v5, v2, v3);
   return Hasher._finalize()();
 }
 
@@ -4858,7 +4862,7 @@ uint64_t Date.FormatStyle.Symbol.hash(into:)(uint64_t a1)
     case 0xDu:
       MEMORY[0x1865CD060](13);
 
-      return specialized RawRepresentable<>.hash(into:)();
+      return specialized RawRepresentable<>.hash(into:)(a1, v2);
     case 0xEu:
       MEMORY[0x1865CD060](14);
       Date.FormatStyle.Symbol.SymbolType.HourOption.rawValue.getter(v2);
@@ -4908,13 +4912,13 @@ Swift::Int protocol witness for Hashable.hashValue.getter in conformance Date.Fo
   return Hasher._finalize()();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Date.FormatStyle.Symbol()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Date.FormatStyle.Symbol(uint64_t a1)
 {
-  v1 = *(v0 + 8);
-  v4 = *v0;
-  v5 = v1;
+  v2 = *(v1 + 8);
+  v5 = *v1;
+  v6 = v2;
   Hasher.init(_seed:)();
-  Date.FormatStyle.Symbol.hash(into:)(v3);
+  Date.FormatStyle.Symbol.hash(into:)(v4);
   return Hasher._finalize()();
 }
 
@@ -5049,18 +5053,18 @@ uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.gett
   return MEMORY[0x1EEE6BB78](a1, v2);
 }
 
-uint64_t Date.FormatStyle.Symbol.Hour.AMPMStyle.encode(to:)(void *a1, uint64_t *a2, uint64_t a3, void (*a4)(void))
+uint64_t Date.FormatStyle.Symbol.Hour.AMPMStyle.encode(to:)(void *a1, uint64_t *a2, uint64_t *a3, void (*a4)(void), uint64_t a5)
 {
-  v11 = a4;
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(a2);
-  v6 = *(v5 - 8);
-  MEMORY[0x1EEE9AC00](v5);
-  v8 = &v10 - v7;
+  v12 = a4;
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(a2, a3);
+  v7 = *(v6 - 8);
+  MEMORY[0x1EEE9AC00](v6);
+  v9 = &v11 - v8;
   __swift_project_boxed_opaque_existential_1(a1, a1[3]);
-  v11();
+  v12();
   dispatch thunk of Encoder.container<A>(keyedBy:)();
   KeyedEncodingContainer.encode(_:forKey:)();
-  return (*(v6 + 8))(v8, v5);
+  return (*(v7 + 8))(v9, v6);
 }
 
 Swift::Int Date.FormatStyle.Symbol.Hour.AMPMStyle.hashValue.getter()
@@ -5071,39 +5075,39 @@ Swift::Int Date.FormatStyle.Symbol.Hour.AMPMStyle.hashValue.getter()
   return Hasher._finalize()();
 }
 
-uint64_t Date.FormatStyle.Symbol.Hour.AMPMStyle.init(from:)@<X0>(void *a1@<X0>, uint64_t *a2@<X1>, void (*a3)(void)@<X3>, uint64_t *a4@<X8>)
+uint64_t Date.FormatStyle.Symbol.Hour.AMPMStyle.init(from:)@<X0>(void *a1@<X0>, uint64_t *a2@<X1>, uint64_t *a3@<X2>, uint64_t (*a4)(void)@<X3>, uint64_t *a6@<X8>)
 {
-  v14 = a4;
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(a2);
-  v15 = *(v7 - 8);
-  MEMORY[0x1EEE9AC00](v7);
-  v9 = &v13 - v8;
+  v16 = a6;
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(a2, a3);
+  v17 = *(v9 - 8);
+  MEMORY[0x1EEE9AC00](v9);
+  v11 = &v15 - v10;
   __swift_project_boxed_opaque_existential_1(a1, a1[3]);
-  a3();
+  a4();
   dispatch thunk of Decoder.container<A>(keyedBy:)();
-  if (!v4)
+  if (!v6)
   {
-    v10 = v14;
-    v11 = KeyedDecodingContainer.decode(_:forKey:)();
-    (*(v15 + 8))(v9, v7);
-    *v10 = v11;
+    v12 = v16;
+    v13 = KeyedDecodingContainer.decode(_:forKey:)();
+    (*(v17 + 8))(v11, v9);
+    *v12 = v13;
   }
 
   return __swift_destroy_boxed_opaque_existential_1(a1);
 }
 
-uint64_t protocol witness for Encodable.encode(to:) in conformance Date.FormatStyle.Symbol.Hour.AMPMStyle(void *a1, uint64_t a2, uint64_t a3, uint64_t *a4, uint64_t a5, void (*a6)(void))
+uint64_t protocol witness for Encodable.encode(to:) in conformance Date.FormatStyle.Symbol.Hour.AMPMStyle(void *a1, uint64_t a2, uint64_t a3, uint64_t *a4, uint64_t *a5, void (*a6)(void), uint64_t a7)
 {
-  v13 = a6;
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(a4);
-  v8 = *(v7 - 8);
-  MEMORY[0x1EEE9AC00](v7);
-  v10 = &v12 - v9;
+  v14 = a6;
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(a4, a5);
+  v9 = *(v8 - 8);
+  MEMORY[0x1EEE9AC00](v8);
+  v11 = &v13 - v10;
   __swift_project_boxed_opaque_existential_1(a1, a1[3]);
-  v13();
+  v14();
   dispatch thunk of Encoder.container<A>(keyedBy:)();
   KeyedEncodingContainer.encode(_:forKey:)();
-  return (*(v8 + 8))(v10, v7);
+  return (*(v9 + 8))(v11, v8);
 }
 
 void *static Date.FormatStyle.Symbol.VerbatimHour.defaultDigits(clock:hourCycle:)@<X0>(void *result@<X0>, uint64_t *a2@<X1>, char *a3@<X8>)
@@ -5250,7 +5254,7 @@ _BYTE *static Date.FormatStyle.Symbol.TimeZone.identifier(_:)@<X0>(_BYTE *result
   return result;
 }
 
-uint64_t specialized static Date.FormatStyle.Symbol.SymbolType.== infix(_:_:)(uint64_t a1, unsigned __int8 a2, uint64_t a3, unsigned __int8 a4)
+uint64_t specialized static Date.FormatStyle.Symbol.SymbolType.== infix(_:_:)(Swift::Int a1, unsigned __int8 a2, uint64_t a3, unsigned __int8 a4)
 {
   switch(a2 >> 3)
   {
@@ -6639,7 +6643,7 @@ LABEL_334:
   }
 }
 
-uint64_t specialized static Date.FormatStyle.Symbol.CyclicYear.== infix(_:_:)(_BYTE *a1, _BYTE *a2)
+BOOL specialized static Date.FormatStyle.Symbol.CyclicYear.== infix(_:_:)(_BYTE *a1, _BYTE *a2)
 {
   v2 = *a1;
   v3 = *a2;
@@ -6719,7 +6723,7 @@ uint64_t specialized static Date.FormatStyle.Symbol.CyclicYear.== infix(_:_:)(_B
   return 1;
 }
 
-uint64_t specialized static Date.FormatStyle.Symbol.Era.== infix(_:_:)(_BYTE *a1, _BYTE *a2)
+BOOL specialized static Date.FormatStyle.Symbol.Era.== infix(_:_:)(_BYTE *a1, _BYTE *a2)
 {
   v2 = *a1;
   v3 = *a2;
@@ -6799,7 +6803,7 @@ uint64_t specialized static Date.FormatStyle.Symbol.Era.== infix(_:_:)(_BYTE *a1
   return 1;
 }
 
-uint64_t specialized static Date.FormatStyle.Symbol.Week.== infix(_:_:)(_BYTE *a1, _BYTE *a2)
+BOOL specialized static Date.FormatStyle.Symbol.Week.== infix(_:_:)(_BYTE *a1, _BYTE *a2)
 {
   v2 = *a1;
   v3 = *a2;
@@ -6879,7 +6883,7 @@ uint64_t specialized static Date.FormatStyle.Symbol.Week.== infix(_:_:)(_BYTE *a
   return 1;
 }
 
-uint64_t specialized static Date.FormatStyle.Symbol.Minute.== infix(_:_:)(unsigned __int8 *a1, unsigned __int8 *a2)
+BOOL specialized static Date.FormatStyle.Symbol.Minute.== infix(_:_:)(unsigned __int8 *a1, unsigned __int8 *a2)
 {
   v2 = *a1;
   v3 = *a2;
@@ -6943,7 +6947,7 @@ uint64_t specialized static Date.FormatStyle.Symbol.Minute.== infix(_:_:)(unsign
   return 1;
 }
 
-uint64_t specialized static Date.FormatStyle.Symbol.Second.== infix(_:_:)(unsigned __int8 *a1, unsigned __int8 *a2)
+BOOL specialized static Date.FormatStyle.Symbol.Second.== infix(_:_:)(unsigned __int8 *a1, unsigned __int8 *a2)
 {
   v2 = *a1;
   v3 = *a2;
@@ -7007,7 +7011,7 @@ uint64_t specialized static Date.FormatStyle.Symbol.Second.== infix(_:_:)(unsign
   return 1;
 }
 
-uint64_t specialized static Date.FormatStyle.Symbol.DayOfYear.== infix(_:_:)(_BYTE *a1, _BYTE *a2)
+BOOL specialized static Date.FormatStyle.Symbol.DayOfYear.== infix(_:_:)(_BYTE *a1, _BYTE *a2)
 {
   v2 = *a1;
   v3 = *a2;
@@ -7087,7 +7091,7 @@ uint64_t specialized static Date.FormatStyle.Symbol.DayOfYear.== infix(_:_:)(_BY
   return 1;
 }
 
-uint64_t specialized static Date.FormatStyle.Symbol.== infix(_:_:)(uint64_t a1, uint64_t a2)
+BOOL specialized static Date.FormatStyle.Symbol.== infix(_:_:)(uint64_t a1, uint64_t a2)
 {
   v3 = *a1;
   v4 = *(a1 + 8);

@@ -8,22 +8,22 @@
 - (void)sleepStore:(id)store sleepScheduleModelDidChange:(id)change
 {
   sub_269C7FD00(0);
-  MEMORY[0x28223BE20](v6 - 8);
-  v8 = &v16 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = sub_269D9A900();
-  (*(*(v9 - 8) + 56))(v8, 1, 1, v9);
+  MEMORY[0x28223BE20](v6 - 8, v7);
+  v9 = &v17 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = sub_269D9A900();
+  (*(*(v10 - 8) + 56))(v9, 1, 1, v10);
   sub_269D9A8E0();
   changeCopy = change;
   selfCopy = self;
-  v12 = changeCopy;
-  v13 = sub_269D9A8D0();
-  v14 = swift_allocObject();
-  v15 = MEMORY[0x277D85700];
-  v14[2] = v13;
-  v14[3] = v15;
-  v14[4] = selfCopy;
-  v14[5] = v12;
-  sub_269C79F94(0, 0, v8, &unk_269DA2BC0, v14);
+  v13 = changeCopy;
+  v14 = sub_269D9A8D0();
+  v15 = swift_allocObject();
+  v16 = MEMORY[0x277D85700];
+  v15[2] = v14;
+  v15[3] = v16;
+  v15[4] = selfCopy;
+  v15[5] = v13;
+  sub_269C79F94(0, 0, v9, &unk_269DA2BC0, v15);
 }
 
 - (_TtC13SleepHealthUI22LockScreenContentModel)init

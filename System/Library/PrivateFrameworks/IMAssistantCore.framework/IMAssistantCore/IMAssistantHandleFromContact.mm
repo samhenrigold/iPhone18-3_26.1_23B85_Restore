@@ -10,14 +10,14 @@
 
 - (id)_initWithPhoneNumber:(id)number emailAddress:(id)address businessID:(id)d handleType:(int64_t)type contact:(id)contact
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   numberCopy = number;
   addressCopy = address;
   dCopy = d;
   contactCopy = contact;
-  v34.receiver = self;
-  v34.super_class = IMAssistantHandleFromContact;
-  v16 = [(IMAssistantHandleFromContact *)&v34 init];
+  v33.receiver = self;
+  v33.super_class = IMAssistantHandleFromContact;
+  v16 = [(IMAssistantHandleFromContact *)&v33 init];
   if (!v16)
   {
     goto LABEL_21;
@@ -52,7 +52,7 @@ LABEL_21:
       goto LABEL_15;
     }
 
-    v32 = addressCopy;
+    v31 = addressCopy;
     v17 = numberCopy;
     value = [numberCopy value];
     stringValue = [value stringValue];
@@ -64,7 +64,7 @@ LABEL_14:
 
     v16->_personHandleType = v21;
     numberCopy = v17;
-    addressCopy = v32;
+    addressCopy = v31;
     goto LABEL_15;
   }
 
@@ -73,14 +73,14 @@ LABEL_14:
     case 2:
       v26 = addressCopy;
       v17 = numberCopy;
-      v32 = v26;
+      v31 = v26;
       value2 = [v26 value];
       value = v16->_handleID;
       v16->_handleID = value2;
       v21 = 1;
       goto LABEL_14;
     case 3:
-      v32 = addressCopy;
+      v31 = addressCopy;
       v17 = numberCopy;
       v28 = dCopy;
       v21 = 0;
@@ -115,7 +115,6 @@ LABEL_15:
   v29 = v16;
 LABEL_22:
 
-  v30 = *MEMORY[0x277D85DE8];
   return v29;
 }
 

@@ -19,6 +19,7 @@
 - (void)_appendString:(id)string newLine:(BOOL)line;
 - (void)_queue_submitAttachment:(id)attachment;
 - (void)appendFormat:(id)format;
+- (void)checkSchemaVersionForDatabase:(id)database currentSchema:(int)schema futureSchema:(int)futureSchema;
 - (void)log:(id)log;
 - (void)main;
 - (void)reportCountsForDatabase:(id)database entityClasses:(id)classes;
@@ -83,10 +84,7 @@
 
 uint64_t __36__HDDiagnosticOperation_attachments__block_invoke(uint64_t a1)
 {
-  v2 = [*(*(a1 + 32) + 248) copy];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(*(a1 + 32) + 248) copy];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -174,7 +172,7 @@ void __29__HDDiagnosticOperation_main__block_invoke(uint64_t a1)
   dispatch_async(queue, block);
 }
 
-uint64_t __47__HDDiagnosticOperation__appendString_newLine___block_invoke(uint64_t a1)
+void *__47__HDDiagnosticOperation__appendString_newLine___block_invoke(uint64_t a1)
 {
   v2 = *(*(a1 + 32) + 280);
   if (!v2)
@@ -250,38 +248,36 @@ uint64_t __47__HDDiagnosticOperation__appendString_newLine___block_invoke(uint64
 
 void __43__HDDiagnosticOperation_submitAttachments___block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
+  v7 = 0u;
   v8 = 0u;
   v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
   v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v9;
+    v5 = *v8;
     do
     {
       v6 = 0;
       do
       {
-        if (*v9 != v5)
+        if (*v8 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        [*(a1 + 40) _queue_submitAttachment:{*(*(&v8 + 1) + 8 * v6++), v8}];
+        [*(a1 + 40) _queue_submitAttachment:{*(*(&v7 + 1) + 8 * v6++), v7}];
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
     }
 
     while (v4);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_queue_submitAttachment:(id)attachment
@@ -452,11 +448,11 @@ LABEL_6:
 
 - (unint64_t)getFileStatisticsForDirectoryWithURL:(id)l earliestModificationDate:(double *)date totalFileSize:(int64_t *)size maxFileSize:(int64_t *)fileSize
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   lCopy = l;
-  v42 = 0;
-  v11 = [MEMORY[0x277D10710] journalChaptersForURL:lCopy error:&v42];
-  v12 = v42;
+  v41 = 0;
+  v11 = [MEMORY[0x277D10710] journalChaptersForURL:lCopy error:&v41];
+  v12 = v41;
   if (!v11)
   {
     path = [lCopy path];
@@ -470,41 +466,41 @@ LABEL_18:
   if (![v11 count])
   {
     path = [lCopy path];
-    [(HDDiagnosticOperation *)self log:@"No files in %@", path, v33];
+    [(HDDiagnosticOperation *)self log:@"No files in %@", path, v32];
     goto LABEL_18;
   }
 
   sizeCopy = size;
   fileSizeCopy = fileSize;
   dateCopy = date;
-  v37 = v12;
+  v36 = v12;
   distantPast = [MEMORY[0x277CBEAA8] distantPast];
   [distantPast timeIntervalSinceReferenceDate];
   v15 = v14;
 
-  v40 = 0u;
-  v41 = 0u;
-  v38 = 0u;
   v39 = 0u;
+  v40 = 0u;
+  v37 = 0u;
+  v38 = 0u;
   v16 = v11;
-  v17 = [v16 countByEnumeratingWithState:&v38 objects:v43 count:16];
+  v17 = [v16 countByEnumeratingWithState:&v37 objects:v42 count:16];
   if (v17)
   {
     v18 = v17;
     v19 = 0;
     v20 = 0;
-    v21 = *v39;
+    v21 = *v38;
     v22 = 1.79769313e308;
     do
     {
       for (i = 0; i != v18; ++i)
       {
-        if (*v39 != v21)
+        if (*v38 != v21)
         {
           objc_enumerationMutation(v16);
         }
 
-        v24 = *(*(&v38 + 1) + 8 * i);
+        v24 = *(*(&v37 + 1) + 8 * i);
         v25 = [v24 size];
         if ([v24 size] > v20)
         {
@@ -525,7 +521,7 @@ LABEL_18:
         v19 += v25;
       }
 
-      v18 = [v16 countByEnumeratingWithState:&v38 objects:v43 count:16];
+      v18 = [v16 countByEnumeratingWithState:&v37 objects:v42 count:16];
     }
 
     while (v18);
@@ -543,7 +539,7 @@ LABEL_18:
     *sizeCopy = v19;
   }
 
-  v12 = v37;
+  v12 = v36;
   if (fileSizeCopy)
   {
     *fileSizeCopy = v20;
@@ -557,7 +553,6 @@ LABEL_18:
   v30 = [v16 count];
 LABEL_27:
 
-  v31 = *MEMORY[0x277D85DE8];
   return v30;
 }
 
@@ -735,41 +730,129 @@ uint64_t __52__HDDiagnosticOperation_reportIntegrityForDatabase___block_invoke_2
   return 1;
 }
 
+- (void)checkSchemaVersionForDatabase:(id)database currentSchema:(int)schema futureSchema:(int)futureSchema
+{
+  v5 = *&futureSchema;
+  v6 = *&schema;
+  v36 = *MEMORY[0x277D85DE8];
+  databaseCopy = database;
+  v31 = 0;
+  v32 = &v31;
+  v33 = 0x2020000000;
+  v34 = 0;
+  v29[4] = &v31;
+  v30 = 0;
+  v29[0] = MEMORY[0x277D85DD0];
+  v29[1] = 3221225472;
+  v29[2] = __82__HDDiagnosticOperation_checkSchemaVersionForDatabase_currentSchema_futureSchema___block_invoke;
+  v29[3] = &unk_2796C10D8;
+  v9 = [databaseCopy executeSQL:@"PRAGMA USER_VERSION;" error:&v30 bindingHandler:0 enumerationHandler:v29];
+  v10 = v30;
+  if ((v9 & 1) == 0)
+  {
+    fileURL = [databaseCopy fileURL];
+    path = [fileURL path];
+    [(HDDiagnosticOperation *)self log:@"Failed to check schema version for %@ database: %@", path, v10];
+  }
+
+  v13 = v32[3];
+  if (v13 == v6)
+  {
+    v14 = @"Database has current schema version %lld";
+LABEL_7:
+    [(HDDiagnosticOperation *)self appendFormat:v14, v32[3]];
+    goto LABEL_19;
+  }
+
+  if (v13 == v5)
+  {
+    v14 = @"Database has future migrations enabled with schema version %lld";
+    goto LABEL_7;
+  }
+
+  [(HDDiagnosticOperation *)self appendFormat:@"ERROR: database has unexpected schema version %lld; current is %d, future is %d", v13, v6, v5];
+  v28 = v10;
+  v15 = [databaseCopy dumpSchemaWithError:&v28];
+  v23 = v28;
+
+  if (v15)
+  {
+    v26 = 0u;
+    v27 = 0u;
+    v24 = 0u;
+    v25 = 0u;
+    fileURL2 = v15;
+    v17 = [fileURL2 countByEnumeratingWithState:&v24 objects:v35 count:16];
+    if (v17)
+    {
+      v18 = *v25;
+      do
+      {
+        for (i = 0; i != v17; ++i)
+        {
+          if (*v25 != v18)
+          {
+            objc_enumerationMutation(fileURL2);
+          }
+
+          v20 = *(*(&v24 + 1) + 8 * i);
+          [(HDDiagnosticOperation *)self appendFormat:@"Schema for %@:", v20];
+          v21 = [fileURL2 objectForKeyedSubscript:v20];
+          [(HDDiagnosticOperation *)self appendFormat:@"%@", v21];
+        }
+
+        v17 = [fileURL2 countByEnumeratingWithState:&v24 objects:v35 count:16];
+      }
+
+      while (v17);
+    }
+  }
+
+  else
+  {
+    fileURL2 = [databaseCopy fileURL];
+    path2 = [fileURL2 path];
+    [(HDDiagnosticOperation *)self log:@"Failed to extract schema for %@ database: %@", path2, v23];
+  }
+
+  v10 = v23;
+LABEL_19:
+  _Block_object_dispose(&v31, 8);
+}
+
 - (void)reportCountsForDatabase:(id)database entityClasses:(id)classes
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   databaseCopy = database;
   classesCopy = classes;
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
-  v8 = [classesCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v8 = [classesCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v14;
+    v10 = *v13;
     do
     {
       v11 = 0;
       do
       {
-        if (*v14 != v10)
+        if (*v13 != v10)
         {
           objc_enumerationMutation(classesCopy);
         }
 
-        [(HDDiagnosticOperation *)self _reportCountOfObjectsForEntityClass:*(*(&v13 + 1) + 8 * v11++) database:databaseCopy];
+        [(HDDiagnosticOperation *)self _reportCountOfObjectsForEntityClass:*(*(&v12 + 1) + 8 * v11++) database:databaseCopy];
       }
 
       while (v9 != v11);
-      v9 = [classesCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v9 = [classesCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v9);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_copyDatabase:(sqlite3 *)database toDatabase:(sqlite3 *)toDatabase
@@ -832,11 +915,10 @@ uint64_t __52__HDDiagnosticOperation_reportIntegrityForDatabase___block_invoke_2
   return v12;
 }
 
-uint64_t __63__HDDiagnosticOperation__reportCountOfObjectsInTable_database___block_invoke(uint64_t a1)
+uint64_t __63__HDDiagnosticOperation__reportCountOfObjectsInTable_database___block_invoke(uint64_t a1, uint64_t a2)
 {
   *(*(*(a1 + 48) + 8) + 24) = HDSQLiteColumnAsInt64();
-  v2 = *(*(*(a1 + 48) + 8) + 24);
-  [*(a1 + 32) appendFormat:@"\t%lld %@", v2, *(a1 + 40)];
+  [*(a1 + 32) appendFormat:@"\t%lld %@", *(*(*(a1 + 48) + 8) + 24), *(a1 + 40)];
   return 0;
 }
 

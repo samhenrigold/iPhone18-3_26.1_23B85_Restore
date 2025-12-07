@@ -17,6 +17,9 @@
 - (id)subscriptionCapabilitiesForSubscriptionContextUUID:(id)d;
 - (void)didChangeThumperCallingCapabilitiesForSenderIdentityWithUUID:(id)d;
 - (void)didChangeWiFiCallingCapabilitiesForSenderIdentityWithUUID:(id)d;
+- (void)setThumperCallingEnabled:(BOOL)enabled;
+- (void)setWiFiCallingEnabled:(BOOL)enabled;
+- (void)setWiFiCallingRoamingEnabled:(BOOL)enabled;
 @end
 
 @implementation TPSWiFiCallingController
@@ -123,6 +126,13 @@
   return v3;
 }
 
+- (void)setThumperCallingEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  subscriptionCapabilities = [(TPSWiFiCallingController *)self subscriptionCapabilities];
+  [subscriptionCapabilities setThumperCallingEnabled:enabledCopy];
+}
+
 - (BOOL)isWiFiCallingEnabled
 {
   subscriptionCapabilities = [(TPSWiFiCallingController *)self subscriptionCapabilities];
@@ -131,12 +141,26 @@
   return v3;
 }
 
+- (void)setWiFiCallingEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  subscriptionCapabilities = [(TPSWiFiCallingController *)self subscriptionCapabilities];
+  [subscriptionCapabilities setWiFiCallingEnabled:enabledCopy];
+}
+
 - (BOOL)isWiFiCallingRoamingEnabled
 {
   subscriptionCapabilities = [(TPSWiFiCallingController *)self subscriptionCapabilities];
   isWiFiCallingRoamingEnabled = [subscriptionCapabilities isWiFiCallingRoamingEnabled];
 
   return isWiFiCallingRoamingEnabled;
+}
+
+- (void)setWiFiCallingRoamingEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  subscriptionCapabilities = [(TPSWiFiCallingController *)self subscriptionCapabilities];
+  [subscriptionCapabilities setWiFiCallingRoamingEnabled:enabledCopy];
 }
 
 - (BOOL)supportsThumperCalling
@@ -255,17 +279,17 @@
 
   if (v7)
   {
-    v8 = TPSWiFiCallingLog();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v10 = TPSWiFiCallingLog(v8, v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       subscriptionContext2 = [(TPSWiFiCallingController *)self subscriptionContext];
-      v11 = 138412290;
-      v12 = subscriptionContext2;
-      _os_log_impl(&dword_0, v8, OS_LOG_TYPE_DEFAULT, "Thumper calling capabilities changed for subscription context %@.", &v11, 0xCu);
+      v13 = 138412290;
+      v14 = subscriptionContext2;
+      _os_log_impl(&dword_0, v10, OS_LOG_TYPE_DEFAULT, "Thumper calling capabilities changed for subscription context %@.", &v13, 0xCu);
     }
 
-    v10 = +[NSNotificationCenter defaultCenter];
-    [v10 postNotificationName:@"TPSWiFiCallingControllerSubscriptionCapabilitiesChangedNotification" object:self];
+    v12 = +[NSNotificationCenter defaultCenter];
+    [v12 postNotificationName:@"TPSWiFiCallingControllerSubscriptionCapabilitiesChangedNotification" object:self];
   }
 }
 
@@ -278,17 +302,17 @@
 
   if (v7)
   {
-    v8 = TPSWiFiCallingLog();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v10 = TPSWiFiCallingLog(v8, v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       subscriptionContext2 = [(TPSWiFiCallingController *)self subscriptionContext];
-      v11 = 138412290;
-      v12 = subscriptionContext2;
-      _os_log_impl(&dword_0, v8, OS_LOG_TYPE_DEFAULT, "WiFi calling capabilities changed for subscription context %@.", &v11, 0xCu);
+      v13 = 138412290;
+      v14 = subscriptionContext2;
+      _os_log_impl(&dword_0, v10, OS_LOG_TYPE_DEFAULT, "WiFi calling capabilities changed for subscription context %@.", &v13, 0xCu);
     }
 
-    v10 = +[NSNotificationCenter defaultCenter];
-    [v10 postNotificationName:@"TPSWiFiCallingControllerSubscriptionCapabilitiesChangedNotification" object:self];
+    v12 = +[NSNotificationCenter defaultCenter];
+    [v12 postNotificationName:@"TPSWiFiCallingControllerSubscriptionCapabilitiesChangedNotification" object:self];
   }
 }
 

@@ -43,7 +43,7 @@
   pearlSettings = self->_pearlSettings;
   if (pearlSettings)
   {
-    [(CSLockScreenPearlSettings *)pearlSettings proudLockControllerViewControllerConfiguration];
+    objc_msgSend_proudLockControllerViewControllerConfiguration(pearlSettings, a2);
   }
 
   passcodeLockView = self->_passcodeLockView;

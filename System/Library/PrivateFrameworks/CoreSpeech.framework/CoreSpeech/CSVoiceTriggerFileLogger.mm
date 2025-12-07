@@ -2,6 +2,7 @@
 - (BOOL)_shouldLogDeviceId:(id)id;
 - (BOOL)_shouldSkipLogging:(id)logging;
 - (CSVoiceTriggerFileLogger)init;
+- (CSVoiceTriggerFileLogger)initWithSpeechManager:(id)manager fileLoggingEnabled:(BOOL)enabled geckoLoggingEnabled:(BOOL)loggingEnabled;
 - (id)_audioLogDirectory;
 - (id)_geckoLogDirectory;
 - (id)_metaFilenameWithRootDir:(id)dir prefix:(id)prefix deviceId:(id)id;
@@ -731,6 +732,41 @@ LABEL_25:
   }
 
   return voiceTriggerAudioLogDirectory;
+}
+
+- (CSVoiceTriggerFileLogger)initWithSpeechManager:(id)manager fileLoggingEnabled:(BOOL)enabled geckoLoggingEnabled:(BOOL)loggingEnabled
+{
+  loggingEnabledCopy = loggingEnabled;
+  enabledCopy = enabled;
+  managerCopy = manager;
+  v15.receiver = self;
+  v15.super_class = CSVoiceTriggerFileLogger;
+  v9 = [(CSVoiceTriggerFileLogger *)&v15 init];
+  if (v9)
+  {
+    v10 = dispatch_queue_create("VoiceTrigger audio logging queue", 0);
+    queue = v9->_queue;
+    v9->_queue = v10;
+
+    if (managerCopy)
+    {
+      v12 = managerCopy;
+    }
+
+    else
+    {
+      v12 = +[CSSpeechManager sharedManager];
+    }
+
+    speechManager = v9->_speechManager;
+    v9->_speechManager = v12;
+
+    [(CSVoiceTriggerFileLogger *)v9 setFileLoggingEnabled:enabledCopy];
+    [(CSVoiceTriggerFileLogger *)v9 setGeckoLoggingEnabled:loggingEnabledCopy];
+    v9->_isExclaveHardware = +[CSUtils isExclaveHardware];
+  }
+
+  return v9;
 }
 
 - (CSVoiceTriggerFileLogger)init

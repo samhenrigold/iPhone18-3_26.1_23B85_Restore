@@ -298,7 +298,7 @@ LABEL_13:
 
 - (void)_resolveIndiaBISRegulatoryNumber:(id)number
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   numberCopy = number;
   v5 = [numberCopy objectForKeyedSubscript:@"elabel"];
   if (v5)
@@ -343,17 +343,8 @@ LABEL_13:
           {
           }
 
-          v41 = [v10 objectForKeyedSubscript:@"bis"];
-          if (!v41)
-          {
-            goto LABEL_33;
-          }
-
-          v42 = v41;
-          v43 = [v10 objectForKeyedSubscript:@"bis"];
-          v44 = [v43 objectForKeyedSubscript:@"regulatory"];
-
-          if (!v44)
+          v40 = [v10 objectForKeyedSubscript:@"bis"];
+          if (v40 && (v41 = v40, [v10 objectForKeyedSubscript:@"bis"], v42 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v42, "objectForKeyedSubscript:", @"regulatory"), v43 = objc_claimAutoreleasedReturnValue(), v43, v42, v41, !v43))
           {
             v32 = SFLogForCategory(3uLL);
             if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
@@ -364,7 +355,6 @@ LABEL_13:
 
           else
           {
-LABEL_33:
             v32 = SFLogForCategory(3uLL);
             if (os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
             {
@@ -444,38 +434,20 @@ LABEL_26:
     {
       v39 = *p_resolvedIndiaBISNumber;
       *buf = 136315394;
-      v46 = "[SFDeviceRegulatoryAttributes _resolveIndiaBISRegulatoryNumber:]";
-      v47 = 2112;
-      v48 = v39;
+      v45 = "[SFDeviceRegulatoryAttributes _resolveIndiaBISRegulatoryNumber:]";
+      v46 = 2112;
+      v47 = v39;
       _os_log_impl(&dword_2659AD000, v38, OS_LOG_TYPE_DEFAULT, "%{Public}s: BIS e-label: '%{Public}@'", buf, 0x16u);
     }
   }
-
-  v40 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_resolveMIIT:(id)t
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   tCopy = t;
   v5 = [tCopy objectForKeyedSubscript:@"elabel"];
-  if (!v5)
-  {
-    goto LABEL_9;
-  }
-
-  v6 = v5;
-  v7 = [tCopy objectForKeyedSubscript:@"elabel"];
-  objc_opt_class();
-  isKindOfClass = objc_opt_isKindOfClass();
-
-  if ((isKindOfClass & 1) == 0)
-  {
-    goto LABEL_9;
-  }
-
-  v9 = [tCopy objectForKeyedSubscript:@"elabel"];
-  if (v9)
+  if (v5 && (v6 = v5, [tCopy objectForKeyedSubscript:@"elabel"], v7 = objc_claimAutoreleasedReturnValue(), objc_opt_class(), v8 = objc_opt_isKindOfClass(), v7, v6, (v8 & 1) != 0) && (objc_msgSend(tCopy, "objectForKeyedSubscript:", @"elabel"), (v9 = objc_claimAutoreleasedReturnValue()) != 0))
   {
     v10 = v9;
     v11 = [v9 objectForKeyedSubscript:@"miit"];
@@ -488,9 +460,9 @@ LABEL_26:
       {
         v17 = [v15 objectForKeyedSubscript:@"label"];
         objc_opt_class();
-        v18 = objc_opt_isKindOfClass();
+        isKindOfClass = objc_opt_isKindOfClass();
 
-        if (v18)
+        if (isKindOfClass)
         {
           objc_storeStrong(&self->__resolvedMIITDictionary, v15);
           goto LABEL_12;
@@ -501,8 +473,8 @@ LABEL_26:
       {
       }
 
-      v22 = SFLogForCategory(3uLL);
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+      v21 = SFLogForCategory(3uLL);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
       {
         [SFDeviceRegulatoryAttributes _resolveMIIT:];
       }
@@ -520,7 +492,6 @@ LABEL_26:
 
   else
   {
-LABEL_9:
     v15 = SFLogForCategory(3uLL);
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
     {
@@ -538,20 +509,18 @@ LABEL_12:
     if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
       resolvedMIITDictionary = self->__resolvedMIITDictionary;
-      v23 = 136315394;
-      v24 = "[SFDeviceRegulatoryAttributes _resolveMIIT:]";
-      v25 = 2112;
-      v26 = resolvedMIITDictionary;
-      _os_log_impl(&dword_2659AD000, v19, OS_LOG_TYPE_DEFAULT, "%{Public}s: MIIT e-label: '%{Public}@'", &v23, 0x16u);
+      v22 = 136315394;
+      v23 = "[SFDeviceRegulatoryAttributes _resolveMIIT:]";
+      v24 = 2112;
+      v25 = resolvedMIITDictionary;
+      _os_log_impl(&dword_2659AD000, v19, OS_LOG_TYPE_DEFAULT, "%{Public}s: MIIT e-label: '%{Public}@'", &v22, 0x16u);
     }
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_resolveCountryOfOrigin:(id)origin
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   originCopy = origin;
   v5 = [originCopy objectForKeyedSubscript:@"countryOfOrigin"];
   if (v5)
@@ -576,8 +545,8 @@ LABEL_12:
 
         else
         {
-          v21 = [v10 objectForKeyedSubscript:@"madeIn"];
-          if (!v21 || (v22 = v21, [v10 objectForKeyedSubscript:@"madeIn"], v23 = objc_claimAutoreleasedReturnValue(), objc_opt_class(), v24 = objc_opt_isKindOfClass(), v23, v22, (v24 & 1) == 0))
+          v20 = [v10 objectForKeyedSubscript:@"madeIn"];
+          if (!v20 || (v21 = v20, [v10 objectForKeyedSubscript:@"madeIn"], v22 = objc_claimAutoreleasedReturnValue(), objc_opt_class(), v23 = objc_opt_isKindOfClass(), v22, v21, (v23 & 1) == 0))
           {
             v15 = SFLogForCategory(3uLL);
             if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
@@ -615,20 +584,18 @@ LABEL_10:
     if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
       v19 = self->__resolvedCountryOfOrigin;
-      v26 = 136315394;
-      v27 = "[SFDeviceRegulatoryAttributes _resolveCountryOfOrigin:]";
-      v28 = 2112;
-      v29 = v19;
-      _os_log_impl(&dword_2659AD000, v18, OS_LOG_TYPE_DEFAULT, "%{Public}s: Country of Origin e-label: '%{Public}@'", &v26, 0x16u);
+      v25 = 136315394;
+      v26 = "[SFDeviceRegulatoryAttributes _resolveCountryOfOrigin:]";
+      v27 = 2112;
+      v28 = v19;
+      _os_log_impl(&dword_2659AD000, v18, OS_LOG_TYPE_DEFAULT, "%{Public}s: Country of Origin e-label: '%{Public}@'", &v25, 0x16u);
     }
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_unarchiveRegulatoryCatalogBundleAtPath:(id)path toURL:(id)l
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   lCopy = l;
   v6 = AAFileStreamOpenWithPath([path UTF8String], 0, 2u);
   if (v6)
@@ -652,11 +619,11 @@ LABEL_10:
           v16 = SFLogForCategory(1uLL);
           if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
           {
-            v19 = 134218242;
-            v20 = v15;
-            v21 = 2112;
-            v22 = lCopy;
-            _os_log_impl(&dword_2659AD000, v16, OS_LOG_TYPE_DEFAULT, "Extracted %ld entries to %@", &v19, 0x16u);
+            v18 = 134218242;
+            v19 = v15;
+            v20 = 2112;
+            v21 = lCopy;
+            _os_log_impl(&dword_2659AD000, v16, OS_LOG_TYPE_DEFAULT, "Extracted %ld entries to %@", &v18, 0x16u);
           }
 
           AAArchiveStreamClose(v13);
@@ -686,13 +653,12 @@ LABEL_10:
     v14 = 0;
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
 - (void)_resolveOTARegulatoryCatalog:(id)catalog
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   catalogCopy = catalog;
   v5 = MGCopyAnswer();
   v6 = MGCopyAnswer();
@@ -707,9 +673,9 @@ LABEL_10:
 
   if (catalogCopy)
   {
-    v41 = 0;
-    [catalogCopy writeToURL:v12 options:1 error:&v41];
-    v13 = v41;
+    v40 = 0;
+    [catalogCopy writeToURL:v12 options:1 error:&v40];
+    v13 = v40;
     v14 = SFLogForCategory(1uLL);
     resolvedRegulatoryImage = v14;
     if (v13)
@@ -728,9 +694,9 @@ LABEL_5:
     {
       absoluteString = [v12 absoluteString];
       *buf = 136315394;
-      v43 = "[SFDeviceRegulatoryAttributes _resolveOTARegulatoryCatalog:]";
-      v44 = 2114;
-      v45 = absoluteString;
+      v42 = "[SFDeviceRegulatoryAttributes _resolveOTARegulatoryCatalog:]";
+      v43 = 2114;
+      v44 = absoluteString;
       _os_log_impl(&dword_2659AD000, &resolvedRegulatoryImage->super, OS_LOG_TYPE_DEFAULT, "%{Public}s: Wrote aar  to %{public}@", buf, 0x16u);
     }
 
@@ -748,9 +714,9 @@ LABEL_5:
       {
         absoluteString2 = [v10 absoluteString];
         *buf = 136315394;
-        v43 = "[SFDeviceRegulatoryAttributes _resolveOTARegulatoryCatalog:]";
-        v44 = 2114;
-        v45 = absoluteString2;
+        v42 = "[SFDeviceRegulatoryAttributes _resolveOTARegulatoryCatalog:]";
+        v43 = 2114;
+        v44 = absoluteString2;
         _os_log_impl(&dword_2659AD000, v28, OS_LOG_TYPE_DEFAULT, "%{Public}s: Wrote bundle  %{public}@", buf, 0x16u);
       }
 
@@ -763,7 +729,7 @@ LABEL_5:
         if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136315138;
-          v43 = "[SFDeviceRegulatoryAttributes _resolveOTARegulatoryCatalog:]";
+          v42 = "[SFDeviceRegulatoryAttributes _resolveOTARegulatoryCatalog:]";
           _os_log_impl(&dword_2659AD000, v32, OS_LOG_TYPE_DEFAULT, "%{Public}s: Found regulatory image in Regulatory Catalog OTA path", buf, 0xCu);
         }
 
@@ -799,13 +765,11 @@ LABEL_5:
   }
 
 LABEL_22:
-
-  v40 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_resolveRegulatoryImage:(id)image
 {
-  v123 = *MEMORY[0x277D85DE8];
+  v122 = *MEMORY[0x277D85DE8];
   imageCopy = image;
   standardUserDefaults = [MEMORY[0x277CBEBD0] standardUserDefaults];
   currentDevice = [MEMORY[0x277D75418] currentDevice];
@@ -819,7 +783,7 @@ LABEL_22:
     if (imageCopy)
     {
 LABEL_9:
-      v84 = v8;
+      v83 = v8;
       v12 = MGCopyAnswer();
       v9 = 0;
       if (!v10)
@@ -874,13 +838,13 @@ LABEL_71:
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315906;
-    v116 = "[SFDeviceRegulatoryAttributes _resolveRegulatoryImage:]";
-    v117 = 2112;
-    v118 = v8;
-    v119 = 2112;
-    v120 = v9;
-    v121 = 2112;
-    v122 = v10;
+    v115 = "[SFDeviceRegulatoryAttributes _resolveRegulatoryImage:]";
+    v116 = 2112;
+    v117 = v8;
+    v118 = 2112;
+    v119 = v9;
+    v120 = 2112;
+    v121 = v10;
     _os_log_impl(&dword_2659AD000, v11, OS_LOG_TYPE_DEFAULT, "%{Public}s: MobileGestalt Overrides: %@, %@, %@", buf, 0x2Au);
   }
 
@@ -894,7 +858,7 @@ LABEL_71:
     goto LABEL_9;
   }
 
-  v84 = v8;
+  v83 = v8;
   v12 = v9;
   v9 = v12;
   if (!v10)
@@ -907,24 +871,24 @@ LABEL_7:
 LABEL_10:
   v13 = v10;
 LABEL_11:
-  v83 = v13;
-  v87 = [v12 stringByAppendingFormat:@"-%@", v13];
+  v82 = v13;
+  v86 = [v12 stringByAppendingFormat:@"-%@", v13];
   v14 = [v12 length];
   v15 = SFLogForCategory(3uLL);
   v16 = v15;
-  v85 = imageCopy;
+  v84 = imageCopy;
   if (v14)
   {
-    v79 = v9;
-    v80 = v10;
-    v81 = standardUserDefaults;
+    v78 = v9;
+    v79 = v10;
+    v80 = standardUserDefaults;
     selfCopy = self;
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v116 = "[SFDeviceRegulatoryAttributes _resolveRegulatoryImage:]";
-      v117 = 2112;
-      v118 = v87;
+      v115 = "[SFDeviceRegulatoryAttributes _resolveRegulatoryImage:]";
+      v116 = 2112;
+      v117 = v86;
       _os_log_impl(&dword_2659AD000, v16, OS_LOG_TYPE_DEFAULT, "%{Public}s: Looking for Lockdown Regulatory Image '%@'", buf, 0x16u);
     }
 
@@ -932,38 +896,38 @@ LABEL_11:
     [mainScreen scale];
     v19 = v18;
 
-    v90 = 0u;
-    v91 = 0u;
-    v88 = 0u;
     v89 = 0u;
+    v90 = 0u;
+    v87 = 0u;
+    v88 = 0u;
     obj = imageCopy;
-    v20 = [obj countByEnumeratingWithState:&v88 objects:v114 count:16];
+    v20 = [obj countByEnumeratingWithState:&v87 objects:v113 count:16];
     if (v20)
     {
       v21 = v20;
-      v22 = *v89;
+      v22 = *v88;
 LABEL_16:
       v23 = 0;
       while (1)
       {
-        if (*v89 != v22)
+        if (*v88 != v22)
         {
           objc_enumerationMutation(obj);
         }
 
-        v24 = *(*(&v88 + 1) + 8 * v23);
+        v24 = *(*(&v87 + 1) + 8 * v23);
         v25 = [v24 objectForKey:@"ImageId"];
         v26 = SFLogForCategory(3uLL);
         if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136315394;
-          v116 = "[SFDeviceRegulatoryAttributes _resolveRegulatoryImage:]";
-          v117 = 2112;
-          v118 = v25;
+          v115 = "[SFDeviceRegulatoryAttributes _resolveRegulatoryImage:]";
+          v116 = 2112;
+          v117 = v25;
           _os_log_impl(&dword_2659AD000, v26, OS_LOG_TYPE_DEFAULT, "%{Public}s: Candidate Lockdown Regulatory Image '%@'", buf, 0x16u);
         }
 
-        if ([v12 caseInsensitiveCompare:v25] && objc_msgSend(v87, "caseInsensitiveCompare:", v25))
+        if ([v12 caseInsensitiveCompare:v25] && objc_msgSend(v86, "caseInsensitiveCompare:", v25))
         {
           goto LABEL_38;
         }
@@ -988,27 +952,27 @@ LABEL_16:
                 v49 = v48;
                 if (v33 && v48)
                 {
-                  v77 = [objc_alloc(MEMORY[0x277D755B8]) initWithCGImage:v33 scale:0 orientation:v19];
-                  v78 = [objc_alloc(MEMORY[0x277D755B8]) initWithCGImage:v49 scale:0 orientation:v19];
+                  v76 = [objc_alloc(MEMORY[0x277D755B8]) initWithCGImage:v33 scale:0 orientation:v19];
+                  v77 = [objc_alloc(MEMORY[0x277D755B8]) initWithCGImage:v49 scale:0 orientation:v19];
                   currentTraitCollection = [MEMORY[0x277D75C80] currentTraitCollection];
                   [MEMORY[0x277D75C80] traitCollectionWithDisplayScale:v19];
                   v50 = image = v49;
                   v51 = objc_alloc_init(MEMORY[0x277D755C0]);
                   v52 = MEMORY[0x277D75C80];
-                  v113[0] = v50;
+                  v112[0] = v50;
                   v53 = [MEMORY[0x277D75C80] traitCollectionWithUserInterfaceStyle:1];
-                  v113[1] = v53;
-                  v54 = [MEMORY[0x277CBEA60] arrayWithObjects:v113 count:2];
+                  v112[1] = v53;
+                  v54 = [MEMORY[0x277CBEA60] arrayWithObjects:v112 count:2];
                   v55 = [v52 traitCollectionWithTraitsFromCollections:v54];
-                  [v51 registerImage:v77 withTraitCollection:v55];
+                  [v51 registerImage:v76 withTraitCollection:v55];
 
                   v56 = MEMORY[0x277D75C80];
-                  v112[0] = v50;
+                  v111[0] = v50;
                   v57 = [MEMORY[0x277D75C80] traitCollectionWithUserInterfaceStyle:2];
-                  v112[1] = v57;
-                  v58 = [MEMORY[0x277CBEA60] arrayWithObjects:v112 count:2];
+                  v111[1] = v57;
+                  v58 = [MEMORY[0x277CBEA60] arrayWithObjects:v111 count:2];
                   v59 = [v56 traitCollectionWithTraitsFromCollections:v58];
-                  [v51 registerImage:v78 withTraitCollection:v59];
+                  [v51 registerImage:v77 withTraitCollection:v59];
 
                   v60 = [v51 imageWithTraitCollection:currentTraitCollection];
                   CGImageRelease(v33);
@@ -1018,16 +982,16 @@ LABEL_16:
                   if (os_log_type_enabled(v61, OS_LOG_TYPE_DEFAULT))
                   {
                     *buf = 136315394;
-                    v116 = "[SFDeviceRegulatoryAttributes _resolveRegulatoryImage:]";
-                    v117 = 2112;
-                    v118 = v25;
+                    v115 = "[SFDeviceRegulatoryAttributes _resolveRegulatoryImage:]";
+                    v116 = 2112;
+                    v117 = v25;
                     _os_log_impl(&dword_2659AD000, v61, OS_LOG_TYPE_DEFAULT, "%{Public}s: Matched style-sensitive Lockdown Regulatory Image '%{Public}@'", buf, 0x16u);
                   }
 
-                  standardUserDefaults = v81;
+                  standardUserDefaults = v80;
                   self = selfCopy;
-                  v9 = v79;
-                  v62 = v77;
+                  v9 = v78;
+                  v62 = v76;
                 }
 
                 else
@@ -1037,7 +1001,7 @@ LABEL_16:
                     CGImageRelease(v33);
                   }
 
-                  standardUserDefaults = v81;
+                  standardUserDefaults = v80;
                   self = selfCopy;
                   if (v49)
                   {
@@ -1053,11 +1017,11 @@ LABEL_16:
 
                   v60 = 0;
 LABEL_65:
-                  v9 = v79;
+                  v9 = v78;
                 }
 
-                v10 = v80;
-                v39 = v83;
+                v10 = v79;
+                v39 = v82;
                 if (v60)
                 {
                   goto LABEL_70;
@@ -1075,13 +1039,13 @@ LABEL_65:
                 if (os_log_type_enabled(v62, OS_LOG_TYPE_DEFAULT))
                 {
                   *buf = 136315394;
-                  v116 = "[SFDeviceRegulatoryAttributes _resolveRegulatoryImage:]";
-                  v117 = 2112;
-                  v118 = v25;
+                  v115 = "[SFDeviceRegulatoryAttributes _resolveRegulatoryImage:]";
+                  v116 = 2112;
+                  v117 = v25;
                   _os_log_impl(&dword_2659AD000, v62, OS_LOG_TYPE_DEFAULT, "%{Public}s: Matched Lockdown Regulatory Image '%@'", buf, 0x16u);
                 }
 
-                standardUserDefaults = v81;
+                standardUserDefaults = v80;
                 self = selfCopy;
                 goto LABEL_65;
               }
@@ -1090,9 +1054,9 @@ LABEL_65:
               if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
               {
                 *buf = 136315394;
-                v116 = "[SFDeviceRegulatoryAttributes _resolveRegulatoryImage:]";
-                v117 = 2112;
-                v118 = v25;
+                v115 = "[SFDeviceRegulatoryAttributes _resolveRegulatoryImage:]";
+                v116 = 2112;
+                v117 = v25;
                 v35 = v34;
                 v36 = "%{Public}s: Failed decoding Lockdown Regulatory Image '%{Public}@'";
                 goto LABEL_41;
@@ -1105,9 +1069,9 @@ LABEL_65:
               if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
               {
                 *buf = 136315394;
-                v116 = "[SFDeviceRegulatoryAttributes _resolveRegulatoryImage:]";
-                v117 = 2112;
-                v118 = v25;
+                v115 = "[SFDeviceRegulatoryAttributes _resolveRegulatoryImage:]";
+                v116 = 2112;
+                v117 = v25;
                 v35 = v34;
                 v36 = "%{Public}s: Empty Lockdown Regulatory Image '%{Public}@'";
 LABEL_41:
@@ -1122,7 +1086,7 @@ LABEL_41:
           v37 = SFLogForCategory(3uLL);
           if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
           {
-            [(SFDeviceRegulatoryAttributes *)v110 _resolveRegulatoryImage:v37];
+            [(SFDeviceRegulatoryAttributes *)v109 _resolveRegulatoryImage:v37];
           }
         }
 
@@ -1131,7 +1095,7 @@ LABEL_41:
           v37 = SFLogForCategory(3uLL);
           if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
           {
-            [(SFDeviceRegulatoryAttributes *)v108 _resolveRegulatoryImage:v37];
+            [(SFDeviceRegulatoryAttributes *)v107 _resolveRegulatoryImage:v37];
           }
         }
 
@@ -1140,7 +1104,7 @@ LABEL_38:
 
         if (v21 == ++v23)
         {
-          v38 = [obj countByEnumeratingWithState:&v88 objects:v114 count:16];
+          v38 = [obj countByEnumeratingWithState:&v87 objects:v113 count:16];
           v21 = v38;
           if (v38)
           {
@@ -1152,19 +1116,19 @@ LABEL_38:
       }
     }
 
-    standardUserDefaults = v81;
+    standardUserDefaults = v80;
     self = selfCopy;
-    v9 = v79;
-    v10 = v80;
-    v39 = v83;
+    v9 = v78;
+    v10 = v79;
+    v39 = v82;
 LABEL_67:
     v16 = SFLogForCategory(3uLL);
     if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v116 = "[SFDeviceRegulatoryAttributes _resolveRegulatoryImage:]";
-      v117 = 2112;
-      v118 = v87;
+      v115 = "[SFDeviceRegulatoryAttributes _resolveRegulatoryImage:]";
+      v116 = 2112;
+      v117 = v86;
       _os_log_impl(&dword_2659AD000, v16, OS_LOG_TYPE_DEFAULT, "%{Public}s: No matching Lockdown Regulatory Image for '%{Public}@'", buf, 0x16u);
     }
   }
@@ -1176,36 +1140,36 @@ LABEL_67:
       [(SFDeviceRegulatoryAttributes *)v16 _resolveRegulatoryImage:v41, v42, v43, v44, v45, v46, v47];
     }
 
-    v39 = v83;
+    v39 = v82;
   }
 
   v60 = 0;
 LABEL_70:
 
-  v8 = v84;
-  imageCopy = v85;
+  v8 = v83;
+  imageCopy = v84;
   if (!v60)
   {
     goto LABEL_71;
   }
 
 LABEL_78:
-  v107 = 533419158;
-  v106 = xmmword_2659C1758;
-  v105 = 1106979518;
-  v104 = xmmword_2659C176C;
-  v103 = -1820426635;
-  v102 = xmmword_2659C1780;
-  v101 = -937652876;
-  v100 = xmmword_2659C1794;
-  v99 = -609570151;
-  v98 = xmmword_2659C17A8;
-  v97 = -874769875;
-  v96 = xmmword_2659C17BC;
-  v95 = 1874287171;
-  v94 = xmmword_2659C17D0;
-  v93 = -781324731;
-  v92 = xmmword_2659C17E4;
+  v106 = 533419158;
+  v105 = xmmword_2659C1758;
+  v104 = 1106979518;
+  v103 = xmmword_2659C176C;
+  v102 = -1820426635;
+  v101 = xmmword_2659C1780;
+  v100 = -937652876;
+  v99 = xmmword_2659C1794;
+  v98 = -609570151;
+  v97 = xmmword_2659C17A8;
+  v96 = -874769875;
+  v95 = xmmword_2659C17BC;
+  v94 = 1874287171;
+  v93 = xmmword_2659C17D0;
+  v92 = -781324731;
+  v91 = xmmword_2659C17E4;
   if (MGIsDeviceOneOfType())
   {
     v68 = MGCopyAnswer();
@@ -1222,21 +1186,19 @@ LABEL_78:
 
   resolvedRegulatoryImage = self->__resolvedRegulatoryImage;
   self->__resolvedRegulatoryImage = v60;
-
-  v74 = *MEMORY[0x277D85DE8];
 }
 
 + (id)getRegulatoryAttributes
 {
-  v25 = *MEMORY[0x277D85DE8];
-  v20 = 1;
+  v24 = *MEMORY[0x277D85DE8];
+  v19 = 1;
   v2 = container_system_group_path_for_identifier();
   if (!v2)
   {
     v4 = SFLogForCategory(3uLL);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      [(SFDeviceRegulatoryAttributes *)&v20 getRegulatoryAttributes:v4];
+      [(SFDeviceRegulatoryAttributes *)&v19 getRegulatoryAttributes:v4];
     }
 
     goto LABEL_13;
@@ -1270,16 +1232,15 @@ LABEL_13:
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v22 = "+[SFDeviceRegulatoryAttributes getRegulatoryAttributes]";
-    v23 = 2112;
-    v24 = v9;
+    v21 = "+[SFDeviceRegulatoryAttributes getRegulatoryAttributes]";
+    v22 = 2112;
+    v23 = v9;
     _os_log_impl(&dword_2659AD000, v10, OS_LOG_TYPE_DEFAULT, "%{Public}s: Lockdown Regulatory Images at '%@'", buf, 0x16u);
   }
 
   v11 = [MEMORY[0x277CBEAC0] dictionaryWithContentsOfFile:v9];
 
 LABEL_14:
-  v18 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
@@ -1394,203 +1355,186 @@ uint64_t __46__SFDeviceRegulatoryAttributes__dateFormatter__block_invoke()
 
 void __58__SFDeviceRegulatoryAttributes__yearCodeToStartDateLookup__block_invoke()
 {
-  v25[20] = *MEMORY[0x277D85DE8];
+  v24[20] = *MEMORY[0x277D85DE8];
   v0 = objc_alloc_init(MEMORY[0x277CCA968]);
   [v0 setDateFormat:@"MM/dd/yyyy"];
-  v24[0] = @"P";
-  v23 = [v0 dateFromString:@"12/28/2014"];
-  v25[0] = v23;
-  v24[1] = @"Q";
-  v22 = [v0 dateFromString:@"06/28/2015"];
-  v25[1] = v22;
-  v24[2] = @"R";
-  v21 = [v0 dateFromString:@"12/27/2015"];
-  v25[2] = v21;
-  v24[3] = @"S";
-  v20 = [v0 dateFromString:@"06/26/2016"];
-  v25[3] = v20;
-  v24[4] = @"T";
-  v19 = [v0 dateFromString:@"01/01/2017"];
-  v25[4] = v19;
-  v24[5] = @"V";
-  v18 = [v0 dateFromString:@"07/02/2017"];
-  v25[5] = v18;
-  v24[6] = @"W";
-  v17 = [v0 dateFromString:@"12/31/2017"];
-  v25[6] = v17;
-  v24[7] = @"X";
-  v16 = [v0 dateFromString:@"07/01/2018"];
-  v25[7] = v16;
-  v24[8] = @"Y";
-  v15 = [v0 dateFromString:@"12/30/2018"];
-  v25[8] = v15;
-  v24[9] = @"Z";
-  v14 = [v0 dateFromString:@"06/30/2019"];
-  v25[9] = v14;
-  v24[10] = @"C";
-  v13 = [v0 dateFromString:@"12/29/2019"];
-  v25[10] = v13;
-  v24[11] = @"D";
+  v23[0] = @"P";
+  v22 = [v0 dateFromString:@"12/28/2014"];
+  v24[0] = v22;
+  v23[1] = @"Q";
+  v21 = [v0 dateFromString:@"06/28/2015"];
+  v24[1] = v21;
+  v23[2] = @"R";
+  v20 = [v0 dateFromString:@"12/27/2015"];
+  v24[2] = v20;
+  v23[3] = @"S";
+  v19 = [v0 dateFromString:@"06/26/2016"];
+  v24[3] = v19;
+  v23[4] = @"T";
+  v18 = [v0 dateFromString:@"01/01/2017"];
+  v24[4] = v18;
+  v23[5] = @"V";
+  v17 = [v0 dateFromString:@"07/02/2017"];
+  v24[5] = v17;
+  v23[6] = @"W";
+  v16 = [v0 dateFromString:@"12/31/2017"];
+  v24[6] = v16;
+  v23[7] = @"X";
+  v15 = [v0 dateFromString:@"07/01/2018"];
+  v24[7] = v15;
+  v23[8] = @"Y";
+  v14 = [v0 dateFromString:@"12/30/2018"];
+  v24[8] = v14;
+  v23[9] = @"Z";
+  v13 = [v0 dateFromString:@"06/30/2019"];
+  v24[9] = v13;
+  v23[10] = @"C";
+  v12 = [v0 dateFromString:@"12/29/2019"];
+  v24[10] = v12;
+  v23[11] = @"D";
   v1 = [v0 dateFromString:@"06/28/2020"];
-  v25[11] = v1;
-  v24[12] = @"F";
+  v24[11] = v1;
+  v23[12] = @"F";
   v2 = [v0 dateFromString:@"12/27/2020"];
-  v25[12] = v2;
-  v24[13] = @"G";
+  v24[12] = v2;
+  v23[13] = @"G";
   v3 = [v0 dateFromString:@"06/27/2021"];
-  v25[13] = v3;
-  v24[14] = @"H";
+  v24[13] = v3;
+  v23[14] = @"H";
   v4 = [v0 dateFromString:@"12/26/2021"];
-  v25[14] = v4;
-  v24[15] = @"J";
+  v24[14] = v4;
+  v23[15] = @"J";
   v5 = [v0 dateFromString:@"06/26/2022"];
-  v25[15] = v5;
-  v24[16] = @"K";
+  v24[15] = v5;
+  v23[16] = @"K";
   v6 = [v0 dateFromString:@"01/01/2023"];
-  v25[16] = v6;
-  v24[17] = @"L";
+  v24[16] = v6;
+  v23[17] = @"L";
   v7 = [v0 dateFromString:@"07/02/2023"];
-  v25[17] = v7;
-  v24[18] = @"M";
+  v24[17] = v7;
+  v23[18] = @"M";
   v8 = [v0 dateFromString:@"12/31/2023"];
-  v25[18] = v8;
-  v24[19] = @"N";
+  v24[18] = v8;
+  v23[19] = @"N";
   v9 = [v0 dateFromString:@"06/30/2024"];
-  v25[19] = v9;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:v24 count:20];
+  v24[19] = v9;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:v23 count:20];
   v11 = _yearCodeToStartDateLookup___yearCodeToStartDateLookup;
   _yearCodeToStartDateLookup___yearCodeToStartDateLookup = v10;
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_resolveDeviceAttributes:.cold.1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2(&dword_2659AD000, v0, v1, "%{Public}s: Invalid RegulatoryInfo: '%{Public}@'", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2(&dword_2659AD000, v0, v1, "%{Public}s: Invalid RegulatoryInfo: '%{Public}@'", v2, v3, v4, v5, v6);
 }
 
 - (void)_resolveDeviceAttributes:.cold.2()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_2659AD000, v0, v1, "%{Public}s: Empty regulatoryCatalog: '%@'", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_2659AD000, v0, v1, "%{Public}s: Empty regulatoryCatalog: '%@'", v2, v3, v4, v5, v6);
 }
 
 - (void)_resolveManufacturingDateRelatedFields:.cold.1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_2659AD000, v0, v1, "%{Public}s: Empty manufacturingDate entry: '%@'", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_2659AD000, v0, v1, "%{Public}s: Empty manufacturingDate entry: '%@'", v2, v3, v4, v5, v6);
 }
 
 - (void)_resolveIndiaBISRegulatoryNumber:.cold.1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2(&dword_2659AD000, v0, v1, "%{Public}s: Invalid BIS format: '%{Public}@'", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2(&dword_2659AD000, v0, v1, "%{Public}s: Invalid BIS format: '%{Public}@'", v2, v3, v4, v5, v6);
 }
 
 - (void)_resolveIndiaBISRegulatoryNumber:.cold.2()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_2659AD000, v0, v1, "%{Public}s: Empty BIS Regulatory entry: '%@'", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_2659AD000, v0, v1, "%{Public}s: Empty BIS Regulatory entry: '%@'", v2, v3, v4, v5, v6);
 }
 
 - (void)_resolveIndiaBISRegulatoryNumber:.cold.3()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_2659AD000, v0, v1, "%{Public}s: Empty BIS entry: '%@'", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_2659AD000, v0, v1, "%{Public}s: Empty BIS entry: '%@'", v2, v3, v4, v5, v6);
 }
 
 - (void)_resolveIndiaBISRegulatoryNumber:.cold.4()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_2659AD000, v0, v1, "%{Public}s: Empty elabel entry: '%@'", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_2659AD000, v0, v1, "%{Public}s: Empty elabel entry: '%@'", v2, v3, v4, v5, v6);
 }
 
 - (void)_resolveMIIT:.cold.1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2(&dword_2659AD000, v0, v1, "%{Public}s: Invalid MIIT format: '%{Public}@'", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2(&dword_2659AD000, v0, v1, "%{Public}s: Invalid MIIT format: '%{Public}@'", v2, v3, v4, v5, v6);
 }
 
 - (void)_resolveMIIT:.cold.2()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_2659AD000, v0, v1, "%{Public}s: Empty MIIT entry: '%@'", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_2659AD000, v0, v1, "%{Public}s: Empty MIIT entry: '%@'", v2, v3, v4, v5, v6);
 }
 
 - (void)_resolveMIIT:.cold.3()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_2659AD000, v0, v1, "%{Public}s: Empty elabel entry: '%@'", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_2659AD000, v0, v1, "%{Public}s: Empty elabel entry: '%@'", v2, v3, v4, v5, v6);
 }
 
 - (void)_resolveCountryOfOrigin:.cold.1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2(&dword_2659AD000, v0, v1, "%{Public}s: Invalid Country of Origin format: '%{Public}@'", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2(&dword_2659AD000, v0, v1, "%{Public}s: Invalid Country of Origin format: '%{Public}@'", v2, v3, v4, v5, v6);
 }
 
 - (void)_resolveCountryOfOrigin:.cold.2()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_2659AD000, v0, v1, "%{Public}s: No Country of Origin entry: '%@'", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_2659AD000, v0, v1, "%{Public}s: No Country of Origin entry: '%@'", v2, v3, v4, v5, v6);
 }
 
 - (void)_resolveOTARegulatoryCatalog:.cold.1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136446466;
   OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_2(&dword_2659AD000, v0, v1, "%{public}s: There was an error writing the regulatory catalog to aar %{public}@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2(&dword_2659AD000, v0, v1, "%{public}s: There was an error writing the regulatory catalog to aar %{public}@", v2, v3, v4, v5, v6);
 }
 
 - (void)_resolveOTARegulatoryCatalog:(void *)a1 .cold.2(void *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v3 = [a1 absoluteString];
-  v5[0] = 136315394;
+  v4[0] = 136315394;
   OUTLINED_FUNCTION_4();
-  _os_log_error_impl(&dword_2659AD000, a2, OS_LOG_TYPE_ERROR, "%{Public}s: There was an error writing bundle to %{public}@", v5, 0x16u);
-
-  v4 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_2659AD000, a2, OS_LOG_TYPE_ERROR, "%{Public}s: There was an error writing bundle to %{public}@", v4, 0x16u);
 }
 
 - (void)_resolveOTARegulatoryCatalog:(uint64_t)a3 .cold.3(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3(&dword_2659AD000, a1, a3, "%{Public}s: Image is null when looking into .car", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[SFDeviceRegulatoryAttributes _resolveOTARegulatoryCatalog:]";
+  OUTLINED_FUNCTION_3(&dword_2659AD000, a1, a3, "%{Public}s: Image is null when looking into .car", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)_resolveOTARegulatoryCatalog:(uint64_t)a3 .cold.4(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3(&dword_2659AD000, a1, a3, "%{Public}s: Regulatory Catalog data is empty", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[SFDeviceRegulatoryAttributes _resolveOTARegulatoryCatalog:]";
+  OUTLINED_FUNCTION_3(&dword_2659AD000, a1, a3, "%{Public}s: Regulatory Catalog data is empty", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)_resolveRegulatoryImage:(os_log_t)log .cold.1(uint8_t *buf, void *a2, os_log_t log)
@@ -1602,10 +1546,9 @@ void __58__SFDeviceRegulatoryAttributes__yearCodeToStartDateLookup__block_invoke
 
 - (void)_resolveRegulatoryImage:.cold.2()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2(&dword_2659AD000, v0, v1, "%{Public}s: Failed decoding style-sensitive Lockdown Regulatory Image '%{Public}@'", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2(&dword_2659AD000, v0, v1, "%{Public}s: Failed decoding style-sensitive Lockdown Regulatory Image '%{Public}@'", v2, v3, v4, v5, v6);
 }
 
 - (void)_resolveRegulatoryImage:(os_log_t)log .cold.3(uint8_t *buf, void *a2, os_log_t log)
@@ -1617,26 +1560,26 @@ void __58__SFDeviceRegulatoryAttributes__yearCodeToStartDateLookup__block_invoke
 
 - (void)_resolveRegulatoryImage:(uint64_t)a3 .cold.4(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3(&dword_2659AD000, a1, a3, "%{Public}s: No Lockdown Regulatory Image device model", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[SFDeviceRegulatoryAttributes _resolveRegulatoryImage:]";
+  OUTLINED_FUNCTION_3(&dword_2659AD000, a1, a3, "%{Public}s: No Lockdown Regulatory Image device model", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)_resolveRegulatoryImage:(os_log_t)log .cold.5(os_log_t log)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 136315138;
-  v3 = "[SFDeviceRegulatoryAttributes _resolveRegulatoryImage:]";
-  _os_log_debug_impl(&dword_2659AD000, log, OS_LOG_TYPE_DEBUG, "%{Public}s: No Lockdown Regulatory Images in container", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 136315138;
+  v2 = "[SFDeviceRegulatoryAttributes _resolveRegulatoryImage:]";
+  _os_log_debug_impl(&dword_2659AD000, log, OS_LOG_TYPE_DEBUG, "%{Public}s: No Lockdown Regulatory Images in container", &v1, 0xCu);
 }
 
 + (void)getRegulatoryAttributes
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v9 = *self;
-  OUTLINED_FUNCTION_2(&dword_2659AD000, a2, a3, "%{Public}s: Failed to get group path for Regulatory Images! error = %llu", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  *v8 = 136315394;
+  *&v8[4] = "+[SFDeviceRegulatoryAttributes getRegulatoryAttributes]";
+  *&v8[12] = 2048;
+  *&v8[14] = *self;
+  OUTLINED_FUNCTION_2(&dword_2659AD000, a2, a3, "%{Public}s: Failed to get group path for Regulatory Images! error = %llu", a5, a6, a7, a8, *v8, *&v8[8], *&v8[16], *MEMORY[0x277D85DE8]);
 }
 
 @end

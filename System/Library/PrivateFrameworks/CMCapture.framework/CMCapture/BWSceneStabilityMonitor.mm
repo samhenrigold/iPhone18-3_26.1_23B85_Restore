@@ -339,34 +339,37 @@ LABEL_18:
   v12 = v11;
   v13 = v9;
   v14 = v11;
-  if (*(buffer + 128) != __PAIR64__(v9, v11))
+  if (*(buffer + 128) != __PAIR64__(v13, v14))
   {
     [(BWSceneStabilityMonitor *)buffer _resetPixelSumStorage];
     *(buffer + 128) = v14;
     *(buffer + 132) = v13;
   }
 
-  v31 = 0;
-  v32 = 0;
+  v39 = 0;
+  v40 = 0;
   v15 = malloc_type_malloc(4 * v14, 0x100004052888210uLL);
   v16 = malloc_type_malloc(4 * v13, 0x100004052888210uLL);
-  if (pixelSumForROI(pixelBuffer, v15, v16, v6, v8, v10, v12))
+  v17 = pixelSumForROI(pixelBuffer, v15, v16, v6, v8, v10, v12);
+  if (v17)
   {
+    v34 = v17;
     fig_log_get_emitter();
     OUTLINED_FUNCTION_12_1();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v34);
   }
 
   else
   {
-    v21 = *(buffer + 136);
-    if (!v21)
+    v22 = *(buffer + 136);
+    if (!v22)
     {
 LABEL_16:
-      v30 = *(buffer + 144);
-      if (v30)
+      v33 = *(buffer + 144);
+      if (v33)
       {
         *(buffer + 144) = 0;
-        free(v30);
+        free(v33);
       }
 
       *(buffer + 136) = v15;
@@ -378,46 +381,62 @@ LABEL_16:
     {
 LABEL_15:
       *(buffer + 136) = 0;
-      free(v21);
+      free(v22);
       goto LABEL_16;
     }
 
-    if (!OUTLINED_FUNCTION_1_124(v15, v21, v14, v17, v18, v19, &v32, v20, &v31) && !OUTLINED_FUNCTION_1_124(v16, *(buffer + 144), v13, v22, v23, v24, &v32 + 1, v25, &v31 + 1))
+    v23 = OUTLINED_FUNCTION_1_124(v15, v22, v14, v18, v19, v20, &v40, v21, &v39);
+    if (v23)
     {
-      v26 = v32;
-      *(buffer + 112) = HIDWORD(v32);
-      *(buffer + 116) = v26;
-      v28 = *(&v31 + 1);
-      v27 = *&v31;
-      *(buffer + 120) = HIDWORD(v31);
-      *(buffer + 124) = v27;
-      v29 = v28 > 0.1;
-      if (v27 <= 0.1)
-      {
-        v29 = 0;
-      }
-
-      *(buffer + 152) = v29;
-      if (v28 < v27)
-      {
-        v27 = v28;
-      }
-
-      *(buffer + 156) = v27;
-      v21 = *(buffer + 136);
-      if (!v21)
-      {
-        goto LABEL_16;
-      }
-
-      goto LABEL_15;
+      v35 = v23;
+      fig_log_get_emitter();
+      OUTLINED_FUNCTION_12_1();
+      LODWORD(v37) = v35;
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v37);
     }
 
-    fig_log_get_emitter();
-    OUTLINED_FUNCTION_12_1();
+    else
+    {
+      v28 = OUTLINED_FUNCTION_1_124(v16, *(buffer + 144), v13, v24, v25, v26, &v40 + 1, v27, &v39 + 1);
+      if (!v28)
+      {
+        v29 = v40;
+        *(buffer + 112) = HIDWORD(v40);
+        *(buffer + 116) = v29;
+        v31 = *(&v39 + 1);
+        v30 = *&v39;
+        *(buffer + 120) = HIDWORD(v39);
+        *(buffer + 124) = v30;
+        v32 = v31 > 0.1;
+        if (v30 <= 0.1)
+        {
+          v32 = 0;
+        }
+
+        *(buffer + 152) = v32;
+        if (v31 < v30)
+        {
+          v30 = v31;
+        }
+
+        *(buffer + 156) = v30;
+        v22 = *(buffer + 136);
+        if (!v22)
+        {
+          goto LABEL_16;
+        }
+
+        goto LABEL_15;
+      }
+
+      v36 = v28;
+      fig_log_get_emitter();
+      OUTLINED_FUNCTION_12_1();
+      LODWORD(v38) = v36;
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v38);
+    }
   }
 
-  FigDebugAssert3();
   if (v15)
   {
     free(v15);

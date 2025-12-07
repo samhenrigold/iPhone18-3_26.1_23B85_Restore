@@ -114,7 +114,7 @@
 - (void)outputDebugInfoForFrame:(id)frame isSensitive:(BOOL)sensitive sensitivityScore:(id)score
 {
   sensitiveCopy = sensitive;
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   frameCopy = frame;
   scoreCopy = score;
   v9 = +[SCMLLog videoAnalyzer];
@@ -139,11 +139,11 @@
       }
 
       *buf = 138412802;
-      v30 = metaDataInfo;
-      v31 = 2080;
-      v32 = v15;
-      v33 = 2048;
-      v34 = v14;
+      v29 = metaDataInfo;
+      v30 = 2080;
+      v31 = v15;
+      v32 = 2048;
+      v33 = v14;
       _os_log_impl(&dword_1B8A3C000, v13, OS_LOG_TYPE_INFO, "Frame %@ sensitive=%s score=%.4f", buf, 0x20u);
     }
 
@@ -179,18 +179,18 @@ LABEL_13:
     {
       metaDataInfo2 = [frameCopy metaDataInfo];
       [scoreCopy doubleValue];
-      v27 = "N";
+      v26 = "N";
       *buf = 138412802;
-      v30 = metaDataInfo2;
+      v29 = metaDataInfo2;
       if (sensitiveCopy)
       {
-        v27 = "Y";
+        v26 = "Y";
       }
 
-      v31 = 2080;
-      v32 = v27;
-      v33 = 2048;
-      v34 = v26;
+      v30 = 2080;
+      v31 = v26;
+      v32 = 2048;
+      v33 = v25;
       _os_log_debug_impl(&dword_1B8A3C000, metaDataInfo, OS_LOG_TYPE_DEBUG, "Frame %@ sensitive=%s score=%.4f", buf, 0x20u);
     }
 
@@ -198,13 +198,11 @@ LABEL_13:
   }
 
 LABEL_14:
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 - (id)analyze:(id *)analyze
 {
-  v48 = *MEMORY[0x1E69E9840];
+  v47 = *MEMORY[0x1E69E9840];
   result = [(SCMLVideoFrameProcessor *)self result];
   sensitiveExplicit = [result sensitiveExplicit];
 
@@ -232,7 +230,7 @@ LABEL_14:
       if (sensitiveFrameCount >= [config sensitiveFrameCountThreshold])
       {
 
-        v40 = v11;
+        v39 = v11;
         goto LABEL_25;
       }
 
@@ -248,9 +246,9 @@ LABEL_14:
       v16 = [imageAnalyzer generateClassificationScoresForPixelBuffer:ImageBuffer error:analyze];
 
       imageAnalyzer2 = [(SCMLVideoFrameProcessor *)self imageAnalyzer];
-      v46 = &unk_1F37519D8;
-      v18 = [imageAnalyzer2 isSensitive:v16 sensitivityScore:&v46 classificationMode:0];
-      v19 = v46;
+      v45 = &unk_1F37519D8;
+      v18 = [imageAnalyzer2 isSensitive:v16 sensitivityScore:&v45 classificationMode:0];
+      v19 = v45;
 
       [(SCMLVideoFrameProcessor *)self outputDebugInfoForFrame:popFrame isSensitive:v18 sensitivityScore:v19];
       if (v18)
@@ -269,25 +267,25 @@ LABEL_14:
       v22 = [v16 objectForKeyedSubscript:SCMLHandlerImageClassificationScores[0]];
       v23 = [SCMLAnalysisResult obfuscateLabels:v22];
 
-      v44 = 0u;
-      v45 = 0u;
-      v42 = 0u;
       v43 = 0u;
+      v44 = 0u;
+      v41 = 0u;
+      v42 = 0u;
       v24 = v23;
-      v25 = [v24 countByEnumeratingWithState:&v42 objects:v47 count:16];
+      v25 = [v24 countByEnumeratingWithState:&v41 objects:v46 count:16];
       if (v25)
       {
-        v26 = *v43;
+        v26 = *v42;
         do
         {
           for (i = 0; i != v25; ++i)
           {
-            if (*v43 != v26)
+            if (*v42 != v26)
             {
               objc_enumerationMutation(v24);
             }
 
-            v28 = *(*(&v42 + 1) + 8 * i);
+            v28 = *(*(&v41 + 1) + 8 * i);
             v29 = [v24 objectForKeyedSubscript:v28];
             v30 = [dictionary objectForKeyedSubscript:v28];
             if (!v30 || [v29 compare:v30] == 1)
@@ -296,7 +294,7 @@ LABEL_14:
             }
           }
 
-          v25 = [v24 countByEnumeratingWithState:&v42 objects:v47 count:16];
+          v25 = [v24 countByEnumeratingWithState:&v41 objects:v46 count:16];
         }
 
         while (v25);
@@ -306,7 +304,7 @@ LABEL_14:
       selfCopy2 = self;
     }
 
-    v40 = 0;
+    v39 = 0;
 LABEL_25:
     v31 = [SCMLVideoAnalysisResult alloc];
     sensitiveFrameCount2 = [(SCMLVideoFrameProcessor *)self sensitiveFrameCount];
@@ -316,8 +314,6 @@ LABEL_25:
 
     result4 = [(SCMLVideoFrameProcessor *)self result];
   }
-
-  v35 = *MEMORY[0x1E69E9840];
 
   return result4;
 }

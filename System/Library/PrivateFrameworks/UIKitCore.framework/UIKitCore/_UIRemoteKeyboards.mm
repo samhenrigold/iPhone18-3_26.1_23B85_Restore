@@ -145,7 +145,7 @@
 
 + (BOOL)enabled
 {
-  if ((_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference__UIRemoteKeyboardsEnabled, @"_UIRemoteKeyboardsEnabled") & 1) != 0 || byte_1ED48B31C)
+  if (_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference__UIRemoteKeyboardsEnabled, @"_UIRemoteKeyboardsEnabled") || byte_1ED48B31C)
   {
     v3 = _UIMainBundleIdentifier();
     if ([&unk_1EFE2CD30 containsObject:v3])
@@ -675,9 +675,9 @@ LABEL_6:
 {
   currentState = [(_UIRemoteKeyboards *)self currentState];
   hostBundleIdentifier = [currentState hostBundleIdentifier];
-  v4 = [hostBundleIdentifier isEqualToString:@"com.apple.WritingToolsUIService"];
+  isEqualToString = objc_msgSend_isEqualToString_(hostBundleIdentifier);
 
-  return v4;
+  return isEqualToString;
 }
 
 - (void)toggleSuppressionForWritingToolIfNeeded
@@ -692,7 +692,7 @@ LABEL_6:
     {
       currentState = [(_UIRemoteKeyboards *)self currentState];
       hostBundleIdentifier = [currentState hostBundleIdentifier];
-      if ([hostBundleIdentifier isEqualToString:@"com.apple.WritingToolsUIService"])
+      if (objc_msgSend_isEqualToString_(hostBundleIdentifier))
       {
 
         goto LABEL_6;
@@ -700,9 +700,9 @@ LABEL_6:
 
       currentState2 = [(_UIRemoteKeyboards *)self currentState];
       sourceBundleIdentifier = [currentState2 sourceBundleIdentifier];
-      v9 = [sourceBundleIdentifier isEqualToString:@"com.apple.WritingToolsUIService"];
+      isEqualToString = objc_msgSend_isEqualToString_(sourceBundleIdentifier);
 
-      if (v9)
+      if (isEqualToString)
       {
 LABEL_6:
         v10 = _UIArbiterClientLog();
@@ -838,7 +838,7 @@ LABEL_20:
   v9 = 0;
   if (scene)
   {
-    if (self->_deactivatedByControlCenter || self->_deactivatedBySystemAlert || (keyboardSceneIdentifierEnteringForeground = self->_keyboardSceneIdentifierEnteringForeground, [scene _sceneIdentifier], v6 = objc_claimAutoreleasedReturnValue(), LOBYTE(keyboardSceneIdentifierEnteringForeground) = -[NSString isEqualToString:](keyboardSceneIdentifierEnteringForeground, "isEqualToString:", v6), v6, (keyboardSceneIdentifierEnteringForeground & 1) != 0) || !objc_msgSend(scene, "activationState") || objc_msgSend(scene, "activationState") == 1 && (-[_UIRemoteKeyboards currentState](self, "currentState"), v7 = objc_claimAutoreleasedReturnValue(), v8 = objc_msgSend(v7, "keyboardOnScreen"), v7, v8) && ((objc_msgSend(scene, "_canDynamicallySpecifySupportedInterfaceOrientations") & 1) != 0 || (+[UIKeyboardSceneDelegate activeKeyboardSceneDelegate](UIKeyboardSceneDelegate, "activeKeyboardSceneDelegate"), v10 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v10, "visualModeManager"), v11 = objc_claimAutoreleasedReturnValue(), v12 = objc_msgSend(v11, "windowingModeEnabled"), v11, v10, objc_msgSend(scene, "_coordinateSpace"), v13 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v13, "bounds"), v15 = v14, v17 = v16, v13, objc_msgSend(scene, "screen"), v18 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v18, "bounds"), v20 = v19, v22 = v21, v18, (v12 & 1) == 0) && v15 == v20 && v17 == v22))
+    if (self->_deactivatedByControlCenter || self->_deactivatedBySystemAlert || (keyboardSceneIdentifierEnteringForeground = self->_keyboardSceneIdentifierEnteringForeground, [scene _sceneIdentifier], v6 = objc_claimAutoreleasedReturnValue(), LOBYTE(keyboardSceneIdentifierEnteringForeground) = objc_msgSend_isEqualToString_(keyboardSceneIdentifierEnteringForeground), v6, (keyboardSceneIdentifierEnteringForeground & 1) != 0) || !objc_msgSend(scene, "activationState") || objc_msgSend(scene, "activationState") == 1 && (-[_UIRemoteKeyboards currentState](self, "currentState"), v7 = objc_claimAutoreleasedReturnValue(), v8 = objc_msgSend(v7, "keyboardOnScreen"), v7, v8) && ((objc_msgSend(scene, "_canDynamicallySpecifySupportedInterfaceOrientations") & 1) != 0 || (+[UIKeyboardSceneDelegate activeKeyboardSceneDelegate](UIKeyboardSceneDelegate, "activeKeyboardSceneDelegate"), v10 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v10, "visualModeManager"), v11 = objc_claimAutoreleasedReturnValue(), v12 = objc_msgSend(v11, "windowingModeEnabled"), v11, v10, objc_msgSend(scene, "_coordinateSpace"), v13 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v13, "bounds"), v15 = v14, v17 = v16, v13, objc_msgSend(scene, "screen"), v18 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v18, "bounds"), v20 = v19, v22 = v21, v18, (v12 & 1) == 0) && v15 == v20 && v17 == v22))
     {
       v9 = 1;
     }
@@ -851,7 +851,7 @@ LABEL_20:
 {
   currentState = [(_UIRemoteKeyboards *)self currentState];
   sourceBundleIdentifier = [currentState sourceBundleIdentifier];
-  if ([sourceBundleIdentifier isEqualToString:@"com.apple.siri"])
+  if (objc_msgSend_isEqualToString_(sourceBundleIdentifier))
   {
   }
 
@@ -1009,11 +1009,11 @@ LABEL_20:
     scene2 = [v15 scene];
     _FBSScene2 = [scene2 _FBSScene];
     hostHandle = [_FBSScene2 hostHandle];
-    auditToken = [hostHandle auditToken];
+    v19 = objc_msgSend_auditToken(hostHandle);
 
-    if (auditToken)
+    if (v19)
     {
-      [auditToken realToken];
+      objc_msgSend_realToken(v19);
     }
 
     else
@@ -1027,7 +1027,7 @@ LABEL_20:
       v21 = v20;
       v22 = SecTaskCopySigningIdentifier(v20, 0);
       CFRelease(v21);
-      if ([(__CFString *)v22 isEqualToString:@"com.apple.InputUI"])
+      if (objc_msgSend_isEqualToString_(v22))
       {
         [changedCopy setHostBundleIdentifier:v22];
       }
@@ -1187,24 +1187,24 @@ LABEL_20:
   if (+[UIKeyboard usesInputSystemUIForAutoFillOnly])
   {
     sourceBundleIdentifier = [panelCopy sourceBundleIdentifier];
-    if ([sourceBundleIdentifier isEqualToString:@"com.apple.InputUI"])
+    if (objc_msgSend_isEqualToString_(sourceBundleIdentifier))
     {
-      v5 = 1;
+      isEqualToString = 1;
     }
 
     else
     {
       hostBundleIdentifier = [panelCopy hostBundleIdentifier];
-      v5 = [hostBundleIdentifier isEqualToString:@"com.apple.InputUI"];
+      isEqualToString = objc_msgSend_isEqualToString_(hostBundleIdentifier);
     }
   }
 
   else
   {
-    v5 = 0;
+    isEqualToString = 0;
   }
 
-  return v5;
+  return isEqualToString;
 }
 
 - (BOOL)didHandleKeyboardChange:(id)change shouldConsiderSnapshottingKeyboard:(BOOL)keyboard isLocalEvent:(BOOL)event
@@ -1273,7 +1273,7 @@ LABEL_20:
   hardwareKeyboardExclusivityIdentifier = [v15 hardwareKeyboardExclusivityIdentifier];
 
   sourceBundleIdentifier = [v14 sourceBundleIdentifier];
-  if ([sourceBundleIdentifier isEqualToString:@"com.apple.Spotlight"])
+  if (objc_msgSend_isEqualToString_(sourceBundleIdentifier))
   {
     v18 = (hardwareKeyboardExclusivityIdentifier == 0) ^ [v14 isOneness];
   }
@@ -1284,21 +1284,21 @@ LABEL_20:
   }
 
   sourceBundleIdentifier2 = [v14 sourceBundleIdentifier];
-  if ([sourceBundleIdentifier2 isEqualToString:@"com.apple.CoreAuthUI"])
+  if (objc_msgSend_isEqualToString_(sourceBundleIdentifier2))
   {
-    v82 = 1;
+    isEqualToString = 1;
   }
 
   else
   {
-    v82 = [sourceBundleIdentifier2 isEqualToString:@"com.apple.LocalAuthenticationUIService"];
+    isEqualToString = objc_msgSend_isEqualToString_(sourceBundleIdentifier2);
   }
 
   sourceBundleIdentifier3 = [v14 sourceBundleIdentifier];
-  v21 = [sourceBundleIdentifier3 isEqualToString:@"com.apple.WebSheet"];
+  v21 = objc_msgSend_isEqualToString_(sourceBundleIdentifier3);
 
   sourceBundleIdentifier4 = [v14 sourceBundleIdentifier];
-  v23 = [sourceBundleIdentifier4 isEqualToString:@"com.apple.siri"];
+  v23 = objc_msgSend_isEqualToString_(sourceBundleIdentifier4);
 
   ignoredSceneIdentityTokenStringSet = self->_ignoredSceneIdentityTokenStringSet;
   sourceSceneIdentityString = [v14 sourceSceneIdentityString];
@@ -1332,12 +1332,12 @@ LABEL_20:
 LABEL_20:
   }
 
-  if (*(v106 + 24) != 1 || (-[_UIRemoteKeyboards currentState](self, "currentState"), v32 = objc_claimAutoreleasedReturnValue(), [v32 sourceBundleIdentifier], v33 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v14, "sourceBundleIdentifier"), v34 = objc_claimAutoreleasedReturnValue(), v35 = objc_msgSend(v33, "isEqualToString:", v34), v34, v33, v32, (v35 & 1) == 0))
+  if (*(v106 + 24) != 1 || (-[_UIRemoteKeyboards currentState](self, "currentState"), v32 = objc_claimAutoreleasedReturnValue(), [v32 sourceBundleIdentifier], v33 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v14, "sourceBundleIdentifier"), v34 = objc_claimAutoreleasedReturnValue(), v35 = objc_msgSend_isEqualToString_(v33), v34, v33, v32, (v35 & 1) == 0))
   {
     currentState2 = [(_UIRemoteKeyboards *)self currentState];
     sourceBundleIdentifier5 = [currentState2 sourceBundleIdentifier];
     v38 = _UIMainBundleIdentifier();
-    v39 = [sourceBundleIdentifier5 isEqualToString:v38];
+    v39 = objc_msgSend_isEqualToString_(sourceBundleIdentifier5);
 
     if (v39)
     {
@@ -1350,7 +1350,7 @@ LABEL_20:
 
   if ([(_UIRemoteKeyboards *)self currentKeyboard])
   {
-    v41 = *(v106 + 24) | v18 | v82 | v21 | v23;
+    v41 = *(v106 + 24) | v18 | isEqualToString | v21 | v23;
   }
 
   else
@@ -1409,7 +1409,7 @@ LABEL_20:
   {
     yieldingKeyboardToIgnoredScene2 = [(_UIRemoteKeyboards *)self yieldingKeyboardToIgnoredScene];
     sourceSceneIdentityString3 = [v14 sourceSceneIdentityString];
-    v50 = [yieldingKeyboardToIgnoredScene2 isEqualToString:sourceSceneIdentityString3];
+    v50 = objc_msgSend_isEqualToString_(yieldingKeyboardToIgnoredScene2);
 
     if (v50 && ([v14 keyboardOnScreen] & 1) == 0)
     {
@@ -1464,7 +1464,7 @@ LABEL_20:
 
   v58 = [(_UIRemoteKeyboards *)self isShowingModalAutofillPanel:v14];
   v59 = v58;
-  if (*(v116 + 24) != 1 || ((*(v106 + 24) | v18 | v82 | v21 | v23 | v26 | v58) & 1) != 0)
+  if (*(v116 + 24) != 1 || ((*(v106 + 24) | v18 | isEqualToString | v21 | v23 | v26 | v58) & 1) != 0)
   {
     self->_updatingHeight = 1;
     [(_UIRemoteKeyboards *)self performOnControllers:&__block_literal_global_469];
@@ -1478,7 +1478,7 @@ LABEL_20:
       v60 = 0;
     }
 
-    if (v82)
+    if (isEqualToString)
     {
       v61 = [UIApp _isSpringBoard] ^ 1;
       if (!v21)
@@ -2001,9 +2001,9 @@ LABEL_29:
   takingSnapshot = self->_takingSnapshot;
   self->_takingSnapshot = snapshotting;
   v6 = _UIMainBundleIdentifier();
-  v7 = [v6 isEqualToString:@"com.apple.Spotlight"];
+  isEqualToString = objc_msgSend_isEqualToString_(v6);
 
-  if ((v7 & 1) == 0)
+  if ((isEqualToString & 1) == 0)
   {
     [(_UIRemoteKeyboards *)self reloadForSnapshotting];
   }
@@ -2626,7 +2626,7 @@ LABEL_14:
   keyboardSceneIdentifierEnteringForeground = self->_keyboardSceneIdentifierEnteringForeground;
   v8 = object;
   _sceneIdentifier = [object _sceneIdentifier];
-  LODWORD(keyboardSceneIdentifierEnteringForeground) = [(NSString *)keyboardSceneIdentifierEnteringForeground isEqualToString:_sceneIdentifier];
+  LODWORD(keyboardSceneIdentifierEnteringForeground) = objc_msgSend_isEqualToString_(keyboardSceneIdentifierEnteringForeground);
 
   if (keyboardSceneIdentifierEnteringForeground)
   {
@@ -2877,7 +2877,7 @@ LABEL_73:
       [currentState5 setSourceDisplayIdentifier:_nameForDisplayType];
 
       v110 = _UIMainBundleIdentifier();
-      LODWORD(displayConfiguration) = [v110 isEqualToString:@"com.apple.Spotlight"];
+      LODWORD(displayConfiguration) = objc_msgSend_isEqualToString_(v110);
 
       currentState6 = [(_UIRemoteKeyboards *)self currentState];
       [currentState6 setShouldTakeSnapshot:displayConfiguration ^ 1];
@@ -3803,7 +3803,7 @@ LABEL_128:
       currentUIState = [keyboardArbiterClient currentUIState];
       bundleIdentifier = [currentUIState bundleIdentifier];
       v18 = _UIMainBundleIdentifier();
-      if (([bundleIdentifier isEqualToString:v18] & 1) == 0)
+      if ((objc_msgSend_isEqualToString_(bundleIdentifier) & 1) == 0)
       {
 
         goto LABEL_9;
@@ -3873,7 +3873,7 @@ LABEL_11:
 
   keyboardArbiterClient = _UIMainBundleIdentifier();
   v32 = v10;
-  if ([keyboardArbiterClient isEqualToString:@"com.apple.Spotlight"] & 1) != 0 || (objc_msgSend(UIApp, "_isSpringBoard"))
+  if (objc_msgSend_isEqualToString_(keyboardArbiterClient) & 1) != 0 || ([UIApp _isSpringBoard])
   {
     v33 = 0;
   }
@@ -3882,7 +3882,7 @@ LABEL_11:
   {
     currentUIState = [currentClientState sourceBundleIdentifier];
     height = 0.0;
-    if ([currentUIState isEqualToString:@"com.apple.Spotlight"])
+    if (objc_msgSend_isEqualToString_(currentUIState))
     {
 LABEL_91:
 
@@ -3897,14 +3897,14 @@ LABEL_92:
 
   v34 = _UIMainBundleIdentifier();
   outCopy2 = out;
-  if ([v34 isEqualToString:@"com.apple.CoreAuthUI"] & 1) != 0 || (objc_msgSend(v34, "isEqualToString:", @"com.apple.LocalAuthenticationUIService") & 1) != 0 || (objc_msgSend(UIApp, "_isSpringBoard"))
+  if (objc_msgSend_isEqualToString_(v34) & 1) != 0 || (objc_msgSend_isEqualToString_(v34) & 1) != 0 || ([UIApp _isSpringBoard])
   {
     v35 = 0;
     goto LABEL_20;
   }
 
   sourceBundleIdentifier = [currentClientState sourceBundleIdentifier];
-  if ([sourceBundleIdentifier isEqualToString:@"com.apple.CoreAuthUI"])
+  if (objc_msgSend_isEqualToString_(sourceBundleIdentifier))
   {
 
     height = 0.0;
@@ -3917,9 +3917,9 @@ LABEL_92:
     goto LABEL_91;
   }
 
-  v65 = [sourceBundleIdentifier isEqualToString:@"com.apple.LocalAuthenticationUIService"];
+  isEqualToString = objc_msgSend_isEqualToString_(sourceBundleIdentifier);
   v66 = sourceBundleIdentifier;
-  currentUIState2 = v65;
+  currentUIState2 = isEqualToString;
   v102 = v66;
 
   v35 = 1;
@@ -3931,7 +3931,7 @@ LABEL_20:
     v110 = v33;
     rect = self;
     v36 = _UIMainBundleIdentifier();
-    if ([v36 isEqualToString:@"com.apple.WebSheet"] & 1) != 0 || (objc_msgSend(UIApp, "_isSpringBoard"))
+    if (objc_msgSend_isEqualToString_(v36) & 1) != 0 || ([UIApp _isSpringBoard])
     {
       v37 = 0;
     }
@@ -3940,7 +3940,7 @@ LABEL_20:
     {
       currentUIState2 = [currentClientState sourceBundleIdentifier];
       v37 = 1;
-      if ([currentUIState2 isEqualToString:@"com.apple.WebSheet"])
+      if (objc_msgSend_isEqualToString_(currentUIState2))
       {
         goto LABEL_33;
       }
@@ -3957,7 +3957,7 @@ LABEL_20:
       screen = [v40 screen];
       displayConfiguration = [screen displayConfiguration];
       _nameForDisplayType = [displayConfiguration _nameForDisplayType];
-      v45 = [v41 isEqual:_nameForDisplayType];
+      isEqual = objc_msgSend_isEqual_(v41);
 
       if (!v37)
       {
@@ -3973,7 +3973,7 @@ LABEL_20:
         {
         }
 
-        if (v45)
+        if (isEqual)
         {
           goto LABEL_39;
         }
@@ -3981,7 +3981,7 @@ LABEL_20:
         goto LABEL_93;
       }
 
-      LOBYTE(v37) = v45 ^ 1;
+      LOBYTE(v37) = isEqual ^ 1;
       sceneCopy = v101;
       offsetCopy = v100;
       currentUIState2 = v99;
@@ -4572,7 +4572,7 @@ LABEL_24:
 
     else
     {
-      if (event != 3 || ![@"Placement" isEqualToString:transitionCopy])
+      if (event != 3 || !objc_msgSend_isEqualToString_(@"Placement"))
       {
         goto LABEL_13;
       }
@@ -4938,7 +4938,7 @@ LABEL_20:
   v22 = *MEMORY[0x1E69E9840];
   appCopy = app;
   completionCopy = completion;
-  if (appCopy && ![appCopy isEqualToString:&stru_1EFB14550])
+  if (appCopy && !objc_msgSend_isEqualToString_(appCopy))
   {
     focusedSceneIdentityStringOrIdentifier = 0;
   }
@@ -5368,7 +5368,7 @@ LABEL_40:
             v12 = [_UIRemoteKeyboards keyboardWindowSceneForScreen:screen create:0];
             session = [v6 session];
             role = [session role];
-            v15 = [role isEqualToString:@"UIWindowSceneSessionRoleExternalDisplayNonInteractive"];
+            isEqualToString = objc_msgSend_isEqualToString_(role);
 
             activationState = [v6 activationState];
             activationState2 = [v6 activationState];
@@ -5376,10 +5376,10 @@ LABEL_40:
             {
               if (activationState != 1 && activationState2 != 0)
               {
-                v15 = 1;
+                isEqualToString = 1;
               }
 
-              if (v15)
+              if (isEqualToString)
               {
                 goto LABEL_34;
               }
@@ -5627,15 +5627,15 @@ LABEL_19:
   sourceBundleIdentifier = [currentState sourceBundleIdentifier];
   if (([bundlesThatShouldNotPreventRestoration containsObject:sourceBundleIdentifier] & 1) != 0 || v5 | !-[_UIRemoteKeyboards keyboardVisible](self, "keyboardVisible"))
   {
-    v10 = 1;
+    isEqual = 1;
   }
 
   else
   {
-    v10 = [idCopy isEqual:@"remote-keyboards"];
+    isEqual = objc_msgSend_isEqual_(idCopy);
   }
 
-  return v10;
+  return isEqual;
 }
 
 - (void)applicationWillAddDeactivationReason:(id)reason
@@ -5684,7 +5684,7 @@ LABEL_8:
   currentState = [(_UIRemoteKeyboards *)self currentState];
   hostBundleIdentifier = [currentState hostBundleIdentifier];
   v11 = _UIMainBundleIdentifier();
-  if ([hostBundleIdentifier isEqualToString:v11])
+  if (objc_msgSend_isEqualToString_(hostBundleIdentifier))
   {
 
 LABEL_9:
@@ -5769,9 +5769,9 @@ LABEL_11:
     if (!self->_deactivatedByControlCenter)
     {
       v4 = _UIMainBundleIdentifier();
-      v5 = [v4 isEqualToString:@"com.apple.Spotlight"];
+      isEqualToString = objc_msgSend_isEqualToString_(v4);
 
-      if ((v5 & 1) == 0)
+      if ((isEqualToString & 1) == 0)
       {
         currentState = [(_UIRemoteKeyboards *)self currentState];
         v7 = [currentState copyWithIntersectability:0];
@@ -5828,7 +5828,7 @@ LABEL_11:
 - (void)setEnableMultiscreenHack:(BOOL)hack
 {
   v10 = _UIMainBundleIdentifier();
-  if (([v10 isEqualToString:@"com.apple.mobilenotes"] & 1) == 0 && (objc_msgSend(v10, "isEqualToString:", @"com.apple.sidecar.extension.display") & 1) == 0)
+  if ((objc_msgSend_isEqualToString_(v10) & 1) == 0 && (objc_msgSend_isEqualToString_(v10) & 1) == 0)
   {
     v6 = MEMORY[0x1E695DF30];
     v7 = *MEMORY[0x1E695D930];
@@ -5849,44 +5849,44 @@ LABEL_11:
 
   sourceBundleIdentifier = [(_UIKeyboardChangedInformation *)self->_currentState sourceBundleIdentifier];
   v4 = _UIMainBundleIdentifier();
-  if ([sourceBundleIdentifier isEqualToString:v4])
+  if (objc_msgSend_isEqualToString_(sourceBundleIdentifier))
   {
-    v5 = 0;
+    isEqualToString = 0;
   }
 
   else
   {
     sourceBundleIdentifier2 = [(_UIKeyboardChangedInformation *)self->_currentState sourceBundleIdentifier];
-    if ([sourceBundleIdentifier2 isEqualToString:@"com.apple.Spotlight"])
+    if (objc_msgSend_isEqualToString_(sourceBundleIdentifier2))
     {
-      v5 = 1;
+      isEqualToString = 1;
     }
 
     else
     {
       sourceBundleIdentifier3 = [(_UIKeyboardChangedInformation *)self->_currentState sourceBundleIdentifier];
-      if ([sourceBundleIdentifier3 isEqualToString:@"com.apple.siri"])
+      if (objc_msgSend_isEqualToString_(sourceBundleIdentifier3))
       {
-        v5 = 1;
+        isEqualToString = 1;
       }
 
       else
       {
         sourceBundleIdentifier4 = [(_UIKeyboardChangedInformation *)self->_currentState sourceBundleIdentifier];
-        if ([sourceBundleIdentifier4 isEqualToString:@"com.apple.CoreAuthUI"])
+        if (objc_msgSend_isEqualToString_(sourceBundleIdentifier4))
         {
-          v5 = 1;
+          isEqualToString = 1;
         }
 
         else
         {
-          v5 = [sourceBundleIdentifier4 isEqualToString:@"com.apple.LocalAuthenticationUIService"];
+          isEqualToString = objc_msgSend_isEqualToString_(sourceBundleIdentifier4);
         }
       }
     }
   }
 
-  return v5;
+  return isEqualToString;
 }
 
 - (void)startTransition:(id)transition withInfo:(id)info

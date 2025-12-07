@@ -1,4 +1,4 @@
-void sub_25906C080(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, void *a25, uint64_t a26, int a27, __int16 a28, char a29, char a30, void *__p, uint64_t a32, int a33, __int16 a34, char a35, char a36, void *a37, uint64_t a38, uint64_t a39, pthread_mutex_t *a40, uint64_t a41, uint64_t a42, void *a43, uint64_t a44, int a45, __int16 a46, char a47, char a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, char a60)
+void sub_25906C080(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, void *a25, uint64_t a26, int a27, __int16 a28, char a29, char a30, void *__p, uint64_t a32, int a33, __int16 a34, char a35, char a36, void *a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, void *a43, uint64_t a44, int a45, __int16 a46, char a47, char a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, char a60)
 {
   if (a36 < 0)
   {
@@ -22,26 +22,26 @@ void sub_25906C080(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void CLSqliteDatabase::initUUID(CLSqliteDatabase *this)
 {
-  v64 = *MEMORY[0x277D85DE8];
-  v49 = "id";
+  v63 = *MEMORY[0x277D85DE8];
+  v48 = "id";
+  v49 = 1;
   v50 = 1;
-  v51 = 1;
+  v51 = 0;
   v52 = 0;
-  v53 = 0;
-  v54 = "uuid";
-  v55 = 3;
+  v53 = "uuid";
+  v54 = 3;
+  v55 = 0;
   v56 = 0;
   v57 = 0;
   v58 = 0;
-  v59 = 0;
-  v60 = 5;
+  v59 = 5;
+  v60 = 0;
   v61 = 0;
   v62 = 0;
-  v63 = 0;
-  v48[0] = "uuid";
-  v48[1] = 0;
-  CLSqliteDatabase::createTableIfNecessary(this, "DatabaseIdentifier", &v49, v48);
-  memset(&v42, 0, sizeof(v42));
+  v47[0] = "uuid";
+  v47[1] = 0;
+  CLSqliteDatabase::createTableIfNecessary(this, "DatabaseIdentifier", &v48, v47);
+  memset(&v41, 0, sizeof(v41));
   v2 = CLSqliteDatabase::prepareStatementNoCache(this, "SELECT * FROM DatabaseIdentifier;");
   v3 = v2;
   if (v2)
@@ -49,16 +49,16 @@ void CLSqliteDatabase::initUUID(CLSqliteDatabase *this)
     if (sqlite3_step(v2) == 100)
     {
       v5 = sqlite3_column_text(v3, 1);
-      std::string::__assign_external(&v42, v5);
+      std::string::__assign_external(&v41, v5);
       v6 = objc_alloc(MEMORY[0x277CCACA8]);
-      if ((v42.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+      if ((v41.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
       {
-        v7 = &v42;
+        v7 = &v41;
       }
 
       else
       {
-        v7 = v42.__r_.__value_.__r.__words[0];
+        v7 = v41.__r_.__value_.__r.__words[0];
       }
 
       v8 = [v6 initWithUTF8String:v7];
@@ -89,10 +89,10 @@ void CLSqliteDatabase::initUUID(CLSqliteDatabase *this)
           p_p = __p.__r_.__value_.__r.__words[0];
         }
 
-        v13 = &v42;
-        if ((v42.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+        v13 = &v41;
+        if ((v41.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
         {
-          v13 = v42.__r_.__value_.__r.__words[0];
+          v13 = v41.__r_.__value_.__r.__words[0];
         }
 
         LODWORD(buf.__r_.__value_.__l.__data_) = 136315395;
@@ -113,18 +113,18 @@ void CLSqliteDatabase::initUUID(CLSqliteDatabase *this)
       v14 = [MEMORY[0x277CCAD78] UUID];
       v15 = [v14 UUIDString];
       v16 = v15;
-      std::string::__assign_external(&v42, [v15 UTF8String]);
+      std::string::__assign_external(&v41, [v15 UTF8String]);
 
       std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](&__p);
       v17 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&__p.__r_.__value_.__r.__words[2], "INSERT INTO DatabaseIdentifier (uuid) VALUES (", 47);
-      if ((v42.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+      if ((v41.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
       {
-        v18 = &v42;
+        v18 = &v41;
       }
 
       else
       {
-        v18 = v42.__r_.__value_.__r.__words[0];
+        v18 = v41.__r_.__value_.__r.__words[0];
       }
 
       v19 = strlen(v18);
@@ -182,16 +182,16 @@ LABEL_32:
               v32 = buf.__r_.__value_.__r.__words[0];
             }
 
-            v33 = &v42;
-            if ((v42.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+            v33 = &v41;
+            if ((v41.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
             {
-              v33 = v42.__r_.__value_.__r.__words[0];
+              v33 = v41.__r_.__value_.__r.__words[0];
             }
 
-            *v43 = 136315395;
-            v44 = v32;
-            v45 = 2081;
-            v46 = v33;
+            *v42 = 136315395;
+            v43 = v32;
+            v44 = 2081;
+            v45 = v33;
             v29 = "UUID initialized. path: %s, uuid: %{private}s";
             v30 = v26;
             v31 = 22;
@@ -226,14 +226,14 @@ LABEL_32:
               v28 = buf.__r_.__value_.__r.__words[0];
             }
 
-            *v43 = 136315138;
-            v44 = v28;
+            *v42 = 136315138;
+            v43 = v28;
             v29 = "Failed to initialize DB UUID. path: %s";
             v30 = v26;
             v31 = 12;
           }
 
-          _os_log_impl(&dword_258FE9000, v30, OS_LOG_TYPE_DEFAULT, v29, v43, v31);
+          _os_log_impl(&dword_258FE9000, v30, OS_LOG_TYPE_DEFAULT, v29, v42, v31);
           if (SHIBYTE(buf.__r_.__value_.__r.__words[2]) < 0)
           {
             operator delete(buf.__r_.__value_.__l.__data_);
@@ -247,16 +247,16 @@ LABEL_61:
           v35 = *(MEMORY[0x277D82818] + 72);
           *(__p.__r_.__value_.__r.__words + *(__p.__r_.__value_.__r.__words[0] - 24)) = *(MEMORY[0x277D82818] + 64);
           __p.__r_.__value_.__r.__words[2] = v35;
-          v38 = MEMORY[0x277D82878] + 16;
-          if (v40 < 0)
+          v37 = MEMORY[0x277D82878] + 16;
+          if (v39 < 0)
           {
-            operator delete(v39[7].__locale_);
+            operator delete(v38[7].__locale_);
           }
 
-          v38 = MEMORY[0x277D82868] + 16;
-          std::locale::~locale(v39);
+          v37 = MEMORY[0x277D82868] + 16;
+          std::locale::~locale(v38);
           std::iostream::~basic_iostream();
-          MEMORY[0x259CA1EE0](&v41);
+          MEMORY[0x259CA1EE0](&v40);
 
           goto LABEL_64;
         }
@@ -299,12 +299,10 @@ LABEL_61:
   }
 
 LABEL_64:
-  if (SHIBYTE(v42.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v41.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v42.__r_.__value_.__l.__data_);
+    operator delete(v41.__r_.__value_.__l.__data_);
   }
-
-  v36 = *MEMORY[0x277D85DE8];
 }
 
 void sub_25906C868(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, void *__p, uint64_t a45, int a46, __int16 a47, char a48, char a49)
@@ -330,7 +328,6 @@ void AutoLocker::~AutoLocker(pthread_mutex_t **this)
 
     else
     {
-      v2 = *this;
       (*((*this)->__sig + 24))();
     }
 
@@ -415,7 +412,7 @@ void sub_25906CAB0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 uint64_t CLSqliteDatabase::createTableIfNecessary(uint64_t a1, char *a2, const char **a3, char **a4)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if (onceToken_MicroLocation_Default != -1)
   {
     _CLLogObjectForCategory_MicroLocation_Default();
@@ -424,22 +421,21 @@ uint64_t CLSqliteDatabase::createTableIfNecessary(uint64_t a1, char *a2, const c
   v8 = logObject_MicroLocation_Default;
   if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 136380675;
-    v12 = a2;
-    _os_log_impl(&dword_258FE9000, v8, OS_LOG_TYPE_DEFAULT, "createTableIfNecessary. table: %{private}s", &v11, 0xCu);
+    v10 = 136380675;
+    v11 = a2;
+    _os_log_impl(&dword_258FE9000, v8, OS_LOG_TYPE_DEFAULT, "createTableIfNecessary. table: %{private}s", &v10, 0xCu);
   }
 
-  result = CLSqliteDatabase::createTableIfNecessary_internal(a1, a2, a3, a4);
-  v10 = *MEMORY[0x277D85DE8];
-  return result;
+  return CLSqliteDatabase::createTableIfNecessary_internal(a1, a2, a3, a4);
 }
 
 CLSqliteDatabase *CLSqliteDatabase::prepareStatementNoCache(CLSqliteDatabase *this, sqlite3 *a2)
 {
   v16 = *MEMORY[0x277D85DE8];
-  if (((*(**(this + 2) + 32))(*(this + 2)) & 1) == 0)
+  v5 = (*(**(this + 2) + 32))(*(this + 2));
+  if ((v5 & 1) == 0)
   {
-    CLSqliteDatabase::prepareStatementNoCache();
+    CLSqliteDatabase::prepareStatementNoCache(v5);
 LABEL_15:
     _CLLogObjectForCategory_MicroLocation_Default();
     goto LABEL_4;
@@ -447,8 +443,7 @@ LABEL_15:
 
   if (!*(this + 1))
   {
-    v8 = 0;
-    goto LABEL_13;
+    return 0;
   }
 
   v2 = &unk_281455000;
@@ -458,44 +453,42 @@ LABEL_15:
   }
 
 LABEL_4:
-  v5 = logObject_MicroLocation_Default;
+  v6 = logObject_MicroLocation_Default;
   if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_DEBUG))
   {
-    v7 = (this + 88);
+    v8 = (this + 88);
     if (*(this + 111) < 0)
     {
-      v7 = *v7;
+      v8 = *v8;
     }
 
     v12 = 136380931;
     v13 = a2;
     v14 = 2080;
-    v15 = v7;
-    _os_log_impl(&dword_258FE9000, v5, OS_LOG_TYPE_DEBUG, "Preparing statement for database. query: %{private}s, path: %s", &v12, 0x16u);
+    v15 = v8;
+    _os_log_impl(&dword_258FE9000, v6, OS_LOG_TYPE_DEBUG, "Preparing statement for database. query: %{private}s, path: %s", &v12, 0x16u);
   }
 
-  v8 = CLSqliteDatabase::prepareStatement(*(this + 1), a2, v6);
+  v9 = CLSqliteDatabase::prepareStatement(*(this + 1), a2, v7);
   if (v2[141] != -1)
   {
     CLSqliteDatabase::init();
   }
 
-  v9 = logObject_MicroLocation_Default;
+  v10 = logObject_MicroLocation_Default;
   if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_DEBUG))
   {
     v12 = 134217984;
-    v13 = v8;
-    _os_log_impl(&dword_258FE9000, v9, OS_LOG_TYPE_DEBUG, "Prepared statement. statement: %p", &v12, 0xCu);
+    v13 = v9;
+    _os_log_impl(&dword_258FE9000, v10, OS_LOG_TYPE_DEBUG, "Prepared statement. statement: %p", &v12, 0xCu);
   }
 
-LABEL_13:
-  v10 = *MEMORY[0x277D85DE8];
-  return v8;
+  return v9;
 }
 
 void CLSqliteDatabase::finalizeStatement(CLSqliteDatabase *this, sqlite3 *pStmt, sqlite3_stmt *a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v4 = sqlite3_finalize(pStmt);
   if (v4)
   {
@@ -518,20 +511,18 @@ void CLSqliteDatabase::finalizeStatement(CLSqliteDatabase *this, sqlite3 *pStmt,
         v7 = "no database";
       }
 
-      v9[0] = 67109379;
-      v9[1] = v5;
-      v10 = 2081;
-      v11 = v7;
-      _os_log_impl(&dword_258FE9000, v6, OS_LOG_TYPE_DEFAULT, "#warning Finalized statement previously failed. sqlite_rc: %d, errmsg: %{private}s", v9, 0x12u);
+      v8[0] = 67109379;
+      v8[1] = v5;
+      v9 = 2081;
+      v10 = v7;
+      _os_log_impl(&dword_258FE9000, v6, OS_LOG_TYPE_DEFAULT, "#warning Finalized statement previously failed. sqlite_rc: %d, errmsg: %{private}s", v8, 0x12u);
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void CLSqliteDatabase::displaySqlResult(CLSqliteDatabase *this, const char *a2, int a3, sqlite3_stmt *a4)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   if (a3 <= 0x1Au && ((1 << a3) & 0x4004C00) != 0)
   {
     if (onceToken_MicroLocation_Default != -1)
@@ -553,19 +544,19 @@ void CLSqliteDatabase::displaySqlResult(CLSqliteDatabase *this, const char *a2, 
         v9 = 0;
       }
 
-      v16 = 136315907;
-      v17 = a2;
-      v18 = 1024;
-      v19 = v8;
-      v20 = 1024;
-      v21 = a3;
-      v22 = 2081;
-      v23 = v9;
+      v15 = 136315907;
+      v16 = a2;
+      v17 = 1024;
+      v18 = v8;
+      v19 = 1024;
+      v20 = a3;
+      v21 = 2081;
+      v22 = v9;
       v12 = "displaySqlResult. function: %s, errno: %d, sqlite_rc: %d, query: %{private}s";
       v13 = v7;
       v14 = OS_LOG_TYPE_FAULT;
 LABEL_15:
-      _os_log_impl(&dword_258FE9000, v13, v14, v12, &v16, 0x22u);
+      _os_log_impl(&dword_258FE9000, v13, v14, v12, &v15, 0x22u);
     }
   }
 
@@ -590,22 +581,20 @@ LABEL_15:
         v11 = 0;
       }
 
-      v16 = 136315907;
-      v17 = a2;
-      v18 = 1024;
-      v19 = v10;
-      v20 = 1024;
-      v21 = a3;
-      v22 = 2081;
-      v23 = v11;
+      v15 = 136315907;
+      v16 = a2;
+      v17 = 1024;
+      v18 = v10;
+      v19 = 1024;
+      v20 = a3;
+      v21 = 2081;
+      v22 = v11;
       v12 = "#warning displaySqlResult. function: %s, errno: %d, sqlite_rc: %d, query: %{private}s";
       v13 = v7;
       v14 = OS_LOG_TYPE_DEFAULT;
       goto LABEL_15;
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t CLSqliteDatabase::getElementCreateStatement@<X0>(CLSqliteDatabase *this@<X0>, char *a2@<X1>, char *a3@<X2>, void *a4@<X8>)
@@ -696,121 +685,118 @@ void sub_25906D3BC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void CLSqliteDatabase::handleSqlError(sqlite3 *a1, uint64_t a2, int a3, int a4)
+void CLSqliteDatabase::handleSqlError(sqlite3 *a1, uint64_t *a2, int a3, int a4)
 {
-  v24 = *MEMORY[0x277D85DE8];
-  if (a4 != 26 && a4 != 11)
+  v26 = *MEMORY[0x277D85DE8];
+  if (a4 == 26 || a4 == 11)
   {
-LABEL_14:
-    v9 = *MEMORY[0x277D85DE8];
-    return;
-  }
-
-  if (a3)
-  {
-    if (onceToken_MicroLocation_Default != -1)
+    if (a3)
     {
-      _CLLogObjectForCategory_MicroLocation_Default();
-    }
-
-    v7 = logObject_MicroLocation_Default;
-    if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_FAULT))
-    {
-      if (*(a2 + 23) >= 0)
+      if (onceToken_MicroLocation_Default != -1)
       {
-        v8 = a2;
+        _CLLogObjectForCategory_MicroLocation_Default();
       }
 
-      else
+      v7 = logObject_MicroLocation_Default;
+      if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_FAULT))
       {
-        v8 = *a2;
+        if (*(a2 + 23) >= 0)
+        {
+          v8 = a2;
+        }
+
+        else
+        {
+          v8 = *a2;
+        }
+
+        *buf = 136315394;
+        *v21 = v8;
+        *&v21[8] = 1024;
+        *&v21[10] = a4;
+        _os_log_impl(&dword_258FE9000, v7, OS_LOG_TYPE_FAULT, "handleSqlError on read-only db. path: %s, sqlite_rc: %d", buf, 0x12u);
       }
-
-      *buf = 136315394;
-      *v19 = v8;
-      *&v19[8] = 1024;
-      *&v19[10] = a4;
-      _os_log_impl(&dword_258FE9000, v7, OS_LOG_TYPE_FAULT, "handleSqlError on read-only db. path: %s, sqlite_rc: %d", buf, 0x12u);
-    }
-
-    goto LABEL_14;
-  }
-
-  v10 = _CLLogObjectForCategory_MicroLocation_Default();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
-  {
-    if (*(a2 + 23) >= 0)
-    {
-      v11 = a2;
     }
 
     else
     {
-      v11 = *a2;
+      v9 = _CLLogObjectForCategory_MicroLocation_Default(a1);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
+      {
+        if (*(a2 + 23) >= 0)
+        {
+          v10 = a2;
+        }
+
+        else
+        {
+          v10 = *a2;
+        }
+
+        *buf = 136315394;
+        *v21 = v10;
+        *&v21[8] = 1024;
+        *&v21[10] = a4;
+        _os_log_impl(&dword_258FE9000, v9, OS_LOG_TYPE_FAULT, "database error; deleting and exiting. path: %s, sqlite_rc: %d", buf, 0x12u);
+      }
+
+      CLSqliteDatabase::deleteDatabase(a1, a2);
+      v12 = _CLLogObjectForCategory_MicroLocation_Default(v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
+      {
+        *buf = 68289539;
+        *v21 = 0;
+        *&v21[4] = 2082;
+        *&v21[6] = "";
+        v22 = 2082;
+        v23 = "assert";
+        v24 = 2081;
+        v25 = "0";
+        _os_log_impl(&dword_258FE9000, v12, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:Killing locationd to resolve corrupted database, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+      }
+
+      v14 = _CLLogObjectForCategory_MicroLocation_Default(v13);
+      if (os_signpost_enabled(v14))
+      {
+        *buf = 68289539;
+        *v21 = 0;
+        *&v21[4] = 2082;
+        *&v21[6] = "";
+        v22 = 2082;
+        v23 = "assert";
+        v24 = 2081;
+        v25 = "0";
+        _os_signpost_emit_with_name_impl(&dword_258FE9000, v14, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Killing locationd to resolve corrupted database", "{msg%{public}.0s:Killing locationd to resolve corrupted database, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+      }
+
+      v16 = _CLLogObjectForCategory_MicroLocation_Default(v15);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
+      {
+        *buf = 68289539;
+        *v21 = 0;
+        *&v21[4] = 2082;
+        *&v21[6] = "";
+        v22 = 2082;
+        v23 = "assert";
+        v24 = 2081;
+        v25 = "0";
+        _os_log_impl(&dword_258FE9000, v16, OS_LOG_TYPE_INFO, "{msg%{public}.0s:Killing locationd to resolve corrupted database, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+      }
+
+      abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/MicroLocation/MicroLocationDaemon/MicroLocationLogic/Persistence/DataMigration/CLSqlite/CLSqliteDatabase.mm", 481, "handleSqlError");
+      CLSqliteDatabase::deleteDatabase(v17, v18);
     }
-
-    *buf = 136315394;
-    *v19 = v11;
-    *&v19[8] = 1024;
-    *&v19[10] = a4;
-    _os_log_impl(&dword_258FE9000, v10, OS_LOG_TYPE_FAULT, "database error; deleting and exiting. path: %s, sqlite_rc: %d", buf, 0x12u);
   }
-
-  CLSqliteDatabase::deleteDatabase(a1, a2);
-  v12 = _CLLogObjectForCategory_MicroLocation_Default();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
-  {
-    *buf = 68289539;
-    *v19 = 0;
-    *&v19[4] = 2082;
-    *&v19[6] = "";
-    v20 = 2082;
-    v21 = "assert";
-    v22 = 2081;
-    v23 = "0";
-    _os_log_impl(&dword_258FE9000, v12, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:Killing locationd to resolve corrupted database, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
-  }
-
-  v13 = _CLLogObjectForCategory_MicroLocation_Default();
-  if (os_signpost_enabled(v13))
-  {
-    *buf = 68289539;
-    *v19 = 0;
-    *&v19[4] = 2082;
-    *&v19[6] = "";
-    v20 = 2082;
-    v21 = "assert";
-    v22 = 2081;
-    v23 = "0";
-    _os_signpost_emit_with_name_impl(&dword_258FE9000, v13, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Killing locationd to resolve corrupted database", "{msg%{public}.0s:Killing locationd to resolve corrupted database, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
-  }
-
-  v14 = _CLLogObjectForCategory_MicroLocation_Default();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
-  {
-    *buf = 68289539;
-    *v19 = 0;
-    *&v19[4] = 2082;
-    *&v19[6] = "";
-    v20 = 2082;
-    v21 = "assert";
-    v22 = 2081;
-    v23 = "0";
-    _os_log_impl(&dword_258FE9000, v14, OS_LOG_TYPE_INFO, "{msg%{public}.0s:Killing locationd to resolve corrupted database, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
-  }
-
-  v15 = abort_report_np();
-  CLSqliteDatabase::deleteDatabase(v15, v16);
 }
 
 void CLSqliteDatabase::deleteDatabase(sqlite3 *a1, uint64_t a2)
 {
-  v57 = *MEMORY[0x277D85DE8];
+  v56 = *MEMORY[0x277D85DE8];
   if (MEMORY[0x282213A80] && a1)
   {
     if (CPSqliteDatabaseDelete())
     {
-      goto LABEL_101;
+      return;
     }
 
     goto LABEL_6;
@@ -851,7 +837,7 @@ LABEL_6:
     }
 
     *buf = 136315138;
-    v52 = v6;
+    v51 = v6;
     _os_log_impl(&dword_258FE9000, v5, OS_LOG_TYPE_FAULT, "Falling back to file deletion. path: %s", buf, 0xCu);
   }
 
@@ -890,11 +876,11 @@ LABEL_6:
       v12 = __error();
       v13 = strerror(*v12);
       *buf = 136315650;
-      v52 = v10;
-      v53 = 1024;
-      v54 = v11;
-      v55 = 2080;
-      v56 = v13;
+      v51 = v10;
+      v52 = 1024;
+      v53 = v11;
+      v54 = 2080;
+      v55 = v13;
       _os_log_impl(&dword_258FE9000, v9, OS_LOG_TYPE_FAULT, "could not remove file. path: %s, errno: %d, error: %s", buf, 0x1Cu);
     }
   }
@@ -909,11 +895,11 @@ LABEL_6:
     v14 = *(a2 + 8);
   }
 
-  v15 = v49;
-  std::string::basic_string[abi:ne200100](v49, v14 + 8);
-  if (v50 < 0)
+  v15 = v48;
+  std::string::basic_string[abi:ne200100](v48, v14 + 8);
+  if (v49 < 0)
   {
-    v15 = v49[0];
+    v15 = v48[0];
   }
 
   if (v14)
@@ -932,14 +918,14 @@ LABEL_6:
   }
 
   strcpy(v15 + v14, "-journal");
-  if (v50 >= 0)
+  if (v49 >= 0)
   {
-    v18 = v49;
+    v18 = v48;
   }
 
   else
   {
-    v18 = v49[0];
+    v18 = v48[0];
   }
 
   if (remove(v18, v16))
@@ -952,25 +938,25 @@ LABEL_6:
     v19 = logObject_MicroLocation_Default;
     if (os_log_type_enabled(v19, OS_LOG_TYPE_FAULT))
     {
-      if (v50 >= 0)
+      if (v49 >= 0)
       {
-        v20 = v49;
+        v20 = v48;
       }
 
       else
       {
-        v20 = v49[0];
+        v20 = v48[0];
       }
 
       v21 = *__error();
       v22 = __error();
       v23 = strerror(*v22);
       *buf = 136315650;
-      v52 = v20;
-      v53 = 1024;
-      v54 = v21;
-      v55 = 2080;
-      v56 = v23;
+      v51 = v20;
+      v52 = 1024;
+      v53 = v21;
+      v54 = 2080;
+      v55 = v23;
       _os_log_impl(&dword_258FE9000, v19, OS_LOG_TYPE_FAULT, "could not remove file. path %s, errno: %d, error: %s", buf, 0x1Cu);
     }
   }
@@ -985,11 +971,11 @@ LABEL_6:
     v24 = *(a2 + 8);
   }
 
-  v25 = v47;
-  std::string::basic_string[abi:ne200100](v47, v24 + 4);
-  if (v48 < 0)
+  v25 = v46;
+  std::string::basic_string[abi:ne200100](v46, v24 + 4);
+  if (v47 < 0)
   {
-    v25 = v47[0];
+    v25 = v46[0];
   }
 
   if (v24)
@@ -1008,14 +994,14 @@ LABEL_6:
   }
 
   strcpy(v25 + v24, "-wal");
-  if (v48 >= 0)
+  if (v47 >= 0)
   {
-    v28 = v47;
+    v28 = v46;
   }
 
   else
   {
-    v28 = v47[0];
+    v28 = v46[0];
   }
 
   if (remove(v28, v26))
@@ -1028,25 +1014,25 @@ LABEL_6:
     v29 = logObject_MicroLocation_Default;
     if (os_log_type_enabled(v29, OS_LOG_TYPE_FAULT))
     {
-      if (v48 >= 0)
+      if (v47 >= 0)
       {
-        v30 = v47;
+        v30 = v46;
       }
 
       else
       {
-        v30 = v47[0];
+        v30 = v46[0];
       }
 
       v31 = *__error();
       v32 = __error();
       v33 = strerror(*v32);
       *buf = 136315650;
-      v52 = v30;
-      v53 = 1024;
-      v54 = v31;
-      v55 = 2080;
-      v56 = v33;
+      v51 = v30;
+      v52 = 1024;
+      v53 = v31;
+      v54 = 2080;
+      v55 = v33;
       _os_log_impl(&dword_258FE9000, v29, OS_LOG_TYPE_FAULT, "could not remove file. path: %s, errno: %d, error: %s", buf, 0x1Cu);
     }
   }
@@ -1063,7 +1049,7 @@ LABEL_6:
 
   v35 = __p;
   std::string::basic_string[abi:ne200100](__p, v34 + 4);
-  if (v46 < 0)
+  if (v45 < 0)
   {
     v35 = __p[0];
   }
@@ -1084,7 +1070,7 @@ LABEL_6:
   }
 
   strcpy(v35 + v34, "-shm");
-  if (v46 >= 0)
+  if (v45 >= 0)
   {
     v38 = __p;
   }
@@ -1104,7 +1090,7 @@ LABEL_6:
     v39 = logObject_MicroLocation_Default;
     if (os_log_type_enabled(v39, OS_LOG_TYPE_FAULT))
     {
-      if (v46 >= 0)
+      if (v45 >= 0)
       {
         v40 = __p;
       }
@@ -1118,32 +1104,29 @@ LABEL_6:
       v42 = __error();
       v43 = strerror(*v42);
       *buf = 136315650;
-      v52 = v40;
-      v53 = 1024;
-      v54 = v41;
-      v55 = 2080;
-      v56 = v43;
+      v51 = v40;
+      v52 = 1024;
+      v53 = v41;
+      v54 = 2080;
+      v55 = v43;
       _os_log_impl(&dword_258FE9000, v39, OS_LOG_TYPE_FAULT, "could not remove file. path: %s, errno: %d, error: %s", buf, 0x1Cu);
     }
   }
 
-  if (v46 < 0)
+  if (v45 < 0)
   {
     operator delete(__p[0]);
   }
 
-  if (v48 < 0)
+  if (v47 < 0)
   {
-    operator delete(v47[0]);
+    operator delete(v46[0]);
   }
 
-  if (v50 < 0)
+  if (v49 < 0)
   {
-    operator delete(v49[0]);
+    operator delete(v48[0]);
   }
-
-LABEL_101:
-  v44 = *MEMORY[0x277D85DE8];
 }
 
 void sub_25906DCF4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *a16, uint64_t a17, int a18, __int16 a19, char a20, char a21, void *a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
@@ -1331,27 +1314,27 @@ void sub_25906E17C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 uint64_t CLSqliteDatabase::addCountTriggers(CLSqliteDatabase *this, const char *a2)
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   v4 = *(this + 2);
-  v35[19] = v4;
+  v34[19] = v4;
   (*(*v4 + 16))(v4);
-  v36 = 256;
-  v39 = "Count";
-  v40 = 1;
+  v35 = 256;
+  v38 = "Count";
+  v39 = 1;
+  v40 = 0;
   v41 = 0;
   v42 = 0;
   v43 = 0;
-  v44 = 0;
-  v45 = 5;
+  v44 = 5;
+  v45 = 0;
   v46 = 0;
   v47 = 0;
-  v48 = 0;
-  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](v30);
+  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](v29);
   v5 = strlen(a2);
-  v6 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v31, a2, v5);
+  v6 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v30, a2, v5);
   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v6, "Counts", 6);
-  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::str[abi:ne200100](v30, &buf);
-  if (v38 >= 0)
+  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::str[abi:ne200100](v29, &buf);
+  if (v37 >= 0)
   {
     p_buf = &buf;
   }
@@ -1361,25 +1344,25 @@ uint64_t CLSqliteDatabase::addCountTriggers(CLSqliteDatabase *this, const char *
     p_buf = buf;
   }
 
-  CLSqliteDatabase::createTable(this, p_buf, &v39);
-  if (SHIBYTE(v38) < 0)
+  CLSqliteDatabase::createTable(this, p_buf, &v38);
+  if (SHIBYTE(v37) < 0)
   {
     operator delete(buf);
   }
 
   buf = 0uLL;
-  v38 = 0;
-  std::stringbuf::str[abi:ne200100](&v32, &buf);
-  if (SHIBYTE(v38) < 0)
+  v37 = 0;
+  std::stringbuf::str[abi:ne200100](&v31, &buf);
+  if (SHIBYTE(v37) < 0)
   {
     operator delete(buf);
   }
 
-  v8 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v31, "SELECT COUNT(*) FROM ", 21);
+  v8 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v30, "SELECT COUNT(*) FROM ", 21);
   v9 = strlen(a2);
   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v8, a2, v9);
-  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::str[abi:ne200100](v30, &buf);
-  if (v38 >= 0)
+  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::str[abi:ne200100](v29, &buf);
+  if (v37 >= 0)
   {
     v10 = &buf;
   }
@@ -1390,7 +1373,7 @@ uint64_t CLSqliteDatabase::addCountTriggers(CLSqliteDatabase *this, const char *
   }
 
   v11 = CLSqliteDatabase::prepareStatementNoCache(this, v10);
-  if (SHIBYTE(v38) < 0)
+  if (SHIBYTE(v37) < 0)
   {
     operator delete(buf);
   }
@@ -1440,22 +1423,22 @@ LABEL_25:
 LABEL_26:
   CLSqliteDatabase::finalizeStatement(*(this + 1), v11, v12);
   buf = 0uLL;
-  v38 = 0;
-  std::stringbuf::str[abi:ne200100](&v32, &buf);
-  if (SHIBYTE(v38) < 0)
+  v37 = 0;
+  std::stringbuf::str[abi:ne200100](&v31, &buf);
+  if (SHIBYTE(v37) < 0)
   {
     operator delete(buf);
   }
 
-  v16 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v31, "INSERT INTO ", 12);
+  v16 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v30, "INSERT INTO ", 12);
   v17 = strlen(a2);
   v18 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v16, a2, v17);
   v19 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v18, "Counts", 6);
   v20 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v19, " VALUES (", 9);
   v21 = MEMORY[0x259CA1DB0](v20, v13);
   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v21, ")", 1);
-  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::str[abi:ne200100](v30, &buf);
-  if (v38 >= 0)
+  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::str[abi:ne200100](v29, &buf);
+  if (v37 >= 0)
   {
     v22 = &buf;
   }
@@ -1467,7 +1450,7 @@ LABEL_26:
 
   v23 = CLSqliteDatabase::prepareStatementNoCache(this, v22);
   v24 = v23;
-  if (SHIBYTE(v38) < 0)
+  if (SHIBYTE(v37) < 0)
   {
     operator delete(buf);
     if (v24)
@@ -1499,28 +1482,26 @@ LABEL_33:
   }
 
 LABEL_39:
-  v30[0] = *MEMORY[0x277D82818];
+  v29[0] = *MEMORY[0x277D82818];
   v27 = *(MEMORY[0x277D82818] + 72);
-  *(v30 + *(v30[0] - 24)) = *(MEMORY[0x277D82818] + 64);
-  v31 = v27;
-  v32 = MEMORY[0x277D82878] + 16;
-  if (v34 < 0)
+  *(v29 + *(v29[0] - 24)) = *(MEMORY[0x277D82818] + 64);
+  v30 = v27;
+  v31 = MEMORY[0x277D82878] + 16;
+  if (v33 < 0)
   {
-    operator delete(v33[7].__locale_);
+    operator delete(v32[7].__locale_);
   }
 
-  v32 = MEMORY[0x277D82868] + 16;
-  std::locale::~locale(v33);
+  v31 = MEMORY[0x277D82868] + 16;
+  std::locale::~locale(v32);
   std::iostream::~basic_iostream();
-  MEMORY[0x259CA1EE0](v35);
-  result = (*(*v4 + 24))(v4);
-  v29 = *MEMORY[0x277D85DE8];
-  return result;
+  MEMORY[0x259CA1EE0](v34);
+  return (*(*v4 + 24))(v4);
 }
 
 uint64_t CLSqliteDatabase::createTableIfNecessary_internal(uint64_t a1, char *a2, const char **a3, char **a4)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   if (!a2)
   {
     if (onceToken_MicroLocation_Default != -1)
@@ -1531,31 +1512,29 @@ uint64_t CLSqliteDatabase::createTableIfNecessary_internal(uint64_t a1, char *a2
     v12 = logObject_MicroLocation_Default;
     if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_FAULT))
     {
-      *v19 = 0;
-      _os_log_impl(&dword_258FE9000, v12, OS_LOG_TYPE_FAULT, "Must provide a table name", v19, 2u);
+      *v18 = 0;
+      _os_log_impl(&dword_258FE9000, v12, OS_LOG_TYPE_FAULT, "Must provide a table name", v18, 2u);
     }
 
-    goto LABEL_20;
+    return 0;
   }
 
   if (*(a1 + 56))
   {
-LABEL_20:
-    TableIfSchemaDiffers = 0;
-    goto LABEL_21;
+    return 0;
   }
 
   v8 = *(a1 + 16);
-  *v19 = v8;
+  *v18 = v8;
   (*(*v8 + 16))(v8);
-  v20 = 256;
-  v17[0] = 0;
-  v17[1] = 0;
-  v18 = 0;
+  v19 = 256;
+  v16[0] = 0;
+  v16[1] = 0;
+  v17 = 0;
   __p[0] = 0;
   __p[1] = 0;
-  v16 = 0;
-  SoftwareVersionAndSerialNumberForTable = CLSqliteDatabase::getSoftwareVersionAndSerialNumberForTable(a1, a2, v17, __p);
+  v15 = 0;
+  SoftwareVersionAndSerialNumberForTable = CLSqliteDatabase::getSoftwareVersionAndSerialNumberForTable(a1, a2, v16, __p);
   if (!CLSqliteDatabase::tableExists_internal(a1, a2) && SoftwareVersionAndSerialNumberForTable)
   {
     if (onceToken_MicroLocation_Default != -1)
@@ -1567,7 +1546,7 @@ LABEL_20:
     if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_FAULT))
     {
       *buf = 136380675;
-      v22 = a2;
+      v21 = a2;
       _os_log_impl(&dword_258FE9000, v10, OS_LOG_TYPE_FAULT, "Table does not exist but its metadata does. table: %{private}s", buf, 0xCu);
     }
 
@@ -1580,151 +1559,149 @@ LABEL_20:
     CLSqliteDatabase::createRowInTableInfo(a1, a2);
   }
 
-  if (SHIBYTE(v16) < 0)
+  if (SHIBYTE(v15) < 0)
   {
     operator delete(__p[0]);
   }
 
-  if (SHIBYTE(v18) < 0)
+  if (SHIBYTE(v17) < 0)
   {
-    operator delete(v17[0]);
+    operator delete(v16[0]);
   }
 
   (*(*v8 + 24))(v8);
-LABEL_21:
-  v13 = *MEMORY[0x277D85DE8];
   return TableIfSchemaDiffers;
 }
 
 uint64_t CLSqliteDatabase::createIndexIfNecessary(CLSqliteDatabase *this, const char *a2, CLSqliteDatabase *a3)
 {
-  v78 = *MEMORY[0x277D85DE8];
+  v77 = *MEMORY[0x277D85DE8];
   v6 = *(this + 2);
-  v71 = v6;
+  v70 = v6;
   (*(*v6 + 16))(v6);
-  v72 = 256;
+  v71 = 256;
   if (!a3)
   {
-    goto LABEL_97;
+    return (*(*v6 + 24))(v6);
   }
 
-  memset(&v70, 0, sizeof(v70));
-  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](v64);
+  memset(&v69, 0, sizeof(v69));
+  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](v63);
   v7 = strlen(a2);
-  v8 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v65, a2, v7);
+  v8 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v64, a2, v7);
   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v8, "Index", 5);
-  CLSqliteDatabase::indexColumnsToString(a3, &v59);
-  if (SHIBYTE(v70.__r_.__value_.__r.__words[2]) < 0)
+  CLSqliteDatabase::indexColumnsToString(&v58, a3);
+  if (SHIBYTE(v69.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v70.__r_.__value_.__l.__data_);
+    operator delete(v69.__r_.__value_.__l.__data_);
   }
 
-  v70 = v59;
-  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](&v59);
-  v9 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v59.__r_.__value_.__r.__words[2], "CREATE INDEX ", 13);
-  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::str[abi:ne200100](v64, v75);
-  if (v76 >= 0)
+  v69 = v58;
+  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](&v58);
+  v9 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v58.__r_.__value_.__r.__words[2], "CREATE INDEX ", 13);
+  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::str[abi:ne200100](v63, v74);
+  if (v75 >= 0)
   {
-    v10 = v75;
-  }
-
-  else
-  {
-    v10 = *v75;
-  }
-
-  if (v76 >= 0)
-  {
-    v11 = HIBYTE(v76);
+    v10 = v74;
   }
 
   else
   {
-    v11 = *&v75[8];
+    v10 = *v74;
+  }
+
+  if (v75 >= 0)
+  {
+    v11 = HIBYTE(v75);
+  }
+
+  else
+  {
+    v11 = *&v74[8];
   }
 
   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v9, v10, v11);
-  if (SHIBYTE(v76) < 0)
+  if (SHIBYTE(v75) < 0)
   {
-    operator delete(*v75);
+    operator delete(*v74);
   }
 
-  v12 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v59.__r_.__value_.__r.__words[2], " ON ", 4);
+  v12 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v58.__r_.__value_.__r.__words[2], " ON ", 4);
   v13 = strlen(a2);
   v14 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v12, a2, v13);
   v15 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v14, " (", 2);
-  if ((v70.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  if ((v69.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v16 = &v70;
+    v16 = &v69;
   }
 
   else
   {
-    v16 = v70.__r_.__value_.__r.__words[0];
+    v16 = v69.__r_.__value_.__r.__words[0];
   }
 
-  if ((v70.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  if ((v69.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    size = HIBYTE(v70.__r_.__value_.__r.__words[2]);
+    size = HIBYTE(v69.__r_.__value_.__r.__words[2]);
   }
 
   else
   {
-    size = v70.__r_.__value_.__l.__size_;
+    size = v69.__r_.__value_.__l.__size_;
   }
 
   v18 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v15, v16, size);
   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v18, ")", 1);
-  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::str[abi:ne200100](v64, v75);
-  if (v76 >= 0)
+  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::str[abi:ne200100](v63, v74);
+  if (v75 >= 0)
   {
-    v19 = v75;
+    v19 = v74;
   }
 
   else
   {
-    v19 = *v75;
+    v19 = *v74;
   }
 
-  CLSqliteDatabase::getElementCreateStatement(this, "index", v19, &v56);
-  if (SHIBYTE(v76) < 0)
+  CLSqliteDatabase::getElementCreateStatement(this, "index", v19, &v55);
+  if (SHIBYTE(v75) < 0)
   {
-    operator delete(*v75);
+    operator delete(*v74);
   }
 
-  v20 = v58;
-  if ((v58 & 0x80u) != 0)
+  v20 = v57;
+  if ((v57 & 0x80u) != 0)
   {
-    v20 = v57;
+    v20 = v56;
   }
 
   if (v20)
   {
-    std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::str[abi:ne200100](&v59, v75);
-    v21 = SHIBYTE(v76);
-    v23 = *v75;
-    v22 = *&v75[8];
-    v24 = v58;
-    if ((v58 & 0x80u) == 0)
+    std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::str[abi:ne200100](&v58, v74);
+    v21 = SHIBYTE(v75);
+    v23 = *v74;
+    v22 = *&v74[8];
+    v24 = v57;
+    if ((v57 & 0x80u) == 0)
     {
-      v25 = &v56;
+      v25 = &v55;
     }
 
     else
     {
-      v24 = v57;
-      v25 = v56;
+      v24 = v56;
+      v25 = v55;
     }
 
-    if (v76 < 0)
+    if (v75 < 0)
     {
-      v26 = *v75;
+      v26 = *v74;
     }
 
     else
     {
-      v22 = SHIBYTE(v76);
-      v26 = v75;
+      v22 = SHIBYTE(v75);
+      v26 = v74;
     }
 
     if (v22 >= v24)
@@ -1758,14 +1735,14 @@ uint64_t CLSqliteDatabase::createIndexIfNecessary(CLSqliteDatabase *this, const 
       v29 = logObject_MicroLocation_Default;
       if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
       {
-        std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::str[abi:ne200100](v64, v75);
-        v30 = v76 >= 0 ? v75 : *v75;
+        std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::str[abi:ne200100](v63, v74);
+        v30 = v75 >= 0 ? v74 : *v74;
         *buf = 136380675;
         *&buf[4] = v30;
         _os_log_impl(&dword_258FE9000, v29, OS_LOG_TYPE_DEBUG, "Index already exists; not re-creating. index: %{private}s", buf, 0xCu);
-        if (SHIBYTE(v76) < 0)
+        if (SHIBYTE(v75) < 0)
         {
-          operator delete(*v75);
+          operator delete(*v74);
         }
       }
 
@@ -1780,13 +1757,13 @@ uint64_t CLSqliteDatabase::createIndexIfNecessary(CLSqliteDatabase *this, const 
     v33 = logObject_MicroLocation_Default;
     if (os_log_type_enabled(v33, OS_LOG_TYPE_DEBUG))
     {
-      std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::str[abi:ne200100](v64, buf);
-      v34 = v74;
+      std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::str[abi:ne200100](v63, buf);
+      v34 = v73;
       v35 = *buf;
-      v36 = v58;
-      v37 = v56;
-      std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::str[abi:ne200100](&v59, __p);
-      v38 = &v56;
+      v36 = v57;
+      v37 = v55;
+      std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::str[abi:ne200100](&v58, __p);
+      v38 = &v55;
       if (v36 < 0)
       {
         v38 = v37;
@@ -1798,45 +1775,45 @@ uint64_t CLSqliteDatabase::createIndexIfNecessary(CLSqliteDatabase *this, const 
         v39 = v35;
       }
 
-      *v75 = 136381187;
+      *v74 = 136381187;
       v40 = __p;
-      if (v55 < 0)
+      if (v54 < 0)
       {
         v40 = __p[0];
       }
 
-      *&v75[4] = v39;
-      *&v75[12] = 2081;
-      *&v75[14] = v38;
-      v76 = 2081;
-      v77 = v40;
-      _os_log_impl(&dword_258FE9000, v33, OS_LOG_TYPE_DEBUG, "Index already exists but is different; dropping. index: %{private}s, actual: %{private}s, expected: %{private}s", v75, 0x20u);
-      if (v55 < 0)
+      *&v74[4] = v39;
+      *&v74[12] = 2081;
+      *&v74[14] = v38;
+      v75 = 2081;
+      v76 = v40;
+      _os_log_impl(&dword_258FE9000, v33, OS_LOG_TYPE_DEBUG, "Index already exists but is different; dropping. index: %{private}s, actual: %{private}s, expected: %{private}s", v74, 0x20u);
+      if (v54 < 0)
       {
         operator delete(__p[0]);
       }
 
-      if (v74 < 0)
+      if (v73 < 0)
       {
         operator delete(*buf);
       }
     }
 
-    std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::str[abi:ne200100](v64, v75);
-    if (v76 >= 0)
+    std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::str[abi:ne200100](v63, v74);
+    if (v75 >= 0)
     {
-      v41 = v75;
+      v41 = v74;
     }
 
     else
     {
-      v41 = *v75;
+      v41 = *v74;
     }
 
     CLSqliteDatabase::dropIndex(this, v41);
-    if (SHIBYTE(v76) < 0)
+    if (SHIBYTE(v75) < 0)
     {
-      operator delete(*v75);
+      operator delete(*v74);
     }
   }
 
@@ -1850,34 +1827,34 @@ uint64_t CLSqliteDatabase::createIndexIfNecessary(CLSqliteDatabase *this, const 
     v31 = logObject_MicroLocation_Default;
     if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
     {
-      std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::str[abi:ne200100](v64, v75);
-      v32 = v76 >= 0 ? v75 : *v75;
+      std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::str[abi:ne200100](v63, v74);
+      v32 = v75 >= 0 ? v74 : *v74;
       *buf = 136380675;
       *&buf[4] = v32;
       _os_log_impl(&dword_258FE9000, v31, OS_LOG_TYPE_DEBUG, "Index does not exist; creating. index: %{private}s", buf, 0xCu);
-      if (SHIBYTE(v76) < 0)
+      if (SHIBYTE(v75) < 0)
       {
-        operator delete(*v75);
+        operator delete(*v74);
       }
     }
   }
 
-  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::str[abi:ne200100](&v59, v75);
-  if (v76 >= 0)
+  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::str[abi:ne200100](&v58, v74);
+  if (v75 >= 0)
   {
-    v42 = v75;
+    v42 = v74;
   }
 
   else
   {
-    v42 = *v75;
+    v42 = *v74;
   }
 
   v43 = CLSqliteDatabase::prepareStatementNoCache(this, v42);
   v44 = v43;
-  if (SHIBYTE(v76) < 0)
+  if (SHIBYTE(v75) < 0)
   {
-    operator delete(*v75);
+    operator delete(*v74);
     if (v44)
     {
       goto LABEL_81;
@@ -1892,17 +1869,17 @@ LABEL_83:
     v46 = logObject_MicroLocation_Default;
     if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_DEFAULT))
     {
-      v47 = &v70;
-      if ((v70.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+      v47 = &v69;
+      if ((v69.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
       {
-        v47 = v70.__r_.__value_.__r.__words[0];
+        v47 = v69.__r_.__value_.__r.__words[0];
       }
 
-      *v75 = 136380931;
-      *&v75[4] = a2;
-      *&v75[12] = 2080;
-      *&v75[14] = v47;
-      _os_log_impl(&dword_258FE9000, v46, OS_LOG_TYPE_DEFAULT, "#warning Couldn't create index statement. table: %{private}s, columns: %s", v75, 0x16u);
+      *v74 = 136380931;
+      *&v74[4] = a2;
+      *&v74[12] = 2080;
+      *&v74[14] = v47;
+      _os_log_impl(&dword_258FE9000, v46, OS_LOG_TYPE_DEFAULT, "#warning Couldn't create index statement. table: %{private}s, columns: %s", v74, 0x16u);
     }
 
     goto LABEL_89;
@@ -1917,53 +1894,50 @@ LABEL_81:
   CLSqliteDatabase::executeAndResetStatement(this, v44);
   CLSqliteDatabase::finalizeStatement(*(this + 1), v44, v45);
 LABEL_89:
-  if (v58 < 0)
+  if (v57 < 0)
   {
-    operator delete(v56);
+    operator delete(v55);
   }
 
-  v59.__r_.__value_.__r.__words[0] = *MEMORY[0x277D82818];
-  v48 = v59.__r_.__value_.__r.__words[0];
+  v58.__r_.__value_.__r.__words[0] = *MEMORY[0x277D82818];
+  v48 = v58.__r_.__value_.__r.__words[0];
   v49 = *(MEMORY[0x277D82818] + 72);
   v50 = *(MEMORY[0x277D82818] + 64);
-  *(v59.__r_.__value_.__r.__words + *(v59.__r_.__value_.__r.__words[0] - 24)) = v50;
+  *(v58.__r_.__value_.__r.__words + *(v58.__r_.__value_.__r.__words[0] - 24)) = v50;
   v51 = v49;
-  v59.__r_.__value_.__r.__words[2] = v49;
-  v60 = MEMORY[0x277D82878] + 16;
-  if (v62 < 0)
+  v58.__r_.__value_.__r.__words[2] = v49;
+  v59 = MEMORY[0x277D82878] + 16;
+  if (v61 < 0)
   {
-    operator delete(v61[7].__locale_);
+    operator delete(v60[7].__locale_);
   }
 
-  v60 = MEMORY[0x277D82868] + 16;
-  std::locale::~locale(v61);
+  v59 = MEMORY[0x277D82868] + 16;
+  std::locale::~locale(v60);
   std::iostream::~basic_iostream();
-  MEMORY[0x259CA1EE0](&v63);
-  v64[0] = v48;
-  *(v64 + *(v48 - 24)) = v50;
-  v65 = v51;
-  v66 = MEMORY[0x277D82878] + 16;
-  if (v68 < 0)
+  MEMORY[0x259CA1EE0](&v62);
+  v63[0] = v48;
+  *(v63 + *(v48 - 24)) = v50;
+  v64 = v51;
+  v65 = MEMORY[0x277D82878] + 16;
+  if (v67 < 0)
   {
-    operator delete(v67[7].__locale_);
+    operator delete(v66[7].__locale_);
   }
 
-  v66 = MEMORY[0x277D82868] + 16;
-  std::locale::~locale(v67);
+  v65 = MEMORY[0x277D82868] + 16;
+  std::locale::~locale(v66);
   std::iostream::~basic_iostream();
-  MEMORY[0x259CA1EE0](&v69);
-  if (SHIBYTE(v70.__r_.__value_.__r.__words[2]) < 0)
+  MEMORY[0x259CA1EE0](&v68);
+  if (SHIBYTE(v69.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v70.__r_.__value_.__l.__data_);
+    operator delete(v69.__r_.__value_.__l.__data_);
   }
 
-LABEL_97:
-  result = (*(*v6 + 24))(v6);
-  v53 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(*v6 + 24))(v6);
 }
 
-void sub_25906F2D0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17, char a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, char a53)
+void sub_25906F2D0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, char a53)
 {
   if (*(v54 - 153) < 0)
   {
@@ -1986,32 +1960,32 @@ void sub_25906F2D0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-std::string *CLSqliteDatabase::indexColumnsToString@<X0>(CLSqliteDatabase *this@<X0>, std::string *a2@<X8>)
+std::string *CLSqliteDatabase::indexColumnsToString@<X0>(std::string *__return_ptr a1@<X8>, CLSqliteDatabase *this@<X0>)
 {
-  result = std::string::basic_string[abi:ne200100]<0>(a2, "");
+  result = std::string::basic_string[abi:ne200100]<0>(a1, "");
   if (this)
   {
-    v6 = *this;
+    v5 = *this;
     if (*this)
     {
-      v7 = 0;
-      v8 = (this + 8);
+      v6 = 0;
+      v7 = (this + 8);
       do
       {
-        if (v7)
+        if (v6)
         {
-          std::string::append(a2, ", ", 2uLL);
-          v6 = *(v8 - 1);
+          std::string::append(a1, ", ", 2uLL);
+          v5 = *(v7 - 1);
         }
 
-        v9 = strlen(v6);
-        result = std::string::append(a2, v6, v9);
-        v10 = *v8++;
-        v6 = v10;
-        --v7;
+        v8 = strlen(v5);
+        result = std::string::append(a1, v5, v8);
+        v9 = *v7++;
+        v5 = v9;
+        --v6;
       }
 
-      while (v10);
+      while (v9);
     }
   }
 
@@ -2030,17 +2004,17 @@ void sub_25906F46C(_Unwind_Exception *exception_object)
 
 uint64_t CLSqliteDatabase::dropIndex(CLSqliteDatabase *this, const char *a2)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v4 = *(this + 2);
-  v20[19] = v4;
+  v19[19] = v4;
   (*(*v4 + 16))(v4);
-  v21 = 256;
-  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](v15);
-  v5 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v16, "DROP INDEX ", 11);
+  v20 = 256;
+  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](v14);
+  v5 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v15, "DROP INDEX ", 11);
   v6 = strlen(a2);
   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v5, a2, v6);
-  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::str[abi:ne200100](v15, buf);
-  if (v23 >= 0)
+  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::str[abi:ne200100](v14, buf);
+  if (v22 >= 0)
   {
     v7 = buf;
   }
@@ -2052,7 +2026,7 @@ uint64_t CLSqliteDatabase::dropIndex(CLSqliteDatabase *this, const char *a2)
 
   v8 = CLSqliteDatabase::prepareStatementNoCache(this, v7);
   v9 = v8;
-  if (v23 < 0)
+  if (v22 < 0)
   {
     operator delete(*buf);
     if (v9)
@@ -2083,23 +2057,21 @@ LABEL_6:
   }
 
 LABEL_12:
-  v15[0] = *MEMORY[0x277D82818];
+  v14[0] = *MEMORY[0x277D82818];
   v12 = *(MEMORY[0x277D82818] + 72);
-  *(v15 + *(v15[0] - 24)) = *(MEMORY[0x277D82818] + 64);
-  v16 = v12;
-  v17 = MEMORY[0x277D82878] + 16;
-  if (v19 < 0)
+  *(v14 + *(v14[0] - 24)) = *(MEMORY[0x277D82818] + 64);
+  v15 = v12;
+  v16 = MEMORY[0x277D82878] + 16;
+  if (v18 < 0)
   {
-    operator delete(v18[7].__locale_);
+    operator delete(v17[7].__locale_);
   }
 
-  v17 = MEMORY[0x277D82868] + 16;
-  std::locale::~locale(v18);
+  v16 = MEMORY[0x277D82868] + 16;
+  std::locale::~locale(v17);
   std::iostream::~basic_iostream();
-  MEMORY[0x259CA1EE0](v20);
-  result = (*(*v4 + 24))(v4);
-  v14 = *MEMORY[0x277D85DE8];
-  return result;
+  MEMORY[0x259CA1EE0](v19);
+  return (*(*v4 + 24))(v4);
 }
 
 BOOL CLSqliteDatabase::executeAndResetStatement(CLSqliteDatabase *this, sqlite3_stmt *a2)
@@ -2112,7 +2084,7 @@ BOOL CLSqliteDatabase::executeAndResetStatement(CLSqliteDatabase *this, sqlite3_
   if (v5 != 101)
   {
     CLSqliteDatabase::displaySqlResult(v5, "sqlite3_step()", v5, a2);
-    CLSqliteDatabase::handleSqlError(*(this + 1), this + 88, *(this + 56), v6);
+    CLSqliteDatabase::handleSqlError(*(this + 1), this + 11, *(this + 56), v6);
   }
 
   v8 = sqlite3_reset(a2);
@@ -2120,7 +2092,7 @@ BOOL CLSqliteDatabase::executeAndResetStatement(CLSqliteDatabase *this, sqlite3_
   if (v8)
   {
     CLSqliteDatabase::displaySqlResult(v8, "sqlite3_reset()", v8, a2);
-    CLSqliteDatabase::handleSqlError(*(this + 1), this + 88, *(this + 56), v9);
+    CLSqliteDatabase::handleSqlError(*(this + 1), this + 11, *(this + 56), v9);
     v7 = 0;
   }
 
@@ -2128,34 +2100,34 @@ BOOL CLSqliteDatabase::executeAndResetStatement(CLSqliteDatabase *this, sqlite3_
   return v7;
 }
 
-void sub_25906F8F8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25906F8F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   AutoLocker::~AutoLocker(va);
   _Unwind_Resume(a1);
 }
 
 uint64_t CLSqliteDatabase::dropTrigger(CLSqliteDatabase *this, char *a2)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v4 = *(this + 2);
-  v25[19] = v4;
+  v24[19] = v4;
   (*(*v4 + 16))(v4);
-  v26 = 256;
-  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](v20);
-  v5 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v21, "DROP TRIGGER ", 13);
+  v25 = 256;
+  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](v19);
+  v5 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v20, "DROP TRIGGER ", 13);
   v6 = strlen(a2);
   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v5, a2, v6);
   CLSqliteDatabase::getElementCreateStatement(this, "trigger", a2, &buf);
-  if (v28 < 0)
+  if (v27 < 0)
   {
     v11 = *(&buf + 1);
     operator delete(buf);
     if (v11)
     {
 LABEL_3:
-      std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::str[abi:ne200100](v20, &buf);
-      if (v28 >= 0)
+      std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::str[abi:ne200100](v19, &buf);
+      if (v27 >= 0)
       {
         p_buf = &buf;
       }
@@ -2167,7 +2139,7 @@ LABEL_3:
 
       v8 = CLSqliteDatabase::prepareStatementNoCache(this, p_buf);
       v9 = v8;
-      if (v28 < 0)
+      if (v27 < 0)
       {
         operator delete(buf);
         if (v9)
@@ -2204,7 +2176,7 @@ LABEL_8:
     }
   }
 
-  else if (v28)
+  else if (v27)
   {
     goto LABEL_3;
   }
@@ -2227,28 +2199,26 @@ LABEL_19:
   }
 
 LABEL_20:
-  v20[0] = *MEMORY[0x277D82818];
+  v19[0] = *MEMORY[0x277D82818];
   v17 = *(MEMORY[0x277D82818] + 72);
-  *(v20 + *(v20[0] - 24)) = *(MEMORY[0x277D82818] + 64);
-  v21 = v17;
-  v22 = MEMORY[0x277D82878] + 16;
-  if (v24 < 0)
+  *(v19 + *(v19[0] - 24)) = *(MEMORY[0x277D82818] + 64);
+  v20 = v17;
+  v21 = MEMORY[0x277D82878] + 16;
+  if (v23 < 0)
   {
-    operator delete(v23[7].__locale_);
+    operator delete(v22[7].__locale_);
   }
 
-  v22 = MEMORY[0x277D82868] + 16;
-  std::locale::~locale(v23);
+  v21 = MEMORY[0x277D82868] + 16;
+  std::locale::~locale(v22);
   std::iostream::~basic_iostream();
-  MEMORY[0x259CA1EE0](v25);
-  result = (*(*v4 + 24))(v4);
-  v19 = *MEMORY[0x277D85DE8];
-  return result;
+  MEMORY[0x259CA1EE0](v24);
+  return (*(*v4 + 24))(v4);
 }
 
 uint64_t CLSqliteDatabase::dropTable_internal(CLSqliteDatabase *this, char *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v4 = *(this + 2);
   (*(*v4 + 16))(v4);
   if (onceToken_MicroLocation_Default != -1)
@@ -2287,19 +2257,17 @@ uint64_t CLSqliteDatabase::dropTable_internal(CLSqliteDatabase *this, char *a2)
     operator delete(buf.__r_.__value_.__l.__data_);
   }
 
-  result = (*(*v4 + 24))(v4);
-  v11 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(*v4 + 24))(v4);
 }
 
 uint64_t CLSqliteDatabase::addCountTrigger(CLSqliteDatabase *this, const char *a2, int a3)
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   v6 = *(this + 2);
-  v40[19] = v6;
+  v39[19] = v6;
   (*(*v6 + 16))(v6);
-  v41 = 256;
-  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](v35);
+  v40 = 256;
+  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](v34);
   if (a3)
   {
     v7 = "Increment";
@@ -2330,18 +2298,18 @@ uint64_t CLSqliteDatabase::addCountTrigger(CLSqliteDatabase *this, const char *a
     v9 = "-";
   }
 
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v36, "CREATE TRIGGER IF NOT EXISTS ", 29);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v35, "CREATE TRIGGER IF NOT EXISTS ", 29);
   v10 = strlen(a2);
-  v11 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v36, a2, v10);
+  v11 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v35, a2, v10);
   v12 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v11, v7, 9);
   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v12, "RowCount", 8);
-  v13 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v36, " AFTER ", 7);
+  v13 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v35, " AFTER ", 7);
   v14 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v13, v8, 6);
   v15 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v14, " ON ", 4);
   v16 = strlen(a2);
   v17 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v15, a2, v16);
   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v17, " FOR EACH ROW BEGIN", 19);
-  v18 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v36, " UPDATE ", 8);
+  v18 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v35, " UPDATE ", 8);
   v19 = strlen(a2);
   v20 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v18, a2, v19);
   v21 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v20, "Counts", 6);
@@ -2351,8 +2319,8 @@ uint64_t CLSqliteDatabase::addCountTrigger(CLSqliteDatabase *this, const char *a
   v25 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v24, "Count", 5);
   v26 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v25, v9, 1);
   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v26, "1 WHERE rowid=1; END", 20);
-  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::str[abi:ne200100](v35, buf);
-  if (v43 >= 0)
+  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::str[abi:ne200100](v34, buf);
+  if (v42 >= 0)
   {
     v27 = buf;
   }
@@ -2364,7 +2332,7 @@ uint64_t CLSqliteDatabase::addCountTrigger(CLSqliteDatabase *this, const char *a
 
   v28 = CLSqliteDatabase::prepareStatementNoCache(this, v27);
   v29 = v28;
-  if (v43 < 0)
+  if (v42 < 0)
   {
     operator delete(*buf);
     if (v29)
@@ -2395,32 +2363,30 @@ LABEL_15:
   }
 
 LABEL_21:
-  v35[0] = *MEMORY[0x277D82818];
+  v34[0] = *MEMORY[0x277D82818];
   v32 = *(MEMORY[0x277D82818] + 72);
-  *(v35 + *(v35[0] - 24)) = *(MEMORY[0x277D82818] + 64);
-  v36 = v32;
-  v37 = MEMORY[0x277D82878] + 16;
-  if (v39 < 0)
+  *(v34 + *(v34[0] - 24)) = *(MEMORY[0x277D82818] + 64);
+  v35 = v32;
+  v36 = MEMORY[0x277D82878] + 16;
+  if (v38 < 0)
   {
-    operator delete(v38[7].__locale_);
+    operator delete(v37[7].__locale_);
   }
 
-  v37 = MEMORY[0x277D82868] + 16;
-  std::locale::~locale(v38);
+  v36 = MEMORY[0x277D82868] + 16;
+  std::locale::~locale(v37);
   std::iostream::~basic_iostream();
-  MEMORY[0x259CA1EE0](v40);
-  result = (*(*v6 + 24))(v6);
-  v34 = *MEMORY[0x277D85DE8];
-  return result;
+  MEMORY[0x259CA1EE0](v39);
+  return (*(*v6 + 24))(v6);
 }
 
 uint64_t CLSqliteDatabase::createTable(uint64_t a1, const char *a2, const char **a3)
 {
-  v41[19] = *MEMORY[0x277D85DE8];
+  v40[19] = *MEMORY[0x277D85DE8];
   v6 = *(a1 + 16);
-  v32 = v6;
+  v31 = v6;
   (*(*v6 + 16))(v6);
-  v33 = 256;
+  v32 = 256;
   if (onceToken_MicroLocation_Default != -1)
   {
     _CLLogObjectForCategory_MicroLocation_Default();
@@ -2447,12 +2413,12 @@ uint64_t CLSqliteDatabase::createTable(uint64_t a1, const char *a2, const char *
 
     while (v10);
     std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](buf);
-    v11 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v37, "CREATE TABLE ", 13);
+    v11 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v36, "CREATE TABLE ", 13);
     v12 = strlen(a2);
     v13 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v11, a2, v12);
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v13, " (", 2);
     CLSqliteDatabase::columnsToString(a3, 1, v8 < 2, &__p);
-    if ((v31 & 0x80u) == 0)
+    if ((v30 & 0x80u) == 0)
     {
       p_p = &__p;
     }
@@ -2462,18 +2428,18 @@ uint64_t CLSqliteDatabase::createTable(uint64_t a1, const char *a2, const char *
       p_p = __p;
     }
 
-    if ((v31 & 0x80u) == 0)
-    {
-      v15 = v31;
-    }
-
-    else
+    if ((v30 & 0x80u) == 0)
     {
       v15 = v30;
     }
 
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v37, p_p, v15);
-    if (v31 < 0)
+    else
+    {
+      v15 = v29;
+    }
+
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v36, p_p, v15);
+    if (v30 < 0)
     {
       operator delete(__p);
     }
@@ -2482,21 +2448,21 @@ uint64_t CLSqliteDatabase::createTable(uint64_t a1, const char *a2, const char *
     {
       v16 = &__p;
       CLSqliteDatabase::getPrimaryKeyDefinitionString(a3, &__p);
-      if ((v31 & 0x80u) != 0)
+      if ((v30 & 0x80u) != 0)
       {
         v16 = __p;
       }
 
       v17 = strlen(v16);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v37, v16, v17);
-      if (v31 < 0)
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v36, v16, v17);
+      if (v30 < 0)
       {
         operator delete(__p);
       }
     }
 
     CLSqliteDatabase::getForeignKeyDefinitionString(a1, a3, &__p);
-    if ((v31 & 0x80u) == 0)
+    if ((v30 & 0x80u) == 0)
     {
       v18 = &__p;
     }
@@ -2506,23 +2472,23 @@ uint64_t CLSqliteDatabase::createTable(uint64_t a1, const char *a2, const char *
       v18 = __p;
     }
 
-    if ((v31 & 0x80u) == 0)
-    {
-      v19 = v31;
-    }
-
-    else
+    if ((v30 & 0x80u) == 0)
     {
       v19 = v30;
     }
 
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v37, v18, v19);
-    if (v31 < 0)
+    else
+    {
+      v19 = v29;
+    }
+
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v36, v18, v19);
+    if (v30 < 0)
     {
       operator delete(__p);
     }
 
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v37, ")", 1);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v36, ")", 1);
     if (onceToken_MicroLocation_Default != -1)
     {
       CLSqliteDatabase::init();
@@ -2532,18 +2498,18 @@ uint64_t CLSqliteDatabase::createTable(uint64_t a1, const char *a2, const char *
     if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
     {
       std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::str[abi:ne200100](buf, &__p);
-      v21 = (v31 & 0x80u) == 0 ? &__p : __p;
-      *v34 = 136315138;
-      v35 = v21;
-      _os_log_impl(&dword_258FE9000, v20, OS_LOG_TYPE_DEBUG, "Schema statement created. schema: %s", v34, 0xCu);
-      if (v31 < 0)
+      v21 = (v30 & 0x80u) == 0 ? &__p : __p;
+      *v33 = 136315138;
+      v34 = v21;
+      _os_log_impl(&dword_258FE9000, v20, OS_LOG_TYPE_DEBUG, "Schema statement created. schema: %s", v33, 0xCu);
+      if (v30 < 0)
       {
         operator delete(__p);
       }
     }
 
     std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::str[abi:ne200100](buf, &__p);
-    if ((v31 & 0x80u) == 0)
+    if ((v30 & 0x80u) == 0)
     {
       v22 = &__p;
     }
@@ -2555,7 +2521,7 @@ uint64_t CLSqliteDatabase::createTable(uint64_t a1, const char *a2, const char *
 
     v23 = CLSqliteDatabase::prepareStatementNoCache(a1, v22);
     v24 = v23;
-    if (v31 < 0)
+    if (v30 < 0)
     {
       operator delete(__p);
       if (!v24)
@@ -2564,18 +2530,18 @@ LABEL_46:
         *buf = *MEMORY[0x277D82818];
         v26 = *(MEMORY[0x277D82818] + 72);
         *&buf[*(*buf - 24)] = *(MEMORY[0x277D82818] + 64);
-        v37 = v26;
-        v38 = MEMORY[0x277D82878] + 16;
-        if (v40 < 0)
+        v36 = v26;
+        v37 = MEMORY[0x277D82878] + 16;
+        if (v39 < 0)
         {
-          operator delete(v39[7].__locale_);
+          operator delete(v38[7].__locale_);
         }
 
-        v38 = MEMORY[0x277D82868] + 16;
-        std::locale::~locale(v39);
+        v37 = MEMORY[0x277D82868] + 16;
+        std::locale::~locale(v38);
         std::iostream::~basic_iostream();
-        MEMORY[0x259CA1EE0](v41);
-        goto LABEL_49;
+        MEMORY[0x259CA1EE0](v40);
+        return (*(*v6 + 24))(v6);
       }
     }
 
@@ -2589,10 +2555,7 @@ LABEL_46:
     goto LABEL_46;
   }
 
-LABEL_49:
-  result = (*(*v6 + 24))(v6);
-  v28 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(*v6 + 24))(v6);
 }
 
 void sub_259070868(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, pthread_mutex_t *a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, char a20)
@@ -2605,7 +2568,7 @@ void sub_259070868(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 BOOL CLSqliteDatabase::bind(CLSqliteDatabase *this, sqlite3_stmt *a2, char *__s, const char *a4)
 {
   v5 = a2;
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v7 = strlen(__s);
   v8 = sqlite3_bind_text(this, v5, __s, v7, 0);
   if (v8)
@@ -2618,21 +2581,19 @@ BOOL CLSqliteDatabase::bind(CLSqliteDatabase *this, sqlite3_stmt *a2, char *__s,
     v9 = logObject_MicroLocation_Default;
     if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
     {
-      v12 = 136381443;
-      v13 = __s;
-      v14 = 1024;
-      v15 = v5;
-      v16 = 1024;
-      v17 = v8;
-      v18 = 2081;
-      v19 = sqlite3_sql(this);
-      _os_log_impl(&dword_258FE9000, v9, OS_LOG_TYPE_FAULT, "Could not bind. value: %{private}s, index: %d, sqlite_rc: %d, query: %{private}s", &v12, 0x22u);
+      v11 = 136381443;
+      v12 = __s;
+      v13 = 1024;
+      v14 = v5;
+      v15 = 1024;
+      v16 = v8;
+      v17 = 2081;
+      v18 = sqlite3_sql(this);
+      _os_log_impl(&dword_258FE9000, v9, OS_LOG_TYPE_FAULT, "Could not bind. value: %{private}s, index: %d, sqlite_rc: %d, query: %{private}s", &v11, 0x22u);
     }
   }
 
-  result = v8 == 0;
-  v11 = *MEMORY[0x277D85DE8];
-  return result;
+  return v8 == 0;
 }
 
 BOOL CLSqliteDatabase::tableExists_internal(CLSqliteDatabase *this, const char *a2)
@@ -2697,7 +2658,7 @@ void sub_259070CC4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t CLSqliteDatabase::getPrimaryKeyDefinitionString@<X0>(uint64_t result@<X0>, uint64_t a2@<X8>)
+uint64_t CLSqliteDatabase::getPrimaryKeyDefinitionString@<X0>(uint64_t result@<X0>, void *a2@<X8>)
 {
   v2 = result;
   if ((*(result + 12) & 1) == 0)
@@ -2726,8 +2687,8 @@ LABEL_7:
   {
 LABEL_15:
     *a2 = 0;
-    *(a2 + 8) = 0;
-    *(a2 + 16) = 0;
+    a2[1] = 0;
+    a2[2] = 0;
     return result;
   }
 
@@ -2776,7 +2737,7 @@ LABEL_15:
 
 void CLSqliteDatabase::columnsToString(const char **a1@<X0>, int a2@<W1>, int a3@<W2>, uint64_t a4@<X8>)
 {
-  v33[2] = *MEMORY[0x277D85DE8];
+  v32[2] = *MEMORY[0x277D85DE8];
   std::string::basic_string[abi:ne200100]<0>(a4, "");
   v7 = *a1;
   if (*a1)
@@ -2804,15 +2765,15 @@ void CLSqliteDatabase::columnsToString(const char **a1@<X0>, int a2@<W1>, int a3
       }
 
       v13 = strlen(v7);
-      std::string::basic_string[abi:ne200100](&v32, v12 + v13);
-      if ((v32.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+      std::string::basic_string[abi:ne200100](&v31, v12 + v13);
+      if ((v31.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
       {
-        v14 = &v32;
+        v14 = &v31;
       }
 
       else
       {
-        v14 = v32.__r_.__value_.__r.__words[0];
+        v14 = v31.__r_.__value_.__r.__words[0];
       }
 
       if (v12)
@@ -2842,7 +2803,7 @@ void CLSqliteDatabase::columnsToString(const char **a1@<X0>, int a2@<W1>, int a3
         operator delete(*a4);
       }
 
-      *a4 = v32;
+      *a4 = v31;
       if (a2)
       {
         if (*(a4 + 23) >= 0)
@@ -2855,15 +2816,15 @@ void CLSqliteDatabase::columnsToString(const char **a1@<X0>, int a2@<W1>, int a3
           v17 = *(a4 + 8);
         }
 
-        std::string::basic_string[abi:ne200100](&v32, v17 + 1);
-        if ((v32.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+        std::string::basic_string[abi:ne200100](&v31, v17 + 1);
+        if ((v31.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          v18 = &v32;
+          v18 = &v31;
         }
 
         else
         {
-          v18 = v32.__r_.__value_.__r.__words[0];
+          v18 = v31.__r_.__value_.__r.__words[0];
         }
 
         if (v17)
@@ -2904,10 +2865,10 @@ void CLSqliteDatabase::columnsToString(const char **a1@<X0>, int a2@<W1>, int a3
         }
 
         v25 = strlen(v21);
-        v26 = std::string::append(&v32, v21, v25);
+        v26 = std::string::append(&v31, v21, v25);
         v27 = v26->__r_.__value_.__r.__words[0];
-        v33[0] = v26->__r_.__value_.__l.__size_;
-        *(v33 + 7) = *(&v26->__r_.__value_.__r.__words[1] + 7);
+        v32[0] = v26->__r_.__value_.__l.__size_;
+        *(v32 + 7) = *(&v26->__r_.__value_.__r.__words[1] + 7);
         v28 = HIBYTE(v26->__r_.__value_.__r.__words[2]);
         v26->__r_.__value_.__l.__size_ = 0;
         v26->__r_.__value_.__r.__words[2] = 0;
@@ -2917,14 +2878,14 @@ void CLSqliteDatabase::columnsToString(const char **a1@<X0>, int a2@<W1>, int a3
           operator delete(*a4);
         }
 
-        v29 = v33[0];
+        v29 = v32[0];
         *a4 = v27;
         *(a4 + 8) = v29;
-        *(a4 + 15) = *(v33 + 7);
+        *(a4 + 15) = *(v32 + 7);
         *(a4 + 23) = v28;
-        if (SHIBYTE(v32.__r_.__value_.__r.__words[2]) < 0)
+        if (SHIBYTE(v31.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(v32.__r_.__value_.__l.__data_);
+          operator delete(v31.__r_.__value_.__l.__data_);
         }
       }
 
@@ -2953,8 +2914,6 @@ void CLSqliteDatabase::columnsToString(const char **a1@<X0>, int a2@<W1>, int a3
 
     while (v7);
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 void sub_259071284(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
@@ -3123,7 +3082,7 @@ LABEL_32:
 
 BOOL CLSqliteDatabase::getSoftwareVersionAndSerialNumberForTable(uint64_t a1, char *a2, uint64_t a3, uint64_t a4)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v8 = *(a1 + 16);
   (*(*v8 + 16))(v8);
   v9 = CLSqliteDatabase::prepareSelectStatement(a1, off_2798D4610, "TableInfo", "TableName");
@@ -3191,31 +3150,29 @@ BOOL CLSqliteDatabase::getSoftwareVersionAndSerialNumberForTable(uint64_t a1, ch
     *&buf[12] = 2080;
     *&buf[14] = v16;
     *&buf[22] = 1024;
-    v22 = v12;
-    v23 = 2080;
-    v24 = v17;
-    v25 = 2081;
-    v26 = v18;
+    v21 = v12;
+    v22 = 2080;
+    v23 = v17;
+    v24 = 2081;
+    v25 = v18;
     _os_log_impl(&dword_258FE9000, v15, OS_LOG_TYPE_DEBUG, "version and serial number. table: %{private}s, path: %s, sqlite_rc: %d, version: %s, serial number: %{private}s", buf, 0x30u);
   }
 
   (*(*v8 + 24))(v8);
-  result = v12 == 100;
-  v20 = *MEMORY[0x277D85DE8];
-  return result;
+  return v12 == 100;
 }
 
 CLSqliteDatabase *CLSqliteDatabase::prepareSelectStatement(CLSqliteDatabase *this, const char **a2, const char *a3, const char *a4)
 {
-  v38[19] = *MEMORY[0x277D85DE8];
+  v37[19] = *MEMORY[0x277D85DE8];
   v8 = *(this + 2);
-  v30 = v8;
+  v29 = v8;
   (*(*v8 + 16))(v8);
-  v31 = 256;
+  v30 = 256;
   if (a3 && a4 && *a2)
   {
     std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](buf);
-    v9 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v34[2], "SELECT ", 7);
+    v9 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v33[2], "SELECT ", 7);
     v10 = strlen(*a2);
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v9, *a2, v10);
     if (a2[1])
@@ -3223,7 +3180,7 @@ CLSqliteDatabase *CLSqliteDatabase::prepareSelectStatement(CLSqliteDatabase *thi
       v11 = a2 + 2;
       do
       {
-        v12 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v34[2], ", ", 2);
+        v12 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v33[2], ", ", 2);
         v13 = strlen(*(v11 - 1));
         std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v12, *(v11 - 1), v13);
       }
@@ -3231,7 +3188,7 @@ CLSqliteDatabase *CLSqliteDatabase::prepareSelectStatement(CLSqliteDatabase *thi
       while (*v11++);
     }
 
-    v15 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v34[2], " FROM ", 6);
+    v15 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v33[2], " FROM ", 6);
     v16 = strlen(a3);
     v17 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v15, a3, v16);
     v18 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v17, " WHERE ", 7);
@@ -3239,7 +3196,7 @@ CLSqliteDatabase *CLSqliteDatabase::prepareSelectStatement(CLSqliteDatabase *thi
     v20 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v18, a4, v19);
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v20, "=?", 2);
     std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::str[abi:ne200100](buf, __p);
-    if (v29 >= 0)
+    if (v28 >= 0)
     {
       v21 = __p;
     }
@@ -3250,7 +3207,7 @@ CLSqliteDatabase *CLSqliteDatabase::prepareSelectStatement(CLSqliteDatabase *thi
     }
 
     v22 = CLSqliteDatabase::prepareStatementNoCache(this, v21);
-    if (v29 < 0)
+    if (v28 < 0)
     {
       operator delete(__p[0]);
     }
@@ -3258,17 +3215,17 @@ CLSqliteDatabase *CLSqliteDatabase::prepareSelectStatement(CLSqliteDatabase *thi
     *buf = *MEMORY[0x277D82818];
     v23 = *(MEMORY[0x277D82818] + 72);
     *&buf[*(*buf - 24)] = *(MEMORY[0x277D82818] + 64);
-    *&v34[2] = v23;
-    v35 = (MEMORY[0x277D82878] + 16);
-    if (v37 < 0)
+    *&v33[2] = v23;
+    v34 = (MEMORY[0x277D82878] + 16);
+    if (v36 < 0)
     {
-      operator delete(v36[7].__locale_);
+      operator delete(v35[7].__locale_);
     }
 
-    v35 = (MEMORY[0x277D82868] + 16);
-    std::locale::~locale(v36);
+    v34 = (MEMORY[0x277D82868] + 16);
+    std::locale::~locale(v35);
     std::iostream::~basic_iostream();
-    MEMORY[0x259CA1EE0](v38);
+    MEMORY[0x259CA1EE0](v37);
   }
 
   else
@@ -3284,10 +3241,10 @@ CLSqliteDatabase *CLSqliteDatabase::prepareSelectStatement(CLSqliteDatabase *thi
       v25 = *a2;
       *buf = 136381187;
       *&buf[4] = a3;
-      v33 = 2080;
-      *v34 = v25;
-      *&v34[8] = 2080;
-      v35 = a4;
+      v32 = 2080;
+      *v33 = v25;
+      *&v33[8] = 2080;
+      v34 = a4;
       _os_log_impl(&dword_258FE9000, v24, OS_LOG_TYPE_FAULT, "Invalid parameters. table: %{private}s, columnNames[0]: %s, key: %s", buf, 0x20u);
     }
 
@@ -3295,33 +3252,32 @@ CLSqliteDatabase *CLSqliteDatabase::prepareSelectStatement(CLSqliteDatabase *thi
   }
 
   (*(*v8 + 24))(v8);
-  v26 = *MEMORY[0x277D85DE8];
   return v22;
 }
 
 uint64_t CLSqliteDatabase::createRowInTableInfo(CLSqliteDatabase *this, char *a2)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v4 = *(this + 2);
-  v19 = v4;
+  v18 = v4;
   (*(*v4 + 16))(v4);
-  v20 = 256;
-  std::string::basic_string[abi:ne200100]<0>(v17, "");
+  v19 = 256;
+  std::string::basic_string[abi:ne200100]<0>(v16, "");
   std::string::basic_string[abi:ne200100]<0>(__p, "");
   inserted = CLSqliteDatabase::prepareInsertStatement(this, "TableInfo", off_2798D4628, 1);
   CLSqliteDatabase::bind(inserted, 1, a2, v6);
-  if (v18 >= 0)
+  if (v17 >= 0)
   {
-    v8 = v17;
+    v8 = v16;
   }
 
   else
   {
-    v8 = v17[0];
+    v8 = v16[0];
   }
 
   CLSqliteDatabase::bind(inserted, 2, v8, v7);
-  if (v16 >= 0)
+  if (v15 >= 0)
   {
     v10 = __p;
   }
@@ -3343,42 +3299,40 @@ uint64_t CLSqliteDatabase::createRowInTableInfo(CLSqliteDatabase *this, char *a2
   if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136380675;
-    v22 = a2;
+    v21 = a2;
     _os_log_impl(&dword_258FE9000, v12, OS_LOG_TYPE_DEBUG, "Created row in TableInfo. table: %{private}s", buf, 0xCu);
   }
 
-  if (v16 < 0)
+  if (v15 < 0)
   {
     operator delete(__p[0]);
   }
 
-  if (v18 < 0)
+  if (v17 < 0)
   {
-    operator delete(v17[0]);
+    operator delete(v16[0]);
   }
 
-  result = (*(*v4 + 24))(v4);
-  v14 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(*v4 + 24))(v4);
 }
 
 CLSqliteDatabase *CLSqliteDatabase::prepareInsertStatement(CLSqliteDatabase *this, const char *a2, const char **a3, int a4)
 {
-  v37[19] = *MEMORY[0x277D85DE8];
+  v36[19] = *MEMORY[0x277D85DE8];
   v8 = *(this + 2);
-  v29 = v8;
+  v28 = v8;
   (*(*v8 + 16))(v8);
-  v30 = 256;
+  v29 = 256;
   if (a2 && *a3)
   {
     std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](buf);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v33[2], "INSERT ", 7);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v32[2], "INSERT ", 7);
     if (a4)
     {
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v33[2], "OR REPLACE ", 11);
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v32[2], "OR REPLACE ", 11);
     }
 
-    v9 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v33[2], "INTO ", 5);
+    v9 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v32[2], "INTO ", 5);
     v10 = strlen(a2);
     v11 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v9, a2, v10);
     v12 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v11, " (", 2);
@@ -3390,7 +3344,7 @@ CLSqliteDatabase *CLSqliteDatabase::prepareInsertStatement(CLSqliteDatabase *thi
       v15 = 1;
       do
       {
-        v16 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v33[2], ", ", 2);
+        v16 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v32[2], ", ", 2);
         v17 = strlen(*(v14 - 1));
         std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v16, *(v14 - 1), v17);
         v18 = *v14++;
@@ -3405,13 +3359,13 @@ CLSqliteDatabase *CLSqliteDatabase::prepareInsertStatement(CLSqliteDatabase *thi
       v15 = 1;
     }
 
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v33[2], ") VALUES (?", 11);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v32[2], ") VALUES (?", 11);
     if (v15 >= 2)
     {
       v22 = v15 + 1;
       do
       {
-        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v33[2], ", ?", 3);
+        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v32[2], ", ?", 3);
         --v22;
       }
 
@@ -3419,9 +3373,9 @@ CLSqliteDatabase *CLSqliteDatabase::prepareInsertStatement(CLSqliteDatabase *thi
     }
 
     LOBYTE(__p[0]) = 41;
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v33[2], __p, 1);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v32[2], __p, 1);
     std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::str[abi:ne200100](buf, __p);
-    if (v28 >= 0)
+    if (v27 >= 0)
     {
       v23 = __p;
     }
@@ -3432,7 +3386,7 @@ CLSqliteDatabase *CLSqliteDatabase::prepareInsertStatement(CLSqliteDatabase *thi
     }
 
     v21 = CLSqliteDatabase::prepareStatementNoCache(this, v23);
-    if (v28 < 0)
+    if (v27 < 0)
     {
       operator delete(__p[0]);
     }
@@ -3440,17 +3394,17 @@ CLSqliteDatabase *CLSqliteDatabase::prepareInsertStatement(CLSqliteDatabase *thi
     *buf = *MEMORY[0x277D82818];
     v24 = *(MEMORY[0x277D82818] + 72);
     *&buf[*(*buf - 24)] = *(MEMORY[0x277D82818] + 64);
-    *&v33[2] = v24;
-    v34 = MEMORY[0x277D82878] + 16;
-    if (v36 < 0)
+    *&v32[2] = v24;
+    v33 = MEMORY[0x277D82878] + 16;
+    if (v35 < 0)
     {
-      operator delete(v35[7].__locale_);
+      operator delete(v34[7].__locale_);
     }
 
-    v34 = MEMORY[0x277D82868] + 16;
-    std::locale::~locale(v35);
+    v33 = MEMORY[0x277D82868] + 16;
+    std::locale::~locale(v34);
     std::iostream::~basic_iostream();
-    MEMORY[0x259CA1EE0](v37);
+    MEMORY[0x259CA1EE0](v36);
   }
 
   else
@@ -3466,8 +3420,8 @@ CLSqliteDatabase *CLSqliteDatabase::prepareInsertStatement(CLSqliteDatabase *thi
       v20 = *a3;
       *buf = 136380931;
       *&buf[4] = a2;
-      v32 = 2080;
-      *v33 = v20;
+      v31 = 2080;
+      *v32 = v20;
       _os_log_impl(&dword_258FE9000, v19, OS_LOG_TYPE_FAULT, "Invalid parameters. table: %{private}s, columnNames[0]: %s", buf, 0x16u);
     }
 
@@ -3475,7 +3429,6 @@ CLSqliteDatabase *CLSqliteDatabase::prepareInsertStatement(CLSqliteDatabase *thi
   }
 
   (*(*v8 + 24))(v8);
-  v25 = *MEMORY[0x277D85DE8];
   return v21;
 }
 
@@ -3490,24 +3443,24 @@ uint64_t CLSqliteDatabase::deleteRowFromTableInfo(CLSqliteDatabase *this, char *
   return (*(*v8 + 24))(v8);
 }
 
-void sub_25907255C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25907255C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   AutoLocker::~AutoLocker(va);
   _Unwind_Resume(a1);
 }
 
 CLSqliteDatabase *CLSqliteDatabase::prepareDeleteStatement(CLSqliteDatabase *this, const char *a2, const char *a3)
 {
-  v29[19] = *MEMORY[0x277D85DE8];
+  v28[19] = *MEMORY[0x277D85DE8];
   v6 = *(this + 2);
-  v21 = v6;
+  v20 = v6;
   (*(*v6 + 16))(v6);
-  v22 = 256;
+  v21 = 256;
   if (a2 && a3)
   {
     std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](buf);
-    v7 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v25[2], "DELETE FROM ", 12);
+    v7 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v24[2], "DELETE FROM ", 12);
     v8 = strlen(a2);
     v9 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v7, a2, v8);
     v10 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v9, " WHERE ", 7);
@@ -3515,7 +3468,7 @@ CLSqliteDatabase *CLSqliteDatabase::prepareDeleteStatement(CLSqliteDatabase *thi
     v12 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v10, a3, v11);
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v12, "=?", 2);
     std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::str[abi:ne200100](buf, __p);
-    if (v20 >= 0)
+    if (v19 >= 0)
     {
       v13 = __p;
     }
@@ -3526,7 +3479,7 @@ CLSqliteDatabase *CLSqliteDatabase::prepareDeleteStatement(CLSqliteDatabase *thi
     }
 
     v14 = CLSqliteDatabase::prepareStatementNoCache(this, v13);
-    if (v20 < 0)
+    if (v19 < 0)
     {
       operator delete(__p[0]);
     }
@@ -3534,17 +3487,17 @@ CLSqliteDatabase *CLSqliteDatabase::prepareDeleteStatement(CLSqliteDatabase *thi
     *buf = *MEMORY[0x277D82818];
     v15 = *(MEMORY[0x277D82818] + 72);
     *&buf[*(*buf - 24)] = *(MEMORY[0x277D82818] + 64);
-    *&v25[2] = v15;
-    v26 = MEMORY[0x277D82878] + 16;
-    if (v28 < 0)
+    *&v24[2] = v15;
+    v25 = MEMORY[0x277D82878] + 16;
+    if (v27 < 0)
     {
-      operator delete(v27[7].__locale_);
+      operator delete(v26[7].__locale_);
     }
 
-    v26 = MEMORY[0x277D82868] + 16;
-    std::locale::~locale(v27);
+    v25 = MEMORY[0x277D82868] + 16;
+    std::locale::~locale(v26);
     std::iostream::~basic_iostream();
-    MEMORY[0x259CA1EE0](v29);
+    MEMORY[0x259CA1EE0](v28);
   }
 
   else
@@ -3559,8 +3512,8 @@ CLSqliteDatabase *CLSqliteDatabase::prepareDeleteStatement(CLSqliteDatabase *thi
     {
       *buf = 136380931;
       *&buf[4] = a2;
-      v24 = 2080;
-      *v25 = a3;
+      v23 = 2080;
+      *v24 = a3;
       _os_log_impl(&dword_258FE9000, v16, OS_LOG_TYPE_FAULT, "Invalid parameters. table: %{private}s, key: %s", buf, 0x16u);
     }
 
@@ -3568,20 +3521,19 @@ CLSqliteDatabase *CLSqliteDatabase::prepareDeleteStatement(CLSqliteDatabase *thi
   }
 
   (*(*v6 + 24))(v6);
-  v17 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
 CLSqliteDatabase *CLSqliteDatabase::prepareStatement(CLSqliteDatabase *this, sqlite3 *__s, const char *a3)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   if (this)
   {
     v4 = this;
-    v12 = 0;
+    v11 = 0;
     ppStmt = 0;
     v5 = strlen(__s);
-    v6 = sqlite3_prepare_v2(v4, __s, v5, &ppStmt, &v12);
+    v6 = sqlite3_prepare_v2(v4, __s, v5, &ppStmt, &v11);
     if (v6)
     {
       if (onceToken_MicroLocation_Default != -1)
@@ -3595,10 +3547,10 @@ CLSqliteDatabase *CLSqliteDatabase::prepareStatement(CLSqliteDatabase *this, sql
         v8 = sqlite3_errmsg(v4);
         *buf = 136381187;
         *&buf[4] = __s;
-        v15 = 1024;
-        v16 = v6;
-        v17 = 2081;
-        v18 = v8;
+        v14 = 1024;
+        v15 = v6;
+        v16 = 2081;
+        v17 = v8;
         _os_log_impl(&dword_258FE9000, v7, OS_LOG_TYPE_FAULT, "Could not prepare statement. query: %{private}s, sqlite_rc: %d, errmsg: %{private}s", buf, 0x1Cu);
       }
 
@@ -3615,21 +3567,20 @@ CLSqliteDatabase *CLSqliteDatabase::prepareStatement(CLSqliteDatabase *this, sql
 
       std::string::basic_string[abi:ne200100]<0>(buf, v10);
       CLSqliteDatabase::handleSqlError(v4, buf, 0, v6);
-      if (SBYTE3(v18) < 0)
+      if (SBYTE3(v17) < 0)
       {
         operator delete(*buf);
       }
 
-      this = 0;
+      return 0;
     }
 
     else
     {
-      this = ppStmt;
+      return ppStmt;
     }
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return this;
 }
 
@@ -3640,10 +3591,10 @@ void CLSqliteDatabase::prepareScopedStatement(CLSqliteDatabase *this, sqlite3 *a
   operator new();
 }
 
-void sub_259072B80(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_259072B80(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  MEMORY[0x259CA1F90](v2, 0xA1C409BE6959DLL);
+  va_start(va, a3);
+  MEMORY[0x259CA1F90](v3, 0xA1C409BE6959DLL);
   AutoLocker::~AutoLocker(va);
   _Unwind_Resume(a1);
 }
@@ -3668,9 +3619,9 @@ uint64_t CLSqliteDatabase::vacuum(CLSqliteDatabase *this, sqlite3 *a2)
   return v4;
 }
 
-void sub_259072C98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_259072C98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
 
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
@@ -3678,12 +3629,12 @@ void sub_259072C98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 BOOL ___ZN16CLSqliteDatabase6vacuumEP7sqlite3_block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
-  v28 = *MEMORY[0x277D85DE8];
-  *v25 = 0;
+  v27 = *MEMORY[0x277D85DE8];
+  *v24 = 0;
   v5 = (a1 + 40);
-  if (CLSqliteDatabase::execAndGetValue(*(a1 + 40), "pragma page_count;", v25, a4))
+  if (CLSqliteDatabase::execAndGetValue(*(a1 + 40), "pragma page_count;", v24, a4))
   {
-    v7 = *v25;
+    v7 = *v24;
   }
 
   else
@@ -3691,9 +3642,9 @@ BOOL ___ZN16CLSqliteDatabase6vacuumEP7sqlite3_block_invoke(uint64_t a1, uint64_t
     v7 = -1;
   }
 
-  if (CLSqliteDatabase::execAndGetValue(*v5, "pragma freelist_count;", v25, v6))
+  if (CLSqliteDatabase::execAndGetValue(*v5, "pragma freelist_count;", v24, v6))
   {
-    v8 = *v25;
+    v8 = *v24;
   }
 
   else
@@ -3711,11 +3662,11 @@ BOOL ___ZN16CLSqliteDatabase6vacuumEP7sqlite3_block_invoke(uint64_t a1, uint64_t
   {
     v10 = sqlite3_db_filename(*(a1 + 40), "main");
     *buf = 134218498;
-    *v27 = v7;
-    *&v27[8] = 2048;
-    *&v27[10] = v8;
-    *&v27[18] = 2080;
-    *&v27[20] = v10;
+    *v26 = v7;
+    *&v26[8] = 2048;
+    *&v26[10] = v8;
+    *&v26[18] = 2080;
+    *&v26[20] = v10;
     _os_log_impl(&dword_258FE9000, v9, OS_LOG_TYPE_DEFAULT, "start vacuum. page_count: %lld, freelist_count: %lld, path: %s, ", buf, 0x20u);
   }
 
@@ -3731,11 +3682,11 @@ BOOL ___ZN16CLSqliteDatabase6vacuumEP7sqlite3_block_invoke(uint64_t a1, uint64_t
     {
       v14 = sqlite3_db_filename(*(a1 + 40), "main");
       *buf = 134218498;
-      *v27 = v7;
-      *&v27[8] = 2048;
-      *&v27[10] = v8;
-      *&v27[18] = 2080;
-      *&v27[20] = v14;
+      *v26 = v7;
+      *&v26[8] = 2048;
+      *&v26[10] = v8;
+      *&v26[18] = 2080;
+      *&v26[20] = v14;
       _os_log_impl(&dword_258FE9000, v13, OS_LOG_TYPE_DEFAULT, "incremental_vacuum. page_count: %lld, freelist_count: %lld, path: %s", buf, 0x20u);
     }
 
@@ -3754,13 +3705,13 @@ BOOL ___ZN16CLSqliteDatabase6vacuumEP7sqlite3_block_invoke(uint64_t a1, uint64_t
     {
       v17 = sqlite3_db_filename(*(a1 + 40), "main");
       *buf = 67109890;
-      *v27 = 1;
-      *&v27[4] = 2048;
-      *&v27[6] = v7;
-      *&v27[14] = 2048;
-      *&v27[16] = v8;
-      *&v27[24] = 2080;
-      *&v27[26] = v17;
+      *v26 = 1;
+      *&v26[4] = 2048;
+      *&v26[6] = v7;
+      *&v26[14] = 2048;
+      *&v26[16] = v8;
+      *&v26[24] = 2080;
+      *&v26[26] = v17;
       _os_log_impl(&dword_258FE9000, v16, OS_LOG_TYPE_DEFAULT, "vacuum. sqlite_rc: %d, page_count: %lld, freelist_count: %lld, path: %s", buf, 0x26u);
     }
 
@@ -3779,16 +3730,14 @@ BOOL ___ZN16CLSqliteDatabase6vacuumEP7sqlite3_block_invoke(uint64_t a1, uint64_t
   {
     v20 = sqlite3_db_filename(*(a1 + 40), "main");
     *buf = 136315394;
-    *v27 = v20;
-    *&v27[8] = 1024;
-    *&v27[10] = v18;
+    *v26 = v20;
+    *&v26[8] = 1024;
+    *&v26[10] = v18;
     _os_log_impl(&dword_258FE9000, v19, OS_LOG_TYPE_DEFAULT, "wal_checkpoint. path: %s, sqlite_rc: %d", buf, 0x12u);
   }
 
-  CLSqliteDatabase::execAndGetValue(*(a1 + 40), "pragma page_count;", v25, v21);
-  result = CLSqliteDatabase::execAndGetValue(*(a1 + 40), "pragma freelist_count;", v25, v22);
-  v24 = *MEMORY[0x277D85DE8];
-  return result;
+  CLSqliteDatabase::execAndGetValue(*(a1 + 40), "pragma page_count;", v24, v21);
+  return CLSqliteDatabase::execAndGetValue(*(a1 + 40), "pragma freelist_count;", v24, v22);
 }
 
 BOOL CLSqliteDatabase::execAndGetValue(CLSqliteDatabase *this, sqlite3 *a2, char *a3, uint64_t *a4)
@@ -3827,12 +3776,12 @@ BOOL CLSqliteDatabase::isIncrementalVacuumEnabled(CLSqliteDatabase *this, sqlite
 
 BOOL CLSqliteDatabase::incrementalVacuum(CLSqliteDatabase *this, sqlite3 *a2)
 {
-  v26 = *MEMORY[0x277D85DE8];
-  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](v16);
-  v4 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v17, "pragma incremental_vacuum(", 26);
+  v25 = *MEMORY[0x277D85DE8];
+  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](v15);
+  v4 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v16, "pragma incremental_vacuum(", 26);
   v5 = MEMORY[0x259CA1DE0](v4, a2);
   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v5, ");", 2);
-  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::str[abi:ne200100](v16, &__p);
+  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::str[abi:ne200100](v15, &__p);
   if (onceToken_MicroLocation_Default != -1)
   {
     CLSqliteDatabase::init();
@@ -3844,13 +3793,13 @@ BOOL CLSqliteDatabase::incrementalVacuum(CLSqliteDatabase *this, sqlite3 *a2)
     v7 = sqlite3_db_filename(this, "main");
     *buf = 134218242;
     *&buf[4] = a2;
-    v23 = 2080;
-    v24 = v7;
+    v22 = 2080;
+    v23 = v7;
     _os_log_impl(&dword_258FE9000, v6, OS_LOG_TYPE_DEFAULT, "incrementalVacuum. pages: %lld, path: %s", buf, 0x16u);
   }
 
-  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::str[abi:ne200100](v16, buf);
-  if (v25 >= 0)
+  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::str[abi:ne200100](v15, buf);
+  if (v24 >= 0)
   {
     v8 = buf;
   }
@@ -3861,7 +3810,7 @@ BOOL CLSqliteDatabase::incrementalVacuum(CLSqliteDatabase *this, sqlite3 *a2)
   }
 
   v9 = sqlite3_exec(this, v8, 0, 0, 0);
-  if (v25 < 0)
+  if (v24 < 0)
   {
     operator delete(*buf);
   }
@@ -3879,26 +3828,25 @@ BOOL CLSqliteDatabase::incrementalVacuum(CLSqliteDatabase *this, sqlite3 *a2)
     _os_log_impl(&dword_258FE9000, v10, OS_LOG_TYPE_DEFAULT, "incrementalVacuum. result: %d", buf, 8u);
   }
 
-  if (v15 < 0)
+  if (v14 < 0)
   {
     operator delete(__p);
   }
 
-  v16[0] = *MEMORY[0x277D82818];
+  v15[0] = *MEMORY[0x277D82818];
   v11 = *(MEMORY[0x277D82818] + 72);
-  *(v16 + *(v16[0] - 24)) = *(MEMORY[0x277D82818] + 64);
-  v17 = v11;
-  v18 = MEMORY[0x277D82878] + 16;
-  if (v20 < 0)
+  *(v15 + *(v15[0] - 24)) = *(MEMORY[0x277D82818] + 64);
+  v16 = v11;
+  v17 = MEMORY[0x277D82878] + 16;
+  if (v19 < 0)
   {
-    operator delete(v19[7].__locale_);
+    operator delete(v18[7].__locale_);
   }
 
-  v18 = MEMORY[0x277D82868] + 16;
-  std::locale::~locale(v19);
+  v17 = MEMORY[0x277D82868] + 16;
+  std::locale::~locale(v18);
   std::iostream::~basic_iostream();
-  MEMORY[0x259CA1EE0](&v21);
-  v12 = *MEMORY[0x277D85DE8];
+  MEMORY[0x259CA1EE0](&v20);
   return v9 == 0;
 }
 
@@ -3921,20 +3869,20 @@ void sub_25907347C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_259073584(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_259073584(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   AutoLocker::~AutoLocker(va);
   _Unwind_Resume(a1);
 }
 
 uint64_t CLSqliteDatabase::reduceFreePages(CLSqliteDatabase *this, uint64_t a2)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v4 = *(this + 2);
-  v15[7] = v4;
+  v14[7] = v4;
   v5 = (*(*v4 + 16))(v4);
-  v16 = 256;
+  v15 = 256;
   if (*(this + 56) == 1)
   {
     if (onceToken_MicroLocation_Default != -1)
@@ -3966,17 +3914,17 @@ uint64_t CLSqliteDatabase::reduceFreePages(CLSqliteDatabase *this, uint64_t a2)
     {
       *&buf = 0;
       *(&buf + 1) = &buf;
-      v18 = 0x2020000000;
-      v19 = 0;
+      v17 = 0x2020000000;
+      v18 = 0;
       v10 = +[ULTransactionManager shared];
-      v15[0] = MEMORY[0x277D85DD0];
-      v15[1] = 3221225472;
-      v15[2] = ___ZN16CLSqliteDatabase15reduceFreePagesEx_block_invoke;
-      v15[3] = &unk_2798D4678;
-      v15[4] = &buf;
-      v15[5] = this;
-      v15[6] = a2;
-      [v10 performUnderTransaction:@"com.apple.milod.sqlitedb.IncrementalVacuum" block:v15];
+      v14[0] = MEMORY[0x277D85DD0];
+      v14[1] = 3221225472;
+      v14[2] = ___ZN16CLSqliteDatabase15reduceFreePagesEx_block_invoke;
+      v14[3] = &unk_2798D4678;
+      v14[4] = &buf;
+      v14[5] = this;
+      v14[6] = a2;
+      [v10 performUnderTransaction:@"com.apple.milod.sqlitedb.IncrementalVacuum" block:v14];
 
       v8 = *(*(&buf + 1) + 24);
       _Block_object_dispose(&buf, 8);
@@ -4008,17 +3956,16 @@ uint64_t CLSqliteDatabase::reduceFreePages(CLSqliteDatabase *this, uint64_t a2)
   }
 
   (*(*v4 + 24))(v4);
-  v13 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
-void sub_259073814(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_259073814(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va1, a8);
-  va_start(va, a8);
-  v10 = va_arg(va1, pthread_mutex_t *);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
+  va_start(va1, a15);
+  va_start(va, a15);
+  v17 = va_arg(va1, pthread_mutex_t *);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
 
   _Block_object_dispose(va1, 8);
   AutoLocker::~AutoLocker(va);
@@ -4027,7 +3974,7 @@ void sub_259073814(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 void ___ZN16CLSqliteDatabase15reduceFreePagesEx_block_invoke(void *a1)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v2 = a1[5];
   if (onceToken_MicroLocation_Default != -1)
   {
@@ -4041,10 +3988,10 @@ void ___ZN16CLSqliteDatabase15reduceFreePagesEx_block_invoke(void *a1)
     _os_log_impl(&dword_258FE9000, v3, OS_LOG_TYPE_DEFAULT, "reduceFreePages", buf, 2u);
   }
 
-  *v17 = 0;
-  if (CLSqliteDatabase::execAndGetValue(*(v2 + 8), "pragma page_count;", v17, v4))
+  *v16 = 0;
+  if (CLSqliteDatabase::execAndGetValue(*(v2 + 8), "pragma page_count;", v16, v4))
   {
-    v6 = *v17;
+    v6 = *v16;
   }
 
   else
@@ -4052,9 +3999,9 @@ void ___ZN16CLSqliteDatabase15reduceFreePagesEx_block_invoke(void *a1)
     v6 = -1;
   }
 
-  if (CLSqliteDatabase::execAndGetValue(*(v2 + 8), "pragma freelist_count;", v17, v5))
+  if (CLSqliteDatabase::execAndGetValue(*(v2 + 8), "pragma freelist_count;", v16, v5))
   {
-    v7 = *v17;
+    v7 = *v16;
   }
 
   else
@@ -4088,13 +4035,13 @@ void ___ZN16CLSqliteDatabase15reduceFreePagesEx_block_invoke(void *a1)
     }
 
     *buf = 136315906;
-    v19 = v11;
-    v20 = 2048;
-    v21 = v6;
-    v22 = 2048;
-    v23 = v7;
-    v24 = 2048;
-    v25 = v9;
+    v18 = v11;
+    v19 = 2048;
+    v20 = v6;
+    v21 = 2048;
+    v22 = v7;
+    v23 = 2048;
+    v24 = v9;
     _os_log_impl(&dword_258FE9000, v10, OS_LOG_TYPE_DEFAULT, "reduceFreePages. path: %s, page_count: %lld, freelist_count: %lld, loadFactor: %f", buf, 0x2Au);
   }
 
@@ -4117,7 +4064,7 @@ void ___ZN16CLSqliteDatabase15reduceFreePagesEx_block_invoke(void *a1)
         }
 
         *buf = 136315138;
-        v19 = v15;
+        v18 = v15;
         _os_log_impl(&dword_258FE9000, v14, OS_LOG_TYPE_FAULT, "Cannot reduceFreePages. path: %s", buf, 0xCu);
       }
     }
@@ -4126,7 +4073,7 @@ void ___ZN16CLSqliteDatabase15reduceFreePagesEx_block_invoke(void *a1)
     {
       if (v9 > 0.85 && v7 < 0x200)
       {
-        goto LABEL_39;
+        return;
       }
 
       v12 = v9 >= 0.4 ? (v7 * 0.8) : (v7 - v8);
@@ -4139,21 +4086,18 @@ void ___ZN16CLSqliteDatabase15reduceFreePagesEx_block_invoke(void *a1)
 
       if (CLSqliteDatabase::incrementalVacuum(v2, v12))
       {
-        goto LABEL_39;
+        return;
       }
     }
 
     *(*(a1[4] + 8) + 24) = 4;
   }
-
-LABEL_39:
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 BOOL CLSqliteDatabase::setIncrementalVacuumEnabled(CLSqliteDatabase *this, sqlite3 *a2)
 {
   v2 = a2;
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   if (a2)
   {
     v4 = "pragma auto_vacuum = 2;";
@@ -4173,11 +4117,11 @@ BOOL CLSqliteDatabase::setIncrementalVacuumEnabled(CLSqliteDatabase *this, sqlit
   v6 = logObject_MicroLocation_Default;
   if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_DEFAULT))
   {
-    v19 = 67109376;
-    v20 = v2;
-    v21 = 1024;
-    v22 = v5;
-    _os_log_impl(&dword_258FE9000, v6, OS_LOG_TYPE_DEFAULT, "setIncrementalVacuumEnabled. enabled: %d, sqlite_rc: %d", &v19, 0xEu);
+    v18 = 67109376;
+    v19 = v2;
+    v20 = 1024;
+    v21 = v5;
+    _os_log_impl(&dword_258FE9000, v6, OS_LOG_TYPE_DEFAULT, "setIncrementalVacuumEnabled. enabled: %d, sqlite_rc: %d", &v18, 0xEu);
   }
 
   v8 = v5 == 0;
@@ -4201,7 +4145,7 @@ BOOL CLSqliteDatabase::setIncrementalVacuumEnabled(CLSqliteDatabase *this, sqlit
       CLSqliteDatabase::finalizeStatement(this, v11, v14);
       if (v13 == v9)
       {
-        goto LABEL_22;
+        return v8;
       }
 
       goto LABEL_17;
@@ -4221,36 +4165,34 @@ LABEL_17:
   v15 = logObject_MicroLocation_Default;
   if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_DEFAULT))
   {
-    v19 = 67109632;
-    v20 = v13;
-    v21 = 1024;
-    v22 = v9;
-    v23 = 1024;
-    v24 = 1;
-    _os_log_impl(&dword_258FE9000, v15, OS_LOG_TYPE_DEFAULT, "Actual auto-vacuum state does not match desired state. actual: %d, expected: %d, vacuumNow: %d", &v19, 0x14u);
+    v18 = 67109632;
+    v19 = v13;
+    v20 = 1024;
+    v21 = v9;
+    v22 = 1024;
+    v23 = 1;
+    _os_log_impl(&dword_258FE9000, v15, OS_LOG_TYPE_DEFAULT, "Actual auto-vacuum state does not match desired state. actual: %d, expected: %d, vacuumNow: %d", &v18, 0x14u);
   }
 
   CLSqliteDatabase::vacuum(this, v16);
-LABEL_22:
-  v17 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
 uint64_t CLSqliteDatabase::isForeignKeyReferenceValid(uint64_t a1, uint64_t a2)
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   v4 = *(a1 + 16);
-  v42[19] = v4;
+  v41[19] = v4;
   (*(*v4 + 16))(v4);
-  v43 = 256;
+  v42 = 256;
   if (*a2 && *(a2 + 40) == 1 && (v5 = *(a2 + 24)) != 0 && (v6 = *(a2 + 16)) != 0)
   {
-    std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](v37);
-    v7 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v38, "PRAGMA table_info(", 18);
+    std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](v36);
+    v7 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v37, "PRAGMA table_info(", 18);
     v8 = strlen(v6);
     v9 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v7, v6, v8);
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v9, ")", 1);
-    std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::str[abi:ne200100](v37, buf);
+    std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::str[abi:ne200100](v36, buf);
     if ((buf[23] & 0x80u) == 0)
     {
       v10 = buf;
@@ -4324,17 +4266,17 @@ uint64_t CLSqliteDatabase::isForeignKeyReferenceValid(uint64_t a1, uint64_t a2)
 
     CLSqliteDatabase::finalizeStatement(*(a1 + 8), v11, v12);
     memset(buf, 0, sizeof(buf));
-    std::stringbuf::str[abi:ne200100](&v39, buf);
+    std::stringbuf::str[abi:ne200100](&v38, buf);
     if (buf[23] < 0)
     {
       operator delete(*buf);
     }
 
-    v22 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v38, "SELECT indexInfo.name FROM pragma_index_list('", 46);
+    v22 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v37, "SELECT indexInfo.name FROM pragma_index_list('", 46);
     v23 = strlen(v6);
     v24 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v22, v6, v23);
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v24, "') AS indexList, pragma_index_info(indexList.name) AS indexInfo", 63);
-    std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::str[abi:ne200100](v37, buf);
+    std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::str[abi:ne200100](v36, buf);
     if ((buf[23] & 0x80u) == 0)
     {
       v25 = buf;
@@ -4389,14 +4331,14 @@ LABEL_40:
       CLSqliteDatabase::init();
     }
 
-    v35 = *(v28 + 143);
-    if (os_log_type_enabled(v35, OS_LOG_TYPE_DEBUG))
+    v34 = *(v28 + 143);
+    if (os_log_type_enabled(v34, OS_LOG_TYPE_DEBUG))
     {
       *buf = 67109376;
       *&buf[4] = v13 == 100;
       *&buf[8] = 1024;
       *&buf[10] = v31;
-      _os_log_impl(&dword_258FE9000, v35, OS_LOG_TYPE_DEBUG, "ForeignKey reference. isReferenceValid: %d, isIndexed: %d", buf, 0xEu);
+      _os_log_impl(&dword_258FE9000, v34, OS_LOG_TYPE_DEBUG, "ForeignKey reference. isReferenceValid: %d, isIndexed: %d", buf, 0xEu);
     }
 
     if (v13 == 100)
@@ -4409,20 +4351,20 @@ LABEL_40:
       v32 = 0;
     }
 
-    v37[0] = *MEMORY[0x277D82818];
-    v36 = *(MEMORY[0x277D82818] + 72);
-    *(v37 + *(v37[0] - 24)) = *(MEMORY[0x277D82818] + 64);
-    v38 = v36;
-    v39 = MEMORY[0x277D82878] + 16;
-    if (v41 < 0)
+    v36[0] = *MEMORY[0x277D82818];
+    v35 = *(MEMORY[0x277D82818] + 72);
+    *(v36 + *(v36[0] - 24)) = *(MEMORY[0x277D82818] + 64);
+    v37 = v35;
+    v38 = MEMORY[0x277D82878] + 16;
+    if (v40 < 0)
     {
-      operator delete(v40[7].__locale_);
+      operator delete(v39[7].__locale_);
     }
 
-    v39 = MEMORY[0x277D82868] + 16;
-    std::locale::~locale(v40);
+    v38 = MEMORY[0x277D82868] + 16;
+    std::locale::~locale(v39);
     std::iostream::~basic_iostream();
-    MEMORY[0x259CA1EE0](v42);
+    MEMORY[0x259CA1EE0](v41);
   }
 
   else
@@ -4431,7 +4373,6 @@ LABEL_40:
   }
 
   (*(*v4 + 24))(v4);
-  v33 = *MEMORY[0x277D85DE8];
   return v32;
 }
 
@@ -4476,7 +4417,7 @@ std::string *__cdecl std::string::__assign_external(std::string *this, const std
   return std::string::__assign_external(this, __s, v4);
 }
 
-uint64_t std::string::basic_string[abi:ne200100](uint64_t result, unint64_t a2)
+uint64_t std::string::basic_string[abi:ne200100](uint64_t a1, unint64_t a2)
 {
   if (a2 >= 0x7FFFFFFFFFFFFFF8)
   {
@@ -4488,11 +4429,11 @@ uint64_t std::string::basic_string[abi:ne200100](uint64_t result, unint64_t a2)
     operator new();
   }
 
-  *(result + 8) = 0;
-  *(result + 16) = 0;
-  *result = 0;
-  *(result + 23) = a2;
-  return result;
+  *(a1 + 8) = 0;
+  *(a1 + 16) = 0;
+  *a1 = 0;
+  *(a1 + 23) = a2;
+  return a1;
 }
 
 void std::__allocate_at_least[abi:ne200100]<std::allocator<CLSqliteDatabase::ColumnInfo>>(uint64_t a1, unint64_t a2)
@@ -4533,7 +4474,7 @@ uint64_t CLSqliteDatabaseManager::instance(CLSqliteDatabaseManager *this)
 
 void CLSqliteDatabaseManager::CLSqliteDatabaseManager(CLSqliteDatabaseManager *this)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   *(this + 2) = 0;
   *(this + 1) = 0;
   *this = this + 8;
@@ -4551,7 +4492,7 @@ void CLSqliteDatabaseManager::CLSqliteDatabaseManager(CLSqliteDatabaseManager *t
     if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_ERROR))
     {
       *buf = 67109120;
-      v8 = v2;
+      v7 = v2;
       _os_log_impl(&dword_258FE9000, v3, OS_LOG_TYPE_ERROR, "sqlite3_shutdown failed. sqlite_rc: %d", buf, 8u);
     }
   }
@@ -4568,74 +4509,72 @@ void CLSqliteDatabaseManager::CLSqliteDatabaseManager(CLSqliteDatabaseManager *t
     if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_ERROR))
     {
       *buf = 67109120;
-      v8 = v4;
+      v7 = v4;
       _os_log_impl(&dword_258FE9000, v5, OS_LOG_TYPE_ERROR, "Can't set the sqlite lookaside buffers size to 64K. sqlite_rc: %d", buf, 8u);
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t CLSqliteDatabaseManager::openDatabase(unsigned __int8 *a1, int *a2, const char *a3, sqlite3 **a4)
 {
-  v69[20] = *MEMORY[0x277D85DE8];
-  if (!BasicMutex::__assertOwned((a1 + 24)))
+  v68[20] = *MEMORY[0x277D85DE8];
+  v7 = BasicMutex::__assertOwned((a1 + 24));
+  if (!v7)
   {
-    CLSqliteDatabaseManager::openDatabase();
+    CLSqliteDatabaseManager::openDatabase(v7);
   }
 
   if (*(a2 + 8))
   {
-    v7 = 1;
+    v8 = 1;
   }
 
   else
   {
-    v7 = 6;
+    v8 = 6;
   }
 
-  v8 = *a2;
+  v9 = *a2;
   if (*a2 == 3)
   {
-    v10 = 0;
-    v11 = 3145728;
+    v11 = 0;
+    v12 = 3145728;
   }
 
-  else if (v8 == 2)
+  else if (v9 == 2)
   {
-    v10 = 0;
-    v11 = 0x200000;
+    v11 = 0;
+    v12 = 0x200000;
   }
 
-  else if (v8 == 1)
+  else if (v9 == 1)
   {
     if (onceToken_MicroLocation_Default != -1)
     {
       CLSqliteDatabaseManager::CLSqliteDatabaseManager();
     }
 
-    v9 = logObject_MicroLocation_Default;
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
+    v10 = logObject_MicroLocation_Default;
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_258FE9000, v9, OS_LOG_TYPE_FAULT, "Attempted to open an encrypted database", buf, 2u);
+      _os_log_impl(&dword_258FE9000, v10, OS_LOG_TYPE_FAULT, "Attempted to open an encrypted database", buf, 2u);
     }
 
-    v10 = 0;
-    v11 = 0x100000;
+    v11 = 0;
+    v12 = 0x100000;
   }
 
   else
   {
-    v10 = 1;
-    v11 = 0x400000;
+    v11 = 1;
+    v12 = 0x400000;
   }
 
-  v53 = v7 | v11;
-  v12 = *(MEMORY[0x277D82818] + 64);
-  v50 = v12;
-  v51 = *MEMORY[0x277D82818];
-  v49 = *(MEMORY[0x277D82818] + 72);
+  v52 = v8 | v12;
+  v49 = *(MEMORY[0x277D82818] + 64);
+  v50 = *MEMORY[0x277D82818];
+  v48 = *(MEMORY[0x277D82818] + 72);
   while (1)
   {
     while (1)
@@ -4650,7 +4589,7 @@ uint64_t CLSqliteDatabaseManager::openDatabase(unsigned __int8 *a1, int *a2, con
         v13 = *a3;
       }
 
-      v14 = sqlite3_open_v2(v13, a4, v53 | 0x20000, 0);
+      v14 = sqlite3_open_v2(v13, a4, v52 | 0x20000, 0);
       if (onceToken_MicroLocation_Default != -1)
       {
         CLSqliteDatabaseManager::CLSqliteDatabaseManager();
@@ -4671,8 +4610,8 @@ uint64_t CLSqliteDatabaseManager::openDatabase(unsigned __int8 *a1, int *a2, con
 
         *buf = 67109378;
         *&buf[4] = v14;
-        v61 = 2080;
-        *v62 = v16;
+        v60 = 2080;
+        *v61 = v16;
         _os_log_impl(&dword_258FE9000, v15, OS_LOG_TYPE_DEFAULT, "openDatabase. sqlite_rc: %d, path: %s", buf, 0x12u);
       }
 
@@ -4734,37 +4673,37 @@ uint64_t CLSqliteDatabaseManager::openDatabase(unsigned __int8 *a1, int *a2, con
 
       else
       {
-        v19 = v10;
+        v19 = v11;
       }
 
       if ((v19 & 1) == 0)
       {
         std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](buf);
         v20 = a1[40];
-        v21 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v62[6], "pragma secure_delete = ", 23);
+        v21 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v61[6], "pragma secure_delete = ", 23);
         v22 = MEMORY[0x259CA1D80](v21, v20);
         std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v22, ";", 1);
-        if ((v68 & 0x10) != 0)
+        if ((v67 & 0x10) != 0)
         {
-          v24 = v67;
-          if (v67 < v64)
+          v24 = v66;
+          if (v66 < v63)
           {
-            v67 = v64;
-            v24 = v64;
+            v66 = v63;
+            v24 = v63;
           }
 
-          locale = v63[4].__locale_;
+          locale = v62[4].__locale_;
         }
 
         else
         {
-          if ((v68 & 8) == 0)
+          if ((v67 & 8) == 0)
           {
             v23 = 0;
-            v55 = 0;
+            v54 = 0;
 LABEL_59:
             *(&__dst + v23) = 0;
-            if (v55 >= 0)
+            if (v54 >= 0)
             {
               p_dst = &__dst;
             }
@@ -4783,36 +4722,36 @@ LABEL_59:
             v27 = logObject_MicroLocation_Default;
             if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
             {
-              *v56 = 67109376;
-              v57 = v20;
-              v58 = 1024;
-              v59 = v14;
-              _os_log_impl(&dword_258FE9000, v27, OS_LOG_TYPE_INFO, "pragma secure_delete. useSecureDelete: %d, sqlite_rc: %d", v56, 0xEu);
+              *v55 = 67109376;
+              v56 = v20;
+              v57 = 1024;
+              v58 = v14;
+              _os_log_impl(&dword_258FE9000, v27, OS_LOG_TYPE_INFO, "pragma secure_delete. useSecureDelete: %d, sqlite_rc: %d", v55, 0xEu);
             }
 
-            if (v55 < 0)
+            if (v54 < 0)
             {
               operator delete(__dst);
             }
 
-            *buf = v51;
-            *&buf[*(v51 - 24)] = v50;
-            *&v62[6] = v49;
-            *&v62[14] = MEMORY[0x277D82878] + 16;
-            if (v66 < 0)
+            *buf = v50;
+            *&buf[*(v50 - 24)] = v49;
+            *&v61[6] = v48;
+            *&v61[14] = MEMORY[0x277D82878] + 16;
+            if (v65 < 0)
             {
               operator delete(__p);
             }
 
-            *&v62[14] = MEMORY[0x277D82868] + 16;
-            std::locale::~locale(v63);
+            *&v61[14] = MEMORY[0x277D82868] + 16;
+            std::locale::~locale(v62);
             std::iostream::~basic_iostream();
-            MEMORY[0x259CA1EE0](v69);
+            MEMORY[0x259CA1EE0](v68);
             goto LABEL_71;
           }
 
-          locale = v63[1].__locale_;
-          v24 = v63[3].__locale_;
+          locale = v62[1].__locale_;
+          v24 = v62[3].__locale_;
         }
 
         v23 = v24 - locale;
@@ -4826,7 +4765,7 @@ LABEL_59:
           operator new();
         }
 
-        v55 = v24 - locale;
+        v54 = v24 - locale;
         if (v23)
         {
           memmove(&__dst, locale, v23);
@@ -4892,8 +4831,8 @@ LABEL_105:
         v37 = *__error();
         *buf = 67109376;
         *&buf[4] = v37;
-        v61 = 1024;
-        *v62 = v14;
+        v60 = 1024;
+        *v61 = v14;
         _os_log_impl(&dword_258FE9000, v36, OS_LOG_TYPE_DEFAULT, "failed to obtain database handle. errno: %d, sqlite_rc: %d", buf, 0xEu);
       }
 
@@ -4917,7 +4856,7 @@ LABEL_105:
       *a4 = 0;
       if (v14 != 10 && v14 != 13)
       {
-        goto LABEL_132;
+        return v14;
       }
 
       sleepAfterSqliteReadOnlyMismatch();
@@ -4976,8 +4915,8 @@ LABEL_87:
       {
         *buf = 67109376;
         *&buf[4] = 10;
-        v61 = 1024;
-        *v62 = v33;
+        v60 = 1024;
+        *v61 = v33;
         _os_log_impl(&dword_258FE9000, v34, OS_LOG_TYPE_FAULT, "Trigger depth. expected: %d, actual: %d", buf, 0xEu);
       }
     }
@@ -5006,13 +4945,13 @@ LABEL_87:
     v41 = sqlite3_db_readonly(*a4, "main");
     if (a2[2])
     {
-      break;
+      return 0;
     }
 
     v42 = v41;
     if (v41 <= 0)
     {
-      break;
+      return 0;
     }
 
     if (onceToken_MicroLocation_Default != -1)
@@ -5026,12 +4965,12 @@ LABEL_87:
       v44 = *(a2 + 8);
       *buf = 67109888;
       *&buf[4] = v44;
-      v61 = 1024;
-      *v62 = v42;
-      *&v62[4] = 1024;
-      *&v62[6] = __dst;
-      *&v62[10] = 1024;
-      *&v62[12] = v40;
+      v60 = 1024;
+      *v61 = v42;
+      *&v61[4] = 1024;
+      *&v61[6] = __dst;
+      *&v61[10] = 1024;
+      *&v61[12] = v40;
       _os_log_impl(&dword_258FE9000, v43, OS_LOG_TYPE_FAULT, "Database opened with read/write access was found to be read-only. properties.readOnly: %d, sqlite3_db_readonly: %d, last POSIX errNo: %d, File control rc: %d", buf, 0x1Au);
     }
 
@@ -5055,28 +4994,23 @@ LABEL_87:
     *a4 = 0;
     sleepAfterSqliteReadOnlyMismatch();
   }
-
-  v14 = 0;
-LABEL_132:
-  v47 = *MEMORY[0x277D85DE8];
-  return v14;
 }
 
-void sub_2590753E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, void *__p, uint64_t a18, int a19, __int16 a20, char a21, char a22, uint64_t a23, uint64_t a24, char a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, ...)
+void sub_2590753E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, void *__p, uint64_t a18, int a19, __int16 a20, char a21, char a22, uint64_t a23, uint64_t a24, char a25, uint64_t a26, void *a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, ...)
 {
-  va_start(va, a40);
-  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::~basic_stringstream(&a25, MEMORY[0x277D82818]);
+  va_start(va, a47);
+  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::~basic_stringstream(&a32, MEMORY[0x277D82818]);
   MEMORY[0x259CA1EE0](va);
   _Unwind_Resume(a1);
 }
 
-uint64_t CLSqliteDatabaseManager::openDatabase(uint64_t a1, uint64_t *a2, void **a3, uint64_t a4)
+uint64_t CLSqliteDatabaseManager::openDatabase(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4)
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   v8 = *(a1 + 24);
-  v31 = a1 + 24;
+  v30 = a1 + 24;
   (*(v8 + 16))();
-  v33 = 256;
+  v32 = 256;
   if (onceToken_MicroLocation_Default != -1)
   {
     CLSqliteDatabaseManager::CLSqliteDatabaseManager();
@@ -5108,15 +5042,15 @@ uint64_t CLSqliteDatabaseManager::openDatabase(uint64_t a1, uint64_t *a2, void *
     goto LABEL_26;
   }
 
-  memset(&v30, 0, sizeof(v30));
-  v27 = 0;
-  v28 = 0;
+  memset(&v29, 0, sizeof(v29));
   v26 = 0;
-  v29 = 0;
-  std::string::operator=(&v30, a3);
+  v27 = 0;
   v25 = 0;
-  v22 = *a2;
-  v23 = *(a2 + 4);
+  v28 = 0;
+  std::string::operator=(&v29, a3);
+  v24 = 0;
+  v21 = *a2;
+  v22 = *(a2 + 4);
   if (*(a2 + 39) < 0)
   {
     std::string::__init_copy_ctor_external(&__p, a2[2], a2[3]);
@@ -5127,7 +5061,7 @@ uint64_t CLSqliteDatabaseManager::openDatabase(uint64_t a1, uint64_t *a2, void *
     __p = *(a2 + 2);
   }
 
-  v14 = CLSqliteDatabaseManager::openDatabase(a1, &v22, a3, &v25);
+  v14 = CLSqliteDatabaseManager::openDatabase(a1, &v21, a3, &v24);
   v13 = v14;
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
@@ -5147,7 +5081,7 @@ LABEL_21:
   }
 
 LABEL_15:
-  if (v25)
+  if (v24)
   {
     if (onceToken_MicroLocation_Default != -1)
     {
@@ -5162,14 +5096,14 @@ LABEL_15:
     }
   }
 
-  if (SHIBYTE(v30.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v29.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v30.__r_.__value_.__l.__data_);
+    operator delete(v29.__r_.__value_.__l.__data_);
   }
 
-  if (SHIBYTE(v28) < 0)
+  if (SHIBYTE(v27) < 0)
   {
-    operator delete(v26);
+    operator delete(v25);
   }
 
 LABEL_26:
@@ -5204,32 +5138,31 @@ LABEL_26:
     v19 = *(v11 + 104);
     buf[0] = 136315394;
     *&buf[1] = v18;
-    v35 = 1024;
-    v36 = v19;
+    v34 = 1024;
+    v35 = v19;
     _os_log_impl(&dword_258FE9000, v17, OS_LOG_TYPE_INFO, "Reference count increased. path: %s, referenceCount: %d", buf, 0x12u);
   }
 
-  if ((v33 & 0x100) != 0)
+  if ((v32 & 0x100) != 0)
   {
 LABEL_35:
-    if (v33)
+    if (v32)
     {
-      pthread_mutex_unlock(v32);
+      pthread_mutex_unlock(v31);
     }
 
     else
     {
-      (*(*v31 + 24))(v31);
+      (*(*v30 + 24))(v30);
     }
   }
 
-  v20 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
 uint64_t CLSqliteDatabaseManager::closeDatabase(CLSqliteDatabaseManager *this, sqlite3 *a2)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v4 = this + 24;
   (*(*(this + 3) + 16))(this + 24);
   v5 = *this;
@@ -5264,7 +5197,7 @@ uint64_t CLSqliteDatabaseManager::closeDatabase(CLSqliteDatabaseManager *this, s
       v5 = v7;
       if (v7 == (this + 8))
       {
-        goto LABEL_28;
+        return (*(*v4 + 24))(v4);
       }
     }
 
@@ -5285,9 +5218,9 @@ uint64_t CLSqliteDatabaseManager::closeDatabase(CLSqliteDatabaseManager *this, s
 
       v11 = *(v5 + 26);
       *buf = 136315394;
-      v19 = v10;
-      v20 = 1024;
-      v21 = v11;
+      v18 = v10;
+      v19 = 1024;
+      v20 = v11;
       _os_log_impl(&dword_258FE9000, v9, OS_LOG_TYPE_INFO, "Reference count decreased. path: %s, referenceCount: %d", buf, 0x12u);
     }
 
@@ -5308,7 +5241,7 @@ uint64_t CLSqliteDatabaseManager::closeDatabase(CLSqliteDatabaseManager *this, s
         }
 
         *buf = 136315138;
-        v19 = v13;
+        v18 = v13;
         _os_log_impl(&dword_258FE9000, v12, OS_LOG_TYPE_DEFAULT, "Destroying database. path: %s", buf, 0xCu);
       }
 
@@ -5329,10 +5262,7 @@ uint64_t CLSqliteDatabaseManager::closeDatabase(CLSqliteDatabaseManager *this, s
     }
   }
 
-LABEL_28:
-  result = (*(*v4 + 24))(v4);
-  v17 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(*v4 + 24))(v4);
 }
 
 void ___ZL45_CLLogObjectForCategory_MicroLocation_Defaultv_block_invoke_26()
@@ -5485,18 +5415,18 @@ void std::allocator_traits<std::allocator<std::__tree_node<std::__value_type<std
   }
 }
 
-uint64_t std::__tree<std::__value_type<std::string,CLSqliteDatabaseManager::ConnectionState>,std::__map_value_compare<std::string,std::__value_type<std::string,CLSqliteDatabaseManager::ConnectionState>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,CLSqliteDatabaseManager::ConnectionState>>>::__emplace_unique_key_args<std::string,std::pair<std::string,CLSqliteDatabaseManager::ConnectionState>>(uint64_t a1, void **a2)
+uint64_t std::__tree<std::__value_type<std::string,CLSqliteDatabaseManager::ConnectionState>,std::__map_value_compare<std::string,std::__value_type<std::string,CLSqliteDatabaseManager::ConnectionState>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,CLSqliteDatabaseManager::ConnectionState>>>::__emplace_unique_key_args<std::string,std::pair<std::string,CLSqliteDatabaseManager::ConnectionState>>(uint64_t **a1, uint64_t ***a2, uint64_t a3)
 {
-  v2 = *std::__tree<std::__value_type<std::string,CLSqliteDatabaseManager::ConnectionState>,std::__map_value_compare<std::string,std::__value_type<std::string,CLSqliteDatabaseManager::ConnectionState>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,CLSqliteDatabaseManager::ConnectionState>>>::__find_equal<std::string>(a1, &v4, a2);
-  if (!v2)
+  v3 = *std::__tree<std::__value_type<std::string,CLSqliteDatabaseManager::ConnectionState>,std::__map_value_compare<std::string,std::__value_type<std::string,CLSqliteDatabaseManager::ConnectionState>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,CLSqliteDatabaseManager::ConnectionState>>>::__find_equal<std::string>(a1, &v5, a2);
+  if (!v3)
   {
     operator new();
   }
 
-  return v2;
+  return v3;
 }
 
-void *std::__tree<std::__value_type<std::string,CLSqliteDatabaseManager::ConnectionState>,std::__map_value_compare<std::string,std::__value_type<std::string,CLSqliteDatabaseManager::ConnectionState>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,CLSqliteDatabaseManager::ConnectionState>>>::__find_equal<std::string>(uint64_t a1, void *a2, void **a3)
+char *std::__tree<std::__value_type<std::string,CLSqliteDatabaseManager::ConnectionState>,std::__map_value_compare<std::string,std::__value_type<std::string,CLSqliteDatabaseManager::ConnectionState>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,CLSqliteDatabaseManager::ConnectionState>>>::__find_equal<std::string>(uint64_t a1, char **a2, uint64_t ***a3)
 {
   v5 = (a1 + 8);
   v4 = *(a1 + 8);
@@ -5507,7 +5437,7 @@ void *std::__tree<std::__value_type<std::string,CLSqliteDatabaseManager::Connect
       while (1)
       {
         v7 = v4;
-        if ((std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(a3, (v4 + 32)) & 0x80) == 0)
+        if ((std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(a3, v4 + 32) & 0x80) == 0)
         {
           break;
         }
@@ -5525,8 +5455,8 @@ void *std::__tree<std::__value_type<std::string,CLSqliteDatabaseManager::Connect
         break;
       }
 
-      v5 = v7 + 1;
-      v4 = v7[1];
+      v5 = v7 + 8;
+      v4 = *(v7 + 1);
     }
 
     while (v4);
@@ -5591,7 +5521,7 @@ void CLSqliteFinalizingStatement::~CLSqliteFinalizingStatement(CLSqliteFinalizin
   JUMPOUT(0x259CA1F90);
 }
 
-void sub_259076528(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, ULHomeSlamModel *a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18, char a19)
+void sub_259076528(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18, char a19)
 {
   std::unique_ptr<ULSqliteDatabase>::~unique_ptr[abi:ne200100](&a10);
   v21 = a11;
@@ -5615,8 +5545,8 @@ ULHomeSlamModel **std::unique_ptr<ULSqliteDatabase>::~unique_ptr[abi:ne200100](U
   *a1 = 0;
   if (v2)
   {
-    TrajectoryPointCloud = ULHomeSlamModel::getTrajectoryPointCloud(v2);
-    MEMORY[0x259CA1F90](TrajectoryPointCloud, 0x20C4093837F09);
+    ULHomeSlamModel::getTrajectoryPointCloud(v2);
+    MEMORY[0x259CA1F90]();
   }
 
   return a1;
@@ -5658,9 +5588,9 @@ void ___ZL45_CLLogObjectForCategory_MicroLocation_Defaultv_block_invoke_28()
   logObject_MicroLocation_Default = v0;
 }
 
-void sub_259078354(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_259078354(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
 
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
@@ -5729,13 +5659,13 @@ void ___ZL45_CLLogObjectForCategory_MicroLocation_Defaultv_block_invoke_30()
 
 uint64_t boost::uuids::string_generator::operator()<std::__wrap_iter<char const*>>(boost::uuids::string_generator *this, unsigned __int8 *a2, unsigned __int8 *a3)
 {
-  v19[2] = *MEMORY[0x277D85DE8];
+  v18[2] = *MEMORY[0x277D85DE8];
   if (a2 == a3)
   {
     goto LABEL_31;
   }
 
-  v5 = (a2 + 1);
+  v5 = a2 + 1;
   v6 = *a2;
   if (v6 == 123)
   {
@@ -5744,7 +5674,7 @@ uint64_t boost::uuids::string_generator::operator()<std::__wrap_iter<char const*
       goto LABEL_31;
     }
 
-    v5 = (a2 + 2);
+    v5 = a2 + 2;
     v7 = a2[1];
   }
 
@@ -5792,7 +5722,7 @@ uint64_t boost::uuids::string_generator::operator()<std::__wrap_iter<char const*
       v9 = 1;
 LABEL_23:
       value = boost::uuids::string_generator::get_value(this, v7);
-      *(v19 + v8) = value;
+      *(v18 + v8) = value;
       if (v5 == a3)
       {
         goto LABEL_31;
@@ -5800,7 +5730,7 @@ LABEL_23:
 
       v15 = *v5++;
       v7 = v15;
-      *(v19 + v8++) = boost::uuids::string_generator::get_value(this, v15) | (16 * value);
+      *(v18 + v8++) = boost::uuids::string_generator::get_value(this, v15) | (16 * value);
     }
 
     while (!v8);
@@ -5824,9 +5754,7 @@ LABEL_31:
     boost::uuids::string_generator::throw_invalid(this);
   }
 
-  result = v19[0];
-  v18 = *MEMORY[0x277D85DE8];
-  return result;
+  return v18[0];
 }
 
 void std::__allocate_at_least[abi:ne200100]<std::allocator<ULRecordingEventDO>>(uint64_t a1, unint64_t a2)
@@ -6212,10 +6140,10 @@ uint64_t std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<UL
     {
       if (*(v5 + 63) < 0)
       {
-        operator delete(v5[5]);
+        operator delete(*(v5 + 5));
       }
 
-      v5 += 8;
+      v5 += 4;
     }
   }
 
@@ -6812,16 +6740,16 @@ CLMicroLocationProto::Model *ULProtoMessageWrapper<CLMicroLocationProto::Model>:
   return a1;
 }
 
-unsigned int *std::__variant_detail::__dtor<std::__variant_detail::__traits<ULProtoMessageWrapper<CLMicroLocationProto::Model>,ULProtoMessageWrapper<CLMicroLocationProto::HomeSlamModel>,ULProtoMessageWrapper<CLMicroLocationProto::VMKModel>>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](unsigned int *result)
+CLMicroLocationProto::Model *std::__variant_detail::__dtor<std::__variant_detail::__traits<ULProtoMessageWrapper<CLMicroLocationProto::Model>,ULProtoMessageWrapper<CLMicroLocationProto::HomeSlamModel>,ULProtoMessageWrapper<CLMicroLocationProto::VMKModel>>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](CLMicroLocationProto::Model *result)
 {
   v1 = result;
-  v2 = result[52];
+  v2 = *(result + 52);
   if (v2 != -1)
   {
     result = off_286A55A08[v2](&v3, result);
   }
 
-  v1[52] = -1;
+  *(v1 + 52) = -1;
   return result;
 }
 
@@ -6882,7 +6810,7 @@ void ULModelDO::ULModelDO(ULModelDO *this, const ULModelDO *a2)
   v4 = *a2;
   *(this + 12) = *(a2 + 12);
   *this = v4;
-  std::__variant_detail::__copy_constructor<std::__variant_detail::__traits<ULProtoMessageWrapper<CLMicroLocationProto::Model>,ULProtoMessageWrapper<CLMicroLocationProto::HomeSlamModel>,ULProtoMessageWrapper<CLMicroLocationProto::VMKModel>>,(std::__variant_detail::_Trait)1>::__copy_constructor[abi:ne200100](this[2].var0.data, &a2[2]);
+  std::__variant_detail::__copy_constructor<std::__variant_detail::__traits<ULProtoMessageWrapper<CLMicroLocationProto::Model>,ULProtoMessageWrapper<CLMicroLocationProto::HomeSlamModel>,ULProtoMessageWrapper<CLMicroLocationProto::VMKModel>>,(std::__variant_detail::_Trait)1>::__copy_constructor[abi:ne200100](&this[2], &a2[2]);
   std::__optional_copy_base<std::string,false>::__optional_copy_base[abi:ne200100](&this[15].var0.data[8], &a2[15].var0.data[8]);
   v5 = *(&a2[17] + 8);
   v6 = *(&a2[18] + 8);
@@ -6891,15 +6819,15 @@ void ULModelDO::ULModelDO(ULModelDO *this, const ULModelDO *a2)
   *(this + 296) = v6;
 }
 
-unsigned int *std::__variant_detail::__copy_constructor<std::__variant_detail::__traits<ULProtoMessageWrapper<CLMicroLocationProto::Model>,ULProtoMessageWrapper<CLMicroLocationProto::HomeSlamModel>,ULProtoMessageWrapper<CLMicroLocationProto::VMKModel>>,(std::__variant_detail::_Trait)1>::__copy_constructor[abi:ne200100](unsigned int *a1, uint64_t a2)
+CLMicroLocationProto::Model *std::__variant_detail::__copy_constructor<std::__variant_detail::__traits<ULProtoMessageWrapper<CLMicroLocationProto::Model>,ULProtoMessageWrapper<CLMicroLocationProto::HomeSlamModel>,ULProtoMessageWrapper<CLMicroLocationProto::VMKModel>>,(std::__variant_detail::_Trait)1>::__copy_constructor[abi:ne200100](CLMicroLocationProto::Model *a1, uint64_t a2)
 {
   *a1 = 0;
-  a1[52] = -1;
+  *(a1 + 52) = -1;
   std::__variant_detail::__ctor<std::__variant_detail::__traits<ULProtoMessageWrapper<CLMicroLocationProto::Model>,ULProtoMessageWrapper<CLMicroLocationProto::HomeSlamModel>,ULProtoMessageWrapper<CLMicroLocationProto::VMKModel>>>::__generic_construct[abi:ne200100]<std::__variant_detail::__copy_constructor<std::__variant_detail::__traits<ULProtoMessageWrapper<CLMicroLocationProto::Model>,ULProtoMessageWrapper<CLMicroLocationProto::HomeSlamModel>,ULProtoMessageWrapper<CLMicroLocationProto::VMKModel>>,(std::__variant_detail::_Trait)1> const&>(a1, a2);
   return a1;
 }
 
-unsigned int *std::__variant_detail::__ctor<std::__variant_detail::__traits<ULProtoMessageWrapper<CLMicroLocationProto::Model>,ULProtoMessageWrapper<CLMicroLocationProto::HomeSlamModel>,ULProtoMessageWrapper<CLMicroLocationProto::VMKModel>>>::__generic_construct[abi:ne200100]<std::__variant_detail::__copy_constructor<std::__variant_detail::__traits<ULProtoMessageWrapper<CLMicroLocationProto::Model>,ULProtoMessageWrapper<CLMicroLocationProto::HomeSlamModel>,ULProtoMessageWrapper<CLMicroLocationProto::VMKModel>>,(std::__variant_detail::_Trait)1> const&>(unsigned int *a1, uint64_t a2)
+CLMicroLocationProto::Model *std::__variant_detail::__ctor<std::__variant_detail::__traits<ULProtoMessageWrapper<CLMicroLocationProto::Model>,ULProtoMessageWrapper<CLMicroLocationProto::HomeSlamModel>,ULProtoMessageWrapper<CLMicroLocationProto::VMKModel>>>::__generic_construct[abi:ne200100]<std::__variant_detail::__copy_constructor<std::__variant_detail::__traits<ULProtoMessageWrapper<CLMicroLocationProto::Model>,ULProtoMessageWrapper<CLMicroLocationProto::HomeSlamModel>,ULProtoMessageWrapper<CLMicroLocationProto::VMKModel>>,(std::__variant_detail::_Trait)1> const&>(CLMicroLocationProto::Model *a1, uint64_t a2)
 {
   result = std::__variant_detail::__dtor<std::__variant_detail::__traits<ULProtoMessageWrapper<CLMicroLocationProto::Model>,ULProtoMessageWrapper<CLMicroLocationProto::HomeSlamModel>,ULProtoMessageWrapper<CLMicroLocationProto::VMKModel>>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](a1);
   v5 = *(a2 + 208);
@@ -6907,7 +6835,7 @@ unsigned int *std::__variant_detail::__ctor<std::__variant_detail::__traits<ULPr
   {
     v6 = a1;
     result = (off_286A55A20[v5])(&v6, a2);
-    a1[52] = v5;
+    *(a1 + 52) = v5;
   }
 
   return result;
@@ -6951,7 +6879,7 @@ void std::__optional_storage_base<std::string,false>::__construct_from[abi:ne200
   }
 }
 
-unsigned int *std::__destroy_at[abi:ne200100]<ULModelDO,0>(uint64_t a1)
+CLMicroLocationProto::Model *std::__destroy_at[abi:ne200100]<ULModelDO,0>(uint64_t a1)
 {
   if (*(a1 + 272) == 1 && *(a1 + 271) < 0)
   {
@@ -7099,8 +7027,7 @@ uint64_t ULConfigurationDO::ULConfigurationDO(uint64_t a1, __int128 *a2, CLMicro
   v6 = *a2;
   *(a1 + 24) = *(a2 + 2);
   *(a1 + 8) = v6;
-  *(a2 + 1) = 0;
-  *(a2 + 2) = 0;
+  *(a2 + 8) = 0uLL;
   *a2 = 0;
   *(a1 + 32) = a4;
   *(a1 + 40) = a5;
@@ -7158,8 +7085,7 @@ uint64_t ULRecordingEventDO::ULRecordingEventDO(uint64_t a1, uint64_t a2, uint64
   v14 = *a4;
   *(a1 + 40) = *(a4 + 2);
   *(a1 + 24) = v14;
-  *(a4 + 1) = 0;
-  *(a4 + 2) = 0;
+  *(a4 + 8) = 0uLL;
   *a4 = 0;
   *(a1 + 48) = a11;
   *(a1 + 56) = a12;
@@ -7186,7 +7112,7 @@ void sub_25907A7A0(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void *ULLabelDataWiFi::toProtobuf@<X0>(ULLabelDataWiFi *this@<X0>, void *a2@<X8>)
+void *ULLabelDataWiFi::toProtobuf@<X0>(ULLabelDataWiFi *this@<X0>, CLMicroLocationProto::ULLabelDataWiFi *a2@<X8>)
 {
   result = CLMicroLocationProto::ULLabelDataWiFi::ULLabelDataWiFi(a2);
   var1 = this->var1;
@@ -7371,7 +7297,7 @@ uint64_t ULHomeSlamAnalyticEventDO::ULHomeSlamAnalyticEventDO(uint64_t result, _
   return result;
 }
 
-void ULLabelDO::create(void *a1@<X0>, __int128 *a2@<X1>, $B8718ED90A3FA1F2B32457B8A9343B88 *a3@<X2>, ULLabelDO *a4@<X8>)
+void ULLabelDO::create(void *a1@<X0>, ULLabelDO *a2@<X8>, __int128 *a3@<X1>, $B8718ED90A3FA1F2B32457B8A9343B88 *a4@<X2>)
 {
   v7 = a1;
   v16 = [v7 contextLayerEnum];
@@ -7391,7 +7317,7 @@ void ULLabelDO::create(void *a1@<X0>, __int128 *a2@<X1>, $B8718ED90A3FA1F2B32457
   v11 = cl::chrono::CFAbsoluteTimeClock::now();
   v8 = [v7 name];
   std::string::basic_string[abi:ne200100]<0>(__p, [v8 UTF8String]);
-  ULLabelDO::ULLabelDO(a4, &v16, &v12, a3, &v11, a2, __p, v13);
+  ULLabelDO::ULLabelDO(a2, &v16, &v12, a4, &v11, a3, __p, v13);
   if (v10 < 0)
   {
     operator delete(__p[0]);
@@ -7466,9 +7392,9 @@ void ULLabelData<ULLabelDataWiFi,CLMicroLocationProto::ULLabelDataWiFi>::fromNSD
   }
 }
 
-void sub_25907AEC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_25907AEC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   CLMicroLocationProto::ULLabelDataWiFi::~ULLabelDataWiFi(va);
 
   _Unwind_Resume(a1);
@@ -7515,7 +7441,7 @@ void ULLabelDO::ULLabelDO(ULLabelDO *this, unint64_t *a2, unint64_t *a3, $B8718E
     LOBYTE(this[3].var0) = 1;
   }
 
-  ULLabelDO::verifyData(this);
+  ULLabelDO::verifyData(this, a2);
 }
 
 void sub_25907B00C(_Unwind_Exception *exception_object)
@@ -7533,15 +7459,15 @@ void sub_25907B00C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t ULLabelDO::verifyData(ULLabelDO *this)
+uint64_t ULLabelDO::verifyData(ULLabelDO *this, uint64_t a2)
 {
   if (LOBYTE(this[3].var0) != 1 || this->var0 == 1 && !*&this[2].var2.var1)
   {
     return 1;
   }
 
-  v2 = ULLabelDO::verifyData();
-  return ULLabelDO::ULLabelDO(v2, v3);
+  ULLabelDO::verifyData(this);
+  return ULLabelDO::ULLabelDO(v3, v4);
 }
 
 uint64_t ULLabelDO::ULLabelDO(uint64_t result, uint64_t a2)
@@ -7610,7 +7536,7 @@ uint64_t ULLabelDO::operator=(uint64_t a1, uint64_t a2)
 
 uint64_t ULLabelDO::to_str@<X0>(ULLabelDO *this@<X0>, _BYTE *a2@<X8>)
 {
-  std::ostringstream::basic_ostringstream[abi:ne200100](&v35);
+  std::ostringstream::basic_ostringstream[abi:ne200100](&v34);
   std::string::basic_string[abi:ne200100]<0>(&__p, "");
   if (LOBYTE(this[3].var0) == 1)
   {
@@ -7619,99 +7545,98 @@ uint64_t ULLabelDO::to_str@<X0>(ULLabelDO *this@<X0>, _BYTE *a2@<X8>)
       std::__throw_bad_variant_access[abi:ne200100]();
     }
 
-    (*(*&this[2].var2.var0.var0 + 32))(&v33);
+    (*(*&this[2].var2.var0.var0 + 32))(&v32);
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(__p.__r_.__value_.__l.__data_);
     }
 
-    __p = v33;
+    __p = v32;
   }
 
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v35, "ULLabelDO: { ", 13);
-  v4 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v35, "fContextLayerType: ", 19);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v34, "ULLabelDO: { ", 13);
+  v4 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v34, "fContextLayerType: ", 19);
   v5 = [MEMORY[0x277D28788] contextLayerStringTypeFromEnum:this->var0];
   v6 = MEMORY[0x259CA1D80](v4, v5 != 0);
   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v6, ", ", 2);
 
-  v7 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v35, "fDeviceClass: ", 14);
-  var1 = this->var1;
-  v9 = ULDeviceClassToString();
-  v10 = MEMORY[0x259CA1D80](v7, v9 != 0);
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v10, ", ", 2);
+  v7 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v34, "fDeviceClass: ", 14);
+  v8 = ULDeviceClassToString();
+  v9 = MEMORY[0x259CA1D80](v7, v8 != 0);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v9, ", ", 2);
 
-  v11 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v35, "fUuid: ", 7);
+  v10 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v34, "fUuid: ", 7);
   if (this->var2.var1)
   {
     operator new();
   }
 
-  std::string::basic_string[abi:ne200100]<0>(&v33, "nil");
-  if ((v33.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  std::string::basic_string[abi:ne200100]<0>(&v32, "nil");
+  if ((v32.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v12 = &v33;
+    v11 = &v32;
   }
 
   else
   {
-    v12 = v33.__r_.__value_.__r.__words[0];
+    v11 = v32.__r_.__value_.__r.__words[0];
   }
 
-  if ((v33.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  if ((v32.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    size = HIBYTE(v33.__r_.__value_.__r.__words[2]);
+    size = HIBYTE(v32.__r_.__value_.__r.__words[2]);
   }
 
   else
   {
-    size = v33.__r_.__value_.__l.__size_;
+    size = v32.__r_.__value_.__l.__size_;
   }
 
-  v14 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v11, v12, size);
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v14, ", ", 2);
-  if (SHIBYTE(v33.__r_.__value_.__r.__words[2]) < 0)
+  v13 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v10, v11, size);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v13, ", ", 2);
+  if (SHIBYTE(v32.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v33.__r_.__value_.__l.__data_);
+    operator delete(v32.__r_.__value_.__l.__data_);
   }
 
-  v15 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v35, "fReceivedTimestamp: ", 20);
-  v16 = MEMORY[0x259CA1D90](v15, *&this[1].var0);
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v16, ", ", 2);
-  v17 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v35, "fServiceUUID: ", 14);
+  v14 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v34, "fReceivedTimestamp: ", 20);
+  v15 = MEMORY[0x259CA1D90](v14, *&this[1].var0);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v15, ", ", 2);
+  v16 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v34, "fServiceUUID: ", 14);
   if (this[1].var2.var0.var1.data[8] == 1)
   {
     operator new();
   }
 
-  std::string::basic_string[abi:ne200100]<0>(&v33, "nil");
-  if ((v33.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  std::string::basic_string[abi:ne200100]<0>(&v32, "nil");
+  if ((v32.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v18 = &v33;
+    v17 = &v32;
   }
 
   else
   {
-    v18 = v33.__r_.__value_.__r.__words[0];
+    v17 = v32.__r_.__value_.__r.__words[0];
   }
 
-  if ((v33.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  if ((v32.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v19 = HIBYTE(v33.__r_.__value_.__r.__words[2]);
+    v18 = HIBYTE(v32.__r_.__value_.__r.__words[2]);
   }
 
   else
   {
-    v19 = v33.__r_.__value_.__l.__size_;
+    v18 = v32.__r_.__value_.__l.__size_;
   }
 
-  v20 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v17, v18, v19);
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v20, ", ", 2);
-  if (SHIBYTE(v33.__r_.__value_.__r.__words[2]) < 0)
+  v19 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v16, v17, v18);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v19, ", ", 2);
+  if (SHIBYTE(v32.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v33.__r_.__value_.__l.__data_);
+    operator delete(v32.__r_.__value_.__l.__data_);
   }
 
-  v21 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v35, "fLabelID: ", 10);
+  v20 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v34, "fLabelID: ", 10);
   var1_high = SHIBYTE(this[2].var1);
   if (var1_high >= 0)
   {
@@ -7733,136 +7658,136 @@ uint64_t ULLabelDO::to_str@<X0>(ULLabelDO *this@<X0>, _BYTE *a2@<X8>)
     var0 = this[2].var0;
   }
 
-  v25 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v21, p_var1, var0);
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v25, ", ", 2);
-  v26 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v35, "fData: ", 7);
+  v24 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v20, p_var1, var0);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v24, ", ", 2);
+  v25 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v34, "fData: ", 7);
   if (LOBYTE(this[3].var0) == 1)
   {
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
     {
-      std::string::__init_copy_ctor_external(&v33, __p.__r_.__value_.__l.__data_, __p.__r_.__value_.__l.__size_);
+      std::string::__init_copy_ctor_external(&v32, __p.__r_.__value_.__l.__data_, __p.__r_.__value_.__l.__size_);
     }
 
     else
     {
-      v33 = __p;
+      v32 = __p;
     }
   }
 
   else
   {
-    std::string::basic_string[abi:ne200100]<0>(&v33, "");
+    std::string::basic_string[abi:ne200100]<0>(&v32, "");
   }
 
-  if ((v33.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  if ((v32.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v27 = &v33;
-  }
-
-  else
-  {
-    v27 = v33.__r_.__value_.__r.__words[0];
-  }
-
-  if ((v33.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-  {
-    v28 = HIBYTE(v33.__r_.__value_.__r.__words[2]);
+    v26 = &v32;
   }
 
   else
   {
-    v28 = v33.__r_.__value_.__l.__size_;
+    v26 = v32.__r_.__value_.__r.__words[0];
   }
 
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v26, v27, v28);
-  if (SHIBYTE(v33.__r_.__value_.__r.__words[2]) < 0)
+  if ((v32.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    operator delete(v33.__r_.__value_.__l.__data_);
+    v27 = HIBYTE(v32.__r_.__value_.__r.__words[2]);
   }
 
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v35, " }", 2);
-  if ((v42 & 0x10) != 0)
+  else
   {
-    v30 = v41;
-    if (v41 < v38)
+    v27 = v32.__r_.__value_.__l.__size_;
+  }
+
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v25, v26, v27);
+  if (SHIBYTE(v32.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v32.__r_.__value_.__l.__data_);
+  }
+
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v34, " }", 2);
+  if ((v41 & 0x10) != 0)
+  {
+    v29 = v40;
+    if (v40 < v37)
     {
-      v41 = v38;
-      v30 = v38;
+      v40 = v37;
+      v29 = v37;
     }
 
-    locale = v37[4].__locale_;
+    locale = v36[4].__locale_;
   }
 
   else
   {
-    if ((v42 & 8) == 0)
+    if ((v41 & 8) == 0)
     {
-      v29 = 0;
+      v28 = 0;
       a2[23] = 0;
       goto LABEL_58;
     }
 
-    locale = v37[1].__locale_;
-    v30 = v37[3].__locale_;
+    locale = v36[1].__locale_;
+    v29 = v36[3].__locale_;
   }
 
-  v29 = v30 - locale;
-  if ((v30 - locale) >= 0x7FFFFFFFFFFFFFF8)
+  v28 = v29 - locale;
+  if ((v29 - locale) >= 0x7FFFFFFFFFFFFFF8)
   {
     std::string::__throw_length_error[abi:ne200100]();
   }
 
-  if (v29 >= 0x17)
+  if (v28 >= 0x17)
   {
     operator new();
   }
 
-  a2[23] = v29;
-  if (v29)
+  a2[23] = v28;
+  if (v28)
   {
-    memmove(a2, locale, v29);
+    memmove(a2, locale, v28);
   }
 
 LABEL_58:
-  a2[v29] = 0;
+  a2[v28] = 0;
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
   }
 
-  v35 = *MEMORY[0x277D82828];
-  *(&v35 + *(v35 - 24)) = *(MEMORY[0x277D82828] + 24);
-  v36 = MEMORY[0x277D82878] + 16;
-  if (v40 < 0)
+  v34 = *MEMORY[0x277D82828];
+  *(&v34 + *(v34 - 24)) = *(MEMORY[0x277D82828] + 24);
+  v35 = MEMORY[0x277D82878] + 16;
+  if (v39 < 0)
   {
-    operator delete(v39);
+    operator delete(v38);
   }
 
-  v36 = MEMORY[0x277D82868] + 16;
-  std::locale::~locale(v37);
+  v35 = MEMORY[0x277D82868] + 16;
+  std::locale::~locale(v36);
   std::ostream::~ostream();
-  return MEMORY[0x259CA1EE0](&v43);
+  return MEMORY[0x259CA1EE0](&v42);
 }
 
-void sub_25907B788(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, int a4, __int16 a5, char a6, char a7, uint64_t a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
+void sub_25907B788(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, int a4, __int16 a5, char a6, char a7, uint64_t a8, uint64_t __p, uint64_t a10, int a11, __int16 a12, char a13, char a14, char a15, void *a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, ...)
 {
-  va_start(va, a28);
-  operator delete(v28);
-  if (a14 < 0)
+  va_start(va, a32);
+  operator delete(v32);
+  if (SHIBYTE(a18) < 0)
   {
-    operator delete(__p);
+    operator delete(a16);
   }
 
-  std::ostringstream::~ostringstream(&a15, MEMORY[0x277D82828]);
+  std::ostringstream::~ostringstream(&a19, MEMORY[0x277D82828]);
   MEMORY[0x259CA1EE0](va);
   _Unwind_Resume(a1);
 }
 
-uint64_t ULLabelDO::hasData(ULLabelDO *this)
+uint64_t ULLabelDO::hasData(ULLabelDO *this, uint64_t a2)
 {
   if (LOBYTE(this[3].var0) == 1)
   {
-    return ULLabelDO::verifyData(this);
+    return ULLabelDO::verifyData(this, a2);
   }
 
   else
@@ -7871,9 +7796,9 @@ uint64_t ULLabelDO::hasData(ULLabelDO *this)
   }
 }
 
-id ULLabelDO::getNSDataFromLabelData(ULLabelDO *this)
+id ULLabelDO::getNSDataFromLabelData(ULLabelDO *this, uint64_t a2)
 {
-  if (LOBYTE(this[3].var0) == 1 && ULLabelDO::verifyData(this))
+  if (LOBYTE(this[3].var0) == 1 && ULLabelDO::verifyData(this, a2))
   {
     if (this[3].var0)
     {
@@ -7898,40 +7823,40 @@ void ULLabelDOAndObjectID::ULLabelDOAndObjectID(ULLabelDOAndObjectID *this, cons
   *&this[1].var1.var0.var0 = v5;
 }
 
-void ULLabelDOAndObjectID::labelDOs(uint64_t *a1@<X0>, uint64_t a2@<X8>)
+void ULLabelDOAndObjectID::labelDOs(uint64_t *a1@<X0>, void *a2@<X8>)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   *a2 = 0;
-  *(a2 + 8) = 0;
-  *(a2 + 16) = 0;
+  a2[1] = 0;
+  a2[2] = 0;
   v3 = *a1;
   v4 = a1[1];
   if (*a1 != v4)
   {
     do
     {
-      ULLabelDO::ULLabelDO(&v8, v3);
-      v13 = *(v3 + 128);
-      v5 = *(a2 + 8);
-      if (v5 >= *(a2 + 16))
+      ULLabelDO::ULLabelDO(&v7, v3);
+      v12 = *(v3 + 128);
+      v5 = a2[1];
+      if (v5 >= a2[2])
       {
-        v6 = std::vector<ULLabelDO>::__emplace_back_slow_path<ULLabelDO const&>(a2, &v8);
+        v6 = std::vector<ULLabelDO>::__emplace_back_slow_path<ULLabelDO const&>(a2, &v7);
       }
 
       else
       {
-        ULLabelDO::ULLabelDO(*(a2 + 8), &v8);
+        ULLabelDO::ULLabelDO(a2[1], &v7);
         v6 = v5 + 128;
       }
 
-      *(a2 + 8) = v6;
+      a2[1] = v6;
 
-      if (v12 == 1)
+      if (v11 == 1)
       {
-        v11 = -1;
+        v10 = -1;
       }
 
-      if (v10 < 0)
+      if (v9 < 0)
       {
         operator delete(__p);
       }
@@ -7941,8 +7866,6 @@ void ULLabelDOAndObjectID::labelDOs(uint64_t *a1@<X0>, uint64_t a2@<X8>)
 
     while (v3 != v4);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void sub_25907BA58(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9)
@@ -8075,14 +7998,14 @@ LABEL_7:
 
 void ULLabelData<ULLabelDataWiFi,CLMicroLocationProto::ULLabelDataWiFi>::toNSData(uint64_t a1)
 {
-  (*(*a1 + 24))(v1);
-  CLMicroLocationProto::ULLabelDataWiFi::ByteSize(v1);
+  (*(*a1 + 24))(v2);
+  CLMicroLocationProto::ULLabelDataWiFi::ByteSize(v2, v1);
   operator new[]();
 }
 
-void sub_25907BD50(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25907BD50(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   CLMicroLocationProto::ULLabelDataWiFi::~ULLabelDataWiFi(va);
   _Unwind_Resume(a1);
 }
@@ -8178,9 +8101,9 @@ uint64_t std::vector<ULLabelDO>::__emplace_back_slow_path<ULLabelDO const&>(uint
   return v13;
 }
 
-void sub_25907BF4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_25907BF4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<ULLabelDO>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -8381,12 +8304,11 @@ uint64_t ULMagnetometerDO::ULMagnetometerDO(uint64_t result, double a2, double a
   return result;
 }
 
-id ULMapLabelDO::create(ULMapLabelDO *this, const ULMapLabelDO *a2)
+void ULMapLabelDO::create(ULMapLabelDO *this, const ULMapLabelDO *a2)
 {
   if (this->var0.var1)
   {
     *&v3 = *&this->var0.var0.var0;
-    DWORD2(v3) = LODWORD(this->var0.var0.var1.var2);
   }
 
   else
@@ -8394,7 +8316,7 @@ id ULMapLabelDO::create(ULMapLabelDO *this, const ULMapLabelDO *a2)
     v3 = *MEMORY[0x277D28830];
   }
 
-  v16 = *&v3;
+  v17 = *&v3;
   if (this->var1.var1)
   {
     [MEMORY[0x277CBEA60] fromFloatVector:&this->var1];
@@ -8414,30 +8336,30 @@ id ULMapLabelDO::create(ULMapLabelDO *this, const ULMapLabelDO *a2)
   {
     [MEMORY[0x277CBEA60] array];
   }
-  v5 = ;
+  v6 = ;
   if (*&this[1].var0.var0.var1.var2 == 1)
   {
-    if ((ULLabelDO::hasData(&this[1].var0.var0.var1.var2) & 1) == 0)
+    if ((ULLabelDO::hasData(&this[1].var0.var0.var1.var2, v5) & 1) == 0)
     {
-      ULMapLabelDO::create(&v17);
+      ULMapLabelDO::create(&v18);
 
-      result = abort_report_np();
+      abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/MicroLocation/MicroLocationDaemon/MicroLocationLogic/Persistence/DataObjects/ULMapLabelDO.mm", 24, "create");
       __break(1u);
-      return result;
+      return;
     }
 
-    v6 = objc_alloc(MEMORY[0x277D287A8]);
+    v7 = objc_alloc(MEMORY[0x277D287A8]);
     if (SHIBYTE(this[2].var1.var0.var1.var0) >= 0)
     {
-      v7 = this + 2;
+      v8 = this + 2;
     }
 
     else
     {
-      v7 = *&this[2].var0.var0.var0;
+      v8 = *&this[2].var0.var0.var0;
     }
 
-    v8 = [MEMORY[0x277CCACA8] stringWithUTF8String:v7];
+    v9 = [MEMORY[0x277CCACA8] stringWithUTF8String:v8];
     if ((this[2].var2.var0.var0 & 1) == 0)
     {
       std::__throw_bad_optional_access[abi:ne200100]();
@@ -8449,37 +8371,37 @@ id ULMapLabelDO::create(ULMapLabelDO *this, const ULMapLabelDO *a2)
     }
 
     var2 = this[2].var1.var0.var1.var2;
-    v10 = [MEMORY[0x277CBEAA8] fromCFAbsoluteTime:&this[1].var2];
-    v11 = [v6 initWithName:v8 rssi:var2 timestamp:v10 coordinates:v4 probabilityVector:v5 imageIdentifiersVector:v16];
+    v11 = [MEMORY[0x277CBEAA8] fromCFAbsoluteTime:&this[1].var2];
+    v12 = [v7 initWithName:v9 rssi:var2 timestamp:v11 coordinates:v4 probabilityVector:v6 imageIdentifiersVector:v17];
   }
 
   else
   {
-    v8 = [MEMORY[0x277D28788] contextLayerStringTypeFromEnum:?];
-    v12 = objc_alloc(MEMORY[0x277D287A0]);
+    v9 = [MEMORY[0x277D28788] contextLayerStringTypeFromEnum:?];
+    v13 = objc_alloc(MEMORY[0x277D287A0]);
     if (SHIBYTE(this[2].var1.var0.var1.var0) >= 0)
     {
-      v13 = this + 2;
+      v14 = this + 2;
     }
 
     else
     {
-      v13 = *&this[2].var0.var0.var0;
+      v14 = *&this[2].var0.var0.var0;
     }
 
-    v10 = [MEMORY[0x277CCACA8] stringWithUTF8String:v13];
-    v14 = [MEMORY[0x277CBEAA8] fromCFAbsoluteTime:&this[1].var2];
-    v11 = [v12 initWithName:v10 timestamp:v14 contextLayer:v8 deviceClass:this[1].var1.var0.var1.var0 coordinates:v4 probabilityVector:v5 imageIdentifiersVector:v16];
+    v11 = [MEMORY[0x277CCACA8] stringWithUTF8String:v14];
+    v15 = [MEMORY[0x277CBEAA8] fromCFAbsoluteTime:&this[1].var2];
+    v12 = [v13 initWithName:v11 timestamp:v15 contextLayer:v9 deviceClass:this[1].var1.var0.var1.var0 coordinates:v4 probabilityVector:v6 imageIdentifiersVector:v17];
   }
 
-  return v11;
+  v16 = v12;
 }
 
 uint64_t ULMapLabelDO::ULMapLabelDO(uint64_t a1, _OWORD *a2, uint64_t a3, uint64_t a4, void *a5, const ULLabelDO *a6, _OWORD *a7)
 {
   *a1 = *a2;
-  std::__optional_copy_base<std::vector<float>,false>::__optional_copy_base[abi:ne200100](a1 + 16, a3);
-  std::__optional_copy_base<std::vector<boost::uuids::uuid>,false>::__optional_copy_base[abi:ne200100](a1 + 48, a4);
+  std::__optional_copy_base<std::vector<float>,false>::__optional_copy_base[abi:ne200100]((a1 + 16), a3);
+  std::__optional_copy_base<std::vector<boost::uuids::uuid>,false>::__optional_copy_base[abi:ne200100]((a1 + 48), a4);
   *(a1 + 80) = *a5;
   ULLabelDO::ULLabelDO((a1 + 88), a6);
   *(a1 + 216) = *a7;
@@ -8606,7 +8528,7 @@ void ___ZL45_CLLogObjectForCategory_MicroLocation_Defaultv_block_invoke_32()
   logObject_MicroLocation_Default = v0;
 }
 
-uint64_t std::__optional_copy_base<std::vector<float>,false>::__optional_copy_base[abi:ne200100](uint64_t a1, uint64_t a2)
+uint64_t *std::__optional_copy_base<std::vector<float>,false>::__optional_copy_base[abi:ne200100](uint64_t *a1, uint64_t a2)
 {
   *a1 = 0;
   *(a1 + 24) = 0;
@@ -8624,7 +8546,7 @@ void sub_25907C98C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void *std::__optional_storage_base<std::vector<float>,false>::__construct_from[abi:ne200100]<std::__optional_copy_base<std::vector<float>,false> const&>(void *result, uint64_t a2)
+uint64_t *std::__optional_storage_base<std::vector<float>,false>::__construct_from[abi:ne200100]<std::__optional_copy_base<std::vector<float>,false> const&>(uint64_t *result, uint64_t a2)
 {
   if (*(a2 + 24) == 1)
   {
@@ -8639,7 +8561,7 @@ void *std::__optional_storage_base<std::vector<float>,false>::__construct_from[a
   return result;
 }
 
-uint64_t std::__optional_copy_base<std::vector<boost::uuids::uuid>,false>::__optional_copy_base[abi:ne200100](uint64_t a1, uint64_t a2)
+uint64_t *std::__optional_copy_base<std::vector<boost::uuids::uuid>,false>::__optional_copy_base[abi:ne200100](uint64_t *a1, uint64_t a2)
 {
   *a1 = 0;
   *(a1 + 24) = 0;
@@ -8657,7 +8579,7 @@ void sub_25907CA30(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void *std::__optional_storage_base<std::vector<boost::uuids::uuid>,false>::__construct_from[abi:ne200100]<std::__optional_copy_base<std::vector<boost::uuids::uuid>,false> const&>(void *result, uint64_t a2)
+uint64_t *std::__optional_storage_base<std::vector<boost::uuids::uuid>,false>::__construct_from[abi:ne200100]<std::__optional_copy_base<std::vector<boost::uuids::uuid>,false> const&>(uint64_t *result, uint64_t a2)
 {
   if (*(a2 + 24) == 1)
   {
@@ -8675,8 +8597,8 @@ void *std::__optional_storage_base<std::vector<boost::uuids::uuid>,false>::__con
 void ULMapLabelDO::ULMapLabelDO(ULMapLabelDO *this, const ULMapLabelDO *a2)
 {
   this->var0 = a2->var0;
-  std::__optional_copy_base<std::vector<float>,false>::__optional_copy_base[abi:ne200100](&this->var1, &a2->var1);
-  std::__optional_copy_base<std::vector<boost::uuids::uuid>,false>::__optional_copy_base[abi:ne200100](&this->var2, &a2->var2);
+  std::__optional_copy_base<std::vector<float>,false>::__optional_copy_base[abi:ne200100](&this->var1.var0.var1, &a2->var1);
+  std::__optional_copy_base<std::vector<boost::uuids::uuid>,false>::__optional_copy_base[abi:ne200100](&this->var2.var0.var1, &a2->var2);
   *&this[1].var0.var0.var0 = *&a2[1].var0.var0.var0;
   ULLabelDO::ULLabelDO(&this[1].var0.var0.var1.var2, &a2[1].var0.var0.var1.var2);
   *&this[2].var2.var0.var1.var1 = *&a2[2].var2.var0.var1.var1;
@@ -8764,7 +8686,7 @@ LABEL_4:
 
 void sub_25907CC44(_Unwind_Exception *a1)
 {
-  if (*(v1 + 272) == 1 && *(v1 + 271) < 0)
+  if (v1[272] == 1 && v1[271] < 0)
   {
     operator delete(*v2);
   }
@@ -8799,11 +8721,11 @@ LABEL_9:
       return this;
   }
 
-  ULModelDO::setModelType();
+  ULModelDO::setModelType(this);
   return ULModelDO::ULModelDO(v5, v6, v7, v8, v9, v10, v11, v12, v13);
 }
 
-uint64_t ULModelWithMapLabels::ULModelWithMapLabels(uint64_t a1, __int128 *a2, uint64_t *a3)
+uint64_t ULModelWithMapLabels::ULModelWithMapLabels(uint64_t a1, __int128 *a2, uint64_t a3)
 {
   v6 = *a2;
   *(a1 + 12) = *(a2 + 12);
@@ -8830,19 +8752,19 @@ uint64_t ULModelWithMapLabels::ULModelWithMapLabels(uint64_t a1, __int128 *a2, u
   *(a1 + 328) = 0;
   *(a1 + 336) = 0;
   *(a1 + 320) = 0;
-  std::vector<ULMapLabelDOAndLabelObjectID>::__init_with_size[abi:ne200100]<ULMapLabelDOAndLabelObjectID*,ULMapLabelDOAndLabelObjectID*>(a1 + 320, *a3, a3[1], 0xEEEEEEEEEEEEEEEFLL * ((a3[1] - *a3) >> 4));
+  std::vector<ULMapLabelDOAndLabelObjectID>::__init_with_size[abi:ne200100]<ULMapLabelDOAndLabelObjectID*,ULMapLabelDOAndLabelObjectID*>((a1 + 320), *a3, *(a3 + 8), 0xEEEEEEEEEEEEEEEFLL * ((*(a3 + 8) - *a3) >> 4));
   return a1;
 }
 
-unsigned int *std::__variant_detail::__move_constructor<std::__variant_detail::__traits<ULProtoMessageWrapper<CLMicroLocationProto::Model>,ULProtoMessageWrapper<CLMicroLocationProto::HomeSlamModel>,ULProtoMessageWrapper<CLMicroLocationProto::VMKModel>>,(std::__variant_detail::_Trait)1>::__move_constructor[abi:ne200100](unsigned int *a1, uint64_t a2)
+CLMicroLocationProto::Model *std::__variant_detail::__move_constructor<std::__variant_detail::__traits<ULProtoMessageWrapper<CLMicroLocationProto::Model>,ULProtoMessageWrapper<CLMicroLocationProto::HomeSlamModel>,ULProtoMessageWrapper<CLMicroLocationProto::VMKModel>>,(std::__variant_detail::_Trait)1>::__move_constructor[abi:ne200100](CLMicroLocationProto::Model *a1, uint64_t a2)
 {
   *a1 = 0;
-  a1[52] = -1;
+  *(a1 + 52) = -1;
   std::__variant_detail::__ctor<std::__variant_detail::__traits<ULProtoMessageWrapper<CLMicroLocationProto::Model>,ULProtoMessageWrapper<CLMicroLocationProto::HomeSlamModel>,ULProtoMessageWrapper<CLMicroLocationProto::VMKModel>>>::__generic_construct[abi:ne200100]<std::__variant_detail::__move_constructor<std::__variant_detail::__traits<ULProtoMessageWrapper<CLMicroLocationProto::Model>,ULProtoMessageWrapper<CLMicroLocationProto::HomeSlamModel>,ULProtoMessageWrapper<CLMicroLocationProto::VMKModel>>,(std::__variant_detail::_Trait)1>>(a1, a2);
   return a1;
 }
 
-unsigned int *std::__variant_detail::__ctor<std::__variant_detail::__traits<ULProtoMessageWrapper<CLMicroLocationProto::Model>,ULProtoMessageWrapper<CLMicroLocationProto::HomeSlamModel>,ULProtoMessageWrapper<CLMicroLocationProto::VMKModel>>>::__generic_construct[abi:ne200100]<std::__variant_detail::__move_constructor<std::__variant_detail::__traits<ULProtoMessageWrapper<CLMicroLocationProto::Model>,ULProtoMessageWrapper<CLMicroLocationProto::HomeSlamModel>,ULProtoMessageWrapper<CLMicroLocationProto::VMKModel>>,(std::__variant_detail::_Trait)1>>(unsigned int *a1, uint64_t a2)
+CLMicroLocationProto::Model *std::__variant_detail::__ctor<std::__variant_detail::__traits<ULProtoMessageWrapper<CLMicroLocationProto::Model>,ULProtoMessageWrapper<CLMicroLocationProto::HomeSlamModel>,ULProtoMessageWrapper<CLMicroLocationProto::VMKModel>>>::__generic_construct[abi:ne200100]<std::__variant_detail::__move_constructor<std::__variant_detail::__traits<ULProtoMessageWrapper<CLMicroLocationProto::Model>,ULProtoMessageWrapper<CLMicroLocationProto::HomeSlamModel>,ULProtoMessageWrapper<CLMicroLocationProto::VMKModel>>,(std::__variant_detail::_Trait)1>>(CLMicroLocationProto::Model *a1, uint64_t a2)
 {
   result = std::__variant_detail::__dtor<std::__variant_detail::__traits<ULProtoMessageWrapper<CLMicroLocationProto::Model>,ULProtoMessageWrapper<CLMicroLocationProto::HomeSlamModel>,ULProtoMessageWrapper<CLMicroLocationProto::VMKModel>>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](a1);
   v5 = *(a2 + 208);
@@ -8850,7 +8772,7 @@ unsigned int *std::__variant_detail::__ctor<std::__variant_detail::__traits<ULPr
   {
     v6 = a1;
     result = (off_286A55AD8[v5])(&v6, a2);
-    a1[52] = v5;
+    *(a1 + 52) = v5;
   }
 
   return result;
@@ -8869,7 +8791,7 @@ CLMicroLocationProto::HomeSlamModel *ULProtoMessageWrapper<CLMicroLocationProto:
   return a1;
 }
 
-void *ULProtoMessageWrapper<CLMicroLocationProto::VMKModel>::ULProtoMessageWrapper(void *a1, CLMicroLocationProto::VMKModel *a2)
+CLMicroLocationProto::VMKModel *ULProtoMessageWrapper<CLMicroLocationProto::VMKModel>::ULProtoMessageWrapper(CLMicroLocationProto::VMKModel *a1, CLMicroLocationProto::VMKModel *a2)
 {
   v4 = CLMicroLocationProto::VMKModel::VMKModel(a1);
   CLMicroLocationProto::VMKModel::Swap(v4, a2);
@@ -8928,7 +8850,7 @@ void ___ZL45_CLLogObjectForCategory_MicroLocation_Defaultv_block_invoke_33()
   logObject_MicroLocation_Default = v0;
 }
 
-uint64_t std::vector<ULMapLabelDOAndLabelObjectID>::__init_with_size[abi:ne200100]<ULMapLabelDOAndLabelObjectID*,ULMapLabelDOAndLabelObjectID*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<ULMapLabelDOAndLabelObjectID>::__init_with_size[abi:ne200100]<ULMapLabelDOAndLabelObjectID*,ULMapLabelDOAndLabelObjectID*>(uint64_t *result, ULMapLabelDO *a2, int a3, unint64_t a4)
 {
   if (a4)
   {
@@ -8938,14 +8860,14 @@ uint64_t std::vector<ULMapLabelDOAndLabelObjectID>::__init_with_size[abi:ne20010
   return result;
 }
 
-void sub_25907D0E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void **a9)
+void sub_25907D0E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
   *(v9 + 8) = v10;
   std::vector<ULMapLabelDOAndLabelObjectID>::__destroy_vector::operator()[abi:ne200100](&a9);
   _Unwind_Resume(a1);
 }
 
-void std::vector<ULMapLabelDOAndLabelObjectID>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<ULMapLabelDOAndLabelObjectID>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0x111111111111112)
   {
@@ -9118,7 +9040,7 @@ void ULModelDO::~ULModelDO(ULModelDO *this)
     operator delete(*&this[15].var0.data[8]);
   }
 
-  std::__variant_detail::__dtor<std::__variant_detail::__traits<ULProtoMessageWrapper<CLMicroLocationProto::Model>,ULProtoMessageWrapper<CLMicroLocationProto::HomeSlamModel>,ULProtoMessageWrapper<CLMicroLocationProto::VMKModel>>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](this[2].var0.data);
+  std::__variant_detail::__dtor<std::__variant_detail::__traits<ULProtoMessageWrapper<CLMicroLocationProto::Model>,ULProtoMessageWrapper<CLMicroLocationProto::HomeSlamModel>,ULProtoMessageWrapper<CLMicroLocationProto::VMKModel>>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](&this[2]);
 }
 
 uint64_t ULOdometryDO::ULOdometryDO(uint64_t a1, __int128 *a2, void *a3, uint64_t a4, float a5, float a6, float a7, double a8)
@@ -9145,12 +9067,12 @@ uint64_t ULOdometryDO::ULOdometryDO(uint64_t a1, __int128 *a2, void *a3, uint64_
   return a1;
 }
 
-void *ULPhotoFeaturesDO::ULPhotoFeaturesDO(void *a1, uint64_t *a2, void *a3)
+uint64_t *ULPhotoFeaturesDO::ULPhotoFeaturesDO(uint64_t *a1, uint64_t a2, uint64_t *a3)
 {
   *a1 = 0;
   a1[1] = 0;
   a1[2] = 0;
-  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(a1, *a2, a2[1], (a2[1] - *a2) >> 2);
+  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(a1, *a2, *(a2 + 8), (*(a2 + 8) - *a2) >> 2);
   a1[3] = *a3;
   return a1;
 }
@@ -9271,24 +9193,23 @@ void ULPhotoFeaturesDO::toProtobuf(ULPhotoFeaturesDO *this@<X0>, uint64_t a2@<X8
   }
 }
 
-uint64_t *wireless_diagnostics::google::protobuf::RepeatedField<float>::Reserve(uint64_t *result, int a2)
+_DWORD *wireless_diagnostics::google::protobuf::RepeatedField<float>::Reserve(_DWORD *result, int a2)
 {
-  v2 = *(result + 3);
+  v2 = result[3];
   if (v2 < a2)
   {
-    v3 = *result;
-    v4 = 2 * v2;
-    if (v4 <= a2)
+    v3 = 2 * v2;
+    if (v3 <= a2)
     {
-      v4 = a2;
+      v3 = a2;
     }
 
-    if (v4 <= 4)
+    if (v3 <= 4)
     {
-      v4 = 4;
+      v3 = 4;
     }
 
-    *(result + 3) = v4;
+    result[3] = v3;
     operator new[]();
   }
 
@@ -9301,8 +9222,7 @@ uint64_t ULRapportDO::ULRapportDO(uint64_t a1, __int128 *a2, CLMicroLocationProt
   v7 = *a2;
   *(a1 + 24) = *(a2 + 2);
   *(a1 + 8) = v7;
-  *(a2 + 1) = 0;
-  *(a2 + 2) = 0;
+  *(a2 + 8) = 0uLL;
   *a2 = 0;
   CLMicroLocationProto::RapportDevice::RapportDevice((a1 + 32), a3);
   *(a1 + 64) = *a4;
@@ -9319,7 +9239,7 @@ void sub_25907D8A4(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t ULScanningEventDO::ULScanningEventDO(uint64_t a1, _OWORD *a2, __int128 *a3, __int16 *a4, uint64_t *a5, __int16 a6, char a7, char a8, char a9, __int16 *a10, uint64_t *a11, uint64_t *a12, uint64_t *a13, uint64_t *a14, _OWORD *a15, __int128 *a16, uint64_t *a17, __int128 *a18)
+uint64_t ULScanningEventDO::ULScanningEventDO(uint64_t a1, _OWORD *a2, __int128 *a3, __int16 *a4, uint64_t *a5, __int16 a6, char a7, char a8, char a9, __int16 *a10, uint64_t a11, __int128 **a12, __int128 **a13, __int128 **a14, _OWORD *a15, __int128 *a16, uint64_t *a17, __int128 *a18)
 {
   *a1 = *a2;
   if (*(a3 + 23) < 0)
@@ -9347,19 +9267,19 @@ uint64_t ULScanningEventDO::ULScanningEventDO(uint64_t a1, _OWORD *a2, __int128 
   *(a1 + 62) = v27;
   *(a1 + 72) = 0;
   *(a1 + 80) = 0;
-  std::vector<ULLabelDO>::__init_with_size[abi:ne200100]<ULLabelDO*,ULLabelDO*>(a1 + 64, *a11, a11[1], (a11[1] - *a11) >> 7);
+  std::vector<ULLabelDO>::__init_with_size[abi:ne200100]<ULLabelDO*,ULLabelDO*>((a1 + 64), *a11, *(a11 + 8), (*(a11 + 8) - *a11) >> 7);
   *(a1 + 88) = 0;
   *(a1 + 96) = 0;
   *(a1 + 104) = 0;
-  std::vector<ULWiFiMeasurementDO>::__init_with_size[abi:ne200100]<ULWiFiMeasurementDO*,ULWiFiMeasurementDO*>(a1 + 88, *a12, a12[1], (a12[1] - *a12) >> 5);
+  std::vector<ULWiFiMeasurementDO>::__init_with_size[abi:ne200100]<ULWiFiMeasurementDO*,ULWiFiMeasurementDO*>((a1 + 88), *a12, a12[1], (a12[1] - *a12) >> 5);
   *(a1 + 112) = 0;
   *(a1 + 120) = 0;
   *(a1 + 128) = 0;
-  std::vector<ULBLEMeasurementDO>::__init_with_size[abi:ne200100]<ULBLEMeasurementDO*,ULBLEMeasurementDO*>(a1 + 112, *a13, a13[1], (a13[1] - *a13) >> 5);
+  std::vector<ULBLEMeasurementDO>::__init_with_size[abi:ne200100]<ULBLEMeasurementDO*,ULBLEMeasurementDO*>((a1 + 112), *a13, a13[1], (a13[1] - *a13) >> 5);
   *(a1 + 136) = 0;
   *(a1 + 144) = 0;
   *(a1 + 152) = 0;
-  std::vector<ULUWBMeasurementDO>::__init_with_size[abi:ne200100]<ULUWBMeasurementDO*,ULUWBMeasurementDO*>(a1 + 136, *a14, a14[1], (a14[1] - *a14) >> 5);
+  std::vector<ULUWBMeasurementDO>::__init_with_size[abi:ne200100]<ULUWBMeasurementDO*,ULUWBMeasurementDO*>((a1 + 136), *a14, a14[1], (a14[1] - *a14) >> 5);
   *(a1 + 160) = *a15;
   v28 = *a16;
   v29 = *(a16 + 2);
@@ -9368,7 +9288,7 @@ uint64_t ULScanningEventDO::ULScanningEventDO(uint64_t a1, _OWORD *a2, __int128 
   *(a1 + 176) = v28;
   *(a1 + 208) = 0;
   *(a1 + 216) = 0;
-  std::vector<ULPhotoFeaturesDO>::__init_with_size[abi:ne200100]<ULPhotoFeaturesDO*,ULPhotoFeaturesDO*>(a1 + 200, *a17, a17[1], (a17[1] - *a17) >> 5);
+  std::vector<ULPhotoFeaturesDO>::__init_with_size[abi:ne200100]<ULPhotoFeaturesDO*,ULPhotoFeaturesDO*>((a1 + 200), *a17, a17[1], (a17[1] - *a17) >> 5);
   v30 = *a18;
   v31 = a18[2];
   *(a1 + 240) = a18[1];
@@ -9381,35 +9301,35 @@ uint64_t ULScanningEventDO::ULScanningEventDO(uint64_t a1, _OWORD *a2, __int128 
   return ULScanningEventDO::ULScanningEventDO(a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17, a18);
 }
 
-void sub_25907DA60(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25907DA60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  v6 = v5;
-  v8 = *v6;
-  if (*v6)
+  va_start(va, a3);
+  v7 = v6;
+  v9 = *v7;
+  if (*v7)
   {
-    *(v2 + 144) = v8;
-    operator delete(v8);
-  }
-
-  v9 = *v4;
-  if (*v4)
-  {
-    *(v2 + 120) = v9;
+    *(v3 + 144) = v9;
     operator delete(v9);
   }
 
-  v10 = *v3;
-  if (*v3)
+  v10 = *v5;
+  if (*v5)
   {
-    *(v2 + 96) = v10;
+    *(v3 + 120) = v10;
     operator delete(v10);
   }
 
-  std::vector<ULLabelDO>::__destroy_vector::operator()[abi:ne200100](va);
-  if (*(v2 + 39) < 0)
+  v11 = *v4;
+  if (*v4)
   {
-    operator delete(*(v2 + 16));
+    *(v3 + 96) = v11;
+    operator delete(v11);
+  }
+
+  std::vector<ULLabelDO>::__destroy_vector::operator()[abi:ne200100](va);
+  if (*(v3 + 39) < 0)
+  {
+    operator delete(*(v3 + 16));
   }
 
   _Unwind_Resume(a1);
@@ -9534,7 +9454,7 @@ uint64_t ULScanningEventDO::operator=(uint64_t a1, uint64_t a2)
   return a1;
 }
 
-uint64_t std::vector<ULLabelDO>::__init_with_size[abi:ne200100]<ULLabelDO*,ULLabelDO*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<ULLabelDO>::__init_with_size[abi:ne200100]<ULLabelDO*,ULLabelDO*>(uint64_t *result, ULLabelDO *a2, int a3, unint64_t a4)
 {
   if (a4)
   {
@@ -9551,7 +9471,7 @@ void sub_25907DDC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void std::vector<ULLabelDO>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<ULLabelDO>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 57))
   {
@@ -9589,7 +9509,7 @@ ULLabelDO *std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator
   return v4;
 }
 
-uint64_t std::vector<ULWiFiMeasurementDO>::__init_with_size[abi:ne200100]<ULWiFiMeasurementDO*,ULWiFiMeasurementDO*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<ULWiFiMeasurementDO>::__init_with_size[abi:ne200100]<ULWiFiMeasurementDO*,ULWiFiMeasurementDO*>(uint64_t *result, __int128 *a2, __int128 *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -9611,7 +9531,7 @@ void sub_25907DF20(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<ULWiFiMeasurementDO>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<ULWiFiMeasurementDO>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 59))
   {
@@ -9631,7 +9551,7 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<ULWiFiMeasurementDO>>
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-uint64_t std::vector<ULBLEMeasurementDO>::__init_with_size[abi:ne200100]<ULBLEMeasurementDO*,ULBLEMeasurementDO*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<ULBLEMeasurementDO>::__init_with_size[abi:ne200100]<ULBLEMeasurementDO*,ULBLEMeasurementDO*>(uint64_t *result, __int128 *a2, __int128 *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -9653,7 +9573,7 @@ void sub_25907E018(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<ULBLEMeasurementDO>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<ULBLEMeasurementDO>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 59))
   {
@@ -9673,7 +9593,7 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<ULBLEMeasurementDO>>(
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-uint64_t std::vector<ULUWBMeasurementDO>::__init_with_size[abi:ne200100]<ULUWBMeasurementDO*,ULUWBMeasurementDO*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<ULUWBMeasurementDO>::__init_with_size[abi:ne200100]<ULUWBMeasurementDO*,ULUWBMeasurementDO*>(uint64_t *result, __int128 *a2, __int128 *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -9831,4 +9751,107 @@ uint64_t ULWiFiMeasurementDO::ULWiFiMeasurementDO(uint64_t result, uint64_t a2)
   *(result + 26) = *(a2 + 26);
   *(result + 28) = *(a2 + 28);
   return result;
+}
+
+uint64_t ULWiFiMeasurementDO::operator=(uint64_t result, uint64_t a2)
+{
+  if (result != a2)
+  {
+    *result = *a2;
+    *(result + 8) = *(a2 + 8);
+    *(result + 16) = *(a2 + 16);
+    *(result + 24) = *(a2 + 24);
+    *(result + 26) = *(a2 + 26);
+    *(result + 28) = *(a2 + 28);
+  }
+
+  return result;
+}
+
+void sub_25907E57C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va, a3);
+  std::__function::__value_func<ULConfigurationMO_deprecated * ()(ULConfigurationDO const&)>::~__value_func[abi:ne200100](va);
+  _Unwind_Resume(a1);
+}
+
+uint64_t ULDBUtils::insertDataObjects<ULConfigurationDO,ULConfigurationMO_deprecated>(void *a1, void *a2, uint64_t a3)
+{
+  v18[4] = *MEMORY[0x277D85DE8];
+  v5 = a1;
+  v6 = v5;
+  if (*a2 == a2[1])
+  {
+    v8 = 1;
+  }
+
+  else
+  {
+    v11 = &v10;
+    v12 = 0x2020000000;
+    v13 = 0;
+    v7 = [v5 managedObjectContext];
+    v14[0] = MEMORY[0x277D85DD0];
+    v14[1] = 3321888768;
+    v14[2] = ___ZN9ULDBUtils17insertDataObjectsI17ULConfigurationDO28ULConfigurationMO_deprecatedEEbP7ULStoreRKNSt3__16vectorIT_NS5_9allocatorIS7_EEEENS5_8functionIFPT0_RKS7_EEE_block_invoke;
+    v14[3] = &unk_286A55B18;
+    v17 = a2;
+    std::__function::__value_func<ULConfigurationMO_deprecated * ()(ULConfigurationDO const&)>::__value_func[abi:ne200100](v18, a3);
+    v15 = v6;
+    v16 = &v10;
+    [v7 performBlockAndWait:v14];
+
+    v8 = *(v11 + 24);
+    std::__function::__value_func<ULConfigurationMO_deprecated * ()(ULConfigurationDO const&)>::~__value_func[abi:ne200100](v18);
+    _Block_object_dispose(&v10, 8);
+  }
+
+  return v8 & 1;
+}
+
+void sub_25907E6D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, id a17)
+{
+  std::__function::__value_func<ULConfigurationMO_deprecated * ()(ULConfigurationDO const&)>::~__value_func[abi:ne200100](v19 + 56);
+
+  _Block_object_dispose(&a9, 8);
+  _Unwind_Resume(a1);
+}
+
+void ULDBUtils::fetchDataObjects<ULConfigurationDO,ULConfigurationMO_deprecated>(void *a1@<X0>, void *a2@<X1>, void *a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X8>)
+{
+  v9 = a1;
+  v10 = a2;
+  v11 = a3;
+  v23 = 0;
+  v24 = &v23;
+  v25 = 0x4812000000;
+  v26 = __Block_byref_object_copy__2;
+  v27 = __Block_byref_object_dispose__2;
+  v28 = &unk_25929B3B7;
+  memset(v29, 0, sizeof(v29));
+  v12 = [v9 managedObjectContext];
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = ___ZN9ULDBUtils16fetchDataObjectsI17ULConfigurationDO28ULConfigurationMO_deprecatedEENSt3__16vectorIT_NS3_9allocatorIS5_EEEEP7ULStoreP7NSArrayIP11NSPredicateEPSB_IP16NSSortDescriptorEm_block_invoke;
+  v17[3] = &unk_2798D4778;
+  v13 = v10;
+  v18 = v13;
+  v14 = v11;
+  v19 = v14;
+  v22 = a4;
+  v15 = v9;
+  v20 = v15;
+  v21 = &v23;
+  [v12 performBlockAndWait:v17];
+
+  v16 = v24;
+  *a5 = *(v24 + 3);
+  *(a5 + 16) = v16[8];
+  v16[7] = 0;
+  v16[8] = 0;
+  v16[6] = 0;
+
+  _Block_object_dispose(&v23, 8);
+  v30 = v29;
+  std::vector<ULConfigurationDO>::__destroy_vector::operator()[abi:ne200100](&v30);
 }

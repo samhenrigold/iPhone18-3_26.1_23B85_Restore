@@ -43,25 +43,23 @@
 
 - (id)_fetchRootMemoryWithPhotoLibrary:(id)library
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   libraryCopy = library;
   v5 = [objc_opt_class() _baseMemoryFetchOptionsWithPhotoLibrary:libraryCopy];
 
   v6 = MEMORY[0x277CD97B8];
-  v12[0] = self->_rootMemoryLocalIdentifier;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
+  v11[0] = self->_rootMemoryLocalIdentifier;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
   v8 = [v6 fetchAssetCollectionsWithLocalIdentifiers:v7 options:v5];
 
   firstObject = [v8 firstObject];
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return firstObject;
 }
 
 - (void)_enumerateMemoriesToAvoidWithWorkingContext:(id)context usingBlock:(id)block
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   blockCopy = block;
   v8 = objc_opt_class();
@@ -76,7 +74,7 @@
   if (os_log_type_enabled(loggingConnection, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v18 = [v12 count];
+    v17 = [v12 count];
     _os_log_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_DEFAULT, "[UpNext] Found %lu memories to avoid", buf, 0xCu);
   }
 
@@ -93,47 +91,45 @@
 
     while (v14 < [v12 count]);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (id)localMemoriesByUniqueMemoryIdentifiersWithWorkingContext:(id)context
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   v5 = objc_opt_class();
-  v30 = contextCopy;
+  v29 = contextCopy;
   photoLibrary = [contextCopy photoLibrary];
   v7 = [v5 _baseMemoryFetchOptionsWithPhotoLibrary:photoLibrary];
 
   [v7 setSharingFilter:{-[PGUpNextMemoriesGenerationRequest sharingFilter](self, "sharingFilter")}];
   v8 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v29 = [MEMORY[0x277CCAC30] predicateWithFormat:@"%K = %d", @"pendingState", 2];
+  v28 = [MEMORY[0x277CCAC30] predicateWithFormat:@"%K = %d", @"pendingState", 2];
   [v8 addObject:?];
-  v37 = 0u;
-  v38 = 0u;
-  v35 = 0u;
   v36 = 0u;
+  v37 = 0u;
+  v34 = 0u;
+  v35 = 0u;
   v9 = [MEMORY[0x277CBEB98] setWithArray:&unk_284485C58];
-  v10 = [v9 countByEnumeratingWithState:&v35 objects:v42 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v34 objects:v41 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v36;
+    v12 = *v35;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v36 != v12)
+        if (*v35 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = [MEMORY[0x277CCAC30] predicateWithFormat:@"%K != %d", @"category", objc_msgSend(*(*(&v35 + 1) + 8 * i), "unsignedIntegerValue")];
+        v14 = [MEMORY[0x277CCAC30] predicateWithFormat:@"%K != %d", @"category", objc_msgSend(*(*(&v34 + 1) + 8 * i), "unsignedIntegerValue")];
         [v8 addObject:v14];
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v35 objects:v42 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v34 objects:v41 count:16];
     }
 
     while (v11);
@@ -143,36 +139,36 @@
   [v7 setPredicate:v15];
 
   v16 = [MEMORY[0x277CD97B8] fetchAssetCollectionsWithType:4 subtype:0x7FFFFFFFFFFFFFFFLL options:v7];
-  loggingConnection = [v30 loggingConnection];
+  loggingConnection = [v29 loggingConnection];
   if (os_log_type_enabled(loggingConnection, OS_LOG_TYPE_DEFAULT))
   {
     v18 = [v16 count];
     *buf = 134217984;
-    v41 = v18;
+    v40 = v18;
     _os_log_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_DEFAULT, "[UpNext] Found %lu eligible local memories", buf, 0xCu);
   }
 
   v19 = [objc_alloc(MEMORY[0x277CBEB38]) initWithCapacity:{objc_msgSend(v16, "count")}];
+  v30 = 0u;
   v31 = 0u;
   v32 = 0u;
   v33 = 0u;
-  v34 = 0u;
   v20 = v16;
-  v21 = [v20 countByEnumeratingWithState:&v31 objects:v39 count:16];
+  v21 = [v20 countByEnumeratingWithState:&v30 objects:v38 count:16];
   if (v21)
   {
     v22 = v21;
-    v23 = *v32;
+    v23 = *v31;
     do
     {
       for (j = 0; j != v22; ++j)
       {
-        if (*v32 != v23)
+        if (*v31 != v23)
         {
           objc_enumerationMutation(v20);
         }
 
-        v25 = *(*(&v31 + 1) + 8 * j);
+        v25 = *(*(&v30 + 1) + 8 * j);
         graphMemoryIdentifier = [v25 graphMemoryIdentifier];
         if (graphMemoryIdentifier)
         {
@@ -180,27 +176,25 @@
         }
       }
 
-      v22 = [v20 countByEnumeratingWithState:&v31 objects:v39 count:16];
+      v22 = [v20 countByEnumeratingWithState:&v30 objects:v38 count:16];
     }
 
     while (v22);
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 
   return v19;
 }
 
 - (id)upNextMemoryLocalIdentifiersWithWorkingContext:(id)context rootMemory:(id)memory localMemoriesByUniqueMemoryIdentifiers:(id)identifiers uniqueMemoryIdentifiersOfMemoriesToAvoid:(id)avoid aggregator:(id)aggregator debugInfo:(id *)info error:(id *)error
 {
-  v84 = *MEMORY[0x277D85DE8];
+  v83 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   memoryCopy = memory;
   identifiersCopy = identifiers;
   avoidCopy = avoid;
   aggregatorCopy = aggregator;
   v17 = contextCopy;
-  v46 = aggregatorCopy;
+  v45 = aggregatorCopy;
   photoLibrary = [contextCopy photoLibrary];
   oslog = [contextCopy loggingConnection];
   title = [memoryCopy title];
@@ -238,7 +232,7 @@
     *error = [objc_opt_class() _requestErrorWithCode:0 description:@"[UpNext] Neither rootMemory nor starting moments were provided for UpNext generation"];
   }
 
-  v41 = [objc_alloc(MEMORY[0x277CD99F8]) initWithPhotoLibrary:photoLibrary];
+  v40 = [objc_alloc(MEMORY[0x277CD99F8]) initWithPhotoLibrary:photoLibrary];
   customVectors = [(PGUpNextMemoriesGenerationRequest *)self customVectors];
   v26 = objc_alloc_init(_TtC11PhotosGraph24PGUpNextDebugInfoBuilder);
   [(PGUpNextDebugInfoBuilder *)v26 setWantsVerboseDebugInfo:self->_wantsVerboseDebugInfo];
@@ -247,58 +241,58 @@
   [(PGUpNextDebugInfoBuilder *)v26 setFeatureWeightVectors:customVectors];
   -[PGUpNextDebugInfoBuilder setRootMemoryIsAggregation:](v26, "setRootMemoryIsAggregation:", (PGMemorySourceTypeFromCategory([memoryCopy category]) - 3) < 2);
   uuid = [memoryCopy uuid];
-  v51 = [uuid substringToIndex:8];
+  v50 = [uuid substringToIndex:8];
 
-  v50 = [title stringByReplacingOccurrencesOfString:@"\n" withString:&stru_2843F5C58];
+  v49 = [title stringByReplacingOccurrencesOfString:@"\n" withString:&stru_2843F5C58];
   subtitle = [memoryCopy subtitle];
-  v49 = [subtitle stringByReplacingOccurrencesOfString:@"\n" withString:&stru_2843F5C58];
+  v48 = [subtitle stringByReplacingOccurrencesOfString:@"\n" withString:&stru_2843F5C58];
 
-  v48 = [localIdentifier substringToIndex:8];
-  v29 = [MEMORY[0x277CCACA8] stringWithFormat:@"Root memory: %@\n\t%@ - %@\n\tkeyAsset: %@", v51, v50, v49, v48];
+  v47 = [localIdentifier substringToIndex:8];
+  v29 = [MEMORY[0x277CCACA8] stringWithFormat:@"Root memory: %@\n\t%@ - %@\n\tkeyAsset: %@", v50, v49, v48, v47];
   [(PGUpNextDebugInfoBuilder *)v26 addSuggestionFilteringLog:v29];
 
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v80 = 0x3032000000;
-  v81 = __Block_byref_object_copy__39253;
-  v82 = __Block_byref_object_dispose__39254;
-  v83 = 0;
-  v73 = 0;
-  v74 = &v73;
-  v75 = 0x3032000000;
-  v76 = __Block_byref_object_copy__39253;
-  v77 = __Block_byref_object_dispose__39254;
-  v78 = 0;
-  v58[0] = MEMORY[0x277D85DD0];
-  v58[1] = 3221225472;
-  v58[2] = __202__PGUpNextMemoriesGenerationRequest_upNextMemoryLocalIdentifiersWithWorkingContext_rootMemory_localMemoriesByUniqueMemoryIdentifiers_uniqueMemoryIdentifiersOfMemoriesToAvoid_aggregator_debugInfo_error___block_invoke;
-  v58[3] = &unk_278884058;
-  v40 = oslog;
-  v59 = v40;
-  v43 = identifiersCopy;
-  v60 = v43;
-  v45 = avoidCopy;
-  v61 = v45;
+  v79 = 0x3032000000;
+  v80 = __Block_byref_object_copy__39253;
+  v81 = __Block_byref_object_dispose__39254;
+  v82 = 0;
+  v72 = 0;
+  v73 = &v72;
+  v74 = 0x3032000000;
+  v75 = __Block_byref_object_copy__39253;
+  v76 = __Block_byref_object_dispose__39254;
+  v77 = 0;
+  v57[0] = MEMORY[0x277D85DD0];
+  v57[1] = 3221225472;
+  v57[2] = __202__PGUpNextMemoriesGenerationRequest_upNextMemoryLocalIdentifiersWithWorkingContext_rootMemory_localMemoriesByUniqueMemoryIdentifiers_uniqueMemoryIdentifiersOfMemoriesToAvoid_aggregator_debugInfo_error___block_invoke;
+  v57[3] = &unk_278884058;
+  v39 = oslog;
+  v58 = v39;
+  v42 = identifiersCopy;
+  v59 = v42;
+  v44 = avoidCopy;
+  v60 = v44;
   osloga = graphMemoryIdentifier;
-  v62 = osloga;
-  v39 = memoryCopy;
-  v63 = v39;
+  v61 = osloga;
+  v38 = memoryCopy;
+  v62 = v38;
   v30 = v24;
-  v64 = v30;
+  v63 = v30;
   v31 = v26;
-  v65 = v31;
+  v64 = v31;
   selfCopy = self;
   v32 = customVectors;
-  v67 = v32;
-  v55 = photoLibrary;
-  v68 = v55;
-  v33 = v41;
-  v69 = v33;
-  v34 = v46;
-  v70 = v34;
+  v66 = v32;
+  v54 = photoLibrary;
+  v67 = v54;
+  v33 = v40;
+  v68 = v33;
+  v34 = v45;
+  v69 = v34;
   p_buf = &buf;
-  v72 = &v73;
-  [v17 performSynchronousConcurrentGraphReadUsingBlock:v58];
+  v71 = &v72;
+  [v17 performSynchronousConcurrentGraphReadUsingBlock:v57];
   if (info)
   {
     *info = [(PGUpNextDebugInfoBuilder *)v31 debugInfo];
@@ -307,24 +301,22 @@
   v35 = *(&buf + 1);
   if (error && !*(*(&buf + 1) + 40))
   {
-    *error = v74[5];
+    *error = v73[5];
     v35 = *(&buf + 1);
   }
 
   v36 = *(v35 + 40);
 
-  _Block_object_dispose(&v73, 8);
+  _Block_object_dispose(&v72, 8);
   _Block_object_dispose(&buf, 8);
-
-  v37 = *MEMORY[0x277D85DE8];
 
   return v36;
 }
 
 void __202__PGUpNextMemoriesGenerationRequest_upNextMemoryLocalIdentifiersWithWorkingContext_rootMemory_localMemoriesByUniqueMemoryIdentifiers_uniqueMemoryIdentifiersOfMemoriesToAvoid_aggregator_debugInfo_error___block_invoke(uint64_t a1, void *a2)
 {
-  v98 = *MEMORY[0x277D85DE8];
-  v70 = a2;
+  v96 = *MEMORY[0x277D85DE8];
+  v68 = a2;
   v3 = *(a1 + 32);
   v4 = os_signpost_id_generate(v3);
   v5 = v3;
@@ -339,15 +331,15 @@ void __202__PGUpNextMemoriesGenerationRequest_upNextMemoryLocalIdentifiersWithWo
 
   info = 0;
   mach_timebase_info(&info);
-  v64 = mach_absolute_time();
-  v75 = [v70 graph];
+  v62 = mach_absolute_time();
+  v73 = [v68 graph];
   v8 = [*(a1 + 40) allKeys];
-  v9 = [PGGraphMemoryNodeCollection memoryNodesWithUniqueIdentifierArray:v8 inGraph:v75];
+  v9 = [PGGraphMemoryNodeCollection memoryNodesWithUniqueIdentifierArray:v8 inGraph:v73];
 
-  v69 = [PGGraphMemoryNodeCollection memoryNodesWithUniqueIdentifiers:*(a1 + 48) inGraph:v75];
-  v10 = [v9 collectionBySubtracting:v69];
+  v67 = [PGGraphMemoryNodeCollection memoryNodesWithUniqueIdentifiers:*(a1 + 48) inGraph:v73];
+  v10 = [v9 collectionBySubtracting:v67];
 
-  v11 = [PGGraphHighlightTypeNodeCollection tripTypeNodesInGraph:v75];
+  v11 = [PGGraphHighlightTypeNodeCollection tripTypeNodesInGraph:v73];
   v12 = [v11 highlightNodes];
   v13 = [v12 momentNodes];
   v14 = [v13 memoryNodes];
@@ -355,7 +347,7 @@ void __202__PGUpNextMemoriesGenerationRequest_upNextMemoryLocalIdentifiersWithWo
   v15 = [v14 subsetWithMemoryCategory:1];
   v16 = [v10 collectionBySubtracting:v15];
 
-  v17 = [PGMemoryTriggerHandler personMemoryNodesFeaturingMeNodeInGraph:v75];
+  v17 = [PGMemoryTriggerHandler personMemoryNodesFeaturingMeNodeInGraph:v73];
   v18 = [v16 collectionBySubtracting:v17];
 
   v19 = *(a1 + 56);
@@ -364,13 +356,13 @@ void __202__PGUpNextMemoriesGenerationRequest_upNextMemoryLocalIdentifiersWithWo
     goto LABEL_11;
   }
 
-  v20 = [PGGraphMemoryNodeCollection memoryNodeAsCollectionWithUniqueIdentifier:v19 inGraph:v75];
+  v20 = [PGGraphMemoryNodeCollection memoryNodeAsCollectionWithUniqueIdentifier:v19 inGraph:v73];
   if ([v20 count] != 1)
   {
 
 LABEL_11:
-    v23 = [PGGraphMomentNodeCollection momentNodesForArrayOfUUIDs:*(a1 + 72) inGraph:v75];
-    v74 = [[PGUpNextMomentCollectionBasedMatchingInfo alloc] initWithMomentNodes:v23];
+    v23 = [PGGraphMomentNodeCollection momentNodesForArrayOfUUIDs:*(a1 + 72) inGraph:v73];
+    v72 = [[PGUpNextMomentCollectionBasedMatchingInfo alloc] initWithMomentNodes:v23];
 
     goto LABEL_12;
   }
@@ -382,45 +374,44 @@ LABEL_11:
     v22 = off_27887C260;
   }
 
-  v74 = [objc_alloc(*v22) initWithMemoryNodeAsCollection:v20];
+  v72 = [objc_alloc(*v22) initWithMemoryNodeAsCollection:v20];
 
-  if (!v74)
+  if (!v72)
   {
     goto LABEL_11;
   }
 
 LABEL_12:
-  v24 = [(PGUpNextMomentCollectionBasedMatchingInfo *)v74 debugInfo];
+  v24 = [(PGUpNextMomentCollectionBasedMatchingInfo *)v72 debugInfo];
   [*(a1 + 80) setInputDebugInfo:v24];
 
-  v71 = [(PGUpNextMomentCollectionBasedMatchingInfo *)v74 momentNodes];
-  if (v71)
+  v69 = [(PGUpNextMomentCollectionBasedMatchingInfo *)v72 momentNodes];
+  if (v69)
   {
-    v25 = *(a1 + 88);
-    v26 = [objc_opt_class() _memoryNodesWithSignificantOverlapWithMomentNodes:v71];
-    v27 = [v18 collectionBySubtracting:v26];
+    v25 = [objc_opt_class() _memoryNodesWithSignificantOverlapWithMomentNodes:v69];
+    v26 = [v18 collectionBySubtracting:v25];
 
-    v18 = v27;
+    v18 = v26;
   }
 
-  v72 = [v18 subsetWithMemoryCategory:27];
-  v68 = [v18 collectionBySubtracting:v72];
+  v70 = [v18 subsetWithMemoryCategory:27];
+  v66 = [v18 collectionBySubtracting:v70];
 
-  v28 = mach_absolute_time();
+  v27 = mach_absolute_time();
   numer = info.numer;
   denom = info.denom;
-  v31 = v6;
-  v32 = v31;
-  log = v31;
+  v30 = v6;
+  v31 = v30;
+  log = v30;
   if (v7 < 0xFFFFFFFFFFFFFFFELL)
   {
-    v33 = os_signpost_enabled(v31);
-    v32 = log;
-    if (v33)
+    v32 = os_signpost_enabled(v30);
+    v31 = log;
+    if (v32)
     {
       *buf = 0;
       _os_signpost_emit_with_name_impl(&dword_22F0FC000, log, OS_SIGNPOST_INTERVAL_END, spid, "PGUpNextMemoriesEligibleMemories", "", buf, 2u);
-      v32 = log;
+      v31 = log;
     }
   }
 
@@ -429,126 +420,125 @@ LABEL_12:
     *buf = 136315394;
     *&buf[4] = "PGUpNextMemoriesEligibleMemories";
     *&buf[12] = 2048;
-    *&buf[14] = ((((v28 - v64) * numer) / denom) / 1000000.0);
+    *&buf[14] = ((((v27 - v62) * numer) / denom) / 1000000.0);
     _os_log_impl(&dword_22F0FC000, log, OS_LOG_TYPE_INFO, "[Performance] %s: %f ms", buf, 0x16u);
   }
 
-  v34 = *(a1 + 32);
-  v35 = os_signpost_id_generate(v34);
-  v36 = v34;
-  v37 = v36;
-  if (v35 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v36))
+  v33 = *(a1 + 32);
+  v34 = os_signpost_id_generate(v33);
+  v35 = v33;
+  v36 = v35;
+  if (v34 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v35))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_22F0FC000, v37, OS_SIGNPOST_INTERVAL_BEGIN, v35, "PGUpNextMemoriesTargets", "", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_22F0FC000, v36, OS_SIGNPOST_INTERVAL_BEGIN, v34, "PGUpNextMemoriesTargets", "", buf, 2u);
   }
 
-  v90 = 0;
-  mach_timebase_info(&v90);
+  v88 = 0;
+  mach_timebase_info(&v88);
+  v37 = mach_absolute_time();
+  spida = [PGUpNextMemoryFeatureBasedMatchingInfo matchingInfosWithMemoryNodes:v70];
+  v63 = [PGUpNextMemoryBasedMatchingInfo matchingInfosWithMemoryNodes:v66];
+  v61 = [spida arrayByAddingObjectsFromArray:v63];
+  v60 = [[_TtC11PhotosGraph16PGUpNextComputer alloc] initWithTargets:v61];
   v38 = mach_absolute_time();
-  spida = [PGUpNextMemoryFeatureBasedMatchingInfo matchingInfosWithMemoryNodes:v72];
-  v65 = [PGUpNextMemoryBasedMatchingInfo matchingInfosWithMemoryNodes:v68];
-  v63 = [spida arrayByAddingObjectsFromArray:v65];
-  v62 = [[_TtC11PhotosGraph16PGUpNextComputer alloc] initWithTargets:v63];
-  v39 = mach_absolute_time();
-  v40 = v90;
-  v41 = v37;
-  v42 = v41;
-  if (v35 - 1 < 0xFFFFFFFFFFFFFFFELL && os_signpost_enabled(v41))
+  v39 = v88;
+  v40 = v36;
+  v41 = v40;
+  if (v34 - 1 < 0xFFFFFFFFFFFFFFFELL && os_signpost_enabled(v40))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_22F0FC000, v42, OS_SIGNPOST_INTERVAL_END, v35, "PGUpNextMemoriesTargets", "", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_22F0FC000, v41, OS_SIGNPOST_INTERVAL_END, v34, "PGUpNextMemoriesTargets", "", buf, 2u);
   }
 
-  if (os_log_type_enabled(v42, OS_LOG_TYPE_INFO))
+  if (os_log_type_enabled(v41, OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
     *&buf[4] = "PGUpNextMemoriesTargets";
     *&buf[12] = 2048;
-    *&buf[14] = ((((v39 - v38) * v40.numer) / v40.denom) / 1000000.0);
-    _os_log_impl(&dword_22F0FC000, v42, OS_LOG_TYPE_INFO, "[Performance] %s: %f ms", buf, 0x16u);
+    *&buf[14] = ((((v38 - v37) * v39.numer) / v39.denom) / 1000000.0);
+    _os_log_impl(&dword_22F0FC000, v41, OS_LOG_TYPE_INFO, "[Performance] %s: %f ms", buf, 0x16u);
   }
 
-  v43 = *(a1 + 32);
-  v44 = os_signpost_id_generate(v43);
-  v45 = v43;
-  v46 = v45;
-  if (v44 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v45))
+  v42 = *(a1 + 32);
+  v43 = os_signpost_id_generate(v42);
+  v44 = v42;
+  v45 = v44;
+  if (v43 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v44))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_22F0FC000, v46, OS_SIGNPOST_INTERVAL_BEGIN, v44, "PGUpNextMemoriesGenerationEnumeration", "", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_22F0FC000, v45, OS_SIGNPOST_INTERVAL_BEGIN, v43, "PGUpNextMemoriesGenerationEnumeration", "", buf, 2u);
   }
 
-  v89 = 0;
-  mach_timebase_info(&v89);
-  v61 = mach_absolute_time();
-  v47 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v87 = 0;
+  mach_timebase_info(&v87);
+  v59 = mach_absolute_time();
+  v46 = objc_alloc_init(MEMORY[0x277CBEB18]);
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x2020000000;
-  v97 = [*(a1 + 88) targetUpNextMemoryCount];
-  v48 = objc_alloc_init(MEMORY[0x277D22BD0]);
-  v49 = *(a1 + 96);
-  v88 = 0;
-  v77[0] = MEMORY[0x277D85DD0];
-  v77[1] = 3221225472;
-  v77[2] = __202__PGUpNextMemoriesGenerationRequest_upNextMemoryLocalIdentifiersWithWorkingContext_rootMemory_localMemoriesByUniqueMemoryIdentifiers_uniqueMemoryIdentifiersOfMemoriesToAvoid_aggregator_debugInfo_error___block_invoke_300;
-  v77[3] = &unk_278884030;
-  v50 = v48;
-  v78 = v50;
-  v76 = v75;
-  v79 = v76;
-  v80 = *(a1 + 80);
-  v81 = *(a1 + 32);
-  v82 = *(a1 + 40);
-  v83 = *(a1 + 104);
-  v84 = *(a1 + 112);
-  v85 = *(a1 + 120);
-  v51 = v47;
-  v86 = v51;
-  v87 = buf;
-  v52 = [(PGUpNextComputer *)v62 enumerateSuggestionsWith:v74 featureWeightVectors:v49 error:&v88 block:v77];
-  v53 = v88;
-  v54 = mach_absolute_time();
-  v55 = v89;
-  v56 = v46;
-  v57 = v56;
-  if (v44 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v56))
+  v95 = [*(a1 + 88) targetUpNextMemoryCount];
+  v47 = objc_alloc_init(MEMORY[0x277D22BD0]);
+  v48 = *(a1 + 96);
+  v86 = 0;
+  v75[0] = MEMORY[0x277D85DD0];
+  v75[1] = 3221225472;
+  v75[2] = __202__PGUpNextMemoriesGenerationRequest_upNextMemoryLocalIdentifiersWithWorkingContext_rootMemory_localMemoriesByUniqueMemoryIdentifiers_uniqueMemoryIdentifiersOfMemoriesToAvoid_aggregator_debugInfo_error___block_invoke_300;
+  v75[3] = &unk_278884030;
+  v49 = v47;
+  v76 = v49;
+  v74 = v73;
+  v77 = v74;
+  v78 = *(a1 + 80);
+  v79 = *(a1 + 32);
+  v80 = *(a1 + 40);
+  v81 = *(a1 + 104);
+  v82 = *(a1 + 112);
+  v83 = *(a1 + 120);
+  v50 = v46;
+  v84 = v50;
+  v85 = buf;
+  v51 = [(PGUpNextComputer *)v60 enumerateSuggestionsWith:v72 featureWeightVectors:v48 error:&v86 block:v75];
+  v52 = v86;
+  v53 = mach_absolute_time();
+  v54 = v87;
+  v55 = v45;
+  v56 = v55;
+  if (v43 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v55))
   {
-    *v92 = 0;
-    _os_signpost_emit_with_name_impl(&dword_22F0FC000, v57, OS_SIGNPOST_INTERVAL_END, v44, "PGUpNextMemoriesGenerationEnumeration", "", v92, 2u);
+    *v90 = 0;
+    _os_signpost_emit_with_name_impl(&dword_22F0FC000, v56, OS_SIGNPOST_INTERVAL_END, v43, "PGUpNextMemoriesGenerationEnumeration", "", v90, 2u);
   }
 
-  if (os_log_type_enabled(v57, OS_LOG_TYPE_INFO))
+  if (os_log_type_enabled(v56, OS_LOG_TYPE_INFO))
   {
-    *v92 = 136315394;
-    v93 = "PGUpNextMemoriesGenerationEnumeration";
-    v94 = 2048;
-    v95 = ((((v54 - v61) * v55.numer) / v55.denom) / 1000000.0);
-    _os_log_impl(&dword_22F0FC000, v57, OS_LOG_TYPE_INFO, "[Performance] %s: %f ms", v92, 0x16u);
+    *v90 = 136315394;
+    v91 = "PGUpNextMemoriesGenerationEnumeration";
+    v92 = 2048;
+    v93 = ((((v53 - v59) * v54.numer) / v54.denom) / 1000000.0);
+    _os_log_impl(&dword_22F0FC000, v56, OS_LOG_TYPE_INFO, "[Performance] %s: %f ms", v90, 0x16u);
   }
 
-  v58 = 136;
-  if (v52)
+  v57 = 136;
+  if (v51)
   {
-    v58 = 128;
-    v59 = v51;
+    v57 = 128;
+    v58 = v50;
   }
 
   else
   {
-    v59 = v53;
+    v58 = v52;
   }
 
-  objc_storeStrong((*(*(a1 + v58) + 8) + 40), v59);
+  objc_storeStrong((*(*(a1 + v57) + 8) + 40), v58);
 
   _Block_object_dispose(buf, 8);
-  v60 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __202__PGUpNextMemoriesGenerationRequest_upNextMemoryLocalIdentifiersWithWorkingContext_rootMemory_localMemoriesByUniqueMemoryIdentifiers_uniqueMemoryIdentifiersOfMemoriesToAvoid_aggregator_debugInfo_error___block_invoke_300(uint64_t a1, uint64_t a2, void *a3, _BYTE *a4)
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   v7 = a3;
   if ([*(a1 + 32) containsIdentifier:a2])
   {
@@ -569,20 +559,20 @@ uint64_t __202__PGUpNextMemoriesGenerationRequest_upNextMemoryLocalIdentifiersWi
       {
         v14 = [[PGPotentialUpNextMemory alloc] initWithMemory:v13 photoLibrary:*(a1 + 72) userFeedbackCalculator:*(a1 + 80)];
         v15 = *(a1 + 88);
-        v33 = @"No debug info assigned by aggregator";
-        v8 = [v15 addUpNextMemory:v14 debugInfo:&v33];
-        v16 = v33;
+        v32 = @"No debug info assigned by aggregator";
+        v8 = [v15 addUpNextMemory:v14 debugInfo:&v32];
+        v16 = v32;
         [*(a1 + 48) addSuggestionFilteringLog:v16];
         if (v8)
         {
-          v30 = a4;
-          v31 = v16;
-          v32 = v9;
+          v29 = a4;
+          v30 = v16;
+          v31 = v9;
           v17 = *(a1 + 56);
           if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
           {
             *buf = 138412290;
-            v35 = v7;
+            v34 = v7;
             _os_log_impl(&dword_22F0FC000, v17, OS_LOG_TYPE_INFO, "[UpNext] Accepted memory debug info: %@", buf, 0xCu);
           }
 
@@ -600,11 +590,11 @@ uint64_t __202__PGUpNextMemoriesGenerationRequest_upNextMemoryLocalIdentifiersWi
 
           if (--*(*(*(a1 + 104) + 8) + 24) <= 0)
           {
-            *v30 = 1;
+            *v29 = 1;
           }
 
-          v16 = v31;
-          v9 = v32;
+          v16 = v30;
+          v9 = v31;
         }
       }
 
@@ -616,7 +606,7 @@ uint64_t __202__PGUpNextMemoriesGenerationRequest_upNextMemoryLocalIdentifiersWi
         if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
         {
           *buf = 138412290;
-          v35 = v14;
+          v34 = v14;
           _os_log_impl(&dword_22F0FC000, v27, OS_LOG_TYPE_INFO, "[UpNext] %@", buf, 0xCu);
         }
 
@@ -635,7 +625,7 @@ uint64_t __202__PGUpNextMemoriesGenerationRequest_upNextMemoryLocalIdentifiersWi
       if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v35 = v13;
+        v34 = v13;
         _os_log_impl(&dword_22F0FC000, v26, OS_LOG_TYPE_INFO, "[UpNext] %@", buf, 0xCu);
       }
 
@@ -643,13 +633,12 @@ uint64_t __202__PGUpNextMemoriesGenerationRequest_upNextMemoryLocalIdentifiersWi
     }
   }
 
-  v28 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
 - (id)fetchMemoryLocalIdentifiersWithWorkingContext:(id)context musicCurationOptions:(id)options error:(id *)error
 {
-  v90 = *MEMORY[0x277D85DE8];
+  v89 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   optionsCopy = options;
   v8 = self->_rootMemoryLocalIdentifier;
@@ -659,19 +648,19 @@ uint64_t __202__PGUpNextMemoriesGenerationRequest_upNextMemoryLocalIdentifiersWi
   {
     *buf = 134218498;
     targetUpNextMemoryCount = [(PGUpNextMemoriesGenerationRequest *)self targetUpNextMemoryCount];
-    v86 = 2112;
-    v87 = *&v8;
-    v88 = 2112;
-    v89 = v9;
+    v85 = 2112;
+    v86 = *&v8;
+    v87 = 2112;
+    v88 = v9;
     _os_log_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_DEFAULT, "[UpNext] Requesting %lu Up Next memories for memory:(%@), memories to avoid:%@", buf, 0x20u);
   }
 
-  v71 = v9;
+  v70 = v9;
   loggingConnection2 = [contextCopy loggingConnection];
   v12 = os_signpost_id_generate(loggingConnection2);
   v13 = loggingConnection2;
   v14 = v13;
-  v66 = v12 - 1;
+  v65 = v12 - 1;
   if (v12 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v13))
   {
     *buf = 0;
@@ -679,11 +668,11 @@ uint64_t __202__PGUpNextMemoriesGenerationRequest_upNextMemoryLocalIdentifiersWi
   }
 
   spid = v12;
-  v73 = v14;
+  v72 = v14;
 
   info = 0;
   mach_timebase_info(&info);
-  v65 = mach_absolute_time();
+  v64 = mach_absolute_time();
   loggingConnection3 = [contextCopy loggingConnection];
   v16 = os_signpost_id_generate(loggingConnection3);
   v17 = loggingConnection3;
@@ -694,47 +683,47 @@ uint64_t __202__PGUpNextMemoriesGenerationRequest_upNextMemoryLocalIdentifiersWi
     _os_signpost_emit_with_name_impl(&dword_22F0FC000, v18, OS_SIGNPOST_INTERVAL_BEGIN, v16, "PGUpNextMemoriesGenerationSetup", "", buf, 2u);
   }
 
-  v82 = 0;
-  mach_timebase_info(&v82);
+  v81 = 0;
+  mach_timebase_info(&v81);
   v19 = mach_absolute_time();
   photoLibrary = [contextCopy photoLibrary];
   if (!v8)
   {
-    v70 = 0;
+    v69 = 0;
     goto LABEL_14;
   }
 
-  v70 = [(PGUpNextMemoriesGenerationRequest *)self _fetchRootMemoryWithPhotoLibrary:photoLibrary];
-  if (v70)
+  v69 = [(PGUpNextMemoriesGenerationRequest *)self _fetchRootMemoryWithPhotoLibrary:photoLibrary];
+  if (v69)
   {
 LABEL_14:
-    v72 = [(PGUpNextMemoriesGenerationRequest *)self localMemoriesByUniqueMemoryIdentifiersWithWorkingContext:contextCopy];
-    if ([v72 count])
+    v71 = [(PGUpNextMemoriesGenerationRequest *)self localMemoriesByUniqueMemoryIdentifiersWithWorkingContext:contextCopy];
+    if ([v71 count])
     {
-      v63 = v8;
+      v62 = v8;
       v25 = photoLibrary;
       v26 = objc_alloc_init(MEMORY[0x277CBEB58]);
       v27 = objc_alloc_init(MEMORY[0x277CBEB58]);
-      v78[0] = MEMORY[0x277D85DD0];
-      v78[1] = 3221225472;
-      v78[2] = __110__PGUpNextMemoriesGenerationRequest_fetchMemoryLocalIdentifiersWithWorkingContext_musicCurationOptions_error___block_invoke;
-      v78[3] = &unk_278884008;
-      v69 = v26;
-      v79 = v69;
-      v67 = v25;
-      v60 = v25;
-      v80 = v60;
+      v77[0] = MEMORY[0x277D85DD0];
+      v77[1] = 3221225472;
+      v77[2] = __110__PGUpNextMemoriesGenerationRequest_fetchMemoryLocalIdentifiersWithWorkingContext_musicCurationOptions_error___block_invoke;
+      v77[3] = &unk_278884008;
+      v68 = v26;
+      v78 = v68;
+      v66 = v25;
+      v59 = v25;
+      v79 = v59;
       v28 = v27;
-      v81 = v28;
-      [(PGUpNextMemoriesGenerationRequest *)self _enumerateMemoriesToAvoidWithWorkingContext:contextCopy usingBlock:v78];
+      v80 = v28;
+      [(PGUpNextMemoriesGenerationRequest *)self _enumerateMemoriesToAvoidWithWorkingContext:contextCopy usingBlock:v77];
       v29 = [PGUpNextMemoriesAggregator alloc];
       v30 = objc_alloc_init(MEMORY[0x277CBEB98]);
-      v62 = v28;
-      v68 = [(PGUpNextMemoriesAggregator *)v29 initWithLowercaseTitles:v30 keyAssetLocalIdentifiers:v28 gateOnUserFeedback:1 loggingConnection:loggingConnection];
+      v61 = v28;
+      v67 = [(PGUpNextMemoriesAggregator *)v29 initWithLowercaseTitles:v30 keyAssetLocalIdentifiers:v28 gateOnUserFeedback:1 loggingConnection:loggingConnection];
 
       v31 = mach_absolute_time();
-      numer = v82.numer;
-      denom = v82.denom;
+      numer = v81.numer;
+      denom = v81.denom;
       v34 = v18;
       v35 = v34;
       if (v16 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v34))
@@ -743,24 +732,24 @@ LABEL_14:
         _os_signpost_emit_with_name_impl(&dword_22F0FC000, v35, OS_SIGNPOST_INTERVAL_END, v16, "PGUpNextMemoriesGenerationSetup", "", buf, 2u);
       }
 
-      v24 = v73;
+      v24 = v72;
       if (os_log_type_enabled(v35, OS_LOG_TYPE_INFO))
       {
         *buf = 136315394;
         targetUpNextMemoryCount = "PGUpNextMemoriesGenerationSetup";
-        v86 = 2048;
-        v87 = ((((v31 - v19) * numer) / denom) / 1000000.0);
+        v85 = 2048;
+        v86 = ((((v31 - v19) * numer) / denom) / 1000000.0);
         _os_log_impl(&dword_22F0FC000, v35, OS_LOG_TYPE_INFO, "[Performance] %s: %f ms", buf, 0x16u);
       }
 
-      v77 = 0;
-      v21 = v70;
-      v36 = [(PGUpNextMemoriesGenerationRequest *)self upNextMemoryLocalIdentifiersWithWorkingContext:contextCopy rootMemory:v70 localMemoriesByUniqueMemoryIdentifiers:v72 uniqueMemoryIdentifiersOfMemoriesToAvoid:v69 aggregator:v68 debugInfo:&v77 error:error];
-      v61 = v77;
-      v8 = v63;
+      v76 = 0;
+      v21 = v69;
+      v36 = [(PGUpNextMemoriesGenerationRequest *)self upNextMemoryLocalIdentifiersWithWorkingContext:contextCopy rootMemory:v69 localMemoriesByUniqueMemoryIdentifiers:v71 uniqueMemoryIdentifiersOfMemoriesToAvoid:v68 aggregator:v67 debugInfo:&v76 error:error];
+      v60 = v76;
+      v8 = v62;
       if (v36)
       {
-        photoLibrary = v67;
+        photoLibrary = v66;
         if ([v36 count])
         {
           if ([optionsCopy shouldCurateUpNextMemories])
@@ -775,11 +764,11 @@ LABEL_14:
               _os_signpost_emit_with_name_impl(&dword_22F0FC000, v40, OS_SIGNPOST_INTERVAL_BEGIN, v38, "PGUpNextMemoriesGenerationMusicCuration", "", buf, 2u);
             }
 
-            v76 = 0;
-            mach_timebase_info(&v76);
-            v59 = mach_absolute_time();
+            v75 = 0;
+            mach_timebase_info(&v75);
+            v58 = mach_absolute_time();
             v41 = [[PGUpNextMusicCurator alloc] initWithLoggingConnection:loggingConnection];
-            if (![(PGUpNextMusicCurator *)v41 curateMusicForUpNextMemoriesWithLocalIdentifiers:v36 musicCurationOptions:optionsCopy photoLibrary:v60 managerContext:contextCopy error:error])
+            if (![(PGUpNextMusicCurator *)v41 curateMusicForUpNextMemoriesWithLocalIdentifiers:v36 musicCurationOptions:optionsCopy photoLibrary:v59 managerContext:contextCopy error:error])
             {
               if (error)
               {
@@ -795,15 +784,15 @@ LABEL_14:
               {
                 *buf = 138412546;
                 targetUpNextMemoryCount = v42;
-                v86 = 2112;
-                v87 = *&v36;
+                v85 = 2112;
+                v86 = *&v36;
                 _os_log_error_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_ERROR, "[UpNext] Music curation failed (%@) for Up Next memories: %@", buf, 0x16u);
               }
             }
 
             v47 = mach_absolute_time();
-            v49 = v76.numer;
-            v48 = v76.denom;
+            v49 = v75.numer;
+            v48 = v75.denom;
             v50 = v40;
             v51 = v50;
             if (v38 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v50))
@@ -812,17 +801,17 @@ LABEL_14:
               _os_signpost_emit_with_name_impl(&dword_22F0FC000, v51, OS_SIGNPOST_INTERVAL_END, v38, "PGUpNextMemoriesGenerationMusicCuration", "", buf, 2u);
             }
 
-            v24 = v73;
+            v24 = v72;
             if (os_log_type_enabled(v51, OS_LOG_TYPE_INFO))
             {
               *buf = 136315394;
               targetUpNextMemoryCount = "PGUpNextMemoriesGenerationMusicCuration";
-              v86 = 2048;
-              v87 = ((((v47 - v59) * v49) / v48) / 1000000.0);
+              v85 = 2048;
+              v86 = ((((v47 - v58) * v49) / v48) / 1000000.0);
               _os_log_impl(&dword_22F0FC000, v51, OS_LOG_TYPE_INFO, "[Performance] %s: %f ms", buf, 0x16u);
             }
 
-            v21 = v70;
+            v21 = v69;
           }
 
           v52 = mach_absolute_time();
@@ -830,7 +819,7 @@ LABEL_14:
           v53 = info.denom;
           v55 = v24;
           v56 = v55;
-          if (v66 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v55))
+          if (v65 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v55))
           {
             *buf = 0;
             _os_signpost_emit_with_name_impl(&dword_22F0FC000, v56, OS_SIGNPOST_INTERVAL_END, spid, "PGUpNextMemoriesGenerationRequest", "", buf, 2u);
@@ -840,8 +829,8 @@ LABEL_14:
           {
             *buf = 136315394;
             targetUpNextMemoryCount = "PGUpNextMemoriesGenerationRequest";
-            v86 = 2048;
-            v87 = ((((v52 - v65) * v54) / v53) / 1000000.0);
+            v85 = 2048;
+            v86 = ((((v52 - v64) * v54) / v53) / 1000000.0);
             _os_log_impl(&dword_22F0FC000, v56, OS_LOG_TYPE_INFO, "[Performance] %s: %f ms", buf, 0x16u);
           }
 
@@ -854,9 +843,9 @@ LABEL_14:
           }
 
           v44 = loggingConnection;
-          v45 = v61;
-          v22 = [[PGUpNextMemoriesGenerationResult alloc] initWithMemoryLocalIdentifiers:v36 debugInfo:v61];
-          photoLibrary = v67;
+          v45 = v60;
+          v22 = [[PGUpNextMemoriesGenerationResult alloc] initWithMemoryLocalIdentifiers:v36 debugInfo:v60];
+          photoLibrary = v66;
         }
 
         else
@@ -865,18 +854,18 @@ LABEL_14:
           v44 = loggingConnection;
           if (error)
           {
-            v45 = v61;
-            v46 = [MEMORY[0x277CCACA8] stringWithFormat:@"[UpNext] Could not find up next memories for memory with local identifier (%@), debug info (%@)", v63, v61];
+            v45 = v60;
+            v46 = [MEMORY[0x277CCACA8] stringWithFormat:@"[UpNext] Could not find up next memories for memory with local identifier (%@), debug info (%@)", v62, v60];
             *error = [objc_opt_class() _requestErrorWithCode:2 description:v46];
 
-            photoLibrary = v67;
+            photoLibrary = v66;
             v22 = 0;
           }
 
           else
           {
             v22 = 0;
-            v45 = v61;
+            v45 = v60;
           }
         }
       }
@@ -886,11 +875,11 @@ LABEL_14:
         v43 = v18;
         v44 = loggingConnection;
         v22 = 0;
-        photoLibrary = v67;
-        v45 = v61;
+        photoLibrary = v66;
+        v45 = v60;
       }
 
-      v23 = v71;
+      v23 = v70;
       loggingConnection = v44;
       v18 = v43;
     }
@@ -908,9 +897,9 @@ LABEL_14:
         v22 = 0;
       }
 
-      v21 = v70;
-      v23 = v71;
-      v24 = v73;
+      v21 = v69;
+      v23 = v70;
+      v24 = v72;
     }
 
     goto LABEL_58;
@@ -919,20 +908,19 @@ LABEL_14:
   if (!error)
   {
     v22 = 0;
-    v23 = v71;
-    v24 = v73;
+    v23 = v70;
+    v24 = v72;
     goto LABEL_59;
   }
 
   v21 = [MEMORY[0x277CCACA8] stringWithFormat:@"[UpNext] Could not find root memory with local identifier (%@)", v8];
   [objc_opt_class() _requestErrorWithCode:1 description:v21];
   *error = v22 = 0;
-  v23 = v71;
-  v24 = v73;
+  v23 = v70;
+  v24 = v72;
 LABEL_58:
 
 LABEL_59:
-  v57 = *MEMORY[0x277D85DE8];
 
   return v22;
 }
@@ -1057,23 +1045,21 @@ void __87__PGUpNextMemoriesGenerationRequest__memoryNodesWithSignificantOverlapW
 
 + (id)_requestErrorWithCode:(int64_t)code description:(id)description
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   v5 = MEMORY[0x277CCA9B8];
-  v12 = *MEMORY[0x277CCA450];
-  v13[0] = description;
+  v11 = *MEMORY[0x277CCA450];
+  v12[0] = description;
   v6 = MEMORY[0x277CBEAC0];
   descriptionCopy = description;
-  v8 = [v6 dictionaryWithObjects:v13 forKeys:&v12 count:1];
+  v8 = [v6 dictionaryWithObjects:v12 forKeys:&v11 count:1];
   v9 = [v5 errorWithDomain:@"com.apple.PhotosGraph.PGUpNextErrorDomain" code:code userInfo:v8];
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
 
 + (id)requestWithDictionaryRepresentation:(id)representation error:(id *)error
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   representationCopy = representation;
   v7 = *MEMORY[0x277D3B120];
   v8 = [representationCopy objectForKeyedSubscript:*MEMORY[0x277D3B120]];
@@ -1109,7 +1095,7 @@ void __87__PGUpNextMemoriesGenerationRequest__memoryNodesWithSignificantOverlapW
     v12 = [representationCopy objectForKeyedSubscript:*MEMORY[0x277D3B108]];
     if (v12)
     {
-      v39 = v8;
+      v38 = v8;
       v13 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(v12, "count")}];
       v14 = [v12 count];
       if (v14 != *MEMORY[0x277D3B100])
@@ -1129,30 +1115,30 @@ LABEL_38:
         goto LABEL_39;
       }
 
-      v37 = v10;
-      v41 = v11;
-      v42 = v12;
-      v45 = 0u;
-      v46 = 0u;
-      v43 = 0u;
+      v36 = v10;
+      v40 = v11;
+      v41 = v12;
       v44 = 0u;
+      v45 = 0u;
+      v42 = 0u;
+      v43 = 0u;
       v15 = v12;
-      v16 = [v15 countByEnumeratingWithState:&v43 objects:v47 count:16];
+      v16 = [v15 countByEnumeratingWithState:&v42 objects:v46 count:16];
       if (v16)
       {
         v17 = v16;
-        v18 = *v44;
+        v18 = *v43;
         v19 = *MEMORY[0x277D3B0F8];
         while (2)
         {
           for (i = 0; i != v17; ++i)
           {
-            if (*v44 != v18)
+            if (*v43 != v18)
             {
               objc_enumerationMutation(v15);
             }
 
-            v21 = *(*(&v43 + 1) + 8 * i);
+            v21 = *(*(&v42 + 1) + 8 * i);
             if ([v21 count] != v19)
             {
               if (error)
@@ -1162,9 +1148,9 @@ LABEL_38:
               }
 
               v24 = 0;
-              v10 = v37;
-              v8 = v39;
-              v11 = v41;
+              v10 = v36;
+              v8 = v38;
+              v11 = v40;
               goto LABEL_35;
             }
 
@@ -1172,7 +1158,7 @@ LABEL_38:
             [v13 addObject:v22];
           }
 
-          v17 = [v15 countByEnumeratingWithState:&v43 objects:v47 count:16];
+          v17 = [v15 countByEnumeratingWithState:&v42 objects:v46 count:16];
           if (v17)
           {
             continue;
@@ -1182,22 +1168,22 @@ LABEL_38:
         }
       }
 
-      v10 = v37;
-      v8 = v39;
-      v12 = v42;
+      v10 = v36;
+      v8 = v38;
+      v12 = v41;
     }
 
     else
     {
-      v41 = v11;
+      v40 = v11;
       v13 = 0;
     }
 
-    v40 = [representationCopy objectForKeyedSubscript:*MEMORY[0x277D3B130]];
+    v39 = [representationCopy objectForKeyedSubscript:*MEMORY[0x277D3B130]];
     v27 = *MEMORY[0x277D3B118];
     v28 = [representationCopy objectForKey:*MEMORY[0x277D3B118]];
 
-    v42 = v12;
+    v41 = v12;
     if (v28)
     {
       v29 = [representationCopy objectForKeyedSubscript:v27];
@@ -1211,12 +1197,12 @@ LABEL_38:
     unsignedShortValue = [v29 unsignedShortValue];
     v32 = [self alloc];
     v33 = [MEMORY[0x277CBEB98] setWithArray:v10];
-    v11 = v41;
-    LOWORD(v36) = unsignedShortValue;
-    v24 = [v32 initWithRootMemoryLocalIdentifier:v8 momentUUIDs:0 memoryLocalIdentifiersToAvoid:v33 targetUpNextMemoryCount:objc_msgSend(v41 customVectors:"unsignedIntegerValue") wantsVerboseDebugInfo:v13 sharingFilter:{objc_msgSend(v40, "BOOLValue"), v36}];
+    v11 = v40;
+    LOWORD(v35) = unsignedShortValue;
+    v24 = [v32 initWithRootMemoryLocalIdentifier:v8 momentUUIDs:0 memoryLocalIdentifiersToAvoid:v33 targetUpNextMemoryCount:objc_msgSend(v40 customVectors:"unsignedIntegerValue") wantsVerboseDebugInfo:v13 sharingFilter:{objc_msgSend(v39, "BOOLValue"), v35}];
 
 LABEL_35:
-    v12 = v42;
+    v12 = v41;
     goto LABEL_36;
   }
 
@@ -1228,8 +1214,6 @@ LABEL_35:
 
   v24 = 0;
 LABEL_39:
-
-  v34 = *MEMORY[0x277D85DE8];
 
   return v24;
 }

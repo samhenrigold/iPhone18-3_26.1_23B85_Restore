@@ -90,14 +90,14 @@ LABEL_10:
   objc_initWeak(&location, self);
   if (dword_1EB58E760)
   {
-    v26 = 0;
-    v25 = OS_LOG_TYPE_DEFAULT;
+    v24 = 0;
+    v23 = OS_LOG_TYPE_DEFAULT;
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  if ([notification isEqualToString:{@"LocalQueueUpdated", v13, v14}])
+  if (objc_msgSend_isEqualToString_(notification))
   {
     v8 = [payload objectForKeyedSubscript:@"LocalQueue"];
     v9 = [payload objectForKeyedSubscript:@"SectionID"];
@@ -105,11 +105,11 @@ LABEL_10:
     {
       if (dword_1EB58E760)
       {
-        v26 = 0;
-        v25 = OS_LOG_TYPE_DEFAULT;
+        v24 = 0;
+        v23 = OS_LOG_TYPE_DEFAULT;
         v10 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-        v11 = v26;
-        if (os_log_type_enabled(v10, v25))
+        v11 = v24;
+        if (os_log_type_enabled(v10, v23))
         {
           v12 = v11;
         }
@@ -121,27 +121,27 @@ LABEL_10:
 
         if (v12)
         {
-          v17 = 136315906;
-          v18 = "[CMCaptureLocalSessionOutputStream handleNotification:payload:]";
-          v19 = 2114;
+          v15 = 136315906;
+          v16 = "[CMCaptureLocalSessionOutputStream handleNotification:payload:]";
+          v17 = 2114;
           selfCopy = self;
-          v21 = 2112;
-          v22 = v8;
-          v23 = 2114;
-          v24 = v9;
+          v19 = 2112;
+          v20 = v8;
+          v21 = 2114;
+          v22 = v9;
           _os_log_send_and_compose_impl();
         }
 
         fig_log_call_emit_and_clean_up_after_send_and_compose();
       }
 
-      v15[0] = MEMORY[0x1E69E9820];
-      v15[1] = 3221225472;
-      v15[2] = __64__CMCaptureLocalSessionOutputStream_handleNotification_payload___block_invoke;
-      v15[3] = &unk_1E7999EC0;
-      objc_copyWeak(&v16, &location);
-      FigLocalQueueSetReceiverHandler(v8, [(CMCaptureLocalSessionOutputStreamSampleBufferReceiver *)self->_sampleBufferReceiver queue], v15);
-      objc_destroyWeak(&v16);
+      v13[0] = MEMORY[0x1E69E9820];
+      v13[1] = 3221225472;
+      v13[2] = __64__CMCaptureLocalSessionOutputStream_handleNotification_payload___block_invoke;
+      v13[3] = &unk_1E7999EC0;
+      objc_copyWeak(&v14, &location);
+      FigLocalQueueSetReceiverHandler(v8, [(CMCaptureLocalSessionOutputStreamSampleBufferReceiver *)self->_sampleBufferReceiver queue], v13);
+      objc_destroyWeak(&v14);
     }
   }
 

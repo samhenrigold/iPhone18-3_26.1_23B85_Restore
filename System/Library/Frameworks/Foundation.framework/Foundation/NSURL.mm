@@ -4,7 +4,7 @@
 
 @implementation NSURL
 
-uint64_t __72__NSURL_NSURLPromisedItems__checkPromisedItemIsReachableAndReturnError___block_invoke(uint64_t a1, void *a2)
+void *__72__NSURL_NSURLPromisedItems__checkPromisedItemIsReachableAndReturnError___block_invoke(uint64_t a1, void *a2)
 {
   v3 = *(a1 + 32);
   v4 = *(*(a1 + 48) + 8) + 40;
@@ -100,7 +100,7 @@ LABEL_7:
   }
 
   v14 = *(a1 + 40);
-  if ([v14 isEqualToString:*MEMORY[0x1E695DB90]])
+  if (objc_msgSend_isEqualToString_(v14))
   {
     v15 = *MEMORY[0x1E695E298];
   }
@@ -131,7 +131,7 @@ LABEL_7:
 
 void __69__NSURL_NSURLPromisedItems__promisedItemResourceValuesForKeys_error___block_invoke(uint64_t a1, void *a2)
 {
-  v64 = *MEMORY[0x1E69E9840];
+  v63 = *MEMORY[0x1E69E9840];
   v3 = *(a1 + 32);
   if (v3 == a2)
   {
@@ -139,43 +139,43 @@ void __69__NSURL_NSURLPromisedItems__promisedItemResourceValuesForKeys_error___b
     return;
   }
 
+  v51 = 0u;
   v52 = 0u;
-  v53 = 0u;
+  v47 = 0u;
   v48 = 0u;
   v49 = 0u;
   v50 = 0u;
-  v51 = 0u;
   v4 = *(a1 + 40);
-  v5 = [v4 countByEnumeratingWithState:&v48 objects:v47 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v47 objects:v46 count:16];
   if (v5)
   {
-    v6 = *v49;
+    v6 = *v48;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v49 != v6)
+        if (*v48 != v6)
         {
           objc_enumerationMutation(v4);
         }
 
-        v8 = *(*(&v48 + 1) + 8 * i);
+        v8 = *(*(&v47 + 1) + 8 * i);
         v9 = objc_msgSend(+[(WC objectForKey:](&unk_1EEF5A138, "objectForKey:", v8), "unsignedIntegerValue");
-        v10 = *(&v52 + v9);
+        v10 = *(&v51 + v9);
         if (!v10)
         {
           v10 = objc_alloc_init(MEMORY[0x1E695DF70]);
-          *(&v52 + v9) = v10;
+          *(&v51 + v9) = v10;
         }
 
         [v10 addObject:v8];
       }
 
-      v5 = [v4 countByEnumeratingWithState:&v48 objects:v47 count:16];
+      v5 = [v4 countByEnumeratingWithState:&v47 objects:v46 count:16];
     }
 
     while (v5);
-    v11 = *(&v53 + 1);
+    v11 = *(&v52 + 1);
     v12 = [MEMORY[0x1E695DF90] dictionary];
     if (v11)
     {
@@ -194,31 +194,31 @@ void __69__NSURL_NSURLPromisedItems__promisedItemResourceValuesForKeys_error___b
     v12 = [MEMORY[0x1E695DF90] dictionary];
   }
 
-  v14 = *(&v52 + 1);
-  if (*(&v52 + 1))
+  v14 = *(&v51 + 1);
+  if (*(&v51 + 1))
   {
     cf = 0;
     v15 = _CFURLCopyPropertiesOfPromiseAtURL();
     if (v15)
     {
-      v45 = 0u;
-      v46 = 0u;
-      v43 = 0u;
       v44 = 0u;
-      v16 = [v14 countByEnumeratingWithState:&v43 objects:v42 count:16];
+      v45 = 0u;
+      v42 = 0u;
+      v43 = 0u;
+      v16 = [v14 countByEnumeratingWithState:&v42 objects:v41 count:16];
       if (v16)
       {
-        v17 = *v44;
+        v17 = *v43;
         do
         {
           for (j = 0; j != v16; ++j)
           {
-            if (*v44 != v17)
+            if (*v43 != v17)
             {
               objc_enumerationMutation(v14);
             }
 
-            v19 = *(*(&v43 + 1) + 8 * j);
+            v19 = *(*(&v42 + 1) + 8 * j);
             v20 = [*(a1 + 32) _valueFromFaultDictionary:v15 forKey:v19];
             if (v20)
             {
@@ -226,7 +226,7 @@ void __69__NSURL_NSURLPromisedItems__promisedItemResourceValuesForKeys_error___b
             }
           }
 
-          v16 = [v14 countByEnumeratingWithState:&v43 objects:v42 count:16];
+          v16 = [v14 countByEnumeratingWithState:&v42 objects:v41 count:16];
         }
 
         while (v16);
@@ -247,25 +247,25 @@ void __69__NSURL_NSURLPromisedItems__promisedItemResourceValuesForKeys_error___b
     }
   }
 
-  v21 = v52;
-  if (!v52)
+  v21 = v51;
+  if (!v51)
   {
     goto LABEL_56;
   }
 
   cf = 0;
   p_cf = &cf;
-  v56 = 0x3052000000;
-  v57 = __Block_byref_object_copy__9;
-  v58 = __Block_byref_object_dispose__9;
-  v59 = 0;
-  *&v60 = MEMORY[0x1E69E9820];
-  *(&v60 + 1) = 3221225472;
-  *&v61 = ___virtualizeURLKeysForAccessingFault_block_invoke;
-  *(&v61 + 1) = &unk_1E69F44F8;
-  *&v62 = v52;
-  *(&v62 + 1) = &cf;
-  [v52 enumerateObjectsUsingBlock:&v60];
+  v55 = 0x3052000000;
+  v56 = __Block_byref_object_copy__9;
+  v57 = __Block_byref_object_dispose__9;
+  v58 = 0;
+  *&v59 = MEMORY[0x1E69E9820];
+  *(&v59 + 1) = 3221225472;
+  *&v60 = ___virtualizeURLKeysForAccessingFault_block_invoke;
+  *(&v60 + 1) = &unk_1E69F44F8;
+  *&v61 = v51;
+  *(&v61 + 1) = &cf;
+  [v51 enumerateObjectsUsingBlock:&v59];
   v22 = p_cf[5];
   v23 = v21;
   if (v22)
@@ -273,58 +273,57 @@ void __69__NSURL_NSURLPromisedItems__promisedItemResourceValuesForKeys_error___b
     v23 = v22;
   }
 
-  v40 = v21;
+  v39 = v21;
   _Block_object_dispose(&cf, 8);
   v24 = a1 + 56;
   v25 = [a2 resourceValuesForKeys:v23 error:*(*(a1 + 56) + 8) + 40];
   v26 = v25;
   if (v25)
   {
+    v59 = 0u;
     v60 = 0u;
     v61 = 0u;
     v62 = 0u;
-    v63 = 0u;
-    v27 = [v25 countByEnumeratingWithState:&v60 objects:&cf count:16];
+    v27 = [v25 countByEnumeratingWithState:&v59 objects:&cf count:16];
     if (v27)
     {
       v28 = 0;
-      v29 = *v61;
-      v30 = *MEMORY[0x1E695E298];
-      v31 = *MEMORY[0x1E695DB90];
+      v29 = *v60;
+      v30 = *MEMORY[0x1E695DB90];
       do
       {
         for (k = 0; k != v27; ++k)
         {
-          if (*v61 != v29)
+          if (*v60 != v29)
           {
             objc_enumerationMutation(v26);
           }
 
-          v33 = *(*(&v60 + 1) + 8 * k);
-          v34 = [v33 isEqualToString:v30];
-          if (v31 == v33)
+          v32 = *(*(&v59 + 1) + 8 * k);
+          isEqualToString = objc_msgSend_isEqualToString_(v32);
+          if (v30 == v32)
           {
-            v35 = 0;
+            v34 = 0;
           }
 
           else
           {
-            v35 = v34;
+            v34 = isEqualToString;
           }
 
-          if (v35 == 1)
+          if (v34 == 1)
           {
             if (!v28)
             {
               v28 = [v26 mutableCopy];
             }
 
-            [v28 setObject:objc_msgSend(v26 forKey:{"objectForKey:", v33), v31}];
-            [v28 removeObjectForKey:v33];
+            [v28 setObject:objc_msgSend(v26 forKey:{"objectForKey:", v32), v30}];
+            [v28 removeObjectForKey:v32];
           }
         }
 
-        v27 = [v26 countByEnumeratingWithState:&v60 objects:&cf count:16];
+        v27 = [v26 countByEnumeratingWithState:&v59 objects:&cf count:16];
       }
 
       while (v27);
@@ -335,20 +334,20 @@ void __69__NSURL_NSURLPromisedItems__promisedItemResourceValuesForKeys_error___b
     }
 
     [v12 addEntriesFromDictionary:v26];
-    v36 = [v26 count];
-    if (v36 < [v40 count])
+    v35 = [v26 count];
+    if (v35 < [v39 count])
     {
-      v37 = [MEMORY[0x1E695DF70] arrayWithArray:v40];
-      [v37 removeObjectsInArray:{objc_msgSend(v26, "allKeys")}];
-      v38 = [*(a1 + 32) resourceValuesForKeys:v37 error:0];
-      if (v38)
+      v36 = [MEMORY[0x1E695DF70] arrayWithArray:v39];
+      [v36 removeObjectsInArray:{objc_msgSend(v26, "allKeys")}];
+      v37 = [*(a1 + 32) resourceValuesForKeys:v36 error:0];
+      if (v37)
       {
-        [v12 addEntriesFromDictionary:v38];
+        [v12 addEntriesFromDictionary:v37];
       }
 
       else
       {
-        NSLog(@"[NSURL promisedItemResourceValuesForKeys:error:]: Unable to handle keys: %@", v37);
+        NSLog(@"[NSURL promisedItemResourceValuesForKeys:error:]: Unable to handle keys: %@", v36);
       }
     }
 
@@ -421,7 +420,7 @@ LABEL_58:
   return result;
 }
 
-uint64_t __50__NSURL_NSURL__initFileURLWithPath_relativeToURL___block_invoke(void *a1)
+void *__50__NSURL_NSURL__initFileURLWithPath_relativeToURL___block_invoke(void *a1)
 {
   v3[1] = *MEMORY[0x1E69E9840];
   v3[0] = 0;
@@ -453,7 +452,7 @@ void __31__NSURL_NSURL__parameterString__block_invoke(uint64_t a1)
   }
 }
 
-uint64_t __57__NSURL_NSURLPathUtilities__URLByAppendingPathComponent___block_invoke(uint64_t a1)
+void *__57__NSURL_NSURLPathUtilities__URLByAppendingPathComponent___block_invoke(uint64_t a1)
 {
   result = [*(*(*(a1 + 48) + 8) + 40) getResourceValue:*(*(a1 + 56) + 8) + 40 forKey:*MEMORY[0x1E695DB78] error:0];
   if (result)

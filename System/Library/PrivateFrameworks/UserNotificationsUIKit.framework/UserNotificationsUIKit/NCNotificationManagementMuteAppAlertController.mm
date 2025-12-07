@@ -13,39 +13,39 @@
   v6 = [settingsDelegate notificationManagementController:self sectionSettingsForSectionIdentifier:topLevelSectionIdentifier];
 
   v7 = MEMORY[0x277CCACA8];
-  v8 = NCUserNotificationsUIKitFrameworkBundle();
-  v9 = [v8 localizedStringForKey:@"NOTIFICATION_REMOTE_MANAGEMENT_MENU_APP_TITLE" value:&stru_282FE84F8 table:0];
+  v9 = NCUserNotificationsUIKitFrameworkBundle(v8);
+  v10 = [v9 localizedStringForKey:@"NOTIFICATION_REMOTE_MANAGEMENT_MENU_APP_TITLE" value:&stru_282FE84F8 table:0];
   displayName = [v6 displayName];
-  v11 = [v7 stringWithFormat:v9, displayName];
-  [(NCNotificationManagementMuteAppAlertController *)self setTitle:v11];
+  v12 = [v7 stringWithFormat:v10, displayName];
+  [(NCNotificationManagementMuteAppAlertController *)self setTitle:v12];
 
-  v12 = MEMORY[0x277D750F8];
-  v13 = NCUserNotificationsUIKitFrameworkBundle();
-  v14 = [v13 localizedStringForKey:@"NOTIFICATION_REMOTE_MANAGEMENT_MUTING_SUGGESTION_ONE_HOUR" value:&stru_282FE84F8 table:0];
-  v25[0] = MEMORY[0x277D85DD0];
-  v25[1] = 3221225472;
-  v25[2] = __64__NCNotificationManagementMuteAppAlertController__configureView__block_invoke;
-  v25[3] = &unk_278372948;
-  v25[4] = self;
-  v15 = [v12 _actionWithTitle:v14 image:0 style:0 handler:0 shouldDismissHandler:v25];
+  v13 = MEMORY[0x277D750F8];
+  v15 = NCUserNotificationsUIKitFrameworkBundle(v14);
+  v16 = [v15 localizedStringForKey:@"NOTIFICATION_REMOTE_MANAGEMENT_MUTING_SUGGESTION_ONE_HOUR" value:&stru_282FE84F8 table:0];
+  v29[0] = MEMORY[0x277D85DD0];
+  v29[1] = 3221225472;
+  v29[2] = __64__NCNotificationManagementMuteAppAlertController__configureView__block_invoke;
+  v29[3] = &unk_278372948;
+  v29[4] = self;
+  v17 = [v13 _actionWithTitle:v16 image:0 style:0 handler:0 shouldDismissHandler:v29];
 
-  [(NCNotificationManagementMuteAppAlertController *)self addAction:v15];
-  v16 = MEMORY[0x277D750F8];
-  v17 = NCUserNotificationsUIKitFrameworkBundle();
-  v18 = [v17 localizedStringForKey:@"NOTIFICATION_REMOTE_MANAGEMENT_MUTING_SUGGESTION_TODAY" value:&stru_282FE84F8 table:0];
-  v24[0] = MEMORY[0x277D85DD0];
-  v24[1] = 3221225472;
-  v24[2] = __64__NCNotificationManagementMuteAppAlertController__configureView__block_invoke_2;
-  v24[3] = &unk_278372948;
-  v24[4] = self;
-  v19 = [v16 _actionWithTitle:v18 image:0 style:0 handler:0 shouldDismissHandler:v24];
+  v18 = [(NCNotificationManagementMuteAppAlertController *)self addAction:v17];
+  v19 = MEMORY[0x277D750F8];
+  v20 = NCUserNotificationsUIKitFrameworkBundle(v18);
+  v21 = [v20 localizedStringForKey:@"NOTIFICATION_REMOTE_MANAGEMENT_MUTING_SUGGESTION_TODAY" value:&stru_282FE84F8 table:0];
+  v28[0] = MEMORY[0x277D85DD0];
+  v28[1] = 3221225472;
+  v28[2] = __64__NCNotificationManagementMuteAppAlertController__configureView__block_invoke_2;
+  v28[3] = &unk_278372948;
+  v28[4] = self;
+  v22 = [v19 _actionWithTitle:v21 image:0 style:0 handler:0 shouldDismissHandler:v28];
 
-  [(NCNotificationManagementMuteAppAlertController *)self addAction:v19];
-  v20 = MEMORY[0x277D750F8];
-  v21 = NCUserNotificationsUIKitFrameworkBundle();
-  v22 = [v21 localizedStringForKey:@"NOTIFICATION_MANAGEMENT_CANCEL" value:&stru_282FE84F8 table:0];
-  v23 = [v20 actionWithTitle:v22 style:1 handler:0];
-  [(NCNotificationManagementMuteAppAlertController *)self addAction:v23];
+  v23 = [(NCNotificationManagementMuteAppAlertController *)self addAction:v22];
+  v24 = MEMORY[0x277D750F8];
+  v25 = NCUserNotificationsUIKitFrameworkBundle(v23);
+  v26 = [v25 localizedStringForKey:@"NOTIFICATION_MANAGEMENT_CANCEL" value:&stru_282FE84F8 table:0];
+  v27 = [v24 actionWithTitle:v26 style:1 handler:0];
+  [(NCNotificationManagementMuteAppAlertController *)self addAction:v27];
 }
 
 uint64_t __64__NCNotificationManagementMuteAppAlertController__configureView__block_invoke(uint64_t a1)

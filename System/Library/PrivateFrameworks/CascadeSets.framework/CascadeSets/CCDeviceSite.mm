@@ -216,7 +216,7 @@ LABEL_16:
 
 - (id)initFromDictionary:(id)dictionary
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -256,13 +256,13 @@ LABEL_16:
       v15 = __biome_log_for_category();
       if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
       {
-        v18 = 138412802;
-        v19 = v13;
-        v20 = 2112;
-        v21 = v12;
-        v22 = 2112;
+        v17 = 138412802;
+        v18 = v13;
+        v19 = 2112;
+        v20 = v12;
+        v21 = 2112;
         selfCopy = self;
-        _os_log_debug_impl(&dword_1B6DB2000, v15, OS_LOG_TYPE_DEBUG, "Resolved expiration date: %@ from TTL seconds: %@ during OPACK decoding for device site: %@", &v18, 0x20u);
+        _os_log_debug_impl(&dword_1B6DB2000, v15, OS_LOG_TYPE_DEBUG, "Resolved expiration date: %@ from TTL seconds: %@ during OPACK decoding for device site: %@", &v17, 0x20u);
       }
     }
 
@@ -274,23 +274,22 @@ LABEL_16:
     selfCopy2 = 0;
   }
 
-  v16 = *MEMORY[0x1E69E9840];
   return selfCopy2;
 }
 
 - (id)dictionaryRepresentation
 {
-  v21[3] = *MEMORY[0x1E69E9840];
+  v20[3] = *MEMORY[0x1E69E9840];
   device = [(CCDeviceSite *)self device];
   dictionaryRepresentation = [device dictionaryRepresentation];
 
   v5 = objc_alloc(MEMORY[0x1E695DF90]);
-  v21[0] = dictionaryRepresentation;
+  v20[0] = dictionaryRepresentation;
   resourceGeneration = [(CCDeviceSite *)self resourceGeneration];
-  v21[1] = resourceGeneration;
+  v20[1] = resourceGeneration;
   deltaGeneration = [(CCDeviceSite *)self deltaGeneration];
-  v21[2] = deltaGeneration;
-  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v21 count:3];
+  v20[2] = deltaGeneration;
+  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v20 count:3];
   v9 = [v5 initWithObjects:v8 forKeys:&unk_1F2EC96C0];
 
   v10 = CCSecondsFromNowUntilDate(self->_expirationDate);
@@ -301,28 +300,25 @@ LABEL_16:
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
       expirationDate = self->_expirationDate;
-      v15 = 138412802;
-      v16 = v10;
-      v17 = 2112;
-      v18 = expirationDate;
-      v19 = 2112;
+      v14 = 138412802;
+      v15 = v10;
+      v16 = 2112;
+      v17 = expirationDate;
+      v18 = 2112;
       selfCopy = self;
-      _os_log_debug_impl(&dword_1B6DB2000, v11, OS_LOG_TYPE_DEBUG, "Resolved TTL seconds: %@ from expiration date: %@ during OPACK encoding for device site: %@", &v15, 0x20u);
+      _os_log_debug_impl(&dword_1B6DB2000, v11, OS_LOG_TYPE_DEBUG, "Resolved TTL seconds: %@ from expiration date: %@ during OPACK encoding for device site: %@", &v14, 0x20u);
     }
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
 
 - (void)initFromDictionary:(os_log_t)log .cold.1(os_log_t log)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v2 = 138412290;
-  v3 = &unk_1F2EC93F0;
-  _os_log_debug_impl(&dword_1B6DB2000, log, OS_LOG_TYPE_DEBUG, "Supplanting %@ for nil deltaGeneration", &v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
+  v1 = 138412290;
+  v2 = &unk_1F2EC93F0;
+  _os_log_debug_impl(&dword_1B6DB2000, log, OS_LOG_TYPE_DEBUG, "Supplanting %@ for nil deltaGeneration", &v1, 0xCu);
 }
 
 @end

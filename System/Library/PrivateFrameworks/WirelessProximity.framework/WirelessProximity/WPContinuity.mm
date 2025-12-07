@@ -4,6 +4,10 @@
 - (WPContinuity)init;
 - (WPContinuity)initWithDelegate:(id)delegate queue:(id)queue;
 - (WPContinuityDelegate)delegate;
+- (void)advertisingFailedToStart:(id)start ofType:(unsigned __int8)type;
+- (void)advertisingPendingOfType:(unsigned __int8)type;
+- (void)advertisingStartedOfType:(unsigned __int8)type;
+- (void)advertisingStoppedOfType:(unsigned __int8)type withError:(id)error;
 - (void)bandwidthStateUpdated:(id)updated;
 - (void)central:(id)central subscribed:(BOOL)subscribed toCharacteristic:(id)characteristic inService:(id)service;
 - (void)connectToPeer:(id)peer;
@@ -15,21 +19,30 @@
 - (void)disconnectedDeviceOverLEPipe:(id)pipe withError:(id)error;
 - (void)discoveredCharacteristicsAndServices:(id)services forPeripheral:(id)peripheral;
 - (void)failedToStartTrackingPeer:(id)peer error:(id)error;
+- (void)foundPeer:(id)peer ofType:(unsigned __int8)type;
 - (void)invalidate;
+- (void)lostPeer:(id)peer ofType:(unsigned __int8)type;
 - (void)peerTrackingAvailable;
 - (void)peerTrackingFull;
 - (void)populateClientGATT:(id)t;
 - (void)receivedData:(id)data forCharacteristic:(id)characteristic inService:(id)service forPeripheral:(id)peripheral;
 - (void)receivedData:(id)data fromEndpoint:(id)endpoint forPeripheral:(id)peripheral;
+- (void)scanningFailedToStart:(id)start ofType:(unsigned __int8)type;
+- (void)scanningStartedOfType:(unsigned __int8)type;
+- (void)scanningStoppedOfType:(unsigned __int8)type;
 - (void)sendData:(id)data toPeer:(id)peer;
 - (void)sentData:(id)data forCharacteristic:(id)characteristic inService:(id)service forPeripheral:(id)peripheral withError:(id)error;
 - (void)sentData:(id)data toEndpoint:(id)endpoint forPeripheral:(id)peripheral withError:(id)error;
 - (void)startAdvertisingOfType:(int64_t)type withData:(id)data;
+- (void)startScanningForType:(int64_t)type withData:(id)data mask:(id)mask peers:(id)peers boostedScan:(BOOL)scan;
+- (void)startScanningForType:(int64_t)type withData:(id)data mask:(id)mask peers:(id)peers boostedScan:(BOOL)scan duplicates:(BOOL)duplicates;
 - (void)startTrackingPeer:(id)peer forType:(int64_t)type;
+- (void)startedTrackingPeer:(id)peer ofType:(unsigned __int8)type;
 - (void)stateDidChange:(int64_t)change;
 - (void)stopAdvertisingOfType:(int64_t)type;
 - (void)stopScanningForType:(int64_t)type;
 - (void)stopTrackingPeer:(id)peer forType:(int64_t)type;
+- (void)stoppedTrackingPeer:(id)peer ofType:(unsigned __int8)type;
 - (void)updateAdvertisingRequest:(id)request withUpdate:(id)update;
 - (void)updateScanningRequest:(id)request withUpdate:(id)update;
 - (void)updatedNotificationState:(BOOL)state forCharacteristic:(id)characteristic inService:(id)service withPeripheral:(id)peripheral;
@@ -39,7 +52,7 @@
 
 - (WPContinuity)initWithDelegate:(id)delegate queue:(id)queue
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   delegateCopy = delegate;
   queueCopy = queue;
   if (+[WPClient isHomePod])
@@ -59,9 +72,9 @@
 
   else
   {
-    v19.receiver = self;
-    v19.super_class = WPContinuity;
-    v9 = [(WPClient *)&v19 initWithQueue:queueCopy machName:0];
+    v18.receiver = self;
+    v18.super_class = WPContinuity;
+    v9 = [(WPClient *)&v18 initWithQueue:queueCopy machName:0];
     v10 = v9;
     if (v9)
     {
@@ -72,9 +85,9 @@
       v10->_transfers = dictionary;
 
       [(WPClient *)v10 setConnectionUseCase:6];
-      v18.receiver = v10;
-      v18.super_class = WPContinuity;
-      [(WPClient *)&v18 listenToBandwidthNotifications];
+      v17.receiver = v10;
+      v17.super_class = WPContinuity;
+      [(WPClient *)&v17 listenToBandwidthNotifications];
     }
 
     if (WPLogInitOnce != -1)
@@ -88,9 +101,9 @@
       v14 = v13;
       delegate = [(WPContinuity *)v10 delegate];
       *buf = 134218240;
-      v21 = v10;
-      v22 = 2048;
-      v23 = delegate;
+      v20 = v10;
+      v21 = 2048;
+      v22 = delegate;
       _os_log_impl(&dword_274327000, v14, OS_LOG_TYPE_DEFAULT, "Continuity initWithDelegate self: %p, delegate: %p", buf, 0x16u);
     }
 
@@ -98,7 +111,6 @@
     selfCopy = self;
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 
@@ -177,7 +189,7 @@
 
 - (void)startAdvertisingOfType:(int64_t)type withData:(id)data
 {
-  v20[1] = *MEMORY[0x277D85DE8];
+  v19[1] = *MEMORY[0x277D85DE8];
   dataCopy = data;
   v7 = dataCopy;
   if (dataCopy && [dataCopy length] && objc_msgSend(v7, "length") < 0x17)
@@ -197,22 +209,22 @@
     if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v18 = v11;
+      v17 = v11;
       _os_log_impl(&dword_274327000, v14, OS_LOG_TYPE_DEFAULT, "Continuity start advertising with data: %{public}@", buf, 0xCu);
     }
 
-    v16.receiver = self;
-    v16.super_class = WPContinuity;
-    [(WPClient *)&v16 startAdvertising:v11];
+    v15.receiver = self;
+    v15.super_class = WPContinuity;
+    [(WPClient *)&v15 startAdvertising:v11];
   }
 
   else
   {
     v8 = MEMORY[0x277CCA9B8];
-    v19 = *MEMORY[0x277CCA450];
+    v18 = *MEMORY[0x277CCA450];
     v9 = [MEMORY[0x277CCACA8] stringWithFormat:@"Bad data was provided: %@", v7];
-    v20[0] = v9;
-    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:&v19 count:1];
+    v19[0] = v9;
+    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:&v18 count:1];
     v11 = [v8 errorWithDomain:@"WPErrorDomain" code:8 userInfo:v10];
 
     delegate = [(WPContinuity *)self delegate];
@@ -224,13 +236,11 @@
       [delegate2 continuity:self didFailToStartAdvertisingOfType:type withError:v11];
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateAdvertisingRequest:(id)request withUpdate:(id)update
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   updateCopy = update;
   [requestCopy setUpdateTime:0.0];
@@ -243,19 +253,17 @@
   v7 = WiProxLog;
   if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 138543362;
-    v10 = requestCopy;
-    _os_log_impl(&dword_274327000, v7, OS_LOG_TYPE_DEFAULT, "Continuity update advertising with data: %{public}@", &v9, 0xCu);
+    v8 = 138543362;
+    v9 = requestCopy;
+    _os_log_impl(&dword_274327000, v7, OS_LOG_TYPE_DEFAULT, "Continuity update advertising with data: %{public}@", &v8, 0xCu);
   }
 
   updateCopy[2](updateCopy, requestCopy);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stopAdvertisingOfType:(int64_t)type
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v4 = [WPContinuity clientTypeFromContinuityType:type];
   if (WPLogInitOnce != -1)
   {
@@ -266,27 +274,328 @@
   if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109120;
-    v10 = v4;
+    v9 = v4;
     _os_log_impl(&dword_274327000, v5, OS_LOG_TYPE_DEFAULT, "Continuity stop advertising of type: %d", buf, 8u);
   }
 
   v6 = [WPAdvertisingRequest requestForClientType:v4];
-  v8.receiver = self;
-  v8.super_class = WPContinuity;
-  [(WPClient *)&v8 stopAdvertising:v6];
+  v7.receiver = self;
+  v7.super_class = WPContinuity;
+  [(WPClient *)&v7 stopAdvertising:v6];
+}
 
-  v7 = *MEMORY[0x277D85DE8];
+- (void)advertisingPendingOfType:(unsigned __int8)type
+{
+  typeCopy = type;
+  v10 = *MEMORY[0x277D85DE8];
+  delegate = [(WPContinuity *)self delegate];
+  v6 = objc_opt_respondsToSelector();
+
+  if (v6)
+  {
+    if (WPLogInitOnce != -1)
+    {
+      [WPContinuity advertisingPendingOfType:];
+    }
+
+    v7 = WiProxLog;
+    if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_INFO))
+    {
+      v9[0] = 67109120;
+      v9[1] = typeCopy;
+      _os_log_impl(&dword_274327000, v7, OS_LOG_TYPE_INFO, "Continuity advertising pending of type: %d", v9, 8u);
+    }
+
+    delegate2 = [(WPContinuity *)self delegate];
+    [delegate2 continuityPendingAdvertisingOfType:self advertisingType:{+[WPContinuity continuityTypeFromClientType:](WPContinuity, "continuityTypeFromClientType:", typeCopy)}];
+  }
+}
+
+- (void)advertisingFailedToStart:(id)start ofType:(unsigned __int8)type
+{
+  typeCopy = type;
+  startCopy = start;
+  delegate = [(WPContinuity *)self delegate];
+  v8 = objc_opt_respondsToSelector();
+
+  if (v8)
+  {
+    if (WPLogInitOnce != -1)
+    {
+      [WPContinuity advertisingFailedToStart:ofType:];
+    }
+
+    v9 = WiProxLog;
+    if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_ERROR))
+    {
+      [(WPContinuity *)typeCopy advertisingFailedToStart:v9 ofType:startCopy];
+    }
+
+    delegate2 = [(WPContinuity *)self delegate];
+    [delegate2 continuity:self didFailToStartAdvertisingOfType:+[WPContinuity continuityTypeFromClientType:](WPContinuity withError:{"continuityTypeFromClientType:", typeCopy), startCopy}];
+  }
+}
+
+- (void)advertisingStoppedOfType:(unsigned __int8)type withError:(id)error
+{
+  typeCopy = type;
+  v20 = *MEMORY[0x277D85DE8];
+  errorCopy = error;
+  if (WPLogInitOnce != -1)
+  {
+    [WPContinuity advertisingStoppedOfType:withError:];
+  }
+
+  v7 = WiProxLog;
+  if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_DEFAULT))
+  {
+    v16 = 134218242;
+    v17 = typeCopy;
+    v18 = 2112;
+    v19 = errorCopy;
+    _os_log_impl(&dword_274327000, v7, OS_LOG_TYPE_DEFAULT, "Continuity advertising stopped of type: %ld with error: %@", &v16, 0x16u);
+  }
+
+  if (errorCopy)
+  {
+    if ([errorCopy code] == 28)
+    {
+      delegate = [(WPContinuity *)self delegate];
+      v9 = objc_opt_respondsToSelector();
+
+      if (v9)
+      {
+        if (WPLogInitOnce != -1)
+        {
+          [WPContinuity advertisingStoppedOfType:withError:];
+        }
+
+        v10 = WiProxLog;
+        if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_DEFAULT))
+        {
+          v11 = v10;
+          localizedDescription = [errorCopy localizedDescription];
+          v16 = 134218242;
+          v17 = typeCopy;
+          v18 = 2112;
+          v19 = localizedDescription;
+          _os_log_impl(&dword_274327000, v11, OS_LOG_TYPE_DEFAULT, "[Privacy] Continuity advertising stopped of type: %ld with error: %@", &v16, 0x16u);
+        }
+
+        delegate2 = [(WPContinuity *)self delegate];
+        [delegate2 continuityDidStopAdvertisingOfType:self advertisingType:+[WPContinuity continuityTypeFromClientType:](WPContinuity withError:{"continuityTypeFromClientType:", typeCopy), errorCopy}];
+        goto LABEL_15;
+      }
+    }
+  }
+
+  else
+  {
+    delegate3 = [(WPContinuity *)self delegate];
+    v15 = objc_opt_respondsToSelector();
+
+    if (v15)
+    {
+      delegate2 = [(WPContinuity *)self delegate];
+      [delegate2 continuityDidStopAdvertisingOfType:self advertisingType:{+[WPContinuity continuityTypeFromClientType:](WPContinuity, "continuityTypeFromClientType:", typeCopy)}];
+LABEL_15:
+    }
+  }
+}
+
+- (void)advertisingStartedOfType:(unsigned __int8)type
+{
+  typeCopy = type;
+  delegate = [(WPContinuity *)self delegate];
+  v6 = objc_opt_respondsToSelector();
+
+  if (v6)
+  {
+    if (WPLogInitOnce != -1)
+    {
+      [WPContinuity advertisingStartedOfType:];
+    }
+
+    v7 = WiProxLog;
+    if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_DEBUG))
+    {
+      [(WPContinuity *)typeCopy advertisingStartedOfType:v7];
+    }
+
+    delegate2 = [(WPContinuity *)self delegate];
+    [delegate2 continuityDidStartAdvertisingOfType:self advertisingType:{+[WPContinuity continuityTypeFromClientType:](WPContinuity, "continuityTypeFromClientType:", typeCopy)}];
+  }
+}
+
+- (void)startScanningForType:(int64_t)type withData:(id)data mask:(id)mask peers:(id)peers boostedScan:(BOOL)scan
+{
+  scanCopy = scan;
+  dataCopy = data;
+  maskCopy = mask;
+  peersCopy = peers;
+  if (type == 2)
+  {
+    selfCopy3 = self;
+    v15 = 2;
+    goto LABEL_7;
+  }
+
+  if (type == 1)
+  {
+    selfCopy3 = self;
+    v15 = 1;
+LABEL_7:
+    v16 = dataCopy;
+    v17 = maskCopy;
+    v18 = peersCopy;
+    v19 = scanCopy;
+    v20 = 0;
+    goto LABEL_8;
+  }
+
+  if (type)
+  {
+    goto LABEL_9;
+  }
+
+  selfCopy3 = self;
+  v15 = 0;
+  v16 = dataCopy;
+  v17 = maskCopy;
+  v18 = peersCopy;
+  v19 = scanCopy;
+  v20 = 1;
+LABEL_8:
+  [(WPContinuity *)selfCopy3 startScanningForType:v15 withData:v16 mask:v17 peers:v18 boostedScan:v19 duplicates:v20];
+LABEL_9:
+}
+
+- (void)startScanningForType:(int64_t)type withData:(id)data mask:(id)mask peers:(id)peers boostedScan:(BOOL)scan duplicates:(BOOL)duplicates
+{
+  duplicatesCopy = duplicates;
+  v35[1] = *MEMORY[0x277D85DE8];
+  dataCopy = data;
+  maskCopy = mask;
+  peersCopy = peers;
+  v17 = [dataCopy length];
+  v18 = [maskCopy length];
+  if (v17 > 22 || v18 >= 23)
+  {
+    type = [MEMORY[0x277CCACA8] stringWithFormat:@"Continuity data (%ld bytes) or mask (%ld bytes) length is larger than the max length (22 bytes) for type: %ld", v17, v18, type];
+    v23 = MEMORY[0x277CCA9B8];
+    v34 = *MEMORY[0x277CCA450];
+    v35[0] = type;
+    v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v35 forKeys:&v34 count:1];
+    v25 = [v23 errorWithDomain:@"WPErrorDomain" code:8 userInfo:v24];
+
+    delegate = [(WPContinuity *)self delegate];
+    LOBYTE(v24) = objc_opt_respondsToSelector();
+
+    if (v24)
+    {
+      delegate2 = [(WPContinuity *)self delegate];
+      [delegate2 continuity:self didFailToStartScanningForType:type WithError:v25];
+    }
+  }
+
+  else
+  {
+    v19 = objc_opt_new();
+    type = v19;
+    switch(type)
+    {
+      case 2:
+        v21 = 14;
+        if (!scan)
+        {
+          goto LABEL_7;
+        }
+
+        goto LABEL_13;
+      case 1:
+        v21 = 13;
+        v22 = 300;
+        v28 = 966;
+LABEL_15:
+        [type setClientType:v21];
+        [type setAllowDuplicates:duplicatesCopy];
+        *&buf = v22;
+        *(&buf + 1) = v28;
+        v33 = 30;
+        [type setScanningRates:&buf];
+        if (dataCopy)
+        {
+          [type setBlobValue:dataCopy];
+        }
+
+        if (maskCopy)
+        {
+          [type setMaskValue:maskCopy];
+        }
+
+        if (peersCopy)
+        {
+          [type setPeers:peersCopy];
+        }
+
+        if (WPLogInitOnce != -1)
+        {
+          [WPContinuity startScanningForType:withData:mask:peers:boostedScan:duplicates:];
+        }
+
+        v29 = WiProxLog;
+        if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_DEFAULT))
+        {
+          LODWORD(buf) = 138543362;
+          *(&buf + 4) = type;
+          _os_log_impl(&dword_274327000, v29, OS_LOG_TYPE_DEFAULT, "Continuity start scanning with data: %{public}@", &buf, 0xCu);
+        }
+
+        v31.receiver = self;
+        v31.super_class = WPContinuity;
+        [(WPClient *)&v31 startScanning:type];
+        goto LABEL_31;
+      case 0:
+        v21 = 12;
+        if (!scan)
+        {
+LABEL_7:
+          v22 = 300;
+LABEL_14:
+          v28 = 0xFFFFLL;
+          goto LABEL_15;
+        }
+
+LABEL_13:
+        [v19 setUpdateTime:4.0];
+        v22 = 60;
+        goto LABEL_14;
+    }
+
+    type2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Unknown continuity client type %ld", type];
+    if (WPLogInitOnce != -1)
+    {
+      [WPContinuity startScanningForType:withData:mask:peers:boostedScan:duplicates:];
+    }
+
+    if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_ERROR))
+    {
+      [WPTest startAdvertisingOfType:data:priority:mode:options:];
+    }
+  }
+
+LABEL_31:
 }
 
 - (void)updateScanningRequest:(id)request withUpdate:(id)update
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   updateCopy = update;
   [requestCopy setUpdateTime:0.0];
-  v9 = xmmword_27435CEA0;
-  v10 = 30;
-  [requestCopy setScanningRates:&v9];
+  v8 = xmmword_27435CEA0;
+  v9 = 30;
+  [requestCopy setScanningRates:&v8];
   if (WPLogInitOnce != -1)
   {
     [WPContinuity updateScanningRequest:withUpdate:];
@@ -295,19 +604,17 @@
   v7 = WiProxLog;
   if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_DEFAULT))
   {
-    LODWORD(v9) = 138543362;
-    *(&v9 + 4) = requestCopy;
-    _os_log_impl(&dword_274327000, v7, OS_LOG_TYPE_DEFAULT, "Continuity update scanning request with data: %{public}@", &v9, 0xCu);
+    LODWORD(v8) = 138543362;
+    *(&v8 + 4) = requestCopy;
+    _os_log_impl(&dword_274327000, v7, OS_LOG_TYPE_DEFAULT, "Continuity update scanning request with data: %{public}@", &v8, 0xCu);
   }
 
   updateCopy[2](updateCopy, requestCopy);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stopScanningForType:(int64_t)type
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v5 = objc_opt_new();
   [v5 setClientType:{+[WPContinuity clientTypeFromContinuityType:](WPContinuity, "clientTypeFromContinuityType:", type)}];
   if (WPLogInitOnce != -1)
@@ -319,25 +626,74 @@
   if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v10 = v5;
+    v9 = v5;
     _os_log_impl(&dword_274327000, v6, OS_LOG_TYPE_DEFAULT, "Continuity stop scanning: %{public}@", buf, 0xCu);
   }
 
-  v8.receiver = self;
-  v8.super_class = WPContinuity;
-  [(WPClient *)&v8 stopScanning:v5];
+  v7.receiver = self;
+  v7.super_class = WPContinuity;
+  [(WPClient *)&v7 stopScanning:v5];
+}
 
-  v7 = *MEMORY[0x277D85DE8];
+- (void)scanningStartedOfType:(unsigned __int8)type
+{
+  typeCopy = type;
+  delegate = [(WPContinuity *)self delegate];
+  v6 = objc_opt_respondsToSelector();
+
+  if (v6)
+  {
+    delegate2 = [(WPContinuity *)self delegate];
+    [delegate2 continuityDidStartScanningForType:self scanningType:{+[WPContinuity continuityTypeFromClientType:](WPContinuity, "continuityTypeFromClientType:", typeCopy)}];
+  }
+}
+
+- (void)scanningStoppedOfType:(unsigned __int8)type
+{
+  typeCopy = type;
+  delegate = [(WPContinuity *)self delegate];
+  v6 = objc_opt_respondsToSelector();
+
+  if (v6)
+  {
+    delegate2 = [(WPContinuity *)self delegate];
+    [delegate2 continuityDidStopScanningForType:self scanningType:{+[WPContinuity continuityTypeFromClientType:](WPContinuity, "continuityTypeFromClientType:", typeCopy)}];
+  }
+}
+
+- (void)scanningFailedToStart:(id)start ofType:(unsigned __int8)type
+{
+  typeCopy = type;
+  startCopy = start;
+  delegate = [(WPContinuity *)self delegate];
+  v8 = objc_opt_respondsToSelector();
+
+  if (v8)
+  {
+    if (WPLogInitOnce != -1)
+    {
+      [WPContinuity scanningFailedToStart:ofType:];
+    }
+
+    v9 = WiProxLog;
+    if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_ERROR))
+    {
+      [(WPContinuity *)typeCopy scanningFailedToStart:v9 ofType:startCopy];
+    }
+
+    delegate2 = [(WPContinuity *)self delegate];
+    [delegate2 continuity:self didFailToStartScanningForType:+[WPContinuity continuityTypeFromClientType:](WPContinuity WithError:{"continuityTypeFromClientType:", typeCopy), startCopy}];
+  }
 }
 
 - (void)startTrackingPeer:(id)peer forType:(int64_t)type
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   peerCopy = peer;
   v7 = MEMORY[0x277CCA9B8];
-  v13 = *MEMORY[0x277CCA450];
-  v14[0] = @"Continuity peer traking is unsupported";
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:&v13 count:1];
+  v12 = *MEMORY[0x277CCA450];
+  v13[0] = @"Continuity peer traking is unsupported";
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
   v9 = [v7 errorWithDomain:@"WPErrorDomain" code:17 userInfo:v8];
 
   delegate = [(WPContinuity *)self delegate];
@@ -348,13 +704,26 @@
     delegate2 = [(WPContinuity *)self delegate];
     [delegate2 continuityDidStartTrackingPeer:self peer:peerCopy type:type error:v9];
   }
+}
 
-  v12 = *MEMORY[0x277D85DE8];
+- (void)startedTrackingPeer:(id)peer ofType:(unsigned __int8)type
+{
+  typeCopy = type;
+  peerCopy = peer;
+  delegate = [(WPContinuity *)self delegate];
+  v7 = objc_opt_respondsToSelector();
+
+  if (v7)
+  {
+    v8 = [WPContinuity continuityTypeFromClientType:typeCopy];
+    delegate2 = [(WPContinuity *)self delegate];
+    [delegate2 continuityDidStartTrackingPeer:self peer:peerCopy type:v8 error:0];
+  }
 }
 
 - (void)failedToStartTrackingPeer:(id)peer error:(id)error
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   peerCopy = peer;
   errorCopy = error;
   delegate = [(WPContinuity *)self delegate];
@@ -372,24 +741,22 @@
     v12 = WiProxLog;
     if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_ERROR))
     {
-      v15 = v12;
+      v14 = v12;
       uUIDString = [peerUUID UUIDString];
       clientType = [peerCopy clientType];
       localizedDescription = [errorCopy localizedDescription];
-      v19 = 138412802;
-      v20 = uUIDString;
-      v21 = 1024;
-      v22 = clientType;
-      v23 = 2112;
-      v24 = localizedDescription;
-      _os_log_error_impl(&dword_274327000, v15, OS_LOG_TYPE_ERROR, "Continuity failed to start tracking peer: %@ of type: %d with error: %@", &v19, 0x1Cu);
+      v18 = 138412802;
+      v19 = uUIDString;
+      v20 = 1024;
+      v21 = clientType;
+      v22 = 2112;
+      v23 = localizedDescription;
+      _os_log_error_impl(&dword_274327000, v14, OS_LOG_TYPE_ERROR, "Continuity failed to start tracking peer: %@ of type: %d with error: %@", &v18, 0x1Cu);
     }
 
     delegate2 = [(WPContinuity *)self delegate];
     [delegate2 continuityDidStartTrackingPeer:self peer:peerUUID type:v10 error:errorCopy];
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stopTrackingPeer:(id)peer forType:(int64_t)type
@@ -402,6 +769,51 @@
   {
     delegate2 = [(WPContinuity *)self delegate];
     [delegate2 continuityDidStopTrackingPeer:self peer:peerCopy type:type];
+  }
+}
+
+- (void)stoppedTrackingPeer:(id)peer ofType:(unsigned __int8)type
+{
+  typeCopy = type;
+  peerCopy = peer;
+  delegate = [(WPContinuity *)self delegate];
+  v7 = objc_opt_respondsToSelector();
+
+  if (v7)
+  {
+    v8 = [WPContinuity continuityTypeFromClientType:typeCopy];
+    delegate2 = [(WPContinuity *)self delegate];
+    [delegate2 continuityDidStopTrackingPeer:self peer:peerCopy type:v8];
+  }
+}
+
+- (void)foundPeer:(id)peer ofType:(unsigned __int8)type
+{
+  typeCopy = type;
+  peerCopy = peer;
+  delegate = [(WPContinuity *)self delegate];
+  v7 = objc_opt_respondsToSelector();
+
+  if (v7)
+  {
+    v8 = [WPContinuity continuityTypeFromClientType:typeCopy];
+    delegate2 = [(WPContinuity *)self delegate];
+    [delegate2 continuity:self didFindPeer:peerCopy type:v8];
+  }
+}
+
+- (void)lostPeer:(id)peer ofType:(unsigned __int8)type
+{
+  typeCopy = type;
+  peerCopy = peer;
+  delegate = [(WPContinuity *)self delegate];
+  v7 = objc_opt_respondsToSelector();
+
+  if (v7)
+  {
+    v8 = [WPContinuity continuityTypeFromClientType:typeCopy];
+    delegate2 = [(WPContinuity *)self delegate];
+    [delegate2 continuity:self didLosePeer:peerCopy type:v8];
   }
 }
 
@@ -446,7 +858,7 @@
 
 - (void)connectToPeer:(id)peer
 {
-  v35[1] = *MEMORY[0x277D85DE8];
+  v34[1] = *MEMORY[0x277D85DE8];
   peerCopy = peer;
   if (!peerCopy)
   {
@@ -462,9 +874,9 @@
     }
 
     v16 = MEMORY[0x277CCA9B8];
-    v34 = *MEMORY[0x277CCA450];
-    v35[0] = @"Continuity no peer was provided!";
-    v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v35 forKeys:&v34 count:1];
+    v33 = *MEMORY[0x277CCA450];
+    v34[0] = @"Continuity no peer was provided!";
+    v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v34 forKeys:&v33 count:1];
     v18 = [v16 errorWithDomain:@"WPErrorDomain" code:5 userInfo:v17];
 
     delegate = [(WPContinuity *)self delegate];
@@ -501,9 +913,9 @@ LABEL_21:
     }
 
     v24 = MEMORY[0x277CCA9B8];
-    v32 = *MEMORY[0x277CCA450];
-    v33 = v18;
-    v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v33 forKeys:&v32 count:1];
+    v31 = *MEMORY[0x277CCA450];
+    v32 = v18;
+    v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v32 forKeys:&v31 count:1];
     delegate2 = [v24 errorWithDomain:@"WPErrorDomain" code:1 userInfo:v25];
 
     delegate3 = [(WPContinuity *)self delegate];
@@ -529,22 +941,20 @@ LABEL_21:
     v6 = v5;
     uUIDString2 = [peerCopy UUIDString];
     *buf = 138543362;
-    v31 = uUIDString2;
+    v30 = uUIDString2;
     _os_log_impl(&dword_274327000, v6, OS_LOG_TYPE_DEFAULT, "Continuity connect to peer: %{public}@", buf, 0xCu);
   }
 
-  v29.receiver = self;
-  v29.super_class = WPContinuity;
-  [(WPClient *)&v29 connectToPeer:peerCopy];
+  v28.receiver = self;
+  v28.super_class = WPContinuity;
+  [(WPClient *)&v28 connectToPeer:peerCopy];
 LABEL_22:
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (void)connectedDevice:(id)device withError:(id)error shouldDiscover:(BOOL)discover
 {
   discoverCopy = discover;
-  v25[1] = *MEMORY[0x277D85DE8];
+  v24[1] = *MEMORY[0x277D85DE8];
   deviceCopy = device;
   errorCopy = error;
   if (discoverCopy)
@@ -560,18 +970,18 @@ LABEL_22:
       v11 = v10;
       uUIDString = [deviceCopy UUIDString];
       *buf = 138543362;
-      v21 = uUIDString;
+      v20 = uUIDString;
       _os_log_impl(&dword_274327000, v11, OS_LOG_TYPE_DEFAULT, "Continuity connected to device: %{public}@", buf, 0xCu);
     }
 
-    v24 = @"D0611E78-BBB4-4591-A5F8-487910AE4366";
+    v23 = @"D0611E78-BBB4-4591-A5F8-487910AE4366";
     v13 = [MEMORY[0x277CBEB98] setWithObjects:{@"8667556C-9A37-4C91-84ED-54EE27D90049", 0}];
-    v25[0] = v13;
-    delegate2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:&v24 count:1];
+    v24[0] = v13;
+    delegate2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:&v23 count:1];
 
-    v19.receiver = self;
-    v19.super_class = WPContinuity;
-    [(WPClient *)&v19 discoverCharacteristicsAndServices:delegate2 forPeripheral:deviceCopy];
+    v18.receiver = self;
+    v18.super_class = WPContinuity;
+    [(WPClient *)&v18 discoverCharacteristicsAndServices:delegate2 forPeripheral:deviceCopy];
     goto LABEL_13;
   }
 
@@ -584,9 +994,9 @@ LABEL_22:
   if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v21 = deviceCopy;
-    v22 = 2114;
-    v23 = errorCopy;
+    v20 = deviceCopy;
+    v21 = 2114;
+    v22 = errorCopy;
     _os_log_impl(&dword_274327000, v15, OS_LOG_TYPE_DEFAULT, "Continuity sending didConnectToPeer %@ with error %{public}@", buf, 0x16u);
   }
 
@@ -599,13 +1009,11 @@ LABEL_22:
     [delegate2 continuity:self didConnectToPeer:deviceCopy error:errorCopy];
 LABEL_13:
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)connectedDeviceOverLEPipe:(id)pipe
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   pipeCopy = pipe;
   if (WPLogInitOnce != -1)
   {
@@ -615,9 +1023,9 @@ LABEL_13:
   v5 = WiProxLog;
   if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 138412290;
-    v11 = pipeCopy;
-    _os_log_impl(&dword_274327000, v5, OS_LOG_TYPE_DEFAULT, "Continuity sending didConnectToPeer %@ over LEPipe", &v10, 0xCu);
+    v9 = 138412290;
+    v10 = pipeCopy;
+    _os_log_impl(&dword_274327000, v5, OS_LOG_TYPE_DEFAULT, "Continuity sending didConnectToPeer %@ over LEPipe", &v9, 0xCu);
   }
 
   delegate = [(WPContinuity *)self delegate];
@@ -628,13 +1036,11 @@ LABEL_13:
     delegate2 = [(WPContinuity *)self delegate];
     [delegate2 continuity:self didConnectToPeer:pipeCopy error:0];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)discoveredCharacteristicsAndServices:(id)services forPeripheral:(id)peripheral
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   servicesCopy = services;
   peripheralCopy = peripheral;
   v8 = [servicesCopy objectForKeyedSubscript:@"D0611E78-BBB4-4591-A5F8-487910AE4366"];
@@ -660,13 +1066,13 @@ LABEL_13:
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x2020000000;
-    v20 = 0;
-    v17[0] = MEMORY[0x277D85DD0];
-    v17[1] = 3221225472;
-    v17[2] = __67__WPContinuity_discoveredCharacteristicsAndServices_forPeripheral___block_invoke_295;
-    v17[3] = &unk_279ED7548;
-    v17[4] = buf;
-    [v8 enumerateObjectsUsingBlock:v17];
+    v19 = 0;
+    v16[0] = MEMORY[0x277D85DD0];
+    v16[1] = 3221225472;
+    v16[2] = __67__WPContinuity_discoveredCharacteristicsAndServices_forPeripheral___block_invoke_295;
+    v16[3] = &unk_279ED7548;
+    v16[4] = buf;
+    [v8 enumerateObjectsUsingBlock:v16];
     if (*(*&buf[8] + 24) == 1)
     {
       if (WPLogInitOnce != -1)
@@ -677,13 +1083,13 @@ LABEL_13:
       v12 = WiProxLog;
       if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_DEFAULT))
       {
-        *v16 = 0;
-        _os_log_impl(&dword_274327000, v12, OS_LOG_TYPE_DEFAULT, "Continuity subscribing to characteristic", v16, 2u);
+        *v15 = 0;
+        _os_log_impl(&dword_274327000, v12, OS_LOG_TYPE_DEFAULT, "Continuity subscribing to characteristic", v15, 2u);
       }
 
-      v15.receiver = self;
-      v15.super_class = WPContinuity;
-      [(WPClient *)&v15 shouldSubscribe:1 toPeer:peripheralCopy withCharacteristic:@"8667556C-9A37-4C91-84ED-54EE27D90049" inService:@"D0611E78-BBB4-4591-A5F8-487910AE4366"];
+      v14.receiver = self;
+      v14.super_class = WPContinuity;
+      [(WPClient *)&v14 shouldSubscribe:1 toPeer:peripheralCopy withCharacteristic:@"8667556C-9A37-4C91-84ED-54EE27D90049" inService:@"D0611E78-BBB4-4591-A5F8-487910AE4366"];
     }
 
     else
@@ -698,9 +1104,9 @@ LABEL_13:
         [WPContinuity discoveredCharacteristicsAndServices:forPeripheral:];
       }
 
-      v14.receiver = self;
-      v14.super_class = WPContinuity;
-      [(WPClient *)&v14 disconnectFromPeer:peripheralCopy];
+      v13.receiver = self;
+      v13.super_class = WPContinuity;
+      [(WPClient *)&v13 disconnectFromPeer:peripheralCopy];
     }
 
     _Block_object_dispose(buf, 8);
@@ -718,12 +1124,10 @@ LABEL_13:
       [WPContinuity discoveredCharacteristicsAndServices:forPeripheral:];
     }
 
-    v18.receiver = self;
-    v18.super_class = WPContinuity;
-    [(WPClient *)&v18 disconnectFromPeer:peripheralCopy];
+    v17.receiver = self;
+    v17.super_class = WPContinuity;
+    [(WPClient *)&v17 disconnectFromPeer:peripheralCopy];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __67__WPContinuity_discoveredCharacteristicsAndServices_forPeripheral___block_invoke_295(uint64_t a1, void *a2, _BYTE *a3)
@@ -750,7 +1154,7 @@ void __67__WPContinuity_discoveredCharacteristicsAndServices_forPeripheral___blo
 - (void)updatedNotificationState:(BOOL)state forCharacteristic:(id)characteristic inService:(id)service withPeripheral:(id)peripheral
 {
   stateCopy = state;
-  v38[1] = *MEMORY[0x277D85DE8];
+  v37[1] = *MEMORY[0x277D85DE8];
   characteristicCopy = characteristic;
   serviceCopy = service;
   peripheralCopy = peripheral;
@@ -768,9 +1172,9 @@ void __67__WPContinuity_discoveredCharacteristicsAndServices_forPeripheral___blo
     }
 
     v25 = MEMORY[0x277CCA9B8];
-    v35 = *MEMORY[0x277CCA450];
-    v36 = @"Continuity notification is disabled";
-    v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v36 forKeys:&v35 count:1];
+    v34 = *MEMORY[0x277CCA450];
+    v35 = @"Continuity notification is disabled";
+    v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v35 forKeys:&v34 count:1];
     serviceCopy = [v25 errorWithDomain:@"WPErrorDomain" code:22 userInfo:v26];
 
     delegate = [(WPContinuity *)self delegate];
@@ -800,9 +1204,9 @@ void __67__WPContinuity_discoveredCharacteristicsAndServices_forPeripheral___blo
     }
 
     v29 = MEMORY[0x277CCA9B8];
-    v37 = *MEMORY[0x277CCA450];
-    v38[0] = serviceCopy;
-    v30 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v38 forKeys:&v37 count:1];
+    v36 = *MEMORY[0x277CCA450];
+    v37[0] = serviceCopy;
+    v30 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v37 forKeys:&v36 count:1];
     delegate2 = [v29 errorWithDomain:@"WPErrorDomain" code:20 userInfo:v30];
 
     delegate3 = [(WPContinuity *)self delegate];
@@ -843,13 +1247,11 @@ LABEL_23:
   }
 
 LABEL_24:
-
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 - (void)disconnectFromPeer:(id)peer
 {
-  v26[1] = *MEMORY[0x277D85DE8];
+  v25[1] = *MEMORY[0x277D85DE8];
   peerCopy = peer;
   if (peerCopy)
   {
@@ -864,13 +1266,13 @@ LABEL_24:
       v6 = v5;
       uUIDString = [peerCopy UUIDString];
       *buf = 138543362;
-      v24 = uUIDString;
+      v23 = uUIDString;
       _os_log_impl(&dword_274327000, v6, OS_LOG_TYPE_DEFAULT, "Continuity disconnect from peer: %{public}@", buf, 0xCu);
     }
 
-    v22.receiver = self;
-    v22.super_class = WPContinuity;
-    [(WPClient *)&v22 disconnectFromPeer:peerCopy];
+    v21.receiver = self;
+    v21.super_class = WPContinuity;
+    [(WPClient *)&v21 disconnectFromPeer:peerCopy];
   }
 
   else
@@ -887,9 +1289,9 @@ LABEL_24:
     }
 
     v16 = MEMORY[0x277CCA9B8];
-    v25 = *MEMORY[0x277CCA450];
-    v26[0] = @"Continuity peer is null";
-    v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:&v25 count:1];
+    v24 = *MEMORY[0x277CCA450];
+    v25[0] = @"Continuity peer is null";
+    v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:&v24 count:1];
     v18 = [v16 errorWithDomain:@"WPErrorDomain" code:7 userInfo:v17];
 
     delegate = [(WPContinuity *)self delegate];
@@ -901,13 +1303,11 @@ LABEL_24:
       [delegate2 continuity:self didDisconnectFromPeer:0 error:v18];
     }
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)disconnectedDevice:(id)device withError:(id)error
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   deviceCopy = device;
   errorCopy = error;
   if (errorCopy)
@@ -926,7 +1326,7 @@ LABEL_24:
     if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v21 = v11;
+      v20 = v11;
       _os_log_impl(&dword_274327000, v12, OS_LOG_TYPE_DEFAULT, "%{public}@ - send didDisconnect", buf, 0xCu);
     }
   }
@@ -953,22 +1353,20 @@ LABEL_24:
     if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v21 = deviceCopy;
-      v22 = 2112;
-      v23 = errorCopy;
+      v20 = deviceCopy;
+      v21 = 2112;
+      v22 = errorCopy;
       _os_log_impl(&dword_274327000, v17, OS_LOG_TYPE_DEFAULT, "Continuity sending didDisconnectFromPeer %@ with error %@", buf, 0x16u);
     }
 
     delegate2 = [(WPContinuity *)self delegate];
     [delegate2 continuity:self didDisconnectFromPeer:deviceCopy error:errorCopy];
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)disconnectedDeviceOverLEPipe:(id)pipe withError:(id)error
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   pipeCopy = pipe;
   errorCopy = error;
   if (WPLogInitOnce != -1)
@@ -979,21 +1377,19 @@ LABEL_24:
   v8 = WiProxLog;
   if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 138412546;
-    v11 = pipeCopy;
-    v12 = 2112;
-    v13 = errorCopy;
-    _os_log_impl(&dword_274327000, v8, OS_LOG_TYPE_DEFAULT, "Continuity disconnected %@ over LE pipe with error %@", &v10, 0x16u);
+    v9 = 138412546;
+    v10 = pipeCopy;
+    v11 = 2112;
+    v12 = errorCopy;
+    _os_log_impl(&dword_274327000, v8, OS_LOG_TYPE_DEFAULT, "Continuity disconnected %@ over LE pipe with error %@", &v9, 0x16u);
   }
 
   [(WPContinuity *)self disconnectedDevice:pipeCopy withError:errorCopy];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sendData:(id)data toPeer:(id)peer
 {
-  v60[1] = *MEMORY[0x277D85DE8];
+  v59[1] = *MEMORY[0x277D85DE8];
   dataCopy = data;
   peerCopy = peer;
   v8 = peerCopy;
@@ -1014,9 +1410,9 @@ LABEL_24:
     }
 
     v25 = MEMORY[0x277CCA9B8];
-    v59 = *MEMORY[0x277CCA450];
-    v60[0] = 60000;
-    v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v60 forKeys:&v59 count:1];
+    v58 = *MEMORY[0x277CCA450];
+    v59[0] = 60000;
+    v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v59 forKeys:&v58 count:1];
     delegate5 = [v25 errorWithDomain:@"WPErrorDomain" code:8 userInfo:v26];
 
     delegate = [(WPContinuity *)self delegate];
@@ -1048,19 +1444,19 @@ LABEL_24:
       v11 = [dataCopy length];
       uUIDString2 = [v8 UUIDString];
       *buf = 134218498;
-      v52 = v11;
-      v53 = 2112;
-      v54 = dataCopy;
-      v55 = 2112;
-      v56 = uUIDString2;
+      v51 = v11;
+      v52 = 2112;
+      v53 = dataCopy;
+      v54 = 2112;
+      v55 = uUIDString2;
       _os_log_impl(&dword_274327000, v10, OS_LOG_TYPE_DEFAULT, "Continuity send data: (%lu) %@ to peer: %@", buf, 0x20u);
     }
 
     v13 = [dataCopy length];
     if ((v13 - 60001) > 0xFFFFFFFFFFFF159FLL)
     {
-      v48 = v13;
-      60000 = [MEMORY[0x277CBEB28] dataWithBytes:&v48 length:2];
+      v47 = v13;
+      60000 = [MEMORY[0x277CBEB28] dataWithBytes:&v47 length:2];
       [60000 appendData:dataCopy];
       delegate5 = objc_opt_new();
       [delegate5 setData:60000];
@@ -1082,17 +1478,17 @@ LABEL_24:
         data2 = [delegate5 data];
         uUIDString3 = [v8 UUIDString];
         *buf = 134218498;
-        v52 = v43;
-        v53 = 2112;
-        v54 = data2;
-        v55 = 2112;
-        v56 = uUIDString3;
+        v51 = v43;
+        v52 = 2112;
+        v53 = data2;
+        v54 = 2112;
+        v55 = uUIDString3;
         _os_log_impl(&dword_274327000, v41, OS_LOG_TYPE_DEFAULT, "Continuity send data to characteristic: (%lu) %@ to peer: %@", buf, 0x20u);
       }
 
-      v47.receiver = self;
-      v47.super_class = WPContinuity;
-      [(WPClient *)&v47 sendDataToCharacteristic:delegate5 inService:@"D0611E78-BBB4-4591-A5F8-487910AE4366" forPeer:v8];
+      v46.receiver = self;
+      v46.super_class = WPContinuity;
+      [(WPClient *)&v46 sendDataToCharacteristic:delegate5 inService:@"D0611E78-BBB4-4591-A5F8-487910AE4366" forPeer:v8];
       goto LABEL_32;
     }
 
@@ -1108,9 +1504,9 @@ LABEL_24:
     }
 
     v15 = MEMORY[0x277CCA9B8];
-    v49 = *MEMORY[0x277CCA450];
-    v50 = 60000;
-    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v50 forKeys:&v49 count:1];
+    v48 = *MEMORY[0x277CCA450];
+    v49 = 60000;
+    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v49 forKeys:&v48 count:1];
     delegate5 = [v15 errorWithDomain:@"WPErrorDomain" code:8 userInfo:v16];
 
     delegate3 = [(WPContinuity *)self delegate];
@@ -1145,9 +1541,9 @@ LABEL_20:
   }
 
   v36 = MEMORY[0x277CCA9B8];
-  v57 = *MEMORY[0x277CCA450];
-  v58 = @"Continuity no peer was provided";
-  v37 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v58 forKeys:&v57 count:1];
+  v56 = *MEMORY[0x277CCA450];
+  v57 = @"Continuity no peer was provided";
+  v37 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v57 forKeys:&v56 count:1];
   60000 = [v36 errorWithDomain:@"WPErrorDomain" code:8 userInfo:v37];
 
   delegate4 = [(WPContinuity *)self delegate];
@@ -1161,13 +1557,11 @@ LABEL_20:
   }
 
 LABEL_33:
-
-  v46 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sentData:(id)data forCharacteristic:(id)characteristic inService:(id)service forPeripheral:(id)peripheral withError:(id)error
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   characteristicCopy = characteristic;
   serviceCopy = service;
@@ -1185,9 +1579,9 @@ LABEL_33:
     {
       v18 = v17;
       localizedDescription = [errorCopy localizedDescription];
-      v29 = 138412290;
-      v30 = localizedDescription;
-      _os_log_impl(&dword_274327000, v18, OS_LOG_TYPE_DEFAULT, "Continuity didSendData over GATT with error %@", &v29, 0xCu);
+      v28 = 138412290;
+      v29 = localizedDescription;
+      _os_log_impl(&dword_274327000, v18, OS_LOG_TYPE_DEFAULT, "Continuity didSendData over GATT with error %@", &v28, 0xCu);
     }
 
     delegate = [(WPContinuity *)self delegate];
@@ -1217,27 +1611,25 @@ LABEL_33:
     v24 = WiProxLog;
     if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_ERROR))
     {
-      v26 = v24;
+      v25 = v24;
       uUIDString = [peripheralCopy UUIDString];
       localizedDescription2 = [errorCopy localizedDescription];
-      v29 = 138413058;
-      v30 = characteristicCopy;
-      v31 = 2112;
-      v32 = serviceCopy;
-      v33 = 2112;
-      v34 = uUIDString;
-      v35 = 2112;
-      v36 = localizedDescription2;
-      _os_log_error_impl(&dword_274327000, v26, OS_LOG_TYPE_ERROR, "Continuity sent data to a characteristic: %@ or service: %@ to peer: %@ with error: %@ that isn't of type Continuity", &v29, 0x2Au);
+      v28 = 138413058;
+      v29 = characteristicCopy;
+      v30 = 2112;
+      v31 = serviceCopy;
+      v32 = 2112;
+      v33 = uUIDString;
+      v34 = 2112;
+      v35 = localizedDescription2;
+      _os_log_error_impl(&dword_274327000, v25, OS_LOG_TYPE_ERROR, "Continuity sent data to a characteristic: %@ or service: %@ to peer: %@ with error: %@ that isn't of type Continuity", &v28, 0x2Au);
     }
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sentData:(id)data toEndpoint:(id)endpoint forPeripheral:(id)peripheral withError:(id)error
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   endpointCopy = endpoint;
   peripheralCopy = peripheral;
@@ -1255,11 +1647,11 @@ LABEL_33:
       v15 = v14;
       v16 = [dataCopy length];
       localizedDescription = [errorCopy localizedDescription];
-      v23 = 134218242;
-      v24 = v16;
-      v25 = 2112;
-      v26 = localizedDescription;
-      _os_log_impl(&dword_274327000, v15, OS_LOG_TYPE_DEFAULT, "WPPM: Continuity didSendData %lu over LE pipe with error %@", &v23, 0x16u);
+      v22 = 134218242;
+      v23 = v16;
+      v24 = 2112;
+      v25 = localizedDescription;
+      _os_log_impl(&dword_274327000, v15, OS_LOG_TYPE_DEFAULT, "WPPM: Continuity didSendData %lu over LE pipe with error %@", &v22, 0x16u);
     }
 
     delegate = [(WPContinuity *)self delegate];
@@ -1278,13 +1670,11 @@ LABEL_33:
       [delegate2 continuity:self didSendData:dataCopy toPeer:peripheralCopy error:errorCopy];
     }
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)receivedData:(id)data forCharacteristic:(id)characteristic inService:(id)service forPeripheral:(id)peripheral
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   characteristicCopy = characteristic;
   serviceCopy = service;
@@ -1315,13 +1705,13 @@ LABEL_33:
       v20 = v19;
       v21 = [dataCopy length];
       uUIDString = [peripheralCopy UUIDString];
-      v33 = 134218498;
-      v34 = v21;
-      v35 = 2112;
-      v36 = dataCopy;
-      v37 = 2112;
-      v38 = uUIDString;
-      _os_log_impl(&dword_274327000, v20, OS_LOG_TYPE_DEFAULT, "Continuity received data (%ld) %@ from peer %@", &v33, 0x20u);
+      v32 = 134218498;
+      v33 = v21;
+      v34 = 2112;
+      v35 = dataCopy;
+      v36 = 2112;
+      v37 = uUIDString;
+      _os_log_impl(&dword_274327000, v20, OS_LOG_TYPE_DEFAULT, "Continuity received data (%ld) %@ from peer %@", &v32, 0x20u);
     }
 
     if ([v15 addNewData:dataCopy])
@@ -1338,9 +1728,9 @@ LABEL_33:
         v24 = v23;
         currentReceivedData = [v15 currentReceivedData];
         v26 = [currentReceivedData length];
-        v33 = 134217984;
-        v34 = v26;
-        _os_log_impl(&dword_274327000, v24, OS_LOG_TYPE_DEFAULT, "WPPM: Continuity didReceiveData data of length %ld", &v33, 0xCu);
+        v32 = 134217984;
+        v33 = v26;
+        _os_log_impl(&dword_274327000, v24, OS_LOG_TYPE_DEFAULT, "WPPM: Continuity didReceiveData data of length %ld", &v32, 0xCu);
       }
 
       delegate = [(WPContinuity *)self delegate];
@@ -1357,13 +1747,11 @@ LABEL_33:
       [v15 resetTransfer];
     }
   }
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 - (void)receivedData:(id)data fromEndpoint:(id)endpoint forPeripheral:(id)peripheral
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   peripheralCopy = peripheral;
   if ([endpoint isEqualToString:@"wp.continuity"])
@@ -1377,21 +1765,19 @@ LABEL_33:
     if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_DEFAULT))
     {
       v11 = v10;
-      v13 = 134217984;
-      v14 = [dataCopy length];
-      _os_log_impl(&dword_274327000, v11, OS_LOG_TYPE_DEFAULT, "Continuity received data over LE pipe %ld", &v13, 0xCu);
+      v12 = 134217984;
+      v13 = [dataCopy length];
+      _os_log_impl(&dword_274327000, v11, OS_LOG_TYPE_DEFAULT, "Continuity received data over LE pipe %ld", &v12, 0xCu);
     }
 
     [(WPContinuity *)self receivedData:dataCopy forCharacteristic:0 inService:0 forPeripheral:peripheralCopy];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)central:(id)central subscribed:(BOOL)subscribed toCharacteristic:(id)characteristic inService:(id)service
 {
   subscribedCopy = subscribed;
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   centralCopy = central;
   characteristicCopy = characteristic;
   serviceCopy = service;
@@ -1415,13 +1801,13 @@ LABEL_33:
         v16 = WiProxLog;
         if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_DEFAULT))
         {
-          v22 = 138543362;
-          v23 = centralCopy;
+          v21 = 138543362;
+          v22 = centralCopy;
           v17 = "Continuity central connected to our device %{public}@, send Peripheral didConnect";
           v18 = v16;
           v19 = 12;
 LABEL_18:
-          _os_log_impl(&dword_274327000, v18, OS_LOG_TYPE_DEFAULT, v17, &v22, v19);
+          _os_log_impl(&dword_274327000, v18, OS_LOG_TYPE_DEFAULT, v17, &v21, v19);
         }
       }
     }
@@ -1433,12 +1819,12 @@ LABEL_18:
         [WPContinuity central:subscribed:toCharacteristic:inService:];
       }
 
-      v21 = WiProxLog;
+      v20 = WiProxLog;
       if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v22) = 0;
+        LOWORD(v21) = 0;
         v17 = "Saw unsubscribe...disconnection pending";
-        v18 = v21;
+        v18 = v20;
         v19 = 2;
         goto LABEL_18;
       }
@@ -1457,8 +1843,6 @@ LABEL_18:
       [WPContinuity central:subscribed:toCharacteristic:inService:];
     }
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)bandwidthStateUpdated:(id)updated
@@ -1481,11 +1865,11 @@ LABEL_18:
 
 - (void)stateDidChange:(int64_t)change
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   state = [(WPClient *)self state];
-  v15.receiver = self;
-  v15.super_class = WPContinuity;
-  [(WPClient *)&v15 stateDidChange:change];
+  v14.receiver = self;
+  v14.super_class = WPContinuity;
+  [(WPClient *)&v14 stateDidChange:change];
   if (WPLogInitOnce != -1)
   {
     [WPContinuity stateDidChange:];
@@ -1498,10 +1882,10 @@ LABEL_18:
     state2 = [(WPClient *)self state];
     *buf = 134218496;
     changeCopy = change;
-    v18 = 2048;
-    v19 = state;
-    v20 = 2048;
-    v21 = state2;
+    v17 = 2048;
+    v18 = state;
+    v19 = 2048;
+    v20 = state2;
     _os_log_impl(&dword_274327000, v7, OS_LOG_TYPE_DEFAULT, "Continuity stateDidChange: %ld, old %ld, pipe state %ld", buf, 0x20u);
   }
 
@@ -1509,16 +1893,16 @@ LABEL_18:
   {
     if ([(WPClient *)self state]== 3)
     {
-      v14.receiver = self;
-      v14.super_class = WPContinuity;
-      [(WPClient *)&v14 registerEndpoint:@"wp.continuity" requireAck:1 requireEncryption:1];
+      v13.receiver = self;
+      v13.super_class = WPContinuity;
+      [(WPClient *)&v13 registerEndpoint:@"wp.continuity" requireAck:1 requireEncryption:1];
     }
 
     else
     {
-      v13.receiver = self;
-      v13.super_class = WPContinuity;
-      [(WPClient *)&v13 unregisterEndpoint:@"wp.continuity"];
+      v12.receiver = self;
+      v12.super_class = WPContinuity;
+      [(WPClient *)&v12 unregisterEndpoint:@"wp.continuity"];
     }
 
     delegate = [(WPContinuity *)self delegate];
@@ -1530,8 +1914,6 @@ LABEL_18:
       [delegate2 continuityDidUpdateState:self];
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)peerTrackingFull
@@ -1592,33 +1974,26 @@ LABEL_18:
 
 - (void)advertisingFailedToStart:(void *)a3 ofType:.cold.2(uint64_t a1, void *a2, void *a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
   v4 = a2;
   v5 = [a3 localizedDescription];
   OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_5(&dword_274327000, v6, v7, "Continuity advertising failed to start of type: %d with error: %@", v8, v9, v10, v11, v13);
-
-  v12 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_5(&dword_274327000, v6, v7, "Continuity advertising failed to start of type: %d with error: %@", v8, v9, v10, v11);
 }
 
 - (void)advertisingStartedOfType:(unsigned __int8)a1 .cold.2(unsigned __int8 a1, NSObject *a2)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v3[0] = 67109120;
-  v3[1] = a1;
-  _os_log_debug_impl(&dword_274327000, a2, OS_LOG_TYPE_DEBUG, "Continuity advertising started of type: %d", v3, 8u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v2[0] = 67109120;
+  v2[1] = a1;
+  _os_log_debug_impl(&dword_274327000, a2, OS_LOG_TYPE_DEBUG, "Continuity advertising started of type: %d", v2, 8u);
 }
 
 - (void)scanningFailedToStart:(void *)a3 ofType:.cold.2(uint64_t a1, void *a2, void *a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
   v4 = a2;
   v5 = [a3 localizedDescription];
   OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_5(&dword_274327000, v6, v7, "Continuity failed to start scanning of type: %d with error: %@", v8, v9, v10, v11, v13);
-
-  v12 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_5(&dword_274327000, v6, v7, "Continuity failed to start scanning of type: %d with error: %@", v8, v9, v10, v11);
 }
 
 - (void)deviceDiscovered:.cold.2()
@@ -1630,9 +2005,9 @@ LABEL_18:
 
 - (void)connectToPeer:(uint64_t)a3 .cold.5(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0(&dword_274327000, a1, a3, "%@ - send didConnect", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = @"Continuity no peer was provided!";
+  OUTLINED_FUNCTION_0_0(&dword_274327000, a1, a3, "%@ - send didConnect", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)discoveredCharacteristicsAndServices:forPeripheral:.cold.3()
@@ -1651,41 +2026,32 @@ LABEL_18:
 
 - (void)updatedNotificationState:(uint64_t)a3 forCharacteristic:(uint64_t)a4 inService:(uint64_t)a5 withPeripheral:(uint64_t)a6 .cold.2(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0(&dword_274327000, a1, a3, "Continuity send Central didConnect with error: %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
-}
-
-- (void)updatedNotificationState:forCharacteristic:inService:withPeripheral:.cold.4()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_0(&dword_274327000, v0, v1, "Continuity send Central didConnect with error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = @"Continuity notification is disabled";
+  OUTLINED_FUNCTION_0_0(&dword_274327000, a1, a3, "Continuity send Central didConnect with error: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)disconnectFromPeer:(uint64_t)a3 .cold.3(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0(&dword_274327000, a1, a3, "%@ - sending didDisconnect", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = @"Continuity peer is null";
+  OUTLINED_FUNCTION_0_0(&dword_274327000, a1, a3, "%@ - sending didDisconnect", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)sendData:(uint64_t)a3 toPeer:(uint64_t)a4 .cold.6(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0(&dword_274327000, a1, a3, "%@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = @"Continuity no peer was provided";
+  OUTLINED_FUNCTION_0_0(&dword_274327000, a1, a3, "%@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)central:subscribed:toCharacteristic:inService:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
-  v4 = 2112;
-  v5 = v0;
-  _os_log_error_impl(&dword_274327000, v1, OS_LOG_TYPE_ERROR, "Continuity received subscription notification of characteristic: %@, service: %@ is not of type Continuity", v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = 2112;
+  v4 = v0;
+  _os_log_error_impl(&dword_274327000, v1, OS_LOG_TYPE_ERROR, "Continuity received subscription notification of characteristic: %@, service: %@ is not of type Continuity", v2, 0x16u);
 }
 
 @end

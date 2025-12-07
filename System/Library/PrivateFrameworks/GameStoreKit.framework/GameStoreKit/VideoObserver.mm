@@ -7,7 +7,7 @@
 - (_TtC12GameStoreKit13VideoObserver)init
 {
   v3 = OBJC_IVAR____TtC12GameStoreKit13VideoObserver__changes;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F226B90);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F226B90, &unk_24F99BA00);
   swift_allocObject();
   *(&self->super.isa + v3) = sub_24F922FC8();
   *(&self->super.isa + OBJC_IVAR____TtC12GameStoreKit13VideoObserver_playerSubscriptionsAdded) = 0;

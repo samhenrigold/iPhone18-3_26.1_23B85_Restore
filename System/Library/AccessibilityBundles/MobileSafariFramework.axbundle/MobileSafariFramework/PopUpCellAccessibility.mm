@@ -15,7 +15,7 @@
 
 - (id)accessibilityValue
 {
-  v21 = *MEMORY[0x29EDCA608];
+  v19 = *MEMORY[0x29EDCA608];
   v2 = [(PopUpCellAccessibility *)self safeSwiftStringForKey:@"subtitle"];
   v3 = v2;
   if (v2)
@@ -25,50 +25,48 @@
 
   else
   {
-    v19 = 0;
+    v17 = 0;
     objc_opt_class();
     v5 = __UIAccessibilityCastAsClass();
     v6 = v5;
     if (v5)
     {
-      v17 = 0u;
-      v18 = 0u;
       v15 = 0u;
       v16 = 0u;
+      v14 = 0u;
       accessories = [v5 accessories];
-      text = [accessories countByEnumeratingWithState:&v15 objects:v20 count:16];
+      text = [accessories countByEnumeratingWithState:&v13 objects:v18 count:16];
       if (text)
       {
-        v8 = *v16;
+        v8 = *v14;
         while (2)
         {
-          for (i = 0; i != text; i = i + 1)
+          for (i = 0; i != text; ++i)
           {
-            if (*v16 != v8)
+            if (*v14 != v8)
             {
               objc_enumerationMutation(accessories);
             }
 
-            v10 = *(*(&v15 + 1) + 8 * i);
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              v19 = 0;
+              v17 = 0;
               objc_opt_class();
-              v11 = __UIAccessibilityCastAsClass();
-              if (v19 == 1)
+              v10 = __UIAccessibilityCastAsClass();
+              if (v17 == 1)
               {
                 abort();
               }
 
-              v12 = v11;
-              text = [v11 text];
+              v11 = v10;
+              text = [v10 text];
 
               goto LABEL_15;
             }
           }
 
-          text = [accessories countByEnumeratingWithState:&v15 objects:v20 count:16];
+          text = [accessories countByEnumeratingWithState:&v13 objects:v18 count:16];
           if (text)
           {
             continue;
@@ -86,8 +84,6 @@ LABEL_15:
       text = 0;
     }
   }
-
-  v13 = *MEMORY[0x29EDCA608];
 
   return text;
 }

@@ -25,14 +25,14 @@
 
 - (SocialConversationIntent)initWithDomain:(id)domain verb:(id)verb parametersByName:(id)name
 {
-  sub_26907606C();
+  v6 = sub_26907606C();
   sub_26907606C();
   if (name)
   {
     sub_26907601C();
   }
 
-  return SocialConversationIntent.init(domain:verb:parametersByName:)();
+  return SocialConversationIntent.init(domain:verb:parametersByName:)(v6);
 }
 
 @end

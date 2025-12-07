@@ -378,14 +378,16 @@ LABEL_19:
 
 uint64_t __61__NSURL_FPAdditions__fp_personaSharedDirectoryPathForUserID___block_invoke()
 {
-  fp_personaSharedDirectoryPathForUserID__pathByPersonaID = objc_opt_new();
+  v0 = objc_opt_new();
+  v1 = fp_personaSharedDirectoryPathForUserID__pathByPersonaID;
+  fp_personaSharedDirectoryPathForUserID__pathByPersonaID = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 void __59__NSURL_FPAdditions__fp_secureTempDirectoryIgnoringPersona__block_invoke()
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v0 = MEMORY[0x1E695DFF8];
   v1 = NSTemporaryDirectory();
   v2 = [v0 fileURLWithPath:v1];
@@ -397,17 +399,15 @@ void __59__NSURL_FPAdditions__fp_secureTempDirectoryIgnoringPersona__block_invok
   {
     v5 = [fp_secureTempDirectoryIgnoringPersona_sandboxedTemporaryDirectory path];
     v6 = [v5 fp_prettyPath];
-    v8 = 138543362;
-    v9 = v6;
-    _os_log_impl(&dword_1AAAE1000, v4, OS_LOG_TYPE_INFO, "[INFO] Sandboxed temporary directory is %{public}@", &v8, 0xCu);
+    v7 = 138543362;
+    v8 = v6;
+    _os_log_impl(&dword_1AAAE1000, v4, OS_LOG_TYPE_INFO, "[INFO] Sandboxed temporary directory is %{public}@", &v7, 0xCu);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __48__NSURL_FPAdditions__fp_makeWritableOnFD_error___block_invoke()
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v0 = sysconf(71);
   if (v0 == -1)
   {
@@ -421,18 +421,18 @@ void __48__NSURL_FPAdditions__fp_makeWritableOnFD_error___block_invoke()
   else
   {
     v1 = v0;
-    v2 = &v7 - ((v0 + 15) & 0xFFFFFFFFFFFFFFF0);
+    v2 = &v6 - ((v0 + 15) & 0xFFFFFFFFFFFFFFF0);
     bzero(v2, v0);
-    memset(&v9, 0, sizeof(v9));
-    v8 = 0;
-    if (getpwnam_r("mobile", &v9, v2, v1, &v8))
+    memset(&v8, 0, sizeof(v8));
+    v7 = 0;
+    if (getpwnam_r("mobile", &v8, v2, v1, &v7))
     {
       v3 = 1;
     }
 
     else
     {
-      v3 = v8 == 0;
+      v3 = v7 == 0;
     }
 
     if (v3)
@@ -446,12 +446,10 @@ void __48__NSURL_FPAdditions__fp_makeWritableOnFD_error___block_invoke()
 
     else
     {
-      fp_makeWritableOnFD_error__mobile_uid = v9.pw_uid;
-      fp_makeWritableOnFD_error__mobile_gid = v9.pw_gid;
+      fp_makeWritableOnFD_error__mobile_uid = v8.pw_uid;
+      fp_makeWritableOnFD_error__mobile_gid = v8.pw_gid;
     }
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __61__NSURL_FPAdditions__fp_additionalContainerPathsForBookmarks__block_invoke()
@@ -670,86 +668,68 @@ void __110__NSURL_FPConflictWinner__fp_addTestConflictLoserFromItemAtURL_lastEdi
 void __140__NSURL_FPFSHelpers__fp_queued_moveUnderFolder_withNewName_coordinationOptions_allowBounce_allowCoordination_moveHandler_completionHandler___block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_14();
-  v9 = *MEMORY[0x1E69E9840];
   [v1 path];
   objc_claimAutoreleasedReturnValue();
   v2 = [OUTLINED_FUNCTION_13() fp_prettyDescription];
   OUTLINED_FUNCTION_16();
   OUTLINED_FUNCTION_20();
   _os_log_debug_impl(v3, v4, v5, v6, v7, 0x16u);
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __140__NSURL_FPFSHelpers__fp_queued_moveUnderFolder_withNewName_coordinationOptions_allowBounce_allowCoordination_moveHandler_completionHandler___block_invoke_cold_2()
 {
   OUTLINED_FUNCTION_14();
-  v9 = *MEMORY[0x1E69E9840];
   [v1 fp_shortDescription];
   objc_claimAutoreleasedReturnValue();
   v2 = [OUTLINED_FUNCTION_13() fp_shortDescription];
   OUTLINED_FUNCTION_16();
   OUTLINED_FUNCTION_20();
   _os_log_debug_impl(v3, v4, v5, v6, v7, 0x16u);
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __92__NSURL_FPFSHelpers__fp_deleteStaleBusyFileWithFileDescriptor_coordinatorPurposeIdentifier___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_27();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __92__NSURL_FPFSHelpers__fp_deleteStaleBusyFileWithFileDescriptor_coordinatorPurposeIdentifier___block_invoke_2_cold_1(uint64_t a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
   v1 = [*(a1 + 32) absoluteString];
   v2 = [v1 fp_obfuscatedPath];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_20();
   _os_log_debug_impl(v3, v4, v5, v6, v7, 0xCu);
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __92__NSURL_FPFSHelpers__fp_deleteStaleBusyFileWithFileDescriptor_coordinatorPurposeIdentifier___block_invoke_2_cold_2()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
-  v4 = 2112;
-  v5 = v0;
-  _os_log_error_impl(&dword_1AAAE1000, v1, OS_LOG_TYPE_ERROR, "[ERROR] Failed to remove file at url: %@ error: %@", v3, 0x16u);
-  v2 = *MEMORY[0x1E69E9840];
+  v3 = 2112;
+  v4 = v0;
+  _os_log_error_impl(&dword_1AAAE1000, v1, OS_LOG_TYPE_ERROR, "[ERROR] Failed to remove file at url: %@ error: %@", v2, 0x16u);
 }
 
 void __92__NSURL_FPFSHelpers__fp_deleteStaleBusyFileWithFileDescriptor_coordinatorPurposeIdentifier___block_invoke_2_cold_3(void *a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
   v1 = [a1 absoluteString];
   v2 = [v1 fp_obfuscatedPath];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_15();
   _os_log_error_impl(v3, v4, v5, v6, v7, 0xCu);
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __54__NSURL_FPFSHelpers__fp_coordinatedDeleteWithHandler___block_invoke_cold_2()
 {
   OUTLINED_FUNCTION_14();
-  v9 = *MEMORY[0x1E69E9840];
   [v1 path];
   objc_claimAutoreleasedReturnValue();
   v2 = [OUTLINED_FUNCTION_13() fp_prettyDescription];
   OUTLINED_FUNCTION_16();
   OUTLINED_FUNCTION_20();
   _os_log_debug_impl(v3, v4, v5, v6, v7, 0x16u);
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __70__NSURL_FPFSHelpers__fp_deleteAllowingCoordination_completionHandler___block_invoke_cold_1()
@@ -761,38 +741,33 @@ void __70__NSURL_FPFSHelpers__fp_deleteAllowingCoordination_completionHandler___
 
 void __48__NSURL_FPAdditions__fp_makeWritableOnFD_error___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_10_2();
   OUTLINED_FUNCTION_12_1();
   _os_log_fault_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __48__NSURL_FPAdditions__fp_makeWritableOnFD_error___block_invoke_cold_2(NSObject *a1)
 {
-  v5 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
   v2 = *__error();
-  v4[0] = 67109120;
-  v4[1] = v2;
-  _os_log_fault_impl(&dword_1AAAE1000, a1, OS_LOG_TYPE_FAULT, "[CRIT] cannot fetch _SC_GETPW_R_SIZE_MAX: %{errno}d", v4, 8u);
-  v3 = *MEMORY[0x1E69E9840];
+  v3[0] = 67109120;
+  v3[1] = v2;
+  _os_log_fault_impl(&dword_1AAAE1000, a1, OS_LOG_TYPE_FAULT, "[CRIT] cannot fetch _SC_GETPW_R_SIZE_MAX: %{errno}d", v3, 8u);
 }
 
 void __129__NSURL_CopyFile__fp_copyToURL_queue_precomputedItemSize_replacePlaceholder_shouldCopyAppleDouble_ignoreVFSSkipMtime_completion___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v4 = [*(a1 + 40) path];
   v5 = [*(a1 + 48) path];
   v6 = *(a1 + 240);
-  v8 = 138412802;
-  v9 = v4;
-  v10 = 2112;
-  v11 = v5;
-  v12 = 1024;
-  v13 = v6;
-  _os_log_debug_impl(&dword_1AAAE1000, a2, OS_LOG_TYPE_DEBUG, "[DEBUG] copyfile: %@ -> %@ AD-copy: %d", &v8, 0x1Cu);
-
-  v7 = *MEMORY[0x1E69E9840];
+  v7 = 138412802;
+  v8 = v4;
+  v9 = 2112;
+  v10 = v5;
+  v11 = 1024;
+  v12 = v6;
+  _os_log_debug_impl(&dword_1AAAE1000, a2, OS_LOG_TYPE_DEBUG, "[DEBUG] copyfile: %@ -> %@ AD-copy: %d", &v7, 0x1Cu);
 }
 
 @end

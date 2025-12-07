@@ -294,7 +294,7 @@
     goto LABEL_5;
   }
 
-  v3 = SBLogSystemApertureLockElement();
+  v3 = SBLogSystemApertureLockElement(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -623,36 +623,36 @@ LABEL_11:
 
   if (self->_proudLockAssertion)
   {
-    v21 = SBLogSystemApertureLockElement();
+    v21 = SBLogSystemApertureLockElement(unlockedEnvironmentMode);
     if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
       _os_log_impl(&dword_21ED4E000, v21, OS_LOG_TYPE_DEFAULT, "LockElement dismissal lost the race with didDismiss, trying a soft dismiss.", buf, 2u);
     }
 
-    [(SBLockScreenManager *)self _cleanupSystemApertureLockElementIfNecessaryWithReason:@"DidDismiss"];
+    v22 = [(SBLockScreenManager *)self _cleanupSystemApertureLockElementIfNecessaryWithReason:@"DidDismiss"];
     if (self->_proudLockAssertion)
     {
-      v22 = SBLogSystemApertureLockElement();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+      v23 = SBLogSystemApertureLockElement(v22);
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_21ED4E000, v22, OS_LOG_TYPE_DEFAULT, "LockElement dismissal lost the race with didDismiss, starting a hard dismiss timer.", buf, 2u);
+        _os_log_impl(&dword_21ED4E000, v23, OS_LOG_TYPE_DEFAULT, "LockElement dismissal lost the race with didDismiss, starting a hard dismiss timer.", buf, 2u);
       }
 
       self->_ignoringDelayDismissalPending = 1;
       rootSettings = [MEMORY[0x277D02C20] rootSettings];
       pearlSettings = [rootSettings pearlSettings];
       [pearlSettings systemApertureDismissDelayDismissal];
-      v26 = v25;
+      v27 = v26;
 
-      v27 = dispatch_time(0, (v26 * 1000000000.0));
+      v28 = dispatch_time(0, (v27 * 1000000000.0));
       block[0] = MEMORY[0x277D85DD0];
       block[1] = 3221225472;
       block[2] = __57__SBLockScreenManager_lockScreenViewControllerDidDismiss__block_invoke;
       block[3] = &unk_2783A8C18;
       block[4] = self;
-      dispatch_after(v27, MEMORY[0x277D85CD0], block);
+      dispatch_after(v28, MEMORY[0x277D85CD0], block);
     }
   }
 
@@ -1681,8 +1681,9 @@ LABEL_12:
 
 - (id)acquireSystemApertureLockElementSuppressionAssertionWithReason:(id)reason
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   reasonCopy = reason;
+  v5 = reasonCopy;
   if (reasonCopy)
   {
     if (!self->_lockElementSuppressionAssertions)
@@ -1692,48 +1693,48 @@ LABEL_12:
       self->_lockElementSuppressionAssertions = weakObjectsHashTable;
     }
 
-    v7 = SBLogSystemApertureLockElement();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = SBLogSystemApertureLockElement(reasonCopy);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v16 = reasonCopy;
-      _os_log_impl(&dword_21ED4E000, v7, OS_LOG_TYPE_DEFAULT, "Acquiring system aperture lock element suppression assertion for reason: %{public}@", buf, 0xCu);
+      v17 = v5;
+      _os_log_impl(&dword_21ED4E000, v8, OS_LOG_TYPE_DEFAULT, "Acquiring system aperture lock element suppression assertion for reason: %{public}@", buf, 0xCu);
     }
 
     objc_initWeak(buf, self);
-    v8 = objc_alloc(MEMORY[0x277CF0CE8]);
+    v9 = objc_alloc(MEMORY[0x277CF0CE8]);
     uUID = [MEMORY[0x277CCAD78] UUID];
     uUIDString = [uUID UUIDString];
-    v13[0] = MEMORY[0x277D85DD0];
-    v13[1] = 3221225472;
-    v13[2] = __86__SBLockScreenManager_acquireSystemApertureLockElementSuppressionAssertionWithReason___block_invoke;
-    v13[3] = &unk_2783A9070;
-    objc_copyWeak(&v14, buf);
-    v11 = [v8 initWithIdentifier:uUIDString forReason:reasonCopy invalidationBlock:v13];
+    v14[0] = MEMORY[0x277D85DD0];
+    v14[1] = 3221225472;
+    v14[2] = __86__SBLockScreenManager_acquireSystemApertureLockElementSuppressionAssertionWithReason___block_invoke;
+    v14[3] = &unk_2783A9070;
+    objc_copyWeak(&v15, buf);
+    v12 = [v9 initWithIdentifier:uUIDString forReason:v5 invalidationBlock:v14];
 
-    [(NSHashTable *)self->_lockElementSuppressionAssertions addObject:v11];
+    [(NSHashTable *)self->_lockElementSuppressionAssertions addObject:v12];
     if ([(NSHashTable *)self->_lockElementSuppressionAssertions count]== 1)
     {
       [(SBLockScreenManager *)self reevaluateSystemApertureLockElementSuppressionWithReason:@"Lock element suppression assertion acquired"];
     }
 
-    objc_destroyWeak(&v14);
+    objc_destroyWeak(&v15);
     objc_destroyWeak(buf);
   }
 
   else
   {
-    v11 = 0;
+    v12 = 0;
   }
 
-  return v11;
+  return v12;
 }
 
 void __86__SBLockScreenManager_acquireSystemApertureLockElementSuppressionAssertionWithReason___block_invoke(uint64_t a1, void *a2)
 {
   v11 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = SBLogSystemApertureLockElement();
+  v4 = SBLogSystemApertureLockElement(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = [v3 reason];
@@ -1765,27 +1766,27 @@ void __86__SBLockScreenManager_acquireSystemApertureLockElementSuppressionAssert
   {
     objc_initWeak(&location, self);
     v6 = MEMORY[0x277CF0BD0];
-    v13 = MEMORY[0x277D85DD0];
-    v14 = 3221225472;
-    v15 = __91__SBLockScreenManager_acquireSystemApertureLockElementBloomSuppressionAssertionWithReason___block_invoke;
-    v16 = &unk_2783AD688;
-    objc_copyWeak(&v17, &location);
-    v7 = [v6 assertionWithIdentifier:@"LockElementBloomSuppression" stateDidChangeHandler:&v13];
+    v14 = MEMORY[0x277D85DD0];
+    v15 = 3221225472;
+    v16 = __91__SBLockScreenManager_acquireSystemApertureLockElementBloomSuppressionAssertionWithReason___block_invoke;
+    v17 = &unk_2783AD688;
+    objc_copyWeak(&v18, &location);
+    v7 = [v6 assertionWithIdentifier:@"LockElementBloomSuppression" stateDidChangeHandler:&v14];
     v8 = self->_lockElementBloomSuppressionAssertions;
     self->_lockElementBloomSuppressionAssertions = v7;
 
     v9 = self->_lockElementBloomSuppressionAssertions;
-    v10 = SBLogSystemApertureLockElement();
-    [(BSCompoundAssertion *)v9 setLog:v10, v13, v14, v15, v16];
+    v11 = SBLogSystemApertureLockElement(v10);
+    [(BSCompoundAssertion *)v9 setLog:v11, v14, v15, v16, v17];
 
-    objc_destroyWeak(&v17);
+    objc_destroyWeak(&v18);
     objc_destroyWeak(&location);
     lockElementBloomSuppressionAssertions = self->_lockElementBloomSuppressionAssertions;
   }
 
-  v11 = [(BSCompoundAssertion *)lockElementBloomSuppressionAssertions acquireForReason:reasonCopy];
+  v12 = [(BSCompoundAssertion *)lockElementBloomSuppressionAssertions acquireForReason:reasonCopy];
 
-  return v11;
+  return v12;
 }
 
 void __91__SBLockScreenManager_acquireSystemApertureLockElementBloomSuppressionAssertionWithReason___block_invoke(uint64_t a1)
@@ -1802,27 +1803,27 @@ void __91__SBLockScreenManager_acquireSystemApertureLockElementBloomSuppressionA
   {
     objc_initWeak(&location, self);
     v6 = MEMORY[0x277CF0BD0];
-    v13 = MEMORY[0x277D85DD0];
-    v14 = 3221225472;
-    v15 = __80__SBLockScreenManager_acquireSystemApertureLockElementBloomAssertionWithReason___block_invoke;
-    v16 = &unk_2783AD688;
-    objc_copyWeak(&v17, &location);
-    v7 = [v6 assertionWithIdentifier:@"LockElementBloom" stateDidChangeHandler:&v13];
+    v14 = MEMORY[0x277D85DD0];
+    v15 = 3221225472;
+    v16 = __80__SBLockScreenManager_acquireSystemApertureLockElementBloomAssertionWithReason___block_invoke;
+    v17 = &unk_2783AD688;
+    objc_copyWeak(&v18, &location);
+    v7 = [v6 assertionWithIdentifier:@"LockElementBloom" stateDidChangeHandler:&v14];
     v8 = self->_lockElementBloomAssertions;
     self->_lockElementBloomAssertions = v7;
 
     v9 = self->_lockElementBloomAssertions;
-    v10 = SBLogSystemApertureLockElement();
-    [(BSCompoundAssertion *)v9 setLog:v10, v13, v14, v15, v16];
+    v11 = SBLogSystemApertureLockElement(v10);
+    [(BSCompoundAssertion *)v9 setLog:v11, v14, v15, v16, v17];
 
-    objc_destroyWeak(&v17);
+    objc_destroyWeak(&v18);
     objc_destroyWeak(&location);
     lockElementBloomAssertions = self->_lockElementBloomAssertions;
   }
 
-  v11 = [(BSCompoundAssertion *)lockElementBloomAssertions acquireForReason:reasonCopy];
+  v12 = [(BSCompoundAssertion *)lockElementBloomAssertions acquireForReason:reasonCopy];
 
-  return v11;
+  return v12;
 }
 
 void __80__SBLockScreenManager_acquireSystemApertureLockElementBloomAssertionWithReason___block_invoke(uint64_t a1)
@@ -1839,27 +1840,27 @@ void __80__SBLockScreenManager_acquireSystemApertureLockElementBloomAssertionWit
   {
     objc_initWeak(&location, self);
     v6 = MEMORY[0x277CF0BD0];
-    v13 = MEMORY[0x277D85DD0];
-    v14 = 3221225472;
-    v15 = __82__SBLockScreenManager_acquireSystemApertureLockElementVisibleAssertionWithReason___block_invoke;
-    v16 = &unk_2783AD688;
-    objc_copyWeak(&v17, &location);
-    v7 = [v6 assertionWithIdentifier:@"LockElementVisible" stateDidChangeHandler:&v13];
+    v14 = MEMORY[0x277D85DD0];
+    v15 = 3221225472;
+    v16 = __82__SBLockScreenManager_acquireSystemApertureLockElementVisibleAssertionWithReason___block_invoke;
+    v17 = &unk_2783AD688;
+    objc_copyWeak(&v18, &location);
+    v7 = [v6 assertionWithIdentifier:@"LockElementVisible" stateDidChangeHandler:&v14];
     v8 = self->_lockElementVisibleAssertions;
     self->_lockElementVisibleAssertions = v7;
 
     v9 = self->_lockElementVisibleAssertions;
-    v10 = SBLogSystemApertureLockElement();
-    [(BSCompoundAssertion *)v9 setLog:v10, v13, v14, v15, v16];
+    v11 = SBLogSystemApertureLockElement(v10);
+    [(BSCompoundAssertion *)v9 setLog:v11, v14, v15, v16, v17];
 
-    objc_destroyWeak(&v17);
+    objc_destroyWeak(&v18);
     objc_destroyWeak(&location);
     lockElementVisibleAssertions = self->_lockElementVisibleAssertions;
   }
 
-  v11 = [(BSCompoundAssertion *)lockElementVisibleAssertions acquireForReason:reasonCopy];
+  v12 = [(BSCompoundAssertion *)lockElementVisibleAssertions acquireForReason:reasonCopy];
 
-  return v11;
+  return v12;
 }
 
 void __82__SBLockScreenManager_acquireSystemApertureLockElementVisibleAssertionWithReason___block_invoke(uint64_t a1)
@@ -1932,20 +1933,20 @@ void __82__SBLockScreenManager_acquireSystemApertureLockElementVisibleAssertionW
   [defaultCenter postNotificationName:@"SBLockScreenUIWillPresentNotification" object:_hostingWindowScene];
 }
 
-uint64_t __57__SBLockScreenManager_lockScreenViewControllerDidPresent__block_invoke(uint64_t result)
+void *__57__SBLockScreenManager_lockScreenViewControllerDidPresent__block_invoke(void *result)
 {
-  v1 = *(result + 32);
+  v1 = result[4];
   if ((*(v1 + 120) & 1) == 0)
   {
     v2 = result;
     result = [*(v1 + 168) isAuthenticated];
     if ((result & 1) == 0)
     {
-      result = [*(*(v2 + 32) + 168) hasPasscodeSet];
+      result = [*(v2[4] + 168) hasPasscodeSet];
       if (result)
       {
         SBUIPrewarmKeyboard();
-        v3 = *(v2 + 32);
+        v3 = v2[4];
 
         return [v3 setPasscodeVisible:1 animated:0];
       }
@@ -2158,12 +2159,12 @@ SBCoverSheetToAppsWorkspaceTransaction *__71__SBLockScreenManager_lockScreenView
   return v3;
 }
 
-uint64_t __57__SBLockScreenManager_lockScreenViewControllerDidDismiss__block_invoke(uint64_t a1)
+void *__57__SBLockScreenManager_lockScreenViewControllerDidDismiss__block_invoke(uint64_t a1)
 {
   result = *(a1 + 32);
   if (*(result + 296) == 1)
   {
-    if (*(result + 272))
+    if (*(result + 34))
     {
       return [result _cleanupSystemApertureLockElementIgnoringDelays:1 reason:@"DidDismissPlusDelay"];
     }
@@ -2438,48 +2439,49 @@ void __102__SBLockScreenManager_coverSheetViewController_startSpotlightInteracti
 - (void)motionDetectionWakeController:(id)controller motionDetectStateChanged:(BOOL)changed
 {
   changedCopy = changed;
-  v16[2] = *MEMORY[0x277D85DE8];
+  v17[2] = *MEMORY[0x277D85DE8];
   controllerCopy = controller;
+  v7 = controllerCopy;
   if (changedCopy)
   {
     if (!self->_motionDetectionIdleTimerAssertion)
     {
-      v7 = SBLogBacklight();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+      v8 = SBLogBacklight(controllerCopy);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
-        *v14 = 0;
-        _os_log_impl(&dword_21ED4E000, v7, OS_LOG_TYPE_DEFAULT, "Disabling idle timer because motion detected", v14, 2u);
+        *v15 = 0;
+        _os_log_impl(&dword_21ED4E000, v8, OS_LOG_TYPE_DEFAULT, "Disabling idle timer because motion detected", v15, 2u);
       }
 
-      v8 = +[SBIdleTimerGlobalCoordinator sharedInstanceIfExists];
-      v9 = [v8 acquireIdleTimerDisableAssertionForReason:@"Motion-to-Wake"];
+      v9 = +[SBIdleTimerGlobalCoordinator sharedInstanceIfExists];
+      v10 = [v9 acquireIdleTimerDisableAssertionForReason:@"Motion-to-Wake"];
       motionDetectionIdleTimerAssertion = self->_motionDetectionIdleTimerAssertion;
-      self->_motionDetectionIdleTimerAssertion = v9;
+      self->_motionDetectionIdleTimerAssertion = v10;
     }
 
-    v11 = +[SBBacklightController sharedInstance];
-    if (([v11 screenIsOn] & 1) == 0)
+    v12 = +[SBBacklightController sharedInstance];
+    if (([v12 screenIsOn] & 1) == 0)
     {
-      v15[0] = @"SBUIUnlockOptionsTurnOnScreenFirstKey";
-      v15[1] = @"SBUIUnlockOptionsStartFadeInAnimation";
-      v16[0] = MEMORY[0x277CBEC38];
-      v16[1] = MEMORY[0x277CBEC38];
-      v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:2];
-      [(SBLockScreenManager *)self unlockUIFromSource:38 withOptions:v12];
+      v16[0] = @"SBUIUnlockOptionsTurnOnScreenFirstKey";
+      v16[1] = @"SBUIUnlockOptionsStartFadeInAnimation";
+      v17[0] = MEMORY[0x277CBEC38];
+      v17[1] = MEMORY[0x277CBEC38];
+      v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:2];
+      [(SBLockScreenManager *)self unlockUIFromSource:38 withOptions:v13];
     }
   }
 
   else
   {
-    v13 = SBLogBacklight();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v14 = SBLogBacklight(controllerCopy);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      *v14 = 0;
-      _os_log_impl(&dword_21ED4E000, v13, OS_LOG_TYPE_DEFAULT, "Ending idle timer disabling because no motion detected", v14, 2u);
+      *v15 = 0;
+      _os_log_impl(&dword_21ED4E000, v14, OS_LOG_TYPE_DEFAULT, "Ending idle timer disabling because no motion detected", v15, 2u);
     }
 
     [(BSInvalidatable *)self->_motionDetectionIdleTimerAssertion invalidate];
-    v11 = self->_motionDetectionIdleTimerAssertion;
+    v12 = self->_motionDetectionIdleTimerAssertion;
     self->_motionDetectionIdleTimerAssertion = 0;
   }
 }
@@ -2673,7 +2675,7 @@ void *__87__SBLockScreenManager__setSystemApertureProudLockElementVisible_withRe
 
   else if (!result[36])
   {
-    v6 = SBLogSystemApertureLockElement();
+    v6 = SBLogSystemApertureLockElement(result);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       v7 = *(a1 + 32);
@@ -2751,20 +2753,21 @@ void *__87__SBLockScreenManager__setSystemApertureProudLockElementVisible_withRe
     v23 = self->_delayedLockReason;
     self->_delayedLockReason = 0;
 
-    if (([(BSCompoundAssertion *)self->_lockElementVisibleAssertions isActive]& 1) != 0)
+    isActive = [(BSCompoundAssertion *)self->_lockElementVisibleAssertions isActive];
+    if (isActive)
     {
-      v24 = SBLogSystemApertureLockElement();
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+      v25 = SBLogSystemApertureLockElement(isActive);
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
       {
-        *v26 = 0;
-        _os_log_impl(&dword_21ED4E000, v24, OS_LOG_TYPE_DEFAULT, "Cannot hide lock element because we have an active lock element visible assertion", v26, 2u);
+        *v27 = 0;
+        _os_log_impl(&dword_21ED4E000, v25, OS_LOG_TYPE_DEFAULT, "Cannot hide lock element because we have an active lock element visible assertion", v27, 2u);
       }
     }
 
     else
     {
       [(SAInvalidatable *)self->_proudLockAssertion invalidateWithReason:reasonCopy];
-      v25 = self->_proudLockAssertion;
+      v26 = self->_proudLockAssertion;
       self->_proudLockAssertion = 0;
     }
   }
@@ -2773,37 +2776,41 @@ void *__87__SBLockScreenManager__setSystemApertureProudLockElementVisible_withRe
 - (void)_cleanupSystemApertureLockElementIgnoringDelays:(BOOL)delays reason:(id)reason
 {
   delaysCopy = delays;
-  v11 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   reasonCopy = reason;
-  if (self->_proudLockAssertion && ![(SBLockScreenManager *)self _shouldBeShowingLockElement])
+  if (self->_proudLockAssertion)
   {
-    if (delaysCopy)
+    _shouldBeShowingLockElement = [(SBLockScreenManager *)self _shouldBeShowingLockElement];
+    if ((_shouldBeShowingLockElement & 1) == 0)
     {
-      v7 = SBLogSystemApertureLockElement();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+      if (delaysCopy)
       {
-        v9 = 138543362;
-        v10 = reasonCopy;
-        _os_log_impl(&dword_21ED4E000, v7, OS_LOG_TYPE_DEFAULT, "SBLockScreenManager dismissed lock element without delay with reason:%{public}@", &v9, 0xCu);
+        v8 = SBLogSystemApertureLockElement(_shouldBeShowingLockElement);
+        if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+        {
+          v10 = 138543362;
+          v11 = reasonCopy;
+          _os_log_impl(&dword_21ED4E000, v8, OS_LOG_TYPE_DEFAULT, "SBLockScreenManager dismissed lock element without delay with reason:%{public}@", &v10, 0xCu);
+        }
+
+        goto LABEL_11;
       }
 
-      goto LABEL_11;
-    }
-
-    if (!self->_delayedLockReason)
-    {
+      if (!self->_delayedLockReason)
+      {
 LABEL_11:
-      self->_ignoringDelayDismissalPending = 0;
-      [(SBLockScreenManager *)self _setSystemApertureProudLockElementVisible:0 withReason:reasonCopy];
-      goto LABEL_12;
-    }
+        self->_ignoringDelayDismissalPending = 0;
+        [(SBLockScreenManager *)self _setSystemApertureProudLockElementVisible:0 withReason:reasonCopy];
+        goto LABEL_12;
+      }
 
-    v8 = SBLogSystemApertureLockElement();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
-    {
-      v9 = 138543362;
-      v10 = reasonCopy;
-      _os_log_impl(&dword_21ED4E000, v8, OS_LOG_TYPE_DEFAULT, "SBLockScreenManager tried to dismiss aperture forReason:%{public}@ but in delay", &v9, 0xCu);
+      v9 = SBLogSystemApertureLockElement(_shouldBeShowingLockElement);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      {
+        v10 = 138543362;
+        v11 = reasonCopy;
+        _os_log_impl(&dword_21ED4E000, v9, OS_LOG_TYPE_DEFAULT, "SBLockScreenManager tried to dismiss aperture forReason:%{public}@ but in delay", &v10, 0xCu);
+      }
     }
   }
 
@@ -2847,7 +2854,7 @@ LABEL_12:
   if (v9)
   {
     v10 = v8;
-    v11 = SBLogSystemApertureLockElement();
+    v11 = SBLogSystemApertureLockElement(v8);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       v13[0] = 67109632;
@@ -2855,7 +2862,7 @@ LABEL_12:
       v14 = 1024;
       v15 = isAuthenticated & 1;
       v16 = 1024;
-      v17 = v10;
+      v17 = v10 & 1;
       _os_log_impl(&dword_21ED4E000, v11, OS_LOG_TYPE_DEFAULT, "[SBLockScreenManager][Lock Element] should show lock element. lockScreenActive: %{BOOL}u, authed: %{BOOL}u, empty: %{BOOL}u", v13, 0x14u);
     }
   }
@@ -3075,7 +3082,7 @@ uint64_t __53__SBLockScreenManager__handleAuthenticationFeedback___block_invoke_
       mesaWalletPreArmDisabledReasons = self->_mesaWalletPreArmDisabledReasons;
     }
 
-    if ([(NSMutableSet *)mesaWalletPreArmDisabledReasons containsObject:reasonCopy])
+    if (objc_msgSend_containsObject_(mesaWalletPreArmDisabledReasons))
     {
       p_super = SBLogCommon();
       if (os_log_type_enabled(p_super, OS_LOG_TYPE_DEFAULT))
@@ -3107,7 +3114,7 @@ uint64_t __53__SBLockScreenManager__handleAuthenticationFeedback___block_invoke_
       p_super = [(SBLockScreenBiometricAuthenticationCoordinator *)self->_biometricAuthenticationCoordinator acquireDisableWalletPreArmAssertionForReason:reasonCopy];
       if (p_super)
       {
-        if ([(NSMutableSet *)self->_mesaWalletPreArmDisabledReasons containsObject:reasonCopy])
+        if (objc_msgSend_containsObject_(self->_mesaWalletPreArmDisabledReasons))
         {
           mesaWalletPreArmDisabledAssertions = self->_mesaWalletPreArmDisabledAssertions;
           if (!mesaWalletPreArmDisabledAssertions)
@@ -4812,13 +4819,13 @@ LABEL_9:
   return 0;
 }
 
-uint64_t __97__SBLockScreenManager__setPasscodeVisible_animated_ignoringPreflightRequirementsForPresentation___block_invoke(uint64_t a1)
+uint64_t __97__SBLockScreenManager__setPasscodeVisible_animated_ignoringPreflightRequirementsForPresentation___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = SBLogCommon();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = SBLogCommon();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    *v4 = 0;
-    _os_log_impl(&dword_21ED4E000, v2, OS_LOG_TYPE_DEFAULT, "[SBLockScreenManager][Lock Element] transient passcode overlay presentation is going to trigger bloom", v4, 2u);
+    *v5 = 0;
+    _os_log_impl(&dword_21ED4E000, v3, OS_LOG_TYPE_DEFAULT, "[SBLockScreenManager][Lock Element] transient passcode overlay presentation is going to trigger bloom", v5, 2u);
   }
 
   return [*(a1 + 32) _updateBloomIfNeeded];
@@ -4849,12 +4856,12 @@ uint64_t __97__SBLockScreenManager__setPasscodeVisible_animated_ignoringPrefligh
   NSClassFromString(&cfstr_Sblockscreenun_0.isa);
   if (!v11)
   {
-    [SBLockScreenManager _unlockWithRequest:a2 cancelPendingRequests:? completion:?];
+    [SBLockScreenManager _unlockWithRequest:a2 cancelPendingRequests:self completion:?];
   }
 
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    [SBLockScreenManager _unlockWithRequest:a2 cancelPendingRequests:? completion:?];
+    [SBLockScreenManager _unlockWithRequest:a2 cancelPendingRequests:self completion:?];
   }
 
   windowScene = [v11 windowScene];
@@ -5234,23 +5241,24 @@ void __75__SBLockScreenManager__unlockWithRequest_cancelPendingRequests_completi
   }
 }
 
-uint64_t __75__SBLockScreenManager__unlockWithRequest_cancelPendingRequests_completion___block_invoke_2(uint64_t a1)
+uint64_t __75__SBLockScreenManager__unlockWithRequest_cancelPendingRequests_completion___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v2 = SBLogCommon();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+  v3 = SBLogCommon();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
-    *v4 = 0;
-    _os_log_impl(&dword_21ED4E000, v2, OS_LOG_TYPE_INFO, "[Unlock Request] Performing action!", v4, 2u);
+    *v5 = 0;
+    _os_log_impl(&dword_21ED4E000, v3, OS_LOG_TYPE_INFO, "[Unlock Request] Performing action!", v5, 2u);
   }
 
   return [*(a1 + 32) signalWithContext:MEMORY[0x277CBEC38]];
 }
 
-void __75__SBLockScreenManager__unlockWithRequest_cancelPendingRequests_completion___block_invoke_423(uint64_t a1, char a2)
+void __75__SBLockScreenManager__unlockWithRequest_cancelPendingRequests_completion___block_invoke_423(uint64_t a1, uint64_t a2)
 {
+  v2 = a2;
   v4 = SBLogCommon();
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_INFO);
-  if ((a2 & 1) == 0)
+  if ((v2 & 1) == 0)
   {
     if (v5)
     {
@@ -5336,68 +5344,70 @@ LABEL_9:
 
 - (void)_wakeScreenForMouseButtonDown:(id)down
 {
-  v18[2] = *MEMORY[0x277D85DE8];
+  v23[2] = *MEMORY[0x277D85DE8];
   downCopy = down;
   v5 = +[SBBacklightController sharedInstance];
-  if ([v5 screenIsOn])
+  screenIsOn = [v5 screenIsOn];
+  if (screenIsOn)
   {
-    v6 = SBLogBacklight();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = SBLogBacklight(screenIsOn);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      *v16 = 0;
-      v7 = "_wakeScreenForMouseButtonDown: not waking because screen is on";
+      *v21 = 0;
+      v8 = "_wakeScreenForMouseButtonDown: not waking because screen is on";
 LABEL_7:
-      _os_log_impl(&dword_21ED4E000, v6, OS_LOG_TYPE_DEFAULT, v7, v16, 2u);
+      _os_log_impl(&dword_21ED4E000, v7, OS_LOG_TYPE_DEFAULT, v8, v21, 2u);
     }
   }
 
   else
   {
     caseIsEnabledAndLatched = [SBApp caseIsEnabledAndLatched];
-    v6 = SBLogBacklight();
-    v9 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
-    if (caseIsEnabledAndLatched)
+    v10 = caseIsEnabledAndLatched;
+    v7 = SBLogBacklight(caseIsEnabledAndLatched);
+    v11 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
+    if (v10)
     {
-      if (v9)
+      if (v11)
       {
-        *v16 = 0;
-        v7 = "_wakeScreenForMouseButtonDown: not waking because smart cover closed";
+        *v21 = 0;
+        v8 = "_wakeScreenForMouseButtonDown: not waking because smart cover closed";
         goto LABEL_7;
       }
     }
 
     else
     {
-      if (v9)
+      if (v11)
       {
-        *v16 = 0;
-        _os_log_impl(&dword_21ED4E000, v6, OS_LOG_TYPE_DEFAULT, "_wakeScreenForMouseButtonDown: waking", v16, 2u);
+        *v21 = 0;
+        _os_log_impl(&dword_21ED4E000, v7, OS_LOG_TYPE_DEFAULT, "_wakeScreenForMouseButtonDown: waking", v21, 2u);
       }
 
-      v10 = SBLogBacklight();
-      v11 = os_signpost_id_make_with_pointer(v10, downCopy);
+      v13 = SBLogBacklight(v12);
+      v14 = os_signpost_id_make_with_pointer(v13, downCopy);
 
-      v12 = SBLogBacklight();
-      v13 = v12;
-      if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v12))
+      v16 = SBLogBacklight(v15);
+      v17 = v16;
+      if (v14 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v16))
       {
-        *v16 = 0;
-        _os_signpost_emit_with_name_impl(&dword_21ED4E000, v13, OS_SIGNPOST_INTERVAL_BEGIN, v11, "_wakeScreenForMouseButtonDown", &unk_21F8B82DE, v16, 2u);
+        *v21 = 0;
+        _os_signpost_emit_with_name_impl(&dword_21ED4E000, v17, OS_SIGNPOST_INTERVAL_BEGIN, v14, "_wakeScreenForMouseButtonDown", &unk_21F8B82DE, v21, 2u);
       }
 
-      v17[0] = @"SBUIUnlockOptionsTurnOnScreenFirstKey";
-      v17[1] = @"SBUIUnlockOptionsStartFadeInAnimation";
-      v18[0] = MEMORY[0x277CBEC38];
-      v18[1] = MEMORY[0x277CBEC38];
-      v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:2];
-      [(SBLockScreenManager *)self unlockUIFromSource:17 withOptions:v14];
+      v22[0] = @"SBUIUnlockOptionsTurnOnScreenFirstKey";
+      v22[1] = @"SBUIUnlockOptionsStartFadeInAnimation";
+      v23[0] = MEMORY[0x277CBEC38];
+      v23[1] = MEMORY[0x277CBEC38];
+      v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:v22 count:2];
+      [(SBLockScreenManager *)self unlockUIFromSource:17 withOptions:v18];
 
-      v15 = SBLogBacklight();
-      v6 = v15;
-      if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v15))
+      v20 = SBLogBacklight(v19);
+      v7 = v20;
+      if (v14 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v20))
       {
-        *v16 = 0;
-        _os_signpost_emit_with_name_impl(&dword_21ED4E000, v6, OS_SIGNPOST_INTERVAL_END, v11, "_wakeScreenForMouseButtonDown", &unk_21F8B82DE, v16, 2u);
+        *v21 = 0;
+        _os_signpost_emit_with_name_impl(&dword_21ED4E000, v7, OS_SIGNPOST_INTERVAL_END, v14, "_wakeScreenForMouseButtonDown", &unk_21F8B82DE, v21, 2u);
       }
     }
   }
@@ -5621,14 +5631,15 @@ LABEL_12:
   return v21;
 }
 
-void __81__SBLockScreenManager__attemptUnlockWithPasscode_mesa_finishUIUnlock_completion___block_invoke(uint64_t a1, int a2)
+void __81__SBLockScreenManager__attemptUnlockWithPasscode_mesa_finishUIUnlock_completion___block_invoke(uint64_t a1, uint64_t a2)
 {
+  v2 = a2;
   v24 = *MEMORY[0x277D85DE8];
   v4 = SBLogCommon();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     v5 = @"no";
-    if (a2)
+    if (v2)
     {
       v5 = @"yes";
     }
@@ -5644,10 +5655,10 @@ void __81__SBLockScreenManager__attemptUnlockWithPasscode_mesa_finishUIUnlock_co
   v18[2] = __81__SBLockScreenManager__attemptUnlockWithPasscode_mesa_finishUIUnlock_completion___block_invoke_453;
   v18[3] = &unk_2783C4B08;
   v20 = *(a1 + 48);
-  v21 = a2;
+  v21 = v2;
   v19 = *(a1 + 32);
   v7 = [v6 sentinelWithCompletion:v18];
-  if (a2)
+  if (v2)
   {
     v16[0] = MEMORY[0x277D85DD0];
     v16[1] = 3221225472;
@@ -5710,7 +5721,7 @@ void __81__SBLockScreenManager__attemptUnlockWithPasscode_mesa_finishUIUnlock_co
   }
 }
 
-uint64_t __81__SBLockScreenManager__attemptUnlockWithPasscode_mesa_finishUIUnlock_completion___block_invoke_453(uint64_t a1, void *a2)
+void *__81__SBLockScreenManager__attemptUnlockWithPasscode_mesa_finishUIUnlock_completion___block_invoke_453(uint64_t a1, void *a2)
 {
   result = [a2 isComplete];
   if (result)
@@ -6236,18 +6247,18 @@ uint64_t __53__SBLockScreenManager_activateLostModeForRemoteLock___block_invoke(
   }
 }
 
-void __43__SBLockScreenManager_enableLostModePlugin__block_invoke(uint64_t a1)
+void __43__SBLockScreenManager_enableLostModePlugin__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = SBLogCommon();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+  v3 = SBLogCommon();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
-    *v5 = 0;
-    _os_log_impl(&dword_21ED4E000, v2, OS_LOG_TYPE_INFO, "Enabling lost mode plugin since we are in lost mode.", v5, 2u);
+    *v6 = 0;
+    _os_log_impl(&dword_21ED4E000, v3, OS_LOG_TYPE_INFO, "Enabling lost mode plugin since we are in lost mode.", v6, 2u);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v4 = [MEMORY[0x277D67958] contextWithName:@"FindMyiPhoneLockScreen"];
-  [WeakRetained enableLockScreenPluginWithContext:v4];
+  v5 = [MEMORY[0x277D67958] contextWithName:@"FindMyiPhoneLockScreen"];
+  [WeakRetained enableLockScreenPluginWithContext:v5];
 }
 
 - (void)_presentLostModeBiometricAuthenticationTransientOverlay
@@ -7072,46 +7083,46 @@ void __72__SBLockScreenManager__finishUIUnlockFromSource_withOptions_completion_
   _os_log_error_impl(&dword_21ED4E000, a3, OS_LOG_TYPE_ERROR, "Error while launching capture application (%@): %@", &v6, 0x16u);
 }
 
-- (void)_unlockWithRequest:(const char *)a1 cancelPendingRequests:completion:.cold.1(const char *a1)
+- (void)_unlockWithRequest:(const char *)a1 cancelPendingRequests:(uint64_t)a2 completion:.cold.1(const char *a1, uint64_t a2)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:SBLockScreenUnlockRequestClass]"];
+  v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:SBLockScreenUnlockRequestClass]"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v3 = NSStringFromSelector(a1);
-    v4 = objc_opt_class();
-    v5 = NSStringFromClass(v4);
+    v4 = NSStringFromSelector(a1);
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_0_0();
-    v8 = @"SBLockScreenManager.m";
-    v9 = 1024;
-    v10 = 2953;
-    v11 = v6;
-    v12 = v2;
+    v9 = @"SBLockScreenManager.m";
+    v10 = 1024;
+    v11 = 2953;
+    v12 = v7;
+    v13 = v3;
     _os_log_error_impl(&dword_21ED4E000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
   }
 
-  [v2 UTF8String];
+  [v3 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }
 
-- (void)_unlockWithRequest:(const char *)a1 cancelPendingRequests:completion:.cold.2(const char *a1)
+- (void)_unlockWithRequest:(const char *)a1 cancelPendingRequests:(uint64_t)a2 completion:.cold.2(const char *a1, uint64_t a2)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
+  v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v3 = NSStringFromSelector(a1);
-    v4 = objc_opt_class();
-    v5 = NSStringFromClass(v4);
+    v4 = NSStringFromSelector(a1);
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_0_0();
-    v8 = @"SBLockScreenManager.m";
-    v9 = 1024;
-    v10 = 2953;
-    v11 = v6;
-    v12 = v2;
+    v9 = @"SBLockScreenManager.m";
+    v10 = 1024;
+    v11 = 2953;
+    v12 = v7;
+    v13 = v3;
     _os_log_error_impl(&dword_21ED4E000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
   }
 
-  [v2 UTF8String];
+  [v3 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }

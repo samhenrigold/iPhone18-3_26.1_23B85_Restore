@@ -10,6 +10,7 @@
 - (void)_checkpointDictionaryChanged;
 - (void)_mapFromSourceDictionary:(id)dictionary destinationDictionary:(id)destinationDictionary inKey:(id)key outDescription:(id)description;
 - (void)_saveCheckpointDictionary;
+- (void)storeValue:(BOOL)value forCheckpointKey:(id)key;
 @end
 
 @implementation VVVerifier
@@ -103,6 +104,104 @@
 
     notify_post([@"com.apple.visualvoicemail.VVVerifierChanged" UTF8String]);
   }
+}
+
+- (void)storeValue:(BOOL)value forCheckpointKey:(id)key
+{
+  valueCopy = value;
+  keyCopy = key;
+  v22 = [NSNumber numberWithBool:valueCopy];
+  if (valueCopy)
+  {
+    v29 = 0uLL;
+    v30 = 0uLL;
+    v27 = 0uLL;
+    v28 = 0uLL;
+    keyDescriptions = [(VVVerifier *)self keyDescriptions];
+    v8 = [keyDescriptions countByEnumeratingWithState:&v27 objects:v32 count:16];
+    if (v8)
+    {
+      v9 = v8;
+      v10 = *v28;
+LABEL_4:
+      v11 = 0;
+      while (1)
+      {
+        if (*v28 != v10)
+        {
+          objc_enumerationMutation(keyDescriptions);
+        }
+
+        v12 = [*(*(&v27 + 1) + 8 * v11) valueForKey:@"KeyName"];
+        _checkpointDictionary = [(VVVerifier *)self _checkpointDictionary];
+        [_checkpointDictionary setValue:v22 forKey:v12];
+
+        LOBYTE(_checkpointDictionary) = [v12 isEqualToString:keyCopy];
+        if (_checkpointDictionary)
+        {
+          break;
+        }
+
+        if (v9 == ++v11)
+        {
+          v9 = [keyDescriptions countByEnumeratingWithState:&v27 objects:v32 count:16];
+          if (v9)
+          {
+            goto LABEL_4;
+          }
+
+          break;
+        }
+      }
+    }
+  }
+
+  else
+  {
+    v25 = 0uLL;
+    v26 = 0uLL;
+    v23 = 0uLL;
+    v24 = 0uLL;
+    keyDescriptions = [(VVVerifier *)self keyDescriptions];
+    v14 = [keyDescriptions countByEnumeratingWithState:&v23 objects:v31 count:16];
+    if (v14)
+    {
+      v15 = v14;
+      v16 = 0;
+      v17 = *v24;
+      do
+      {
+        for (i = 0; i != v15; i = i + 1)
+        {
+          if (*v24 != v17)
+          {
+            objc_enumerationMutation(keyDescriptions);
+          }
+
+          v19 = [*(*(&v23 + 1) + 8 * i) valueForKey:@"KeyName"];
+          if (v16)
+          {
+            _checkpointDictionary2 = [(VVVerifier *)self _checkpointDictionary];
+            [_checkpointDictionary2 removeObjectForKey:v19];
+          }
+
+          if ([v19 isEqualToString:keyCopy])
+          {
+            _checkpointDictionary3 = [(VVVerifier *)self _checkpointDictionary];
+            [_checkpointDictionary3 setValue:v22 forKey:keyCopy];
+
+            v16 = 1;
+          }
+        }
+
+        v15 = [keyDescriptions countByEnumeratingWithState:&v23 objects:v31 count:16];
+      }
+
+      while (v15);
+    }
+  }
+
+  [(VVVerifier *)self _saveCheckpointDictionary];
 }
 
 - (BOOL)valueForCheckpointKey:(id)key exists:(BOOL *)exists

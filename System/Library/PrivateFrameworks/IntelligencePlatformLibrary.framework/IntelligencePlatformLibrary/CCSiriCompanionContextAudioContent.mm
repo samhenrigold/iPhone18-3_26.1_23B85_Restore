@@ -13,10 +13,10 @@
 
 - (CCSiriCompanionContextAudioContent)initWithJSONDictionary:(id)dictionary error:(id *)error
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   objc_opt_class();
-  v39 = 0;
+  v38 = 0;
   IsInstanceOfExpectedClass = CCValidateIsInstanceOfExpectedClass();
   v8 = 0;
   if (IsInstanceOfExpectedClass)
@@ -26,9 +26,9 @@
     if (v10)
     {
       v11 = v10;
-      v33 = v9;
+      v32 = v9;
       objc_opt_class();
-      v38 = v8;
+      v37 = v8;
       v12 = CCValidateIsInstanceOfExpectedClass();
       v13 = v8;
 
@@ -38,7 +38,7 @@
         v23 = 0;
         v14 = v11;
         v8 = v13;
-        v9 = v33;
+        v9 = v32;
 LABEL_21:
 
         goto LABEL_22;
@@ -46,29 +46,29 @@ LABEL_21:
 
       selfCopy = self;
       v14 = objc_opt_new();
+      v33 = 0u;
       v34 = 0u;
       v35 = 0u;
       v36 = 0u;
-      v37 = 0u;
       v15 = v11;
-      v16 = [v15 countByEnumeratingWithState:&v34 objects:v40 count:16];
+      v16 = [v15 countByEnumeratingWithState:&v33 objects:v39 count:16];
       if (v16)
       {
         v17 = v16;
-        v18 = *v35;
-        v31 = dictionaryCopy;
+        v18 = *v34;
+        v30 = dictionaryCopy;
         while (2)
         {
           v19 = 0;
           v20 = v13;
           do
           {
-            if (*v35 != v18)
+            if (*v34 != v18)
             {
               objc_enumerationMutation(v15);
             }
 
-            v21 = *(*(&v34 + 1) + 8 * v19);
+            v21 = *(*(&v33 + 1) + 8 * v19);
             objc_opt_class();
             v22 = CCValidateIsInstanceOfExpectedClass();
             v13 = v20;
@@ -81,8 +81,8 @@ LABEL_21:
               v14 = v15;
               v8 = v13;
               self = selfCopy;
-              v9 = v33;
-              dictionaryCopy = v31;
+              v9 = v32;
+              dictionaryCopy = v30;
               goto LABEL_21;
             }
 
@@ -92,8 +92,8 @@ LABEL_21:
           }
 
           while (v17 != v19);
-          v17 = [v15 countByEnumeratingWithState:&v34 objects:v40 count:16];
-          dictionaryCopy = v31;
+          v17 = [v15 countByEnumeratingWithState:&v33 objects:v39 count:16];
+          dictionaryCopy = v30;
           if (v17)
           {
             continue;
@@ -105,7 +105,7 @@ LABEL_21:
 
       v8 = v13;
       self = selfCopy;
-      v9 = v33;
+      v9 = v32;
     }
 
     else
@@ -136,7 +136,6 @@ LABEL_21:
   v23 = 0;
 LABEL_22:
 
-  v29 = *MEMORY[0x1E69E9840];
   return v23;
 }
 
@@ -343,7 +342,6 @@ LABEL_47:
             v41 = v10;
             errorCopy = error;
             v44 = v43 = dataCopy;
-            v45 = *&v7[*MEMORY[0x1E6993AA8]];
             v11 = CCSkipFieldErrorForMessage();
 
             v12 = MEMORY[0x1E6993AA8];
@@ -485,9 +483,9 @@ LABEL_56:
 LABEL_61:
   v11 = 0;
 LABEL_62:
-  v46 = [v10 copy];
+  v45 = [v10 copy];
   mediaCategories = self->_mediaCategories;
-  self->_mediaCategories = v46;
+  self->_mediaCategories = v45;
 
   if (v11)
   {
@@ -496,27 +494,25 @@ LABEL_62:
 
   else
   {
-    v48 = MEMORY[0x1E6993AA8];
     if (!*&v7[*MEMORY[0x1E6993AA8]])
     {
-      v54 = 1;
+      v51 = 1;
       goto LABEL_67;
     }
 
-    v49 = objc_opt_class();
-    v50 = NSStringFromClass(v49);
-    v51 = *&v7[*v48];
+    v47 = objc_opt_class();
+    v48 = NSStringFromClass(v47);
     CCInvalidBufferErrorForMessage();
-    v53 = v52 = dataCopy;
+    v50 = v49 = dataCopy;
     CCSetError();
 
-    dataCopy = v52;
+    dataCopy = v49;
   }
 
-  v54 = 0;
+  v51 = 0;
 LABEL_67:
 
-  return v54;
+  return v51;
 }
 
 - (CCSiriCompanionContextAudioContent)initWithAppBundleId:(id)id mediaCategories:(id)categories subscriptionStatus:(unsigned int)status localizedAppName:(id)name nowPlayingCount:(id)count error:(id *)error

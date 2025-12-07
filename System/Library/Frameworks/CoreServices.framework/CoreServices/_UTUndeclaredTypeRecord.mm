@@ -3,6 +3,7 @@
 - (BOOL)isInPublicDomain;
 - (_UTUndeclaredTypeRecord)initWithCoder:(id)coder;
 - (id)_initWithContext:(LSContext *)context identifier:(id)identifier;
+- (id)_persistentIdentifierWithContext:(LSContext *)context tableID:(unsigned int)d unitID:(unsigned int)iD unitBytes:(const void *)bytes;
 - (id)awakeAfterUsingCoder:(id)coder;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)declaration;
@@ -37,12 +38,11 @@
 
 - (id)declaration
 {
-  v7[1] = *MEMORY[0x1E69E9840];
+  v6[1] = *MEMORY[0x1E69E9840];
   identifier = self->_identifier;
-  v6 = @"UTTypeIdentifier";
-  v7[0] = identifier;
-  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:&v6 count:1];
-  v4 = *MEMORY[0x1E69E9840];
+  v5 = @"UTTypeIdentifier";
+  v6[0] = identifier;
+  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:&v5 count:1];
 
   return v3;
 }
@@ -53,6 +53,24 @@
   LOBYTE(self) = UTTypeEqual(identifierCopy, [(_UTUndeclaredTypeRecord *)self identifier]) != 0;
 
   return self;
+}
+
+- (id)_persistentIdentifierWithContext:(LSContext *)context tableID:(unsigned int)d unitID:(unsigned int)iD unitBytes:(const void *)bytes
+{
+  v12.receiver = self;
+  v12.super_class = _UTUndeclaredTypeRecord;
+  v7 = [(LSRecord *)&v12 _persistentIdentifierWithContext:context tableID:*&d unitID:*&iD unitBytes:bytes];
+  v8 = [v7 mutableCopy];
+
+  v9 = [(NSString *)self->_identifier dataUsingEncoding:4];
+  if (v9)
+  {
+    [v8 appendData:v9];
+  }
+
+  v10 = [v8 copy];
+
+  return v10;
 }
 
 - (void)encodeWithCoder:(id)coder

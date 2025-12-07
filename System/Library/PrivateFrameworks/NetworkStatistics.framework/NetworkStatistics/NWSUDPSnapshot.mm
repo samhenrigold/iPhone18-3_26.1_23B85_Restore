@@ -367,23 +367,23 @@ LABEL_34:
 - (id)description
 {
   __ret = 0;
-  v7.receiver = self;
-  v7.super_class = NWSUDPSnapshot;
-  v3 = [(NWSSnapshot *)&v7 description];
-  v4 = printf_domain();
-  asxprintf(&__ret, v4, 0, "NWUDPSnapshot %N<->%N@%I %@", &self->_descriptor.local, &self->_descriptor.remote, self->_descriptor.ifindex, v3);
+  v8.receiver = self;
+  v8.super_class = NWSUDPSnapshot;
+  v3 = [(NWSSnapshot *)&v8 description];
+  v5 = printf_domain(v3, v4);
+  asxprintf(&__ret, v5, 0, "NWUDPSnapshot %N<->%N@%I %@", &self->_descriptor.local, &self->_descriptor.remote, self->_descriptor.ifindex, v3);
   if (__ret)
   {
-    v5 = [MEMORY[0x277CCACA8] stringWithCString:__ret encoding:4];
+    v6 = [MEMORY[0x277CCACA8] stringWithCString:__ret encoding:4];
     free(__ret);
   }
 
   else
   {
-    v5 = 0;
+    v6 = 0;
   }
 
-  return v5;
+  return v6;
 }
 
 - (NWSUDPSnapshot)initWithCounts:(const nstat_counts *)counts UDPDescriptor:(nstat_udp_descriptor *)descriptor sourceIdent:(unint64_t)ident events:(unint64_t)events seqno:(unint64_t)seqno provider:(unsigned int)provider

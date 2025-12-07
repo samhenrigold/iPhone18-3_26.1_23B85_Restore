@@ -12,6 +12,7 @@
 - (id)eventForParameterCurveEntry:(id)entry;
 - (id)eventForSPIEventType:(unint64_t)type time:(double)time eventParams:(id)params duration:(double)duration;
 - (id)eventForTransientHapticAtTime:(double)time params:(id)params duration:(double)duration;
+- (unint64_t)continuousHapticEventTypeForDefaultSharpness:(BOOL)sharpness;
 - (unint64_t)continuousHapticEventTypeFromSharpness:(float)sharpness sustained:(BOOL)sustained;
 - (unint64_t)eventTypeForBuiltInAudioEventType:(unint64_t)type;
 - (unint64_t)transientHapticEventTypeForDefaultSharpness;
@@ -37,7 +38,7 @@
 
 - (float)limitEventParameter:(id)parameter value:(float)value parameter:(id)a5 eventType:(id)type
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v7 = [parameter attributesForEventParameter:a5 eventType:type error:0];
   v8 = v7;
   if (!v7)
@@ -61,13 +62,13 @@ LABEL_14:
 
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      v17 = 136315650;
-      v18 = "HapticCommandConverter.mm";
-      v19 = 1024;
-      v20 = 100;
-      v21 = 2080;
-      v22 = "[HapticCommandConverter limitEventParameter:value:parameter:eventType:]";
-      _os_log_impl(&dword_21569A000, v13, OS_LOG_TYPE_ERROR, "%25s:%-5d %s: ERROR: Invalid event parameter ID.", &v17, 0x1Cu);
+      v16 = 136315650;
+      v17 = "HapticCommandConverter.mm";
+      v18 = 1024;
+      v19 = 100;
+      v20 = 2080;
+      v21 = "[HapticCommandConverter limitEventParameter:value:parameter:eventType:]";
+      _os_log_impl(&dword_21569A000, v13, OS_LOG_TYPE_ERROR, "%25s:%-5d %s: ERROR: Invalid event parameter ID.", &v16, 0x1Cu);
     }
 
     goto LABEL_14;
@@ -93,13 +94,12 @@ LABEL_14:
 
 LABEL_15:
 
-  v15 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
 - (float)limitDynamicParameter:(id)parameter value:(float)value parameter:(id)a5
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v6 = [parameter attributesForDynamicParameter:a5 error:0];
   v7 = v6;
   if (!v6)
@@ -123,13 +123,13 @@ LABEL_14:
 
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      v16 = 136315650;
-      v17 = "HapticCommandConverter.mm";
-      v18 = 1024;
-      v19 = 118;
-      v20 = 2080;
-      v21 = "[HapticCommandConverter limitDynamicParameter:value:parameter:]";
-      _os_log_impl(&dword_21569A000, v12, OS_LOG_TYPE_ERROR, "%25s:%-5d %s: ERROR: Invalid dynamic parameter ID", &v16, 0x1Cu);
+      v15 = 136315650;
+      v16 = "HapticCommandConverter.mm";
+      v17 = 1024;
+      v18 = 118;
+      v19 = 2080;
+      v20 = "[HapticCommandConverter limitDynamicParameter:value:parameter:]";
+      _os_log_impl(&dword_21569A000, v12, OS_LOG_TYPE_ERROR, "%25s:%-5d %s: ERROR: Invalid dynamic parameter ID", &v15, 0x1Cu);
     }
 
     goto LABEL_14;
@@ -155,7 +155,6 @@ LABEL_14:
 
 LABEL_15:
 
-  v14 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
@@ -183,7 +182,7 @@ LABEL_15:
 
 - (id)eventForAudioEventType:(unint64_t)type time:(double)time eventParams:(id)params duration:(double)duration
 {
-  v81 = *MEMORY[0x277D85DE8];
+  v80 = *MEMORY[0x277D85DE8];
   paramsCopy = params;
   if (kHAPIScope)
   {
@@ -197,18 +196,18 @@ LABEL_15:
         {
           *buf = 136316674;
           *&buf[4] = "HapticCommandConverter.mm";
-          v76 = 1024;
-          *v77 = 139;
-          *&v77[4] = 2080;
-          *&v77[6] = "[HapticCommandConverter eventForAudioEventType:time:eventParams:duration:]";
-          v78 = 1024;
-          *v79 = type;
-          *&v79[4] = 2048;
-          *&v79[6] = time;
-          *&v79[14] = 2048;
-          *&v79[16] = duration;
-          *&v79[24] = 1024;
-          v80 = [paramsCopy count];
+          v75 = 1024;
+          *v76 = 139;
+          *&v76[4] = 2080;
+          *&v76[6] = "[HapticCommandConverter eventForAudioEventType:time:eventParams:duration:]";
+          v77 = 1024;
+          *v78 = type;
+          *&v78[4] = 2048;
+          *&v78[6] = time;
+          *&v78[14] = 2048;
+          *&v78[16] = duration;
+          *&v78[24] = 1024;
+          v79 = [paramsCopy count];
           _os_log_impl(&dword_21569A000, v11, OS_LOG_TYPE_DEBUG, "%25s:%-5d %s: Type %u time: %.2f secs dur: %.2f secs %u event params", buf, 0x3Cu);
         }
       }
@@ -219,12 +218,12 @@ LABEL_15:
   {
     typeCopy = type;
     __p = 0;
+    v71 = 0;
     v72 = 0;
-    v73 = 0;
     v12 = +[CHHapticEngine capabilitiesForHardware];
+    v67 = 0u;
     v68 = 0u;
-    v69 = 0u;
-    v70 = 1065353216;
+    v69 = 1065353216;
     [(HapticCommandConverter *)self defaultEventParameterValueForParameter:CHHapticEventParameterIDAudioVolume eventType:CHHapticEventTypeAudioContinuous];
     v14 = v13;
     [(HapticCommandConverter *)self defaultEventParameterValueForParameter:CHHapticEventParameterIDAudioPan eventType:CHHapticEventTypeAudioContinuous];
@@ -235,38 +234,38 @@ LABEL_15:
     v19 = 0;
     *buf = 1000;
     *&buf[8] = v14;
-    *&v77[2] = 1015;
-    *&v77[10] = v16;
-    *&v79[2] = 1013;
-    *&v79[10] = v18;
-    *&v79[18] = 1001;
-    v80 = v20;
+    *&v76[2] = 1015;
+    *&v76[10] = v16;
+    *&v78[2] = 1013;
+    *&v78[10] = v18;
+    *&v78[18] = 1001;
+    v79 = v20;
     do
     {
-      std::__hash_table<std::__hash_value_type<AVHapticPlayerParameterType,float>,std::__unordered_map_hasher<AVHapticPlayerParameterType,std::__hash_value_type<AVHapticPlayerParameterType,float>,std::hash<AVHapticPlayerParameterType>,std::equal_to<AVHapticPlayerParameterType>,true>,std::__unordered_map_equal<AVHapticPlayerParameterType,std::__hash_value_type<AVHapticPlayerParameterType,float>,std::equal_to<AVHapticPlayerParameterType>,std::hash<AVHapticPlayerParameterType>,true>,std::allocator<std::__hash_value_type<AVHapticPlayerParameterType,float>>>::__emplace_unique_key_args<AVHapticPlayerParameterType,std::pair<AVHapticPlayerParameterType const,float> const&>(&v68, &buf[v19]);
+      std::__hash_table<std::__hash_value_type<AVHapticPlayerParameterType,float>,std::__unordered_map_hasher<AVHapticPlayerParameterType,std::__hash_value_type<AVHapticPlayerParameterType,float>,std::hash<AVHapticPlayerParameterType>,std::equal_to<AVHapticPlayerParameterType>,true>,std::__unordered_map_equal<AVHapticPlayerParameterType,std::__hash_value_type<AVHapticPlayerParameterType,float>,std::equal_to<AVHapticPlayerParameterType>,std::hash<AVHapticPlayerParameterType>,true>,std::allocator<std::__hash_value_type<AVHapticPlayerParameterType,float>>>::__emplace_unique_key_args<AVHapticPlayerParameterType,std::pair<AVHapticPlayerParameterType const,float> const&>(&v67, &buf[v19], &buf[v19]);
       v19 += 16;
     }
 
     while (v19 != 64);
+    v63 = 0u;
     v64 = 0u;
     v65 = 0u;
     v66 = 0u;
-    v67 = 0u;
     obj = paramsCopy;
-    v21 = [obj countByEnumeratingWithState:&v64 objects:v74 count:16];
+    v21 = [obj countByEnumeratingWithState:&v63 objects:v73 count:16];
     if (v21)
     {
-      v22 = *v65;
+      v22 = *v64;
       do
       {
         for (i = 0; i != v21; ++i)
         {
-          if (*v65 != v22)
+          if (*v64 != v22)
           {
             objc_enumerationMutation(obj);
           }
 
-          v24 = *(*(&v64 + 1) + 8 * i);
+          v24 = *(*(&v63 + 1) + 8 * i);
           if (kHAPIScope)
           {
             if (*(kHAPIScope + 8))
@@ -281,14 +280,14 @@ LABEL_15:
                   [v24 value];
                   *buf = 136316162;
                   *&buf[4] = "HapticCommandConverter.mm";
-                  v76 = 1024;
-                  *v77 = 162;
-                  *&v77[4] = 2080;
-                  *&v77[6] = "[HapticCommandConverter eventForAudioEventType:time:eventParams:duration:]";
-                  v78 = 2112;
-                  *v79 = parameterID;
-                  *&v79[8] = 2048;
-                  *&v79[10] = v28;
+                  v75 = 1024;
+                  *v76 = 162;
+                  *&v76[4] = 2080;
+                  *&v76[6] = "[HapticCommandConverter eventForAudioEventType:time:eventParams:duration:]";
+                  v77 = 2112;
+                  *v78 = parameterID;
+                  *&v78[8] = 2048;
+                  *&v78[10] = v28;
                   _os_log_impl(&dword_21569A000, v26, OS_LOG_TYPE_DEBUG, "%25s:%-5d %s: Fixed Param '%@': value %f", buf, 0x30u);
                 }
               }
@@ -311,7 +310,7 @@ LABEL_15:
             *&buf[8] = v34;
             std::vector<AVHapticPlayerFixedParameter>::push_back[abi:ne200100](&__p, buf);
             *buf = 1000;
-            std::__hash_table<std::__hash_value_type<AVHapticPlayerParameterType,float>,std::__unordered_map_hasher<AVHapticPlayerParameterType,std::__hash_value_type<AVHapticPlayerParameterType,float>,std::hash<AVHapticPlayerParameterType>,std::equal_to<AVHapticPlayerParameterType>,true>,std::__unordered_map_equal<AVHapticPlayerParameterType,std::__hash_value_type<AVHapticPlayerParameterType,float>,std::equal_to<AVHapticPlayerParameterType>,std::hash<AVHapticPlayerParameterType>,true>,std::allocator<std::__hash_value_type<AVHapticPlayerParameterType,float>>>::__erase_unique<AVHapticPlayerParameterType>(&v68, buf);
+            std::__hash_table<std::__hash_value_type<AVHapticPlayerParameterType,float>,std::__unordered_map_hasher<AVHapticPlayerParameterType,std::__hash_value_type<AVHapticPlayerParameterType,float>,std::hash<AVHapticPlayerParameterType>,std::equal_to<AVHapticPlayerParameterType>,true>,std::__unordered_map_equal<AVHapticPlayerParameterType,std::__hash_value_type<AVHapticPlayerParameterType,float>,std::equal_to<AVHapticPlayerParameterType>,std::hash<AVHapticPlayerParameterType>,true>,std::allocator<std::__hash_value_type<AVHapticPlayerParameterType,float>>>::__erase_unique<AVHapticPlayerParameterType>(&v67, buf);
           }
 
           else
@@ -325,7 +324,7 @@ LABEL_15:
               *&buf[8] = v34;
               std::vector<AVHapticPlayerFixedParameter>::push_back[abi:ne200100](&__p, buf);
               *buf = 1015;
-              std::__hash_table<std::__hash_value_type<AVHapticPlayerParameterType,float>,std::__unordered_map_hasher<AVHapticPlayerParameterType,std::__hash_value_type<AVHapticPlayerParameterType,float>,std::hash<AVHapticPlayerParameterType>,std::equal_to<AVHapticPlayerParameterType>,true>,std::__unordered_map_equal<AVHapticPlayerParameterType,std::__hash_value_type<AVHapticPlayerParameterType,float>,std::equal_to<AVHapticPlayerParameterType>,std::hash<AVHapticPlayerParameterType>,true>,std::allocator<std::__hash_value_type<AVHapticPlayerParameterType,float>>>::__erase_unique<AVHapticPlayerParameterType>(&v68, buf);
+              std::__hash_table<std::__hash_value_type<AVHapticPlayerParameterType,float>,std::__unordered_map_hasher<AVHapticPlayerParameterType,std::__hash_value_type<AVHapticPlayerParameterType,float>,std::hash<AVHapticPlayerParameterType>,std::equal_to<AVHapticPlayerParameterType>,true>,std::__unordered_map_equal<AVHapticPlayerParameterType,std::__hash_value_type<AVHapticPlayerParameterType,float>,std::equal_to<AVHapticPlayerParameterType>,std::hash<AVHapticPlayerParameterType>,true>,std::allocator<std::__hash_value_type<AVHapticPlayerParameterType,float>>>::__erase_unique<AVHapticPlayerParameterType>(&v67, buf);
             }
 
             else
@@ -339,7 +338,7 @@ LABEL_15:
                 *&buf[8] = v34;
                 std::vector<AVHapticPlayerFixedParameter>::push_back[abi:ne200100](&__p, buf);
                 *buf = 1013;
-                std::__hash_table<std::__hash_value_type<AVHapticPlayerParameterType,float>,std::__unordered_map_hasher<AVHapticPlayerParameterType,std::__hash_value_type<AVHapticPlayerParameterType,float>,std::hash<AVHapticPlayerParameterType>,std::equal_to<AVHapticPlayerParameterType>,true>,std::__unordered_map_equal<AVHapticPlayerParameterType,std::__hash_value_type<AVHapticPlayerParameterType,float>,std::equal_to<AVHapticPlayerParameterType>,std::hash<AVHapticPlayerParameterType>,true>,std::allocator<std::__hash_value_type<AVHapticPlayerParameterType,float>>>::__erase_unique<AVHapticPlayerParameterType>(&v68, buf);
+                std::__hash_table<std::__hash_value_type<AVHapticPlayerParameterType,float>,std::__unordered_map_hasher<AVHapticPlayerParameterType,std::__hash_value_type<AVHapticPlayerParameterType,float>,std::hash<AVHapticPlayerParameterType>,std::equal_to<AVHapticPlayerParameterType>,true>,std::__unordered_map_equal<AVHapticPlayerParameterType,std::__hash_value_type<AVHapticPlayerParameterType,float>,std::equal_to<AVHapticPlayerParameterType>,std::hash<AVHapticPlayerParameterType>,true>,std::allocator<std::__hash_value_type<AVHapticPlayerParameterType,float>>>::__erase_unique<AVHapticPlayerParameterType>(&v67, buf);
               }
 
               else
@@ -353,7 +352,7 @@ LABEL_15:
                   *&buf[8] = v34;
                   std::vector<AVHapticPlayerFixedParameter>::push_back[abi:ne200100](&__p, buf);
                   *buf = 1001;
-                  std::__hash_table<std::__hash_value_type<AVHapticPlayerParameterType,float>,std::__unordered_map_hasher<AVHapticPlayerParameterType,std::__hash_value_type<AVHapticPlayerParameterType,float>,std::hash<AVHapticPlayerParameterType>,std::equal_to<AVHapticPlayerParameterType>,true>,std::__unordered_map_equal<AVHapticPlayerParameterType,std::__hash_value_type<AVHapticPlayerParameterType,float>,std::equal_to<AVHapticPlayerParameterType>,std::hash<AVHapticPlayerParameterType>,true>,std::allocator<std::__hash_value_type<AVHapticPlayerParameterType,float>>>::__erase_unique<AVHapticPlayerParameterType>(&v68, buf);
+                  std::__hash_table<std::__hash_value_type<AVHapticPlayerParameterType,float>,std::__unordered_map_hasher<AVHapticPlayerParameterType,std::__hash_value_type<AVHapticPlayerParameterType,float>,std::hash<AVHapticPlayerParameterType>,std::equal_to<AVHapticPlayerParameterType>,true>,std::__unordered_map_equal<AVHapticPlayerParameterType,std::__hash_value_type<AVHapticPlayerParameterType,float>,std::equal_to<AVHapticPlayerParameterType>,std::hash<AVHapticPlayerParameterType>,true>,std::allocator<std::__hash_value_type<AVHapticPlayerParameterType,float>>>::__erase_unique<AVHapticPlayerParameterType>(&v67, buf);
                 }
 
                 else
@@ -399,23 +398,23 @@ LABEL_15:
 
                         if ((v50 & 1) == 0)
                         {
-                          v57 = CALog::LogObjIfEnabled(1, kHAPIScope, v51);
-                          v58 = v57;
-                          if (v57)
+                          v56 = CALog::LogObjIfEnabled(1, kHAPIScope, v51);
+                          v57 = v56;
+                          if (v56)
                           {
-                            v59 = v57;
-                            if (os_log_type_enabled(v59, OS_LOG_TYPE_ERROR))
+                            v58 = v56;
+                            if (os_log_type_enabled(v58, OS_LOG_TYPE_ERROR))
                             {
                               parameterID11 = [v24 parameterID];
                               *buf = 136315906;
                               *&buf[4] = "HapticCommandConverter.mm";
-                              v76 = 1024;
-                              *v77 = 196;
-                              *&v77[4] = 2080;
-                              *&v77[6] = "[HapticCommandConverter eventForAudioEventType:time:eventParams:duration:]";
-                              v78 = 2112;
-                              *v79 = parameterID11;
-                              _os_log_impl(&dword_21569A000, v59, OS_LOG_TYPE_ERROR, "%25s:%-5d %s: ERROR: Unknown event param type: %@", buf, 0x26u);
+                              v75 = 1024;
+                              *v76 = 196;
+                              *&v76[4] = 2080;
+                              *&v76[6] = "[HapticCommandConverter eventForAudioEventType:time:eventParams:duration:]";
+                              v77 = 2112;
+                              *v78 = parameterID11;
+                              _os_log_impl(&dword_21569A000, v58, OS_LOG_TYPE_ERROR, "%25s:%-5d %s: ERROR: Unknown event param type: %@", buf, 0x26u);
                             }
                           }
 
@@ -430,20 +429,20 @@ LABEL_15:
           }
         }
 
-        v21 = [obj countByEnumeratingWithState:&v64 objects:v74 count:16];
+        v21 = [obj countByEnumeratingWithState:&v63 objects:v73 count:16];
       }
 
       while (v21);
     }
 
-    for (j = v69; j; j = *j)
+    for (j = v68; j; j = *j)
     {
       *buf = j[2];
       *&buf[8] = *(j + 6);
       std::vector<AVHapticPlayerFixedParameter>::push_back[abi:ne200100](&__p, buf);
     }
 
-    if (v72 == __p)
+    if (v71 == __p)
     {
       v53 = 0;
     }
@@ -453,12 +452,12 @@ LABEL_15:
       v53 = __p;
     }
 
-    v54 = [MEMORY[0x277CEFD50] eventWithEventType:typeCopy time:v53 parameters:(v72 - __p) >> 4 count:time duration:duration];
-    std::__hash_table<std::__hash_value_type<void const*,unsigned int>,std::__unordered_map_hasher<void const*,std::__hash_value_type<void const*,unsigned int>,std::hash<void const*>,std::equal_to<void const*>,true>,std::__unordered_map_equal<void const*,std::__hash_value_type<void const*,unsigned int>,std::equal_to<void const*>,std::hash<void const*>,true>,std::allocator<std::__hash_value_type<void const*,unsigned int>>>::~__hash_table(&v68);
+    v54 = [MEMORY[0x277CEFD50] eventWithEventType:typeCopy time:v53 parameters:(v71 - __p) >> 4 count:time duration:duration];
+    std::__hash_table<std::__hash_value_type<void const*,unsigned int>,std::__unordered_map_hasher<void const*,std::__hash_value_type<void const*,unsigned int>,std::hash<void const*>,std::equal_to<void const*>,true>,std::__unordered_map_equal<void const*,std::__hash_value_type<void const*,unsigned int>,std::equal_to<void const*>,std::hash<void const*>,true>,std::allocator<std::__hash_value_type<void const*,unsigned int>>>::~__hash_table(&v67);
 
     if (__p)
     {
-      v72 = __p;
+      v71 = __p;
       operator delete(__p);
     }
   }
@@ -467,8 +466,6 @@ LABEL_15:
   {
     v54 = [MEMORY[0x277CEFD50] eventWithEventType:type time:time duration:duration];
   }
-
-  v55 = *MEMORY[0x277D85DE8];
 
   return v54;
 }
@@ -479,7 +476,7 @@ LABEL_15:
   v5 = serverConfig;
   if (serverConfig)
   {
-    [serverConfig hapticTransientIDs];
+    objc_msgSend_hapticTransientIDs(serverConfig);
   }
 
   else
@@ -517,7 +514,7 @@ LABEL_7:
 
 - (unint64_t)eventTypeForBuiltInAudioEventType:(unint64_t)type
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   serverConfig = [(HapticCommandConverter *)self serverConfig];
   builtInAudioEventIDs = [serverConfig builtInAudioEventIDs];
   v6 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:type];
@@ -532,35 +529,34 @@ LABEL_7:
   {
     if (*(kHAPIScope + 8))
     {
-      v10 = *kHAPIScope;
-      if (v10)
+      v9 = *kHAPIScope;
+      if (v9)
       {
-        v11 = v10;
-        if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+        v10 = v9;
+        if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
         {
-          v12 = 136316162;
-          v13 = "HapticCommandConverter.mm";
-          v15 = 239;
-          v16 = 2080;
-          v14 = 1024;
-          v17 = "[HapticCommandConverter eventTypeForBuiltInAudioEventType:]";
-          v18 = 1024;
+          v11 = 136316162;
+          v12 = "HapticCommandConverter.mm";
+          v14 = 239;
+          v15 = 2080;
+          v13 = 1024;
+          v16 = "[HapticCommandConverter eventTypeForBuiltInAudioEventType:]";
+          v17 = 1024;
           typeCopy = type;
-          v20 = 1024;
+          v19 = 1024;
           typeCopy2 = type;
-          _os_log_impl(&dword_21569A000, v11, OS_LOG_TYPE_DEBUG, "%25s:%-5d %s: No altered event ID for original event ID %u. Returning original event ID %u", &v12, 0x28u);
+          _os_log_impl(&dword_21569A000, v10, OS_LOG_TYPE_DEBUG, "%25s:%-5d %s: No altered event ID for original event ID %u. Returning original event ID %u", &v11, 0x28u);
         }
       }
     }
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return type;
 }
 
 - (id)eventForTransientHapticAtTime:(double)time params:(id)params duration:(double)duration
 {
-  v80 = *MEMORY[0x277D85DE8];
+  v79 = *MEMORY[0x277D85DE8];
   paramsCopy = params;
   if (kHAPIScope)
   {
@@ -574,16 +570,16 @@ LABEL_7:
         {
           *buf = 136316418;
           *&buf[4] = "HapticCommandConverter.mm";
-          v70 = 1024;
-          v71 = 248;
-          v72 = 2080;
-          v73 = "[HapticCommandConverter eventForTransientHapticAtTime:params:duration:]";
-          v74 = 2048;
+          v69 = 1024;
+          v70 = 248;
+          v71 = 2080;
+          v72 = "[HapticCommandConverter eventForTransientHapticAtTime:params:duration:]";
+          v73 = 2048;
           timeCopy = time;
-          v76 = 2048;
+          v75 = 2048;
           durationCopy = duration;
-          v78 = 1024;
-          v79 = [paramsCopy count];
+          v77 = 1024;
+          v78 = [paramsCopy count];
           _os_log_impl(&dword_21569A000, v9, OS_LOG_TYPE_DEBUG, "%25s:%-5d %s: Time: %.2f secs dur %.2f secs %u event params", buf, 0x36u);
         }
       }
@@ -591,35 +587,35 @@ LABEL_7:
   }
 
   __p = 0;
+  v65 = 0;
   v66 = 0;
-  v67 = 0;
-  v60 = +[CHHapticEngine capabilitiesForHardware];
+  v59 = +[CHHapticEngine capabilitiesForHardware];
   serverConfig = [(HapticCommandConverter *)self serverConfig];
   [serverConfig defaultHapticTransientEventIntensity];
   v12 = v11;
 
-  v63 = 0u;
-  v64 = 0u;
-  v61 = 0u;
   v62 = 0u;
+  v63 = 0u;
+  v60 = 0u;
+  v61 = 0u;
   obj = paramsCopy;
-  v13 = [obj countByEnumeratingWithState:&v61 objects:v68 count:16];
+  v13 = [obj countByEnumeratingWithState:&v60 objects:v67 count:16];
   if (v13)
   {
     transientHapticEventTypeForDefaultSharpness = 0;
-    v57 = 0;
-    v14 = *v62;
+    v56 = 0;
+    v14 = *v61;
     while (1)
     {
       v15 = 0;
       do
       {
-        if (*v62 != v14)
+        if (*v61 != v14)
         {
           objc_enumerationMutation(obj);
         }
 
-        v16 = *(*(&v61 + 1) + 8 * v15);
+        v16 = *(*(&v60 + 1) + 8 * v15);
         if (kHAPIScope)
         {
           if (*(kHAPIScope + 8))
@@ -635,13 +631,13 @@ LABEL_7:
                 [v16 value];
                 *buf = 136316162;
                 *&buf[4] = "HapticCommandConverter.mm";
-                v70 = 1024;
-                v71 = 257;
-                v72 = 2080;
-                v73 = "[HapticCommandConverter eventForTransientHapticAtTime:params:duration:]";
-                v74 = 2112;
+                v69 = 1024;
+                v70 = 257;
+                v71 = 2080;
+                v72 = "[HapticCommandConverter eventForTransientHapticAtTime:params:duration:]";
+                v73 = 2112;
                 timeCopy = v19;
-                v76 = 2048;
+                v75 = 2048;
                 durationCopy = v20;
                 _os_log_impl(&dword_21569A000, v18, OS_LOG_TYPE_DEBUG, "%25s:%-5d %s: Fixed Param '%@': value: %f", buf, 0x30u);
               }
@@ -653,7 +649,7 @@ LABEL_7:
         v22 = v21;
         parameterID = [v16 parameterID];
         LODWORD(v24) = v22;
-        [(HapticCommandConverter *)self limitEventParameter:v60 value:parameterID parameter:CHHapticEventTypeHapticTransient eventType:v24];
+        [(HapticCommandConverter *)self limitEventParameter:v59 value:parameterID parameter:CHHapticEventTypeHapticTransient eventType:v24];
         v26 = v25;
 
         parameterID2 = [v16 parameterID];
@@ -684,18 +680,18 @@ LABEL_7:
                 {
                   *buf = 136316162;
                   *&buf[4] = "HapticCommandConverter.mm";
-                  v70 = 1024;
-                  v71 = 265;
-                  v72 = 2080;
-                  v73 = "[HapticCommandConverter eventForTransientHapticAtTime:params:duration:]";
-                  v74 = 2048;
+                  v69 = 1024;
+                  v70 = 265;
+                  v71 = 2080;
+                  v72 = "[HapticCommandConverter eventForTransientHapticAtTime:params:duration:]";
+                  v73 = 2048;
                   timeCopy = v26;
-                  v76 = 1024;
+                  v75 = 1024;
                   LODWORD(durationCopy) = transientHapticEventTypeForDefaultSharpness;
                   _os_log_impl(&dword_21569A000, v33, OS_LOG_TYPE_DEBUG, "%25s:%-5d %s: Normalized sharpness %f -> event type %u", buf, 0x2Cu);
                 }
 
-                v57 = 1;
+                v56 = 1;
 LABEL_38:
 
                 goto LABEL_40;
@@ -703,7 +699,7 @@ LABEL_38:
             }
           }
 
-          v57 = 1;
+          v56 = 1;
           goto LABEL_40;
         }
 
@@ -756,11 +752,11 @@ LABEL_32:
             v53 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
             *buf = 136315906;
             *&buf[4] = "HapticCommandConverter.mm";
-            v70 = 1024;
-            v71 = 275;
-            v72 = 2080;
-            v73 = "[HapticCommandConverter eventForTransientHapticAtTime:params:duration:]";
-            v74 = 2112;
+            v69 = 1024;
+            v70 = 275;
+            v71 = 2080;
+            v72 = "[HapticCommandConverter eventForTransientHapticAtTime:params:duration:]";
+            v73 = 2112;
             timeCopy = v53;
             _os_log_impl(&dword_21569A000, v52, OS_LOG_TYPE_ERROR, "%25s:%-5d %s: ERROR: Unknown event param type: %@", buf, 0x26u);
           }
@@ -782,10 +778,10 @@ LABEL_33:
               {
                 *buf = 136315650;
                 *&buf[4] = "HapticCommandConverter.mm";
-                v70 = 1024;
-                v71 = 272;
-                v72 = 2080;
-                v73 = "[HapticCommandConverter eventForTransientHapticAtTime:params:duration:]";
+                v69 = 1024;
+                v70 = 272;
+                v71 = 2080;
+                v72 = "[HapticCommandConverter eventForTransientHapticAtTime:params:duration:]";
                 _os_log_impl(&dword_21569A000, v33, OS_LOG_TYPE_DEBUG, "%25s:%-5d %s: Ignoring for HapticTransient", buf, 0x1Cu);
               }
 
@@ -799,12 +795,12 @@ LABEL_40:
       }
 
       while (v13 != v15);
-      v40 = [obj countByEnumeratingWithState:&v61 objects:v68 count:16];
+      v40 = [obj countByEnumeratingWithState:&v60 objects:v67 count:16];
       v13 = v40;
       if (!v40)
       {
 
-        if (v57)
+        if (v56)
         {
           goto LABEL_54;
         }
@@ -828,11 +824,11 @@ LABEL_48:
         {
           *buf = 136315906;
           *&buf[4] = "HapticCommandConverter.mm";
-          v70 = 1024;
-          v71 = 282;
-          v72 = 2080;
-          v73 = "[HapticCommandConverter eventForTransientHapticAtTime:params:duration:]";
-          v74 = 1024;
+          v69 = 1024;
+          v70 = 282;
+          v71 = 2080;
+          v72 = "[HapticCommandConverter eventForTransientHapticAtTime:params:duration:]";
+          v73 = 1024;
           LODWORD(timeCopy) = transientHapticEventTypeForDefaultSharpness;
           _os_log_impl(&dword_21569A000, v42, OS_LOG_TYPE_DEBUG, "%25s:%-5d %s: Event has no HapticSharpness EventParameter. Default event type: %u", buf, 0x22u);
         }
@@ -861,11 +857,11 @@ LABEL_54:
           {
             *buf = 136315906;
             *&buf[4] = "HapticCommandConverter.mm";
-            v70 = 1024;
-            v71 = 286;
-            v72 = 2080;
-            v73 = "[HapticCommandConverter eventForTransientHapticAtTime:params:duration:]";
-            v74 = 2048;
+            v69 = 1024;
+            v70 = 286;
+            v71 = 2080;
+            v72 = "[HapticCommandConverter eventForTransientHapticAtTime:params:duration:]";
+            v73 = 2048;
             timeCopy = v12;
             _os_log_impl(&dword_21569A000, v44, OS_LOG_TYPE_DEBUG, "%25s:%-5d %s: Adding event param for haptic gain: %.2f", buf, 0x26u);
           }
@@ -877,7 +873,7 @@ LABEL_54:
     *&buf[8] = v12;
     std::vector<AVHapticPlayerFixedParameter>::push_back[abi:ne200100](&__p, buf);
     v45 = __p;
-    v46 = v66;
+    v46 = v65;
   }
 
   v48 = v46 - v45;
@@ -895,18 +891,16 @@ LABEL_54:
 
   if (__p)
   {
-    v66 = __p;
+    v65 = __p;
     operator delete(__p);
   }
-
-  v54 = *MEMORY[0x277D85DE8];
 
   return v50;
 }
 
 - (id)eventForLegacyTransientHapticAtTime:(double)time params:(id)params duration:(double)duration
 {
-  v91 = *MEMORY[0x277D85DE8];
+  v90 = *MEMORY[0x277D85DE8];
   paramsCopy = params;
   if (kHAPIScope)
   {
@@ -920,16 +914,16 @@ LABEL_54:
         {
           *buf = 136316418;
           *&buf[4] = "HapticCommandConverter.mm";
-          v81 = 1024;
-          v82 = 306;
-          v83 = 2080;
-          v84 = "[HapticCommandConverter eventForLegacyTransientHapticAtTime:params:duration:]";
-          v85 = 2048;
+          v80 = 1024;
+          v81 = 306;
+          v82 = 2080;
+          v83 = "[HapticCommandConverter eventForLegacyTransientHapticAtTime:params:duration:]";
+          v84 = 2048;
           timeCopy = time;
-          v87 = 2048;
+          v86 = 2048;
           durationCopy = duration;
-          v89 = 1024;
-          v90 = [paramsCopy count];
+          v88 = 1024;
+          v89 = [paramsCopy count];
           _os_log_impl(&dword_21569A000, v8, OS_LOG_TYPE_DEBUG, "%25s:%-5d %s: Time: %.2f secs dur %.2f secs %u event params", buf, 0x36u);
         }
       }
@@ -937,15 +931,15 @@ LABEL_54:
   }
 
   __p = 0;
+  v76 = 0;
   v77 = 0;
-  v78 = 0;
-  v70 = +[CHHapticEngine capabilitiesForHardware];
-  v74 = 0u;
-  v75 = 0u;
-  v72 = 0u;
+  v69 = +[CHHapticEngine capabilitiesForHardware];
   v73 = 0u;
+  v74 = 0u;
+  v71 = 0u;
+  v72 = 0u;
   obj = paramsCopy;
-  v9 = [obj countByEnumeratingWithState:&v72 objects:v79 count:16];
+  v9 = [obj countByEnumeratingWithState:&v71 objects:v78 count:16];
   if (!v9)
   {
 
@@ -955,21 +949,21 @@ LABEL_54:
   }
 
   v10 = 0;
-  v11 = *v73;
-  v67 = 3;
-  v68 = 0;
-  v66 = 1;
+  v11 = *v72;
+  v66 = 3;
+  v67 = 0;
+  v65 = 1;
   do
   {
     v12 = 0;
     do
     {
-      if (*v73 != v11)
+      if (*v72 != v11)
       {
         objc_enumerationMutation(obj);
       }
 
-      v13 = *(*(&v72 + 1) + 8 * v12);
+      v13 = *(*(&v71 + 1) + 8 * v12);
       if (kHAPIScope)
       {
         if (*(kHAPIScope + 8))
@@ -984,13 +978,13 @@ LABEL_54:
               [v13 value];
               *buf = 136316162;
               *&buf[4] = "HapticCommandConverter.mm";
-              v81 = 1024;
-              v82 = 312;
-              v83 = 2080;
-              v84 = "[HapticCommandConverter eventForLegacyTransientHapticAtTime:params:duration:]";
-              v85 = 2112;
+              v80 = 1024;
+              v81 = 312;
+              v82 = 2080;
+              v83 = "[HapticCommandConverter eventForLegacyTransientHapticAtTime:params:duration:]";
+              v84 = 2112;
               timeCopy = *&parameterID;
-              v87 = 2048;
+              v86 = 2048;
               durationCopy = v17;
               _os_log_impl(&dword_21569A000, v15, OS_LOG_TYPE_DEBUG, "%25s:%-5d %s: Fixed Param '%@': value: %f", buf, 0x30u);
             }
@@ -1007,7 +1001,7 @@ LABEL_54:
         v21 = v20;
         parameterID3 = [v13 parameterID];
         LODWORD(v23) = v21;
-        [(HapticCommandConverter *)self limitEventParameter:v70 value:parameterID3 parameter:CHHapticEventTypeHapticTransient eventType:v23];
+        [(HapticCommandConverter *)self limitEventParameter:v69 value:parameterID3 parameter:CHHapticEventTypeHapticTransient eventType:v23];
         v25 = v24;
 
         *buf = 2000;
@@ -1045,10 +1039,10 @@ LABEL_81:
           {
             *buf = 136315650;
             *&buf[4] = "HapticCommandConverter.mm";
-            v81 = 1024;
-            v82 = 319;
-            v83 = 2080;
-            v84 = "[HapticCommandConverter eventForLegacyTransientHapticAtTime:params:duration:]";
+            v80 = 1024;
+            v81 = 319;
+            v82 = 2080;
+            v83 = "[HapticCommandConverter eventForLegacyTransientHapticAtTime:params:duration:]";
             goto LABEL_88;
           }
 
@@ -1067,7 +1061,7 @@ LABEL_81:
         }
 
         v29 = (v28 + 1.0) * 0.5;
-        v67 = ((v29 * 7.0) + 0.5);
+        v66 = ((v29 * 7.0) + 0.5);
         if (kHAPIScope)
         {
           if (*(kHAPIScope + 8))
@@ -1080,13 +1074,13 @@ LABEL_81:
               {
                 *buf = 136316162;
                 *&buf[4] = "HapticCommandConverter.mm";
-                v81 = 1024;
-                v82 = 327;
-                v83 = 2080;
-                v84 = "[HapticCommandConverter eventForLegacyTransientHapticAtTime:params:duration:]";
-                v85 = 2048;
+                v80 = 1024;
+                v81 = 327;
+                v82 = 2080;
+                v83 = "[HapticCommandConverter eventForLegacyTransientHapticAtTime:params:duration:]";
+                v84 = 2048;
                 timeCopy = v29;
-                v87 = 1024;
+                v86 = 1024;
                 LODWORD(durationCopy) = ((v29 * 7.0) + 0.5);
                 _os_log_impl(&dword_21569A000, v31, OS_LOG_TYPE_DEBUG, "%25s:%-5d %s: Normalized value %f -> sharpness index %d", buf, 0x2Cu);
               }
@@ -1127,10 +1121,10 @@ LABEL_81:
           {
             *buf = 136315650;
             *&buf[4] = "HapticCommandConverter.mm";
-            v81 = 1024;
-            v82 = 332;
-            v83 = 2080;
-            v84 = "[HapticCommandConverter eventForLegacyTransientHapticAtTime:params:duration:]";
+            v80 = 1024;
+            v81 = 332;
+            v82 = 2080;
+            v83 = "[HapticCommandConverter eventForLegacyTransientHapticAtTime:params:duration:]";
             _os_log_impl(&dword_21569A000, v53, OS_LOG_TYPE_ERROR, "%25s:%-5d %s: ERROR: Cannot mix Fullness with unprivileged Sharpness parameter", buf, 0x1Cu);
           }
 
@@ -1151,7 +1145,7 @@ LABEL_81:
         }
 
         v35 = (v34 + 1.0) * 0.5;
-        v66 = ((v35 + v35) + 0.5);
+        v65 = ((v35 + v35) + 0.5);
         if (kHAPIScope)
         {
           if (*(kHAPIScope + 8))
@@ -1164,13 +1158,13 @@ LABEL_81:
               {
                 *buf = 136316162;
                 *&buf[4] = "HapticCommandConverter.mm";
-                v81 = 1024;
-                v82 = 340;
-                v83 = 2080;
-                v84 = "[HapticCommandConverter eventForLegacyTransientHapticAtTime:params:duration:]";
-                v85 = 2048;
+                v80 = 1024;
+                v81 = 340;
+                v82 = 2080;
+                v83 = "[HapticCommandConverter eventForLegacyTransientHapticAtTime:params:duration:]";
+                v84 = 2048;
                 timeCopy = v35;
-                v87 = 1024;
+                v86 = 1024;
                 LODWORD(durationCopy) = ((v35 + v35) + 0.5);
                 _os_log_impl(&dword_21569A000, v31, OS_LOG_TYPE_DEBUG, "%25s:%-5d %s: Normalized value %f -> fullness index %d", buf, 0x2Cu);
               }
@@ -1182,7 +1176,7 @@ LABEL_43:
 
 LABEL_44:
         v10 = 0;
-        v68 = 1;
+        v67 = 1;
         goto LABEL_45;
       }
 
@@ -1214,14 +1208,14 @@ LABEL_55:
         else
         {
           parameterID10 = [v13 parameterID];
-          v64 = [parameterID10 isEqualToString:CHHapticEventParameterIDSustained];
+          v63 = [parameterID10 isEqualToString:CHHapticEventParameterIDSustained];
 
-          if ((v64 & 1) == 0)
+          if ((v63 & 1) == 0)
           {
             if (kHAPIScope)
             {
-              v61 = *kHAPIScope;
-              if (!v61)
+              v60 = *kHAPIScope;
+              if (!v60)
               {
                 v54 = -4820;
                 v55 = @"Unknown event parameter type";
@@ -1232,21 +1226,21 @@ LABEL_98:
 
             else
             {
+              v60 = MEMORY[0x277D86220];
               v61 = MEMORY[0x277D86220];
-              v62 = MEMORY[0x277D86220];
             }
 
-            v53 = v61;
+            v53 = v60;
             if (os_log_type_enabled(v53, OS_LOG_TYPE_ERROR))
             {
               parameterID11 = [v13 parameterID];
               *buf = 136315906;
               *&buf[4] = "HapticCommandConverter.mm";
-              v81 = 1024;
-              v82 = 360;
-              v83 = 2080;
-              v84 = "[HapticCommandConverter eventForLegacyTransientHapticAtTime:params:duration:]";
-              v85 = 2112;
+              v80 = 1024;
+              v81 = 360;
+              v82 = 2080;
+              v83 = "[HapticCommandConverter eventForLegacyTransientHapticAtTime:params:duration:]";
+              v84 = 2112;
               timeCopy = *&parameterID11;
               _os_log_impl(&dword_21569A000, v53, OS_LOG_TYPE_ERROR, "%25s:%-5d %s: ERROR: Unknown event parameter type: %@", buf, 0x26u);
             }
@@ -1271,10 +1265,10 @@ LABEL_97:
               {
                 *buf = 136315650;
                 *&buf[4] = "HapticCommandConverter.mm";
-                v81 = 1024;
-                v82 = 357;
-                v83 = 2080;
-                v84 = "[HapticCommandConverter eventForLegacyTransientHapticAtTime:params:duration:]";
+                v80 = 1024;
+                v81 = 357;
+                v82 = 2080;
+                v83 = "[HapticCommandConverter eventForLegacyTransientHapticAtTime:params:duration:]";
                 _os_log_impl(&dword_21569A000, v43, OS_LOG_TYPE_DEBUG, "%25s:%-5d %s: Ignoring for HapticTransient", buf, 0x1Cu);
               }
             }
@@ -1284,7 +1278,7 @@ LABEL_97:
         goto LABEL_45;
       }
 
-      if (v68)
+      if (v67)
       {
         if (kHAPIScope)
         {
@@ -1298,17 +1292,17 @@ LABEL_97:
         else
         {
           v53 = MEMORY[0x277D86220];
-          v60 = MEMORY[0x277D86220];
+          v59 = MEMORY[0x277D86220];
         }
 
         if (os_log_type_enabled(v53, OS_LOG_TYPE_ERROR))
         {
           *buf = 136315650;
           *&buf[4] = "HapticCommandConverter.mm";
-          v81 = 1024;
-          v82 = 345;
-          v83 = 2080;
-          v84 = "[HapticCommandConverter eventForLegacyTransientHapticAtTime:params:duration:]";
+          v80 = 1024;
+          v81 = 345;
+          v82 = 2080;
+          v83 = "[HapticCommandConverter eventForLegacyTransientHapticAtTime:params:duration:]";
 LABEL_88:
           _os_log_impl(&dword_21569A000, v53, OS_LOG_TYPE_ERROR, "%25s:%-5d %s: ERROR: Cannot mix privileged and unprivileged Sharpness parameters", buf, 0x1Cu);
         }
@@ -1319,25 +1313,25 @@ LABEL_89:
         goto LABEL_97;
       }
 
-      v68 = 0;
+      v67 = 0;
       v10 = 1;
 LABEL_45:
       ++v12;
     }
 
     while (v9 != v12);
-    v45 = [obj countByEnumeratingWithState:&v72 objects:v79 count:16];
+    v45 = [obj countByEnumeratingWithState:&v71 objects:v78 count:16];
     v9 = v45;
   }
 
   while (v45);
 
-  v46 = v67;
-  v47 = v66;
+  v46 = v66;
+  v47 = v65;
   if ((v10 & 1) == 0)
   {
 LABEL_74:
-    if (v77 == __p)
+    if (v76 == __p)
     {
       v51 = 0;
     }
@@ -1347,7 +1341,7 @@ LABEL_74:
       v51 = __p;
     }
 
-    v50 = [MEMORY[0x277CEFD50] eventWithEventType:sLegacyHapticTapTypes[8 * v47 + v46] time:v51 parameters:(v77 - __p) >> 4 count:time duration:duration];
+    v50 = [MEMORY[0x277CEFD50] eventWithEventType:sLegacyHapticTapTypes[8 * v47 + v46] time:v51 parameters:(v76 - __p) >> 4 count:time duration:duration];
     goto LABEL_78;
   }
 
@@ -1363,10 +1357,10 @@ LABEL_74:
         {
           *buf = 136315650;
           *&buf[4] = "HapticCommandConverter.mm";
-          v81 = 1024;
-          v82 = 369;
-          v83 = 2080;
-          v84 = "[HapticCommandConverter eventForLegacyTransientHapticAtTime:params:duration:]";
+          v80 = 1024;
+          v81 = 369;
+          v82 = 2080;
+          v83 = "[HapticCommandConverter eventForLegacyTransientHapticAtTime:params:duration:]";
           _os_log_impl(&dword_21569A000, v49, OS_LOG_TYPE_DEBUG, "%25s:%-5d %s: Handling as a non-privileged event", buf, 0x1Cu);
         }
       }
@@ -1379,11 +1373,9 @@ LABEL_78:
 
   if (__p)
   {
-    v77 = __p;
+    v76 = __p;
     operator delete(__p);
   }
-
-  v58 = *MEMORY[0x277D85DE8];
 
   return v52;
 }
@@ -1397,14 +1389,14 @@ LABEL_78:
   {
     if (serverConfig)
     {
-      [serverConfig hapticContinuousSustainedIDs];
+      objc_msgSend_hapticContinuousSustainedIDs(serverConfig);
       goto LABEL_7;
     }
   }
 
   else if (serverConfig)
   {
-    [serverConfig hapticContinuousNonsustainedIDs];
+    objc_msgSend_hapticContinuousNonsustainedIDs(serverConfig);
     goto LABEL_7;
   }
 
@@ -1430,9 +1422,19 @@ LABEL_10:
   return v9;
 }
 
+- (unint64_t)continuousHapticEventTypeForDefaultSharpness:(BOOL)sharpness
+{
+  sharpnessCopy = sharpness;
+  serverConfig = [(HapticCommandConverter *)self serverConfig];
+  [serverConfig defaultHapticContinuousEventSharpness];
+  v6 = [(HapticCommandConverter *)self continuousHapticEventTypeFromSharpness:sharpnessCopy sustained:?];
+
+  return v6;
+}
+
 - (id)eventForContinuousHapticEventType:(int)type time:(double)time params:(id)params duration:(double)duration
 {
-  v76 = *MEMORY[0x277D85DE8];
+  v75 = *MEMORY[0x277D85DE8];
   paramsCopy = params;
   if (kHAPIScope)
   {
@@ -1446,18 +1448,18 @@ LABEL_10:
         {
           *buf = 136316674;
           *&buf[4] = "HapticCommandConverter.mm";
-          v68 = 1024;
-          v69 = 408;
-          v70 = 2080;
-          v71 = "[HapticCommandConverter eventForContinuousHapticEventType:time:params:duration:]";
-          v72 = 1024;
-          *v73 = type;
-          *&v73[4] = 2048;
-          *&v73[6] = time;
-          *&v73[14] = 2048;
-          *&v73[16] = duration;
-          v74 = 1024;
-          v75 = [paramsCopy count];
+          v67 = 1024;
+          v68 = 408;
+          v69 = 2080;
+          v70 = "[HapticCommandConverter eventForContinuousHapticEventType:time:params:duration:]";
+          v71 = 1024;
+          *v72 = type;
+          *&v72[4] = 2048;
+          *&v72[6] = time;
+          *&v72[14] = 2048;
+          *&v72[16] = duration;
+          v73 = 1024;
+          v74 = [paramsCopy count];
           _os_log_impl(&dword_21569A000, v10, OS_LOG_TYPE_DEBUG, "%25s:%-5d %s: Type %u time: %.2f secs duration: %.2f secs %u client event params", buf, 0x3Cu);
         }
       }
@@ -1465,34 +1467,34 @@ LABEL_10:
   }
 
   __p = 0;
+  v63 = 0;
   v64 = 0;
-  v65 = 0;
-  v58 = +[CHHapticEngine capabilitiesForHardware];
+  v57 = +[CHHapticEngine capabilitiesForHardware];
   serverConfig = [(HapticCommandConverter *)self serverConfig];
   [serverConfig defaultHapticContinuousEventIntensity];
   v13 = v12;
 
-  v61 = 0u;
-  v62 = 0u;
-  v59 = 0u;
   v60 = 0u;
+  v61 = 0u;
+  v58 = 0u;
+  v59 = 0u;
   obj = paramsCopy;
-  v14 = [obj countByEnumeratingWithState:&v59 objects:v66 count:16];
+  v14 = [obj countByEnumeratingWithState:&v58 objects:v65 count:16];
   if (v14)
   {
-    v55 = 0;
+    v54 = 0;
     v15 = 0;
-    v16 = *v60;
+    v16 = *v59;
     while (1)
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v60 != v16)
+        if (*v59 != v16)
         {
           objc_enumerationMutation(obj);
         }
 
-        v18 = *(*(&v59 + 1) + 8 * i);
+        v18 = *(*(&v58 + 1) + 8 * i);
         if (kHAPIScope)
         {
           if (*(kHAPIScope + 8))
@@ -1507,14 +1509,14 @@ LABEL_10:
                 [v18 value];
                 *buf = 136316162;
                 *&buf[4] = "HapticCommandConverter.mm";
-                v68 = 1024;
-                v69 = 417;
-                v70 = 2080;
-                v71 = "[HapticCommandConverter eventForContinuousHapticEventType:time:params:duration:]";
-                v72 = 2112;
-                *v73 = parameterID;
-                *&v73[8] = 2048;
-                *&v73[10] = v22;
+                v67 = 1024;
+                v68 = 417;
+                v69 = 2080;
+                v70 = "[HapticCommandConverter eventForContinuousHapticEventType:time:params:duration:]";
+                v71 = 2112;
+                *v72 = parameterID;
+                *&v72[8] = 2048;
+                *&v72[10] = v22;
                 _os_log_impl(&dword_21569A000, v20, OS_LOG_TYPE_DEBUG, "%25s:%-5d %s: Fixed Param '%@': value %f", buf, 0x30u);
               }
             }
@@ -1525,7 +1527,7 @@ LABEL_10:
         v24 = v23;
         parameterID2 = [v18 parameterID];
         LODWORD(v26) = v24;
-        [(HapticCommandConverter *)self limitEventParameter:v58 value:parameterID2 parameter:CHHapticEventTypeHapticContinuous eventType:v26];
+        [(HapticCommandConverter *)self limitEventParameter:v57 value:parameterID2 parameter:CHHapticEventTypeHapticContinuous eventType:v26];
         v28 = v27;
 
         parameterID3 = [v18 parameterID];
@@ -1545,7 +1547,7 @@ LABEL_10:
           {
             *&v33 = v28;
             v15 = [(HapticCommandConverter *)self continuousHapticEventTypeFromSharpness:type == 1 sustained:v33];
-            v55 = 1;
+            v54 = 1;
           }
 
           else
@@ -1612,12 +1614,12 @@ LABEL_10:
                       parameterID9 = [v18 parameterID];
                       *buf = 136315906;
                       *&buf[4] = "HapticCommandConverter.mm";
-                      v68 = 1024;
-                      v69 = 440;
-                      v70 = 2080;
-                      v71 = "[HapticCommandConverter eventForContinuousHapticEventType:time:params:duration:]";
-                      v72 = 2112;
-                      *v73 = parameterID9;
+                      v67 = 1024;
+                      v68 = 440;
+                      v69 = 2080;
+                      v70 = "[HapticCommandConverter eventForContinuousHapticEventType:time:params:duration:]";
+                      v71 = 2112;
+                      *v72 = parameterID9;
                       _os_log_impl(&dword_21569A000, v50, OS_LOG_TYPE_ERROR, "%25s:%-5d %s: ERROR: Unknown event param type: %@", buf, 0x26u);
                     }
 
@@ -1631,11 +1633,11 @@ LABEL_59:
         }
       }
 
-      v14 = [obj countByEnumeratingWithState:&v59 objects:v66 count:16];
+      v14 = [obj countByEnumeratingWithState:&v58 objects:v65 count:16];
       if (!v14)
       {
 
-        if (v55)
+        if (v54)
         {
           goto LABEL_40;
         }
@@ -1659,12 +1661,12 @@ LABEL_34:
         {
           *buf = 136315906;
           *&buf[4] = "HapticCommandConverter.mm";
-          v68 = 1024;
-          v69 = 447;
-          v70 = 2080;
-          v71 = "[HapticCommandConverter eventForContinuousHapticEventType:time:params:duration:]";
-          v72 = 1024;
-          *v73 = v15;
+          v67 = 1024;
+          v68 = 447;
+          v69 = 2080;
+          v70 = "[HapticCommandConverter eventForContinuousHapticEventType:time:params:duration:]";
+          v71 = 1024;
+          *v72 = v15;
           _os_log_impl(&dword_21569A000, v43, OS_LOG_TYPE_DEBUG, "%25s:%-5d %s: Event has no HapticSharpness EventParameter. Using default event ID %u", buf, 0x22u);
         }
       }
@@ -1686,12 +1688,12 @@ LABEL_40:
           {
             *buf = 136315906;
             *&buf[4] = "HapticCommandConverter.mm";
-            v68 = 1024;
-            v69 = 450;
-            v70 = 2080;
-            v71 = "[HapticCommandConverter eventForContinuousHapticEventType:time:params:duration:]";
-            v72 = 2048;
-            *v73 = v13;
+            v67 = 1024;
+            v68 = 450;
+            v69 = 2080;
+            v70 = "[HapticCommandConverter eventForContinuousHapticEventType:time:params:duration:]";
+            v71 = 2048;
+            *v72 = v13;
             _os_log_impl(&dword_21569A000, v45, OS_LOG_TYPE_DEBUG, "%25s:%-5d %s: Adding event param for continuous haptic intensity: %.2f", buf, 0x26u);
           }
         }
@@ -1703,7 +1705,7 @@ LABEL_40:
     std::vector<AVHapticPlayerFixedParameter>::push_back[abi:ne200100](&__p, buf);
   }
 
-  if (v64 == __p)
+  if (v63 == __p)
   {
     v46 = 0;
   }
@@ -1713,22 +1715,20 @@ LABEL_40:
     v46 = __p;
   }
 
-  v47 = [MEMORY[0x277CEFD50] eventWithEventType:v15 time:v46 parameters:(v64 - __p) >> 4 count:time duration:duration];
+  v47 = [MEMORY[0x277CEFD50] eventWithEventType:v15 time:v46 parameters:(v63 - __p) >> 4 count:time duration:duration];
 
   if (__p)
   {
-    v64 = __p;
+    v63 = __p;
     operator delete(__p);
   }
-
-  v52 = *MEMORY[0x277D85DE8];
 
   return v47;
 }
 
 - (id)eventForSPIEventType:(unint64_t)type time:(double)time eventParams:(id)params duration:(double)duration
 {
-  v72 = *MEMORY[0x277D85DE8];
+  v71 = *MEMORY[0x277D85DE8];
   paramsCopy = params;
   if (kHAPIScope)
   {
@@ -1742,18 +1742,18 @@ LABEL_40:
         {
           *buf = 136316674;
           *&buf[4] = "HapticCommandConverter.mm";
-          v64 = 1024;
-          v65 = 469;
-          v66 = 2080;
-          v67 = "[HapticCommandConverter eventForSPIEventType:time:eventParams:duration:]";
-          v68 = 1024;
-          *v69 = type;
-          *&v69[4] = 2048;
-          *&v69[6] = time;
-          *&v69[14] = 2048;
-          *&v69[16] = duration;
-          v70 = 1024;
-          v71 = [paramsCopy count];
+          v63 = 1024;
+          v64 = 469;
+          v65 = 2080;
+          v66 = "[HapticCommandConverter eventForSPIEventType:time:eventParams:duration:]";
+          v67 = 1024;
+          *v68 = type;
+          *&v68[4] = 2048;
+          *&v68[6] = time;
+          *&v68[14] = 2048;
+          *&v68[16] = duration;
+          v69 = 1024;
+          v70 = [paramsCopy count];
           _os_log_impl(&dword_21569A000, v10, OS_LOG_TYPE_DEBUG, "%25s:%-5d %s: Type %u time: %.2f secs dur: %.2f secs %u event params", buf, 0x3Cu);
         }
       }
@@ -1761,33 +1761,33 @@ LABEL_40:
   }
 
   __p = 0;
+  v59 = 0;
   v60 = 0;
-  v61 = 0;
   if ([paramsCopy count])
   {
     v11 = +[CHHapticEngine capabilitiesForHardware];
-    v57 = 0u;
-    v58 = 0u;
-    v55 = 0u;
     v56 = 0u;
+    v57 = 0u;
+    v54 = 0u;
+    v55 = 0u;
     obj = paramsCopy;
-    v12 = [obj countByEnumeratingWithState:&v55 objects:v62 count:16];
+    v12 = [obj countByEnumeratingWithState:&v54 objects:v61 count:16];
     if (!v12)
     {
       goto LABEL_28;
     }
 
-    v13 = *v56;
+    v13 = *v55;
     while (1)
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v56 != v13)
+        if (*v55 != v13)
         {
           objc_enumerationMutation(obj);
         }
 
-        v15 = *(*(&v55 + 1) + 8 * i);
+        v15 = *(*(&v54 + 1) + 8 * i);
         if (kHAPIScope)
         {
           if (*(kHAPIScope + 8))
@@ -1802,14 +1802,14 @@ LABEL_40:
                 [v15 value];
                 *buf = 136316162;
                 *&buf[4] = "HapticCommandConverter.mm";
-                v64 = 1024;
-                v65 = 474;
-                v66 = 2080;
-                v67 = "[HapticCommandConverter eventForSPIEventType:time:eventParams:duration:]";
-                v68 = 2112;
-                *v69 = parameterID;
-                *&v69[8] = 2048;
-                *&v69[10] = v19;
+                v63 = 1024;
+                v64 = 474;
+                v65 = 2080;
+                v66 = "[HapticCommandConverter eventForSPIEventType:time:eventParams:duration:]";
+                v67 = 2112;
+                *v68 = parameterID;
+                *&v68[8] = 2048;
+                *&v68[10] = v19;
                 _os_log_impl(&dword_21569A000, v17, OS_LOG_TYPE_DEBUG, "%25s:%-5d %s: Fixed Param '%@': value %f", buf, 0x30u);
               }
             }
@@ -1880,12 +1880,12 @@ LABEL_40:
                 parameterID7 = [v15 parameterID];
                 *buf = 136315906;
                 *&buf[4] = "HapticCommandConverter.mm";
-                v64 = 1024;
-                v65 = 492;
-                v66 = 2080;
-                v67 = "[HapticCommandConverter eventForSPIEventType:time:eventParams:duration:]";
-                v68 = 2112;
-                *v69 = parameterID7;
+                v63 = 1024;
+                v64 = 492;
+                v65 = 2080;
+                v66 = "[HapticCommandConverter eventForSPIEventType:time:eventParams:duration:]";
+                v67 = 2112;
+                *v68 = parameterID7;
                 _os_log_impl(&dword_21569A000, v48, OS_LOG_TYPE_ERROR, "%25s:%-5d %s: ERROR: Unsupported event param type: %@", buf, 0x26u);
               }
 
@@ -1910,7 +1910,7 @@ LABEL_40:
         }
       }
 
-      v12 = [obj countByEnumeratingWithState:&v55 objects:v62 count:16];
+      v12 = [obj countByEnumeratingWithState:&v54 objects:v61 count:16];
       if (!v12)
       {
 LABEL_28:
@@ -1920,7 +1920,7 @@ LABEL_28:
     }
   }
 
-  if (v60 == __p)
+  if (v59 == __p)
   {
     v44 = 0;
   }
@@ -1930,14 +1930,12 @@ LABEL_28:
     v44 = __p;
   }
 
-  v45 = [MEMORY[0x277CEFD50] eventWithEventType:type time:v44 parameters:(v60 - __p) >> 4 count:time duration:duration];
+  v45 = [MEMORY[0x277CEFD50] eventWithEventType:type time:v44 parameters:(v59 - __p) >> 4 count:time duration:duration];
   if (__p)
   {
-    v60 = __p;
+    v59 = __p;
     operator delete(__p);
   }
-
-  v50 = *MEMORY[0x277D85DE8];
 
   return v45;
 }
@@ -1945,7 +1943,7 @@ LABEL_28:
 - (id)eventForEventEntry:(id)entry engine:(id)engine privileged:(BOOL)privileged
 {
   privilegedCopy = privileged;
-  v74 = *MEMORY[0x277D85DE8];
+  v73 = *MEMORY[0x277D85DE8];
   entryCopy = entry;
   engineCopy = engine;
   eventParameters = [entryCopy eventParameters];
@@ -1968,15 +1966,15 @@ LABEL_28:
         if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
         {
           type = [entryCopy type];
-          v66 = 136315906;
-          v67 = "HapticCommandConverter.mm";
-          v68 = 1024;
-          v69 = 515;
-          v70 = 2080;
-          v71 = "[HapticCommandConverter eventForEventEntry:engine:privileged:]";
-          v72 = 2112;
-          v73 = *&type;
-          _os_log_impl(&dword_21569A000, v19, OS_LOG_TYPE_DEBUG, "%25s:%-5d %s: Event type '%@':", &v66, 0x26u);
+          v65 = 136315906;
+          v66 = "HapticCommandConverter.mm";
+          v67 = 1024;
+          v68 = 515;
+          v69 = 2080;
+          v70 = "[HapticCommandConverter eventForEventEntry:engine:privileged:]";
+          v71 = 2112;
+          v72 = *&type;
+          _os_log_impl(&dword_21569A000, v19, OS_LOG_TYPE_DEBUG, "%25s:%-5d %s: Event type '%@':", &v65, 0x26u);
         }
       }
     }
@@ -2004,15 +2002,15 @@ LABEL_28:
 
     if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
-      v66 = 136315906;
-      v67 = "HapticCommandConverter.mm";
-      v68 = 1024;
-      v69 = 517;
-      v70 = 2080;
-      v71 = "[HapticCommandConverter eventForEventEntry:engine:privileged:]";
-      v72 = 2048;
-      v73 = v12;
-      _os_log_impl(&dword_21569A000, v21, OS_LOG_TYPE_ERROR, "%25s:%-5d %s: ERROR: Illegal time value: %f", &v66, 0x26u);
+      v65 = 136315906;
+      v66 = "HapticCommandConverter.mm";
+      v67 = 1024;
+      v68 = 517;
+      v69 = 2080;
+      v70 = "[HapticCommandConverter eventForEventEntry:engine:privileged:]";
+      v71 = 2048;
+      v72 = v12;
+      _os_log_impl(&dword_21569A000, v21, OS_LOG_TYPE_ERROR, "%25s:%-5d %s: ERROR: Illegal time value: %f", &v65, 0x26u);
     }
 
     v22 = -4822;
@@ -2043,15 +2041,15 @@ LABEL_28:
 
     if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
-      v66 = 136315906;
-      v67 = "HapticCommandConverter.mm";
-      v68 = 1024;
-      v69 = 522;
-      v70 = 2080;
-      v71 = "[HapticCommandConverter eventForEventEntry:engine:privileged:]";
-      v72 = 2048;
-      v73 = v14;
-      _os_log_impl(&dword_21569A000, v21, OS_LOG_TYPE_ERROR, "%25s:%-5d %s: ERROR: Illegal duration value: %f", &v66, 0x26u);
+      v65 = 136315906;
+      v66 = "HapticCommandConverter.mm";
+      v67 = 1024;
+      v68 = 522;
+      v69 = 2080;
+      v70 = "[HapticCommandConverter eventForEventEntry:engine:privileged:]";
+      v71 = 2048;
+      v72 = v14;
+      _os_log_impl(&dword_21569A000, v21, OS_LOG_TYPE_ERROR, "%25s:%-5d %s: ERROR: Illegal duration value: %f", &v65, 0x26u);
     }
 
     v22 = -4823;
@@ -2074,9 +2072,9 @@ LABEL_35:
     if (!v30)
     {
       type4 = [entryCopy type];
-      v36 = [type4 isEqualToString:CHHapticEventTypeAudioContinuous];
+      v35 = [type4 isEqualToString:CHHapticEventTypeAudioContinuous];
 
-      if (v36)
+      if (v35)
       {
         audioResID = [(HapticCommandConverter *)self eventTypeForBuiltInAudioEventType:32513];
         if (eventParameters && [eventParameters indexOfObjectPassingTest:&__block_literal_global_43] != 0x7FFFFFFFFFFFFFFFLL)
@@ -2086,17 +2084,17 @@ LABEL_35:
 
         else if (v14 == 0.0)
         {
-          v39 = CALog::LogObjIfEnabled(1, kHAPIScope, v37);
-          v40 = v39;
-          if (v39 && os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
+          v38 = CALog::LogObjIfEnabled(1, kHAPIScope, v36);
+          v39 = v38;
+          if (v38 && os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
           {
-            v66 = 136315650;
-            v67 = "HapticCommandConverter.mm";
-            v68 = 1024;
-            v69 = 571;
-            v70 = 2080;
-            v71 = "[HapticCommandConverter eventForEventEntry:engine:privileged:]";
-            _os_log_impl(&dword_21569A000, v40, OS_LOG_TYPE_ERROR, "%25s:%-5d %s: ERROR: Continuous audio event has a missing or zero-length duration", &v66, 0x1Cu);
+            v65 = 136315650;
+            v66 = "HapticCommandConverter.mm";
+            v67 = 1024;
+            v68 = 571;
+            v69 = 2080;
+            v70 = "[HapticCommandConverter eventForEventEntry:engine:privileged:]";
+            _os_log_impl(&dword_21569A000, v39, OS_LOG_TYPE_ERROR, "%25s:%-5d %s: ERROR: Continuous audio event has a missing or zero-length duration", &v65, 0x1Cu);
           }
 
           Haptic_RaiseException(&cfstr_Corehapticinva_1.isa, &cfstr_IllegalOrMissi.isa, -4823);
@@ -2106,47 +2104,47 @@ LABEL_35:
       else
       {
         type5 = [entryCopy type];
-        v42 = [type5 isEqualToString:CHHapticEventTypeAudioCustom];
+        v41 = [type5 isEqualToString:CHHapticEventTypeAudioCustom];
 
-        if (!v42)
+        if (!v41)
         {
           if (privilegedCopy)
           {
             type6 = [entryCopy type];
-            v54 = [type6 isEqualToString:CHHapticEventTypeWheelsOfTime];
+            v53 = [type6 isEqualToString:CHHapticEventTypeWheelsOfTime];
 
-            if (v54)
+            if (v53)
             {
               v27 = [(HapticCommandConverter *)self eventForSPIEventType:[(HapticCommandConverter *)self eventTypeForBuiltInAudioEventType:32556] time:eventParameters eventParams:v12 duration:v14];
               goto LABEL_82;
             }
 
             type7 = [entryCopy type];
-            v62 = [type7 isEqualToString:CHHapticEventTypeAudioClick];
+            v61 = [type7 isEqualToString:CHHapticEventTypeAudioClick];
 
-            if (v62)
+            if (v61)
             {
               v27 = [(HapticCommandConverter *)self eventForSPIEventType:[(HapticCommandConverter *)self eventTypeForBuiltInAudioEventType:32555] time:eventParameters eventParams:v12 duration:v14];
               goto LABEL_82;
             }
 
-            v64 = CALog::LogObjIfEnabled(1, kHAPIScope, v63);
-            v21 = v64;
-            if (v64)
+            v63 = CALog::LogObjIfEnabled(1, kHAPIScope, v62);
+            v21 = v63;
+            if (v63)
             {
-              v21 = v64;
+              v21 = v63;
               if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
               {
                 type8 = [entryCopy type];
-                v66 = 136315906;
-                v67 = "HapticCommandConverter.mm";
-                v68 = 1024;
-                v69 = 609;
-                v70 = 2080;
-                v71 = "[HapticCommandConverter eventForEventEntry:engine:privileged:]";
-                v72 = 2112;
-                v73 = *&type8;
-                _os_log_impl(&dword_21569A000, v21, OS_LOG_TYPE_ERROR, "%25s:%-5d %s: ERROR: Unknown privileged event type: %@", &v66, 0x26u);
+                v65 = 136315906;
+                v66 = "HapticCommandConverter.mm";
+                v67 = 1024;
+                v68 = 609;
+                v69 = 2080;
+                v70 = "[HapticCommandConverter eventForEventEntry:engine:privileged:]";
+                v71 = 2112;
+                v72 = *&type8;
+                _os_log_impl(&dword_21569A000, v21, OS_LOG_TYPE_ERROR, "%25s:%-5d %s: ERROR: Unknown privileged event type: %@", &v65, 0x26u);
               }
             }
 
@@ -2156,23 +2154,23 @@ LABEL_35:
 
           else
           {
-            v59 = CALog::LogObjIfEnabled(1, kHAPIScope, v43);
-            v21 = v59;
-            if (v59)
+            v58 = CALog::LogObjIfEnabled(1, kHAPIScope, v42);
+            v21 = v58;
+            if (v58)
             {
-              v21 = v59;
+              v21 = v58;
               if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
               {
                 type9 = [entryCopy type];
-                v66 = 136315906;
-                v67 = "HapticCommandConverter.mm";
-                v68 = 1024;
-                v69 = 615;
-                v70 = 2080;
-                v71 = "[HapticCommandConverter eventForEventEntry:engine:privileged:]";
-                v72 = 2112;
-                v73 = *&type9;
-                _os_log_impl(&dword_21569A000, v21, OS_LOG_TYPE_ERROR, "%25s:%-5d %s: ERROR: Unknown event type: %@", &v66, 0x26u);
+                v65 = 136315906;
+                v66 = "HapticCommandConverter.mm";
+                v67 = 1024;
+                v68 = 615;
+                v69 = 2080;
+                v70 = "[HapticCommandConverter eventForEventEntry:engine:privileged:]";
+                v71 = 2112;
+                v72 = *&type9;
+                _os_log_impl(&dword_21569A000, v21, OS_LOG_TYPE_ERROR, "%25s:%-5d %s: ERROR: Unknown event type: %@", &v65, 0x26u);
               }
             }
 
@@ -2187,19 +2185,19 @@ LABEL_35:
         audioResID = [entryCopy audioResID];
         if (audioResID == -1 || ![CHHapticEngine resourceIsRegistered:audioResID])
         {
-          v55 = CALog::LogObjIfEnabled(1, kHAPIScope, v44);
-          v56 = v55;
-          if (v55 && os_log_type_enabled(v55, OS_LOG_TYPE_ERROR))
+          v54 = CALog::LogObjIfEnabled(1, kHAPIScope, v43);
+          v55 = v54;
+          if (v54 && os_log_type_enabled(v54, OS_LOG_TYPE_ERROR))
           {
-            v66 = 136315906;
-            v67 = "HapticCommandConverter.mm";
-            v68 = 1024;
-            v69 = 595;
-            v70 = 2080;
-            v71 = "[HapticCommandConverter eventForEventEntry:engine:privileged:]";
-            v72 = 1024;
-            LODWORD(v73) = audioResID;
-            _os_log_impl(&dword_21569A000, v56, OS_LOG_TYPE_ERROR, "%25s:%-5d %s: ERROR: Invalid or missing audio resource with ID %u", &v66, 0x22u);
+            v65 = 136315906;
+            v66 = "HapticCommandConverter.mm";
+            v67 = 1024;
+            v68 = 595;
+            v69 = 2080;
+            v70 = "[HapticCommandConverter eventForEventEntry:engine:privileged:]";
+            v71 = 1024;
+            LODWORD(v72) = audioResID;
+            _os_log_impl(&dword_21569A000, v55, OS_LOG_TYPE_ERROR, "%25s:%-5d %s: ERROR: Invalid or missing audio resource with ID %u", &v65, 0x22u);
           }
 
           Haptic_RaiseException(&cfstr_Corehapticinva_2.isa, &cfstr_InvalidOrMissi.isa, -4824);
@@ -2207,19 +2205,19 @@ LABEL_35:
 
         if (v14 == 0.0 && [engineCopy isResourceLoopEnabled:audioResID])
         {
-          v46 = CALog::LogObjIfEnabled(1, kHAPIScope, v45);
-          v47 = v46;
-          if (v46 && os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
+          v45 = CALog::LogObjIfEnabled(1, kHAPIScope, v44);
+          v46 = v45;
+          if (v45 && os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
           {
-            v66 = 136315906;
-            v67 = "HapticCommandConverter.mm";
-            v68 = 1024;
-            v69 = 584;
-            v70 = 2080;
-            v71 = "[HapticCommandConverter eventForEventEntry:engine:privileged:]";
-            v72 = 1024;
-            LODWORD(v73) = audioResID;
-            _os_log_impl(&dword_21569A000, v47, OS_LOG_TYPE_ERROR, "%25s:%-5d %s: ERROR: Audio resource with ID %u has looping enabled but the event does not specify a duration", &v66, 0x22u);
+            v65 = 136315906;
+            v66 = "HapticCommandConverter.mm";
+            v67 = 1024;
+            v68 = 584;
+            v69 = 2080;
+            v70 = "[HapticCommandConverter eventForEventEntry:engine:privileged:]";
+            v71 = 1024;
+            LODWORD(v72) = audioResID;
+            _os_log_impl(&dword_21569A000, v46, OS_LOG_TYPE_ERROR, "%25s:%-5d %s: ERROR: Audio resource with ID %u has looping enabled but the event does not specify a duration", &v65, 0x22u);
           }
 
           Haptic_RaiseException(&cfstr_Corehapticinva_1.isa, &cfstr_LoopedCustomAu.isa, -4823);
@@ -2230,7 +2228,7 @@ LABEL_35:
           [engineCopy getDurationForResource:audioResID];
           [entryCopy setDuration:?];
           [entryCopy duration];
-          v14 = v48;
+          v14 = v47;
         }
       }
 
@@ -2240,7 +2238,7 @@ LABEL_35:
 
     if (eventParameters && [eventParameters indexOfObjectPassingTest:&__block_literal_global_0] != 0x7FFFFFFFFFFFFFFFLL)
     {
-      v49 = 2;
+      v48 = 2;
     }
 
     else
@@ -2259,52 +2257,52 @@ LABEL_35:
         else
         {
           v31 = MEMORY[0x277D86220];
-          v57 = MEMORY[0x277D86220];
+          v56 = MEMORY[0x277D86220];
         }
 
         if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
         {
-          v66 = 136315650;
-          v67 = "HapticCommandConverter.mm";
-          v68 = 1024;
-          v69 = 546;
-          v70 = 2080;
-          v71 = "[HapticCommandConverter eventForEventEntry:engine:privileged:]";
-          _os_log_impl(&dword_21569A000, v31, OS_LOG_TYPE_ERROR, "%25s:%-5d %s: ERROR: Continuous haptic event has a missing or zero-length duration", &v66, 0x1Cu);
+          v65 = 136315650;
+          v66 = "HapticCommandConverter.mm";
+          v67 = 1024;
+          v68 = 546;
+          v69 = 2080;
+          v70 = "[HapticCommandConverter eventForEventEntry:engine:privileged:]";
+          _os_log_impl(&dword_21569A000, v31, OS_LOG_TYPE_ERROR, "%25s:%-5d %s: ERROR: Continuous haptic event has a missing or zero-length duration", &v65, 0x1Cu);
         }
 
 LABEL_79:
         Haptic_RaiseException(&cfstr_Corehapticinva_1.isa, &cfstr_IllegalOrMissi.isa, -4823);
       }
 
-      v49 = 1;
+      v48 = 1;
       if (v17 > 0.0)
       {
-        v50 = v17;
-        if (v14 > v50)
+        v49 = v17;
+        if (v14 > v49)
         {
-          v51 = CALog::LogObjIfEnabled(6, kHAPIScope, 1);
-          v52 = v51;
-          if (v51 && os_log_type_enabled(v51, OS_LOG_TYPE_DEBUG))
+          v50 = CALog::LogObjIfEnabled(6, kHAPIScope, 1);
+          v51 = v50;
+          if (v50 && os_log_type_enabled(v50, OS_LOG_TYPE_DEBUG))
           {
-            v66 = 136315906;
-            v67 = "HapticCommandConverter.mm";
-            v68 = 1024;
-            v69 = 552;
-            v70 = 2080;
-            v71 = "[HapticCommandConverter eventForEventEntry:engine:privileged:]";
-            v72 = 2048;
-            v73 = v50;
-            _os_log_impl(&dword_21569A000, v52, OS_LOG_TYPE_DEBUG, "%25s:%-5d %s: Haptic event duration capped at %f seconds", &v66, 0x26u);
+            v65 = 136315906;
+            v66 = "HapticCommandConverter.mm";
+            v67 = 1024;
+            v68 = 552;
+            v69 = 2080;
+            v70 = "[HapticCommandConverter eventForEventEntry:engine:privileged:]";
+            v71 = 2048;
+            v72 = v49;
+            _os_log_impl(&dword_21569A000, v51, OS_LOG_TYPE_DEBUG, "%25s:%-5d %s: Haptic event duration capped at %f seconds", &v65, 0x26u);
           }
 
-          v49 = 1;
-          v14 = v50;
+          v48 = 1;
+          v14 = v49;
         }
       }
     }
 
-    v27 = [(HapticCommandConverter *)self eventForContinuousHapticEventType:v49 time:eventParameters params:v12 duration:v14];
+    v27 = [(HapticCommandConverter *)self eventForContinuousHapticEventType:v48 time:eventParameters params:v12 duration:v14];
     goto LABEL_82;
   }
 
@@ -2319,11 +2317,9 @@ LABEL_79:
   }
   v27 = ;
 LABEL_82:
-  v58 = v27;
+  v57 = v27;
 
-  v33 = *MEMORY[0x277D85DE8];
-
-  return v58;
+  return v57;
 }
 
 uint64_t __63__HapticCommandConverter_eventForEventEntry_engine_privileged___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
@@ -2382,7 +2378,7 @@ LABEL_6:
 
 - (id)eventForDynamicParameterEntry:(id)entry
 {
-  v112 = *MEMORY[0x277D85DE8];
+  v111 = *MEMORY[0x277D85DE8];
   entryCopy = entry;
   [entryCopy value];
   v6 = v5;
@@ -2400,15 +2396,15 @@ LABEL_6:
         {
           [entryCopy parameterID];
           v11 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
-          v102 = 136315906;
-          v103 = "HapticCommandConverter.mm";
-          v104 = 1024;
-          v105 = 626;
-          v106 = 2080;
-          v107 = "[HapticCommandConverter eventForDynamicParameterEntry:]";
-          v108 = 2112;
-          v109 = v11;
-          _os_log_impl(&dword_21569A000, v10, OS_LOG_TYPE_DEBUG, "%25s:%-5d %s: Dynamic parameter ID '%@':", &v102, 0x26u);
+          v101 = 136315906;
+          v102 = "HapticCommandConverter.mm";
+          v103 = 1024;
+          v104 = 626;
+          v105 = 2080;
+          v106 = "[HapticCommandConverter eventForDynamicParameterEntry:]";
+          v107 = 2112;
+          v108 = v11;
+          _os_log_impl(&dword_21569A000, v10, OS_LOG_TYPE_DEBUG, "%25s:%-5d %s: Dynamic parameter ID '%@':", &v101, 0x26u);
         }
       }
     }
@@ -2430,17 +2426,17 @@ LABEL_6:
           v16 = v15;
           if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
           {
-            v102 = 136316162;
-            v103 = "HapticCommandConverter.mm";
-            v104 = 1024;
-            v105 = 629;
-            v106 = 2080;
-            v107 = "[HapticCommandConverter eventForDynamicParameterEntry:]";
-            v108 = 2048;
-            v109 = v6;
-            v110 = 2048;
-            v111 = v8;
-            _os_log_impl(&dword_21569A000, v16, OS_LOG_TYPE_DEBUG, "%25s:%-5d %s: Creating event for haptic volume %f for time %f seconds", &v102, 0x30u);
+            v101 = 136316162;
+            v102 = "HapticCommandConverter.mm";
+            v103 = 1024;
+            v104 = 629;
+            v105 = 2080;
+            v106 = "[HapticCommandConverter eventForDynamicParameterEntry:]";
+            v107 = 2048;
+            v108 = v6;
+            v109 = 2048;
+            v110 = v8;
+            _os_log_impl(&dword_21569A000, v16, OS_LOG_TYPE_DEBUG, "%25s:%-5d %s: Creating event for haptic volume %f for time %f seconds", &v101, 0x30u);
           }
         }
       }
@@ -2470,17 +2466,17 @@ LABEL_6:
             v24 = v23;
             if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
             {
-              v102 = 136316162;
-              v103 = "HapticCommandConverter.mm";
-              v104 = 1024;
-              v105 = 633;
-              v106 = 2080;
-              v107 = "[HapticCommandConverter eventForDynamicParameterEntry:]";
-              v108 = 2048;
-              v109 = v6;
-              v110 = 2048;
-              v111 = v8;
-              _os_log_impl(&dword_21569A000, v24, OS_LOG_TYPE_DEBUG, "%25s:%-5d %s: Creating event for haptic transposition %f for time %f seconds", &v102, 0x30u);
+              v101 = 136316162;
+              v102 = "HapticCommandConverter.mm";
+              v103 = 1024;
+              v104 = 633;
+              v105 = 2080;
+              v106 = "[HapticCommandConverter eventForDynamicParameterEntry:]";
+              v107 = 2048;
+              v108 = v6;
+              v109 = 2048;
+              v110 = v8;
+              _os_log_impl(&dword_21569A000, v24, OS_LOG_TYPE_DEBUG, "%25s:%-5d %s: Creating event for haptic transposition %f for time %f seconds", &v101, 0x30u);
             }
           }
         }
@@ -2510,17 +2506,17 @@ LABEL_6:
               v30 = v29;
               if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
               {
-                v102 = 136316162;
-                v103 = "HapticCommandConverter.mm";
-                v104 = 1024;
-                v105 = 637;
-                v106 = 2080;
-                v107 = "[HapticCommandConverter eventForDynamicParameterEntry:]";
-                v108 = 2048;
-                v109 = v6;
-                v110 = 2048;
-                v111 = v8;
-                _os_log_impl(&dword_21569A000, v30, OS_LOG_TYPE_DEBUG, "%25s:%-5d %s: Creating event for haptic attack time %f for time %f seconds", &v102, 0x30u);
+                v101 = 136316162;
+                v102 = "HapticCommandConverter.mm";
+                v103 = 1024;
+                v104 = 637;
+                v105 = 2080;
+                v106 = "[HapticCommandConverter eventForDynamicParameterEntry:]";
+                v107 = 2048;
+                v108 = v6;
+                v109 = 2048;
+                v110 = v8;
+                _os_log_impl(&dword_21569A000, v30, OS_LOG_TYPE_DEBUG, "%25s:%-5d %s: Creating event for haptic attack time %f for time %f seconds", &v101, 0x30u);
               }
             }
           }
@@ -2550,17 +2546,17 @@ LABEL_6:
                 v36 = v35;
                 if (os_log_type_enabled(v35, OS_LOG_TYPE_DEBUG))
                 {
-                  v102 = 136316162;
-                  v103 = "HapticCommandConverter.mm";
-                  v104 = 1024;
-                  v105 = 641;
-                  v106 = 2080;
-                  v107 = "[HapticCommandConverter eventForDynamicParameterEntry:]";
-                  v108 = 2048;
-                  v109 = v6;
-                  v110 = 2048;
-                  v111 = v8;
-                  _os_log_impl(&dword_21569A000, v36, OS_LOG_TYPE_DEBUG, "%25s:%-5d %s: Creating event for haptic decay time %f for time %f seconds", &v102, 0x30u);
+                  v101 = 136316162;
+                  v102 = "HapticCommandConverter.mm";
+                  v103 = 1024;
+                  v104 = 641;
+                  v105 = 2080;
+                  v106 = "[HapticCommandConverter eventForDynamicParameterEntry:]";
+                  v107 = 2048;
+                  v108 = v6;
+                  v109 = 2048;
+                  v110 = v8;
+                  _os_log_impl(&dword_21569A000, v36, OS_LOG_TYPE_DEBUG, "%25s:%-5d %s: Creating event for haptic decay time %f for time %f seconds", &v101, 0x30u);
                 }
               }
             }
@@ -2590,17 +2586,17 @@ LABEL_6:
                   v42 = v41;
                   if (os_log_type_enabled(v41, OS_LOG_TYPE_DEBUG))
                   {
-                    v102 = 136316162;
-                    v103 = "HapticCommandConverter.mm";
-                    v104 = 1024;
-                    v105 = 645;
-                    v106 = 2080;
-                    v107 = "[HapticCommandConverter eventForDynamicParameterEntry:]";
-                    v108 = 2048;
-                    v109 = v6;
-                    v110 = 2048;
-                    v111 = v8;
-                    _os_log_impl(&dword_21569A000, v42, OS_LOG_TYPE_DEBUG, "%25s:%-5d %s: Creating event for haptic release time %f for time %f seconds", &v102, 0x30u);
+                    v101 = 136316162;
+                    v102 = "HapticCommandConverter.mm";
+                    v103 = 1024;
+                    v104 = 645;
+                    v105 = 2080;
+                    v106 = "[HapticCommandConverter eventForDynamicParameterEntry:]";
+                    v107 = 2048;
+                    v108 = v6;
+                    v109 = 2048;
+                    v110 = v8;
+                    _os_log_impl(&dword_21569A000, v42, OS_LOG_TYPE_DEBUG, "%25s:%-5d %s: Creating event for haptic release time %f for time %f seconds", &v101, 0x30u);
                   }
                 }
               }
@@ -2624,17 +2620,17 @@ LABEL_6:
               v49 = v48;
               if (v48 && os_log_type_enabled(v48, OS_LOG_TYPE_DEBUG))
               {
-                v102 = 136316162;
-                v103 = "HapticCommandConverter.mm";
-                v104 = 1024;
-                v105 = 649;
-                v106 = 2080;
-                v107 = "[HapticCommandConverter eventForDynamicParameterEntry:]";
-                v108 = 2048;
-                v109 = v6;
-                v110 = 2048;
-                v111 = v8;
-                _os_log_impl(&dword_21569A000, v49, OS_LOG_TYPE_DEBUG, "%25s:%-5d %s: Creating event for audio volume %f for time %f seconds", &v102, 0x30u);
+                v101 = 136316162;
+                v102 = "HapticCommandConverter.mm";
+                v103 = 1024;
+                v104 = 649;
+                v105 = 2080;
+                v106 = "[HapticCommandConverter eventForDynamicParameterEntry:]";
+                v107 = 2048;
+                v108 = v6;
+                v109 = 2048;
+                v110 = v8;
+                _os_log_impl(&dword_21569A000, v49, OS_LOG_TYPE_DEBUG, "%25s:%-5d %s: Creating event for audio volume %f for time %f seconds", &v101, 0x30u);
               }
 
               v50 = MEMORY[0x277CEFD50];
@@ -2655,17 +2651,17 @@ LABEL_6:
                 v56 = v55;
                 if (v55 && os_log_type_enabled(v55, OS_LOG_TYPE_DEBUG))
                 {
-                  v102 = 136316162;
-                  v103 = "HapticCommandConverter.mm";
-                  v104 = 1024;
-                  v105 = 653;
-                  v106 = 2080;
-                  v107 = "[HapticCommandConverter eventForDynamicParameterEntry:]";
-                  v108 = 2048;
-                  v109 = v6;
-                  v110 = 2048;
-                  v111 = v8;
-                  _os_log_impl(&dword_21569A000, v56, OS_LOG_TYPE_DEBUG, "%25s:%-5d %s: Creating event for audio brightness %f for time %f seconds", &v102, 0x30u);
+                  v101 = 136316162;
+                  v102 = "HapticCommandConverter.mm";
+                  v103 = 1024;
+                  v104 = 653;
+                  v105 = 2080;
+                  v106 = "[HapticCommandConverter eventForDynamicParameterEntry:]";
+                  v107 = 2048;
+                  v108 = v6;
+                  v109 = 2048;
+                  v110 = v8;
+                  _os_log_impl(&dword_21569A000, v56, OS_LOG_TYPE_DEBUG, "%25s:%-5d %s: Creating event for audio brightness %f for time %f seconds", &v101, 0x30u);
                 }
 
                 v57 = MEMORY[0x277CEFD50];
@@ -2686,17 +2682,17 @@ LABEL_6:
                   v63 = v62;
                   if (v62 && os_log_type_enabled(v62, OS_LOG_TYPE_DEBUG))
                   {
-                    v102 = 136316162;
-                    v103 = "HapticCommandConverter.mm";
-                    v104 = 1024;
-                    v105 = 657;
-                    v106 = 2080;
-                    v107 = "[HapticCommandConverter eventForDynamicParameterEntry:]";
-                    v108 = 2048;
-                    v109 = v6;
-                    v110 = 2048;
-                    v111 = v8;
-                    _os_log_impl(&dword_21569A000, v63, OS_LOG_TYPE_DEBUG, "%25s:%-5d %s: Creating event for audio pan %f for time %f seconds", &v102, 0x30u);
+                    v101 = 136316162;
+                    v102 = "HapticCommandConverter.mm";
+                    v103 = 1024;
+                    v104 = 657;
+                    v105 = 2080;
+                    v106 = "[HapticCommandConverter eventForDynamicParameterEntry:]";
+                    v107 = 2048;
+                    v108 = v6;
+                    v109 = 2048;
+                    v110 = v8;
+                    _os_log_impl(&dword_21569A000, v63, OS_LOG_TYPE_DEBUG, "%25s:%-5d %s: Creating event for audio pan %f for time %f seconds", &v101, 0x30u);
                   }
 
                   v64 = MEMORY[0x277CEFD50];
@@ -2717,17 +2713,17 @@ LABEL_6:
                     v70 = v69;
                     if (v69 && os_log_type_enabled(v69, OS_LOG_TYPE_DEBUG))
                     {
-                      v102 = 136316162;
-                      v103 = "HapticCommandConverter.mm";
-                      v104 = 1024;
-                      v105 = 661;
-                      v106 = 2080;
-                      v107 = "[HapticCommandConverter eventForDynamicParameterEntry:]";
-                      v108 = 2048;
-                      v109 = v6;
-                      v110 = 2048;
-                      v111 = v8;
-                      _os_log_impl(&dword_21569A000, v70, OS_LOG_TYPE_DEBUG, "%25s:%-5d %s: Creating event for audio transposition %f for time %f seconds", &v102, 0x30u);
+                      v101 = 136316162;
+                      v102 = "HapticCommandConverter.mm";
+                      v103 = 1024;
+                      v104 = 661;
+                      v105 = 2080;
+                      v106 = "[HapticCommandConverter eventForDynamicParameterEntry:]";
+                      v107 = 2048;
+                      v108 = v6;
+                      v109 = 2048;
+                      v110 = v8;
+                      _os_log_impl(&dword_21569A000, v70, OS_LOG_TYPE_DEBUG, "%25s:%-5d %s: Creating event for audio transposition %f for time %f seconds", &v101, 0x30u);
                     }
 
                     v71 = MEMORY[0x277CEFD50];
@@ -2748,17 +2744,17 @@ LABEL_6:
                       v77 = v76;
                       if (v76 && os_log_type_enabled(v76, OS_LOG_TYPE_DEBUG))
                       {
-                        v102 = 136316162;
-                        v103 = "HapticCommandConverter.mm";
-                        v104 = 1024;
-                        v105 = 665;
-                        v106 = 2080;
-                        v107 = "[HapticCommandConverter eventForDynamicParameterEntry:]";
-                        v108 = 2048;
-                        v109 = v6;
-                        v110 = 2048;
-                        v111 = v8;
-                        _os_log_impl(&dword_21569A000, v77, OS_LOG_TYPE_DEBUG, "%25s:%-5d %s: Creating event for audio attack time %f for time %f seconds", &v102, 0x30u);
+                        v101 = 136316162;
+                        v102 = "HapticCommandConverter.mm";
+                        v103 = 1024;
+                        v104 = 665;
+                        v105 = 2080;
+                        v106 = "[HapticCommandConverter eventForDynamicParameterEntry:]";
+                        v107 = 2048;
+                        v108 = v6;
+                        v109 = 2048;
+                        v110 = v8;
+                        _os_log_impl(&dword_21569A000, v77, OS_LOG_TYPE_DEBUG, "%25s:%-5d %s: Creating event for audio attack time %f for time %f seconds", &v101, 0x30u);
                       }
 
                       v78 = MEMORY[0x277CEFD50];
@@ -2779,17 +2775,17 @@ LABEL_6:
                         v84 = v83;
                         if (v83 && os_log_type_enabled(v83, OS_LOG_TYPE_DEBUG))
                         {
-                          v102 = 136316162;
-                          v103 = "HapticCommandConverter.mm";
-                          v104 = 1024;
-                          v105 = 669;
-                          v106 = 2080;
-                          v107 = "[HapticCommandConverter eventForDynamicParameterEntry:]";
-                          v108 = 2048;
-                          v109 = v6;
-                          v110 = 2048;
-                          v111 = v8;
-                          _os_log_impl(&dword_21569A000, v84, OS_LOG_TYPE_DEBUG, "%25s:%-5d %s: Creating event for audio decay time %f for time %f seconds", &v102, 0x30u);
+                          v101 = 136316162;
+                          v102 = "HapticCommandConverter.mm";
+                          v103 = 1024;
+                          v104 = 669;
+                          v105 = 2080;
+                          v106 = "[HapticCommandConverter eventForDynamicParameterEntry:]";
+                          v107 = 2048;
+                          v108 = v6;
+                          v109 = 2048;
+                          v110 = v8;
+                          _os_log_impl(&dword_21569A000, v84, OS_LOG_TYPE_DEBUG, "%25s:%-5d %s: Creating event for audio decay time %f for time %f seconds", &v101, 0x30u);
                         }
 
                         v85 = MEMORY[0x277CEFD50];
@@ -2806,25 +2802,25 @@ LABEL_6:
 
                         if (!v88)
                         {
-                          v97 = CALog::LogObjIfEnabled(1, kHAPIScope, v89);
-                          v98 = v97;
-                          if (v97)
+                          v96 = CALog::LogObjIfEnabled(1, kHAPIScope, v89);
+                          v97 = v96;
+                          if (v96)
                           {
-                            v99 = v97;
-                            if (os_log_type_enabled(v99, OS_LOG_TYPE_ERROR))
+                            v98 = v96;
+                            if (os_log_type_enabled(v98, OS_LOG_TYPE_ERROR))
                             {
                               [entryCopy parameterID];
-                              *&v100 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
-                              v102 = 136315906;
-                              v103 = "HapticCommandConverter.mm";
-                              v104 = 1024;
-                              v105 = 676;
-                              v106 = 2080;
-                              v107 = "[HapticCommandConverter eventForDynamicParameterEntry:]";
-                              v108 = 2112;
-                              v109 = *&v100;
-                              v101 = v100;
-                              _os_log_impl(&dword_21569A000, v99, OS_LOG_TYPE_ERROR, "%25s:%-5d %s: ERROR: Unrecognized dynamic parameter: %@", &v102, 0x26u);
+                              *&v99 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
+                              v101 = 136315906;
+                              v102 = "HapticCommandConverter.mm";
+                              v103 = 1024;
+                              v104 = 676;
+                              v105 = 2080;
+                              v106 = "[HapticCommandConverter eventForDynamicParameterEntry:]";
+                              v107 = 2112;
+                              v108 = *&v99;
+                              v100 = v99;
+                              _os_log_impl(&dword_21569A000, v98, OS_LOG_TYPE_ERROR, "%25s:%-5d %s: ERROR: Unrecognized dynamic parameter: %@", &v101, 0x26u);
                             }
                           }
 
@@ -2835,17 +2831,17 @@ LABEL_6:
                         v91 = v90;
                         if (v90 && os_log_type_enabled(v90, OS_LOG_TYPE_DEBUG))
                         {
-                          v102 = 136316162;
-                          v103 = "HapticCommandConverter.mm";
-                          v104 = 1024;
-                          v105 = 673;
-                          v106 = 2080;
-                          v107 = "[HapticCommandConverter eventForDynamicParameterEntry:]";
-                          v108 = 2048;
-                          v109 = v6;
-                          v110 = 2048;
-                          v111 = v8;
-                          _os_log_impl(&dword_21569A000, v91, OS_LOG_TYPE_DEBUG, "%25s:%-5d %s: Creating event for audio release time %f for time %f seconds", &v102, 0x30u);
+                          v101 = 136316162;
+                          v102 = "HapticCommandConverter.mm";
+                          v103 = 1024;
+                          v104 = 673;
+                          v105 = 2080;
+                          v106 = "[HapticCommandConverter eventForDynamicParameterEntry:]";
+                          v107 = 2048;
+                          v108 = v6;
+                          v109 = 2048;
+                          v110 = v8;
+                          _os_log_impl(&dword_21569A000, v91, OS_LOG_TYPE_DEBUG, "%25s:%-5d %s: Creating event for audio release time %f for time %f seconds", &v101, 0x30u);
                         }
 
                         v92 = MEMORY[0x277CEFD50];
@@ -2867,14 +2863,12 @@ LABEL_6:
 
   v94 = v20;
 
-  v95 = *MEMORY[0x277D85DE8];
-
   return v94;
 }
 
 - (id)eventForParameterCurveEntry:(id)entry
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   entryCopy = entry;
   if (kHAPIScope)
   {
@@ -2888,17 +2882,17 @@ LABEL_6:
         {
           parameterID = [entryCopy parameterID];
           [entryCopy relativeTime];
-          v13 = 136316162;
-          v14 = "HapticCommandConverter.mm";
-          v15 = 1024;
-          v16 = 683;
-          v17 = 2080;
-          v18 = "[HapticCommandConverter eventForParameterCurveEntry:]";
-          v19 = 2112;
-          v20 = parameterID;
-          v21 = 2048;
-          v22 = v8;
-          _os_log_impl(&dword_21569A000, v6, OS_LOG_TYPE_DEBUG, "%25s:%-5d %s: Parameter curve ID: '%@', relative time: %f", &v13, 0x30u);
+          v12 = 136316162;
+          v13 = "HapticCommandConverter.mm";
+          v14 = 1024;
+          v15 = 683;
+          v16 = 2080;
+          v17 = "[HapticCommandConverter eventForParameterCurveEntry:]";
+          v18 = 2112;
+          v19 = parameterID;
+          v20 = 2048;
+          v21 = v8;
+          _os_log_impl(&dword_21569A000, v6, OS_LOG_TYPE_DEBUG, "%25s:%-5d %s: Parameter curve ID: '%@', relative time: %f", &v12, 0x30u);
         }
       }
     }
@@ -2907,14 +2901,12 @@ LABEL_6:
   v9 = [(HapticCommandConverter *)self CHtoAVParameterCurve:entryCopy];
   v10 = [MEMORY[0x277CEFD50] eventWithParameterCurve:v9];
 
-  v11 = *MEMORY[0x277D85DE8];
-
   return v10;
 }
 
 - (id)CHtoAVParameterCurve:(id)curve
 {
-  v57 = *MEMORY[0x277D85DE8];
+  v56 = *MEMORY[0x277D85DE8];
   curveCopy = curve;
   controlPoints = [curveCopy controlPoints];
   v6 = [controlPoints count];
@@ -3008,23 +3000,23 @@ LABEL_6:
 
             if ((v39 & 1) == 0)
             {
-              v45 = CALog::LogObjIfEnabled(1, kHAPIScope, v40);
-              v46 = v45;
-              if (v45)
+              v44 = CALog::LogObjIfEnabled(1, kHAPIScope, v40);
+              v45 = v44;
+              if (v44)
               {
-                v47 = v45;
-                if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
+                v46 = v44;
+                if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
                 {
                   parameterID8 = [curveCopy parameterID];
-                  v49 = 136315906;
-                  v50 = "HapticCommandConverter.mm";
-                  v51 = 1024;
-                  v52 = 727;
-                  v53 = 2080;
-                  v54 = "[HapticCommandConverter CHtoAVParameterCurve:]";
-                  v55 = 2112;
-                  v56 = parameterID8;
-                  _os_log_impl(&dword_21569A000, v47, OS_LOG_TYPE_ERROR, "%25s:%-5d %s: ERROR: ID %@ is not supported by parameter curves", &v49, 0x26u);
+                  v48 = 136315906;
+                  v49 = "HapticCommandConverter.mm";
+                  v50 = 1024;
+                  v51 = 727;
+                  v52 = 2080;
+                  v53 = "[HapticCommandConverter CHtoAVParameterCurve:]";
+                  v54 = 2112;
+                  v55 = parameterID8;
+                  _os_log_impl(&dword_21569A000, v46, OS_LOG_TYPE_ERROR, "%25s:%-5d %s: ERROR: ID %@ is not supported by parameter curves", &v48, 0x26u);
                 }
               }
 
@@ -3041,8 +3033,6 @@ LABEL_6:
   v41 = objc_alloc(MEMORY[0x277CEFD58]);
   [curveCopy relativeTime];
   v42 = [v41 initWithType:v29 relativeTime:1 shape:v7 controlPoints:?];
-
-  v43 = *MEMORY[0x277D85DE8];
 
   return v42;
 }

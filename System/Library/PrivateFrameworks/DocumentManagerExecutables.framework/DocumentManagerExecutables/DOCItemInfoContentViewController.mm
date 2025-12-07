@@ -98,13 +98,13 @@
 
 - (DOCItemInfoContentViewController)initWithConfiguration:(id)configuration nodes:(id)nodes allowOpenButton:(BOOL)button documentManager:(id)manager actionManager:(id)actionManager actionDelegate:(id)delegate
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo7DOCNode_pMd);
-  v12 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo7DOCNode_pMd, &_sSo7DOCNode_pMR);
+  v13 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   configurationCopy = configuration;
   managerCopy = manager;
   actionManagerCopy = actionManager;
   swift_unknownObjectRetain();
-  return DOCItemInfoContentViewController.init(configuration:nodes:allowOpenButton:documentManager:actionManager:actionDelegate:)(configurationCopy, v12, button, manager, actionManager);
+  return DOCItemInfoContentViewController.init(configuration:nodes:allowOpenButton:documentManager:actionManager:actionDelegate:)(configurationCopy, v13, button, manager, actionManager, delegate);
 }
 
 - (void)loadView
@@ -217,7 +217,7 @@
   flowCopy = flow;
   swift_unknownObjectRetain();
   selfCopy = self;
-  specialized DOCItemInfoContentViewController.setHandlerFlow(_:didSetHandlerPreferenceOfType:to:)();
+  specialized DOCItemInfoContentViewController.setHandlerFlow(_:didSetHandlerPreferenceOfType:to:)(type, bundle);
 
   swift_unknownObjectRelease();
 }
@@ -228,7 +228,7 @@
   swift_unknownObjectRetain();
   errorCopy = error;
   selfCopy = self;
-  specialized DOCItemInfoContentViewController.setHandlerFlow(_:didFailToSetHandlerPreferenceOfType:to:error:)();
+  specialized DOCItemInfoContentViewController.setHandlerFlow(_:didFailToSetHandlerPreferenceOfType:to:error:)(type, bundle, errorCopy);
 
   swift_unknownObjectRelease();
 }
@@ -353,7 +353,7 @@
 
 - (id)contextMenuForItemsWithNodes:(id)nodes
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo7DOCNode_pMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo7DOCNode_pMd, &_sSo7DOCNode_pMR);
   v4 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   if (v4 >> 62)
   {

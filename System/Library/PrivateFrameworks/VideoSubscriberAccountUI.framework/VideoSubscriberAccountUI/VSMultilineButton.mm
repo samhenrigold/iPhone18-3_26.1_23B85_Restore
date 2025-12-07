@@ -7,6 +7,7 @@
 - (void)dealloc;
 - (void)drawRect:(CGRect)rect;
 - (void)layoutSubviews;
+- (void)setHighlighted:(BOOL)highlighted;
 - (void)tintColorDidChange;
 @end
 
@@ -86,6 +87,14 @@
   v5.receiver = self;
   v5.super_class = VSMultilineButton;
   [(VSMultilineButton *)&v5 layoutSubviews];
+}
+
+- (void)setHighlighted:(BOOL)highlighted
+{
+  v4.receiver = self;
+  v4.super_class = VSMultilineButton;
+  [(VSMultilineButton *)&v4 setHighlighted:highlighted];
+  [(VSMultilineButton *)self setNeedsDisplay];
 }
 
 - (void)drawRect:(CGRect)rect

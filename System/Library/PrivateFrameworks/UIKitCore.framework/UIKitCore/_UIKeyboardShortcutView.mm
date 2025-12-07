@@ -425,7 +425,7 @@ LABEL_6:
   {
     v10 = v6;
     language = [v6 language];
-    *arabic = [language isEqualToString:@"Arabic"];
+    *arabic = objc_msgSend_isEqualToString_(language);
 
     globeKeyLabelHasGlobeSymbol = [v10 globeKeyLabelHasGlobeSymbol];
     v7 = v10;

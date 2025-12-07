@@ -13,11 +13,11 @@
 
 - (SFKeyValueDataCardSection)initWithProtobuf:(id)protobuf
 {
-  v50 = *MEMORY[0x1E69E9840];
+  v49 = *MEMORY[0x1E69E9840];
   protobufCopy = protobuf;
-  v47.receiver = self;
-  v47.super_class = SFKeyValueDataCardSection;
-  v5 = [(SFCardSection *)&v47 init];
+  v46.receiver = self;
+  v46.super_class = SFKeyValueDataCardSection;
+  v5 = [(SFCardSection *)&v46 init];
   if (v5)
   {
     punchoutOptions = [protobufCopy punchoutOptions];
@@ -31,33 +31,33 @@
       v7 = 0;
     }
 
-    v45 = 0u;
-    v46 = 0u;
-    v43 = 0u;
     v44 = 0u;
+    v45 = 0u;
+    v42 = 0u;
+    v43 = 0u;
     punchoutOptions2 = [protobufCopy punchoutOptions];
-    v9 = [punchoutOptions2 countByEnumeratingWithState:&v43 objects:v49 count:16];
+    v9 = [punchoutOptions2 countByEnumeratingWithState:&v42 objects:v48 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v44;
+      v11 = *v43;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v44 != v11)
+          if (*v43 != v11)
           {
             objc_enumerationMutation(punchoutOptions2);
           }
 
-          v13 = [[SFPunchout alloc] initWithProtobuf:*(*(&v43 + 1) + 8 * i)];
+          v13 = [[SFPunchout alloc] initWithProtobuf:*(*(&v42 + 1) + 8 * i)];
           if (v13)
           {
             [v7 addObject:v13];
           }
         }
 
-        v10 = [punchoutOptions2 countByEnumeratingWithState:&v43 objects:v49 count:16];
+        v10 = [punchoutOptions2 countByEnumeratingWithState:&v42 objects:v48 count:16];
       }
 
       while (v10);
@@ -129,33 +129,33 @@
       v25 = 0;
     }
 
-    v41 = 0u;
-    v42 = 0u;
-    v39 = 0u;
     v40 = 0u;
+    v41 = 0u;
+    v38 = 0u;
+    v39 = 0u;
     datas2 = [protobufCopy datas];
-    v27 = [datas2 countByEnumeratingWithState:&v39 objects:v48 count:16];
+    v27 = [datas2 countByEnumeratingWithState:&v38 objects:v47 count:16];
     if (v27)
     {
       v28 = v27;
-      v29 = *v40;
+      v29 = *v39;
       do
       {
         for (j = 0; j != v28; ++j)
         {
-          if (*v40 != v29)
+          if (*v39 != v29)
           {
             objc_enumerationMutation(datas2);
           }
 
-          v31 = [[SFKeyValueTuple alloc] initWithProtobuf:*(*(&v39 + 1) + 8 * j)];
+          v31 = [[SFKeyValueTuple alloc] initWithProtobuf:*(*(&v38 + 1) + 8 * j)];
           if (v31)
           {
             [v25 addObject:v31];
           }
         }
 
-        v28 = [datas2 countByEnumeratingWithState:&v39 objects:v48 count:16];
+        v28 = [datas2 countByEnumeratingWithState:&v38 objects:v47 count:16];
       }
 
       while (v28);
@@ -175,7 +175,6 @@
     v36 = v5;
   }
 
-  v37 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

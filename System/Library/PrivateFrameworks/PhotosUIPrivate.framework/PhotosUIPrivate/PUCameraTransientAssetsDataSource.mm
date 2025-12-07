@@ -213,21 +213,21 @@
 
     if (v13 == 0x7FFFFFFFFFFFFFFFLL)
     {
-      indexPath = 0;
+      v9 = 0;
     }
 
     else
     {
-      indexPath = [MEMORY[0x1E696AC88] indexPathForItem:v13 inSection:0];
+      v9 = [MEMORY[0x1E696AC88] indexPathForItem:v13 inSection:0];
     }
   }
 
   else
   {
-    indexPath = [v5 indexPath];
+    v9 = objc_msgSend_indexPath(v5);
   }
 
-  return indexPath;
+  return v9;
 }
 
 - (id)assetReferenceAtIndexPath:(id)path

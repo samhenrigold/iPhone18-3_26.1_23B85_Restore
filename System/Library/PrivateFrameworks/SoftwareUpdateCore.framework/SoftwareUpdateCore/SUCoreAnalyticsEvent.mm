@@ -65,17 +65,14 @@
 
 uint64_t __36__SUCoreAnalyticsEvent_eventPayload__block_invoke(uint64_t a1)
 {
-  v2 = [MEMORY[0x277CBEAC0] dictionaryWithDictionary:*(*(a1 + 32) + 16)];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [MEMORY[0x277CBEAC0] dictionaryWithDictionary:*(*(a1 + 32) + 16)];
 
   return MEMORY[0x2821F96F8]();
 }
 
 - (void)setEventPayloadEntry:(id)entry value:(id)value
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   entryCopy = entry;
   valueCopy = value;
   dispatch_assert_queue_not_V2(self->_stateQueue);
@@ -88,8 +85,8 @@ uint64_t __36__SUCoreAnalyticsEvent_eventPayload__block_invoke(uint64_t a1)
     block[2] = __51__SUCoreAnalyticsEvent_setEventPayloadEntry_value___block_invoke;
     block[3] = &unk_27892D340;
     block[4] = self;
-    v15 = entryCopy;
-    v16 = valueCopy;
+    v14 = entryCopy;
+    v15 = valueCopy;
     dispatch_sync(stateQueue, block);
   }
 
@@ -100,17 +97,15 @@ uint64_t __36__SUCoreAnalyticsEvent_eventPayload__block_invoke(uint64_t a1)
 
     if (os_log_type_enabled(oslog, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = objc_opt_class();
-      v13 = NSStringFromClass(v12);
+      v11 = objc_opt_class();
+      v12 = NSStringFromClass(v11);
       *buf = 138543618;
-      v18 = entryCopy;
-      v19 = 2114;
-      v20 = v13;
+      v17 = entryCopy;
+      v18 = 2114;
+      v19 = v12;
       _os_log_impl(&dword_23193C000, oslog, OS_LOG_TYPE_DEFAULT, "Event payload data %{public}@ is unsupported type %{public}@. Supported Types: NSString, NSNumber, NSData, NSDate", buf, 0x16u);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setEventPayloadEntryToNull:(id)null

@@ -44,7 +44,7 @@ void __73__SoftwareUpdateExtensibleSSOAuthenticator_copyQueryItemsWithParameters
 
 - (id)authenticate
 {
-  v42 = *MEMORY[0x29EDCA608];
+  v41 = *MEMORY[0x29EDCA608];
   v3 = _MAClientLog(@"SSO");
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
@@ -90,11 +90,11 @@ void __73__SoftwareUpdateExtensibleSSOAuthenticator_copyQueryItemsWithParameters
     envIdentifier2 = [(SoftwareUpdateExtensibleSSOAuthenticator *)self envIdentifier];
     interactivity2 = [(SoftwareUpdateExtensibleSSOAuthenticator *)self interactivity];
     *buf = 138412802;
-    v37 = appIdentifier2;
-    v38 = 2112;
-    v39 = envIdentifier2;
-    v40 = 2112;
-    v41 = interactivity2;
+    v36 = appIdentifier2;
+    v37 = 2112;
+    v38 = envIdentifier2;
+    v39 = 2112;
+    v40 = interactivity2;
     _os_log_impl(&dword_298222000, v15, OS_LOG_TYPE_DEFAULT, "Parameters passed to authenticate function are AppIdentifier: %@ EnvIdentifier: %@ Interactivity: %@ \n", buf, 0x20u);
   }
 
@@ -142,8 +142,8 @@ LABEL_22:
 
     [createRequest setUserInterfaceEnabled:v29];
     v30 = objc_alloc(MEMORY[0x29EDB84C8]);
-    v35 = createRequest;
-    v31 = [MEMORY[0x29EDB8D80] arrayWithObjects:&v35 count:1];
+    v34 = createRequest;
+    v31 = [MEMORY[0x29EDB8D80] arrayWithObjects:&v34 count:1];
     v25 = [v30 initWithAuthorizationRequests:v31];
 
     [v25 setDelegate:self];
@@ -163,14 +163,12 @@ LABEL_22:
   {
     v24 = [v20 url];
     *buf = 138412290;
-    v37 = v24;
+    v36 = v24;
     _os_log_impl(&dword_298222000, createRequest, OS_LOG_TYPE_ERROR, "Can't authenticate with provider URL: %@\n", buf, 0xCu);
   }
 
   v25 = 0;
 LABEL_25:
-
-  v33 = *MEMORY[0x29EDCA608];
 
   return v25;
 }
@@ -240,20 +238,18 @@ LABEL_25:
 
 - (void)authorizationController:(id)controller didCompleteWithError:(id)error
 {
-  v11 = *MEMORY[0x29EDCA608];
+  v10 = *MEMORY[0x29EDCA608];
   errorCopy = error;
   v6 = _MAClientLog(@"SSO");
   if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
-    v9 = 138412290;
-    v10 = errorCopy;
-    _os_log_impl(&dword_298222000, v6, OS_LOG_TYPE_ERROR, "ExtensibleSSOAuthenticator : Authentication completed with error: %@\n", &v9, 0xCu);
+    v8 = 138412290;
+    v9 = errorCopy;
+    _os_log_impl(&dword_298222000, v6, OS_LOG_TYPE_ERROR, "ExtensibleSSOAuthenticator : Authentication completed with error: %@\n", &v8, 0xCu);
   }
 
   delegate = [(SoftwareUpdateExtensibleSSOAuthenticator *)self delegate];
   [delegate authenticator:self didCompleteWithError:errorCopy];
-
-  v8 = *MEMORY[0x29EDCA608];
 }
 
 - (SoftwareUpdateExtensibleSSOAuthenticatorDelegate)delegate

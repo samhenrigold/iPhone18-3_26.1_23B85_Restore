@@ -7,6 +7,7 @@
 - (id)detailText;
 - (id)primaryText;
 - (void)refreshCellContentsWithSpecifier:(id)specifier;
+- (void)setChecked:(BOOL)checked;
 @end
 
 @implementation PSUICarrierSpacePlanTableCell
@@ -96,6 +97,34 @@
   v3 = [specifier propertyForKey:@"PSUICellularCellDetailText"];
 
   return v3;
+}
+
+- (void)setChecked:(BOOL)checked
+{
+  v3 = *MEMORY[0x277D3FCC8];
+  if (*(&self->super.super.super.super.super.isa + v3) != checked)
+  {
+    checkedCopy = checked;
+    specifier = [(PSTableCell *)self specifier];
+    v7 = [MEMORY[0x277CCABB0] numberWithBool:checkedCopy];
+    [specifier setProperty:v7 forKey:@"PSUICellularCellIsChecked"];
+
+    *(&self->super.super.super.super.super.isa + v3) = checkedCopy;
+    v8 = objc_opt_class();
+    if (checkedCopy)
+    {
+      [v8 checkIcon];
+    }
+
+    else
+    {
+      [v8 spacerIcon];
+    }
+    v9 = ;
+    [(PSTableCell *)self setIcon:v9];
+
+    [(PSUICarrierSpacePlanTableCell *)self setNeedsLayout];
+  }
 }
 
 - (void)refreshCellContentsWithSpecifier:(id)specifier

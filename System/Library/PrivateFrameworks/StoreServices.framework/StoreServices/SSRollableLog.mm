@@ -142,10 +142,10 @@ LABEL_8:
 
 - (void)_openLogFile
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   v3 = objc_alloc_init(MEMORY[0x1E696AC08]);
-  v30 = 0;
-  v4 = [v3 createDirectoryAtPath:-[SSLogFileOptions logDirectoryPath](self->_options withIntermediateDirectories:"logDirectoryPath") attributes:1 error:{0, &v30}];
+  v29 = 0;
+  v4 = [v3 createDirectoryAtPath:-[SSLogFileOptions logDirectoryPath](self->_options withIntermediateDirectories:"logDirectoryPath") attributes:1 error:{0, &v29}];
 
   if ((v4 & 1) == 0)
   {
@@ -161,15 +161,21 @@ LABEL_8:
     shouldLog = [(SSLogConfig *)v6 shouldLog];
     if ([(SSLogConfig *)v6 shouldLogToDisk])
     {
-      v8 = shouldLog | 2;
+      LODWORD(v8) = shouldLog | 2;
     }
 
     else
     {
-      v8 = shouldLog;
+      LODWORD(v8) = shouldLog;
     }
 
-    if (!os_log_type_enabled([(SSLogConfig *)v6 OSLogObject], OS_LOG_TYPE_ERROR))
+    oSLogObject = [(SSLogConfig *)v6 OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+    {
+      v8 = v8;
+    }
+
+    else
     {
       v8 &= 2u;
     }
@@ -177,46 +183,44 @@ LABEL_8:
     if (v8)
     {
       logDirectoryPath = [(SSLogFileOptions *)self->_options logDirectoryPath];
-      v31 = 138412546;
-      v32 = logDirectoryPath;
-      v33 = 2112;
-      v34 = v30;
-      LODWORD(v26) = 22;
-      v25 = &v31;
-      v10 = _os_log_send_and_compose_impl();
-      if (v10)
+      v30 = 138412546;
+      v31 = logDirectoryPath;
+      v32 = 2112;
+      v33 = v29;
+      v11 = _os_log_send_and_compose_impl(v8, 0, 0, 0, &dword_1D48BA000, oSLogObject, 16, "Failed to create directory, %@, for a log file. %@", &v30, 22);
+      if (v11)
       {
-        v11 = v10;
-        v12 = [MEMORY[0x1E696AEC0] stringWithCString:v10 encoding:{4, &v31, v26}];
-        free(v11);
-        SSFileLog(v6, @"%@", v13, v14, v15, v16, v17, v18, v12);
+        v12 = v11;
+        v13 = [MEMORY[0x1E696AEC0] stringWithCString:v11 encoding:4];
+        free(v12);
+        SSFileLog(v6, @"%@", v14, v15, v16, v17, v18, v19, v13);
       }
     }
   }
 
-  v19 = open([-[SSRollableLog _activeLogFilePath](self _activeLogFilePath], 522, 384);
-  if ((v19 & 0x80000000) == 0)
+  v20 = open([-[SSRollableLog _activeLogFilePath](self "_activeLogFilePath")], 522, 384);
+  if ((v20 & 0x80000000) == 0)
   {
-    v20 = v19;
-    v21 = [objc_alloc(MEMORY[0x1E696AC00]) initWithFileDescriptor:v19 closeOnDealloc:1];
-    self->_fileHandle = v21;
-    [(NSFileHandle *)v21 seekToEndOfFile];
-    v22 = dup(v20);
-    v23 = dispatch_source_create(MEMORY[0x1E69E9728], v22, 0x61uLL, self->_dispatchQueue);
-    self->_fileObserverSource = v23;
+    v21 = v20;
+    v22 = [objc_alloc(MEMORY[0x1E696AC00]) initWithFileDescriptor:v20 closeOnDealloc:1];
+    self->_fileHandle = v22;
+    [(NSFileHandle *)v22 seekToEndOfFile];
+    v23 = dup(v21);
+    v24 = dispatch_source_create(MEMORY[0x1E69E9728], v23, 0x61uLL, self->_dispatchQueue);
+    self->_fileObserverSource = v24;
     handler[0] = MEMORY[0x1E69E9820];
     handler[1] = 3221225472;
     handler[2] = __29__SSRollableLog__openLogFile__block_invoke;
     handler[3] = &unk_1E84AC408;
     handler[4] = self;
-    dispatch_source_set_event_handler(v23, handler);
+    dispatch_source_set_event_handler(v24, handler);
     fileObserverSource = self->_fileObserverSource;
-    v27[0] = MEMORY[0x1E69E9820];
-    v27[1] = 3221225472;
-    v27[2] = __29__SSRollableLog__openLogFile__block_invoke_2;
-    v27[3] = &__block_descriptor_36_e5_v8__0l;
-    v28 = v22;
-    dispatch_source_set_cancel_handler(fileObserverSource, v27);
+    v26[0] = MEMORY[0x1E69E9820];
+    v26[1] = 3221225472;
+    v26[2] = __29__SSRollableLog__openLogFile__block_invoke_2;
+    v26[3] = &__block_descriptor_36_e5_v8__0l;
+    v27 = v23;
+    dispatch_source_set_cancel_handler(fileObserverSource, v26);
     dispatch_resume(self->_fileObserverSource);
   }
 }

@@ -26,7 +26,7 @@
   swift_unknownObjectWeakInit();
   swift_unknownObjectWeakInit();
   *(self + OBJC_IVAR___SFBrowsingAssistant_isShowingOnStartPage) = page;
-  v5 = objc_allocWithZone(type metadata accessor for BrowsingAssistant());
+  v5 = objc_allocWithZone(type metadata accessor for BrowsingAssistant(0));
   *(self + OBJC_IVAR___SFBrowsingAssistant_assistant) = sub_18BA03558(page);
   v7.receiver = self;
   v7.super_class = SFBrowsingAssistant;
@@ -35,10 +35,10 @@
 
 - (double)detentHeight
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA9DA010);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA9DA010, &qword_18BC4F8F0);
   v4 = *(v3 - 8);
   MEMORY[0x1EEE9AC00](v3);
-  v6 = &v24 - v5;
+  v6 = &v25 - v5;
   v7 = *(self + OBJC_IVAR___SFBrowsingAssistant_assistant);
   selfCopy = self;
   view = [v7 view];
@@ -51,19 +51,20 @@
     v17 = v16;
     v19 = v18;
 
-    v25.origin.x = v13;
-    v25.origin.y = v15;
-    v25.size.width = v17;
-    v25.size.height = v19;
-    Width = CGRectGetWidth(v25);
+    v26.origin.x = v13;
+    v26.origin.y = v15;
+    v26.size.width = v17;
+    v26.size.height = v19;
+    Width = CGRectGetWidth(v26);
     v21 = sub_18BA0671C();
     sub_18BC1FDF8();
 
-    sub_18BA0A654(v6, Width);
-    v23 = v22;
+    v22.n128_f64[0] = Width;
+    sub_18BA0A654(v6, v22);
+    v24 = v23;
     (*(v4 + 8))(v6, v3);
 
-    return v23;
+    return v24;
   }
 
   else

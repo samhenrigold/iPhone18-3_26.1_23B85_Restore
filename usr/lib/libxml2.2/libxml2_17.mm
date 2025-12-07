@@ -1,3 +1,874 @@
+xmlSchemaValPtr xmlSchemaCopyValue(xmlSchemaValPtr val)
+{
+  if (val)
+  {
+    v1 = val;
+    v2 = 0;
+    v3 = 0;
+    while (1)
+    {
+      v4 = *v1;
+      switch(*v1)
+      {
+        case 1:
+        case 2:
+        case 0x10:
+        case 0x11:
+        case 0x12:
+        case 0x14:
+        case 0x16:
+        case 0x17:
+        case 0x18:
+        case 0x1A:
+        case 0x1D:
+        case 0x2E:
+          v5 = malloc_type_malloc(0x30uLL, 0x103204000EFBC0FuLL);
+          if (!v5)
+          {
+            goto LABEL_23;
+          }
+
+          v6 = v5;
+          v5[2] = 0u;
+          *(v5 + 20) = 0u;
+          *(v5 + 4) = 0u;
+          *v5 = v4;
+          goto LABEL_6;
+        case 0x13:
+        case 0x19:
+        case 0x1B:
+        case 0x2D:
+          goto LABEL_23;
+        case 0x15:
+        case 0x1C:
+          v10 = malloc_type_malloc(0x30uLL, 0x103204000EFBC0FuLL);
+          if (!v10)
+          {
+            goto LABEL_23;
+          }
+
+          v6 = v10;
+          v10[2] = 0u;
+          *(v10 + 20) = 0u;
+          *(v10 + 4) = 0u;
+          *v10 = v4;
+          v11 = *(v1 + 2);
+          v12 = *v1;
+          v10[1] = *(v1 + 1);
+          v10[2] = v11;
+          *v10 = v12;
+          *(v10 + 1) = 0;
+          v13 = *(v1 + 2);
+          if (v13)
+          {
+            *(v6 + 2) = xmlStrdup(v13);
+          }
+
+          v14 = *(v1 + 3);
+          if (v14)
+          {
+            *(v6 + 3) = xmlStrdup(v14);
+          }
+
+          goto LABEL_8;
+        case 0x2B:
+          v15 = malloc_type_malloc(0x30uLL, 0x103204000EFBC0FuLL);
+          if (!v15)
+          {
+            goto LABEL_23;
+          }
+
+          v6 = v15;
+          v15[2] = 0u;
+          *(v15 + 20) = 0u;
+          *(v15 + 4) = 0u;
+          *v15 = 43;
+          goto LABEL_6;
+        case 0x2C:
+          v16 = malloc_type_malloc(0x30uLL, 0x103204000EFBC0FuLL);
+          if (!v16)
+          {
+            goto LABEL_23;
+          }
+
+          v6 = v16;
+          v16[2] = 0u;
+          *(v16 + 20) = 0u;
+          *(v16 + 4) = 0u;
+          *v16 = 44;
+LABEL_6:
+          v7 = *(v1 + 2);
+          v8 = *v1;
+          v6[1] = *(v1 + 1);
+          v6[2] = v7;
+          *v6 = v8;
+          *(v6 + 1) = 0;
+          v9 = *(v1 + 2);
+          if (v9)
+          {
+            *(v6 + 2) = xmlStrdup(v9);
+          }
+
+          goto LABEL_8;
+        default:
+          v17 = malloc_type_malloc(0x30uLL, 0x103204000EFBC0FuLL);
+          if (!v17)
+          {
+LABEL_23:
+            xmlSchemaFreeValue(v3);
+            return 0;
+          }
+
+          v6 = v17;
+          v17[2] = 0u;
+          *(v17 + 20) = 0u;
+          *(v17 + 4) = 0u;
+          *v17 = v4;
+          v18 = *(v1 + 2);
+          v19 = *v1;
+          v17[1] = *(v1 + 1);
+          v17[2] = v18;
+          *v17 = v19;
+          *(v17 + 1) = 0;
+LABEL_8:
+          val = v6;
+          if (v3)
+          {
+            *(v2 + 1) = v6;
+            val = v3;
+          }
+
+          v1 = *(v1 + 1);
+          v2 = v6;
+          v3 = val;
+          if (!v1)
+          {
+            return val;
+          }
+
+          break;
+      }
+    }
+  }
+
+  return val;
+}
+
+int xmlSchemaCompareValues(xmlSchemaValPtr x, xmlSchemaValPtr y)
+{
+  if (!x || !y)
+  {
+    return -2;
+  }
+
+  v4 = *x;
+  if (v4 == 2)
+  {
+    v5 = 2;
+  }
+
+  else
+  {
+    v5 = 3;
+  }
+
+  if (v4 == 1)
+  {
+    v6 = 1;
+  }
+
+  else
+  {
+    v6 = v5;
+  }
+
+  v7 = *y;
+  if (*y == 2)
+  {
+    v8 = 2;
+  }
+
+  else
+  {
+    v8 = 3;
+  }
+
+  if (v7 == 1)
+  {
+    v9 = 1;
+  }
+
+  else
+  {
+    v9 = v8;
+  }
+
+  return xmlSchemaCompareValuesInternal(v4, x, 0, v6, v7, y, 0, v9);
+}
+
+uint64_t xmlSchemaCompareValuesInternal(int a1, uint64_t a2, xmlChar *str1, int a4, unsigned int a5, uint64_t a6, xmlChar *str2, int a8)
+{
+  v8 = 4294967294;
+  switch(a1)
+  {
+    case 1:
+    case 2:
+    case 16:
+    case 17:
+    case 18:
+    case 20:
+    case 22:
+    case 23:
+    case 24:
+    case 26:
+    case 29:
+    case 46:
+      if (a2)
+      {
+        str1 = *(a2 + 16);
+      }
+
+      if (a6)
+      {
+        str2 = *(a6 + 16);
+      }
+
+      if (a5 > 0x2E)
+      {
+        return v8;
+      }
+
+      if (((1 << a5) & 0x400025D70006) == 0)
+      {
+        if (a5 == 21)
+        {
+          v37 = *__xmlGenericError();
+          v38 = *__xmlGenericErrorContext();
+          v37(v38, "Unimplemented block at %s:%d\n", "/Library/Caches/com.apple.xbs/Sources/libxml2/libxml2/xmlschemastypes.c", 4935);
+        }
+
+        return v8;
+      }
+
+      if (a4 == 3)
+      {
+        if (a8 == 3)
+        {
+
+          return xmlSchemaCompareNormStrings(str1, str2);
+        }
+
+        if (a8 != 2)
+        {
+          if (a8 != 1)
+          {
+            return v8;
+          }
+
+          v33 = str2;
+          v34 = str1;
+          v35 = 1;
+LABEL_109:
+
+          return xmlSchemaComparePreserveCollapseStrings(v33, v34, v35);
+        }
+
+        v48 = str2;
+        v49 = str1;
+        v50 = 1;
+LABEL_98:
+
+        return xmlSchemaCompareReplaceCollapseStrings(v48, v49, v50);
+      }
+
+      if (a4 != 2)
+      {
+        if (a4 != 1)
+        {
+          return v8;
+        }
+
+        if (a8 != 3)
+        {
+          if (a8 != 2)
+          {
+            if (a8 != 1)
+            {
+              return v8;
+            }
+
+            v12 = xmlStrEqual(str1, str2) == 0;
+            return (2 * v12);
+          }
+
+          v30 = str1;
+          v31 = str2;
+          v32 = 0;
+          goto LABEL_102;
+        }
+
+        v33 = str1;
+        v34 = str2;
+        v35 = 0;
+        goto LABEL_109;
+      }
+
+      if (a8 == 3)
+      {
+        v48 = str1;
+        v49 = str2;
+        v50 = 0;
+        goto LABEL_98;
+      }
+
+      if (a8 != 2)
+      {
+        if (a8 != 1)
+        {
+          return v8;
+        }
+
+        v30 = str2;
+        v31 = str1;
+        v32 = 1;
+LABEL_102:
+
+        return xmlSchemaComparePreserveReplaceStrings(v30, v31, v32);
+      }
+
+      return xmlSchemaCompareReplacedStrings(str1, str2);
+    case 3:
+    case 30:
+    case 31:
+    case 32:
+    case 33:
+    case 34:
+    case 35:
+    case 36:
+    case 37:
+    case 38:
+    case 39:
+    case 40:
+    case 41:
+    case 42:
+      if (!a2 || !a6 || a5 != a1 && a5 - 30 >= 0xD && a5 != 3)
+      {
+        return v8;
+      }
+
+      return xmlSchemaCompareDecimals(a2, a6);
+    case 4:
+    case 5:
+    case 6:
+    case 7:
+    case 8:
+    case 9:
+    case 10:
+    case 11:
+      if (a5 - 4 > 7 || !a2 || !a6 || (*(a2 + 16) - 0x5987B1A9448BE5) < 0xFF4CF09CAD76E837 || (*(a6 + 16) - 0x5987B1A9448BE5) < 0xFF4CF09CAD76E837)
+      {
+        return v8;
+      }
+
+      v13 = *(a6 + 40);
+      if (*(a2 + 40))
+      {
+        if (v13)
+        {
+          goto LABEL_137;
+        }
+
+        v16 = xmlSchemaDateNormalize(a2, 0.0);
+        v51 = _xmlSchemaDateCastYMToDays(v16) + ((v16[6] >> 4) & 0x1F);
+        v14 = xmlSchemaDateNormalize(a6, 50400.0);
+        v52 = _xmlSchemaDateCastYMToDays(v14);
+        v53 = v14[6];
+        v54 = v52 + ((v53 >> 4) & 0x1F);
+        if (v51 < v54)
+        {
+          goto LABEL_114;
+        }
+
+        if (v51 == v54)
+        {
+          if (*(v16 + 4) + (3600 * ((v16[6] >> 9) & 0x1F) + 60 * (((v16[6] >> 14) & 0x3F) + ((8 * *(v16 + 20)) >> 4))) >= *(v14 + 4) + (3600 * ((v53 >> 9) & 0x1F) + 60 * (((v53 >> 14) & 0x3F) + ((8 * *(v14 + 20)) >> 4))))
+          {
+            v20 = xmlSchemaDateNormalize(a6, -50400.0);
+            v58 = _xmlSchemaDateCastYMToDays(v20);
+            v59 = v20[6];
+            v60 = v58 + ((v59 >> 4) & 0x1F);
+            if (v51 <= v60)
+            {
+              if (v51 == v60)
+              {
+                v24 = 0;
+                v25 = (3600 * ((v59 >> 9) & 0x1F) + 60 * (((v59 >> 14) & 0x3F) + ((8 * *(v20 + 20)) >> 4)));
+                v26 = *(v16 + 4) + (3600 * ((v16[6] >> 9) & 0x1F) + 60 * (((v16[6] >> 14) & 0x3F) + ((8 * *(v16 + 20)) >> 4)));
+                v27 = *(v20 + 4);
+LABEL_181:
+                if (v26 > v27 + v25)
+                {
+                  v8 = 1;
+                }
+
+                else
+                {
+                  v8 = 2;
+                }
+
+LABEL_185:
+                xmlSchemaFreeValue(v16);
+                xmlSchemaFreeValue(v14);
+                xmlSchemaFreeValue(v20);
+                if ((v24 & 1) == 0)
+                {
+                  return v8;
+                }
+
+LABEL_137:
+                if (*a2 == *a6)
+                {
+                  v61 = xmlSchemaDateNormalize(a6, 0.0);
+                  v62 = _xmlSchemaDateCastYMToDays(v61) + ((v61[6] >> 4) & 0x1F);
+                  v63 = xmlSchemaDateNormalize(a2, 0.0);
+                  v64 = _xmlSchemaDateCastYMToDays(v63);
+                  v65 = v63[6];
+                  v66 = v64 + ((v65 >> 4) & 0x1F);
+                  if (v66 < v62)
+                  {
+LABEL_139:
+                    v8 = 0xFFFFFFFFLL;
+LABEL_144:
+                    xmlSchemaFreeValue(v63);
+                    xmlSchemaFreeValue(v61);
+                    return v8;
+                  }
+
+                  if (v66 <= v62)
+                  {
+                    v80 = *(v63 + 4) + (3600 * ((v65 >> 9) & 0x1F) + 60 * (((v65 >> 14) & 0x3F) + ((8 * *(v63 + 20)) >> 4))) - (*(v61 + 4) + (3600 * ((v61[6] >> 9) & 0x1F) + 60 * (((v61[6] >> 14) & 0x3F) + ((8 * *(v61 + 20)) >> 4))));
+                    if (v80 < 0.0)
+                    {
+                      goto LABEL_139;
+                    }
+
+                    if (v80 <= 0.0)
+                    {
+                      v8 = 0;
+                      goto LABEL_144;
+                    }
+                  }
+
+                  v8 = 1;
+                  goto LABEL_144;
+                }
+
+                v67 = *a2 - 4;
+                if (v67 > 7)
+                {
+                  v68 = 0;
+                }
+
+                else
+                {
+                  v68 = dword_1C79BB01C[v67];
+                }
+
+                v69 = *a6 - 4;
+                if (v69 > 7)
+                {
+                  v70 = 0;
+                }
+
+                else
+                {
+                  v70 = dword_1C79BB01C[v69];
+                }
+
+                if (((v70 ^ v68) & 1) == 0)
+                {
+                  v71 = v70 & v68;
+                  if (v70 & v68)
+                  {
+                    v81 = *(a2 + 16);
+                    v82 = *(a6 + 16);
+                    if (v81 < v82)
+                    {
+                      return 0xFFFFFFFFLL;
+                    }
+
+                    if (v81 > v82)
+                    {
+                      return 1;
+                    }
+                  }
+
+                  if (((v70 ^ v68) & 2) == 0)
+                  {
+                    if ((v71 & 2) != 0)
+                    {
+                      if ((*(a2 + 24) & 0xFu) < (*(a6 + 24) & 0xFu))
+                      {
+                        return 0xFFFFFFFFLL;
+                      }
+
+                      if ((*(a2 + 24) & 0xFu) > (*(a6 + 24) & 0xFu))
+                      {
+                        return 1;
+                      }
+                    }
+
+                    if (((v70 ^ v68) & 4) == 0)
+                    {
+                      if ((v71 & 4) != 0)
+                      {
+                        v83 = (*(a2 + 24) >> 4) & 0x1F;
+                        v84 = (*(a6 + 24) >> 4) & 0x1F;
+                        if (v83 < v84)
+                        {
+                          return 0xFFFFFFFFLL;
+                        }
+
+                        if (v83 > v84)
+                        {
+                          return 1;
+                        }
+                      }
+
+                      if (v68 == v70)
+                      {
+                        if (v71 < 8)
+                        {
+                          return 0;
+                        }
+
+                        v72 = *(a2 + 24);
+                        v73 = (v72 >> 9) & 0x1F;
+                        v74 = *(a6 + 24);
+                        v75 = (v74 >> 9) & 0x1F;
+                        if (v73 < v75)
+                        {
+                          return 0xFFFFFFFFLL;
+                        }
+
+                        if (v73 <= v75)
+                        {
+                          v76 = (v72 >> 14) & 0x3F;
+                          v77 = (v74 >> 14) & 0x3F;
+                          if (v76 < v77)
+                          {
+                            return 0xFFFFFFFFLL;
+                          }
+
+                          if (v76 <= v77)
+                          {
+                            v78 = *(a2 + 32);
+                            v79 = *(a6 + 32);
+                            if (v78 >= v79)
+                            {
+                              return v78 > v79;
+                            }
+
+                            return 0xFFFFFFFFLL;
+                          }
+                        }
+
+                        return 1;
+                      }
+                    }
+                  }
+                }
+
+                return 2;
+              }
+
+LABEL_184:
+              v8 = 0;
+              v24 = 1;
+              goto LABEL_185;
+            }
+
+LABEL_135:
+            v24 = 0;
+            v8 = 1;
+            goto LABEL_185;
+          }
+
+LABEL_114:
+          xmlSchemaFreeValue(v16);
+          xmlSchemaFreeValue(v14);
+          return 0xFFFFFFFFLL;
+        }
+      }
+
+      else
+      {
+        if ((v13 & 1) == 0)
+        {
+          goto LABEL_137;
+        }
+
+        v14 = xmlSchemaDateNormalize(a6, 0.0);
+        v15 = _xmlSchemaDateCastYMToDays(v14) + ((v14[6] >> 4) & 0x1F);
+        v16 = xmlSchemaDateNormalize(a2, -50400.0);
+        v17 = _xmlSchemaDateCastYMToDays(v16);
+        v18 = v16[6];
+        v19 = v17 + ((v18 >> 4) & 0x1F);
+        if (v19 < v15)
+        {
+          goto LABEL_114;
+        }
+
+        if (v19 == v15)
+        {
+          if (*(v16 + 4) + (3600 * ((v18 >> 9) & 0x1F) + 60 * (((v18 >> 14) & 0x3F) + ((8 * *(v16 + 20)) >> 4))) >= *(v14 + 4) + (3600 * ((v14[6] >> 9) & 0x1F) + 60 * (((v14[6] >> 14) & 0x3F) + ((8 * *(v14 + 20)) >> 4))))
+          {
+            v20 = xmlSchemaDateNormalize(a2, 50400.0);
+            v21 = _xmlSchemaDateCastYMToDays(v20);
+            v22 = v20[6];
+            v23 = v21 + ((v22 >> 4) & 0x1F);
+            if (v23 <= v15)
+            {
+              if (v23 == v15)
+              {
+                v24 = 0;
+                v25 = (3600 * ((v14[6] >> 9) & 0x1F) + 60 * (((v14[6] >> 14) & 0x3F) + ((8 * *(v14 + 20)) >> 4)));
+                v26 = *(v20 + 4) + (3600 * ((v22 >> 9) & 0x1F) + 60 * (((v22 >> 14) & 0x3F) + ((8 * *(v20 + 20)) >> 4)));
+                v27 = *(v14 + 4);
+                goto LABEL_181;
+              }
+
+              goto LABEL_184;
+            }
+
+            goto LABEL_135;
+          }
+
+          goto LABEL_114;
+        }
+      }
+
+      xmlSchemaFreeValue(v16);
+      xmlSchemaFreeValue(v14);
+      goto LABEL_137;
+    case 12:
+      if (a5 != 12 || !a2 || !a6)
+      {
+        return v8;
+      }
+
+      return xmlSchemaCompareDurations(a2, a6);
+    case 13:
+    case 14:
+      if (a5 - 13 > 1 || !a2 || !a6)
+      {
+        return v8;
+      }
+
+      if (*a2 == 13)
+      {
+        v36 = *(a2 + 16);
+      }
+
+      else
+      {
+        if (*a2 != 14)
+        {
+          return v8;
+        }
+
+        v36 = *(a2 + 16);
+      }
+
+      if (*a6 == 13)
+      {
+        v55 = *(a6 + 16);
+      }
+
+      else
+      {
+        if (*a6 != 14)
+        {
+          return v8;
+        }
+
+        v55 = *(a6 + 16);
+      }
+
+      IsNaN = xmlXPathIsNaN(v36);
+      v57 = xmlXPathIsNaN(v55);
+      if (IsNaN)
+      {
+        return v57 == 0;
+      }
+
+      if (v57)
+      {
+        return 0xFFFFFFFFLL;
+      }
+
+      if (v36 == xmlXPathPINF)
+      {
+        return v55 != xmlXPathPINF;
+      }
+
+      if (v55 == xmlXPathPINF)
+      {
+        return 0xFFFFFFFFLL;
+      }
+
+      if (v36 == xmlXPathNINF)
+      {
+        if (v55 == xmlXPathNINF)
+        {
+          return 0;
+        }
+
+        else
+        {
+          return 0xFFFFFFFFLL;
+        }
+      }
+
+      if (v55 == xmlXPathNINF)
+      {
+        return 1;
+      }
+
+      if (v36 < v55)
+      {
+        return 0xFFFFFFFFLL;
+      }
+
+      if (v36 > v55)
+      {
+        return 1;
+      }
+
+      v12 = v36 != v55;
+      return (2 * v12);
+    case 15:
+      if (a5 == 15 && a2 && a6)
+      {
+        v46 = *(a2 + 16);
+        if (v46)
+        {
+          v47 = 1;
+        }
+
+        else
+        {
+          v47 = -1;
+        }
+
+        if (v46 == *(a6 + 16))
+        {
+          return 0;
+        }
+
+        else
+        {
+          return v47;
+        }
+      }
+
+      return v8;
+    case 19:
+    case 25:
+    case 27:
+      v28 = *__xmlGenericError();
+      v29 = *__xmlGenericErrorContext();
+      v28(v29, "Unimplemented block at %s:%d\n", "/Library/Caches/com.apple.xbs/Sources/libxml2/libxml2/xmlschemastypes.c", 5060);
+      return v8;
+    case 21:
+    case 28:
+      if (!a2 || !a6 || a5 != 28 && a5 != 21)
+      {
+        return v8;
+      }
+
+      if (xmlStrEqual(*(a2 + 16), *(a6 + 16)) && xmlStrEqual(*(a2 + 24), *(a6 + 24)))
+      {
+        return 0;
+      }
+
+      return 2;
+    case 43:
+      if (a5 != 43 || !a2 || !a6)
+      {
+        return v8;
+      }
+
+      v39 = *(a2 + 24);
+      v40 = *(a6 + 24);
+      if (v39 != v40)
+      {
+        if (v39 <= v40)
+        {
+          return 0xFFFFFFFFLL;
+        }
+
+        return 1;
+      }
+
+      v41 = xmlStrcmp(*(a2 + 16), *(a6 + 16));
+      if (v41 > 0)
+      {
+        return 1;
+      }
+
+      if (v41)
+      {
+        return 0xFFFFFFFFLL;
+      }
+
+      return 0;
+    case 44:
+      if (a5 == 44 && a2 && a6)
+      {
+        v42 = *(a2 + 24);
+        v43 = *(a6 + 24);
+        if (v42 == v43)
+        {
+          v44 = xmlStrcmp(*(a2 + 16), *(a6 + 16));
+          if (v44)
+          {
+            v45 = -1;
+          }
+
+          else
+          {
+            v45 = 0;
+          }
+
+          if (v44 >= 1)
+          {
+            return 1;
+          }
+
+          else
+          {
+            return v45;
+          }
+        }
+
+        else if (v42 > v43)
+        {
+          return 1;
+        }
+
+        else
+        {
+          return 0xFFFFFFFFLL;
+        }
+      }
+
+      return v8;
+    default:
+      return v8;
+  }
+}
+
 int xmlSchemaCompareValuesWhtsp(xmlSchemaValPtr x, xmlSchemaWhitespaceValueType xws, xmlSchemaValPtr y, xmlSchemaWhitespaceValueType yws)
 {
   if (x && y)
@@ -231,7 +1102,7 @@ LABEL_26:
   return result;
 }
 
-uint64_t xmlSchemaValidateFacetInternal(uint64_t a1, int a2, unsigned int a3, xmlChar *str2, uint64_t a5, int a6)
+uint64_t xmlSchemaValidateFacetInternal(uint64_t a1, int a2, unsigned int a3, xmlChar *str2, int *a5, int a6)
 {
   if (!a1)
   {
@@ -295,7 +1166,7 @@ LABEL_41:
           return result;
         }
 
-        v14 = *(a5 + 44);
+        v14 = *(a5 + 22);
         if (v7 == 1004)
         {
           if (*(v13 + 16) < v14 >> 8)
@@ -368,7 +1239,7 @@ LABEL_63:
 
     if (a5 && (*a5 == 44 || *a5 == 43))
     {
-      v17 = *(a5 + 24);
+      v17 = a5[6];
       goto LABEL_89;
     }
 
@@ -490,12 +1361,12 @@ LABEL_68:
 
   if (a5)
   {
-    if (*(a5 + 16))
+    if (*(a5 + 2))
     {
       v21 = *a5;
       if ((*a5 - 1) < 2 || v21 != 21 && (v21 - 28) >= 0xFFFFFFF4)
       {
-        v12 = *(a5 + 16);
+        v12 = *(a5 + 2);
       }
     }
   }
@@ -524,11 +1395,11 @@ LABEL_68:
 
 int xmlSchemaGetCanonValue(xmlSchemaValPtr val, const xmlChar **retValue)
 {
-  v93 = *MEMORY[0x1E69E9840];
+  v84 = *MEMORY[0x1E69E9840];
   result = -1;
   if (!val || !retValue)
   {
-    goto LABEL_112;
+    return result;
   }
 
   *retValue = 0;
@@ -543,15 +1414,15 @@ int xmlSchemaGetCanonValue(xmlSchemaValPtr val, const xmlChar **retValue)
 
       goto LABEL_75;
     case 2:
-      v57 = *(val + 2);
-      if (!v57)
+      v53 = *(val + 2);
+      if (!v53)
       {
 LABEL_75:
         v16 = "";
         goto LABEL_103;
       }
 
-      v15 = xmlSchemaWhiteSpaceReplace(v57);
+      v15 = xmlSchemaWhiteSpaceReplace(v53);
 LABEL_14:
       *retValue = v15;
       if (!v15)
@@ -563,166 +1434,163 @@ LABEL_15:
 
       goto LABEL_109;
     case 3:
-      v39 = *(val + 22);
-      if ((v39 & 0xFF00) == 0x100 && *(val + 2) == 0)
+      v38 = *(val + 22);
+      if ((v38 & 0xFF00) == 0x100 && *(val + 2) == 0)
       {
         v16 = "0.0";
         goto LABEL_103;
       }
 
-      v41 = *(val + 3);
-      v42 = *(val + 4);
-      v43 = v39 >> 8;
-      if (v39)
+      v40 = *(val + 3);
+      v41 = *(val + 4);
+      v42 = v38 >> 8;
+      if (v38)
       {
-        v44 = 3;
+        v43 = 3;
       }
 
       else
       {
-        v44 = 2;
+        v43 = 2;
       }
 
-      v45 = v44 + (v39 >> 8);
-      v46 = v39 >> 1;
-      if (v39 >> 1)
+      v44 = v43 + (v38 >> 8);
+      v45 = v38 >> 1;
+      if (v38 >> 1)
       {
-        v47 = v43 == v46;
-      }
-
-      else
-      {
-        v47 = 1;
-      }
-
-      if (v47)
-      {
-        v48 = v45 + 1;
+        v46 = v42 == v45;
       }
 
       else
       {
-        v48 = v45;
+        v46 = 1;
       }
 
-      v49 = malloc_type_malloc(v48, 0x33D99EEAuLL);
-      if (!v49)
+      if (v46)
       {
-        goto LABEL_96;
-      }
-
-      v50 = v49;
-      v51 = v49;
-      if (v39)
-      {
-        *v49 = 45;
-        v51 = v49 + 1;
-      }
-
-      if (v43 == v46)
-      {
-        *v51 = 11824;
-        v51 += 2;
-      }
-
-      v52 = &v49[v48] - v51;
-      if (v42)
-      {
-        snprintf(v51, v52, "%lu%lu%lu");
-      }
-
-      else if (v41)
-      {
-        snprintf(v51, v52, "%lu%lu");
+        v47 = v44 + 1;
       }
 
       else
       {
-        snprintf(v51, v52, "%lu");
+        v47 = v44;
       }
 
-      if (!(v39 >> 1))
+      v48 = malloc_type_malloc(v47, 0x33D99EEAuLL);
+      if (!v48)
       {
-        v76 = &v50[v48 - 3];
-        *&v50[v48 - 2] = 48;
+        return -1;
+      }
+
+      v49 = v48;
+      v50 = v48;
+      if (v38)
+      {
+        *v48 = 45;
+        v50 = v48 + 1;
+      }
+
+      if (v42 == v45)
+      {
+        *v50 = 11824;
+        v50 += 2;
+      }
+
+      v51 = &v48[v47] - v50;
+      if (v41)
+      {
+        snprintf(v50, v51, "%lu%lu%lu");
+      }
+
+      else if (v40)
+      {
+        snprintf(v50, v51, "%lu%lu");
+      }
+
+      else
+      {
+        snprintf(v50, v51, "%lu");
+      }
+
+      if (!(v38 >> 1))
+      {
+        v67 = &v49[v47 - 3];
+        *&v49[v47 - 2] = 48;
 LABEL_124:
-        *v76 = 46;
+        *v67 = 46;
         goto LABEL_125;
       }
 
-      if (v43 != v46)
+      if (v42 != v45)
       {
-        v76 = &v51[(v43 - v46)];
-        memmove(v76 + 1, v76, v46 + 1);
+        v67 = &v50[(v42 - v45)];
+        memmove(v67 + 1, v67, v45 + 1);
         goto LABEL_124;
       }
 
-      v74 = -1;
+      v65 = -1;
       do
       {
-        ++v74;
+        ++v65;
       }
 
-      while (v51[v74]);
-      v75 = v43 - v74;
-      if (v43 > v74)
+      while (v50[v65]);
+      v66 = v42 - v65;
+      if (v42 > v65)
       {
-        memmove(&v51[v75], v51, v74 + 1);
-        memset(v51, 48, v75);
+        memmove(&v50[v66], v50, v65 + 1);
+        memset(v50, 48, v66);
       }
 
 LABEL_125:
-      *retValue = v50;
+      *retValue = v49;
 LABEL_109:
       if (*retValue)
       {
-        result = 0;
+        return 0;
       }
 
       else
       {
-        result = -1;
+        return -1;
       }
 
-LABEL_112:
-      v73 = *MEMORY[0x1E69E9840];
-      return result;
     case 4:
       memset(__str, 0, sizeof(__str));
-      *(v88 + 6) = 0;
-      *&v88[0] = 0;
+      *(v79 + 6) = 0;
+      *&v79[0] = 0;
       if ((*(val + 40) & 1) == 0)
       {
-        v37 = *(val + 6);
-        v82 = *(val + 4);
-        *&v78 = (v37 >> 9) & 0x1F;
-        v80 = (v37 >> 14) & 0x3F;
+        v36 = *(val + 6);
+        v73 = *(val + 4);
+        *&v69 = (v36 >> 9) & 0x1F;
+        v71 = (v36 >> 14) & 0x3F;
         v21 = "%02u:%02u:%02.14g";
         goto LABEL_70;
       }
 
-      v62 = xmlSchemaDateNormalize(val, 0.0);
-      if (!v62)
+      v57 = xmlSchemaDateNormalize(val, 0.0);
+      if (!v57)
       {
-        goto LABEL_96;
+        return -1;
       }
 
-      v63 = v62;
-      v64 = v62[6];
-      v83 = *(v62 + 4);
-      v79 = (v64 >> 9) & 0x1F;
-      v81 = (v64 >> 14) & 0x3F;
-      v65 = "%02u:%02u:%02.14gZ";
+      v58 = v57;
+      v59 = v57[6];
+      v74 = *(v57 + 4);
+      v70 = (v59 >> 9) & 0x1F;
+      v72 = (v59 >> 14) & 0x3F;
+      v60 = "%02u:%02u:%02.14gZ";
       goto LABEL_94;
     case 5:
       v12 = malloc_type_malloc(6uLL, 0x86FC1858uLL);
       *retValue = v12;
       if (!v12)
       {
-        goto LABEL_96;
+        return -1;
       }
 
-      v77 = (*(val + 6) >> 4) & 0x1F;
+      v68 = (*(val + 6) >> 4) & 0x1F;
       v13 = "---%02u";
       goto LABEL_40;
     case 6:
@@ -730,119 +1598,112 @@ LABEL_112:
       *retValue = v12;
       if (!v12)
       {
-        goto LABEL_96;
+        return -1;
       }
 
-      v77 = *(val + 6) & 0xF;
+      v68 = *(val + 6) & 0xF;
       v13 = "--%02u";
 LABEL_40:
-      v38 = 6;
+      v37 = 6;
       goto LABEL_108;
     case 7:
       v35 = malloc_type_malloc(8uLL, 0xEBF66DCCuLL);
       *retValue = v35;
       if (!v35)
       {
-        goto LABEL_96;
+        return -1;
       }
 
-      v36 = *(val + 6);
       snprintf(v35, 8uLL, "--%02u-%02u");
       goto LABEL_109;
     case 8:
       memset(__str, 0, sizeof(__str));
-      *(v88 + 6) = 0;
-      *&v88[0] = 0;
-      v78 = *(val + 2);
+      *(v79 + 6) = 0;
+      *&v79[0] = 0;
+      v69 = *(val + 2);
       v21 = "%04ld";
       goto LABEL_70;
     case 9:
       *__str = 0u;
-      memset(v88, 0, 19);
+      memset(v79, 0, 19);
       v34 = *(val + 2);
       if (v34 < 0)
       {
-        *&v78 = -v34;
-        v80 = *(val + 6) & 0xF;
+        *&v69 = -v34;
+        v71 = *(val + 6) & 0xF;
         v21 = "-%04ld-%02u";
       }
 
       else
       {
-        v78 = *(val + 2);
-        v80 = *(val + 6) & 0xF;
+        v69 = *(val + 2);
+        v71 = *(val + 6) & 0xF;
         v21 = "%04ld-%02u";
       }
 
-      v58 = 35;
+      v54 = 35;
       goto LABEL_101;
     case 0xA:
       memset(__str, 0, sizeof(__str));
-      *(v88 + 6) = 0;
-      *&v88[0] = 0;
+      *(v79 + 6) = 0;
+      *&v79[0] = 0;
       if ((*(val + 40) & 1) == 0)
       {
-        v56 = *(val + 6);
-        v80 = v56 & 0xF;
-        v82 = (v56 >> 4) & 0x1F;
-        v78 = *(val + 2);
+        v52 = *(val + 6);
+        v71 = v52 & 0xF;
+        v73 = (v52 >> 4) & 0x1F;
+        v69 = *(val + 2);
         v21 = "%04ld-%02u-%02u";
 LABEL_70:
-        v58 = 30;
+        v54 = 30;
 LABEL_101:
-        snprintf(__str, v58, v21, *&v78, v80, v82, v84, v85, v86, *__str, *&__str[8], v88[0], v88[1], v89, v90, v91, v92);
+        snprintf(__str, v54, v21, *&v69, v71, v73, v75, v76, v77, *__str, *&__str[8], v79[0], v79[1], v80, v81, v82, v83);
         goto LABEL_102;
       }
 
-      v70 = xmlSchemaDateNormalize(val, 0.0);
-      if (!v70)
+      v62 = xmlSchemaDateNormalize(val, 0.0);
+      if (!v62)
       {
-        goto LABEL_96;
+        return -1;
       }
 
-      v63 = v70;
-      v71 = v70[6];
-      v81 = v71 & 0xF;
-      v83 = (v71 >> 4) & 0x1F;
-      v79 = *(v70 + 2);
-      v65 = "%04ld-%02u-%02uZ";
+      v58 = v62;
+      v63 = v62[6];
+      v72 = v63 & 0xF;
+      v74 = (v63 >> 4) & 0x1F;
+      v70 = *(v62 + 2);
+      v60 = "%04ld-%02u-%02uZ";
 LABEL_94:
-      snprintf(__str, 0x1EuLL, v65, v79, v81, v83, v84, v85, v86, *__str, *&__str[8], v88[0], v88[1], v89);
+      snprintf(__str, 0x1EuLL, v60, v70, v72, v74, v75, v76, v77, *__str, *&__str[8], v79[0], v79[1], v80);
       goto LABEL_95;
     case 0xB:
-      LOWORD(v89) = 0;
-      memset(v88, 0, sizeof(v88));
+      LOWORD(v80) = 0;
+      memset(v79, 0, sizeof(v79));
       *__str = 0u;
       if ((*(val + 20) & 1) == 0)
       {
-        v53 = *(val + 2);
-        v54 = *(val + 6);
-        v55 = *(val + 4);
         snprintf(__str, 0x32uLL, "%04ld-%02u-%02uT%02u:%02u:%02.14g");
         goto LABEL_102;
       }
 
-      v66 = xmlSchemaDateNormalize(val, 0.0);
-      if (!v66)
+      v61 = xmlSchemaDateNormalize(val, 0.0);
+      if (!v61)
       {
-        goto LABEL_96;
+        return -1;
       }
 
-      v63 = v66;
-      v67 = *(v66 + 2);
-      v68 = v66[6];
-      v69 = *(v66 + 4);
+      v58 = v61;
       snprintf(__str, 0x32uLL, "%04ld-%02u-%02uT%02u:%02u:%02.14gZ");
 LABEL_95:
-      xmlSchemaFreeValue(v63);
+      xmlSchemaFreeValue(v58);
       goto LABEL_102;
     case 0xC:
-      LODWORD(v92) = 0;
-      v90 = 0u;
-      v91 = 0u;
-      v89 = 0u;
+      LODWORD(v83) = 0;
+      v81 = 0u;
+      v82 = 0u;
+      v80 = 0u;
       *__str = 0u;
-      memset(v88, 0, sizeof(v88));
+      memset(v79, 0, sizeof(v79));
       v22 = *(val + 2);
       if (v22 >= 0)
       {
@@ -882,29 +1743,26 @@ LABEL_95:
 LABEL_80:
       if (v26 < 0.0 || v22 < 0)
       {
-        v61 = "P%luY%luM%luDT%luH%luM%.14gS";
+        v56 = "P%luY%luM%luDT%luH%luM%.14gS";
       }
 
       else
       {
-        v61 = "-P%luY%luM%luDT%luH%luM%.14gS";
+        v56 = "-P%luY%luM%luDT%luH%luM%.14gS";
       }
 
-      snprintf(__str, 0x64uLL, v61, v24, v25, v28, v31, v33, *&v30, *__str, *&__str[8], v88[0], v88[1], v89, v90, v91, v92);
+      snprintf(__str, 0x64uLL, v56, v24, v25, v28, v31, v33, *&v30, *__str, *&__str[8], v79[0], v79[1], v80, v81, v82, v83);
 LABEL_102:
       v16 = __str;
       goto LABEL_103;
     case 0xD:
       memset(__str, 0, sizeof(__str));
-      *(v88 + 6) = 0;
-      *&v88[0] = 0;
-      v78 = *(val + 4);
+      *(v79 + 6) = 0;
+      *&v79[0] = 0;
+      v69 = *(val + 4);
       v21 = "%01.14e";
       goto LABEL_70;
     case 0xE:
-      *__str = 0u;
-      memset(v88, 0, 24);
-      v59 = *(val + 2);
       snprintf(__str, 0x28uLL, "%01.14e");
       goto LABEL_102;
     case 0xF:
@@ -932,7 +1790,7 @@ LABEL_102:
       v14 = *(val + 2);
       if (!v14)
       {
-        goto LABEL_96;
+        return -1;
       }
 
       v15 = xmlSchemaCollapseString(v14);
@@ -950,10 +1808,10 @@ LABEL_102:
         goto LABEL_104;
       }
 
-      v72 = xmlStrdup(*(val + 2));
+      v64 = xmlStrdup(*(val + 2));
       result = 0;
-      *retValue = v72;
-      goto LABEL_112;
+      *retValue = v64;
+      return result;
     case 0x1E:
     case 0x1F:
     case 0x20:
@@ -988,16 +1846,14 @@ LABEL_104:
         *retValue = v12;
         if (!v12)
         {
-LABEL_96:
-          result = -1;
-          goto LABEL_112;
+          return -1;
         }
 
         if (v9)
         {
-          v80 = v8;
-          v82 = v6;
-          v77 = v9;
+          v71 = v8;
+          v73 = v6;
+          v68 = v9;
           if (v10)
           {
             v13 = "-%lu%lu%lu";
@@ -1011,8 +1867,8 @@ LABEL_96:
 
         else if (v8)
         {
-          v77 = v8;
-          v80 = v6;
+          v68 = v8;
+          v71 = v6;
           if (v10)
           {
             v13 = "-%lu%lu";
@@ -1026,7 +1882,7 @@ LABEL_96:
 
         else
         {
-          v77 = v6;
+          v68 = v6;
           if (v10)
           {
             v13 = "-%lu";
@@ -1038,9 +1894,9 @@ LABEL_96:
           }
         }
 
-        v38 = v11;
+        v37 = v11;
 LABEL_108:
-        snprintf(v12, v38, v13, v77, v80, v82);
+        snprintf(v12, v37, v13, v68, v71, v73);
       }
 
       goto LABEL_109;
@@ -1049,8 +1905,7 @@ LABEL_108:
       goto LABEL_15;
     default:
       *retValue = xmlStrdup("???");
-      result = 1;
-      goto LABEL_112;
+      return 1;
   }
 }
 
@@ -1975,7 +2830,7 @@ LABEL_17:
 
   else
   {
-    v9 = (a1 + 1);
+    v9 = a1 + 1;
     while (1)
     {
       v10 = *v8;
@@ -1992,7 +2847,7 @@ LABEL_17:
       }
     }
 
-    v9 = (v8 + 1);
+    v9 = v8 + 1;
     if (v1)
     {
       return xmlStrndup(a1, v9 - v2);
@@ -2532,7 +3387,6 @@ uint64_t xmlSchemaCompareDurations(uint64_t a1, uint64_t a2)
   v7 = *(a1 + 16) - v4;
   if (v7)
   {
-    v8 = *(a1 + 16) != v4;
     if (v7 < 1)
     {
       if (v6 <= 0 && v5 <= 0.0)
@@ -2541,7 +3395,7 @@ uint64_t xmlSchemaCompareDurations(uint64_t a1, uint64_t a2)
       }
 
       v7 = v4 - *(a1 + 16);
-      v10 = -1;
+      v9 = -1;
     }
 
     else
@@ -2552,7 +3406,7 @@ uint64_t xmlSchemaCompareDurations(uint64_t a1, uint64_t a2)
       }
 
       v6 = -v6;
-      v10 = 1;
+      v9 = 1;
     }
 
     if (v7 >= 0xC)
@@ -2562,32 +3416,32 @@ uint64_t xmlSchemaCompareDurations(uint64_t a1, uint64_t a2)
         return 4294967294;
       }
 
-      v12 = 365 * (v7 / 0xC) + ((v7 / 0xC + 3) >> 2);
-      v11 = v12 - 1;
+      v11 = 365 * (v7 / 0xC) + ((v7 / 0xC + 3) >> 2);
+      v10 = v11 - 1;
     }
 
     else
     {
+      v10 = 0;
       v11 = 0;
-      v12 = 0;
     }
 
-    v13 = (&xmlSchemaCompareDurations_dayRange + 8 * (v7 % 0xC));
-    v14 = *v13 + v11;
-    v15 = v13[12] + v12;
-    if (v15 != v14 || v15 != v6)
+    v12 = (&xmlSchemaCompareDurations_dayRange + 8 * (v7 % 0xC));
+    v13 = *v12 + v10;
+    v14 = v12[12] + v11;
+    if (v14 != v13 || v14 != v6)
     {
-      if (v15 < v6)
+      if (v14 < v6)
       {
-        return -v10;
+        return -v9;
       }
 
-      if (v14 <= v6)
+      if (v13 <= v6)
       {
         return 2;
       }
 
-      return v10;
+      return v9;
     }
 
     return 0;
@@ -4430,6 +5284,18 @@ unsigned __int8 *xmlEscapeFormatString(unsigned __int8 **a1)
   return v2;
 }
 
+int xmlUCSIsBlock(int code, const char *block)
+{
+  v2 = *&code;
+  v3 = xmlUnicodeLookup(&xmlUnicodeBlockTbl, block);
+  if (!v3)
+  {
+    return -1;
+  }
+
+  return v3(v2);
+}
+
 uint64_t xmlUnicodeLookup(uint64_t *a1, char *__s1)
 {
   result = 0;
@@ -4648,7 +5514,19 @@ int xmlUCSIsCatZs(int code)
   }
 }
 
-uint64_t linkedOnOrAfter2024EReleases()
+int xmlUCSIsCat(int code, const char *cat)
+{
+  v2 = *&code;
+  v3 = xmlUnicodeLookup(&xmlUnicodeCatTbl, cat);
+  if (!v3)
+  {
+    return -1;
+  }
+
+  return v3(v2);
+}
+
+uint64_t linkedOnOrAfter2024EReleases(uint64_t a1, uint64_t a2)
 {
   if (linkedOnOrAfter2024EReleases_once != -1)
   {
@@ -4717,7 +5595,7 @@ LABEL_9:
   return v3;
 }
 
-_DWORD *xmlWriterErrMsg(uint64_t a1, int a2, char a3)
+xmlError *xmlWriterErrMsg(uint64_t a1, int a2, char a3)
 {
   if (a1)
   {
@@ -5011,14 +5889,14 @@ LABEL_13:
       }
     }
 
-    if (!v2[3])
+    if (!*(v2 + 3))
     {
       result = v1[5];
       if (result)
       {
         result = xmlStrdup(result);
         v5 = v1[2];
-        v2[14] = result;
+        *(v2 + 14) = result;
         *(v2 + 19) = *(v1 + 12);
         v2 = v5;
         if (!v5)
@@ -5029,13 +5907,13 @@ LABEL_13:
 
       else
       {
-        v2[14] = 0;
+        *(v2 + 14) = 0;
         *(v2 + 19) = *(v1 + 12);
       }
     }
   }
 
-  if (!v2[17])
+  if (!*(v2 + 17))
   {
     v3 = v1[7];
     if (v3)
@@ -8864,992 +9742,4 @@ int xmlXPathIsInf(double val)
   {
     return 0;
   }
-}
-
-void *xmlXPathErrMemory(uint64_t a1, const char *a2)
-{
-  v22 = *MEMORY[0x1E69E9840];
-  if (a1)
-  {
-    xmlResetError((a1 + 232));
-    if (a2)
-    {
-      v21 = 0;
-      v19 = 0u;
-      v20 = 0u;
-      v17 = 0u;
-      v18 = 0u;
-      v15 = 0u;
-      v16 = 0u;
-      v13 = 0u;
-      v14 = 0u;
-      v11 = 0u;
-      v12 = 0u;
-      *buf = 0u;
-      v10 = 0u;
-      xmlStrPrintf(buf, 200, "Memory allocation failed : %s\n", a2);
-      v4 = buf;
-    }
-
-    else
-    {
-      v4 = "Memory allocation failed\n";
-    }
-
-    result = xmlStrdup(v4);
-    *(a1 + 240) = result;
-    *(a1 + 232) = 0x20000000CLL;
-    v6 = *(a1 + 224);
-    if (v6)
-    {
-      result = v6(*(a1 + 216), a1 + 232);
-    }
-  }
-
-  else if (a2)
-  {
-    result = __xmlRaiseError(0, 0, 0, 0, 0, 0xCu, 2, 3, 0, 0, a2, 0, 0, 0, 0 >> 96, "Memory allocation failed : %s\n", a2);
-  }
-
-  else
-  {
-    result = __xmlRaiseError(0, 0, 0, 0, 0, 0xCu, 2, 3, 0, 0, 0, 0, 0, 0, 0, "Memory allocation failed\n", v8);
-  }
-
-  v7 = *MEMORY[0x1E69E9840];
-  return result;
-}
-
-void *xmlXPathPErrMemory(uint64_t a1, const char *a2)
-{
-  if (a1)
-  {
-    *(a1 + 16) = 15;
-    a1 = *(a1 + 24);
-  }
-
-  return xmlXPathErrMemory(a1, a2);
-}
-
-void xmlXPathDebugDumpObject(FILE *output, xmlXPathObjectPtr cur, int depth)
-{
-  v60 = *MEMORY[0x1E69E9840];
-  if (!output)
-  {
-    goto LABEL_96;
-  }
-
-  v45 = 0;
-  memset(__b, 0, sizeof(__b));
-  v6 = depth - 1;
-  if (depth < 1)
-  {
-    v7 = 0;
-  }
-
-  else
-  {
-    if (v6 >= 0x18)
-    {
-      v6 = 24;
-    }
-
-    v7 = 2 * v6 + 2;
-    memset(__b, 32, v7);
-  }
-
-  *(__b + v7) = 0;
-  fputs(__b, output);
-  if (!cur)
-  {
-    v9 = *MEMORY[0x1E69E9840];
-    v10 = "Object is empty (NULL)\n";
-    goto LABEL_15;
-  }
-
-  type = cur->type;
-  if (cur->type <= XPATH_STRING)
-  {
-    if (type > XPATH_NODESET)
-    {
-      if (type == XPATH_BOOLEAN)
-      {
-        fwrite("Object is a Boolean : ", 0x16uLL, 1uLL, output);
-        v23 = *MEMORY[0x1E69E9840];
-        if (cur->BOOLval)
-        {
-          v10 = "true\n";
-          v11 = 5;
-        }
-
-        else
-        {
-          v10 = "false\n";
-          v11 = 6;
-        }
-
-        goto LABEL_16;
-      }
-
-      if (type != XPATH_NUMBER)
-      {
-        if (type == XPATH_STRING)
-        {
-          fwrite("Object is a string : ", 0x15uLL, 1uLL, output);
-          xmlDebugDumpString(output, cur->stringval);
-LABEL_67:
-          v32 = *MEMORY[0x1E69E9840];
-
-          fputc(10, output);
-          return;
-        }
-
-LABEL_96:
-        v40 = *MEMORY[0x1E69E9840];
-        return;
-      }
-
-      floatval = cur->floatval;
-      v28 = fabs(floatval);
-      if (floatval > 0.0)
-      {
-        v29 = 1;
-      }
-
-      else
-      {
-        v29 = -1;
-      }
-
-      if (v28 != INFINITY)
-      {
-        v29 = 0;
-      }
-
-      if (v29 == -1)
-      {
-        v41 = *MEMORY[0x1E69E9840];
-        v10 = "Object is a number : -Infinity\n";
-        v11 = 31;
-        goto LABEL_16;
-      }
-
-      if (v29 == 1)
-      {
-        v30 = *MEMORY[0x1E69E9840];
-        v10 = "Object is a number : Infinity\n";
-        v11 = 30;
-        goto LABEL_16;
-      }
-
-      if (floatval != 0.0)
-      {
-        fprintf(output, "Object is a number : %0g\n", cur->floatval);
-        goto LABEL_96;
-      }
-
-      v42 = *MEMORY[0x1E69E9840];
-      v10 = "Object is a number : 0\n";
-      goto LABEL_15;
-    }
-
-    if (type == XPATH_UNDEFINED)
-    {
-      v21 = *MEMORY[0x1E69E9840];
-      v10 = "Object is uninitialized\n";
-      v11 = 24;
-      goto LABEL_16;
-    }
-
-    if (type != XPATH_NODESET)
-    {
-      goto LABEL_96;
-    }
-
-    fwrite("Object is a Node Set :\n", 0x17uLL, 1uLL, output);
-    nodesetval = cur->nodesetval;
-    v59 = 0;
-    v57 = 0u;
-    v58 = 0u;
-    v55 = 0u;
-    v56 = 0u;
-    *v53 = 0u;
-    v54 = 0u;
-    v16 = depth - 1;
-    if (depth < 1)
-    {
-      v17 = 0;
-    }
-
-    else
-    {
-      if (v16 >= 0x18)
-      {
-        v16 = 24;
-      }
-
-      v17 = 2 * v16 + 2;
-      memset(v53, 32, v17);
-    }
-
-    *&v53[v17] = 0;
-    if (nodesetval)
-    {
-      fprintf(output, "Set contains %d nodes:\n", nodesetval->nodeNr);
-      if (nodesetval->nodeNr >= 1)
-      {
-        v33 = 0;
-        do
-        {
-          fputs(v53, output);
-          fprintf(output, "%d", v33 + 1);
-          xmlXPathDebugDumpNode(output, nodesetval->nodeTab[v33++], depth + 1);
-        }
-
-        while (v33 < nodesetval->nodeNr);
-      }
-
-      goto LABEL_96;
-    }
-
-    fputs(v53, output);
-    v34 = "NodeSet is NULL !\n";
-    v35 = 18;
-LABEL_95:
-    fwrite(v34, v35, 1uLL, output);
-    goto LABEL_96;
-  }
-
-  if (type > XPATH_RANGE)
-  {
-    if (type == XPATH_LOCATIONSET)
-    {
-      fwrite("Object is a Location Set:\n", 0x1AuLL, 1uLL, output);
-      user = cur->user;
-      v59 = 0;
-      v57 = 0u;
-      v58 = 0u;
-      v55 = 0u;
-      v56 = 0u;
-      *v53 = 0u;
-      v54 = 0u;
-      v25 = depth - 1;
-      if (depth < 1)
-      {
-        v26 = 0;
-      }
-
-      else
-      {
-        if (v25 >= 0x18)
-        {
-          v25 = 24;
-        }
-
-        v26 = 2 * v25 + 2;
-        memset(v53, 32, v26);
-      }
-
-      *&v53[v26] = 0;
-      if (user)
-      {
-        if (*user >= 1)
-        {
-          v36 = 0;
-          do
-          {
-            fputs(v53, output);
-            fprintf(output, "%d : ", v36 + 1);
-            xmlXPathDebugDumpObject(output, *(*(user + 1) + 8 * v36++), depth + 1);
-          }
-
-          while (v36 < *user);
-        }
-
-        goto LABEL_96;
-      }
-
-      fputs(v53, output);
-      v34 = "LocationSet is NULL !\n";
-      v35 = 22;
-      goto LABEL_95;
-    }
-
-    if (type != XPATH_USERS)
-    {
-      if (type != XPATH_XSLT_TREE)
-      {
-        goto LABEL_96;
-      }
-
-      fwrite("Object is an XSLT value tree :\n", 0x1FuLL, 1uLL, output);
-      v12 = cur->nodesetval;
-      v52 = 0;
-      v50 = 0u;
-      v51 = 0u;
-      v48 = 0u;
-      v49 = 0u;
-      *v46 = 0u;
-      v47 = 0u;
-      if (depth < 1)
-      {
-        v14 = 0;
-      }
-
-      else
-      {
-        if ((depth - 1) >= 0x18)
-        {
-          v13 = 24;
-        }
-
-        else
-        {
-          v13 = depth - 1;
-        }
-
-        memset(v46, 32, (2 * v13 + 2));
-        v14 = v13 + 1;
-      }
-
-      v46[2 * v14 + 1] = 0;
-      v46[2 * v14] = 0;
-      if (v12 && v12->nodeNr && *v12->nodeTab)
-      {
-        fputs(v46, output);
-        fprintf(output, "%d", v14 + 1);
-        children = (*v12->nodeTab)->children;
-        v59 = 0;
-        v57 = 0u;
-        v58 = 0u;
-        v55 = 0u;
-        v56 = 0u;
-        *v53 = 0u;
-        v54 = 0u;
-        if (depth < 0)
-        {
-          v39 = 0;
-        }
-
-        else
-        {
-          if (depth >= 0x18)
-          {
-            v38 = 24;
-          }
-
-          else
-          {
-            v38 = depth;
-          }
-
-          v39 = 2 * v38 + 2;
-          memset(v53, 32, v39);
-        }
-
-        *&v53[v39] = 0;
-        if (children)
-        {
-          do
-          {
-            next = children->next;
-            xmlDebugDumpOneNode(output, children, depth + 1);
-            children = next;
-          }
-
-          while (next);
-          goto LABEL_96;
-        }
-
-        fputs(v53, output);
-        v34 = "Node is NULL !\n";
-        v35 = 15;
-      }
-
-      else
-      {
-        fputs(v46, output);
-        v34 = "Value Tree is NULL !\n";
-        v35 = 21;
-      }
-
-      goto LABEL_95;
-    }
-
-    v31 = *MEMORY[0x1E69E9840];
-    v10 = "Object is user defined\n";
-LABEL_15:
-    v11 = 23;
-LABEL_16:
-
-    fwrite(v10, v11, 1uLL, output);
-    return;
-  }
-
-  if (type == XPATH_POINT)
-  {
-    fprintf(output, "Object is a point : index %d in node", cur->index);
-    v22 = cur->user;
-LABEL_66:
-    xmlXPathDebugDumpNode(output, v22, depth + 1);
-    goto LABEL_67;
-  }
-
-  if (type != XPATH_RANGE)
-  {
-    goto LABEL_96;
-  }
-
-  user2 = cur->user2;
-  if (user2 && (user2 != cur->user || cur->index != cur->index2))
-  {
-    fwrite("Object is a range :\n", 0x14uLL, 1uLL, output);
-    fputs(__b, output);
-    fwrite("From ", 5uLL, 1uLL, output);
-    if ((cur->index & 0x80000000) == 0)
-    {
-      fprintf(output, "index %d in ", cur->index);
-    }
-
-    fwrite("node\n", 5uLL, 1uLL, output);
-    xmlXPathDebugDumpNode(output, cur->user, depth + 1);
-    fputs(__b, output);
-    fwrite("To ", 3uLL, 1uLL, output);
-    if ((cur->index2 & 0x80000000) == 0)
-    {
-      fprintf(output, "index %d in ", cur->index2);
-    }
-
-    fwrite("node\n", 5uLL, 1uLL, output);
-    v22 = cur->user2;
-    goto LABEL_66;
-  }
-
-  fwrite("Object is a collapsed range :\n", 0x1EuLL, 1uLL, output);
-  fputs(__b, output);
-  if ((cur->index & 0x80000000) == 0)
-  {
-    fprintf(output, "index %d in ", cur->index);
-  }
-
-  fwrite("node\n", 5uLL, 1uLL, output);
-  v19 = cur->user;
-  v20 = *MEMORY[0x1E69E9840];
-
-  xmlXPathDebugDumpNode(output, v19, depth + 1);
-}
-
-void xmlXPathDebugDumpNode(FILE *a1, uint64_t a2, int a3)
-{
-  v18 = *MEMORY[0x1E69E9840];
-  v17 = 0;
-  memset(v16, 0, sizeof(v16));
-  v6 = a3 - 1;
-  if (a3 < 1)
-  {
-    v7 = 0;
-  }
-
-  else
-  {
-    if (v6 >= 0x18)
-    {
-      v6 = 24;
-    }
-
-    v7 = 2 * v6 + 2;
-    memset(v16, 32, v7);
-  }
-
-  *(v16 + v7) = 0;
-  if (!a2)
-  {
-    fputs(v16, a1);
-    v13 = *MEMORY[0x1E69E9840];
-    v11 = "Node is NULL !\n";
-    v12 = 15;
-LABEL_15:
-
-    fwrite(v11, v12, 1uLL, a1);
-    return;
-  }
-
-  v8 = *(a2 + 8);
-  if (v8 != 2)
-  {
-    if (v8 != 13 && v8 != 9)
-    {
-      v14 = *MEMORY[0x1E69E9840];
-
-      xmlDebugDumpOneNode(a1, a2, a3);
-      return;
-    }
-
-    fputs(v16, a1);
-    v10 = *MEMORY[0x1E69E9840];
-    v11 = " /\n";
-    v12 = 3;
-    goto LABEL_15;
-  }
-
-  v15 = *MEMORY[0x1E69E9840];
-
-  xmlDebugDumpAttr(a1, a2, a3);
-}
-
-void xmlXPathDebugDumpCompExpr(FILE *output, xmlXPathCompExprPtr comp, int depth)
-{
-  v14 = *MEMORY[0x1E69E9840];
-  if (output && comp)
-  {
-    v13 = 0;
-    memset(__b, 0, sizeof(__b));
-    v6 = depth - 1;
-    if (depth < 1)
-    {
-      v7 = 0;
-    }
-
-    else
-    {
-      if (v6 >= 0x18)
-      {
-        v6 = 24;
-      }
-
-      v7 = 2 * v6 + 2;
-      memset(__b, 32, v7);
-    }
-
-    *(__b + v7) = 0;
-    fputs(__b, output);
-    if (*(comp + 5))
-    {
-      v9 = *MEMORY[0x1E69E9840];
-
-      fwrite("Streaming Expression\n", 0x15uLL, 1uLL, output);
-    }
-
-    else
-    {
-      fprintf(output, "Compiled Expression : %d elements\n", *comp);
-      v10 = *MEMORY[0x1E69E9840];
-      v11 = *(comp + 1) + 56 * *(comp + 4);
-
-      xmlXPathDebugDumpStepOp(output, comp, v11, depth + 1);
-    }
-  }
-
-  else
-  {
-    v8 = *MEMORY[0x1E69E9840];
-  }
-}
-
-void xmlXPathDebugDumpStepOp(FILE *a1, uint64_t a2, uint64_t a3, int a4)
-{
-  while (1)
-  {
-    v4 = a4;
-    v5 = a3;
-    v6 = a2;
-    v7 = a1;
-    v41 = *MEMORY[0x1E69E9840];
-    v40 = 0;
-    memset(__b, 0, sizeof(__b));
-    v8 = a4 - 1;
-    if (a4 < 1)
-    {
-      v9 = 0;
-    }
-
-    else
-    {
-      if (v8 >= 0x18)
-      {
-        v8 = 24;
-      }
-
-      v9 = 2 * v8 + 2;
-      memset(__b, 32, v9);
-    }
-
-    *(__b + v9) = 0;
-    fputs(__b, v7);
-    if (!v5)
-    {
-      break;
-    }
-
-    switch(*v5)
-    {
-      case 0:
-        v10 = "END";
-        goto LABEL_29;
-      case 1:
-        v10 = "AND";
-        goto LABEL_29;
-      case 2:
-        v10 = "OR";
-        v15 = 2;
-        goto LABEL_58;
-      case 3:
-        if (!*(v5 + 12))
-        {
-          v10 = "EQUAL !=";
-          goto LABEL_55;
-        }
-
-        v10 = "EQUAL =";
-LABEL_41:
-        v15 = 7;
-        goto LABEL_58;
-      case 4:
-        if (*(v5 + 12))
-        {
-          v13 = "CMP <";
-        }
-
-        else
-        {
-          v13 = "CMP >";
-        }
-
-        fwrite(v13, 5uLL, 1uLL, v7);
-        if (!*(v5 + 16))
-        {
-          fputc(61, v7);
-        }
-
-        goto LABEL_59;
-      case 5:
-        v16 = *(v5 + 12);
-        if (v16 <= 1)
-        {
-          if (v16)
-          {
-            if (v16 != 1)
-            {
-              goto LABEL_59;
-            }
-
-            v10 = "PLUS +";
-          }
-
-          else
-          {
-            v10 = "PLUS -";
-          }
-
-          goto LABEL_57;
-        }
-
-        if (v16 == 2)
-        {
-          v10 = "PLUS unary -";
-          v15 = 12;
-        }
-
-        else
-        {
-          if (v16 != 3)
-          {
-            goto LABEL_59;
-          }
-
-          v10 = "PLUS unary - -";
-          v15 = 14;
-        }
-
-        goto LABEL_58;
-      case 6:
-        v19 = *(v5 + 12);
-        if (v19 == 1)
-        {
-          v10 = "MULT div";
-LABEL_55:
-          v15 = 8;
-          goto LABEL_58;
-        }
-
-        if (v19)
-        {
-          v10 = "MULT mod";
-          goto LABEL_55;
-        }
-
-        v10 = "MULT *";
-LABEL_57:
-        v15 = 6;
-LABEL_58:
-        fwrite(v10, v15, 1uLL, v7);
-LABEL_59:
-        fputc(10, v7);
-LABEL_60:
-        v26 = *(v5 + 4);
-        if ((v26 & 0x80000000) == 0)
-        {
-          xmlXPathDebugDumpStepOp(v7, v6, *(v6 + 8) + 56 * v26, (v4 + 1));
-        }
-
-        v27 = *(v5 + 8);
-        if ((v27 & 0x80000000) != 0)
-        {
-LABEL_66:
-          v29 = *MEMORY[0x1E69E9840];
-          return;
-        }
-
-        v28 = *MEMORY[0x1E69E9840];
-        a3 = *(v6 + 8) + 56 * v27;
-        a4 = v4 + 1;
-        a1 = v7;
-        a2 = v6;
-
-        break;
-      case 7:
-        v10 = "UNION";
-        v15 = 5;
-        goto LABEL_58;
-      case 8:
-        v10 = "ROOT";
-        goto LABEL_45;
-      case 9:
-        v10 = "NODE";
-        goto LABEL_45;
-      case 0xA:
-        v21 = *(v5 + 12);
-        v20 = *(v5 + 16);
-        v22 = *(v5 + 20);
-        v24 = *(v5 + 24);
-        v23 = *(v5 + 32);
-        fwrite("COLLECT ", 8uLL, 1uLL, v7);
-        switch(v21)
-        {
-          case 1:
-            v25 = " 'ancestors' ";
-            goto LABEL_83;
-          case 2:
-            v25 = " 'ancestors-or-self' ";
-            goto LABEL_77;
-          case 3:
-            v25 = " 'attributes' ";
-            goto LABEL_73;
-          case 4:
-            v25 = " 'child' ";
-            v30 = 9;
-            goto LABEL_84;
-          case 5:
-            v25 = " 'descendant' ";
-LABEL_73:
-            v30 = 14;
-            goto LABEL_84;
-          case 6:
-            v25 = " 'descendant-or-self' ";
-            goto LABEL_79;
-          case 7:
-            v25 = " 'following' ";
-            goto LABEL_83;
-          case 8:
-            v25 = " 'following-siblings' ";
-LABEL_79:
-            v30 = 22;
-            goto LABEL_84;
-          case 9:
-            v25 = " 'namespace' ";
-            goto LABEL_83;
-          case 10:
-            v25 = " 'parent' ";
-            v30 = 10;
-            goto LABEL_84;
-          case 11:
-            v25 = " 'preceding' ";
-LABEL_83:
-            v30 = 13;
-            goto LABEL_84;
-          case 12:
-            v25 = " 'preceding-sibling' ";
-LABEL_77:
-            v30 = 21;
-            goto LABEL_84;
-          case 13:
-            v25 = " 'self' ";
-            v30 = 8;
-LABEL_84:
-            fwrite(v25, v30, 1uLL, v7);
-            break;
-          default:
-            break;
-        }
-
-        if (v20 > 2)
-        {
-          if (v20 == 3)
-          {
-            v31 = "'all' ";
-            v32 = 6;
-            goto LABEL_99;
-          }
-
-          if (v20 != 4)
-          {
-            if (v20 != 5)
-            {
-              goto LABEL_100;
-            }
-
-            v31 = "'name' ";
-            goto LABEL_97;
-          }
-
-          v31 = "'namespace' ";
-          v32 = 12;
-        }
-
-        else
-        {
-          if (!v20)
-          {
-            v31 = "'none' ";
-LABEL_97:
-            v32 = 7;
-            goto LABEL_99;
-          }
-
-          if (v20 == 1)
-          {
-            v31 = "'type' ";
-            goto LABEL_97;
-          }
-
-          if (v20 != 2)
-          {
-            goto LABEL_100;
-          }
-
-          v31 = "'PI' ";
-          v32 = 5;
-        }
-
-LABEL_99:
-        fwrite(v31, v32, 1uLL, v7);
-LABEL_100:
-        if (v22 > 6)
-        {
-          if (v22 == 7)
-          {
-            v33 = "'PI' ";
-            v34 = 5;
-          }
-
-          else
-          {
-            if (v22 != 8)
-            {
-              goto LABEL_111;
-            }
-
-            v33 = "'comment' ";
-            v34 = 10;
-          }
-        }
-
-        else
-        {
-          if (v22)
-          {
-            if (v22 != 3)
-            {
-              goto LABEL_111;
-            }
-
-            v33 = "'text' ";
-          }
-
-          else
-          {
-            v33 = "'node' ";
-          }
-
-          v34 = 7;
-        }
-
-        fwrite(v33, v34, 1uLL, v7);
-LABEL_111:
-        if (v24)
-        {
-          fprintf(v7, "%s:", v24);
-        }
-
-        if (v23)
-        {
-          fputs(v23, v7);
-        }
-
-        goto LABEL_59;
-      case 0xB:
-        v12 = *(v5 + 24);
-        fwrite("ELEM ", 5uLL, 1uLL, v7);
-        xmlXPathDebugDumpObject(v7, v12, 0);
-        goto LABEL_60;
-      case 0xC:
-        v14 = *(v5 + 24);
-        if (*(v5 + 32))
-        {
-          v35 = *(v5 + 32);
-          fprintf(v7, "VARIABLE %s:%s");
-        }
-
-        else
-        {
-          v36 = *(v5 + 24);
-          fprintf(v7, "VARIABLE %s");
-        }
-
-        goto LABEL_59;
-      case 0xD:
-        v17 = *(v5 + 12);
-        v18 = *(v5 + 24);
-        if (*(v5 + 32))
-        {
-          v38 = *(v5 + 24);
-          fprintf(v7, "FUNCTION %s:%s(%d args)");
-        }
-
-        else
-        {
-          v37 = *(v5 + 24);
-          fprintf(v7, "FUNCTION %s(%d args)");
-        }
-
-        goto LABEL_59;
-      case 0xE:
-        v10 = "ARG";
-LABEL_29:
-        v15 = 3;
-        goto LABEL_58;
-      case 0xF:
-        v10 = "PREDICATE";
-        v15 = 9;
-        goto LABEL_58;
-      case 0x10:
-        v10 = "FILTER";
-        goto LABEL_57;
-      case 0x11:
-        v10 = "SORT";
-LABEL_45:
-        v15 = 4;
-        goto LABEL_58;
-      case 0x12:
-        v10 = "RANGETO";
-        goto LABEL_41;
-      default:
-        fprintf(v7, "UNKNOWN %d\n", *v5);
-        goto LABEL_66;
-    }
-  }
-
-  v11 = *MEMORY[0x1E69E9840];
-
-  fwrite("Step is NULL\n", 0xDuLL, 1uLL, v7);
 }

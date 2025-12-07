@@ -36,7 +36,7 @@
     else
     {
       v11 = [objc_alloc(MEMORY[0x1E696ACA0]) initWithContentsOfURL:v7];
-      v12 = CKFrameworkBundle();
+      v12 = CKFrameworkBundle(v11);
       v13 = [v12 localizedStringForKey:@"LOCATION_FILE_NAME" value:&stru_1F04268F8 table:@"ChatKit"];
       [v11 setSuggestedName:v13];
 

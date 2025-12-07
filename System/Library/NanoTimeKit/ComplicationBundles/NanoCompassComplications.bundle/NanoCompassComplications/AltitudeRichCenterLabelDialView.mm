@@ -12,27 +12,27 @@
 - (id)initFullColorImageViewWithDevice:(id)device withLayoutConstants:(LayoutConstants *)constants
 {
   deviceCopy = device;
-  v32.receiver = self;
-  v32.super_class = AltitudeRichCenterLabelDialView;
-  v8 = [(AltitudeRichDialView *)&v32 initFullColorImageViewWithDevice:deviceCopy];
+  v25.receiver = self;
+  v25.super_class = AltitudeRichCenterLabelDialView;
+  v8 = [(AltitudeRichDialView *)&v25 initFullColorImageViewWithDevice:deviceCopy];
   v9 = v8;
   if (v8)
   {
     objc_storeStrong(v8 + 56, device);
-    v12 = objc_msgSend_systemFontOfSize_weight_design_(MEMORY[0x277CBBB08], v10, constants->var2, v11, constants->var0, constants->var1);
-    v16 = objc_msgSend_CLKFontWithLocalizedLowerCaseSmallCaps(v12, v13, v14, v15);
+    v11 = objc_msgSend_systemFontOfSize_weight_design_(MEMORY[0x277CBBB08], v10, constants->var2, constants->var0, constants->var1);
+    v14 = objc_msgSend_CLKFontWithLocalizedLowerCaseSmallCaps(v11, v12, v13);
 
-    v17 = objc_opt_new();
-    v18 = v9[57];
-    v9[57] = v17;
+    v15 = objc_opt_new();
+    v16 = v9[57];
+    v9[57] = v15;
 
-    v22 = objc_msgSend_whiteColor(MEMORY[0x277D75348], v19, v20, v21);
-    objc_msgSend_setTextColor_(v9[57], v23, v22, v24);
+    v19 = objc_msgSend_whiteColor(MEMORY[0x277D75348], v17, v18);
+    objc_msgSend_setTextColor_(v9[57], v20, v19);
 
-    objc_msgSend_setFont_(v9[57], v25, v16, v26);
-    objc_msgSend_setTextAlignment_(v9[57], v27, 1, v28);
+    objc_msgSend_setFont_(v9[57], v21, v14);
+    objc_msgSend_setTextAlignment_(v9[57], v22, 1);
     v9[58] = *&constants->var4;
-    objc_msgSend_addSubview_(v9, v29, v9[57], v30);
+    objc_msgSend_addSubview_(v9, v23, v9[57]);
   }
 
   return v9;
@@ -40,122 +40,122 @@
 
 - (id)monochromeOtherViews
 {
-  v8.receiver = self;
-  v8.super_class = AltitudeRichCenterLabelDialView;
-  monochromeOtherViews = [(AltitudeRichDialView *)&v8 monochromeOtherViews];
-  v6 = objc_msgSend_arrayByAddingObject_(monochromeOtherViews, v4, self->_altitudeLabel, v5);
+  v7.receiver = self;
+  v7.super_class = AltitudeRichCenterLabelDialView;
+  monochromeOtherViews = [(AltitudeRichDialView *)&v7 monochromeOtherViews];
+  v5 = objc_msgSend_arrayByAddingObject_(monochromeOtherViews, v4, self->_altitudeLabel);
 
-  return v6;
+  return v5;
 }
 
 - (void)configureWithImageProvider:(id)provider reason:(int64_t)reason
 {
   providerCopy = provider;
-  v53.receiver = self;
-  v53.super_class = AltitudeRichCenterLabelDialView;
-  [(NanoCompassBaseRichView *)&v53 configureWithImageProvider:providerCopy reason:reason];
-  v10 = objc_msgSend_metadata(providerCopy, v7, v8, v9);
-  v13 = objc_msgSend_objectForKeyedSubscript_(v10, v11, @"altitude", v12);
+  v40.receiver = self;
+  v40.super_class = AltitudeRichCenterLabelDialView;
+  [(NanoCompassBaseRichView *)&v40 configureWithImageProvider:providerCopy reason:reason];
+  v9 = objc_msgSend_metadata(providerCopy, v7, v8);
+  v11 = objc_msgSend_objectForKeyedSubscript_(v9, v10, @"altitude");
 
-  v17 = objc_msgSend_null(MEMORY[0x277CBEB68], v14, v15, v16);
-  isEqual = objc_msgSend_isEqual_(v13, v18, v17, v19);
+  v14 = objc_msgSend_null(MEMORY[0x277CBEB68], v12, v13);
+  isEqual = objc_msgSend_isEqual_(v11, v15, v14);
 
   if (isEqual)
   {
 
-    v13 = 0;
+    v11 = 0;
   }
 
-  v24 = objc_msgSend_metadata(providerCopy, v21, v22, v23);
-  v27 = objc_msgSend_objectForKeyedSubscript_(v24, v25, @"nodata", v26);
-  v31 = objc_msgSend_BOOLValue(v27, v28, v29, v30);
+  v19 = objc_msgSend_metadata(providerCopy, v17, v18);
+  v21 = objc_msgSend_objectForKeyedSubscript_(v19, v20, @"nodata");
+  v24 = objc_msgSend_BOOLValue(v21, v22, v23);
 
   altitudeLabel = self->_altitudeLabel;
-  if (v31)
+  if (v24)
   {
-    objc_msgSend_setHidden_(altitudeLabel, v32, 1, v33);
+    objc_msgSend_setHidden_(altitudeLabel, v25, 1);
   }
 
   else
   {
-    objc_msgSend_setHidden_(altitudeLabel, v32, 0, v33);
-    if (v13)
+    objc_msgSend_setHidden_(altitudeLabel, v25, 0);
+    if (v11)
     {
-      v38 = MEMORY[0x277CCABB0];
-      objc_msgSend_altitude(v13, v35, v36, v37);
-      v42 = objc_msgSend_numberWithDouble_(v38, v39, v40, v41);
+      v29 = MEMORY[0x277CCABB0];
+      objc_msgSend_altitude(v11, v27, v28);
+      v32 = objc_msgSend_numberWithDouble_(v29, v30, v31);
     }
 
     else
     {
-      v42 = 0;
+      v32 = 0;
     }
 
-    v43 = objc_msgSend_displayTilde(v13, v35, v36, v37);
-    v46 = NanoCompassValueAndUnit(v42, 0, v43, 0);
-    if (v13)
+    v33 = objc_msgSend_displayTilde(v11, v27, v28);
+    v35 = NanoCompassValueAndUnit(v32, 0, v33, 0);
+    if (v11)
     {
     }
 
-    objc_msgSend_setText_(self->_altitudeLabel, v44, v46, v45);
-    objc_msgSend_sizeToFit(self->_altitudeLabel, v47, v48, v49);
-    objc_msgSend_setNeedsLayout(self, v50, v51, v52);
+    objc_msgSend_setText_(self->_altitudeLabel, v34, v35);
+    objc_msgSend_sizeToFit(self->_altitudeLabel, v36, v37);
+    objc_msgSend_setNeedsLayout(self, v38, v39);
   }
 }
 
 - (void)layoutLabelInCenterWithTopAndBottomAssets
 {
-  objc_msgSend_bounds(self, a2, v2, v3);
-  objc_msgSend_frame(self->_altitudeLabel, v5, v6, v7);
+  objc_msgSend_bounds(self, a2, v2);
+  objc_msgSend_frame(self->_altitudeLabel, v4, v5);
   CLKRectCenteredIntegralRectForDevice();
-  objc_msgSend_setFrame_(self->_altitudeLabel, v8, v9, v10);
+  objc_msgSend_setFrame_(self->_altitudeLabel, v6, v7);
   altitudeLabelHeight = self->_altitudeLabelHeight;
-  objc_msgSend_screenScale(self->_device, v12, v13, v14);
-  v66 = altitudeLabelHeight / v15;
-  v19 = objc_msgSend_topView(self, v16, v17, v18);
-  objc_msgSend_frame(v19, v20, v21, v22);
-  v24 = v23;
-  v26 = v25;
-  v63 = v27;
-  v29 = v28;
+  objc_msgSend_screenScale(self->_device, v9, v10);
+  v54 = altitudeLabelHeight / v11;
+  v14 = objc_msgSend_topView(self, v12, v13);
+  objc_msgSend_frame(v14, v15, v16);
+  v18 = v17;
+  v20 = v19;
+  v51 = v21;
+  v23 = v22;
 
-  v33 = objc_msgSend_bottomView(self, v30, v31, v32);
-  objc_msgSend_frame(v33, v34, v35, v36);
-  v38 = v37;
-  rect = v39;
-  v41 = v40;
-  v64 = v40;
-  v65 = v42;
-  v43 = v42;
+  v26 = objc_msgSend_bottomView(self, v24, v25);
+  objc_msgSend_frame(v26, v27, v28);
+  v30 = v29;
+  rect = v31;
+  v33 = v32;
+  v52 = v32;
+  v53 = v34;
+  v35 = v34;
 
-  v69.origin.x = v24;
-  v69.origin.y = v26;
-  v69.size.width = v63;
-  v69.size.height = v29;
-  CGRectGetHeight(v69);
-  v70.origin.x = v38;
-  v70.origin.y = rect;
-  v70.size.width = v41;
-  v70.size.height = v43;
-  CGRectGetHeight(v70);
-  v71.origin.x = v24;
-  v71.origin.y = v26;
-  v71.size.width = v63;
-  v71.size.height = v29;
-  CGRectGetWidth(v71);
+  v57.origin.x = v18;
+  v57.origin.y = v20;
+  v57.size.width = v51;
+  v57.size.height = v23;
+  CGRectGetHeight(v57);
+  v58.origin.x = v30;
+  v58.origin.y = rect;
+  v58.size.width = v33;
+  v58.size.height = v35;
+  CGRectGetHeight(v58);
+  v59.origin.x = v18;
+  v59.origin.y = v20;
+  v59.size.width = v51;
+  v59.size.height = v23;
+  CGRectGetWidth(v59);
   CLKRectCenteredIntegralRectForDevice();
-  v45 = v44;
-  v47 = v46;
-  v51 = objc_msgSend_topView(self, v48, v49, v50);
-  objc_msgSend_setFrame_(v51, v52, v53, v54, v45, v47, v63, v29);
+  v37 = v36;
+  v39 = v38;
+  v42 = objc_msgSend_topView(self, v40, v41);
+  objc_msgSend_setFrame_(v42, v43, v44, v37, v39, v51, v23);
 
-  v72.origin.x = v45;
-  v72.origin.y = v47;
-  v72.size.width = v63;
-  v72.size.height = v29;
-  v55 = v66 + CGRectGetMaxY(v72);
-  v67 = objc_msgSend_bottomView(self, v56, v57, v58);
-  objc_msgSend_setFrame_(v67, v59, v60, v61, v45, v55, v64, v65);
+  v60.origin.x = v37;
+  v60.origin.y = v39;
+  v60.size.width = v51;
+  v60.size.height = v23;
+  v45 = v54 + CGRectGetMaxY(v60);
+  v55 = objc_msgSend_bottomView(self, v46, v47);
+  objc_msgSend_setFrame_(v55, v48, v49, v37, v45, v52, v53);
 }
 
 - (id)_newTopView

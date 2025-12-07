@@ -19,10 +19,10 @@
 
 - (BOOL)applyToObject:(id)object
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v8 = 0;
-  v3 = [(HDCodableMedicationDoseEvent *)self applyToObject:object error:&v8];
-  v4 = v8;
+  v10 = *MEMORY[0x277D85DE8];
+  v7 = 0;
+  v3 = [(HDCodableMedicationDoseEvent *)self applyToObject:object error:&v7];
+  v4 = v7;
   if (!v3)
   {
     _HKInitializeLogging();
@@ -30,12 +30,11 @@
     if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v10 = v4;
+      v9 = v4;
       _os_log_error_impl(&dword_228986000, v5, OS_LOG_TYPE_ERROR, "Failed to decode object of type HKMedicationDoseEvent with error %@", buf, 0xCu);
     }
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
@@ -300,38 +299,36 @@ LABEL_14:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v11 = toCopy;
+  v6 = toCopy;
   if (self->_sample)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v11;
+    toCopy = v6;
   }
 
   if ((*&self->_has & 2) != 0)
   {
-    logOrigin = self->_logOrigin;
     PBDataWriterWriteInt64Field();
-    toCopy = v11;
+    toCopy = v6;
   }
 
   if (self->_scheduleItemIdentifier)
   {
     PBDataWriterWriteStringField();
-    toCopy = v11;
+    toCopy = v6;
   }
 
   if (self->_medicationIdentifier)
   {
     PBDataWriterWriteStringField();
-    toCopy = v11;
+    toCopy = v6;
   }
 
   has = self->_has;
   if ((has & 8) != 0)
   {
-    scheduledDoseQuantity = self->_scheduledDoseQuantity;
     PBDataWriterWriteDoubleField();
-    toCopy = v11;
+    toCopy = v6;
     has = self->_has;
     if ((has & 1) == 0)
     {
@@ -350,9 +347,8 @@ LABEL_11:
     goto LABEL_11;
   }
 
-  doseQuantity = self->_doseQuantity;
   PBDataWriterWriteDoubleField();
-  toCopy = v11;
+  toCopy = v6;
   has = self->_has;
   if ((has & 4) == 0)
   {
@@ -366,28 +362,26 @@ LABEL_12:
   }
 
 LABEL_23:
-  scheduledDate = self->_scheduledDate;
   PBDataWriterWriteDoubleField();
-  toCopy = v11;
+  toCopy = v6;
   if ((*&self->_has & 0x10) != 0)
   {
 LABEL_13:
-    status = self->_status;
     PBDataWriterWriteInt64Field();
-    toCopy = v11;
+    toCopy = v6;
   }
 
 LABEL_14:
   if (self->_medicationUuid)
   {
     PBDataWriterWriteDataField();
-    toCopy = v11;
+    toCopy = v6;
   }
 
   if (self->_doseUnitString)
   {
     PBDataWriterWriteStringField();
-    toCopy = v11;
+    toCopy = v6;
   }
 }
 
@@ -577,7 +571,6 @@ LABEL_8:
     }
   }
 
-  v6 = *(equalCopy + 88);
   if ((*&self->_has & 2) != 0)
   {
     if ((*(equalCopy + 88) & 2) == 0 || self->_logOrigin != *(equalCopy + 2))
@@ -589,7 +582,7 @@ LABEL_8:
   else if ((*(equalCopy + 88) & 2) != 0)
   {
 LABEL_37:
-    v12 = 0;
+    v10 = 0;
     goto LABEL_38;
   }
 
@@ -608,7 +601,6 @@ LABEL_37:
     }
   }
 
-  v9 = *(equalCopy + 88);
   if ((*&self->_has & 8) != 0)
   {
     if ((*(equalCopy + 88) & 8) == 0 || self->_scheduledDoseQuantity != *(equalCopy + 4))
@@ -670,17 +662,17 @@ LABEL_37:
   doseUnitString = self->_doseUnitString;
   if (doseUnitString | *(equalCopy + 6))
   {
-    v12 = [(NSString *)doseUnitString isEqual:?];
+    v10 = [(NSString *)doseUnitString isEqual:?];
   }
 
   else
   {
-    v12 = 1;
+    v10 = 1;
   }
 
 LABEL_38:
 
-  return v12;
+  return v10;
 }
 
 - (unint64_t)hash
@@ -827,7 +819,7 @@ LABEL_38:
       goto LABEL_7;
     }
 
-    [(HDCodableSample *)sample mergeFrom:?];
+    sample = [(HDCodableSample *)sample mergeFrom:?];
   }
 
   else
@@ -837,7 +829,7 @@ LABEL_38:
       goto LABEL_7;
     }
 
-    [(HDCodableMedicationDoseEvent *)self setSample:?];
+    sample = [(HDCodableMedicationDoseEvent *)self setSample:?];
   }
 
   fromCopy = v8;
@@ -850,13 +842,13 @@ LABEL_7:
 
   if (*(fromCopy + 10))
   {
-    [(HDCodableMedicationDoseEvent *)self setScheduleItemIdentifier:?];
+    sample = [(HDCodableMedicationDoseEvent *)self setScheduleItemIdentifier:?];
     fromCopy = v8;
   }
 
   if (*(fromCopy + 7))
   {
-    [(HDCodableMedicationDoseEvent *)self setMedicationIdentifier:?];
+    sample = [(HDCodableMedicationDoseEvent *)self setMedicationIdentifier:?];
     fromCopy = v8;
   }
 
@@ -910,16 +902,17 @@ LABEL_17:
 LABEL_18:
   if (*(fromCopy + 8))
   {
-    [(HDCodableMedicationDoseEvent *)self setMedicationUuid:?];
+    sample = [(HDCodableMedicationDoseEvent *)self setMedicationUuid:?];
     fromCopy = v8;
   }
 
   if (*(fromCopy + 6))
   {
-    [(HDCodableMedicationDoseEvent *)self setDoseUnitString:?];
+    sample = [(HDCodableMedicationDoseEvent *)self setDoseUnitString:?];
+    fromCopy = v8;
   }
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](sample, fromCopy);
 }
 
 @end

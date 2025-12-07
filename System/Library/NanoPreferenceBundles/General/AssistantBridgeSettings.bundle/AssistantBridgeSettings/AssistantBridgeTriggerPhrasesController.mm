@@ -6,6 +6,7 @@
 - (void)_updateFootersWithFooterType:(int64_t)type;
 - (void)setConnectedDeviceInfo:(id)info;
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation AssistantBridgeTriggerPhrasesController
@@ -26,6 +27,23 @@
   }
 
   return v2;
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v8.receiver = self;
+  v8.super_class = AssistantBridgeTriggerPhrasesController;
+  [(AssistantBridgeTriggerPhrasesController *)&v8 viewWillAppear:appear];
+  objc_initWeak(&location, self);
+  settingsConnection = self->_settingsConnection;
+  v5[0] = _NSConcreteStackBlock;
+  v5[1] = 3221225472;
+  v5[2] = sub_35A4;
+  v5[3] = &unk_10518;
+  objc_copyWeak(&v6, &location);
+  [(AFSettingsConnection *)settingsConnection getConnectedBluetoothDeviceInfoArrayWithCompletion:v5];
+  objc_destroyWeak(&v6);
+  objc_destroyWeak(&location);
 }
 
 - (void)setConnectedDeviceInfo:(id)info

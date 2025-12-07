@@ -37,63 +37,62 @@
 
 - (BOOL)sendAttachmentsWithSender:(id)sender timeout:(id)timeout completion:(id)completion
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   senderCopy = sender;
   timeoutCopy = timeout;
   completionCopy = completion;
   v11 = [(NSMutableArray *)self->_urls count];
   if (v11)
   {
-    v24 = v11;
+    v23 = v11;
     dictionary = [MEMORY[0x277CBEB38] dictionary];
     [dictionary setIdsMetadataFileURLType:1];
-    v31 = 0u;
-    v32 = 0u;
-    v29 = 0u;
     v30 = 0u;
+    v31 = 0u;
+    v28 = 0u;
+    v29 = 0u;
     selfCopy = self;
     obj = self->_urls;
-    v13 = [(NSMutableArray *)obj countByEnumeratingWithState:&v29 objects:v33 count:16];
+    v13 = [(NSMutableArray *)obj countByEnumeratingWithState:&v28 objects:v32 count:16];
     if (v13)
     {
       v14 = v13;
-      v15 = *v30;
+      v15 = *v29;
       do
       {
         for (i = 0; i != v14; ++i)
         {
-          if (*v30 != v15)
+          if (*v29 != v15)
           {
             objc_enumerationMutation(obj);
           }
 
-          v17 = *(*(&v29 + 1) + 8 * i);
+          v17 = *(*(&v28 + 1) + 8 * i);
           v18 = [v17 key];
           [dictionary setIdsMetadataFileKey:v18];
 
           v19 = [v17 url];
           v20 = [dictionary copy];
-          v27[0] = MEMORY[0x277D85DD0];
-          v27[1] = 3221225472;
-          v27[2] = __85__BLTBulletinSendQueueAttachmentSender_sendAttachmentsWithSender_timeout_completion___block_invoke;
-          v27[3] = &unk_278D31A20;
-          v28 = completionCopy;
-          [senderCopy sendFileURL:v19 withTimeout:timeoutCopy extraMetadata:v20 responseHandlers:0 didSend:v27 didQueue:0];
+          v26[0] = MEMORY[0x277D85DD0];
+          v26[1] = 3221225472;
+          v26[2] = __85__BLTBulletinSendQueueAttachmentSender_sendAttachmentsWithSender_timeout_completion___block_invoke;
+          v26[3] = &unk_278D31A20;
+          v27 = completionCopy;
+          [senderCopy sendFileURL:v19 withTimeout:timeoutCopy extraMetadata:v20 responseHandlers:0 didSend:v26 didQueue:0];
         }
 
-        v14 = [(NSMutableArray *)obj countByEnumeratingWithState:&v29 objects:v33 count:16];
+        v14 = [(NSMutableArray *)obj countByEnumeratingWithState:&v28 objects:v32 count:16];
       }
 
       while (v14);
     }
 
     [(NSMutableArray *)selfCopy->_urls removeAllObjects];
-    v11 = v24;
+    v11 = v23;
   }
 
   v21 = v11 != 0;
 
-  v22 = *MEMORY[0x277D85DE8];
   return v21;
 }
 

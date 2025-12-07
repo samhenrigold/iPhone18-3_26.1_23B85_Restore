@@ -1366,7 +1366,7 @@ void __68__MPConcreteMediaPlaylist_setValue_forProperty_withCompletionBlock___bl
   dispatch_sync(v5, v6);
 }
 
-uint64_t __68__MPConcreteMediaPlaylist_setValue_forProperty_withCompletionBlock___block_invoke_2(uint64_t a1)
+void *__68__MPConcreteMediaPlaylist_setValue_forProperty_withCompletionBlock___block_invoke_2(uint64_t a1)
 {
   [*(*(a1 + 32) + 96) removeObjectForKey:*(a1 + 40)];
   result = [@"isActivePlaylist" isEqualToString:*(a1 + 40)];

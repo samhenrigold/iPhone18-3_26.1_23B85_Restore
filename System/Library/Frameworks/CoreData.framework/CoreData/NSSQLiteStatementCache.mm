@@ -20,7 +20,7 @@
 
 - (void)_clearSaveGeneratedCachedStatements
 {
-  v58 = *MEMORY[0x1E69E9840];
+  v57 = *MEMORY[0x1E69E9840];
   if (self)
   {
     if (*(self + 16))
@@ -41,31 +41,31 @@
     v2 = *(self + 56);
     if (v2)
     {
-      v51 = 0u;
-      v52 = 0u;
-      v49 = 0u;
       v50 = 0u;
+      v51 = 0u;
+      v48 = 0u;
+      v49 = 0u;
       allValues = [v2 allValues];
-      v4 = [allValues countByEnumeratingWithState:&v49 objects:v57 count:16];
+      v4 = [allValues countByEnumeratingWithState:&v48 objects:v56 count:16];
       if (v4)
       {
         v5 = v4;
-        v6 = *v50;
+        v6 = *v49;
         do
         {
           v7 = 0;
           do
           {
-            if (*v50 != v6)
+            if (*v49 != v6)
             {
               objc_enumerationMutation(allValues);
             }
 
-            [(NSSQLiteStatement *)*(*(&v49 + 1) + 8 * v7++) clearCaches:?];
+            [(NSSQLiteStatement *)*(*(&v48 + 1) + 8 * v7++) clearCaches:?];
           }
 
           while (v5 != v7);
-          v5 = [allValues countByEnumeratingWithState:&v49 objects:v57 count:16];
+          v5 = [allValues countByEnumeratingWithState:&v48 objects:v56 count:16];
         }
 
         while (v5);
@@ -77,31 +77,31 @@
     v8 = *(self + 72);
     if (v8)
     {
-      v47 = 0u;
-      v48 = 0u;
-      v45 = 0u;
       v46 = 0u;
+      v47 = 0u;
+      v44 = 0u;
+      v45 = 0u;
       allValues2 = [v8 allValues];
-      v10 = [allValues2 countByEnumeratingWithState:&v45 objects:v56 count:16];
+      v10 = [allValues2 countByEnumeratingWithState:&v44 objects:v55 count:16];
       if (v10)
       {
         v11 = v10;
-        v12 = *v46;
+        v12 = *v45;
         do
         {
           v13 = 0;
           do
           {
-            if (*v46 != v12)
+            if (*v45 != v12)
             {
               objc_enumerationMutation(allValues2);
             }
 
-            [(NSSQLiteStatement *)*(*(&v45 + 1) + 8 * v13++) clearCaches:?];
+            [(NSSQLiteStatement *)*(*(&v44 + 1) + 8 * v13++) clearCaches:?];
           }
 
           while (v11 != v13);
-          v11 = [allValues2 countByEnumeratingWithState:&v45 objects:v56 count:16];
+          v11 = [allValues2 countByEnumeratingWithState:&v44 objects:v55 count:16];
         }
 
         while (v11);
@@ -113,31 +113,31 @@
     v14 = *(self + 80);
     if (v14)
     {
-      v43 = 0u;
-      v44 = 0u;
-      v41 = 0u;
       v42 = 0u;
+      v43 = 0u;
+      v40 = 0u;
+      v41 = 0u;
       allValues3 = [v14 allValues];
-      v16 = [allValues3 countByEnumeratingWithState:&v41 objects:v55 count:16];
+      v16 = [allValues3 countByEnumeratingWithState:&v40 objects:v54 count:16];
       if (v16)
       {
         v17 = v16;
-        v18 = *v42;
+        v18 = *v41;
         do
         {
           v19 = 0;
           do
           {
-            if (*v42 != v18)
+            if (*v41 != v18)
             {
               objc_enumerationMutation(allValues3);
             }
 
-            [(NSSQLiteStatement *)*(*(&v41 + 1) + 8 * v19++) clearCaches:?];
+            [(NSSQLiteStatement *)*(*(&v40 + 1) + 8 * v19++) clearCaches:?];
           }
 
           while (v17 != v19);
-          v17 = [allValues3 countByEnumeratingWithState:&v41 objects:v55 count:16];
+          v17 = [allValues3 countByEnumeratingWithState:&v40 objects:v54 count:16];
         }
 
         while (v17);
@@ -149,31 +149,31 @@
     v20 = *(self + 88);
     if (v20)
     {
-      v39 = 0u;
-      v40 = 0u;
-      v37 = 0u;
       v38 = 0u;
+      v39 = 0u;
+      v36 = 0u;
+      v37 = 0u;
       allValues4 = [v20 allValues];
-      v22 = [allValues4 countByEnumeratingWithState:&v37 objects:v54 count:16];
+      v22 = [allValues4 countByEnumeratingWithState:&v36 objects:v53 count:16];
       if (v22)
       {
         v23 = v22;
-        v24 = *v38;
+        v24 = *v37;
         do
         {
           v25 = 0;
           do
           {
-            if (*v38 != v24)
+            if (*v37 != v24)
             {
               objc_enumerationMutation(allValues4);
             }
 
-            [(NSSQLiteStatement *)*(*(&v37 + 1) + 8 * v25++) clearCaches:?];
+            [(NSSQLiteStatement *)*(*(&v36 + 1) + 8 * v25++) clearCaches:?];
           }
 
           while (v23 != v25);
-          v23 = [allValues4 countByEnumeratingWithState:&v37 objects:v54 count:16];
+          v23 = [allValues4 countByEnumeratingWithState:&v36 objects:v53 count:16];
         }
 
         while (v23);
@@ -185,31 +185,31 @@
     v26 = *(self + 64);
     if (v26)
     {
-      v35 = 0u;
-      v36 = 0u;
-      v33 = 0u;
       v34 = 0u;
+      v35 = 0u;
+      v32 = 0u;
+      v33 = 0u;
       allValues5 = [v26 allValues];
-      v28 = [allValues5 countByEnumeratingWithState:&v33 objects:v53 count:16];
+      v28 = [allValues5 countByEnumeratingWithState:&v32 objects:v52 count:16];
       if (v28)
       {
         v29 = v28;
-        v30 = *v34;
+        v30 = *v33;
         do
         {
           v31 = 0;
           do
           {
-            if (*v34 != v30)
+            if (*v33 != v30)
             {
               objc_enumerationMutation(allValues5);
             }
 
-            [(NSSQLiteStatement *)*(*(&v33 + 1) + 8 * v31++) clearCaches:?];
+            [(NSSQLiteStatement *)*(*(&v32 + 1) + 8 * v31++) clearCaches:?];
           }
 
           while (v29 != v31);
-          v29 = [allValues5 countByEnumeratingWithState:&v33 objects:v53 count:16];
+          v29 = [allValues5 countByEnumeratingWithState:&v32 objects:v52 count:16];
         }
 
         while (v29);
@@ -218,8 +218,6 @@
       CFDictionaryRemoveAllValues(*(self + 64));
     }
   }
-
-  v32 = *MEMORY[0x1E69E9840];
 }
 
 - (void)dealloc
@@ -263,7 +261,7 @@
 
 - (void)clearCachedStatements
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   if (self)
   {
     [(NSSQLiteStatementCache *)self _clearSaveGeneratedCachedStatements];
@@ -275,26 +273,26 @@
     v2 = *(self + 48);
     if (v2)
     {
-      v12 = 0u;
-      v13 = 0u;
-      v10 = 0u;
       v11 = 0u;
-      v3 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v12 = 0u;
+      v9 = 0u;
+      v10 = 0u;
+      v3 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
       if (v3)
       {
         v4 = v3;
-        v5 = *v11;
+        v5 = *v10;
         do
         {
           v6 = 0;
           do
           {
-            if (*v11 != v5)
+            if (*v10 != v5)
             {
               objc_enumerationMutation(v2);
             }
 
-            v7 = [*(self + 48) objectForKey:*(*(&v10 + 1) + 8 * v6)];
+            v7 = [*(self + 48) objectForKey:*(*(&v9 + 1) + 8 * v6)];
             v8 = [v7 count];
             if (v8)
             {
@@ -306,7 +304,7 @@
           }
 
           while (v4 != v6);
-          v4 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
+          v4 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
         }
 
         while (v4);
@@ -315,8 +313,6 @@
       [*(self + 48) removeAllObjects];
     }
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (NSSQLiteStatementCache)initWithEntity:(id)entity
@@ -500,42 +496,36 @@
 
 - (void)cacheFaultingStatement:(uint64_t)statement andFetchRequest:(void *)request forRelationship:
 {
-  v14[2] = *MEMORY[0x1E69E9840];
-  if (!self)
+  v12[2] = *MEMORY[0x1E69E9840];
+  if (self)
   {
-    goto LABEL_10;
-  }
-
-  name = [request name];
-  v8 = [*(self + 48) objectForKey:name];
-  v9 = [v8 count] < 2 ? 0 : objc_msgSend(v8, "objectAtIndex:", 0);
-  if (v9 == a2)
-  {
-    goto LABEL_10;
-  }
-
-  [(NSSQLiteStatement *)v9 clearCaches:?];
-  v10 = *(self + 48);
-  if (a2)
-  {
-    if (!v10)
+    name = [request name];
+    v8 = [*(self + 48) objectForKey:name];
+    v9 = [v8 count] < 2 ? 0 : objc_msgSend(v8, "objectAtIndex:", 0);
+    if (v9 != a2)
     {
-      *(self + 48) = objc_alloc_init(MEMORY[0x1E695DF90]);
+      [(NSSQLiteStatement *)v9 clearCaches:?];
+      v10 = *(self + 48);
+      if (a2)
+      {
+        if (!v10)
+        {
+          *(self + 48) = objc_alloc_init(MEMORY[0x1E695DF90]);
+        }
+
+        v12[0] = a2;
+        v12[1] = statement;
+        v11 = [objc_alloc(MEMORY[0x1E695DEC8]) initWithObjects:v12 count:2];
+        [*(self + 48) setObject:v11 forKey:name];
+      }
+
+      else
+      {
+
+        [v10 removeObjectForKey:name];
+      }
     }
-
-    v14[0] = a2;
-    v14[1] = statement;
-    v11 = [objc_alloc(MEMORY[0x1E695DEC8]) initWithObjects:v14 count:2];
-    [*(self + 48) setObject:v11 forKey:name];
-
-LABEL_10:
-    v12 = *MEMORY[0x1E69E9840];
-    return;
   }
-
-  v13 = *MEMORY[0x1E69E9840];
-
-  [v10 removeObjectForKey:name];
 }
 
 @end

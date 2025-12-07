@@ -23,22 +23,15 @@
   titleCopy = title;
   targetCopy = target;
   infoCopy = info;
-  v12 = PSSpecifier_ptr;
+  v12 = [objc_opt_class() preferenceSpecifierNamed:titleCopy target:targetCopy set:0 get:0 detail:0 cell:13 edit:0];
+  v13 = v12;
+  *&v12[OBJC_IVAR___PSSpecifier_action] = action;
   if (infoCopy)
   {
-    v12 = PSConfirmationSpecifier_ptr;
+    [v12 setupWithDictionary:infoCopy];
   }
 
-  v13 = *v12;
-  v14 = [objc_opt_class() preferenceSpecifierNamed:titleCopy target:targetCopy set:0 get:0 detail:0 cell:13 edit:0];
-  v15 = v14;
-  *&v14[OBJC_IVAR___PSSpecifier_action] = action;
-  if (infoCopy)
-  {
-    [v14 setupWithDictionary:infoCopy];
-  }
-
-  return v15;
+  return v13;
 }
 
 @end

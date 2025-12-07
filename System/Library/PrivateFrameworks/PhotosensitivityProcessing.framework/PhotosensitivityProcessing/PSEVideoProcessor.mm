@@ -1,7 +1,7 @@
 @interface PSEVideoProcessor
 + (BOOL)needsProcessing;
-+ (uint64_t)needsProcessing;
 + (void)initialize;
++ (void)needsProcessing;
 - (BOOL)canProcessSurface:(__IOSurface *)surface;
 - (KernelData)_prepare_contrast_kernels;
 - (PSEVideoProcessor)init;
@@ -27,25 +27,25 @@
 
 + (BOOL)needsProcessing
 {
-  v13 = 0;
-  v14 = &v13;
-  v15 = 0x2020000000;
+  v14 = 0;
+  v15 = &v14;
+  v16 = 0x2020000000;
   v2 = get_AXSPhotosensitiveMitigationEnabledSymbolLoc_ptr;
-  v16 = get_AXSPhotosensitiveMitigationEnabledSymbolLoc_ptr;
+  v17 = get_AXSPhotosensitiveMitigationEnabledSymbolLoc_ptr;
   if (!get_AXSPhotosensitiveMitigationEnabledSymbolLoc_ptr)
   {
-    v8 = MEMORY[0x277D85DD0];
-    v9 = 3221225472;
-    v10 = __get_AXSPhotosensitiveMitigationEnabledSymbolLoc_block_invoke;
-    v11 = &unk_279A34A78;
-    v12 = &v13;
+    v9 = MEMORY[0x277D85DD0];
+    v10 = 3221225472;
+    v11 = __get_AXSPhotosensitiveMitigationEnabledSymbolLoc_block_invoke;
+    v12 = &unk_279A34A78;
+    v13 = &v14;
     v3 = libAccessibilityLibrary();
-    v14[3] = dlsym(v3, "_AXSPhotosensitiveMitigationEnabled");
-    get_AXSPhotosensitiveMitigationEnabledSymbolLoc_ptr = *(v12[1] + 24);
-    v2 = v14[3];
+    v15[3] = dlsym(v3, "_AXSPhotosensitiveMitigationEnabled");
+    get_AXSPhotosensitiveMitigationEnabledSymbolLoc_ptr = *(v13[1] + 24);
+    v2 = v15[3];
   }
 
-  _Block_object_dispose(&v13, 8);
+  _Block_object_dispose(&v14, 8);
   if (!v2)
   {
     +[PSEVideoProcessor needsProcessing];
@@ -55,23 +55,23 @@
   v4 = v2();
   if (v4)
   {
-    v13 = 0;
-    v14 = &v13;
-    v15 = 0x2020000000;
+    v14 = 0;
+    v15 = &v14;
+    v16 = 0x2020000000;
     v5 = getAXDeviceSupportsPhotosensitiveMitigationSymbolLoc_ptr;
-    v16 = getAXDeviceSupportsPhotosensitiveMitigationSymbolLoc_ptr;
+    v17 = getAXDeviceSupportsPhotosensitiveMitigationSymbolLoc_ptr;
     if (!getAXDeviceSupportsPhotosensitiveMitigationSymbolLoc_ptr)
     {
-      v8 = MEMORY[0x277D85DD0];
-      v9 = 3221225472;
-      v10 = __getAXDeviceSupportsPhotosensitiveMitigationSymbolLoc_block_invoke;
-      v11 = &unk_279A34A78;
-      v12 = &v13;
-      __getAXDeviceSupportsPhotosensitiveMitigationSymbolLoc_block_invoke(&v8);
-      v5 = v14[3];
+      v9 = MEMORY[0x277D85DD0];
+      v10 = 3221225472;
+      v11 = __getAXDeviceSupportsPhotosensitiveMitigationSymbolLoc_block_invoke;
+      v12 = &unk_279A34A78;
+      v13 = &v14;
+      __getAXDeviceSupportsPhotosensitiveMitigationSymbolLoc_block_invoke(&v9);
+      v5 = v15[3];
     }
 
-    _Block_object_dispose(&v13, 8);
+    _Block_object_dispose(&v14, 8);
     if (v5)
     {
       LOBYTE(v4) = v5();
@@ -79,9 +79,10 @@
     }
 
 LABEL_11:
-    v6 = +[PSEVideoProcessor needsProcessing];
-    _Block_object_dispose(&v13, 8);
-    _Unwind_Resume(v6);
+    +[PSEVideoProcessor needsProcessing];
+    v7 = v6;
+    _Block_object_dispose(&v14, 8);
+    _Unwind_Resume(v7);
   }
 
   return v4;
@@ -96,9 +97,9 @@ LABEL_11:
 
 - (PSEVideoProcessor)init
 {
-  v17.receiver = self;
-  v17.super_class = PSEVideoProcessor;
-  v2 = [(PSEVideoProcessor *)&v17 init];
+  v18.receiver = self;
+  v18.super_class = PSEVideoProcessor;
+  v2 = [(PSEVideoProcessor *)&v18 init];
   v2->_needsInitialization = 1;
   v3 = MTLCreateSystemDefaultDevice();
   device = v2->_device;
@@ -114,26 +115,26 @@ LABEL_11:
   [(PSEVideoProcessor *)v2 _visualDebuggingChanged:0];
   [(PSEVideoProcessor *)v2 _sourceCopyDebuggingChanged:0];
   defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
-  v23 = 0;
-  v24 = &v23;
-  v25 = 0x2020000000;
+  v24 = 0;
+  v25 = &v24;
+  v26 = 0x2020000000;
   v8 = getkAXSPhotosensitiveVisualDebuggingEnabledNotificationSymbolLoc_ptr;
-  v26 = getkAXSPhotosensitiveVisualDebuggingEnabledNotificationSymbolLoc_ptr;
+  v27 = getkAXSPhotosensitiveVisualDebuggingEnabledNotificationSymbolLoc_ptr;
   if (!getkAXSPhotosensitiveVisualDebuggingEnabledNotificationSymbolLoc_ptr)
   {
-    v18 = MEMORY[0x277D85DD0];
-    v19 = 3221225472;
-    v20 = __getkAXSPhotosensitiveVisualDebuggingEnabledNotificationSymbolLoc_block_invoke;
-    v21 = &unk_279A34A78;
-    v22 = &v23;
+    v19 = MEMORY[0x277D85DD0];
+    v20 = 3221225472;
+    v21 = __getkAXSPhotosensitiveVisualDebuggingEnabledNotificationSymbolLoc_block_invoke;
+    v22 = &unk_279A34A78;
+    v23 = &v24;
     v9 = libAccessibilityLibrary();
     v10 = dlsym(v9, "kAXSPhotosensitiveVisualDebuggingEnabledNotification");
-    *(v22[1] + 24) = v10;
-    getkAXSPhotosensitiveVisualDebuggingEnabledNotificationSymbolLoc_ptr = *(v22[1] + 24);
-    v8 = v24[3];
+    *(v23[1] + 24) = v10;
+    getkAXSPhotosensitiveVisualDebuggingEnabledNotificationSymbolLoc_ptr = *(v23[1] + 24);
+    v8 = v25[3];
   }
 
-  _Block_object_dispose(&v23, 8);
+  _Block_object_dispose(&v24, 8);
   if (!v8)
   {
     +[PSEVideoProcessor needsProcessing];
@@ -143,32 +144,33 @@ LABEL_11:
   [defaultCenter addObserver:v2 selector:sel__visualDebuggingChanged_ name:*v8 object:0];
 
   defaultCenter2 = [MEMORY[0x277CCAB98] defaultCenter];
-  v23 = 0;
-  v24 = &v23;
-  v25 = 0x2020000000;
+  v24 = 0;
+  v25 = &v24;
+  v26 = 0x2020000000;
   v12 = getkAXSPhotosensitiveSourceCopyDebuggingEnabledNotificationSymbolLoc_ptr;
-  v26 = getkAXSPhotosensitiveSourceCopyDebuggingEnabledNotificationSymbolLoc_ptr;
+  v27 = getkAXSPhotosensitiveSourceCopyDebuggingEnabledNotificationSymbolLoc_ptr;
   if (!getkAXSPhotosensitiveSourceCopyDebuggingEnabledNotificationSymbolLoc_ptr)
   {
-    v18 = MEMORY[0x277D85DD0];
-    v19 = 3221225472;
-    v20 = __getkAXSPhotosensitiveSourceCopyDebuggingEnabledNotificationSymbolLoc_block_invoke;
-    v21 = &unk_279A34A78;
-    v22 = &v23;
+    v19 = MEMORY[0x277D85DD0];
+    v20 = 3221225472;
+    v21 = __getkAXSPhotosensitiveSourceCopyDebuggingEnabledNotificationSymbolLoc_block_invoke;
+    v22 = &unk_279A34A78;
+    v23 = &v24;
     v13 = libAccessibilityLibrary();
     v14 = dlsym(v13, "kAXSPhotosensitiveSourceCopyDebuggingEnabledNotification");
-    *(v22[1] + 24) = v14;
-    getkAXSPhotosensitiveSourceCopyDebuggingEnabledNotificationSymbolLoc_ptr = *(v22[1] + 24);
-    v12 = v24[3];
+    *(v23[1] + 24) = v14;
+    getkAXSPhotosensitiveSourceCopyDebuggingEnabledNotificationSymbolLoc_ptr = *(v23[1] + 24);
+    v12 = v25[3];
   }
 
-  _Block_object_dispose(&v23, 8);
+  _Block_object_dispose(&v24, 8);
   if (!v12)
   {
 LABEL_11:
-    v16 = +[PSEVideoProcessor needsProcessing];
-    _Block_object_dispose(&v23, 8);
-    _Unwind_Resume(v16);
+    +[PSEVideoProcessor needsProcessing];
+    v17 = v16;
+    _Block_object_dispose(&v24, 8);
+    _Unwind_Resume(v17);
   }
 
   [defaultCenter2 addObserver:v2 selector:sel__sourceCopyDebuggingChanged_ name:*v12 object:0];
@@ -178,48 +180,46 @@ LABEL_11:
 
 - (void)_visualDebuggingChanged:(id)changed
 {
-  v13 = *MEMORY[0x277D85DE8];
-  self->_bufferConstants.bDebug = soft_AXSPhotosensitiveVisualDebuggingEnabled() != 0;
-  [(SwiftVideoProcessor *)self->_swiftProcessor setDebugMode:soft_AXSPhotosensitiveVisualDebuggingEnabled() != 0];
+  v14 = *MEMORY[0x277D85DE8];
+  v5 = soft_AXSPhotosensitiveVisualDebuggingEnabled(self, a2);
+  self->_bufferConstants.bDebug = v5 != 0;
+  [(SwiftVideoProcessor *)self->_swiftProcessor setDebugMode:soft_AXSPhotosensitiveVisualDebuggingEnabled(v5, v6) != 0];
   if (changed)
   {
-    v5 = PSELog;
+    v7 = PSELog;
     if (os_log_type_enabled(PSELog, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = MEMORY[0x277CCABB0];
+      v8 = MEMORY[0x277CCABB0];
       bCopyOnly = self->_bufferConstants.bCopyOnly;
-      v8 = v5;
-      v9 = [v6 numberWithBool:bCopyOnly];
-      v11 = 138412290;
-      v12 = v9;
-      _os_log_impl(&dword_25E78C000, v8, OS_LOG_TYPE_DEFAULT, "Visual debug mode: %@", &v11, 0xCu);
+      v10 = v7;
+      v11 = [v8 numberWithBool:bCopyOnly];
+      v12 = 138412290;
+      v13 = v11;
+      _os_log_impl(&dword_25E78C000, v10, OS_LOG_TYPE_DEFAULT, "Visual debug mode: %@", &v12, 0xCu);
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_sourceCopyDebuggingChanged:(id)changed
 {
-  v13 = *MEMORY[0x277D85DE8];
-  self->_bufferConstants.bCopyOnly = soft_AXSPhotosensitiveSourceCopyDebuggingEnabled() != 0;
-  [(SwiftVideoProcessor *)self->_swiftProcessor setCopySourceOnlyDebugging:soft_AXSPhotosensitiveSourceCopyDebuggingEnabled() != 0];
+  v14 = *MEMORY[0x277D85DE8];
+  v5 = soft_AXSPhotosensitiveSourceCopyDebuggingEnabled(self, a2);
+  self->_bufferConstants.bCopyOnly = v5 != 0;
+  [(SwiftVideoProcessor *)self->_swiftProcessor setCopySourceOnlyDebugging:soft_AXSPhotosensitiveSourceCopyDebuggingEnabled(v5, v6) != 0];
   if (changed)
   {
-    v5 = PSELog;
+    v7 = PSELog;
     if (os_log_type_enabled(PSELog, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = MEMORY[0x277CCABB0];
+      v8 = MEMORY[0x277CCABB0];
       bCopyOnly = self->_bufferConstants.bCopyOnly;
-      v8 = v5;
-      v9 = [v6 numberWithBool:bCopyOnly];
-      v11 = 138412290;
-      v12 = v9;
-      _os_log_impl(&dword_25E78C000, v8, OS_LOG_TYPE_DEFAULT, "Source copy only mode: %@", &v11, 0xCu);
+      v10 = v7;
+      v11 = [v8 numberWithBool:bCopyOnly];
+      v12 = 138412290;
+      v13 = v11;
+      _os_log_impl(&dword_25E78C000, v10, OS_LOG_TYPE_DEFAULT, "Source copy only mode: %@", &v12, 0xCu);
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setValidationCallback:(id)callback
@@ -235,16 +235,144 @@ LABEL_11:
 
 - (void)_initialize
 {
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_25E78C000, v0, v1, "error creating cs_compute_risk_pass3 %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  p_area = &self->_area;
+  if (_initialize_onceToken != -1)
+  {
+    [PSEVideoProcessor _initialize];
+  }
+
+  memset_pattern16(FrameDeltas, &unk_25E79DA80, 0x28uLL);
+  self->_fps = 60.0;
+  *p_area = xmmword_25E79DA50;
+  *(p_area + 1) = xmmword_25E79DA60;
+  *(p_area + 2) = xmmword_25E79DA70;
+  newCommandQueue = [(MTLDevice *)self->_device newCommandQueue];
+  commandQueue = self->_commandQueue;
+  self->_commandQueue = newCommandQueue;
+
+  mEMORY[0x277CD6CD8] = [MEMORY[0x277CD6CD8] sharedCaptureManager];
+  v7 = [mEMORY[0x277CD6CD8] newCaptureScopeWithDevice:self->_device];
+
+  mEMORY[0x277CD6CD8]2 = [MEMORY[0x277CD6CD8] sharedCaptureManager];
+  [mEMORY[0x277CD6CD8]2 setDefaultCaptureScope:v7];
+
+  device = self->_device;
+  v10 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v40 = 0;
+  v11 = [(MTLDevice *)device newDefaultLibraryWithBundle:v10 error:&v40];
+  v12 = v40;
+  library = self->_library;
+  self->_library = v11;
+
+  if (v12 && os_log_type_enabled(PSELog, OS_LOG_TYPE_ERROR))
+  {
+    [PSEVideoProcessor _initialize];
+  }
+
+  [(PSEVideoProcessor *)self _initializeProtectedBuffers:7];
+  v14 = [(MTLDevice *)self->_device newBufferWithLength:56 options:0];
+  bufferDataDebug = self->_bufferDataDebug;
+  self->_bufferDataDebug = v14;
+
+  [(PSEVideoProcessor *)self _resetState:7];
+  v16 = [(MTLLibrary *)self->_library newFunctionWithName:@"cs_compute_risk_pass0"];
+  if (v16)
+  {
+    v17 = self->_device;
+    v39 = v12;
+    v18 = [(MTLDevice *)v17 newComputePipelineStateWithFunction:v16 error:&v39];
+    v19 = v39;
+
+    cptPSO_RiskComputePass0 = self->_cptPSO_RiskComputePass0;
+    self->_cptPSO_RiskComputePass0 = v18;
+
+    if (v19 && os_log_type_enabled(PSELog, OS_LOG_TYPE_ERROR))
+    {
+      [PSEVideoProcessor _initialize];
+    }
+  }
+
+  else
+  {
+    v19 = v12;
+  }
+
+  v21 = [(MTLLibrary *)self->_library newFunctionWithName:@"cs_compute_risk_pass1"];
+
+  if (v21)
+  {
+    v22 = self->_device;
+    v38 = v19;
+    v23 = [(MTLDevice *)v22 newComputePipelineStateWithFunction:v21 error:&v38];
+    v24 = v38;
+
+    cptPSO_RiskComputePass1 = self->_cptPSO_RiskComputePass1;
+    self->_cptPSO_RiskComputePass1 = v23;
+
+    if (v24 && os_log_type_enabled(PSELog, OS_LOG_TYPE_ERROR))
+    {
+      [PSEVideoProcessor _initialize];
+    }
+  }
+
+  else
+  {
+    v24 = v19;
+  }
+
+  v26 = [(MTLLibrary *)self->_library newFunctionWithName:@"cs_compute_risk_pass2"];
+
+  if (v26)
+  {
+    v27 = self->_device;
+    v37 = v24;
+    v28 = [(MTLDevice *)v27 newComputePipelineStateWithFunction:v26 error:&v37];
+    v29 = v37;
+
+    cptPSO_RiskComputePass2 = self->_cptPSO_RiskComputePass2;
+    self->_cptPSO_RiskComputePass2 = v28;
+
+    if (v29 && os_log_type_enabled(PSELog, OS_LOG_TYPE_ERROR))
+    {
+      [PSEVideoProcessor _initialize];
+    }
+  }
+
+  else
+  {
+    v29 = v24;
+  }
+
+  v31 = [(MTLLibrary *)self->_library newFunctionWithName:@"cs_compute_risk_pass3"];
+
+  if (v31)
+  {
+    v32 = self->_device;
+    v36 = v29;
+    v33 = [(MTLDevice *)v32 newComputePipelineStateWithFunction:v31 error:&v36];
+    v34 = v36;
+
+    cptPSO_RiskComputePass3 = self->_cptPSO_RiskComputePass3;
+    self->_cptPSO_RiskComputePass3 = v33;
+
+    if (v34 && os_log_type_enabled(PSELog, OS_LOG_TYPE_ERROR))
+    {
+      [PSEVideoProcessor _initialize];
+    }
+  }
+
+  else
+  {
+    v34 = v29;
+  }
+
+  self->_needsInitialization = 0;
 }
 
 void __32__PSEVideoProcessor__initialize__block_invoke()
 {
-  v0 = UFMKernels;
-  UFMKernels = &unk_287078128;
+  v0 = UFMKernels[0];
+  UFMKernels[0] = &unk_287078128;
 
   v1 = qword_27FD068B8;
   qword_27FD068B8 = &unk_287078140;
@@ -570,7 +698,7 @@ void __32__PSEVideoProcessor__initialize__block_invoke()
 {
   v5 = 0;
   v6 = 0;
-  v63 = *MEMORY[0x277D85DE8];
+  v62 = *MEMORY[0x277D85DE8];
   do
   {
     v7 = [(MTLDevice *)self->_device heapBufferSizeAndAlignWithLength:qword_25E79DAA0[v5] options:544];
@@ -591,9 +719,9 @@ void __32__PSEVideoProcessor__initialize__block_invoke()
     v13 = MEMORY[0x277CCABB0];
     v14 = v12;
     v15 = [v13 numberWithUnsignedLongLong:buffers];
-    v61 = 138412290;
-    v62 = v15;
-    _os_log_impl(&dword_25E78C000, v14, OS_LOG_TYPE_DEFAULT, "Making new protected heap with %@", &v61, 0xCu);
+    v60 = 138412290;
+    v61 = v15;
+    _os_log_impl(&dword_25E78C000, v14, OS_LOG_TYPE_DEFAULT, "Making new protected heap with %@", &v60, 0xCu);
   }
 
   v16 = [v10 newBufferWithLength:4 options:544];
@@ -689,8 +817,6 @@ void __32__PSEVideoProcessor__initialize__block_invoke()
     self->_protectionStatus = buffers;
     self->_madeProtectedBuffers = self->_bufferFrameLumaSum[1] != 0;
   }
-
-  v60 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)canProcessSurface:(__IOSurface *)surface
@@ -907,7 +1033,7 @@ LABEL_22:
   v4 = 1000.0;
   do
   {
-    v5 = vabds_f32(*&standardFrameRates[v2], self->_fps);
+    v5 = vabds_f32(standardFrameRates[v2], self->_fps);
     if (v5 <= v4)
     {
       v4 = v5;
@@ -1064,74 +1190,72 @@ LABEL_6:
 
 void __45__PSEVideoProcessor__colorSpaceValueForName___block_invoke()
 {
-  v16[25] = *MEMORY[0x277D85DE8];
+  v15[25] = *MEMORY[0x277D85DE8];
   v0 = *MEMORY[0x277CBF3E8];
-  v15[0] = *MEMORY[0x277CBF3E0];
-  v15[1] = v0;
-  v16[0] = &unk_2870740C0;
-  v16[1] = &unk_2870740D8;
+  v14[0] = *MEMORY[0x277CBF3E0];
+  v14[1] = v0;
+  v15[0] = &unk_2870740C0;
+  v15[1] = &unk_2870740D8;
   v1 = *MEMORY[0x277CBF4B8];
-  v15[2] = *MEMORY[0x277CBF410];
-  v15[3] = v1;
-  v16[2] = &unk_2870740F0;
-  v16[3] = &unk_287074108;
+  v14[2] = *MEMORY[0x277CBF410];
+  v14[3] = v1;
+  v15[2] = &unk_2870740F0;
+  v15[3] = &unk_287074108;
   v2 = *MEMORY[0x277CBF430];
-  v15[4] = *MEMORY[0x277CBF4A8];
-  v15[5] = v2;
-  v16[4] = &unk_287074120;
-  v16[5] = &unk_287074138;
+  v14[4] = *MEMORY[0x277CBF4A8];
+  v14[5] = v2;
+  v15[4] = &unk_287074120;
+  v15[5] = &unk_287074138;
   v3 = *MEMORY[0x277CBF448];
-  v15[6] = *MEMORY[0x277CBF428];
-  v15[7] = v3;
-  v16[6] = &unk_287074150;
-  v16[7] = &unk_287074168;
+  v14[6] = *MEMORY[0x277CBF428];
+  v14[7] = v3;
+  v15[6] = &unk_287074150;
+  v15[7] = &unk_287074168;
   v4 = *MEMORY[0x277CBF400];
-  v15[8] = *MEMORY[0x277CBF498];
-  v15[9] = v4;
-  v16[8] = &unk_287074180;
-  v16[9] = &unk_287074198;
+  v14[8] = *MEMORY[0x277CBF498];
+  v14[9] = v4;
+  v15[8] = &unk_287074180;
+  v15[9] = &unk_287074198;
   v5 = *MEMORY[0x277CBF460];
-  v15[10] = *MEMORY[0x277CBF418];
-  v15[11] = v5;
-  v16[10] = &unk_2870741B0;
-  v16[11] = &unk_2870741C8;
+  v14[10] = *MEMORY[0x277CBF418];
+  v14[11] = v5;
+  v15[10] = &unk_2870741B0;
+  v15[11] = &unk_2870741C8;
   v6 = *MEMORY[0x277CBF468];
-  v15[12] = *MEMORY[0x277CBF438];
-  v15[13] = v6;
-  v16[12] = &unk_2870741E0;
-  v16[13] = &unk_2870741F8;
+  v14[12] = *MEMORY[0x277CBF438];
+  v14[13] = v6;
+  v15[12] = &unk_2870741E0;
+  v15[13] = &unk_2870741F8;
   v7 = *MEMORY[0x277CBF3C8];
-  v15[14] = *MEMORY[0x277CBF450];
-  v15[15] = v7;
-  v16[14] = &unk_287074210;
-  v16[15] = &unk_287074228;
+  v14[14] = *MEMORY[0x277CBF450];
+  v14[15] = v7;
+  v15[14] = &unk_287074210;
+  v15[15] = &unk_287074228;
   v8 = *MEMORY[0x277CBF3D8];
-  v15[16] = *MEMORY[0x277CBF3D0];
-  v15[17] = v8;
-  v16[16] = &unk_287074240;
-  v16[17] = &unk_287074258;
+  v14[16] = *MEMORY[0x277CBF3D0];
+  v14[17] = v8;
+  v15[16] = &unk_287074240;
+  v15[17] = &unk_287074258;
   v9 = *MEMORY[0x277CBF4B0];
-  v15[18] = *MEMORY[0x277CBF488];
-  v15[19] = v9;
-  v16[18] = &unk_287074270;
-  v16[19] = &unk_287074288;
+  v14[18] = *MEMORY[0x277CBF488];
+  v14[19] = v9;
+  v15[18] = &unk_287074270;
+  v15[19] = &unk_287074288;
   v10 = *MEMORY[0x277CBF420];
-  v15[20] = *MEMORY[0x277CBF470];
-  v15[21] = v10;
-  v16[20] = &unk_2870742A0;
-  v16[21] = &unk_2870742B8;
+  v14[20] = *MEMORY[0x277CBF470];
+  v14[21] = v10;
+  v15[20] = &unk_2870742A0;
+  v15[21] = &unk_2870742B8;
   v11 = *MEMORY[0x277CBF440];
-  v15[22] = *MEMORY[0x277CBF458];
-  v15[23] = v11;
-  v16[22] = &unk_2870742D0;
-  v16[23] = &unk_2870742E8;
-  v15[24] = *MEMORY[0x277CBF480];
-  v16[24] = &unk_287074300;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:25];
+  v14[22] = *MEMORY[0x277CBF458];
+  v14[23] = v11;
+  v15[22] = &unk_2870742D0;
+  v15[23] = &unk_2870742E8;
+  v14[24] = *MEMORY[0x277CBF480];
+  v15[24] = &unk_287074300;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:25];
   v13 = _colorSpaceValueForName__Values;
   _colorSpaceValueForName__Values = v12;
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)processSourceSurface:(__IOSurface *)surface withTimestamp:(double)timestamp toDestinationSurface:(__IOSurface *)destinationSurface options:(id)options
@@ -1154,7 +1278,7 @@ void __45__PSEVideoProcessor__colorSpaceValueForName___block_invoke()
 
 - (void)_processSurface:(__IOSurface *)surface withTimestamp:(double)timestamp destinationSurface:(__IOSurface *)destinationSurface options:(id)options
 {
-  v86 = *MEMORY[0x277D85DE8];
+  v85 = *MEMORY[0x277D85DE8];
   optionsCopy = options;
   if (self->_needsInitialization)
   {
@@ -1178,22 +1302,22 @@ void __45__PSEVideoProcessor__colorSpaceValueForName___block_invoke()
 
     *&v14 = fmin(v13, 0.0416666667);
     v15 = FramePoolIdx;
-    FrameDeltas[FramePoolIdx] = v14;
+    FrameDeltas[FramePoolIdx] = *&v14;
     FramePoolIdx = (v15 + 1) % 0xAu;
     v16 = 0.0;
     v17 = 10.0;
     v18 = 0.001;
     do
     {
-      v19 = *&FrameDeltas[v12];
+      v19 = FrameDeltas[v12];
       if (v17 >= v19)
       {
-        v17 = *&FrameDeltas[v12];
+        v17 = FrameDeltas[v12];
       }
 
       if (v18 < v19)
       {
-        v18 = *&FrameDeltas[v12];
+        v18 = FrameDeltas[v12];
       }
 
       v16 = v16 + v19;
@@ -1206,7 +1330,7 @@ void __45__PSEVideoProcessor__colorSpaceValueForName___block_invoke()
     v22 = v16 / 10.0;
     do
     {
-      v21 = (*&FrameDeltas[v20] - v22) * (*&FrameDeltas[v20] - v22) / 10.0 + v21;
+      v21 = (FrameDeltas[v20] - v22) * (FrameDeltas[v20] - v22) / 10.0 + v21;
       ++v20;
     }
 
@@ -1232,11 +1356,11 @@ void __45__PSEVideoProcessor__colorSpaceValueForName___block_invoke()
       v38 = [MEMORY[0x277CCABB0] numberWithFloat:v37];
       v39 = [MEMORY[0x277CCABB0] numberWithDouble:self->_previousSurfaceTime];
       *buf = 138412802;
-      v81 = v36;
-      v82 = 2112;
-      v83 = v38;
-      v84 = 2112;
-      v85 = v39;
+      v80 = v36;
+      v81 = 2112;
+      v82 = v38;
+      v83 = 2112;
+      v84 = v39;
       _os_log_debug_impl(&dword_25E78C000, v34, OS_LOG_TYPE_DEBUG, "PSE stdDelta value: %@, fps: %@ %@", buf, 0x20u);
     }
 
@@ -1405,15 +1529,15 @@ LABEL_41:
         v70 = dispatch_semaphore_create(0);
         commandBuffer = [(MTLCommandQueue *)self->_commandQueue commandBuffer];
         [commandBuffer setProtectionOptions:v41];
-        v74 = MEMORY[0x277D85DD0];
-        v75 = 3221225472;
-        v76 = __78__PSEVideoProcessor__processSurface_withTimestamp_destinationSurface_options___block_invoke;
-        v77 = &unk_279A34A50;
+        v73 = MEMORY[0x277D85DD0];
+        v74 = 3221225472;
+        v75 = __78__PSEVideoProcessor__processSurface_withTimestamp_destinationSurface_options___block_invoke;
+        v76 = &unk_279A34A50;
         selfCopy = self;
-        v79 = v70;
+        v78 = v70;
         v72 = v70;
-        [commandBuffer addCompletedHandler:&v74];
-        [(PSEVideoProcessor *)self _processFrame:commandBuffer sourceSurface:surface outSurface:destinationSurface, v74, v75, v76, v77, selfCopy];
+        [commandBuffer addCompletedHandler:&v73];
+        [(PSEVideoProcessor *)self _processFrame:commandBuffer sourceSurface:surface outSurface:destinationSurface, v73, v74, v75, v76, selfCopy];
         [commandBuffer commit];
         dispatch_semaphore_wait(v72, 0xFFFFFFFFFFFFFFFFLL);
 
@@ -1430,9 +1554,9 @@ LABEL_41:
         *&v47 = vabds_f32(self->_fps, fps);
         v48 = [MEMORY[0x277CCABB0] numberWithFloat:v47];
         *buf = 138412546;
-        v81 = v46;
-        v82 = 2112;
-        v83 = v48;
+        v80 = v46;
+        v81 = 2112;
+        v82 = v48;
         _os_log_impl(&dword_25E78C000, v45, OS_LOG_TYPE_INFO, "Resetting state due to time %@ or fps: %@", buf, 0x16u);
       }
     }
@@ -1442,13 +1566,11 @@ LABEL_41:
   }
 
 LABEL_50:
-
-  v73 = *MEMORY[0x277D85DE8];
 }
 
 void __78__PSEVideoProcessor__processSurface_withTimestamp_destinationSurface_options___block_invoke(uint64_t a1, void *a2)
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = *(a1 + 32);
   if ((*(v4 + 318) & 1) != 0 || (*(v4 + 317)) && (*(v4 + 321) & 1) == 0)
@@ -1474,35 +1596,35 @@ void __78__PSEVideoProcessor__processSurface_withTimestamp_destinationSurface_op
         v19 = v5[12];
         v20 = v5[9];
         v21 = v5[10];
-        v25 = 134221312;
-        v26 = v8;
-        v27 = 2048;
-        v28 = v9;
-        v29 = 2048;
-        v30 = v10;
-        v31 = 2048;
-        v32 = v11;
-        v33 = 2048;
-        v34 = v12;
-        v35 = 2048;
-        v36 = v13;
-        v37 = 2048;
-        v38 = v14;
-        v39 = 2048;
-        v40 = v15;
-        v41 = 2048;
-        v42 = v16;
-        v43 = 2048;
-        v44 = v17;
-        v45 = 2048;
-        v46 = v18;
-        v47 = 2048;
-        v48 = v19;
-        v49 = 2048;
-        v50 = v20;
-        v51 = 2048;
-        v52 = v21;
-        _os_log_impl(&dword_25E78C000, v7, OS_LOG_TYPE_DEFAULT, "APL:%7.2fnits, AdaptLevel:%5.1fnits, Contrast:%6.2f, Response:%7.2f, Response2:%6.2f, Energy:%6.1f, E2:%4.2f, Risk:%6.2f, VFML:%6.2f, MitigateCF:%5.2f, MuAdapt:%5.3f, FPS:%3.0f, EDR:%4.2f, DisplayEDR:%4.2f", &v25, 0x8Eu);
+        v24 = 134221312;
+        v25 = v8;
+        v26 = 2048;
+        v27 = v9;
+        v28 = 2048;
+        v29 = v10;
+        v30 = 2048;
+        v31 = v11;
+        v32 = 2048;
+        v33 = v12;
+        v34 = 2048;
+        v35 = v13;
+        v36 = 2048;
+        v37 = v14;
+        v38 = 2048;
+        v39 = v15;
+        v40 = 2048;
+        v41 = v16;
+        v42 = 2048;
+        v43 = v17;
+        v44 = 2048;
+        v45 = v18;
+        v46 = 2048;
+        v47 = v19;
+        v48 = 2048;
+        v49 = v20;
+        v50 = 2048;
+        v51 = v21;
+        _os_log_impl(&dword_25E78C000, v7, OS_LOG_TYPE_DEFAULT, "APL:%7.2fnits, AdaptLevel:%5.1fnits, Contrast:%6.2f, Response:%7.2f, Response2:%6.2f, Energy:%6.1f, E2:%4.2f, Risk:%6.2f, VFML:%6.2f, MitigateCF:%5.2f, MuAdapt:%5.3f, FPS:%3.0f, EDR:%4.2f, DisplayEDR:%4.2f", &v24, 0x8Eu);
       }
 
       v6 = *(a1 + 32);
@@ -1518,8 +1640,6 @@ void __78__PSEVideoProcessor__processSurface_withTimestamp_destinationSurface_op
 
     dispatch_semaphore_signal(*(a1 + 40));
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_resetState:(unint64_t)state
@@ -1537,7 +1657,7 @@ void __78__PSEVideoProcessor__processSurface_withTimestamp_destinationSurface_op
   *&v8 = self->_energyPoolGammaScale;
   v9 = [(PSEVideoProcessor *)self _prepare_gamma_kernel:v6 shape:v7 scale:v8];
   memset(v36, 0, 28);
-  [(PSEVideoProcessor *)self _prepare_contrast_kernels];
+  objc_msgSend__prepare_contrast_kernels(self);
   v32[1] = [v9 length] >> 2;
   *&v32[2] = self->_nits * self->_avl;
   fps = self->_fps;
@@ -1545,7 +1665,7 @@ void __78__PSEVideoProcessor__processSurface_withTimestamp_destinationSurface_op
   *&v32[3] = v11;
   v12 = 1.0 - exp(-1.0 / (fps * self->_taumitigation));
   *&v32[4] = v12;
-  v13 = pow(sqrt(self->_area * 1.6) / *&standardSizes[self->_idxEquivalentSize], self->_cA + self->_cA);
+  v13 = pow(sqrt(self->_area * 1.6) / standardSizes[self->_idxEquivalentSize], self->_cA + self->_cA);
   gain = self->_gain;
   v15 = v13 * (gain / pow(fps, 1.0 / self->_energypoolexponent));
   *&v32[5] = v15;
@@ -1713,80 +1833,65 @@ void __78__PSEVideoProcessor__processSurface_withTimestamp_destinationSurface_op
   }
 }
 
-+ (uint64_t)needsProcessing
++ (void)needsProcessing
 {
-  dlerror();
-  v0 = abort_report_np();
-  return [(PSEVideoProcessor *)v0 _initialize];
+  v0 = dlerror();
+  abort_report_np("%s", v0);
+  [PSEVideoProcessor _initialize];
 }
 
 - (void)canProcessSurface:(void *)a1 .cold.1(void *a1, __IOSurface *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CCABB0];
   v4 = a1;
   v5 = [v3 numberWithUnsignedInt:IOSurfaceGetPixelFormat(a2)];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
   _os_log_debug_impl(v6, v7, v8, v9, v10, 0xCu);
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_computeFrameRateIndexSelection
 {
-  v15 = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277CCABB0];
   v3 = standardFrameRates[self];
   v4 = a2;
-  LODWORD(v5) = v3;
+  *&v5 = v3;
   v6 = [v2 numberWithFloat:v5];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3(&dword_25E78C000, v7, v8, "Choosing standard FPS: %@", v9, v10, v11, v12, v14);
-
-  v13 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_25E78C000, v7, v8, "Choosing standard FPS: %@", v9, v10, v11, v12);
 }
 
 - (void)_processSurface:(void *)a1 withTimestamp:(uint64_t)a2 destinationSurface:options:.cold.1(void *a1, uint64_t a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CCABB0];
   v4 = a1;
   v5 = [v3 numberWithInt:a2];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
   _os_log_debug_impl(v6, v7, v8, v9, v10, 0xCu);
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_resetState:(uint64_t)a1 .cold.1(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CCABB0];
   v4 = standardSizes[*(a1 + 428)];
   v5 = a2;
-  LODWORD(v6) = v4;
+  *&v6 = v4;
   v7 = [v3 numberWithFloat:v6];
   LODWORD(v8) = *(a1 + 368);
-  v15 = [MEMORY[0x277CCABB0] numberWithFloat:v8];
+  v14 = [MEMORY[0x277CCABB0] numberWithFloat:v8];
   OUTLINED_FUNCTION_2();
   _os_log_debug_impl(v9, v10, v11, v12, v13, 0x16u);
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_resetState:(void *)a1 .cold.2(void *a1, float a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CCABB0];
   v4 = a1;
   *&v5 = a2;
   v6 = [v3 numberWithFloat:v5];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3(&dword_25E78C000, v7, v8, "Current value for mu: %@", v9, v10, v11, v12, v14);
-
-  v13 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_25E78C000, v7, v8, "Current value for mu: %@", v9, v10, v11, v12);
 }
 
 @end

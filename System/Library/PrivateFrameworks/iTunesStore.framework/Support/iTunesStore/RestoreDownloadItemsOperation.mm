@@ -221,183 +221,193 @@
     v10 = v8;
     v11 = [(NSArray *)downloadItems componentsJoinedByString:@", "];
     uniqueIdentifier = [(SSAccount *)self->_account uniqueIdentifier];
-    [(SSAccount *)self->_account storeFrontIdentifier];
+    storeFrontIdentifier = [(SSAccount *)self->_account storeFrontIdentifier];
     v48 = 138413058;
     v49 = v8;
     v50 = 2114;
     v51 = v11;
     v52 = 2112;
     v53 = uniqueIdentifier;
-    v55 = v54 = 2112;
-    LODWORD(v43) = 42;
-    v13 = _os_log_send_and_compose_impl();
+    v54 = 2112;
+    v55 = storeFrontIdentifier;
+    v14 = _os_log_send_and_compose_impl(v7, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%@: Restoring items: [%{public}@]for account: (%@ / %@)", &v48, 42);
 
-    if (!v13)
+    if (!v14)
     {
       goto LABEL_13;
     }
 
-    oSLogObject = [NSString stringWithCString:v13 encoding:4, &v48, v43];
-    free(v13);
+    oSLogObject = [NSString stringWithCString:v14 encoding:4];
+    free(v14);
     SSFileLog();
   }
 
 LABEL_13:
-  v14 = objc_opt_class();
-  v15 = [(NSArray *)self->_downloadItems componentsJoinedByString:@", "];
+  v15 = objc_opt_class();
+  v16 = [(NSArray *)self->_downloadItems componentsJoinedByString:@", "];
   uniqueIdentifier2 = [(SSAccount *)self->_account uniqueIdentifier];
   SSDebugLog();
 
-  v16 = [(SSAccount *)self->_account accountName:v14];
-  v17 = [v16 length];
+  v17 = [(SSAccount *)self->_account accountName:v15];
+  v18 = [v17 length];
 
-  if (v17)
+  if (v18)
   {
     [(SSAccount *)self->_account accountScope];
-    v18 = [SSURLBagContext contextWithBagType:SSURLBagTypeForAccountScope()];
+    v19 = [SSURLBagContext contextWithBagType:SSURLBagTypeForAccountScope()];
     uniqueIdentifier3 = [(SSAccount *)self->_account uniqueIdentifier];
-    [v18 setUserIdentifier:uniqueIdentifier3];
+    [v19 setUserIdentifier:uniqueIdentifier3];
 
     v47 = 0;
-    v20 = [(RestoreDownloadItemsOperation *)self loadURLBagWithContext:v18 returningError:&v47];
-    v21 = v47;
-    if ((v20 & 1) == 0)
+    v21 = [(RestoreDownloadItemsOperation *)self loadURLBagWithContext:v19 returningError:&v47];
+    v22 = v47;
+    if ((v21 & 1) == 0)
     {
-      v23 = [(RestoreDownloadItemsOperation *)self _newResponseWithItems:self->_downloadItems error:v21];
-      [(RestoreDownloadItemsOperation *)self _addResponse:v23];
-      v26 = 0;
-LABEL_44:
+      v24 = [(RestoreDownloadItemsOperation *)self _newResponseWithItems:self->_downloadItems error:v22];
+      [(RestoreDownloadItemsOperation *)self _addResponse:v24];
+      v27 = 0;
+LABEL_46:
 
-      goto LABEL_45;
+      goto LABEL_47;
     }
 
-    v22 = +[ISURLBagCache sharedCache];
-    v23 = [v22 URLBagForContext:v18];
+    v23 = +[ISURLBagCache sharedCache];
+    v24 = [v23 URLBagForContext:v19];
 
-    v24 = [v23 valueForKey:@"p2-content-restore"];
+    v25 = [v24 valueForKey:@"p2-content-restore"];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v25 = [v24 objectForKey:@"url"];
+      v26 = [v25 objectForKey:@"url"];
 
-      if (v25)
+      if (v26)
       {
-        v46 = v21;
-        v26 = [(RestoreDownloadItemsOperation *)self _runWithOptions:v24 error:&v46];
-        v27 = v46;
-LABEL_43:
+        v46 = v22;
+        v27 = [(RestoreDownloadItemsOperation *)self _runWithOptions:v25 error:&v46];
+        v28 = v46;
+LABEL_45:
 
-        v21 = v27;
-        goto LABEL_44;
+        v22 = v28;
+        goto LABEL_46;
       }
     }
 
-    v36 = +[SSLogConfig sharedDaemonConfig];
-    if (!v36)
+    v37 = +[SSLogConfig sharedDaemonConfig];
+    if (!v37)
     {
-      v36 = +[SSLogConfig sharedConfig];
+      v37 = +[SSLogConfig sharedConfig];
     }
 
-    shouldLog2 = [v36 shouldLog];
-    if ([v36 shouldLogToDisk])
+    shouldLog2 = [v37 shouldLog];
+    if ([v37 shouldLogToDisk])
     {
-      v38 = shouldLog2 | 2;
+      LODWORD(v39) = shouldLog2 | 2;
     }
 
     else
     {
-      v38 = shouldLog2;
+      LODWORD(v39) = shouldLog2;
     }
 
-    oSLogObject2 = [v36 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_ERROR))
+    oSLogObject2 = [v37 OSLogObject];
+    if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_ERROR))
     {
-      v38 &= 2u;
+      v39 = v39;
     }
 
-    if (v38)
+    else
     {
-      v40 = objc_opt_class();
+      v39 &= 2u;
+    }
+
+    if (v39)
+    {
+      v41 = objc_opt_class();
       v48 = 138412290;
-      v49 = v40;
-      v41 = v40;
+      v49 = v41;
+      v42 = v41;
       LODWORD(v44) = 12;
-      v42 = _os_log_send_and_compose_impl();
+      v43 = _os_log_send_and_compose_impl(v39, 0, 0, 0, &_mh_execute_header, oSLogObject2, 16, "%@: Cannot restore: no URL", &v48, v44);
 
-      if (!v42)
+      if (!v43)
       {
-LABEL_42:
+LABEL_44:
 
-        v27 = SSError();
+        v28 = SSError();
 
-        v21 = [(RestoreDownloadItemsOperation *)self _newResponseWithItems:self->_downloadItems error:v27];
-        [(RestoreDownloadItemsOperation *)self _addResponse:v21];
-        v26 = 1;
-        goto LABEL_43;
+        v22 = [(RestoreDownloadItemsOperation *)self _newResponseWithItems:self->_downloadItems error:v28];
+        [(RestoreDownloadItemsOperation *)self _addResponse:v22];
+        v27 = 1;
+        goto LABEL_45;
       }
 
-      oSLogObject2 = [NSString stringWithCString:v42 encoding:4, &v48, v44];
-      free(v42);
+      oSLogObject2 = [NSString stringWithCString:v43 encoding:4];
+      free(v43);
       SSFileLog();
     }
 
-    goto LABEL_42;
+    goto LABEL_44;
   }
 
-  v28 = +[SSLogConfig sharedDaemonConfig];
-  if (!v28)
+  v29 = +[SSLogConfig sharedDaemonConfig];
+  if (!v29)
   {
-    v28 = +[SSLogConfig sharedConfig];
+    v29 = +[SSLogConfig sharedConfig];
   }
 
-  shouldLog3 = [v28 shouldLog];
-  if ([v28 shouldLogToDisk])
+  shouldLog3 = [v29 shouldLog];
+  if ([v29 shouldLogToDisk])
   {
-    v30 = shouldLog3 | 2;
+    LODWORD(v31) = shouldLog3 | 2;
   }
 
   else
   {
-    v30 = shouldLog3;
+    LODWORD(v31) = shouldLog3;
   }
 
-  oSLogObject3 = [v28 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_DEFAULT))
+  oSLogObject3 = [v29 OSLogObject];
+  if (os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_DEFAULT))
   {
-    v30 &= 2u;
+    v31 = v31;
   }
 
-  if (!v30)
+  else
   {
-    goto LABEL_28;
+    v31 &= 2u;
   }
 
-  v32 = objc_opt_class();
+  if (!v31)
+  {
+    goto LABEL_29;
+  }
+
+  v33 = objc_opt_class();
   account = self->_account;
   v48 = 138412546;
-  v49 = v32;
+  v49 = v33;
   v50 = 2112;
   v51 = account;
-  v34 = v32;
+  v35 = v33;
   LODWORD(v44) = 22;
-  v35 = _os_log_send_and_compose_impl();
+  v36 = _os_log_send_and_compose_impl(v31, 0, 0, 0, &_mh_execute_header, oSLogObject3, 0, "%@: Can't restore using account: %@ with no account name", &v48, v44);
 
-  if (v35)
+  if (v36)
   {
-    oSLogObject3 = [NSString stringWithCString:v35 encoding:4, &v48, v44];
-    free(v35);
+    oSLogObject3 = [NSString stringWithCString:v36 encoding:4];
+    free(v36);
     SSFileLog();
-LABEL_28:
+LABEL_29:
   }
 
-  v21 = SSError();
-  v18 = [(RestoreDownloadItemsOperation *)self _newResponseWithItems:self->_downloadItems error:v21];
-  [(RestoreDownloadItemsOperation *)self _addResponse:v18];
-  v26 = 0;
-LABEL_45:
+  v22 = SSError();
+  v19 = [(RestoreDownloadItemsOperation *)self _newResponseWithItems:self->_downloadItems error:v22];
+  [(RestoreDownloadItemsOperation *)self _addResponse:v19];
+  v27 = 0;
+LABEL_47:
 
-  [(RestoreDownloadItemsOperation *)self setError:v21];
-  [(RestoreDownloadItemsOperation *)self setSuccess:v26];
+  [(RestoreDownloadItemsOperation *)self setError:v22];
+  [(RestoreDownloadItemsOperation *)self setSuccess:v27];
 }
 
 - (id)_runWithBodyData:(id)data contentEncoding:(id)encoding options:(id)options error:(id *)error
@@ -405,7 +415,7 @@ LABEL_45:
   dataCopy = data;
   encodingCopy = encoding;
   v12 = [options objectForKey:@"url"];
-  v50 = encodingCopy;
+  v49 = encodingCopy;
   if (!v12 || (v13 = [[NSURL alloc] initWithString:v12]) == 0)
   {
     v32 = +[SSLogConfig sharedDaemonConfig];
@@ -417,46 +427,50 @@ LABEL_45:
     shouldLog = [v32 shouldLog];
     if ([v32 shouldLogToDisk])
     {
-      v34 = shouldLog | 2;
+      LODWORD(v34) = shouldLog | 2;
     }
 
     else
     {
-      v34 = shouldLog;
+      LODWORD(v34) = shouldLog;
     }
 
     oSLogObject = [v32 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    {
+      v34 = v34;
+    }
+
+    else
     {
       v34 &= 2u;
     }
 
     if (v34)
     {
-      v52 = 138412546;
-      v53 = objc_opt_class();
-      v54 = 2112;
-      v55 = v12;
-      v36 = v53;
-      LODWORD(v41) = 22;
-      v37 = _os_log_send_and_compose_impl();
+      v51 = 138412546;
+      v52 = objc_opt_class();
+      v53 = 2112;
+      v54 = v12;
+      v36 = v52;
+      v37 = _os_log_send_and_compose_impl(v34, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%@: Invalid URL: %@", &v51, 22);
 
       if (!v37)
       {
-LABEL_28:
+LABEL_29:
 
         v24 = SSError();
         v14 = 0;
         v27 = 0;
-        goto LABEL_31;
+        goto LABEL_32;
       }
 
-      oSLogObject = [NSString stringWithCString:v37 encoding:4, &v52, v41];
+      oSLogObject = [NSString stringWithCString:v37 encoding:4];
       free(v37);
       SSFileLog();
     }
 
-    goto LABEL_28;
+    goto LABEL_29;
   }
 
   v14 = v13;
@@ -467,7 +481,7 @@ LABEL_28:
   [v15 setUseUserSpecificURLBag:1];
   v16 = objc_alloc_init(DaemonProtocolDataProvider);
   [(DaemonProtocolDataProvider *)v16 setShouldProcessDialogs:0];
-  v47 = v16;
+  v46 = v16;
   [v15 setDataProvider:v16];
   v17 = [[SSMutableURLRequestProperties alloc] initWithURL:v14];
   v18 = objc_alloc_init(NSMutableDictionary);
@@ -488,11 +502,11 @@ LABEL_28:
     [v17 setValue:thinnedApplicationVariantIdentifier forHTTPHeaderField:SSHTTPHeaderXAppleTADevice];
   }
 
-  v44 = thinnedApplicationVariantIdentifier;
-  v45 = serialNumber;
-  v46 = v18;
+  v43 = thinnedApplicationVariantIdentifier;
+  v44 = serialNumber;
+  v45 = v18;
   [v17 setCachePolicy:1];
-  v49 = dataCopy;
+  v48 = dataCopy;
   [v17 setHTTPBody:dataCopy];
   [v17 setHTTPMethod:@"POST"];
   if (encodingCopy)
@@ -507,9 +521,9 @@ LABEL_28:
   [v23 setCanCreateNewAccount:0];
   [v23 setPromptStyle:1001];
   [v15 setAuthenticationContext:v23];
-  v51 = 0;
-  v42 = [(RestoreDownloadItemsOperation *)selfCopy runSubOperation:v15 returningError:&v51];
-  v24 = v51;
+  v50 = 0;
+  v41 = [(RestoreDownloadItemsOperation *)selfCopy runSubOperation:v15 returningError:&v50];
+  v24 = v50;
   dataProvider = [v15 dataProvider];
   output = [dataProvider output];
 
@@ -522,7 +536,7 @@ LABEL_28:
     v27 = [(StoreDownloadQueueResponse *)v28 initWithDictionary:output userIdentifier:uniqueIdentifier];
 
     [(RestoreDownloadItemsOperation *)selfCopy _showDialogsForResponse:output];
-    v30 = v27 ? v42 : 1;
+    v30 = v27 ? v41 : 1;
     if ((v30 & 1) == 0)
     {
       error = [(StoreDownloadQueueResponse *)v27 error];
@@ -545,8 +559,8 @@ LABEL_28:
   }
 
   error = errorCopy;
-  dataCopy = v49;
-LABEL_31:
+  dataCopy = v48;
+LABEL_32:
   if (error)
   {
     v39 = v24;
@@ -560,9 +574,9 @@ LABEL_31:
 {
   itemsCopy = items;
   optionsCopy = options;
-  v58 = 0;
-  v8 = [(RestoreDownloadItemsOperation *)self _plistDataWithItems:itemsCopy options:optionsCopy error:&v58];
-  v9 = v58;
+  v57 = 0;
+  v8 = [(RestoreDownloadItemsOperation *)self _plistDataWithItems:itemsCopy options:optionsCopy error:&v57];
+  v9 = v57;
   if (!v8)
   {
     v29 = +[SSLogConfig sharedDaemonConfig];
@@ -596,15 +610,14 @@ LABEL_31:
     if (v33)
     {
       v34 = objc_opt_class();
-      v59 = 138412802;
-      v60 = v34;
-      v61 = 2114;
-      v62 = itemsCopy;
-      v63 = 2114;
-      v64 = v9;
+      v58 = 138412802;
+      v59 = v34;
+      v60 = 2114;
+      v61 = itemsCopy;
+      v62 = 2114;
+      v63 = v9;
       v35 = v34;
-      LODWORD(v49) = 32;
-      v36 = _os_log_send_and_compose_impl();
+      v36 = _os_log_send_and_compose_impl(v33, 0, 0, 0, &_mh_execute_header, oSLogObject, 16, "%@: No body data for items: [%{public}@] error: %{public}@", &v58, 32);
 
       if (!v36)
       {
@@ -614,7 +627,7 @@ LABEL_36:
         goto LABEL_38;
       }
 
-      oSLogObject = [NSString stringWithCString:v36 encoding:4, &v59, v49];
+      oSLogObject = [NSString stringWithCString:v36 encoding:4];
       free(v36);
       SSFileLog();
     }
@@ -630,9 +643,9 @@ LABEL_36:
     v10 = 0;
   }
 
-  v57 = v9;
-  v15 = [(RestoreDownloadItemsOperation *)self _runWithBodyData:v12 contentEncoding:v10 options:optionsCopy error:&v57];
-  v16 = v57;
+  v56 = v9;
+  v15 = [(RestoreDownloadItemsOperation *)self _runWithBodyData:v12 contentEncoding:v10 options:optionsCopy error:&v56];
+  v16 = v56;
 
   if (v15)
   {
@@ -640,8 +653,8 @@ LABEL_36:
 
     v18 = +[SSLogConfig sharedDaemonConfig];
     v19 = v18;
-    v55 = v8;
-    v56 = itemsCopy;
+    v54 = v8;
+    v55 = itemsCopy;
     if (error)
     {
       if (!v18)
@@ -649,7 +662,7 @@ LABEL_36:
         v19 = +[SSLogConfig sharedConfig];
       }
 
-      v53 = v12;
+      v52 = v12;
       shouldLog2 = [v19 shouldLog];
       if ([v19 shouldLogToDisk])
       {
@@ -675,19 +688,18 @@ LABEL_36:
       if (v23)
       {
         v24 = objc_opt_class();
-        v51 = v24;
+        v50 = v24;
         v25 = [itemsCopy componentsJoinedByString:{@", "}];
         error2 = [(StoreDownloadQueueResponse *)v15 error];
-        v59 = 138412802;
-        v60 = v24;
-        v61 = 2114;
-        v62 = v25;
-        v63 = 2114;
-        v64 = error2;
-        LODWORD(v49) = 32;
-        v27 = _os_log_send_and_compose_impl();
+        v58 = 138412802;
+        v59 = v24;
+        v60 = 2114;
+        v61 = v25;
+        v62 = 2114;
+        v63 = error2;
+        v27 = _os_log_send_and_compose_impl(v23, 0, 0, 0, &_mh_execute_header, oSLogObject2, 16, "%@: Received failure for items: [%{public}@] response error: %{public}@", &v58, 32);
 
-        itemsCopy = v56;
+        itemsCopy = v55;
         if (!v27)
         {
 LABEL_23:
@@ -697,13 +709,13 @@ LABEL_23:
           error3 = [(StoreDownloadQueueResponse *)v15 error];
           SSDebugLog();
 
-          v8 = v55;
-          itemsCopy = v56;
-          v12 = v53;
+          v8 = v54;
+          itemsCopy = v55;
+          v12 = v52;
           goto LABEL_41;
         }
 
-        oSLogObject2 = [NSString stringWithCString:v27 encoding:4, &v59, v49];
+        oSLogObject2 = [NSString stringWithCString:v27 encoding:4];
         free(v27);
         SSFileLog();
       }
@@ -736,20 +748,19 @@ LABEL_23:
     if (v42)
     {
       v43 = objc_opt_class();
-      v54 = v43;
+      v53 = v43;
       downloads = [(StoreDownloadQueueResponse *)v15 downloads];
       v44 = v12;
       v45 = [downloads count];
-      v46 = [v56 componentsJoinedByString:{@", "}];
-      v59 = 138412802;
-      v60 = v43;
-      v61 = 2048;
-      v62 = v45;
+      v46 = [v55 componentsJoinedByString:{@", "}];
+      v58 = 138412802;
+      v59 = v43;
+      v60 = 2048;
+      v61 = v45;
       v12 = v44;
-      v63 = 2114;
-      v64 = v46;
-      LODWORD(v49) = 32;
-      v47 = _os_log_send_and_compose_impl();
+      v62 = 2114;
+      v63 = v46;
+      v47 = _os_log_send_and_compose_impl(v42, 0, 0, 0, &_mh_execute_header, oSLogObject3, 0, "%@: Received content restore metadata for %lu items for restore items: [%{public}@]", &v58, 32);
 
       if (!v47)
       {
@@ -761,12 +772,12 @@ LABEL_55:
           sub_1000B29AC(keybag);
         }
 
-        v8 = v55;
-        itemsCopy = v56;
+        v8 = v54;
+        itemsCopy = v55;
         goto LABEL_41;
       }
 
-      oSLogObject3 = [NSString stringWithCString:v47 encoding:4, &v59, v49];
+      oSLogObject3 = [NSString stringWithCString:v47 encoding:4];
       free(v47);
       SSFileLog();
     }
@@ -824,16 +835,21 @@ LABEL_41:
     shouldLog = [v9 shouldLog];
     if ([v9 shouldLogToDisk])
     {
-      v11 = shouldLog | 2;
+      LODWORD(v11) = shouldLog | 2;
     }
 
     else
     {
-      v11 = shouldLog;
+      LODWORD(v11) = shouldLog;
     }
 
     oSLogObject = [v9 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+    {
+      v11 = v11;
+    }
+
+    else
     {
       v11 &= 2u;
     }
@@ -845,29 +861,27 @@ LABEL_41:
       v137 = 2112;
       v138 = v105;
       v13 = v136;
-      LODWORD(v102) = 22;
-      v100 = &v135;
-      v14 = _os_log_send_and_compose_impl();
+      v14 = _os_log_send_and_compose_impl(v11, 0, 0, 0, &_mh_execute_header, oSLogObject, 1, "%@: Adding extra allowed kinds: %@", &v135, 22);
 
       if (!v14)
       {
-LABEL_16:
+LABEL_17:
 
         [v106 addObjectsFromArray:v105];
         optionsCopy = v117;
-        goto LABEL_17;
+        goto LABEL_18;
       }
 
-      oSLogObject = [NSString stringWithCString:v14 encoding:4, &v135, v102];
+      oSLogObject = [NSString stringWithCString:v14 encoding:4];
       free(v14);
       v100 = oSLogObject;
       SSFileLog();
     }
 
-    goto LABEL_16;
+    goto LABEL_17;
   }
 
-LABEL_17:
+LABEL_18:
   v15 = [optionsCopy objectForKey:{@"allowed-match-status", v100}];
 
   v16 = [NSMutableSet alloc];
@@ -957,20 +971,19 @@ LABEL_17:
             v139 = 2112;
             v140 = storeItemID;
             LODWORD(v102) = 32;
-            v101 = &v135;
-            v38 = _os_log_send_and_compose_impl();
+            v38 = _os_log_send_and_compose_impl(v34, 0, 0, 0, &_mh_execute_header, oSLogObject2, 0, "%@: Filtering disallowed kind: %@ for item: %@", &v135, v102);
 
-            goto LABEL_53;
+            goto LABEL_54;
           }
 
-LABEL_55:
-          v23 = v121;
 LABEL_56:
-
+          v23 = v121;
 LABEL_57:
+
+LABEL_58:
           [v109 addObject:v25];
           v22 = v123;
-          goto LABEL_58;
+          goto LABEL_59;
         }
 
         if (v115 && cloudMatchStatus && ([v115 containsObject:cloudMatchStatus] & 1) == 0)
@@ -1000,7 +1013,7 @@ LABEL_57:
 
           if (!v40)
           {
-            goto LABEL_55;
+            goto LABEL_56;
           }
 
           v41 = objc_opt_class();
@@ -1013,24 +1026,23 @@ LABEL_57:
           v139 = 2112;
           v140 = storeItemID2;
           LODWORD(v102) = 32;
-          v101 = &v135;
-          v38 = _os_log_send_and_compose_impl();
+          v38 = _os_log_send_and_compose_impl(v40, 0, 0, 0, &_mh_execute_header, oSLogObject2, 0, "%@: Filtering disallowed match status: %@ for item: %@", &v135, v102);
 
           v20 = v111;
-LABEL_53:
+LABEL_54:
 
           v19 = v106;
           v23 = v121;
           if (v38)
           {
-            oSLogObject2 = [NSString stringWithCString:v38 encoding:4, &v135, v102];
+            oSLogObject2 = [NSString stringWithCString:v38 encoding:4];
             free(v38);
             v101 = oSLogObject2;
             SSFileLog();
-            goto LABEL_56;
+            goto LABEL_57;
           }
 
-          goto LABEL_57;
+          goto LABEL_58;
         }
 
         v28 = [v20 objectForKey:downloadKind];
@@ -1046,7 +1058,7 @@ LABEL_53:
           [v20 setObject:v29 forKey:downloadKind];
         }
 
-LABEL_58:
+LABEL_59:
         v24 = v24 + 1;
       }
 
@@ -1081,7 +1093,7 @@ LABEL_58:
     v124 = 1;
     v51 = v117;
     v52 = &CFDictionaryGetValue_ptr;
-    goto LABEL_124;
+    goto LABEL_125;
   }
 
   v48 = v47;
@@ -1108,7 +1120,7 @@ LABEL_58:
       if (v49)
       {
         [v116 addObjectsFromArray:v56];
-        goto LABEL_120;
+        goto LABEL_121;
       }
 
       v118 = v54;
@@ -1167,16 +1179,15 @@ LABEL_58:
         v142 = intValue;
         v67 = v65;
         LODWORD(v102) = 42;
-        v101 = &v135;
-        v68 = _os_log_send_and_compose_impl();
+        v68 = _os_log_send_and_compose_impl(v64, 0, 0, 0, &_mh_execute_header, oSLogObject3, 1, "%@: Restoring %ld items with kind %@ with chunk size %ld", &v135, v102);
 
         v51 = v117;
         if (!v68)
         {
-          goto LABEL_84;
+          goto LABEL_85;
         }
 
-        oSLogObject3 = [NSString stringWithCString:v68 encoding:4, &v135, v102];
+        oSLogObject3 = [NSString stringWithCString:v68 encoding:4];
         free(v68);
         v101 = oSLogObject3;
         SSFileLog();
@@ -1188,7 +1199,7 @@ LABEL_58:
         v66 = intValue;
       }
 
-LABEL_84:
+LABEL_85:
       v49 = 0;
       if (v58 >= 1)
       {
@@ -1204,11 +1215,11 @@ LABEL_84:
             break;
           }
 
-LABEL_116:
+LABEL_117:
 
           if (++v69 >= v58)
           {
-            goto LABEL_119;
+            goto LABEL_120;
           }
         }
 
@@ -1216,7 +1227,7 @@ LABEL_116:
         [(RestoreDownloadItemsResponse *)v72 setRequestItems:v57];
         if (![v57 count])
         {
-LABEL_112:
+LABEL_113:
           [(RestoreDownloadItemsOperation *)self _addResponse:v72];
           if (v49 && v69 + 1 < v58)
           {
@@ -1226,7 +1237,7 @@ LABEL_112:
             v69 = v58;
           }
 
-          goto LABEL_116;
+          goto LABEL_117;
         }
 
         v122 = v49;
@@ -1270,14 +1281,13 @@ LABEL_112:
           v139 = 2112;
           v140 = v118;
           LODWORD(v102) = 32;
-          v101 = &v135;
-          v81 = _os_log_send_and_compose_impl();
+          v81 = _os_log_send_and_compose_impl(v77, 0, 0, 0, &_mh_execute_header, oSLogObject4, 1, "%@: Making chunk request for %lu items with kind: %@", &v135, v102);
 
           v51 = v117;
           v52 = &CFDictionaryGetValue_ptr;
           if (!v81)
           {
-LABEL_102:
+LABEL_103:
 
             v82 = [(RestoreDownloadItemsOperation *)self _runWithItems:v57 options:v51];
             if ([v82 shouldCancelPurchaseBatch])
@@ -1318,10 +1328,10 @@ LABEL_102:
             [v57 removeAllObjects];
 
             v66 = intValue;
-            goto LABEL_112;
+            goto LABEL_113;
           }
 
-          oSLogObject4 = [NSString stringWithCString:v81 encoding:4, &v135, v102];
+          oSLogObject4 = [NSString stringWithCString:v81 encoding:4];
           free(v81);
           v101 = oSLogObject4;
           SSFileLog();
@@ -1332,12 +1342,12 @@ LABEL_102:
           v52 = &CFDictionaryGetValue_ptr;
         }
 
-        goto LABEL_102;
+        goto LABEL_103;
       }
 
       v52 = &CFDictionaryGetValue_ptr;
       v70 = v56;
-LABEL_119:
+LABEL_120:
 
       v20 = v111;
       v50 = v107;
@@ -1345,7 +1355,7 @@ LABEL_119:
       v48 = v108;
       v55 = v113;
       v53 = v114;
-LABEL_120:
+LABEL_121:
 
       objc_autoreleasePoolPop(v55);
       v53 = v53 + 1;
@@ -1356,7 +1366,7 @@ LABEL_120:
   }
 
   while (v48);
-LABEL_124:
+LABEL_125:
 
   if ([v116 count])
   {
@@ -1396,21 +1406,21 @@ LABEL_124:
       v139 = 2114;
       v140 = v88;
       LODWORD(v102) = 32;
-      v96 = _os_log_send_and_compose_impl();
+      v96 = _os_log_send_and_compose_impl(v92, 0, 0, 0, &_mh_execute_header, oSLogObject5, 0, "%@: Cancel restore items: [%{public}@] error: %{public}@", &v135, v102);
 
       v49 = v88;
       if (v96)
       {
-        oSLogObject5 = [NSString stringWithCString:v96 encoding:4, &v135, v102];
+        oSLogObject5 = [NSString stringWithCString:v96 encoding:4];
         free(v96);
         SSFileLog();
-        goto LABEL_135;
+        goto LABEL_136;
       }
     }
 
     else
     {
-LABEL_135:
+LABEL_136:
     }
 
     v97 = objc_opt_class();
@@ -1453,41 +1463,45 @@ LABEL_135:
     shouldLog = [v8 shouldLog];
     if ([v8 shouldLogToDisk])
     {
-      v10 = shouldLog | 2;
+      LODWORD(v10) = shouldLog | 2;
     }
 
     else
     {
-      v10 = shouldLog;
+      LODWORD(v10) = shouldLog;
     }
 
     oSLogObject = [v8 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    {
+      v10 = v10;
+    }
+
+    else
     {
       v10 &= 2u;
     }
 
     if (v10)
     {
-      LODWORD(v15) = 138412290;
-      *(&v15 + 4) = objc_opt_class();
-      v12 = *(&v15 + 4);
-      LODWORD(v14) = 12;
-      v13 = _os_log_send_and_compose_impl();
+      v14 = 138412290;
+      v15 = objc_opt_class();
+      v12 = v15;
+      v13 = _os_log_send_and_compose_impl(v10, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%@: Skipping terms and conditions failure", &v14, 12);
 
       if (!v13)
       {
-LABEL_19:
+LABEL_20:
 
         goto LABEL_7;
       }
 
-      oSLogObject = [NSString stringWithCString:v13 encoding:4, &v15, v14, v15];
+      oSLogObject = [NSString stringWithCString:v13 encoding:4];
       free(v13);
       SSFileLog();
     }
 
-    goto LABEL_19;
+    goto LABEL_20;
   }
 
   v7 = objc_alloc_init(DaemonProtocolDataProvider);

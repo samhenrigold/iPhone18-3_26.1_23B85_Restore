@@ -59,25 +59,23 @@
 
 - (id)attributeDescriptions
 {
-  v12[1] = *MEMORY[0x1E69E9840];
-  v11.receiver = self;
-  v11.super_class = HMSettingStringValue;
-  attributeDescriptions = [(HMImmutableSettingValue *)&v11 attributeDescriptions];
+  v11[1] = *MEMORY[0x1E69E9840];
+  v10.receiver = self;
+  v10.super_class = HMSettingStringValue;
+  attributeDescriptions = [(HMImmutableSettingValue *)&v10 attributeDescriptions];
   v4 = objc_alloc(MEMORY[0x1E69A29C8]);
   stringValue = [(HMSettingStringValue *)self stringValue];
   v6 = [v4 initWithName:@"stringValue" value:stringValue];
-  v12[0] = v6;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:1];
+  v11[0] = v6;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:1];
   v8 = [attributeDescriptions arrayByAddingObjectsFromArray:v7];
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return v8;
 }
 
 - (HMSettingStringValue)initWithProtoPayload:(id)payload
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   payloadCopy = payload;
   if ([payloadCopy hasStringValueEvent])
   {
@@ -98,11 +96,11 @@
       if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
         v14 = HMFGetLogIdentifier();
-        v17 = 138543618;
-        v18 = v14;
-        v19 = 2112;
-        v20 = payloadCopy;
-        _os_log_impl(&dword_19BB39000, v13, OS_LOG_TYPE_ERROR, "%{public}@Failed to decode setting value due to no string value in string value event in proto payload: %@", &v17, 0x16u);
+        v16 = 138543618;
+        v17 = v14;
+        v18 = 2112;
+        v19 = payloadCopy;
+        _os_log_impl(&dword_19BB39000, v13, OS_LOG_TYPE_ERROR, "%{public}@Failed to decode setting value due to no string value in string value event in proto payload: %@", &v16, 0x16u);
       }
 
       objc_autoreleasePoolPop(v12);
@@ -118,18 +116,17 @@
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       v11 = HMFGetLogIdentifier();
-      v17 = 138543618;
-      v18 = v11;
-      v19 = 2112;
-      v20 = payloadCopy;
-      _os_log_impl(&dword_19BB39000, v10, OS_LOG_TYPE_ERROR, "%{public}@Failed to decode setting value due to no string value event type in proto payload: %@", &v17, 0x16u);
+      v16 = 138543618;
+      v17 = v11;
+      v18 = 2112;
+      v19 = payloadCopy;
+      _os_log_impl(&dword_19BB39000, v10, OS_LOG_TYPE_ERROR, "%{public}@Failed to decode setting value due to no string value event type in proto payload: %@", &v16, 0x16u);
     }
 
     objc_autoreleasePoolPop(v9);
     v8 = 0;
   }
 
-  v15 = *MEMORY[0x1E69E9840];
   return v8;
 }
 
@@ -147,7 +144,7 @@
 
 - (HMSettingStringValue)initWithPayload:(id)payload
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   payloadCopy = payload;
   v5 = [payloadCopy hmf_stringForKey:@"HMImmutableSettingValuePayloadKey"];
   if (v5)
@@ -164,39 +161,37 @@
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       v10 = HMFGetLogIdentifier();
-      v13 = 138543618;
-      v14 = v10;
-      v15 = 2112;
-      v16 = payloadCopy;
-      _os_log_impl(&dword_19BB39000, v9, OS_LOG_TYPE_ERROR, "%{public}@Failed to decode setting string value due to no string value in payload: %@", &v13, 0x16u);
+      v12 = 138543618;
+      v13 = v10;
+      v14 = 2112;
+      v15 = payloadCopy;
+      _os_log_impl(&dword_19BB39000, v9, OS_LOG_TYPE_ERROR, "%{public}@Failed to decode setting string value due to no string value in payload: %@", &v12, 0x16u);
     }
 
     objc_autoreleasePoolPop(v8);
     v7 = 0;
   }
 
-  v11 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
 - (id)payloadCopy
 {
-  v12[2] = *MEMORY[0x1E69E9840];
-  v10.receiver = self;
-  v10.super_class = HMSettingStringValue;
-  payloadCopy = [(HMImmutableSettingValue *)&v10 payloadCopy];
+  v11[2] = *MEMORY[0x1E69E9840];
+  v9.receiver = self;
+  v9.super_class = HMSettingStringValue;
+  payloadCopy = [(HMImmutableSettingValue *)&v9 payloadCopy];
   v4 = [payloadCopy mutableCopy];
 
-  v11[0] = @"HMImmutableSettingValueTypePayloadKey";
-  v11[1] = @"HMImmutableSettingValuePayloadKey";
-  v12[0] = &unk_1F0EFD118;
+  v10[0] = @"HMImmutableSettingValueTypePayloadKey";
+  v10[1] = @"HMImmutableSettingValuePayloadKey";
+  v11[0] = &unk_1F0EFD118;
   stringValue = [(HMSettingStringValue *)self stringValue];
-  v12[1] = stringValue;
-  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:2];
+  v11[1] = stringValue;
+  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:v10 count:2];
   [v4 addEntriesFromDictionary:v6];
 
   v7 = [v4 copy];
-  v8 = *MEMORY[0x1E69E9840];
 
   return v7;
 }

@@ -51,13 +51,11 @@
 - (void)enumerateIdentifiersUsingBlock:(id)block
 {
   v4 = _Block_copy(block);
-  v5 = OBJC_IVAR____TtC13TSPersistence23TSPMutableIdentifierSet_identifierSet;
   swift_beginAccess();
-  v6 = *(&self->super.isa + v5);
   _Block_copy(v4);
   selfCopy = self;
 
-  sub_276B05C10(v8, v4);
+  sub_276B05C10(v6, v4);
   _Block_release(v4);
 
   _Block_release(v4);

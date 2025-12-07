@@ -7,46 +7,44 @@
 
 + (id)makeViewControllerWithInstitution:(id)institution paymentPass:(id)pass previousConsentUUID:(id)d completion:(id)completion
 {
-  v10 = type metadata accessor for BankConnectReviewAccountConnectionFlowView();
-  v11 = *(*(v10 - 1) + 64);
+  v10 = type metadata accessor for BankConnectReviewAccountConnectionFlowView(0);
   MEMORY[0x28223BE20](v10);
-  v13 = v30 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v31 = sub_23875BCB0();
-  v14 = *(v31 - 8);
-  v15 = *(v14 + 64);
-  MEMORY[0x28223BE20](v31);
-  v17 = v30 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = v28 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v29 = sub_23875BCB0();
+  v13 = *(v29 - 8);
+  MEMORY[0x28223BE20](v29);
+  v15 = v28 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_23875ED50();
-  v30[2] = sub_23875ED40();
+  v28[2] = sub_23875ED40();
   sub_23875ECE0();
   if ((swift_task_isCurrentExecutor() & 1) == 0)
   {
     swift_task_reportUnexpectedExecutor();
   }
 
-  v18 = _Block_copy(completion);
-  v19 = swift_allocObject();
-  *(v19 + 16) = v18;
+  v16 = _Block_copy(completion);
+  v17 = swift_allocObject();
+  *(v17 + 16) = v16;
   sub_23875BC90();
-  v30[1] = objc_allocWithZone(type metadata accessor for BankConnectReviewAccountConnectionFlowViewController());
+  v28[1] = objc_allocWithZone(type metadata accessor for BankConnectReviewAccountConnectionFlowViewController(0));
   institutionCopy = institution;
   passCopy = pass;
   dCopy = d;
   sub_23875EFB0();
-  v23 = v14;
-  v24 = *(v14 + 16);
-  v25 = v31;
-  v24(&v13[v10[5]], v17, v31);
-  *&v13[v10[6]] = passCopy;
-  v26 = &v13[v10[7]];
-  *v26 = sub_2384735C8;
-  v26[1] = v19;
-  v27 = passCopy;
-  v28 = sub_23875D080();
+  v21 = v13;
+  v22 = *(v13 + 16);
+  v23 = v29;
+  v22(&v12[v10[5]], v15, v29);
+  *&v12[v10[6]] = passCopy;
+  v24 = &v12[v10[7]];
+  *v24 = sub_2384735C8;
+  v24[1] = v17;
+  v25 = passCopy;
+  v26 = sub_23875D080();
 
-  (*(v23 + 8))(v17, v25);
+  (*(v21 + 8))(v15, v23);
 
-  return v28;
+  return v26;
 }
 
 - (_TtC12FinanceKitUI60BankConnectReviewAccountConnectionFlowViewControllerProvider)init

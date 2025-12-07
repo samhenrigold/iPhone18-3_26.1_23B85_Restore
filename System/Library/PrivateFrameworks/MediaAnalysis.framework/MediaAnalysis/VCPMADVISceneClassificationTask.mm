@@ -116,8 +116,8 @@ void __41__VCPMADVISceneClassificationTask_cancel__block_invoke(uint64_t a1)
 - (void)configureRequest:(id)request
 {
   requestCopy = request;
-  [requestCopy setMetalContextPriority:0];
-  if (DeviceHasANE())
+  v3 = [requestCopy setMetalContextPriority:0];
+  if (DeviceHasANE(v3, v4))
   {
     defaultANEDevice = [MEMORY[0x1E6984608] defaultANEDevice];
     [requestCopy setProcessingDevice:defaultANEDevice];
@@ -133,7 +133,7 @@ void __41__VCPMADVISceneClassificationTask_cancel__block_invoke(uint64_t a1)
 
 - (int)run
 {
-  v144[1] = *MEMORY[0x1E69E9840];
+  v150[1] = *MEMORY[0x1E69E9840];
   v2 = atomic_load(&self->_canceled);
   if ((v2 & 1) == 0)
   {
@@ -143,9 +143,9 @@ void __41__VCPMADVISceneClassificationTask_cancel__block_invoke(uint64_t a1)
       _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "VCPMADVISceneClassificationTask running...", buf, 2u);
     }
 
-    v134 = 0;
-    v133 = 0;
-    if ([(VCPMADServiceImageAsset *)self->_imageAsset loadPixelBuffer:&v134 orientation:&v133])
+    v140 = 0;
+    v139 = 0;
+    if ([(VCPMADServiceImageAsset *)self->_imageAsset loadPixelBuffer:&v140 orientation:&v139])
     {
       if (MediaAnalysisLogLevel() >= 4 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
       {
@@ -155,30 +155,30 @@ void __41__VCPMADVISceneClassificationTask_cancel__block_invoke(uint64_t a1)
 
       request = self->_request;
       v6 = MEMORY[0x1E696ABC0];
-      v143 = *MEMORY[0x1E696A578];
+      v149 = *MEMORY[0x1E696A578];
       v7 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Image loading failed"];
-      v144[0] = v7;
-      v113 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v144 forKeys:&v143 count:1];
-      v8 = [v6 errorWithDomain:*MEMORY[0x1E696A768] code:-18 userInfo:v113];
+      v150[0] = v7;
+      v119 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v150 forKeys:&v149 count:1];
+      v8 = [v6 errorWithDomain:*MEMORY[0x1E696A768] code:-18 userInfo:v119];
       [(MADVISceneClassificationRequest *)request setError:v8];
       v3 = 0;
       goto LABEL_101;
     }
 
-    v113 = +[VCPMADVISceneClassificationResource sharedResource];
+    v119 = +[VCPMADVISceneClassificationResource sharedResource];
     v9 = +[VCPMADResourceManager sharedManager];
-    v110 = [v9 activateResource:v113];
+    v116 = [v9 activateResource:v119];
 
     array = [MEMORY[0x1E695DF70] array];
     v10 = objc_alloc_init(MEMORY[0x1E6984668]);
-    v112 = v10;
+    v118 = v10;
     if (!v10)
     {
       if (MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
-        v43 = objc_opt_class();
+        v44 = objc_opt_class();
         *buf = 138412290;
-        v140 = v43;
+        v146 = v44;
         _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Failed to create %@", buf, 0xCu);
       }
 
@@ -188,46 +188,46 @@ void __41__VCPMADVISceneClassificationTask_cancel__block_invoke(uint64_t a1)
     }
 
     [(VCPMADVISceneClassificationTask *)self configureRequest:v10];
-    [v112 setMaximumLeafObservations:{-[MADVISceneClassificationRequest maximumLeafObservations](self->_request, "maximumLeafObservations")}];
-    [v112 setMaximumHierarchicalObservations:{-[MADVISceneClassificationRequest maximumHierarchicalObservations](self->_request, "maximumHierarchicalObservations")}];
+    [v118 setMaximumLeafObservations:{-[MADVISceneClassificationRequest maximumLeafObservations](self->_request, "maximumLeafObservations")}];
+    [v118 setMaximumHierarchicalObservations:{-[MADVISceneClassificationRequest maximumHierarchicalObservations](self->_request, "maximumHierarchicalObservations")}];
     classificationRevision = [(MADVISceneClassificationRequest *)self->_request classificationRevision];
-    v132 = 0;
-    v12 = [v112 setRevision:classificationRevision error:&v132];
-    v7 = v132;
+    v138 = 0;
+    v12 = [v118 setRevision:classificationRevision error:&v138];
+    v7 = v138;
     if ((v12 & 1) == 0)
     {
       if (MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
         classificationRevision2 = [(MADVISceneClassificationRequest *)self->_request classificationRevision];
         *buf = 134218242;
-        v140 = classificationRevision2;
-        v141 = 2112;
-        v142 = v7;
+        v146 = classificationRevision2;
+        v147 = 2112;
+        v148 = v7;
         _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Failed to set VNSceneClassificationRequest::setRevision %lu: %@", buf, 0x16u);
       }
 
-      v45 = self->_request;
-      v46 = MEMORY[0x1E696ABC0];
-      v137 = *MEMORY[0x1E696A578];
-      v47 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Failed to set VNSceneClassificationRequest::setRevision %lu: %@", -[MADVISceneClassificationRequest classificationRevision](v45, "classificationRevision"), v7];
-      v138 = v47;
-      v48 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v138 forKeys:&v137 count:1];
-      v49 = [v46 errorWithDomain:*MEMORY[0x1E696A768] code:-18 userInfo:v48];
-      [(MADVISceneClassificationRequest *)v45 setError:v49];
+      v46 = self->_request;
+      v47 = MEMORY[0x1E696ABC0];
+      v143 = *MEMORY[0x1E696A578];
+      v48 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Failed to set VNSceneClassificationRequest::setRevision %lu: %@", -[MADVISceneClassificationRequest classificationRevision](v46, "classificationRevision"), v7];
+      v144 = v48;
+      v49 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v144 forKeys:&v143 count:1];
+      v50 = [v47 errorWithDomain:*MEMORY[0x1E696A768] code:-18 userInfo:v49];
+      [(MADVISceneClassificationRequest *)v46 setError:v50];
 
       v3 = 0;
       goto LABEL_100;
     }
 
-    [array addObject:v112];
+    [array addObject:v118];
     cancelQueue = self->_cancelQueue;
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = __38__VCPMADVISceneClassificationTask_run__block_invoke;
     block[3] = &unk_1E834D238;
     block[4] = self;
-    v14 = v112;
-    v131 = v14;
+    v14 = v118;
+    v137 = v14;
     dispatch_sync(cancelQueue, block);
     v15 = objc_alloc_init(MEMORY[0x1E69846B0]);
     if (!v15)
@@ -238,48 +238,48 @@ void __41__VCPMADVISceneClassificationTask_cancel__block_invoke(uint64_t a1)
 LABEL_99:
 
 LABEL_100:
-        v8 = v110;
+        v8 = v116;
 LABEL_101:
 
-        CF<__CVBuffer *>::~CF(&v134);
+        CF<__CVBuffer *>::~CF(&v140);
         return v3;
       }
 
-      v109 = 0;
+      v115 = 0;
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
-        v50 = objc_opt_class();
+        v51 = objc_opt_class();
         *buf = 138412290;
-        v140 = v50;
+        v146 = v51;
         _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Failed to create %@", buf, 0xCu);
       }
 
       v3 = -18;
 LABEL_98:
-      v15 = v109;
+      v15 = v115;
       goto LABEL_99;
     }
 
-    v109 = v15;
+    v115 = v15;
     [(VCPMADVISceneClassificationTask *)self configureRequest:v15 withRevision:[(MADVISceneClassificationRequest *)self->_request nsfwRevision]];
     [array addObject:v15];
     v16 = self->_cancelQueue;
-    v128[0] = MEMORY[0x1E69E9820];
-    v128[1] = 3221225472;
-    v128[2] = __38__VCPMADVISceneClassificationTask_run__block_invoke_360;
-    v128[3] = &unk_1E834D238;
-    v128[4] = self;
-    v107 = v15;
-    v129 = v107;
-    dispatch_sync(v16, v128);
+    v134[0] = MEMORY[0x1E69E9820];
+    v134[1] = 3221225472;
+    v134[2] = __38__VCPMADVISceneClassificationTask_run__block_invoke_360;
+    v134[3] = &unk_1E834D238;
+    v134[4] = self;
+    v113 = v15;
+    v135 = v113;
+    dispatch_sync(v16, v134);
     v17 = objc_alloc_init(MEMORY[0x1E69843F0]);
     if (!v17)
     {
       if (MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
-        v51 = objc_opt_class();
+        v52 = objc_opt_class();
         *buf = 138412290;
-        v140 = v51;
+        v146 = v52;
         _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Failed to create %@", buf, 0xCu);
       }
 
@@ -287,13 +287,13 @@ LABEL_98:
       goto LABEL_97;
     }
 
-    v106 = v14;
-    v108 = v17;
+    v112 = v14;
+    v114 = v17;
     [(VCPMADVISceneClassificationTask *)self configureRequest:v17];
     significantEventRevision = [(MADVISceneClassificationRequest *)self->_request significantEventRevision];
-    v127 = v7;
-    v19 = [v17 setRevision:significantEventRevision error:&v127];
-    v20 = v127;
+    v133 = v7;
+    v19 = [v17 setRevision:significantEventRevision error:&v133];
+    v20 = v133;
 
     if ((v19 & 1) == 0)
     {
@@ -301,9 +301,9 @@ LABEL_98:
       {
         significantEventRevision2 = [(MADVISceneClassificationRequest *)self->_request significantEventRevision];
         *buf = 134218242;
-        v140 = significantEventRevision2;
-        v141 = 2112;
-        v142 = v20;
+        v146 = significantEventRevision2;
+        v147 = 2112;
+        v148 = v20;
         _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Failed to set VNClassifySignificantEventRequest::setRevision %lu: %@", buf, 0x16u);
       }
 
@@ -314,22 +314,22 @@ LABEL_98:
 
     [array addObject:v17];
     v21 = self->_cancelQueue;
-    v125[0] = MEMORY[0x1E69E9820];
-    v125[1] = 3221225472;
-    v125[2] = __38__VCPMADVISceneClassificationTask_run__block_invoke_362;
-    v125[3] = &unk_1E834D238;
-    v125[4] = self;
-    v104 = v17;
-    v126 = v104;
-    dispatch_sync(v21, v125);
+    v131[0] = MEMORY[0x1E69E9820];
+    v131[1] = 3221225472;
+    v131[2] = __38__VCPMADVISceneClassificationTask_run__block_invoke_362;
+    v131[3] = &unk_1E834D238;
+    v131[4] = self;
+    v110 = v17;
+    v132 = v110;
+    dispatch_sync(v21, v131);
     v22 = objc_alloc_init(MEMORY[0x1E6984630]);
     if (!v22)
     {
       if (MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
-        v53 = objc_opt_class();
+        v54 = objc_opt_class();
         *buf = 138412290;
-        v140 = v53;
+        v146 = v54;
         _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Failed to create %@", buf, 0xCu);
       }
 
@@ -337,12 +337,12 @@ LABEL_98:
       goto LABEL_96;
     }
 
-    v105 = v22;
+    v111 = v22;
     [(VCPMADVISceneClassificationTask *)self configureRequest:v22];
     recognizeObjectsRevision = [(MADVISceneClassificationRequest *)self->_request recognizeObjectsRevision];
-    v124 = v20;
-    v24 = [v22 setRevision:recognizeObjectsRevision error:&v124];
-    v25 = v124;
+    v130 = v20;
+    v24 = [v22 setRevision:recognizeObjectsRevision error:&v130];
+    v25 = v130;
 
     if ((v24 & 1) == 0)
     {
@@ -350,9 +350,9 @@ LABEL_98:
       {
         recognizeObjectsRevision2 = [(MADVISceneClassificationRequest *)self->_request recognizeObjectsRevision];
         *buf = 134218242;
-        v140 = recognizeObjectsRevision2;
-        v141 = 2112;
-        v142 = v25;
+        v146 = recognizeObjectsRevision2;
+        v147 = 2112;
+        v148 = v25;
         _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Failed to set VNRecognizeObjectsRequest::setRevision %lu: %@", buf, 0x16u);
       }
 
@@ -363,178 +363,178 @@ LABEL_98:
 
     [array addObject:v22];
     v26 = self->_cancelQueue;
-    v122[0] = MEMORY[0x1E69E9820];
-    v122[1] = 3221225472;
-    v122[2] = __38__VCPMADVISceneClassificationTask_run__block_invoke_364;
-    v122[3] = &unk_1E834D238;
-    v122[4] = self;
+    v128[0] = MEMORY[0x1E69E9820];
+    v128[1] = 3221225472;
+    v128[2] = __38__VCPMADVISceneClassificationTask_run__block_invoke_364;
+    v128[3] = &unk_1E834D238;
+    v128[4] = self;
     v27 = v22;
-    v123 = v27;
-    dispatch_sync(v26, v122);
+    v129 = v27;
+    dispatch_sync(v26, v128);
     v28 = objc_alloc_init(MEMORY[0x1E6984540]);
     v29 = v28;
     if (v28)
     {
-      v101 = v27;
-      v102 = v28;
+      v107 = v27;
+      v108 = v28;
       [(VCPMADVISceneClassificationTask *)self configureRequest:v28];
       saliencyRevision = [(MADVISceneClassificationRequest *)self->_request saliencyRevision];
-      v121 = v25;
-      v31 = [v29 setRevision:saliencyRevision error:&v121];
-      v103 = v121;
+      v127 = v25;
+      v31 = [v29 setRevision:saliencyRevision error:&v127];
+      v109 = v127;
 
       if (v31)
       {
-        [array addObject:v102];
+        [array addObject:v108];
         v32 = self->_cancelQueue;
-        v119[0] = MEMORY[0x1E69E9820];
-        v119[1] = 3221225472;
-        v119[2] = __38__VCPMADVISceneClassificationTask_run__block_invoke_366;
-        v119[3] = &unk_1E834D238;
-        v119[4] = self;
-        v100 = v102;
-        v120 = v100;
-        dispatch_sync(v32, v119);
+        v125[0] = MEMORY[0x1E69E9820];
+        v125[1] = 3221225472;
+        v125[2] = __38__VCPMADVISceneClassificationTask_run__block_invoke_366;
+        v125[3] = &unk_1E834D238;
+        v125[4] = self;
+        v106 = v108;
+        v126 = v106;
+        dispatch_sync(v32, v125);
         if (self->_preferredMetalDevice)
         {
-          v117 = 0u;
-          v118 = 0u;
-          v115 = 0u;
-          v116 = 0u;
-          v33 = array;
-          v34 = [v33 countByEnumeratingWithState:&v115 objects:v136 count:16];
-          if (v34)
+          v123 = 0u;
+          v124 = 0u;
+          v121 = 0u;
+          v122 = 0u;
+          v34 = array;
+          v35 = [v34 countByEnumeratingWithState:&v121 objects:v142 count:16];
+          if (v35)
           {
-            v35 = *v116;
-            v36 = MEMORY[0x1E69E9C10];
+            v36 = *v122;
+            v37 = MEMORY[0x1E69E9C10];
             do
             {
-              for (i = 0; i != v34; ++i)
+              for (i = 0; i != v35; ++i)
               {
-                if (*v116 != v35)
+                if (*v122 != v36)
                 {
-                  objc_enumerationMutation(v33);
+                  objc_enumerationMutation(v34);
                 }
 
-                v38 = *(*(&v115 + 1) + 8 * i);
-                v39 = [MEMORY[0x1E6984608] deviceForMetalDevice:self->_preferredMetalDevice];
-                [v38 setProcessingDevice:v39];
+                v39 = *(*(&v121 + 1) + 8 * i);
+                v40 = [MEMORY[0x1E6984608] deviceForMetalDevice:self->_preferredMetalDevice];
+                [v39 setProcessingDevice:v40];
 
-                if (MediaAnalysisLogLevel() >= 7 && os_log_type_enabled(v36, OS_LOG_TYPE_DEBUG))
+                if (MediaAnalysisLogLevel() >= 7 && os_log_type_enabled(v37, OS_LOG_TYPE_DEBUG))
                 {
-                  processingDevice = [v38 processingDevice];
+                  processingDevice = [v39 processingDevice];
                   preferredMetalDevice = self->_preferredMetalDevice;
                   *buf = 138412546;
-                  v140 = processingDevice;
-                  v141 = 2112;
-                  v142 = preferredMetalDevice;
-                  _os_log_impl(&dword_1C9B70000, v36, OS_LOG_TYPE_DEBUG, "[SceneClassification] Set VNProcessingDevice: %@ (%@)", buf, 0x16u);
+                  v146 = processingDevice;
+                  v147 = 2112;
+                  v148 = preferredMetalDevice;
+                  _os_log_impl(&dword_1C9B70000, v37, OS_LOG_TYPE_DEBUG, "[SceneClassification] Set VNProcessingDevice: %@ (%@)", buf, 0x16u);
                 }
               }
 
-              v34 = [v33 countByEnumeratingWithState:&v115 objects:v136 count:16];
+              v35 = [v34 countByEnumeratingWithState:&v121 objects:v142 count:16];
             }
 
-            while (v34);
+            while (v35);
           }
         }
 
-        v42 = atomic_load(&self->_canceled);
-        if (v42)
+        v43 = atomic_load(&self->_canceled);
+        if (v43)
         {
           v3 = -128;
 LABEL_94:
 
-          v29 = v102;
-          v25 = v103;
+          v29 = v108;
+          v25 = v109;
           goto LABEL_95;
         }
 
-        v60 = VCPSignPostLog();
-        v61 = os_signpost_id_generate(v60);
+        v61 = VCPSignPostLog(v33);
+        v62 = os_signpost_id_generate(v61);
 
-        v62 = VCPSignPostLog();
-        v63 = v62;
-        if (v61 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v62))
+        v64 = VCPSignPostLog(v63);
+        v65 = v64;
+        if (v62 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v64))
         {
           signpostPayload = self->_signpostPayload;
           *buf = 138412290;
-          v140 = signpostPayload;
-          _os_signpost_emit_with_name_impl(&dword_1C9B70000, v63, OS_SIGNPOST_INTERVAL_BEGIN, v61, "VNImageRequestHandler_init", "%@", buf, 0xCu);
+          v146 = signpostPayload;
+          _os_signpost_emit_with_name_impl(&dword_1C9B70000, v65, OS_SIGNPOST_INTERVAL_BEGIN, v62, "VNImageRequestHandler_init", "%@", buf, 0xCu);
         }
 
-        v65 = objc_alloc(MEMORY[0x1E69845B8]);
-        v66 = v134;
-        v67 = v133;
-        session = [v113 session];
-        v69 = [v65 initWithCVPixelBuffer:v66 orientation:v67 options:MEMORY[0x1E695E0F8] session:session];
+        v67 = objc_alloc(MEMORY[0x1E69845B8]);
+        v68 = v140;
+        v69 = v139;
+        session = [v119 session];
+        v71 = [v67 initWithCVPixelBuffer:v68 orientation:v69 options:MEMORY[0x1E695E0F8] session:session];
 
-        v70 = VCPSignPostLog();
-        v71 = v70;
-        if (v61 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v70))
+        v73 = VCPSignPostLog(v72);
+        v74 = v73;
+        if (v62 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v73))
         {
-          v72 = self->_signpostPayload;
+          v75 = self->_signpostPayload;
           *buf = 138412290;
-          v140 = v72;
-          _os_signpost_emit_with_name_impl(&dword_1C9B70000, v71, OS_SIGNPOST_INTERVAL_END, v61, "VNImageRequestHandler_init", "%@", buf, 0xCu);
+          v146 = v75;
+          _os_signpost_emit_with_name_impl(&dword_1C9B70000, v74, OS_SIGNPOST_INTERVAL_END, v62, "VNImageRequestHandler_init", "%@", buf, 0xCu);
         }
 
-        v73 = VCPSignPostLog();
-        v74 = os_signpost_id_generate(v73);
+        v77 = VCPSignPostLog(v76);
+        v78 = os_signpost_id_generate(v77);
 
-        v75 = VCPSignPostLog();
-        v76 = v75;
-        if (v74 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v75))
-        {
-          v77 = self->_signpostPayload;
-          *buf = 138412290;
-          v140 = v77;
-          _os_signpost_emit_with_name_impl(&dword_1C9B70000, v76, OS_SIGNPOST_INTERVAL_BEGIN, v74, "VNImageRequestHandler_performRequests", "%@", buf, 0xCu);
-        }
-
-        v114 = v103;
-        v78 = [v69 performRequests:array error:&v114];
-        v79 = v114;
-
-        v103 = v79;
-        v80 = VCPSignPostLog();
+        v80 = VCPSignPostLog(v79);
         v81 = v80;
-        if (v74 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v80))
+        if (v78 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v80))
         {
           v82 = self->_signpostPayload;
           *buf = 138412290;
-          v140 = v82;
-          _os_signpost_emit_with_name_impl(&dword_1C9B70000, v81, OS_SIGNPOST_INTERVAL_END, v74, "VNImageRequestHandler_performRequests", "%@", buf, 0xCu);
+          v146 = v82;
+          _os_signpost_emit_with_name_impl(&dword_1C9B70000, v81, OS_SIGNPOST_INTERVAL_BEGIN, v78, "VNImageRequestHandler_performRequests", "%@", buf, 0xCu);
         }
 
-        if (v78)
+        v120 = v109;
+        v83 = [v71 performRequests:array error:&v120];
+        v84 = v120;
+
+        v109 = v84;
+        v86 = VCPSignPostLog(v85);
+        v87 = v86;
+        if (v78 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v86))
         {
-          v83 = objc_alloc_init(MEMORY[0x1E69AE450]);
-          results = [v106 results];
-          [v83 setClassificationObservations:results];
+          v88 = self->_signpostPayload;
+          *buf = 138412290;
+          v146 = v88;
+          _os_signpost_emit_with_name_impl(&dword_1C9B70000, v87, OS_SIGNPOST_INTERVAL_END, v78, "VNImageRequestHandler_performRequests", "%@", buf, 0xCu);
+        }
 
-          results2 = [v107 results];
-          [v83 setNSFWObservations:results2];
+        if (v83)
+        {
+          v89 = objc_alloc_init(MEMORY[0x1E69AE450]);
+          results = [v112 results];
+          [v89 setClassificationObservations:results];
 
-          results3 = [v104 results];
-          [v83 setSignificantEventObservations:results3];
+          results2 = [v113 results];
+          [v89 setNSFWObservations:results2];
 
-          results4 = [v101 results];
-          [v83 setRecognizedObjectObservations:results4];
+          results3 = [v110 results];
+          [v89 setSignificantEventObservations:results3];
 
-          results5 = [v100 results];
-          [v83 setSaliencyObservations:results5];
+          results4 = [v107 results];
+          [v89 setRecognizedObjectObservations:results4];
 
-          v89 = self->_request;
-          v135 = v83;
-          v90 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v135 count:1];
-          [(MADVISceneClassificationRequest *)v89 setResults:v90];
+          results5 = [v106 results];
+          [v89 setSaliencyObservations:results5];
 
-          executionNanoseconds = [v106 executionNanoseconds];
-          executionNanoseconds2 = [v107 executionNanoseconds];
-          executionNanoseconds3 = [v104 executionNanoseconds];
-          executionNanoseconds4 = [v101 executionNanoseconds];
-          executionNanoseconds5 = [v100 executionNanoseconds];
+          v95 = self->_request;
+          v141 = v89;
+          v96 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v141 count:1];
+          [(MADVISceneClassificationRequest *)v95 setResults:v96];
+
+          executionNanoseconds = [v112 executionNanoseconds];
+          executionNanoseconds2 = [v113 executionNanoseconds];
+          executionNanoseconds3 = [v110 executionNanoseconds];
+          executionNanoseconds4 = [v107 executionNanoseconds];
+          executionNanoseconds5 = [v106 executionNanoseconds];
           results6 = [(MADVISceneClassificationRequest *)self->_request results];
           firstObject = [results6 firstObject];
           [firstObject setExecutionNanoseconds:executionNanoseconds2 + executionNanoseconds + executionNanoseconds3 + executionNanoseconds4 + executionNanoseconds5];
@@ -542,8 +542,8 @@ LABEL_94:
 
         else
         {
-          v98 = atomic_load(&self->_canceled);
-          if (v98)
+          v104 = atomic_load(&self->_canceled);
+          if (v104)
           {
             v3 = -128;
 LABEL_93:
@@ -551,10 +551,10 @@ LABEL_93:
             goto LABEL_94;
           }
 
-          [(MADVISceneClassificationRequest *)self->_request setError:v103];
+          [(MADVISceneClassificationRequest *)self->_request setError:v109];
         }
 
-        [v110 reset];
+        [v116 reset];
         if (MediaAnalysisLogLevel() >= 6 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
         {
           *buf = 0;
@@ -565,23 +565,23 @@ LABEL_93:
         goto LABEL_93;
       }
 
-      v29 = v102;
+      v29 = v108;
       if (MediaAnalysisLogLevel() < 3 || !os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
         v3 = -18;
-        v25 = v103;
+        v25 = v109;
         goto LABEL_95;
       }
 
       saliencyRevision2 = [(MADVISceneClassificationRequest *)self->_request saliencyRevision];
       *buf = 134218242;
-      v140 = saliencyRevision2;
-      v141 = 2112;
-      v25 = v103;
-      v142 = v103;
-      v56 = MEMORY[0x1E69E9C10];
-      v57 = "Failed to set VNGenerateAttentionBasedSaliencyImageRequest::setRevision %lu: %@";
-      v58 = 22;
+      v146 = saliencyRevision2;
+      v147 = 2112;
+      v25 = v109;
+      v148 = v109;
+      v57 = MEMORY[0x1E69E9C10];
+      v58 = "Failed to set VNGenerateAttentionBasedSaliencyImageRequest::setRevision %lu: %@";
+      v59 = 22;
     }
 
     else
@@ -591,25 +591,25 @@ LABEL_93:
         goto LABEL_70;
       }
 
-      v55 = objc_opt_class();
+      v56 = objc_opt_class();
       *buf = 138412290;
-      v140 = v55;
-      v56 = MEMORY[0x1E69E9C10];
-      v57 = "Failed to create %@";
-      v58 = 12;
+      v146 = v56;
+      v57 = MEMORY[0x1E69E9C10];
+      v58 = "Failed to create %@";
+      v59 = 12;
     }
 
-    _os_log_impl(&dword_1C9B70000, v56, OS_LOG_TYPE_ERROR, v57, buf, v58);
+    _os_log_impl(&dword_1C9B70000, v57, OS_LOG_TYPE_ERROR, v58, buf, v59);
 LABEL_70:
     v3 = -18;
 LABEL_95:
 
     v20 = v25;
-    v22 = v105;
+    v22 = v111;
 LABEL_96:
 
     v7 = v20;
-    v17 = v108;
+    v17 = v114;
 LABEL_97:
 
     goto LABEL_98;

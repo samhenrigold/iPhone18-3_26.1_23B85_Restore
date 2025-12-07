@@ -127,10 +127,11 @@ LABEL_8:
 
 - (id)activateSound:(id)sound forReason:(id)reason
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   soundCopy = sound;
   reasonCopy = reason;
-  if (([MEMORY[0x277CCACC8] isMainThread] & 1) == 0)
+  isMainThread = [MEMORY[0x277CCACC8] isMainThread];
+  if ((isMainThread & 1) == 0)
   {
     [SBSoundController activateSound:forReason:];
   }
@@ -138,7 +139,7 @@ LABEL_8:
   if (!soundCopy)
   {
 LABEL_13:
-    v11 = 0;
+    v12 = 0;
     goto LABEL_14;
   }
 
@@ -147,28 +148,28 @@ LABEL_13:
     [SBSoundController activateSound:a2 forReason:self];
   }
 
-  v9 = SBLogSound();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+  v10 = SBLogSound(isMainThread);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
-    v14 = 138543618;
-    v15 = soundCopy;
-    v16 = 2114;
-    v17 = reasonCopy;
-    _os_log_impl(&dword_21ED4E000, v9, OS_LOG_TYPE_INFO, "Activating sound: %{public}@ for reason: %{public}@", &v14, 0x16u);
+    v15 = 138543618;
+    v16 = soundCopy;
+    v17 = 2114;
+    v18 = reasonCopy;
+    _os_log_impl(&dword_21ED4E000, v10, OS_LOG_TYPE_INFO, "Activating sound: %{public}@ for reason: %{public}@", &v15, 0x16u);
   }
 
   soundType = [soundCopy soundType];
-  v11 = 0;
+  v12 = 0;
   if (soundType && soundType != 3)
   {
     if (soundType == 5)
     {
-      v11 = [(SBSoundController *)self _activateFeedback:soundCopy forReason:reasonCopy];
+      v12 = [(SBSoundController *)self _activateFeedback:soundCopy forReason:reasonCopy];
       goto LABEL_14;
     }
 
-    v12 = SBLogCommon();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v13 = SBLogCommon();
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       [SBSoundController activateSound:forReason:];
     }
@@ -178,18 +179,18 @@ LABEL_13:
 
 LABEL_14:
 
-  return v11;
+  return v12;
 }
 
 - (BOOL)playSound:(id)sound environments:(int64_t)environments completion:(id)completion
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   soundCopy = sound;
   completionCopy = completion;
   if (!soundCopy)
   {
 LABEL_28:
-    v20 = 0;
+    v21 = 0;
     goto LABEL_29;
   }
 
@@ -209,29 +210,29 @@ LABEL_28:
     v11 = 1;
   }
 
-  v12 = SBLogSound();
-  v13 = os_log_type_enabled(v12, OS_LOG_TYPE_INFO);
+  v13 = SBLogSound(v12);
+  v14 = os_log_type_enabled(v13, OS_LOG_TYPE_INFO);
   if ((v11 & environments) == 0)
   {
-    if (v13)
+    if (v14)
     {
-      v22 = 67109634;
-      *v23 = environments;
-      *&v23[4] = 1024;
-      *&v23[6] = v11;
-      *v24 = 2114;
-      *&v24[2] = soundCopy;
-      _os_log_impl(&dword_21ED4E000, v12, OS_LOG_TYPE_INFO, "SBSoundController: not playing sound - environments=%i allowed=%i -> %{public}@", &v22, 0x18u);
+      v23 = 67109634;
+      *v24 = environments;
+      *&v24[4] = 1024;
+      *&v24[6] = v11;
+      *v25 = 2114;
+      *&v25[2] = soundCopy;
+      _os_log_impl(&dword_21ED4E000, v13, OS_LOG_TYPE_INFO, "SBSoundController: not playing sound - environments=%i allowed=%i -> %{public}@", &v23, 0x18u);
     }
 
     goto LABEL_28;
   }
 
-  if (v13)
+  if (v14)
   {
-    v22 = 138543362;
-    *v23 = soundCopy;
-    _os_log_impl(&dword_21ED4E000, v12, OS_LOG_TYPE_INFO, "Play sound: %{public}@", &v22, 0xCu);
+    v23 = 138543362;
+    *v24 = soundCopy;
+    _os_log_impl(&dword_21ED4E000, v13, OS_LOG_TYPE_INFO, "Play sound: %{public}@", &v23, 0xCu);
   }
 
   [(SBSoundController *)self stopSound:soundCopy];
@@ -239,60 +240,60 @@ LABEL_28:
   switch(soundType)
   {
     case 5:
-      v15 = [(SBSoundController *)self _playFeedback:soundCopy];
+      v16 = [(SBSoundController *)self _playFeedback:soundCopy];
       goto LABEL_18;
     case 3:
-      v15 = [(SBSoundController *)self _playToneAlert:soundCopy];
+      v16 = [(SBSoundController *)self _playToneAlert:soundCopy];
       goto LABEL_18;
     case 0:
-      v15 = [(SBSoundController *)self _playSystemSound:soundCopy];
+      v16 = [(SBSoundController *)self _playSystemSound:soundCopy];
 LABEL_18:
-      v16 = v15;
+      v17 = v16;
       goto LABEL_22;
   }
 
-  v17 = SBLogCommon();
-  if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+  v18 = SBLogCommon();
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
   {
     [SBSoundController playSound:environments:completion:];
   }
 
-  v16 = 0;
+  v17 = 0;
 LABEL_22:
-  v18 = SBLogSound();
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+  v19 = SBLogSound(v16);
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
   {
-    v19 = @"failed to play";
-    v22 = 138543874;
-    if (v16)
+    v20 = @"failed to play";
+    v23 = 138543874;
+    if (v17)
     {
-      v19 = @"played";
+      v20 = @"played";
     }
 
-    *v23 = v19;
-    *&v23[8] = 1024;
-    *v24 = environments;
-    *&v24[4] = 2114;
-    *&v24[6] = soundCopy;
-    _os_log_impl(&dword_21ED4E000, v18, OS_LOG_TYPE_DEFAULT, "SBSoundController: %{public}@ sound - environments=%i -> %{public}@", &v22, 0x1Cu);
+    *v24 = v20;
+    *&v24[8] = 1024;
+    *v25 = environments;
+    *&v25[4] = 2114;
+    *&v25[6] = soundCopy;
+    _os_log_impl(&dword_21ED4E000, v19, OS_LOG_TYPE_DEFAULT, "SBSoundController: %{public}@ sound - environments=%i -> %{public}@", &v23, 0x1Cu);
   }
 
-  if (!v16)
+  if (!v17)
   {
     goto LABEL_28;
   }
 
   [soundCopy _setCompletionBlock:completionCopy];
   [(SBSoundController *)self _soundDidStartPlaying:soundCopy];
-  v20 = 1;
+  v21 = 1;
 LABEL_29:
 
-  return v20;
+  return v21;
 }
 
 - (BOOL)stopSound:(id)sound
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   soundCopy = sound;
   if (([MEMORY[0x277CCACC8] isMainThread] & 1) == 0)
   {
@@ -300,14 +301,15 @@ LABEL_29:
   }
 
   v5 = [(SBSoundController *)self isPlaying:soundCopy];
+  v6 = v5;
   if (v5)
   {
-    v6 = SBLogSound();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+    v7 = SBLogSound(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
-      v10 = 138543362;
-      v11 = soundCopy;
-      _os_log_impl(&dword_21ED4E000, v6, OS_LOG_TYPE_INFO, "SBSoundController: stopping sound -> %{public}@", &v10, 0xCu);
+      v11 = 138543362;
+      v12 = soundCopy;
+      _os_log_impl(&dword_21ED4E000, v7, OS_LOG_TYPE_INFO, "SBSoundController: stopping sound -> %{public}@", &v11, 0xCu);
     }
 
     soundType = [soundCopy soundType];
@@ -320,8 +322,8 @@ LABEL_29:
 
       else if (soundType)
       {
-        v8 = SBLogCommon();
-        if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+        v9 = SBLogCommon();
+        if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
         {
           [SBSoundController stopSound:];
         }
@@ -334,116 +336,117 @@ LABEL_29:
     }
   }
 
-  return v5;
+  return v6;
 }
 
 - (BOOL)stopAllSounds
 {
-  v29 = *MEMORY[0x277D85DE8];
-  if (([MEMORY[0x277CCACC8] isMainThread] & 1) == 0)
+  v31 = *MEMORY[0x277D85DE8];
+  isMainThread = [MEMORY[0x277CCACC8] isMainThread];
+  if ((isMainThread & 1) == 0)
   {
     [SBSoundController stopAllSounds];
   }
 
-  v3 = SBLogSound();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
+  v4 = SBLogSound(isMainThread);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
-    _os_log_impl(&dword_21ED4E000, v3, OS_LOG_TYPE_INFO, "SBSoundController: stopping all sounds", buf, 2u);
+    _os_log_impl(&dword_21ED4E000, v4, OS_LOG_TYPE_INFO, "SBSoundController: stopping all sounds", buf, 2u);
   }
 
   if ([(NSMutableDictionary *)self->_soundsBySystemSoundIDs count])
   {
-    v4 = 1;
+    v5 = 1;
   }
 
   else
   {
-    v4 = [(NSMapTable *)self->_toneAlertsBySounds count]!= 0;
+    v5 = [(NSMapTable *)self->_toneAlertsBySounds count]!= 0;
   }
 
   [(SBSoundController *)self _beginPendingCallbacksBlock];
+  v26 = 0u;
+  v27 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v22 = 0u;
-  v23 = 0u;
   allKeys = [(NSMutableDictionary *)self->_soundsBySystemSoundIDs allKeys];
-  v6 = [allKeys countByEnumeratingWithState:&v22 objects:v28 count:16];
-  if (v6)
+  v7 = [allKeys countByEnumeratingWithState:&v24 objects:v30 count:16];
+  if (v7)
   {
-    v7 = v6;
-    v8 = *v23;
+    v8 = v7;
+    v9 = *v25;
     do
     {
-      for (i = 0; i != v7; ++i)
+      for (i = 0; i != v8; ++i)
       {
-        if (*v23 != v8)
+        if (*v25 != v9)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        -[SBSoundController _cleanupSystemSound:andKill:](self, "_cleanupSystemSound:andKill:", [*(*(&v22 + 1) + 8 * i) unsignedIntValue], 1);
+        -[SBSoundController _cleanupSystemSound:andKill:](self, "_cleanupSystemSound:andKill:", [*(*(&v24 + 1) + 8 * i) unsignedIntValue], 1);
       }
 
-      v7 = [allKeys countByEnumeratingWithState:&v22 objects:v28 count:16];
+      v8 = [allKeys countByEnumeratingWithState:&v24 objects:v30 count:16];
     }
 
-    while (v7);
+    while (v8);
   }
 
+  v22 = 0u;
+  v23 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v18 = 0u;
-  v19 = 0u;
-  v10 = [(NSMapTable *)self->_toneAlertsBySounds copy];
-  v11 = [v10 countByEnumeratingWithState:&v18 objects:v27 count:16];
-  if (v11)
+  v11 = [(NSMapTable *)self->_toneAlertsBySounds copy];
+  v12 = [v11 countByEnumeratingWithState:&v20 objects:v29 count:16];
+  if (v12)
   {
-    v12 = v11;
-    v13 = *v19;
+    v13 = v12;
+    v14 = *v21;
     do
     {
-      for (j = 0; j != v12; ++j)
+      for (j = 0; j != v13; ++j)
       {
-        if (*v19 != v13)
+        if (*v21 != v14)
         {
-          objc_enumerationMutation(v10);
+          objc_enumerationMutation(v11);
         }
 
-        [(SBSoundController *)self _cleanupToneAlertForSound:*(*(&v18 + 1) + 8 * j) andKill:0];
+        [(SBSoundController *)self _cleanupToneAlertForSound:*(*(&v20 + 1) + 8 * j) andKill:0];
       }
 
-      v12 = [v10 countByEnumeratingWithState:&v18 objects:v27 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v20 objects:v29 count:16];
     }
 
-    while (v12);
+    while (v13);
   }
 
-  v15 = [MEMORY[0x277D71F50] _stopAllAlerts] | v4;
-  if ([(NSMutableDictionary *)self->_soundsBySystemSoundIDs count]|| [(NSMapTable *)self->_soundsByToneAlerts count]|| [(NSMapTable *)self->_toneAlertsBySounds count])
+  v16 = [MEMORY[0x277D71F50] _stopAllAlerts] | v5;
+  if ([(NSMutableDictionary *)self->_soundsBySystemSoundIDs count]|| [(NSMapTable *)self->_soundsByToneAlerts count]|| (v17 = [(NSMapTable *)self->_toneAlertsBySounds count]) != 0)
   {
     [SBSoundController stopAllSounds];
-    if ((v15 & 1) == 0)
+    if ((v16 & 1) == 0)
     {
       goto LABEL_28;
     }
   }
 
-  else if ((v15 & 1) == 0)
+  else if ((v16 & 1) == 0)
   {
     goto LABEL_28;
   }
 
-  v16 = SBLogSound();
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
+  v18 = SBLogSound(v17);
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
-    _os_log_impl(&dword_21ED4E000, v16, OS_LOG_TYPE_INFO, "SBSoundController: stopped all sounds", buf, 2u);
+    _os_log_impl(&dword_21ED4E000, v18, OS_LOG_TYPE_INFO, "SBSoundController: stopped all sounds", buf, 2u);
   }
 
 LABEL_28:
   [(SBSoundController *)self _endPendingCallbacksBlock];
-  return v15 & 1;
+  return v16 & 1;
 }
 
 - (void)addObserver:(id)observer
@@ -457,9 +460,9 @@ LABEL_28:
   v4 = observerCopy;
   if (observerCopy)
   {
-    v5 = [(NSHashTable *)self->_observers containsObject:observerCopy];
+    v5 = objc_msgSend_containsObject_(self->_observers, observerCopy, observerCopy);
     v4 = observerCopy;
-    if (!v5)
+    if ((v5 & 1) == 0)
     {
       observers = self->_observers;
       if (!observers)
@@ -495,16 +498,17 @@ LABEL_28:
 
 - (BOOL)handleVolumeButtonDownEvent
 {
-  if (([MEMORY[0x277CCACC8] isMainThread] & 1) == 0)
+  isMainThread = [MEMORY[0x277CCACC8] isMainThread];
+  if ((isMainThread & 1) == 0)
   {
     [SBSoundController handleVolumeButtonDownEvent];
   }
 
-  v3 = SBLogSound();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
+  v4 = SBLogSound(isMainThread);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
-    *v5 = 0;
-    _os_log_impl(&dword_21ED4E000, v3, OS_LOG_TYPE_INFO, "Volume button down", v5, 2u);
+    *v6 = 0;
+    _os_log_impl(&dword_21ED4E000, v4, OS_LOG_TYPE_INFO, "Volume button down", v6, 2u);
   }
 
   return [(SBSoundController *)self stopAllSounds];
@@ -599,8 +603,7 @@ LABEL_28:
   else
   {
     [soundCopy _setResolvedSoundID:systemSoundID];
-    [(NSMutableDictionary *)self->_soundsBySystemSoundIDs setObject:soundCopy forKey:v10];
-    v14 = SBLogSound();
+    v14 = SBLogSound([(NSMutableDictionary *)self->_soundsBySystemSoundIDs setObject:soundCopy forKey:v10]);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
     {
       *buf = 67109120;
@@ -651,12 +654,12 @@ void __36__SBSoundController__playToneAlert___block_invoke(uint64_t a1, uint64_t
   dispatch_async(MEMORY[0x277D85CD0], v7);
 }
 
-uint64_t __36__SBSoundController__playToneAlert___block_invoke_2(uint64_t a1)
+uint64_t __36__SBSoundController__playToneAlert___block_invoke_2(uint64_t a1, uint64_t a2)
 {
   if (*(a1 + 56) == 5)
   {
-    v2 = SBLogCommon();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+    v3 = SBLogCommon();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       __36__SBSoundController__playToneAlert___block_invoke_2_cold_1();
     }
@@ -691,7 +694,7 @@ uint64_t __36__SBSoundController__playToneAlert___block_invoke_2(uint64_t a1)
 uint64_t __49__SBSoundController__activateFeedback_forReason___block_invoke(uint64_t a1)
 {
   v10 = *MEMORY[0x277D85DE8];
-  v2 = SBLogSound();
+  v2 = SBLogSound(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     v3 = *(a1 + 32);
@@ -710,7 +713,7 @@ uint64_t __49__SBSoundController__activateFeedback_forReason___block_invoke(uint
 {
   usedNotificationTypes = self->_usedNotificationTypes;
   v6 = [MEMORY[0x277CCABB0] numberWithInteger:?];
-  LOBYTE(usedNotificationTypes) = [(NSMutableSet *)usedNotificationTypes containsObject:v6];
+  LOBYTE(usedNotificationTypes) = objc_msgSend_containsObject_(usedNotificationTypes);
 
   if ((usedNotificationTypes & 1) == 0)
   {
@@ -742,11 +745,11 @@ uint64_t __49__SBSoundController__activateFeedback_forReason___block_invoke(uint
 
   if (bOOLValue)
   {
-    v7 = SBLogSound();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+    v8 = SBLogSound(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
-      *v8 = 0;
-      _os_log_impl(&dword_21ED4E000, v7, OS_LOG_TYPE_INFO, "Ringer was muted.", v8, 2u);
+      *v9 = 0;
+      _os_log_impl(&dword_21ED4E000, v8, OS_LOG_TYPE_INFO, "Ringer was muted.", v9, 2u);
     }
 
     [(SBSoundController *)self stopAllSounds];
@@ -958,6 +961,13 @@ void __53__SBSoundController__alert_didBeginPlayingWithEvent___block_invoke(void
   }
 }
 
+- (void)activateSound:forReason:.cold.2()
+{
+  v6 = 136315394;
+  OUTLINED_FUNCTION_0_39();
+  OUTLINED_FUNCTION_1_21(&dword_21ED4E000, v0, v1, "%s doesn't know how to activate this sound type: %{public}@", v2, v3, v4, v5, v6);
+}
+
 - (void)activateSound:(const char *)a1 forReason:(uint64_t)a2 .cold.3(const char *a1, uint64_t a2)
 {
   v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"reason != ((void *)0)"];
@@ -986,6 +996,20 @@ void __53__SBSoundController__alert_didBeginPlayingWithEvent___block_invoke(void
   __break(0);
 }
 
+- (void)playSound:environments:completion:.cold.2()
+{
+  v6 = 136315394;
+  OUTLINED_FUNCTION_0_39();
+  OUTLINED_FUNCTION_1_21(&dword_21ED4E000, v0, v1, "%s doesn't know how to play this sound type: %{public}@", v2, v3, v4, v5, v6);
+}
+
+- (void)stopSound:.cold.2()
+{
+  v6 = 136315394;
+  OUTLINED_FUNCTION_0_39();
+  OUTLINED_FUNCTION_1_21(&dword_21ED4E000, v0, v1, "%s doesn't know how to kill this sound type: %{public}@", v2, v3, v4, v5, v6);
+}
+
 - (void)stopAllSounds
 {
   OUTLINED_FUNCTION_3_0();
@@ -999,6 +1023,13 @@ void __53__SBSoundController__alert_didBeginPlayingWithEvent___block_invoke(void
   v2 = 138543362;
   v3 = a1;
   _os_log_error_impl(&dword_21ED4E000, a2, OS_LOG_TYPE_ERROR, "No alert sound found at path '%{public}@'", &v2, 0xCu);
+}
+
+void __36__SBSoundController__playToneAlert___block_invoke_2_cold_1()
+{
+  v6 = 138543618;
+  OUTLINED_FUNCTION_0_39();
+  OUTLINED_FUNCTION_1_21(&dword_21ED4E000, v0, v1, "Failed to play alert with [TLAlert playWithCompletionHandler:] for sound: %{public}@ error: %{public}@", v2, v3, v4, v5, v6);
 }
 
 @end

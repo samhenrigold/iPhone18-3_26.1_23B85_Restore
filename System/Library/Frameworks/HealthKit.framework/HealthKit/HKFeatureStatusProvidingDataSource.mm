@@ -49,35 +49,35 @@
   WeakRetained = objc_loadWeakRetained(&self->_dataSource);
   if (WeakRetained)
   {
-    v6 = [(NSMutableDictionary *)self->_featureStatusProvidingByFeatureIdentifierAndContext objectForKeyedSubscript:contextCopy];
+    v7 = [(NSMutableDictionary *)self->_featureStatusProvidingByFeatureIdentifierAndContext objectForKeyedSubscript:contextCopy];
 
-    if (!v6)
+    if (!v7)
     {
       featureIdentifier = [contextCopy featureIdentifier];
       context = [contextCopy context];
-      v9 = [(HKFeatureStatusProvidingDataSource *)self _makeFeatureStatusProviderForFeatureIdentifier:featureIdentifier context:context dataSource:WeakRetained];
+      v10 = [(HKFeatureStatusProvidingDataSource *)self _makeFeatureStatusProviderForFeatureIdentifier:featureIdentifier context:context dataSource:WeakRetained];
 
-      [(NSMutableDictionary *)self->_featureStatusProvidingByFeatureIdentifierAndContext setObject:v9 forKeyedSubscript:contextCopy];
+      [(NSMutableDictionary *)self->_featureStatusProvidingByFeatureIdentifierAndContext setObject:v10 forKeyedSubscript:contextCopy];
     }
 
-    v10 = [(NSMutableDictionary *)self->_featureStatusProvidingByFeatureIdentifierAndContext objectForKeyedSubscript:contextCopy];
+    v11 = [(NSMutableDictionary *)self->_featureStatusProvidingByFeatureIdentifierAndContext objectForKeyedSubscript:contextCopy];
     os_unfair_lock_unlock(&self->_lock);
   }
 
   else
   {
-    _HKInitializeLogging();
-    v11 = HKLogInfrastructure();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    _HKInitializeLogging(0, v5);
+    v14 = HKLogInfrastructure(v12, v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      [(HKFeatureStatusProvidingDataSource *)self _featureStatusProvidingForFeatureIdentifierAndContext:v11];
+      [(HKFeatureStatusProvidingDataSource *)self _featureStatusProvidingForFeatureIdentifierAndContext:v14];
     }
 
     os_unfair_lock_unlock(&self->_lock);
-    v10 = 0;
+    v11 = 0;
   }
 
-  return v10;
+  return v11;
 }
 
 - (id)_makeFeatureStatusProviderForFeatureIdentifier:(id)identifier context:(id)context dataSource:(id)source
@@ -132,13 +132,11 @@
 
 - (void)_featureStatusProvidingForFeatureIdentifierAndContext:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v5 = 138543362;
-  v6 = objc_opt_class();
-  v3 = v6;
-  _os_log_error_impl(&dword_19197B000, a2, OS_LOG_TYPE_ERROR, "[%{public}@]: Data source is nil", &v5, 0xCu);
-
-  v4 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
+  v4 = 138543362;
+  v5 = objc_opt_class();
+  v3 = v5;
+  _os_log_error_impl(&dword_19197B000, a2, OS_LOG_TYPE_ERROR, "[%{public}@]: Data source is nil", &v4, 0xCu);
 }
 
 @end

@@ -121,10 +121,7 @@ id __38__CRLLogCatThreadSafeMutableSet_count__block_invoke(uint64_t a1)
 
 uint64_t __43__CRLLogCatThreadSafeMutableSet_allObjects__block_invoke(uint64_t a1)
 {
-  v2 = [*(*(a1 + 32) + 8) allObjects];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(*(a1 + 32) + 8) allObjects];
 
   return _objc_release_x1();
 }
@@ -153,10 +150,7 @@ uint64_t __43__CRLLogCatThreadSafeMutableSet_allObjects__block_invoke(uint64_t a
 
 uint64_t __45__CRLLogCatThreadSafeMutableSet_immutableSet__block_invoke(uint64_t a1)
 {
-  v2 = [NSSet setWithSet:*(*(a1 + 32) + 8)];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [NSSet setWithSet:*(*(a1 + 32) + 8)];
 
   return _objc_release_x1();
 }
@@ -213,10 +207,7 @@ uint64_t __45__CRLLogCatThreadSafeMutableSet_immutableSet__block_invoke(uint64_t
 
 uint64_t __44__CRLLogCatThreadSafeMutableSet_description__block_invoke(uint64_t a1)
 {
-  v2 = [*(*(a1 + 32) + 8) description];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(*(a1 + 32) + 8) description];
 
   return _objc_release_x1();
 }

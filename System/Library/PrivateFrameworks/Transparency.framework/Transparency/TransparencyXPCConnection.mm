@@ -119,7 +119,7 @@
 
 void __45__TransparencyXPCConnection_createConnection__block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (TRANSPARENCY_DEFAULT_LOG_BLOCK_15 != -1)
   {
@@ -131,9 +131,9 @@ void __45__TransparencyXPCConnection_createConnection__block_invoke(uint64_t a1)
   {
     v3 = v2;
     v4 = [WeakRetained machName];
-    v8 = 138412290;
-    v9 = v4;
-    _os_log_impl(&dword_1E10DB000, v3, OS_LOG_TYPE_ERROR, "xpc connection cannot be formed or has been terminated: %@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = v4;
+    _os_log_impl(&dword_1E10DB000, v3, OS_LOG_TYPE_ERROR, "xpc connection cannot be formed or has been terminated: %@", &v7, 0xCu);
   }
 
   if (WeakRetained)
@@ -146,8 +146,6 @@ void __45__TransparencyXPCConnection_createConnection__block_invoke(uint64_t a1)
 
     objc_sync_exit(v5);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __45__TransparencyXPCConnection_createConnection__block_invoke_2()
@@ -159,7 +157,7 @@ uint64_t __45__TransparencyXPCConnection_createConnection__block_invoke_2()
 
 void __45__TransparencyXPCConnection_createConnection__block_invoke_5(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (TRANSPARENCY_DEFAULT_LOG_BLOCK_15 != -1)
   {
@@ -171,12 +169,10 @@ void __45__TransparencyXPCConnection_createConnection__block_invoke_5(uint64_t a
   {
     v3 = v2;
     v4 = [WeakRetained machName];
-    v6 = 138412290;
-    v7 = v4;
-    _os_log_impl(&dword_1E10DB000, v3, OS_LOG_TYPE_ERROR, "server connection exited or crashed: %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v4;
+    _os_log_impl(&dword_1E10DB000, v3, OS_LOG_TYPE_ERROR, "server connection exited or crashed: %@", &v5, 0xCu);
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __45__TransparencyXPCConnection_createConnection__block_invoke_2_6()
@@ -370,7 +366,7 @@ uint64_t __45__TransparencyXPCConnection_createConnection__block_invoke_2_6()
 
 void __73__TransparencyXPCConnection_invokeXPCWithBlock_synchronous_errorHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (TRANSPARENCY_DEFAULT_LOG_BLOCK_15 != -1)
   {
@@ -380,16 +376,15 @@ void __73__TransparencyXPCConnection_invokeXPCWithBlock_synchronous_errorHandler
   v4 = TRANSPARENCY_DEFAULT_LOG_INTERNAL_15;
   if (os_log_type_enabled(TRANSPARENCY_DEFAULT_LOG_INTERNAL_15, OS_LOG_TYPE_ERROR))
   {
-    v7 = 138412290;
-    v8 = v3;
-    _os_log_impl(&dword_1E10DB000, v4, OS_LOG_TYPE_ERROR, "xpc error: %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = v3;
+    _os_log_impl(&dword_1E10DB000, v4, OS_LOG_TYPE_ERROR, "xpc error: %@", &v6, 0xCu);
   }
 
   v5 = +[TransparencyAnalytics logger];
   [v5 logResultForEvent:@"errorEvent" hardFailure:1 result:v3];
 
   (*(*(a1 + 32) + 16))();
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __73__TransparencyXPCConnection_invokeXPCWithBlock_synchronous_errorHandler___block_invoke_2()
@@ -401,7 +396,7 @@ uint64_t __73__TransparencyXPCConnection_invokeXPCWithBlock_synchronous_errorHan
 
 void __73__TransparencyXPCConnection_invokeXPCWithBlock_synchronous_errorHandler___block_invoke_33(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (TRANSPARENCY_DEFAULT_LOG_BLOCK_15 != -1)
   {
@@ -411,16 +406,15 @@ void __73__TransparencyXPCConnection_invokeXPCWithBlock_synchronous_errorHandler
   v4 = TRANSPARENCY_DEFAULT_LOG_INTERNAL_15;
   if (os_log_type_enabled(TRANSPARENCY_DEFAULT_LOG_INTERNAL_15, OS_LOG_TYPE_ERROR))
   {
-    v7 = 138412290;
-    v8 = v3;
-    _os_log_impl(&dword_1E10DB000, v4, OS_LOG_TYPE_ERROR, "synchronous xpc error: %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = v3;
+    _os_log_impl(&dword_1E10DB000, v4, OS_LOG_TYPE_ERROR, "synchronous xpc error: %@", &v6, 0xCu);
   }
 
   v5 = +[TransparencyAnalytics logger];
   [v5 logResultForEvent:@"errorEvent" hardFailure:1 result:v3];
 
   (*(*(a1 + 32) + 16))();
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __73__TransparencyXPCConnection_invokeXPCWithBlock_synchronous_errorHandler___block_invoke_2_34()
@@ -482,12 +476,11 @@ uint64_t __73__TransparencyXPCConnection_invokeXPCWithBlock_synchronous_errorHan
 
 void __76__TransparencyXPCConnection_invokeXPCSynchronousCallWithBlock_errorHandler___block_invoke(void *a1, void *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = a1[7];
-  v5 = objc_opt_class();
+  v4 = objc_opt_class();
   ++*(*(a1[6] + 8) + 24);
-  *(*(a1[5] + 8) + 24) = [v5 retryable:v3 counter:?];
+  *(*(a1[5] + 8) + 24) = [v4 retryable:v3 counter:?];
   if (*(*(a1[5] + 8) + 24))
   {
     if (TRANSPARENCY_DEFAULT_LOG_BLOCK_15 != -1)
@@ -495,12 +488,12 @@ void __76__TransparencyXPCConnection_invokeXPCSynchronousCallWithBlock_errorHand
       __76__TransparencyXPCConnection_invokeXPCSynchronousCallWithBlock_errorHandler___block_invoke_cold_1();
     }
 
-    v6 = TRANSPARENCY_DEFAULT_LOG_INTERNAL_15;
+    v5 = TRANSPARENCY_DEFAULT_LOG_INTERNAL_15;
     if (os_log_type_enabled(TRANSPARENCY_DEFAULT_LOG_INTERNAL_15, OS_LOG_TYPE_ERROR))
     {
-      v8 = 138412290;
-      v9 = v3;
-      _os_log_impl(&dword_1E10DB000, v6, OS_LOG_TYPE_ERROR, "retrying invokeXPCSynchronousCallWithBlock: %@", &v8, 0xCu);
+      v6 = 138412290;
+      v7 = v3;
+      _os_log_impl(&dword_1E10DB000, v5, OS_LOG_TYPE_ERROR, "retrying invokeXPCSynchronousCallWithBlock: %@", &v6, 0xCu);
     }
   }
 
@@ -508,8 +501,6 @@ void __76__TransparencyXPCConnection_invokeXPCSynchronousCallWithBlock_errorHand
   {
     (*(a1[4] + 16))();
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __76__TransparencyXPCConnection_invokeXPCSynchronousCallWithBlock_errorHandler___block_invoke_2()
@@ -579,7 +570,7 @@ uint64_t __76__TransparencyXPCConnection_invokeXPCSynchronousCallWithBlock_error
 
 void __64__TransparencyXPCConnection_invokeIDSXPCWithBlock_errorHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (TRANSPARENCY_DEFAULT_LOG_BLOCK_15 != -1)
   {
@@ -589,16 +580,15 @@ void __64__TransparencyXPCConnection_invokeIDSXPCWithBlock_errorHandler___block_
   v4 = TRANSPARENCY_DEFAULT_LOG_INTERNAL_15;
   if (os_log_type_enabled(TRANSPARENCY_DEFAULT_LOG_INTERNAL_15, OS_LOG_TYPE_ERROR))
   {
-    v7 = 138412290;
-    v8 = v3;
-    _os_log_impl(&dword_1E10DB000, v4, OS_LOG_TYPE_ERROR, "xpc ids error: %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = v3;
+    _os_log_impl(&dword_1E10DB000, v4, OS_LOG_TYPE_ERROR, "xpc ids error: %@", &v6, 0xCu);
   }
 
   v5 = +[TransparencyAnalytics logger];
   [v5 logResultForEvent:@"errorEvent" hardFailure:1 result:v3];
 
   (*(*(a1 + 32) + 16))();
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __64__TransparencyXPCConnection_invokeIDSXPCWithBlock_errorHandler___block_invoke_2()
@@ -682,7 +672,7 @@ uint64_t __64__TransparencyXPCConnection_invokeIDSXPCWithBlock_errorHandler___bl
 
 void __68__TransparencyXPCConnection_invokeIDSSupportWithBlock_errorHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (TRANSPARENCY_DEFAULT_LOG_BLOCK_15 != -1)
   {
@@ -692,16 +682,15 @@ void __68__TransparencyXPCConnection_invokeIDSSupportWithBlock_errorHandler___bl
   v4 = TRANSPARENCY_DEFAULT_LOG_INTERNAL_15;
   if (os_log_type_enabled(TRANSPARENCY_DEFAULT_LOG_INTERNAL_15, OS_LOG_TYPE_ERROR))
   {
-    v7 = 138412290;
-    v8 = v3;
-    _os_log_impl(&dword_1E10DB000, v4, OS_LOG_TYPE_ERROR, "xpc ids error: %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = v3;
+    _os_log_impl(&dword_1E10DB000, v4, OS_LOG_TYPE_ERROR, "xpc ids error: %@", &v6, 0xCu);
   }
 
   v5 = +[TransparencyAnalytics logger];
   [v5 logResultForEvent:@"errorEvent" hardFailure:1 result:v3];
 
   (*(*(a1 + 32) + 16))();
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __68__TransparencyXPCConnection_invokeIDSSupportWithBlock_errorHandler___block_invoke_2()
@@ -727,7 +716,7 @@ uint64_t __68__TransparencyXPCConnection_invokeIDSSupportWithBlock_errorHandler_
 
 + (void)invokeAccountsSupportWithBlock:(id)block errorHandler:(id)handler
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   blockCopy = block;
   handlerCopy = handler;
   v7 = +[TransparencyXPCConnection transparencyAccountsInstance];
@@ -752,12 +741,12 @@ uint64_t __68__TransparencyXPCConnection_invokeIDSSupportWithBlock_errorHandler_
     }
   }
 
-  v14[0] = MEMORY[0x1E69E9820];
-  v14[1] = 3221225472;
-  v14[2] = __73__TransparencyXPCConnection_invokeAccountsSupportWithBlock_errorHandler___block_invoke;
-  v14[3] = &unk_1E87013C8;
-  v15 = handlerCopy;
-  v10 = [createConnection remoteObjectProxyWithErrorHandler:v14];
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __73__TransparencyXPCConnection_invokeAccountsSupportWithBlock_errorHandler___block_invoke;
+  v13[3] = &unk_1E87013C8;
+  v14 = handlerCopy;
+  v10 = [createConnection remoteObjectProxyWithErrorHandler:v13];
 
   if (v10)
   {
@@ -778,19 +767,17 @@ LABEL_7:
   if (os_log_type_enabled(TRANSPARENCY_DEFAULT_LOG_INTERNAL_15, OS_LOG_TYPE_ERROR))
   {
     *buf = 138412290;
-    v17 = v10;
+    v16 = v10;
     _os_log_impl(&dword_1E10DB000, v12, OS_LOG_TYPE_ERROR, "Failed to create XPC protocol: %@", buf, 0xCu);
   }
 
   (*(handlerCopy + 2))(handlerCopy, v10);
 LABEL_12:
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 void __73__TransparencyXPCConnection_invokeAccountsSupportWithBlock_errorHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (TRANSPARENCY_DEFAULT_LOG_BLOCK_15 != -1)
   {
@@ -800,16 +787,15 @@ void __73__TransparencyXPCConnection_invokeAccountsSupportWithBlock_errorHandler
   v4 = TRANSPARENCY_DEFAULT_LOG_INTERNAL_15;
   if (os_log_type_enabled(TRANSPARENCY_DEFAULT_LOG_INTERNAL_15, OS_LOG_TYPE_ERROR))
   {
-    v7 = 138412290;
-    v8 = v3;
-    _os_log_impl(&dword_1E10DB000, v4, OS_LOG_TYPE_ERROR, "xpc accounts error: %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = v3;
+    _os_log_impl(&dword_1E10DB000, v4, OS_LOG_TYPE_ERROR, "xpc accounts error: %@", &v6, 0xCu);
   }
 
   v5 = +[TransparencyAnalytics logger];
   [v5 logResultForEvent:@"errorEvent" hardFailure:1 result:v3];
 
   (*(*(a1 + 32) + 16))();
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __73__TransparencyXPCConnection_invokeAccountsSupportWithBlock_errorHandler___block_invoke_2()

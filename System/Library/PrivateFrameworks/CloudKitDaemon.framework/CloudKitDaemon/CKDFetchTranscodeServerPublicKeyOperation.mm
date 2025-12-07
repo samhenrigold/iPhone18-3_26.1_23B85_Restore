@@ -38,7 +38,7 @@
 
 - (void)main
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   if (*MEMORY[0x277CBC880] != -1)
   {
     dispatch_once(MEMORY[0x277CBC880], *MEMORY[0x277CBC878]);
@@ -47,22 +47,22 @@
   v3 = *MEMORY[0x277CBC830];
   if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_DEBUG))
   {
-    v12 = v3;
-    v13 = objc_opt_class();
-    v14 = NSStringFromClass(v13);
-    v16 = objc_msgSend_CKDescriptionPropertiesWithPublic_private_shouldExpand_(self, v15, 1, 0, 0);
-    v19 = objc_msgSend_CKPropertiesStyleString(v16, v17, v18);
-    v21 = objc_msgSend_CKDescriptionPropertiesWithPublic_private_shouldExpand_(self, v20, 0, 1, 0);
-    v24 = objc_msgSend_CKPropertiesStyleString(v21, v22, v23);
+    v11 = v3;
+    v12 = objc_opt_class();
+    v13 = NSStringFromClass(v12);
+    v15 = objc_msgSend_CKDescriptionPropertiesWithPublic_private_shouldExpand_(self, v14, 1, 0, 0);
+    v18 = objc_msgSend_CKPropertiesStyleString(v15, v16, v17);
+    v20 = objc_msgSend_CKDescriptionPropertiesWithPublic_private_shouldExpand_(self, v19, 0, 1, 0);
+    v23 = objc_msgSend_CKPropertiesStyleString(v20, v21, v22);
     *buf = 138544130;
-    v26 = v14;
-    v27 = 2048;
+    v25 = v13;
+    v26 = 2048;
     selfCopy = self;
-    v29 = 2114;
-    v30 = v19;
-    v31 = 2112;
-    v32 = v24;
-    _os_log_debug_impl(&dword_22506F000, v12, OS_LOG_TYPE_DEBUG, "Starting  <%{public}@: %p; %{public}@, %@>", buf, 0x2Au);
+    v28 = 2114;
+    v29 = v18;
+    v30 = 2112;
+    v31 = v23;
+    _os_log_debug_impl(&dword_22506F000, v11, OS_LOG_TYPE_DEBUG, "Starting  <%{public}@: %p; %{public}@, %@>", buf, 0x2Au);
   }
 
   if (!objc_msgSend_type(self, v4, v5))
@@ -77,12 +77,11 @@
   }
 
   objc_msgSend_makeStateTransition_(self, v6, 0);
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)determineTranscodeServerPublicKeyURL
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CBC880];
   if (*MEMORY[0x277CBC880] != -1)
   {
@@ -93,11 +92,11 @@
   v5 = *MEMORY[0x277CBC830];
   if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_DEBUG))
   {
-    v20 = v5;
-    v23 = objc_msgSend_transcodeServerHostname(self, v21, v22);
+    v19 = v5;
+    v22 = objc_msgSend_transcodeServerHostname(self, v20, v21);
     *buf = 138543362;
-    v26 = v23;
-    _os_log_debug_impl(&dword_22506F000, v20, OS_LOG_TYPE_DEBUG, "Determining transcode server public key URL for hostname: %{public}@", buf, 0xCu);
+    v25 = v22;
+    _os_log_debug_impl(&dword_22506F000, v19, OS_LOG_TYPE_DEBUG, "Determining transcode server public key URL for hostname: %{public}@", buf, 0xCu);
   }
 
   if (*MEMORY[0x277CBC810] == 1 && (objc_msgSend_unitTestOverrides(self, v6, v7), v8 = objc_claimAutoreleasedReturnValue(), objc_msgSend_objectForKeyedSubscript_(v8, v9, @"TranscodeServerPublicKeyURL"), v10 = objc_claimAutoreleasedReturnValue(), v8, v10))
@@ -111,7 +110,7 @@
     if (os_log_type_enabled(*v4, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v26 = v10;
+      v25 = v10;
       _os_log_impl(&dword_22506F000, v11, OS_LOG_TYPE_INFO, "Overriding transcode server public key URL to %@", buf, 0xCu);
     }
 
@@ -125,20 +124,18 @@
     dispatch_group_enter(v15);
 
     v10 = objc_msgSend_sharedManager(CKDServerConfigurationManager, v16, v17);
-    v24[0] = MEMORY[0x277D85DD0];
-    v24[1] = 3221225472;
-    v24[2] = sub_2251A39D0;
-    v24[3] = &unk_278548770;
-    v24[4] = self;
-    objc_msgSend_configurationForOperation_completionHandler_(v10, v18, self, v24);
+    v23[0] = MEMORY[0x277D85DD0];
+    v23[1] = 3221225472;
+    v23[2] = sub_2251A39D0;
+    v23[3] = &unk_278548770;
+    v23[4] = self;
+    objc_msgSend_configurationForOperation_completionHandler_(v10, v18, self, v23);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)fetchCachedTranscodePublicKey
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CBC880];
   if (*MEMORY[0x277CBC880] != -1)
   {
@@ -149,11 +146,11 @@
   v5 = *MEMORY[0x277CBC830];
   if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_DEBUG))
   {
-    v37 = v5;
-    v40 = objc_msgSend_transcodeServerPublicKeyURL(self, v38, v39);
-    v45 = 138543362;
-    v46 = v40;
-    _os_log_debug_impl(&dword_22506F000, v37, OS_LOG_TYPE_DEBUG, "Checking for cached transcode server public key for public key URL %{public}@", &v45, 0xCu);
+    v35 = v5;
+    v38 = objc_msgSend_transcodeServerPublicKeyURL(self, v36, v37);
+    v43 = 138543362;
+    v44 = v38;
+    _os_log_debug_impl(&dword_22506F000, v35, OS_LOG_TYPE_DEBUG, "Checking for cached transcode server public key for public key URL %{public}@", &v43, 0xCu);
   }
 
   v8 = objc_msgSend_transcodeServerPublicKeyURL(self, v6, v7);
@@ -167,7 +164,6 @@
   {
     hasExpired = objc_msgSend_hasExpired(v19, v20, v21);
     v23 = *MEMORY[0x277CBC878];
-    v24 = *v3;
     if (hasExpired)
     {
       if (*v3 != -1)
@@ -175,19 +171,19 @@
         dispatch_once(MEMORY[0x277CBC880], v23);
       }
 
-      v25 = *v4;
+      v24 = *v4;
       if (os_log_type_enabled(*v4, OS_LOG_TYPE_DEBUG))
       {
-        v41 = v25;
-        v44 = objc_msgSend_expiration(v19, v42, v43);
-        v45 = 138543362;
-        v46 = v44;
-        _os_log_debug_impl(&dword_22506F000, v41, OS_LOG_TYPE_DEBUG, "Found a cached transcode key, but it has expired on %{public}@. Clearing cached value and continuing with server fetch.", &v45, 0xCu);
+        v39 = v24;
+        v42 = objc_msgSend_expiration(v19, v40, v41);
+        v43 = 138543362;
+        v44 = v42;
+        _os_log_debug_impl(&dword_22506F000, v39, OS_LOG_TYPE_DEBUG, "Found a cached transcode key, but it has expired on %{public}@. Clearing cached value and continuing with server fetch.", &v43, 0xCu);
       }
 
-      v28 = objc_msgSend_deviceContext(self, v26, v27);
-      v31 = objc_msgSend_metadataCache(v28, v29, v30);
-      objc_msgSend_setPublicKey_ofType_withIdentifier_(v31, v32, 0, @"transcodeServerPublicKey", v11);
+      v27 = objc_msgSend_deviceContext(self, v25, v26);
+      v30 = objc_msgSend_metadataCache(v27, v28, v29);
+      objc_msgSend_setPublicKey_ofType_withIdentifier_(v30, v31, 0, @"transcodeServerPublicKey", v11);
     }
 
     else
@@ -197,15 +193,15 @@
         dispatch_once(MEMORY[0x277CBC880], v23);
       }
 
-      v34 = *v4;
+      v33 = *v4;
       if (os_log_type_enabled(*v4, OS_LOG_TYPE_DEBUG))
       {
-        v45 = 138412290;
-        v46 = v19;
-        _os_log_debug_impl(&dword_22506F000, v34, OS_LOG_TYPE_DEBUG, "Found a transcode public key %@", &v45, 0xCu);
+        v43 = 138412290;
+        v44 = v19;
+        _os_log_debug_impl(&dword_22506F000, v33, OS_LOG_TYPE_DEBUG, "Found a transcode public key %@", &v43, 0xCu);
       }
 
-      objc_msgSend_setTranscodeServerPublicKey_(self, v35, v19);
+      objc_msgSend_setTranscodeServerPublicKey_(self, v34, v19);
     }
   }
 
@@ -216,15 +212,13 @@
       dispatch_once(MEMORY[0x277CBC880], *MEMORY[0x277CBC878]);
     }
 
-    v33 = *v4;
+    v32 = *v4;
     if (os_log_type_enabled(*v4, OS_LOG_TYPE_DEBUG))
     {
-      LOWORD(v45) = 0;
-      _os_log_debug_impl(&dword_22506F000, v33, OS_LOG_TYPE_DEBUG, "Couldn't find cached transcode public key", &v45, 2u);
+      LOWORD(v43) = 0;
+      _os_log_debug_impl(&dword_22506F000, v32, OS_LOG_TYPE_DEBUG, "Couldn't find cached transcode public key", &v43, 2u);
     }
   }
-
-  v36 = *MEMORY[0x277D85DE8];
 }
 
 - (void)fetchRemoteTranscodePublicKey
@@ -238,11 +232,11 @@
   v3 = *MEMORY[0x277CBC830];
   if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_DEBUG))
   {
-    v32 = v3;
-    v35 = objc_msgSend_transcodeServerPublicKeyURL(self, v33, v34);
+    v31 = v3;
+    v34 = objc_msgSend_transcodeServerPublicKeyURL(self, v32, v33);
     LODWORD(location[0]) = 138543362;
-    *(location + 4) = v35;
-    _os_log_debug_impl(&dword_22506F000, v32, OS_LOG_TYPE_DEBUG, "Fetching transcode server public key from URL %{public}@", location, 0xCu);
+    *(location + 4) = v34;
+    _os_log_debug_impl(&dword_22506F000, v31, OS_LOG_TYPE_DEBUG, "Fetching transcode server public key from URL %{public}@", location, 0xCu);
   }
 
   v6 = objc_msgSend_stateTransitionGroup(self, v4, v5);
@@ -268,21 +262,19 @@
   }
 
   objc_initWeak(location, v16);
-  v36 = MEMORY[0x277D85DD0];
-  v37 = 3221225472;
-  v38 = sub_2251A4394;
-  v39 = &unk_2785476F0;
-  objc_copyWeak(&v41, location);
+  v35 = MEMORY[0x277D85DD0];
+  v36 = 3221225472;
+  v37 = sub_2251A4394;
+  v38 = &unk_2785476F0;
+  objc_copyWeak(&v40, location);
   selfCopy = self;
-  objc_msgSend_setCompletionBlock_(v16, v25, &v36);
-  objc_msgSend_setRequest_(self, v26, v16, v36, v37, v38, v39);
+  objc_msgSend_setCompletionBlock_(v16, v25, &v35);
+  objc_msgSend_setRequest_(self, v26, v16, v35, v36, v37, v38);
   v29 = objc_msgSend_container(self, v27, v28);
   objc_msgSend_performRequest_(v29, v30, v16);
 
-  objc_destroyWeak(&v41);
+  objc_destroyWeak(&v40);
   objc_destroyWeak(location);
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)makeStateTransition

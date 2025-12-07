@@ -37,7 +37,7 @@
     [v11 writeString:v9 withCode:1836081511];
   }
 
-  v13 = sub_100403578();
+  v13 = sub_100403578(PurchaseHistoryDAAPEncoding);
   v14 = [NSString stringWithFormat:@"(%@)", v13];
 
   [v11 writeString:v14 withCode:1836152165];

@@ -164,7 +164,7 @@ LABEL_13:
 + (id)vui_showPersistentIDPredicate:()VideosUI comparison:
 {
   v5 = MEMORY[0x1E6970610];
-  v6 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:?];
+  v6 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:a3];
   v7 = [v5 predicateWithValue:v6 forProperty:*MEMORY[0x1E696F938] comparisonType:a4];
 
   return v7;
@@ -173,7 +173,7 @@ LABEL_13:
 + (id)vui_seasonNumberPredicate:()VideosUI comparison:
 {
   v5 = MEMORY[0x1E6970610];
-  v6 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:?];
+  v6 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:a3];
   v7 = [v5 predicateWithValue:v6 forProperty:*MEMORY[0x1E696FB10] comparisonType:a4];
 
   return v7;

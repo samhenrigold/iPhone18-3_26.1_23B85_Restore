@@ -59,20 +59,20 @@
 - (void)scrollViewMonitorDidStartMonitoring:(id)monitoring
 {
   defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
-  v12 = 0;
-  v13 = &v12;
-  v14 = 0x2020000000;
+  v13 = 0;
+  v14 = &v13;
+  v15 = 0x2020000000;
   v6 = qword_280AC7388;
-  v15 = qword_280AC7388;
+  v16 = qword_280AC7388;
   if (!qword_280AC7388)
   {
     v7 = UIKitLibrary();
-    v13[3] = dlsym(v7, "UIApplicationDidBecomeActiveNotification");
-    qword_280AC7388 = v13[3];
-    v6 = v13[3];
+    v14[3] = dlsym(v7, "UIApplicationDidBecomeActiveNotification");
+    qword_280AC7388 = v14[3];
+    v6 = v14[3];
   }
 
-  _Block_object_dispose(&v12, 8);
+  _Block_object_dispose(&v13, 8);
   if (!v6)
   {
     goto LABEL_8;
@@ -80,27 +80,27 @@
 
   [defaultCenter addObserver:self selector:sel_didBecomeActive name:*v6 object:0];
   defaultCenter2 = [MEMORY[0x277CCAB98] defaultCenter];
-  v12 = 0;
-  v13 = &v12;
-  v14 = 0x2020000000;
+  v13 = 0;
+  v14 = &v13;
+  v15 = 0x2020000000;
   v9 = qword_280AC7390;
-  v15 = qword_280AC7390;
+  v16 = qword_280AC7390;
   if (!qword_280AC7390)
   {
     v10 = UIKitLibrary();
-    v13[3] = dlsym(v10, "UIApplicationWillResignActiveNotification");
-    qword_280AC7390 = v13[3];
-    v9 = v13[3];
+    v14[3] = dlsym(v10, "UIApplicationWillResignActiveNotification");
+    qword_280AC7390 = v14[3];
+    v9 = v14[3];
   }
 
-  _Block_object_dispose(&v12, 8);
+  _Block_object_dispose(&v13, 8);
   if (!v9)
   {
 LABEL_8:
-    dlerror();
-    v11 = abort_report_np();
-    _Block_object_dispose(&v12, 8);
-    _Unwind_Resume(v11);
+    v11 = dlerror();
+    v12 = abort_report_np("%s", v11);
+    _Block_object_dispose(&v13, 8);
+    _Unwind_Resume(v12);
   }
 
   [defaultCenter2 addObserver:self selector:sel_willResignActive name:*v9 object:0];
@@ -345,11 +345,11 @@ LABEL_17:
   return traversedCopy;
 }
 
-uint64_t __66__SRHMediaEventsCollector__addMediaSubviewsOfView_viewsTraversed___block_invoke(uint64_t result, int a2)
+void *__66__SRHMediaEventsCollector__addMediaSubviewsOfView_viewsTraversed___block_invoke(void *result, int a2)
 {
   if (a2)
   {
-    return [*(*(result + 32) + 24) addViewToStore:*(result + 40)];
+    return [*(result[4] + 24) addViewToStore:result[5]];
   }
 
   return result;
@@ -458,11 +458,11 @@ LABEL_10:
   return traversedCopy;
 }
 
-uint64_t __69__SRHMediaEventsCollector__removeMediaSubviewsOfView_viewsTraversed___block_invoke(uint64_t result, int a2)
+void *__69__SRHMediaEventsCollector__removeMediaSubviewsOfView_viewsTraversed___block_invoke(void *result, int a2)
 {
   if (a2)
   {
-    return [*(*(result + 32) + 24) removeViewFromStore:*(result + 40)];
+    return [*(result[4] + 24) removeViewFromStore:result[5]];
   }
 
   return result;

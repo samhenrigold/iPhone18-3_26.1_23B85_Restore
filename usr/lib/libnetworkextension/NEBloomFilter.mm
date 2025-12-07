@@ -1,10 +1,13 @@
 @interface NEBloomFilter
++ (BOOL)containsWithBitmap:(char *)bitmap numberOfBits:(unsigned int)bits numberOfHashes:(unsigned int)hashes murmurSeed:(unsigned int)seed value:(const char *)value;
 + (BOOL)mmapFromFile:(const char *)file bloomFilter:(ne_bloom_filter *)filter;
 + (char)mmapToFile:(const char *)file data:(char *)data dataLength:(unsigned int)length numberOfBits:(unsigned int)bits numberOfHashes:(unsigned int)hashes murmurSeed:(unsigned int)seed tag:(id)tag;
 + (double)getFalsePositiveProbability:(unsigned int)probability numberOfBits:(unsigned int)bits numberOfHashes:(unsigned int)hashes;
-+ (uint64_t)mmapCleanup:(uint64_t)cleanup;
++ (double)mmapCleanup:(uint64_t)cleanup;
++ (void)insertWithBitmap:(char *)bitmap numberOfBits:(unsigned int)bits numberOfHashes:(unsigned int)hashes murmurSeed:(unsigned int)seed value:(const char *)value;
 - (BOOL)contains:(id)contains;
 - (NEBloomFilter)initWithData:(id)data numberOfBits:(unsigned int)bits numberOfHashes:(unsigned int)hashes murmurSeed:(unsigned int)seed mmapFilename:(id)filename tag:(id)tag;
+- (NEBloomFilter)initWithNumberOfItems:(unsigned int)items falsePositiveTolerance:(double)tolerance;
 - (id)getFilterTag;
 - (id)initFromFile:(id)file;
 - (void)insert:(id)insert;
@@ -45,13 +48,56 @@
   [NEBloomFilter insertWithBitmap:bytes numberOfBits:numberOfBits numberOfHashes:numberOfHashes murmurSeed:murmurSeed value:uTF8String];
 }
 
+- (NEBloomFilter)initWithNumberOfItems:(unsigned int)items falsePositiveTolerance:(double)tolerance
+{
+  v5 = *&items;
+  v18 = *MEMORY[0x1E69E9840];
+  v15.receiver = self;
+  v15.super_class = NEBloomFilter;
+  v6 = [(NEBloomFilter *)&v15 init];
+  v7 = v6;
+  if (v6)
+  {
+    v8 = tolerance >= 1.0 || v5 == 0;
+    if (v8 || tolerance <= 0.0)
+    {
+      p_super = ne_log_obj();
+      if (os_log_type_enabled(p_super, OS_LOG_TYPE_ERROR))
+      {
+        *buf = 138412290;
+        v17 = v7;
+        _os_log_error_impl(&dword_1C0DA5000, p_super, OS_LOG_TYPE_ERROR, "%@ - initWithNumberOfItems: Invalid params", buf, 0xCu);
+      }
+    }
+
+    else
+    {
+      v6->_numberOfItems = v5;
+      v6->_falsePositiveTolerance = tolerance;
+      v9 = [NEBloomFilter getNumberOfBits:v5 falsePositiveTolerance:tolerance];
+      v7->_numberOfBits = v9;
+      v7->_numberOfHashes = [NEBloomFilter getNumberOfHashes:v7->_numberOfItems numberOfBits:v9];
+      v7->_murmurSeed = arc4random();
+      v10 = [MEMORY[0x1E695DF88] dataWithLength:{+[NEBitVector getByteCount:](NEBitVector, "getByteCount:", v7->_numberOfBits)}];
+      bitVectorBuffer = v7->_bitVectorBuffer;
+      v7->_bitVectorBuffer = v10;
+
+      v12 = [[NEBitVector alloc] initWithBitMap:[(NSData *)v7->_bitVectorBuffer bytes] bitmapSize:[(NSData *)v7->_bitVectorBuffer length] bitCount:v7->_numberOfBits];
+      p_super = &v7->_bitVector->super;
+      v7->_bitVector = v12;
+    }
+  }
+
+  return v7;
+}
+
 - (id)initFromFile:(id)file
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   fileCopy = file;
-  v21.receiver = self;
-  v21.super_class = NEBloomFilter;
-  v5 = [(NEBloomFilter *)&v21 init];
+  v20.receiver = self;
+  v20.super_class = NEBloomFilter;
+  v5 = [(NEBloomFilter *)&v20 init];
   if (!v5)
   {
     v16 = 0;
@@ -63,28 +109,28 @@
     v14 = ne_log_obj();
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      *v28 = 138412290;
-      *&v28[4] = v5;
-      _os_log_error_impl(&dword_1C0DA5000, v14, OS_LOG_TYPE_ERROR, "%@ - initFromFile: Invalid params", v28, 0xCu);
+      *v27 = 138412290;
+      *&v27[4] = v5;
+      _os_log_error_impl(&dword_1C0DA5000, v14, OS_LOG_TYPE_ERROR, "%@ - initFromFile: Invalid params", v27, 0xCu);
     }
 
     goto LABEL_17;
   }
 
-  v33 = 0;
-  v31 = 0u;
-  v32 = 0u;
-  v29 = 0u;
+  v32 = 0;
   v30 = 0u;
-  *v28 = 0u;
-  if (+[NEBloomFilter mmapFromFile:bloomFilter:](NEBloomFilter, "mmapFromFile:bloomFilter:", [fileCopy UTF8String], v28))
+  v31 = 0u;
+  v28 = 0u;
+  v29 = 0u;
+  *v27 = 0u;
+  if (+[NEBloomFilter mmapFromFile:bloomFilter:](NEBloomFilter, "mmapFromFile:bloomFilter:", [fileCopy UTF8String], v27))
   {
-    if (v31 && HIDWORD(v29))
+    if (v30 && HIDWORD(v28))
     {
-      *(v5 + 12) = v29;
-      *(v5 + 5) = DWORD2(v29);
+      *(v5 + 12) = v28;
+      *(v5 + 5) = DWORD2(v28);
       v6 = objc_alloc(MEMORY[0x1E695DEF0]);
-      v7 = [v6 initWithBytes:v31 length:HIDWORD(v29)];
+      v7 = [v6 initWithBytes:v30 length:HIDWORD(v28)];
       v8 = *(v5 + 5);
       *(v5 + 5) = v7;
 
@@ -92,10 +138,10 @@
       v10 = *(v5 + 6);
       *(v5 + 6) = v9;
 
-      if (v30 && *(&v30 + 1))
+      if (v29 && *(&v29 + 1))
       {
         v11 = objc_alloc(MEMORY[0x1E695DEF0]);
-        v12 = [v11 initWithBytes:*(&v30 + 1) length:v30];
+        v12 = [v11 initWithBytes:*(&v29 + 1) length:v29];
         v13 = *(v5 + 4);
         *(v5 + 4) = v12;
       }
@@ -105,11 +151,11 @@
       {
         v15 = *(v5 + 4);
         *buf = 138412802;
-        v23 = v5;
-        v24 = 2112;
-        v25 = fileCopy;
-        v26 = 2112;
-        v27 = v15;
+        v22 = v5;
+        v23 = 2112;
+        v24 = fileCopy;
+        v25 = 2112;
+        v26 = v15;
         _os_log_debug_impl(&dword_1C0DA5000, v14, OS_LOG_TYPE_DEBUG, "%@ - initFromFile: retrieved bloom filter data from mmap file %@ tag <%@>", buf, 0x20u);
       }
     }
@@ -120,9 +166,9 @@
       if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412546;
-        v23 = v5;
-        v24 = 2112;
-        v25 = fileCopy;
+        v22 = v5;
+        v23 = 2112;
+        v24 = fileCopy;
         _os_log_error_impl(&dword_1C0DA5000, v17, OS_LOG_TYPE_ERROR, "%@ - initFromFile: failed to get bloom filter data from mmap file %@", buf, 0x16u);
       }
 
@@ -146,19 +192,18 @@ LABEL_17:
   v16 = v18;
 LABEL_22:
 
-  v19 = *MEMORY[0x1E69E9840];
   return v16;
 }
 
 - (NEBloomFilter)initWithData:(id)data numberOfBits:(unsigned int)bits numberOfHashes:(unsigned int)hashes murmurSeed:(unsigned int)seed mmapFilename:(id)filename tag:(id)tag
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   dataCopy = data;
   filenameCopy = filename;
   tagCopy = tag;
-  v30.receiver = self;
-  v30.super_class = NEBloomFilter;
-  v17 = [(NEBloomFilter *)&v30 init];
+  v29.receiver = self;
+  v29.super_class = NEBloomFilter;
+  v17 = [(NEBloomFilter *)&v29 init];
   if (!v17)
   {
     v23 = 0;
@@ -172,7 +217,7 @@ LABEL_22:
     if (os_log_type_enabled(p_super, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v32 = v17;
+      v31 = v17;
       _os_log_error_impl(&dword_1C0DA5000, p_super, OS_LOG_TYPE_ERROR, "%@ - initWithData: Invalid params", buf, 0xCu);
     }
 
@@ -199,7 +244,7 @@ LABEL_15:
     if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412290;
-      v32 = v17;
+      v31 = v17;
       _os_log_debug_impl(&dword_1C0DA5000, v21, OS_LOG_TYPE_DEBUG, "%@ - initWithData: saved bloom filter data to mmap file", buf, 0xCu);
     }
 
@@ -210,7 +255,7 @@ LABEL_15:
   if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
   {
     *buf = 138412290;
-    v32 = v17;
+    v31 = v17;
     _os_log_error_impl(&dword_1C0DA5000, v21, OS_LOG_TYPE_ERROR, "%@ - initWithData: failed to save bloom filter data to mmap file", buf, 0xCu);
   }
 
@@ -239,450 +284,437 @@ LABEL_21:
   v23 = v27;
 LABEL_26:
 
-  v28 = *MEMORY[0x1E69E9840];
   return v23;
 }
 
 + (BOOL)mmapFromFile:(const char *)file bloomFilter:(ne_bloom_filter *)filter
 {
-  v83 = *MEMORY[0x1E69E9840];
-  memset(&v63, 0, sizeof(v63));
+  v82 = *MEMORY[0x1E69E9840];
+  memset(&v62, 0, sizeof(v62));
   getpid();
-  if (!sandbox_check())
+  if (sandbox_check() || (getpid(), sandbox_check()))
   {
-    getpid();
-    if (!sandbox_check())
+    v6 = ne_log_obj();
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = open(file, 0, file);
-      if (v9 < 0)
+      *buf = 136315650;
+      v74 = "+[NEBloomFilter mmapFromFile:bloomFilter:]";
+      v75 = 1024;
+      v76 = getpid();
+      v77 = 2080;
+      *v78 = file;
+      _os_log_impl(&dword_1C0DA5000, v6, OS_LOG_TYPE_DEFAULT, "%s: NEBloomFilter - <pid %d> No read permission to file %s", buf, 0x1Cu);
+    }
+
+LABEL_5:
+
+    return 0;
+  }
+
+  v8 = open(file, 0, file);
+  if (v8 < 0)
+  {
+    v12 = *__error();
+    if (strerror_r(v12, buf, 0x80uLL))
+    {
+      buf[0] = 0;
+    }
+
+    v6 = ne_log_obj();
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
+    {
+      *v63 = 136316162;
+      v64 = "+[NEBloomFilter mmapFromFile:bloomFilter:]";
+      v65 = 1024;
+      v66 = getpid();
+      v67 = 2080;
+      fileCopy4 = file;
+      v69 = 1024;
+      v70 = v12;
+      v71 = 2080;
+      v72 = buf;
+      _os_log_fault_impl(&dword_1C0DA5000, v6, OS_LOG_TYPE_FAULT, "%s: NEBloomFilter - <pid %d> Failed to open file %s: [%d] %s", v63, 0x2Cu);
+    }
+
+    goto LABEL_5;
+  }
+
+  v9 = v8;
+  if (fstat(v8, &v62) == -1 || !v62.st_size)
+  {
+    v13 = *__error();
+    if (strerror_r(v13, buf, 0x80uLL))
+    {
+      buf[0] = 0;
+    }
+
+    v14 = ne_log_obj();
+    if (!os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
+    {
+      goto LABEL_39;
+    }
+
+    v15 = getpid();
+    *v63 = 136316162;
+    v64 = "+[NEBloomFilter mmapFromFile:bloomFilter:]";
+    v65 = 1024;
+    v66 = v15;
+    v67 = 2080;
+    fileCopy4 = file;
+    v69 = 1024;
+    v70 = v13;
+    v71 = 2080;
+    v72 = buf;
+    v16 = "%s: NEBloomFilter - <pid %d> Failed to get file stats for file %s: [%d] %s";
+    goto LABEL_23;
+  }
+
+  v10 = v62.st_atimespec.tv_nsec / 1000000000.0 + v62.st_atimespec.tv_sec;
+  if (!filter->var3 || !filter->var0.var5 || filter->var7 != v10)
+  {
+    if ((v62.st_size - 0x100000000) <= 0xFFFFFFFF0000001FLL)
+    {
+      v14 = ne_log_obj();
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
-        v13 = *__error();
-        if (strerror_r(v13, buf, 0x80uLL))
-        {
-          buf[0] = 0;
-        }
-
-        v6 = ne_log_obj();
-        if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
-        {
-          *v64 = 136316162;
-          v65 = "+[NEBloomFilter mmapFromFile:bloomFilter:]";
-          v66 = 1024;
-          v67 = getpid();
-          v68 = 2080;
-          fileCopy4 = file;
-          v70 = 1024;
-          v71 = v13;
-          v72 = 2080;
-          v73 = buf;
-          _os_log_fault_impl(&dword_1C0DA5000, v6, OS_LOG_TYPE_FAULT, "%s: NEBloomFilter - <pid %d> Failed to open file %s: [%d] %s", v64, 0x2Cu);
-        }
-
-        goto LABEL_5;
+        v17 = getpid();
+        *buf = 136315906;
+        v74 = "+[NEBloomFilter mmapFromFile:bloomFilter:]";
+        v75 = 1024;
+        v76 = v17;
+        v77 = 2048;
+        *v78 = v62.st_size;
+        *&v78[8] = 2080;
+        *&v78[10] = file;
+        _os_log_error_impl(&dword_1C0DA5000, v14, OS_LOG_TYPE_ERROR, "%s: NEBloomFilter - <pid %d> invalid file size %lld for file %s", buf, 0x26u);
       }
 
-      v10 = v9;
-      if (fstat(v9, &v63) == -1 || !v63.st_size)
+      goto LABEL_39;
+    }
+
+    v18 = mmap(0, v62.st_size, 1, 2, v9, 0);
+    if (v18 != -1)
+    {
+      v19 = v18;
+      v20 = ne_log_obj();
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
       {
-        v14 = *__error();
-        if (strerror_r(v14, buf, 0x80uLL))
-        {
-          buf[0] = 0;
-        }
-
-        v15 = ne_log_obj();
-        if (!os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
-        {
-          goto LABEL_40;
-        }
-
-        v16 = getpid();
-        *v64 = 136316162;
-        v65 = "+[NEBloomFilter mmapFromFile:bloomFilter:]";
-        v66 = 1024;
-        v67 = v16;
-        v68 = 2080;
-        fileCopy4 = file;
-        v70 = 1024;
-        v71 = v14;
-        v72 = 2080;
-        v73 = buf;
-        v17 = "%s: NEBloomFilter - <pid %d> Failed to get file stats for file %s: [%d] %s";
+        v39 = getpid();
+        *buf = 136316162;
+        v74 = "+[NEBloomFilter mmapFromFile:bloomFilter:]";
+        v75 = 1024;
+        v76 = v39;
+        v77 = 1024;
+        *v78 = v9;
+        *&v78[4] = 2048;
+        *&v78[6] = v62.st_size;
+        *&v78[14] = 2080;
+        *&v78[16] = file;
+        _os_log_debug_impl(&dword_1C0DA5000, v20, OS_LOG_TYPE_DEBUG, "%s: NEBloomFilter - <pid %d> read mmap <fd %d, size %lld> for file %s", buf, 0x2Cu);
       }
 
-      else
+      var4 = filter->var4;
+      v22 = v19[1];
+      *&filter->var0.var0 = *v19;
+      *&filter->var0.var2 = v22;
+      if (filter->var0.var0 == 0x5061747269636961)
       {
-        v11 = v63.st_atimespec.tv_nsec / 1000000000.0 + v63.st_atimespec.tv_sec;
-        if (filter->var3 && filter->var0.var5 && filter->var7 == v11)
+        var1 = filter->var0.var1;
+        if (var1 - 1 < 2)
         {
-          close(v10);
-          v12 = ne_log_obj();
-          if (!os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+          if (var1 == 1)
           {
-LABEL_15:
-
-            result = 1;
-            goto LABEL_7;
-          }
-
-          v38 = getpid();
-          *buf = 136315650;
-          v75 = "+[NEBloomFilter mmapFromFile:bloomFilter:]";
-          v76 = 1024;
-          v77 = v38;
-          v78 = 2080;
-          *v79 = file;
-          v39 = "%s: NEBloomFilter - <pid %d> no update needed for %s";
-LABEL_52:
-          _os_log_debug_impl(&dword_1C0DA5000, v12, OS_LOG_TYPE_DEBUG, v39, buf, 0x1Cu);
-          goto LABEL_15;
-        }
-
-        if ((v63.st_size - 0x100000000) <= 0xFFFFFFFF0000001FLL)
-        {
-          v15 = ne_log_obj();
-          if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
-          {
-            v18 = getpid();
-            *buf = 136315906;
-            v75 = "+[NEBloomFilter mmapFromFile:bloomFilter:]";
-            v76 = 1024;
-            v77 = v18;
-            v78 = 2048;
-            *v79 = v63.st_size;
-            *&v79[8] = 2080;
-            *&v79[10] = file;
-            _os_log_error_impl(&dword_1C0DA5000, v15, OS_LOG_TYPE_ERROR, "%s: NEBloomFilter - <pid %d> invalid file size %lld for file %s", buf, 0x26u);
-          }
-
-          goto LABEL_40;
-        }
-
-        v19 = mmap(0, v63.st_size, 1, 2, v10, 0);
-        if (v19 != -1)
-        {
-          v20 = v19;
-          v21 = ne_log_obj();
-          if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
-          {
-            v40 = getpid();
-            *buf = 136316162;
-            v75 = "+[NEBloomFilter mmapFromFile:bloomFilter:]";
-            v76 = 1024;
-            v77 = v40;
-            v78 = 1024;
-            *v79 = v10;
-            *&v79[4] = 2048;
-            *&v79[6] = v63.st_size;
-            *&v79[14] = 2080;
-            *&v79[16] = file;
-            _os_log_debug_impl(&dword_1C0DA5000, v21, OS_LOG_TYPE_DEBUG, "%s: NEBloomFilter - <pid %d> read mmap <fd %d, size %lld> for file %s", buf, 0x2Cu);
-          }
-
-          var4 = filter->var4;
-          v23 = v20[1];
-          *&filter->var0.var0 = *v20;
-          *&filter->var0.var2 = v23;
-          if (filter->var0.var0 == 0x5061747269636961)
-          {
-            var1 = filter->var0.var1;
-            if (var1 - 1 < 2)
+            v24 = ne_log_obj();
+            if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
             {
-              if (var1 == 1)
-              {
-                v25 = ne_log_obj();
-                if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
-                {
-                  v52 = getpid();
-                  var2 = filter->var0.var2;
-                  var3 = filter->var0.var3;
-                  v55 = filter->var0.var4;
-                  var5 = filter->var0.var5;
-                  *buf = 136316418;
-                  v75 = "+[NEBloomFilter mmapFromFile:bloomFilter:]";
-                  v76 = 1024;
-                  v77 = v52;
-                  v78 = 1024;
-                  *v79 = var2;
-                  *&v79[4] = 1024;
-                  *&v79[6] = var3;
-                  *&v79[10] = 1024;
-                  *&v79[12] = v55;
-                  *&v79[16] = 1024;
-                  *&v79[18] = var5;
-                  _os_log_debug_impl(&dword_1C0DA5000, v25, OS_LOG_TYPE_DEBUG, "%s: NEBloomFilter - <pid %d> read from mmap <numberOfBits %d numberOfHashes %d murmurSeed %d bitmapSize %d>", buf, 0x2Au);
-                }
-
-                v26 = 0;
-                LODWORD(v27) = 0;
-                v28 = 32;
-              }
-
-              else
-              {
-                v27 = *(v20 + 8);
-                if (v27)
-                {
-                  v26 = v20 + 36;
-                }
-
-                else
-                {
-                  v26 = 0;
-                }
-
-                if (v27)
-                {
-                  v25 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytes:v20 + 36 length:v27];
-                }
-
-                else
-                {
-                  v25 = 0;
-                }
-
-                v41 = ne_log_obj();
-                if (os_log_type_enabled(v41, OS_LOG_TYPE_DEBUG))
-                {
-                  v57 = getpid();
-                  v58 = filter->var0.var2;
-                  v59 = filter->var0.var3;
-                  v60 = filter->var0.var4;
-                  v61 = filter->var0.var5;
-                  *buf = 136316930;
-                  v75 = "+[NEBloomFilter mmapFromFile:bloomFilter:]";
-                  v76 = 1024;
-                  v77 = v57;
-                  v78 = 1024;
-                  *v79 = v58;
-                  *&v79[4] = 1024;
-                  *&v79[6] = v59;
-                  *&v79[10] = 1024;
-                  *&v79[12] = v60;
-                  *&v79[16] = 1024;
-                  *&v79[18] = v61;
-                  *&v79[22] = 1024;
-                  v80 = v27;
-                  v81 = 2112;
-                  v82 = v25;
-                  _os_log_debug_impl(&dword_1C0DA5000, v41, OS_LOG_TYPE_DEBUG, "%s: NEBloomFilter - <pid %d> read from mmap <numberOfBits %d numberOfHashes %d murmurSeed %d bitmapSize %d tagSize %d><%@>", buf, 0x3Au);
-                }
-
-                v28 = v27 + 36;
-              }
-
-              v42 = filter->var0.var5 + v28;
-              if (v63.st_size == v42)
-              {
-                filter->var1 = v27;
-                filter->var2 = v26;
-                filter->var3 = v20 + v28;
-                if (var4)
-                {
-LABEL_61:
-                  filter->var7 = v11;
-                  filter->var4 = var4;
-                  filter->var5 = v20;
-                  filter->var6 = v42;
-                  close(v10);
-                  v12 = ne_log_obj();
-                  if (!os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
-                  {
-                    goto LABEL_15;
-                  }
-
-                  v46 = getpid();
-                  *buf = 136315650;
-                  v75 = "+[NEBloomFilter mmapFromFile:bloomFilter:]";
-                  v76 = 1024;
-                  v77 = v46;
-                  v78 = 2080;
-                  *v79 = file;
-                  v39 = "%s: NEBloomFilter - <pid %d> update done for %s";
-                  goto LABEL_52;
-                }
-
-                v43 = strlen(file);
-                v44 = v43;
-                v45 = malloc_type_malloc(((v43 << 32) + 0x100000000) >> 32, 0x100004077774924uLL);
-                if (v45)
-                {
-                  var4 = v45;
-                  strncpy(v45, file, v44)[v44] = 0;
-                  LODWORD(v42) = v63.st_size;
-                  goto LABEL_61;
-                }
-
-                v50 = *__error();
-                if (strerror_r(v50, buf, 0x80uLL))
-                {
-                  buf[0] = 0;
-                }
-
-                v51 = ne_log_obj();
-                if (os_log_type_enabled(v51, OS_LOG_TYPE_FAULT))
-                {
-                  v62 = getpid();
-                  *v64 = 136316162;
-                  v65 = "+[NEBloomFilter mmapFromFile:bloomFilter:]";
-                  v66 = 1024;
-                  v67 = v62;
-                  v68 = 2080;
-                  fileCopy4 = file;
-                  v70 = 1024;
-                  v71 = v50;
-                  v72 = 2080;
-                  v73 = buf;
-                  _os_log_fault_impl(&dword_1C0DA5000, v51, OS_LOG_TYPE_FAULT, "%s: NEBloomFilter - <pid %d> mmap failed to malloc for filename %s: [%d] %s", v64, 0x2Cu);
-                }
-
-LABEL_67:
-                munmap(v20, v63.st_size);
-                *&filter->var0.var0 = 0u;
-                *&filter->var0.var2 = 0u;
-                *&filter->var1 = 0u;
-                *&filter->var3 = 0u;
-                *&filter->var5 = 0u;
-                filter->var7 = 0.0;
-                goto LABEL_41;
-              }
-
-              v30 = ne_log_obj();
-              if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
-              {
-                v47 = getpid();
-                v48 = filter->var0.var5;
-                *buf = 136316162;
-                v75 = "+[NEBloomFilter mmapFromFile:bloomFilter:]";
-                v76 = 1024;
-                v77 = v47;
-                v78 = 1024;
-                *v79 = v63.st_size;
-                *&v79[4] = 1024;
-                *&v79[6] = v48;
-                *&v79[10] = 1024;
-                *&v79[12] = v28;
-                v33 = "%s: NEBloomFilter - <pid %d> invalid mmap file size <%d> <bitmapSize %d data_memory_offset %d>";
-                v34 = v30;
-                v35 = 36;
-                goto LABEL_65;
-              }
-
-LABEL_66:
-
-              goto LABEL_67;
+              v51 = getpid();
+              var2 = filter->var0.var2;
+              var3 = filter->var0.var3;
+              v54 = filter->var0.var4;
+              var5 = filter->var0.var5;
+              *buf = 136316418;
+              v74 = "+[NEBloomFilter mmapFromFile:bloomFilter:]";
+              v75 = 1024;
+              v76 = v51;
+              v77 = 1024;
+              *v78 = var2;
+              *&v78[4] = 1024;
+              *&v78[6] = var3;
+              *&v78[10] = 1024;
+              *&v78[12] = v54;
+              *&v78[16] = 1024;
+              *&v78[18] = var5;
+              _os_log_debug_impl(&dword_1C0DA5000, v24, OS_LOG_TYPE_DEBUG, "%s: NEBloomFilter - <pid %d> read from mmap <numberOfBits %d numberOfHashes %d murmurSeed %d bitmapSize %d>", buf, 0x2Au);
             }
 
-            v30 = ne_log_obj();
-            if (!os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
-            {
-              goto LABEL_66;
-            }
-
-            v36 = getpid();
-            v37 = filter->var0.var1;
-            *buf = 136316162;
-            v75 = "+[NEBloomFilter mmapFromFile:bloomFilter:]";
-            v76 = 1024;
-            v77 = v36;
-            v78 = 2048;
-            *v79 = v37;
-            *&v79[8] = 1024;
-            *&v79[10] = 1;
-            *&v79[14] = 1024;
-            *&v79[16] = 2;
-            v33 = "%s: NEBloomFilter - <pid %d> format version (%llu) does not equal any valid version (%u or %u)";
-            v34 = v30;
-            v35 = 40;
+            v25 = 0;
+            LODWORD(v26) = 0;
+            v27 = 32;
           }
 
           else
           {
-            v30 = ne_log_obj();
-            if (!os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+            v26 = *(v19 + 8);
+            if (v26)
             {
-              goto LABEL_66;
+              v25 = v19 + 36;
             }
 
-            v31 = getpid();
-            var0 = filter->var0.var0;
-            *buf = 136315906;
-            v75 = "+[NEBloomFilter mmapFromFile:bloomFilter:]";
-            v76 = 1024;
-            v77 = v31;
-            v78 = 2048;
-            *v79 = var0;
-            *&v79[8] = 2048;
-            *&v79[10] = 0x5061747269636961;
-            v33 = "%s: NEBloomFilter - <pid %d> magic number (%llx) does not equal the expected value (%llx)";
-            v34 = v30;
-            v35 = 38;
+            else
+            {
+              v25 = 0;
+            }
+
+            if (v26)
+            {
+              v24 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytes:v19 + 36 length:v26];
+            }
+
+            else
+            {
+              v24 = 0;
+            }
+
+            v40 = ne_log_obj();
+            if (os_log_type_enabled(v40, OS_LOG_TYPE_DEBUG))
+            {
+              v56 = getpid();
+              v57 = filter->var0.var2;
+              v58 = filter->var0.var3;
+              v59 = filter->var0.var4;
+              v60 = filter->var0.var5;
+              *buf = 136316930;
+              v74 = "+[NEBloomFilter mmapFromFile:bloomFilter:]";
+              v75 = 1024;
+              v76 = v56;
+              v77 = 1024;
+              *v78 = v57;
+              *&v78[4] = 1024;
+              *&v78[6] = v58;
+              *&v78[10] = 1024;
+              *&v78[12] = v59;
+              *&v78[16] = 1024;
+              *&v78[18] = v60;
+              *&v78[22] = 1024;
+              v79 = v26;
+              v80 = 2112;
+              v81 = v24;
+              _os_log_debug_impl(&dword_1C0DA5000, v40, OS_LOG_TYPE_DEBUG, "%s: NEBloomFilter - <pid %d> read from mmap <numberOfBits %d numberOfHashes %d murmurSeed %d bitmapSize %d tagSize %d><%@>", buf, 0x3Au);
+            }
+
+            v27 = v26 + 36;
+          }
+
+          v41 = filter->var0.var5 + v27;
+          if (v62.st_size == v41)
+          {
+            filter->var1 = v26;
+            filter->var2 = v25;
+            filter->var3 = v19 + v27;
+            if (var4)
+            {
+LABEL_60:
+              filter->var7 = v10;
+              filter->var4 = var4;
+              filter->var5 = v19;
+              filter->var6 = v41;
+              close(v9);
+              v11 = ne_log_obj();
+              if (!os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+              {
+                goto LABEL_14;
+              }
+
+              v45 = getpid();
+              *buf = 136315650;
+              v74 = "+[NEBloomFilter mmapFromFile:bloomFilter:]";
+              v75 = 1024;
+              v76 = v45;
+              v77 = 2080;
+              *v78 = file;
+              v38 = "%s: NEBloomFilter - <pid %d> update done for %s";
+              goto LABEL_51;
+            }
+
+            v42 = strlen(file);
+            v43 = v42;
+            v44 = malloc_type_malloc(((v42 << 32) + 0x100000000) >> 32, 0x100004077774924uLL);
+            if (v44)
+            {
+              var4 = v44;
+              strncpy(v44, file, v43)[v43] = 0;
+              LODWORD(v41) = v62.st_size;
+              goto LABEL_60;
+            }
+
+            v49 = *__error();
+            if (strerror_r(v49, buf, 0x80uLL))
+            {
+              buf[0] = 0;
+            }
+
+            v50 = ne_log_obj();
+            if (os_log_type_enabled(v50, OS_LOG_TYPE_FAULT))
+            {
+              v61 = getpid();
+              *v63 = 136316162;
+              v64 = "+[NEBloomFilter mmapFromFile:bloomFilter:]";
+              v65 = 1024;
+              v66 = v61;
+              v67 = 2080;
+              fileCopy4 = file;
+              v69 = 1024;
+              v70 = v49;
+              v71 = 2080;
+              v72 = buf;
+              _os_log_fault_impl(&dword_1C0DA5000, v50, OS_LOG_TYPE_FAULT, "%s: NEBloomFilter - <pid %d> mmap failed to malloc for filename %s: [%d] %s", v63, 0x2Cu);
+            }
+
+LABEL_66:
+            munmap(v19, v62.st_size);
+            *&filter->var0.var0 = 0u;
+            *&filter->var0.var2 = 0u;
+            *&filter->var1 = 0u;
+            *&filter->var3 = 0u;
+            *&filter->var5 = 0u;
+            filter->var7 = 0.0;
+            goto LABEL_40;
+          }
+
+          v29 = ne_log_obj();
+          if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+          {
+            v46 = getpid();
+            v47 = filter->var0.var5;
+            *buf = 136316162;
+            v74 = "+[NEBloomFilter mmapFromFile:bloomFilter:]";
+            v75 = 1024;
+            v76 = v46;
+            v77 = 1024;
+            *v78 = v62.st_size;
+            *&v78[4] = 1024;
+            *&v78[6] = v47;
+            *&v78[10] = 1024;
+            *&v78[12] = v27;
+            v32 = "%s: NEBloomFilter - <pid %d> invalid mmap file size <%d> <bitmapSize %d data_memory_offset %d>";
+            v33 = v29;
+            v34 = 36;
+            goto LABEL_64;
           }
 
 LABEL_65:
-          _os_log_error_impl(&dword_1C0DA5000, v34, OS_LOG_TYPE_ERROR, v33, buf, v35);
+
           goto LABEL_66;
         }
 
-        v29 = *__error();
-        if (strerror_r(v29, buf, 0x80uLL))
+        v29 = ne_log_obj();
+        if (!os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
         {
-          buf[0] = 0;
+          goto LABEL_65;
         }
 
-        v15 = ne_log_obj();
-        if (!os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
-        {
-          goto LABEL_40;
-        }
-
-        v49 = getpid();
-        *v64 = 136316162;
-        v65 = "+[NEBloomFilter mmapFromFile:bloomFilter:]";
-        v66 = 1024;
-        v67 = v49;
-        v68 = 2080;
-        fileCopy4 = file;
-        v70 = 1024;
-        v71 = v29;
-        v72 = 2080;
-        v73 = buf;
-        v17 = "%s: NEBloomFilter - <pid %d> mmap failed for file %s: [%d] %s";
+        v35 = getpid();
+        v36 = filter->var0.var1;
+        *buf = 136316162;
+        v74 = "+[NEBloomFilter mmapFromFile:bloomFilter:]";
+        v75 = 1024;
+        v76 = v35;
+        v77 = 2048;
+        *v78 = v36;
+        *&v78[8] = 1024;
+        *&v78[10] = 1;
+        *&v78[14] = 1024;
+        *&v78[16] = 2;
+        v32 = "%s: NEBloomFilter - <pid %d> format version (%llu) does not equal any valid version (%u or %u)";
+        v33 = v29;
+        v34 = 40;
       }
 
-      _os_log_fault_impl(&dword_1C0DA5000, v15, OS_LOG_TYPE_FAULT, v17, v64, 0x2Cu);
-LABEL_40:
+      else
+      {
+        v29 = ne_log_obj();
+        if (!os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+        {
+          goto LABEL_65;
+        }
 
-LABEL_41:
-      close(v10);
-      goto LABEL_6;
+        v30 = getpid();
+        var0 = filter->var0.var0;
+        *buf = 136315906;
+        v74 = "+[NEBloomFilter mmapFromFile:bloomFilter:]";
+        v75 = 1024;
+        v76 = v30;
+        v77 = 2048;
+        *v78 = var0;
+        *&v78[8] = 2048;
+        *&v78[10] = 0x5061747269636961;
+        v32 = "%s: NEBloomFilter - <pid %d> magic number (%llx) does not equal the expected value (%llx)";
+        v33 = v29;
+        v34 = 38;
+      }
+
+LABEL_64:
+      _os_log_error_impl(&dword_1C0DA5000, v33, OS_LOG_TYPE_ERROR, v32, buf, v34);
+      goto LABEL_65;
     }
+
+    v28 = *__error();
+    if (strerror_r(v28, buf, 0x80uLL))
+    {
+      buf[0] = 0;
+    }
+
+    v14 = ne_log_obj();
+    if (!os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
+    {
+      goto LABEL_39;
+    }
+
+    v48 = getpid();
+    *v63 = 136316162;
+    v64 = "+[NEBloomFilter mmapFromFile:bloomFilter:]";
+    v65 = 1024;
+    v66 = v48;
+    v67 = 2080;
+    fileCopy4 = file;
+    v69 = 1024;
+    v70 = v28;
+    v71 = 2080;
+    v72 = buf;
+    v16 = "%s: NEBloomFilter - <pid %d> mmap failed for file %s: [%d] %s";
+LABEL_23:
+    _os_log_fault_impl(&dword_1C0DA5000, v14, OS_LOG_TYPE_FAULT, v16, v63, 0x2Cu);
+LABEL_39:
+
+LABEL_40:
+    close(v9);
+    return 0;
   }
 
-  v6 = ne_log_obj();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  close(v9);
+  v11 = ne_log_obj();
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
+    v37 = getpid();
     *buf = 136315650;
-    v75 = "+[NEBloomFilter mmapFromFile:bloomFilter:]";
-    v76 = 1024;
-    v77 = getpid();
-    v78 = 2080;
-    *v79 = file;
-    _os_log_impl(&dword_1C0DA5000, v6, OS_LOG_TYPE_DEFAULT, "%s: NEBloomFilter - <pid %d> No read permission to file %s", buf, 0x1Cu);
+    v74 = "+[NEBloomFilter mmapFromFile:bloomFilter:]";
+    v75 = 1024;
+    v76 = v37;
+    v77 = 2080;
+    *v78 = file;
+    v38 = "%s: NEBloomFilter - <pid %d> no update needed for %s";
+LABEL_51:
+    _os_log_debug_impl(&dword_1C0DA5000, v11, OS_LOG_TYPE_DEBUG, v38, buf, 0x1Cu);
   }
 
-LABEL_5:
+LABEL_14:
 
-LABEL_6:
-  result = 0;
-LABEL_7:
-  v8 = *MEMORY[0x1E69E9840];
-  return result;
+  return 1;
 }
 
 + (char)mmapToFile:(const char *)file data:(char *)data dataLength:(unsigned int)length numberOfBits:(unsigned int)bits numberOfHashes:(unsigned int)hashes murmurSeed:(unsigned int)seed tag:(id)tag
 {
-  *(&v54[12] + 2) = *MEMORY[0x1E69E9840];
+  *(&v53[12] + 2) = *MEMORY[0x1E69E9840];
   tagCopy = tag;
   v16 = open(file, 518, 420);
   if (v16 < 0)
@@ -690,17 +722,17 @@ LABEL_7:
     v19 = ne_log_obj();
     if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
-      v38 = *__error();
-      v39 = __error();
-      v40 = strerror(*v39);
+      v37 = *__error();
+      v38 = __error();
+      v39 = strerror(*v38);
       *buf = 136315906;
-      v48 = "+[NEBloomFilter mmapToFile:data:dataLength:numberOfBits:numberOfHashes:murmurSeed:tag:]";
-      v49 = 2080;
+      v47 = "+[NEBloomFilter mmapToFile:data:dataLength:numberOfBits:numberOfHashes:murmurSeed:tag:]";
+      v48 = 2080;
       fileCopy3 = file;
-      v51 = 1024;
-      v52 = v38;
-      v53 = 2080;
-      v54[0] = v40;
+      v50 = 1024;
+      v51 = v37;
+      v52 = 2080;
+      v53[0] = v39;
       _os_log_error_impl(&dword_1C0DA5000, v19, OS_LOG_TYPE_ERROR, "%s: NEBloomFilter - failed to open mmap file %s <errno %d - %s>", buf, 0x26u);
     }
 
@@ -732,29 +764,29 @@ LABEL_11:
       goto LABEL_12;
     }
 
-    v35 = *__error();
-    v36 = __error();
-    v37 = strerror(*v36);
+    v34 = *__error();
+    v35 = __error();
+    v36 = strerror(*v35);
     *buf = 136316162;
-    v48 = "+[NEBloomFilter mmapToFile:data:dataLength:numberOfBits:numberOfHashes:murmurSeed:tag:]";
-    v49 = 2080;
+    v47 = "+[NEBloomFilter mmapToFile:data:dataLength:numberOfBits:numberOfHashes:murmurSeed:tag:]";
+    v48 = 2080;
     fileCopy3 = file;
-    v51 = 1024;
-    v52 = v20;
-    v53 = 1024;
-    LODWORD(v54[0]) = v35;
-    WORD2(v54[0]) = 2080;
-    *(v54 + 6) = v37;
-    v31 = "%s: NEBloomFilter - failed to ftruncate mmap file <%s> to %d bytes <errno %d - %s>";
-    v32 = v21;
-    v33 = 44;
+    v50 = 1024;
+    v51 = v20;
+    v52 = 1024;
+    LODWORD(v53[0]) = v34;
+    WORD2(v53[0]) = 2080;
+    *(v53 + 6) = v36;
+    v30 = "%s: NEBloomFilter - failed to ftruncate mmap file <%s> to %d bytes <errno %d - %s>";
+    v31 = v21;
+    v32 = 44;
 LABEL_31:
-    _os_log_error_impl(&dword_1C0DA5000, v32, OS_LOG_TYPE_ERROR, v31, buf, v33);
+    _os_log_error_impl(&dword_1C0DA5000, v31, OS_LOG_TYPE_ERROR, v30, buf, v32);
     goto LABEL_10;
   }
 
-  v25 = mmap(0, v20, 3, 1, v17, 0);
-  if (v25 == -1)
+  v24 = mmap(0, v20, 3, 1, v17, 0);
+  if (v24 == -1)
   {
     v21 = ne_log_obj();
     if (!os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
@@ -763,84 +795,143 @@ LABEL_31:
     }
 
     *buf = 136315906;
-    v48 = "+[NEBloomFilter mmapToFile:data:dataLength:numberOfBits:numberOfHashes:murmurSeed:tag:]";
-    v49 = 2080;
+    v47 = "+[NEBloomFilter mmapToFile:data:dataLength:numberOfBits:numberOfHashes:murmurSeed:tag:]";
+    v48 = 2080;
     fileCopy3 = file;
-    v51 = 1024;
-    v52 = v17;
-    v53 = 1024;
-    LODWORD(v54[0]) = v20;
-    v31 = "%s: NEBloomFilter - Failed mmap file <%s> <fd %d, size %d>";
-    v32 = v21;
-    v33 = 34;
+    v50 = 1024;
+    v51 = v17;
+    v52 = 1024;
+    LODWORD(v53[0]) = v20;
+    v30 = "%s: NEBloomFilter - Failed mmap file <%s> <fd %d, size %d>";
+    v31 = v21;
+    v32 = 34;
     goto LABEL_31;
   }
 
-  v26 = v25;
-  *v25 = xmmword_1C0DDA9C0;
-  *(v25 + 4) = bits;
-  *(v25 + 5) = hashes;
-  *(v25 + 6) = seed;
-  *(v25 + 7) = length;
-  if (tagCopy && [tagCopy length] && (objc_msgSend(tagCopy, "dataUsingEncoding:", 4), (v27 = objc_claimAutoreleasedReturnValue()) != 0))
+  v25 = v24;
+  *v24 = xmmword_1C0DDA9C0;
+  *(v24 + 4) = bits;
+  *(v24 + 5) = hashes;
+  *(v24 + 6) = seed;
+  *(v24 + 7) = length;
+  if (tagCopy && [tagCopy length] && (objc_msgSend(tagCopy, "dataUsingEncoding:", 4), (v26 = objc_claimAutoreleasedReturnValue()) != 0))
   {
-    v28 = v27;
-    v29 = [v27 length];
-    *(v26 + 8) = v29;
-    v22 = v26 + 36;
-    if (v29)
+    v27 = v26;
+    v28 = [v26 length];
+    *(v25 + 8) = v28;
+    v22 = v25 + 36;
+    if (v28)
     {
-      memcpy(v26 + 36, [v28 bytes], v29);
-      v22 += v29;
+      memcpy(v25 + 36, [v27 bytes], v28);
+      v22 += v28;
     }
   }
 
   else
   {
-    v28 = 0;
-    *(v26 + 8) = 0;
-    v22 = v26 + 36;
+    v27 = 0;
+    *(v25 + 8) = 0;
+    v22 = v25 + 36;
   }
 
   memcpy(v22, data, length);
-  if (msync(v26, v20, 16) == -1)
+  if (msync(v25, v20, 16) == -1)
   {
-    v34 = *__error();
-    if (strerror_r(v34, buf, 0x80uLL))
+    v33 = *__error();
+    if (strerror_r(v33, buf, 0x80uLL))
     {
       buf[0] = 0;
     }
 
-    v30 = ne_log_obj();
-    if (os_log_type_enabled(v30, OS_LOG_TYPE_FAULT))
+    v29 = ne_log_obj();
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_FAULT))
     {
-      *v41 = 136315650;
-      v42 = "+[NEBloomFilter mmapToFile:data:dataLength:numberOfBits:numberOfHashes:murmurSeed:tag:]";
-      v43 = 1024;
-      v44 = v34;
-      v45 = 2080;
-      v46 = buf;
-      _os_log_fault_impl(&dword_1C0DA5000, v30, OS_LOG_TYPE_FAULT, "%s: NEBloomFilter - Failed msync: [%d] %s", v41, 0x1Cu);
+      *v40 = 136315650;
+      v41 = "+[NEBloomFilter mmapToFile:data:dataLength:numberOfBits:numberOfHashes:murmurSeed:tag:]";
+      v42 = 1024;
+      v43 = v33;
+      v44 = 2080;
+      v45 = buf;
+      _os_log_fault_impl(&dword_1C0DA5000, v29, OS_LOG_TYPE_FAULT, "%s: NEBloomFilter - Failed msync: [%d] %s", v40, 0x1Cu);
     }
   }
 
   else
   {
-    v30 = ne_log_obj();
-    if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
+    v29 = ne_log_obj();
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136315138;
-      v48 = "+[NEBloomFilter mmapToFile:data:dataLength:numberOfBits:numberOfHashes:murmurSeed:tag:]";
-      _os_log_debug_impl(&dword_1C0DA5000, v30, OS_LOG_TYPE_DEBUG, "%s: NEBloomFilter - done msync", buf, 0xCu);
+      v47 = "+[NEBloomFilter mmapToFile:data:dataLength:numberOfBits:numberOfHashes:murmurSeed:tag:]";
+      _os_log_debug_impl(&dword_1C0DA5000, v29, OS_LOG_TYPE_DEBUG, "%s: NEBloomFilter - done msync", buf, 0xCu);
     }
   }
 
-  munmap(v26, v20);
+  munmap(v25, v20);
   close(v17);
 
 LABEL_12:
-  v23 = *MEMORY[0x1E69E9840];
   return v22;
+}
+
++ (BOOL)containsWithBitmap:(char *)bitmap numberOfBits:(unsigned int)bits numberOfHashes:(unsigned int)hashes murmurSeed:(unsigned int)seed value:(const char *)value
+{
+  v8 = *&seed;
+  v10 = *&bits;
+  v12 = [NEFNVHash hashWithString:value];
+  v13 = [NEMurmurHash3 hashWithString:value seed:v8];
+  if (hashes)
+  {
+    v14 = v13;
+    v15 = [NEBitVector getBitAtIndexWithBitmap:bitmap bitCount:v10 index:v12 % v10];
+    if (v15)
+    {
+      v16 = v14 + v12;
+      v17 = 1;
+      while (hashes != v17)
+      {
+        v18 = [NEBitVector getBitAtIndexWithBitmap:bitmap bitCount:v10 index:v16 % v10];
+        ++v17;
+        v16 += v14;
+        if (!v18)
+        {
+          hashesCopy = v17 - 1;
+          goto LABEL_9;
+        }
+      }
+
+      hashesCopy = hashes;
+LABEL_9:
+      LOBYTE(v15) = hashesCopy >= hashes;
+    }
+  }
+
+  else
+  {
+    LOBYTE(v15) = 1;
+  }
+
+  return v15;
+}
+
++ (void)insertWithBitmap:(char *)bitmap numberOfBits:(unsigned int)bits numberOfHashes:(unsigned int)hashes murmurSeed:(unsigned int)seed value:(const char *)value
+{
+  v8 = *&seed;
+  v10 = *&bits;
+  v12 = [NEFNVHash hashWithString:value];
+  v13 = [NEMurmurHash3 hashWithString:value seed:v8];
+  if (hashes)
+  {
+    v14 = v13;
+    do
+    {
+      [NEBitVector setBitAtIndexWithBitmap:bitmap bitCount:v10 index:v12 % v10 toValue:1];
+      v12 += v14;
+      --hashes;
+    }
+
+    while (hashes);
+  }
 }
 
 + (double)getFalsePositiveProbability:(unsigned int)probability numberOfBits:(unsigned int)bits numberOfHashes:(unsigned int)hashes
@@ -851,21 +942,21 @@ LABEL_12:
   return pow(v6, hashesCopy);
 }
 
-+ (uint64_t)mmapCleanup:(uint64_t)cleanup
++ (double)mmapCleanup:(uint64_t)cleanup
 {
-  v12 = *MEMORY[0x1E69E9840];
-  result = objc_opt_self();
+  v11 = *MEMORY[0x1E69E9840];
+  objc_opt_self();
   if (*(a2 + 64))
   {
     v4 = ne_log_obj();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {
-      v7 = *(a2 + 56);
-      v8 = 136315394;
-      v9 = "+[NEBloomFilter mmapCleanup:]";
-      v10 = 2080;
-      v11 = v7;
-      _os_log_debug_impl(&dword_1C0DA5000, v4, OS_LOG_TYPE_DEBUG, "%s: Cleaning up bloom filter for %s", &v8, 0x16u);
+      v6 = *(a2 + 56);
+      v7 = 136315394;
+      v8 = "+[NEBloomFilter mmapCleanup:]";
+      v9 = 2080;
+      v10 = v6;
+      _os_log_debug_impl(&dword_1C0DA5000, v4, OS_LOG_TYPE_DEBUG, "%s: Cleaning up bloom filter for %s", &v7, 0x16u);
     }
 
     v5 = *(a2 + 56);
@@ -874,7 +965,8 @@ LABEL_12:
       free(v5);
     }
 
-    result = munmap(*(a2 + 64), *(a2 + 72));
+    munmap(*(a2 + 64), *(a2 + 72));
+    result = 0.0;
     *a2 = 0u;
     *(a2 + 16) = 0u;
     *(a2 + 32) = 0u;
@@ -883,7 +975,6 @@ LABEL_12:
     *(a2 + 80) = 0;
   }
 
-  v6 = *MEMORY[0x1E69E9840];
   return result;
 }
 

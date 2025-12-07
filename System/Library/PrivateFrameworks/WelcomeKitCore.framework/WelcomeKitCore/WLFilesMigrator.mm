@@ -73,7 +73,7 @@
 
 - (void)importRecordData:(id)data summary:(id)summary account:(id)account completion:(id)completion
 {
-  v70[1] = *MEMORY[0x277D85DE8];
+  v69[1] = *MEMORY[0x277D85DE8];
   summaryCopy = summary;
   completionCopy = completion;
   if ([summaryCopy itemSize] && self->_rootPath)
@@ -87,13 +87,13 @@
 
       if ([pathComponents count] > 1)
       {
-        v58 = 0u;
-        v59 = 0u;
-        v56 = 0u;
         v57 = 0u;
-        v53 = pathComponents;
+        v58 = 0u;
+        v55 = 0u;
+        v56 = 0u;
+        v52 = pathComponents;
         v21 = pathComponents;
-        v22 = [v21 countByEnumeratingWithState:&v56 objects:v66 count:16];
+        v22 = [v21 countByEnumeratingWithState:&v55 objects:v65 count:16];
         if (!v22)
         {
 LABEL_20:
@@ -113,12 +113,12 @@ LABEL_20:
           defaultManager = [MEMORY[0x277CCAA00] defaultManager];
           v34 = [defaultManager fileExistsAtPath:stringByDeletingLastPathComponent];
 
-          if ((v34 & 1) != 0 || ([MEMORY[0x277CCAA00] defaultManager], v35 = objc_claimAutoreleasedReturnValue(), v55 = 0, objc_msgSend(v35, "createDirectoryAtPath:withIntermediateDirectories:attributes:error:", stringByDeletingLastPathComponent, 1, 0, &v55), v36 = v55, v35, !v36))
+          if ((v34 & 1) != 0 || ([MEMORY[0x277CCAA00] defaultManager], v35 = objc_claimAutoreleasedReturnValue(), v54 = 0, objc_msgSend(v35, "createDirectoryAtPath:withIntermediateDirectories:attributes:error:", stringByDeletingLastPathComponent, 1, 0, &v54), v36 = v54, v35, !v36))
           {
             defaultManager2 = [MEMORY[0x277CCAA00] defaultManager];
             v45 = [defaultManager2 fileExistsAtPath:v31];
 
-            if ((v45 & 1) != 0 || ([MEMORY[0x277CCAA00] defaultManager], v46 = objc_claimAutoreleasedReturnValue(), v54 = 0, objc_msgSend(v46, "moveItemAtPath:toPath:error:", dataFilePath, v31, &v54), v36 = v54, v46, !v36))
+            if ((v45 & 1) != 0 || ([MEMORY[0x277CCAA00] defaultManager], v46 = objc_claimAutoreleasedReturnValue(), v53 = 0, objc_msgSend(v46, "moveItemAtPath:toPath:error:", dataFilePath, v31, &v53), v36 = v53, v46, !v36))
             {
               if (completionCopy)
               {
@@ -135,9 +135,9 @@ LABEL_20:
               {
                 v47 = MEMORY[0x277CCA9B8];
                 v48 = *MEMORY[0x277D7B8F8];
-                v60 = *MEMORY[0x277CCA450];
-                v61 = @"NSFileManager could not move a file.";
-                v49 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v61 forKeys:&v60 count:1];
+                v59 = *MEMORY[0x277CCA450];
+                v60 = @"NSFileManager could not move a file.";
+                v49 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v60 forKeys:&v59 count:1];
                 v50 = [v47 errorWithDomain:v48 code:1 userInfo:v49];
 
                 (completionCopy)[2](completionCopy, 1, v50);
@@ -152,42 +152,42 @@ LABEL_20:
             {
               v37 = MEMORY[0x277CCA9B8];
               v38 = *MEMORY[0x277D7B8F8];
-              v62 = *MEMORY[0x277CCA450];
-              v63 = @"NSFileManager could not create a directory with intermediate directories.";
-              v39 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v63 forKeys:&v62 count:1];
+              v61 = *MEMORY[0x277CCA450];
+              v62 = @"NSFileManager could not create a directory with intermediate directories.";
+              v39 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v62 forKeys:&v61 count:1];
               v40 = [v37 errorWithDomain:v38 code:1 userInfo:v39];
 
               (completionCopy)[2](completionCopy, 0, v40);
             }
           }
 
-          pathComponents = v53;
+          pathComponents = v52;
 
           goto LABEL_35;
         }
 
         v23 = v22;
-        v24 = *v57;
-        v52 = summaryCopy;
+        v24 = *v56;
+        v51 = summaryCopy;
 LABEL_13:
         v25 = 0;
         while (1)
         {
-          if (*v57 != v24)
+          if (*v56 != v24)
           {
             objc_enumerationMutation(v21);
           }
 
-          v26 = *(*(&v56 + 1) + 8 * v25);
-          if ([v26 isEqualToString:{@"..", v52}] & 1) != 0 || (objc_msgSend(v26, "isEqualToString:", @"~"))
+          v26 = *(*(&v55 + 1) + 8 * v25);
+          if ([v26 isEqualToString:{@"..", v51}] & 1) != 0 || (objc_msgSend(v26, "isEqualToString:", @"~"))
           {
             break;
           }
 
           if (v23 == ++v25)
           {
-            v23 = [v21 countByEnumeratingWithState:&v56 objects:v66 count:16];
-            summaryCopy = v52;
+            v23 = [v21 countByEnumeratingWithState:&v55 objects:v65 count:16];
+            summaryCopy = v51;
             if (v23)
             {
               goto LABEL_13;
@@ -198,8 +198,8 @@ LABEL_13:
         }
 
         _WLLog();
-        summaryCopy = v52;
-        pathComponents = v53;
+        summaryCopy = v51;
+        pathComponents = v52;
         if (!completionCopy)
         {
           goto LABEL_36;
@@ -207,9 +207,9 @@ LABEL_13:
 
         v41 = MEMORY[0x277CCA9B8];
         v42 = *MEMORY[0x277D7B900];
-        v64 = *MEMORY[0x277CCA450];
-        v65 = @"WLFilesMigrator cannot move a file to a restricted path.";
-        v43 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v65 forKeys:&v64 count:1];
+        v63 = *MEMORY[0x277CCA450];
+        v64 = @"WLFilesMigrator cannot move a file to a restricted path.";
+        v43 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v64 forKeys:&v63 count:1];
         dataFilePath = [v41 errorWithDomain:v42 code:6 userInfo:v43];
       }
 
@@ -225,9 +225,9 @@ LABEL_36:
 
         v13 = MEMORY[0x277CCA9B8];
         v14 = *MEMORY[0x277D7B900];
-        v67 = *MEMORY[0x277CCA450];
-        v68 = @"WLFilesMigrator cannot move a file to a restricted path.";
-        v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v68 forKeys:&v67 count:1];
+        v66 = *MEMORY[0x277CCA450];
+        v67 = @"WLFilesMigrator cannot move a file to a restricted path.";
+        v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v67 forKeys:&v66 count:1];
         dataFilePath = [v13 errorWithDomain:v14 code:6 userInfo:v15];
       }
 
@@ -242,9 +242,9 @@ LABEL_35:
     {
       v17 = MEMORY[0x277CCA9B8];
       v18 = *MEMORY[0x277D7B8F8];
-      v69 = *MEMORY[0x277CCA450];
-      v70[0] = @"Bucket is not specified and it can not import the file.";
-      v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v70 forKeys:&v69 count:1];
+      v68 = *MEMORY[0x277CCA450];
+      v69[0] = @"Bucket is not specified and it can not import the file.";
+      v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v69 forKeys:&v68 count:1];
       v20 = [v17 errorWithDomain:v18 code:1 userInfo:v19];
 
       (completionCopy)[2](completionCopy, 0, v20);
@@ -261,8 +261,6 @@ LABEL_35:
   }
 
 LABEL_37:
-
-  v51 = *MEMORY[0x277D85DE8];
 }
 
 - (WLFeaturePayload)featurePayload

@@ -287,7 +287,7 @@ uint64_t __52__VCVirtualAVCaptureDevice_registerBlocksForService__block_invoke(u
   return 0;
 }
 
-uint64_t __52__VCVirtualAVCaptureDevice_registerBlocksForService__block_invoke_22(uint64_t a1)
+void *__52__VCVirtualAVCaptureDevice_registerBlocksForService__block_invoke_22(uint64_t a1)
 {
   result = [*(a1 + 40) orientation];
   *(*(a1 + 32) + 180) = result;
@@ -543,7 +543,7 @@ void __46__VCVirtualAVCaptureDevice_removeDeviceInput___block_invoke(uint64_t a1
   return v2;
 }
 
-uint64_t __40__VCVirtualAVCaptureDevice_deviceInputs__block_invoke(uint64_t a1)
+void *__40__VCVirtualAVCaptureDevice_deviceInputs__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 120) copy];
   *(*(*(a1 + 40) + 8) + 40) = result;
@@ -852,7 +852,7 @@ void __43__VCVirtualAVCaptureDevice_addDeviceInput___block_invoke_cold_1()
       OUTLINED_FUNCTION_3_45();
       OUTLINED_FUNCTION_5_9();
       OUTLINED_FUNCTION_4_39();
-      OUTLINED_FUNCTION_7_31(&dword_1DB56E000, v0, v1, " [%s] %s:%d Device input[%@] already added to device[%@]", v2, v3, v4, v5, v6);
+      OUTLINED_FUNCTION_7_31(&dword_1DB56E000, v0, v1, " [%s] %s:%d Device input[%@] already added to device[%@]", v2, v3, v4, v5);
     }
   }
 }
@@ -867,7 +867,7 @@ void __46__VCVirtualAVCaptureDevice_removeDeviceInput___block_invoke_cold_1()
       OUTLINED_FUNCTION_3_45();
       OUTLINED_FUNCTION_5_9();
       OUTLINED_FUNCTION_4_39();
-      OUTLINED_FUNCTION_7_31(&dword_1DB56E000, v0, v1, " [%s] %s:%d Device input[%@] does not exist for device[%@]", v2, v3, v4, v5, v6);
+      OUTLINED_FUNCTION_7_31(&dword_1DB56E000, v0, v1, " [%s] %s:%d Device input[%@] does not exist for device[%@]", v2, v3, v4, v5);
     }
   }
 }

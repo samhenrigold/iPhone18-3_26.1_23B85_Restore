@@ -431,19 +431,16 @@ LABEL_11:
 
 - (void)serverBaseURL
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   sourceURL = [a2 sourceURL];
+  v6 = HKSensitiveLogItem();
   v7 = HKSensitiveLogItem();
-  v8 = *a3;
-  v9 = HKSensitiveLogItem();
-  v11 = 138412546;
-  v12 = v7;
-  v13 = 2112;
-  v14 = v9;
-  _os_log_error_impl(&dword_2519FE000, selfCopy, OS_LOG_TYPE_ERROR, "Unexpected sourceURL «%@» on resource %@, cannot create serverBaseURL", &v11, 0x16u);
-
-  v10 = *MEMORY[0x277D85DE8];
+  v8 = 138412546;
+  v9 = v6;
+  v10 = 2112;
+  v11 = v7;
+  _os_log_error_impl(&dword_2519FE000, selfCopy, OS_LOG_TYPE_ERROR, "Unexpected sourceURL «%@» on resource %@, cannot create serverBaseURL", &v8, 0x16u);
 }
 
 @end

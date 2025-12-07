@@ -49,20 +49,20 @@
 
 - (AXSSMotionTrackingInputConfiguration)initWithPlistDictionary:(id)dictionary
 {
-  v43[2] = *MEMORY[0x1E69E9840];
+  v42[2] = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
-  v37 = 0;
-  v38 = &v37;
-  v39 = 0x3032000000;
-  v40 = __Block_byref_object_copy__0;
-  v41 = __Block_byref_object_dispose__0;
-  v42 = 0;
-  v31 = 0;
-  v32 = &v31;
-  v33 = 0x3032000000;
-  v34 = __Block_byref_object_copy__0;
-  v35 = __Block_byref_object_dispose__0;
   v36 = 0;
+  v37 = &v36;
+  v38 = 0x3032000000;
+  v39 = __Block_byref_object_copy__0;
+  v40 = __Block_byref_object_dispose__0;
+  v41 = 0;
+  v30 = 0;
+  v31 = &v30;
+  v32 = 0x3032000000;
+  v33 = __Block_byref_object_copy__0;
+  v34 = __Block_byref_object_dispose__0;
+  v35 = 0;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
@@ -72,12 +72,12 @@
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v30[0] = MEMORY[0x1E69E9820];
-      v30[1] = 3221225472;
-      v30[2] = __64__AXSSMotionTrackingInputConfiguration_initWithPlistDictionary___block_invoke;
-      v30[3] = &unk_1E8134D60;
-      v30[4] = &v37;
-      [v6 enumerateObjectsUsingBlock:v30];
+      v29[0] = MEMORY[0x1E69E9820];
+      v29[1] = 3221225472;
+      v29[2] = __64__AXSSMotionTrackingInputConfiguration_initWithPlistDictionary___block_invoke;
+      v29[3] = &unk_1E8134D60;
+      v29[4] = &v36;
+      [v6 enumerateObjectsUsingBlock:v29];
     }
 
     v7 = NSStringFromSelector(sel_allowedTrackingTypes);
@@ -85,32 +85,32 @@
 
     v9 = MEMORY[0x1E696ACD0];
     v10 = MEMORY[0x1E695DFD8];
-    v43[0] = objc_opt_class();
-    v43[1] = objc_opt_class();
-    v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v43 count:2];
+    v42[0] = objc_opt_class();
+    v42[1] = objc_opt_class();
+    v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v42 count:2];
     v12 = [v10 setWithArray:v11];
-    v29 = 0;
-    v13 = [v9 unarchivedObjectOfClasses:v12 fromData:v8 error:&v29];
-    v14 = v29;
+    v28 = 0;
+    v13 = [v9 unarchivedObjectOfClasses:v12 fromData:v8 error:&v28];
+    v14 = v28;
 
     if (!v14)
     {
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        if (!v32[5])
+        if (!v31[5])
         {
           v15 = [MEMORY[0x1E695DFA8] set];
-          v16 = v32[5];
-          v32[5] = v15;
+          v16 = v31[5];
+          v31[5] = v15;
         }
 
-        v28[0] = MEMORY[0x1E69E9820];
-        v28[1] = 3221225472;
-        v28[2] = __64__AXSSMotionTrackingInputConfiguration_initWithPlistDictionary___block_invoke_2;
-        v28[3] = &unk_1E8134D88;
-        v28[4] = &v31;
-        [v13 enumerateObjectsUsingBlock:v28];
+        v27[0] = MEMORY[0x1E69E9820];
+        v27[1] = 3221225472;
+        v27[2] = __64__AXSSMotionTrackingInputConfiguration_initWithPlistDictionary___block_invoke_2;
+        v27[3] = &unk_1E8134D88;
+        v27[4] = &v30;
+        [v13 enumerateObjectsUsingBlock:v27];
       }
     }
 
@@ -134,26 +134,25 @@
     bOOLValue = 0;
   }
 
-  v27.receiver = self;
-  v27.super_class = AXSSMotionTrackingInputConfiguration;
-  v20 = [(AXSSMotionTrackingInputConfiguration *)&v27 init];
+  v26.receiver = self;
+  v26.super_class = AXSSMotionTrackingInputConfiguration;
+  v20 = [(AXSSMotionTrackingInputConfiguration *)&v26 init];
   if (v20)
   {
-    v21 = [v38[5] copy];
+    v21 = [v37[5] copy];
     orderedInputPreference = v20->_orderedInputPreference;
     v20->_orderedInputPreference = v21;
 
-    v23 = [v32[5] copy];
+    v23 = [v31[5] copy];
     allowedTrackingTypes = v20->_allowedTrackingTypes;
     v20->_allowedTrackingTypes = v23;
 
     v20->_allowSeparateInputForExpressions = bOOLValue;
   }
 
-  _Block_object_dispose(&v31, 8);
+  _Block_object_dispose(&v30, 8);
 
-  _Block_object_dispose(&v37, 8);
-  v25 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v36, 8);
   return v20;
 }
 
@@ -198,23 +197,23 @@ void __64__AXSSMotionTrackingInputConfiguration_initWithPlistDictionary___block_
 
 - (NSDictionary)plistDictionary
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   v3 = objc_alloc_init(MEMORY[0x1E695DF90]);
-  v24 = 0;
-  v25 = &v24;
-  v26 = 0x3032000000;
-  v27 = __Block_byref_object_copy__0;
-  v28 = __Block_byref_object_dispose__0;
-  v29 = 0;
+  v23 = 0;
+  v24 = &v23;
+  v25 = 0x3032000000;
+  v26 = __Block_byref_object_copy__0;
+  v27 = __Block_byref_object_dispose__0;
+  v28 = 0;
   orderedInputPreference = [(AXSSMotionTrackingInputConfiguration *)self orderedInputPreference];
-  v23[0] = MEMORY[0x1E69E9820];
-  v23[1] = 3221225472;
-  v23[2] = __55__AXSSMotionTrackingInputConfiguration_plistDictionary__block_invoke;
-  v23[3] = &unk_1E8134DB0;
-  v23[4] = &v24;
-  [orderedInputPreference enumerateObjectsUsingBlock:v23];
+  v22[0] = MEMORY[0x1E69E9820];
+  v22[1] = 3221225472;
+  v22[2] = __55__AXSSMotionTrackingInputConfiguration_plistDictionary__block_invoke;
+  v22[3] = &unk_1E8134DB0;
+  v22[4] = &v23;
+  [orderedInputPreference enumerateObjectsUsingBlock:v22];
 
-  v5 = v25[5];
+  v5 = v24[5];
   if (v5)
   {
     v6 = [v5 copy];
@@ -229,9 +228,9 @@ void __64__AXSSMotionTrackingInputConfiguration_initWithPlistDictionary___block_
   {
     v10 = MEMORY[0x1E696ACC8];
     allowedTrackingTypes2 = [(AXSSMotionTrackingInputConfiguration *)self allowedTrackingTypes];
-    v22 = 0;
-    v12 = [v10 archivedDataWithRootObject:allowedTrackingTypes2 requiringSecureCoding:1 error:&v22];
-    v13 = v22;
+    v21 = 0;
+    v12 = [v10 archivedDataWithRootObject:allowedTrackingTypes2 requiringSecureCoding:1 error:&v21];
+    v13 = v21;
     v14 = NSStringFromSelector(sel_allowedTrackingTypes);
     [v3 setObject:v12 forKeyedSubscript:v14];
 
@@ -251,9 +250,7 @@ void __64__AXSSMotionTrackingInputConfiguration_initWithPlistDictionary___block_
   [v3 setObject:v17 forKeyedSubscript:v18];
 
   v19 = [v3 copy];
-  _Block_object_dispose(&v24, 8);
-
-  v20 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v23, 8);
 
   return v19;
 }

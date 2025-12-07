@@ -17,7 +17,7 @@
 
 - (id)copyAuxiliaryDataForKey:(id)key
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   keyCopy = key;
   selfCopy = self;
   objc_sync_enter(selfCopy);
@@ -26,9 +26,9 @@
     v12 = ne_log_obj();
     if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
-      v20 = 138412290;
-      v21 = keyCopy;
-      _os_log_impl(&dword_1BA83C000, v12, OS_LOG_TYPE_INFO, "Failed to get auxiliary data for key %@: auxiliaryDataDictionary is nil", &v20, 0xCu);
+      v19 = 138412290;
+      v20 = keyCopy;
+      _os_log_impl(&dword_1BA83C000, v12, OS_LOG_TYPE_INFO, "Failed to get auxiliary data for key %@: auxiliaryDataDictionary is nil", &v19, 0xCu);
     }
 
     goto LABEL_12;
@@ -42,9 +42,9 @@
     v14 = ne_log_obj();
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      v20 = 138412290;
-      v21 = keyCopy;
-      _os_log_impl(&dword_1BA83C000, v14, OS_LOG_TYPE_DEFAULT, "Failed to get auxiliary data for key %@: key does not exist", &v20, 0xCu);
+      v19 = 138412290;
+      v20 = keyCopy;
+      _os_log_impl(&dword_1BA83C000, v14, OS_LOG_TYPE_DEFAULT, "Failed to get auxiliary data for key %@: key does not exist", &v19, 0xCu);
     }
 
     v12 = 0;
@@ -69,13 +69,12 @@ LABEL_12:
 LABEL_15:
 
   objc_sync_exit(selfCopy);
-  v18 = *MEMORY[0x1E69E9840];
   return v15;
 }
 
 - (void)setAuxiliaryData:(id)data forKey:(id)key
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   dataCopy = data;
   keyCopy = key;
   selfCopy = self;
@@ -110,9 +109,9 @@ LABEL_9:
     v17 = ne_log_obj();
     if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
-      v19 = 138412290;
-      v20 = dataCopy;
-      _os_log_error_impl(&dword_1BA83C000, v17, OS_LOG_TYPE_ERROR, "Failed to convert %@ to an XPC object", &v19, 0xCu);
+      v18 = 138412290;
+      v19 = dataCopy;
+      _os_log_error_impl(&dword_1BA83C000, v17, OS_LOG_TYPE_ERROR, "Failed to convert %@ to an XPC object", &v18, 0xCu);
     }
 
     v10 = 0;
@@ -123,30 +122,29 @@ LABEL_9:
     v10 = ne_log_obj();
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      v19 = 134218242;
-      v20 = dataCopy;
-      v21 = 2112;
-      v22 = keyCopy;
-      _os_log_error_impl(&dword_1BA83C000, v10, OS_LOG_TYPE_ERROR, "Auxiliary data (%p) is nil or key (%@) has length 0", &v19, 0x16u);
+      v18 = 134218242;
+      v19 = dataCopy;
+      v20 = 2112;
+      v21 = keyCopy;
+      _os_log_error_impl(&dword_1BA83C000, v10, OS_LOG_TYPE_ERROR, "Auxiliary data (%p) is nil or key (%@) has length 0", &v18, 0x16u);
     }
   }
 
 LABEL_15:
 
   objc_sync_exit(selfCopy);
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (void)iterateFileHandlesWithBlock:(id)block
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   blockCopy = block;
   selfCopy = self;
   objc_sync_enter(selfCopy);
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   if (selfCopy)
   {
     Property = objc_getProperty(selfCopy, v6, 16, 1);
@@ -158,27 +156,27 @@ LABEL_15:
   }
 
   v8 = Property;
-  v9 = [v8 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v9)
   {
-    v10 = *v14;
+    v10 = *v13;
 LABEL_5:
     v11 = 0;
     while (1)
     {
-      if (*v14 != v10)
+      if (*v13 != v10)
       {
         objc_enumerationMutation(v8);
       }
 
-      if ((blockCopy[2](blockCopy, *(*(&v13 + 1) + 8 * v11)) & 1) == 0)
+      if ((blockCopy[2](blockCopy, *(*(&v12 + 1) + 8 * v11)) & 1) == 0)
       {
         break;
       }
 
       if (v9 == ++v11)
       {
-        v9 = [v8 countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v9 = [v8 countByEnumeratingWithState:&v12 objects:v16 count:16];
         if (v9)
         {
           goto LABEL_5;
@@ -190,7 +188,6 @@ LABEL_5:
   }
 
   objc_sync_exit(selfCopy);
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setFileHandle:(id)handle matchingPredicate:(id)predicate
@@ -281,15 +278,15 @@ LABEL_18:
 
 - (void)removeFileHandleMatchingPredicate:(id)predicate
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   predicateCopy = predicate;
   selfCopy = self;
   objc_sync_enter(selfCopy);
   v7 = objc_alloc_init(MEMORY[0x1E695DF70]);
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   if (selfCopy)
   {
     Property = objc_getProperty(selfCopy, v6, 16, 1);
@@ -301,27 +298,27 @@ LABEL_18:
   }
 
   v9 = Property;
-  v10 = [v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v10)
   {
-    v11 = *v19;
+    v11 = *v18;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v19 != v11)
+        if (*v18 != v11)
         {
           objc_enumerationMutation(v9);
         }
 
-        v13 = *(*(&v18 + 1) + 8 * i);
+        v13 = *(*(&v17 + 1) + 8 * i);
         if (predicateCopy[2](predicateCopy, v13))
         {
-          [v7 addObject:{v13, v18}];
+          [v7 addObject:{v13, v17}];
         }
       }
 
-      v10 = [v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v10 = [v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v10);
@@ -349,7 +346,6 @@ LABEL_18:
   }
 
   objc_sync_exit(selfCopy);
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)commit
@@ -371,12 +367,12 @@ LABEL_18:
 
 - (id)createEvent
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v4 = xpc_array_create(0, 0);
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   if (self)
   {
     Property = objc_getProperty(self, v3, 16, 1);
@@ -388,22 +384,22 @@ LABEL_18:
   }
 
   v6 = Property;
-  v7 = [v6 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v21;
+    v9 = *v20;
     v10 = MEMORY[0x1E69E9E80];
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v21 != v9)
+        if (*v20 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        dictionary = [*(*(&v20 + 1) + 8 * i) dictionary];
+        dictionary = [*(*(&v19 + 1) + 8 * i) dictionary];
         v13 = dictionary;
         if (dictionary && MEMORY[0x1BFAFC5E0](dictionary) == v10)
         {
@@ -411,7 +407,7 @@ LABEL_18:
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v8);
@@ -424,8 +420,6 @@ LABEL_18:
     v17 = objc_getProperty(self, v16, 40, 1);
     xpc_dictionary_set_value(v14, "aux-data", v17);
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 
   return v14;
 }
@@ -475,7 +469,7 @@ LABEL_18:
 
 void __78__NEFileHandleMaintainer_startOwnerModeWithEventName_handlesReceivedCallback___block_invoke(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   if (WeakRetained)
@@ -484,9 +478,9 @@ void __78__NEFileHandleMaintainer_startOwnerModeWithEventName_handlesReceivedCal
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
       v6 = [WeakRetained eventName];
-      v14 = 138412290;
-      v15 = v6;
-      _os_log_impl(&dword_1BA83C000, v5, OS_LOG_TYPE_INFO, "Handling a %@ event", &v14, 0xCu);
+      v13 = 138412290;
+      v14 = v6;
+      _os_log_impl(&dword_1BA83C000, v5, OS_LOG_TYPE_INFO, "Handling a %@ event", &v13, 0xCu);
     }
 
     [WeakRetained resetFileHandlesFromEvent:v3];
@@ -507,13 +501,11 @@ void __78__NEFileHandleMaintainer_startOwnerModeWithEventName_handlesReceivedCal
 
     objc_sync_exit(v7);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)resetFileHandlesFromEvent:(id)event
 {
-  v47 = *MEMORY[0x1E69E9840];
+  v46 = *MEMORY[0x1E69E9840];
   eventCopy = event;
   v5 = eventCopy;
   if (eventCopy)
@@ -541,11 +533,11 @@ void __78__NEFileHandleMaintainer_startOwnerModeWithEventName_handlesReceivedCal
 
       if (v8 && MEMORY[0x1BFAFC5E0](v8) == MEMORY[0x1E69E9E50])
       {
-        v35 = objc_alloc_init(MEMORY[0x1E695DF70]);
-        v40 = 0u;
-        v41 = 0u;
-        v38 = 0u;
+        v34 = objc_alloc_init(MEMORY[0x1E695DF70]);
         v39 = 0u;
+        v40 = 0u;
+        v37 = 0u;
+        v38 = 0u;
         if (selfCopy)
         {
           Property = objc_getProperty(selfCopy, v12, 16, 1);
@@ -557,28 +549,28 @@ void __78__NEFileHandleMaintainer_startOwnerModeWithEventName_handlesReceivedCal
         }
 
         v14 = Property;
-        v15 = [v14 countByEnumeratingWithState:&v38 objects:v46 count:16];
+        v15 = [v14 countByEnumeratingWithState:&v37 objects:v45 count:16];
         if (v15)
         {
-          v16 = *v39;
+          v16 = *v38;
           do
           {
             v17 = 0;
             do
             {
-              if (*v39 != v16)
+              if (*v38 != v16)
               {
                 objc_enumerationMutation(v14);
               }
 
-              handle = [*(*(&v38 + 1) + 8 * v17) handle];
+              handle = [*(*(&v37 + 1) + 8 * v17) handle];
               [handle setReadabilityHandler:0];
 
               ++v17;
             }
 
             while (v15 != v17);
-            v15 = [v14 countByEnumeratingWithState:&v38 objects:v46 count:16];
+            v15 = [v14 countByEnumeratingWithState:&v37 objects:v45 count:16];
           }
 
           while (v15);
@@ -593,8 +585,8 @@ void __78__NEFileHandleMaintainer_startOwnerModeWithEventName_handlesReceivedCal
         applier[1] = 3221225472;
         applier[2] = __52__NEFileHandleMaintainer_resetFileHandlesFromEvent___block_invoke;
         applier[3] = &unk_1E7F09530;
-        v20 = v35;
-        v37 = v20;
+        v20 = v34;
+        v36 = v20;
         xpc_array_apply(v8, applier);
         if (selfCopy)
         {
@@ -607,18 +599,18 @@ void __78__NEFileHandleMaintainer_startOwnerModeWithEventName_handlesReceivedCal
           eventName = [(NEFileHandleMaintainer *)selfCopy eventName];
           if (selfCopy)
           {
-            v34 = objc_getProperty(selfCopy, v32, 16, 1);
+            v33 = objc_getProperty(selfCopy, v31, 16, 1);
           }
 
           else
           {
-            v34 = 0;
+            v33 = 0;
           }
 
           *buf = 138412546;
-          v43 = eventName;
-          v44 = 2112;
-          v45 = v34;
+          v42 = eventName;
+          v43 = 2112;
+          v44 = v33;
           _os_log_debug_impl(&dword_1BA83C000, v22, OS_LOG_TYPE_DEBUG, "Current file handles for %@: %@", buf, 0x16u);
         }
       }
@@ -688,38 +680,36 @@ LABEL_37:
   }
 
 LABEL_45:
-
-  v31 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __52__NEFileHandleMaintainer_resetFileHandlesFromEvent___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v4 = a3;
   objc_opt_self();
-  if (!v4 || MEMORY[0x1BFAFC5E0](v4) != MEMORY[0x1E69E9E80] || (uint64 = xpc_dictionary_get_uint64(v4, "type"), uint64 - 1 > 3) || (v6 = *off_1E7F07450[uint64 - 1], (v7 = objc_opt_class()) == 0))
+  if (!v4 || MEMORY[0x1BFAFC5E0](v4) != MEMORY[0x1E69E9E80] || xpc_dictionary_get_uint64(v4, "type") - 1 > 3 || (v5 = objc_opt_class()) == 0)
   {
 
     goto LABEL_15;
   }
 
-  v8 = [[v7 alloc] initFromDictionary:v4];
+  v6 = [[v5 alloc] initFromDictionary:v4];
 
-  if (!v8)
+  if (!v6)
   {
 LABEL_15:
-    v10 = 0;
+    v8 = 0;
     goto LABEL_16;
   }
 
   if (nelog_is_debug_logging_enabled())
   {
-    v9 = ne_log_obj();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+    v7 = ne_log_obj();
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
-      v14 = 138412290;
-      v15 = v8;
-      _os_log_debug_impl(&dword_1BA83C000, v9, OS_LOG_TYPE_DEBUG, "File Handle Maintainer adding %@", &v14, 0xCu);
+      v11 = 138412290;
+      v12 = v6;
+      _os_log_debug_impl(&dword_1BA83C000, v7, OS_LOG_TYPE_DEBUG, "File Handle Maintainer adding %@", &v11, 0xCu);
     }
   }
 
@@ -729,26 +719,25 @@ LABEL_15:
     goto LABEL_13;
   }
 
-  v10 = v8;
-  if ([v10 isRegisteredHandle])
+  v8 = v6;
+  if ([v8 isRegisteredHandle])
   {
 
 LABEL_13:
-    [*(a1 + 32) addObject:v8];
-    v10 = v8;
+    [*(a1 + 32) addObject:v6];
+    v8 = v6;
     goto LABEL_16;
   }
 
-  v13 = ne_log_obj();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+  v10 = ne_log_obj();
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
   {
-    v14 = 138412290;
-    v15 = v10;
-    _os_log_error_impl(&dword_1BA83C000, v13, OS_LOG_TYPE_ERROR, "File Handle Maintainer not adding %@, agent not registered", &v14, 0xCu);
+    v11 = 138412290;
+    v12 = v8;
+    _os_log_error_impl(&dword_1BA83C000, v10, OS_LOG_TYPE_ERROR, "File Handle Maintainer not adding %@, agent not registered", &v11, 0xCu);
   }
 
 LABEL_16:
-  v11 = *MEMORY[0x1E69E9840];
   return 1;
 }
 
@@ -781,9 +770,11 @@ LABEL_16:
 
 uint64_t __42__NEFileHandleMaintainer_sharedMaintainer__block_invoke()
 {
-  sharedMaintainer_g_maintainer = objc_alloc_init(NEFileHandleMaintainer);
+  v0 = objc_alloc_init(NEFileHandleMaintainer);
+  v1 = sharedMaintainer_g_maintainer;
+  sharedMaintainer_g_maintainer = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 @end

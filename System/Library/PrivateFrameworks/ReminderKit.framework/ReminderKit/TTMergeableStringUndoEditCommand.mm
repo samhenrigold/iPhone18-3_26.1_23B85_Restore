@@ -173,52 +173,51 @@ LABEL_4:
 {
   stringCopy = string;
   deleteRanges = self->_deleteRanges;
-  v6 = *deleteRanges;
-  v7 = deleteRanges[1];
-  v8 = *deleteRanges;
-  if (v7 != *deleteRanges)
+  v6 = deleteRanges[1];
+  v7 = *deleteRanges;
+  if (v6 != *deleteRanges)
   {
+    v19 = 0;
     v20 = 0;
     v21 = 0;
-    v22 = 0;
     do
     {
-      v9 = *v8;
-      v10 = *(v8 + 8);
-      v11 = *(v8 + 16);
-      v12 = v9;
-      v13 = v12;
-      v17 = v12;
+      v8 = *v7;
+      v9 = *(v7 + 8);
+      v10 = *(v7 + 16);
+      v11 = v8;
+      v12 = v11;
+      v16 = v11;
+      v17 = v9;
       v18 = v10;
-      v19 = v11;
       if (stringCopy)
       {
-        [stringCopy getSubstrings:&v20 forTopoIDRange:&v17];
+        [stringCopy getSubstrings:&v19 forTopoIDRange:&v16];
       }
 
       else
       {
       }
 
-      v8 += 24;
+      v7 += 24;
     }
 
-    while (v8 != v7);
+    while (v7 != v6);
     __p = 0;
+    v14 = 0;
     v15 = 0;
-    v16 = 0;
-    [stringCopy getCharacterRanges:&__p forSubstrings:&v20];
-    [stringCopy deleteSubstrings:&v20 withCharacterRanges:&__p];
+    [stringCopy getCharacterRanges:&__p forSubstrings:&v19];
+    [stringCopy deleteSubstrings:&v19 withCharacterRanges:&__p];
     if (__p)
     {
-      v15 = __p;
+      v14 = __p;
       operator delete(__p);
     }
 
-    if (v20)
+    if (v19)
     {
-      v21 = v20;
-      operator delete(v20);
+      v20 = v19;
+      operator delete(v19);
     }
   }
 

@@ -11,11 +11,24 @@
 - (void)setHAPLinkedServiceTypes:(id)types atEndpoint:(id)endpoint;
 - (void)setHAPServiceTypes:(id)types atEndpoint:(id)endpoint;
 - (void)setNodeLabel:(id)label atEndpoint:(id)endpoint;
+- (void)setOTARequestorEnabled:(BOOL)enabled atEndpoint:(id)endpoint;
 - (void)setPartsList:(id)list atEndpoint:(id)endpoint;
 - (void)setVersion:(id)version for:(id)for;
 @end
 
 @implementation HMMTRMutableDeviceTopology
+
+- (void)setOTARequestorEnabled:(BOOL)enabled atEndpoint:(id)endpoint
+{
+  enabledCopy = enabled;
+  v6 = MEMORY[0x277CCABB0];
+  endpointCopy = endpoint;
+  v10 = [v6 numberWithBool:enabledCopy];
+  otaRequestorEndpoints = [(HMMTRDeviceTopology *)self otaRequestorEndpoints];
+  stringValue = [endpointCopy stringValue];
+
+  [otaRequestorEndpoints setObject:v10 forKeyedSubscript:stringValue];
+}
 
 - (void)setVersion:(id)version for:(id)for
 {

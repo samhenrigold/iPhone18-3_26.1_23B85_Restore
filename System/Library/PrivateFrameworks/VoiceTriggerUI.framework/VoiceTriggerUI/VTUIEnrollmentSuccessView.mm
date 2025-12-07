@@ -4,6 +4,7 @@
 - (id)footerView;
 - (void)_setupContent;
 - (void)addFinishButtonTarget:(id)target selector:(SEL)selector;
+- (void)setHidden:(BOOL)hidden;
 @end
 
 @implementation VTUIEnrollmentSuccessView
@@ -76,7 +77,7 @@
 
 - (id)_createFooter
 {
-  v35[5] = *MEMORY[0x277D85DE8];
+  v34[5] = *MEMORY[0x277D85DE8];
   v3 = +[VTUIStyle sharedStyle];
   v4 = objc_alloc(MEMORY[0x277D75D18]);
   v5 = [v4 initWithFrame:{*MEMORY[0x277CBF3A0], *(MEMORY[0x277CBF3A0] + 8), *(MEMORY[0x277CBF3A0] + 16), *(MEMORY[0x277CBF3A0] + 24)}];
@@ -114,36 +115,34 @@
     [(VTUIButton *)self->_finishButton setConfiguration:_tintedGlassButtonConfiguration];
   }
 
-  v29 = MEMORY[0x277CCAAD0];
+  v28 = MEMORY[0x277CCAAD0];
   topAnchor = [(VTUIButton *)self->_finishButton topAnchor];
   topAnchor2 = [v5 topAnchor];
   [v3 continueButtonOffset];
-  v32 = [topAnchor constraintEqualToAnchor:topAnchor2 constant:?];
-  v35[0] = v32;
+  v31 = [topAnchor constraintEqualToAnchor:topAnchor2 constant:?];
+  v34[0] = v31;
   centerXAnchor = [(VTUIButton *)self->_finishButton centerXAnchor];
   centerXAnchor2 = [v5 centerXAnchor];
   v16 = [centerXAnchor constraintEqualToAnchor:centerXAnchor2];
-  v35[1] = v16;
+  v34[1] = v16;
   widthAnchor = [(VTUIButton *)self->_finishButton widthAnchor];
   [v3 footerButtonMaximumWidth];
   v18 = [widthAnchor constraintEqualToConstant:?];
-  v35[2] = v18;
+  v34[2] = v18;
   heightAnchor = [(VTUIButton *)self->_finishButton heightAnchor];
   [v3 primaryButtonHeight];
   v20 = [heightAnchor constraintEqualToConstant:?];
-  v35[3] = v20;
+  v34[3] = v20;
   bottomAnchor = [(VTUIButton *)self->_finishButton bottomAnchor];
   bottomAnchor2 = [v5 bottomAnchor];
   [v3 continueButtonFromBottom];
   [bottomAnchor constraintEqualToAnchor:bottomAnchor2 constant:-v23];
-  v24 = v28 = v5;
-  v35[4] = v24;
-  v25 = [MEMORY[0x277CBEA60] arrayWithObjects:v35 count:5];
-  [v29 activateConstraints:v25];
+  v24 = v27 = v5;
+  v34[4] = v24;
+  v25 = [MEMORY[0x277CBEA60] arrayWithObjects:v34 count:5];
+  [v28 activateConstraints:v25];
 
-  v26 = *MEMORY[0x277D85DE8];
-
-  return v28;
+  return v27;
 }
 
 - (id)footerView
@@ -159,6 +158,13 @@
   }
 
   return footerView;
+}
+
+- (void)setHidden:(BOOL)hidden
+{
+  v3.receiver = self;
+  v3.super_class = VTUIEnrollmentSuccessView;
+  [(VTUIEnrollmentSuccessView *)&v3 setHidden:hidden];
 }
 
 - (void)addFinishButtonTarget:(id)target selector:(SEL)selector

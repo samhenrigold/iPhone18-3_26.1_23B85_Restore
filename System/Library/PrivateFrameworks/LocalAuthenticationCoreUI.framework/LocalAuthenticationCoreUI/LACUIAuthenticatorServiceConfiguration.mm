@@ -515,33 +515,33 @@ LABEL_54:
 
 - (id)description
 {
-  v32[16] = *MEMORY[0x277D85DE8];
-  v27 = MEMORY[0x277CCACA8];
-  v25 = objc_opt_class();
-  v31 = [MEMORY[0x277CCACA8] stringWithFormat:@"title: %@", self->_title];
-  v32[0] = v31;
-  v30 = [MEMORY[0x277CCACA8] stringWithFormat:@"bundleIdentifier: %@", self->_bundleIdentifier];
-  v32[1] = v30;
-  v29 = [MEMORY[0x277CCACA8] stringWithFormat:@"iconPath: %@", self->_iconPath];
-  v32[2] = v29;
-  v28 = [MEMORY[0x277CCACA8] stringWithFormat:@"subtitle: %@", self->_subtitle];
-  v32[3] = v28;
-  v26 = [MEMORY[0x277CCACA8] stringWithFormat:@"prompt: %@", self->_prompt];
-  v32[4] = v26;
-  v24 = [MEMORY[0x277CCACA8] stringWithFormat:@"verifyPrompt: %@", self->_verifyPrompt];
-  v32[5] = v24;
-  v23 = [MEMORY[0x277CCACA8] stringWithFormat:@"cancelButtonTitle: %@", self->_cancelButtonTitle];
-  v32[6] = v23;
-  v22 = [MEMORY[0x277CCACA8] stringWithFormat:@"fallbackButtonTitle: %@", self->_fallbackButtonTitle];
-  v32[7] = v22;
-  v21 = [MEMORY[0x277CCACA8] stringWithFormat:@"passwordFieldPlaceholder: %@", self->_passwordFieldPlaceholder];
-  v32[8] = v21;
+  v31[16] = *MEMORY[0x277D85DE8];
+  v26 = MEMORY[0x277CCACA8];
+  v24 = objc_opt_class();
+  v30 = [MEMORY[0x277CCACA8] stringWithFormat:@"title: %@", self->_title];
+  v31[0] = v30;
+  v29 = [MEMORY[0x277CCACA8] stringWithFormat:@"bundleIdentifier: %@", self->_bundleIdentifier];
+  v31[1] = v29;
+  v28 = [MEMORY[0x277CCACA8] stringWithFormat:@"iconPath: %@", self->_iconPath];
+  v31[2] = v28;
+  v27 = [MEMORY[0x277CCACA8] stringWithFormat:@"subtitle: %@", self->_subtitle];
+  v31[3] = v27;
+  v25 = [MEMORY[0x277CCACA8] stringWithFormat:@"prompt: %@", self->_prompt];
+  v31[4] = v25;
+  v23 = [MEMORY[0x277CCACA8] stringWithFormat:@"verifyPrompt: %@", self->_verifyPrompt];
+  v31[5] = v23;
+  v22 = [MEMORY[0x277CCACA8] stringWithFormat:@"cancelButtonTitle: %@", self->_cancelButtonTitle];
+  v31[6] = v22;
+  v21 = [MEMORY[0x277CCACA8] stringWithFormat:@"fallbackButtonTitle: %@", self->_fallbackButtonTitle];
+  v31[7] = v21;
+  v20 = [MEMORY[0x277CCACA8] stringWithFormat:@"passwordFieldPlaceholder: %@", self->_passwordFieldPlaceholder];
+  v31[8] = v20;
   v3 = MEMORY[0x277CCACA8];
-  v20 = NSStringFromLACUIAuthenticatorServiceConfigurationRequirement(self->_requirement);
-  v4 = [v3 stringWithFormat:@"requirement: %@", v20];
-  v32[9] = v4;
+  v19 = NSStringFromLACUIAuthenticatorServiceConfigurationRequirement(self->_requirement);
+  v4 = [v3 stringWithFormat:@"requirement: %@", v19];
+  v31[9] = v4;
   v5 = [MEMORY[0x277CCACA8] stringWithFormat:@"passcodeLength: %d", self->_passcodeLength];
-  v32[10] = v5;
+  v31[10] = v5;
   if (self->_mode)
   {
     v6 = @"Register";
@@ -553,9 +553,9 @@ LABEL_54:
   }
 
   v7 = [MEMORY[0x277CCACA8] stringWithFormat:@"mode: %@", v6];
-  v32[11] = v7;
+  v31[11] = v7;
   v8 = [MEMORY[0x277CCACA8] stringWithFormat:@"contextData: %@", self->_contextData];
-  v32[12] = v8;
+  v31[12] = v8;
   if (self->_style)
   {
     v9 = @"FullScreen";
@@ -567,7 +567,7 @@ LABEL_54:
   }
 
   v10 = [MEMORY[0x277CCACA8] stringWithFormat:@"style: %@", v9];
-  v32[13] = v10;
+  v31[13] = v10;
   if (self->_headerHidden)
   {
     v11 = @"YES";
@@ -579,7 +579,7 @@ LABEL_54:
   }
 
   v12 = [MEMORY[0x277CCACA8] stringWithFormat:@"headerHidden: %@", v11];
-  v32[14] = v12;
+  v31[14] = v12;
   if (self->_requiresIntent)
   {
     v13 = @"YES";
@@ -591,12 +591,10 @@ LABEL_54:
   }
 
   v14 = [MEMORY[0x277CCACA8] stringWithFormat:@"requiresIntent: %@", v13];
-  v32[15] = v14;
-  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v32 count:16];
+  v31[15] = v14;
+  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v31 count:16];
   v16 = [v15 componentsJoinedByString:@" "];;
-  v17 = [v27 stringWithFormat:@"<%@ %p %@>", v25, self, v16];;
-
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = [v26 stringWithFormat:@"<%@ %p %@>", v24, self, v16];;
 
   return v17;
 }

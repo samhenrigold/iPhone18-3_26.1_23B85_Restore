@@ -8,7 +8,9 @@
 + (id)errorWithCode:(int64_t)code disks:(id)disks userInfo:(id)info;
 + (id)errorWithCode:(int64_t)code underlyingError:(id)error;
 + (id)errorWithOSStatus:(int)status debugDescription:(id)description error:(id *)error;
++ (id)errorWithOSStatus:(int)status error:(id *)error;
 + (id)errorWithPOSIXCode:(int)code debugDescription:(id)description error:(id *)error;
++ (id)errorWithPOSIXCode:(int)code error:(id *)error;
 + (id)localizedDescriptionForCode:(int64_t)code;
 + (id)nilWithError:(id)error error:(id *)a4;
 + (id)nilWithSKErrorCode:(int64_t)code debugDescription:(id)description error:(id *)error;
@@ -31,7 +33,7 @@
 
 void __26__SKError_frameworkBundle__block_invoke()
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v0 = MEMORY[0x277CCA8D8];
   v1 = [MEMORY[0x277CBEBC0] fileURLWithPath:@"/System/Library/PrivateFrameworks/StorageKit.framework"];
   v2 = [v0 bundleWithURL:v1];
@@ -46,24 +48,20 @@ void __26__SKError_frameworkBundle__block_invoke()
     v5 = SKGetOSLog();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
-      v7 = 136315138;
-      v8 = "+[SKError frameworkBundle]_block_invoke";
-      _os_log_impl(&dword_26BBB8000, v5, OS_LOG_TYPE_FAULT, "%s: FATAL ERROR: Failed to get the NSBundle of StorageKit framework", &v7, 0xCu);
+      v6 = 136315138;
+      v7 = "+[SKError frameworkBundle]_block_invoke";
+      _os_log_impl(&dword_26BBB8000, v5, OS_LOG_TYPE_FAULT, "%s: FATAL ERROR: Failed to get the NSBundle of StorageKit framework", &v6, 0xCu);
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 id __26__SKError_frameworkBundle__block_invoke_2()
 {
-  v5[1] = *MEMORY[0x277D85DE8];
-  v4 = @"faultCode";
+  v4[1] = *MEMORY[0x277D85DE8];
+  v3 = @"faultCode";
   v0 = base64Encode("SKError.m", 55);
-  v5[0] = v0;
-  v1 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:&v4 count:1];
-
-  v2 = *MEMORY[0x277D85DE8];
+  v4[0] = v0;
+  v1 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v4 forKeys:&v3 count:1];
 
   return v1;
 }
@@ -85,27 +83,25 @@ id __26__SKError_frameworkBundle__block_invoke_2()
 
 + (id)errorWithCode:(int64_t)code debugDescription:(id)description
 {
-  v12[1] = *MEMORY[0x277D85DE8];
-  v11 = *MEMORY[0x277CCA068];
-  v12[0] = description;
+  v11[1] = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277CCA068];
+  v11[0] = description;
   v5 = MEMORY[0x277CBEAC0];
   descriptionCopy = description;
-  v7 = [v5 dictionaryWithObjects:v12 forKeys:&v11 count:1];
+  v7 = [v5 dictionaryWithObjects:v11 forKeys:&v10 count:1];
   v8 = [SKError errorWithCode:code disks:0 userInfo:v7];
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
 
 + (id)errorWithCode:(int64_t)code debugDescription:(id)description error:(id *)error
 {
-  v15[1] = *MEMORY[0x277D85DE8];
-  v14 = *MEMORY[0x277CCA068];
-  v15[0] = description;
+  v14[1] = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277CCA068];
+  v14[0] = description;
   v7 = MEMORY[0x277CBEAC0];
   descriptionCopy = description;
-  v9 = [v7 dictionaryWithObjects:v15 forKeys:&v14 count:1];
+  v9 = [v7 dictionaryWithObjects:v14 forKeys:&v13 count:1];
   v10 = [SKError errorWithCode:code disks:0 userInfo:v9];
 
   if (error)
@@ -114,29 +110,25 @@ id __26__SKError_frameworkBundle__block_invoke_2()
     *error = v10;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
-
   return v10;
 }
 
 + (id)errorWithCode:(int64_t)code underlyingError:(id)error
 {
-  v12[1] = *MEMORY[0x277D85DE8];
-  v11 = *MEMORY[0x277CCA7E8];
-  v12[0] = error;
+  v11[1] = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277CCA7E8];
+  v11[0] = error;
   v5 = MEMORY[0x277CBEAC0];
   errorCopy = error;
-  v7 = [v5 dictionaryWithObjects:v12 forKeys:&v11 count:1];
+  v7 = [v5 dictionaryWithObjects:v11 forKeys:&v10 count:1];
   v8 = [SKError errorWithCode:code userInfo:v7];
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
 
 + (id)errorWithCode:(int64_t)code disks:(id)disks userInfo:(id)info
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   disksCopy = disks;
   infoCopy = info;
   if (infoCopy)
@@ -162,11 +154,11 @@ id __26__SKError_frameworkBundle__block_invoke_2()
       {
         v15 = [self localizedDescriptionForCode:code];
         *buf = 136315650;
-        v28 = "+[SKError errorWithCode:disks:userInfo:]";
-        v29 = 2112;
-        v30 = v15;
-        v31 = 2112;
-        v32 = disksCopy;
+        v27 = "+[SKError errorWithCode:disks:userInfo:]";
+        v28 = 2112;
+        v29 = v15;
+        v30 = 2112;
+        v31 = disksCopy;
         _os_log_impl(&dword_26BBB8000, v14, OS_LOG_TYPE_ERROR, "%s: %@ : %@", buf, 0x20u);
       }
 
@@ -179,32 +171,32 @@ id __26__SKError_frameworkBundle__block_invoke_2()
     else
     {
       v19 = [self localizedDescriptionForCode:code];
-      v23 = *MEMORY[0x277CCA068];
-      v24 = [dictionary objectForKeyedSubscript:*MEMORY[0x277CCA068]];
+      v22 = *MEMORY[0x277CCA068];
+      v23 = [dictionary objectForKeyedSubscript:*MEMORY[0x277CCA068]];
 
       v17 = SKGetOSLog();
-      v25 = os_log_type_enabled(v17, OS_LOG_TYPE_ERROR);
-      if (v24)
+      v24 = os_log_type_enabled(v17, OS_LOG_TYPE_ERROR);
+      if (v23)
       {
-        if (v25)
+        if (v24)
         {
-          v26 = [dictionary objectForKeyedSubscript:v23];
+          v25 = [dictionary objectForKeyedSubscript:v22];
           *buf = 136315650;
-          v28 = "+[SKError errorWithCode:disks:userInfo:]";
-          v29 = 2112;
-          v30 = v19;
-          v31 = 2112;
-          v32 = v26;
+          v27 = "+[SKError errorWithCode:disks:userInfo:]";
+          v28 = 2112;
+          v29 = v19;
+          v30 = 2112;
+          v31 = v25;
           _os_log_impl(&dword_26BBB8000, v17, OS_LOG_TYPE_ERROR, "%s: %@ [%@]", buf, 0x20u);
         }
       }
 
-      else if (v25)
+      else if (v24)
       {
         *buf = 136315394;
-        v28 = "+[SKError errorWithCode:disks:userInfo:]";
-        v29 = 2112;
-        v30 = v19;
+        v27 = "+[SKError errorWithCode:disks:userInfo:]";
+        v28 = 2112;
+        v29 = v19;
         _os_log_impl(&dword_26BBB8000, v17, OS_LOG_TYPE_ERROR, "%s: %@", buf, 0x16u);
       }
     }
@@ -217,21 +209,19 @@ id __26__SKError_frameworkBundle__block_invoke_2()
 
   v20 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.StorageKit" code:code userInfo:dictionary];
 
-  v21 = *MEMORY[0x277D85DE8];
-
   return v20;
 }
 
 + (id)nilWithError:(id)error error:(id *)a4
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   v6 = SKGetOSLog();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
-    v10 = 138412290;
-    v11 = errorCopy;
-    _os_log_impl(&dword_26BBB8000, v6, OS_LOG_TYPE_ERROR, "%@", &v10, 0xCu);
+    v9 = 138412290;
+    v10 = errorCopy;
+    _os_log_impl(&dword_26BBB8000, v6, OS_LOG_TYPE_ERROR, "%@", &v9, 0xCu);
   }
 
   if (a4)
@@ -240,20 +230,19 @@ id __26__SKError_frameworkBundle__block_invoke_2()
     *a4 = errorCopy;
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
 + (BOOL)failWithError:(id)error error:(id *)a4
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   v6 = SKGetOSLog();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
-    v10 = 138412290;
-    v11 = errorCopy;
-    _os_log_impl(&dword_26BBB8000, v6, OS_LOG_TYPE_ERROR, "%@", &v10, 0xCu);
+    v9 = 138412290;
+    v10 = errorCopy;
+    _os_log_impl(&dword_26BBB8000, v6, OS_LOG_TYPE_ERROR, "%@", &v9, 0xCu);
   }
 
   if (a4)
@@ -262,13 +251,12 @@ id __26__SKError_frameworkBundle__block_invoke_2()
     *a4 = errorCopy;
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
 + (id)errorWithPOSIXCode:(int)code debugDescription:(id)description error:(id *)error
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v6 = MEMORY[0x277CCA9B8];
   v7 = *MEMORY[0x277CCA5B8];
   codeCopy = code;
@@ -278,9 +266,9 @@ id __26__SKError_frameworkBundle__block_invoke_2()
   v11 = SKGetOSLog();
   if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
   {
-    v15 = 138412290;
-    v16 = v10;
-    _os_log_impl(&dword_26BBB8000, v11, OS_LOG_TYPE_ERROR, "%@", &v15, 0xCu);
+    v14 = 138412290;
+    v15 = v10;
+    _os_log_impl(&dword_26BBB8000, v11, OS_LOG_TYPE_ERROR, "%@", &v14, 0xCu);
   }
 
   if (error)
@@ -289,14 +277,20 @@ id __26__SKError_frameworkBundle__block_invoke_2()
     *error = v10;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
-
   return v10;
+}
+
++ (id)errorWithPOSIXCode:(int)code error:(id *)error
+{
+  v5 = *&code;
+  v6 = objc_opt_class();
+
+  return [v6 errorWithPOSIXCode:v5 debugDescription:0 error:error];
 }
 
 + (id)errorWithOSStatus:(int)status debugDescription:(id)description error:(id *)error
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   descriptionCopy = description;
   v8 = descriptionCopy;
   v9 = MEMORY[0x277CCA9B8];
@@ -318,9 +312,9 @@ id __26__SKError_frameworkBundle__block_invoke_2()
   v14 = SKGetOSLog();
   if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
   {
-    v18 = 138412290;
-    v19 = v13;
-    _os_log_impl(&dword_26BBB8000, v14, OS_LOG_TYPE_ERROR, "%@", &v18, 0xCu);
+    v17 = 138412290;
+    v18 = v13;
+    _os_log_impl(&dword_26BBB8000, v14, OS_LOG_TYPE_ERROR, "%@", &v17, 0xCu);
   }
 
   if (error)
@@ -329,9 +323,15 @@ id __26__SKError_frameworkBundle__block_invoke_2()
     *error = v13;
   }
 
-  v16 = *MEMORY[0x277D85DE8];
-
   return v13;
+}
+
++ (id)errorWithOSStatus:(int)status error:(id *)error
+{
+  v5 = *&status;
+  v6 = objc_opt_class();
+
+  return [v6 errorWithOSStatus:v5 debugDescription:0 error:error];
 }
 
 + (id)nilWithSKErrorCode:(int64_t)code debugDescription:(id)description error:(id *)error

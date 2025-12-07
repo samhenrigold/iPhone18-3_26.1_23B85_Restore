@@ -10,6 +10,8 @@
 - (void)_faceViewWasTapped;
 - (void)_handleEitherScreenWake;
 - (void)_updateDialSize;
+- (void)customizeFaceViewForListing:(id)listing changeEvent:(unint64_t)event animated:(BOOL)animated;
+- (void)screenDidTurnOffAnimated:(BOOL)animated;
 - (void)setCurrentVideoStyle:(unint64_t)style;
 - (void)setupDataSources;
 @end
@@ -18,20 +20,20 @@
 
 - (void)_configureTimeView:(id)view
 {
-  v8.receiver = self;
-  v8.super_class = NTKAnalogBreatheFaceView;
+  v10.receiver = self;
+  v10.super_class = NTKAnalogBreatheFaceView;
   viewCopy = view;
-  [(NTKAnalogBreatheFaceView *)&v8 _configureTimeView:viewCopy];
+  [(NTKAnalogBreatheFaceView *)&v10 _configureTimeView:viewCopy];
   secondHandView = [viewCopy secondHandView];
   [secondHandView setHidden:1];
 
-  v5 = sub_1170();
-  [viewCopy setInlayColor:v5];
+  v6 = sub_1170(v5);
+  [viewCopy setInlayColor:v6];
 
   minuteHandView = [viewCopy minuteHandView];
 
-  v7 = sub_1170();
-  [minuteHandView setHandDotColor:v7];
+  v9 = sub_1170(v8);
+  [minuteHandView setHandDotColor:v9];
 }
 
 - (void)_applyOption:(id)option forCustomEditMode:(int64_t)mode slot:(id)slot
@@ -63,6 +65,13 @@
   [(NTKAnalogBreatheFaceView *)self _updateDialSize];
 }
 
+- (void)customizeFaceViewForListing:(id)listing changeEvent:(unint64_t)event animated:(BOOL)animated
+{
+  v5.receiver = self;
+  v5.super_class = NTKAnalogBreatheFaceView;
+  [(NTKAnalogBreatheFaceView *)&v5 customizeFaceViewForListing:listing changeEvent:event animated:animated];
+}
+
 - (void)_customizeVideoPlayerOnSetup
 {
   [(NTKAnalogBreatheFaceView *)self setupDataSources];
@@ -85,6 +94,14 @@
   [(NTKAnalogBreatheFaceView *)&v3 _handleEitherScreenWake];
   [(NTKAnalogBreatheFaceView *)self _takeBacklightAssertion];
   [(NTKAnalogBreatheFaceView *)self _applyVideoPlayerTransform];
+}
+
+- (void)screenDidTurnOffAnimated:(BOOL)animated
+{
+  v4.receiver = self;
+  v4.super_class = NTKAnalogBreatheFaceView;
+  [(NTKAnalogBreatheFaceView *)&v4 screenDidTurnOffAnimated:animated];
+  [(NTKAnalogBreatheFaceView *)self _releaseBacklightAssertion];
 }
 
 - (void)_faceViewWasTapped
@@ -110,7 +127,7 @@
 
 - (id)_complicationsPlatterColor
 {
-  v2 = sub_151C();
+  v2 = sub_151C(self);
   v3 = NTKColorByPremultiplyingAlpha();
 
   return v3;

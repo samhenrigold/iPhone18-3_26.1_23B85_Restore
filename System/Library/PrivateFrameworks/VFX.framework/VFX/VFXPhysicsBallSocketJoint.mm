@@ -24,90 +24,90 @@
 
 - (id)anchorAValue
 {
-  v29[3] = *MEMORY[0x1E69E9840];
-  v5 = MEMORY[0x1E696AD98];
-  objc_msgSend_anchorA(self, a2, v2, v3);
-  v9 = objc_msgSend_numberWithFloat_(v5, v6, v7, v8);
-  v10 = MEMORY[0x1E696AD98];
-  objc_msgSend_anchorA(self, v11, v12, v13, v9);
-  LODWORD(v14) = HIDWORD(v14);
-  v29[1] = objc_msgSend_numberWithFloat_(v10, v15, v16, v17, v14);
-  v18 = MEMORY[0x1E696AD98];
-  objc_msgSend_anchorA(self, v19, v20, v21);
-  LODWORD(v23) = v22;
-  v29[2] = objc_msgSend_numberWithFloat_(v18, v24, v25, v26, v23);
-  return objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v27, v29, 3);
+  v23[3] = *MEMORY[0x1E69E9840];
+  v4 = MEMORY[0x1E696AD98];
+  objc_msgSend_anchorA(self, a2, v2);
+  v7 = objc_msgSend_numberWithFloat_(v4, v5, v6);
+  v8 = MEMORY[0x1E696AD98];
+  objc_msgSend_anchorA(self, v9, v10, v7);
+  LODWORD(v11) = HIDWORD(v11);
+  v23[1] = objc_msgSend_numberWithFloat_(v8, v12, v13, v11);
+  v14 = MEMORY[0x1E696AD98];
+  objc_msgSend_anchorA(self, v15, v16);
+  LODWORD(v18) = v17;
+  v23[2] = objc_msgSend_numberWithFloat_(v14, v19, v20, v18);
+  return objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v21, v23, 3);
 }
 
 - (void)setAnchorAValue:(id)value
 {
-  v6 = objc_msgSend_objectAtIndexedSubscript_(value, a2, 0, v3);
-  objc_msgSend_floatValue(v6, v7, v8, v9);
-  v12 = objc_msgSend_objectAtIndexedSubscript_(value, v10, 1, v11);
-  objc_msgSend_floatValue(v12, v13, v14, v15);
-  v18 = objc_msgSend_objectAtIndexedSubscript_(value, v16, 2, v17);
-  objc_msgSend_floatValue(v18, v19, v20, v21);
+  v5 = objc_msgSend_objectAtIndexedSubscript_(value, a2, 0);
+  objc_msgSend_floatValue(v5, v6, v7);
+  v9 = objc_msgSend_objectAtIndexedSubscript_(value, v8, 1);
+  objc_msgSend_floatValue(v9, v10, v11);
+  v13 = objc_msgSend_objectAtIndexedSubscript_(value, v12, 2);
+  objc_msgSend_floatValue(v13, v14, v15);
 
-  MEMORY[0x1EEE66B58](self, sel_setAnchorA_, v22, v23);
+  MEMORY[0x1EEE66B58](self, sel_setAnchorA_, v16);
 }
 
 - (id)anchorBValue
 {
-  v29[3] = *MEMORY[0x1E69E9840];
-  v5 = MEMORY[0x1E696AD98];
-  objc_msgSend_anchorB(self, a2, v2, v3);
-  v9 = objc_msgSend_numberWithFloat_(v5, v6, v7, v8);
-  v10 = MEMORY[0x1E696AD98];
-  objc_msgSend_anchorB(self, v11, v12, v13, v9);
-  LODWORD(v14) = HIDWORD(v14);
-  v29[1] = objc_msgSend_numberWithFloat_(v10, v15, v16, v17, v14);
-  v18 = MEMORY[0x1E696AD98];
-  objc_msgSend_anchorB(self, v19, v20, v21);
-  LODWORD(v23) = v22;
-  v29[2] = objc_msgSend_numberWithFloat_(v18, v24, v25, v26, v23);
-  return objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v27, v29, 3);
+  v23[3] = *MEMORY[0x1E69E9840];
+  v4 = MEMORY[0x1E696AD98];
+  objc_msgSend_anchorB(self, a2, v2);
+  v7 = objc_msgSend_numberWithFloat_(v4, v5, v6);
+  v8 = MEMORY[0x1E696AD98];
+  objc_msgSend_anchorB(self, v9, v10, v7);
+  LODWORD(v11) = HIDWORD(v11);
+  v23[1] = objc_msgSend_numberWithFloat_(v8, v12, v13, v11);
+  v14 = MEMORY[0x1E696AD98];
+  objc_msgSend_anchorB(self, v15, v16);
+  LODWORD(v18) = v17;
+  v23[2] = objc_msgSend_numberWithFloat_(v14, v19, v20, v18);
+  return objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v21, v23, 3);
 }
 
 - (void)setAnchorBValue:(id)value
 {
-  v6 = objc_msgSend_objectAtIndexedSubscript_(value, a2, 0, v3);
-  objc_msgSend_floatValue(v6, v7, v8, v9);
-  v12 = objc_msgSend_objectAtIndexedSubscript_(value, v10, 1, v11);
-  objc_msgSend_floatValue(v12, v13, v14, v15);
-  v18 = objc_msgSend_objectAtIndexedSubscript_(value, v16, 2, v17);
-  objc_msgSend_floatValue(v18, v19, v20, v21);
+  v5 = objc_msgSend_objectAtIndexedSubscript_(value, a2, 0);
+  objc_msgSend_floatValue(v5, v6, v7);
+  v9 = objc_msgSend_objectAtIndexedSubscript_(value, v8, 1);
+  objc_msgSend_floatValue(v9, v10, v11);
+  v13 = objc_msgSend_objectAtIndexedSubscript_(value, v12, 2);
+  objc_msgSend_floatValue(v13, v14, v15);
 
-  MEMORY[0x1EEE66B58](self, sel_setAnchorB_, v22, v23);
+  MEMORY[0x1EEE66B58](self, sel_setAnchorB_, v16);
 }
 
 + (id)ballSocketWithBodyA:(id)a anchorA:(id)anchorA bodyB:(id)b anchorB:(id)anchorB
 {
-  v10 = objc_msgSend_objectAtIndexedSubscript_(anchorA, a2, 0, anchorA);
-  objc_msgSend_floatValue(v10, v11, v12, v13);
-  v16 = objc_msgSend_objectAtIndexedSubscript_(anchorA, v14, 1, v15);
-  objc_msgSend_floatValue(v16, v17, v18, v19);
-  v22 = objc_msgSend_objectAtIndexedSubscript_(anchorA, v20, 2, v21);
-  objc_msgSend_floatValue(v22, v23, v24, v25);
-  v28 = objc_msgSend_objectAtIndexedSubscript_(anchorB, v26, 0, v27);
-  objc_msgSend_floatValue(v28, v29, v30, v31);
-  v34 = objc_msgSend_objectAtIndexedSubscript_(anchorB, v32, 1, v33);
-  objc_msgSend_floatValue(v34, v35, v36, v37);
-  v40 = objc_msgSend_objectAtIndexedSubscript_(anchorB, v38, 2, v39);
-  objc_msgSend_floatValue(v40, v41, v42, v43);
+  v9 = objc_msgSend_objectAtIndexedSubscript_(anchorA, a2, 0);
+  objc_msgSend_floatValue(v9, v10, v11);
+  v13 = objc_msgSend_objectAtIndexedSubscript_(anchorA, v12, 1);
+  objc_msgSend_floatValue(v13, v14, v15);
+  v17 = objc_msgSend_objectAtIndexedSubscript_(anchorA, v16, 2);
+  objc_msgSend_floatValue(v17, v18, v19);
+  v21 = objc_msgSend_objectAtIndexedSubscript_(anchorB, v20, 0);
+  objc_msgSend_floatValue(v21, v22, v23);
+  v25 = objc_msgSend_objectAtIndexedSubscript_(anchorB, v24, 1);
+  objc_msgSend_floatValue(v25, v26, v27);
+  v29 = objc_msgSend_objectAtIndexedSubscript_(anchorB, v28, 2);
+  objc_msgSend_floatValue(v29, v30, v31);
 
-  return MEMORY[0x1EEE66B58](VFXPhysicsBallSocketJoint, sel_jointWithBodyA_anchorA_bodyB_anchorB_, a, b);
+  return MEMORY[0x1EEE66B58](VFXPhysicsBallSocketJoint, sel_jointWithBodyA_anchorA_bodyB_anchorB_, a);
 }
 
 + (id)ballSocketWithBody:(id)body anchor:(id)anchor
 {
-  v6 = objc_msgSend_objectAtIndexedSubscript_(anchor, a2, 0, anchor);
-  objc_msgSend_floatValue(v6, v7, v8, v9);
-  v12 = objc_msgSend_objectAtIndexedSubscript_(anchor, v10, 1, v11);
-  objc_msgSend_floatValue(v12, v13, v14, v15);
-  v18 = objc_msgSend_objectAtIndexedSubscript_(anchor, v16, 2, v17);
-  objc_msgSend_floatValue(v18, v19, v20, v21);
+  v6 = objc_msgSend_objectAtIndexedSubscript_(anchor, a2, 0);
+  objc_msgSend_floatValue(v6, v7, v8);
+  v10 = objc_msgSend_objectAtIndexedSubscript_(anchor, v9, 1);
+  objc_msgSend_floatValue(v10, v11, v12);
+  v14 = objc_msgSend_objectAtIndexedSubscript_(anchor, v13, 2);
+  objc_msgSend_floatValue(v14, v15, v16);
 
-  return MEMORY[0x1EEE66B58](VFXPhysicsBallSocketJoint, sel_jointWithBody_anchor_, body, v22);
+  return MEMORY[0x1EEE66B58](VFXPhysicsBallSocketJoint, sel_jointWithBody_anchor_, body);
 }
 
 - (VFXPhysicsBallSocketJoint)init
@@ -119,37 +119,37 @@
 
 - (VFXPhysicsBallSocketJoint)initWithBodyA:(VFXPhysicsBallSocketJoint *)self anchorA:(SEL)a bodyB:(id)b anchorB:(id)anchorB
 {
-  v15 = v4;
-  v16 = v5;
-  v17.receiver = self;
-  v17.super_class = VFXPhysicsBallSocketJoint;
-  v8 = [(VFXPhysicsBallSocketJoint *)&v17 init];
-  v11 = v8;
+  v13 = v4;
+  v14 = v5;
+  v15.receiver = self;
+  v15.super_class = VFXPhysicsBallSocketJoint;
+  v8 = [(VFXPhysicsBallSocketJoint *)&v15 init];
+  v10 = v8;
   if (v8)
   {
-    objc_msgSend_setBodyA_(v8, v9, b, v10);
-    *&v11[1].super.super.isa = v15;
-    objc_msgSend_setBodyB_(v11, v12, anchorB, v13);
-    *&v11[1].super._constraint = v16;
+    objc_msgSend_setBodyA_(v8, v9, b);
+    *&v10[1].super.super.isa = v13;
+    objc_msgSend_setBodyB_(v10, v11, anchorB);
+    *&v10[1].super._constraint = v14;
   }
 
-  return v11;
+  return v10;
 }
 
 - (VFXPhysicsBallSocketJoint)initWithBody:(id)body anchor:
 {
-  v10 = v3;
-  v11.receiver = self;
-  v11.super_class = VFXPhysicsBallSocketJoint;
-  v5 = [(VFXPhysicsBallSocketJoint *)&v11 init];
-  v8 = v5;
+  v9 = v3;
+  v10.receiver = self;
+  v10.super_class = VFXPhysicsBallSocketJoint;
+  v5 = [(VFXPhysicsBallSocketJoint *)&v10 init];
+  v7 = v5;
   if (v5)
   {
-    objc_msgSend_setBodyA_(v5, v6, body, v7);
-    *&v8[1].super.super.isa = v10;
+    objc_msgSend_setBodyA_(v5, v6, body);
+    *&v7[1].super.super.isa = v9;
   }
 
-  return v8;
+  return v7;
 }
 
 + (id)jointWithBodyA:(id)a anchorA:(SEL)anchorA bodyB:(id)b anchorB:(id)anchorB
@@ -164,11 +164,11 @@
 
 + (id)jointWithBody:(id)body anchor:
 {
-  v10 = v3;
+  v9 = v3;
   v5 = [self alloc];
-  v8 = objc_msgSend_initWithBody_anchor_(v5, v6, body, v7, v10);
+  v7 = objc_msgSend_initWithBody_anchor_(v5, v6, body, v9);
 
-  return v8;
+  return v7;
 }
 
 - (void)copyFrom:(id)from
@@ -180,38 +180,38 @@
 
 - (void)setAnchorA:(VFXPhysicsBallSocketJoint *)self
 {
-  v9 = v4;
-  *&self[1].super.super.isa = v4;
-  v6 = objc_msgSend_physicsWorld(self, a2, v2, v3);
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 3221225472;
-  v10[2] = sub_1AF355704;
-  v10[3] = &unk_1E7A7E5C8;
+  v7 = v3;
+  *&self[1].super.super.isa = v3;
+  v5 = objc_msgSend_physicsWorld(self, a2, v2);
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = sub_1AF355704;
+  v8[3] = &unk_1E7A7E5C8;
   selfCopy = self;
-  v11 = v9;
-  objc_msgSend__postCommandWithBlock_(v6, v7, v10, v8);
+  v9 = v7;
+  objc_msgSend__postCommandWithBlock_(v5, v6, v8);
 }
 
 - (void)setAnchorB:(VFXPhysicsBallSocketJoint *)self
 {
-  v9 = v4;
-  *&self[1].super._constraint = v4;
-  v6 = objc_msgSend_physicsWorld(self, a2, v2, v3);
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 3221225472;
-  v10[2] = sub_1AF3557E8;
-  v10[3] = &unk_1E7A7E5C8;
+  v7 = v3;
+  *&self[1].super._constraint = v3;
+  v5 = objc_msgSend_physicsWorld(self, a2, v2);
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = sub_1AF3557E8;
+  v8[3] = &unk_1E7A7E5C8;
   selfCopy = self;
-  v11 = v9;
-  objc_msgSend__postCommandWithBlock_(v6, v7, v10, v8);
+  v9 = v7;
+  objc_msgSend__postCommandWithBlock_(v5, v6, v8);
 }
 
 - (btTypedConstraint)_createConstraint
 {
-  v5 = objc_msgSend_bodyA(self, a2, v2, v3);
-  v9 = objc_msgSend_bodyB(self, v6, v7, v8);
+  v4 = objc_msgSend_bodyA(self, a2, v2);
+  v7 = objc_msgSend_bodyB(self, v5, v6);
 
-  return sub_1AF355360(&self[1], v5, v9, v10);
+  return sub_1AF355360(&self[1], v4, v7);
 }
 
 - (void)encodeWithCoder:(id)coder
@@ -227,68 +227,68 @@
 
 - (VFXPhysicsBallSocketJoint)initWithCoder:(id)coder
 {
-  v16.receiver = self;
-  v16.super_class = VFXPhysicsBallSocketJoint;
-  v7 = [(VFXPhysicsJoint *)&v16 initWithCoder:?];
-  if (v7)
+  v13.receiver = self;
+  v13.super_class = VFXPhysicsBallSocketJoint;
+  v6 = [(VFXPhysicsJoint *)&v13 initWithCoder:?];
+  if (v6)
   {
-    v8 = objc_msgSend_immediateMode(VFXTransaction, v4, v5, v6);
-    objc_msgSend_setImmediateMode_(VFXTransaction, v9, 1, v10);
-    *&v11 = sub_1AF371BC4(coder, @"anchorA");
-    *&v7[1].super.super.isa = v11;
-    *&v12 = sub_1AF371BC4(coder, @"anchorB");
-    *&v7[1].super._constraint = v12;
-    objc_msgSend_setImmediateMode_(VFXTransaction, v13, v8, v14);
+    v7 = objc_msgSend_immediateMode(VFXTransaction, v4, v5);
+    objc_msgSend_setImmediateMode_(VFXTransaction, v8, 1);
+    *&v9 = sub_1AF371BC4(coder, @"anchorA");
+    *&v6[1].super.super.isa = v9;
+    *&v10 = sub_1AF371BC4(coder, @"anchorB");
+    *&v6[1].super._constraint = v10;
+    objc_msgSend_setImmediateMode_(VFXTransaction, v11, v7);
   }
 
-  return v7;
+  return v6;
 }
 
 - (id)valueForKey:(id)key
 {
-  if (objc_msgSend_isEqualToString_(key, a2, @"anchorA", v3))
+  if (objc_msgSend_isEqualToString_(key, a2, @"anchorA"))
   {
-    v9 = MEMORY[0x1E696B098];
-    objc_msgSend_anchorA(self, v6, v7, v8);
+    v7 = MEMORY[0x1E696B098];
+    objc_msgSend_anchorA(self, v5, v6);
   }
 
   else
   {
-    if (!objc_msgSend_isEqualToString_(key, v6, @"anchorB", v8))
+    if (!objc_msgSend_isEqualToString_(key, v5, @"anchorB"))
     {
-      v17.receiver = self;
-      v17.super_class = VFXPhysicsBallSocketJoint;
-      return [(VFXPhysicsBallSocketJoint *)&v17 valueForKey:key];
+      v13.receiver = self;
+      v13.super_class = VFXPhysicsBallSocketJoint;
+      return [(VFXPhysicsBallSocketJoint *)&v13 valueForKey:key];
     }
 
-    v9 = MEMORY[0x1E696B098];
-    objc_msgSend_anchorB(self, v13, v14, v15);
+    v7 = MEMORY[0x1E696B098];
+    objc_msgSend_anchorB(self, v10, v11);
   }
 
-  return objc_msgSend_valueWithVFXFloat3_(v9, v10, v11, v12);
+  return objc_msgSend_valueWithVFXFloat3_(v7, v8, v9);
 }
 
 - (void)setValue:(id)value forKey:(id)key
 {
-  if (objc_msgSend_isEqualToString_(key, a2, @"anchorA", key))
+  if (objc_msgSend_isEqualToString_(key, a2, @"anchorA"))
   {
-    objc_msgSend_VFXFloat3Value(value, v7, v8, v9);
+    objc_msgSend_VFXFloat3Value(value, v7, v8);
 
-    MEMORY[0x1EEE66B58](self, sel_setAnchorA_, v10, v11);
+    MEMORY[0x1EEE66B58](self, sel_setAnchorA_, v9);
   }
 
-  else if (objc_msgSend_isEqualToString_(key, v7, @"anchorB", v9))
+  else if (objc_msgSend_isEqualToString_(key, v7, @"anchorB"))
   {
-    objc_msgSend_VFXFloat3Value(value, v12, v13, v14);
+    objc_msgSend_VFXFloat3Value(value, v10, v11);
 
-    MEMORY[0x1EEE66B58](self, sel_setAnchorB_, v15, v16);
+    MEMORY[0x1EEE66B58](self, sel_setAnchorB_, v12);
   }
 
   else
   {
-    v17.receiver = self;
-    v17.super_class = VFXPhysicsBallSocketJoint;
-    [(VFXPhysicsBallSocketJoint *)&v17 setValue:value forKey:key];
+    v13.receiver = self;
+    v13.super_class = VFXPhysicsBallSocketJoint;
+    [(VFXPhysicsBallSocketJoint *)&v13 setValue:value forKey:key];
   }
 }
 

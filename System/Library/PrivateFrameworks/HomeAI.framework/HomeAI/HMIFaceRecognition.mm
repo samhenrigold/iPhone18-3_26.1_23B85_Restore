@@ -28,7 +28,7 @@
     sessionEntityUUID = [MEMORY[0x277CCAD78] UUID];
   }
 
-  v14 = [(HMIFaceRecognition *)self initWithFaceCrop:cropCopy faceprint:faceprintCopy classifications:classificationsCopy predictedLinkedEntityUUIDs:0 faceQualityScore:0 sessionEntityAssignment:sessionEntityUUID sessionEntityUUID:-1.0];
+  v14 = [HMIFaceRecognition initWithFaceCrop:"initWithFaceCrop:faceprint:classifications:predictedLinkedEntityUUIDs:faceQualityScore:sessionEntityAssignment:sessionEntityUUID:" faceprint:? classifications:? predictedLinkedEntityUUIDs:? faceQualityScore:? sessionEntityAssignment:? sessionEntityUUID:?];
   return v14;
 }
 
@@ -50,7 +50,7 @@
     sessionEntityUUID = [MEMORY[0x277CCAD78] UUID];
   }
 
-  v17 = [(HMIFaceRecognition *)self initWithFaceCrop:cropCopy faceprint:faceprintCopy classifications:classificationsCopy predictedLinkedEntityUUIDs:dsCopy faceQualityScore:0 sessionEntityAssignment:sessionEntityUUID sessionEntityUUID:-1.0];
+  v17 = [HMIFaceRecognition initWithFaceCrop:"initWithFaceCrop:faceprint:classifications:predictedLinkedEntityUUIDs:faceQualityScore:sessionEntityAssignment:sessionEntityUUID:" faceprint:? classifications:? predictedLinkedEntityUUIDs:? faceQualityScore:? sessionEntityAssignment:? sessionEntityUUID:?];
   return v17;
 }
 
@@ -81,34 +81,28 @@
 
 - (id)attributeDescriptions
 {
-  v23[5] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277D0F778]);
   faceCrop = [(HMIFaceRecognition *)self faceCrop];
   uUID = [faceCrop UUID];
-  v20 = [v3 initWithName:@"Face Crop UUID" value:uUID];
-  v23[0] = v20;
+  v18 = [v3 initWithName:? value:?];
   v4 = objc_alloc(MEMORY[0x277D0F778]);
   faceprint = [(HMIFaceRecognition *)self faceprint];
   uUID2 = [faceprint UUID];
-  v7 = [v4 initWithName:@"Faceprint UUID" value:uUID2];
-  v23[1] = v7;
-  v8 = objc_alloc(MEMORY[0x277D0F778]);
+  v19 = [v4 initWithName:? value:?];
+  v7 = objc_alloc(MEMORY[0x277D0F778]);
   classifications = [(HMIFaceRecognition *)self classifications];
-  v10 = [v8 initWithName:@"Face Classifications" value:classifications];
-  v23[2] = v10;
-  v11 = objc_alloc(MEMORY[0x277D0F778]);
-  v12 = MEMORY[0x277CCABB0];
+  v20 = [v7 initWithName:? value:?];
+  v9 = objc_alloc(MEMORY[0x277D0F778]);
+  v10 = MEMORY[0x277CCABB0];
   [(HMIFaceRecognition *)self faceQualityScore];
-  v13 = [v12 numberWithDouble:?];
-  v14 = [v11 initWithName:@"Face Quality Score" value:v13];
-  v23[3] = v14;
-  v15 = objc_alloc(MEMORY[0x277D0F778]);
+  v11 = [v10 numberWithDouble:?];
+  v21 = [v9 initWithName:? value:?];
+  v12 = objc_alloc(MEMORY[0x277D0F778]);
   sessionEntityUUID = [(HMIFaceRecognition *)self sessionEntityUUID];
-  v17 = [v15 initWithName:@"Session Entity UUID" value:sessionEntityUUID];
-  v23[4] = v17;
-  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:5];
+  v22 = [v12 initWithName:? value:?];
+  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:? count:?];
 
-  return v18;
+  return v14;
 }
 
 - (BOOL)isEqual:(id)equal
@@ -130,19 +124,19 @@
   {
     classifications = [(HMIFaceRecognition *)self classifications];
     classifications2 = [v6 classifications];
-    if ([classifications isEqual:classifications2])
+    if ([classifications isEqual:?])
     {
       faceCrop = [(HMIFaceRecognition *)self faceCrop];
       faceCrop2 = [v6 faceCrop];
-      if ([faceCrop isEqual:faceCrop2])
+      if ([faceCrop isEqual:?])
       {
         faceprint = [(HMIFaceRecognition *)self faceprint];
         faceprint2 = [v6 faceprint];
-        if ([faceprint isEqual:faceprint2] && (v13 = -[HMIFaceRecognition sessionEntityAssignment](self, "sessionEntityAssignment"), v13 == objc_msgSend(v6, "sessionEntityAssignment")) && (-[HMIFaceRecognition faceQualityScore](self, "faceQualityScore"), v15 = v14, objc_msgSend(v6, "faceQualityScore"), v15 == v16))
+        if ([faceprint isEqual:?] && (v13 = -[HMIFaceRecognition sessionEntityAssignment](self, "sessionEntityAssignment"), v13 == objc_msgSend(v6, "sessionEntityAssignment")) && (-[HMIFaceRecognition faceQualityScore](self, "faceQualityScore"), v15 = v14, objc_msgSend(v6, "faceQualityScore"), v15 == v16))
         {
           sessionEntityUUID = [(HMIFaceRecognition *)self sessionEntityUUID];
           sessionEntityUUID2 = [v6 sessionEntityUUID];
-          v18 = [sessionEntityUUID isEqual:sessionEntityUUID2];
+          v18 = [sessionEntityUUID isEqual:?];
         }
 
         else
@@ -185,50 +179,52 @@
 {
   coderCopy = coder;
   classifications = [(HMIFaceRecognition *)self classifications];
-  [coderCopy encodeObject:classifications forKey:@"HMIFR.c"];
+  [coderCopy encodeObject:? forKey:?];
 
   faceCrop = [(HMIFaceRecognition *)self faceCrop];
-  [coderCopy encodeObject:faceCrop forKey:@"HMIFR.fc"];
+  [coderCopy encodeObject:? forKey:?];
 
   faceprint = [(HMIFaceRecognition *)self faceprint];
-  [coderCopy encodeObject:faceprint forKey:@"HMIFR.fp"];
+  [coderCopy encodeObject:? forKey:?];
 
-  [coderCopy encodeInteger:-[HMIFaceRecognition sessionEntityAssignment](self forKey:{"sessionEntityAssignment"), @"HMIFR.sea"}];
+  [(HMIFaceRecognition *)self sessionEntityAssignment];
+  [coderCopy encodeInteger:? forKey:?];
   [(HMIFaceRecognition *)self faceQualityScore];
-  [coderCopy encodeDouble:@"HMIFR.fqs" forKey:?];
+  [coderCopy encodeDouble:? forKey:?];
   sessionEntityUUID = [(HMIFaceRecognition *)self sessionEntityUUID];
-  [coderCopy encodeObject:sessionEntityUUID forKey:@"HMIFR.seu"];
+  [coderCopy encodeObject:? forKey:?];
 
   predictedLinkedEntityUUIDs = [(HMIFaceRecognition *)self predictedLinkedEntityUUIDs];
-  [coderCopy encodeObject:predictedLinkedEntityUUIDs forKey:@"HMIFR.leus"];
+  [coderCopy encodeObject:? forKey:?];
 }
 
 - (HMIFaceRecognition)initWithCoder:(id)coder
 {
-  v22[2] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"HMIFR.fc"];
-  v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"HMIFR.fp"];
+  objc_opt_class();
+  v5 = [coderCopy decodeObjectOfClass:? forKey:?];
+  objc_opt_class();
+  v6 = [coderCopy decodeObjectOfClass:? forKey:?];
   v7 = MEMORY[0x277CBEB98];
-  v22[0] = objc_opt_class();
-  v22[1] = objc_opt_class();
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:2];
-  v9 = [v7 setWithArray:v8];
-  v10 = [coderCopy decodeObjectOfClasses:v9 forKey:@"HMIFR.c"];
+  objc_opt_class();
+  objc_opt_class();
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:? count:?];
+  v9 = [v7 setWithArray:?];
+  v10 = [coderCopy decodeObjectOfClasses:? forKey:?];
 
-  v11 = [coderCopy decodeIntegerForKey:@"HMIFR.sea"];
-  [coderCopy decodeDoubleForKey:@"HMIFR.fqs"];
-  v13 = v12;
-  v14 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"HMIFR.seu"];
-  v15 = MEMORY[0x277CBEB98];
-  v21[0] = objc_opt_class();
-  v21[1] = objc_opt_class();
-  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:2];
-  v17 = [v15 setWithArray:v16];
-  v18 = [coderCopy decodeObjectOfClasses:v17 forKey:@"HMIFR.leus"];
+  [coderCopy decodeIntegerForKey:?];
+  [coderCopy decodeDoubleForKey:?];
+  objc_opt_class();
+  v11 = [coderCopy decodeObjectOfClass:? forKey:?];
+  v12 = MEMORY[0x277CBEB98];
+  objc_opt_class();
+  objc_opt_class();
+  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:? count:?];
+  v14 = [v12 setWithArray:?];
+  v15 = [coderCopy decodeObjectOfClasses:? forKey:?];
 
-  v19 = [(HMIFaceRecognition *)self initWithFaceCrop:v5 faceprint:v6 classifications:v10 predictedLinkedEntityUUIDs:v18 faceQualityScore:v11 sessionEntityAssignment:v14 sessionEntityUUID:v13];
-  return v19;
+  v16 = [HMIFaceRecognition initWithFaceCrop:"initWithFaceCrop:faceprint:classifications:predictedLinkedEntityUUIDs:faceQualityScore:sessionEntityAssignment:sessionEntityUUID:" faceprint:? classifications:? predictedLinkedEntityUUIDs:? faceQualityScore:? sessionEntityAssignment:? sessionEntityUUID:?];
+  return v16;
 }
 
 @end

@@ -51,13 +51,13 @@
 
 - (id)tu_UUID
 {
-  v5[2] = *MEMORY[0x1E69E9840];
+  v4[2] = *MEMORY[0x1E69E9840];
   if ([self length] == 16)
   {
-    v5[0] = 0;
-    v5[1] = 0;
-    [self getBytes:v5 length:16];
-    v2 = [objc_alloc(MEMORY[0x1E696AFB0]) initWithUUIDBytes:v5];
+    v4[0] = 0;
+    v4[1] = 0;
+    [self getBytes:v4 length:16];
+    v2 = [objc_alloc(MEMORY[0x1E696AFB0]) initWithUUIDBytes:v4];
   }
 
   else
@@ -65,24 +65,20 @@
     v2 = 0;
   }
 
-  v3 = *MEMORY[0x1E69E9840];
-
   return v2;
 }
 
 + (id)tu_dataForUUID:()TelephonyUtilities
 {
   v3 = a3;
-  v6[2] = *MEMORY[0x1E69E9840];
+  v5[2] = *MEMORY[0x1E69E9840];
   if (a3)
   {
-    v6[0] = 0;
-    v6[1] = 0;
-    [a3 getUUIDBytes:v6];
-    v3 = [MEMORY[0x1E695DEF0] dataWithBytes:v6 length:16];
+    v5[0] = 0;
+    v5[1] = 0;
+    [a3 getUUIDBytes:v5];
+    v3 = [MEMORY[0x1E695DEF0] dataWithBytes:v5 length:16];
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 
   return v3;
 }

@@ -153,18 +153,18 @@ uint64_t gldBufferSubData(int a1, GLDBufferRec *this, uint64_t a3, uint64_t a4, 
   return result;
 }
 
-id *gldFlushMemoryPlugin(id *this, uint64_t a2)
+id *gldFlushMemoryPlugin(id *result, uint64_t a2)
 {
   v2 = *(a2 + 24);
   if (v2)
   {
     if (*(v2 + 12))
     {
-      return GLDContextRec::flushContext(this);
+      return GLDContextRec::flushContext(result);
     }
   }
 
-  return this;
+  return result;
 }
 
 uint64_t GLDContextRec::getClearPipelineState(GLDContextRec *this, int a2)
@@ -206,7 +206,7 @@ uint64_t GLDContextRec::getClearPipelineState(GLDContextRec *this, int a2)
 
   while (v3 != 4);
   *(this + 306) = *(this + 306) & 0xFFFFB1FFFFFFFFFFLL | ((*(this + 560) == 252) << 41) | ((*(this + 561) == 253) << 46);
-  *(this + 301) = *(this + 301) & 0xFFFF000000FFFFFFLL | ((GLDDeviceRec::getClearShaderFragmentFunction(*(this + 12), *(this + 657)) & 0xFFFFFF) << 24);
+  *(this + 301) = *(this + 301) & 0xFFFF000000FFFFFFLL | ((GLDDeviceRec::getClearShaderFragmentFunction(*(this + 12), *(this + 657)) & 0xFFFFFFLL) << 24);
   v9 = *(this + 50);
   if (v9 && (v10 = *(*(v9 + 32) + 182), v10 >= 2))
   {
@@ -252,9 +252,9 @@ void *GLDContextRec::getClearDepthStencilState(GLDContextRec *this, unsigned int
   return GLDDeviceRec::getDepthStencilStateFromDescriptor(v7, v4);
 }
 
-uint64_t GLDContextRec::clearBuffers(int8x8_t *this, unsigned int a2, uint32x4_t *a3)
+void *GLDContextRec::clearBuffers(int8x8_t *this, unsigned int a2, uint32x4_t *a3)
 {
-  v90 = *MEMORY[0x29EDCA608];
+  v89 = *MEMORY[0x29EDCA608];
   if (!*&this[2] || this[310].i32[0] && (GLDContextRec::endRenderPass(this), !*&this[2]))
   {
     GLDContextRec::beginRenderPass(this);
@@ -273,16 +273,16 @@ uint64_t GLDContextRec::clearBuffers(int8x8_t *this, unsigned int a2, uint32x4_t
 
   __asm { FMOV            V0.2S, #-1.0 }
 
-  v78 = _D0;
+  v77 = _D0;
   __asm { FMOV            V0.2S, #1.0 }
 
-  v80 = _D0;
-  v81 = -1082130432;
-  v83 = -_D0;
-  v84 = 1065353216;
-  v86 = _D0;
-  v87 = 1065353216;
-  v89 = 1065353216;
+  v79 = _D0;
+  v80 = -1082130432;
+  v82 = -_D0;
+  v83 = 1065353216;
+  v85 = _D0;
+  v86 = 1065353216;
+  v88 = 1065353216;
   v15 = 0.0;
   if ((a2 & 0x100) != 0)
   {
@@ -302,10 +302,10 @@ uint64_t GLDContextRec::clearBuffers(int8x8_t *this, unsigned int a2, uint32x4_t
     }
   }
 
-  v79 = v15;
-  v82 = v15;
-  v85 = v15;
-  v88 = v15;
+  v78 = v15;
+  v81 = v15;
+  v84 = v15;
+  v87 = v15;
   if ((v8 & ((a2 & 0x200) >> 9)) == 1 && *(*&this[13] + 13052) == 0xFF)
   {
     [*&this[2] setStencilCleared];
@@ -322,15 +322,15 @@ uint64_t GLDContextRec::clearBuffers(int8x8_t *this, unsigned int a2, uint32x4_t
   }
 
   this[309].i32[0] = v18 & 0xFFFFFFDF;
-  v75 = 0uLL;
+  v74 = 0uLL;
   v19 = *(*&this[50] + 32);
   LOWORD(v16) = *(v19 + 178);
   LOWORD(v17) = *(v19 + 180);
   v20 = this[2];
-  *v76.i64 = v16;
-  *&v76.i64[1] = v17;
-  v77 = xmmword_29D37A9A0;
-  result = [v20 setViewport:&v75];
+  *v75.i64 = v16;
+  *&v75.i64[1] = v17;
+  v76 = xmmword_29D37A9A0;
+  result = [v20 setViewport:&v74];
   v22 = this[327].i32[0];
   v23 = a2 & 0x300;
   v24 = v22 & a2;
@@ -351,14 +351,14 @@ uint64_t GLDContextRec::clearBuffers(int8x8_t *this, unsigned int a2, uint32x4_t
       v26 = *a3;
     }
 
-    v75 = v26;
-    [*&this[2] setVertexBytes:&v78 length:64 atIndex:{14, *&v26}];
-    [*&this[2] setFragmentBytes:&v75 length:48 atIndex:14];
+    v74 = v26;
+    [*&this[2] setVertexBytes:&v77 length:64 atIndex:{14, *&v26}];
+    [*&this[2] setFragmentBytes:&v74 length:48 atIndex:14];
     if (this[279].i8[0] == 1)
     {
       v27 = this[285];
       v28 = this[286];
-      if (v27 >= v28)
+      if (v27 >= *&v28)
       {
         v30 = this[284];
         v31 = v27 - v30;
@@ -369,7 +369,7 @@ uint64_t GLDContextRec::clearBuffers(int8x8_t *this, unsigned int a2, uint32x4_t
           std::vector<unsigned int>::__throw_length_error[abi:nn200100]();
         }
 
-        v34 = v28 - v30;
+        v34 = *&v28 - v30;
         if (v34 >> 1 > v33)
         {
           v33 = v34 >> 1;
@@ -391,7 +391,7 @@ uint64_t GLDContextRec::clearBuffers(int8x8_t *this, unsigned int a2, uint32x4_t
         v37 = (4 * v32);
         v38 = (4 * v32 - 4 * v36);
         *v37 = -1;
-        v29 = v37 + 1;
+        v29 = (v37 + 1);
         memcpy(v38, v30, v31);
         v39 = this[284];
         this[284] = v38;
@@ -406,7 +406,7 @@ uint64_t GLDContextRec::clearBuffers(int8x8_t *this, unsigned int a2, uint32x4_t
       else
       {
         *v27 = -1;
-        v29 = v27 + 4;
+        v29 = (v27 + 4);
       }
 
       this[285] = v29;
@@ -437,14 +437,14 @@ uint64_t GLDContextRec::clearBuffers(int8x8_t *this, unsigned int a2, uint32x4_t
       v43 = vcvtq_s32_f32(*a3);
     }
 
-    v76 = v43;
-    [*&this[2] setVertexBytes:&v78 length:64 atIndex:14];
-    [*&this[2] setFragmentBytes:&v75 length:48 atIndex:14];
+    v75 = v43;
+    [*&this[2] setVertexBytes:&v77 length:64 atIndex:14];
+    [*&this[2] setFragmentBytes:&v74 length:48 atIndex:14];
     if (this[279].i8[0] == 1)
     {
       v44 = this[285];
       v45 = this[286];
-      if (v44 >= v45)
+      if (v44 >= *&v45)
       {
         v47 = this[284];
         v48 = v44 - v47;
@@ -455,7 +455,7 @@ uint64_t GLDContextRec::clearBuffers(int8x8_t *this, unsigned int a2, uint32x4_t
           std::vector<unsigned int>::__throw_length_error[abi:nn200100]();
         }
 
-        v51 = v45 - v47;
+        v51 = *&v45 - v47;
         if (v51 >> 1 > v50)
         {
           v50 = v51 >> 1;
@@ -477,7 +477,7 @@ uint64_t GLDContextRec::clearBuffers(int8x8_t *this, unsigned int a2, uint32x4_t
         v54 = (4 * v49);
         v55 = (4 * v49 - 4 * v53);
         *v54 = -1;
-        v46 = v54 + 1;
+        v46 = (v54 + 1);
         memcpy(v55, v47, v48);
         v56 = this[284];
         this[284] = v55;
@@ -492,7 +492,7 @@ uint64_t GLDContextRec::clearBuffers(int8x8_t *this, unsigned int a2, uint32x4_t
       else
       {
         *v44 = -1;
-        v46 = v44 + 4;
+        v46 = (v44 + 4);
       }
 
       this[285] = v46;
@@ -523,14 +523,14 @@ uint64_t GLDContextRec::clearBuffers(int8x8_t *this, unsigned int a2, uint32x4_t
       v60 = vcvtq_u32_f32(*a3);
     }
 
-    v77 = v60;
-    [*&this[2] setVertexBytes:&v78 length:64 atIndex:14];
-    [*&this[2] setFragmentBytes:&v75 length:48 atIndex:14];
+    v76 = v60;
+    [*&this[2] setVertexBytes:&v77 length:64 atIndex:14];
+    [*&this[2] setFragmentBytes:&v74 length:48 atIndex:14];
     if (this[279].i8[0] == 1)
     {
       v61 = this[285];
       v62 = this[286];
-      if (v61 >= v62)
+      if (v61 >= *&v62)
       {
         v64 = this[284];
         v65 = v61 - v64;
@@ -541,7 +541,7 @@ uint64_t GLDContextRec::clearBuffers(int8x8_t *this, unsigned int a2, uint32x4_t
           std::vector<unsigned int>::__throw_length_error[abi:nn200100]();
         }
 
-        v68 = v62 - v64;
+        v68 = *&v62 - v64;
         if (v68 >> 1 > v67)
         {
           v67 = v68 >> 1;
@@ -563,7 +563,7 @@ uint64_t GLDContextRec::clearBuffers(int8x8_t *this, unsigned int a2, uint32x4_t
         v71 = (4 * v66);
         v72 = (4 * v66 - 4 * v70);
         *v71 = -1;
-        v63 = v71 + 1;
+        v63 = (v71 + 1);
         memcpy(v72, v64, v65);
         v73 = this[284];
         this[284] = v72;
@@ -578,7 +578,7 @@ uint64_t GLDContextRec::clearBuffers(int8x8_t *this, unsigned int a2, uint32x4_t
       else
       {
         *v61 = -1;
-        v63 = v61 + 4;
+        v63 = (v61 + 4);
       }
 
       this[285] = v63;
@@ -589,7 +589,6 @@ uint64_t GLDContextRec::clearBuffers(int8x8_t *this, unsigned int a2, uint32x4_t
   }
 
   this[309].i32[0] |= 0x1D8u;
-  v74 = *MEMORY[0x29EDCA608];
   return result;
 }
 
@@ -706,7 +705,7 @@ LABEL_37:
           {
             if ((*(this + 655) & v14) == 0)
             {
-              MTLReleaseAssertionFailure();
+              MTLReleaseAssertionFailure("clearFramebufferData", 494, "false", "missing clear mask bits");
               std::vector<unsigned int>::__throw_length_error[abi:nn200100]();
             }
 
@@ -894,7 +893,7 @@ BOOL GLDContextRec::initWithShareGroup(uint64_t a1, pthread_mutex_t *a2, uint64_
   return v21 != 0;
 }
 
-uint64_t GLDContextRec::populateConfigData(uint64_t a1, uint64_t a2)
+void *GLDContextRec::populateConfigData(uint64_t a1, uint64_t a2)
 {
   v4 = *(a1 + 120);
   v25 = *(v4 + 24);
@@ -945,7 +944,7 @@ uint64_t GLDContextRec::populateConfigData(uint64_t a1, uint64_t a2)
     }
 
 LABEL_16:
-    v24 = MTLReleaseAssertionFailure();
+    v24 = MTLReleaseAssertionFailure("bnContextGetColorSizes", 376, "false", "Unsupported Color Buffer Format");
     return GLDContextRec::dealloc(v24);
   }
 
@@ -958,7 +957,7 @@ LABEL_16:
 
   if (v7 != 33638)
   {
-    MTLReleaseAssertionFailure();
+    MTLReleaseAssertionFailure("bnContextGetColorSizes", 363, "false", "Unsupported Color Buffer Type");
     goto LABEL_16;
   }
 
@@ -1048,30 +1047,29 @@ uint64_t GLDContextRec::dealloc(GLDContextRec *this)
   }
 
   GLDObject::release(*(this + 12));
-  v3 = *(this + 654);
   glgDestroyProcessor();
   GLDObject::release(*(this + 594));
   *(this + 594) = 0;
   GLDObject::release(*(this + 595));
   *(this + 595) = 0;
-  GLDVertexArrayRec::updateSharedState((this + 2336), v4);
-  GLDVertexArrayRec::updateSharedState((this + 2064), v5);
+  GLDVertexArrayRec::updateSharedState((this + 2336));
+  GLDVertexArrayRec::updateSharedState((this + 2064));
 
   for (i = 517; i != 527; ++i)
   {
-    v7 = *(this + i);
-    if (v7)
+    v4 = *(this + i);
+    if (v4)
     {
-      GLDObject::release(v7);
+      GLDObject::release(v4);
     }
   }
 
   do
   {
-    v8 = *(this + i);
-    if (v8)
+    v5 = *(this + i);
+    if (v5)
     {
-      (*(*v8 + 24))(v8);
+      (*(*v5 + 24))(v5);
     }
 
     ++i;
@@ -1080,82 +1078,82 @@ uint64_t GLDContextRec::dealloc(GLDContextRec *this)
   while (i != 537);
   for (j = 3576; j != 3832; j += 8)
   {
-    v10 = *(this + j);
-    if (v10)
+    v7 = *(this + j);
+    if (v7)
     {
-      (*(*v10 + 24))(v10);
+      (*(*v7 + 24))(v7);
     }
   }
 
   for (k = 2672; k != 2800; k += 8)
   {
-    v12 = *(this + k);
-    if (v12)
+    v9 = *(this + k);
+    if (v9)
     {
-      (*(*v12 + 24))(v12);
+      (*(*v9 + 24))(v9);
     }
   }
 
   for (m = 2872; m != 2968; m += 8)
   {
-    v14 = *(this + m);
-    if (v14)
+    v11 = *(this + m);
+    if (v11)
     {
-      (*(*v14 + 24))(v14);
+      (*(*v11 + 24))(v11);
     }
   }
 
   do
   {
-    v15 = *(this + m);
-    if (v15)
+    v12 = *(this + m);
+    if (v12)
     {
-      (*(*v15 + 24))(v15);
+      (*(*v12 + 24))(v12);
     }
 
     m += 8;
   }
 
   while (m != 3064);
-  v16 = *(this + 358);
-  if (v16)
+  v13 = *(this + 358);
+  if (v13)
   {
-    (*(*v16 + 24))(v16);
+    (*(*v13 + 24))(v13);
   }
 
   (*(**(this + 9) + 24))(*(this + 9));
   GLDObject::release(*(this + 11));
   *(this + 11) = 0;
-  v17 = *(this + 657);
-  if (v17)
+  v14 = *(this + 657);
+  if (v14)
   {
-    dispatch_group_wait(v17, 0xFFFFFFFFFFFFFFFFLL);
+    dispatch_group_wait(v14, 0xFFFFFFFFFFFFFFFFLL);
     dispatch_release(*(this + 657));
   }
 
   if (*(this + 781))
   {
-    v18 = 0;
-    v19 = this + 5992;
+    v15 = 0;
+    v16 = this + 5992;
     do
     {
-      GLDObject::release(*&v19[8 * v18]);
-      *&v19[8 * v18++] = 0;
+      GLDObject::release(*&v16[8 * v15]);
+      *&v16[8 * v15++] = 0;
     }
 
-    while (v18 < *(this + 781));
+    while (v15 < *(this + 781));
   }
 
-  v20 = *(this + 277);
-  if (v20)
+  v17 = *(this + 277);
+  if (v17)
   {
-    free(v20);
+    free(v17);
   }
 
-  v21 = *(this + 278);
-  if (v21)
+  v18 = *(this + 278);
+  if (v18)
   {
-    free(v21);
+    free(v18);
   }
 
   return GLDObject::dealloc(this);
@@ -1670,9 +1668,9 @@ LABEL_64:
   return result;
 }
 
-void sub_29D370E24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_29D370E24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1942,7 +1940,7 @@ LABEL_60:
           if (v17 != 7)
           {
 LABEL_71:
-            v40 = MTLReleaseAssertionFailure();
+            v40 = MTLReleaseAssertionFailure("bindDrawFramebuffer", 197, "false", "unknown metal texture type %d", v17);
             return gldUpdateReadFramebuffer(v40, v41);
           }
 
@@ -2151,8 +2149,8 @@ void gldDiscardFramebuffer(int8x8_t *this, uint64_t a2, uint64_t a3, uint64_t a4
 
       if (v10 != 36128)
       {
-        v22 = MTLReleaseAssertionFailure();
-        gldUnbindFramebuffer(v22);
+        v22 = MTLReleaseAssertionFailure("discardFramebuffer", 1419, "false", "Unsupported attachment enum");
+        gldUnbindFramebuffer(v22, v23);
         return;
       }
 
@@ -2209,13 +2207,13 @@ void gldUnbindFramebuffer(GLDContextRec *this, uint64_t a2)
 
 uint64_t gldBlitFramebufferData(GLDContextRec *this, int a2, int a3, int a4, int a5, int a6, int a7, float a8, float a9, float a10, float a11)
 {
-  v219 = *MEMORY[0x29EDCA608];
-  v150 = this + 4096;
+  v218 = *MEMORY[0x29EDCA608];
+  v149 = this + 4096;
   v21 = *(*(this + 51) + 32);
   v22 = *(*(this + 50) + 32);
   *(this + 53) |= 0x8000uLL;
-  v167 = v21;
-  v148 = v22;
+  v166 = v21;
+  v147 = v22;
   if (!*(this + 2) || *(v21 + 182) < 2u || a3 | a2 || *(this + 1149) != 1 || *(v21 + 178) != a4 || *(v21 + 180) != a5 || *(v22 + 178) != a4 || *(v22 + 180) != a5)
   {
     goto LABEL_68;
@@ -2240,23 +2238,23 @@ LABEL_68:
       goto LABEL_69;
     }
 
-    goto LABEL_201;
+    return 1;
   }
 
 LABEL_23:
-  v149 = this + 4416;
-  v153 = this + 4576;
+  v148 = this + 4416;
+  v152 = this + 4576;
   context = this + 4136;
-  v151 = this + 4216;
-  v162 = this + 4496;
-  v160 = this + 4296;
-  v158 = this + 4376;
-  v155 = (this + 4336);
+  v150 = this + 4216;
+  v161 = this + 4496;
+  v159 = this + 4296;
+  v157 = this + 4376;
+  v154 = (this + 4336);
   while (1)
   {
     if (!a6)
     {
-      goto LABEL_201;
+      return 1;
     }
 
     if ((a6 & 0x4000) != 0)
@@ -2282,17 +2280,17 @@ LABEL_30:
     v27 = (v21 + 16 * v24);
     v28 = v27[1];
     v29 = v27[3];
-    v168 = v27[2];
+    v167 = v27[2];
     v30 = *(v25 + 48);
     TextureResource = GLDTextureRec::getTextureResource(v25, v26);
     if (TextureResource)
     {
-      v171 = *(TextureResource + 32);
+      v170 = *(TextureResource + 32);
     }
 
     else
     {
-      v171 = 0;
+      v170 = 0;
     }
 
     if ((a6 & 0x4000) == 0)
@@ -2306,26 +2304,26 @@ LABEL_30:
       goto LABEL_69;
     }
 
-    v33 = [v171 pixelFormat];
+    v33 = [v170 pixelFormat];
     v34 = *(this + 1148);
-    v35 = *&v149[8 * v34];
+    v35 = *&v148[8 * v34];
     if (v33 != v35 && (v33 != 80 || v35 != 70) && (v33 != 70 || v35 != 80))
     {
       goto LABEL_69;
     }
 
-    if ((v150[990] & 1) == 0 && v153[v34] != (*(v30 + 24) & 1))
+    if ((v149[990] & 1) == 0 && v152[v34] != (*(v30 + 24) & 1))
     {
       goto LABEL_69;
     }
 
     v36 = [*(this + 231) colorAttachments];
     v37 = 0;
-    v170 = 0x4000;
+    v169 = 0x4000;
     do
     {
       v38 = [v36 objectAtIndexedSubscript:v37];
-      if ((*(this + 1187) & (1 << v37)) != 0 && (v39 = v38, [v38 texture] == v171) && objc_msgSend(v39, "level") == v168)
+      if ((*(this + 1187) & (1 << v37)) != 0 && (v39 = v38, [v38 texture] == v170) && objc_msgSend(v39, "level") == v167)
       {
         *(this + 1260) |= 1 << v37;
         v40 = *(this + 1148);
@@ -2337,20 +2335,20 @@ LABEL_30:
 
         else
         {
-          v42 = *&v151[8 * v40];
+          v42 = *&v150[8 * v40];
         }
 
         GLRResourceList::addResource(*(this + 8), v42);
-        *&v162[8 * v37] = 3;
+        *&v161[8 * v37] = 3;
         v43 = *(this + 2);
         v44 = *(this + 1148);
-        v45 = *&v160[4 * v44];
+        v45 = *&v159[4 * v44];
         v46 = *(v42 + 32);
-        v47 = *&v158[4 * v44];
-        v48 = *(v155 + v44);
-        if (v150[990] == 1)
+        v47 = *&v157[4 * v44];
+        v48 = *(v154 + v44);
+        if (v149[990] == 1)
         {
-          [v43 setColorResolveTexture:v46 slice:v45 depthPlane:v47 level:v48 yInvert:v153[v44] atIndex:v37];
+          [v43 setColorResolveTexture:v46 slice:v45 depthPlane:v47 level:v48 yInvert:v152[v44] atIndex:v37];
         }
 
         else
@@ -2358,7 +2356,7 @@ LABEL_30:
           [v43 setColorResolveTexture:v46 slice:v45 depthPlane:v47 level:v48 atIndex:v37];
         }
 
-        v21 = v167;
+        v21 = v166;
         *(this + 620) |= 4u;
         v49 = *(*(*(this + 50) + 40) + 8 * *(this + 1148));
         v50 = *(v49 + 184);
@@ -2367,21 +2365,21 @@ LABEL_30:
           (*(*v50 + 24))(v50);
         }
 
-        a6 &= ~v170;
+        a6 &= ~v169;
         *(v49 + 184) = 0;
-        v170 = 0;
+        v169 = 0;
       }
 
       else
       {
-        v21 = v167;
+        v21 = v166;
       }
 
       ++v37;
     }
 
     while (v37 != 4);
-    if (v170)
+    if (v169)
     {
       goto LABEL_68;
     }
@@ -2406,24 +2404,24 @@ LABEL_69:
 
   v51 = a8 + (a4 * a10);
   v52 = a9 + (a5 * a11);
-  *v202 = a8;
-  *&v202[1] = v52;
-  v203 = 0x3F80000000000000;
-  v204 = a8;
-  v205 = a9;
-  v206 = 0x3F80000000000000;
-  v207 = v51;
-  v208 = a9;
-  v209 = 0x3F80000000000000;
-  v210 = v51;
-  v211 = v52;
-  v212 = 0x3F80000000000000;
-  v213 = a8;
-  v214 = v52;
-  v215 = 0x3F80000000000000;
-  v216 = v51;
-  v217 = a9;
-  v218 = 0x3F80000000000000;
+  *v201 = a8;
+  *&v201[1] = v52;
+  v202 = 0x3F80000000000000;
+  v203 = a8;
+  v204 = a9;
+  v205 = 0x3F80000000000000;
+  v206 = v51;
+  v207 = a9;
+  v208 = 0x3F80000000000000;
+  v209 = v51;
+  v210 = v52;
+  v211 = 0x3F80000000000000;
+  v212 = a8;
+  v213 = v52;
+  v214 = 0x3F80000000000000;
+  v215 = v51;
+  v216 = a9;
+  v217 = 0x3F80000000000000;
   BlitFramebufferSampler = GLDDeviceRec::getBlitFramebufferSampler(*(this + 12), a7);
   v53 = a2;
   v54 = a3;
@@ -2434,7 +2432,7 @@ LABEL_69:
     v56 = 3;
   }
 
-  v143 = v56;
+  v142 = v56;
   v57 = 0.0;
   if (a8 > 0.0)
   {
@@ -2483,7 +2481,7 @@ LABEL_69:
     v63 = v59;
   }
 
-  v147 = v63;
+  v146 = v63;
   if (v66)
   {
     v68 = v67;
@@ -2494,7 +2492,7 @@ LABEL_69:
     v68 = v65;
   }
 
-  v146 = v68;
+  v145 = v68;
   v69 = v64 - v61;
   v71 = v61 - v64;
   v70 = v61 > v64;
@@ -2508,22 +2506,22 @@ LABEL_69:
     v69 = v71;
   }
 
-  v144 = v69;
-  v145 = v61;
-  v154 = (this + 5168);
+  v143 = v69;
+  v144 = v61;
+  v153 = (this + 5168);
   v72 = (a5 + a3);
   while (2)
   {
     contexta = objc_autoreleasePoolPush();
     if ((a6 & 0x4000) != 0)
     {
-      v73 = v167;
-      v74 = *(v167 + 176) - 36064;
+      v73 = v166;
+      v74 = *(v166 + 176) - 36064;
       v75 = -16385;
       goto LABEL_104;
     }
 
-    v73 = v167;
+    v73 = v166;
     if ((a6 & 0x100) != 0)
     {
       v74 = 8;
@@ -2536,12 +2534,12 @@ LABEL_69:
       v74 = 9;
       v75 = -17665;
 LABEL_104:
-      v163 = v75;
+      v162 = v75;
       v76 = *(*(*(this + 51) + 40) + 8 * v74);
       v77 = v74 == 9 && *(v76 + 76) == 2;
       v78 = (v73 + 16 * v74);
       v79 = v78[1];
-      v156 = v78[2];
+      v155 = v78[2];
       v80 = *(v76 + 48);
       v81 = GLDTextureRec::getTextureResource(v76, v77);
       if (v81)
@@ -2564,8 +2562,8 @@ LABEL_104:
       if (v74 == 9)
       {
         v85 = objc_alloc_init(MEMORY[0x29EDBB670]);
-        [v85 setWidth:*(v167 + 178)];
-        [v85 setHeight:*(v167 + 180)];
+        [v85 setWidth:*(v166 + 178)];
+        [v85 setHeight:*(v166 + 180)];
         [v85 setPixelFormat:13];
         [v85 setTextureType:v84];
         [v85 setSampleCount:{objc_msgSend(v82, "sampleCount")}];
@@ -2575,20 +2573,20 @@ LABEL_104:
 
       else
       {
-        v86 = [v82 newTextureViewWithPixelFormat:objc_msgSend(v82 textureType:"pixelFormat") levels:v84 slices:v156, 1, v79, 1];
+        v86 = [v82 newTextureViewWithPixelFormat:objc_msgSend(v82 textureType:"pixelFormat") levels:v84 slices:v155, 1, v79, 1];
       }
 
       [v86 setLabel:*MEMORY[0x29EDBB7B0]];
-      v169 = GLDObject::operator new(0x40);
-      GLRTextureResource::GLRTextureResource(v169);
+      v168 = GLDObject::operator new(0x40);
+      GLRTextureResource::GLRTextureResource(v168);
       v87 = GLDTextureRec::getTextureResource(v76, v77);
-      GLRTextureResource::initWithMetalTexture(v169, v86, *(v87 + 24));
+      GLRTextureResource::initWithMetalTexture(v168, v86, *(v87 + 24));
 
       v89 = v72;
       v90 = v54;
       if (*(v80 + 24))
       {
-        LOWORD(v88) = *(v167 + 180);
+        LOWORD(v88) = *(v166 + 180);
         v91 = v88;
         v90 = v91 - v54;
         v89 = v91 - v72;
@@ -2598,48 +2596,48 @@ LABEL_104:
       {
         v92 = v78[3];
         v93 = [v86 depth];
-        v184 = v53;
-        v185 = v89;
-        v186 = v92 / v93;
-        v187 = v53;
-        v188 = v90;
-        v189 = v186;
-        v190 = v55;
-        v191 = v90;
-        v192 = v186;
-        v193 = v55;
-        v194 = v89;
-        v195 = v186;
-        v196 = v53;
-        v197 = v89;
-        v198 = v186;
-        v199 = v55;
-        v200 = v90;
-        v201 = v186;
-        v161 = 72;
+        v183 = v53;
+        v184 = v89;
+        v185 = v92 / v93;
+        v186 = v53;
+        v187 = v90;
+        v188 = v185;
+        v189 = v55;
+        v190 = v90;
+        v191 = v185;
+        v192 = v55;
+        v193 = v89;
+        v194 = v185;
+        v195 = v53;
+        v196 = v89;
+        v197 = v185;
+        v198 = v55;
+        v199 = v90;
+        v200 = v185;
+        v160 = 72;
       }
 
       else
       {
-        v184 = v53;
-        v185 = v89;
-        v186 = v53;
-        v187 = v90;
-        v188 = v55;
-        v189 = v90;
-        v190 = v55;
-        v191 = v89;
-        v192 = v53;
-        v193 = v89;
-        v161 = 48;
-        v194 = v55;
-        v195 = v90;
+        v183 = v53;
+        v184 = v89;
+        v185 = v53;
+        v186 = v90;
+        v187 = v55;
+        v188 = v90;
+        v189 = v55;
+        v190 = v89;
+        v191 = v53;
+        v192 = v89;
+        v160 = 48;
+        v193 = v55;
+        v194 = v90;
       }
 
-      v183 = 0;
-      v181 = 0u;
-      v182 = 0u;
+      v182 = 0;
       v180 = 0u;
+      v181 = 0u;
+      v179 = 0u;
       [v82 pixelFormat];
       MTLPixelFormatGetInfo();
       if ((*(v80 + 214) & 0x1800) != 0)
@@ -2650,13 +2648,13 @@ LABEL_104:
           v95 = 16;
         }
 
-        else if ((DWORD2(v180) & 0x10000) != 0)
+        else if ((DWORD2(v179) & 0x10000) != 0)
         {
           v94 = 12;
           v95 = 13;
         }
 
-        else if ((DWORD2(v180) & 0x40000) != 0)
+        else if ((DWORD2(v179) & 0x40000) != 0)
         {
           v94 = 12;
           v95 = 14;
@@ -2664,7 +2662,7 @@ LABEL_104:
 
         else
         {
-          if ((DWORD2(v180) & 0x80000) != 0)
+          if ((DWORD2(v179) & 0x80000) != 0)
           {
             v95 = 15;
           }
@@ -2681,7 +2679,7 @@ LABEL_104:
       else
       {
         v96 = v74 & 0xFFFFFFFE;
-        if (*(v167 + 182) < 2u)
+        if (*(v166 + 182) < 2u)
         {
           if (v74 == 8)
           {
@@ -2695,7 +2693,7 @@ LABEL_104:
 
           if (v96 != 8)
           {
-            if ((DWORD2(v180) & 0x10000) != 0)
+            if ((DWORD2(v179) & 0x10000) != 0)
             {
               v94 = 0;
               v95 = 1;
@@ -2704,12 +2702,12 @@ LABEL_104:
             else
             {
               v94 = 0;
-              if ((DWORD2(v180) & 0x40000) != 0)
+              if ((DWORD2(v179) & 0x40000) != 0)
               {
                 v95 = 4;
               }
 
-              else if ((DWORD2(v180) & 0x80000) != 0)
+              else if ((DWORD2(v179) & 0x80000) != 0)
               {
                 v95 = 6;
               }
@@ -2738,7 +2736,7 @@ LABEL_104:
 
           if (v96 != 8)
           {
-            if ((DWORD2(v180) & 0x40000) != 0)
+            if ((DWORD2(v179) & 0x40000) != 0)
             {
               v94 = 0;
               v95 = 5;
@@ -2747,14 +2745,14 @@ LABEL_104:
             else
             {
               v94 = 0;
-              if ((DWORD2(v180) & 0x80000) != 0)
+              if ((DWORD2(v179) & 0x80000) != 0)
               {
                 v95 = 7;
               }
 
               else
               {
-                v95 = v143;
+                v95 = v142;
               }
             }
 
@@ -2811,7 +2809,7 @@ LABEL_154:
           [v103 setDepthPlane:*(this + 1102)];
           [v103 setLoadAction:1];
           [v103 setStoreAction:1];
-          [v103 setYInvert:v150[488]];
+          [v103 setYInvert:v149[488]];
         }
 
         else
@@ -2820,7 +2818,7 @@ LABEL_154:
         }
 
 LABEL_194:
-        GLRResourceList::addResource(*(this + 8), v169);
+        GLRResourceList::addResource(*(this + 8), v168);
         v138 = [*(this + 5) renderCommandEncoderWithDescriptor:v101];
         *(this + 3) = v138;
         [v138 setLabel:*MEMORY[0x29EDBB7B0]];
@@ -2829,26 +2827,26 @@ LABEL_194:
         [*(this + 3) setFragmentSamplerState:BlitFramebufferSampler atIndex:0];
         v139 = *(this + 3);
         v140 = *(this + 324);
-        v172 = *v154;
-        v173 = v140;
-        [v139 setScissorRect:&v172];
+        v171 = *v153;
+        v172 = v140;
+        [v139 setScissorRect:&v171];
         if (v74 == 8)
         {
           [*(this + 3) setDepthStencilState:DepthStencilStateFromDescriptor];
         }
 
         [*(this + 3) setViewportTransformEnabled:0];
-        [*(this + 3) setVertexBytes:v202 length:96 atIndex:0];
-        [*(this + 3) setVertexBytes:&v184 length:v161 atIndex:1];
+        [*(this + 3) setVertexBytes:v201 length:96 atIndex:0];
+        [*(this + 3) setVertexBytes:&v183 length:v160 atIndex:1];
         [*(this + 3) drawPrimitives:3 vertexStart:0 vertexCount:6];
         [*(this + 3) endEncoding];
 LABEL_197:
-        (*(*v169 + 24))(v169);
+        (*(*v168 + 24))(v168);
         objc_autoreleasePoolPop(contexta);
-        a6 &= v163;
+        a6 &= v162;
         if (!a6)
         {
-          goto LABEL_201;
+          return 1;
         }
 
         continue;
@@ -2859,29 +2857,29 @@ LABEL_197:
       {
         v105 = [*(this + 5) blitCommandEncoder];
         [v105 setLabel:*MEMORY[0x29EDBB7B0]];
-        v172 = 0uLL;
-        *&v173 = 0;
-        v106 = *(v167 + 180);
-        v177 = *(v167 + 178);
-        v178 = v106;
-        v179 = 1;
+        v171 = 0uLL;
+        *&v172 = 0;
+        v106 = *(v166 + 180);
+        v176 = *(v166 + 178);
+        v177 = v106;
+        v178 = 1;
+        v173 = 0;
         v174 = 0;
         v175 = 0;
-        v176 = 0;
-        [v105 copyFromTexture:v82 sourceSlice:v79 sourceLevel:v156 sourceOrigin:&v172 sourceSize:&v177 toTexture:v86 destinationSlice:0 destinationLevel:0 destinationOrigin:&v174 options:0x20000000];
+        [v105 copyFromTexture:v82 sourceSlice:v79 sourceLevel:v155 sourceOrigin:&v171 sourceSize:&v176 toTexture:v86 destinationSlice:0 destinationLevel:0 destinationOrigin:&v173 options:0x20000000];
         [v105 endEncoding];
-        v157 = *(this + 536);
-        if (v157)
+        v156 = *(this + 536);
+        if (v156)
         {
-          v107 = [MEMORY[0x29EDBB670] texture2DDescriptorWithPixelFormat:13 width:*(v148 + 178) height:*(v148 + 180) mipmapped:0];
+          v107 = [MEMORY[0x29EDBB670] texture2DDescriptorWithPixelFormat:13 width:*(v147 + 178) height:*(v147 + 180) mipmapped:0];
           [v107 setUsage:5];
           v108 = [*(*(this + 11) + 232) newTextureWithDescriptor:v107];
           v109 = v108;
           if (v108 && ([v108 setLabel:*MEMORY[0x29EDBB7B0]], v110 = GLDObject::operator new(0x40), GLRTextureResource::GLRTextureResource(v110), v110))
           {
-            GLRTextureResource::initWithMetalTexture(v110, v109, *(v157 + 3));
+            GLRTextureResource::initWithMetalTexture(v110, v109, *(v156 + 3));
 
-            GLRResourceList::addResource(*(this + 8), v169);
+            GLRResourceList::addResource(*(this + 8), v168);
             GLRResourceList::addResource(*(this + 8), v110);
             v111 = [objc_msgSend(v101 "colorAttachments")];
             [v111 setTexture:*(v110 + 4)];
@@ -2890,22 +2888,22 @@ LABEL_197:
             [v111 setDepthPlane:0];
             [v111 setLoadAction:0];
             [v111 setStoreAction:1];
-            [v111 setYInvert:v150[489]];
+            [v111 setYInvert:v149[489]];
             v112 = *(this + 646);
-            if (v147 <= v112)
+            if (v146 <= v112)
             {
               v113 = *(this + 646);
             }
 
             else
             {
-              v113 = v147;
+              v113 = v146;
             }
 
             v114 = *(this + 648) + v112;
-            if (v113 + v146 <= v114)
+            if (v113 + v145 <= v114)
             {
-              v115 = v146;
+              v115 = v145;
             }
 
             else
@@ -2914,20 +2912,20 @@ LABEL_197:
             }
 
             v116 = *(this + 647);
-            if (v145 <= v116)
+            if (v144 <= v116)
             {
               v117 = *(this + 647);
             }
 
             else
             {
-              v117 = v145;
+              v117 = v144;
             }
 
             v118 = *(this + 649) + v116;
-            if (v117 + v144 <= v118)
+            if (v117 + v143 <= v118)
             {
-              v119 = v144;
+              v119 = v143;
             }
 
             else
@@ -2947,34 +2945,34 @@ LABEL_197:
 
             v121 = *(this + 3);
             v122 = *(this + 324);
-            v172 = *v154;
-            v173 = v122;
-            [v121 setScissorRect:&v172];
-            GLRResourceList::addResource(*(this + 8), v169);
+            v171 = *v153;
+            v172 = v122;
+            [v121 setScissorRect:&v171];
+            GLRResourceList::addResource(*(this + 8), v168);
             [*(this + 3) setViewportTransformEnabled:0];
-            [*(this + 3) setVertexBytes:v202 length:96 atIndex:0];
-            [*(this + 3) setVertexBytes:&v184 length:v161 atIndex:1];
+            [*(this + 3) setVertexBytes:v201 length:96 atIndex:0];
+            [*(this + 3) setVertexBytes:&v183 length:v160 atIndex:1];
             [*(this + 3) drawPrimitives:3 vertexStart:0 vertexCount:6];
             [*(this + 3) endEncoding];
             GLRResourceList::addResource(*(this + 8), v110);
-            GLRResourceList::addResource(*(this + 8), v157);
-            v123 = *(v148 + 148);
-            v124 = *(v148 + 152);
+            GLRResourceList::addResource(*(this + 8), v156);
+            v123 = *(v147 + 148);
+            v124 = *(v147 + 152);
             v125 = [*(this + 5) blitCommandEncoder];
             [v125 setLabel:*MEMORY[0x29EDBB7B0]];
             v126 = *(v110 + 4);
-            *&v172 = v113;
-            *(&v172 + 1) = v117;
-            *&v173 = 0;
-            v177 = v115;
-            v178 = v119;
-            v179 = 1;
-            v127 = *(v157 + 4);
+            *&v171 = v113;
+            *(&v171 + 1) = v117;
+            *&v172 = 0;
+            v176 = v115;
+            v177 = v119;
+            v178 = 1;
+            v127 = *(v156 + 4);
             v128 = *(this + 1103);
-            v174 = v113;
-            v175 = v117;
-            v176 = v128;
-            [v125 copyFromTexture:v126 sourceSlice:0 sourceLevel:0 sourceOrigin:&v172 sourceSize:&v177 toTexture:v127 destinationSlice:v123 destinationLevel:v124 destinationOrigin:&v174 options:0x20000000];
+            v173 = v113;
+            v174 = v117;
+            v175 = v128;
+            [v125 copyFromTexture:v126 sourceSlice:0 sourceLevel:0 sourceOrigin:&v171 sourceSize:&v176 toTexture:v127 destinationSlice:v123 destinationLevel:v124 destinationOrigin:&v173 options:0x20000000];
             [v125 endEncoding];
             (*(*v110 + 24))(v110);
           }
@@ -3026,7 +3024,7 @@ LABEL_185:
         }
 
         v135 = *(*(*(this + 50) + 40) + 8 * v129);
-        if (v135 && *(v135 + 184))
+        if (v135 && v135[23])
         {
           v136 = objc_autoreleasePoolPush();
           v137 = [*(this + 5) blitCommandEncoder];
@@ -3054,20 +3052,18 @@ LABEL_185:
 
   NSLog(&cfstr_BadBitsInBlitM.isa);
   objc_autoreleasePoolPop(contexta);
-LABEL_201:
-  v141 = *MEMORY[0x29EDCA608];
   return 1;
 }
 
-uint64_t gldReadFramebufferData(GLDContextRec *this, int a2, int a3, unsigned int a4, unsigned int a5, int a6, int a7, uint64_t a8, int a9, GLDBufferRec *a10)
+uint64_t gldReadFramebufferData(GLDContextRec *this, int a2, int a3, int a4, int a5, signed int a6, int a7, uint64_t a8, int a9, GLDBufferRec *a10)
 {
   *(this + 53) |= 0x4000uLL;
   if (!a10)
   {
-    v76 = a3;
+    v73 = a3;
     v23 = 0;
-    v87[0] = 0;
-    v86 = 0;
+    v84[0] = 0;
+    v83 = 0;
     v22 = *(this + 13);
     v24 = 8;
     if (a6 > 34040)
@@ -3087,16 +3083,16 @@ uint64_t gldReadFramebufferData(GLDContextRec *this, int a2, int a3, unsigned in
         v23 = 1;
         v24 = 9;
 LABEL_23:
-        v71 = a8;
+        v68 = a8;
         v27 = *(this + 51);
         v28 = *(*(v27 + 40) + 8 * v24);
-        v29 = *(v28 + 11);
+        v29 = v28[11];
         if (v29 <= 7)
         {
           v30 = (*(v27 + 32) + 16 * v24);
           v31 = v30[1];
-          v73 = v22;
-          v75 = v30[2];
+          v70 = v22;
+          v72 = v30[2];
           v32 = v30[3];
           v33 = 1 << v29;
           v34 = 1 << v29;
@@ -3131,7 +3127,7 @@ LABEL_23:
             v36 = v36;
           }
 
-          v69 = v36;
+          v66 = v36;
           if ((v33 & 0x95) != 0)
           {
             v38 = 0;
@@ -3142,16 +3138,16 @@ LABEL_23:
             v38 = v37;
           }
 
-          v70 = v38;
-          if (*(v28 + 23))
+          v67 = v38;
+          if (v28[23])
           {
-            v66 = a5;
+            v63 = a5;
             if (*(this + 1151))
             {
               GLDContextRec::beginRenderPass(this);
             }
 
-            v68 = a4;
+            v65 = a4;
             v39 = v23;
             if (*(this + 2))
             {
@@ -3176,8 +3172,8 @@ LABEL_23:
             a2 = v41;
             a7 = v40;
             v23 = v39;
-            a5 = v66;
-            a4 = v68;
+            a5 = v63;
+            a4 = v65;
           }
 
           if (GLDContextRec::drawableInvertFramebuffer(this, v27))
@@ -3190,7 +3186,7 @@ LABEL_23:
             v44 = GLDContextRec::drawablePBEInvert(this, *(this + 51), v24);
           }
 
-          v45 = *(v28 + 6) + 480 * v31 + 32 * v75;
+          v45 = v28[6] + 480 * v31 + 32 * v72;
           if (a9 == 2)
           {
             v46 = 0;
@@ -3198,24 +3194,24 @@ LABEL_23:
 
           else
           {
-            v46 = (v73 + 16176);
+            v46 = (v70 + 16176);
           }
 
-          glrPixelSettings(a6, a7, a4, a5, v87 + 1, v87, &v86, v46, 3);
+          glrPixelSettings(a6, a7, a4, a5, v84 + 1, v84, &v83, v46, 3);
           v47 = *(v45 + 270);
-          if ((a5 + v76) <= v47)
+          if (a5 + v73 <= v47)
           {
             v48 = a5;
           }
 
           else
           {
-            v48 = (v47 - v76);
+            v48 = (v47 - v73);
           }
 
           v49 = *(v45 + 268);
-          v74 = a2;
-          if ((a4 + a2) <= v49)
+          v71 = a2;
+          if (a4 + a2 <= v49)
           {
             v50 = a4;
           }
@@ -3230,75 +3226,72 @@ LABEL_23:
             return 1;
           }
 
-          v67 = v44;
-          v52 = v86;
+          v64 = v44;
+          v52 = v83;
           GLDContextRec::flushContext(this);
           TextureResource = GLDTextureRec::getTextureResource(v28, v23);
           GLDContextRec::finishResource(this, TextureResource);
           v54 = &(&glrTextureFormats)[5 * *(v28 + v23 + 16)];
-          v85 = 0;
-          v83 = 0u;
-          v84 = 0u;
-          v82 = 0u;
-          v55 = v54[3];
+          v82 = 0;
+          v80 = 0u;
+          v81 = 0u;
+          v79 = 0u;
           MTLPixelFormatGetInfo();
-          v56 = malloc_type_malloc(0, 0xAE47B0ACuLL);
-          if (v56)
+          v55 = malloc_type_malloc(0, 0xAE47B0ACuLL);
+          if (v55)
           {
-            v57 = v56;
-            v72 = v71 + v52;
-            v80 = 0u;
-            v81 = 0u;
+            v56 = v55;
+            v69 = v68 + v52;
+            v77 = 0u;
             v78 = 0u;
-            v79 = 0u;
-            HIDWORD(v80) = v50;
-            LODWORD(v81) = v48;
-            v58 = v56;
-            if (!v67)
+            v75 = 0u;
+            v76 = 0u;
+            HIDWORD(v77) = v50;
+            LODWORD(v78) = v48;
+            v57 = v55;
+            if (!v64)
             {
-              v58 = v56;
+              v57 = v55;
             }
 
-            v77[6] = v58;
-            DWORD2(v78) = 0;
-            v59 = *(v54 + 2);
-            v60 = *(v54 + 3);
+            v74[6] = v57;
+            DWORD2(v75) = 0;
             glgConvertType();
-            DWORD1(v80) = *(v54 + 4);
-            DWORD2(v80) = -1;
-            *&v78 = v72;
-            DWORD1(v79) = HIDWORD(v87[0]);
+            DWORD1(v77) = *(v54 + 4);
+            DWORD2(v77) = -1;
+            *&v75 = v69;
+            DWORD1(v76) = HIDWORD(v84[0]);
             glgConvertType();
-            if (v67)
+            if (v64)
             {
-              v61 = *(v45 + 270) - v76 - v48;
+              v58 = *(v45 + 270) - v73 - v48;
             }
 
             else
             {
-              v61 = v76;
+              v58 = v73;
             }
 
-            v62 = v61;
-            v63 = *(GLDTextureRec::getTextureResource(v28, v23) + 32);
-            v77[0] = v74;
-            v77[1] = v62;
-            v77[2] = v69;
-            v77[3] = v50;
-            v77[4] = v48;
-            v77[5] = 1;
-            [v63 getBytes:v57 bytesPerRow:0 bytesPerImage:0 fromRegion:v77 mipmapLevel:v75 slice:v70];
+            v59 = v58;
+            v60 = *(GLDTextureRec::getTextureResource(v28, v23) + 32);
+            v74[0] = v71;
+            v74[1] = v59;
+            v74[2] = v66;
+            v74[3] = v50;
+            v74[4] = v48;
+            v74[5] = 1;
+            [v60 getBytes:v56 bytesPerRow:0 bytesPerImage:0 fromRegion:v74 mipmapLevel:v72 slice:v67];
             glgProcessPixelsWithProcessor();
-            free(v57);
+            free(v56);
             return 0;
           }
 
-          v64 = *(v28 + v23 + 16);
-          v65 = *(GLDTextureRec::getTextureResource(v28, v23) + 32);
-          MTLReleaseAssertionFailure();
+          v61 = *(v28 + v23 + 16);
+          v62 = GLDTextureRec::getTextureResource(v28, v23);
+          MTLReleaseAssertionFailure("readFramebufferData", 507, "temp_buffer != nil", "Temp image allocation failed.  w=%d, h=%d, rowbytes=%d, pixelbytes=%d glrFmt=0x%03x mtex=%p", v50, v48, 0, 0, v61, *(v62 + 32));
         }
 
-        MTLReleaseAssertionFailure();
+        MTLReleaseAssertionFailure("readFramebufferData", 436, "false", "unknown metal texture type %d", v29);
         JUMPOUT(0x29D372F60);
       }
 
@@ -3320,7 +3313,7 @@ LABEL_19:
   if (v18)
   {
     v19 = *(this + 11);
-    if (!*(v19 + 248) || (pthread_mutex_lock((v19 + 256)), (v18 = **(a10 + 4)) != 0))
+    if (!*(v19 + 248) || (pthread_mutex_lock((v19 + 256)), v18 = **(a10 + 4), v18))
     {
       if (!GLDBufferRec::update(a10, v18))
       {
@@ -3344,11 +3337,11 @@ LABEL_19:
   }
 
   result = 0;
-  v87[0] = 0;
-  v86 = 0;
+  v84[0] = 0;
+  v83 = 0;
   if ((a6 - 6401) >= 2 && a6 != 34041 && a6 != 35056)
   {
-    v76 = a3;
+    v73 = a3;
     v22 = *(this + 13);
     goto LABEL_19;
   }
@@ -3396,7 +3389,7 @@ uint64_t GLRPixelFormat::GLRPixelFormat(uint64_t a1, __int128 *a2)
   {
     if ((v8 & 0xC000000) == 0)
     {
-      result = MTLReleaseAssertionFailure();
+      result = MTLReleaseAssertionFailure("glrPixelFormatGetColorConfig", 402, "false", "Unsupported Color Buffer Type: %08x", v8);
       __break(1u);
       return result;
     }
@@ -3953,7 +3946,7 @@ BOOL GLDContextRec::updateUniformBuffers(GLDContextRec *this)
           v7 = *(*(this + 14) + 8 * *(*(v4 + 24) + v6) + 528);
           if (v7)
           {
-            v8 = **(v7 + 4);
+            v8 = *v7[4];
             if (v8)
             {
               if (!GLDBufferRec::update(v7, v8))
@@ -3961,7 +3954,7 @@ BOOL GLDContextRec::updateUniformBuffers(GLDContextRec *this)
                 return v3;
               }
 
-              **(v7 + 4) = 0;
+              *v7[4] = 0;
             }
           }
 
@@ -4028,12 +4021,12 @@ GLRBufferResource *GLDContextRec::updateUniformBindingsInternal(GLRBufferResourc
               goto LABEL_17;
             }
 
-            if (*(v7 + 4604))
+            if (*(v7 + 1151))
             {
               GLDContextRec::beginRenderPass(v7);
             }
 
-            if (*(v7 + 16))
+            if (*(v7 + 2))
             {
               GLDContextRec::endRenderPass(v7);
             }
@@ -4172,7 +4165,6 @@ void *GLRDataBufferManager::allocDataBuffer(GLRDataBufferManager *this, unint64_
 LABEL_14:
   if (*(this + 33) >= a2)
   {
-    v11 = *(this + 44);
     v9 = [*(*(*(this + 43) + 96) + 24) newBufferWithLength:? options:?];
     [v9 setLabel:*MEMORY[0x29EDBB7B0]];
   }
@@ -4263,7 +4255,7 @@ LABEL_8:
   return result;
 }
 
-void *GLDContextRec::getIndexBuffer(void **this, int a2, unsigned int a3, unsigned __int8 *a4, unint64_t *a5, MTLIndexType *a6)
+void *GLDContextRec::getIndexBuffer(void **this, int a2, int a3, unsigned __int8 *a4, unint64_t *a5, MTLIndexType *a6)
 {
   v10 = MTLIndexTypeUInt16;
   v11 = 2;
@@ -4271,7 +4263,7 @@ void *GLDContextRec::getIndexBuffer(void **this, int a2, unsigned int a3, unsign
   {
     if (a2 != 5125)
     {
-      MTLReleaseAssertionFailure();
+      MTLReleaseAssertionFailure("getIndexBuffer", 70, "false", "Unsupported vertex element type", a5, a6);
       goto LABEL_23;
     }
 
@@ -4336,7 +4328,7 @@ void *GLDContextRec::getIndexBuffer(void **this, int a2, unsigned int a3, unsign
   }
 
 LABEL_23:
-  v21 = MTLReleaseAssertionFailure();
+  v21 = MTLReleaseAssertionFailure("getIndexBuffer", 105, "false", "Unsupported index type");
   return GLDContextRec::getVertexBuffer(v21, v22, v23, v24);
 }
 
@@ -4483,7 +4475,7 @@ uint64_t gldBeginPrimitiveBuffer(GLDContextRec *this, unsigned int a2, int *a3)
   return *(this + 627);
 }
 
-int8x8_t *gldEndPrimitiveBuffer(int8x8_t *result, unsigned int a2, int a3, signed int a4)
+int8x8_t *gldEndPrimitiveBuffer(int8x8_t *result, unsigned int a2, int a3, unsigned int a4)
 {
   v6 = result;
   v7 = result + 512;
@@ -4676,7 +4668,7 @@ LABEL_47:
   return result;
 }
 
-void gldRenderVertexArray(int8x8_t *this, int a2, unsigned int a3, int a4, signed int a5, int a6, unsigned __int8 *a7, int a8, const void *a9)
+void gldRenderVertexArray(int8x8_t *this, int a2, int a3, int a4, unsigned int a5, int a6, unsigned __int8 *a7, uint64_t a8, const void *a9)
 {
   v9 = this[49];
   if (!*&v9)
@@ -4725,7 +4717,7 @@ void gldRenderVertexArray(int8x8_t *this, int a2, unsigned int a3, int a4, signe
           if (v37 != 28)
           {
 LABEL_104:
-            MTLReleaseAssertionFailure();
+            MTLReleaseAssertionFailure("isDirtyRenderVertexArray", 185, "false", "Unhandled binding type");
 LABEL_105:
             std::vector<unsigned int>::__throw_length_error[abi:nn200100]();
           }
@@ -4771,7 +4763,7 @@ LABEL_33:
         v39 = this[283].i32[0];
         v40 = this[285];
         v41 = this[286];
-        if (v40 >= v41)
+        if (v40 >= *&v41)
         {
           v46 = this[284];
           v47 = v40 - v46;
@@ -4782,7 +4774,7 @@ LABEL_33:
             goto LABEL_105;
           }
 
-          v50 = v41 - v46;
+          v50 = *&v41 - v46;
           if (v50 >> 1 > v49)
           {
             v49 = v50 >> 1;
@@ -4804,7 +4796,7 @@ LABEL_33:
           v54 = (4 * v48);
           v55 = (4 * v48 - 4 * v53);
           *v54 = v39;
-          v42 = v54 + 1;
+          v42 = (v54 + 1);
           memcpy(v55, v46, v47);
           v56 = this[284];
           this[284] = v55;
@@ -4819,7 +4811,7 @@ LABEL_33:
         else
         {
           *v40 = v39;
-          v42 = v40 + 4;
+          v42 = (v40 + 1);
         }
 
         this[285] = v42;
@@ -4956,7 +4948,7 @@ LABEL_33:
     {
       if (a6 != 5125)
       {
-        v57 = MTLReleaseAssertionFailure();
+        v57 = MTLReleaseAssertionFailure("metalIndexType", 42, "false", "Unhandled GL index type");
         GLDContextRec::recordGLDrawCallIndexForMetalDrawCall(v57, v58);
         return;
       }
@@ -5093,8 +5085,8 @@ uint64_t vertexCountPerPrimitive(int a1)
 
   if (a1 != 1)
   {
-    v2 = MTLReleaseAssertionFailure();
-    std::__allocate_at_least[abi:nn200100]<std::allocator<GLRBufferResource *>>(v2, v3);
+    v4 = MTLReleaseAssertionFailure("vertexCountPerPrimitive", 137, "false", "Invalid primitive type for transform feedback", v1, v2);
+    std::__allocate_at_least[abi:nn200100]<std::allocator<GLRBufferResource *>>(v4, v5);
   }
 
   return 2;
@@ -5123,7 +5115,7 @@ uint64_t GLDContextRec::loadCurrentSamplers(uint64_t this, unsigned __int16 a2)
   v5 = a2;
   v6 = this + 1672;
   v7 = this + 1208;
-  v18 = a2;
+  v17 = a2;
   do
   {
     if (!v5)
@@ -5131,7 +5123,7 @@ uint64_t GLDContextRec::loadCurrentSamplers(uint64_t this, unsigned __int16 a2)
       goto LABEL_22;
     }
 
-    v19 = v4;
+    v18 = v4;
     v8 = 16 * v4;
     do
     {
@@ -5151,29 +5143,28 @@ uint64_t GLDContextRec::loadCurrentSamplers(uint64_t this, unsigned __int16 a2)
         goto LABEL_17;
       }
 
-      v12 = **(v11 + 32);
-      v13 = *(v11 + 12);
-      if (*(v6 + 4 * v10) == v13)
+      v12 = *(v11 + 12);
+      if (*(v6 + 4 * v10) == v12)
       {
-        v14 = **(v11 + 32);
+        v13 = **(v11 + 32);
       }
 
       else
       {
-        v14 = 1;
+        v13 = 1;
       }
 
       if (**(v11 + 32))
       {
-        v15 = *(v3 + 88);
-        v16 = *(v15 + 28) + 1;
-        *(v15 + 28) = v16;
-        *(v11 + 12) = v16;
+        v14 = *(v3 + 88);
+        v15 = *(v14 + 28) + 1;
+        *(v14 + 28) = v15;
+        *(v11 + 12) = v15;
         this = GLDSamplerRec::update(v11);
         if (this)
         {
           **(v11 + 32) = 0;
-          v13 = *(v11 + 12);
+          v12 = *(v11 + 12);
           goto LABEL_12;
         }
 
@@ -5191,22 +5182,22 @@ LABEL_17:
       }
 
 LABEL_12:
-      *(v6 + 4 * v10) = v13;
-      if (v14)
+      *(v6 + 4 * v10) = v12;
+      if (v13)
       {
         goto LABEL_17;
       }
 
 LABEL_18:
       *(v7 + 8 * v10) = v11;
-      v17 = 1 << v9 == v5;
+      v16 = 1 << v9 == v5;
       v5 ^= 1 << v9;
     }
 
-    while (!v17);
+    while (!v16);
     v2 = *(v3 + 104);
-    v5 = v18;
-    v4 = v19;
+    v5 = v17;
+    v4 = v18;
 LABEL_22:
     ++v4;
   }
@@ -5428,7 +5419,7 @@ void *GLRFunctionCache::newFunctionWithGLIR(CFArrayRef *this, void *a2, uint64_t
     return GLRFunctionCache::getFunction(this, v7);
   }
 
-  v8 = [a2 newFunctionWithGLESIR:? inputsDescription:? functionType:?];
+  v8 = [a2 newFunctionWithGLESIR:a3 inputsDescription:a4 functionType:?];
   if (!v8)
   {
     LODWORD(v7) = 0;
@@ -5968,7 +5959,7 @@ uint64_t GLDContextRec::finishResource(id *this, GLRResource *a2)
   return 0;
 }
 
-uint64_t GLDContextRec::testResource(id *this, GLRResource *a2, unsigned int a3, int a4)
+uint64_t GLDContextRec::testResource(id *this, GLRResource *a2, uint64_t a3, int a4)
 {
   if (a4 && *(a2 + 3))
   {
@@ -5982,7 +5973,7 @@ uint64_t GLDContextRec::testResource(id *this, GLRResource *a2, unsigned int a3,
 
   else
   {
-    return (*(*a2 + 48))(a2);
+    return (*(*a2 + 48))(a2, a2, a3);
   }
 }
 
@@ -6120,12 +6111,13 @@ intptr_t GLDContextRec::flushContextInternal(GLDContextRec *this)
   return result;
 }
 
-void sub_29D37664C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, char a28, uint64_t a29, uint64_t a30, uint64_t a31, char a32)
+void sub_29D37664C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, ...)
 {
+  va_start(va, a31);
   _Block_object_dispose(&a28, 8);
-  _Block_object_dispose(&a32, 8);
-  _Block_object_dispose((v32 - 184), 8);
-  _Block_object_dispose((v32 - 136), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v31 - 184), 8);
+  _Block_object_dispose((v31 - 136), 8);
   _Unwind_Resume(a1);
 }
 
@@ -6241,10 +6233,9 @@ uint64_t GLDContextRec::dispatchCompletedBlocks(uint64_t a1, uint64_t a2, uint64
 uint64_t GLDContextRec::waitContext(dispatch_group_t *this)
 {
   dispatch_group_wait(this[658], 0xFFFFFFFFFFFFFFFFLL);
-  v2 = this[11];
-  v3 = *(this[9]->isa + 5);
+  v2 = *(this[9]->isa + 5);
 
-  return v3();
+  return v2();
 }
 
 uint64_t GLDContextRec::setFence(GLRResourceList **this, GLDFenceRec *a2)
@@ -6396,19 +6387,17 @@ uint64_t gldFinishContext(uint64_t a1)
 {
   GLDContextRec::flushContext(a1);
   dispatch_group_wait(*(a1 + 5264), 0xFFFFFFFFFFFFFFFFLL);
-  v2 = *(a1 + 88);
-  v3 = *(**(a1 + 72) + 40);
+  v2 = *(**(a1 + 72) + 40);
 
-  return v3();
+  return v2();
 }
 
 uint64_t gldWaitForContext(uint64_t a1)
 {
   dispatch_group_wait(*(a1 + 5264), 0xFFFFFFFFFFFFFFFFLL);
-  v2 = *(a1 + 88);
-  v3 = *(**(a1 + 72) + 40);
+  v2 = *(**(a1 + 72) + 40);
 
-  return v3();
+  return v2();
 }
 
 void GLDContextRec::dispatchImageQueueBlockAsync(id *a1, NSObject **this, uint64_t a3, dispatch_block_t block)
@@ -6540,7 +6529,7 @@ uint64_t GLDContextRec::loadCurrentTextures(uint64_t this, unsigned __int16 a2, 
             goto LABEL_33;
           }
 
-          v28 = **(v27 + 4);
+          v28 = *v27[4];
           if (v28)
           {
             this = GLDBufferRec::update(v27, v28);
@@ -6549,7 +6538,7 @@ uint64_t GLDContextRec::loadCurrentTextures(uint64_t this, unsigned __int16 a2, 
               goto LABEL_33;
             }
 
-            **(v27 + 4) = 0;
+            *v27[4] = 0;
           }
         }
 
@@ -6870,7 +6859,7 @@ atomic_uint *gldUnbindTexture(GLDContextRec *this, atomic_uint *a2)
   return result;
 }
 
-uint64_t gldModifyTexSubImage(uint64_t a1, GLDTextureRec *this, int a3, unsigned int a4, int a5, int a6, int a7, int a8, unsigned int a9, int a10, int a11, int a12, uint64_t a13, int a14, GLDBufferRec *a15)
+uint64_t gldModifyTexSubImage(uint64_t a1, GLDTextureRec *this, int a3, signed int a4, int a5, int a6, int a7, int a8, int a9, int a10, signed int a11, int a12, uint64_t a13, int a14, GLDBufferRec *a15)
 {
   if (*(this + 19) < 2 && (v23 = *(this + 6), (GLDTextureRec::load(this) & 1) != 0))
   {
@@ -6920,16 +6909,15 @@ uint64_t gldModifyTexSubImage(uint64_t a1, GLDTextureRec *this, int a3, unsigned
       }
 
       v29 = 0;
-      *v123 = 0;
-      v122 = 0;
+      *v121 = 0;
+      v120 = 0;
       if (a12 && !a14)
       {
         v29 = (*(a1 + 104) + 16212);
       }
 
-      v92 = v23;
-      v83 = v25;
-      v89 = v24;
+      v90 = v23;
+      v82 = v25;
       if ((*(v23 + 214) & 0x1800) == 0x1000)
       {
         v30 = 4;
@@ -6952,20 +6940,20 @@ uint64_t gldModifyTexSubImage(uint64_t a1, GLDTextureRec *this, int a3, unsigned
         }
       }
 
-      glrPixelSettings(a11, a12, a8, a9, &v123[1], v123, &v122, v29, v30);
-      v85 = v122;
+      glrPixelSettings(a11, a12, a8, a9, &v121[1], v121, &v120, v29, v30);
+      v84 = v120;
       LODWORD(block) = 0;
-      LODWORD(v118) = 0;
+      LODWORD(v116) = 0;
       glgConvertType();
-      v87 = v123[1] * a9;
-      v31 = v85;
-      v81 = a4;
-      v84 = a3;
+      v86 = v121[1] * a9;
+      v31 = v84;
+      v80 = a4;
+      v83 = a3;
       if ((*(v23 + 214) & 0x2000) != 0)
       {
         v32 = a7;
         v33 = a10;
-        v86 = 1;
+        v85 = 1;
         a7 = 0;
       }
 
@@ -6973,10 +6961,10 @@ uint64_t gldModifyTexSubImage(uint64_t a1, GLDTextureRec *this, int a3, unsigned
       {
         v32 = (a3 & ~(a3 >> 31));
         v33 = 1;
-        v86 = a10;
+        v85 = a10;
       }
 
-      if ((*(v92 + 24) & 4) != 0)
+      if ((*(v90 + 24) & 4) != 0)
       {
         TextureResource = GLDTextureRec::getTextureResource(this, 0);
         v34 = GLDContextRec::testResource(a1, TextureResource, 0, 0) == 0;
@@ -6987,232 +6975,231 @@ uint64_t gldModifyTexSubImage(uint64_t a1, GLDTextureRec *this, int a3, unsigned
         v34 = 0;
       }
 
-      if (a11 == 6407 && a12 != 33635 && a12 != 35902 && a12 != 35899 || *(this + 19) != 1 || (*(&glrTextureFormats + 10 * *(this + 16) + 9) & 0x81) != 1 || v123[1] % v123[0] || ((a13 + v31) % v123[0]) | a8 & 1 || v33 * v87 > 0x100000)
+      if (a11 == 6407 && a12 != 33635 && a12 != 35902 && a12 != 35899 || *(this + 19) != 1 || (*(&glrTextureFormats + 10 * *(this + 16) + 9) & 0x81) != 1 || v121[1] % v121[0] || ((a13 + v31) % v121[0]) | a8 & 1 || v33 * v86 > 0x100000)
       {
         v34 = 0;
       }
 
-      v80 = (a13 + v31);
-      v36 = v89[3];
-      v121 = 0;
-      v119 = 0u;
-      v120 = 0u;
+      v79 = (a13 + v31);
+      v119 = 0;
+      v117 = 0u;
       v118 = 0u;
-      v37 = v34;
+      v116 = 0u;
+      v36 = v34;
       MTLPixelFormatGetInfo();
-      v38 = v37;
-      v88 = a15 != 0 && v37;
-      v82 = *(GLDTextureRec::getTextureResource(this, 0) + 32);
+      v37 = v36;
+      v87 = a15 != 0 && v36;
+      v81 = *(GLDTextureRec::getTextureResource(this, 0) + 32);
       if (a15)
       {
         GLDBufferRec::load(a15);
       }
 
-      v39 = a5;
-      v40 = a6;
-      v41 = a7;
-      v42 = a8;
-      if (v88)
+      v38 = a5;
+      v39 = a6;
+      v40 = a7;
+      v41 = a8;
+      if (v87)
       {
-        v43 = v39;
+        v42 = v38;
         GLDObject::retain(this);
         MemoryPlugin = GLDBufferRec::getMemoryPlugin(a15);
         (*(*MemoryPlugin + 16))(MemoryPlugin);
         block = MEMORY[0x29EDCA5F8];
-        v98 = 3221225472;
-        v99 = ___ZN13GLDContextRec17modifyTexSubImageEP13GLDTextureReciiiiiiiijjPKviP12GLDBufferRecj_block_invoke;
-        v100 = &unk_29F34BAA8;
-        v103 = this;
-        v104 = MemoryPlugin;
-        v105 = v80;
-        v106 = v32;
-        v101 = v82;
-        v102 = a1;
-        v107 = v33;
-        v108 = v43;
-        v109 = a6;
-        v110 = v41;
-        v111 = v42;
-        v112 = a9;
-        v116 = v81;
-        v117 = v123[1];
+        v96 = 3221225472;
+        v97 = ___ZN13GLDContextRec17modifyTexSubImageEP13GLDTextureReciiiiiiiijjPKviP12GLDBufferRecj_block_invoke;
+        v98 = &unk_29F34BAA8;
+        v101 = this;
+        v102 = MemoryPlugin;
+        v103 = v79;
+        v104 = v32;
+        v99 = v81;
+        v100 = a1;
+        v105 = v33;
+        v106 = v42;
+        v107 = a6;
+        v108 = v40;
+        v109 = v41;
+        v110 = a9;
+        v114 = v80;
+        v115 = v121[1];
+        v111 = v85;
+        v112 = v86;
         v113 = v86;
-        v114 = v87;
-        v115 = v87;
         GLDContextRec::dispatchImageQueueBlockAsync(a1, this, a15, &block);
-        if (v83)
+        if (v82)
         {
-          GLDContextRec::generateMipmapsWithCPUAsync(a1, this, v84);
+          GLDContextRec::generateMipmapsWithCPUAsync(a1, this, v83);
         }
       }
 
       else
       {
-        v79 = a8;
-        if (v38)
+        v78 = a8;
+        if (v37)
         {
-          v77 = v39;
-          v78 = a6;
+          v76 = v38;
+          v77 = a6;
           GLDContextRec::flushRenderPassIfNeeded(a1);
-          v45 = *(a1 + 40);
-          if (!v45)
+          v44 = *(a1 + 40);
+          if (!v44)
           {
             GLDContextRec::getCommandBuffer(a1);
-            v45 = *(a1 + 40);
+            v44 = *(a1 + 40);
           }
 
-          v46 = [v45 blitCommandEncoder];
-          [v46 setLabel:*MEMORY[0x29EDBB7B0]];
-          v96 = 0;
-          v76 = v46;
+          v45 = [v44 blitCommandEncoder];
+          [v45 setLabel:*MEMORY[0x29EDBB7B0]];
+          v94 = 0;
+          v75 = v45;
           if (a15)
           {
-            v47 = *(a15 + 5);
-            if (v47 && (v48 = *(v47 + 24)) != 0)
+            v46 = *(a15 + 5);
+            if (v46 && (v47 = *(v46 + 24)) != 0)
             {
-              v49 = a7;
-              v50 = a9;
-              PixelBuffer = *(v48 + 40);
+              v48 = a7;
+              v49 = a9;
+              PixelBuffer = *(v47 + 40);
             }
 
             else
             {
-              v49 = a7;
-              v50 = a9;
+              v48 = a7;
+              v49 = a9;
               PixelBuffer = 0;
             }
           }
 
           else
           {
-            v49 = a7;
-            v50 = a9;
-            v59 = v33 * v87 * v86;
-            PixelBuffer = GLDContextRec::getPixelBuffer(a1, v80, v59, &v96);
+            v48 = a7;
+            v49 = a9;
+            v58 = v33 * v86 * v85;
+            PixelBuffer = GLDContextRec::getPixelBuffer(a1, v79, v58, &v94);
             if (!PixelBuffer)
             {
-              v60 = [*(*(a1 + 96) + 24) newBufferWithBytes:v80 length:v59 options:0];
-              [v60 setLabel:*MEMORY[0x29EDBB7B0]];
-              v61 = *(a1 + 40);
+              v59 = [*(*(a1 + 96) + 24) newBufferWithBytes:v79 length:v58 options:0];
+              [v59 setLabel:*MEMORY[0x29EDBB7B0]];
+              v60 = *(a1 + 40);
               block = MEMORY[0x29EDCA5F8];
-              v98 = 3221225472;
-              v99 = ___ZN13GLDContextRec17modifyTexSubImageEP13GLDTextureReciiiiiiiijjPKviP12GLDBufferRecj_block_invoke_2;
-              v100 = &unk_29F34BAD0;
-              v101 = v60;
-              [v61 addCompletedHandler:&block];
-              PixelBuffer = v60;
+              v96 = 3221225472;
+              v97 = ___ZN13GLDContextRec17modifyTexSubImageEP13GLDTextureReciiiiiiiijjPKviP12GLDBufferRecj_block_invoke_2;
+              v98 = &unk_29F34BAD0;
+              v99 = v59;
+              [v60 addCompletedHandler:&block];
+              PixelBuffer = v59;
             }
           }
 
-          v63 = v86;
-          v62 = v87;
-          v64 = v76;
+          v62 = v85;
+          v61 = v86;
+          v63 = v75;
           if (v32 < (v32 + v33))
           {
-            v90 = v49;
-            v65 = v96;
+            v88 = v48;
+            v64 = v94;
             do
             {
-              v91 = v33;
-              v93 = v32;
-              v95[0] = v79;
-              v95[1] = v50;
-              v95[2] = v63;
-              v94[0] = v77;
-              v94[1] = v78;
-              v94[2] = v49;
-              v75 = v32;
-              v66 = v64;
-              v67 = PixelBuffer;
+              v89 = v33;
+              v91 = v32;
+              v93[0] = v78;
+              v93[1] = v49;
+              v93[2] = v62;
+              v92[0] = v76;
+              v92[1] = v77;
+              v92[2] = v48;
+              v74 = v32;
+              v65 = v63;
+              v66 = PixelBuffer;
+              v67 = v61;
               v68 = v62;
-              v69 = v63;
-              [v64 copyFromBuffer:PixelBuffer sourceOffset:v65 sourceBytesPerRow:v123[1] sourceBytesPerImage:v87 sourceSize:v95 toTexture:v82 destinationSlice:v75 destinationLevel:v81 destinationOrigin:v94];
-              v64 = v66;
-              v63 = v69;
-              v49 = v90;
+              [v63 copyFromBuffer:PixelBuffer sourceOffset:v64 sourceBytesPerRow:v121[1] sourceBytesPerImage:v86 sourceSize:v93 toTexture:v81 destinationSlice:v74 destinationLevel:v80 destinationOrigin:v92];
+              v63 = v65;
               v62 = v68;
-              PixelBuffer = v67;
-              v65 = v96 + v68;
-              v96 += v68;
-              v32 = (v93 + 1);
-              v33 = v91 - 1;
+              v48 = v88;
+              v61 = v67;
+              PixelBuffer = v66;
+              v64 = v94 + v67;
+              v94 += v67;
+              v32 = (v91 + 1);
+              v33 = v89 - 1;
             }
 
-            while (v91 != 1);
+            while (v89 != 1);
           }
 
-          [v64 endEncoding];
+          [v63 endEncoding];
           GLDContextRec::dispatchImageQueueEvent(a1, this);
-          v70 = *(a1 + 64);
-          v71 = GLDTextureRec::getTextureResource(this, 0);
-          GLRResourceList::addResource(v70, v71);
-          v72 = v84;
+          v69 = *(a1 + 64);
+          v70 = GLDTextureRec::getTextureResource(this, 0);
+          GLRResourceList::addResource(v69, v70);
+          v71 = v83;
           if (a15)
           {
-            v73 = *(a15 + 5);
-            if (v73)
+            v72 = *(a15 + 5);
+            if (v72)
             {
-              v74 = *(v73 + 24);
+              v73 = *(v72 + 24);
             }
 
             else
             {
-              v74 = 0;
+              v73 = 0;
             }
 
-            GLRResourceList::addResource(*(a1 + 64), v74);
+            GLRResourceList::addResource(*(a1 + 64), v73);
           }
         }
 
         else
         {
-          if ((*(v92 + 24) & 4) != 0)
+          if ((*(v90 + 24) & 4) != 0)
           {
-            v52 = v39;
-            v53 = GLDTextureRec::getTextureResource(this, 0);
-            GLDContextRec::finishResource(a1, v53);
-            v39 = v52;
-            v40 = a6;
+            v51 = v38;
+            v52 = GLDTextureRec::getTextureResource(this, 0);
+            GLDContextRec::finishResource(a1, v52);
+            v38 = v51;
+            v39 = a6;
           }
 
           if (a15)
           {
-            v54 = *(a15 + 5);
-            if (v54)
+            v53 = *(a15 + 5);
+            if (v53)
             {
-              v55 = *(v54 + 24);
-              if (v55)
+              v54 = *(v53 + 24);
+              if (v54)
               {
-                v56 = v40;
-                v57 = v39;
-                GLDContextRec::finishResource(a1, v55);
-                v39 = v57;
-                v40 = v56;
+                v55 = v39;
+                v56 = v38;
+                GLDContextRec::finishResource(a1, v54);
+                v38 = v56;
+                v39 = v55;
               }
             }
           }
 
           block = MEMORY[0x29EDCA5F8];
-          v98 = 3221225472;
-          v99 = ___ZN13GLDContextRec17modifyTexSubImageEP13GLDTextureReciiiiiiiijjPKviP12GLDBufferRecj_block_invoke_3;
-          v100 = &unk_29F34BAF8;
-          v103 = v32;
-          v104 = v33;
-          v101 = v82;
-          v102 = v80;
-          v105 = v39;
-          v106 = v40;
-          v107 = a7;
-          v108 = a8;
-          v109 = a9;
+          v96 = 3221225472;
+          v97 = ___ZN13GLDContextRec17modifyTexSubImageEP13GLDTextureReciiiiiiiijjPKviP12GLDBufferRecj_block_invoke_3;
+          v98 = &unk_29F34BAF8;
+          v101 = v32;
+          v102 = v33;
+          v99 = v81;
+          v100 = v79;
+          v103 = v38;
+          v104 = v39;
+          v105 = a7;
+          v106 = a8;
+          v107 = a9;
+          v108 = v85;
+          v111 = __PAIR64__(v121[1], v80);
+          v109 = v86;
           v110 = v86;
-          v113 = __PAIR64__(v123[1], v81);
-          v111 = v87;
-          v112 = v87;
-          v58 = *(this + 17);
-          if (v58)
+          v57 = *(this + 17);
+          if (v57)
           {
-            dispatch_sync(v58, &block);
+            dispatch_sync(v57, &block);
           }
 
           else
@@ -7220,12 +7207,12 @@ uint64_t gldModifyTexSubImage(uint64_t a1, GLDTextureRec *this, int a3, unsigned
             ___ZN13GLDContextRec17modifyTexSubImageEP13GLDTextureReciiiiiiiijjPKviP12GLDBufferRecj_block_invoke_3(&block);
           }
 
-          v72 = v84;
+          v71 = v83;
         }
 
-        if (v83)
+        if (v82)
         {
-          GLDContextRec::generateTexMipmapsWithBlit(a1, this, v72);
+          GLDContextRec::generateTexMipmapsWithBlit(a1, this, v71);
         }
       }
 
@@ -7479,25 +7466,23 @@ _BYTE *GLDContextRec::bindVertexArray(GLDContextRec *this, GLDVertexArrayRec *a2
   return result;
 }
 
-uint64_t GLDContextRec::loadCurrentVertexArray(uint64_t this, unsigned int *a2)
+void GLDContextRec::loadCurrentVertexArray(GLDContextRec *this, unsigned int *a2)
 {
-  v2 = this;
-  v3 = *(this + 112);
+  v3 = *(this + 14);
   v4 = *(v3 + 368);
-  if ((a2[3] & 1) != 0 && (this = *(v3 + 976)) != 0)
+  if ((a2[3] & 1) != 0 && (v5 = *(v3 + 976)) != 0)
   {
-    this = GLDBufferRec::load(this);
-    if (this)
+    if (GLDBufferRec::load(v5))
     {
-      v5 = v4 == 0;
+      v6 = v4 == 0;
     }
 
     else
     {
-      v5 = 1;
+      v6 = 1;
     }
 
-    if (v5)
+    if (v6)
     {
       goto LABEL_30;
     }
@@ -7508,103 +7493,98 @@ uint64_t GLDContextRec::loadCurrentVertexArray(uint64_t this, unsigned int *a2)
     goto LABEL_30;
   }
 
-  v7 = *(v4 + 48);
-  v6 = *(v4 + 56);
-  v8 = *(v6 + 272);
-  v9 = *(v2 + 368);
-  v10 = *(v4 + 12);
-  if (v8)
+  v8 = *(v4 + 48);
+  v7 = *(v4 + 56);
+  v9 = *(v7 + 272);
+  v10 = *(this + 92);
+  v11 = *(v4 + 12);
+  if (v9)
   {
-    v11 = *(v2 + 88);
-    v12 = *(v11 + 12) + 1;
-    *(v11 + 12) = v12;
-    *(v4 + 12) = v12;
-    this = GLDVertexArrayRec::updateSharedState(v4, v8);
+    v12 = *(this + 11);
+    v13 = *(v12 + 12) + 1;
+    *(v12 + 12) = v13;
+    *(v4 + 12) = v13;
+    GLDVertexArrayRec::updateSharedState(v4);
   }
 
-  *(v2 + 368) = *(v4 + 12);
-  if (v9 != v10 || v8 != 0)
+  *(this + 92) = *(v4 + 12);
+  if (v10 != v11 || v9 != 0)
   {
-    *(v2 + 2472) |= 0x809u;
+    *(this + 618) |= 0x809u;
   }
 
-  v14 = *(v7 + 768);
-  if (v14)
+  v15 = *(v8 + 768);
+  if (v15)
   {
-    if ((v14 & ~*(v7 + 776)) == 0)
+    if ((v15 & ~*(v8 + 776)) == 0)
     {
-      v15 = *(v6 + 264);
-      if (v15 != 128)
+      v16 = *(v7 + 264);
+      if (v16 != 128)
       {
-        v16 = *(v4 + 16);
-        if (*(v2 + 372) == v16)
+        v17 = *(v4 + 16);
+        if (*(this + 93) == v17)
         {
-          v17 = *(v6 + 264);
+          v18 = *(v7 + 264);
         }
 
         else
         {
-          v17 = -1;
+          v18 = -1;
         }
 
-        if (!v15)
+        if (!v16)
         {
           goto LABEL_28;
         }
 
-        v18 = (v6 + 264);
-        v19 = *(v2 + 88);
-        v20 = *(v19 + 16) + 1;
-        *(v19 + 16) = v20;
-        v21 = *(v4 + 24);
-        *(v4 + 16) = v20;
-        v22 = v21 | v15;
-        v23 = *(v4 + 32) | v8;
-        if (((v21 | v15) & 0x10) == 0 || (this = GLDVertexArrayRec::updateBuffers(v4, v22), this))
+        v19 = (v7 + 264);
+        v20 = *(this + 11);
+        v21 = *(v20 + 16) + 1;
+        *(v20 + 16) = v21;
+        v22 = *(v4 + 24);
+        *(v4 + 16) = v21;
+        v23 = v22 | v16;
+        v24 = *(v4 + 32) | v9;
+        if ((((v22 | v16) & 0x10) == 0 || GLDVertexArrayRec::updateBuffers(v4, v23)) && GLDVertexArrayRec::updateVertexArrayBuffers(v4, v23, v24))
         {
-          this = GLDVertexArrayRec::updateVertexArrayBuffers(v4, v22, v23);
-          if (this)
-          {
-            v17 |= v21;
-            *(v4 + 24) = 0;
-            *(v4 + 32) = 0;
-            *v18 = 0;
-            v18[1] = 0;
-            v16 = *(v4 + 16);
+          v18 |= v22;
+          *(v4 + 24) = 0;
+          *(v4 + 32) = 0;
+          *v19 = 0;
+          v19[1] = 0;
+          v17 = *(v4 + 16);
 LABEL_28:
-            *(v2 + 372) = v16;
-            goto LABEL_33;
-          }
+          *(this + 93) = v17;
+          goto LABEL_33;
         }
 
-        *(v4 + 24) = v22;
-        *(v4 + 32) = v23;
-        *v18 = xmmword_29D37AB60;
+        *(v4 + 24) = v23;
+        *(v4 + 32) = v24;
+        *v19 = xmmword_29D37AB60;
       }
     }
   }
 
 LABEL_30:
   v4 = 0;
-  *(v2 + 372) = 0;
-  if (*(v2 + 392))
+  *(this + 93) = 0;
+  if (*(this + 49))
   {
-    v17 = -1;
+    v18 = -1;
   }
 
   else
   {
-    v17 = 0;
+    v18 = 0;
   }
 
 LABEL_33:
-  if (v17)
+  if (v18)
   {
-    this = GLDContextRec::bindVertexArray(v2, v4);
+    GLDContextRec::bindVertexArray(this, v4);
   }
 
-  *(v2 + 392) = v4;
-  return this;
+  *(this + 49) = v4;
 }
 
 GLDContextRec *gldUnbindVertexArray(GLDContextRec *result, uint64_t a2)
@@ -7622,7 +7602,7 @@ GLDContextRec *gldUnbindVertexArray(GLDContextRec *result, uint64_t a2)
 
 uint64_t GLDContextRec::buildVertexArrayDescriptor(uint64_t this, GLDPipelineProgramRec *a2, GLDVertexArrayRec *a3)
 {
-  v36 = *MEMORY[0x29EDCA608];
+  v35 = *MEMORY[0x29EDCA608];
   v3 = *(*(a2 + 3) + 56);
   v4 = *v3;
   *(this + 1920) = 0;
@@ -7630,13 +7610,13 @@ uint64_t GLDContextRec::buildVertexArrayDescriptor(uint64_t this, GLDPipelinePro
   *(this + 1888) = 0u;
   *(this + 1872) = 0u;
   *(this + 1856) = 0u;
-  v28 = this;
+  v27 = this;
   if (v4)
   {
-    v32 = this + 1856;
+    v31 = this + 1856;
     v5 = v3 + 2;
     v6 = v3 + 3;
-    v7 = v35;
+    v7 = v34;
     v8 = v4;
     do
     {
@@ -7655,7 +7635,7 @@ uint64_t GLDContextRec::buildVertexArrayDescriptor(uint64_t this, GLDPipelinePro
       {
         if (v9 != 28)
         {
-          MTLReleaseAssertionFailure();
+          MTLReleaseAssertionFailure("buildVertexArrayDescriptor", 445, "false", "Unhandled binding type");
         }
 
         v10 = *v6 & 0x3F;
@@ -7669,10 +7649,10 @@ uint64_t GLDContextRec::buildVertexArrayDescriptor(uint64_t this, GLDPipelinePro
     while (v8);
     v11 = 0;
     v12 = 0;
-    v30 = this + 320;
-    v31 = 0;
-    v29 = this + 280;
-    v13 = v35;
+    v29 = this + 320;
+    v30 = 0;
+    v28 = this + 280;
+    v13 = v34;
     while (1)
     {
       v15 = *v13++;
@@ -7698,8 +7678,8 @@ uint64_t GLDContextRec::buildVertexArrayDescriptor(uint64_t this, GLDPipelinePro
           this = *(v17 + 16);
           if (!this)
           {
-            *v34 = 0;
-            this = glrVertexFormatComponentAttribSizeTypeAlignment(v18, &v34[1], v34);
+            *v33 = 0;
+            this = glrVertexFormatComponentAttribSizeTypeAlignment(v18, &v33[1], v33);
           }
 
           v21 = 4 - (this & 3);
@@ -7719,8 +7699,8 @@ uint64_t GLDContextRec::buildVertexArrayDescriptor(uint64_t this, GLDPipelinePro
             v23 = 1;
           }
 
-          *(v32 + 4 * v11) = (4 * (v18 & 0x3F)) | v23 | ((v20 & 0x3FF) << 20) | (*v17 << 30) | ((v22 & 0xFFF) << 8);
-          *(v30 + v12++) = v14;
+          *(v31 + 4 * v11) = (4 * (v18 & 0x3F)) | v23 | ((v20 & 0x3FF) << 20) | (*v17 << 30) | ((v22 & 0xFFF) << 8);
+          *(v29 + v12++) = v14;
         }
 
         else
@@ -7737,8 +7717,8 @@ uint64_t GLDContextRec::buildVertexArrayDescriptor(uint64_t this, GLDPipelinePro
             {
               if (v24 != 3)
               {
-                v27 = MTLReleaseAssertionFailure();
-                return GLDContextRec::buildPrimitiveBufferVertexArrayDescriptor(v27);
+                v26 = MTLReleaseAssertionFailure("buildVertexArrayDescriptor", 528, "false", "Unhandled binding datatype");
+                return GLDContextRec::buildPrimitiveBufferVertexArrayDescriptor(v26);
               }
 
               v25 = 156;
@@ -7750,10 +7730,10 @@ uint64_t GLDContextRec::buildVertexArrayDescriptor(uint64_t this, GLDPipelinePro
             v25 = 124;
           }
 
-          *(v32 + 4 * v11) = v25 & 0xC00FFFFF | ((v31 & 0x3FF) << 20) | *(v32 + 4 * v11) & 0xC0000000 | 3;
-          *(v29 + HIDWORD(v31)) = v14;
-          LODWORD(v31) = v31 + 16;
-          ++HIDWORD(v31);
+          *(v31 + 4 * v11) = v25 & 0xC00FFFFF | ((v30 & 0x3FF) << 20) | *(v31 + 4 * v11) & 0xC0000000 | 3;
+          *(v28 + HIDWORD(v30)) = v14;
+          LODWORD(v30) = v30 + 16;
+          ++HIDWORD(v30);
         }
 
         ++v11;
@@ -7768,21 +7748,20 @@ uint64_t GLDContextRec::buildVertexArrayDescriptor(uint64_t this, GLDPipelinePro
   }
 
   v12 = 0;
-  HIDWORD(v31) = 0;
+  HIDWORD(v30) = 0;
 LABEL_35:
-  v28[79] = v12;
-  v28[618] |= 0x800u;
-  v28[621] |= 1u;
-  v28[667] = -1;
-  v28[69] = HIDWORD(v31);
-  v26 = *MEMORY[0x29EDCA608];
+  v27[79] = v12;
+  v27[618] |= 0x800u;
+  v27[621] |= 1u;
+  v27[667] = -1;
+  v27[69] = HIDWORD(v30);
   return this;
 }
 
-void GLDContextRec::buildPrimitiveBufferVertexArrayDescriptor(GLDContextRec *this)
+void GLDContextRec::buildPrimitiveBufferVertexArrayDescriptor(GLDTransformFeedbackMachine *this)
 {
-  v86 = *MEMORY[0x29EDCA608];
-  v74 = *(*(this + 14) + 368);
+  v85 = *MEMORY[0x29EDCA608];
+  v73 = *(*(this + 14) + 368);
   v1 = *(*(*(this + 183) + 24) + 56);
   v2 = *v1;
   *(this + 124) = 0u;
@@ -7815,12 +7794,12 @@ void GLDContextRec::buildPrimitiveBufferVertexArrayDescriptor(GLDContextRec *thi
       {
         if (v9 != 28)
         {
-          MTLReleaseAssertionFailure();
+          MTLReleaseAssertionFailure("buildPrimitiveBufferVertexArrayDescriptor", 726, "false", "Unhandled binding type");
         }
 
         v10 = *v7;
-        v85[v3] = v10 & 0x3F;
-        v84[v3] = v8 >> 6;
+        v84[v3] = v10 & 0x3F;
+        v83[v3] = v8 >> 6;
         v4 |= 1 << ((v10 & 0x3Fu) + 16);
         ++v3;
       }
@@ -7832,16 +7811,16 @@ void GLDContextRec::buildPrimitiveBufferVertexArrayDescriptor(GLDContextRec *thi
     while (v2);
     if (v5)
     {
-      v85[v3] = 45;
-      v84[v3] = 0;
+      v84[v3] = 45;
+      v83[v3] = 0;
       v4 |= 0x2000000000000000uLL;
       ++v3;
     }
 
     if (v6)
     {
-      v85[v3] = 47;
-      v84[v3] = 0;
+      v84[v3] = 47;
+      v83[v3] = 0;
       v4 |= 0x8000000000000000;
       ++v3;
     }
@@ -7849,8 +7828,8 @@ void GLDContextRec::buildPrimitiveBufferVertexArrayDescriptor(GLDContextRec *thi
 
   else
   {
-    v85[0] = 45;
-    v84[0] = 0;
+    v84[0] = 45;
+    v83[0] = 0;
     v3 = 1;
     v4 = 0x2000000000000000;
   }
@@ -7860,8 +7839,8 @@ void GLDContextRec::buildPrimitiveBufferVertexArrayDescriptor(GLDContextRec *thi
     v4 &= ~0x400000uLL;
   }
 
-  v73 = v4;
-  v76 = 0;
+  v72 = v4;
+  v75 = 0;
   if (!v3)
   {
     v59 = 0;
@@ -7869,19 +7848,19 @@ void GLDContextRec::buildPrimitiveBufferVertexArrayDescriptor(GLDContextRec *thi
   }
 
   v11 = 0;
-  v71 = 0;
+  v70 = 0;
   v12 = 0;
   v13 = (this + 1984);
   v14 = v1 + 2;
-  v75 = this;
+  v74 = this;
   v15 = v3;
-  v16 = v84;
-  v17 = v85;
-  v18 = v80;
-  v19 = v77;
-  v20 = v79;
-  v68 = v3;
-  v69 = this + 300;
+  v16 = v83;
+  v17 = v84;
+  v18 = v79;
+  v19 = v76;
+  v20 = v78;
+  v67 = v3;
+  v68 = this + 300;
   do
   {
     v22 = *v17++;
@@ -7890,11 +7869,11 @@ void GLDContextRec::buildPrimitiveBufferVertexArrayDescriptor(GLDContextRec *thi
     {
       *v18 = 44;
       *v19 = 0;
-      v78[v12] = v11;
+      v77[v12] = v11;
       *v20 = v11;
-      v83[v12] = 47;
-      v82[v12] = *v16;
-      v23 = &v81[v12];
+      v82[v12] = 47;
+      v81[v12] = *v16;
+      v23 = &v80[v12];
       v24 = MTLVertexFormatInt1010102Normalized|MTLVertexFormatChar2;
       goto LABEL_23;
     }
@@ -7903,37 +7882,37 @@ void GLDContextRec::buildPrimitiveBufferVertexArrayDescriptor(GLDContextRec *thi
     {
       *v18 = 43;
       *v19 = 0;
-      v78[v12] = v11;
+      v77[v12] = v11;
       *v20 = v11;
-      v83[v12] = 45;
-      v82[v12] = *v16;
-      v23 = &v81[v12];
+      v82[v12] = 45;
+      v81[v12] = *v16;
+      v23 = &v80[v12];
       v24 = MTLVertexFormatUChar4Normalized_BGRA|MTLVertexFormatUChar2;
 LABEL_23:
       v25 = v11;
       v26 = v12;
       v27 = v17;
-      v28 = glrVertexFormatComponentAttribSizeTypeAlignment(v24, v23, &v76);
+      v28 = glrVertexFormatComponentAttribSizeTypeAlignment(v24, v23, &v75);
       v17 = v27;
-      v11 = v25 + v28;
+      v11 = (v25 + v28);
 LABEL_28:
       v12 = v26 + 1;
       goto LABEL_29;
     }
 
-    if (*(*(v75 + 13) + 4))
+    if (*(*(v74 + 13) + 4))
     {
       *v18 = 31;
       *v19 = 0;
-      v78[v12] = v11;
+      v77[v12] = v11;
       *v20 = v11;
-      v83[v12] = v21;
-      v82[v12] = *v16;
-      v29 = &v81[v12];
+      v82[v12] = v21;
+      v81[v12] = *v16;
+      v29 = &v80[v12];
       v30 = v11;
       v26 = v12;
       v31 = v17;
-      v32 = glrVertexFormatComponentAttribSizeTypeAlignment(MTLVertexFormatFloat4, v29, &v76);
+      v32 = glrVertexFormatComponentAttribSizeTypeAlignment(MTLVertexFormatFloat4, v29, &v75);
       v17 = v31;
       v33 = 4 - (v32 & 3);
       if ((v32 & 3) == 0)
@@ -7941,14 +7920,14 @@ LABEL_28:
         v33 = 0;
       }
 
-      v11 = v30 + v32 + v33;
+      v11 = (v30 + v32 + v33);
       goto LABEL_28;
     }
 
-    v34 = *(v74 + 48);
-    if (((0x10000 << v21) & v73 & *(v34 + 768)) != 0)
+    v34 = *(v73 + 48);
+    if (((0x10000 << v21) & v72 & *(v34 + 768)) != 0)
     {
-      v72 = v17;
+      v71 = v17;
       v35 = v34 + 24 * v21;
       v36 = *(v35 + 22);
       if (v36 == 5)
@@ -7958,7 +7937,7 @@ LABEL_28:
 
       else
       {
-        v70 = v11;
+        v69 = v11;
         v41 = *(v35 + 20);
         if (v41 == 5132)
         {
@@ -7987,48 +7966,48 @@ LABEL_28:
         }
 
         *v16 = v37;
-        v67 = v42;
+        v66 = v42;
         v38 = glrConvertVertexElementType(v42, (v37 + 1));
         if (v38)
         {
-          v11 = v70;
+          LODWORD(v11) = v69;
           goto LABEL_57;
         }
 
         v37 = 3;
         *v16 = 3;
-        v11 = v70;
-        if ((v67 & 0x4000) != 0)
+        LODWORD(v11) = v69;
+        if ((v66 & 0x4000) != 0)
         {
-          if (((v67 & 0x9FFF) - 5120) >= 6u)
+          if (((v66 & 0x9FFF) - 5120) >= 6u)
           {
             goto LABEL_73;
           }
 
-          v38 = qword_29D37AB70[((v67 & 0x9FFF) - 5120)];
+          v38 = qword_29D37AB70[((v66 & 0x9FFF) - 5120)];
           goto LABEL_57;
         }
       }
 
       v38 = MTLVertexFormatFloat4;
 LABEL_57:
-      v78[v12] = v11;
+      v77[v12] = v11;
       *v18 = v38;
       *v19 = 0;
       *v20 = v11;
-      v83[v12] = v21;
-      v82[v12] = v37;
+      v82[v12] = v21;
+      v81[v12] = v37;
       v44 = v11;
-      v45 = glrVertexFormatComponentAttribSizeTypeAlignment(v38, &v81[v12], &v76);
+      v45 = glrVertexFormatComponentAttribSizeTypeAlignment(v38, &v80[v12], &v75);
       v46 = 4 - (v45 & 3);
       if ((v45 & 3) == 0)
       {
         v46 = 0;
       }
 
-      v11 = v44 + v45 + v46;
+      v11 = (v44 + v45 + v46);
       ++v12;
-      v17 = v72;
+      v17 = v71;
       goto LABEL_29;
     }
 
@@ -8044,10 +8023,10 @@ LABEL_57:
       {
         if (v39 != 3)
         {
-          MTLReleaseAssertionFailure();
+          MTLReleaseAssertionFailure("buildPrimitiveBufferVertexArrayDescriptor", 914, "false", "Unhandled binding datatype", v11);
 LABEL_73:
-          v66 = MTLReleaseAssertionFailure();
-          GLDTransformFeedbackMachine::GLDTransformFeedbackMachine(v66);
+          v65 = MTLReleaseAssertionFailure("buildPrimitiveBufferVertexArrayDescriptor", 873, "false", "Unhandled vertex attribute type");
+          GLDTransformFeedbackMachine::GLDTransformFeedbackMachine(v65);
           return;
         }
 
@@ -8066,14 +8045,14 @@ LABEL_73:
     }
 
     *v18 = v40;
-    *v20 = v71;
+    *v20 = v70;
     *v19 = 1;
-    v69[HIDWORD(v71)] = v21;
-    LODWORD(v71) = v71 + 16;
-    ++HIDWORD(v71);
+    v68[HIDWORD(v70)] = v21;
+    LODWORD(v70) = v70 + 16;
+    ++HIDWORD(v70);
 LABEL_29:
     ++v16;
-    ++v18;
+    v18 += 8;
     ++v19;
     ++v20;
     v14 += 2;
@@ -8081,16 +8060,16 @@ LABEL_29:
   }
 
   while (v15);
-  v47 = v77;
-  v48 = v80;
-  v49 = v79;
-  v50 = v68;
+  v47 = v76;
+  v48 = v79;
+  v49 = v78;
+  v50 = v67;
   do
   {
     v52 = *v47++;
     v51 = v52;
     v54 = *v48;
-    v48 += 2;
+    v48 += 8;
     v53 = v54;
     v56 = *v49;
     v49 += 2;
@@ -8112,16 +8091,16 @@ LABEL_29:
   }
 
   while (v50);
-  this = v75;
-  v59 = HIDWORD(v71);
+  this = v74;
+  v59 = HIDWORD(v70);
   if (!v12)
   {
 LABEL_67:
-    v83[0] = 16;
-    v82[0] = 0;
+    v82[0] = 16;
     v81[0] = 0;
-    v78[0] = 0;
-    v11 = 4;
+    v80[0] = 0;
+    v77[0] = 0;
+    LODWORD(v11) = 4;
     v12 = 1;
   }
 
@@ -8130,9 +8109,9 @@ LABEL_67:
   v62 = (this + 144);
   do
   {
-    v63 = v82[v60];
-    v64 = ((v81[v60] & 7) << 8) | (v78[v60] >> 2) | ((v83[v60] & 0x3F) << 14) | ((v63 & 7) << 11);
-    v62[17] = ((v83[v60] & 0x3F) << 14) | ((v63 & 7) << 11) | v61;
+    v63 = v81[v60];
+    v64 = ((v80[v60] & 7) << 8) | (v77[v60] >> 2) | ((v82[v60] & 0x3F) << 14) | ((v63 & 7) << 11);
+    v62[17] = ((v82[v60] & 0x3F) << 14) | ((v63 & 7) << 11) | v61;
     *v62++ = v64;
     v61 += v63 + 1;
     ++v60;
@@ -8145,10 +8124,9 @@ LABEL_67:
   *(this + 210) = v61;
   *(this + 140) = v12;
   *(this + 142) = v11 >> 2;
-  v65 = *MEMORY[0x29EDCA608];
 }
 
-uint64_t GLDTransformFeedbackMachine::incrementPrimitiveCount(uint64_t this, GLDContextRec *a2, unsigned int a3, int a4, int a5)
+uint64_t GLDTransformFeedbackMachine::incrementPrimitiveCount(uint64_t this, GLDContextRec *a2, unsigned int a3, int a4, uint64_t a5)
 {
   if (a4)
   {
@@ -8161,7 +8139,7 @@ uint64_t GLDTransformFeedbackMachine::incrementPrimitiveCount(uint64_t this, GLD
     {
       if (a4 != 1)
       {
-        v7 = MTLReleaseAssertionFailure();
+        v7 = MTLReleaseAssertionFailure("incrementPrimitiveCount", 43, "false", "Invalid TF mode", a5);
         return GLDContextRec::isTransformFeedbackActive(v7);
       }
 
@@ -8322,22 +8300,16 @@ void GLDDeviceRec::init()
 }
 
 {
-  if (__cxa_guard_acquire(&qword_2A1A12DD8))
+  if (__cxa_guard_acquire(byte_2A1A12DD8))
   {
     _MergedGlobals = getenv("GLMTL_SET_MAX_DATA_BUFFER_SIZE");
-    __cxa_guard_release(&qword_2A1A12DD8);
+    __cxa_guard_release(byte_2A1A12DD8);
   }
 }
 
-uint64_t GLDDeviceRec::init()
 {
-  v0 = MTLReleaseAssertionFailure();
-  return GLDDeviceRec::init(v0);
-}
-
-{
-  v0 = MTLReleaseAssertionFailure();
-  return GLDDeviceRec::getRenderPipelineStateFromKey(v0, v1);
+  v0 = MTLReleaseAssertionFailure("init", 104, "m_builtin_shader_library != nil", 0);
+  GLDDeviceRec::getRenderPipelineStateFromKey(v0, v1);
 }
 
 void GLDDeviceRec::getRenderPipelineStateFromKey(uint64_t a1, uint8_t *buf)
@@ -8349,16 +8321,15 @@ void GLDDeviceRec::getRenderPipelineStateFromKey(uint64_t a1, uint8_t *buf)
 
 void GLDTextureRec::update(uint64_t a1)
 {
-  v4 = *MEMORY[0x29EDCA608];
+  v3 = *MEMORY[0x29EDCA608];
   v1 = *(*(a1 + 48) + 192);
-  v3[0] = 67109120;
-  v3[1] = v1;
-  _os_log_fault_impl(&dword_29D360000, MEMORY[0x29EDCA988], OS_LOG_TYPE_FAULT, "Invalid Pixel Format: 0x%08x\n", v3, 8u);
-  v2 = *MEMORY[0x29EDCA608];
+  v2[0] = 67109120;
+  v2[1] = v1;
+  _os_log_fault_impl(&dword_29D360000, MEMORY[0x29EDCA988], OS_LOG_TYPE_FAULT, "Invalid Pixel Format: 0x%08x\n", v2, 8u);
 }
 
 {
-  v5 = *MEMORY[0x29EDCA608];
+  v4 = *MEMORY[0x29EDCA608];
   if ((**(a1 + 48) & 0x800) != 0)
   {
     v1 = "YES";
@@ -8369,15 +8340,14 @@ void GLDTextureRec::update(uint64_t a1)
     v1 = "NO";
   }
 
-  v3 = 136315138;
-  v4 = v1;
-  _os_log_fault_impl(&dword_29D360000, MEMORY[0x29EDCA988], OS_LOG_TYPE_FAULT, "IOSurface           : %s\n", &v3, 0xCu);
-  v2 = *MEMORY[0x29EDCA608];
+  v2 = 136315138;
+  v3 = v1;
+  _os_log_fault_impl(&dword_29D360000, MEMORY[0x29EDCA988], OS_LOG_TYPE_FAULT, "IOSurface           : %s\n", &v2, 0xCu);
 }
 
 void GLDTextureRec::update(char a1, char a2)
 {
-  v15 = *MEMORY[0x29EDCA608];
+  v14 = *MEMORY[0x29EDCA608];
   v2 = "TEXTURE_GEOM_DIRTY_BIT";
   if ((a1 & 1) == 0)
   {
@@ -8396,22 +8366,21 @@ void GLDTextureRec::update(char a1, char a2)
     v4 = "";
   }
 
-  v7 = 136315906;
-  v8 = v2;
+  v6 = 136315906;
+  v7 = v2;
   v5 = "TEXTURE_BUFFER_DIRTY_BIT";
-  v9 = 2080;
-  v10 = v3;
-  v11 = 2080;
-  v12 = v4;
+  v8 = 2080;
+  v9 = v3;
+  v10 = 2080;
+  v11 = v4;
   if ((a1 & 8) == 0)
   {
     v5 = "";
   }
 
-  v13 = 2080;
-  v14 = v5;
-  _os_log_fault_impl(&dword_29D360000, MEMORY[0x29EDCA988], OS_LOG_TYPE_FAULT, "Dirty Bits          : %s %s %s %s\n", &v7, 0x2Au);
-  v6 = *MEMORY[0x29EDCA608];
+  v12 = 2080;
+  v13 = v5;
+  _os_log_fault_impl(&dword_29D360000, MEMORY[0x29EDCA988], OS_LOG_TYPE_FAULT, "Dirty Bits          : %s %s %s %s\n", &v6, 0x2Au);
 }
 
 void gldGenerateTexMipmaps_cold_1()

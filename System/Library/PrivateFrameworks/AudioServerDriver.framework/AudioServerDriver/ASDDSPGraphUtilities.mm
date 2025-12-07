@@ -12,30 +12,30 @@
 
 + (BOOL)startRecordingBoxes:(id)boxes inGraph:(id)graph toDirectory:(id)directory withMode:(int64_t)mode error:(id *)error
 {
-  v56 = *MEMORY[0x277D85DE8];
+  v55 = *MEMORY[0x277D85DE8];
   boxesCopy = boxes;
   graphCopy = graph;
   directoryCopy = directory;
-  v46 = graphCopy;
+  v45 = graphCopy;
   [ASDDSPGraphUtilities stopRecordingBoxesInGraph:graphCopy];
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
   LODWORD(graphCopy) = [defaultManager createDirectoryAtPath:directoryCopy withIntermediateDirectories:1 attributes:0 error:error];
 
   if (graphCopy)
   {
-    v39 = objc_alloc_init(MEMORY[0x277CCA968]);
-    [v39 setDateFormat:@"yyyy-MM-dd-HHmmss"];
+    v38 = objc_alloc_init(MEMORY[0x277CCA968]);
+    [v38 setDateFormat:@"yyyy-MM-dd-HHmmss"];
     date = [MEMORY[0x277CBEAA8] date];
-    v44 = [v39 stringFromDate:date];
+    v43 = [v38 stringFromDate:date];
 
     v14 = [ASDDSPGraphUtilities getCapturerOptions:mode];
     v16 = v15;
-    v49 = 0u;
-    v50 = 0u;
-    v47 = 0u;
     v48 = 0u;
+    v49 = 0u;
+    v46 = 0u;
+    v47 = 0u;
     obj = boxesCopy;
-    v17 = [obj countByEnumeratingWithState:&v47 objects:v55 count:16];
+    v17 = [obj countByEnumeratingWithState:&v46 objects:v54 count:16];
     if (!v17)
     {
       v18 = 1;
@@ -44,19 +44,19 @@ LABEL_29:
       goto LABEL_30;
     }
 
-    v42 = *v48;
+    v41 = *v47;
     v18 = 1;
 LABEL_4:
-    v40 = v17;
+    v39 = v17;
     v19 = 0;
     while (1)
     {
-      if (*v48 != v42)
+      if (*v47 != v41)
       {
         objc_enumerationMutation(obj);
       }
 
-      v20 = [v46 boxWithName:*(*(&v47 + 1) + 8 * v19)];
+      v20 = [v45 boxWithName:*(*(&v46 + 1) + 8 * v19)];
       v21 = v20;
       if (v20)
       {
@@ -70,9 +70,9 @@ LABEL_4:
 
 LABEL_21:
 
-      if (++v19 == v40)
+      if (++v19 == v39)
       {
-        v17 = [obj countByEnumeratingWithState:&v47 objects:v55 count:16];
+        v17 = [obj countByEnumeratingWithState:&v46 objects:v54 count:16];
         if (!v17)
         {
           goto LABEL_29;
@@ -88,7 +88,7 @@ LABEL_21:
       if ((v14 & 4) != 0)
       {
         v25 = MEMORY[0x277CCACA8];
-        name = [v46 name];
+        name = [v45 name];
         name2 = [v21 name];
         v28 = [v25 stringWithFormat:@"%@/%@_%@_bus%d.caf", directoryCopy, name, name2, v24];
 
@@ -99,12 +99,12 @@ LABEL_17:
 
       if (error && (v18 & 1) == 0)
       {
-        v53 = *MEMORY[0x277CCA450];
+        v52 = *MEMORY[0x277CCA450];
         v33 = MEMORY[0x277CCACA8];
         name3 = [v21 name];
         v35 = [v33 stringWithFormat:@"%@ startRecordingPort was unsuccessful", name3];
-        v54 = v35;
-        v36 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v54 forKeys:&v53 count:1];
+        v53 = v35;
+        v36 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v53 forKeys:&v52 count:1];
 
         *error = [MEMORY[0x277CCA9B8] errorWithDomain:@"ASDDSPGraphUtilities" code:-1 userInfo:v36];
 
@@ -120,9 +120,9 @@ LABEL_27:
     }
 
     v30 = MEMORY[0x277CCACA8];
-    name4 = [v46 name];
+    name4 = [v45 name];
     name5 = [v21 name];
-    v28 = [v30 stringWithFormat:@"%@/%@_%@_bus%d_%@.caf", directoryCopy, name4, name5, v24, v44];
+    v28 = [v30 stringWithFormat:@"%@/%@_%@_bus%d_%@.caf", directoryCopy, name4, name5, v24, v43];
 
     v29 = [v21 startRecordingPort:v24 toFile:v28];
     goto LABEL_17;
@@ -132,14 +132,13 @@ LABEL_27:
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v52 = directoryCopy;
+    v51 = directoryCopy;
     _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Failed to create path at: %@ for audio DSP captures.", buf, 0xCu);
     goto LABEL_27;
   }
 
 LABEL_30:
 
-  v37 = *MEMORY[0x277D85DE8];
   return v18 & 1;
 }
 
@@ -147,51 +146,50 @@ LABEL_30:
 {
   typeCopy = type;
   errorCopy = error;
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   graphCopy = graph;
   streamCopy = stream;
   directoryCopy = directory;
   v13 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v26 = 0u;
-  v27 = 0u;
-  v24 = 0u;
   v25 = 0u;
+  v26 = 0u;
+  v23 = 0u;
+  v24 = 0u;
   boxes = [graphCopy boxes];
-  v15 = [boxes countByEnumeratingWithState:&v24 objects:v28 count:16];
+  v15 = [boxes countByEnumeratingWithState:&v23 objects:v27 count:16];
   if (v15)
   {
-    v16 = *v25;
+    v16 = *v24;
     do
     {
       v17 = 0;
       do
       {
-        if (*v25 != v16)
+        if (*v24 != v16)
         {
           objc_enumerationMutation(boxes);
         }
 
-        name = [*(*(&v24 + 1) + 8 * v17) name];
+        name = [*(*(&v23 + 1) + 8 * v17) name];
         [v13 addObject:name];
 
         ++v17;
       }
 
       while (v15 != v17);
-      v15 = [boxes countByEnumeratingWithState:&v24 objects:v28 count:16];
+      v15 = [boxes countByEnumeratingWithState:&v23 objects:v27 count:16];
     }
 
     while (v15);
   }
 
   v19 = [self startRecordingBoxes:v13 inGraph:graphCopy fromStream:streamCopy toDirectory:directoryCopy withType:typeCopy error:errorCopy];
-  v20 = *MEMORY[0x277D85DE8];
   return v19;
 }
 
 + (BOOL)startRecordingBoxes:(id)boxes inGraph:(id)graph fromStream:(id)stream toDirectory:(id)directory withType:(int64_t)type andMode:(int64_t)mode error:(id *)error
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   boxesCopy = boxes;
   graphCopy = graph;
   streamCopy = stream;
@@ -200,8 +198,8 @@ LABEL_30:
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v24) = 0;
-      _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Start Recording Boxes with AudioDebugTypeReinitializeGraph...", &v24, 2u);
+      LOWORD(v23) = 0;
+      _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Start Recording Boxes with AudioDebugTypeReinitializeGraph...", &v23, 2u);
     }
 
     isRunning = [streamCopy isRunning];
@@ -209,8 +207,8 @@ LABEL_30:
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v24) = 0;
-        _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "DSP stream was running, suspend processing to reinitialize graph...", &v24, 2u);
+        LOWORD(v23) = 0;
+        _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "DSP stream was running, suspend processing to reinitialize graph...", &v23, 2u);
       }
 
       [streamCopy suspendProcessing];
@@ -221,8 +219,8 @@ LABEL_30:
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v24) = 0;
-        _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Uninitializing graph", &v24, 2u);
+        LOWORD(v23) = 0;
+        _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Uninitializing graph", &v23, 2u);
       }
 
       [graphCopy uninitialize];
@@ -233,17 +231,17 @@ LABEL_30:
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v24) = 0;
-        _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Reinitializing graph", &v24, 2u);
+        LOWORD(v23) = 0;
+        _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Reinitializing graph", &v23, 2u);
       }
 
       if ([graphCopy initialize])
       {
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
         {
-          v24 = 138412290;
-          v25 = boxesCopy;
-          _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Started recording %@", &v24, 0xCu);
+          v23 = 138412290;
+          v24 = boxesCopy;
+          _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Started recording %@", &v23, 0xCu);
         }
       }
 
@@ -266,8 +264,8 @@ LABEL_30:
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v24) = 0;
-        _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "DSP stream was running, resume processing after reinitialized graph...", &v24, 2u);
+        LOWORD(v23) = 0;
+        _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "DSP stream was running, resume processing after reinitialized graph...", &v23, 2u);
       }
 
       [streamCopy resumeProcessing];
@@ -288,39 +286,38 @@ LABEL_30:
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v24) = 0;
-      _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Start Recording Boxes with AudioDebugTypeKeepGraphInitialized...", &v24, 2u);
+      LOWORD(v23) = 0;
+      _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Start Recording Boxes with AudioDebugTypeKeepGraphInitialized...", &v23, 2u);
     }
 
     v19 = [self startRecordingBoxes:boxesCopy inGraph:graphCopy toDirectory:directoryCopy error:error];
   }
 
-  v22 = *MEMORY[0x277D85DE8];
   return v19;
 }
 
 + (BOOL)stopRecordingBoxesInGraph:(id)graph
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   boxes = [graph boxes];
-  v4 = [boxes countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v4 = [boxes countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v4)
   {
-    v5 = *v14;
+    v5 = *v13;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v14 != v5)
+        if (*v13 != v5)
         {
           objc_enumerationMutation(boxes);
         }
 
-        v7 = *(*(&v13 + 1) + 8 * i);
+        v7 = *(*(&v12 + 1) + 8 * i);
         if ([v7 numOutputs])
         {
           numOutputs = [v7 numOutputs];
@@ -344,43 +341,42 @@ LABEL_30:
         }
       }
 
-      v4 = [boxes countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v4 = [boxes countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v4);
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
 + (BOOL)startInjectingBoxes:(id)boxes inGraph:(id)graph error:(id *)error
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   boxesCopy = boxes;
   graphCopy = graph;
+  v29 = 0u;
   v30 = 0u;
   v31 = 0u;
   v32 = 0u;
-  v33 = 0u;
   obj = boxesCopy;
-  v7 = [obj countByEnumeratingWithState:&v30 objects:v44 count:16];
+  v7 = [obj countByEnumeratingWithState:&v29 objects:v43 count:16];
   if (v7)
   {
-    v9 = *v31;
+    v9 = *v30;
     v10 = MEMORY[0x277D86220];
     *&v8 = 136315138;
-    v27 = v8;
+    v26 = v8;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v31 != v9)
+        if (*v30 != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        v12 = [*(*(&v30 + 1) + 8 * i) componentsSeparatedByString:{@":", v27}];
+        v12 = [*(*(&v29 + 1) + 8 * i) componentsSeparatedByString:{@":", v26}];
         if ([v12 count] >= 3)
         {
           v13 = [v12 objectAtIndexedSubscript:0];
@@ -403,15 +399,15 @@ LABEL_30:
           {
             name = [graphCopy name];
             *buf = 138413314;
-            v35 = name;
-            v36 = 2112;
-            v37 = v13;
-            v38 = 1024;
-            v39 = intValue;
-            v40 = 2112;
-            v41 = v16;
-            v42 = 1024;
-            v43 = bOOLValue;
+            v34 = name;
+            v35 = 2112;
+            v36 = v13;
+            v37 = 1024;
+            v38 = intValue;
+            v39 = 2112;
+            v40 = v16;
+            v41 = 1024;
+            v42 = bOOLValue;
             _os_log_impl(&dword_2415D8000, v10, OS_LOG_TYPE_DEFAULT, "Injecting file to DSP graph: %@, box: %@, bus: %d, filePath: %@, shouldLoop: %d", buf, 0x2Cu);
           }
 
@@ -431,14 +427,14 @@ LABEL_30:
           {
             v22 = v13;
             uTF8String = [v13 UTF8String];
-            *buf = v27;
-            v35 = uTF8String;
+            *buf = v26;
+            v34 = uTF8String;
             _os_log_impl(&dword_2415D8000, v10, OS_LOG_TYPE_DEFAULT, "Box %s doesn't exist in graph", buf, 0xCu);
           }
         }
       }
 
-      v7 = [obj countByEnumeratingWithState:&v30 objects:v44 count:16];
+      v7 = [obj countByEnumeratingWithState:&v29 objects:v43 count:16];
     }
 
     while (v7);
@@ -447,32 +443,31 @@ LABEL_30:
   v24 = 1;
 LABEL_21:
 
-  v25 = *MEMORY[0x277D85DE8];
   return v24;
 }
 
 + (BOOL)stopInjectingBoxesInGraph:(id)graph
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   boxes = [graph boxes];
-  v4 = [boxes countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v4 = [boxes countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v4)
   {
-    v5 = *v14;
+    v5 = *v13;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v14 != v5)
+        if (*v13 != v5)
         {
           objc_enumerationMutation(boxes);
         }
 
-        v7 = *(*(&v13 + 1) + 8 * i);
+        v7 = *(*(&v12 + 1) + 8 * i);
         if ([v7 numOutputs])
         {
           numOutputs = [v7 numOutputs];
@@ -496,13 +491,12 @@ LABEL_21:
         }
       }
 
-      v4 = [boxes countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v4 = [boxes countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v4);
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
@@ -527,11 +521,10 @@ LABEL_21:
 
 + (void)startRecordingBoxes:(uint64_t)a1 inGraph:fromStream:toDirectory:withType:andMode:error:.cold.3(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 134217984;
-  v3 = a1;
-  _os_log_error_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "The ASDDSPGraphAudioDebugType provided: %ld was invalid!", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 134217984;
+  v2 = a1;
+  _os_log_error_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "The ASDDSPGraphAudioDebugType provided: %ld was invalid!", &v1, 0xCu);
 }
 
 @end

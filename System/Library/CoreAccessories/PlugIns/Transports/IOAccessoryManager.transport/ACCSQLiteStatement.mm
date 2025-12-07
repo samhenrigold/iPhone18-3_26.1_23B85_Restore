@@ -45,32 +45,32 @@
 
 - (void)finalizeStatement
 {
-  v10 = *MEMORY[0x277D85DE8];
-  if (self->_reset)
+  v9 = *MEMORY[0x277D85DE8];
+  if (!self->_reset)
   {
-    if (sqlite3_finalize(self->_handle) && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+    if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      SQL = self->_SQL;
-      v8 = 138412290;
-      v9 = SQL;
-      v4 = MEMORY[0x277D86220];
-      v5 = "[#ACCEventLogger] accsqlite: Error finalizing prepared statement: %@";
-LABEL_7:
-      _os_log_impl(&dword_233656000, v4, OS_LOG_TYPE_DEFAULT, v5, &v8, 0xCu);
+      return;
     }
-  }
 
-  else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
-  {
-    v6 = self->_SQL;
-    v8 = 138412290;
-    v9 = v6;
+    SQL = self->_SQL;
+    v7 = 138412290;
+    v8 = SQL;
     v4 = MEMORY[0x277D86220];
     v5 = "[#ACCEventLogger] accsqlite: Statement not reset after last use: %@";
     goto LABEL_7;
   }
 
-  v7 = *MEMORY[0x277D85DE8];
+  if (sqlite3_finalize(self->_handle) && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+  {
+    v3 = self->_SQL;
+    v7 = 138412290;
+    v8 = v3;
+    v4 = MEMORY[0x277D86220];
+    v5 = "[#ACCEventLogger] accsqlite: Error finalizing prepared statement: %@";
+LABEL_7:
+    _os_log_impl(&dword_233656000, v4, OS_LOG_TYPE_DEFAULT, v5, &v7, 0xCu);
+  }
 }
 
 - (void)resetAfterStepError
@@ -86,7 +86,7 @@ LABEL_7:
 
 - (BOOL)step
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   if (self->_reset)
   {
     self->_reset = 0;
@@ -99,168 +99,164 @@ LABEL_7:
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
       SQL = self->_SQL;
-      v7[0] = 67109378;
-      v7[1] = v3;
-      v8 = 2112;
-      v9 = SQL;
-      _os_log_impl(&dword_233656000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "[#ACCEventLogger] accsqlite: Failed to step (%d): %@", v7, 0x12u);
+      v6[0] = 67109378;
+      v6[1] = v3;
+      v7 = 2112;
+      v8 = SQL;
+      _os_log_impl(&dword_233656000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "[#ACCEventLogger] accsqlite: Failed to step (%d): %@", v6, 0x12u);
     }
   }
 
-  result = v3 == 100;
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  return v3 == 100;
 }
 
 - (void)reset
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   if (!self->_reset)
   {
     if (sqlite3_reset(self->_handle))
     {
-      if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+      if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
-        SQL = self->_SQL;
-        v8 = 138412290;
-        v9 = SQL;
-        v4 = MEMORY[0x277D86220];
-        v5 = "[#ACCEventLogger] accsqlite: Error resetting prepared statement: %@";
+        return;
+      }
+
+      SQL = self->_SQL;
+      v7 = 138412290;
+      v8 = SQL;
+      v4 = MEMORY[0x277D86220];
+      v5 = "[#ACCEventLogger] accsqlite: Error resetting prepared statement: %@";
 LABEL_8:
-        _os_log_impl(&dword_233656000, v4, OS_LOG_TYPE_DEFAULT, v5, &v8, 0xCu);
-      }
+      _os_log_impl(&dword_233656000, v4, OS_LOG_TYPE_DEFAULT, v5, &v7, 0xCu);
+      return;
     }
 
-    else
+    if (sqlite3_clear_bindings(self->_handle))
     {
-      if (!sqlite3_clear_bindings(self->_handle))
+      if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
-        [(NSMutableArray *)self->_temporaryBoundObjects removeAllObjects];
-        self->_reset = 1;
-        goto LABEL_10;
+        return;
       }
 
-      if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
-      {
-        v6 = self->_SQL;
-        v8 = 138412290;
-        v9 = v6;
-        v4 = MEMORY[0x277D86220];
-        v5 = "[#ACCEventLogger] accsqlite: Error clearing prepared statement bindings: %@";
-        goto LABEL_8;
-      }
+      v6 = self->_SQL;
+      v7 = 138412290;
+      v8 = v6;
+      v4 = MEMORY[0x277D86220];
+      v5 = "[#ACCEventLogger] accsqlite: Error clearing prepared statement bindings: %@";
+      goto LABEL_8;
     }
-  }
 
-LABEL_10:
-  v7 = *MEMORY[0x277D85DE8];
+    [(NSMutableArray *)self->_temporaryBoundObjects removeAllObjects];
+    self->_reset = 1;
+  }
 }
 
 - (void)bindInt:(int)int atIndex:(unint64_t)index
 {
-  v16 = *MEMORY[0x277D85DE8];
-  if (self->_reset)
+  v15 = *MEMORY[0x277D85DE8];
+  if (!self->_reset)
   {
-    if (sqlite3_bind_int(self->_handle, index + 1, int) && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+    if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      SQL = self->_SQL;
-      v12 = 134218242;
-      indexCopy = index;
-      v14 = 2112;
-      v15 = SQL;
-      v7 = MEMORY[0x277D86220];
-      v8 = "[#ACCEventLogger] accsqlite: Error binding int at %ld: %@";
-      v9 = 22;
-LABEL_7:
-      _os_log_impl(&dword_233656000, v7, OS_LOG_TYPE_DEFAULT, v8, &v12, v9);
+      return;
     }
-  }
 
-  else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
-  {
-    v10 = self->_SQL;
-    v12 = 138412290;
-    indexCopy = v10;
+    SQL = self->_SQL;
+    v11 = 138412290;
+    indexCopy = SQL;
     v7 = MEMORY[0x277D86220];
     v8 = "[#ACCEventLogger] accsqlite: Statement is not reset: %@";
     v9 = 12;
     goto LABEL_7;
   }
 
-  v11 = *MEMORY[0x277D85DE8];
+  if (sqlite3_bind_int(self->_handle, index + 1, int) && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+  {
+    v6 = self->_SQL;
+    v11 = 134218242;
+    indexCopy = index;
+    v13 = 2112;
+    v14 = v6;
+    v7 = MEMORY[0x277D86220];
+    v8 = "[#ACCEventLogger] accsqlite: Error binding int at %ld: %@";
+    v9 = 22;
+LABEL_7:
+    _os_log_impl(&dword_233656000, v7, OS_LOG_TYPE_DEFAULT, v8, &v11, v9);
+  }
 }
 
 - (void)bindInt64:(int64_t)int64 atIndex:(unint64_t)index
 {
-  v16 = *MEMORY[0x277D85DE8];
-  if (self->_reset)
+  v15 = *MEMORY[0x277D85DE8];
+  if (!self->_reset)
   {
-    if (sqlite3_bind_int64(self->_handle, index + 1, int64) && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+    if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      SQL = self->_SQL;
-      v12 = 134218242;
-      indexCopy = index;
-      v14 = 2112;
-      v15 = SQL;
-      v7 = MEMORY[0x277D86220];
-      v8 = "[#ACCEventLogger] accsqlite: Error binding int64 at %ld: %@";
-      v9 = 22;
-LABEL_7:
-      _os_log_impl(&dword_233656000, v7, OS_LOG_TYPE_DEFAULT, v8, &v12, v9);
+      return;
     }
-  }
 
-  else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
-  {
-    v10 = self->_SQL;
-    v12 = 138412290;
-    indexCopy = v10;
+    SQL = self->_SQL;
+    v11 = 138412290;
+    indexCopy = SQL;
     v7 = MEMORY[0x277D86220];
     v8 = "[#ACCEventLogger] accsqlite: Statement is not reset: %@";
     v9 = 12;
     goto LABEL_7;
   }
 
-  v11 = *MEMORY[0x277D85DE8];
+  if (sqlite3_bind_int64(self->_handle, index + 1, int64) && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+  {
+    v6 = self->_SQL;
+    v11 = 134218242;
+    indexCopy = index;
+    v13 = 2112;
+    v14 = v6;
+    v7 = MEMORY[0x277D86220];
+    v8 = "[#ACCEventLogger] accsqlite: Error binding int64 at %ld: %@";
+    v9 = 22;
+LABEL_7:
+    _os_log_impl(&dword_233656000, v7, OS_LOG_TYPE_DEFAULT, v8, &v11, v9);
+  }
 }
 
 - (void)bindDouble:(double)double atIndex:(unint64_t)index
 {
-  v16 = *MEMORY[0x277D85DE8];
-  if (self->_reset)
+  v15 = *MEMORY[0x277D85DE8];
+  if (!self->_reset)
   {
-    if (sqlite3_bind_double(self->_handle, index + 1, double) && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+    if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      SQL = self->_SQL;
-      v12 = 134218242;
-      indexCopy = index;
-      v14 = 2112;
-      v15 = SQL;
-      v7 = MEMORY[0x277D86220];
-      v8 = "[#ACCEventLogger] accsqlite: Error binding double at %ld: %@";
-      v9 = 22;
-LABEL_7:
-      _os_log_impl(&dword_233656000, v7, OS_LOG_TYPE_DEFAULT, v8, &v12, v9);
+      return;
     }
-  }
 
-  else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
-  {
-    v10 = self->_SQL;
-    v12 = 138412290;
-    indexCopy = v10;
+    SQL = self->_SQL;
+    v11 = 138412290;
+    indexCopy = SQL;
     v7 = MEMORY[0x277D86220];
     v8 = "[#ACCEventLogger] accsqlite: Statement is not reset: %@";
     v9 = 12;
     goto LABEL_7;
   }
 
-  v11 = *MEMORY[0x277D85DE8];
+  if (sqlite3_bind_double(self->_handle, index + 1, double) && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+  {
+    v6 = self->_SQL;
+    v11 = 134218242;
+    indexCopy = index;
+    v13 = 2112;
+    v14 = v6;
+    v7 = MEMORY[0x277D86220];
+    v8 = "[#ACCEventLogger] accsqlite: Error binding double at %ld: %@";
+    v9 = 22;
+LABEL_7:
+    _os_log_impl(&dword_233656000, v7, OS_LOG_TYPE_DEFAULT, v8, &v11, v9);
+  }
 }
 
 - (void)bindBlob:(id)blob atIndex:(unint64_t)index
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   blobCopy = blob;
   v7 = blobCopy;
   if (self->_reset)
@@ -274,22 +270,22 @@ LABEL_7:
     if (sqlite3_bind_blob(self->_handle, index + 1, [blobCopy bytes], objc_msgSend(blobCopy, "length"), 0) && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
       SQL = self->_SQL;
-      v14 = 134218242;
+      v13 = 134218242;
       indexCopy = index;
-      v16 = 2112;
-      v17 = SQL;
+      v15 = 2112;
+      v16 = SQL;
       v9 = MEMORY[0x277D86220];
       v10 = "[#ACCEventLogger] accsqlite: Error binding blob at %ld: %@";
       v11 = 22;
 LABEL_8:
-      _os_log_impl(&dword_233656000, v9, OS_LOG_TYPE_DEFAULT, v10, &v14, v11);
+      _os_log_impl(&dword_233656000, v9, OS_LOG_TYPE_DEFAULT, v10, &v13, v11);
     }
   }
 
   else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     v12 = self->_SQL;
-    v14 = 138412290;
+    v13 = 138412290;
     indexCopy = v12;
     v9 = MEMORY[0x277D86220];
     v10 = "[#ACCEventLogger] accsqlite: Statement is not reset: %@";
@@ -298,13 +294,11 @@ LABEL_8:
   }
 
 LABEL_10:
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)bindText:(id)text atIndex:(unint64_t)index
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   textCopy = text;
   v7 = textCopy;
   if (self->_reset)
@@ -318,22 +312,22 @@ LABEL_10:
     if (sqlite3_bind_text(self->_handle, index + 1, [textCopy UTF8String], -1, 0) && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
       SQL = self->_SQL;
-      v14 = 134218242;
+      v13 = 134218242;
       indexCopy = index;
-      v16 = 2112;
-      v17 = SQL;
+      v15 = 2112;
+      v16 = SQL;
       v9 = MEMORY[0x277D86220];
       v10 = "[#ACCEventLogger] accsqlite: Error binding text at %ld: %@";
       v11 = 22;
 LABEL_8:
-      _os_log_impl(&dword_233656000, v9, OS_LOG_TYPE_DEFAULT, v10, &v14, v11);
+      _os_log_impl(&dword_233656000, v9, OS_LOG_TYPE_DEFAULT, v10, &v13, v11);
     }
   }
 
   else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     v12 = self->_SQL;
-    v14 = 138412290;
+    v13 = 138412290;
     indexCopy = v12;
     v9 = MEMORY[0x277D86220];
     v10 = "[#ACCEventLogger] accsqlite: Statement is not reset: %@";
@@ -342,8 +336,6 @@ LABEL_8:
   }
 
 LABEL_10:
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)bindNullAtIndex:(unint64_t)index
@@ -378,7 +370,7 @@ LABEL_10:
 
 - (void)bindValue:(id)value atIndex:(unint64_t)index
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   valueCopy = value;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -415,10 +407,10 @@ LABEL_13:
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    *&v12 = 0xAAAAAAAAAAAAAAAALL;
-    *(&v12 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    [valueCopy getUUIDBytes:&v12];
-    v8 = [MEMORY[0x277CBEA90] dataWithBytes:&v12 length:16];
+    *&v11 = 0xAAAAAAAAAAAAAAAALL;
+    *(&v11 + 1) = 0xAAAAAAAAAAAAAAAALL;
+    [valueCopy getUUIDBytes:&v11];
+    v8 = [MEMORY[0x277CBEA90] dataWithBytes:&v11 length:16];
 LABEL_11:
     absoluteString = v8;
     v9 = [(ACCSQLiteStatement *)self retainedTemporaryBoundObject:v8];
@@ -468,15 +460,13 @@ LABEL_12:
 
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    LODWORD(v12) = 138412290;
-    *(&v12 + 4) = objc_opt_class();
-    v11 = *(&v12 + 4);
-    _os_log_impl(&dword_233656000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "[#ACCEventLogger] accsqlite: Can't bind object of type %@", &v12, 0xCu);
+    LODWORD(v11) = 138412290;
+    *(&v11 + 4) = objc_opt_class();
+    v10 = *(&v11 + 4);
+    _os_log_impl(&dword_233656000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "[#ACCEventLogger] accsqlite: Can't bind object of type %@", &v11, 0xCu);
   }
 
 LABEL_14:
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)bindValues:(id)values
@@ -530,7 +520,7 @@ LABEL_14:
 
 - (id)objectAtIndex:(unint64_t)index
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v5 = [(ACCSQLiteStatement *)self columnTypeAtIndex:?];
   v6 = v5;
   if (v5 <= 2)
@@ -567,15 +557,14 @@ LABEL_14:
 
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    v11[0] = 67109120;
-    v11[1] = v6;
-    _os_log_impl(&dword_233656000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "[#ACCEventLogger] accsqlite: Unexpected column type: %d", v11, 8u);
+    v10[0] = 67109120;
+    v10[1] = v6;
+    _os_log_impl(&dword_233656000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "[#ACCEventLogger] accsqlite: Unexpected column type: %d", v10, 8u);
   }
 
 LABEL_14:
   v8 = 0;
 LABEL_15:
-  v9 = *MEMORY[0x277D85DE8];
 
   return v8;
 }

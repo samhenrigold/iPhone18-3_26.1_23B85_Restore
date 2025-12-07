@@ -17,7 +17,7 @@ uint64_t ___CS_Private_ProductType_block_invoke()
   return result;
 }
 
-void ___CS_Private_BaseIsN84OrSimilarDevice_block_invoke()
+void ___CS_Private_BaseIsN84OrSimilarDevice_block_invoke(uint64_t result, uint64_t a2)
 {
   if (CSEffectiveArtworkSubtype_onceToken != -1)
   {

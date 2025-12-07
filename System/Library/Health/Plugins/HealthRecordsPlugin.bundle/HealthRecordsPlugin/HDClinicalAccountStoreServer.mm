@@ -16,6 +16,7 @@
 - (void)remote_hasAnyHealthRecordsAccountWithCompletion:(id)completion;
 - (void)remote_hasGatewayBackedHealthRecordsAccountWithCompletion:(id)completion;
 - (void)remote_invalidateCredentialForAccountWithIdentifier:(id)identifier event:(id)event completion:(id)completion;
+- (void)remote_persistEphemeralAccount:(id)account triggerIngestion:(BOOL)ingestion completion:(id)completion;
 - (void)remote_shouldShowHealthRecordsSectionWithCompletion:(id)completion;
 - (void)remote_simulateAccountDownloadOverdueWithIdentifier:(id)identifier stage:(int64_t)stage completion:(id)completion;
 - (void)remote_simulateUnmergeEventForAccountWithIdentifier:(id)identifier completion:(id)completion;
@@ -108,6 +109,17 @@ LABEL_7:
   v7 = [(HDClinicalAccountManager *)accountManager beginReloginSessionForAccountWithIdentifier:identifier error:&v9];
   v8 = v9;
   completionCopy[2](completionCopy, v7, v8);
+}
+
+- (void)remote_persistEphemeralAccount:(id)account triggerIngestion:(BOOL)ingestion completion:(id)completion
+{
+  ingestionCopy = ingestion;
+  accountManager = self->_accountManager;
+  v11 = 0;
+  completionCopy = completion;
+  v9 = [(HDClinicalAccountManager *)accountManager persistEphemeralAccount:account triggerIngestion:ingestionCopy error:&v11];
+  v10 = v11;
+  completionCopy[2](completionCopy, v9, v10);
 }
 
 - (void)remote_fetchAllAccountsWithCompletion:(id)completion
@@ -299,7 +311,7 @@ LABEL_7:
   v22 = HKLogHealthRecords;
   if (os_log_type_enabled(HKLogHealthRecords, OS_LOG_TYPE_DEBUG))
   {
-    sub_9E0DC(v22);
+    sub_9E0DC(v22, self);
   }
 
   accountManager = self->_accountManager;
@@ -314,7 +326,7 @@ LABEL_7:
   {
     if (os_log_type_enabled(HKLogHealthRecords, OS_LOG_TYPE_DEBUG))
     {
-      sub_9E180(v26);
+      sub_9E180(v26, self);
     }
   }
 

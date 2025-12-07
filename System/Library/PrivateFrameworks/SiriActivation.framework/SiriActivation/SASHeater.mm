@@ -126,30 +126,30 @@ void __31__SASHeater__cancelPreparation__block_invoke(uint64_t a1)
 
 void __38__SASHeater_updatePredictedRouteIsZLL__block_invoke(uint64_t a1)
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   v2 = [MEMORY[0x1E69AED08] sharedAVSystemController];
   v3 = [v2 pickableRoutesForCategory:*MEMORY[0x1E698D298] andMode:@"SpeechRecognition"];
 
-  v26 = 0u;
-  v27 = 0u;
-  v24 = 0u;
   v25 = 0u;
+  v26 = 0u;
+  v23 = 0u;
+  v24 = 0u;
   v4 = v3;
-  v5 = [v4 countByEnumeratingWithState:&v24 objects:v32 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v23 objects:v31 count:16];
   if (v5)
   {
-    v6 = *v25;
+    v6 = *v24;
     v7 = MEMORY[0x1E69AEC80];
     while (2)
     {
       for (i = 0; i != v5; i = i + 1)
       {
-        if (*v25 != v6)
+        if (*v24 != v6)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v24 + 1) + 8 * i);
+        v9 = *(*(&v23 + 1) + 8 * i);
         v10 = [v9 objectForKeyedSubscript:*v7];
         v11 = [v10 BOOLValue];
 
@@ -162,9 +162,9 @@ void __38__SASHeater_updatePredictedRouteIsZLL__block_invoke(uint64_t a1)
           if (os_log_type_enabled(*MEMORY[0x1E698D0A0], OS_LOG_TYPE_DEFAULT))
           {
             *buf = 136315394;
-            v29 = "[SASHeater updatePredictedRouteIsZLL]_block_invoke";
-            v30 = 2112;
-            v31 = v9;
+            v28 = "[SASHeater updatePredictedRouteIsZLL]_block_invoke";
+            v29 = 2112;
+            v30 = v9;
             _os_log_impl(&dword_1C8137000, v14, OS_LOG_TYPE_DEFAULT, "%s Picked record route: %@", buf, 0x16u);
           }
 
@@ -172,7 +172,7 @@ void __38__SASHeater_updatePredictedRouteIsZLL__block_invoke(uint64_t a1)
         }
       }
 
-      v5 = [v4 countByEnumeratingWithState:&v24 objects:v32 count:16];
+      v5 = [v4 countByEnumeratingWithState:&v23 objects:v31 count:16];
       if (v5)
       {
         continue;
@@ -186,26 +186,25 @@ void __38__SASHeater_updatePredictedRouteIsZLL__block_invoke(uint64_t a1)
   v13 = 0;
 LABEL_12:
 
-  v19[0] = MEMORY[0x1E69E9820];
-  v19[1] = 3221225472;
-  v19[2] = __38__SASHeater_updatePredictedRouteIsZLL__block_invoke_58;
-  v19[3] = &unk_1E82F36F8;
-  objc_copyWeak(&v23, (a1 + 32));
-  v20 = v5;
-  v21 = v13;
-  v22 = v12;
+  v18[0] = MEMORY[0x1E69E9820];
+  v18[1] = 3221225472;
+  v18[2] = __38__SASHeater_updatePredictedRouteIsZLL__block_invoke_58;
+  v18[3] = &unk_1E82F36F8;
+  objc_copyWeak(&v22, (a1 + 32));
+  v19 = v5;
+  v20 = v13;
+  v21 = v12;
   v15 = v12;
   v16 = v13;
   v17 = v5;
-  dispatch_async(MEMORY[0x1E69E96A0], v19);
+  dispatch_async(MEMORY[0x1E69E96A0], v18);
 
-  objc_destroyWeak(&v23);
-  v18 = *MEMORY[0x1E69E9840];
+  objc_destroyWeak(&v22);
 }
 
 void __38__SASHeater_updatePredictedRouteIsZLL__block_invoke_58(uint64_t a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 56));
   if (WeakRetained)
   {
@@ -219,17 +218,15 @@ void __38__SASHeater_updatePredictedRouteIsZLL__block_invoke_58(uint64_t a1)
     v8 = *MEMORY[0x1E698D0A0];
     if (os_log_type_enabled(*MEMORY[0x1E698D0A0], OS_LOG_TYPE_DEFAULT))
     {
-      v10 = 136315394;
-      v11 = "[SASHeater updatePredictedRouteIsZLL]_block_invoke";
-      v12 = 1024;
-      v13 = v7 & 1;
-      _os_log_impl(&dword_1C8137000, v8, OS_LOG_TYPE_DEFAULT, "%s Predicted record route ZLL: %{BOOL}d", &v10, 0x12u);
+      v9 = 136315394;
+      v10 = "[SASHeater updatePredictedRouteIsZLL]_block_invoke";
+      v11 = 1024;
+      v12 = v7 & 1;
+      _os_log_impl(&dword_1C8137000, v8, OS_LOG_TYPE_DEFAULT, "%s Predicted record route ZLL: %{BOOL}d", &v9, 0x12u);
     }
 
     [WeakRetained setPredictedRecordRouteIsZLL:v7 & 1];
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_convertVirtualAudioSubTypeToString:(unsigned int)string

@@ -93,8 +93,8 @@ void __45__SSItemLookupRequest_setValue_forParameter___block_invoke(uint64_t a1)
 
 - (void)startWithItemLookupBlock:(id)block
 {
-  v23 = *MEMORY[0x1E69E9840];
-  if (SSIsInternalBuild() && _os_feature_enabled_impl())
+  v22 = *MEMORY[0x1E69E9840];
+  if (SSIsInternalBuild(self, a2) && _os_feature_enabled_impl())
   {
     v5 = +[SSLogConfig sharedStoreServicesConfig];
     if (!v5)
@@ -113,40 +113,38 @@ void __45__SSItemLookupRequest_setValue_forParameter___block_invoke(uint64_t a1)
       v7 = shouldLog;
     }
 
-    if (os_log_type_enabled([v5 OSLogObject], OS_LOG_TYPE_DEBUG))
+    oSLogObject = [v5 OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
     {
-      v8 = v7;
+      v9 = v7;
     }
 
     else
     {
-      v8 = v7 & 2;
+      v9 = v7 & 2;
     }
 
-    if (v8)
+    if (v9)
     {
-      v21 = 136446210;
-      v22 = "[SSItemLookupRequest startWithItemLookupBlock:]";
-      LODWORD(v19) = 12;
-      v18 = &v21;
-      v9 = _os_log_send_and_compose_impl();
-      if (v9)
+      v20 = 136446210;
+      v21 = "[SSItemLookupRequest startWithItemLookupBlock:]";
+      if (v10)
       {
-        v10 = v9;
-        v11 = [MEMORY[0x1E696AEC0] stringWithCString:v9 encoding:{4, &v21, v19}];
-        free(v10);
-        SSFileLog(v5, @"%@", v12, v13, v14, v15, v16, v17, v11);
+        v11 = v10;
+        v12 = [MEMORY[0x1E696AEC0] stringWithCString:v10 encoding:4];
+        free(v11);
+        SSFileLog(v5, @"%@", v13, v14, v15, v16, v17, v18, v12);
       }
     }
   }
 
-  v20[0] = MEMORY[0x1E69E9820];
-  v20[1] = 3221225472;
-  v20[2] = __48__SSItemLookupRequest_startWithItemLookupBlock___block_invoke;
-  v20[3] = &unk_1E84AC760;
-  v20[4] = self;
-  v20[5] = block;
-  [(SSRequest *)self _startWithMessageID:54 messageBlock:v20, v18];
+  v19[0] = MEMORY[0x1E69E9820];
+  v19[1] = 3221225472;
+  v19[2] = __48__SSItemLookupRequest_startWithItemLookupBlock___block_invoke;
+  v19[3] = &unk_1E84AC760;
+  v19[4] = self;
+  v19[5] = block;
+  [(SSRequest *)self _startWithMessageID:54 messageBlock:v19];
 }
 
 uint64_t __48__SSItemLookupRequest_startWithItemLookupBlock___block_invoke(uint64_t a1, void *a2)
@@ -158,57 +156,57 @@ uint64_t __48__SSItemLookupRequest_startWithItemLookupBlock___block_invoke(uint6
 
   if (a2 == MEMORY[0x1E69E9E18])
   {
-    v9 = SSError(@"SSErrorDomain", 121, 0, 0);
+    v10 = SSError(@"SSErrorDomain", 121, 0, 0);
   }
 
   else
   {
-    objc_opt_class();
-    v4 = SSXPCDictionaryCopyCFObjectWithClass(a2, "1");
-    if (v4)
+    v4 = objc_opt_class();
+    v5 = SSXPCDictionaryCopyCFObjectWithClass(a2, "1", v4);
+    if (v5)
     {
-      v5 = v4;
-      v6 = [(__CFArray *)v4 objectForKey:@"status-code"];
-      if (v6)
+      v6 = v5;
+      v7 = [(__CFDate *)v5 objectForKey:@"status-code"];
+      if (v7)
       {
-        v7 = [*(a1 + 32) _errorForStatusCode:{objc_msgSend(v6, "integerValue")}];
-        v8 = 0;
+        v8 = [*(a1 + 32) _errorForStatusCode:{objc_msgSend(v7, "integerValue")}];
+        v9 = 0;
       }
 
       else
       {
-        objc_opt_class();
-        v10 = SSXPCDictionaryCopyCFObjectWithClass(a2, "2");
-        if (!v10)
+        v11 = objc_opt_class();
+        v12 = SSXPCDictionaryCopyCFObjectWithClass(a2, "2", v11);
+        if (!v12)
         {
-          v10 = objc_alloc_init(MEMORY[0x1E695DF00]);
+          v12 = objc_alloc_init(MEMORY[0x1E695DF00]);
         }
 
-        v8 = [*(a1 + 32) _copyItemsFromResponse:v5 expirationDate:v10];
+        v9 = [*(a1 + 32) _copyItemsFromResponse:v6 expirationDate:v12];
 
-        v7 = 0;
+        v8 = 0;
       }
 
       goto LABEL_13;
     }
 
-    v9 = [objc_alloc(MEMORY[0x1E696ABC0]) initWithXPCEncoding:{xpc_dictionary_get_value(a2, "3")}];
+    v10 = [objc_alloc(MEMORY[0x1E696ABC0]) initWithXPCEncoding:{xpc_dictionary_get_value(a2, "3")}];
   }
 
-  v7 = v9;
-  v8 = 0;
+  v8 = v10;
+  v9 = 0;
 LABEL_13:
-  if (!(v8 | v7))
+  if (!(v9 | v8))
   {
-    v7 = SSError(@"SSErrorDomain", 100, 0, 0);
+    v8 = SSError(@"SSErrorDomain", 100, 0, 0);
   }
 
   (*(*(a1 + 40) + 16))();
 
 LABEL_16:
-  v11 = *(a1 + 32);
+  v13 = *(a1 + 32);
 
-  return [v11 _shutdownRequest];
+  return [v13 _shutdownRequest];
 }
 
 - (id)valueForParameter:(id)parameter
@@ -357,13 +355,13 @@ uint64_t __48__SSItemLookupRequest_startWithCompletionBlock___block_invoke_2(uin
     v5 = [(SSItemLookupRequest *)self init];
     if (v5)
     {
-      objc_opt_class();
-      v7 = SSXPCDictionaryCopyCFObjectWithClass(encoding, "0");
-      if (v7)
+      v7 = objc_opt_class();
+      v8 = SSXPCDictionaryCopyCFObjectWithClass(encoding, "0", v7);
+      if (v8)
       {
-        v8 = v7;
+        v9 = v8;
 
-        v5->_parameters = [(__CFArray *)v8 mutableCopy];
+        v5->_parameters = [(__CFDate *)v9 mutableCopy];
       }
     }
   }
@@ -449,7 +447,7 @@ uint64_t __48__SSItemLookupRequest_startWithCompletionBlock___block_invoke_2(uin
   return v3;
 }
 
-uint64_t __33__SSItemLookupRequest_parameters__block_invoke(uint64_t a1)
+void *__33__SSItemLookupRequest_parameters__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 96) copy];
   *(*(*(a1 + 40) + 8) + 40) = result;

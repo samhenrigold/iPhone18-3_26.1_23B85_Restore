@@ -13,7 +13,7 @@
   v17 = sub_10022FDA8;
   v18 = sub_10022FDB8;
   v19 = 0;
-  v5 = sub_1002BB3F0();
+  v5 = sub_1002BB3F0(AppUpdatesDatabaseStore);
   v13[0] = _NSConcreteStackBlock;
   v13[1] = 3221225472;
   v13[2] = sub_10022FDC0;

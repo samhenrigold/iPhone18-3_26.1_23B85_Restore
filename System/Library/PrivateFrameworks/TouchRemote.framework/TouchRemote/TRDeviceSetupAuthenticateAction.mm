@@ -25,7 +25,7 @@
 
 - (id)_initWithAccountType:(unint64_t)type accountID:(id)d accountPassword:(id)password accountTypesWithSharedCredentials:(id)credentials attemptCount:(unint64_t)count requestMessage:(id)message failureMessage:(id)failureMessage
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   dCopy = d;
   passwordCopy = password;
   credentialsCopy = credentials;
@@ -60,32 +60,32 @@
   {
     countCopy = count;
     selfCopy = self;
-    v43 = dCopy;
+    v42 = dCopy;
     v25 = credentialsCopy;
     v26 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(v25, "count")}];
+    v44 = 0u;
     v45 = 0u;
     v46 = 0u;
     v47 = 0u;
-    v48 = 0u;
     v27 = v25;
-    v28 = [v27 countByEnumeratingWithState:&v45 objects:v49 count:16];
+    v28 = [v27 countByEnumeratingWithState:&v44 objects:v48 count:16];
     if (!v28)
     {
       goto LABEL_27;
     }
 
     v29 = v28;
-    v30 = *v46;
+    v30 = *v45;
     while (1)
     {
       for (i = 0; i != v29; ++i)
       {
-        if (*v46 != v30)
+        if (*v45 != v30)
         {
           objc_enumerationMutation(v27);
         }
 
-        unsignedIntegerValue = [*(*(&v45 + 1) + 8 * i) unsignedIntegerValue];
+        unsignedIntegerValue = [*(*(&v44 + 1) + 8 * i) unsignedIntegerValue];
         v33 = 0;
         if (unsignedIntegerValue <= 1)
         {
@@ -119,7 +119,7 @@
         [v26 addObject:v33];
       }
 
-      v29 = [v27 countByEnumeratingWithState:&v45 objects:v49 count:16];
+      v29 = [v27 countByEnumeratingWithState:&v44 objects:v48 count:16];
       if (!v29)
       {
 LABEL_27:
@@ -127,7 +127,7 @@ LABEL_27:
         v34 = [v26 copy];
         [v21 setObject:v34 forKeyedSubscript:@"sa"];
 
-        dCopy = v43;
+        dCopy = v42;
         self = selfCopy;
         count = countCopy;
         break;
@@ -153,11 +153,10 @@ LABEL_27:
     [v21 setObject:v37 forKeyedSubscript:@"fm"];
   }
 
-  v44.receiver = self;
-  v44.super_class = TRDeviceSetupAuthenticateAction;
-  v38 = [(TRDeviceSetupAction *)&v44 _initWithActionType:@"auth" parameters:v21];
+  v43.receiver = self;
+  v43.super_class = TRDeviceSetupAuthenticateAction;
+  v38 = [(TRDeviceSetupAction *)&v43 _initWithActionType:@"auth" parameters:v21];
 
-  v39 = *MEMORY[0x277D85DE8];
   return v38;
 }
 
@@ -278,7 +277,7 @@ LABEL_27:
 
 - (NSArray)accountTypesWithSharedCredentials
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   parameters = [(TRDeviceSetupAction *)self parameters];
   v3 = [parameters objectForKeyedSubscript:@"sa"];
 
@@ -297,40 +296,38 @@ LABEL_27:
 
   v6 = v5;
   v7 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(v6, "count")}];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   v8 = v6;
-  v9 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v18;
+    v11 = *v17;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v18 != v11)
+        if (*v17 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = _TRSetupAccountTypeFromProtocolString(*(*(&v17 + 1) + 8 * i));
+        v13 = _TRSetupAccountTypeFromProtocolString(*(*(&v16 + 1) + 8 * i));
         if (v13)
         {
-          v14 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{v13, v17}];
+          v14 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{v13, v16}];
           [v7 addObject:v14];
         }
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v10);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v7;
 }

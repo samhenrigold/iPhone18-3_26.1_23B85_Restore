@@ -50,21 +50,21 @@
     if (objc_opt_isKindOfClass())
     {
       originalAssetReference = [v5 originalAssetReference];
-      indexPath = [_originalDataSource indexPathForAssetReference:originalAssetReference];
+      v9 = objc_msgSend_indexPathForAssetReference_(_originalDataSource);
     }
 
     else
     {
-      indexPath = [_originalDataSource indexPathForAssetReference:v5];
+      v9 = objc_msgSend_indexPathForAssetReference_(_originalDataSource);
     }
   }
 
   else
   {
-    indexPath = [v5 indexPath];
+    v9 = objc_msgSend_indexPath(v5);
   }
 
-  return indexPath;
+  return v9;
 }
 
 - (id)assetReferenceAtIndexPath:(id)path

@@ -20,7 +20,7 @@
   {
     v4 = objc_opt_class();
     NSStringFromClass(v4);
-    MTLReportFailure();
+    MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNPooling.mm", 0x6EB, @"[%@ initWithDevice:] is not allowed. Please use initializers that are not marked NS_UNAVAILABLE.", v5, v6, v7, v8);
   }
 
   return 0;
@@ -83,9 +83,9 @@
 
 - (MPSCNNPooling)initWithCoder:(NSCoder *)aDecoder device:(id)device
 {
-  v33.receiver = self;
-  v33.super_class = MPSCNNPooling;
-  v5 = [(MPSCNNKernel *)&v33 initWithCoder:aDecoder device:device];
+  v37.receiver = self;
+  v37.super_class = MPSCNNPooling;
+  v5 = [(MPSCNNKernel *)&v37 initWithCoder:aDecoder device:device];
   v12 = v5;
   if (!v5)
   {
@@ -107,7 +107,7 @@
   {
     v32 = objc_opt_class();
     NSStringFromClass(v32);
-    MTLReportFailure();
+    MTLReportFailure(1, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNPooling.mm", 0x747, @"[%@ initWithCoder:device:] Failed: unsupported file version.", v33, v34, v35, v36);
   }
 
   return 0;

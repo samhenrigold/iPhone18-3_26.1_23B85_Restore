@@ -132,7 +132,7 @@ uint64_t __40__TIAnalyticsUtil_isReportableClientId___block_invoke()
   return v5;
 }
 
-uint64_t __48__TIAnalyticsUtil_indexesForValidRatiosInArray___block_invoke(uint64_t a1, void *a2, uint64_t a3)
+void *__48__TIAnalyticsUtil_indexesForValidRatiosInArray___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
   result = [a2 doubleValue];
   if (v6 >= 0.0)

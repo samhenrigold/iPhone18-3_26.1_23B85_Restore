@@ -124,7 +124,7 @@
   v20 = asset;
   if (asset)
   {
-    [asset duration];
+    objc_msgSend_duration(asset);
     v21 = v45;
   }
 

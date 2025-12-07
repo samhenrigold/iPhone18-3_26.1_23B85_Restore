@@ -53,264 +53,265 @@
     *&self->_flags = flags & 0xFA | 1;
     Current = CFAbsoluteTimeGetCurrent();
     allObjects = [(NSHashTable *)selfCopy->_assertions allObjects];
-    if ([allObjects count])
+    v6 = [allObjects count];
+    if (v6)
     {
-      v52 = flags;
-      v6 = 0;
+      v55 = flags;
       v7 = 0;
+      v8 = 0;
       p_isa = &selfCopy->super.isa;
       do
       {
-        if ((v7 & 1) == 0)
+        if ((v8 & 1) == 0)
         {
-          v8 = TUITransactionLog();
-          if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+          v9 = TUITransactionLog(v6);
+          if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
           {
-            sub_199E5C(&v66, v67, v8);
+            sub_199E5C(&v69, v70, v9);
           }
 
-          v9 = TUITransactionLog();
-          v6 = os_signpost_id_generate(v9);
+          v11 = TUITransactionLog(v10);
+          v7 = os_signpost_id_generate(v11);
 
-          v10 = TUITransactionLog();
-          v11 = v10;
-          if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
+          v13 = TUITransactionLog(v12);
+          v14 = v13;
+          if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v13))
           {
             *buf = 0;
-            _os_signpost_emit_with_name_impl(&dword_0, v11, OS_SIGNPOST_INTERVAL_BEGIN, v6, "WaitForSyncTransaction", "", buf, 2u);
+            _os_signpost_emit_with_name_impl(&dword_0, v14, OS_SIGNPOST_INTERVAL_BEGIN, v7, "WaitForSyncTransaction", "", buf, 2u);
           }
         }
 
         *&selfCopy->_flags &= ~2u;
-        v62 = 0u;
-        v63 = 0u;
-        v64 = 0u;
         v65 = 0u;
-        v12 = allObjects;
-        v13 = [v12 countByEnumeratingWithState:&v62 objects:v74 count:16];
-        if (v13)
+        v66 = 0u;
+        v67 = 0u;
+        v68 = 0u;
+        v15 = allObjects;
+        v16 = [v15 countByEnumeratingWithState:&v65 objects:v77 count:16];
+        if (v16)
         {
-          v14 = v13;
-          v15 = *v63;
-          v16 = 0.0;
+          v17 = v16;
+          v18 = *v66;
+          v19 = 0.0;
           do
           {
-            v17 = 0;
+            v20 = 0;
             do
             {
-              if (*v63 != v15)
+              if (*v66 != v18)
               {
-                objc_enumerationMutation(v12);
+                objc_enumerationMutation(v15);
               }
 
-              v18 = *(*(&v62 + 1) + 8 * v17);
-              if (v18)
+              v21 = *(*(&v65 + 1) + 8 * v20);
+              if (v21)
               {
-                v19 = *(v18 + 16);
+                v22 = *(v21 + 16);
               }
 
               else
               {
-                v19 = 0.0;
+                v22 = 0.0;
               }
 
-              if (v16 < v19)
+              if (v19 < v22)
               {
-                v16 = v19;
+                v19 = v22;
               }
 
-              v17 = v17 + 1;
+              v20 = v20 + 1;
             }
 
-            while (v14 != v17);
-            v20 = [v12 countByEnumeratingWithState:&v62 objects:v74 count:16];
-            v14 = v20;
+            while (v17 != v20);
+            v23 = [v15 countByEnumeratingWithState:&v65 objects:v77 count:16];
+            v17 = v23;
           }
 
-          while (v20);
+          while (v23);
         }
 
         else
         {
-          v16 = 0.0;
+          v19 = 0.0;
         }
 
         selfCopy = p_isa;
-        v21 = [p_isa _processUntilDirtyOrEndtime:Current + v16];
+        v24 = [p_isa _processUntilDirtyOrEndtime:Current + v19];
         allObjects2 = [p_isa[2] allObjects];
         allObjects = allObjects2;
-        if (v21)
+        if (v24)
         {
           break;
         }
 
-        v23 = [allObjects2 count];
-        v7 = 1;
+        v6 = [allObjects2 count];
+        v8 = 1;
       }
 
-      while (v23);
-      v24 = [allObjects count];
-      v25 = CFAbsoluteTimeGetCurrent();
-      if (v24)
+      while (v6);
+      v26 = [allObjects count];
+      v28 = CFAbsoluteTimeGetCurrent();
+      if (v26)
       {
-        v60 = 0u;
+        v63 = 0u;
+        v64 = 0u;
         v61 = 0u;
-        v58 = 0u;
-        v59 = 0u;
-        v26 = allObjects;
-        v27 = [v26 countByEnumeratingWithState:&v58 objects:v73 count:16];
-        if (v27)
+        v62 = 0u;
+        v29 = allObjects;
+        v30 = [v29 countByEnumeratingWithState:&v61 objects:v76 count:16];
+        if (v30)
         {
-          v28 = v27;
-          v29 = *v59;
-          v30 = 0.0;
+          v31 = v30;
+          v32 = *v62;
+          v33 = 0.0;
           do
           {
-            v31 = 0;
+            v34 = 0;
             do
             {
-              if (*v59 != v29)
+              if (*v62 != v32)
               {
-                objc_enumerationMutation(v26);
+                objc_enumerationMutation(v29);
               }
 
-              v32 = *(*(&v58 + 1) + 8 * v31);
-              if (v32)
+              v35 = *(*(&v61 + 1) + 8 * v34);
+              if (v35)
               {
-                v33 = *(v32 + 16);
+                v36 = *(v35 + 16);
               }
 
               else
               {
-                v33 = 0.0;
+                v36 = 0.0;
               }
 
-              if (v30 < v33)
+              if (v33 < v36)
               {
-                v30 = v33;
+                v33 = v36;
               }
 
-              v31 = v31 + 1;
+              v34 = v34 + 1;
             }
 
-            while (v28 != v31);
-            v34 = [v26 countByEnumeratingWithState:&v58 objects:v73 count:16];
-            v28 = v34;
+            while (v31 != v34);
+            v37 = [v29 countByEnumeratingWithState:&v61 objects:v76 count:16];
+            v31 = v37;
           }
 
-          while (v34);
+          while (v37);
         }
 
         else
         {
-          v30 = 0.0;
+          v33 = 0.0;
         }
       }
 
       else
       {
-        v30 = 0.0;
+        v33 = 0.0;
       }
 
-      v35 = TUITransactionLog();
-      v36 = v35;
-      if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v35))
+      v38 = TUITransactionLog(v27);
+      v39 = v38;
+      if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v38))
       {
-        v37 = @"YES";
-        if (!v24)
+        v40 = @"YES";
+        if (!v26)
         {
-          v37 = @"NO";
+          v40 = @"NO";
         }
 
         *buf = 134218242;
-        v70 = v30;
-        v71 = 2114;
-        v72 = v37;
-        _os_signpost_emit_with_name_impl(&dword_0, v36, OS_SIGNPOST_INTERVAL_END, v6, "WaitForSyncTransaction", "Time limit: %fs Timed out: %{public}@ enableTelemetry=YES ", buf, 0x16u);
+        v73 = v33;
+        v74 = 2114;
+        v75 = v40;
+        _os_signpost_emit_with_name_impl(&dword_0, v39, OS_SIGNPOST_INTERVAL_END, v7, "WaitForSyncTransaction", "Time limit: %fs Timed out: %{public}@ enableTelemetry=YES ", buf, 0x16u);
       }
 
-      v38 = v25 - Current;
-      if (v38 > 0.1)
+      v42 = v28 - Current;
+      if (v42 > 0.1)
       {
-        v39 = TUITransactionLog();
-        if (os_log_type_enabled(v39, OS_LOG_TYPE_INFO))
+        v43 = TUITransactionLog(v41);
+        if (os_log_type_enabled(v43, OS_LOG_TYPE_INFO))
         {
           *buf = 134217984;
-          v70 = v38;
-          _os_log_impl(&dword_0, v39, OS_LOG_TYPE_INFO, "time spent waiting for sync layout flush: %.2fs", buf, 0xCu);
+          v73 = v42;
+          _os_log_impl(&dword_0, v43, OS_LOG_TYPE_INFO, "time spent waiting for sync layout flush: %.2fs", buf, 0xCu);
         }
       }
 
-      if (v24)
+      if (v26)
       {
-        v40 = TUITransactionLog();
-        if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
+        v44 = TUITransactionLog(v41);
+        if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
         {
-          sub_199E9C(allObjects, v40, v38);
+          sub_199E9C(allObjects, v44, v42);
         }
 
-        v56 = 0u;
+        v59 = 0u;
+        v60 = 0u;
         v57 = 0u;
-        v54 = 0u;
-        v55 = 0u;
-        v41 = allObjects;
-        v42 = [v41 countByEnumeratingWithState:&v54 objects:v68 count:16];
-        if (v42)
+        v58 = 0u;
+        v45 = allObjects;
+        v46 = [v45 countByEnumeratingWithState:&v57 objects:v71 count:16];
+        if (v46)
         {
-          v43 = v42;
-          v44 = *v55;
+          v47 = v46;
+          v48 = *v58;
           do
           {
-            v45 = 0;
+            v49 = 0;
             do
             {
-              if (*v55 != v44)
+              if (*v58 != v48)
               {
-                objc_enumerationMutation(v41);
+                objc_enumerationMutation(v45);
               }
 
-              v46 = *(*(&v54 + 1) + 8 * v45);
-              v47 = TUITransactionLog();
-              if (os_log_type_enabled(v47, OS_LOG_TYPE_INFO))
+              v50 = *(*(&v57 + 1) + 8 * v49);
+              v51 = TUITransactionLog(v46);
+              if (os_log_type_enabled(v51, OS_LOG_TYPE_INFO))
               {
-                if (v46)
+                if (v50)
                 {
-                  v48 = *&v46[1].isa;
+                  v52 = *&v50[1].isa;
                 }
 
                 else
                 {
-                  v48 = 0.0;
+                  v52 = 0.0;
                 }
 
                 *buf = 134218242;
-                v70 = v48;
-                v71 = 2114;
-                v72 = v46;
-                _os_log_impl(&dword_0, v47, OS_LOG_TYPE_INFO, "- [fid:%lu] %{public}@", buf, 0x16u);
+                v73 = v52;
+                v74 = 2114;
+                v75 = v50;
+                _os_log_impl(&dword_0, v51, OS_LOG_TYPE_INFO, "- [fid:%lu] %{public}@", buf, 0x16u);
               }
 
-              v45 = v45 + 1;
+              v49 = v49 + 1;
             }
 
-            while (v43 != v45);
-            v49 = [v41 countByEnumeratingWithState:&v54 objects:v68 count:16];
-            v43 = v49;
+            while (v47 != v49);
+            v46 = [v45 countByEnumeratingWithState:&v57 objects:v71 count:16];
+            v47 = v46;
           }
 
-          while (v49);
+          while (v46);
         }
 
         selfCopy = p_isa;
       }
 
-      v50 = TUITransactionLog();
-      if (os_log_type_enabled(v50, OS_LOG_TYPE_DEBUG))
+      v53 = TUITransactionLog(v41);
+      if (os_log_type_enabled(v53, OS_LOG_TYPE_DEBUG))
       {
-        sub_199F40(v50);
+        sub_199F40(v53);
       }
 
-      flags = v52;
+      flags = v55;
     }
 
     *&selfCopy->_flags &= ~1u;
@@ -343,14 +344,14 @@
 {
   transactionCopy = transaction;
   v9 = [[_TUISyncLayoutAssertion alloc] initWithController:self timeout:transactionCopy transaction:id.var0 feedId:timeout];
-  [(NSHashTable *)self->_assertions addObject:v9];
+  v10 = [(NSHashTable *)self->_assertions addObject:v9];
   *&self->_flags |= 2u;
-  v10 = TUITransactionLog();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+  v11 = TUITransactionLog(v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
   {
-    v13 = 138543362;
-    v14 = transactionCopy;
-    _os_log_impl(&dword_0, v10, OS_LOG_TYPE_INFO, "scheduled sync-assertion for tx=%{public}@", &v13, 0xCu);
+    v14 = 138543362;
+    v15 = transactionCopy;
+    _os_log_impl(&dword_0, v11, OS_LOG_TYPE_INFO, "scheduled sync-assertion for tx=%{public}@", &v14, 0xCu);
   }
 
   if ((*&self->_flags & 4) == 0 && (*&self->_flags & 1) == 0)
@@ -386,7 +387,7 @@
 - (void)_removeAssertion:(id)assertion
 {
   assertionCopy = assertion;
-  v5 = TUITransactionLog();
+  v5 = TUITransactionLog(assertionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     sub_199F84(assertionCopy, v5);

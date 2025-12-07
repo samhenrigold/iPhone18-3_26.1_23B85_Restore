@@ -1,14 +1,32 @@
 @interface MSDS3Server
+- (MSDS3Server)initWithCellularAccess:(BOOL)access;
 - (void)launchTaskWithRequest:(id)request;
 - (void)uploadMobileStoreDemoLogs:(id)logs;
 @end
 
 @implementation MSDS3Server
 
+- (MSDS3Server)initWithCellularAccess:(BOOL)access
+{
+  accessCopy = access;
+  v8.receiver = self;
+  v8.super_class = MSDS3Server;
+  v4 = [(MSDS3Server *)&v8 init];
+  if (v4)
+  {
+    v5 = [[MSDSession alloc] initWithCellularAccess:accessCopy];
+    [(MSDServer *)v4 setSession:v5];
+
+    v6 = v4;
+  }
+
+  return v4;
+}
+
 - (void)uploadMobileStoreDemoLogs:(id)logs
 {
   logsCopy = logs;
-  v5 = sub_100063A54();
+  v5 = sub_100063A54(logsCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -16,24 +34,25 @@
   }
 
   v6 = objc_alloc_init(MSDServerResponse);
-  if ([logsCopy isValid])
+  isValid = [logsCopy isValid];
+  if (isValid)
   {
     [(MSDS3Server *)self launchTaskWithRequest:logsCopy];
-    v7 = 0;
+    v8 = 0;
   }
 
   else
   {
-    v8 = sub_100063A54();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = sub_100063A54(isValid);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      sub_1000EB580(logsCopy, v8);
+      sub_1000EB580(logsCopy, v9);
     }
 
-    v11 = 0;
-    sub_1000C1390(&v11, 3727744769, @"Input is invalid");
-    v7 = v11;
-    [(MSDServerResponse *)v6 setError:v7];
+    v12 = 0;
+    sub_1000C1390(&v12, 3727744769, @"Input is invalid");
+    v8 = v12;
+    [(MSDServerResponse *)v6 setError:v8];
     completion = [logsCopy completion];
 
     if (completion)

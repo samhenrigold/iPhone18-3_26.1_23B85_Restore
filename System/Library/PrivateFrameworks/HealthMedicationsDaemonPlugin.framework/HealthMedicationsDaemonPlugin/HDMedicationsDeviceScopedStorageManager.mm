@@ -73,24 +73,22 @@ void __65__HDMedicationsDeviceScopedStorageManager_profileDidBecomeReady___block
 
 void __65__HDMedicationsDeviceScopedStorageManager_profileDidBecomeReady___block_invoke_314(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
-  v3 = *(a1 + 40);
-  v4 = *(v3 + 16);
-  v5 = a2;
-  v4(v3);
+  v9 = *MEMORY[0x277D85DE8];
+  v2 = *(a1 + 40);
+  v3 = *(v2 + 16);
+  v4 = a2;
+  v3(v2);
   _HKInitializeLogging();
-  v6 = HKLogMedication();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v5 = HKLogMedication();
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = *(a1 + 32);
-    v10 = 138543362;
-    v11 = objc_opt_class();
-    v8 = v11;
-    _os_log_impl(&dword_25181C000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}@]: Finished local device update as maintenance operation", &v10, 0xCu);
+    v7 = 138543362;
+    v8 = objc_opt_class();
+    v6 = v8;
+    _os_log_impl(&dword_25181C000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@]: Finished local device update as maintenance operation", &v7, 0xCu);
   }
 
-  v5[2](v5);
-  v9 = *MEMORY[0x277D85DE8];
+  v4[2](v4);
 }
 
 - (BOOL)updateLocalDeviceValuesNowWithError:(id *)error
@@ -103,62 +101,62 @@ void __65__HDMedicationsDeviceScopedStorageManager_profileDidBecomeReady___block
 
 - (id)_updateLocalDeviceValuesNowWithError:(uint64_t)error
 {
-  v28[4] = *MEMORY[0x277D85DE8];
+  v27[4] = *MEMORY[0x277D85DE8];
   if (error)
   {
     localDeviceInfo = [MEMORY[0x277D115E0] localDeviceInfo];
-    v27[0] = @"_Name";
+    v26[0] = @"_Name";
     name = [localDeviceInfo name];
-    v28[0] = name;
-    v27[1] = @"_Model";
+    v27[0] = name;
+    v26[1] = @"_Model";
     model = [localDeviceInfo model];
-    v28[1] = model;
-    v27[2] = @"_OperatingSystemVersion";
+    v27[1] = model;
+    v26[2] = @"_OperatingSystemVersion";
     if (localDeviceInfo)
     {
-      [localDeviceInfo operatingSystemVersion];
+      objc_msgSend_operatingSystemVersion(localDeviceInfo);
     }
 
     else
     {
+      v16 = 0;
       v17 = 0;
       v18 = 0;
-      v19 = 0;
     }
 
     v7 = HKNSOperatingSystemVersionString();
-    v28[2] = v7;
-    v27[3] = @"_ScheduleCompatibilityVersion";
+    v27[2] = v7;
+    v26[3] = @"_ScheduleCompatibilityVersion";
     v8 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(localDeviceInfo, "scheduleCompatibilityVersion")}];
-    v28[3] = v8;
-    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:v27 count:4];
+    v27[3] = v8;
+    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:v26 count:4];
 
-    v23 = 0;
-    v24 = &v23;
-    v25 = 0x2020000000;
-    v26 = 0;
-    v17 = 0;
-    v18 = &v17;
-    v19 = 0x3032000000;
-    v20 = __Block_byref_object_copy__13;
-    v21 = __Block_byref_object_dispose__13;
     v22 = 0;
-    v16[0] = MEMORY[0x277D85DD0];
-    v16[1] = 3221225472;
-    v16[2] = __80__HDMedicationsDeviceScopedStorageManager__updateLocalDeviceValuesNowWithError___block_invoke;
-    v16[3] = &unk_2796CECC0;
-    v16[4] = error;
-    v16[5] = &v23;
-    v16[6] = &v17;
-    [v9 enumerateKeysAndObjectsUsingBlock:v16];
-    if (v24[3])
+    v23 = &v22;
+    v24 = 0x2020000000;
+    v25 = 0;
+    v16 = 0;
+    v17 = &v16;
+    v18 = 0x3032000000;
+    v19 = __Block_byref_object_copy__13;
+    v20 = __Block_byref_object_dispose__13;
+    v21 = 0;
+    v15[0] = MEMORY[0x277D85DD0];
+    v15[1] = 3221225472;
+    v15[2] = __80__HDMedicationsDeviceScopedStorageManager__updateLocalDeviceValuesNowWithError___block_invoke;
+    v15[3] = &unk_2796CECC0;
+    v15[4] = error;
+    v15[5] = &v22;
+    v15[6] = &v16;
+    [v9 enumerateKeysAndObjectsUsingBlock:v15];
+    if (v23[3])
     {
       v10 = localDeviceInfo;
     }
 
     else
     {
-      v11 = v18[5];
+      v11 = v17[5];
       v12 = v11;
       if (v11)
       {
@@ -177,17 +175,15 @@ void __65__HDMedicationsDeviceScopedStorageManager_profileDidBecomeReady___block
       v10 = 0;
     }
 
-    _Block_object_dispose(&v17, 8);
+    _Block_object_dispose(&v16, 8);
 
-    _Block_object_dispose(&v23, 8);
+    _Block_object_dispose(&v22, 8);
   }
 
   else
   {
     v10 = 0;
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -261,7 +257,7 @@ LABEL_8:
       localDeviceInfo = HKLogMedication();
       if (os_log_type_enabled(localDeviceInfo, OS_LOG_TYPE_ERROR))
       {
-        [HDMedicationsDeviceScopedStorageManager accountDevicesInfoTriggeringUpdate:error:];
+        [HDMedicationsDeviceScopedStorageManager accountDevicesInfoTriggeringUpdate:? error:?];
       }
 
       v21 = 0;
@@ -351,25 +347,18 @@ id __84__HDMedicationsDeviceScopedStorageManager_accountDevicesInfoTriggeringUpd
   return v6;
 }
 
-void __65__HDMedicationsDeviceScopedStorageManager_profileDidBecomeReady___block_invoke_cold_1(uint64_t *a1)
+void __65__HDMedicationsDeviceScopedStorageManager_profileDidBecomeReady___block_invoke_cold_1(void *a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
-  v1 = *a1;
-  v2 = objc_opt_class();
-  v3 = OUTLINED_FUNCTION_0_8(v2);
-  OUTLINED_FUNCTION_0_7(&dword_25181C000, v4, v5, "[%{public}@]: Error updating local device values: %{public}@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  v1 = objc_opt_class();
+  v2 = OUTLINED_FUNCTION_0_8(v1);
+  OUTLINED_FUNCTION_0_7(&dword_25181C000, v3, v4, "[%{public}@]: Error updating local device values: %{public}@", v5, v6, v7, v8);
 }
 
-- (void)accountDevicesInfoTriggeringUpdate:error:.cold.1()
+- (void)accountDevicesInfoTriggeringUpdate:(uint64_t)a1 error:.cold.1(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v0 = objc_opt_class();
-  v1 = OUTLINED_FUNCTION_0_8(v0);
-  OUTLINED_FUNCTION_0_7(&dword_25181C000, v2, v3, "[%{public}@]: Error updating local device values: %{public}@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  v1 = objc_opt_class();
+  v2 = OUTLINED_FUNCTION_0_8(v1);
+  OUTLINED_FUNCTION_0_7(&dword_25181C000, v3, v4, "[%{public}@]: Error updating local device values: %{public}@", v5, v6, v7, v8);
 }
 
 @end

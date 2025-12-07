@@ -526,7 +526,6 @@ LABEL_19:
   has = self->_has;
   if ((*&has & 0x800) != 0)
   {
-    request = self->_request;
     PBDataWriterWriteUint32Field();
     has = self->_has;
     if ((*&has & 0x100) == 0)
@@ -546,7 +545,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  grant = self->_grant;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x80) == 0)
@@ -561,7 +559,6 @@ LABEL_4:
   }
 
 LABEL_25:
-  duration = self->_duration;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x20) == 0)
@@ -576,7 +573,6 @@ LABEL_5:
   }
 
 LABEL_26:
-  btabort = self->_btabort;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x400) == 0)
@@ -591,7 +587,6 @@ LABEL_6:
   }
 
 LABEL_27:
-  psnullretrycount = self->_psnullretrycount;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x4000) == 0)
@@ -606,7 +601,6 @@ LABEL_7:
   }
 
 LABEL_28:
-  ucodehighlatency = self->_ucodehighlatency;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x40) == 0)
@@ -621,7 +615,6 @@ LABEL_8:
   }
 
 LABEL_29:
-  cts = self->_cts;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x200) == 0)
@@ -636,7 +629,6 @@ LABEL_9:
   }
 
 LABEL_30:
-  pm = self->_pm;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x10000) == 0)
@@ -651,7 +643,6 @@ LABEL_10:
   }
 
 LABEL_31:
-  wlantxpreempt = self->_wlantxpreempt;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x8000) == 0)
@@ -666,7 +657,6 @@ LABEL_11:
   }
 
 LABEL_32:
-  wlanrxpreempt = self->_wlanrxpreempt;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 4) == 0)
@@ -681,7 +671,6 @@ LABEL_12:
   }
 
 LABEL_33:
-  aptxafterpm = self->_aptxafterpm;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x10) == 0)
@@ -696,7 +685,6 @@ LABEL_13:
   }
 
 LABEL_34:
-  audiogrant = self->_audiogrant;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 8) == 0)
@@ -711,7 +699,6 @@ LABEL_14:
   }
 
 LABEL_35:
-  audiodeny = self->_audiodeny;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 2) == 0)
@@ -726,7 +713,6 @@ LABEL_15:
   }
 
 LABEL_36:
-  a2dpgrant = self->_a2dpgrant;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 1) == 0)
@@ -741,7 +727,6 @@ LABEL_16:
   }
 
 LABEL_37:
-  a2dpdeny = self->_a2dpdeny;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x2000) == 0)
@@ -756,12 +741,10 @@ LABEL_17:
   }
 
 LABEL_38:
-  sniffgrant = self->_sniffgrant;
   PBDataWriterWriteUint32Field();
   if ((*&self->_has & 0x1000) != 0)
   {
 LABEL_18:
-    sniffdeny = self->_sniffdeny;
     PBDataWriterWriteUint32Field();
   }
 

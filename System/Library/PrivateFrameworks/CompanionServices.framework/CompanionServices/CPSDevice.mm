@@ -74,9 +74,8 @@
 - (id)description
 {
   v3 = [MEMORY[0x277CF0C00] builderWithObject:self];
-  flags = self->_flags;
-  v5 = CUPrintFlags64();
-  [v3 appendString:v5 withName:@"flags"];
+  v4 = CUPrintFlags64();
+  [v3 appendString:v4 withName:@"flags"];
 
   [v3 appendString:self->_model withName:@"model" skipIfEmpty:1];
   [v3 appendString:self->_name withName:@"name" skipIfEmpty:1];

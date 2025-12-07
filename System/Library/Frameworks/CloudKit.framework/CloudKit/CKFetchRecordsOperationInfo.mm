@@ -66,11 +66,11 @@
 
 - (CKFetchRecordsOperationInfo)initWithCoder:(id)coder
 {
-  v77[3] = *MEMORY[0x1E69E9840];
+  v76[3] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
-  v76.receiver = self;
-  v76.super_class = CKFetchRecordsOperationInfo;
-  v5 = [(CKDatabaseOperationInfo *)&v76 initWithCoder:coderCopy];
+  v75.receiver = self;
+  v75.super_class = CKFetchRecordsOperationInfo;
+  v5 = [(CKDatabaseOperationInfo *)&v75 initWithCoder:coderCopy];
   if (v5)
   {
     context = objc_autoreleasePoolPush();
@@ -133,10 +133,10 @@
     v5->_desiredPackageFileIndices = v62;
 
     v64 = MEMORY[0x1E695DFD8];
-    v77[0] = objc_opt_class();
-    v77[1] = objc_opt_class();
-    v77[2] = objc_opt_class();
-    v66 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v65, v77, 3);
+    v76[0] = objc_opt_class();
+    v76[1] = objc_opt_class();
+    v76[2] = objc_opt_class();
+    v66 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v65, v76, 3);
     v68 = objc_msgSend_setWithArray_(v64, v67, v66);
     v70 = objc_msgSend_decodeObjectOfClasses_forKey_(coderCopy, v69, v68, @"WebSharingIdentities");
     webSharingIdentityDataByRecordID = v5->_webSharingIdentityDataByRecordID;
@@ -146,7 +146,6 @@
     objc_autoreleasePoolPop(context);
   }
 
-  v73 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

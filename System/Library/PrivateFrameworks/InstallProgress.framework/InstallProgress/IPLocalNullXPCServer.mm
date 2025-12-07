@@ -44,11 +44,10 @@
 - (BOOL)listener:(id)listener shouldAcceptNewConnection:(id)connection
 {
   connectionCopy = connection;
-  v6 = IPServerExportedInterface();
+  v6 = IPServerExportedInterface(connectionCopy);
   [connectionCopy setExportedInterface:v6];
 
-  [connectionCopy setExportedObject:self];
-  v7 = IPClientExportedInterface();
+  v7 = IPClientExportedInterface([connectionCopy setExportedObject:self]);
   [connectionCopy setRemoteObjectInterface:v7];
 
   [connectionCopy resume];

@@ -68,7 +68,7 @@
 
   v29 = [photoLibrary px_beginPausingChangesWithTimeout:@"PUPhotosSharingTransition-Dismiss" identifier:*MEMORY[0x1E69C4138]];
   v42 = MEMORY[0x1E69DD250];
-  [(PUViewControllerTransition *)self duration];
+  objc_msgSend_duration(self);
   v31 = v30;
   v62[0] = MEMORY[0x1E69E9820];
   v62[1] = 3221225472;
@@ -216,7 +216,7 @@ uint64_t __53__PUPhotosSharingTransition_animateDismissTransition__block_invoke_
 
   v38 = [photoLibrary px_beginPausingChangesWithTimeout:@"PUPhotosSharingTransition-Present" identifier:*MEMORY[0x1E69C4138]];
   v50 = MEMORY[0x1E69DD250];
-  [(PUViewControllerTransition *)self duration];
+  objc_msgSend_duration(self);
   v40 = v39;
   v80[0] = MEMORY[0x1E69E9820];
   v80[1] = 3221225472;

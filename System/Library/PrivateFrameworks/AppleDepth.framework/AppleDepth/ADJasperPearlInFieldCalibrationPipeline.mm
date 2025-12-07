@@ -498,7 +498,7 @@ LABEL_24:
         goto LABEL_20;
       }
 
-      *v13 = 0;
+      LOWORD(v13) = 0;
       v9 = MEMORY[0x277D86220];
       v10 = OS_LOG_TYPE_DEFAULT;
     }
@@ -510,15 +510,15 @@ LABEL_24:
         goto LABEL_20;
       }
 
-      *v13 = 0;
+      LOWORD(v13) = 0;
       v9 = MEMORY[0x277D86220];
       v10 = OS_LOG_TYPE_INFO;
     }
 
-    _os_log_impl(&dword_2402F6000, v9, v10, "JasperPearlInFieldCalibration: kJPC_FullEstimation mode.", v13, 2u);
+    _os_log_impl(&dword_2402F6000, v9, v10, "JasperPearlInFieldCalibration: kJPC_FullEstimation mode.", &v13, 2u);
 LABEL_20:
     *valid = 1;
-    jpc::JPCFactory::createJPCModePORImplementation(0, 0, 0, 0, 0, v13);
+    jpc::JPCFactory::createJPCModePORImplementation(0, 0, 0, 0, 0, &v13);
     operator new();
   }
 
@@ -529,8 +529,8 @@ LABEL_20:
       v7 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
       if (v7)
       {
-        *v13 = 0;
-        _os_log_error_impl(&dword_2402F6000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "JasperPearlInFieldCalibration: Invalid pipeline run mode.", v13, 2u);
+        LOWORD(v13) = 0;
+        _os_log_error_impl(&dword_2402F6000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "JasperPearlInFieldCalibration: Invalid pipeline run mode.", &v13, 2u);
       }
 
       v8 = 0;
@@ -544,7 +544,7 @@ LABEL_20:
         goto LABEL_28;
       }
 
-      *v13 = 0;
+      LOWORD(v13) = 0;
       v11 = MEMORY[0x277D86220];
       v12 = OS_LOG_TYPE_DEFAULT;
     }
@@ -556,12 +556,12 @@ LABEL_20:
         goto LABEL_28;
       }
 
-      *v13 = 0;
+      LOWORD(v13) = 0;
       v11 = MEMORY[0x277D86220];
       v12 = OS_LOG_TYPE_INFO;
     }
 
-    _os_log_impl(&dword_2402F6000, v11, v12, "JasperPearlInFieldCalibration: kJPC_EflOnlyEstimation mode.", v13, 2u);
+    _os_log_impl(&dword_2402F6000, v11, v12, "JasperPearlInFieldCalibration: kJPC_EflOnlyEstimation mode.", &v13, 2u);
 LABEL_28:
     *valid = 1;
     jpc::JPCFactory::createEflModePORImplementation();
@@ -572,8 +572,8 @@ LABEL_28:
     v7 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT);
     if (v7)
     {
-      *v13 = 0;
-      _os_log_impl(&dword_2402F6000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "JasperPearlInFieldCalibration: kJPC_Idle mode.", v13, 2u);
+      LOWORD(v13) = 0;
+      _os_log_impl(&dword_2402F6000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "JasperPearlInFieldCalibration: kJPC_Idle mode.", &v13, 2u);
     }
 
     v8 = 1;
@@ -585,8 +585,8 @@ LABEL_28:
     v7 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO);
     if (v7)
     {
-      *v13 = 0;
-      _os_log_impl(&dword_2402F6000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "JasperPearlInFieldCalibration: kJPC_Idle mode.", v13, 2u);
+      LOWORD(v13) = 0;
+      _os_log_impl(&dword_2402F6000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "JasperPearlInFieldCalibration: kJPC_Idle mode.", &v13, 2u);
     }
   }
 
@@ -765,7 +765,7 @@ LABEL_13:
   v23 = a14;
   v24 = a15;
   v37 = 0;
-  [self getJpcObjectForRunMode:0 isValid:&v37];
+  objc_msgSend_getJpcObjectForRunMode_isValid_(self);
   if (v36)
   {
     if ([self checkPrerequisitesForProcessWithPearlWithPearlInputs:v20])

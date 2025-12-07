@@ -57,15 +57,15 @@
   v7.super_class = UIStatusBarItemView;
   if ([(UIView *)&v7 _shouldAnimatePropertyWithKey:keyCopy])
   {
-    v5 = 1;
+    isEqualToString = 1;
   }
 
   else
   {
-    v5 = [keyCopy isEqualToString:@"contents"];
+    isEqualToString = objc_msgSend_isEqualToString_(keyCopy);
   }
 
-  return v5;
+  return isEqualToString;
 }
 
 - (UIStatusBarItemView)initWithItem:(id)item data:(id)data actions:(int)actions style:(id)style
@@ -699,7 +699,7 @@ LABEL_7:
     goto LABEL_10;
   }
 
-  if (![(NSString *)self->_lastGeneratedTextImageText isEqualToString:textCopy])
+  if (!objc_msgSend_isEqualToString_(self->_lastGeneratedTextImageText))
   {
     goto LABEL_8;
   }

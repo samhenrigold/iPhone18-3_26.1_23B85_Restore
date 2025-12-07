@@ -21,7 +21,7 @@
 
 + (Class)containerViewClass
 {
-  sub_100003540(0, &qword_100785AB8);
+  sub_100003540(0, &qword_100785AB8, NUIContainerBoxView_ptr);
 
   return swift_getObjCClassFromMetadata();
 }
@@ -61,7 +61,7 @@
 - (void)prepareForReuse
 {
   ObjectType = swift_getObjectType();
-  v4 = sub_100058000(&unk_100776BC0);
+  v4 = sub_100058000(&unk_100776BC0, &qword_10062F2B0);
   __chkstk_darwin(v4 - 8);
   v6 = &v9 - v5;
   v9.receiver = self;
@@ -204,7 +204,7 @@
 
   if (v3)
   {
-    sub_100003540(0, &qword_10076BCE0);
+    sub_100003540(0, &qword_10076BCE0, UIAccessibilityCustomAction_ptr);
     v4.super.isa = Array._bridgeToObjectiveC()().super.isa;
   }
 
@@ -221,7 +221,7 @@
   ObjectType = swift_getObjectType();
   if (isa)
   {
-    sub_100003540(0, &qword_10076BCE0);
+    sub_100003540(0, &qword_10076BCE0, UIAccessibilityCustomAction_ptr);
     static Array._unconditionallyBridgeFromObjectiveC(_:)();
     selfCopy = self;
     isa = Array._bridgeToObjectiveC()().super.isa;

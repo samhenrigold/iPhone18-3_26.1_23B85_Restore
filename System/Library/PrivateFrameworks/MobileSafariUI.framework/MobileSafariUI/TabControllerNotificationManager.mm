@@ -29,7 +29,7 @@
 - (TabControllerNotificationManager)initWithTabController:(id)controller
 {
   controllerCopy = controller;
-  v4 = sub_215A1B790();
+  v4 = sub_215A1B790(controllerCopy);
 
   return v4;
 }
@@ -87,7 +87,7 @@
 
 - (void)didCloseTabDocuments:(id)documents includingActiveTab:(BOOL)tab
 {
-  sub_2159F7DA8(0, &qword_27CA7E5C8);
+  sub_2159F7DA8(0, &qword_27CA7E5C8, off_2781D21F8);
   v6 = sub_215A705E0();
   v7 = swift_allocObject();
   swift_unknownObjectWeakInit();

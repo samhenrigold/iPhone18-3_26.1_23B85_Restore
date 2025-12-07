@@ -360,7 +360,7 @@ LABEL_8:
   v13 = signLayoutDelegate2;
   if (signLayoutDelegate2)
   {
-    [signLayoutDelegate2 maneuverViewArrowMetricsForSign:self];
+    objc_msgSend_maneuverViewArrowMetricsForSign_(signLayoutDelegate2);
   }
 
   else
@@ -376,7 +376,7 @@ LABEL_8:
   v16 = signLayoutDelegate3;
   if (signLayoutDelegate3)
   {
-    [signLayoutDelegate3 maneuverViewJunctionArrowMetricsForSign:self];
+    objc_msgSend_maneuverViewJunctionArrowMetricsForSign_(signLayoutDelegate3);
   }
 
   else
@@ -724,7 +724,7 @@ LABEL_8:
   v4 = signLayoutDelegate;
   if (signLayoutDelegate)
   {
-    [signLayoutDelegate maneuverViewArrowMetricsForSign:self];
+    objc_msgSend_maneuverViewArrowMetricsForSign_(signLayoutDelegate);
   }
 
   else
@@ -740,7 +740,7 @@ LABEL_8:
   v7 = signLayoutDelegate2;
   if (signLayoutDelegate2)
   {
-    [signLayoutDelegate2 maneuverViewJunctionArrowMetricsForSign:self];
+    objc_msgSend_maneuverViewJunctionArrowMetricsForSign_(signLayoutDelegate2);
   }
 
   else

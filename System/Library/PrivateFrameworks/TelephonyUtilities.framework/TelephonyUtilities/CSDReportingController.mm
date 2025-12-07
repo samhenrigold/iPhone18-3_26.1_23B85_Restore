@@ -31,6 +31,7 @@
 - (void)messageRetryFailedForConversationGroupUUID:(id)d;
 - (void)messageRetryStartedForConversationGroupUUID:(id)d;
 - (void)messageRetrySucceededForConversationGroupUUID:(id)d;
+- (void)oneToOneModeSwitchFailureForConversation:(id)conversation isOneToOneMode:(BOOL)mode;
 - (void)participantClusterChangedForConversation:(id)conversation;
 - (void)receivedLetMeInRequestForConversation:(id)conversation;
 - (void)remoteMemberNotInMemberListForConversation:(id)conversation;
@@ -38,11 +39,14 @@
 - (void)reportCallEnteredForeground:(id)foreground;
 - (void)reportJoinDurationLongerThanThreasholdForCallUUID:(id)d report:(id)report;
 - (void)reportProviderFailedWithAction:(id)action forCall:(id)call;
+- (void)reportRelayMessageReceived:(id)received fromPairedDevice:(BOOL)device;
 - (void)reportRouteWasPicked:(id)picked;
 - (void)reportRouteWasPickedByAnyTrigger:(id)trigger;
 - (void)reportTimedOutPickingRoute:(id)route;
 - (void)reportTransactionGroupCompleted:(id)completed;
 - (void)reportingController:(id)controller letMeInRequestStateChangedForConversation:(id)conversation;
+- (void)sendUserScoreToRTCReporting:(id)reporting withScore:(int)score;
+- (void)sentLetMeInRequestForConversation:(id)conversation isApproved:(BOOL)approved;
 - (void)transitionAttemptForConversation:(id)conversation;
 - (void)voipAppBecameDisabledFromLaunching:(id)launching;
 - (void)voipAppFailedToPostIncomingCall:(id)call;
@@ -132,14 +136,15 @@
 - (void)addReporter:(id)reporter
 {
   reporterCopy = reporter;
-  if (TUSimulatedModeEnabled())
+  v5 = TUSimulatedModeEnabled();
+  if (v5)
   {
-    v5 = sub_100004778();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_100004778(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = 138412290;
-      v8 = reporterCopy;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Not adding reporter %@ since simulated mode is enabled", &v7, 0xCu);
+      v8 = 138412290;
+      v9 = reporterCopy;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Not adding reporter %@ since simulated mode is enabled", &v8, 0xCu);
     }
   }
 
@@ -212,7 +217,7 @@
 {
   dCopy = d;
   reportCopy = report;
-  v8 = sub_100004778();
+  v8 = sub_100004778(reportCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
@@ -260,7 +265,7 @@
 - (void)reportCallEnteredForeground:(id)foreground
 {
   foregroundCopy = foreground;
-  v5 = sub_100004778();
+  v5 = sub_100004778(foregroundCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
@@ -307,7 +312,7 @@
 
 - (void)reportAllCallsBackgrounded
 {
-  v3 = sub_100004778();
+  v3 = sub_100004778(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -351,10 +356,59 @@
   }
 }
 
+- (void)reportRelayMessageReceived:(id)received fromPairedDevice:(BOOL)device
+{
+  deviceCopy = device;
+  receivedCopy = received;
+  v7 = sub_100004778(receivedCopy);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 138412290;
+    v20 = receivedCopy;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "for message: %@", buf, 0xCu);
+  }
+
+  v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
+  reporters = [(CSDReportingController *)self reporters];
+  v9 = [reporters countByEnumeratingWithState:&v14 objects:v18 count:16];
+  if (v9)
+  {
+    v10 = v9;
+    v11 = *v15;
+    do
+    {
+      v12 = 0;
+      do
+      {
+        if (*v15 != v11)
+        {
+          objc_enumerationMutation(reporters);
+        }
+
+        v13 = *(*(&v14 + 1) + 8 * v12);
+        if (objc_opt_respondsToSelector())
+        {
+          [v13 reportingController:self relayMessageReceived:receivedCopy fromPairedDevice:deviceCopy];
+        }
+
+        v12 = v12 + 1;
+      }
+
+      while (v10 != v12);
+      v10 = [reporters countByEnumeratingWithState:&v14 objects:v18 count:16];
+    }
+
+    while (v10);
+  }
+}
+
 - (void)reportTransactionGroupCompleted:(id)completed
 {
   completedCopy = completed;
-  v5 = sub_100004778();
+  v5 = sub_100004778(completedCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
@@ -403,7 +457,7 @@
 {
   actionCopy = action;
   callCopy = call;
-  v8 = sub_100004778();
+  v8 = sub_100004778(callCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
@@ -453,7 +507,7 @@
 - (void)reportRouteWasPicked:(id)picked
 {
   pickedCopy = picked;
-  v5 = sub_100004778();
+  v5 = sub_100004778(pickedCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
@@ -534,7 +588,7 @@
 - (void)reportRouteWasPickedByAnyTrigger:(id)trigger
 {
   triggerCopy = trigger;
-  v5 = sub_100004778();
+  v5 = sub_100004778(triggerCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
@@ -615,7 +669,7 @@
 - (void)reportTimedOutPickingRoute:(id)route
 {
   routeCopy = route;
-  v5 = sub_100004778();
+  v5 = sub_100004778(routeCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
@@ -810,7 +864,7 @@
 - (void)chatReceived:(id)received
 {
   receivedCopy = received;
-  v5 = sub_100004778();
+  v5 = sub_100004778(receivedCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
@@ -859,7 +913,7 @@
 {
   receivedCopy = received;
   conversationCopy = conversation;
-  v8 = sub_100004778();
+  v8 = sub_100004778(conversationCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     uUID = [conversationCopy UUID];
@@ -911,7 +965,7 @@
 {
   receivedCopy = received;
   conversationCopy = conversation;
-  v10 = sub_100004778();
+  v10 = sub_100004778(conversationCopy);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     v11 = [CSDRTCConnectionSetup eventTypeNameFrom:type];
@@ -964,7 +1018,7 @@
 {
   receivedCopy = received;
   conversationCopy = conversation;
-  v8 = sub_100004778();
+  v8 = sub_100004778(conversationCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
@@ -1012,7 +1066,7 @@
 - (void)avcBlobRecoveryStartedForConversation:(id)conversation
 {
   conversationCopy = conversation;
-  v5 = sub_100004778();
+  v5 = sub_100004778(conversationCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
@@ -1060,7 +1114,7 @@
 - (void)remoteMemberNotInMemberListForConversation:(id)conversation
 {
   conversationCopy = conversation;
-  v5 = sub_100004778();
+  v5 = sub_100004778(conversationCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
@@ -1108,7 +1162,7 @@
 - (void)transitionAttemptForConversation:(id)conversation
 {
   conversationCopy = conversation;
-  v5 = sub_100004778();
+  v5 = sub_100004778(conversationCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
@@ -1156,7 +1210,7 @@
 - (void)avcBlobRecoveryTimedOutForConversation:(id)conversation
 {
   conversationCopy = conversation;
-  v5 = sub_100004778();
+  v5 = sub_100004778(conversationCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
@@ -1201,10 +1255,67 @@
   }
 }
 
+- (void)oneToOneModeSwitchFailureForConversation:(id)conversation isOneToOneMode:(BOOL)mode
+{
+  modeCopy = mode;
+  conversationCopy = conversation;
+  v7 = sub_100004778(conversationCopy);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  {
+    v8 = @"NO";
+    if (modeCopy)
+    {
+      v8 = @"YES";
+    }
+
+    *buf = 138412546;
+    v21 = v8;
+    v22 = 2112;
+    v23 = conversationCopy;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "report oneToOneSwitchFailure %@ for conversation %@", buf, 0x16u);
+  }
+
+  v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
+  reporters = [(CSDReportingController *)self reporters];
+  v10 = [reporters countByEnumeratingWithState:&v15 objects:v19 count:16];
+  if (v10)
+  {
+    v11 = v10;
+    v12 = *v16;
+    do
+    {
+      v13 = 0;
+      do
+      {
+        if (*v16 != v12)
+        {
+          objc_enumerationMutation(reporters);
+        }
+
+        v14 = *(*(&v15 + 1) + 8 * v13);
+        if (objc_opt_respondsToSelector())
+        {
+          [v14 reportingController:self oneToOneModeSwitchFailureForConversation:conversationCopy isOneToOneMode:modeCopy];
+        }
+
+        v13 = v13 + 1;
+      }
+
+      while (v11 != v13);
+      v11 = [reporters countByEnumeratingWithState:&v15 objects:v19 count:16];
+    }
+
+    while (v11);
+  }
+}
+
 - (void)messageRetryStartedForConversationGroupUUID:(id)d
 {
   dCopy = d;
-  v5 = sub_100004778();
+  v5 = sub_100004778(dCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
@@ -1252,7 +1363,7 @@
 - (void)messageRetryFailedForConversationGroupUUID:(id)d
 {
   dCopy = d;
-  v5 = sub_100004778();
+  v5 = sub_100004778(dCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
@@ -1300,7 +1411,7 @@
 - (void)messageRetrySucceededForConversationGroupUUID:(id)d
 {
   dCopy = d;
-  v5 = sub_100004778();
+  v5 = sub_100004778(dCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
@@ -1348,7 +1459,7 @@
 - (void)avcBlobRequestMessageRetryStartedForConversationGroupUUID:(id)d
 {
   dCopy = d;
-  v5 = sub_100004778();
+  v5 = sub_100004778(dCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
@@ -1396,7 +1507,7 @@
 - (void)avcBlobRequestMessageRetryFailedForConversationGroupUUID:(id)d
 {
   dCopy = d;
-  v5 = sub_100004778();
+  v5 = sub_100004778(dCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
@@ -1444,7 +1555,7 @@
 - (void)avcBlobRequestMessageRetrySucceededForConversationGroupUUID:(id)d
 {
   dCopy = d;
-  v5 = sub_100004778();
+  v5 = sub_100004778(dCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
@@ -1492,7 +1603,7 @@
 - (void)voipAppFailedToPostIncomingCall:(id)call
 {
   callCopy = call;
-  v5 = sub_100004778();
+  v5 = sub_100004778(callCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
@@ -1540,7 +1651,7 @@
 - (void)voipAppBecameDisabledFromLaunching:(id)launching
 {
   launchingCopy = launching;
-  v5 = sub_100004778();
+  v5 = sub_100004778(launchingCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
@@ -1588,7 +1699,7 @@
 - (void)voipPushDroppedOnTheFloor:(id)floor
 {
   floorCopy = floor;
-  v5 = sub_100004778();
+  v5 = sub_100004778(floorCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
@@ -1636,7 +1747,7 @@
 - (void)voipDOSCallIgnored:(id)ignored
 {
   ignoredCopy = ignored;
-  v5 = sub_100004778();
+  v5 = sub_100004778(ignoredCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
@@ -1684,7 +1795,7 @@
 - (void)receivedLetMeInRequestForConversation:(id)conversation
 {
   conversationCopy = conversation;
-  v5 = sub_100004778();
+  v5 = sub_100004778(conversationCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
@@ -1729,12 +1840,114 @@
   }
 }
 
+- (void)sentLetMeInRequestForConversation:(id)conversation isApproved:(BOOL)approved
+{
+  approvedCopy = approved;
+  conversationCopy = conversation;
+  v7 = sub_100004778(conversationCopy);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 138412546;
+    v20 = conversationCopy;
+    v21 = 1024;
+    v22 = approvedCopy;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "sentLetMeInRequestForConversation: %@ isApproved: %d", buf, 0x12u);
+  }
+
+  v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
+  reporters = [(CSDReportingController *)self reporters];
+  v9 = [reporters countByEnumeratingWithState:&v14 objects:v18 count:16];
+  if (v9)
+  {
+    v10 = v9;
+    v11 = *v15;
+    do
+    {
+      v12 = 0;
+      do
+      {
+        if (*v15 != v11)
+        {
+          objc_enumerationMutation(reporters);
+        }
+
+        v13 = *(*(&v14 + 1) + 8 * v12);
+        if (objc_opt_respondsToSelector())
+        {
+          [v13 reportingController:self sentLetMeInResponseForConversation:conversationCopy isApproved:approvedCopy];
+        }
+
+        v12 = v12 + 1;
+      }
+
+      while (v10 != v12);
+      v10 = [reporters countByEnumeratingWithState:&v14 objects:v18 count:16];
+    }
+
+    while (v10);
+  }
+}
+
+- (void)sendUserScoreToRTCReporting:(id)reporting withScore:(int)score
+{
+  v4 = *&score;
+  reportingCopy = reporting;
+  v7 = sub_100004778(reportingCopy);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 138412546;
+    v20 = reportingCopy;
+    v21 = 1024;
+    v22 = v4;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Send User Score to RTCReporting with UUID:%@ and Score:%d", buf, 0x12u);
+  }
+
+  v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
+  reporters = [(CSDReportingController *)self reporters];
+  v9 = [reporters countByEnumeratingWithState:&v14 objects:v18 count:16];
+  if (v9)
+  {
+    v10 = v9;
+    v11 = *v15;
+    do
+    {
+      v12 = 0;
+      do
+      {
+        if (*v15 != v11)
+        {
+          objc_enumerationMutation(reporters);
+        }
+
+        v13 = *(*(&v14 + 1) + 8 * v12);
+        if (objc_opt_respondsToSelector())
+        {
+          [v13 reportingController:self callUUID:reportingCopy withUserScore:v4];
+        }
+
+        v12 = v12 + 1;
+      }
+
+      while (v10 != v12);
+      v10 = [reporters countByEnumeratingWithState:&v14 objects:v18 count:16];
+    }
+
+    while (v10);
+  }
+}
+
 - (void)didEndSession:(id)session startDate:(id)date endDate:(id)endDate
 {
   sessionCopy = session;
   dateCopy = date;
   endDateCopy = endDate;
-  v11 = sub_100004778();
+  v11 = sub_100004778(endDateCopy);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412802;

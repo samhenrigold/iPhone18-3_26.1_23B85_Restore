@@ -788,7 +788,7 @@ LABEL_79:
 
 + (id)locationQueryWithLimit:(unint64_t)limit fromDate:(id)date consumerType:(unint64_t)type
 {
-  v26[3] = *MEMORY[0x1E69E9840];
+  v25[3] = *MEMORY[0x1E69E9840];
   dateCopy = date;
   v8 = objc_opt_new();
   [v8 setLimit:limit];
@@ -801,11 +801,11 @@ LABEL_79:
       goto LABEL_7;
     case 2uLL:
       v9 = objc_autoreleasePoolPush();
-      v10 = [objc_alloc(MEMORY[0x1E695DFD8]) initWithObjects:{&unk_1F1B462B8, &unk_1F1B462D0, &unk_1F1B462E8, 0, v22, v23, v24, v25}];
+      v10 = [objc_alloc(MEMORY[0x1E695DFD8]) initWithObjects:{&unk_1F1B462B8, &unk_1F1B462D0, &unk_1F1B462E8, 0, v21, v22, v23, v24}];
       goto LABEL_7;
     case 1uLL:
       v9 = objc_autoreleasePoolPush();
-      v10 = [objc_alloc(MEMORY[0x1E695DFD8]) initWithObjects:{&unk_1F1B462B8, &unk_1F1B462D0, &unk_1F1B462E8, &unk_1F1B46300, 0, v23, v24, v25}];
+      v10 = [objc_alloc(MEMORY[0x1E695DFD8]) initWithObjects:{&unk_1F1B462B8, &unk_1F1B462D0, &unk_1F1B462E8, &unk_1F1B46300, 0, v22, v23, v24}];
 LABEL_7:
       v11 = v10;
       objc_autoreleasePoolPop(v9);
@@ -844,49 +844,47 @@ LABEL_9:
 
   else
   {
-    v26[0] = @"com.apple.mobileslideshow";
-    v26[1] = @"com.apple.Photos";
-    v26[2] = @"com.apple.camera";
-    v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:v26 count:3];
+    v25[0] = @"com.apple.mobileslideshow";
+    v25[1] = @"com.apple.Photos";
+    v25[2] = @"com.apple.camera";
+    v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:v25 count:3];
     v19 = [v17 setByAddingObjectsFromArray:v18];
     [v8 setExcludingSourceBundleIds:v19];
   }
 
   [v8 setLocationConsumer:type];
 
-  v20 = *MEMORY[0x1E69E9840];
-
   return v8;
 }
 
 + (id)_excludingAlgorithmsDescription:(id)description
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   descriptionCopy = description;
   v4 = [MEMORY[0x1E696AD60] stringWithString:@"["];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v5 = descriptionCopy;
-  v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v6)
   {
     v7 = v6;
     v8 = 0;
-    v9 = *v16;
+    v9 = *v15;
     do
     {
       v10 = 0;
       v11 = v8 + 1;
       do
       {
-        if (*v16 != v9)
+        if (*v15 != v9)
         {
           objc_enumerationMutation(v5);
         }
 
-        v12 = +[PPNamedEntityRecord describeAlgorithm:](PPNamedEntityRecord, "describeAlgorithm:", [*(*(&v15 + 1) + 8 * v10) unsignedIntegerValue]);
+        v12 = +[PPNamedEntityRecord describeAlgorithm:](PPNamedEntityRecord, "describeAlgorithm:", [*(*(&v14 + 1) + 8 * v10) unsignedIntegerValue]);
         [v4 appendString:v12];
 
         if ([v5 count] > v11)
@@ -900,46 +898,45 @@ LABEL_9:
 
       while (v7 != v10);
       v8 += v7;
-      v7 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v7);
   }
 
   [v4 appendString:@"]"];
-  v13 = *MEMORY[0x1E69E9840];
 
   return v4;
 }
 
 + (id)_matchingCategoriesDescription:(id)description
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   descriptionCopy = description;
   v4 = [MEMORY[0x1E696AD60] stringWithString:@"["];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v5 = descriptionCopy;
-  v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v6)
   {
     v7 = v6;
     v8 = 0;
-    v9 = *v16;
+    v9 = *v15;
     do
     {
       v10 = 0;
       v11 = v8 + 1;
       do
       {
-        if (*v16 != v9)
+        if (*v15 != v9)
         {
           objc_enumerationMutation(v5);
         }
 
-        v12 = +[PPNamedEntity describeCategory:](PPNamedEntity, "describeCategory:", [*(*(&v15 + 1) + 8 * v10) unsignedIntegerValue]);
+        v12 = +[PPNamedEntity describeCategory:](PPNamedEntity, "describeCategory:", [*(*(&v14 + 1) + 8 * v10) unsignedIntegerValue]);
         [v4 appendString:v12];
 
         if ([v5 count] > v11)
@@ -953,14 +950,13 @@ LABEL_9:
 
       while (v7 != v10);
       v8 += v7;
-      v7 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v7);
   }
 
   [v4 appendString:@"]"];
-  v13 = *MEMORY[0x1E69E9840];
 
   return v4;
 }

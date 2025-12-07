@@ -28,36 +28,36 @@
 - (NANowPlayingDockedView)initWithBackground:(id)background artworkEnabled:(BOOL)enabled
 {
   enabledCopy = enabled;
-  v61[4] = *MEMORY[0x1E69E9840];
+  v62[4] = *MEMORY[0x1E69E9840];
   backgroundCopy = background;
-  v60.receiver = self;
-  v60.super_class = NANowPlayingDockedView;
-  v7 = [(NANowPlayingDockedView *)&v60 initWithFrame:*MEMORY[0x1E695F058], *(MEMORY[0x1E695F058] + 8), *(MEMORY[0x1E695F058] + 16), *(MEMORY[0x1E695F058] + 24)];
+  v61.receiver = self;
+  v61.super_class = NANowPlayingDockedView;
+  v7 = [(NANowPlayingDockedView *)&v61 initWithFrame:*MEMORY[0x1E695F058], *(MEMORY[0x1E695F058] + 8), *(MEMORY[0x1E695F058] + 16), *(MEMORY[0x1E695F058] + 24)];
   v8 = v7;
   if (v7)
   {
     [(NANowPlayingDockedView *)v7 setArtworkEnabled:enabledCopy];
     [backgroundCopy setAutoresizingMask:18];
     [(NANowPlayingDockedView *)v8 addSubview:backgroundCopy];
-    v58[0] = MEMORY[0x1E69E9820];
-    v58[1] = 3221225472;
-    v58[2] = __60__NANowPlayingDockedView_initWithBackground_artworkEnabled___block_invoke;
-    v58[3] = &unk_1E84EA330;
+    v59[0] = MEMORY[0x1E69E9820];
+    v59[1] = 3221225472;
+    v59[2] = __60__NANowPlayingDockedView_initWithBackground_artworkEnabled___block_invoke;
+    v59[3] = &unk_1E84EA330;
     v9 = v8;
-    v59 = v9;
-    v10 = __60__NANowPlayingDockedView_initWithBackground_artworkEnabled___block_invoke(v58);
+    v60 = v9;
+    v10 = __60__NANowPlayingDockedView_initWithBackground_artworkEnabled___block_invoke(v59);
     contentView = v9->_contentView;
     v9->_contentView = v10;
 
     if (enabledCopy)
     {
-      v56[0] = MEMORY[0x1E69E9820];
-      v56[1] = 3221225472;
-      v56[2] = __60__NANowPlayingDockedView_initWithBackground_artworkEnabled___block_invoke_2;
-      v56[3] = &unk_1E84EA448;
+      v57[0] = MEMORY[0x1E69E9820];
+      v57[1] = 3221225472;
+      v57[2] = __60__NANowPlayingDockedView_initWithBackground_artworkEnabled___block_invoke_2;
+      v57[3] = &unk_1E84EA448;
       v12 = v9;
-      v57 = v12;
-      v13 = __60__NANowPlayingDockedView_initWithBackground_artworkEnabled___block_invoke_2(v56);
+      v58 = v12;
+      v13 = __60__NANowPlayingDockedView_initWithBackground_artworkEnabled___block_invoke_2(v57);
       artworkView = v12->_artworkView;
       v12->_artworkView = v13;
     }
@@ -66,13 +66,13 @@
     publisherLabel = v9->_publisherLabel;
     v9->_publisherLabel = v15;
 
-    v54[0] = MEMORY[0x1E69E9820];
-    v54[1] = 3221225472;
-    v54[2] = __60__NANowPlayingDockedView_initWithBackground_artworkEnabled___block_invoke_4;
-    v54[3] = &unk_1E84EA2B0;
+    v55[0] = MEMORY[0x1E69E9820];
+    v55[1] = 3221225472;
+    v55[2] = __60__NANowPlayingDockedView_initWithBackground_artworkEnabled___block_invoke_4;
+    v55[3] = &unk_1E84EA2B0;
     v17 = v9;
-    v55 = v17;
-    v18 = __60__NANowPlayingDockedView_initWithBackground_artworkEnabled___block_invoke_4(v54);
+    v56 = v17;
+    v18 = __60__NANowPlayingDockedView_initWithBackground_artworkEnabled___block_invoke_4(v55);
     publisherMarqueeContainer = v17->_publisherMarqueeContainer;
     v17->_publisherMarqueeContainer = v18;
 
@@ -80,63 +80,63 @@
     titleLabel = v17->_titleLabel;
     v17->_titleLabel = v20;
 
-    v52[0] = MEMORY[0x1E69E9820];
-    v52[1] = 3221225472;
-    v52[2] = __60__NANowPlayingDockedView_initWithBackground_artworkEnabled___block_invoke_6;
-    v52[3] = &unk_1E84EA2B0;
+    v53[0] = MEMORY[0x1E69E9820];
+    v53[1] = 3221225472;
+    v53[2] = __60__NANowPlayingDockedView_initWithBackground_artworkEnabled___block_invoke_6;
+    v53[3] = &unk_1E84EA2B0;
     v22 = v17;
-    v53 = v22;
-    v23 = __60__NANowPlayingDockedView_initWithBackground_artworkEnabled___block_invoke_6(v52);
+    v54 = v22;
+    v23 = __60__NANowPlayingDockedView_initWithBackground_artworkEnabled___block_invoke_6(v53);
     titleMarqueeContainer = v22->_titleMarqueeContainer;
     v22->_titleMarqueeContainer = v23;
 
-    v50[0] = MEMORY[0x1E69E9820];
-    v50[1] = 3221225472;
-    v50[2] = __60__NANowPlayingDockedView_initWithBackground_artworkEnabled___block_invoke_7;
-    v50[3] = &unk_1E84EA498;
+    v51[0] = MEMORY[0x1E69E9820];
+    v51[1] = 3221225472;
+    v51[2] = __60__NANowPlayingDockedView_initWithBackground_artworkEnabled___block_invoke_7;
+    v51[3] = &unk_1E84EA498;
     v25 = v22;
-    v51 = v25;
-    v26 = __60__NANowPlayingDockedView_initWithBackground_artworkEnabled___block_invoke_7(v50);
+    v52 = v25;
+    v26 = __60__NANowPlayingDockedView_initWithBackground_artworkEnabled___block_invoke_7(v51);
     rewindButton = v25->_rewindButton;
     v25->_rewindButton = v26;
 
-    v48[0] = MEMORY[0x1E69E9820];
-    v48[1] = 3221225472;
-    v48[2] = __60__NANowPlayingDockedView_initWithBackground_artworkEnabled___block_invoke_8;
-    v48[3] = &unk_1E84EA498;
+    v49[0] = MEMORY[0x1E69E9820];
+    v49[1] = 3221225472;
+    v49[2] = __60__NANowPlayingDockedView_initWithBackground_artworkEnabled___block_invoke_8;
+    v49[3] = &unk_1E84EA498;
     v28 = v25;
-    v49 = v28;
-    v29 = __60__NANowPlayingDockedView_initWithBackground_artworkEnabled___block_invoke_8(v48);
+    v50 = v28;
+    v29 = __60__NANowPlayingDockedView_initWithBackground_artworkEnabled___block_invoke_8(v49);
     playPauseButton = v28->_playPauseButton;
     v28->_playPauseButton = v29;
 
-    v43 = MEMORY[0x1E69E9820];
-    v44 = 3221225472;
-    v45 = __60__NANowPlayingDockedView_initWithBackground_artworkEnabled___block_invoke_9;
-    v46 = &unk_1E84EA498;
+    v44 = MEMORY[0x1E69E9820];
+    v45 = 3221225472;
+    v46 = __60__NANowPlayingDockedView_initWithBackground_artworkEnabled___block_invoke_9;
+    v47 = &unk_1E84EA498;
     v31 = v28;
-    v47 = v31;
-    v32 = __60__NANowPlayingDockedView_initWithBackground_artworkEnabled___block_invoke_9(&v43);
+    v48 = v31;
+    v32 = __60__NANowPlayingDockedView_initWithBackground_artworkEnabled___block_invoke_9(&v44);
     closeButton = v31->_closeButton;
     v31->_closeButton = v32;
 
     v31->_changesDisplayWhenHighlighted = 0;
-    v34 = NABundle();
-    v35 = [v34 localizedStringForKey:@"mini player" value:&stru_1F52B5BC8 table:{0, v43, v44, v45, v46}];
-    [(NANowPlayingDockedView *)v31 setAccessibilityLabel:v35];
+    v35 = NABundle(v34);
+    v36 = [v35 localizedStringForKey:@"mini player" value:&stru_1F52B5BC8 table:{0, v44, v45, v46, v47}];
+    [(NANowPlayingDockedView *)v31 setAccessibilityLabel:v36];
 
     [(NANowPlayingDockedView *)v31 setAccessibilityContainerType:4];
     titleLabel = [(NANowPlayingDockedView *)v31 titleLabel];
-    v61[0] = titleLabel;
+    v62[0] = titleLabel;
     rewindButton = [(NANowPlayingDockedView *)v31 rewindButton];
-    v61[1] = rewindButton;
+    v62[1] = rewindButton;
     playPauseButton = [(NANowPlayingDockedView *)v31 playPauseButton];
-    v61[2] = playPauseButton;
+    v62[2] = playPauseButton;
     closeButton = [(NANowPlayingDockedView *)v31 closeButton];
-    v61[3] = closeButton;
-    v40 = [MEMORY[0x1E695DEC8] arrayWithObjects:v61 count:4];
+    v62[3] = closeButton;
+    v41 = [MEMORY[0x1E695DEC8] arrayWithObjects:v62 count:4];
     contentView = [(NANowPlayingDockedView *)v31 contentView];
-    [contentView setAccessibilityElements:v40];
+    [contentView setAccessibilityElements:v41];
 
     [(NANowPlayingDockedView *)v31 setIsPlaying:0];
     [(NANowPlayingDockedView *)v31 setIsPlaying:[(NANowPlayingDockedView *)v31 isPlaying] waiting:0];
@@ -189,7 +189,7 @@ id __60__NANowPlayingDockedView_initWithBackground_artworkEnabled___block_invoke
 {
   v0 = objc_alloc(MEMORY[0x1E69DCC10]);
   v1 = [v0 initWithFrame:{*MEMORY[0x1E695F058], *(MEMORY[0x1E695F058] + 8), *(MEMORY[0x1E695F058] + 16), *(MEMORY[0x1E695F058] + 24)}];
-  v2 = NABundle();
+  v2 = NABundle(v1);
   v3 = [v2 localizedStringForKey:@"Double tap to expand the mini player" value:&stru_1F52B5BC8 table:0];
   [v1 setAccessibilityHint:v3];
 
@@ -253,28 +253,28 @@ id __60__NANowPlayingDockedView_initWithBackground_artworkEnabled___block_invoke
   v10 = ;
   [v2 setTintColor:v10];
 
-  v11 = NABundle();
-  v12 = [v11 localizedStringForKey:@"rewind value:15 seconds" table:{&stru_1F52B5BC8, 0}];
-  [v2 setAccessibilityLabel:v12];
+  v12 = NABundle(v11);
+  v13 = [v12 localizedStringForKey:@"rewind value:15 seconds" table:{&stru_1F52B5BC8, 0}];
+  [v2 setAccessibilityLabel:v13];
 
   [v2 addTarget:*(a1 + 32) action:sel_rewindButtonTapped_ forControlEvents:64];
   [v2 sizeToFit];
   if ([*(a1 + 32) artworkEnabled])
   {
-    v13 = *(a1 + 32);
+    v14 = *(a1 + 32);
     [v2 bounds];
-    [v13 _touchInsetsForFrame:?];
+    [v14 _touchInsetsForFrame:?];
   }
 
   else
   {
     [v2 bounds];
-    v14 = NAInsetsToMinimumTapTargetForFrame(v15, v16, v17, v18);
+    v15 = NAInsetsToMinimumTapTargetForFrame(v16, v17, v18, v19);
   }
 
-  [v2 setTouchInsets:v14];
-  v19 = [*(a1 + 32) contentView];
-  [v19 addSubview:v2];
+  [v2 setTouchInsets:v15];
+  v20 = [*(a1 + 32) contentView];
+  [v20 addSubview:v2];
 
   return v2;
 }
@@ -297,28 +297,28 @@ id __60__NANowPlayingDockedView_initWithBackground_artworkEnabled___block_invoke
   v4 = ;
   [v2 setTintColor:v4];
 
-  v5 = NABundle();
-  v6 = [v5 localizedStringForKey:@"pause" value:&stru_1F52B5BC8 table:0];
-  [v2 setAccessibilityLabel:v6];
+  v6 = NABundle(v5);
+  v7 = [v6 localizedStringForKey:@"pause" value:&stru_1F52B5BC8 table:0];
+  [v2 setAccessibilityLabel:v7];
 
   [v2 addTarget:*(a1 + 32) action:sel_pauseButtonTapped_ forControlEvents:64];
   [v2 sizeToFit];
   if ([*(a1 + 32) artworkEnabled])
   {
-    v7 = *(a1 + 32);
+    v8 = *(a1 + 32);
     [v2 bounds];
-    [v7 _touchInsetsForFrame:?];
+    [v8 _touchInsetsForFrame:?];
   }
 
   else
   {
     [v2 bounds];
-    v8 = NAInsetsToMinimumTapTargetForFrame(v9, v10, v11, v12);
+    v9 = NAInsetsToMinimumTapTargetForFrame(v10, v11, v12, v13);
   }
 
-  [v2 setTouchInsets:v8];
-  v13 = [*(a1 + 32) contentView];
-  [v13 addSubview:v2];
+  [v2 setTouchInsets:v9];
+  v14 = [*(a1 + 32) contentView];
+  [v14 addSubview:v2];
 
   return v2;
 }
@@ -326,12 +326,12 @@ id __60__NANowPlayingDockedView_initWithBackground_artworkEnabled___block_invoke
 id __60__NANowPlayingDockedView_initWithBackground_artworkEnabled___block_invoke_9(uint64_t a1)
 {
   v2 = [MEMORY[0x1E69D88E0] buttonWithType:0];
-  v17[0] = MEMORY[0x1E69E9820];
-  v17[1] = 3221225472;
-  v17[2] = __60__NANowPlayingDockedView_initWithBackground_artworkEnabled___block_invoke_10;
-  v17[3] = &unk_1E84EA4C0;
-  v18 = *(a1 + 32);
-  v3 = __60__NANowPlayingDockedView_initWithBackground_artworkEnabled___block_invoke_10(v17);
+  v18[0] = MEMORY[0x1E69E9820];
+  v18[1] = 3221225472;
+  v18[2] = __60__NANowPlayingDockedView_initWithBackground_artworkEnabled___block_invoke_10;
+  v18[3] = &unk_1E84EA4C0;
+  v19 = *(a1 + 32);
+  v3 = __60__NANowPlayingDockedView_initWithBackground_artworkEnabled___block_invoke_10(v18);
   if ([*(a1 + 32) artworkEnabled])
   {
     v4 = @"xmark";
@@ -346,28 +346,28 @@ id __60__NANowPlayingDockedView_initWithBackground_artworkEnabled___block_invoke
   v6 = [v5 imageWithConfiguration:v3];
   [v2 setImage:v6 forState:0];
 
-  v7 = NABundle();
-  v8 = [v7 localizedStringForKey:@"close" value:&stru_1F52B5BC8 table:0];
-  [v2 setAccessibilityLabel:v8];
+  v8 = NABundle(v7);
+  v9 = [v8 localizedStringForKey:@"close" value:&stru_1F52B5BC8 table:0];
+  [v2 setAccessibilityLabel:v9];
 
   [v2 addTarget:*(a1 + 32) action:sel_closeButtonTapped_ forControlEvents:64];
   [v2 sizeToFit];
   if ([*(a1 + 32) artworkEnabled])
   {
-    v9 = *(a1 + 32);
+    v10 = *(a1 + 32);
     [v2 bounds];
-    [v9 _touchInsetsForFrame:?];
+    [v10 _touchInsetsForFrame:?];
   }
 
   else
   {
     [v2 bounds];
-    v10 = NAInsetsToMinimumTapTargetForFrame(v11, v12, v13, v14);
+    v11 = NAInsetsToMinimumTapTargetForFrame(v12, v13, v14, v15);
   }
 
-  [v2 setTouchInsets:v10];
-  v15 = [*(a1 + 32) contentView];
-  [v15 addSubview:v2];
+  [v2 setTouchInsets:v11];
+  v16 = [*(a1 + 32) contentView];
+  [v16 addSubview:v2];
 
   return v2;
 }
@@ -772,7 +772,7 @@ LABEL_27:
 {
   v32 = *MEMORY[0x1E69E9840];
   publisherCopy = publisher;
-  v5 = NANowPlayingLog();
+  v5 = NANowPlayingLog(publisherCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
@@ -873,7 +873,7 @@ uint64_t __39__NANowPlayingDockedView_setPublisher___block_invoke(uint64_t a1)
 {
   v41 = *MEMORY[0x1E69E9840];
   titleCopy = title;
-  v5 = NANowPlayingLog();
+  v5 = NANowPlayingLog(titleCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
@@ -1031,7 +1031,7 @@ uint64_t __35__NANowPlayingDockedView_setTitle___block_invoke(uint64_t a1)
     }
 
     v12 = [(NANowPlayingDockedView *)self _imageForPlayPauseButtonWithSystemName:v9];
-    v13 = NABundle();
+    v13 = NABundle(v12);
     v14 = [v13 localizedStringForKey:v10 value:&stru_1F52B5BC8 table:0];
 
     playPauseButton = [(NANowPlayingDockedView *)self playPauseButton];
@@ -1178,7 +1178,7 @@ void __47__NANowPlayingDockedView_setIsPlaying_waiting___block_invoke(uint64_t a
 
 - (void)closeButtonTapped:(id)tapped
 {
-  v4 = NANowPlayingLog();
+  v4 = NANowPlayingLog(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v6 = 0;
@@ -1191,7 +1191,7 @@ void __47__NANowPlayingDockedView_setIsPlaying_waiting___block_invoke(uint64_t a
 
 - (void)pauseButtonTapped:(id)tapped
 {
-  v4 = NANowPlayingLog();
+  v4 = NANowPlayingLog(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v6 = 0;
@@ -1204,7 +1204,7 @@ void __47__NANowPlayingDockedView_setIsPlaying_waiting___block_invoke(uint64_t a
 
 - (void)playButtonTapped:(id)tapped
 {
-  v4 = NANowPlayingLog();
+  v4 = NANowPlayingLog(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v6 = 0;
@@ -1217,7 +1217,7 @@ void __47__NANowPlayingDockedView_setIsPlaying_waiting___block_invoke(uint64_t a
 
 - (void)rewindButtonTapped:(id)tapped
 {
-  v4 = NANowPlayingLog();
+  v4 = NANowPlayingLog(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v6 = 0;

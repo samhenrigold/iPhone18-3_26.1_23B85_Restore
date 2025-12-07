@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)placeTypeAsString:(int)string;
 - (int)StringAsPlaceType:(id)type;
 - (int)placeType;
 - (unint64_t)hash;
@@ -41,6 +42,21 @@
   }
 
   *&self->_has = *&self->_has & 0xFB | v3;
+}
+
+- (id)placeTypeAsString:(int)string
+{
+  if (string >= 5)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E83B8128[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsPlaceType:(id)type
@@ -169,25 +185,24 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v9 = toCopy;
+  v6 = toCopy;
   if (self->_loiIdentifier)
   {
     PBDataWriterWriteDataField();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_location)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   has = self->_has;
   if ((has & 4) != 0)
   {
-    placeType = self->_placeType;
     PBDataWriterWriteInt32Field();
-    toCopy = v9;
+    toCopy = v6;
     has = self->_has;
     if ((has & 1) == 0)
     {
@@ -206,22 +221,20 @@ LABEL_7:
     goto LABEL_7;
   }
 
-  lastVisitTimeCFAbsolute = self->_lastVisitTimeCFAbsolute;
   PBDataWriterWriteDoubleField();
-  toCopy = v9;
+  toCopy = v6;
   if ((*&self->_has & 2) != 0)
   {
 LABEL_8:
-    visitFrequency = self->_visitFrequency;
     PBDataWriterWriteDoubleField();
-    toCopy = v9;
+    toCopy = v6;
   }
 
 LABEL_9:
   if (self->_placeMapItem)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v6;
   }
 }
 
@@ -361,7 +374,6 @@ LABEL_5:
     }
   }
 
-  v7 = *(equalCopy + 52);
   if ((*&self->_has & 4) != 0)
   {
     if ((*(equalCopy + 52) & 4) == 0 || self->_placeType != *(equalCopy + 12))
@@ -373,7 +385,7 @@ LABEL_5:
   else if ((*(equalCopy + 52) & 4) != 0)
   {
 LABEL_23:
-    v9 = 0;
+    v8 = 0;
     goto LABEL_24;
   }
 
@@ -406,17 +418,17 @@ LABEL_23:
   placeMapItem = self->_placeMapItem;
   if (placeMapItem | *(equalCopy + 5))
   {
-    v9 = [(PCPMapItem *)placeMapItem isEqual:?];
+    v8 = [(PCPMapItem *)placeMapItem isEqual:?];
   }
 
   else
   {
-    v9 = 1;
+    v8 = 1;
   }
 
 LABEL_24:
 
-  return v9;
+  return v8;
 }
 
 - (unint64_t)hash

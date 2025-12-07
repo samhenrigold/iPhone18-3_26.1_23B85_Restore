@@ -28,28 +28,28 @@
 
     options = [descriptionCopy options];
     type = [descriptionCopy type];
-    v26 = 0;
-    v17 = [(NSPersistentStoreCoordinator *)self replacePersistentStoreAtURL:v14 destinationOptions:options withPersistentStoreFromURL:v7 sourceOptions:options storeType:type error:&v26];
-    v18 = v26;
+    v28 = 0;
+    v17 = [(NSPersistentStoreCoordinator *)self replacePersistentStoreAtURL:v14 destinationOptions:options withPersistentStoreFromURL:v7 sourceOptions:options storeType:type error:&v28];
+    v18 = v28;
 
     if ((v17 & 1) == 0)
     {
-      v19 = FTCServiceLog();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+      v21 = FTCServiceLog(v19, v20);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
       {
-        sub_10000CBC0(descriptionCopy, v18, v19);
+        sub_10000CBC0(descriptionCopy, v18, v21);
       }
     }
 
     error = errorCopy;
   }
 
-  v20 = [descriptionCopy URL];
+  v22 = [descriptionCopy URL];
   type2 = [descriptionCopy type];
   options2 = [descriptionCopy options];
-  v23 = [(NSPersistentStoreCoordinator *)self destroyPersistentStoreAtURL:v20 withType:type2 options:options2 error:error];
+  v25 = [(NSPersistentStoreCoordinator *)self destroyPersistentStoreAtURL:v22 withType:type2 options:options2 error:error];
 
-  return v23;
+  return v25;
 }
 
 @end

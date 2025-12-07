@@ -36,7 +36,7 @@ VCPCNNModelEspresso *__58__VCPVideoCNNBackbone_sharedModel_outputNames_propertie
 
 - (VCPVideoCNNBackbone)initWithConfig:(id)config
 {
-  v24[2] = *MEMORY[0x1E69E9840];
+  v28[2] = *MEMORY[0x1E69E9840];
   configCopy = config;
   self->_outputBeforeFc = 0;
   self->_outputBeforeFcSettling = 0;
@@ -44,9 +44,9 @@ VCPCNNModelEspresso *__58__VCPVideoCNNBackbone_sharedModel_outputNames_propertie
   resourceURL = [vcp_mediaAnalysisBundle resourceURL];
 
   v7 = [MEMORY[0x1E695DFF8] URLWithString:@"video_backbone.espresso.net" relativeToURL:resourceURL];
-  v22.receiver = self;
-  v22.super_class = VCPVideoCNNBackbone;
-  v8 = [(VCPVideoCNNBackbone *)&v22 init];
+  v26.receiver = self;
+  v26.super_class = VCPVideoCNNBackbone;
+  v8 = [(VCPVideoCNNBackbone *)&v26 init];
   v9 = v8;
   if (!v8)
   {
@@ -56,50 +56,50 @@ VCPCNNModelEspresso *__58__VCPVideoCNNBackbone_sharedModel_outputNames_propertie
   outputNames = v8->_outputNames;
   v8->_outputNames = &unk_1F49BEB30;
 
-  v11 = DeviceGeqD5x();
-  v23[0] = @"forceNNGraph";
-  v12 = [MEMORY[0x1E696AD98] numberWithBool:v11 ^ 1];
-  v24[0] = v12;
-  v23[1] = @"sharedContext";
-  v13 = [MEMORY[0x1E696AD98] numberWithBool:v11];
-  v24[1] = v13;
-  v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v24 forKeys:v23 count:2];
+  v13 = DeviceGeqD5x(v11, v12);
+  v27[0] = @"forceNNGraph";
+  v14 = [MEMORY[0x1E696AD98] numberWithBool:v13 ^ 1];
+  v28[0] = v14;
+  v27[1] = @"sharedContext";
+  v15 = [MEMORY[0x1E696AD98] numberWithBool:v13];
+  v28[1] = v15;
+  v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v28 forKeys:v27 count:2];
 
-  if (DeviceHasANE())
+  if (DeviceHasANE(v17, v18))
   {
-    v15 = [objc_opt_class() sharedModel:v7 outputNames:v9->_outputNames properties:v14];
+    v19 = [objc_opt_class() sharedModel:v7 outputNames:v9->_outputNames properties:v16];
   }
 
   else
   {
-    v15 = [[VCPCNNModelEspresso alloc] initWithParameters:v7 inputNames:0 outputNames:v9->_outputNames properties:v14];
+    v19 = [[VCPCNNModelEspresso alloc] initWithParameters:v7 inputNames:0 outputNames:v9->_outputNames properties:v16];
   }
 
   modelEspresso = v9->_modelEspresso;
-  v9->_modelEspresso = v15;
+  v9->_modelEspresso = v19;
 
-  v17 = v9->_modelEspresso;
-  if (!v17)
+  v21 = v9->_modelEspresso;
+  if (!v21)
   {
 
     goto LABEL_9;
   }
 
-  v18 = [(VCPCNNModelEspresso *)v17 prepareModelWithConfig:configCopy];
+  v22 = [(VCPCNNModelEspresso *)v21 prepareModelWithConfig:configCopy];
 
-  if (v18)
+  if (v22)
   {
 LABEL_9:
-    v19 = 0;
+    v23 = 0;
     goto LABEL_10;
   }
 
 LABEL_7:
-  v19 = v9;
+  v23 = v9;
 LABEL_10:
-  v20 = v19;
+  v24 = v23;
 
-  return v20;
+  return v24;
 }
 
 - (int)inference:(float *)inference settling:(BOOL)settling
@@ -110,32 +110,32 @@ LABEL_10:
   {
     if (settlingCopy)
     {
-      [(VCPCNNModelEspresso *)self->_modelEspresso outputBlobs];
+      objc_msgSend_outputBlobs(self->_modelEspresso);
       self->_outputBeforeFcSettling = __p[21];
       operator delete(__p);
     }
 
     else
     {
-      [(VCPCNNModelEspresso *)self->_modelEspresso outputBlobs];
+      objc_msgSend_outputBlobs(self->_modelEspresso);
       self->_outputBeforeSpatiialPooling = *__p;
       operator delete(__p);
-      [(VCPCNNModelEspresso *)self->_modelEspresso outputBlobs];
+      objc_msgSend_outputBlobs(self->_modelEspresso);
       self->_outputBeforeFc = __p[21];
       operator delete(__p);
-      [(VCPCNNModelEspresso *)self->_modelEspresso outputBlobs];
+      objc_msgSend_outputBlobs(self->_modelEspresso);
       self->_outputRes4 = __p[42];
       operator delete(__p);
-      [(VCPCNNModelEspresso *)self->_modelEspresso outputBlobs];
+      objc_msgSend_outputBlobs(self->_modelEspresso);
       self->_outputBeforeTemporalPooling = __p[63];
       operator delete(__p);
-      [(VCPCNNModelEspresso *)self->_modelEspresso outputBlobs];
+      objc_msgSend_outputBlobs(self->_modelEspresso);
       v7 = __p[65];
-      [(VCPCNNModelEspresso *)self->_modelEspresso outputBlobs];
+      objc_msgSend_outputBlobs(self->_modelEspresso);
       v8 = v18[66];
-      [(VCPCNNModelEspresso *)self->_modelEspresso outputBlobs];
+      objc_msgSend_outputBlobs(self->_modelEspresso);
       v9 = v17[67];
-      [(VCPCNNModelEspresso *)self->_modelEspresso outputBlobs];
+      objc_msgSend_outputBlobs(self->_modelEspresso);
       v10 = v16[68];
       operator delete(v16);
       if (v17)

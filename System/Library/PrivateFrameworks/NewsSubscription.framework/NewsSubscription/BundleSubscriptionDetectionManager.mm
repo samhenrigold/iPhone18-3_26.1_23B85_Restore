@@ -30,7 +30,7 @@
     swift_once();
   }
 
-  sub_1D7752B44(&qword_1EC9C9CA8, v5, type metadata accessor for BundleSubscriptionDetectionManager);
+  sub_1D7752B44(&qword_1EC9C9CA8, v5, type metadata accessor for BundleSubscriptionDetectionManager, &unk_1D78BEE74);
   sub_1D78B3724();
   [*(&selfCopy->super.isa + OBJC_IVAR____TtC16NewsSubscription34BundleSubscriptionDetectionManager_userInfo) setPostPurchaseOnboardingLastShownDate_];
 }

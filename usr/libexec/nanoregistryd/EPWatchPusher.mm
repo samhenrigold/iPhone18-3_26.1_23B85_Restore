@@ -286,19 +286,19 @@ LABEL_14:
 - (void)_waitTimeoutWithAdvertisedName:(id)name
 {
   nameCopy = name;
-  v5 = sub_1000034AC();
+  v5 = sub_1000034AC(nameCopy);
   v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
 
   if (v6)
   {
-    v7 = sub_1000034AC();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = sub_1000034AC(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 134218242;
+      v9 = 134218242;
       selfCopy = self;
-      v10 = 2112;
-      v11 = nameCopy;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "EPWatchPusher[%p]: Push timer timed out for device %@", &v8, 0x16u);
+      v11 = 2112;
+      v12 = nameCopy;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "EPWatchPusher[%p]: Push timer timed out for device %@", &v9, 0x16u);
     }
   }
 

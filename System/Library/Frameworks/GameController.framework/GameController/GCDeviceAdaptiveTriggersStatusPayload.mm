@@ -1,11 +1,38 @@
 @interface GCDeviceAdaptiveTriggersStatusPayload
 - (BOOL)isEqual:(id)equal;
 - (GCDeviceAdaptiveTriggersStatusPayload)initWithCoder:(id)coder;
+- (id)initFeedbackWithStatus:(unsigned __int8)status armPosition:(unsigned __int8)position mode:(unsigned __int8)mode;
 - (unint64_t)hash;
 - (void)encodeWithCoder:(id)coder;
 @end
 
 @implementation GCDeviceAdaptiveTriggersStatusPayload
+
+- (id)initFeedbackWithStatus:(unsigned __int8)status armPosition:(unsigned __int8)position mode:(unsigned __int8)mode
+{
+  modeCopy = mode;
+  positionCopy = position;
+  statusCopy = status;
+  v16.receiver = self;
+  v16.super_class = GCDeviceAdaptiveTriggersStatusPayload;
+  v8 = [(GCDeviceAdaptiveTriggersStatusPayload *)&v16 init];
+  if (v8)
+  {
+    v9 = [MEMORY[0x1E696AD98] numberWithUnsignedChar:statusCopy];
+    status = v8->_status;
+    v8->_status = v9;
+
+    v11 = [MEMORY[0x1E696AD98] numberWithUnsignedChar:positionCopy];
+    armPosition = v8->_armPosition;
+    v8->_armPosition = v11;
+
+    v13 = [MEMORY[0x1E696AD98] numberWithUnsignedChar:modeCopy];
+    mode = v8->_mode;
+    v8->_mode = v13;
+  }
+
+  return v8;
+}
 
 - (BOOL)isEqual:(id)equal
 {

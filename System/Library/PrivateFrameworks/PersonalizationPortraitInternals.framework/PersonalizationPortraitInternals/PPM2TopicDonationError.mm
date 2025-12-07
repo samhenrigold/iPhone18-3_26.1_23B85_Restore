@@ -3,6 +3,8 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)reasonAsString:(int)string;
+- (id)sourceAsString:(int)string;
 - (int)StringAsReason:(id)reason;
 - (int)StringAsSource:(id)source;
 - (int)reason;
@@ -218,7 +220,6 @@ LABEL_20:
   toCopy = to;
   if ((*&self->_has & 2) != 0)
   {
-    reason = self->_reason;
     PBDataWriterWriteInt32Field();
   }
 
@@ -230,14 +231,12 @@ LABEL_20:
   has = self->_has;
   if ((has & 4) != 0)
   {
-    source = self->_source;
     PBDataWriterWriteInt32Field();
     has = self->_has;
   }
 
   if (has)
   {
-    code = self->_code;
     PBDataWriterWriteInt64Field();
   }
 }
@@ -443,6 +442,21 @@ LABEL_20:
   return v4;
 }
 
+- (id)sourceAsString:(int)string
+{
+  if (string >= 0x19)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_278971D90[string];
+  }
+
+  return v4;
+}
+
 - (void)setHasSource:(BOOL)source
 {
   if (source)
@@ -527,6 +541,21 @@ LABEL_20:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)reasonAsString:(int)string
+{
+  if (string >= 0xA)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_278971D40[string];
   }
 
   return v4;

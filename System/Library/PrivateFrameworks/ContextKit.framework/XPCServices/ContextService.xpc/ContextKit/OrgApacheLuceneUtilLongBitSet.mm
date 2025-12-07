@@ -214,7 +214,7 @@ LABEL_15:
   v7 = bits->buffer_[v5] >> long;
   if (v7)
   {
-    return long + JavaLangLong_numberOfTrailingZerosWithLong_(v7);
+    return long + JavaLangLong_numberOfTrailingZerosWithLong_(v7, a2);
   }
 
   v9 = v5 << 6;
@@ -233,7 +233,7 @@ LABEL_15:
     v10 = (v10 + 1);
     if (v13)
     {
-      return (JavaLangLong_numberOfTrailingZerosWithLong_(v13) + v9);
+      return (JavaLangLong_numberOfTrailingZerosWithLong_(v13, a2) + v9);
     }
   }
 
@@ -259,7 +259,7 @@ LABEL_15:
   v8 = bits->buffer_[v5] << (v6 ^ 0x3Fu);
   if (v8)
   {
-    return ((v6 | (v5 << 6)) - JavaLangLong_numberOfLeadingZerosWithLong_(v8));
+    return ((v6 | (v5 << 6)) - JavaLangLong_numberOfLeadingZerosWithLong_(v8, a2));
   }
 
   for (i = v5 - 1; ; --i)
@@ -281,7 +281,7 @@ LABEL_15:
     if (v8)
     {
       v6 = 63;
-      return ((v6 | (v5 << 6)) - JavaLangLong_numberOfLeadingZerosWithLong_(v8));
+      return ((v6 | (v5 << 6)) - JavaLangLong_numberOfLeadingZerosWithLong_(v8, a2));
     }
   }
 
@@ -670,7 +670,6 @@ LABEL_13:
         size = v14->super.size_;
         if ((v9 & 0x80000000) != 0 || size <= v9)
         {
-          v16 = selfCopy->bits_;
           IOSArray_throwOutOfBoundsWithMsg(size, long >> 6);
         }
 
@@ -728,7 +727,6 @@ LABEL_13:
         v16 = v15->super.size_;
         if ((v9 & 0x80000000) != 0 || v16 <= v9)
         {
-          v18 = self->bits_;
           IOSArray_throwOutOfBoundsWithMsg(v16, long >> 6);
         }
 

@@ -175,46 +175,48 @@ LABEL_7:
   v14 = toneIdentifier;
   if (statusCode == 2)
   {
-    v53 = toneIdentifier;
-    v56 = v8;
-    v37 = +[SSLogConfig sharedDaemonConfig];
-    if (!v37)
+    v58 = toneIdentifier;
+    v61 = v8;
+    v40 = +[SSLogConfig sharedDaemonConfig];
+    if (!v40)
     {
-      v37 = +[SSLogConfig sharedConfig];
+      v40 = +[SSLogConfig sharedConfig];
     }
 
-    shouldLog = [v37 shouldLog];
-    if ([v37 shouldLogToDisk])
+    shouldLog = [v40 shouldLog];
+    if ([v40 shouldLogToDisk])
     {
       shouldLog |= 2u;
     }
 
-    oSLogObject = [v37 OSLogObject];
+    oSLogObject = [v40 OSLogObject];
     if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
     {
-      v40 = shouldLog;
+      v43 = shouldLog;
     }
 
     else
     {
-      v40 = shouldLog & 2;
+      v43 = shouldLog & 2;
     }
 
-    if (v40)
+    if (v43)
     {
-      v41 = objc_opt_class();
-      v50 = v41;
+      v44 = objc_opt_class();
+      v55 = v44;
       [download title];
-      v58 = 138543618;
-      v59 = v41;
-      v61 = v60 = 2114;
-      LODWORD(v46) = 22;
-      v42 = _os_log_send_and_compose_impl();
+      v46 = v45 = _newRingtoneDictionary;
+      v63 = 138543618;
+      v64 = v44;
+      v65 = 2114;
+      v66 = v46;
+      v47 = _os_log_send_and_compose_impl(v43, 0, 0, 0, &_mh_execute_header, oSLogObject, 16, "%{public}@: Tone import failed unexpectedly. This seems to be a transient failure, so rolling back asset: %{public}@.", &v63, 22);
 
-      if (v42)
+      _newRingtoneDictionary = v45;
+      if (v47)
       {
-        v43 = [NSString stringWithCString:v42 encoding:4, &v58, v46];
-        free(v42);
+        v48 = [NSString stringWithCString:v47 encoding:4];
+        free(v47);
         SSFileLog();
       }
     }
@@ -223,56 +225,56 @@ LABEL_7:
     {
     }
 
-    v44 = 2;
-    v14 = v53;
-    v8 = v56;
+    v49 = 2;
+    v14 = v58;
+    v8 = v61;
   }
 
   else if (statusCode == 1)
   {
-    v49 = v6;
-    v52 = _newRingtoneDictionary;
-    v55 = v8;
-    v29 = +[SSLogConfig sharedDaemonConfig];
-    if (!v29)
+    v54 = v6;
+    v57 = _newRingtoneDictionary;
+    v60 = v8;
+    v31 = +[SSLogConfig sharedDaemonConfig];
+    if (!v31)
     {
-      v29 = +[SSLogConfig sharedConfig];
+      v31 = +[SSLogConfig sharedConfig];
     }
 
-    shouldLog2 = [v29 shouldLog];
-    if ([v29 shouldLogToDisk])
+    shouldLog2 = [v31 shouldLog];
+    if ([v31 shouldLogToDisk])
     {
       shouldLog2 |= 2u;
     }
 
-    oSLogObject2 = [v29 OSLogObject];
+    oSLogObject2 = [v31 OSLogObject];
     if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEFAULT))
     {
-      v32 = shouldLog2;
+      v34 = shouldLog2;
     }
 
     else
     {
-      v32 = shouldLog2 & 2;
+      v34 = shouldLog2 & 2;
     }
 
-    if (v32)
+    if (v34)
     {
-      v33 = objc_opt_class();
-      v34 = v33;
-      [download title];
-      v58 = 138543874;
-      v59 = v33;
-      v61 = v60 = 2114;
-      v62 = 2114;
-      v63 = v14;
-      LODWORD(v46) = 32;
-      v35 = _os_log_send_and_compose_impl();
+      v35 = objc_opt_class();
+      v36 = v35;
+      title = [download title];
+      v63 = 138543874;
+      v64 = v35;
+      v65 = 2114;
+      v66 = title;
+      v67 = 2114;
+      v68 = v14;
+      v38 = _os_log_send_and_compose_impl(v34, 0, 0, 0, &_mh_execute_header, oSLogObject2, 0, "%{public}@: Tone import was skipped because it was a duplicate entry: %{public}@. Finalizing with tone identifier: %{public}@.", &v63, 32);
 
-      if (v35)
+      if (v38)
       {
-        v36 = [NSString stringWithCString:v35 encoding:4, &v58, v46];
-        free(v35);
+        v39 = [NSString stringWithCString:v38 encoding:4];
+        free(v38);
         SSFileLog();
       }
     }
@@ -281,20 +283,20 @@ LABEL_7:
     {
     }
 
-    [(RingtonePurchaseStore *)v7 finalizeRingtoneForAdamID:v49 transactionID:storeTransactionIdentifier toneIdentifier:v14];
-    v44 = 1;
-    _newRingtoneDictionary = v52;
-    v8 = v55;
+    [(RingtonePurchaseStore *)v7 finalizeRingtoneForAdamID:v54 transactionID:storeTransactionIdentifier toneIdentifier:v14];
+    v49 = 1;
+    _newRingtoneDictionary = v57;
+    v8 = v60;
   }
 
   else if (statusCode)
   {
-    v44 = 0;
+    v49 = 0;
   }
 
   else
   {
-    v51 = toneIdentifier;
+    v56 = toneIdentifier;
     newITunesMetadataDictionary = [download newITunesMetadataDictionary];
     v16 = newITunesMetadataDictionary;
     if (newITunesMetadataDictionary)
@@ -314,8 +316,9 @@ LABEL_7:
       [(FinishDownloadStepOperation *)self writeBinaryPropertyList:v16 toPath:iTunesMetadataDestinationPath error:0];
     }
 
-    v48 = v6;
-    v54 = v8;
+    v52 = v16;
+    v53 = v6;
+    v59 = v8;
     [(FinishDownloadStepOperation *)self addPurchaseManifestItem];
     v21 = +[SSLogConfig sharedDaemonConfig];
     if (!v21)
@@ -348,20 +351,22 @@ LABEL_7:
     if (v25)
     {
       v26 = objc_opt_class();
-      v47 = v26;
+      v51 = v26;
       [download title];
-      v58 = 138543874;
-      v59 = v26;
-      v61 = v60 = 2114;
-      v62 = 2114;
-      v63 = v51;
-      LODWORD(v46) = 32;
-      v27 = _os_log_send_and_compose_impl();
+      v28 = v27 = _newRingtoneDictionary;
+      v63 = 138543874;
+      v64 = v26;
+      v65 = 2114;
+      v66 = v28;
+      v67 = 2114;
+      v68 = v56;
+      v29 = _os_log_send_and_compose_impl(v25, 0, 0, 0, &_mh_execute_header, oSLogObject3, 1, "%{public}@: Successfully imported tone into Tone Library: %{public}@. Finalizing with tone identifier: %{public}@.", &v63, 32);
 
-      if (v27)
+      _newRingtoneDictionary = v27;
+      if (v29)
       {
-        v28 = [NSString stringWithCString:v27 encoding:4, &v58, v46];
-        free(v27);
+        v30 = [NSString stringWithCString:v29 encoding:4];
+        free(v29);
         SSFileLog();
       }
     }
@@ -370,14 +375,14 @@ LABEL_7:
     {
     }
 
-    v14 = v51;
-    [(RingtonePurchaseStore *)v7 finalizeRingtoneForAdamID:v48 transactionID:storeTransactionIdentifier toneIdentifier:v51];
+    v14 = v56;
+    [(RingtonePurchaseStore *)v7 finalizeRingtoneForAdamID:v53 transactionID:storeTransactionIdentifier toneIdentifier:v56];
 
-    v44 = 0;
-    v8 = v54;
+    v49 = 0;
+    v8 = v59;
   }
 
-  return v44;
+  return v49;
 }
 
 @end

@@ -160,7 +160,7 @@ LABEL_4:
           break;
         }
 
-        get_ptmu_regions(@"ptmu-", @"-data", v9, &v21);
+        get_ptmu_regions(&v21, @"ptmu-", @"-data", v9);
         std::vector<region>::__vdeallocate(&v23);
         v23 = v21;
         memset(&v21, 0, sizeof(v21));
@@ -406,14 +406,14 @@ LABEL_12:
   return result;
 }
 
-void get_ptmu_regions(const __CFString *a1@<X1>, const __CFString *a2@<X2>, io_registry_entry_t a3@<W0>, void *a4@<X8>)
+void get_ptmu_regions(uint64_t *__return_ptr a1@<X8>, const __CFString *a2@<X1>, const __CFString *a3@<X2>, io_registry_entry_t a4@<W0>)
 {
-  *a4 = 0;
-  a4[1] = 0;
-  a4[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   properties = 0;
   memset(v46, 0, 7);
-  v7 = IORegistryEntryCreateCFProperties(a3, &properties, kCFAllocatorDefault, 0);
+  v7 = IORegistryEntryCreateCFProperties(a4, &properties, kCFAllocatorDefault, 0);
   if (v7)
   {
     fprintf(__stderrp, "ERROR: IORegistryEntryCreateCFProperties failed, rc=0x%x\n", v7);
@@ -427,7 +427,7 @@ void get_ptmu_regions(const __CFString *a1@<X1>, const __CFString *a2@<X2>, io_r
   {
     CFDictionaryGetKeysAndValues(properties, v9, v10);
     v38 = v9;
-    v39 = a4;
+    v39 = a1;
     v37 = v11;
     if (Count)
     {
@@ -438,15 +438,15 @@ void get_ptmu_regions(const __CFString *a1@<X1>, const __CFString *a2@<X2>, io_r
       while (1)
       {
         v15 = *v13;
-        if (!CFStringHasPrefix(*v13, a1) || !CFStringHasSuffix(v15, a2))
+        if (!CFStringHasPrefix(*v13, a2) || !CFStringHasSuffix(v15, a3))
         {
           goto LABEL_31;
         }
 
-        Length = CFStringGetLength(a1);
+        Length = CFStringGetLength(a2);
         v17 = CFStringGetLength(v15);
-        v18 = CFStringGetLength(a1);
-        v51.length = v17 - (v18 + CFStringGetLength(a2));
+        v18 = CFStringGetLength(a2);
+        v51.length = v17 - (v18 + CFStringGetLength(a3));
         v51.location = Length;
         v19 = CFStringCreateWithSubstring(kCFAllocatorDefault, v15, v51);
         v20 = CFStringGetLength(v19);
@@ -520,12 +520,12 @@ LABEL_21:
               }
 
               v42 = *buffer;
-              v30 = *(v39 + 8);
-              if (v30 >= *(v39 + 16))
+              v30 = v39[1];
+              if (v30 >= v39[2])
               {
                 v32 = std::vector<region>::__emplace_back_slow_path<region>(v39, &v41);
                 v33 = SHIBYTE(v41.__r_.__value_.__r.__words[2]);
-                *(v39 + 8) = v32;
+                v39[1] = v32;
                 if (v33 < 0)
                 {
                   operator delete(v41.__r_.__value_.__l.__data_);
@@ -539,7 +539,7 @@ LABEL_21:
                 *v30 = v31;
                 memset(&v41, 0, sizeof(v41));
                 *(v30 + 24) = v42;
-                *(v39 + 8) = v30 + 32;
+                v39[1] = v30 + 32;
               }
 
               CFRelease(v19);
@@ -568,7 +568,7 @@ LABEL_35:
     free(v38);
     free(v37);
     CFRelease(properties);
-    v34 = *(v39 + 8);
+    v34 = v39[1];
     v35 = 126 - 2 * __clz((v34 - *v39) >> 5);
     if (v34 == *v39)
     {
@@ -640,7 +640,7 @@ uint64_t get_ptmu_region_data(CFStringRef key, unsigned int *a2, unsigned int *a
   return 0;
 }
 
-_BYTE *std::string::basic_string[abi:ne200100]<0>(_BYTE *a1, char *__s)
+void *std::string::basic_string[abi:ne200100]<0>(void *a1, char *__s)
 {
   v4 = strlen(__s);
   if (v4 >= 0x7FFFFFFFFFFFFFF8)
@@ -654,13 +654,13 @@ _BYTE *std::string::basic_string[abi:ne200100]<0>(_BYTE *a1, char *__s)
     operator new();
   }
 
-  a1[23] = v4;
+  *(a1 + 23) = v4;
   if (v4)
   {
     memmove(a1, __s, v4);
   }
 
-  a1[v5] = 0;
+  *(a1 + v5) = 0;
   return a1;
 }
 
@@ -670,16 +670,16 @@ void std::__throw_bad_array_new_length[abi:ne200100]()
   v1 = std::bad_array_new_length::bad_array_new_length(exception);
 }
 
-uint64_t std::vector<region>::__emplace_back_slow_path<region>(uint64_t a1, __int128 *a2)
+uint64_t std::vector<region>::__emplace_back_slow_path<region>(uint64_t *a1, __int128 *a2)
 {
-  v2 = (*(a1 + 8) - *a1) >> 5;
+  v2 = (a1[1] - *a1) >> 5;
   v3 = v2 + 1;
   if ((v2 + 1) >> 59)
   {
     std::vector<region>::__throw_length_error[abi:ne200100]();
   }
 
-  v6 = *(a1 + 16) - *a1;
+  v6 = a1[2] - *a1;
   if (v6 >> 4 > v3)
   {
     v3 = v6 >> 4;
@@ -713,14 +713,14 @@ uint64_t std::vector<region>::__emplace_back_slow_path<region>(uint64_t a1, __in
   *a2 = 0;
   *(v8 + 24) = *(a2 + 3);
   *&v18 = 32 * v2 + 32;
-  v10 = *(a1 + 8);
+  v10 = a1[1];
   v11 = 32 * v2 + *a1 - v10;
   std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<region>,region*>(a1, *a1, v10, v11);
   v12 = *a1;
   *a1 = v11;
-  v13 = *(a1 + 16);
+  v13 = a1[2];
   v15 = v18;
-  *(a1 + 8) = v18;
+  *(a1 + 1) = v18;
   *&v18 = v12;
   *(&v18 + 1) = v13;
   v16 = v12;
@@ -729,9 +729,9 @@ uint64_t std::vector<region>::__emplace_back_slow_path<region>(uint64_t a1, __in
   return v15;
 }
 
-void sub_100001A94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_100001A94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<region>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -850,12 +850,12 @@ void std::__split_buffer<region>::__destruct_at_end[abi:ne200100](uint64_t a1, v
   }
 }
 
-void std::__introsort<std::_ClassicAlgPolicy,get_ptmu_regions(unsigned int,__CFString const*,__CFString const*)::$_0 &,region *,false>(uint64_t *a1, uint64_t a2, uint64_t a3, char a4)
+void std::__introsort<std::_ClassicAlgPolicy,get_ptmu_regions(unsigned int,__CFString const*,__CFString const*)::$_0 &,region *,false>(uint64_t *a1, __int128 *a2, uint64_t a3, char a4)
 {
   v6 = a2;
   v7 = a1;
-  v159 = a2;
-  v160 = a1;
+  v158 = a2;
+  v159 = a1;
   while (1)
   {
     v8 = (v6 - v7) >> 5;
@@ -865,16 +865,16 @@ void std::__introsort<std::_ClassicAlgPolicy,get_ptmu_regions(unsigned int,__CFS
       switch(v8)
       {
         case 3:
-          v159 = (v6 - 32);
-          std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,get_ptmu_regions(unsigned int,__CFString const*,__CFString const*)::$_0 &,region *,0>(v7, (v7 + 4), v6 - 32);
+          v158 = v6 - 2;
+          std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,get_ptmu_regions(unsigned int,__CFString const*,__CFString const*)::$_0 &,region *,0>(v7, (v7 + 4), (v6 - 2));
           return;
         case 4:
-          v159 = (v6 - 32);
+          v158 = v6 - 2;
           std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,get_ptmu_regions(unsigned int,__CFString const*,__CFString const*)::$_0 &,region *,0>(v7, (v7 + 4), (v7 + 8), v6 - 32);
           return;
         case 5:
-          v159 = (v6 - 32);
-          std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,get_ptmu_regions(unsigned int,__CFString const*,__CFString const*)::$_0 &,region *,0>(v7, (v7 + 4), (v7 + 8), (v7 + 12), v6 - 32);
+          v158 = v6 - 2;
+          std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,get_ptmu_regions(unsigned int,__CFString const*,__CFString const*)::$_0 &,region *,0>(v7, (v7 + 4), (v7 + 8), (v7 + 12), (v6 - 2));
           return;
       }
     }
@@ -888,30 +888,30 @@ void std::__introsort<std::_ClassicAlgPolicy,get_ptmu_regions(unsigned int,__CFS
 
       if (v8 == 2)
       {
-        v159 = (v6 - 32);
+        v158 = v6 - 2;
         if (*(v6 - 9) >= 0)
         {
-          v61 = (v6 - 32);
+          v60 = (v6 - 2);
         }
 
         else
         {
-          v61 = *(v6 - 32);
+          v60 = *(v6 - 4);
         }
 
         if (*(v7 + 23) >= 0)
         {
-          v62 = v7;
+          v61 = v7;
         }
 
         else
         {
-          v62 = *v7;
+          v61 = *v7;
         }
 
-        if (strcmp(v61, v62) < 0)
+        if (strcmp(v60, v61) < 0)
         {
-          std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<region *&,region *&>(&v160, &v159);
+          std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<region *&,region *&>(&v159, &v158);
         }
 
         return;
@@ -927,382 +927,382 @@ void std::__introsort<std::_ClassicAlgPolicy,get_ptmu_regions(unsigned int,__CFS
     {
       if (v7 != v6)
       {
-        v155 = v6;
+        v154 = v6;
+        v77 = v9 >> 1;
         v78 = v9 >> 1;
-        v79 = v9 >> 1;
         do
         {
-          v80 = v79;
-          if (v78 >= v79)
+          v79 = v78;
+          if (v77 >= v78)
           {
-            v157 = v79;
-            v81 = (2 * v79) | 1;
-            v82 = &v7[4 * v81];
-            v83 = 2 * v79 + 2;
-            if (v83 >= v8)
+            v156 = v78;
+            v80 = (2 * v78) | 1;
+            v81 = &v7[4 * v80];
+            v82 = 2 * v78 + 2;
+            if (v82 >= v8)
             {
-              v89 = *v82;
+              v88 = *v81;
             }
 
             else
             {
-              v84 = *v82;
-              if (*(v82 + 23) >= 0)
+              v83 = *v81;
+              if (*(v81 + 23) >= 0)
               {
-                v85 = &v7[4 * v81];
+                v84 = &v7[4 * v80];
               }
 
               else
               {
-                v85 = *v82;
+                v84 = *v81;
               }
 
-              v86 = v82[4];
-              if (*(v82 + 55) >= 0)
+              v85 = v81[4];
+              if (*(v81 + 55) >= 0)
               {
-                v87 = (v82 + 4);
-              }
-
-              else
-              {
-                v87 = v82[4];
-              }
-
-              v88 = strcmp(v85, v87);
-              if (v88 >= 0)
-              {
-                v89 = v84;
+                v86 = (v81 + 4);
               }
 
               else
               {
-                v89 = v86;
+                v86 = v81[4];
               }
 
-              if (v88 < 0)
+              v87 = strcmp(v84, v86);
+              if (v87 >= 0)
               {
-                v82 += 4;
-                v81 = v83;
+                v88 = v83;
+              }
+
+              else
+              {
+                v88 = v85;
+              }
+
+              if (v87 < 0)
+              {
+                v81 += 4;
+                v80 = v82;
               }
             }
 
-            v80 = v157;
-            v90 = &v7[4 * v157];
-            if (*(v82 + 23) >= 0)
+            v79 = v156;
+            v89 = &v7[4 * v156];
+            if (*(v81 + 23) >= 0)
             {
-              v91 = v82;
+              v90 = v81;
             }
 
             else
             {
-              v91 = v89;
+              v90 = v88;
             }
 
-            if (*(v90 + 23) >= 0)
+            if (*(v89 + 23) >= 0)
             {
-              v92 = &v7[4 * v157];
+              v91 = &v7[4 * v156];
             }
 
             else
             {
-              v92 = *v90;
+              v91 = *v89;
             }
 
-            if ((strcmp(v91, v92) & 0x80000000) == 0)
+            if ((strcmp(v90, v91) & 0x80000000) == 0)
             {
-              v93 = *v90;
-              v164 = v90[2];
-              v163 = v93;
-              v90[1] = 0;
-              v90[2] = 0;
-              *v90 = 0;
-              v165 = v90[3];
+              v92 = *v89;
+              v163 = v89[2];
+              v162 = v92;
+              v89[1] = 0;
+              v89[2] = 0;
+              *v89 = 0;
+              v164 = v89[3];
               do
               {
-                v94 = v82;
-                if (*(v90 + 23) < 0)
+                v93 = v81;
+                if (*(v89 + 23) < 0)
                 {
-                  operator delete(*v90);
+                  operator delete(*v89);
                 }
 
-                v95 = *v82;
-                v90[2] = v82[2];
-                *v90 = v95;
-                *(v82 + 23) = 0;
-                *v82 = 0;
-                v90[3] = v82[3];
-                if (v78 < v81)
+                v94 = *v81;
+                v89[2] = v81[2];
+                *v89 = v94;
+                *(v81 + 23) = 0;
+                *v81 = 0;
+                v89[3] = v81[3];
+                if (v77 < v80)
                 {
                   break;
                 }
 
-                v96 = (2 * v81) | 1;
-                v82 = &v7[4 * v96];
-                v81 = 2 * v81 + 2;
-                if (v81 >= v8)
+                v95 = (2 * v80) | 1;
+                v81 = &v7[4 * v95];
+                v80 = 2 * v80 + 2;
+                if (v80 >= v8)
                 {
-                  v103 = *v82;
-                  v81 = v96;
+                  v102 = *v81;
+                  v80 = v95;
                 }
 
                 else
                 {
-                  v97 = *v82;
-                  v98 = *(v82 + 23) >= 0 ? &v7[4 * v96] : *v82;
-                  v99 = v78;
-                  v100 = v82[4];
-                  v101 = *(v82 + 55) >= 0 ? (v82 + 4) : v82[4];
-                  v102 = strcmp(v98, v101);
-                  v103 = v102 >= 0 ? v97 : v100;
-                  v78 = v99;
-                  if (v102 >= 0)
+                  v96 = *v81;
+                  v97 = *(v81 + 23) >= 0 ? &v7[4 * v95] : *v81;
+                  v98 = v77;
+                  v99 = v81[4];
+                  v100 = *(v81 + 55) >= 0 ? (v81 + 4) : v81[4];
+                  v101 = strcmp(v97, v100);
+                  v102 = v101 >= 0 ? v96 : v99;
+                  v77 = v98;
+                  if (v101 >= 0)
                   {
-                    v81 = v96;
+                    v80 = v95;
                   }
 
                   else
                   {
-                    v82 += 4;
+                    v81 += 4;
                   }
                 }
 
-                v104 = *(v82 + 23) >= 0 ? v82 : v103;
-                v105 = v164 >= 0 ? &v163 : v163;
-                v90 = v94;
+                v103 = *(v81 + 23) >= 0 ? v81 : v102;
+                v104 = v163 >= 0 ? &v162 : v162;
+                v89 = v93;
               }
 
-              while ((strcmp(v104, v105) & 0x80000000) == 0);
-              if (*(v94 + 23) < 0)
+              while ((strcmp(v103, v104) & 0x80000000) == 0);
+              if (*(v93 + 23) < 0)
               {
-                operator delete(*v94);
+                operator delete(*v93);
               }
 
-              v106 = v163;
-              v94[2] = v164;
-              *v94 = v106;
-              v94[3] = v165;
-              v80 = v157;
+              v105 = v162;
+              v93[2] = v163;
+              *v93 = v105;
+              v93[3] = v164;
+              v79 = v156;
             }
           }
 
-          v79 = v80 - 1;
+          v78 = v79 - 1;
         }
 
-        while (v80);
-        v107 = v155;
+        while (v79);
+        v106 = v154;
         do
         {
-          v108 = 0;
-          v109 = v107;
-          v156 = *v7;
-          *v162 = v7[1];
-          *&v162[7] = *(v7 + 15);
-          v158 = *(v7 + 23);
+          v107 = 0;
+          v108 = v106;
+          v155 = *v7;
+          *v161 = v7[1];
+          *&v161[7] = *(v7 + 15);
+          v157 = *(v7 + 23);
           v7[1] = 0;
           v7[2] = 0;
           *v7 = 0;
-          v110 = v7[3];
-          v111 = v7;
+          v109 = v7[3];
+          v110 = v7;
           do
           {
-            v112 = &v111[4 * v108];
-            v113 = v112 + 4;
-            v114 = (2 * v108) | 1;
-            v108 = 2 * v108 + 2;
-            if (v108 >= v8)
+            v111 = &v110[4 * v107];
+            v112 = v111 + 4;
+            v113 = (2 * v107) | 1;
+            v107 = 2 * v107 + 2;
+            if (v107 >= v8)
             {
-              v108 = v114;
+              v107 = v113;
             }
 
             else
             {
-              v117 = v112[8];
-              v116 = v112 + 8;
-              v115 = v117;
-              if (*(v116 - 9) >= 0)
+              v116 = v111[8];
+              v115 = v111 + 8;
+              v114 = v116;
+              if (*(v115 - 9) >= 0)
               {
-                v118 = v113;
+                v117 = v112;
               }
 
               else
               {
-                v118 = *(v116 - 4);
+                v117 = *(v115 - 4);
               }
 
-              if (*(v116 + 23) >= 0)
+              if (*(v115 + 23) >= 0)
               {
-                v119 = v116;
-              }
-
-              else
-              {
-                v119 = v115;
-              }
-
-              if (strcmp(v118, v119) >= 0)
-              {
-                v108 = v114;
+                v118 = v115;
               }
 
               else
               {
-                v113 = v116;
+                v118 = v114;
+              }
+
+              if (strcmp(v117, v118) >= 0)
+              {
+                v107 = v113;
+              }
+
+              else
+              {
+                v112 = v115;
               }
             }
 
-            if (*(v111 + 23) < 0)
+            if (*(v110 + 23) < 0)
             {
-              operator delete(*v111);
+              operator delete(*v110);
             }
 
-            v120 = *v113;
-            v111[2] = v113[2];
-            *v111 = v120;
-            *(v113 + 23) = 0;
-            *v113 = 0;
-            v111[3] = v113[3];
-            v111 = v113;
+            v119 = *v112;
+            v110[2] = v112[2];
+            *v110 = v119;
+            *(v112 + 23) = 0;
+            *v112 = 0;
+            v110[3] = v112[3];
+            v110 = v112;
           }
 
-          while (v108 <= ((v8 - 2) >> 1));
-          v107 -= 4;
-          v121 = *(v113 + 23);
-          if (v113 == (v109 - 4))
+          while (v107 <= ((v8 - 2) >> 1));
+          v106 -= 4;
+          v120 = *(v112 + 23);
+          if (v112 == (v108 - 4))
           {
-            if (v121 < 0)
+            if (v120 < 0)
             {
-              operator delete(*v113);
+              operator delete(*v112);
             }
 
-            *v113 = v156;
-            v137 = *&v162[7];
-            v113[1] = *v162;
-            *(v113 + 15) = v137;
-            *(v113 + 23) = v158;
-            v113[3] = v110;
+            *v112 = v155;
+            v136 = *&v161[7];
+            v112[1] = *v161;
+            *(v112 + 15) = v136;
+            *(v112 + 23) = v157;
+            v112[3] = v109;
           }
 
           else
           {
-            if (v121 < 0)
+            if (v120 < 0)
             {
-              operator delete(*v113);
+              operator delete(*v112);
             }
 
-            v122 = *v107;
-            v113[2] = *(v109 - 2);
-            *v113 = v122;
-            *(v109 - 9) = 0;
-            *(v109 - 32) = 0;
-            v113[3] = *(v109 - 1);
-            if (*(v109 - 9) < 0)
+            v121 = *v106;
+            v112[2] = *(v108 - 2);
+            *v112 = v121;
+            *(v108 - 9) = 0;
+            *(v108 - 32) = 0;
+            v112[3] = *(v108 - 1);
+            if (*(v108 - 9) < 0)
             {
-              operator delete(*v107);
+              operator delete(*v106);
             }
 
-            *(v109 - 4) = v156;
-            *(v109 - 3) = *v162;
-            *(v109 - 17) = *&v162[7];
-            *(v109 - 9) = v158;
-            *(v109 - 1) = v110;
-            v123 = ((v113 + 4) - v7) >> 5;
-            v124 = v123 < 2;
-            v125 = v123 - 2;
-            if (!v124)
+            *(v108 - 4) = v155;
+            *(v108 - 3) = *v161;
+            *(v108 - 17) = *&v161[7];
+            *(v108 - 9) = v157;
+            *(v108 - 1) = v109;
+            v122 = ((v112 + 4) - v7) >> 5;
+            v123 = v122 < 2;
+            v124 = v122 - 2;
+            if (!v123)
             {
-              v126 = v125 >> 1;
-              v127 = &v7[4 * (v125 >> 1)];
-              v128 = *(v127 + 23) >= 0 ? &v7[4 * (v125 >> 1)] : *v127;
-              v129 = *(v113 + 23) >= 0 ? v113 : *v113;
-              if (strcmp(v128, v129) < 0)
+              v125 = v124 >> 1;
+              v126 = &v7[4 * (v124 >> 1)];
+              v127 = *(v126 + 23) >= 0 ? &v7[4 * (v124 >> 1)] : *v126;
+              v128 = *(v112 + 23) >= 0 ? v112 : *v112;
+              if (strcmp(v127, v128) < 0)
               {
-                v130 = *v113;
-                v131 = v113[3];
-                v164 = v113[2];
-                v163 = v130;
-                v113[1] = 0;
-                v113[2] = 0;
-                *v113 = 0;
-                v165 = v131;
-                if (v164 >= 0)
+                v129 = *v112;
+                v130 = v112[3];
+                v163 = v112[2];
+                v162 = v129;
+                v112[1] = 0;
+                v112[2] = 0;
+                *v112 = 0;
+                v164 = v130;
+                if (v163 >= 0)
                 {
-                  v132 = &v163;
+                  v131 = &v162;
                 }
 
                 else
                 {
-                  v132 = v163;
+                  v131 = v162;
                 }
 
                 do
                 {
-                  v133 = v127;
-                  if (*(v113 + 23) < 0)
+                  v132 = v126;
+                  if (*(v112 + 23) < 0)
                   {
-                    operator delete(*v113);
+                    operator delete(*v112);
                   }
 
-                  v134 = *v127;
-                  v113[2] = v127[2];
-                  *v113 = v134;
-                  *(v127 + 23) = 0;
-                  *v127 = 0;
-                  v113[3] = v127[3];
-                  if (!v126)
+                  v133 = *v126;
+                  v112[2] = v126[2];
+                  *v112 = v133;
+                  *(v126 + 23) = 0;
+                  *v126 = 0;
+                  v112[3] = v126[3];
+                  if (!v125)
                   {
                     break;
                   }
 
-                  v126 = (v126 - 1) >> 1;
-                  v127 = &v7[4 * v126];
-                  v135 = *(v127 + 23) >= 0 ? &v7[4 * v126] : *v127;
-                  v113 = v133;
+                  v125 = (v125 - 1) >> 1;
+                  v126 = &v7[4 * v125];
+                  v134 = *(v126 + 23) >= 0 ? &v7[4 * v125] : *v126;
+                  v112 = v132;
                 }
 
-                while (strcmp(v135, v132) < 0);
-                if (*(v133 + 23) < 0)
+                while (strcmp(v134, v131) < 0);
+                if (*(v132 + 23) < 0)
                 {
-                  operator delete(*v133);
+                  operator delete(*v132);
                 }
 
-                v136 = v163;
-                v133[2] = v164;
-                *v133 = v136;
-                v133[3] = v165;
+                v135 = v162;
+                v132[2] = v163;
+                *v132 = v135;
+                v132[3] = v164;
               }
             }
           }
 
-          v124 = v8-- <= 2;
+          v123 = v8-- <= 2;
         }
 
-        while (!v124);
+        while (!v123);
       }
 
       return;
     }
 
     v10 = v8 >> 1;
-    v11 = v6 - 32;
+    v11 = (v6 - 2);
     if (v8 < 0x81)
     {
       std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,get_ptmu_regions(unsigned int,__CFString const*,__CFString const*)::$_0 &,region *,0>(&v7[4 * (v8 >> 1)], v7, v11);
-      v12 = v160;
+      v12 = v159;
     }
 
     else
     {
       std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,get_ptmu_regions(unsigned int,__CFString const*,__CFString const*)::$_0 &,region *,0>(v7, &v7[4 * (v8 >> 1)], v11);
-      v12 = v160;
-      v13 = &v160[4 * v10];
-      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,get_ptmu_regions(unsigned int,__CFString const*,__CFString const*)::$_0 &,region *,0>((v160 + 4), (v13 - 4), (v159 - 8));
-      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,get_ptmu_regions(unsigned int,__CFString const*,__CFString const*)::$_0 &,region *,0>((v160 + 8), (v13 + 4), (v159 - 12));
+      v12 = v159;
+      v13 = &v159[4 * v10];
+      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,get_ptmu_regions(unsigned int,__CFString const*,__CFString const*)::$_0 &,region *,0>((v159 + 4), (v13 - 4), (v158 - 4));
+      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,get_ptmu_regions(unsigned int,__CFString const*,__CFString const*)::$_0 &,region *,0>((v159 + 8), (v13 + 4), (v158 - 6));
       std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,get_ptmu_regions(unsigned int,__CFString const*,__CFString const*)::$_0 &,region *,0>((v13 - 4), v13, (v13 + 4));
-      v14 = *v160;
-      *&v163 = v160[1];
-      *(&v163 + 7) = *(v160 + 15);
-      v15 = *(v160 + 23);
-      v160[1] = 0;
+      v14 = *v159;
+      *&v162 = v159[1];
+      *(&v162 + 7) = *(v159 + 15);
+      v15 = *(v159 + 23);
+      v159[1] = 0;
       v12[2] = 0;
       *v12 = 0;
       v16 = v12[3];
@@ -1311,10 +1311,10 @@ void std::__introsort<std::_ClassicAlgPolicy,get_ptmu_regions(unsigned int,__CFS
       *v12 = *v13;
       v12[2] = v17;
       v12[3] = v18;
-      v19 = v163;
+      v19 = v162;
       *v13 = v14;
       v13[1] = v19;
-      *(v13 + 15) = *(&v163 + 7);
+      *(v13 + 15) = *(&v162 + 7);
       *(v13 + 23) = v15;
       v13[3] = v16;
     }
@@ -1322,7 +1322,7 @@ void std::__introsort<std::_ClassicAlgPolicy,get_ptmu_regions(unsigned int,__CFS
     --a3;
     if (a4)
     {
-      v20 = v159;
+      v20 = v158;
     }
 
     else
@@ -1347,245 +1347,244 @@ void std::__introsort<std::_ClassicAlgPolicy,get_ptmu_regions(unsigned int,__CFS
         v22 = *v12;
       }
 
-      v20 = v159;
+      v20 = v158;
       if ((strcmp(v21, v22) & 0x80000000) == 0)
       {
-        v161 = v159;
-        v163 = *v12;
-        v42 = v12[2];
-        v43 = v12[3];
+        v160 = v158;
+        v162 = *v12;
+        v41 = v12[2];
+        v42 = v12[3];
         v12[1] = 0;
         v12[2] = 0;
         *v12 = 0;
+        v163 = v41;
         v164 = v42;
-        v165 = v43;
-        if (v42 >= 0)
+        if (v41 >= 0)
         {
-          v44 = &v163;
+          v43 = &v162;
         }
 
         else
         {
-          v44 = v163;
+          v43 = v162;
         }
 
         if (*(v20 - 9) >= 0)
         {
-          v45 = (v20 - 32);
+          v44 = (v20 - 2);
         }
 
         else
         {
-          v45 = *(v20 - 32);
+          v44 = *(v20 - 4);
         }
 
-        if (strcmp(v44, v45) < 0)
+        if (strcmp(v43, v44) < 0)
         {
-          v46 = v12 + 4;
+          v45 = v12 + 4;
           do
           {
-            *v162 = v46;
-            if (*(v46 + 23) >= 0)
+            *v161 = v45;
+            if (*(v45 + 23) >= 0)
             {
-              v47 = v46;
+              v46 = v45;
             }
 
             else
             {
-              v47 = *v46;
+              v46 = *v45;
             }
 
-            v46 += 4;
+            v45 += 4;
           }
 
-          while ((strcmp(v44, v47) & 0x80000000) == 0);
-          v48 = (v46 - 4);
+          while ((strcmp(v43, v46) & 0x80000000) == 0);
+          v47 = (v45 - 4);
         }
 
         else
         {
-          v49 = v12 + 4;
+          v48 = v12 + 4;
           do
           {
-            v48 = v49;
-            *v162 = v49;
-            if (v49 >= v20)
+            v47 = v48;
+            *v161 = v48;
+            if (v48 >= v20)
             {
               break;
             }
 
-            v50 = *(v49 + 23) >= 0 ? v49 : *v49;
-            v51 = strcmp(v44, v50);
-            v49 = (v48 + 32);
+            v49 = *(v48 + 23) >= 0 ? v48 : *v48;
+            v50 = strcmp(v43, v49);
+            v48 = (v47 + 32);
           }
 
-          while ((v51 & 0x80000000) == 0);
+          while ((v50 & 0x80000000) == 0);
         }
 
-        if (v48 < v20)
+        if (v47 < v20)
         {
-          v52 = v20 - 32;
+          v51 = (v20 - 2);
           do
           {
-            v161 = v52;
-            if (*(v52 + 23) >= 0)
+            v160 = v51;
+            if (*(v51 + 23) >= 0)
             {
-              v53 = v52;
+              v52 = v51;
             }
 
             else
             {
-              v53 = *v52;
+              v52 = *v51;
             }
 
-            v52 -= 32;
+            v51 -= 32;
           }
 
-          while (strcmp(v44, v53) < 0);
-          v20 = v52 + 32;
+          while (strcmp(v43, v52) < 0);
+          v20 = (v51 + 32);
         }
 
-        if (v48 < v20)
+        if (v47 < v20)
         {
           do
           {
-            std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<region *&,region *&>(v162, &v161);
-            v54 = *v162 + 32;
+            std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<region *&,region *&>(v161, &v160);
+            v53 = *v161 + 32;
             do
             {
-              *v162 = v54;
-              if (*(v54 + 23) >= 0)
+              *v161 = v53;
+              if (*(v53 + 23) >= 0)
               {
-                v55 = v54;
+                v54 = v53;
               }
 
               else
               {
-                v55 = *v54;
+                v54 = *v53;
               }
 
-              v54 += 32;
+              v53 += 32;
             }
 
-            while ((strcmp(v44, v55) & 0x80000000) == 0);
-            v48 = v54 - 32;
-            v56 = (v161 - 4);
+            while ((strcmp(v43, v54) & 0x80000000) == 0);
+            v47 = v53 - 32;
+            v55 = (v160 - 2);
             do
             {
-              v161 = v56;
-              if (*(v56 + 23) >= 0)
+              v160 = v55;
+              if (*(v55 + 23) >= 0)
               {
-                v57 = v56;
+                v56 = v55;
               }
 
               else
               {
-                v57 = *v56;
+                v56 = *v55;
               }
 
-              v56 -= 32;
+              v55 -= 32;
             }
 
-            while (strcmp(v44, v57) < 0);
+            while (strcmp(v43, v56) < 0);
           }
 
-          while (v48 < v56 + 32);
+          while (v47 < v55 + 32);
         }
 
-        v58 = (v48 - 32);
-        if ((v48 - 32) != v12)
+        v57 = (v47 - 32);
+        if ((v47 - 32) != v12)
         {
           if (*(v12 + 23) < 0)
           {
             operator delete(*v12);
           }
 
-          v59 = *v58;
-          v12[2] = *(v48 - 16);
-          *v12 = v59;
-          *(v48 - 9) = 0;
-          *(v48 - 32) = 0;
-          v12[3] = *(v48 - 8);
+          v58 = *v57;
+          v12[2] = *(v47 - 16);
+          *v12 = v58;
+          *(v47 - 9) = 0;
+          *(v47 - 32) = 0;
+          v12[3] = *(v47 - 8);
         }
 
-        if (*(v48 - 9) < 0)
+        if (*(v47 - 9) < 0)
         {
-          operator delete(*v58);
+          operator delete(*v57);
         }
 
         a4 = 0;
-        v60 = v163;
-        *(v48 - 16) = v164;
-        *v58 = v60;
-        *(v48 - 8) = v43;
-        v7 = *v162;
+        v59 = v162;
+        *(v47 - 16) = v163;
+        *v57 = v59;
+        *(v47 - 8) = v42;
+        v7 = *v161;
         goto LABEL_114;
       }
     }
 
     v23 = 0;
-    v161 = v20;
-    v163 = *v12;
+    v160 = v20;
+    v162 = *v12;
     v24 = v12[2];
     v25 = v12[3];
     v12[1] = 0;
     v12[2] = 0;
     *v12 = 0;
-    v164 = v24;
-    v165 = v25;
+    v163 = v24;
+    v164 = v25;
     if (v24 >= 0)
     {
-      v26 = &v163;
+      v26 = &v162;
     }
 
     else
     {
-      v26 = v163;
+      v26 = v162;
     }
 
     do
     {
-      *v162 = &v12[v23 + 4];
-      v27 = **v162;
+      *v161 = &v12[v23 + 4];
       if (v12[v23 + 6] >= 0)
       {
-        v28 = &v12[v23 + 4];
+        v27 = &v12[v23 + 4];
       }
 
       else
       {
-        v28 = v12[v23 + 4];
+        v27 = v12[v23 + 4];
       }
 
       v23 += 4;
     }
 
-    while (strcmp(v28, v26) < 0);
-    v29 = &v12[v23];
+    while (strcmp(v27, v26) < 0);
+    v28 = &v12[v23];
     if (v23 == 4)
     {
-      v30 = v20 - 32;
+      v29 = (v20 - 2);
       while (1)
       {
-        v32 = v30 + 32;
-        if (v29 >= v30 + 32)
+        v31 = v29 + 32;
+        if (v28 >= v29 + 32)
         {
           break;
         }
 
-        v161 = v30;
-        if (*(v30 + 23) >= 0)
+        v160 = v29;
+        if (*(v29 + 23) >= 0)
         {
-          v33 = v30;
+          v32 = v29;
         }
 
         else
         {
-          v33 = *v30;
+          v32 = *v29;
         }
 
-        v30 -= 32;
-        if (strcmp(v33, v26) < 0)
+        v29 -= 32;
+        if (strcmp(v32, v26) < 0)
         {
           goto LABEL_43;
         }
@@ -1594,77 +1593,77 @@ void std::__introsort<std::_ClassicAlgPolicy,get_ptmu_regions(unsigned int,__CFS
 
     else
     {
-      v30 = v20 - 32;
+      v29 = (v20 - 2);
       do
       {
-        v161 = v30;
-        if (*(v30 + 23) >= 0)
+        v160 = v29;
+        if (*(v29 + 23) >= 0)
         {
-          v31 = v30;
+          v30 = v29;
         }
 
         else
         {
-          v31 = *v30;
+          v30 = *v29;
         }
 
-        v30 -= 32;
+        v29 -= 32;
       }
 
-      while ((strcmp(v31, v26) & 0x80000000) == 0);
+      while ((strcmp(v30, v26) & 0x80000000) == 0);
 LABEL_43:
-      v32 = v30 + 32;
+      v31 = v29 + 32;
     }
 
-    v7 = v29;
-    if (v29 < v32)
+    v7 = v28;
+    if (v28 < v31)
     {
       do
       {
-        std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<region *&,region *&>(v162, &v161);
-        v34 = *v162 + 32;
+        std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<region *&,region *&>(v161, &v160);
+        v33 = *v161 + 32;
         do
         {
-          *v162 = v34;
-          if (*(v34 + 23) >= 0)
+          *v161 = v33;
+          if (*(v33 + 23) >= 0)
           {
-            v35 = v34;
+            v34 = v33;
           }
 
           else
           {
-            v35 = *v34;
+            v34 = *v33;
           }
 
-          v34 += 32;
+          v33 += 32;
         }
 
-        while (strcmp(v35, v26) < 0);
-        v7 = (v34 - 32);
-        v36 = (v161 - 4);
+        while (strcmp(v34, v26) < 0);
+        v7 = (v33 - 32);
+        v35 = (v160 - 2);
         do
         {
-          v161 = v36;
-          if (*(v36 + 23) >= 0)
+          v160 = v35;
+          if (*(v35 + 23) >= 0)
           {
-            v37 = v36;
+            v36 = v35;
           }
 
           else
           {
-            v37 = *v36;
+            v36 = *v35;
           }
 
-          v36 -= 32;
+          v35 -= 32;
         }
 
-        while ((strcmp(v37, v26) & 0x80000000) == 0);
+        while ((strcmp(v36, v26) & 0x80000000) == 0);
       }
 
-      while (v7 < v36 + 32);
+      while (v7 < v35 + 32);
     }
 
-    v38 = (v7 - 4);
+    v37 = (v7 - 4);
     if (v7 - 4 != v12)
     {
       if (*(v12 + 23) < 0)
@@ -1672,9 +1671,9 @@ LABEL_43:
         operator delete(*v12);
       }
 
-      v39 = *v38;
+      v38 = *v37;
       v12[2] = *(v7 - 2);
-      *v12 = v39;
+      *v12 = v38;
       *(v7 - 9) = 0;
       *(v7 - 32) = 0;
       v12[3] = *(v7 - 1);
@@ -1682,258 +1681,258 @@ LABEL_43:
 
     if (*(v7 - 9) < 0)
     {
-      operator delete(*v38);
+      operator delete(*v37);
     }
 
-    v40 = v163;
-    *(v7 - 2) = v164;
-    *v38 = v40;
+    v39 = v162;
+    *(v7 - 2) = v163;
+    *v37 = v39;
     *(v7 - 1) = v25;
-    if (v29 < v32)
+    if (v28 < v31)
     {
       goto LABEL_63;
     }
 
-    v41 = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,get_ptmu_regions(unsigned int,__CFString const*,__CFString const*)::$_0 &,region *>(v160, (v7 - 4));
-    if (!std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,get_ptmu_regions(unsigned int,__CFString const*,__CFString const*)::$_0 &,region *>(v7, v159))
+    v40 = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,get_ptmu_regions(unsigned int,__CFString const*,__CFString const*)::$_0 &,region *>(v159, v7 - 2);
+    if (!std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,get_ptmu_regions(unsigned int,__CFString const*,__CFString const*)::$_0 &,region *>(v7, v158))
     {
-      if (!v41)
+      if (!v40)
       {
 LABEL_63:
-        std::__introsort<std::_ClassicAlgPolicy,get_ptmu_regions(unsigned int,__CFString const*,__CFString const*)::$_0 &,region *,false>(v160, v7 - 4, a3, a4 & 1);
+        std::__introsort<std::_ClassicAlgPolicy,get_ptmu_regions(unsigned int,__CFString const*,__CFString const*)::$_0 &,region *,false>(v159, (v7 - 4), a3, a4 & 1);
         a4 = 0;
       }
 
 LABEL_114:
-      v160 = v7;
+      v159 = v7;
       goto LABEL_115;
     }
 
-    if (v41)
+    if (v40)
     {
       return;
     }
 
-    v159 = v7 - 4;
-    v7 = v160;
+    v158 = (v7 - 4);
+    v7 = v159;
 LABEL_115:
-    v6 = v159;
+    v6 = v158;
   }
 
   if (a4)
   {
     if (v7 != v6)
     {
-      v63 = (v7 + 4);
+      v62 = (v7 + 4);
       if (v7 + 4 != v6)
       {
-        v64 = 0;
-        v65 = v7;
+        v63 = 0;
+        v64 = v7;
         do
         {
-          v66 = v63;
-          if (*(v65 + 55) >= 0)
+          v65 = v62;
+          if (*(v64 + 55) >= 0)
           {
-            v67 = v63;
+            v66 = v62;
           }
 
           else
           {
-            v67 = v65[4];
+            v66 = v64[4];
           }
 
-          if (*(v65 + 23) >= 0)
+          if (*(v64 + 23) >= 0)
           {
-            v68 = v65;
+            v67 = v64;
           }
 
           else
+          {
+            v67 = *v64;
+          }
+
+          if (strcmp(v66, v67) < 0)
           {
             v68 = *v65;
-          }
-
-          if (strcmp(v67, v68) < 0)
-          {
-            v69 = *v66;
-            v164 = *(v66 + 2);
-            v163 = v69;
-            *(v66 + 1) = 0;
-            *(v66 + 2) = 0;
-            *v66 = 0;
-            v165 = v65[7];
-            if (v164 >= 0)
+            v163 = *(v65 + 2);
+            v162 = v68;
+            *(v65 + 1) = 0;
+            *(v65 + 2) = 0;
+            *v65 = 0;
+            v164 = v64[7];
+            if (v163 >= 0)
             {
-              v70 = &v163;
+              v69 = &v162;
             }
 
             else
             {
-              v70 = v163;
+              v69 = v162;
             }
 
-            v71 = v64;
+            v70 = v63;
             while (1)
             {
-              v72 = (v7 + v71);
-              if (*(v7 + v71 + 55) < 0)
+              v71 = (v7 + v70);
+              if (*(v7 + v70 + 55) < 0)
               {
-                operator delete(v72[4]);
+                operator delete(v71[4]);
               }
 
-              *(v72 + 2) = *v72;
-              v73 = v72[2];
-              v74 = v72[3];
-              *(v72 + 23) = 0;
-              *v72 = 0;
-              v72[6] = v73;
-              v72[7] = v74;
-              if (!v71)
+              *(v71 + 2) = *v71;
+              v72 = v71[2];
+              v73 = v71[3];
+              *(v71 + 23) = 0;
+              *v71 = 0;
+              v71[6] = v72;
+              v71[7] = v73;
+              if (!v70)
               {
                 break;
               }
 
-              if (*(v7 + v71 - 9) >= 0)
+              if (*(v7 + v70 - 9) >= 0)
               {
-                v75 = v7 + v71 - 32;
+                v74 = v7 + v70 - 32;
               }
 
               else
               {
-                v75 = *(v7 + v71 - 32);
+                v74 = *(v7 + v70 - 32);
               }
 
-              v71 -= 32;
-              if ((strcmp(v70, v75) & 0x80000000) == 0)
+              v70 -= 32;
+              if ((strcmp(v69, v74) & 0x80000000) == 0)
               {
-                v76 = v7 + v71 + 32;
+                v75 = v7 + v70 + 32;
                 goto LABEL_151;
               }
             }
 
-            v76 = v7;
+            v75 = v7;
 LABEL_151:
-            if (*(v76 + 23) < 0)
+            if (*(v75 + 23) < 0)
             {
-              operator delete(*v76);
+              operator delete(*v75);
             }
 
-            v77 = v163;
-            *(v76 + 16) = v164;
-            *v76 = v77;
-            *(v76 + 24) = v165;
+            v76 = v162;
+            *(v75 + 16) = v163;
+            *v75 = v76;
+            *(v75 + 24) = v164;
           }
 
-          v63 = v66 + 32;
-          v64 += 32;
-          v65 = v66;
+          v62 = v65 + 32;
+          v63 += 32;
+          v64 = v65;
         }
 
-        while (v66 + 32 != v6);
+        while (v65 + 32 != v6);
       }
     }
   }
 
   else if (v7 != v6)
   {
-    v138 = (v7 + 4);
+    v137 = (v7 + 4);
     if (v7 + 4 != v6)
     {
-      v139 = v7 + 7;
+      v138 = v7 + 7;
       do
       {
-        v140 = v138;
+        v139 = v137;
         if (*(v7 + 55) >= 0)
         {
-          v141 = v138;
+          v140 = v137;
         }
 
         else
         {
-          v141 = v7[4];
+          v140 = v7[4];
         }
 
         if (*(v7 + 23) >= 0)
         {
-          v142 = v7;
+          v141 = v7;
         }
 
         else
         {
-          v142 = *v7;
+          v141 = *v7;
         }
 
-        if (strcmp(v141, v142) < 0)
+        if (strcmp(v140, v141) < 0)
         {
-          v143 = *v140;
-          v164 = v140[2];
-          v163 = v143;
-          v140[1] = 0;
-          v140[2] = 0;
-          *v140 = 0;
-          v165 = v7[7];
-          if (v164 >= 0)
+          v142 = *v139;
+          v163 = *(v139 + 2);
+          v162 = v142;
+          *(v139 + 1) = 0;
+          *(v139 + 2) = 0;
+          *v139 = 0;
+          v164 = v7[7];
+          if (v163 >= 0)
           {
-            v144 = &v163;
+            v143 = &v162;
           }
 
           else
           {
-            v144 = v163;
+            v143 = v162;
           }
 
-          v145 = v139;
+          v144 = v138;
           do
           {
-            v146 = (v145 - 3);
-            if (*(v145 - 1) < 0)
+            v145 = (v144 - 3);
+            if (*(v144 - 1) < 0)
             {
-              operator delete(*v146);
+              operator delete(*v145);
             }
 
-            *v146 = *(v145 - 7);
-            *(v145 - 1) = *(v145 - 5);
-            *(v145 - 33) = 0;
-            *(v145 - 56) = 0;
-            v147 = v145 - 4;
-            *v145 = *(v145 - 4);
-            v148 = *(v145 - 65);
-            v151 = *(v145 - 11);
-            v150 = (v145 - 11);
-            v149 = v151;
-            if (v148 >= 0)
+            *v145 = *(v144 - 7);
+            *(v144 - 1) = *(v144 - 5);
+            *(v144 - 33) = 0;
+            *(v144 - 56) = 0;
+            v146 = v144 - 4;
+            *v144 = *(v144 - 4);
+            v147 = *(v144 - 65);
+            v150 = *(v144 - 11);
+            v149 = (v144 - 11);
+            v148 = v150;
+            if (v147 >= 0)
             {
-              v152 = v150;
+              v151 = v149;
             }
 
             else
             {
-              v152 = v149;
+              v151 = v148;
             }
 
-            v145 = v147;
+            v144 = v146;
           }
 
-          while (strcmp(v144, v152) < 0);
-          v153 = (v147 - 3);
-          if (*(v147 - 1) < 0)
+          while (strcmp(v143, v151) < 0);
+          v152 = (v146 - 3);
+          if (*(v146 - 1) < 0)
           {
-            operator delete(*v153);
+            operator delete(*v152);
           }
 
-          v154 = v163;
-          *(v147 - 1) = v164;
-          *v153 = v154;
-          HIBYTE(v164) = 0;
-          LOBYTE(v163) = 0;
-          *v147 = v165;
+          v153 = v162;
+          *(v146 - 1) = v163;
+          *v152 = v153;
+          HIBYTE(v163) = 0;
+          LOBYTE(v162) = 0;
+          *v146 = v164;
         }
 
-        v138 = (v140 + 4);
-        v139 += 4;
-        v7 = v140;
+        v137 = v139 + 32;
+        v138 += 4;
+        v7 = v139;
       }
 
-      while (v140 + 4 != v6);
+      while (v139 + 32 != v6);
     }
   }
 }
@@ -2058,14 +2057,14 @@ LABEL_31:
   }
 }
 
-void std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,get_ptmu_regions(unsigned int,__CFString const*,__CFString const*)::$_0 &,region *,0>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+void std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,get_ptmu_regions(unsigned int,__CFString const*,__CFString const*)::$_0 &,region *,0>(uint64_t a1, uint64_t a2, uint64_t a3, const char *a4)
 {
   v16 = a2;
   v17 = a1;
   v14 = a4;
   v15 = a3;
   std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,get_ptmu_regions(unsigned int,__CFString const*,__CFString const*)::$_0 &,region *,0>(a1, a2, a3);
-  if (*(a4 + 23) >= 0)
+  if (a4[23] >= 0)
   {
     v8 = a4;
   }
@@ -2191,11 +2190,11 @@ void std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,get_ptmu_regions(unsigned
   }
 }
 
-BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,get_ptmu_regions(unsigned int,__CFString const*,__CFString const*)::$_0 &,region *>(uint64_t a1, uint64_t a2)
+BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,get_ptmu_regions(unsigned int,__CFString const*,__CFString const*)::$_0 &,region *>(uint64_t a1, __int128 *a2)
 {
   v2 = a2;
-  v26 = a2;
-  v27 = a1;
+  v25 = a2;
+  v26 = a1;
   v4 = (a2 - a1) >> 5;
   if (v4 <= 2)
   {
@@ -2203,11 +2202,11 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,get_p
     {
       if (v4 == 2)
       {
-        v5 = *(a2 - 32);
-        v26 = a2 - 32;
+        v5 = *(a2 - 4);
+        v25 = a2 - 2;
         if (*(a2 - 9) >= 0)
         {
-          v6 = (a2 - 32);
+          v6 = (a2 - 2);
         }
 
         else
@@ -2227,7 +2226,7 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,get_p
 
         if (strcmp(v6, v7) < 0)
         {
-          std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<region *&,region *&>(&v27, &v26);
+          std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<region *&,region *&>(&v26, &v25);
         }
 
         return 1;
@@ -2242,20 +2241,20 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,get_p
   switch(v4)
   {
     case 3:
-      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,get_ptmu_regions(unsigned int,__CFString const*,__CFString const*)::$_0 &,region *,0>(a1, a1 + 32, a2 - 32);
+      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,get_ptmu_regions(unsigned int,__CFString const*,__CFString const*)::$_0 &,region *,0>(a1, a1 + 32, (a2 - 2));
       return 1;
     case 4:
       std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,get_ptmu_regions(unsigned int,__CFString const*,__CFString const*)::$_0 &,region *,0>(a1, a1 + 32, a1 + 64, a2 - 32);
       return 1;
     case 5:
-      std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,get_ptmu_regions(unsigned int,__CFString const*,__CFString const*)::$_0 &,region *,0>(a1, a1 + 32, a1 + 64, a1 + 96, a2 - 32);
+      std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,get_ptmu_regions(unsigned int,__CFString const*,__CFString const*)::$_0 &,region *,0>(a1, a1 + 32, a1 + 64, a1 + 96, (a2 - 2));
       return 1;
   }
 
 LABEL_17:
-  v8 = a1 + 64;
+  v8 = (a1 + 64);
   std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,get_ptmu_regions(unsigned int,__CFString const*,__CFString const*)::$_0 &,region *,0>(a1, a1 + 32, a1 + 64);
-  v9 = a1 + 96;
+  v9 = (a1 + 96);
   if (v9 == v2)
   {
     return 1;
@@ -2264,7 +2263,7 @@ LABEL_17:
   v10 = 0;
   while (1)
   {
-    if (*(v9 + 23) >= 0)
+    if (v9[23] >= 0)
     {
       v11 = v9;
     }
@@ -2289,58 +2288,57 @@ LABEL_17:
       goto LABEL_41;
     }
 
-    v23 = *v9;
-    v13 = *(v9 + 16);
-    v14 = *(v9 + 24);
-    *(v9 + 8) = 0;
-    *(v9 + 16) = 0;
+    v22 = *v9;
+    v13 = *(v9 + 2);
+    v14 = *(v9 + 3);
+    *(v9 + 1) = 0;
+    *(v9 + 2) = 0;
     *v9 = 0;
-    v24 = v13;
-    v25 = v14;
+    v23 = v13;
+    v24 = v14;
     do
     {
       v15 = v8;
       if (*(v8 + 55) < 0)
       {
-        operator delete(*(v8 + 32));
+        operator delete(v8[4]);
       }
 
-      *(v8 + 32) = *v8;
-      v16 = *(v8 + 16);
-      v17 = *(v8 + 24);
+      *(v8 + 2) = *v8;
+      v16 = v8[2];
+      v17 = v8[3];
       *(v8 + 23) = 0;
       *v8 = 0;
-      *(v8 + 48) = v16;
-      *(v8 + 56) = v17;
-      if (v8 == v27)
+      v8[6] = v16;
+      v8[7] = v17;
+      if (v8 == v26)
       {
         break;
       }
 
-      v8 -= 32;
-      v18 = *(v15 - 32);
-      v19 = v24 >= 0 ? &v23 : v23;
-      v20 = *(v15 - 9) >= 0 ? (v15 - 32) : *(v15 - 32);
+      v8 -= 4;
+      v18 = v23 >= 0 ? &v22 : v22;
+      v19 = *(v15 - 9) >= 0 ? (v15 - 2) : *(v15 - 4);
     }
 
-    while (strcmp(v19, v20) < 0);
+    while (strcmp(v18, v19) < 0);
     if (*(v15 + 23) < 0)
     {
       operator delete(*v15);
     }
 
-    v21 = v23;
-    *(v15 + 16) = v24;
-    *v15 = v21;
-    HIBYTE(v24) = 0;
-    LOBYTE(v23) = 0;
-    *(v15 + 24) = v25;
+    v20 = v22;
+    *(v15 + 2) = v23;
+    *v15 = v20;
+    HIBYTE(v23) = 0;
+    LOBYTE(v22) = 0;
+    *(v15 + 3) = v24;
     if (++v10 == 8)
     {
-      return v9 + 32 == v26;
+      return v9 + 32 == v25;
     }
 
-    v2 = v26;
+    v2 = v25;
 LABEL_41:
     v8 = v9;
     v9 += 32;

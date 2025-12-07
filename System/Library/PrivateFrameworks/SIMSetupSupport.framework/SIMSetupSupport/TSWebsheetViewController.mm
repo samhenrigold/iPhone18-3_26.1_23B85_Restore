@@ -8,6 +8,7 @@
 - (id)_processPool;
 - (id)_webViewConfigurationWithProcessPool:(id)pool;
 - (id)initForRemotePlan:(BOOL)plan carrierName:(id)name skipUIDismissal:(BOOL)dismissal showCarrierWarning:(BOOL)warning;
+- (id)initForRemotePlan:(BOOL)plan carrierName:(id)name viewController:(id)controller;
 - (void)_cancelButtonTapped;
 - (void)_dismissDueToLoadFailure;
 - (void)_doneButtonTapped;
@@ -23,6 +24,9 @@
 - (void)prepare:(id)prepare;
 - (void)scrollViewDidScroll:(id)scroll;
 - (void)userContentController:(id)controller didReceiveScriptMessage:(id)message;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewWillAppear:(BOOL)appear;
+- (void)viewWillDisappear:(BOOL)disappear;
 - (void)webView:(id)view decidePolicyForNavigationAction:(id)action decisionHandler:(id)handler;
 - (void)webView:(id)view didFailNavigation:(id)navigation withError:(id)error;
 - (void)webView:(id)view didFailProvisionalNavigation:(id)navigation withError:(id)error;
@@ -97,6 +101,20 @@
   return v12;
 }
 
+- (id)initForRemotePlan:(BOOL)plan carrierName:(id)name viewController:(id)controller
+{
+  planCopy = plan;
+  controllerCopy = controller;
+  v10 = [(TSWebsheetViewController *)self initForRemotePlan:planCopy carrierName:name skipUIDismissal:0];
+  v11 = v10;
+  if (v10)
+  {
+    objc_storeStrong(v10 + 129, controller);
+  }
+
+  return v11;
+}
+
 - (TSWebsheetViewController)initWithURL:(id)l postdata:(id)postdata carrierName:(id)name
 {
   lCopy = l;
@@ -121,6 +139,66 @@
   if (!self->_isRemotePlan)
   {
     [(WKWebView *)self->_webView bringSubviewToFront:self->_loadingView];
+  }
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v12.receiver = self;
+  v12.super_class = TSWebsheetViewController;
+  [(TSWebsheetViewController *)&v12 viewWillAppear:appear];
+  currentTitle = self->_currentTitle;
+  navigationItem = [(TSWebsheetViewController *)self navigationItem];
+  [navigationItem setTitle:currentTitle];
+
+  scrollView = [(WKWebView *)self->_webView scrollView];
+  systemGroupedBackgroundColor = [MEMORY[0x277D75348] systemGroupedBackgroundColor];
+  [scrollView setBackgroundColor:systemGroupedBackgroundColor];
+
+  [(TSWebsheetViewController *)self _showCancelButton:1];
+  if (self->_isRemotePlan)
+  {
+    navigationItem2 = [(TSWebsheetViewController *)self navigationItem];
+    [navigationItem2 setHidesBackButton:1];
+  }
+
+  else
+  {
+    if (+[TSUtilities isPad])
+    {
+      v9 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+      v10 = [v9 localizedStringForKey:@"Cellular Data Account" value:&stru_28753DF48 table:@"Localizable"];
+      [(TSWebsheetViewController *)self setTitle:v10];
+    }
+
+    loadingView = self->_loadingView;
+    [(WKWebView *)self->_webView bounds];
+    [(TSCellularSetupLoadingView *)loadingView setFrame:?];
+  }
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = TSWebsheetViewController;
+  [(TSWebsheetViewController *)&v4 viewDidAppear:appear];
+  self->_didViewAppear = 1;
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  v6.receiver = self;
+  v6.super_class = TSWebsheetViewController;
+  [(TSWebsheetViewController *)&v6 viewDidDisappear:disappear];
+  [(WKWebView *)self->_webView setUIDelegate:0];
+  WeakRetained = objc_loadWeakRetained(&self->_wkUserContentController);
+  [WeakRetained removeAllScriptMessageHandlers];
+
+  if ([(TSWebsheetViewController *)self isMovingFromParentViewController])
+  {
+    [(TSWebsheetViewController *)self setDismissCause:0];
+    v5 = objc_loadWeakRetained(&self->_delegate);
+    [v5 viewControllerDidComplete:self];
   }
 }
 
@@ -167,7 +245,7 @@
 - (void)webView:(id)view didFailProvisionalNavigation:(id)navigation withError:(id)error
 {
   errorCopy = error;
-  v7 = _TSLogDomain();
+  v7 = _TSLogDomain(errorCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
     [TSWebsheetViewController webView:didFailProvisionalNavigation:withError:];
@@ -190,9 +268,10 @@
     if (viewController)
     {
       v9 = viewController;
-      if (([(UIViewController *)v9 isProcessCanceled]& 1) != 0 || self->_dismissCause == 1)
+      isProcessCanceled = [(UIViewController *)v9 isProcessCanceled];
+      if ((isProcessCanceled & 1) != 0 || self->_dismissCause == 1)
       {
-        navigationController = _TSLogDomain();
+        navigationController = _TSLogDomain(isProcessCanceled);
         if (os_log_type_enabled(navigationController, OS_LOG_TYPE_DEFAULT))
         {
           v16 = 136315138;
@@ -203,19 +282,19 @@
 
       else
       {
-        v11 = _TSLogDomain();
-        if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+        v12 = _TSLogDomain(isProcessCanceled);
+        if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
         {
           v16 = 136315138;
           v17 = "[TSWebsheetViewController webView:didFinishNavigation:]";
-          _os_log_impl(&dword_262AA8000, v11, OS_LOG_TYPE_DEFAULT, "Start Load the view @%s", &v16, 0xCu);
+          _os_log_impl(&dword_262AA8000, v12, OS_LOG_TYPE_DEFAULT, "Start Load the view @%s", &v16, 0xCu);
         }
 
         navigationController = [(UIViewController *)self->_viewController navigationController];
         [navigationController pushViewController:self animated:1];
       }
 
-      v12 = self->_viewController;
+      v13 = self->_viewController;
       self->_viewController = 0;
     }
   }
@@ -229,11 +308,9 @@
   if (requestLoadedCompletion)
   {
     requestLoadedCompletion[2](requestLoadedCompletion, 1);
-    v14 = self->_requestLoadedCompletion;
+    v15 = self->_requestLoadedCompletion;
     self->_requestLoadedCompletion = 0;
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)webView:(id)view decidePolicyForNavigationAction:(id)action decisionHandler:(id)handler
@@ -246,33 +323,33 @@
 
   v11 = [request URL];
 
-  v12 = _TSLogDomain();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+  v13 = _TSLogDomain(v12);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
   {
     [TSWebsheetViewController webView:decidePolicyForNavigationAction:decisionHandler:];
   }
 
   scheme = [v11 scheme];
-  v14 = [scheme isEqualToString:@"tel"];
+  v15 = [scheme isEqualToString:@"tel"];
 
-  if (v14 && [sharedApplication canOpenURL:v11])
+  if (v15 && [sharedApplication canOpenURL:v11])
   {
     [sharedApplication openURL:v11 options:MEMORY[0x277CBEC10] completionHandler:&__block_literal_global_17];
-    v15 = 0;
+    v16 = 0;
   }
 
   else
   {
-    v15 = 1;
+    v16 = 1;
   }
 
-  handlerCopy[2](handlerCopy, v15);
+  handlerCopy[2](handlerCopy, v16);
 }
 
 - (void)webView:(id)view didFailNavigation:(id)navigation withError:(id)error
 {
   errorCopy = error;
-  v7 = _TSLogDomain();
+  v7 = _TSLogDomain(errorCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
     [TSWebsheetViewController webView:didFailNavigation:withError:];
@@ -295,17 +372,18 @@
     if (viewController)
     {
       v8 = viewController;
-      if ([(UIViewController *)v8 isProcessCanceled])
+      isProcessCanceled = [(UIViewController *)v8 isProcessCanceled];
+      if (isProcessCanceled)
       {
-        v9 = _TSLogDomain();
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+        v10 = _TSLogDomain(isProcessCanceled);
+        if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
         {
           v12 = 136315138;
           v13 = "[TSWebsheetViewController _webView:renderingProgressDidChange:]";
-          _os_log_impl(&dword_262AA8000, v9, OS_LOG_TYPE_DEFAULT, "Cancel Request set PurchaseFlow to NO then return @%s", &v12, 0xCu);
+          _os_log_impl(&dword_262AA8000, v10, OS_LOG_TYPE_DEFAULT, "Cancel Request set PurchaseFlow to NO then return @%s", &v12, 0xCu);
         }
 
-        v10 = self->_viewController;
+        v11 = self->_viewController;
         self->_viewController = 0;
 
         goto LABEL_10;
@@ -320,8 +398,6 @@
   }
 
 LABEL_10:
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_transferESimInstallationStarted
@@ -339,20 +415,20 @@ LABEL_10:
 
 - (void)userContentController:(id)controller didReceiveScriptMessage:(id)message
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   messageCopy = message;
-  v6 = _TSLogDomain();
+  v6 = _TSLogDomain(messageCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     name = [messageCopy name];
     body = [messageCopy body];
-    v38 = 138412802;
-    v39 = name;
-    v40 = 2112;
-    v41 = body;
-    v42 = 2080;
-    v43 = "[TSWebsheetViewController userContentController:didReceiveScriptMessage:]";
-    _os_log_impl(&dword_262AA8000, v6, OS_LOG_TYPE_DEFAULT, "js callback: %@ - %@ @%s", &v38, 0x20u);
+    v40 = 138412802;
+    v41 = name;
+    v42 = 2112;
+    v43 = body;
+    v44 = 2080;
+    v45 = "[TSWebsheetViewController userContentController:didReceiveScriptMessage:]";
+    _os_log_impl(&dword_262AA8000, v6, OS_LOG_TYPE_DEFAULT, "js callback: %@ - %@ @%s", &v40, 0x20u);
   }
 
   name2 = [messageCopy name];
@@ -367,9 +443,9 @@ LABEL_10:
     }
 
     name4 = [messageCopy name];
-    v15 = [name4 isEqualToString:@"dataPlanTransferAccountUpdatedWithInfo"];
+    v14 = [name4 isEqualToString:@"dataPlanTransferAccountUpdatedWithInfo"];
 
-    if (v15)
+    if (v14)
     {
       body2 = [messageCopy body];
       [(TSWebsheetViewController *)self _handleTransferWithMessageBody:body2];
@@ -377,18 +453,18 @@ LABEL_10:
     }
 
     name5 = [messageCopy name];
-    v17 = [name5 isEqualToString:@"showCancelButtonSelected"];
+    v16 = [name5 isEqualToString:@"showCancelButtonSelected"];
 
-    if (v17)
+    if (v16)
     {
-      WeakRetained = _TSLogDomain();
+      WeakRetained = _TSLogDomain(v17);
       if (os_log_type_enabled(WeakRetained, OS_LOG_TYPE_DEFAULT))
       {
-        v38 = 136315138;
-        v39 = "[TSWebsheetViewController userContentController:didReceiveScriptMessage:]";
+        v40 = 136315138;
+        v41 = "[TSWebsheetViewController userContentController:didReceiveScriptMessage:]";
         v19 = "No longer supported @%s";
 LABEL_17:
-        _os_log_impl(&dword_262AA8000, WeakRetained, OS_LOG_TYPE_DEFAULT, v19, &v38, 0xCu);
+        _os_log_impl(&dword_262AA8000, WeakRetained, OS_LOG_TYPE_DEFAULT, v19, &v40, 0xCu);
       }
     }
 
@@ -399,11 +475,11 @@ LABEL_17:
 
       if (v21)
       {
-        WeakRetained = _TSLogDomain();
+        WeakRetained = _TSLogDomain(v22);
         if (os_log_type_enabled(WeakRetained, OS_LOG_TYPE_DEFAULT))
         {
-          v38 = 136315138;
-          v39 = "[TSWebsheetViewController userContentController:didReceiveScriptMessage:]";
+          v40 = 136315138;
+          v41 = "[TSWebsheetViewController userContentController:didReceiveScriptMessage:]";
           v19 = "No longer supported @%s";
           goto LABEL_17;
         }
@@ -412,39 +488,39 @@ LABEL_17:
       else
       {
         name7 = [messageCopy name];
-        v23 = [name7 isEqualToString:@"doneSelected"];
+        v24 = [name7 isEqualToString:@"doneSelected"];
 
-        if (v23)
+        if (v24)
         {
           [(TSWebsheetViewController *)self _doneButtonTapped];
           goto LABEL_8;
         }
 
         name8 = [messageCopy name];
-        v25 = [name8 isEqualToString:@"dataPlanAccountUpdated"];
+        v26 = [name8 isEqualToString:@"dataPlanAccountUpdated"];
 
-        if (!v25)
+        if (!v26)
         {
           name9 = [messageCopy name];
-          v27 = [name9 isEqualToString:@"showVerifyingIndicator"];
+          v29 = [name9 isEqualToString:@"showVerifyingIndicator"];
 
-          if (v27)
+          if (v29)
           {
             selfCopy2 = self;
-            v29 = 1;
+            v31 = 1;
           }
 
           else
           {
             name10 = [messageCopy name];
-            v31 = [name10 isEqualToString:@"hideVerifyingIndicator"];
+            v33 = [name10 isEqualToString:@"hideVerifyingIndicator"];
 
-            if (!v31)
+            if (!v33)
             {
               name11 = [messageCopy name];
-              v33 = [name11 isEqualToString:@"dismissKeyboard"];
+              v35 = [name11 isEqualToString:@"dismissKeyboard"];
 
-              if (v33)
+              if (v35)
               {
                 WeakRetained = [(TSWebsheetViewController *)self navigationController];
                 [WeakRetained _endPinningInputViews];
@@ -453,9 +529,9 @@ LABEL_17:
               else
               {
                 name12 = [messageCopy name];
-                v35 = [name12 isEqualToString:@"dataPlanAccountCancelled"];
+                v37 = [name12 isEqualToString:@"dataPlanAccountCancelled"];
 
-                if (v35)
+                if (v37)
                 {
                   WeakRetained = objc_loadWeakRetained(&self->_callbackDelegate);
                   [WeakRetained accountCancelled];
@@ -464,9 +540,9 @@ LABEL_17:
                 else
                 {
                   name13 = [messageCopy name];
-                  v37 = [name13 isEqualToString:@"dataPlanPendingRelease"];
+                  v39 = [name13 isEqualToString:@"dataPlanPendingRelease"];
 
-                  if (!v37)
+                  if (!v39)
                   {
                     goto LABEL_8;
                   }
@@ -480,18 +556,18 @@ LABEL_17:
             }
 
             selfCopy2 = self;
-            v29 = 0;
+            v31 = 0;
           }
 
-          [(TSWebsheetViewController *)selfCopy2 _showVerifyingIndicator:v29];
+          [(TSWebsheetViewController *)selfCopy2 _showVerifyingIndicator:v31];
           goto LABEL_8;
         }
 
-        WeakRetained = _TSLogDomain();
+        WeakRetained = _TSLogDomain(v27);
         if (os_log_type_enabled(WeakRetained, OS_LOG_TYPE_DEFAULT))
         {
-          v38 = 136315138;
-          v39 = "[TSWebsheetViewController userContentController:didReceiveScriptMessage:]";
+          v40 = 136315138;
+          v41 = "[TSWebsheetViewController userContentController:didReceiveScriptMessage:]";
           v19 = "No longer handled @%s";
           goto LABEL_17;
         }
@@ -510,8 +586,6 @@ LABEL_7:
 
   [(TSWebsheetViewController *)self _transferESimInstallationStarted];
 LABEL_8:
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)prepare:(id)prepare
@@ -577,13 +651,14 @@ LABEL_8:
   v11 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
   v12 = [v11 pathForResource:@"MessageCallbackHandler" ofType:@"js"];
 
-  v19 = 0;
-  v13 = [MEMORY[0x277CCACA8] stringWithContentsOfFile:v12 encoding:4 error:&v19];
-  v14 = v19;
+  v20 = 0;
+  v13 = [MEMORY[0x277CCACA8] stringWithContentsOfFile:v12 encoding:4 error:&v20];
+  v14 = v20;
+  v15 = v14;
   if (v14)
   {
-    v15 = _TSLogDomain();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v16 = _TSLogDomain(v14);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       [TSWebsheetViewController _webViewConfigurationWithProcessPool:];
     }
@@ -591,27 +666,27 @@ LABEL_8:
 
   if ([v13 length])
   {
-    v16 = objc_alloc_init(MEMORY[0x277CE3830]);
+    v17 = objc_alloc_init(MEMORY[0x277CE3830]);
     if (v13)
     {
-      v17 = [objc_alloc(MEMORY[0x277CE3838]) initWithSource:v13 injectionTime:0 forMainFrameOnly:1];
-      [v16 addUserScript:v17];
+      v18 = [objc_alloc(MEMORY[0x277CE3838]) initWithSource:v13 injectionTime:0 forMainFrameOnly:1];
+      [v17 addUserScript:v18];
     }
 
-    [v16 addScriptMessageHandler:self name:@"dataPlanAccountUpdatedWithIccid"];
-    [v16 addScriptMessageHandler:self name:@"showCancelButtonSelected"];
-    [v16 addScriptMessageHandler:self name:@"hideCancelButtonSelected"];
-    [v16 addScriptMessageHandler:self name:@"dataPlanAccountUpdated"];
-    [v16 addScriptMessageHandler:self name:@"doneSelected"];
-    [v16 addScriptMessageHandler:self name:@"showVerifyingIndicator"];
-    [v16 addScriptMessageHandler:self name:@"hideVerifyingIndicator"];
-    [v16 addScriptMessageHandler:self name:@"dismissKeyboard"];
-    [v16 addScriptMessageHandler:self name:@"dataPlanAccountUpdatedWithInfo"];
-    [v16 addScriptMessageHandler:self name:@"dataPlanTransferAccountUpdatedWithInfo"];
-    [v16 addScriptMessageHandler:self name:@"dataPlanAccountCancelled"];
-    [v16 addScriptMessageHandler:self name:@"dataPlanPendingRelease"];
-    [v9 setUserContentController:v16];
-    objc_storeWeak(&self->_wkUserContentController, v16);
+    [v17 addScriptMessageHandler:self name:@"dataPlanAccountUpdatedWithIccid"];
+    [v17 addScriptMessageHandler:self name:@"showCancelButtonSelected"];
+    [v17 addScriptMessageHandler:self name:@"hideCancelButtonSelected"];
+    [v17 addScriptMessageHandler:self name:@"dataPlanAccountUpdated"];
+    [v17 addScriptMessageHandler:self name:@"doneSelected"];
+    [v17 addScriptMessageHandler:self name:@"showVerifyingIndicator"];
+    [v17 addScriptMessageHandler:self name:@"hideVerifyingIndicator"];
+    [v17 addScriptMessageHandler:self name:@"dismissKeyboard"];
+    [v17 addScriptMessageHandler:self name:@"dataPlanAccountUpdatedWithInfo"];
+    [v17 addScriptMessageHandler:self name:@"dataPlanTransferAccountUpdatedWithInfo"];
+    [v17 addScriptMessageHandler:self name:@"dataPlanAccountCancelled"];
+    [v17 addScriptMessageHandler:self name:@"dataPlanPendingRelease"];
+    [v9 setUserContentController:v17];
+    objc_storeWeak(&self->_wkUserContentController, v17);
   }
 
   return v9;
@@ -637,7 +712,7 @@ LABEL_8:
 
 - (void)_showFailureAlert
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
   v4 = [v3 localizedStringForKey:@"Connection Failed" value:&stru_28753DF48 table:@"Localizable"];
 
@@ -649,49 +724,47 @@ LABEL_8:
   v8 = MEMORY[0x277D750F8];
   v9 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
   v10 = [v9 localizedStringForKey:@"ERROR_OK" value:&stru_28753DF48 table:@"Localizable"];
-  v22[0] = MEMORY[0x277D85DD0];
-  v22[1] = 3221225472;
-  v22[2] = __45__TSWebsheetViewController__showFailureAlert__block_invoke;
-  v22[3] = &unk_279B44550;
-  objc_copyWeak(&v23, &location);
-  v11 = [v8 actionWithTitle:v10 style:0 handler:v22];
+  v21[0] = MEMORY[0x277D85DD0];
+  v21[1] = 3221225472;
+  v21[2] = __45__TSWebsheetViewController__showFailureAlert__block_invoke;
+  v21[3] = &unk_279B44550;
+  objc_copyWeak(&v22, &location);
+  v11 = [v8 actionWithTitle:v10 style:0 handler:v21];
   [v7 addObject:v11];
 
   v12 = [MEMORY[0x277D75110] alertControllerWithTitle:v4 message:v6 preferredStyle:1];
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   v13 = v7;
-  v14 = [v13 countByEnumeratingWithState:&v18 objects:v25 count:16];
+  v14 = [v13 countByEnumeratingWithState:&v17 objects:v24 count:16];
   if (v14)
   {
-    v15 = *v19;
+    v15 = *v18;
     do
     {
       v16 = 0;
       do
       {
-        if (*v19 != v15)
+        if (*v18 != v15)
         {
           objc_enumerationMutation(v13);
         }
 
-        [v12 addAction:{*(*(&v18 + 1) + 8 * v16++), v18}];
+        [v12 addAction:{*(*(&v17 + 1) + 8 * v16++), v17}];
       }
 
       while (v14 != v16);
-      v14 = [v13 countByEnumeratingWithState:&v18 objects:v25 count:16];
+      v14 = [v13 countByEnumeratingWithState:&v17 objects:v24 count:16];
     }
 
     while (v14);
   }
 
   [(TSWebsheetViewController *)self presentViewController:v12 animated:1 completion:0];
-  objc_destroyWeak(&v23);
+  objc_destroyWeak(&v22);
   objc_destroyWeak(&location);
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __45__TSWebsheetViewController__showFailureAlert__block_invoke(uint64_t a1)
@@ -799,19 +872,19 @@ void __45__TSWebsheetViewController__showFailureAlert__block_invoke(uint64_t a1)
 
 - (void)_handlePlanPurchaseWithMessageBody:(id)body
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   bodyCopy = body;
   v5 = bodyCopy;
   if (self->_didReceivePurchaseCallback)
   {
-    v6 = _TSLogDomain();
+    v6 = _TSLogDomain(bodyCopy);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v37 = 136315138;
-      v38 = "[TSWebsheetViewController _handlePlanPurchaseWithMessageBody:]";
+      v48 = 136315138;
+      v49 = "[TSWebsheetViewController _handlePlanPurchaseWithMessageBody:]";
       v7 = "Received 2nd purchase callback - skipping @%s";
 LABEL_10:
-      _os_log_impl(&dword_262AA8000, v6, OS_LOG_TYPE_DEFAULT, v7, &v37, 0xCu);
+      _os_log_impl(&dword_262AA8000, v6, OS_LOG_TYPE_DEFAULT, v7, &v48, 0xCu);
       goto LABEL_56;
     }
 
@@ -821,11 +894,11 @@ LABEL_10:
   self->_didReceivePurchaseCallback = 1;
   if (!bodyCopy)
   {
-    v6 = _TSLogDomain();
+    v6 = _TSLogDomain(0);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v37 = 136315138;
-      v38 = "[TSWebsheetViewController _handlePlanPurchaseWithMessageBody:]";
+      v48 = 136315138;
+      v49 = "[TSWebsheetViewController _handlePlanPurchaseWithMessageBody:]";
       v7 = "Invalid message @%s";
       goto LABEL_10;
     }
@@ -839,7 +912,8 @@ LABEL_56:
   if (objc_opt_isKindOfClass())
   {
     v6 = v5;
-    if ([(TSWebsheetViewController *)self _isHexadecimalString:v6])
+    v8 = [(TSWebsheetViewController *)self _isHexadecimalString:v6];
+    if (v8)
     {
       WeakRetained = objc_loadWeakRetained(&self->_callbackDelegate);
       [WeakRetained didPurchasePlanSuccessfullyWithEid:0 imei:0 meid:0 iccid:v6 alternateSDMP:0 state:0];
@@ -848,36 +922,36 @@ LABEL_55:
       goto LABEL_56;
     }
 
-    WeakRetained = _TSLogDomain();
+    WeakRetained = _TSLogDomain(v8);
     if (!os_log_type_enabled(WeakRetained, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_55;
     }
 
-    v37 = 138412546;
-    v38 = v6;
-    v39 = 2080;
-    v40 = "[TSWebsheetViewController _handlePlanPurchaseWithMessageBody:]";
-    v11 = "Invalid ICCID: %@ @%s";
-    v12 = WeakRetained;
-    v13 = 22;
+    v48 = 138412546;
+    v49 = v6;
+    v50 = 2080;
+    v51 = "[TSWebsheetViewController _handlePlanPurchaseWithMessageBody:]";
+    v12 = "Invalid ICCID: %@ @%s";
+    v13 = WeakRetained;
+    v14 = 22;
 LABEL_18:
-    _os_log_impl(&dword_262AA8000, v12, OS_LOG_TYPE_DEFAULT, v11, &v37, v13);
+    _os_log_impl(&dword_262AA8000, v13, OS_LOG_TYPE_DEFAULT, v12, &v48, v14);
     goto LABEL_55;
   }
 
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v9 = v5;
-    v6 = v9;
+    v10 = v5;
+    v6 = v10;
     if (self->_isRemotePlan)
     {
-      WeakRetained = [v9 objectForKeyedSubscript:@"state"];
+      WeakRetained = [v10 objectForKeyedSubscript:@"state"];
       if (WeakRetained && [(TSWebsheetViewController *)self _isProfilePendingRelease:WeakRetained])
       {
-        v10 = objc_loadWeakRetained(&self->_callbackDelegate);
-        [v10 accountPendingRelease];
+        v11 = objc_loadWeakRetained(&self->_callbackDelegate);
+        [v11 accountPendingRelease];
 LABEL_49:
 
         goto LABEL_55;
@@ -889,599 +963,629 @@ LABEL_49:
       WeakRetained = 0;
     }
 
-    v14 = WeakRetained;
+    v15 = WeakRetained;
     WeakRetained = [v6 objectForKeyedSubscript:@"eid"];
 
-    v15 = WeakRetained != 0;
-    if (WeakRetained && (!isValidNSString(WeakRetained) || [WeakRetained length]!= 32 || ![(TSWebsheetViewController *)self _isHexadecimalString:WeakRetained]))
+    v16 = WeakRetained != 0;
+    if (WeakRetained)
     {
-      v10 = _TSLogDomain();
-      if (!os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      valid = isValidNSString(WeakRetained);
+      if (!valid || (valid = [WeakRetained length], valid != 32) || (valid = [(TSWebsheetViewController *)self _isHexadecimalString:WeakRetained], (valid & 1) == 0))
       {
-        goto LABEL_49;
-      }
+        v11 = _TSLogDomain(valid);
+        if (!os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+        {
+          goto LABEL_49;
+        }
 
-      v37 = 138412546;
-      v38 = WeakRetained;
-      v39 = 2080;
-      v40 = "[TSWebsheetViewController _handlePlanPurchaseWithMessageBody:]";
-      v24 = "Invalid EID: %@ @%s";
-      goto LABEL_48;
+        v48 = 138412546;
+        v49 = WeakRetained;
+        v50 = 2080;
+        v51 = "[TSWebsheetViewController _handlePlanPurchaseWithMessageBody:]";
+        v31 = "Invalid EID: %@ @%s";
+        goto LABEL_48;
+      }
     }
 
-    v16 = [v6 objectForKeyedSubscript:@"imei"];
+    v18 = [v6 objectForKeyedSubscript:@"imei"];
 
-    if (v16)
+    if (v18)
     {
-      if (!isValidNSString(v16) || [v16 length] != 15 && objc_msgSend(v16, "length") != 16 || !-[TSWebsheetViewController _isHexadecimalString:](self, "_isHexadecimalString:", v16))
+      v19 = isValidNSString(v18);
+      if (!v19 || [v18 length]!= 15 && (v19 = [v18 length], v19 != 16) || (v19 = [(TSWebsheetViewController *)self _isHexadecimalString:v18], (v19 & 1) == 0))
       {
-        v25 = _TSLogDomain();
-        if (!os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+        v32 = _TSLogDomain(v19);
+        if (!os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
         {
           goto LABEL_54;
         }
 
-        v37 = 138412546;
-        v38 = v16;
-        v39 = 2080;
-        v40 = "[TSWebsheetViewController _handlePlanPurchaseWithMessageBody:]";
-        v26 = "Invalid IMEI: %@ @%s";
+        v48 = 138412546;
+        v49 = v18;
+        v50 = 2080;
+        v51 = "[TSWebsheetViewController _handlePlanPurchaseWithMessageBody:]";
+        v33 = "Invalid IMEI: %@ @%s";
         goto LABEL_52;
       }
 
-      v15 = 1;
+      v16 = 1;
     }
 
     WeakRetained = [v6 objectForKeyedSubscript:@"meid"];
 
     if (WeakRetained)
     {
-      if (!isValidNSString(WeakRetained) || [WeakRetained length]!= 14 && [WeakRetained length]!= 15 || ![(TSWebsheetViewController *)self _isHexadecimalString:WeakRetained])
+      v20 = isValidNSString(WeakRetained);
+      if (!v20 || [WeakRetained length]!= 14 && (v20 = [WeakRetained length], v20 != 15) || (v20 = [(TSWebsheetViewController *)self _isHexadecimalString:WeakRetained], (v20 & 1) == 0))
       {
-        v10 = _TSLogDomain();
-        if (!os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+        v11 = _TSLogDomain(v20);
+        if (!os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
         {
           goto LABEL_49;
         }
 
-        v37 = 138412546;
-        v38 = WeakRetained;
-        v39 = 2080;
-        v40 = "[TSWebsheetViewController _handlePlanPurchaseWithMessageBody:]";
-        v24 = "Invalid MEID: %@ @%s";
+        v48 = 138412546;
+        v49 = WeakRetained;
+        v50 = 2080;
+        v51 = "[TSWebsheetViewController _handlePlanPurchaseWithMessageBody:]";
+        v31 = "Invalid MEID: %@ @%s";
         goto LABEL_48;
       }
 
-      v15 = 1;
+      v16 = 1;
     }
 
-    v16 = [v6 objectForKeyedSubscript:@"iccid"];
+    v18 = [v6 objectForKeyedSubscript:@"iccid"];
 
-    if (!v16)
+    if (!v18)
     {
-      v30 = _TSLogDomain();
-      if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+      v36 = _TSLogDomain(v21);
+      if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
       {
-        v37 = 136315138;
-        v38 = "[TSWebsheetViewController _handlePlanPurchaseWithMessageBody:]";
-        _os_log_impl(&dword_262AA8000, v30, OS_LOG_TYPE_DEFAULT, "Missing ICCID @%s", &v37, 0xCu);
+        v48 = 136315138;
+        v49 = "[TSWebsheetViewController _handlePlanPurchaseWithMessageBody:]";
+        _os_log_impl(&dword_262AA8000, v36, OS_LOG_TYPE_DEFAULT, "Missing ICCID @%s", &v48, 0xCu);
       }
 
-      v31 = [v6 objectForKeyedSubscript:@"mcc"];
-      if (v31)
+      v37 = [v6 objectForKeyedSubscript:@"mcc"];
+      if (v37)
       {
-        WeakRetained = v31;
-        if (!isValidNSString(v31) || [WeakRetained length]!= 3 || ![(TSWebsheetViewController *)self _isHexadecimalString:WeakRetained])
+        WeakRetained = v37;
+        v38 = isValidNSString(v37);
+        if (!v38 || (v38 = [WeakRetained length], v38 != 3) || (v38 = [(TSWebsheetViewController *)self _isHexadecimalString:WeakRetained], (v38 & 1) == 0))
         {
-          v10 = _TSLogDomain();
-          if (!os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+          v11 = _TSLogDomain(v38);
+          if (!os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
           {
             goto LABEL_49;
           }
 
-          v37 = 138412546;
-          v38 = WeakRetained;
-          v39 = 2080;
-          v40 = "[TSWebsheetViewController _handlePlanPurchaseWithMessageBody:]";
-          v24 = "Invalid mcc: %@ @%s";
+          v48 = 138412546;
+          v49 = WeakRetained;
+          v50 = 2080;
+          v51 = "[TSWebsheetViewController _handlePlanPurchaseWithMessageBody:]";
+          v31 = "Invalid mcc: %@ @%s";
           goto LABEL_48;
         }
 
-        v16 = [v6 objectForKeyedSubscript:@"mnc"];
+        v18 = [v6 objectForKeyedSubscript:@"mnc"];
 
-        if (v16)
+        if (v18)
         {
-          if (isValidNSString(v16) && ([v16 length] == 2 || objc_msgSend(v16, "length") == 3) && -[TSWebsheetViewController _isHexadecimalString:](self, "_isHexadecimalString:", v16))
+          v40 = isValidNSString(v18);
+          if (v40 && ([v18 length]== 2 || (v40 = [v18 length], v40 == 3)) && (v40 = [(TSWebsheetViewController *)self _isHexadecimalString:v18], (v40 & 1) != 0))
           {
             WeakRetained = [v6 objectForKeyedSubscript:@"gid1"];
 
-            if (WeakRetained && (!isValidNSString(WeakRetained) || [WeakRetained length]!= 3 || ![(TSWebsheetViewController *)self _isHexadecimalString:WeakRetained]))
+            if (WeakRetained)
             {
-              v10 = _TSLogDomain();
-              if (!os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+              v41 = isValidNSString(WeakRetained);
+              if (!v41 || (v41 = [WeakRetained length], v41 != 3) || (v41 = [(TSWebsheetViewController *)self _isHexadecimalString:WeakRetained], (v41 & 1) == 0))
               {
-                goto LABEL_49;
+                v11 = _TSLogDomain(v41);
+                if (!os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+                {
+                  goto LABEL_49;
+                }
+
+                v48 = 138412546;
+                v49 = WeakRetained;
+                v50 = 2080;
+                v51 = "[TSWebsheetViewController _handlePlanPurchaseWithMessageBody:]";
+                v31 = "Invalid gid1: %@ @%s";
+                goto LABEL_48;
               }
-
-              v37 = 138412546;
-              v38 = WeakRetained;
-              v39 = 2080;
-              v40 = "[TSWebsheetViewController _handlePlanPurchaseWithMessageBody:]";
-              v24 = "Invalid gid1: %@ @%s";
-              goto LABEL_48;
             }
 
-            v16 = [v6 objectForKeyedSubscript:@"gid2"];
+            v18 = [v6 objectForKeyedSubscript:@"gid2"];
 
-            if (!v16 || isValidNSString(v16) && [v16 length] == 3 && -[TSWebsheetViewController _isHexadecimalString:](self, "_isHexadecimalString:", v16))
+            if (!v18 || (v42 = isValidNSString(v18), v42) && (v42 = [v18 length], v42 == 3) && (v42 = [(TSWebsheetViewController *)self _isHexadecimalString:v18], (v42 & 1) != 0))
             {
-              v25 = objc_loadWeakRetained(&self->_callbackDelegate);
-              v32 = [v6 objectForKeyedSubscript:@"mcc"];
-              v33 = [v6 objectForKeyedSubscript:@"mnc"];
-              v34 = [v6 objectForKeyedSubscript:@"gid1"];
-              v35 = [v6 objectForKeyedSubscript:@"gid2"];
-              v36 = [v6 objectForKeyedSubscript:@"state"];
-              [v25 didPurchasePlanSuccessfullyWithCarrier:v32 mnc:v33 gid1:v34 gid2:v35 state:v36];
+              v32 = objc_loadWeakRetained(&self->_callbackDelegate);
+              v43 = [v6 objectForKeyedSubscript:@"mcc"];
+              v44 = [v6 objectForKeyedSubscript:@"mnc"];
+              v45 = [v6 objectForKeyedSubscript:@"gid1"];
+              v46 = [v6 objectForKeyedSubscript:@"gid2"];
+              v47 = [v6 objectForKeyedSubscript:@"state"];
+              [v32 didPurchasePlanSuccessfullyWithCarrier:v43 mnc:v44 gid1:v45 gid2:v46 state:v47];
 
               goto LABEL_54;
             }
 
-            v25 = _TSLogDomain();
-            if (!os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+            v32 = _TSLogDomain(v42);
+            if (!os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
             {
               goto LABEL_54;
             }
 
-            v37 = 138412546;
-            v38 = v16;
-            v39 = 2080;
-            v40 = "[TSWebsheetViewController _handlePlanPurchaseWithMessageBody:]";
-            v26 = "Invalid gid2: %@ @%s";
+            v48 = 138412546;
+            v49 = v18;
+            v50 = 2080;
+            v51 = "[TSWebsheetViewController _handlePlanPurchaseWithMessageBody:]";
+            v33 = "Invalid gid2: %@ @%s";
           }
 
           else
           {
-            v25 = _TSLogDomain();
-            if (!os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+            v32 = _TSLogDomain(v40);
+            if (!os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
             {
               goto LABEL_54;
             }
 
-            v37 = 138412546;
-            v38 = v16;
-            v39 = 2080;
-            v40 = "[TSWebsheetViewController _handlePlanPurchaseWithMessageBody:]";
-            v26 = "Invalid mnc: %@ @%s";
+            v48 = 138412546;
+            v49 = v18;
+            v50 = 2080;
+            v51 = "[TSWebsheetViewController _handlePlanPurchaseWithMessageBody:]";
+            v33 = "Invalid mnc: %@ @%s";
           }
 
           goto LABEL_52;
         }
 
-        WeakRetained = _TSLogDomain();
+        WeakRetained = _TSLogDomain(v39);
         if (!os_log_type_enabled(WeakRetained, OS_LOG_TYPE_DEFAULT))
         {
           goto LABEL_55;
         }
 
-        v37 = 136315138;
-        v38 = "[TSWebsheetViewController _handlePlanPurchaseWithMessageBody:]";
-        v11 = "Missing mnc @%s";
+        v48 = 136315138;
+        v49 = "[TSWebsheetViewController _handlePlanPurchaseWithMessageBody:]";
+        v12 = "Missing mnc @%s";
       }
 
       else
       {
-        WeakRetained = _TSLogDomain();
+        WeakRetained = _TSLogDomain(0);
         if (!os_log_type_enabled(WeakRetained, OS_LOG_TYPE_DEFAULT))
         {
           goto LABEL_55;
         }
 
-        v37 = 136315138;
-        v38 = "[TSWebsheetViewController _handlePlanPurchaseWithMessageBody:]";
-        v11 = "Missing mcc @%s";
+        v48 = 136315138;
+        v49 = "[TSWebsheetViewController _handlePlanPurchaseWithMessageBody:]";
+        v12 = "Missing mcc @%s";
       }
 
-      v12 = WeakRetained;
-      v13 = 12;
+      v13 = WeakRetained;
+      v14 = 12;
       goto LABEL_18;
     }
 
-    if (isValidNSString(v16) && ([v16 length] == 19 || objc_msgSend(v16, "length") == 20) && -[TSWebsheetViewController _isHexadecimalString:](self, "_isHexadecimalString:", v16))
+    v22 = isValidNSString(v18);
+    if (v22)
     {
-      if (v15)
+      if ([v18 length]== 19 || (v22 = [v18 length], v22 == 20))
       {
-        WeakRetained = [v6 objectForKeyedSubscript:@"alternateSmdpFqdn"];
-
-        if (!WeakRetained || isValidNSString(WeakRetained) && ([MEMORY[0x277CBEBC0] URLWithString:WeakRetained], v17 = objc_claimAutoreleasedReturnValue(), v17, v17))
+        v22 = [(TSWebsheetViewController *)self _isHexadecimalString:v18];
+        if (v22)
         {
-          v10 = objc_loadWeakRetained(&self->_callbackDelegate);
-          v18 = [v6 objectForKeyedSubscript:@"eid"];
-          v19 = [v6 objectForKeyedSubscript:@"imei"];
-          v20 = [v6 objectForKeyedSubscript:@"meid"];
-          v21 = [v6 objectForKeyedSubscript:@"iccid"];
-          v22 = [v6 objectForKeyedSubscript:@"alternateSmdpFqdn"];
-          v23 = [v6 objectForKeyedSubscript:@"state"];
-          [v10 didPurchasePlanSuccessfullyWithEid:v18 imei:v19 meid:v20 iccid:v21 alternateSDMP:v22 state:v23];
+          if (v16)
+          {
+            WeakRetained = [v6 objectForKeyedSubscript:@"alternateSmdpFqdn"];
 
-          goto LABEL_49;
-        }
+            if (!WeakRetained || (v23 = isValidNSString(WeakRetained)) && ([MEMORY[0x277CBEBC0] URLWithString:WeakRetained], v24 = objc_claimAutoreleasedReturnValue(), v24, v24))
+            {
+              v11 = objc_loadWeakRetained(&self->_callbackDelegate);
+              v25 = [v6 objectForKeyedSubscript:@"eid"];
+              v26 = [v6 objectForKeyedSubscript:@"imei"];
+              v27 = [v6 objectForKeyedSubscript:@"meid"];
+              v28 = [v6 objectForKeyedSubscript:@"iccid"];
+              v29 = [v6 objectForKeyedSubscript:@"alternateSmdpFqdn"];
+              v30 = [v6 objectForKeyedSubscript:@"state"];
+              [v11 didPurchasePlanSuccessfullyWithEid:v25 imei:v26 meid:v27 iccid:v28 alternateSDMP:v29 state:v30];
 
-        v10 = _TSLogDomain();
-        if (!os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
-        {
-          goto LABEL_49;
-        }
+              goto LABEL_49;
+            }
 
-        v37 = 138412546;
-        v38 = WeakRetained;
-        v39 = 2080;
-        v40 = "[TSWebsheetViewController _handlePlanPurchaseWithMessageBody:]";
-        v24 = "Invalid alternateSmdpFqdn: %@ @%s";
+            v11 = _TSLogDomain(v23);
+            if (!os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+            {
+              goto LABEL_49;
+            }
+
+            v48 = 138412546;
+            v49 = WeakRetained;
+            v50 = 2080;
+            v51 = "[TSWebsheetViewController _handlePlanPurchaseWithMessageBody:]";
+            v31 = "Invalid alternateSmdpFqdn: %@ @%s";
 LABEL_48:
-        _os_log_impl(&dword_262AA8000, v10, OS_LOG_TYPE_DEFAULT, v24, &v37, 0x16u);
-        goto LABEL_49;
-      }
+            _os_log_impl(&dword_262AA8000, v11, OS_LOG_TYPE_DEFAULT, v31, &v48, 0x16u);
+            goto LABEL_49;
+          }
 
-      v25 = _TSLogDomain();
-      if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
-      {
-        v37 = 136315138;
-        v38 = "[TSWebsheetViewController _handlePlanPurchaseWithMessageBody:]";
-        v26 = "Missing identifier @%s";
-        v27 = v25;
-        v28 = 12;
-        goto LABEL_53;
-      }
+          v32 = _TSLogDomain(v22);
+          if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
+          {
+            v48 = 136315138;
+            v49 = "[TSWebsheetViewController _handlePlanPurchaseWithMessageBody:]";
+            v33 = "Missing identifier @%s";
+            v34 = v32;
+            v35 = 12;
+            goto LABEL_53;
+          }
 
 LABEL_54:
 
-      WeakRetained = v16;
-      goto LABEL_55;
+          WeakRetained = v18;
+          goto LABEL_55;
+        }
+      }
     }
 
-    v25 = _TSLogDomain();
-    if (!os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+    v32 = _TSLogDomain(v22);
+    if (!os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_54;
     }
 
-    v37 = 138412546;
-    v38 = v16;
-    v39 = 2080;
-    v40 = "[TSWebsheetViewController _handlePlanPurchaseWithMessageBody:]";
-    v26 = "Invalid ICCID: %@ @%s";
+    v48 = 138412546;
+    v49 = v18;
+    v50 = 2080;
+    v51 = "[TSWebsheetViewController _handlePlanPurchaseWithMessageBody:]";
+    v33 = "Invalid ICCID: %@ @%s";
 LABEL_52:
-    v27 = v25;
-    v28 = 22;
+    v34 = v32;
+    v35 = 22;
 LABEL_53:
-    _os_log_impl(&dword_262AA8000, v27, OS_LOG_TYPE_DEFAULT, v26, &v37, v28);
+    _os_log_impl(&dword_262AA8000, v34, OS_LOG_TYPE_DEFAULT, v33, &v48, v35);
     goto LABEL_54;
   }
 
 LABEL_57:
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleTransferWithMessageBody:(id)body
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v56 = *MEMORY[0x277D85DE8];
   bodyCopy = body;
   if (!bodyCopy)
   {
-    v6 = _TSLogDomain();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = _TSLogDomain(0);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v42 = "[TSWebsheetViewController _handleTransferWithMessageBody:]";
-      _os_log_impl(&dword_262AA8000, v6, OS_LOG_TYPE_DEFAULT, "Invalid message @%s", buf, 0xCu);
+      v53 = "[TSWebsheetViewController _handleTransferWithMessageBody:]";
+      _os_log_impl(&dword_262AA8000, v7, OS_LOG_TYPE_DEFAULT, "Invalid message @%s", buf, 0xCu);
     }
 
 LABEL_8:
-    v5 = bodyCopy;
-    v7 = [v5 objectForKeyedSubscript:@"eid"];
-    v8 = v7;
-    v9 = v7 != 0;
-    if (v7 && ([v7 length] != 32 || !-[TSWebsheetViewController _isHexadecimalString:](self, "_isHexadecimalString:", v8)))
+    v6 = bodyCopy;
+    v8 = [v6 objectForKeyedSubscript:@"eid"];
+    v9 = v8;
+    v10 = v8 != 0;
+    if (v8)
     {
-      v12 = _TSLogDomain();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      v11 = [v8 length];
+      if (v11 != 32 || (v11 = [(TSWebsheetViewController *)self _isHexadecimalString:v9], (v11 & 1) == 0))
       {
-        *buf = 138412546;
-        v42 = v8;
-        v43 = 2080;
-        v44 = "[TSWebsheetViewController _handleTransferWithMessageBody:]";
-        _os_log_impl(&dword_262AA8000, v12, OS_LOG_TYPE_DEFAULT, "Invalid EID: %@ @%s", buf, 0x16u);
-      }
-
-      goto LABEL_44;
-    }
-
-    v10 = [v5 objectForKeyedSubscript:@"alternateSmdpFqdn"];
-
-    if (v10)
-    {
-      v11 = [MEMORY[0x277CBEBC0] URLWithString:v10];
-
-      if (!v11)
-      {
-        v12 = _TSLogDomain();
-        if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+        v16 = _TSLogDomain(v11);
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412546;
-          v42 = v10;
-          v43 = 2080;
-          v44 = "[TSWebsheetViewController _handleTransferWithMessageBody:]";
-          _os_log_impl(&dword_262AA8000, v12, OS_LOG_TYPE_DEFAULT, "Invalid alternateSmdpFqdn: %@ @%s", buf, 0x16u);
+          v53 = v9;
+          v54 = 2080;
+          v55 = "[TSWebsheetViewController _handleTransferWithMessageBody:]";
+          _os_log_impl(&dword_262AA8000, v16, OS_LOG_TYPE_DEFAULT, "Invalid EID: %@ @%s", buf, 0x16u);
+        }
+
+        goto LABEL_44;
+      }
+    }
+
+    v12 = [v6 objectForKeyedSubscript:@"alternateSmdpFqdn"];
+
+    if (v12)
+    {
+      v13 = [MEMORY[0x277CBEBC0] URLWithString:v12];
+
+      if (!v13)
+      {
+        v16 = _TSLogDomain(v14);
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+        {
+          *buf = 138412546;
+          v53 = v12;
+          v54 = 2080;
+          v55 = "[TSWebsheetViewController _handleTransferWithMessageBody:]";
+          _os_log_impl(&dword_262AA8000, v16, OS_LOG_TYPE_DEFAULT, "Invalid alternateSmdpFqdn: %@ @%s", buf, 0x16u);
         }
 
         goto LABEL_43;
       }
     }
 
-    v12 = [v5 objectForKeyedSubscript:@"targetIccids"];
-    if (v12 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+    v15 = [v6 objectForKeyedSubscript:@"targetIccids"];
+    v16 = v15;
+    if (v15 && (objc_opt_class(), v15 = objc_opt_isKindOfClass(), (v15 & 1) != 0))
     {
-      if (![v12 count])
+      if (![v16 count])
       {
-        v15 = _TSLogDomain();
-        if (!os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+        v20 = _TSLogDomain(0);
+        if (!os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
         {
           goto LABEL_42;
         }
 
         *buf = 136315138;
-        v42 = "[TSWebsheetViewController _handleTransferWithMessageBody:]";
-        v22 = "Missing target ICCIDs @%s";
+        v53 = "[TSWebsheetViewController _handleTransferWithMessageBody:]";
+        v33 = "Missing target ICCIDs @%s";
         goto LABEL_41;
       }
 
-      v13 = [v12 objectAtIndexedSubscript:0];
+      v17 = [v16 objectAtIndexedSubscript:0];
       objc_opt_class();
       isKindOfClass = objc_opt_isKindOfClass();
 
       if (isKindOfClass)
       {
-        v15 = [v12 objectAtIndexedSubscript:0];
-        v16 = [v15 objectForKeyedSubscript:@"imei"];
+        v20 = [v16 objectAtIndexedSubscript:0];
+        v21 = [v20 objectForKeyedSubscript:@"imei"];
 
-        if (v16)
+        if (v21)
         {
-          if ([v16 length] != 15 && objc_msgSend(v16, "length") != 16 || !-[TSWebsheetViewController _isHexadecimalString:](self, "_isHexadecimalString:", v16))
+          if ([v21 length] != 15 && (v22 = objc_msgSend(v21, "length"), v22 != 16) || (v22 = -[TSWebsheetViewController _isHexadecimalString:](self, "_isHexadecimalString:", v21), (v22 & 1) == 0))
           {
-            v24 = _TSLogDomain();
-            if (!os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+            v34 = _TSLogDomain(v22);
+            if (!os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
             {
               goto LABEL_64;
             }
 
             *buf = 138412546;
-            v42 = v16;
-            v43 = 2080;
-            v44 = "[TSWebsheetViewController _handleTransferWithMessageBody:]";
-            v25 = "Invalid IMEI: %@ @%s";
+            v53 = v21;
+            v54 = 2080;
+            v55 = "[TSWebsheetViewController _handleTransferWithMessageBody:]";
+            v35 = "Invalid IMEI: %@ @%s";
             goto LABEL_60;
           }
 
-          v9 = 1;
+          v10 = 1;
         }
 
-        v17 = [v15 objectForKeyedSubscript:@"meid"];
+        v23 = [v20 objectForKeyedSubscript:@"meid"];
 
-        if (v17)
+        if (v23)
         {
-          if ([v17 length] != 14 && objc_msgSend(v17, "length") != 15 || !-[TSWebsheetViewController _isHexadecimalString:](self, "_isHexadecimalString:", v17))
+          if ([v23 length] != 14 && (v24 = objc_msgSend(v23, "length"), v24 != 15) || (v24 = -[TSWebsheetViewController _isHexadecimalString:](self, "_isHexadecimalString:", v23), (v24 & 1) == 0))
           {
-            v24 = _TSLogDomain();
-            if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+            v34 = _TSLogDomain(v24);
+            if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138412546;
-              v42 = v17;
-              v43 = 2080;
-              v44 = "[TSWebsheetViewController _handleTransferWithMessageBody:]";
-              v26 = "Invalid MEID: %@ @%s";
-              v27 = v24;
-              v28 = 22;
+              v53 = v23;
+              v54 = 2080;
+              v55 = "[TSWebsheetViewController _handleTransferWithMessageBody:]";
+              v36 = "Invalid MEID: %@ @%s";
+              v37 = v34;
+              v38 = 22;
 LABEL_56:
-              _os_log_impl(&dword_262AA8000, v27, OS_LOG_TYPE_DEFAULT, v26, buf, v28);
+              _os_log_impl(&dword_262AA8000, v37, OS_LOG_TYPE_DEFAULT, v36, buf, v38);
             }
 
 LABEL_57:
-            v16 = v17;
+            v21 = v23;
             goto LABEL_64;
           }
 
-          v9 = 1;
+          v10 = 1;
         }
 
-        v16 = [v15 objectForKeyedSubscript:@"iccid"];
+        v21 = [v20 objectForKeyedSubscript:@"iccid"];
 
-        if (!v16)
+        if (!v21)
         {
-          v24 = _TSLogDomain();
-          if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+          v34 = _TSLogDomain(v25);
+          if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 136315138;
-            v42 = "[TSWebsheetViewController _handleTransferWithMessageBody:]";
-            _os_log_impl(&dword_262AA8000, v24, OS_LOG_TYPE_DEFAULT, "ICCID missing @%s", buf, 0xCu);
+            v53 = "[TSWebsheetViewController _handleTransferWithMessageBody:]";
+            _os_log_impl(&dword_262AA8000, v34, OS_LOG_TYPE_DEFAULT, "ICCID missing @%s", buf, 0xCu);
           }
 
-          v16 = 0;
+          v21 = 0;
           goto LABEL_64;
         }
 
-        if (([v16 length] == 19 || objc_msgSend(v16, "length") == 20) && -[TSWebsheetViewController _isHexadecimalString:](self, "_isHexadecimalString:", v16))
+        if ([v21 length] == 19 || (v26 = objc_msgSend(v21, "length"), v26 == 20))
         {
-          v17 = [v15 objectForKeyedSubscript:@"src-iccid"];
-
-          if (v17)
+          v26 = [(TSWebsheetViewController *)self _isHexadecimalString:v21];
+          if (v26)
           {
-            if (([v17 length] == 19 || objc_msgSend(v17, "length") == 20) && -[TSWebsheetViewController _isHexadecimalString:](self, "_isHexadecimalString:", v17))
+            v23 = [v20 objectForKeyedSubscript:@"src-iccid"];
+
+            if (v23)
             {
-LABEL_69:
-              if (v9)
+              if ([v23 length] == 19 || (v28 = objc_msgSend(v23, "length"), v28 == 20))
               {
-                v16 = [v15 objectForKeyedSubscript:@"state"];
-
-                if (!v16 || [v16 length] < 0x33)
+                v28 = [(TSWebsheetViewController *)self _isHexadecimalString:v23];
+                if (v28)
                 {
-                  WeakRetained = objc_loadWeakRetained(&self->_callbackDelegate);
-
-                  if (WeakRetained)
+LABEL_69:
+                  if (v10)
                   {
-                    v24 = objc_loadWeakRetained(&self->_callbackDelegate);
-                    v40 = [v5 objectForKeyedSubscript:@"eid"];
-                    v39 = [v15 objectForKeyedSubscript:@"imei"];
-                    v38 = [v15 objectForKeyedSubscript:@"meid"];
-                    v30 = [v15 objectForKeyedSubscript:@"iccid"];
-                    v31 = [v15 objectForKeyedSubscript:@"src-iccid"];
-                    v32 = [v5 objectForKeyedSubscript:@"alternateSmdpFqdn"];
-                    v33 = [v15 objectForKeyedSubscript:@"state"];
-                    [v24 didTransferPlanSuccessfullyWithEid:v40 imei:v39 meid:v38 iccid:v30 srcIccid:v31 alternateSDMP:v32 state:v33];
-                  }
+                    v21 = [v20 objectForKeyedSubscript:@"state"];
 
-                  else
-                  {
-                    v24 = +[TSCellularPlanManagerCache sharedInstance];
-                    v40 = [v5 objectForKeyedSubscript:@"eid"];
-                    v34 = [v15 objectForKeyedSubscript:@"iccid"];
-                    v35 = [v15 objectForKeyedSubscript:@"src-iccid"];
-                    v36 = [v5 objectForKeyedSubscript:@"alternateSmdpFqdn"];
-                    v37 = [v15 objectForKeyedSubscript:@"state"];
-                    [v24 didTransferPlanForEid:v40 iccid:v34 srcIccid:v35 smdpURL:v36 state:v37];
-                  }
+                    if (!v21 || (v39 = [v21 length], v39 < 0x33))
+                    {
+                      WeakRetained = objc_loadWeakRetained(&self->_callbackDelegate);
 
-                  goto LABEL_64;
-                }
+                      if (WeakRetained)
+                      {
+                        v34 = objc_loadWeakRetained(&self->_callbackDelegate);
+                        v51 = [v6 objectForKeyedSubscript:@"eid"];
+                        v50 = [v20 objectForKeyedSubscript:@"imei"];
+                        v49 = [v20 objectForKeyedSubscript:@"meid"];
+                        v41 = [v20 objectForKeyedSubscript:@"iccid"];
+                        v42 = [v20 objectForKeyedSubscript:@"src-iccid"];
+                        v43 = [v6 objectForKeyedSubscript:@"alternateSmdpFqdn"];
+                        v44 = [v20 objectForKeyedSubscript:@"state"];
+                        [v34 didTransferPlanSuccessfullyWithEid:v51 imei:v50 meid:v49 iccid:v41 srcIccid:v42 alternateSDMP:v43 state:v44];
+                      }
 
-                v24 = _TSLogDomain();
-                if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
-                {
-                  *buf = 138412546;
-                  v42 = v16;
-                  v43 = 2080;
-                  v44 = "[TSWebsheetViewController _handleTransferWithMessageBody:]";
-                  v25 = "Invalid state: %@ @%s";
-                  goto LABEL_60;
-                }
+                      else
+                      {
+                        v34 = +[TSCellularPlanManagerCache sharedInstance];
+                        v51 = [v6 objectForKeyedSubscript:@"eid"];
+                        v45 = [v20 objectForKeyedSubscript:@"iccid"];
+                        v46 = [v20 objectForKeyedSubscript:@"src-iccid"];
+                        v47 = [v6 objectForKeyedSubscript:@"alternateSmdpFqdn"];
+                        v48 = [v20 objectForKeyedSubscript:@"state"];
+                        [v34 didTransferPlanForEid:v51 iccid:v45 srcIccid:v46 smdpURL:v47 state:v48];
+                      }
+
+                      goto LABEL_64;
+                    }
+
+                    v34 = _TSLogDomain(v39);
+                    if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
+                    {
+                      *buf = 138412546;
+                      v53 = v21;
+                      v54 = 2080;
+                      v55 = "[TSWebsheetViewController _handleTransferWithMessageBody:]";
+                      v35 = "Invalid state: %@ @%s";
+                      goto LABEL_60;
+                    }
 
 LABEL_64:
 
-                v10 = v16;
-                goto LABEL_42;
+                    v12 = v21;
+                    goto LABEL_42;
+                  }
+
+                  v34 = _TSLogDomain(v28);
+                  if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
+                  {
+                    *buf = 136315138;
+                    v53 = "[TSWebsheetViewController _handleTransferWithMessageBody:]";
+                    v36 = "No identifier found @%s";
+                    v37 = v34;
+                    v38 = 12;
+                    goto LABEL_56;
+                  }
+
+                  goto LABEL_57;
+                }
               }
 
-              v24 = _TSLogDomain();
-              if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+              v29 = _TSLogDomain(v28);
+              if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+              {
+                *buf = 138412546;
+                v53 = v23;
+                v54 = 2080;
+                v55 = "[TSWebsheetViewController _handleTransferWithMessageBody:]";
+                v30 = "Invalid source ICCID: %@ @%s";
+                v31 = v29;
+                v32 = 22;
+LABEL_67:
+                _os_log_impl(&dword_262AA8000, v31, OS_LOG_TYPE_DEFAULT, v30, buf, v32);
+              }
+            }
+
+            else
+            {
+              v29 = _TSLogDomain(v27);
+              if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 136315138;
-                v42 = "[TSWebsheetViewController _handleTransferWithMessageBody:]";
-                v26 = "No identifier found @%s";
-                v27 = v24;
-                v28 = 12;
-                goto LABEL_56;
+                v53 = "[TSWebsheetViewController _handleTransferWithMessageBody:]";
+                v30 = "source ICCID missing @%s";
+                v31 = v29;
+                v32 = 12;
+                goto LABEL_67;
               }
-
-              goto LABEL_57;
             }
 
-            v18 = _TSLogDomain();
-            if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
-            {
-              *buf = 138412546;
-              v42 = v17;
-              v43 = 2080;
-              v44 = "[TSWebsheetViewController _handleTransferWithMessageBody:]";
-              v19 = "Invalid source ICCID: %@ @%s";
-              v20 = v18;
-              v21 = 22;
-LABEL_67:
-              _os_log_impl(&dword_262AA8000, v20, OS_LOG_TYPE_DEFAULT, v19, buf, v21);
-            }
+            goto LABEL_69;
           }
-
-          else
-          {
-            v18 = _TSLogDomain();
-            if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
-            {
-              *buf = 136315138;
-              v42 = "[TSWebsheetViewController _handleTransferWithMessageBody:]";
-              v19 = "source ICCID missing @%s";
-              v20 = v18;
-              v21 = 12;
-              goto LABEL_67;
-            }
-          }
-
-          goto LABEL_69;
         }
 
-        v24 = _TSLogDomain();
-        if (!os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+        v34 = _TSLogDomain(v26);
+        if (!os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
         {
           goto LABEL_64;
         }
 
         *buf = 138412546;
-        v42 = v16;
-        v43 = 2080;
-        v44 = "[TSWebsheetViewController _handleTransferWithMessageBody:]";
-        v25 = "Invalid ICCID: %@ @%s";
+        v53 = v21;
+        v54 = 2080;
+        v55 = "[TSWebsheetViewController _handleTransferWithMessageBody:]";
+        v35 = "Invalid ICCID: %@ @%s";
 LABEL_60:
-        _os_log_impl(&dword_262AA8000, v24, OS_LOG_TYPE_DEFAULT, v25, buf, 0x16u);
+        _os_log_impl(&dword_262AA8000, v34, OS_LOG_TYPE_DEFAULT, v35, buf, 0x16u);
         goto LABEL_64;
       }
 
-      v15 = _TSLogDomain();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+      v20 = _TSLogDomain(v19);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315138;
-        v42 = "[TSWebsheetViewController _handleTransferWithMessageBody:]";
-        v22 = "Invalid target device information @%s";
+        v53 = "[TSWebsheetViewController _handleTransferWithMessageBody:]";
+        v33 = "Invalid target device information @%s";
         goto LABEL_41;
       }
     }
 
     else
     {
-      v15 = _TSLogDomain();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+      v20 = _TSLogDomain(v15);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315138;
-        v42 = "[TSWebsheetViewController _handleTransferWithMessageBody:]";
-        v22 = "Invalid target ICCIDs @%s";
+        v53 = "[TSWebsheetViewController _handleTransferWithMessageBody:]";
+        v33 = "Invalid target ICCIDs @%s";
 LABEL_41:
-        _os_log_impl(&dword_262AA8000, v15, OS_LOG_TYPE_DEFAULT, v22, buf, 0xCu);
+        _os_log_impl(&dword_262AA8000, v20, OS_LOG_TYPE_DEFAULT, v33, buf, 0xCu);
       }
     }
 
 LABEL_42:
 
 LABEL_43:
-    v8 = v10;
+    v9 = v12;
 LABEL_44:
 
     goto LABEL_45;
   }
 
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  v5 = objc_opt_isKindOfClass();
+  if (v5)
   {
     goto LABEL_8;
   }
 
-  v5 = _TSLogDomain();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = _TSLogDomain(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v42 = "[TSWebsheetViewController _handleTransferWithMessageBody:]";
-    _os_log_impl(&dword_262AA8000, v5, OS_LOG_TYPE_DEFAULT, "Invalid body type @%s", buf, 0xCu);
+    v53 = "[TSWebsheetViewController _handleTransferWithMessageBody:]";
+    _os_log_impl(&dword_262AA8000, v6, OS_LOG_TYPE_DEFAULT, "Invalid body type @%s", buf, 0xCu);
   }
 
 LABEL_45:
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_currentLanguageIsRTL
@@ -1545,37 +1649,12 @@ LABEL_45:
   return WeakRetained;
 }
 
-- (void)webView:didFailProvisionalNavigation:withError:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_2(&dword_262AA8000, v0, v1, "[E]Error: %@ @%s", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
 - (void)webView:decidePolicyForNavigationAction:decisionHandler:.cold.1()
 {
-  v4 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
-  v3 = "[TSWebsheetViewController webView:decidePolicyForNavigationAction:decisionHandler:]";
-  _os_log_debug_impl(&dword_262AA8000, v0, OS_LOG_TYPE_DEBUG, "[Db] %@ @%s", v2, 0x16u);
-  v1 = *MEMORY[0x277D85DE8];
-}
-
-- (void)webView:didFailNavigation:withError:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_2(&dword_262AA8000, v0, v1, "[E]Error: %@ @%s", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_webViewConfigurationWithProcessPool:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_2(&dword_262AA8000, v0, v1, "[E]error loading js file: %@ @%s", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  v2 = "[TSWebsheetViewController webView:decidePolicyForNavigationAction:decisionHandler:]";
+  _os_log_debug_impl(&dword_262AA8000, v0, OS_LOG_TYPE_DEBUG, "[Db] %@ @%s", v1, 0x16u);
 }
 
 @end

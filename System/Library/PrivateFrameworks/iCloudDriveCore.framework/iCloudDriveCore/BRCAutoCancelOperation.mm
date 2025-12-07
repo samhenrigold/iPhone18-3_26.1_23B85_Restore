@@ -154,20 +154,4 @@ void __48__BRCAutoCancelOperation__initializeCancelTimer__block_invoke_2(uint64_
   }
 }
 
-void __48__BRCAutoCancelOperation__initializeCancelTimer__block_invoke_2_cold_1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_4(&dword_223E7A000, v0, v1, "[DEBUG] We have observers again for %@ so not cancelling yet%@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-void __48__BRCAutoCancelOperation__initializeCancelTimer__block_invoke_2_cold_2()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_4(&dword_223E7A000, v0, v1, "[DEBUG] No one is waiting on %@ anymore so cancelling%@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
 @end

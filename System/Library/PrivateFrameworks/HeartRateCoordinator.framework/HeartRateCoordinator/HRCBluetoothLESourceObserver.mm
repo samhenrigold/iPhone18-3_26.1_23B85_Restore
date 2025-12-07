@@ -30,7 +30,7 @@
   queueCopy = queue;
   helperCopy = helper;
   delegateCopy = delegate;
-  v11 = hws_get_framework_log();
+  v11 = hws_get_framework_log(delegateCopy);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -81,7 +81,7 @@ void __74__HRCBluetoothLESourceObserver_initWithDelegate_onQueue_connectionHelpe
 
 - (void)dealloc
 {
-  v3 = hws_get_framework_log();
+  v3 = hws_get_framework_log(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -102,27 +102,25 @@ void __74__HRCBluetoothLESourceObserver_initWithDelegate_onQueue_connectionHelpe
 
 - (void)handleUpdatedSourceList:(id)list
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   listCopy = list;
-  v5 = hws_get_framework_log();
+  v5 = hws_get_framework_log(listCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134349056;
-    v12 = [listCopy count];
+    v11 = [listCopy count];
     _os_log_impl(&dword_2521DF000, v5, OS_LOG_TYPE_DEFAULT, "received source list update in the client process with count : %{public}lu", buf, 0xCu);
   }
 
   delegateQueue = self->_delegateQueue;
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __56__HRCBluetoothLESourceObserver_handleUpdatedSourceList___block_invoke;
-  v9[3] = &unk_2796FA8D8;
-  v9[4] = self;
-  v10 = listCopy;
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __56__HRCBluetoothLESourceObserver_handleUpdatedSourceList___block_invoke;
+  v8[3] = &unk_2796FA8D8;
+  v8[4] = self;
+  v9 = listCopy;
   v7 = listCopy;
-  dispatch_async(delegateQueue, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  dispatch_async(delegateQueue, v8);
 }
 
 void __56__HRCBluetoothLESourceObserver_handleUpdatedSourceList___block_invoke(uint64_t a1)

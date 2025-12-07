@@ -42,51 +42,51 @@
 
 - (ATXProactiveSuggestion)highestConfidenceSuggestion
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
+  v30 = 0u;
   v31 = 0u;
   v32 = 0u;
   v33 = 0u;
-  v34 = 0u;
   obj = self->_collections;
-  v24 = [(NSArray *)obj countByEnumeratingWithState:&v31 objects:v36 count:16];
+  v23 = [(NSArray *)obj countByEnumeratingWithState:&v30 objects:v35 count:16];
   v3 = 0;
   v4 = 0;
-  if (v24)
+  if (v23)
   {
     v5 = 0;
-    v23 = *v32;
+    v22 = *v31;
     do
     {
       v6 = 0;
       do
       {
-        if (*v32 != v23)
+        if (*v31 != v22)
         {
           objc_enumerationMutation(obj);
         }
 
-        v25 = v6;
-        v7 = *(*(&v31 + 1) + 8 * v6);
+        v24 = v6;
+        v7 = *(*(&v30 + 1) + 8 * v6);
+        v26 = 0u;
         v27 = 0u;
         v28 = 0u;
         v29 = 0u;
-        v30 = 0u;
         suggestions = [v7 suggestions];
-        v8 = [suggestions countByEnumeratingWithState:&v27 objects:v35 count:16];
+        v8 = [suggestions countByEnumeratingWithState:&v26 objects:v34 count:16];
         if (v8)
         {
           v9 = v8;
-          v10 = *v28;
+          v10 = *v27;
 LABEL_8:
           v11 = 0;
           while (1)
           {
-            if (*v28 != v10)
+            if (*v27 != v10)
             {
               objc_enumerationMutation(suggestions);
             }
 
-            v12 = *(*(&v27 + 1) + 8 * v11);
+            v12 = *(*(&v26 + 1) + 8 * v11);
             if (v5 >= [(NSArray *)self->_scores count])
             {
               break;
@@ -107,7 +107,7 @@ LABEL_8:
 
             if (v9 == ++v11)
             {
-              v9 = [suggestions countByEnumeratingWithState:&v27 objects:v35 count:16];
+              v9 = [suggestions countByEnumeratingWithState:&v26 objects:v34 count:16];
               if (v9)
               {
                 goto LABEL_8;
@@ -118,50 +118,48 @@ LABEL_8:
           }
         }
 
-        v6 = v25 + 1;
+        v6 = v24 + 1;
       }
 
-      while (v25 + 1 != v24);
-      v24 = [(NSArray *)obj countByEnumeratingWithState:&v31 objects:v36 count:16];
+      while (v24 + 1 != v23);
+      v23 = [(NSArray *)obj countByEnumeratingWithState:&v30 objects:v35 count:16];
     }
 
-    while (v24);
+    while (v23);
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
 
 + (BOOL)isValidInputWithCollections:(id)collections scores:(id)scores
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   collectionsCopy = collections;
   scoresCopy = scores;
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
-  v7 = [collectionsCopy countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v7 = [collectionsCopy countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v7)
   {
     v8 = v7;
     v9 = 0;
-    v10 = *v17;
+    v10 = *v16;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v17 != v10)
+        if (*v16 != v10)
         {
           objc_enumerationMutation(collectionsCopy);
         }
 
-        suggestions = [*(*(&v16 + 1) + 8 * i) suggestions];
+        suggestions = [*(*(&v15 + 1) + 8 * i) suggestions];
         v9 += [suggestions count];
       }
 
-      v8 = [collectionsCopy countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v8 = [collectionsCopy countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v8);
@@ -174,7 +172,6 @@ LABEL_8:
 
   v13 = v9 == [scoresCopy count];
 
-  v14 = *MEMORY[0x1E69E9840];
   return v13;
 }
 
@@ -270,7 +267,7 @@ LABEL_13:
   v4 = MEMORY[0x1E69C5D78];
   coderCopy = coder;
   v6 = objc_opt_class();
-  v7 = __atxlog_handle_default();
+  v7 = __atxlog_handle_default(v6);
   v8 = [v4 robustDecodeObjectOfClass:v6 forKey:@"protobufData" withCoder:coderCopy expectNonNull:0 errorDomain:@"com.apple.proactive.ATXSpotlightSuggestionLayout" errorCode:-1 logHandle:v7];
 
   v9 = [(ATXSpotlightSuggestionLayout *)self initWithProtoData:v8];
@@ -291,44 +288,46 @@ LABEL_13:
   if (protoCopy)
   {
     objc_opt_class();
-    if (objc_opt_isKindOfClass())
+    isKindOfClass = objc_opt_isKindOfClass();
+    if (isKindOfClass)
     {
-      v5 = protoCopy;
-      collections = [v5 collections];
-      v7 = [collections _pas_mappedArrayWithTransform:&__block_literal_global_19];
+      v6 = protoCopy;
+      collections = [v6 collections];
+      v8 = [collections _pas_mappedArrayWithTransform:&__block_literal_global_19];
 
-      v8 = objc_alloc_init(MEMORY[0x1E695DF70]);
-      if ([v5 scoresCount])
+      v9 = objc_alloc_init(MEMORY[0x1E695DF70]);
+      if ([v6 scoresCount])
       {
-        v9 = 0;
+        v10 = 0;
         do
         {
-          [v5 scoresAtIndex:v9];
-          v10 = [MEMORY[0x1E696AD98] numberWithDouble:?];
-          [v8 addObject:v10];
+          [v6 scoresAtIndex:v10];
+          v11 = [MEMORY[0x1E696AD98] numberWithDouble:?];
+          [v9 addObject:v11];
 
-          ++v9;
+          ++v10;
         }
 
-        while ([v5 scoresCount]> v9);
+        while ([v6 scoresCount]> v10);
       }
 
-      if ([ATXSpotlightSuggestionLayout isValidInputWithCollections:v7 scores:v8])
+      v12 = [ATXSpotlightSuggestionLayout isValidInputWithCollections:v8 scores:v9];
+      if (v12)
       {
-        v11 = objc_alloc(MEMORY[0x1E696AFB0]);
-        uuidString = [v5 uuidString];
-        v13 = [v11 initWithUUIDString:uuidString];
-        self = [(ATXSpotlightSuggestionLayout *)self initWithCollections:v7 scores:v8 uuid:v13];
+        v13 = objc_alloc(MEMORY[0x1E696AFB0]);
+        uuidString = [v6 uuidString];
+        v15 = [v13 initWithUUIDString:uuidString];
+        self = [(ATXSpotlightSuggestionLayout *)self initWithCollections:v8 scores:v9 uuid:v15];
 
         selfCopy = self;
       }
 
       else
       {
-        v15 = __atxlog_handle_blending();
-        if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
+        v17 = __atxlog_handle_blending(v12);
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
         {
-          [ATXSpotlightSuggestionLayout initWithProto:v15];
+          [ATXSpotlightSuggestionLayout initWithProto:v17];
         }
 
         selfCopy = 0;
@@ -337,10 +336,10 @@ LABEL_13:
 
     else
     {
-      v5 = __atxlog_handle_default();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
+      v6 = __atxlog_handle_default(isKindOfClass);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
       {
-        [(ATXLightweightClientModelCacheUpdate *)self initWithProto:v5];
+        [(ATXLightweightClientModelCacheUpdate *)self initWithProto:v6];
       }
 
       selfCopy = 0;
@@ -362,15 +361,15 @@ ATXSpotlightSuggestionCollection *__46__ATXSpotlightSuggestionLayout_initWithPro
 
   if (v3)
   {
-    v4 = v3;
+    v5 = v3;
   }
 
   else
   {
-    v5 = __atxlog_handle_blending();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
+    v6 = __atxlog_handle_blending(v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
     {
-      __46__ATXSpotlightSuggestionLayout_initWithProto___block_invoke_cold_1(v5);
+      __46__ATXSpotlightSuggestionLayout_initWithProto___block_invoke_cold_1(v6);
     }
   }
 
@@ -398,33 +397,33 @@ ATXSpotlightSuggestionCollection *__46__ATXSpotlightSuggestionLayout_initWithPro
 
 - (id)proto
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   v3 = objc_opt_new();
   uUIDString = [(NSUUID *)self->_uuid UUIDString];
   [v3 setUuidString:uUIDString];
 
   v5 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{-[NSArray count](self->_collections, "count")}];
+  v26 = 0u;
   v27 = 0u;
   v28 = 0u;
   v29 = 0u;
-  v30 = 0u;
   v6 = self->_collections;
-  v7 = [(NSArray *)v6 countByEnumeratingWithState:&v27 objects:v32 count:16];
+  v7 = [(NSArray *)v6 countByEnumeratingWithState:&v26 objects:v31 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v28;
+    v9 = *v27;
     do
     {
       v10 = 0;
       do
       {
-        if (*v28 != v9)
+        if (*v27 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        proto = [*(*(&v27 + 1) + 8 * v10) proto];
+        proto = [*(*(&v26 + 1) + 8 * v10) proto];
         if (proto)
         {
           [v5 addObject:proto];
@@ -432,7 +431,7 @@ ATXSpotlightSuggestionCollection *__46__ATXSpotlightSuggestionLayout_initWithPro
 
         else
         {
-          v12 = __atxlog_handle_default();
+          v12 = __atxlog_handle_default(0);
           if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
           {
             [(ATXSpotlightSuggestionLayout *)&buf proto];
@@ -443,7 +442,7 @@ ATXSpotlightSuggestionCollection *__46__ATXSpotlightSuggestionLayout_initWithPro
       }
 
       while (v8 != v10);
-      v8 = [(NSArray *)v6 countByEnumeratingWithState:&v27 objects:v32 count:16];
+      v8 = [(NSArray *)v6 countByEnumeratingWithState:&v26 objects:v31 count:16];
     }
 
     while (v8);
@@ -452,36 +451,34 @@ ATXSpotlightSuggestionCollection *__46__ATXSpotlightSuggestionLayout_initWithPro
   v13 = [v5 copy];
   [v3 setCollections:v13];
 
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
   v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   v14 = self->_scores;
-  v15 = [(NSArray *)v14 countByEnumeratingWithState:&v21 objects:v31 count:16];
+  v15 = [(NSArray *)v14 countByEnumeratingWithState:&v20 objects:v30 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v22;
+    v17 = *v21;
     do
     {
       for (i = 0; i != v16; ++i)
       {
-        if (*v22 != v17)
+        if (*v21 != v17)
         {
           objc_enumerationMutation(v14);
         }
 
-        [*(*(&v21 + 1) + 8 * i) doubleValue];
+        [*(*(&v20 + 1) + 8 * i) doubleValue];
         [v3 addScores:?];
       }
 
-      v16 = [(NSArray *)v14 countByEnumeratingWithState:&v21 objects:v31 count:16];
+      v16 = [(NSArray *)v14 countByEnumeratingWithState:&v20 objects:v30 count:16];
     }
 
     while (v16);
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 
   return v3;
 }

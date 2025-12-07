@@ -41,7 +41,7 @@
 
 - (id)specifiers
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CBEB18]);
   if ([PSUIWiFiAssistSwitchSpecifier shouldShowWifiAssist:self->_carrierBundleCache])
   {
@@ -95,11 +95,11 @@ LABEL_10:
       capabilities2 = [(PSUICarrierSpaceManager *)self->_carrierSpaceManager capabilities];
       supportsUsage = [capabilities2 supportsUsage];
       currentDevice2 = [MEMORY[0x277D75418] currentDevice];
-      v34[0] = 67109376;
-      v34[1] = supportsUsage;
-      v35 = 1024;
+      v33[0] = 67109376;
+      v33[1] = supportsUsage;
+      v34 = 1024;
       sf_isiPad2 = [currentDevice2 sf_isiPad];
-      _os_log_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEFAULT, "Not adding call time group because it isn't supported (%d) or we're an iPad (%d)", v34, 0xEu);
+      _os_log_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEFAULT, "Not adding call time group because it isn't supported (%d) or we're an iPad (%d)", v33, 0xEu);
     }
 
     goto LABEL_15;
@@ -137,8 +137,6 @@ LABEL_15:
 
   specifiers = [(PSUIResetStatisticsGroup *)resetStatisticsGroup specifiers];
   [v3 addObjectsFromArray:specifiers];
-
-  v32 = *MEMORY[0x277D85DE8];
 
   return v3;
 }

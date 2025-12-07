@@ -16,21 +16,21 @@
 
 - (IMHandleStatusManager)init
 {
-  v12.receiver = self;
-  v12.super_class = IMHandleStatusManager;
-  v4 = [(IMHandleStatusManager *)&v12 init];
-  if (v4)
+  v8.receiver = self;
+  v8.super_class = IMHandleStatusManager;
+  v2 = [(IMHandleStatusManager *)&v8 init];
+  if (v2)
   {
-    v5 = objc_msgSend_strongToStrongObjectsMapTable(MEMORY[0x1E696AD18], v2, v3);
-    observers = v4->_observers;
-    v4->_observers = v5;
+    strongToStrongObjectsMapTable = [MEMORY[0x1E696AD18] strongToStrongObjectsMapTable];
+    observers = v2->_observers;
+    v2->_observers = strongToStrongObjectsMapTable;
 
-    v9 = objc_msgSend_strongToStrongObjectsMapTable(MEMORY[0x1E696AD18], v7, v8);
-    handlesForObserver = v4->_handlesForObserver;
-    v4->_handlesForObserver = v9;
+    strongToStrongObjectsMapTable2 = [MEMORY[0x1E696AD18] strongToStrongObjectsMapTable];
+    handlesForObserver = v2->_handlesForObserver;
+    v2->_handlesForObserver = strongToStrongObjectsMapTable2;
   }
 
-  return v4;
+  return v2;
 }
 
 + (id)sharedInstance
@@ -47,237 +47,228 @@
 
 - (id)acquireObservationAssertionForHandle:(id)handle
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   handleCopy = handle;
-  if (IMOSLoggingEnabled())
-  {
-    v7 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
-    {
-      v10 = objc_msgSend_ID(handleCopy, v8, v9);
-      v39 = 138412290;
-      v40 = v10;
-      _os_log_impl(&dword_1A823F000, v7, OS_LOG_TYPE_INFO, "Vending a new observer for handle %@", &v39, 0xCu);
-    }
-  }
-
-  v11 = objc_msgSend_observers(self, v5, v6);
-  v14 = objc_msgSend_ID(handleCopy, v12, v13);
-  v16 = objc_msgSend_objectForKey_(v11, v15, v14);
-
-  if (!v16)
-  {
-    v16 = objc_msgSend_weakObjectsHashTable(MEMORY[0x1E696AC70], v17, v18);
-    v21 = objc_msgSend_observers(self, v19, v20);
-    v24 = objc_msgSend_ID(handleCopy, v22, v23);
-    objc_msgSend_setObject_forKey_(v21, v25, v16, v24);
-
-    v28 = objc_msgSend_handlesForObserver(self, v26, v27);
-    v31 = objc_msgSend_ID(handleCopy, v29, v30);
-    objc_msgSend_setObject_forKey_(v28, v32, handleCopy, v31);
-  }
-
-  objc_msgSend_beginObservingStatusUpdatesForHandle_(self, v17, handleCopy);
-  v33 = [IMHandleStatusObserverAssertion alloc];
-  v35 = objc_msgSend_initWithHandle_(v33, v34, handleCopy);
-  objc_msgSend_addObject_(v16, v36, v35);
-
-  v37 = *MEMORY[0x1E69E9840];
-
-  return v35;
-}
-
-- (void)invalidateObserver:(id)observer
-{
-  v40 = *MEMORY[0x1E69E9840];
-  observerCopy = observer;
-  if (IMOSLoggingEnabled())
-  {
-    v7 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
-    {
-      v10 = objc_msgSend_handle(observerCopy, v8, v9);
-      v13 = objc_msgSend_ID(v10, v11, v12);
-      v36 = 138412290;
-      v37 = v13;
-      _os_log_impl(&dword_1A823F000, v7, OS_LOG_TYPE_INFO, "Invalidating observer for handle %@", &v36, 0xCu);
-    }
-  }
-
-  v14 = objc_msgSend_observers(self, v5, v6);
-  v17 = objc_msgSend_handle(observerCopy, v15, v16);
-  v20 = objc_msgSend_ID(v17, v18, v19);
-  v22 = objc_msgSend_objectForKey_(v14, v21, v20);
-
-  if (v22)
-  {
-    if (objc_msgSend_containsObject_(v22, v23, observerCopy))
-    {
-      objc_msgSend_removeObject_(v22, v23, observerCopy);
-      if (IMOSLoggingEnabled())
-      {
-        v25 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
-        {
-          v28 = objc_msgSend_handle(observerCopy, v26, v27);
-          v31 = objc_msgSend_ID(v28, v29, v30);
-          v34 = objc_msgSend_count(v22, v32, v33);
-          v36 = 138412546;
-          v37 = v31;
-          v38 = 2048;
-          v39 = v34;
-          _os_log_impl(&dword_1A823F000, v25, OS_LOG_TYPE_INFO, "Remaining observers for handle %@: %lu", &v36, 0x16u);
-        }
-      }
-    }
-  }
-
-  objc_msgSend_adjustObservingStatusForHandles(self, v23, v24);
-
-  v35 = *MEMORY[0x1E69E9840];
-}
-
-- (void)adjustObservingStatusForHandles
-{
-  v48 = *MEMORY[0x1E69E9840];
   if (IMOSLoggingEnabled())
   {
     v5 = OSLogHandleForIMFoundationCategory();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
-      *buf = 0;
-      _os_log_impl(&dword_1A823F000, v5, OS_LOG_TYPE_INFO, "Checking whether to unsubscribe handles", buf, 2u);
+      v6 = [handleCopy ID];
+      v16 = 138412290;
+      v17 = v6;
+      _os_log_impl(&dword_1A823F000, v5, OS_LOG_TYPE_INFO, "Vending a new observer for handle %@", &v16, 0xCu);
     }
   }
 
-  v43 = 0u;
-  v44 = 0u;
-  v41 = 0u;
-  v42 = 0u;
-  v6 = objc_msgSend_observers(self, v3, v4);
-  v9 = objc_msgSend_dictionaryRepresentation(v6, v7, v8);
+  observers = [(IMHandleStatusManager *)self observers];
+  v8 = [handleCopy ID];
+  weakObjectsHashTable = [observers objectForKey:v8];
 
-  v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(v9, v10, &v41, v47, 16);
-  if (v13)
+  if (!weakObjectsHashTable)
   {
-    v15 = *v42;
-    *&v14 = 138412290;
-    v40 = v14;
+    weakObjectsHashTable = [MEMORY[0x1E696AC70] weakObjectsHashTable];
+    observers2 = [(IMHandleStatusManager *)self observers];
+    v11 = [handleCopy ID];
+    [observers2 setObject:weakObjectsHashTable forKey:v11];
+
+    handlesForObserver = [(IMHandleStatusManager *)self handlesForObserver];
+    v13 = [handleCopy ID];
+    [handlesForObserver setObject:handleCopy forKey:v13];
+  }
+
+  [(IMHandleStatusManager *)self beginObservingStatusUpdatesForHandle:handleCopy];
+  v14 = [[IMHandleStatusObserverAssertion alloc] initWithHandle:handleCopy];
+  [weakObjectsHashTable addObject:v14];
+
+  return v14;
+}
+
+- (void)invalidateObserver:(id)observer
+{
+  v20 = *MEMORY[0x1E69E9840];
+  observerCopy = observer;
+  if (IMOSLoggingEnabled())
+  {
+    v5 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+    {
+      handle = [observerCopy handle];
+      v7 = [handle ID];
+      v16 = 138412290;
+      v17 = v7;
+      _os_log_impl(&dword_1A823F000, v5, OS_LOG_TYPE_INFO, "Invalidating observer for handle %@", &v16, 0xCu);
+    }
+  }
+
+  observers = [(IMHandleStatusManager *)self observers];
+  handle2 = [observerCopy handle];
+  v10 = [handle2 ID];
+  v11 = [observers objectForKey:v10];
+
+  if (v11)
+  {
+    if ([v11 containsObject:observerCopy])
+    {
+      [v11 removeObject:observerCopy];
+      if (IMOSLoggingEnabled())
+      {
+        v12 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+        {
+          handle3 = [observerCopy handle];
+          v14 = [handle3 ID];
+          v15 = [v11 count];
+          v16 = 138412546;
+          v17 = v14;
+          v18 = 2048;
+          v19 = v15;
+          _os_log_impl(&dword_1A823F000, v12, OS_LOG_TYPE_INFO, "Remaining observers for handle %@: %lu", &v16, 0x16u);
+        }
+      }
+    }
+  }
+
+  [(IMHandleStatusManager *)self adjustObservingStatusForHandles];
+}
+
+- (void)adjustObservingStatusForHandles
+{
+  v27 = *MEMORY[0x1E69E9840];
+  if (IMOSLoggingEnabled())
+  {
+    v3 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
+    {
+      *buf = 0;
+      _os_log_impl(&dword_1A823F000, v3, OS_LOG_TYPE_INFO, "Checking whether to unsubscribe handles", buf, 2u);
+    }
+  }
+
+  v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
+  observers = [(IMHandleStatusManager *)self observers];
+  dictionaryRepresentation = [observers dictionaryRepresentation];
+
+  v6 = [dictionaryRepresentation countByEnumeratingWithState:&v20 objects:v26 count:16];
+  if (v6)
+  {
+    v8 = *v21;
+    *&v7 = 138412290;
+    v19 = v7;
     do
     {
-      v16 = 0;
+      v9 = 0;
       do
       {
-        if (*v42 != v15)
+        if (*v21 != v8)
         {
-          objc_enumerationMutation(v9);
+          objc_enumerationMutation(dictionaryRepresentation);
         }
 
-        v17 = *(*(&v41 + 1) + 8 * v16);
-        v18 = objc_msgSend_observers(self, v11, v12, v40);
-        v20 = objc_msgSend_objectForKey_(v18, v19, v17);
+        v10 = *(*(&v20 + 1) + 8 * v9);
+        observers2 = [(IMHandleStatusManager *)self observers];
+        v12 = [observers2 objectForKey:v10];
 
-        if (!v20 || !objc_msgSend_count(v20, v21, v22))
+        if (!v12 || ![v12 count])
         {
           if (IMOSLoggingEnabled())
           {
-            v25 = OSLogHandleForIMFoundationCategory();
-            if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
+            v13 = OSLogHandleForIMFoundationCategory();
+            if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
             {
-              *buf = v40;
-              v46 = v17;
-              _os_log_impl(&dword_1A823F000, v25, OS_LOG_TYPE_INFO, "No more observers for handle %@, ending observing status updates", buf, 0xCu);
+              *buf = v19;
+              v25 = v10;
+              _os_log_impl(&dword_1A823F000, v13, OS_LOG_TYPE_INFO, "No more observers for handle %@, ending observing status updates", buf, 0xCu);
             }
           }
 
-          v26 = objc_msgSend_handlesForObserver(self, v23, v24);
-          v28 = objc_msgSend_objectForKey_(v26, v27, v17);
+          handlesForObserver = [(IMHandleStatusManager *)self handlesForObserver];
+          v15 = [handlesForObserver objectForKey:v10];
 
-          if (v28)
+          if (v15)
           {
-            objc_msgSend_endObservingStatusUpdatesForHandle_(self, v29, v28);
-            v32 = objc_msgSend_observers(self, v30, v31);
-            objc_msgSend_removeObjectForKey_(v32, v33, v17);
+            [(IMHandleStatusManager *)self endObservingStatusUpdatesForHandle:v15];
+            observers3 = [(IMHandleStatusManager *)self observers];
+            [observers3 removeObjectForKey:v10];
 
-            v36 = objc_msgSend_handlesForObserver(self, v34, v35);
-            objc_msgSend_removeObjectForKey_(v36, v37, v17);
+            handlesForObserver2 = [(IMHandleStatusManager *)self handlesForObserver];
+            [handlesForObserver2 removeObjectForKey:v10];
           }
 
           else if (IMOSLoggingEnabled())
           {
-            v38 = OSLogHandleForIMFoundationCategory();
-            if (os_log_type_enabled(v38, OS_LOG_TYPE_INFO))
+            v18 = OSLogHandleForIMFoundationCategory();
+            if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
             {
-              *buf = v40;
-              v46 = v17;
-              _os_log_impl(&dword_1A823F000, v38, OS_LOG_TYPE_INFO, "No IMHandle found for handle %@", buf, 0xCu);
+              *buf = v19;
+              v25 = v10;
+              _os_log_impl(&dword_1A823F000, v18, OS_LOG_TYPE_INFO, "No IMHandle found for handle %@", buf, 0xCu);
             }
           }
         }
 
-        ++v16;
+        ++v9;
       }
 
-      while (v13 != v16);
-      v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(v9, v11, &v41, v47, 16);
+      while (v6 != v9);
+      v6 = [dictionaryRepresentation countByEnumeratingWithState:&v20 objects:v26 count:16];
     }
 
-    while (v13);
+    while (v6);
   }
-
-  v39 = *MEMORY[0x1E69E9840];
 }
 
 - (void)beginObservingStatusUpdatesForHandle:(id)handle
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   handleCopy = handle;
   if (IMOSLoggingEnabled())
   {
-    v6 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+    v5 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
-      v9 = objc_msgSend_ID(handleCopy, v7, v8);
-      v12 = 138412290;
-      v13 = v9;
-      _os_log_impl(&dword_1A823F000, v6, OS_LOG_TYPE_INFO, "Status manager beginning observing for handle: %@", &v12, 0xCu);
+      v6 = [handleCopy ID];
+      v7 = 138412290;
+      v8 = v6;
+      _os_log_impl(&dword_1A823F000, v5, OS_LOG_TYPE_INFO, "Status manager beginning observing for handle: %@", &v7, 0xCu);
     }
   }
 
-  objc_msgSend_beginObservingAvailabilityForHandle_(self, v5, handleCopy);
-  objc_msgSend_beginObservingOffGridStateForHandle_(self, v10, handleCopy);
-
-  v11 = *MEMORY[0x1E69E9840];
+  [(IMHandleStatusManager *)self beginObservingAvailabilityForHandle:handleCopy];
+  [(IMHandleStatusManager *)self beginObservingOffGridStateForHandle:handleCopy];
 }
 
 - (void)beginObservingAvailabilityForHandle:(id)handle
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   handleCopy = handle;
-  if (objc_msgSend_isInAppleStoreDemoMode(MEMORY[0x1E69A7EE0], v5, v6))
+  if ([MEMORY[0x1E69A7EE0] isInAppleStoreDemoMode])
   {
     if (IMOSLoggingEnabled())
     {
-      v9 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+      v5 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
-        _os_log_impl(&dword_1A823F000, v9, OS_LOG_TYPE_INFO, "Not beginnign observing availability in Apple Store Demo mode.", buf, 2u);
+        _os_log_impl(&dword_1A823F000, v5, OS_LOG_TYPE_INFO, "Not beginnign observing availability in Apple Store Demo mode.", buf, 2u);
       }
     }
   }
 
   else
   {
-    v10 = objc_msgSend_ID(handleCopy, v7, v8);
+    v6 = [handleCopy ID];
     if (IMOSLoggingEnabled())
     {
-      v11 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+      v7 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v35 = v10;
-        _os_log_impl(&dword_1A823F000, v11, OS_LOG_TYPE_INFO, "Received request to begin observing availability for: %@", buf, 0xCu);
+        v22 = v6;
+        _os_log_impl(&dword_1A823F000, v7, OS_LOG_TYPE_INFO, "Received request to begin observing availability for: %@", buf, 0xCu);
       }
     }
 
@@ -285,134 +276,130 @@
     aBlock[1] = 3221225472;
     aBlock[2] = sub_1A835775C;
     aBlock[3] = &unk_1E7813478;
-    v12 = v10;
-    v33 = v12;
-    v13 = _Block_copy(aBlock);
-    v16 = objc_msgSend_sharedInstance(IMHandleAvailabilityManager, v14, v15);
-    v18 = objc_msgSend_statusSubscriptionForHandle_(v16, v17, handleCopy);
+    v8 = v6;
+    v20 = v8;
+    v9 = _Block_copy(aBlock);
+    v10 = +[IMHandleAvailabilityManager sharedInstance];
+    v11 = [v10 statusSubscriptionForHandle:handleCopy];
 
-    if (v18)
+    if (v11)
     {
-      v13[2](v13, v18);
+      v9[2](v9, v11);
     }
 
     else
     {
       if (IMOSLoggingEnabled())
       {
-        v21 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
+        v12 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
         {
-          v24 = objc_msgSend_ID(handleCopy, v22, v23);
+          v13 = [handleCopy ID];
           *buf = 138412290;
-          v35 = v24;
-          _os_log_impl(&dword_1A823F000, v21, OS_LOG_TYPE_INFO, "Could not find cached subscription for handle: %@. Not observing availability (yet).", buf, 0xCu);
+          v22 = v13;
+          _os_log_impl(&dword_1A823F000, v12, OS_LOG_TYPE_INFO, "Could not find cached subscription for handle: %@. Not observing availability (yet).", buf, 0xCu);
         }
       }
 
-      v25 = objc_msgSend_sharedInstance(IMHandleAvailabilityManager, v19, v20);
-      v28[0] = MEMORY[0x1E69E9820];
-      v28[1] = 3221225472;
-      v28[2] = sub_1A8357A00;
-      v28[3] = &unk_1E78134A0;
-      v29 = handleCopy;
+      v14 = +[IMHandleAvailabilityManager sharedInstance];
+      v15[0] = MEMORY[0x1E69E9820];
+      v15[1] = 3221225472;
+      v15[2] = sub_1A8357A00;
+      v15[3] = &unk_1E78134A0;
+      v16 = handleCopy;
       selfCopy = self;
-      v31 = v13;
-      objc_msgSend_fetchUpdatedStatusForHandle_completion_(v25, v26, v29, v28);
+      v18 = v9;
+      [v14 fetchUpdatedStatusForHandle:v16 completion:v15];
     }
   }
-
-  v27 = *MEMORY[0x1E69E9840];
 }
 
 - (void)endObservingAvailabilityForHandle:(id)handle
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   handleCopy = handle;
-  if (objc_msgSend_isInAppleStoreDemoMode(MEMORY[0x1E69A7EE0], v5, v6))
+  if ([MEMORY[0x1E69A7EE0] isInAppleStoreDemoMode])
   {
     if (IMOSLoggingEnabled())
     {
-      v9 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+      v5 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
-        _os_log_impl(&dword_1A823F000, v9, OS_LOG_TYPE_INFO, "Not ending observing availability in Apple Store Demo mode.", buf, 2u);
+        _os_log_impl(&dword_1A823F000, v5, OS_LOG_TYPE_INFO, "Not ending observing availability in Apple Store Demo mode.", buf, 2u);
       }
     }
   }
 
   else
   {
-    v10 = objc_msgSend_ID(handleCopy, v7, v8);
+    v6 = [handleCopy ID];
     aBlock[0] = MEMORY[0x1E69E9820];
     aBlock[1] = 3221225472;
     aBlock[2] = sub_1A8358024;
     aBlock[3] = &unk_1E7813478;
-    v11 = v10;
-    v33 = v11;
-    v12 = _Block_copy(aBlock);
+    v7 = v6;
+    v20 = v7;
+    v8 = _Block_copy(aBlock);
     if (IMOSLoggingEnabled())
     {
-      v15 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+      v9 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v35 = v11;
-        _os_log_impl(&dword_1A823F000, v15, OS_LOG_TYPE_INFO, "Received request to end observing availability for: %@", buf, 0xCu);
+        v22 = v7;
+        _os_log_impl(&dword_1A823F000, v9, OS_LOG_TYPE_INFO, "Received request to end observing availability for: %@", buf, 0xCu);
       }
     }
 
-    v16 = objc_msgSend_sharedInstance(IMHandleAvailabilityManager, v13, v14);
-    v18 = objc_msgSend_statusSubscriptionForHandle_(v16, v17, handleCopy);
+    v10 = +[IMHandleAvailabilityManager sharedInstance];
+    v11 = [v10 statusSubscriptionForHandle:handleCopy];
 
-    if (v18)
+    if (v11)
     {
-      v12[2](v12, v18);
+      v8[2](v8, v11);
     }
 
     else
     {
       if (IMOSLoggingEnabled())
       {
-        v21 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
+        v12 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
         {
-          v24 = objc_msgSend_ID(handleCopy, v22, v23);
+          v13 = [handleCopy ID];
           *buf = 138412290;
-          v35 = v24;
-          _os_log_impl(&dword_1A823F000, v21, OS_LOG_TYPE_INFO, "Could not find cached subscription for handle: %@. Not observing availability (yet).", buf, 0xCu);
+          v22 = v13;
+          _os_log_impl(&dword_1A823F000, v12, OS_LOG_TYPE_INFO, "Could not find cached subscription for handle: %@. Not observing availability (yet).", buf, 0xCu);
         }
       }
 
-      v25 = objc_msgSend_sharedInstance(IMHandleAvailabilityManager, v19, v20);
-      v28[0] = MEMORY[0x1E69E9820];
-      v28[1] = 3221225472;
-      v28[2] = sub_1A83582C4;
-      v28[3] = &unk_1E78134A0;
-      v29 = handleCopy;
+      v14 = +[IMHandleAvailabilityManager sharedInstance];
+      v15[0] = MEMORY[0x1E69E9820];
+      v15[1] = 3221225472;
+      v15[2] = sub_1A83582C4;
+      v15[3] = &unk_1E78134A0;
+      v16 = handleCopy;
       selfCopy = self;
-      v31 = v12;
-      objc_msgSend_fetchUpdatedStatusForHandle_completion_(v25, v26, v29, v28);
+      v18 = v8;
+      [v14 fetchUpdatedStatusForHandle:v16 completion:v15];
     }
   }
-
-  v27 = *MEMORY[0x1E69E9840];
 }
 
 - (void)beginObservingOffGridStateForHandle:(id)handle
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   handleCopy = handle;
-  v7 = objc_msgSend_ID(handleCopy, v5, v6);
+  v5 = [handleCopy ID];
   if (IMOSLoggingEnabled())
   {
-    v8 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+    v6 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v32 = v7;
-      _os_log_impl(&dword_1A823F000, v8, OS_LOG_TYPE_INFO, "Received request to begin observing offgrid status for: %@", buf, 0xCu);
+      v21 = v5;
+      _os_log_impl(&dword_1A823F000, v6, OS_LOG_TYPE_INFO, "Received request to begin observing offgrid status for: %@", buf, 0xCu);
     }
   }
 
@@ -420,58 +407,56 @@
   aBlock[1] = 3221225472;
   aBlock[2] = sub_1A835886C;
   aBlock[3] = &unk_1E7813478;
-  v9 = v7;
-  v30 = v9;
-  v10 = _Block_copy(aBlock);
-  v13 = objc_msgSend_sharedInstance(MEMORY[0x1E69A80A8], v11, v12);
-  v15 = objc_msgSend_cachedStatusSubscriptionForHandle_(v13, v14, handleCopy);
+  v7 = v5;
+  v19 = v7;
+  v8 = _Block_copy(aBlock);
+  mEMORY[0x1E69A80A8] = [MEMORY[0x1E69A80A8] sharedInstance];
+  v10 = [mEMORY[0x1E69A80A8] cachedStatusSubscriptionForHandle:handleCopy];
 
-  if (v15)
+  if (v10)
   {
-    v10[2](v10, v15);
+    v8[2](v8, v10);
   }
 
   else
   {
     if (IMOSLoggingEnabled())
     {
-      v18 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
+      v11 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
       {
-        v21 = objc_msgSend_ID(handleCopy, v19, v20);
+        v12 = [handleCopy ID];
         *buf = 138412290;
-        v32 = v21;
-        _os_log_impl(&dword_1A823F000, v18, OS_LOG_TYPE_INFO, "Could not find cached subscription for handle: %@. Not observing offgrid status (yet).", buf, 0xCu);
+        v21 = v12;
+        _os_log_impl(&dword_1A823F000, v11, OS_LOG_TYPE_INFO, "Could not find cached subscription for handle: %@. Not observing offgrid status (yet).", buf, 0xCu);
       }
     }
 
-    v22 = objc_msgSend_sharedInstance(MEMORY[0x1E69A80A8], v16, v17);
-    v25[0] = MEMORY[0x1E69E9820];
-    v25[1] = 3221225472;
-    v25[2] = sub_1A8358B10;
-    v25[3] = &unk_1E78134A0;
-    v26 = handleCopy;
+    mEMORY[0x1E69A80A8]2 = [MEMORY[0x1E69A80A8] sharedInstance];
+    v14[0] = MEMORY[0x1E69E9820];
+    v14[1] = 3221225472;
+    v14[2] = sub_1A8358B10;
+    v14[3] = &unk_1E78134A0;
+    v15 = handleCopy;
     selfCopy = self;
-    v28 = v10;
-    objc_msgSend_fetchUpdatedStatusForHandle_completion_(v22, v23, v26, v25);
+    v17 = v8;
+    [mEMORY[0x1E69A80A8]2 fetchUpdatedStatusForHandle:v15 completion:v14];
   }
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 - (void)endObservingOffGridStateForHandle:(id)handle
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   handleCopy = handle;
-  v7 = objc_msgSend_ID(handleCopy, v5, v6);
+  v5 = [handleCopy ID];
   if (IMOSLoggingEnabled())
   {
-    v8 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+    v6 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v32 = v7;
-      _os_log_impl(&dword_1A823F000, v8, OS_LOG_TYPE_INFO, "Received request to end observing offgrid status for: %@", buf, 0xCu);
+      v21 = v5;
+      _os_log_impl(&dword_1A823F000, v6, OS_LOG_TYPE_INFO, "Received request to end observing offgrid status for: %@", buf, 0xCu);
     }
   }
 
@@ -479,65 +464,61 @@
   aBlock[1] = 3221225472;
   aBlock[2] = sub_1A83590B8;
   aBlock[3] = &unk_1E7813478;
-  v9 = v7;
-  v30 = v9;
-  v10 = _Block_copy(aBlock);
-  v13 = objc_msgSend_sharedInstance(MEMORY[0x1E69A80A8], v11, v12);
-  v15 = objc_msgSend_cachedStatusSubscriptionForHandle_(v13, v14, handleCopy);
+  v7 = v5;
+  v19 = v7;
+  v8 = _Block_copy(aBlock);
+  mEMORY[0x1E69A80A8] = [MEMORY[0x1E69A80A8] sharedInstance];
+  v10 = [mEMORY[0x1E69A80A8] cachedStatusSubscriptionForHandle:handleCopy];
 
-  if (v15)
+  if (v10)
   {
-    v10[2](v10, v15);
+    v8[2](v8, v10);
   }
 
   else
   {
     if (IMOSLoggingEnabled())
     {
-      v18 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
+      v11 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
       {
-        v21 = objc_msgSend_ID(handleCopy, v19, v20);
+        v12 = [handleCopy ID];
         *buf = 138412290;
-        v32 = v21;
-        _os_log_impl(&dword_1A823F000, v18, OS_LOG_TYPE_INFO, "Could not find cached subscription for handle: %@. Not observing offgrid status (yet).", buf, 0xCu);
+        v21 = v12;
+        _os_log_impl(&dword_1A823F000, v11, OS_LOG_TYPE_INFO, "Could not find cached subscription for handle: %@. Not observing offgrid status (yet).", buf, 0xCu);
       }
     }
 
-    v22 = objc_msgSend_sharedInstance(MEMORY[0x1E69A80A8], v16, v17);
-    v25[0] = MEMORY[0x1E69E9820];
-    v25[1] = 3221225472;
-    v25[2] = sub_1A8359358;
-    v25[3] = &unk_1E78134A0;
-    v26 = handleCopy;
+    mEMORY[0x1E69A80A8]2 = [MEMORY[0x1E69A80A8] sharedInstance];
+    v14[0] = MEMORY[0x1E69E9820];
+    v14[1] = 3221225472;
+    v14[2] = sub_1A8359358;
+    v14[3] = &unk_1E78134A0;
+    v15 = handleCopy;
     selfCopy = self;
-    v28 = v10;
-    objc_msgSend_fetchUpdatedStatusForHandle_completion_(v22, v23, v26, v25);
+    v17 = v8;
+    [mEMORY[0x1E69A80A8]2 fetchUpdatedStatusForHandle:v15 completion:v14];
   }
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 - (void)endObservingStatusUpdatesForHandle:(id)handle
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   handleCopy = handle;
   if (IMOSLoggingEnabled())
   {
-    v6 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+    v5 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
-      v9 = objc_msgSend_ID(handleCopy, v7, v8);
-      v12 = 138412290;
-      v13 = v9;
-      _os_log_impl(&dword_1A823F000, v6, OS_LOG_TYPE_INFO, "Status manager ending observing for handle: %@", &v12, 0xCu);
+      v6 = [handleCopy ID];
+      v7 = 138412290;
+      v8 = v6;
+      _os_log_impl(&dword_1A823F000, v5, OS_LOG_TYPE_INFO, "Status manager ending observing for handle: %@", &v7, 0xCu);
     }
   }
 
-  objc_msgSend_endObservingAvailabilityForHandle_(self, v5, handleCopy);
-  objc_msgSend_endObservingOffGridStateForHandle_(self, v10, handleCopy);
-
-  v11 = *MEMORY[0x1E69E9840];
+  [(IMHandleStatusManager *)self endObservingAvailabilityForHandle:handleCopy];
+  [(IMHandleStatusManager *)self endObservingOffGridStateForHandle:handleCopy];
 }
 
 @end

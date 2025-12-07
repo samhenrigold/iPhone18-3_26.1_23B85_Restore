@@ -4,6 +4,7 @@
 - (unint64_t)tileWidth;
 - (void)dispatchThreadsPerTile:(id *)tile;
 - (void)dispatchThreadsPerTile:(id *)tile inRegion:(id *)region;
+- (void)dispatchThreadsPerTile:(id *)tile inRegion:(id *)region withRenderTargetArrayIndex:(unsigned int)index;
 - (void)drawIndexedPrimitives:(unint64_t)primitives indexCount:(unint64_t)count indexType:(unint64_t)type indexBuffer:(unint64_t)buffer indexBufferLength:(unint64_t)length;
 - (void)drawIndexedPrimitives:(unint64_t)primitives indexCount:(unint64_t)count indexType:(unint64_t)type indexBuffer:(unint64_t)buffer indexBufferLength:(unint64_t)length instanceCount:(unint64_t)instanceCount;
 - (void)drawIndexedPrimitives:(unint64_t)primitives indexCount:(unint64_t)count indexType:(unint64_t)type indexBuffer:(unint64_t)buffer indexBufferLength:(unint64_t)length instanceCount:(unint64_t)instanceCount baseVertex:(int64_t)vertex baseInstance:(unint64_t)self0;
@@ -35,6 +36,8 @@
 - (void)setRenderPipelineState:(id)state;
 - (void)setScissorRect:(id *)rect;
 - (void)setScissorRects:(id *)rects count:(unint64_t)count;
+- (void)setStencilFrontReferenceValue:(unsigned int)value backReferenceValue:(unsigned int)referenceValue;
+- (void)setStencilReferenceValue:(unsigned int)value;
 - (void)setStencilStoreAction:(unint64_t)action;
 - (void)setThreadgroupMemoryLength:(unint64_t)length offset:(unint64_t)offset atIndex:(unint64_t)index;
 - (void)setToolsDispatchBufferSPI:(unint64_t)i atIndex:(unint64_t)index stages:(unint64_t)stages;
@@ -175,6 +178,23 @@
   baseObject2 = [state baseObject];
 
   [baseObject setDepthStencilState:baseObject2];
+}
+
+- (void)setStencilReferenceValue:(unsigned int)value
+{
+  v3 = *&value;
+  baseObject = [(MTLToolsObject *)self baseObject];
+
+  [baseObject setStencilReferenceValue:v3];
+}
+
+- (void)setStencilFrontReferenceValue:(unsigned int)value backReferenceValue:(unsigned int)referenceValue
+{
+  v4 = *&referenceValue;
+  v5 = *&value;
+  baseObject = [(MTLToolsObject *)self baseObject];
+
+  [baseObject setStencilFrontReferenceValue:v5 backReferenceValue:v4];
 }
 
 - (void)setVisibilityResultMode:(unint64_t)mode offset:(unint64_t)offset
@@ -374,6 +394,20 @@
   v9[2] = *&region->var1.var1;
   v10 = v7;
   [baseObject dispatchThreadsPerTile:&v10 inRegion:v9];
+}
+
+- (void)dispatchThreadsPerTile:(id *)tile inRegion:(id *)region withRenderTargetArrayIndex:(unsigned int)index
+{
+  v5 = *&index;
+  baseObject = [(MTLToolsObject *)self baseObject];
+  v9 = *&tile->var0;
+  var2 = tile->var2;
+  v10 = *&region->var0.var2;
+  v11[0] = *&region->var0.var0;
+  v11[1] = v10;
+  v11[2] = *&region->var1.var1;
+  v12 = v9;
+  [baseObject dispatchThreadsPerTile:&v12 inRegion:v11 withRenderTargetArrayIndex:v5];
 }
 
 - (void)setVertexAmplificationMode:(unint64_t)mode value:(unint64_t)value

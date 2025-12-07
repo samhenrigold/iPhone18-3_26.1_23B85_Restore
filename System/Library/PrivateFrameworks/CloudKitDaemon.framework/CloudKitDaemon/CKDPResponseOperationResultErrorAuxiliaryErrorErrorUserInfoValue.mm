@@ -10,6 +10,7 @@
 - (void)clearOneofValuesForValue;
 - (void)copyTo:(id)to;
 - (void)mergeFrom:(id)from;
+- (void)setBoolValue:(BOOL)value;
 - (void)setBytesValue:(id)value;
 - (void)setDoubleValue:(double)value;
 - (void)setHasBoolValue:(BOOL)value;
@@ -53,6 +54,15 @@
   }
 
   *&self->_has = *&self->_has & 0xFD | v3;
+}
+
+- (void)setBoolValue:(BOOL)value
+{
+  objc_msgSend_clearOneofValuesForValue(self, a2, value);
+  *&self->_has |= 4u;
+  self->_value = 3;
+  *&self->_has |= 8u;
+  self->_BOOLValue = value;
 }
 
 - (void)setHasBoolValue:(BOOL)value
@@ -276,12 +286,11 @@ LABEL_5:
 {
   toCopy = to;
   has = self->_has;
-  v9 = toCopy;
+  v6 = toCopy;
   if (has)
   {
-    doubleValue = self->_doubleValue;
     PBDataWriterWriteDoubleField();
-    toCopy = v9;
+    toCopy = v6;
     has = self->_has;
     if ((has & 2) == 0)
     {
@@ -300,28 +309,26 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  int64Value = self->_int64Value;
   PBDataWriterWriteInt64Field();
-  toCopy = v9;
+  toCopy = v6;
   if ((*&self->_has & 8) != 0)
   {
 LABEL_4:
-    BOOLValue = self->_BOOLValue;
     PBDataWriterWriteBOOLField();
-    toCopy = v9;
+    toCopy = v6;
   }
 
 LABEL_5:
   if (self->_stringValue)
   {
     PBDataWriterWriteStringField();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_bytesValue)
   {
     PBDataWriterWriteDataField();
-    toCopy = v9;
+    toCopy = v6;
   }
 }
 
@@ -466,7 +473,6 @@ LABEL_6:
     goto LABEL_24;
   }
 
-  v8 = *(equalCopy + 48);
   if ((*&self->_has & 4) != 0)
   {
     if ((equalCopy[6] & 4) == 0 || self->_value != *(equalCopy + 10))
@@ -523,7 +529,6 @@ LABEL_24:
     goto LABEL_24;
   }
 
-  v15 = *(equalCopy + 44);
   if (self->_BOOLValue)
   {
     if ((*(equalCopy + 44) & 1) == 0)
@@ -539,17 +544,17 @@ LABEL_24:
 
 LABEL_19:
   stringValue = self->_stringValue;
-  v10 = equalCopy[4];
-  if (stringValue | v10 && !objc_msgSend_isEqual_(stringValue, v7, v10))
+  v9 = equalCopy[4];
+  if (stringValue | v9 && !objc_msgSend_isEqual_(stringValue, v7, v9))
   {
     goto LABEL_24;
   }
 
   bytesValue = self->_bytesValue;
-  v12 = equalCopy[3];
-  if (bytesValue | v12)
+  v11 = equalCopy[3];
+  if (bytesValue | v11)
   {
-    isEqual = objc_msgSend_isEqual_(bytesValue, v7, v12);
+    isEqual = objc_msgSend_isEqual_(bytesValue, v7, v11);
   }
 
   else

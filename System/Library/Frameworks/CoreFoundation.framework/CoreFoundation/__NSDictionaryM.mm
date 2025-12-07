@@ -41,7 +41,7 @@
 
 - (void)dealloc
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = atomic_load(&self->cow);
   if (v3)
   {
@@ -68,10 +68,9 @@
     cow_cleanup(self, 1);
   }
 
-  v8.receiver = self;
-  v8.super_class = __NSDictionaryM;
-  [(__NSDictionaryM *)&v8 dealloc];
-  v7 = *MEMORY[0x1E69E9840];
+  v7.receiver = self;
+  v7.super_class = __NSDictionaryM;
+  [(__NSDictionaryM *)&v7 dealloc];
 }
 
 - (id)copy
@@ -119,186 +118,186 @@
   v34[1] = *MEMORY[0x1E69E9840];
   if (__cf_tsanWriteFunction)
   {
-    __cf_tsanWriteFunction(self, v2, __CFTSANTagMutableDictionary);
+    __cf_tsanWriteFunction(self, v3, __CFTSANTagMutableDictionary);
   }
 
-  v4 = atomic_load(&self->cow);
+  v5 = atomic_load(&self->cow);
   p_storage = &self->storage;
   mutations = self->storage.var0.var0.mutations;
   if (((mutations >> 9) & 0x3FFFFF) < 0x7D)
   {
-    v7 = (mutations & 0x7FFFFFFF) + 1;
+    v8 = (mutations & 0x7FFFFFFF) + 1;
   }
 
   else
   {
-    v7 = 0;
+    v8 = 0;
   }
 
-  if (v4)
+  if (v5)
   {
-    os_unfair_lock_lock(v4);
-    if (!*(v4 + 6))
+    os_unfair_lock_lock(v5);
+    if (!*(v5 + 6))
     {
       [__NSDictionaryM removeAllObjects];
     }
 
-    if (*(v4 + 6) != 1 || *(v4 + 4) != 0)
+    if (*(v5 + 6) != 1 || *(v5 + 4) != 0)
     {
-      --*(v4 + 6);
-      _cow_mutate_slow(self, v4, __NSDictionary_cowCallbacks);
+      --*(v5 + 6);
+      _cow_mutate_slow(self, v5, __NSDictionary_cowCallbacks);
     }
 
-    os_unfair_lock_unlock(v4);
+    os_unfair_lock_unlock(v5);
     mutations = self->storage.var0.var0.mutations;
   }
 
-  v9 = mutations & 0xFFFFFFFF80000000 | v7;
-  self->storage.var0.var0.mutations = v9;
-  v10 = *(__NSDictionarySizes_0 + ((mutations >> 55) & 0x1F8));
+  v10 = mutations & 0xFFFFFFFF80000000 | v8;
+  self->storage.var0.var0.mutations = v10;
+  v11 = *(__NSDictionarySizes_0 + ((mutations >> 55) & 0x1F8));
   buffer = p_storage->buffer;
-  v12 = mutations >> 58;
+  v13 = mutations >> 58;
   if ((mutations & 0x200000000000000) != 0)
   {
     v33[1] = v33;
-    v14 = HIDWORD(mutations) & 0x1FFFFFF;
+    v15 = HIDWORD(mutations) & 0x1FFFFFF;
     if ((mutations & 0x1FFFFFE00000000) != 0)
     {
-      v15 = HIDWORD(mutations) & 0x1FFFFFF;
+      v16 = HIDWORD(mutations) & 0x1FFFFFF;
     }
 
     else
     {
-      v15 = 1;
+      v16 = 1;
     }
 
-    v16 = MEMORY[0x1EEE9AC00](v15, a2);
-    v18 = v33 - v17;
+    v17 = MEMORY[0x1EEE9AC00](v16, a2, v2);
+    v19 = v33 - v18;
     v34[0] = 0;
-    if (v14 >= 0x101)
+    if (v15 >= 0x101)
     {
-      v18 = _CFCreateArrayStorage(v16, 0, v34);
-      v19 = v18;
+      v19 = _CFCreateArrayStorage(v17, 0, v34);
+      v20 = v19;
     }
 
     else
-    {
-      v19 = 0;
-    }
-
-    v20 = 0;
-    if (v14 && v12)
     {
       v20 = 0;
-      v21 = 1;
-      v22 = buffer;
+    }
+
+    v21 = 0;
+    if (v15 && v13)
+    {
+      v21 = 0;
+      v22 = 1;
+      v23 = buffer;
       do
       {
-        v23 = *v22;
-        if (*v22)
+        v24 = *v23;
+        if (*v23)
         {
-          v24 = v23 == &___NSDictionaryM_DeletedMarker;
+          v25 = v24 == &___NSDictionaryM_DeletedMarker;
         }
 
         else
         {
-          v24 = 1;
+          v25 = 1;
         }
 
-        if (!v24)
+        if (!v25)
         {
-          *&v18[8 * v20++] = v23;
+          *&v19[8 * v21++] = v24;
         }
 
-        if (v20 == v14)
+        if (v21 == v15)
         {
           break;
         }
 
-        ++v22;
+        ++v23;
       }
 
-      while (v21++ < v10);
+      while (v22++ < v11);
     }
 
-    v13 = [[NSSet alloc] initWithObjects:v18 count:v20];
-    [(__NSDictionaryM *)self _willChangeValuesForKeys:v13];
-    free(v19);
-    v9 = self->storage.var0.var0.mutations;
+    v14 = [[NSSet alloc] initWithObjects:v19 count:v21];
+    [(__NSDictionaryM *)self _willChangeValuesForKeys:v14];
+    free(v20);
+    v10 = self->storage.var0.var0.mutations;
   }
 
   else
   {
-    v13 = 0;
+    v14 = 0;
   }
 
-  v26 = v9 & 0x2000000FFFFFFFFLL;
+  v27 = v10 & 0x2000000FFFFFFFFLL;
   p_storage->buffer = 0;
-  self->storage.var0.var0.mutations = v26;
-  if (!v12)
+  self->storage.var0.var0.mutations = v27;
+  if (!v13)
   {
 LABEL_52:
     p_storage->buffer = buffer;
-    self->storage.var0.var0.mutations = v26 | mutations & 0xFC00000000000000;
+    self->storage.var0.var0.mutations = v27 | mutations & 0xFC00000000000000;
     if ((mutations & 0x200000000000000) != 0)
     {
       goto LABEL_55;
     }
 
-    goto LABEL_56;
+    return;
   }
 
-  v27 = 0;
-  v28 = &buffer[v10];
-  if (v10 <= 1)
+  v28 = 0;
+  v29 = &buffer[v11];
+  if (v11 <= 1)
   {
-    v10 = 1;
+    v11 = 1;
   }
 
   do
   {
-    v29 = &buffer[v27];
-    v30 = *v29;
-    if (*v29)
+    v30 = &buffer[v28];
+    v31 = *v30;
+    if (*v30)
     {
-      v31 = v30 == &___NSDictionaryM_DeletedMarker;
+      v32 = v31 == &___NSDictionaryM_DeletedMarker;
     }
 
     else
     {
-      v31 = 1;
+      v32 = 1;
     }
 
-    if (!v31)
+    if (!v32)
     {
-      if ((v30 & 0x8000000000000000) == 0)
+      if ((v31 & 0x8000000000000000) == 0)
       {
       }
 
-      if (*v28 >= 1)
+      if (*v29 >= 1)
       {
       }
 
-      buffer[v27] = 0;
-      v29 = v28;
+      buffer[v28] = 0;
+      v30 = v29;
 LABEL_49:
-      *v29 = 0;
+      *v30 = 0;
       goto LABEL_50;
     }
 
-    if (v30)
+    if (v31)
     {
       goto LABEL_49;
     }
 
 LABEL_50:
-    ++v27;
     ++v28;
+    ++v29;
   }
 
-  while (v10 != v27);
-  v26 = self->storage.var0.var0.mutations;
-  if (!(v26 >> 58))
+  while (v11 != v28);
+  v27 = self->storage.var0.var0.mutations;
+  if (!(v27 >> 58))
   {
     goto LABEL_52;
   }
@@ -307,11 +306,8 @@ LABEL_50:
   if ((mutations & 0x200000000000000) != 0)
   {
 LABEL_55:
-    [(__NSDictionaryM *)self _didChangeValuesForKeys:v13];
+    [(__NSDictionaryM *)self _didChangeValuesForKeys:v14];
   }
-
-LABEL_56:
-  v32 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_mutate
@@ -406,15 +402,15 @@ LABEL_56:
   v10 = count >> 61;
   if (objects && v10 || keys && v10)
   {
-    v21 = _os_log_pack_size();
-    v23 = v27 - ((MEMORY[0x1EEE9AC00](v21, v22) + 15) & 0xFFFFFFFFFFFFFFF0);
-    v24 = _os_log_pack_fill();
+    v20 = _os_log_pack_size();
+    v23 = v27 - ((MEMORY[0x1EEE9AC00](v20, v21, v22) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v24 = _os_log_pack_fill(v23, v20, 0, &dword_1830E6000, "*** %s: count (%lu) of objects array is ridiculous");
     *v24 = 136315394;
     *(v24 + 4) = "[__NSDictionaryM getObjects:andKeys:count:]";
     *(v24 + 12) = 2048;
     *(v24 + 14) = count;
     v25 = CFStringCreateWithFormat(&__kCFAllocatorSystemDefault, 0, @"*** %s: count (%lu) of objects array is ridiculous", "[__NSDictionaryM getObjects:andKeys:count:]", count);
-    v26 = [NSException exceptionWithName:@"NSInvalidArgumentException" reason:_CFAutoreleasePoolAddObject(0 userInfo:v25) osLogPack:0 size:v23, v21];
+    v26 = [NSException exceptionWithName:@"NSInvalidArgumentException" reason:_CFAutoreleasePoolAddObject(0 userInfo:v25) osLogPack:0 size:v23, v20];
     objc_exception_throw(v26);
   }
 
@@ -480,8 +476,6 @@ LABEL_56:
 
     while (countCopy);
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (id)objectForKey:(id)key
@@ -600,17 +594,15 @@ LABEL_23:
   self->storage.var0.var0.mutations = mutations & 0xFFFFFFFF80000000 | v8;
   if (!key)
   {
-    v11 = _os_log_pack_size();
-    v13 = v17 - ((MEMORY[0x1EEE9AC00](v11, v12) + 15) & 0xFFFFFFFFFFFFFFF0);
-    v14 = _os_log_pack_fill();
+    v10 = _os_log_pack_size();
+    v13 = v17 - ((MEMORY[0x1EEE9AC00](v10, v11, v12) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v14 = _os_log_pack_fill(v13, v10, 0, &dword_1830E6000, "*** %s: key cannot be nil", v17[0]);
     *v14 = 136315138;
     *(v14 + 4) = "[__NSDictionaryM removeObjectForKey:]";
     v15 = CFStringCreateWithFormat(&__kCFAllocatorSystemDefault, 0, @"*** %s: key cannot be nil", "[__NSDictionaryM removeObjectForKey:]");
-    v16 = [NSException exceptionWithName:@"NSInvalidArgumentException" reason:_CFAutoreleasePoolAddObject(0 userInfo:v15) osLogPack:0 size:v13, v11];
+    v16 = [NSException exceptionWithName:@"NSInvalidArgumentException" reason:_CFAutoreleasePoolAddObject(0 userInfo:v15) osLogPack:0 size:v13, v10];
     objc_exception_throw(v16);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 
   mdict_removeObjectForKey(self, key);
 }
@@ -627,14 +619,14 @@ LABEL_23:
     }
 
 LABEL_64:
-    v34 = _os_log_pack_size();
-    v36 = &v46 - ((MEMORY[0x1EEE9AC00](v34, v35) + 15) & 0xFFFFFFFFFFFFFFF0);
-    v37 = _os_log_pack_fill();
-    *v37 = 136315138;
-    *(v37 + 4) = "[__NSDictionaryM setObject:forKey:]";
-    v38 = CFStringCreateWithFormat(&__kCFAllocatorSystemDefault, 0, @"*** %s: key cannot be nil", "[__NSDictionaryM setObject:forKey:]");
-    v39 = [NSException exceptionWithName:@"NSInvalidArgumentException" reason:_CFAutoreleasePoolAddObject(0 userInfo:v38) osLogPack:0 size:v36, v34];
-    objc_exception_throw(v39);
+    v32 = _os_log_pack_size();
+    v35 = &v46 - ((MEMORY[0x1EEE9AC00](v32, v33, v34) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v36 = _os_log_pack_fill(v35, v32, 0, &dword_1830E6000, "*** %s: key cannot be nil", v46);
+    *v36 = 136315138;
+    *(v36 + 4) = "[__NSDictionaryM setObject:forKey:]";
+    v37 = CFStringCreateWithFormat(&__kCFAllocatorSystemDefault, 0, @"*** %s: key cannot be nil", "[__NSDictionaryM setObject:forKey:]");
+    v38 = [NSException exceptionWithName:@"NSInvalidArgumentException" reason:_CFAutoreleasePoolAddObject(0 userInfo:v37) osLogPack:0 size:v35, v32];
+    objc_exception_throw(v38);
   }
 
   __cf_tsanWriteFunction(selfCopy, v4, __CFTSANTagMutableDictionary);
@@ -646,15 +638,15 @@ LABEL_64:
 LABEL_3:
   if (!object)
   {
-    v40 = _os_log_pack_size();
-    v42 = &v46 - ((MEMORY[0x1EEE9AC00](v40, v41) + 15) & 0xFFFFFFFFFFFFFFF0);
-    v43 = _os_log_pack_fill();
+    v39 = _os_log_pack_size();
+    v42 = &v46 - ((MEMORY[0x1EEE9AC00](v39, v40, v41) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v43 = _os_log_pack_fill(v42, v39, 0, &dword_1830E6000, "*** %s: object cannot be nil (key: %@)");
     *v43 = 136315394;
     *(v43 + 4) = "[__NSDictionaryM setObject:forKey:]";
     *(v43 + 12) = 2112;
     *(v43 + 14) = key;
     v44 = CFStringCreateWithFormat(&__kCFAllocatorSystemDefault, 0, @"*** %s: object cannot be nil (key: %@)", "[__NSDictionaryM setObject:forKey:]", key);
-    v45 = [NSException exceptionWithName:@"NSInvalidArgumentException" reason:_CFAutoreleasePoolAddObject(0 userInfo:v44) osLogPack:0 size:v42, v40];
+    v45 = [NSException exceptionWithName:@"NSInvalidArgumentException" reason:_CFAutoreleasePoolAddObject(0 userInfo:v44) osLogPack:0 size:v42, v39];
     objc_exception_throw(v45);
   }
 
@@ -829,21 +821,15 @@ LABEL_41:
     [selfCopy didChangeValueForKey:key];
   }
 
-  if (v29 < 1)
+  if (v29 >= 1)
   {
-    v33 = *MEMORY[0x1E69E9840];
-  }
-
-  else
-  {
-    v32 = *MEMORY[0x1E69E9840];
   }
 }
 
 - (void)setObject:(id)object forKeyedSubscript:(id)subscript
 {
   selfCopy = self;
-  v49 = *MEMORY[0x1E69E9840];
+  v47 = *MEMORY[0x1E69E9840];
   if (!__cf_tsanWriteFunction)
   {
     if (subscript)
@@ -852,14 +838,14 @@ LABEL_41:
     }
 
 LABEL_71:
-    v38 = _os_log_pack_size();
-    v40 = &v44 - ((MEMORY[0x1EEE9AC00](v38, v39) + 15) & 0xFFFFFFFFFFFFFFF0);
-    v41 = _os_log_pack_fill();
-    *v41 = 136315138;
-    *(v41 + 4) = "[__NSDictionaryM setObject:forKeyedSubscript:]";
-    v42 = CFStringCreateWithFormat(&__kCFAllocatorSystemDefault, 0, @"*** %s: key cannot be nil", "[__NSDictionaryM setObject:forKeyedSubscript:]");
-    v43 = [NSException exceptionWithName:@"NSInvalidArgumentException" reason:_CFAutoreleasePoolAddObject(0 userInfo:v42) osLogPack:0 size:v40, v38];
-    objc_exception_throw(v43);
+    v35 = _os_log_pack_size();
+    v38 = &v42 - ((MEMORY[0x1EEE9AC00](v35, v36, v37) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v39 = _os_log_pack_fill(v38, v35, 0, &dword_1830E6000, "*** %s: key cannot be nil", v42);
+    *v39 = 136315138;
+    *(v39 + 4) = "[__NSDictionaryM setObject:forKeyedSubscript:]";
+    v40 = CFStringCreateWithFormat(&__kCFAllocatorSystemDefault, 0, @"*** %s: key cannot be nil", "[__NSDictionaryM setObject:forKeyedSubscript:]");
+    v41 = [NSException exceptionWithName:@"NSInvalidArgumentException" reason:_CFAutoreleasePoolAddObject(0 userInfo:v40) osLogPack:0 size:v38, v35];
+    objc_exception_throw(v41);
   }
 
   __cf_tsanWriteFunction(selfCopy, v4, __CFTSANTagMutableDictionary);
@@ -905,7 +891,6 @@ LABEL_3:
   v9[1] = v13;
   if (!object)
   {
-    v17 = *MEMORY[0x1E69E9840];
 
     mdict_removeObjectForKey(selfCopy, subscript);
     return;
@@ -943,95 +928,95 @@ LABEL_3:
   objectCopy = object;
 LABEL_24:
   objectCopy2 = object;
-  v19 = v9[1];
-  v45 = v10;
-  v46 = v19;
+  v18 = v9[1];
+  v43 = v10;
+  v44 = v18;
   while (1)
   {
-    v20 = *v9;
-    v21 = v16;
-    v22 = 0;
-    v23 = [subscript hash] % v16;
+    v19 = *v9;
+    v20 = v16;
+    v21 = 0;
+    v22 = [subscript hash] % v16;
     v16 = (v16 & 0xFFFFFFFE) != 0 ? v16 : 1;
-    v24 = v21;
+    v23 = v20;
     while (1)
     {
-      v25 = *(v20 + 8 * v23);
-      if (!v25)
+      v24 = *(v19 + 8 * v22);
+      if (!v24)
       {
         break;
       }
 
-      if (v25 == &___NSDictionaryM_DeletedMarker)
+      if (v24 == &___NSDictionaryM_DeletedMarker)
       {
-        ++v22;
-        if (v24 == v21)
+        ++v21;
+        if (v23 == v20)
         {
-          v24 = v23;
+          v23 = v22;
         }
       }
 
-      else if (v25 == subscript || ([v25 isEqual:subscript] & 1) != 0)
+      else if (v24 == subscript || ([v24 isEqual:subscript] & 1) != 0)
       {
-        v24 = v23;
+        v23 = v22;
         goto LABEL_44;
       }
 
-      if (v23 + 1 >= v21)
+      if (v22 + 1 >= v20)
       {
-        v26 = v21;
+        v25 = v20;
       }
 
       else
       {
-        v26 = 0;
+        v25 = 0;
       }
 
-      v23 = v23 + 1 - v26;
+      v22 = v22 + 1 - v25;
       if (!--v16)
       {
         goto LABEL_44;
       }
     }
 
-    if (v24 == v21)
+    if (v23 == v20)
     {
-      v24 = v23;
+      v23 = v22;
     }
 
 LABEL_44:
-    if (v24 < v21 && v22 <= 0xF)
+    if (v23 < v20 && v21 <= 0xF)
     {
       break;
     }
 
-    if (v24 < v21)
+    if (v23 < v20)
     {
-      v27 = v14;
+      v26 = v14;
     }
 
     else
     {
-      v27 = v14 + 1;
+      v26 = v14 + 1;
     }
 
-    mdict_rehashd(selfCopy, v27);
+    mdict_rehashd(selfCopy, v26);
     v14 = v9[1] >> 58;
     LODWORD(v16) = __NSDictionarySizes_0[v14];
   }
 
-  v28 = *(v20 + 8 * v24);
-  v29 = v20 + 8 * v21;
-  v30 = v46;
-  if ((v46 & 0x200000000000000) != 0)
+  v27 = *(v19 + 8 * v23);
+  v28 = v19 + 8 * v20;
+  v29 = v44;
+  if ((v44 & 0x200000000000000) != 0)
   {
     [selfCopy willChangeValueForKey:subscript];
   }
 
-  v31 = *(v29 + 8 * v24);
-  if (v28 == &___NSDictionaryM_DeletedMarker || v28 == 0)
+  v30 = *(v28 + 8 * v23);
+  if (v27 == &___NSDictionaryM_DeletedMarker || v27 == 0)
   {
-    if ((v45 & 0x80000000) != 0)
+    if ((v43 & 0x80000000) != 0)
     {
       subscriptCopy3 = [subscript copyWithZone:0];
     }
@@ -1046,11 +1031,11 @@ LABEL_44:
       }
     }
 
-    *(v20 + 8 * v24) = subscriptCopy3;
-    *(v29 + 8 * v24) = objectCopy2;
-    v35 = v9[1];
-    v9[1] = v35 & 0xFE000000FFFFFFFFLL | ((((v35 + 0x100000000) >> 32) & 0x1FFFFFF) << 32);
-    if (__NSDictionaryCapacities_0[v14] < (((v35 + 0x100000000) >> 32) & 0x1FFFFFF))
+    *(v19 + 8 * v23) = subscriptCopy3;
+    *(v28 + 8 * v23) = objectCopy2;
+    v34 = v9[1];
+    v9[1] = v34 & 0xFE000000FFFFFFFFLL | ((((v34 + 0x100000000) >> 32) & 0x1FFFFFF) << 32);
+    if (__NSDictionaryCapacities_0[v14] < (((v34 + 0x100000000) >> 32) & 0x1FFFFFF))
     {
       mdict_rehashd(selfCopy, v14 + 1);
     }
@@ -1058,22 +1043,16 @@ LABEL_44:
 
   else
   {
-    *(v29 + 8 * v24) = objectCopy2;
+    *(v28 + 8 * v23) = objectCopy2;
   }
 
-  if ((v30 & 0x200000000000000) != 0)
+  if ((v29 & 0x200000000000000) != 0)
   {
     [selfCopy didChangeValueForKey:subscript];
   }
 
-  if (v31 < 1)
+  if (v30 >= 1)
   {
-    v37 = *MEMORY[0x1E69E9840];
-  }
-
-  else
-  {
-    v36 = *MEMORY[0x1E69E9840];
   }
 }
 
@@ -1090,14 +1069,14 @@ LABEL_44:
     }
 
 LABEL_119:
-    v63 = _os_log_pack_size();
-    v65 = &v75 - ((MEMORY[0x1EEE9AC00](v63, v64) + 15) & 0xFFFFFFFFFFFFFFF0);
-    v66 = _os_log_pack_fill();
-    *v66 = 136315138;
-    *(v66 + 4) = "[__NSDictionaryM __setObject:forKey:]";
-    v67 = CFStringCreateWithFormat(&__kCFAllocatorSystemDefault, 0, @"*** %s: key cannot be nil", "[__NSDictionaryM __setObject:forKey:]");
-    v68 = [NSException exceptionWithName:@"NSInvalidArgumentException" reason:_CFAutoreleasePoolAddObject(0 userInfo:v67) osLogPack:0 size:v65, v63];
-    objc_exception_throw(v68);
+    v61 = _os_log_pack_size();
+    v64 = &v75 - ((MEMORY[0x1EEE9AC00](v61, v62, v63) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v65 = _os_log_pack_fill(v64, v61, 0, &dword_1830E6000, "*** %s: key cannot be nil", v75);
+    *v65 = 136315138;
+    *(v65 + 4) = "[__NSDictionaryM __setObject:forKey:]";
+    v66 = CFStringCreateWithFormat(&__kCFAllocatorSystemDefault, 0, @"*** %s: key cannot be nil", "[__NSDictionaryM __setObject:forKey:]");
+    v67 = [NSException exceptionWithName:@"NSInvalidArgumentException" reason:_CFAutoreleasePoolAddObject(0 userInfo:v66) osLogPack:0 size:v64, v61];
+    objc_exception_throw(v67);
   }
 
   __cf_tsanWriteFunction(selfCopy, v4, __CFTSANTagMutableDictionary);
@@ -1109,15 +1088,15 @@ LABEL_119:
 LABEL_3:
   if (!object)
   {
-    v69 = _os_log_pack_size();
-    v71 = &v75 - ((MEMORY[0x1EEE9AC00](v69, v70) + 15) & 0xFFFFFFFFFFFFFFF0);
-    v72 = _os_log_pack_fill();
+    v68 = _os_log_pack_size();
+    v71 = &v75 - ((MEMORY[0x1EEE9AC00](v68, v69, v70) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v72 = _os_log_pack_fill(v71, v68, 0, &dword_1830E6000, "*** %s: object cannot be nil (key: %@)");
     *v72 = 136315394;
     *(v72 + 4) = "[__NSDictionaryM __setObject:forKey:]";
     *(v72 + 12) = 2112;
     *(v72 + 14) = key;
     v73 = CFStringCreateWithFormat(&__kCFAllocatorSystemDefault, 0, @"*** %s: object cannot be nil (key: %@)", "[__NSDictionaryM __setObject:forKey:]", key);
-    v74 = [NSException exceptionWithName:@"NSInvalidArgumentException" reason:_CFAutoreleasePoolAddObject(0 userInfo:v73) osLogPack:0 size:v71, v69];
+    v74 = [NSException exceptionWithName:@"NSInvalidArgumentException" reason:_CFAutoreleasePoolAddObject(0 userInfo:v73) osLogPack:0 size:v71, v68];
     objc_exception_throw(v74);
   }
 
@@ -1156,176 +1135,27 @@ LABEL_3:
   v13 = v10 & 0xFFFFFFFF80000000 | v11;
   v9[1] = v13;
   objectCopy = object;
-  if ((v10 & 0x80000000) != 0)
+  if ((v10 & 0x80000000) == 0)
   {
-    if (objc_opt_respondsToSelector())
-    {
-      v13 = v9[1];
-      goto LABEL_18;
-    }
-
-    CFLog(3, @"*** CFDictionarySetValue(): attempt to use this function to set a key which is not copyable into a non-CFDictionary via toll-free bridging", v14, v15, v16, v17, v18, v19, v75);
-    v40 = v9[1];
-    v41 = v40 >> 58;
-    if (v40 >> 58)
-    {
-      LODWORD(v43) = __NSDictionarySizes_0[v41];
-      if ((object & 0x8000000000000000) != 0)
-      {
-        goto LABEL_75;
-      }
-    }
-
-    else
-    {
-      v9[1] = v40 | 0x400000000000000;
-      v42 = malloc_type_calloc(1uLL, 0x30uLL, 0x80040B8603338uLL);
-      if (!v42)
-      {
-LABEL_122:
-        __break(1u);
-        goto LABEL_123;
-      }
-
-      *v9 = v42;
-      LODWORD(v41) = 1;
-      LODWORD(v43) = 3;
-      if ((object & 0x8000000000000000) != 0)
-      {
-LABEL_75:
-        v77 = v9[1];
-        while (1)
-        {
-          v47 = *v9;
-          v48 = v43;
-          v49 = 0;
-          v50 = [key hash] % v43;
-          v43 = (v43 & 0xFFFFFFFE) != 0 ? v43 : 1;
-          v51 = v48;
-          while (1)
-          {
-            v52 = *(v47 + 8 * v50);
-            if (!v52)
-            {
-              break;
-            }
-
-            if (v52 == &___NSDictionaryM_DeletedMarker)
-            {
-              ++v49;
-              if (v51 == v48)
-              {
-                v51 = v50;
-              }
-            }
-
-            else if (v52 == key || ([v52 isEqual:key] & 1) != 0)
-            {
-              v51 = v50;
-              goto LABEL_95;
-            }
-
-            if (v50 + 1 >= v48)
-            {
-              v53 = v48;
-            }
-
-            else
-            {
-              v53 = 0;
-            }
-
-            v50 = v50 + 1 - v53;
-            if (!--v43)
-            {
-              goto LABEL_95;
-            }
-          }
-
-          if (v51 == v48)
-          {
-            v51 = v50;
-          }
-
-LABEL_95:
-          if (v51 < v48 && v49 <= 0xF)
-          {
-            break;
-          }
-
-          if (v51 < v48)
-          {
-            v54 = v41;
-          }
-
-          else
-          {
-            v54 = v41 + 1;
-          }
-
-          mdict_rehashd(selfCopy, v54);
-          v41 = v9[1] >> 58;
-          LODWORD(v43) = __NSDictionarySizes_0[v41];
-        }
-
-        v55 = *(v47 + 8 * v51);
-        v56 = v47 + 8 * v48;
-        v57 = v77;
-        if ((v77 & 0x200000000000000) != 0)
-        {
-          [selfCopy willChangeValueForKey:key];
-        }
-
-        v58 = *(v56 + 8 * v51);
-        if (v55 == &___NSDictionaryM_DeletedMarker || v55 == 0)
-        {
-          if ((key & 0x8000000000000000) == 0)
-          {
-            keyCopy = key;
-          }
-
-          *(v47 + 8 * v51) = key;
-          *(v56 + 8 * v51) = objectCopy;
-          v61 = v9[1];
-          v9[1] = v61 & 0xFE000000FFFFFFFFLL | ((((v61 + 0x100000000) >> 32) & 0x1FFFFFF) << 32);
-          if (__NSDictionaryCapacities_0[v41] < (((v61 + 0x100000000) >> 32) & 0x1FFFFFF))
-          {
-            mdict_rehashd(selfCopy, v41 + 1);
-          }
-        }
-
-        else
-        {
-          *(v56 + 8 * v51) = objectCopy;
-        }
-
-        if ((v57 & 0x200000000000000) != 0)
-        {
-          [selfCopy didChangeValueForKey:key];
-        }
-
-        if (v58 >= 1)
-        {
-        }
-
-        if (!getenv("__setObject_throw_on_warning"))
-        {
-          goto LABEL_117;
-        }
-
-LABEL_123:
-        objc_exception_throw([NSException exceptionWithName:@"NSInvalidArgumentException" reason:@"key should be copyable" userInfo:0]);
-      }
-    }
-
-    objectCopy2 = object;
-    goto LABEL_75;
+    goto LABEL_18;
   }
 
-LABEL_18:
-  v20 = v13 >> 58;
-  if (!(v13 >> 58))
+  if (objc_opt_respondsToSelector())
   {
+    v13 = v9[1];
+LABEL_18:
+    v20 = v13 >> 58;
+    if (v13 >> 58)
+    {
+      LODWORD(v22) = __NSDictionarySizes_0[v20];
+      if ((object & 0x8000000000000000) != 0)
+      {
+        goto LABEL_24;
+      }
+
+      goto LABEL_23;
+    }
+
     v9[1] = v13 | 0x400000000000000;
     v21 = malloc_type_calloc(1uLL, 0x30uLL, 0x80040B8603338uLL);
     if (v21)
@@ -1335,159 +1165,304 @@ LABEL_18:
       LODWORD(v22) = 3;
       if ((object & 0x8000000000000000) != 0)
       {
-        goto LABEL_24;
+LABEL_24:
+        v24 = v9[1];
+        v76 = v13;
+        v77 = v24;
+        while (1)
+        {
+          v25 = *v9;
+          v26 = v22;
+          v27 = 0;
+          v28 = [key hash] % v22;
+          v29 = (v22 & 0xFFFFFFFE) != 0 ? v22 : 1;
+          v22 = v22;
+          while (1)
+          {
+            v30 = *(v25 + 8 * v28);
+            if (!v30)
+            {
+              break;
+            }
+
+            if (v30 == &___NSDictionaryM_DeletedMarker)
+            {
+              ++v27;
+              if (v22 == v26)
+              {
+                v22 = v28;
+              }
+            }
+
+            else if (v30 == key || ([v30 isEqual:key] & 1) != 0)
+            {
+              v22 = v28;
+              goto LABEL_44;
+            }
+
+            if (v28 + 1 >= v26)
+            {
+              v31 = v26;
+            }
+
+            else
+            {
+              v31 = 0;
+            }
+
+            v28 = v28 + 1 - v31;
+            if (!--v29)
+            {
+              goto LABEL_44;
+            }
+          }
+
+          if (v22 == v26)
+          {
+            v22 = v28;
+          }
+
+LABEL_44:
+          if (v22 < v26 && v27 <= 0xF)
+          {
+            break;
+          }
+
+          if (v22 < v26)
+          {
+            v32 = v20;
+          }
+
+          else
+          {
+            v32 = v20 + 1;
+          }
+
+          mdict_rehashd(selfCopy, v32);
+          v20 = v9[1] >> 58;
+          LODWORD(v22) = __NSDictionarySizes_0[v20];
+        }
+
+        v33 = *(v25 + 8 * v22);
+        v34 = v25 + 8 * v26;
+        v35 = v77;
+        if ((v77 & 0x200000000000000) != 0)
+        {
+          [selfCopy willChangeValueForKey:key];
+        }
+
+        v36 = *(v34 + 8 * v22);
+        if (v33 == &___NSDictionaryM_DeletedMarker || v33 == 0)
+        {
+          if ((v76 & 0x80000000) != 0)
+          {
+            keyCopy3 = [key copyWithZone:0];
+          }
+
+          else
+          {
+            keyCopy3 = key;
+            if ((key & 0x8000000000000000) == 0)
+            {
+              keyCopy2 = key;
+              keyCopy3 = key;
+            }
+          }
+
+          *(v25 + 8 * v22) = keyCopy3;
+          *(v34 + 8 * v22) = objectCopy;
+          v44 = v9[1];
+          v9[1] = v44 & 0xFE000000FFFFFFFFLL | ((((v44 + 0x100000000) >> 32) & 0x1FFFFFF) << 32);
+          if (__NSDictionaryCapacities_0[v20] < (((v44 + 0x100000000) >> 32) & 0x1FFFFFF))
+          {
+            mdict_rehashd(selfCopy, v20 + 1);
+          }
+        }
+
+        else
+        {
+          *(v34 + 8 * v22) = objectCopy;
+        }
+
+        if ((v35 & 0x200000000000000) != 0)
+        {
+          [selfCopy didChangeValueForKey:key];
+        }
+
+        if (v36 >= 1)
+        {
+        }
+
+        return;
       }
 
-      goto LABEL_23;
+LABEL_23:
+      objectCopy2 = object;
+      goto LABEL_24;
     }
 
     goto LABEL_122;
   }
 
-  LODWORD(v22) = __NSDictionarySizes_0[v20];
-  if ((object & 0x8000000000000000) == 0)
+  CFLog(3, @"*** CFDictionarySetValue(): attempt to use this function to set a key which is not copyable into a non-CFDictionary via toll-free bridging", v14, v15, v16, v17, v18, v19, v75);
+  v40 = v9[1];
+  v41 = v40 >> 58;
+  if (v40 >> 58)
   {
-LABEL_23:
+    LODWORD(v43) = __NSDictionarySizes_0[v41];
+    if ((object & 0x8000000000000000) != 0)
+    {
+      goto LABEL_75;
+    }
+
+LABEL_74:
     objectCopy3 = object;
+    goto LABEL_75;
   }
 
-LABEL_24:
-  v24 = v9[1];
-  v76 = v13;
-  v77 = v24;
+  v9[1] = v40 | 0x400000000000000;
+  v42 = malloc_type_calloc(1uLL, 0x30uLL, 0x80040B8603338uLL);
+  if (!v42)
+  {
+LABEL_122:
+    __break(1u);
+    goto LABEL_123;
+  }
+
+  *v9 = v42;
+  LODWORD(v41) = 1;
+  LODWORD(v43) = 3;
+  if ((object & 0x8000000000000000) == 0)
+  {
+    goto LABEL_74;
+  }
+
+LABEL_75:
+  v77 = v9[1];
   while (1)
   {
-    v25 = *v9;
-    v26 = v22;
-    v27 = 0;
-    v28 = [key hash] % v22;
-    v29 = (v22 & 0xFFFFFFFE) != 0 ? v22 : 1;
-    v22 = v22;
+    v46 = *v9;
+    v47 = v43;
+    v48 = 0;
+    v49 = [key hash] % v43;
+    v43 = (v43 & 0xFFFFFFFE) != 0 ? v43 : 1;
+    v50 = v47;
     while (1)
     {
-      v30 = *(v25 + 8 * v28);
-      if (!v30)
+      v51 = *(v46 + 8 * v49);
+      if (!v51)
       {
         break;
       }
 
-      if (v30 == &___NSDictionaryM_DeletedMarker)
+      if (v51 == &___NSDictionaryM_DeletedMarker)
       {
-        ++v27;
-        if (v22 == v26)
+        ++v48;
+        if (v50 == v47)
         {
-          v22 = v28;
+          v50 = v49;
         }
       }
 
-      else if (v30 == key || ([v30 isEqual:key] & 1) != 0)
+      else if (v51 == key || ([v51 isEqual:key] & 1) != 0)
       {
-        v22 = v28;
-        goto LABEL_44;
+        v50 = v49;
+        goto LABEL_95;
       }
 
-      if (v28 + 1 >= v26)
+      if (v49 + 1 >= v47)
       {
-        v31 = v26;
+        v52 = v47;
       }
 
       else
       {
-        v31 = 0;
+        v52 = 0;
       }
 
-      v28 = v28 + 1 - v31;
-      if (!--v29)
+      v49 = v49 + 1 - v52;
+      if (!--v43)
       {
-        goto LABEL_44;
+        goto LABEL_95;
       }
     }
 
-    if (v22 == v26)
+    if (v50 == v47)
     {
-      v22 = v28;
+      v50 = v49;
     }
 
-LABEL_44:
-    if (v22 < v26 && v27 <= 0xF)
+LABEL_95:
+    if (v50 < v47 && v48 <= 0xF)
     {
       break;
     }
 
-    if (v22 < v26)
+    if (v50 < v47)
     {
-      v32 = v20;
+      v53 = v41;
     }
 
     else
     {
-      v32 = v20 + 1;
+      v53 = v41 + 1;
     }
 
-    mdict_rehashd(selfCopy, v32);
-    v20 = v9[1] >> 58;
-    LODWORD(v22) = __NSDictionarySizes_0[v20];
+    mdict_rehashd(selfCopy, v53);
+    v41 = v9[1] >> 58;
+    LODWORD(v43) = __NSDictionarySizes_0[v41];
   }
 
-  v33 = *(v25 + 8 * v22);
-  v34 = v25 + 8 * v26;
-  v35 = v77;
+  v54 = *(v46 + 8 * v50);
+  v55 = v46 + 8 * v47;
+  v56 = v77;
   if ((v77 & 0x200000000000000) != 0)
   {
     [selfCopy willChangeValueForKey:key];
   }
 
-  v36 = *(v34 + 8 * v22);
-  if (v33 == &___NSDictionaryM_DeletedMarker || v33 == 0)
+  v57 = *(v55 + 8 * v50);
+  if (v54 == &___NSDictionaryM_DeletedMarker || v54 == 0)
   {
-    if ((v76 & 0x80000000) != 0)
-    {
-      keyCopy4 = [key copyWithZone:0];
-    }
-
-    else
+    if ((key & 0x8000000000000000) == 0)
     {
       keyCopy4 = key;
-      if ((key & 0x8000000000000000) == 0)
-      {
-        keyCopy3 = key;
-        keyCopy4 = key;
-      }
     }
 
-    *(v25 + 8 * v22) = keyCopy4;
-    *(v34 + 8 * v22) = objectCopy;
-    v44 = v9[1];
-    v9[1] = v44 & 0xFE000000FFFFFFFFLL | ((((v44 + 0x100000000) >> 32) & 0x1FFFFFF) << 32);
-    if (__NSDictionaryCapacities_0[v20] < (((v44 + 0x100000000) >> 32) & 0x1FFFFFF))
+    *(v46 + 8 * v50) = key;
+    *(v55 + 8 * v50) = objectCopy;
+    v60 = v9[1];
+    v9[1] = v60 & 0xFE000000FFFFFFFFLL | ((((v60 + 0x100000000) >> 32) & 0x1FFFFFF) << 32);
+    if (__NSDictionaryCapacities_0[v41] < (((v60 + 0x100000000) >> 32) & 0x1FFFFFF))
     {
-      mdict_rehashd(selfCopy, v20 + 1);
+      mdict_rehashd(selfCopy, v41 + 1);
     }
   }
 
   else
   {
-    *(v34 + 8 * v22) = objectCopy;
+    *(v55 + 8 * v50) = objectCopy;
   }
 
-  if ((v35 & 0x200000000000000) != 0)
+  if ((v56 & 0x200000000000000) != 0)
   {
     [selfCopy didChangeValueForKey:key];
   }
 
-  if (v36 < 1)
+  if (v57 >= 1)
   {
-LABEL_117:
-    v62 = *MEMORY[0x1E69E9840];
-    return;
   }
 
-  v45 = *MEMORY[0x1E69E9840];
+  if (getenv("__setObject_throw_on_warning"))
+  {
+LABEL_123:
+    objc_exception_throw([NSException exceptionWithName:@"NSInvalidArgumentException" reason:@"key should be copyable" userInfo:0]);
+  }
 }
 
 - (void)setObservationInfo:(void *)info
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   if (__cf_tsanWriteFunction)
   {
     __cf_tsanWriteFunction(self, v3, __CFTSANTagMutableDictionary);
@@ -1525,67 +1500,64 @@ LABEL_117:
   }
 
   self->storage.var0.var0.mutations = v10 | ((info != 0) << 57) | v8 & 0xFDFFFFFF80000000;
-  v12.receiver = self;
-  v12.super_class = __NSDictionaryM;
-  [(__NSDictionaryM *)&v12 setObservationInfo:info];
-  v11 = *MEMORY[0x1E69E9840];
+  v11.receiver = self;
+  v11.super_class = __NSDictionaryM;
+  [(__NSDictionaryM *)&v11 setObservationInfo:info];
 }
 
 - (void)__apply:(void *)__apply context:(void *)context
 {
   if (!__apply)
   {
-    v12 = __CFExceptionProem(self, a2);
-    v13 = CFStringCreateWithFormat(&__kCFAllocatorSystemDefault, 0, @"%@: function pointer is NULL", v12);
-    v14 = [NSException exceptionWithName:@"NSInvalidArgumentException" reason:_CFAutoreleasePoolAddObject(0 userInfo:v13), 0];
-    objc_exception_throw(v14);
+    v10 = __CFExceptionProem(self, a2);
+    v11 = CFStringCreateWithFormat(&__kCFAllocatorSystemDefault, 0, @"%@: function pointer is NULL", v10);
+    v12 = [NSException exceptionWithName:@"NSInvalidArgumentException" reason:_CFAutoreleasePoolAddObject(0 userInfo:v11), 0];
+    objc_exception_throw(v12);
   }
 
   v4 = self->storage.var0.var0.mutations >> 58;
   if (v4)
   {
     v6 = v4;
-    v7 = LODWORD(__NSDictionarySizes_0[v6]);
     buffer = self->storage.buffer;
-    if (v7 <= 1)
+    if (LODWORD(__NSDictionarySizes_0[v6]) <= 1uLL)
     {
-      v9 = 1;
+      v8 = 1;
     }
 
     else
     {
-      v9 = LODWORD(__NSDictionarySizes_0[v6]);
+      v8 = LODWORD(__NSDictionarySizes_0[v6]);
     }
 
     do
     {
       if (*buffer)
       {
-        v10 = *buffer == &___NSDictionaryM_DeletedMarker;
+        v9 = *buffer == &___NSDictionaryM_DeletedMarker;
       }
 
       else
       {
-        v10 = 1;
+        v9 = 1;
       }
 
-      if (!v10)
+      if (!v9)
       {
-        v11 = buffer[v7];
         (__apply)();
       }
 
       ++buffer;
-      --v9;
+      --v8;
     }
 
-    while (v9);
+    while (v8);
   }
 }
 
 - (unint64_t)countByEnumeratingWithState:(id *)state objects:(id *)objects count:(unint64_t)count
 {
-  v25[1] = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   if (__cf_tsanReadFunction)
   {
     __cf_tsanReadFunction(self, v5, __CFTSANTagMutableDictionary);
@@ -1602,9 +1574,9 @@ LABEL_117:
 
   if (count)
   {
-    v17 = _os_log_pack_size();
-    v19 = v25 - ((MEMORY[0x1EEE9AC00](v17, v18) + 15) & 0xFFFFFFFFFFFFFFF0);
-    v20 = _os_log_pack_fill();
+    v16 = _os_log_pack_size();
+    v19 = &v26 - ((MEMORY[0x1EEE9AC00](v16, v17, v18) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v20 = _os_log_pack_fill(v19, v16, 0, &dword_1830E6000, "*** %s: pointer to objects array is NULL but length is %lu", v26, v27);
     *v20 = 136315394;
     *(v20 + 4) = "[__NSDictionaryM countByEnumeratingWithState:objects:count:]";
     *(v20 + 12) = 2048;
@@ -1616,17 +1588,17 @@ LABEL_117:
 LABEL_4:
   if (count >> 61)
   {
-    v17 = _os_log_pack_size();
-    v19 = v25 - ((MEMORY[0x1EEE9AC00](v17, v22) + 15) & 0xFFFFFFFFFFFFFFF0);
-    v23 = _os_log_pack_fill();
-    *v23 = 136315394;
-    *(v23 + 4) = "[__NSDictionaryM countByEnumeratingWithState:objects:count:]";
-    *(v23 + 12) = 2048;
-    *(v23 + 14) = count;
+    v16 = _os_log_pack_size();
+    v19 = &v26 - ((MEMORY[0x1EEE9AC00](v16, v22, v23) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v24 = _os_log_pack_fill(v19, v16, 0, &dword_1830E6000, "*** %s: count (%lu) of objects array is ridiculous", v26, v27);
+    *v24 = 136315394;
+    *(v24 + 4) = "[__NSDictionaryM countByEnumeratingWithState:objects:count:]";
+    *(v24 + 12) = 2048;
+    *(v24 + 14) = count;
     v21 = CFStringCreateWithFormat(&__kCFAllocatorSystemDefault, 0, @"*** %s: count (%lu) of objects array is ridiculous", "[__NSDictionaryM countByEnumeratingWithState:objects:count:]", count);
 LABEL_23:
-    v24 = [NSException exceptionWithName:@"NSInvalidArgumentException" reason:_CFAutoreleasePoolAddObject(0 userInfo:v21) osLogPack:0 size:v19, v17];
-    objc_exception_throw(v24);
+    v25 = [NSException exceptionWithName:@"NSInvalidArgumentException" reason:_CFAutoreleasePoolAddObject(0 userInfo:v21) osLogPack:0 size:v19, v16];
+    objc_exception_throw(v25);
   }
 
   var0 = state->var0;
@@ -1638,44 +1610,39 @@ LABEL_23:
 
   if (var0 >= v11)
   {
-    result = 0;
+    return 0;
   }
 
-  else
+  buffer = self->storage.buffer;
+  state->var1 = objects;
+  result = 0;
+  if (count)
   {
-    buffer = self->storage.buffer;
-    state->var1 = objects;
-    result = 0;
-    if (count)
+    do
     {
-      do
+      v14 = buffer[var0];
+      if (v14)
       {
-        v14 = buffer[var0];
-        if (v14)
-        {
-          v15 = v14 == &___NSDictionaryM_DeletedMarker;
-        }
-
-        else
-        {
-          v15 = 1;
-        }
-
-        if (!v15)
-        {
-          objects[result++] = v14;
-        }
-
-        ++var0;
+        v15 = v14 == &___NSDictionaryM_DeletedMarker;
       }
 
-      while (var0 < v11 && result < count);
+      else
+      {
+        v15 = 1;
+      }
+
+      if (!v15)
+      {
+        objects[result++] = v14;
+      }
+
+      ++var0;
     }
 
-    state->var0 = var0;
+    while (var0 < v11 && result < count);
   }
 
-  v16 = *MEMORY[0x1E69E9840];
+  state->var0 = var0;
   return result;
 }
 
@@ -1692,14 +1659,14 @@ LABEL_23:
     }
 
 LABEL_14:
-    v17 = _os_log_pack_size();
-    v19 = &v23[-((MEMORY[0x1EEE9AC00](v17, v18) + 15) & 0xFFFFFFFFFFFFFFF0)];
-    v20 = _os_log_pack_fill();
-    *v20 = 136315138;
-    *(v20 + 4) = "[__NSDictionaryM enumerateKeysAndObjectsWithOptions:usingBlock:]";
-    v21 = CFStringCreateWithFormat(&__kCFAllocatorSystemDefault, 0, @"*** %s: block cannot be nil", "[__NSDictionaryM enumerateKeysAndObjectsWithOptions:usingBlock:]");
-    v22 = [NSException exceptionWithName:@"NSInvalidArgumentException" reason:_CFAutoreleasePoolAddObject(0 userInfo:v21) osLogPack:0 size:v19, v17];
-    objc_exception_throw(v22);
+    v15 = _os_log_pack_size();
+    v18 = &v22 - ((MEMORY[0x1EEE9AC00](v15, v16, v17) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v19 = _os_log_pack_fill(v18, v15, 0, &dword_1830E6000, "*** %s: block cannot be nil", v22);
+    *v19 = 136315138;
+    *(v19 + 4) = "[__NSDictionaryM enumerateKeysAndObjectsWithOptions:usingBlock:]";
+    v20 = CFStringCreateWithFormat(&__kCFAllocatorSystemDefault, 0, @"*** %s: block cannot be nil", "[__NSDictionaryM enumerateKeysAndObjectsWithOptions:usingBlock:]");
+    v21 = [NSException exceptionWithName:@"NSInvalidArgumentException" reason:_CFAutoreleasePoolAddObject(0 userInfo:v20) osLogPack:0 size:v18, v15];
+    objc_exception_throw(v21);
   }
 
   if (!block)
@@ -1720,7 +1687,7 @@ LABEL_3:
   v24[6] = &buffer[v10];
   if ((__NSCollectionHandleConcurrentEnumerationIfSpecified(optionsCopy, 0, v10, v24) & 1) == 0)
   {
-    v23[15] = 0;
+    v23 = 0;
     if (mutations >> 58)
     {
       v11 = 0;
@@ -1740,7 +1707,6 @@ LABEL_3:
         if (!v13)
         {
           v14 = _CFAutoreleasePoolPush();
-          v15 = *(&buffer[v10] + v11);
           __NSDICTIONARY_IS_CALLING_OUT_TO_A_BLOCK__(block);
           _CFAutoreleasePoolPop(v14);
         }
@@ -1751,14 +1717,12 @@ LABEL_3:
       while (v11 < v10);
     }
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (id)keyOfEntryWithOptions:(unint64_t)options passingTest:(id)test
 {
   optionsCopy = options;
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   if (__cf_tsanReadFunction)
   {
     __cf_tsanReadFunction(self, v4, __CFTSANTagMutableDictionary);
@@ -1767,26 +1731,26 @@ LABEL_3:
   buffer = self->storage.buffer;
   mutations = self->storage.var0.var0.mutations;
   v10 = *(__NSDictionarySizes_0 + ((mutations >> 55) & 0x1F8));
-  v21 = 0;
-  v22 = &v21;
-  v23 = 0x2020000000;
-  v24 = 0;
-  v20[0] = MEMORY[0x1E69E9820];
-  v20[1] = 3221225472;
-  v20[2] = __mdict_keyOfEntryWithOptionsPassingTest_block_invoke;
-  v20[3] = &unk_1E6DD29A8;
-  v20[6] = buffer;
-  v20[7] = &buffer[v10];
-  v20[4] = test;
-  v20[5] = &v21;
-  if (__NSCollectionHandleConcurrentEnumerationIfSpecified(optionsCopy, 0, v10, v20))
+  v20 = 0;
+  v21 = &v20;
+  v22 = 0x2020000000;
+  v23 = 0;
+  v19[0] = MEMORY[0x1E69E9820];
+  v19[1] = 3221225472;
+  v19[2] = __mdict_keyOfEntryWithOptionsPassingTest_block_invoke;
+  v19[3] = &unk_1E6DD29A8;
+  v19[6] = buffer;
+  v19[7] = &buffer[v10];
+  v19[4] = test;
+  v19[5] = &v20;
+  if (__NSCollectionHandleConcurrentEnumerationIfSpecified(optionsCopy, 0, v10, v19))
   {
-    v11 = atomic_load(v22 + 3);
+    v11 = atomic_load(v21 + 3);
   }
 
   else
   {
-    v19 = 0;
+    v18 = 0;
     v11 = 0;
     if (mutations >> 58)
     {
@@ -1817,14 +1781,14 @@ LABEL_3:
         {
           v15 = buffer[v10];
           v16 = _CFAutoreleasePoolPush();
-          if ((*(test + 2))(test, v13, v15, &v19))
+          if ((*(test + 2))(test, v13, v15, &v18))
           {
-            v19 = 1;
+            v18 = 1;
             v11 = v13;
           }
 
           _CFAutoreleasePoolPop(v16);
-          if (v19)
+          if (v18)
           {
             break;
           }
@@ -1838,15 +1802,14 @@ LABEL_3:
     }
   }
 
-  _Block_object_dispose(&v21, 8);
-  v17 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v20, 8);
   return v11;
 }
 
 - (id)keysOfEntriesWithOptions:(unint64_t)options passingTest:(id)test
 {
   optionsCopy = options;
-  v14[1] = *MEMORY[0x1E69E9840];
+  v13[1] = *MEMORY[0x1E69E9840];
   if (!__cf_tsanReadFunction)
   {
     if (test)
@@ -1855,13 +1818,13 @@ LABEL_3:
     }
 
 LABEL_7:
-    v10 = _os_log_pack_size();
-    v11 = _os_log_pack_fill();
-    *v11 = 136315138;
-    *(v11 + 4) = "[__NSDictionaryM keysOfEntriesWithOptions:passingTest:]";
-    v12 = CFStringCreateWithFormat(&__kCFAllocatorSystemDefault, 0, @"*** %s: predicate cannot be nil", "[__NSDictionaryM keysOfEntriesWithOptions:passingTest:]");
-    v13 = [NSException exceptionWithName:@"NSInvalidArgumentException" reason:_CFAutoreleasePoolAddObject(0 userInfo:v12) osLogPack:0 size:v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0), v10];
-    objc_exception_throw(v13);
+    v9 = _os_log_pack_size();
+    v10 = _os_log_pack_fill(v13 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0), v9, 0, &dword_1830E6000, "*** %s: predicate cannot be nil", v13[0]);
+    *v10 = 136315138;
+    *(v10 + 4) = "[__NSDictionaryM keysOfEntriesWithOptions:passingTest:]";
+    v11 = CFStringCreateWithFormat(&__kCFAllocatorSystemDefault, 0, @"*** %s: predicate cannot be nil", "[__NSDictionaryM keysOfEntriesWithOptions:passingTest:]");
+    v12 = [NSException exceptionWithName:@"NSInvalidArgumentException" reason:_CFAutoreleasePoolAddObject(0 userInfo:v11) osLogPack:0 size:v13 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0), v9];
+    objc_exception_throw(v12);
   }
 
   __cf_tsanReadFunction(self, v4, __CFTSANTagMutableDictionary);
@@ -1871,7 +1834,6 @@ LABEL_7:
   }
 
 LABEL_3:
-  v8 = *MEMORY[0x1E69E9840];
 
   return mdict_keysOfEntriesWithOptionsPassingTest(&self->storage, optionsCopy, test);
 }
@@ -1953,7 +1915,7 @@ LABEL_23:
 
 - (void)removeEntriesWithOptions:(unint64_t)options passingTest:(id)test
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   if (__cf_tsanWriteFunction)
   {
     __cf_tsanWriteFunction(self, v4, __CFTSANTagMutableDictionary);
@@ -1990,35 +1952,33 @@ LABEL_23:
   }
 
   self->storage.var0.var0.mutations = mutations & 0xFFFFFFFF80000000 | v10;
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   v12 = [(__NSDictionaryM *)self keysOfEntriesWithOptions:options passingTest:test];
-  v13 = [v12 countByEnumeratingWithState:&v19 objects:v18 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v18 objects:v17 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v20;
+    v15 = *v19;
     do
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v20 != v15)
+        if (*v19 != v15)
         {
           objc_enumerationMutation(v12);
         }
 
-        [(__NSDictionaryM *)self removeObjectForKey:*(*(&v19 + 1) + 8 * i)];
+        [(__NSDictionaryM *)self removeObjectForKey:*(*(&v18 + 1) + 8 * i)];
       }
 
-      v14 = [v12 countByEnumeratingWithState:&v19 objects:v18 count:16];
+      v14 = [v12 countByEnumeratingWithState:&v18 objects:v17 count:16];
     }
 
     while (v14);
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (id)mutableCopyWithZone:(_NSZone *)zone
@@ -2048,7 +2008,7 @@ LABEL_23:
 
 - (double)_clumpingFactor
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   mutations = self->storage.var0.var0.mutations;
   v4 = HIDWORD(mutations) & 0x1FFFFFF;
   if ((mutations & 0x1FFFFFE00000000) != 0)
@@ -2061,13 +2021,13 @@ LABEL_23:
     v5 = 1;
   }
 
-  v6 = MEMORY[0x1EEE9AC00](v5, a2);
-  v8 = &v23 - v7;
+  v6 = (MEMORY[0x1EEE9AC00])(v5, a2);
+  v8 = &v22 - v7;
   v10 = *(__NSDictionarySizes_0 + ((v9 >> 55) & 0x1F8));
-  v23 = 0;
+  v22 = 0;
   if (v4 >= 0x101)
   {
-    v8 = _CFCreateArrayStorage(v6, 0, &v23);
+    v8 = _CFCreateArrayStorage(v6, 0, &v22);
     v11 = v8;
   }
 
@@ -2076,7 +2036,7 @@ LABEL_23:
     v11 = 0;
   }
 
-  [(__NSDictionaryM *)self getObjects:0 andKeys:v8 count:v4, v23, v24];
+  [(__NSDictionaryM *)self getObjects:0 andKeys:v8 count:v4, v22, v23];
   v12 = 0.0;
   if (v4 >= 2)
   {
@@ -2116,14 +2076,13 @@ LABEL_23:
   }
 
   free(v11);
-  v21 = *MEMORY[0x1E69E9840];
   return v12;
 }
 
 - (double)_clumpingInterestingThreshold
 {
   mutations = self->storage.var0.var0.mutations;
-  v3 = *(&__NSDictionarySizes_0 + ((mutations >> 55) & 0x1F8));
+  v3 = *(__NSDictionarySizes_0 + ((mutations >> 55) & 0x1F8));
   return 1.0 - (2 * (HIDWORD(mutations) & 0x1FFFFFF)) / v3 + ((HIDWORD(mutations) & 0x1FFFFFF) * (HIDWORD(mutations) & 0x1FFFFFF)) / v3 / v3;
 }
 

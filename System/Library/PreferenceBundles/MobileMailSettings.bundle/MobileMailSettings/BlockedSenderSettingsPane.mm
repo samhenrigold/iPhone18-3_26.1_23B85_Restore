@@ -4,8 +4,11 @@
 - (id)blockSenderStateWithSpecifier:(id)specifier;
 - (id)specifiers;
 - (id)tableView:(id)view cellForRowAtIndexPath:(id)path;
+- (void)_writeBlockSenderEnabled:(BOOL)enabled optionValue:(int64_t)value;
 - (void)setBlockSenderState:(id)state withSpecifier:(id)specifier;
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewDidDisappear:(BOOL)disappear;
 @end
 
 @implementation BlockedSenderSettingsPane
@@ -82,6 +85,23 @@
   return v8;
 }
 
+- (void)viewDidAppear:(BOOL)appear
+{
+  v5.receiver = self;
+  v5.super_class = BlockedSenderSettingsPane;
+  [(BlockedSenderSettingsPane *)&v5 viewDidAppear:appear];
+  parentController = [(BlockedSenderSettingsPane *)self parentController];
+  [(BlockedSenderSettingsPane *)self setParentListController:parentController];
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v4.receiver = self;
+  v4.super_class = BlockedSenderSettingsPane;
+  [(BlockedSenderSettingsPane *)&v4 viewDidDisappear:disappear];
+  [(BlockedSenderSettingsPane *)self setParentListController:0];
+}
+
 - (id)blockSenderStateWithSpecifier:(id)specifier
 {
   v3 = [NSNumber numberWithBool:[(BlockedSenderSettingsPane *)self blockSenderEnabled]];
@@ -151,6 +171,46 @@
   }
 
   return v7;
+}
+
+- (void)_writeBlockSenderEnabled:(BOOL)enabled optionValue:(int64_t)value
+{
+  enabledCopy = enabled;
+  v7 = +[BlockedSenderSettingsPane log];
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  {
+    v8 = @"OFF";
+    if (enabledCopy)
+    {
+      v8 = @"ON";
+    }
+
+    v12 = 138543618;
+    v13 = v8;
+    v14 = 2048;
+    valueCopy = value;
+    _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEFAULT, "block sender is %{public}@, preference action %li", &v12, 0x16u);
+  }
+
+  setEmailPreferenceBoolValue(EMUserDefaultBlockedSenderEnabled, enabledCopy);
+  if (enabledCopy)
+  {
+    v9 = [NSNumber numberWithInteger:value];
+    setEmailPreferenceValue(EMUserDefaultBlockedSenderAction, v9);
+  }
+
+  else
+  {
+    v9 = +[NSUserDefaults em_userDefaults];
+    [v9 removeObjectForKey:EMUserDefaultBlockedSenderAction];
+  }
+
+  parentListController = [(BlockedSenderSettingsPane *)self parentListController];
+  [parentListController reloadSpecifier:*&self->PSListController_opaque[OBJC_IVAR___PSViewController__specifier]];
+
+  DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
+  CFNotificationCenterPostNotification(DarwinNotifyCenter, EMUserDefaultsDidChangeNotification, 0, 0, 1u);
+  CFNotificationCenterPostNotification(DarwinNotifyCenter, EMBlockedSenderOptionsDidChangeNotification, 0, 0, 1u);
 }
 
 - (PSListController)parentListController

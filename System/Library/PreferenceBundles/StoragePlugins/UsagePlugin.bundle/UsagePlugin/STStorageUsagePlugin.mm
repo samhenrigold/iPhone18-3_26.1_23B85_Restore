@@ -231,18 +231,18 @@
     [v10 setVolume:@"/private/var"];
     [v10 setUrgency:3];
     v11 = [[ASDPurgeableAppRequest alloc] initWithOptions:v10];
-    v50[0] = _NSConcreteStackBlock;
-    v50[1] = 3221225472;
-    v50[2] = sub_22A4;
-    v50[3] = &unk_8340;
-    v50[4] = self;
-    [v11 startWithCompletionBlock:v50];
+    v49[0] = _NSConcreteStackBlock;
+    v49[1] = 3221225472;
+    v49[2] = sub_22A4;
+    v49[3] = &unk_8340;
+    v49[4] = self;
+    [v11 startWithCompletionBlock:v49];
     [v3 addObject:self->_offloadAppsTip];
   }
 
-  v49 = 0;
-  v12 = [(STStorageUsagePlugin *)self hlsSize:&v49];
-  v13 = v49;
+  v48 = 0;
+  v12 = [(STStorageUsagePlugin *)self hlsSize:&v48];
+  v13 = v48;
   if (v12)
   {
     v14 = objc_alloc_init(STStorageActionTip);
@@ -310,7 +310,6 @@
     [(STStorageActionTip *)self->_tvReviewTip setInfoText:v31];
 
     v32 = objc_opt_class();
-    tvReporter = self->_tvReporter;
     if (objc_opt_respondsToSelector())
     {
       v32 = [(PSStorageReporting *)self->_tvReporter usageDetailControllerClassForUsageBundleApp:self->_tvUsageBundleApp];
@@ -325,8 +324,8 @@
     [v3 addObject:self->_tvReviewTip];
   }
 
-  v35 = +[STStorageMediaMonitor sharedMonitor];
-  if (![v35 isAsynchronouslyLoaded] || !STStorageIsInternalInstall() || !-[NSNumber longLongValue](self->_othersDataSize, "longLongValue"))
+  v34 = +[STStorageMediaMonitor sharedMonitor];
+  if (![v34 isAsynchronouslyLoaded] || !STStorageIsInternalInstall() || !-[NSNumber longLongValue](self->_othersDataSize, "longLongValue"))
   {
 
     goto LABEL_26;
@@ -346,35 +345,35 @@
   {
   }
 
-  v38 = objc_alloc_init(STStorageOptionTip);
+  v37 = objc_alloc_init(STStorageOptionTip);
   ttrActionTip = self->_ttrActionTip;
-  self->_ttrActionTip = v38;
+  self->_ttrActionTip = v37;
 
   [(STStorageOptionTip *)self->_ttrActionTip setIdentifier:@"_LARGE_SYSTEM_DATA_"];
   longLongValue2 = [(NSNumber *)self->_othersDataSize longLongValue];
-  v41 = @"Large";
+  v40 = @"Large";
   if (longLongValue2 < 10485761)
   {
-    v41 = @"Low";
+    v40 = @"Low";
   }
 
-  v42 = [NSString stringWithFormat:@"%@ System Data", v41];
-  [(STStorageOptionTip *)self->_ttrActionTip setTitle:v42];
+  v41 = [NSString stringWithFormat:@"%@ System Data", v40];
+  [(STStorageOptionTip *)self->_ttrActionTip setTitle:v41];
 
   longLongValue3 = [(NSNumber *)self->_othersDataSize longLongValue];
-  v44 = @"larger";
+  v43 = @"larger";
   if (longLongValue3 < 10485761)
   {
-    v44 = @"lower";
+    v43 = @"lower";
   }
 
   othersDataSize = self->_othersDataSize;
-  v46 = v44;
+  v45 = v43;
   [(NSNumber *)othersDataSize longLongValue];
-  v47 = STFormattedSize();
-  v48 = [NSString stringWithFormat:@"The System data takes %@. This is %@ than expected. Please file a Radar to report this issue.", v47, v46];
+  v46 = STFormattedSize();
+  v47 = [NSString stringWithFormat:@"The System data takes %@. This is %@ than expected. Please file a Radar to report this issue.", v46, v45];
 
-  [(STStorageOptionTip *)self->_ttrActionTip setInfoText:v48];
+  [(STStorageOptionTip *)self->_ttrActionTip setInfoText:v47];
   [(STStorageOptionTip *)self->_ttrActionTip setDelegate:self];
   [(STStorageOptionTip *)self->_ttrActionTip setImmediateGain:0];
   [(STStorageOptionTip *)self->_ttrActionTip setSize:0];

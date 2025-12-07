@@ -10,7 +10,9 @@
 - (void)nextButtonPressed:(id)pressed;
 - (void)passcodeInput:(id)input enteredPasscode:(id)passcode;
 - (void)passcodeInput:(id)input willChangeContents:(id)contents;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLoad;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation PasscodeViewController
@@ -180,6 +182,24 @@ LABEL_6:
   [(PasscodeViewController *)&v2 viewDidLoad];
 }
 
+- (void)viewDidAppear:(BOOL)appear
+{
+  v5.receiver = self;
+  v5.super_class = PasscodeViewController;
+  [(PasscodeViewController *)&v5 viewDidAppear:appear];
+  passcodeInputView = [(PasscodeViewController *)self passcodeInputView];
+  [passcodeInputView becomeFirstResponder];
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  v5.receiver = self;
+  v5.super_class = PasscodeViewController;
+  [(PasscodeViewController *)&v5 viewWillDisappear:disappear];
+  passcodeInputView = [(PasscodeViewController *)self passcodeInputView];
+  [passcodeInputView resignFirstResponder];
+}
+
 - (BOOL)deviceHasSimplePasscode
 {
   v2 = +[DeviceRecoveryController sharedController];
@@ -203,24 +223,24 @@ LABEL_6:
 
   if (simplePasscodeType == -1)
   {
-    v6 = sub_100012608();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = sub_100012608(v4);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 136446210;
-      v9 = "[PasscodeViewController numberOfCharactersInSimpleDevicePasscode]";
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "%{public}s: Device passcode is not simple", &v8, 0xCu);
+      v9 = 136446210;
+      v10 = "[PasscodeViewController numberOfCharactersInSimpleDevicePasscode]";
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "%{public}s: Device passcode is not simple", &v9, 0xCu);
     }
 
 LABEL_13:
-    v4 = sub_100012608();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = sub_100012608(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 136446210;
-      v9 = "[PasscodeViewController numberOfCharactersInSimpleDevicePasscode]";
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "%{public}s: Device passcode type is not known", &v8, 0xCu);
+      v9 = 136446210;
+      v10 = "[PasscodeViewController numberOfCharactersInSimpleDevicePasscode]";
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "%{public}s: Device passcode type is not known", &v9, 0xCu);
     }
 
-    v5 = 0;
+    v6 = 0;
     goto LABEL_16;
   }
 
@@ -228,33 +248,33 @@ LABEL_13:
   {
     if (!simplePasscodeType)
     {
-      v4 = sub_100012608();
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+      v5 = sub_100012608(v4);
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
       {
-        v8 = 136446210;
-        v9 = "[PasscodeViewController numberOfCharactersInSimpleDevicePasscode]";
-        _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "%{public}s: Device passcode is 4 digits", &v8, 0xCu);
+        v9 = 136446210;
+        v10 = "[PasscodeViewController numberOfCharactersInSimpleDevicePasscode]";
+        _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "%{public}s: Device passcode is 4 digits", &v9, 0xCu);
       }
 
-      v5 = 4;
+      v6 = 4;
       goto LABEL_16;
     }
 
     goto LABEL_13;
   }
 
-  v4 = sub_100012608();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v5 = sub_100012608(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 136446210;
-    v9 = "[PasscodeViewController numberOfCharactersInSimpleDevicePasscode]";
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "%{public}s: Device passcode is 6 digits", &v8, 0xCu);
+    v9 = 136446210;
+    v10 = "[PasscodeViewController numberOfCharactersInSimpleDevicePasscode]";
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "%{public}s: Device passcode is 6 digits", &v9, 0xCu);
   }
 
-  v5 = 6;
+  v6 = 6;
 LABEL_16:
 
-  return v5;
+  return v6;
 }
 
 - (void)nextButtonPressed:(id)pressed
@@ -263,12 +283,12 @@ LABEL_16:
 
   if (delegate)
   {
-    v5 = sub_100012608();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_100012608(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = 136446210;
-      v10 = "[PasscodeViewController nextButtonPressed:]";
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "%{public}s: Next button pressed. Calling didAuthenticate on delegate.", &v9, 0xCu);
+      v10 = 136446210;
+      v11 = "[PasscodeViewController nextButtonPressed:]";
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "%{public}s: Next button pressed. Calling didAuthenticate on delegate.", &v10, 0xCu);
     }
 
     delegate2 = [(PasscodeViewController *)self delegate];
@@ -285,12 +305,12 @@ LABEL_16:
 
   if (delegate)
   {
-    v7 = sub_100012608();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = sub_100012608(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = 136446210;
-      v10 = "[PasscodeViewController passcodeInput:enteredPasscode:]";
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "%{public}s: Calling didAuthenticate on delegate.", &v9, 0xCu);
+      v10 = 136446210;
+      v11 = "[PasscodeViewController passcodeInput:enteredPasscode:]";
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "%{public}s: Calling didAuthenticate on delegate.", &v10, 0xCu);
     }
 
     delegate2 = [(PasscodeViewController *)self delegate];

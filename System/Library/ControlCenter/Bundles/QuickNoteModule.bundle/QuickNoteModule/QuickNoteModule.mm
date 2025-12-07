@@ -24,23 +24,31 @@ void sub_29C9E6040(uint64_t a1)
 
 void sub_29C9E6394(uint64_t a1, NSObject *a2)
 {
-  v9 = *MEMORY[0x29EDCA608];
+  v8 = *MEMORY[0x29EDCA608];
   v2 = *(a1 + 32);
   v3 = *(a1 + 40);
-  v5 = 138412546;
-  v6 = v2;
-  v7 = 2112;
-  v8 = v3;
-  _os_log_debug_impl(&dword_29C9E5000, a2, OS_LOG_TYPE_DEBUG, "Launching with URL %@ and options %@", &v5, 0x16u);
-  v4 = *MEMORY[0x29EDCA608];
+  v4 = 138412546;
+  v5 = v2;
+  v6 = 2112;
+  v7 = v3;
+  _os_log_debug_impl(&dword_29C9E5000, a2, OS_LOG_TYPE_DEBUG, "Launching with URL %@ and options %@", &v4, 0x16u);
 }
 
 void sub_29C9E641C(uint64_t *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x29EDCA608];
+  v5 = *MEMORY[0x29EDCA608];
   v2 = *a1;
-  v4 = 138412290;
-  v5 = v2;
-  _os_log_debug_impl(&dword_29C9E5000, a2, OS_LOG_TYPE_DEBUG, "Failed to launch to URL %@", &v4, 0xCu);
-  v3 = *MEMORY[0x29EDCA608];
+  v3 = 138412290;
+  v4 = v2;
+  _os_log_debug_impl(&dword_29C9E5000, a2, OS_LOG_TYPE_DEBUG, "Failed to launch to URL %@", &v3, 0xCu);
+}
+
+CGRect CGRectInset(CGRect rect, CGFloat dx, CGFloat dy)
+{
+  MEMORY[0x2A1C59B50](rect.origin, *&rect.origin.y, rect.size, *&rect.size.height, dx, dy);
+  result.size.height = v6;
+  result.size.width = v5;
+  result.origin.y = v4;
+  result.origin.x = v3;
+  return result;
 }

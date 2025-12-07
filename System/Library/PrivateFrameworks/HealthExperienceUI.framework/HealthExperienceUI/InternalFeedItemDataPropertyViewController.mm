@@ -16,7 +16,7 @@
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_1BA106A08();
+  sub_1BA106A08(selfCopy);
 }
 
 - (_TtC18HealthExperienceUI42InternalFeedItemDataPropertyViewController)initWithNibName:(id)name bundle:(id)bundle

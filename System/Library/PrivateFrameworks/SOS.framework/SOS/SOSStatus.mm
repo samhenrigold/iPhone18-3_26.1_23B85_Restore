@@ -36,20 +36,7 @@
   if (trigger)
   {
     timeOfDetection = [(SOSStatus *)self timeOfDetection];
-    if (!timeOfDetection)
-    {
-      goto LABEL_5;
-    }
-
-    v6 = timeOfDetection;
-    timeOfDetection2 = [(SOSStatus *)self timeOfDetection];
-    [timeOfDetection2 timeIntervalSince1970];
-    v9 = v8;
-    v10 = [MEMORY[0x277CBEAA8] now];
-    [v10 timeIntervalSince1970];
-    v12 = v11 + 60.0;
-
-    if (v9 > v12)
+    if (!timeOfDetection || (v6 = timeOfDetection, -[SOSStatus timeOfDetection](self, "timeOfDetection"), v7 = objc_claimAutoreleasedReturnValue(), [v7 timeIntervalSince1970], v9 = v8, objc_msgSend(MEMORY[0x277CBEAA8], "now"), v10 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v10, "timeIntervalSince1970"), v12 = v11 + 60.0, v10, v7, v6, v9 > v12))
     {
 LABEL_5:
       LOBYTE(trigger) = 0;
@@ -72,7 +59,7 @@ LABEL_5:
   trigger = [(SOSStatus *)self trigger];
   if (trigger >= 0xA)
   {
-    v13 = sos_default_log();
+    v13 = sos_default_log(trigger);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       [(SOSStatus *)self shouldBlockNonEmergencyCalls];
@@ -99,7 +86,7 @@ LABEL_9:
   flowState = [(SOSStatus *)self flowState];
   if (flowState >= 0xF)
   {
-    v13 = sos_default_log();
+    v13 = sos_default_log(flowState);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       [(SOSStatus *)self shouldBlockNonEmergencyCalls];
@@ -196,7 +183,7 @@ LABEL_7:
   flowState = [(SOSStatus *)self flowState];
   if (flowState >= 0xF)
   {
-    v5 = sos_default_log();
+    v5 = sos_default_log(flowState);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       [(SOSStatus *)self isFlowActive];
@@ -221,7 +208,7 @@ LABEL_7:
   flowState = [(SOSStatus *)self flowState];
   if (flowState >= 0xF)
   {
-    v5 = sos_default_log();
+    v5 = sos_default_log(flowState);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       [(SOSStatus *)self isFlowActiveAndNotResting];
@@ -246,7 +233,7 @@ LABEL_7:
   flowState = [(SOSStatus *)self flowState];
   if (flowState >= 0xF)
   {
-    v5 = sos_default_log();
+    v5 = sos_default_log(flowState);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       [(SOSStatus *)self isPreCall];
@@ -271,7 +258,7 @@ LABEL_8:
   flowState = [(SOSStatus *)self flowState];
   if (flowState >= 0xF)
   {
-    v5 = sos_default_log();
+    v5 = sos_default_log(flowState);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       [(SOSStatus *)self shouldRejectNewSOSTriggers];
@@ -286,19 +273,7 @@ LABEL_8:
 
 - (BOOL)shouldRetriggerSOS
 {
-  if (![(SOSStatus *)self isValid]|| +[SOSUtilities shouldAllowSOSStatusReset]|| [(SOSStatus *)self trigger]!= 5 && [(SOSStatus *)self trigger]!= 7)
-  {
-    goto LABEL_11;
-  }
-
-  timeOfDetection = [(SOSStatus *)self timeOfDetection];
-  [timeOfDetection timeIntervalSince1970];
-  v5 = v4 + 60.0;
-  v6 = [MEMORY[0x277CBEAA8] now];
-  [v6 timeIntervalSince1970];
-  v8 = v7;
-
-  if (v5 < v8)
+  if (!-[SOSStatus isValid](self, "isValid") || +[SOSUtilities shouldAllowSOSStatusReset](SOSUtilities, "shouldAllowSOSStatusReset") || -[SOSStatus trigger](self, "trigger") != 5 && -[SOSStatus trigger](self, "trigger") != 7 || (-[SOSStatus timeOfDetection](self, "timeOfDetection"), v3 = objc_claimAutoreleasedReturnValue(), [v3 timeIntervalSince1970], v5 = v4 + 60.0, objc_msgSend(MEMORY[0x277CBEAA8], "now"), v6 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v6, "timeIntervalSince1970"), v8 = v7, v6, v3, v5 < v8))
   {
 LABEL_11:
     LOBYTE(v10) = 0;
@@ -308,7 +283,7 @@ LABEL_11:
   flowState = [(SOSStatus *)self flowState];
   if (flowState >= 0xF)
   {
-    v11 = sos_default_log();
+    v11 = sos_default_log(flowState);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       [(SOSStatus *)self shouldRetriggerSOS];
@@ -393,56 +368,44 @@ LABEL_11:
 
 - (void)isFlowActive
 {
-  v9 = *MEMORY[0x277D85DE8];
   [self flowState];
   OUTLINED_FUNCTION_1_1();
-  OUTLINED_FUNCTION_0_5(&dword_264323000, v1, v2, "SOSStatus,isFlowActive,unexpected SOSFlowState %d", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_5(&dword_264323000, v1, v2, "SOSStatus,isFlowActive,unexpected SOSFlowState %d", v3, v4, v5, v6);
 }
 
 - (void)isFlowActiveAndNotResting
 {
-  v9 = *MEMORY[0x277D85DE8];
   [self flowState];
   OUTLINED_FUNCTION_1_1();
-  OUTLINED_FUNCTION_0_5(&dword_264323000, v1, v2, "SOSStatus,isFlowActiveAndNotResting,unexpected SOSFlowState %d", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_5(&dword_264323000, v1, v2, "SOSStatus,isFlowActiveAndNotResting,unexpected SOSFlowState %d", v3, v4, v5, v6);
 }
 
 - (void)isPreCall
 {
-  v9 = *MEMORY[0x277D85DE8];
   [self flowState];
   OUTLINED_FUNCTION_1_1();
-  OUTLINED_FUNCTION_0_5(&dword_264323000, v1, v2, "SOSStatus,isPreCall,unexpected SOSFlowState %d", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_5(&dword_264323000, v1, v2, "SOSStatus,isPreCall,unexpected SOSFlowState %d", v3, v4, v5, v6);
 }
 
 - (void)shouldBlockNonEmergencyCalls
 {
-  v9 = *MEMORY[0x277D85DE8];
   [self flowState];
   OUTLINED_FUNCTION_1_1();
-  OUTLINED_FUNCTION_0_5(&dword_264323000, v1, v2, "SOSStatus,shouldBlockNonEmergencyCalls,unexpected SOSFlowState %d", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_5(&dword_264323000, v1, v2, "SOSStatus,shouldBlockNonEmergencyCalls,unexpected SOSFlowState %d", v3, v4, v5, v6);
 }
 
 - (void)shouldRejectNewSOSTriggers
 {
-  v9 = *MEMORY[0x277D85DE8];
   [self flowState];
   OUTLINED_FUNCTION_1_1();
-  OUTLINED_FUNCTION_0_5(&dword_264323000, v1, v2, "SOSStatus,shouldRejectNewSOSTriggers,unexpected SOSFlowState %d", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_5(&dword_264323000, v1, v2, "SOSStatus,shouldRejectNewSOSTriggers,unexpected SOSFlowState %d", v3, v4, v5, v6);
 }
 
 - (void)shouldRetriggerSOS
 {
-  v9 = *MEMORY[0x277D85DE8];
   [self flowState];
   OUTLINED_FUNCTION_1_1();
-  OUTLINED_FUNCTION_0_5(&dword_264323000, v1, v2, "SOSStatus,shouldRetriggerSOS,unexpected SOSFlowState %d", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_5(&dword_264323000, v1, v2, "SOSStatus,shouldRetriggerSOS,unexpected SOSFlowState %d", v3, v4, v5, v6);
 }
 
 @end

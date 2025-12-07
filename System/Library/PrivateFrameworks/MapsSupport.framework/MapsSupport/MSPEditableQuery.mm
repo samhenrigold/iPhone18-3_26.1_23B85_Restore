@@ -121,7 +121,7 @@ uint64_t __70__MSPEditableQuery__performEditWithStateTransformation_containerEdi
 
 void __70__MSPEditableQuery__performEditWithStateTransformation_containerEdit___block_invoke_2(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v5 = WeakRetained;
@@ -143,19 +143,16 @@ void __70__MSPEditableQuery__performEditWithStateTransformation_containerEdit___
 
   else
   {
-    v9 = *MEMORY[0x277D0E798];
-    v10 = GEOFindOrCreateLog();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v9 = GEOFindOrCreateLog();
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      v12 = 136315394;
-      v13 = "[MSPEditableQuery _performEditWithStateTransformation:containerEdit:]_block_invoke_2";
-      v14 = 1024;
-      v15 = 370;
-      _os_log_impl(&dword_25813A000, v10, OS_LOG_TYPE_ERROR, "strongSelf went away in %s line %d", &v12, 0x12u);
+      v10 = 136315394;
+      v11 = "[MSPEditableQuery _performEditWithStateTransformation:containerEdit:]_block_invoke_2";
+      v12 = 1024;
+      v13 = 370;
+      _os_log_impl(&dword_25813A000, v9, OS_LOG_TYPE_ERROR, "strongSelf went away in %s line %d", &v10, 0x12u);
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)deleteContentsObjectAtIndexes:(id)indexes
@@ -356,33 +353,33 @@ id __54__MSPEditableQuery_moveContentsObjectAtIndex_toIndex___block_invoke(void 
 
 uint64_t __54__MSPEditableQuery_moveContentsObjectAtIndex_toIndex___block_invoke_2(uint64_t a1, void *a2)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   v3 = a2;
-  v4 = [v3 countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v4)
   {
     v5 = v4;
     v6 = 0;
-    v7 = *v23;
+    v7 = *v22;
     v8 = 0x7FFFFFFFFFFFFFFFLL;
     v9 = 0x7FFFFFFFFFFFFFFFLL;
     obj = v3;
     while (2)
     {
       v10 = 0;
-      v20 = v6 + v5;
+      v19 = v6 + v5;
       do
       {
-        if (*v23 != v7)
+        if (*v22 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v22 + 1) + 8 * v10);
+        v11 = *(*(&v21 + 1) + 8 * v10);
         v12 = [v11 storageIdentifier];
         v13 = [v12 isEqual:*(*(*(a1 + 32) + 8) + 40)];
 
@@ -419,8 +416,8 @@ uint64_t __54__MSPEditableQuery_moveContentsObjectAtIndex_toIndex___block_invoke
 
       while (v5 != v10);
       v3 = obj;
-      v5 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
-      v6 = v20;
+      v5 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v6 = v19;
       if (v5)
       {
         continue;
@@ -434,7 +431,6 @@ uint64_t __54__MSPEditableQuery_moveContentsObjectAtIndex_toIndex___block_invoke
   v17 = v3;
 LABEL_16:
 
-  v18 = *MEMORY[0x277D85DE8];
   return v16;
 }
 

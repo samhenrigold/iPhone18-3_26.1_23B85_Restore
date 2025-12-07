@@ -12,7 +12,7 @@
 - (void)setEnabled:(BOOL)enabled
 {
   enabledCopy = enabled;
-  v5 = type metadata accessor for TransportButton();
+  v5 = type metadata accessor for TransportButton(self, a2);
   v9.receiver = self;
   v9.super_class = v5;
   selfCopy = self;
@@ -29,7 +29,7 @@
 - (void)setHighlighted:(BOOL)highlighted
 {
   highlightedCopy = highlighted;
-  v5 = type metadata accessor for TransportButton();
+  v5 = type metadata accessor for TransportButton(self, a2);
   v9.receiver = self;
   v9.super_class = v5;
   selfCopy = self;
@@ -43,7 +43,7 @@
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_1A22E2EB0();
+  sub_1A22E2EB0(selfCopy, v2);
 }
 
 - (void)didTapInside:(id)inside

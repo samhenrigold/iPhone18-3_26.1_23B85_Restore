@@ -8,6 +8,9 @@
 - (void)hearingControlCenterOrder;
 - (void)logMessage:(id)message;
 - (void)setHearingControlCenterOrder:(id)order;
+- (void)setLiveListenAnyRouteEnabled:(BOOL)enabled;
+- (void)setLiveListenRemoteControlEnabled:(BOOL)enabled;
+- (void)setShouldShowSSLFooterInCC:(BOOL)c;
 @end
 
 @implementation HUHearingSettings
@@ -35,17 +38,15 @@ uint64_t __35__HUHearingSettings_sharedInstance__block_invoke()
 
 - (void)logMessage:(id)message
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   messageCopy = message;
   v4 = HCLogHearing();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 138412290;
-    v7 = messageCopy;
-    _os_log_impl(&dword_1DA5E2000, v4, OS_LOG_TYPE_DEFAULT, "%@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = messageCopy;
+    _os_log_impl(&dword_1DA5E2000, v4, OS_LOG_TYPE_DEFAULT, "%@", &v5, 0xCu);
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (NSArray)hearingControlCenterOrder
@@ -336,6 +337,18 @@ uint64_t __50__HUHearingSettings_setHearingControlCenterOrder___block_invoke(uin
   return result;
 }
 
+- (void)setShouldShowSSLFooterInCC:(BOOL)c
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:c];
+  [(HCSettings *)self setValue:v4 forPreferenceKey:@"shouldShowSSLFooterInCC"];
+}
+
+- (void)setLiveListenRemoteControlEnabled:(BOOL)enabled
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:enabled];
+  [(HCSettings *)self setValue:v4 forPreferenceKey:@"liveListenRemoteControlEnabled"];
+}
+
 - (NSDictionary)liveListenRemoteStartHistory
 {
   v3 = objc_opt_class();
@@ -345,18 +358,24 @@ uint64_t __50__HUHearingSettings_setHearingControlCenterOrder___block_invoke(uin
   return v5;
 }
 
+- (void)setLiveListenAnyRouteEnabled:(BOOL)enabled
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:enabled];
+  [(HCSettings *)self setValue:v4 forPreferenceKey:@"liveListenAnyRouteEnabled"];
+}
+
 - (void)hearingControlCenterOrder
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_0(&dword_1DA5E2000, a2, a3, "Exception decoding data: %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = self;
+  OUTLINED_FUNCTION_0_0(&dword_1DA5E2000, a2, a3, "Exception decoding data: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)setHearingControlCenterOrder:(uint64_t)a3 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_0(&dword_1DA5E2000, a2, a3, "Exception encoding data: %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_0(&dword_1DA5E2000, a2, a3, "Exception encoding data: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

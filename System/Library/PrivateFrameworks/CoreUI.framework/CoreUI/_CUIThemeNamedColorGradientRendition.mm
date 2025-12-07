@@ -34,31 +34,31 @@
 
 - (id)_initWithCSIHeader:(const _csiheader *)header version:(unsigned int)version
 {
-  v33.receiver = self;
-  v33.super_class = _CUIThemeNamedColorGradientRendition;
-  v5 = [(CUIThemeRendition *)&v33 _initWithCSIHeader:header version:*&version];
+  v27.receiver = self;
+  v27.super_class = _CUIThemeNamedColorGradientRendition;
+  v5 = [(CUIThemeRendition *)&v27 _initWithCSIHeader:header version:*&version];
   f64 = v5->f64;
-  v13 = &header->var0 + 4 * header->var11.var0 + header->var10;
-  v16 = *(v13 + 45);
-  v14 = (v13 + 180);
-  v15 = v16;
-  if (v16 == 1095193153)
+  v7 = &header->var0 + 4 * header->var11.var0 + header->var10;
+  v10 = *(v7 + 45);
+  v8 = (v7 + 180);
+  v9 = v10;
+  if (v10 == 1095193153)
   {
-    v28 = v14->i32[1];
-    *&v5[14].f64[1] = v14[1].u32[0];
-    if (!v28)
+    v22 = v8->i32[1];
+    *&v5[14].f64[1] = v8[1].u32[0];
+    if (!v22)
     {
       goto LABEL_29;
     }
 
-    v18 = 0;
-    v19 = 0;
-    v29 = &v14[2] + 1;
+    v12 = 0;
+    v13 = 0;
+    v23 = &v8[2] + 1;
     while (1)
     {
-      if (v18)
+      if (v12)
       {
-        if (!v19)
+        if (!v13)
         {
           goto LABEL_27;
         }
@@ -66,47 +66,47 @@
 
       else
       {
-        v18 = objc_alloc_init(NSMutableArray);
-        if (!v19)
+        v12 = objc_alloc_init(NSMutableArray);
+        if (!v13)
         {
 LABEL_27:
-          v19 = objc_alloc_init(NSMutableArray);
+          v13 = objc_alloc_init(NSMutableArray);
         }
       }
 
-      v30 = [[NSString alloc] initWithUTF8String:v29 + 2];
-      LODWORD(v31) = *v29;
-      [v19 addObject:{+[NSNumber numberWithFloat:](NSNumber, "numberWithFloat:", v31)}];
-      [v18 addObject:v30];
+      v24 = [[NSString alloc] initWithUTF8String:v23 + 2];
+      LODWORD(v25) = *v23;
+      [v13 addObject:{+[NSNumber numberWithFloat:](NSNumber, "numberWithFloat:", v25)}];
+      [v12 addObject:v24];
 
-      v29 = (v29 + v29[1] + 8);
-      if (!--v28)
+      v23 = (v23 + v23[1] + 8);
+      if (!--v22)
       {
         goto LABEL_30;
       }
     }
   }
 
-  if (v15 == 1195856449)
+  if (v9 == 1195856449)
   {
-    v23 = v14[3];
-    v5[15] = vcvtq_f64_f32(v14[2]);
-    v24 = v14->i32[1];
-    *&v5[14].f64[1] = v14[1].u32[0];
-    v5[16] = vcvtq_f64_f32(v23);
-    if (!v24)
+    v17 = v8[3];
+    v5[15] = vcvtq_f64_f32(v8[2]);
+    v18 = v8->i32[1];
+    *&v5[14].f64[1] = v8[1].u32[0];
+    v5[16] = vcvtq_f64_f32(v17);
+    if (!v18)
     {
       goto LABEL_29;
     }
 
-    v18 = 0;
-    v19 = 0;
-    v25 = v14 + 4;
+    v12 = 0;
+    v13 = 0;
+    v19 = v8 + 4;
     while (1)
     {
-      if (v18)
+      if (v12)
       {
-        if (!v19)
+        if (!v13)
         {
           goto LABEL_19;
         }
@@ -114,41 +114,41 @@ LABEL_27:
 
       else
       {
-        v18 = objc_alloc_init(NSMutableArray);
-        if (!v19)
+        v12 = objc_alloc_init(NSMutableArray);
+        if (!v13)
         {
 LABEL_19:
-          v19 = objc_alloc_init(NSMutableArray);
+          v13 = objc_alloc_init(NSMutableArray);
         }
       }
 
-      v26 = [[NSString alloc] initWithUTF8String:&v25[1]];
-      LODWORD(v27) = v25->i32[0];
-      [v19 addObject:{+[NSNumber numberWithFloat:](NSNumber, "numberWithFloat:", v27)}];
-      [v18 addObject:v26];
+      v20 = [[NSString alloc] initWithUTF8String:&v19[1]];
+      LODWORD(v21) = v19->i32[0];
+      [v13 addObject:{+[NSNumber numberWithFloat:](NSNumber, "numberWithFloat:", v21)}];
+      [v12 addObject:v20];
 
-      v25 = (v25 + v25->u32[1] + 8);
-      if (!--v24)
+      v19 = (v19 + v19->u32[1] + 8);
+      if (!--v18)
       {
         goto LABEL_30;
       }
     }
   }
 
-  if (v15 == 1313296961)
+  if (v9 == 1313296961)
   {
-    v17 = v14->i32[1];
-    *&v5[14].f64[1] = v14[1].u32[0];
-    if (v17)
+    v11 = v8->i32[1];
+    *&v5[14].f64[1] = v8[1].u32[0];
+    if (v11)
     {
-      v18 = 0;
-      v19 = 0;
-      v20 = v14 + 2;
+      v12 = 0;
+      v13 = 0;
+      v14 = v8 + 2;
       while (1)
       {
-        if (v18)
+        if (v12)
         {
-          if (!v19)
+          if (!v13)
           {
             goto LABEL_11;
           }
@@ -156,21 +156,21 @@ LABEL_19:
 
         else
         {
-          v18 = objc_alloc_init(NSMutableArray);
-          if (!v19)
+          v12 = objc_alloc_init(NSMutableArray);
+          if (!v13)
           {
 LABEL_11:
-            v19 = objc_alloc_init(NSMutableArray);
+            v13 = objc_alloc_init(NSMutableArray);
           }
         }
 
-        v21 = [[NSString alloc] initWithUTF8String:&v20[1]];
-        LODWORD(v22) = v20->i32[0];
-        [v19 addObject:{+[NSNumber numberWithFloat:](NSNumber, "numberWithFloat:", v22)}];
-        [v18 addObject:v21];
+        v15 = [[NSString alloc] initWithUTF8String:&v14[1]];
+        LODWORD(v16) = v14->i32[0];
+        [v13 addObject:{+[NSNumber numberWithFloat:](NSNumber, "numberWithFloat:", v16)}];
+        [v12 addObject:v15];
 
-        v20 = (v20 + v20->u32[1] + 8);
-        if (!--v17)
+        v14 = (v14 + v14->u32[1] + 8);
+        if (!--v11)
         {
           goto LABEL_30;
         }
@@ -180,15 +180,15 @@ LABEL_11:
 
   else
   {
-    _CUILog(4, "CoreUI: Got a gradient that i don't understand skipping everything", v6, v7, v8, v9, v10, v11, v33.receiver);
+    _CUILog(4, "CoreUI: Got a gradient that i don't understand skipping everything");
   }
 
 LABEL_29:
-  v19 = 0;
-  v18 = 0;
+  v13 = 0;
+  v12 = 0;
 LABEL_30:
-  f64[27] = v18;
-  f64[28] = v19;
+  f64[27] = v12;
+  f64[28] = v13;
   return f64;
 }
 

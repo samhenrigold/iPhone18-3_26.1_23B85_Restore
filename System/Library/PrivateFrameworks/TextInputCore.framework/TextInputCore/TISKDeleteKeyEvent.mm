@@ -1,5 +1,6 @@
 @interface TISKDeleteKeyEvent
 - (id)description;
+- (id)init:(id)init emojiSearchMode:(BOOL)mode order:(int64_t)order;
 - (int64_t)_metricDeleteKeyPostion;
 - (void)reportInterKeyTiming:(id)timing previousEvent:(id)event;
 - (void)reportToSession:(id)session;
@@ -129,6 +130,22 @@ LABEL_12:
   {
     return self->_deletePostion;
   }
+}
+
+- (id)init:(id)init emojiSearchMode:(BOOL)mode order:(int64_t)order
+{
+  v9.receiver = self;
+  v9.super_class = TISKDeleteKeyEvent;
+  v5 = [(TISKInputEvent *)&v9 init:init type:3 emojiSearchMode:mode order:order];
+  v6 = v5;
+  if (v5)
+  {
+    v5[8] = -1;
+    input = [v5 input];
+    [v6 setIgnoreTapData:{objc_msgSend(input, "isRapidDelete")}];
+  }
+
+  return v6;
 }
 
 @end

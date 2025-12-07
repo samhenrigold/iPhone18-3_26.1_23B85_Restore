@@ -21,13 +21,14 @@
 - (void)readDefaultValues;
 - (void)reconcileWithRecord:(id)record;
 - (void)setDefaultNFCApplication:(id)application;
+- (void)setDoubleClickEnabled:(BOOL)enabled;
 @end
 
 @implementation SESNFCAppSettingsContext
 
 - (void)readDefaultValues
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v3 = [(NSUserDefaults *)self->_ud stringForKey:@"defaultAppIdentifier"];
   currentDefaultBundleId = self->_currentDefaultBundleId;
   self->_currentDefaultBundleId = v3;
@@ -48,9 +49,9 @@
   {
     v8 = objc_alloc(MEMORY[0x1E69635F8]);
     bundleId = self->_bundleId;
-    v16 = 0;
-    v10 = [v8 initWithBundleIdentifier:bundleId allowPlaceholder:0 error:&v16];
-    v11 = v16;
+    v15 = 0;
+    v10 = [v8 initWithBundleIdentifier:bundleId allowPlaceholder:0 error:&v15];
+    v11 = v15;
     v12 = v11;
     if (!v10 || v11)
     {
@@ -59,9 +60,9 @@
       {
         v14 = self->_bundleId;
         *buf = 138412546;
-        v18 = v14;
-        v19 = 2112;
-        v20 = v12;
+        v17 = v14;
+        v18 = 2112;
+        v19 = v12;
         _os_log_impl(&dword_1C7B9A000, v13, OS_LOG_TYPE_ERROR, "Bundle ID %@ does not correspond to a record or error encountered %@", buf, 0x16u);
       }
 
@@ -80,8 +81,6 @@
   {
     [(SESNFCAppSettingsContext *)self reconcileWithRecord:0];
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 SESDefaultNFCApplication *__45__SESNFCAppSettingsContext_readDefaultValues__block_invoke(uint64_t a1, void *a2)
@@ -99,17 +98,17 @@ SESDefaultNFCApplication *__45__SESNFCAppSettingsContext_readDefaultValues__bloc
 
 - (unint64_t)topLevelEntryType
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   if (self->_bundleId || ![(NSArray *)self->_defaultAppCandidates count])
   {
     v2 = SESDefaultLogObject();
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
     {
-      LOWORD(v8[0]) = 0;
-      _os_log_impl(&dword_1C7B9A000, v2, OS_LOG_TYPE_DEBUG, "No default app candidates exists", v8, 2u);
+      LOWORD(v7[0]) = 0;
+      _os_log_impl(&dword_1C7B9A000, v2, OS_LOG_TYPE_DEBUG, "No default app candidates exists", v7, 2u);
     }
 
-    result = 2;
+    return 2;
   }
 
   else
@@ -118,16 +117,13 @@ SESDefaultNFCApplication *__45__SESNFCAppSettingsContext_readDefaultValues__bloc
     v6 = SESDefaultLogObject();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
-      v8[0] = 67109120;
-      v8[1] = v5;
-      _os_log_impl(&dword_1C7B9A000, v6, OS_LOG_TYPE_DEBUG, "External Candidate exists %d", v8, 8u);
+      v7[0] = 67109120;
+      v7[1] = v5;
+      _os_log_impl(&dword_1C7B9A000, v6, OS_LOG_TYPE_DEBUG, "External Candidate exists %d", v7, 8u);
     }
 
-    result = v5;
+    return v5;
   }
-
-  v7 = *MEMORY[0x1E69E9840];
-  return result;
 }
 
 uint64_t __45__SESNFCAppSettingsContext_topLevelEntryType__block_invoke(uint64_t a1, void *a2)
@@ -191,22 +187,22 @@ uint64_t __45__SESNFCAppSettingsContext_topLevelEntryType__block_invoke(uint64_t
 
 - (id)getDefaultNFCApplication
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   if (self->_currentDefaultBundleId)
   {
     defaultAppCandidates = self->_defaultAppCandidates;
-    v9[0] = MEMORY[0x1E69E9820];
-    v9[1] = 3221225472;
-    v9[2] = __52__SESNFCAppSettingsContext_getDefaultNFCApplication__block_invoke;
-    v9[3] = &unk_1E82D10D0;
-    v9[4] = self;
-    v3 = [(NSArray *)defaultAppCandidates find:v9];
+    v8[0] = MEMORY[0x1E69E9820];
+    v8[1] = 3221225472;
+    v8[2] = __52__SESNFCAppSettingsContext_getDefaultNFCApplication__block_invoke;
+    v8[3] = &unk_1E82D10D0;
+    v8[4] = self;
+    v3 = [(NSArray *)defaultAppCandidates find:v8];
     v4 = SESDefaultLogObject();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
       bundleId = [v3 bundleId];
       *buf = 138412290;
-      v11 = bundleId;
+      v10 = bundleId;
       _os_log_impl(&dword_1C7B9A000, v4, OS_LOG_TYPE_INFO, "Default app queried with bundle Id %@", buf, 0xCu);
     }
   }
@@ -223,8 +219,6 @@ uint64_t __45__SESNFCAppSettingsContext_topLevelEntryType__block_invoke(uint64_t
     v3 = 0;
   }
 
-  v7 = *MEMORY[0x1E69E9840];
-
   return v3;
 }
 
@@ -238,18 +232,17 @@ uint64_t __52__SESNFCAppSettingsContext_getDefaultNFCApplication__block_invoke(u
 
 - (void)invalidate
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = SESDefaultLogObject();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     bundleId = self->_bundleId;
-    v6 = 138412290;
-    v7 = bundleId;
-    _os_log_impl(&dword_1C7B9A000, v3, OS_LOG_TYPE_DEBUG, "Invalidating app settings context for bundle ID %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = bundleId;
+    _os_log_impl(&dword_1C7B9A000, v3, OS_LOG_TYPE_DEBUG, "Invalidating app settings context for bundle ID %@", &v5, 0xCu);
   }
 
   [(SESNFCAppSettingsContext *)self invalidateInternal];
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)invalidateInternal
@@ -298,21 +291,20 @@ uint64_t __52__SESNFCAppSettingsContext_getDefaultNFCApplication__block_invoke(u
 
 - (void)dealloc
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = SESDefaultLogObject();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     bundleId = self->_bundleId;
     *buf = 138412290;
-    v8 = bundleId;
+    v7 = bundleId;
     _os_log_impl(&dword_1C7B9A000, v3, OS_LOG_TYPE_DEBUG, "Deallocating app settings context for bundle ID %@", buf, 0xCu);
   }
 
   [(SESNFCAppSettingsContext *)self invalidateInternal];
-  v6.receiver = self;
-  v6.super_class = SESNFCAppSettingsContext;
-  [(SESNFCAppSettingsContext *)&v6 dealloc];
-  v5 = *MEMORY[0x1E69E9840];
+  v5.receiver = self;
+  v5.super_class = SESNFCAppSettingsContext;
+  [(SESNFCAppSettingsContext *)&v5 dealloc];
 }
 
 + (id)contextWithBundleId:(id)id onChange:(id)change
@@ -326,15 +318,15 @@ uint64_t __52__SESNFCAppSettingsContext_getDefaultNFCApplication__block_invoke(u
 
 - (SESNFCAppSettingsContext)initWithBundleId:(id)id onChange:(id)change
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   idCopy = id;
   changeCopy = change;
   v9 = [objc_alloc(MEMORY[0x1E695E000]) initWithSuiteName:@"com.apple.seserviced.contactlessCredential.settings"];
   if (v9)
   {
-    v20.receiver = self;
-    v20.super_class = SESNFCAppSettingsContext;
-    v10 = [(SESNFCAppSettingsContext *)&v20 init];
+    v19.receiver = self;
+    v19.super_class = SESNFCAppSettingsContext;
+    v10 = [(SESNFCAppSettingsContext *)&v19 init];
     v11 = v10;
     if (v10)
     {
@@ -354,7 +346,7 @@ uint64_t __52__SESNFCAppSettingsContext_getDefaultNFCApplication__block_invoke(u
       {
         bundleId = v11->_bundleId;
         *buf = 138412290;
-        v22 = bundleId;
+        v21 = bundleId;
         _os_log_impl(&dword_1C7B9A000, v14, OS_LOG_TYPE_DEBUG, "Successfully initialized app settings context for bundle ID %@", buf, 0xCu);
       }
     }
@@ -375,7 +367,6 @@ uint64_t __52__SESNFCAppSettingsContext_getDefaultNFCApplication__block_invoke(u
     selfCopy = 0;
   }
 
-  v18 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
@@ -394,16 +385,16 @@ uint64_t __52__SESNFCAppSettingsContext_getDefaultNFCApplication__block_invoke(u
 
 - (void)appBasedKeyPathChangeHandler:(id)handler ofObject:(id)object change:(id)change context:(void *)context
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   objectCopy = object;
   changeCopy = change;
   os_unfair_lock_lock(&self->_lock);
   v13 = objc_alloc(MEMORY[0x1E69635F8]);
   bundleId = self->_bundleId;
-  v33 = 0;
-  v15 = [v13 initWithBundleIdentifier:bundleId allowPlaceholder:0 error:&v33];
-  v16 = v33;
+  v32 = 0;
+  v15 = [v13 initWithBundleIdentifier:bundleId allowPlaceholder:0 error:&v32];
+  v16 = v32;
   v17 = v16;
   if (v15)
   {
@@ -422,9 +413,9 @@ uint64_t __52__SESNFCAppSettingsContext_getDefaultNFCApplication__block_invoke(u
     {
       v20 = self->_bundleId;
       *buf = 138412546;
-      v35 = v20;
-      v36 = 2112;
-      v37 = v17;
+      v34 = v20;
+      v35 = 2112;
+      v36 = v17;
       _os_log_impl(&dword_1C7B9A000, v19, OS_LOG_TYPE_ERROR, "Bundle ID %@ does not correspond to a record or error encountered %@", buf, 0x16u);
     }
 
@@ -452,7 +443,7 @@ uint64_t __52__SESNFCAppSettingsContext_getDefaultNFCApplication__block_invoke(u
     if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v35 = handlerCopy;
+      v34 = handlerCopy;
       _os_log_impl(&dword_1C7B9A000, v23, OS_LOG_TYPE_ERROR, "Unexpected data type for key %@, do not reconcile", buf, 0xCu);
     }
 
@@ -477,7 +468,7 @@ uint64_t __52__SESNFCAppSettingsContext_getDefaultNFCApplication__block_invoke(u
     if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v35 = handlerCopy;
+      v34 = handlerCopy;
       _os_log_impl(&dword_1C7B9A000, v24, OS_LOG_TYPE_ERROR, "Unexpected data type for key %@, do not reconcile", buf, 0xCu);
     }
 
@@ -498,7 +489,7 @@ uint64_t __52__SESNFCAppSettingsContext_getDefaultNFCApplication__block_invoke(u
           if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412290;
-            v35 = handlerCopy;
+            v34 = handlerCopy;
             _os_log_impl(&dword_1C7B9A000, v26, OS_LOG_TYPE_ERROR, "Unexpected data type for key %@, do not reconcile", buf, 0xCu);
           }
 
@@ -524,7 +515,7 @@ uint64_t __52__SESNFCAppSettingsContext_getDefaultNFCApplication__block_invoke(u
               if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
               {
                 *buf = 138412290;
-                v35 = v22;
+                v34 = v22;
                 _os_log_impl(&dword_1C7B9A000, v27, OS_LOG_TYPE_DEBUG, "Changed default app %@", buf, 0xCu);
               }
 
@@ -536,7 +527,7 @@ uint64_t __52__SESNFCAppSettingsContext_getDefaultNFCApplication__block_invoke(u
           if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412290;
-            v35 = handlerCopy;
+            v34 = handlerCopy;
             _os_log_impl(&dword_1C7B9A000, v26, OS_LOG_TYPE_ERROR, "Unexpected data type for key %@, do not reconcile", buf, 0xCu);
           }
 
@@ -553,7 +544,7 @@ uint64_t __52__SESNFCAppSettingsContext_getDefaultNFCApplication__block_invoke(u
             if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412290;
-              v35 = handlerCopy;
+              v34 = handlerCopy;
               _os_log_impl(&dword_1C7B9A000, v26, OS_LOG_TYPE_ERROR, "Unexpected data type for key %@, do not reconcile", buf, 0xCu);
             }
 
@@ -575,7 +566,7 @@ uint64_t __52__SESNFCAppSettingsContext_getDefaultNFCApplication__block_invoke(u
               if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
               {
                 *buf = 138412290;
-                v35 = handlerCopy;
+                v34 = handlerCopy;
                 _os_log_impl(&dword_1C7B9A000, v21, OS_LOG_TYPE_DEBUG, "Change observed for irrelevant key %@, do not reconcile", buf, 0xCu);
               }
 
@@ -598,7 +589,7 @@ uint64_t __52__SESNFCAppSettingsContext_getDefaultNFCApplication__block_invoke(u
             if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412290;
-              v35 = handlerCopy;
+              v34 = handlerCopy;
               _os_log_impl(&dword_1C7B9A000, v26, OS_LOG_TYPE_ERROR, "Unexpected data type for key %@, do not reconcile", buf, 0xCu);
             }
 
@@ -615,7 +606,7 @@ LABEL_72:
             if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412290;
-              v35 = handlerCopy;
+              v34 = handlerCopy;
               _os_log_impl(&dword_1C7B9A000, v26, OS_LOG_TYPE_ERROR, "Unexpected data type for key %@, do not reconcile", buf, 0xCu);
             }
 
@@ -634,9 +625,9 @@ LABEL_66:
       {
         v31 = self->_bundleId;
         *buf = 138412546;
-        v35 = handlerCopy;
-        v36 = 2112;
-        v37 = v31;
+        v34 = handlerCopy;
+        v35 = 2112;
+        v36 = v31;
         _os_log_impl(&dword_1C7B9A000, v30, OS_LOG_TYPE_DEBUG, "Key %@ changed, firing on visibility change for bundle Id %@", buf, 0x16u);
       }
 
@@ -660,7 +651,7 @@ LABEL_66:
     if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v35 = handlerCopy;
+      v34 = handlerCopy;
       _os_log_impl(&dword_1C7B9A000, v25, OS_LOG_TYPE_ERROR, "Unexpected data type for key %@, do not reconcile", buf, 0xCu);
     }
 
@@ -670,7 +661,6 @@ LABEL_66:
 LABEL_69:
 
   os_unfair_lock_unlock(&self->_lock);
-  v32 = *MEMORY[0x1E69E9840];
 }
 
 SESDefaultNFCApplication *__81__SESNFCAppSettingsContext_appBasedKeyPathChangeHandler_ofObject_change_context___block_invoke(uint64_t a1, void *a2)
@@ -703,7 +693,7 @@ SESDefaultNFCApplication *__81__SESNFCAppSettingsContext_appBasedKeyPathChangeHa
 
 - (void)centralizedKeyPathChangeHandler:(id)handler ofObject:(id)object change:(id)change context:(void *)context
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   objectCopy = object;
   changeCopy = change;
@@ -717,9 +707,9 @@ SESDefaultNFCApplication *__81__SESNFCAppSettingsContext_appBasedKeyPathChangeHa
       v14 = SESDefaultLogObject();
       if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
-        v24 = 138412290;
-        v25 = handlerCopy;
-        _os_log_impl(&dword_1C7B9A000, v14, OS_LOG_TYPE_ERROR, "Unexpected data type for key %@, do not reconcile", &v24, 0xCu);
+        v23 = 138412290;
+        v24 = handlerCopy;
+        _os_log_impl(&dword_1C7B9A000, v14, OS_LOG_TYPE_ERROR, "Unexpected data type for key %@, do not reconcile", &v23, 0xCu);
       }
 
       self->_shouldShowSECDefaultPane = 0;
@@ -739,9 +729,9 @@ SESDefaultNFCApplication *__81__SESNFCAppSettingsContext_appBasedKeyPathChangeHa
       v15 = SESDefaultLogObject();
       if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
-        v24 = 138412290;
-        v25 = handlerCopy;
-        _os_log_impl(&dword_1C7B9A000, v15, OS_LOG_TYPE_ERROR, "Unexpected data type for key %@, do not reconcile", &v24, 0xCu);
+        v23 = 138412290;
+        v24 = handlerCopy;
+        _os_log_impl(&dword_1C7B9A000, v15, OS_LOG_TYPE_ERROR, "Unexpected data type for key %@, do not reconcile", &v23, 0xCu);
       }
 
       self->_shouldShowHCEDefaultPane = 0;
@@ -763,9 +753,9 @@ SESDefaultNFCApplication *__81__SESNFCAppSettingsContext_appBasedKeyPathChangeHa
         v16 = SESDefaultLogObject();
         if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
         {
-          v24 = 138412290;
-          v25 = handlerCopy;
-          _os_log_impl(&dword_1C7B9A000, v16, OS_LOG_TYPE_ERROR, "Unexpected data type for key %@, do not reconcile", &v24, 0xCu);
+          v23 = 138412290;
+          v24 = handlerCopy;
+          _os_log_impl(&dword_1C7B9A000, v16, OS_LOG_TYPE_ERROR, "Unexpected data type for key %@, do not reconcile", &v23, 0xCu);
         }
 
         goto LABEL_54;
@@ -777,8 +767,8 @@ SESDefaultNFCApplication *__81__SESNFCAppSettingsContext_appBasedKeyPathChangeHa
       v19 = SESDefaultLogObject();
       if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
       {
-        LOWORD(v24) = 0;
-        _os_log_impl(&dword_1C7B9A000, v19, OS_LOG_TYPE_DEBUG, "Setting none as default app in Context", &v24, 2u);
+        LOWORD(v23) = 0;
+        _os_log_impl(&dword_1C7B9A000, v19, OS_LOG_TYPE_DEBUG, "Setting none as default app in Context", &v23, 2u);
       }
     }
 
@@ -786,9 +776,9 @@ SESDefaultNFCApplication *__81__SESNFCAppSettingsContext_appBasedKeyPathChangeHa
     v20 = SESDefaultLogObject();
     if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
     {
-      v24 = 138412290;
-      v25 = v13;
-      _os_log_impl(&dword_1C7B9A000, v20, OS_LOG_TYPE_DEBUG, "Changed default app %@", &v24, 0xCu);
+      v23 = 138412290;
+      v24 = v13;
+      _os_log_impl(&dword_1C7B9A000, v20, OS_LOG_TYPE_DEBUG, "Changed default app %@", &v23, 0xCu);
     }
 
     goto LABEL_49;
@@ -803,9 +793,9 @@ SESDefaultNFCApplication *__81__SESNFCAppSettingsContext_appBasedKeyPathChangeHa
       v16 = SESDefaultLogObject();
       if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
-        v24 = 138412290;
-        v25 = handlerCopy;
-        _os_log_impl(&dword_1C7B9A000, v16, OS_LOG_TYPE_ERROR, "Unexpected data type for key %@, do not reconcile", &v24, 0xCu);
+        v23 = 138412290;
+        v24 = handlerCopy;
+        _os_log_impl(&dword_1C7B9A000, v16, OS_LOG_TYPE_ERROR, "Unexpected data type for key %@, do not reconcile", &v23, 0xCu);
       }
 
       goto LABEL_54;
@@ -825,9 +815,9 @@ SESDefaultNFCApplication *__81__SESNFCAppSettingsContext_appBasedKeyPathChangeHa
         v13 = SESDefaultLogObject();
         if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
         {
-          v24 = 138412290;
-          v25 = handlerCopy;
-          _os_log_impl(&dword_1C7B9A000, v13, OS_LOG_TYPE_DEBUG, "Change observed for irrelevant key %@, do not reconcile", &v24, 0xCu);
+          v23 = 138412290;
+          v24 = handlerCopy;
+          _os_log_impl(&dword_1C7B9A000, v13, OS_LOG_TYPE_DEBUG, "Change observed for irrelevant key %@, do not reconcile", &v23, 0xCu);
         }
 
         goto LABEL_55;
@@ -848,9 +838,9 @@ SESDefaultNFCApplication *__81__SESNFCAppSettingsContext_appBasedKeyPathChangeHa
       v16 = SESDefaultLogObject();
       if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
-        v24 = 138412290;
-        v25 = handlerCopy;
-        _os_log_impl(&dword_1C7B9A000, v16, OS_LOG_TYPE_ERROR, "Unexpected data type for key %@, do not reconcile", &v24, 0xCu);
+        v23 = 138412290;
+        v24 = handlerCopy;
+        _os_log_impl(&dword_1C7B9A000, v16, OS_LOG_TYPE_ERROR, "Unexpected data type for key %@, do not reconcile", &v23, 0xCu);
       }
 
 LABEL_54:
@@ -866,9 +856,9 @@ LABEL_55:
       v16 = SESDefaultLogObject();
       if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
-        v24 = 138412290;
-        v25 = handlerCopy;
-        _os_log_impl(&dword_1C7B9A000, v16, OS_LOG_TYPE_ERROR, "Unexpected data type for key %@, do not reconcile", &v24, 0xCu);
+        v23 = 138412290;
+        v24 = handlerCopy;
+        _os_log_impl(&dword_1C7B9A000, v16, OS_LOG_TYPE_ERROR, "Unexpected data type for key %@, do not reconcile", &v23, 0xCu);
       }
 
       goto LABEL_54;
@@ -885,18 +875,16 @@ LABEL_49:
   if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
   {
     bundleId = self->_bundleId;
-    v24 = 138412546;
-    v25 = handlerCopy;
-    v26 = 2112;
-    v27 = bundleId;
-    _os_log_impl(&dword_1C7B9A000, v21, OS_LOG_TYPE_DEBUG, "Key %@ changed, firing on visibility change for bundle Id %@", &v24, 0x16u);
+    v23 = 138412546;
+    v24 = handlerCopy;
+    v25 = 2112;
+    v26 = bundleId;
+    _os_log_impl(&dword_1C7B9A000, v21, OS_LOG_TYPE_DEBUG, "Key %@ changed, firing on visibility change for bundle Id %@", &v23, 0x16u);
   }
 
   (*(self->_onChange + 2))();
 LABEL_56:
   os_unfair_lock_unlock(&self->_lock);
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 SESDefaultNFCApplication *__84__SESNFCAppSettingsContext_centralizedKeyPathChangeHandler_ofObject_change_context___block_invoke(uint64_t a1, void *a2)
@@ -929,7 +917,7 @@ SESDefaultNFCApplication *__84__SESNFCAppSettingsContext_centralizedKeyPathChang
 
 - (void)reconcileWithRecord:(id)record
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   recordCopy = record;
   v5 = [(SESNFCAppSettingsContext *)self isDefaultAppEligibleForService:1];
   v6 = [(SESNFCAppSettingsContext *)self isDefaultAppEligibleForService:0];
@@ -1015,13 +1003,13 @@ SESDefaultNFCApplication *__84__SESNFCAppSettingsContext_centralizedKeyPathChang
     if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
     {
       bundleId = self->_bundleId;
-      v33 = 138412802;
-      v34 = bundleId;
-      v35 = 1024;
-      v36 = v22;
-      v37 = 1024;
-      v38 = v27;
-      _os_log_impl(&dword_1C7B9A000, v28, OS_LOG_TYPE_DEBUG, "Bundle ID %@: isEligibleForDefaultHCE %d, isEligibleForDefaultSEC %d", &v33, 0x18u);
+      v32 = 138412802;
+      v33 = bundleId;
+      v34 = 1024;
+      v35 = v22;
+      v36 = 1024;
+      v37 = v27;
+      _os_log_impl(&dword_1C7B9A000, v28, OS_LOG_TYPE_DEBUG, "Bundle ID %@: isEligibleForDefaultHCE %d, isEligibleForDefaultSEC %d", &v32, 0x18u);
     }
 
     self->_shouldShowDefaultNFCAppPicker = (v22 | v27) & 1;
@@ -1045,22 +1033,20 @@ SESDefaultNFCApplication *__84__SESNFCAppSettingsContext_centralizedKeyPathChang
     self->_shouldShowContactlessAndPaymentToggle = v8;
     self->_topLevelSettingsEntryType = [(SESNFCAppSettingsContext *)self topLevelEntryType];
   }
-
-  v32 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setDefaultNFCApplication:(id)application
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   applicationCopy = application;
   defaultAppCandidates = self->_defaultAppCandidates;
-  v18[0] = MEMORY[0x1E69E9820];
-  v18[1] = 3221225472;
-  v18[2] = __53__SESNFCAppSettingsContext_setDefaultNFCApplication___block_invoke;
-  v18[3] = &unk_1E82D10D0;
+  v17[0] = MEMORY[0x1E69E9820];
+  v17[1] = 3221225472;
+  v17[2] = __53__SESNFCAppSettingsContext_setDefaultNFCApplication___block_invoke;
+  v17[3] = &unk_1E82D10D0;
   v7 = applicationCopy;
-  v19 = v7;
-  v8 = [(NSArray *)defaultAppCandidates find:v18];
+  v18 = v7;
+  v8 = [(NSArray *)defaultAppCandidates find:v17];
   if (v8)
   {
     [(NSUserDefaults *)self->_ud setValue:v7 forKey:@"defaultAppIdentifier"];
@@ -1079,7 +1065,7 @@ SESDefaultNFCApplication *__84__SESNFCAppSettingsContext_centralizedKeyPathChang
     if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v21 = v7;
+      v20 = v7;
       v14 = "Successfully set %@ as default app";
       v15 = v13;
       v16 = OS_LOG_TYPE_INFO;
@@ -1094,15 +1080,13 @@ LABEL_6:
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v21 = v7;
+      v20 = v7;
       v14 = "Bundle Id %@ is not a valid candidate";
       v15 = v13;
       v16 = OS_LOG_TYPE_ERROR;
       goto LABEL_6;
     }
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __53__SESNFCAppSettingsContext_setDefaultNFCApplication___block_invoke(uint64_t a1, void *a2)
@@ -1111,6 +1095,23 @@ uint64_t __53__SESNFCAppSettingsContext_setDefaultNFCApplication___block_invoke(
   v4 = [v3 isEqualToString:*(a1 + 32)];
 
   return v4;
+}
+
+- (void)setDoubleClickEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  v10 = *MEMORY[0x1E69E9840];
+  [(NSUserDefaults *)self->_ud setBool:enabled forKey:@"doubleClickEnabled"];
+  v5 = SESDefaultLogObject();
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+  {
+    bundleId = self->_bundleId;
+    v7[0] = 67109378;
+    v7[1] = enabledCopy;
+    v8 = 2112;
+    v9 = bundleId;
+    _os_log_impl(&dword_1C7B9A000, v5, OS_LOG_TYPE_INFO, "Successfully set double click enabled %d from bundle Id %@", v7, 0x12u);
+  }
 }
 
 - (id)alertMessageForDefaultAppChangeTo:(id)to
@@ -1163,7 +1164,7 @@ uint64_t __53__SESNFCAppSettingsContext_setDefaultNFCApplication___block_invoke(
 
 - (BOOL)isExpressModeEnabled
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   out_token = 0;
   v2 = notify_register_check("com.apple.stockholm.express.state", &out_token);
   if (v2)
@@ -1173,7 +1174,7 @@ uint64_t __53__SESNFCAppSettingsContext_setDefaultNFCApplication___block_invoke(
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       *buf = 67109120;
-      LODWORD(v17) = v3;
+      LODWORD(v16) = v3;
       v5 = "notify_register_check failed with status %d";
 LABEL_7:
       _os_log_impl(&dword_1C7B9A000, v4, OS_LOG_TYPE_ERROR, v5, buf, 8u);
@@ -1183,8 +1184,8 @@ LABEL_7:
     goto LABEL_8;
   }
 
-  v14 = 0;
-  state = notify_get_state(out_token, &v14);
+  v13 = 0;
+  state = notify_get_state(out_token, &v13);
   v7 = SESDefaultLogObject();
   v4 = v7;
   if (state)
@@ -1192,7 +1193,7 @@ LABEL_7:
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       *buf = 67109120;
-      LODWORD(v17) = state;
+      LODWORD(v16) = state;
       v5 = "notify_get_state failed with status %d";
       goto LABEL_7;
     }
@@ -1200,33 +1201,30 @@ LABEL_7:
 LABEL_8:
 
     LOBYTE(v8) = 0;
-    goto LABEL_9;
+    return v8;
   }
 
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     *buf = 134217984;
-    v17 = v14;
+    v16 = v13;
     _os_log_impl(&dword_1C7B9A000, v4, OS_LOG_TYPE_DEBUG, "Raw Express State 0x%llx", buf, 0xCu);
   }
 
-  v10 = notify_cancel(out_token);
-  if (v10)
+  v9 = notify_cancel(out_token);
+  if (v9)
   {
-    v11 = v10;
-    v12 = SESDefaultLogObject();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v10 = v9;
+    v11 = SESDefaultLogObject();
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       *buf = 67109120;
-      LODWORD(v17) = v11;
-      _os_log_impl(&dword_1C7B9A000, v12, OS_LOG_TYPE_ERROR, "notify_cancel failed with status %d", buf, 8u);
+      LODWORD(v16) = v10;
+      _os_log_impl(&dword_1C7B9A000, v11, OS_LOG_TYPE_ERROR, "notify_cancel failed with status %d", buf, 8u);
     }
   }
 
-  v8 = (v14 >> 1) & 1;
-LABEL_9:
-  v9 = *MEMORY[0x1E69E9840];
-  return v8;
+  return (v13 >> 1) & 1;
 }
 
 - (id)localizedAppNameForBundleId:(id)id
@@ -1255,7 +1253,7 @@ uint64_t __56__SESNFCAppSettingsContext_localizedAppNameForBundleId___block_invo
 
 - (BOOL)isDefaultAppEligibleForService:(unint64_t)service
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   domain_answer = os_eligibility_get_domain_answer();
   if (domain_answer)
   {
@@ -1264,7 +1262,7 @@ uint64_t __56__SESNFCAppSettingsContext_localizedAppNameForBundleId___block_invo
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
       *buf = 67109120;
-      *v23 = v6;
+      *v22 = v6;
       v8 = "Default Contactless App Configurable returned error code %d";
       v9 = v7;
       v10 = OS_LOG_TYPE_DEBUG;
@@ -1284,7 +1282,7 @@ LABEL_7:
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       *buf = 67109120;
-      *v23 = v12;
+      *v22 = v12;
       v8 = "Default Contactless App Usable returned error code %d";
       v9 = v7;
       v10 = OS_LOG_TYPE_ERROR;
@@ -1293,77 +1291,75 @@ LABEL_7:
 
 LABEL_8:
 
-    goto LABEL_9;
+    return 0;
   }
 
-  v15 = [(SESNFCAppSettingsContext *)self existsDefaultAppCandidatesForService:service];
-  v16 = SESDefaultLogObject();
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+  v14 = [(SESNFCAppSettingsContext *)self existsDefaultAppCandidatesForService:service];
+  v15 = SESDefaultLogObject();
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
   {
     bundleId = self->_bundleId;
     *buf = 138412546;
-    *v23 = bundleId;
-    *&v23[8] = 1024;
-    *v24 = v15;
-    _os_log_impl(&dword_1C7B9A000, v16, OS_LOG_TYPE_DEBUG, "Bundle ID %@: exists valid candidates %d", buf, 0x12u);
+    *v22 = bundleId;
+    *&v22[8] = 1024;
+    *v23 = v14;
+    _os_log_impl(&dword_1C7B9A000, v15, OS_LOG_TYPE_DEBUG, "Bundle ID %@: exists valid candidates %d", buf, 0x12u);
   }
 
-  v18 = self->_bundleId;
-  if (!v18)
+  v17 = self->_bundleId;
+  if (!v17)
   {
-    v19 = SESDefaultLogObject();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+    v18 = SESDefaultLogObject();
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
     {
       *buf = 67109632;
-      *v23 = 0;
-      *&v23[4] = 1024;
-      *&v23[6] = 0;
-      *v24 = 1024;
-      *&v24[2] = 0;
-      _os_log_impl(&dword_1C7B9A000, v19, OS_LOG_TYPE_DEBUG, "Centralized - full pane: %d, limited pane: %d, wallet only pane: %d", buf, 0x14u);
+      *v22 = 0;
+      *&v22[4] = 1024;
+      *&v22[6] = 0;
+      *v23 = 1024;
+      *&v23[2] = 0;
+      _os_log_impl(&dword_1C7B9A000, v18, OS_LOG_TYPE_DEBUG, "Centralized - full pane: %d, limited pane: %d, wallet only pane: %d", buf, 0x14u);
     }
 
     goto LABEL_19;
   }
 
-  if ([(NSString *)v18 isEqualToString:@"com.apple.Passbook"])
+  if ([(NSString *)v17 isEqualToString:@"com.apple.Passbook"])
   {
-    v19 = SESDefaultLogObject();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+    v18 = SESDefaultLogObject();
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
     {
       *buf = 134218752;
-      *v23 = service;
-      *&v23[8] = 1024;
-      *v24 = 0;
-      *&v24[4] = 1024;
-      *&v24[6] = 0;
-      *v25 = 1024;
-      *&v25[2] = 0;
-      _os_log_impl(&dword_1C7B9A000, v19, OS_LOG_TYPE_DEBUG, "Passbook - Service %lu: full pane: %d, limited pane %d, wallet only pane: %d", buf, 0x1Eu);
+      *v22 = service;
+      *&v22[8] = 1024;
+      *v23 = 0;
+      *&v23[4] = 1024;
+      *&v23[6] = 0;
+      *v24 = 1024;
+      *&v24[2] = 0;
+      _os_log_impl(&dword_1C7B9A000, v18, OS_LOG_TYPE_DEBUG, "Passbook - Service %lu: full pane: %d, limited pane %d, wallet only pane: %d", buf, 0x1Eu);
     }
 
 LABEL_19:
 
-    goto LABEL_9;
+    return 0;
   }
 
-  v20 = SESDefaultLogObject();
-  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+  v19 = SESDefaultLogObject();
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
   {
-    v21 = self->_bundleId;
+    v20 = self->_bundleId;
     *buf = 138413058;
-    *v23 = v21;
-    *&v23[8] = 2048;
-    *v24 = service;
-    *&v24[8] = 1024;
-    *v25 = 0;
-    *&v25[4] = 1024;
-    v26 = 0;
-    _os_log_impl(&dword_1C7B9A000, v20, OS_LOG_TYPE_DEBUG, "Bundle Id %@ - Service %lu: full pane: %d, limited pane %d", buf, 0x22u);
+    *v22 = v20;
+    *&v22[8] = 2048;
+    *v23 = service;
+    *&v23[8] = 1024;
+    *v24 = 0;
+    *&v24[4] = 1024;
+    v25 = 0;
+    _os_log_impl(&dword_1C7B9A000, v19, OS_LOG_TYPE_DEBUG, "Bundle Id %@ - Service %lu: full pane: %d, limited pane %d", buf, 0x22u);
   }
 
-LABEL_9:
-  v13 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
@@ -1437,20 +1433,20 @@ uint64_t __65__SESNFCAppSettingsContext_existsDefaultAppCandidatesForService___b
 
 - (BOOL)isApplicationInstalledOrPlaceholder:(id)placeholder
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   placeholderCopy = placeholder;
-  v10 = 0;
-  v4 = [objc_alloc(MEMORY[0x1E69635F8]) initWithBundleIdentifier:placeholderCopy allowPlaceholder:1 error:&v10];
-  v5 = v10;
+  v9 = 0;
+  v4 = [objc_alloc(MEMORY[0x1E69635F8]) initWithBundleIdentifier:placeholderCopy allowPlaceholder:1 error:&v9];
+  v5 = v9;
   if (v5)
   {
     v6 = SESDefaultLogObject();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412546;
-      v12 = v5;
-      v13 = 2112;
-      v14 = placeholderCopy;
+      v11 = v5;
+      v12 = 2112;
+      v13 = placeholderCopy;
       _os_log_impl(&dword_1C7B9A000, v6, OS_LOG_TYPE_ERROR, "Error %@ encountered when checking if %@ is installed", buf, 0x16u);
     }
 
@@ -1462,7 +1458,6 @@ uint64_t __65__SESNFCAppSettingsContext_existsDefaultAppCandidatesForService___b
     v7 = v4 != 0;
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return v7;
 }
 

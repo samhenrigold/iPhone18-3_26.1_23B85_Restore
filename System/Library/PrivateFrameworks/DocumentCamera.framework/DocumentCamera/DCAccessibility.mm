@@ -21,11 +21,11 @@
   return v2;
 }
 
-void __33__DCAccessibility_sharedInstance__block_invoke()
+void __33__DCAccessibility_sharedInstance__block_invoke(uint64_t a1)
 {
-  v0 = objc_opt_new();
-  v1 = sharedInstance__DCAccessibilitySharedInstance;
-  sharedInstance__DCAccessibilitySharedInstance = v0;
+  v1 = objc_opt_new();
+  v2 = sharedInstance__DCAccessibilitySharedInstance;
+  sharedInstance__DCAccessibilitySharedInstance = v1;
 }
 
 @end

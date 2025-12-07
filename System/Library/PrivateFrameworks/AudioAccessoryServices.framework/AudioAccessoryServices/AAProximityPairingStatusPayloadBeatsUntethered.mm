@@ -6,61 +6,68 @@
 
 - (id)describeProperties
 {
-  v22.receiver = self;
-  v22.super_class = AAProximityPairingStatusPayloadBeatsUntethered;
-  describeProperties = [(AAProximityPairingStatusPayloadUntethered *)&v22 describeProperties];
-  lidOpenCount = [(AAProximityPairingStatusPayloadBeatsUntethered *)self lidOpenCount];
-  NSAppendPrintF_safe();
-  v3 = describeProperties;
+  v24.receiver = self;
+  v24.super_class = AAProximityPairingStatusPayloadBeatsUntethered;
+  describeProperties = [(AAProximityPairingStatusPayloadUntethered *)&v24 describeProperties];
+  v23 = describeProperties;
+  NSAppendPrintF_safe(&v23, ", lid open count: %d", [(AAProximityPairingStatusPayloadBeatsUntethered *)self lidOpenCount]);
+  v4 = v23;
 
+  v22 = v4;
   lidClosed = [(AAProximityPairingStatusPayloadBeatsUntethered *)self lidClosed];
-  v5 = "no";
+  v6 = "no";
   if (lidClosed)
   {
-    v5 = "yes";
+    v6 = "yes";
   }
 
-  v18 = v5;
-  NSAppendPrintF_safe();
-  v6 = v3;
+  NSAppendPrintF_safe(&v22, ", lid closed: %s", v6);
+  v7 = v22;
 
+  v21 = v7;
   caseVersion = [(AAProximityPairingStatusPayloadBeatsUntethered *)self caseVersion];
-  v8 = "?";
-  v9 = "B435";
+  v9 = "?";
+  v10 = "B435";
   if (caseVersion != 1)
   {
-    v9 = "?";
+    v10 = "?";
   }
 
   if (!caseVersion)
   {
-    v9 = "B235";
+    v10 = "B235";
   }
 
-  v19 = v9;
-  NSAppendPrintF_safe();
-  v10 = v6;
+  NSAppendPrintF_safe(&v21, ", case ver: %s", v10);
+  v11 = v21;
 
+  v20 = v11;
   caseLedColor = [(AAProximityPairingStatusPayloadBeatsUntethered *)self caseLedColor];
   if (caseLedColor <= 3)
   {
-    v8 = off_278CDE1B0[caseLedColor];
+    v9 = off_278CDE1B0[caseLedColor];
   }
 
-  v20 = v8;
-  NSAppendPrintF_safe();
-  v12 = v10;
+  NSAppendPrintF_safe(&v20, ", case led col: %s", v9);
+  v13 = v20;
 
+  v19 = v13;
   caseLedStatus = [(AAProximityPairingStatusPayloadBeatsUntethered *)self caseLedStatus];
-  if (caseLedStatus <= 3)
+  if (caseLedStatus > 3)
   {
-    v14 = off_278CDE1D0[caseLedStatus];
+    v15 = "?";
   }
 
-  NSAppendPrintF_safe();
-  v15 = v12;
+  else
+  {
+    v15 = off_278CDE1D0[caseLedStatus];
+  }
 
-  return v12;
+  NSAppendPrintF_safe(&v19, ", case led status: %s", v15);
+  v16 = v19;
+  v17 = v19;
+
+  return v16;
 }
 
 @end

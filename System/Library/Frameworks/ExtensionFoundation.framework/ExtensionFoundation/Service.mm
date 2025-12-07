@@ -80,30 +80,29 @@
 - (void)beginObservingWithConfiguration:(id)configuration reply:(id)reply
 {
   v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
-  v8 = *(*(v7 - 8) + 64);
   MEMORY[0x1EEE9AC00](v7 - 8);
-  v10 = &v20 - v9;
-  v11 = _Block_copy(reply);
-  v12 = swift_allocObject();
-  *(v12 + 16) = v11;
-  v13 = objc_opt_self();
+  v9 = &v19 - v8;
+  v10 = _Block_copy(reply);
+  v11 = swift_allocObject();
+  *(v11 + 16) = v10;
+  v12 = objc_opt_self();
   configurationCopy = configuration;
   selfCopy = self;
-  currentConnection = [v13 currentConnection];
+  currentConnection = [v12 currentConnection];
   if (currentConnection)
   {
-    v17 = currentConnection;
-    v18 = type metadata accessor for TaskPriority();
-    (*(*(v18 - 8) + 56))(v10, 1, 1, v18);
-    v19 = swift_allocObject();
-    v19[2] = 0;
-    v19[3] = 0;
-    v19[4] = configurationCopy;
-    v19[5] = selfCopy;
-    v19[6] = v17;
-    v19[7] = partial apply for thunk for @escaping @callee_unowned @convention(block) (@unowned Service.ObserverUpdate?, @unowned NSError?) -> ();
-    v19[8] = v12;
-    _sScTss5NeverORs_rlE4name8priority9operationScTyxABGSSSg_ScPSgxyYaYAcntcfCyt_Tt2g5(0, 0, v10, &async function pointer to partial apply for closure #1 in Service.beginObserving(configuration:reply:), v19);
+    v16 = currentConnection;
+    v17 = type metadata accessor for TaskPriority();
+    (*(*(v17 - 8) + 56))(v9, 1, 1, v17);
+    v18 = swift_allocObject();
+    v18[2] = 0;
+    v18[3] = 0;
+    v18[4] = configurationCopy;
+    v18[5] = selfCopy;
+    v18[6] = v16;
+    v18[7] = partial apply for thunk for @escaping @callee_unowned @convention(block) (@unowned Service.ObserverUpdate?, @unowned NSError?) -> ();
+    v18[8] = v11;
+    _sScTss5NeverORs_rlE4name8priority9operationScTyxABGSSSg_ScPSgxyYaYAcntcfCyt_Tt2g5(0, 0, v9, &async function pointer to partial apply for closure #1 in Service.beginObserving(configuration:reply:), v18);
   }
 
   else
@@ -116,18 +115,17 @@
 {
   v6 = type metadata accessor for UUID();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
   MEMORY[0x1EEE9AC00](v6);
-  v10 = &v13 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v11 = _Block_copy(completion);
+  v9 = &v12 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = _Block_copy(completion);
   static UUID._unconditionallyBridgeFromObjectiveC(_:)();
-  _Block_copy(v11);
+  _Block_copy(v10);
   selfCopy = self;
-  specialized Service.photoServiceAuthorizationStatus(forExtensionUUID:completion:)(v10, v11);
-  _Block_release(v11);
-  _Block_release(v11);
+  specialized Service.photoServiceAuthorizationStatus(forExtensionUUID:completion:)(v9, v10);
+  _Block_release(v10);
+  _Block_release(v10);
 
-  (*(v7 + 8))(v10, v6);
+  (*(v7 + 8))(v9, v6);
 }
 
 @end

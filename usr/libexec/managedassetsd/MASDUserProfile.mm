@@ -35,22 +35,7 @@
 {
   fieldsCopy = fields;
   isAuthenticated = [(MASDUserProfile *)self isAuthenticated];
-  if (isAuthenticated != [fieldsCopy isAuthenticated])
-  {
-    goto LABEL_5;
-  }
-
-  profileID = [(MASDUserProfile *)self profileID];
-  if (profileID != [fieldsCopy profileID])
-  {
-    goto LABEL_5;
-  }
-
-  profileName = [(MASDUserProfile *)self profileName];
-  profileName2 = [fieldsCopy profileName];
-  v9 = [profileName isEqualToString:profileName2];
-
-  if (v9)
+  if (isAuthenticated == [fieldsCopy isAuthenticated] && (v6 = -[MASDUserProfile profileID](self, "profileID"), v6 == objc_msgSend(fieldsCopy, "profileID")) && (-[MASDUserProfile profileName](self, "profileName"), v7 = objc_claimAutoreleasedReturnValue(), objc_msgSend(fieldsCopy, "profileName"), v8 = objc_claimAutoreleasedReturnValue(), v9 = objc_msgSend(v7, "isEqualToString:", v8), v8, v7, v9))
   {
     profileType = [(MASDUserProfile *)self profileType];
     v11 = profileType == [fieldsCopy profileType];
@@ -58,7 +43,6 @@
 
   else
   {
-LABEL_5:
     v11 = 0;
   }
 

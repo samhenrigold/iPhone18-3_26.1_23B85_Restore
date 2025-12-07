@@ -7,7 +7,7 @@
 - (id)mapNonEmpty:()QueryUtils
 {
   v4 = a3;
-  v5 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(self, "count")}];
+  v5 = [MEMORY[0x1E695DF70] arrayWithCapacity:objc_msgSend_count(self)];
   v11[0] = MEMORY[0x1E69E9820];
   v11[1] = 3221225472;
   v11[2] = __35__NSArray_QueryUtils__mapNonEmpty___block_invoke;

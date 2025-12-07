@@ -4,6 +4,13 @@
 + (BOOL)_isHeadphoneExposureDataTransientOnActiveWatchWithError:(id *)error;
 + (BOOL)_isMeasureOtherHeadphonesEnabled;
 + (BOOL)_isMeasureOtherHeadphonesEnabledOnActiveWatchWithError:(id *)error;
++ (BOOL)_setBoolForPhonePreferenceKey:(id)key newValue:(BOOL)value error:(id *)error;
++ (BOOL)_setBoolForPreferenceKey:(id)key newValue:(BOOL)value error:(id *)error;
++ (BOOL)_setBoolForWatchPreferenceKey:(id)key newValue:(BOOL)value error:(id *)error;
++ (BOOL)_setHeadphoneExposureMeasureLevelsEnabled:(BOOL)enabled error:(id *)error;
++ (BOOL)_setHeadphoneExposureMeasureLevelsEnabledOnActiveWatch:(BOOL)watch error:(id *)error;
++ (BOOL)_setHeadphoneExposureNotificationsEnabled:(BOOL)enabled error:(id *)error;
++ (BOOL)_setHeadphoneExposureNotificationsEnabledOnActiveWatch:(BOOL)watch error:(id *)error;
 + (BOOL)areHeadphoneExposureNotificationsMandatory;
 + (BOOL)areHeadphoneExposureNotificationsMandatoryOnActiveWatchWithError:(id *)error;
 + (BOOL)hasActivePairedDevice;
@@ -12,6 +19,7 @@
 + (BOOL)isHeadphoneExposureNotificationsEnabled;
 + (BOOL)isHeadphoneExposureNotificationsEnabledOnActiveWatchWithError:(id *)error;
 + (BOOL)isHeadphoneExposureNotificationsSupportedOnActiveWatch;
++ (BOOL)setBoolForPreferenceKey:(id)key newValue:(BOOL)value forPairedWatch:(BOOL)watch error:(id *)error;
 + (id)_numbersForPhonePreferenceKeys:(id)keys;
 + (id)_numbersForPreferenceKeys:(id)keys error:(id *)error;
 + (id)_numbersForPreferenceKeys:(id)keys fromActiveWatch:(BOOL)watch;
@@ -19,7 +27,6 @@
 + (id)_sharedAudioDataAnalysisManager;
 + (id)activePairedDevice;
 + (id)sharedInstance;
-+ (void)isHeadphoneExposureNotificationsEnabled;
 + (void)unitTesting_overrideIsHeadphoneExposureNotificationsEnabled:(id)enabled;
 - (HKHearingFeatures)init;
 - (void)_adasPreferenceDidChange:(id)change;
@@ -33,69 +40,67 @@
 
 + (BOOL)isHeadphoneExposureNotificationsEnabled
 {
-  v18[2] = *MEMORY[0x277D85DE8];
+  v16[2] = *MEMORY[0x277D85DE8];
   v3 = _unitTesting_overrideIsHeadphoneExposureNotificationsEnabled;
   if (_unitTesting_overrideIsHeadphoneExposureNotificationsEnabled)
   {
-    v4 = *MEMORY[0x277D85DE8];
 
     return [v3 BOOLValue];
   }
 
   else
   {
-    v6 = *MEMORY[0x277CEFAF8];
-    v7 = *MEMORY[0x277CEFAF0];
-    v18[0] = *MEMORY[0x277CEFAF8];
-    v18[1] = v7;
-    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:2];
-    v15 = 0;
-    v9 = [self _numbersForPreferenceKeys:v8 error:&v15];
-    v10 = v15;
-    if (v9)
+    v5 = *MEMORY[0x277CEFAF8];
+    v6 = *MEMORY[0x277CEFAF0];
+    v16[0] = *MEMORY[0x277CEFAF8];
+    v16[1] = v6;
+    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:2];
+    v13 = 0;
+    v8 = [self _numbersForPreferenceKeys:v7 error:&v13];
+    v9 = v13;
+    if (v8)
     {
-      v11 = [self _BOOLForPreferenceKey:v7 defaultValue:objc_msgSend(self fromValues:{"_BOOLForPreferenceKey:defaultValue:fromValues:", v6, 0, v9), v9}];
+      v10 = [self _BOOLForPreferenceKey:v6 defaultValue:objc_msgSend(self fromValues:{"_BOOLForPreferenceKey:defaultValue:fromValues:", v5, 0, v8), v8}];
     }
 
     else
     {
       _HKInitializeLogging();
+      v11 = *MEMORY[0x277CCC2C8];
       v12 = *MEMORY[0x277CCC2C8];
-      v13 = *MEMORY[0x277CCC2C8];
-      if (v10)
+      if (v9)
       {
-        if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
+        if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
         {
           +[HKHearingFeatures isHeadphoneExposureNotificationsEnabled];
         }
       }
 
-      else if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+      else if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
       {
         *buf = 138543362;
-        v17 = v8;
-        _os_log_impl(&dword_25175B000, v12, OS_LOG_TYPE_INFO, "Unable to read preferences %{public}@", buf, 0xCu);
+        v15 = v7;
+        _os_log_impl(&dword_25175B000, v11, OS_LOG_TYPE_INFO, "Unable to read preferences %{public}@", buf, 0xCu);
       }
 
-      v11 = 0;
+      v10 = 0;
     }
 
-    v14 = *MEMORY[0x277D85DE8];
-    return v11;
+    return v10;
   }
 }
 
 + (BOOL)isHeadphoneExposureMeasureLevelsEnabled
 {
-  v12[2] = *MEMORY[0x277D85DE8];
+  v11[2] = *MEMORY[0x277D85DE8];
   v3 = *MEMORY[0x277CEFAF8];
   v4 = *MEMORY[0x277CEFAB8];
-  v12[0] = *MEMORY[0x277CEFAF8];
-  v12[1] = v4;
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:2];
-  v11 = 0;
-  v6 = [self _numbersForPreferenceKeys:v5 error:&v11];
-  v7 = v11;
+  v11[0] = *MEMORY[0x277CEFAF8];
+  v11[1] = v4;
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:2];
+  v10 = 0;
+  v6 = [self _numbersForPreferenceKeys:v5 error:&v10];
+  v7 = v10;
   if (v6)
   {
     if ([self _BOOLForPreferenceKey:v3 defaultValue:0 fromValues:v6])
@@ -120,19 +125,18 @@
     v8 = 0;
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
 + (BOOL)areHeadphoneExposureNotificationsMandatory
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   v3 = *MEMORY[0x277CEFAF8];
-  v11[0] = *MEMORY[0x277CEFAF8];
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
-  v10 = 0;
-  v5 = [self _numbersForPreferenceKeys:v4 error:&v10];
-  v6 = v10;
+  v10[0] = *MEMORY[0x277CEFAF8];
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
+  v9 = 0;
+  v5 = [self _numbersForPreferenceKeys:v4 error:&v9];
+  v6 = v9;
   if (v5)
   {
     v7 = [self _BOOLForPreferenceKey:v3 defaultValue:0 fromValues:v5];
@@ -149,7 +153,6 @@
     v7 = 0;
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -172,14 +175,14 @@
 
 + (BOOL)isHeadphoneExposureNotificationsEnabledOnActiveWatchWithError:(id *)error
 {
-  v12[2] = *MEMORY[0x277D85DE8];
+  v11[2] = *MEMORY[0x277D85DE8];
   if ([self hasActivePairedDevice])
   {
     v5 = *MEMORY[0x277CEFAF8];
     v6 = *MEMORY[0x277CEFAF0];
-    v12[0] = *MEMORY[0x277CEFAF8];
-    v12[1] = v6;
-    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:2];
+    v11[0] = *MEMORY[0x277CEFAF8];
+    v11[1] = v6;
+    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:2];
     v8 = [self _numbersForWatchPreferenceKeys:v7];
     if (v8)
     {
@@ -205,23 +208,22 @@
   else
   {
     [MEMORY[0x277CCA9B8] hk_assignError:error code:110 description:@"Unable to read preferences. No active watch."];
-    v9 = 0;
+    return 0;
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
 + (BOOL)isHeadphoneExposureMeasureLevelsEnabledOnActiveWatchWithError:(id *)error
 {
-  v12[2] = *MEMORY[0x277D85DE8];
+  v11[2] = *MEMORY[0x277D85DE8];
   if ([self hasActivePairedDevice])
   {
     v5 = *MEMORY[0x277CEFAF8];
     v6 = *MEMORY[0x277CEFAB8];
-    v12[0] = *MEMORY[0x277CEFAF8];
-    v12[1] = v6;
-    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:2];
+    v11[0] = *MEMORY[0x277CEFAF8];
+    v11[1] = v6;
+    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:2];
     v8 = [self _numbersForWatchPreferenceKeys:v7];
     if (v8)
     {
@@ -255,21 +257,20 @@
   else
   {
     [MEMORY[0x277CCA9B8] hk_assignError:error code:110 description:@"Unable to read preferences. No active watch."];
-    v9 = 0;
+    return 0;
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
 + (BOOL)areHeadphoneExposureNotificationsMandatoryOnActiveWatchWithError:(id *)error
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   if ([self hasActivePairedDevice])
   {
     v5 = *MEMORY[0x277CEFAF8];
-    v11[0] = *MEMORY[0x277CEFAF8];
-    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
+    v10[0] = *MEMORY[0x277CEFAF8];
+    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
     v7 = [self _numbersForWatchPreferenceKeys:v6];
     if (v7)
     {
@@ -295,24 +296,119 @@
   else
   {
     [MEMORY[0x277CCA9B8] hk_assignError:error code:110 description:@"Unable to read preferences. No active watch."];
-    v8 = 0;
+    return 0;
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v8;
+}
+
++ (BOOL)_setHeadphoneExposureNotificationsEnabled:(BOOL)enabled error:(id *)error
+{
+  enabledCopy = enabled;
+  v6 = *MEMORY[0x277CEFAF0];
+  v10 = 0;
+  [self setBoolForPreferenceKey:v6 newValue:enabledCopy forPairedWatch:0 error:&v10];
+  v7 = v10;
+  if (v7)
+  {
+    if (error)
+    {
+      v8 = v7;
+      *error = v7;
+    }
+
+    else
+    {
+      _HKLogDroppedError();
+    }
+  }
+
+  return v7 == 0;
+}
+
++ (BOOL)_setHeadphoneExposureMeasureLevelsEnabled:(BOOL)enabled error:(id *)error
+{
+  enabledCopy = enabled;
+  v6 = *MEMORY[0x277CEFAB8];
+  v10 = 0;
+  [self setBoolForPreferenceKey:v6 newValue:enabledCopy forPairedWatch:0 error:&v10];
+  v7 = v10;
+  if (v7)
+  {
+    if (error)
+    {
+      v8 = v7;
+      *error = v7;
+    }
+
+    else
+    {
+      _HKLogDroppedError();
+    }
+  }
+
+  return v7 == 0;
+}
+
++ (BOOL)_setHeadphoneExposureNotificationsEnabledOnActiveWatch:(BOOL)watch error:(id *)error
+{
+  watchCopy = watch;
+  v6 = *MEMORY[0x277CEFAF0];
+  v10 = 0;
+  [self setBoolForPreferenceKey:v6 newValue:watchCopy forPairedWatch:1 error:&v10];
+  v7 = v10;
+  if (v7)
+  {
+    if (error)
+    {
+      v8 = v7;
+      *error = v7;
+    }
+
+    else
+    {
+      _HKLogDroppedError();
+    }
+  }
+
+  return v7 == 0;
+}
+
++ (BOOL)_setHeadphoneExposureMeasureLevelsEnabledOnActiveWatch:(BOOL)watch error:(id *)error
+{
+  watchCopy = watch;
+  v6 = *MEMORY[0x277CEFAB8];
+  v10 = 0;
+  [self setBoolForPreferenceKey:v6 newValue:watchCopy forPairedWatch:1 error:&v10];
+  v7 = v10;
+  if (v7)
+  {
+    if (error)
+    {
+      v8 = v7;
+      *error = v7;
+    }
+
+    else
+    {
+      _HKLogDroppedError();
+    }
+  }
+
+  return v7 == 0;
 }
 
 + (BOOL)_isHeadphoneExposureDataTransient
 {
-  v12[2] = *MEMORY[0x277D85DE8];
+  v11[2] = *MEMORY[0x277D85DE8];
   v3 = *MEMORY[0x277CEFAF8];
   v4 = *MEMORY[0x277CEFB10];
-  v12[0] = *MEMORY[0x277CEFAF8];
-  v12[1] = v4;
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:2];
-  v11 = 0;
-  v6 = [self _numbersForPreferenceKeys:v5 error:&v11];
-  v7 = v11;
+  v11[0] = *MEMORY[0x277CEFAF8];
+  v11[1] = v4;
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:2];
+  v10 = 0;
+  v6 = [self _numbersForPreferenceKeys:v5 error:&v10];
+  v7 = v10;
   if (!v6)
   {
     _HKInitializeLogging();
@@ -334,23 +430,22 @@ LABEL_6:
   v8 = [self _BOOLForPreferenceKey:v4 defaultValue:0 fromValues:v6];
 LABEL_7:
 
-  v9 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
 + (BOOL)_isMeasureOtherHeadphonesEnabled
 {
-  v13[3] = *MEMORY[0x277D85DE8];
+  v12[3] = *MEMORY[0x277D85DE8];
   v3 = *MEMORY[0x277CEFAF8];
   v4 = *MEMORY[0x277CEFAB8];
-  v13[0] = *MEMORY[0x277CEFAF8];
-  v13[1] = v4;
+  v12[0] = *MEMORY[0x277CEFAF8];
+  v12[1] = v4;
   v5 = *MEMORY[0x277CEFAC0];
-  v13[2] = *MEMORY[0x277CEFAC0];
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:3];
-  v12 = 0;
-  v7 = [self _numbersForPreferenceKeys:v6 error:&v12];
-  v8 = v12;
+  v12[2] = *MEMORY[0x277CEFAC0];
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:3];
+  v11 = 0;
+  v7 = [self _numbersForPreferenceKeys:v6 error:&v11];
+  v8 = v11;
   if (!v7)
   {
     _HKInitializeLogging();
@@ -378,20 +473,19 @@ LABEL_8:
   v9 = 1;
 LABEL_9:
 
-  v10 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
 + (BOOL)_isHeadphoneExposureDataTransientOnActiveWatchWithError:(id *)error
 {
-  v12[2] = *MEMORY[0x277D85DE8];
+  v11[2] = *MEMORY[0x277D85DE8];
   if ([self hasActivePairedDevice])
   {
     v5 = *MEMORY[0x277CEFAF8];
     v6 = *MEMORY[0x277CEFB10];
-    v12[0] = *MEMORY[0x277CEFAF8];
-    v12[1] = v6;
-    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:2];
+    v11[0] = *MEMORY[0x277CEFAF8];
+    v11[1] = v6;
+    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:2];
     v8 = [self _numbersForWatchPreferenceKeys:v7];
     if (v8)
     {
@@ -421,25 +515,24 @@ LABEL_9:
   else
   {
     [MEMORY[0x277CCA9B8] hk_assignError:error code:110 description:@"Unable to read preferences. No active watch."];
-    v9 = 0;
+    return 0;
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
 + (BOOL)_isMeasureOtherHeadphonesEnabledOnActiveWatchWithError:(id *)error
 {
-  v13[3] = *MEMORY[0x277D85DE8];
+  v12[3] = *MEMORY[0x277D85DE8];
   if ([self hasActivePairedDevice])
   {
     v5 = *MEMORY[0x277CEFAF8];
     v6 = *MEMORY[0x277CEFAB8];
-    v13[0] = *MEMORY[0x277CEFAF8];
-    v13[1] = v6;
+    v12[0] = *MEMORY[0x277CEFAF8];
+    v12[1] = v6;
     v7 = *MEMORY[0x277CEFAC0];
-    v13[2] = *MEMORY[0x277CEFAC0];
-    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:3];
+    v12[2] = *MEMORY[0x277CEFAC0];
+    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:3];
     v9 = [self _numbersForWatchPreferenceKeys:v8];
     if (v9)
     {
@@ -477,10 +570,9 @@ LABEL_9:
   else
   {
     [MEMORY[0x277CCA9B8] hk_assignError:error code:110 description:@"Unable to read preferences. No active watch."];
-    v10 = 0;
+    return 0;
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -709,7 +801,7 @@ void __52__HKHearingFeatures__numbersForWatchPreferenceKeys___block_invoke(uint6
 
 + (BOOL)_BOOLForPreferenceKey:(id)key defaultValue:(BOOL)value fromValues:(id)values
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   keyCopy = key;
   v8 = [values objectForKeyedSubscript:keyCopy];
   if (v8)
@@ -721,17 +813,17 @@ void __52__HKHearingFeatures__numbersForWatchPreferenceKeys___block_invoke(uint6
       v9 = *MEMORY[0x277CCC2C8];
       if (os_log_type_enabled(*MEMORY[0x277CCC2C8], OS_LOG_TYPE_FAULT))
       {
-        v13 = v9;
-        v14 = HKStringFromBool();
-        v15 = 138544130;
-        v16 = keyCopy;
-        v17 = 2114;
-        v18 = v14;
-        v19 = 2112;
-        v20 = objc_opt_class();
-        v21 = 2112;
-        v22 = objc_opt_class();
-        _os_log_fault_impl(&dword_25175B000, v13, OS_LOG_TYPE_FAULT, "Error reading %{public}@ using defaultValue %{public}@: Unexpected class (expected %@, found %@)", &v15, 0x2Au);
+        v12 = v9;
+        v13 = HKStringFromBool();
+        v14 = 138544130;
+        v15 = keyCopy;
+        v16 = 2114;
+        v17 = v13;
+        v18 = 2112;
+        v19 = objc_opt_class();
+        v20 = 2112;
+        v21 = objc_opt_class();
+        _os_log_fault_impl(&dword_25175B000, v12, OS_LOG_TYPE_FAULT, "Error reading %{public}@ using defaultValue %{public}@: Unexpected class (expected %@, found %@)", &v14, 0x2Au);
       }
     }
 
@@ -744,12 +836,67 @@ void __52__HKHearingFeatures__numbersForWatchPreferenceKeys___block_invoke(uint6
     v10 = *MEMORY[0x277CCC2C8];
     if (os_log_type_enabled(*MEMORY[0x277CCC2C8], OS_LOG_TYPE_ERROR))
     {
-      [HKHearingFeatures _BOOLForPreferenceKey:keyCopy defaultValue:v10 fromValues:?];
+      [HKHearingFeatures _BOOLForPreferenceKey:keyCopy defaultValue:v10 fromValues:value];
     }
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return value;
+}
+
++ (BOOL)_setBoolForPreferenceKey:(id)key newValue:(BOOL)value error:(id *)error
+{
+  v9 = 0;
+  [self _setBoolForPhonePreferenceKey:key newValue:value error:&v9];
+  v6 = v9;
+  if (v6)
+  {
+    if (error)
+    {
+      v7 = v6;
+      *error = v6;
+    }
+
+    else
+    {
+      _HKLogDroppedError();
+    }
+  }
+
+  return v6 == 0;
+}
+
++ (BOOL)_setBoolForPhonePreferenceKey:(id)key newValue:(BOOL)value error:(id *)error
+{
+  valueCopy = value;
+  keyCopy = key;
+  v8 = [objc_alloc(MEMORY[0x277CCABB0]) initWithBool:valueCopy];
+  v15 = 0;
+  v16 = &v15;
+  v17 = 0x3032000000;
+  v18 = __Block_byref_object_copy_;
+  v19 = __Block_byref_object_dispose_;
+  v20 = 0;
+  v9 = keyCopy;
+  v10 = v8;
+  HKWithUnfairLock();
+  v11 = v16[5];
+  v12 = v11;
+  if (v11)
+  {
+    if (error)
+    {
+      v13 = v11;
+      *error = v12;
+    }
+
+    else
+    {
+      _HKLogDroppedError();
+    }
+  }
+
+  _Block_object_dispose(&v15, 8);
+  return v12 == 0;
 }
 
 void __66__HKHearingFeatures__setBoolForPhonePreferenceKey_newValue_error___block_invoke(uint64_t a1)
@@ -759,6 +906,40 @@ void __66__HKHearingFeatures__setBoolForPhonePreferenceKey_newValue_error___bloc
   v3 = *(*(a1 + 48) + 8);
   v4 = *(v3 + 40);
   *(v3 + 40) = v2;
+}
+
++ (BOOL)_setBoolForWatchPreferenceKey:(id)key newValue:(BOOL)value error:(id *)error
+{
+  valueCopy = value;
+  keyCopy = key;
+  v8 = [objc_alloc(MEMORY[0x277CCABB0]) initWithBool:valueCopy];
+  v15 = 0;
+  v16 = &v15;
+  v17 = 0x3032000000;
+  v18 = __Block_byref_object_copy_;
+  v19 = __Block_byref_object_dispose_;
+  v20 = 0;
+  v9 = keyCopy;
+  v10 = v8;
+  HKWithUnfairLock();
+  v11 = v16[5];
+  v12 = v11;
+  if (v11)
+  {
+    if (error)
+    {
+      v13 = v11;
+      *error = v12;
+    }
+
+    else
+    {
+      _HKLogDroppedError();
+    }
+  }
+
+  _Block_object_dispose(&v15, 8);
+  return v12 == 0;
 }
 
 void __66__HKHearingFeatures__setBoolForWatchPreferenceKey_newValue_error___block_invoke(uint64_t a1)
@@ -789,6 +970,91 @@ uint64_t __52__HKHearingFeatures__sharedAudioDataAnalysisManager__block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
++ (BOOL)setBoolForPreferenceKey:(id)key newValue:(BOOL)value forPairedWatch:(BOOL)watch error:(id *)error
+{
+  watchCopy = watch;
+  valueCopy = value;
+  v28[2] = *MEMORY[0x277D85DE8];
+  keyCopy = key;
+  v12 = *MEMORY[0x277CEFAB8];
+  v28[0] = *MEMORY[0x277CEFAF0];
+  v11 = v28[0];
+  v28[1] = v12;
+  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:2];
+  v27 = v11;
+  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:&v27 count:1];
+  if (([v13 containsObject:keyCopy] & 1) == 0)
+  {
+    [MEMORY[0x277CCA9B8] hk_assignError:error code:3 format:{@"Preference key not supported %@", keyCopy}];
+LABEL_21:
+    v21 = 0;
+    goto LABEL_22;
+  }
+
+  if (watchCopy)
+  {
+    v26 = 0;
+    v15 = [self areHeadphoneExposureNotificationsMandatoryOnActiveWatchWithError:&v26];
+    v16 = v26;
+    if (v16)
+    {
+      v17 = v16;
+      if (error)
+      {
+        v18 = v16;
+        *error = v17;
+      }
+
+      else
+      {
+        _HKLogDroppedError();
+      }
+
+      goto LABEL_21;
+    }
+
+    if (!v15 || ([v14 containsObject:keyCopy] & 1) != 0)
+    {
+      v25 = 0;
+      v19 = &v25;
+      [self _setBoolForWatchPreferenceKey:keyCopy newValue:valueCopy error:&v25];
+      goto LABEL_13;
+    }
+
+    goto LABEL_16;
+  }
+
+  if (([self areHeadphoneExposureNotificationsMandatory] & 1) != 0 && (objc_msgSend(v14, "containsObject:", keyCopy) & 1) == 0)
+  {
+LABEL_16:
+    [MEMORY[0x277CCA9B8] hk_assignError:error code:110 description:@"Property can not be set when feature is mandatory."];
+    goto LABEL_21;
+  }
+
+  v24 = 0;
+  v19 = &v24;
+  [self _setBoolForPreferenceKey:keyCopy newValue:valueCopy error:&v24];
+LABEL_13:
+  v20 = *v19;
+  v21 = v20 == 0;
+  if (v20)
+  {
+    if (error)
+    {
+      v22 = v20;
+      *error = v20;
+    }
+
+    else
+    {
+      _HKLogDroppedError();
+    }
+  }
+
+LABEL_22:
+  return v21;
+}
+
 + (id)activePairedDevice
 {
   mEMORY[0x277D2BCF8] = [MEMORY[0x277D2BCF8] sharedInstance];
@@ -805,26 +1071,16 @@ uint64_t __52__HKHearingFeatures__sharedAudioDataAnalysisManager__block_invoke()
   return v3;
 }
 
-+ (void)isHeadphoneExposureNotificationsEnabled
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_25175B000, v0, v1, "Unable to read preferences %{public}@: %@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-+ (void)_BOOLForPreferenceKey:(uint64_t)a1 defaultValue:(void *)a2 fromValues:.cold.1(uint64_t a1, void *a2)
++ (void)_BOOLForPreferenceKey:(uint64_t)a1 defaultValue:(void *)a2 fromValues:(char)a3 .cold.1(uint64_t a1, void *a2, char a3)
 {
   v10 = *MEMORY[0x277D85DE8];
-  v3 = a2;
-  v4 = HKStringFromBool();
+  v4 = a2;
+  v5 = HKStringFromBool();
   v6 = 138543618;
   v7 = a1;
   v8 = 2114;
-  v9 = v4;
-  _os_log_error_impl(&dword_25175B000, v3, OS_LOG_TYPE_ERROR, "Missing preference for %{public}@, using defaultValue %{public}@.", &v6, 0x16u);
-
-  v5 = *MEMORY[0x277D85DE8];
+  v9 = v5;
+  _os_log_error_impl(&dword_25175B000, v4, OS_LOG_TYPE_ERROR, "Missing preference for %{public}@, using defaultValue %{public}@.", &v6, 0x16u);
 }
 
 @end

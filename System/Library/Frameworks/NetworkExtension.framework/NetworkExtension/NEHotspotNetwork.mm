@@ -1,9 +1,5 @@
 @interface NEHotspotNetwork
 + (void)fetchCurrentWithCompletionHandler:(void *)completionHandler;
-- (BOOL)didAutoJoin;
-- (BOOL)didJustJoin;
-- (BOOL)isChosenHelper;
-- (BOOL)isSecure;
 - (NSString)BSSID;
 - (NSString)SSID;
 - (double)signalStrength;
@@ -16,46 +12,6 @@
 @end
 
 @implementation NEHotspotNetwork
-
-- (BOOL)isChosenHelper
-{
-  if (self)
-  {
-    network = self->_network;
-  }
-
-  return CNNetworkIsChosenPlugin() != 0;
-}
-
-- (BOOL)didJustJoin
-{
-  if (self)
-  {
-    network = self->_network;
-  }
-
-  return CNNetworkWasJustJoined() != 0;
-}
-
-- (BOOL)didAutoJoin
-{
-  if (self)
-  {
-    network = self->_network;
-  }
-
-  return CNNetworkWasAutoJoined() != 0;
-}
-
-- (BOOL)isSecure
-{
-  if (self)
-  {
-    network = self->_network;
-  }
-
-  return CNNetworkIsProtected() != 0;
-}
 
 - (void)setPassword:(NSString *)password
 {
@@ -71,18 +27,17 @@
 {
   if (self)
   {
-    network = self->_network;
     CNNetworkSetConfidence();
-    v6 = self->_network;
+    network = self->_network;
   }
 
   else
   {
     CNNetworkSetConfidence();
-    v6 = 0;
+    network = 0;
   }
 
-  MEMORY[0x1EEDF2F60](v6, confidence != kNEHotspotHelperConfidenceNone);
+  MEMORY[0x1EEDF2F60](network, confidence != kNEHotspotHelperConfidenceNone);
 }
 
 - (double)signalStrength
@@ -148,7 +103,7 @@
 
 + (void)fetchCurrentWithCompletionHandler:(void *)completionHandler
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v4 = completionHandler;
   if ((NEHelperCopyCurrentNetworkAsync() & 1) == 0)
   {
@@ -162,23 +117,21 @@
 
     v4[2](v4, 0);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __54__NEHotspotNetwork_fetchCurrentWithCompletionHandler___block_invoke(uint64_t a1, char a2, uint64_t a3, void *a4)
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   v7 = a4;
   if ((a2 & 1) == 0)
   {
     v8 = ne_log_obj();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v25 = *(a1 + 40);
-      *v29 = 138412290;
-      *&v29[4] = v25;
-      _os_log_error_impl(&dword_1BA83C000, v8, OS_LOG_TYPE_ERROR, "%@ failed to communicate to helper server for Wi-Fi information request", v29, 0xCu);
+      v24 = *(a1 + 40);
+      *v28 = 138412290;
+      *&v28[4] = v24;
+      _os_log_error_impl(&dword_1BA83C000, v8, OS_LOG_TYPE_ERROR, "%@ failed to communicate to helper server for Wi-Fi information request", v28, 0xCu);
     }
   }
 
@@ -187,12 +140,12 @@ void __54__NEHotspotNetwork_fetchCurrentWithCompletionHandler___block_invoke(uin
     v9 = ne_log_obj();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      v24 = *(a1 + 40);
-      *v29 = 138412546;
-      *&v29[4] = v24;
-      *&v29[12] = 2048;
-      *&v29[14] = a3;
-      _os_log_error_impl(&dword_1BA83C000, v9, OS_LOG_TYPE_ERROR, "%@ nehelper sent invalid result code [%lld] for Wi-Fi information request", v29, 0x16u);
+      v23 = *(a1 + 40);
+      *v28 = 138412546;
+      *&v28[4] = v23;
+      *&v28[12] = 2048;
+      *&v28[14] = a3;
+      _os_log_error_impl(&dword_1BA83C000, v9, OS_LOG_TYPE_ERROR, "%@ nehelper sent invalid result code [%lld] for Wi-Fi information request", v28, 0x16u);
     }
 
     goto LABEL_9;
@@ -205,45 +158,45 @@ LABEL_9:
     goto LABEL_10;
   }
 
-  v11 = _CFXPCCreateCFObjectFromXPCObject();
+  v10 = _CFXPCCreateCFObjectFromXPCObject();
   TypeID = CFDictionaryGetTypeID();
-  if (v11 && CFGetTypeID(v11) == TypeID)
+  if (v10 && CFGetTypeID(v10) == TypeID)
   {
-    Value = CFDictionaryGetValue(v11, *MEMORY[0x1E69822D8]);
-    v14 = CFDictionaryGetValue(v11, *MEMORY[0x1E69822D0]);
-    v15 = CFDictionaryGetValue(v11, @"wifi-security-type");
-    if (Value && v14 && (v16 = v15) != 0)
+    Value = CFDictionaryGetValue(v10, *MEMORY[0x1E69822D8]);
+    v13 = CFDictionaryGetValue(v10, *MEMORY[0x1E69822D0]);
+    v14 = CFDictionaryGetValue(v10, @"wifi-security-type");
+    if (Value && v13 && (v15 = v14) != 0)
     {
-      v17 = CNNetworkCreateWithSSIDAndBSSID();
-      v18 = [NEHotspotNetwork alloc];
-      v19 = v16;
-      if (v18)
+      v16 = CNNetworkCreateWithSSIDAndBSSID();
+      v17 = [NEHotspotNetwork alloc];
+      v18 = v15;
+      if (v17)
       {
-        *v29 = v18;
-        *&v29[8] = NEHotspotNetwork;
-        v20 = objc_msgSendSuper2(v29, sel_init);
-        v18 = v20;
-        if (v20)
+        *v28 = v17;
+        *&v28[8] = NEHotspotNetwork;
+        v19 = objc_msgSendSuper2(v28, sel_init);
+        v17 = v19;
+        if (v19)
         {
-          [(NEHotspotNetwork *)v20 setNetwork:v17];
-          v21 = [v19 integerValue];
-          if (v21 >= 4)
+          [(NEHotspotNetwork *)v19 setNetwork:v16];
+          v20 = [v18 integerValue];
+          if (v20 >= 4)
           {
-            v22 = 4;
+            v21 = 4;
           }
 
           else
           {
-            v22 = v21;
+            v21 = v20;
           }
 
-          [(NEHotspotNetwork *)v18 setSecurityType:v22];
+          [(NEHotspotNetwork *)v17 setSecurityType:v21];
         }
       }
 
-      if (v17)
+      if (v16)
       {
-        CFRelease(v17);
+        CFRelease(v16);
       }
 
       (*(*(a1 + 32) + 16))();
@@ -251,41 +204,39 @@ LABEL_9:
 
     else
     {
-      v26 = ne_log_obj();
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+      v25 = ne_log_obj();
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
       {
-        v28 = *(a1 + 40);
-        *v29 = 138412290;
-        *&v29[4] = v28;
-        _os_log_error_impl(&dword_1BA83C000, v26, OS_LOG_TYPE_ERROR, "%@ received nil data for Wi-Fi information request", v29, 0xCu);
+        v27 = *(a1 + 40);
+        *v28 = 138412290;
+        *&v28[4] = v27;
+        _os_log_error_impl(&dword_1BA83C000, v25, OS_LOG_TYPE_ERROR, "%@ received nil data for Wi-Fi information request", v28, 0xCu);
       }
 
       (*(*(a1 + 32) + 16))();
     }
 
 LABEL_34:
-    CFRelease(v11);
+    CFRelease(v10);
     goto LABEL_10;
   }
 
-  v23 = ne_log_obj();
-  if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+  v22 = ne_log_obj();
+  if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
   {
-    v27 = *(a1 + 40);
-    *v29 = 138412290;
-    *&v29[4] = v27;
-    _os_log_error_impl(&dword_1BA83C000, v23, OS_LOG_TYPE_ERROR, "%@ received unexpected data for Wi-Fi information request", v29, 0xCu);
+    v26 = *(a1 + 40);
+    *v28 = 138412290;
+    *&v28[4] = v26;
+    _os_log_error_impl(&dword_1BA83C000, v22, OS_LOG_TYPE_ERROR, "%@ received unexpected data for Wi-Fi information request", v28, 0xCu);
   }
 
   (*(*(a1 + 32) + 16))();
-  if (v11)
+  if (v10)
   {
     goto LABEL_34;
   }
 
 LABEL_10:
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setNetwork:(uint64_t)network

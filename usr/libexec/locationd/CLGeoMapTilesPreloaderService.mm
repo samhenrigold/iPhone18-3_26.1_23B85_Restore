@@ -97,28 +97,28 @@
 {
   if (self->fMapMatcherMobileAssetReader.fMapMatcherOperatingCountryConfig.__tree_.__size_)
   {
-    [(CLGeoMapTilesPreloaderService *)self getConfigFromMobileAssets];
+    objc_msgSend_getConfigFromMobileAssets(self, a2);
     p_fRoutineInfo = &self->fRoutineInfo;
-    if (BYTE4(v37))
+    if (v41[8])
     {
       if (sub_1012B1848(&self->fRoutineInfo))
       {
-        v25[0] = _NSConcreteStackBlock;
-        v25[1] = 3221225472;
-        v33 = v44;
-        v34 = v45;
-        v35 = v46;
-        v29 = v40;
-        v30 = v41;
-        v31 = v42;
-        v32 = v43;
-        v26 = v37;
-        v27 = v38;
-        v25[2] = sub_1012B1A68;
-        v25[3] = &unk_1024DCBF0;
-        v25[4] = self;
-        v36 = v47;
-        v28 = v39;
+        v26 = _NSConcreteStackBlock;
+        v27 = 3221225472;
+        v38 = v48;
+        v39 = v49;
+        v40 = v50;
+        v34 = v44;
+        v35 = v45;
+        v36 = v46;
+        v37 = v47;
+        v31 = *&v41[4];
+        v32 = v42;
+        v28 = sub_1012B1A68;
+        v29 = &unk_1024DCBF0;
+        selfCopy = self;
+        *v41 = v51;
+        v33 = v43;
         v4 = sub_1012B23C8(&self->fRoutineInfo);
         if (v4 < 0.0 || v4 > 21600.0)
         {
@@ -131,7 +131,7 @@
           if (os_log_type_enabled(qword_1025D46B8, OS_LOG_TYPE_INFO))
           {
             *buf = 134349056;
-            v59 = v4;
+            v63 = v4;
             _os_log_impl(dword_100000000, v11, OS_LOG_TYPE_INFO, "CLGMTPS,NPLOI,current location not available to make query,%{public}.1lf", buf, 0xCu);
           }
 
@@ -159,15 +159,15 @@
             v17 = *(&self->fRoutineInfo.fLastUserLocation.suitability + 1);
             v18 = *(&self->fRoutineInfo.fLastUserLocation.coordinate.latitude + 4);
             *buf = 138544387;
-            v59 = v14;
-            v60 = 2114;
-            v61 = v15;
-            v62 = 2053;
-            v63 = v17;
-            v64 = 2053;
-            v65 = v18;
-            v66 = 2050;
-            v67 = v4;
+            v63 = v14;
+            v64 = 2114;
+            v65 = v15;
+            v66 = 2053;
+            v67 = v17;
+            v68 = 2053;
+            v69 = v18;
+            v70 = 2050;
+            v71 = v4;
             _os_log_impl(dword_100000000, v16, OS_LOG_TYPE_INFO, "CLGMTPS,NPLOI,requested,dataDate,%{public}@,todaysDate,%{public}@,LL,%{sensitive}.7lf,%{sensitive}.7lf,locationAge,%{public}.1lf", buf, 0x34u);
           }
 
@@ -181,21 +181,22 @@
 
             v22 = *(&self->fRoutineInfo.fLastUserLocation.suitability + 1);
             v23 = *(&self->fRoutineInfo.fLastUserLocation.coordinate.latitude + 4);
-            v48 = 138544387;
-            v49 = v14;
-            v50 = 2114;
-            v51 = v15;
-            v52 = 2053;
-            v53 = v22;
-            v54 = 2053;
-            v55 = v23;
-            v56 = 2050;
-            v57 = v4;
-            v24 = _os_log_send_and_compose_impl();
+            v52 = 138544387;
+            v53 = v14;
+            v54 = 2114;
+            v55 = v15;
+            v56 = 2053;
+            v57 = v22;
+            v58 = 2053;
+            v59 = v23;
+            v60 = 2050;
+            v61 = v4;
+            _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, qword_1025D46B8, 1, "CLGMTPS,NPLOI,requested,dataDate,%{public}@,todaysDate,%{public}@,LL,%{sensitive}.7lf,%{sensitive}.7lf,locationAge,%{public}.1lf", &v52, 52, v26, v27, v28, v29, selfCopy, v31, v32, v33, v34, v35, v36, v37, v38, v39, v40, *v41);
+            v25 = v24;
             sub_100152C7C("Generic", 1, 0, 2, "[CLGeoMapTilesPreloaderService fetchNPLOI]", "%s\n", v24);
-            if (v24 != buf)
+            if (v25 != buf)
             {
-              free(v24);
+              free(v25);
             }
           }
 
@@ -203,7 +204,7 @@
           v19 = [CLLocation alloc];
           v20 = CLLocationCoordinate2DMake(*(&self->fRoutineInfo.fLastUserLocation.suitability + 1), *(&self->fRoutineInfo.fLastUserLocation.coordinate.latitude + 4));
           v21 = [v19 initWithCoordinate:v12 altitude:v20.latitude horizontalAccuracy:v20.longitude verticalAccuracy:*(&self->fRoutineInfo.fLastUserLocation.horizontalAccuracy + 4) timestamp:{*(&self->fRoutineInfo.fLastUserLocation.coordinate.longitude + 4), *(&self->fRoutineInfo.fLastUserLocation.altitude + 4)}];
-          [(CLRoutineMonitorServiceProtocol *)self->fRoutineMonitor fetchNextPredictedLocationsOfInterestFromLocation:v21 startDate:+[NSDate timeInterval:"date"]withReply:v25, 86400.0];
+          [(CLRoutineMonitorServiceProtocol *)self->fRoutineMonitor fetchNextPredictedLocationsOfInterestFromLocation:v21 startDate:+[NSDate timeInterval:"date"]withReply:&v26, 86400.0];
         }
 
         else
@@ -218,7 +219,7 @@
           {
             v6 = *(&self->fRoutineInfo.fLastUserLocation.coordinate.longitude + 4);
             *buf = 134349056;
-            v59 = v6;
+            v63 = v6;
             _os_log_impl(dword_100000000, v5, OS_LOG_TYPE_INFO, "CLGMTPS,NPLOI,not requested as hunc is over threshold,%{public}.1lf", buf, 0xCu);
           }
 
@@ -247,7 +248,7 @@
         {
           size = p_fRoutineInfo->fLOICoarseCoordinates.__tree_.__size_;
           *buf = 134349056;
-          v59 = *&size;
+          v63 = *&size;
           _os_log_impl(dword_100000000, v8, OS_LOG_TYPE_DEBUG, "CLGMTPS,NPLOI caching not allowed, erased all NPLOI coordinates,size,%{public}ld", buf, 0xCu);
         }
 
@@ -302,7 +303,7 @@
 
 - (CLMapMatcherGeoTilesPrecachingConfig)getConfigFromMobileAssets
 {
-  sub_10022F21C(retstr);
+  sub_10022F21C(retstr, a3);
   result = [(CLGeoMapTilesPreloaderService *)self getCountryCode];
   if (!result)
   {

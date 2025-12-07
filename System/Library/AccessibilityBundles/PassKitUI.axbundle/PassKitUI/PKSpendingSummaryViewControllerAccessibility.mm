@@ -1,6 +1,7 @@
 @interface PKSpendingSummaryViewControllerAccessibility
 + (void)_accessibilityPerformValidations:(id)validations;
 - (void)_accessibilityLoadAccessibilityInformation;
+- (void)viewDidAppear:(BOOL)appear;
 @end
 
 @implementation PKSpendingSummaryViewControllerAccessibility
@@ -21,6 +22,14 @@
   [v3 _accessibilitySetScrollAcrossPageBoundaries:0];
   [v3 _accessibilitySetPagingEnabled:1];
   [v3 _accessibilitySetAllowedPagingOverlap:30.0];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = PKSpendingSummaryViewControllerAccessibility;
+  [(PKSpendingSummaryViewControllerAccessibility *)&v4 viewDidAppear:appear];
+  [(PKSpendingSummaryViewControllerAccessibility *)self _accessibilityLoadAccessibilityInformation];
 }
 
 @end

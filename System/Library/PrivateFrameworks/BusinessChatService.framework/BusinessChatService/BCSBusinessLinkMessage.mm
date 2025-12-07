@@ -1,5 +1,6 @@
 @interface BCSBusinessLinkMessage
 - (BOOL)isEqual:(id)equal;
+- (id)actionAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
@@ -45,6 +46,21 @@
   {
     return 1;
   }
+}
+
+- (id)actionAsString:(int)string
+{
+  if ((string - 1) >= 3)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_278D39DA0[string - 1];
+  }
+
+  return v4;
 }
 
 - (int)StringAsAction:(id)action
@@ -120,7 +136,7 @@
 
 - (id)dictionaryRepresentation
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   v4 = dictionary;
   link = self->_link;
@@ -156,30 +172,30 @@
   if ([(NSMutableArray *)self->_businessLinkContents count])
   {
     v10 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{-[NSMutableArray count](self->_businessLinkContents, "count")}];
+    v34 = 0u;
     v35 = 0u;
     v36 = 0u;
     v37 = 0u;
-    v38 = 0u;
     v11 = self->_businessLinkContents;
-    v12 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v35 objects:v40 count:16];
+    v12 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v34 objects:v39 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v36;
+      v14 = *v35;
       do
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v36 != v14)
+          if (*v35 != v14)
           {
             objc_enumerationMutation(v11);
           }
 
-          dictionaryRepresentation = [*(*(&v35 + 1) + 8 * i) dictionaryRepresentation];
+          dictionaryRepresentation = [*(*(&v34 + 1) + 8 * i) dictionaryRepresentation];
           [v10 addObject:dictionaryRepresentation];
         }
 
-        v13 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v35 objects:v40 count:16];
+        v13 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v34 objects:v39 count:16];
       }
 
       while (v13);
@@ -222,30 +238,30 @@
   if ([(NSMutableArray *)self->_categoryStyleAttributes count])
   {
     v22 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{-[NSMutableArray count](self->_categoryStyleAttributes, "count")}];
+    v30 = 0u;
     v31 = 0u;
     v32 = 0u;
     v33 = 0u;
-    v34 = 0u;
     v23 = self->_categoryStyleAttributes;
-    v24 = [(NSMutableArray *)v23 countByEnumeratingWithState:&v31 objects:v39 count:16];
+    v24 = [(NSMutableArray *)v23 countByEnumeratingWithState:&v30 objects:v38 count:16];
     if (v24)
     {
       v25 = v24;
-      v26 = *v32;
+      v26 = *v31;
       do
       {
         for (j = 0; j != v25; ++j)
         {
-          if (*v32 != v26)
+          if (*v31 != v26)
           {
             objc_enumerationMutation(v23);
           }
 
-          dictionaryRepresentation2 = [*(*(&v31 + 1) + 8 * j) dictionaryRepresentation];
+          dictionaryRepresentation2 = [*(*(&v30 + 1) + 8 * j) dictionaryRepresentation];
           [v22 addObject:dictionaryRepresentation2];
         }
 
-        v25 = [(NSMutableArray *)v23 countByEnumeratingWithState:&v31 objects:v39 count:16];
+        v25 = [(NSMutableArray *)v23 countByEnumeratingWithState:&v30 objects:v38 count:16];
       }
 
       while (v25);
@@ -254,14 +270,12 @@
     [v4 setObject:v22 forKey:@"category_style_attributes"];
   }
 
-  v29 = *MEMORY[0x277D85DE8];
-
   return v4;
 }
 
 - (void)writeTo:(id)to
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   toCopy = to;
   if (self->_link)
   {
@@ -288,30 +302,29 @@
     PBDataWriterWriteStringField();
   }
 
-  v27 = 0u;
-  v28 = 0u;
-  v25 = 0u;
-  v26 = 0u;
+  v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   v5 = self->_businessLinkContents;
-  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v25 objects:v30 count:16];
+  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v20 objects:v25 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v26;
+    v8 = *v21;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v26 != v8)
+        if (*v21 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v25 + 1) + 8 * i);
         PBDataWriterWriteSubmessage();
       }
 
-      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v25 objects:v30 count:16];
+      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v20 objects:v25 count:16];
     }
 
     while (v7);
@@ -320,14 +333,12 @@
   has = self->_has;
   if (has)
   {
-    action = self->_action;
     PBDataWriterWriteInt32Field();
     has = self->_has;
   }
 
   if ((has & 2) != 0)
   {
-    isPoweredBy = self->_isPoweredBy;
     PBDataWriterWriteBOOLField();
   }
 
@@ -336,36 +347,33 @@
     PBDataWriterWriteStringField();
   }
 
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
-  v22 = 0u;
-  v14 = self->_categoryStyleAttributes;
-  v15 = [(NSMutableArray *)v14 countByEnumeratingWithState:&v21 objects:v29 count:16];
-  if (v15)
+  v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
+  v11 = self->_categoryStyleAttributes;
+  v12 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v16 objects:v24 count:16];
+  if (v12)
   {
-    v16 = v15;
-    v17 = *v22;
+    v13 = v12;
+    v14 = *v17;
     do
     {
-      for (j = 0; j != v16; ++j)
+      for (j = 0; j != v13; ++j)
       {
-        if (*v22 != v17)
+        if (*v17 != v14)
         {
-          objc_enumerationMutation(v14);
+          objc_enumerationMutation(v11);
         }
 
-        v19 = *(*(&v21 + 1) + 8 * j);
         PBDataWriterWriteSubmessage();
       }
 
-      v16 = [(NSMutableArray *)v14 countByEnumeratingWithState:&v21 objects:v29 count:16];
+      v13 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v16 objects:v24 count:16];
     }
 
-    while (v16);
+    while (v13);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)copyTo:(id)to
@@ -448,7 +456,7 @@
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   v5 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
   v6 = [(NSString *)self->_link copyWithZone:zone];
   v7 = *(v5 + 56);
@@ -470,30 +478,30 @@
   v15 = *(v5 + 72);
   *(v5 + 72) = v14;
 
-  v39 = 0u;
-  v40 = 0u;
-  v37 = 0u;
   v38 = 0u;
+  v39 = 0u;
+  v36 = 0u;
+  v37 = 0u;
   v16 = self->_businessLinkContents;
-  v17 = [(NSMutableArray *)v16 countByEnumeratingWithState:&v37 objects:v42 count:16];
+  v17 = [(NSMutableArray *)v16 countByEnumeratingWithState:&v36 objects:v41 count:16];
   if (v17)
   {
     v18 = v17;
-    v19 = *v38;
+    v19 = *v37;
     do
     {
       for (i = 0; i != v18; ++i)
       {
-        if (*v38 != v19)
+        if (*v37 != v19)
         {
           objc_enumerationMutation(v16);
         }
 
-        v21 = [*(*(&v37 + 1) + 8 * i) copyWithZone:zone];
+        v21 = [*(*(&v36 + 1) + 8 * i) copyWithZone:zone];
         [v5 addBusinessLinkContents:v21];
       }
 
-      v18 = [(NSMutableArray *)v16 countByEnumeratingWithState:&v37 objects:v42 count:16];
+      v18 = [(NSMutableArray *)v16 countByEnumeratingWithState:&v36 objects:v41 count:16];
     }
 
     while (v18);
@@ -517,36 +525,35 @@
   v24 = *(v5 + 64);
   *(v5 + 64) = v23;
 
-  v35 = 0u;
-  v36 = 0u;
-  v33 = 0u;
   v34 = 0u;
+  v35 = 0u;
+  v32 = 0u;
+  v33 = 0u;
   v25 = self->_categoryStyleAttributes;
-  v26 = [(NSMutableArray *)v25 countByEnumeratingWithState:&v33 objects:v41 count:16];
+  v26 = [(NSMutableArray *)v25 countByEnumeratingWithState:&v32 objects:v40 count:16];
   if (v26)
   {
     v27 = v26;
-    v28 = *v34;
+    v28 = *v33;
     do
     {
       for (j = 0; j != v27; ++j)
       {
-        if (*v34 != v28)
+        if (*v33 != v28)
         {
           objc_enumerationMutation(v25);
         }
 
-        v30 = [*(*(&v33 + 1) + 8 * j) copyWithZone:{zone, v33}];
+        v30 = [*(*(&v32 + 1) + 8 * j) copyWithZone:{zone, v32}];
         [v5 addCategoryStyleAttributes:v30];
       }
 
-      v27 = [(NSMutableArray *)v25 countByEnumeratingWithState:&v33 objects:v41 count:16];
+      v27 = [(NSMutableArray *)v25 countByEnumeratingWithState:&v32 objects:v40 count:16];
     }
 
     while (v27);
   }
 
-  v31 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -612,7 +619,6 @@
     }
   }
 
-  v11 = *(equalCopy + 84);
   if (*&self->_has)
   {
     if ((*(equalCopy + 84) & 1) == 0 || self->_action != *(equalCopy + 2))
@@ -634,7 +640,7 @@
     }
 
 LABEL_26:
-    v14 = 0;
+    v13 = 0;
     goto LABEL_27;
   }
 
@@ -643,7 +649,6 @@ LABEL_26:
     goto LABEL_26;
   }
 
-  v16 = *(equalCopy + 80);
   if (self->_isPoweredBy)
   {
     if ((*(equalCopy + 80) & 1) == 0)
@@ -667,17 +672,17 @@ LABEL_21:
   categoryStyleAttributes = self->_categoryStyleAttributes;
   if (categoryStyleAttributes | *(equalCopy + 4))
   {
-    v14 = [(NSMutableArray *)categoryStyleAttributes isEqual:?];
+    v13 = [(NSMutableArray *)categoryStyleAttributes isEqual:?];
   }
 
   else
   {
-    v14 = 1;
+    v13 = 1;
   }
 
 LABEL_27:
 
-  return v14;
+  return v13;
 }
 
 - (unint64_t)hash
@@ -717,7 +722,7 @@ LABEL_6:
 
 - (void)mergeFrom:(id)from
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   fromCopy = from;
   if (*(fromCopy + 7))
   {
@@ -744,29 +749,29 @@ LABEL_6:
     [(BCSBusinessLinkMessage *)self setRedirectUrl:?];
   }
 
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
   v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   v5 = *(fromCopy + 3);
-  v6 = [v5 countByEnumeratingWithState:&v21 objects:v26 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v20 objects:v25 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v22;
+    v8 = *v21;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v22 != v8)
+        if (*v21 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        [(BCSBusinessLinkMessage *)self addBusinessLinkContents:*(*(&v21 + 1) + 8 * i)];
+        [(BCSBusinessLinkMessage *)self addBusinessLinkContents:*(*(&v20 + 1) + 8 * i)];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v21 objects:v26 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v20 objects:v25 count:16];
     }
 
     while (v7);
@@ -791,35 +796,33 @@ LABEL_6:
     [(BCSBusinessLinkMessage *)self setMuid:?];
   }
 
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
   v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   v11 = *(fromCopy + 4);
-  v12 = [v11 countByEnumeratingWithState:&v17 objects:v25 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v16 objects:v24 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v18;
+    v14 = *v17;
     do
     {
       for (j = 0; j != v13; ++j)
       {
-        if (*v18 != v14)
+        if (*v17 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        [(BCSBusinessLinkMessage *)self addCategoryStyleAttributes:*(*(&v17 + 1) + 8 * j), v17];
+        [(BCSBusinessLinkMessage *)self addCategoryStyleAttributes:*(*(&v16 + 1) + 8 * j), v16];
       }
 
-      v13 = [v11 countByEnumeratingWithState:&v17 objects:v25 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v16 objects:v24 count:16];
     }
 
     while (v13);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 @end

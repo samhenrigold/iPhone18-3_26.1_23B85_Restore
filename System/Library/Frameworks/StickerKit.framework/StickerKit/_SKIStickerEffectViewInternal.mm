@@ -65,7 +65,7 @@
   effectCopy = effect;
   selfCopy = self;
   sub_19A77C8EC(imageCopy, effectCopy, v8, v9);
-  sub_19A60126C(v8);
+  sub_19A60126C(v8, v9);
 }
 
 - (void)setImage:(id)image

@@ -16,7 +16,7 @@
 
 - (void)ensureConnection
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   dispatch_assert_queue_V2(self->_stateQueue);
   if (self->_serviceName && !self->_maConnection)
   {
@@ -34,9 +34,9 @@
       if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
         connectionId = [(MAXpcConnection *)self->_maConnection connectionId];
-        v9 = 138543362;
-        v10 = connectionId;
-        _os_log_impl(&dword_197AD5000, v6, OS_LOG_TYPE_DEFAULT, "Creating client/daemon connection: %{public}@", &v9, 0xCu);
+        v8 = 138543362;
+        v9 = connectionId;
+        _os_log_impl(&dword_197AD5000, v6, OS_LOG_TYPE_DEFAULT, "Creating client/daemon connection: %{public}@", &v8, 0xCu);
       }
     }
 
@@ -45,13 +45,11 @@
       v6 = _MAClientLog(@"V2");
       if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
-        LOWORD(v9) = 0;
-        _os_log_impl(&dword_197AD5000, v6, OS_LOG_TYPE_ERROR, "Could not ensure maConnection, xpc communication will fail", &v9, 2u);
+        LOWORD(v8) = 0;
+        _os_log_impl(&dword_197AD5000, v6, OS_LOG_TYPE_ERROR, "Could not ensure maConnection, xpc communication will fail", &v8, 2u);
       }
     }
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setClientConnectionHandler
@@ -67,7 +65,7 @@
 
 - (void)clearConnection:(id)connection
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   connectionCopy = connection;
   dispatch_assert_queue_V2(self->_stateQueue);
   maConnection = self->_maConnection;
@@ -77,8 +75,8 @@
   {
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v15) = 0;
-      _os_log_impl(&dword_197AD5000, p_super, OS_LOG_TYPE_DEFAULT, "Connection invalid, connection already nil so ignoring", &v15, 2u);
+      LOWORD(v14) = 0;
+      _os_log_impl(&dword_197AD5000, p_super, OS_LOG_TYPE_DEFAULT, "Connection invalid, connection already nil so ignoring", &v14, 2u);
     }
 
     goto LABEL_17;
@@ -86,8 +84,8 @@
 
   if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
-    LOWORD(v15) = 0;
-    _os_log_impl(&dword_197AD5000, p_super, OS_LOG_TYPE_ERROR, "Connection invalid, checking connection", &v15, 2u);
+    LOWORD(v14) = 0;
+    _os_log_impl(&dword_197AD5000, p_super, OS_LOG_TYPE_ERROR, "Connection invalid, checking connection", &v14, 2u);
   }
 
   if (!connectionCopy || [(MAXpcConnection *)self->_maConnection notValid])
@@ -115,9 +113,9 @@ LABEL_6:
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
         connectionId2 = [(MAXpcConnection *)self->_maConnection connectionId];
-        v15 = 138543362;
-        v16 = connectionId2;
-        _os_log_impl(&dword_197AD5000, v8, OS_LOG_TYPE_DEFAULT, "connection cleared: %{public}@", &v15, 0xCu);
+        v14 = 138543362;
+        v15 = connectionId2;
+        _os_log_impl(&dword_197AD5000, v8, OS_LOG_TYPE_DEFAULT, "connection cleared: %{public}@", &v14, 0xCu);
       }
 
       p_super = &self->_maConnection->super;
@@ -133,7 +131,6 @@ LABEL_6:
 LABEL_17:
 
 LABEL_18:
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setClientName:(id)name
@@ -147,35 +144,35 @@ LABEL_18:
 
 - (id)sendSync:(id)sync gettingResponseCode:(int64_t *)code codeForXpcError:(int64_t)int64 loggingName:(id)name
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   syncCopy = sync;
   nameCopy = name;
   [(MAXpcManager *)self setClientName:syncCopy];
-  v31 = 0;
-  v32 = &v31;
-  v33 = 0x3032000000;
-  v34 = __Block_byref_object_copy__3;
-  v35 = __Block_byref_object_dispose__3;
-  v36 = 0;
+  v30 = 0;
+  v31 = &v30;
+  v32 = 0x3032000000;
+  v33 = __Block_byref_object_copy__3;
+  v34 = __Block_byref_object_dispose__3;
+  v35 = 0;
   stateQueue = self->_stateQueue;
-  v27[0] = MEMORY[0x1E69E9820];
-  v27[1] = 3221225472;
-  v27[2] = __73__MAXpcManager_sendSync_gettingResponseCode_codeForXpcError_loggingName___block_invoke;
-  v27[3] = &unk_1E74CA828;
-  v27[4] = self;
+  v26[0] = MEMORY[0x1E69E9820];
+  v26[1] = 3221225472;
+  v26[2] = __73__MAXpcManager_sendSync_gettingResponseCode_codeForXpcError_loggingName___block_invoke;
+  v26[3] = &unk_1E74CA828;
+  v26[4] = self;
   v13 = syncCopy;
-  v28 = v13;
-  v30 = &v31;
+  v27 = v13;
+  v29 = &v30;
   v14 = nameCopy;
-  v29 = v14;
-  dispatch_sync(stateQueue, v27);
-  v20 = v32[5];
+  v28 = v14;
+  dispatch_sync(stateQueue, v26);
+  v20 = v31[5];
   if (v20)
   {
     v21 = MEMORY[0x19A8EC930](v20, v15, v16, v17, v18, v19);
     if (v21 == MEMORY[0x1E69E9E80])
     {
-      int64 = xpc_dictionary_get_int64(v32[5], "Result");
+      int64 = xpc_dictionary_get_int64(v31[5], "Result");
       goto LABEL_11;
     }
 
@@ -185,7 +182,7 @@ LABEL_18:
       if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543362;
-        v38 = v14;
+        v37 = v14;
         v23 = "%{public}@ Received XPC error for message sent to mobileassetd";
         goto LABEL_9;
       }
@@ -197,7 +194,7 @@ LABEL_18:
       if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543362;
-        v38 = v14;
+        v37 = v14;
         v23 = "%{public}@ Received XPC error for message sent to mobileassetd: unexpected xpc type for reply";
 LABEL_9:
         _os_log_impl(&dword_197AD5000, v22, OS_LOG_TYPE_DEFAULT, v23, buf, 0xCu);
@@ -211,17 +208,16 @@ LABEL_11:
     *code = int64;
   }
 
-  v24 = v32[5];
+  v24 = v31[5];
 
-  _Block_object_dispose(&v31, 8);
-  v25 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v30, 8);
 
   return v24;
 }
 
 void __73__MAXpcManager_sendSync_gettingResponseCode_codeForXpcError_loggingName___block_invoke(uint64_t a1)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   [*(a1 + 32) ensureConnection];
   v2 = *(*(a1 + 32) + 8);
   if (v2)
@@ -240,7 +236,7 @@ void __73__MAXpcManager_sendSync_gettingResponseCode_codeForXpcError_loggingName
     v10 = MEMORY[0x1E69E9E98];
     if (v9 != MEMORY[0x1E69E9E98])
     {
-      goto LABEL_10;
+      return;
     }
 
     v11 = *(*(*(a1 + 56) + 8) + 40);
@@ -249,23 +245,23 @@ void __73__MAXpcManager_sendSync_gettingResponseCode_codeForXpcError_loggingName
       goto LABEL_4;
     }
 
-    v15 = _MAClientLog(@"V2");
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v14 = _MAClientLog(@"V2");
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      v17 = *(a1 + 40);
-      v16 = *(a1 + 48);
-      v22 = 138543618;
-      v23 = v16;
-      v24 = 2114;
-      v25 = v17;
-      _os_log_impl(&dword_197AD5000, v15, OS_LOG_TYPE_DEFAULT, "%{public}@ mobileassetd connection interrupted - retrying sync message: %{public}@", &v22, 0x16u);
+      v16 = *(a1 + 40);
+      v15 = *(a1 + 48);
+      v21 = 138543618;
+      v22 = v15;
+      v23 = 2114;
+      v24 = v16;
+      _os_log_impl(&dword_197AD5000, v14, OS_LOG_TYPE_DEFAULT, "%{public}@ mobileassetd connection interrupted - retrying sync message: %{public}@", &v21, 0x16u);
     }
 
-    v18 = [*(*(a1 + 32) + 8) connection];
-    v19 = xpc_connection_send_message_with_reply_sync(v18, *(a1 + 40));
-    v20 = *(*(a1 + 56) + 8);
-    v21 = *(v20 + 40);
-    *(v20 + 40) = v19;
+    v17 = [*(*(a1 + 32) + 8) connection];
+    v18 = xpc_connection_send_message_with_reply_sync(v17, *(a1 + 40));
+    v19 = *(*(a1 + 56) + 8);
+    v20 = *(v19 + 40);
+    *(v19 + 40) = v18;
 
     if (MEMORY[0x19A8EC930](*(*(*(a1 + 56) + 8) + 40)) == v10)
     {
@@ -283,8 +279,8 @@ LABEL_4:
     v12 = _MAClientLog(@"V2");
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v22) = 0;
-      _os_log_impl(&dword_197AD5000, v12, OS_LOG_TYPE_DEFAULT, "No active XPC connection to mobileassetd", &v22, 2u);
+      LOWORD(v21) = 0;
+      _os_log_impl(&dword_197AD5000, v12, OS_LOG_TYPE_DEFAULT, "No active XPC connection to mobileassetd", &v21, 2u);
     }
 
     v13 = *(*(*(a1 + 56) + 8) + 40);
@@ -293,9 +289,6 @@ LABEL_4:
       xpc_dictionary_set_int64(v13, "Result", 1);
     }
   }
-
-LABEL_10:
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)sendAsync:(id)async clientHandler:(id)handler taskDescriptor:(id)descriptor withRetry:(BOOL)retry retryInitialReconnectionCount:(unint64_t)count
@@ -347,7 +340,7 @@ LABEL_10:
 
 void __95__MAXpcManager_sendAsync_clientHandler_taskDescriptor_withRetry_retryInitialReconnectionCount___block_invoke(uint64_t a1, void *a2)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (MEMORY[0x19A8EC930]() != MEMORY[0x1E69E9E98])
   {
@@ -358,24 +351,24 @@ void __95__MAXpcManager_sendAsync_clientHandler_taskDescriptor_withRetry_retryIn
   {
     if (v3 == MEMORY[0x1E69E9E20])
     {
-      v13 = *(a1 + 48);
-      v14 = *(v13 + 16);
+      v12 = *(a1 + 48);
+      v13 = *(v12 + 16);
       block[0] = MEMORY[0x1E69E9820];
       block[1] = 3221225472;
       block[2] = __95__MAXpcManager_sendAsync_clientHandler_taskDescriptor_withRetry_retryInitialReconnectionCount___block_invoke_1122;
       block[3] = &unk_1E74CA850;
-      block[4] = v13;
-      v18 = *(a1 + 32);
-      dispatch_async(v14, block);
+      block[4] = v12;
+      v17 = *(a1 + 32);
+      dispatch_async(v13, block);
     }
 
     else
     {
-      v9 = _MAClientLog(@"V2");
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      v8 = _MAClientLog(@"V2");
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_197AD5000, v9, OS_LOG_TYPE_DEFAULT, "xpc error that can be ignored", buf, 2u);
+        _os_log_impl(&dword_197AD5000, v8, OS_LOG_TYPE_DEFAULT, "xpc error that can be ignored", buf, 2u);
       }
     }
 
@@ -396,32 +389,31 @@ LABEL_2:
     {
       v6 = *(a1 + 48);
       v7 = *(v6 + 32);
-      v15[0] = MEMORY[0x1E69E9820];
-      v15[1] = 3221225472;
-      v15[2] = __95__MAXpcManager_sendAsync_clientHandler_taskDescriptor_withRetry_retryInitialReconnectionCount___block_invoke_1123;
-      v15[3] = &unk_1E74CA850;
-      v15[4] = v6;
-      v16 = v5;
-      dispatch_async(v7, v15);
+      v14[0] = MEMORY[0x1E69E9820];
+      v14[1] = 3221225472;
+      v14[2] = __95__MAXpcManager_sendAsync_clientHandler_taskDescriptor_withRetry_retryInitialReconnectionCount___block_invoke_1123;
+      v14[3] = &unk_1E74CA850;
+      v14[4] = v6;
+      v15 = v5;
+      dispatch_async(v7, v14);
     }
 
     goto LABEL_6;
   }
 
-  v10 = _MAClientLog(@"V2");
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v9 = _MAClientLog(@"V2");
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = *(*(*(a1 + 64) + 8) + 24);
+    v10 = *(*(*(a1 + 64) + 8) + 24);
     *buf = 134217984;
-    v20 = v11;
-    _os_log_impl(&dword_197AD5000, v10, OS_LOG_TYPE_DEFAULT, "Retrying message (original _connectionRetryCount: %llu", buf, 0xCu);
+    v19 = v10;
+    _os_log_impl(&dword_197AD5000, v9, OS_LOG_TYPE_DEFAULT, "Retrying message (original _connectionRetryCount: %llu", buf, 0xCu);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 72));
   [WeakRetained sendAsync:*(a1 + 32) clientHandler:*(a1 + 56) taskDescriptor:*(a1 + 40) withRetry:0 retryInitialReconnectionCount:*(*(*(a1 + 64) + 8) + 24)];
 
 LABEL_6:
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __95__MAXpcManager_sendAsync_clientHandler_taskDescriptor_withRetry_retryInitialReconnectionCount___block_invoke_1123(uint64_t a1)
@@ -443,15 +435,15 @@ void __95__MAXpcManager_sendAsync_clientHandler_taskDescriptor_withRetry_retryIn
 
 void __95__MAXpcManager_sendAsync_clientHandler_taskDescriptor_withRetry_retryInitialReconnectionCount___block_invoke_2(uint64_t a1)
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   [*(a1 + 32) ensureConnection];
   v2 = *(*(a1 + 32) + 8);
   if (v2)
   {
-    v32 = 0;
-    v33 = &v32;
-    v34 = 0x2020000000;
-    v35 = 0;
+    v31 = 0;
+    v32 = &v31;
+    v33 = 0x2020000000;
+    v34 = 0;
     v3 = *(a1 + 40);
     v4 = [v2 connectionId];
     v5 = v4;
@@ -460,18 +452,18 @@ void __95__MAXpcManager_sendAsync_clientHandler_taskDescriptor_withRetry_retryIn
     *(*(*(a1 + 64) + 8) + 24) = *(*(a1 + 32) + 56);
     v6 = [*(*(a1 + 32) + 8) connection];
     v7 = *(*(a1 + 32) + 24);
-    v26[0] = MEMORY[0x1E69E9820];
-    v26[1] = 3221225472;
-    v26[2] = __95__MAXpcManager_sendAsync_clientHandler_taskDescriptor_withRetry_retryInitialReconnectionCount___block_invoke_3;
-    v26[3] = &unk_1E74CA8A0;
-    v31 = &v32;
+    v25[0] = MEMORY[0x1E69E9820];
+    v25[1] = 3221225472;
+    v25[2] = __95__MAXpcManager_sendAsync_clientHandler_taskDescriptor_withRetry_retryInitialReconnectionCount___block_invoke_3;
+    v25[3] = &unk_1E74CA8A0;
+    v30 = &v31;
     v8 = v6;
-    v27 = v8;
-    v28 = *(a1 + 40);
+    v26 = v8;
+    v27 = *(a1 + 40);
     v9 = v7;
-    v29 = v9;
-    v30 = *(a1 + 48);
-    v10 = MEMORY[0x19A8EC5D0](v26);
+    v28 = v9;
+    v29 = *(a1 + 48);
+    v10 = MEMORY[0x19A8EC5D0](v25);
     v11 = v10;
     if (*(*(*(a1 + 64) + 8) + 24) <= *(a1 + 72))
     {
@@ -481,9 +473,9 @@ void __95__MAXpcManager_sendAsync_clientHandler_taskDescriptor_withRetry_retryIn
         v15 = *(a1 + 72);
         v16 = *(*(*(a1 + 64) + 8) + 24);
         *buf = 134218240;
-        v37 = v15;
-        v38 = 2048;
-        v39 = v16;
+        v36 = v15;
+        v37 = 2048;
+        v38 = v16;
         _os_log_impl(&dword_197AD5000, v14, OS_LOG_TYPE_DEFAULT, "Need to wait to retry message send: originalReconnectionCount = %llu, currentReconnectionCount = %llu", buf, 0x16u);
       }
 
@@ -495,7 +487,7 @@ void __95__MAXpcManager_sendAsync_clientHandler_taskDescriptor_withRetry_retryIn
         *(v18 + 64) = v17;
       }
 
-      *(v33 + 24) = 1;
+      *(v32 + 24) = 1;
       v20 = *(*(a1 + 32) + 64);
       v21 = [v11 copy];
       [v20 addObject:v21];
@@ -506,28 +498,29 @@ void __95__MAXpcManager_sendAsync_clientHandler_taskDescriptor_withRetry_retryIn
       (*(v10 + 16))(v10);
     }
 
-    _Block_object_dispose(&v32, 8);
-    goto LABEL_12;
+    _Block_object_dispose(&v31, 8);
   }
 
-  xpc_dictionary_set_int64(*(a1 + 40), "Result", 1);
-  v12 = *(a1 + 56);
-  if (v12)
+  else
   {
+    xpc_dictionary_set_int64(*(a1 + 40), "Result", 1);
+    v12 = *(a1 + 56);
+    if (!v12)
+    {
+      return;
+    }
+
     v13 = *(*(a1 + 32) + 24);
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = __95__MAXpcManager_sendAsync_clientHandler_taskDescriptor_withRetry_retryInitialReconnectionCount___block_invoke_1126;
     block[3] = &unk_1E74C9888;
-    v25 = v12;
-    v24 = *(a1 + 40);
+    v24 = v12;
+    v23 = *(a1 + 40);
     dispatch_async(v13, block);
 
-    v8 = v25;
-LABEL_12:
+    v8 = v24;
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 void __95__MAXpcManager_sendAsync_clientHandler_taskDescriptor_withRetry_retryInitialReconnectionCount___block_invoke_3(uint64_t a1)
@@ -656,51 +649,49 @@ LABEL_11:
 
 uint64_t __42__MAXpcManager_setClientConnectionHandler__block_invoke_1128(uint64_t a1)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   ++*(*(a1 + 32) + 56);
   v2 = _MAClientLog(@"V2");
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(*(a1 + 32) + 56);
     *buf = 134217984;
-    v17 = v3;
+    v16 = v3;
     _os_log_impl(&dword_197AD5000, v2, OS_LOG_TYPE_DEFAULT, "Incrementing _connectionRetryCount: %llu", buf, 0xCu);
   }
 
-  v13 = 0u;
-  v14 = 0u;
-  v11 = 0u;
   v12 = 0u;
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
   v4 = *(*(a1 + 32) + 64);
-  v5 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v12;
+    v7 = *v11;
     do
     {
       v8 = 0;
       do
       {
-        if (*v12 != v7)
+        if (*v11 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        (*(*(*(&v11 + 1) + 8 * v8) + 16))(*(*(&v11 + 1) + 8 * v8));
+        (*(*(*(&v10 + 1) + 8 * v8) + 16))(*(*(&v10 + 1) + 8 * v8));
         ++v8;
       }
 
       while (v6 != v8);
-      v6 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v6);
   }
 
-  result = [*(*(a1 + 32) + 64) removeAllObjects];
-  v10 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*(*(a1 + 32) + 64) removeAllObjects];
 }
 
 - (void)notifyClientsOfProgress:(id)progress
@@ -719,7 +710,7 @@ uint64_t __42__MAXpcManager_setClientConnectionHandler__block_invoke_1128(uint64
 
 void __40__MAXpcManager_notifyClientsOfProgress___block_invoke(uint64_t a1)
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   v2 = objc_autoreleasePoolPush();
   int64 = xpc_dictionary_get_int64(*(a1 + 32), "TotalExpected");
   v4 = xpc_dictionary_get_int64(*(a1 + 32), "totalWritten");
@@ -798,39 +789,39 @@ LABEL_15:
           [v14 setTaskDescription:?];
         }
 
-        v28 = 0u;
-        v29 = 0u;
-        v26 = 0u;
         v27 = 0u;
+        v28 = 0u;
+        v25 = 0u;
+        v26 = 0u;
         v12 = v12;
-        v20 = [v12 countByEnumeratingWithState:&v26 objects:v31 count:16];
-        if (v20)
+        v19 = [v12 countByEnumeratingWithState:&v25 objects:v30 count:16];
+        if (v19)
         {
-          v21 = v20;
-          v22 = *v27;
+          v20 = v19;
+          v21 = *v26;
           do
           {
-            for (i = 0; i != v21; ++i)
+            for (i = 0; i != v20; ++i)
             {
-              if (*v27 != v22)
+              if (*v26 != v21)
               {
                 objc_enumerationMutation(v12);
               }
 
-              v24 = *(*(&v26 + 1) + 8 * i);
-              v25 = objc_autoreleasePoolPush();
-              if (v24)
+              v23 = *(*(&v25 + 1) + 8 * i);
+              v24 = objc_autoreleasePoolPush();
+              if (v23)
               {
-                (*(v24 + 16))(v24, v14);
+                (*(v23 + 16))(v23, v14);
               }
 
-              objc_autoreleasePoolPop(v25);
+              objc_autoreleasePoolPop(v24);
             }
 
-            v21 = [v12 countByEnumeratingWithState:&v26 objects:v31 count:16];
+            v20 = [v12 countByEnumeratingWithState:&v25 objects:v30 count:16];
           }
 
-          while (v21);
+          while (v20);
         }
       }
 
@@ -847,11 +838,11 @@ LABEL_15:
 
     else
     {
-      v19 = _MAClientLog(@"V2");
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+      v18 = _MAClientLog(@"V2");
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_197AD5000, v19, OS_LOG_TYPE_DEFAULT, "Skipping progress notification for empty callBack array", buf, 2u);
+        _os_log_impl(&dword_197AD5000, v18, OS_LOG_TYPE_DEFAULT, "Skipping progress notification for empty callBack array", buf, 2u);
       }
     }
 
@@ -861,7 +852,6 @@ LABEL_15:
 LABEL_16:
 
   objc_autoreleasePoolPop(v2);
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (void)attachProgressHandler:(id)handler assetId:(id)id callBack:(id)back withPurpose:(id)purpose
@@ -887,22 +877,22 @@ LABEL_16:
   dispatch_async(progressQueue, block);
 }
 
-void __67__MAXpcManager_attachProgressHandler_assetId_callBack_withPurpose___block_invoke(uint64_t a1)
+void __67__MAXpcManager_attachProgressHandler_assetId_callBack_withPurpose___block_invoke(uint64_t *a1)
 {
-  v2 = normalizedAssetType(*(a1 + 32));
-  v6 = assembleTaskDescriptorWithPurpose(v2, *(a1 + 40), *(a1 + 48));
+  v2 = normalizedAssetType(a1[4]);
+  v6 = assembleTaskDescriptorWithPurpose(v2, a1[5], a1[6]);
 
-  v3 = [*(*(a1 + 56) + 48) objectForKey:v6];
+  v3 = [*(a1[7] + 48) objectForKey:v6];
   v4 = v3;
   if (v3)
   {
-    [v3 addCallBack:*(a1 + 64)];
+    [v3 addCallBack:a1[8]];
   }
 
   else
   {
-    v5 = [[MAProgressHandler alloc] initWithCallBack:*(a1 + 64)];
-    [*(*(a1 + 56) + 48) setObject:v5 forKey:v6];
+    v5 = [[MAProgressHandler alloc] initWithCallBack:a1[8]];
+    [*(a1[7] + 48) setObject:v5 forKey:v6];
   }
 }
 
@@ -930,34 +920,34 @@ void __67__MAXpcManager_attachProgressHandler_assetId_callBack_withPurpose___blo
 
 void __71__MAXpcManager_restoreProgressCallbacks_assetType_assetId_withPurpose___block_invoke(uint64_t a1)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v2 = normalizedAssetType(*(a1 + 32));
   v3 = assembleTaskDescriptorWithPurpose(v2, *(a1 + 40), *(a1 + 48));
 
-  v17 = v3;
+  v16 = v3;
   v4 = [*(*(a1 + 56) + 48) objectForKey:v3];
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   v5 = a1;
   v6 = *(a1 + 64);
-  v7 = [v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v19;
+    v9 = *v18;
     do
     {
       v10 = 0;
       do
       {
-        if (*v19 != v9)
+        if (*v18 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v18 + 1) + 8 * v10);
+        v11 = *(*(&v17 + 1) + 8 * v10);
         if (v4)
         {
           v12 = [v4 callBackArray];
@@ -973,20 +963,18 @@ void __71__MAXpcManager_restoreProgressCallbacks_assetType_assetId_withPurpose__
         else
         {
           v15 = [[MAProgressHandler alloc] initWithCallBack:v11];
-          [*(*(v5 + 56) + 48) setObject:v15 forKey:v17];
+          [*(*(v5 + 56) + 48) setObject:v15 forKey:v16];
         }
 
         ++v10;
       }
 
       while (v8 != v10);
-      v8 = [v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v8);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (id)progressCallbacksForAssetType:(id)type assetId:(id)id withPurpose:(id)purpose
@@ -1031,10 +1019,7 @@ void __71__MAXpcManager_restoreProgressCallbacks_assetType_assetId_withPurpose__
 
 uint64_t __66__MAXpcManager_progressCallbacksForAssetType_assetId_withPurpose___block_invoke(void *a1)
 {
-  v2 = [*(a1[4] + 48) objectForKey:a1[5]];
-  v3 = *(a1[6] + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(a1[6] + 8) + 40) = [*(a1[4] + 48) objectForKey:a1[5]];
 
   return MEMORY[0x1EEE66BB8]();
 }

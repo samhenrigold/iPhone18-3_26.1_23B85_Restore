@@ -6,7 +6,7 @@
 
 - (id)dictionary
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v2 = objc_alloc_init(MEMORY[0x277CBEB38]);
   v3 = objc_alloc_init(MEMORY[0x277CCA968]);
   [v3 setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSSxxx"];
@@ -35,30 +35,30 @@
   [v2 setObject:v13 forKeyedSubscript:@"wifi_auto_join_state"];
 
   v14 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
   joinAttempts = [self joinAttempts];
-  v16 = [joinAttempts countByEnumeratingWithState:&v24 objects:v28 count:16];
+  v16 = [joinAttempts countByEnumeratingWithState:&v23 objects:v27 count:16];
   if (v16)
   {
     v17 = v16;
-    v18 = *v25;
+    v18 = *v24;
     do
     {
       for (i = 0; i != v17; ++i)
       {
-        if (*v25 != v18)
+        if (*v24 != v18)
         {
           objc_enumerationMutation(joinAttempts);
         }
 
-        dictionary = [*(*(&v24 + 1) + 8 * i) dictionary];
+        dictionary = [*(*(&v23 + 1) + 8 * i) dictionary];
         [v14 addObject:dictionary];
       }
 
-      v17 = [joinAttempts countByEnumeratingWithState:&v24 objects:v28 count:16];
+      v17 = [joinAttempts countByEnumeratingWithState:&v23 objects:v27 count:16];
     }
 
     while (v17);
@@ -66,8 +66,6 @@
 
   [v2 setObject:v14 forKeyedSubscript:@"wifi_join_attempts"];
   v21 = [MEMORY[0x277CBEAC0] dictionaryWithDictionary:v2];
-
-  v22 = *MEMORY[0x277D85DE8];
 
   return v21;
 }

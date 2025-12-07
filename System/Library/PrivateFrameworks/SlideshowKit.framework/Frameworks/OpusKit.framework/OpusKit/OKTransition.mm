@@ -176,14 +176,14 @@
   [(OKTransition *)self _transitionInView:containerView fromSubview:v14 toSubview:v15 wasInteractive:initiallyInteractive duration:doEaseIn doEaseIn:doEaseOut doEaseOut:v5 isCompleting:v21 wasCancelled:v22 fromProgress:v23 completionHandler:?];
 }
 
-uint64_t __45__OKTransition_animateTransitionWithContext___block_invoke(uint64_t result, uint64_t a2)
+void *__45__OKTransition_animateTransitionWithContext___block_invoke(void *result, uint64_t a2)
 {
-  v2 = *(result + 32);
+  v2 = *(result + 4);
   v3 = *(v2 + 8) - 1;
   *(v2 + 8) = v3;
   if (!v3)
   {
-    return [*(result + 40) completeTransition:a2];
+    return [*(result + 5) completeTransition:a2];
   }
 
   return result;

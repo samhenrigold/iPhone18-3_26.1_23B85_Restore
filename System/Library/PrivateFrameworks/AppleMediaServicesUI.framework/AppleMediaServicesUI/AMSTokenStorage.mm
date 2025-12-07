@@ -22,11 +22,12 @@
 
 - (id)loadWithName:(id)name
 {
-  static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v4 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v6 = v5;
   selfCopy = self;
-  v5 = sub_1001D97C4();
+  v8 = sub_1001D97C4(v4, v6);
 
-  return v5;
+  return v8;
 }
 
 @end

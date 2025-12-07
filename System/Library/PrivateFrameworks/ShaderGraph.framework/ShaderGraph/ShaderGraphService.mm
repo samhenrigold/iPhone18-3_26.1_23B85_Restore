@@ -26,12 +26,10 @@
     swift_once();
   }
 
-  v2 = *(static BuiltInDefinitionStore.shared + 24);
+  _sSaySayxGqd__c7ElementQyd__RszSTRd__lufCSS_SD4KeysVySS11ShaderGraph11GeomPropDefV_GTt0g5(v2);
+  v3.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
-  _sSaySayxGqd__c7ElementQyd__RszSTRd__lufCSS_SD4KeysVySS11ShaderGraph11GeomPropDefV_GTt0g5(v3);
-  v4.super.isa = Array._bridgeToObjectiveC()().super.isa;
-
-  return v4.super.isa;
+  return v3.super.isa;
 }
 
 + (id)archiveSource:(id)source error:(id *)error

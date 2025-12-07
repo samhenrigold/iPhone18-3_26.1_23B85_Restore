@@ -42,7 +42,6 @@
 
   v9 = swift_allocObject();
   *(v9 + 16) = v6;
-  v10 = *(&self->super.isa + OBJC_IVAR____TtC13SiriTTSDaemon16DaemonXPCHandler_subscriptionService);
   selfCopy = self;
   sub_1000027AC(v7, id, sub_1000224C4, v9);
 }
@@ -116,30 +115,29 @@
 - (void)adjustVolumeWithAccessoryId:(id)id volume:(float)volume rampTime:(double)time didFinish:(id)finish
 {
   v11 = sub_10000AEF4(&qword_100035810, &qword_100027D68);
-  v12 = *(*(v11 - 8) + 64);
   __chkstk_darwin(v11 - 8);
-  v14 = &v19 - v13;
-  v15 = _Block_copy(finish);
+  v13 = &v18 - v12;
+  v14 = _Block_copy(finish);
   if (id)
   {
     static UUID._unconditionallyBridgeFromObjectiveC(_:)();
-    v16 = type metadata accessor for UUID();
-    (*(*(v16 - 8) + 56))(v14, 0, 1, v16);
+    v15 = type metadata accessor for UUID();
+    (*(*(v15 - 8) + 56))(v13, 0, 1, v15);
   }
 
   else
   {
-    v17 = type metadata accessor for UUID();
-    (*(*(v17 - 8) + 56))(v14, 1, 1, v17);
+    v16 = type metadata accessor for UUID();
+    (*(*(v16 - 8) + 56))(v13, 1, 1, v16);
   }
 
-  _Block_copy(v15);
+  _Block_copy(v14);
   selfCopy = self;
-  sub_100021568(v14, v15, volume, time);
-  _Block_release(v15);
-  _Block_release(v15);
+  sub_100021568(v13, v14, volume, time);
+  _Block_release(v14);
+  _Block_release(v14);
 
-  sub_100001E9C(v14, &qword_100035810, &qword_100027D68);
+  sub_100001E9C(v13, &qword_100035810, &qword_100027D68);
 }
 
 - (void)clearDeviceCacheWithDidFinish:(id)finish
@@ -163,20 +161,19 @@
 {
   v0 = type metadata accessor for Logger();
   v1 = *(v0 - 8);
-  v2 = *(v1 + 64);
   __chkstk_darwin(v0);
-  v4 = &v8 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v3 = &v7 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
   static Logger.service.getter();
-  v5 = Logger.logObject.getter();
-  v6 = static os_log_type_t.default.getter();
-  if (os_log_type_enabled(v5, v6))
+  v4 = Logger.logObject.getter();
+  v5 = static os_log_type_t.default.getter();
+  if (os_log_type_enabled(v4, v5))
   {
-    v7 = swift_slowAlloc();
-    *v7 = 0;
-    _os_log_impl(&_mh_execute_header, v5, v6, "Receive command to kill daemon.", v7, 2u);
+    v6 = swift_slowAlloc();
+    *v6 = 0;
+    _os_log_impl(&_mh_execute_header, v4, v5, "Receive command to kill daemon.", v6, 2u);
   }
 
-  (*(v1 + 8))(v4, v0);
+  (*(v1 + 8))(v3, v0);
   exit(0);
 }
 

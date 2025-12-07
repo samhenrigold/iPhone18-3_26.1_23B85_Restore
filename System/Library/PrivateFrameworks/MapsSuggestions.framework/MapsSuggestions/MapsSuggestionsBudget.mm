@@ -161,7 +161,7 @@ uint64_t __66__MapsSuggestionsBudget_addRollingWindowOfCount_perDuration_name___
   v3 = *(v1 + 40);
   if (v3 >= *(v1 + 48))
   {
-    result = std::vector<MSg::_RollingWindowBudgetRule>::__emplace_back_slow_path<MapsSuggestionsBudget * const {__strong}&,NSString * const {__strong}&,unsigned long const&,MSg::Duration const&>(v1 + 32, (a1 + 32), (a1 + 40), (a1 + 48), v2);
+    result = std::vector<MSg::_RollingWindowBudgetRule>::__emplace_back_slow_path<MapsSuggestionsBudget * const {__strong}&,NSString * const {__strong}&,unsigned long const&,MSg::Duration const&>((v1 + 32), (a1 + 32), (a1 + 40), (a1 + 48), v2);
   }
 
   else

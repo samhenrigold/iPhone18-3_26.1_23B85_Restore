@@ -211,47 +211,47 @@
 
 - (NSSet)privilegesAsStringSet
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CBEB58]);
+  v24 = 0u;
   v25 = 0u;
   v26 = 0u;
   v27 = 0u;
-  v28 = 0u;
   obj = [(CoreDAVContainer *)self privileges];
-  v20 = [obj countByEnumeratingWithState:&v25 objects:v30 count:16];
-  if (v20)
+  v19 = [obj countByEnumeratingWithState:&v24 objects:v29 count:16];
+  if (v19)
   {
-    v19 = *v26;
+    v18 = *v25;
     do
     {
-      for (i = 0; i != v20; ++i)
+      for (i = 0; i != v19; ++i)
       {
-        if (*v26 != v19)
+        if (*v25 != v18)
         {
           objc_enumerationMutation(obj);
         }
 
-        v5 = *(*(&v25 + 1) + 8 * i);
+        v5 = *(*(&v24 + 1) + 8 * i);
+        v20 = 0u;
         v21 = 0u;
         v22 = 0u;
         v23 = 0u;
-        v24 = 0u;
         extraChildItems = [v5 extraChildItems];
-        v7 = [extraChildItems countByEnumeratingWithState:&v21 objects:v29 count:16];
+        v7 = [extraChildItems countByEnumeratingWithState:&v20 objects:v28 count:16];
         if (v7)
         {
           v8 = v7;
-          v9 = *v22;
+          v9 = *v21;
           do
           {
             for (j = 0; j != v8; ++j)
             {
-              if (*v22 != v9)
+              if (*v21 != v9)
               {
                 objc_enumerationMutation(extraChildItems);
               }
 
-              v11 = *(*(&v21 + 1) + 8 * j);
+              v11 = *(*(&v20 + 1) + 8 * j);
               v12 = objc_alloc(MEMORY[0x277CCACA8]);
               nameSpace = [v11 nameSpace];
               name = [v11 name];
@@ -260,17 +260,17 @@
               [v3 addObject:v15];
             }
 
-            v8 = [extraChildItems countByEnumeratingWithState:&v21 objects:v29 count:16];
+            v8 = [extraChildItems countByEnumeratingWithState:&v20 objects:v28 count:16];
           }
 
           while (v8);
         }
       }
 
-      v20 = [obj countByEnumeratingWithState:&v25 objects:v30 count:16];
+      v19 = [obj countByEnumeratingWithState:&v24 objects:v29 count:16];
     }
 
-    while (v20);
+    while (v19);
   }
 
   if (![v3 count])
@@ -279,55 +279,53 @@
     v3 = 0;
   }
 
-  v16 = *MEMORY[0x277D85DE8];
-
   return v3;
 }
 
 - (BOOL)_anyPrivilegesMatches:(id)matches
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   matchesCopy = matches;
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
   privileges = [(CoreDAVContainer *)self privileges];
-  v6 = [privileges countByEnumeratingWithState:&v23 objects:v28 count:16];
+  v6 = [privileges countByEnumeratingWithState:&v22 objects:v27 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v24;
+    v8 = *v23;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v24 != v8)
+        if (*v23 != v8)
         {
           objc_enumerationMutation(privileges);
         }
 
-        v10 = *(*(&v23 + 1) + 8 * i);
+        v10 = *(*(&v22 + 1) + 8 * i);
+        v18 = 0u;
         v19 = 0u;
         v20 = 0u;
         v21 = 0u;
-        v22 = 0u;
         extraChildItems = [v10 extraChildItems];
-        v12 = [extraChildItems countByEnumeratingWithState:&v19 objects:v27 count:16];
+        v12 = [extraChildItems countByEnumeratingWithState:&v18 objects:v26 count:16];
         if (v12)
         {
           v13 = v12;
-          v14 = *v20;
+          v14 = *v19;
           while (2)
           {
             for (j = 0; j != v13; ++j)
             {
-              if (*v20 != v14)
+              if (*v19 != v14)
               {
                 objc_enumerationMutation(extraChildItems);
               }
 
-              if (matchesCopy[2](matchesCopy, *(*(&v19 + 1) + 8 * j)))
+              if (matchesCopy[2](matchesCopy, *(*(&v18 + 1) + 8 * j)))
               {
 
                 v16 = 1;
@@ -335,7 +333,7 @@
               }
             }
 
-            v13 = [extraChildItems countByEnumeratingWithState:&v19 objects:v27 count:16];
+            v13 = [extraChildItems countByEnumeratingWithState:&v18 objects:v26 count:16];
             if (v13)
             {
               continue;
@@ -346,7 +344,7 @@
         }
       }
 
-      v7 = [privileges countByEnumeratingWithState:&v23 objects:v28 count:16];
+      v7 = [privileges countByEnumeratingWithState:&v22 objects:v27 count:16];
       v16 = 0;
     }
 
@@ -360,7 +358,6 @@
 
 LABEL_19:
 
-  v17 = *MEMORY[0x277D85DE8];
   return v16;
 }
 
@@ -531,49 +528,49 @@ uint64_t __39__CoreDAVContainer_hasUnbindPrivileges__block_invoke(uint64_t a1, v
 
 - (NSSet)supportedReportsAsStringSet
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CBEB58]);
+  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
   obj = [(CoreDAVContainer *)self supportedReports];
-  v21 = [obj countByEnumeratingWithState:&v26 objects:v31 count:16];
-  if (v21)
+  v20 = [obj countByEnumeratingWithState:&v25 objects:v30 count:16];
+  if (v20)
   {
-    v20 = *v27;
+    v19 = *v26;
     do
     {
-      for (i = 0; i != v21; ++i)
+      for (i = 0; i != v20; ++i)
       {
-        if (*v27 != v20)
+        if (*v26 != v19)
         {
           objc_enumerationMutation(obj);
         }
 
-        v5 = *(*(&v26 + 1) + 8 * i);
+        v5 = *(*(&v25 + 1) + 8 * i);
+        v21 = 0u;
         v22 = 0u;
         v23 = 0u;
         v24 = 0u;
-        v25 = 0u;
         report = [v5 report];
         extraChildItems = [report extraChildItems];
 
-        v8 = [extraChildItems countByEnumeratingWithState:&v22 objects:v30 count:16];
+        v8 = [extraChildItems countByEnumeratingWithState:&v21 objects:v29 count:16];
         if (v8)
         {
           v9 = v8;
-          v10 = *v23;
+          v10 = *v22;
           do
           {
             for (j = 0; j != v9; ++j)
             {
-              if (*v23 != v10)
+              if (*v22 != v10)
               {
                 objc_enumerationMutation(extraChildItems);
               }
 
-              v12 = *(*(&v22 + 1) + 8 * j);
+              v12 = *(*(&v21 + 1) + 8 * j);
               v13 = objc_alloc(MEMORY[0x277CCACA8]);
               nameSpace = [v12 nameSpace];
               name = [v12 name];
@@ -582,17 +579,17 @@ uint64_t __39__CoreDAVContainer_hasUnbindPrivileges__block_invoke(uint64_t a1, v
               [v3 addObject:v16];
             }
 
-            v9 = [extraChildItems countByEnumeratingWithState:&v22 objects:v30 count:16];
+            v9 = [extraChildItems countByEnumeratingWithState:&v21 objects:v29 count:16];
           }
 
           while (v9);
         }
       }
 
-      v21 = [obj countByEnumeratingWithState:&v26 objects:v31 count:16];
+      v20 = [obj countByEnumeratingWithState:&v25 objects:v30 count:16];
     }
 
-    while (v21);
+    while (v20);
   }
 
   if (![v3 count])
@@ -600,8 +597,6 @@ uint64_t __39__CoreDAVContainer_hasUnbindPrivileges__block_invoke(uint64_t a1, v
 
     v3 = 0;
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
@@ -624,48 +619,48 @@ uint64_t __39__CoreDAVContainer_hasUnbindPrivileges__block_invoke(uint64_t a1, v
 
 + (id)convertPushTransportsForNSServerNotificationCenter:(id)center
 {
-  v75 = *MEMORY[0x277D85DE8];
+  v74 = *MEMORY[0x277D85DE8];
+  v67 = 0u;
   v68 = 0u;
   v69 = 0u;
   v70 = 0u;
-  v71 = 0u;
   centerCopy = center;
   obj = [centerCopy transports];
-  v59 = [obj countByEnumeratingWithState:&v68 objects:v74 count:16];
-  if (v59)
+  v58 = [obj countByEnumeratingWithState:&v67 objects:v73 count:16];
+  if (v58)
   {
-    v57 = 0;
-    v58 = *v69;
+    v56 = 0;
+    v57 = *v68;
     do
     {
-      for (i = 0; i != v59; ++i)
+      for (i = 0; i != v58; ++i)
       {
-        if (*v69 != v58)
+        if (*v68 != v57)
         {
           objc_enumerationMutation(obj);
         }
 
-        v4 = *(*(&v68 + 1) + 8 * i);
+        v4 = *(*(&v67 + 1) + 8 * i);
+        v63 = 0u;
         v64 = 0u;
         v65 = 0u;
         v66 = 0u;
-        v67 = 0u;
         attributes = [v4 attributes];
-        v6 = [attributes countByEnumeratingWithState:&v64 objects:v73 count:16];
+        v6 = [attributes countByEnumeratingWithState:&v63 objects:v72 count:16];
         if (v6)
         {
           v7 = v6;
-          v8 = *v65;
+          v8 = *v64;
 LABEL_8:
           v9 = 0;
           while (1)
           {
-            if (*v65 != v8)
+            if (*v64 != v8)
             {
               objc_enumerationMutation(attributes);
             }
 
-            v10 = *(*(&v64 + 1) + 8 * v9);
+            v10 = *(*(&v63 + 1) + 8 * v9);
             name = [v10 name];
             v12 = [name isEqualToString:@"type"];
 
@@ -676,7 +671,7 @@ LABEL_8:
 
             if (v7 == ++v9)
             {
-              v7 = [attributes countByEnumeratingWithState:&v64 objects:v73 count:16];
+              v7 = [attributes countByEnumeratingWithState:&v63 objects:v72 count:16];
               if (v7)
               {
                 goto LABEL_8;
@@ -693,7 +688,7 @@ LABEL_8:
             continue;
           }
 
-          v56 = value;
+          v55 = value;
           v14 = objc_alloc_init(MEMORY[0x277CBEB38]);
           subscriptionURL = [v4 subscriptionURL];
           href = [subscriptionURL href];
@@ -723,7 +718,7 @@ LABEL_8:
             [v14 setObject:payloadAsString forKey:@"apsbundleid"];
           }
 
-          v54 = payloadAsFullURL2;
+          v53 = payloadAsFullURL2;
           courierServer = [v4 courierServer];
           payloadAsString2 = [courierServer payloadAsString];
 
@@ -749,9 +744,9 @@ LABEL_8:
             [v14 setObject:payloadAsString4 forKey:@"refresh-interval"];
           }
 
-          v50 = payloadAsString4;
-          v53 = payloadAsString;
-          v55 = v27;
+          v49 = payloadAsString4;
+          v52 = payloadAsString;
+          v54 = v27;
           xmppServer = [v4 xmppServer];
           payloadAsString5 = [xmppServer payloadAsString];
 
@@ -760,9 +755,9 @@ LABEL_8:
             [v14 setObject:payloadAsString5 forKey:@"xmpp-server"];
           }
 
-          v49 = payloadAsString5;
-          v51 = payloadAsString3;
-          v52 = payloadAsString2;
+          v48 = payloadAsString5;
+          v50 = payloadAsString3;
+          v51 = payloadAsString2;
           xmppURI = [v4 xmppURI];
           payloadAsString6 = [xmppURI payloadAsString];
 
@@ -771,26 +766,26 @@ LABEL_8:
             [v14 setObject:payloadAsString6 forKey:@"xmpp-uri"];
           }
 
-          v62 = 0u;
-          v63 = 0u;
-          v60 = 0u;
           v61 = 0u;
+          v62 = 0u;
+          v59 = 0u;
+          v60 = 0u;
           extraChildItems = [v4 extraChildItems];
-          v37 = [extraChildItems countByEnumeratingWithState:&v60 objects:v72 count:16];
+          v37 = [extraChildItems countByEnumeratingWithState:&v59 objects:v71 count:16];
           if (v37)
           {
             v38 = v37;
-            v39 = *v61;
+            v39 = *v60;
             do
             {
               for (j = 0; j != v38; ++j)
               {
-                if (*v61 != v39)
+                if (*v60 != v39)
                 {
                   objc_enumerationMutation(extraChildItems);
                 }
 
-                v41 = *(*(&v60 + 1) + 8 * j);
+                v41 = *(*(&v59 + 1) + 8 * j);
                 payloadAsString7 = [v41 payloadAsString];
                 if (payloadAsString7)
                 {
@@ -799,41 +794,39 @@ LABEL_8:
                 }
               }
 
-              v38 = [extraChildItems countByEnumeratingWithState:&v60 objects:v72 count:16];
+              v38 = [extraChildItems countByEnumeratingWithState:&v59 objects:v71 count:16];
             }
 
             while (v38);
           }
 
-          v44 = v57;
-          if (!v57)
+          v44 = v56;
+          if (!v56)
           {
             v44 = objc_alloc_init(MEMORY[0x277CBEB38]);
           }
 
-          v57 = v44;
-          [v44 setObject:v14 forKey:v56];
+          v56 = v44;
+          [v44 setObject:v14 forKey:v55];
 
-          attributes = v56;
+          attributes = v55;
         }
 
 LABEL_44:
       }
 
-      v59 = [obj countByEnumeratingWithState:&v68 objects:v74 count:16];
+      v58 = [obj countByEnumeratingWithState:&v67 objects:v73 count:16];
     }
 
-    while (v59);
+    while (v58);
   }
 
   else
   {
-    v57 = 0;
+    v56 = 0;
   }
 
-  v45 = *MEMORY[0x277D85DE8];
-
-  return v57;
+  return v56;
 }
 
 @end

@@ -94,35 +94,35 @@ LABEL_6:
 
 - (void)enumerateAssertionsWithBlock:(id)block
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   blockCopy = block;
   os_unfair_recursive_lock_lock_with_options();
   allValues = [(NSMutableDictionary *)self->_assertionsByIdentifier allValues];
   os_unfair_recursive_lock_unlock();
-  v18 = 0;
+  v17 = 0;
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v6 = allValues;
-  v7 = [v6 countByEnumeratingWithState:&v14 objects:v19 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v13 objects:v18 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v15;
+    v9 = *v14;
 LABEL_3:
     v10 = 0;
     while (1)
     {
-      if (*v15 != v9)
+      if (*v14 != v9)
       {
         objc_enumerationMutation(v6);
       }
 
-      v11 = *(*(&v14 + 1) + 8 * v10);
+      v11 = *(*(&v13 + 1) + 8 * v10);
       v12 = objc_autoreleasePoolPush();
-      blockCopy[2](blockCopy, v11, &v18);
-      LOBYTE(v11) = v18;
+      blockCopy[2](blockCopy, v11, &v17);
+      LOBYTE(v11) = v17;
       objc_autoreleasePoolPop(v12);
       if (v11)
       {
@@ -131,7 +131,7 @@ LABEL_3:
 
       if (v8 == ++v10)
       {
-        v8 = [v6 countByEnumeratingWithState:&v14 objects:v19 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v13 objects:v18 count:16];
         if (v8)
         {
           goto LABEL_3;
@@ -141,41 +141,39 @@ LABEL_3:
       }
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)enumerateAssertionsForSystemTargetWithBlock:(id)block
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   blockCopy = block;
   os_unfair_recursive_lock_lock_with_options();
   allObjects = [(NSMutableSet *)self->_systemAssertions allObjects];
   os_unfair_recursive_lock_unlock();
-  v18 = 0;
+  v17 = 0;
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v6 = allObjects;
-  v7 = [v6 countByEnumeratingWithState:&v14 objects:v19 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v13 objects:v18 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v15;
+    v9 = *v14;
 LABEL_3:
     v10 = 0;
     while (1)
     {
-      if (*v15 != v9)
+      if (*v14 != v9)
       {
         objc_enumerationMutation(v6);
       }
 
-      v11 = *(*(&v14 + 1) + 8 * v10);
+      v11 = *(*(&v13 + 1) + 8 * v10);
       v12 = objc_autoreleasePoolPush();
-      blockCopy[2](blockCopy, v11, &v18);
-      LOBYTE(v11) = v18;
+      blockCopy[2](blockCopy, v11, &v17);
+      LOBYTE(v11) = v17;
       objc_autoreleasePoolPop(v12);
       if (v11)
       {
@@ -184,7 +182,7 @@ LABEL_3:
 
       if (v8 == ++v10)
       {
-        v8 = [v6 countByEnumeratingWithState:&v14 objects:v19 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v13 objects:v18 count:16];
         if (v8)
         {
           goto LABEL_3;
@@ -194,41 +192,39 @@ LABEL_3:
       }
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)enumerateAssertionsForProcessTargetsWithBlock:(id)block
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   blockCopy = block;
   os_unfair_recursive_lock_lock_with_options();
   allObjects = [(NSMutableSet *)self->_processAssertions allObjects];
   os_unfair_recursive_lock_unlock();
-  v18 = 0;
+  v17 = 0;
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v6 = allObjects;
-  v7 = [v6 countByEnumeratingWithState:&v14 objects:v19 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v13 objects:v18 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v15;
+    v9 = *v14;
 LABEL_3:
     v10 = 0;
     while (1)
     {
-      if (*v15 != v9)
+      if (*v14 != v9)
       {
         objc_enumerationMutation(v6);
       }
 
-      v11 = *(*(&v14 + 1) + 8 * v10);
+      v11 = *(*(&v13 + 1) + 8 * v10);
       v12 = objc_autoreleasePoolPush();
-      blockCopy[2](blockCopy, v11, &v18);
-      LOBYTE(v11) = v18;
+      blockCopy[2](blockCopy, v11, &v17);
+      LOBYTE(v11) = v17;
       objc_autoreleasePoolPop(v12);
       if (v11)
       {
@@ -237,7 +233,7 @@ LABEL_3:
 
       if (v8 == ++v10)
       {
-        v8 = [v6 countByEnumeratingWithState:&v14 objects:v19 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v13 objects:v18 count:16];
         if (v8)
         {
           goto LABEL_3;
@@ -247,13 +243,11 @@ LABEL_3:
       }
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)enumerateAssertionsForTargetProcessIdentity:(id)identity withBlock:(id)block
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   identityCopy = identity;
   blockCopy = block;
   os_unfair_recursive_lock_lock_with_options();
@@ -261,30 +255,30 @@ LABEL_3:
   allObjects = [v8 allObjects];
 
   os_unfair_recursive_lock_unlock();
-  v22 = 0;
+  v21 = 0;
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   v10 = allObjects;
-  v11 = [v10 countByEnumeratingWithState:&v18 objects:v23 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v17 objects:v22 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v19;
+    v13 = *v18;
 LABEL_3:
     v14 = 0;
     while (1)
     {
-      if (*v19 != v13)
+      if (*v18 != v13)
       {
         objc_enumerationMutation(v10);
       }
 
-      v15 = *(*(&v18 + 1) + 8 * v14);
+      v15 = *(*(&v17 + 1) + 8 * v14);
       v16 = objc_autoreleasePoolPush();
-      blockCopy[2](blockCopy, v15, &v22);
-      LOBYTE(v15) = v22;
+      blockCopy[2](blockCopy, v15, &v21);
+      LOBYTE(v15) = v21;
       objc_autoreleasePoolPop(v16);
       if (v15)
       {
@@ -293,7 +287,7 @@ LABEL_3:
 
       if (v12 == ++v14)
       {
-        v12 = [v10 countByEnumeratingWithState:&v18 objects:v23 count:16];
+        v12 = [v10 countByEnumeratingWithState:&v17 objects:v22 count:16];
         if (v12)
         {
           goto LABEL_3;
@@ -303,13 +297,11 @@ LABEL_3:
       }
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)enumerateAssertionsForOriginator:(id)originator withBlock:(id)block
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   originatorCopy = originator;
   blockCopy = block;
   os_unfair_recursive_lock_lock_with_options();
@@ -317,30 +309,30 @@ LABEL_3:
   allObjects = [v8 allObjects];
 
   os_unfair_recursive_lock_unlock();
-  v22 = 0;
+  v21 = 0;
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   v10 = allObjects;
-  v11 = [v10 countByEnumeratingWithState:&v18 objects:v23 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v17 objects:v22 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v19;
+    v13 = *v18;
 LABEL_3:
     v14 = 0;
     while (1)
     {
-      if (*v19 != v13)
+      if (*v18 != v13)
       {
         objc_enumerationMutation(v10);
       }
 
-      v15 = *(*(&v18 + 1) + 8 * v14);
+      v15 = *(*(&v17 + 1) + 8 * v14);
       v16 = objc_autoreleasePoolPush();
-      blockCopy[2](blockCopy, v15, &v22);
-      LOBYTE(v15) = v22;
+      blockCopy[2](blockCopy, v15, &v21);
+      LOBYTE(v15) = v21;
       objc_autoreleasePoolPop(v16);
       if (v15)
       {
@@ -349,7 +341,7 @@ LABEL_3:
 
       if (v12 == ++v14)
       {
-        v12 = [v10 countByEnumeratingWithState:&v18 objects:v23 count:16];
+        v12 = [v10 countByEnumeratingWithState:&v17 objects:v22 count:16];
         if (v12)
         {
           goto LABEL_3;
@@ -359,8 +351,6 @@ LABEL_3:
       }
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (id)assertionWithIdentifier:(id)identifier
@@ -419,7 +409,7 @@ LABEL_3:
 
 - (void)removeAssertion:(id)assertion
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   assertionCopy = assertion;
   os_unfair_lock_assert_not_owner(&self->_lock);
   os_unfair_recursive_lock_lock_with_options();
@@ -446,13 +436,13 @@ LABEL_3:
   v12 = rbs_assertion_log();
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
   {
-    v24 = [(NSMutableDictionary *)self->_assertionsByIdentifier count];
+    v23 = [(NSMutableDictionary *)self->_assertionsByIdentifier count];
     *buf = 67109634;
-    *v28 = v24;
-    *&v28[4] = 2114;
-    *&v28[6] = identifier;
-    *&v28[14] = 1024;
-    *&v28[16] = [v11 count];
+    *v27 = v23;
+    *&v27[4] = 2114;
+    *&v27[6] = identifier;
+    *&v27[14] = 1024;
+    *&v27[16] = [v11 count];
     _os_log_debug_impl(&dword_262485000, v12, OS_LOG_TYPE_DEBUG, "Now tracking %u assertions (%{public}@ holds %u).", buf, 0x18u);
   }
 
@@ -491,9 +481,9 @@ LABEL_3:
       v18 = [(NSMutableDictionary *)self->_assertionsByTargetProcessIdentity objectForKeyedSubscript:identity];
       v19 = [v18 count];
       *buf = 138543618;
-      *v28 = identity;
-      *&v28[8] = 2048;
-      *&v28[10] = v19;
+      *v27 = identity;
+      *&v27[8] = 2048;
+      *&v27[10] = v19;
       _os_log_impl(&dword_262485000, v17, OS_LOG_TYPE_INFO, "%{public}@ is now targeted by %lu assertions", buf, 0x16u);
     }
 
@@ -503,18 +493,16 @@ LABEL_3:
     if (v21)
     {
       v22 = [(NSMutableDictionary *)self->_assertionsByTargetProcessIdentity objectForKeyedSubscript:identity];
-      v25[0] = MEMORY[0x277D85DD0];
-      v25[1] = 3221225472;
-      v25[2] = __41__RBAssertionCollection_removeAssertion___block_invoke_2;
-      v25[3] = &unk_279B32ED8;
-      v26 = identifier;
-      [v22 enumerateObjectsUsingBlock:v25];
+      v24[0] = MEMORY[0x277D85DD0];
+      v24[1] = 3221225472;
+      v24[2] = __41__RBAssertionCollection_removeAssertion___block_invoke_2;
+      v24[3] = &unk_279B32ED8;
+      v25 = identifier;
+      [v22 enumerateObjectsUsingBlock:v24];
     }
   }
 
   os_unfair_recursive_lock_unlock();
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 void __41__RBAssertionCollection_removeAssertion___block_invoke(uint64_t a1, void *a2)
@@ -539,7 +527,7 @@ void __41__RBAssertionCollection_removeAssertion___block_invoke_2(uint64_t a1, v
 
 - (void)addAssertion:(id)assertion
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   assertionCopy = assertion;
   os_unfair_lock_assert_not_owner(&self->_lock);
   os_unfair_recursive_lock_lock_with_options();
@@ -567,14 +555,14 @@ void __41__RBAssertionCollection_removeAssertion___block_invoke_2(uint64_t a1, v
   v12 = rbs_assertion_log();
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
   {
-    v18 = [(NSMutableDictionary *)self->_assertionsByIdentifier count];
-    v19 = 67109634;
-    *v20 = v18;
-    *&v20[4] = 2114;
-    *&v20[6] = identifier;
-    v21 = 1024;
-    v22 = [v10 count];
-    _os_log_debug_impl(&dword_262485000, v12, OS_LOG_TYPE_DEBUG, "Now tracking %u assertions (%{public}@ holds %u).", &v19, 0x18u);
+    v17 = [(NSMutableDictionary *)self->_assertionsByIdentifier count];
+    v18 = 67109634;
+    *v19 = v17;
+    *&v19[4] = 2114;
+    *&v19[6] = identifier;
+    v20 = 1024;
+    v21 = [v10 count];
+    _os_log_debug_impl(&dword_262485000, v12, OS_LOG_TYPE_DEBUG, "Now tracking %u assertions (%{public}@ holds %u).", &v18, 0x18u);
   }
 
   if ([target isSystem])
@@ -598,17 +586,15 @@ void __41__RBAssertionCollection_removeAssertion___block_invoke_2(uint64_t a1, v
     {
       v15 = [(NSMutableDictionary *)self->_assertionsByTargetProcessIdentity objectForKeyedSubscript:identity];
       v16 = [v15 count];
-      v19 = 138543618;
-      *v20 = identity;
-      *&v20[8] = 1024;
-      *&v20[10] = v16;
-      _os_log_impl(&dword_262485000, v14, OS_LOG_TYPE_INFO, "%{public}@ is now targeted by %u assertions", &v19, 0x12u);
+      v18 = 138543618;
+      *v19 = identity;
+      *&v19[8] = 1024;
+      *&v19[10] = v16;
+      _os_log_impl(&dword_262485000, v14, OS_LOG_TYPE_INFO, "%{public}@ is now targeted by %u assertions", &v18, 0x12u);
     }
   }
 
   os_unfair_recursive_lock_unlock();
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)hasAssertion:(id)assertion
@@ -649,7 +635,7 @@ void __41__RBAssertionCollection_removeAssertion___block_invoke_2(uint64_t a1, v
 
 - (BOOL)hasAssertionsForOriginator:(id)originator exceedingCount:(unint64_t)count
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   originatorCopy = originator;
   os_unfair_recursive_lock_lock_with_options();
   v7 = [(NSMutableDictionary *)self->_assertionsByOriginator objectForKeyedSubscript:originatorCopy];
@@ -660,27 +646,27 @@ void __41__RBAssertionCollection_removeAssertion___block_invoke_2(uint64_t a1, v
 
   else
   {
-    v19 = 0u;
-    v20 = 0u;
-    v17 = 0u;
     v18 = 0u;
+    v19 = 0u;
+    v16 = 0u;
+    v17 = 0u;
     v8 = [(NSMutableDictionary *)self->_assertionsByOriginator objectForKeyedSubscript:originatorCopy, 0];
-    v9 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v9)
     {
       v10 = v9;
       v11 = 0;
-      v12 = *v18;
+      v12 = *v17;
       while (2)
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v18 != v12)
+          if (*v17 != v12)
           {
             objc_enumerationMutation(v8);
           }
 
-          if ([*(*(&v17 + 1) + 8 * i) isValid])
+          if ([*(*(&v16 + 1) + 8 * i) isValid])
           {
             if (++v11 > count)
             {
@@ -690,7 +676,7 @@ void __41__RBAssertionCollection_removeAssertion___block_invoke_2(uint64_t a1, v
           }
         }
 
-        v10 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
         if (v10)
         {
           continue;
@@ -706,7 +692,6 @@ LABEL_14:
 
   os_unfair_recursive_lock_unlock();
 
-  v15 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
@@ -739,47 +724,38 @@ LABEL_14:
 
 - (void)removeAssertion:(os_log_t)log .cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 138543618;
-  v5 = a1;
-  v6 = 2114;
-  v7 = a2;
-  _os_log_debug_impl(&dword_262485000, log, OS_LOG_TYPE_DEBUG, "Removing assertion %{public}@ on %{public}@", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 138543618;
+  v4 = a1;
+  v5 = 2114;
+  v6 = a2;
+  _os_log_debug_impl(&dword_262485000, log, OS_LOG_TYPE_DEBUG, "Removing assertion %{public}@ on %{public}@", &v3, 0x16u);
 }
 
 void __41__RBAssertionCollection_removeAssertion___block_invoke_cold_1(void *a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
   v2 = [a1 target];
   v3 = [v2 identity];
   v4 = [a1 explanation];
   v5 = [a1 identifier];
   OUTLINED_FUNCTION_0_10();
-  OUTLINED_FUNCTION_1_12(&dword_262485000, v6, v7, "> %{public}@ ['%{public}@'] [%{public}@]", v8, v9, v10, v11, v13);
-
-  v12 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_12(&dword_262485000, v6, v7, "> %{public}@ ['%{public}@'] [%{public}@]", v8, v9, v10, v11);
 }
 
 void __41__RBAssertionCollection_removeAssertion___block_invoke_2_cold_1(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
-  v3 = *(a1 + 32);
-  v4 = [a2 explanation];
-  v5 = [a2 identifier];
+  v3 = [a2 explanation];
+  v4 = [a2 identifier];
   OUTLINED_FUNCTION_0_10();
-  OUTLINED_FUNCTION_1_12(&dword_262485000, v6, v7, "> %{public}@ ['%{public}@'] [%{public}@]", v8, v9, v10, v11, v13);
-
-  v12 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_12(&dword_262485000, v5, v6, "> %{public}@ ['%{public}@'] [%{public}@]", v7, v8, v9, v10);
 }
 
 - (void)addAssertion:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_debug_impl(&dword_262485000, a2, OS_LOG_TYPE_DEBUG, "Adding assertion %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_debug_impl(&dword_262485000, a2, OS_LOG_TYPE_DEBUG, "Adding assertion %{public}@", &v2, 0xCu);
 }
 
 @end

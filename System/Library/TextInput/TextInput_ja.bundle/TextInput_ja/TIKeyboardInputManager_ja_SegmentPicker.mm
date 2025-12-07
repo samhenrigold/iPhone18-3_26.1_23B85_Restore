@@ -1,4 +1,5 @@
 @interface TIKeyboardInputManager_ja_SegmentPicker
+- (BOOL)_adjustPhraseBoundaryInForwardDirection:(BOOL)direction granularity:(int)granularity;
 - (BOOL)closeCandidateGenerationContextWithResults:(id)results;
 - (BOOL)syncToKeyboardState:(id)state completionHandler:(id)handler;
 - (NSArray)segments;
@@ -19,6 +20,7 @@
 - (void)openCandidateGenerationContextWithCandidateHandler:(id)handler;
 - (void)selectCandidate:(id)candidate;
 - (void)setPhraseBoundary:(unint64_t)boundary;
+- (void)syncToKeyboardState:(id)state from:(id)from afterContextChange:(BOOL)change;
 @end
 
 @implementation TIKeyboardInputManager_ja_SegmentPicker
@@ -368,6 +370,81 @@ LABEL_8:
   return v20;
 }
 
+- (void)syncToKeyboardState:(id)state from:(id)from afterContextChange:(BOOL)change
+{
+  changeCopy = change;
+  fromCopy = from;
+  stateCopy = state;
+  currentCandidate = [stateCopy currentCandidate];
+  candidate = [currentCandidate candidate];
+  v12 = [candidate length];
+  label = [currentCandidate label];
+  v14 = [label length];
+
+  index = [(TIKeyboardInputManager_ja_SegmentPicker *)self index];
+  if (currentCandidate)
+  {
+    v16 = v12 - v14;
+    if ((v16 & 0x8000000000000000) != 0)
+    {
+LABEL_9:
+      [(TIKeyboardInputManager_ja_SegmentPicker *)self finishSyncToKeyboardState];
+      goto LABEL_10;
+    }
+
+    v17 = index;
+    candidate2 = [currentCandidate candidate];
+    if (v16 > [candidate2 length])
+    {
+LABEL_4:
+
+      goto LABEL_9;
+    }
+
+    segments = [(TIKeyboardInputManager_ja_SegmentPicker *)self segments];
+    v20 = [segments count];
+
+    if (v17 >= v20)
+    {
+      goto LABEL_9;
+    }
+
+    segments2 = [(TIKeyboardInputManager_ja_SegmentPicker *)self segments];
+    candidate2 = [segments2 _surfaceStringWithin:{0, v17}];
+
+    segments3 = [(TIKeyboardInputManager_ja_SegmentPicker *)self segments];
+    v23 = [segments3 objectAtIndexedSubscript:v17];
+    reading = [v23 reading];
+
+    candidate3 = [currentCandidate candidate];
+    v26 = [candidate3 substringToIndex:v16];
+
+    input = [currentCandidate input];
+    if (![reading hasPrefix:input])
+    {
+
+      goto LABEL_4;
+    }
+
+    v28 = [candidate2 isEqualToString:v26];
+
+    if (!v28)
+    {
+      goto LABEL_9;
+    }
+
+    [(TIKeyboardInputManager_ja_SegmentPicker *)self selectCandidate:currentCandidate];
+  }
+
+LABEL_10:
+  [(TIKeyboardInputManager_ja_SegmentPicker *)self setSupportsSetPhraseBoundary:0];
+  v29.receiver = self;
+  v29.super_class = TIKeyboardInputManager_ja_SegmentPicker;
+  [(TIKeyboardInputManagerMecabra *)&v29 syncToKeyboardState:stateCopy from:fromCopy afterContextChange:changeCopy];
+
+  [(TIKeyboardInputManager_ja_SegmentPicker *)self setSupportsSetPhraseBoundary:1];
+}
+
 - (void)selectCandidate:(id)candidate
 {
   candidateCopy = candidate;
@@ -458,6 +535,44 @@ LABEL_8:
     syncKeyboardStateHandler = self->_syncKeyboardStateHandler;
     self->_syncKeyboardStateHandler = 0;
   }
+}
+
+- (BOOL)_adjustPhraseBoundaryInForwardDirection:(BOOL)direction granularity:(int)granularity
+{
+  directionCopy = direction;
+  v18 = *MEMORY[0x29EDCA608];
+  if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
+  {
+    v12 = 136315650;
+    v13 = "[TIKeyboardInputManager_ja_SegmentPicker _adjustPhraseBoundaryInForwardDirection:granularity:]";
+    v14 = 1024;
+    v15 = directionCopy;
+    v16 = 1024;
+    granularityCopy = granularity;
+    _os_log_impl(&dword_29EA26000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "%s  adjust phrase: %d %d", &v12, 0x18u);
+  }
+
+  if (granularity)
+  {
+    [(TIKeyboardInputManagerMecabra *)self completeComposition];
+  }
+
+  else
+  {
+    liveConversionSegments = [(TIKeyboardInputManager_ja_SegmentPicker *)self liveConversionSegments];
+    v8 = [liveConversionSegments canMove:directionCopy];
+
+    if (v8)
+    {
+      liveConversionSegments2 = [(TIKeyboardInputManager_ja_SegmentPicker *)self liveConversionSegments];
+      [liveConversionSegments2 commit];
+
+      liveConversionSegments3 = [(TIKeyboardInputManager_ja_SegmentPicker *)self liveConversionSegments];
+      [liveConversionSegments3 move:directionCopy];
+    }
+  }
+
+  return granularity == 0;
 }
 
 @end

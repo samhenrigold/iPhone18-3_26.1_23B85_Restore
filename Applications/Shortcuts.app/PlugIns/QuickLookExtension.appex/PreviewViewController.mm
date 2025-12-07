@@ -15,20 +15,19 @@
 - (void)preparePreviewOfFileAtURL:(id)l completionHandler:(id)handler
 {
   v6 = sub_100004F10();
-  v7 = sub_100004DDC(v6);
-  v9 = v8;
-  v11 = *(v10 + 64);
-  __chkstk_darwin(v7);
+  sub_100004DDC();
+  v8 = v7;
+  __chkstk_darwin(v9);
   sub_100004E00();
-  v14 = v13 - v12;
-  v15 = _Block_copy(handler);
+  v12 = v11 - v10;
+  v13 = _Block_copy(handler);
   sub_100004F00();
-  v16 = swift_allocObject();
-  *(v16 + 16) = v15;
+  v14 = swift_allocObject();
+  *(v14 + 16) = v13;
   selfCopy = self;
-  sub_100001CC4(v14, sub_100003730, v16);
+  sub_100001CC4(v12, sub_100003730, v14);
 
-  (*(v9 + 8))(v14, v6);
+  (*(v8 + 8))(v12, v6);
 }
 
 - (_TtC18QuickLookExtension21PreviewViewController)initWithNibName:(id)name bundle:(id)bundle

@@ -26,9 +26,11 @@
 
 uint64_t __43__DOCTagLocalStorage_sharedAppGroupStorage__block_invoke()
 {
-  sharedAppGroupStorage_shared = objc_alloc_init(DOCTagLocalStorage);
+  v0 = objc_alloc_init(DOCTagLocalStorage);
+  v1 = sharedAppGroupStorage_shared;
+  sharedAppGroupStorage_shared = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 - (DOCTagLocalStorage)init
@@ -100,15 +102,15 @@ uint64_t __43__DOCTagLocalStorage_sharedAppGroupStorage__block_invoke()
 
 - (id)_unarchivedTagsFromData:(id)data
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   if (dataCopy)
   {
     v4 = objc_alloc(MEMORY[0x277CBEB98]);
     v5 = [v4 initWithObjects:{objc_msgSend(MEMORY[0x277CBEB70], "classForKeyedUnarchiver"), objc_opt_class(), 0}];
-    v28 = 0;
-    v6 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClasses:v5 fromData:dataCopy error:&v28];
-    v7 = v28;
+    v26 = 0;
+    v6 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClasses:v5 fromData:dataCopy error:&v26];
+    v7 = v26;
     if (v7)
     {
       v8 = docLogHandle;
@@ -137,26 +139,25 @@ LABEL_10:
         goto LABEL_12;
       }
 
-      v26 = 0u;
-      v27 = 0u;
       v24 = 0u;
       v25 = 0u;
+      v22 = 0u;
+      v23 = 0u;
       v16 = v6;
-      v19 = [v16 countByEnumeratingWithState:&v24 objects:v29 count:16];
-      if (v19)
+      v18 = [v16 countByEnumeratingWithState:&v22 objects:v27 count:16];
+      if (v18)
       {
-        v20 = v19;
-        v21 = *v25;
+        v19 = v18;
+        v20 = *v23;
         while (2)
         {
-          for (i = 0; i != v20; ++i)
+          for (i = 0; i != v19; ++i)
           {
-            if (*v25 != v21)
+            if (*v23 != v20)
             {
               objc_enumerationMutation(v16);
             }
 
-            v23 = *(*(&v24 + 1) + 8 * i);
             objc_opt_class();
             if ((objc_opt_isKindOfClass() & 1) == 0)
             {
@@ -166,8 +167,8 @@ LABEL_10:
             }
           }
 
-          v20 = [v16 countByEnumeratingWithState:&v24 objects:v29 count:16];
-          if (v20)
+          v19 = [v16 countByEnumeratingWithState:&v22 objects:v27 count:16];
+          if (v19)
           {
             continue;
           }
@@ -189,8 +190,6 @@ LABEL_9:
 
   v15 = 0;
 LABEL_12:
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v15;
 }
@@ -249,23 +248,23 @@ LABEL_12:
 
 - (void)_unarchivedTagsFromData:(uint64_t)a3 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_249340000, a2, a3, "Failed to create unarchiver for tags from data %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0(&dword_249340000, a2, a3, "Failed to create unarchiver for tags from data %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)setUserTags:(uint64_t)a3 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_249340000, a2, a3, "Failed to archive tags: %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0(&dword_249340000, a2, a3, "Failed to archive tags: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)setDiscoveredTags:(uint64_t)a3 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_249340000, a2, a3, "Failed to archive discovered tags: %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0(&dword_249340000, a2, a3, "Failed to archive discovered tags: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

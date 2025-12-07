@@ -42,7 +42,7 @@
 {
   if (self)
   {
-    return [(CMTime *)self startAdjustment];
+    return objc_msgSend_startAdjustment(self, a3);
   }
 
   retstr->value = 0;
@@ -55,7 +55,7 @@
 {
   if (self)
   {
-    return [(CMTime *)self durationAdjustment];
+    return objc_msgSend_durationAdjustment(self, a3);
   }
 
   retstr->value = 0;
@@ -69,9 +69,9 @@
   v3 = *MEMORY[0x1E695E480];
   if (self)
   {
-    [(AVCaptionConversionTimeRangeAdjustment *)self startAdjustment];
+    objc_msgSend_startAdjustment(self, a2);
     v4 = CMTimeCopyDescription(v3, &time);
-    [(AVCaptionConversionTimeRangeAdjustment *)self durationAdjustment];
+    objc_msgSend_durationAdjustment(self);
   }
 
   else

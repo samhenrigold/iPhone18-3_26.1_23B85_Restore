@@ -58,7 +58,7 @@
   if (self->_label)
   {
     v11 = fmin(self->_maxDynamicFontSize, 3.0);
-    [(NTKCircularComplicationView *)self _layoutConstants];
+    objc_msgSend__layoutConstants(self);
     v12 = 0;
     if (v38 >= 1.79769313e308 || v11 < 1)
     {
@@ -192,7 +192,7 @@ float64_t __75__NTKCircularSmallSimpleComplicationView__imageScaleForTemplate_fo
 
 - (double)_baselineOffsetForDynamicSize:(int64_t)size
 {
-  [(NTKCircularComplicationView *)self _layoutConstants];
+  objc_msgSend__layoutConstants(self, a2);
   if (size == 3)
   {
     return 0.0;
@@ -262,7 +262,7 @@ float64_t __75__NTKCircularSmallSimpleComplicationView__imageScaleForTemplate_fo
     objc_copyWeak(&v17, &location);
     [(CLKUIColoringLabel *)v13 setNeedsResizeHandler:v16];
     v14 = self->_label;
-    [(NTKCircularComplicationView *)self _layoutConstants];
+    objc_msgSend__layoutConstants(self);
     [(CLKUIColoringLabel *)v14 setMaxWidth:v15];
     [(NTKCircularSmallSimpleComplicationView *)self addSubview:self->_label];
     objc_destroyWeak(&v17);

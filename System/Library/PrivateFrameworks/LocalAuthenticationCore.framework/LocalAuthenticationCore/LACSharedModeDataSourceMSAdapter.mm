@@ -25,7 +25,7 @@
   completionCopy = completion;
   _isManagedSettingsFrameworkAvailable = [(LACSharedModeDataSourceMSAdapter *)self _isManagedSettingsFrameworkAvailable];
   v7 = +[LACSharedMode defaultSharedMode];
-  v8 = LACLogSharedMode();
+  v8 = LACLogSharedMode(v7);
   v9 = os_log_type_enabled(v8, OS_LOG_TYPE_ERROR);
   if (_isManagedSettingsFrameworkAvailable)
   {

@@ -20,7 +20,7 @@
 
 uint64_t __65__DMCEnrollmentAccountUtilities_removeOrphanedEnrollmentAccounts__block_invoke(uint64_t a1, void *a2)
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   v2 = a2;
   if ([v2 dmc_isPrimaryAccount])
   {
@@ -46,15 +46,15 @@ uint64_t __65__DMCEnrollmentAccountUtilities_removeOrphanedEnrollmentAccounts__b
         v18 = [v2 identifier];
         v19 = [v2 accountType];
         v20 = [v19 identifier];
-        v31 = 138543874;
-        v32 = v17;
-        v33 = 2114;
-        v34 = v18;
-        v35 = 2114;
-        v36 = v20;
+        v30 = 138543874;
+        v31 = v17;
+        v32 = 2114;
+        v33 = v18;
+        v34 = 2114;
+        v35 = v20;
         v21 = "DMCAccountUtilities: Persona (%{public}@) for orphaned account (%{public}@, %{public}@) does not exist.";
 LABEL_18:
-        _os_log_impl(&dword_247E39000, v16, OS_LOG_TYPE_ERROR, v21, &v31, 0x20u);
+        _os_log_impl(&dword_247E39000, v16, OS_LOG_TYPE_ERROR, v21, &v30, 0x20u);
       }
 
 LABEL_19:
@@ -79,12 +79,12 @@ LABEL_19:
         v18 = [v2 identifier];
         v19 = [v2 accountType];
         v20 = [v19 identifier];
-        v31 = 138543874;
-        v32 = v17;
-        v33 = 2114;
-        v34 = v18;
-        v35 = 2114;
-        v36 = v20;
+        v30 = 138543874;
+        v31 = v17;
+        v32 = 2114;
+        v33 = v18;
+        v34 = 2114;
+        v35 = v20;
         v21 = "DMCAccountUtilities: Remote Management account (%{public}@) for orphaned account (%{public}@, %{public}@) does not exist.";
         goto LABEL_18;
       }
@@ -117,13 +117,13 @@ LABEL_19:
         v25 = [v2 identifier];
         v26 = [v2 accountType];
         v27 = [v26 identifier];
-        v31 = 138543874;
-        v32 = v24;
-        v33 = 2114;
-        v34 = v25;
-        v35 = 2114;
-        v36 = v27;
-        _os_log_impl(&dword_247E39000, v23, OS_LOG_TYPE_ERROR, "DMCAccountUtilities: Enrollment profile (%{public}@) for orphaned account (%{public}@, %{public}@) does not exist.", &v31, 0x20u);
+        v30 = 138543874;
+        v31 = v24;
+        v32 = 2114;
+        v33 = v25;
+        v34 = 2114;
+        v35 = v27;
+        _os_log_impl(&dword_247E39000, v23, OS_LOG_TYPE_ERROR, "DMCAccountUtilities: Enrollment profile (%{public}@) for orphaned account (%{public}@, %{public}@) does not exist.", &v30, 0x20u);
       }
 
       v3 = 1;
@@ -131,7 +131,6 @@ LABEL_19:
   }
 
 LABEL_20:
-  v29 = *MEMORY[0x277D85DE8];
   return v3;
 }
 

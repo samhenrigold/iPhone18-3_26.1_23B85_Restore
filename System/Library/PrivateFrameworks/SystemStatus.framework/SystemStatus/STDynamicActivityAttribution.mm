@@ -16,7 +16,7 @@
 
 + (id)attributionForClientAuditToken:(id *)token clientExecutablePath:(id)path bundleID:(id)d localizationKey:(id)key
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   pathCopy = path;
   dCopy = d;
   keyCopy = key;
@@ -25,28 +25,28 @@
     NSClassFromString(&cfstr_Nsstring.isa);
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
-      v23 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:NSStringClass]"];
+      v22 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:NSStringClass]"];
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
-        v24 = NSStringFromSelector(a2);
-        v25 = objc_opt_class();
-        v26 = NSStringFromClass(v25);
+        v23 = NSStringFromSelector(a2);
+        v24 = objc_opt_class();
+        v25 = NSStringFromClass(v24);
         *buf = 138544642;
-        *&buf[4] = v24;
+        *&buf[4] = v23;
         *&buf[12] = 2114;
-        *&buf[14] = v26;
+        *&buf[14] = v25;
         *&buf[22] = 2048;
         *&buf[24] = self;
-        v32 = 2114;
-        v33 = @"STDynamicActivityAttribution.m";
-        v34 = 1024;
-        v35 = 17;
-        v36 = 2114;
-        v37 = v23;
+        v31 = 2114;
+        v32 = @"STDynamicActivityAttribution.m";
+        v33 = 1024;
+        v34 = 17;
+        v35 = 2114;
+        v36 = v22;
         _os_log_error_impl(&dword_1DA9C2000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
       }
 
-      [v23 UTF8String];
+      [v22 UTF8String];
       _bs_set_crash_log_message();
       __break(0);
       JUMPOUT(0x1DA9FC440);
@@ -67,28 +67,28 @@
   NSClassFromString(&cfstr_Nsstring.isa);
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    v27 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:NSStringClass]"];
+    v26 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:NSStringClass]"];
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v28 = NSStringFromSelector(a2);
-      v29 = objc_opt_class();
-      v30 = NSStringFromClass(v29);
+      v27 = NSStringFromSelector(a2);
+      v28 = objc_opt_class();
+      v29 = NSStringFromClass(v28);
       *buf = 138544642;
-      *&buf[4] = v28;
+      *&buf[4] = v27;
       *&buf[12] = 2114;
-      *&buf[14] = v30;
+      *&buf[14] = v29;
       *&buf[22] = 2048;
       *&buf[24] = self;
-      v32 = 2114;
-      v33 = @"STDynamicActivityAttribution.m";
-      v34 = 1024;
-      v35 = 18;
-      v36 = 2114;
-      v37 = v27;
+      v31 = 2114;
+      v32 = @"STDynamicActivityAttribution.m";
+      v33 = 1024;
+      v34 = 18;
+      v35 = 2114;
+      v36 = v26;
       _os_log_error_impl(&dword_1DA9C2000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
     }
 
-    [v27 UTF8String];
+    [v26 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x1DA9FC538);
@@ -112,8 +112,6 @@ LABEL_8:
   }
 
 LABEL_11:
-
-  v21 = *MEMORY[0x1E69E9840];
 
   return v16;
 }
@@ -139,7 +137,7 @@ LABEL_11:
 
 + (id)attributionForClientAuditToken:(id *)token maskingClientAuditToken:(id *)auditToken clientExecutablePath:(id)path maskingClientExecutablePath:(id)executablePath localizationKey:(id)key
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   pathCopy = path;
   executablePathCopy = executablePath;
   keyCopy = key;
@@ -148,28 +146,28 @@ LABEL_11:
     NSClassFromString(&cfstr_Nsstring.isa);
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
-      v27 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:NSStringClass]"];
+      v26 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:NSStringClass]"];
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
-        v28 = NSStringFromSelector(a2);
-        v29 = objc_opt_class();
-        v30 = NSStringFromClass(v29);
+        v27 = NSStringFromSelector(a2);
+        v28 = objc_opt_class();
+        v29 = NSStringFromClass(v28);
         *buf = 138544642;
-        *&buf[4] = v28;
+        *&buf[4] = v27;
         *&buf[12] = 2114;
-        *&buf[14] = v30;
+        *&buf[14] = v29;
         *&buf[22] = 2048;
         *&buf[24] = self;
-        v32 = 2114;
-        v33 = @"STDynamicActivityAttribution.m";
-        v34 = 1024;
-        v35 = 32;
-        v36 = 2114;
-        v37 = v27;
+        v31 = 2114;
+        v32 = @"STDynamicActivityAttribution.m";
+        v33 = 1024;
+        v34 = 32;
+        v35 = 2114;
+        v36 = v26;
         _os_log_error_impl(&dword_1DA9C2000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
       }
 
-      [v27 UTF8String];
+      [v26 UTF8String];
       _bs_set_crash_log_message();
       __break(0);
       JUMPOUT(0x1DA9FC7E0);
@@ -201,14 +199,12 @@ LABEL_11:
     v19 = 0;
   }
 
-  v25 = *MEMORY[0x1E69E9840];
-
   return v19;
 }
 
 + (id)attributionForClientAuditToken:(id *)token maskingClientAuditToken:(id *)auditToken clientExecutablePath:(id)path maskingClientExecutablePath:(id)executablePath stringWithFormat:(id)format
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   pathCopy = path;
   executablePathCopy = executablePath;
   formatCopy = format;
@@ -217,28 +213,28 @@ LABEL_11:
     NSClassFromString(&cfstr_Nsstring.isa);
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
-      v27 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:NSStringClass]"];
+      v26 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:NSStringClass]"];
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
-        v28 = NSStringFromSelector(a2);
-        v29 = objc_opt_class();
-        v30 = NSStringFromClass(v29);
+        v27 = NSStringFromSelector(a2);
+        v28 = objc_opt_class();
+        v29 = NSStringFromClass(v28);
         *buf = 138544642;
-        *&buf[4] = v28;
+        *&buf[4] = v27;
         *&buf[12] = 2114;
-        *&buf[14] = v30;
+        *&buf[14] = v29;
         *&buf[22] = 2048;
         *&buf[24] = self;
-        v32 = 2114;
-        v33 = @"STDynamicActivityAttribution.m";
-        v34 = 1024;
-        v35 = 47;
-        v36 = 2114;
-        v37 = v27;
+        v31 = 2114;
+        v32 = @"STDynamicActivityAttribution.m";
+        v33 = 1024;
+        v34 = 47;
+        v35 = 2114;
+        v36 = v26;
         _os_log_error_impl(&dword_1DA9C2000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
       }
 
-      [v27 UTF8String];
+      [v26 UTF8String];
       _bs_set_crash_log_message();
       __break(0);
       JUMPOUT(0x1DA9FCA1CLL);
@@ -270,14 +266,12 @@ LABEL_11:
     v19 = 0;
   }
 
-  v25 = *MEMORY[0x1E69E9840];
-
   return v19;
 }
 
 + (id)attributionForClientAuditToken:(id *)token maskingClientAuditToken:(id *)auditToken clientExecutablePath:(id)path maskingClientExecutablePath:(id)executablePath website:(id)website
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   pathCopy = path;
   executablePathCopy = executablePath;
   websiteCopy = website;
@@ -286,28 +280,28 @@ LABEL_11:
     NSClassFromString(&cfstr_Nsstring.isa);
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
-      v27 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:NSStringClass]"];
+      v26 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:NSStringClass]"];
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
-        v28 = NSStringFromSelector(a2);
-        v29 = objc_opt_class();
-        v30 = NSStringFromClass(v29);
+        v27 = NSStringFromSelector(a2);
+        v28 = objc_opt_class();
+        v29 = NSStringFromClass(v28);
         *buf = 138544642;
-        *&buf[4] = v28;
+        *&buf[4] = v27;
         *&buf[12] = 2114;
-        *&buf[14] = v30;
+        *&buf[14] = v29;
         *&buf[22] = 2048;
         *&buf[24] = self;
-        v32 = 2114;
-        v33 = @"STDynamicActivityAttribution.m";
-        v34 = 1024;
-        v35 = 62;
-        v36 = 2114;
-        v37 = v27;
+        v31 = 2114;
+        v32 = @"STDynamicActivityAttribution.m";
+        v33 = 1024;
+        v34 = 62;
+        v35 = 2114;
+        v36 = v26;
         _os_log_error_impl(&dword_1DA9C2000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
       }
 
-      [v27 UTF8String];
+      [v26 UTF8String];
       _bs_set_crash_log_message();
       __break(0);
       JUMPOUT(0x1DA9FCC58);
@@ -339,8 +333,6 @@ LABEL_11:
     v19 = 0;
   }
 
-  v25 = *MEMORY[0x1E69E9840];
-
   return v19;
 }
 
@@ -348,61 +340,17 @@ LABEL_11:
 {
   equalCopy = equal;
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
+  if ((objc_opt_isKindOfClass() & 1) != 0 && (v4 = BSVersionedPIDForAuditToken(), v4 == BSVersionedPIDForAuditToken()) && (v5 = BSVersionedPIDForAuditToken(), v5 == BSVersionedPIDForAuditToken()) && BSEqualStrings() && BSEqualStrings() && BSEqualStrings() && BSEqualStrings() && BSEqualStrings())
   {
-    goto LABEL_10;
-  }
-
-  v21 = *self->_clientAuditToken.val;
-  v25 = *&self->_clientAuditToken.val[4];
-  v5 = BSVersionedPIDForAuditToken();
-  v22 = *(equalCopy + 56);
-  v26 = *(equalCopy + 72);
-  if (v5 != BSVersionedPIDForAuditToken())
-  {
-    goto LABEL_10;
-  }
-
-  v23 = *self->_maskingClientAuditToken.val;
-  v27 = *&self->_maskingClientAuditToken.val[4];
-  v6 = BSVersionedPIDForAuditToken();
-  v24 = *(equalCopy + 88);
-  v28 = *(equalCopy + 104);
-  if (v6 != BSVersionedPIDForAuditToken())
-  {
-    goto LABEL_10;
-  }
-
-  clientExecutablePath = self->_clientExecutablePath;
-  v8 = *(equalCopy + 5);
-  if (!BSEqualStrings())
-  {
-    goto LABEL_10;
-  }
-
-  maskingClientExecutablePath = self->_maskingClientExecutablePath;
-  v10 = *(equalCopy + 6);
-  if (!BSEqualStrings())
-  {
-    goto LABEL_10;
-  }
-
-  bundleIdentifier = self->_bundleIdentifier;
-  v12 = *(equalCopy + 1);
-  if (BSEqualStrings() && (localizationKey = self->_localizationKey, v14 = *(equalCopy + 2), BSEqualStrings()) && (formattedString = self->_formattedString, v16 = *(equalCopy + 3), BSEqualStrings()))
-  {
-    website = self->_website;
-    v18 = *(equalCopy + 4);
-    v19 = BSEqualStrings();
+    v6 = BSEqualStrings();
   }
 
   else
   {
-LABEL_10:
-    v19 = 0;
+    v6 = 0;
   }
 
-  return v19;
+  return v6;
 }
 
 - (id)description
@@ -494,8 +442,8 @@ LABEL_10:
     v12 = v11;
     if (v10 && v11)
     {
-      [v5 realToken];
-      [v10 realToken];
+      objc_msgSend_realToken(v5);
+      objc_msgSend_realToken(v10);
       v13 = v7;
       v14 = v12;
       if (self)
@@ -518,7 +466,7 @@ LABEL_10:
 
     else
     {
-      [v5 realToken];
+      objc_msgSend_realToken(v5);
       self = [(STDynamicActivityAttribution *)self _initWithClientAuditToken:v29 clientExecutablePath:v7];
     }
 

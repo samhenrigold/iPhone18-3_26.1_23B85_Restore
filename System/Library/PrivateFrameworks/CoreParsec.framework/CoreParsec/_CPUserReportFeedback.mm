@@ -199,11 +199,10 @@ LABEL_34:
 
 - (void)writeTo:(id)to
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   toCopy = to;
   if ([(_CPUserReportFeedback *)self timestamp])
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
   }
 
@@ -235,57 +234,51 @@ LABEL_34:
 
   if (uuidBytes)
   {
-    uuidBytes = self->_uuidBytes;
     PBDataWriterWriteDataField();
   }
 
-  v26 = 0u;
-  v27 = 0u;
-  v24 = 0u;
-  v25 = 0u;
-  v14 = self->_sections;
-  v15 = [(NSArray *)v14 countByEnumeratingWithState:&v24 objects:v28 count:16];
-  if (v15)
+  v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
+  v12 = self->_sections;
+  v13 = [(NSArray *)v12 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  if (v13)
   {
-    v16 = v15;
-    v17 = *v25;
+    v14 = v13;
+    v15 = *v19;
     do
     {
-      v18 = 0;
+      v16 = 0;
       do
       {
-        if (*v25 != v17)
+        if (*v19 != v15)
         {
-          objc_enumerationMutation(v14);
+          objc_enumerationMutation(v12);
         }
 
-        v19 = *(*(&v24 + 1) + 8 * v18);
         PBDataWriterWriteSubmessage();
-        ++v18;
+        ++v16;
       }
 
-      while (v16 != v18);
-      v16 = [(NSArray *)v14 countByEnumeratingWithState:&v24 objects:v28 count:16];
+      while (v14 != v16);
+      v14 = [(NSArray *)v12 countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
-    while (v16);
+    while (v14);
   }
 
   uploadedDataIdentifier = [(_CPUserReportFeedback *)self uploadedDataIdentifier];
 
   if (uploadedDataIdentifier)
   {
-    uploadedDataIdentifier = self->_uploadedDataIdentifier;
     PBDataWriterWriteStringField();
   }
 
   if ([(_CPUserReportFeedback *)self reportType])
   {
-    reportType = self->_reportType;
     PBDataWriterWriteInt32Field();
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addSections:(id)sections
@@ -308,9 +301,7 @@ LABEL_34:
 
 - (void)setSections:(id)sections
 {
-  v4 = [sections mutableCopy];
-  sections = self->_sections;
-  self->_sections = v4;
+  self->_sections = [sections mutableCopy];
 
   MEMORY[0x1EEE66BB8]();
 }
@@ -331,11 +322,11 @@ LABEL_34:
 
 - (_CPUserReportFeedback)initWithFacade:(id)facade
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   facadeCopy = facade;
-  v35.receiver = self;
-  v35.super_class = _CPUserReportFeedback;
-  v5 = [(_CPUserReportFeedback *)&v35 init];
+  v34.receiver = self;
+  v34.super_class = _CPUserReportFeedback;
+  v5 = [(_CPUserReportFeedback *)&v34 init];
   if (v5)
   {
     -[_CPUserReportFeedback setTimestamp:](v5, "setTimestamp:", [facadeCopy timestamp]);
@@ -380,30 +371,30 @@ LABEL_34:
       v19 = 0;
     }
 
-    v33 = 0u;
-    v34 = 0u;
-    v31 = 0u;
     v32 = 0u;
+    v33 = 0u;
+    v30 = 0u;
+    v31 = 0u;
     sections2 = [facadeCopy sections];
-    v21 = [sections2 countByEnumeratingWithState:&v31 objects:v36 count:16];
+    v21 = [sections2 countByEnumeratingWithState:&v30 objects:v35 count:16];
     if (v21)
     {
       v22 = v21;
-      v23 = *v32;
+      v23 = *v31;
       do
       {
         for (i = 0; i != v22; ++i)
         {
-          if (*v32 != v23)
+          if (*v31 != v23)
           {
             objc_enumerationMutation(sections2);
           }
 
-          v25 = [[_CPResultSectionForFeedback alloc] initWithFacade:*(*(&v31 + 1) + 8 * i)];
+          v25 = [[_CPResultSectionForFeedback alloc] initWithFacade:*(*(&v30 + 1) + 8 * i)];
           [v19 addObject:v25];
         }
 
-        v22 = [sections2 countByEnumeratingWithState:&v31 objects:v36 count:16];
+        v22 = [sections2 countByEnumeratingWithState:&v30 objects:v35 count:16];
       }
 
       while (v22);
@@ -422,7 +413,6 @@ LABEL_34:
     v28 = v5;
   }
 
-  v29 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

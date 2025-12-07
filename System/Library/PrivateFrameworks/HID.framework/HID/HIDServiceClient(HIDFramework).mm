@@ -17,16 +17,16 @@
 
 - (id)propertiesForKeys:()HIDFramework
 {
-  v0 = IOHIDServiceClientCopyProperties();
+  v3 = IOHIDServiceClientCopyProperties();
 
-  return v0;
+  return v3;
 }
 
 - (id)eventMatching:()HIDFramework
 {
-  v0 = IOHIDServiceClientCopyMatchingEvent();
+  v3 = IOHIDServiceClientCopyMatchingEvent();
 
-  return v0;
+  return v3;
 }
 
 - (void)setRemovalHandler:()HIDFramework

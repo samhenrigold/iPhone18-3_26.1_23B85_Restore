@@ -2,7 +2,6 @@
 - (AAPSyncState)initWithCoder:(id)coder;
 - (AAPSyncState)initWithValidity:(id)validity version:(int64_t)version keyAnchor:(id)anchor startAnchor:(id)startAnchor stopAnchor:(id)stopAnchor apps:(id)apps deletes:(id)deletes;
 - (BOOL)isEqual:(id)equal;
-- (id)description;
 - (unint64_t)hash;
 - (void)_validate;
 - (void)dealloc;
@@ -56,13 +55,11 @@
   objc_opt_class();
   objc_opt_class();
   objc_opt_class();
-  validity = self->_validity;
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
     sub_114A4();
   }
 
-  keyAnchor = self->_keyAnchor;
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
     sub_11500();
@@ -93,68 +90,66 @@
     sub_116CC(a2, self);
   }
 
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
-  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
   apps = self->_apps;
-  v7 = [(NSSet *)apps countByEnumeratingWithState:&v22 objects:v27 count:16];
-  if (v7)
+  v5 = [(NSSet *)apps countByEnumeratingWithState:&v18 objects:v23 count:16];
+  if (v5)
   {
-    v8 = v7;
-    v9 = *v23;
+    v6 = v5;
+    v7 = *v19;
     do
     {
-      for (i = 0; i != v8; i = i + 1)
+      for (i = 0; i != v6; ++i)
       {
-        if (*v23 != v9)
+        if (*v19 != v7)
         {
           objc_enumerationMutation(apps);
         }
 
-        v11 = *(*(&v22 + 1) + 8 * i);
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
           sub_11728();
         }
       }
 
-      v8 = [(NSSet *)apps countByEnumeratingWithState:&v22 objects:v27 count:16];
+      v6 = [(NSSet *)apps countByEnumeratingWithState:&v18 objects:v23 count:16];
     }
 
-    while (v8);
+    while (v6);
   }
 
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
-  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   deletes = self->_deletes;
-  v13 = [(NSArray *)deletes countByEnumeratingWithState:&v18 objects:v26 count:16];
-  if (v13)
+  v10 = [(NSArray *)deletes countByEnumeratingWithState:&v14 objects:v22 count:16];
+  if (v10)
   {
-    v14 = v13;
-    v15 = *v19;
+    v11 = v10;
+    v12 = *v15;
     do
     {
-      for (j = 0; j != v14; j = j + 1)
+      for (j = 0; j != v11; ++j)
       {
-        if (*v19 != v15)
+        if (*v15 != v12)
         {
           objc_enumerationMutation(deletes);
         }
 
-        v17 = *(*(&v18 + 1) + 8 * j);
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
           sub_11784();
         }
       }
 
-      v14 = [(NSArray *)deletes countByEnumeratingWithState:&v18 objects:v26 count:16];
+      v11 = [(NSArray *)deletes countByEnumeratingWithState:&v14 objects:v22 count:16];
     }
 
-    while (v14);
+    while (v11);
   }
 }
 
@@ -226,7 +221,9 @@
       goto LABEL_3;
     }
 
-    LODWORD(self) = -[NSString isEqualToString:](selfCopy->_validity, "isEqualToString:", [equal validity]);
+    validity = selfCopy->_validity;
+    [equal validity];
+    LODWORD(self) = objc_msgSend_isEqualToString_(validity);
     if (!self)
     {
       return self;
@@ -265,13 +262,6 @@ LABEL_3:
   }
 
   return self;
-}
-
-- (id)description
-{
-  v3 = objc_opt_class();
-  v4 = *&self->_validity;
-  return +[NSString stringWithFormat:](NSString, "stringWithFormat:", @"<%@:%p validity='%@' version=%li anchors=(%@, %@]-%@> -> apps=%@ deletes=%@"), v3, self, self->_validity, self->_version, self->_startAnchor, self->_stopAnchor, self->_keyAnchor, self->_apps, self->_deletes;
 }
 
 @end

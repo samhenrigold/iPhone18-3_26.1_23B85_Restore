@@ -6,7 +6,7 @@
 
 - (id)cpl_redactedShareURL
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   host = [self host];
   if ([host hasPrefix:@"redacted."] && objc_msgSend(host, "hasSuffix:", @".icloud.com"))
   {
@@ -64,27 +64,27 @@
         path = [v9 path];
         pathComponents = [path pathComponents];
 
-        v36 = 0u;
-        v37 = 0u;
-        v34 = 0u;
         v35 = 0u;
+        v36 = 0u;
+        v33 = 0u;
+        v34 = 0u;
         v21 = pathComponents;
-        v22 = [v21 countByEnumeratingWithState:&v34 objects:v39 count:16];
+        v22 = [v21 countByEnumeratingWithState:&v33 objects:v38 count:16];
         if (v22)
         {
           v23 = v22;
-          v33 = host;
-          v24 = *v35;
+          v32 = host;
+          v24 = *v34;
           while (2)
           {
             for (j = 0; j != v23; ++j)
             {
-              if (*v35 != v24)
+              if (*v34 != v24)
               {
                 objc_enumerationMutation(v21);
               }
 
-              v26 = *(*(&v34 + 1) + 8 * j);
+              v26 = *(*(&v33 + 1) + 8 * j);
               if (([v26 isEqualToString:@"/"] & 1) == 0)
               {
                 v27 = v26;
@@ -92,7 +92,7 @@
               }
             }
 
-            v23 = [v21 countByEnumeratingWithState:&v34 objects:v39 count:16];
+            v23 = [v21 countByEnumeratingWithState:&v33 objects:v38 count:16];
             if (v23)
             {
               continue;
@@ -103,7 +103,7 @@
 
           v27 = 0;
 LABEL_28:
-          host = v33;
+          host = v32;
         }
 
         else
@@ -111,15 +111,15 @@ LABEL_28:
           v27 = 0;
         }
 
-        v30 = objc_alloc(MEMORY[0x1E696AEC0]);
-        v31 = @"unknown";
+        v29 = objc_alloc(MEMORY[0x1E696AEC0]);
+        v30 = @"unknown";
         if (v27)
         {
-          v31 = v27;
+          v30 = v27;
         }
 
-        v32 = [v30 initWithFormat:@"/%@/%@", v31, v7];
-        [v10 setPath:v32];
+        v31 = [v29 initWithFormat:@"/%@/%@", v30, v7];
+        [v10 setPath:v31];
 
         goto LABEL_23;
       }
@@ -138,7 +138,6 @@ LABEL_23:
   selfCopy = [v10 URL];
 
 LABEL_24:
-  v28 = *MEMORY[0x1E69E9840];
 
   return selfCopy;
 }

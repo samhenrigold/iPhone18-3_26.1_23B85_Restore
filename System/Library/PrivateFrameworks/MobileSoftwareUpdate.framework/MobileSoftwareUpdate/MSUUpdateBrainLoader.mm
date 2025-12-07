@@ -35,8 +35,8 @@
 
 uint64_t __67__MSUUpdateBrainLoader_loadUpdateBrainWithOptions_progressHandler___block_invoke(uint64_t a1)
 {
-  v11[1] = *MEMORY[0x277D85DE8];
-  v9 = 0;
+  v10[1] = *MEMORY[0x277D85DE8];
+  v8 = 0;
   v2 = [MEMORY[0x277CBEB38] dictionary];
   if ([*(a1 + 32) attributesDict])
   {
@@ -49,27 +49,21 @@ uint64_t __67__MSUUpdateBrainLoader_loadUpdateBrainWithOptions_progressHandler__
     [v2 setObject:v3 forKey:@"ClientOptions"];
   }
 
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __67__MSUUpdateBrainLoader_loadUpdateBrainWithOptions_progressHandler___block_invoke_2;
-  v8[3] = &unk_2798EDED8;
-  v8[4] = *(a1 + 48);
-  v4 = perform_command_with_progress("LoadBrain", v2, 0, 0, &v9, v8);
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = __67__MSUUpdateBrainLoader_loadUpdateBrainWithOptions_progressHandler___block_invoke_2;
+  v7[3] = &unk_2798EDED8;
+  v7[4] = *(a1 + 48);
+  v4 = perform_command_with_progress("LoadBrain", v2, 0, 0, &v8, v7);
   v5 = *(a1 + 48);
-  if (v4)
+  if (!v4)
   {
-    v10 = @"MSUAssetOperation";
-    v11[0] = @"MSUAssetOperationCompleted";
-    result = (*(v5 + 16))(v5, [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:&v10 count:1], 0);
+    return (*(v5 + 16))(v5, 0, v8);
   }
 
-  else
-  {
-    result = (*(v5 + 16))(v5, 0, v9);
-  }
-
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  v9 = @"MSUAssetOperation";
+  v10[0] = @"MSUAssetOperationCompleted";
+  return (*(v5 + 16))(v5, [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1], 0);
 }
 
 - (void)adjustOptions:(id)options completion:(id)completion

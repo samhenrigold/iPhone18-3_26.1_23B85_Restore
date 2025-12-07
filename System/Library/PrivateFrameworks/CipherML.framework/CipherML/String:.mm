@@ -17,10 +17,10 @@
   if (!lazy cache variable for type metadata for [String : AMDPbHEConfig])
   {
     type metadata accessor for AMDPbHEConfig(255);
-    v0 = type metadata accessor for Dictionary();
-    if (!v1)
+    v1 = type metadata accessor for Dictionary();
+    if (!v2)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for [String : AMDPbHEConfig]);
+      atomic_store(v1, &lazy cache variable for type metadata for [String : AMDPbHEConfig]);
     }
   }
 }
@@ -28,22 +28,21 @@
 - (Class)NSObject
 {
   v1 = *(self + 32);
-  v2 = *(self + 40);
 
-  v4 = v1(v3);
+  v3 = v1(v2);
 
-  if (v4)
+  if (v3)
   {
     type metadata accessor for NSNumber(0, &lazy cache variable for type metadata for NSObject, 0x277D82BB8);
-    v5.super.isa = Dictionary._bridgeToObjectiveC()().super.isa;
+    v4.super.isa = Dictionary._bridgeToObjectiveC()().super.isa;
   }
 
   else
   {
-    v5.super.isa = 0;
+    v4.super.isa = 0;
   }
 
-  return v5.super.isa;
+  return v4.super.isa;
 }
 
 - (uint64_t)UseCase
@@ -78,7 +77,7 @@
   if (!lazy protocol witness table cache variable for type [String : UseCaseGroup] and conformance <> [A : B])
   {
     __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSDySS8CipherML12UseCaseGroupVGMd, &_sSDySS8CipherML12UseCaseGroupVGMR);
-    lazy protocol witness table accessor for type HE.SecurityLevel and conformance HE.SecurityLevel(&lazy protocol witness table cache variable for type UseCaseGroup and conformance UseCaseGroup, type metadata accessor for UseCaseGroup);
+    lazy protocol witness table accessor for type HE.SecurityLevel and conformance HE.SecurityLevel(&lazy protocol witness table cache variable for type UseCaseGroup and conformance UseCaseGroup, type metadata accessor for UseCaseGroup, &protocol conformance descriptor for UseCaseGroup);
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type [String : UseCaseGroup] and conformance <> [A : B]);
   }
@@ -92,7 +91,7 @@
   if (!lazy protocol witness table cache variable for type [String : AllowListMigrationV1.UseCaseGroup] and conformance <> [A : B])
   {
     __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSDySS8CipherML20AllowListMigrationV1O12UseCaseGroupVGMd, &_sSDySS8CipherML20AllowListMigrationV1O12UseCaseGroupVGMR);
-    _s16CryptoKitPrivate2HEO13SecurityLevelOAESEAAWlTm_0(&lazy protocol witness table cache variable for type AllowListMigrationV1.UseCaseGroup and conformance AllowListMigrationV1.UseCaseGroup, type metadata accessor for AllowListMigrationV1.UseCaseGroup);
+    _s16CryptoKitPrivate2HEO13SecurityLevelOAESEAAWlTm_0(&lazy protocol witness table cache variable for type AllowListMigrationV1.UseCaseGroup and conformance AllowListMigrationV1.UseCaseGroup, type metadata accessor for AllowListMigrationV1.UseCaseGroup, &protocol conformance descriptor for AllowListMigrationV1.UseCaseGroup);
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type [String : AllowListMigrationV1.UseCaseGroup] and conformance <> [A : B]);
   }
@@ -106,7 +105,7 @@
   if (!lazy protocol witness table cache variable for type [String : Date] and conformance <> [A : B])
   {
     __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSDySS10Foundation4DateVGMd, &_sSDySS10Foundation4DateVGMR);
-    lazy protocol witness table accessor for type ActiveUseCaseTracker and conformance ActiveUseCaseTracker(&lazy protocol witness table cache variable for type Date and conformance Date, MEMORY[0x277CC9578]);
+    lazy protocol witness table accessor for type ActiveUseCaseTracker and conformance ActiveUseCaseTracker(&lazy protocol witness table cache variable for type Date and conformance Date, MEMORY[0x277CC9578], MEMORY[0x277CC9580]);
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type [String : Date] and conformance <> [A : B]);
   }
@@ -119,10 +118,10 @@
   if (!lazy cache variable for type metadata for [String : AspireApiConfig])
   {
     type metadata accessor for AspireApiConfig(255);
-    v0 = type metadata accessor for Dictionary();
-    if (!v1)
+    v1 = type metadata accessor for Dictionary();
+    if (!v2)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for [String : AspireApiConfig]);
+      atomic_store(v1, &lazy cache variable for type metadata for [String : AspireApiConfig]);
     }
   }
 }
@@ -133,7 +132,7 @@
   {
   }
 
-  return result;
+  return v3;
 }
 
 @end

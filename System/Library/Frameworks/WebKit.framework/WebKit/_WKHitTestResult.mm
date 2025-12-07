@@ -447,7 +447,7 @@ LABEL_10:
   v5 = *(API::FrameInfo::FrameInfo(v6, v16, &v15) + 8);
   if (!v5)
   {
-    v9 = 0;
+    var1 = 0;
     goto LABEL_11;
   }
 
@@ -456,9 +456,9 @@ LABEL_10:
   {
     v7 = v5;
     v8 = v5;
-    v9 = *(v6 + 8);
+    var1 = v6->var1;
 LABEL_11:
-    CFRelease(v9);
+    CFRelease(var1);
     if (v15)
     {
       CFRelease(*(v15 + 8));

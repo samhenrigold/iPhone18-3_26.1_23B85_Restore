@@ -1,10 +1,13 @@
 @interface smb_subr
 + (id)encodePath:(id)path;
 + (id)makeWindowsPath:(id)path withName:(id)name;
++ (int)queryShareRootSync:(id)sync ShareID:(unsigned int)d FAttrs:(smbfattr *)attrs;
 + (int)sendLogoff:(id)logoff Param:(smb_login_out *)param;
 + (int)sendNegotiate:(id)negotiate Server:(id)server netBIOSName:(id)name VPNCookie:(id)cookie Result:(smb_negotiate *)result;
++ (int)sendQueryShare:(id)share ShareID:(unsigned int)d Model:(id)model FSName:(id)name Param:(smb_query_share *)param;
 + (int)sendSessionSetup:(id)setup User:(id)user Password:(id)password Realm:(id)realm Param:(smb_login_out *)param;
 + (int)sendTreeConnect:(id)connect ShareName:(id)name Param:(smb_tree_connect_disc *)param;
++ (int)sendTreeDisonnect:(id)disonnect ShareID:(unsigned int)d Param:(smb_tree_connect_disc *)param;
 + (void)checkForWindowsSymlink:(id)symlink CompletionHandler:(id)handler;
 + (void)createFile:(id)file NewName:(id)name FileType:(int)type RetAttr:(smbfattr *)attr CompletionHandler:(id)handler;
 + (void)createReparseSymlink:(id)symlink NewName:(id)name Target:(id)target RetAttr:(smbfattr *)attr CompletionHandler:(id)handler;
@@ -17,10 +20,14 @@
 + (void)listNodeStreams:(id)streams CompletionHandler:(id)handler;
 + (void)openFileInParent:(id)parent withName:(id)name withStream:(id)stream withArgs:(openFileArgs *)args CompletionHandler:(id)handler;
 + (void)openFileNode:(id)node withStream:(id)stream withArgs:(openFileArgs *)args CompletionHandler:(id)handler;
++ (void)queryDirOneAttr:(id)attr ShareID:(unsigned int)d DirNode:(id)node withName:(id)name FAttrs:(smbfattr *)attrs CompletionHandler:(id)handler;
 + (void)queryMaxAccess:(id)access CompletionHandler:(id)handler;
 + (void)queryNameInParent:(id)parent QueryName:(id)name FAttrs:(smbfattr *)attrs CompletionHandler:(id)handler;
 + (void)queryNode:(id)node attrs:(smbfattr *)attrs CompletionHandler:(id)handler;
++ (void)queryNodeAttr:(id)attr ShareID:(unsigned int)d QueryNode:(id)node QueryStream:(id)stream FAttrs:(smbfattr *)attrs CompletionHandler:(id)handler;
 + (void)queryNodeStream:(id)stream StreamName:(id)name CompletionHandler:(id)handler;
++ (void)queryShareRoot:(id)root ShareID:(unsigned int)d FAttrs:(smbfattr *)attrs CompletionHandler:(id)handler;
++ (void)readNodeStream:(id)stream StreamName:(id)name ReadBuffer:(id)buffer MaxReadXferLen:(unsigned int)len CompletionHandler:(id)handler;
 + (void)readNodeStreamChunk:(id)chunk FileNode:(id)node ReadBuffer:(id)buffer MaxReadXferLen:(unsigned int)len StreamOffset:(unsigned int)offset rdparamPtr:(smb_read_write *)ptr result:(int)result bytesRead:(unint64_t)self0 bytesRemain:(unint64_t)self1 pass:(unint64_t)self2 reply:(id)self3;
 + (void)readNodeStreamChunks:(id)chunks StreamName:(id)name ReadBuffer:(id)buffer MaxReadXferLen:(unsigned int)len CompletionHandler:(id)handler;
 + (void)readNodeStreamCompound:(id)compound StreamName:(id)name ReadBuffer:(id)buffer CompletionHandler:(id)handler;
@@ -29,13 +36,18 @@
 + (void)readWindowsSymlink:(id)symlink completionHandler:(id)handler;
 + (void)renameFile:(id)file FileName:(id)name NewParent:(id)parent NewName:(id)newName VType:(int)type CompletionHandler:(id)handler;
 + (void)sendChangeNotify:(id)notify Param:(changeNotifyArgs *)param CompletionHandler:(id)handler NotifyHandler:(id)notifyHandler;
++ (void)sendClose:(id)close Param:(smb_close *)param GetPostAttrs:(BOOL)attrs CompletionHandler:(id)handler;
++ (void)sendCreateFile:(id)file ShareID:(unsigned int)d FileName:(id)name StreamName:(id)streamName Param:(smb_create *)param CompletionHandler:(id)handler;
 + (void)sendPipeTransceive:(id)transceive InData:(id)data OutData:(id)outData CompletionHandler:(id)handler;
++ (void)sendPipeWait:(id)wait Pipe:(id)pipe ShareID:(unsigned int)d Timeout:(unint64_t)timeout CompletionHandler:(id)handler;
 + (void)sendRead:(id)read Param:(smb_read_write *)param ReadBuf:(id)buf CompletionHandler:(id)handler;
 + (void)sendSetInfo:(id)info Param:(smb_setinfo *)param InputBuffer:(id)buffer RenameTarget:(id)target CompletionHandler:(id)handler;
 + (void)sendWrite:(id)write Param:(smb_read_write *)param WriteBuf:(id)buf CompletionHandler:(id)handler;
 + (void)setChangeNotify:(id)notify Param:(changeNotifyArgs *)param CompletionHandler:(id)handler NotifyHandler:(id)notifyHandler;
 + (void)setNodeBasicInfo:(id)info BasicInfo:(smb2_file_basic_info *)basicInfo FileType:(int)type CompletionHandler:(id)handler;
 + (void)setNodeEOF:(id)f Eof:(unint64_t)eof FileType:(int)type CompletionHandler:(id)handler;
++ (void)statFS:(id)s ShareID:(unsigned int)d CompletionHandler:(id)handler;
++ (void)writeNodeStream:(id)stream StreamName:(id)name How:(int)how MaxWriteXferLen:(unsigned int)len WriteBuffer:(id)buffer CompletionHandler:(id)handler;
 + (void)writeNodeStreamChunk:(id)chunk FileNode:(id)node WriteBuffer:(id)buffer MaxWriteXferLen:(unsigned int)len StreamOffset:(unsigned int)offset wrparamPtr:(smb_read_write *)ptr result:(int)result bytesWritten:(unint64_t)self0 bytesRemain:(unint64_t)self1 pass:(unint64_t)self2 reply:(id)self3;
 + (void)writeNodeStreamChunks:(id)chunks StreamName:(id)name How:(int)how MaxWriteXferLen:(unsigned int)len WriteBuffer:(id)buffer CompletionHandler:(id)handler;
 + (void)writeNodeStreamCompound:(id)compound StreamName:(id)name How:(int)how WriteBuffer:(id)buffer CompletionHandler:(id)handler;
@@ -50,9 +62,9 @@
   nameCopy = name;
   cookieCopy = cookie;
   v26 = 0;
-  v27[0] = &v26;
-  v27[1] = 0x2020000000;
-  v28 = 0;
+  v27 = &v26;
+  v28 = 0x2020000000;
+  v29 = 0;
   v20 = 0;
   v21 = &v20;
   v22 = 0x3032000000;
@@ -72,14 +84,14 @@
   v19[5] = &v20;
   [negotiateCopy negotiateTo:serverCopy netBIOSname:nameCopy withVPNCookie:cookieCopy outParameters:result callBack:v19];
   dispatch_group_wait(v21[5], 0xFFFFFFFFFFFFFFFFLL);
-  if (*(v27[0] + 24))
+  if (*(v27 + 6))
   {
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
     {
-      sub_10005A250(v27);
+      sub_10005A250();
     }
 
-    v17 = *(v27[0] + 24);
+    v17 = *(v27 + 6);
   }
 
   else
@@ -100,9 +112,9 @@
   passwordCopy = password;
   realmCopy = realm;
   v26 = 0;
-  v27[0] = &v26;
-  v27[1] = 0x2020000000;
-  v28 = 0;
+  v27 = &v26;
+  v28 = 0x2020000000;
+  v29 = 0;
   v20 = 0;
   v21 = &v20;
   v22 = 0x3032000000;
@@ -122,14 +134,14 @@
   v19[5] = &v20;
   [setupCopy login:param asUser:userCopy withPassword:passwordCopy inRealm:realmCopy callBack:v19];
   dispatch_group_wait(v21[5], 0xFFFFFFFFFFFFFFFFLL);
-  if (*(v27[0] + 24))
+  if (*(v27 + 6))
   {
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
     {
-      sub_10005A2CC(v27);
+      sub_10005A2CC();
     }
 
-    v17 = *(v27[0] + 24);
+    v17 = *(v27 + 6);
   }
 
   else
@@ -147,9 +159,9 @@
 {
   logoffCopy = logoff;
   v17 = 0;
-  v18[0] = &v17;
-  v18[1] = 0x2020000000;
-  v19 = 0;
+  v18 = &v17;
+  v19 = 0x2020000000;
+  v20 = 0;
   v11 = 0;
   v12 = &v11;
   v13 = 0x3032000000;
@@ -169,14 +181,14 @@
   v10[5] = &v11;
   [logoffCopy logoff:param callBack:v10];
   dispatch_group_wait(v12[5], 0xFFFFFFFFFFFFFFFFLL);
-  if (*(v18[0] + 24))
+  if (*(v18 + 6))
   {
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
     {
-      sub_10005A34C(v18);
+      sub_10005A34C();
     }
 
-    v8 = *(v18[0] + 24);
+    v8 = *(v18 + 6);
   }
 
   else
@@ -195,9 +207,9 @@
   connectCopy = connect;
   nameCopy = name;
   v20 = 0;
-  v21[0] = &v20;
-  v21[1] = 0x2020000000;
-  v22 = 0;
+  v21 = &v20;
+  v22 = 0x2020000000;
+  v23 = 0;
   v14 = 0;
   v15 = &v14;
   v16 = 0x3032000000;
@@ -217,14 +229,14 @@
   v13[5] = &v14;
   [connectCopy treeConnect:param toShare:nameCopy callBack:v13];
   dispatch_group_wait(v15[5], 0xFFFFFFFFFFFFFFFFLL);
-  if (*(v21[0] + 24))
+  if (*(v21 + 6))
   {
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
     {
-      sub_10005A3CC(v21);
+      sub_10005A3CC();
     }
 
-    v11 = *(v21[0] + 24);
+    v11 = *(v21 + 6);
   }
 
   else
@@ -236,6 +248,128 @@
 
   _Block_object_dispose(&v20, 8);
   return v11;
+}
+
++ (int)sendTreeDisonnect:(id)disonnect ShareID:(unsigned int)d Param:(smb_tree_connect_disc *)param
+{
+  v6 = *&d;
+  disonnectCopy = disonnect;
+  v19 = 0;
+  v20 = &v19;
+  v21 = 0x2020000000;
+  v22 = 0;
+  v13 = 0;
+  v14 = &v13;
+  v15 = 0x3032000000;
+  v16 = sub_100036A88;
+  v17 = sub_100036A98;
+  v18 = 0;
+  v8 = dispatch_group_create();
+  v9 = v14[5];
+  v14[5] = v8;
+
+  dispatch_group_enter(v14[5]);
+  v12[0] = _NSConcreteStackBlock;
+  v12[1] = 3221225472;
+  v12[2] = sub_100037208;
+  v12[3] = &unk_10008E2D8;
+  v12[4] = &v19;
+  v12[5] = &v13;
+  [disonnectCopy treeDisconnect:param fromShareID:v6 callBack:v12];
+  dispatch_group_wait(v14[5], 0xFFFFFFFFFFFFFFFFLL);
+  if (*(v20 + 6))
+  {
+    if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+    {
+      sub_10005A448();
+    }
+
+    v10 = *(v20 + 6);
+  }
+
+  else
+  {
+    v10 = 0;
+  }
+
+  _Block_object_dispose(&v13, 8);
+
+  _Block_object_dispose(&v19, 8);
+  return v10;
+}
+
++ (int)sendQueryShare:(id)share ShareID:(unsigned int)d Model:(id)model FSName:(id)name Param:(smb_query_share *)param
+{
+  v10 = *&d;
+  shareCopy = share;
+  modelCopy = model;
+  nameCopy = name;
+  v25 = 0;
+  v26 = &v25;
+  v27 = 0x2020000000;
+  v28 = 0;
+  v19 = 0;
+  v20 = &v19;
+  v21 = 0x3032000000;
+  v22 = sub_100036A88;
+  v23 = sub_100036A98;
+  v24 = 0;
+  v14 = dispatch_group_create();
+  v15 = v20[5];
+  v20[5] = v14;
+
+  dispatch_group_enter(v20[5]);
+  v18[0] = _NSConcreteStackBlock;
+  v18[1] = 3221225472;
+  v18[2] = sub_100037404;
+  v18[3] = &unk_10008E2D8;
+  v18[4] = &v25;
+  v18[5] = &v19;
+  [shareCopy queryShareInformation:param forShareID:v10 forModelInfo:modelCopy forFileSystemName:nameCopy callBack:v18];
+  dispatch_group_wait(v20[5], 0xFFFFFFFFFFFFFFFFLL);
+  if (*(v26 + 6))
+  {
+    if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+    {
+      sub_10005A4C4();
+    }
+
+    v16 = *(v26 + 6);
+  }
+
+  else
+  {
+    v16 = 0;
+  }
+
+  _Block_object_dispose(&v19, 8);
+
+  _Block_object_dispose(&v25, 8);
+  return v16;
+}
+
++ (void)sendCreateFile:(id)file ShareID:(unsigned int)d FileName:(id)name StreamName:(id)streamName Param:(smb_create *)param CompletionHandler:(id)handler
+{
+  v11 = *&d;
+  v14[0] = _NSConcreteStackBlock;
+  v14[1] = 3221225472;
+  v14[2] = sub_1000374F8;
+  v14[3] = &unk_10008E300;
+  handlerCopy = handler;
+  v13 = handlerCopy;
+  [SMBNode nodeWithParameters:param onPiston:file onShareID:v11 withName:name withStreamName:streamName callBack:v14];
+}
+
++ (void)sendClose:(id)close Param:(smb_close *)param GetPostAttrs:(BOOL)attrs CompletionHandler:(id)handler
+{
+  attrsCopy = attrs;
+  v10[0] = _NSConcreteStackBlock;
+  v10[1] = 3221225472;
+  v10[2] = sub_1000375B4;
+  v10[3] = &unk_10008CA10;
+  handlerCopy = handler;
+  v9 = handlerCopy;
+  [close close:param withFlags:attrsCopy callBack:v10];
 }
 
 + (void)sendWrite:(id)write Param:(smb_read_write *)param WriteBuf:(id)buf CompletionHandler:(id)handler
@@ -260,6 +394,30 @@
   paramCopy = param;
   v9 = handlerCopy;
   [read read:param intoBuffer:buf callBack:v10];
+}
+
++ (void)sendPipeWait:(id)wait Pipe:(id)pipe ShareID:(unsigned int)d Timeout:(unint64_t)timeout CompletionHandler:(id)handler
+{
+  v8 = *&d;
+  handlerCopy = handler;
+  pipeCopy = pipe;
+  waitCopy = wait;
+  v14 = malloc_type_malloc(0x60uLL, 0x1000040718B784FuLL);
+  *v14 = 0u;
+  v14[1] = 0u;
+  v14[2] = 0u;
+  v14[3] = 0u;
+  v14[4] = 0u;
+  v14[5] = 0u;
+  *(v14 + 1) = 1114136;
+  v16[0] = _NSConcreteStackBlock;
+  v16[1] = 3221225472;
+  v16[2] = sub_1000378F8;
+  v16[3] = &unk_10008E328;
+  v17 = handlerCopy;
+  v18 = v14;
+  v15 = handlerCopy;
+  [waitCopy ioctl:v14 onShareID:v8 pipeWaitOnName:pipeCopy withTimeOut:timeout callBack:v16];
 }
 
 + (void)sendPipeTransceive:(id)transceive InData:(id)data OutData:(id)outData CompletionHandler:(id)handler
@@ -349,6 +507,215 @@
   }
 
   _Block_object_dispose(&v23, 8);
+}
+
++ (void)queryShareRoot:(id)root ShareID:(unsigned int)d FAttrs:(smbfattr *)attrs CompletionHandler:(id)handler
+{
+  v8 = *&d;
+  rootCopy = root;
+  v15[0] = 0;
+  v15[1] = v15;
+  v15[2] = 0x2020000000;
+  v16 = 0;
+  v11[0] = _NSConcreteStackBlock;
+  v11[1] = 3221225472;
+  v11[2] = sub_1000380B4;
+  v11[3] = &unk_10008E3C0;
+  handlerCopy = handler;
+  v12 = handlerCopy;
+  v13 = v15;
+  attrsCopy = attrs;
+  [SMBNode nodeForCmpd:rootCopy onShareID:v8 callBack:v11];
+
+  _Block_object_dispose(v15, 8);
+}
+
++ (int)queryShareRootSync:(id)sync ShareID:(unsigned int)d FAttrs:(smbfattr *)attrs
+{
+  v6 = *&d;
+  syncCopy = sync;
+  v17 = 0;
+  v18 = &v17;
+  v19 = 0x3032000000;
+  v20 = sub_100036A88;
+  v21 = sub_100036A98;
+  v22 = 0;
+  v13 = 0;
+  v14 = &v13;
+  v15 = 0x2020000000;
+  v16 = 0;
+  v8 = dispatch_group_create();
+  v9 = v18[5];
+  v18[5] = v8;
+
+  dispatch_group_enter(v18[5]);
+  v12[0] = _NSConcreteStackBlock;
+  v12[1] = 3221225472;
+  v12[2] = sub_100038884;
+  v12[3] = &unk_10008E2D8;
+  v12[4] = &v13;
+  v12[5] = &v17;
+  [smb_subr queryShareRoot:syncCopy ShareID:v6 FAttrs:attrs CompletionHandler:v12];
+  dispatch_group_wait(v18[5], 0xFFFFFFFFFFFFFFFFLL);
+  if (*(v14 + 6))
+  {
+    if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+    {
+      sub_10005ADA8();
+    }
+
+    v10 = *(v14 + 6);
+  }
+
+  else
+  {
+    v10 = 0;
+  }
+
+  _Block_object_dispose(&v13, 8);
+  _Block_object_dispose(&v17, 8);
+
+  return v10;
+}
+
++ (void)queryDirOneAttr:(id)attr ShareID:(unsigned int)d DirNode:(id)node withName:(id)name FAttrs:(smbfattr *)attrs CompletionHandler:(id)handler
+{
+  v12 = *&d;
+  attrCopy = attr;
+  nodeCopy = node;
+  nameCopy = name;
+  handlerCopy = handler;
+  v31[0] = 0;
+  v31[1] = v31;
+  v31[2] = 0x2020000000;
+  v32 = 0;
+  if (nameCopy)
+  {
+    parent = nodeCopy;
+    name = nameCopy;
+  }
+
+  else
+  {
+    parent = [nodeCopy parent];
+    name = [nodeCopy name];
+    if (!parent)
+    {
+      if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+      {
+        sub_10005AE74();
+      }
+
+      handlerCopy[2](handlerCopy, 22);
+      parent = 0;
+      goto LABEL_8;
+    }
+  }
+
+  if ([parent isRoot])
+  {
+    v19 = 0;
+LABEL_7:
+    v24[0] = _NSConcreteStackBlock;
+    v24[1] = 3221225472;
+    v24[2] = sub_100038B60;
+    v24[3] = &unk_10008E410;
+    v28 = handlerCopy;
+    v29 = v31;
+    v20 = v19;
+    v25 = v20;
+    v26 = nameCopy;
+    attrsCopy = attrs;
+    v27 = nodeCopy;
+    [SMBNode nodeForCmpd:attrCopy onShareID:v12 callBack:v24];
+
+    goto LABEL_8;
+  }
+
+  v19 = [smb_subr makeWindowsPath:nodeCopy withName:0];
+  if (v19)
+  {
+    goto LABEL_7;
+  }
+
+  v21 = &_os_log_default;
+  if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+  {
+    name2 = [nodeCopy name];
+    v23 = name2;
+    [name2 UTF8String];
+    sub_10005AE28();
+  }
+
+  handlerCopy[2](handlerCopy, 22);
+LABEL_8:
+  _Block_object_dispose(v31, 8);
+}
+
++ (void)queryNodeAttr:(id)attr ShareID:(unsigned int)d QueryNode:(id)node QueryStream:(id)stream FAttrs:(smbfattr *)attrs CompletionHandler:(id)handler
+{
+  v12 = *&d;
+  attrCopy = attr;
+  nodeCopy = node;
+  streamCopy = stream;
+  handlerCopy = handler;
+  v29[0] = 0;
+  v29[1] = v29;
+  v29[2] = 0x2020000000;
+  v30 = 0;
+  v17 = objc_alloc_init(SMBFileAllInformation);
+  if (!v17)
+  {
+    v19 = &_os_log_default;
+    if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+    {
+      [nodeCopy name];
+      objc_claimAutoreleasedReturnValue();
+      sub_10005B2E0();
+    }
+
+    goto LABEL_10;
+  }
+
+  if (([nodeCopy isRoot] & 1) == 0)
+  {
+    v18 = [smb_subr makeWindowsPath:nodeCopy withName:0];
+    if (v18)
+    {
+      goto LABEL_7;
+    }
+
+    v21 = &_os_log_default;
+    if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+    {
+      [nodeCopy name];
+      objc_claimAutoreleasedReturnValue();
+      sub_10005B294();
+    }
+
+LABEL_10:
+
+    handlerCopy[2](handlerCopy, 22);
+    goto LABEL_11;
+  }
+
+  v18 = 0;
+LABEL_7:
+  v22[0] = _NSConcreteStackBlock;
+  v22[1] = 3221225472;
+  v22[2] = sub_100039424;
+  v22[3] = &unk_10008E438;
+  v26 = handlerCopy;
+  v23 = nodeCopy;
+  v27 = v29;
+  v20 = v18;
+  v24 = v20;
+  v25 = v17;
+  attrsCopy = attrs;
+  [SMBNode nodeForCmpd:attrCopy onShareID:v12 callBack:v22];
+
+LABEL_11:
+  _Block_object_dispose(v29, 8);
 }
 
 + (void)queryNameInParent:(id)parent QueryName:(id)name FAttrs:(smbfattr *)attrs CompletionHandler:(id)handler
@@ -742,7 +1109,7 @@ LABEL_14:
   {
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEBUG))
     {
-      sub_10005C834(&v30);
+      sub_10005C834();
     }
 
     v21 = v30;
@@ -1146,6 +1513,38 @@ LABEL_5:
   _Block_object_dispose(v30, 8);
 }
 
++ (void)readNodeStream:(id)stream StreamName:(id)name ReadBuffer:(id)buffer MaxReadXferLen:(unsigned int)len CompletionHandler:(id)handler
+{
+  v7 = *&len;
+  handlerCopy = handler;
+  bufferCopy = buffer;
+  nameCopy = name;
+  streamCopy = stream;
+  if ([bufferCopy length] <= v7)
+  {
+    v21[0] = _NSConcreteStackBlock;
+    v21[1] = 3221225472;
+    v21[2] = sub_10003F408;
+    v21[3] = &unk_10008E6B8;
+    v16 = &v22;
+    v22 = handlerCopy;
+    v18 = handlerCopy;
+    [self readNodeStreamCompound:streamCopy StreamName:nameCopy ReadBuffer:bufferCopy CompletionHandler:v21];
+  }
+
+  else
+  {
+    v19[0] = _NSConcreteStackBlock;
+    v19[1] = 3221225472;
+    v19[2] = sub_10003F418;
+    v19[3] = &unk_10008E6B8;
+    v16 = &v20;
+    v20 = handlerCopy;
+    v17 = handlerCopy;
+    [self readNodeStreamChunks:streamCopy StreamName:nameCopy ReadBuffer:bufferCopy MaxReadXferLen:v7 CompletionHandler:v19];
+  }
+}
+
 + (void)readNodeStreamChunks:(id)chunks StreamName:(id)name ReadBuffer:(id)buffer MaxReadXferLen:(unsigned int)len CompletionHandler:(id)handler
 {
   chunksCopy = chunks;
@@ -1297,6 +1696,39 @@ LABEL_4:
   (*(handlerCopy + 2))(handlerCopy, 22, 0);
 LABEL_5:
   _Block_object_dispose(v29, 8);
+}
+
++ (void)writeNodeStream:(id)stream StreamName:(id)name How:(int)how MaxWriteXferLen:(unsigned int)len WriteBuffer:(id)buffer CompletionHandler:(id)handler
+{
+  v9 = *&len;
+  v10 = *&how;
+  handlerCopy = handler;
+  bufferCopy = buffer;
+  nameCopy = name;
+  streamCopy = stream;
+  if ([bufferCopy length] <= v9)
+  {
+    v23[0] = _NSConcreteStackBlock;
+    v23[1] = 3221225472;
+    v23[2] = sub_100040A30;
+    v23[3] = &unk_10008CA10;
+    v18 = &v24;
+    v24 = handlerCopy;
+    v20 = handlerCopy;
+    [self writeNodeStreamCompound:streamCopy StreamName:nameCopy How:v10 WriteBuffer:bufferCopy CompletionHandler:v23];
+  }
+
+  else
+  {
+    v21[0] = _NSConcreteStackBlock;
+    v21[1] = 3221225472;
+    v21[2] = sub_100040A40;
+    v21[3] = &unk_10008CA10;
+    v18 = &v22;
+    v22 = handlerCopy;
+    v19 = handlerCopy;
+    [self writeNodeStreamChunks:streamCopy StreamName:nameCopy How:v10 MaxWriteXferLen:v9 WriteBuffer:bufferCopy CompletionHandler:v21];
+  }
 }
 
 + (void)writeNodeStreamChunks:(id)chunks StreamName:(id)name How:(int)how MaxWriteXferLen:(unsigned int)len WriteBuffer:(id)buffer CompletionHandler:(id)handler
@@ -1583,6 +2015,26 @@ LABEL_5:
   v10 = malloc_type_malloc(8uLL, 0x100004000313F17uLL);
   v7 = handlerCopy;
   [closeCopy close:v10 callBack:v8];
+}
+
++ (void)statFS:(id)s ShareID:(unsigned int)d CompletionHandler:(id)handler
+{
+  v6 = *&d;
+  sCopy = s;
+  v12[0] = 0;
+  v12[1] = v12;
+  v12[2] = 0x2020000000;
+  v13 = 0;
+  v9[0] = _NSConcreteStackBlock;
+  v9[1] = 3221225472;
+  v9[2] = sub_100042BD8;
+  v9[3] = &unk_10008E8C0;
+  handlerCopy = handler;
+  v10 = handlerCopy;
+  v11 = v12;
+  [SMBNode nodeForCmpd:sCopy onShareID:v6 callBack:v9];
+
+  _Block_object_dispose(v12, 8);
 }
 
 + (void)setNodeBasicInfo:(id)info BasicInfo:(smb2_file_basic_info *)basicInfo FileType:(int)type CompletionHandler:(id)handler
@@ -1880,7 +2332,7 @@ LABEL_5:
 + (id)encodePath:(id)path
 {
   pathCopy = path;
-  v4 = [pathCopy stringByReplacingOccurrencesOfString:@"/" withString:@"\\" options:2 range:{0, objc_msgSend(pathCopy, "length"")}];
+  v4 = [pathCopy stringByReplacingOccurrencesOfString:@"/" withString:@"\ options:2 range:{0, objc_msgSend(pathCopy, "length"")}];
 
   if (v4)
   {

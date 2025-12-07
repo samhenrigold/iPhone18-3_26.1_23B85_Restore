@@ -36,7 +36,7 @@
         [v8 objectForKeyedSubscript:@"embeddings"];
         objc_claimAutoreleasedReturnValue();
 
-        dlib::matrix<float,1l,0l,dlib::memory_manager_stateless_kernel_1<char>,dlib::row_major_layout>::matrix(&v38.value);
+        dlib::matrix<float,1l,0l,dlib::memory_manager_stateless_kernel_1<char>,dlib::row_major_layout>::matrix(&v38.value, self->_embeddingSize);
       }
 
       if (v36 == v35)
@@ -47,22 +47,22 @@
       else
       {
         LODWORD(v38.value) = 0;
-        std::vector<float>::vector[abi:ne200100](buf, 1uLL);
+        std::vector<float>::vector[abi:ne200100](buf, 1uLL, &v38);
         if (v36 != v35)
         {
-          if (0xAAAAAAAAAAAAAAABLL * ((v36 - v35) >> 3) >= 0x140)
+          if (0xAAAAAAAAAAAAAAABLL * (v36 - v35) >= 0x140)
           {
             v9 = 320;
           }
 
           else
           {
-            v9 = 0xAAAAAAAAAAAAAAABLL * ((v36 - v35) >> 3);
+            v9 = 0xAAAAAAAAAAAAAAABLL * (v36 - v35);
           }
 
           memset(&v38, 0, sizeof(v38));
-          std::vector<dlib::matrix<float,1l,0l,dlib::memory_manager_stateless_kernel_1<char>,dlib::row_major_layout>>::__init_with_size[abi:ne200100]<std::__wrap_iter<dlib::matrix<float,1l,0l,dlib::memory_manager_stateless_kernel_1<char>,dlib::row_major_layout>*>,std::__wrap_iter<dlib::matrix<float,1l,0l,dlib::memory_manager_stateless_kernel_1<char>,dlib::row_major_layout>*>>(&v38, v35, v35 + 24 * v9, 0xAAAAAAAAAAAAAAABLL * ((24 * v9) >> 3));
-          estimateNumberOfSegmentsBySpectralClustering();
+          std::vector<dlib::matrix<float,1l,0l,dlib::memory_manager_stateless_kernel_1<char>,dlib::row_major_layout>>::__init_with_size[abi:ne200100]<std::__wrap_iter<dlib::matrix<float,1l,0l,dlib::memory_manager_stateless_kernel_1<char>,dlib::row_major_layout>*>,std::__wrap_iter<dlib::matrix<float,1l,0l,dlib::memory_manager_stateless_kernel_1<char>,dlib::row_major_layout>*>>(&v38.value, v35, &v35[3 * v9], 0xAAAAAAAAAAAAAAABLL * ((24 * v9) >> 3));
+          estimateNumberOfSegmentsBySpectralClustering(&v38.value);
         }
 
         lastObject = [(NSArray *)self->_videoEmbeddings lastObject];
@@ -231,7 +231,7 @@
     v40 = 1;
     v41 = embeddingSize2;
     v42 = embeddingSize2;
-    dlib::matrix<float,0l,0l,dlib::memory_manager_stateless_kernel_1<char>,dlib::row_major_layout>::matrix<dlib::matrix_op<dlib::op_pointer_to_mat<float>>>(&time.value);
+    dlib::matrix<float,0l,0l,dlib::memory_manager_stateless_kernel_1<char>,dlib::row_major_layout>::matrix<dlib::matrix_op<dlib::op_pointer_to_mat<float>>>(&time.value, &__p);
   }
 
   if (v11)
@@ -240,7 +240,7 @@
   }
 
   LODWORD(time.value) = 0;
-  std::vector<float>::vector[abi:ne200100](&__p, (v49 - v48) >> 5);
+  std::vector<float>::vector[abi:ne200100](&__p, (v49 - v48) >> 5, &time);
   v22 = __p;
   if (v49 != v48)
   {
@@ -308,7 +308,7 @@
   v37[0] = 1;
   v37[1] = [endTimeCopy embeddingSize];
   v38 = 0;
-  dlib::matrix<float,0l,0l,dlib::memory_manager_stateless_kernel_1<char>,dlib::row_major_layout>::matrix<dlib::matrix_op<dlib::op_uniform_matrix_3<float>>>(&time.value);
+  dlib::matrix<float,0l,0l,dlib::memory_manager_stateless_kernel_1<char>,dlib::row_major_layout>::matrix<dlib::matrix_op<dlib::op_uniform_matrix_3<float>>>(&time.value, v37);
 }
 
 - (id).cxx_construct

@@ -12,6 +12,7 @@
 - (BOOL)accumSupported;
 - (BOOL)anyVirtualTemperatureAboveThreshold;
 - (BOOL)readKeyViaOSAccum:(id)accum toOutput:(id *)output;
+- (BOOL)sampleKey:(id *)key forKey:(unsigned int)forKey;
 - (BOOL)writeKeyNumeric:(id)numeric withValue:(unint64_t)value;
 - (PLSMCAgent)init;
 - (const)getChannelInfo:(unsigned int)info;
@@ -38,6 +39,7 @@
 - (void)logEventPointMetricMonitorInstantKeys;
 - (void)logPowerDeliveryKeys;
 - (void)logThermalAggregationKeysToCA;
+- (void)parseThermalThresholds:(BOOL)thresholds thermalPressure:(BOOL)pressure virtualTemp:(BOOL)temp thermalLevel:(BOOL)level;
 - (void)registerThermalTimer;
 - (void)stopThermalTimerAndlogFirstLowSample:(BOOL)sample;
 - (void)virtualTemperatureMonitorCallback;
@@ -57,27 +59,27 @@
 
 - (BOOL)anyVirtualTemperatureAboveThreshold
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   virtualTemperatureKeys = [(PLSMCAgent *)self virtualTemperatureKeys];
-  v4 = [virtualTemperatureKeys countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v4 = [virtualTemperatureKeys countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v15;
+    v6 = *v14;
     while (2)
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v15 != v6)
+        if (*v14 != v6)
         {
           objc_enumerationMutation(virtualTemperatureKeys);
         }
 
-        v8 = [(PLSMCAgent *)self readKey:*(*(&v14 + 1) + 8 * i)];
+        v8 = [(PLSMCAgent *)self readKey:*(*(&v13 + 1) + 8 * i)];
         v9 = v8;
         if (v8)
         {
@@ -91,7 +93,7 @@
         }
       }
 
-      v5 = [virtualTemperatureKeys countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v5 = [virtualTemperatureKeys countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v5)
       {
         continue;
@@ -104,7 +106,6 @@
   v11 = 0;
 LABEL_12:
 
-  v12 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
@@ -234,94 +235,92 @@ LABEL_12:
 
 + (id)entryEventPointDefinitions
 {
-  v7[1] = *MEMORY[0x277D85DE8];
-  v6 = @"MetricMonitorInstantKeys";
+  v6[1] = *MEMORY[0x277D85DE8];
+  v5 = @"MetricMonitorInstantKeys";
   entryEventPointDefinitionMetricMonitorInstantKeys = [self entryEventPointDefinitionMetricMonitorInstantKeys];
-  v7[0] = entryEventPointDefinitionMetricMonitorInstantKeys;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
-
-  v4 = *MEMORY[0x277D85DE8];
+  v6[0] = entryEventPointDefinitionMetricMonitorInstantKeys;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
 
   return v3;
 }
 
 + (id)entryEventPointDefinitionMetricMonitorInstantKeys
 {
-  v43[2] = *MEMORY[0x277D85DE8];
+  v42[2] = *MEMORY[0x277D85DE8];
   if ([MEMORY[0x277D3F258] isPerfPowerMetricd])
   {
-    v42[0] = *MEMORY[0x277D3F4E8];
+    v41[0] = *MEMORY[0x277D3F4E8];
     v2 = *MEMORY[0x277D3F4D8];
-    v40[0] = *MEMORY[0x277D3F568];
-    v40[1] = v2;
-    v41[0] = &unk_282C1BDD8;
-    v41[1] = MEMORY[0x277CBEC38];
-    v37 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v41 forKeys:v40 count:2];
-    v43[0] = v37;
-    v42[1] = *MEMORY[0x277D3F540];
-    v38[0] = @"B0AP";
+    v39[0] = *MEMORY[0x277D3F568];
+    v39[1] = v2;
+    v40[0] = &unk_282C1BDD8;
+    v40[1] = MEMORY[0x277CBEC38];
+    v36 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v40 forKeys:v39 count:2];
+    v42[0] = v36;
+    v41[1] = *MEMORY[0x277D3F540];
+    v37[0] = @"B0AP";
     mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_RealFormat = [mEMORY[0x277D3F198] commonTypeDict_RealFormat];
-    v39[0] = commonTypeDict_RealFormat;
-    v38[1] = @"zSLi";
+    v38[0] = commonTypeDict_RealFormat;
+    v37[1] = @"zSLi";
     mEMORY[0x277D3F198]2 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_RealFormat2 = [mEMORY[0x277D3F198]2 commonTypeDict_RealFormat];
-    v39[1] = commonTypeDict_RealFormat2;
-    v38[2] = @"zSLa";
+    v38[1] = commonTypeDict_RealFormat2;
+    v37[2] = @"zSLa";
     mEMORY[0x277D3F198]3 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_RealFormat3 = [mEMORY[0x277D3F198]3 commonTypeDict_RealFormat];
-    v39[2] = commonTypeDict_RealFormat3;
-    v38[3] = @"zSLc";
+    v38[2] = commonTypeDict_RealFormat3;
+    v37[3] = @"zSLc";
     mEMORY[0x277D3F198]4 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_RealFormat4 = [mEMORY[0x277D3F198]4 commonTypeDict_RealFormat];
-    v39[3] = commonTypeDict_RealFormat4;
-    v38[4] = @"zSPi";
+    v38[3] = commonTypeDict_RealFormat4;
+    v37[4] = @"zSPi";
     mEMORY[0x277D3F198]5 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_RealFormat5 = [mEMORY[0x277D3F198]5 commonTypeDict_RealFormat];
-    v39[4] = commonTypeDict_RealFormat5;
-    v38[5] = @"xRPE";
+    v38[4] = commonTypeDict_RealFormat5;
+    v37[5] = @"xRPE";
     mEMORY[0x277D3F198]6 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_RealFormat6 = [mEMORY[0x277D3F198]6 commonTypeDict_RealFormat];
-    v39[5] = commonTypeDict_RealFormat6;
-    v38[6] = @"CHAS";
+    v38[5] = commonTypeDict_RealFormat6;
+    v37[6] = @"CHAS";
     mEMORY[0x277D3F198]7 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_RealFormat7 = [mEMORY[0x277D3F198]7 commonTypeDict_RealFormat];
-    v39[6] = commonTypeDict_RealFormat7;
-    v38[7] = @"TB0T";
+    v38[6] = commonTypeDict_RealFormat7;
+    v37[7] = @"TB0T";
     mEMORY[0x277D3F198]8 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_RealFormat8 = [mEMORY[0x277D3F198]8 commonTypeDict_RealFormat];
-    v39[7] = commonTypeDict_RealFormat8;
-    v38[8] = @"TVRM";
+    v38[7] = commonTypeDict_RealFormat8;
+    v37[8] = @"TVRM";
     mEMORY[0x277D3F198]9 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_RealFormat9 = [mEMORY[0x277D3F198]9 commonTypeDict_RealFormat];
-    v39[8] = commonTypeDict_RealFormat9;
-    v38[9] = @"TVBM";
+    v38[8] = commonTypeDict_RealFormat9;
+    v37[9] = @"TVBM";
     mEMORY[0x277D3F198]10 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_RealFormat10 = [mEMORY[0x277D3F198]10 commonTypeDict_RealFormat];
-    v39[9] = commonTypeDict_RealFormat10;
-    v38[10] = @"TVBH";
+    v38[9] = commonTypeDict_RealFormat10;
+    v37[10] = @"TVBH";
     mEMORY[0x277D3F198]11 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_RealFormat11 = [mEMORY[0x277D3F198]11 commonTypeDict_RealFormat];
-    v39[10] = commonTypeDict_RealFormat11;
-    v38[11] = @"TVMx";
+    v38[10] = commonTypeDict_RealFormat11;
+    v37[11] = @"TVMx";
     mEMORY[0x277D3F198]12 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_RealFormat12 = [mEMORY[0x277D3F198]12 commonTypeDict_RealFormat];
-    v39[11] = commonTypeDict_RealFormat12;
-    v38[12] = @"TVBE";
+    v38[11] = commonTypeDict_RealFormat12;
+    v37[12] = @"TVBE";
     mEMORY[0x277D3F198]13 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_RealFormat13 = [mEMORY[0x277D3F198]13 commonTypeDict_RealFormat];
-    v39[12] = commonTypeDict_RealFormat13;
-    v38[13] = @"PDEP";
+    v38[12] = commonTypeDict_RealFormat13;
+    v37[13] = @"PDEP";
     mEMORY[0x277D3F198]14 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_RealFormat14 = [mEMORY[0x277D3F198]14 commonTypeDict_RealFormat];
-    v39[13] = commonTypeDict_RealFormat14;
-    v38[14] = @"PDLP";
+    v38[13] = commonTypeDict_RealFormat14;
+    v37[14] = @"PDLP";
     mEMORY[0x277D3F198]15 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_RealFormat15 = [mEMORY[0x277D3F198]15 commonTypeDict_RealFormat];
-    v39[14] = commonTypeDict_RealFormat15;
-    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v39 forKeys:v38 count:15];
-    v43[1] = v11;
-    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v43 forKeys:v42 count:2];
+    v38[14] = commonTypeDict_RealFormat15;
+    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v38 forKeys:v37 count:15];
+    v42[1] = v11;
+    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v42 forKeys:v41 count:2];
   }
 
   else
@@ -329,48 +328,42 @@ LABEL_12:
     v12 = MEMORY[0x277CBEC10];
   }
 
-  v13 = *MEMORY[0x277D85DE8];
-
   return v12;
 }
 
 + (id)entryEventNoneDefinitionDRAMVendorKey
 {
-  v14[2] = *MEMORY[0x277D85DE8];
-  v13[0] = *MEMORY[0x277D3F4E8];
-  v11 = *MEMORY[0x277D3F568];
-  v12 = &unk_282C1BDE8;
-  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v12 forKeys:&v11 count:1];
-  v14[0] = v2;
-  v13[1] = *MEMORY[0x277D3F540];
-  v9 = @"MDSV";
+  v13[2] = *MEMORY[0x277D85DE8];
+  v12[0] = *MEMORY[0x277D3F4E8];
+  v10 = *MEMORY[0x277D3F568];
+  v11 = &unk_282C1BDE8;
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v11 forKeys:&v10 count:1];
+  v13[0] = v2;
+  v12[1] = *MEMORY[0x277D3F540];
+  v8 = @"MDSV";
   mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat = [mEMORY[0x277D3F198] commonTypeDict_IntegerFormat];
-  v10 = commonTypeDict_IntegerFormat;
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v10 forKeys:&v9 count:1];
-  v14[1] = v5;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:2];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v9 = commonTypeDict_IntegerFormat;
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v9 forKeys:&v8 count:1];
+  v13[1] = v5;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:2];
 
   return v6;
 }
 
 + (id)entryEventNoneDefinitions
 {
-  v10[3] = *MEMORY[0x277D85DE8];
-  v9[0] = @"PowerDeliveryKeys";
+  v9[3] = *MEMORY[0x277D85DE8];
+  v8[0] = @"PowerDeliveryKeys";
   entryEventNoneDefinitionPowerDeliveryKeys = [self entryEventNoneDefinitionPowerDeliveryKeys];
-  v10[0] = entryEventNoneDefinitionPowerDeliveryKeys;
-  v9[1] = @"DRAMVendorKey";
+  v9[0] = entryEventNoneDefinitionPowerDeliveryKeys;
+  v8[1] = @"DRAMVendorKey";
   entryEventNoneDefinitionDRAMVendorKey = [self entryEventNoneDefinitionDRAMVendorKey];
-  v10[1] = entryEventNoneDefinitionDRAMVendorKey;
-  v9[2] = @"ColdBoot";
+  v9[1] = entryEventNoneDefinitionDRAMVendorKey;
+  v8[2] = @"ColdBoot";
   entryEventNoneDefinitionColdBoot = [self entryEventNoneDefinitionColdBoot];
-  v10[2] = entryEventNoneDefinitionColdBoot;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:3];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v9[2] = entryEventNoneDefinitionColdBoot;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:3];
 
   return v6;
 }
@@ -457,81 +450,79 @@ LABEL_12:
 
 - (void)logEventPointMetricMonitorInstantKeys
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   if ([MEMORY[0x277D3F258] isPerfPowerMetricd])
   {
     v3 = [(PLOperator *)PLSMCAgent entryKeyForType:*MEMORY[0x277D3F5E8] andName:@"MetricMonitorInstantKeys"];
     v4 = [objc_alloc(MEMORY[0x277D3F190]) initWithEntryKey:v3];
+    v13 = 0u;
     v14 = 0u;
     v15 = 0u;
     v16 = 0u;
-    v17 = 0u;
     metricMonitorInstantKeys = [(PLSMCAgent *)self metricMonitorInstantKeys];
-    v6 = [metricMonitorInstantKeys countByEnumeratingWithState:&v14 objects:v19 count:16];
+    v6 = [metricMonitorInstantKeys countByEnumeratingWithState:&v13 objects:v18 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v15;
+      v8 = *v14;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v15 != v8)
+          if (*v14 != v8)
           {
             objc_enumerationMutation(metricMonitorInstantKeys);
           }
 
-          v10 = *(*(&v14 + 1) + 8 * i);
+          v10 = *(*(&v13 + 1) + 8 * i);
           v11 = [(PLSMCAgent *)self readKey:v10];
           [v4 setObject:v11 forKeyedSubscript:v10];
         }
 
-        v7 = [metricMonitorInstantKeys countByEnumeratingWithState:&v14 objects:v19 count:16];
+        v7 = [metricMonitorInstantKeys countByEnumeratingWithState:&v13 objects:v18 count:16];
       }
 
       while (v7);
     }
 
-    v18 = v4;
-    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:&v18 count:1];
+    v17 = v4;
+    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:&v17 count:1];
     [(PLOperator *)self postEntries:v12];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (id)sampleAccumulatedKeys:(id)keys
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   keysCopy = keys;
   dictionary = [MEMORY[0x277CBEB38] dictionary];
+  v27 = 0u;
   v28 = 0u;
   v29 = 0u;
   v30 = 0u;
-  v31 = 0u;
   v6 = keysCopy;
-  v7 = [v6 countByEnumeratingWithState:&v28 objects:v34 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v27 objects:v33 count:16];
   if (v7)
   {
     v8 = v7;
     v9 = 0x278257000uLL;
-    v24 = *v29;
+    v23 = *v28;
     do
     {
       v10 = 0;
       do
       {
-        if (*v29 != v24)
+        if (*v28 != v23)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v28 + 1) + 8 * v10);
-        v26 = 0.0;
-        v27 = 0;
-        if ([(PLSMCAgent *)self readKeyViaOSAccum:v11 toOutput:&v26])
+        v11 = *(*(&v27 + 1) + 8 * v10);
+        v25 = 0.0;
+        v26 = 0;
+        if ([(PLSMCAgent *)self readKeyViaOSAccum:v11 toOutput:&v25])
         {
-          v12 = [*(v9 + 3760) objectWithChannelValue:v27 cycleCount:BYTE4(v27) variant:v26];
+          v12 = [*(v9 + 3760) objectWithChannelValue:v26 cycleCount:BYTE4(v26) variant:v25];
           [dictionary setObject:v12 forKeyedSubscript:v11];
         }
 
@@ -552,7 +543,7 @@ LABEL_12:
           {
             v14 = v6;
             v15 = dictionary;
-            v16 = [MEMORY[0x277CCACA8] stringWithFormat:@"AccumulatedKeys: keyName=%@, channelValue=%f, cycleCount=%d, variant=%d", v11, *&v26, v27, BYTE4(v27)];
+            v16 = [MEMORY[0x277CCACA8] stringWithFormat:@"AccumulatedKeys: keyName=%@, channelValue=%f, cycleCount=%d, variant=%d", v11, *&v25, v26, BYTE4(v26)];
             v17 = MEMORY[0x277D3F178];
             v18 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Hardware/PLSMCAgent.m"];
             lastPathComponent = [v18 lastPathComponent];
@@ -563,7 +554,7 @@ LABEL_12:
             if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
             {
               *buf = 138412290;
-              v33 = v16;
+              v32 = v16;
               _os_log_debug_impl(&dword_21A4C6000, v21, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
             }
 
@@ -577,18 +568,16 @@ LABEL_12:
       }
 
       while (v8 != v10);
-      v8 = [v6 countByEnumeratingWithState:&v28 objects:v34 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v27 objects:v33 count:16];
     }
 
     while (v8);
   }
 
-  v22 = *MEMORY[0x277D85DE8];
-
   return dictionary;
 }
 
-uint64_t __36__PLSMCAgent_sampleAccumulatedKeys___block_invoke(uint64_t a1)
+void *__36__PLSMCAgent_sampleAccumulatedKeys___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   _MergedGlobals_1_12 = result;
@@ -597,52 +586,50 @@ uint64_t __36__PLSMCAgent_sampleAccumulatedKeys___block_invoke(uint64_t a1)
 
 - (id)resetAccumulatedKeys:(id)keys
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   keysCopy = keys;
   dictionary = [MEMORY[0x277CBEB38] dictionary];
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   v6 = keysCopy;
-  v7 = [v6 countByEnumeratingWithState:&v18 objects:v24 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v17 objects:v23 count:16];
   if (v7)
   {
     v9 = v7;
-    v10 = *v19;
+    v10 = *v18;
     *&v8 = 138412290;
-    v17 = v8;
+    v16 = v8;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v19 != v10)
+        if (*v18 != v10)
         {
           objc_enumerationMutation(v6);
         }
 
-        v12 = *(*(&v18 + 1) + 8 * i);
-        if ([(PLSMCAgent *)self SMCKeyExists:v12, v17, v18])
+        v12 = *(*(&v17 + 1) + 8 * i);
+        if ([(PLSMCAgent *)self SMCKeyExists:v12, v16, v17])
         {
           v13 = [PLSMCOutputObject objectWithChannelValue:0 cycleCount:0 variant:0.0];
           [dictionary setObject:v13 forKeyedSubscript:v12];
           v14 = PLLogSMC();
           if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
           {
-            *buf = v17;
-            v23 = v12;
+            *buf = v16;
+            v22 = v12;
             _os_log_debug_impl(&dword_21A4C6000, v14, OS_LOG_TYPE_DEBUG, "ExistingKeys: keyName=%@", buf, 0xCu);
           }
         }
       }
 
-      v9 = [v6 countByEnumeratingWithState:&v18 objects:v24 count:16];
+      v9 = [v6 countByEnumeratingWithState:&v17 objects:v23 count:16];
     }
 
     while (v9);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return dictionary;
 }
@@ -896,24 +883,22 @@ void __54__PLSMCAgent_logAccumKeysToCA_withLastSample_andDate___block_invoke(id 
 
 id __54__PLSMCAgent_logAccumKeysToCA_withLastSample_andDate___block_invoke_2(uint64_t a1)
 {
-  v10[5] = *MEMORY[0x277D85DE8];
-  v10[0] = *(a1 + 32);
-  v9[0] = @"KeyName";
-  v9[1] = @"ChannelValue";
+  v9[5] = *MEMORY[0x277D85DE8];
+  v9[0] = *(a1 + 32);
+  v8[0] = @"KeyName";
+  v8[1] = @"ChannelValue";
   v2 = [MEMORY[0x277CCABB0] numberWithDouble:*(a1 + 56)];
-  v10[1] = v2;
-  v9[2] = @"CycleCount";
+  v9[1] = v2;
+  v8[2] = @"CycleCount";
   v3 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:*(a1 + 64)];
   v4 = *(a1 + 40);
   v5 = *(a1 + 48);
-  v10[2] = v3;
-  v10[3] = v4;
-  v9[3] = @"Plugged";
-  v9[4] = @"Wake";
-  v10[4] = v5;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:5];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v9[2] = v3;
+  v9[3] = v4;
+  v8[3] = @"Plugged";
+  v8[4] = @"Wake";
+  v9[4] = v5;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:5];
 
   return v6;
 }
@@ -982,7 +967,7 @@ id __54__PLSMCAgent_logAccumKeysToCA_withLastSample_andDate___block_invoke_2(uin
 
 void __43__PLSMCAgent_logThermalAggregationKeysToCA__block_invoke(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [*(a1 + 32) readKey:v3];
   if ([v3 isEqualToString:@"SDTO"])
@@ -1014,17 +999,15 @@ void __43__PLSMCAgent_logThermalAggregationKeysToCA__block_invoke(uint64_t a1, v
   v11 = PLLogSMC();
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
-    v13 = 138412290;
-    v14 = v3;
-    _os_log_debug_impl(&dword_21A4C6000, v11, OS_LOG_TYPE_DEBUG, "logging key to CA: %@", &v13, 0xCu);
+    v12 = 138412290;
+    v13 = v3;
+    _os_log_debug_impl(&dword_21A4C6000, v11, OS_LOG_TYPE_DEBUG, "logging key to CA: %@", &v12, 0xCu);
   }
 
   if (v4)
   {
     [*(a1 + 40) setObject:v4 forKey:v3];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __28__PLSMCAgent_accumSupported__block_invoke(uint64_t a1)
@@ -1037,7 +1020,7 @@ uint64_t __28__PLSMCAgent_accumSupported__block_invoke(uint64_t a1)
 
 - (id)readKey:(id)key
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   keyCopy = key;
   v5 = keyCopy;
   if (keyCopy)
@@ -1051,28 +1034,26 @@ uint64_t __28__PLSMCAgent_accumSupported__block_invoke(uint64_t a1)
         [(PLSMCAgent *)self smcConnection];
         if (!SMCReadKeyAsNumericWithKnownKeyInfo())
         {
-          v8 = PLLogSMC();
-          if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+          v7 = PLLogSMC();
+          if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
           {
             buf = 138412546;
             *buf_4 = v5;
-            v11 = 2112;
-            v12 = 0;
-            _os_log_debug_impl(&dword_21A4C6000, v8, OS_LOG_TYPE_DEBUG, "%@: %@", &buf, 0x16u);
+            v10 = 2112;
+            v11 = 0;
+            _os_log_debug_impl(&dword_21A4C6000, v7, OS_LOG_TYPE_DEBUG, "%@: %@", &buf, 0x16u);
           }
         }
       }
     }
   }
 
-  v6 = *MEMORY[0x277D85DE8];
-
   return 0;
 }
 
 - (BOOL)writeKeyNumeric:(id)numeric withValue:(unint64_t)value
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   numericCopy = numeric;
   v7 = numericCopy;
   if (!numericCopy)
@@ -1098,8 +1079,8 @@ LABEL_13:
   {
     v9 = v8;
     *buf = 0;
+    v24 = 0;
     v25 = 0;
-    v26 = 0;
     [(PLSMCAgent *)self smcConnection];
     v10 = SMCGetKeyInfo();
     if (v10)
@@ -1108,19 +1089,19 @@ LABEL_13:
       v12 = PLLogSMC();
       if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
-        *v23 = 67109376;
-        *&v23[4] = v9;
-        *&v23[8] = 1024;
-        *&v23[10] = v11;
+        *v22 = 67109376;
+        *&v22[4] = v9;
+        *&v22[8] = 1024;
+        *&v22[10] = v11;
         v13 = "SMCGetKeyInfo for %u key failed with %d";
 LABEL_6:
-        _os_log_error_impl(&dword_21A4C6000, v12, OS_LOG_TYPE_ERROR, v13, v23, 0xEu);
+        _os_log_error_impl(&dword_21A4C6000, v12, OS_LOG_TYPE_ERROR, v13, v22, 0xEu);
       }
     }
 
     else
     {
-      [(PLSMCAgent *)self smcConnection:*v23];
+      [(PLSMCAgent *)self smcConnection:*v22];
       v19 = SMCWriteKeyAsNumeric();
       v20 = PLLogSMC();
       v12 = v20;
@@ -1128,11 +1109,11 @@ LABEL_6:
       {
         if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
         {
-          *v23 = 138412546;
-          *&v23[4] = v7;
-          *&v23[12] = 2048;
-          *&v23[14] = value;
-          _os_log_debug_impl(&dword_21A4C6000, v12, OS_LOG_TYPE_DEBUG, "%@: %llu", v23, 0x16u);
+          *v22 = 138412546;
+          *&v22[4] = v7;
+          *&v22[12] = 2048;
+          *&v22[14] = value;
+          _os_log_debug_impl(&dword_21A4C6000, v12, OS_LOG_TYPE_DEBUG, "%@: %llu", v22, 0x16u);
         }
 
         v18 = 1;
@@ -1141,10 +1122,10 @@ LABEL_6:
 
       if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
-        *v23 = 67109376;
-        *&v23[4] = v9;
-        *&v23[8] = 1024;
-        *&v23[10] = v19;
+        *v22 = 67109376;
+        *&v22[4] = v9;
+        *&v22[8] = 1024;
+        *&v22[10] = v19;
         v13 = "Writing to %u key failed with %d";
         goto LABEL_6;
       }
@@ -1172,8 +1153,49 @@ LABEL_10:
   v18 = 0;
 LABEL_18:
 
-  v21 = *MEMORY[0x277D85DE8];
   return v18;
+}
+
+- (BOOL)sampleKey:(id *)key forKey:(unsigned int)forKey
+{
+  v12 = *MEMORY[0x277D85DE8];
+  if (![(PLSMCAgent *)self getChannelInfo:*&forKey])
+  {
+    v6 = PLLogSMC();
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    {
+      v11[0] = 67109120;
+      v11[1] = forKey;
+      v7 = "Fail to fetch channelInfo for key %u";
+      v8 = v6;
+      v9 = 8;
+      goto LABEL_10;
+    }
+
+LABEL_6:
+
+    return 0;
+  }
+
+  [(PLSMCAgent *)self smcConnection];
+  if (SMCOSAccumSampleChannel())
+  {
+    v6 = PLLogSMC();
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    {
+      LOWORD(v11[0]) = 0;
+      v7 = "SMCOSAccumSampleChannel fails";
+      v8 = v6;
+      v9 = 2;
+LABEL_10:
+      _os_log_error_impl(&dword_21A4C6000, v8, OS_LOG_TYPE_ERROR, v7, v11, v9);
+      goto LABEL_6;
+    }
+
+    goto LABEL_6;
+  }
+
+  return 1;
 }
 
 - (const)getChannelInfo:(unsigned int)info
@@ -1216,7 +1238,7 @@ LABEL_18:
 
 - (BOOL)readKeyViaOSAccum:(id)accum toOutput:(id *)output
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   accumCopy = accum;
   v7 = accumCopy;
   if (!accumCopy)
@@ -1224,9 +1246,9 @@ LABEL_18:
     goto LABEL_4;
   }
 
+  v22 = 0;
   v23 = 0;
   v24 = 0;
-  v25 = 0;
   [accumCopy UTF8String];
   v8 = SMCMakeUInt32Key();
   if (v8)
@@ -1243,12 +1265,12 @@ LABEL_4:
     {
       if (output->var1)
       {
-        v11 = PLLogSMC();
-        if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+        v10 = PLLogSMC();
+        if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412290;
-          v27 = v7;
-          _os_log_debug_impl(&dword_21A4C6000, v11, OS_LOG_TYPE_DEBUG, "Accumulated key: %@", buf, 0xCu);
+          v26 = v7;
+          _os_log_debug_impl(&dword_21A4C6000, v10, OS_LOG_TYPE_DEBUG, "Accumulated key: %@", buf, 0xCu);
         }
 
         LOBYTE(v8) = 1;
@@ -1260,15 +1282,15 @@ LABEL_4:
         goto LABEL_4;
       }
 
-      v12 = objc_opt_class();
-      v18 = MEMORY[0x277D85DD0];
-      v19 = 3221225472;
-      v20 = __41__PLSMCAgent_readKeyViaOSAccum_toOutput___block_invoke_178;
-      v21 = &__block_descriptor_40_e5_v8__0lu32l8;
-      v22 = v12;
+      v11 = objc_opt_class();
+      v17 = MEMORY[0x277D85DD0];
+      v18 = 3221225472;
+      v19 = __41__PLSMCAgent_readKeyViaOSAccum_toOutput___block_invoke_178;
+      v20 = &__block_descriptor_40_e5_v8__0lu32l8;
+      v21 = v11;
       if (qword_2811F4020 != -1)
       {
-        dispatch_once(&qword_2811F4020, &v18);
+        dispatch_once(&qword_2811F4020, &v17);
       }
 
       if (byte_2811F3FEC != 1)
@@ -1276,32 +1298,32 @@ LABEL_4:
         goto LABEL_4;
       }
 
-      v11 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s: Returned cycleCount is zero for %u key, returning kSMCReturnError", "-[PLSMCAgent readKeyViaOSAccum:toOutput:]", v8, v18, v19, v20, v21, v22];
-      v13 = MEMORY[0x277D3F178];
-      v14 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Hardware/PLSMCAgent.m"];
-      lastPathComponent = [v14 lastPathComponent];
-      v16 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLSMCAgent readKeyViaOSAccum:toOutput:]"];
-      [v13 logMessage:v11 fromFile:lastPathComponent fromFunction:v16 fromLineNumber:1672];
+      v10 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s: Returned cycleCount is zero for %u key, returning kSMCReturnError", "-[PLSMCAgent readKeyViaOSAccum:toOutput:]", v8, v17, v18, v19, v20, v21];
+      v12 = MEMORY[0x277D3F178];
+      v13 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Hardware/PLSMCAgent.m"];
+      lastPathComponent = [v13 lastPathComponent];
+      v15 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLSMCAgent readKeyViaOSAccum:toOutput:]"];
+      [v12 logMessage:v10 fromFile:lastPathComponent fromFunction:v15 fromLineNumber:1672];
 
-      v17 = PLLogCommon();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+      v16 = PLLogCommon();
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v27 = v11;
-        _os_log_debug_impl(&dword_21A4C6000, v17, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
+        v26 = v10;
+        _os_log_debug_impl(&dword_21A4C6000, v16, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
 
     else
     {
-      v11 = PLLogSMC();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v10 = PLLogSMC();
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v27 = "[PLSMCAgent readKeyViaOSAccum:toOutput:]";
-        v28 = 1024;
-        v29 = v8;
-        _os_log_error_impl(&dword_21A4C6000, v11, OS_LOG_TYPE_ERROR, "%s: %u key call to sampleKey failed, returning kSMCReturnError", buf, 0x12u);
+        v26 = "[PLSMCAgent readKeyViaOSAccum:toOutput:]";
+        v27 = 1024;
+        v28 = v8;
+        _os_log_error_impl(&dword_21A4C6000, v10, OS_LOG_TYPE_ERROR, "%s: %u key call to sampleKey failed, returning kSMCReturnError", buf, 0x12u);
       }
     }
 
@@ -1311,25 +1333,24 @@ LABEL_16:
 
 LABEL_5:
 
-  v9 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
-uint64_t __41__PLSMCAgent_readKeyViaOSAccum_toOutput___block_invoke(uint64_t a1)
+void *__41__PLSMCAgent_readKeyViaOSAccum_toOutput___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F3FEA = result;
   return result;
 }
 
-uint64_t __41__PLSMCAgent_readKeyViaOSAccum_toOutput___block_invoke_172(uint64_t a1)
+void *__41__PLSMCAgent_readKeyViaOSAccum_toOutput___block_invoke_172(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F3FEB = result;
   return result;
 }
 
-uint64_t __41__PLSMCAgent_readKeyViaOSAccum_toOutput___block_invoke_178(uint64_t a1)
+void *__41__PLSMCAgent_readKeyViaOSAccum_toOutput___block_invoke_178(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F3FEC = result;
@@ -1338,30 +1359,30 @@ uint64_t __41__PLSMCAgent_readKeyViaOSAccum_toOutput___block_invoke_178(uint64_t
 
 - (void)logPowerDeliveryKeys
 {
-  v40 = *MEMORY[0x277D85DE8];
-  v22 = [(PLOperator *)PLSMCAgent entryKeyForType:*MEMORY[0x277D3F5E0] andName:@"PowerDeliveryKeys"];
-  v3 = [objc_alloc(MEMORY[0x277D3F190]) initWithEntryKey:v22];
+  v39 = *MEMORY[0x277D85DE8];
+  v21 = [(PLOperator *)PLSMCAgent entryKeyForType:*MEMORY[0x277D3F5E0] andName:@"PowerDeliveryKeys"];
+  v3 = [objc_alloc(MEMORY[0x277D3F190]) initWithEntryKey:v21];
   dictionary = [MEMORY[0x277CBEB38] dictionary];
+  v31 = 0u;
   v32 = 0u;
   v33 = 0u;
   v34 = 0u;
-  v35 = 0u;
   powerDeliveryKeys = [(PLSMCAgent *)self powerDeliveryKeys];
-  v6 = [powerDeliveryKeys countByEnumeratingWithState:&v32 objects:v39 count:16];
+  v6 = [powerDeliveryKeys countByEnumeratingWithState:&v31 objects:v38 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v33;
+    v8 = *v32;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v33 != v8)
+        if (*v32 != v8)
         {
           objc_enumerationMutation(powerDeliveryKeys);
         }
 
-        v10 = *(*(&v32 + 1) + 8 * i);
+        v10 = *(*(&v31 + 1) + 8 * i);
         v11 = [(PLSMCAgent *)self readKey:v10];
         if (v11)
         {
@@ -1370,7 +1391,7 @@ uint64_t __41__PLSMCAgent_readKeyViaOSAccum_toOutput___block_invoke_178(uint64_t
         }
       }
 
-      v7 = [powerDeliveryKeys countByEnumeratingWithState:&v32 objects:v39 count:16];
+      v7 = [powerDeliveryKeys countByEnumeratingWithState:&v31 objects:v38 count:16];
     }
 
     while (v7);
@@ -1384,57 +1405,55 @@ uint64_t __41__PLSMCAgent_readKeyViaOSAccum_toOutput___block_invoke_178(uint64_t
     _os_log_debug_impl(&dword_21A4C6000, v12, OS_LOG_TYPE_DEBUG, "Log Power Delivery Keys to CA", buf, 2u);
   }
 
-  v27 = MEMORY[0x277D85DD0];
-  v28 = 3221225472;
-  v29 = __34__PLSMCAgent_logPowerDeliveryKeys__block_invoke;
-  v30 = &unk_278259CB8;
-  v21 = dictionary;
-  v31 = v21;
+  v26 = MEMORY[0x277D85DD0];
+  v27 = 3221225472;
+  v28 = __34__PLSMCAgent_logPowerDeliveryKeys__block_invoke;
+  v29 = &unk_278259CB8;
+  v20 = dictionary;
+  v30 = v20;
   AnalyticsSendEventLazy();
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
   powerDeliveryResetKeys = [(PLSMCAgent *)self powerDeliveryResetKeys];
-  v14 = [powerDeliveryResetKeys countByEnumeratingWithState:&v23 objects:v38 count:16];
+  v14 = [powerDeliveryResetKeys countByEnumeratingWithState:&v22 objects:v37 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v24;
+    v16 = *v23;
     do
     {
       for (j = 0; j != v15; ++j)
       {
-        if (*v24 != v16)
+        if (*v23 != v16)
         {
           objc_enumerationMutation(powerDeliveryResetKeys);
         }
 
-        v18 = *(*(&v23 + 1) + 8 * j);
-        if ([(PLSMCAgent *)self writeKeyNumeric:v18 withValue:1, v21])
+        v18 = *(*(&v22 + 1) + 8 * j);
+        if ([(PLSMCAgent *)self writeKeyNumeric:v18 withValue:1, v20])
         {
           v19 = PLLogSMC();
           if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
           {
             *buf = 138412290;
-            v37 = v18;
+            v36 = v18;
             _os_log_debug_impl(&dword_21A4C6000, v19, OS_LOG_TYPE_DEBUG, "%@ key has been successfully reset", buf, 0xCu);
           }
         }
       }
 
-      v15 = [powerDeliveryResetKeys countByEnumeratingWithState:&v23 objects:v38 count:16];
+      v15 = [powerDeliveryResetKeys countByEnumeratingWithState:&v22 objects:v37 count:16];
     }
 
     while (v15);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)logDRAMVendorKey
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = [(PLOperator *)PLSMCAgent entryKeyForType:*MEMORY[0x277D3F5E0] andName:@"DRAMVendorKey"];
   v4 = [objc_alloc(MEMORY[0x277D3F190]) initWithEntryKey:v3];
   dRAMVendorKey = [(PLSMCAgent *)self DRAMVendorKey];
@@ -1444,22 +1463,20 @@ uint64_t __41__PLSMCAgent_readKeyViaOSAccum_toOutput___block_invoke_178(uint64_t
     v7 = PLLogSMC();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
-      v9 = 138412290;
-      v10 = v6;
-      _os_log_debug_impl(&dword_21A4C6000, v7, OS_LOG_TYPE_DEBUG, "Log DRAM Vendor key with value %@", &v9, 0xCu);
+      v8 = 138412290;
+      v9 = v6;
+      _os_log_debug_impl(&dword_21A4C6000, v7, OS_LOG_TYPE_DEBUG, "Log DRAM Vendor key with value %@", &v8, 0xCu);
     }
 
     [v4 setObject:v6 forKeyedSubscript:dRAMVendorKey];
   }
 
   [(PLOperator *)self logEntry:v4];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)logColdBoot
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = [(PLOperator *)PLSMCAgent entryKeyForType:*MEMORY[0x277D3F5E0] andName:@"ColdBoot"];
   v4 = [objc_alloc(MEMORY[0x277D3F190]) initWithEntryKey:v3];
   v5 = [(PLSMCAgent *)self readKey:@"VRTC"];
@@ -1468,9 +1485,9 @@ uint64_t __41__PLSMCAgent_readKeyViaOSAccum_toOutput___block_invoke_178(uint64_t
     v6 = PLLogSMC();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
-      v12 = 138412290;
-      v13 = v5;
-      _os_log_debug_impl(&dword_21A4C6000, v6, OS_LOG_TYPE_DEBUG, "Log cold boot key with value in volts %@", &v12, 0xCu);
+      v11 = 138412290;
+      v12 = v5;
+      _os_log_debug_impl(&dword_21A4C6000, v6, OS_LOG_TYPE_DEBUG, "Log cold boot key with value in volts %@", &v11, 0xCu);
     }
 
     v7 = MEMORY[0x277CCABB0];
@@ -1481,8 +1498,6 @@ uint64_t __41__PLSMCAgent_readKeyViaOSAccum_toOutput___block_invoke_178(uint64_t
   }
 
   [(PLOperator *)self logEntry:v4];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (id)metricMonitorInstantKeys
@@ -1499,16 +1514,18 @@ uint64_t __41__PLSMCAgent_readKeyViaOSAccum_toOutput___block_invoke_178(uint64_t
 
 uint64_t __38__PLSMCAgent_metricMonitorInstantKeys__block_invoke()
 {
-  qword_2811F4030 = [MEMORY[0x277CBEB98] setWithObjects:{@"B0AP", @"zSLi", @"zSLa", @"zSLc", @"zSPi", @"xRPE", @"CHAS", @"TB0T", @"TVRM", @"TVBM", @"TVBH", @"TVMx", @"TVBE", @"PDEP", @"PDLP", 0}];
+  v0 = [MEMORY[0x277CBEB98] setWithObjects:{@"B0AP", @"zSLi", @"zSLa", @"zSLc", @"zSPi", @"xRPE", @"CHAS", @"TB0T", @"TVRM", @"TVBM", @"TVBH", @"TVMx", @"TVBE", @"PDEP", @"PDLP", 0}];
+  qword_2811F4030 = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0);
 }
 
 uint64_t __34__PLSMCAgent_powerAccumulatedKeys__block_invoke()
 {
-  qword_2811F4040 = [MEMORY[0x277CBEB98] setWithObjects:{@"PSTR", @"PBat", @"VBat", @"PDLP", @"PDEP", @"PZCB", @"PZCU", @"PZD1", @"PGDP", @"PP0b", @"PP1b", @"PP2b", @"PP3b", @"PP4b", @"PP5b", @"PP6b", @"PP7b", @"PP8b", @"PP9b", @"PPab", @"PPbb", @"PPdb", @"VP0b", @"VP1b", @"VP2b", @"VP3b", @"VP4b", @"VP5b", @"VP6b", @"VP7b", @"VP8b", @"VP9b", @"VPab", @"VPbb", @"VPdb", @"PR4b", @"PR6b", 0}];
+  v0 = [MEMORY[0x277CBEB98] setWithObjects:{@"PSTR", @"PBat", @"VBat", @"PDLP", @"PDEP", @"PZCB", @"PZCU", @"PZD1", @"PGDP", @"PP0b", @"PP1b", @"PP2b", @"PP3b", @"PP4b", @"PP5b", @"PP6b", @"PP7b", @"PP8b", @"PP9b", @"PPab", @"PPbb", @"PPdb", @"VP0b", @"VP1b", @"VP2b", @"VP3b", @"VP4b", @"VP5b", @"VP6b", @"VP7b", @"VP8b", @"VP9b", @"VPab", @"VPbb", @"VPdb", @"PR4b", @"PR6b", 0}];
+  qword_2811F4040 = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0);
 }
 
 - (id)thermalAggregationKeys
@@ -1525,9 +1542,10 @@ uint64_t __34__PLSMCAgent_powerAccumulatedKeys__block_invoke()
 
 uint64_t __36__PLSMCAgent_thermalAggregationKeys__block_invoke()
 {
-  qword_2811F4050 = [MEMORY[0x277CBEB58] setWithObjects:{@"B0AP", @"TB5B", @"TVBA", @"TVBB", @"TVBC", @"TVBF", @"TVBQ", @"TVBM", @"TVBR", @"TVFD", @"TVFL", @"TVFG", @"TVLN", @"TV0s", @"TV2s", @"TG0V", @"TH0T", @"SDTs", @"ftS0", @"voP0", @"mTPL", @"TVBN", @"TVRQ", @"TVRH", @"TVRR", @"TVBE", @"TVRM", @"TVMx", @"TAOP", @"TB50", @"TKFP", @"TW0P", @"TVFC", @"mlr5", @"BUIC", @"TNAP", @"TR0P", @"xCTA", @"SDTA", @"SDTC", @"TB0T", @"TCMb", @"TV1s", @"TV3s", @"TVBH", @"TTDa", @"TPMP", @"TCHP", @"TN0n", @"TV0A", @"TVFM", @"TG0B", @"zSLi", @"zSLa", @"zSLc", @"zSPi", @"TVBL", @"TAOC", @"TVB1", @"TVB2", @"TVB3"}];
+  v0 = [MEMORY[0x277CBEB58] setWithObjects:{@"B0AP", @"TB5B", @"TVBA", @"TVBB", @"TVBC", @"TVBF", @"TVBQ", @"TVBM", @"TVBR", @"TVFD", @"TVFL", @"TVFG", @"TVLN", @"TV0s", @"TV2s", @"TG0V", @"TH0T", @"SDTs", @"ftS0", @"voP0", @"mTPL", @"TVBN", @"TVRQ", @"TVRH", @"TVRR", @"TVBE", @"TVRM", @"TVMx", @"TAOP", @"TB50", @"TKFP", @"TW0P", @"TVFC", @"mlr5", @"BUIC", @"TNAP", @"TR0P", @"xCTA", @"SDTA", @"SDTC", @"TB0T", @"TCMb", @"TV1s", @"TV3s", @"TVBH", @"TTDa", @"TPMP", @"TCHP", @"TN0n", @"TV0A", @"TVFM", @"TG0B", @"zSLi", @"zSLa", @"zSLc", @"zSPi", @"TVBL", @"TAOC", @"TVB1", @"TVB2", @"TVB3"}];
+  qword_2811F4050 = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0);
 }
 
 - (id)powerDeliveryKeys
@@ -1544,9 +1562,10 @@ uint64_t __36__PLSMCAgent_thermalAggregationKeys__block_invoke()
 
 uint64_t __31__PLSMCAgent_powerDeliveryKeys__block_invoke()
 {
-  qword_2811F4060 = [MEMORY[0x277CBEB98] set];
+  v0 = [MEMORY[0x277CBEB98] set];
+  qword_2811F4060 = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0);
 }
 
 - (id)powerDeliveryResetKeys
@@ -1563,9 +1582,10 @@ uint64_t __31__PLSMCAgent_powerDeliveryKeys__block_invoke()
 
 uint64_t __36__PLSMCAgent_powerDeliveryResetKeys__block_invoke()
 {
-  qword_2811F4070 = [MEMORY[0x277CBEB98] set];
+  v0 = [MEMORY[0x277CBEB98] set];
+  qword_2811F4070 = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0);
 }
 
 - (id)DRAMVendorKey
@@ -1588,9 +1608,10 @@ void __27__PLSMCAgent_DRAMVendorKey__block_invoke()
 
 uint64_t __36__PLSMCAgent_virtualTemperatureKeys__block_invoke()
 {
-  qword_2811F4090 = [MEMORY[0x277CBEB98] setWithObjects:{@"TVBA", @"TVBB", @"TVBC", @"TVBE", @"TVBF", @"TVBM", @"TVBN", @"TVBQ", @"TVBR", @"TVFC", @"TVFD", @"TVFG", @"TVFL", @"TVLN", @"TVRH", @"TVRM", @"TVMx", @"TVRQ", @"TVRR", @"TV0s", @"TV2s", @"TV4s", @"TV5s", 0}];
+  v0 = [MEMORY[0x277CBEB98] setWithObjects:{@"TVBA", @"TVBB", @"TVBC", @"TVBE", @"TVBF", @"TVBM", @"TVBN", @"TVBQ", @"TVBR", @"TVFC", @"TVFD", @"TVFG", @"TVFL", @"TVLN", @"TVRH", @"TVRM", @"TVMx", @"TVRQ", @"TVRR", @"TV0s", @"TV2s", @"TV4s", @"TV5s", 0}];
+  qword_2811F4090 = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0);
 }
 
 - (void)stopThermalTimerAndlogFirstLowSample:(BOOL)sample
@@ -1613,7 +1634,15 @@ uint64_t __36__PLSMCAgent_virtualTemperatureKeys__block_invoke()
   }
 }
 
-uint64_t __32__PLSMCAgent_supportsThermalSMC__block_invoke()
+- (void)parseThermalThresholds:(BOOL)thresholds thermalPressure:(BOOL)pressure virtualTemp:(BOOL)temp thermalLevel:(BOOL)level
+{
+  if (temp)
+  {
+    [(PLSMCAgent *)self virtualTemperatureMonitorCallback:thresholds];
+  }
+}
+
+void *__32__PLSMCAgent_supportsThermalSMC__block_invoke()
 {
   result = [MEMORY[0x277D3F208] kPLSoCClassOfDevice];
   byte_2811F3FED = result > 1001014;
@@ -1630,7 +1659,7 @@ uint64_t __32__PLSMCAgent_supportsThermalSMC__block_invoke()
   return byte_2811F3FEE;
 }
 
-uint64_t __30__PLSMCAgent_supportsBasicSMC__block_invoke()
+void *__30__PLSMCAgent_supportsBasicSMC__block_invoke()
 {
   result = [MEMORY[0x277D3F208] kPLSoCClassOfDevice];
   byte_2811F3FEE = result > 1001009;
@@ -1662,7 +1691,7 @@ uint64_t __30__PLSMCAgent_supportsBasicSMC__block_invoke()
 
 + (void)reportPMUEventsToCA:(id)a
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   aCopy = a;
   if (![aCopy unsignedLongLongValue])
   {
@@ -1685,27 +1714,26 @@ uint64_t __30__PLSMCAgent_supportsBasicSMC__block_invoke()
     if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
       *buf = 134218242;
-      v10 = unsignedLongLongValue;
-      v11 = 2112;
-      v12 = v5;
+      v9 = unsignedLongLongValue;
+      v10 = 2112;
+      v11 = v5;
       _os_log_impl(&dword_21A4C6000, v6, OS_LOG_TYPE_INFO, "PMU events: %llu -> %@", buf, 0x16u);
     }
 
-    v8 = v5;
+    v7 = v5;
     AnalyticsSendEventLazy();
   }
 
 LABEL_10:
-  v7 = *MEMORY[0x277D85DE8];
 }
 
-void __34__PLSMCAgent_reportPMUEventsToCA___block_invoke()
+void __34__PLSMCAgent_reportPMUEventsToCA___block_invoke(uint64_t a1)
 {
-  v0 = PLLogCommon();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_INFO))
+  v1 = PLLogCommon();
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_INFO))
   {
-    *v1 = 0;
-    _os_log_impl(&dword_21A4C6000, v0, OS_LOG_TYPE_INFO, "PMU events: pushed empty event", v1, 2u);
+    *v2 = 0;
+    _os_log_impl(&dword_21A4C6000, v1, OS_LOG_TYPE_INFO, "PMU events: pushed empty event", v2, 2u);
   }
 
   byte_2811F3FEF = 1;

@@ -73,20 +73,20 @@
 - (NSString)playContext
 {
   selfCopy = self;
-  MetricsActivity.playContext.getter();
-  v4 = v3;
+  MetricsActivity.playContext.getter(v3);
+  v5 = v4;
 
-  if (v4)
+  if (v5)
   {
-    v5 = sub_3ED204();
+    v6 = sub_3ED204();
   }
 
   else
   {
-    v5 = 0;
+    v6 = 0;
   }
 
-  return v5;
+  return v6;
 }
 
 - (void)setStopReason:(unint64_t)reason

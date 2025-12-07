@@ -130,7 +130,7 @@
     goto LABEL_14;
   }
 
-  if ([key isEqualToString:@"PrimaryFormat"])
+  if (objc_msgSend_isEqualToString_(key, a2, @"PrimaryFormat"))
   {
     v9 = MEMORY[0x1E695DF30];
     v10 = *MEMORY[0x1E695D940];
@@ -167,7 +167,7 @@ LABEL_14:
     objc_exception_throw([MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:@"Cannot set media configuration for nil attachedMediaKey" userInfo:0]);
   }
 
-  if ([key isEqualToString:@"PrimaryFormat"])
+  if (objc_msgSend_isEqualToString_(key, a2, @"PrimaryFormat"))
   {
     return self->_primaryMediaConfiguration;
   }
@@ -191,7 +191,7 @@ LABEL_14:
     objc_exception_throw([MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:@"Cannot set media configuration for nil attachedMediaKey" userInfo:0]);
   }
 
-  if ([key isEqualToString:@"PrimaryFormat"])
+  if (objc_msgSend_isEqualToString_(key, a2, @"PrimaryFormat"))
   {
     return self->_primaryMediaProperties;
   }
@@ -323,7 +323,7 @@ LABEL_25:
     goto LABEL_14;
   }
 
-  if ([key isEqualToString:@"PrimaryFormat"])
+  if (objc_msgSend_isEqualToString_(key, a2, @"PrimaryFormat"))
   {
     v8 = MEMORY[0x1E695DF30];
     v9 = *MEMORY[0x1E695D940];
@@ -370,7 +370,7 @@ LABEL_14:
     objc_exception_throw([MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:@"Cannot get passthrough mode for nil attachedMediaKey" userInfo:0]);
   }
 
-  if ([key isEqualToString:@"PrimaryFormat"])
+  if (objc_msgSend_isEqualToString_(key, a2, @"PrimaryFormat"))
   {
     primaryMediaConfiguration = self->_primaryMediaConfiguration;
 LABEL_5:

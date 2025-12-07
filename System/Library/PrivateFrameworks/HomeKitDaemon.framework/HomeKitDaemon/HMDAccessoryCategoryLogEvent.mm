@@ -17,7 +17,7 @@
   [dictionary setObject:accessoryCategoryIdentifier forKeyedSubscript:@"accessoryCategoryUUID"];
 
   [dictionary setObject:&unk_283E72398 forKeyedSubscript:@"accessoryCategoryCount"];
-  v6 = [dictionary copy];
+  v6 = objc_msgSend_copy(dictionary);
 
   return v6;
 }
@@ -31,7 +31,7 @@
 
   accessoryDetailsType = [(HMDAccessoryCategoryLogEvent *)self accessoryDetailsType];
   [v6 appendBytes:&accessoryDetailsType length:8];
-  v7 = [v6 copy];
+  v7 = objc_msgSend_copy(v6);
 
   return v7;
 }

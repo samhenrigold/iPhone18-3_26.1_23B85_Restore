@@ -7,14 +7,28 @@
 - (BOOL)presentRenderbuffer:(NSUInteger)target afterMinimumDuration:(CFTimeInterval)duration;
 - (BOOL)presentRenderbuffer:(NSUInteger)target atTime:(CFTimeInterval)presentationTime;
 - (BOOL)renderbufferStorage:(NSUInteger)target fromDrawable:(id)drawable;
+- (BOOL)texImageIOSurface:(IOSurfaceRef)ioSurface target:(NSUInteger)target internalFormat:(NSUInteger)internalFormat width:(uint32_t)width height:(uint32_t)height format:(NSUInteger)format type:(NSUInteger)type plane:(uint32_t)plane;
 - (BOOL)texImageIOSurface:(__IOSurface *)surface target:(unint64_t)target internalFormat:(unint64_t)format width:(unsigned int)width height:(unsigned int)height format:(unint64_t)a8 type:(unint64_t)type plane:(unsigned int)self0 invert:(BOOL)self1;
 - (EAGLContext)initWithAPI:(EAGLRenderingAPI)api sharegroup:(EAGLSharegroup *)sharegroup;
 - (EAGLContext)initWithAPI:(unint64_t)i properties:(id)properties;
+- (EAGLContext)initWithAPI:(unint64_t)i sharedWithCompute:(BOOL)compute;
 - (id)commonInitWithAPI:(unint64_t)i properties:(id)properties;
+- (unint64_t)getParameter:(unsigned int)parameter to:(int *)to;
+- (unint64_t)setParameter:(unsigned int)parameter to:(int *)to;
 - (void)dealloc;
 @end
 
 @implementation EAGLContext
+
+- (EAGLContext)initWithAPI:(unint64_t)i sharedWithCompute:(BOOL)compute
+{
+  computeCopy = compute;
+  v7 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  [v7 setObject:objc_msgSend(MEMORY[0x277CCABB0] forKey:{"numberWithBool:", computeCopy), @"EAGLContextPropertySharedWithCompute"}];
+  v8 = [(EAGLContext *)self initWithAPI:i properties:v7];
+
+  return v8;
+}
 
 - (EAGLContext)initWithAPI:(EAGLRenderingAPI)api sharegroup:(EAGLSharegroup *)sharegroup
 {
@@ -32,17 +46,15 @@
 
 - (EAGLContext)initWithAPI:(unint64_t)i properties:(id)properties
 {
-  v15[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   if (!properties)
   {
-    v10 = objc_autoreleasePoolPush();
-    v14 = @"EAGLContextPropertySharedWithCompute";
-    v15[0] = MEMORY[0x277CBEC28];
-    v11 = -[EAGLContext commonInitWithAPI:properties:](self, "commonInitWithAPI:properties:", i, [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:&v14 count:1]);
-    objc_autoreleasePoolPop(v10);
-LABEL_7:
-    v12 = *MEMORY[0x277D85DE8];
-    return v11;
+    v9 = objc_autoreleasePoolPush();
+    v12 = @"EAGLContextPropertySharedWithCompute";
+    v13[0] = MEMORY[0x277CBEC28];
+    v10 = -[EAGLContext commonInitWithAPI:properties:](self, "commonInitWithAPI:properties:", i, [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1]);
+    objc_autoreleasePoolPop(v9);
+    return v10;
   }
 
   v7 = [objc_msgSend(properties objectForKey:{@"EAGLContextPropertyClientLabel", "intValue"}];
@@ -51,20 +63,18 @@ LABEL_7:
     if (v7)
     {
 
-      v11 = 0;
+      return 0;
     }
 
     else
     {
-      v13 = [objc_alloc(MEMORY[0x277CBEB38]) initWithDictionary:properties copyItems:0];
-      [v13 setObject:objc_msgSend(MEMORY[0x277CCABB0] forKey:{"numberWithInt:", 1), @"EAGLContextPropertyClientLabel"}];
-      v11 = [(EAGLContext *)self commonInitWithAPI:i properties:v13];
+      v11 = [objc_alloc(MEMORY[0x277CBEB38]) initWithDictionary:properties copyItems:0];
+      [v11 setObject:objc_msgSend(MEMORY[0x277CCABB0] forKey:{"numberWithInt:", 1), @"EAGLContextPropertyClientLabel"}];
+      v10 = [(EAGLContext *)self commonInitWithAPI:i properties:v11];
     }
 
-    goto LABEL_7;
+    return v10;
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return [(EAGLContext *)self commonInitWithAPI:i properties:properties];
 }
@@ -578,21 +588,28 @@ LABEL_40:
   return 0;
 }
 
+- (BOOL)texImageIOSurface:(IOSurfaceRef)ioSurface target:(NSUInteger)target internalFormat:(NSUInteger)internalFormat width:(uint32_t)width height:(uint32_t)height format:(NSUInteger)format type:(NSUInteger)type plane:(uint32_t)plane
+{
+  BYTE4(v11) = 0;
+  LODWORD(v11) = plane;
+  return [(EAGLContext *)self texImageIOSurface:ioSurface target:target internalFormat:internalFormat width:*&width height:*&height format:format type:type plane:v11 invert:?];
+}
+
 - (BOOL)texImageIOSurface:(__IOSurface *)surface target:(unint64_t)target internalFormat:(unint64_t)format width:(unsigned int)width height:(unsigned int)height format:(unint64_t)a8 type:(unint64_t)type plane:(unsigned int)self0 invert:(BOOL)self1
 {
   v11 = a8;
   formatCopy = format;
   targetCopy = target;
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   ID = IOSurfaceGetID(surface);
   invertCopy = targetCopy;
-  v21 = formatCopy;
+  v20 = formatCopy;
   widthCopy = width;
   heightCopy = height;
-  v24 = v11;
+  v23 = v11;
   typeCopy = type;
   planeCopy = plane;
-  v27 = 0;
+  v26 = 0;
   if (off_280BD5BB0(*(self->_private + 4), 910, &ID))
   {
     fprintf_l(*MEMORY[0x277D85DF8], 0, "Failed to create IOSurface image (texture)\n");
@@ -604,17 +621,41 @@ LABEL_40:
     invertCopy = invert;
     if (!off_280BD5BB0(*(self->_private + 4), 921, &ID))
     {
-      result = 1;
-      goto LABEL_6;
+      return 1;
     }
 
     fprintf_l(*MEMORY[0x277D85DF8], 0, "Failed to create IOSurface image (inversion)\n");
   }
 
-  result = 0;
-LABEL_6:
-  v18 = *MEMORY[0x277D85DE8];
-  return result;
+  return 0;
+}
+
+- (unint64_t)setParameter:(unsigned int)parameter to:(int *)to
+{
+  v4 = self->_private;
+  if (*(*(*(v4 + 1) + 8) + 8) == 1)
+  {
+    return off_280BD5BB0(*(v4 + 4), *&parameter, to);
+  }
+
+  else
+  {
+    return 10000;
+  }
+}
+
+- (unint64_t)getParameter:(unsigned int)parameter to:(int *)to
+{
+  v4 = self->_private;
+  if (*(*(*(v4 + 1) + 8) + 8) == 1)
+  {
+    return off_280BD5BB8(*(v4 + 4), *&parameter, to);
+  }
+
+  else
+  {
+    return 10000;
+  }
 }
 
 @end

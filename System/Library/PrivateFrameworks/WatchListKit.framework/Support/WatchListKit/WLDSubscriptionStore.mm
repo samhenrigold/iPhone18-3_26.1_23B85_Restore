@@ -17,6 +17,7 @@
 - (void)_setInflightCoalescingID:(id)d;
 - (void)_writeToDisk:(id)disk;
 - (void)dealloc;
+- (void)fetchSubscriptionData:(BOOL)data callerProcessID:(unint64_t)d completion:(id)completion;
 @end
 
 @implementation WLDSubscriptionStore
@@ -116,6 +117,90 @@ void __38__WLDSubscriptionStore_sharedInstance__block_invoke(id a1)
   [(WLDSubscriptionStore *)&v4 dealloc];
 }
 
+- (void)fetchSubscriptionData:(BOOL)data callerProcessID:(unint64_t)d completion:(id)completion
+{
+  dataCopy = data;
+  completionCopy = completion;
+  if (self->_enabled)
+  {
+    v9 = +[TVAppAccountStoreObjC activeAccount];
+    ams_DSID = [v9 ams_DSID];
+
+    if (ams_DSID && (dataCopy || [(WLDSubscriptionStore *)self _shouldFetchFreshCopy]))
+    {
+      if ([(WLDSubscriptionStore *)self _shouldFetchFreshCopy])
+      {
+        v11 = WLKSubscriptionSyncLogObject();
+        if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+        {
+          *buf = 0;
+          _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Subscription data has expired or is nil.", buf, 2u);
+        }
+      }
+
+      if (dataCopy)
+      {
+        v12 = WLKSubscriptionSyncLogObject();
+        if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+        {
+          *buf = 0;
+          _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Subscription client is requesting forced refresh", buf, 2u);
+        }
+      }
+
+      v13 = [WLDSubscriptionStore _coalescingIDForUser:ams_DSID forcedReload:dataCopy];
+      v14 = WLKSubscriptionSyncLogObject();
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 138412290;
+        v21 = v13;
+        _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Fetching for coalescingID: %@", buf, 0xCu);
+      }
+
+      objc_initWeak(buf, self);
+      v17[0] = _NSConcreteStackBlock;
+      v17[1] = 3221225472;
+      v17[2] = __73__WLDSubscriptionStore_fetchSubscriptionData_callerProcessID_completion___block_invoke;
+      v17[3] = &unk_100045AB0;
+      v17[4] = self;
+      objc_copyWeak(v19, buf);
+      v19[1] = d;
+      v18 = completionCopy;
+      [(WLDSubscriptionStore *)self _fetchDataFromCommerceWithCoalescingID:v13 completion:v17];
+
+      objc_destroyWeak(v19);
+      objc_destroyWeak(buf);
+    }
+
+    else
+    {
+      v16 = WLKSubscriptionSyncLogObject();
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 0;
+        _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Subscription data is still valid, returning cache", buf, 2u);
+      }
+
+      if (completionCopy)
+      {
+        (*(completionCopy + 2))(completionCopy, self->_subscriptionData, 0);
+      }
+    }
+  }
+
+  else
+  {
+    v15 = WLKSubscriptionSyncLogObject();
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 0;
+      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Subscription sync is disabled", buf, 2u);
+    }
+
+    (*(completionCopy + 2))(completionCopy, 0, 0);
+  }
+}
+
 void __73__WLDSubscriptionStore_fetchSubscriptionData_callerProcessID_completion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
@@ -167,8 +252,8 @@ void __73__WLDSubscriptionStore_fetchSubscriptionData_callerProcessID_completion
       {
         if (v6)
         {
-          v13[0] = 0;
-          _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Subscription data has changed. Update cached copy.", v13, 2u);
+          v12[0] = 0;
+          _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Subscription data has changed. Update cached copy.", v12, 2u);
         }
 
         objc_storeStrong(WeakRetained + 5, v3);
@@ -186,12 +271,11 @@ void __73__WLDSubscriptionStore_fetchSubscriptionData_callerProcessID_completion
       v9 = WLKSubscriptionSyncLogObject();
       if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
-        *v15 = 0;
-        _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Fetched subscription data is nil. No update.", v15, 2u);
+        *v14 = 0;
+        _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Fetched subscription data is nil. No update.", v14, 2u);
       }
     }
 
-    v12 = *(a1 + 40);
     (*(*(a1 + 48) + 16))();
     [WeakRetained _setAdPlatformsStatusCondition:v3];
   }
@@ -637,7 +721,6 @@ void __58__WLDSubscriptionStore__activeAccountChangedNotification___block_invoke
   v5 = +[WLDSubscriptionStore sharedInstance];
   [v5 fetchSubscriptionData:0 callerProcessID:getpid() completion:&__block_literal_global_52];
 
-  v6 = *(a1 + 32);
   [objc_opt_class() _postDidUpdateCrossProcessNotificationWithProcessID:_WLKSystemSubscriptionPID];
 }
 

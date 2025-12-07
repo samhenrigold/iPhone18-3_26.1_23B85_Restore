@@ -341,34 +341,34 @@
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v15 = sub_1000035AC();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      v16 = sub_1000035AC(v12);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412546;
-        v20 = dCopy;
-        v21 = 2112;
-        v22 = v9;
-        _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_ERROR, "Unable to find unshare todo matching %@/%@", buf, 0x16u);
+        v21 = dCopy;
+        v22 = 2112;
+        v23 = v9;
+        _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_ERROR, "Unable to find unshare todo matching %@/%@", buf, 0x16u);
       }
     }
 
-    v16 = +[NSAssertionHandler currentHandler];
-    v17 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Implementations/CloudKit/CPLCKBatchUploadPlanner.m"];
-    [v16 handleFailureInMethod:a2 object:self file:v17 lineNumber:1615 description:{@"Unable to find unshare todo matching %@/%@", dCopy, v9}];
+    v17 = +[NSAssertionHandler currentHandler];
+    v18 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Implementations/CloudKit/CPLCKBatchUploadPlanner.m"];
+    [v17 handleFailureInMethod:a2 object:self file:v18 lineNumber:1615 description:{@"Unable to find unshare todo matching %@/%@", dCopy, v9}];
 
     abort();
   }
 
-  v12 = objc_loadWeakRetained(&self->_planner);
-  targetMapping = [v12 targetMapping];
-  v14 = [targetMapping targetForRecordWithScopedIdentifier:v9];
+  v13 = objc_loadWeakRetained(&self->_planner);
+  targetMapping = [v13 targetMapping];
+  v15 = [targetMapping targetForRecordWithScopedIdentifier:v9];
 
-  if (!v14)
+  if (!v15)
   {
     sub_1001975D8(a2, self, v9);
   }
 
-  self->_wasSplit = [v14 targetState] == 3;
+  self->_wasSplit = [v15 targetState] == 3;
 }
 
 - (BOOL)shouldCopyCKRecordKeyToDestinationCKRecord:(id)record
@@ -527,29 +527,30 @@
   currentUserRecordID = [WeakRetained currentUserRecordID];
   v12 = [recordCopy cpl_destinationRecordIDInPrivateScopeWithCurrentUserRecordID:currentUserRecordID proposedDestinationRecordID:dCopy];
 
-  if (([v12 isEqual:dCopy] & 1) == 0)
+  v13 = [v12 isEqual:dCopy];
+  if ((v13 & 1) == 0)
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v13 = sub_1000035AC();
-      if (sub_1000374B8(v13))
+      v14 = sub_1000035AC(v13);
+      if (sub_1000374B8(v14))
       {
         recordID = [recordCopy recordID];
         cplFullDescription = [recordID cplFullDescription];
         cplFullDescription2 = [v12 cplFullDescription];
         cplFullDescription3 = [dCopy cplFullDescription];
         *buf = 138412802;
-        v41 = cplFullDescription;
-        v42 = 2112;
-        v43 = cplFullDescription2;
-        v44 = 2112;
-        v45 = cplFullDescription3;
+        v42 = cplFullDescription;
+        v43 = 2112;
+        v44 = cplFullDescription2;
+        v45 = 2112;
+        v46 = cplFullDescription3;
         _os_log_impl(&_mh_execute_header, WeakRetained, OS_LOG_TYPE_DEFAULT, "Moving %@ to %@ instead of %@", buf, 0x20u);
       }
     }
 
-    v18 = objc_loadWeakRetained(&self->_planner);
-    v19 = v18;
+    v19 = objc_loadWeakRetained(&self->_planner);
+    v20 = v19;
     currentTodo = self->_currentTodo;
     if (currentTodo)
     {
@@ -561,34 +562,34 @@
       scopedIdentifier = 0;
     }
 
-    [v18 _willUpdateCKRecordWithID:v12 onBehalfOfRecordWithScopedIdentifier:scopedIdentifier];
+    [v19 _willUpdateCKRecordWithID:v12 onBehalfOfRecordWithScopedIdentifier:scopedIdentifier];
 
     sub_100195F78(self->_currentTodo, v12);
   }
 
-  v22 = [CPLScopedIdentifier alloc];
-  v23 = objc_loadWeakRetained(&self->_planner);
-  destinationZoneIdentification = [v23 destinationZoneIdentification];
+  v23 = [CPLScopedIdentifier alloc];
+  v24 = objc_loadWeakRetained(&self->_planner);
+  destinationZoneIdentification = [v24 destinationZoneIdentification];
   scopeIdentifier = [destinationZoneIdentification scopeIdentifier];
   recordID2 = [recordCopy recordID];
   recordName = [recordID2 recordName];
-  v28 = sub_1000374F4(recordName);
+  v29 = sub_1000374F4(recordName);
 
-  v29 = [CPLScopedIdentifier alloc];
-  v30 = objc_loadWeakRetained(&self->_planner);
-  sharedZoneIdentification = [v30 sharedZoneIdentification];
+  v30 = [CPLScopedIdentifier alloc];
+  v31 = objc_loadWeakRetained(&self->_planner);
+  sharedZoneIdentification = [v31 sharedZoneIdentification];
   scopeIdentifier2 = [sharedZoneIdentification scopeIdentifier];
   recordName2 = [v12 recordName];
-  v34 = [v29 initWithScopeIdentifier:scopeIdentifier2 identifier:recordName2];
+  v35 = [v30 initWithScopeIdentifier:scopeIdentifier2 identifier:recordName2];
 
-  v35 = [[CPLRecordTarget alloc] initWithScopedIdentifier:v28 otherScopedIdentifier:v34 targetState:1];
-  sub_100195F98(self->_currentTodo, v35);
+  v36 = [[CPLRecordTarget alloc] initWithScopedIdentifier:v29 otherScopedIdentifier:v35 targetState:1];
+  sub_100195F98(self->_currentTodo, v36);
 
-  v36 = [CKRecord alloc];
+  v37 = [CKRecord alloc];
   recordType = [recordCopy recordType];
-  v38 = [v36 initWithRecordType:recordType recordID:v12];
+  v39 = [v37 initWithRecordType:recordType recordID:v12];
 
-  return v38;
+  return v39;
 }
 
 @end

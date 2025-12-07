@@ -53,7 +53,7 @@
   return v2;
 }
 
-uint64_t __31__RMSDAAPParser_sharedInstance__block_invoke()
+uint64_t __31__RMSDAAPParser_sharedInstance__block_invoke(uint64_t a1)
 {
   sharedInstance_sharedInstance = objc_opt_new();
 
@@ -62,15 +62,16 @@ uint64_t __31__RMSDAAPParser_sharedInstance__block_invoke()
 
 + (id)objectWithData:(id)data
 {
-  v7 = 0;
-  v3 = [self objectWithData:data error:&v7];
-  v4 = v7;
+  v8 = 0;
+  v3 = [self objectWithData:data error:&v8];
+  v4 = v8;
+  v5 = v4;
   if (!v3)
   {
-    v5 = RMSLogger();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = RMSLogger(v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      [(RMSDAAPParser *)v4 objectWithData:v5];
+      [(RMSDAAPParser *)v5 objectWithData:v6];
     }
   }
 
@@ -188,15 +189,16 @@ LABEL_9:
   if (length)
   {
     v4 = [MEMORY[0x277CBEA90] dataWithBytes:content length:length];
-    v9 = 0;
-    v5 = [MEMORY[0x277CCAC58] propertyListWithData:v4 options:0 format:0 error:&v9];
-    v6 = v9;
+    v10 = 0;
+    v5 = [MEMORY[0x277CCAC58] propertyListWithData:v4 options:0 format:0 error:&v10];
+    v6 = v10;
+    v7 = v6;
     if (v6)
     {
-      v7 = RMSLogger();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      v8 = RMSLogger(v6);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
-        [RMSDAAPParser parseXMLContent:v6 length:v7];
+        [RMSDAAPParser parseXMLContent:v7 length:v8];
       }
     }
   }
@@ -213,21 +215,22 @@ LABEL_9:
 {
   dictCopy = dict;
   keyCopy = key;
+  v11 = keyCopy;
   if (size > 3)
   {
     if (size == 4)
     {
-      v11 = *bool;
+      v12 = *bool;
       goto LABEL_13;
     }
 
     if (size == 8)
     {
-      v12 = *bool == 0;
+      v13 = *bool == 0;
 LABEL_14:
-      v14 = !v12;
-      v15 = [MEMORY[0x277CCABB0] numberWithBool:v14];
-      [dictCopy setObject:v15 forKeyedSubscript:keyCopy];
+      v15 = !v13;
+      v16 = [MEMORY[0x277CCABB0] numberWithBool:v15];
+      [dictCopy setObject:v16 forKeyedSubscript:v11];
 
       goto LABEL_18;
     }
@@ -237,21 +240,21 @@ LABEL_14:
   {
     if (size == 1)
     {
-      v11 = *bool;
+      v12 = *bool;
       goto LABEL_13;
     }
 
     if (size == 2)
     {
-      v11 = *bool;
+      v12 = *bool;
 LABEL_13:
-      v12 = v11 == 0;
+      v13 = v12 == 0;
       goto LABEL_14;
     }
   }
 
-  v13 = RMSLogger();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+  v14 = RMSLogger(keyCopy);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
   {
     [RMSDAAPParser setBool:size:inDict:forKey:];
   }
@@ -263,16 +266,17 @@ LABEL_18:
 {
   dictCopy = dict;
   keyCopy = key;
+  v11 = keyCopy;
   if (size == 1)
   {
-    v11 = [MEMORY[0x277CCABB0] numberWithChar:*int8];
-    [dictCopy setObject:v11 forKeyedSubscript:keyCopy];
+    v12 = [MEMORY[0x277CCABB0] numberWithChar:*int8];
+    [dictCopy setObject:v12 forKeyedSubscript:v11];
   }
 
   else
   {
-    v12 = RMSLogger();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v13 = RMSLogger(keyCopy);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       [RMSDAAPParser setSInt8:size:inDict:forKey:];
     }
@@ -283,16 +287,17 @@ LABEL_18:
 {
   dictCopy = dict;
   keyCopy = key;
+  v11 = keyCopy;
   if (size == 1)
   {
-    v11 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:*int8];
-    [dictCopy setObject:v11 forKeyedSubscript:keyCopy];
+    v12 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:*int8];
+    [dictCopy setObject:v12 forKeyedSubscript:v11];
   }
 
   else
   {
-    v12 = RMSLogger();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v13 = RMSLogger(keyCopy);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       [RMSDAAPParser setUInt8:size:inDict:forKey:];
     }
@@ -303,16 +308,17 @@ LABEL_18:
 {
   dictCopy = dict;
   keyCopy = key;
+  v11 = keyCopy;
   if (size == 2)
   {
-    v11 = [MEMORY[0x277CCABB0] numberWithShort:(bswap32(*int16) >> 16)];
-    [dictCopy setObject:v11 forKeyedSubscript:keyCopy];
+    v12 = [MEMORY[0x277CCABB0] numberWithShort:(bswap32(*int16) >> 16)];
+    [dictCopy setObject:v12 forKeyedSubscript:v11];
   }
 
   else
   {
-    v12 = RMSLogger();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v13 = RMSLogger(keyCopy);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       [RMSDAAPParser setSInt16:size:inDict:forKey:];
     }
@@ -323,16 +329,17 @@ LABEL_18:
 {
   dictCopy = dict;
   keyCopy = key;
+  v11 = keyCopy;
   if (size == 2)
   {
-    v11 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:bswap32(*int16) >> 16];
-    [dictCopy setObject:v11 forKeyedSubscript:keyCopy];
+    v12 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:bswap32(*int16) >> 16];
+    [dictCopy setObject:v12 forKeyedSubscript:v11];
   }
 
   else
   {
-    v12 = RMSLogger();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v13 = RMSLogger(keyCopy);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       [RMSDAAPParser setUInt16:size:inDict:forKey:];
     }
@@ -343,16 +350,17 @@ LABEL_18:
 {
   dictCopy = dict;
   keyCopy = key;
+  v11 = keyCopy;
   if (size == 4)
   {
-    v11 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSince1970:bswap32(*date)];
-    [dictCopy setObject:v11 forKeyedSubscript:keyCopy];
+    v12 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSince1970:bswap32(*date)];
+    [dictCopy setObject:v12 forKeyedSubscript:v11];
   }
 
   else
   {
-    v12 = RMSLogger();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v13 = RMSLogger(keyCopy);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       [RMSDAAPParser setDate:size:inDict:forKey:];
     }
@@ -363,16 +371,17 @@ LABEL_18:
 {
   dictCopy = dict;
   keyCopy = key;
+  v11 = keyCopy;
   if (size == 4)
   {
-    v11 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:bswap32(*int32)];
-    [dictCopy setObject:v11 forKeyedSubscript:keyCopy];
+    v12 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:bswap32(*int32)];
+    [dictCopy setObject:v12 forKeyedSubscript:v11];
   }
 
   else
   {
-    v12 = RMSLogger();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v13 = RMSLogger(keyCopy);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       [RMSDAAPParser setUInt32:size:inDict:forKey:];
     }
@@ -383,17 +392,18 @@ LABEL_18:
 {
   dictCopy = dict;
   keyCopy = key;
+  v12 = keyCopy;
   if (size == 4)
   {
     LODWORD(v11) = *float32;
-    v12 = [MEMORY[0x277CCABB0] numberWithFloat:v11];
-    [dictCopy setObject:v12 forKeyedSubscript:keyCopy];
+    v13 = [MEMORY[0x277CCABB0] numberWithFloat:v11];
+    [dictCopy setObject:v13 forKeyedSubscript:v12];
   }
 
   else
   {
-    v13 = RMSLogger();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v14 = RMSLogger(keyCopy);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       [RMSDAAPParser setFloat32:size:inDict:forKey:];
     }
@@ -404,16 +414,17 @@ LABEL_18:
 {
   dictCopy = dict;
   keyCopy = key;
+  v11 = keyCopy;
   if (size == 8)
   {
-    v11 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:bswap64(*int64)];
-    [dictCopy setObject:v11 forKeyedSubscript:keyCopy];
+    v12 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:bswap64(*int64)];
+    [dictCopy setObject:v12 forKeyedSubscript:v11];
   }
 
   else
   {
-    v12 = RMSLogger();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v13 = RMSLogger(keyCopy);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       [RMSDAAPParser setUInt64:size:inDict:forKey:];
     }
@@ -994,7 +1005,7 @@ void __51__RMSDAAPParser_parseContentCollectionDict_length___block_invoke(uint64
   return v7;
 }
 
-void __42__RMSDAAPParser_parseContentCodes_length___block_invoke(uint64_t a1, unint64_t a2, _DWORD *a3)
+void __42__RMSDAAPParser_parseContentCodes_length___block_invoke(uint64_t a1, unint64_t a2, unsigned int *a3)
 {
   if (a2 == 1835295596)
   {
@@ -1006,7 +1017,7 @@ void __42__RMSDAAPParser_parseContentCodes_length___block_invoke(uint64_t a1, un
   {
     if (*a3 != -939524096)
     {
-      v4 = RMSLogger();
+      v4 = RMSLogger(a1);
       if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
       {
         __42__RMSDAAPParser_parseContentCodes_length___block_invoke_cold_1();
@@ -1056,7 +1067,7 @@ void __35__RMSDAAPParser_parseLogin_length___block_invoke(uint64_t a1, uint64_t 
   {
     if (*a3 != -939524096)
     {
-      v4 = RMSLogger();
+      v4 = RMSLogger(a1);
       if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
       {
         __42__RMSDAAPParser_parseContentCodes_length___block_invoke_cold_1();
@@ -1195,7 +1206,7 @@ LABEL_371:
               v55 = HIDWORD(a2);
 LABEL_372:
 
-              [v22 setUInt64:a3 size:v55 inDict:v54 forKey:v24];
+              [v22 setUInt64:a3 size:v55 inDict:v54 forKey:{v24, a4}];
               return;
             }
 
@@ -1203,7 +1214,7 @@ LABEL_372:
             {
               if (a2 == 1634030192)
               {
-                v44 = [*(a1 + 32) parseUTF8String:a3 length:v6];
+                v44 = [*(a1 + 32) parseUTF8String:a3 length:{v6, a4}];
                 v66 = v44;
                 v45 = *(*(*(a1 + 40) + 8) + 40);
                 v46 = @"com.apple.itunes.item-redownload-param-2";
@@ -1319,7 +1330,7 @@ LABEL_407:
               goto LABEL_401;
             }
 
-            v66 = [*(a1 + 32) parseXMLContent:a3 length:v6];
+            v66 = [*(a1 + 32) parseXMLContent:a3 length:{v6, a4}];
             if (!v66)
             {
               goto LABEL_416;
@@ -1345,7 +1356,7 @@ LABEL_377:
           v48 = HIDWORD(a2);
 LABEL_378:
 
-          [v37 setUInt8:a3 size:v48 inDict:v47 forKey:v39];
+          [v37 setUInt8:a3 size:v48 inDict:v47 forKey:{v39, a4}];
           return;
         }
 
@@ -1394,7 +1405,7 @@ LABEL_405:
           {
             if (a2 == 1634026337)
             {
-              v44 = [*(a1 + 32) parseUTF8String:a3 length:v6];
+              v44 = [*(a1 + 32) parseUTF8String:a3 length:{v6, a4}];
               v66 = v44;
               v45 = *(*(*(a1 + 40) + 8) + 40);
               v46 = @"com.apple.itunes.cloud-artwork-url";
@@ -1414,7 +1425,7 @@ LABEL_405:
 LABEL_401:
               v60 = *(a1 + 32);
 
-              [v60 unknownChunk:{a2, a3}];
+              [v60 unknownChunk:{a2, a3, a4}];
               return;
             }
 
@@ -1426,7 +1437,7 @@ LABEL_391:
             v58 = HIDWORD(a2);
 LABEL_392:
 
-            [v7 setUInt32:a3 size:v58 inDict:v57 forKey:v9];
+            [v7 setUInt32:a3 size:v58 inDict:v57 forKey:{v9, a4}];
             return;
           }
 
@@ -1445,7 +1456,7 @@ LABEL_392:
 
           if (v6 != 4)
           {
-            v44 = [*(a1 + 32) parseUTF8String:a3 length:HIDWORD(a2)];
+            v44 = [*(a1 + 32) parseUTF8String:a3 length:{HIDWORD(a2), a4}];
             v66 = v44;
             v45 = *(*(*(a1 + 40) + 8) + 40);
             v46 = @"com.apple.itunes.artworkchecksum";
@@ -1453,7 +1464,7 @@ LABEL_392:
           }
 
           v52 = *(*(*(a1 + 40) + 8) + 40);
-          v66 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:bswap32(*a3)];
+          v66 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:{bswap32(*a3), a4}];
           v53 = [v66 stringValue];
           [v52 setValue:v53 forKey:@"com.apple.itunes.artworkchecksum"];
 
@@ -1502,7 +1513,7 @@ LABEL_416:
 LABEL_385:
         v56 = *(v11 + 40);
 
-        [v10 setString:a3 size:HIDWORD(a2) inDict:v56 forKey:v12];
+        [v10 setString:a3 size:HIDWORD(a2) inDict:v56 forKey:{v12, a4}];
         return;
       }
 
@@ -1715,7 +1726,7 @@ LABEL_219:
 LABEL_396:
         v59 = *(v14 + 40);
 
-        [v13 setBool:a3 size:HIDWORD(a2) inDict:v59 forKey:v15];
+        [v13 setBool:a3 size:HIDWORD(a2) inDict:v59 forKey:{v15, a4}];
         return;
       }
 
@@ -1806,7 +1817,7 @@ LABEL_423:
 LABEL_299:
         v49 = *(v29 + 40);
 
-        [v28 setDate:a3 size:HIDWORD(a2) inDict:v49 forKey:v30];
+        [v28 setDate:a3 size:HIDWORD(a2) inDict:v49 forKey:{v30, a4}];
         return;
       }
 
@@ -1972,7 +1983,7 @@ LABEL_204:
       switch(a2)
       {
         case 0x61736169:
-          v19 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:bswap64(*a3)];
+          v19 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{bswap64(*a3), a4}];
           v66 = v19;
           v20 = *(*(*(a1 + 40) + 8) + 40);
           v21 = @"daap.songalbumid";
@@ -1983,7 +1994,7 @@ LABEL_204:
             return;
           }
 
-          v19 = [*(a1 + 32) parseUTF8String:a3 length:HIDWORD(a2)];
+          v19 = [*(a1 + 32) parseUTF8String:a3 length:{HIDWORD(a2), a4}];
           v66 = v19;
           v20 = *(*(*(a1 + 40) + 8) + 40);
           v21 = @"daap.songalbum";
@@ -1994,7 +2005,7 @@ LABEL_204:
             return;
           }
 
-          v19 = [*(a1 + 32) parseUTF8String:a3 length:HIDWORD(a2)];
+          v19 = [*(a1 + 32) parseUTF8String:a3 length:{HIDWORD(a2), a4}];
           v66 = v19;
           v20 = *(*(*(a1 + 40) + 8) + 40);
           v21 = @"daap.songartist";
@@ -2025,7 +2036,7 @@ LABEL_250:
       return;
     }
 
-    v19 = [*(a1 + 32) parseUTF8String:a3 length:HIDWORD(a2)];
+    v19 = [*(a1 + 32) parseUTF8String:a3 length:{HIDWORD(a2), a4}];
     v66 = v19;
     v20 = *(*(*(a1 + 40) + 8) + 40);
     v21 = @"daap.songalbumartist";
@@ -2168,7 +2179,7 @@ LABEL_414:
           }
 
           v50 = *(*(*(a1 + 40) + 8) + 40);
-          v33 = [*(a1 + 32) parseUnicodeCharacter:a3 length:v6];
+          v33 = [*(a1 + 32) parseUnicodeCharacter:a3 length:{v6, a4}];
           v66 = v33;
           v32 = @"headerItemCharacter";
           v31 = v50;
@@ -2239,7 +2250,7 @@ LABEL_414:
         goto LABEL_401;
       }
 
-      v19 = [MEMORY[0x277CBEA90] dataWithBytes:a3 length:v6];
+      v19 = [MEMORY[0x277CBEA90] dataWithBytes:a3 length:{v6, a4}];
       v66 = v19;
       v20 = *(*(*(a1 + 40) + 8) + 40);
       v21 = @"fileData";
@@ -2270,7 +2281,7 @@ LABEL_414:
           goto LABEL_391;
         }
 
-        v19 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:*a3];
+        v19 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:{*a3, a4}];
         v66 = v19;
         v20 = *(*(*(a1 + 40) + 8) + 40);
         v21 = @"dmap.downloadstatus";
@@ -2320,7 +2331,7 @@ LABEL_414:
             v64 = *(a1 + 32);
             v65 = *(*(*(a1 + 40) + 8) + 40);
 
-            [v64 setUInt16:a3 size:HIDWORD(a2) inDict:v65 forKey:@"value"];
+            [v64 setUInt16:a3 size:HIDWORD(a2) inDict:v65 forKey:{@"value", a4}];
           }
 
           else
@@ -2338,7 +2349,7 @@ LABEL_414:
               v62 = *(a1 + 32);
               v63 = *(*(*(a1 + 40) + 8) + 40);
 
-              [v62 setFloat32:a3 size:HIDWORD(a2) inDict:v63 forKey:@"value"];
+              [v62 setFloat32:a3 size:HIDWORD(a2) inDict:v63 forKey:{@"value", a4}];
             }
           }
 
@@ -2379,7 +2390,7 @@ LABEL_414:
           goto LABEL_423;
         }
 
-        v19 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:bswap32(*a3)];
+        v19 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:{bswap32(*a3), a4}];
         v66 = v19;
         v20 = *(*(*(a1 + 40) + 8) + 40);
         v21 = @"dmap.containeritemid";
@@ -2462,7 +2473,7 @@ LABEL_414:
       switch(a2)
       {
         case 0x636D766C:
-          v33 = [*(a1 + 32) parseListingCollection:a3 length:v6 capacity:0 sectionHeaders:0];
+          v33 = [*(a1 + 32) parseListingCollection:a3 length:v6 capacity:0 sectionHeaders:{0, a4}];
           v66 = v33;
           v31 = *(*(*(a1 + 40) + 8) + 40);
           v32 = @"context";
@@ -2666,7 +2677,7 @@ LABEL_415:
         goto LABEL_401;
       }
 
-      [*(a1 + 32) setUInt32:a3 size:4 inDict:*(*(*(a1 + 40) + 8) + 40) forKey:@"dmap.databaseid"];
+      [*(a1 + 32) setUInt32:a3 size:4 inDict:*(*(*(a1 + 40) + 8) + 40) forKey:{@"dmap.databaseid", a4}];
       [*(a1 + 32) setUInt32:a3 + 4 size:4 inDict:*(*(*(a1 + 40) + 8) + 40) forKey:@"dmap.playlistid"];
       v25 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:bswap32(*(a3 + 2))];
       [*(*(*(a1 + 40) + 8) + 40) setObject:v25 forKeyedSubscript:@"dmap.containeritemid"];
@@ -2682,7 +2693,7 @@ LABEL_294:
       return;
     }
 
-    v19 = [*(a1 + 32) parseUTF8String:a3 length:HIDWORD(a2)];
+    v19 = [*(a1 + 32) parseUTF8String:a3 length:{HIDWORD(a2), a4}];
     v66 = v19;
     v20 = *(*(*(a1 + 40) + 8) + 40);
     v21 = @"dmap.itemname";
@@ -2730,7 +2741,7 @@ LABEL_294:
       v35 = *(a1 + 32);
       v36 = *(*(*(a1 + 40) + 8) + 40);
 
-      [v35 setSInt16:a3 size:v6 inDict:v36 forKey:@"com.apple.itunes.jukebox-score"];
+      [v35 setSInt16:a3 size:v6 inDict:v36 forKey:{@"com.apple.itunes.jukebox-score", a4}];
       return;
     }
 
@@ -2743,7 +2754,7 @@ LABEL_294:
           return;
         }
 
-        v66 = [*(*(*(a1 + 40) + 8) + 40) valueForKey:@"com.apple.itunes.playqueue-item-preform-meta"];
+        v66 = [*(*(*(a1 + 40) + 8) + 40) valueForKey:{@"com.apple.itunes.playqueue-item-preform-meta", a4}];
         if (!v66)
         {
           v66 = [MEMORY[0x277CBEB18] array];
@@ -2788,7 +2799,7 @@ LABEL_294:
       goto LABEL_401;
     }
 
-    [*(a1 + 32) setUInt64:a3 size:8 inDict:*(*(*(a1 + 40) + 8) + 40) forKey:@"dmap.databaseid"];
+    [*(a1 + 32) setUInt64:a3 size:8 inDict:*(*(*(a1 + 40) + 8) + 40) forKey:{@"dmap.databaseid", a4}];
     [*(a1 + 32) setUInt64:a3 + 8 size:8 inDict:*(*(*(a1 + 40) + 8) + 40) forKey:@"dmap.playlistid"];
     v41 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:bswap64(*(a3 + 2))];
     [*(*(*(a1 + 40) + 8) + 40) setObject:v41 forKeyedSubscript:@"dmap.containeritemid"];
@@ -2890,7 +2901,7 @@ LABEL_413:
   v17 = *(a1 + 32);
   v18 = *(*(*(a1 + 40) + 8) + 40);
 
-  [v17 setSInt8:a3 size:v6 inDict:v18 forKey:@"com.apple.itunes.jukebox-client-vote"];
+  [v17 setSInt8:a3 size:v6 inDict:v18 forKey:{@"com.apple.itunes.jukebox-client-vote", a4}];
 }
 
 - (id)parseListingCollection:(const char *)collection length:(unsigned int)length capacity:(int)capacity sectionHeaders:(id *)headers
@@ -3030,7 +3041,7 @@ void __43__RMSDAAPParser_parseListingHeader_length___block_invoke(uint64_t a1, u
           if (v5 == 4)
           {
             v38 = [MEMORY[0x277CBEB38] dictionary];
-            [v4[4] setUInt32:a3 size:4 inDict:? forKey:?];
+            [*(v4 + 32) setUInt32:a3 size:4 inDict:? forKey:?];
           }
 
           else
@@ -3038,7 +3049,7 @@ void __43__RMSDAAPParser_parseListingHeader_length___block_invoke(uint64_t a1, u
             v38 = [*(a1 + 32) parseDACPPropertyResponse:a3 length:?];
           }
 
-          v15 = *(*(v4[5] + 1) + 40);
+          v15 = *(*(*(v4 + 40) + 8) + 40);
           v16 = @"daap.updateinfo";
           v14 = v38;
           goto LABEL_71;
@@ -3054,7 +3065,7 @@ LABEL_66:
         }
 
         v10 = *(a1 + 32);
-        v11 = *(*(v4[5] + 1) + 40);
+        v11 = *(*(*(v4 + 40) + 8) + 40);
         v12 = @"daap.playlistrepeatmode";
       }
 
@@ -3067,7 +3078,7 @@ LABEL_66:
             if (a2 == 1667584373)
             {
               v8 = *(a1 + 32);
-              v9 = *(*(v4[5] + 1) + 40);
+              v9 = *(*(*(v4 + 40) + 8) + 40);
 
               [v8 setBool:a3 size:v5 inDict:v9 forKey:@"playQueueMode"];
               return;
@@ -3077,13 +3088,13 @@ LABEL_66:
           }
 
           v17 = *(a1 + 32);
-          v18 = *(*(v4[5] + 1) + 40);
+          v18 = *(*(*(v4 + 40) + 8) + 40);
           v19 = @"com.apple.itunes.num-manually-queued";
           goto LABEL_63;
         }
 
         v10 = *(a1 + 32);
-        v11 = *(*(v4[5] + 1) + 40);
+        v11 = *(*(*(v4 + 40) + 8) + 40);
         v12 = @"daap.playlistshufflemode";
       }
 
@@ -3120,7 +3131,7 @@ LABEL_40:
 
 LABEL_27:
     v6 = [*(a1 + 32) parseBrowseResults:a3 length:v5];
-    v7 = *(*(v4[5] + 1) + 40);
+    v7 = *(*(*(v4 + 40) + 8) + 40);
     goto LABEL_28;
   }
 
@@ -3131,7 +3142,7 @@ LABEL_27:
       if (a2 == 1836282996)
       {
         v17 = *(a1 + 32);
-        v18 = *(*(v4[5] + 1) + 40);
+        v18 = *(*(*(v4 + 40) + 8) + 40);
         v19 = @"statusCode";
       }
 
@@ -3143,7 +3154,7 @@ LABEL_27:
         }
 
         v17 = *(a1 + 32);
-        v18 = *(*(v4[5] + 1) + 40);
+        v18 = *(*(*(v4 + 40) + 8) + 40);
         v19 = @"totalCount";
       }
 
@@ -3158,7 +3169,7 @@ LABEL_27:
     if (a2 == 1836413810)
     {
       v17 = *(a1 + 32);
-      v18 = *(*(v4[5] + 1) + 40);
+      v18 = *(*(*(v4 + 40) + 8) + 40);
       v19 = @"revision";
       goto LABEL_63;
     }
@@ -3169,7 +3180,7 @@ LABEL_27:
     }
 
     v10 = *(a1 + 32);
-    v11 = *(*(v4[5] + 1) + 40);
+    v11 = *(*(*(v4 + 40) + 8) + 40);
     v12 = @"updateType";
     goto LABEL_40;
   }
@@ -3181,7 +3192,7 @@ LABEL_27:
       if (a2 == 1668117353)
       {
         v14 = [*(a1 + 32) parseDACPPropertyResponse:a3 length:v5];
-        v15 = *(*(v4[5] + 1) + 40);
+        v15 = *(*(*(v4 + 40) + 8) + 40);
         v16 = @"playStatusUpdateInfo";
         v38 = v14;
 LABEL_71:
@@ -3193,7 +3204,7 @@ LABEL_71:
     }
 
     v17 = *(a1 + 32);
-    v18 = *(*(v4[5] + 1) + 40);
+    v18 = *(*(*(v4 + 40) + 8) + 40);
     v19 = @"dmcp.bonjoursourcesrevision";
 LABEL_63:
 
@@ -3206,14 +3217,14 @@ LABEL_63:
     if (a2 == 1836213103)
     {
       [*(a1 + 32) setUInt32:a3 size:v5 inDict:*(*(*(a1 + 40) + 8) + 40) forKey:@"returnedCount"];
-      *(*(v4[6] + 1) + 24) = bswap32(*a3);
+      *(*(*(v4 + 48) + 8) + 24) = bswap32(*a3);
       return;
     }
 
     if (a2 == 1836279916)
     {
       v6 = [*(a1 + 32) parseListingCollection:a3 length:v5 capacity:30 sectionHeaders:0];
-      v7 = *(*(v4[5] + 1) + 40);
+      v7 = *(*(*(v4 + 40) + 8) + 40);
 LABEL_28:
       v38 = v6;
       [v7 setObject:? forKeyedSubscript:?];
@@ -3226,11 +3237,11 @@ LABEL_72:
   }
 
   v20 = *(a1 + 32);
-  v21 = *(*(v4[6] + 1) + 24);
+  v21 = *(*(*(v4 + 48) + 8) + 24);
   v44 = 0;
   v22 = [v20 parseListingCollection:a3 length:v5 capacity:v21 sectionHeaders:&v44];
   v23 = v44;
-  [*(*(v4[5] + 1) + 40) setObject:v22 forKeyedSubscript:@"items"];
+  [*(*(*(v4 + 40) + 8) + 40) setObject:v22 forKeyedSubscript:@"items"];
   if (v23)
   {
     v24 = [MEMORY[0x277CBEB18] array];
@@ -3282,7 +3293,7 @@ LABEL_72:
       v4 = v39;
       if (v28)
       {
-        [*(*(v39[5] + 1) + 40) setObject:v28 forKeyedSubscript:@"historySection"];
+        [*(*(v39[5] + 8) + 40) setObject:v28 forKeyedSubscript:@"historySection"];
       }
 
       v23 = v36;
@@ -3297,7 +3308,7 @@ LABEL_72:
 
     if (v24)
     {
-      [*(*(v4[5] + 1) + 40) setObject:v24 forKeyedSubscript:@"upNextSections"];
+      [*(*(*(v4 + 40) + 8) + 40) setObject:v24 forKeyedSubscript:@"upNextSections"];
     }
   }
 }
@@ -3382,7 +3393,7 @@ uint64_t __53__RMSDAAPParser_parseControlPromptCollection_length___block_invoke(
   return v7;
 }
 
-void __51__RMSDAAPParser_parseControlPromptResponse_length___block_invoke(uint64_t a1, unint64_t a2, _DWORD *a3)
+void __51__RMSDAAPParser_parseControlPromptResponse_length___block_invoke(uint64_t a1, unint64_t a2, unsigned int *a3)
 {
   v4 = HIDWORD(a2);
   switch(a2)
@@ -3410,7 +3421,7 @@ void __51__RMSDAAPParser_parseControlPromptResponse_length___block_invoke(uint64
     case 0x6D737474:
       if (*a3 != -939524096)
       {
-        v5 = RMSLogger();
+        v5 = RMSLogger(a1);
         if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
         {
           __42__RMSDAAPParser_parseContentCodes_length___block_invoke_cold_1();
@@ -3448,7 +3459,7 @@ void __51__RMSDAAPParser_parseControlPromptResponse_length___block_invoke(uint64
   return v7;
 }
 
-void __49__RMSDAAPParser_parseGetSpeakersResponse_length___block_invoke(uint64_t a1, unint64_t a2, _DWORD *a3)
+void __49__RMSDAAPParser_parseGetSpeakersResponse_length___block_invoke(uint64_t a1, unint64_t a2, unsigned int *a3)
 {
   if (a2 == 1835295596)
   {
@@ -3460,7 +3471,7 @@ void __49__RMSDAAPParser_parseGetSpeakersResponse_length___block_invoke(uint64_t
   {
     if (*a3 != -939524096)
     {
-      v4 = RMSLogger();
+      v4 = RMSLogger(a1);
       if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
       {
         __42__RMSDAAPParser_parseContentCodes_length___block_invoke_cold_1();
@@ -3608,7 +3619,7 @@ LABEL_129:
 
         else
         {
-          v32 = [*(a1 + 32) parseUTF8String:a3 length:?];
+          v32 = [*(a1 + 32) parseUTF8String:a3 length:a4];
           v30 = [MEMORY[0x277CCABB0] numberWithLongLong:{objc_msgSend(v32, "longLongValue")}];
           [*(*(*(a1 + 40) + 8) + 40) setValue:v30 forKey:@"com.apple.itunes.artworkchecksum"];
         }
@@ -3691,7 +3702,7 @@ LABEL_60:
 LABEL_134:
       v28 = *(v19 + 40);
 
-      [v18 setBool:a3 size:v6 inDict:v28 forKey:v20];
+      [v18 setBool:a3 size:v6 inDict:v28 forKey:{v20, a4}];
       return;
     }
 
@@ -3700,7 +3711,7 @@ LABEL_134:
       switch(a2)
       {
         case 0x6361706C:
-          [*(a1 + 32) setUInt64:a3 size:8 inDict:*(*(*(a1 + 40) + 8) + 40) forKey:@"dmap.databaseid"];
+          [*(a1 + 32) setUInt64:a3 size:8 inDict:*(*(*(a1 + 40) + 8) + 40) forKey:{@"dmap.databaseid", a4}];
           [*(a1 + 32) setUInt64:v4 + 2 size:8 inDict:*(*(*(a1 + 40) + 8) + 40) forKey:@"dmap.playlistid"];
           [*(a1 + 32) setUInt64:v4 + 4 size:8 inDict:*(*(*(a1 + 40) + 8) + 40) forKey:@"dmap.containeritemid"];
           v7 = *(a1 + 32);
@@ -3726,7 +3737,7 @@ LABEL_134:
     {
       if (a2 == 1667329648)
       {
-        [*(a1 + 32) setUInt32:a3 size:4 inDict:*(*(*(a1 + 40) + 8) + 40) forKey:@"dmap.databaseid"];
+        [*(a1 + 32) setUInt32:a3 size:4 inDict:*(*(*(a1 + 40) + 8) + 40) forKey:{@"dmap.databaseid", a4}];
         [*(a1 + 32) setUInt32:v4 + 1 size:4 inDict:*(*(*(a1 + 40) + 8) + 40) forKey:@"dmap.playlistid"];
         [*(a1 + 32) setUInt32:v4 + 2 size:4 inDict:*(*(*(a1 + 40) + 8) + 40) forKey:@"dmap.containeritemid"];
         v11 = *(a1 + 32);
@@ -3736,7 +3747,7 @@ LABEL_134:
         v6 = 4;
 LABEL_130:
 
-        [v11 setUInt32:a3 size:v6 inDict:v13 forKey:v12];
+        [v11 setUInt32:a3 size:v6 inDict:v13 forKey:{v12, a4}];
         return;
       }
 
@@ -3757,7 +3768,7 @@ LABEL_130:
 LABEL_123:
     v27 = *(v22 + 40);
 
-    [v21 setString:a3 size:v6 inDict:v27 forKey:v23];
+    [v21 setString:a3 size:v6 inDict:v27 forKey:{v23, a4}];
     return;
   }
 
@@ -3880,7 +3891,7 @@ LABEL_100:
             v24 = *(v8 + 40);
 LABEL_149:
 
-            [v7 setUInt64:a3 size:v6 inDict:v24 forKey:v9];
+            [v7 setUInt64:a3 size:v6 inDict:v24 forKey:{v9, a4}];
             return;
           }
 
@@ -3912,7 +3923,7 @@ LABEL_149:
 LABEL_141:
       v29 = *(a1 + 32);
 
-      [v29 unknownChunk:{a2, a3}];
+      [v29 unknownChunk:{a2, a3, a4}];
       return;
     }
 
@@ -3982,7 +3993,7 @@ LABEL_141:
     v10 = *(a1 + 32);
 LABEL_138:
 
-    [v10 setUInt8:? size:? inDict:? forKey:?];
+    [v10 setUInt8:a4 size:? inDict:? forKey:?];
     return;
   }
 
@@ -3991,7 +4002,7 @@ LABEL_138:
     goto LABEL_141;
   }
 
-  v15 = [*(a1 + 32) parseXMLContent:a3 length:v6];
+  v15 = [*(a1 + 32) parseXMLContent:a3 length:{v6, a4}];
   if (v15)
   {
     v31 = v15;

@@ -32,7 +32,7 @@
     goto LABEL_8;
   }
 
-  if ([@"large" isEqualToString:v13])
+  if (objc_msgSend_isEqualToString_(@"large"))
   {
     v14 = 2;
 LABEL_9:
@@ -40,7 +40,7 @@ LABEL_9:
     goto LABEL_10;
   }
 
-  if ([@"large" isEqualToString:v13])
+  if (objc_msgSend_isEqualToString_(@"large"))
   {
 LABEL_8:
     v14 = 1;
@@ -51,14 +51,14 @@ LABEL_10:
   v15 = [elementCopy getAttribute:@"disabled"];
   if (v15)
   {
-    if ([@"yes" isEqualToString:v15])
+    if (objc_msgSend_isEqualToString_(@"yes"))
     {
       LOBYTE(v16) = 0;
     }
 
     else
     {
-      v16 = [@"true" isEqualToString:v15] ^ 1;
+      v16 = objc_msgSend_isEqualToString_(@"true") ^ 1;
     }
 
     v9->_enabled = v16;

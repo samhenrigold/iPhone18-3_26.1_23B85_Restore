@@ -1,47 +1,3 @@
-void std::__allocate_at_least[abi:ne200100]<std::allocator<google::protobuf::util::converter::DefaultValueObjectWriter::Node *>>(uint64_t a1, unint64_t a2)
-{
-  if (!(a2 >> 61))
-  {
-    operator new();
-  }
-
-  std::__throw_bad_array_new_length[abi:ne200100]();
-}
-
-void std::vector<std::unique_ptr<std::string>>::__destroy_vector::operator()[abi:ne200100](void ***a1)
-{
-  v2 = *a1;
-  if (*v2)
-  {
-    std::vector<std::unique_ptr<std::string>>::__base_destruct_at_end[abi:ne200100](v2, *v2);
-    v3 = **a1;
-
-    operator delete(v3);
-  }
-}
-
-void std::vector<std::unique_ptr<std::string>>::__base_destruct_at_end[abi:ne200100](uint64_t a1, uint64_t *a2)
-{
-  v4 = *(a1 + 8);
-  if (v4 != a2)
-  {
-    v5 = v4 - 1;
-    do
-    {
-      v6 = *v5;
-      *v5 = 0;
-      if (v6)
-      {
-        std::default_delete<std::string>::operator()[abi:ne200100](v5, v6);
-      }
-    }
-
-    while (v5-- != a2);
-  }
-
-  *(a1 + 8) = a2;
-}
-
 void std::default_delete<std::string>::operator()[abi:ne200100](uint64_t a1, uint64_t a2)
 {
   if (a2)
@@ -149,35 +105,35 @@ void std::_AllocatorDestroyRangeReverse<std::allocator<std::string>,std::string*
   }
 }
 
-const void **std::__hash_table<std::__hash_value_type<std::string,int>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,int>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,int>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,int>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,int> const&>(void *a1, const void **a2)
+const void **std::__hash_table<std::__hash_value_type<std::string,int>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,int>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,int>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,int>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,int> const&>(void *a1, const void **a2, uint64_t a3)
 {
-  v4 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
+  v5 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
+  v6 = v5;
+  v7 = a1[1];
+  if (!*&v7)
   {
     goto LABEL_18;
   }
 
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
+  v8 = vcnt_s8(v7);
+  v8.i16[0] = vaddlv_u8(v8);
+  v9 = v8.u32[0];
+  if (v8.u32[0] > 1uLL)
   {
-    v9 = v4;
-    if (v4 >= *&v6)
+    v10 = v5;
+    if (v5 >= *&v7)
     {
-      v9 = v4 % *&v6;
+      v10 = v5 % *&v7;
     }
   }
 
   else
   {
-    v9 = (*&v6 - 1) & v4;
+    v10 = (*&v7 - 1) & v5;
   }
 
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
+  v11 = *(*a1 + 8 * v10);
+  if (!v11 || (v12 = *v11) == 0)
   {
 LABEL_18:
     std::__hash_table<std::__hash_value_type<std::string,int>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,int>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,int>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,int>>>::__construct_node_hash<std::pair<std::string const,int> const&>();
@@ -185,44 +141,44 @@ LABEL_18:
 
   while (1)
   {
-    v12 = v11[1];
-    if (v12 == v5)
+    v13 = v12[1];
+    if (v13 == v6)
     {
       break;
     }
 
-    if (v8 > 1)
+    if (v9 > 1)
     {
-      if (v12 >= *&v6)
+      if (v13 >= *&v7)
       {
-        v12 %= *&v6;
+        v13 %= *&v7;
       }
     }
 
     else
     {
-      v12 &= *&v6 - 1;
+      v13 &= *&v7 - 1;
     }
 
-    if (v12 != v9)
+    if (v13 != v10)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v11 = *v11;
-    if (!v11)
+    v12 = *v12;
+    if (!v12)
     {
       goto LABEL_18;
     }
   }
 
-  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v11 + 2, a2))
+  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v12 + 2, a2))
   {
     goto LABEL_17;
   }
 
-  return v11;
+  return v12;
 }
 
 void sub_1BFC18A10(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void **__p, uint64_t a11)
@@ -242,7 +198,7 @@ void sub_1BFC18AD8(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-std::string *std::vector<std::string>::__insert_with_size[abi:ne200100]<std::__wrap_iter<std::string*>,std::__wrap_iter<std::string*>>(std::vector<std::string> *a1, std::vector<std::string>::pointer __from_s, __int128 *a3, __int128 *a4, uint64_t a5)
+std::string *std::vector<std::string>::__insert_with_size[abi:ne200100]<std::__wrap_iter<std::string*>,std::__wrap_iter<std::string*>>(std::vector<std::string> *a1, std::vector<std::string>::pointer __from_s, std::string *a3, __int128 *a4, uint64_t a5)
 {
   v5 = __from_s;
   if (a5 >= 1)
@@ -436,27 +392,26 @@ uint64_t std::__move_backward_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200
   return a3;
 }
 
-void *std::__split_buffer<google::protobuf::util::converter::DefaultValueObjectWriter::Node *>::emplace_back<google::protobuf::util::converter::DefaultValueObjectWriter::Node * const&>(void *result, void *a2)
+void std::__split_buffer<google::protobuf::util::converter::DefaultValueObjectWriter::Node *>::emplace_back<google::protobuf::util::converter::DefaultValueObjectWriter::Node * const&>(unint64_t *a1, void *a2)
 {
-  v3 = result;
-  v4 = result[2];
-  if (v4 == result[3])
+  v4 = a1[2];
+  if (v4 == a1[3])
   {
-    v5 = result[1];
-    v6 = &v5[-*result];
-    if (v5 <= *result)
+    v5 = a1[1];
+    v6 = &v5[-*a1];
+    if (v5 <= *a1)
     {
-      if (v4 == *result)
+      if (v4 == *a1)
       {
         v11 = 1;
       }
 
       else
       {
-        v11 = &v4[-*result] >> 2;
+        v11 = &v4[-*a1] >> 2;
       }
 
-      std::__allocate_at_least[abi:ne200100]<std::allocator<google::protobuf::util::converter::DefaultValueObjectWriter::Node *>>(result[4], v11);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<google::protobuf::util::converter::DefaultValueObjectWriter::Node *>>(a1[4], v11);
     }
 
     v7 = ((v6 >> 3) + 1) / -2;
@@ -465,64 +420,60 @@ void *std::__split_buffer<google::protobuf::util::converter::DefaultValueObjectW
     v10 = v4 - v5;
     if (v4 != v5)
     {
-      result = memmove(&v5[-8 * v8], v5, v4 - v5);
-      v5 = v3[1];
+      memmove(&v5[-8 * v8], v5, v4 - v5);
+      v5 = a1[1];
     }
 
     v4 = &v9[v10];
-    v3[1] = &v5[8 * v7];
-    v3[2] = &v9[v10];
+    a1[1] = &v5[8 * v7];
+    a1[2] = &v9[v10];
   }
 
   *v4 = *a2;
-  v3[2] += 8;
-  return result;
+  a1[2] += 8;
 }
 
-void *std::deque<google::protobuf::util::converter::DefaultValueObjectWriter::Node *>::push_back(void *result, void *a2)
+void std::deque<google::protobuf::util::converter::DefaultValueObjectWriter::Node *>::push_back(unint64_t *result, void *a2)
 {
-  v3 = result;
-  v4 = *(result + 1);
-  v5 = result[2];
-  v6 = result[1];
-  if (v5 == v6)
+  v4 = result[2];
+  v5 = result[1];
+  if (v4 == v5)
   {
-    v7 = 0;
+    v6 = 0;
   }
 
   else
   {
-    v7 = ((v5 - v6) << 6) - 1;
+    v6 = ((v4 - v5) << 6) - 1;
   }
 
-  v8 = result[5];
-  v9 = v8 + result[4];
-  if (v7 == v9)
+  v7 = result[5];
+  v8 = v7 + result[4];
+  if (v6 == v8)
   {
-    result = std::deque<google::protobuf::util::converter::DefaultValueObjectWriter::Node *>::__add_back_capacity(result);
-    v6 = v3[1];
-    v8 = v3[5];
-    v9 = v3[4] + v8;
+    std::deque<google::protobuf::util::converter::DefaultValueObjectWriter::Node *>::__add_back_capacity(result);
+    v5 = result[1];
+    v7 = result[5];
+    v8 = result[4] + v7;
   }
 
-  *(*(v6 + ((v9 >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * (v9 & 0x1FF)) = *a2;
-  v3[5] = v8 + 1;
-  return result;
+  *(*(v5 + ((v8 >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * (v8 & 0x1FF)) = *a2;
+  result[5] = v7 + 1;
 }
 
-void *std::deque<google::protobuf::util::converter::DefaultValueObjectWriter::Node *>::__add_back_capacity(void *a1)
+void std::deque<google::protobuf::util::converter::DefaultValueObjectWriter::Node *>::__add_back_capacity(unint64_t *a1)
 {
   v1 = a1[4];
   v2 = v1 >= 0x200;
   v3 = v1 - 512;
   if (!v2)
   {
-    v6 = a1[2];
-    v7 = a1[3];
-    v8 = v7 - *a1;
-    if (v6 - a1[1] < v8)
+    v5 = a1[2];
+    v6 = a1[3];
+    v7 = v6 - *a1;
+    if (v5 - a1[1] < v7)
     {
-      if (v7 != v6)
+      if (v6 != v5)
       {
         operator new();
       }
@@ -530,25 +481,25 @@ void *std::deque<google::protobuf::util::converter::DefaultValueObjectWriter::No
       operator new();
     }
 
-    if (v7 == *a1)
+    if (v6 == *a1)
     {
-      v9 = 1;
+      v8 = 1;
     }
 
     else
     {
-      v9 = v8 >> 2;
+      v8 = v7 >> 2;
     }
 
-    v11 = a1;
-    std::__allocate_at_least[abi:ne200100]<std::allocator<google::protobuf::util::converter::DefaultValueObjectWriter::Node **>>(a1, v9);
+    v10 = a1;
+    std::__allocate_at_least[abi:ne200100]<std::allocator<google::protobuf::util::converter::DefaultValueObjectWriter::Node **>>(a1, v8);
   }
 
   a1[4] = v3;
   v4 = a1[1];
-  *&v10 = *v4;
-  a1[1] = v4 + 1;
-  return std::__split_buffer<google::protobuf::util::converter::DefaultValueObjectWriter::Node **>::emplace_back<google::protobuf::util::converter::DefaultValueObjectWriter::Node **&>(a1, &v10);
+  *&v9 = *v4;
+  a1[1] = (v4 + 1);
+  std::__split_buffer<google::protobuf::util::converter::DefaultValueObjectWriter::Node **>::emplace_back<google::protobuf::util::converter::DefaultValueObjectWriter::Node **&>(a1, &v9);
 }
 
 void sub_1BFC19274(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, uint64_t a13)
@@ -562,27 +513,26 @@ void sub_1BFC19274(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void *std::__split_buffer<google::protobuf::util::converter::DefaultValueObjectWriter::Node **>::emplace_back<google::protobuf::util::converter::DefaultValueObjectWriter::Node **&>(void *result, void *a2)
+void std::__split_buffer<google::protobuf::util::converter::DefaultValueObjectWriter::Node **>::emplace_back<google::protobuf::util::converter::DefaultValueObjectWriter::Node **&>(unint64_t *a1, void *a2)
 {
-  v3 = result;
-  v4 = result[2];
-  if (v4 == result[3])
+  v4 = a1[2];
+  if (v4 == a1[3])
   {
-    v5 = result[1];
-    v6 = &v5[-*result];
-    if (v5 <= *result)
+    v5 = a1[1];
+    v6 = &v5[-*a1];
+    if (v5 <= *a1)
     {
-      if (v4 == *result)
+      if (v4 == *a1)
       {
         v11 = 1;
       }
 
       else
       {
-        v11 = &v4[-*result] >> 2;
+        v11 = &v4[-*a1] >> 2;
       }
 
-      std::__allocate_at_least[abi:ne200100]<std::allocator<google::protobuf::util::converter::DefaultValueObjectWriter::Node **>>(result, v11);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<google::protobuf::util::converter::DefaultValueObjectWriter::Node **>>(a1, v11);
     }
 
     v7 = ((v6 >> 3) + 1) / -2;
@@ -591,28 +541,26 @@ void *std::__split_buffer<google::protobuf::util::converter::DefaultValueObjectW
     v10 = v4 - v5;
     if (v4 != v5)
     {
-      result = memmove(&v5[-8 * v8], v5, v4 - v5);
-      v5 = v3[1];
+      memmove(&v5[-8 * v8], v5, v4 - v5);
+      v5 = a1[1];
     }
 
     v4 = &v9[v10];
-    v3[1] = &v5[8 * v7];
-    v3[2] = &v9[v10];
+    a1[1] = &v5[8 * v7];
+    a1[2] = &v9[v10];
   }
 
   *v4 = *a2;
-  v3[2] += 8;
-  return result;
+  a1[2] += 8;
 }
 
-const void **std::__split_buffer<google::protobuf::util::converter::DefaultValueObjectWriter::Node **>::emplace_front<google::protobuf::util::converter::DefaultValueObjectWriter::Node **>(const void **result, void *a2)
+void std::__split_buffer<google::protobuf::util::converter::DefaultValueObjectWriter::Node **>::emplace_front<google::protobuf::util::converter::DefaultValueObjectWriter::Node **>(const void **a1, void *a2)
 {
-  v3 = result;
-  v4 = result[1];
-  if (v4 == *result)
+  v4 = a1[1];
+  if (v4 == *a1)
   {
-    v6 = result[2];
-    v7 = result[3];
+    v6 = a1[2];
+    v7 = a1[3];
     if (v6 >= v7)
     {
       if (v7 == v4)
@@ -625,52 +573,50 @@ const void **std::__split_buffer<google::protobuf::util::converter::DefaultValue
         v9 = (v7 - v4) >> 2;
       }
 
-      std::__allocate_at_least[abi:ne200100]<std::allocator<google::protobuf::util::converter::DefaultValueObjectWriter::Node **>>(result, v9);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<google::protobuf::util::converter::DefaultValueObjectWriter::Node **>>(a1, v9);
     }
 
     v8 = (((v7 - v6) >> 3) + 1) / 2;
     v5 = &v4[8 * v8];
     if (v6 != v4)
     {
-      result = memmove(&v4[8 * v8], v4, v6 - v4);
-      v6 = v3[2];
+      memmove(&v4[8 * v8], v4, v6 - v4);
+      v6 = a1[2];
     }
 
-    v3[1] = v5;
-    v3[2] = &v6[8 * v8];
+    a1[1] = v5;
+    a1[2] = &v6[8 * v8];
   }
 
   else
   {
-    v5 = result[1];
+    v5 = a1[1];
   }
 
   *(v5 - 1) = *a2;
-  v3[1] = v3[1] - 8;
-  return result;
+  a1[1] = a1[1] - 8;
 }
 
-void *std::__split_buffer<google::protobuf::util::converter::DefaultValueObjectWriter::Node **>::emplace_back<google::protobuf::util::converter::DefaultValueObjectWriter::Node **>(void *result, void *a2)
+void std::__split_buffer<google::protobuf::util::converter::DefaultValueObjectWriter::Node **>::emplace_back<google::protobuf::util::converter::DefaultValueObjectWriter::Node **>(unint64_t *a1, void *a2)
 {
-  v3 = result;
-  v4 = result[2];
-  if (v4 == result[3])
+  v4 = a1[2];
+  if (v4 == a1[3])
   {
-    v5 = result[1];
-    v6 = &v5[-*result];
-    if (v5 <= *result)
+    v5 = a1[1];
+    v6 = &v5[-*a1];
+    if (v5 <= *a1)
     {
-      if (v4 == *result)
+      if (v4 == *a1)
       {
         v11 = 1;
       }
 
       else
       {
-        v11 = &v4[-*result] >> 2;
+        v11 = &v4[-*a1] >> 2;
       }
 
-      std::__allocate_at_least[abi:ne200100]<std::allocator<google::protobuf::util::converter::DefaultValueObjectWriter::Node **>>(result[4], v11);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<google::protobuf::util::converter::DefaultValueObjectWriter::Node **>>(a1[4], v11);
     }
 
     v7 = ((v6 >> 3) + 1) / -2;
@@ -679,28 +625,26 @@ void *std::__split_buffer<google::protobuf::util::converter::DefaultValueObjectW
     v10 = v4 - v5;
     if (v4 != v5)
     {
-      result = memmove(&v5[-8 * v8], v5, v4 - v5);
-      v5 = v3[1];
+      memmove(&v5[-8 * v8], v5, v4 - v5);
+      v5 = a1[1];
     }
 
     v4 = &v9[v10];
-    v3[1] = &v5[8 * v7];
-    v3[2] = &v9[v10];
+    a1[1] = &v5[8 * v7];
+    a1[2] = &v9[v10];
   }
 
   *v4 = *a2;
-  v3[2] += 8;
-  return result;
+  a1[2] += 8;
 }
 
-const void **std::__split_buffer<google::protobuf::util::converter::DefaultValueObjectWriter::Node **>::emplace_front<google::protobuf::util::converter::DefaultValueObjectWriter::Node **&>(const void **result, void *a2)
+void std::__split_buffer<google::protobuf::util::converter::DefaultValueObjectWriter::Node **>::emplace_front<google::protobuf::util::converter::DefaultValueObjectWriter::Node **&>(const void **a1, void *a2)
 {
-  v3 = result;
-  v4 = result[1];
-  if (v4 == *result)
+  v4 = a1[1];
+  if (v4 == *a1)
   {
-    v6 = result[2];
-    v7 = result[3];
+    v6 = a1[2];
+    v7 = a1[3];
     if (v6 >= v7)
     {
       if (v7 == v4)
@@ -713,29 +657,28 @@ const void **std::__split_buffer<google::protobuf::util::converter::DefaultValue
         v9 = (v7 - v4) >> 2;
       }
 
-      std::__allocate_at_least[abi:ne200100]<std::allocator<google::protobuf::util::converter::DefaultValueObjectWriter::Node **>>(result[4], v9);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<google::protobuf::util::converter::DefaultValueObjectWriter::Node **>>(a1[4], v9);
     }
 
     v8 = (((v7 - v6) >> 3) + 1) / 2;
     v5 = &v4[8 * v8];
     if (v6 != v4)
     {
-      result = memmove(&v4[8 * v8], v4, v6 - v4);
-      v6 = v3[2];
+      memmove(&v4[8 * v8], v4, v6 - v4);
+      v6 = a1[2];
     }
 
-    v3[1] = v5;
-    v3[2] = &v6[8 * v8];
+    a1[1] = v5;
+    a1[2] = &v6[8 * v8];
   }
 
   else
   {
-    v5 = result[1];
+    v5 = a1[1];
   }
 
   *(v5 - 1) = *a2;
-  v3[1] = v3[1] - 8;
-  return result;
+  a1[1] = a1[1] - 8;
 }
 
 void std::__allocate_at_least[abi:ne200100]<std::allocator<google::protobuf::util::converter::DefaultValueObjectWriter::Node **>>(uint64_t a1, unint64_t a2)
@@ -787,7 +730,7 @@ uint64_t std::deque<google::protobuf::util::converter::DefaultValueObjectWriter:
   return v7 ^ 1u;
 }
 
-void google::protobuf::util::converter::DataPiece::ToInt32(google::protobuf::util::converter::DataPiece *this@<X0>, char *a2@<X1>, char *a3@<X2>, uint64_t a4@<X8>)
+void google::protobuf::util::converter::DataPiece::ToInt32(google::protobuf::util::converter::DataPiece *this@<X0>, char *a2@<X1>, char *a3@<X2>, google::protobuf::util::Status *a4@<X8>)
 {
   v4 = *(this + 2);
   switch(v4)
@@ -800,14 +743,14 @@ void google::protobuf::util::converter::DataPiece::ToInt32(google::protobuf::uti
       google::protobuf::util::converter::DataPiece::StringToNumber<int>(this, google::protobuf::safe_strto32, a4);
       break;
     default:
-      google::protobuf::util::converter::DataPiece::GenericConvert<int>(this, a2, a3, a4);
+      google::protobuf::util::converter::DataPiece::GenericConvert<int>(this, a3, a4, a2);
       break;
   }
 }
 
-void google::protobuf::util::converter::DataPiece::StringToNumber<int>(uint64_t a1@<X0>, unsigned int (*a2)(void)@<X1>, uint64_t a3@<X8>)
+void google::protobuf::util::converter::DataPiece::StringToNumber<int>(uint64_t a1@<X0>, unsigned int (*a2)(void)@<X1>, google::protobuf::util::Status *a3@<X8>)
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   v6 = *(a1 + 24);
   if (v6 >= 1)
   {
@@ -822,36 +765,36 @@ void google::protobuf::util::converter::DataPiece::StringToNumber<int>(uint64_t 
       v7 = *(a1 + 16);
       v6 = *(a1 + 24);
 LABEL_5:
-      v27 = "";
-      v28 = 1;
-      v25 = v7;
-      v26 = v6;
-      v23 = "";
-      v24 = 1;
-      google::protobuf::StrCat(&v27, &v25, &v23, &v19);
-      google::protobuf::StringPiece::StringPiece<std::allocator<char>>(&__dst, &v19, v8);
-      google::protobuf::util::Status::Status(&v20, 3, __dst, v15);
-      google::protobuf::util::StatusOr<int>::StatusOr(a3, &v20);
-      if (v22 < 0)
+      v26 = "";
+      v27 = 1;
+      v24 = v7;
+      v25 = v6;
+      v22 = "";
+      v23 = 1;
+      google::protobuf::StrCat(&v26, &v24, &v22, &v18);
+      google::protobuf::StringPiece::StringPiece<std::allocator<char>>(&__dst, &v18, v8);
+      google::protobuf::util::Status::Status(v19, 3, __dst, v14);
+      google::protobuf::util::StatusOr<int>::StatusOr(a3, v19);
+      if (v21 < 0)
       {
         operator delete(__p);
       }
 
-      if (SHIBYTE(v19.__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v18.__r_.__value_.__r.__words[2]) < 0)
       {
-        v9 = v19.__r_.__value_.__r.__words[0];
+        v9 = v18.__r_.__value_.__r.__words[0];
 LABEL_23:
         operator delete(v9);
-        goto LABEL_24;
+        return;
       }
 
-      goto LABEL_24;
+      return;
     }
 
     v6 = *(a1 + 24);
   }
 
-  v18 = 0;
+  v17 = 0;
   if (v6 < 0)
   {
     google::protobuf::util::converter::DataPiece::StringToNumber<int>();
@@ -861,53 +804,48 @@ LABEL_23:
   {
     google::protobuf::util::Status::Status(a3);
     google::protobuf::util::Status::operator=(a3, &google::protobuf::util::Status::OK);
-    *(a3 + 32) = v18;
+    *(a3 + 8) = v17;
+    return;
   }
 
-  else
+  v26 = "";
+  v27 = 1;
+  std::string::basic_string[abi:ne200100](&__dst, *(a1 + 16), *(a1 + 24));
+  v10 = v15;
+  p_dst = __dst;
+  if (v15 >= 0)
   {
-    v27 = "";
-    v28 = 1;
-    std::string::basic_string[abi:ne200100](&__dst, *(a1 + 16), *(a1 + 24));
-    v10 = v16;
-    p_dst = __dst;
-    if (v16 >= 0)
-    {
-      p_dst = &__dst;
-    }
-
-    if (v16 < 0)
-    {
-      v10 = v15;
-    }
-
-    v25 = p_dst;
-    v26 = v10;
-    v23 = "";
-    v24 = 1;
-    google::protobuf::StrCat(&v27, &v25, &v23, &v19);
-    google::protobuf::StringPiece::StringPiece<std::allocator<char>>(v17, &v19, v12);
-    google::protobuf::util::Status::Status(&v20, 3, v17[0], v17[1]);
-    google::protobuf::util::StatusOr<int>::StatusOr(a3, &v20);
-    if (v22 < 0)
-    {
-      operator delete(__p);
-    }
-
-    if (SHIBYTE(v19.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v19.__r_.__value_.__l.__data_);
-    }
-
-    if (v16 < 0)
-    {
-      v9 = __dst;
-      goto LABEL_23;
-    }
+    p_dst = &__dst;
   }
 
-LABEL_24:
-  v13 = *MEMORY[0x1E69E9840];
+  if (v15 < 0)
+  {
+    v10 = v14;
+  }
+
+  v24 = p_dst;
+  v25 = v10;
+  v22 = "";
+  v23 = 1;
+  google::protobuf::StrCat(&v26, &v24, &v22, &v18);
+  google::protobuf::StringPiece::StringPiece<std::allocator<char>>(v16, &v18, v12);
+  google::protobuf::util::Status::Status(v19, 3, v16[0], v16[1]);
+  google::protobuf::util::StatusOr<int>::StatusOr(a3, v19);
+  if (v21 < 0)
+  {
+    operator delete(__p);
+  }
+
+  if (SHIBYTE(v18.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v18.__r_.__value_.__l.__data_);
+  }
+
+  if (v15 < 0)
+  {
+    v9 = __dst;
+    goto LABEL_23;
+  }
 }
 
 void sub_1BFC199F0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, _Unwind_Exception *exception_object, void *a11, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17, uint64_t a18, uint64_t a19, void *a20, uint64_t a21, int a22, __int16 a23, char a24, char a25, uint64_t a26, void *__p, uint64_t a28, int a29, __int16 a30, char a31, char a32)
@@ -963,169 +901,162 @@ void sub_1BFC19AEC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void google::protobuf::util::converter::DataPiece::GenericConvert<int>(uint64_t a1@<X0>, char *a2@<X1>, char *a3@<X2>, uint64_t a4@<X8>)
+void google::protobuf::util::converter::DataPiece::GenericConvert<int>(uint64_t a1@<X0>, char *a2@<X2>, google::protobuf::util::Status *a3@<X8>, char *a4@<X1>)
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   v5 = *(a1 + 8);
-  if (v5 <= 3)
+  if (v5 > 3)
   {
-    if (v5 == 1)
+    if (v5 != 4)
     {
-      LODWORD(v6) = *(a1 + 16);
-      v11 = google::protobuf::util::Status::Status(a4);
-      google::protobuf::util::Status::operator=(v11, &google::protobuf::util::Status::OK);
-      goto LABEL_19;
-    }
-
-    if (v5 != 2)
-    {
-      if (v5 == 3)
+      if (v5 == 5)
       {
-        v6 = *(a1 + 16);
-        if (v6 < 1)
-        {
-          v7 = -1;
-        }
+        v17 = *(a1 + 16);
 
-        else
-        {
-          v7 = 1;
-        }
-
-        if (!v6)
-        {
-          v7 = 0;
-        }
-
-        if (v7 == (v6 != 0))
-        {
-          v8 = google::protobuf::util::Status::Status(a4);
-          google::protobuf::util::Status::operator=(v8, &google::protobuf::util::Status::OK);
-LABEL_19:
-          *(a4 + 32) = v6;
-LABEL_48:
-          v23 = *MEMORY[0x1E69E9840];
-          return;
-        }
-
-        __src = v30;
-        __p = (google::protobuf::FastUInt32ToBufferLeft(v6, v30, a3) - v30);
-        std::string::basic_string[abi:ne200100](v24, v30, __p);
-        google::protobuf::StringPiece::StringPiece<std::allocator<char>>(&__src, v24, v21);
-        google::protobuf::util::Status::Status(&v26, 3, __src, __p);
-        google::protobuf::util::StatusOr<int>::StatusOr(a4, &v26);
-        goto LABEL_42;
+        return;
       }
 
-LABEL_27:
-      google::protobuf::util::converter::DataPiece::ValueAsStringOrDefault(a1, "Wrong type. Bool, Enum, String and Cord not supported in GenericConvert.", 0x48, &v26);
-      google::protobuf::StringPiece::StringPiece<std::allocator<char>>(v24, &v26, v14);
-      google::protobuf::util::Status::Status(&__src, 3, v24[0], v24[1]);
-      google::protobuf::util::StatusOr<int>::StatusOr(a4, &__src);
-      if ((v30[15] & 0x80000000) != 0)
+      if (v5 == 6)
       {
-        operator delete(__p);
+        v9 = *(a1 + 16);
+
+        return;
       }
 
-      if ((SHIBYTE(v26.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
-      {
-        goto LABEL_48;
-      }
-
-      v15 = v26.__r_.__value_.__r.__words[0];
-LABEL_46:
-      operator delete(v15);
-      goto LABEL_48;
+      goto LABEL_27;
     }
 
-    v12 = *(a1 + 16);
-    if (v12 != v12)
+    v11 = *(a1 + 16);
+    if (v11 != v11)
     {
-      goto LABEL_36;
+      goto LABEL_40;
     }
 
-    v16 = (v12 < 1) ^ (v12 > 0);
-    if (!v12)
+    v12 = -1;
+    if (v11 >= 1)
     {
-      v16 = 0;
+      v12 = 1;
     }
 
-    if (v12 && !v16)
+    if (!v11)
     {
-LABEL_36:
-      __src = v30;
-      __p = (google::protobuf::FastInt64ToBufferLeft(v12, v30, a3) - v30);
-      std::string::basic_string[abi:ne200100](v24, v30, __p);
-      google::protobuf::StringPiece::StringPiece<std::allocator<char>>(&__src, v24, v17);
-      google::protobuf::util::Status::Status(&v26, 3, __src, __p);
-      google::protobuf::util::StatusOr<int>::StatusOr(a4, &v26);
-LABEL_42:
-      if (v27 < 0)
-      {
-        operator delete(v26.__r_.__value_.__l.__size_);
-      }
-
-      if ((v25 & 0x80000000) == 0)
-      {
-        goto LABEL_48;
-      }
-
-      v15 = v24[0];
-      goto LABEL_46;
+      v12 = 0;
     }
 
-    goto LABEL_47;
+    if (v12 != (v11 != 0))
+    {
+LABEL_40:
+      __src = v27;
+      __p = (google::protobuf::FastUInt64ToBufferLeft(v11, v27, a2) - v27);
+      std::string::basic_string[abi:ne200100](v21, v27, __p);
+      google::protobuf::StringPiece::StringPiece<std::allocator<char>>(&__src, v21, v18);
+      google::protobuf::util::Status::Status(&v23, 3, __src, __p);
+      google::protobuf::util::StatusOr<int>::StatusOr(a3, &v23);
+      goto LABEL_42;
+    }
+
+LABEL_47:
+    v20 = google::protobuf::util::Status::Status(a3);
+    google::protobuf::util::Status::operator=(v20, &google::protobuf::util::Status::OK);
+    *(a3 + 8) = v11;
+    return;
   }
 
   switch(v5)
   {
-    case 4:
-      v12 = *(a1 + 16);
-      if (v12 != v12)
+    case 1:
+      LODWORD(v6) = *(a1 + 16);
+      v10 = google::protobuf::util::Status::Status(a3);
+      google::protobuf::util::Status::operator=(v10, &google::protobuf::util::Status::OK);
+      goto LABEL_19;
+    case 2:
+      v11 = *(a1 + 16);
+      if (v11 != v11)
       {
-        goto LABEL_40;
+        goto LABEL_36;
       }
 
-      v13 = -1;
-      if (v12 >= 1)
+      v15 = (v11 < 1) ^ (v11 > 0);
+      if (!v11)
       {
-        v13 = 1;
+        v15 = 0;
       }
 
-      if (!v12)
+      if (v11 && !v15)
       {
-        v13 = 0;
-      }
-
-      if (v13 != (v12 != 0))
-      {
-LABEL_40:
-        __src = v30;
-        __p = (google::protobuf::FastUInt64ToBufferLeft(v12, v30, a3) - v30);
-        std::string::basic_string[abi:ne200100](v24, v30, __p);
-        google::protobuf::StringPiece::StringPiece<std::allocator<char>>(&__src, v24, v20);
-        google::protobuf::util::Status::Status(&v26, 3, __src, __p);
-        google::protobuf::util::StatusOr<int>::StatusOr(a4, &v26);
+LABEL_36:
+        __src = v27;
+        __p = (google::protobuf::FastInt64ToBufferLeft(v11, v27, a2) - v27);
+        std::string::basic_string[abi:ne200100](v21, v27, __p);
+        google::protobuf::StringPiece::StringPiece<std::allocator<char>>(&__src, v21, v16);
+        google::protobuf::util::Status::Status(&v23, 3, __src, __p);
+        google::protobuf::util::StatusOr<int>::StatusOr(a3, &v23);
         goto LABEL_42;
       }
 
-LABEL_47:
-      v22 = google::protobuf::util::Status::Status(a4);
-      google::protobuf::util::Status::operator=(v22, &google::protobuf::util::Status::OK);
-      *(a4 + 32) = v12;
-      goto LABEL_48;
-    case 5:
-      v18 = *(a1 + 16);
-      v19 = *MEMORY[0x1E69E9840];
+      goto LABEL_47;
+    case 3:
+      v6 = *(a1 + 16);
+      if (v6 < 1)
+      {
+        v7 = -1;
+      }
 
-      break;
-    case 6:
-      v9 = *(a1 + 16);
-      v10 = *MEMORY[0x1E69E9840];
+      else
+      {
+        v7 = 1;
+      }
 
-      break;
-    default:
-      goto LABEL_27;
+      if (!v6)
+      {
+        v7 = 0;
+      }
+
+      if (v7 == (v6 != 0))
+      {
+        v8 = google::protobuf::util::Status::Status(a3);
+        google::protobuf::util::Status::operator=(v8, &google::protobuf::util::Status::OK);
+LABEL_19:
+        *(a3 + 8) = v6;
+        return;
+      }
+
+      __src = v27;
+      __p = (google::protobuf::FastUInt32ToBufferLeft(v6, v27, a2) - v27);
+      std::string::basic_string[abi:ne200100](v21, v27, __p);
+      google::protobuf::StringPiece::StringPiece<std::allocator<char>>(&__src, v21, v19);
+      google::protobuf::util::Status::Status(&v23, 3, __src, __p);
+      google::protobuf::util::StatusOr<int>::StatusOr(a3, &v23);
+LABEL_42:
+      if (v24 < 0)
+      {
+        operator delete(v23.__r_.__value_.__l.__size_);
+      }
+
+      if (v22 < 0)
+      {
+        v14 = v21[0];
+        goto LABEL_46;
+      }
+
+      return;
+  }
+
+LABEL_27:
+  google::protobuf::util::converter::DataPiece::ValueAsStringOrDefault(a1, "Wrong type. Bool, Enum, String and Cord not supported in GenericConvert.", 0x48, &v23);
+  google::protobuf::StringPiece::StringPiece<std::allocator<char>>(v21, &v23, v13);
+  google::protobuf::util::Status::Status(&__src, 3, v21[0], v21[1]);
+  google::protobuf::util::StatusOr<int>::StatusOr(a3, &__src);
+  if ((v27[15] & 0x80000000) != 0)
+  {
+    operator delete(__p);
+  }
+
+  if (SHIBYTE(v23.__r_.__value_.__r.__words[2]) < 0)
+  {
+    v14 = v23.__r_.__value_.__r.__words[0];
+LABEL_46:
+    operator delete(v14);
   }
 }
 
@@ -1139,7 +1070,7 @@ void sub_1BFC19E9C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void google::protobuf::util::converter::DataPiece::ToUint32(google::protobuf::util::converter::DataPiece *this@<X0>, char *a2@<X1>, char *a3@<X2>, uint64_t a4@<X8>)
+void google::protobuf::util::converter::DataPiece::ToUint32(google::protobuf::util::converter::DataPiece *this@<X0>, char *a2@<X1>, char *a3@<X2>, google::protobuf::util::Status *a4@<X8>)
 {
   v4 = *(this + 2);
   switch(v4)
@@ -1152,14 +1083,14 @@ void google::protobuf::util::converter::DataPiece::ToUint32(google::protobuf::ut
       google::protobuf::util::converter::DataPiece::StringToNumber<unsigned int>(this, google::protobuf::safe_strtou32, a4);
       break;
     default:
-      google::protobuf::util::converter::DataPiece::GenericConvert<unsigned int>(this, a2, a3, a4);
+      google::protobuf::util::converter::DataPiece::GenericConvert<unsigned int>(this, a3, a4, a2);
       break;
   }
 }
 
-void google::protobuf::util::converter::DataPiece::StringToNumber<unsigned int>(uint64_t a1@<X0>, unsigned int (*a2)(void)@<X1>, uint64_t a3@<X8>)
+void google::protobuf::util::converter::DataPiece::StringToNumber<unsigned int>(uint64_t a1@<X0>, unsigned int (*a2)(void)@<X1>, google::protobuf::util::Status *a3@<X8>)
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   v6 = *(a1 + 24);
   if (v6 >= 1)
   {
@@ -1174,36 +1105,36 @@ void google::protobuf::util::converter::DataPiece::StringToNumber<unsigned int>(
       v7 = *(a1 + 16);
       v6 = *(a1 + 24);
 LABEL_5:
-      v27 = "";
-      v28 = 1;
-      v25 = v7;
-      v26 = v6;
-      v23 = "";
-      v24 = 1;
-      google::protobuf::StrCat(&v27, &v25, &v23, &v19);
-      google::protobuf::StringPiece::StringPiece<std::allocator<char>>(&__dst, &v19, v8);
-      google::protobuf::util::Status::Status(&v20, 3, __dst, v15);
-      google::protobuf::util::StatusOr<unsigned int>::StatusOr(a3, &v20);
-      if (v22 < 0)
+      v26 = "";
+      v27 = 1;
+      v24 = v7;
+      v25 = v6;
+      v22 = "";
+      v23 = 1;
+      google::protobuf::StrCat(&v26, &v24, &v22, &v18);
+      google::protobuf::StringPiece::StringPiece<std::allocator<char>>(&__dst, &v18, v8);
+      google::protobuf::util::Status::Status(&v19, 3, __dst, v14);
+      google::protobuf::util::StatusOr<unsigned int>::StatusOr(a3, &v19);
+      if (v21 < 0)
       {
         operator delete(__p);
       }
 
-      if (SHIBYTE(v19.__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v18.__r_.__value_.__r.__words[2]) < 0)
       {
-        v9 = v19.__r_.__value_.__r.__words[0];
+        v9 = v18.__r_.__value_.__r.__words[0];
 LABEL_23:
         operator delete(v9);
-        goto LABEL_24;
+        return;
       }
 
-      goto LABEL_24;
+      return;
     }
 
     v6 = *(a1 + 24);
   }
 
-  v18 = 0;
+  v17 = 0;
   if (v6 < 0)
   {
     google::protobuf::util::converter::DataPiece::StringToNumber<int>();
@@ -1213,53 +1144,48 @@ LABEL_23:
   {
     google::protobuf::util::Status::Status(a3);
     google::protobuf::util::Status::operator=(a3, &google::protobuf::util::Status::OK);
-    *(a3 + 32) = v18;
+    *(a3 + 8) = v17;
+    return;
   }
 
-  else
+  v26 = "";
+  v27 = 1;
+  std::string::basic_string[abi:ne200100](&__dst, *(a1 + 16), *(a1 + 24));
+  v10 = v15;
+  p_dst = __dst;
+  if (v15 >= 0)
   {
-    v27 = "";
-    v28 = 1;
-    std::string::basic_string[abi:ne200100](&__dst, *(a1 + 16), *(a1 + 24));
-    v10 = v16;
-    p_dst = __dst;
-    if (v16 >= 0)
-    {
-      p_dst = &__dst;
-    }
-
-    if (v16 < 0)
-    {
-      v10 = v15;
-    }
-
-    v25 = p_dst;
-    v26 = v10;
-    v23 = "";
-    v24 = 1;
-    google::protobuf::StrCat(&v27, &v25, &v23, &v19);
-    google::protobuf::StringPiece::StringPiece<std::allocator<char>>(v17, &v19, v12);
-    google::protobuf::util::Status::Status(&v20, 3, v17[0], v17[1]);
-    google::protobuf::util::StatusOr<unsigned int>::StatusOr(a3, &v20);
-    if (v22 < 0)
-    {
-      operator delete(__p);
-    }
-
-    if (SHIBYTE(v19.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v19.__r_.__value_.__l.__data_);
-    }
-
-    if (v16 < 0)
-    {
-      v9 = __dst;
-      goto LABEL_23;
-    }
+    p_dst = &__dst;
   }
 
-LABEL_24:
-  v13 = *MEMORY[0x1E69E9840];
+  if (v15 < 0)
+  {
+    v10 = v14;
+  }
+
+  v24 = p_dst;
+  v25 = v10;
+  v22 = "";
+  v23 = 1;
+  google::protobuf::StrCat(&v26, &v24, &v22, &v18);
+  google::protobuf::StringPiece::StringPiece<std::allocator<char>>(v16, &v18, v12);
+  google::protobuf::util::Status::Status(&v19, 3, v16[0], v16[1]);
+  google::protobuf::util::StatusOr<unsigned int>::StatusOr(a3, &v19);
+  if (v21 < 0)
+  {
+    operator delete(__p);
+  }
+
+  if (SHIBYTE(v18.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v18.__r_.__value_.__l.__data_);
+  }
+
+  if (v15 < 0)
+  {
+    v9 = __dst;
+    goto LABEL_23;
+  }
 }
 
 void sub_1BFC1A184(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, _Unwind_Exception *exception_object, void *a11, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17, uint64_t a18, uint64_t a19, void *a20, uint64_t a21, int a22, __int16 a23, char a24, char a25, uint64_t a26, void *__p, uint64_t a28, int a29, __int16 a30, char a31, char a32)
@@ -1315,11 +1241,50 @@ void sub_1BFC1A280(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void google::protobuf::util::converter::DataPiece::GenericConvert<unsigned int>(uint64_t a1@<X0>, char *a2@<X1>, char *a3@<X2>, uint64_t a4@<X8>)
+void google::protobuf::util::converter::DataPiece::GenericConvert<unsigned int>(uint64_t a1@<X0>, char *a2@<X2>, google::protobuf::util::Status *a3@<X8>, char *a4@<X1>)
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v5 = *(a1 + 8);
-  if (v5 <= 3)
+  if (v5 > 3)
+  {
+    if (v5 != 4)
+    {
+      if (v5 == 5)
+      {
+        v15 = *(a1 + 16);
+
+        return;
+      }
+
+      if (v5 == 6)
+      {
+        v8 = *(a1 + 16);
+
+        return;
+      }
+
+      goto LABEL_23;
+    }
+
+    v11 = *(a1 + 16);
+    if (!HIDWORD(v11) && (v11 != 0) != (v11 == 0))
+    {
+LABEL_29:
+      v14 = google::protobuf::util::Status::Status(a3);
+      google::protobuf::util::Status::operator=(v14, &google::protobuf::util::Status::OK);
+      *(a3 + 8) = v11;
+      return;
+    }
+
+    __src = v25;
+    __p = (google::protobuf::FastUInt64ToBufferLeft(v11, v25, a2) - v25);
+    std::string::basic_string[abi:ne200100](v19, v25, __p);
+    google::protobuf::StringPiece::StringPiece<std::allocator<char>>(&__src, v19, v16);
+    google::protobuf::util::Status::Status(&v21, 3, __src, __p);
+    google::protobuf::util::StatusOr<unsigned int>::StatusOr(a3, &v21);
+  }
+
+  else
   {
     switch(v5)
     {
@@ -1327,125 +1292,86 @@ void google::protobuf::util::converter::DataPiece::GenericConvert<unsigned int>(
         v6 = *(a1 + 16);
         if (v6 < 1)
         {
-          v10 = -1;
+          v9 = -1;
         }
 
         else
         {
-          v10 = 1;
+          v9 = 1;
         }
 
         if (!v6)
         {
-          v10 = 0;
+          v9 = 0;
         }
 
-        if (v10 == (v6 != 0))
+        if (v9 == (v6 != 0))
         {
-          v11 = google::protobuf::util::Status::Status(a4);
-          google::protobuf::util::Status::operator=(v11, &google::protobuf::util::Status::OK);
+          v10 = google::protobuf::util::Status::Status(a3);
+          google::protobuf::util::Status::operator=(v10, &google::protobuf::util::Status::OK);
           goto LABEL_19;
         }
 
-        __src = v28;
-        __p = (google::protobuf::FastInt32ToBufferLeft(v6, v28, a3) - v28);
-        std::string::basic_string[abi:ne200100](v22, v28, __p);
-        google::protobuf::StringPiece::StringPiece<std::allocator<char>>(&__src, v22, v20);
-        google::protobuf::util::Status::Status(&v24, 3, __src, __p);
-        google::protobuf::util::StatusOr<unsigned int>::StatusOr(a4, &v24);
+        __src = v25;
+        __p = (google::protobuf::FastInt32ToBufferLeft(v6, v25, a2) - v25);
+        std::string::basic_string[abi:ne200100](v19, v25, __p);
+        google::protobuf::StringPiece::StringPiece<std::allocator<char>>(&__src, v19, v18);
+        google::protobuf::util::Status::Status(&v21, 3, __src, __p);
+        google::protobuf::util::StatusOr<unsigned int>::StatusOr(a3, &v21);
         break;
       case 2:
-        v12 = *(a1 + 16);
-        if (!HIDWORD(v12) && (v12 != 0) != (v12 == 0))
+        v11 = *(a1 + 16);
+        if (!HIDWORD(v11) && (v11 != 0) != (v11 == 0))
         {
-LABEL_29:
-          v15 = google::protobuf::util::Status::Status(a4);
-          google::protobuf::util::Status::operator=(v15, &google::protobuf::util::Status::OK);
-          *(a4 + 32) = v12;
-          goto LABEL_41;
+          goto LABEL_29;
         }
 
-        __src = v28;
-        __p = (google::protobuf::FastInt64ToBufferLeft(v12, v28, a3) - v28);
-        std::string::basic_string[abi:ne200100](v22, v28, __p);
-        google::protobuf::StringPiece::StringPiece<std::allocator<char>>(&__src, v22, v19);
-        google::protobuf::util::Status::Status(&v24, 3, __src, __p);
-        google::protobuf::util::StatusOr<unsigned int>::StatusOr(a4, &v24);
+        __src = v25;
+        __p = (google::protobuf::FastInt64ToBufferLeft(v11, v25, a2) - v25);
+        std::string::basic_string[abi:ne200100](v19, v25, __p);
+        google::protobuf::StringPiece::StringPiece<std::allocator<char>>(&__src, v19, v17);
+        google::protobuf::util::Status::Status(&v21, 3, __src, __p);
+        google::protobuf::util::StatusOr<unsigned int>::StatusOr(a3, &v21);
         break;
       case 3:
         LODWORD(v6) = *(a1 + 16);
-        v7 = google::protobuf::util::Status::Status(a4);
+        v7 = google::protobuf::util::Status::Status(a3);
         google::protobuf::util::Status::operator=(v7, &google::protobuf::util::Status::OK);
 LABEL_19:
-        *(a4 + 32) = v6;
-LABEL_41:
-        v21 = *MEMORY[0x1E69E9840];
+        *(a3 + 8) = v6;
         return;
       default:
-        goto LABEL_23;
-    }
+LABEL_23:
+        google::protobuf::util::converter::DataPiece::ValueAsStringOrDefault(a1, "Wrong type. Bool, Enum, String and Cord not supported in GenericConvert.", 0x48, &v21);
+        google::protobuf::StringPiece::StringPiece<std::allocator<char>>(v19, &v21, v12);
+        google::protobuf::util::Status::Status(&__src, 3, v19[0], v19[1]);
+        google::protobuf::util::StatusOr<unsigned int>::StatusOr(a3, &__src);
+        if ((v25[15] & 0x80000000) != 0)
+        {
+          operator delete(__p);
+        }
 
-LABEL_36:
-    if (v25 < 0)
-    {
-      operator delete(v24.__r_.__value_.__l.__size_);
-    }
-
-    if ((v23 & 0x80000000) == 0)
-    {
-      goto LABEL_41;
-    }
-
-    v14 = v22[0];
+        if (SHIBYTE(v21.__r_.__value_.__r.__words[2]) < 0)
+        {
+          v13 = v21.__r_.__value_.__r.__words[0];
 LABEL_40:
-    operator delete(v14);
-    goto LABEL_41;
+          operator delete(v13);
+          return;
+        }
+
+        return;
+    }
   }
 
-  switch(v5)
+  if (v22 < 0)
   {
-    case 4:
-      v12 = *(a1 + 16);
-      if (!HIDWORD(v12) && (v12 != 0) != (v12 == 0))
-      {
-        goto LABEL_29;
-      }
+    operator delete(v21.__r_.__value_.__l.__size_);
+  }
 
-      __src = v28;
-      __p = (google::protobuf::FastUInt64ToBufferLeft(v12, v28, a3) - v28);
-      std::string::basic_string[abi:ne200100](v22, v28, __p);
-      google::protobuf::StringPiece::StringPiece<std::allocator<char>>(&__src, v22, v18);
-      google::protobuf::util::Status::Status(&v24, 3, __src, __p);
-      google::protobuf::util::StatusOr<unsigned int>::StatusOr(a4, &v24);
-      goto LABEL_36;
-    case 5:
-      v16 = *(a1 + 16);
-      v17 = *MEMORY[0x1E69E9840];
-
-      break;
-    case 6:
-      v8 = *(a1 + 16);
-      v9 = *MEMORY[0x1E69E9840];
-
-      break;
-    default:
-LABEL_23:
-      google::protobuf::util::converter::DataPiece::ValueAsStringOrDefault(a1, "Wrong type. Bool, Enum, String and Cord not supported in GenericConvert.", 0x48, &v24);
-      google::protobuf::StringPiece::StringPiece<std::allocator<char>>(v22, &v24, v13);
-      google::protobuf::util::Status::Status(&__src, 3, v22[0], v22[1]);
-      google::protobuf::util::StatusOr<unsigned int>::StatusOr(a4, &__src);
-      if ((v28[15] & 0x80000000) != 0)
-      {
-        operator delete(__p);
-      }
-
-      if ((SHIBYTE(v24.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
-      {
-        goto LABEL_41;
-      }
-
-      v14 = v24.__r_.__value_.__r.__words[0];
-      goto LABEL_40;
+  if (v20 < 0)
+  {
+    v13 = v19[0];
+    goto LABEL_40;
   }
 }
 
@@ -1459,7 +1385,7 @@ void sub_1BFC1A61C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void google::protobuf::util::converter::DataPiece::ToInt64(google::protobuf::util::converter::DataPiece *this@<X0>, char *a2@<X1>, char *a3@<X2>, uint64_t a4@<X8>)
+void google::protobuf::util::converter::DataPiece::ToInt64(google::protobuf::util::converter::DataPiece *this@<X0>, char *a2@<X1>, char *a3@<X2>, google::protobuf::util::Status *a4@<X8>)
 {
   v4 = *(this + 2);
   switch(v4)
@@ -1472,14 +1398,14 @@ void google::protobuf::util::converter::DataPiece::ToInt64(google::protobuf::uti
       google::protobuf::util::converter::DataPiece::StringToNumber<long long>(this, google::protobuf::safe_strto64, a4);
       break;
     default:
-      google::protobuf::util::converter::DataPiece::GenericConvert<long long>(this, a2, a3, a4);
+      google::protobuf::util::converter::DataPiece::GenericConvert<long long>(this, a3, a4, a2);
       break;
   }
 }
 
-void google::protobuf::util::converter::DataPiece::StringToNumber<long long>(uint64_t a1@<X0>, unsigned int (*a2)(void)@<X1>, uint64_t a3@<X8>)
+void google::protobuf::util::converter::DataPiece::StringToNumber<long long>(uint64_t a1@<X0>, unsigned int (*a2)(void)@<X1>, google::protobuf::util::Status *a3@<X8>)
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   v6 = *(a1 + 24);
   if (v6 >= 1)
   {
@@ -1494,36 +1420,36 @@ void google::protobuf::util::converter::DataPiece::StringToNumber<long long>(uin
       v7 = *(a1 + 16);
       v6 = *(a1 + 24);
 LABEL_5:
-      v27 = "";
-      v28 = 1;
-      v25 = v7;
-      v26 = v6;
-      v23 = "";
-      v24 = 1;
-      google::protobuf::StrCat(&v27, &v25, &v23, &v19);
-      google::protobuf::StringPiece::StringPiece<std::allocator<char>>(&__dst, &v19, v8);
-      google::protobuf::util::Status::Status(&v20, 3, __dst, v15);
-      google::protobuf::util::StatusOr<long long>::StatusOr(a3, &v20);
-      if (v22 < 0)
+      v26 = "";
+      v27 = 1;
+      v24 = v7;
+      v25 = v6;
+      v22 = "";
+      v23 = 1;
+      google::protobuf::StrCat(&v26, &v24, &v22, &v18);
+      google::protobuf::StringPiece::StringPiece<std::allocator<char>>(&__dst, &v18, v8);
+      google::protobuf::util::Status::Status(v19, 3, __dst, v14);
+      google::protobuf::util::StatusOr<long long>::StatusOr(a3, v19);
+      if (v21 < 0)
       {
         operator delete(__p);
       }
 
-      if (SHIBYTE(v19.__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v18.__r_.__value_.__r.__words[2]) < 0)
       {
-        v9 = v19.__r_.__value_.__r.__words[0];
+        v9 = v18.__r_.__value_.__r.__words[0];
 LABEL_23:
         operator delete(v9);
-        goto LABEL_24;
+        return;
       }
 
-      goto LABEL_24;
+      return;
     }
 
     v6 = *(a1 + 24);
   }
 
-  v18 = 0;
+  v17 = 0;
   if (v6 < 0)
   {
     google::protobuf::util::converter::DataPiece::StringToNumber<int>();
@@ -1533,53 +1459,48 @@ LABEL_23:
   {
     google::protobuf::util::Status::Status(a3);
     google::protobuf::util::Status::operator=(a3, &google::protobuf::util::Status::OK);
-    *(a3 + 32) = v18;
+    *(a3 + 4) = v17;
+    return;
   }
 
-  else
+  v26 = "";
+  v27 = 1;
+  std::string::basic_string[abi:ne200100](&__dst, *(a1 + 16), *(a1 + 24));
+  v10 = v15;
+  p_dst = __dst;
+  if (v15 >= 0)
   {
-    v27 = "";
-    v28 = 1;
-    std::string::basic_string[abi:ne200100](&__dst, *(a1 + 16), *(a1 + 24));
-    v10 = v16;
-    p_dst = __dst;
-    if (v16 >= 0)
-    {
-      p_dst = &__dst;
-    }
-
-    if (v16 < 0)
-    {
-      v10 = v15;
-    }
-
-    v25 = p_dst;
-    v26 = v10;
-    v23 = "";
-    v24 = 1;
-    google::protobuf::StrCat(&v27, &v25, &v23, &v19);
-    google::protobuf::StringPiece::StringPiece<std::allocator<char>>(v17, &v19, v12);
-    google::protobuf::util::Status::Status(&v20, 3, v17[0], v17[1]);
-    google::protobuf::util::StatusOr<long long>::StatusOr(a3, &v20);
-    if (v22 < 0)
-    {
-      operator delete(__p);
-    }
-
-    if (SHIBYTE(v19.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v19.__r_.__value_.__l.__data_);
-    }
-
-    if (v16 < 0)
-    {
-      v9 = __dst;
-      goto LABEL_23;
-    }
+    p_dst = &__dst;
   }
 
-LABEL_24:
-  v13 = *MEMORY[0x1E69E9840];
+  if (v15 < 0)
+  {
+    v10 = v14;
+  }
+
+  v24 = p_dst;
+  v25 = v10;
+  v22 = "";
+  v23 = 1;
+  google::protobuf::StrCat(&v26, &v24, &v22, &v18);
+  google::protobuf::StringPiece::StringPiece<std::allocator<char>>(v16, &v18, v12);
+  google::protobuf::util::Status::Status(v19, 3, v16[0], v16[1]);
+  google::protobuf::util::StatusOr<long long>::StatusOr(a3, v19);
+  if (v21 < 0)
+  {
+    operator delete(__p);
+  }
+
+  if (SHIBYTE(v18.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v18.__r_.__value_.__l.__data_);
+  }
+
+  if (v15 < 0)
+  {
+    v9 = __dst;
+    goto LABEL_23;
+  }
 }
 
 void sub_1BFC1A904(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, _Unwind_Exception *exception_object, void *a11, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17, uint64_t a18, uint64_t a19, void *a20, uint64_t a21, int a22, __int16 a23, char a24, char a25, uint64_t a26, void *__p, uint64_t a28, int a29, __int16 a30, char a31, char a32)
@@ -1635,9 +1556,9 @@ void sub_1BFC1AA00(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void google::protobuf::util::converter::DataPiece::GenericConvert<long long>(uint64_t a1@<X0>, char *a2@<X1>, char *a3@<X2>, uint64_t a4@<X8>)
+void google::protobuf::util::converter::DataPiece::GenericConvert<long long>(uint64_t a1@<X0>, char *a2@<X2>, google::protobuf::util::Status *a3@<X8>, char *a4@<X1>)
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v5 = *(a1 + 8);
   if (v5 <= 3)
   {
@@ -1645,98 +1566,97 @@ void google::protobuf::util::converter::DataPiece::GenericConvert<long long>(uin
     {
       case 1:
         v6 = *(a1 + 16);
-        v10 = google::protobuf::util::Status::Status(a4);
-        google::protobuf::util::Status::operator=(v10, &google::protobuf::util::Status::OK);
+        v9 = google::protobuf::util::Status::Status(a3);
+        google::protobuf::util::Status::operator=(v9, &google::protobuf::util::Status::OK);
         goto LABEL_24;
       case 2:
         v6 = *(a1 + 16);
-        v15 = google::protobuf::util::Status::Status(a4);
-        google::protobuf::util::Status::operator=(v15, &google::protobuf::util::Status::OK);
+        v14 = google::protobuf::util::Status::Status(a3);
+        google::protobuf::util::Status::operator=(v14, &google::protobuf::util::Status::OK);
         goto LABEL_24;
       case 3:
         v6 = *(a1 + 16);
-        v7 = google::protobuf::util::Status::Status(a4);
+        v7 = google::protobuf::util::Status::Status(a3);
         google::protobuf::util::Status::operator=(v7, &google::protobuf::util::Status::OK);
 LABEL_24:
-        *(a4 + 32) = v6;
-LABEL_25:
-        v16 = *MEMORY[0x1E69E9840];
+        *(a3 + 4) = v6;
         return;
+    }
+
+LABEL_19:
+    google::protobuf::util::converter::DataPiece::ValueAsStringOrDefault(a1, "Wrong type. Bool, Enum, String and Cord not supported in GenericConvert.", 0x48, &v19);
+    google::protobuf::StringPiece::StringPiece<std::allocator<char>>(v17, &v19, v12);
+    google::protobuf::util::Status::Status(&__src, 3, v17[0], v17[1]);
+    google::protobuf::util::StatusOr<long long>::StatusOr(a3, &__src);
+    if ((v23[15] & 0x80000000) != 0)
+    {
+      operator delete(__p);
+    }
+
+    if (SHIBYTE(v19.__r_.__value_.__r.__words[2]) < 0)
+    {
+      v13 = v19.__r_.__value_.__r.__words[0];
+LABEL_33:
+      operator delete(v13);
+      return;
+    }
+
+    return;
+  }
+
+  if (v5 != 4)
+  {
+    if (v5 == 5)
+    {
+      v15 = *(a1 + 16);
+
+      return;
+    }
+
+    if (v5 == 6)
+    {
+      v8 = *(a1 + 16);
+
+      return;
     }
 
     goto LABEL_19;
   }
 
-  switch(v5)
+  v6 = *(a1 + 16);
+  v10 = -1;
+  if (v6 >= 1)
   {
-    case 4:
-      v6 = *(a1 + 16);
-      v11 = -1;
-      if (v6 >= 1)
-      {
-        v11 = 1;
-      }
+    v10 = 1;
+  }
 
-      if (!v6)
-      {
-        v11 = 0;
-      }
+  if (!v6)
+  {
+    v10 = 0;
+  }
 
-      if (v11 == (v6 != 0))
-      {
-        v12 = google::protobuf::util::Status::Status(a4);
-        google::protobuf::util::Status::operator=(v12, &google::protobuf::util::Status::OK);
-        goto LABEL_24;
-      }
+  if (v10 == (v6 != 0))
+  {
+    v11 = google::protobuf::util::Status::Status(a3);
+    google::protobuf::util::Status::operator=(v11, &google::protobuf::util::Status::OK);
+    goto LABEL_24;
+  }
 
-      __src = v26;
-      __p = (google::protobuf::FastUInt64ToBufferLeft(v6, v26, a3) - v26);
-      std::string::basic_string[abi:ne200100](v20, v26, __p);
-      google::protobuf::StringPiece::StringPiece<std::allocator<char>>(&__src, v20, v19);
-      google::protobuf::util::Status::Status(&v22, 3, __src, __p);
-      google::protobuf::util::StatusOr<long long>::StatusOr(a4, &v22);
-      if (v23 < 0)
-      {
-        operator delete(v22.__r_.__value_.__l.__size_);
-      }
+  __src = v23;
+  __p = (google::protobuf::FastUInt64ToBufferLeft(v6, v23, a2) - v23);
+  std::string::basic_string[abi:ne200100](v17, v23, __p);
+  google::protobuf::StringPiece::StringPiece<std::allocator<char>>(&__src, v17, v16);
+  google::protobuf::util::Status::Status(&v19, 3, __src, __p);
+  google::protobuf::util::StatusOr<long long>::StatusOr(a3, &v19);
+  if (v20 < 0)
+  {
+    operator delete(v19.__r_.__value_.__l.__size_);
+  }
 
-      if ((v21 & 0x80000000) == 0)
-      {
-        goto LABEL_25;
-      }
-
-      v14 = v20[0];
-LABEL_33:
-      operator delete(v14);
-      goto LABEL_25;
-    case 5:
-      v17 = *(a1 + 16);
-      v18 = *MEMORY[0x1E69E9840];
-
-      break;
-    case 6:
-      v8 = *(a1 + 16);
-      v9 = *MEMORY[0x1E69E9840];
-
-      break;
-    default:
-LABEL_19:
-      google::protobuf::util::converter::DataPiece::ValueAsStringOrDefault(a1, "Wrong type. Bool, Enum, String and Cord not supported in GenericConvert.", 0x48, &v22);
-      google::protobuf::StringPiece::StringPiece<std::allocator<char>>(v20, &v22, v13);
-      google::protobuf::util::Status::Status(&__src, 3, v20[0], v20[1]);
-      google::protobuf::util::StatusOr<long long>::StatusOr(a4, &__src);
-      if ((v26[15] & 0x80000000) != 0)
-      {
-        operator delete(__p);
-      }
-
-      if ((SHIBYTE(v22.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
-      {
-        goto LABEL_25;
-      }
-
-      v14 = v22.__r_.__value_.__r.__words[0];
-      goto LABEL_33;
+  if (v18 < 0)
+  {
+    v13 = v17[0];
+    goto LABEL_33;
   }
 }
 
@@ -1755,7 +1675,7 @@ void sub_1BFC1ACA8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void google::protobuf::util::converter::DataPiece::ToUint64(google::protobuf::util::converter::DataPiece *this@<X0>, char *a2@<X1>, char *a3@<X2>, uint64_t a4@<X8>)
+void google::protobuf::util::converter::DataPiece::ToUint64(google::protobuf::util::converter::DataPiece *this@<X0>, char *a2@<X1>, char *a3@<X2>, google::protobuf::util::Status *a4@<X8>)
 {
   v4 = *(this + 2);
   switch(v4)
@@ -1768,14 +1688,14 @@ void google::protobuf::util::converter::DataPiece::ToUint64(google::protobuf::ut
       google::protobuf::util::converter::DataPiece::StringToNumber<unsigned long long>(this, google::protobuf::safe_strtou64, a4);
       break;
     default:
-      google::protobuf::util::converter::DataPiece::GenericConvert<unsigned long long>(this, a2, a3, a4);
+      google::protobuf::util::converter::DataPiece::GenericConvert<unsigned long long>(this, a3, a4, a2);
       break;
   }
 }
 
-void google::protobuf::util::converter::DataPiece::StringToNumber<unsigned long long>(uint64_t a1@<X0>, unsigned int (*a2)(void)@<X1>, uint64_t a3@<X8>)
+void google::protobuf::util::converter::DataPiece::StringToNumber<unsigned long long>(uint64_t a1@<X0>, unsigned int (*a2)(void)@<X1>, google::protobuf::util::Status *a3@<X8>)
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   v6 = *(a1 + 24);
   if (v6 >= 1)
   {
@@ -1790,36 +1710,36 @@ void google::protobuf::util::converter::DataPiece::StringToNumber<unsigned long 
       v7 = *(a1 + 16);
       v6 = *(a1 + 24);
 LABEL_5:
-      v27 = "";
-      v28 = 1;
-      v25 = v7;
-      v26 = v6;
-      v23 = "";
-      v24 = 1;
-      google::protobuf::StrCat(&v27, &v25, &v23, &v19);
-      google::protobuf::StringPiece::StringPiece<std::allocator<char>>(&__dst, &v19, v8);
-      google::protobuf::util::Status::Status(&v20, 3, __dst, v15);
-      google::protobuf::util::StatusOr<unsigned long long>::StatusOr(a3, &v20);
-      if (v22 < 0)
+      v26 = "";
+      v27 = 1;
+      v24 = v7;
+      v25 = v6;
+      v22 = "";
+      v23 = 1;
+      google::protobuf::StrCat(&v26, &v24, &v22, &v18);
+      google::protobuf::StringPiece::StringPiece<std::allocator<char>>(&__dst, &v18, v8);
+      google::protobuf::util::Status::Status(v19, 3, __dst, v14);
+      google::protobuf::util::StatusOr<unsigned long long>::StatusOr(a3, v19);
+      if (v21 < 0)
       {
         operator delete(__p);
       }
 
-      if (SHIBYTE(v19.__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v18.__r_.__value_.__r.__words[2]) < 0)
       {
-        v9 = v19.__r_.__value_.__r.__words[0];
+        v9 = v18.__r_.__value_.__r.__words[0];
 LABEL_23:
         operator delete(v9);
-        goto LABEL_24;
+        return;
       }
 
-      goto LABEL_24;
+      return;
     }
 
     v6 = *(a1 + 24);
   }
 
-  v18 = 0;
+  v17 = 0;
   if (v6 < 0)
   {
     google::protobuf::util::converter::DataPiece::StringToNumber<int>();
@@ -1829,53 +1749,48 @@ LABEL_23:
   {
     google::protobuf::util::Status::Status(a3);
     google::protobuf::util::Status::operator=(a3, &google::protobuf::util::Status::OK);
-    *(a3 + 32) = v18;
+    *(a3 + 4) = v17;
+    return;
   }
 
-  else
+  v26 = "";
+  v27 = 1;
+  std::string::basic_string[abi:ne200100](&__dst, *(a1 + 16), *(a1 + 24));
+  v10 = v15;
+  p_dst = __dst;
+  if (v15 >= 0)
   {
-    v27 = "";
-    v28 = 1;
-    std::string::basic_string[abi:ne200100](&__dst, *(a1 + 16), *(a1 + 24));
-    v10 = v16;
-    p_dst = __dst;
-    if (v16 >= 0)
-    {
-      p_dst = &__dst;
-    }
-
-    if (v16 < 0)
-    {
-      v10 = v15;
-    }
-
-    v25 = p_dst;
-    v26 = v10;
-    v23 = "";
-    v24 = 1;
-    google::protobuf::StrCat(&v27, &v25, &v23, &v19);
-    google::protobuf::StringPiece::StringPiece<std::allocator<char>>(v17, &v19, v12);
-    google::protobuf::util::Status::Status(&v20, 3, v17[0], v17[1]);
-    google::protobuf::util::StatusOr<unsigned long long>::StatusOr(a3, &v20);
-    if (v22 < 0)
-    {
-      operator delete(__p);
-    }
-
-    if (SHIBYTE(v19.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v19.__r_.__value_.__l.__data_);
-    }
-
-    if (v16 < 0)
-    {
-      v9 = __dst;
-      goto LABEL_23;
-    }
+    p_dst = &__dst;
   }
 
-LABEL_24:
-  v13 = *MEMORY[0x1E69E9840];
+  if (v15 < 0)
+  {
+    v10 = v14;
+  }
+
+  v24 = p_dst;
+  v25 = v10;
+  v22 = "";
+  v23 = 1;
+  google::protobuf::StrCat(&v26, &v24, &v22, &v18);
+  google::protobuf::StringPiece::StringPiece<std::allocator<char>>(v16, &v18, v12);
+  google::protobuf::util::Status::Status(v19, 3, v16[0], v16[1]);
+  google::protobuf::util::StatusOr<unsigned long long>::StatusOr(a3, v19);
+  if (v21 < 0)
+  {
+    operator delete(__p);
+  }
+
+  if (SHIBYTE(v18.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v18.__r_.__value_.__l.__data_);
+  }
+
+  if (v15 < 0)
+  {
+    v9 = __dst;
+    goto LABEL_23;
+  }
 }
 
 void sub_1BFC1AF80(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, _Unwind_Exception *exception_object, void *a11, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17, uint64_t a18, uint64_t a19, void *a20, uint64_t a21, int a22, __int16 a23, char a24, char a25, uint64_t a26, void *__p, uint64_t a28, int a29, __int16 a30, char a31, char a32)
@@ -1931,137 +1846,131 @@ void sub_1BFC1B07C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void google::protobuf::util::converter::DataPiece::GenericConvert<unsigned long long>(uint64_t a1@<X0>, char *a2@<X1>, char *a3@<X2>, uint64_t a4@<X8>)
+void google::protobuf::util::converter::DataPiece::GenericConvert<unsigned long long>(uint64_t a1@<X0>, char *a2@<X2>, google::protobuf::util::Status *a3@<X8>, char *a4@<X1>)
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v5 = *(a1 + 8);
-  if (v5 <= 3)
+  if (v5 > 3)
   {
     switch(v5)
     {
-      case 1:
+      case 4:
         v6 = *(a1 + 16);
-        v10 = -1;
-        if (v6 >= 1)
-        {
-          v10 = 1;
-        }
+        v10 = google::protobuf::util::Status::Status(a3);
+        google::protobuf::util::Status::operator=(v10, &google::protobuf::util::Status::OK);
+        goto LABEL_30;
+      case 5:
+        v16 = *(a1 + 16);
 
-        if (!v6)
-        {
-          v10 = 0;
-        }
-
-        if (v10 == (*(a1 + 16) != 0))
-        {
-          goto LABEL_29;
-        }
-
-        __src = v28;
-        __p = (google::protobuf::FastInt32ToBufferLeft(v6, v28, a3) - v28);
-        std::string::basic_string[abi:ne200100](v22, v28, __p);
-        google::protobuf::StringPiece::StringPiece<std::allocator<char>>(&__src, v22, v20);
-        google::protobuf::util::Status::Status(&v24, 3, __src, __p);
-        google::protobuf::util::StatusOr<unsigned long long>::StatusOr(a4, &v24);
-        break;
-      case 2:
-        v6 = *(a1 + 16);
-        v14 = -1;
-        if (v6 >= 1)
-        {
-          v14 = 1;
-        }
-
-        if (v6)
-        {
-          v15 = 1;
-        }
-
-        else
-        {
-          v14 = 0;
-          v15 = 0;
-        }
-
-        if (v14 == v15)
-        {
-LABEL_29:
-          v16 = google::protobuf::util::Status::Status(a4);
-          google::protobuf::util::Status::operator=(v16, &google::protobuf::util::Status::OK);
-          goto LABEL_30;
-        }
-
-        __src = v28;
-        __p = (google::protobuf::FastInt64ToBufferLeft(v6, v28, a3) - v28);
-        std::string::basic_string[abi:ne200100](v22, v28, __p);
-        google::protobuf::StringPiece::StringPiece<std::allocator<char>>(&__src, v22, v21);
-        google::protobuf::util::Status::Status(&v24, 3, __src, __p);
-        google::protobuf::util::StatusOr<unsigned long long>::StatusOr(a4, &v24);
-        break;
-      case 3:
-        v6 = *(a1 + 16);
-        v7 = google::protobuf::util::Status::Status(a4);
-        google::protobuf::util::Status::operator=(v7, &google::protobuf::util::Status::OK);
-LABEL_30:
-        *(a4 + 32) = v6;
-LABEL_31:
-        v17 = *MEMORY[0x1E69E9840];
         return;
-      default:
-        goto LABEL_19;
+      case 6:
+        v8 = *(a1 + 16);
+
+        return;
     }
 
-    if (v25 < 0)
-    {
-      operator delete(v24.__r_.__value_.__l.__size_);
-    }
-
-    if ((v23 & 0x80000000) == 0)
-    {
-      goto LABEL_31;
-    }
-
-    v13 = v22[0];
-LABEL_41:
-    operator delete(v13);
-    goto LABEL_31;
+    goto LABEL_19;
   }
 
   switch(v5)
   {
-    case 4:
+    case 1:
       v6 = *(a1 + 16);
-      v11 = google::protobuf::util::Status::Status(a4);
-      google::protobuf::util::Status::operator=(v11, &google::protobuf::util::Status::OK);
-      goto LABEL_30;
-    case 5:
-      v18 = *(a1 + 16);
-      v19 = *MEMORY[0x1E69E9840];
+      v9 = -1;
+      if (v6 >= 1)
+      {
+        v9 = 1;
+      }
 
-      break;
-    case 6:
-      v8 = *(a1 + 16);
-      v9 = *MEMORY[0x1E69E9840];
+      if (!v6)
+      {
+        v9 = 0;
+      }
 
+      if (v9 == (*(a1 + 16) != 0))
+      {
+        goto LABEL_29;
+      }
+
+      __src = v25;
+      __p = (google::protobuf::FastInt32ToBufferLeft(v6, v25, a2) - v25);
+      std::string::basic_string[abi:ne200100](v19, v25, __p);
+      google::protobuf::StringPiece::StringPiece<std::allocator<char>>(&__src, v19, v17);
+      google::protobuf::util::Status::Status(&v21, 3, __src, __p);
+      google::protobuf::util::StatusOr<unsigned long long>::StatusOr(a3, &v21);
       break;
+    case 2:
+      v6 = *(a1 + 16);
+      v13 = -1;
+      if (v6 >= 1)
+      {
+        v13 = 1;
+      }
+
+      if (v6)
+      {
+        v14 = 1;
+      }
+
+      else
+      {
+        v13 = 0;
+        v14 = 0;
+      }
+
+      if (v13 == v14)
+      {
+LABEL_29:
+        v15 = google::protobuf::util::Status::Status(a3);
+        google::protobuf::util::Status::operator=(v15, &google::protobuf::util::Status::OK);
+        goto LABEL_30;
+      }
+
+      __src = v25;
+      __p = (google::protobuf::FastInt64ToBufferLeft(v6, v25, a2) - v25);
+      std::string::basic_string[abi:ne200100](v19, v25, __p);
+      google::protobuf::StringPiece::StringPiece<std::allocator<char>>(&__src, v19, v18);
+      google::protobuf::util::Status::Status(&v21, 3, __src, __p);
+      google::protobuf::util::StatusOr<unsigned long long>::StatusOr(a3, &v21);
+      break;
+    case 3:
+      v6 = *(a1 + 16);
+      v7 = google::protobuf::util::Status::Status(a3);
+      google::protobuf::util::Status::operator=(v7, &google::protobuf::util::Status::OK);
+LABEL_30:
+      *(a3 + 4) = v6;
+      return;
     default:
 LABEL_19:
-      google::protobuf::util::converter::DataPiece::ValueAsStringOrDefault(a1, "Wrong type. Bool, Enum, String and Cord not supported in GenericConvert.", 0x48, &v24);
-      google::protobuf::StringPiece::StringPiece<std::allocator<char>>(v22, &v24, v12);
-      google::protobuf::util::Status::Status(&__src, 3, v22[0], v22[1]);
-      google::protobuf::util::StatusOr<unsigned long long>::StatusOr(a4, &__src);
-      if ((v28[15] & 0x80000000) != 0)
+      google::protobuf::util::converter::DataPiece::ValueAsStringOrDefault(a1, "Wrong type. Bool, Enum, String and Cord not supported in GenericConvert.", 0x48, &v21);
+      google::protobuf::StringPiece::StringPiece<std::allocator<char>>(v19, &v21, v11);
+      google::protobuf::util::Status::Status(&__src, 3, v19[0], v19[1]);
+      google::protobuf::util::StatusOr<unsigned long long>::StatusOr(a3, &__src);
+      if ((v25[15] & 0x80000000) != 0)
       {
         operator delete(__p);
       }
 
-      if ((SHIBYTE(v24.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+      if (SHIBYTE(v21.__r_.__value_.__r.__words[2]) < 0)
       {
-        goto LABEL_31;
+        v12 = v21.__r_.__value_.__r.__words[0];
+LABEL_41:
+        operator delete(v12);
+        return;
       }
 
-      v13 = v24.__r_.__value_.__r.__words[0];
-      goto LABEL_41;
+      return;
+  }
+
+  if (v22 < 0)
+  {
+    operator delete(v21.__r_.__value_.__l.__size_);
+  }
+
+  if (v20 < 0)
+  {
+    v12 = v19[0];
+    goto LABEL_41;
   }
 }
 
@@ -2080,92 +1989,90 @@ void sub_1BFC1B3A0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void google::protobuf::util::converter::DataPiece::ToDouble(google::protobuf::util::converter::DataPiece *this@<X0>, char *a2@<X1>, char *a3@<X2>, google::protobuf::util::Status *a4@<X8>)
+void google::protobuf::util::converter::DataPiece::ToDouble(google::protobuf::util::converter::DataPiece *this@<X0>, google::protobuf::util::Status *a2@<X8>, char *a3@<X1>, char *a4@<X2>)
 {
-  v28[6] = *MEMORY[0x1E69E9840];
+  v26[6] = *MEMORY[0x1E69E9840];
   v6 = *(this + 2);
-  if (v6 == 9)
+  if (v6 != 9)
   {
-    if (google::protobuf::internal::StringPiecePod::operator==(this + 16, "Infinity"))
+    if (v6 == 6)
     {
-      v9 = google::protobuf::util::Status::Status(a4);
-      google::protobuf::util::Status::operator=(v9, &google::protobuf::util::Status::OK);
-      v10 = 0x7FF0000000000000;
-    }
-
-    else if (google::protobuf::internal::StringPiecePod::operator==(this + 16, "-Infinity"))
-    {
-      v12 = google::protobuf::util::Status::Status(a4);
-      google::protobuf::util::Status::operator=(v12, &google::protobuf::util::Status::OK);
-      v10 = 0xFFF0000000000000;
+      v7 = *(this + 4);
+      v8 = google::protobuf::util::Status::Status(a2);
+      google::protobuf::util::Status::operator=(v8, &google::protobuf::util::Status::OK);
+      *(a2 + 4) = v7;
     }
 
     else
     {
-      if (!google::protobuf::internal::StringPiecePod::operator==(this + 16, "NaN"))
-      {
-        google::protobuf::util::converter::DataPiece::StringToNumber<double>(this, google::protobuf::safe_strtod, &v22);
-        if (v22 || (v25 & 0x7FFFFFFFFFFFFFFFuLL) < 0x7FF0000000000000)
-        {
-          google::protobuf::util::Status::Status(a4, &v22);
-          *(a4 + 4) = v25;
-        }
 
-        else
-        {
-          v28[0] = "";
-          v28[1] = 1;
-          v15 = *(this + 3);
-          v27[0] = *(this + 2);
-          v27[1] = v15;
-          v26[0] = "";
-          v26[1] = 1;
-          google::protobuf::StrCat(v28, v27, v26, &v17);
-          google::protobuf::StringPiece::StringPiece<std::allocator<char>>(v18, &v17, v16);
-          google::protobuf::util::Status::Status(&v19, 3, v18[0], v18[1]);
-          google::protobuf::util::StatusOr<double>::StatusOr(a4, &v19);
-          if (v21 < 0)
-          {
-            operator delete(__p);
-          }
-
-          if (SHIBYTE(v17.__r_.__value_.__r.__words[2]) < 0)
-          {
-            operator delete(v17.__r_.__value_.__l.__data_);
-          }
-        }
-
-        if (v24 < 0)
-        {
-          operator delete(v23);
-        }
-
-        goto LABEL_14;
-      }
-
-      v13 = google::protobuf::util::Status::Status(a4);
-      google::protobuf::util::Status::operator=(v13, &google::protobuf::util::Status::OK);
-      v10 = 0x7FF8000000000000;
+      google::protobuf::util::converter::DataPiece::GenericConvert<double>(this, a4, a2, a3);
     }
 
-    *(a4 + 4) = v10;
-LABEL_14:
-    v14 = *MEMORY[0x1E69E9840];
     return;
   }
 
-  if (v6 == 6)
+  if (google::protobuf::internal::StringPiecePod::operator==(this + 16, "Infinity"))
   {
-    v7 = *(this + 4);
-    v8 = google::protobuf::util::Status::Status(a4);
-    google::protobuf::util::Status::operator=(v8, &google::protobuf::util::Status::OK);
-    *(a4 + 4) = v7;
-    goto LABEL_14;
+    v9 = google::protobuf::util::Status::Status(a2);
+    google::protobuf::util::Status::operator=(v9, &google::protobuf::util::Status::OK);
+    v10 = 0x7FF0000000000000;
+LABEL_13:
+    *(a2 + 4) = v10;
+    return;
   }
 
-  v11 = *MEMORY[0x1E69E9840];
+  if (google::protobuf::internal::StringPiecePod::operator==(this + 16, "-Infinity"))
+  {
+    v11 = google::protobuf::util::Status::Status(a2);
+    google::protobuf::util::Status::operator=(v11, &google::protobuf::util::Status::OK);
+    v10 = 0xFFF0000000000000;
+    goto LABEL_13;
+  }
 
-  google::protobuf::util::converter::DataPiece::GenericConvert<double>(this, a2, a3, a4);
+  if (google::protobuf::internal::StringPiecePod::operator==(this + 16, "NaN"))
+  {
+    v12 = google::protobuf::util::Status::Status(a2);
+    google::protobuf::util::Status::operator=(v12, &google::protobuf::util::Status::OK);
+    v10 = 0x7FF8000000000000;
+    goto LABEL_13;
+  }
+
+  google::protobuf::util::converter::DataPiece::StringToNumber<double>(this, google::protobuf::safe_strtod, &v20);
+  if (v20 || (v23 & 0x7FFFFFFFFFFFFFFFuLL) < 0x7FF0000000000000)
+  {
+    google::protobuf::util::Status::Status(a2, &v20);
+    *(a2 + 4) = v23;
+  }
+
+  else
+  {
+    v26[0] = "";
+    v26[1] = 1;
+    v13 = *(this + 3);
+    v25[0] = *(this + 2);
+    v25[1] = v13;
+    v24[0] = "";
+    v24[1] = 1;
+    google::protobuf::StrCat(v26, v25, v24, &v15);
+    google::protobuf::StringPiece::StringPiece<std::allocator<char>>(v16, &v15, v14);
+    google::protobuf::util::Status::Status(v17, 3, v16[0], v16[1]);
+    google::protobuf::util::StatusOr<double>::StatusOr(a2, v17);
+    if (v19 < 0)
+    {
+      operator delete(__p);
+    }
+
+    if (SHIBYTE(v15.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(v15.__r_.__value_.__l.__data_);
+    }
+  }
+
+  if (v22 < 0)
+  {
+    operator delete(v21);
+  }
 }
 
 void sub_1BFC1B684(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, void *__p, uint64_t a20, int a21, __int16 a22, char a23, char a24, uint64_t a25, void *a26, uint64_t a27, int a28, __int16 a29, char a30, char a31)
@@ -2215,9 +2122,9 @@ BOOL google::protobuf::internal::StringPiecePod::operator==(uint64_t a1, const c
   return result;
 }
 
-void google::protobuf::util::converter::DataPiece::StringToNumber<double>(uint64_t a1@<X0>, unsigned int (*a2)(void)@<X1>, uint64_t a3@<X8>)
+void google::protobuf::util::converter::DataPiece::StringToNumber<double>(uint64_t a1@<X0>, unsigned int (*a2)(void)@<X1>, google::protobuf::util::Status *a3@<X8>)
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   v6 = *(a1 + 24);
   if (v6 >= 1)
   {
@@ -2232,36 +2139,36 @@ void google::protobuf::util::converter::DataPiece::StringToNumber<double>(uint64
       v7 = *(a1 + 16);
       v6 = *(a1 + 24);
 LABEL_5:
-      v27 = "";
-      v28 = 1;
-      v25 = v7;
-      v26 = v6;
-      v23 = "";
-      v24 = 1;
-      google::protobuf::StrCat(&v27, &v25, &v23, &v19);
-      google::protobuf::StringPiece::StringPiece<std::allocator<char>>(&__dst, &v19, v8);
-      google::protobuf::util::Status::Status(&v20, 3, __dst, v15);
-      google::protobuf::util::StatusOr<double>::StatusOr(a3, &v20);
-      if (v22 < 0)
+      v26 = "";
+      v27 = 1;
+      v24 = v7;
+      v25 = v6;
+      v22 = "";
+      v23 = 1;
+      google::protobuf::StrCat(&v26, &v24, &v22, &v18);
+      google::protobuf::StringPiece::StringPiece<std::allocator<char>>(&__dst, &v18, v8);
+      google::protobuf::util::Status::Status(v19, 3, __dst, v14);
+      google::protobuf::util::StatusOr<double>::StatusOr(a3, v19);
+      if (v21 < 0)
       {
         operator delete(__p);
       }
 
-      if (SHIBYTE(v19.__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v18.__r_.__value_.__r.__words[2]) < 0)
       {
-        v9 = v19.__r_.__value_.__r.__words[0];
+        v9 = v18.__r_.__value_.__r.__words[0];
 LABEL_23:
         operator delete(v9);
-        goto LABEL_24;
+        return;
       }
 
-      goto LABEL_24;
+      return;
     }
 
     v6 = *(a1 + 24);
   }
 
-  v18 = 0;
+  v17 = 0;
   if (v6 < 0)
   {
     google::protobuf::util::converter::DataPiece::StringToNumber<int>();
@@ -2271,53 +2178,48 @@ LABEL_23:
   {
     google::protobuf::util::Status::Status(a3);
     google::protobuf::util::Status::operator=(a3, &google::protobuf::util::Status::OK);
-    *(a3 + 32) = v18;
+    *(a3 + 4) = v17;
+    return;
   }
 
-  else
+  v26 = "";
+  v27 = 1;
+  std::string::basic_string[abi:ne200100](&__dst, *(a1 + 16), *(a1 + 24));
+  v10 = v15;
+  p_dst = __dst;
+  if (v15 >= 0)
   {
-    v27 = "";
-    v28 = 1;
-    std::string::basic_string[abi:ne200100](&__dst, *(a1 + 16), *(a1 + 24));
-    v10 = v16;
-    p_dst = __dst;
-    if (v16 >= 0)
-    {
-      p_dst = &__dst;
-    }
-
-    if (v16 < 0)
-    {
-      v10 = v15;
-    }
-
-    v25 = p_dst;
-    v26 = v10;
-    v23 = "";
-    v24 = 1;
-    google::protobuf::StrCat(&v27, &v25, &v23, &v19);
-    google::protobuf::StringPiece::StringPiece<std::allocator<char>>(v17, &v19, v12);
-    google::protobuf::util::Status::Status(&v20, 3, v17[0], v17[1]);
-    google::protobuf::util::StatusOr<double>::StatusOr(a3, &v20);
-    if (v22 < 0)
-    {
-      operator delete(__p);
-    }
-
-    if (SHIBYTE(v19.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v19.__r_.__value_.__l.__data_);
-    }
-
-    if (v16 < 0)
-    {
-      v9 = __dst;
-      goto LABEL_23;
-    }
+    p_dst = &__dst;
   }
 
-LABEL_24:
-  v13 = *MEMORY[0x1E69E9840];
+  if (v15 < 0)
+  {
+    v10 = v14;
+  }
+
+  v24 = p_dst;
+  v25 = v10;
+  v22 = "";
+  v23 = 1;
+  google::protobuf::StrCat(&v26, &v24, &v22, &v18);
+  google::protobuf::StringPiece::StringPiece<std::allocator<char>>(v16, &v18, v12);
+  google::protobuf::util::Status::Status(v19, 3, v16[0], v16[1]);
+  google::protobuf::util::StatusOr<double>::StatusOr(a3, v19);
+  if (v21 < 0)
+  {
+    operator delete(__p);
+  }
+
+  if (SHIBYTE(v18.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v18.__r_.__value_.__l.__data_);
+  }
+
+  if (v15 < 0)
+  {
+    v9 = __dst;
+    goto LABEL_23;
+  }
 }
 
 void sub_1BFC1B978(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, _Unwind_Exception *exception_object, void *a11, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17, uint64_t a18, uint64_t a19, void *a20, uint64_t a21, int a22, __int16 a23, char a24, char a25, uint64_t a26, void *__p, uint64_t a28, int a29, __int16 a30, char a31, char a32)
@@ -2383,16 +2285,16 @@ void sub_1BFC1BA88(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void google::protobuf::util::converter::DataPiece::GenericConvert<double>(uint64_t a1@<X0>, char *a2@<X1>, char *a3@<X2>, uint64_t a4@<X8>)
+void google::protobuf::util::converter::DataPiece::GenericConvert<double>(_DWORD *a1@<X0>, char *a2@<X2>, google::protobuf::util::Status *a3@<X8>, char *a4@<X1>)
 {
-  v46 = *MEMORY[0x1E69E9840];
-  v5 = *(a1 + 8);
+  v45 = *MEMORY[0x1E69E9840];
+  v5 = a1[2];
   if (v5 <= 3)
   {
     switch(v5)
     {
       case 1:
-        v17 = *(a1 + 16);
+        v17 = a1[4];
         if (v17 < 1)
         {
           v18 = -1;
@@ -2421,33 +2323,33 @@ void google::protobuf::util::converter::DataPiece::GenericConvert<double>(uint64
 
         if (v19 == v18)
         {
-          v20 = google::protobuf::util::Status::Status(a4);
+          v20 = google::protobuf::util::Status::Status(a3);
           google::protobuf::util::Status::operator=(v20, &google::protobuf::util::Status::OK);
           v10 = v17;
           goto LABEL_54;
         }
 
-        __src = v45;
-        __p = (google::protobuf::FastInt32ToBufferLeft(v17, v45, a3) - v45);
-        std::string::basic_string[abi:ne200100](&v38, v45, __p);
-        google::protobuf::StringPiece::StringPiece<std::allocator<char>>(&__src, &v38, v33);
-        google::protobuf::util::Status::Status(&v41, 3, __src, __p);
-        google::protobuf::util::StatusOr<double>::StatusOr(a4, &v41);
+        __src = v44;
+        __p = (google::protobuf::FastInt32ToBufferLeft(v17, v44, a2) - v44);
+        std::string::basic_string[abi:ne200100](&v37, v44, __p);
+        google::protobuf::StringPiece::StringPiece<std::allocator<char>>(&__src, &v37, v33);
+        google::protobuf::util::Status::Status(&v40, 3, __src, __p);
+        google::protobuf::util::StatusOr<double>::StatusOr(a3, &v40);
 LABEL_66:
-        if (v42 < 0)
+        if (v41 < 0)
         {
-          operator delete(v41.__r_.__value_.__l.__size_);
+          operator delete(v40.__r_.__value_.__l.__size_);
         }
 
-        if (v40 < 0)
+        if (v39 < 0)
         {
-          v32 = v38;
+          v32 = v37;
           goto LABEL_70;
         }
 
-        goto LABEL_71;
+        return;
       case 2:
-        v26 = *(a1 + 16);
+        v26 = *(a1 + 2);
         v27 = -1;
         if (v26 >= 1)
         {
@@ -2472,21 +2374,21 @@ LABEL_66:
 
         if (v28 == v27)
         {
-          v29 = google::protobuf::util::Status::Status(a4);
+          v29 = google::protobuf::util::Status::Status(a3);
           google::protobuf::util::Status::operator=(v29, &google::protobuf::util::Status::OK);
           v10 = v26;
           goto LABEL_54;
         }
 
-        __src = v45;
-        __p = (google::protobuf::FastInt64ToBufferLeft(v26, v45, a3) - v45);
-        std::string::basic_string[abi:ne200100](&v38, v45, __p);
-        google::protobuf::StringPiece::StringPiece<std::allocator<char>>(&__src, &v38, v36);
-        google::protobuf::util::Status::Status(&v41, 3, __src, __p);
-        google::protobuf::util::StatusOr<double>::StatusOr(a4, &v41);
+        __src = v44;
+        __p = (google::protobuf::FastInt64ToBufferLeft(v26, v44, a2) - v44);
+        std::string::basic_string[abi:ne200100](&v37, v44, __p);
+        google::protobuf::StringPiece::StringPiece<std::allocator<char>>(&__src, &v37, v36);
+        google::protobuf::util::Status::Status(&v40, 3, __src, __p);
+        google::protobuf::util::StatusOr<double>::StatusOr(a3, &v40);
         goto LABEL_66;
       case 3:
-        v6 = *(a1 + 16);
+        v6 = a1[4];
         v7 = 0.0;
         if (v6)
         {
@@ -2505,20 +2407,20 @@ LABEL_66:
 
         if (v7 == v8)
         {
-          v9 = google::protobuf::util::Status::Status(a4);
+          v9 = google::protobuf::util::Status::Status(a3);
           google::protobuf::util::Status::operator=(v9, &google::protobuf::util::Status::OK);
           v10 = v6;
 LABEL_54:
-          *(a4 + 32) = v10;
-          goto LABEL_71;
+          *(a3 + 4) = v10;
+          return;
         }
 
-        __src = v45;
-        __p = (google::protobuf::FastUInt32ToBufferLeft(v6, v45, a3) - v45);
-        std::string::basic_string[abi:ne200100](&v38, v45, __p);
-        google::protobuf::StringPiece::StringPiece<std::allocator<char>>(&__src, &v38, v35);
-        google::protobuf::util::Status::Status(&v41, 3, __src, __p);
-        google::protobuf::util::StatusOr<double>::StatusOr(a4, &v41);
+        __src = v44;
+        __p = (google::protobuf::FastUInt32ToBufferLeft(v6, v44, a2) - v44);
+        std::string::basic_string[abi:ne200100](&v37, v44, __p);
+        google::protobuf::StringPiece::StringPiece<std::allocator<char>>(&__src, &v37, v35);
+        google::protobuf::util::Status::Status(&v40, 3, __src, __p);
+        google::protobuf::util::StatusOr<double>::StatusOr(a3, &v40);
         goto LABEL_66;
     }
 
@@ -2527,7 +2429,7 @@ LABEL_54:
 
   if (v5 == 4)
   {
-    v21 = *(a1 + 16);
+    v21 = *(a1 + 2);
     v22 = 0.0;
     if (v21)
     {
@@ -2546,25 +2448,25 @@ LABEL_54:
 
     if (v22 == v23)
     {
-      v24 = google::protobuf::util::Status::Status(a4);
+      v24 = google::protobuf::util::Status::Status(a3);
       google::protobuf::util::Status::operator=(v24, &google::protobuf::util::Status::OK);
       v10 = v21;
       goto LABEL_54;
     }
 
-    __src = v45;
-    __p = (google::protobuf::FastUInt64ToBufferLeft(v21, v45, a3) - v45);
-    std::string::basic_string[abi:ne200100](&v38, v45, __p);
-    google::protobuf::StringPiece::StringPiece<std::allocator<char>>(&__src, &v38, v34);
-    google::protobuf::util::Status::Status(&v41, 3, __src, __p);
-    google::protobuf::util::StatusOr<double>::StatusOr(a4, &v41);
+    __src = v44;
+    __p = (google::protobuf::FastUInt64ToBufferLeft(v21, v44, a2) - v44);
+    std::string::basic_string[abi:ne200100](&v37, v44, __p);
+    google::protobuf::StringPiece::StringPiece<std::allocator<char>>(&__src, &v37, v34);
+    google::protobuf::util::Status::Status(&v40, 3, __src, __p);
+    google::protobuf::util::StatusOr<double>::StatusOr(a3, &v40);
     goto LABEL_66;
   }
 
   if (v5 == 5)
   {
-    v12 = *(a1 + 16);
-    v30 = google::protobuf::util::Status::Status(a4);
+    v12 = *(a1 + 2);
+    v30 = google::protobuf::util::Status::Status(a3);
     google::protobuf::util::Status::operator=(v30, &google::protobuf::util::Status::OK);
     goto LABEL_56;
   }
@@ -2572,14 +2474,14 @@ LABEL_54:
   if (v5 != 6)
   {
 LABEL_43:
-    google::protobuf::util::converter::DataPiece::ValueAsStringOrDefault(a1, "Wrong type. Bool, Enum, String and Cord not supported in GenericConvert.", 0x48, &v41);
-    google::protobuf::StringPiece::StringPiece<std::allocator<char>>(&v38, &v41, v25);
-    google::protobuf::util::Status::Status(&__src, 3, v38, v39);
-    google::protobuf::util::StatusOr<double>::StatusOr(a4, &__src);
+    google::protobuf::util::converter::DataPiece::ValueAsStringOrDefault(a1, "Wrong type. Bool, Enum, String and Cord not supported in GenericConvert.", 0x48, &v40);
+    google::protobuf::StringPiece::StringPiece<std::allocator<char>>(&v37, &v40, v25);
+    google::protobuf::util::Status::Status(&__src, 3, v37, v38);
+    google::protobuf::util::StatusOr<double>::StatusOr(a3, &__src);
     goto LABEL_58;
   }
 
-  v11 = *(a1 + 16);
+  v11 = *(a1 + 4);
   v12 = v11;
   v13 = -1.0;
   if (v11 > 0.0)
@@ -2589,7 +2491,7 @@ LABEL_43:
 
   if (v11 == 0.0)
   {
-    v13 = *(a1 + 16);
+    v13 = *(a1 + 4);
   }
 
   v14 = v13;
@@ -2606,32 +2508,29 @@ LABEL_43:
 
   if (v15 == v14)
   {
-    v16 = google::protobuf::util::Status::Status(a4);
+    v16 = google::protobuf::util::Status::Status(a3);
     google::protobuf::util::Status::operator=(v16, &google::protobuf::util::Status::OK);
 LABEL_56:
-    *(a4 + 32) = v12;
-    goto LABEL_71;
+    *(a3 + 4) = v12;
+    return;
   }
 
-  google::protobuf::util::converter::FloatAsString(v11, a2, &v41);
-  google::protobuf::StringPiece::StringPiece<std::allocator<char>>(&v38, &v41, v31);
-  google::protobuf::util::Status::Status(&__src, 3, v38, v39);
-  google::protobuf::util::StatusOr<double>::StatusOr(a4, &__src);
+  google::protobuf::util::converter::FloatAsString(v11, &v40, a4);
+  google::protobuf::StringPiece::StringPiece<std::allocator<char>>(&v37, &v40, v31);
+  google::protobuf::util::Status::Status(&__src, 3, v37, v38);
+  google::protobuf::util::StatusOr<double>::StatusOr(a3, &__src);
 LABEL_58:
-  if ((v45[15] & 0x80000000) != 0)
+  if ((v44[15] & 0x80000000) != 0)
   {
     operator delete(__p);
   }
 
-  if (SHIBYTE(v41.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v40.__r_.__value_.__r.__words[2]) < 0)
   {
-    v32 = v41.__r_.__value_.__r.__words[0];
+    v32 = v40.__r_.__value_.__r.__words[0];
 LABEL_70:
     operator delete(v32);
   }
-
-LABEL_71:
-  v37 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1BFC1BEF4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, void *__p, int a17, __int16 a18, char a19, char a20, int a21, __int16 a22, char a23, char a24, uint64_t a25, void *a26, uint64_t a27, int a28, __int16 a29, char a30, char a31)
@@ -2649,7 +2548,7 @@ void sub_1BFC1BEF4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void google::protobuf::util::converter::DataPiece::ToFloat(google::protobuf::util::converter::DataPiece *this@<X0>, char *a2@<X1>, char *a3@<X2>, uint64_t a4@<X8>)
+void google::protobuf::util::converter::DataPiece::ToFloat(google::protobuf::util::converter::DataPiece *this@<X0>, google::protobuf::util::Status *a2@<X8>, char *a3@<X1>, char *a4@<X2>)
 {
   v6 = *(this + 2);
   if (v6 != 9)
@@ -2659,18 +2558,18 @@ void google::protobuf::util::converter::DataPiece::ToFloat(google::protobuf::uti
       v7 = *(this + 2);
       if ((*&v7 & 0x7FFFFFFFFFFFFFFFuLL) >= 0x7FF0000000000000 || fabs(v7) <= 3.40282347e38)
       {
-        v13 = google::protobuf::util::Status::Status(a4);
+        v13 = google::protobuf::util::Status::Status(a2);
         google::protobuf::util::Status::operator=(v13, &google::protobuf::util::Status::OK);
         v14 = v7;
-        *(a4 + 32) = v14;
+        *(a2 + 8) = v14;
       }
 
       else
       {
-        google::protobuf::util::converter::DoubleAsString(*(this + 2), a2, v15);
+        google::protobuf::util::converter::DoubleAsString(*(this + 2), v15, a3);
         google::protobuf::StringPiece::StringPiece<std::allocator<char>>(v17, v15, v11);
-        google::protobuf::util::Status::Status(&v18, 3, v17[0], v17[1]);
-        google::protobuf::util::StatusOr<float>::StatusOr(a4, &v18);
+        google::protobuf::util::Status::Status(v18, 3, v17[0], v17[1]);
+        google::protobuf::util::StatusOr<float>::StatusOr(a2, v18);
         if (v20 < 0)
         {
           operator delete(__p);
@@ -2686,7 +2585,7 @@ void google::protobuf::util::converter::DataPiece::ToFloat(google::protobuf::uti
     else
     {
 
-      google::protobuf::util::converter::DataPiece::GenericConvert<float>(this, a2, a3, a4);
+      google::protobuf::util::converter::DataPiece::GenericConvert<float>(this, a4, a2, a3);
     }
 
     return;
@@ -2694,17 +2593,17 @@ void google::protobuf::util::converter::DataPiece::ToFloat(google::protobuf::uti
 
   if (google::protobuf::internal::StringPiecePod::operator==(this + 16, "Infinity"))
   {
-    v8 = google::protobuf::util::Status::Status(a4);
+    v8 = google::protobuf::util::Status::Status(a2);
     google::protobuf::util::Status::operator=(v8, &google::protobuf::util::Status::OK);
     v9 = 2139095040;
 LABEL_19:
-    *(a4 + 32) = v9;
+    *(a2 + 8) = v9;
     return;
   }
 
   if (google::protobuf::internal::StringPiecePod::operator==(this + 16, "-Infinity"))
   {
-    v10 = google::protobuf::util::Status::Status(a4);
+    v10 = google::protobuf::util::Status::Status(a2);
     google::protobuf::util::Status::operator=(v10, &google::protobuf::util::Status::OK);
     v9 = -8388608;
     goto LABEL_19;
@@ -2712,13 +2611,13 @@ LABEL_19:
 
   if (google::protobuf::internal::StringPiecePod::operator==(this + 16, "NaN"))
   {
-    v12 = google::protobuf::util::Status::Status(a4);
+    v12 = google::protobuf::util::Status::Status(a2);
     google::protobuf::util::Status::operator=(v12, &google::protobuf::util::Status::OK);
     v9 = 2143289344;
     goto LABEL_19;
   }
 
-  google::protobuf::util::converter::DataPiece::StringToNumber<float>(this, google::protobuf::util::converter::SafeStrToFloat, a4);
+  google::protobuf::util::converter::DataPiece::StringToNumber<float>(this, google::protobuf::util::converter::SafeStrToFloat, a2);
 }
 
 void sub_1BFC1C1C0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, void *__p, uint64_t a20, int a21, __int16 a22, char a23, char a24)
@@ -2731,9 +2630,9 @@ void sub_1BFC1C1C0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void google::protobuf::util::converter::DataPiece::StringToNumber<float>(uint64_t a1@<X0>, unsigned int (*a2)(void)@<X1>, uint64_t a3@<X8>)
+void google::protobuf::util::converter::DataPiece::StringToNumber<float>(uint64_t a1@<X0>, unsigned int (*a2)(void)@<X1>, google::protobuf::util::Status *a3@<X8>)
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   v6 = *(a1 + 24);
   if (v6 >= 1)
   {
@@ -2748,36 +2647,36 @@ void google::protobuf::util::converter::DataPiece::StringToNumber<float>(uint64_
       v7 = *(a1 + 16);
       v6 = *(a1 + 24);
 LABEL_5:
-      v27 = "";
-      v28 = 1;
-      v25 = v7;
-      v26 = v6;
-      v23 = "";
-      v24 = 1;
-      google::protobuf::StrCat(&v27, &v25, &v23, &v19);
-      google::protobuf::StringPiece::StringPiece<std::allocator<char>>(&__dst, &v19, v8);
-      google::protobuf::util::Status::Status(&v20, 3, __dst, v15);
-      google::protobuf::util::StatusOr<float>::StatusOr(a3, &v20);
-      if (v22 < 0)
+      v26 = "";
+      v27 = 1;
+      v24 = v7;
+      v25 = v6;
+      v22 = "";
+      v23 = 1;
+      google::protobuf::StrCat(&v26, &v24, &v22, &v18);
+      google::protobuf::StringPiece::StringPiece<std::allocator<char>>(&__dst, &v18, v8);
+      google::protobuf::util::Status::Status(v19, 3, __dst, v14);
+      google::protobuf::util::StatusOr<float>::StatusOr(a3, v19);
+      if (v21 < 0)
       {
         operator delete(__p);
       }
 
-      if (SHIBYTE(v19.__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v18.__r_.__value_.__r.__words[2]) < 0)
       {
-        v9 = v19.__r_.__value_.__r.__words[0];
+        v9 = v18.__r_.__value_.__r.__words[0];
 LABEL_23:
         operator delete(v9);
-        goto LABEL_24;
+        return;
       }
 
-      goto LABEL_24;
+      return;
     }
 
     v6 = *(a1 + 24);
   }
 
-  v18 = 0;
+  v17 = 0;
   if (v6 < 0)
   {
     google::protobuf::util::converter::DataPiece::StringToNumber<int>();
@@ -2787,53 +2686,48 @@ LABEL_23:
   {
     google::protobuf::util::Status::Status(a3);
     google::protobuf::util::Status::operator=(a3, &google::protobuf::util::Status::OK);
-    *(a3 + 32) = v18;
+    *(a3 + 8) = v17;
+    return;
   }
 
-  else
+  v26 = "";
+  v27 = 1;
+  std::string::basic_string[abi:ne200100](&__dst, *(a1 + 16), *(a1 + 24));
+  v10 = v15;
+  p_dst = __dst;
+  if (v15 >= 0)
   {
-    v27 = "";
-    v28 = 1;
-    std::string::basic_string[abi:ne200100](&__dst, *(a1 + 16), *(a1 + 24));
-    v10 = v16;
-    p_dst = __dst;
-    if (v16 >= 0)
-    {
-      p_dst = &__dst;
-    }
-
-    if (v16 < 0)
-    {
-      v10 = v15;
-    }
-
-    v25 = p_dst;
-    v26 = v10;
-    v23 = "";
-    v24 = 1;
-    google::protobuf::StrCat(&v27, &v25, &v23, &v19);
-    google::protobuf::StringPiece::StringPiece<std::allocator<char>>(v17, &v19, v12);
-    google::protobuf::util::Status::Status(&v20, 3, v17[0], v17[1]);
-    google::protobuf::util::StatusOr<float>::StatusOr(a3, &v20);
-    if (v22 < 0)
-    {
-      operator delete(__p);
-    }
-
-    if (SHIBYTE(v19.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v19.__r_.__value_.__l.__data_);
-    }
-
-    if (v16 < 0)
-    {
-      v9 = __dst;
-      goto LABEL_23;
-    }
+    p_dst = &__dst;
   }
 
-LABEL_24:
-  v13 = *MEMORY[0x1E69E9840];
+  if (v15 < 0)
+  {
+    v10 = v14;
+  }
+
+  v24 = p_dst;
+  v25 = v10;
+  v22 = "";
+  v23 = 1;
+  google::protobuf::StrCat(&v26, &v24, &v22, &v18);
+  google::protobuf::StringPiece::StringPiece<std::allocator<char>>(v16, &v18, v12);
+  google::protobuf::util::Status::Status(v19, 3, v16[0], v16[1]);
+  google::protobuf::util::StatusOr<float>::StatusOr(a3, v19);
+  if (v21 < 0)
+  {
+    operator delete(__p);
+  }
+
+  if (SHIBYTE(v18.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v18.__r_.__value_.__l.__data_);
+  }
+
+  if (v15 < 0)
+  {
+    v9 = __dst;
+    goto LABEL_23;
+  }
 }
 
 void sub_1BFC1C420(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, _Unwind_Exception *exception_object, void *a11, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17, uint64_t a18, uint64_t a19, void *a20, uint64_t a21, int a22, __int16 a23, char a24, char a25, uint64_t a26, void *__p, uint64_t a28, int a29, __int16 a30, char a31, char a32)
@@ -2856,16 +2750,16 @@ void sub_1BFC1C420(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void google::protobuf::util::converter::DataPiece::GenericConvert<float>(uint64_t a1@<X0>, char *a2@<X1>, char *a3@<X2>, uint64_t a4@<X8>)
+void google::protobuf::util::converter::DataPiece::GenericConvert<float>(_DWORD *a1@<X0>, char *a2@<X2>, google::protobuf::util::Status *a3@<X8>, char *a4@<X1>)
 {
-  v45 = *MEMORY[0x1E69E9840];
-  v5 = *(a1 + 8);
+  v44 = *MEMORY[0x1E69E9840];
+  v5 = a1[2];
   if (v5 <= 3)
   {
     switch(v5)
     {
       case 1:
-        v13 = *(a1 + 16);
+        v13 = a1[4];
         if (v13 < 1)
         {
           v14 = -1;
@@ -2894,33 +2788,33 @@ void google::protobuf::util::converter::DataPiece::GenericConvert<float>(uint64_
 
         if (v15 == v14)
         {
-          v16 = google::protobuf::util::Status::Status(a4);
+          v16 = google::protobuf::util::Status::Status(a3);
           google::protobuf::util::Status::operator=(v16, &google::protobuf::util::Status::OK);
           v10 = v13;
           goto LABEL_45;
         }
 
-        __src = v44;
-        __p = (google::protobuf::FastInt32ToBufferLeft(v13, v44, a3) - v44);
-        std::string::basic_string[abi:ne200100](&v37, v44, __p);
-        google::protobuf::StringPiece::StringPiece<std::allocator<char>>(&__src, &v37, v32);
-        google::protobuf::util::Status::Status(&v40, 3, __src, __p);
-        google::protobuf::util::StatusOr<float>::StatusOr(a4, &v40);
+        __src = v43;
+        __p = (google::protobuf::FastInt32ToBufferLeft(v13, v43, a2) - v43);
+        std::string::basic_string[abi:ne200100](&v36, v43, __p);
+        google::protobuf::StringPiece::StringPiece<std::allocator<char>>(&__src, &v36, v32);
+        google::protobuf::util::Status::Status(&v39, 3, __src, __p);
+        google::protobuf::util::StatusOr<float>::StatusOr(a3, &v39);
 LABEL_67:
-        if (v41 < 0)
+        if (v40 < 0)
         {
-          operator delete(v40.__r_.__value_.__l.__size_);
+          operator delete(v39.__r_.__value_.__l.__size_);
         }
 
-        if (v39 < 0)
+        if (v38 < 0)
         {
-          v31 = v37;
+          v31 = v36;
           goto LABEL_71;
         }
 
-        goto LABEL_72;
+        return;
       case 2:
-        v22 = *(a1 + 16);
+        v22 = *(a1 + 2);
         v23 = -1;
         if (v22 >= 1)
         {
@@ -2945,21 +2839,21 @@ LABEL_67:
 
         if (v24 == v23)
         {
-          v25 = google::protobuf::util::Status::Status(a4);
+          v25 = google::protobuf::util::Status::Status(a3);
           google::protobuf::util::Status::operator=(v25, &google::protobuf::util::Status::OK);
           v10 = v22;
           goto LABEL_45;
         }
 
-        __src = v44;
-        __p = (google::protobuf::FastInt64ToBufferLeft(v22, v44, a3) - v44);
-        std::string::basic_string[abi:ne200100](&v37, v44, __p);
-        google::protobuf::StringPiece::StringPiece<std::allocator<char>>(&__src, &v37, v35);
-        google::protobuf::util::Status::Status(&v40, 3, __src, __p);
-        google::protobuf::util::StatusOr<float>::StatusOr(a4, &v40);
+        __src = v43;
+        __p = (google::protobuf::FastInt64ToBufferLeft(v22, v43, a2) - v43);
+        std::string::basic_string[abi:ne200100](&v36, v43, __p);
+        google::protobuf::StringPiece::StringPiece<std::allocator<char>>(&__src, &v36, v35);
+        google::protobuf::util::Status::Status(&v39, 3, __src, __p);
+        google::protobuf::util::StatusOr<float>::StatusOr(a3, &v39);
         goto LABEL_67;
       case 3:
-        v6 = *(a1 + 16);
+        v6 = a1[4];
         v7 = 0.0;
         if (v6)
         {
@@ -2978,20 +2872,20 @@ LABEL_67:
 
         if (v7 == v8)
         {
-          v9 = google::protobuf::util::Status::Status(a4);
+          v9 = google::protobuf::util::Status::Status(a3);
           google::protobuf::util::Status::operator=(v9, &google::protobuf::util::Status::OK);
           v10 = v6;
 LABEL_45:
-          *(a4 + 32) = v10;
-          goto LABEL_72;
+          *(a3 + 8) = v10;
+          return;
         }
 
-        __src = v44;
-        __p = (google::protobuf::FastUInt32ToBufferLeft(v6, v44, a3) - v44);
-        std::string::basic_string[abi:ne200100](&v37, v44, __p);
-        google::protobuf::StringPiece::StringPiece<std::allocator<char>>(&__src, &v37, v34);
-        google::protobuf::util::Status::Status(&v40, 3, __src, __p);
-        google::protobuf::util::StatusOr<float>::StatusOr(a4, &v40);
+        __src = v43;
+        __p = (google::protobuf::FastUInt32ToBufferLeft(v6, v43, a2) - v43);
+        std::string::basic_string[abi:ne200100](&v36, v43, __p);
+        google::protobuf::StringPiece::StringPiece<std::allocator<char>>(&__src, &v36, v34);
+        google::protobuf::util::Status::Status(&v39, 3, __src, __p);
+        google::protobuf::util::StatusOr<float>::StatusOr(a3, &v39);
         goto LABEL_67;
     }
 
@@ -3000,7 +2894,7 @@ LABEL_45:
 
   if (v5 == 4)
   {
-    v17 = *(a1 + 16);
+    v17 = *(a1 + 2);
     v18 = 0.0;
     if (v17)
     {
@@ -3019,18 +2913,18 @@ LABEL_45:
 
     if (v18 == v19)
     {
-      v20 = google::protobuf::util::Status::Status(a4);
+      v20 = google::protobuf::util::Status::Status(a3);
       google::protobuf::util::Status::operator=(v20, &google::protobuf::util::Status::OK);
       v10 = v17;
       goto LABEL_45;
     }
 
-    __src = v44;
-    __p = (google::protobuf::FastUInt64ToBufferLeft(v17, v44, a3) - v44);
-    std::string::basic_string[abi:ne200100](&v37, v44, __p);
-    google::protobuf::StringPiece::StringPiece<std::allocator<char>>(&__src, &v37, v33);
-    google::protobuf::util::Status::Status(&v40, 3, __src, __p);
-    google::protobuf::util::StatusOr<float>::StatusOr(a4, &v40);
+    __src = v43;
+    __p = (google::protobuf::FastUInt64ToBufferLeft(v17, v43, a2) - v43);
+    std::string::basic_string[abi:ne200100](&v36, v43, __p);
+    google::protobuf::StringPiece::StringPiece<std::allocator<char>>(&__src, &v36, v33);
+    google::protobuf::util::Status::Status(&v39, 3, __src, __p);
+    google::protobuf::util::StatusOr<float>::StatusOr(a3, &v39);
     goto LABEL_67;
   }
 
@@ -3039,22 +2933,22 @@ LABEL_45:
     if (v5 != 6)
     {
 LABEL_34:
-      google::protobuf::util::converter::DataPiece::ValueAsStringOrDefault(a1, "Wrong type. Bool, Enum, String and Cord not supported in GenericConvert.", 0x48, &v40);
-      google::protobuf::StringPiece::StringPiece<std::allocator<char>>(&v37, &v40, v21);
-      google::protobuf::util::Status::Status(&__src, 3, v37, v38);
-      google::protobuf::util::StatusOr<float>::StatusOr(a4, &__src);
+      google::protobuf::util::converter::DataPiece::ValueAsStringOrDefault(a1, "Wrong type. Bool, Enum, String and Cord not supported in GenericConvert.", 0x48, &v39);
+      google::protobuf::StringPiece::StringPiece<std::allocator<char>>(&v36, &v39, v21);
+      google::protobuf::util::Status::Status(&__src, 3, v36, v37);
+      google::protobuf::util::StatusOr<float>::StatusOr(a3, &__src);
       goto LABEL_59;
     }
 
-    v11 = *(a1 + 16);
-    v12 = google::protobuf::util::Status::Status(a4);
+    v11 = *(a1 + 4);
+    v12 = google::protobuf::util::Status::Status(a3);
     google::protobuf::util::Status::operator=(v12, &google::protobuf::util::Status::OK);
 LABEL_57:
-    *(a4 + 32) = v11;
-    goto LABEL_72;
+    *(a3 + 8) = v11;
+    return;
   }
 
-  v26 = *(a1 + 16);
+  v26 = *(a1 + 2);
   v11 = v26;
   if (v26 == v11)
   {
@@ -3066,7 +2960,7 @@ LABEL_57:
 
     if (v26 == 0.0)
     {
-      v27 = *(a1 + 16);
+      v27 = *(a1 + 2);
     }
 
     v28 = -1.0;
@@ -3082,31 +2976,28 @@ LABEL_57:
 
     if (v27 == v28)
     {
-      v29 = google::protobuf::util::Status::Status(a4);
+      v29 = google::protobuf::util::Status::Status(a3);
       google::protobuf::util::Status::operator=(v29, &google::protobuf::util::Status::OK);
       goto LABEL_57;
     }
   }
 
-  google::protobuf::util::converter::DoubleAsString(v26, a2, &v40);
-  google::protobuf::StringPiece::StringPiece<std::allocator<char>>(&v37, &v40, v30);
-  google::protobuf::util::Status::Status(&__src, 3, v37, v38);
-  google::protobuf::util::StatusOr<float>::StatusOr(a4, &__src);
+  google::protobuf::util::converter::DoubleAsString(v26, &v39, a4);
+  google::protobuf::StringPiece::StringPiece<std::allocator<char>>(&v36, &v39, v30);
+  google::protobuf::util::Status::Status(&__src, 3, v36, v37);
+  google::protobuf::util::StatusOr<float>::StatusOr(a3, &__src);
 LABEL_59:
-  if ((v44[15] & 0x80000000) != 0)
+  if ((v43[15] & 0x80000000) != 0)
   {
     operator delete(__p);
   }
 
-  if (SHIBYTE(v40.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v39.__r_.__value_.__r.__words[2]) < 0)
   {
-    v31 = v40.__r_.__value_.__r.__words[0];
+    v31 = v39.__r_.__value_.__r.__words[0];
 LABEL_71:
     operator delete(v31);
   }
-
-LABEL_72:
-  v36 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1BFC1C908(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, void *__p, int a17, __int16 a18, char a19, char a20, int a21, __int16 a22, char a23, char a24, uint64_t a25, void *a26, uint64_t a27, int a28, __int16 a29, char a30, char a31)
@@ -3124,7 +3015,7 @@ void sub_1BFC1C908(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void google::protobuf::util::converter::DataPiece::ToBool(google::protobuf::util::converter::DataPiece *this@<X0>, uint64_t a2@<X8>)
+void google::protobuf::util::converter::DataPiece::ToBool(google::protobuf::util::converter::DataPiece *this@<X0>, google::protobuf::util::Status *a2@<X8>)
 {
   v4 = *(this + 2);
   if (v4 == 9)
@@ -3144,8 +3035,8 @@ void google::protobuf::util::converter::DataPiece::ToBool(google::protobuf::util
   {
     google::protobuf::util::converter::DataPiece::ValueAsStringOrDefault(this, "Wrong type. Cannot convert to Bool.", 0x23, &v7);
     google::protobuf::StringPiece::StringPiece<std::allocator<char>>(v8, &v7, v6);
-    google::protobuf::util::Status::Status(&v9, 3, v8[0], v8[1]);
-    google::protobuf::util::StatusOr<BOOL>::StatusOr(a2, &v9);
+    google::protobuf::util::Status::Status(v9, 3, v8[0], v8[1]);
+    google::protobuf::util::StatusOr<BOOL>::StatusOr(a2, v9);
     if (v11 < 0)
     {
       operator delete(__p);
@@ -3173,9 +3064,9 @@ void sub_1BFC1CAB0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void google::protobuf::util::converter::DataPiece::StringToNumber<BOOL>(uint64_t a1@<X0>, unsigned int (*a2)(void)@<X1>, uint64_t a3@<X8>)
+void google::protobuf::util::converter::DataPiece::StringToNumber<BOOL>(uint64_t a1@<X0>, unsigned int (*a2)(void)@<X1>, google::protobuf::util::Status *a3@<X8>)
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   v6 = *(a1 + 24);
   if (v6 >= 1)
   {
@@ -3190,36 +3081,36 @@ void google::protobuf::util::converter::DataPiece::StringToNumber<BOOL>(uint64_t
       v7 = *(a1 + 16);
       v6 = *(a1 + 24);
 LABEL_5:
-      v27 = "";
-      v28 = 1;
-      v25 = v7;
-      v26 = v6;
-      v23 = "";
-      v24 = 1;
-      google::protobuf::StrCat(&v27, &v25, &v23, &v19);
-      google::protobuf::StringPiece::StringPiece<std::allocator<char>>(&__dst, &v19, v8);
-      google::protobuf::util::Status::Status(&v20, 3, __dst, v15);
-      google::protobuf::util::StatusOr<BOOL>::StatusOr(a3, &v20);
-      if (v22 < 0)
+      v26 = "";
+      v27 = 1;
+      v24 = v7;
+      v25 = v6;
+      v22 = "";
+      v23 = 1;
+      google::protobuf::StrCat(&v26, &v24, &v22, &v18);
+      google::protobuf::StringPiece::StringPiece<std::allocator<char>>(&__dst, &v18, v8);
+      google::protobuf::util::Status::Status(v19, 3, __dst, v14);
+      google::protobuf::util::StatusOr<BOOL>::StatusOr(a3, v19);
+      if (v21 < 0)
       {
         operator delete(__p);
       }
 
-      if (SHIBYTE(v19.__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v18.__r_.__value_.__r.__words[2]) < 0)
       {
-        v9 = v19.__r_.__value_.__r.__words[0];
+        v9 = v18.__r_.__value_.__r.__words[0];
 LABEL_23:
         operator delete(v9);
-        goto LABEL_24;
+        return;
       }
 
-      goto LABEL_24;
+      return;
     }
 
     v6 = *(a1 + 24);
   }
 
-  v18 = 0;
+  v17 = 0;
   if (v6 < 0)
   {
     google::protobuf::util::converter::DataPiece::StringToNumber<int>();
@@ -3229,53 +3120,48 @@ LABEL_23:
   {
     google::protobuf::util::Status::Status(a3);
     google::protobuf::util::Status::operator=(a3, &google::protobuf::util::Status::OK);
-    *(a3 + 32) = v18;
+    *(a3 + 32) = v17;
+    return;
   }
 
-  else
+  v26 = "";
+  v27 = 1;
+  std::string::basic_string[abi:ne200100](&__dst, *(a1 + 16), *(a1 + 24));
+  v10 = v15;
+  p_dst = __dst;
+  if (v15 >= 0)
   {
-    v27 = "";
-    v28 = 1;
-    std::string::basic_string[abi:ne200100](&__dst, *(a1 + 16), *(a1 + 24));
-    v10 = v16;
-    p_dst = __dst;
-    if (v16 >= 0)
-    {
-      p_dst = &__dst;
-    }
-
-    if (v16 < 0)
-    {
-      v10 = v15;
-    }
-
-    v25 = p_dst;
-    v26 = v10;
-    v23 = "";
-    v24 = 1;
-    google::protobuf::StrCat(&v27, &v25, &v23, &v19);
-    google::protobuf::StringPiece::StringPiece<std::allocator<char>>(v17, &v19, v12);
-    google::protobuf::util::Status::Status(&v20, 3, v17[0], v17[1]);
-    google::protobuf::util::StatusOr<BOOL>::StatusOr(a3, &v20);
-    if (v22 < 0)
-    {
-      operator delete(__p);
-    }
-
-    if (SHIBYTE(v19.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v19.__r_.__value_.__l.__data_);
-    }
-
-    if (v16 < 0)
-    {
-      v9 = __dst;
-      goto LABEL_23;
-    }
+    p_dst = &__dst;
   }
 
-LABEL_24:
-  v13 = *MEMORY[0x1E69E9840];
+  if (v15 < 0)
+  {
+    v10 = v14;
+  }
+
+  v24 = p_dst;
+  v25 = v10;
+  v22 = "";
+  v23 = 1;
+  google::protobuf::StrCat(&v26, &v24, &v22, &v18);
+  google::protobuf::StringPiece::StringPiece<std::allocator<char>>(v16, &v18, v12);
+  google::protobuf::util::Status::Status(v19, 3, v16[0], v16[1]);
+  google::protobuf::util::StatusOr<BOOL>::StatusOr(a3, v19);
+  if (v21 < 0)
+  {
+    operator delete(__p);
+  }
+
+  if (SHIBYTE(v18.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v18.__r_.__value_.__l.__data_);
+  }
+
+  if (v15 < 0)
+  {
+    v9 = __dst;
+    goto LABEL_23;
+  }
 }
 
 void sub_1BFC1CCFC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, _Unwind_Exception *exception_object, void *a11, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17, uint64_t a18, uint64_t a19, void *a20, uint64_t a21, int a22, __int16 a23, char a24, char a25, uint64_t a26, void *__p, uint64_t a28, int a29, __int16 a30, char a31, char a32)
@@ -3300,7 +3186,7 @@ void sub_1BFC1CCFC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void google::protobuf::util::converter::DataPiece::ValueAsStringOrDefault(uint64_t a1@<X0>, char *a2@<X1>, char *a3@<X2>, std::string *a4@<X8>)
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v5 = *(a1 + 8);
   if (v5 <= 5)
   {
@@ -3308,168 +3194,156 @@ void google::protobuf::util::converter::DataPiece::ValueAsStringOrDefault(uint64
     {
       if (v5 == 3)
       {
-        v15 = *(a1 + 16);
-        v31 = v33;
-        v32 = google::protobuf::FastUInt32ToBufferLeft(v15, v33, a3) - v33;
-        std::string::basic_string[abi:ne200100](a4, v33, v32);
+        v22 = google::protobuf::FastUInt32ToBufferLeft(*(a1 + 16), v23, a3) - v23;
+        std::string::basic_string[abi:ne200100](a4, v23, v22);
+      }
+
+      else if (v5 == 4)
+      {
+        v22 = google::protobuf::FastUInt64ToBufferLeft(*(a1 + 16), v23, a3) - v23;
+        std::string::basic_string[abi:ne200100](a4, v23, v22);
       }
 
       else
       {
-        if (v5 != 4)
-        {
-          v6 = *(a1 + 16);
-          v7 = *MEMORY[0x1E69E9840];
+        v6 = *(a1 + 16);
 
-          google::protobuf::util::converter::DoubleAsString(v6, a2, a4);
-          return;
-        }
-
-        v18 = *(a1 + 16);
-        v31 = v33;
-        v32 = google::protobuf::FastUInt64ToBufferLeft(v18, v33, a3) - v33;
-        std::string::basic_string[abi:ne200100](a4, v33, v32);
+        google::protobuf::util::converter::DoubleAsString(v6, a4, a2);
       }
 
-LABEL_49:
-      v23 = *MEMORY[0x1E69E9840];
       return;
     }
 
     if (v5 == 1)
     {
-      v12 = *(a1 + 16);
-      v31 = v33;
-      v32 = google::protobuf::FastInt32ToBufferLeft(v12, v33, a3) - v33;
-      std::string::basic_string[abi:ne200100](a4, v33, v32);
-      goto LABEL_49;
+      v22 = google::protobuf::FastInt32ToBufferLeft(*(a1 + 16), v23, a3) - v23;
+      std::string::basic_string[abi:ne200100](a4, v23, v22);
+      return;
     }
 
     if (v5 == 2)
     {
-      v10 = *(a1 + 16);
-      v31 = v33;
-      v32 = google::protobuf::FastInt64ToBufferLeft(v10, v33, a3) - v33;
-      std::string::basic_string[abi:ne200100](a4, v33, v32);
-      goto LABEL_49;
+      v22 = google::protobuf::FastInt64ToBufferLeft(*(a1 + 16), v23, a3) - v23;
+      std::string::basic_string[abi:ne200100](a4, v23, v22);
+      return;
     }
 
-    goto LABEL_44;
+    goto LABEL_43;
   }
 
-  if (v5 > 8)
+  if (v5 <= 8)
+  {
+    if (v5 != 6)
+    {
+      if (v5 == 7)
+      {
+        if (*(a1 + 16))
+        {
+          v7 = "true";
+        }
+
+        else
+        {
+          v7 = "false";
+        }
+
+        goto LABEL_21;
+      }
+
+LABEL_43:
+      if (a2)
+      {
+
+        std::string::basic_string[abi:ne200100](a4, a2, a3);
+      }
+
+      else
+      {
+        a4->__r_.__value_.__r.__words[0] = 0;
+        a4->__r_.__value_.__l.__size_ = 0;
+        a4->__r_.__value_.__r.__words[2] = 0;
+      }
+
+      return;
+    }
+
+    v8 = *(a1 + 16);
+
+    google::protobuf::util::converter::FloatAsString(v8, a4, a2);
+  }
+
+  else
   {
     switch(v5)
     {
       case 9:
-        v31 = "";
-        v32 = 1;
+        v21 = "";
+        v22 = 1;
         std::string::basic_string[abi:ne200100](&__p, *(a1 + 16), *(a1 + 24));
-        v16 = SHIBYTE(v26);
+        v9 = SHIBYTE(v16);
         p_p = __p;
-        if (v26 >= 0)
+        if (v16 >= 0)
         {
           p_p = &__p;
         }
 
-        if (v26 < 0)
+        if (v16 < 0)
         {
-          v16 = v25;
+          v9 = v15;
         }
 
-        v29 = p_p;
-        v30 = v16;
-        v27 = "";
-        v28 = 1;
-        google::protobuf::StrCat(&v31, &v29, &v27, a4);
+        v19 = p_p;
+        v20 = v9;
+        v17 = "";
+        v18 = 1;
+        google::protobuf::StrCat(&v21, &v19, &v17, a4);
         break;
       case 10:
         __p = 0;
-        v25 = 0;
-        v26 = 0;
-        v19 = *(a1 + 24);
-        if ((v19 & 0x8000000000000000) != 0)
+        v15 = 0;
+        v16 = 0;
+        v11 = *(a1 + 24);
+        if ((v11 & 0x8000000000000000) != 0)
         {
           __assert_rtn("StringPiece", "stringpiece.h", 230, "len >= 0");
         }
 
-        google::protobuf::WebSafeBase64Escape(*(a1 + 16), v19, &__p);
-        v20 = SHIBYTE(v26);
-        v21 = __p;
-        if (v26 >= 0)
+        google::protobuf::WebSafeBase64Escape(*(a1 + 16), v11, &__p);
+        v12 = SHIBYTE(v16);
+        v13 = __p;
+        if (v16 >= 0)
         {
-          v21 = &__p;
+          v13 = &__p;
         }
 
-        v31 = "";
-        v32 = 1;
-        if (v26 < 0)
+        v21 = "";
+        v22 = 1;
+        if (v16 < 0)
         {
-          v20 = v25;
+          v12 = v15;
         }
 
-        v29 = v21;
-        v30 = v20;
-        v27 = "";
-        v28 = 1;
-        google::protobuf::StrCat(&v31, &v29, &v27, a4);
+        v19 = v13;
+        v20 = v12;
+        v17 = "";
+        v18 = 1;
+        google::protobuf::StrCat(&v21, &v19, &v17, a4);
         break;
       case 11:
-        v8 = *MEMORY[0x1E69E9840];
-        v9 = "null";
-LABEL_22:
+        v7 = "null";
+LABEL_21:
 
-        std::string::basic_string[abi:ne200100]<0>(a4, v9);
+        std::string::basic_string[abi:ne200100]<0>(a4, v7);
         return;
       default:
-        goto LABEL_44;
+        goto LABEL_43;
     }
 
-    if (SHIBYTE(v26) < 0)
+    if (SHIBYTE(v16) < 0)
     {
       operator delete(__p);
     }
-
-    goto LABEL_49;
   }
-
-  if (v5 == 6)
-  {
-    v13 = *(a1 + 16);
-    v14 = *MEMORY[0x1E69E9840];
-
-    google::protobuf::util::converter::FloatAsString(v13, a2, a4);
-    return;
-  }
-
-  if (v5 == 7)
-  {
-    if (*(a1 + 16))
-    {
-      v9 = "true";
-    }
-
-    else
-    {
-      v9 = "false";
-    }
-
-    v11 = *MEMORY[0x1E69E9840];
-    goto LABEL_22;
-  }
-
-LABEL_44:
-  if (!a2)
-  {
-    a4->__r_.__value_.__r.__words[0] = 0;
-    a4->__r_.__value_.__l.__size_ = 0;
-    a4->__r_.__value_.__r.__words[2] = 0;
-    goto LABEL_49;
-  }
-
-  v22 = *MEMORY[0x1E69E9840];
-
-  std::string::basic_string[abi:ne200100](a4, a2, a3);
 }
 
 void sub_1BFC1D160(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14)
@@ -3482,7 +3356,7 @@ void sub_1BFC1D160(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void google::protobuf::util::converter::DataPiece::ToString(google::protobuf::util::converter::DataPiece *this@<X0>, uint64_t a2@<X8>)
+void google::protobuf::util::converter::DataPiece::ToString(uint64_t *__return_ptr a1@<X8>, google::protobuf::util::converter::DataPiece *this@<X0>)
 {
   v3 = *(this + 2);
   if (v3 == 10)
@@ -3495,24 +3369,24 @@ void google::protobuf::util::converter::DataPiece::ToString(google::protobuf::ut
     }
 
     google::protobuf::Base64Escape(*(this + 2), v4, &__str);
-    google::protobuf::util::Status::Status(a2);
-    *(a2 + 32) = 0;
-    *(a2 + 40) = 0;
-    *(a2 + 48) = 0;
-    google::protobuf::util::Status::operator=(a2, &google::protobuf::util::Status::OK);
-    std::string::operator=((a2 + 32), &__str);
+    google::protobuf::util::Status::Status(a1);
+    a1[4] = 0;
+    a1[5] = 0;
+    a1[6] = 0;
+    google::protobuf::util::Status::operator=(a1, &google::protobuf::util::Status::OK);
+    std::string::operator=((a1 + 4), &__str);
     goto LABEL_6;
   }
 
   if (v3 == 9)
   {
     std::string::basic_string[abi:ne200100](&__str, *(this + 2), *(this + 3));
-    google::protobuf::util::Status::Status(a2);
-    *(a2 + 32) = 0;
-    *(a2 + 40) = 0;
-    *(a2 + 48) = 0;
-    google::protobuf::util::Status::operator=(a2, &google::protobuf::util::Status::OK);
-    std::string::operator=((a2 + 32), &__str);
+    google::protobuf::util::Status::Status(a1);
+    a1[4] = 0;
+    a1[5] = 0;
+    a1[6] = 0;
+    google::protobuf::util::Status::operator=(a1, &google::protobuf::util::Status::OK);
+    std::string::operator=((a1 + 4), &__str);
 LABEL_6:
     if ((SHIBYTE(__str.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
     {
@@ -3526,7 +3400,7 @@ LABEL_6:
   google::protobuf::util::converter::DataPiece::ValueAsStringOrDefault(this, "Cannot convert to string.", 0x19, &__p);
   google::protobuf::StringPiece::StringPiece<std::allocator<char>>(v8, &__p, v6);
   google::protobuf::util::Status::Status(&__str, 3, v8[0], v8[1]);
-  google::protobuf::util::StatusOr<std::string>::StatusOr(a2, &__str);
+  google::protobuf::util::StatusOr<std::string>::StatusOr(a1, &__str);
   if (v10 < 0)
   {
     operator delete(__str.__r_.__value_.__l.__size_);
@@ -3555,7 +3429,7 @@ void sub_1BFC1D2E4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void google::protobuf::util::converter::DataPiece::ToBytes(google::protobuf::util::converter::DataPiece *this@<X0>, uint64_t a2@<X8>)
+void google::protobuf::util::converter::DataPiece::ToBytes(uint64_t *__return_ptr a1@<X8>, google::protobuf::util::converter::DataPiece *this@<X0>)
 {
   v4 = *(this + 2);
   if (v4 == 9)
@@ -3567,12 +3441,12 @@ void google::protobuf::util::converter::DataPiece::ToBytes(google::protobuf::uti
       __assert_rtn("StringPiece", "stringpiece.h", 230, "len >= 0");
     }
 
-    if ((google::protobuf::util::converter::DataPiece::DecodeBase64(this, *(this + 2), v6, &v14) & 1) == 0)
+    if (!google::protobuf::util::converter::DataPiece::DecodeBase64(this, *(this + 2), v6, &v14))
     {
       google::protobuf::util::converter::DataPiece::ValueAsStringOrDefault(this, "Invalid data in input.", 0x16, &__p);
       google::protobuf::StringPiece::StringPiece<std::allocator<char>>(v11, &__p, v9);
       google::protobuf::util::Status::Status(&__str, 3, v11[0], v11[1]);
-      google::protobuf::util::StatusOr<std::string>::StatusOr(a2, &__str);
+      google::protobuf::util::StatusOr<std::string>::StatusOr(a1, &__str);
       if (v13 < 0)
       {
         operator delete(__str.__r_.__value_.__l.__size_);
@@ -3587,12 +3461,12 @@ void google::protobuf::util::converter::DataPiece::ToBytes(google::protobuf::uti
       goto LABEL_14;
     }
 
-    google::protobuf::util::Status::Status(a2);
-    *(a2 + 32) = 0;
-    *(a2 + 40) = 0;
-    *(a2 + 48) = 0;
-    google::protobuf::util::Status::operator=(a2, &google::protobuf::util::Status::OK);
-    std::string::operator=((a2 + 32), &v14);
+    google::protobuf::util::Status::Status(a1);
+    a1[4] = 0;
+    a1[5] = 0;
+    a1[6] = 0;
+    google::protobuf::util::Status::operator=(a1, &google::protobuf::util::Status::OK);
+    std::string::operator=((a1 + 4), &v14);
   }
 
   else
@@ -3600,12 +3474,12 @@ void google::protobuf::util::converter::DataPiece::ToBytes(google::protobuf::uti
     if (v4 == 10)
     {
       std::string::basic_string[abi:ne200100](&__str, *(this + 2), *(this + 3));
-      google::protobuf::util::Status::Status(a2);
-      *(a2 + 32) = 0;
-      *(a2 + 40) = 0;
-      *(a2 + 48) = 0;
-      google::protobuf::util::Status::operator=(a2, &google::protobuf::util::Status::OK);
-      std::string::operator=((a2 + 32), &__str);
+      google::protobuf::util::Status::Status(a1);
+      a1[4] = 0;
+      a1[5] = 0;
+      a1[6] = 0;
+      google::protobuf::util::Status::operator=(a1, &google::protobuf::util::Status::OK);
+      std::string::operator=((a1 + 4), &__str);
       if ((SHIBYTE(__str.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
       {
         return;
@@ -3617,8 +3491,8 @@ void google::protobuf::util::converter::DataPiece::ToBytes(google::protobuf::uti
 
     google::protobuf::util::converter::DataPiece::ValueAsStringOrDefault(this, "Wrong type. Only String or Bytes can be converted to Bytes.", 0x3B, &v14);
     google::protobuf::StringPiece::StringPiece<std::allocator<char>>(&__p, &v14, v7);
-    google::protobuf::util::Status::Status(&__str, 3, __p.__r_.__value_.__r.__words[0], __p.__r_.__value_.__l.__size_);
-    google::protobuf::util::StatusOr<std::string>::StatusOr(a2, &__str);
+    google::protobuf::util::Status::Status(&__str, 3, __p.__r_.__value_.__l.__data_, __p.__r_.__value_.__l.__size_);
+    google::protobuf::util::StatusOr<std::string>::StatusOr(a1, &__str);
     if (v13 < 0)
     {
       size = __str.__r_.__value_.__l.__size_;
@@ -3658,7 +3532,7 @@ void sub_1BFC1D56C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t google::protobuf::util::converter::DataPiece::DecodeBase64(uint64_t a1, google::protobuf *a2, const char *a3, std::string *a4)
+BOOL google::protobuf::util::converter::DataPiece::DecodeBase64(uint64_t a1, google::protobuf *a2, const char *a3, std::string *a4)
 {
   v4 = a4;
   *&v45 = a2;
@@ -3969,7 +3843,7 @@ __n128 google::protobuf::util::converter::DataPiece::InternalCopy(__n128 *this, 
   return result;
 }
 
-uint64_t google::protobuf::util::StatusOr<float>::StatusOr(uint64_t a1, _DWORD *a2)
+google::protobuf::util::Status *google::protobuf::util::StatusOr<float>::StatusOr(google::protobuf::util::Status *a1, _DWORD *a2)
 {
   google::protobuf::util::Status::Status(a1);
   if (*a2)
@@ -3979,7 +3853,7 @@ uint64_t google::protobuf::util::StatusOr<float>::StatusOr(uint64_t a1, _DWORD *
 
   else
   {
-    google::protobuf::util::Status::Status(&v5, 13, "Status::OK is not a valid argument.", 35);
+    google::protobuf::util::Status::Status(&v5, 13, "Status::OK is not a valid argument.", 0x23uLL);
     google::protobuf::util::Status::operator=(a1, &v5);
     if (v7 < 0)
     {
@@ -4020,22 +3894,23 @@ uint64_t google::protobuf::internal::StringPiecePod::operator[](void *a1, uint64
   return *(*a1 + a2);
 }
 
-void google::protobuf::util::converter::anonymous namespace::ValidateNumberConversion<int,double>(int a1@<W0>, char *a2@<X1>, uint64_t a3@<X8>, double a4@<D0>)
+void google::protobuf::util::converter::anonymous namespace::ValidateNumberConversion<int,double>(google::protobuf::util::converter *a1@<X0>, google::protobuf::util::Status *a2@<X8>, double a3@<D0>, char *a4@<X1>)
 {
-  if (a1 != a4)
+  if (a1 != a3)
   {
     goto LABEL_13;
   }
 
+  v5 = a1;
   v6 = -1.0;
-  if (a4 > 0.0)
+  if (a3 > 0.0)
   {
     v6 = 1.0;
   }
 
-  if (a4 == 0.0)
+  if (a3 == 0.0)
   {
-    v6 = a4;
+    v6 = a3;
   }
 
   if (a1 < 1)
@@ -4055,18 +3930,18 @@ void google::protobuf::util::converter::anonymous namespace::ValidateNumberConve
 
   if (v6 == v7)
   {
-    v8 = google::protobuf::util::Status::Status(a3);
+    v8 = google::protobuf::util::Status::Status(a2);
     google::protobuf::util::Status::operator=(v8, &google::protobuf::util::Status::OK);
-    *(a3 + 32) = a1;
+    *(a2 + 8) = v5;
   }
 
   else
   {
 LABEL_13:
-    google::protobuf::util::converter::DoubleAsString(a4, a2, v10);
+    google::protobuf::util::converter::DoubleAsString(a3, v10, a4);
     google::protobuf::StringPiece::StringPiece<std::allocator<char>>(v12, v10, v9);
-    google::protobuf::util::Status::Status(&v13, 3, v12[0], v12[1]);
-    google::protobuf::util::StatusOr<int>::StatusOr(a3, &v13);
+    google::protobuf::util::Status::Status(v13, 3, v12[0], v12[1]);
+    google::protobuf::util::StatusOr<int>::StatusOr(a2, v13);
     if (v15 < 0)
     {
       operator delete(__p);
@@ -4089,22 +3964,23 @@ void sub_1BFC1DC2C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void google::protobuf::util::converter::anonymous namespace::ValidateNumberConversion<int,float>(int a1@<W0>, char *a2@<X1>, uint64_t a3@<X8>, float a4@<S0>)
+void google::protobuf::util::converter::anonymous namespace::ValidateNumberConversion<int,float>(google::protobuf::util::converter *a1@<X0>, google::protobuf::util::Status *a2@<X8>, float a3@<S0>, char *a4@<X1>)
 {
-  if (a1 != a4)
+  if (a1 != a3)
   {
     goto LABEL_13;
   }
 
+  v5 = a1;
   v6 = -1.0;
-  if (a4 > 0.0)
+  if (a3 > 0.0)
   {
     v6 = 1.0;
   }
 
-  if (a4 == 0.0)
+  if (a3 == 0.0)
   {
-    v6 = a4;
+    v6 = a3;
   }
 
   if (a1 < 1)
@@ -4124,18 +4000,18 @@ void google::protobuf::util::converter::anonymous namespace::ValidateNumberConve
 
   if (v6 == v7)
   {
-    v8 = google::protobuf::util::Status::Status(a3);
+    v8 = google::protobuf::util::Status::Status(a2);
     google::protobuf::util::Status::operator=(v8, &google::protobuf::util::Status::OK);
-    *(a3 + 32) = a1;
+    *(a2 + 8) = v5;
   }
 
   else
   {
 LABEL_13:
-    google::protobuf::util::converter::FloatAsString(a4, a2, v10);
+    google::protobuf::util::converter::FloatAsString(a3, v10, a4);
     google::protobuf::StringPiece::StringPiece<std::allocator<char>>(v12, v10, v9);
-    google::protobuf::util::Status::Status(&v13, 3, v12[0], v12[1]);
-    google::protobuf::util::StatusOr<int>::StatusOr(a3, &v13);
+    google::protobuf::util::Status::Status(v13, 3, v12[0], v12[1]);
+    google::protobuf::util::StatusOr<int>::StatusOr(a2, v13);
     if (v15 < 0)
     {
       operator delete(__p);
@@ -4158,23 +4034,24 @@ void sub_1BFC1DD50(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void google::protobuf::util::converter::anonymous namespace::ValidateNumberConversion<unsigned int,double>(unsigned int a1@<W0>, char *a2@<X1>, uint64_t a3@<X8>, double a4@<D0>)
+void google::protobuf::util::converter::anonymous namespace::ValidateNumberConversion<unsigned int,double>(google::protobuf::util::converter *a1@<X0>, google::protobuf::util::Status *a2@<X8>, double a3@<D0>, char *a4@<X1>)
 {
-  if (a1 != a4)
+  if (a1 != a3)
   {
     goto LABEL_10;
   }
 
+  v5 = a1;
   v6 = -1.0;
   v7 = 1.0;
-  if (a4 > 0.0)
+  if (a3 > 0.0)
   {
     v6 = 1.0;
   }
 
-  if (a4 == 0.0)
+  if (a3 == 0.0)
   {
-    v6 = a4;
+    v6 = a3;
   }
 
   if (!a1)
@@ -4184,18 +4061,18 @@ void google::protobuf::util::converter::anonymous namespace::ValidateNumberConve
 
   if (v6 == v7)
   {
-    v8 = google::protobuf::util::Status::Status(a3);
+    v8 = google::protobuf::util::Status::Status(a2);
     google::protobuf::util::Status::operator=(v8, &google::protobuf::util::Status::OK);
-    *(a3 + 32) = a1;
+    *(a2 + 8) = v5;
   }
 
   else
   {
 LABEL_10:
-    google::protobuf::util::converter::DoubleAsString(a4, a2, v10);
+    google::protobuf::util::converter::DoubleAsString(a3, v10, a4);
     google::protobuf::StringPiece::StringPiece<std::allocator<char>>(v12, v10, v9);
     google::protobuf::util::Status::Status(&v13, 3, v12[0], v12[1]);
-    google::protobuf::util::StatusOr<unsigned int>::StatusOr(a3, &v13);
+    google::protobuf::util::StatusOr<unsigned int>::StatusOr(a2, &v13);
     if (v15 < 0)
     {
       operator delete(__p);
@@ -4218,23 +4095,24 @@ void sub_1BFC1DE68(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void google::protobuf::util::converter::anonymous namespace::ValidateNumberConversion<unsigned int,float>(unsigned int a1@<W0>, char *a2@<X1>, uint64_t a3@<X8>, float a4@<S0>)
+void google::protobuf::util::converter::anonymous namespace::ValidateNumberConversion<unsigned int,float>(google::protobuf::util::converter *a1@<X0>, google::protobuf::util::Status *a2@<X8>, float a3@<S0>, char *a4@<X1>)
 {
-  if (a1 != a4)
+  if (a1 != a3)
   {
     goto LABEL_10;
   }
 
+  v5 = a1;
   v6 = -1.0;
   v7 = 1.0;
-  if (a4 > 0.0)
+  if (a3 > 0.0)
   {
     v6 = 1.0;
   }
 
-  if (a4 == 0.0)
+  if (a3 == 0.0)
   {
-    v6 = a4;
+    v6 = a3;
   }
 
   if (!a1)
@@ -4244,18 +4122,18 @@ void google::protobuf::util::converter::anonymous namespace::ValidateNumberConve
 
   if (v6 == v7)
   {
-    v8 = google::protobuf::util::Status::Status(a3);
+    v8 = google::protobuf::util::Status::Status(a2);
     google::protobuf::util::Status::operator=(v8, &google::protobuf::util::Status::OK);
-    *(a3 + 32) = a1;
+    *(a2 + 8) = v5;
   }
 
   else
   {
 LABEL_10:
-    google::protobuf::util::converter::FloatAsString(a4, a2, v10);
+    google::protobuf::util::converter::FloatAsString(a3, v10, a4);
     google::protobuf::StringPiece::StringPiece<std::allocator<char>>(v12, v10, v9);
     google::protobuf::util::Status::Status(&v13, 3, v12[0], v12[1]);
-    google::protobuf::util::StatusOr<unsigned int>::StatusOr(a3, &v13);
+    google::protobuf::util::StatusOr<unsigned int>::StatusOr(a2, &v13);
     if (v15 < 0)
     {
       operator delete(__p);
@@ -4278,7 +4156,7 @@ void sub_1BFC1DF80(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t google::protobuf::util::StatusOr<long long>::StatusOr(uint64_t a1, _DWORD *a2)
+google::protobuf::util::Status *google::protobuf::util::StatusOr<long long>::StatusOr(google::protobuf::util::Status *a1, _DWORD *a2)
 {
   google::protobuf::util::Status::Status(a1);
   if (*a2)
@@ -4288,7 +4166,7 @@ uint64_t google::protobuf::util::StatusOr<long long>::StatusOr(uint64_t a1, _DWO
 
   else
   {
-    google::protobuf::util::Status::Status(&v5, 13, "Status::OK is not a valid argument.", 35);
+    google::protobuf::util::Status::Status(&v5, 13, "Status::OK is not a valid argument.", 0x23uLL);
     google::protobuf::util::Status::operator=(a1, &v5);
     if (v7 < 0)
     {
@@ -4314,22 +4192,22 @@ void sub_1BFC1E048(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void google::protobuf::util::converter::anonymous namespace::ValidateNumberConversion<long long,double>(uint64_t a1@<X0>, char *a2@<X1>, uint64_t a3@<X8>, double a4@<D0>)
+void google::protobuf::util::converter::anonymous namespace::ValidateNumberConversion<long long,double>(uint64_t a1@<X0>, google::protobuf::util::Status *a2@<X8>, double a3@<D0>, char *a4@<X1>)
 {
-  if (a1 != a4)
+  if (a1 != a3)
   {
     goto LABEL_12;
   }
 
   v6 = -1.0;
-  if (a4 > 0.0)
+  if (a3 > 0.0)
   {
     v6 = 1.0;
   }
 
-  if (a4 == 0.0)
+  if (a3 == 0.0)
   {
-    v6 = a4;
+    v6 = a3;
   }
 
   v7 = -1;
@@ -4345,18 +4223,18 @@ void google::protobuf::util::converter::anonymous namespace::ValidateNumberConve
 
   if (v6 == v7)
   {
-    v8 = google::protobuf::util::Status::Status(a3);
+    v8 = google::protobuf::util::Status::Status(a2);
     google::protobuf::util::Status::operator=(v8, &google::protobuf::util::Status::OK);
-    *(a3 + 32) = a1;
+    *(a2 + 4) = a1;
   }
 
   else
   {
 LABEL_12:
-    google::protobuf::util::converter::DoubleAsString(a4, a2, v10);
+    google::protobuf::util::converter::DoubleAsString(a3, v10, a4);
     google::protobuf::StringPiece::StringPiece<std::allocator<char>>(v12, v10, v9);
     google::protobuf::util::Status::Status(&v13, 3, v12[0], v12[1]);
-    google::protobuf::util::StatusOr<long long>::StatusOr(a3, &v13);
+    google::protobuf::util::StatusOr<long long>::StatusOr(a2, &v13);
     if (v15 < 0)
     {
       operator delete(__p);
@@ -4379,22 +4257,22 @@ void sub_1BFC1E15C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void google::protobuf::util::converter::anonymous namespace::ValidateNumberConversion<long long,float>(uint64_t a1@<X0>, char *a2@<X1>, uint64_t a3@<X8>, float a4@<S0>)
+void google::protobuf::util::converter::anonymous namespace::ValidateNumberConversion<long long,float>(uint64_t a1@<X0>, google::protobuf::util::Status *a2@<X8>, float a3@<S0>, char *a4@<X1>)
 {
-  if (a1 != a4)
+  if (a1 != a3)
   {
     goto LABEL_12;
   }
 
   v6 = -1.0;
-  if (a4 > 0.0)
+  if (a3 > 0.0)
   {
     v6 = 1.0;
   }
 
-  if (a4 == 0.0)
+  if (a3 == 0.0)
   {
-    v6 = a4;
+    v6 = a3;
   }
 
   v7 = -1;
@@ -4410,18 +4288,18 @@ void google::protobuf::util::converter::anonymous namespace::ValidateNumberConve
 
   if (v6 == v7)
   {
-    v8 = google::protobuf::util::Status::Status(a3);
+    v8 = google::protobuf::util::Status::Status(a2);
     google::protobuf::util::Status::operator=(v8, &google::protobuf::util::Status::OK);
-    *(a3 + 32) = a1;
+    *(a2 + 4) = a1;
   }
 
   else
   {
 LABEL_12:
-    google::protobuf::util::converter::FloatAsString(a4, a2, v10);
+    google::protobuf::util::converter::FloatAsString(a3, v10, a4);
     google::protobuf::StringPiece::StringPiece<std::allocator<char>>(v12, v10, v9);
     google::protobuf::util::Status::Status(&v13, 3, v12[0], v12[1]);
-    google::protobuf::util::StatusOr<long long>::StatusOr(a3, &v13);
+    google::protobuf::util::StatusOr<long long>::StatusOr(a2, &v13);
     if (v15 < 0)
     {
       operator delete(__p);
@@ -4444,7 +4322,7 @@ void sub_1BFC1E280(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t google::protobuf::util::StatusOr<unsigned long long>::StatusOr(uint64_t a1, _DWORD *a2)
+google::protobuf::util::Status *google::protobuf::util::StatusOr<unsigned long long>::StatusOr(google::protobuf::util::Status *a1, _DWORD *a2)
 {
   google::protobuf::util::Status::Status(a1);
   if (*a2)
@@ -4454,7 +4332,7 @@ uint64_t google::protobuf::util::StatusOr<unsigned long long>::StatusOr(uint64_t
 
   else
   {
-    google::protobuf::util::Status::Status(&v5, 13, "Status::OK is not a valid argument.", 35);
+    google::protobuf::util::Status::Status(&v5, 13, "Status::OK is not a valid argument.", 0x23uLL);
     google::protobuf::util::Status::operator=(a1, &v5);
     if (v7 < 0)
     {
@@ -4480,23 +4358,23 @@ void sub_1BFC1E348(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void google::protobuf::util::converter::anonymous namespace::ValidateNumberConversion<unsigned long long,double>(unint64_t a1@<X0>, char *a2@<X1>, uint64_t a3@<X8>, double a4@<D0>)
+void google::protobuf::util::converter::anonymous namespace::ValidateNumberConversion<unsigned long long,double>(google::protobuf::util::converter *a1@<X0>, google::protobuf::util::Status *a2@<X8>, double a3@<D0>, char *a4@<X1>)
 {
-  if (a1 != a4)
+  if (a1 != a3)
   {
     goto LABEL_10;
   }
 
   v6 = -1.0;
   v7 = 1.0;
-  if (a4 > 0.0)
+  if (a3 > 0.0)
   {
     v6 = 1.0;
   }
 
-  if (a4 == 0.0)
+  if (a3 == 0.0)
   {
-    v6 = a4;
+    v6 = a3;
   }
 
   if (!a1)
@@ -4506,18 +4384,18 @@ void google::protobuf::util::converter::anonymous namespace::ValidateNumberConve
 
   if (v6 == v7)
   {
-    v8 = google::protobuf::util::Status::Status(a3);
+    v8 = google::protobuf::util::Status::Status(a2);
     google::protobuf::util::Status::operator=(v8, &google::protobuf::util::Status::OK);
-    *(a3 + 32) = a1;
+    *(a2 + 4) = a1;
   }
 
   else
   {
 LABEL_10:
-    google::protobuf::util::converter::DoubleAsString(a4, a2, v10);
+    google::protobuf::util::converter::DoubleAsString(a3, v10, a4);
     google::protobuf::StringPiece::StringPiece<std::allocator<char>>(v12, v10, v9);
     google::protobuf::util::Status::Status(&v13, 3, v12[0], v12[1]);
-    google::protobuf::util::StatusOr<unsigned long long>::StatusOr(a3, &v13);
+    google::protobuf::util::StatusOr<unsigned long long>::StatusOr(a2, &v13);
     if (v15 < 0)
     {
       operator delete(__p);
@@ -4540,23 +4418,23 @@ void sub_1BFC1E450(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void google::protobuf::util::converter::anonymous namespace::ValidateNumberConversion<unsigned long long,float>(unint64_t a1@<X0>, char *a2@<X1>, uint64_t a3@<X8>, float a4@<S0>)
+void google::protobuf::util::converter::anonymous namespace::ValidateNumberConversion<unsigned long long,float>(google::protobuf::util::converter *a1@<X0>, google::protobuf::util::Status *a2@<X8>, float a3@<S0>, char *a4@<X1>)
 {
-  if (a1 != a4)
+  if (a1 != a3)
   {
     goto LABEL_10;
   }
 
   v6 = -1.0;
   v7 = 1.0;
-  if (a4 > 0.0)
+  if (a3 > 0.0)
   {
     v6 = 1.0;
   }
 
-  if (a4 == 0.0)
+  if (a3 == 0.0)
   {
-    v6 = a4;
+    v6 = a3;
   }
 
   if (!a1)
@@ -4566,18 +4444,18 @@ void google::protobuf::util::converter::anonymous namespace::ValidateNumberConve
 
   if (v6 == v7)
   {
-    v8 = google::protobuf::util::Status::Status(a3);
+    v8 = google::protobuf::util::Status::Status(a2);
     google::protobuf::util::Status::operator=(v8, &google::protobuf::util::Status::OK);
-    *(a3 + 32) = a1;
+    *(a2 + 4) = a1;
   }
 
   else
   {
 LABEL_10:
-    google::protobuf::util::converter::FloatAsString(a4, a2, v10);
+    google::protobuf::util::converter::FloatAsString(a3, v10, a4);
     google::protobuf::StringPiece::StringPiece<std::allocator<char>>(v12, v10, v9);
     google::protobuf::util::Status::Status(&v13, 3, v12[0], v12[1]);
-    google::protobuf::util::StatusOr<unsigned long long>::StatusOr(a3, &v13);
+    google::protobuf::util::StatusOr<unsigned long long>::StatusOr(a2, &v13);
     if (v15 < 0)
     {
       operator delete(__p);
@@ -4600,7 +4478,7 @@ void sub_1BFC1E568(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t google::protobuf::util::StatusOr<double>::StatusOr(uint64_t a1, _DWORD *a2)
+google::protobuf::util::Status *google::protobuf::util::StatusOr<double>::StatusOr(google::protobuf::util::Status *a1, _DWORD *a2)
 {
   google::protobuf::util::Status::Status(a1);
   if (*a2)
@@ -4610,7 +4488,7 @@ uint64_t google::protobuf::util::StatusOr<double>::StatusOr(uint64_t a1, _DWORD 
 
   else
   {
-    google::protobuf::util::Status::Status(&v5, 13, "Status::OK is not a valid argument.", 35);
+    google::protobuf::util::Status::Status(&v5, 13, "Status::OK is not a valid argument.", 0x23uLL);
     google::protobuf::util::Status::operator=(a1, &v5);
     if (v7 < 0)
     {
@@ -4636,7 +4514,7 @@ void sub_1BFC1E630(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t google::protobuf::util::StatusOr<BOOL>::StatusOr(uint64_t a1, _DWORD *a2)
+google::protobuf::util::Status *google::protobuf::util::StatusOr<BOOL>::StatusOr(google::protobuf::util::Status *a1, _DWORD *a2)
 {
   google::protobuf::util::Status::Status(a1);
   if (*a2)
@@ -4646,7 +4524,7 @@ uint64_t google::protobuf::util::StatusOr<BOOL>::StatusOr(uint64_t a1, _DWORD *a
 
   else
   {
-    google::protobuf::util::Status::Status(&v5, 13, "Status::OK is not a valid argument.", 35);
+    google::protobuf::util::Status::Status(&v5, 13, "Status::OK is not a valid argument.", 0x23uLL);
     google::protobuf::util::Status::operator=(a1, &v5);
     if (v7 < 0)
     {
@@ -4672,7 +4550,7 @@ void sub_1BFC1E6E8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t google::protobuf::util::StatusOr<int>::StatusOr(uint64_t a1, _DWORD *a2)
+google::protobuf::util::Status *google::protobuf::util::StatusOr<int>::StatusOr(google::protobuf::util::Status *a1, _DWORD *a2)
 {
   google::protobuf::util::Status::Status(a1);
   if (*a2)
@@ -4682,7 +4560,7 @@ uint64_t google::protobuf::util::StatusOr<int>::StatusOr(uint64_t a1, _DWORD *a2
 
   else
   {
-    google::protobuf::util::Status::Status(&v5, 13, "Status::OK is not a valid argument.", 35);
+    google::protobuf::util::Status::Status(&v5, 13, "Status::OK is not a valid argument.", 0x23uLL);
     google::protobuf::util::Status::operator=(a1, &v5);
     if (v7 < 0)
     {
@@ -4889,46 +4767,8 @@ void google::protobuf::io::Tokenizer::ConsumeString(google::protobuf::io::Tokeni
       {
         case 'U':
           google::protobuf::io::Tokenizer::NextChar(this);
-          if (*(this + 112) != 48)
+          if (*(this + 112) != 48 || (google::protobuf::io::Tokenizer::NextChar(this), *(this + 112) != 48) || (google::protobuf::io::Tokenizer::NextChar(this), (*(this + 112) & 0xFE) != 0x30) || (google::protobuf::io::Tokenizer::NextChar(this), (*(this + 112) - 48) >= 0xAu) && ((v12 = *(this + 112) - 65, v12 > 0x25) || ((1 << v12) & 0x3F0000003FLL) == 0) || (google::protobuf::io::Tokenizer::NextChar(this), (*(this + 112) - 48) >= 0xAu) && ((v13 = *(this + 112) - 65, v13 > 0x25) || ((1 << v13) & 0x3F0000003FLL) == 0) || (google::protobuf::io::Tokenizer::NextChar(this), (*(this + 112) - 48) >= 0xAu) && ((v14 = *(this + 112) - 65, v14 > 0x25) || ((1 << v14) & 0x3F0000003FLL) == 0) || (google::protobuf::io::Tokenizer::NextChar(this), (*(this + 112) - 48) >= 0xAu) && ((v15 = *(this + 112) - 65, v15 > 0x25) || ((1 << v15) & 0x3F0000003FLL) == 0) || (google::protobuf::io::Tokenizer::NextChar(this), (*(this + 112) - 48) >= 0xAu) && ((v16 = *(this + 112) - 65, v16 > 0x25) || ((1 << v16) & 0x3F0000003FLL) == 0))
           {
-            goto LABEL_55;
-          }
-
-          google::protobuf::io::Tokenizer::NextChar(this);
-          if (*(this + 112) != 48)
-          {
-            goto LABEL_55;
-          }
-
-          google::protobuf::io::Tokenizer::NextChar(this);
-          if ((*(this + 112) & 0xFE) != 0x30)
-          {
-            goto LABEL_55;
-          }
-
-          google::protobuf::io::Tokenizer::NextChar(this);
-          if ((*(this + 112) - 48) >= 0xAu)
-          {
-            v12 = *(this + 112) - 65;
-            if (v12 > 0x25 || ((1 << v12) & 0x3F0000003FLL) == 0)
-            {
-              goto LABEL_55;
-            }
-          }
-
-          google::protobuf::io::Tokenizer::NextChar(this);
-          if ((*(this + 112) - 48) >= 0xAu)
-          {
-            v13 = *(this + 112) - 65;
-            if (v13 > 0x25 || ((1 << v13) & 0x3F0000003FLL) == 0)
-            {
-              goto LABEL_55;
-            }
-          }
-
-          if ((google::protobuf::io::Tokenizer::NextChar(this), (*(this + 112) - 48) >= 0xAu) && ((v14 = *(this + 112) - 65, v14 > 0x25) || ((1 << v14) & 0x3F0000003FLL) == 0) || (google::protobuf::io::Tokenizer::NextChar(this), (*(this + 112) - 48) >= 0xAu) && ((v15 = *(this + 112) - 65, v15 > 0x25) || ((1 << v15) & 0x3F0000003FLL) == 0) || (google::protobuf::io::Tokenizer::NextChar(this), (*(this + 112) - 48) >= 0xAu) && ((v16 = *(this + 112) - 65, v16 > 0x25) || ((1 << v16) & 0x3F0000003FLL) == 0))
-          {
-LABEL_55:
             std::string::basic_string[abi:ne200100]<0>(__p, "Expected eight hex digits up to 10ffff for \\U escape sequence");
             (*(**(this + 13) + 16))(*(this + 13), *(this + 35), *(this + 36), __p);
             goto LABEL_57;

@@ -50,7 +50,7 @@
       _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Looking for demoted applications for accountID: %{public}@ appleID: %{public}@", buf, 0x16u);
     }
 
-    v8 = sub_1002856D4();
+    v8 = sub_1002856D4(RestoreManager);
     v9 = self->_appleID;
     v26 = 0;
     v10 = sub_100286B40(v8, v9, &v26);
@@ -69,10 +69,10 @@
 
     if (v10)
     {
-      v13 = sub_1002856D4();
+      v13 = sub_1002856D4(RestoreManager);
       sub_1002898BC(v13, v10, 0);
 
-      v14 = sub_1002856D4();
+      v14 = sub_1002856D4(RestoreManager);
       ams_DSID = [v10 ams_DSID];
       sub_100287648(v14, ams_DSID);
 

@@ -128,54 +128,54 @@ LABEL_24:
 
 - (id)jsonDictionary
 {
-  v23[5] = *MEMORY[0x1E69E9840];
+  v22[5] = *MEMORY[0x1E69E9840];
   identifier = [(BMMapsRecentConversationsIntentContactInformation *)self identifier];
   fullDisplayName = [(BMMapsRecentConversationsIntentContactInformation *)self fullDisplayName];
   friendlyName = [(BMMapsRecentConversationsIntentContactInformation *)self friendlyName];
   _emailAddressJSONArray = [(BMMapsRecentConversationsIntentContactInformation *)self _emailAddressJSONArray];
   _phoneNumberJSONArray = [(BMMapsRecentConversationsIntentContactInformation *)self _phoneNumberJSONArray];
-  v18 = @"identifier";
+  v17 = @"identifier";
   null = identifier;
   if (!identifier)
   {
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v16 = null;
-  v23[0] = null;
-  v19 = @"fullDisplayName";
+  v15 = null;
+  v22[0] = null;
+  v18 = @"fullDisplayName";
   null2 = fullDisplayName;
   if (!fullDisplayName)
   {
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v23[1] = null2;
-  v20 = @"friendlyName";
+  v22[1] = null2;
+  v19 = @"friendlyName";
   null3 = friendlyName;
   if (!friendlyName)
   {
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v23[2] = null3;
-  v21 = @"emailAddress";
+  v22[2] = null3;
+  v20 = @"emailAddress";
   null4 = _emailAddressJSONArray;
   if (!_emailAddressJSONArray)
   {
     null4 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v23[3] = null4;
-  v22 = @"phoneNumber";
+  v22[3] = null4;
+  v21 = @"phoneNumber";
   null5 = _phoneNumberJSONArray;
   if (!_phoneNumberJSONArray)
   {
     null5 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v23[4] = null5;
-  v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:&v18 count:{5, v16}];
+  v22[4] = null5;
+  v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:&v17 count:{5, v15}];
   if (_phoneNumberJSONArray)
   {
     if (_emailAddressJSONArray)
@@ -233,88 +233,83 @@ LABEL_15:
 LABEL_23:
 
 LABEL_16:
-  v14 = *MEMORY[0x1E69E9840];
 
   return v13;
 }
 
 - (id)_phoneNumberJSONArray
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v3 = objc_opt_new();
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   phoneNumber = [(BMMapsRecentConversationsIntentContactInformation *)self phoneNumber];
-  v5 = [phoneNumber countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v5 = [phoneNumber countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v12;
+    v7 = *v11;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v12 != v7)
+        if (*v11 != v7)
         {
           objc_enumerationMutation(phoneNumber);
         }
 
-        [v3 addObject:*(*(&v11 + 1) + 8 * i)];
+        [v3 addObject:*(*(&v10 + 1) + 8 * i)];
       }
 
-      v6 = [phoneNumber countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v6 = [phoneNumber countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v6);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
 
 - (id)_emailAddressJSONArray
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v3 = objc_opt_new();
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   emailAddress = [(BMMapsRecentConversationsIntentContactInformation *)self emailAddress];
-  v5 = [emailAddress countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v5 = [emailAddress countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v12;
+    v7 = *v11;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v12 != v7)
+        if (*v11 != v7)
         {
           objc_enumerationMutation(emailAddress);
         }
 
-        [v3 addObject:*(*(&v11 + 1) + 8 * i)];
+        [v3 addObject:*(*(&v10 + 1) + 8 * i)];
       }
 
-      v6 = [emailAddress countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v6 = [emailAddress countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v6);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
 
 - (BMMapsRecentConversationsIntentContactInformation)initWithJSONDictionary:(id)dictionary error:(id *)error
 {
-  v106[1] = *MEMORY[0x1E69E9840];
+  v105[1] = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   v7 = [dictionaryCopy objectForKeyedSubscript:@"identifier"];
   if (v7 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
@@ -326,10 +321,10 @@ LABEL_16:
       {
         v30 = objc_alloc(MEMORY[0x1E696ABC0]);
         v31 = *MEMORY[0x1E698F240];
-        v105 = *MEMORY[0x1E696A578];
+        v104 = *MEMORY[0x1E696A578];
         v32 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"identifier"];
-        v106[0] = v32;
-        v33 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v106 forKeys:&v105 count:1];
+        v105[0] = v32;
+        v33 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v105 forKeys:&v104 count:1];
         v34 = v30;
         v9 = v33;
         v35 = [v34 initWithDomain:v31 code:2 userInfo:v33];
@@ -363,13 +358,13 @@ LABEL_16:
         v39 = v9;
         v40 = objc_alloc(MEMORY[0x1E696ABC0]);
         v41 = *MEMORY[0x1E698F240];
-        v103 = *MEMORY[0x1E696A578];
+        v102 = *MEMORY[0x1E696A578];
         v42 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"fullDisplayName"];
-        v104 = v42;
-        v43 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v104 forKeys:&v103 count:1];
+        v103 = v42;
+        v43 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v103 forKeys:&v102 count:1];
         v44 = v40;
         v9 = v39;
-        v78 = v43;
+        v77 = v43;
         v45 = [v44 initWithDomain:v41 code:2 userInfo:?];
         v32 = 0;
         v36 = 0;
@@ -382,18 +377,18 @@ LABEL_16:
       goto LABEL_72;
     }
 
-    v77 = v9;
+    v76 = v9;
   }
 
   else
   {
-    v77 = 0;
+    v76 = 0;
   }
 
   v10 = [dictionaryCopy objectForKeyedSubscript:@"friendlyName"];
-  v74 = v9;
-  v75 = v7;
-  v78 = v10;
+  v73 = v9;
+  v74 = v7;
+  v77 = v10;
   if (v10 && (v11 = v10, objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
   {
     objc_opt_class();
@@ -403,30 +398,30 @@ LABEL_16:
       {
         v46 = objc_alloc(MEMORY[0x1E696ABC0]);
         v47 = *MEMORY[0x1E698F240];
-        v101 = *MEMORY[0x1E696A578];
+        v100 = *MEMORY[0x1E696A578];
         v12 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"friendlyName"];
-        v102 = v12;
-        v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v102 forKeys:&v101 count:1];
+        v101 = v12;
+        v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v101 forKeys:&v100 count:1];
         v48 = [v46 initWithDomain:v47 code:2 userInfo:v15];
-        v76 = 0;
+        v75 = 0;
         v36 = 0;
         *error = v48;
-        v32 = v77;
+        v32 = v76;
         goto LABEL_69;
       }
 
       v42 = 0;
       v36 = 0;
-      v32 = v77;
+      v32 = v76;
       goto LABEL_71;
     }
 
-    v76 = v11;
+    v75 = v11;
   }
 
   else
   {
-    v76 = 0;
+    v75 = 0;
   }
 
   v12 = [dictionaryCopy objectForKeyedSubscript:@"emailAddress"];
@@ -435,7 +430,7 @@ LABEL_16:
 
   if (v14)
   {
-    v72 = dictionaryCopy;
+    v71 = dictionaryCopy;
     errorCopy3 = error;
     selfCopy2 = self;
 
@@ -452,17 +447,17 @@ LABEL_16:
         if (!error)
         {
           v36 = 0;
-          v32 = v77;
+          v32 = v76;
           goto LABEL_70;
         }
 
         v54 = objc_alloc(MEMORY[0x1E696ABC0]);
         errorCopy2 = error;
         v56 = *MEMORY[0x1E698F240];
-        v99 = *MEMORY[0x1E696A578];
+        v98 = *MEMORY[0x1E696A578];
         v15 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Expecting %@ as an array", @"emailAddress"];
-        v100 = v15;
-        v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v100 forKeys:&v99 count:1];
+        v99 = v15;
+        v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v99 forKeys:&v98 count:1];
         v57 = [v54 initWithDomain:v56 code:2 userInfo:v21];
         v36 = 0;
         *errorCopy2 = v57;
@@ -470,36 +465,36 @@ LABEL_16:
       }
     }
 
-    v72 = dictionaryCopy;
+    v71 = dictionaryCopy;
     errorCopy3 = error;
     selfCopy2 = self;
   }
 
   v15 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v12, "count")}];
+  v82 = 0u;
   v83 = 0u;
   v84 = 0u;
   v85 = 0u;
-  v86 = 0u;
   v12 = v12;
-  v16 = [v12 countByEnumeratingWithState:&v83 objects:v98 count:16];
-  v70 = v8;
+  v16 = [v12 countByEnumeratingWithState:&v82 objects:v97 count:16];
+  v69 = v8;
   if (!v16)
   {
     goto LABEL_26;
   }
 
   v17 = v16;
-  v18 = *v84;
+  v18 = *v83;
   do
   {
     for (i = 0; i != v17; ++i)
     {
-      if (*v84 != v18)
+      if (*v83 != v18)
       {
         objc_enumerationMutation(v12);
       }
 
-      v20 = *(*(&v83 + 1) + 8 * i);
+      v20 = *(*(&v82 + 1) + 8 * i);
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
@@ -507,15 +502,15 @@ LABEL_16:
         {
           v24 = objc_alloc(MEMORY[0x1E696ABC0]);
           v25 = *MEMORY[0x1E698F240];
-          v96 = *MEMORY[0x1E696A578];
+          v95 = *MEMORY[0x1E696A578];
           v26 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type null for element of %@, must not be null", @"emailAddress"];
-          v97 = v26;
-          v27 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v97 forKeys:&v96 count:1];
+          v96 = v26;
+          v27 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v96 forKeys:&v95 count:1];
           v28 = v24;
           v29 = v25;
 LABEL_38:
-          v8 = v70;
-          v32 = v77;
+          v8 = v69;
+          v32 = v76;
           *errorCopy3 = [v28 initWithDomain:v29 code:2 userInfo:v27];
 
           v36 = 0;
@@ -527,10 +522,10 @@ LABEL_41:
         v36 = 0;
         v21 = v12;
         self = selfCopy2;
-        dictionaryCopy = v72;
-        v8 = v70;
+        dictionaryCopy = v71;
+        v8 = v69;
 LABEL_58:
-        v32 = v77;
+        v32 = v76;
         goto LABEL_68;
       }
 
@@ -541,10 +536,10 @@ LABEL_58:
         {
           v37 = objc_alloc(MEMORY[0x1E696ABC0]);
           v38 = *MEMORY[0x1E698F240];
-          v94 = *MEMORY[0x1E696A578];
+          v93 = *MEMORY[0x1E696A578];
           v26 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"emailAddress"];
-          v95 = v26;
-          v27 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v95 forKeys:&v94 count:1];
+          v94 = v26;
+          v27 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v94 forKeys:&v93 count:1];
           v28 = v37;
           v29 = v38;
           goto LABEL_38;
@@ -556,15 +551,15 @@ LABEL_58:
       [v15 addObject:v20];
     }
 
-    v17 = [v12 countByEnumeratingWithState:&v83 objects:v98 count:16];
-    v8 = v70;
+    v17 = [v12 countByEnumeratingWithState:&v82 objects:v97 count:16];
+    v8 = v69;
   }
 
   while (v17);
 LABEL_26:
 
-  dictionaryCopy = v72;
-  v21 = [v72 objectForKeyedSubscript:@"phoneNumber"];
+  dictionaryCopy = v71;
+  v21 = [v71 objectForKeyedSubscript:@"phoneNumber"];
   null2 = [MEMORY[0x1E695DFB0] null];
   v23 = [v21 isEqual:null2];
 
@@ -582,16 +577,16 @@ LABEL_26:
     {
       if (errorCopy3)
       {
-        v66 = objc_alloc(MEMORY[0x1E696ABC0]);
-        v67 = *MEMORY[0x1E698F240];
-        v92 = *MEMORY[0x1E696A578];
+        v65 = objc_alloc(MEMORY[0x1E696ABC0]);
+        v66 = *MEMORY[0x1E698F240];
+        v91 = *MEMORY[0x1E696A578];
         v26 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Expecting %@ as an array", @"phoneNumber"];
-        v93 = v26;
-        v68 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v93 forKeys:&v92 count:1];
-        *errorCopy3 = [v66 initWithDomain:v67 code:2 userInfo:v68];
+        v92 = v26;
+        v67 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v92 forKeys:&v91 count:1];
+        *errorCopy3 = [v65 initWithDomain:v66 code:2 userInfo:v67];
 
         v36 = 0;
-        v32 = v77;
+        v32 = v76;
         goto LABEL_67;
       }
 
@@ -603,48 +598,48 @@ LABEL_26:
 
 LABEL_46:
   v26 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v21, "count")}];
+  v78 = 0u;
   v79 = 0u;
   v80 = 0u;
   v81 = 0u;
-  v82 = 0u;
   v21 = v21;
-  v49 = [v21 countByEnumeratingWithState:&v79 objects:v91 count:16];
+  v49 = [v21 countByEnumeratingWithState:&v78 objects:v90 count:16];
   if (!v49)
   {
     goto LABEL_55;
   }
 
   v50 = v49;
-  v51 = *v80;
+  v51 = *v79;
   while (2)
   {
     v52 = 0;
     while (2)
     {
-      if (*v80 != v51)
+      if (*v79 != v51)
       {
         objc_enumerationMutation(v21);
       }
 
-      v53 = *(*(&v79 + 1) + 8 * v52);
+      v53 = *(*(&v78 + 1) + 8 * v52);
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v8 = v70;
-        v32 = v77;
+        v8 = v69;
+        v32 = v76;
         if (errorCopy3)
         {
           v58 = objc_alloc(MEMORY[0x1E696ABC0]);
-          v69 = *MEMORY[0x1E698F240];
-          v89 = *MEMORY[0x1E696A578];
+          v68 = *MEMORY[0x1E698F240];
+          v88 = *MEMORY[0x1E696A578];
           v59 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type null for element of %@, must not be null", @"phoneNumber"];
-          v90 = v59;
+          v89 = v59;
           v60 = MEMORY[0x1E695DF20];
-          v61 = &v90;
-          v62 = &v89;
+          v61 = &v89;
+          v62 = &v88;
 LABEL_64:
           v63 = [v60 dictionaryWithObjects:v61 forKeys:v62 count:1];
-          *errorCopy3 = [v58 initWithDomain:v69 code:2 userInfo:v63];
+          *errorCopy3 = [v58 initWithDomain:v68 code:2 userInfo:v63];
         }
 
 LABEL_65:
@@ -656,18 +651,18 @@ LABEL_65:
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {
-        v8 = v70;
-        v32 = v77;
+        v8 = v69;
+        v32 = v76;
         if (errorCopy3)
         {
           v58 = objc_alloc(MEMORY[0x1E696ABC0]);
-          v69 = *MEMORY[0x1E698F240];
-          v87 = *MEMORY[0x1E696A578];
+          v68 = *MEMORY[0x1E698F240];
+          v86 = *MEMORY[0x1E696A578];
           v59 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"phoneNumber"];
-          v88 = v59;
+          v87 = v59;
           v60 = MEMORY[0x1E695DF20];
-          v61 = &v88;
-          v62 = &v87;
+          v61 = &v87;
+          v62 = &v86;
           goto LABEL_64;
         }
 
@@ -683,7 +678,7 @@ LABEL_65:
       break;
     }
 
-    v50 = [v21 countByEnumeratingWithState:&v79 objects:v91 count:16];
+    v50 = [v21 countByEnumeratingWithState:&v78 objects:v90 count:16];
     if (v50)
     {
       continue;
@@ -694,29 +689,28 @@ LABEL_65:
 
 LABEL_55:
 
-  v8 = v70;
-  v32 = v77;
-  v36 = [(BMMapsRecentConversationsIntentContactInformation *)selfCopy2 initWithIdentifier:v70 fullDisplayName:v77 friendlyName:v76 emailAddress:v15 phoneNumber:v26];
+  v8 = v69;
+  v32 = v76;
+  v36 = [(BMMapsRecentConversationsIntentContactInformation *)selfCopy2 initWithIdentifier:v69 fullDisplayName:v76 friendlyName:v75 emailAddress:v15 phoneNumber:v26];
   selfCopy2 = v36;
 LABEL_66:
-  dictionaryCopy = v72;
+  dictionaryCopy = v71;
 LABEL_67:
 
   self = selfCopy2;
 LABEL_68:
 
 LABEL_69:
-  v9 = v74;
+  v9 = v73;
 LABEL_70:
 
-  v7 = v75;
-  v42 = v76;
+  v7 = v74;
+  v42 = v75;
 LABEL_71:
 
 LABEL_72:
 LABEL_73:
 
-  v64 = *MEMORY[0x1E69E9840];
   return v36;
 }
 
@@ -731,7 +725,7 @@ LABEL_73:
 
 - (void)writeTo:(id)to
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   toCopy = to;
   if (self->_identifier)
   {
@@ -748,71 +742,67 @@ LABEL_73:
     PBDataWriterWriteStringField();
   }
 
-  v24 = 0u;
-  v25 = 0u;
+  v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   v5 = self->_emailAddress;
-  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v22 objects:v27 count:16];
+  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v19 objects:v24 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v23;
+    v8 = *v20;
     do
     {
       v9 = 0;
       do
       {
-        if (*v23 != v8)
+        if (*v20 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v22 + 1) + 8 * v9);
         PBDataWriterWriteStringField();
         ++v9;
       }
 
       while (v7 != v9);
-      v7 = [(NSArray *)v5 countByEnumeratingWithState:&v22 objects:v27 count:16];
+      v7 = [(NSArray *)v5 countByEnumeratingWithState:&v19 objects:v24 count:16];
     }
 
     while (v7);
   }
 
-  v20 = 0u;
-  v21 = 0u;
+  v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
-  v11 = self->_phoneNumber;
-  v12 = [(NSArray *)v11 countByEnumeratingWithState:&v18 objects:v26 count:16];
-  if (v12)
+  v15 = 0u;
+  v16 = 0u;
+  v10 = self->_phoneNumber;
+  v11 = [(NSArray *)v10 countByEnumeratingWithState:&v15 objects:v23 count:16];
+  if (v11)
   {
-    v13 = v12;
-    v14 = *v19;
+    v12 = v11;
+    v13 = *v16;
     do
     {
-      v15 = 0;
+      v14 = 0;
       do
       {
-        if (*v19 != v14)
+        if (*v16 != v13)
         {
-          objc_enumerationMutation(v11);
+          objc_enumerationMutation(v10);
         }
 
-        v16 = *(*(&v18 + 1) + 8 * v15);
         PBDataWriterWriteStringField();
-        ++v15;
+        ++v14;
       }
 
-      while (v13 != v15);
-      v13 = [(NSArray *)v11 countByEnumeratingWithState:&v18 objects:v26 count:16];
+      while (v12 != v14);
+      v12 = [(NSArray *)v10 countByEnumeratingWithState:&v15 objects:v23 count:16];
     }
 
-    while (v13);
+    while (v12);
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (id)initByReadFrom:(id)from
@@ -1011,59 +1001,55 @@ LABEL_40:
 
 + (id)protoFields
 {
-  v10[5] = *MEMORY[0x1E69E9840];
+  v9[5] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"identifier" number:1 type:13 subMessageClass:0];
   v3 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"fullDisplayName" number:2 type:13 subMessageClass:{0, v2}];
-  v10[1] = v3;
+  v9[1] = v3;
   v4 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"friendlyName" number:3 type:13 subMessageClass:0];
-  v10[2] = v4;
+  v9[2] = v4;
   v5 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"emailAddress" number:4 type:13 subMessageClass:0];
-  v10[3] = v5;
+  v9[3] = v5;
   v6 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"phoneNumber" number:5 type:13 subMessageClass:0];
-  v10[4] = v6;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:5];
-
-  v8 = *MEMORY[0x1E69E9840];
+  v9[4] = v6;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:5];
 
   return v7;
 }
 
 + (id)columns
 {
-  v10[5] = *MEMORY[0x1E69E9840];
+  v9[5] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"identifier" dataType:2 requestOnly:0 fieldNumber:1 protoDataType:13 convertedType:0];
   v3 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"fullDisplayName" dataType:2 requestOnly:0 fieldNumber:2 protoDataType:13 convertedType:0];
   v4 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"friendlyName" dataType:2 requestOnly:0 fieldNumber:3 protoDataType:13 convertedType:0];
   v5 = [objc_alloc(MEMORY[0x1E698F2D8]) initWithName:@"emailAddress_json" dataType:5 requestOnly:1 extractBlock:&__block_literal_global_104];
   v6 = [objc_alloc(MEMORY[0x1E698F2D8]) initWithName:@"phoneNumber_json" dataType:5 requestOnly:1 extractBlock:&__block_literal_global_106_83462];
-  v10[0] = v2;
-  v10[1] = v3;
-  v10[2] = v4;
-  v10[3] = v5;
-  v10[4] = v6;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:5];
-
-  v8 = *MEMORY[0x1E69E9840];
+  v9[0] = v2;
+  v9[1] = v3;
+  v9[2] = v4;
+  v9[3] = v5;
+  v9[4] = v6;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:5];
 
   return v7;
 }
 
-id __60__BMMapsRecentConversationsIntentContactInformation_columns__block_invoke_2(uint64_t a1, void *a2)
+id __60__BMMapsRecentConversationsIntentContactInformation_columns__block_invoke_2(uint64_t a1, void *a2, uint64_t a3)
 {
-  v2 = [a2 eventBodyKeepingBackingData:1];
-  v3 = [v2 _phoneNumberJSONArray];
-  v4 = BMConvertObjectToJSONString();
+  v3 = [a2 eventBodyKeepingBackingData:1];
+  v4 = [v3 _phoneNumberJSONArray];
+  v5 = BMConvertObjectToJSONString();
 
-  return v4;
+  return v5;
 }
 
-id __60__BMMapsRecentConversationsIntentContactInformation_columns__block_invoke(uint64_t a1, void *a2)
+id __60__BMMapsRecentConversationsIntentContactInformation_columns__block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v2 = [a2 eventBodyKeepingBackingData:1];
-  v3 = [v2 _emailAddressJSONArray];
-  v4 = BMConvertObjectToJSONString();
+  v3 = [a2 eventBodyKeepingBackingData:1];
+  v4 = [v3 _emailAddressJSONArray];
+  v5 = BMConvertObjectToJSONString();
 
-  return v4;
+  return v5;
 }
 
 + (id)eventWithData:(id)data dataVersion:(unsigned int)version

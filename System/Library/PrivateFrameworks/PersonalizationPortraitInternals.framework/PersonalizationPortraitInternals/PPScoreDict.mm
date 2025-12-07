@@ -7,7 +7,7 @@
 - (id)arrayValueForIndex:(unint64_t)index;
 - (id)description;
 - (id)featureValueForName:(id)name;
-- (id)initWithScalarValueCount:(uint64_t)count arrayValueCount:(uint64_t)valueCount objectCount:(void *)objectCount scoreInputSet:;
+- (id)initWithScalarValueCount:(unint64_t)count arrayValueCount:(uint64_t)valueCount objectCount:(void *)objectCount scoreInputSet:;
 - (id)objectDictionary;
 - (id)objectForIndex:(unint64_t)index;
 - (id)scalarValueDictionary;
@@ -31,7 +31,7 @@
 
 - (id)description
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   if (self->_scoreInputSet)
   {
     v3 = objc_alloc(MEMORY[0x277CCACA8]);
@@ -44,30 +44,30 @@
   else
   {
     v8 = objc_opt_new();
+    v16 = 0u;
     v17 = 0u;
     v18 = 0u;
     v19 = 0u;
-    v20 = 0u;
     featureNames = [(PPScoreDict *)self featureNames];
-    v10 = [featureNames countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v10 = [featureNames countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v10)
     {
-      v11 = *v18;
+      v11 = *v17;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v18 != v11)
+          if (*v17 != v11)
           {
             objc_enumerationMutation(featureNames);
           }
 
-          v13 = *(*(&v17 + 1) + 8 * i);
+          v13 = *(*(&v16 + 1) + 8 * i);
           v14 = [(PPScoreDict *)self featureValueForName:v13];
           [v8 setObject:v14 forKeyedSubscript:v13];
         }
 
-        v10 = [featureNames countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v10 = [featureNames countByEnumeratingWithState:&v16 objects:v20 count:16];
       }
 
       while (v10);
@@ -75,8 +75,6 @@
 
     v7 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"PPScoreDict: %@\n", v8];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -139,7 +137,7 @@
 
 - (id)featureValueForName:(id)name
 {
-  v67 = *MEMORY[0x277D85DE8];
+  v66 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   context = objc_autoreleasePoolPush();
   v5 = [nameCopy componentsSeparatedByString:@"_"];
@@ -191,68 +189,68 @@ LABEL_5:
     goto LABEL_5;
   }
 
-  v49 = [(PPScoreDict *)self objectForIndex:integerValue];
+  v48 = [(PPScoreDict *)self objectForIndex:integerValue];
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v48 = v49;
-      v18 = objc_opt_new();
-      v57 = 0u;
-      v58 = 0u;
-      v55 = 0u;
+      v47 = v48;
+      v17 = objc_opt_new();
       v56 = 0u;
-      v16 = v48;
-      v19 = [v16 countByEnumeratingWithState:&v55 objects:v60 count:16, v48];
-      if (v19)
+      v57 = 0u;
+      v54 = 0u;
+      v55 = 0u;
+      v15 = v47;
+      v18 = [v15 countByEnumeratingWithState:&v54 objects:v59 count:16, v47];
+      if (v18)
       {
-        v20 = *v56;
+        v19 = *v55;
         do
         {
-          for (i = 0; i != v19; ++i)
+          for (i = 0; i != v18; ++i)
           {
-            if (*v56 != v20)
+            if (*v55 != v19)
             {
-              objc_enumerationMutation(v16);
+              objc_enumerationMutation(v15);
             }
 
-            v22 = *(*(&v55 + 1) + 8 * i);
-            v23 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[NSObject countForObject:](v16, "countForObject:", v22)}];
-            [v18 setObject:v23 forKeyedSubscript:v22];
+            v21 = *(*(&v54 + 1) + 8 * i);
+            v22 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[NSObject countForObject:](v15, "countForObject:", v21)}];
+            [v17 setObject:v22 forKeyedSubscript:v21];
           }
 
-          v19 = [v16 countByEnumeratingWithState:&v55 objects:v60 count:16];
+          v18 = [v15 countByEnumeratingWithState:&v54 objects:v59 count:16];
         }
 
-        while (v19);
+        while (v18);
       }
 
-      v54 = 0;
-      v7 = [MEMORY[0x277CBFEF8] featureValueWithDictionary:v18 error:&v54];
-      v24 = v54;
+      v53 = 0;
+      v7 = [MEMORY[0x277CBFEF8] featureValueWithDictionary:v17 error:&v53];
+      v23 = v53;
       if (!v7)
       {
-        v25 = pp_score_interpreter_log_handle();
-        if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+        v24 = pp_score_interpreter_log_handle();
+        if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
         {
-          v38 = objc_opt_class();
-          v39 = NSStringFromClass(v38);
-          v40 = v39;
-          v41 = &stru_284759D38;
+          v37 = objc_opt_class();
+          v38 = NSStringFromClass(v37);
+          v39 = v38;
+          v40 = &stru_284759D38;
           *buf = 138412802;
-          if (v24)
+          if (v23)
           {
-            v41 = v24;
+            v40 = v23;
           }
 
-          v62 = v39;
-          v63 = 2112;
-          v64 = nameCopy;
-          v65 = 2112;
-          v66 = v41;
-          _os_log_error_impl(&dword_23224A000, v25, OS_LOG_TYPE_ERROR, "Failed to log %@ value for %@: %@", buf, 0x20u);
+          v61 = v38;
+          v62 = 2112;
+          v63 = nameCopy;
+          v64 = 2112;
+          v65 = v40;
+          _os_log_error_impl(&dword_23224A000, v24, OS_LOG_TYPE_ERROR, "Failed to log %@ value for %@: %@", buf, 0x20u);
         }
       }
 
@@ -262,70 +260,70 @@ LABEL_5:
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v16 = v49;
-      v26 = objc_opt_new();
-      v52[0] = MEMORY[0x277D85DD0];
-      v52[1] = 3221225472;
-      v52[2] = __35__PPScoreDict_featureValueForName___block_invoke;
-      v52[3] = &unk_278973CD8;
-      v27 = v26;
-      v53 = v27;
-      [v16 enumerateValuesAndCountsUsingBlock:v52];
-      v51 = 0;
-      v7 = [MEMORY[0x277CBFEF8] featureValueWithDictionary:v27 error:&v51];
-      v28 = v51;
+      v15 = v48;
+      v25 = objc_opt_new();
+      v51[0] = MEMORY[0x277D85DD0];
+      v51[1] = 3221225472;
+      v51[2] = __35__PPScoreDict_featureValueForName___block_invoke;
+      v51[3] = &unk_278973CD8;
+      v26 = v25;
+      v52 = v26;
+      [v15 enumerateValuesAndCountsUsingBlock:v51];
+      v50 = 0;
+      v7 = [MEMORY[0x277CBFEF8] featureValueWithDictionary:v26 error:&v50];
+      v27 = v50;
       if (!v7)
+      {
+        v28 = pp_score_interpreter_log_handle();
+        if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+        {
+          v41 = objc_opt_class();
+          v42 = NSStringFromClass(v41);
+          v43 = v42;
+          v44 = &stru_284759D38;
+          *buf = 138412802;
+          if (v27)
+          {
+            v44 = v27;
+          }
+
+          v61 = v42;
+          v62 = 2112;
+          v63 = nameCopy;
+          v64 = 2112;
+          v65 = v44;
+          _os_log_error_impl(&dword_23224A000, v28, OS_LOG_TYPE_ERROR, "Failed to log %@ value for %@: %@", buf, 0x20u);
+        }
+      }
+
+      goto LABEL_38;
+    }
+
+    objc_opt_class();
+    if (objc_opt_isKindOfClass())
+    {
+      v15 = v48;
+      if (![v15 length])
       {
         v29 = pp_score_interpreter_log_handle();
         if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
         {
-          v42 = objc_opt_class();
-          v43 = NSStringFromClass(v42);
-          v44 = v43;
-          v45 = &stru_284759D38;
-          *buf = 138412802;
-          if (v28)
-          {
-            v45 = v28;
-          }
-
-          v62 = v43;
-          v63 = 2112;
-          v64 = nameCopy;
-          v65 = 2112;
-          v66 = v45;
-          _os_log_error_impl(&dword_23224A000, v29, OS_LOG_TYPE_ERROR, "Failed to log %@ value for %@: %@", buf, 0x20u);
-        }
-      }
-
-      goto LABEL_38;
-    }
-
-    objc_opt_class();
-    if (objc_opt_isKindOfClass())
-    {
-      v16 = v49;
-      if (![v16 length])
-      {
-        v30 = pp_score_interpreter_log_handle();
-        if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
-        {
           *buf = 138412290;
-          v62 = nameCopy;
-          _os_log_error_impl(&dword_23224A000, v30, OS_LOG_TYPE_ERROR, "Encountered nil or empty NSString for %@", buf, 0xCu);
+          v61 = nameCopy;
+          _os_log_error_impl(&dword_23224A000, v29, OS_LOG_TYPE_ERROR, "Encountered nil or empty NSString for %@", buf, 0xCu);
         }
 
         goto LABEL_49;
       }
 
-      v7 = [MEMORY[0x277CBFEF8] featureValueWithString:v16];
+      v7 = [MEMORY[0x277CBFEF8] featureValueWithString:v15];
       if (v7)
       {
         goto LABEL_38;
       }
 
-      v30 = pp_score_interpreter_log_handle();
-      if (!os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+      v29 = pp_score_interpreter_log_handle();
+      if (!os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_49;
       }
@@ -343,46 +341,46 @@ LABEL_5:
           goto LABEL_39;
         }
 
-        v16 = pp_score_interpreter_log_handle();
-        if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+        v15 = pp_score_interpreter_log_handle();
+        if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
         {
-          v32 = objc_opt_class();
-          v33 = NSStringFromClass(v32);
+          v31 = objc_opt_class();
+          v32 = NSStringFromClass(v31);
           *buf = 138412546;
-          v62 = v33;
-          v63 = 2112;
-          v64 = nameCopy;
-          _os_log_error_impl(&dword_23224A000, v16, OS_LOG_TYPE_ERROR, "Unrecognized object type of %@ in feature %@", buf, 0x16u);
+          v61 = v32;
+          v62 = 2112;
+          v63 = nameCopy;
+          _os_log_error_impl(&dword_23224A000, v15, OS_LOG_TYPE_ERROR, "Unrecognized object type of %@ in feature %@", buf, 0x16u);
         }
 
         goto LABEL_20;
       }
 
-      v16 = v49;
-      v31 = MEMORY[0x277CBFEF8];
-      [v16 timeIntervalSince1970];
-      v7 = [v31 featureValueWithDouble:?];
+      v15 = v48;
+      v30 = MEMORY[0x277CBFEF8];
+      [v15 timeIntervalSince1970];
+      v7 = [v30 featureValueWithDouble:?];
       if (v7)
       {
         goto LABEL_38;
       }
 
-      v30 = pp_score_interpreter_log_handle();
-      if (!os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+      v29 = pp_score_interpreter_log_handle();
+      if (!os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_49;
       }
     }
 
-    v46 = objc_opt_class();
-    v47 = NSStringFromClass(v46);
+    v45 = objc_opt_class();
+    v46 = NSStringFromClass(v45);
     *buf = 138412802;
-    v62 = v47;
-    v63 = 2112;
-    v64 = nameCopy;
-    v65 = 2112;
-    v66 = &stru_284759D38;
-    _os_log_error_impl(&dword_23224A000, v30, OS_LOG_TYPE_ERROR, "Failed to log %@ value for %@: %@", buf, 0x20u);
+    v61 = v46;
+    v62 = 2112;
+    v63 = nameCopy;
+    v64 = 2112;
+    v65 = &stru_284759D38;
+    _os_log_error_impl(&dword_23224A000, v29, OS_LOG_TYPE_ERROR, "Failed to log %@ value for %@: %@", buf, 0x20u);
 
 LABEL_49:
 LABEL_20:
@@ -390,30 +388,30 @@ LABEL_20:
     goto LABEL_38;
   }
 
-  v59 = 0;
-  v7 = [MEMORY[0x277CBFEF8] featureValueWithDictionary:v49 error:&v59];
-  v16 = v59;
+  v58 = 0;
+  v7 = [MEMORY[0x277CBFEF8] featureValueWithDictionary:v48 error:&v58];
+  v15 = v58;
   if (!v7)
   {
-    v17 = pp_score_interpreter_log_handle();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v16 = pp_score_interpreter_log_handle();
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      v34 = objc_opt_class();
-      v35 = NSStringFromClass(v34);
-      v36 = v35;
-      v37 = &stru_284759D38;
+      v33 = objc_opt_class();
+      v34 = NSStringFromClass(v33);
+      v35 = v34;
+      v36 = &stru_284759D38;
       *buf = 138412802;
-      if (v16)
+      if (v15)
       {
-        v37 = v16;
+        v36 = v15;
       }
 
-      v62 = v35;
-      v63 = 2112;
-      v64 = nameCopy;
-      v65 = 2112;
-      v66 = v37;
-      _os_log_error_impl(&dword_23224A000, v17, OS_LOG_TYPE_ERROR, "Failed to log %@ value for %@: %@", buf, 0x20u);
+      v61 = v34;
+      v62 = 2112;
+      v63 = nameCopy;
+      v64 = 2112;
+      v65 = v36;
+      _os_log_error_impl(&dword_23224A000, v16, OS_LOG_TYPE_ERROR, "Failed to log %@ value for %@: %@", buf, 0x20u);
     }
 
     goto LABEL_20;
@@ -425,7 +423,6 @@ LABEL_39:
 LABEL_12:
 
   objc_autoreleasePoolPop(context);
-  v14 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -658,7 +655,7 @@ void __35__PPScoreDict_featureValueForName___block_invoke(uint64_t a1, uint64_t 
   return v5;
 }
 
-- (id)initWithScalarValueCount:(uint64_t)count arrayValueCount:(uint64_t)valueCount objectCount:(void *)objectCount scoreInputSet:
+- (id)initWithScalarValueCount:(unint64_t)count arrayValueCount:(uint64_t)valueCount objectCount:(void *)objectCount scoreInputSet:
 {
   objectCountCopy = objectCount;
   if (self)

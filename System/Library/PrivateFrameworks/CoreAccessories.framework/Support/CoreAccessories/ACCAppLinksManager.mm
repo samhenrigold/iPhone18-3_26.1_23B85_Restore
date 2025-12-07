@@ -1,9 +1,12 @@
 @interface ACCAppLinksManager
 + (id)sharedManager;
 - (ACCAppLinksManager)init;
+- (BOOL)addCarPlayAppLinksSubscriber:(id)subscriber forCategories:(id)categories forIconSize:(unsigned __int16)size andCertSerialNumber:(id)number;
+- (BOOL)addEAAppLinksSubscriber:(id)subscriber forCategories:(id)categories forIconSize:(unsigned __int16)size andCertSerialNumber:(id)number;
 - (BOOL)removeCarPlayAppLinksSubscriber:(id)subscriber;
 - (BOOL)removeEAAppLinksSubscriber:(id)subscriber;
 - (id)requestAppLinksIconDataForBundleID:(id)d withIconSize:(unsigned __int16)size;
+- (id)retrieveIconInformationForAppList:(id)list withIconSize:(unsigned __int16)size;
 - (void)dealloc;
 - (void)handleCarPlayAppLinksStateChangedForCertSerial:(id)serial;
 - (void)handleEAAppLinksStateChangedForCertSerial:(id)serial;
@@ -65,6 +68,84 @@ void __35__ACCAppLinksManager_sharedManager__block_invoke(id a1)
   v3.receiver = self;
   v3.super_class = ACCAppLinksManager;
   [(ACCAppLinksManager *)&v3 dealloc];
+}
+
+- (BOOL)addCarPlayAppLinksSubscriber:(id)subscriber forCategories:(id)categories forIconSize:(unsigned __int16)size andCertSerialNumber:(id)number
+{
+  sizeCopy = size;
+  subscriberCopy = subscriber;
+  categoriesCopy = categories;
+  numberCopy = number;
+  objc_initWeak(&location, self);
+  v13 = 0;
+  v14 = 0;
+  v15 = 0;
+  if (subscriberCopy && numberCopy)
+  {
+    v14 = [NSNumber numberWithUnsignedLong:platform_CarPlay_carPlayAppLinksStateForCertSerial(numberCopy)];
+    v15 = [[ACCAppLinksAccessory alloc] initWithUUID:subscriberCopy categories:categoriesCopy iconSize:sizeCopy certSerial:numberCopy withState:v14];
+    if (v15)
+    {
+      v16 = +[ACCAppLinksManager sharedManager];
+      carPlayAppsSubscriberList = [v16 carPlayAppsSubscriberList];
+      [carPlayAppsSubscriberList setObject:v15 forKey:subscriberCopy];
+
+      if (gLogObjects && gNumLogObjects >= 8)
+      {
+        v18 = *(gLogObjects + 56);
+      }
+
+      else
+      {
+        if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+        {
+          platform_connectionInfo_configStreamGetCategories_cold_2();
+        }
+
+        v18 = &_os_log_default;
+        v19 = &_os_log_default;
+      }
+
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
+      {
+        v20 = +[ACCAppLinksManager sharedManager];
+        carPlayAppsSubscriberList2 = [v20 carPlayAppsSubscriberList];
+        *buf = 138412290;
+        v35 = carPlayAppsSubscriberList2;
+        _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_INFO, "[#App Links] carPlayAppsSubscriberList: %@", buf, 0xCu);
+      }
+
+      v22 = +[ACCAppLinksManager sharedManager];
+      carPlayAppsSubscriberList3 = [v22 carPlayAppsSubscriberList];
+      v24 = [carPlayAppsSubscriberList3 count] == 1;
+
+      if (v24)
+      {
+        v25 = +[NSDistributedNotificationCenter defaultCenter];
+        v28 = _NSConcreteStackBlock;
+        v29 = 3221225472;
+        v30 = __97__ACCAppLinksManager_addCarPlayAppLinksSubscriber_forCategories_forIconSize_andCertSerialNumber___block_invoke;
+        v31 = &unk_100226BB0;
+        objc_copyWeak(&v32, &location);
+        v26 = [v25 addObserverForName:@"CREnhancedIntegrationConsentDidChangeNotificationName" object:0 queue:0 usingBlock:&v28];
+        [(ACCAppLinksManager *)self setCarPlayAppLinksStateDidChangeObserver:v26, v28, v29, v30, v31];
+
+        objc_destroyWeak(&v32);
+      }
+
+      [(ACCAppLinksManager *)self handleCarPlayAppLinksStateChangedForCertSerial:numberCopy];
+      v13 = 1;
+    }
+
+    else
+    {
+      v13 = 0;
+    }
+  }
+
+  objc_destroyWeak(&location);
+
+  return v13;
 }
 
 void __97__ACCAppLinksManager_addCarPlayAppLinksSubscriber_forCategories_forIconSize_andCertSerialNumber___block_invoke(uint64_t a1, void *a2)
@@ -357,7 +438,7 @@ void __69__ACCAppLinksManager_handleCarPlayAppLinksStateChangedForCertSerial___b
 LABEL_10:
 
 LABEL_11:
-    v14 = logObjectForModule_11(49);
+    v14 = logObjectForModule_11(0x31u);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
@@ -414,7 +495,7 @@ LABEL_4:
 
   if (v17)
   {
-    v14 = logObjectForModule_11(49);
+    v14 = logObjectForModule_11(0x31u);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
@@ -709,7 +790,7 @@ void __69__ACCAppLinksManager_handleCarPlayAppLinksStateChangedForCertSerial___b
       [v11 removeObserver:carPlayAppLinksStateDidChangeObserver];
     }
 
-    v13 = HIDWORD(gLogObjects);
+    v13 = gLogObjects;
     v14 = gNumLogObjects;
     if (gLogObjects && gNumLogObjects >= 8)
     {
@@ -720,10 +801,11 @@ void __69__ACCAppLinksManager_handleCarPlayAppLinksStateChangedForCertSerial___b
     {
       if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
       {
-        HIDWORD(v28) = v13;
+        *v27 = 134218240;
+        *&v27[4] = v13;
         OUTLINED_FUNCTION_3();
-        v29 = v14;
-        OUTLINED_FUNCTION_2_0(&_mh_execute_header, &_os_log_default, v22, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v23, v24, v25, v26, 0);
+        *&v27[14] = v14;
+        OUTLINED_FUNCTION_2_0(&_mh_execute_header, &_os_log_default, v22, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v23, v24, v25, v26, *v27, *&v27[16]);
       }
 
       v15 = &_os_log_default;
@@ -734,13 +816,99 @@ void __69__ACCAppLinksManager_handleCarPlayAppLinksStateChangedForCertSerial___b
     {
       v17 = +[ACCAppLinksManager sharedManager];
       carPlayAppsSubscriberList3 = [v17 carPlayAppsSubscriberList];
-      v27 = 138412290;
-      v28 = carPlayAppsSubscriberList3;
-      OUTLINED_FUNCTION_4_12(&_mh_execute_header, v19, v20, "[#App Links] carPlayAppsSubscriberList: %@", &v27);
+      *v27 = 138412290;
+      *&v27[4] = carPlayAppsSubscriberList3;
+      OUTLINED_FUNCTION_4_12(&_mh_execute_header, v19, v20, "[#App Links] carPlayAppsSubscriberList: %@", v27);
     }
   }
 
   return subscriber != 0;
+}
+
+- (BOOL)addEAAppLinksSubscriber:(id)subscriber forCategories:(id)categories forIconSize:(unsigned __int16)size andCertSerialNumber:(id)number
+{
+  sizeCopy = size;
+  subscriberCopy = subscriber;
+  categoriesCopy = categories;
+  numberCopy = number;
+  v13 = numberCopy;
+  v14 = 0;
+  v15 = 0;
+  v16 = 0;
+  v17 = 0;
+  if (subscriberCopy && numberCopy)
+  {
+    v18 = _supportedAppLinksEAProtocols(subscriberCopy);
+    v15 = v18;
+    if (v18 && [v18 count])
+    {
+      v19 = 2;
+    }
+
+    else
+    {
+      v19 = 1;
+    }
+
+    v16 = [NSNumber numberWithUnsignedLong:v19];
+    v17 = [[ACCAppLinksAccessory alloc] initWithUUID:subscriberCopy categories:categoriesCopy iconSize:sizeCopy certSerial:v13 withState:v16];
+    if (v17)
+    {
+      v20 = +[ACCAppLinksManager sharedManager];
+      eaAppsSubscriberList = [v20 eaAppsSubscriberList];
+      [eaAppsSubscriberList setObject:v17 forKey:subscriberCopy];
+
+      v22 = gLogObjects;
+      v23 = gNumLogObjects;
+      if (gLogObjects && gNumLogObjects >= 8)
+      {
+        v24 = *(gLogObjects + 56);
+      }
+
+      else
+      {
+        if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+        {
+          *v38 = 134218240;
+          *&v38[4] = v22;
+          OUTLINED_FUNCTION_3();
+          *&v38[14] = v23;
+          OUTLINED_FUNCTION_2_0(&_mh_execute_header, &_os_log_default, v33, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v34, v35, v36, v37, *v38, *&v38[16]);
+        }
+
+        v24 = &_os_log_default;
+        v25 = &_os_log_default;
+      }
+
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
+      {
+        v26 = +[ACCAppLinksManager sharedManager];
+        [v26 eaAppsSubscriberList];
+        v27 = categoriesCopy;
+        v29 = v28 = self;
+        *v38 = 138412290;
+        *&v38[4] = v29;
+        _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_INFO, "[#App Links] eaAppsSubscriberList: %@", v38, 0xCu);
+
+        self = v28;
+        categoriesCopy = v27;
+      }
+
+      v30 = +[ACCAppLinksManager sharedManager];
+      eaAppsSubscriberList2 = [v30 eaAppsSubscriberList];
+      [eaAppsSubscriberList2 count];
+
+      [(ACCAppLinksManager *)self handleEAAppLinksStateChangedForCertSerial:v13];
+      v14 = 1;
+    }
+
+    else
+    {
+      v14 = 0;
+    }
+  }
+
+  return v14;
 }
 
 - (BOOL)removeEAAppLinksSubscriber:(id)subscriber
@@ -756,7 +924,7 @@ void __69__ACCAppLinksManager_handleCarPlayAppLinksStateChangedForCertSerial___b
     eaAppsSubscriberList2 = [v7 eaAppsSubscriberList];
     [eaAppsSubscriberList2 count];
 
-    v9 = HIDWORD(gLogObjects);
+    v9 = gLogObjects;
     v10 = gNumLogObjects;
     if (gLogObjects && gNumLogObjects >= 8)
     {
@@ -767,10 +935,11 @@ void __69__ACCAppLinksManager_handleCarPlayAppLinksStateChangedForCertSerial___b
     {
       if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
       {
-        HIDWORD(v24) = v9;
+        *v23 = 134218240;
+        *&v23[4] = v9;
         OUTLINED_FUNCTION_3();
-        v25 = v10;
-        OUTLINED_FUNCTION_2_0(&_mh_execute_header, &_os_log_default, v18, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v19, v20, v21, v22, 0);
+        *&v23[14] = v10;
+        OUTLINED_FUNCTION_2_0(&_mh_execute_header, &_os_log_default, v18, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v19, v20, v21, v22, *v23, *&v23[16]);
       }
 
       v11 = &_os_log_default;
@@ -781,13 +950,201 @@ void __69__ACCAppLinksManager_handleCarPlayAppLinksStateChangedForCertSerial___b
     {
       v13 = +[ACCAppLinksManager sharedManager];
       eaAppsSubscriberList3 = [v13 eaAppsSubscriberList];
-      v23 = 138412290;
-      v24 = eaAppsSubscriberList3;
-      OUTLINED_FUNCTION_4_12(&_mh_execute_header, v15, v16, "[#App Links] eaAppsSubscriberList: %@", &v23);
+      *v23 = 138412290;
+      *&v23[4] = eaAppsSubscriberList3;
+      OUTLINED_FUNCTION_4_12(&_mh_execute_header, v15, v16, "[#App Links] eaAppsSubscriberList: %@", v23);
     }
   }
 
   return subscriber != 0;
+}
+
+- (id)retrieveIconInformationForAppList:(id)list withIconSize:(unsigned __int16)size
+{
+  sizeCopy = size;
+  listCopy = list;
+  v6 = +[NSMutableArray array];
+  if (!listCopy)
+  {
+    goto LABEL_45;
+  }
+
+  v42 = 0u;
+  v43 = 0u;
+  v40 = 0u;
+  v41 = 0u;
+  v36 = listCopy;
+  obj = listCopy;
+  v7 = [obj countByEnumeratingWithState:&v40 objects:v44 count:16];
+  if (!v7)
+  {
+    goto LABEL_36;
+  }
+
+  v8 = v7;
+  v9 = *v41;
+  v37 = sizeCopy;
+  do
+  {
+    v10 = 0;
+    do
+    {
+      if (*v41 != v9)
+      {
+        objc_enumerationMutation(obj);
+      }
+
+      v11 = *(*(&v40 + 1) + 8 * v10);
+      v12 = [NSMutableDictionary dictionaryWithDictionary:v11];
+      v13 = [v11 objectForKey:@"CARApplicationBundleIdentifierKey"];
+      v14 = v13;
+      if (v12)
+      {
+        if (v13)
+        {
+          if (!sizeCopy)
+          {
+            v19 = gLogObjects;
+            v20 = gNumLogObjects;
+            if (gLogObjects && gNumLogObjects >= 50)
+            {
+              v16 = *(gLogObjects + 392);
+            }
+
+            else
+            {
+              if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+              {
+                *buf = 134218240;
+                v46 = v19;
+                v47 = 1024;
+                v48 = v20;
+                _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", buf, 0x12u);
+              }
+
+              v21 = &_os_log_default;
+              v16 = &_os_log_default;
+              sizeCopy = v37;
+            }
+
+            if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+            {
+              OUTLINED_FUNCTION_3_14();
+              _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "[#App Links] Accessory did not pass in valid icon height or width, skipping icon info", v22, 2u);
+            }
+
+            goto LABEL_21;
+          }
+
+          v15 = [(ACCAppLinksManager *)self requestAppLinksIconDataForBundleID:v13 withIconSize:sizeCopy];
+          if (!v15)
+          {
+            v16 = logObjectForModule_11(0x31u);
+            if (!os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+            {
+              goto LABEL_34;
+            }
+
+            OUTLINED_FUNCTION_3_14();
+            v24 = v16;
+            v25 = "[#App Links] Failed to initialize iconData";
+LABEL_30:
+            _os_log_error_impl(&_mh_execute_header, v24, OS_LOG_TYPE_ERROR, v25, v23, 2u);
+            goto LABEL_34;
+          }
+
+          v16 = v15;
+          sHA256 = [v15 SHA256];
+          if (sHA256)
+          {
+            v18 = sHA256;
+            [v12 setObject:sHA256 forKey:@"iconDataHash"];
+
+LABEL_21:
+            [v6 addObject:v12];
+            goto LABEL_22;
+          }
+
+          v26 = logObjectForModule_11(0x31u);
+          if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+          {
+            OUTLINED_FUNCTION_3_14();
+            _os_log_error_impl(&_mh_execute_header, v26, OS_LOG_TYPE_ERROR, "[#App Links] Failed to initialize hashData", v27, 2u);
+          }
+        }
+
+        else
+        {
+          v16 = logObjectForModule_11(0x31u);
+          if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+          {
+            OUTLINED_FUNCTION_3_14();
+            v24 = v16;
+            v25 = "[#App Links] BundleID == NULL";
+            goto LABEL_30;
+          }
+        }
+      }
+
+      else
+      {
+        v16 = logObjectForModule_11(0x31u);
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+        {
+          OUTLINED_FUNCTION_3_14();
+          v24 = v16;
+          v25 = "[#App Links] Failed to initialize tempDict";
+          goto LABEL_30;
+        }
+      }
+
+LABEL_34:
+
+LABEL_22:
+      v10 = v10 + 1;
+    }
+
+    while (v8 != v10);
+    v28 = [obj countByEnumeratingWithState:&v40 objects:v44 count:16];
+    v8 = v28;
+  }
+
+  while (v28);
+LABEL_36:
+
+  v29 = gLogObjects;
+  v30 = gNumLogObjects;
+  if (gLogObjects && gNumLogObjects >= 50)
+  {
+    v31 = *(gLogObjects + 392);
+  }
+
+  else
+  {
+    if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 134218240;
+      v46 = v29;
+      v47 = 1024;
+      v48 = v30;
+      _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", buf, 0x12u);
+    }
+
+    v31 = &_os_log_default;
+    v32 = &_os_log_default;
+  }
+
+  listCopy = v36;
+  if (os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
+  {
+    *buf = 138412290;
+    v46 = v6;
+    OUTLINED_FUNCTION_4_12(&_mh_execute_header, v33, v34, "[#App Links] updatedAppList: %@", buf);
+  }
+
+LABEL_45:
+
+  return v6;
 }
 
 void __64__ACCAppLinksManager_handleEAAppLinksStateChangedForCertSerial___block_invoke(uint64_t a1)
@@ -810,45 +1167,46 @@ LABEL_14:
   v66 = v4;
   v63 = v3;
   v64 = WeakRetained;
-  v77 = 0u;
   v78 = 0u;
-  v75 = 0u;
+  v79 = 0u;
   v76 = 0u;
+  v77 = 0u;
   v8 = +[ACCAppLinksManager sharedManager];
   v9 = [v8 eaAppsSubscriberList];
 
   v10 = v9;
-  v11 = [v9 countByEnumeratingWithState:&v75 objects:v81 count:16];
+  v11 = [v9 countByEnumeratingWithState:&v76 objects:v82 count:16];
   if (!v11)
   {
 LABEL_10:
 
 LABEL_11:
-    v22 = logObjectForModule_11(49);
+    v22 = logObjectForModule_11(0x31u);
     v7 = v64;
     v5 = v65;
     v3 = v63;
     v4 = v66;
     if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
     {
-      OUTLINED_FUNCTION_5_11(&_mh_execute_header, v23, v24, "[#App Links] accessory NULL", v25, v26, v27, v28, v59, v61, v63, v64, v65, v66, v67, *(&v67 + 1), v68, *(&v68 + 1), v69, *(&v69 + 1), v70, *(&v70 + 1), v71, *(&v71 + 1), v72, *(&v72 + 1), v73, *(&v73 + 1), v74, *(&v74 + 1), 0);
+      *buf = 0;
+      OUTLINED_FUNCTION_5_11(&_mh_execute_header, v23, v24, "[#App Links] accessory NULL", v25, v26, v27, v28, v59, v61, v63, v64, v65, v66, v67, *(&v67 + 1), v68, *(&v68 + 1), v69, *(&v69 + 1), v70, *(&v70 + 1), v71, *(&v71 + 1), v72, *(&v72 + 1), v73, *(&v73 + 1), v74, *(&v74 + 1));
     }
 
     goto LABEL_14;
   }
 
   v12 = v11;
-  v13 = *v76;
+  v13 = *v77;
 LABEL_4:
   v14 = 0;
   while (1)
   {
-    if (*v76 != v13)
+    if (*v77 != v13)
     {
       objc_enumerationMutation(v10);
     }
 
-    v15 = *(*(&v75 + 1) + 8 * v14);
+    v15 = *(*(&v76 + 1) + 8 * v14);
     v16 = +[ACCAppLinksManager sharedManager];
     v17 = [v16 eaAppsSubscriberList];
     v18 = [v17 objectForKey:v15];
@@ -865,7 +1223,7 @@ LABEL_4:
 
     if (v12 == ++v14)
     {
-      v12 = [v10 countByEnumeratingWithState:&v75 objects:v81 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v76 objects:v82 count:16];
       if (v12)
       {
         goto LABEL_4;
@@ -897,7 +1255,7 @@ LABEL_4:
       v71 = 0u;
       v72 = 0u;
       v34 = v33;
-      v35 = [v34 countByEnumeratingWithState:&v71 objects:v80 count:16];
+      v35 = [v34 countByEnumeratingWithState:&v71 objects:v81 count:16];
       if (v35)
       {
         v36 = v35;
@@ -918,7 +1276,7 @@ LABEL_4:
             }
           }
 
-          v36 = [v34 countByEnumeratingWithState:&v71 objects:v80 count:16];
+          v36 = [v34 countByEnumeratingWithState:&v71 objects:v81 count:16];
         }
 
         while (v36);
@@ -931,7 +1289,7 @@ LABEL_4:
     v67 = 0u;
     v68 = 0u;
     v40 = v65;
-    v41 = [v40 countByEnumeratingWithState:&v67 objects:v79 count:16];
+    v41 = [v40 countByEnumeratingWithState:&v67 objects:v80 count:16];
     if (v41)
     {
       v42 = v41;
@@ -956,7 +1314,7 @@ LABEL_4:
           }
         }
 
-        v42 = [v40 countByEnumeratingWithState:&v67 objects:v79 count:16];
+        v42 = [v40 countByEnumeratingWithState:&v67 objects:v80 count:16];
       }
 
       while (v42);
@@ -998,10 +1356,11 @@ LABEL_4:
   else
   {
     v30 = v19;
-    v52 = logObjectForModule_11(49);
+    v52 = logObjectForModule_11(0x31u);
     if (os_log_type_enabled(v52, OS_LOG_TYPE_DEFAULT))
     {
-      OUTLINED_FUNCTION_5_11(&_mh_execute_header, v53, v54, "[#App Links] accessory.certSerial NULL", v55, v56, v57, v58, v59, v61, v63, v64, v65, v66, v67, *(&v67 + 1), v68, *(&v68 + 1), v69, *(&v69 + 1), v70, *(&v70 + 1), v71, *(&v71 + 1), v72, *(&v72 + 1), v73, *(&v73 + 1), v74, *(&v74 + 1), 0);
+      *buf = 0;
+      OUTLINED_FUNCTION_5_11(&_mh_execute_header, v53, v54, "[#App Links] accessory.certSerial NULL", v55, v56, v57, v58, v59, v61, v63, v64, v65, v66, v67, *(&v67 + 1), v68, *(&v68 + 1), v69, *(&v69 + 1), v70, *(&v70 + 1), v71, *(&v71 + 1), v72, *(&v72 + 1), v73, *(&v73 + 1), v74, *(&v74 + 1));
     }
 
     v29 = 0;

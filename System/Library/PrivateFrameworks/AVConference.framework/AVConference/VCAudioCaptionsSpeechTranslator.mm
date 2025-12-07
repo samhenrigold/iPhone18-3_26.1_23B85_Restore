@@ -24,7 +24,7 @@
 - (VCAudioCaptionsSpeechTranslator)initWithDelegate:(id)delegate isLocal:(BOOL)local taskIdentifier:(id)identifier reportingAgent:(opaqueRTCReporting *)agent
 {
   localCopy = local;
-  v112 = *MEMORY[0x1E69E9840];
+  v117 = *MEMORY[0x1E69E9840];
   MEMORY[0x1E128B580](&dword_1DB56E000, "@:@ VCAudioCaptionsSpeechTranslator-init");
   if (VRTraceGetErrorLogLevelForModule() >= 6)
   {
@@ -44,9 +44,9 @@
     }
   }
 
-  v98.receiver = self;
-  v98.super_class = VCAudioCaptionsSpeechTranslator;
-  v13 = [(VCAudioCaptions *)&v98 initWithDelegate:delegate isLocal:localCopy taskIdentifier:identifier reportingAgent:agent];
+  v103.receiver = self;
+  v103.super_class = VCAudioCaptionsSpeechTranslator;
+  v13 = [(VCAudioCaptions *)&v103 initWithDelegate:delegate isLocal:localCopy taskIdentifier:identifier reportingAgent:agent];
   v14 = v13;
   if (v13)
   {
@@ -57,7 +57,7 @@
     v17 = &selRef_isLatencySensitiveModeEnabled;
     if (!v15)
     {
-      [VCAudioCaptionsSpeechTranslator initWithDelegate:? isLocal:? taskIdentifier:? reportingAgent:?];
+      [VCAudioCaptionsSpeechTranslator initWithDelegate:v14 isLocal:? taskIdentifier:? reportingAgent:?];
 LABEL_64:
       if (objc_opt_class() == v14)
       {
@@ -73,37 +73,37 @@ LABEL_64:
 
       else
       {
-        v76 = v17[456];
+        v81 = v17[456];
         if (objc_opt_respondsToSelector())
         {
-          v77 = [(VCAudioCaptionsSpeechTranslator *)v14 performSelector:v76];
+          v82 = [(VCAudioCaptionsSpeechTranslator *)v14 performSelector:v81];
         }
 
         else
         {
-          v77 = &stru_1F570E008;
+          v82 = &stru_1F570E008;
         }
 
         if (VRTraceGetErrorLogLevelForModule() >= 3)
         {
-          v78 = VRTraceErrorLogLevelToCSTR();
-          v79 = *MEMORY[0x1E6986650];
+          v83 = VRTraceErrorLogLevelToCSTR();
+          v84 = *MEMORY[0x1E6986650];
           if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR))
           {
             frameworkType = v14->super._frameworkType;
             *buf = 136316418;
-            *&buf[4] = v78;
+            *&buf[4] = v83;
             *&buf[12] = 2080;
             *&buf[14] = "[VCAudioCaptionsSpeechTranslator initWithDelegate:isLocal:taskIdentifier:reportingAgent:]";
             *&buf[22] = 1024;
             *&buf[24] = 75;
             *&buf[28] = 2112;
-            *&buf[30] = v77;
+            *&buf[30] = v82;
             *&buf[38] = 2048;
-            v100 = v14;
-            v101 = 1024;
-            *v102 = frameworkType;
-            _os_log_error_impl(&dword_1DB56E000, v79, OS_LOG_TYPE_ERROR, " [%s] %s:%d %@(%p) VCAudioCaptionsSpeechTranslator-init FAILED with frameworkType=%d", buf, 0x36u);
+            v105 = v14;
+            v106 = 1024;
+            *v107 = frameworkType;
+            _os_log_error_impl(&dword_1DB56E000, v84, OS_LOG_TYPE_ERROR, " [%s] %s:%d %@(%p) VCAudioCaptionsSpeechTranslator-init FAILED with frameworkType=%d", buf, 0x36u);
           }
         }
       }
@@ -120,8 +120,8 @@ LABEL_64:
         v20 = *MEMORY[0x1E6986650];
         if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
         {
-          v84 = *[(AVAudioFormat *)v14->super._frameworkAudioFormat streamDescription];
-          v82 = FourccToCStr([(AVAudioFormat *)v14->super._frameworkAudioFormat streamDescription][8]);
+          v89 = *[(AVAudioFormat *)v14->super._frameworkAudioFormat streamDescription];
+          v87 = FourccToCStr([(AVAudioFormat *)v14->super._frameworkAudioFormat streamDescription][8]);
           v21 = [(AVAudioFormat *)v14->super._frameworkAudioFormat streamDescription][16];
           v22 = [(AVAudioFormat *)v14->super._frameworkAudioFormat streamDescription][20];
           v23 = [(AVAudioFormat *)v14->super._frameworkAudioFormat streamDescription][24];
@@ -134,20 +134,20 @@ LABEL_64:
           *&buf[22] = 1024;
           *&buf[24] = 60;
           *&buf[28] = 2048;
-          *&buf[30] = v84;
+          *&buf[30] = v89;
           *&buf[38] = 2080;
-          v100 = v82;
-          v101 = 1024;
-          *v102 = v21;
-          *&v102[4] = 1024;
-          *&v102[6] = v22;
+          v105 = v87;
+          v106 = 1024;
+          *v107 = v21;
+          *&v107[4] = 1024;
+          *&v107[6] = v22;
           v17 = &selRef_isLatencySensitiveModeEnabled;
-          LOWORD(v103) = 1024;
-          *(&v103 + 2) = v23;
-          HIWORD(v103) = 1024;
-          *v104 = v24;
-          *&v104[4] = 1024;
-          *v105 = v25;
+          LOWORD(v108) = 1024;
+          *(&v108 + 2) = v23;
+          HIWORD(v108) = 1024;
+          *v109 = v24;
+          *&v109[4] = 1024;
+          *v110 = v25;
           v26 = " [%s] %s:%d Translator preferred format: samplerate=%f formatid=%s bytePerPacket=%d framesPerPacket=%d bytesPerFrame=%d channelsPerFrame=%d bitsPerChannel=%d";
           v27 = v20;
           v28 = 78;
@@ -175,8 +175,8 @@ LABEL_16:
         v30 = *MEMORY[0x1E6986650];
         if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
         {
-          v83 = *[(AVAudioFormat *)v14->super._frameworkAudioFormat streamDescription];
-          v81 = FourccToCStr([(AVAudioFormat *)v14->super._frameworkAudioFormat streamDescription][8]);
+          v88 = *[(AVAudioFormat *)v14->super._frameworkAudioFormat streamDescription];
+          v86 = FourccToCStr([(AVAudioFormat *)v14->super._frameworkAudioFormat streamDescription][8]);
           v31 = [(AVAudioFormat *)v14->super._frameworkAudioFormat streamDescription][16];
           v32 = [(AVAudioFormat *)v14->super._frameworkAudioFormat streamDescription][20];
           v33 = [(AVAudioFormat *)v14->super._frameworkAudioFormat streamDescription][24];
@@ -191,22 +191,22 @@ LABEL_16:
           *&buf[28] = 2112;
           *&buf[30] = v18;
           *&buf[38] = 2048;
-          v100 = v14;
-          v101 = 2048;
-          *v102 = v83;
-          *&v102[8] = 2080;
-          v103 = v81;
-          *v104 = 1024;
-          *&v104[2] = v31;
-          *v105 = 1024;
-          *&v105[2] = v32;
+          v105 = v14;
+          v106 = 2048;
+          *v107 = v88;
+          *&v107[8] = 2080;
+          v108 = v86;
+          *v109 = 1024;
+          *&v109[2] = v31;
+          *v110 = 1024;
+          *&v110[2] = v32;
           v17 = &selRef_isLatencySensitiveModeEnabled;
-          v106 = 1024;
-          v107 = v33;
-          v108 = 1024;
-          v109 = v34;
-          v110 = 1024;
-          v111 = v35;
+          v111 = 1024;
+          v112 = v33;
+          v113 = 1024;
+          v114 = v34;
+          v115 = 1024;
+          v116 = v35;
           v26 = " [%s] %s:%d %@(%p) Translator preferred format: samplerate=%f formatid=%s bytePerPacket=%d framesPerPacket=%d bytesPerFrame=%d channelsPerFrame=%d bitsPerChannel=%d";
           v27 = v30;
           v28 = 98;
@@ -216,86 +216,86 @@ LABEL_16:
     }
 
     streamDescription = [(AVAudioFormat *)v14->super._frameworkAudioFormat streamDescription];
-    v97 = *(streamDescription + 32);
-    v95 = *streamDescription;
-    v96 = *(streamDescription + 16);
+    v102 = *(streamDescription + 32);
+    v100 = *streamDescription;
+    v101 = *(streamDescription + 16);
     captionsFormat = v14->super._captionsFormat;
-    *buf = v95;
-    *&buf[16] = v96;
-    *&buf[32] = v97;
+    *buf = v100;
+    *&buf[16] = v101;
+    *&buf[32] = v102;
     [(ASBDWrapper *)captionsFormat setAsbd:buf];
     if (objc_opt_class() == v14)
     {
       if (VRTraceGetErrorLogLevelForModule() >= 7)
       {
-        v40 = VRTraceErrorLogLevelToCSTR();
-        v41 = *MEMORY[0x1E6986650];
+        v45 = VRTraceErrorLogLevelToCSTR();
+        v46 = *MEMORY[0x1E6986650];
         if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
         {
-          v42 = v14->super._captionsFormat;
-          if (v42)
+          v47 = v14->super._captionsFormat;
+          if (v47)
           {
-            [(ASBDWrapper *)v42 asbd];
-            v43 = v94;
+            objc_msgSend_asbd(v47);
+            v48 = v99;
           }
 
           else
           {
-            v43 = 0;
+            v48 = 0;
           }
 
-          v58 = v14->super._captionsFormat;
-          if (v58)
+          v63 = v14->super._captionsFormat;
+          if (v63)
           {
-            [(ASBDWrapper *)v58 asbd];
-            v59 = v93;
-          }
-
-          else
-          {
-            v59 = 0;
-          }
-
-          v60 = v14->super._captionsFormat;
-          if (v60)
-          {
-            [(ASBDWrapper *)v60 asbd];
-            v61 = v92;
+            objc_msgSend_asbd(v63);
+            v64 = v98;
           }
 
           else
           {
-            v61 = 0.0;
+            v64 = 0;
           }
 
-          v62 = v14->super._captionsFormat;
-          if (v62)
+          v65 = v14->super._captionsFormat;
+          if (v65)
           {
-            [(ASBDWrapper *)v62 asbd];
-            LODWORD(v63) = v91;
-            v64 = v63;
+            objc_msgSend_asbd(v65);
+            v66 = v97;
           }
 
           else
           {
-            v64 = 0.0;
+            v66 = 0.0;
+          }
+
+          v67 = v14->super._captionsFormat;
+          if (v67)
+          {
+            objc_msgSend_asbd(v67);
+            LODWORD(v68) = v96;
+            v69 = v68;
+          }
+
+          else
+          {
+            v69 = 0.0;
           }
 
           *buf = 136316418;
-          *&buf[4] = v40;
+          *&buf[4] = v45;
           *&buf[12] = 2080;
           *&buf[14] = "[VCAudioCaptionsSpeechTranslator initWithDelegate:isLocal:taskIdentifier:reportingAgent:]";
           *&buf[22] = 1024;
           *&buf[24] = 63;
           *&buf[28] = 1024;
-          *&buf[30] = v43;
+          *&buf[30] = v48;
           *&buf[34] = 1024;
-          *&buf[36] = v59;
-          LOWORD(v100) = 1024;
-          *(&v100 + 2) = (v61 * v64 * 20.0) / 1000;
-          v55 = " [%s] %s:%d Create PCM copy buffer allocator: sampleRate=%d, bytesPerPacket=%d, capacity=%d";
-          v56 = v41;
-          v57 = 46;
+          *&buf[36] = v64;
+          LOWORD(v105) = 1024;
+          *(&v105 + 2) = (v66 * v69 * 20.0) / 1000;
+          v60 = " [%s] %s:%d Create PCM copy buffer allocator: sampleRate=%d, bytesPerPacket=%d, capacity=%d";
+          v61 = v46;
+          v62 = 46;
           goto LABEL_51;
         }
       }
@@ -316,61 +316,61 @@ LABEL_16:
 
       if (VRTraceGetErrorLogLevelForModule() >= 7)
       {
-        v44 = VRTraceErrorLogLevelToCSTR();
-        v45 = *MEMORY[0x1E6986650];
+        v49 = VRTraceErrorLogLevelToCSTR();
+        v50 = *MEMORY[0x1E6986650];
         if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
         {
-          v46 = v14->super._captionsFormat;
-          if (v46)
+          v51 = v14->super._captionsFormat;
+          if (v51)
           {
-            [(ASBDWrapper *)v46 asbd];
-            v47 = v90;
+            objc_msgSend_asbd(v51);
+            v52 = v95;
           }
 
           else
           {
-            v47 = 0;
+            v52 = 0;
           }
 
-          v48 = v14->super._captionsFormat;
-          if (v48)
+          v53 = v14->super._captionsFormat;
+          if (v53)
           {
-            [(ASBDWrapper *)v48 asbd];
-            v49 = v89;
-          }
-
-          else
-          {
-            v49 = 0;
-          }
-
-          v50 = v14->super._captionsFormat;
-          if (v50)
-          {
-            [(ASBDWrapper *)v50 asbd];
-            v51 = v88;
+            objc_msgSend_asbd(v53);
+            v54 = v94;
           }
 
           else
           {
-            v51 = 0.0;
+            v54 = 0;
           }
 
-          v52 = v14->super._captionsFormat;
-          if (v52)
+          v55 = v14->super._captionsFormat;
+          if (v55)
           {
-            [(ASBDWrapper *)v52 asbd];
-            LODWORD(v53) = v87;
-            v54 = v53;
+            objc_msgSend_asbd(v55);
+            v56 = v93;
           }
 
           else
           {
-            v54 = 0.0;
+            v56 = 0.0;
+          }
+
+          v57 = v14->super._captionsFormat;
+          if (v57)
+          {
+            objc_msgSend_asbd(v57);
+            LODWORD(v58) = v92;
+            v59 = v58;
+          }
+
+          else
+          {
+            v59 = 0.0;
           }
 
           *buf = 136316930;
-          *&buf[4] = v44;
+          *&buf[4] = v49;
           *&buf[12] = 2080;
           *&buf[14] = "[VCAudioCaptionsSpeechTranslator initWithDelegate:isLocal:taskIdentifier:reportingAgent:]";
           *&buf[22] = 1024;
@@ -378,38 +378,38 @@ LABEL_16:
           *&buf[28] = 2112;
           *&buf[30] = v39;
           *&buf[38] = 2048;
-          v100 = v14;
-          v101 = 1024;
-          *v102 = v47;
-          *&v102[4] = 1024;
-          *&v102[6] = v49;
-          LOWORD(v103) = 1024;
-          *(&v103 + 2) = (v51 * v54 * 20.0) / 1000;
-          v55 = " [%s] %s:%d %@(%p) Create PCM copy buffer allocator: sampleRate=%d, bytesPerPacket=%d, capacity=%d";
-          v56 = v45;
-          v57 = 66;
+          v105 = v14;
+          v106 = 1024;
+          *v107 = v52;
+          *&v107[4] = 1024;
+          *&v107[6] = v54;
+          LOWORD(v108) = 1024;
+          *(&v108 + 2) = (v56 * v59 * 20.0) / 1000;
+          v60 = " [%s] %s:%d %@(%p) Create PCM copy buffer allocator: sampleRate=%d, bytesPerPacket=%d, capacity=%d";
+          v61 = v50;
+          v62 = 66;
 LABEL_51:
-          _os_log_impl(&dword_1DB56E000, v56, OS_LOG_TYPE_DEFAULT, v55, buf, v57);
+          _os_log_impl(&dword_1DB56E000, v61, OS_LOG_TYPE_DEFAULT, v60, buf, v62);
         }
       }
     }
 
-    v65 = *MEMORY[0x1E695E480];
-    v66 = v14->super._captionsFormat;
-    if (v66)
+    v70 = *MEMORY[0x1E695E480];
+    v71 = v14->super._captionsFormat;
+    if (v71)
     {
-      [(ASBDWrapper *)v66 asbd];
-      v67 = v86;
-      v68 = v14->super._captionsFormat;
-      if (v68)
+      objc_msgSend_asbd(v71);
+      v72 = v91;
+      v73 = v14->super._captionsFormat;
+      if (v73)
       {
-        [(ASBDWrapper *)v68 asbd];
-        LODWORD(v69) = v85;
-        v70 = v69;
+        objc_msgSend_asbd(v73);
+        LODWORD(v74) = v90;
+        v75 = v74;
 LABEL_57:
-        v71 = VCAudioBufferAllocatorCreate(v65, (v67 * v70 * 20.0 / 1000.0), 2u);
-        v14->super._avAudioPCMAudioBufferAllocator = v71;
-        if (v71)
+        v76 = VCAudioBufferAllocatorCreate(v70, (v72 * v75 * 20.0 / 1000.0), 2, v40, v41, v42, v43, v44);
+        v14->super._avAudioPCMAudioBufferAllocator = v76;
+        if (v76)
         {
           v14->super._translatedUtteranceNumber = 1;
           v14->_currentTranslatedUpdateNumber = 0;
@@ -418,13 +418,13 @@ LABEL_57:
           MEMORY[0x1E128B580](&dword_1DB56E000, "@:@ VCAudioCaptionsSpeechTranslator-init Finished");
           if (VRTraceGetErrorLogLevelForModule() >= 6)
           {
-            v72 = VRTraceErrorLogLevelToCSTR();
-            v73 = *MEMORY[0x1E6986650];
+            v77 = VRTraceErrorLogLevelToCSTR();
+            v78 = *MEMORY[0x1E6986650];
             if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
             {
-              v74 = v14->super._frameworkType;
+              v79 = v14->super._frameworkType;
               *buf = 136316162;
-              *&buf[4] = v72;
+              *&buf[4] = v77;
               *&buf[12] = 2080;
               *&buf[14] = "[VCAudioCaptionsSpeechTranslator initWithDelegate:isLocal:taskIdentifier:reportingAgent:]";
               *&buf[22] = 1024;
@@ -432,8 +432,8 @@ LABEL_57:
               *&buf[28] = 2048;
               *&buf[30] = v14;
               *&buf[38] = 1024;
-              LODWORD(v100) = v74;
-              _os_log_impl(&dword_1DB56E000, v73, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d @:@ VCAudioCaptionsSpeechTranslator-init Finished instance=%p Succeeded with frameworkType=%d", buf, 0x2Cu);
+              LODWORD(v105) = v79;
+              _os_log_impl(&dword_1DB56E000, v78, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d @:@ VCAudioCaptionsSpeechTranslator-init Finished instance=%p Succeeded with frameworkType=%d", buf, 0x2Cu);
             }
           }
 
@@ -447,10 +447,10 @@ LABEL_57:
 
     else
     {
-      v67 = 0.0;
+      v72 = 0.0;
     }
 
-    v70 = 0.0;
+    v75 = 0.0;
     goto LABEL_57;
   }
 
@@ -526,7 +526,7 @@ LABEL_11:
 
 - (void)packageAndSendTranslatedString:(id)string withTask:(id)task
 {
-  v61 = *MEMORY[0x1E69E9840];
+  v63 = *MEMORY[0x1E69E9840];
   if ([(VCAudioCaptions *)self delegate])
   {
     v7 = [(VCAudioCaptions *)self taskInfoForTask:task];
@@ -541,22 +541,23 @@ LABEL_11:
         goto LABEL_32;
       }
 
-      if (-[NSMutableDictionary objectForKeyedSubscript:](self->_transcriptionTimes, "objectForKeyedSubscript:", [MEMORY[0x1E696AD98] numberWithUnsignedInt:self->super._translatedUtteranceNumber]))
+      v9 = -[NSMutableDictionary objectForKeyedSubscript:](self->_transcriptionTimes, "objectForKeyedSubscript:", [MEMORY[0x1E696AD98] numberWithUnsignedInt:self->super._translatedUtteranceNumber]);
+      if (v9)
       {
-        v9 = micro();
+        v11 = micro(v9, v10);
         [-[NSMutableDictionary objectForKeyedSubscript:](self->_transcriptionTimes objectForKeyedSubscript:{objc_msgSend(MEMORY[0x1E696AD98], "numberWithUnsignedInt:", self->super._translatedUtteranceNumber)), "doubleValue"}];
-        v11 = v9 - v10;
+        v13 = v11 - v12;
         -[NSMutableDictionary removeObjectForKey:](self->_transcriptionTimes, "removeObjectForKey:", [MEMORY[0x1E696AD98] numberWithUnsignedInt:self->super._translatedUtteranceNumber]);
         translatedUtteranceNumber = self->super._translatedUtteranceNumber;
-        if (translatedUtteranceNumber && v11 >= 0.0)
+        if (translatedUtteranceNumber && v13 >= 0.0)
         {
-          self->super._translatedLatencyAverage = self->super._translatedLatencyAverage + (v11 - self->super._translatedLatencyAverage) / translatedUtteranceNumber;
+          self->super._translatedLatencyAverage = self->super._translatedLatencyAverage + (v13 - self->super._translatedLatencyAverage) / translatedUtteranceNumber;
         }
       }
 
       else
       {
-        v11 = 0.0;
+        v13 = 0.0;
       }
 
       if (objc_opt_class() == self)
@@ -566,44 +567,44 @@ LABEL_11:
           goto LABEL_31;
         }
 
-        v22 = VRTraceErrorLogLevelToCSTR();
-        v23 = *MEMORY[0x1E6986650];
+        v24 = VRTraceErrorLogLevelToCSTR();
+        v25 = *MEMORY[0x1E6986650];
         if (!os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
         {
           goto LABEL_31;
         }
 
         translatedLatencyAverage = self->super._translatedLatencyAverage;
-        v25 = self->super._translatedUtteranceNumber;
-        v43 = 136316674;
-        v44 = v22;
-        v45 = 2080;
-        v46 = "[VCAudioCaptionsSpeechTranslator packageAndSendTranslatedString:withTask:]";
-        v47 = 1024;
-        v48 = 122;
-        v49 = 2112;
-        v50 = v8;
-        v51 = 2048;
-        selfCopy3 = *&v11;
+        v27 = self->super._translatedUtteranceNumber;
+        v45 = 136316674;
+        v46 = v24;
+        v47 = 2080;
+        v48 = "[VCAudioCaptionsSpeechTranslator packageAndSendTranslatedString:withTask:]";
+        v49 = 1024;
+        v50 = 122;
+        v51 = 2112;
+        v52 = v8;
         v53 = 2048;
-        v54 = translatedLatencyAverage;
-        v55 = 1024;
-        LODWORD(v56) = v25;
-        v26 = " [%s] %s:%d Update translatedResult utterance from info=%@, currentLatency=%f, average translatedLatency=%f for utterance count=%d";
-        v27 = v23;
-        v28 = 64;
+        selfCopy3 = *&v13;
+        v55 = 2048;
+        v56 = translatedLatencyAverage;
+        v57 = 1024;
+        LODWORD(v58) = v27;
+        v28 = " [%s] %s:%d Update translatedResult utterance from info=%@, currentLatency=%f, average translatedLatency=%f for utterance count=%d";
+        v29 = v25;
+        v30 = 64;
       }
 
       else
       {
         if (objc_opt_respondsToSelector())
         {
-          v19 = [(VCAudioCaptionsSpeechTranslator *)self performSelector:sel_logPrefix];
+          v21 = [(VCAudioCaptionsSpeechTranslator *)self performSelector:sel_logPrefix];
         }
 
         else
         {
-          v19 = &stru_1F570E008;
+          v21 = &stru_1F570E008;
         }
 
         if (VRTraceGetErrorLogLevelForModule() < 7)
@@ -611,39 +612,39 @@ LABEL_11:
           goto LABEL_31;
         }
 
-        v29 = VRTraceErrorLogLevelToCSTR();
-        v30 = *MEMORY[0x1E6986650];
+        v31 = VRTraceErrorLogLevelToCSTR();
+        v32 = *MEMORY[0x1E6986650];
         if (!os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
         {
           goto LABEL_31;
         }
 
-        v31 = self->super._translatedLatencyAverage;
-        v32 = self->super._translatedUtteranceNumber;
-        v43 = 136317186;
-        v44 = v29;
-        v45 = 2080;
-        v46 = "[VCAudioCaptionsSpeechTranslator packageAndSendTranslatedString:withTask:]";
-        v47 = 1024;
-        v48 = 122;
-        v49 = 2112;
-        v50 = v19;
-        v51 = 2048;
+        v33 = self->super._translatedLatencyAverage;
+        v34 = self->super._translatedUtteranceNumber;
+        v45 = 136317186;
+        v46 = v31;
+        v47 = 2080;
+        v48 = "[VCAudioCaptionsSpeechTranslator packageAndSendTranslatedString:withTask:]";
+        v49 = 1024;
+        v50 = 122;
+        v51 = 2112;
+        v52 = v21;
+        v53 = 2048;
         selfCopy3 = self;
-        v53 = 2112;
-        v54 = *&v8;
-        v55 = 2048;
-        v56 = v11;
+        v55 = 2112;
+        v56 = *&v8;
         v57 = 2048;
-        v58 = v31;
-        v59 = 1024;
-        v60 = v32;
-        v26 = " [%s] %s:%d %@(%p) Update translatedResult utterance from info=%@, currentLatency=%f, average translatedLatency=%f for utterance count=%d";
-        v27 = v30;
-        v28 = 84;
+        v58 = v13;
+        v59 = 2048;
+        v60 = v33;
+        v61 = 1024;
+        v62 = v34;
+        v28 = " [%s] %s:%d %@(%p) Update translatedResult utterance from info=%@, currentLatency=%f, average translatedLatency=%f for utterance count=%d";
+        v29 = v32;
+        v30 = 84;
       }
 
-      _os_log_impl(&dword_1DB56E000, v27, OS_LOG_TYPE_DEFAULT, v26, &v43, v28);
+      _os_log_impl(&dword_1DB56E000, v29, OS_LOG_TYPE_DEFAULT, v28, &v45, v30);
 LABEL_31:
       ++self->super._translatedUtteranceNumber;
       self->_currentTranslatedUpdateNumber = 0;
@@ -655,36 +656,36 @@ LABEL_32:
           goto LABEL_43;
         }
 
-        v34 = VRTraceErrorLogLevelToCSTR();
-        v35 = *MEMORY[0x1E6986650];
+        v36 = VRTraceErrorLogLevelToCSTR();
+        v37 = *MEMORY[0x1E6986650];
         if (!os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
         {
           goto LABEL_43;
         }
 
-        v43 = 136315906;
-        v44 = v34;
-        v45 = 2080;
-        v46 = "[VCAudioCaptionsSpeechTranslator packageAndSendTranslatedString:withTask:]";
-        v47 = 1024;
-        v48 = 126;
-        v49 = 2112;
-        v50 = v8;
-        v36 = " [%s] %s:%d Update translatedResult utterance to info=%@";
-        v37 = v35;
-        v38 = 38;
+        v45 = 136315906;
+        v46 = v36;
+        v47 = 2080;
+        v48 = "[VCAudioCaptionsSpeechTranslator packageAndSendTranslatedString:withTask:]";
+        v49 = 1024;
+        v50 = 126;
+        v51 = 2112;
+        v52 = v8;
+        v38 = " [%s] %s:%d Update translatedResult utterance to info=%@";
+        v39 = v37;
+        v40 = 38;
       }
 
       else
       {
         if (objc_opt_respondsToSelector())
         {
-          v33 = [(VCAudioCaptionsSpeechTranslator *)self performSelector:sel_logPrefix];
+          v35 = [(VCAudioCaptionsSpeechTranslator *)self performSelector:sel_logPrefix];
         }
 
         else
         {
-          v33 = &stru_1F570E008;
+          v35 = &stru_1F570E008;
         }
 
         if (VRTraceGetErrorLogLevelForModule() < 7)
@@ -692,37 +693,37 @@ LABEL_32:
           goto LABEL_43;
         }
 
-        v39 = VRTraceErrorLogLevelToCSTR();
-        v40 = *MEMORY[0x1E6986650];
+        v41 = VRTraceErrorLogLevelToCSTR();
+        v42 = *MEMORY[0x1E6986650];
         if (!os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
         {
           goto LABEL_43;
         }
 
-        v43 = 136316418;
-        v44 = v39;
-        v45 = 2080;
-        v46 = "[VCAudioCaptionsSpeechTranslator packageAndSendTranslatedString:withTask:]";
-        v47 = 1024;
-        v48 = 126;
-        v49 = 2112;
-        v50 = v33;
-        v51 = 2048;
+        v45 = 136316418;
+        v46 = v41;
+        v47 = 2080;
+        v48 = "[VCAudioCaptionsSpeechTranslator packageAndSendTranslatedString:withTask:]";
+        v49 = 1024;
+        v50 = 126;
+        v51 = 2112;
+        v52 = v35;
+        v53 = 2048;
         selfCopy3 = self;
-        v53 = 2112;
-        v54 = *&v8;
-        v36 = " [%s] %s:%d %@(%p) Update translatedResult utterance to info=%@";
-        v37 = v40;
-        v38 = 58;
+        v55 = 2112;
+        v56 = *&v8;
+        v38 = " [%s] %s:%d %@(%p) Update translatedResult utterance to info=%@";
+        v39 = v42;
+        v40 = 58;
       }
 
-      _os_log_impl(&dword_1DB56E000, v37, OS_LOG_TYPE_DEFAULT, v36, &v43, v38);
+      _os_log_impl(&dword_1DB56E000, v39, OS_LOG_TYPE_DEFAULT, v38, &v45, v40);
 LABEL_43:
-      v41 = -[VCCaptionsTranscription initWithTextTranscription:taskInfo:isLocal:isFinal:isTranslated:]([VCCaptionsTranscription alloc], "initWithTextTranscription:taskInfo:isLocal:isFinal:isTranslated:", [string translatedText], v8, self->super._isLocal, objc_msgSend(string, "isFinal"), 1);
-      if (v41)
+      v43 = -[VCCaptionsTranscription initWithTextTranscription:taskInfo:isLocal:isFinal:isTranslated:]([VCCaptionsTranscription alloc], "initWithTextTranscription:taskInfo:isLocal:isFinal:isTranslated:", [string translatedText], v8, self->super._isLocal, objc_msgSend(string, "isFinal"), 1);
+      if (v43)
       {
-        v42 = v41;
-        [(VCAudioCaptions *)self sendTranscriptionResult:v41 taskInfo:v8];
+        v44 = v43;
+        [(VCAudioCaptions *)self sendTranscriptionResult:v43 taskInfo:v8];
       }
 
       return;
@@ -732,21 +733,21 @@ LABEL_43:
     {
       if (VRTraceGetErrorLogLevelForModule() >= 5)
       {
-        v14 = VRTraceErrorLogLevelToCSTR();
-        v15 = *MEMORY[0x1E6986650];
+        v16 = VRTraceErrorLogLevelToCSTR();
+        v17 = *MEMORY[0x1E6986650];
         if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
         {
-          v43 = 136315650;
-          v44 = v14;
-          v45 = 2080;
-          v46 = "[VCAudioCaptionsSpeechTranslator packageAndSendTranslatedString:withTask:]";
-          v47 = 1024;
-          v48 = 107;
-          v16 = " [%s] %s:%d Cannot sendTranscription as we don't have a task for it";
-          v17 = v15;
-          v18 = 28;
+          v45 = 136315650;
+          v46 = v16;
+          v47 = 2080;
+          v48 = "[VCAudioCaptionsSpeechTranslator packageAndSendTranslatedString:withTask:]";
+          v49 = 1024;
+          v50 = 107;
+          v18 = " [%s] %s:%d Cannot sendTranscription as we don't have a task for it";
+          v19 = v17;
+          v20 = 28;
 LABEL_22:
-          _os_log_impl(&dword_1DB56E000, v17, OS_LOG_TYPE_DEFAULT, v16, &v43, v18);
+          _os_log_impl(&dword_1DB56E000, v19, OS_LOG_TYPE_DEFAULT, v18, &v45, v20);
         }
       }
     }
@@ -755,33 +756,33 @@ LABEL_22:
     {
       if (objc_opt_respondsToSelector())
       {
-        v13 = [(VCAudioCaptionsSpeechTranslator *)self performSelector:sel_logPrefix];
+        v15 = [(VCAudioCaptionsSpeechTranslator *)self performSelector:sel_logPrefix];
       }
 
       else
       {
-        v13 = &stru_1F570E008;
+        v15 = &stru_1F570E008;
       }
 
       if (VRTraceGetErrorLogLevelForModule() >= 5)
       {
-        v20 = VRTraceErrorLogLevelToCSTR();
-        v21 = *MEMORY[0x1E6986650];
+        v22 = VRTraceErrorLogLevelToCSTR();
+        v23 = *MEMORY[0x1E6986650];
         if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
         {
-          v43 = 136316162;
-          v44 = v20;
-          v45 = 2080;
-          v46 = "[VCAudioCaptionsSpeechTranslator packageAndSendTranslatedString:withTask:]";
-          v47 = 1024;
-          v48 = 107;
-          v49 = 2112;
-          v50 = v13;
-          v51 = 2048;
+          v45 = 136316162;
+          v46 = v22;
+          v47 = 2080;
+          v48 = "[VCAudioCaptionsSpeechTranslator packageAndSendTranslatedString:withTask:]";
+          v49 = 1024;
+          v50 = 107;
+          v51 = 2112;
+          v52 = v15;
+          v53 = 2048;
           selfCopy3 = self;
-          v16 = " [%s] %s:%d %@(%p) Cannot sendTranscription as we don't have a task for it";
-          v17 = v21;
-          v18 = 48;
+          v18 = " [%s] %s:%d %@(%p) Cannot sendTranscription as we don't have a task for it";
+          v19 = v23;
+          v20 = 48;
           goto LABEL_22;
         }
       }
@@ -791,7 +792,7 @@ LABEL_22:
 
 - (void)packageAndSendTranscribedString:(id)string withTask:(id)task
 {
-  v47 = *MEMORY[0x1E69E9840];
+  v49 = *MEMORY[0x1E69E9840];
   if ([(VCAudioCaptions *)self delegate])
   {
     v7 = [(VCAudioCaptions *)self taskInfoForTask:task];
@@ -808,29 +809,31 @@ LABEL_22:
 
       if (objc_opt_class() == self)
       {
-        if (VRTraceGetErrorLogLevelForModule() < 7)
+        ErrorLogLevelForModule = VRTraceGetErrorLogLevelForModule();
+        if (ErrorLogLevelForModule < 7)
         {
           goto LABEL_26;
         }
 
-        v16 = VRTraceErrorLogLevelToCSTR();
-        v17 = *MEMORY[0x1E6986650];
-        if (!os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
+        v18 = VRTraceErrorLogLevelToCSTR();
+        v19 = *MEMORY[0x1E6986650];
+        ErrorLogLevelForModule = os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT);
+        if (!ErrorLogLevelForModule)
         {
           goto LABEL_26;
         }
 
-        v35 = 136315906;
-        v36 = v16;
-        v37 = 2080;
-        v38 = "[VCAudioCaptionsSpeechTranslator packageAndSendTranscribedString:withTask:]";
-        v39 = 1024;
-        v40 = 150;
-        v41 = 2112;
-        v42 = v8;
-        v18 = " [%s] %s:%d Update transcriptionResult utterance from info=%@";
-        v19 = v17;
-        v20 = 38;
+        v37 = 136315906;
+        v38 = v18;
+        v39 = 2080;
+        v40 = "[VCAudioCaptionsSpeechTranslator packageAndSendTranscribedString:withTask:]";
+        v41 = 1024;
+        v42 = 150;
+        v43 = 2112;
+        v44 = v8;
+        v20 = " [%s] %s:%d Update transcriptionResult utterance from info=%@";
+        v21 = v19;
+        v22 = 38;
       }
 
       else
@@ -845,38 +848,40 @@ LABEL_22:
           v9 = &stru_1F570E008;
         }
 
-        if (VRTraceGetErrorLogLevelForModule() < 7)
+        ErrorLogLevelForModule = VRTraceGetErrorLogLevelForModule();
+        if (ErrorLogLevelForModule < 7)
         {
           goto LABEL_26;
         }
 
-        v23 = VRTraceErrorLogLevelToCSTR();
-        v24 = *MEMORY[0x1E6986650];
-        if (!os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
+        v25 = VRTraceErrorLogLevelToCSTR();
+        v26 = *MEMORY[0x1E6986650];
+        ErrorLogLevelForModule = os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT);
+        if (!ErrorLogLevelForModule)
         {
           goto LABEL_26;
         }
 
-        v35 = 136316418;
-        v36 = v23;
-        v37 = 2080;
-        v38 = "[VCAudioCaptionsSpeechTranslator packageAndSendTranscribedString:withTask:]";
-        v39 = 1024;
-        v40 = 150;
-        v41 = 2112;
-        v42 = v9;
-        v43 = 2048;
+        v37 = 136316418;
+        v38 = v25;
+        v39 = 2080;
+        v40 = "[VCAudioCaptionsSpeechTranslator packageAndSendTranscribedString:withTask:]";
+        v41 = 1024;
+        v42 = 150;
+        v43 = 2112;
+        v44 = v9;
+        v45 = 2048;
         selfCopy3 = self;
-        v45 = 2112;
-        v46 = v8;
-        v18 = " [%s] %s:%d %@(%p) Update transcriptionResult utterance from info=%@";
-        v19 = v24;
-        v20 = 58;
+        v47 = 2112;
+        v48 = v8;
+        v20 = " [%s] %s:%d %@(%p) Update transcriptionResult utterance from info=%@";
+        v21 = v26;
+        v22 = 58;
       }
 
-      _os_log_impl(&dword_1DB56E000, v19, OS_LOG_TYPE_DEFAULT, v18, &v35, v20);
+      _os_log_impl(&dword_1DB56E000, v21, OS_LOG_TYPE_DEFAULT, v20, &v37, v22);
 LABEL_26:
-      -[NSMutableDictionary setObject:forKeyedSubscript:](self->_transcriptionTimes, "setObject:forKeyedSubscript:", [MEMORY[0x1E696AD98] numberWithDouble:micro()], objc_msgSend(MEMORY[0x1E696AD98], "numberWithUnsignedInt:", self->super._currentUtteranceNumber));
+      -[NSMutableDictionary setObject:forKeyedSubscript:](self->_transcriptionTimes, "setObject:forKeyedSubscript:", [MEMORY[0x1E696AD98] numberWithDouble:{micro(ErrorLogLevelForModule, v17)}], objc_msgSend(MEMORY[0x1E696AD98], "numberWithUnsignedInt:", self->super._currentUtteranceNumber));
       ++self->super._currentUtteranceNumber;
       self->_currentSourceUpdateNumber = 0;
 LABEL_27:
@@ -887,36 +892,36 @@ LABEL_27:
           goto LABEL_38;
         }
 
-        v26 = VRTraceErrorLogLevelToCSTR();
-        v27 = *MEMORY[0x1E6986650];
+        v28 = VRTraceErrorLogLevelToCSTR();
+        v29 = *MEMORY[0x1E6986650];
         if (!os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
         {
           goto LABEL_38;
         }
 
-        v35 = 136315906;
-        v36 = v26;
-        v37 = 2080;
-        v38 = "[VCAudioCaptionsSpeechTranslator packageAndSendTranscribedString:withTask:]";
-        v39 = 1024;
-        v40 = 156;
-        v41 = 2112;
-        v42 = v8;
-        v28 = " [%s] %s:%d Update transcriptionResult utterance to info=%@";
-        v29 = v27;
-        v30 = 38;
+        v37 = 136315906;
+        v38 = v28;
+        v39 = 2080;
+        v40 = "[VCAudioCaptionsSpeechTranslator packageAndSendTranscribedString:withTask:]";
+        v41 = 1024;
+        v42 = 156;
+        v43 = 2112;
+        v44 = v8;
+        v30 = " [%s] %s:%d Update transcriptionResult utterance to info=%@";
+        v31 = v29;
+        v32 = 38;
       }
 
       else
       {
         if (objc_opt_respondsToSelector())
         {
-          v25 = [(VCAudioCaptionsSpeechTranslator *)self performSelector:sel_logPrefix];
+          v27 = [(VCAudioCaptionsSpeechTranslator *)self performSelector:sel_logPrefix];
         }
 
         else
         {
-          v25 = &stru_1F570E008;
+          v27 = &stru_1F570E008;
         }
 
         if (VRTraceGetErrorLogLevelForModule() < 7)
@@ -924,37 +929,37 @@ LABEL_27:
           goto LABEL_38;
         }
 
-        v31 = VRTraceErrorLogLevelToCSTR();
-        v32 = *MEMORY[0x1E6986650];
+        v33 = VRTraceErrorLogLevelToCSTR();
+        v34 = *MEMORY[0x1E6986650];
         if (!os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
         {
           goto LABEL_38;
         }
 
-        v35 = 136316418;
-        v36 = v31;
-        v37 = 2080;
-        v38 = "[VCAudioCaptionsSpeechTranslator packageAndSendTranscribedString:withTask:]";
-        v39 = 1024;
-        v40 = 156;
-        v41 = 2112;
-        v42 = v25;
-        v43 = 2048;
+        v37 = 136316418;
+        v38 = v33;
+        v39 = 2080;
+        v40 = "[VCAudioCaptionsSpeechTranslator packageAndSendTranscribedString:withTask:]";
+        v41 = 1024;
+        v42 = 156;
+        v43 = 2112;
+        v44 = v27;
+        v45 = 2048;
         selfCopy3 = self;
-        v45 = 2112;
-        v46 = v8;
-        v28 = " [%s] %s:%d %@(%p) Update transcriptionResult utterance to info=%@";
-        v29 = v32;
-        v30 = 58;
+        v47 = 2112;
+        v48 = v8;
+        v30 = " [%s] %s:%d %@(%p) Update transcriptionResult utterance to info=%@";
+        v31 = v34;
+        v32 = 58;
       }
 
-      _os_log_impl(&dword_1DB56E000, v29, OS_LOG_TYPE_DEFAULT, v28, &v35, v30);
+      _os_log_impl(&dword_1DB56E000, v31, OS_LOG_TYPE_DEFAULT, v30, &v37, v32);
 LABEL_38:
-      v33 = -[VCCaptionsTranscription initWithTextTranscription:taskInfo:isLocal:isFinal:isTranslated:]([VCCaptionsTranscription alloc], "initWithTextTranscription:taskInfo:isLocal:isFinal:isTranslated:", [string text], v8, self->super._isLocal, objc_msgSend(string, "isFinal"), 0);
-      if (v33)
+      v35 = -[VCCaptionsTranscription initWithTextTranscription:taskInfo:isLocal:isFinal:isTranslated:]([VCCaptionsTranscription alloc], "initWithTextTranscription:taskInfo:isLocal:isFinal:isTranslated:", [string text], v8, self->super._isLocal, objc_msgSend(string, "isFinal"), 0);
+      if (v35)
       {
-        v34 = v33;
-        [(VCAudioCaptions *)self sendTranscriptionResult:v33 taskInfo:v8];
+        v36 = v35;
+        [(VCAudioCaptions *)self sendTranscriptionResult:v35 taskInfo:v8];
       }
 
       return;
@@ -968,17 +973,17 @@ LABEL_38:
         v12 = *MEMORY[0x1E6986650];
         if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
         {
-          v35 = 136315650;
-          v36 = v11;
-          v37 = 2080;
-          v38 = "[VCAudioCaptionsSpeechTranslator packageAndSendTranscribedString:withTask:]";
-          v39 = 1024;
-          v40 = 143;
+          v37 = 136315650;
+          v38 = v11;
+          v39 = 2080;
+          v40 = "[VCAudioCaptionsSpeechTranslator packageAndSendTranscribedString:withTask:]";
+          v41 = 1024;
+          v42 = 143;
           v13 = " [%s] %s:%d Cannot sendTranscription as we don't have a task for it";
           v14 = v12;
           v15 = 28;
 LABEL_20:
-          _os_log_impl(&dword_1DB56E000, v14, OS_LOG_TYPE_DEFAULT, v13, &v35, v15);
+          _os_log_impl(&dword_1DB56E000, v14, OS_LOG_TYPE_DEFAULT, v13, &v37, v15);
         }
       }
     }
@@ -997,22 +1002,22 @@ LABEL_20:
 
       if (VRTraceGetErrorLogLevelForModule() >= 5)
       {
-        v21 = VRTraceErrorLogLevelToCSTR();
-        v22 = *MEMORY[0x1E6986650];
+        v23 = VRTraceErrorLogLevelToCSTR();
+        v24 = *MEMORY[0x1E6986650];
         if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
         {
-          v35 = 136316162;
-          v36 = v21;
-          v37 = 2080;
-          v38 = "[VCAudioCaptionsSpeechTranslator packageAndSendTranscribedString:withTask:]";
-          v39 = 1024;
-          v40 = 143;
-          v41 = 2112;
-          v42 = v10;
-          v43 = 2048;
+          v37 = 136316162;
+          v38 = v23;
+          v39 = 2080;
+          v40 = "[VCAudioCaptionsSpeechTranslator packageAndSendTranscribedString:withTask:]";
+          v41 = 1024;
+          v42 = 143;
+          v43 = 2112;
+          v44 = v10;
+          v45 = 2048;
           selfCopy3 = self;
           v13 = " [%s] %s:%d %@(%p) Cannot sendTranscription as we don't have a task for it";
-          v14 = v22;
+          v14 = v24;
           v15 = 48;
           goto LABEL_20;
         }
@@ -1023,7 +1028,7 @@ LABEL_20:
 
 - (BOOL)setupTranslatorStandaloneWithError:(id *)error
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
 
   self->_translatorConfiguration = 0;
   v5 = [objc_alloc(VCSpeechTranslation_STSpeechTranslatorConfigurationClass()) initWithSourceLocale:self->super._sourceLocale targetLocale:self->super._locale];
@@ -1046,41 +1051,41 @@ LABEL_20:
     {
       if (objc_opt_respondsToSelector())
       {
-        v17 = [(VCAudioCaptionsSpeechTranslator *)self performSelector:sel_logPrefix];
+        v19 = [(VCAudioCaptionsSpeechTranslator *)self performSelector:sel_logPrefix];
       }
 
       else
       {
-        v17 = &stru_1F570E008;
+        v19 = &stru_1F570E008;
       }
 
       if (VRTraceGetErrorLogLevelForModule() >= 3)
       {
-        v19 = VRTraceErrorLogLevelToCSTR();
-        v20 = *MEMORY[0x1E6986650];
-        v21 = 176;
+        v21 = VRTraceErrorLogLevelToCSTR();
+        v22 = *MEMORY[0x1E6986650];
+        v23 = 176;
         if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR))
         {
           *buf = 136316162;
-          v28 = v19;
-          v29 = 2080;
-          v30 = "[VCAudioCaptionsSpeechTranslator setupTranslatorStandaloneWithError:]";
-          v31 = 1024;
-          v32 = 176;
-          v33 = 2112;
-          v34 = v17;
-          v35 = 2048;
+          v30 = v21;
+          v31 = 2080;
+          v32 = "[VCAudioCaptionsSpeechTranslator setupTranslatorStandaloneWithError:]";
+          v33 = 1024;
+          v34 = 176;
+          v35 = 2112;
+          v36 = v19;
+          v37 = 2048;
           selfCopy3 = self;
-          _os_log_error_impl(&dword_1DB56E000, v20, OS_LOG_TYPE_ERROR, " [%s] %s:%d %@(%p) Failed to create the _translatorConfiguration for SpeechTranslator", buf, 0x30u);
+          _os_log_error_impl(&dword_1DB56E000, v22, OS_LOG_TYPE_ERROR, " [%s] %s:%d %@(%p) Failed to create the _translatorConfiguration for SpeechTranslator", buf, 0x30u);
         }
 
         goto LABEL_33;
       }
     }
 
-    v21 = 176;
+    v23 = 176;
 LABEL_33:
-    v22 = 19;
+    v24 = 19;
     goto LABEL_40;
   }
 
@@ -1092,27 +1097,29 @@ LABEL_33:
     [(STSpeechTranslatorClient *)v6 setProduceAudio:0];
     if (objc_opt_class() == self)
     {
-      if (VRTraceGetErrorLogLevelForModule() < 7)
+      ErrorLogLevelForModule = VRTraceGetErrorLogLevelForModule();
+      if (ErrorLogLevelForModule < 7)
       {
         goto LABEL_14;
       }
 
-      v8 = VRTraceErrorLogLevelToCSTR();
-      v9 = *MEMORY[0x1E6986650];
-      if (!os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
+      v10 = VRTraceErrorLogLevelToCSTR();
+      v11 = *MEMORY[0x1E6986650];
+      ErrorLogLevelForModule = os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT);
+      if (!ErrorLogLevelForModule)
       {
         goto LABEL_14;
       }
 
       *buf = 136315650;
-      v28 = v8;
-      v29 = 2080;
-      v30 = "[VCAudioCaptionsSpeechTranslator setupTranslatorStandaloneWithError:]";
-      v31 = 1024;
-      v32 = 183;
-      v10 = " [%s] %s:%d Setup and start translator client for VCAudioCaptionsTranslatorModeStandalone";
-      v11 = v9;
-      v12 = 28;
+      v30 = v10;
+      v31 = 2080;
+      v32 = "[VCAudioCaptionsSpeechTranslator setupTranslatorStandaloneWithError:]";
+      v33 = 1024;
+      v34 = 183;
+      v12 = " [%s] %s:%d Setup and start translator client for VCAudioCaptionsTranslatorModeStandalone";
+      v13 = v11;
+      v14 = 28;
     }
 
     else
@@ -1127,44 +1134,46 @@ LABEL_33:
         v7 = &stru_1F570E008;
       }
 
-      if (VRTraceGetErrorLogLevelForModule() < 7)
+      ErrorLogLevelForModule = VRTraceGetErrorLogLevelForModule();
+      if (ErrorLogLevelForModule < 7)
       {
         goto LABEL_14;
       }
 
-      v13 = VRTraceErrorLogLevelToCSTR();
-      v14 = *MEMORY[0x1E6986650];
-      if (!os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
+      v15 = VRTraceErrorLogLevelToCSTR();
+      v16 = *MEMORY[0x1E6986650];
+      ErrorLogLevelForModule = os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT);
+      if (!ErrorLogLevelForModule)
       {
         goto LABEL_14;
       }
 
       *buf = 136316162;
-      v28 = v13;
-      v29 = 2080;
-      v30 = "[VCAudioCaptionsSpeechTranslator setupTranslatorStandaloneWithError:]";
-      v31 = 1024;
-      v32 = 183;
-      v33 = 2112;
-      v34 = v7;
-      v35 = 2048;
+      v30 = v15;
+      v31 = 2080;
+      v32 = "[VCAudioCaptionsSpeechTranslator setupTranslatorStandaloneWithError:]";
+      v33 = 1024;
+      v34 = 183;
+      v35 = 2112;
+      v36 = v7;
+      v37 = 2048;
       selfCopy3 = self;
-      v10 = " [%s] %s:%d %@(%p) Setup and start translator client for VCAudioCaptionsTranslatorModeStandalone";
-      v11 = v14;
-      v12 = 48;
+      v12 = " [%s] %s:%d %@(%p) Setup and start translator client for VCAudioCaptionsTranslatorModeStandalone";
+      v13 = v16;
+      v14 = 48;
     }
 
-    _os_log_impl(&dword_1DB56E000, v11, OS_LOG_TYPE_DEFAULT, v10, buf, v12);
+    _os_log_impl(&dword_1DB56E000, v13, OS_LOG_TYPE_DEFAULT, v12, buf, v14);
 LABEL_14:
-    self->_translatorStartTime = micro();
+    self->_translatorStartTime = micro(ErrorLogLevelForModule, v9);
     self->_translatorStartDuration = NAN;
     translatorClient = self->_translatorClient;
-    v26[0] = MEMORY[0x1E69E9820];
-    v26[1] = 3221225472;
-    v26[2] = __70__VCAudioCaptionsSpeechTranslator_setupTranslatorStandaloneWithError___block_invoke;
-    v26[3] = &unk_1E85F7538;
-    v26[4] = self;
-    [(STSpeechTranslatorClient *)translatorClient startTranslationWithCompletionHandler:v26];
+    v28[0] = MEMORY[0x1E69E9820];
+    v28[1] = 3221225472;
+    v28[2] = __70__VCAudioCaptionsSpeechTranslator_setupTranslatorStandaloneWithError___block_invoke;
+    v28[3] = &unk_1E85F7538;
+    v28[4] = self;
+    [(STSpeechTranslatorClient *)translatorClient startTranslationWithCompletionHandler:v28];
 
     self->super._translatorIdentifier = [-[STSpeechTranslatorClient translatorIdentifier](self->_translatorClient "translatorIdentifier")];
     return 1;
@@ -1186,41 +1195,41 @@ LABEL_14:
   {
     if (objc_opt_respondsToSelector())
     {
-      v18 = [(VCAudioCaptionsSpeechTranslator *)self performSelector:sel_logPrefix];
+      v20 = [(VCAudioCaptionsSpeechTranslator *)self performSelector:sel_logPrefix];
     }
 
     else
     {
-      v18 = &stru_1F570E008;
+      v20 = &stru_1F570E008;
     }
 
     if (VRTraceGetErrorLogLevelForModule() >= 3)
     {
-      v23 = VRTraceErrorLogLevelToCSTR();
-      v24 = *MEMORY[0x1E6986650];
-      v21 = 180;
+      v25 = VRTraceErrorLogLevelToCSTR();
+      v26 = *MEMORY[0x1E6986650];
+      v23 = 180;
       if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR))
       {
         *buf = 136316162;
-        v28 = v23;
-        v29 = 2080;
-        v30 = "[VCAudioCaptionsSpeechTranslator setupTranslatorStandaloneWithError:]";
-        v31 = 1024;
-        v32 = 180;
-        v33 = 2112;
-        v34 = v18;
-        v35 = 2048;
+        v30 = v25;
+        v31 = 2080;
+        v32 = "[VCAudioCaptionsSpeechTranslator setupTranslatorStandaloneWithError:]";
+        v33 = 1024;
+        v34 = 180;
+        v35 = 2112;
+        v36 = v20;
+        v37 = 2048;
         selfCopy3 = self;
-        _os_log_error_impl(&dword_1DB56E000, v24, OS_LOG_TYPE_ERROR, " [%s] %s:%d %@(%p) Failed to create the _translatorClient for standalone SpeechTranslator", buf, 0x30u);
+        _os_log_error_impl(&dword_1DB56E000, v26, OS_LOG_TYPE_ERROR, " [%s] %s:%d %@(%p) Failed to create the _translatorClient for standalone SpeechTranslator", buf, 0x30u);
       }
 
       goto LABEL_39;
     }
   }
 
-  v21 = 180;
+  v23 = 180;
 LABEL_39:
-  v22 = 12;
+  v24 = 12;
 LABEL_40:
 
   self->_translatorConfiguration = 0;
@@ -1230,16 +1239,16 @@ LABEL_40:
     return 0;
   }
 
-  v25 = +[VCSessionErrorUtils VCSessionCaptionsErrorEvent:errorPath:returnCode:](VCSessionErrorUtils, "VCSessionCaptionsErrorEvent:errorPath:returnCode:", 8, [MEMORY[0x1E696AEC0] stringWithFormat:@"%s:%d", "/Library/Caches/com.apple.xbs/Sources/AVConference/AVConference.subproj/Sources/Captions/VCAudioCaptionsSpeechTranslator.m", v21], v22);
+  v27 = +[VCSessionErrorUtils VCSessionCaptionsErrorEvent:errorPath:returnCode:](VCSessionErrorUtils, "VCSessionCaptionsErrorEvent:errorPath:returnCode:", 8, [MEMORY[0x1E696AEC0] stringWithFormat:@"%s:%d", "/Library/Caches/com.apple.xbs/Sources/AVConference/AVConference.subproj/Sources/Captions/VCAudioCaptionsSpeechTranslator.m", v23], v24);
   result = 0;
-  *error = v25;
+  *error = v27;
   return result;
 }
 
 void __70__VCAudioCaptionsSpeechTranslator_setupTranslatorStandaloneWithError___block_invoke(uint64_t a1, void *a2)
 {
   v8[5] = *MEMORY[0x1E69E9840];
-  *(*(a1 + 32) + 624) = micro() - *(*(a1 + 32) + 616);
+  *(*(a1 + 32) + 624) = micro(a1, a2) - *(*(a1 + 32) + 616);
   if (a2)
   {
     if (VRTraceGetErrorLogLevelForModule() >= 3)
@@ -1483,7 +1492,7 @@ LABEL_29:
 
     _os_log_impl(&dword_1DB56E000, v14, OS_LOG_TYPE_DEFAULT, v13, v24, v15);
 LABEL_15:
-    [(NSMutableArray *)self->super._captionTasks addObject:v9, *v24, *&v24[16], v25, selfCopy2, v27];
+    [(NSMutableArray *)self->super._captionTasks addObject:v9, *v24, *&v24[8], v25, selfCopy2, v27];
 
     self->super._currentTaskInfo = v9;
     LOBYTE(v18) = 1;
@@ -1833,7 +1842,7 @@ LABEL_11:
     }
   }
 
-  [(NSMutableArray *)self->super._captionTasks removeObject:self->super._currentTaskInfo, *v11, *&v11[16], v12, selfCopy];
+  [(NSMutableArray *)self->super._captionTasks removeObject:self->super._currentTaskInfo, *v11, *&v11[8], v12, selfCopy];
 
   self->super._currentTaskInfo = 0;
   [(STSpeechTranslatorClient *)self->_translatorClient invalidate];
@@ -2887,7 +2896,7 @@ LABEL_11:
   }
 }
 
-- (void)initWithDelegate:(char)a1 isLocal:taskIdentifier:reportingAgent:.cold.2(char a1)
+- (void)initWithDelegate:(char)a1 isLocal:(uint64_t)a2 taskIdentifier:reportingAgent:.cold.2(char a1, uint64_t a2)
 {
   if (a1)
   {
@@ -2900,7 +2909,7 @@ LABEL_11:
         OUTLINED_FUNCTION_0();
         OUTLINED_FUNCTION_16_0();
 LABEL_11:
-        _os_log_error_impl(v1, v2, v3, v4, v5, v6);
+        _os_log_error_impl(v2, v3, v4, v5, v6, v7);
       }
     }
   }

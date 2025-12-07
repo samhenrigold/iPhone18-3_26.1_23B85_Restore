@@ -369,9 +369,9 @@ LABEL_14:
               {
                 localizedDictionaryName = [v21 localizedDictionaryName];
                 localizedDictionaryName2 = [v26 localizedDictionaryName];
-                v29 = [localizedDictionaryName isEqual:localizedDictionaryName2];
+                isEqual = objc_msgSend_isEqual_(localizedDictionaryName);
 
-                if (v29)
+                if (isEqual)
                 {
                   rawAsset2 = [v26 rawAsset];
                   if ([rawAsset state] == 3 || (v31 = objc_msgSend(rawAsset2, "_contentVersion"), v31 > objc_msgSend(rawAsset, "_contentVersion")))

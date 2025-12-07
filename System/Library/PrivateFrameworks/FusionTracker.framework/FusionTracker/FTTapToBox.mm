@@ -106,7 +106,7 @@
     v28 = 0.0;
     v26 = 0;
     v27 = 0;
-    [FTTapToBox postProcessNetworkOutput:self->_outputTensor.storage_.__ptr_ + 8];
+    objc_msgSend_postProcessNetworkOutput_(FTTapToBox);
     v17 = +[FTTapToBox defaultConfidenceThreshold];
     if (v18 <= 0.0)
     {
@@ -143,7 +143,7 @@ LABEL_10:
 
 - (CGRect)predictBoxForTap:(CGPoint)tap inBuffer:(__CVBuffer *)buffer scaler:(id)scaler
 {
-  [(FTTapToBox *)self predictionForTap:buffer inBuffer:scaler scaler:tap.x, tap.y];
+  objc_msgSend_predictionForTap_inBuffer_scaler_(self, a2, buffer, scaler, tap.x, tap.y);
   v5 = v9;
   v6 = v10;
   v7 = v11;

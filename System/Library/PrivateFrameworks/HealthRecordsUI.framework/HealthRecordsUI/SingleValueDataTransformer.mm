@@ -11,7 +11,7 @@
   v10 = sub_1D138D57C();
   v11 = *(v10 - 8);
   MEMORY[0x1EEE9AC00](v10);
-  v13 = &v22 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v13 = &v23 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
   forCopy = for;
   inCopy = in;
 
@@ -22,9 +22,10 @@
   v18 = v17;
   (*(v11 + 8))(v13, v10);
   v19 = objc_allocWithZone(type metadata accessor for MedicalRecordChartPoint());
-  v20 = sub_1D120A4E8(forCopy, inCopy, v18);
+  sub_1D120A4E8(forCopy, inCopy, v18);
+  v21 = v20;
 
-  return v20;
+  return v21;
 }
 
 - (id)graphSeriesWith:(id)with

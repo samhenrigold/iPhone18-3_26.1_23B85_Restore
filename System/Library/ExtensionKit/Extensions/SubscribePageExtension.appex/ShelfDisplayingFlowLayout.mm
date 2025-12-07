@@ -42,7 +42,7 @@
 
   if (v9)
   {
-    sub_100016C60(0, &qword_100923730);
+    sub_100016C60(0, &qword_100923730, UICollectionViewLayoutAttributes_ptr);
     v10.super.isa = sub_100753294().super.isa;
   }
 
@@ -81,7 +81,7 @@
   if (v10 == 0xD00000000000001FLL && 0x8000000100765EB0 == v12 || (sub_100754754() & 1) != 0)
   {
     selfCopy = self;
-    v14 = sub_10002EC28();
+    v14 = sub_10002EC28(v10, v12);
   }
 
   else
@@ -152,9 +152,9 @@ LABEL_7:
   y = change.origin.y;
   x = change.origin.x;
   selfCopy = self;
-  v8 = sub_10002EA8C(x, y, width, height);
+  v9 = sub_10002EA8C(selfCopy, v8, x, y, width, height);
 
-  return v8;
+  return v9;
 }
 
 @end

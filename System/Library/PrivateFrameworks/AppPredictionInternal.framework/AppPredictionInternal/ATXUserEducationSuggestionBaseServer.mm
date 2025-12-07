@@ -6,20 +6,20 @@
 
 - (ATXUserEducationSuggestionBaseServer)init
 {
-  v16 = *MEMORY[0x277D85DE8];
-  v11.receiver = self;
-  v11.super_class = ATXUserEducationSuggestionBaseServer;
-  v2 = [(ATXUserEducationSuggestionBaseServer *)&v11 init];
+  v15 = *MEMORY[0x277D85DE8];
+  v10.receiver = self;
+  v10.super_class = ATXUserEducationSuggestionBaseServer;
+  v2 = [(ATXUserEducationSuggestionBaseServer *)&v10 init];
   if (v2)
   {
     v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@_%@", objc_opt_class(), @"serialQueue"];
-    v4 = __atxlog_handle_context_user_education_suggestions();
+    v4 = __atxlog_handle_context_user_education_suggestions(v3);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v13 = "[ATXUserEducationSuggestionBaseServer init]";
-      v14 = 2112;
-      v15 = v3;
+      v12 = "[ATXUserEducationSuggestionBaseServer init]";
+      v13 = 2112;
+      v14 = v3;
       _os_log_impl(&dword_2263AA000, v4, OS_LOG_TYPE_DEFAULT, "%s: Starting up serial queue: %@", buf, 0x16u);
     }
 
@@ -30,7 +30,6 @@
     v2->_serialQueue = v7;
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v2;
 }
 

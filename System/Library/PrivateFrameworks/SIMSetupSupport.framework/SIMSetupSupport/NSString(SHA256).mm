@@ -6,7 +6,7 @@
 
 - (id)sha256
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v1 = [self dataUsingEncoding:4];
   CC_SHA256([v1 bytes], objc_msgSend(v1, "length"), md);
   v2 = objc_alloc_init(MEMORY[0x277CBEB18]);
@@ -18,8 +18,6 @@
 
   v5 = [v2 componentsJoinedByString:&stru_28753DF48];
   lowercaseString = [v5 lowercaseString];
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return lowercaseString;
 }

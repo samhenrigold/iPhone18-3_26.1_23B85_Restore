@@ -34,20 +34,19 @@
 
 - (BOOL)insertDataObjects:(const void *)objects
 {
-  v7[4] = *MEMORY[0x277D85DE8];
+  v6[4] = *MEMORY[0x277D85DE8];
   selfCopy = self;
-  v7[0] = &unk_286A562D8;
-  v7[1] = &selfCopy;
-  v7[3] = v7;
-  inserted = ULDBUtils::insertDataObjects<ULHomeSlamAnalyticEventDO,ULHomeSlamAnalyticEventMO>(self, objects, v7);
-  std::__function::__value_func<ULHomeSlamAnalyticEventMO * ()(ULHomeSlamAnalyticEventDO const&)>::~__value_func[abi:ne200100](v7);
-  v4 = *MEMORY[0x277D85DE8];
+  v6[0] = &unk_286A562D8;
+  v6[1] = &selfCopy;
+  v6[3] = v6;
+  inserted = ULDBUtils::insertDataObjects<ULHomeSlamAnalyticEventDO,ULHomeSlamAnalyticEventMO>(self, objects, v6);
+  std::__function::__value_func<ULHomeSlamAnalyticEventMO * ()(ULHomeSlamAnalyticEventDO const&)>::~__value_func[abi:ne200100](v6);
   return inserted;
 }
 
 - (vector<ULHomeSlamAnalyticEventDO,)fetchAnalyticEventsASCFromTime:(ULHomeSlamAnalyticEventStore *)self toTime:(SEL)time
 {
-  v17[1] = *MEMORY[0x277D85DE8];
+  v16[1] = *MEMORY[0x277D85DE8];
   array = [MEMORY[0x277CBEB18] array];
   v9 = MEMORY[0x277CCAC30];
   v10 = [MEMORY[0x277CCABB0] numberWithDouble:a4];
@@ -56,11 +55,11 @@
   [array addObject:v12];
 
   v13 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"timestamp" ascending:1];
-  v17[0] = v13;
-  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:1];
-  [(ULHomeSlamAnalyticEventStore *)self _fetchAnalyticEventsByAndPredicates:array sortDescriptors:v14 andLimit:+[ULHomeSlamAnalyticEventStore maxEntriesInTable]];
+  v16[0] = v13;
+  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:1];
+  +[ULHomeSlamAnalyticEventStore maxEntriesInTable];
+  objc_msgSend__fetchAnalyticEventsByAndPredicates_sortDescriptors_andLimit_(self);
 
-  v16 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -69,10 +68,10 @@
   v4 = v3;
   v5 = v1;
   v7 = v2;
-  v26[1] = *MEMORY[0x277D85DE8];
+  v25[1] = *MEMORY[0x277D85DE8];
   __p[0] = 0;
   __p[1] = 0;
-  v25 = 0;
+  v24 = 0;
   std::vector<ULHomeSlamAnalyticEventDO>::reserve(__p, 1uLL);
   v8 = objc_autoreleasePoolPush();
   array = [MEMORY[0x277CBEB18] array];
@@ -101,17 +100,17 @@
   [array addObject:v17];
 
   v18 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"timestamp" ascending:0];
-  v26[0] = v18;
-  v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:1];
-  [(ULHomeSlamAnalyticEventStore *)self _fetchAnalyticEventsByAndPredicates:array sortDescriptors:v19 andLimit:1];
+  v25[0] = v18;
+  v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:1];
+  objc_msgSend__fetchAnalyticEventsByAndPredicates_sortDescriptors_andLimit_(self);
   if (__p[0])
   {
     __p[1] = __p[0];
     operator delete(__p[0]);
   }
 
-  *__p = v22;
-  v25 = v23;
+  *__p = v21;
+  v24 = v22;
 
   objc_autoreleasePoolPop(v8);
   v20 = __p[0];
@@ -122,7 +121,7 @@
 LABEL_8:
     __p[1] = v20;
     operator delete(v20);
-    goto LABEL_9;
+    return v20;
   }
 
   *v7 = 0;
@@ -132,33 +131,31 @@ LABEL_8:
     goto LABEL_8;
   }
 
-LABEL_9:
-  v21 = *MEMORY[0x277D85DE8];
   return v20;
 }
 
 - (optional<ULHomeSlamAnalyticEventDO>)fetchFirstEvent
 {
   v3 = v1;
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   __p[0] = 0;
   __p[1] = 0;
-  v13 = 0;
+  v12 = 0;
   std::vector<ULHomeSlamAnalyticEventDO>::reserve(__p, 1uLL);
   v4 = objc_autoreleasePoolPush();
   array = [MEMORY[0x277CBEB18] array];
   v6 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"timestamp" ascending:1];
-  v14[0] = v6;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:1];
-  [(ULHomeSlamAnalyticEventStore *)self _fetchAnalyticEventsByAndPredicates:array sortDescriptors:v7 andLimit:1];
+  v13[0] = v6;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
+  objc_msgSend__fetchAnalyticEventsByAndPredicates_sortDescriptors_andLimit_(self);
   if (__p[0])
   {
     __p[1] = __p[0];
     operator delete(__p[0]);
   }
 
-  *__p = v10;
-  v13 = v11;
+  *__p = v9;
+  v12 = v10;
 
   objc_autoreleasePoolPop(v4);
   v8 = __p[0];
@@ -169,7 +166,7 @@ LABEL_9:
 LABEL_6:
     __p[1] = v8;
     operator delete(v8);
-    goto LABEL_7;
+    return v8;
   }
 
   *v3 = 0;
@@ -179,8 +176,6 @@ LABEL_6:
     goto LABEL_6;
   }
 
-LABEL_7:
-  v9 = *MEMORY[0x277D85DE8];
   return v8;
 }
 

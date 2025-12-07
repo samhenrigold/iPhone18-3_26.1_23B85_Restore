@@ -26,7 +26,7 @@
   v5 = objc_alloc_init(PITimeVaryingPipelineStateSetting);
   if (stateCopy)
   {
-    [stateCopy time];
+    objc_msgSend_time(stateCopy);
   }
 
   else
@@ -41,7 +41,7 @@
   -[PITimeVaryingPipelineStateSetting setSampleMode:](v5, "setSampleMode:", [stateCopy sampleMode]);
   if (stateCopy)
   {
-    [stateCopy rawTime];
+    objc_msgSend_rawTime(stateCopy);
   }
 
   else

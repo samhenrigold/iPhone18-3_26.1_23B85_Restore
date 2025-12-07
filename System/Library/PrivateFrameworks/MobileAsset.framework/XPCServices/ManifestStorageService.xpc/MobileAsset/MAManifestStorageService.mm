@@ -10,6 +10,7 @@
 - (id)_normalizedIdentifier:(id)identifier;
 - (id)commitStagedManifestsForSelectors:(id)selectors;
 - (id)invalidateManifestForAssetType:(id)type specifier:(id)specifier;
+- (id)storeManifest:(id)manifest manifestType:(unint64_t)type infoPlist:(id)plist stage:(BOOL)stage;
 - (int)__authenticateLiveManifest:(id)manifest;
 - (int)__flashManifest:(id)manifest;
 - (int)_authenticatePlist:(id)plist manifest:(id)manifest manifestType:(unint64_t)type result:(id *)result;
@@ -102,6 +103,109 @@
   v13 = specifierCopy;
   v14 = typeCopy;
   dispatch_async(queue, v15);
+}
+
+- (id)storeManifest:(id)manifest manifestType:(unint64_t)type infoPlist:(id)plist stage:(BOOL)stage
+{
+  stageCopy = stage;
+  manifestCopy = manifest;
+  plistCopy = plist;
+  if (![manifestCopy length])
+  {
+    v14 = _MAClientLog(@"Manifest");
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 0;
+      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_ERROR, "Manifest is nil or empty", buf, 2u);
+    }
+
+    selfCopy2 = self;
+    v16 = 2;
+    goto LABEL_11;
+  }
+
+  if (![plistCopy length])
+  {
+    v17 = _MAClientLog(@"Manifest");
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 0;
+      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_ERROR, "Info plist is nil or empty", buf, 2u);
+    }
+
+    selfCopy2 = self;
+    v16 = 4;
+LABEL_11:
+    v13 = [(MAManifestStorageService *)selfCopy2 _errorWithCode:v16];
+    goto LABEL_12;
+  }
+
+  v12 = [(MAManifestStorageService *)self _verifyManifest:manifestCopy manifestType:type];
+  if (v12)
+  {
+    v13 = [(MAManifestStorageService *)self _errorWithCode:3 underlyingPOSIXError:v12];
+LABEL_12:
+    v18 = v13;
+    goto LABEL_13;
+  }
+
+  v32 = 0;
+  v20 = [(MAManifestStorageService *)self _authenticatePlist:plistCopy manifest:manifestCopy manifestType:type result:&v32];
+  v21 = v32;
+  v22 = v21;
+  if (!v20)
+  {
+    v23 = [v21 objectForKeyedSubscript:kCFBundleIdentifierKey];
+    v24 = [v22 objectForKeyedSubscript:kCFBundleNameKey];
+    if ([v23 length] && objc_msgSend(v24, "length"))
+    {
+      if ([(MAManifestStorageService *)self _assetTypeSupported:v23 manifestType:type])
+      {
+        v25 = [(MAManifestStorageService *)self _manifestPathForAssetType:v23 specifier:v24 stage:stageCopy];
+        v31 = 0;
+        v26 = [(MAManifestStorageService *)self _writeManifest:manifestCopy destination:v25 error:&v31];
+        v27 = v31;
+        v18 = 0;
+        if ((v26 & 1) == 0)
+        {
+          v18 = [(MAManifestStorageService *)self _errorWithCode:7 underlyingError:v27];
+        }
+
+        goto LABEL_29;
+      }
+
+      selfCopy4 = self;
+      v30 = 9;
+    }
+
+    else
+    {
+      v28 = _MAClientLog(@"Manifest");
+      if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+      {
+        *buf = 138543618;
+        v34 = v23;
+        v35 = 2114;
+        v36 = v24;
+        _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_ERROR, "Asset type (%{public}@) or specifier (%{public}@) missing", buf, 0x16u);
+      }
+
+      selfCopy4 = self;
+      v30 = 6;
+    }
+
+    v18 = [(MAManifestStorageService *)selfCopy4 _errorWithCode:v30];
+LABEL_29:
+
+    goto LABEL_30;
+  }
+
+  v18 = [(MAManifestStorageService *)self _errorWithCode:5 underlyingPOSIXError:v20];
+LABEL_30:
+
+LABEL_13:
+
+  return v18;
 }
 
 - (int)_verifyManifest:(id)manifest manifestType:(unint64_t)type

@@ -58,11 +58,11 @@
 
 - (id)initArrayOfClass:(Class)class withSQLType:(id)type error:(id *)error
 {
-  v59 = *MEMORY[0x277D85DE8];
+  v58 = *MEMORY[0x277D85DE8];
   typeCopy = type;
-  v50.receiver = self;
-  v50.super_class = BRCSQLBackedSet;
-  v9 = [(BRCSQLBackedSet *)&v50 init];
+  v49.receiver = self;
+  v49.super_class = BRCSQLBackedSet;
+  v9 = [(BRCSQLBackedSet *)&v49 init];
   p_isa = &v9->super.isa;
   if (v9)
   {
@@ -70,24 +70,24 @@
     v9->_count = 0;
     objc_initWeak(&location, v9);
     v11 = [BRCPQLConnection alloc];
-    v47[0] = MEMORY[0x277D85DD0];
-    v47[1] = 3221225472;
-    v47[2] = __54__BRCSQLBackedSet_initArrayOfClass_withSQLType_error___block_invoke;
-    v47[3] = &unk_2784FF828;
-    objc_copyWeak(&v48, &location);
-    v12 = [(BRCPQLConnection *)v11 initWithLabel:@"BRCSQLBackedSet" dbCorruptionHandler:v47];
-    v45[0] = MEMORY[0x277D85DD0];
-    v45[1] = 3221225472;
-    v45[2] = __54__BRCSQLBackedSet_initArrayOfClass_withSQLType_error___block_invoke_23;
-    v45[3] = &unk_2785019D8;
-    objc_copyWeak(&v46, &location);
-    [(BRCPQLConnection *)v12 setSqliteErrorHandler:v45];
-    v43[0] = MEMORY[0x277D85DD0];
-    v43[1] = 3221225472;
-    v43[2] = __54__BRCSQLBackedSet_initArrayOfClass_withSQLType_error___block_invoke_25;
-    v43[3] = &unk_2785019D8;
-    objc_copyWeak(&v44, &location);
-    [(BRCPQLConnection *)v12 setAutoRollbackHandler:v43];
+    v46[0] = MEMORY[0x277D85DD0];
+    v46[1] = 3221225472;
+    v46[2] = __54__BRCSQLBackedSet_initArrayOfClass_withSQLType_error___block_invoke;
+    v46[3] = &unk_2784FF828;
+    objc_copyWeak(&v47, &location);
+    v12 = [(BRCPQLConnection *)v11 initWithLabel:@"BRCSQLBackedSet" dbCorruptionHandler:v46];
+    v44[0] = MEMORY[0x277D85DD0];
+    v44[1] = 3221225472;
+    v44[2] = __54__BRCSQLBackedSet_initArrayOfClass_withSQLType_error___block_invoke_23;
+    v44[3] = &unk_2785019D8;
+    objc_copyWeak(&v45, &location);
+    [(BRCPQLConnection *)v12 setSqliteErrorHandler:v44];
+    v42[0] = MEMORY[0x277D85DD0];
+    v42[1] = 3221225472;
+    v42[2] = __54__BRCSQLBackedSet_initArrayOfClass_withSQLType_error___block_invoke_25;
+    v42[3] = &unk_2785019D8;
+    objc_copyWeak(&v43, &location);
+    [(BRCPQLConnection *)v12 setAutoRollbackHandler:v42];
     v13 = +[BRCSQLBackedSet _databaseRootDirectory];
     v14 = objc_opt_new();
     uUIDString = [v14 UUIDString];
@@ -97,9 +97,9 @@
 
     defaultManager = [MEMORY[0x277CCAA00] defaultManager];
     v19 = p_isa[2];
-    v42 = 0;
-    LOBYTE(uUIDString) = [defaultManager createDirectoryAtURL:v19 withIntermediateDirectories:1 attributes:0 error:&v42];
-    v20 = v42;
+    v41 = 0;
+    LOBYTE(uUIDString) = [defaultManager createDirectoryAtURL:v19 withIntermediateDirectories:1 attributes:0 error:&v41];
+    v20 = v41;
 
     if ((uUIDString & 1) == 0)
     {
@@ -107,13 +107,13 @@
       v30 = brc_default_log();
       if (os_log_type_enabled(v30, 0x90u))
       {
-        v38 = p_isa[2];
+        v37 = p_isa[2];
         *buf = 138412802;
-        v52 = v38;
-        v53 = 2112;
-        v54 = v20;
-        v55 = 2112;
-        v56 = v29;
+        v51 = v37;
+        v52 = 2112;
+        v53 = v20;
+        v54 = 2112;
+        v55 = v29;
         _os_log_error_impl(&dword_223E7A000, v30, 0x90u, "[ERROR] Failed creating root folder for DB: %@. %@%@", buf, 0x20u);
       }
 
@@ -124,20 +124,20 @@
         v33 = brc_default_log();
         if (os_log_type_enabled(v33, 0x90u))
         {
-          v39 = "(passed to caller)";
+          v38 = "(passed to caller)";
           *buf = 136315906;
-          v52 = "[BRCSQLBackedSet initArrayOfClass:withSQLType:error:]";
-          v53 = 2080;
+          v51 = "[BRCSQLBackedSet initArrayOfClass:withSQLType:error:]";
+          v52 = 2080;
           if (!error)
           {
-            v39 = "(ignored by caller)";
+            v38 = "(ignored by caller)";
           }
 
-          v54 = v39;
-          v55 = 2112;
-          v56 = v31;
-          v57 = 2112;
-          v58 = v32;
+          v53 = v38;
+          v54 = 2112;
+          v55 = v31;
+          v56 = 2112;
+          v57 = v32;
           _os_log_error_impl(&dword_223E7A000, v33, 0x90u, "[ERROR] %s: %s error: %@%@", buf, 0x2Au);
         }
       }
@@ -148,9 +148,9 @@
         *error = v31;
       }
 
-      objc_destroyWeak(&v44);
-      objc_destroyWeak(&v46);
-      objc_destroyWeak(&v48);
+      objc_destroyWeak(&v43);
+      objc_destroyWeak(&v45);
+      objc_destroyWeak(&v47);
 
       objc_destroyWeak(&location);
       goto LABEL_22;
@@ -164,9 +164,9 @@
       [BRCSQLBackedSet initArrayOfClass:withSQLType:error:];
     }
 
-    v41 = v20;
-    [(BRCPQLConnection *)v12 openAtURL:v21 withFlags:3145734 error:&v41];
-    v24 = v41;
+    v40 = v20;
+    [(BRCPQLConnection *)v12 openAtURL:v21 withFlags:3145734 error:&v40];
+    v24 = v40;
 
     if (v24)
     {
@@ -175,20 +175,20 @@
       v27 = brc_default_log();
       if (os_log_type_enabled(v27, 0x90u))
       {
-        v40 = "(passed to caller)";
+        v39 = "(passed to caller)";
         *buf = 136315906;
-        v52 = "[BRCSQLBackedSet initArrayOfClass:withSQLType:error:]";
-        v53 = 2080;
+        v51 = "[BRCSQLBackedSet initArrayOfClass:withSQLType:error:]";
+        v52 = 2080;
         if (!error)
         {
-          v40 = "(ignored by caller)";
+          v39 = "(ignored by caller)";
         }
 
-        v54 = v40;
-        v55 = 2112;
-        v56 = v25;
-        v57 = 2112;
-        v58 = v26;
+        v53 = v39;
+        v54 = 2112;
+        v55 = v25;
+        v56 = 2112;
+        v57 = v26;
         _os_log_error_impl(&dword_223E7A000, v27, 0x90u, "[ERROR] %s: %s error: %@%@", buf, 0x2Au);
       }
 
@@ -206,9 +206,9 @@
     {
 LABEL_21:
 
-      objc_destroyWeak(&v44);
-      objc_destroyWeak(&v46);
-      objc_destroyWeak(&v48);
+      objc_destroyWeak(&v43);
+      objc_destroyWeak(&v45);
+      objc_destroyWeak(&v47);
 
       objc_destroyWeak(&location);
 LABEL_22:
@@ -219,9 +219,9 @@ LABEL_22:
     [(BRCPQLConnection *)v12 setSynchronousMode:1];
     [(BRCPQLConnection *)v12 useSerialQueue];
 
-    objc_destroyWeak(&v44);
-    objc_destroyWeak(&v46);
-    objc_destroyWeak(&v48);
+    objc_destroyWeak(&v43);
+    objc_destroyWeak(&v45);
+    objc_destroyWeak(&v47);
 
     objc_destroyWeak(&location);
   }
@@ -229,7 +229,6 @@ LABEL_22:
   v35 = p_isa;
 LABEL_23:
 
-  v36 = *MEMORY[0x277D85DE8];
   return v35;
 }
 
@@ -249,50 +248,46 @@ void __54__BRCSQLBackedSet_initArrayOfClass_withSQLType_error___block_invoke(uin
 
 void __54__BRCSQLBackedSet_initArrayOfClass_withSQLType_error___block_invoke_23(uint64_t a1, uint64_t a2, void *a3, void *a4)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v6 = a3;
   v7 = a4;
   v8 = brc_bread_crumbs();
   v9 = brc_default_log();
   if (os_log_type_enabled(v9, 0x90u))
   {
-    v12 = 138412802;
-    v13 = v6;
-    v14 = 2112;
-    v15 = v7;
-    v16 = 2112;
-    v17 = v8;
-    _os_log_error_impl(&dword_223E7A000, v9, 0x90u, "[ERROR] sqlite error handler called - %@ (%@)%@", &v12, 0x20u);
+    v11 = 138412802;
+    v12 = v6;
+    v13 = 2112;
+    v14 = v7;
+    v15 = 2112;
+    v16 = v8;
+    _os_log_error_impl(&dword_223E7A000, v9, 0x90u, "[ERROR] sqlite error handler called - %@ (%@)%@", &v11, 0x20u);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   [WeakRetained _dbBecameCorrupted];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __54__BRCSQLBackedSet_initArrayOfClass_withSQLType_error___block_invoke_25(uint64_t a1, uint64_t a2, void *a3, void *a4)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v6 = a3;
   v7 = a4;
   v8 = brc_bread_crumbs();
   v9 = brc_default_log();
   if (os_log_type_enabled(v9, 0x90u))
   {
-    v12 = 138412802;
-    v13 = v6;
-    v14 = 2112;
-    v15 = v7;
-    v16 = 2112;
-    v17 = v8;
-    _os_log_error_impl(&dword_223E7A000, v9, 0x90u, "[ERROR] Auto rollback handler called - %@ (%@)%@", &v12, 0x20u);
+    v11 = 138412802;
+    v12 = v6;
+    v13 = 2112;
+    v14 = v7;
+    v15 = 2112;
+    v16 = v8;
+    _os_log_error_impl(&dword_223E7A000, v9, 0x90u, "[ERROR] Auto rollback handler called - %@ (%@)%@", &v11, 0x20u);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   [WeakRetained _dbBecameCorrupted];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_closeDB
@@ -349,7 +344,7 @@ void __27__BRCSQLBackedSet__closeDB__block_invoke_2(uint64_t a1)
 
 - (BOOL)_createSchemaForSQLType:(id)type error:(id *)error
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   v7 = MEMORY[0x277D82C18];
   typeCopy = type;
   typeCopy2 = type;
@@ -358,13 +353,13 @@ void __27__BRCSQLBackedSet__closeDB__block_invoke_2(uint64_t a1)
 
   v12 = [v7 rawInjection:uTF8String length:v11];
   db = self->_db;
-  v23[0] = MEMORY[0x277D85DD0];
-  v23[1] = 3221225472;
-  v23[2] = __49__BRCSQLBackedSet__createSchemaForSQLType_error___block_invoke;
-  v23[3] = &unk_2784FFA48;
+  v22[0] = MEMORY[0x277D85DD0];
+  v22[1] = 3221225472;
+  v22[2] = __49__BRCSQLBackedSet__createSchemaForSQLType_error___block_invoke;
+  v22[3] = &unk_2784FFA48;
   v14 = v12;
-  v24 = v14;
-  v15 = [(BRCPQLConnection *)db performWithFlags:8 action:v23];
+  v23 = v14;
+  v15 = [(BRCPQLConnection *)db performWithFlags:8 action:v22];
   if (v15)
   {
     lastError = 0;
@@ -379,20 +374,20 @@ void __27__BRCSQLBackedSet__closeDB__block_invoke_2(uint64_t a1)
       v18 = brc_default_log();
       if (os_log_type_enabled(v18, 0x90u))
       {
-        v22 = "(passed to caller)";
+        v21 = "(passed to caller)";
         *buf = 136315906;
-        v26 = "[BRCSQLBackedSet _createSchemaForSQLType:error:]";
-        v27 = 2080;
+        v25 = "[BRCSQLBackedSet _createSchemaForSQLType:error:]";
+        v26 = 2080;
         if (!error)
         {
-          v22 = "(ignored by caller)";
+          v21 = "(ignored by caller)";
         }
 
-        v28 = v22;
-        v29 = 2112;
-        v30 = lastError;
-        v31 = 2112;
-        v32 = v17;
+        v27 = v21;
+        v28 = 2112;
+        v29 = lastError;
+        v30 = 2112;
+        v31 = v17;
         _os_log_error_impl(&dword_223E7A000, v18, 0x90u, "[ERROR] %s: %s error: %@%@", buf, 0x2Au);
       }
     }
@@ -404,33 +399,32 @@ void __27__BRCSQLBackedSet__closeDB__block_invoke_2(uint64_t a1)
     *error = lastError;
   }
 
-  v20 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
 - (BOOL)addObject:(id)object error:(id *)error
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   objectCopy = object;
   v7 = objectCopy;
   if (objectCopy)
   {
     db = self->_db;
-    v17 = MEMORY[0x277D85DD0];
-    v18 = 3221225472;
-    v19 = __35__BRCSQLBackedSet_addObject_error___block_invoke;
-    v20 = &unk_278500FA8;
-    v21 = objectCopy;
+    v16 = MEMORY[0x277D85DD0];
+    v17 = 3221225472;
+    v18 = __35__BRCSQLBackedSet_addObject_error___block_invoke;
+    v19 = &unk_278500FA8;
+    v20 = objectCopy;
     selfCopy = self;
     v9 = 1;
-    LOBYTE(db) = [(BRCPQLConnection *)db performWithFlags:1 action:&v17];
+    LOBYTE(db) = [(BRCPQLConnection *)db performWithFlags:1 action:&v16];
 
     if (db)
     {
       goto LABEL_14;
     }
 
-    v10 = [(BRCPQLConnection *)self->_db lastError:v17];
+    v10 = [(BRCPQLConnection *)self->_db lastError:v16];
     if (v10)
     {
       v11 = brc_bread_crumbs();
@@ -439,19 +433,19 @@ void __27__BRCSQLBackedSet__closeDB__block_invoke_2(uint64_t a1)
       {
         v13 = "(passed to caller)";
         *buf = 136315906;
-        v24 = "[BRCSQLBackedSet addObject:error:]";
-        v25 = 2080;
+        v23 = "[BRCSQLBackedSet addObject:error:]";
+        v24 = 2080;
         if (!error)
         {
           v13 = "(ignored by caller)";
         }
 
 LABEL_17:
-        v26 = v13;
-        v27 = 2112;
-        v28 = v10;
-        v29 = 2112;
-        v30 = v11;
+        v25 = v13;
+        v26 = 2112;
+        v27 = v10;
+        v28 = 2112;
+        v29 = v11;
         _os_log_error_impl(&dword_223E7A000, v12, 0x90u, "[ERROR] %s: %s error: %@%@", buf, 0x2Au);
         goto LABEL_10;
       }
@@ -471,8 +465,8 @@ LABEL_17:
       {
         v13 = "(passed to caller)";
         *buf = 136315906;
-        v24 = "[BRCSQLBackedSet addObject:error:]";
-        v25 = 2080;
+        v23 = "[BRCSQLBackedSet addObject:error:]";
+        v24 = 2080;
         if (!error)
         {
           v13 = "(ignored by caller)";
@@ -494,7 +488,6 @@ LABEL_10:
   v9 = 0;
 LABEL_14:
 
-  v15 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -546,18 +539,16 @@ uint64_t __60__BRCSQLBackedSet_enumerateObjectsWithSortOrder_usingBlock___block_
 
 - (void)initArrayOfClass:withSQLType:error:.cold.1()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_1();
-  _os_log_debug_impl(&dword_223E7A000, v0, OS_LOG_TYPE_DEBUG, "[DEBUG] Opening db at: %@%@", v2, 0x16u);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_223E7A000, v0, OS_LOG_TYPE_DEBUG, "[DEBUG] Opening db at: %@%@", v1, 0x16u);
 }
 
 void __54__BRCSQLBackedSet_initArrayOfClass_withSQLType_error___block_invoke_cold_1()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_1();
-  _os_log_error_impl(&dword_223E7A000, v0, 0x90u, "[ERROR] db corruption handler called: %@%@", v2, 0x16u);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_223E7A000, v0, 0x90u, "[ERROR] db corruption handler called: %@%@", v1, 0x16u);
 }
 
 @end

@@ -12,64 +12,65 @@
 {
   destructorCopy = destructor;
   encoderCopy = encoder;
-  v13 = [[CLCppEncodableDataContainer alloc] initWithObject:object cppDataEncoder:encoderCopy destructor:destructorCopy binaryVersion:version typeSize:size];
+  v13 = [CLCppEncodableDataContainer alloc];
+  v15 = objc_msgSend_initWithObject_cppDataEncoder_destructor_binaryVersion_typeSize_(v13, v14, object, encoderCopy, destructorCopy, version, size);
 
-  return v13;
+  return v15;
 }
 
 - (CLCppEncodableDataContainer)initWithObject:(void *)object cppDataEncoder:(id)encoder destructor:(id)destructor binaryVersion:(unint64_t)version typeSize:(unint64_t)size
 {
   encoderCopy = encoder;
-  v16.receiver = self;
-  v16.super_class = CLCppEncodableDataContainer;
-  v13 = [(CLCppContainer *)&v16 initWithObject:object destructor:destructor binaryVersion:version typeSize:size];
-  v14 = v13;
+  v17.receiver = self;
+  v17.super_class = CLCppEncodableDataContainer;
+  v13 = [(CLCppContainer *)&v17 initWithObject:object destructor:destructor binaryVersion:version typeSize:size];
+  v15 = v13;
   if (v13)
   {
-    [(CLCppEncodableDataContainer *)v13 setEncoder:encoderCopy];
+    objc_msgSend_setEncoder_(v13, v14, encoderCopy);
   }
 
-  return v14;
+  return v15;
 }
 
 - (void)dealloc
 {
-  [(CLCppEncodableDataContainer *)self setSerialized:0];
-  [(CLCppEncodableDataContainer *)self setCompatibilityInfo:0];
-  [(CLCppEncodableDataContainer *)self setEncoder:0];
-  v3.receiver = self;
-  v3.super_class = CLCppEncodableDataContainer;
-  [(CLCppContainer *)&v3 dealloc];
+  objc_msgSend_setSerialized_(self, a2, 0);
+  objc_msgSend_setCompatibilityInfo_(self, v3, 0);
+  objc_msgSend_setEncoder_(self, v4, 0);
+  v5.receiver = self;
+  v5.super_class = CLCppEncodableDataContainer;
+  [(CLCppContainer *)&v5 dealloc];
 }
 
 - (void)encodeWithCoder:(id)coder
 {
   coderCopy = coder;
-  encoder = [(CLCppEncodableDataContainer *)self encoder];
+  v6 = objc_msgSend_encoder(self, v4, v5);
 
-  if (encoder)
+  if (v6)
   {
-    encoder2 = [(CLCppEncodableDataContainer *)self encoder];
-    (encoder2)[2](encoder2, coderCopy);
+    v9 = objc_msgSend_encoder(self, v7, v8);
+    (v9)[2](v9, coderCopy);
   }
 }
 
 - (CLCppEncodableDataContainer)initWithCoder:(id)coder
 {
   coderCopy = coder;
-  v9.receiver = self;
-  v9.super_class = CLCppEncodableDataContainer;
-  v5 = [(CLCppContainer *)&v9 initWithCoder:coderCopy];
-  if (v5)
+  v13.receiver = self;
+  v13.super_class = CLCppEncodableDataContainer;
+  v6 = [(CLCppContainer *)&v13 initWithCoder:coderCopy];
+  if (v6)
   {
-    v6 = [coderCopy decodeObjectForKey:@"serialized"];
-    [(CLCppEncodableDataContainer *)v5 setSerialized:v6];
+    v7 = objc_msgSend_decodeObjectForKey_(coderCopy, v5, @"serialized");
+    objc_msgSend_setSerialized_(v6, v8, v7);
 
-    v7 = [coderCopy decodeObjectForKey:@"compatibilityInfo"];
-    [(CLCppEncodableDataContainer *)v5 setCompatibilityInfo:v7];
+    v10 = objc_msgSend_decodeObjectForKey_(coderCopy, v9, @"compatibilityInfo");
+    objc_msgSend_setCompatibilityInfo_(v6, v11, v10);
   }
 
-  return v5;
+  return v6;
 }
 
 @end

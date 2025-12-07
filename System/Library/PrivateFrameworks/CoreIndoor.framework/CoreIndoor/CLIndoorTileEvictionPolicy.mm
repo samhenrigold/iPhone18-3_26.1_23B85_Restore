@@ -57,7 +57,7 @@
 
 - (BOOL)tileLastModified:(double)modified needsEvictionAt:(double)at
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   if (qword_27EE33010 != -1)
   {
     sub_245A8F2E8();
@@ -69,7 +69,7 @@
 
 LABEL_5:
     v8 = at - modified;
-    goto LABEL_6;
+    return v8 >= self->_maxModifiedAge;
   }
 
   v7 = qword_27EE33018;
@@ -81,21 +81,18 @@ LABEL_5:
 LABEL_3:
   v8 = at - modified;
   maxModifiedAge = self->_maxModifiedAge;
-  v12 = 134350080;
+  v11 = 134350080;
   atCopy = at;
-  v14 = 2050;
+  v13 = 2050;
   modifiedCopy = modified;
-  v16 = 2050;
-  v17 = at - modified;
-  v18 = 2050;
-  v19 = maxModifiedAge;
-  v20 = 1024;
-  v21 = at - modified >= maxModifiedAge;
-  _os_log_impl(&dword_245A2E000, v7, OS_LOG_TYPE_INFO, "@EvictCheck, modified, %{public}.1f, %{public}.1f, ages, %{public}.1f, %{public}.1f, evict, %d", &v12, 0x30u);
-LABEL_6:
-  result = v8 >= self->_maxModifiedAge;
-  v11 = *MEMORY[0x277D85DE8];
-  return result;
+  v15 = 2050;
+  v16 = at - modified;
+  v17 = 2050;
+  v18 = maxModifiedAge;
+  v19 = 1024;
+  v20 = at - modified >= maxModifiedAge;
+  _os_log_impl(&dword_245A2E000, v7, OS_LOG_TYPE_INFO, "@EvictCheck, modified, %{public}.1f, %{public}.1f, ages, %{public}.1f, %{public}.1f, evict, %d", &v11, 0x30u);
+  return v8 >= self->_maxModifiedAge;
 }
 
 - (id)description

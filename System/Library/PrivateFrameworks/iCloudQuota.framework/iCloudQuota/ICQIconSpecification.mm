@@ -14,24 +14,24 @@
   v5 = [(ICQIconSpecification *)&v19 init];
   if (v5)
   {
-    v6 = [dictionaryCopy objectForKeyedSubscript:@"bundleId"];
+    v6 = objc_msgSend_objectForKeyedSubscript_(dictionaryCopy);
     bundleID = v5->_bundleID;
     v5->_bundleID = v6;
 
-    v8 = [dictionaryCopy objectForKeyedSubscript:@"assetId"];
+    v8 = objc_msgSend_objectForKeyedSubscript_(dictionaryCopy);
     assetID = v5->_assetID;
     v5->_assetID = v8;
 
-    v10 = [dictionaryCopy objectForKeyedSubscript:@"sfSymbolId"];
+    v10 = objc_msgSend_objectForKeyedSubscript_(dictionaryCopy);
     sfSymbolId = v5->_sfSymbolId;
     v5->_sfSymbolId = v10;
 
-    v12 = [dictionaryCopy objectForKeyedSubscript:@"sfSymbolColor"];
+    v12 = objc_msgSend_objectForKeyedSubscript_(dictionaryCopy);
     sfSymbolColor = v5->_sfSymbolColor;
     v5->_sfSymbolColor = v12;
 
     v14 = [ICQImageURL alloc];
-    v15 = [dictionaryCopy objectForKeyedSubscript:@"urls"];
+    v15 = objc_msgSend_objectForKeyedSubscript_(dictionaryCopy);
     v16 = [(ICQImageURL *)v14 initFromDictionary:v15];
     imageURL = v5->_imageURL;
     v5->_imageURL = v16;

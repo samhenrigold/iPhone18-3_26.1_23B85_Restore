@@ -248,16 +248,16 @@ void sub_1000034C4(uint64_t a1, void *a2, void *a3)
   [*(a1 + 32) presentViewController:v8 animated:1 completion:*(a1 + 40)];
 }
 
-void sub_1000040EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000040EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_100004A94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100004A94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -341,10 +341,10 @@ void sub_100005128(uint64_t a1, uint64_t a2, void *a3)
   objc_destroyWeak(&v9);
 }
 
-void sub_1000051F0(uint64_t a1)
+void sub_1000051F0(uint64_t a1, uint64_t a2)
 {
-  v2 = _CDPLogSystem();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+  v3 = _CDPLogSystem();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     sub_1000072EC(a1);
   }
@@ -435,19 +435,19 @@ id sub_10000600C()
   return v1;
 }
 
-void sub_1000060D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000060D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_100006338(uint64_t a1)
+void sub_100006338(uint64_t a1, uint64_t a2)
 {
-  v2 = _CDPLogSystem();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+  v3 = _CDPLogSystem();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    sub_1000078AC(a1, v2, v3, v4, v5, v6, v7, v8);
+    sub_1000078AC(a1, v3, v4, v5, v6, v7, v8, v9);
   }
 }
 
@@ -483,7 +483,7 @@ void sub_100006688()
   v0 = v1[0];
   if (!qword_100014E78)
   {
-    v0 = abort_report_np();
+    v0 = abort_report_np("%s", v1[0]);
     goto LABEL_7;
   }
 
@@ -496,7 +496,6 @@ LABEL_7:
 
 uint64_t sub_100006784(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_100014E78 = result;
   return result;
@@ -530,22 +529,25 @@ Class sub_100006850(uint64_t a1)
   return result;
 }
 
-void sub_1000068A8(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_1000068A8(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 0xCu);
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 0xCu);
 }
 
-void sub_1000068EC(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_1000068EC(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
-void sub_100006940(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100006940(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 2u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 2u);
 }
 
 void sub_1000069C4()
@@ -567,12 +569,39 @@ void sub_100006A34(uint64_t a1, uint64_t a2, os_log_t log)
 
 void sub_100006ACC(void *a1, uint64_t a2, NSObject *a3)
 {
-  v5 = [NSNumber numberWithUnsignedInteger:*a1];
-  v6 = *(a2 + 32);
+  v4 = [NSNumber numberWithUnsignedInteger:*a1];
   sub_1000068E0();
-  v9 = 2112;
-  v10 = v7;
-  _os_log_error_impl(&_mh_execute_header, a3, OS_LOG_TYPE_ERROR, "Issue getting Walrus status (got %@) with error: %@", v8, 0x16u);
+  v7 = 2112;
+  v8 = v5;
+  _os_log_error_impl(&_mh_execute_header, a3, OS_LOG_TYPE_ERROR, "Issue getting Walrus status (got %@) with error: %@", v6, 0x16u);
+}
+
+void sub_100006BC0(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[CDPFollowUpViewController _apdUpsellSetupCDPContextForAccountWithAltDSID:itemIdentifier:]";
+  sub_1000068EC(&_mh_execute_header, a1, a3, "%s: Primary Account nil while processing ADPUpsell CFU", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_100006C38(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[CDPFollowUpViewController _apdUpsellSetupCDPContextForAccountWithAltDSID:itemIdentifier:]";
+  sub_1000068A8(&_mh_execute_header, a1, a3, "%s:ADPUpsell CFU creating context using altDSID", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_100006CB0(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[CDPFollowUpViewController _apdUpsellSetupCDPContextForAccountWithAltDSID:itemIdentifier:]";
+  sub_1000068A8(&_mh_execute_header, a1, a3, "%s:ADPUpsell CFU altDSID nil - using contextForPrimaryAccount", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_100006D28(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[CDPFollowUpViewController _apdUpsellSetupCDPContextForAccountWithAltDSID:itemIdentifier:]";
+  sub_1000068EC(&_mh_execute_header, a1, a3, "%s: CDPContext nil while processing ADPUpsell CFU", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void sub_100006DA0(id *a1)
@@ -618,7 +647,6 @@ void sub_1000072EC(uint64_t a1)
   v3 = objc_opt_class();
   v4 = NSStringFromClass(v3);
   v10 = [*(a1 + 32) debugDescription];
-  v11 = *(a1 + 40);
   sub_1000068C4();
   _os_log_debug_impl(v5, v6, v7, v8, v9, 0x20u);
 }
@@ -654,11 +682,32 @@ void sub_100007580(uint64_t a1, void *a2)
   _os_log_debug_impl(v6, v7, v8, v9, v10, 0x16u);
 }
 
+void sub_100007650(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[CDPFollowUpViewController accountsForAccountManager:]";
+  sub_1000068EC(&_mh_execute_header, a1, a3, "%s: No primary account found. Returning empty dictionary", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_100007730(void *a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *a1;
+  sub_1000068A8(&_mh_execute_header, a2, a3, "Existing presenter %@ will be overwritten", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
 void sub_1000077A0()
 {
   sub_100006908();
   sub_1000068D4();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
+}
+
+void sub_1000078AC(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *(a1 + 32);
+  sub_1000068A8(&_mh_execute_header, a2, a3, "%@: RemoteUI dismiss flow completed", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void sub_10000791C()

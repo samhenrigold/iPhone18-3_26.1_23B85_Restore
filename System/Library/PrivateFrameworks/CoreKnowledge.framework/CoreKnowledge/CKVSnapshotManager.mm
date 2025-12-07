@@ -751,14 +751,14 @@ BOOL __72__CKVSnapshotManager_writeProfileToFile_withFilename_inDirectory_error_
   return v2;
 }
 
-void __36__CKVSnapshotManager_sharedInstance__block_invoke()
+void __36__CKVSnapshotManager_sharedInstance__block_invoke(uint64_t a1)
 {
-  v0 = objc_alloc(objc_opt_class());
-  v4 = KVSnapshotRootDirectoryURL();
-  v1 = [MEMORY[0x1E6993A50] setEnumerator];
-  v2 = [v0 initWithRootDirectoryURL:v4 setEnumerator:v1];
-  v3 = sharedInstance_shared;
-  sharedInstance_shared = v2;
+  v1 = objc_alloc(objc_opt_class());
+  v5 = KVSnapshotRootDirectoryURL();
+  v2 = [MEMORY[0x1E6993A50] setEnumerator];
+  v3 = [v1 initWithRootDirectoryURL:v5 setEnumerator:v2];
+  v4 = sharedInstance_shared;
+  sharedInstance_shared = v3;
 }
 
 @end

@@ -1435,7 +1435,7 @@ void __50__UITransitionView__startTransition_withDuration___block_invoke_7(uint6
 - (BOOL)_shouldAnimatePropertyWithKey:(id)key
 {
   keyCopy = key;
-  if ([keyCopy isEqualToString:@"sublayerTransform"])
+  if (objc_msgSend_isEqualToString_(keyCopy))
   {
     v5 = 1;
   }

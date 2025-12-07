@@ -49,7 +49,7 @@ uint64_t __50__BRCSyncDownHandler_zoneIsSyncingForTheFirstTime__block_invoke(uin
 
 - (void)saveInitialServerZoneData:(id)data clientChangeTokenData:(id)tokenData
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   tokenDataCopy = tokenData;
   v8 = brc_bread_crumbs();
@@ -58,13 +58,13 @@ uint64_t __50__BRCSyncDownHandler_zoneIsSyncingForTheFirstTime__block_invoke(uin
   {
     serverZone = self->_serverZone;
     *buf = 138413058;
-    v22 = dataCopy;
-    v23 = 2112;
-    v24 = tokenDataCopy;
-    v25 = 2112;
-    v26 = serverZone;
-    v27 = 2112;
-    v28 = v8;
+    v21 = dataCopy;
+    v22 = 2112;
+    v23 = tokenDataCopy;
+    v24 = 2112;
+    v25 = serverZone;
+    v26 = 2112;
+    v27 = v8;
     _os_log_debug_impl(&dword_223E7A000, v9, OS_LOG_TYPE_DEBUG, "[DEBUG] Fetched initial server zone tokens %@ and %@ for %@%@", buf, 0x2Au);
   }
 
@@ -83,31 +83,29 @@ uint64_t __50__BRCSyncDownHandler_zoneIsSyncingForTheFirstTime__block_invoke(uin
   v13 = brc_default_log();
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
   {
-    v18 = self->_serverZone;
+    v17 = self->_serverZone;
     *buf = 138413058;
-    v22 = v18;
-    v23 = 2112;
-    v24 = dataCopy;
-    v25 = 2112;
-    v26 = tokenDataCopy;
-    v27 = 2112;
-    v28 = v12;
+    v21 = v17;
+    v22 = 2112;
+    v23 = dataCopy;
+    v24 = 2112;
+    v25 = tokenDataCopy;
+    v26 = 2112;
+    v27 = v12;
     _os_log_debug_impl(&dword_223E7A000, v13, OS_LOG_TYPE_DEBUG, "[DEBUG] Saving initial zone data of %@ with server token %@ client token %@%@", buf, 0x2Au);
   }
 
-  LOBYTE(v19) = 0;
-  [(BRCServerZone *)self->_serverZone didSyncDownRequestID:v11 serverChangeToken:dataCopy editedRecords:0 deletedRecordIDs:0 deletedShareRecordIDs:0 allocRankZones:0 caughtUp:v19 pendingChanges:0];
+  LOBYTE(v18) = 0;
+  [(BRCServerZone *)self->_serverZone didSyncDownRequestID:v11 serverChangeToken:dataCopy editedRecords:0 deletedRecordIDs:0 deletedShareRecordIDs:0 allocRankZones:0 caughtUp:v18 pendingChanges:0];
   clientZone = [(BRCServerZone *)self->_serverZone clientZone];
   dbFacade = [clientZone dbFacade];
-  v20[0] = MEMORY[0x277D85DD0];
-  v20[1] = 3221225472;
-  v20[2] = __70__BRCSyncDownHandler_saveInitialServerZoneData_clientChangeTokenData___block_invoke;
-  v20[3] = &unk_2784FF058;
-  v20[4] = self;
-  v20[5] = v11;
-  [dbFacade performWithFlags:41 action:v20];
-
-  v16 = *MEMORY[0x277D85DE8];
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = __70__BRCSyncDownHandler_saveInitialServerZoneData_clientChangeTokenData___block_invoke;
+  v19[3] = &unk_2784FF058;
+  v19[4] = self;
+  v19[5] = v11;
+  [dbFacade performWithFlags:41 action:v19];
 }
 
 uint64_t __70__BRCSyncDownHandler_saveInitialServerZoneData_clientChangeTokenData___block_invoke(uint64_t a1)

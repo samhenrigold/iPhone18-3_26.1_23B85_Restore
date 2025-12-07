@@ -66,57 +66,57 @@
   {
     if (v4 == 4)
     {
-      v34 = 0;
-      v35 = &v34;
-      v36 = 0x3032000000;
-      v37 = __Block_byref_object_copy__0;
-      v38 = __Block_byref_object_dispose__0;
-      v39 = &stru_2A21F1AD0;
+      v33 = 0;
+      v34 = &v33;
+      v35 = 0x3032000000;
+      v36 = __Block_byref_object_copy__0;
+      v37 = __Block_byref_object_dispose__0;
+      v38 = &stru_2A21F1AD0;
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v21 = [v8 length];
-        v22 = *MEMORY[0x29EDC7640];
-        v31[0] = MEMORY[0x29EDCA5F8];
-        v31[1] = 3221225472;
-        v31[2] = __56__MUPlaceRibbonItemViewAccessibility_accessibilityValue__block_invoke;
-        v31[3] = &unk_29F2CDDD8;
-        v33 = &v34;
-        v32 = v8;
-        [v32 enumerateAttribute:v22 inRange:0 options:v21 usingBlock:{0, v31}];
+        v20 = [v8 length];
+        v21 = *MEMORY[0x29EDC7640];
+        v30[0] = MEMORY[0x29EDCA5F8];
+        v30[1] = 3221225472;
+        v30[2] = __56__MUPlaceRibbonItemViewAccessibility_accessibilityValue__block_invoke;
+        v30[3] = &unk_29F2CDDD8;
+        v32 = &v33;
+        v31 = v8;
+        [v31 enumerateAttribute:v21 inRange:0 options:v20 usingBlock:{0, v30}];
       }
 
-      v14 = [MEMORY[0x29EDBD7E8] axAttributedStringWithString:v35[5]];
-      v23 = *MEMORY[0x29EDBD9E8];
-      v24 = [v35[5] length];
-      [v14 setAttribute:MEMORY[0x29EDB8EB0] forKey:v23 withRange:{0, v24}];
+      v13 = [MEMORY[0x29EDBD7E8] axAttributedStringWithString:v34[5]];
+      v22 = *MEMORY[0x29EDBD9E8];
+      v23 = [v34[5] length];
+      [v13 setAttribute:MEMORY[0x29EDB8EB0] forKey:v22 withRange:{0, v23}];
       goto LABEL_18;
     }
 
     if (v4 != 7)
     {
 LABEL_12:
-      v14 = accessibilityLabel;
+      v13 = accessibilityLabel;
       goto LABEL_24;
     }
 
-    v15 = [v3 _accessibilityIntegerValueForKey:@"RibbonItemViewRatingStateKey"];
-    if (v15 == 2)
+    v14 = [v3 _accessibilityIntegerValueForKey:@"RibbonItemViewRatingStateKey"];
+    if (v14 == 2)
     {
-      v16 = @"LIKED";
+      v15 = @"LIKED";
     }
 
-    else if (v15 == 1)
+    else if (v14 == 1)
     {
-      v16 = @"DISLIKED";
+      v15 = @"DISLIKED";
     }
 
     else
     {
-      v16 = @"NOT RATED";
+      v15 = @"NOT RATED";
     }
 
-    v27 = accessibilityLocalizedString(v16);
+    v26 = accessibilityLocalizedString(v15);
   }
 
   else
@@ -125,34 +125,33 @@ LABEL_12:
     {
       if (v4 == 3)
       {
-        v34 = 0;
-        v35 = &v34;
-        v36 = 0x3032000000;
-        v37 = __Block_byref_object_copy__0;
-        v38 = __Block_byref_object_dispose__0;
-        v39 = &stru_2A21F1AD0;
+        v33 = 0;
+        v34 = &v33;
+        v35 = 0x3032000000;
+        v36 = __Block_byref_object_copy__0;
+        v37 = __Block_byref_object_dispose__0;
+        v38 = &stru_2A21F1AD0;
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
           v9 = [v8 length];
           v10 = *MEMORY[0x29EDC7628];
-          v30[0] = MEMORY[0x29EDCA5F8];
-          v30[1] = 3221225472;
-          v30[2] = __56__MUPlaceRibbonItemViewAccessibility_accessibilityValue__block_invoke_2;
-          v30[3] = &unk_29F2CDE00;
-          v30[4] = &v34;
-          [v8 enumerateAttribute:v10 inRange:0 options:v9 usingBlock:{0, v30}];
-          v11 = v35[5];
+          v29[0] = MEMORY[0x29EDCA5F8];
+          v29[1] = 3221225472;
+          v29[2] = __56__MUPlaceRibbonItemViewAccessibility_accessibilityValue__block_invoke_2;
+          v29[3] = &unk_29F2CDE00;
+          v29[4] = &v33;
+          [v8 enumerateAttribute:v10 inRange:0 options:v9 usingBlock:{0, v29}];
           string = [v8 string];
-          v12 = __UIAXStringForVariables();
-          v13 = v35[5];
-          v35[5] = v12;
+          v11 = __UIAXStringForVariables();
+          v12 = v34[5];
+          v34[5] = v11;
         }
 
-        v14 = v35[5];
+        v13 = v34[5];
 LABEL_18:
 
-        _Block_object_dispose(&v34, 8);
+        _Block_object_dispose(&v33, 8);
         goto LABEL_24;
       }
 
@@ -160,29 +159,29 @@ LABEL_18:
     }
 
     string2 = [v8 string];
-    v18 = [string2 containsString:@"%"];
+    v17 = [string2 containsString:@"%"];
 
-    if (v18)
+    if (v17)
     {
-      v19 = MEMORY[0x29EDBA0F8];
-      v20 = accessibilityLocalizedString(@"RECOMMEND");
-      v14 = [v19 stringWithFormat:@"%@ %@", accessibilityLabel, v20];
+      v18 = MEMORY[0x29EDBA0F8];
+      v19 = accessibilityLocalizedString(@"RECOMMEND");
+      v13 = [v18 stringWithFormat:@"%@ %@", accessibilityLabel, v19];
 
       goto LABEL_24;
     }
 
     string3 = [v8 string];
-    v26 = [string3 substringFromIndex:1];
-    [v26 floatValue];
+    v25 = [string3 substringFromIndex:1];
+    [v25 floatValue];
 
-    v27 = UIAXStarRatingStringForRating();
+    v26 = UIAXStarRatingStringForRating();
   }
 
-  v14 = v27;
+  v13 = v26;
 
 LABEL_24:
 
-  return v14;
+  return v13;
 }
 
 void __56__MUPlaceRibbonItemViewAccessibility_accessibilityValue__block_invoke(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
@@ -203,17 +202,16 @@ void __56__MUPlaceRibbonItemViewAccessibility_accessibilityValue__block_invoke(u
 
 void __56__MUPlaceRibbonItemViewAccessibility_accessibilityValue__block_invoke_2(uint64_t a1, void *a2)
 {
-  v9 = a2;
+  v8 = a2;
   MEMORY[0x29C2DD160](@"NSTextAttachment");
   if (objc_opt_isKindOfClass())
   {
-    v3 = *(*(*(a1 + 32) + 8) + 40);
-    v4 = [v9 image];
-    v8 = [v4 accessibilityLabel];
-    v5 = __UIAXStringForVariables();
-    v6 = *(*(a1 + 32) + 8);
-    v7 = *(v6 + 40);
-    *(v6 + 40) = v5;
+    v3 = [v8 image];
+    v7 = [v3 accessibilityLabel];
+    v4 = __UIAXStringForVariables();
+    v5 = *(*(a1 + 32) + 8);
+    v6 = *(v5 + 40);
+    *(v5 + 40) = v4;
   }
 }
 

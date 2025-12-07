@@ -7,14 +7,12 @@
 
 - (NSDictionary)content
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   v3 = [(HMDCoreDataCloudShareInvitation *)self url];
-  v8 = v3;
+  v7 = v3;
   token = [(HMDCoreDataCloudShareInvitation *)self token];
-  v9[0] = token;
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
-
-  v6 = *MEMORY[0x277D85DE8];
+  v8[0] = token;
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:&v7 count:1];
 
   return v5;
 }

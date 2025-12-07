@@ -12,9 +12,9 @@
     +[NSBundle(VSAdditions) vs_frameworkBundle];
   }
 
-  v1 = vs_frameworkBundle___vs_lazy_init_variable;
+  v2 = vs_frameworkBundle___vs_lazy_init_variable;
 
-  return v1;
+  return v2;
 }
 
 + (id)vs_bundleForProcessIdentifier:()VSAdditions

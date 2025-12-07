@@ -139,7 +139,7 @@ void __47__MPModelLibrarySearchRequestOperation_execute__block_invoke(void *a1)
   }
 }
 
-void __47__MPModelLibrarySearchRequestOperation_execute__block_invoke_3(uint64_t a1, void *a2, void *a3)
+void __47__MPModelLibrarySearchRequestOperation_execute__block_invoke_3(id *a1, void *a2, void *a3)
 {
   v5 = a3;
   if (v5)
@@ -149,14 +149,14 @@ void __47__MPModelLibrarySearchRequestOperation_execute__block_invoke_3(uint64_t
 
   else
   {
-    v7 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(*(a1 + 32), "count")}];
-    v8 = *(a1 + 32);
+    v7 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(a1[4], "count")}];
+    v8 = a1[4];
     v15[0] = MEMORY[0x1E69E9820];
     v15[1] = 3321888768;
     v15[2] = __47__MPModelLibrarySearchRequestOperation_execute__block_invoke_2;
     v15[3] = &unk_1F1497918;
     memset(v19, 0, 24);
-    std::vector<std::shared_ptr<mlcore::LocalizedSearchScope>>::__init_with_size[abi:ne200100]<std::shared_ptr<mlcore::LocalizedSearchScope>*,std::shared_ptr<mlcore::LocalizedSearchScope>*>(v19, *(a1 + 56), *(a1 + 64), (*(a1 + 64) - *(a1 + 56)) >> 4);
+    std::vector<std::shared_ptr<mlcore::LocalizedSearchScope>>::__init_with_size[abi:ne200100]<std::shared_ptr<mlcore::LocalizedSearchScope>*,std::shared_ptr<mlcore::LocalizedSearchScope>*>(v19, a1[7], a1[8], (a1[8] - a1[7]) >> 4);
     v9 = a2[1];
     v19[3] = *a2;
     v20 = v9;
@@ -165,17 +165,17 @@ void __47__MPModelLibrarySearchRequestOperation_execute__block_invoke_3(uint64_t
       atomic_fetch_add_explicit(&v9->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
-    v10 = *(a1 + 40);
-    v11 = *(a1 + 48);
+    v10 = a1[5];
+    v11 = a1[6];
     v16 = v10;
     v17 = v11;
     v12 = v7;
     v18 = v12;
     [v8 enumerateObjectsUsingBlock:v15];
     v13 = [[MPModelLibrarySearchSectionedCollectionDataSource alloc] initWithEntitiesQueryResultContainers:v12];
-    [(MPModelLibrarySearchSectionedCollectionDataSource *)v13 setRequest:*(*(a1 + 48) + 296)];
+    [(MPModelLibrarySearchSectionedCollectionDataSource *)v13 setRequest:*(a1[6] + 37)];
     v14 = [[MPLazySectionedCollection alloc] initWithDataSource:v13];
-    v6 = [[MPModelLibrarySearchResponse alloc] initWithRequest:*(*(a1 + 48) + 296)];
+    v6 = [[MPModelLibrarySearchResponse alloc] initWithRequest:*(a1[6] + 37)];
     [(MPModelResponse *)v6 setResults:v14];
 
     if (v20)
@@ -187,8 +187,8 @@ void __47__MPModelLibrarySearchRequestOperation_execute__block_invoke_3(uint64_t
     std::vector<std::shared_ptr<mlcore::Predicate>>::__destroy_vector::operator()[abi:ne200100](&v21);
   }
 
-  (*(*(*(a1 + 48) + 304) + 16))();
-  [*(a1 + 48) finishWithError:v5];
+  (*(*(a1[6] + 38) + 16))();
+  [a1[6] finishWithError:v5];
 }
 
 void __47__MPModelLibrarySearchRequestOperation_execute__block_invoke_2(uint64_t a1, void *a2, unint64_t a3)

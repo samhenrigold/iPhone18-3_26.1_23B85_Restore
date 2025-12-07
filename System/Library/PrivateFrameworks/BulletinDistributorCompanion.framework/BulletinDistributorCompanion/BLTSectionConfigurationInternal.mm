@@ -42,7 +42,7 @@
 
 - (unint64_t)coordinationTypeForSectionID:(id)d subtype:(int64_t)subtype category:(id)category
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   dCopy = d;
   categoryCopy = category;
   v10 = [(NSDictionary *)self->_configurations objectForKeyedSubscript:dCopy];
@@ -62,32 +62,32 @@
 
       else
       {
-        v36 = 0u;
-        v37 = 0u;
-        v34 = 0u;
         v35 = 0u;
+        v36 = 0u;
+        v33 = 0u;
+        v34 = 0u;
         allowListedSubtypes2 = [v10 allowListedSubtypes];
-        v19 = [allowListedSubtypes2 countByEnumeratingWithState:&v34 objects:v38 count:16];
+        v19 = [allowListedSubtypes2 countByEnumeratingWithState:&v33 objects:v37 count:16];
         if (v19)
         {
-          v20 = *v35;
+          v20 = *v34;
           while (2)
           {
             for (i = 0; i != v19; ++i)
             {
-              if (*v35 != v20)
+              if (*v34 != v20)
               {
                 objc_enumerationMutation(allowListedSubtypes2);
               }
 
-              if ([*(*(&v34 + 1) + 8 * i) integerValue] == subtype)
+              if ([*(*(&v33 + 1) + 8 * i) integerValue] == subtype)
               {
                 v15 = 1;
                 goto LABEL_22;
               }
             }
 
-            v19 = [allowListedSubtypes2 countByEnumeratingWithState:&v34 objects:v38 count:16];
+            v19 = [allowListedSubtypes2 countByEnumeratingWithState:&v33 objects:v37 count:16];
             if (v19)
             {
               continue;
@@ -131,14 +131,14 @@ LABEL_27:
 
   if (categoryCopy && bltVersion >= 6)
   {
-    v30 = 0;
-    v31 = &v30;
-    v32 = 0x2020000000;
+    v29 = 0;
+    v30 = &v29;
+    v31 = 0x2020000000;
     denyListedCategories = [v10 denyListedCategories];
     v17 = [denyListedCategories containsObject:categoryCopy];
 
-    v33 = v17;
-    if (v31[3])
+    v32 = v17;
+    if (v30[3])
     {
       v11 = 2;
     }
@@ -146,26 +146,25 @@ LABEL_27:
     else
     {
       denyListedCategoriesWithVersion = [v10 denyListedCategoriesWithVersion];
-      v27[0] = MEMORY[0x277D85DD0];
-      v27[1] = 3221225472;
-      v27[2] = __81__BLTSectionConfigurationInternal_coordinationTypeForSectionID_subtype_category___block_invoke;
-      v27[3] = &unk_278D319B8;
-      v29 = &v30;
-      v28 = categoryCopy;
-      [denyListedCategoriesWithVersion enumerateKeysAndObjectsUsingBlock:v27];
+      v26[0] = MEMORY[0x277D85DD0];
+      v26[1] = 3221225472;
+      v26[2] = __81__BLTSectionConfigurationInternal_coordinationTypeForSectionID_subtype_category___block_invoke;
+      v26[3] = &unk_278D319B8;
+      v28 = &v29;
+      v27 = categoryCopy;
+      [denyListedCategoriesWithVersion enumerateKeysAndObjectsUsingBlock:v26];
 
-      if (v31[3])
+      if (v30[3])
       {
         v11 = 2;
       }
     }
 
-    _Block_object_dispose(&v30, 8);
+    _Block_object_dispose(&v29, 8);
   }
 
 LABEL_30:
 
-  v25 = *MEMORY[0x277D85DE8];
   return v11;
 }
 

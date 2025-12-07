@@ -40,7 +40,7 @@ void __69___PSInteractionAndContactMonitor_fetchAllContactIdsFromContactStore__b
   objc_autoreleasePoolPop(v3);
 }
 
-uint64_t __73___PSInteractionAndContactMonitor_fetchChangedContactIdsFromContactStore__block_invoke(uint64_t a1, void *a2, uint64_t a3)
+void *__73___PSInteractionAndContactMonitor_fetchChangedContactIdsFromContactStore__block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
   result = CFSetContainsValue(*(*(a1 + 32) + 56), [a2 _ps_pointerSizedHash]);
   if (result)

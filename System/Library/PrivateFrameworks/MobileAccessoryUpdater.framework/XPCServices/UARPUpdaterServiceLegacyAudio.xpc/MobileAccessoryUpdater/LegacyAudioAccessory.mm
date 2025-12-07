@@ -105,11 +105,9 @@
 {
   v3 = objc_opt_class();
   v4 = NSStringFromClass(v3);
-  serialNumber = self->_serialNumber;
-  activeFirmwareVersion = self->_activeFirmwareVersion;
-  v7 = [NSString stringWithFormat:@"<%@ serialNumber=%@, _modelName=%@, activeFirmwareVersion=%@, activeANCVersion=%@", v4, serialNumber, self->_modelName, activeFirmwareVersion, self->_activeANCVersion];
+  v5 = [NSString stringWithFormat:@"<%@ serialNumber=%@, _modelName=%@, activeFirmwareVersion=%@, activeANCVersion=%@", v4, self->_serialNumber, self->_modelName, self->_activeFirmwareVersion, self->_activeANCVersion];
 
-  return v7;
+  return v5;
 }
 
 - (void)handleConnect:(id)connect options:(id)options

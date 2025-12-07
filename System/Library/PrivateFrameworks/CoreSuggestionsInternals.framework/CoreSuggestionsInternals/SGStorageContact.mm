@@ -24,27 +24,27 @@
 
 - (BOOL)hasProfileFromTextMessage
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   fromTextMessage = [MEMORY[0x277D01FA0] fromTextMessage];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v4 = self->_profiles;
-  v5 = [(NSMutableSet *)v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [(NSMutableSet *)v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
-    v6 = *v13;
+    v6 = *v12;
     while (2)
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v13 != v6)
+        if (*v12 != v6)
         {
           objc_enumerationMutation(v4);
         }
 
-        tags = [*(*(&v12 + 1) + 8 * i) tags];
+        tags = [*(*(&v11 + 1) + 8 * i) tags];
         v9 = [tags containsObject:fromTextMessage];
 
         if (v9)
@@ -54,7 +54,7 @@
         }
       }
 
-      v5 = [(NSMutableSet *)v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v5 = [(NSMutableSet *)v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
       if (v5)
       {
         continue;
@@ -66,33 +66,32 @@
 
 LABEL_11:
 
-  v10 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
 - (BOOL)hasProfileFromInteraction
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   fromInteraction = [MEMORY[0x277D01FA0] fromInteraction];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v4 = self->_profiles;
-  v5 = [(NSMutableSet *)v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [(NSMutableSet *)v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
-    v6 = *v13;
+    v6 = *v12;
     while (2)
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v13 != v6)
+        if (*v12 != v6)
         {
           objc_enumerationMutation(v4);
         }
 
-        tags = [*(*(&v12 + 1) + 8 * i) tags];
+        tags = [*(*(&v11 + 1) + 8 * i) tags];
         v9 = [tags containsObject:fromInteraction];
 
         if (v9)
@@ -102,7 +101,7 @@ LABEL_11:
         }
       }
 
-      v5 = [(NSMutableSet *)v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v5 = [(NSMutableSet *)v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
       if (v5)
       {
         continue;
@@ -114,36 +113,35 @@ LABEL_11:
 
 LABEL_11:
 
-  v10 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
 - (id)bestProfile
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   name = [(SGStorageContact *)self name];
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   v4 = self->_profiles;
-  v5 = [(NSMutableSet *)v4 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v5 = [(NSMutableSet *)v4 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v5)
   {
     v6 = v5;
     v7 = 0;
-    v8 = *v21;
+    v8 = *v20;
     v9 = -INFINITY;
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v21 != v8)
+        if (*v20 != v8)
         {
           objc_enumerationMutation(v4);
         }
 
-        v11 = *(*(&v20 + 1) + 8 * i);
+        v11 = *(*(&v19 + 1) + 8 * i);
         title = [v11 title];
         v13 = [title isEqualToString:name];
 
@@ -166,7 +164,7 @@ LABEL_11:
         }
       }
 
-      v6 = [(NSMutableSet *)v4 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v6 = [(NSMutableSet *)v4 countByEnumeratingWithState:&v19 objects:v23 count:16];
       if (v6)
       {
         continue;
@@ -183,41 +181,39 @@ LABEL_11:
 
 LABEL_14:
 
-  v18 = *MEMORY[0x277D85DE8];
-
   return v7;
 }
 
 - (id)convertToContact:(id)contact sourceEntity:(id)entity enrichments:(id)enrichments
 {
-  v96 = *MEMORY[0x277D85DE8];
+  v95 = *MEMORY[0x277D85DE8];
   contactCopy = contact;
   entityCopy = entity;
   v9 = contactCopy;
   v10 = entityCopy;
   enrichmentsCopy = enrichments;
-  v82 = [MEMORY[0x277D02070] originWithType:0 sourceKey:0 externalKey:0 fromForwardedMessage:0];
-  v85 = objc_opt_new();
+  v81 = [MEMORY[0x277D02070] originWithType:0 sourceKey:0 externalKey:0 fromForwardedMessage:0];
+  v84 = objc_opt_new();
+  v89 = 0u;
   v90 = 0u;
   v91 = 0u;
   v92 = 0u;
-  v93 = 0u;
   v12 = enrichmentsCopy;
-  v13 = [v12 countByEnumeratingWithState:&v90 objects:v95 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v89 objects:v94 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v91;
+    v15 = *v90;
     do
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v91 != v15)
+        if (*v90 != v15)
         {
           objc_enumerationMutation(v12);
         }
 
-        v17 = *(*(&v90 + 1) + 8 * i);
+        v17 = *(*(&v89 + 1) + 8 * i);
         recordId = [v17 recordId];
 
         if (recordId)
@@ -226,11 +222,11 @@ LABEL_14:
           duplicateKey = [v17 duplicateKey];
           v21 = [v19 originForDuplicateKey:duplicateKey entity:v17 parent:v10 store:v9];
           recordId2 = [v17 recordId];
-          [v85 setObject:v21 forKeyedSubscript:recordId2];
+          [v84 setObject:v21 forKeyedSubscript:recordId2];
         }
       }
 
-      v14 = [v12 countByEnumeratingWithState:&v90 objects:v95 count:16];
+      v14 = [v12 countByEnumeratingWithState:&v89 objects:v94 count:16];
     }
 
     while (v14);
@@ -244,27 +240,27 @@ LABEL_14:
     duplicateKey2 = [v10 duplicateKey];
     v26 = [v24 originForDuplicateKey:duplicateKey2 entity:v10 parent:0 store:v9];
     recordId4 = [v10 recordId];
-    [v85 setObject:v26 forKeyedSubscript:recordId4];
+    [v84 setObject:v26 forKeyedSubscript:recordId4];
   }
 
   v28 = [(SGStorageContact *)self loadAllDetailsFrom:v9];
   phoneNumbers = [v28 phoneNumbers];
-  v81 = sgMapAndFilter();
-
-  postalAddresses = [v28 postalAddresses];
   v80 = sgMapAndFilter();
 
-  emailAddresses = [v28 emailAddresses];
+  postalAddresses = [v28 postalAddresses];
   v79 = sgMapAndFilter();
 
-  socialProfiles = [v28 socialProfiles];
+  emailAddresses = [v28 emailAddresses];
   v78 = sgMapAndFilter();
+
+  socialProfiles = [v28 socialProfiles];
+  v77 = sgMapAndFilter();
 
   birthday = [v28 birthday];
 
   if (birthday)
   {
-    v76 = MEMORY[0x277D01F78];
+    v75 = MEMORY[0x277D01F78];
     birthday2 = [v28 birthday];
     value = [birthday2 value];
     v34 = SGDateComponentsFromNormalizeBirthday(value);
@@ -274,12 +270,12 @@ LABEL_14:
     extractionInfo = [birthday4 extractionInfo];
     birthday5 = [v28 birthday];
     recordId5 = [birthday5 recordId];
-    v77 = [v76 dateComponents:v34 label:label extractionInfo:extractionInfo withRecordId:recordId5];
+    v76 = [v75 dateComponents:v34 label:label extractionInfo:extractionInfo withRecordId:recordId5];
   }
 
   else
   {
-    v77 = 0;
+    v76 = 0;
   }
 
   photoPath = [v28 photoPath];
@@ -298,7 +294,7 @@ LABEL_14:
   bestProfile = [(SGStorageContact *)self bestProfile];
   v43 = [MEMORY[0x277D020C8] recordIdForContactWithRowId:{objc_msgSend(bestProfile, "masterEntityId")}];
   title = [bestProfile title];
-  v45 = [v85 objectForKeyedSubscript:v43];
+  v45 = [v84 objectForKeyedSubscript:v43];
   v46 = v45;
   if (v45)
   {
@@ -307,45 +303,45 @@ LABEL_14:
 
   else
   {
-    v47 = v82;
+    v47 = v81;
   }
 
-  v71 = bestProfile;
+  v70 = bestProfile;
   extractionInfo2 = [bestProfile extractionInfo];
   v49 = [SGNames sgNameFromString:title origin:v47 recordId:v43 extractionInfo:extractionInfo2];
 
-  v67 = v49;
-  v68 = v43;
-  v50 = [MEMORY[0x277D01F60] contactWithId:v43 name:v49 emailAddresses:v79 phones:v81 postalAddresses:v80 socialProfiles:v78 birthday:v77 photoPath:value2];
+  v66 = v49;
+  v67 = v43;
+  v50 = [MEMORY[0x277D01F60] contactWithId:v43 name:v49 emailAddresses:v78 phones:v80 postalAddresses:v79 socialProfiles:v77 birthday:v76 photoPath:value2];
   if ([(SGStorageContact *)self hasProfileFromInteraction])
   {
     [v50 setSignificance:1];
     [v50 setSignificanceOrigin:1];
   }
 
-  v69 = v50;
-  v73 = v28;
-  v88 = 0u;
-  v89 = 0u;
-  v86 = 0u;
+  v68 = v50;
+  v72 = v28;
   v87 = 0u;
+  v88 = 0u;
+  v85 = 0u;
+  v86 = 0u;
   obja = v12;
-  v51 = [obja countByEnumeratingWithState:&v86 objects:v94 count:16];
+  v51 = [obja countByEnumeratingWithState:&v85 objects:v93 count:16];
   if (v51)
   {
     v52 = v51;
     v53 = 0;
-    v54 = *v87;
+    v54 = *v86;
     do
     {
       for (j = 0; j != v52; ++j)
       {
-        if (*v87 != v54)
+        if (*v86 != v54)
         {
           objc_enumerationMutation(obja);
         }
 
-        v56 = *(*(&v86 + 1) + 8 * j);
+        v56 = *(*(&v85 + 1) + 8 * j);
         extractionInfo3 = [v56 extractionInfo];
         if ([extractionInfo3 extractionType] == 64)
         {
@@ -385,7 +381,7 @@ LABEL_14:
         }
       }
 
-      v52 = [obja countByEnumeratingWithState:&v86 objects:v94 count:16];
+      v52 = [obja countByEnumeratingWithState:&v85 objects:v93 count:16];
     }
 
     while (v52);
@@ -396,10 +392,9 @@ LABEL_14:
     v53 = 0;
   }
 
-  [v69 setUpdatedFields:v53];
-  v65 = *MEMORY[0x277D85DE8];
+  [v68 setUpdatedFields:v53];
 
-  return v69;
+  return v68;
 }
 
 id __62__SGStorageContact_convertToContact_sourceEntity_enrichments___block_invoke_5(uint64_t a1, void *a2)
@@ -492,7 +487,7 @@ id __62__SGStorageContact_convertToContact_sourceEntity_enrichments___block_invo
   return v17;
 }
 
-uint64_t __62__SGStorageContact_convertToContact_sourceEntity_enrichments___block_invoke_3(uint64_t a1, uint64_t a2, void *a3, BOOL *a4)
+void *__62__SGStorageContact_convertToContact_sourceEntity_enrichments___block_invoke_3(uint64_t a1, uint64_t a2, void *a3, BOOL *a4)
 {
   result = [a3 length];
   *(*(*(a1 + 32) + 8) + 24) = result != 0;
@@ -548,50 +543,50 @@ id __62__SGStorageContact_convertToContact_sourceEntity_enrichments___block_invo
 
 - (id)loadAllDetailsFrom:(id)from
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   fromCopy = from;
   internalDetectedDetails = [(SGStorageContact *)self internalDetectedDetails];
   if (!internalDetectedDetails)
   {
-    v6 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{-[NSMutableSet count](self->_profiles, "count")}];
+    v6 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:objc_msgSend_count(self->_profiles)];
+    v28 = 0u;
     v29 = 0u;
     v30 = 0u;
     v31 = 0u;
-    v32 = 0u;
     v7 = self->_profiles;
-    v8 = [(NSMutableSet *)v7 countByEnumeratingWithState:&v29 objects:v33 count:16];
+    v8 = [(NSMutableSet *)v7 countByEnumeratingWithState:&v28 objects:v32 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v30;
+      v10 = *v29;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v30 != v10)
+          if (*v29 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          recordId = [*(*(&v29 + 1) + 8 * i) recordId];
+          recordId = [*(*(&v28 + 1) + 8 * i) recordId];
           v13 = [fromCopy loadAllContactDetailsForRecordId:recordId];
           [v6 addObjectsFromArray:v13];
         }
 
-        v9 = [(NSMutableSet *)v7 countByEnumeratingWithState:&v29 objects:v33 count:16];
+        v9 = [(NSMutableSet *)v7 countByEnumeratingWithState:&v28 objects:v32 count:16];
       }
 
       while (v9);
     }
 
     v14 = [SGDeduper splitContactDetailsByType:v6];
-    v27[0] = MEMORY[0x277D85DD0];
-    v27[1] = 3221225472;
-    v27[2] = __39__SGStorageContact_loadAllDetailsFrom___block_invoke;
-    v27[3] = &unk_27894C370;
-    v28 = v14;
+    v26[0] = MEMORY[0x277D85DD0];
+    v26[1] = 3221225472;
+    v26[2] = __39__SGStorageContact_loadAllDetailsFrom___block_invoke;
+    v26[3] = &unk_27894C370;
+    v27 = v14;
     v15 = v14;
-    v16 = MEMORY[0x2383809F0](v27);
+    v16 = MEMORY[0x2383809F0](v26);
     internalDetectedDetails = objc_opt_new();
     v17 = v16[2](v16, 2);
     [internalDetectedDetails setEmailAddresses:v17];
@@ -613,8 +608,6 @@ id __62__SGStorageContact_convertToContact_sourceEntity_enrichments___block_invo
     firstObject2 = [v23 firstObject];
     [internalDetectedDetails setPhotoPath:firstObject2];
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 
   return internalDetectedDetails;
 }
@@ -640,7 +633,7 @@ id __39__SGStorageContact_loadAllDetailsFrom___block_invoke(uint64_t a1, uint64_
 
 - (void)merge:(id)merge
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   mergeCopy = merge;
   if (![(SGStorageContact *)self canMerge:mergeCopy])
   {
@@ -648,90 +641,41 @@ id __39__SGStorageContact_loadAllDetailsFrom___block_invoke(uint64_t a1, uint64_
     [currentHandler handleFailureInMethod:a2 object:self file:@"SGStorageContact.m" lineNumber:149 description:@"Merging with a contact that isn't mergable"];
   }
 
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
   v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   v6 = mergeCopy[1];
-  v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v14;
+    v9 = *v13;
     do
     {
       v10 = 0;
       do
       {
-        if (*v14 != v9)
+        if (*v13 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        [(SGStorageContact *)self addProfile:*(*(&v13 + 1) + 8 * v10++), v13];
+        [(SGStorageContact *)self addProfile:*(*(&v12 + 1) + 8 * v10++), v12];
       }
 
       while (v8 != v10);
-      v8 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v8);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (NSString)name
 {
-  v21 = *MEMORY[0x277D85DE8];
-  v3 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{-[NSMutableSet count](self->_profiles, "count")}];
-  v16 = 0u;
-  v17 = 0u;
-  v18 = 0u;
-  v19 = 0u;
-  v4 = self->_profiles;
-  v5 = [(NSMutableSet *)v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
-  if (v5)
-  {
-    v6 = v5;
-    v7 = *v17;
-    do
-    {
-      for (i = 0; i != v6; ++i)
-      {
-        if (*v17 != v7)
-        {
-          objc_enumerationMutation(v4);
-        }
-
-        v9 = *(*(&v16 + 1) + 8 * i);
-        title = [v9 title];
-
-        if (title)
-        {
-          title2 = [v9 title];
-          v12 = normalizeName(title2);
-          [v3 addObject:v12];
-        }
-      }
-
-      v6 = [(NSMutableSet *)v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
-    }
-
-    while (v6);
-  }
-
-  v13 = [SGNames bestName:v3];
-
-  v14 = *MEMORY[0x277D85DE8];
-
-  return v13;
-}
-
-- (id)allNames
-{
   v20 = *MEMORY[0x277D85DE8];
-  v3 = [objc_alloc(MEMORY[0x277CBEB58]) initWithCapacity:{-[NSMutableSet count](self->_profiles, "count")}];
+  v3 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:objc_msgSend_count(self->_profiles)];
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
@@ -768,7 +712,50 @@ id __39__SGStorageContact_loadAllDetailsFrom___block_invoke(uint64_t a1, uint64_
     while (v6);
   }
 
-  v13 = *MEMORY[0x277D85DE8];
+  v13 = [SGNames bestName:v3];
+
+  return v13;
+}
+
+- (id)allNames
+{
+  v19 = *MEMORY[0x277D85DE8];
+  v3 = [objc_alloc(MEMORY[0x277CBEB58]) initWithCapacity:objc_msgSend_count(self->_profiles)];
+  v14 = 0u;
+  v15 = 0u;
+  v16 = 0u;
+  v17 = 0u;
+  v4 = self->_profiles;
+  v5 = [(NSMutableSet *)v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  if (v5)
+  {
+    v6 = v5;
+    v7 = *v15;
+    do
+    {
+      for (i = 0; i != v6; ++i)
+      {
+        if (*v15 != v7)
+        {
+          objc_enumerationMutation(v4);
+        }
+
+        v9 = *(*(&v14 + 1) + 8 * i);
+        title = [v9 title];
+
+        if (title)
+        {
+          title2 = [v9 title];
+          v12 = normalizeName(title2);
+          [v3 addObject:v12];
+        }
+      }
+
+      v6 = [(NSMutableSet *)v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    }
+
+    while (v6);
+  }
 
   return v3;
 }
@@ -777,7 +764,7 @@ id __39__SGStorageContact_loadAllDetailsFrom___block_invoke(uint64_t a1, uint64_
 {
   v3 = objc_alloc(MEMORY[0x277CCACA8]);
   name = [(SGStorageContact *)self name];
-  v5 = [v3 initWithFormat:@"<SGStorageContact: %@ - %lu profile(s)>", name, -[NSMutableSet count](self->_profiles, "count")];
+  v5 = [v3 initWithFormat:@"<SGStorageContact: %@ - %lu profile(s)>", name, objc_msgSend_count(self->_profiles)];
 
   return v5;
 }
@@ -843,49 +830,49 @@ id __39__SGStorageContact_loadAllDetailsFrom___block_invoke(uint64_t a1, uint64_
 
 + (id)mergeAll:(id)all
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   allCopy = all;
-  v4 = [objc_alloc(MEMORY[0x277CBEB58]) initWithCapacity:{objc_msgSend(allCopy, "count")}];
+  v4 = [objc_alloc(MEMORY[0x277CBEB58]) initWithCapacity:objc_msgSend_count(allCopy)];
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
   obj = allCopy;
-  v5 = [obj countByEnumeratingWithState:&v23 objects:v28 count:16];
+  v5 = [obj countByEnumeratingWithState:&v22 objects:v27 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v24;
+    v7 = *v23;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v24 != v7)
+        if (*v23 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v23 + 1) + 8 * i);
+        v9 = *(*(&v22 + 1) + 8 * i);
+        v18 = 0u;
         v19 = 0u;
         v20 = 0u;
         v21 = 0u;
-        v22 = 0u;
         v10 = v4;
-        v11 = [v10 countByEnumeratingWithState:&v19 objects:v27 count:16];
+        v11 = [v10 countByEnumeratingWithState:&v18 objects:v26 count:16];
         if (v11)
         {
           v12 = v11;
-          v13 = *v20;
+          v13 = *v19;
           while (2)
           {
             for (j = 0; j != v12; ++j)
             {
-              if (*v20 != v13)
+              if (*v19 != v13)
               {
                 objc_enumerationMutation(v10);
               }
 
-              v15 = *(*(&v19 + 1) + 8 * j);
+              v15 = *(*(&v18 + 1) + 8 * j);
               if ([v15 canMerge:v9])
               {
                 [v15 merge:v9];
@@ -894,7 +881,7 @@ id __39__SGStorageContact_loadAllDetailsFrom___block_invoke(uint64_t a1, uint64_
               }
             }
 
-            v12 = [v10 countByEnumeratingWithState:&v19 objects:v27 count:16];
+            v12 = [v10 countByEnumeratingWithState:&v18 objects:v26 count:16];
             if (v12)
             {
               continue;
@@ -909,13 +896,11 @@ LABEL_16:
         ;
       }
 
-      v6 = [obj countByEnumeratingWithState:&v23 objects:v28 count:16];
+      v6 = [obj countByEnumeratingWithState:&v22 objects:v27 count:16];
     }
 
     while (v6);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v4;
 }

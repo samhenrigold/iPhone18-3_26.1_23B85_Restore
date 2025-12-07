@@ -9,12 +9,12 @@
 
 - (id)loadCachedObjectsForCacheWithName:(id)name
 {
-  v45[3] = *MEMORY[0x1E69E9840];
+  v44[3] = *MEMORY[0x1E69E9840];
   nameCopy = name;
   v5 = [(HMDiskCache *)self _cachePathForCacheName:nameCopy];
-  v38 = 0;
+  v37 = 0;
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
-  v7 = [defaultManager fileExistsAtPath:v5 isDirectory:&v38];
+  v7 = [defaultManager fileExistsAtPath:v5 isDirectory:&v37];
 
   if (!v7)
   {
@@ -25,9 +25,9 @@
     {
       v13 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v40 = v13;
-      v41 = 2112;
-      v42 = v5;
+      v39 = v13;
+      v40 = 2112;
+      v41 = v5;
       v14 = "%{public}@The disk cache location being loaded (%@) does not exist yet";
       v15 = v12;
       v16 = OS_LOG_TYPE_INFO;
@@ -41,7 +41,7 @@ LABEL_8:
     goto LABEL_24;
   }
 
-  v8 = v38;
+  v8 = v37;
   v9 = objc_autoreleasePoolPush();
   selfCopy2 = self;
   v11 = HMFGetOSLogHandle();
@@ -52,9 +52,9 @@ LABEL_8:
     {
       v13 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v40 = v13;
-      v41 = 2112;
-      v42 = v5;
+      v39 = v13;
+      v40 = 2112;
+      v41 = v5;
       v14 = "%{public}@The disk cache location being loaded (%@) is not a file";
       v15 = v12;
       v16 = OS_LOG_TYPE_ERROR;
@@ -71,24 +71,24 @@ LABEL_7:
   {
     v18 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v40 = v18;
-    v41 = 2112;
-    v42 = v5;
+    v39 = v18;
+    v40 = 2112;
+    v41 = v5;
     _os_log_impl(&dword_19BB39000, v12, OS_LOG_TYPE_INFO, "%{public}@The disk cache location exists at %@, loading from disk", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v9);
   v19 = [MEMORY[0x1E695DEF0] dataWithContentsOfFile:v5];
   v20 = MEMORY[0x1E695DFD8];
-  v45[0] = objc_opt_class();
-  v45[1] = objc_opt_class();
-  v45[2] = objc_opt_class();
-  v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:v45 count:3];
+  v44[0] = objc_opt_class();
+  v44[1] = objc_opt_class();
+  v44[2] = objc_opt_class();
+  v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:v44 count:3];
   v22 = [v20 setWithArray:v21];
 
-  v37 = 0;
-  v23 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClasses:v22 fromData:v19 error:&v37];
-  v24 = v37;
+  v36 = 0;
+  v23 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClasses:v22 fromData:v19 error:&v36];
+  v24 = v36;
   v25 = v24;
   if (!v23 || v24)
   {
@@ -99,11 +99,11 @@ LABEL_7:
     {
       v34 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v40 = v34;
-      v41 = 2112;
-      v42 = v5;
-      v43 = 2112;
-      v44 = v25;
+      v39 = v34;
+      v40 = 2112;
+      v41 = v5;
+      v42 = 2112;
+      v43 = v25;
       _os_log_impl(&dword_19BB39000, v33, OS_LOG_TYPE_ERROR, "%{public}@The disk cache location being loaded (%@) could not be unarchived: %@", buf, 0x20u);
     }
 
@@ -142,7 +142,6 @@ LABEL_7:
   }
 
 LABEL_24:
-  v35 = *MEMORY[0x1E69E9840];
 
   return v17;
 }
@@ -163,22 +162,22 @@ LABEL_24:
 
 - (BOOL)storeCachedObjects:(id)objects forCacheName:(id)name
 {
-  v59 = *MEMORY[0x1E69E9840];
+  v58 = *MEMORY[0x1E69E9840];
   objectsCopy = objects;
   nameCopy = name;
   v8 = [(HMDiskCache *)self _cachePathForCacheName:nameCopy];
-  v50 = 0;
+  v49 = 0;
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
   cachePath = [(HMDiskCache *)self cachePath];
-  v11 = [defaultManager fileExistsAtPath:cachePath isDirectory:&v50];
+  v11 = [defaultManager fileExistsAtPath:cachePath isDirectory:&v49];
 
   if (!v11)
   {
     defaultManager2 = [MEMORY[0x1E696AC08] defaultManager];
     cachePath2 = [(HMDiskCache *)self cachePath];
-    v49 = 0;
-    v20 = [defaultManager2 createDirectoryAtPath:cachePath2 withIntermediateDirectories:1 attributes:0 error:&v49];
-    v21 = v49;
+    v48 = 0;
+    v20 = [defaultManager2 createDirectoryAtPath:cachePath2 withIntermediateDirectories:1 attributes:0 error:&v48];
+    v21 = v48;
 
     if ((v20 & 1) == 0)
     {
@@ -191,11 +190,11 @@ LABEL_24:
         [(HMDiskCache *)selfCopy cachePath];
         v27 = v26 = v8;
         *buf = 138543874;
-        v52 = v25;
-        v53 = 2112;
-        v54 = v27;
-        v55 = 2112;
-        v56 = v21;
+        v51 = v25;
+        v52 = 2112;
+        v53 = v27;
+        v54 = 2112;
+        v55 = v21;
         _os_log_impl(&dword_19BB39000, v24, OS_LOG_TYPE_ERROR, "%{public}@Unable to make disk cache directory %@ (%@).", buf, 0x20u);
 
         v8 = v26;
@@ -205,9 +204,9 @@ LABEL_24:
     }
 
 LABEL_11:
-    v48 = 0;
-    v28 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:objectsCopy requiringSecureCoding:1 error:&v48];
-    v29 = v48;
+    v47 = 0;
+    v28 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:objectsCopy requiringSecureCoding:1 error:&v47];
+    v29 = v47;
     if (v29 || !v28)
     {
       v17 = objc_autoreleasePoolPush();
@@ -217,13 +216,13 @@ LABEL_11:
       {
         v43 = HMFGetLogIdentifier();
         *buf = 138544130;
-        v52 = v43;
-        v53 = 2112;
-        v54 = objectsCopy;
-        v55 = 2112;
-        v56 = v8;
-        v57 = 2112;
-        v58 = v29;
+        v51 = v43;
+        v52 = 2112;
+        v53 = objectsCopy;
+        v54 = 2112;
+        v55 = v8;
+        v56 = 2112;
+        v57 = v29;
         _os_log_impl(&dword_19BB39000, v42, OS_LOG_TYPE_ERROR, "%{public}@Failed to encode cache object (%@) for disk cache path: %@, error: %@", buf, 0x2Au);
       }
 
@@ -232,10 +231,10 @@ LABEL_11:
       goto LABEL_23;
     }
 
-    v47 = 0;
+    v46 = 0;
     v30 = v8;
-    LODWORD(v17) = [v28 writeToFile:v8 options:1 error:&v47];
-    v31 = v47;
+    LODWORD(v17) = [v28 writeToFile:v8 options:1 error:&v46];
+    v31 = v46;
     v32 = objc_autoreleasePoolPush();
     selfCopy3 = self;
     v34 = HMFGetOSLogHandle();
@@ -245,13 +244,13 @@ LABEL_11:
       if (os_log_type_enabled(v34, OS_LOG_TYPE_INFO))
       {
         HMFGetLogIdentifier();
-        v36 = v46 = v32;
+        v36 = v45 = v32;
         *buf = 138543874;
-        v52 = v36;
-        v53 = 2112;
-        v54 = objectsCopy;
-        v55 = 2112;
-        v56 = v30;
+        v51 = v36;
+        v52 = 2112;
+        v53 = objectsCopy;
+        v54 = 2112;
+        v55 = v30;
         v37 = "%{public}@Wrote cache object (%@) to disk cache at path: %@";
         v38 = v35;
         v39 = OS_LOG_TYPE_INFO;
@@ -259,22 +258,22 @@ LABEL_11:
 LABEL_21:
         _os_log_impl(&dword_19BB39000, v38, v39, v37, buf, v40);
 
-        v32 = v46;
+        v32 = v45;
       }
     }
 
     else if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
     {
       HMFGetLogIdentifier();
-      v36 = v46 = v32;
+      v36 = v45 = v32;
       *buf = 138544130;
-      v52 = v36;
-      v53 = 2112;
-      v54 = objectsCopy;
-      v55 = 2112;
-      v56 = v30;
-      v57 = 2112;
-      v58 = v31;
+      v51 = v36;
+      v52 = 2112;
+      v53 = objectsCopy;
+      v54 = 2112;
+      v55 = v30;
+      v56 = 2112;
+      v57 = v31;
       v37 = "%{public}@Failed to cache object (%@) for disk cache path: %@ with error %@";
       v38 = v35;
       v39 = OS_LOG_TYPE_ERROR;
@@ -289,7 +288,7 @@ LABEL_23:
     goto LABEL_24;
   }
 
-  if (v50)
+  if (v49)
   {
     goto LABEL_11;
   }
@@ -302,9 +301,9 @@ LABEL_23:
     v15 = HMFGetLogIdentifier();
     cachePath3 = [(HMDiskCache *)selfCopy4 cachePath];
     *buf = 138543618;
-    v52 = v15;
-    v53 = 2112;
-    v54 = cachePath3;
+    v51 = v15;
+    v52 = 2112;
+    v53 = cachePath3;
     _os_log_impl(&dword_19BB39000, v14, OS_LOG_TYPE_ERROR, "%{public}@The disk cache location %@ is not a directory", buf, 0x16u);
   }
 
@@ -312,7 +311,6 @@ LABEL_23:
   LOBYTE(v17) = 0;
 LABEL_24:
 
-  v44 = *MEMORY[0x1E69E9840];
   return v17;
 }
 

@@ -88,27 +88,27 @@
     {
       v10 = 0;
       v11 = *(MEMORY[0x1E695F060] + 8);
-      v68 = *MEMORY[0x1E695F060];
-      v65 = *MEMORY[0x1E69DDC08];
-      v64 = *MEMORY[0x1E69DDC00];
-      v69 = v5;
-      v66 = v11;
+      v74 = *MEMORY[0x1E695F060];
+      v70 = *MEMORY[0x1E69DDC08];
+      v69 = *MEMORY[0x1E69DDC00];
+      v75 = v5;
+      v72 = v11;
       do
       {
         [v5 collectionView:collectionView layout:self insetForSectionAtIndex:v10];
         v13 = v12;
         v15 = v14;
-        v67 = v16;
+        v73 = v16;
         v18 = v17;
         WeakRetained = objc_loadWeakRetained(&self->_dataSource);
         [WeakRetained lineSpacingForSection:v10];
-        v70 = v20;
+        v76 = v20;
 
         v21 = v13 + p_currentSize->height;
         p_currentSize->height = v21;
         [v5 collectionView:collectionView layout:self referenceSizeForHeaderInSection:v10];
         v24 = v23;
-        if (v23 == v68 && v22 == v11)
+        if (v23 == v74 && v22 == v11)
         {
           v26 = v11;
           v32 = v15;
@@ -124,7 +124,7 @@
 
           v27 = MEMORY[0x1E69DC858];
           v28 = [MEMORY[0x1E696AC88] indexPathForRow:0 inSection:v10];
-          v29 = [v27 layoutAttributesForSupplementaryViewOfKind:v65 withIndexPath:v28];
+          v29 = [v27 layoutAttributesForSupplementaryViewOfKind:v70 withIndexPath:v28];
 
           [v29 setSize:{v24, v26}];
           [v29 setFrame:{v15, v21, v24, v26}];
@@ -153,12 +153,13 @@
 
             else
             {
-              [v69 collectionView:v33 layout:self sizeForItemAtIndexPath:v37];
+              [v75 collectionView:v33 layout:self sizeForItemAtIndexPath:v37];
             }
 
-            v42 = v40;
-            v43 = v41;
-            if (v7 - v32 - v18 >= v40)
+            v42 = v40.n128_f64[0];
+            v43 = v41.n128_f64[0];
+            v40.n128_f64[0] = v7 - v32 - v18;
+            if (v40.n128_f64[0] >= v42)
             {
               if (v32 == v15)
               {
@@ -175,15 +176,17 @@
             {
               if (i | v10)
               {
-                v21 = v21 + v70 + v26;
+                v21 = v21 + v76 + v26;
               }
 
               else
               {
-                v21 = v21 + v70 + v26 + 2.0;
+                v21 = v21 + v76 + v26 + 2.0;
               }
 
-              PKFloatRoundToPixel();
+              v41.n128_u64[0] = 0.5;
+              v40.n128_f64[0] = v40.n128_f64[0] * 0.5;
+              PKFloatRoundToPixel(v40, v41);
               [(PKHorizontalScrollingChildLayout *)self _adjustItems:v9 withLateralMove:?];
               [v9 removeAllObjects];
               v44 = v15;
@@ -206,20 +209,22 @@
         }
 
         v46 = v7 - v15 - v18;
-        v5 = v69;
+        v5 = v75;
         collectionView = v33;
-        [v69 collectionView:v33 layout:self referenceSizeForFooterInSection:v10];
+        [v75 collectionView:v33 layout:self referenceSizeForFooterInSection:v10];
         v49 = v47;
         v50 = v48;
-        if (v47 == v68 && v48 == v66)
+        if (v47 == v74 && v48 == v72)
         {
           p_currentSize = &self->_currentSize;
         }
 
         else
         {
+          v71 = v46;
+          v51 = v46 - v32;
           p_currentSize = &self->_currentSize;
-          if (v46 - v32 >= v47)
+          if (v51 >= v47)
           {
             if (v32 == v15)
             {
@@ -230,76 +235,84 @@
             {
               v15 = v32 + 8.0;
             }
+
+            v46 = v71;
           }
 
           else
           {
-            v51 = objc_loadWeakRetained(&self->_dataSource);
-            v52 = [v51 horizontalAlignmentForSection:v10];
+            v52 = objc_loadWeakRetained(&self->_dataSource);
+            v53 = [v52 horizontalAlignmentForSection:v10];
 
-            if ((v52 | 2) == 3)
+            if ((v53 | 2) == 3)
             {
-              PKFloatRoundToPixel();
+              v54.n128_f64[0] = v51 * 0.5;
+              PKFloatRoundToPixel(v54, v55);
             }
 
             else
             {
-              v53 = 0.0;
+              v56 = 0.0;
             }
 
-            v21 = v70 + v43 + v21;
-            [(PKHorizontalScrollingChildLayout *)self _adjustItems:v9 withLateralMove:v53];
+            v46 = v71;
+            v21 = v76 + v43 + v21;
+            [(PKHorizontalScrollingChildLayout *)self _adjustItems:v9 withLateralMove:v56];
             [v9 removeAllObjects];
           }
 
-          v54 = MEMORY[0x1E69DC858];
-          v55 = [MEMORY[0x1E696AC88] indexPathForRow:0 inSection:v10];
-          v56 = [v54 layoutAttributesForSupplementaryViewOfKind:v64 withIndexPath:v55];
-
-          [v56 setSize:{v49, v50}];
-          [v56 setFrame:{v15, v21, v49, v50}];
-          footersPerIndexPath = self->_footersPerIndexPath;
+          v57 = MEMORY[0x1E69DC858];
           v58 = [MEMORY[0x1E696AC88] indexPathForRow:0 inSection:v10];
-          [(NSMutableDictionary *)footersPerIndexPath setObject:v56 forKey:v58];
+          v59 = [v57 layoutAttributesForSupplementaryViewOfKind:v69 withIndexPath:v58];
 
-          [v9 addObject:v56];
+          [v59 setSize:{v49, v50}];
+          [v59 setFrame:{v15, v21, v49, v50}];
+          footersPerIndexPath = self->_footersPerIndexPath;
+          v61 = [MEMORY[0x1E696AC88] indexPathForRow:0 inSection:v10];
+          [(NSMutableDictionary *)footersPerIndexPath setObject:v59 forKey:v61];
+
+          [v9 addObject:v59];
+          v32 = v49 + v15;
+
           v43 = v50;
         }
 
         if ([v9 count])
         {
-          v59 = objc_loadWeakRetained(&self->_dataSource);
-          v60 = [v59 horizontalAlignmentForSection:v10];
+          v62 = objc_loadWeakRetained(&self->_dataSource);
+          v63 = [v62 horizontalAlignmentForSection:v10];
 
-          if ((v60 | 2) == 3)
+          if ((v63 | 2) == 3)
           {
-            PKFloatRoundToPixel();
-            v62 = v61;
+            v65.n128_u64[0] = 0.5;
+            v64.n128_f64[0] = (v46 - v32) * 0.5;
+            PKFloatRoundToPixel(v64, v65);
+            v67 = v66;
           }
 
           else
           {
-            v62 = 0.0;
+            v67 = 0.0;
           }
 
-          v63 = [v9 copy];
-          [(PKHorizontalScrollingChildLayout *)self _adjustItems:v63 withLateralMove:v62];
+          v68 = [v9 copy];
+          [(PKHorizontalScrollingChildLayout *)self _adjustItems:v68 withLateralMove:v67];
 
           [v9 removeAllObjects];
         }
 
-        p_currentSize->height = v67 + v43 + v21;
+        p_currentSize->height = v73 + v43 + v21;
         ++v10;
-        v11 = v66;
+        v11 = v72;
       }
 
       while (v10 < [collectionView numberOfSections]);
     }
 
     p_currentSize->height = p_currentSize->height + 16.0;
-    v71.receiver = self;
-    v71.super_class = PKHorizontalScrollingChildLayout;
-    [(PKHorizontalScrollingChildLayout *)&v71 prepareLayout];
+    v77.receiver = self;
+    v77.super_class = PKHorizontalScrollingChildLayout;
+    [(PKHorizontalScrollingChildLayout *)&v77 prepareLayout];
   }
 }
 

@@ -159,7 +159,7 @@ BOOL __61__SBEntityRemovalToHomeSwitcherModifier_transitionWillUpdate__block_inv
   return v4;
 }
 
-uint64_t __56__SBEntityRemovalToHomeSwitcherModifier_homeScreenScale__block_invoke(uint64_t a1)
+void *__56__SBEntityRemovalToHomeSwitcherModifier_homeScreenScale__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 168) homeScreenScale];
   *(*(*(a1 + 40) + 8) + 24) = v3;
@@ -198,7 +198,7 @@ uint64_t __56__SBEntityRemovalToHomeSwitcherModifier_homeScreenScale__block_invo
   return v4;
 }
 
-uint64_t __55__SBEntityRemovalToHomeSwitcherModifier_wallpaperScale__block_invoke(uint64_t a1)
+void *__55__SBEntityRemovalToHomeSwitcherModifier_wallpaperScale__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 168) wallpaperScale];
   *(*(*(a1 + 40) + 8) + 24) = v3;
@@ -250,7 +250,7 @@ uint64_t __55__SBEntityRemovalToHomeSwitcherModifier_wallpaperScale__block_invok
   return v4;
 }
 
-uint64_t __71__SBEntityRemovalToHomeSwitcherModifier_homeScreenBackdropBlurProgress__block_invoke(uint64_t a1)
+void *__71__SBEntityRemovalToHomeSwitcherModifier_homeScreenBackdropBlurProgress__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 168) homeScreenBackdropBlurProgress];
   *(*(*(a1 + 40) + 8) + 24) = v3;
@@ -289,7 +289,7 @@ uint64_t __71__SBEntityRemovalToHomeSwitcherModifier_homeScreenBackdropBlurProgr
   return v4;
 }
 
-uint64_t __56__SBEntityRemovalToHomeSwitcherModifier_homeScreenAlpha__block_invoke(uint64_t a1)
+void *__56__SBEntityRemovalToHomeSwitcherModifier_homeScreenAlpha__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 168) homeScreenAlpha];
   *(*(*(a1 + 40) + 8) + 24) = v3;
@@ -328,7 +328,7 @@ uint64_t __56__SBEntityRemovalToHomeSwitcherModifier_homeScreenAlpha__block_invo
   return v4;
 }
 
-uint64_t __63__SBEntityRemovalToHomeSwitcherModifier_homeScreenDimmingAlpha__block_invoke(uint64_t a1)
+void *__63__SBEntityRemovalToHomeSwitcherModifier_homeScreenDimmingAlpha__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 168) homeScreenDimmingAlpha];
   *(*(*(a1 + 40) + 8) + 24) = v3;

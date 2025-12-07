@@ -65,75 +65,71 @@
 
 - (id)newFieldTree
 {
-  v31 = *MEMORY[0x277D85DE8];
-  if (objc_msgSend_count(self->_preserveFields, a2, v2) || objc_msgSend_count(self->_preserveUntilModifiedFields, v4, v5))
+  v30 = *MEMORY[0x277D85DE8];
+  if (!objc_msgSend_count(self->_preserveFields, a2, v2) && !objc_msgSend_count(self->_preserveUntilModifiedFields, v4, v5))
   {
-    v6 = objc_alloc_init(TSPFieldTree);
-    v25 = 0u;
-    v26 = 0u;
-    v27 = 0u;
-    v28 = 0u;
-    v7 = self->_preserveFields;
-    v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(v7, v8, &v25, v30, 16);
-    if (v10)
-    {
-      v11 = *v26;
-      do
-      {
-        v12 = 0;
-        do
-        {
-          if (*v26 != v11)
-          {
-            objc_enumerationMutation(v7);
-          }
-
-          objc_msgSend_addField_(v6, v9, *(*(&v25 + 1) + 8 * v12++));
-        }
-
-        while (v10 != v12);
-        v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(v7, v9, &v25, v30, 16);
-      }
-
-      while (v10);
-    }
-
-    v23 = 0u;
-    v24 = 0u;
-    v21 = 0u;
-    v22 = 0u;
-    v13 = self->_preserveUntilModifiedFields;
-    v16 = objc_msgSend_countByEnumeratingWithState_objects_count_(v13, v14, &v21, v29, 16);
-    if (v16)
-    {
-      v17 = *v22;
-      do
-      {
-        v18 = 0;
-        do
-        {
-          if (*v22 != v17)
-          {
-            objc_enumerationMutation(v13);
-          }
-
-          objc_msgSend_addField_(v6, v15, *(*(&v21 + 1) + 8 * v18++), v21);
-        }
-
-        while (v16 != v18);
-        v16 = objc_msgSend_countByEnumeratingWithState_objects_count_(v13, v15, &v21, v29, 16);
-      }
-
-      while (v16);
-    }
+    return 0;
   }
 
-  else
+  v6 = objc_alloc_init(TSPFieldTree);
+  v24 = 0u;
+  v25 = 0u;
+  v26 = 0u;
+  v27 = 0u;
+  v7 = self->_preserveFields;
+  v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(v7, v8, &v24, v29, 16);
+  if (v10)
   {
-    v6 = 0;
+    v11 = *v25;
+    do
+    {
+      v12 = 0;
+      do
+      {
+        if (*v25 != v11)
+        {
+          objc_enumerationMutation(v7);
+        }
+
+        objc_msgSend_addField_(v6, v9, *(*(&v24 + 1) + 8 * v12++));
+      }
+
+      while (v10 != v12);
+      v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(v7, v9, &v24, v29, 16);
+    }
+
+    while (v10);
   }
 
-  v19 = *MEMORY[0x277D85DE8];
+  v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
+  v13 = self->_preserveUntilModifiedFields;
+  v16 = objc_msgSend_countByEnumeratingWithState_objects_count_(v13, v14, &v20, v28, 16);
+  if (v16)
+  {
+    v17 = *v21;
+    do
+    {
+      v18 = 0;
+      do
+      {
+        if (*v21 != v17)
+        {
+          objc_enumerationMutation(v13);
+        }
+
+        objc_msgSend_addField_(v6, v15, *(*(&v20 + 1) + 8 * v18++), v20);
+      }
+
+      while (v16 != v18);
+      v16 = objc_msgSend_countByEnumeratingWithState_objects_count_(v13, v15, &v20, v28, 16);
+    }
+
+    while (v16);
+  }
+
   return v6;
 }
 
@@ -146,102 +142,100 @@
 
 - (void)updateMessageInfo:(void *)info
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   v5 = self->_preserveFields;
-  v8 = objc_msgSend_countByEnumeratingWithState_objects_count_(v5, v6, &v22, v27, 16);
+  v8 = objc_msgSend_countByEnumeratingWithState_objects_count_(v5, v6, &v21, v26, 16);
   if (v8)
   {
-    v9 = *v23;
+    v9 = *v22;
     do
     {
       v10 = 0;
       do
       {
-        if (*v23 != v9)
+        if (*v22 != v9)
         {
           objc_enumerationMutation(v5);
         }
 
-        objc_msgSend_updateMessageInfo_(*(*(&v22 + 1) + 8 * v10++), v7, info);
+        objc_msgSend_updateMessageInfo_(*(*(&v21 + 1) + 8 * v10++), v7, info);
       }
 
       while (v8 != v10);
-      v8 = objc_msgSend_countByEnumeratingWithState_objects_count_(v5, v7, &v22, v27, 16);
+      v8 = objc_msgSend_countByEnumeratingWithState_objects_count_(v5, v7, &v21, v26, 16);
     }
 
     while (v8);
   }
 
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   v11 = self->_preserveUntilModifiedFields;
-  v14 = objc_msgSend_countByEnumeratingWithState_objects_count_(v11, v12, &v18, v26, 16);
+  v14 = objc_msgSend_countByEnumeratingWithState_objects_count_(v11, v12, &v17, v25, 16);
   if (v14)
   {
-    v15 = *v19;
+    v15 = *v18;
     do
     {
       v16 = 0;
       do
       {
-        if (*v19 != v15)
+        if (*v18 != v15)
         {
           objc_enumerationMutation(v11);
         }
 
-        objc_msgSend_updateMessageInfo_(*(*(&v18 + 1) + 8 * v16++), v13, info, v18);
+        objc_msgSend_updateMessageInfo_(*(*(&v17 + 1) + 8 * v16++), v13, info, v17);
       }
 
       while (v14 != v16);
-      v14 = objc_msgSend_countByEnumeratingWithState_objects_count_(v11, v13, &v18, v26, 16);
+      v14 = objc_msgSend_countByEnumeratingWithState_objects_count_(v11, v13, &v17, v25, 16);
     }
 
     while (v14);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)enumerateKnownFieldRulesUsingBlock:(id)block
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   blockCopy = block;
   if (!blockCopy)
   {
     goto LABEL_33;
   }
 
-  v39 = 0u;
-  v40 = 0u;
-  v37 = 0u;
   v38 = 0u;
+  v39 = 0u;
+  v36 = 0u;
+  v37 = 0u;
   selfCopy = self;
   obj = self->_messages;
-  v8 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v5, &v37, v41, 16);
+  v8 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v5, &v36, v40, 16);
   if (!v8)
   {
     goto LABEL_32;
   }
 
-  v9 = *v38;
-  v29 = *v38;
+  v9 = *v37;
+  v28 = *v37;
 LABEL_4:
   v10 = 0;
-  v30 = v8;
+  v29 = v8;
   while (1)
   {
-    if (*v38 != v9)
+    if (*v37 != v9)
     {
       objc_enumerationMutation(obj);
     }
 
-    v11 = objc_msgSend_messageInfo(*(*(&v37 + 1) + 8 * v10), v6, v7, v29);
+    v11 = objc_msgSend_messageInfo(*(*(&v36 + 1) + 8 * v10), v6, v7, v28);
     v12 = v11;
     if (!*(v11 + 200))
     {
@@ -255,7 +249,7 @@ LABEL_4:
 LABEL_30:
     if (++v10 == v8)
     {
-      v8 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v6, &v37, v41, 16);
+      v8 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v6, &v36, v40, 16);
       if (!v8)
       {
         goto LABEL_32;
@@ -265,9 +259,9 @@ LABEL_30:
     }
   }
 
-  v36 = 0;
+  v35 = 0;
   v14 = UnsafePointer(v11 + 168, v6);
-  if (v36 == 1)
+  if (v35 == 1)
   {
     goto LABEL_32;
   }
@@ -319,12 +313,12 @@ LABEL_30:
       }
 
       v26 = v22;
-      v33 = v20;
-      v34 = v21;
-      v35 = v26;
-      blockCopy[2](blockCopy, v25, &v33, v15, &v36);
+      v32 = v20;
+      v33 = v21;
+      v34 = v26;
+      blockCopy[2](blockCopy, v25, &v32, v15, &v35);
 
-      v16 = v36;
+      v16 = v35;
     }
 
 LABEL_26:
@@ -335,8 +329,8 @@ LABEL_26:
   }
 
   while (v17++ < v13);
-  v9 = v29;
-  v8 = v30;
+  v9 = v28;
+  v8 = v29;
   if ((v16 & 1) == 0)
   {
     goto LABEL_30;
@@ -345,7 +339,6 @@ LABEL_26:
 LABEL_32:
 
 LABEL_33:
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 @end

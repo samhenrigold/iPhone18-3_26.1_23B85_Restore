@@ -68,8 +68,7 @@ void __37__CRCarKitServiceClient_serviceQueue__block_invoke()
   [v3 setClasses:v15 forSelector:sel_saveViewAreas_forVehicleIdentifier_reply_ argumentIndex:0 ofReply:0];
 
   v16 = [objc_alloc(MEMORY[0x1E696B0B8]) initWithMachServiceName:@"com.apple.carkit.service" options:4096];
-  [v16 setRemoteObjectInterface:v3];
-  v17 = CarGeneralLogging();
+  v17 = CarGeneralLogging([v16 setRemoteObjectInterface:v3]);
   if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -112,21 +111,21 @@ void __37__CRCarKitServiceClient_serviceQueue__block_invoke()
   blockCopy = block;
   handlerCopy = handler;
   connection = [(CRCarKitServiceClient *)self connection];
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 3221225472;
-  v13[2] = __64__CRCarKitServiceClient__serviceQueuePerformBlock_errorHandler___block_invoke;
-  v13[3] = &unk_1E82FBF48;
-  v14 = handlerCopy;
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = __64__CRCarKitServiceClient__serviceQueuePerformBlock_errorHandler___block_invoke;
+  v14[3] = &unk_1E82FBF48;
+  v15 = handlerCopy;
   v9 = handlerCopy;
-  v10 = [connection synchronousRemoteObjectProxyWithErrorHandler:v13];
+  v10 = [connection synchronousRemoteObjectProxyWithErrorHandler:v14];
 
   if (blockCopy)
   {
-    v11 = CarGeneralLogging();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v12 = CarGeneralLogging(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      *v12 = 0;
-      _os_log_impl(&dword_1C81FC000, v11, OS_LOG_TYPE_DEFAULT, "Connecting to CarKit service.", v12, 2u);
+      *v13 = 0;
+      _os_log_impl(&dword_1C81FC000, v12, OS_LOG_TYPE_DEFAULT, "Connecting to CarKit service.", v13, 2u);
     }
 
     blockCopy[2](blockCopy, v10);
@@ -136,7 +135,7 @@ void __37__CRCarKitServiceClient_serviceQueue__block_invoke()
 void __64__CRCarKitServiceClient__serviceQueuePerformBlock_errorHandler___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = CarGeneralLogging();
+  v4 = CarGeneralLogging(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __64__CRCarKitServiceClient__serviceQueuePerformBlock_errorHandler___block_invoke_cold_1(v3, v4);

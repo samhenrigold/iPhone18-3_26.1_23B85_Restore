@@ -23,9 +23,9 @@
 {
   sessionCopy = session;
   sourceCopy = source;
-  v17.receiver = self;
-  v17.super_class = CATSharingDeviceSessionConnection;
-  v9 = [(CATSharingDeviceSessionConnection *)&v17 init];
+  v18.receiver = self;
+  v18.super_class = CATSharingDeviceSessionConnection;
+  v9 = [(CATSharingDeviceSessionConnection *)&v18 init];
   v10 = v9;
   if (v9)
   {
@@ -40,8 +40,8 @@
     mCatalystQueue = v10->mCatalystQueue;
     v10->mCatalystQueue = v13;
 
-    v15 = CATGetCatalystQueue();
-    [(CATOperationQueue *)v10->mCatalystQueue setUnderlyingQueue:v15];
+    v16 = CATGetCatalystQueue(v15);
+    [(CATOperationQueue *)v10->mCatalystQueue setUnderlyingQueue:v16];
   }
 
   return v10;
@@ -62,7 +62,7 @@
   v9 = completionCopy;
   v14 = v9;
   v10 = v12;
-  v11 = CATGetCatalystQueue();
+  v11 = CATGetCatalystQueue(v10);
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __CATPerformBlock_block_invoke_3;
@@ -89,7 +89,7 @@ void __57__CATSharingDeviceSessionConnection_sendData_completion___block_invoke(
   v4[3] = &unk_278DA7120;
   objc_copyWeak(&v5, &location);
   v2 = v4;
-  v3 = CATGetCatalystQueue();
+  v3 = CATGetCatalystQueue(v2);
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __CATPerformBlock_block_invoke_3;
@@ -111,7 +111,7 @@ void __42__CATSharingDeviceSessionConnection_close__block_invoke(uint64_t a1)
 {
   dataCopy = data;
   completionCopy = completion;
-  v7 = CATGetCatalystQueue();
+  v7 = CATGetCatalystQueue(completionCopy);
   CATAssertIsQueue(v7);
 
   if (self->mIsClosing || [(CATSharingDeviceSessionConnection *)self isClosed])
@@ -130,7 +130,7 @@ void __42__CATSharingDeviceSessionConnection_close__block_invoke(uint64_t a1)
 
 - (void)_close
 {
-  v3 = CATGetCatalystQueue();
+  v3 = CATGetCatalystQueue(self);
   CATAssertIsQueue(v3);
 
   if (![(CATSharingDeviceSessionConnection *)self isClosed]&& !self->mIsClosing)
@@ -144,60 +144,61 @@ void __42__CATSharingDeviceSessionConnection_close__block_invoke(uint64_t a1)
 {
   messageCopy = message;
   completionCopy = completion;
-  v8 = CATGetCatalystQueue();
+  v8 = CATGetCatalystQueue(completionCopy);
   CATAssertIsQueue(v8);
 
   if ([(CATSharingDeviceSessionConnection *)self isClosed])
   {
     v9 = 100;
 LABEL_8:
-    v16 = CATErrorWithCodeAndUserInfo(v9, 0);
-    completionCopy[2](completionCopy, v16);
+    v17 = CATErrorWithCodeAndUserInfo(v9, 0);
+    completionCopy[2](completionCopy, v17);
 
     goto LABEL_9;
   }
 
   p_mDeviceSession = &self->mDeviceSession;
-  if (([(CATSharingDeviceSession *)self->mDeviceSession isReady]& 1) == 0)
+  isReady = [(CATSharingDeviceSession *)self->mDeviceSession isReady];
+  if ((isReady & 1) == 0)
   {
-    v15 = _CATLogGeneral_1();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v16 = _CATLogGeneral_1(isReady);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      [CATSharingDeviceSessionConnection sendMessage:v15 completion:?];
+      [CATSharingDeviceSessionConnection sendMessage:v16 completion:?];
     }
 
     v9 = 504;
     goto LABEL_8;
   }
 
-  v11 = [[CATSendDeviceSessionMessageOperation alloc] initWithDeviceSession:self->mDeviceSession message:messageCopy];
-  v12 = MEMORY[0x277CCA8C8];
-  v17 = MEMORY[0x277D85DD0];
-  v18 = 3221225472;
-  v19 = __60__CATSharingDeviceSessionConnection_sendMessage_completion___block_invoke;
-  v20 = &unk_278DA7558;
-  v21 = v11;
-  v22 = completionCopy;
-  v13 = v11;
-  v14 = [v12 blockOperationWithBlock:&v17];
-  [v14 addDependency:{v13, v17, v18, v19, v20}];
-  [(CATOperationQueue *)self->mOutgoingQueue addOperation:v13];
-  [(CATOperationQueue *)self->mCatalystQueue addOperation:v14];
+  v12 = [[CATSendDeviceSessionMessageOperation alloc] initWithDeviceSession:self->mDeviceSession message:messageCopy];
+  v13 = MEMORY[0x277CCA8C8];
+  v18 = MEMORY[0x277D85DD0];
+  v19 = 3221225472;
+  v20 = __60__CATSharingDeviceSessionConnection_sendMessage_completion___block_invoke;
+  v21 = &unk_278DA7558;
+  v22 = v12;
+  v23 = completionCopy;
+  v14 = v12;
+  v15 = [v13 blockOperationWithBlock:&v18];
+  [v15 addDependency:{v14, v18, v19, v20, v21}];
+  [(CATOperationQueue *)self->mOutgoingQueue addOperation:v14];
+  [(CATOperationQueue *)self->mCatalystQueue addOperation:v15];
 
 LABEL_9:
 }
 
 void __60__CATSharingDeviceSessionConnection_sendMessage_completion___block_invoke(uint64_t a1)
 {
-  v2 = CATGetCatalystQueue();
+  v2 = CATGetCatalystQueue(a1);
   CATAssertIsQueue(v2);
 
   v3 = [*(a1 + 32) error];
-  (*(*(a1 + 40) + 16))();
+  v4 = (*(*(a1 + 40) + 16))();
   if (v3)
   {
-    v4 = _CATLogGeneral_1();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = _CATLogGeneral_1(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       __60__CATSharingDeviceSessionConnection_sendMessage_completion___block_invoke_cold_1(v3);
     }
@@ -207,7 +208,7 @@ void __60__CATSharingDeviceSessionConnection_sendMessage_completion___block_invo
 - (void)closeWithError:(id)error reportToRemote:(BOOL)remote
 {
   errorCopy = error;
-  v6 = CATGetCatalystQueue();
+  v6 = CATGetCatalystQueue(errorCopy);
   CATAssertIsQueue(v6);
 
   if (![(CATSharingDeviceSessionConnection *)self isClosed]&& !self->mIsClosing)
@@ -228,7 +229,7 @@ void __60__CATSharingDeviceSessionConnection_sendMessage_completion___block_invo
 - (void)tombstoneWithError:(id)error
 {
   errorCopy = error;
-  v4 = CATGetCatalystQueue();
+  v4 = CATGetCatalystQueue(errorCopy);
   CATAssertIsQueue(v4);
 
   if (![(CATSharingDeviceSessionConnection *)self isClosed])
@@ -305,7 +306,7 @@ void __61__CATSharingDeviceSessionConnection_addDeviceSessionHandlers__block_inv
 
 - (void)removeDeviceSessionHandlers
 {
-  v3 = CATGetCatalystQueue();
+  v3 = CATGetCatalystQueue(self);
   CATAssertIsQueue(v3);
 
   [(CATSharingDeviceSession *)self->mDeviceSession setDeviceSessionInvalidatedHandler:0];
@@ -317,7 +318,7 @@ void __61__CATSharingDeviceSessionConnection_addDeviceSessionHandlers__block_inv
 - (void)didReceiveMessage:(id)message
 {
   messageCopy = message;
-  v5 = CATGetCatalystQueue();
+  v5 = CATGetCatalystQueue(messageCopy);
   CATAssertIsQueue(v5);
 
   v6 = [CATSharingMessage instanceWithDictionary:messageCopy];
@@ -326,6 +327,7 @@ void __61__CATSharingDeviceSessionConnection_addDeviceSessionHandlers__block_inv
   {
     messageType = [v6 messageType];
     contentDictionaryValue = [v7 contentDictionaryValue];
+    v10 = contentDictionaryValue;
     if (messageType == 1)
     {
       [(CATSharingDeviceSessionConnection *)self handleSentMessage:contentDictionaryValue];
@@ -338,13 +340,13 @@ void __61__CATSharingDeviceSessionConnection_addDeviceSessionHandlers__block_inv
 
     else
     {
-      v10 = _CATLogGeneral_1();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v11 = _CATLogGeneral_1(contentDictionaryValue);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         [CATSharingDeviceSessionConnection didReceiveMessage:messageType];
       }
 
-      [(CATSharingDeviceSessionConnection *)self handleUnparsableMessageDictionary:contentDictionaryValue];
+      [(CATSharingDeviceSessionConnection *)self handleUnparsableMessageDictionary:v10];
     }
   }
 
@@ -357,26 +359,27 @@ void __61__CATSharingDeviceSessionConnection_addDeviceSessionHandlers__block_inv
 - (void)handleUnparsableMessageDictionary:(id)dictionary
 {
   dictionaryCopy = dictionary;
-  v5 = CATGetCatalystQueue();
+  v5 = CATGetCatalystQueue(dictionaryCopy);
   CATAssertIsQueue(v5);
 
-  if (![(CATSharingDeviceSessionConnection *)self isClosed])
+  isClosed = [(CATSharingDeviceSessionConnection *)self isClosed];
+  if ((isClosed & 1) == 0)
   {
-    v6 = _CATLogGeneral_1();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = _CATLogGeneral_1(isClosed);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      [(CATSharingDeviceSessionConnection *)dictionaryCopy handleUnparsableMessageDictionary:v6];
+      [(CATSharingDeviceSessionConnection *)dictionaryCopy handleUnparsableMessageDictionary:v7];
     }
 
-    v7 = CATErrorWithCodeAndUserInfo(300, 0);
-    [(CATSharingDeviceSessionConnection *)self closeWithError:v7 reportToRemote:!self->mIsClosing];
+    v8 = CATErrorWithCodeAndUserInfo(300, 0);
+    [(CATSharingDeviceSessionConnection *)self closeWithError:v8 reportToRemote:!self->mIsClosing];
   }
 }
 
 - (void)handleCloseMessage:(id)message
 {
   messageCopy = message;
-  v4 = CATGetCatalystQueue();
+  v4 = CATGetCatalystQueue(messageCopy);
   CATAssertIsQueue(v4);
 
   v5 = [CATSharingCloseMessage instanceWithDictionary:messageCopy];
@@ -399,7 +402,7 @@ void __61__CATSharingDeviceSessionConnection_addDeviceSessionHandlers__block_inv
 - (void)handleSentMessage:(id)message
 {
   messageCopy = message;
-  v4 = CATGetCatalystQueue();
+  v4 = CATGetCatalystQueue(messageCopy);
   CATAssertIsQueue(v4);
 
   v5 = [CATSharingSentMessage instanceWithDictionary:messageCopy];
@@ -443,7 +446,7 @@ void __61__CATSharingDeviceSessionConnection_addDeviceSessionHandlers__block_inv
   mTimerSource = self->mTimerSource;
   v11 = objc_opt_class();
   v12 = NSStringFromClass(v11);
-  v13 = CATGetCatalystQueue();
+  v13 = CATGetCatalystQueue(v12);
   v17[0] = MEMORY[0x277D85DD0];
   v17[1] = 3221225472;
   v17[2] = __66__CATSharingDeviceSessionConnection_sendTearDownMessageWithError___block_invoke_9;
@@ -462,12 +465,13 @@ void __61__CATSharingDeviceSessionConnection_addDeviceSessionHandlers__block_inv
 void __66__CATSharingDeviceSessionConnection_sendTearDownMessageWithError___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
+  v4 = v3;
   if (v3)
   {
-    v4 = _CATLogGeneral_1();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = _CATLogGeneral_1(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      __66__CATSharingDeviceSessionConnection_sendTearDownMessageWithError___block_invoke_cold_1(a1, v3);
+      __66__CATSharingDeviceSessionConnection_sendTearDownMessageWithError___block_invoke_cold_1(a1, v4);
     }
   }
 }
@@ -500,54 +504,42 @@ uint64_t __66__CATSharingDeviceSessionConnection_sendTearDownMessageWithError___
 
 - (void)sendMessage:(uint64_t *)a1 completion:(NSObject *)a2 .cold.1(uint64_t *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v2 = *a1;
-  v4 = 138543362;
-  v5 = v2;
-  _os_log_error_impl(&dword_24329F000, a2, OS_LOG_TYPE_ERROR, "deviceSession: %{public}@ is not ready, refusing to send it messages.", &v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  v3 = 138543362;
+  v4 = v2;
+  _os_log_error_impl(&dword_24329F000, a2, OS_LOG_TYPE_ERROR, "deviceSession: %{public}@ is not ready, refusing to send it messages.", &v3, 0xCu);
 }
 
 void __60__CATSharingDeviceSessionConnection_sendMessage_completion___block_invoke_cold_1(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v7 = [a1 verboseDescription];
+  v6 = [a1 verboseDescription];
   OUTLINED_FUNCTION_0_0();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didReceiveMessage:(uint64_t)a1 .cold.1(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v7 = [MEMORY[0x277CCABB0] numberWithInteger:a1];
+  v6 = [MEMORY[0x277CCABB0] numberWithInteger:a1];
   OUTLINED_FUNCTION_0_0();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleUnparsableMessageDictionary:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_24329F000, a2, OS_LOG_TYPE_ERROR, "Message was unable to be parsed as %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_24329F000, a2, OS_LOG_TYPE_ERROR, "Message was unable to be parsed as %{public}@", &v2, 0xCu);
 }
 
 void __66__CATSharingDeviceSessionConnection_sendTearDownMessageWithError___block_invoke_cold_1(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
-  v3 = *(a1 + 32);
-  v4 = objc_opt_class();
-  v5 = NSStringFromClass(v4);
-  v12 = [a2 verboseDescription];
+  v3 = objc_opt_class();
+  v4 = NSStringFromClass(v3);
+  v10 = [a2 verboseDescription];
   OUTLINED_FUNCTION_0_0();
-  _os_log_error_impl(v6, v7, v8, v9, v10, 0x16u);
-
-  v11 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v5, v6, v7, v8, v9, 0x16u);
 }
 
 @end

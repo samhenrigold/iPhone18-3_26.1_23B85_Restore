@@ -52,38 +52,41 @@
 
 - (void)_ui_launchApplicationWithBundleIdentifier:(id)identifier
 {
-  if (gc_isInternalBuild())
+  isInternalBuild = gc_isInternalBuild(self, a2);
+  if (isInternalBuild)
   {
-    [GCGameIntentManager _ui_launchApplicationWithBundleIdentifier:];
+    [GCGameIntentManager _ui_launchApplicationWithBundleIdentifier:?];
   }
 }
 
 - (void)ui_togglePlatformGamesLibrary
 {
-  if (gc_isInternalBuild())
+  isInternalBuild = gc_isInternalBuild(self, a2);
+  if (isInternalBuild)
   {
-    [GCGameIntentManager _ui_launchApplicationWithBundleIdentifier:];
+    [GCGameIntentManager _ui_launchApplicationWithBundleIdentifier:?];
   }
 }
 
 - (void)toggleGamesFolder
 {
-  v1 = getGCLogger();
-  if (OUTLINED_FUNCTION_4_5(v1))
+  v2 = getGCLogger(self);
+  if (OUTLINED_FUNCTION_4_5(v2))
   {
     OUTLINED_FUNCTION_10();
-    _os_log_impl(v2, v3, v4, v5, v6, 2u);
+    _os_log_impl(v3, v4, v5, v6, v7, 2u);
   }
 }
 
 void __40__GCGameIntentManager_toggleGamesFolder__block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  if ([v3 code] == 7)
+  v4 = [v3 code];
+  if (v4 == 7)
   {
-    if (gc_isInternalBuild())
+    if (gc_isInternalBuild(7, v5))
     {
-      __40__GCGameIntentManager_toggleGamesFolder__block_invoke_cold_3();
+      __40__GCGameIntentManager_toggleGamesFolder__block_invoke_cold_3(v3);
     }
 
     [*(a1 + 32) tryPresentAppLibraryPod];
@@ -91,18 +94,18 @@ void __40__GCGameIntentManager_toggleGamesFolder__block_invoke(uint64_t a1, void
 
   else
   {
-    isInternalBuild = gc_isInternalBuild();
+    isInternalBuild = gc_isInternalBuild(v4, v5);
     if (v3)
     {
       if (isInternalBuild)
       {
-        __40__GCGameIntentManager_toggleGamesFolder__block_invoke_cold_1();
+        __40__GCGameIntentManager_toggleGamesFolder__block_invoke_cold_1(v3);
       }
     }
 
     else if (isInternalBuild)
     {
-      __40__GCGameIntentManager_toggleGamesFolder__block_invoke_cold_2();
+      __40__GCGameIntentManager_toggleGamesFolder__block_invoke_cold_2(isInternalBuild);
     }
   }
 }
@@ -117,18 +120,20 @@ void __40__GCGameIntentManager_toggleGamesFolder__block_invoke(uint64_t a1, void
 void __46__GCGameIntentManager_tryPresentAppLibraryPod__block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
+  v4 = v2;
   if (v2)
   {
-    if (gc_isInternalBuild())
+    if (gc_isInternalBuild(v2, v3))
     {
-      __46__GCGameIntentManager_tryPresentAppLibraryPod__block_invoke_cold_1();
+      __46__GCGameIntentManager_tryPresentAppLibraryPod__block_invoke_cold_1(v4);
     }
 
-    if ([v2 code] == 2)
+    if ([v4 code] == 2)
     {
-      if (gc_isInternalBuild())
+      isInternalBuild = gc_isInternalBuild(2, v5);
+      if (isInternalBuild)
       {
-        __46__GCGameIntentManager_tryPresentAppLibraryPod__block_invoke_cold_4();
+        __46__GCGameIntentManager_tryPresentAppLibraryPod__block_invoke_cold_4(isInternalBuild);
       }
 
       SBSSuspendFrontmostApplication();
@@ -136,117 +141,105 @@ void __46__GCGameIntentManager_tryPresentAppLibraryPod__block_invoke(uint64_t a1
 
     else
     {
-      v3 = [v2 code];
-      isInternalBuild = gc_isInternalBuild();
-      if (v3 == 9)
+      v7 = [v4 code];
+      v9 = gc_isInternalBuild(v7, v8);
+      if (v7 == 9)
       {
-        if (isInternalBuild)
+        if (v9)
         {
-          __46__GCGameIntentManager_tryPresentAppLibraryPod__block_invoke_cold_3();
+          __46__GCGameIntentManager_tryPresentAppLibraryPod__block_invoke_cold_3(v9);
         }
       }
 
-      else if (isInternalBuild)
+      else if (v9)
       {
-        __46__GCGameIntentManager_tryPresentAppLibraryPod__block_invoke_cold_2();
+        __46__GCGameIntentManager_tryPresentAppLibraryPod__block_invoke_cold_2(v4);
       }
     }
   }
 }
 
-- (void)_ui_launchApplicationWithBundleIdentifier:.cold.1()
+- (void)_ui_launchApplicationWithBundleIdentifier:(uint64_t)a1 .cold.1(uint64_t a1)
 {
-  v0 = getGCLogger();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v1 = getGCLogger(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1_0();
-    _os_log_error_impl(v1, v2, OS_LOG_TYPE_ERROR, v3, v4, 2u);
+    _os_log_error_impl(v2, v3, OS_LOG_TYPE_ERROR, v4, v5, 2u);
   }
 }
 
-void __40__GCGameIntentManager_toggleGamesFolder__block_invoke_cold_1()
+void __40__GCGameIntentManager_toggleGamesFolder__block_invoke_cold_1(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v1 = getGCLogger();
-  if (OUTLINED_FUNCTION_4_5(v1))
+  v2 = getGCLogger(a1);
+  if (OUTLINED_FUNCTION_4_5(v2))
   {
     OUTLINED_FUNCTION_8();
     OUTLINED_FUNCTION_10();
-    _os_log_impl(v2, v3, v4, v5, v6, 0xCu);
+    _os_log_impl(v3, v4, v5, v6, v7, 0xCu);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
-void __40__GCGameIntentManager_toggleGamesFolder__block_invoke_cold_2()
+void __40__GCGameIntentManager_toggleGamesFolder__block_invoke_cold_2(uint64_t a1)
 {
-  v0 = getGCLogger();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEBUG))
+  v1 = getGCLogger(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEBUG))
   {
     OUTLINED_FUNCTION_1_0();
-    _os_log_debug_impl(v1, v2, OS_LOG_TYPE_DEBUG, v3, v4, 2u);
+    _os_log_debug_impl(v2, v3, OS_LOG_TYPE_DEBUG, v4, v5, 2u);
   }
 }
 
-void __40__GCGameIntentManager_toggleGamesFolder__block_invoke_cold_3()
+void __40__GCGameIntentManager_toggleGamesFolder__block_invoke_cold_3(uint64_t a1)
 {
-  v6 = *MEMORY[0x1E69E9840];
-  v0 = getGCLogger();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEBUG))
+  v1 = getGCLogger(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEBUG))
   {
     OUTLINED_FUNCTION_8();
     OUTLINED_FUNCTION_1_0();
     _os_log_debug_impl(v2, v3, OS_LOG_TYPE_DEBUG, v4, v5, 0xCu);
   }
-
-  v1 = *MEMORY[0x1E69E9840];
 }
 
-void __46__GCGameIntentManager_tryPresentAppLibraryPod__block_invoke_cold_1()
+void __46__GCGameIntentManager_tryPresentAppLibraryPod__block_invoke_cold_1(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v1 = getGCLogger();
-  if (OUTLINED_FUNCTION_4_5(v1))
+  v2 = getGCLogger(a1);
+  if (OUTLINED_FUNCTION_4_5(v2))
   {
     OUTLINED_FUNCTION_8();
     OUTLINED_FUNCTION_10();
-    _os_log_impl(v2, v3, v4, v5, v6, 0xCu);
+    _os_log_impl(v3, v4, v5, v6, v7, 0xCu);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
-void __46__GCGameIntentManager_tryPresentAppLibraryPod__block_invoke_cold_2()
+void __46__GCGameIntentManager_tryPresentAppLibraryPod__block_invoke_cold_2(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v1 = getGCLogger();
-  if (OUTLINED_FUNCTION_4_5(v1))
+  v2 = getGCLogger(a1);
+  if (OUTLINED_FUNCTION_4_5(v2))
   {
     OUTLINED_FUNCTION_8();
     OUTLINED_FUNCTION_10();
-    _os_log_impl(v2, v3, v4, v5, v6, 0xCu);
-  }
-
-  v7 = *MEMORY[0x1E69E9840];
-}
-
-void __46__GCGameIntentManager_tryPresentAppLibraryPod__block_invoke_cold_3()
-{
-  v1 = getGCLogger();
-  if (OUTLINED_FUNCTION_4_5(v1))
-  {
-    OUTLINED_FUNCTION_10();
-    _os_log_impl(v2, v3, v4, v5, v6, 2u);
+    _os_log_impl(v3, v4, v5, v6, v7, 0xCu);
   }
 }
 
-void __46__GCGameIntentManager_tryPresentAppLibraryPod__block_invoke_cold_4()
+void __46__GCGameIntentManager_tryPresentAppLibraryPod__block_invoke_cold_3(uint64_t a1)
 {
-  v1 = getGCLogger();
-  if (OUTLINED_FUNCTION_4_5(v1))
+  v2 = getGCLogger(a1);
+  if (OUTLINED_FUNCTION_4_5(v2))
   {
     OUTLINED_FUNCTION_10();
-    _os_log_impl(v2, v3, v4, v5, v6, 2u);
+    _os_log_impl(v3, v4, v5, v6, v7, 2u);
+  }
+}
+
+void __46__GCGameIntentManager_tryPresentAppLibraryPod__block_invoke_cold_4(uint64_t a1)
+{
+  v2 = getGCLogger(a1);
+  if (OUTLINED_FUNCTION_4_5(v2))
+  {
+    OUTLINED_FUNCTION_10();
+    _os_log_impl(v3, v4, v5, v6, v7, 2u);
   }
 }
 

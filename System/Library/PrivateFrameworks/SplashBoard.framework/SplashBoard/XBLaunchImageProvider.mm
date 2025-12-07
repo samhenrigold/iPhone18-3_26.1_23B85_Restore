@@ -62,7 +62,7 @@ uint64_t __39__XBLaunchImageProvider_sharedInstance__block_invoke()
 
 - (id)createLaunchImageGeneratorWithContext:(id)context asyncImageData:(BOOL)data error:(id *)error
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   launchRequest = [contextCopy launchRequest];
   applicationCompatibilityInfo = [contextCopy applicationCompatibilityInfo];
@@ -98,75 +98,76 @@ LABEL_3:
 LABEL_23:
   [XBLaunchImageProvider createLaunchImageGeneratorWithContext:asyncImageData:error:];
 LABEL_4:
-  if ([applicationCompatibilityInfo hasKnownBadLaunchImage])
+  hasKnownBadLaunchImage = [applicationCompatibilityInfo hasKnownBadLaunchImage];
+  if (hasKnownBadLaunchImage)
   {
-    date = XBLogCapture();
+    date = XBLogCapture(hasKnownBadLaunchImage);
     if (os_log_type_enabled(date, OS_LOG_TYPE_ERROR))
     {
       [XBLaunchImageProvider createLaunchImageGeneratorWithContext:applicationCompatibilityInfo asyncImageData:date error:?];
     }
 
-    v13 = 0;
+    v14 = 0;
   }
 
   else
   {
     dataCopy = data;
     date = [MEMORY[0x277CBEAA8] date];
-    v14 = XBLogCapture();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v15 = XBLogCapture(date);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v35 = launchRequest;
-      _os_log_impl(&dword_26B5EF000, v14, OS_LOG_TYPE_DEFAULT, "Synchronously generating image for request: %@", buf, 0xCu);
+      v36 = launchRequest;
+      _os_log_impl(&dword_26B5EF000, v15, OS_LOG_TYPE_DEFAULT, "Synchronously generating image for request: %@", buf, 0xCu);
     }
 
-    v15 = [[XBLaunchImageProviderClient alloc] initWithApplicationInfo:applicationCompatibilityInfo];
-    v33 = 0;
-    v16 = [(XBLaunchImageProviderClient *)v15 generateImageWithContext:contextCopy captureInfo:0 error:&v33];
-    v17 = v33;
-    v18 = v17;
-    if (v17)
+    v16 = [[XBLaunchImageProviderClient alloc] initWithApplicationInfo:applicationCompatibilityInfo];
+    v34 = 0;
+    v17 = [(XBLaunchImageProviderClient *)v16 generateImageWithContext:contextCopy captureInfo:0 error:&v34];
+    v18 = v34;
+    v19 = v18;
+    if (v18)
     {
       if (error)
       {
-        v19 = v17;
-        *error = v18;
+        v20 = v18;
+        *error = v19;
       }
 
-      [(XBLaunchImageProvider *)self _addBadLaunchInterfaceToDenyList:applicationCompatibilityInfo forError:v18];
-      v20 = 0;
+      [(XBLaunchImageProvider *)self _addBadLaunchInterfaceToDenyList:applicationCompatibilityInfo forError:v19];
+      v21 = 0;
     }
 
     else
     {
-      v20 = 0;
-      if (v16 && v16 != -1)
+      v21 = 0;
+      if (v17 && v17 != -1)
       {
         [(XBLaunchImageProvider *)self _resetBadLaunchInterfaceCount:applicationCompatibilityInfo];
-        v21 = -[XBLaunchImageDataProvider initWithRequest:contextID:opaque:]([XBLaunchImageDataProvider alloc], "initWithRequest:contextID:opaque:", launchRequest, v16, [applicationCompatibilityInfo launchesOpaque]);
-        fetchImage = [(XBLaunchImageDataProvider *)v21 fetchImage];
-        v26[0] = MEMORY[0x277D85DD0];
-        v26[1] = 3221225472;
-        v26[2] = __84__XBLaunchImageProvider_createLaunchImageGeneratorWithContext_asyncImageData_error___block_invoke;
-        v26[3] = &unk_279CF9C38;
-        v31 = a2;
-        v26[4] = self;
-        v27 = applicationCompatibilityInfo;
-        v32 = dataCopy;
-        v28 = contextCopy;
-        v29 = v21;
-        v30 = date;
-        v23 = v21;
-        v20 = MEMORY[0x26D67C6A0](v26);
+        v22 = -[XBLaunchImageDataProvider initWithRequest:contextID:opaque:]([XBLaunchImageDataProvider alloc], "initWithRequest:contextID:opaque:", launchRequest, v17, [applicationCompatibilityInfo launchesOpaque]);
+        fetchImage = [(XBLaunchImageDataProvider *)v22 fetchImage];
+        v27[0] = MEMORY[0x277D85DD0];
+        v27[1] = 3221225472;
+        v27[2] = __84__XBLaunchImageProvider_createLaunchImageGeneratorWithContext_asyncImageData_error___block_invoke;
+        v27[3] = &unk_279CF9C38;
+        v32 = a2;
+        v27[4] = self;
+        v28 = applicationCompatibilityInfo;
+        v33 = dataCopy;
+        v29 = contextCopy;
+        v30 = v22;
+        v31 = date;
+        v24 = v22;
+        v21 = MEMORY[0x26D67C6A0](v27);
       }
     }
 
-    [(BSBaseXPCClient *)v15 invalidate];
-    v13 = [v20 copy];
+    [(BSBaseXPCClient *)v16 invalidate];
+    v14 = [v21 copy];
   }
 
-  return v13;
+  return v14;
 }
 
 void __84__XBLaunchImageProvider_createLaunchImageGeneratorWithContext_asyncImageData_error___block_invoke(uint64_t a1, void *a2)
@@ -184,8 +185,7 @@ void __84__XBLaunchImageProvider_createLaunchImageGeneratorWithContext_asyncImag
   v7 = [(XBApplicationSnapshotManifest *)v5 initWithContainerIdentity:v4 store:v6];
 
   [*(a1 + 32) _generateImageForSnapshot:v3 inManifest:v7 withContext:*(a1 + 48) asyncImageData:*(a1 + 80) dataProvider:*(a1 + 56) scheduleAsyncGeneration:0 completion:0];
-  [v3 _generateImageIfPossible];
-  v8 = XBLogCapture();
+  v8 = XBLogCapture([v3 _generateImageIfPossible]);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     [*(a1 + 64) timeIntervalSinceNow];
@@ -198,13 +198,13 @@ void __84__XBLaunchImageProvider_createLaunchImageGeneratorWithContext_asyncImag
 - (void)captureLaunchImageForManifest:(id)manifest withCompatibilityInfo:(id)info launchRequests:(id)requests createCaptureInfo:(BOOL)captureInfo firstImageIsReady:(id)ready withCompletionHandler:(id)handler
 {
   captureInfoCopy = captureInfo;
-  v97 = *MEMORY[0x277D85DE8];
+  v98 = *MEMORY[0x277D85DE8];
   manifestCopy = manifest;
   infoCopy = info;
   requestsCopy = requests;
   readyCopy = ready;
   handlerCopy = handler;
-  v45 = manifestCopy;
+  v46 = manifestCopy;
   if (!manifestCopy)
   {
     [XBLaunchImageProvider captureLaunchImageForManifest:withCompatibilityInfo:launchRequests:createCaptureInfo:firstImageIsReady:withCompletionHandler:];
@@ -220,38 +220,38 @@ void __84__XBLaunchImageProvider_createLaunchImageGeneratorWithContext_asyncImag
     [XBLaunchImageProvider captureLaunchImageForManifest:withCompatibilityInfo:launchRequests:createCaptureInfo:firstImageIsReady:withCompletionHandler:];
   }
 
+  v87 = 0;
+  v88 = &v87;
+  v89 = 0x3032000000;
+  v90 = __Block_byref_object_copy__3;
+  v91 = __Block_byref_object_dispose__3;
+  v92 = 0;
+  v81 = 0;
+  v82 = &v81;
+  v83 = 0x3032000000;
+  v84 = __Block_byref_object_copy__3;
+  v85 = __Block_byref_object_dispose__3;
   v86 = 0;
-  v87 = &v86;
-  v88 = 0x3032000000;
-  v89 = __Block_byref_object_copy__3;
-  v90 = __Block_byref_object_dispose__3;
-  v91 = 0;
+  v75 = 0;
+  v76 = &v75;
+  v77 = 0x3032000000;
+  v78 = __Block_byref_object_copy__3;
+  v79 = __Block_byref_object_dispose__3;
   v80 = 0;
-  v81 = &v80;
-  v82 = 0x3032000000;
-  v83 = __Block_byref_object_copy__3;
-  v84 = __Block_byref_object_dispose__3;
-  v85 = 0;
-  v74 = 0;
-  v75 = &v74;
-  v76 = 0x3032000000;
-  v77 = __Block_byref_object_copy__3;
-  v78 = __Block_byref_object_dispose__3;
-  v79 = 0;
   if (handlerCopy && captureInfoCopy)
   {
     v16 = [objc_alloc(MEMORY[0x277CBEB40]) initWithArray:requestsCopy];
-    v17 = v87[5];
-    v87[5] = v16;
+    v17 = v88[5];
+    v88[5] = v16;
 
-    v18 = [v87[5] count];
+    v18 = [v88[5] count];
     v19 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:v18];
-    v20 = v81[5];
-    v81[5] = v19;
+    v20 = v82[5];
+    v82[5] = v19;
 
     v21 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:v18];
-    v22 = v75[5];
-    v75[5] = v21;
+    v22 = v76[5];
+    v76[5] = v21;
   }
 
   v23 = [[XBLaunchImageProviderClient alloc] initWithApplicationInfo:infoCopy];
@@ -267,93 +267,99 @@ void __84__XBLaunchImageProvider_createLaunchImageGeneratorWithContext_asyncImag
 
   v25 = MEMORY[0x277CF0BA0];
   v26 = [requestsCopy count];
-  v66[0] = MEMORY[0x277D85DD0];
-  v66[1] = 3221225472;
-  v66[2] = __150__XBLaunchImageProvider_captureLaunchImageForManifest_withCompatibilityInfo_launchRequests_createCaptureInfo_firstImageIsReady_withCompletionHandler___block_invoke;
-  v66[3] = &unk_279CF9C60;
-  v44 = v24;
-  v67 = v44;
-  v73 = captureInfoCopy;
-  v38 = handlerCopy;
-  v69 = v38;
-  v70 = &v86;
-  v71 = &v80;
-  v72 = &v74;
-  v43 = v23;
-  v68 = v43;
-  v27 = [v25 sentinelWithQueue:0 signalCount:v26 + 1 completion:v66];
-  v64[0] = 0;
-  v64[1] = v64;
-  v64[2] = 0x2020000000;
-  v65 = 0;
-  v60 = 0u;
+  v67[0] = MEMORY[0x277D85DD0];
+  v67[1] = 3221225472;
+  v67[2] = __150__XBLaunchImageProvider_captureLaunchImageForManifest_withCompatibilityInfo_launchRequests_createCaptureInfo_firstImageIsReady_withCompletionHandler___block_invoke;
+  v67[3] = &unk_279CF9C60;
+  v45 = v24;
+  v68 = v45;
+  v74 = captureInfoCopy;
+  v39 = handlerCopy;
+  v70 = v39;
+  v71 = &v87;
+  v72 = &v81;
+  v73 = &v75;
+  v44 = v23;
+  v69 = v44;
+  v27 = [v25 sentinelWithQueue:0 signalCount:v26 + 1 completion:v67];
+  v65[0] = 0;
+  v65[1] = v65;
+  v65[2] = 0x2020000000;
+  v66 = 0;
   v61 = 0u;
   v62 = 0u;
   v63 = 0u;
+  v64 = 0u;
   obj = requestsCopy;
-  v28 = [obj countByEnumeratingWithState:&v60 objects:v96 count:16];
-  v42 = v27;
+  v28 = [obj countByEnumeratingWithState:&v61 objects:v97 count:16];
+  v29 = v28;
+  v43 = v27;
   if (v28)
   {
-    v29 = *v61;
+    v30 = *v62;
     do
     {
-      for (i = 0; i != v28; ++i)
+      v31 = 0;
+      do
       {
-        if (*v61 != v29)
+        if (*v62 != v30)
         {
           objc_enumerationMutation(obj);
         }
 
-        v31 = *(*(&v60 + 1) + 8 * i);
-        v32 = XBLogCapture();
-        if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
+        v32 = *(*(&v61 + 1) + 8 * v31);
+        v33 = XBLogCapture(v28);
+        if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
         {
-          v33 = [MEMORY[0x277CF0C00] descriptionForObject:{v31, v38}];
+          v34 = [MEMORY[0x277CF0C00] descriptionForObject:{v32, v39}];
           bundleIdentifier = [infoCopy bundleIdentifier];
           *buf = 138412546;
-          v93 = v33;
-          v94 = 2112;
-          v95 = bundleIdentifier;
-          _os_log_impl(&dword_26B5EF000, v32, OS_LOG_TYPE_DEFAULT, "Processing launch request %@ for app: %@.", buf, 0x16u);
+          v94 = v34;
+          v95 = 2112;
+          v96 = bundleIdentifier;
+          _os_log_impl(&dword_26B5EF000, v33, OS_LOG_TYPE_DEFAULT, "Processing launch request %@ for app: %@.", buf, 0x16u);
         }
 
-        v35 = [[XBApplicationSnapshotGenerationContext alloc] initWithApplicationCompatibilityInfo:infoCopy launchRequest:v31 timeout:0.0];
+        v36 = [[XBApplicationSnapshotGenerationContext alloc] initWithApplicationCompatibilityInfo:infoCopy launchRequest:v32 timeout:0.0];
         workQueue = self->_workQueue;
         block[0] = MEMORY[0x277D85DD0];
         block[1] = 3221225472;
         block[2] = __150__XBLaunchImageProvider_captureLaunchImageForManifest_withCompatibilityInfo_launchRequests_createCaptureInfo_firstImageIsReady_withCompletionHandler___block_invoke_44;
         block[3] = &unk_279CF9CB0;
-        block[4] = v31;
-        v55 = v64;
-        v48 = infoCopy;
-        v49 = v43;
-        v50 = v35;
-        v59 = captureInfoCopy;
-        v51 = v45;
+        block[4] = v32;
+        v56 = v65;
+        v49 = infoCopy;
+        v50 = v44;
+        v51 = v36;
+        v60 = captureInfoCopy;
+        v52 = v46;
         selfCopy = self;
-        v53 = v44;
-        v56 = &v86;
-        v57 = &v80;
-        v58 = &v74;
-        v54 = v42;
-        v37 = v35;
+        v54 = v45;
+        v57 = &v87;
+        v58 = &v81;
+        v59 = &v75;
+        v55 = v43;
+        v38 = v36;
         dispatch_async(workQueue, block);
+
+        ++v31;
       }
 
-      v28 = [obj countByEnumeratingWithState:&v60 objects:v96 count:16];
+      while (v29 != v31);
+      v28 = [obj countByEnumeratingWithState:&v61 objects:v97 count:16];
+      v29 = v28;
     }
 
     while (v28);
   }
 
-  [v42 signal];
-  _Block_object_dispose(v64, 8);
+  [v43 signal];
+  _Block_object_dispose(v65, 8);
 
-  _Block_object_dispose(&v74, 8);
-  _Block_object_dispose(&v80, 8);
+  _Block_object_dispose(&v75, 8);
+  _Block_object_dispose(&v81, 8);
 
-  _Block_object_dispose(&v86, 8);
+  _Block_object_dispose(&v87, 8);
 }
 
 uint64_t __150__XBLaunchImageProvider_captureLaunchImageForManifest_withCompatibilityInfo_launchRequests_createCaptureInfo_firstImageIsReady_withCompletionHandler___block_invoke(uint64_t a1)
@@ -383,190 +389,190 @@ uint64_t __150__XBLaunchImageProvider_captureLaunchImageForManifest_withCompatib
 
 void __150__XBLaunchImageProvider_captureLaunchImageForManifest_withCompatibilityInfo_launchRequests_createCaptureInfo_firstImageIsReady_withCompletionHandler___block_invoke_44(uint64_t a1)
 {
-  v53 = *MEMORY[0x277D85DE8];
-  v45 = 0;
-  v46 = &v45;
-  v47 = 0x3032000000;
-  v48 = __Block_byref_object_copy__3;
-  v49 = __Block_byref_object_dispose__3;
-  v50 = 0;
-  v2 = XBLogCapture();
+  v55 = *MEMORY[0x277D85DE8];
+  v47 = 0;
+  v48 = &v47;
+  v49 = 0x3032000000;
+  v50 = __Block_byref_object_copy__3;
+  v51 = __Block_byref_object_dispose__3;
+  v52 = 0;
+  v2 = XBLogCapture(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     *buf = 138412290;
-    v52 = v3;
+    v54 = v3;
     _os_log_impl(&dword_26B5EF000, v2, OS_LOG_TYPE_DEFAULT, "Asynchronously generating image data for request: %@", buf, 0xCu);
   }
 
   if (*(*(*(a1 + 96) + 8) + 24) == 1)
   {
-    v4 = XBLogCapture();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = XBLogCapture(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v5 = [MEMORY[0x277CF0C00] descriptionForObject:*(a1 + 32)];
+      v6 = [MEMORY[0x277CF0C00] descriptionForObject:*(a1 + 32)];
       [*(a1 + 40) bundleIdentifier];
       objc_claimAutoreleasedReturnValue();
       __150__XBLaunchImageProvider_captureLaunchImageForManifest_withCompatibilityInfo_launchRequests_createCaptureInfo_firstImageIsReady_withCompletionHandler___block_invoke_44_cold_3();
     }
 
-    v6 = 0;
+    v7 = 0;
   }
 
   else
   {
-    v7 = *(a1 + 48);
-    v8 = *(a1 + 56);
-    v9 = *(a1 + 128);
+    v8 = *(a1 + 48);
+    v9 = *(a1 + 56);
+    v10 = *(a1 + 128);
     if (*(a1 + 128))
     {
-      v10 = &v44;
+      v11 = &v46;
     }
 
     else
     {
-      v10 = 0;
+      v11 = 0;
     }
 
-    if (v9 == 1)
+    if (v10 == 1)
     {
-      v44 = 0;
+      v46 = 0;
     }
 
-    v43 = 0;
-    v11 = [v7 generateImageWithContext:v8 captureInfo:v10 error:&v43];
-    if (v9)
+    v45 = 0;
+    v12 = [v8 generateImageWithContext:v9 captureInfo:v11 error:&v45];
+    if (v10)
     {
-      v6 = v44;
+      v7 = v46;
     }
 
     else
     {
-      v6 = 0;
+      v7 = 0;
     }
 
-    v4 = v43;
-    if (v4)
+    v13 = v45;
+    v5 = v13;
+    if (v13)
     {
-      v12 = XBLogCapture();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v14 = XBLogCapture(v13);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
-        v13 = [MEMORY[0x277CF0C00] descriptionForObject:*(a1 + 32)];
-        __150__XBLaunchImageProvider_captureLaunchImageForManifest_withCompatibilityInfo_launchRequests_createCaptureInfo_firstImageIsReady_withCompletionHandler___block_invoke_44_cold_1(v13, buf, v12);
+        v15 = [MEMORY[0x277CF0C00] descriptionForObject:*(a1 + 32)];
+        __150__XBLaunchImageProvider_captureLaunchImageForManifest_withCompatibilityInfo_launchRequests_createCaptureInfo_firstImageIsReady_withCompletionHandler___block_invoke_44_cold_1(v15, buf, v14);
       }
 
       *(*(*(a1 + 96) + 8) + 24) = 1;
-      [*(a1 + 72) _addBadLaunchInterfaceToDenyList:*(a1 + 40) forError:v4];
+      [*(a1 + 72) _addBadLaunchInterfaceToDenyList:*(a1 + 40) forError:v5];
     }
 
     else
     {
-      if (!v11 || v11 == -1)
+      if (!v12 || v12 == -1)
       {
-        v14 = XBLogCapture();
-        if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+        v16 = XBLogCapture(0);
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
         {
-          v29 = [MEMORY[0x277CF0C00] descriptionForObject:*(a1 + 32)];
-          __150__XBLaunchImageProvider_captureLaunchImageForManifest_withCompatibilityInfo_launchRequests_createCaptureInfo_firstImageIsReady_withCompletionHandler___block_invoke_44_cold_2(v29, buf, v14);
+          v31 = [MEMORY[0x277CF0C00] descriptionForObject:*(a1 + 32)];
+          __150__XBLaunchImageProvider_captureLaunchImageForManifest_withCompatibilityInfo_launchRequests_createCaptureInfo_firstImageIsReady_withCompletionHandler___block_invoke_44_cold_2(v31, buf, v16);
         }
       }
 
       else
       {
-        v14 = [*(a1 + 56) launchRequest];
-        v15 = -[XBLaunchImageDataProvider initWithRequest:contextID:opaque:]([XBLaunchImageDataProvider alloc], "initWithRequest:contextID:opaque:", v14, v11, [*(a1 + 40) launchesOpaque]);
-        v16 = dispatch_semaphore_create(0);
-        v17 = *(a1 + 64);
-        v18 = [v14 groupID];
-        v19 = [v17 createSnapshotWithGroupID:v18];
-        v20 = v46[5];
-        v46[5] = v19;
+        v16 = [*(a1 + 56) launchRequest];
+        v17 = -[XBLaunchImageDataProvider initWithRequest:contextID:opaque:]([XBLaunchImageDataProvider alloc], "initWithRequest:contextID:opaque:", v16, v12, [*(a1 + 40) launchesOpaque]);
+        v18 = dispatch_semaphore_create(0);
+        v19 = *(a1 + 64);
+        v20 = [v16 groupID];
+        v21 = [v19 createSnapshotWithGroupID:v20];
+        v22 = v48[5];
+        v48[5] = v21;
 
-        v21 = *(a1 + 64);
-        v22 = v46[5];
-        v23 = *(a1 + 56);
-        v35 = *(a1 + 72);
-        v36[0] = MEMORY[0x277D85DD0];
-        v36[1] = 3221225472;
-        v36[2] = __150__XBLaunchImageProvider_captureLaunchImageForManifest_withCompatibilityInfo_launchRequests_createCaptureInfo_firstImageIsReady_withCompletionHandler___block_invoke_45;
-        v36[3] = &unk_279CF9C88;
-        v42 = &v45;
-        v24 = *(a1 + 80);
-        v25 = *(a1 + 72);
-        v37 = v24;
-        v38 = v25;
-        v26 = *(a1 + 40);
-        v27 = *(a1 + 32);
+        v23 = *(a1 + 64);
+        v24 = v48[5];
+        v25 = *(a1 + 56);
+        v37 = *(a1 + 72);
+        v38[0] = MEMORY[0x277D85DD0];
+        v38[1] = 3221225472;
+        v38[2] = __150__XBLaunchImageProvider_captureLaunchImageForManifest_withCompatibilityInfo_launchRequests_createCaptureInfo_firstImageIsReady_withCompletionHandler___block_invoke_45;
+        v38[3] = &unk_279CF9C88;
+        v44 = &v47;
+        v26 = *(a1 + 80);
+        v27 = *(a1 + 72);
         v39 = v26;
         v40 = v27;
-        v28 = v16;
+        v28 = *(a1 + 40);
+        v29 = *(a1 + 32);
         v41 = v28;
-        [v35 _generateImageForSnapshot:v22 inManifest:v21 withContext:v23 asyncImageData:0 dataProvider:v15 scheduleAsyncGeneration:1 completion:v36];
-        dispatch_semaphore_wait(v28, 0xFFFFFFFFFFFFFFFFLL);
+        v42 = v29;
+        v30 = v18;
+        v43 = v30;
+        [v37 _generateImageForSnapshot:v24 inManifest:v23 withContext:v25 asyncImageData:0 dataProvider:v17 scheduleAsyncGeneration:1 completion:v38];
+        dispatch_semaphore_wait(v30, 0xFFFFFFFFFFFFFFFFLL);
       }
     }
   }
 
   if (*(a1 + 128) == 1)
   {
-    v30 = [*(*(*(a1 + 104) + 8) + 40) indexOfObject:*(a1 + 32)];
-    if (v30 != 0x7FFFFFFFFFFFFFFFLL)
+    v32 = [*(*(*(a1 + 104) + 8) + 40) indexOfObject:*(a1 + 32)];
+    if (v32 != 0x7FFFFFFFFFFFFFFFLL)
     {
-      v31 = v6;
-      if (!v6)
+      v33 = v7;
+      if (!v7)
       {
-        v31 = objc_alloc_init(XBLaunchCaptureInformation);
+        v33 = objc_alloc_init(XBLaunchCaptureInformation);
       }
 
-      [*(*(*(a1 + 112) + 8) + 40) setObject:v31 atIndexedSubscript:v30];
-      if (!v6)
+      [*(*(*(a1 + 112) + 8) + 40) setObject:v33 atIndexedSubscript:v32];
+      if (!v7)
       {
       }
 
-      v32 = [v46[5] path];
-      v33 = v32;
-      if (v32)
+      v34 = [v48[5] path];
+      v35 = v34;
+      if (v34)
       {
-        v34 = v32;
+        v36 = v34;
       }
 
       else
       {
-        v34 = &stru_287C1E488;
+        v36 = &stru_287C1E488;
       }
 
-      [*(*(*(a1 + 120) + 8) + 40) setObject:v34 atIndexedSubscript:v30];
+      [*(*(*(a1 + 120) + 8) + 40) setObject:v36 atIndexedSubscript:v32];
     }
   }
 
   [*(a1 + 88) signal];
-  _Block_object_dispose(&v45, 8);
+  _Block_object_dispose(&v47, 8);
 }
 
 intptr_t __150__XBLaunchImageProvider_captureLaunchImageForManifest_withCompatibilityInfo_launchRequests_createCaptureInfo_firstImageIsReady_withCompletionHandler___block_invoke_45(uint64_t a1, int a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   [*(*(*(a1 + 72) + 8) + 40) _cacheImage:0];
-  [*(a1 + 32) signal];
+  v4 = [*(a1 + 32) signal];
   if (a2)
   {
-    [*(a1 + 40) _resetBadLaunchInterfaceCount:*(a1 + 48)];
-    v4 = XBLogCapture();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = XBLogCapture([*(a1 + 40) _resetBadLaunchInterfaceCount:*(a1 + 48)]);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = *(a1 + 56);
-      v8 = 138543362;
-      v9 = v5;
-      _os_log_impl(&dword_26B5EF000, v4, OS_LOG_TYPE_DEFAULT, "Image generation complete for: %{public}@", &v8, 0xCu);
+      v6 = *(a1 + 56);
+      v9 = 138543362;
+      v10 = v6;
+      _os_log_impl(&dword_26B5EF000, v5, OS_LOG_TYPE_DEFAULT, "Image generation complete for: %{public}@", &v9, 0xCu);
     }
   }
 
   else
   {
-    v4 = XBLogCapture();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = XBLogCapture(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      __150__XBLaunchImageProvider_captureLaunchImageForManifest_withCompatibilityInfo_launchRequests_createCaptureInfo_firstImageIsReady_withCompletionHandler___block_invoke_45_cold_1(a1, v4, v6);
+      __150__XBLaunchImageProvider_captureLaunchImageForManifest_withCompatibilityInfo_launchRequests_createCaptureInfo_firstImageIsReady_withCompletionHandler___block_invoke_45_cold_1(a1, v5, v7);
     }
   }
 
@@ -690,10 +696,10 @@ BOOL __137__XBLaunchImageProvider__generateImageForSnapshot_inManifest_withConte
   errorCopy = error;
   code = [errorCopy code];
   bundleIdentifier = [listCopy bundleIdentifier];
-  v10 = XBLogCapture();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+  v11 = XBLogCapture(bundleIdentifier);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
   {
-    [(XBLaunchImageProvider *)errorCopy _addBadLaunchInterfaceToDenyList:bundleIdentifier forError:v10];
+    [(XBLaunchImageProvider *)errorCopy _addBadLaunchInterfaceToDenyList:bundleIdentifier forError:v11];
   }
 
   if (code != 10 && ([listCopy hasKnownBadLaunchImage] & 1) == 0)
@@ -706,33 +712,34 @@ BOOL __137__XBLaunchImageProvider__generateImageForSnapshot_inManifest_withConte
     badLaunchImageCandidateCount = [listCopy badLaunchImageCandidateCount];
     if ((badLaunchImageCandidateCount & 0x8000000000000000) != 0)
     {
-      [XBLaunchImageProvider _addBadLaunchInterfaceToDenyList:a2 forError:?];
+      [XBLaunchImageProvider _addBadLaunchInterfaceToDenyList:a2 forError:self];
     }
 
     if (badLaunchImageCandidateCount >= 4)
     {
-      [XBLaunchImageProvider _addBadLaunchInterfaceToDenyList:a2 forError:?];
+      [XBLaunchImageProvider _addBadLaunchInterfaceToDenyList:a2 forError:self];
     }
 
-    v12 = badLaunchImageCandidateCount + 1;
-    v13 = badLaunchImageCandidateCount + 1 >= 3 ? 3 : badLaunchImageCandidateCount + 1;
-    [listCopy setBadLaunchImageCandidateCount:v13];
-    if (v12 == 3)
+    v13 = badLaunchImageCandidateCount + 1;
+    v14 = badLaunchImageCandidateCount + 1 >= 3 ? 3 : badLaunchImageCandidateCount + 1;
+    [listCopy setBadLaunchImageCandidateCount:v14];
+    if (v13 == 3)
     {
 LABEL_12:
       [listCopy setHasKnownBadLaunchImage:1];
     }
 
-    if ([listCopy hasKnownBadLaunchImage])
+    hasKnownBadLaunchImage = [listCopy hasKnownBadLaunchImage];
+    if (hasKnownBadLaunchImage)
     {
-      v14 = XBLogCapture();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v16 = XBLogCapture(hasKnownBadLaunchImage);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
-        [(XBLaunchImageProvider *)bundleIdentifier _addBadLaunchInterfaceToDenyList:v14 forError:v15];
+        [(XBLaunchImageProvider *)bundleIdentifier _addBadLaunchInterfaceToDenyList:v16 forError:v17];
       }
 
-      v16 = +[XBApplicationDataStore sharedInstance];
-      [v16 _persistCompatibilityInfo:listCopy forBundleIdentifier:bundleIdentifier];
+      v18 = +[XBApplicationDataStore sharedInstance];
+      [v18 _persistCompatibilityInfo:listCopy forBundleIdentifier:bundleIdentifier];
     }
   }
 }
@@ -903,46 +910,46 @@ void __150__XBLaunchImageProvider_captureLaunchImageForManifest_withCompatibilit
   OUTLINED_FUNCTION_2_1(&dword_26B5EF000, a2, a3, "Noting that the application %@ has a bad launch image until it is updated.", &v3);
 }
 
-- (void)_addBadLaunchInterfaceToDenyList:(const char *)a1 forError:.cold.3(const char *a1)
+- (void)_addBadLaunchInterfaceToDenyList:(const char *)a1 forError:(uint64_t)a2 .cold.3(const char *a1, uint64_t a2)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"strikeCount <= NumberOfStrikesBeforeMarkingBad + 1"];
+  v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"strikeCount <= NumberOfStrikesBeforeMarkingBad + 1"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v3 = NSStringFromSelector(a1);
-    v4 = objc_opt_class();
-    v5 = NSStringFromClass(v4);
+    v4 = NSStringFromSelector(a1);
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_0_0();
-    v8 = @"XBLaunchImageProvider.m";
-    v9 = 1024;
-    v10 = 313;
-    v11 = v6;
-    v12 = v2;
+    v9 = @"XBLaunchImageProvider.m";
+    v10 = 1024;
+    v11 = 313;
+    v12 = v7;
+    v13 = v3;
     _os_log_error_impl(&dword_26B5EF000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
   }
 
-  [v2 UTF8String];
+  [v3 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }
 
-- (void)_addBadLaunchInterfaceToDenyList:(const char *)a1 forError:.cold.4(const char *a1)
+- (void)_addBadLaunchInterfaceToDenyList:(const char *)a1 forError:(uint64_t)a2 .cold.4(const char *a1, uint64_t a2)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"strikeCount >= 1"];
+  v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"strikeCount >= 1"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v3 = NSStringFromSelector(a1);
-    v4 = objc_opt_class();
-    v5 = NSStringFromClass(v4);
+    v4 = NSStringFromSelector(a1);
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_0_0();
-    v8 = @"XBLaunchImageProvider.m";
-    v9 = 1024;
-    v10 = 312;
-    v11 = v6;
-    v12 = v2;
+    v9 = @"XBLaunchImageProvider.m";
+    v10 = 1024;
+    v11 = 312;
+    v12 = v7;
+    v13 = v3;
     _os_log_error_impl(&dword_26B5EF000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
   }
 
-  [v2 UTF8String];
+  [v3 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }

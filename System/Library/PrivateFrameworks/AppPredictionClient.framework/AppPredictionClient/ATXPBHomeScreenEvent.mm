@@ -14,17 +14,18 @@
 - (__CFString)stackLocationAsString:(__CFString *)string;
 - (__CFString)widgetSizeAsString:(__CFString *)string;
 - (double)date;
+- (id)clearSuggestionIds;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
 - (id)suggestionIdsAtIndex:(id *)index;
+- (id)suggestionIdsCount;
 - (uint64_t)StringAsStackKind:(uint64_t)kind;
 - (uint64_t)StringAsStackLocation:(uint64_t)location;
 - (uint64_t)StringAsWidgetSize:(uint64_t)size;
 - (uint64_t)addSuggestionIds:(uint64_t)ids;
 - (uint64_t)appBundleId;
 - (uint64_t)blendingCacheId;
-- (uint64_t)clearSuggestionIds;
 - (uint64_t)eventTypeString;
 - (uint64_t)hasDate;
 - (uint64_t)hasIsSuggestedWidget;
@@ -49,7 +50,6 @@
 - (uint64_t)stackKind;
 - (uint64_t)stackLocation;
 - (uint64_t)suggestionIds;
-- (uint64_t)suggestionIdsCount;
 - (uint64_t)widgetBundleId;
 - (uint64_t)widgetKind;
 - (uint64_t)widgetSize;
@@ -1003,11 +1003,11 @@ LABEL_4:
   return result;
 }
 
-- (uint64_t)clearSuggestionIds
+- (id)clearSuggestionIds
 {
   if (result)
   {
-    return [*(result + 80) removeAllObjects];
+    return [result[10] removeAllObjects];
   }
 
   return result;
@@ -1037,11 +1037,11 @@ LABEL_4:
   return MEMORY[0x1EEE66BB8](v3, v4);
 }
 
-- (uint64_t)suggestionIdsCount
+- (id)suggestionIdsCount
 {
   if (result)
   {
-    return [*(result + 80) count];
+    return [result[10] count];
   }
 
   return result;

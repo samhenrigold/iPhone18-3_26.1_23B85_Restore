@@ -77,7 +77,7 @@
     v13 = editorialComponent;
     if (editorialComponent)
     {
-      [editorialComponent editorialStyle];
+      objc_msgSend_editorialStyle(editorialComponent);
     }
 
     else

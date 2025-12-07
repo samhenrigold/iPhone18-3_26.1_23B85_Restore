@@ -14,6 +14,7 @@
 - (int64_t)defaultDADataclassesToEnable;
 - (void)_updateDescriptionFromServer:(id)server;
 - (void)account:(id)account isValid:(BOOL)valid validationError:(id)error;
+- (void)didConfirmTryWithoutSSL:(BOOL)l;
 - (void)setAccountBooleanProperty:(id)property withSpecifier:(id)specifier;
 - (void)setAccountProperty:(id)property withSpecifier:(id)specifier;
 @end
@@ -172,23 +173,8 @@
 
   if ([(DAVSettingsAccountsUIController *)self isSettingUpNewAccount])
   {
-    v39 = [v5 specifierForID:@"ENABLED"];
-    [v5 removeObject:v39];
-
-    v40 = [v5 specifierForID:@"DAV_INFO"];
-    [v5 removeObject:v40];
-
-    if ([(DAVSettingsAccountsUIController *)self attemptedValidation])
+    if (([v5 specifierForID:@"ENABLED"], v39 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v5, "removeObject:", v39), v39, objc_msgSend(v5, "specifierForID:", @"DAV_INFO"), v40 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v5, "removeObject:", v40), v40, -[DAVSettingsAccountsUIController attemptedValidation](self, "attemptedValidation")) && (-[DAVSettingsAccountsUIController validatedSuccessfully](self, "validatedSuccessfully") & 1) == 0 && (-[DAVSettingsAccountsUIController validationInProgress](self, "validationInProgress") & 1) != 0 || -[DAVSettingsAccountsUIController attemptedInitialValidation](self, "attemptedInitialValidation"))
     {
-      if (([(DAVSettingsAccountsUIController *)self validatedSuccessfully]& 1) == 0 && ([(DAVSettingsAccountsUIController *)self validationInProgress]& 1) != 0)
-      {
-        goto LABEL_29;
-      }
-    }
-
-    if ([(DAVSettingsAccountsUIController *)self attemptedInitialValidation])
-    {
-LABEL_29:
       v41 = +[PSSpecifier emptyGroupSpecifier];
       [v5 addObject:v41];
 
@@ -223,6 +209,25 @@ LABEL_29:
   [account2 checkValidityOnAccountStore:accountStore withConsumer:self inQueue:&_dispatch_main_q];
 
   return 1;
+}
+
+- (void)didConfirmTryWithoutSSL:(BOOL)l
+{
+  lCopy = l;
+  if (l)
+  {
+    account = [(DAVSettingsAccountsUIController *)self account];
+    [account setUseSSL:0];
+  }
+
+  else
+  {
+    [(DAVSettingsAccountsUIController *)self reloadSpecifiers];
+  }
+
+  v6.receiver = self;
+  v6.super_class = DAVSettingsAccountsUIController;
+  [(DAVSettingsAccountsUIController *)&v6 didConfirmTryWithoutSSL:lCopy];
 }
 
 - (void)account:(id)account isValid:(BOOL)valid validationError:(id)error

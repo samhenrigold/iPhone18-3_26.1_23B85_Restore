@@ -42,7 +42,7 @@
     TTRViewModelObserver.unsubscribe()();
 
     swift_beginAccess();
-    sub_100058000(&unk_100772740);
+    sub_100058000(&unk_100772740, &unk_100634AD0);
     TTRLazilyLoadedViewModelState.transitionToInvalid()();
     swift_endAccess();
   }
@@ -226,7 +226,7 @@
 {
   selfCopy = self;
   contentView = [(TTRIBoardReminderCell *)selfCopy contentView];
-  type metadata accessor for TTRIBoardReminderCellContentView();
+  type metadata accessor for TTRIBoardReminderCellContentView(0);
   if (swift_dynamicCastClass())
   {
     v4 = UIView.firstResponderDescendant.getter();
@@ -258,7 +258,7 @@ LABEL_7:
 
   if (v3)
   {
-    sub_100003540(0, &qword_10076BCE0);
+    sub_100003540(0, &qword_10076BCE0, UIAccessibilityCustomAction_ptr);
     v4.super.isa = Array._bridgeToObjectiveC()().super.isa;
   }
 
@@ -274,13 +274,13 @@ LABEL_7:
 {
   selfCopy = self;
   contentView = [(TTRIBoardReminderCell *)selfCopy contentView];
-  type metadata accessor for TTRIBoardReminderCellContentView();
+  type metadata accessor for TTRIBoardReminderCellContentView(0);
   if (swift_dynamicCastClass())
   {
     sub_1004C12DC();
   }
 
-  sub_100003540(0, &qword_10076BCA8);
+  sub_100003540(0, &qword_10076BCA8, UIAccessibilityLinkSubelement_ptr);
   v4.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
   return v4.super.isa;

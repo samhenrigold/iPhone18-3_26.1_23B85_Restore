@@ -32,51 +32,51 @@
 {
   end = range.end;
   start = range.start;
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   sessionCopy = session;
   profileCopy = profile;
   handlerCopy = handler;
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   objc_opt_self();
-  v38 = @"source_id";
-  v39 = @"object_type";
-  v40 = @"status";
-  v41 = @"request";
-  v42 = @"mode";
-  v43 = @"date_modified";
-  v44 = @"modification_epoch";
-  v45 = @"sync_identity";
-  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:&v38 count:8];
+  v37 = @"source_id";
+  v38 = @"object_type";
+  v39 = @"status";
+  v40 = @"request";
+  v41 = @"mode";
+  v42 = @"date_modified";
+  v43 = @"modification_epoch";
+  v44 = @"sync_identity";
+  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:&v37 count:8];
   database = [profileCopy database];
-  v38 = 0;
-  v39 = &v38;
-  v40 = 0x2020000000;
-  v41 = -1;
-  v28[0] = MEMORY[0x277D85DD0];
-  v28[1] = 3221225472;
-  v28[2] = __104__HDAuthorizationSyncEntity_generateSyncObjectsForSession_syncAnchorRange_profile_messageHandler_error___block_invoke;
-  v28[3] = &unk_27862FFE0;
+  v37 = 0;
+  v38 = &v37;
+  v39 = 0x2020000000;
+  v40 = -1;
+  v27[0] = MEMORY[0x277D85DD0];
+  v27[1] = 3221225472;
+  v27[2] = __104__HDAuthorizationSyncEntity_generateSyncObjectsForSession_syncAnchorRange_profile_messageHandler_error___block_invoke;
+  v27[3] = &unk_27862FFE0;
   v17 = v15;
-  v29 = v17;
+  v28 = v17;
   selfCopy = self;
   v18 = sessionCopy;
-  v36 = start;
-  v37 = end;
-  v30 = v18;
-  v34 = &v38;
+  v35 = start;
+  v36 = end;
+  v29 = v18;
+  v33 = &v37;
   v19 = database;
-  v31 = v19;
+  v30 = v19;
   v20 = dictionary;
-  v32 = v20;
+  v31 = v20;
   v21 = profileCopy;
-  v33 = v21;
-  if ([(HDHealthEntity *)HDAuthorizationEntity performReadTransactionWithHealthDatabase:v19 error:error block:v28])
+  v32 = v21;
+  if ([(HDHealthEntity *)HDAuthorizationEntity performReadTransactionWithHealthDatabase:v19 error:error block:v27])
   {
     if ([v20 count])
     {
       [self didGenerateCodableSourceAuthorizationsForSyncSession:v18];
       allValues = [v20 allValues];
-      v23 = [handlerCopy sendCodableChange:allValues resultAnchor:v39[3] sequence:0 done:1 error:error];
+      v23 = [handlerCopy sendCodableChange:allValues resultAnchor:v38[3] sequence:0 done:1 error:error];
     }
 
     else
@@ -90,8 +90,7 @@
     v23 = 0;
   }
 
-  _Block_object_dispose(&v38, 8);
-  v24 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v37, 8);
   return v23;
 }
 
@@ -124,7 +123,7 @@ BOOL __104__HDAuthorizationSyncEntity_generateSyncObjectsForSession_syncAnchorRa
 
 BOOL __104__HDAuthorizationSyncEntity_generateSyncObjectsForSession_syncAnchorRange_profile_messageHandler_error___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   v11 = HDSQLiteColumnWithNameAsNumber();
   v12 = [*(a1 + 32) objectForKeyedSubscript:v11];
   if (!v12)
@@ -149,16 +148,15 @@ BOOL __104__HDAuthorizationSyncEntity_generateSyncObjectsForSession_syncAnchorRa
       v29 = *MEMORY[0x277CCC2A0];
       if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_ERROR))
       {
-        v32 = *(a1 + 64);
-        v33 = v29;
-        v35 = 138543874;
-        v36 = objc_opt_class();
-        v37 = 2112;
-        v38 = v11;
-        v39 = 2114;
-        v40 = 0;
-        v34 = v36;
-        _os_log_error_impl(&dword_228986000, v33, OS_LOG_TYPE_ERROR, "%{public}@: Failed to create codable source for source %@: %{public}@", &v35, 0x20u);
+        v31 = v29;
+        v33 = 138543874;
+        v34 = objc_opt_class();
+        v35 = 2112;
+        v36 = v11;
+        v37 = 2114;
+        v38 = 0;
+        v32 = v34;
+        _os_log_error_impl(&dword_228986000, v31, OS_LOG_TYPE_ERROR, "%{public}@: Failed to create codable source for source %@: %{public}@", &v33, 0x20u);
       }
     }
 
@@ -207,7 +205,6 @@ LABEL_3:
   }
 
 LABEL_16:
-  v30 = *MEMORY[0x277D85DE8];
   return v23;
 }
 

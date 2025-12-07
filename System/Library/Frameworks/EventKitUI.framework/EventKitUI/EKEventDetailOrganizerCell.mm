@@ -27,14 +27,14 @@
   _titleView = [(EKEventDetailOrganizerCell *)v9 _titleView];
   _organizerView = [(EKEventDetailOrganizerCell *)v9 _organizerView];
   _organizerLabel = [(EKEventDetailOrganizerCell *)v9 _organizerLabel];
-  contentView = [(EKEventDetailOrganizerCell *)v9 contentView];
-  [contentView addSubview:_titleView];
+  v14 = objc_msgSend_contentView(v9);
+  [v14 addSubview:_titleView];
 
-  contentView2 = [(EKEventDetailOrganizerCell *)v9 contentView];
-  [contentView2 addSubview:_organizerLabel];
+  v15 = objc_msgSend_contentView(v9);
+  [v15 addSubview:_organizerLabel];
 
-  contentView3 = [(EKEventDetailOrganizerCell *)v9 contentView];
-  [contentView3 addSubview:_organizerView];
+  v16 = objc_msgSend_contentView(v9);
+  [v16 addSubview:_organizerView];
 
   v17 = _organizerView;
   v18 = _NSDictionaryOfVariableBindings(&cfstr_TitleAvatarNam.isa, _titleView, _organizerView, _organizerLabel, 0);
@@ -70,8 +70,8 @@
   [array addObject:v37];
 
   v38 = objc_alloc_init(MEMORY[0x1E69DCC20]);
-  contentView4 = [(EKEventDetailOrganizerCell *)v9 contentView];
-  [contentView4 addLayoutGuide:v38];
+  v39 = objc_msgSend_contentView(v9);
+  [v39 addLayoutGuide:v38];
 
   firstBaselineAnchor2 = [_titleView firstBaselineAnchor];
   topAnchor = [v38 topAnchor];
@@ -84,31 +84,31 @@
   [array addObject:v45];
 
   centerYAnchor = [v38 centerYAnchor];
-  contentView5 = [(EKEventDetailOrganizerCell *)v9 contentView];
-  centerYAnchor2 = [contentView5 centerYAnchor];
+  v47 = objc_msgSend_contentView(v9);
+  centerYAnchor2 = [v47 centerYAnchor];
   v49 = [centerYAnchor constraintEqualToAnchor:centerYAnchor2];
   [array addObject:v49];
 
   topAnchor2 = [v38 topAnchor];
-  contentView6 = [(EKEventDetailOrganizerCell *)v9 contentView];
-  topAnchor3 = [contentView6 topAnchor];
+  v51 = objc_msgSend_contentView(v9);
+  topAnchor3 = [v51 topAnchor];
   v53 = [topAnchor2 constraintGreaterThanOrEqualToAnchor:topAnchor3];
   [array addObject:v53];
 
   bottomAnchor2 = [v38 bottomAnchor];
-  contentView7 = [(EKEventDetailOrganizerCell *)v9 contentView];
-  bottomAnchor3 = [contentView7 bottomAnchor];
+  v55 = objc_msgSend_contentView(v9);
+  bottomAnchor3 = [v55 bottomAnchor];
   v57 = [bottomAnchor2 constraintLessThanOrEqualToAnchor:bottomAnchor3];
   [array addObject:v57];
 
   centerYAnchor3 = [v17 centerYAnchor];
-  contentView8 = [(EKEventDetailOrganizerCell *)v9 contentView];
-  centerYAnchor4 = [contentView8 centerYAnchor];
+  v59 = objc_msgSend_contentView(v9);
+  centerYAnchor4 = [v59 centerYAnchor];
   v61 = [centerYAnchor3 constraintEqualToAnchor:centerYAnchor4];
   [array addObject:v61];
 
-  contentView9 = [(EKEventDetailOrganizerCell *)v9 contentView];
-  heightAnchor = [contentView9 heightAnchor];
+  v62 = objc_msgSend_contentView(v9);
+  heightAnchor = [v62 heightAnchor];
   v64 = [heightAnchor constraintGreaterThanOrEqualToConstant:60.0];
   [array addObject:v64];
 

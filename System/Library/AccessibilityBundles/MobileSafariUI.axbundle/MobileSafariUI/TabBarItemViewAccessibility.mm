@@ -4,7 +4,9 @@
 - (id)accessibilityLabel;
 - (void)_accessibilityLoadAccessibilityInformation;
 - (void)_accessibilityUpdateAXInfo;
+- (void)setActive:(BOOL)active;
 - (void)setFrame:(CGRect)frame;
+- (void)setPinned:(BOOL)pinned;
 - (void)setTitleText:(id)text;
 @end
 
@@ -45,12 +47,12 @@
 
 - (void)_accessibilityUpdateAXInfo
 {
-  v19 = [(TabBarItemViewAccessibility *)self safeValueForKey:@"_titleText"];
+  v18 = [(TabBarItemViewAccessibility *)self safeValueForKey:@"_titleText"];
   v3 = [(TabBarItemViewAccessibility *)self safeValueForKey:@"_titleLabel"];
   v4 = [(TabBarItemViewAccessibility *)self safeBoolForKey:@"isPinned"];
   v5 = MEMORY[0x29EDBA0F8];
   v6 = accessibilityLocalizedString(@"tab.view");
-  v7 = [v5 stringWithFormat:v6, v19];
+  v7 = [v5 stringWithFormat:v6, v18];
   if (v4)
   {
     v8 = accessibilityLocalizedString(@"tab.pinned");
@@ -70,23 +72,22 @@
   [v11 setIsAccessibilityElement:{-[TabBarItemViewAccessibility safeBoolForKey:](self, "safeBoolForKey:", @"isPinned"}];
   v12 = MEMORY[0x29EDBA0F8];
   v13 = accessibilityLocalizedString(@"close.tab");
-  v14 = [v12 stringWithFormat:v13, v19];
+  v14 = [v12 stringWithFormat:v13, v18];
   [v11 setAccessibilityLabel:v14];
 
   v15 = [(TabBarItemViewAccessibility *)self safeBoolForKey:@"isActive"];
   accessibilityTraits = [v3 accessibilityTraits];
-  v17 = *MEMORY[0x29EDC7FC0] | accessibilityTraits;
   if (v15)
   {
-    v18 = *MEMORY[0x29EDC7FC0] | accessibilityTraits;
+    v17 = *MEMORY[0x29EDC7FC0] | accessibilityTraits;
   }
 
   else
   {
-    v18 = accessibilityTraits & ~*MEMORY[0x29EDC7FC0];
+    v17 = accessibilityTraits & ~*MEMORY[0x29EDC7FC0];
   }
 
-  [v3 setAccessibilityTraits:v18];
+  [v3 setAccessibilityTraits:v17];
   [v3 setAccessibilityRespondsToUserInteraction:1];
 }
 
@@ -144,6 +145,22 @@
   v4.receiver = self;
   v4.super_class = TabBarItemViewAccessibility;
   [(TabBarItemViewAccessibility *)&v4 setTitleText:text];
+  [(TabBarItemViewAccessibility *)self _accessibilityUpdateAXInfo];
+}
+
+- (void)setActive:(BOOL)active
+{
+  v4.receiver = self;
+  v4.super_class = TabBarItemViewAccessibility;
+  [(TabBarItemViewAccessibility *)&v4 setActive:active];
+  [(TabBarItemViewAccessibility *)self _accessibilityUpdateAXInfo];
+}
+
+- (void)setPinned:(BOOL)pinned
+{
+  v4.receiver = self;
+  v4.super_class = TabBarItemViewAccessibility;
+  [(TabBarItemViewAccessibility *)&v4 setPinned:pinned];
   [(TabBarItemViewAccessibility *)self _accessibilityUpdateAXInfo];
 }
 

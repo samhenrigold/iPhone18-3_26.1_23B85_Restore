@@ -8,13 +8,6 @@
 
 - (NSString)description
 {
-  v4 = *(&self->super.isa + OBJC_IVAR___BlastDoorRelayReachabilityResult_relayReachabilityResult);
-  v5 = *&self->relayReachabilityResult[OBJC_IVAR___BlastDoorRelayReachabilityResult_relayReachabilityResult];
-  v6 = self->relayReachabilityResult[OBJC_IVAR___BlastDoorRelayReachabilityResult_relayReachabilityResult + 8];
-  v7 = *&self->relayReachabilityResult[OBJC_IVAR___BlastDoorRelayReachabilityResult_relayReachabilityResult + 16];
-  v8 = self->relayReachabilityResult[OBJC_IVAR___BlastDoorRelayReachabilityResult_relayReachabilityResult + 24];
-  v9 = self->relayReachabilityResult[OBJC_IVAR___BlastDoorRelayReachabilityResult_relayReachabilityResult + 25];
-  v10 = self->relayReachabilityResult[OBJC_IVAR___BlastDoorRelayReachabilityResult_relayReachabilityResult + 26];
 
   sub_2146D9608();
   v2 = sub_2146D9588();

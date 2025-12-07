@@ -8,22 +8,21 @@
 - (NSURL)iconURL
 {
   v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_280A0EB10, &qword_2759C0740);
-  v4 = *(*(v3 - 8) + 64);
   MEMORY[0x28223BE20](v3 - 8);
-  v6 = &v13 - v5;
-  sub_2758BB4AC(self + OBJC_IVAR____TtC14iCloudSettings9InlineTip_iconURL, &v13 - v5);
-  v7 = sub_2759B8508();
-  v8 = *(v7 - 8);
-  v9 = (*(v8 + 48))(v6, 1, v7);
-  v10 = 0;
-  if (v9 != 1)
+  v5 = &v12 - v4;
+  sub_2758BB4AC(self + OBJC_IVAR____TtC14iCloudSettings9InlineTip_iconURL, &v12 - v4);
+  v6 = sub_2759B8508();
+  v7 = *(v6 - 8);
+  v8 = (*(v7 + 48))(v5, 1, v6);
+  v9 = 0;
+  if (v8 != 1)
   {
-    v11 = sub_2759B84B8();
-    (*(v8 + 8))(v6, v7);
-    v10 = v11;
+    v10 = sub_2759B84B8();
+    (*(v7 + 8))(v5, v6);
+    v9 = v10;
   }
 
-  return v10;
+  return v9;
 }
 
 - (_TtC14iCloudSettings9InlineTip)init

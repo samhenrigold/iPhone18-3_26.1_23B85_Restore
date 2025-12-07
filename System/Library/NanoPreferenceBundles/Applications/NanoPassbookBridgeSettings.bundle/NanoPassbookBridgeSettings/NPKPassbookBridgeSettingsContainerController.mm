@@ -16,7 +16,9 @@
 - (void)_setCurrentScreen:(unint64_t)screen;
 - (void)dealloc;
 - (void)handleURL:(id)l withCompletion:(id)completion;
+- (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewDidLoad;
+- (void)viewIsAppearing:(BOOL)appearing;
 - (void)viewWillLayoutSubviews;
 @end
 
@@ -110,6 +112,22 @@
   view2 = [(NPKPassbookBridgeSettingsContainerController *)self view];
   [view2 bounds];
   [view setFrame:?];
+}
+
+- (void)viewIsAppearing:(BOOL)appearing
+{
+  v4.receiver = self;
+  v4.super_class = NPKPassbookBridgeSettingsContainerController;
+  [(NPKPassbookBridgeSettingsContainerController *)&v4 viewIsAppearing:appearing];
+  [(NPKPassbookBridgeSettingsContainerController *)self setIsViewVisible:1];
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v4.receiver = self;
+  v4.super_class = NPKPassbookBridgeSettingsContainerController;
+  [(NPKPassbookBridgeSettingsContainerController *)&v4 viewDidDisappear:disappear];
+  [(NPKPassbookBridgeSettingsContainerController *)self setIsViewVisible:0];
 }
 
 - (void)_loadCurrentScreen

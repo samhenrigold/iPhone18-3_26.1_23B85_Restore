@@ -1,8 +1,8 @@
 @interface NSMutableData(NSMutableData)
++ (_NSClrDatM)_newZeroingDataWithBytes:()NSMutableData length:;
 + (id)allocWithZone:()NSMutableData;
 + (id)dataWithCapacity:()NSMutableData;
 + (id)dataWithLength:()NSMutableData;
-+ (uint64_t)_newZeroingDataWithBytes:()NSMutableData length:;
 - (uint64_t)increaseLengthBy:()NSMutableData;
 - (uint64_t)setData:()NSMutableData;
 - (void)appendBytes:()NSMutableData length:;
@@ -152,12 +152,12 @@ LABEL_16:
 
   if (v16 != v14)
   {
-    memmove((mutableBytes2 + a3 + a6), (mutableBytes2 + a3 + a4), v15);
+    memmove(a3 + mutableBytes2 + a6, a3 + mutableBytes2 + a4, v15);
   }
 
   if (a6)
   {
-    v24 = (mutableBytes2 + a3);
+    v24 = a3 + mutableBytes2;
     if (v19)
     {
       memmove(v24, v19, a6);
@@ -630,7 +630,7 @@ LABEL_14:
   return v4;
 }
 
-+ (uint64_t)_newZeroingDataWithBytes:()NSMutableData length:
++ (_NSClrDatM)_newZeroingDataWithBytes:()NSMutableData length:
 {
   v6 = [_NSClrDatM alloc];
 

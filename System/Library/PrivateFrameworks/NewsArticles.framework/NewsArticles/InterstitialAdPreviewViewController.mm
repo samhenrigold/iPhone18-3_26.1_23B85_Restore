@@ -16,7 +16,7 @@
   swift_allocObject();
   *(&self->super.super.super.isa + v4) = sub_1D7D2A58C();
   v5 = OBJC_IVAR____TtC12NewsArticles35InterstitialAdPreviewViewController_eventManager;
-  sub_1D7A3ACC0();
+  sub_1D7A3ACC0(0);
   swift_allocObject();
   *(&self->super.super.super.isa + v5) = sub_1D7D28C9C();
   result = sub_1D7D3160C();

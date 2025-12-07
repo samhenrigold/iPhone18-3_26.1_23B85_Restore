@@ -29,7 +29,7 @@
 
 - (void)startDynaStoreMonitoringWithArgument:(id)argument
 {
-  v35[1] = *MEMORY[0x1E69E9840];
+  v33[1] = *MEMORY[0x1E69E9840];
   context.version = 0;
   context.info = self;
   context.retain = MEMORY[0x1E695D7C8];
@@ -62,8 +62,8 @@
   if (v9)
   {
     ComputerName = SCDynamicStoreKeyCreateComputerName(v8);
-    v35[0] = ComputerName;
-    v13 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v11, v35, 1, v12);
+    v33[0] = ComputerName;
+    v13 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v11, v33, 1, v12);
     if (ComputerName)
     {
       CFRelease(ComputerName);
@@ -89,7 +89,7 @@
         v29 = "/Library/Caches/com.apple.xbs/Sources/MobileGestaltSupport/MobileGestaltExtensions/MGNotifications.m";
       }
 
-      sub_1C3938818(v29, 285, @"Failed to register for %@", v24, v25, v26, v27, v28, argument);
+      sub_1C3938818(v29, 285, @"Failed to register for %@", v24, v25, v26, v27, v28, argument, context.version, context.info, context.retain, context.release, context.copyDescription);
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
@@ -115,26 +115,24 @@
       v22 = "/Library/Caches/com.apple.xbs/Sources/MobileGestaltSupport/MobileGestaltExtensions/MGNotifications.m";
     }
 
-    sub_1C3938818(v22, 294, @"Failed to create dynamic store", v17, v18, v19, v20, v21, v31);
+    sub_1C3938818(v22, 294, @"Failed to create dynamic store", v17, v18, v19, v20, v21);
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
       _os_log_impl(&dword_1C3937000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "Failed to create dynamic store", buf, 2u);
     }
   }
-
-  v30 = *MEMORY[0x1E69E9840];
 }
 
 - (MGNotificationObserver)initWithType:(int)type argument:(id)argument
 {
-  v165 = *MEMORY[0x1E69E9840];
-  v161.receiver = self;
-  v161.super_class = MGNotificationObserver;
-  v6 = [(MGNotificationObserver *)&v161 init];
+  v163 = *MEMORY[0x1E69E9840];
+  v159.receiver = self;
+  v159.super_class = MGNotificationObserver;
+  v6 = [(MGNotificationObserver *)&v159 init];
   if (!v6)
   {
-    goto LABEL_99;
+    return v6;
   }
 
   v6->_blocks = objc_alloc_init(MEMORY[0x1E695DFA8]);
@@ -177,12 +175,12 @@
           }
 
           v81 = *v80;
-          v149[0] = MEMORY[0x1E69E9820];
-          v149[1] = 3221225472;
-          v149[2] = sub_1C393A9D4;
-          v149[3] = &unk_1E81B1500;
-          v149[4] = v6;
-          v78(darwinTokens, v81, v149);
+          v147[0] = MEMORY[0x1E69E9820];
+          v147[1] = 3221225472;
+          v147[2] = sub_1C393A9D4;
+          v147[3] = &unk_1E81B1500;
+          v147[4] = v6;
+          v78(darwinTokens, v81, v147);
           goto LABEL_56;
         }
 
@@ -197,7 +195,7 @@
           v122 = "/Library/Caches/com.apple.xbs/Sources/MobileGestaltSupport/MobileGestaltExtensions/MGNotifications.m";
         }
 
-        sub_1C3938818(v122, 412, @"failed to connect to CTServer", v117, v118, v119, v120, v121, v148);
+        sub_1C3938818(v122, 412, @"failed to connect to CTServer", v117, v118, v119, v120, v121);
         if (!os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
         {
           goto LABEL_98;
@@ -232,7 +230,7 @@
           v22 = "/Library/Caches/com.apple.xbs/Sources/MobileGestaltSupport/MobileGestaltExtensions/MGNotifications.m";
         }
 
-        sub_1C3938818(v22, 403, @"MGNotificationTypeSWBehavior not supported", v17, v18, v19, v20, v21, v148);
+        sub_1C3938818(v22, 403, @"MGNotificationTypeSWBehavior not supported", v17, v18, v19, v20, v21);
         if (!os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
         {
           goto LABEL_98;
@@ -257,7 +255,7 @@
           v115 = "/Library/Caches/com.apple.xbs/Sources/MobileGestaltSupport/MobileGestaltExtensions/MGNotifications.m";
         }
 
-        sub_1C3938818(v115, 395, @"can't observe display mode changes", v110, v111, v112, v113, v114, v148);
+        sub_1C3938818(v115, 395, @"can't observe display mode changes", v110, v111, v112, v113, v114);
         if (!os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
         {
           goto LABEL_98;
@@ -290,7 +288,7 @@
           v145 = "/Library/Caches/com.apple.xbs/Sources/MobileGestaltSupport/MobileGestaltExtensions/MGNotifications.m";
         }
 
-        sub_1C3938818(v145, 383, @"failed to register for notification", v140, v141, v142, v143, v144, v148);
+        sub_1C3938818(v145, 383, @"failed to register for notification", v140, v141, v142, v143, v144);
         if (!os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
         {
           goto LABEL_98;
@@ -315,25 +313,25 @@
       {
         v30 = objc_msgSend_componentsSeparatedByString_(argumentCopy, v8, @",", v10, v11);
         v6->_registration._darwinTokens = objc_alloc_init(MEMORY[0x1E695DF70]);
+        v155 = 0u;
+        v156 = 0u;
         v157 = 0u;
         v158 = 0u;
-        v159 = 0u;
-        v160 = 0u;
-        v32 = objc_msgSend_countByEnumeratingWithState_objects_count_(v30, v31, &v157, v164, 16);
+        v32 = objc_msgSend_countByEnumeratingWithState_objects_count_(v30, v31, &v155, v162, 16);
         if (v32)
         {
           v37 = v32;
-          v38 = *v158;
+          v38 = *v156;
           while (2)
           {
             for (i = 0; i != v37; ++i)
             {
-              if (*v158 != v38)
+              if (*v156 != v38)
               {
                 objc_enumerationMutation(v30);
               }
 
-              v40 = *(*(&v157 + 1) + 8 * i);
+              v40 = *(*(&v155 + 1) + 8 * i);
               out_token = -1;
               v41 = objc_msgSend_UTF8String(v40, v33, v34, v35, v36);
               v42 = dispatch_get_global_queue(0, 0);
@@ -363,30 +361,30 @@
                   _os_log_impl(&dword_1C3937000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "failed to register for %@ notification", &context, 0xCu);
                 }
 
-                v153 = 0u;
-                v154 = 0u;
                 v151 = 0u;
                 v152 = 0u;
+                v149 = 0u;
+                v150 = 0u;
                 v99 = v6->_registration._darwinTokens;
-                v100 = objc_msgSend_countByEnumeratingWithState_objects_count_(v99, v98, &v151, v163, 16);
+                v100 = objc_msgSend_countByEnumeratingWithState_objects_count_(v99, v98, &v149, v161, 16);
                 if (v100)
                 {
                   v105 = v100;
-                  v106 = *v152;
+                  v106 = *v150;
                   do
                   {
                     for (j = 0; j != v105; ++j)
                     {
-                      if (*v152 != v106)
+                      if (*v150 != v106)
                       {
                         objc_enumerationMutation(v99);
                       }
 
-                      v108 = objc_msgSend_intValue(*(*(&v151 + 1) + 8 * j), v101, v102, v103, v104);
+                      v108 = objc_msgSend_intValue(*(*(&v149 + 1) + 8 * j), v101, v102, v103, v104);
                       notify_cancel(v108);
                     }
 
-                    v105 = objc_msgSend_countByEnumeratingWithState_objects_count_(v99, v101, &v151, v163, 16);
+                    v105 = objc_msgSend_countByEnumeratingWithState_objects_count_(v99, v101, &v149, v161, 16);
                   }
 
                   while (v105);
@@ -401,7 +399,7 @@
               objc_msgSend_addObject_(v46, v48, v47, v49, v50);
             }
 
-            v37 = objc_msgSend_countByEnumeratingWithState_objects_count_(v30, v33, &v157, v164, 16);
+            v37 = objc_msgSend_countByEnumeratingWithState_objects_count_(v30, v33, &v155, v162, 16);
             if (v37)
             {
               continue;
@@ -459,7 +457,7 @@ LABEL_97:
 
 LABEL_98:
         v6->_type = -1;
-        goto LABEL_99;
+        return v6;
       }
 
 LABEL_51:
@@ -513,7 +511,7 @@ LABEL_51:
         v138 = "/Library/Caches/com.apple.xbs/Sources/MobileGestaltSupport/MobileGestaltExtensions/MGNotifications.m";
       }
 
-      sub_1C3938818(v138, 370, @"failed to register for notification", v133, v134, v135, v136, v137, v148);
+      sub_1C3938818(v138, 370, @"failed to register for notification", v133, v134, v135, v136, v137);
       if (!os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
       {
         goto LABEL_98;
@@ -528,12 +526,12 @@ LABEL_96:
     }
 
     v62 = [MGFileWatcher alloc];
-    v150[0] = MEMORY[0x1E69E9820];
-    v150[1] = 3221225472;
-    v150[2] = sub_1C393A9CC;
-    v150[3] = &unk_1E81B1490;
-    v150[4] = v6;
-    v65 = objc_msgSend_initWithPath_block_(v62, v63, argument, v150, v64);
+    v148[0] = MEMORY[0x1E69E9820];
+    v148[1] = 3221225472;
+    v148[2] = sub_1C393A9CC;
+    v148[3] = &unk_1E81B1490;
+    v148[4] = v6;
+    v65 = objc_msgSend_initWithPath_block_(v62, v63, argument, v148, v64);
     v6->_registration._darwinTokens = v65;
     if (!v65)
     {
@@ -564,102 +562,87 @@ LABEL_56:
     v90 = v6;
   }
 
-LABEL_99:
-  v146 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
 - (void)_cancelRegistration
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   dispatch_assert_queue_V2(qword_1ED4ADF50);
   type = self->_type;
-  if (type <= 4)
+  if (type > 4)
   {
-    if (type <= 2)
+    if (type > 6)
     {
-      if (type == 1)
-      {
-        v40 = 0u;
-        v41 = 0u;
-        v38 = 0u;
-        v39 = 0u;
-        darwinTokens = self->_registration._darwinTokens;
-        v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(darwinTokens, v3, &v38, v44, 16);
-        if (v13)
-        {
-          v18 = v13;
-          v19 = *v39;
-          do
-          {
-            for (i = 0; i != v18; ++i)
-            {
-              if (*v39 != v19)
-              {
-                objc_enumerationMutation(darwinTokens);
-              }
-
-              v21 = objc_msgSend_intValue(*(*(&v38 + 1) + 8 * i), v14, v15, v16, v17);
-              notify_cancel(v21);
-            }
-
-            v18 = objc_msgSend_countByEnumeratingWithState_objects_count_(darwinTokens, v14, &v38, v44, 16);
-          }
-
-          while (v18);
-        }
-
-        self->_registration._darwinTokens = 0;
-LABEL_47:
-        self->_type = -1;
-        if (type == -1)
-        {
-          goto LABEL_41;
-        }
-
-        goto LABEL_40;
-      }
-
-      if (type == 2)
+      if (type == 7)
       {
         p_registration = &self->_registration;
-        v8 = self->_registration._darwinTokens;
-        if (v8)
+        scPrefs = self->_registration._scPrefs;
+        if (scPrefs)
         {
-          SCPreferencesSetDispatchQueue(v8, 0);
-          SCPreferencesSetCallback(p_registration->_scPrefs, 0, 0);
-LABEL_37:
-          CFRelease(p_registration->_darwinTokens);
-          goto LABEL_38;
+          v26 = qword_1ED4ADF68;
+          v27 = *(qword_1ED4ADF68 + 200);
+          if (!v27)
+          {
+            v27 = sub_1C39382B4(25, 2);
+            scPrefs = p_registration->_darwinTokens;
+            v26 = qword_1ED4ADF68;
+          }
+
+          v28 = *(v26 + 600);
+          if (!v28)
+          {
+            v28 = sub_1C39382B4(75, 1);
+          }
+
+          v27(scPrefs, *v28);
+          goto LABEL_37;
         }
 
         goto LABEL_39;
       }
 
-LABEL_42:
-      v30 = rindex("/Library/Caches/com.apple.xbs/Sources/MobileGestaltSupport/MobileGestaltExtensions/MGNotifications.m", 47);
-      if (v30)
+      if (type == 8)
       {
-        v36 = v30 + 1;
+        p_registration = &self->_registration;
+        darwinTokens = self->_registration._darwinTokens;
+        if (darwinTokens)
+        {
+          SCDynamicStoreSetDispatchQueue(darwinTokens, 0);
+          goto LABEL_37;
+        }
+
+LABEL_39:
+        self->_type = -1;
+LABEL_40:
+
+        return;
       }
 
-      else
-      {
-        v36 = "/Library/Caches/com.apple.xbs/Sources/MobileGestaltSupport/MobileGestaltExtensions/MGNotifications.m";
-      }
-
-      sub_1C3938818(v36, 519, @"can't cancel registration of type %d", v31, v32, v33, v34, v35, self->_type);
-      if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
-      {
-        v37 = self->_type;
-        *buf = 67109120;
-        v43 = v37;
-        _os_log_impl(&dword_1C3937000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "can't cancel registration of type %d", buf, 8u);
-      }
-
-      goto LABEL_47;
+      goto LABEL_41;
     }
 
+    if (type != 5)
+    {
+      p_registration = &self->_registration;
+LABEL_38:
+      p_registration->_darwinTokens = 0;
+      goto LABEL_39;
+    }
+
+    p_registration = &self->_registration;
+    v22 = self->_registration._darwinTokens;
+    if (!v22)
+    {
+      goto LABEL_39;
+    }
+
+    objc_msgSend_removeObserver_forKeyPath_(v22, v3, self, @"currentMode", v6);
+    goto LABEL_27;
+  }
+
+  if (type > 2)
+  {
     if (type == 3)
     {
       p_registration = &self->_registration;
@@ -689,74 +672,84 @@ LABEL_30:
     goto LABEL_38;
   }
 
-  if (type <= 6)
+  if (type != 1)
   {
-    if (type != 5)
+    if (type == 2)
     {
       p_registration = &self->_registration;
-LABEL_38:
-      p_registration->_darwinTokens = 0;
-      goto LABEL_39;
-    }
-
-    p_registration = &self->_registration;
-    v22 = self->_registration._darwinTokens;
-    if (!v22)
-    {
-      goto LABEL_39;
-    }
-
-    objc_msgSend_removeObserver_forKeyPath_(v22, v3, self, @"currentMode", v6);
-    goto LABEL_27;
-  }
-
-  if (type == 7)
-  {
-    p_registration = &self->_registration;
-    scPrefs = self->_registration._scPrefs;
-    if (scPrefs)
-    {
-      v26 = qword_1ED4ADF68;
-      v27 = *(qword_1ED4ADF68 + 200);
-      if (!v27)
+      v8 = self->_registration._darwinTokens;
+      if (v8)
       {
-        v27 = sub_1C39382B4(25, 2);
-        scPrefs = p_registration->_darwinTokens;
-        v26 = qword_1ED4ADF68;
+        SCPreferencesSetDispatchQueue(v8, 0);
+        SCPreferencesSetCallback(p_registration->_scPrefs, 0, 0);
+LABEL_37:
+        CFRelease(p_registration->_darwinTokens);
+        goto LABEL_38;
       }
 
-      v28 = *(v26 + 600);
-      if (!v28)
-      {
-        v28 = sub_1C39382B4(75, 1);
-      }
-
-      v27(scPrefs, *v28);
-      goto LABEL_37;
+      goto LABEL_39;
     }
-
-    goto LABEL_39;
-  }
-
-  if (type != 8)
-  {
-    goto LABEL_42;
-  }
-
-  p_registration = &self->_registration;
-  v11 = self->_registration._darwinTokens;
-  if (v11)
-  {
-    SCDynamicStoreSetDispatchQueue(v11, 0);
-    goto LABEL_37;
-  }
-
-LABEL_39:
-  self->_type = -1;
-LABEL_40:
 
 LABEL_41:
-  v29 = *MEMORY[0x1E69E9840];
+    v29 = rindex("/Library/Caches/com.apple.xbs/Sources/MobileGestaltSupport/MobileGestaltExtensions/MGNotifications.m", 47);
+    if (v29)
+    {
+      v35 = v29 + 1;
+    }
+
+    else
+    {
+      v35 = "/Library/Caches/com.apple.xbs/Sources/MobileGestaltSupport/MobileGestaltExtensions/MGNotifications.m";
+    }
+
+    sub_1C3938818(v35, 519, @"can't cancel registration of type %d", v30, v31, v32, v33, v34, self->_type);
+    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
+    {
+      v36 = self->_type;
+      *buf = 67109120;
+      v42 = v36;
+      _os_log_impl(&dword_1C3937000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "can't cancel registration of type %d", buf, 8u);
+    }
+
+    goto LABEL_46;
+  }
+
+  v39 = 0u;
+  v40 = 0u;
+  v37 = 0u;
+  v38 = 0u;
+  v12 = self->_registration._darwinTokens;
+  v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(v12, v3, &v37, v43, 16);
+  if (v13)
+  {
+    v18 = v13;
+    v19 = *v38;
+    do
+    {
+      for (i = 0; i != v18; ++i)
+      {
+        if (*v38 != v19)
+        {
+          objc_enumerationMutation(v12);
+        }
+
+        v21 = objc_msgSend_intValue(*(*(&v37 + 1) + 8 * i), v14, v15, v16, v17);
+        notify_cancel(v21);
+      }
+
+      v18 = objc_msgSend_countByEnumeratingWithState_objects_count_(v12, v14, &v37, v43, 16);
+    }
+
+    while (v18);
+  }
+
+  self->_registration._darwinTokens = 0;
+LABEL_46:
+  self->_type = -1;
+  if (type != -1)
+  {
+    goto LABEL_40;
+  }
 }
 
 - (void)_addBlock:(id)block
@@ -769,16 +762,16 @@ LABEL_41:
 
 - (void)_removeBlock:(id)block
 {
-  v29[2] = *MEMORY[0x1E69E9840];
+  v28[2] = *MEMORY[0x1E69E9840];
   dispatch_assert_queue_V2(qword_1ED4ADF50);
   objc_msgSend_removeObject_(self->_blocks, v5, block, v6, v7);
   if (!objc_msgSend_count(self->_blocks, v8, v9, v10, v11))
   {
     v16 = objc_msgSend_numberWithInt_(MEMORY[0x1E696AD98], v12, self->_type, v14, v15);
     argument = self->_argument;
-    v29[0] = v16;
-    v29[1] = argument;
-    v20 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v18, v29, 2, v19);
+    v28[0] = v16;
+    v28[1] = argument;
+    v20 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v18, v28, 2, v19);
     objc_msgSend_removeObjectForKey_(qword_1ED4ADF40, v21, v20, v22, v23);
     objc_msgSend__cancelRegistration(self, v24, v25, v26, v27);
   }
@@ -788,8 +781,6 @@ LABEL_41:
 
     qword_1ED4ADF40 = 0;
   }
-
-  v28 = *MEMORY[0x1E69E9840];
 }
 
 @end

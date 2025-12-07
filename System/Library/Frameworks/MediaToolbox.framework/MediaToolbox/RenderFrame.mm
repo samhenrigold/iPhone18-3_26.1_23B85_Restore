@@ -37,17 +37,15 @@ void __basicVideoCompositor_RenderFrame_block_invoke_7(uint64_t a1)
   }
 }
 
-uint64_t __openglVideoCompositor_RenderFrame_block_invoke(uint64_t result)
+void __openglVideoCompositor_RenderFrame_block_invoke(uint64_t result)
 {
   if (!*(*(result + 40) + 648))
   {
-    v1 = result;
+    v6 = v1;
     fig_log_get_emitter();
-    result = FigSignalErrorAtGM();
-    *(*(*(v1 + 32) + 8) + 24) = result;
+    FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, v6, v3);
+    *(*(*(result + 32) + 8) + 24) = v5;
   }
-
-  return result;
 }
 
 uint64_t __openglVideoCompositor_RenderFrame_block_invoke_2(void *a1)
@@ -129,16 +127,16 @@ uint64_t __basicVideoCompositor_RenderFrame_block_invoke(void *a1)
   v17 = *(v7 + 224);
   v19 = *v9;
   v20 = *(v9 + 176);
-  v83 = *(*(a1[4] + 8) + 24);
+  v88 = *(*(a1[4] + 8) + 24);
   v21 = *(v9 + 296);
   v22 = *(v9 + 304);
   v23 = *(v9 + 312);
   v24 = *(v9 + 320);
   allocator = v6;
-  v85 = *(v9 + 160);
+  v90 = *(v9 + 160);
   v25 = *(v9 + 168);
   pixelBufferOut = 0;
-  v88 = 0;
+  v93 = 0;
   if (!v6 || !v11 || !v12 || !v15)
   {
     goto LABEL_60;
@@ -148,7 +146,8 @@ uint64_t __basicVideoCompositor_RenderFrame_block_invoke(void *a1)
   {
     fig_log_get_emitter();
     OUTLINED_FUNCTION_1_4();
-    v34 = FigSignalErrorAtGM();
+    FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v72, v73, v74);
+    v34 = v71;
     Width = 0;
     goto LABEL_61;
   }
@@ -158,7 +157,8 @@ uint64_t __basicVideoCompositor_RenderFrame_block_invoke(void *a1)
 LABEL_60:
     fig_log_get_emitter();
     OUTLINED_FUNCTION_1_4();
-    v34 = FigSignalErrorAtGM();
+    FigSignalErrorAtGM("%s signalled err=%d at <>:%d");
+    v34 = v43;
     OUTLINED_FUNCTION_3_113();
 LABEL_61:
     v19 = 0;
@@ -172,20 +172,20 @@ LABEL_61:
     goto LABEL_131;
   }
 
-  v71 = v13;
-  v72 = v14;
-  v73 = v11;
-  v82 = v25;
-  v77 = v18;
-  v78 = v15;
-  v86 = v10;
+  v76 = v13;
+  v77 = v14;
+  v78 = v11;
+  v87 = v25;
+  v82 = v18;
+  v83 = v15;
+  v91 = v10;
   v26 = (v17 + 32 * v10);
   Width = CVPixelBufferGetWidth(v19);
   Height = CVPixelBufferGetHeight(v19);
   pixelBuffer = CVPixelBufferGetPixelFormatType(v19);
   key = *MEMORY[0x1E6965F98];
   cf = CVBufferCopyAttachment(v19, *MEMORY[0x1E6965F98], 0);
-  v76 = v26;
+  v81 = v26;
   if (!cf)
   {
     v28 = v16;
@@ -199,7 +199,7 @@ LABEL_61:
       {
 LABEL_19:
         v16 = v28;
-        v26 = v76;
+        v26 = v81;
         goto LABEL_20;
       }
     }
@@ -218,12 +218,12 @@ LABEL_19:
   }
 
 LABEL_20:
-  if (v83 == 1)
+  if (v88 == 1)
   {
-    v31 = v85;
-    v32 = v82;
-    v33 = v23 == v85 && v24 == v32;
-    if (!v33 || (v89.origin.x = OUTLINED_FUNCTION_6_81(), CGRectContainsRect(v89, v93), v20))
+    v31 = v90;
+    v32 = v87;
+    v33 = v23 == v90 && v24 == v32;
+    if (!v33 || (v94.origin.x = OUTLINED_FUNCTION_6_81(), CGRectContainsRect(v94, v98), v20))
     {
       OUTLINED_FUNCTION_7_70();
     }
@@ -231,22 +231,22 @@ LABEL_20:
     else
     {
       OUTLINED_FUNCTION_7_70();
-      if (v43)
+      if (v44)
       {
 LABEL_64:
-        v44 = v16[Height];
-        if (v44)
-        {
-          CFRelease(v44);
-          v16[Height] = 0;
-        }
-
-        v45 = *(v78 + 8 * Height);
+        v45 = v16[Height];
         if (v45)
         {
           CFRelease(v45);
+          v16[Height] = 0;
+        }
+
+        v46 = *(v83 + 8 * Height);
+        if (v46)
+        {
+          CFRelease(v46);
           OUTLINED_FUNCTION_3_113();
-          *(v78 + 8 * Height) = 0;
+          *(v83 + 8 * Height) = 0;
         }
 
         else
@@ -263,9 +263,9 @@ LABEL_64:
 
   else
   {
-    Width = v85;
-    v31 = v85;
-    v32 = v82;
+    Width = v90;
+    v31 = v90;
+    v32 = v87;
     v35 = v8 == 875704438 && pixelBuffer == 875704422;
     v36 = !v35;
     if (v35)
@@ -278,9 +278,9 @@ LABEL_64:
       v37 = pixelBuffer;
     }
 
-    v74 = v37;
+    v79 = v37;
     v39 = v23 == v31 && v24 == v32 && v20 == 0;
-    Height = v86;
+    Height = v91;
     if (v39 && (v36 & 1) != 0)
     {
       CVPixelBufferGetPixelFormatType(v19);
@@ -290,7 +290,7 @@ LABEL_64:
         goto LABEL_64;
       }
 
-      v74 = pixelBuffer;
+      v79 = pixelBuffer;
       if (FigCFEqual())
       {
         goto LABEL_64;
@@ -298,13 +298,13 @@ LABEL_64:
     }
   }
 
-  if (*(v78 + 8 * Height) == v19 && CVPixelBufferGetWidth(v16[Height]) == Width && CVPixelBufferGetHeight(v16[Height]) == v82 && CVPixelBufferGetPixelFormatType(v16[Height]) == v74)
+  if (*(v83 + 8 * Height) == v19 && CVPixelBufferGetWidth(v16[Height]) == Width && CVPixelBufferGetHeight(v16[Height]) == v87 && CVPixelBufferGetPixelFormatType(v16[Height]) == v79)
   {
-    v92.origin.x = v21;
-    v92.origin.y = v22;
-    v92.size.width = v23;
-    v92.size.height = v24;
-    if (CGRectEqualToRect(*v26, v92) && *(v77 + 4 * Height) == v20)
+    v97.origin.x = v21;
+    v97.origin.y = v22;
+    v97.size.width = v23;
+    v97.size.height = v24;
+    if (CGRectEqualToRect(*v26, v97) && *(v82 + 4 * Height) == v20)
     {
       v40 = v16[Height];
       if (v40)
@@ -314,7 +314,7 @@ LABEL_64:
 LABEL_129:
         v19 = cf;
 LABEL_130:
-        *(v77 + 4 * Height) = v20;
+        *(v82 + 4 * Height) = v20;
         v26->origin.x = v21;
         v26->origin.y = v22;
         v26->size.width = v23;
@@ -325,7 +325,7 @@ LABEL_130:
     }
   }
 
-  v75 = v16;
+  v80 = v16;
   if (v20)
   {
     v41 = v24;
@@ -342,23 +342,23 @@ LABEL_130:
 
     if (Width <= 4 * v41)
     {
-      v47 = Width;
+      v48 = Width;
       if (v41 > 4 * Width)
       {
-        v47 = (v41 + 3) >> 2;
+        v48 = (v41 + 3) >> 2;
       }
     }
 
     else
     {
-      v47 = 4 * v41;
+      v48 = 4 * v41;
     }
 
     v16 = (v12 + 8 * Height);
-    Width = v82;
-    if (v82 <= 4 * v42)
+    Width = v87;
+    if (v87 <= 4 * v42)
     {
-      if (v42 > 4 * v82)
+      if (v42 > 4 * v87)
       {
         Width = (v42 + 3) >> 2;
       }
@@ -369,56 +369,56 @@ LABEL_130:
       Width = 4 * v42;
     }
 
-    if (v83 != 1)
+    if (v88 != 1)
     {
       CVPixelBufferGetPixelFormatType(v19);
       OUTLINED_FUNCTION_2_137();
       if (v33)
       {
-        v48 = FigCFEqual();
-        v49 = pixelBuffer;
-        if (!v48)
+        v49 = FigCFEqual();
+        v50 = pixelBuffer;
+        if (!v49)
         {
-          v49 = 1111970369;
+          v50 = 1111970369;
         }
 
-        pixelBuffer = v49;
+        pixelBuffer = v50;
       }
     }
 
-    v50 = bvc_isPixelBufferPoolCompatibleWithDimensionsAndPixelFormat(*v16, v47, Width, pixelBuffer);
-    v51 = *v16;
-    if (v50)
+    v51 = bvc_isPixelBufferPoolCompatibleWithDimensionsAndPixelFormat(*v16, v48, Width, pixelBuffer);
+    v52 = *v16;
+    if (v51)
     {
-      if (v51)
+      if (v52)
       {
         goto LABEL_86;
       }
     }
 
-    else if (v51)
+    else if (v52)
     {
-      CFRelease(v51);
+      CFRelease(v52);
       *v16 = 0;
     }
 
-    PixelBufferPoolForPreProcessing = bvc_createPixelBufferPoolForPreProcessing(v47, Width, pixelBuffer, (v12 + 8 * Height));
+    PixelBufferPoolForPreProcessing = bvc_createPixelBufferPoolForPreProcessing(v48, Width, pixelBuffer, (v12 + 8 * Height));
     if (PixelBufferPoolForPreProcessing)
     {
       goto LABEL_154;
     }
 
 LABEL_86:
-    v52 = (v71 + 8 * Height);
-    if (*v52)
+    v53 = (v76 + 8 * Height);
+    if (*v53)
     {
-      if (*(v77 + 4 * v86) == v20)
+      if (*(v82 + 4 * v91) == v20)
       {
         goto LABEL_91;
       }
 
-      CFRelease(*v52);
-      *v52 = 0;
+      CFRelease(*v53);
+      *v53 = 0;
     }
 
     PixelBufferPoolForPreProcessing = VTImageRotationSessionCreate();
@@ -427,7 +427,7 @@ LABEL_86:
       goto LABEL_154;
     }
 
-    MEMORY[0x19A8D4E00](*v52, *MEMORY[0x1E6983CF8], *MEMORY[0x1E695E4D0]);
+    MEMORY[0x19A8D4E00](*v53, *MEMORY[0x1E6983CF8], *MEMORY[0x1E695E4D0]);
 LABEL_91:
     PixelBufferPoolForPreProcessing = CVPixelBufferPoolCreatePixelBuffer(allocator, *v16, &pixelBufferOut);
     if (!PixelBufferPoolForPreProcessing)
@@ -435,17 +435,17 @@ LABEL_91:
       CVBufferPropagateAttachments(v19, pixelBufferOut);
       CVBufferRemoveAttachment(pixelBufferOut, *MEMORY[0x1E6965D70]);
       CVBufferRemoveAttachment(pixelBufferOut, *MEMORY[0x1E6965EF8]);
-      v54 = OUTLINED_FUNCTION_6_81();
-      PixelBufferPoolForPreProcessing = MEMORY[0x19A8D4E20](v54);
+      v55 = OUTLINED_FUNCTION_6_81();
+      PixelBufferPoolForPreProcessing = MEMORY[0x19A8D4E20](v55);
       if (!PixelBufferPoolForPreProcessing)
       {
         v16 = CVBufferCopyAttachment(pixelBufferOut, key, 0);
         v40 = pixelBufferOut;
         pixelBufferOut = 0;
         pixelBuffera = v40;
-        Height = v86;
-        Width = v85;
-        v46 = v74;
+        Height = v91;
+        Width = v90;
+        v47 = v79;
         if (v16)
         {
           goto LABEL_99;
@@ -458,12 +458,12 @@ LABEL_91:
 LABEL_154:
     v34 = PixelBufferPoolForPreProcessing;
     OUTLINED_FUNCTION_3_113();
-    goto LABEL_165;
+    goto LABEL_166;
   }
 
   v40 = 0;
   pixelBuffera = v19;
-  v46 = v74;
+  v47 = v79;
 LABEL_94:
   if (cf)
   {
@@ -476,108 +476,108 @@ LABEL_94:
   }
 
 LABEL_99:
-  v90.origin.x = OUTLINED_FUNCTION_9_52();
-  v94.size.width = v31;
-  v94.size.height = v32;
-  if (CGRectContainsRect(v90, v94) && CVPixelBufferGetWidth(pixelBuffera) == Width && CVPixelBufferGetHeight(pixelBuffera) == v82 && CVPixelBufferGetPixelFormatType(pixelBuffera) == v46)
+  v95.origin.x = OUTLINED_FUNCTION_9_52();
+  v99.size.width = v31;
+  v99.size.height = v32;
+  if (CGRectContainsRect(v95, v99) && CVPixelBufferGetWidth(pixelBuffera) == Width && CVPixelBufferGetHeight(pixelBuffera) == v87 && CVPixelBufferGetPixelFormatType(pixelBuffera) == v47)
   {
-    if (v83 == 1 || (CVPixelBufferGetPixelFormatType(pixelBuffera), OUTLINED_FUNCTION_2_137(), !v33) || FigCFEqual())
+    if (v88 == 1 || (CVPixelBufferGetPixelFormatType(pixelBuffera), OUTLINED_FUNCTION_2_137(), !v33) || FigCFEqual())
     {
       Width = 0;
 LABEL_122:
-      v61 = Height;
-      v62 = *(v78 + 8 * Height);
-      *(v78 + 8 * v61) = v19;
+      v62 = Height;
+      v63 = *(v83 + 8 * Height);
+      *(v83 + 8 * v62) = v19;
       CFRetain(v19);
-      if (v62)
-      {
-        CFRelease(v62);
-      }
-
-      Height = v86;
-      v63 = v75[v86];
-      v19 = cf;
       if (v63)
       {
         CFRelease(v63);
       }
 
+      Height = v91;
+      v64 = v80[v91];
+      v19 = cf;
+      if (v64)
+      {
+        CFRelease(v64);
+      }
+
       v34 = 0;
-      v75[v86] = v40;
+      v80[v91] = v40;
       goto LABEL_130;
     }
   }
 
-  v55 = (v73 + 8 * Height);
-  v56 = bvc_isPixelBufferPoolCompatibleWithDimensionsAndPixelFormat(*v55, Width, v82, v46);
-  v57 = *v55;
-  if (v56)
+  v56 = (v78 + 8 * Height);
+  v57 = bvc_isPixelBufferPoolCompatibleWithDimensionsAndPixelFormat(*v56, Width, v87, v47);
+  v58 = *v56;
+  if (v57)
   {
-    if (v57)
+    if (v58)
     {
       goto LABEL_110;
     }
   }
 
-  else if (v57)
+  else if (v58)
   {
-    CFRelease(v57);
-    *v55 = 0;
+    CFRelease(v58);
+    *v56 = 0;
   }
 
-  v59 = bvc_createPixelBufferPoolForPreProcessing(Width, v82, v46, v55);
-  if (v59)
+  v60 = bvc_createPixelBufferPoolForPreProcessing(Width, v87, v47, v56);
+  if (v60)
   {
     goto LABEL_150;
   }
 
 LABEL_110:
-  v58 = (v72 + 8 * v86);
-  if (!*v58)
+  v59 = (v77 + 8 * v91);
+  if (!*v59)
   {
-    v59 = VTPixelTransferSessionCreate(allocator, (v72 + 8 * v86));
-    if (!v59)
+    v60 = VTPixelTransferSessionCreate(allocator, (v77 + 8 * v91));
+    if (!v60)
     {
       VTPixelTransferSessionSetProperty();
       goto LABEL_113;
     }
 
 LABEL_150:
-    v34 = v59;
+    v34 = v60;
     Width = 0;
-    goto LABEL_165;
+    goto LABEL_166;
   }
 
 LABEL_113:
-  v91.origin.x = OUTLINED_FUNCTION_9_52();
-  Width = CGRectCreateDictionaryRepresentation(v91);
+  v96.origin.x = OUTLINED_FUNCTION_9_52();
+  Width = CGRectCreateDictionaryRepresentation(v96);
   if (Width)
   {
     VTPixelTransferSessionSetProperty();
-    v60 = VTPixelTransferSessionSetProperty();
-    if (!v60)
+    v61 = VTPixelTransferSessionSetProperty();
+    if (!v61)
     {
-      v60 = VTPixelTransferSessionSetProperty();
-      if (!v60)
+      v61 = VTPixelTransferSessionSetProperty();
+      if (!v61)
       {
-        v60 = VTPixelTransferSessionSetProperty();
-        if (!v60)
+        v61 = VTPixelTransferSessionSetProperty();
+        if (!v61)
         {
-          v60 = CVPixelBufferPoolCreatePixelBuffer(allocator, *v55, &v88);
-          if (!v60)
+          v61 = CVPixelBufferPoolCreatePixelBuffer(allocator, *v56, &v93);
+          if (!v61)
           {
-            v60 = VTPixelTransferSessionTransferImage(*v58, pixelBuffera, v88);
-            if (!v60)
+            v61 = VTPixelTransferSessionTransferImage(*v59, pixelBuffera, v93);
+            if (!v61)
             {
               if (v40)
               {
                 CFRelease(v40);
               }
 
-              v40 = v88;
-              v88 = 0;
-              Height = v86;
-              v26 = v76;
+              v40 = v93;
+              v93 = 0;
+              Height = v91;
+              v26 = v81;
               goto LABEL_122;
             }
           }
@@ -589,11 +589,11 @@ LABEL_113:
   else
   {
     fig_log_get_emitter();
-    v60 = FigSignalErrorAtGM();
+    FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v1, LODWORD(v24), LODWORD(v23));
   }
 
-  v34 = v60;
-LABEL_165:
+  v34 = v61;
+LABEL_166:
   v19 = cf;
 LABEL_131:
   if (pixelBufferOut)
@@ -601,9 +601,9 @@ LABEL_131:
     CFRelease(pixelBufferOut);
   }
 
-  if (v88)
+  if (v93)
   {
-    CFRelease(v88);
+    CFRelease(v93);
   }
 
   if (Width)
@@ -622,18 +622,18 @@ LABEL_131:
   }
 
   result = FigGetUpTimeNanoseconds();
-  v65 = a1[6];
-  *(v65 + 344) = result;
+  v66 = a1[6];
+  *(v66 + 344) = result;
   if (v34)
   {
-    v66 = a1[8];
-    v67 = v66[20];
-    v68 = v66[2];
-    v69 = v66[3];
-    result = bvc_updateSourcebufferCharacteristics(v65);
+    v67 = a1[8];
+    v68 = v67[20];
+    v69 = v67[2];
+    v70 = v67[3];
+    result = bvc_updateSourcebufferCharacteristics(v66);
     if (!result)
     {
-      result = bvc_computeScaledTransformAndTransformedRect(v68, v69, v67, v65);
+      result = bvc_computeScaledTransformAndTransformedRect(v69, v70, v68, v66);
     }
 
     if (v34 != -16210)

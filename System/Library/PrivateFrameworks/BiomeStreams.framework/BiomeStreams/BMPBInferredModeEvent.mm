@@ -3,6 +3,8 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)modeTypeAsString:(int)string;
+- (id)originAsString:(int)string;
 - (int)StringAsModeType:(id)type;
 - (int)StringAsOrigin:(id)origin;
 - (int)modeType;
@@ -49,6 +51,21 @@
   }
 
   *&self->_has = *&self->_has & 0xEF | v3;
+}
+
+- (id)originAsString:(int)string
+{
+  if ((string + 1) >= 0x12)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E6E52AB8[string + 1];
+  }
+
+  return v4;
 }
 
 - (int)StringAsOrigin:(id)origin
@@ -256,6 +273,21 @@
   }
 
   *&self->_has = *&self->_has & 0xF7 | v3;
+}
+
+- (id)modeTypeAsString:(int)string
+{
+  if (string >= 0x11)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E6E52B48[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsModeType:(id)type
@@ -502,11 +534,10 @@
 
 - (void)writeTo:(id)to
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   toCopy = to;
   if (*&self->_has)
   {
-    absoluteTimestamp = self->_absoluteTimestamp;
     PBDataWriterWriteDoubleField();
   }
 
@@ -517,7 +548,6 @@
 
   if ((*&self->_has & 0x10) != 0)
   {
-    origin = self->_origin;
     PBDataWriterWriteInt32Field();
   }
 
@@ -529,14 +559,12 @@
   has = self->_has;
   if ((has & 0x20) != 0)
   {
-    isAutomationEnabled = self->_isAutomationEnabled;
     PBDataWriterWriteBOOLField();
     has = self->_has;
   }
 
   if ((has & 0x40) != 0)
   {
-    isStart = self->_isStart;
     PBDataWriterWriteBOOLField();
   }
 
@@ -550,60 +578,55 @@
     PBDataWriterWriteStringField();
   }
 
-  v10 = self->_has;
-  if ((v10 & 4) != 0)
+  v6 = self->_has;
+  if ((v6 & 4) != 0)
   {
-    uiLocation = self->_uiLocation;
     PBDataWriterWriteUint64Field();
-    v10 = self->_has;
+    v6 = self->_has;
   }
 
-  if ((v10 & 2) != 0)
+  if ((v6 & 2) != 0)
   {
-    confidenceScore = self->_confidenceScore;
     PBDataWriterWriteDoubleField();
   }
 
-  v25 = 0u;
-  v26 = 0u;
-  v23 = 0u;
-  v24 = 0u;
-  v13 = self->_serializedTriggers;
-  v14 = [(NSMutableArray *)v13 countByEnumeratingWithState:&v23 objects:v27 count:16];
-  if (v14)
+  v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
+  v7 = self->_serializedTriggers;
+  v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  if (v8)
   {
-    v15 = v14;
-    v16 = *v24;
+    v9 = v8;
+    v10 = *v14;
     do
     {
-      for (i = 0; i != v15; ++i)
+      for (i = 0; i != v9; ++i)
       {
-        if (*v24 != v16)
+        if (*v14 != v10)
         {
-          objc_enumerationMutation(v13);
+          objc_enumerationMutation(v7);
         }
 
-        v18 = *(*(&v23 + 1) + 8 * i);
         PBDataWriterWriteDataField();
       }
 
-      v15 = [(NSMutableArray *)v13 countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v9 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
-    while (v15);
+    while (v9);
   }
 
-  v19 = self->_has;
-  if ((v19 & 8) != 0)
+  v12 = self->_has;
+  if ((v12 & 8) != 0)
   {
-    modeType = self->_modeType;
     PBDataWriterWriteInt32Field();
-    v19 = self->_has;
+    v12 = self->_has;
   }
 
-  if (v19 < 0)
+  if (v12 < 0)
   {
-    shouldSuggestTriggers = self->_shouldSuggestTriggers;
     PBDataWriterWriteBOOLField();
   }
 
@@ -611,8 +634,6 @@
   {
     PBDataWriterWriteStringField();
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 - (void)copyTo:(id)to
@@ -722,7 +743,7 @@
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   v5 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
   v6 = v5;
   if (*&self->_has)
@@ -781,30 +802,30 @@
     *(v6 + 92) |= 2u;
   }
 
-  v30 = 0u;
-  v31 = 0u;
-  v28 = 0u;
   v29 = 0u;
+  v30 = 0u;
+  v27 = 0u;
+  v28 = 0u;
   v17 = self->_serializedTriggers;
-  v18 = [(NSMutableArray *)v17 countByEnumeratingWithState:&v28 objects:v32 count:16];
+  v18 = [(NSMutableArray *)v17 countByEnumeratingWithState:&v27 objects:v31 count:16];
   if (v18)
   {
     v19 = v18;
-    v20 = *v29;
+    v20 = *v28;
     do
     {
       for (i = 0; i != v19; ++i)
       {
-        if (*v29 != v20)
+        if (*v28 != v20)
         {
           objc_enumerationMutation(v17);
         }
 
-        v22 = [*(*(&v28 + 1) + 8 * i) copyWithZone:{zone, v28}];
+        v22 = [*(*(&v27 + 1) + 8 * i) copyWithZone:{zone, v27}];
         [v6 addSerializedTriggers:v22];
       }
 
-      v19 = [(NSMutableArray *)v17 countByEnumeratingWithState:&v28 objects:v32 count:16];
+      v19 = [(NSMutableArray *)v17 countByEnumeratingWithState:&v27 objects:v31 count:16];
     }
 
     while (v19);
@@ -824,11 +845,10 @@
     *(v6 + 92) |= 0x80u;
   }
 
-  v24 = [(NSString *)self->_userModeName copyWithZone:zone, v28];
+  v24 = [(NSString *)self->_userModeName copyWithZone:zone, v27];
   v25 = *(v6 + 72);
   *(v6 + 72) = v24;
 
-  v26 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
@@ -841,7 +861,6 @@
   }
 
   has = self->_has;
-  v6 = *(equalCopy + 92);
   if (has)
   {
     if ((*(equalCopy + 92) & 1) == 0 || self->_absoluteTimestamp != *(equalCopy + 1))
@@ -866,7 +885,6 @@
     has = self->_has;
   }
 
-  v8 = *(equalCopy + 92);
   if ((has & 0x10) != 0)
   {
     if ((*(equalCopy + 92) & 0x10) == 0 || self->_origin != *(equalCopy + 11))
@@ -891,7 +909,6 @@
     has = self->_has;
   }
 
-  v10 = *(equalCopy + 92);
   if ((has & 0x20) != 0)
   {
     if ((*(equalCopy + 92) & 0x20) == 0)
@@ -899,7 +916,6 @@
       goto LABEL_61;
     }
 
-    v15 = *(equalCopy + 88);
     if (self->_isAutomationEnabled)
     {
       if ((*(equalCopy + 88) & 1) == 0)
@@ -926,7 +942,6 @@
       goto LABEL_61;
     }
 
-    v16 = *(equalCopy + 89);
     if (self->_isStart)
     {
       if ((*(equalCopy + 89) & 1) == 0)
@@ -961,9 +976,8 @@
     }
   }
 
-  v13 = self->_has;
-  v14 = *(equalCopy + 92);
-  if ((v13 & 4) != 0)
+  v10 = self->_has;
+  if ((v10 & 4) != 0)
   {
     if ((*(equalCopy + 92) & 4) == 0 || self->_uiLocation != *(equalCopy + 3))
     {
@@ -997,11 +1011,10 @@
       goto LABEL_61;
     }
 
-    v13 = self->_has;
+    v10 = self->_has;
   }
 
-  v18 = *(equalCopy + 92);
-  if ((v13 & 8) != 0)
+  if ((v10 & 8) != 0)
   {
     if ((*(equalCopy + 92) & 8) == 0 || self->_modeType != *(equalCopy + 10))
     {
@@ -1014,7 +1027,7 @@
     goto LABEL_61;
   }
 
-  if ((v13 & 0x80) == 0)
+  if ((v10 & 0x80) == 0)
   {
     if ((*(equalCopy + 92) & 0x80) == 0)
     {
@@ -1022,7 +1035,7 @@
     }
 
 LABEL_61:
-    v20 = 0;
+    v13 = 0;
     goto LABEL_62;
   }
 
@@ -1031,7 +1044,6 @@ LABEL_61:
     goto LABEL_61;
   }
 
-  v22 = *(equalCopy + 90);
   if (self->_shouldSuggestTriggers)
   {
     if ((*(equalCopy + 90) & 1) == 0)
@@ -1049,17 +1061,17 @@ LABEL_58:
   userModeName = self->_userModeName;
   if (userModeName | *(equalCopy + 9))
   {
-    v20 = [(NSString *)userModeName isEqual:?];
+    v13 = [(NSString *)userModeName isEqual:?];
   }
 
   else
   {
-    v20 = 1;
+    v13 = 1;
   }
 
 LABEL_62:
 
-  return v20;
+  return v13;
 }
 
 - (unint64_t)hash
@@ -1206,7 +1218,7 @@ LABEL_27:
 
 - (void)mergeFrom:(id)from
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   fromCopy = from;
   v5 = fromCopy;
   if (*(fromCopy + 92))
@@ -1269,29 +1281,29 @@ LABEL_27:
     *&self->_has |= 2u;
   }
 
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   v8 = *(v5 + 8);
-  v9 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v16;
+    v11 = *v15;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v16 != v11)
+        if (*v15 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        [(BMPBInferredModeEvent *)self addSerializedTriggers:*(*(&v15 + 1) + 8 * i), v15];
+        [(BMPBInferredModeEvent *)self addSerializedTriggers:*(*(&v14 + 1) + 8 * i), v14];
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v10);
@@ -1315,8 +1327,6 @@ LABEL_27:
   {
     [(BMPBInferredModeEvent *)self setUserModeName:?];
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 @end

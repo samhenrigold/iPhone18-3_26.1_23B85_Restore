@@ -97,22 +97,22 @@
 
 - (id)attributedStringFromValue:(id)value displayType:(id)type unit:(id)unit unitController:(id)controller valueFont:(id)font unitFont:(id)unitFont
 {
-  objc_opt_class();
-  OUTLINED_FUNCTION_2_2();
+  v8 = objc_opt_class();
+  OUTLINED_FUNCTION_2_2(v8);
   return 0;
 }
 
 - (id)attributedStringFromValue:(id)value displayType:(id)type unit:(id)unit unitController:(id)controller valueFont:(id)font unitFont:(id)unitFont formatForChart:(BOOL)chart
 {
-  objc_opt_class();
-  OUTLINED_FUNCTION_2_2();
+  v9 = objc_opt_class();
+  OUTLINED_FUNCTION_2_2(v9);
   return 0;
 }
 
 - (id)attributedStringFromValue:(id)value displayType:(id)type unit:(id)unit unitController:(id)controller valueFont:(id)font unitFont:(id)unitFont formatForChart:(BOOL)chart unitFormatString:(id)self0
 {
-  objc_opt_class();
-  OUTLINED_FUNCTION_2_2();
+  v10 = objc_opt_class();
+  OUTLINED_FUNCTION_2_2(v10);
   return 0;
 }
 

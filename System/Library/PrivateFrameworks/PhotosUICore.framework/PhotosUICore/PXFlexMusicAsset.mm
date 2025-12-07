@@ -100,10 +100,10 @@ void __44__PXFlexMusicAsset_assetWithTargetDuration___block_invoke(uint64_t a1, 
     identifier2 = [assetCopy identifier];
     if (identifier == identifier2 || [identifier isEqual:identifier2])
     {
-      [(PXFlexMusicAsset *)self targetDuration];
+      objc_msgSend_targetDuration(self);
       if (assetCopy)
       {
-        [assetCopy targetDuration];
+        objc_msgSend_targetDuration(assetCopy);
       }
 
       else

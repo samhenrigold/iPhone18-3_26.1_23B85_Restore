@@ -1,10 +1,33 @@
 @interface WFPrivateAddressModeOptionsViewController
+- (WFPrivateAddressModeOptionsViewController)initWithTitles:(id)titles originalSelection:(id)selection isCurrentNetwork:(BOOL)network currentNetworkName:(id)name isChinaDevice:(BOOL)device;
 - (void)_promptForAllowTrackingCurrentNetwork:(BOOL)network indexPath:(id)path;
 - (void)_promptForInterruptCurrentNetwork:(id)network;
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path;
 @end
 
 @implementation WFPrivateAddressModeOptionsViewController
+
+- (WFPrivateAddressModeOptionsViewController)initWithTitles:(id)titles originalSelection:(id)selection isCurrentNetwork:(BOOL)network currentNetworkName:(id)name isChinaDevice:(BOOL)device
+{
+  deviceCopy = device;
+  networkCopy = network;
+  selectionCopy = selection;
+  nameCopy = name;
+  v17.receiver = self;
+  v17.super_class = WFPrivateAddressModeOptionsViewController;
+  v14 = [(WFValueListViewController *)&v17 initWithTitles:titles switchTitle:0];
+  v15 = v14;
+  if (v14)
+  {
+    [(WFPrivateAddressModeOptionsViewController *)v14 setOriginalSelection:selectionCopy];
+    [(WFValueListViewController *)v15 setSelectedTitle:selectionCopy];
+    [(WFPrivateAddressModeOptionsViewController *)v15 setIsCurrentNetwork:networkCopy];
+    [(WFPrivateAddressModeOptionsViewController *)v15 setNetworkName:nameCopy];
+    [(WFPrivateAddressModeOptionsViewController *)v15 setIsChinaDevice:deviceCopy];
+  }
+
+  return v15;
+}
 
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path
 {

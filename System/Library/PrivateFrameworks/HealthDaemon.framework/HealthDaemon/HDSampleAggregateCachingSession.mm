@@ -35,20 +35,20 @@
 
     objc_storeWeak(&v23->_profile, profileCopy);
     v23->_cachedClass = class;
-    v26 = [identifierCopy copy];
+    v26 = objc_msgSend_copy(identifierCopy);
     cachingIdentifier = v23->_cachingIdentifier;
     v23->_cachingIdentifier = v26;
 
     objc_storeStrong(&v23->_sourceEntity, entity);
-    v28 = [intervalCopy copy];
+    v28 = objc_msgSend_copy(intervalCopy);
     queryInterval = v23->_queryInterval;
     v23->_queryInterval = v28;
 
-    v30 = [dateCopy copy];
+    v30 = objc_msgSend_copy(dateCopy);
     anchorDate = v23->_anchorDate;
     v23->_anchorDate = v30;
 
-    v32 = [componentsCopy copy];
+    v32 = objc_msgSend_copy(componentsCopy);
     intervalComponents = v23->_intervalComponents;
     v23->_intervalComponents = v32;
 
@@ -179,7 +179,7 @@ uint64_t __65__HDSampleAggregateCachingSession_persistentAnchorDateWithError___b
 
 - (uint64_t)_performWithAccessibilityAssertion:(uint64_t)assertion requiresWrite:(uint64_t)write error:(void *)error block:
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   v9 = a2;
   errorCopy = error;
   v11 = errorCopy;
@@ -190,9 +190,9 @@ uint64_t __65__HDSampleAggregateCachingSession_persistentAnchorDateWithError___b
       WeakRetained = objc_loadWeakRetained((self + 16));
       database = [WeakRetained database];
       v14 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@:%@", objc_opt_class(), *(self + 40)];
-      v28 = 0;
-      v15 = [database cloneAccessibilityAssertion:v9 ownerIdentifier:v14 error:&v28];
-      v16 = v28;
+      v27 = 0;
+      v15 = [database cloneAccessibilityAssertion:v9 ownerIdentifier:v14 error:&v27];
+      v16 = v27;
 
       if (v15)
       {
@@ -202,12 +202,12 @@ uint64_t __65__HDSampleAggregateCachingSession_persistentAnchorDateWithError___b
         [v17 addAccessibilityAssertion:v15];
         v18 = objc_loadWeakRetained((self + 16));
         database2 = [v18 database];
-        v26[0] = MEMORY[0x277D85DD0];
-        v26[1] = 3221225472;
-        v26[2] = __96__HDSampleAggregateCachingSession__performWithAccessibilityAssertion_requiresWrite_error_block___block_invoke;
-        v26[3] = &unk_27862F838;
-        v27 = v11;
-        v20 = [database2 performTransactionWithContext:v17 error:write block:v26 inaccessibilityHandler:0];
+        v25[0] = MEMORY[0x277D85DD0];
+        v25[1] = 3221225472;
+        v25[2] = __96__HDSampleAggregateCachingSession__performWithAccessibilityAssertion_requiresWrite_error_block___block_invoke;
+        v25[3] = &unk_27862F838;
+        v26 = v11;
+        v20 = [database2 performTransactionWithContext:v17 error:write block:v25 inaccessibilityHandler:0];
 
         [v15 invalidate];
       }
@@ -218,12 +218,12 @@ uint64_t __65__HDSampleAggregateCachingSession_persistentAnchorDateWithError___b
         v21 = *MEMORY[0x277CCC308];
         if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
         {
-          v24 = objc_opt_class();
+          v23 = objc_opt_class();
           *buf = 138543618;
-          v30 = v24;
-          v31 = 2114;
-          v32 = v16;
-          v25 = v24;
+          v29 = v23;
+          v30 = 2114;
+          v31 = v16;
+          v24 = v23;
           _os_log_error_impl(&dword_228986000, v21, OS_LOG_TYPE_ERROR, "[%{public}@] Unable to copy accessibility assertion; continuing: %{public}@", buf, 0x16u);
         }
 
@@ -242,7 +242,6 @@ uint64_t __65__HDSampleAggregateCachingSession_persistentAnchorDateWithError___b
     v20 = 0;
   }
 
-  v22 = *MEMORY[0x277D85DE8];
   return v20;
 }
 
@@ -275,7 +274,7 @@ uint64_t __65__HDSampleAggregateCachingSession_persistentAnchorDateWithError___b
 
 - (BOOL)activateWithError:(id *)error cacheHandler:(id)handler
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   _HKInitializeLogging();
   v7 = *MEMORY[0x277CCC308];
@@ -284,8 +283,8 @@ uint64_t __65__HDSampleAggregateCachingSession_persistentAnchorDateWithError___b
     cachingIdentifier = self->_cachingIdentifier;
     *buf = 138543618;
     selfCopy = self;
-    v26 = 2112;
-    v27 = cachingIdentifier;
+    v25 = 2112;
+    v26 = cachingIdentifier;
     _os_log_debug_impl(&dword_228986000, v7, OS_LOG_TYPE_DEBUG, "%{public}@ Activating session for %@", buf, 0x16u);
   }
 
@@ -349,29 +348,28 @@ LABEL_11:
 
   self->_state = 1;
   accessibilityAssertion = self->_accessibilityAssertion;
-  v22[0] = MEMORY[0x277D85DD0];
-  v22[1] = 3221225472;
-  v22[2] = __66__HDSampleAggregateCachingSession_activateWithError_cacheHandler___block_invoke;
-  v22[3] = &unk_278629348;
-  v22[4] = self;
-  v23 = handlerCopy;
-  v18 = [(HDSampleAggregateCachingSession *)self _performWithAccessibilityAssertion:0 requiresWrite:error error:v22 block:?];
+  v21[0] = MEMORY[0x277D85DD0];
+  v21[1] = 3221225472;
+  v21[2] = __66__HDSampleAggregateCachingSession_activateWithError_cacheHandler___block_invoke;
+  v21[3] = &unk_278629348;
+  v21[4] = self;
+  v22 = handlerCopy;
+  v18 = [(HDSampleAggregateCachingSession *)self _performWithAccessibilityAssertion:0 requiresWrite:error error:v21 block:?];
 
 LABEL_19:
-  v19 = *MEMORY[0x277D85DE8];
   return v18;
 }
 
 uint64_t __66__HDSampleAggregateCachingSession_activateWithError_cacheHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v64 = *MEMORY[0x277D85DE8];
+  v63 = *MEMORY[0x277D85DE8];
   v4 = *(a1 + 32);
   v5 = *(v4 + 40);
   v6 = *(v4 + 48);
   WeakRetained = objc_loadWeakRetained((v4 + 16));
-  v53 = 0;
-  v8 = [HDCachedQueryMetadataEntity generationNumberForQueryIdentifier:v5 sourceEntity:v6 profile:WeakRetained error:&v53];
-  v9 = v53;
+  v52 = 0;
+  v8 = [HDCachedQueryMetadataEntity generationNumberForQueryIdentifier:v5 sourceEntity:v6 profile:WeakRetained error:&v52];
+  v9 = v52;
 
   if (v8)
   {
@@ -386,33 +384,33 @@ uint64_t __66__HDSampleAggregateCachingSession_activateWithError_cacheHandler___
   if (v10)
   {
     *(*(a1 + 32) + 56) = [v8 integerValue];
-    v49 = 0;
-    v50 = &v49;
-    v51 = 0x2020000000;
-    v52 = 0;
-    v45 = 0;
-    v46 = &v45;
-    v47 = 0x2020000000;
     v48 = 0;
+    v49 = &v48;
+    v50 = 0x2020000000;
+    v51 = 0;
+    v44 = 0;
+    v45 = &v44;
+    v46 = 0x2020000000;
+    v47 = 0;
     aBlock[0] = MEMORY[0x277D85DD0];
     aBlock[1] = 3221225472;
     aBlock[2] = __66__HDSampleAggregateCachingSession_activateWithError_cacheHandler___block_invoke_2;
     aBlock[3] = &unk_27862F7E8;
     v11 = *(a1 + 40);
     aBlock[4] = *(a1 + 32);
-    v43 = &v45;
-    v44 = &v49;
-    v42 = v11;
+    v42 = &v44;
+    v43 = &v48;
+    v41 = v11;
     v12 = _Block_copy(aBlock);
+    v38 = 0;
     v39 = 0;
-    v40 = 0;
-    v13 = [*(*(a1 + 32) + 8) enumerateForInterval:*(*(a1 + 32) + 32) cachedClass:*(*(a1 + 32) + 24) anchorAfterDatabaseScan:&v40 error:&v39 cacheHandler:v12];
-    v14 = v39;
+    v13 = [*(*(a1 + 32) + 8) enumerateForInterval:*(*(a1 + 32) + 32) cachedClass:*(*(a1 + 32) + 24) anchorAfterDatabaseScan:&v39 error:&v38 cacheHandler:v12];
+    v14 = v38;
     v15 = *(a1 + 32);
     v16 = *(v15 + 88);
-    if (v16 >= v40)
+    if (v16 >= v39)
     {
-      v16 = v40;
+      v16 = v39;
     }
 
     *(v15 + 88) = v16;
@@ -428,25 +426,25 @@ uint64_t __66__HDSampleAggregateCachingSession_activateWithError_cacheHandler___
       v24 = [v23 analyticsSubmissionCoordinator];
 
       v25 = vcvtad_u64_f64(v19 / v21);
-      [v24 database_reportCachedQueryEvent:*(*(a1 + 32) + 40) cacheHits:v50[3] cacheMisses:v46[3] estimatedTotalBuckets:v25];
+      [v24 database_reportCachedQueryEvent:*(*(a1 + 32) + 40) cacheHits:v49[3] cacheMisses:v45[3] estimatedTotalBuckets:v25];
       _HKInitializeLogging();
       v26 = *MEMORY[0x277CCC308];
       if (os_log_type_enabled(*MEMORY[0x277CCC308], OS_LOG_TYPE_DEBUG))
       {
-        v35 = *(a1 + 32);
-        v36 = *(v35 + 40);
-        v37 = v50[3];
-        v38 = v46[3];
+        v34 = *(a1 + 32);
+        v35 = *(v34 + 40);
+        v36 = v49[3];
+        v37 = v45[3];
         *buf = 138544386;
-        v55 = v35;
-        v56 = 2112;
-        v57 = v36;
-        v58 = 2048;
-        v59 = v37;
-        v60 = 2048;
-        v61 = v38;
-        v62 = 2048;
-        v63 = v25;
+        v54 = v34;
+        v55 = 2112;
+        v56 = v35;
+        v57 = 2048;
+        v58 = v36;
+        v59 = 2048;
+        v60 = v37;
+        v61 = 2048;
+        v62 = v25;
         _os_log_debug_impl(&dword_228986000, v26, OS_LOG_TYPE_DEBUG, "%{public}@ reporting cache success rate for %@ (hits = %lu, misses = %lu, numBuckets = %lu)", buf, 0x34u);
       }
     }
@@ -472,8 +470,8 @@ uint64_t __66__HDSampleAggregateCachingSession_activateWithError_cacheHandler___
       }
     }
 
-    _Block_object_dispose(&v45, 8);
-    _Block_object_dispose(&v49, 8);
+    _Block_object_dispose(&v44, 8);
+    _Block_object_dispose(&v48, 8);
   }
 
   else
@@ -494,7 +492,6 @@ uint64_t __66__HDSampleAggregateCachingSession_activateWithError_cacheHandler___
     v13 = 0;
   }
 
-  v33 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
@@ -607,14 +604,14 @@ LABEL_22:
 
 - (void)deleteCachesForIntervals:(id)intervals completion:(id)completion
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   intervalsCopy = intervals;
   completionCopy = completion;
-  v32 = 0;
-  v22 = completionCopy;
-  v7 = [(HDSampleAggregateCachingSession *)self persistentAnchorDateWithError:&v32];
-  v8 = v32;
-  v21 = v8;
+  v31 = 0;
+  v21 = completionCopy;
+  v7 = [(HDSampleAggregateCachingSession *)self persistentAnchorDateWithError:&v31];
+  v8 = v31;
+  v20 = v8;
   if (v8)
   {
     (*(completionCopy + 2))(completionCopy, 0, v8);
@@ -623,25 +620,25 @@ LABEL_22:
   else
   {
     v9 = objc_alloc_init(MEMORY[0x277CBEB18]);
-    v30 = 0u;
-    v31 = 0u;
-    v28 = 0u;
     v29 = 0u;
+    v30 = 0u;
+    v27 = 0u;
+    v28 = 0u;
     obj = intervalsCopy;
-    v10 = [obj countByEnumeratingWithState:&v28 objects:v33 count:16];
+    v10 = [obj countByEnumeratingWithState:&v27 objects:v32 count:16];
     if (v10)
     {
-      v11 = *v29;
+      v11 = *v28;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v29 != v11)
+          if (*v28 != v11)
           {
             objc_enumerationMutation(obj);
           }
 
-          v13 = *(*(&v28 + 1) + 8 * i);
+          v13 = *(*(&v27 + 1) + 8 * i);
           timeIntervalToBucketIndex = [(HDSampleAggregateCacheStore *)self->_cacheStore timeIntervalToBucketIndex];
           startDate = [v13 startDate];
           [startDate timeIntervalSinceReferenceDate];
@@ -652,30 +649,28 @@ LABEL_22:
           [v9 addObject:v17];
         }
 
-        v10 = [obj countByEnumeratingWithState:&v28 objects:v33 count:16];
+        v10 = [obj countByEnumeratingWithState:&v27 objects:v32 count:16];
       }
 
       while (v10);
     }
 
     generationNumber = self->_generationNumber;
-    v25[0] = MEMORY[0x277D85DD0];
-    v25[1] = 3221225472;
-    v25[2] = __71__HDSampleAggregateCachingSession_deleteCachesForIntervals_completion___block_invoke;
-    v25[3] = &unk_278624840;
-    v25[4] = self;
+    v24[0] = MEMORY[0x277D85DD0];
+    v24[1] = 3221225472;
+    v24[2] = __71__HDSampleAggregateCachingSession_deleteCachesForIntervals_completion___block_invoke;
+    v24[3] = &unk_278624840;
+    v24[4] = self;
     v19 = v9;
-    v26 = v19;
-    v27 = generationNumber;
-    [(HDSampleAggregateCachingSession *)self _writeToDatabaseOnCachePersistenceQueueWithBlock:v25 completion:v22];
+    v25 = v19;
+    v26 = generationNumber;
+    [(HDSampleAggregateCachingSession *)self _writeToDatabaseOnCachePersistenceQueueWithBlock:v24 completion:v21];
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __71__HDSampleAggregateCachingSession_deleteCachesForIntervals_completion___block_invoke(void *a1, uint64_t *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v4 = [*(a1[4] + 8) deleteCachesForIndexes:a1[5] generationNumber:a1[6] + 1 error:a2];
   if ((v4 & 1) == 0)
   {
@@ -683,17 +678,16 @@ uint64_t __71__HDSampleAggregateCachingSession_deleteCachesForIntervals_completi
     v5 = *MEMORY[0x277CCC308];
     if (os_log_type_enabled(*MEMORY[0x277CCC308], OS_LOG_TYPE_ERROR))
     {
-      v8 = a1[4];
-      v9 = *a2;
-      v10 = 138543618;
-      v11 = v8;
-      v12 = 2112;
-      v13 = v9;
-      _os_log_error_impl(&dword_228986000, v5, OS_LOG_TYPE_ERROR, "%{public}@ Encountered failure when deleting caches: %@", &v10, 0x16u);
+      v7 = a1[4];
+      v8 = *a2;
+      v9 = 138543618;
+      v10 = v7;
+      v11 = 2112;
+      v12 = v8;
+      _os_log_error_impl(&dword_228986000, v5, OS_LOG_TYPE_ERROR, "%{public}@ Encountered failure when deleting caches: %@", &v9, 0x16u);
     }
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
@@ -727,11 +721,11 @@ uint64_t __71__HDSampleAggregateCachingSession_deleteCachesForIntervals_completi
 
 - (void)insertCaches:(id)caches anchor:(id)anchor completion:(id)completion
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   cachesCopy = caches;
   anchorCopy = anchor;
   completionCopy = completion;
-  v47 = 0;
+  v46 = 0;
   if (!self)
   {
     v35 = 0;
@@ -776,7 +770,7 @@ LABEL_31:
     if (v33)
     {
       v34 = v33;
-      v47 = v11;
+      v46 = v11;
     }
 
     goto LABEL_33;
@@ -786,9 +780,9 @@ LABEL_31:
   {
     if (!state)
     {
-      if ([(HDSampleAggregateCachingSession *)self cachesExistWithError:&v47]== 2)
+      if ([(HDSampleAggregateCachingSession *)self cachesExistWithError:&v46]== 2)
       {
-        v11 = v47;
+        v11 = v46;
         goto LABEL_4;
       }
 
@@ -798,7 +792,7 @@ LABEL_31:
 
 LABEL_33:
 
-    v35 = v47;
+    v35 = v46;
 LABEL_34:
     v18 = v35;
     completionCopy[2](completionCopy, 0, v18);
@@ -826,35 +820,35 @@ LABEL_4:
     self->_anchorSetOnInsert = 1;
   }
 
-  v46 = 0;
-  v17 = [(HDSampleAggregateCachingSession *)self persistentAnchorDateWithError:&v46];
-  v18 = v46;
+  v45 = 0;
+  v17 = [(HDSampleAggregateCachingSession *)self persistentAnchorDateWithError:&v45];
+  v18 = v45;
   if (v17)
   {
-    v44 = 0u;
-    v45 = 0u;
-    v42 = 0u;
     v43 = 0u;
+    v44 = 0u;
+    v41 = 0u;
+    v42 = 0u;
     v19 = cachesCopy;
-    v20 = [v19 countByEnumeratingWithState:&v42 objects:v48 count:16];
+    v20 = [v19 countByEnumeratingWithState:&v41 objects:v47 count:16];
     if (v20)
     {
-      v21 = *v43;
+      v21 = *v42;
       do
       {
         v22 = 0;
         do
         {
-          if (*v43 != v21)
+          if (*v42 != v21)
           {
             objc_enumerationMutation(v19);
           }
 
-          std::__hash_table<long,std::hash<long>,std::equal_to<long>,std::allocator<long>>::__erase_unique<long>(&self->_staleIndexes, [*(*(&v42 + 1) + 8 * v22++) bucketIndexForIntervalComponents:self->_intervalComponents anchorDate:v17]);
+          std::__hash_table<long,std::hash<long>,std::equal_to<long>,std::allocator<long>>::__erase_unique<long>(&self->_staleIndexes, [*(*(&v41 + 1) + 8 * v22++) bucketIndexForIntervalComponents:self->_intervalComponents anchorDate:v17]);
         }
 
         while (v20 != v22);
-        v20 = [v19 countByEnumeratingWithState:&v42 objects:v48 count:16];
+        v20 = [v19 countByEnumeratingWithState:&v41 objects:v47 count:16];
       }
 
       while (v20);
@@ -862,18 +856,18 @@ LABEL_4:
 
     v23 = self->_cacheStore;
     generationNumber = self->_generationNumber;
-    v25 = [v19 copy];
-    v37[0] = MEMORY[0x277D85DD0];
-    v37[1] = 3221225472;
-    v37[2] = __66__HDSampleAggregateCachingSession_insertCaches_anchor_completion___block_invoke;
-    v37[3] = &unk_27862F810;
+    v25 = objc_msgSend_copy(v19);
+    v36[0] = MEMORY[0x277D85DD0];
+    v36[1] = 3221225472;
+    v36[2] = __66__HDSampleAggregateCachingSession_insertCaches_anchor_completion___block_invoke;
+    v36[3] = &unk_27862F810;
     v26 = v23;
-    v38 = v26;
-    v39 = v25;
+    v37 = v26;
+    v38 = v25;
     selfCopy = self;
-    v41 = generationNumber;
+    v40 = generationNumber;
     v27 = v25;
-    [(HDSampleAggregateCachingSession *)self _writeToDatabaseOnCachePersistenceQueueWithBlock:v37 completion:completionCopy];
+    [(HDSampleAggregateCachingSession *)self _writeToDatabaseOnCachePersistenceQueueWithBlock:v36 completion:completionCopy];
   }
 
   else
@@ -883,12 +877,11 @@ LABEL_4:
   }
 
 LABEL_35:
-  v36 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __66__HDSampleAggregateCachingSession_insertCaches_anchor_completion___block_invoke(uint64_t a1, uint64_t *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v4 = [*(a1 + 32) saveCaches:*(a1 + 40) generationNumber:*(a1 + 56) + 1 error:a2];
   if ((v4 & 1) == 0)
   {
@@ -896,23 +889,22 @@ uint64_t __66__HDSampleAggregateCachingSession_insertCaches_anchor_completion___
     v5 = *MEMORY[0x277CCC308];
     if (os_log_type_enabled(*MEMORY[0x277CCC308], OS_LOG_TYPE_ERROR))
     {
-      v8 = *(a1 + 48);
-      v9 = *a2;
-      v10 = 138543618;
-      v11 = v8;
-      v12 = 2112;
-      v13 = v9;
-      _os_log_error_impl(&dword_228986000, v5, OS_LOG_TYPE_ERROR, "%{public}@ Encountered failure when inserting caches: %@", &v10, 0x16u);
+      v7 = *(a1 + 48);
+      v8 = *a2;
+      v9 = 138543618;
+      v10 = v7;
+      v11 = 2112;
+      v12 = v8;
+      _os_log_error_impl(&dword_228986000, v5, OS_LOG_TYPE_ERROR, "%{public}@ Encountered failure when inserting caches: %@", &v9, 0x16u);
     }
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
 - (void)finishWithCompletion:(id)completion
 {
-  v64 = *MEMORY[0x277D85DE8];
+  v62 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   v5 = 0;
   state = self->_state;
@@ -988,10 +980,10 @@ LABEL_16:
         localizedDescription = [v14 localizedDescription];
         *buf = 138543874;
         selfCopy4 = self;
-        v60 = 2112;
-        v61 = cachingIdentifier;
-        v62 = 2114;
-        v63 = localizedDescription;
+        v58 = 2112;
+        v59 = cachingIdentifier;
+        v60 = 2114;
+        v61 = localizedDescription;
         _os_log_debug_impl(&dword_228986000, v16, OS_LOG_TYPE_DEBUG, "%{public}@ Finishing caching session %@ with error %{public}@", buf, 0x20u);
       }
     }
@@ -1005,15 +997,15 @@ LABEL_23:
   if (!state)
   {
     _HKInitializeLogging();
-    v24 = *MEMORY[0x277CCC308];
+    v23 = *MEMORY[0x277CCC308];
     if (os_log_type_enabled(*MEMORY[0x277CCC308], OS_LOG_TYPE_DEBUG))
     {
-      v45 = self->_cachingIdentifier;
+      v43 = self->_cachingIdentifier;
       *buf = 138543618;
       selfCopy4 = self;
-      v60 = 2112;
-      v61 = v45;
-      _os_log_debug_impl(&dword_228986000, v24, OS_LOG_TYPE_DEBUG, "%{public}@ Finishing caching session %@ successfully", buf, 0x16u);
+      v58 = 2112;
+      v59 = v43;
+      _os_log_debug_impl(&dword_228986000, v23, OS_LOG_TYPE_DEBUG, "%{public}@ Finishing caching session %@ successfully", buf, 0x16u);
     }
 
     v14 = 0;
@@ -1021,35 +1013,20 @@ LABEL_23:
     goto LABEL_23;
   }
 
-  v57 = 0;
-  v19 = [(HDSampleAggregateCachingSession *)self persistentAnchorDateWithError:&v57];
-  v14 = v57;
-  v52 = v19;
-  if (v19)
+  v55 = 0;
+  v18 = [(HDSampleAggregateCachingSession *)self persistentAnchorDateWithError:&v55];
+  v14 = v55;
+  v50 = v18;
+  if (v18)
   {
     startDate = [(NSDateInterval *)self->_queryInterval startDate];
     if (startDate)
     {
-      v21 = MEMORY[0x277CCABB0];
+      v20 = MEMORY[0x277CCABB0];
       timeIntervalToBucketIndex = [(HDSampleAggregateCacheStore *)self->_cacheStore timeIntervalToBucketIndex];
       startDate2 = [(NSDateInterval *)self->_queryInterval startDate];
       [startDate2 timeIntervalSinceReferenceDate];
-      v51 = [v21 numberWithInteger:{(timeIntervalToBucketIndex)[2](timeIntervalToBucketIndex, v52)}];
-    }
-
-    else
-    {
-      v51 = 0;
-    }
-
-    endDate = [(NSDateInterval *)self->_queryInterval endDate];
-    if (endDate)
-    {
-      v30 = MEMORY[0x277CCABB0];
-      timeIntervalToBucketIndex2 = [(HDSampleAggregateCacheStore *)self->_cacheStore timeIntervalToBucketIndex];
-      endDate2 = [(NSDateInterval *)self->_queryInterval endDate];
-      [endDate2 timeIntervalSinceReferenceDate];
-      v49 = [v30 numberWithInteger:{(timeIntervalToBucketIndex2)[2](timeIntervalToBucketIndex2, v52) - 1}];
+      v49 = [v20 numberWithInteger:{(timeIntervalToBucketIndex)[2](timeIntervalToBucketIndex, v50)}];
     }
 
     else
@@ -1057,8 +1034,23 @@ LABEL_23:
       v49 = 0;
     }
 
-    v48 = [HDCachedQueryMetadata alloc];
-    v33 = self->_cachingIdentifier;
+    endDate = [(NSDateInterval *)self->_queryInterval endDate];
+    if (endDate)
+    {
+      v29 = MEMORY[0x277CCABB0];
+      timeIntervalToBucketIndex2 = [(HDSampleAggregateCacheStore *)self->_cacheStore timeIntervalToBucketIndex];
+      endDate2 = [(NSDateInterval *)self->_queryInterval endDate];
+      [endDate2 timeIntervalSinceReferenceDate];
+      v47 = [v29 numberWithInteger:{(timeIntervalToBucketIndex2)[2](timeIntervalToBucketIndex2, v50) - 1}];
+    }
+
+    else
+    {
+      v47 = 0;
+    }
+
+    v46 = [HDCachedQueryMetadata alloc];
+    v32 = self->_cachingIdentifier;
     persistentID = [(HDSQLiteEntity *)self->_sourceEntity persistentID];
     maxAnchor = self->_maxAnchor;
     generationNumber = self->_generationNumber;
@@ -1066,40 +1058,39 @@ LABEL_23:
     daemon = [WeakRetained daemon];
     behavior = [daemon behavior];
     currentOSBuild = [behavior currentOSBuild];
-    anchorDate = self->_anchorDate;
-    v41 = [(HDCachedQueryMetadata *)v48 initWithCachingIdentifier:v33 sourceEntityPersistentID:persistentID maxAnchor:maxAnchor queryStartIndex:v51 queryEndIndex:v49 generationNumber:generationNumber + 1 buildVersion:currentOSBuild anchorDate:anchorDate intervalComponents:self->_intervalComponents];
+    v39 = [(HDCachedQueryMetadata *)v46 initWithCachingIdentifier:v32 sourceEntityPersistentID:persistentID maxAnchor:maxAnchor queryStartIndex:v49 queryEndIndex:v47 generationNumber:generationNumber + 1 buildVersion:currentOSBuild anchorDate:self->_anchorDate intervalComponents:self->_intervalComponents];
 
-    v42 = objc_loadWeakRetained(&self->_profile);
-    v53[0] = MEMORY[0x277D85DD0];
-    v53[1] = 3221225472;
-    v53[2] = __56__HDSampleAggregateCachingSession_finishWithCompletion___block_invoke;
-    v53[3] = &unk_278624538;
-    v54 = v41;
-    v55 = v42;
+    v40 = objc_loadWeakRetained(&self->_profile);
+    v51[0] = MEMORY[0x277D85DD0];
+    v51[1] = 3221225472;
+    v51[2] = __56__HDSampleAggregateCachingSession_finishWithCompletion___block_invoke;
+    v51[3] = &unk_278624538;
+    v52 = v39;
+    v53 = v40;
     selfCopy3 = self;
-    v43 = v42;
-    v44 = v41;
-    [(HDSampleAggregateCachingSession *)self _writeToDatabaseOnCachePersistenceQueueWithBlock:v53 completion:completionCopy];
+    v41 = v40;
+    v42 = v39;
+    [(HDSampleAggregateCachingSession *)self _writeToDatabaseOnCachePersistenceQueueWithBlock:v51 completion:completionCopy];
   }
 
   else
   {
     _HKInitializeLogging();
-    v25 = *MEMORY[0x277CCC308];
+    v24 = *MEMORY[0x277CCC308];
     if (os_log_type_enabled(*MEMORY[0x277CCC308], OS_LOG_TYPE_DEBUG))
     {
-      v26 = v25;
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
+      v25 = v24;
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
       {
-        v46 = self->_cachingIdentifier;
+        v44 = self->_cachingIdentifier;
         localizedDescription2 = [v14 localizedDescription];
         *buf = 138543874;
         selfCopy4 = self;
-        v60 = 2112;
-        v61 = v46;
-        v62 = 2114;
-        v63 = localizedDescription2;
-        _os_log_debug_impl(&dword_228986000, v26, OS_LOG_TYPE_DEBUG, "%{public}@ Finishing caching session %@ with error %{public}@", buf, 0x20u);
+        v58 = 2112;
+        v59 = v44;
+        v60 = 2114;
+        v61 = localizedDescription2;
+        _os_log_debug_impl(&dword_228986000, v25, OS_LOG_TYPE_DEBUG, "%{public}@ Finishing caching session %@ with error %{public}@", buf, 0x20u);
       }
     }
 
@@ -1108,12 +1099,11 @@ LABEL_23:
   }
 
 LABEL_24:
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 BOOL __56__HDSampleAggregateCachingSession_finishWithCompletion___block_invoke(void *a1, uint64_t *a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v4 = [HDCachedQueryMetadataEntity updateCachedQueryMetadata:a1[4] profile:a1[5] error:a2];
   _HKInitializeLogging();
   v5 = *MEMORY[0x277CCC308];
@@ -1124,81 +1114,76 @@ BOOL __56__HDSampleAggregateCachingSession_finishWithCompletion___block_invoke(v
     {
       v7 = a1[6];
       v8 = *(v7 + 40);
-      v13 = 138543618;
-      v14 = v7;
-      v15 = 2112;
-      v16 = v8;
-      _os_log_debug_impl(&dword_228986000, v5, OS_LOG_TYPE_DEBUG, "%{public}@ Finishing query %@ successfully", &v13, 0x16u);
+      v12 = 138543618;
+      v13 = v7;
+      v14 = 2112;
+      v15 = v8;
+      _os_log_debug_impl(&dword_228986000, v5, OS_LOG_TYPE_DEBUG, "%{public}@ Finishing query %@ successfully", &v12, 0x16u);
     }
   }
 
   else if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
-    v11 = a1[6];
-    v12 = *a2;
-    v13 = 138543618;
-    v14 = v11;
-    v15 = 2112;
-    v16 = v12;
-    _os_log_error_impl(&dword_228986000, v5, OS_LOG_TYPE_ERROR, "%{public}@ Encountered failure when finishing session: %@", &v13, 0x16u);
+    v10 = a1[6];
+    v11 = *a2;
+    v12 = 138543618;
+    v13 = v10;
+    v14 = 2112;
+    v15 = v11;
+    _os_log_error_impl(&dword_228986000, v5, OS_LOG_TYPE_ERROR, "%{public}@ Encountered failure when finishing session: %@", &v12, 0x16u);
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
 void __95__HDSampleAggregateCachingSession__writeToDatabaseOnCachePersistenceQueueWithBlock_completion___block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
-  v4 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"sample-aggregate-caching-session-queue"];
-  v2 = HKCreateSerialDispatchQueue();
-  v3 = _MergedGlobals_224;
-  _MergedGlobals_224 = v2;
+  v3 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"sample-aggregate-caching-session-queue"];
+  v1 = HKCreateSerialDispatchQueue();
+  v2 = _MergedGlobals_224;
+  _MergedGlobals_224 = v1;
 }
 
 void __95__HDSampleAggregateCachingSession__writeToDatabaseOnCachePersistenceQueueWithBlock_completion___block_invoke_2(uint64_t a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   if (*(v2 + 160))
   {
     v3 = *(*(a1 + 40) + 16);
-    v4 = *MEMORY[0x277D85DE8];
 
     v3();
   }
 
   else
   {
-    v5 = *(v2 + 176);
-    v13 = 0;
-    v6 = [(HDSampleAggregateCachingSession *)v2 _performWithAccessibilityAssertion:v5 requiresWrite:1 error:&v13 block:*(a1 + 48)];
-    v7 = v13;
-    v8 = v13;
-    if ((v6 & 1) == 0)
+    v4 = *(v2 + 176);
+    v11 = 0;
+    v5 = [(HDSampleAggregateCachingSession *)v2 _performWithAccessibilityAssertion:v4 requiresWrite:1 error:&v11 block:*(a1 + 48)];
+    v6 = v11;
+    v7 = v11;
+    if ((v5 & 1) == 0)
     {
       _HKInitializeLogging();
-      v9 = *MEMORY[0x277CCC308];
+      v8 = *MEMORY[0x277CCC308];
       if (os_log_type_enabled(*MEMORY[0x277CCC308], OS_LOG_TYPE_ERROR))
       {
-        v12 = *(a1 + 32);
+        v10 = *(a1 + 32);
         *buf = 138543618;
-        v15 = v12;
-        v16 = 2112;
-        v17 = v8;
-        _os_log_error_impl(&dword_228986000, v9, OS_LOG_TYPE_ERROR, "%{public}@ Encountered failure when updating caches: %@", buf, 0x16u);
+        v13 = v10;
+        v14 = 2112;
+        v15 = v7;
+        _os_log_error_impl(&dword_228986000, v8, OS_LOG_TYPE_ERROR, "%{public}@ Encountered failure when updating caches: %@", buf, 0x16u);
       }
 
-      objc_storeStrong((*(a1 + 32) + 160), v7);
+      objc_storeStrong((*(a1 + 32) + 160), v6);
     }
 
-    v10 = *(a1 + 40);
-    if (v10)
+    v9 = *(a1 + 40);
+    if (v9)
     {
-      (*(v10 + 16))(v10, v6, v8);
+      (*(v9 + 16))(v9, v5, v7);
     }
-
-    v11 = *MEMORY[0x277D85DE8];
   }
 }
 

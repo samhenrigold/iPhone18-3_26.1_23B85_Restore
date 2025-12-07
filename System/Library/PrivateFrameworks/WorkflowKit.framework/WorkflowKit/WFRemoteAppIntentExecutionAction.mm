@@ -19,11 +19,11 @@
   swift_unknownObjectRetain();
   swift_unknownObjectRetain();
   selfCopy = self;
-  v6 = sub_1CA3CD678();
+  v7 = sub_1CA3CD678(provider);
   swift_unknownObjectRelease();
   swift_unknownObjectRelease();
 
-  return v6;
+  return v7;
 }
 
 - (BOOL)isApprovedForPublicShortcutsDrawer

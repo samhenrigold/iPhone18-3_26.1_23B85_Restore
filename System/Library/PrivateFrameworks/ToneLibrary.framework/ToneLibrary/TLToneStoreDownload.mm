@@ -109,12 +109,12 @@
 void __32__TLToneStoreDownload__setName___block_invoke(uint64_t a1)
 {
   v2 = *(a1 + 40);
-  v10 = *(*(a1 + 32) + 24);
+  v7 = *(*(a1 + 32) + 24);
   v3 = v2;
   v4 = v3;
-  if (v10 | v3)
+  if (v7 | v3)
   {
-    if (v10)
+    if (v7)
     {
       v5 = v3 == 0;
     }
@@ -128,16 +128,13 @@ void __32__TLToneStoreDownload__setName___block_invoke(uint64_t a1)
     {
 
 LABEL_12:
-      v7 = [*(a1 + 40) copy];
-      v8 = *(a1 + 32);
-      v9 = *(v8 + 24);
-      *(v8 + 24) = v7;
+      *(*(a1 + 32) + 24) = [*(a1 + 40) copy];
       goto LABEL_13;
     }
 
-    if (v10 != v3)
+    if (v7 != v3)
     {
-      v6 = [v10 isEqualToString:v3];
+      v6 = [v7 isEqualToString:v3];
 
       if (v6)
       {
@@ -192,12 +189,12 @@ LABEL_13:
 void __38__TLToneStoreDownload__setAlbumTitle___block_invoke(uint64_t a1)
 {
   v2 = *(a1 + 40);
-  v10 = *(*(a1 + 32) + 32);
+  v7 = *(*(a1 + 32) + 32);
   v3 = v2;
   v4 = v3;
-  if (v10 | v3)
+  if (v7 | v3)
   {
-    if (v10)
+    if (v7)
     {
       v5 = v3 == 0;
     }
@@ -211,16 +208,13 @@ void __38__TLToneStoreDownload__setAlbumTitle___block_invoke(uint64_t a1)
     {
 
 LABEL_12:
-      v7 = [*(a1 + 40) copy];
-      v8 = *(a1 + 32);
-      v9 = *(v8 + 32);
-      *(v8 + 32) = v7;
+      *(*(a1 + 32) + 32) = [*(a1 + 40) copy];
       goto LABEL_13;
     }
 
-    if (v10 != v3)
+    if (v7 != v3)
     {
-      v6 = [v10 isEqualToString:v3];
+      v6 = [v7 isEqualToString:v3];
 
       if (v6)
       {
@@ -275,12 +269,12 @@ LABEL_13:
 void __38__TLToneStoreDownload__setArtistName___block_invoke(uint64_t a1)
 {
   v2 = *(a1 + 40);
-  v10 = *(*(a1 + 32) + 40);
+  v7 = *(*(a1 + 32) + 40);
   v3 = v2;
   v4 = v3;
-  if (v10 | v3)
+  if (v7 | v3)
   {
-    if (v10)
+    if (v7)
     {
       v5 = v3 == 0;
     }
@@ -294,16 +288,13 @@ void __38__TLToneStoreDownload__setArtistName___block_invoke(uint64_t a1)
     {
 
 LABEL_12:
-      v7 = [*(a1 + 40) copy];
-      v8 = *(a1 + 32);
-      v9 = *(v8 + 40);
-      *(v8 + 40) = v7;
+      *(*(a1 + 32) + 40) = [*(a1 + 40) copy];
       goto LABEL_13;
     }
 
-    if (v10 != v3)
+    if (v7 != v3)
     {
-      v6 = [v10 isEqualToString:v3];
+      v6 = [v7 isEqualToString:v3];
 
       if (v6)
       {
@@ -408,12 +399,12 @@ uint64_t __36__TLToneStoreDownload__setDuration___block_invoke(uint64_t result)
 void __37__TLToneStoreDownload__setGenreName___block_invoke(uint64_t a1)
 {
   v2 = *(a1 + 40);
-  v10 = *(*(a1 + 32) + 56);
+  v7 = *(*(a1 + 32) + 56);
   v3 = v2;
   v4 = v3;
-  if (v10 | v3)
+  if (v7 | v3)
   {
-    if (v10)
+    if (v7)
     {
       v5 = v3 == 0;
     }
@@ -427,16 +418,13 @@ void __37__TLToneStoreDownload__setGenreName___block_invoke(uint64_t a1)
     {
 
 LABEL_12:
-      v7 = [*(a1 + 40) copy];
-      v8 = *(a1 + 32);
-      v9 = *(v8 + 56);
-      *(v8 + 56) = v7;
+      *(*(a1 + 32) + 56) = [*(a1 + 40) copy];
       goto LABEL_13;
     }
 
-    if (v10 != v3)
+    if (v7 != v3)
     {
-      v6 = [v10 isEqualToString:v3];
+      v6 = [v7 isEqualToString:v3];
 
       if (v6)
       {
@@ -627,12 +615,12 @@ uint64_t __44__TLToneStoreDownload__setDownloadProgress___block_invoke(uint64_t 
 void __42__TLToneStoreDownload__setToneIdentifier___block_invoke(uint64_t a1)
 {
   v2 = *(a1 + 40);
-  v10 = *(*(a1 + 32) + 88);
+  v7 = *(*(a1 + 32) + 88);
   v3 = v2;
   v4 = v3;
-  if (v10 | v3)
+  if (v7 | v3)
   {
-    if (v10)
+    if (v7)
     {
       v5 = v3 == 0;
     }
@@ -646,16 +634,13 @@ void __42__TLToneStoreDownload__setToneIdentifier___block_invoke(uint64_t a1)
     {
 
 LABEL_12:
-      v7 = [*(a1 + 40) copy];
-      v8 = *(a1 + 32);
-      v9 = *(v8 + 88);
-      *(v8 + 88) = v7;
+      *(*(a1 + 32) + 88) = [*(a1 + 40) copy];
       goto LABEL_13;
     }
 
-    if (v10 != v3)
+    if (v7 != v3)
     {
-      v6 = [v10 isEqualToString:v3];
+      v6 = [v7 isEqualToString:v3];
 
       if (v6)
       {
@@ -693,7 +678,7 @@ LABEL_13:
   return v8;
 }
 
-uint64_t __34__TLToneStoreDownload_description__block_invoke(uint64_t a1)
+void *__34__TLToneStoreDownload_description__block_invoke(uint64_t a1)
 {
   [*(a1 + 32) appendFormat:@"; storeItemIdentifier = %llu", *(*(a1 + 40) + 72)];
   v2 = *(a1 + 40);

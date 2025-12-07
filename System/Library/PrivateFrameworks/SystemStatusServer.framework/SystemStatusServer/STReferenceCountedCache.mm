@@ -1,7 +1,7 @@
 @interface STReferenceCountedCache
 - (STReferenceCountedCache)init;
+- (id)_referenceCountForKey:(id *)result;
 - (id)cachedObjectForKey:(id)key;
-- (uint64_t)_referenceCountForKey:(uint64_t)result;
 - (void)cacheObject:(id)object forKey:(id)key;
 - (void)clearObjectForKey:(id)key;
 - (void)decrementReferenceCountForKey:(id)key;
@@ -73,7 +73,7 @@
 
   if (v4)
   {
-    v5 = [(STReferenceCountedCache *)self _referenceCountForKey:keyCopy];
+    v5 = [(STReferenceCountedCache *)&self->super.isa _referenceCountForKey:keyCopy];
     if (self)
     {
       referenceCounts = self->_referenceCounts;
@@ -91,11 +91,11 @@
   }
 }
 
-- (uint64_t)_referenceCountForKey:(uint64_t)result
+- (id)_referenceCountForKey:(id *)result
 {
   if (result)
   {
-    v2 = [*(result + 16) objectForKey:a2];
+    v2 = [result[2] objectForKey:a2];
     integerValue = [v2 integerValue];
 
     return integerValue;
@@ -106,13 +106,13 @@
 
 - (void)decrementReferenceCountForKey:(id)key
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   keyCopy = key;
   v4 = [(STReferenceCountedCache *)self cachedObjectForKey:?];
 
   if (v4)
   {
-    v5 = [(STReferenceCountedCache *)self _referenceCountForKey:keyCopy];
+    v5 = [(STReferenceCountedCache *)&self->super.isa _referenceCountForKey:keyCopy];
     if (v5 < 2)
     {
       v11 = self ? self->_referenceCounts : 0;
@@ -132,41 +132,39 @@
     if (self)
     {
       v12 = self->_cache;
+      v20 = 0u;
       v21 = 0u;
       v22 = 0u;
       v23 = 0u;
-      v24 = 0u;
       allKeys = [(NSMutableDictionary *)v12 allKeys];
-      v14 = [allKeys countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v14 = [allKeys countByEnumeratingWithState:&v20 objects:v24 count:16];
       if (v14)
       {
         v15 = v14;
-        v16 = *v22;
+        v16 = *v21;
         do
         {
           for (i = 0; i != v15; ++i)
           {
-            if (*v22 != v16)
+            if (*v21 != v16)
             {
               objc_enumerationMutation(allKeys);
             }
 
-            v18 = *(*(&v21 + 1) + 8 * i);
-            if (![(STReferenceCountedCache *)self _referenceCountForKey:v18])
+            v18 = *(*(&v20 + 1) + 8 * i);
+            if (![(STReferenceCountedCache *)&self->super.isa _referenceCountForKey:v18])
             {
               [(NSMutableDictionary *)v12 removeObjectForKey:v18];
             }
           }
 
-          v15 = [allKeys countByEnumeratingWithState:&v21 objects:v25 count:16];
+          v15 = [allKeys countByEnumeratingWithState:&v20 objects:v24 count:16];
         }
 
         while (v15);
       }
     }
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 @end

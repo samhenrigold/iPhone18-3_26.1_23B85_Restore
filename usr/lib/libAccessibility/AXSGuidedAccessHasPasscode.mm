@@ -3,7 +3,7 @@
 
 @implementation AXSGuidedAccessHasPasscode
 
-uint64_t ___AXSGuidedAccessHasPasscode_block_invoke()
+void *___AXSGuidedAccessHasPasscode_block_invoke()
 {
   if (!_processIsResponsibleForPreferenceObserving())
   {

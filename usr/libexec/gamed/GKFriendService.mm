@@ -292,6 +292,7 @@ LABEL_13:
 
 + (id)filterFriends:(id)friends filter:(int)filter
 {
+  v4 = *&filter;
   friendsCopy = friends;
   if (friends)
   {
@@ -299,7 +300,7 @@ LABEL_13:
     friendsCopy = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   }
 
-  v6 = sub_1001A6208(friendsCopy, filter);
+  v6 = sub_1001A6208(friendsCopy, v4);
 
   if (v6)
   {

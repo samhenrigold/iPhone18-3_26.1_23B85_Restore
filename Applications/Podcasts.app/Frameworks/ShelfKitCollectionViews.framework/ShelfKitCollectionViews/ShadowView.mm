@@ -8,7 +8,7 @@
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_2BF7D4();
+  sub_2BF7D4(selfCopy);
 }
 
 - (_TtC23ShelfKitCollectionViews10ShadowView)initWithFrame:(CGRect)frame

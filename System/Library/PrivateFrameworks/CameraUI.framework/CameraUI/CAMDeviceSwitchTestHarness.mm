@@ -74,11 +74,11 @@ uint64_t __42__CAMDeviceSwitchTestHarness_startTesting__block_invoke_2(uint64_t 
   return [v2 ensureCaptureDevicePosition:v3 mode:v4 thenPerform:v6];
 }
 
-uint64_t __42__CAMDeviceSwitchTestHarness_startTesting__block_invoke_3(uint64_t result)
+id *__42__CAMDeviceSwitchTestHarness_startTesting__block_invoke_3(id *result)
 {
-  if ((*(result + 40) & 1) == 0)
+  if ((result[5] & 1) == 0)
   {
-    return [*(result + 32) _internalStopTesting];
+    return [result[4] _internalStopTesting];
   }
 
   return result;

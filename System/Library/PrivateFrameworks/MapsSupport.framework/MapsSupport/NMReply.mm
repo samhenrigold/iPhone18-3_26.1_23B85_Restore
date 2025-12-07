@@ -7,6 +7,7 @@
 - (id)dictionaryRepresentation;
 - (unint64_t)hash;
 - (void)addArgument:(id)argument;
+- (void)addArgument:(id)argument withCompressionType:(int)type;
 - (void)addCompressedArgument:(id)argument;
 - (void)copyTo:(id)to;
 - (void)mergeFrom:(id)from;
@@ -247,62 +248,60 @@ LABEL_26:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v26 = 0u;
-  v27 = 0u;
-  v28 = 0u;
-  v29 = 0u;
+  v20 = 0u;
+  v21 = 0u;
+  v22 = 0u;
+  v23 = 0u;
   v5 = self->_arguments;
-  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v26 objects:v31 count:16];
+  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v20 objects:v25 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v27;
+    v8 = *v21;
     do
     {
-      for (i = 0; i != v7; i = i + 1)
+      for (i = 0; i != v7; ++i)
       {
-        if (*v27 != v8)
+        if (*v21 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v26 + 1) + 8 * i);
         PBDataWriterWriteSubmessage();
       }
 
-      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v26 objects:v31 count:16];
+      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v20 objects:v25 count:16];
     }
 
     while (v7);
   }
 
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
-  v23 = 0u;
-  v11 = self->_compressedArguments;
-  v12 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v22 objects:v30 count:16];
-  if (v12)
+  v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
+  v10 = self->_compressedArguments;
+  v11 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v16 objects:v24 count:16];
+  if (v11)
   {
-    v13 = v12;
-    v14 = *v23;
+    v12 = v11;
+    v13 = *v17;
     do
     {
-      for (j = 0; j != v13; j = j + 1)
+      for (j = 0; j != v12; ++j)
       {
-        if (*v23 != v14)
+        if (*v17 != v13)
         {
-          objc_enumerationMutation(v11);
+          objc_enumerationMutation(v10);
         }
 
-        v16 = *(*(&v22 + 1) + 8 * j);
         PBDataWriterWriteSubmessage();
       }
 
-      v13 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v22 objects:v30 count:16];
+      v12 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v16 objects:v24 count:16];
     }
 
-    while (v13);
+    while (v12);
   }
 
   if (self->_senderUUID)
@@ -313,7 +312,6 @@ LABEL_26:
   has = self->_has;
   if ((has & 4) != 0)
   {
-    responseTime = self->_responseTime;
     PBDataWriterWriteDoubleField();
     has = self->_has;
     if ((has & 1) == 0)
@@ -325,7 +323,6 @@ LABEL_19:
       }
 
 LABEL_25:
-      requestReceivedTimestamp = self->_requestReceivedTimestamp;
       PBDataWriterWriteDoubleField();
       if ((*&self->_has & 8) == 0)
       {
@@ -341,7 +338,6 @@ LABEL_25:
     goto LABEL_19;
   }
 
-  enqueuedTimeInterval = self->_enqueuedTimeInterval;
   PBDataWriterWriteDoubleField();
   has = self->_has;
   if ((has & 2) != 0)
@@ -353,7 +349,6 @@ LABEL_20:
   if ((has & 8) != 0)
   {
 LABEL_21:
-    sentTimestamp = self->_sentTimestamp;
     PBDataWriterWriteDoubleField();
   }
 
@@ -955,6 +950,28 @@ LABEL_22:
 LABEL_11:
 
   return v10;
+}
+
+- (void)addArgument:(id)argument withCompressionType:(int)type
+{
+  v4 = *&type;
+  argumentCopy = argument;
+  if (argumentCopy)
+  {
+    v8 = argumentCopy;
+    v7 = [argumentCopy _nm_compressedArgument:v4];
+    if (v7)
+    {
+      [(NMReply *)self addCompressedArgument:v7];
+    }
+
+    else
+    {
+      [(NMReply *)self addArgument:v8];
+    }
+
+    argumentCopy = v8;
+  }
 }
 
 - (BOOL)decompressArguments

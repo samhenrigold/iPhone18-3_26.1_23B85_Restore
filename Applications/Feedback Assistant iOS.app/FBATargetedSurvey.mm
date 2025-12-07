@@ -14,7 +14,7 @@
 - (_TtC18Feedback_Assistant17FBATargetedSurvey)init
 {
   v3.receiver = self;
-  v3.super_class = type metadata accessor for FBATargetedSurvey();
+  v3.super_class = type metadata accessor for FBATargetedSurvey(self, a2);
   return [(FBATargetedSurvey *)&v3 init];
 }
 

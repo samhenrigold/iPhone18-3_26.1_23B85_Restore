@@ -35,7 +35,7 @@
     v18 = 0u;
     v15 = 0u;
     v16 = 0u;
-    v9 = sub_1003D6888();
+    v9 = sub_1003D6888(AppDefaultsManager);
     v10 = [v9 countByEnumeratingWithState:&v15 objects:v20 count:16];
     if (v10)
     {

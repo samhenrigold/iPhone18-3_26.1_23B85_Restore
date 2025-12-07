@@ -51,9 +51,13 @@
 - (void)setMigratedtvOS:(BOOL)s;
 - (void)setName:(id)name forChannelID:(id)d externalID:(id)iD;
 - (void)setOptedIn:(BOOL)in;
+- (void)setPostPlayAutoPlayNextVideo:(BOOL)video;
+- (void)setPrivateModeEnabled:(BOOL)enabled;
 - (void)setPushToken:(id)token;
 - (void)setSportsNotificationSuppression:(BOOL)suppression forEventID:(id)d;
+- (void)setSportsScoreSpoilersAllowed:(BOOL)allowed;
 - (void)setStatus:(unint64_t)status forChannelID:(id)d externalID:(id)iD;
+- (void)setUpNextLockupsUseCoverArt:(BOOL)art;
 - (void)synchronize:(unint64_t)synchronize completion:(id)completion;
 @end
 
@@ -83,9 +87,9 @@ void __34__WLKSettingsStore_sharedSettings__block_invoke()
 
 - (WLKSettingsStore)init
 {
-  v20.receiver = self;
-  v20.super_class = WLKSettingsStore;
-  v2 = [(WLKSettingsStore *)&v20 init];
+  v22.receiver = self;
+  v22.super_class = WLKSettingsStore;
+  v2 = [(WLKSettingsStore *)&v22 init];
   if (v2)
   {
     NSLog(&cfstr_Wlksettingssto_0.isa);
@@ -101,7 +105,7 @@ void __34__WLKSettingsStore_sharedSettings__block_invoke()
     apps = v2->_apps;
     v2->_apps = array;
 
-    if (WLKIsTVApp())
+    if (WLKIsTVApp(v9, v10))
     {
       standardUserDefaults = [MEMORY[0x277CBEBD0] standardUserDefaults];
       defaultsAccessor = v2->_defaultsAccessor;
@@ -110,11 +114,11 @@ void __34__WLKSettingsStore_sharedSettings__block_invoke()
 
     else
     {
-      v11 = objc_alloc(MEMORY[0x277CBEBD0]);
+      v13 = objc_alloc(MEMORY[0x277CBEBD0]);
       defaultsAccessor = WLKTVAppBundleID();
-      v12 = [v11 initWithSuiteName:defaultsAccessor];
-      v13 = v2->_defaultsAccessor;
-      v2->_defaultsAccessor = v12;
+      v14 = [v13 initWithSuiteName:defaultsAccessor];
+      v15 = v2->_defaultsAccessor;
+      v2->_defaultsAccessor = v14;
     }
 
     [(WLKSettingsStore *)v2 refreshWithCompletion:0];
@@ -122,12 +126,12 @@ void __34__WLKSettingsStore_sharedSettings__block_invoke()
     handler[1] = 3221225472;
     handler[2] = __24__WLKSettingsStore_init__block_invoke;
     handler[3] = &unk_279E5F5B8;
-    v14 = v2;
-    v19 = v14;
+    v16 = v2;
+    v21 = v16;
     notify_register_dispatch("com.apple.WatchListKit.WLKSettingsDidChangeNotification", &v2->_didChangeNotificationToken, MEMORY[0x277D85CD0], handler);
     defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
-    v16 = +[WLKAccountMonitor sharedInstance];
-    [defaultCenter addObserver:v14 selector:sel__activeAccountChangedNotification_ name:@"WLKAccountMonitorAccountDidChange" object:v16];
+    v18 = +[WLKAccountMonitor sharedInstance];
+    [defaultCenter addObserver:v16 selector:sel__activeAccountChangedNotification_ name:@"WLKAccountMonitorAccountDidChange" object:v18];
   }
 
   return v2;
@@ -180,7 +184,7 @@ void __34__WLKSettingsStore_sharedSettings__block_invoke()
 
 - (id)_supportPath
 {
-  v2 = WLKDefaultSupportPath();
+  v2 = WLKDefaultSupportPath(self);
   if ([v2 length])
   {
     v3 = [v2 stringByAppendingPathComponent:@"settings.plist"];
@@ -224,31 +228,31 @@ void __34__WLKSettingsStore_sharedSettings__block_invoke()
 
 - (id)deniedBrands
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   watchListApps = [(WLKSettingsStore *)self watchListApps];
   v3 = [watchListApps mutableCopy];
 
   v4 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v5 = v3;
-  v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v16;
+    v8 = *v15;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v16 != v8)
+        if (*v15 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v15 + 1) + 8 * i);
+        v10 = *(*(&v14 + 1) + 8 * i);
         if ([v10 accessStatus] == 2)
         {
           channelID = [v10 channelID];
@@ -256,15 +260,13 @@ void __34__WLKSettingsStore_sharedSettings__block_invoke()
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v7);
   }
 
   v12 = [v4 sortedArrayUsingSelector:sel_compare_];
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
@@ -293,69 +295,67 @@ void __34__WLKSettingsStore_sharedSettings__block_invoke()
 
 uint64_t __33__WLKSettingsStore_watchListApps__block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   v2 = *(*(a1 + 32) + 56);
-  v3 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v10;
+    v5 = *v9;
     do
     {
       v6 = 0;
       do
       {
-        if (*v10 != v5)
+        if (*v9 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        [*(*(*(a1 + 40) + 8) + 40) addObject:{*(*(&v9 + 1) + 8 * v6++), v9}];
+        [*(*(*(a1 + 40) + 8) + 40) addObject:{*(*(&v8 + 1) + 8 * v6++), v8}];
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v4);
   }
 
-  result = [*(*(*(a1 + 40) + 8) + 40) sortUsingComparator:&__block_literal_global_70];
-  v8 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(*(*(a1 + 40) + 8) + 40) sortUsingComparator:&__block_literal_global_70];
 }
 
 - (id)consentedBrands
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   watchListApps = [(WLKSettingsStore *)self watchListApps];
   v3 = [watchListApps mutableCopy];
 
   v4 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v5 = v3;
-  v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v16;
+    v8 = *v15;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v16 != v8)
+        if (*v15 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v15 + 1) + 8 * i);
+        v10 = *(*(&v14 + 1) + 8 * i);
         if ([v10 accessStatus] == 1)
         {
           channelID = [v10 channelID];
@@ -363,15 +363,13 @@ uint64_t __33__WLKSettingsStore_watchListApps__block_invoke(uint64_t a1)
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v7);
   }
 
   v12 = [v4 sortedArrayUsingSelector:sel_compare_];
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
@@ -529,28 +527,28 @@ uint64_t __33__WLKSettingsStore_watchListApps__block_invoke_2(uint64_t a1, void 
 
 void __52__WLKSettingsStore_settingsForChannelID_externalID___block_invoke(void *a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   NSLog(&cfstr_Wlksettingssto_3.isa, [*(a1[4] + 56) count], a1[5], a1[6]);
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   v2 = *(a1[4] + 56);
-  v3 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v13;
+    v5 = *v12;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v13 != v5)
+        if (*v12 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v12 + 1) + 8 * i);
+        v7 = *(*(&v11 + 1) + 8 * i);
         v8 = [v7 channelID];
         if ([v8 isEqualToString:a1[5]])
         {
@@ -570,43 +568,41 @@ void __52__WLKSettingsStore_settingsForChannelID_externalID___block_invoke(void 
         }
       }
 
-      v4 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v4);
   }
 
 LABEL_12:
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_copyAppsForChannelID:(id)d apps:(id)apps
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   dCopy = d;
   appsCopy = apps;
   array = [MEMORY[0x277CBEB18] array];
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   v8 = appsCopy;
-  v9 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v20;
+    v11 = *v19;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v20 != v11)
+        if (*v19 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v19 + 1) + 8 * i);
+        v13 = *(*(&v18 + 1) + 8 * i);
         channelID = [v13 channelID];
         v15 = [channelID isEqualToString:dCopy];
 
@@ -616,7 +612,7 @@ LABEL_12:
         }
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v10);
@@ -632,69 +628,68 @@ LABEL_12:
     v16 = 0;
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return v16;
 }
 
 - (void)setStatus:(unint64_t)status forChannelID:(id)d externalID:(id)iD
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   dCopy = d;
   iDCopy = iD;
   if (dCopy)
   {
     v10 = objc_autoreleasePoolPush();
-    v34 = 0;
-    v35 = &v34;
-    v36 = 0x3032000000;
-    v37 = __Block_byref_object_copy__8;
-    v38 = __Block_byref_object_dispose__8;
-    v39 = 0;
-    v28 = 0;
-    v29 = &v28;
-    v30 = 0x3032000000;
-    v31 = __Block_byref_object_copy__8;
-    v32 = __Block_byref_object_dispose__8;
     v33 = 0;
+    v34 = &v33;
+    v35 = 0x3032000000;
+    v36 = __Block_byref_object_copy__8;
+    v37 = __Block_byref_object_dispose__8;
+    v38 = 0;
+    v27 = 0;
+    v28 = &v27;
+    v29 = 0x3032000000;
+    v30 = __Block_byref_object_copy__8;
+    v31 = __Block_byref_object_dispose__8;
+    v32 = 0;
     accessQueue = self->_accessQueue;
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __54__WLKSettingsStore_setStatus_forChannelID_externalID___block_invoke;
     block[3] = &unk_279E602C8;
-    v25 = &v28;
+    v24 = &v27;
     block[4] = self;
-    v23 = dCopy;
-    v24 = iDCopy;
-    v26 = &v34;
+    v22 = dCopy;
+    v23 = iDCopy;
+    v25 = &v33;
     statusCopy = status;
     dispatch_sync(accessQueue, block);
-    if (!v35[5] && [v29[5] count])
+    if (!v34[5] && [v28[5] count])
     {
-      v20 = 0u;
-      v21 = 0u;
-      v18 = 0u;
       v19 = 0u;
-      v12 = v29[5];
-      v13 = [v12 countByEnumeratingWithState:&v18 objects:v40 count:16];
+      v20 = 0u;
+      v17 = 0u;
+      v18 = 0u;
+      v12 = v28[5];
+      v13 = [v12 countByEnumeratingWithState:&v17 objects:v39 count:16];
       if (v13)
       {
-        v14 = *v19;
+        v14 = *v18;
         do
         {
           for (i = 0; i != v13; ++i)
           {
-            if (*v19 != v14)
+            if (*v18 != v14)
             {
               objc_enumerationMutation(v12);
             }
 
-            v16 = *(*(&v18 + 1) + 8 * i);
-            [v16 setAccessStatus:{2, v18}];
+            v16 = *(*(&v17 + 1) + 8 * i);
+            [v16 setAccessStatus:{2, v17}];
             [v16 setObsolete:1];
             [(WLKSettingsStore *)self _attemptCullingOfObsoleteApp:v16];
           }
 
-          v13 = [v12 countByEnumeratingWithState:&v18 objects:v40 count:16];
+          v13 = [v12 countByEnumeratingWithState:&v17 objects:v39 count:16];
         }
 
         while (v13);
@@ -703,8 +698,8 @@ LABEL_12:
 
     [(WLKSettingsStore *)self _tickleKVO];
 
-    _Block_object_dispose(&v28, 8);
-    _Block_object_dispose(&v34, 8);
+    _Block_object_dispose(&v27, 8);
+    _Block_object_dispose(&v33, 8);
 
     objc_autoreleasePoolPop(v10);
     [(WLKSettingsStore *)self _writeToDisk];
@@ -714,13 +709,11 @@ LABEL_12:
   {
     NSLog(&cfstr_Wlksettingssto_5.isa);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __54__WLKSettingsStore_setStatus_forChannelID_externalID___block_invoke(void *a1)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v2 = a1[4];
   v3 = a1[5];
   v4 = [v2[7] copy];
@@ -729,26 +722,26 @@ void __54__WLKSettingsStore_setStatus_forChannelID_externalID___block_invoke(voi
   v7 = *(v6 + 40);
   *(v6 + 40) = v5;
 
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
   v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
   v8 = *(*(a1[7] + 8) + 40);
-  v9 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v20;
+    v11 = *v19;
     while (2)
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v20 != v11)
+        if (*v19 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v19 + 1) + 8 * i);
+        v13 = *(*(&v18 + 1) + 8 * i);
         v14 = [v13 externalID];
         v15 = [WLKAppSettings isExternalID:v14 equalToExternalID:a1[6]];
 
@@ -760,7 +753,7 @@ void __54__WLKSettingsStore_setStatus_forChannelID_externalID___block_invoke(voi
         }
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
       if (v10)
       {
         continue;
@@ -784,8 +777,6 @@ LABEL_11:
     [*(a1[4] + 56) addObject:v17];
     NSLog(&cfstr_Wlksettingssto_7.isa);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setName:(id)name forChannelID:(id)d externalID:(id)iD
@@ -910,11 +901,11 @@ LABEL_6:
 
 void __64__WLKSettingsStore_setSportsNotificationSuppression_forEventID___block_invoke(uint64_t a1)
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) allObjects];
-  v12 = 0;
-  v3 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v2 requiringSecureCoding:1 error:&v12];
-  v4 = v12;
+  v10 = 0;
+  v3 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v2 requiringSecureCoding:1 error:&v10];
+  v4 = v10;
   v5 = v4;
   if (v4)
   {
@@ -924,16 +915,13 @@ void __64__WLKSettingsStore_setSportsNotificationSuppression_forEventID___block_
   else
   {
     [*(*(a1 + 40) + 64) setObject:v3 forKey:@"SuppressedSportsEventIDs"];
-    v6 = *(a1 + 40);
-    v7 = objc_opt_class();
-    v8 = MEMORY[0x277CBEB98];
-    v13[0] = @"SuppressedSportsEventIDs";
-    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
-    v10 = [v8 setWithArray:v9];
-    [v7 synchronizeSettingsDefaultsForKeys:v10];
+    v6 = objc_opt_class();
+    v7 = MEMORY[0x277CBEB98];
+    v11[0] = @"SuppressedSportsEventIDs";
+    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
+    v9 = [v7 setWithArray:v8];
+    [v6 synchronizeSettingsDefaultsForKeys:v9];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)clearAllSportsNotificationSuppression
@@ -949,17 +937,14 @@ void __64__WLKSettingsStore_setSportsNotificationSuppression_forEventID___block_
 
 void __57__WLKSettingsStore_clearAllSportsNotificationSuppression__block_invoke(uint64_t a1)
 {
-  v8[1] = *MEMORY[0x277D85DE8];
+  v5[1] = *MEMORY[0x277D85DE8];
   [*(*(a1 + 32) + 64) removeObjectForKey:@"SuppressedSportsEventIDs"];
-  v2 = *(a1 + 32);
-  v3 = objc_opt_class();
-  v4 = MEMORY[0x277CBEB98];
-  v8[0] = @"SuppressedSportsEventIDs";
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
-  v6 = [v4 setWithArray:v5];
-  [v3 synchronizeSettingsDefaultsForKeys:v6];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v1 = objc_opt_class();
+  v2 = MEMORY[0x277CBEB98];
+  v5[0] = @"SuppressedSportsEventIDs";
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:1];
+  v4 = [v2 setWithArray:v3];
+  [v1 synchronizeSettingsDefaultsForKeys:v4];
 }
 
 - (void)setOptedIn:(BOOL)in
@@ -1004,7 +989,7 @@ uint64_t __30__WLKSettingsStore_optedInVal__block_invoke(uint64_t a1)
   v4 = *(v3 + 40);
   *(v3 + 40) = v2;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v2, v4);
 }
 
 - (void)setMigratediOS:(BOOL)s
@@ -1088,18 +1073,15 @@ uint64_t __30__WLKSettingsStore_optedInVal__block_invoke(uint64_t a1)
 
 void __36__WLKSettingsStore_setLastSyncDate___block_invoke(uint64_t a1)
 {
-  v8[1] = *MEMORY[0x277D85DE8];
+  v6[1] = *MEMORY[0x277D85DE8];
   objc_storeStrong((*(a1 + 32) + 96), *(a1 + 40));
   [*(*(a1 + 32) + 64) setObject:*(*(a1 + 32) + 96) forKey:@"WLKSettingsLastSyncDate"];
-  v2 = *(a1 + 32);
-  v3 = objc_opt_class();
-  v4 = MEMORY[0x277CBEB98];
-  v8[0] = @"WLKSettingsLastSyncDate";
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
-  v6 = [v4 setWithArray:v5];
-  [v3 synchronizeSettingsDefaultsForKeys:v6];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v2 = objc_opt_class();
+  v3 = MEMORY[0x277CBEB98];
+  v6[0] = @"WLKSettingsLastSyncDate";
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:1];
+  v5 = [v3 setWithArray:v4];
+  [v2 synchronizeSettingsDefaultsForKeys:v5];
 }
 
 - (void)setLastSyncToCloudDate:(id)date
@@ -1184,41 +1166,41 @@ void __33__WLKSettingsStore_setPushToken___block_invoke(uint64_t a1)
 - (id)_watchListAppsFiltered
 {
   selfCopy = self;
-  v53 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   watchListApps = [(WLKSettingsStore *)self watchListApps];
   v4 = [watchListApps mutableCopy];
 
-  v35 = v4;
+  v34 = v4;
   v5 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v4, "count")}];
   v6 = +[WLKChannelUtilities sharedInstance];
   orderedChannels = [v6 orderedChannels];
 
-  v49 = 0u;
-  v50 = 0u;
-  v47 = 0u;
   v48 = 0u;
+  v49 = 0u;
+  v46 = 0u;
+  v47 = 0u;
   v8 = orderedChannels;
-  v9 = [v8 countByEnumeratingWithState:&v47 objects:v52 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v46 objects:v51 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v48;
-    v38 = v5;
-    v39 = selfCopy;
-    v36 = *v48;
-    v37 = v8;
+    v11 = *v47;
+    v37 = v5;
+    v38 = selfCopy;
+    v35 = *v47;
+    v36 = v8;
     do
     {
       v12 = 0;
-      v40 = v10;
+      v39 = v10;
       do
       {
-        if (*v48 != v11)
+        if (*v47 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v47 + 1) + 8 * v12);
+        v13 = *(*(&v46 + 1) + 8 * v12);
         if ([v13 isWatchListEnabled] && (objc_msgSend(v13, "isFirstParty") & 1) == 0)
         {
           channelID = [v13 channelID];
@@ -1226,34 +1208,34 @@ void __33__WLKSettingsStore_setPushToken___block_invoke(uint64_t a1)
 
           if ([v15 count])
           {
-            v42 = v12;
+            v41 = v12;
             array = [MEMORY[0x277CBEB18] array];
             appBundleIDs = [v13 appBundleIDs];
             firstObject = [appBundleIDs firstObject];
             v19 = WLKSubscriptionIdentifierForBundleID(firstObject);
 
-            v45 = 0u;
-            v46 = 0u;
-            v43 = 0u;
             v44 = 0u;
-            v41 = v15;
+            v45 = 0u;
+            v42 = 0u;
+            v43 = 0u;
+            v40 = v15;
             v20 = v15;
-            v21 = [v20 countByEnumeratingWithState:&v43 objects:v51 count:16];
+            v21 = [v20 countByEnumeratingWithState:&v42 objects:v50 count:16];
             if (v21)
             {
               v22 = v21;
               v23 = 0;
-              v24 = *v44;
+              v24 = *v43;
               do
               {
                 for (i = 0; i != v22; ++i)
                 {
-                  if (*v44 != v24)
+                  if (*v43 != v24)
                   {
                     objc_enumerationMutation(v20);
                   }
 
-                  v26 = *(*(&v43 + 1) + 8 * i);
+                  v26 = *(*(&v42 + 1) + 8 * i);
                   displayName = [v26 displayName];
                   if ([displayName length])
                   {
@@ -1283,18 +1265,18 @@ void __33__WLKSettingsStore_setPushToken___block_invoke(uint64_t a1)
                   }
                 }
 
-                v22 = [v20 countByEnumeratingWithState:&v43 objects:v51 count:16];
+                v22 = [v20 countByEnumeratingWithState:&v42 objects:v50 count:16];
               }
 
               while (v22);
 
-              v5 = v38;
-              selfCopy = v39;
-              v11 = v36;
-              v8 = v37;
+              v5 = v37;
+              selfCopy = v38;
+              v11 = v35;
+              v8 = v36;
               if (v23)
               {
-                [v38 addObject:v23];
+                [v37 addObject:v23];
                 goto LABEL_28;
               }
             }
@@ -1312,9 +1294,9 @@ void __33__WLKSettingsStore_setPushToken___block_invoke(uint64_t a1)
             v23 = 0;
 LABEL_28:
 
-            v10 = v40;
-            v15 = v41;
-            v12 = v42;
+            v10 = v39;
+            v15 = v40;
+            v12 = v41;
           }
         }
 
@@ -1322,14 +1304,13 @@ LABEL_28:
       }
 
       while (v12 != v10);
-      v10 = [v8 countByEnumeratingWithState:&v47 objects:v52 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v46 objects:v51 count:16];
     }
 
     while (v10);
   }
 
   [v5 sortUsingComparator:&__block_literal_global_102];
-  v33 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -1360,37 +1341,37 @@ uint64_t __42__WLKSettingsStore__watchListAppsFiltered__block_invoke(uint64_t a1
 
 void __45__WLKSettingsStore__updateDisplayNamesForUI___block_invoke(uint64_t a1)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v2 = +[WLKChannelUtilities sharedInstance];
   v3 = [v2 channelsByID];
 
   if (v3)
   {
     [*(a1 + 32) beginIgnoringChanges];
-    v26 = 0u;
-    v27 = 0u;
-    v24 = 0u;
     v25 = 0u;
-    v22 = a1;
+    v26 = 0u;
+    v23 = 0u;
+    v24 = 0u;
+    v21 = a1;
     obj = [*(a1 + 32) watchListApps];
-    v4 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
+    v4 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
     if (!v4)
     {
       goto LABEL_21;
     }
 
     v5 = v4;
-    v6 = *v25;
+    v6 = *v24;
     while (1)
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v25 != v6)
+        if (*v24 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v24 + 1) + 8 * i);
+        v8 = *(*(&v23 + 1) + 8 * i);
         v9 = [v8 channelID];
         v10 = [v3 objectForKeyedSubscript:v9];
 
@@ -1421,7 +1402,7 @@ void __45__WLKSettingsStore__updateDisplayNamesForUI___block_invoke(uint64_t a1)
           {
 
 LABEL_17:
-            v18 = *(v22 + 32);
+            v18 = *(v21 + 32);
             v15 = [v8 channelID];
             v19 = [v8 externalID];
             [v18 setName:v13 forChannelID:v15 externalID:v19];
@@ -1442,13 +1423,13 @@ LABEL_18:
 LABEL_19:
       }
 
-      v5 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
+      v5 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
       if (!v5)
       {
 LABEL_21:
 
-        a1 = v22;
-        [*(v22 + 32) endIgnoringChanges];
+        a1 = v21;
+        [*(v21 + 32) endIgnoringChanges];
         break;
       }
     }
@@ -1459,8 +1440,6 @@ LABEL_21:
   {
     (*(v20 + 16))(v20, v3 != 0);
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)refreshWithCompletion:(id)completion
@@ -1702,7 +1681,7 @@ LABEL_26:
 void __48__WLKSettingsStore__loadFromDiskWithCompletion___block_invoke_2(uint64_t a1)
 {
   v1 = a1;
-  v63 = *MEMORY[0x277D85DE8];
+  v62 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 88));
   if (WeakRetained)
   {
@@ -1734,70 +1713,70 @@ void __48__WLKSettingsStore__loadFromDiskWithCompletion___block_invoke_2(uint64_
     *(v3 + 49) = [v13 BOOLValue];
 
     v14 = [*(v1 + 56) objectForKeyedSubscript:@"MigratedtvOS"];
-    v44 = v3;
+    v43 = v3;
     *(v3 + 50) = [v14 BOOLValue];
 
-    v49 = [MEMORY[0x277CBEB18] array];
+    v48 = [MEMORY[0x277CBEB18] array];
+    v56 = 0u;
     v57 = 0u;
     v58 = 0u;
     v59 = 0u;
-    v60 = 0u;
     obj = *(v1 + 64);
-    v48 = [obj countByEnumeratingWithState:&v57 objects:v62 count:16];
-    if (!v48)
+    v47 = [obj countByEnumeratingWithState:&v56 objects:v61 count:16];
+    if (!v47)
     {
       goto LABEL_28;
     }
 
-    v46 = v1;
-    v47 = *v58;
+    v45 = v1;
+    v46 = *v57;
     while (1)
     {
-      for (i = 0; i != v48; i = v34 + 1)
+      for (i = 0; i != v47; i = v34 + 1)
       {
-        if (*v58 != v47)
+        if (*v57 != v46)
         {
           objc_enumerationMutation(obj);
         }
 
-        v50 = i;
-        v16 = *(*(&v57 + 1) + 8 * i);
+        v49 = i;
+        v16 = *(*(&v56 + 1) + 8 * i);
         v17 = MEMORY[0x277CCACA8];
         v18 = [v16 channelID];
         v19 = [v16 externalID];
         v20 = [v17 stringWithFormat:@"%@:%@", v18, v19];
-        [v49 addObject:v20];
+        [v48 addObject:v20];
 
-        v55 = 0u;
-        v56 = 0u;
-        v53 = 0u;
         v54 = 0u;
+        v55 = 0u;
+        v52 = 0u;
+        v53 = 0u;
         v21 = *(*(v1 + 72) + 56);
-        v22 = [v21 countByEnumeratingWithState:&v53 objects:v61 count:16];
+        v22 = [v21 countByEnumeratingWithState:&v52 objects:v60 count:16];
         if (!v22)
         {
 
 LABEL_25:
           [*(*(v1 + 72) + 56) addObject:v16];
-          v34 = v50;
+          v34 = v49;
           continue;
         }
 
         v23 = v22;
-        v51 = 0;
-        v24 = *v54;
+        v50 = 0;
+        v24 = *v53;
         do
         {
           v25 = 0;
-          v52 = v23;
+          v51 = v23;
           do
           {
-            if (*v54 != v24)
+            if (*v53 != v24)
             {
               objc_enumerationMutation(v21);
             }
 
-            v26 = *(*(&v53 + 1) + 8 * v25);
+            v26 = *(*(&v52 + 1) + 8 * v25);
             v27 = [v26 channelID];
             v28 = [v16 channelID];
             if (([v27 isEqualToString:v28] & 1) == 0)
@@ -1813,9 +1792,9 @@ LABEL_25:
 
             if (v32)
             {
-              v27 = v51;
-              v23 = v52;
-              v51 = v26;
+              v27 = v50;
+              v23 = v51;
+              v50 = v26;
               v16 = v30;
 LABEL_16:
 
@@ -1823,34 +1802,34 @@ LABEL_16:
             }
 
             v16 = v30;
-            v23 = v52;
+            v23 = v51;
 LABEL_18:
             ++v25;
           }
 
           while (v23 != v25);
-          v23 = [v21 countByEnumeratingWithState:&v53 objects:v61 count:16];
+          v23 = [v21 countByEnumeratingWithState:&v52 objects:v60 count:16];
         }
 
         while (v23);
 
-        v1 = v46;
-        if (!v51)
+        v1 = v45;
+        if (!v50)
         {
           goto LABEL_25;
         }
 
-        [v51 setAccessStatus:{objc_msgSend(v16, "accessStatus")}];
+        [v50 setAccessStatus:{objc_msgSend(v16, "accessStatus")}];
         v33 = [v16 displayName];
-        v34 = v50;
+        v34 = v49;
         if ([v33 length])
         {
-          [v51 setDisplayName:v33];
+          [v50 setDisplayName:v33];
         }
       }
 
-      v48 = [obj countByEnumeratingWithState:&v57 objects:v62 count:16];
-      if (!v48)
+      v47 = [obj countByEnumeratingWithState:&v56 objects:v61 count:16];
+      if (!v47)
       {
 LABEL_28:
 
@@ -1866,7 +1845,7 @@ LABEL_28:
             v40 = [v37 externalID];
             v41 = [v38 stringWithFormat:@"%@:%@", v39, v40];
 
-            if (([v49 containsObject:v41] & 1) == 0)
+            if (([v48 containsObject:v41] & 1) == 0)
             {
               [v35 addIndex:v36];
             }
@@ -1879,7 +1858,7 @@ LABEL_28:
 
         [*(*(v1 + 72) + 56) removeObjectsAtIndexes:v35];
 
-        WeakRetained = v44;
+        WeakRetained = v43;
         goto LABEL_36;
       }
     }
@@ -1893,8 +1872,6 @@ LABEL_28:
   }
 
 LABEL_36:
-
-  v43 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_writeToDisk
@@ -1985,12 +1962,13 @@ void __44__WLKSettingsStore__writeToDisk_completion___block_invoke(uint64_t a1, 
 void __44__WLKSettingsStore__writeToDisk_completion___block_invoke_2(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 64));
-  if ([*(a1 + 32) isEqualToDictionary:*(a1 + 40)])
+  v3 = [*(a1 + 32) isEqualToDictionary:*(a1 + 40)];
+  if (v3)
   {
-    v3 = *(a1 + 56);
-    if (v3)
+    v4 = *(a1 + 56);
+    if (v4)
     {
-      (*(v3 + 16))(v3, 1);
+      (*(v4 + 16))(v4, 1);
     }
 
     NSLog(&cfstr_Wlksettingssto_15.isa);
@@ -1998,40 +1976,40 @@ void __44__WLKSettingsStore__writeToDisk_completion___block_invoke_2(uint64_t a1
 
   else
   {
-    v4 = WLKDefaultSupportPath();
-    if ([v4 length])
+    v5 = WLKDefaultSupportPath(v3);
+    if ([v5 length])
     {
-      v5 = [MEMORY[0x277CCAA00] defaultManager];
-      [v5 createDirectoryAtPath:v4 withIntermediateDirectories:1 attributes:0 error:0];
+      v6 = [MEMORY[0x277CCAA00] defaultManager];
+      [v6 createDirectoryAtPath:v5 withIntermediateDirectories:1 attributes:0 error:0];
 
-      v6 = *(a1 + 32);
-      v17 = 0;
-      v7 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v6 requiringSecureCoding:1 error:&v17];
-      v8 = v17;
-      if (v7)
+      v7 = *(a1 + 32);
+      v18 = 0;
+      v8 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v7 requiringSecureCoding:1 error:&v18];
+      v9 = v18;
+      if (v8)
       {
-        v9 = [WeakRetained _supportPath];
-        v10 = [v7 writeToFile:v9 atomically:1];
+        v10 = [WeakRetained _supportPath];
+        v11 = [v8 writeToFile:v10 atomically:1];
       }
 
       else
       {
-        v10 = 0;
+        v11 = 0;
       }
 
-      NSLog(&cfstr_Wlksettingssto_14.isa, v10);
-      v11 = dispatch_get_global_queue(0, 0);
+      NSLog(&cfstr_Wlksettingssto_14.isa, v11);
+      v12 = dispatch_get_global_queue(0, 0);
       block[0] = MEMORY[0x277D85DD0];
       block[1] = 3221225472;
       block[2] = __44__WLKSettingsStore__writeToDisk_completion___block_invoke_3;
       block[3] = &unk_279E603E0;
-      v12 = *(a1 + 48);
-      v13 = *(a1 + 56);
+      v13 = *(a1 + 48);
+      v14 = *(a1 + 56);
       block[4] = WeakRetained;
-      block[5] = v12;
-      v15 = v13;
-      v16 = v10;
-      dispatch_async(v11, block);
+      block[5] = v13;
+      v16 = v14;
+      v17 = v11;
+      dispatch_async(v12, block);
     }
 
     else
@@ -2065,10 +2043,9 @@ uint64_t __44__WLKSettingsStore__writeToDisk_completion___block_invoke_4(uint64_
   result = *(a1 + 40);
   if (result)
   {
-    v5 = *(a1 + 48);
-    v6 = *(result + 16);
+    v5 = *(result + 16);
 
-    return v6();
+    return v5();
   }
 
   return result;
@@ -2433,12 +2410,26 @@ void __54__WLKSettingsStore__activeAccountChangedNotification___block_invoke(voi
   }
 }
 
+- (void)setSportsScoreSpoilersAllowed:(BOOL)allowed
+{
+  allowedCopy = allowed;
+  v4 = +[WLKSystemPreferencesStore sharedPreferences];
+  [v4 setSportsScoreSpoilersAllowed:allowedCopy];
+}
+
 - (BOOL)sportsScoreSpoilersAllowed
 {
   v2 = +[WLKSystemPreferencesStore sharedPreferences];
   sportsScoreSpoilersAllowed = [v2 sportsScoreSpoilersAllowed];
 
   return sportsScoreSpoilersAllowed;
+}
+
+- (void)setUpNextLockupsUseCoverArt:(BOOL)art
+{
+  artCopy = art;
+  v4 = +[WLKSystemPreferencesStore sharedPreferences];
+  [v4 setUpNextLockupsUseCoverArt:artCopy];
 }
 
 - (BOOL)upNextLockupsUseCoverArt
@@ -2449,12 +2440,26 @@ void __54__WLKSettingsStore__activeAccountChangedNotification___block_invoke(voi
   return upNextLockupsUseCoverArt;
 }
 
+- (void)setPrivateModeEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  v4 = +[WLKSystemPreferencesStore sharedPreferences];
+  [v4 setPrivateModeEnabled:enabledCopy];
+}
+
 - (BOOL)privateModeEnabled
 {
   v2 = +[WLKSystemPreferencesStore sharedPreferences];
   privateModeEnabled = [v2 privateModeEnabled];
 
   return privateModeEnabled;
+}
+
+- (void)setPostPlayAutoPlayNextVideo:(BOOL)video
+{
+  videoCopy = video;
+  v4 = +[WLKSystemPreferencesStore sharedPreferences];
+  [v4 setPostPlayAutoPlayNextVideo:videoCopy];
 }
 
 - (BOOL)postPlayAutoPlayNextVideo
@@ -2501,27 +2506,27 @@ void __54__WLKSettingsStore__activeAccountChangedNotification___block_invoke(voi
 
 void __38__WLKSettingsStore__appsForChannelID___block_invoke(void *a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   v2 = *(a1[4] + 56);
-  v3 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v12;
+    v5 = *v11;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v12 != v5)
+        if (*v11 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v11 + 1) + 8 * i);
+        v7 = *(*(&v10 + 1) + 8 * i);
         v8 = [v7 channelID];
         v9 = [v8 isEqualToString:a1[5]];
 
@@ -2531,13 +2536,11 @@ void __38__WLKSettingsStore__appsForChannelID___block_invoke(void *a1)
         }
       }
 
-      v4 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v4);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_removeWatchListApp:(id)app

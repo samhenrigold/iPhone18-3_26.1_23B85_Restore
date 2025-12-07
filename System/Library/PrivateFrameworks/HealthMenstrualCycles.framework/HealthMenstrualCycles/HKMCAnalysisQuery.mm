@@ -3,7 +3,6 @@
 - (void)client_deliverAnalysis:(id)analysis queryUUID:(id)d;
 - (void)queue_deliverError:(id)error;
 - (void)queue_populateConfiguration:(id)configuration;
-- (void)queue_queryDidDeactivate:(id)deactivate;
 - (void)queue_validate;
 @end
 
@@ -62,41 +61,35 @@ void __54__HKMCAnalysisQuery_client_deliverAnalysis_queryUUID___block_invoke(uin
   }
 }
 
-uint64_t __54__HKMCAnalysisQuery_client_deliverAnalysis_queryUUID___block_invoke_2(void *a1)
+uint64_t __54__HKMCAnalysisQuery_client_deliverAnalysis_queryUUID___block_invoke_2(void *a1, uint64_t a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
-  v2 = *MEMORY[0x277CCC2E8];
+  v3 = *MEMORY[0x277CCC2E8];
   if (os_log_type_enabled(*MEMORY[0x277CCC2E8], OS_LOG_TYPE_DEFAULT))
   {
-    v3 = a1[4];
-    v4 = v2;
+    v4 = v3;
     v5 = objc_opt_class();
-    v6 = a1[5];
-    v7 = v5;
-    v8 = HKSensitiveLogItem();
-    v13 = 138543618;
-    v14 = v5;
-    v15 = 2112;
-    v16 = v8;
-    _os_log_impl(&dword_2518FC000, v4, OS_LOG_TYPE_DEFAULT, "[%{public}@] Delivering updated analysis: %@", &v13, 0x16u);
+    v6 = v5;
+    v7 = HKSensitiveLogItem();
+    v9 = 138543618;
+    v10 = v5;
+    v11 = 2112;
+    v12 = v7;
+    _os_log_impl(&dword_2518FC000, v4, OS_LOG_TYPE_DEFAULT, "[%{public}@] Delivering updated analysis: %@", &v9, 0x16u);
   }
 
-  v9 = a1[5];
-  v10 = a1[4];
-  result = (*(a1[6] + 16))();
-  v12 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(a1[6] + 16))();
 }
 
 - (void)queue_populateConfiguration:(id)configuration
 {
-  v19 = *MEMORY[0x277D85DE8];
-  v12.receiver = self;
-  v12.super_class = HKMCAnalysisQuery;
+  v18 = *MEMORY[0x277D85DE8];
+  v11.receiver = self;
+  v11.super_class = HKMCAnalysisQuery;
   configurationCopy = configuration;
-  [(HKQuery *)&v12 queue_populateConfiguration:configurationCopy];
-  [configurationCopy setForceAnalysis:{self->_forceAnalysis, v12.receiver, v12.super_class}];
+  [(HKQuery *)&v11 queue_populateConfiguration:configurationCopy];
+  [configurationCopy setForceAnalysis:{self->_forceAnalysis, v11.receiver, v11.super_class}];
 
   _HKInitializeLogging();
   v5 = *MEMORY[0x277CCC2E8];
@@ -108,15 +101,13 @@ uint64_t __54__HKMCAnalysisQuery_client_deliverAnalysis_queryUUID___block_invoke
     debugIdentifier = [(HKQuery *)self debugIdentifier];
     v10 = [MEMORY[0x277CCABB0] numberWithBool:self->_forceAnalysis];
     *buf = 138543874;
-    v14 = v7;
-    v15 = 2114;
-    v16 = debugIdentifier;
-    v17 = 2114;
-    v18 = v10;
+    v13 = v7;
+    v14 = 2114;
+    v15 = debugIdentifier;
+    v16 = 2114;
+    v17 = v10;
     _os_log_impl(&dword_2518FC000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}@:%{public}@] Configured with forced analysis: %{public}@", buf, 0x20u);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)queue_deliverError:(id)error
@@ -146,13 +137,6 @@ uint64_t __54__HKMCAnalysisQuery_client_deliverAnalysis_queryUUID___block_invoke
   {
     [MEMORY[0x277CBEAD8] raise:*MEMORY[0x277CCE1C8] format:{@"%@ updateHandler must not be nil", objc_opt_class()}];
   }
-}
-
-- (void)queue_queryDidDeactivate:(id)deactivate
-{
-  updateHandler = self->_updateHandler;
-  self->_updateHandler = 0;
-  MEMORY[0x2821F96F8]();
 }
 
 @end

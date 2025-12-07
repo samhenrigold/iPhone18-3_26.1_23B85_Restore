@@ -41,7 +41,7 @@ void __71__PPXPCClientPipelinedBatchQueryManager_cancelPendingQueriesWithError__
 
 - (void)handleReplyWithName:(id)name batch:(id)batch isLast:(BOOL)last error:(id)error queryId:(unint64_t)id completion:(id)completion
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   nameCopy = name;
   batchCopy = batch;
   errorCopy = error;
@@ -60,11 +60,11 @@ void __71__PPXPCClientPipelinedBatchQueryManager_cancelPendingQueriesWithError__
     block[1] = 3221225472;
     block[2] = __99__PPXPCClientPipelinedBatchQueryManager_handleReplyWithName_batch_isLast_error_queryId_completion___block_invoke;
     block[3] = &unk_1E77F6E88;
-    v28 = batchCopy;
-    v29 = v21;
+    v27 = batchCopy;
+    v28 = v21;
     lastCopy = last;
-    v30 = errorCopy;
-    v31 = completionCopy;
+    v29 = errorCopy;
+    v30 = completionCopy;
     dispatch_async(queue, block);
   }
 
@@ -78,8 +78,8 @@ void __71__PPXPCClientPipelinedBatchQueryManager_cancelPendingQueriesWithError__
       if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412546;
-        v34 = nameCopy;
-        v35 = 2048;
+        v33 = nameCopy;
+        v34 = 2048;
         idCopy2 = id;
         _os_log_error_impl(&dword_1A7FD3000, v25, OS_LOG_TYPE_ERROR, "Received batch reply of type %@ for unknown queryId %llu.", buf, 0x16u);
       }
@@ -88,16 +88,14 @@ void __71__PPXPCClientPipelinedBatchQueryManager_cancelPendingQueriesWithError__
     else if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412546;
-      v34 = nameCopy;
-      v35 = 2048;
+      v33 = nameCopy;
+      v34 = 2048;
       idCopy2 = id;
       _os_log_debug_impl(&dword_1A7FD3000, v25, OS_LOG_TYPE_DEBUG, "Received batch reply of type %@ for old queryId %llu.", buf, 0x16u);
     }
 
     (*(completionCopy + 2))(completionCopy, 1);
   }
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __99__PPXPCClientPipelinedBatchQueryManager_handleReplyWithName_batch_isLast_error_queryId_completion___block_invoke(uint64_t a1)
@@ -127,10 +125,9 @@ uint64_t __99__PPXPCClientPipelinedBatchQueryManager_handleReplyWithName_batch_i
 
   [v2 finalizeCallWithSuccess:v5 error:v6];
 LABEL_6:
-  v7 = *(*(a1 + 40) + 8);
-  v8 = *(*(a1 + 56) + 16);
+  v7 = *(*(a1 + 56) + 16);
 
-  return v8();
+  return v7();
 }
 
 - (BOOL)syncExecuteQueryWithName:(id)name error:(id *)error queryInitializer:(id)initializer handleBatch:(id)batch

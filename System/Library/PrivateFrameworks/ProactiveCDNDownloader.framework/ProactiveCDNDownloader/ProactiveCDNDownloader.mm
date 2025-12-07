@@ -845,16 +845,16 @@ void sub_260C96F74(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-id __atxlog_handle_default()
+id __atxlog_handle_default(uint64_t a1)
 {
   if (__atxlog_handle_default_onceToken != -1)
   {
     __atxlog_handle_default_cold_1();
   }
 
-  v1 = __atxlog_handle_default_log;
+  v2 = __atxlog_handle_default_log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t ____atxlog_handle_default_block_invoke()
@@ -864,16 +864,16 @@ uint64_t ____atxlog_handle_default_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id __atxlog_handle_xpc()
+id __atxlog_handle_xpc(uint64_t a1)
 {
   if (__atxlog_handle_xpc_onceToken != -1)
   {
     __atxlog_handle_xpc_cold_1();
   }
 
-  v1 = __atxlog_handle_xpc_log;
+  v2 = __atxlog_handle_xpc_log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t ____atxlog_handle_xpc_block_invoke()
@@ -883,16 +883,16 @@ uint64_t ____atxlog_handle_xpc_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id __atxlog_handle_heuristic()
+id __atxlog_handle_heuristic(uint64_t a1)
 {
   if (__atxlog_handle_heuristic_onceToken != -1)
   {
     __atxlog_handle_heuristic_cold_1();
   }
 
-  v1 = __atxlog_handle_heuristic_log;
+  v2 = __atxlog_handle_heuristic_log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t ____atxlog_handle_heuristic_block_invoke()
@@ -902,16 +902,16 @@ uint64_t ____atxlog_handle_heuristic_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id __atxlog_handle_notifications()
+id __atxlog_handle_notifications(uint64_t a1)
 {
   if (__atxlog_handle_notifications_onceToken != -1)
   {
     __atxlog_handle_notifications_cold_1();
   }
 
-  v1 = __atxlog_handle_notifications_log;
+  v2 = __atxlog_handle_notifications_log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t ____atxlog_handle_notifications_block_invoke()
@@ -921,16 +921,16 @@ uint64_t ____atxlog_handle_notifications_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id __atxlog_handle_pmm()
+id __atxlog_handle_pmm(uint64_t a1)
 {
   if (__atxlog_handle_pmm_onceToken != -1)
   {
     __atxlog_handle_pmm_cold_1();
   }
 
-  v1 = __atxlog_handle_pmm_log;
+  v2 = __atxlog_handle_pmm_log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t ____atxlog_handle_pmm_block_invoke()
@@ -940,16 +940,16 @@ uint64_t ____atxlog_handle_pmm_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id __atxlog_handle_dailyroutines()
+id __atxlog_handle_dailyroutines(uint64_t a1)
 {
   if (__atxlog_handle_dailyroutines_onceToken != -1)
   {
     __atxlog_handle_dailyroutines_cold_1();
   }
 
-  v1 = __atxlog_handle_dailyroutines_log;
+  v2 = __atxlog_handle_dailyroutines_log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t ____atxlog_handle_dailyroutines_block_invoke()
@@ -959,16 +959,16 @@ uint64_t ____atxlog_handle_dailyroutines_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id __atxlog_handle_feedback()
+id __atxlog_handle_feedback(uint64_t a1)
 {
   if (__atxlog_handle_feedback_onceToken != -1)
   {
     __atxlog_handle_feedback_cold_1();
   }
 
-  v1 = __atxlog_handle_feedback_log;
+  v2 = __atxlog_handle_feedback_log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t ____atxlog_handle_feedback_block_invoke()
@@ -978,16 +978,16 @@ uint64_t ____atxlog_handle_feedback_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id __atxlog_handle_modes()
+id __atxlog_handle_modes(uint64_t a1)
 {
   if (__atxlog_handle_modes_onceToken != -1)
   {
     __atxlog_handle_modes_cold_1();
   }
 
-  v1 = __atxlog_handle_modes_log;
+  v2 = __atxlog_handle_modes_log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t ____atxlog_handle_modes_block_invoke()
@@ -997,16 +997,16 @@ uint64_t ____atxlog_handle_modes_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id __atxlog_handle_hero()
+id __atxlog_handle_hero(uint64_t a1)
 {
   if (__atxlog_handle_hero_onceToken != -1)
   {
     __atxlog_handle_hero_cold_1();
   }
 
-  v1 = __atxlog_handle_hero_log;
+  v2 = __atxlog_handle_hero_log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t ____atxlog_handle_hero_block_invoke()
@@ -1016,16 +1016,16 @@ uint64_t ____atxlog_handle_hero_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id __atxlog_handle_deletions()
+id __atxlog_handle_deletions(uint64_t a1)
 {
   if (__atxlog_handle_deletions_onceToken != -1)
   {
     __atxlog_handle_deletions_cold_1();
   }
 
-  v1 = __atxlog_handle_deletions_log;
+  v2 = __atxlog_handle_deletions_log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t ____atxlog_handle_deletions_block_invoke()
@@ -1035,16 +1035,16 @@ uint64_t ____atxlog_handle_deletions_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id __atxlog_handle_gi()
+id __atxlog_handle_gi(uint64_t a1)
 {
   if (__atxlog_handle_gi_onceToken != -1)
   {
     __atxlog_handle_gi_cold_1();
   }
 
-  v1 = __atxlog_handle_gi_log;
+  v2 = __atxlog_handle_gi_log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t ____atxlog_handle_gi_block_invoke()
@@ -1054,16 +1054,16 @@ uint64_t ____atxlog_handle_gi_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id __atxlog_handle_timeline()
+id __atxlog_handle_timeline(uint64_t a1)
 {
   if (__atxlog_handle_timeline_onceToken != -1)
   {
     __atxlog_handle_timeline_cold_1();
   }
 
-  v1 = __atxlog_handle_timeline_log;
+  v2 = __atxlog_handle_timeline_log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t ____atxlog_handle_timeline_block_invoke()
@@ -1073,16 +1073,16 @@ uint64_t ____atxlog_handle_timeline_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id __atxlog_handle_relevant_shortcut()
+id __atxlog_handle_relevant_shortcut(uint64_t a1)
 {
   if (__atxlog_handle_relevant_shortcut_onceToken != -1)
   {
     __atxlog_handle_relevant_shortcut_cold_1();
   }
 
-  v1 = __atxlog_handle_relevant_shortcut_log;
+  v2 = __atxlog_handle_relevant_shortcut_log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t ____atxlog_handle_relevant_shortcut_block_invoke()
@@ -1092,16 +1092,16 @@ uint64_t ____atxlog_handle_relevant_shortcut_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id __atxlog_handle_relevance_model()
+id __atxlog_handle_relevance_model(uint64_t a1)
 {
   if (__atxlog_handle_relevance_model_onceToken != -1)
   {
     __atxlog_handle_relevance_model_cold_1();
   }
 
-  v1 = __atxlog_handle_relevance_model_log;
+  v2 = __atxlog_handle_relevance_model_log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t ____atxlog_handle_relevance_model_block_invoke()
@@ -1111,16 +1111,16 @@ uint64_t ____atxlog_handle_relevance_model_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id __atxlog_handle_watch()
+id __atxlog_handle_watch(uint64_t a1)
 {
   if (__atxlog_handle_watch_onceToken != -1)
   {
     __atxlog_handle_watch_cold_1();
   }
 
-  v1 = __atxlog_handle_watch_log;
+  v2 = __atxlog_handle_watch_log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t ____atxlog_handle_watch_block_invoke()
@@ -1130,16 +1130,16 @@ uint64_t ____atxlog_handle_watch_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id __atxlog_handle_ui()
+id __atxlog_handle_ui(uint64_t a1)
 {
   if (__atxlog_handle_ui_onceToken != -1)
   {
     __atxlog_handle_ui_cold_1();
   }
 
-  v1 = __atxlog_handle_ui_log;
+  v2 = __atxlog_handle_ui_log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t ____atxlog_handle_ui_block_invoke()
@@ -1149,16 +1149,16 @@ uint64_t ____atxlog_handle_ui_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id __atxlog_handle_blending()
+id __atxlog_handle_blending(uint64_t a1)
 {
   if (__atxlog_handle_blending_onceToken != -1)
   {
     __atxlog_handle_blending_cold_1();
   }
 
-  v1 = __atxlog_handle_blending_log;
+  v2 = __atxlog_handle_blending_log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t ____atxlog_handle_blending_block_invoke()
@@ -1168,16 +1168,16 @@ uint64_t ____atxlog_handle_blending_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id __atxlog_handle_blending_internal_cache()
+id __atxlog_handle_blending_internal_cache(uint64_t a1)
 {
   if (__atxlog_handle_blending_internal_cache_onceToken != -1)
   {
     __atxlog_handle_blending_internal_cache_cold_1();
   }
 
-  v1 = __atxlog_handle_blending_internal_cache_log;
+  v2 = __atxlog_handle_blending_internal_cache_log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t ____atxlog_handle_blending_internal_cache_block_invoke()
@@ -1187,16 +1187,16 @@ uint64_t ____atxlog_handle_blending_internal_cache_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id __atxlog_handle_blending_ecosystem()
+id __atxlog_handle_blending_ecosystem(uint64_t a1)
 {
   if (__atxlog_handle_blending_ecosystem_onceToken != -1)
   {
     __atxlog_handle_blending_ecosystem_cold_1();
   }
 
-  v1 = __atxlog_handle_blending_ecosystem_log;
+  v2 = __atxlog_handle_blending_ecosystem_log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t ____atxlog_handle_blending_ecosystem_block_invoke()
@@ -1206,16 +1206,16 @@ uint64_t ____atxlog_handle_blending_ecosystem_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id __atxlog_handle_home_screen()
+id __atxlog_handle_home_screen(uint64_t a1)
 {
   if (__atxlog_handle_home_screen_onceToken != -1)
   {
     __atxlog_handle_home_screen_cold_1();
   }
 
-  v1 = __atxlog_handle_home_screen_log;
+  v2 = __atxlog_handle_home_screen_log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t ____atxlog_handle_home_screen_block_invoke()
@@ -1225,16 +1225,16 @@ uint64_t ____atxlog_handle_home_screen_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id __atxlog_handle_sleep_schedule()
+id __atxlog_handle_sleep_schedule(uint64_t a1)
 {
   if (__atxlog_handle_sleep_schedule_onceToken != -1)
   {
     __atxlog_handle_sleep_schedule_cold_1();
   }
 
-  v1 = __atxlog_handle_sleep_schedule_log;
+  v2 = __atxlog_handle_sleep_schedule_log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t ____atxlog_handle_sleep_schedule_block_invoke()
@@ -1244,16 +1244,16 @@ uint64_t ____atxlog_handle_sleep_schedule_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id __atxlog_handle_lock_screen()
+id __atxlog_handle_lock_screen(uint64_t a1)
 {
   if (__atxlog_handle_lock_screen_onceToken != -1)
   {
     __atxlog_handle_lock_screen_cold_1();
   }
 
-  v1 = __atxlog_handle_lock_screen_log;
+  v2 = __atxlog_handle_lock_screen_log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t ____atxlog_handle_lock_screen_block_invoke()
@@ -1263,16 +1263,16 @@ uint64_t ____atxlog_handle_lock_screen_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id __atxlog_handle_anchor()
+id __atxlog_handle_anchor(uint64_t a1)
 {
   if (__atxlog_handle_anchor_onceToken != -1)
   {
     __atxlog_handle_anchor_cold_1();
   }
 
-  v1 = __atxlog_handle_anchor_log;
+  v2 = __atxlog_handle_anchor_log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t ____atxlog_handle_anchor_block_invoke()
@@ -1282,16 +1282,16 @@ uint64_t ____atxlog_handle_anchor_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id __atxlog_handle_app_prediction()
+id __atxlog_handle_app_prediction(uint64_t a1)
 {
   if (__atxlog_handle_app_prediction_onceToken != -1)
   {
     __atxlog_handle_app_prediction_cold_1();
   }
 
-  v1 = __atxlog_handle_app_prediction_log;
+  v2 = __atxlog_handle_app_prediction_log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t ____atxlog_handle_app_prediction_block_invoke()
@@ -1301,16 +1301,16 @@ uint64_t ____atxlog_handle_app_prediction_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id __atxlog_handle_action_prediction()
+id __atxlog_handle_action_prediction(uint64_t a1)
 {
   if (__atxlog_handle_action_prediction_onceToken != -1)
   {
     __atxlog_handle_action_prediction_cold_1();
   }
 
-  v1 = __atxlog_handle_action_prediction_log;
+  v2 = __atxlog_handle_action_prediction_log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t ____atxlog_handle_action_prediction_block_invoke()
@@ -1320,16 +1320,16 @@ uint64_t ____atxlog_handle_action_prediction_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id __atxlog_handle_app_library()
+id __atxlog_handle_app_library(uint64_t a1)
 {
   if (__atxlog_handle_app_library_onceToken != -1)
   {
     __atxlog_handle_app_library_cold_1();
   }
 
-  v1 = __atxlog_handle_app_library_log;
+  v2 = __atxlog_handle_app_library_log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t ____atxlog_handle_app_library_block_invoke()
@@ -1339,16 +1339,16 @@ uint64_t ____atxlog_handle_app_library_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id __atxlog_handle_app_install()
+id __atxlog_handle_app_install(uint64_t a1)
 {
   if (__atxlog_handle_app_install_onceToken != -1)
   {
     __atxlog_handle_app_install_cold_1();
   }
 
-  v1 = __atxlog_handle_app_install_log;
+  v2 = __atxlog_handle_app_install_log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t ____atxlog_handle_app_install_block_invoke()
@@ -1358,16 +1358,16 @@ uint64_t ____atxlog_handle_app_install_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id __atxlog_handle_backup()
+id __atxlog_handle_backup(uint64_t a1)
 {
   if (__atxlog_handle_backup_onceToken != -1)
   {
     __atxlog_handle_backup_cold_1();
   }
 
-  v1 = __atxlog_handle_backup_log;
+  v2 = __atxlog_handle_backup_log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t ____atxlog_handle_backup_block_invoke()
@@ -1377,16 +1377,16 @@ uint64_t ____atxlog_handle_backup_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id __atxlog_handle_metrics()
+id __atxlog_handle_metrics(uint64_t a1)
 {
   if (__atxlog_handle_metrics_onceToken != -1)
   {
     __atxlog_handle_metrics_cold_1();
   }
 
-  v1 = __atxlog_handle_metrics_log;
+  v2 = __atxlog_handle_metrics_log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t ____atxlog_handle_metrics_block_invoke()
@@ -1396,16 +1396,16 @@ uint64_t ____atxlog_handle_metrics_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id __atxlog_handle_trial_assets()
+id __atxlog_handle_trial_assets(uint64_t a1)
 {
   if (__atxlog_handle_trial_assets_onceToken != -1)
   {
     __atxlog_handle_trial_assets_cold_1();
   }
 
-  v1 = __atxlog_handle_trial_assets_log;
+  v2 = __atxlog_handle_trial_assets_log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t ____atxlog_handle_trial_assets_block_invoke()
@@ -1415,16 +1415,16 @@ uint64_t ____atxlog_handle_trial_assets_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id __atxlog_handle_notification_management()
+id __atxlog_handle_notification_management(uint64_t a1)
 {
   if (__atxlog_handle_notification_management_onceToken != -1)
   {
     __atxlog_handle_notification_management_cold_1();
   }
 
-  v1 = __atxlog_handle_notification_management_log;
+  v2 = __atxlog_handle_notification_management_log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t ____atxlog_handle_notification_management_block_invoke()
@@ -1434,16 +1434,16 @@ uint64_t ____atxlog_handle_notification_management_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id __atxlog_handle_contextual_actions()
+id __atxlog_handle_contextual_actions(uint64_t a1)
 {
   if (__atxlog_handle_contextual_actions_onceToken != -1)
   {
     __atxlog_handle_contextual_actions_cold_1();
   }
 
-  v1 = __atxlog_handle_contextual_actions_log;
+  v2 = __atxlog_handle_contextual_actions_log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t ____atxlog_handle_contextual_actions_block_invoke()
@@ -1453,16 +1453,16 @@ uint64_t ____atxlog_handle_contextual_actions_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id __atxlog_handle_intents_helper()
+id __atxlog_handle_intents_helper(uint64_t a1)
 {
   if (__atxlog_handle_intents_helper_onceToken != -1)
   {
     __atxlog_handle_intents_helper_cold_1();
   }
 
-  v1 = __atxlog_handle_intents_helper_log;
+  v2 = __atxlog_handle_intents_helper_log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t ____atxlog_handle_intents_helper_block_invoke()
@@ -1472,16 +1472,16 @@ uint64_t ____atxlog_handle_intents_helper_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id __atxlog_handle_context_heuristic()
+id __atxlog_handle_context_heuristic(uint64_t a1)
 {
   if (__atxlog_handle_context_heuristic_onceToken != -1)
   {
     __atxlog_handle_context_heuristic_cold_1();
   }
 
-  v1 = __atxlog_handle_context_heuristic_log;
+  v2 = __atxlog_handle_context_heuristic_log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t ____atxlog_handle_context_heuristic_block_invoke()
@@ -1491,16 +1491,16 @@ uint64_t ____atxlog_handle_context_heuristic_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id __atxlog_handle_zkw_hide()
+id __atxlog_handle_zkw_hide(uint64_t a1)
 {
   if (__atxlog_handle_zkw_hide_onceToken != -1)
   {
     __atxlog_handle_zkw_hide_cold_1();
   }
 
-  v1 = __atxlog_handle_zkw_hide_log;
+  v2 = __atxlog_handle_zkw_hide_log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t ____atxlog_handle_zkw_hide_block_invoke()
@@ -1510,16 +1510,16 @@ uint64_t ____atxlog_handle_zkw_hide_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id __atxlog_handle_context_user_education_suggestions()
+id __atxlog_handle_context_user_education_suggestions(uint64_t a1)
 {
   if (__atxlog_handle_context_user_education_suggestions_onceToken != -1)
   {
     __atxlog_handle_context_user_education_suggestions_cold_1();
   }
 
-  v1 = __atxlog_handle_context_user_education_suggestions_log;
+  v2 = __atxlog_handle_context_user_education_suggestions_log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t ____atxlog_handle_context_user_education_suggestions_block_invoke()
@@ -1529,16 +1529,16 @@ uint64_t ____atxlog_handle_context_user_education_suggestions_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id __atxlog_handle_time_intelligence()
+id __atxlog_handle_time_intelligence(uint64_t a1)
 {
   if (__atxlog_handle_time_intelligence_onceToken != -1)
   {
     __atxlog_handle_time_intelligence_cold_1();
   }
 
-  v1 = __atxlog_handle_time_intelligence_log;
+  v2 = __atxlog_handle_time_intelligence_log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t ____atxlog_handle_time_intelligence_block_invoke()
@@ -1548,16 +1548,16 @@ uint64_t ____atxlog_handle_time_intelligence_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id __atxlog_handle_contextual_engine()
+id __atxlog_handle_contextual_engine(uint64_t a1)
 {
   if (__atxlog_handle_contextual_engine_onceToken != -1)
   {
     __atxlog_handle_contextual_engine_cold_1();
   }
 
-  v1 = __atxlog_handle_contextual_engine_log;
+  v2 = __atxlog_handle_contextual_engine_log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t ____atxlog_handle_contextual_engine_block_invoke()
@@ -1567,16 +1567,16 @@ uint64_t ____atxlog_handle_contextual_engine_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id __atxlog_handle_usage_insights()
+id __atxlog_handle_usage_insights(uint64_t a1)
 {
   if (__atxlog_handle_usage_insights_onceToken != -1)
   {
     __atxlog_handle_usage_insights_cold_1();
   }
 
-  v1 = __atxlog_handle_usage_insights_log;
+  v2 = __atxlog_handle_usage_insights_log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t ____atxlog_handle_usage_insights_block_invoke()
@@ -1586,16 +1586,16 @@ uint64_t ____atxlog_handle_usage_insights_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id __atxlog_handle_notification_categorization()
+id __atxlog_handle_notification_categorization(uint64_t a1)
 {
   if (__atxlog_handle_notification_categorization_onceToken != -1)
   {
     __atxlog_handle_notification_categorization_cold_1();
   }
 
-  v1 = __atxlog_handle_notification_categorization_log;
+  v2 = __atxlog_handle_notification_categorization_log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t ____atxlog_handle_notification_categorization_block_invoke()
@@ -1605,16 +1605,16 @@ uint64_t ____atxlog_handle_notification_categorization_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id __atxlog_handle_settings_actions()
+id __atxlog_handle_settings_actions(uint64_t a1)
 {
   if (__atxlog_handle_settings_actions_onceToken != -1)
   {
     __atxlog_handle_settings_actions_cold_1();
   }
 
-  v1 = __atxlog_handle_settings_actions_log;
+  v2 = __atxlog_handle_settings_actions_log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t ____atxlog_handle_settings_actions_block_invoke()
@@ -1624,16 +1624,16 @@ uint64_t ____atxlog_handle_settings_actions_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id __atxlog_handle_client_donations()
+id __atxlog_handle_client_donations(uint64_t a1)
 {
   if (__atxlog_handle_client_donations_onceToken != -1)
   {
     __atxlog_handle_client_donations_cold_1();
   }
 
-  v1 = __atxlog_handle_client_donations_log;
+  v2 = __atxlog_handle_client_donations_log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t ____atxlog_handle_client_donations_block_invoke()
@@ -1643,16 +1643,16 @@ uint64_t ____atxlog_handle_client_donations_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id __atxlog_handle_carPlay_widgets()
+id __atxlog_handle_carPlay_widgets(uint64_t a1)
 {
   if (__atxlog_handle_carPlay_widgets_onceToken != -1)
   {
     __atxlog_handle_carPlay_widgets_cold_1();
   }
 
-  v1 = __atxlog_handle_carPlay_widgets_log;
+  v2 = __atxlog_handle_carPlay_widgets_log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t ____atxlog_handle_carPlay_widgets_block_invoke()
@@ -1662,16 +1662,16 @@ uint64_t ____atxlog_handle_carPlay_widgets_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id __atxlog_handle_screen_entities()
+id __atxlog_handle_screen_entities(uint64_t a1)
 {
   if (__atxlog_handle_screen_entities_onceToken != -1)
   {
     __atxlog_handle_screen_entities_cold_1();
   }
 
-  v1 = __atxlog_handle_screen_entities_log;
+  v2 = __atxlog_handle_screen_entities_log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t ____atxlog_handle_screen_entities_block_invoke()
@@ -1681,16 +1681,16 @@ uint64_t ____atxlog_handle_screen_entities_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id __atxlog_handle_document_predictor()
+id __atxlog_handle_document_predictor(uint64_t a1)
 {
   if (__atxlog_handle_document_predictor_onceToken != -1)
   {
     __atxlog_handle_document_predictor_cold_1();
   }
 
-  v1 = __atxlog_handle_document_predictor_log;
+  v2 = __atxlog_handle_document_predictor_log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t ____atxlog_handle_document_predictor_block_invoke()
@@ -1700,16 +1700,16 @@ uint64_t ____atxlog_handle_document_predictor_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id __atxlog_handle_ml_inference()
+id __atxlog_handle_ml_inference(uint64_t a1)
 {
   if (__atxlog_handle_ml_inference_onceToken != -1)
   {
     __atxlog_handle_ml_inference_cold_1();
   }
 
-  v1 = __atxlog_handle_ml_inference_log;
+  v2 = __atxlog_handle_ml_inference_log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t ____atxlog_handle_ml_inference_block_invoke()
@@ -1719,16 +1719,16 @@ uint64_t ____atxlog_handle_ml_inference_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id __atxlog_handle_menu_items()
+id __atxlog_handle_menu_items(uint64_t a1)
 {
   if (__atxlog_handle_menu_items_onceToken != -1)
   {
     __atxlog_handle_menu_items_cold_1();
   }
 
-  v1 = __atxlog_handle_menu_items_log;
+  v2 = __atxlog_handle_menu_items_log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t ____atxlog_handle_menu_items_block_invoke()
@@ -1738,8 +1738,9 @@ uint64_t ____atxlog_handle_menu_items_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-void OUTLINED_FUNCTION_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 2u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 2u);
 }

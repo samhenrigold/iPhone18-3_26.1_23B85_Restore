@@ -129,7 +129,7 @@ void __33__FBSProfileManager_startService__block_invoke(uint64_t a1)
   return workQueue;
 }
 
-uint64_t __31__FBSProfileManager_isManaged___block_invoke(void *a1)
+void *__31__FBSProfileManager_isManaged___block_invoke(void *a1)
 {
   result = [*(a1[4] + 24) containsObject:a1[5]];
   *(*(a1[6] + 8) + 24) = result;

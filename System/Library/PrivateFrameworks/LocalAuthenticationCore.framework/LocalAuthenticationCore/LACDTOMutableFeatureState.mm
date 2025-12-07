@@ -21,8 +21,8 @@
 
 - (NSString)description
 {
-  v25[5] = *MEMORY[0x1E69E9840];
-  v24 = MEMORY[0x1E696AEC0];
+  v24[5] = *MEMORY[0x1E69E9840];
+  v23 = MEMORY[0x1E696AEC0];
   v3 = objc_opt_class();
   v4 = MEMORY[0x1E696AEC0];
   if ([(LACDTOMutableFeatureState *)self isSupported])
@@ -36,7 +36,7 @@
   }
 
   v6 = [v4 stringWithFormat:@"isSupported: %@", v5];
-  v25[0] = v6;
+  v24[0] = v6;
   v7 = MEMORY[0x1E696AEC0];
   if ([(LACDTOMutableFeatureState *)self isAvailable])
   {
@@ -49,7 +49,7 @@
   }
 
   v9 = [v7 stringWithFormat:@"isAvailable: %@", v8];
-  v25[1] = v9;
+  v24[1] = v9;
   v10 = MEMORY[0x1E696AEC0];
   if ([(LACDTOMutableFeatureState *)self isEnabled])
   {
@@ -62,7 +62,7 @@
   }
 
   v12 = [v10 stringWithFormat:@"isEnabled: %@", v11];
-  v25[2] = v12;
+  v24[2] = v12;
   v13 = MEMORY[0x1E696AEC0];
   if ([(LACDTOMutableFeatureState *)self isStrictModeEnabled])
   {
@@ -75,16 +75,14 @@
   }
 
   v15 = [v13 stringWithFormat:@"isStrictModeEnabled: %@", v14];
-  v25[3] = v15;
+  v24[3] = v15;
   v16 = MEMORY[0x1E696AEC0];
   requirements = [(LACDTOMutableFeatureState *)self requirements];
   v18 = [v16 stringWithFormat:@"requirements: %@", requirements];
-  v25[4] = v18;
-  v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:v25 count:5];
+  v24[4] = v18;
+  v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:v24 count:5];
   v20 = [v19 componentsJoinedByString:@" "];;
-  v21 = [v24 stringWithFormat:@"<%@ %p %@>", v3, self, v20];;
-
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = [v23 stringWithFormat:@"<%@ %p %@>", v3, self, v20];;
 
   return v21;
 }

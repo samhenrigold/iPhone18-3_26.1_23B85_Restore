@@ -65,13 +65,13 @@
 
 - (TCCDMainSyncController)init
 {
-  v4.receiver = self;
-  v4.super_class = TCCDMainSyncController;
-  v2 = [(TCCDSyncController *)&v4 init];
+  v5.receiver = self;
+  v5.super_class = TCCDMainSyncController;
+  v2 = [(TCCDSyncController *)&v5 init];
   if (v2)
   {
-    [(TCCDMainSyncController *)v2 setPsySyncCoordinatorClass:off_1000C0908()];
-    [(TCCDMainSyncController *)v2 setAcxDeviceConnectionClass:off_1000C0910()];
+    v3 = [(TCCDMainSyncController *)v2 setPsySyncCoordinatorClass:off_1000C0908()];
+    [(TCCDMainSyncController *)v2 setAcxDeviceConnectionClass:off_1000C0910(v3)];
     if (![(TCCDMainSyncController *)v2 psySyncCoordinatorClass]|| ![(TCCDMainSyncController *)v2 acxDeviceConnectionClass])
     {
 
@@ -809,7 +809,7 @@ LABEL_36:
       v8 = off_1000C0A50();
       v9 = [pairedDevice valueForProperty:v8];
       syncSessionType = [activeSyncSession syncSessionType];
-      v11 = (off_1000C0A58)(syncSessionType);
+      v11 = off_1000C0A58(syncSessionType);
       v19 = 138543618;
       v20 = v9;
       v21 = 2114;

@@ -8,49 +8,47 @@
 
 + (void)assetIsAutoloopMedia:()_QLUtilities completionHandler:
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = a4;
   if (v6)
   {
-    v12[0] = @"availableMetadataFormats";
-    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
-    v9[0] = MEMORY[0x277D85DD0];
-    v9[1] = 3221225472;
-    v9[2] = __64__AVAsset__QLUtilities__assetIsAutoloopMedia_completionHandler___block_invoke;
-    v9[3] = &unk_279AE11F8;
-    v10 = v5;
-    v11 = v6;
-    [v10 loadValuesAsynchronouslyForKeys:v7 completionHandler:v9];
+    v11[0] = @"availableMetadataFormats";
+    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
+    v8[0] = MEMORY[0x277D85DD0];
+    v8[1] = 3221225472;
+    v8[2] = __64__AVAsset__QLUtilities__assetIsAutoloopMedia_completionHandler___block_invoke;
+    v8[3] = &unk_279AE11F8;
+    v9 = v5;
+    v10 = v6;
+    [v9 loadValuesAsynchronouslyForKeys:v7 completionHandler:v8];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (uint64_t)ql_hasValidVideoTrack
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   tracks = [self tracks];
-  v2 = [tracks countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v2 = [tracks countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v2)
   {
     v3 = v2;
-    v4 = *v16;
+    v4 = *v15;
     v5 = *MEMORY[0x277CE5EA8];
     do
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v16 != v4)
+        if (*v15 != v4)
         {
           objc_enumerationMutation(tracks);
         }
 
-        v7 = *(*(&v15 + 1) + 8 * i);
+        v7 = *(*(&v14 + 1) + 8 * i);
         mediaType = [v7 mediaType];
         if ([mediaType isEqualToString:v5] && (objc_msgSend(v7, "naturalSize"), v9 > 0.0))
         {
@@ -69,7 +67,7 @@
         }
       }
 
-      v3 = [tracks countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v3 = [tracks countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v3);
@@ -78,13 +76,12 @@
   v12 = 0;
 LABEL_14:
 
-  v13 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
 - (double)ql_imageSizeOfFirstVideoTrack
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v2 = [self tracksWithMediaType:*MEMORY[0x277CE5EA8]];
   firstObject = [v2 firstObject];
 
@@ -93,8 +90,8 @@ LABEL_14:
     [firstObject naturalSize];
     v5 = v4;
     v7 = v6;
-    memset(v13, 0, sizeof(v13));
-    [firstObject preferredTransform];
+    memset(v11, 0, sizeof(v11));
+    objc_msgSend_preferredTransform(firstObject);
     if (vabdd_f64(1.57079633, fabsf(atan2f(0.0, 0.0))) < 0.0001)
     {
       v5 = v7;
@@ -113,16 +110,14 @@ LABEL_14:
 
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      LODWORD(v13[0]) = 138412290;
-      *(v13 + 4) = self;
-      _os_log_impl(&dword_261653000, v9, OS_LOG_TYPE_ERROR, "Could not determine image size of video because could not obtain track of asset: %@ #Generic", v13, 0xCu);
+      LODWORD(v11[0]) = 138412290;
+      *(v11 + 4) = self;
+      _os_log_impl(&dword_261653000, v9, OS_LOG_TYPE_ERROR, "Could not determine image size of video because could not obtain track of asset: %@ #Generic", v11, 0xCu);
     }
 
     v5 = *MEMORY[0x277CBF3A8];
-    v10 = *(MEMORY[0x277CBF3A8] + 8);
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

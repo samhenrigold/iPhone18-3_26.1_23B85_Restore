@@ -39,57 +39,8 @@
   [v8 setObject:v13 forKeyedSubscript:@"hasWalkingSteadinessMeasurements"];
 
   v15 = v14;
-  if (v15)
+  if (v15 || (-[HKMobilityWalkingSteadinessAnalyticsDailyEvent dataSource](self, "dataSource"), v16 = objc_claimAutoreleasedReturnValue(), v42 = 0, [v16 walkingSteadinessNotificationsEnabledWithError:&v42], v17 = objc_claimAutoreleasedReturnValue(), v18 = v42, objc_msgSend(v8, "setObject:forKeyedSubscript:", v17, @"isWalkingSteadinessNotificationsEnabled"), v17, v16, (v15 = v18) != 0) || (-[HKMobilityWalkingSteadinessAnalyticsDailyEvent dataSource](self, "dataSource"), v19 = objc_claimAutoreleasedReturnValue(), v41 = 0, objc_msgSend(v19, "activePairedWatchTypeWithError:", &v41), v20 = objc_claimAutoreleasedReturnValue(), v21 = v41, objc_msgSend(v8, "setObject:forKeyedSubscript:", v20, @"activePairedWatchType"), v20, v19, (v15 = v21) != 0) || (-[HKMobilityWalkingSteadinessAnalyticsDailyEvent dataSource](self, "dataSource"), v22 = objc_claimAutoreleasedReturnValue(), v40 = 0, objc_msgSend(v22, "areHealthNotificationsAuthorizedWithError:", &v40), v23 = objc_claimAutoreleasedReturnValue(), v24 = v40, objc_msgSend(v8, "setObject:forKeyedSubscript:", v23, @"areHealthNotificationsAuthorized"), v23, v22, (v15 = v24) != 0) || (-[HKMobilityWalkingSteadinessAnalyticsDailyEvent dataSource](self, "dataSource"), v25 = objc_claimAutoreleasedReturnValue(), v39 = 0, objc_msgSend(v25, "hasLaunchedHealthAppInLastWeek:", &v39), v26 = objc_claimAutoreleasedReturnValue(), v27 = v39, objc_msgSend(v8, "setObject:forKeyedSubscript:", v26, @"hasLaunchedHealthAppInLastWeek"), v26, v25, (v15 = v27) != 0))
   {
-    goto LABEL_6;
-  }
-
-  dataSource2 = [(HKMobilityWalkingSteadinessAnalyticsDailyEvent *)self dataSource];
-  v42 = 0;
-  v17 = [dataSource2 walkingSteadinessNotificationsEnabledWithError:&v42];
-  v18 = v42;
-  [v8 setObject:v17 forKeyedSubscript:@"isWalkingSteadinessNotificationsEnabled"];
-
-  v15 = v18;
-  if (v15)
-  {
-    goto LABEL_6;
-  }
-
-  dataSource3 = [(HKMobilityWalkingSteadinessAnalyticsDailyEvent *)self dataSource];
-  v41 = 0;
-  v20 = [dataSource3 activePairedWatchTypeWithError:&v41];
-  v21 = v41;
-  [v8 setObject:v20 forKeyedSubscript:@"activePairedWatchType"];
-
-  v15 = v21;
-  if (v15)
-  {
-    goto LABEL_6;
-  }
-
-  dataSource4 = [(HKMobilityWalkingSteadinessAnalyticsDailyEvent *)self dataSource];
-  v40 = 0;
-  v23 = [dataSource4 areHealthNotificationsAuthorizedWithError:&v40];
-  v24 = v40;
-  [v8 setObject:v23 forKeyedSubscript:@"areHealthNotificationsAuthorized"];
-
-  v15 = v24;
-  if (v15)
-  {
-    goto LABEL_6;
-  }
-
-  dataSource5 = [(HKMobilityWalkingSteadinessAnalyticsDailyEvent *)self dataSource];
-  v39 = 0;
-  v26 = [dataSource5 hasLaunchedHealthAppInLastWeek:&v39];
-  v27 = v39;
-  [v8 setObject:v26 forKeyedSubscript:@"hasLaunchedHealthAppInLastWeek"];
-
-  v15 = v27;
-  if (v15)
-  {
-LABEL_6:
     v28 = v15;
     if (error)
     {
@@ -107,9 +58,9 @@ LABEL_10:
     goto LABEL_11;
   }
 
-  dataSource6 = [(HKMobilityWalkingSteadinessAnalyticsDailyEvent *)self dataSource];
+  dataSource2 = [(HKMobilityWalkingSteadinessAnalyticsDailyEvent *)self dataSource];
   v38 = 0;
-  v33 = [dataSource6 hasLaunchedHealthAppInLastMonth:&v38];
+  v33 = [dataSource2 hasLaunchedHealthAppInLastMonth:&v38];
   v34 = v38;
   [v8 setObject:v33 forKeyedSubscript:@"hasLaunchedHealthAppInLastMonth"];
 
@@ -175,126 +126,17 @@ LABEL_11:
   v16 = v66;
 
   v17 = v16;
-  if (v17)
+  if (v17
+    || (+[HKMobilityAnalyticsUtilities payloadStringForBiologicalSex:](HKMobilityAnalyticsUtilities, "payloadStringForBiologicalSex:", v11), v18 = objc_claimAutoreleasedReturnValue(), [v6 setObject:v18 forKeyedSubscript:@"sex"], v18, -[HKMobilityWalkingSteadinessAnalyticsDailyEvent dataSource](self, "dataSource"), v19 = objc_claimAutoreleasedReturnValue(), v65 = 0, objc_msgSend(v19, "hasHeightWithError:", &v65), v20 = objc_claimAutoreleasedReturnValue(), v21 = v65, objc_msgSend(v6, "setObject:forKeyedSubscript:", v20, @"hasHeight"), v20, v19, -[HKMobilityWalkingSteadinessAnalyticsDailyEvent dataSource](self, "dataSource"), v22 = objc_claimAutoreleasedReturnValue(), v64 = v21, objc_msgSend(v22, "numberOfDaysSinceLastWalkingSteadinessMeasurementWithError:", &v64), v23 = objc_claimAutoreleasedReturnValue(), v24 = v64, v21, objc_msgSend(v6, "setObject:forKeyedSubscript:", v23, @"numberOfDaysSinceLastWalkingSteadinessMeasurement"), v23, v22, (v17 = v24) != 0)
+    || (-[HKMobilityWalkingSteadinessAnalyticsDailyEvent dataSource](self, "dataSource"), v25 = objc_claimAutoreleasedReturnValue(), v63 = 0, [v25 numberOfLowNotificationsInPastYearWithError:&v63], v26 = objc_claimAutoreleasedReturnValue(), v27 = v63, objc_msgSend(v6, "setObject:forKeyedSubscript:", v26, @"numberOfLowNotificationsInPastYear"), v26, v25, (v17 = v27) != 0)
+    || (-[HKMobilityWalkingSteadinessAnalyticsDailyEvent dataSource](self, "dataSource"), v28 = objc_claimAutoreleasedReturnValue(), v62 = 0, [v28 numberOfRepeatLowNotificationsInPastYearWithError:&v62], v29 = objc_claimAutoreleasedReturnValue(), v30 = v62, objc_msgSend(v6, "setObject:forKeyedSubscript:", v29, @"numberOfRepeatLowNotificationsInPastYear"), v29, v28, (v17 = v30) != 0)
+    || (-[HKMobilityWalkingSteadinessAnalyticsDailyEvent dataSource](self, "dataSource"), v31 = objc_claimAutoreleasedReturnValue(), v61 = 0, [v31 numberOfVeryLowNotificationsInPastYearWithError:&v61], v32 = objc_claimAutoreleasedReturnValue(), v33 = v61, objc_msgSend(v6, "setObject:forKeyedSubscript:", v32, @"numberOfVeryLowNotificationsInPastYear"), v32, v31, (v17 = v33) != 0)
+    || (-[HKMobilityWalkingSteadinessAnalyticsDailyEvent dataSource](self, "dataSource"), v34 = objc_claimAutoreleasedReturnValue(), v60 = 0, [v34 numberOfRepeatVeryLowNotificationsInPastYearWithError:&v60], v35 = objc_claimAutoreleasedReturnValue(), v36 = v60, objc_msgSend(v6, "setObject:forKeyedSubscript:", v35, @"numberOfRepeatVeryLowNotificationsInPastYear"), v35, v34, (v17 = v36) != 0)
+    || (-[HKMobilityWalkingSteadinessAnalyticsDailyEvent dataSource](self, "dataSource"), v37 = objc_claimAutoreleasedReturnValue(), v59 = 0, [v37 numberOfInitialNotificationsInPastYearWithError:&v59], v38 = objc_claimAutoreleasedReturnValue(), v39 = v59, objc_msgSend(v6, "setObject:forKeyedSubscript:", v38, @"numberOfInitialNotificationsInPastYear"), v38, v37, (v17 = v39) != 0)
+    || (-[HKMobilityWalkingSteadinessAnalyticsDailyEvent dataSource](self, "dataSource"), v40 = objc_claimAutoreleasedReturnValue(), v58 = 0, [v40 daysSinceLastRepeatNotificationWithError:&v58], v41 = objc_claimAutoreleasedReturnValue(), v42 = v58, objc_msgSend(v6, "setObject:forKeyedSubscript:", v41, @"daysSinceLastRepeatNotification"), v41, v40, (v17 = v42) != 0)
+    || (-[HKMobilityWalkingSteadinessAnalyticsDailyEvent dataSource](self, "dataSource"), v43 = objc_claimAutoreleasedReturnValue(), v57 = 0, [v43 daysSinceLastInitialNotificationWithError:&v57], v44 = objc_claimAutoreleasedReturnValue(), v45 = v57, objc_msgSend(v6, "setObject:forKeyedSubscript:", v44, @"daysSinceLastInitialNotification"), v44, v43, (v17 = v45) != 0)
+    || (-[HKMobilityWalkingSteadinessAnalyticsDailyEvent dataSource](self, "dataSource"), v46 = objc_claimAutoreleasedReturnValue(), v56 = 0, [v46 currentWalkingSteadinessClassificationWithError:&v56], v47 = objc_claimAutoreleasedReturnValue(), v48 = v56, objc_msgSend(v6, "setObject:forKeyedSubscript:", v47, @"currentWalkingSteadinessClassification"), v47, v46, (v17 = v48) != 0))
   {
-    goto LABEL_14;
-  }
-
-  v18 = [HKMobilityAnalyticsUtilities payloadStringForBiologicalSex:v11];
-  [v6 setObject:v18 forKeyedSubscript:@"sex"];
-
-  dataSource3 = [(HKMobilityWalkingSteadinessAnalyticsDailyEvent *)self dataSource];
-  v65 = 0;
-  v20 = [dataSource3 hasHeightWithError:&v65];
-  v21 = v65;
-  [v6 setObject:v20 forKeyedSubscript:@"hasHeight"];
-
-  dataSource4 = [(HKMobilityWalkingSteadinessAnalyticsDailyEvent *)self dataSource];
-  v64 = v21;
-  v23 = [dataSource4 numberOfDaysSinceLastWalkingSteadinessMeasurementWithError:&v64];
-  v24 = v64;
-
-  [v6 setObject:v23 forKeyedSubscript:@"numberOfDaysSinceLastWalkingSteadinessMeasurement"];
-  v17 = v24;
-  if (v17)
-  {
-    goto LABEL_14;
-  }
-
-  dataSource5 = [(HKMobilityWalkingSteadinessAnalyticsDailyEvent *)self dataSource];
-  v63 = 0;
-  v26 = [dataSource5 numberOfLowNotificationsInPastYearWithError:&v63];
-  v27 = v63;
-  [v6 setObject:v26 forKeyedSubscript:@"numberOfLowNotificationsInPastYear"];
-
-  v17 = v27;
-  if (v17)
-  {
-    goto LABEL_14;
-  }
-
-  dataSource6 = [(HKMobilityWalkingSteadinessAnalyticsDailyEvent *)self dataSource];
-  v62 = 0;
-  v29 = [dataSource6 numberOfRepeatLowNotificationsInPastYearWithError:&v62];
-  v30 = v62;
-  [v6 setObject:v29 forKeyedSubscript:@"numberOfRepeatLowNotificationsInPastYear"];
-
-  v17 = v30;
-  if (v17)
-  {
-    goto LABEL_14;
-  }
-
-  dataSource7 = [(HKMobilityWalkingSteadinessAnalyticsDailyEvent *)self dataSource];
-  v61 = 0;
-  v32 = [dataSource7 numberOfVeryLowNotificationsInPastYearWithError:&v61];
-  v33 = v61;
-  [v6 setObject:v32 forKeyedSubscript:@"numberOfVeryLowNotificationsInPastYear"];
-
-  v17 = v33;
-  if (v17)
-  {
-    goto LABEL_14;
-  }
-
-  dataSource8 = [(HKMobilityWalkingSteadinessAnalyticsDailyEvent *)self dataSource];
-  v60 = 0;
-  v35 = [dataSource8 numberOfRepeatVeryLowNotificationsInPastYearWithError:&v60];
-  v36 = v60;
-  [v6 setObject:v35 forKeyedSubscript:@"numberOfRepeatVeryLowNotificationsInPastYear"];
-
-  v17 = v36;
-  if (v17)
-  {
-    goto LABEL_14;
-  }
-
-  dataSource9 = [(HKMobilityWalkingSteadinessAnalyticsDailyEvent *)self dataSource];
-  v59 = 0;
-  v38 = [dataSource9 numberOfInitialNotificationsInPastYearWithError:&v59];
-  v39 = v59;
-  [v6 setObject:v38 forKeyedSubscript:@"numberOfInitialNotificationsInPastYear"];
-
-  v17 = v39;
-  if (v17)
-  {
-    goto LABEL_14;
-  }
-
-  dataSource10 = [(HKMobilityWalkingSteadinessAnalyticsDailyEvent *)self dataSource];
-  v58 = 0;
-  v41 = [dataSource10 daysSinceLastRepeatNotificationWithError:&v58];
-  v42 = v58;
-  [v6 setObject:v41 forKeyedSubscript:@"daysSinceLastRepeatNotification"];
-
-  v17 = v42;
-  if (v17)
-  {
-    goto LABEL_14;
-  }
-
-  dataSource11 = [(HKMobilityWalkingSteadinessAnalyticsDailyEvent *)self dataSource];
-  v57 = 0;
-  v44 = [dataSource11 daysSinceLastInitialNotificationWithError:&v57];
-  v45 = v57;
-  [v6 setObject:v44 forKeyedSubscript:@"daysSinceLastInitialNotification"];
-
-  v17 = v45;
-  if (v17)
-  {
-    goto LABEL_14;
-  }
-
-  dataSource12 = [(HKMobilityWalkingSteadinessAnalyticsDailyEvent *)self dataSource];
-  v56 = 0;
-  v47 = [dataSource12 currentWalkingSteadinessClassificationWithError:&v56];
-  v48 = v56;
-  [v6 setObject:v47 forKeyedSubscript:@"currentWalkingSteadinessClassification"];
-
-  v17 = v48;
-  if (v17)
-  {
-LABEL_14:
     v49 = v17;
 LABEL_15:
     if (error)
@@ -312,9 +154,9 @@ LABEL_15:
     goto LABEL_21;
   }
 
-  dataSource13 = [(HKMobilityWalkingSteadinessAnalyticsDailyEvent *)self dataSource];
+  dataSource3 = [(HKMobilityWalkingSteadinessAnalyticsDailyEvent *)self dataSource];
   v55 = 0;
-  v53 = [dataSource13 previousWalkingSteadinessClassificationWithError:&v55];
+  v53 = [dataSource3 previousWalkingSteadinessClassificationWithError:&v55];
   v54 = v55;
   [v6 setObject:v53 forKeyedSubscript:@"previousWalkingSteadinessClassification"];
 

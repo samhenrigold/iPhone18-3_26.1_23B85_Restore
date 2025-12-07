@@ -41,7 +41,7 @@
   v4 = v3;
   if (v3)
   {
-    sub_2210C2B00(&v3->_uuidSet.__table_.__bucket_list_.__ptr_, &dCopy);
+    sub_2210C2B00(&v3->_uuidSet.__table_.__bucket_list_.__ptr_, &dCopy, &dCopy);
   }
 
   return v4;
@@ -78,75 +78,75 @@
 
 - (TSCEUIDSet)initWithUUIDVector:(const void *)vector
 {
-  v13.receiver = self;
-  v13.super_class = TSCEUIDSet;
-  v4 = [(TSCEUIDSet *)&v13 init];
-  v8 = v4;
+  v12.receiver = self;
+  v12.super_class = TSCEUIDSet;
+  v4 = [(TSCEUIDSet *)&v12 init];
+  v7 = v4;
   if (v4)
   {
-    objc_msgSend_p_reserve_(v4, v5, (*(vector + 1) - *vector) >> 4, v6, v7);
-    v10 = *vector;
-    v9 = *(vector + 1);
-    while (v10 != v9)
+    objc_msgSend_p_reserve_(v4, v5, (*(vector + 1) - *vector) >> 4, v6);
+    v9 = *vector;
+    v8 = *(vector + 1);
+    while (v9 != v8)
     {
-      v12 = *v10;
-      sub_2210C2B00(&v8->_uuidSet.__table_.__bucket_list_.__ptr_, &v12);
-      ++v10;
+      v11 = *v9;
+      sub_2210C2B00(&v7->_uuidSet.__table_.__bucket_list_.__ptr_, &v11, &v11);
+      ++v9;
     }
   }
 
-  return v8;
+  return v7;
 }
 
 - (TSCEUIDSet)initWithTSUUUIDVector:(const void *)vector
 {
-  v13.receiver = self;
-  v13.super_class = TSCEUIDSet;
-  v4 = [(TSCEUIDSet *)&v13 init];
-  v8 = v4;
+  v12.receiver = self;
+  v12.super_class = TSCEUIDSet;
+  v4 = [(TSCEUIDSet *)&v12 init];
+  v7 = v4;
   if (v4)
   {
-    objc_msgSend_p_reserve_(v4, v5, (*(vector + 1) - *vector) >> 4, v6, v7);
-    v10 = *vector;
-    v9 = *(vector + 1);
-    while (v10 != v9)
+    objc_msgSend_p_reserve_(v4, v5, (*(vector + 1) - *vector) >> 4, v6);
+    v9 = *vector;
+    v8 = *(vector + 1);
+    while (v9 != v8)
     {
-      v12 = *v10;
-      sub_2211D6484(&v8->_uuidSet.__table_.__bucket_list_.__ptr_, &v12);
-      ++v10;
+      v11 = *v9;
+      sub_2211D6484(&v7->_uuidSet.__table_.__bucket_list_.__ptr_, &v11, &v11);
+      ++v9;
     }
   }
 
-  return v8;
+  return v7;
 }
 
 - (TSKUIDStructVectorTemplate<TSKUIDStruct>)uuidsAsVector
 {
-  v15 = 0;
-  v16 = &v15;
-  v17 = 0x4812000000;
-  v18 = sub_2211F1234;
-  v19 = sub_2211F1258;
+  v13 = 0;
+  v14 = &v13;
+  v15 = 0x4812000000;
+  v16 = sub_2211F1234;
+  v17 = sub_2211F1258;
   *__p = 0u;
-  v21 = 0u;
-  v8 = objc_msgSend_count(self, a3, v3, v4, v5);
-  sub_221083368(&__p[1], v8);
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = sub_2211F1270;
-  v14[3] = &unk_2784613A8;
-  v14[4] = &v15;
-  objc_msgSend_foreachUuid_(self, v9, v14, v10, v11);
-  v12 = v16;
+  v19 = 0u;
+  v7 = objc_msgSend_count(self, a3, v3, v4);
+  sub_221083368(&__p[1], v7);
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = sub_2211F1270;
+  v12[3] = &unk_2784613A8;
+  v12[4] = &v13;
+  objc_msgSend_foreachUuid_(self, v8, v12, v9);
+  v10 = v14;
   retstr->__end_ = 0;
   retstr->__cap_ = 0;
   retstr->__begin_ = 0;
-  sub_221086EBC(retstr, v12[6], v12[7], (v12[7] - v12[6]) >> 4);
-  _Block_object_dispose(&v15, 8);
+  sub_221086EBC(retstr, v10[6], v10[7], (v10[7] - v10[6]) >> 4);
+  _Block_object_dispose(&v13, 8);
   result = __p[1];
   if (__p[1])
   {
-    *&v21 = __p[1];
+    *&v19 = __p[1];
     operator delete(__p[1]);
   }
 
@@ -155,33 +155,33 @@
 
 - (vector<TSU::UUIDData<TSP::UUIDData>,)uuidsAsTSUVector
 {
-  v15 = 0;
-  v16 = &v15;
-  v17 = 0x4812000000;
-  v18 = sub_2211F14A4;
-  v19 = sub_2211F14C8;
-  v20 = &unk_22188E88F;
-  v22 = 0;
-  v23 = 0;
+  v13 = 0;
+  v14 = &v13;
+  v15 = 0x4812000000;
+  v16 = sub_2211F14A4;
+  v17 = sub_2211F14C8;
+  v18 = &unk_22188E88F;
+  v20 = 0;
+  v21 = 0;
   __p = 0;
-  v8 = objc_msgSend_count(self, a3, v3, v4, v5);
-  sub_221083368(&__p, v8);
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = sub_2211F14E0;
-  v14[3] = &unk_2784613A8;
-  v14[4] = &v15;
-  objc_msgSend_foreachUuid_(self, v9, v14, v10, v11);
-  v12 = v16;
+  v7 = objc_msgSend_count(self, a3, v3, v4);
+  sub_221083368(&__p, v7);
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = sub_2211F14E0;
+  v12[3] = &unk_2784613A8;
+  v12[4] = &v13;
+  objc_msgSend_foreachUuid_(self, v8, v12, v9);
+  v10 = v14;
   retstr->__end_ = 0;
   retstr->__cap_ = 0;
   retstr->__begin_ = 0;
-  sub_2211F2E78(retstr, v12[6], v12[7], (v12[7] - v12[6]) >> 4);
-  _Block_object_dispose(&v15, 8);
+  sub_2211F2E78(retstr, v10[6], v10[7], (v10[7] - v10[6]) >> 4);
+  _Block_object_dispose(&v13, 8);
   result = __p;
   if (__p)
   {
-    v22 = __p;
+    v20 = __p;
     operator delete(__p);
   }
 
@@ -190,95 +190,95 @@
 
 - (id)description
 {
-  v13 = 0;
-  v14 = &v13;
-  v15 = 0x3032000000;
-  v16 = sub_2211F16EC;
-  v17 = sub_2211F16FC;
-  v18 = 0;
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = sub_2211F1704;
-  v12[3] = &unk_2784613A8;
-  v12[4] = &v13;
-  objc_msgSend_foreachUuid_(self, a2, v12, v2, v3);
-  v5 = MEMORY[0x277CCACA8];
-  v6 = objc_opt_class();
-  v10 = objc_msgSend_stringWithFormat_(v5, v7, @"%@<%p>: %@", v8, v9, v6, self, v14[5]);
-  _Block_object_dispose(&v13, 8);
+  v11 = 0;
+  v12 = &v11;
+  v13 = 0x3032000000;
+  v14 = sub_2211F16EC;
+  v15 = sub_2211F16FC;
+  v16 = 0;
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = sub_2211F1704;
+  v10[3] = &unk_2784613A8;
+  v10[4] = &v11;
+  objc_msgSend_foreachUuid_(self, a2, v10, v2);
+  v4 = MEMORY[0x277CCACA8];
+  v5 = objc_opt_class();
+  v8 = objc_msgSend_stringWithFormat_(v4, v6, @"%@<%p>: %@", v7, v5, self, v12[5]);
+  _Block_object_dispose(&v11, 8);
 
-  return v10;
+  return v8;
 }
 
 - (BOOL)intersectsSet:(id)set
 {
   setCopy = set;
-  v8 = setCopy;
+  v7 = setCopy;
   if (setCopy)
   {
     if (self->_uuidSet.__table_.__size_ >= setCopy[4])
     {
-      v12 = 0;
-      v13 = &v12;
-      v14 = 0x2020000000;
-      v15 = 0;
-      v11[0] = MEMORY[0x277D85DD0];
-      v11[1] = 3221225472;
-      v11[2] = sub_2211F18E0;
-      v11[3] = &unk_2784613D0;
-      v11[4] = self;
-      v11[5] = &v12;
-      objc_msgSend_foreachUuid_(setCopy, v5, v11, v6, v7);
-      v9 = *(v13 + 24);
-      _Block_object_dispose(&v12, 8);
+      v11 = 0;
+      v12 = &v11;
+      v13 = 0x2020000000;
+      v14 = 0;
+      v10[0] = MEMORY[0x277D85DD0];
+      v10[1] = 3221225472;
+      v10[2] = sub_2211F18E0;
+      v10[3] = &unk_2784613D0;
+      v10[4] = self;
+      v10[5] = &v11;
+      objc_msgSend_foreachUuid_(setCopy, v5, v10, v6);
+      v8 = *(v12 + 24);
+      _Block_object_dispose(&v11, 8);
     }
 
     else
     {
-      v9 = objc_msgSend_intersectsSet_(setCopy, v5, self, v6, v7);
+      v8 = objc_msgSend_intersectsSet_(setCopy, v5, self, v6);
     }
   }
 
   else
   {
-    v9 = 0;
+    v8 = 0;
   }
 
-  return v9 & 1;
+  return v8 & 1;
 }
 
 - (BOOL)isEqual:(id)equal
 {
   equalCopy = equal;
-  v9 = equalCopy;
-  v10 = self == equalCopy;
+  v8 = equalCopy;
+  v9 = self == equalCopy;
   if (equalCopy && self != equalCopy)
   {
-    v11 = objc_msgSend_count(self, v5, v6, v7, v8);
-    if (v11 == objc_msgSend_count(v9, v12, v13, v14, v15))
+    v10 = objc_msgSend_count(self, v5, v6, v7);
+    if (v10 == objc_msgSend_count(v8, v11, v12, v13))
     {
+      v18 = 0;
+      v19 = &v18;
+      v20 = 0x2020000000;
       v21 = 0;
-      v22 = &v21;
-      v23 = 0x2020000000;
-      v24 = 0;
-      v20[0] = MEMORY[0x277D85DD0];
-      v20[1] = 3221225472;
-      v20[2] = sub_2211F1A54;
-      v20[3] = &unk_2784613D0;
-      v20[4] = self;
-      v20[5] = &v21;
-      objc_msgSend_foreachUuid_(v9, v16, v20, v17, v18);
-      v10 = *(v22 + 24) ^ 1;
-      _Block_object_dispose(&v21, 8);
+      v17[0] = MEMORY[0x277D85DD0];
+      v17[1] = 3221225472;
+      v17[2] = sub_2211F1A54;
+      v17[3] = &unk_2784613D0;
+      v17[4] = self;
+      v17[5] = &v18;
+      objc_msgSend_foreachUuid_(v8, v14, v17, v15);
+      v9 = *(v19 + 24) ^ 1;
+      _Block_object_dispose(&v18, 8);
     }
 
     else
     {
-      v10 = 0;
+      v9 = 0;
     }
   }
 
-  return v10 & 1;
+  return v9 & 1;
 }
 
 - (BOOL)isSubsetOf:(id)of
@@ -307,47 +307,47 @@
 - (id)setByUnionWithSet:(id)set
 {
   setCopy = set;
-  v9 = objc_msgSend_mutableCopy(self, v5, v6, v7, v8);
-  objc_msgSend_addUuidsFromSet_(v9, v10, setCopy, v11, v12);
+  v8 = objc_msgSend_mutableCopy(self, v5, v6, v7);
+  objc_msgSend_addUuidsFromSet_(v8, v9, setCopy, v10);
 
-  return v9;
+  return v8;
 }
 
 - (TSKUIDStruct)anyUuid
 {
-  v9 = 0;
-  v10 = &v9;
-  v11 = 0x4012000000;
-  v12 = sub_2211F1C94;
-  v13 = nullsub_28;
-  v14 = &unk_22188E88F;
+  v8 = 0;
+  v9 = &v8;
+  v10 = 0x4012000000;
+  v11 = sub_2211F1C94;
+  v12 = nullsub_28;
+  v13 = &unk_22188E88F;
+  v14 = 0;
   v15 = 0;
-  v16 = 0;
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = sub_2211F1CA4;
-  v8[3] = &unk_2784613A8;
-  v8[4] = &v9;
-  objc_msgSend_foreachUuid_(self, a2, v8, v2, v3);
-  v4 = v10[6];
-  v5 = v10[7];
-  _Block_object_dispose(&v9, 8);
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = sub_2211F1CA4;
+  v7[3] = &unk_2784613A8;
+  v7[4] = &v8;
+  objc_msgSend_foreachUuid_(self, a2, v7, v2);
+  v3 = v9[6];
+  v4 = v9[7];
+  _Block_object_dispose(&v8, 8);
+  v5 = v3;
   v6 = v4;
-  v7 = v5;
-  result._upper = v7;
-  result._lower = v6;
+  result._upper = v6;
+  result._lower = v5;
   return result;
 }
 
 - (BOOL)isAllInvalid
 {
-  if (objc_msgSend_count(self, a2, v2, v3, v4) != 1)
+  if (objc_msgSend_count(self, a2, v2, v3) != 1)
   {
     return 0;
   }
 
-  v10 = objc_msgSend_anyUuid(self, v6, v7, v8, v9);
-  return (v10 | v11) == 0;
+  v8 = objc_msgSend_anyUuid(self, v5, v6, v7);
+  return (v8 | v9) == 0;
 }
 
 - (id)expandedSetWithUuid:(TSKUIDStruct)uuid
@@ -355,12 +355,12 @@
   upper = uuid._upper;
   lower = uuid._lower;
   selfCopy = self;
-  if ((objc_msgSend_containsUuid_(selfCopy, v6, lower, upper, v7) & 1) == 0)
+  if ((objc_msgSend_containsUuid_(selfCopy, v6, lower, upper) & 1) == 0)
   {
-    v12 = objc_msgSend_copy(selfCopy, v8, v9, v10, v11);
+    v10 = objc_msgSend_copy(selfCopy, v7, v8, v9);
 
-    selfCopy = v12;
-    objc_msgSend_p_addUUID_(v12, v13, lower, upper, v14);
+    selfCopy = v10;
+    objc_msgSend_p_addUUID_(v10, v11, lower, upper);
   }
 
   return selfCopy;
@@ -371,12 +371,12 @@
   upper = uuid._upper;
   lower = uuid._lower;
   selfCopy = self;
-  if (objc_msgSend_containsUuid_(selfCopy, v6, lower, upper, v7))
+  if (objc_msgSend_containsUuid_(selfCopy, v6, lower, upper))
   {
-    v12 = objc_msgSend_copy(selfCopy, v8, v9, v10, v11);
+    v10 = objc_msgSend_copy(selfCopy, v7, v8, v9);
 
-    selfCopy = v12;
-    objc_msgSend_p_removeUUID_(v12, v13, lower, upper, v14);
+    selfCopy = v10;
+    objc_msgSend_p_removeUUID_(v10, v11, lower, upper);
   }
 
   return selfCopy;
@@ -385,61 +385,61 @@
 - (id)expandedSetWithUuids:(const void *)uuids
 {
   selfCopy = self;
-  v9 = selfCopy;
+  v8 = selfCopy;
   if (*(uuids + 3))
   {
-    v10 = objc_msgSend_copy(selfCopy, v5, v6, v7, v8);
+    v9 = objc_msgSend_copy(selfCopy, v5, v6, v7);
 
-    v9 = v10;
-    objc_msgSend_p_addUUIDs_(v10, v11, uuids, v12, v13);
+    v8 = v9;
+    objc_msgSend_p_addUUIDs_(v9, v10, uuids, v11);
   }
 
-  return v9;
+  return v8;
 }
 
 - (id)reducedSetMinusUuids:(const void *)uuids
 {
   selfCopy = self;
-  v9 = selfCopy;
+  v8 = selfCopy;
   if (*(uuids + 3))
   {
-    v10 = objc_msgSend_copy(selfCopy, v5, v6, v7, v8);
+    v9 = objc_msgSend_copy(selfCopy, v5, v6, v7);
 
-    v9 = v10;
-    objc_msgSend_p_removeUUIDs_(v10, v11, uuids, v12, v13);
+    v8 = v9;
+    objc_msgSend_p_removeUUIDs_(v9, v10, uuids, v11);
   }
 
-  return v9;
+  return v8;
 }
 
 - (id)expandedSetWithUuidsFromVector:(const void *)vector
 {
   selfCopy = self;
-  v9 = selfCopy;
+  v8 = selfCopy;
   if (*(vector + 1) != *vector)
   {
-    v10 = objc_msgSend_copy(selfCopy, v5, v6, v7, v8);
+    v9 = objc_msgSend_copy(selfCopy, v5, v6, v7);
 
-    v9 = v10;
-    objc_msgSend_p_addUUIDsFromVector_(v10, v11, vector, v12, v13);
+    v8 = v9;
+    objc_msgSend_p_addUUIDsFromVector_(v9, v10, vector, v11);
   }
 
-  return v9;
+  return v8;
 }
 
 - (id)reducedSetMinusUuidsFromVector:(const void *)vector
 {
   selfCopy = self;
-  v9 = selfCopy;
+  v8 = selfCopy;
   if (*(vector + 1) != *vector)
   {
-    v10 = objc_msgSend_copy(selfCopy, v5, v6, v7, v8);
+    v9 = objc_msgSend_copy(selfCopy, v5, v6, v7);
 
-    v9 = v10;
-    objc_msgSend_p_removeUUIDsFromVector_(v10, v11, vector, v12, v13);
+    v8 = v9;
+    objc_msgSend_p_removeUUIDsFromVector_(v9, v10, vector, v11);
   }
 
-  return v9;
+  return v8;
 }
 
 - (void)foreachUuid:(id)uuid
@@ -459,20 +459,20 @@
 {
   v4 = [TSCEUIDSet alloc];
 
-  return MEMORY[0x2821F9670](v4, sel_initWithUUIDSet_, self, v5, v6);
+  return MEMORY[0x2821F9670](v4, sel_initWithUUIDSet_, self, v5);
 }
 
 - (id)mutableCopyWithZone:(_NSZone *)zone
 {
   v4 = [TSCEMutableUIDSet alloc];
 
-  return MEMORY[0x2821F9670](v4, sel_initWithUUIDSet_, self, v5, v6);
+  return MEMORY[0x2821F9670](v4, sel_initWithUUIDSet_, self, v5);
 }
 
 - (BOOL)p_addUUID:(TSKUIDStruct)d
 {
   dCopy = d;
-  sub_2210C2B00(&self->_uuidSet.__table_.__bucket_list_.__ptr_, &dCopy);
+  sub_2210C2B00(&self->_uuidSet.__table_.__bucket_list_.__ptr_, &dCopy, &dCopy);
   return v3 & 1;
 }
 
@@ -490,11 +490,11 @@
 
 - (void)p_addUUIDs:(const void *)ds
 {
-  v7 = objc_msgSend_count(self, a2, ds, v3, v4);
-  objc_msgSend_p_reserve_(self, v8, *(ds + 3) + v7, v9, v10);
+  v6 = objc_msgSend_count(self, a2, ds, v3);
+  objc_msgSend_p_reserve_(self, v7, *(ds + 3) + v6, v8);
   for (i = *(ds + 2); i; i = *i)
   {
-    objc_msgSend_p_addUUID_(self, v11, i[2], i[3], v12);
+    objc_msgSend_p_addUUID_(self, v9, i[2], i[3]);
   }
 }
 
@@ -502,37 +502,37 @@
 {
   for (i = *(ds + 2); i; i = *i)
   {
-    objc_msgSend_p_removeUUID_(self, a2, i[2], i[3], v3);
+    objc_msgSend_p_removeUUID_(self, a2, i[2], i[3]);
   }
 }
 
 - (void)p_addUUIDsFromVector:(const void *)vector
 {
-  v7 = objc_msgSend_count(self, a2, vector, v3, v4);
-  objc_msgSend_p_reserve_(self, v8, v7 + ((*(vector + 1) - *vector) >> 4), v9, v10);
+  v6 = objc_msgSend_count(self, a2, vector, v3);
+  objc_msgSend_p_reserve_(self, v7, v6 + ((*(vector + 1) - *vector) >> 4), v8);
   for (i = *vector; i != *(vector + 1); i += 2)
   {
-    v14 = *i;
-    v15 = i[1];
-    objc_msgSend_p_addUUID_(self, v11, v14, v15, v12);
+    v11 = *i;
+    v12 = i[1];
+    objc_msgSend_p_addUUID_(self, v9, v11, v12);
   }
 }
 
 - (void)p_removeUUIDsFromVector:(const void *)vector
 {
-  v4 = *vector;
-  v5 = *(vector + 1);
-  if (*vector != v5)
+  v3 = *vector;
+  v4 = *(vector + 1);
+  if (*vector != v4)
   {
     do
     {
-      v7 = *v4;
-      v8 = v4[1];
-      v4 += 2;
-      objc_msgSend_p_removeUUID_(self, a2, v7, v8, v3);
+      v6 = *v3;
+      v7 = v3[1];
+      v3 += 2;
+      objc_msgSend_p_removeUUID_(self, a2, v6, v7);
     }
 
-    while (v4 != v5);
+    while (v3 != v4);
   }
 }
 

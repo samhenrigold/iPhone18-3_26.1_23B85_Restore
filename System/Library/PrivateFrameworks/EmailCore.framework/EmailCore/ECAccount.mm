@@ -54,15 +54,20 @@
 - (void)clearUsesSSL;
 - (void)refresh;
 - (void)renewCredentialsWithOptions:(id)options completionHandler:(id)handler;
+- (void)setAllowInsecureAuthentication:(BOOL)authentication;
 - (void)setAuthenticationScheme:(id)scheme;
 - (void)setConfigureDynamically:(BOOL)dynamically;
 - (void)setDataClassProperty:(id)property forKey:(id)key;
+- (void)setDeleteMessagesInPlace:(BOOL)place;
 - (void)setHostname:(id)hostname;
+- (void)setIsEnabled:(BOOL)enabled;
 - (void)setNumberOfDaysToKeepJunk:(int64_t)junk;
 - (void)setNumberOfDaysToKeepTrash:(int64_t)trash;
 - (void)setOAuth2Token:(id)token refreshToken:(id)refreshToken;
 - (void)setPassword:(id)password;
 - (void)setPortNumber:(int64_t)number;
+- (void)setSslIsDirect:(BOOL)direct;
+- (void)setUsesSSL:(BOOL)l;
 @end
 
 @implementation ECAccount
@@ -358,6 +363,32 @@ void __16__ECAccount_log__block_invoke(uint64_t a1)
   [systemAccount setCredential:credential];
 }
 
+- (void)setIsEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  systemAccount = [(ECAccount *)self systemAccount];
+  v6 = *MEMORY[0x277CB9150];
+  v11 = systemAccount;
+  if ([systemAccount isEnabledForDataclass:*MEMORY[0x277CB9150]] != enabledCopy)
+  {
+    _cachedParentAccount = [(ECAccount *)self _cachedParentAccount];
+    if (_cachedParentAccount)
+    {
+      v8 = _cachedParentAccount;
+    }
+
+    else
+    {
+      v8 = v11;
+    }
+
+    v9 = v8;
+    [v9 setEnabled:enabledCopy forDataclass:v6];
+    cache = [(ECAccount *)self cache];
+    [cache removeObjectForKey:@"ECAccountCacheKeyEnabled"];
+  }
+}
+
 - (id)enabledDataclasses
 {
   systemAccount = [(ECAccount *)self systemAccount];
@@ -545,6 +576,13 @@ void __16__ECAccount_log__block_invoke(uint64_t a1)
   return systemAccount;
 }
 
+- (void)setAllowInsecureAuthentication:(BOOL)authentication
+{
+  v5 = [MEMORY[0x277CCABB0] numberWithBool:authentication];
+  systemAccount = [(ECAccount *)self systemAccount];
+  [systemAccount setObject:v5 forKeyedSubscript:*MEMORY[0x277CB8A68]];
+}
+
 - (BOOL)configureDynamically
 {
   oauthToken = [(ECAccount *)self oauthToken];
@@ -670,6 +708,12 @@ void __16__ECAccount_log__block_invoke(uint64_t a1)
   bOOLValue = [v3 BOOLValue];
 
   return bOOLValue;
+}
+
+- (void)setDeleteMessagesInPlace:(BOOL)place
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithBool:place];
+  [ECAccount setDataClassProperty:"setDataClassProperty:forKey:" forKey:?];
 }
 
 - (NSString)draftsMailboxName
@@ -819,6 +863,13 @@ void __16__ECAccount_log__block_invoke(uint64_t a1)
   return bOOLValue;
 }
 
+- (void)setUsesSSL:(BOOL)l
+{
+  v5 = [MEMORY[0x277CCABB0] numberWithBool:l];
+  systemAccount = [(ECAccount *)self systemAccount];
+  [systemAccount setObject:v5 forKeyedSubscript:*MEMORY[0x277CB8B48]];
+}
+
 - (void)clearUsesSSL
 {
   systemAccount = [(ECAccount *)self systemAccount];
@@ -832,6 +883,13 @@ void __16__ECAccount_log__block_invoke(uint64_t a1)
   bOOLValue = [v3 BOOLValue];
 
   return bOOLValue;
+}
+
+- (void)setSslIsDirect:(BOOL)direct
+{
+  v5 = [MEMORY[0x277CCABB0] numberWithBool:direct];
+  systemAccount = [(ECAccount *)self systemAccount];
+  [systemAccount setObject:v5 forKeyedSubscript:*MEMORY[0x277CB8B50]];
 }
 
 - (BOOL)setSslIsDirectIsSet

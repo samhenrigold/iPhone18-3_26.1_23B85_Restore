@@ -40,7 +40,7 @@ flatbuffers::DetachedBuffer *__45__QSSShortcutFuzzyMatchResponse_flatbuffData__b
 
 - (Offset<siri::speech::schema_fb::ShortcutFuzzyMatchResponse>)addObjectToBuffer:(void *)buffer
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   utterance = [(QSSShortcutFuzzyMatchResponse *)self utterance];
   v5 = utterance;
   if (!utterance)
@@ -64,16 +64,11 @@ flatbuffers::DetachedBuffer *__45__QSSShortcutFuzzyMatchResponse_flatbuffData__b
     std::vector<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>::__throw_length_error[abi:ne200100]();
   }
 
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
-  v23 = 0u;
+  memset(v20, 0, sizeof(v20));
   obj = [(QSSShortcutFuzzyMatchResponse *)self shortcut_score_pairs];
-  if ([obj countByEnumeratingWithState:&v22 objects:v26 count:16])
+  if ([obj countByEnumeratingWithState:v20 objects:v21 count:16])
   {
-    *v23;
-    *v23;
-    [**(&v22 + 1) addObjectToBuffer:buffer];
+    [**(&v20[0] + 1) addObjectToBuffer:buffer];
     std::__allocate_at_least[abi:ne200100]<std::allocator<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>>(1uLL);
   }
 
@@ -93,9 +88,7 @@ flatbuffers::DetachedBuffer *__45__QSSShortcutFuzzyMatchResponse_flatbuffData__b
   }
 
   flatbuffers::FlatBufferBuilder::AddElement<unsigned int>(buffer, 8, return_code);
-  v16.var0 = flatbuffers::FlatBufferBuilder::EndTable(buffer, v12 - v13 + v14);
-  v17 = *MEMORY[0x277D85DE8];
-  return v16;
+  return flatbuffers::FlatBufferBuilder::EndTable(buffer, v12 - v13 + v14);
 }
 
 - (int)return_code

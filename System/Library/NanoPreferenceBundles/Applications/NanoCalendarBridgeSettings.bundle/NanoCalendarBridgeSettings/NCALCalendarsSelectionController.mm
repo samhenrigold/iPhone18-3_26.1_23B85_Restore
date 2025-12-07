@@ -131,7 +131,7 @@
 
 - (void)calendarChooserDidFinish:(id)finish
 {
-  v4 = ncs_log_selected_calendars();
+  v4 = ncs_log_selected_calendars(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v5 = 0;
@@ -147,8 +147,7 @@
   eventStore = [(CalendarModel *)self->_model eventStore];
   v4 = [NanoCalendarPreferences currentSelectedCalendarsForEventStore:eventStore];
 
-  [(CalendarModel *)self->_model setSelectedCalendars:v4];
-  v5 = ncs_log_selected_calendars();
+  v5 = ncs_log_selected_calendars([(CalendarModel *)self->_model setSelectedCalendars:v4]);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *v6 = 0;

@@ -21,349 +21,29 @@
   if (objc_opt_isKindOfClass())
   {
     v5 = equalCopy;
-    if (-[BMSiriMusicInferenceTrainingIndependentSignals hasClientDayOfWeek](self, "hasClientDayOfWeek") || [v5 hasClientDayOfWeek])
-    {
-      if (![(BMSiriMusicInferenceTrainingIndependentSignals *)self hasClientDayOfWeek])
-      {
-        goto LABEL_119;
-      }
-
-      if (![v5 hasClientDayOfWeek])
-      {
-        goto LABEL_119;
-      }
-
-      clientDayOfWeek = [(BMSiriMusicInferenceTrainingIndependentSignals *)self clientDayOfWeek];
-      if (clientDayOfWeek != [v5 clientDayOfWeek])
-      {
-        goto LABEL_119;
-      }
-    }
-
-    if (-[BMSiriMusicInferenceTrainingIndependentSignals hasRawClientHourOfDay](self, "hasRawClientHourOfDay") || [v5 hasRawClientHourOfDay])
-    {
-      if (![(BMSiriMusicInferenceTrainingIndependentSignals *)self hasRawClientHourOfDay])
-      {
-        goto LABEL_119;
-      }
-
-      if (![v5 hasRawClientHourOfDay])
-      {
-        goto LABEL_119;
-      }
-
-      rawClientHourOfDay = [(BMSiriMusicInferenceTrainingIndependentSignals *)self rawClientHourOfDay];
-      if (rawClientHourOfDay != [v5 rawClientHourOfDay])
-      {
-        goto LABEL_119;
-      }
-    }
-
-    if (-[BMSiriMusicInferenceTrainingIndependentSignals hasIsMediaAlbumPresent](self, "hasIsMediaAlbumPresent") || [v5 hasIsMediaAlbumPresent])
-    {
-      if (![(BMSiriMusicInferenceTrainingIndependentSignals *)self hasIsMediaAlbumPresent])
-      {
-        goto LABEL_119;
-      }
-
-      if (![v5 hasIsMediaAlbumPresent])
-      {
-        goto LABEL_119;
-      }
-
-      isMediaAlbumPresent = [(BMSiriMusicInferenceTrainingIndependentSignals *)self isMediaAlbumPresent];
-      if (isMediaAlbumPresent != [v5 isMediaAlbumPresent])
-      {
-        goto LABEL_119;
-      }
-    }
-
-    if (-[BMSiriMusicInferenceTrainingIndependentSignals hasIsMediaArtistPresent](self, "hasIsMediaArtistPresent") || [v5 hasIsMediaArtistPresent])
-    {
-      if (![(BMSiriMusicInferenceTrainingIndependentSignals *)self hasIsMediaArtistPresent])
-      {
-        goto LABEL_119;
-      }
-
-      if (![v5 hasIsMediaArtistPresent])
-      {
-        goto LABEL_119;
-      }
-
-      isMediaArtistPresent = [(BMSiriMusicInferenceTrainingIndependentSignals *)self isMediaArtistPresent];
-      if (isMediaArtistPresent != [v5 isMediaArtistPresent])
-      {
-        goto LABEL_119;
-      }
-    }
-
-    if (-[BMSiriMusicInferenceTrainingIndependentSignals hasIsMediaGenrePresent](self, "hasIsMediaGenrePresent") || [v5 hasIsMediaGenrePresent])
-    {
-      if (![(BMSiriMusicInferenceTrainingIndependentSignals *)self hasIsMediaGenrePresent])
-      {
-        goto LABEL_119;
-      }
-
-      if (![v5 hasIsMediaGenrePresent])
-      {
-        goto LABEL_119;
-      }
-
-      isMediaGenrePresent = [(BMSiriMusicInferenceTrainingIndependentSignals *)self isMediaGenrePresent];
-      if (isMediaGenrePresent != [v5 isMediaGenrePresent])
-      {
-        goto LABEL_119;
-      }
-    }
-
-    if (-[BMSiriMusicInferenceTrainingIndependentSignals hasIsMediaMoodPresent](self, "hasIsMediaMoodPresent") || [v5 hasIsMediaMoodPresent])
-    {
-      if (![(BMSiriMusicInferenceTrainingIndependentSignals *)self hasIsMediaMoodPresent])
-      {
-        goto LABEL_119;
-      }
-
-      if (![v5 hasIsMediaMoodPresent])
-      {
-        goto LABEL_119;
-      }
-
-      isMediaMoodPresent = [(BMSiriMusicInferenceTrainingIndependentSignals *)self isMediaMoodPresent];
-      if (isMediaMoodPresent != [v5 isMediaMoodPresent])
-      {
-        goto LABEL_119;
-      }
-    }
-
-    if (-[BMSiriMusicInferenceTrainingIndependentSignals hasIsMediaNamePresent](self, "hasIsMediaNamePresent") || [v5 hasIsMediaNamePresent])
-    {
-      if (![(BMSiriMusicInferenceTrainingIndependentSignals *)self hasIsMediaNamePresent])
-      {
-        goto LABEL_119;
-      }
-
-      if (![v5 hasIsMediaNamePresent])
-      {
-        goto LABEL_119;
-      }
-
-      isMediaNamePresent = [(BMSiriMusicInferenceTrainingIndependentSignals *)self isMediaNamePresent];
-      if (isMediaNamePresent != [v5 isMediaNamePresent])
-      {
-        goto LABEL_119;
-      }
-    }
-
-    if (-[BMSiriMusicInferenceTrainingIndependentSignals hasIsMediaReleaseDatePresent](self, "hasIsMediaReleaseDatePresent") || [v5 hasIsMediaReleaseDatePresent])
-    {
-      if (![(BMSiriMusicInferenceTrainingIndependentSignals *)self hasIsMediaReleaseDatePresent])
-      {
-        goto LABEL_119;
-      }
-
-      if (![v5 hasIsMediaReleaseDatePresent])
-      {
-        goto LABEL_119;
-      }
-
-      isMediaReleaseDatePresent = [(BMSiriMusicInferenceTrainingIndependentSignals *)self isMediaReleaseDatePresent];
-      if (isMediaReleaseDatePresent != [v5 isMediaReleaseDatePresent])
-      {
-        goto LABEL_119;
-      }
-    }
-
-    if (-[BMSiriMusicInferenceTrainingIndependentSignals hasNowPlayingLastBundleRecencyS](self, "hasNowPlayingLastBundleRecencyS") || [v5 hasNowPlayingLastBundleRecencyS])
-    {
-      if (![(BMSiriMusicInferenceTrainingIndependentSignals *)self hasNowPlayingLastBundleRecencyS])
-      {
-        goto LABEL_119;
-      }
-
-      if (![v5 hasNowPlayingLastBundleRecencyS])
-      {
-        goto LABEL_119;
-      }
-
-      nowPlayingLastBundleRecencyS = [(BMSiriMusicInferenceTrainingIndependentSignals *)self nowPlayingLastBundleRecencyS];
-      if (nowPlayingLastBundleRecencyS != [v5 nowPlayingLastBundleRecencyS])
-      {
-        goto LABEL_119;
-      }
-    }
-
-    if (-[BMSiriMusicInferenceTrainingIndependentSignals hasRawLanguage](self, "hasRawLanguage") || [v5 hasRawLanguage])
-    {
-      if (![(BMSiriMusicInferenceTrainingIndependentSignals *)self hasRawLanguage])
-      {
-        goto LABEL_119;
-      }
-
-      if (![v5 hasRawLanguage])
-      {
-        goto LABEL_119;
-      }
-
-      rawLanguage = [(BMSiriMusicInferenceTrainingIndependentSignals *)self rawLanguage];
-      if (rawLanguage != [v5 rawLanguage])
-      {
-        goto LABEL_119;
-      }
-    }
-
-    if (-[BMSiriMusicInferenceTrainingIndependentSignals hasRawLocale](self, "hasRawLocale") || [v5 hasRawLocale])
-    {
-      if (![(BMSiriMusicInferenceTrainingIndependentSignals *)self hasRawLocale])
-      {
-        goto LABEL_119;
-      }
-
-      if (![v5 hasRawLocale])
-      {
-        goto LABEL_119;
-      }
-
-      rawLocale = [(BMSiriMusicInferenceTrainingIndependentSignals *)self rawLocale];
-      if (rawLocale != [v5 rawLocale])
-      {
-        goto LABEL_119;
-      }
-    }
-
-    if (-[BMSiriMusicInferenceTrainingIndependentSignals hasRawRegion](self, "hasRawRegion") || [v5 hasRawRegion])
-    {
-      if (![(BMSiriMusicInferenceTrainingIndependentSignals *)self hasRawRegion])
-      {
-        goto LABEL_119;
-      }
-
-      if (![v5 hasRawRegion])
-      {
-        goto LABEL_119;
-      }
-
-      rawRegion = [(BMSiriMusicInferenceTrainingIndependentSignals *)self rawRegion];
-      if (rawRegion != [v5 rawRegion])
-      {
-        goto LABEL_119;
-      }
-    }
-
-    if (-[BMSiriMusicInferenceTrainingIndependentSignals hasIsClientDaylight](self, "hasIsClientDaylight") || [v5 hasIsClientDaylight])
-    {
-      if (![(BMSiriMusicInferenceTrainingIndependentSignals *)self hasIsClientDaylight])
-      {
-        goto LABEL_119;
-      }
-
-      if (![v5 hasIsClientDaylight])
-      {
-        goto LABEL_119;
-      }
-
-      isClientDaylight = [(BMSiriMusicInferenceTrainingIndependentSignals *)self isClientDaylight];
-      if (isClientDaylight != [v5 isClientDaylight])
-      {
-        goto LABEL_119;
-      }
-    }
-
-    if (-[BMSiriMusicInferenceTrainingIndependentSignals hasIsClientNavigating](self, "hasIsClientNavigating") || [v5 hasIsClientNavigating])
-    {
-      if (![(BMSiriMusicInferenceTrainingIndependentSignals *)self hasIsClientNavigating])
-      {
-        goto LABEL_119;
-      }
-
-      if (![v5 hasIsClientNavigating])
-      {
-        goto LABEL_119;
-      }
-
-      isClientNavigating = [(BMSiriMusicInferenceTrainingIndependentSignals *)self isClientNavigating];
-      if (isClientNavigating != [v5 isClientNavigating])
-      {
-        goto LABEL_119;
-      }
-    }
-
-    if (-[BMSiriMusicInferenceTrainingIndependentSignals hasIsClientWorkout](self, "hasIsClientWorkout") || [v5 hasIsClientWorkout])
-    {
-      if (![(BMSiriMusicInferenceTrainingIndependentSignals *)self hasIsClientWorkout])
-      {
-        goto LABEL_119;
-      }
-
-      if (![v5 hasIsClientWorkout])
-      {
-        goto LABEL_119;
-      }
-
-      isClientWorkout = [(BMSiriMusicInferenceTrainingIndependentSignals *)self isClientWorkout];
-      if (isClientWorkout != [v5 isClientWorkout])
-      {
-        goto LABEL_119;
-      }
-    }
-
-    if (-[BMSiriMusicInferenceTrainingIndependentSignals hasMediaType](self, "hasMediaType") || [v5 hasMediaType])
-    {
-      if (![(BMSiriMusicInferenceTrainingIndependentSignals *)self hasMediaType])
-      {
-        goto LABEL_119;
-      }
-
-      if (![v5 hasMediaType])
-      {
-        goto LABEL_119;
-      }
-
-      mediaType = [(BMSiriMusicInferenceTrainingIndependentSignals *)self mediaType];
-      if (mediaType != [v5 mediaType])
-      {
-        goto LABEL_119;
-      }
-    }
-
-    if (-[BMSiriMusicInferenceTrainingIndependentSignals hasNowPlayingState](self, "hasNowPlayingState") || [v5 hasNowPlayingState])
-    {
-      if (![(BMSiriMusicInferenceTrainingIndependentSignals *)self hasNowPlayingState])
-      {
-        goto LABEL_119;
-      }
-
-      if (![v5 hasNowPlayingState])
-      {
-        goto LABEL_119;
-      }
-
-      nowPlayingState = [(BMSiriMusicInferenceTrainingIndependentSignals *)self nowPlayingState];
-      if (nowPlayingState != [v5 nowPlayingState])
-      {
-        goto LABEL_119;
-      }
-    }
-
-    if (-[BMSiriMusicInferenceTrainingIndependentSignals hasIsPireneRequest](self, "hasIsPireneRequest") || [v5 hasIsPireneRequest])
-    {
-      if (![(BMSiriMusicInferenceTrainingIndependentSignals *)self hasIsPireneRequest])
-      {
-        goto LABEL_119;
-      }
-
-      if (![v5 hasIsPireneRequest])
-      {
-        goto LABEL_119;
-      }
-
-      isPireneRequest = [(BMSiriMusicInferenceTrainingIndependentSignals *)self isPireneRequest];
-      if (isPireneRequest != [v5 isPireneRequest])
-      {
-        goto LABEL_119;
-      }
-    }
-
-    if ((!-[BMSiriMusicInferenceTrainingIndependentSignals hasForegroundBundleRecencyS](self, "hasForegroundBundleRecencyS") && ![v5 hasForegroundBundleRecencyS] || -[BMSiriMusicInferenceTrainingIndependentSignals hasForegroundBundleRecencyS](self, "hasForegroundBundleRecencyS") && objc_msgSend(v5, "hasForegroundBundleRecencyS") && (-[BMSiriMusicInferenceTrainingIndependentSignals foregroundBundleRecencyS](self, "foregroundBundleRecencyS"), v25 = v24, objc_msgSend(v5, "foregroundBundleRecencyS"), v25 == v26)) && (!-[BMSiriMusicInferenceTrainingIndependentSignals hasMediaParsecCategory](self, "hasMediaParsecCategory") && !objc_msgSend(v5, "hasMediaParsecCategory") || -[BMSiriMusicInferenceTrainingIndependentSignals hasMediaParsecCategory](self, "hasMediaParsecCategory") && objc_msgSend(v5, "hasMediaParsecCategory") && (v27 = -[BMSiriMusicInferenceTrainingIndependentSignals mediaParsecCategory](self, "mediaParsecCategory"), v27 == objc_msgSend(v5, "mediaParsecCategory"))) && (!-[BMSiriMusicInferenceTrainingIndependentSignals hasSirikitResponseCode](self, "hasSirikitResponseCode") && !objc_msgSend(v5, "hasSirikitResponseCode") || -[BMSiriMusicInferenceTrainingIndependentSignals hasSirikitResponseCode](self, "hasSirikitResponseCode") && objc_msgSend(v5, "hasSirikitResponseCode") && (v28 = -[BMSiriMusicInferenceTrainingIndependentSignals sirikitResponseCode](self, "sirikitResponseCode"), v28 == objc_msgSend(v5, "sirikitResponseCode"))) && (!-[BMSiriMusicInferenceTrainingIndependentSignals hasAppSelectionUses](self, "hasAppSelectionUses") && !objc_msgSend(v5, "hasAppSelectionUses") || -[BMSiriMusicInferenceTrainingIndependentSignals hasAppSelectionUses](self, "hasAppSelectionUses") && objc_msgSend(v5, "hasAppSelectionUses") && (v29 = -[BMSiriMusicInferenceTrainingIndependentSignals appSelectionUses](self, "appSelectionUses"), v29 == objc_msgSend(v5, "appSelectionUses"))) && (!-[BMSiriMusicInferenceTrainingIndependentSignals hasModelVersion](self, "hasModelVersion") && !objc_msgSend(v5, "hasModelVersion") || -[BMSiriMusicInferenceTrainingIndependentSignals hasModelVersion](self, "hasModelVersion") && objc_msgSend(v5, "hasModelVersion") && (v30 = -[BMSiriMusicInferenceTrainingIndependentSignals modelVersion](self, "modelVersion"), v30 == objc_msgSend(v5, "modelVersion"))))
+    if ((!-[BMSiriMusicInferenceTrainingIndependentSignals hasClientDayOfWeek](self, "hasClientDayOfWeek") && ![v5 hasClientDayOfWeek] || -[BMSiriMusicInferenceTrainingIndependentSignals hasClientDayOfWeek](self, "hasClientDayOfWeek") && objc_msgSend(v5, "hasClientDayOfWeek") && (v6 = -[BMSiriMusicInferenceTrainingIndependentSignals clientDayOfWeek](self, "clientDayOfWeek"), v6 == objc_msgSend(v5, "clientDayOfWeek")))
+      && (!-[BMSiriMusicInferenceTrainingIndependentSignals hasRawClientHourOfDay](self, "hasRawClientHourOfDay") && ![v5 hasRawClientHourOfDay] || -[BMSiriMusicInferenceTrainingIndependentSignals hasRawClientHourOfDay](self, "hasRawClientHourOfDay") && objc_msgSend(v5, "hasRawClientHourOfDay") && (v7 = -[BMSiriMusicInferenceTrainingIndependentSignals rawClientHourOfDay](self, "rawClientHourOfDay"), v7 == objc_msgSend(v5, "rawClientHourOfDay")))
+      && (!-[BMSiriMusicInferenceTrainingIndependentSignals hasIsMediaAlbumPresent](self, "hasIsMediaAlbumPresent") && ![v5 hasIsMediaAlbumPresent] || -[BMSiriMusicInferenceTrainingIndependentSignals hasIsMediaAlbumPresent](self, "hasIsMediaAlbumPresent") && objc_msgSend(v5, "hasIsMediaAlbumPresent") && (v8 = -[BMSiriMusicInferenceTrainingIndependentSignals isMediaAlbumPresent](self, "isMediaAlbumPresent"), v8 == objc_msgSend(v5, "isMediaAlbumPresent")))
+      && (!-[BMSiriMusicInferenceTrainingIndependentSignals hasIsMediaArtistPresent](self, "hasIsMediaArtistPresent") && ![v5 hasIsMediaArtistPresent] || -[BMSiriMusicInferenceTrainingIndependentSignals hasIsMediaArtistPresent](self, "hasIsMediaArtistPresent") && objc_msgSend(v5, "hasIsMediaArtistPresent") && (v9 = -[BMSiriMusicInferenceTrainingIndependentSignals isMediaArtistPresent](self, "isMediaArtistPresent"), v9 == objc_msgSend(v5, "isMediaArtistPresent")))
+      && (!-[BMSiriMusicInferenceTrainingIndependentSignals hasIsMediaGenrePresent](self, "hasIsMediaGenrePresent") && ![v5 hasIsMediaGenrePresent] || -[BMSiriMusicInferenceTrainingIndependentSignals hasIsMediaGenrePresent](self, "hasIsMediaGenrePresent") && objc_msgSend(v5, "hasIsMediaGenrePresent") && (v10 = -[BMSiriMusicInferenceTrainingIndependentSignals isMediaGenrePresent](self, "isMediaGenrePresent"), v10 == objc_msgSend(v5, "isMediaGenrePresent")))
+      && (!-[BMSiriMusicInferenceTrainingIndependentSignals hasIsMediaMoodPresent](self, "hasIsMediaMoodPresent") && ![v5 hasIsMediaMoodPresent] || -[BMSiriMusicInferenceTrainingIndependentSignals hasIsMediaMoodPresent](self, "hasIsMediaMoodPresent") && objc_msgSend(v5, "hasIsMediaMoodPresent") && (v11 = -[BMSiriMusicInferenceTrainingIndependentSignals isMediaMoodPresent](self, "isMediaMoodPresent"), v11 == objc_msgSend(v5, "isMediaMoodPresent")))
+      && (!-[BMSiriMusicInferenceTrainingIndependentSignals hasIsMediaNamePresent](self, "hasIsMediaNamePresent") && ![v5 hasIsMediaNamePresent] || -[BMSiriMusicInferenceTrainingIndependentSignals hasIsMediaNamePresent](self, "hasIsMediaNamePresent") && objc_msgSend(v5, "hasIsMediaNamePresent") && (v12 = -[BMSiriMusicInferenceTrainingIndependentSignals isMediaNamePresent](self, "isMediaNamePresent"), v12 == objc_msgSend(v5, "isMediaNamePresent")))
+      && (!-[BMSiriMusicInferenceTrainingIndependentSignals hasIsMediaReleaseDatePresent](self, "hasIsMediaReleaseDatePresent") && ![v5 hasIsMediaReleaseDatePresent] || -[BMSiriMusicInferenceTrainingIndependentSignals hasIsMediaReleaseDatePresent](self, "hasIsMediaReleaseDatePresent") && objc_msgSend(v5, "hasIsMediaReleaseDatePresent") && (v13 = -[BMSiriMusicInferenceTrainingIndependentSignals isMediaReleaseDatePresent](self, "isMediaReleaseDatePresent"), v13 == objc_msgSend(v5, "isMediaReleaseDatePresent")))
+      && (!-[BMSiriMusicInferenceTrainingIndependentSignals hasNowPlayingLastBundleRecencyS](self, "hasNowPlayingLastBundleRecencyS") && ![v5 hasNowPlayingLastBundleRecencyS] || -[BMSiriMusicInferenceTrainingIndependentSignals hasNowPlayingLastBundleRecencyS](self, "hasNowPlayingLastBundleRecencyS") && objc_msgSend(v5, "hasNowPlayingLastBundleRecencyS") && (v14 = -[BMSiriMusicInferenceTrainingIndependentSignals nowPlayingLastBundleRecencyS](self, "nowPlayingLastBundleRecencyS"), v14 == objc_msgSend(v5, "nowPlayingLastBundleRecencyS")))
+      && (!-[BMSiriMusicInferenceTrainingIndependentSignals hasRawLanguage](self, "hasRawLanguage") && ![v5 hasRawLanguage] || -[BMSiriMusicInferenceTrainingIndependentSignals hasRawLanguage](self, "hasRawLanguage") && objc_msgSend(v5, "hasRawLanguage") && (v15 = -[BMSiriMusicInferenceTrainingIndependentSignals rawLanguage](self, "rawLanguage"), v15 == objc_msgSend(v5, "rawLanguage")))
+      && (!-[BMSiriMusicInferenceTrainingIndependentSignals hasRawLocale](self, "hasRawLocale") && ![v5 hasRawLocale] || -[BMSiriMusicInferenceTrainingIndependentSignals hasRawLocale](self, "hasRawLocale") && objc_msgSend(v5, "hasRawLocale") && (v16 = -[BMSiriMusicInferenceTrainingIndependentSignals rawLocale](self, "rawLocale"), v16 == objc_msgSend(v5, "rawLocale")))
+      && (!-[BMSiriMusicInferenceTrainingIndependentSignals hasRawRegion](self, "hasRawRegion") && ![v5 hasRawRegion] || -[BMSiriMusicInferenceTrainingIndependentSignals hasRawRegion](self, "hasRawRegion") && objc_msgSend(v5, "hasRawRegion") && (v17 = -[BMSiriMusicInferenceTrainingIndependentSignals rawRegion](self, "rawRegion"), v17 == objc_msgSend(v5, "rawRegion")))
+      && (!-[BMSiriMusicInferenceTrainingIndependentSignals hasIsClientDaylight](self, "hasIsClientDaylight") && ![v5 hasIsClientDaylight] || -[BMSiriMusicInferenceTrainingIndependentSignals hasIsClientDaylight](self, "hasIsClientDaylight") && objc_msgSend(v5, "hasIsClientDaylight") && (v18 = -[BMSiriMusicInferenceTrainingIndependentSignals isClientDaylight](self, "isClientDaylight"), v18 == objc_msgSend(v5, "isClientDaylight")))
+      && (!-[BMSiriMusicInferenceTrainingIndependentSignals hasIsClientNavigating](self, "hasIsClientNavigating") && ![v5 hasIsClientNavigating] || -[BMSiriMusicInferenceTrainingIndependentSignals hasIsClientNavigating](self, "hasIsClientNavigating") && objc_msgSend(v5, "hasIsClientNavigating") && (v19 = -[BMSiriMusicInferenceTrainingIndependentSignals isClientNavigating](self, "isClientNavigating"), v19 == objc_msgSend(v5, "isClientNavigating")))
+      && (!-[BMSiriMusicInferenceTrainingIndependentSignals hasIsClientWorkout](self, "hasIsClientWorkout") && ![v5 hasIsClientWorkout] || -[BMSiriMusicInferenceTrainingIndependentSignals hasIsClientWorkout](self, "hasIsClientWorkout") && objc_msgSend(v5, "hasIsClientWorkout") && (v20 = -[BMSiriMusicInferenceTrainingIndependentSignals isClientWorkout](self, "isClientWorkout"), v20 == objc_msgSend(v5, "isClientWorkout")))
+      && (!-[BMSiriMusicInferenceTrainingIndependentSignals hasMediaType](self, "hasMediaType") && ![v5 hasMediaType] || -[BMSiriMusicInferenceTrainingIndependentSignals hasMediaType](self, "hasMediaType") && objc_msgSend(v5, "hasMediaType") && (v21 = -[BMSiriMusicInferenceTrainingIndependentSignals mediaType](self, "mediaType"), v21 == objc_msgSend(v5, "mediaType")))
+      && (!-[BMSiriMusicInferenceTrainingIndependentSignals hasNowPlayingState](self, "hasNowPlayingState") && ![v5 hasNowPlayingState] || -[BMSiriMusicInferenceTrainingIndependentSignals hasNowPlayingState](self, "hasNowPlayingState") && objc_msgSend(v5, "hasNowPlayingState") && (v22 = -[BMSiriMusicInferenceTrainingIndependentSignals nowPlayingState](self, "nowPlayingState"), v22 == objc_msgSend(v5, "nowPlayingState")))
+      && (!-[BMSiriMusicInferenceTrainingIndependentSignals hasIsPireneRequest](self, "hasIsPireneRequest") && ![v5 hasIsPireneRequest] || -[BMSiriMusicInferenceTrainingIndependentSignals hasIsPireneRequest](self, "hasIsPireneRequest") && objc_msgSend(v5, "hasIsPireneRequest") && (v23 = -[BMSiriMusicInferenceTrainingIndependentSignals isPireneRequest](self, "isPireneRequest"), v23 == objc_msgSend(v5, "isPireneRequest")))
+      && (!-[BMSiriMusicInferenceTrainingIndependentSignals hasForegroundBundleRecencyS](self, "hasForegroundBundleRecencyS") && ![v5 hasForegroundBundleRecencyS] || -[BMSiriMusicInferenceTrainingIndependentSignals hasForegroundBundleRecencyS](self, "hasForegroundBundleRecencyS") && objc_msgSend(v5, "hasForegroundBundleRecencyS") && (-[BMSiriMusicInferenceTrainingIndependentSignals foregroundBundleRecencyS](self, "foregroundBundleRecencyS"), v25 = v24, objc_msgSend(v5, "foregroundBundleRecencyS"), v25 == v26))
+      && (!-[BMSiriMusicInferenceTrainingIndependentSignals hasMediaParsecCategory](self, "hasMediaParsecCategory") && ![v5 hasMediaParsecCategory] || -[BMSiriMusicInferenceTrainingIndependentSignals hasMediaParsecCategory](self, "hasMediaParsecCategory") && objc_msgSend(v5, "hasMediaParsecCategory") && (v27 = -[BMSiriMusicInferenceTrainingIndependentSignals mediaParsecCategory](self, "mediaParsecCategory"), v27 == objc_msgSend(v5, "mediaParsecCategory")))
+      && (!-[BMSiriMusicInferenceTrainingIndependentSignals hasSirikitResponseCode](self, "hasSirikitResponseCode") && ![v5 hasSirikitResponseCode] || -[BMSiriMusicInferenceTrainingIndependentSignals hasSirikitResponseCode](self, "hasSirikitResponseCode") && objc_msgSend(v5, "hasSirikitResponseCode") && (v28 = -[BMSiriMusicInferenceTrainingIndependentSignals sirikitResponseCode](self, "sirikitResponseCode"), v28 == objc_msgSend(v5, "sirikitResponseCode")))
+      && (!-[BMSiriMusicInferenceTrainingIndependentSignals hasAppSelectionUses](self, "hasAppSelectionUses") && ![v5 hasAppSelectionUses] || -[BMSiriMusicInferenceTrainingIndependentSignals hasAppSelectionUses](self, "hasAppSelectionUses") && objc_msgSend(v5, "hasAppSelectionUses") && (v29 = -[BMSiriMusicInferenceTrainingIndependentSignals appSelectionUses](self, "appSelectionUses"), v29 == objc_msgSend(v5, "appSelectionUses")))
+      && (!-[BMSiriMusicInferenceTrainingIndependentSignals hasModelVersion](self, "hasModelVersion") && ![v5 hasModelVersion] || -[BMSiriMusicInferenceTrainingIndependentSignals hasModelVersion](self, "hasModelVersion") && objc_msgSend(v5, "hasModelVersion") && (v30 = -[BMSiriMusicInferenceTrainingIndependentSignals modelVersion](self, "modelVersion"), v30 == objc_msgSend(v5, "modelVersion"))))
     {
       resolutionType = [(BMSiriMusicInferenceTrainingIndependentSignals *)self resolutionType];
       v32 = resolutionType == [v5 resolutionType];
@@ -371,7 +51,6 @@
 
     else
     {
-LABEL_119:
       v32 = 0;
     }
   }
@@ -386,7 +65,7 @@ LABEL_119:
 
 - (id)jsonDictionary
 {
-  v86[24] = *MEMORY[0x1E69E9840];
+  v85[24] = *MEMORY[0x1E69E9840];
   if ([(BMSiriMusicInferenceTrainingIndependentSignals *)self hasClientDayOfWeek])
   {
     v3 = [MEMORY[0x1E696AD98] numberWithInt:{-[BMSiriMusicInferenceTrainingIndependentSignals clientDayOfWeek](self, "clientDayOfWeek")}];
@@ -429,12 +108,12 @@ LABEL_119:
 
   if ([(BMSiriMusicInferenceTrainingIndependentSignals *)self hasIsMediaGenrePresent])
   {
-    v68 = [MEMORY[0x1E696AD98] numberWithBool:{-[BMSiriMusicInferenceTrainingIndependentSignals isMediaGenrePresent](self, "isMediaGenrePresent")}];
+    v67 = [MEMORY[0x1E696AD98] numberWithBool:{-[BMSiriMusicInferenceTrainingIndependentSignals isMediaGenrePresent](self, "isMediaGenrePresent")}];
   }
 
   else
   {
-    v68 = 0;
+    v67 = 0;
   }
 
   if ([(BMSiriMusicInferenceTrainingIndependentSignals *)self hasIsMediaMoodPresent])
@@ -459,17 +138,7 @@ LABEL_119:
 
   if ([(BMSiriMusicInferenceTrainingIndependentSignals *)self hasIsMediaReleaseDatePresent])
   {
-    v84 = [MEMORY[0x1E696AD98] numberWithBool:{-[BMSiriMusicInferenceTrainingIndependentSignals isMediaReleaseDatePresent](self, "isMediaReleaseDatePresent")}];
-  }
-
-  else
-  {
-    v84 = 0;
-  }
-
-  if ([(BMSiriMusicInferenceTrainingIndependentSignals *)self hasNowPlayingLastBundleRecencyS])
-  {
-    v83 = [MEMORY[0x1E696AD98] numberWithInt:{-[BMSiriMusicInferenceTrainingIndependentSignals nowPlayingLastBundleRecencyS](self, "nowPlayingLastBundleRecencyS")}];
+    v83 = [MEMORY[0x1E696AD98] numberWithBool:{-[BMSiriMusicInferenceTrainingIndependentSignals isMediaReleaseDatePresent](self, "isMediaReleaseDatePresent")}];
   }
 
   else
@@ -477,9 +146,9 @@ LABEL_119:
     v83 = 0;
   }
 
-  if ([(BMSiriMusicInferenceTrainingIndependentSignals *)self hasRawLanguage])
+  if ([(BMSiriMusicInferenceTrainingIndependentSignals *)self hasNowPlayingLastBundleRecencyS])
   {
-    v82 = [MEMORY[0x1E696AD98] numberWithLongLong:{-[BMSiriMusicInferenceTrainingIndependentSignals rawLanguage](self, "rawLanguage")}];
+    v82 = [MEMORY[0x1E696AD98] numberWithInt:{-[BMSiriMusicInferenceTrainingIndependentSignals nowPlayingLastBundleRecencyS](self, "nowPlayingLastBundleRecencyS")}];
   }
 
   else
@@ -487,9 +156,9 @@ LABEL_119:
     v82 = 0;
   }
 
-  if ([(BMSiriMusicInferenceTrainingIndependentSignals *)self hasRawLocale])
+  if ([(BMSiriMusicInferenceTrainingIndependentSignals *)self hasRawLanguage])
   {
-    v81 = [MEMORY[0x1E696AD98] numberWithLongLong:{-[BMSiriMusicInferenceTrainingIndependentSignals rawLocale](self, "rawLocale")}];
+    v81 = [MEMORY[0x1E696AD98] numberWithLongLong:{-[BMSiriMusicInferenceTrainingIndependentSignals rawLanguage](self, "rawLanguage")}];
   }
 
   else
@@ -497,9 +166,9 @@ LABEL_119:
     v81 = 0;
   }
 
-  if ([(BMSiriMusicInferenceTrainingIndependentSignals *)self hasRawRegion])
+  if ([(BMSiriMusicInferenceTrainingIndependentSignals *)self hasRawLocale])
   {
-    v80 = [MEMORY[0x1E696AD98] numberWithLongLong:{-[BMSiriMusicInferenceTrainingIndependentSignals rawRegion](self, "rawRegion")}];
+    v80 = [MEMORY[0x1E696AD98] numberWithLongLong:{-[BMSiriMusicInferenceTrainingIndependentSignals rawLocale](self, "rawLocale")}];
   }
 
   else
@@ -507,9 +176,9 @@ LABEL_119:
     v80 = 0;
   }
 
-  if ([(BMSiriMusicInferenceTrainingIndependentSignals *)self hasIsClientDaylight])
+  if ([(BMSiriMusicInferenceTrainingIndependentSignals *)self hasRawRegion])
   {
-    v79 = [MEMORY[0x1E696AD98] numberWithBool:{-[BMSiriMusicInferenceTrainingIndependentSignals isClientDaylight](self, "isClientDaylight")}];
+    v79 = [MEMORY[0x1E696AD98] numberWithLongLong:{-[BMSiriMusicInferenceTrainingIndependentSignals rawRegion](self, "rawRegion")}];
   }
 
   else
@@ -517,9 +186,9 @@ LABEL_119:
     v79 = 0;
   }
 
-  if ([(BMSiriMusicInferenceTrainingIndependentSignals *)self hasIsClientNavigating])
+  if ([(BMSiriMusicInferenceTrainingIndependentSignals *)self hasIsClientDaylight])
   {
-    v78 = [MEMORY[0x1E696AD98] numberWithBool:{-[BMSiriMusicInferenceTrainingIndependentSignals isClientNavigating](self, "isClientNavigating")}];
+    v78 = [MEMORY[0x1E696AD98] numberWithBool:{-[BMSiriMusicInferenceTrainingIndependentSignals isClientDaylight](self, "isClientDaylight")}];
   }
 
   else
@@ -527,9 +196,9 @@ LABEL_119:
     v78 = 0;
   }
 
-  if ([(BMSiriMusicInferenceTrainingIndependentSignals *)self hasIsClientWorkout])
+  if ([(BMSiriMusicInferenceTrainingIndependentSignals *)self hasIsClientNavigating])
   {
-    v77 = [MEMORY[0x1E696AD98] numberWithBool:{-[BMSiriMusicInferenceTrainingIndependentSignals isClientWorkout](self, "isClientWorkout")}];
+    v77 = [MEMORY[0x1E696AD98] numberWithBool:{-[BMSiriMusicInferenceTrainingIndependentSignals isClientNavigating](self, "isClientNavigating")}];
   }
 
   else
@@ -537,9 +206,9 @@ LABEL_119:
     v77 = 0;
   }
 
-  if ([(BMSiriMusicInferenceTrainingIndependentSignals *)self hasMediaType])
+  if ([(BMSiriMusicInferenceTrainingIndependentSignals *)self hasIsClientWorkout])
   {
-    v76 = [MEMORY[0x1E696AD98] numberWithInt:{-[BMSiriMusicInferenceTrainingIndependentSignals mediaType](self, "mediaType")}];
+    v76 = [MEMORY[0x1E696AD98] numberWithBool:{-[BMSiriMusicInferenceTrainingIndependentSignals isClientWorkout](self, "isClientWorkout")}];
   }
 
   else
@@ -547,9 +216,9 @@ LABEL_119:
     v76 = 0;
   }
 
-  if ([(BMSiriMusicInferenceTrainingIndependentSignals *)self hasNowPlayingState])
+  if ([(BMSiriMusicInferenceTrainingIndependentSignals *)self hasMediaType])
   {
-    v75 = [MEMORY[0x1E696AD98] numberWithInt:{-[BMSiriMusicInferenceTrainingIndependentSignals nowPlayingState](self, "nowPlayingState")}];
+    v75 = [MEMORY[0x1E696AD98] numberWithInt:{-[BMSiriMusicInferenceTrainingIndependentSignals mediaType](self, "mediaType")}];
   }
 
   else
@@ -557,9 +226,9 @@ LABEL_119:
     v75 = 0;
   }
 
-  if ([(BMSiriMusicInferenceTrainingIndependentSignals *)self hasIsPireneRequest])
+  if ([(BMSiriMusicInferenceTrainingIndependentSignals *)self hasNowPlayingState])
   {
-    v74 = [MEMORY[0x1E696AD98] numberWithBool:{-[BMSiriMusicInferenceTrainingIndependentSignals isPireneRequest](self, "isPireneRequest")}];
+    v74 = [MEMORY[0x1E696AD98] numberWithInt:{-[BMSiriMusicInferenceTrainingIndependentSignals nowPlayingState](self, "nowPlayingState")}];
   }
 
   else
@@ -567,9 +236,19 @@ LABEL_119:
     v74 = 0;
   }
 
-  if (![(BMSiriMusicInferenceTrainingIndependentSignals *)self hasForegroundBundleRecencyS]|| ([(BMSiriMusicInferenceTrainingIndependentSignals *)self foregroundBundleRecencyS], fabs(v9) == INFINITY))
+  if ([(BMSiriMusicInferenceTrainingIndependentSignals *)self hasIsPireneRequest])
+  {
+    v73 = [MEMORY[0x1E696AD98] numberWithBool:{-[BMSiriMusicInferenceTrainingIndependentSignals isPireneRequest](self, "isPireneRequest")}];
+  }
+
+  else
   {
     v73 = 0;
+  }
+
+  if (![(BMSiriMusicInferenceTrainingIndependentSignals *)self hasForegroundBundleRecencyS]|| ([(BMSiriMusicInferenceTrainingIndependentSignals *)self foregroundBundleRecencyS], fabs(v9) == INFINITY))
+  {
+    v72 = 0;
   }
 
   else
@@ -577,22 +256,12 @@ LABEL_119:
     [(BMSiriMusicInferenceTrainingIndependentSignals *)self foregroundBundleRecencyS];
     v10 = MEMORY[0x1E696AD98];
     [(BMSiriMusicInferenceTrainingIndependentSignals *)self foregroundBundleRecencyS];
-    v73 = [v10 numberWithDouble:?];
+    v72 = [v10 numberWithDouble:?];
   }
 
   if ([(BMSiriMusicInferenceTrainingIndependentSignals *)self hasMediaParsecCategory])
   {
-    v72 = [MEMORY[0x1E696AD98] numberWithInt:{-[BMSiriMusicInferenceTrainingIndependentSignals mediaParsecCategory](self, "mediaParsecCategory")}];
-  }
-
-  else
-  {
-    v72 = 0;
-  }
-
-  if ([(BMSiriMusicInferenceTrainingIndependentSignals *)self hasSirikitResponseCode])
-  {
-    v71 = [MEMORY[0x1E696AD98] numberWithInt:{-[BMSiriMusicInferenceTrainingIndependentSignals sirikitResponseCode](self, "sirikitResponseCode")}];
+    v71 = [MEMORY[0x1E696AD98] numberWithInt:{-[BMSiriMusicInferenceTrainingIndependentSignals mediaParsecCategory](self, "mediaParsecCategory")}];
   }
 
   else
@@ -600,9 +269,9 @@ LABEL_119:
     v71 = 0;
   }
 
-  if ([(BMSiriMusicInferenceTrainingIndependentSignals *)self hasAppSelectionUses])
+  if ([(BMSiriMusicInferenceTrainingIndependentSignals *)self hasSirikitResponseCode])
   {
-    v70 = [MEMORY[0x1E696AD98] numberWithInt:{-[BMSiriMusicInferenceTrainingIndependentSignals appSelectionUses](self, "appSelectionUses")}];
+    v70 = [MEMORY[0x1E696AD98] numberWithInt:{-[BMSiriMusicInferenceTrainingIndependentSignals sirikitResponseCode](self, "sirikitResponseCode")}];
   }
 
   else
@@ -610,9 +279,9 @@ LABEL_119:
     v70 = 0;
   }
 
-  if ([(BMSiriMusicInferenceTrainingIndependentSignals *)self hasModelVersion])
+  if ([(BMSiriMusicInferenceTrainingIndependentSignals *)self hasAppSelectionUses])
   {
-    v69 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:{-[BMSiriMusicInferenceTrainingIndependentSignals modelVersion](self, "modelVersion")}];
+    v69 = [MEMORY[0x1E696AD98] numberWithInt:{-[BMSiriMusicInferenceTrainingIndependentSignals appSelectionUses](self, "appSelectionUses")}];
   }
 
   else
@@ -620,62 +289,72 @@ LABEL_119:
     v69 = 0;
   }
 
+  if ([(BMSiriMusicInferenceTrainingIndependentSignals *)self hasModelVersion])
+  {
+    v68 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:{-[BMSiriMusicInferenceTrainingIndependentSignals modelVersion](self, "modelVersion")}];
+  }
+
+  else
+  {
+    v68 = 0;
+  }
+
   v11 = [MEMORY[0x1E696AD98] numberWithInt:{-[BMSiriMusicInferenceTrainingIndependentSignals resolutionType](self, "resolutionType")}];
-  v85[0] = @"clientDayOfWeek";
+  v84[0] = @"clientDayOfWeek";
   null = v3;
   if (!v3)
   {
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v60 = null;
-  v86[0] = null;
-  v85[1] = @"rawClientHourOfDay";
+  v59 = null;
+  v85[0] = null;
+  v84[1] = @"rawClientHourOfDay";
   null2 = v4;
   if (!v4)
   {
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v59 = null2;
-  v86[1] = null2;
-  v85[2] = @"isMediaAlbumPresent";
+  v58 = null2;
+  v85[1] = null2;
+  v84[2] = @"isMediaAlbumPresent";
   null3 = v5;
   if (!v5)
   {
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v58 = null3;
-  v86[2] = null3;
-  v85[3] = @"isMediaArtistPresent";
+  v57 = null3;
+  v85[2] = null3;
+  v84[3] = @"isMediaArtistPresent";
   null4 = v6;
   if (!v6)
   {
     null4 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v57 = null4;
-  v86[3] = null4;
-  v85[4] = @"isMediaGenrePresent";
-  null5 = v68;
-  if (!v68)
+  v56 = null4;
+  v85[3] = null4;
+  v84[4] = @"isMediaGenrePresent";
+  null5 = v67;
+  if (!v67)
   {
     null5 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v56 = null5;
-  v86[4] = null5;
-  v85[5] = @"isMediaMoodPresent";
+  v55 = null5;
+  v85[4] = null5;
+  v84[5] = @"isMediaMoodPresent";
   null6 = v7;
   if (!v7)
   {
     null6 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v55 = null6;
-  v86[5] = null6;
-  v85[6] = @"isMediaNamePresent";
+  v54 = null6;
+  v85[5] = null6;
+  v84[6] = @"isMediaNamePresent";
   null7 = v8;
   if (!v8)
   {
@@ -683,170 +362,176 @@ LABEL_119:
   }
 
   v19 = v8;
-  v54 = null7;
-  v86[6] = null7;
-  v85[7] = @"isMediaReleaseDatePresent";
-  null8 = v84;
-  if (!v84)
+  v53 = null7;
+  v85[6] = null7;
+  v84[7] = @"isMediaReleaseDatePresent";
+  null8 = v83;
+  if (!v83)
   {
     null8 = [MEMORY[0x1E695DFB0] null];
   }
 
   v21 = v6;
-  v86[7] = null8;
-  v85[8] = @"nowPlayingLastBundleRecencyS";
-  null9 = v83;
-  if (!v83)
+  v85[7] = null8;
+  v84[8] = @"nowPlayingLastBundleRecencyS";
+  null9 = v82;
+  if (!v82)
   {
     null9 = [MEMORY[0x1E695DFB0] null];
   }
 
   v23 = v4;
-  v86[8] = null9;
-  v85[9] = @"rawLanguage";
-  null10 = v82;
-  if (!v82)
+  v85[8] = null9;
+  v84[9] = @"rawLanguage";
+  null10 = v81;
+  if (!v81)
   {
     null10 = [MEMORY[0x1E695DFB0] null];
   }
 
   v25 = v3;
-  v62 = null10;
-  v86[9] = null10;
-  v85[10] = @"rawLocale";
-  null11 = v81;
-  if (!v81)
+  v61 = null10;
+  v85[9] = null10;
+  v84[10] = @"rawLocale";
+  null11 = v80;
+  if (!v80)
   {
     null11 = [MEMORY[0x1E695DFB0] null];
   }
 
   v27 = null11;
-  v86[10] = null11;
-  v85[11] = @"rawRegion";
-  null12 = v80;
-  if (!v80)
+  v85[10] = null11;
+  v84[11] = @"rawRegion";
+  null12 = v79;
+  if (!v79)
   {
     null12 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v53 = null12;
-  v86[11] = null12;
-  v85[12] = @"isClientDaylight";
-  null13 = v79;
-  if (!v79)
+  v52 = null12;
+  v85[11] = null12;
+  v84[12] = @"isClientDaylight";
+  null13 = v78;
+  if (!v78)
   {
     null13 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v52 = null13;
-  v86[12] = null13;
-  v85[13] = @"isClientNavigating";
-  null14 = v78;
-  if (!v78)
+  v51 = null13;
+  v85[12] = null13;
+  v84[13] = @"isClientNavigating";
+  null14 = v77;
+  if (!v77)
   {
     null14 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v51 = null14;
-  v86[13] = null14;
-  v85[14] = @"isClientWorkout";
-  null15 = v77;
-  if (!v77)
+  v50 = null14;
+  v85[13] = null14;
+  v84[14] = @"isClientWorkout";
+  null15 = v76;
+  if (!v76)
   {
     null15 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v50 = null15;
-  v86[14] = null15;
-  v85[15] = @"mediaType";
-  null16 = v76;
-  if (!v76)
+  v49 = null15;
+  v85[14] = null15;
+  v84[15] = @"mediaType";
+  null16 = v75;
+  if (!v75)
   {
     null16 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v49 = null16;
-  v86[15] = null16;
-  v85[16] = @"nowPlayingState";
-  null17 = v75;
-  if (!v75)
+  v48 = null16;
+  v85[15] = null16;
+  v84[16] = @"nowPlayingState";
+  null17 = v74;
+  if (!v74)
   {
     null17 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v63 = null9;
-  v48 = null17;
-  v86[16] = null17;
-  v85[17] = @"isPireneRequest";
-  null18 = v74;
-  if (!v74)
+  v62 = null9;
+  v47 = null17;
+  v85[16] = null17;
+  v84[17] = @"isPireneRequest";
+  null18 = v73;
+  if (!v73)
   {
     null18 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v65 = v7;
-  v47 = null18;
-  v86[17] = null18;
-  v85[18] = @"foregroundBundleRecencyS";
-  null19 = v73;
-  if (!v73)
+  v64 = v7;
+  v46 = null18;
+  v85[17] = null18;
+  v84[18] = @"foregroundBundleRecencyS";
+  null19 = v72;
+  if (!v72)
   {
     null19 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v67 = v11;
-  v66 = v25;
-  v46 = null19;
-  v86[18] = null19;
-  v85[19] = @"mediaParsecCategory";
-  null20 = v72;
-  if (!v72)
+  v66 = v11;
+  v65 = v25;
+  v45 = null19;
+  v85[18] = null19;
+  v84[19] = @"mediaParsecCategory";
+  null20 = v71;
+  if (!v71)
   {
     null20 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v64 = v23;
-  v86[19] = null20;
-  v85[20] = @"sirikitResponseCode";
-  null21 = v71;
-  if (!v71)
+  v63 = v23;
+  v85[19] = null20;
+  v84[20] = @"sirikitResponseCode";
+  null21 = v70;
+  if (!v70)
   {
     null21 = [MEMORY[0x1E695DFB0] null];
   }
 
   v38 = null8;
-  v86[20] = null21;
-  v85[21] = @"appSelectionUses";
-  null22 = v70;
-  if (!v70)
+  v85[20] = null21;
+  v84[21] = @"appSelectionUses";
+  null22 = v69;
+  if (!v69)
   {
     null22 = [MEMORY[0x1E695DFB0] null];
   }
 
   v40 = v19;
-  v86[21] = null22;
-  v85[22] = @"modelVersion";
-  null23 = v69;
-  if (!v69)
+  v85[21] = null22;
+  v84[22] = @"modelVersion";
+  null23 = v68;
+  if (!v68)
   {
     null23 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v86[22] = null23;
-  v85[23] = @"resolutionType";
-  null24 = v67;
-  if (!v67)
+  v85[22] = null23;
+  v84[23] = @"resolutionType";
+  null24 = v66;
+  if (!v66)
   {
     null24 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v86[23] = null24;
-  v61 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v86 forKeys:v85 count:24];
-  if (!v67)
+  v85[23] = null24;
+  v60 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v85 forKeys:v84 count:24];
+  if (!v66)
   {
   }
 
   v43 = v27;
+  if (!v68)
+  {
+
+    v43 = v27;
+  }
+
   if (!v69)
   {
 
@@ -915,8 +600,6 @@ LABEL_119:
 
   if (!v80)
   {
-
-    v43 = v27;
   }
 
   if (!v81)
@@ -927,11 +610,7 @@ LABEL_119:
   {
   }
 
-  if (!v83)
-  {
-  }
-
-  if (v84)
+  if (v83)
   {
     if (v40)
     {
@@ -945,7 +624,7 @@ LABEL_119:
     if (v40)
     {
 LABEL_153:
-      if (v65)
+      if (v64)
       {
         goto LABEL_154;
       }
@@ -954,10 +633,10 @@ LABEL_153:
     }
   }
 
-  if (v65)
+  if (v64)
   {
 LABEL_154:
-    if (v68)
+    if (v67)
     {
       goto LABEL_155;
     }
@@ -967,7 +646,7 @@ LABEL_154:
 
 LABEL_164:
 
-  if (v68)
+  if (v67)
   {
 LABEL_155:
     if (v21)
@@ -996,14 +675,14 @@ LABEL_166:
   if (v5)
   {
 LABEL_157:
-    if (v64)
+    if (v63)
     {
       goto LABEL_158;
     }
 
 LABEL_168:
 
-    if (v66)
+    if (v65)
     {
       goto LABEL_159;
     }
@@ -1013,13 +692,13 @@ LABEL_168:
 
 LABEL_167:
 
-  if (!v64)
+  if (!v63)
   {
     goto LABEL_168;
   }
 
 LABEL_158:
-  if (v66)
+  if (v65)
   {
     goto LABEL_159;
   }
@@ -1027,70 +706,69 @@ LABEL_158:
 LABEL_169:
 
 LABEL_159:
-  v44 = *MEMORY[0x1E69E9840];
 
-  return v61;
+  return v60;
 }
 
 - (BMSiriMusicInferenceTrainingIndependentSignals)initWithJSONDictionary:(id)dictionary error:(id *)error
 {
-  v291[1] = *MEMORY[0x1E69E9840];
+  v290[1] = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
-  v243 = [dictionaryCopy objectForKeyedSubscript:@"clientDayOfWeek"];
-  if (!v243 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+  v242 = [dictionaryCopy objectForKeyedSubscript:@"clientDayOfWeek"];
+  if (!v242 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
   {
-    v241 = 0;
+    v240 = 0;
     goto LABEL_4;
   }
 
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v241 = v243;
+    v240 = v242;
 LABEL_4:
-    v242 = [dictionaryCopy objectForKeyedSubscript:@"rawClientHourOfDay"];
-    if (!v242 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+    v241 = [dictionaryCopy objectForKeyedSubscript:@"rawClientHourOfDay"];
+    if (!v241 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
     {
-      v240 = 0;
+      v239 = 0;
       goto LABEL_7;
     }
 
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v240 = v242;
+      v239 = v241;
 LABEL_7:
       v7 = [dictionaryCopy objectForKeyedSubscript:@"isMediaAlbumPresent"];
       if (!v7 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
       {
-        v239 = 0;
+        v238 = 0;
         goto LABEL_10;
       }
 
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v239 = v7;
+        v238 = v7;
 LABEL_10:
         v8 = [dictionaryCopy objectForKeyedSubscript:@"isMediaArtistPresent"];
-        v238 = v8;
+        v237 = v8;
         if (!v8 || (v9 = v8, objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
         {
-          v235 = 0;
+          v234 = 0;
           goto LABEL_13;
         }
 
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v235 = v9;
+          v234 = v9;
 LABEL_13:
           v10 = [dictionaryCopy objectForKeyedSubscript:@"isMediaGenrePresent"];
           if (!v10 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
           {
             errorCopy2 = error;
-            v233 = v10;
-            v236 = 0;
+            v232 = v10;
+            v235 = 0;
             goto LABEL_16;
           }
 
@@ -1098,255 +776,255 @@ LABEL_13:
           if (objc_opt_isKindOfClass())
           {
             errorCopy2 = error;
-            v233 = v10;
-            v236 = v10;
+            v232 = v10;
+            v235 = v10;
 LABEL_16:
             v12 = [dictionaryCopy objectForKeyedSubscript:@"isMediaMoodPresent"];
             if (!v12 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
             {
-              v231 = v12;
-              v234 = 0;
+              v230 = v12;
+              v233 = 0;
               goto LABEL_19;
             }
 
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              v231 = v12;
-              v234 = v12;
+              v230 = v12;
+              v233 = v12;
 LABEL_19:
               [dictionaryCopy objectForKeyedSubscript:@"isMediaNamePresent"];
-              v237 = v13 = errorCopy2;
-              if (!v237 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+              v236 = v13 = errorCopy2;
+              if (!v236 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
               {
-                v232 = 0;
+                v231 = 0;
                 goto LABEL_22;
               }
 
               objc_opt_class();
               if (objc_opt_isKindOfClass())
               {
-                v232 = v237;
+                v231 = v236;
 LABEL_22:
                 v14 = [dictionaryCopy objectForKeyedSubscript:@"isMediaReleaseDatePresent"];
-                v230 = v14;
+                v229 = v14;
                 if (!v14 || (v15 = v14, objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
                 {
-                  v225 = errorCopy2;
-                  v229 = 0;
+                  v224 = errorCopy2;
+                  v228 = 0;
                   goto LABEL_25;
                 }
 
                 objc_opt_class();
                 if (objc_opt_isKindOfClass())
                 {
-                  v225 = errorCopy2;
-                  v229 = v15;
+                  v224 = errorCopy2;
+                  v228 = v15;
 LABEL_25:
                   v16 = [dictionaryCopy objectForKeyedSubscript:@"nowPlayingLastBundleRecencyS"];
-                  v228 = v16;
+                  v227 = v16;
                   if (!v16 || (v17 = v16, objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
                   {
-                    v227 = 0;
+                    v226 = 0;
                     goto LABEL_28;
                   }
 
                   objc_opt_class();
                   if (objc_opt_isKindOfClass())
                   {
-                    v227 = v17;
+                    v226 = v17;
 LABEL_28:
                     v18 = [dictionaryCopy objectForKeyedSubscript:@"rawLanguage"];
-                    v224 = v18;
+                    v223 = v18;
                     if (!v18 || (v19 = v18, objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
                     {
-                      v226 = 0;
+                      v225 = 0;
                       goto LABEL_31;
                     }
 
                     objc_opt_class();
                     if (objc_opt_isKindOfClass())
                     {
-                      v226 = v19;
+                      v225 = v19;
 LABEL_31:
                       v20 = [dictionaryCopy objectForKeyedSubscript:@"rawLocale"];
-                      v222 = v20;
+                      v221 = v20;
                       if (!v20 || (v21 = v20, objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
                       {
-                        v223 = 0;
+                        v222 = 0;
                         goto LABEL_34;
                       }
 
                       objc_opt_class();
                       if (objc_opt_isKindOfClass())
                       {
-                        v223 = v21;
+                        v222 = v21;
 LABEL_34:
                         v22 = [dictionaryCopy objectForKeyedSubscript:@"rawRegion"];
                         if (!v22 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
                         {
-                          v221 = 0;
+                          v220 = 0;
                           goto LABEL_37;
                         }
 
                         objc_opt_class();
                         if (objc_opt_isKindOfClass())
                         {
-                          v221 = v22;
+                          v220 = v22;
 LABEL_37:
                           v23 = [dictionaryCopy objectForKeyedSubscript:@"isClientDaylight"];
-                          v219 = v23;
+                          v218 = v23;
                           if (!v23 || (v24 = v23, objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
                           {
-                            v220 = 0;
+                            v219 = 0;
                             goto LABEL_40;
                           }
 
                           objc_opt_class();
                           if (objc_opt_isKindOfClass())
                           {
-                            v220 = v24;
+                            v219 = v24;
 LABEL_40:
                             v25 = [dictionaryCopy objectForKeyedSubscript:@"isClientNavigating"];
-                            v217 = v25;
+                            v216 = v25;
                             if (!v25 || (v26 = v25, objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
                             {
-                              v218 = 0;
+                              v217 = 0;
                               goto LABEL_43;
                             }
 
                             objc_opt_class();
                             if (objc_opt_isKindOfClass())
                             {
-                              v218 = v26;
+                              v217 = v26;
 LABEL_43:
                               v27 = [dictionaryCopy objectForKeyedSubscript:@"isClientWorkout"];
-                              v214 = v27;
+                              v213 = v27;
                               if (!v27 || (v28 = v27, objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
                               {
-                                v215 = 0;
+                                v214 = 0;
                                 goto LABEL_46;
                               }
 
                               objc_opt_class();
                               if (objc_opt_isKindOfClass())
                               {
-                                v215 = v28;
+                                v214 = v28;
 LABEL_46:
                                 v29 = [dictionaryCopy objectForKeyedSubscript:@"mediaType"];
-                                v212 = v29;
+                                v211 = v29;
                                 if (!v29 || (v30 = v29, objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
                                 {
-                                  v213 = 0;
+                                  v212 = 0;
                                   goto LABEL_49;
                                 }
 
                                 objc_opt_class();
                                 if (objc_opt_isKindOfClass())
                                 {
-                                  v213 = v30;
+                                  v212 = v30;
 LABEL_49:
                                   v31 = [dictionaryCopy objectForKeyedSubscript:@"nowPlayingState"];
-                                  v210 = v31;
+                                  v209 = v31;
                                   if (!v31 || (v32 = v31, objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
                                   {
-                                    v211 = 0;
+                                    v210 = 0;
                                     goto LABEL_52;
                                   }
 
                                   objc_opt_class();
                                   if (objc_opt_isKindOfClass())
                                   {
-                                    v211 = v32;
+                                    v210 = v32;
 LABEL_52:
                                     v33 = [dictionaryCopy objectForKeyedSubscript:@"isPireneRequest"];
-                                    v208 = v33;
+                                    v207 = v33;
                                     if (!v33 || (v34 = v33, objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
                                     {
-                                      v209 = 0;
+                                      v208 = 0;
                                       goto LABEL_55;
                                     }
 
                                     objc_opt_class();
                                     if (objc_opt_isKindOfClass())
                                     {
-                                      v209 = v34;
+                                      v208 = v34;
 LABEL_55:
                                       v35 = [dictionaryCopy objectForKeyedSubscript:@"foregroundBundleRecencyS"];
-                                      v206 = v35;
+                                      v205 = v35;
                                       if (!v35 || (v36 = v35, objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
                                       {
-                                        v207 = 0;
+                                        v206 = 0;
                                         goto LABEL_58;
                                       }
 
                                       objc_opt_class();
                                       if (objc_opt_isKindOfClass())
                                       {
-                                        v207 = v36;
+                                        v206 = v36;
 LABEL_58:
                                         v37 = [dictionaryCopy objectForKeyedSubscript:@"mediaParsecCategory"];
-                                        v203 = v37;
+                                        v202 = v37;
                                         if (!v37 || (v38 = v37, objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
                                         {
-                                          v205 = 0;
+                                          v204 = 0;
                                           goto LABEL_61;
                                         }
 
                                         objc_opt_class();
                                         if (objc_opt_isKindOfClass())
                                         {
-                                          v205 = v38;
+                                          v204 = v38;
 LABEL_61:
                                           v39 = [dictionaryCopy objectForKeyedSubscript:@"sirikitResponseCode"];
-                                          v201 = v39;
+                                          v200 = v39;
                                           if (!v39 || (v40 = v39, objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
                                           {
-                                            v204 = 0;
+                                            v203 = 0;
                                             goto LABEL_64;
                                           }
 
                                           objc_opt_class();
                                           if (objc_opt_isKindOfClass())
                                           {
-                                            v204 = v40;
+                                            v203 = v40;
 LABEL_64:
                                             v41 = [dictionaryCopy objectForKeyedSubscript:@"appSelectionUses"];
-                                            v200 = v41;
+                                            v199 = v41;
                                             if (!v41 || (v42 = v41, objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
                                             {
-                                              v202 = 0;
+                                              v201 = 0;
                                               goto LABEL_67;
                                             }
 
                                             objc_opt_class();
                                             if (objc_opt_isKindOfClass())
                                             {
-                                              v202 = v42;
+                                              v201 = v42;
 LABEL_67:
                                               v43 = [dictionaryCopy objectForKeyedSubscript:@"modelVersion"];
-                                              v199 = v43;
+                                              v198 = v43;
                                               if (!v43 || (v44 = v43, objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
                                               {
-                                                v197 = 0;
+                                                v196 = 0;
                                                 goto LABEL_70;
                                               }
 
                                               objc_opt_class();
                                               if (objc_opt_isKindOfClass())
                                               {
-                                                v197 = v44;
+                                                v196 = v44;
 LABEL_70:
                                                 v45 = [dictionaryCopy objectForKeyedSubscript:@"resolutionType"];
-                                                v198 = v45;
+                                                v197 = v45;
                                                 if (v45 && (v46 = v45, objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
                                                 {
                                                   objc_opt_class();
                                                   if (objc_opt_isKindOfClass())
                                                   {
                                                     v47 = v46;
-                                                    v48 = v235;
-                                                    v49 = v233;
+                                                    v48 = v234;
+                                                    v49 = v232;
                                                   }
 
                                                   else
@@ -1355,46 +1033,46 @@ LABEL_70:
                                                     objc_opt_class();
                                                     if ((objc_opt_isKindOfClass() & 1) == 0)
                                                     {
-                                                      if (v225)
+                                                      if (v224)
                                                       {
-                                                        v173 = objc_alloc(MEMORY[0x1E696ABC0]);
-                                                        v174 = *MEMORY[0x1E698F240];
-                                                        v244 = *MEMORY[0x1E696A578];
-                                                        v175 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (corresponding to enum value), or NSString (string version of enum)", objc_opt_class(), @"resolutionType"];
-                                                        v245 = v175;
-                                                        v176 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v245 forKeys:&v244 count:1];
-                                                        *v225 = [v173 initWithDomain:v174 code:2 userInfo:v176];
+                                                        v172 = objc_alloc(MEMORY[0x1E696ABC0]);
+                                                        v173 = *MEMORY[0x1E698F240];
+                                                        v243 = *MEMORY[0x1E696A578];
+                                                        v174 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (corresponding to enum value), or NSString (string version of enum)", objc_opt_class(), @"resolutionType"];
+                                                        v244 = v174;
+                                                        v175 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v244 forKeys:&v243 count:1];
+                                                        *v224 = [v172 initWithDomain:v173 code:2 userInfo:v175];
                                                       }
 
                                                       v47 = 0;
                                                       selfCopy2 = 0;
                                                       self = selfCopy;
-                                                      v48 = v235;
-                                                      v49 = v233;
-                                                      v12 = v231;
-                                                      v163 = v197;
+                                                      v48 = v234;
+                                                      v49 = v232;
+                                                      v12 = v230;
+                                                      v163 = v196;
                                                       goto LABEL_198;
                                                     }
 
                                                     v170 = v46;
                                                     v47 = [MEMORY[0x1E696AD98] numberWithInt:BMSiriMusicInferenceTrainingIndependentSignalsInferenceAppResolutionTypeFromString(v170)];
 
-                                                    v48 = v235;
-                                                    v49 = v233;
+                                                    v48 = v234;
+                                                    v49 = v232;
                                                   }
                                                 }
 
                                                 else
                                                 {
                                                   v47 = 0;
-                                                  v48 = v235;
-                                                  v49 = v233;
+                                                  v48 = v234;
+                                                  v49 = v232;
                                                 }
 
-                                                v12 = v231;
-                                                LODWORD(v196) = [v47 intValue];
-                                                v163 = v197;
-                                                self = [(BMSiriMusicInferenceTrainingIndependentSignals *)self initWithClientDayOfWeek:v241 rawClientHourOfDay:v240 isMediaAlbumPresent:v239 isMediaArtistPresent:v48 isMediaGenrePresent:v236 isMediaMoodPresent:v234 isMediaNamePresent:v232 isMediaReleaseDatePresent:v229 nowPlayingLastBundleRecencyS:v227 rawLanguage:v226 rawLocale:v223 rawRegion:v221 isClientDaylight:v220 isClientNavigating:v218 isClientWorkout:v215 mediaType:v213 nowPlayingState:v211 isPireneRequest:v209 foregroundBundleRecencyS:v207 mediaParsecCategory:v205 sirikitResponseCode:v204 appSelectionUses:v202 modelVersion:v197 resolutionType:v196];
+                                                v12 = v230;
+                                                LODWORD(v195) = [v47 intValue];
+                                                v163 = v196;
+                                                self = [(BMSiriMusicInferenceTrainingIndependentSignals *)self initWithClientDayOfWeek:v240 rawClientHourOfDay:v239 isMediaAlbumPresent:v238 isMediaArtistPresent:v48 isMediaGenrePresent:v235 isMediaMoodPresent:v233 isMediaNamePresent:v231 isMediaReleaseDatePresent:v228 nowPlayingLastBundleRecencyS:v226 rawLanguage:v225 rawLocale:v222 rawRegion:v220 isClientDaylight:v219 isClientNavigating:v217 isClientWorkout:v214 mediaType:v212 nowPlayingState:v210 isPireneRequest:v208 foregroundBundleRecencyS:v206 mediaParsecCategory:v204 sirikitResponseCode:v203 appSelectionUses:v201 modelVersion:v196 resolutionType:v195];
                                                 selfCopy2 = self;
 LABEL_198:
 
@@ -1408,470 +1086,470 @@ LABEL_203:
                                                 goto LABEL_204;
                                               }
 
-                                              v216 = v22;
-                                              if (v225)
+                                              v215 = v22;
+                                              if (v224)
                                               {
                                                 v164 = objc_alloc(MEMORY[0x1E696ABC0]);
                                                 v165 = *MEMORY[0x1E698F240];
-                                                v246 = *MEMORY[0x1E696A578];
+                                                v245 = *MEMORY[0x1E696A578];
                                                 selfCopy3 = self;
                                                 v167 = objc_alloc(MEMORY[0x1E696AEC0]);
-                                                v195 = objc_opt_class();
+                                                v194 = objc_opt_class();
                                                 v168 = v167;
                                                 self = selfCopy3;
-                                                v47 = [v168 initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", v195, @"modelVersion"];
-                                                v247 = v47;
-                                                v198 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v247 forKeys:&v246 count:1];
+                                                v47 = [v168 initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", v194, @"modelVersion"];
+                                                v246 = v47;
+                                                v197 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v246 forKeys:&v245 count:1];
                                                 v163 = 0;
                                                 selfCopy2 = 0;
-                                                *v225 = [v164 initWithDomain:v165 code:2 userInfo:?];
-                                                v48 = v235;
-                                                v49 = v233;
-                                                v12 = v231;
+                                                *v224 = [v164 initWithDomain:v165 code:2 userInfo:?];
+                                                v48 = v234;
+                                                v49 = v232;
+                                                v12 = v230;
                                                 goto LABEL_198;
                                               }
 
                                               v163 = 0;
                                               selfCopy2 = 0;
 LABEL_234:
-                                              v48 = v235;
-                                              v49 = v233;
-                                              v12 = v231;
-                                              v22 = v216;
+                                              v48 = v234;
+                                              v49 = v232;
+                                              v12 = v230;
+                                              v22 = v215;
                                               goto LABEL_199;
                                             }
 
-                                            v216 = v22;
-                                            if (v225)
+                                            v215 = v22;
+                                            if (v224)
                                             {
                                               v158 = objc_alloc(MEMORY[0x1E696ABC0]);
                                               v159 = *MEMORY[0x1E698F240];
-                                              v248 = *MEMORY[0x1E696A578];
+                                              v247 = *MEMORY[0x1E696A578];
                                               selfCopy4 = self;
                                               v161 = objc_alloc(MEMORY[0x1E696AEC0]);
-                                              v194 = objc_opt_class();
+                                              v193 = objc_opt_class();
                                               v162 = v161;
                                               self = selfCopy4;
-                                              v163 = [v162 initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", v194, @"appSelectionUses"];
-                                              v249 = v163;
-                                              v199 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v249 forKeys:&v248 count:1];
-                                              v202 = 0;
+                                              v163 = [v162 initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", v193, @"appSelectionUses"];
+                                              v248 = v163;
+                                              v198 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v248 forKeys:&v247 count:1];
+                                              v201 = 0;
                                               selfCopy2 = 0;
-                                              *v225 = [v158 initWithDomain:v159 code:2 userInfo:?];
+                                              *v224 = [v158 initWithDomain:v159 code:2 userInfo:?];
                                               goto LABEL_234;
                                             }
 
-                                            v202 = 0;
+                                            v201 = 0;
                                             selfCopy2 = 0;
 LABEL_229:
-                                            v48 = v235;
-                                            v49 = v233;
-                                            v12 = v231;
-                                            v22 = v216;
+                                            v48 = v234;
+                                            v49 = v232;
+                                            v12 = v230;
+                                            v22 = v215;
                                             goto LABEL_200;
                                           }
 
-                                          v216 = v22;
-                                          if (v225)
+                                          v215 = v22;
+                                          if (v224)
                                           {
                                             v153 = objc_alloc(MEMORY[0x1E696ABC0]);
                                             v154 = *MEMORY[0x1E698F240];
-                                            v250 = *MEMORY[0x1E696A578];
+                                            v249 = *MEMORY[0x1E696A578];
                                             selfCopy5 = self;
                                             v156 = objc_alloc(MEMORY[0x1E696AEC0]);
-                                            v193 = objc_opt_class();
+                                            v192 = objc_opt_class();
                                             v157 = v156;
                                             self = selfCopy5;
-                                            v202 = [v157 initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", v193, @"sirikitResponseCode"];
-                                            v251 = v202;
-                                            v200 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v251 forKeys:&v250 count:1];
-                                            v204 = 0;
+                                            v201 = [v157 initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", v192, @"sirikitResponseCode"];
+                                            v250 = v201;
+                                            v199 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v250 forKeys:&v249 count:1];
+                                            v203 = 0;
                                             selfCopy2 = 0;
-                                            *v225 = [v153 initWithDomain:v154 code:2 userInfo:?];
+                                            *v224 = [v153 initWithDomain:v154 code:2 userInfo:?];
                                             goto LABEL_229;
                                           }
 
-                                          v204 = 0;
+                                          v203 = 0;
                                           selfCopy2 = 0;
 LABEL_227:
-                                          v48 = v235;
-                                          v49 = v233;
-                                          v12 = v231;
-                                          v22 = v216;
+                                          v48 = v234;
+                                          v49 = v232;
+                                          v12 = v230;
+                                          v22 = v215;
                                           goto LABEL_201;
                                         }
 
-                                        v216 = v22;
-                                        if (v225)
+                                        v215 = v22;
+                                        if (v224)
                                         {
                                           v148 = objc_alloc(MEMORY[0x1E696ABC0]);
                                           v149 = *MEMORY[0x1E698F240];
-                                          v252 = *MEMORY[0x1E696A578];
+                                          v251 = *MEMORY[0x1E696A578];
                                           selfCopy6 = self;
                                           v151 = objc_alloc(MEMORY[0x1E696AEC0]);
-                                          v192 = objc_opt_class();
+                                          v191 = objc_opt_class();
                                           v152 = v151;
                                           self = selfCopy6;
-                                          v204 = [v152 initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", v192, @"mediaParsecCategory"];
-                                          v253 = v204;
-                                          v201 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v253 forKeys:&v252 count:1];
-                                          v205 = 0;
+                                          v203 = [v152 initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", v191, @"mediaParsecCategory"];
+                                          v252 = v203;
+                                          v200 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v252 forKeys:&v251 count:1];
+                                          v204 = 0;
                                           selfCopy2 = 0;
-                                          *v225 = [v148 initWithDomain:v149 code:2 userInfo:?];
+                                          *v224 = [v148 initWithDomain:v149 code:2 userInfo:?];
                                           goto LABEL_227;
                                         }
 
-                                        v205 = 0;
+                                        v204 = 0;
                                         selfCopy2 = 0;
 LABEL_225:
-                                        v48 = v235;
-                                        v49 = v233;
-                                        v12 = v231;
-                                        v22 = v216;
+                                        v48 = v234;
+                                        v49 = v232;
+                                        v12 = v230;
+                                        v22 = v215;
                                         goto LABEL_202;
                                       }
 
-                                      v216 = v22;
-                                      if (v225)
+                                      v215 = v22;
+                                      if (v224)
                                       {
                                         v143 = objc_alloc(MEMORY[0x1E696ABC0]);
                                         v144 = *MEMORY[0x1E698F240];
-                                        v254 = *MEMORY[0x1E696A578];
+                                        v253 = *MEMORY[0x1E696A578];
                                         selfCopy7 = self;
                                         v146 = objc_alloc(MEMORY[0x1E696AEC0]);
-                                        v191 = objc_opt_class();
+                                        v190 = objc_opt_class();
                                         v147 = v146;
                                         self = selfCopy7;
-                                        v205 = [v147 initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", v191, @"foregroundBundleRecencyS"];
-                                        v255 = v205;
-                                        v203 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v255 forKeys:&v254 count:1];
-                                        v207 = 0;
+                                        v204 = [v147 initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", v190, @"foregroundBundleRecencyS"];
+                                        v254 = v204;
+                                        v202 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v254 forKeys:&v253 count:1];
+                                        v206 = 0;
                                         selfCopy2 = 0;
-                                        *v225 = [v143 initWithDomain:v144 code:2 userInfo:?];
+                                        *v224 = [v143 initWithDomain:v144 code:2 userInfo:?];
                                         goto LABEL_225;
                                       }
 
-                                      v207 = 0;
+                                      v206 = 0;
                                       selfCopy2 = 0;
 LABEL_223:
-                                      v48 = v235;
-                                      v49 = v233;
-                                      v12 = v231;
-                                      v22 = v216;
+                                      v48 = v234;
+                                      v49 = v232;
+                                      v12 = v230;
+                                      v22 = v215;
                                       goto LABEL_203;
                                     }
 
-                                    v216 = v22;
-                                    if (v225)
+                                    v215 = v22;
+                                    if (v224)
                                     {
                                       v138 = objc_alloc(MEMORY[0x1E696ABC0]);
                                       v139 = *MEMORY[0x1E698F240];
-                                      v256 = *MEMORY[0x1E696A578];
+                                      v255 = *MEMORY[0x1E696A578];
                                       selfCopy8 = self;
                                       v141 = objc_alloc(MEMORY[0x1E696AEC0]);
-                                      v190 = objc_opt_class();
+                                      v189 = objc_opt_class();
                                       v142 = v141;
                                       self = selfCopy8;
-                                      v207 = [v142 initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", v190, @"isPireneRequest"];
-                                      v257 = v207;
-                                      v206 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v257 forKeys:&v256 count:1];
-                                      v209 = 0;
+                                      v206 = [v142 initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", v189, @"isPireneRequest"];
+                                      v256 = v206;
+                                      v205 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v256 forKeys:&v255 count:1];
+                                      v208 = 0;
                                       selfCopy2 = 0;
-                                      *v225 = [v138 initWithDomain:v139 code:2 userInfo:?];
+                                      *v224 = [v138 initWithDomain:v139 code:2 userInfo:?];
                                       goto LABEL_223;
                                     }
 
-                                    v209 = 0;
+                                    v208 = 0;
                                     selfCopy2 = 0;
 LABEL_193:
-                                    v48 = v235;
-                                    v49 = v233;
-                                    v12 = v231;
-                                    v22 = v216;
+                                    v48 = v234;
+                                    v49 = v232;
+                                    v12 = v230;
+                                    v22 = v215;
 LABEL_204:
 
                                     goto LABEL_205;
                                   }
 
-                                  v216 = v22;
-                                  if (v225)
+                                  v215 = v22;
+                                  if (v224)
                                   {
                                     v133 = objc_alloc(MEMORY[0x1E696ABC0]);
                                     v134 = *MEMORY[0x1E698F240];
-                                    v258 = *MEMORY[0x1E696A578];
+                                    v257 = *MEMORY[0x1E696A578];
                                     selfCopy9 = self;
                                     v136 = objc_alloc(MEMORY[0x1E696AEC0]);
-                                    v189 = objc_opt_class();
+                                    v188 = objc_opt_class();
                                     v137 = v136;
                                     self = selfCopy9;
-                                    v209 = [v137 initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", v189, @"nowPlayingState"];
-                                    v259 = v209;
-                                    v208 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v259 forKeys:&v258 count:1];
-                                    v211 = 0;
+                                    v208 = [v137 initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", v188, @"nowPlayingState"];
+                                    v258 = v208;
+                                    v207 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v258 forKeys:&v257 count:1];
+                                    v210 = 0;
                                     selfCopy2 = 0;
-                                    *v225 = [v133 initWithDomain:v134 code:2 userInfo:?];
+                                    *v224 = [v133 initWithDomain:v134 code:2 userInfo:?];
                                     goto LABEL_193;
                                   }
 
-                                  v211 = 0;
+                                  v210 = 0;
                                   selfCopy2 = 0;
 LABEL_189:
-                                  v48 = v235;
-                                  v49 = v233;
-                                  v12 = v231;
-                                  v22 = v216;
+                                  v48 = v234;
+                                  v49 = v232;
+                                  v12 = v230;
+                                  v22 = v215;
 LABEL_205:
 
                                   goto LABEL_206;
                                 }
 
-                                v216 = v22;
-                                if (v225)
+                                v215 = v22;
+                                if (v224)
                                 {
                                   v128 = objc_alloc(MEMORY[0x1E696ABC0]);
                                   v129 = *MEMORY[0x1E698F240];
-                                  v260 = *MEMORY[0x1E696A578];
+                                  v259 = *MEMORY[0x1E696A578];
                                   selfCopy10 = self;
                                   v131 = objc_alloc(MEMORY[0x1E696AEC0]);
-                                  v188 = objc_opt_class();
+                                  v187 = objc_opt_class();
                                   v132 = v131;
                                   self = selfCopy10;
-                                  v211 = [v132 initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", v188, @"mediaType"];
-                                  v261 = v211;
-                                  v210 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v261 forKeys:&v260 count:1];
-                                  v213 = 0;
+                                  v210 = [v132 initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", v187, @"mediaType"];
+                                  v260 = v210;
+                                  v209 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v260 forKeys:&v259 count:1];
+                                  v212 = 0;
                                   selfCopy2 = 0;
-                                  *v225 = [v128 initWithDomain:v129 code:2 userInfo:?];
+                                  *v224 = [v128 initWithDomain:v129 code:2 userInfo:?];
                                   goto LABEL_189;
                                 }
 
-                                v213 = 0;
+                                v212 = 0;
                                 selfCopy2 = 0;
 LABEL_185:
-                                v48 = v235;
-                                v49 = v233;
-                                v12 = v231;
-                                v22 = v216;
+                                v48 = v234;
+                                v49 = v232;
+                                v12 = v230;
+                                v22 = v215;
 LABEL_206:
 
                                 goto LABEL_207;
                               }
 
-                              v216 = v22;
-                              if (v225)
+                              v215 = v22;
+                              if (v224)
                               {
                                 v123 = objc_alloc(MEMORY[0x1E696ABC0]);
                                 v124 = *MEMORY[0x1E698F240];
-                                v262 = *MEMORY[0x1E696A578];
+                                v261 = *MEMORY[0x1E696A578];
                                 selfCopy11 = self;
                                 v126 = objc_alloc(MEMORY[0x1E696AEC0]);
-                                v187 = objc_opt_class();
+                                v186 = objc_opt_class();
                                 v127 = v126;
                                 self = selfCopy11;
-                                v213 = [v127 initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", v187, @"isClientWorkout"];
-                                v263 = v213;
-                                v212 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v263 forKeys:&v262 count:1];
-                                v215 = 0;
+                                v212 = [v127 initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", v186, @"isClientWorkout"];
+                                v262 = v212;
+                                v211 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v262 forKeys:&v261 count:1];
+                                v214 = 0;
                                 selfCopy2 = 0;
-                                *v225 = [v123 initWithDomain:v124 code:2 userInfo:?];
+                                *v224 = [v123 initWithDomain:v124 code:2 userInfo:?];
                                 goto LABEL_185;
                               }
 
-                              v215 = 0;
+                              v214 = 0;
                               selfCopy2 = 0;
 LABEL_181:
-                              v48 = v235;
-                              v49 = v233;
-                              v12 = v231;
-                              v22 = v216;
+                              v48 = v234;
+                              v49 = v232;
+                              v12 = v230;
+                              v22 = v215;
 LABEL_207:
 
                               goto LABEL_208;
                             }
 
-                            v216 = v22;
-                            if (v225)
+                            v215 = v22;
+                            if (v224)
                             {
                               v118 = objc_alloc(MEMORY[0x1E696ABC0]);
                               v119 = *MEMORY[0x1E698F240];
-                              v264 = *MEMORY[0x1E696A578];
+                              v263 = *MEMORY[0x1E696A578];
                               selfCopy12 = self;
                               v121 = objc_alloc(MEMORY[0x1E696AEC0]);
-                              v186 = objc_opt_class();
+                              v185 = objc_opt_class();
                               v122 = v121;
                               self = selfCopy12;
-                              v215 = [v122 initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", v186, @"isClientNavigating"];
-                              v265 = v215;
-                              v214 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v265 forKeys:&v264 count:1];
-                              v218 = 0;
+                              v214 = [v122 initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", v185, @"isClientNavigating"];
+                              v264 = v214;
+                              v213 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v264 forKeys:&v263 count:1];
+                              v217 = 0;
                               selfCopy2 = 0;
-                              *v225 = [v118 initWithDomain:v119 code:2 userInfo:?];
+                              *v224 = [v118 initWithDomain:v119 code:2 userInfo:?];
                               goto LABEL_181;
                             }
 
-                            v218 = 0;
+                            v217 = 0;
                             selfCopy2 = 0;
 LABEL_175:
-                            v48 = v235;
-                            v49 = v233;
-                            v12 = v231;
-                            v22 = v216;
+                            v48 = v234;
+                            v49 = v232;
+                            v12 = v230;
+                            v22 = v215;
 LABEL_208:
 
                             goto LABEL_209;
                           }
 
-                          v216 = v22;
-                          if (v225)
+                          v215 = v22;
+                          if (v224)
                           {
                             v113 = objc_alloc(MEMORY[0x1E696ABC0]);
                             v114 = *MEMORY[0x1E698F240];
-                            v266 = *MEMORY[0x1E696A578];
+                            v265 = *MEMORY[0x1E696A578];
                             selfCopy13 = self;
                             v116 = objc_alloc(MEMORY[0x1E696AEC0]);
-                            v185 = objc_opt_class();
+                            v184 = objc_opt_class();
                             v117 = v116;
                             self = selfCopy13;
-                            v218 = [v117 initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", v185, @"isClientDaylight"];
-                            v267 = v218;
-                            v217 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v267 forKeys:&v266 count:1];
-                            v220 = 0;
+                            v217 = [v117 initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", v184, @"isClientDaylight"];
+                            v266 = v217;
+                            v216 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v266 forKeys:&v265 count:1];
+                            v219 = 0;
                             selfCopy2 = 0;
-                            *v225 = [v113 initWithDomain:v114 code:2 userInfo:?];
+                            *v224 = [v113 initWithDomain:v114 code:2 userInfo:?];
                             goto LABEL_175;
                           }
 
-                          v220 = 0;
+                          v219 = 0;
                           selfCopy2 = 0;
-                          v48 = v235;
-                          v49 = v233;
-                          v12 = v231;
+                          v48 = v234;
+                          v49 = v232;
+                          v12 = v230;
 LABEL_209:
 
                           goto LABEL_210;
                         }
 
-                        if (v225)
+                        if (v224)
                         {
                           v108 = objc_alloc(MEMORY[0x1E696ABC0]);
                           v109 = *MEMORY[0x1E698F240];
-                          v268 = *MEMORY[0x1E696A578];
+                          v267 = *MEMORY[0x1E696A578];
                           selfCopy14 = self;
                           v111 = objc_alloc(MEMORY[0x1E696AEC0]);
-                          v184 = objc_opt_class();
+                          v183 = objc_opt_class();
                           v112 = v111;
                           self = selfCopy14;
-                          v220 = [v112 initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", v184, @"rawRegion"];
-                          v269 = v220;
-                          v219 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v269 forKeys:&v268 count:1];
-                          v221 = 0;
+                          v219 = [v112 initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", v183, @"rawRegion"];
+                          v268 = v219;
+                          v218 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v268 forKeys:&v267 count:1];
+                          v220 = 0;
                           selfCopy2 = 0;
-                          *v225 = [v108 initWithDomain:v109 code:2 userInfo:?];
-                          v48 = v235;
-                          v49 = v233;
-                          v12 = v231;
+                          *v224 = [v108 initWithDomain:v109 code:2 userInfo:?];
+                          v48 = v234;
+                          v49 = v232;
+                          v12 = v230;
                           goto LABEL_209;
                         }
 
-                        v221 = 0;
+                        v220 = 0;
                         selfCopy2 = 0;
-                        v48 = v235;
-                        v49 = v233;
-                        v12 = v231;
+                        v48 = v234;
+                        v49 = v232;
+                        v12 = v230;
 LABEL_210:
 
                         goto LABEL_211;
                       }
 
-                      if (v225)
+                      if (v224)
                       {
                         v102 = objc_alloc(MEMORY[0x1E696ABC0]);
                         v103 = *MEMORY[0x1E698F240];
-                        v270 = *MEMORY[0x1E696A578];
+                        v269 = *MEMORY[0x1E696A578];
                         selfCopy15 = self;
                         v105 = objc_alloc(MEMORY[0x1E696AEC0]);
-                        v183 = objc_opt_class();
+                        v182 = objc_opt_class();
                         v106 = v105;
                         self = selfCopy15;
-                        v221 = [v106 initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", v183, @"rawLocale"];
-                        v271 = v221;
-                        v107 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v271 forKeys:&v270 count:1];
-                        v223 = 0;
+                        v220 = [v106 initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", v182, @"rawLocale"];
+                        v270 = v220;
+                        v107 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v270 forKeys:&v269 count:1];
+                        v222 = 0;
                         selfCopy2 = 0;
-                        *v225 = [v102 initWithDomain:v103 code:2 userInfo:v107];
+                        *v224 = [v102 initWithDomain:v103 code:2 userInfo:v107];
                         v22 = v107;
-                        v48 = v235;
-                        v49 = v233;
-                        v12 = v231;
+                        v48 = v234;
+                        v49 = v232;
+                        v12 = v230;
                         goto LABEL_210;
                       }
 
-                      v223 = 0;
+                      v222 = 0;
                       selfCopy2 = 0;
 LABEL_159:
-                      v48 = v235;
-                      v49 = v233;
-                      v12 = v231;
+                      v48 = v234;
+                      v49 = v232;
+                      v12 = v230;
 LABEL_211:
 
                       goto LABEL_212;
                     }
 
-                    if (v225)
+                    if (v224)
                     {
                       v97 = objc_alloc(MEMORY[0x1E696ABC0]);
                       v98 = *MEMORY[0x1E698F240];
-                      v272 = *MEMORY[0x1E696A578];
+                      v271 = *MEMORY[0x1E696A578];
                       selfCopy16 = self;
                       v100 = objc_alloc(MEMORY[0x1E696AEC0]);
-                      v182 = objc_opt_class();
+                      v181 = objc_opt_class();
                       v101 = v100;
                       self = selfCopy16;
-                      v223 = [v101 initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", v182, @"rawLanguage"];
-                      v273 = v223;
-                      v222 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v273 forKeys:&v272 count:1];
-                      v226 = 0;
+                      v222 = [v101 initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", v181, @"rawLanguage"];
+                      v272 = v222;
+                      v221 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v272 forKeys:&v271 count:1];
+                      v225 = 0;
                       selfCopy2 = 0;
-                      *v225 = [v97 initWithDomain:v98 code:2 userInfo:?];
+                      *v224 = [v97 initWithDomain:v98 code:2 userInfo:?];
                       goto LABEL_159;
                     }
 
-                    v226 = 0;
+                    v225 = 0;
                     selfCopy2 = 0;
 LABEL_153:
-                    v48 = v235;
-                    v49 = v233;
-                    v12 = v231;
+                    v48 = v234;
+                    v49 = v232;
+                    v12 = v230;
 LABEL_212:
 
                     goto LABEL_213;
                   }
 
-                  if (v225)
+                  if (v224)
                   {
                     v92 = objc_alloc(MEMORY[0x1E696ABC0]);
                     v93 = *MEMORY[0x1E698F240];
-                    v274 = *MEMORY[0x1E696A578];
+                    v273 = *MEMORY[0x1E696A578];
                     selfCopy17 = self;
                     v95 = objc_alloc(MEMORY[0x1E696AEC0]);
-                    v181 = objc_opt_class();
+                    v180 = objc_opt_class();
                     v96 = v95;
                     self = selfCopy17;
-                    v226 = [v96 initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", v181, @"nowPlayingLastBundleRecencyS"];
-                    v275 = v226;
-                    v224 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v275 forKeys:&v274 count:1];
-                    v227 = 0;
+                    v225 = [v96 initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", v180, @"nowPlayingLastBundleRecencyS"];
+                    v274 = v225;
+                    v223 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v274 forKeys:&v273 count:1];
+                    v226 = 0;
                     selfCopy2 = 0;
-                    *v225 = [v92 initWithDomain:v93 code:2 userInfo:?];
+                    *v224 = [v92 initWithDomain:v93 code:2 userInfo:?];
                     goto LABEL_153;
                   }
 
-                  v227 = 0;
+                  v226 = 0;
                   selfCopy2 = 0;
 LABEL_147:
-                  v48 = v235;
-                  v49 = v233;
-                  v12 = v231;
+                  v48 = v234;
+                  v49 = v232;
+                  v12 = v230;
 LABEL_213:
 
                   goto LABEL_214;
@@ -1881,27 +1559,27 @@ LABEL_213:
                 {
                   v87 = objc_alloc(MEMORY[0x1E696ABC0]);
                   v88 = *MEMORY[0x1E698F240];
-                  v276 = *MEMORY[0x1E696A578];
+                  v275 = *MEMORY[0x1E696A578];
                   selfCopy18 = self;
                   v90 = objc_alloc(MEMORY[0x1E696AEC0]);
-                  v180 = objc_opt_class();
+                  v179 = objc_opt_class();
                   v91 = v90;
                   self = selfCopy18;
-                  v227 = [v91 initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", v180, @"isMediaReleaseDatePresent"];
-                  v277 = v227;
-                  v228 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v277 forKeys:&v276 count:1];
-                  v229 = 0;
+                  v226 = [v91 initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", v179, @"isMediaReleaseDatePresent"];
+                  v276 = v226;
+                  v227 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v276 forKeys:&v275 count:1];
+                  v228 = 0;
                   selfCopy2 = 0;
                   *v13 = [v87 initWithDomain:v88 code:2 userInfo:?];
                   goto LABEL_147;
                 }
 
-                v229 = 0;
+                v228 = 0;
                 selfCopy2 = 0;
 LABEL_141:
-                v48 = v235;
-                v49 = v233;
-                v12 = v231;
+                v48 = v234;
+                v49 = v232;
+                v12 = v230;
 LABEL_214:
 
                 goto LABEL_215;
@@ -1912,24 +1590,24 @@ LABEL_214:
                 v82 = objc_alloc(MEMORY[0x1E696ABC0]);
                 selfCopy19 = self;
                 v84 = *MEMORY[0x1E698F240];
-                v278 = *MEMORY[0x1E696A578];
-                v229 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"isMediaNamePresent"];
-                v279 = v229;
-                v85 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v279 forKeys:&v278 count:1];
+                v277 = *MEMORY[0x1E696A578];
+                v228 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"isMediaNamePresent"];
+                v278 = v228;
+                v85 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v278 forKeys:&v277 count:1];
                 v86 = v84;
                 self = selfCopy19;
-                v230 = v85;
-                v232 = 0;
+                v229 = v85;
+                v231 = 0;
                 selfCopy2 = 0;
                 *errorCopy2 = [v82 initWithDomain:v86 code:2 userInfo:?];
                 goto LABEL_141;
               }
 
-              v232 = 0;
+              v231 = 0;
               selfCopy2 = 0;
-              v48 = v235;
-              v49 = v233;
-              v12 = v231;
+              v48 = v234;
+              v49 = v232;
+              v12 = v230;
 LABEL_215:
 
               goto LABEL_216;
@@ -1939,28 +1617,28 @@ LABEL_215:
             {
               v76 = objc_alloc(MEMORY[0x1E696ABC0]);
               v77 = *MEMORY[0x1E698F240];
-              v280 = *MEMORY[0x1E696A578];
+              v279 = *MEMORY[0x1E696A578];
               selfCopy20 = self;
               v79 = objc_alloc(MEMORY[0x1E696AEC0]);
-              v179 = objc_opt_class();
+              v178 = objc_opt_class();
               v80 = v79;
               self = selfCopy20;
-              v232 = [v80 initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", v179, @"isMediaMoodPresent"];
-              v281 = v232;
-              v237 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v281 forKeys:&v280 count:1];
-              v81 = [v76 initWithDomain:v77 code:2 userInfo:v237];
-              v234 = 0;
+              v231 = [v80 initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", v178, @"isMediaMoodPresent"];
+              v280 = v231;
+              v236 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v280 forKeys:&v279 count:1];
+              v81 = [v76 initWithDomain:v77 code:2 userInfo:v236];
+              v233 = 0;
               selfCopy2 = 0;
               *errorCopy2 = v81;
-              v48 = v235;
-              v49 = v233;
+              v48 = v234;
+              v49 = v232;
               goto LABEL_215;
             }
 
-            v234 = 0;
+            v233 = 0;
             selfCopy2 = 0;
-            v48 = v235;
-            v49 = v233;
+            v48 = v234;
+            v49 = v232;
 LABEL_216:
 
             goto LABEL_217;
@@ -1971,29 +1649,29 @@ LABEL_216:
             v67 = objc_alloc(MEMORY[0x1E696ABC0]);
             errorCopy3 = error;
             v69 = *MEMORY[0x1E698F240];
-            v282 = *MEMORY[0x1E696A578];
+            v281 = *MEMORY[0x1E696A578];
             selfCopy21 = self;
             v71 = objc_alloc(MEMORY[0x1E696AEC0]);
-            v178 = objc_opt_class();
+            v177 = objc_opt_class();
             v72 = v71;
             self = selfCopy21;
-            v234 = [v72 initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", v178, @"isMediaGenrePresent"];
-            v283 = v234;
-            v73 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v283 forKeys:&v282 count:1];
+            v233 = [v72 initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", v177, @"isMediaGenrePresent"];
+            v282 = v233;
+            v73 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v282 forKeys:&v281 count:1];
             v74 = v69;
             v12 = v73;
             v49 = v10;
             v75 = [v67 initWithDomain:v74 code:2 userInfo:v73];
-            v236 = 0;
+            v235 = 0;
             selfCopy2 = 0;
             *errorCopy3 = v75;
-            v48 = v235;
+            v48 = v234;
             goto LABEL_216;
           }
 
-          v236 = 0;
+          v235 = 0;
           selfCopy2 = 0;
-          v48 = v235;
+          v48 = v234;
           v49 = v10;
 LABEL_217:
 
@@ -2004,15 +1682,15 @@ LABEL_217:
         {
           v60 = objc_alloc(MEMORY[0x1E696ABC0]);
           v61 = *MEMORY[0x1E698F240];
-          v284 = *MEMORY[0x1E696A578];
+          v283 = *MEMORY[0x1E696A578];
           selfCopy22 = self;
           v63 = objc_alloc(MEMORY[0x1E696AEC0]);
-          v177 = objc_opt_class();
+          v176 = objc_opt_class();
           v64 = v63;
           self = selfCopy22;
-          v236 = [v64 initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", v177, @"isMediaArtistPresent"];
-          v285 = v236;
-          v65 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v285 forKeys:&v284 count:1];
+          v235 = [v64 initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", v176, @"isMediaArtistPresent"];
+          v284 = v235;
+          v65 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v284 forKeys:&v283 count:1];
           v66 = v61;
           v49 = v65;
           v48 = 0;
@@ -2032,18 +1710,18 @@ LABEL_218:
       {
         v57 = objc_alloc(MEMORY[0x1E696ABC0]);
         v58 = *MEMORY[0x1E698F240];
-        v286 = *MEMORY[0x1E696A578];
+        v285 = *MEMORY[0x1E696A578];
         v48 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"isMediaAlbumPresent"];
-        v287 = v48;
-        v238 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v287 forKeys:&v286 count:1];
+        v286 = v48;
+        v237 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v286 forKeys:&v285 count:1];
         v59 = [v57 initWithDomain:v58 code:2 userInfo:?];
-        v239 = 0;
+        v238 = 0;
         selfCopy2 = 0;
         *error = v59;
         goto LABEL_218;
       }
 
-      v239 = 0;
+      v238 = 0;
       selfCopy2 = 0;
 LABEL_219:
 
@@ -2054,18 +1732,18 @@ LABEL_219:
     {
       v54 = objc_alloc(MEMORY[0x1E696ABC0]);
       v55 = *MEMORY[0x1E698F240];
-      v288 = *MEMORY[0x1E696A578];
-      v239 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"rawClientHourOfDay"];
-      v289 = v239;
-      v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v289 forKeys:&v288 count:1];
+      v287 = *MEMORY[0x1E696A578];
+      v238 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"rawClientHourOfDay"];
+      v288 = v238;
+      v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v288 forKeys:&v287 count:1];
       v56 = [v54 initWithDomain:v55 code:2 userInfo:v7];
-      v240 = 0;
+      v239 = 0;
       selfCopy2 = 0;
       *error = v56;
       goto LABEL_219;
     }
 
-    v240 = 0;
+    v239 = 0;
     selfCopy2 = 0;
 LABEL_220:
 
@@ -2076,22 +1754,21 @@ LABEL_220:
   {
     v50 = objc_alloc(MEMORY[0x1E696ABC0]);
     v51 = *MEMORY[0x1E698F240];
-    v290 = *MEMORY[0x1E696A578];
-    v240 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"clientDayOfWeek"];
-    v291[0] = v240;
-    v242 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v291 forKeys:&v290 count:1];
+    v289 = *MEMORY[0x1E696A578];
+    v239 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"clientDayOfWeek"];
+    v290[0] = v239;
+    v241 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v290 forKeys:&v289 count:1];
     v52 = [v50 initWithDomain:v51 code:2 userInfo:?];
-    v241 = 0;
+    v240 = 0;
     selfCopy2 = 0;
     *error = v52;
     goto LABEL_220;
   }
 
-  v241 = 0;
+  v240 = 0;
   selfCopy2 = 0;
 LABEL_221:
 
-  v171 = *MEMORY[0x1E69E9840];
   return selfCopy2;
 }
 
@@ -2109,143 +1786,119 @@ LABEL_221:
   toCopy = to;
   if (self->_hasClientDayOfWeek)
   {
-    clientDayOfWeek = self->_clientDayOfWeek;
     PBDataWriterWriteInt32Field();
   }
 
   if (self->_hasRawClientHourOfDay)
   {
-    rawClientHourOfDay = self->_rawClientHourOfDay;
     PBDataWriterWriteInt32Field();
   }
 
   if (self->_hasIsMediaAlbumPresent)
   {
-    isMediaAlbumPresent = self->_isMediaAlbumPresent;
     PBDataWriterWriteBOOLField();
   }
 
   if (self->_hasIsMediaArtistPresent)
   {
-    isMediaArtistPresent = self->_isMediaArtistPresent;
     PBDataWriterWriteBOOLField();
   }
 
   if (self->_hasIsMediaGenrePresent)
   {
-    isMediaGenrePresent = self->_isMediaGenrePresent;
     PBDataWriterWriteBOOLField();
   }
 
   if (self->_hasIsMediaMoodPresent)
   {
-    isMediaMoodPresent = self->_isMediaMoodPresent;
     PBDataWriterWriteBOOLField();
   }
 
   if (self->_hasIsMediaNamePresent)
   {
-    isMediaNamePresent = self->_isMediaNamePresent;
     PBDataWriterWriteBOOLField();
   }
 
   if (self->_hasIsMediaReleaseDatePresent)
   {
-    isMediaReleaseDatePresent = self->_isMediaReleaseDatePresent;
     PBDataWriterWriteBOOLField();
   }
 
   if (self->_hasNowPlayingLastBundleRecencyS)
   {
-    nowPlayingLastBundleRecencyS = self->_nowPlayingLastBundleRecencyS;
     PBDataWriterWriteInt32Field();
   }
 
   if (self->_hasRawLanguage)
   {
-    rawLanguage = self->_rawLanguage;
     PBDataWriterWriteInt64Field();
   }
 
   if (self->_hasRawLocale)
   {
-    rawLocale = self->_rawLocale;
     PBDataWriterWriteInt64Field();
   }
 
   if (self->_hasRawRegion)
   {
-    rawRegion = self->_rawRegion;
     PBDataWriterWriteInt64Field();
   }
 
   if (self->_hasIsClientDaylight)
   {
-    isClientDaylight = self->_isClientDaylight;
     PBDataWriterWriteBOOLField();
   }
 
   if (self->_hasIsClientNavigating)
   {
-    isClientNavigating = self->_isClientNavigating;
     PBDataWriterWriteBOOLField();
   }
 
   if (self->_hasIsClientWorkout)
   {
-    isClientWorkout = self->_isClientWorkout;
     PBDataWriterWriteBOOLField();
   }
 
   if (self->_hasMediaType)
   {
-    mediaType = self->_mediaType;
     PBDataWriterWriteInt32Field();
   }
 
   if (self->_hasNowPlayingState)
   {
-    nowPlayingState = self->_nowPlayingState;
     PBDataWriterWriteInt32Field();
   }
 
   if (self->_hasIsPireneRequest)
   {
-    isPireneRequest = self->_isPireneRequest;
     PBDataWriterWriteBOOLField();
   }
 
   if (self->_hasForegroundBundleRecencyS)
   {
-    foregroundBundleRecencyS = self->_foregroundBundleRecencyS;
     PBDataWriterWriteDoubleField();
   }
 
   if (self->_hasMediaParsecCategory)
   {
-    mediaParsecCategory = self->_mediaParsecCategory;
     PBDataWriterWriteInt32Field();
   }
 
   if (self->_hasSirikitResponseCode)
   {
-    sirikitResponseCode = self->_sirikitResponseCode;
     PBDataWriterWriteInt32Field();
   }
 
   if (self->_hasAppSelectionUses)
   {
-    appSelectionUses = self->_appSelectionUses;
     PBDataWriterWriteInt32Field();
   }
 
   if (self->_hasModelVersion)
   {
-    modelVersion = self->_modelVersion;
     PBDataWriterWriteUint32Field();
   }
 
-  resolutionType = self->_resolutionType;
   PBDataWriterWriteUint32Field();
 }
 
@@ -3785,118 +3438,114 @@ LABEL_312:
 
 + (id)protoFields
 {
-  v29[24] = *MEMORY[0x1E69E9840];
-  v28 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"clientDayOfWeek" number:1 type:2 subMessageClass:0];
-  v29[0] = v28;
-  v27 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"rawClientHourOfDay" number:2 type:2 subMessageClass:0];
-  v29[1] = v27;
-  v26 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"isMediaAlbumPresent" number:3 type:12 subMessageClass:0];
-  v29[2] = v26;
-  v25 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"isMediaArtistPresent" number:4 type:12 subMessageClass:0];
-  v29[3] = v25;
-  v24 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"isMediaGenrePresent" number:5 type:12 subMessageClass:0];
-  v29[4] = v24;
-  v23 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"isMediaMoodPresent" number:6 type:12 subMessageClass:0];
-  v29[5] = v23;
-  v22 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"isMediaNamePresent" number:7 type:12 subMessageClass:0];
-  v29[6] = v22;
-  v21 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"isMediaReleaseDatePresent" number:8 type:12 subMessageClass:0];
-  v29[7] = v21;
-  v20 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"nowPlayingLastBundleRecencyS" number:9 type:2 subMessageClass:0];
-  v29[8] = v20;
-  v19 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"rawLanguage" number:10 type:3 subMessageClass:0];
-  v29[9] = v19;
-  v18 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"rawLocale" number:11 type:3 subMessageClass:0];
-  v29[10] = v18;
-  v17 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"rawRegion" number:12 type:3 subMessageClass:0];
-  v29[11] = v17;
-  v16 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"isClientDaylight" number:13 type:12 subMessageClass:0];
-  v29[12] = v16;
-  v15 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"isClientNavigating" number:14 type:12 subMessageClass:0];
-  v29[13] = v15;
-  v14 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"isClientWorkout" number:15 type:12 subMessageClass:0];
-  v29[14] = v14;
+  v28[24] = *MEMORY[0x1E69E9840];
+  v27 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"clientDayOfWeek" number:1 type:2 subMessageClass:0];
+  v28[0] = v27;
+  v26 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"rawClientHourOfDay" number:2 type:2 subMessageClass:0];
+  v28[1] = v26;
+  v25 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"isMediaAlbumPresent" number:3 type:12 subMessageClass:0];
+  v28[2] = v25;
+  v24 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"isMediaArtistPresent" number:4 type:12 subMessageClass:0];
+  v28[3] = v24;
+  v23 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"isMediaGenrePresent" number:5 type:12 subMessageClass:0];
+  v28[4] = v23;
+  v22 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"isMediaMoodPresent" number:6 type:12 subMessageClass:0];
+  v28[5] = v22;
+  v21 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"isMediaNamePresent" number:7 type:12 subMessageClass:0];
+  v28[6] = v21;
+  v20 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"isMediaReleaseDatePresent" number:8 type:12 subMessageClass:0];
+  v28[7] = v20;
+  v19 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"nowPlayingLastBundleRecencyS" number:9 type:2 subMessageClass:0];
+  v28[8] = v19;
+  v18 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"rawLanguage" number:10 type:3 subMessageClass:0];
+  v28[9] = v18;
+  v17 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"rawLocale" number:11 type:3 subMessageClass:0];
+  v28[10] = v17;
+  v16 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"rawRegion" number:12 type:3 subMessageClass:0];
+  v28[11] = v16;
+  v15 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"isClientDaylight" number:13 type:12 subMessageClass:0];
+  v28[12] = v15;
+  v14 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"isClientNavigating" number:14 type:12 subMessageClass:0];
+  v28[13] = v14;
+  v13 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"isClientWorkout" number:15 type:12 subMessageClass:0];
+  v28[14] = v13;
   v2 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"mediaType" number:16 type:2 subMessageClass:0];
-  v29[15] = v2;
+  v28[15] = v2;
   v3 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"nowPlayingState" number:17 type:2 subMessageClass:0];
-  v29[16] = v3;
+  v28[16] = v3;
   v4 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"isPireneRequest" number:18 type:12 subMessageClass:0];
-  v29[17] = v4;
+  v28[17] = v4;
   v5 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"foregroundBundleRecencyS" number:19 type:0 subMessageClass:0];
-  v29[18] = v5;
+  v28[18] = v5;
   v6 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"mediaParsecCategory" number:20 type:2 subMessageClass:0];
-  v29[19] = v6;
+  v28[19] = v6;
   v7 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"sirikitResponseCode" number:21 type:2 subMessageClass:0];
-  v29[20] = v7;
+  v28[20] = v7;
   v8 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"appSelectionUses" number:22 type:2 subMessageClass:0];
-  v29[21] = v8;
+  v28[21] = v8;
   v9 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"modelVersion" number:23 type:4 subMessageClass:0];
-  v29[22] = v9;
+  v28[22] = v9;
   v10 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"resolutionType" number:24 type:4 subMessageClass:0];
-  v29[23] = v10;
-  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v29 count:24];
-
-  v12 = *MEMORY[0x1E69E9840];
+  v28[23] = v10;
+  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v28 count:24];
 
   return v11;
 }
 
 + (id)columns
 {
-  v29[24] = *MEMORY[0x1E69E9840];
-  v28 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"clientDayOfWeek" dataType:0 requestOnly:0 fieldNumber:1 protoDataType:2 convertedType:0];
-  v27 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"rawClientHourOfDay" dataType:0 requestOnly:0 fieldNumber:2 protoDataType:2 convertedType:0];
-  v26 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"isMediaAlbumPresent" dataType:0 requestOnly:0 fieldNumber:3 protoDataType:12 convertedType:0];
-  v25 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"isMediaArtistPresent" dataType:0 requestOnly:0 fieldNumber:4 protoDataType:12 convertedType:0];
-  v24 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"isMediaGenrePresent" dataType:0 requestOnly:0 fieldNumber:5 protoDataType:12 convertedType:0];
-  v23 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"isMediaMoodPresent" dataType:0 requestOnly:0 fieldNumber:6 protoDataType:12 convertedType:0];
-  v22 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"isMediaNamePresent" dataType:0 requestOnly:0 fieldNumber:7 protoDataType:12 convertedType:0];
-  v21 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"isMediaReleaseDatePresent" dataType:0 requestOnly:0 fieldNumber:8 protoDataType:12 convertedType:0];
-  v20 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"nowPlayingLastBundleRecencyS" dataType:0 requestOnly:0 fieldNumber:9 protoDataType:2 convertedType:0];
-  v19 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"rawLanguage" dataType:0 requestOnly:0 fieldNumber:10 protoDataType:3 convertedType:0];
-  v18 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"rawLocale" dataType:0 requestOnly:0 fieldNumber:11 protoDataType:3 convertedType:0];
-  v17 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"rawRegion" dataType:0 requestOnly:0 fieldNumber:12 protoDataType:3 convertedType:0];
-  v16 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"isClientDaylight" dataType:0 requestOnly:0 fieldNumber:13 protoDataType:12 convertedType:0];
-  v15 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"isClientNavigating" dataType:0 requestOnly:0 fieldNumber:14 protoDataType:12 convertedType:0];
+  v28[24] = *MEMORY[0x1E69E9840];
+  v27 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"clientDayOfWeek" dataType:0 requestOnly:0 fieldNumber:1 protoDataType:2 convertedType:0];
+  v26 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"rawClientHourOfDay" dataType:0 requestOnly:0 fieldNumber:2 protoDataType:2 convertedType:0];
+  v25 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"isMediaAlbumPresent" dataType:0 requestOnly:0 fieldNumber:3 protoDataType:12 convertedType:0];
+  v24 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"isMediaArtistPresent" dataType:0 requestOnly:0 fieldNumber:4 protoDataType:12 convertedType:0];
+  v23 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"isMediaGenrePresent" dataType:0 requestOnly:0 fieldNumber:5 protoDataType:12 convertedType:0];
+  v22 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"isMediaMoodPresent" dataType:0 requestOnly:0 fieldNumber:6 protoDataType:12 convertedType:0];
+  v21 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"isMediaNamePresent" dataType:0 requestOnly:0 fieldNumber:7 protoDataType:12 convertedType:0];
+  v20 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"isMediaReleaseDatePresent" dataType:0 requestOnly:0 fieldNumber:8 protoDataType:12 convertedType:0];
+  v19 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"nowPlayingLastBundleRecencyS" dataType:0 requestOnly:0 fieldNumber:9 protoDataType:2 convertedType:0];
+  v18 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"rawLanguage" dataType:0 requestOnly:0 fieldNumber:10 protoDataType:3 convertedType:0];
+  v17 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"rawLocale" dataType:0 requestOnly:0 fieldNumber:11 protoDataType:3 convertedType:0];
+  v16 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"rawRegion" dataType:0 requestOnly:0 fieldNumber:12 protoDataType:3 convertedType:0];
+  v15 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"isClientDaylight" dataType:0 requestOnly:0 fieldNumber:13 protoDataType:12 convertedType:0];
+  v14 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"isClientNavigating" dataType:0 requestOnly:0 fieldNumber:14 protoDataType:12 convertedType:0];
   v2 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"isClientWorkout" dataType:0 requestOnly:0 fieldNumber:15 protoDataType:12 convertedType:0];
   v3 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"mediaType" dataType:0 requestOnly:0 fieldNumber:16 protoDataType:2 convertedType:0];
   v4 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"nowPlayingState" dataType:0 requestOnly:0 fieldNumber:17 protoDataType:2 convertedType:0];
-  v14 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"isPireneRequest" dataType:0 requestOnly:0 fieldNumber:18 protoDataType:12 convertedType:0];
+  v13 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"isPireneRequest" dataType:0 requestOnly:0 fieldNumber:18 protoDataType:12 convertedType:0];
   v5 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"foregroundBundleRecencyS" dataType:1 requestOnly:0 fieldNumber:19 protoDataType:0 convertedType:0];
   v6 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"mediaParsecCategory" dataType:0 requestOnly:0 fieldNumber:20 protoDataType:2 convertedType:0];
   v7 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"sirikitResponseCode" dataType:0 requestOnly:0 fieldNumber:21 protoDataType:2 convertedType:0];
-  v13 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"appSelectionUses" dataType:0 requestOnly:0 fieldNumber:22 protoDataType:2 convertedType:0];
+  v12 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"appSelectionUses" dataType:0 requestOnly:0 fieldNumber:22 protoDataType:2 convertedType:0];
   v8 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"modelVersion" dataType:0 requestOnly:0 fieldNumber:23 protoDataType:4 convertedType:0];
   v9 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"resolutionType" dataType:0 requestOnly:0 fieldNumber:24 protoDataType:4 convertedType:0];
-  v29[0] = v28;
-  v29[1] = v27;
-  v29[2] = v26;
-  v29[3] = v25;
-  v29[4] = v24;
-  v29[5] = v23;
-  v29[6] = v22;
-  v29[7] = v21;
-  v29[8] = v20;
-  v29[9] = v19;
-  v29[10] = v18;
-  v29[11] = v17;
-  v29[12] = v16;
-  v29[13] = v15;
-  v29[14] = v2;
-  v29[15] = v3;
-  v29[16] = v4;
-  v29[17] = v14;
-  v29[18] = v5;
-  v29[19] = v6;
-  v29[20] = v7;
-  v29[21] = v13;
-  v29[22] = v8;
-  v29[23] = v9;
-  v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v29 count:24];
+  v28[0] = v27;
+  v28[1] = v26;
+  v28[2] = v25;
+  v28[3] = v24;
+  v28[4] = v23;
+  v28[5] = v22;
+  v28[6] = v21;
+  v28[7] = v20;
+  v28[8] = v19;
+  v28[9] = v18;
+  v28[10] = v17;
+  v28[11] = v16;
+  v28[12] = v15;
+  v28[13] = v14;
+  v28[14] = v2;
+  v28[15] = v3;
+  v28[16] = v4;
+  v28[17] = v13;
+  v28[18] = v5;
+  v28[19] = v6;
+  v28[20] = v7;
+  v28[21] = v12;
+  v28[22] = v8;
+  v28[23] = v9;
+  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v28 count:24];
 
-  v10 = *MEMORY[0x1E69E9840];
-
-  return v12;
+  return v11;
 }
 
 + (id)eventWithData:(id)data dataVersion:(unsigned int)version

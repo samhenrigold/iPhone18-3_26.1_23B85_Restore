@@ -55,7 +55,7 @@
 - (void)processMomentSharesNeedingForceSyncInLibrary:(id)library
 {
   libraryCopy = library;
-  if ([(NSMutableSet *)self->_momentSharesNeedingForceSync count])
+  if (objc_msgSend_count(self->_momentSharesNeedingForceSync))
   {
     allObjects = [(NSMutableSet *)self->_momentSharesNeedingForceSync allObjects];
     [PLMomentShare forceSyncMomentShares:allObjects photoLibrary:libraryCopy];
@@ -176,7 +176,7 @@ LABEL_5:
       goto LABEL_23;
     }
 
-    if ([batch count])
+    if (objc_msgSend_count(batch))
     {
       if ([containerCopy wasFixed] & 1) != 0 || (objc_msgSend(containerCopy, "wasSplit"))
       {
@@ -410,7 +410,7 @@ LABEL_23:
       v28 = 1;
     }
 
-    if ((v44 & 1) == 0 && [array12 count] && -[NSMutableDictionary count](self->_recordsToDelete, "count"))
+    if ((v44 & 1) == 0 && objc_msgSend_count(array12) && objc_msgSend_count(self->_recordsToDelete))
     {
       [(PLCloudBatchUploader *)self _clearSuccessfullyPushedDeletedRecords:array12];
     }
@@ -1278,7 +1278,7 @@ LABEL_166:
             v6 = 1;
           }
 
-          else if ([(__CFString *)v11 isEqualToString:@"RKAlbum"])
+          else if (objc_msgSend_isEqualToString_(v11))
           {
             v6 = [(PLCloudBatchUploader *)self _updateDeletionRecordListForKey:@"RKFolder" removingRecordID:identifier];
           }
@@ -1296,7 +1296,7 @@ LABEL_166:
     while (v5);
     if (v6)
     {
-      v12 = [(NSMutableDictionary *)self->_recordsToDelete count];
+      v12 = objc_msgSend_count(self->_recordsToDelete);
       v13 = MEMORY[0x1E6994D48];
       if (v12)
       {
@@ -1306,7 +1306,7 @@ LABEL_166:
           if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
           {
             recordsToDeletePlistPath = self->_recordsToDeletePlistPath;
-            v16 = [(NSMutableDictionary *)self->_recordsToDelete count];
+            v16 = objc_msgSend_count(self->_recordsToDelete);
             *buf = 138543618;
             v31 = recordsToDeletePlistPath;
             v32 = 1026;
@@ -1376,10 +1376,10 @@ LABEL_37:
   keyCopy = key;
   dCopy = d;
   v8 = [(NSMutableDictionary *)self->_recordsToDelete objectForKey:keyCopy];
-  if ([v8 count] && objc_msgSend(v8, "containsObject:", dCopy))
+  if (objc_msgSend_count(v8) && [v8 containsObject:dCopy])
   {
     [v8 removeObject:dCopy];
-    if (![v8 count])
+    if (!objc_msgSend_count(v8))
     {
       [(NSMutableDictionary *)self->_recordsToDelete removeObjectForKey:keyCopy];
     }
@@ -1469,9 +1469,9 @@ void __100__PLCloudBatchUploader__processRepushAlbumError_inUploadBatch_forRecor
         v7 = *(*(&v16 + 1) + 8 * i);
         v8 = [v7 scopeIdentifier];
         v9 = [*(a1 + 40) mainScopeIdentifier];
-        v10 = [v8 isEqualToString:v9];
+        isEqualToString = objc_msgSend_isEqualToString_(v8);
 
-        if ((v10 & 1) == 0)
+        if ((isEqualToString & 1) == 0)
         {
           v14 = [MEMORY[0x1E696AAA8] currentHandler];
           [v14 handleFailureInMethod:*(a1 + 80) object:*(a1 + 48) file:@"PLCloudBatchUploader.m" lineNumber:2233 description:@"albums are only supported in main scope"];
@@ -1600,7 +1600,7 @@ LABEL_20:
   managerCopy = manager;
   libraryCopy = library;
   v19 = [recordsCopy objectForKey:@"regenerateDerivativeError"];
-  v20 = [v19 count];
+  v20 = objc_msgSend_count(v19);
 
   if (v20)
   {
@@ -1609,7 +1609,7 @@ LABEL_20:
   }
 
   v22 = [recordsCopy objectForKey:@"needMasterError"];
-  v23 = [v22 count];
+  v23 = objc_msgSend_count(v22);
 
   if (v23)
   {
@@ -1618,7 +1618,7 @@ LABEL_20:
   }
 
   v25 = [recordsCopy objectForKey:@"needFullChangeError"];
-  v26 = [v25 count];
+  v26 = objc_msgSend_count(v25);
 
   if (v26)
   {
@@ -1627,7 +1627,7 @@ LABEL_20:
   }
 
   v28 = [recordsCopy objectForKey:@"repushAlbumError"];
-  v29 = [v28 count];
+  v29 = objc_msgSend_count(v28);
 
   if (v29)
   {
@@ -1636,7 +1636,7 @@ LABEL_20:
   }
 
   v31 = [recordsCopy objectForKey:@"quarantinedRecordError"];
-  v32 = [v31 count];
+  v32 = objc_msgSend_count(v31);
 
   if (v32)
   {
@@ -1645,7 +1645,7 @@ LABEL_20:
   }
 
   v34 = [recordsCopy objectForKey:@"invalidScopeError"];
-  v35 = [v34 count];
+  v35 = objc_msgSend_count(v34);
 
   if (v35)
   {
@@ -1654,7 +1654,7 @@ LABEL_20:
   }
 
   v37 = [recordsCopy objectForKey:@"invalidResourceCopySourceError"];
-  v38 = [v37 count];
+  v38 = objc_msgSend_count(v37);
 
   if (v38)
   {
@@ -1663,7 +1663,7 @@ LABEL_20:
   }
 
   v40 = [recordsCopy objectForKey:@"invalidExpungeableResourceTypes"];
-  v41 = [v40 count];
+  v41 = objc_msgSend_count(v40);
 
   if (v41)
   {
@@ -3219,7 +3219,7 @@ LABEL_9:
     CFNotificationCenterPostNotification(DarwinNotifyCenter, @"com.apple.mobileslideshow.cpl.quarantined", 0, 0, 0);
   }
 
-  if ([v22 count] && (*v14 & 1) == 0)
+  if (objc_msgSend_count(v22) && (*v14 & 1) == 0)
   {
     v24 = __CPLAssetsdOSLogDomain();
     if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
@@ -3958,7 +3958,7 @@ void __58__PLCloudBatchUploader__cleanUploadedResources_inLibrary___block_invoke
   if (v2)
   {
     v3 = [v2 rm_assetAttachedResourcesForResourceType:{objc_msgSend(*(a1 + 48), "resourceType")}];
-    if ([v3 count])
+    if (objc_msgSend_count(v3))
     {
       v24 = 0u;
       v25 = 0u;
@@ -3986,7 +3986,7 @@ void __58__PLCloudBatchUploader__cleanUploadedResources_inLibrary___block_invoke
             v11 = [v9 fileURL];
             v12 = [v11 path];
 
-            if (([v12 isEqualToString:*(a1 + 56)] & 1) == 0)
+            if ((objc_msgSend_isEqualToString_(v12) & 1) == 0)
             {
               v13 = *(a1 + 64);
               v21 = 0;
@@ -4101,7 +4101,7 @@ LABEL_26:
     [v71 performBlockAndWait:v69];
   }
 
-  if ([v5 count])
+  if (objc_msgSend_count(v5))
   {
     v8 = [v5 _pl_map:&__block_literal_global_192];
     v9 = off_1E755FEC0;
@@ -4112,7 +4112,7 @@ LABEL_10:
     goto LABEL_15;
   }
 
-  if (!-[PLCloudPhotoLibraryBatchManager isAboveMaximumResourceBudget](v7, "isAboveMaximumResourceBudget") && -[PLCloudPhotoLibraryBatchManager currentBatchCount](v7, "currentBatchCount") <= 49 && [v6 count])
+  if (![(PLCloudPhotoLibraryBatchManager *)v7 isAboveMaximumResourceBudget]&& [(PLCloudPhotoLibraryBatchManager *)v7 currentBatchCount]<= 49 && objc_msgSend_count(v6))
   {
     v8 = [v6 _pl_map:&__block_literal_global_196];
     v9 = off_1E75601A8;
@@ -4131,7 +4131,7 @@ LABEL_15:
     v12 = v6;
     v68 = v12;
     [v11 performTransactionAndWait:v66];
-    if ([v12 count])
+    if (objc_msgSend_count(v12))
     {
       v13 = [v12 _pl_map:&__block_literal_global_198];
       v14 = +[PLManagedAsset entityName];
@@ -4218,7 +4218,7 @@ LABEL_15:
     {
       v41 = v5;
       v20 = [MEMORY[0x1E695DEC8] arrayWithContentsOfFile:deletedMemoryUUIDsFilePath];
-      if ([v20 count])
+      if (objc_msgSend_count(v20))
       {
         if ((*MEMORY[0x1E6994D48] & 1) == 0)
         {
@@ -4313,7 +4313,7 @@ void __54__PLCloudBatchUploader_uploadFullPhotoLibraryToCloud___block_invoke(id 
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
-      v9 = [v3 count];
+      v9 = objc_msgSend_count(v3);
       _os_log_impl(&dword_19BF1F000, v4, OS_LOG_TYPE_DEFAULT, "Found %lu pending people", buf, 0xCu);
     }
   }
@@ -4337,7 +4337,7 @@ void __54__PLCloudBatchUploader_uploadFullPhotoLibraryToCloud___block_invoke_2(u
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
-      v7 = [v2 count];
+      v7 = objc_msgSend_count(v2);
       _os_log_impl(&dword_19BF1F000, v3, OS_LOG_TYPE_DEFAULT, "Found %lu pending faceCrops", buf, 0xCu);
     }
   }
@@ -4353,7 +4353,7 @@ void __54__PLCloudBatchUploader_uploadFullPhotoLibraryToCloud___block_invoke_2(u
 void __54__PLCloudBatchUploader_uploadFullPhotoLibraryToCloud___block_invoke_2_188(id *a1)
 {
   v11 = *MEMORY[0x1E69E9840];
-  if (![a1[4] count])
+  if (!objc_msgSend_count(a1[4]))
   {
     v2 = [PLGenericAlbum albumsToUploadInitiallyInLibrary:a1[5] limit:100];
     [a1[4] addObjectsFromArray:v2];
@@ -4362,7 +4362,7 @@ void __54__PLCloudBatchUploader_uploadFullPhotoLibraryToCloud___block_invoke_2_1
       v3 = __CPLAssetsdOSLogDomain();
       if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
       {
-        v4 = [a1[4] count];
+        v4 = objc_msgSend_count(a1[4]);
         v9 = 134217984;
         v10 = v4;
         _os_log_impl(&dword_19BF1F000, v3, OS_LOG_TYPE_DEFAULT, "Found %lu pending albums", &v9, 0xCu);
@@ -4370,7 +4370,7 @@ void __54__PLCloudBatchUploader_uploadFullPhotoLibraryToCloud___block_invoke_2_1
     }
   }
 
-  if (![a1[6] count])
+  if (!objc_msgSend_count(a1[6]))
   {
     v5 = [a1[5] managedObjectContext];
     v6 = [PLManagedAsset assetsToUploadInitiallyInManagedObjectContext:v5 limit:100];
@@ -4381,7 +4381,7 @@ void __54__PLCloudBatchUploader_uploadFullPhotoLibraryToCloud___block_invoke_2_1
       v7 = __CPLAssetsdOSLogDomain();
       if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
-        v8 = [a1[6] count];
+        v8 = objc_msgSend_count(a1[6]);
         v9 = 134217984;
         v10 = v8;
         _os_log_impl(&dword_19BF1F000, v7, OS_LOG_TYPE_DEFAULT, "Found %lu pending assets", &v9, 0xCu);
@@ -4406,12 +4406,12 @@ void __54__PLCloudBatchUploader_uploadFullPhotoLibraryToCloud___block_invoke_5(v
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
-      v20 = [v2 count];
+      v20 = objc_msgSend_count(v2);
       _os_log_impl(&dword_19BF1F000, v3, OS_LOG_TYPE_DEFAULT, "Found %lu pending syncable faces", buf, 0xCu);
     }
   }
 
-  v4 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(v2, "count")}];
+  v4 = [MEMORY[0x1E695DF70] arrayWithCapacity:objc_msgSend_count(v2)];
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
@@ -4448,7 +4448,7 @@ void __54__PLCloudBatchUploader_uploadFullPhotoLibraryToCloud___block_invoke_5(v
     while (v7);
   }
 
-  if ([v4 count])
+  if (objc_msgSend_count(v4))
   {
     v11 = [v4 _pl_map:&__block_literal_global_201];
     v12 = a1[5];
@@ -4467,7 +4467,7 @@ void __54__PLCloudBatchUploader_uploadFullPhotoLibraryToCloud___block_invoke_2_2
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
-      v7 = [v2 count];
+      v7 = objc_msgSend_count(v2);
       _os_log_impl(&dword_19BF1F000, v3, OS_LOG_TYPE_DEFAULT, "Found %lu pending memories", buf, 0xCu);
     }
   }
@@ -4490,7 +4490,7 @@ void __54__PLCloudBatchUploader_uploadFullPhotoLibraryToCloud___block_invoke_2_2
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
-      v7 = [v2 count];
+      v7 = objc_msgSend_count(v2);
       _os_log_impl(&dword_19BF1F000, v3, OS_LOG_TYPE_DEFAULT, "Found %lu pending suggestions", buf, 0xCu);
     }
   }
@@ -4515,7 +4515,7 @@ void __54__PLCloudBatchUploader_uploadFullPhotoLibraryToCloud___block_invoke_2_2
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
-      v8 = [v3 count];
+      v8 = objc_msgSend_count(v3);
       _os_log_impl(&dword_19BF1F000, v4, OS_LOG_TYPE_DEFAULT, "Found %lu pending user feedbacks", buf, 0xCu);
     }
   }
@@ -4540,7 +4540,7 @@ void __54__PLCloudBatchUploader_uploadFullPhotoLibraryToCloud___block_invoke_2_2
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
-      v8 = [v3 count];
+      v8 = objc_msgSend_count(v3);
       _os_log_impl(&dword_19BF1F000, v4, OS_LOG_TYPE_DEFAULT, "Found %lu pending social groups", buf, 0xCu);
     }
   }
@@ -4565,7 +4565,7 @@ void __54__PLCloudBatchUploader_uploadFullPhotoLibraryToCloud___block_invoke_2_2
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
-      v8 = [v3 count];
+      v8 = objc_msgSend_count(v3);
       _os_log_impl(&dword_19BF1F000, v4, OS_LOG_TYPE_DEFAULT, "Found %lu pending cloud shared comments", buf, 0xCu);
     }
   }
@@ -4632,7 +4632,7 @@ void __54__PLCloudBatchUploader_uploadFullPhotoLibraryToCloud___block_invoke_185
   v43 = *MEMORY[0x1E69E9840];
   plistCopy = plist;
   v6 = objc_alloc_init(PLCloudPhotoLibraryBatchManager);
-  if ([(NSMutableDictionary *)self->_recordsToDelete count]&& (*MEMORY[0x1E6994D48] & 1) == 0)
+  if (objc_msgSend_count(self->_recordsToDelete) && (*MEMORY[0x1E6994D48] & 1) == 0)
   {
     v7 = __CPLAssetsdOSLogDomain();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
@@ -4670,7 +4670,7 @@ void __54__PLCloudBatchUploader_uploadFullPhotoLibraryToCloud___block_invoke_185
         }
 
         v12 = *(*(&v35 + 1) + 8 * v11);
-        if (([v12 isEqualToString:@"RKVersion"] & 1) != 0 || (objc_msgSend(v12, "isEqualToString:", @"RKAlbum") & 1) != 0 || (objc_msgSend(v12, "isEqualToString:", @"RKFolder") & 1) != 0 || (objc_msgSend(v12, "isEqualToString:", @"RKMaster") & 1) != 0 || (objc_msgSend(v12, "isEqualToString:", @"RKMemory") & 1) != 0 || (objc_msgSend(v12, "isEqualToString:", @"RKPerson") & 1) != 0 || objc_msgSend(v12, "isEqualToString:", @"RKFaceCrop"))
+        if ((objc_msgSend_isEqualToString_(v12) & 1) != 0 || (objc_msgSend_isEqualToString_(v12) & 1) != 0 || (objc_msgSend_isEqualToString_(v12) & 1) != 0 || (objc_msgSend_isEqualToString_(v12) & 1) != 0 || (objc_msgSend_isEqualToString_(v12) & 1) != 0 || (objc_msgSend_isEqualToString_(v12) & 1) != 0 || objc_msgSend_isEqualToString_(v12))
         {
           v30 = v11;
           v13 = objc_opt_class();
@@ -4731,7 +4731,7 @@ void __54__PLCloudBatchUploader_uploadFullPhotoLibraryToCloud___block_invoke_185
 {
   v36 = *MEMORY[0x1E69E9840];
   personsCopy = persons;
-  v4 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(personsCopy, "count")}];
+  v4 = [MEMORY[0x1E695DF70] arrayWithCapacity:objc_msgSend_count(personsCopy)];
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
@@ -4855,7 +4855,7 @@ void __54__PLCloudBatchUploader_uploadFullPhotoLibraryToCloud___block_invoke_185
         }
 
         [v16 addObject:*(*(&v33 + 1) + 8 * v21)];
-        if ([v16 count] >= 0x32)
+        if (objc_msgSend_count(v16) >= 0x32)
         {
           v30[0] = MEMORY[0x1E69E9820];
           v30[1] = 3221225472;
@@ -4878,7 +4878,7 @@ void __54__PLCloudBatchUploader_uploadFullPhotoLibraryToCloud___block_invoke_185
     while (v19);
   }
 
-  if ([v16 count])
+  if (objc_msgSend_count(v16))
   {
     v27[0] = MEMORY[0x1E69E9820];
     v27[1] = 3221225472;
@@ -4896,31 +4896,32 @@ void __54__PLCloudBatchUploader_uploadFullPhotoLibraryToCloud___block_invoke_185
 
 void __88__PLCloudBatchUploader__processPendingObjects_forEntityName_withBatchManager_inLibrary___block_invoke(uint64_t a1, void *a2)
 {
-  v10 = a2;
+  v11 = a2;
   v3 = *(a1 + 32);
   v4 = +[PLManagedAsset entityName];
-  LODWORD(v3) = [v3 isEqualToString:v4];
+  LODWORD(v3) = objc_msgSend_isEqualToString_(v3);
 
   if (v3)
   {
-    v5 = [PLManagedAsset assetsWithUUIDs:v10 options:1 inLibrary:*(a1 + 40)];
+    v5 = [PLManagedAsset assetsWithUUIDs:v11 options:1 inLibrary:*(a1 + 40)];
+    v6 = objc_msgSend_count(v5);
   }
 
   else
   {
-    v6 = *(a1 + 32);
-    v7 = +[PLGenericAlbum entityName];
-    LODWORD(v6) = [v6 isEqualToString:v7];
+    v7 = *(a1 + 32);
+    v8 = +[PLGenericAlbum entityName];
+    LODWORD(v7) = objc_msgSend_isEqualToString_(v7);
 
-    if (v6)
+    if (v7)
     {
-      v8 = [*(a1 + 40) managedObjectContext];
-      v9 = [PLGenericAlbum fetchAlbumsWithUUIDs:v10 propertiesToFetch:0 managedObjectContext:v8];
+      v9 = [*(a1 + 40) managedObjectContext];
+      v10 = [PLGenericAlbum fetchAlbumsWithUUIDs:v11 propertiesToFetch:0 managedObjectContext:v9];
 
       v5 = 0;
-      if ([v9 isSuccess])
+      if ([v10 isSuccess])
       {
-        v5 = [v9 result];
+        v5 = [v10 result];
       }
     }
 
@@ -4928,9 +4929,11 @@ void __88__PLCloudBatchUploader__processPendingObjects_forEntityName_withBatchMa
     {
       v5 = 0;
     }
+
+    v6 = objc_msgSend_count(v5);
   }
 
-  if ([v5 count])
+  if (v6)
   {
     [*(a1 + 48) _sendOneBatch:v5 toBatchManager:*(a1 + 56) inLibrary:*(a1 + 40)];
   }
@@ -4960,7 +4963,7 @@ void __88__PLCloudBatchUploader__processPendingObjects_forEntityName_withBatchMa
   v84 = objc_alloc_init(MEMORY[0x1E695DF90]);
   v83 = objc_alloc_init(MEMORY[0x1E695DF90]);
   v93 = [PLManagedAsset isComputeSyncEnabledForDirection:0 library:libraryCopy];
-  v77 = [objc_alloc(MEMORY[0x1E695DFA8]) initWithCapacity:{objc_msgSend(assetsCopy, "count")}];
+  v77 = [objc_alloc(MEMORY[0x1E695DFA8]) initWithCapacity:objc_msgSend_count(assetsCopy)];
   v115 = 0u;
   v116 = 0u;
   v117 = 0u;
@@ -5632,8 +5635,8 @@ LABEL_19:
   libraryCopy = library;
   v10 = MEMORY[0x1E695DF70];
   batchCopy = batch;
-  v12 = [[v10 alloc] initWithCapacity:{objc_msgSend(batchCopy, "count")}];
-  v13 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(batchCopy, "count")}];
+  v12 = [[v10 alloc] initWithCapacity:objc_msgSend_count(batchCopy)];
+  v13 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:objc_msgSend_count(batchCopy)];
   libraryServicesManager = [libraryCopy libraryServicesManager];
   databaseContext = [libraryServicesManager databaseContext];
 
@@ -5655,12 +5658,12 @@ LABEL_19:
   v23 = v20;
   [batchCopy enumerateObjectsUsingBlock:v21];
 
-  if ([v20 count])
+  if (objc_msgSend_count(v20))
   {
     [(PLCloudBatchUploader *)self _sendAlbums:v20 toBatchManager:managerCopy orderKeyManager:v18 inLibrary:libraryCopy];
   }
 
-  if ([v19 count])
+  if (objc_msgSend_count(v19))
   {
     [(PLCloudBatchUploader *)self _sendAssets:v19 toBatchManager:managerCopy orderKeyManager:v18 inLibrary:libraryCopy];
   }
@@ -5886,7 +5889,7 @@ LABEL_15:
   {
     v23 = objc_autoreleasePoolPush();
     v24 = [(PLCloudBatchUploader *)self _personsToUploadIncludingReverseOrderedMergeTargetsForPersons:personChanges];
-    v25 = [objc_alloc(MEMORY[0x1E695DFA8]) initWithCapacity:{objc_msgSend(v24, "count")}];
+    v25 = [objc_alloc(MEMORY[0x1E695DFA8]) initWithCapacity:objc_msgSend_count(v24)];
     v360[0] = MEMORY[0x1E69E9820];
     v360[1] = 3221225472;
     v360[2] = __120__PLCloudBatchUploader_createBatchesForChanges_outInsertedPhotoCount_outInsertedVideoCount_withUploadTracker_inLibrary___block_invoke_2;
@@ -6208,10 +6211,10 @@ LABEL_96:
               v83 = originalFilename;
               originalFilename2 = [v54 originalFilename];
               originalFilename3 = [v62 originalFilename];
-              v86 = [originalFilename2 isEqualToString:originalFilename3];
+              isEqualToString = objc_msgSend_isEqualToString_(originalFilename2);
 
               selfCopy3 = selfCopy2;
-              if ((v86 & 1) == 0)
+              if ((isEqualToString & 1) == 0)
               {
                 originalFilename4 = [v62 originalFilename];
                 [v54 setOriginalFilename:originalFilename4];
@@ -6392,7 +6395,7 @@ LABEL_106:
     while (v92);
   }
 
-  if ([v270 count])
+  if (objc_msgSend_count(v270))
   {
     v104 = [MEMORY[0x1E695DFA8] setWithArray:v90];
     allObjects = [v270 allObjects];
@@ -6714,7 +6717,7 @@ LABEL_160:
 
       v156 = *(*(&v328 + 1) + 8 * n);
       assets = [v156 assets];
-      v158 = [assets count];
+      v158 = objc_msgSend_count(assets);
 
       if (v158)
       {
@@ -6825,7 +6828,7 @@ LABEL_215:
     while (v172);
   }
 
-  if ([memoryChanges count])
+  if (objc_msgSend_count(memoryChanges))
   {
     v318 = 0u;
     v319 = 0u;
@@ -6864,7 +6867,7 @@ LABEL_215:
     }
   }
 
-  if ([suggestionChanges count])
+  if (objc_msgSend_count(suggestionChanges))
   {
     v314 = 0u;
     v315 = 0u;
@@ -6903,7 +6906,7 @@ LABEL_215:
     }
   }
 
-  if ([userFeedbackChanges count])
+  if (objc_msgSend_count(userFeedbackChanges))
   {
     v310 = 0u;
     v311 = 0u;
@@ -6942,7 +6945,7 @@ LABEL_215:
     }
   }
 
-  if ([libraryScopeChanges count])
+  if (objc_msgSend_count(libraryScopeChanges))
   {
     v306 = 0u;
     v307 = 0u;
@@ -6981,7 +6984,7 @@ LABEL_215:
     }
   }
 
-  if ([collectionShareChanges count])
+  if (objc_msgSend_count(collectionShareChanges))
   {
     v302 = 0u;
     v303 = 0u;
@@ -7020,7 +7023,7 @@ LABEL_215:
     }
   }
 
-  if ([socialGroupChanges count])
+  if (objc_msgSend_count(socialGroupChanges))
   {
     v298 = 0u;
     v299 = 0u;
@@ -7060,7 +7063,7 @@ LABEL_215:
   }
 
   commentChanges = [v261 commentChanges];
-  v226 = [commentChanges count];
+  v226 = objc_msgSend_count(commentChanges);
 
   if (v226)
   {
@@ -7145,13 +7148,13 @@ LABEL_215:
     isKindOfClass = 0;
   }
 
-  if ([v274 count] || (isKindOfClass & 1) != 0 || objc_msgSend(v247, "count"))
+  if (objc_msgSend_count(v274) || (isKindOfClass & 1) != 0 || objc_msgSend_count(v247))
   {
     DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
     CFNotificationCenterPostNotification(DarwinNotifyCenter, @"com.apple.mobileslideshow.cpl.currenttransferprogresschange", 0, 0, 0);
   }
 
-  if ([v170 count])
+  if (objc_msgSend_count(v170))
   {
     v242 = CFNotificationCenterGetDarwinNotifyCenter();
     CFNotificationCenterPostNotification(v242, @"com.apple.mobileslideshow.cpl.failedtopush", 0, 0, 0);
@@ -7504,7 +7507,7 @@ LABEL_14:
               v24 = [objc_alloc(*(v15 + 3000)) initWithStringRepresentation:v23 defaultScopeIdentifier:mainScopeIdentifier];
               if (([(NSMutableSet *)self->_downloadedDeleteRecords containsObject:v24]& 1) == 0)
               {
-                if ([v17 isEqualToString:@"cloudAssetDeleteGUIDs"])
+                if (objc_msgSend_isEqualToString_(v17))
                 {
                   v25 = objc_opt_class();
                   selfCopy2 = self;
@@ -7515,31 +7518,31 @@ LABEL_18:
                   goto LABEL_28;
                 }
 
-                if ([v17 isEqualToString:@"cloudAlbumDeleteGUIDs"])
+                if (objc_msgSend_isEqualToString_(v17))
                 {
                   v30 = MEMORY[0x1E6994A78];
                   goto LABEL_27;
                 }
 
-                if ([v17 isEqualToString:@"cloudMemoryDeleteGUIDs"])
+                if (objc_msgSend_isEqualToString_(v17))
                 {
                   v30 = MEMORY[0x1E6994B18];
                   goto LABEL_27;
                 }
 
-                if ([v17 isEqualToString:@"cloudPersonDeleteGUIDs"])
+                if (objc_msgSend_isEqualToString_(v17))
                 {
                   v30 = MEMORY[0x1E6994B38];
                   goto LABEL_27;
                 }
 
-                if ([v17 isEqualToString:@"cloudFaceCropDeleteGUIDs"])
+                if (objc_msgSend_isEqualToString_(v17))
                 {
                   v30 = MEMORY[0x1E6994AC8];
                   goto LABEL_27;
                 }
 
-                if ([v17 isEqualToString:@"cloudOwnedCMMDeleteGUIDs"])
+                if (objc_msgSend_isEqualToString_(v17))
                 {
                   v34 = MEMORY[0x1E6994BB0];
                   v35 = v23;
@@ -7547,7 +7550,7 @@ LABEL_18:
                   goto LABEL_45;
                 }
 
-                if ([v17 isEqualToString:@"cloudSubscribedCMMDeleteGUIDs"])
+                if (objc_msgSend_isEqualToString_(v17))
                 {
                   v34 = MEMORY[0x1E6994BB0];
                   v35 = v23;
@@ -7555,7 +7558,7 @@ LABEL_18:
                   goto LABEL_45;
                 }
 
-                if ([v17 isEqualToString:@"cloudOwnedLibraryScopeDeleteGUIDs"])
+                if (objc_msgSend_isEqualToString_(v17))
                 {
                   v34 = MEMORY[0x1E6994BB0];
                   v35 = v23;
@@ -7563,7 +7566,7 @@ LABEL_18:
                   goto LABEL_45;
                 }
 
-                if ([v17 isEqualToString:@"cloudSubscribedLibraryScopeDeleteGUIDs"])
+                if (objc_msgSend_isEqualToString_(v17))
                 {
                   v34 = MEMORY[0x1E6994BB0];
                   v35 = v23;
@@ -7571,7 +7574,7 @@ LABEL_18:
                   goto LABEL_45;
                 }
 
-                if ([v17 isEqualToString:@"cloudOwnedCollectionShareDeleteGUIDs"])
+                if (objc_msgSend_isEqualToString_(v17))
                 {
                   v34 = MEMORY[0x1E6994BB0];
                   v35 = v23;
@@ -7579,7 +7582,7 @@ LABEL_18:
                   goto LABEL_45;
                 }
 
-                if ([v17 isEqualToString:@"cloudSubscribedCollectionShareDeleteGUIDs"])
+                if (objc_msgSend_isEqualToString_(v17))
                 {
                   v34 = MEMORY[0x1E6994BB0];
                   v35 = v23;
@@ -7604,7 +7607,7 @@ LABEL_30:
                   goto LABEL_31;
                 }
 
-                if ([v17 isEqualToString:@"cloudSuggestionDeleteGUIDs"] || objc_msgSend(v17, "isEqualToString:", @"cloudUserFeedbackDeleteGUIDs"))
+                if (objc_msgSend_isEqualToString_(v17) || objc_msgSend_isEqualToString_(v17))
                 {
                   v30 = MEMORY[0x1E6994C00];
 LABEL_27:
@@ -7612,13 +7615,13 @@ LABEL_27:
                   goto LABEL_28;
                 }
 
-                if ([v17 isEqualToString:@"cloudSocialGroupDeleteGUIDs"])
+                if (objc_msgSend_isEqualToString_(v17))
                 {
                   v30 = MEMORY[0x1E6994BD0];
                   goto LABEL_27;
                 }
 
-                if ([v17 isEqualToString:@"cloudReactDeleteGUIDs"] || objc_msgSend(v17, "isEqualToString:", @"cloudTextCommentDeleteGUIDs"))
+                if (objc_msgSend_isEqualToString_(v17) || objc_msgSend_isEqualToString_(v17))
                 {
                   v25 = objc_opt_class();
                   selfCopy2 = self;
@@ -7627,14 +7630,14 @@ LABEL_27:
                   goto LABEL_18;
                 }
 
-                if ([v17 isEqualToString:@"cloudInternalResourceUUIDToResourceTypeMappings"])
+                if (objc_msgSend_isEqualToString_(v17))
                 {
                   v37 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-@-"];
                   v38 = v23;
                   v39 = v37;
                   v40 = [v38 componentsSeparatedByString:?];
 
-                  if ([v40 count] == 2)
+                  if (objc_msgSend_count(v40) == 2)
                   {
                     v41 = [v40 objectAtIndexedSubscript:0];
                     v42 = v40;
@@ -7884,7 +7887,7 @@ LABEL_96:
   recordsCopy = records;
   identifierCopy = identifier;
   contextCopy = context;
-  if (identifierCopy && ([recordsCopy scopeIdentifier], v12 = objc_claimAutoreleasedReturnValue(), v13 = objc_msgSend(v12, "isEqualToString:", identifierCopy), v12, v13) || (objc_msgSend(recordsCopy, "scopeIdentifier"), v14 = objc_claimAutoreleasedReturnValue(), +[PLShare shareWithScopeIdentifier:includeTrashed:inManagedObjectContext:](PLShare, "shareWithScopeIdentifier:includeTrashed:inManagedObjectContext:", v14, 0, contextCopy), v15 = objc_claimAutoreleasedReturnValue(), v15, v14, v15))
+  if (identifierCopy && ([recordsCopy scopeIdentifier], v12 = objc_claimAutoreleasedReturnValue(), isEqualToString = objc_msgSend_isEqualToString_(v12), v12, isEqualToString) || (objc_msgSend(recordsCopy, "scopeIdentifier"), v14 = objc_claimAutoreleasedReturnValue(), +[PLShare shareWithScopeIdentifier:includeTrashed:inManagedObjectContext:](PLShare, "shareWithScopeIdentifier:includeTrashed:inManagedObjectContext:", v14, 0, contextCopy), v15 = objc_claimAutoreleasedReturnValue(), v15, v14, v15))
   {
     v16 = [(objc_class *)class newDeleteChangeWithScopedIdentifier:recordsCopy];
   }
@@ -8280,7 +8283,7 @@ LABEL_12:
   dataCopy = data;
   changesCopy = changes;
   contextCopy = context;
-  v96 = [MEMORY[0x1E695DFA8] setWithCapacity:{objc_msgSend(dataCopy, "count")}];
+  v96 = [MEMORY[0x1E695DFA8] setWithCapacity:objc_msgSend_count(dataCopy)];
   updatedAssets = [changesCopy updatedAssets];
   v94 = insertCopy;
   v87 = updatedAssets;
@@ -9011,7 +9014,7 @@ LABEL_27:
 {
   v4 = MEMORY[0x1E696AC90];
   batchesCopy = batches;
-  v6 = [v4 indexSetWithIndexesInRange:{0, objc_msgSend(batchesCopy, "count")}];
+  v6 = [v4 indexSetWithIndexesInRange:{0, objc_msgSend_count(batchesCopy)}];
   [(NSMutableArray *)self->_uploadBatchArray insertObjects:batchesCopy atIndexes:v6];
 }
 

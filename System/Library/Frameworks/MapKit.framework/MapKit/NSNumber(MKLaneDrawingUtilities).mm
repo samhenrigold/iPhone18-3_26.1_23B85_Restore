@@ -1,10 +1,10 @@
 @interface NSNumber(MKLaneDrawingUtilities)
-- (uint64_t)_mk_laneDirectionValue;
+- (void)_mk_laneDirectionValue;
 @end
 
 @implementation NSNumber(MKLaneDrawingUtilities)
 
-- (uint64_t)_mk_laneDirectionValue
+- (void)_mk_laneDirectionValue
 {
   result = [self integerValue];
   if (result <= 3)

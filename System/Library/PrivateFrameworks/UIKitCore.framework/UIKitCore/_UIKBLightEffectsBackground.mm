@@ -1062,9 +1062,9 @@ LABEL_20:
   if (backdropCopy)
   {
     behindFullBackdropView = [(_UIKBLightEffectsBackground *)self behindFullBackdropView];
-    v9 = [behindFullBackdropView isEqual:backdropCopy];
+    isEqual = objc_msgSend_isEqual_(behindFullBackdropView);
 
-    if ((v9 & 1) == 0)
+    if ((isEqual & 1) == 0)
     {
       v96 = assistantBackdropCopy;
       [(_UIKBLightEffectsBackground *)self addLayoutGuidesIfNeeded];
@@ -1112,7 +1112,7 @@ LABEL_20:
       v27 = +[UIColor clearColor];
       [(UIView *)v26 setBackgroundColor:v27];
 
-      v28 = +[UIColor blackColor];
+      v28 = objc_msgSend_blackColor(UIColor);
       cGColor = [v28 CGColor];
       layer = [(UIView *)v26 layer];
       [layer setShadowColor:cGColor];
@@ -1232,7 +1232,7 @@ LABEL_20:
       layer14 = [(UIView *)v69 layer];
       [layer14 setAllowsEdgeAntialiasing:0];
 
-      v74 = +[UIColor blackColor];
+      v74 = objc_msgSend_blackColor(UIColor);
       cGColor2 = [v74 CGColor];
       layer15 = [(UIView *)v69 layer];
       [layer15 setShadowColor:cGColor2];

@@ -25,24 +25,24 @@
 
   else
   {
-    memset(v8, 0, sizeof(v8));
+    memset(v9, 0, sizeof(v9));
     selfCopy2 = self;
   }
 
-  v6 = REMCustomSmartListFilterDescriptor.isEqual(_:)(v8);
+  v7 = REMCustomSmartListFilterDescriptor.isEqual(_:)(v9, v5);
 
-  sub_230061918(v8, &qword_27DB14810);
-  return v6 & 1;
+  sub_230061918(v9, &qword_27DB14810, &qword_230316820);
+  return v7 & 1;
 }
 
 - (NSString)description
 {
   selfCopy = self;
-  REMCustomSmartListFilterDescriptor.description.getter();
+  REMCustomSmartListFilterDescriptor.description.getter(selfCopy, v3);
 
-  v3 = sub_23030F8B8();
+  v4 = sub_23030F8B8();
 
-  return v3;
+  return v4;
 }
 
 @end

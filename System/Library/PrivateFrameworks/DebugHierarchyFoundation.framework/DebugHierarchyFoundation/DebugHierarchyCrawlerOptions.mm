@@ -2,6 +2,7 @@
 - (BOOL)shouldCrawlGroupWithID:(id)d;
 - (DebugHierarchyCrawlerOptions)initWithDictionary:(id)dictionary;
 - (id)dictionaryRepresentation;
+- (void)setGroupingIdentifiers:(id)identifiers exclusive:(BOOL)exclusive;
 @end
 
 @implementation DebugHierarchyCrawlerOptions
@@ -52,6 +53,14 @@
   }
 
   return v5;
+}
+
+- (void)setGroupingIdentifiers:(id)identifiers exclusive:(BOOL)exclusive
+{
+  exclusiveCopy = exclusive;
+  [(DebugHierarchyCrawlerOptions *)self setGroupingIdentifiers:identifiers];
+
+  [(DebugHierarchyCrawlerOptions *)self setGroupingIdentifiersAreExclusive:exclusiveCopy];
 }
 
 - (id)dictionaryRepresentation

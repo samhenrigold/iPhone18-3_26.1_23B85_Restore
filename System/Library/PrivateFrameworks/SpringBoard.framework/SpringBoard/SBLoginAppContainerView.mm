@@ -43,7 +43,7 @@
   [(UIView *)self->_contentView setFrame:?];
   [(SBLoginAppContainerOverlayWrapperView *)self->_thermalWarningView setFrame:v4, v6, v8, v10];
   [(UIView *)self->_pluginView setFrame:v4, v6, v8, v10];
-  [(CSBatteryChargingView *)self->_batteryChargingView frame];
+  objc_msgSend_frame(self->_batteryChargingView);
   [(CSBatteryChargingView *)self->_batteryChargingView setFrame:v4, v6, v8, 150.0];
 }
 
@@ -137,7 +137,7 @@
 {
   hiddenCopy = hidden;
   requesterCopy = requester;
-  v6 = [(NSMutableSet *)self->_contentHiddenRequesters containsObject:?];
+  v6 = objc_msgSend_containsObject_(self->_contentHiddenRequesters);
   if (hiddenCopy)
   {
     if (v6)

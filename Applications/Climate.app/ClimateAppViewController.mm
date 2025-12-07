@@ -22,7 +22,7 @@
 - (void)appMovedToForeground
 {
   selfCopy = self;
-  sub_100084744();
+  sub_100084744(selfCopy);
 }
 
 - (_TtC7Climate24ClimateAppViewController)initWithNibName:(id)name bundle:(id)bundle
@@ -41,18 +41,18 @@
 - (void)viewDidLayoutSubviews
 {
   v4.receiver = self;
-  v4.super_class = type metadata accessor for ClimateAppViewController();
+  v4.super_class = type metadata accessor for ClimateAppViewController(0);
   v2 = v4.receiver;
   [(ClimateAppViewController *)&v4 viewDidLayoutSubviews];
   v3 = sub_100081DFC();
-  sub_10005D938();
+  sub_10005D938(v3);
 }
 
 - (void)viewWillAppear:(BOOL)appear
 {
   appearCopy = appear;
   v7.receiver = self;
-  v7.super_class = type metadata accessor for ClimateAppViewController();
+  v7.super_class = type metadata accessor for ClimateAppViewController(0);
   v4 = v7.receiver;
   [(ClimateAppViewController *)&v7 viewWillAppear:appearCopy];
   navigationController = [v4 navigationController];

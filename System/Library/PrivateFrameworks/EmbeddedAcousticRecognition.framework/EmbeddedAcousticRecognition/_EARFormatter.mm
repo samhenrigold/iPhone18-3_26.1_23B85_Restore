@@ -58,12 +58,12 @@
   languageCopy = language;
   configCopy = config;
   quasarConfigCopy = quasarConfig;
-  v17.receiver = self;
-  v17.super_class = _EARFormatter;
-  v11 = [(_EARFormatter *)&v17 init];
+  v26.receiver = self;
+  v26.super_class = _EARFormatter;
+  v11 = [(_EARFormatter *)&v26 init];
   if (!v11)
   {
-    goto LABEL_14;
+    goto LABEL_16;
   }
 
   v12 = [languageCopy copy];
@@ -74,26 +74,39 @@
   {
     if (quasarConfigCopy)
     {
-      [quasarConfigCopy ear_toString];
-      if (!languageCopy)
+      objc_msgSend_ear_toString(quasarConfigCopy);
+      if (languageCopy)
       {
-        goto LABEL_11;
+LABEL_5:
+        objc_msgSend_ear_toString(languageCopy);
+        goto LABEL_12;
       }
     }
 
-    else if (!languageCopy)
+    else
     {
-LABEL_11:
-      SpeechITN::createQuasarITN();
+      __p = 0;
+      v18 = 0;
+      v19 = 0;
+      if (languageCopy)
+      {
+        goto LABEL_5;
+      }
     }
 
-    [languageCopy ear_toString];
-    goto LABEL_11;
+    v23 = 0;
+    v24 = 0;
+    v25 = 0;
+LABEL_12:
+    v20 = 0;
+    v21 = 0;
+    v22 = 0;
+    SpeechITN::createQuasarITN();
   }
 
   if (os_variant_is_darwinos())
   {
-LABEL_14:
+LABEL_16:
     v15 = v11;
   }
 
@@ -104,10 +117,17 @@ LABEL_14:
     {
       if (configCopy)
       {
-        [configCopy ear_toString];
+        objc_msgSend_ear_toString(configCopy);
       }
 
-      sdapi::SdapiUtil::readConfig();
+      else
+      {
+        __p = 0;
+        v18 = 0;
+        v19 = 0;
+      }
+
+      sdapi::SdapiUtil::readConfig(&__p);
     }
 
     v15 = 0;
@@ -192,7 +212,7 @@ LABEL_14:
       v10 = [v6 stringByAppendingPathComponent:@"itn_s.enh"];
       if (v8)
       {
-        [v8 ear_toString];
+        objc_msgSend_ear_toString(v8);
       }
 
       else
@@ -203,7 +223,7 @@ LABEL_14:
       std::string::basic_string[abi:ne200100]<0>(v13, "");
       if (v9)
       {
-        [v9 ear_toString];
+        objc_msgSend_ear_toString(v9);
         if (!v10)
         {
           goto LABEL_12;
@@ -216,7 +236,7 @@ LABEL_12:
         SpeechITN::createSdapiITN();
       }
 
-      [v10 ear_toString];
+      objc_msgSend_ear_toString(v10);
       goto LABEL_12;
     }
 
@@ -241,7 +261,7 @@ LABEL_12:
   {
     if (v10)
     {
-      [v10 ear_toString];
+      objc_msgSend_ear_toString(v10);
     }
 
     else
@@ -251,7 +271,7 @@ LABEL_12:
       v19 = 0;
     }
 
-    [(__CFString *)v12 ear_toString];
+    objc_msgSend_ear_toString(v12);
     memset(v15, 0, sizeof(v15));
     (*(*ptr + 16))(ptr, task, a5, v18, &__p, v15, 0xFFFFLL, 0);
     v20 = v15;
@@ -279,7 +299,7 @@ LABEL_12:
 
 - (vector<quasar::Token,)formatWords:(_EARFormatter *)self unrepairedWordsOut:(SEL)out task:(const void *)task language:(void *)language preItnLeftContext:(id)context separateAutoEndPunctuation:(id)punctuation partialResults:(const void *)results timestampOffset:(BOOL)offset zeroTimestamp:(void *)self0 continuousListeningConfig:(unsigned int)self1 postItnLeftContext:(BOOL)self2 itnResult:(shared_ptr<quasar:(const void *)self4 :(void *)self5 ContinuousListeningConfig>)self3 itnOverrides:(const void *)self6 itnEnablingFlags:(unsigned __int16)self7 recognizeEmoji:(BOOL)self8 leftContextProvidedByClient:(BOOL)self9 preItnRightContext:(const void *)rightContext postItnLeftContextStr:(id)str postItnRightContextStr:(id)contextStr stripLeadingAppendedAutoPunctuation:(BOOL)autoPunctuation emojiTokenIndices:(void *)indices persistEmoji:(BOOL)persistEmoji shouldHideTrailingPunctuation:(BOOL)trailingPunctuation isTrailingPunctuationHidden:(shared_ptr<BOOL>)hidden isFinal:(BOOL)final choiceIdx:(int)idx itnCompletion:(id)out0
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v41[30] = *MEMORY[0x1E69E9840];
   contextCopy = context;
   punctuationCopy = punctuation;
   rightContextCopy = rightContext;
@@ -345,7 +365,7 @@ LABEL_12:
     v8 = v7;
     if (v7)
     {
-      [v7 ear_toString];
+      objc_msgSend_ear_toString(v7);
     }
 
     else
@@ -405,11 +425,11 @@ LABEL_12:
         if (v43)
         {
 LABEL_37:
-          v44 = *(v41 + 23);
+          v44 = v41[23];
           if (v44 < 0)
           {
             v45 = *v41;
-            v44 = *(v41 + 8);
+            v44 = *(v41 + 1);
           }
 
           else
@@ -423,14 +443,14 @@ LABEL_37:
 
           if (v48)
           {
-            [v48 ear_toString];
-            if (*(v41 + 23) < 0)
+            objc_msgSend_ear_toString(v48);
+            if (v41[23] < 0)
             {
               operator delete(*v41);
             }
 
             v49 = *&buf.__r_.__value_.__l.__data_;
-            *(v41 + 16) = *(&buf.__r_.__value_.__l + 2);
+            *(v41 + 2) = *(&buf.__r_.__value_.__l + 2);
             *v41 = v49;
             LODWORD(v129) = v40 - 1;
             memset(&v122, 0, sizeof(v122));
@@ -493,11 +513,11 @@ LABEL_37:
     do
     {
       v14 = v9 + 224 * v10;
-      v15 = *(v14 + 23);
+      v15 = v14[23];
       if (v15 < 0)
       {
         v14 = *v14;
-        v15 = *(v9 + 224 * v10 + 8);
+        v15 = *(v9 + 28 * v10 + 1);
       }
 
       v16 = [*(v13 + 3776) ear_stringWithStringView:{v14, v15}];
@@ -685,12 +705,12 @@ LABEL_37:
             }
           }
 
-          v76 = *(v71 + 28);
+          v76 = *(v71 + 7);
           if (v75 < 1)
           {
             v77 = 0;
 LABEL_83:
-            v82 = *(v71 + 45);
+            v82 = v71[45];
             v83 = v76;
             LODWORD(v58) = v77 + v58;
             quasar::Token::Token(&buf, (v68 + 224 * v58));
@@ -701,7 +721,7 @@ LABEL_83:
             osloga = v84;
             if (v84)
             {
-              [v84 ear_toString];
+              objc_msgSend_ear_toString(v84);
             }
 
             else
@@ -717,7 +737,7 @@ LABEL_83:
             buf = v122;
             v86 = v124;
             v85 = v125;
-            [(_EARFormatter *)self emojiAlternativesForEmojis:v61];
+            objc_msgSend_emojiAlternativesForEmojis_(self);
             v87 = v119;
             v88 = v118;
             v119 = 0;
@@ -982,7 +1002,7 @@ LABEL_125:
           v19 = v18;
           if (v18)
           {
-            [v18 ear_toString];
+            objc_msgSend_ear_toString(v18);
           }
 
           else
@@ -1054,7 +1074,7 @@ LABEL_125:
               memset(v56, 0, sizeof(v56));
               std::vector<quasar::Token>::__init_with_size[abi:ne200100]<quasar::Token*,quasar::Token*>(v56, *modifier, *(modifier + 1), ((*(modifier + 1) - *modifier) >> 5) * v12);
               std::string::operator=((v57.__r_.__value_.__r.__words[0] + 224 * *v9), v14);
-              std::string::operator=(&v56[0][28 * *v9], v14);
+              std::string::operator=((v56[0] + 224 * *v9), v14);
               std::vector<std::vector<quasar::Token>>::push_back[abi:ne200100](list, &v57);
               std::vector<std::vector<quasar::Token>>::push_back[abi:ne200100](emojiModifier, v56);
               __p = v56;
@@ -1107,7 +1127,7 @@ LABEL_125:
             v22 = [MEMORY[0x1E695DEC8] arrayWithObjects:v59 count:1];
             if (v18)
             {
-              [v18 convertStringsToQuasarTokens:v22 offset:0];
+              objc_msgSend_convertStringsToQuasarTokens_offset_(v18);
             }
 
             else
@@ -1123,7 +1143,7 @@ LABEL_125:
 
             emojiFormatter = selfCopy->_emojiFormatter;
             v24 = MEMORY[0x1E696AEC0];
-            [(_EARFormatter *)selfCopy getOrthography:v56];
+            objc_msgSend_getOrthography_(selfCopy);
             if (v55 >= 0)
             {
               p_p = &__p;
@@ -1188,7 +1208,7 @@ LABEL_125:
                   std::vector<quasar::Token>::__init_with_size[abi:ne200100]<quasar::Token*,quasar::Token*>(v48, *modifier, *(modifier + 1), ((*(modifier + 1) - *modifier) >> 5) * v12);
                   if (v36)
                   {
-                    [v36 ear_toString];
+                    objc_msgSend_ear_toString(v36);
                   }
 
                   else
@@ -1209,7 +1229,7 @@ LABEL_125:
                   *v38 = v39;
                   if (v36)
                   {
-                    [v36 ear_toString];
+                    objc_msgSend_ear_toString(v36);
                   }
 
                   else
@@ -1218,14 +1238,14 @@ LABEL_125:
                     v47 = 0;
                   }
 
-                  v40 = &v48[0][28 * *v9];
-                  if (*(v40 + 23) < 0)
+                  v40 = v48[0] + 224 * *v9;
+                  if (v40[23] < 0)
                   {
                     operator delete(*v40);
                   }
 
                   v41 = v46;
-                  v40[2] = v47;
+                  *(v40 + 2) = v47;
                   *v40 = v41;
                   std::vector<std::vector<quasar::Token>>::push_back[abi:ne200100](list, &__p);
                   std::vector<std::vector<quasar::Token>>::push_back[abi:ne200100](emojiModifier, v48);
@@ -1307,7 +1327,7 @@ LABEL_125:
         v17 = *(*(&v56 + 1) + 8 * i);
         if (v17)
         {
-          [v17 quasarToken];
+          objc_msgSend_quasarToken(v17);
         }
 
         else
@@ -1383,18 +1403,20 @@ LABEL_125:
     if (v20)
     {
       std::vector<quasar::Token>::__assign_with_size[abi:ne200100]<quasar::Token*,quasar::Token*>(v45, v62, v63, 0x6DB6DB6DB6DB6DB7 * ((v63 - v62) >> 5));
+      v22 = *v45;
       v21 = *&v45[8];
-      for (j = *v45; j != v21; j += 224)
+      while (v22 != v21)
       {
-        quasar::hatTextDecode(j, 1);
-        if (*(j + 23) < 0)
+        quasar::hatTextDecode(v22, 1);
+        if (*(v22 + 23) < 0)
         {
-          operator delete(*j);
+          operator delete(*v22);
         }
 
         v23 = v40;
-        *(j + 16) = v41;
-        *j = v23;
+        *(v22 + 16) = v41;
+        *v22 = v23;
+        v22 += 224;
       }
     }
 
@@ -1407,7 +1429,7 @@ LABEL_125:
     v28 = self->_itn.__ptr_;
     if (taskCopy)
     {
-      [taskCopy ear_toString];
+      objc_msgSend_ear_toString(taskCopy);
     }
 
     else
@@ -1417,7 +1439,7 @@ LABEL_125:
       v39 = 0;
     }
 
-    [(__CFString *)v35 ear_toString];
+    objc_msgSend_ear_toString(v35);
     (*(*v28 + 16))(&v40, v28, v45, v61, v38, &v36, v60, v18, [_EARFormatter useEmojiHammerWhenRecognizeEmoji:emojiCopy]);
     std::vector<quasar::Token>::__vdeallocate(&v42);
     v42 = v40;
@@ -1445,26 +1467,26 @@ LABEL_125:
   {
     std::vector<quasar::Token>::__assign_with_size[abi:ne200100]<quasar::Token*,quasar::Token*>(&v42, v62, v63, 0x6DB6DB6DB6DB6DB7 * ((v63 - v62) >> 5));
     v24 = *(&v42 + 1);
-    for (k = v42; k != v24; k += 224)
+    for (j = v42; j != v24; j += 224)
     {
-      quasar::hatTextDecode(k, 1);
-      if (*(k + 23) < 0)
+      quasar::hatTextDecode(j, 1);
+      if (*(j + 23) < 0)
       {
-        operator delete(*k);
+        operator delete(*j);
       }
 
       v26 = *v45;
-      *(k + 16) = *&v45[16];
-      *k = v26;
+      *(j + 16) = *&v45[16];
+      *j = v26;
     }
   }
 
   v29 = objc_alloc(MEMORY[0x1E695DF70]);
   v30 = [v29 initWithCapacity:0x6DB6DB6DB6DB6DB7 * ((*(&v42 + 1) - v42) >> 5)];
   v32 = *(&v42 + 1);
-  for (m = v42; m != v32; m = (m + 224))
+  for (k = v42; k != v32; k = (k + 224))
   {
-    quasar::Token::Token(v45, m);
+    quasar::Token::Token(v45, k);
     v33 = [[_EARSpeechRecognitionToken alloc] _initWithQuasarToken:v45];
     [v30 addObject:v33];
 
@@ -1598,7 +1620,7 @@ LABEL_125:
         v12 = *(*(&v36 + 1) + 8 * i);
         if (v12)
         {
-          [v12 ear_toString];
+          objc_msgSend_ear_toString(v12);
         }
 
         else
@@ -1692,7 +1714,7 @@ LABEL_125:
   v8 = objc_opt_class();
   if (v8)
   {
-    [v8 convertStringsToQuasarTokens:stringsCopy];
+    objc_msgSend_convertStringsToQuasarTokens_(v8);
   }
 
   else
@@ -1701,8 +1723,8 @@ LABEL_125:
   }
 
   memset(v15, 0, sizeof(v15));
-  [(_EARFormatter *)self formatWords:v16 unrepairedWordsOut:v15 task:taskCopy];
-  [(_EARFormatter *)self getOrthography:v14];
+  objc_msgSend_formatWords_unrepairedWordsOut_task_(self);
+  objc_msgSend_getOrthography_(self);
   if (v13 >= 0)
   {
     v9 = __p;
@@ -1738,62 +1760,61 @@ LABEL_125:
 
 - (id)formattedStringWithStrings:(id)strings preToPostItnArray:(id)array task:(id)task
 {
-  v33[4] = *MEMORY[0x1E69E9840];
+  v32[4] = *MEMORY[0x1E69E9840];
   stringsCopy = strings;
   arrayCopy = array;
   taskCopy = task;
-  v23 = taskCopy;
-  v10 = objc_opt_class();
-  if (v10)
+  v9 = objc_opt_class();
+  if (v9)
   {
-    [v10 convertStringsToQuasarTokens:stringsCopy];
+    objc_msgSend_convertStringsToQuasarTokens_(v9);
   }
 
   else
   {
-    memset(&v32, 0, sizeof(v32));
+    memset(v31, 0, sizeof(v31));
   }
 
-  memset(v31, 0, sizeof(v31));
-  [(_EARFormatter *)self formatWords:&v32 unrepairedWordsOut:v31 task:taskCopy];
+  memset(v30, 0, sizeof(v30));
+  objc_msgSend_formatWords_unrepairedWordsOut_task_(self);
+  v24 = 0;
   v25 = 0;
-  v26 = 0;
-  quasar::getPreItnTokenToPostItnCharAlignment(&v32, &v30, &v25, &__p);
+  quasar::getPreItnTokenToPostItnCharAlignment(v31, v29, &v24, &__p);
   selfCopy = self;
-  v12 = __p;
-  v11 = v28;
+  v11 = __p;
+  v10 = v27;
+  v27 = 0;
   v28 = 0;
-  v29 = 0;
   __p = 0;
-  if (v26)
+  if (v25)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v26);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v25);
   }
 
-  if (v12 != v11)
+  if (v11 != v10)
   {
-    v13 = v12;
+    v12 = v11;
     do
     {
-      v14 = [MEMORY[0x1E696AD98] numberWithInt:{*v13, selfCopy}];
-      v33[0] = v14;
-      v15 = [MEMORY[0x1E696AD98] numberWithInt:v13[1]];
-      v33[1] = v15;
-      v16 = [MEMORY[0x1E696AD98] numberWithInt:v13[2]];
-      v33[2] = v16;
-      v17 = [MEMORY[0x1E696AD98] numberWithInt:v13[3]];
-      v33[3] = v17;
-      v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:v33 count:4];
+      v13 = [MEMORY[0x1E696AD98] numberWithInt:{*v12, selfCopy}];
+      v32[0] = v13;
+      v14 = [MEMORY[0x1E696AD98] numberWithInt:v12[1]];
+      v32[1] = v14;
+      v15 = [MEMORY[0x1E696AD98] numberWithInt:v12[2]];
+      v32[2] = v15;
+      v16 = [MEMORY[0x1E696AD98] numberWithInt:v12[3]];
+      v32[3] = v16;
+      v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:v32 count:4];
 
-      [arrayCopy addObject:v18];
-      v13 += 4;
+      [arrayCopy addObject:v17];
+      v12 += 4;
     }
 
-    while (v13 != v11);
+    while (v12 != v10);
   }
 
-  [(_EARFormatter *)selfCopy getOrthography:&v30, selfCopy];
-  if (v29 >= 0)
+  objc_msgSend_getOrthography_(selfCopy, selfCopy);
+  if (v28 >= 0)
   {
     p_p = &__p;
   }
@@ -1803,25 +1824,25 @@ LABEL_125:
     p_p = __p;
   }
 
-  v20 = [MEMORY[0x1E696AEC0] stringWithUTF8String:p_p];
-  if (SHIBYTE(v29) < 0)
+  v19 = [MEMORY[0x1E696AEC0] stringWithUTF8String:p_p];
+  if (SHIBYTE(v28) < 0)
   {
     operator delete(__p);
   }
 
-  if (v12)
+  if (v11)
   {
-    operator delete(v12);
+    operator delete(v11);
   }
 
-  __p = &v30;
+  __p = v29;
   std::vector<quasar::Token>::__destroy_vector::operator()[abi:ne200100](&__p);
-  v30.__r_.__value_.__r.__words[0] = v31;
-  std::vector<quasar::Token>::__destroy_vector::operator()[abi:ne200100](&v30);
-  v31[0] = &v32;
-  std::vector<quasar::Token>::__destroy_vector::operator()[abi:ne200100](v31);
+  v29[0] = v30;
+  std::vector<quasar::Token>::__destroy_vector::operator()[abi:ne200100](v29);
+  v30[0] = v31;
+  std::vector<quasar::Token>::__destroy_vector::operator()[abi:ne200100](v30);
 
-  return v20;
+  return v19;
 }
 
 - (id)formattedRecognitionWithNBestList:(id)list
@@ -1870,7 +1891,7 @@ LABEL_125:
               v12 = *(*(&v30 + 1) + 8 * j);
               if (v12)
               {
-                [v12 quasarToken];
+                objc_msgSend_quasarToken(v12);
               }
 
               else
@@ -1926,7 +1947,7 @@ LABEL_125:
           while (v9);
         }
 
-        [(_EARFormatter *)self formatWords:v35 unrepairedWordsOut:v34];
+        objc_msgSend_formatWords_unrepairedWordsOut_(self);
         std::vector<std::vector<quasar::Token>>::push_back[abi:ne200100](v40, v18);
         v41 = v18;
         std::vector<quasar::Token>::__destroy_vector::operator()[abi:ne200100](&v41);
@@ -1986,7 +2007,7 @@ LABEL_125:
 
 - (id)_formattedStringWithStrings:(id)strings task:(id)task leftContext:(id)context recognizeEmoji:(BOOL)emoji rightContext:(id)rightContext
 {
-  v55[2] = *MEMORY[0x1E69E9840];
+  v50[2] = *MEMORY[0x1E69E9840];
   stringsCopy = strings;
   taskCopy = task;
   contextCopy = context;
@@ -1994,157 +2015,149 @@ LABEL_125:
   v16 = objc_opt_class();
   if (v16)
   {
-    [v16 convertStringsToQuasarTokens:contextCopy];
-    if (v52 == v53)
-    {
-      v17 = 0;
-    }
-
-    else
-    {
-      v17 = (*(v53 - 192) + 3000);
-    }
+    objc_msgSend_convertStringsToQuasarTokens_(v16);
   }
 
   else
   {
-    v17 = 0;
-    v52 = 0;
-    v53 = 0;
-    v54 = 0;
+    memset(v49, 0, sizeof(v49));
+  }
+
+  v17 = objc_opt_class();
+  if (v17)
+  {
+    objc_msgSend_convertStringsToQuasarTokens_(v17);
+  }
+
+  else
+  {
+    memset(v48, 0, sizeof(v48));
   }
 
   v18 = objc_opt_class();
   if (v18)
   {
-    [v18 convertStringsToQuasarTokens:rightContextCopy];
+    objc_msgSend_convertStringsToQuasarTokens_offset_(v18);
   }
 
   else
   {
-    memset(v51, 0, sizeof(v51));
+    memset(v47, 0, sizeof(v47));
   }
 
-  v19 = objc_opt_class();
-  if (v19)
-  {
-    [v19 convertStringsToQuasarTokens:stringsCopy offset:v17];
-  }
-
-  else
-  {
-    memset(v50, 0, sizeof(v50));
-  }
-
-  memset(v49, 0, sizeof(v49));
-  memset(v48, 0, sizeof(v48));
-  memset(v47, 0, sizeof(v47));
   memset(v46, 0, sizeof(v46));
   memset(v45, 0, sizeof(v45));
   memset(v44, 0, sizeof(v44));
-  v40 = 0;
-  v41 = 0;
-  v38[0] = 0;
-  v38[1] = 0;
-  v39 = 0;
-  v36 = 0;
+  memset(v43, 0, sizeof(v43));
+  memset(v42, 0, sizeof(v42));
+  memset(v41, 0, sizeof(v41));
   v37 = 0;
-  LOBYTE(v33) = 0;
-  LOWORD(v32) = 0;
-  LOBYTE(v31) = 0;
-  BYTE3(v30) = [contextCopy count] != 0;
-  BYTE2(v30) = emoji;
-  LOWORD(v30) = -1;
-  BYTE4(v29) = 0;
-  LODWORD(v29) = 0;
-  [_EARFormatter formatWords:"formatWords:unrepairedWordsOut:task:language:preItnLeftContext:separateAutoEndPunctuation:partialResults:timestampOffset:zeroTimestamp:continuousListeningConfig:postItnLeftContext:itnResult:itnOverrides:itnEnablingFlags:recognizeEmoji:leftContextProvidedByClient:preItnRightContext:postItnLeftContextStr:postItnRightContextStr:stripLeadingAppendedAutoPunctuation:emojiTokenIndices:persistEmoji:shouldHideTrailingPunctuation:isTrailingPunctuationHidden:isFinal:choiceIdx:itnCompletion:" unrepairedWordsOut:v50 task:v49 language:taskCopy preItnLeftContext:@"en-US" separateAutoEndPunctuation:&v52 partialResults:0 timestampOffset:v47 zeroTimestamp:v29 continuousListeningConfig:&v40 postItnLeftContext:v38 itnResult:v46 itnOverrides:v45 itnEnablingFlags:v30 recognizeEmoji:v51 leftContextProvidedByClient:&stru_1F2D44B60 preItnRightContext:&stru_1F2D44B60 postItnLeftContextStr:v31 postItnRightContextStr:v44 stripLeadingAppendedAutoPunctuation:v32 emojiTokenIndices:&v36 persistEmoji:v33 shouldHideTrailingPunctuation:0 isTrailingPunctuationHidden:? isFinal:? choiceIdx:? itnCompletion:?];
-  if (v37)
+  v38 = 0;
+  v35[0] = 0;
+  v35[1] = 0;
+  v36 = 0;
+  v33 = 0;
+  v34 = 0;
+  LOBYTE(v30) = 0;
+  HIBYTE(v29) = [contextCopy count] != 0;
+  BYTE2(v29) = emoji;
+  LOWORD(v29) = -1;
+  BYTE4(v28) = 0;
+  LODWORD(v28) = 0;
+  objc_msgSend_formatWords_unrepairedWordsOut_task_language_preItnLeftContext_separateAutoEndPunctuation_partialResults_timestampOffset_zeroTimestamp_continuousListeningConfig_postItnLeftContext_itnResult_itnOverrides_itnEnablingFlags_recognizeEmoji_leftContextProvidedByClient_preItnRightContext_postItnLeftContextStr_postItnRightContextStr_stripLeadingAppendedAutoPunctuation_emojiTokenIndices_persistEmoji_shouldHideTrailingPunctuation_isTrailingPunctuationHidden_isFinal_choiceIdx_itnCompletion_(self, v44, v28, &v37, v35, v43, v42, v29, v48, &stru_1F2D44B60, &stru_1F2D44B60, 0, v41, 0, &v33, v30, 0);
+  if (v34)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v37);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v34);
   }
 
-  __p[0] = v38;
+  __p[0] = v35;
   std::vector<quasar::Token>::__destroy_vector::operator()[abi:ne200100](__p);
-  if (v41)
+  if (v38)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v41);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v38);
   }
 
-  [(_EARFormatter *)self getOrthography:&v42];
-  v20 = v43;
-  if (v42 != v43)
+  objc_msgSend_getOrthography_(self);
+  v19 = v40;
+  if (v39 != v40)
   {
-    v21 = v42 + 22;
-    while ((*(v21 + 23) & 0x8000000000000000) != 0)
+    v20 = v39 + 22;
+    while ((*(v20 + 23) & 0x8000000000000000) != 0)
     {
-      if (v21[1])
+      if (v20[1])
+      {
+        goto LABEL_20;
+      }
+
+LABEL_21:
+      v21 = v20 + 6;
+      v20 += 28;
+      if (v21 == v19)
       {
         goto LABEL_22;
       }
-
-LABEL_23:
-      v22 = v21 + 6;
-      v21 += 28;
-      if (v22 == v20)
-      {
-        goto LABEL_24;
-      }
     }
 
-    if (!*(v21 + 23))
+    if (!*(v20 + 23))
     {
-      goto LABEL_23;
+      goto LABEL_21;
     }
+
+LABEL_20:
+    std::string::operator=((v20 - 22), v20);
+    goto LABEL_21;
+  }
 
 LABEL_22:
-    std::string::operator=((v21 - 22), v21);
-    goto LABEL_23;
-  }
-
-LABEL_24:
-  [(_EARFormatter *)self getOrthography:&v42];
-  if (v39 >= 0)
+  objc_msgSend_getOrthography_(self);
+  if (v36 >= 0)
   {
-    v23 = v38;
+    v22 = v35;
   }
 
   else
   {
-    v23 = v38[0];
+    v22 = v35[0];
   }
 
-  v24 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v23];
-  v55[0] = v24;
-  if (v35 >= 0)
+  v23 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v22];
+  v50[0] = v23;
+  if (v32 >= 0)
   {
-    v25 = __p;
+    v24 = __p;
   }
 
   else
   {
-    v25 = __p[0];
+    v24 = __p[0];
   }
 
-  v26 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v25];
-  v55[1] = v26;
-  v27 = [MEMORY[0x1E695DEC8] arrayWithObjects:v55 count:2];
+  v25 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v24];
+  v50[1] = v25;
+  v26 = [MEMORY[0x1E695DEC8] arrayWithObjects:v50 count:2];
 
-  if (v35 < 0)
+  if (v32 < 0)
   {
     operator delete(__p[0]);
   }
 
-  if (SHIBYTE(v39) < 0)
+  if (SHIBYTE(v36) < 0)
   {
-    operator delete(v38[0]);
+    operator delete(v35[0]);
   }
 
-  v38[0] = &v42;
-  std::vector<quasar::Token>::__destroy_vector::operator()[abi:ne200100](v38);
-  v42 = v44;
-  std::vector<std::pair<int,std::vector<std::string>>>::__destroy_vector::operator()[abi:ne200100](&v42);
+  v35[0] = &v39;
+  std::vector<quasar::Token>::__destroy_vector::operator()[abi:ne200100](v35);
+  v39 = v41;
+  std::vector<std::pair<int,std::vector<std::string>>>::__destroy_vector::operator()[abi:ne200100](&v39);
+  v41[0] = v42;
+  std::vector<quasar::ItnOverride>::__destroy_vector::operator()[abi:ne200100](v41);
+  v42[0] = v43;
+  std::vector<quasar::Token>::__destroy_vector::operator()[abi:ne200100](v42);
+  v43[0] = v44;
+  std::vector<quasar::Token>::__destroy_vector::operator()[abi:ne200100](v43);
   v44[0] = v45;
-  std::vector<quasar::ItnOverride>::__destroy_vector::operator()[abi:ne200100](v44);
+  std::vector<quasar::Token>::__destroy_vector::operator()[abi:ne200100](v44);
   v45[0] = v46;
   std::vector<quasar::Token>::__destroy_vector::operator()[abi:ne200100](v45);
   v46[0] = v47;
@@ -2153,14 +2166,8 @@ LABEL_24:
   std::vector<quasar::Token>::__destroy_vector::operator()[abi:ne200100](v47);
   v48[0] = v49;
   std::vector<quasar::Token>::__destroy_vector::operator()[abi:ne200100](v48);
-  v49[0] = v50;
-  std::vector<quasar::Token>::__destroy_vector::operator()[abi:ne200100](v49);
-  v50[0] = v51;
-  std::vector<quasar::Token>::__destroy_vector::operator()[abi:ne200100](v50);
-  v51[0] = &v52;
-  std::vector<quasar::Token>::__destroy_vector::operator()[abi:ne200100](v51);
 
-  return v27;
+  return v26;
 }
 
 - (id)_formattedStringWithoutEmojiModifier:(id)modifier
@@ -2169,7 +2176,7 @@ LABEL_24:
   v5 = objc_opt_class();
   if (v5)
   {
-    [v5 convertStringsToQuasarTokens:modifierCopy offset:0];
+    objc_msgSend_convertStringsToQuasarTokens_offset_(v5);
     v6 = v24;
     v21 = 0;
     v22 = 0;
@@ -2223,8 +2230,8 @@ LABEL_24:
     v23 = 0;
   }
 
-  [(_EARFormatter *)self formattedTokensWithoutEmojiModifier:&v24 emojiTokenIndices:&v21 recognizeEmoji:1];
-  [(_EARFormatter *)self getOrthography:&v19];
+  objc_msgSend_formattedTokensWithoutEmojiModifier_emojiTokenIndices_recognizeEmoji_(self);
+  objc_msgSend_getOrthography_(self);
   if (v17 >= 0)
   {
     p_p = &__p;
@@ -2261,7 +2268,7 @@ LABEL_24:
   v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:1];
   if (v6)
   {
-    [v6 convertStringsToQuasarTokens:v7 offset:0];
+    objc_msgSend_convertStringsToQuasarTokens_offset_(v6);
   }
 
   else
@@ -2276,7 +2283,7 @@ LABEL_24:
   std::vector<quasar::Token>::__destroy_vector::operator()[abi:ne200100](&v15);
 
   v8 = MEMORY[0x1E696AEC0];
-  [(_EARFormatter *)self getOrthography:v14];
+  objc_msgSend_getOrthography_(self);
   if (v13 >= 0)
   {
     v9 = __p;
@@ -2309,7 +2316,7 @@ LABEL_24:
   v33 = tokensCopy;
   if (v10)
   {
-    [v10 convertStringsToQuasarTokens:tokensCopy offset:0];
+    objc_msgSend_convertStringsToQuasarTokens_offset_(v10);
     v11 = v50;
     v47 = 0;
     v48 = 0;
@@ -2354,7 +2361,7 @@ LABEL_24:
         v18 = v17;
         if (v17)
         {
-          [v17 ear_toString];
+          objc_msgSend_ear_toString(v17);
         }
 
         else
@@ -2396,7 +2403,7 @@ LABEL_24:
   v21 = objc_opt_class();
   if (v21)
   {
-    [v21 convertStringsToQuasarTokens:v32 offset:0];
+    objc_msgSend_convertStringsToQuasarTokens_offset_(v21);
   }
 
   else
@@ -2416,7 +2423,7 @@ LABEL_24:
   v24 = v40;
   for (i = v41; v24 != i; v24 += 3)
   {
-    [(_EARFormatter *)self getOrthography:v24];
+    objc_msgSend_getOrthography_(self);
     if (v36 >= 0)
     {
       v25 = __p;
@@ -2437,34 +2444,26 @@ LABEL_24:
   }
 
   v28 = v37;
-  v27 = v38;
-  if (v37 != v38)
+  for (j = v38; v28 != j; v28 += 3)
   {
-    do
+    objc_msgSend_getOrthography_(self);
+    if (v36 >= 0)
     {
-      [(_EARFormatter *)self getOrthography:v28];
-      if (v36 >= 0)
-      {
-        v29 = __p;
-      }
-
-      else
-      {
-        v29 = __p[0];
-      }
-
-      v30 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v29];
-      [array addObject:v30];
-
-      if (v36 < 0)
-      {
-        operator delete(__p[0]);
-      }
-
-      v28 += 3;
+      v29 = __p;
     }
 
-    while (v28 != v27);
+    else
+    {
+      v29 = __p[0];
+    }
+
+    v30 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v29];
+    [array addObject:v30];
+
+    if (v36 < 0)
+    {
+      operator delete(__p[0]);
+    }
   }
 
   __p[0] = &v37;
@@ -2496,7 +2495,7 @@ LABEL_24:
   v10 = objc_opt_class();
   if (v10)
   {
-    [v10 convertStringsToQuasarTokens:stringCopy offset:0];
+    objc_msgSend_convertStringsToQuasarTokens_offset_(v10);
   }
 
   else
@@ -2578,7 +2577,7 @@ LABEL_24:
   v6 = **(self + 24);
   if (v6)
   {
-    [v6 ear_toString];
+    objc_msgSend_ear_toString(v6);
   }
 
   else
@@ -2591,7 +2590,7 @@ LABEL_24:
   v7 = **(self + 32);
   if (v7)
   {
-    [v7 ear_toString];
+    objc_msgSend_ear_toString(v7);
   }
 
   else
@@ -2628,22 +2627,25 @@ LABEL_24:
 - (void)initWithLanguage:withSdapiConfig:quasarConfig:.cold.1()
 {
   OUTLINED_FUNCTION_0_2();
-  (*(v0 + 16))();
-  OUTLINED_FUNCTION_3(&dword_1B501D000, v1, v2, "_EARFormatter initialization failed: %s", v3, v4, v5, v6, 2u);
+  LODWORD(v7) = 136315138;
+  *(&v7 + 4) = (*(v0 + 16))();
+  OUTLINED_FUNCTION_3(&dword_1B501D000, v1, v2, "_EARFormatter initialization failed: %s", v3, v4, v5, v6, v7, DWORD2(v7));
 }
 
 - (void)initWithQuasarConfig:overrideConfigFiles:supportEmojiRecognition:language:skipPathsExistCheck:.cold.2()
 {
   OUTLINED_FUNCTION_0_2();
-  (*(v0 + 16))();
-  OUTLINED_FUNCTION_3(&dword_1B501D000, v1, v2, "_EARFormatter initialization failed on trying createQuasarITN: %s", v3, v4, v5, v6, 2u);
+  LODWORD(v7) = 136315138;
+  *(&v7 + 4) = (*(v0 + 16))();
+  OUTLINED_FUNCTION_3(&dword_1B501D000, v1, v2, "_EARFormatter initialization failed on trying createQuasarITN: %s", v3, v4, v5, v6, v7, DWORD2(v7));
 }
 
 - (void)initNcsWithModelRoot:.cold.1()
 {
   OUTLINED_FUNCTION_0_2();
-  (*(v0 + 16))();
-  OUTLINED_FUNCTION_3(&dword_1B501D000, v1, v2, "_EARFormatter initialization failed on trying createSdapiITN: %s", v3, v4, v5, v6, 2u);
+  LODWORD(v7) = 136315138;
+  *(&v7 + 4) = (*(v0 + 16))();
+  OUTLINED_FUNCTION_3(&dword_1B501D000, v1, v2, "_EARFormatter initialization failed on trying createSdapiITN: %s", v3, v4, v5, v6, v7, DWORD2(v7));
 }
 
 - (void)refreshEmojiRecognizer

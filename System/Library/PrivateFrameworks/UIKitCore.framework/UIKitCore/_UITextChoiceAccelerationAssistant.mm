@@ -509,9 +509,9 @@ LABEL_22:
             if (v19)
             {
               documentTextToReplace = [v19 documentTextToReplace];
-              v21 = [documentTextToReplace isEqualToString:v16];
+              isEqualToString = objc_msgSend_isEqualToString_(documentTextToReplace);
 
-              if (v21)
+              if (isEqualToString)
               {
                 if ((v11 & 1) == 0)
                 {
@@ -942,9 +942,9 @@ LABEL_6:
         }
 
         documentTextToReplace = [v14 documentTextToReplace];
-        v16 = [documentTextToReplace isEqualToString:v11];
+        isEqualToString = objc_msgSend_isEqualToString_(documentTextToReplace);
 
-        if (v16)
+        if (isEqualToString)
         {
           underlines = [v14 underlines];
           v18 = [(_UITextChoiceAccelerationAssistant *)self updateUnderlineRects:underlines forRange:v9];
@@ -983,7 +983,7 @@ LABEL_6:
           v29 = [_document4 textInRange:v28];
 
           documentTextToReplace2 = [v14 documentTextToReplace];
-          LOBYTE(_document4) = [documentTextToReplace2 isEqualToString:v29];
+          LOBYTE(_document4) = objc_msgSend_isEqualToString_(documentTextToReplace2);
 
           if (_document4)
           {
@@ -1006,7 +1006,7 @@ LABEL_6:
           v33 = [_document6 textInRange:v32];
 
           documentTextToReplace3 = [v14 documentTextToReplace];
-          LOBYTE(_document6) = [documentTextToReplace3 isEqualToString:v33];
+          LOBYTE(_document6) = objc_msgSend_isEqualToString_(documentTextToReplace3);
 
           if (_document6)
           {
@@ -1099,7 +1099,7 @@ LABEL_30:
           v29 = [_document9 textInRange:v28];
 
           documentTextToReplace4 = [v14 documentTextToReplace];
-          LODWORD(_document9) = [documentTextToReplace4 isEqualToString:v29];
+          LODWORD(_document9) = objc_msgSend_isEqualToString_(documentTextToReplace4);
 
           v12 = v69;
           if (_document9)
@@ -1624,7 +1624,7 @@ LABEL_15:
       _document2 = [(_UITextChoiceAccelerationAssistant *)self _document];
       v11 = [_document2 textRangeFromPosition:v9 toPosition:positionCopy];
 
-      if (v11 && (-[_UITextChoiceAccelerationAssistant _document](self, "_document"), v12 = objc_claimAutoreleasedReturnValue(), [v12 textInRange:v11], v13 = objc_claimAutoreleasedReturnValue(), v14 = objc_msgSend(v13, "isEqualToString:", @" "), v13, v12, (v14 & 1) != 0))
+      if (v11 && (-[_UITextChoiceAccelerationAssistant _document](self, "_document"), v12 = objc_claimAutoreleasedReturnValue(), [v12 textInRange:v11], v13 = objc_claimAutoreleasedReturnValue(), isEqualToString = objc_msgSend_isEqualToString_(v13), v13, v12, (isEqualToString & 1) != 0))
       {
         _document3 = [(_UITextChoiceAccelerationAssistant *)self _document];
         tokenizer2 = [_document3 tokenizer];
@@ -2001,7 +2001,7 @@ LABEL_21:
 
   if (rectCopy)
   {
-    [rectCopy transform];
+    objc_msgSend_transform(rectCopy);
   }
 
   else
@@ -2754,7 +2754,7 @@ LABEL_38:
           _document3 = [(_UITextChoiceAccelerationAssistant *)self _document];
           v14 = [_document3 textInRange:v12];
 
-          if ([v14 isEqualToString:textCopy])
+          if (objc_msgSend_isEqualToString_(v14))
           {
             v15 = v12;
           }
@@ -2948,12 +2948,12 @@ LABEL_25:
     v55 = [_document2 textInRange:rangeCopy];
 
     input2 = [(TIKeyboardCandidate *)candidateCopy input];
-    v57 = [input2 isEqualToString:v55];
+    isEqualToString = objc_msgSend_isEqualToString_(input2);
 
-    if (v57)
+    if (isEqualToString)
     {
       candidate5 = [(TIKeyboardCandidate *)candidateCopy candidate];
-      v59 = [candidate5 isEqualToString:v55];
+      v59 = objc_msgSend_isEqualToString_(candidate5);
 
       if (v59)
       {
@@ -3870,7 +3870,7 @@ LABEL_21:
         if ([promptCopy shouldRejectCandidate])
         {
           selectedChoice = [promptCopy selectedChoice];
-          if ([selectedChoice isEqualToString:@"autocorrection.cancel"])
+          if (objc_msgSend_isEqualToString_(selectedChoice))
           {
 
 LABEL_25:
@@ -3986,12 +3986,12 @@ LABEL_41:
         replacement8 = [promptCopy replacement];
         textChoices2 = [replacement8 textChoices];
         v35 = [textChoices2 objectAtIndexedSubscript:0];
-        v129 = [v35 isEqualToString:0x1EFB75A70];
+        isEqualToString = objc_msgSend_isEqualToString_(v35);
 
         replacement9 = [promptCopy replacement];
         textChoices3 = [replacement9 textChoices];
         v38 = [textChoices3 objectAtIndexedSubscript:0];
-        LODWORD(textChoices2) = [v38 isEqualToString:0x1EFB75A90];
+        LODWORD(textChoices2) = objc_msgSend_isEqualToString_(v38);
 
         activeSelectedRange = [(_UITextChoiceAccelerationAssistant *)self activeSelectedRange];
         _document2 = [(_UITextChoiceAccelerationAssistant *)self _document];
@@ -4018,7 +4018,7 @@ LABEL_41:
 
         else
         {
-          if (!v129)
+          if (!isEqualToString)
           {
             replacement13 = [promptCopy replacement];
             textChoices4 = [replacement13 textChoices];
@@ -4813,12 +4813,12 @@ LABEL_15:
     }
 
     input2 = [v8 input];
-    v18 = [input2 isEqualToString:selectedText];
+    isEqualToString = objc_msgSend_isEqualToString_(input2);
 
-    if (v18)
+    if (isEqualToString)
     {
       candidate = [v8 candidate];
-      v20 = [candidate isEqualToString:selectedText];
+      v20 = objc_msgSend_isEqualToString_(candidate);
 
       if (v20)
       {

@@ -192,12 +192,12 @@ LABEL_21:
 
 - (id)descriptionDictionary
 {
-  v17[4] = *MEMORY[0x277D85DE8];
-  v16[0] = @"EventType";
+  v16[4] = *MEMORY[0x277D85DE8];
+  v15[0] = @"EventType";
   v5 = objc_opt_class();
   v6 = NSStringFromClass(v5);
-  v17[0] = v6;
-  v16[1] = @"kSADevicesWithSafeLocationsEventKeyDevices";
+  v16[0] = v6;
+  v15[1] = @"kSADevicesWithSafeLocationsEventKeyDevices";
   devices = [(SADevicesWithSafeLocationsEvent *)self devices];
   if (devices)
   {
@@ -210,8 +210,8 @@ LABEL_21:
     v8 = &stru_287709218;
   }
 
-  v17[1] = v8;
-  v16[2] = @"kSADevicesWithSafeLocationsEventKeySafeLocationIDs";
+  v16[1] = v8;
+  v15[2] = @"kSADevicesWithSafeLocationsEventKeySafeLocationIDs";
   safeLocations = [(SADevicesWithSafeLocationsEvent *)self safeLocations];
   if (safeLocations)
   {
@@ -224,12 +224,12 @@ LABEL_21:
     v10 = &stru_287709218;
   }
 
-  v17[2] = v10;
-  v16[3] = @"kSADevicesWithSafeLocationsEventKeyDate";
+  v16[2] = v10;
+  v15[3] = @"kSADevicesWithSafeLocationsEventKeyDate";
   date = [(SADevicesWithSafeLocationsEvent *)self date];
   getDateString = [date getDateString];
-  v17[3] = getDateString;
-  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:4];
+  v16[3] = getDateString;
+  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:4];
 
   if (safeLocations)
   {
@@ -239,23 +239,21 @@ LABEL_21:
   {
   }
 
-  v14 = *MEMORY[0x277D85DE8];
-
   return v13;
 }
 
 - (NSString)description
 {
   descriptionDictionary = [(SADevicesWithSafeLocationsEvent *)self descriptionDictionary];
-  v9 = 0;
-  v3 = [MEMORY[0x277CCAAA0] JSONStringFromNSDictionary:descriptionDictionary error:&v9];
-  v4 = v9;
-  if (v4)
+  v10 = 0;
+  v4 = [MEMORY[0x277CCAAA0] JSONStringFromNSDictionary:descriptionDictionary error:&v10];
+  v5 = v10;
+  if (v5)
   {
-    v5 = TASALog;
+    v6 = TASALog;
     if (os_log_type_enabled(TASALog, OS_LOG_TYPE_ERROR))
     {
-      [(SASafeLocationUpdateEvent *)v5 description];
+      [(SASafeLocationUpdateEvent *)v6 description];
     }
 
     string = [MEMORY[0x277CCACA8] string];
@@ -263,12 +261,12 @@ LABEL_21:
 
   else
   {
-    string = v3;
+    string = v4;
   }
 
-  v7 = string;
+  v8 = string;
 
-  return v7;
+  return v8;
 }
 
 @end

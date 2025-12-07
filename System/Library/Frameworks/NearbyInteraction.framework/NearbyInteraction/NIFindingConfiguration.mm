@@ -95,32 +95,32 @@
 
 - (NIFindingConfiguration)initWithCoder:(id)coder
 {
-  v31[1] = *MEMORY[0x1E69E9840];
+  v30[1] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
-  v29.receiver = self;
-  v29.super_class = NIFindingConfiguration;
-  v5 = [(NIConfiguration *)&v29 initWithCoder:coderCopy];
+  v28.receiver = self;
+  v28.super_class = NIFindingConfiguration;
+  v5 = [(NIConfiguration *)&v28 initWithCoder:coderCopy];
   if (v5)
   {
     v6 = [coderCopy decodeBoolForKey:@"isFinder"];
     v7 = [coderCopy decodeBoolForKey:@"isObserver"];
     v8 = [coderCopy decodeIntegerForKey:@"configType"];
     v9 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"specifiedToken"];
-    if (!v9 || (objc_opt_class(), (objc_opt_isKindOfClass())) && (v10 = [coderCopy decodeIntegerForKey:@"preferredUpdateRate"], +[NIInternalUtils isIntValidNearbyObjectUpdateRate:](NIInternalUtils, "isIntValidNearbyObjectUpdateRate:", v10)) && (v27 = objc_msgSend(coderCopy, "decodeIntegerForKey:", @"preferredDiscoveryPriority"), +[NIInternalUtils isIntValidNearbyObjectDiscoveryPriority:](NIInternalUtils, "isIntValidNearbyObjectDiscoveryPriority:", v27)))
+    if (!v9 || (objc_opt_class(), (objc_opt_isKindOfClass())) && (v10 = [coderCopy decodeIntegerForKey:@"preferredUpdateRate"], +[NIInternalUtils isIntValidNearbyObjectUpdateRate:](NIInternalUtils, "isIntValidNearbyObjectUpdateRate:", v10)) && (v26 = objc_msgSend(coderCopy, "decodeIntegerForKey:", @"preferredDiscoveryPriority"), +[NIInternalUtils isIntValidNearbyObjectDiscoveryPriority:](NIInternalUtils, "isIntValidNearbyObjectDiscoveryPriority:", v26)))
     {
-      v26 = [coderCopy decodeBoolForKey:@"cameraAssistanceEnabled"];
-      v25 = [coderCopy decodeBoolForKey:@"cameraAssistanceInClientProcess"];
+      v25 = [coderCopy decodeBoolForKey:@"cameraAssistanceEnabled"];
+      v24 = [coderCopy decodeBoolForKey:@"cameraAssistanceInClientProcess"];
       v11 = MEMORY[0x1E695DFD8];
-      v31[0] = objc_opt_class();
-      v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v31 count:1];
-      v28 = [v11 setWithArray:v12];
+      v30[0] = objc_opt_class();
+      v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v30 count:1];
+      v27 = [v11 setWithArray:v12];
 
       v13 = MEMORY[0x1E695DFD8];
-      v30 = objc_opt_class();
-      v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v30 count:1];
+      v29 = objc_opt_class();
+      v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v29 count:1];
       v15 = [v13 setWithArray:v14];
 
-      v16 = [coderCopy decodeDictionaryWithKeysOfClasses:v28 objectsOfClasses:v15 forKey:@"debugParameters"];
+      v16 = [coderCopy decodeDictionaryWithKeysOfClasses:v27 objectsOfClasses:v15 forKey:@"debugParameters"];
       v17 = [coderCopy decodeIntegerForKey:@"discoveryTokenVariant"];
       v5->_isFinder = v6;
       v5->_isObserver = v7;
@@ -132,9 +132,9 @@
         v20 = [coderCopy decodeObjectForKey:@"monitoredRegions"];
         objc_storeStrong(&v5->_specifiedToken, v9);
         v5->_preferredUpdateRate = v10;
-        v5->_preferredDiscoveryPriority = v27;
-        v5->_cameraAssistanceEnabled = v26;
-        v5->_cameraAssistanceInClientProcess = v25;
+        v5->_preferredDiscoveryPriority = v26;
+        v5->_cameraAssistanceEnabled = v25;
+        v5->_cameraAssistanceInClientProcess = v24;
         objc_storeStrong(&v5->_debugParameters, v16);
         v5->_discoveryTokenVariant = v18;
         v5->_requestedMeasurementQuality = v19;
@@ -161,7 +161,6 @@
     v22 = 0;
   }
 
-  v23 = *MEMORY[0x1E69E9840];
   return v22;
 }
 
@@ -269,12 +268,9 @@
   isObserver = self->_isObserver;
   configType_low = LODWORD(self->_configType);
   descriptionInternal = [(NIDiscoveryToken *)self->_specifiedToken descriptionInternal];
-  v8 = [NIInternalUtils NINearbyObjectUpdateRateToString:self->_preferredUpdateRate];
-  v9 = [NIInternalUtils NINearbyObjectDiscoveryPriorityToString:self->_preferredDiscoveryPriority];
-  discoveryTokenVariant = self->_discoveryTokenVariant;
-  v11 = [v3 stringWithFormat:@"<finder: %d [observer %d], cfg-type: %d, ses-token: %@, rate: %s, disc-prio: %s, camera: %d [client %d], debug-params: %@, disc-token-var: %d>, requested-meas-qual: %d", isFinder, isObserver, configType_low, descriptionInternal, v8, v9, self->_cameraAssistanceEnabled, self->_cameraAssistanceInClientProcess, self->_debugParameters, discoveryTokenVariant, self->_requestedMeasurementQuality];
+  v8 = [v3 stringWithFormat:@"<finder: %d [observer %d], cfg-type: %d, ses-token: %@, rate: %s, disc-prio: %s, camera: %d [client %d], debug-params: %@, disc-token-var: %d>, requested-meas-qual: %d", isFinder, isObserver, configType_low, descriptionInternal, +[NIInternalUtils NINearbyObjectUpdateRateToString:](NIInternalUtils, "NINearbyObjectUpdateRateToString:", self->_preferredUpdateRate), +[NIInternalUtils NINearbyObjectDiscoveryPriorityToString:](NIInternalUtils, "NINearbyObjectDiscoveryPriorityToString:", self->_preferredDiscoveryPriority), self->_cameraAssistanceEnabled, self->_cameraAssistanceInClientProcess, self->_debugParameters, self->_discoveryTokenVariant, self->_requestedMeasurementQuality];
 
-  return v11;
+  return v8;
 }
 
 @end

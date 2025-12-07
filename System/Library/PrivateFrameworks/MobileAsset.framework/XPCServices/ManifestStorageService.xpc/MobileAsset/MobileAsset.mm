@@ -246,7 +246,7 @@ void sub_100002598(uint64_t a1)
   (*(*(a1 + 56) + 16))();
 }
 
-uint64_t sub_100002F60(uint64_t a1, uint64_t a2, void *a3)
+uint64_t sub_100002F60(uint64_t a1, void *a2, size_t *a3)
 {
   if (image4_environment_new())
   {

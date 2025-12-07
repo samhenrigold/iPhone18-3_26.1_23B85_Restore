@@ -24,91 +24,94 @@
   v6 = MEMORY[0x277D5B1B8];
   resourceCopy = resource;
   voiceCopy = voice;
-  v37 = objc_alloc_init(v6);
+  v31 = objc_alloc_init(v6);
   v9 = objc_alloc_init(MEMORY[0x277D5ACB8]);
-  [v37 setVoiceSettings:v9];
+  [v31 setVoiceSettings:?];
 
-  v10 = +[VSSiriInstrumentation schemaVoiceGenderFromGender:](VSSiriInstrumentation, "schemaVoiceGenderFromGender:", [voiceCopy gender]);
-  voiceSettings = [v37 voiceSettings];
-  [voiceSettings setVoiceGender:v10];
+  [voiceCopy gender];
+  [VSSiriInstrumentation schemaVoiceGenderFromGender:?];
+  voiceSettings = [v31 voiceSettings];
+  [voiceSettings setVoiceGender:?];
 
   name = [voiceCopy name];
-  voiceSettings2 = [v37 voiceSettings];
-  [voiceSettings2 setVoiceName:name];
+  voiceSettings2 = [v31 voiceSettings];
+  [voiceSettings2 setVoiceName:?];
 
-  v14 = MEMORY[0x277D5ACF0];
+  v13 = MEMORY[0x277D5ACF0];
   languages = [voiceCopy languages];
   firstObject = [languages firstObject];
-  v17 = [v14 convertLanguageCodeToSchemaLocale:firstObject];
-  voiceSettings3 = [v37 voiceSettings];
-  [voiceSettings3 setVoiceAccent:v17];
+  [v13 convertLanguageCodeToSchemaLocale:?];
+  voiceSettings3 = [v31 voiceSettings];
+  [voiceSettings3 setVoiceAccent:?];
 
-  v19 = objc_alloc_init(MEMORY[0x277D5B1B0]);
-  [v37 setContext:v19];
+  v17 = objc_alloc_init(MEMORY[0x277D5B1B0]);
+  [v31 setContext:?];
 
-  v20 = +[VSSiriInstrumentation schemaVoiceTypeFromType:](VSSiriInstrumentation, "schemaVoiceTypeFromType:", [voiceCopy type]);
-  context = [v37 context];
-  [context setVoiceType:v20];
+  [voiceCopy type];
+  [VSSiriInstrumentation schemaVoiceTypeFromType:?];
+  context = [v31 context];
+  [context setVoiceType:?];
 
-  v22 = +[VSSiriInstrumentation schemaFootprintFromFootprint:](VSSiriInstrumentation, "schemaFootprintFromFootprint:", [voiceCopy footprint]);
-  context2 = [v37 context];
-  [context2 setVoiceFootprint:v22];
+  [voiceCopy footprint];
+  [VSSiriInstrumentation schemaFootprintFromFootprint:?];
+  context2 = [v31 context];
+  [context2 setVoiceFootprint:?];
 
   contentVersion = [voiceCopy contentVersion];
 
-  integerValue = [contentVersion integerValue];
-  context3 = [v37 context];
-  [context3 setVoiceVersion:integerValue];
+  [contentVersion integerValue];
+  context3 = [v31 context];
+  [context3 setVoiceVersion:?];
 
   contentVersion2 = [resourceCopy contentVersion];
 
-  integerValue2 = [contentVersion2 integerValue];
-  context4 = [v37 context];
-  [context4 setResourceVersion:integerValue2];
+  [contentVersion2 integerValue];
+  context4 = [v31 context];
+  [context4 setResourceVersion:?];
 
-  v30 = objc_alloc_init(MEMORY[0x277D5B140]);
-  [v30 setVoiceFallbackOccurred:v37];
-  v31 = objc_alloc_init(MEMORY[0x277D5B148]);
-  [v30 setEventMetadata:v31];
+  v24 = objc_alloc_init(MEMORY[0x277D5B140]);
+  [v24 setVoiceFallbackOccurred:?];
+  v25 = objc_alloc_init(MEMORY[0x277D5B148]);
+  [v24 setEventMetadata:?];
 
-  v32 = objc_alloc(MEMORY[0x277D5AC78]);
+  v26 = objc_alloc(MEMORY[0x277D5AC78]);
   ttsId = [(VSSiriInstrumentation *)self ttsId];
-  v34 = [v32 initWithNSUUID:ttsId];
-  eventMetadata = [v30 eventMetadata];
-  [eventMetadata setTtsId:v34];
+  v28 = [v26 initWithNSUUID:?];
+  eventMetadata = [v24 eventMetadata];
+  [eventMetadata setTtsId:?];
 
   mEMORY[0x277D552C0] = [MEMORY[0x277D552C0] sharedStream];
-  [mEMORY[0x277D552C0] emitMessage:v30];
+  [mEMORY[0x277D552C0] emitMessage:?];
 }
 
 - (void)instrumentSpeechCancelled
 {
   v16 = objc_alloc_init(MEMORY[0x277D5B170]);
-  [v16 setExists:1];
+  [v16 setExists:?];
   v3 = objc_alloc_init(MEMORY[0x277D5B150]);
-  [v3 setCancelled:v16];
+  [v3 setCancelled:?];
   v4 = objc_alloc(MEMORY[0x277D5AC78]);
   contextId = [(VSSiriInstrumentation *)self contextId];
-  v6 = [v4 initWithNSUUID:contextId];
-  [v3 setContextId:v6];
+  v6 = [v4 initWithNSUUID:?];
+  [v3 setContextId:?];
 
   v7 = objc_alloc_init(MEMORY[0x277D5B140]);
-  [v7 setSpeechContext:v3];
+  [v7 setSpeechContext:?];
   v8 = objc_alloc_init(MEMORY[0x277D5B148]);
-  [v7 setEventMetadata:v8];
+  [v7 setEventMetadata:?];
 
   v9 = objc_alloc(MEMORY[0x277D5AC78]);
   ttsId = [(VSSiriInstrumentation *)self ttsId];
-  v11 = [v9 initWithNSUUID:ttsId];
+  v11 = [v9 initWithNSUUID:?];
   eventMetadata = [v7 eventMetadata];
-  [eventMetadata setTtsId:v11];
+  [eventMetadata setTtsId:?];
 
   mEMORY[0x277D552C0] = [MEMORY[0x277D552C0] sharedStream];
-  [mEMORY[0x277D552C0] emitMessage:v7];
+  [mEMORY[0x277D552C0] emitMessage:?];
 
   context = [MEMORY[0x277D5FAA0] context];
   ttsId2 = [(VSSiriInstrumentation *)self ttsId];
-  [VSSiriInstrumentation instrumentPowerEvent:context ttsId:ttsId2];
+  [VSSiriInstrumentation instrumentPowerEvent:"instrumentPowerEvent:ttsId:" ttsId:?];
 }
 
 - (void)instrumentSpeechFailedWithErrorCodes:(id)codes
@@ -116,222 +119,207 @@
   v4 = MEMORY[0x277D5B180];
   codesCopy = codes;
   v19 = objc_alloc_init(v4);
-  [v19 setErrorCodes:codesCopy];
+  [v19 setErrorCodes:?];
 
   v6 = objc_alloc_init(MEMORY[0x277D5B150]);
-  [v6 setFailed:v19];
+  [v6 setFailed:?];
   v7 = objc_alloc(MEMORY[0x277D5AC78]);
   contextId = [(VSSiriInstrumentation *)self contextId];
-  v9 = [v7 initWithNSUUID:contextId];
-  [v6 setContextId:v9];
+  v9 = [v7 initWithNSUUID:?];
+  [v6 setContextId:?];
 
   v10 = objc_alloc_init(MEMORY[0x277D5B140]);
-  [v10 setSpeechContext:v6];
+  [v10 setSpeechContext:?];
   v11 = objc_alloc_init(MEMORY[0x277D5B148]);
-  [v10 setEventMetadata:v11];
+  [v10 setEventMetadata:?];
 
   v12 = objc_alloc(MEMORY[0x277D5AC78]);
   ttsId = [(VSSiriInstrumentation *)self ttsId];
-  v14 = [v12 initWithNSUUID:ttsId];
+  v14 = [v12 initWithNSUUID:?];
   eventMetadata = [v10 eventMetadata];
-  [eventMetadata setTtsId:v14];
+  [eventMetadata setTtsId:?];
 
   mEMORY[0x277D552C0] = [MEMORY[0x277D552C0] sharedStream];
-  [mEMORY[0x277D552C0] emitMessage:v10];
+  [mEMORY[0x277D552C0] emitMessage:?];
 
   context = [MEMORY[0x277D5FAB0] context];
   ttsId2 = [(VSSiriInstrumentation *)self ttsId];
-  [VSSiriInstrumentation instrumentPowerEvent:context ttsId:ttsId2];
+  [VSSiriInstrumentation instrumentPowerEvent:"instrumentPowerEvent:ttsId:" ttsId:?];
 }
 
 - (void)instrumentSpeechEndedWithAudioDuration:(double)duration synthesisLatency:(double)latency realTimeFactor:(double)factor promptCount:(unint64_t)count errorCode:(int64_t)code
 {
-  v33[1] = *MEMORY[0x277D85DE8];
-  v13 = objc_alloc_init(MEMORY[0x277D5B178]);
-  *&v14 = duration;
-  [v13 setSynthesizedAudioDurationInSecond:v14];
-  *&v15 = latency;
-  [v13 setSynthesisLatencyInSecond:v15];
-  *&v16 = factor;
-  [v13 setSynthesisRealTimeFactor:v16];
-  [v13 setPromptCount:count];
-  v17 = [MEMORY[0x277CCABB0] numberWithInteger:code];
-  v33[0] = v17;
-  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v33 count:1];
-  [v13 setErrorCodes:v18];
+  v24 = *MEMORY[0x277D85DE8];
+  v8 = objc_alloc_init(MEMORY[0x277D5B178]);
+  [v8 setSynthesizedAudioDurationInSecond:?];
+  [v8 setSynthesisLatencyInSecond:?];
+  [v8 setSynthesisRealTimeFactor:?];
+  [v8 setPromptCount:?];
+  v9 = [MEMORY[0x277CCABB0] numberWithInteger:?];
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:v24];
+  [v8 setErrorCodes:?];
 
-  v19 = objc_alloc_init(MEMORY[0x277D5B150]);
-  [v19 setEnded:v13];
-  v20 = objc_alloc(MEMORY[0x277D5AC78]);
+  v11 = objc_alloc_init(MEMORY[0x277D5B150]);
+  [v11 setEnded:?];
+  v12 = objc_alloc(MEMORY[0x277D5AC78]);
   contextId = [(VSSiriInstrumentation *)self contextId];
-  v22 = [v20 initWithNSUUID:contextId];
-  [v19 setContextId:v22];
+  v14 = [v12 initWithNSUUID:?];
+  [v11 setContextId:?];
 
-  v23 = objc_alloc_init(MEMORY[0x277D5B140]);
-  [v23 setSpeechContext:v19];
-  v24 = objc_alloc_init(MEMORY[0x277D5B148]);
-  [v23 setEventMetadata:v24];
+  v15 = objc_alloc_init(MEMORY[0x277D5B140]);
+  [v15 setSpeechContext:?];
+  v16 = objc_alloc_init(MEMORY[0x277D5B148]);
+  [v15 setEventMetadata:?];
 
-  v25 = objc_alloc(MEMORY[0x277D5AC78]);
+  v17 = objc_alloc(MEMORY[0x277D5AC78]);
   ttsId = [(VSSiriInstrumentation *)self ttsId];
-  v27 = [v25 initWithNSUUID:ttsId];
-  eventMetadata = [v23 eventMetadata];
-  [eventMetadata setTtsId:v27];
+  v19 = [v17 initWithNSUUID:?];
+  eventMetadata = [v15 eventMetadata];
+  [eventMetadata setTtsId:?];
 
   mEMORY[0x277D552C0] = [MEMORY[0x277D552C0] sharedStream];
-  [mEMORY[0x277D552C0] emitMessage:v23];
+  [mEMORY[0x277D552C0] emitMessage:?];
 
   context = [MEMORY[0x277D5FAA8] context];
   ttsId2 = [(VSSiriInstrumentation *)self ttsId];
-  [VSSiriInstrumentation instrumentPowerEvent:context ttsId:ttsId2];
-
-  v32 = *MEMORY[0x277D85DE8];
+  [VSSiriInstrumentation instrumentPowerEvent:"instrumentPowerEvent:ttsId:" ttsId:?];
 }
 
 - (void)instrumentSpeechStartedWithSource:(int64_t)source customerPerceivedLatency:(double)latency audioOutputRoute:(id)route voiceType:(int64_t)type voiceFootprint:(int64_t)footprint voiceVersion:(unint64_t)version resourceVersion:(unint64_t)resourceVersion isWhisper:(BOOL)self0
 {
-  v17 = MEMORY[0x277D5B188];
+  v11 = MEMORY[0x277D5B188];
   routeCopy = route;
-  v42 = objc_alloc_init(v17);
-  v19 = [VSSiriInstrumentation outputRouteFromRouteInfo:routeCopy];
+  v31 = objc_alloc_init(v11);
+  [VSSiriInstrumentation outputRouteFromRouteInfo:?];
 
-  [v42 setAudioOutputRoute:v19];
-  *&v20 = latency;
-  [v42 setCustomerPerceivedLatencyInSecond:v20];
-  [v42 setSynthesisSource:{+[VSSiriInstrumentation synthesisSourceFromSource:](VSSiriInstrumentation, "synthesisSourceFromSource:", source)}];
-  v21 = objc_alloc_init(MEMORY[0x277D5B1B0]);
-  [v42 setVoiceContext:v21];
+  [v31 setAudioOutputRoute:?];
+  [v31 setCustomerPerceivedLatencyInSecond:?];
+  [VSSiriInstrumentation synthesisSourceFromSource:?];
+  [v31 setSynthesisSource:?];
+  v13 = objc_alloc_init(MEMORY[0x277D5B1B0]);
+  [v31 setVoiceContext:?];
 
-  v22 = [VSSiriInstrumentation schemaVoiceTypeFromType:type];
-  voiceContext = [v42 voiceContext];
-  [voiceContext setVoiceType:v22];
+  [VSSiriInstrumentation schemaVoiceTypeFromType:?];
+  voiceContext = [v31 voiceContext];
+  [voiceContext setVoiceType:?];
 
-  v24 = [VSSiriInstrumentation schemaFootprintFromFootprint:footprint];
-  voiceContext2 = [v42 voiceContext];
-  [voiceContext2 setVoiceFootprint:v24];
+  [VSSiriInstrumentation schemaFootprintFromFootprint:?];
+  voiceContext2 = [v31 voiceContext];
+  [voiceContext2 setVoiceFootprint:?];
 
-  voiceContext3 = [v42 voiceContext];
-  [voiceContext3 setVoiceVersion:version];
+  voiceContext3 = [v31 voiceContext];
+  [voiceContext3 setVoiceVersion:?];
 
-  voiceContext4 = [v42 voiceContext];
-  [voiceContext4 setResourceVersion:resourceVersion];
+  voiceContext4 = [v31 voiceContext];
+  [voiceContext4 setResourceVersion:?];
 
-  if (whisper)
-  {
-    v28 = 3;
-  }
-
-  else
-  {
-    v28 = 2;
-  }
-
-  [v42 setSynthesisEffect:v28];
-  v29 = objc_alloc_init(MEMORY[0x277D5B150]);
-  [v29 setStartedOrChanged:v42];
-  v30 = objc_alloc(MEMORY[0x277D5AC78]);
+  [v31 setSynthesisEffect:?];
+  v18 = objc_alloc_init(MEMORY[0x277D5B150]);
+  [v18 setStartedOrChanged:?];
+  v19 = objc_alloc(MEMORY[0x277D5AC78]);
   contextId = [(VSSiriInstrumentation *)self contextId];
-  v32 = [v30 initWithNSUUID:contextId];
-  [v29 setContextId:v32];
+  v21 = [v19 initWithNSUUID:?];
+  [v18 setContextId:?];
 
-  v33 = objc_alloc_init(MEMORY[0x277D5B140]);
-  [v33 setSpeechContext:v29];
-  v34 = objc_alloc_init(MEMORY[0x277D5B148]);
-  [v33 setEventMetadata:v34];
+  v22 = objc_alloc_init(MEMORY[0x277D5B140]);
+  [v22 setSpeechContext:?];
+  v23 = objc_alloc_init(MEMORY[0x277D5B148]);
+  [v22 setEventMetadata:?];
 
-  v35 = objc_alloc(MEMORY[0x277D5AC78]);
+  v24 = objc_alloc(MEMORY[0x277D5AC78]);
   ttsId = [(VSSiriInstrumentation *)self ttsId];
-  v37 = [v35 initWithNSUUID:ttsId];
-  eventMetadata = [v33 eventMetadata];
-  [eventMetadata setTtsId:v37];
+  v26 = [v24 initWithNSUUID:?];
+  eventMetadata = [v22 eventMetadata];
+  [eventMetadata setTtsId:?];
 
   mEMORY[0x277D552C0] = [MEMORY[0x277D552C0] sharedStream];
-  [mEMORY[0x277D552C0] emitMessage:v33];
+  [mEMORY[0x277D552C0] emitMessage:?];
 
   context = [MEMORY[0x277D5FAB8] context];
   ttsId2 = [(VSSiriInstrumentation *)self ttsId];
-  [VSSiriInstrumentation instrumentPowerEvent:context ttsId:ttsId2];
+  [VSSiriInstrumentation instrumentPowerEvent:"instrumentPowerEvent:ttsId:" ttsId:?];
 }
 
 - (void)instrumentRequestReceivedWithText:(id)text requestedVoiceType:(int64_t)type requestedVoiceFootprint:(int64_t)footprint isPrivate:(BOOL)private
 {
   textCopy = text;
-  v10 = objc_alloc_init(MEMORY[0x277D5B168]);
-  v11 = v10;
+  v8 = objc_alloc_init(MEMORY[0x277D5B168]);
+  v9 = v8;
   if (!private)
   {
-    [v10 setTextToSynthesize:textCopy];
+    [v8 setTextToSynthesize:?];
   }
 
-  v12 = objc_alloc(MEMORY[0x277D5AC78]);
+  v10 = objc_alloc(MEMORY[0x277D5AC78]);
   uUID = [MEMORY[0x277CCAD78] UUID];
-  v14 = [v12 initWithNSUUID:uUID];
-  [v11 setLinkId:v14];
+  v12 = [v10 initWithNSUUID:?];
+  [v9 setLinkId:?];
 
-  v15 = objc_alloc_init(MEMORY[0x277D5B140]);
-  [v15 setRequestReceivedTier1:v11];
-  v16 = objc_alloc_init(MEMORY[0x277D5B148]);
-  [v15 setEventMetadata:v16];
+  v13 = objc_alloc_init(MEMORY[0x277D5B140]);
+  [v13 setRequestReceivedTier1:?];
+  v14 = objc_alloc_init(MEMORY[0x277D5B148]);
+  [v13 setEventMetadata:?];
 
-  v17 = objc_alloc(MEMORY[0x277D5AC78]);
+  v15 = objc_alloc(MEMORY[0x277D5AC78]);
   ttsId = [(VSSiriInstrumentation *)self ttsId];
-  v19 = [v17 initWithNSUUID:ttsId];
-  eventMetadata = [v15 eventMetadata];
-  [eventMetadata setTtsId:v19];
+  v17 = [v15 initWithNSUUID:?];
+  eventMetadata = [v13 eventMetadata];
+  [eventMetadata setTtsId:?];
 
   mEMORY[0x277D552C0] = [MEMORY[0x277D552C0] sharedStream];
-  [mEMORY[0x277D552C0] emitMessage:v15];
+  [mEMORY[0x277D552C0] emitMessage:?];
 
-  v22 = objc_alloc_init(MEMORY[0x277D5B160]);
-  linkId = [v11 linkId];
-  [v22 setLinkId:linkId];
+  v20 = objc_alloc_init(MEMORY[0x277D5B160]);
+  linkId = [v9 linkId];
+  [v20 setLinkId:?];
 
-  v24 = objc_alloc_init(MEMORY[0x277D5B1B0]);
-  [v22 setRequestedVoiceContext:v24];
+  v22 = objc_alloc_init(MEMORY[0x277D5B1B0]);
+  [v20 setRequestedVoiceContext:?];
 
-  v25 = [VSSiriInstrumentation schemaVoiceTypeFromType:type];
-  requestedVoiceContext = [v22 requestedVoiceContext];
-  [requestedVoiceContext setVoiceType:v25];
+  [VSSiriInstrumentation schemaVoiceTypeFromType:?];
+  requestedVoiceContext = [v20 requestedVoiceContext];
+  [requestedVoiceContext setVoiceType:?];
 
-  v27 = [VSSiriInstrumentation schemaFootprintFromFootprint:footprint];
-  requestedVoiceContext2 = [v22 requestedVoiceContext];
-  [requestedVoiceContext2 setVoiceFootprint:v27];
+  [VSSiriInstrumentation schemaFootprintFromFootprint:?];
+  requestedVoiceContext2 = [v20 requestedVoiceContext];
+  [requestedVoiceContext2 setVoiceFootprint:?];
 
-  [v22 setInputTextLength:{objc_msgSend(textCopy, "length")}];
-  v29 = objc_alloc_init(MEMORY[0x277D5B140]);
-  [v29 setRequestReceived:v22];
-  v30 = objc_alloc_init(MEMORY[0x277D5B148]);
-  [v29 setEventMetadata:v30];
+  [textCopy length];
+  [v20 setInputTextLength:?];
+  v25 = objc_alloc_init(MEMORY[0x277D5B140]);
+  [v25 setRequestReceived:?];
+  v26 = objc_alloc_init(MEMORY[0x277D5B148]);
+  [v25 setEventMetadata:?];
 
-  v31 = objc_alloc(MEMORY[0x277D5AC78]);
+  v27 = objc_alloc(MEMORY[0x277D5AC78]);
   ttsId2 = [(VSSiriInstrumentation *)self ttsId];
-  v33 = [v31 initWithNSUUID:ttsId2];
-  eventMetadata2 = [v29 eventMetadata];
-  [eventMetadata2 setTtsId:v33];
+  v29 = [v27 initWithNSUUID:?];
+  eventMetadata2 = [v25 eventMetadata];
+  [eventMetadata2 setTtsId:?];
 
   mEMORY[0x277D552C0]2 = [MEMORY[0x277D552C0] sharedStream];
-  [mEMORY[0x277D552C0]2 emitMessage:v29];
+  [mEMORY[0x277D552C0]2 emitMessage:?];
 
   context = [MEMORY[0x277D5FA98] context];
   ttsId3 = [(VSSiriInstrumentation *)self ttsId];
-  [VSSiriInstrumentation instrumentPowerEvent:context ttsId:ttsId3];
+  [VSSiriInstrumentation instrumentPowerEvent:"instrumentPowerEvent:ttsId:" ttsId:?];
 }
 
 - (void)makeRequestLinkEvent
 {
-  v8 = [objc_alloc(MEMORY[0x277D5AC78]) initWithNSUUID:self->_siriRequestId];
-  v3 = objc_alloc_init(MEMORY[0x277D5A9E0]);
-  [v3 setUuid:v8];
-  [v3 setComponent:1];
-  v4 = [objc_alloc(MEMORY[0x277D5AC78]) initWithNSUUID:self->_ttsId];
-  v5 = objc_alloc_init(MEMORY[0x277D5A9E0]);
-  [v5 setUuid:v4];
-  [v5 setComponent:13];
-  v6 = objc_alloc_init(MEMORY[0x277D5A9D0]);
-  [v6 setSource:v5];
-  [v6 setTarget:v3];
+  v7 = [objc_alloc(MEMORY[0x277D5AC78]) initWithNSUUID:?];
+  v2 = objc_alloc_init(MEMORY[0x277D5A9E0]);
+  [v2 setUuid:?];
+  [v2 setComponent:?];
+  v3 = [objc_alloc(MEMORY[0x277D5AC78]) initWithNSUUID:?];
+  v4 = objc_alloc_init(MEMORY[0x277D5A9E0]);
+  [v4 setUuid:?];
+  [v4 setComponent:?];
+  v5 = objc_alloc_init(MEMORY[0x277D5A9D0]);
+  [v5 setSource:?];
+  [v5 setTarget:?];
   mEMORY[0x277D552C0] = [MEMORY[0x277D552C0] sharedStream];
-  [mEMORY[0x277D552C0] emitMessage:v6];
+  [mEMORY[0x277D552C0] emitMessage:?];
 }
 
 - (VSSiriInstrumentation)initWithSiriRequestId:(id)id
@@ -345,7 +333,7 @@
     goto LABEL_4;
   }
 
-  v7 = [MEMORY[0x277D552C0] derivedIdentifierForComponentName:13 fromSourceIdentifier:idCopy];
+  v7 = [MEMORY[0x277D552C0] derivedIdentifierForComponentName:? fromSourceIdentifier:?];
   ttsId = v6->_ttsId;
   v6->_ttsId = v7;
 
@@ -381,7 +369,7 @@ LABEL_8:
   eventCopy = event;
   v8 = +[VSSiriInstrumentation sharedPowerLogger];
   captureSnapshot = [v8 captureSnapshot];
-  [captureSnapshot logWithEventContext:eventCopy ttsIdentifier:idCopy];
+  [captureSnapshot logWithEventContext:? ttsIdentifier:?];
 }
 
 + (void)instrumentVoicedProcessStartedPowerEvent
@@ -389,7 +377,7 @@ LABEL_8:
   v4 = +[VSSiriInstrumentation sharedPowerLogger];
   captureSnapshot = [v4 captureSnapshot];
   context = [MEMORY[0x277D5FA90] context];
-  [captureSnapshot logWithEventContext:context];
+  [captureSnapshot logWithEventContext:?];
 }
 
 + (id)sharedPowerLogger
@@ -428,12 +416,12 @@ uint64_t __42__VSSiriInstrumentation_sharedPowerLogger__block_invoke()
 {
   infoCopy = info;
   audioRouteName = [infoCopy audioRouteName];
-  if ([audioRouteName isEqualToString:@"Speaker"])
+  if ([audioRouteName isEqualToString:?])
   {
     v5 = 2;
   }
 
-  else if ([audioRouteName isEqualToString:@"CarAudioOutput"])
+  else if ([audioRouteName isEqualToString:?])
   {
     v5 = 7;
   }

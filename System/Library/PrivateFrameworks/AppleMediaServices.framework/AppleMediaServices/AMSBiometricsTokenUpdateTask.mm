@@ -396,7 +396,7 @@ void __69__AMSBiometricsTokenUpdateTask_handleAuthenticateRequest_completion___b
   }
 }
 
-void __63__AMSBiometricsTokenUpdateTask_handleDialogRequest_completion___block_invoke(uint64_t a1, void *a2, void *a3)
+void __63__AMSBiometricsTokenUpdateTask_handleDialogRequest_completion___block_invoke(void *a1, void *a2, void *a3)
 {
   v19 = *MEMORY[0x1E69E9840];
   v5 = a3;
@@ -413,7 +413,7 @@ void __63__AMSBiometricsTokenUpdateTask_handleDialogRequest_completion___block_i
     v9 = objc_opt_class();
     v10 = v9;
     v11 = AMSLogKey();
-    v12 = *(a1 + 40);
+    v12 = a1[5];
     v13 = 138543874;
     v14 = v9;
     v15 = 2114;
@@ -423,7 +423,7 @@ void __63__AMSBiometricsTokenUpdateTask_handleDialogRequest_completion___block_i
     _os_log_impl(&dword_192869000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Delegate handled dialog request. Request: %{public}@", &v13, 0x20u);
   }
 
-  (*(*(a1 + 48) + 16))();
+  (*(a1[6] + 16))();
 }
 
 + (AMSBagKeySet)bagKeySet

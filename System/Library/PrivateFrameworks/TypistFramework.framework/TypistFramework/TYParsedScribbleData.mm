@@ -27,29 +27,29 @@ uint64_t __47__TYParsedScribbleData__latexRegularExpression__block_invoke()
 
 - (unint64_t)_calculateTotalWidthWithPathMap:(id)map
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   mapCopy = map;
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   obj = [(TYParsedScribbleData *)self parsedData];
-  v4 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v4 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v4)
   {
     v5 = v4;
     v6 = 0;
-    v7 = *v20;
+    v7 = *v19;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v20 != v7)
+        if (*v19 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v19 + 1) + 8 * i);
+        v9 = *(*(&v18 + 1) + 8 * i);
         if ([v9 isLatexString])
         {
           [v9 boundingSize];
@@ -68,7 +68,7 @@ uint64_t __47__TYParsedScribbleData__latexRegularExpression__block_invoke()
         }
       }
 
-      v5 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v5 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v5);
@@ -79,49 +79,48 @@ uint64_t __47__TYParsedScribbleData__latexRegularExpression__block_invoke()
     v6 = 0;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
 - (TYParsedScribbleData)initWithText:(id)text regionCode:(id)code isCursive:(BOOL)cursive
 {
   cursiveCopy = cursive;
-  v56 = *MEMORY[0x277D85DE8];
+  v55 = *MEMORY[0x277D85DE8];
   textCopy = text;
   codeCopy = code;
-  v54.receiver = self;
-  v54.super_class = TYParsedScribbleData;
-  v10 = [(TYParsedScribbleData *)&v54 init];
+  v53.receiver = self;
+  v53.super_class = TYParsedScribbleData;
+  v10 = [(TYParsedScribbleData *)&v53 init];
   if (v10)
   {
-    v43 = cursiveCopy;
-    v45 = codeCopy;
-    v49 = objc_opt_new();
+    v42 = cursiveCopy;
+    v44 = codeCopy;
     v48 = objc_opt_new();
-    v44 = v10;
+    v47 = objc_opt_new();
+    v43 = v10;
     _latexRegularExpression = [(TYParsedScribbleData *)v10 _latexRegularExpression];
     [_latexRegularExpression matchesInString:textCopy options:0 range:{0, objc_msgSend(textCopy, "length")}];
+    v49 = 0u;
     v50 = 0u;
     v51 = 0u;
-    v52 = 0u;
-    obj = v53 = 0u;
-    v11 = [obj countByEnumeratingWithState:&v50 objects:v55 count:16];
+    obj = v52 = 0u;
+    v11 = [obj countByEnumeratingWithState:&v49 objects:v54 count:16];
     if (v11)
     {
       v12 = v11;
       v13 = 0;
-      v47 = *v51;
+      v46 = *v50;
       do
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v51 != v47)
+          if (*v50 != v46)
           {
             objc_enumerationMutation(obj);
           }
 
           v15 = textCopy;
-          v16 = *(*(&v50 + 1) + 8 * i);
+          v16 = *(*(&v49 + 1) + 8 * i);
           range = [v16 range];
           v19 = v18;
           v20 = 2;
@@ -147,9 +146,9 @@ uint64_t __47__TYParsedScribbleData__latexRegularExpression__block_invoke()
             v25 = [(TYParsedLatexData *)v23 initWithString:v24 isLatex:0];
 
             string = [(TYParsedLatexData *)v25 string];
-            [v48 appendString:string];
+            [v47 appendString:string];
 
-            [v49 addObject:v25];
+            [v48 addObject:v25];
           }
 
           v27 = 9;
@@ -175,13 +174,13 @@ uint64_t __47__TYParsedScribbleData__latexRegularExpression__block_invoke()
           v33 = [(TYParsedLatexData *)v29 initWithString:v32 isLatex:1];
 
           convertedString = [(TYParsedLatexData *)v33 convertedString];
-          [v48 appendString:convertedString];
+          [v47 appendString:convertedString];
 
-          [v49 addObject:v33];
+          [v48 addObject:v33];
           v13 = range + v19;
         }
 
-        v12 = [obj countByEnumeratingWithState:&v50 objects:v55 count:16];
+        v12 = [obj countByEnumeratingWithState:&v49 objects:v54 count:16];
       }
 
       while (v12);
@@ -199,23 +198,22 @@ uint64_t __47__TYParsedScribbleData__latexRegularExpression__block_invoke()
       v37 = [(TYParsedLatexData *)v35 initWithString:v36 isLatex:0];
 
       string2 = [(TYParsedLatexData *)v37 string];
-      [v48 appendString:string2];
+      [v47 appendString:string2];
 
-      [v49 addObject:v37];
+      [v48 addObject:v37];
     }
 
-    codeCopy = v45;
-    v39 = [TypistPathUtilities getPathDataForCharacters:v48 withRegion:v45 isCursive:v43];
-    v10 = v44;
-    [(TYParsedScribbleData *)v44 setParsedData:v49];
-    [(TYParsedScribbleData *)v44 setConvertedString:v48];
-    [(TYParsedScribbleData *)v44 setPathMap:v39];
-    [(TYParsedScribbleData *)v44 setIsCursive:v43];
-    [(TYParsedScribbleData *)v44 setRegionCode:v45];
-    [(TYParsedScribbleData *)v44 setTotalWidth:[(TYParsedScribbleData *)v44 _calculateTotalWidthWithPathMap:v39]];
+    codeCopy = v44;
+    v39 = [TypistPathUtilities getPathDataForCharacters:v47 withRegion:v44 isCursive:v42];
+    v10 = v43;
+    [(TYParsedScribbleData *)v43 setParsedData:v48];
+    [(TYParsedScribbleData *)v43 setConvertedString:v47];
+    [(TYParsedScribbleData *)v43 setPathMap:v39];
+    [(TYParsedScribbleData *)v43 setIsCursive:v42];
+    [(TYParsedScribbleData *)v43 setRegionCode:v44];
+    [(TYParsedScribbleData *)v43 setTotalWidth:[(TYParsedScribbleData *)v43 _calculateTotalWidthWithPathMap:v39]];
   }
 
-  v40 = *MEMORY[0x277D85DE8];
   return v10;
 }
 

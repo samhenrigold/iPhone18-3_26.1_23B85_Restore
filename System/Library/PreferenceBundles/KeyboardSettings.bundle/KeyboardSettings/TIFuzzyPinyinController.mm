@@ -7,6 +7,7 @@
 - (void)emitNavigationEventForFuzzyPinyinController;
 - (void)setKeyboardPreferenceValue:(id)value forSpecifier:(id)specifier;
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLoad;
 @end
 
@@ -27,6 +28,14 @@
   v3 = OBJC_IVAR___PSListController__table;
   [*&self->PSListController_opaque[OBJC_IVAR___PSListController__table] setEstimatedSectionHeaderHeight:0.0];
   [*&self->PSListController_opaque[v3] setEstimatedSectionFooterHeight:0.0];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = TIFuzzyPinyinController;
+  [(TIFuzzyPinyinController *)&v4 viewDidAppear:appear];
+  [(TIFuzzyPinyinController *)self emitNavigationEventForFuzzyPinyinController];
 }
 
 - (NSArray)fuzzyPinyinPairSpecifiers

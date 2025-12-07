@@ -36,9 +36,15 @@
 - (id)_nextLaneGuidanceEvent;
 - (id)_selectAnnouncementForEvent:(id)event withTimeRemaining:(double)remaining selectedVariantIndex:(unint64_t *)index;
 - (id)_serverStringDictionaryForChargingEvent:(id)event;
+- (id)_serverStringDictionaryForEvent:(id)event distance:(double)distance validDistance:(double)validDistance spoken:(BOOL)spoken waypoints:(id)waypoints;
 - (id)_signForGuidanceEvent:(id)event isPrimary:(BOOL)primary shouldOverridePrimaryDistances:(BOOL)distances distance:(double *)distance;
 - (id)_sortedSignEventsFromValidSignEvents:(id)events;
+- (id)_specialAREvents:(int)events forLeg:(unint64_t)leg;
+- (id)_specialNavTrayEvents:(int)events forLeg:(unint64_t)leg;
+- (id)_specialSignEvents:(int)events forLeg:(unint64_t)leg;
+- (id)_specialSpokenEvents:(int)events forLegIndex:(unint64_t)index;
 - (id)_spokenEventsRemainingInStep;
+- (id)_spokenStringForEvent:(id)event waypointCategory:(int)category;
 - (id)_validEventsForARGuidance;
 - (id)_validEventsForSignGuidance:(BOOL *)guidance;
 - (int)_indexForEventUUID:(id)d;
@@ -62,6 +68,7 @@
 - (void)_initSpecialGuidanceEventsForRoute:(id)route;
 - (void)_markEventSpoken:(id)spoken;
 - (void)_notifyAnalyticsForNewEvents:(id)events previousEvents:(id)previousEvents;
+- (void)_notifySpeechEvent:(id)event waypointCategory:(int)category startingVariantIndex:(unint64_t)index;
 - (void)_planAnnouncements;
 - (void)_resetLastAnnouncementTime;
 - (void)_triggerHapticsForEvent:(id)event timeUntilAnnouncement:(double)announcement;
@@ -90,49 +97,47 @@
 
 - (void)_filterValidEvents
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v3 = objc_alloc_init(MEMORY[0x1E695DF70]);
   validEvents = self->_validEvents;
   self->_validEvents = v3;
 
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   events = [(MNGuidanceManager *)self events];
-  v6 = [events countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v6 = [events countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v13;
+    v8 = *v12;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v13 != v8)
+        if (*v12 != v8)
         {
           objc_enumerationMutation(events);
         }
 
-        v10 = *(*(&v12 + 1) + 8 * i);
+        v10 = *(*(&v11 + 1) + 8 * i);
         if ([(MNGuidanceManager *)self _isValidEvent:v10])
         {
           [(NSMutableArray *)self->_validEvents addObject:v10];
         }
       }
 
-      v7 = [events countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v7 = [events countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v7);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (NSArray)events
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   events = self->_events;
   if (!events)
   {
@@ -141,36 +146,36 @@
     composedGuidanceEvents = [route composedGuidanceEvents];
     v7 = [v4 arrayWithArray:composedGuidanceEvents];
 
-    v20 = 0u;
-    v21 = 0u;
-    v18 = 0u;
     v19 = 0u;
+    v20 = 0u;
+    v17 = 0u;
+    v18 = 0u;
     route2 = [(MNGuidanceManager *)self route];
     enrouteNotices = [route2 enrouteNotices];
 
-    v10 = [enrouteNotices countByEnumeratingWithState:&v18 objects:v22 count:16];
+    v10 = [enrouteNotices countByEnumeratingWithState:&v17 objects:v21 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v19;
+      v12 = *v18;
       do
       {
         v13 = 0;
         do
         {
-          if (*v19 != v12)
+          if (*v18 != v12)
           {
             objc_enumerationMutation(enrouteNotices);
           }
 
-          guidanceEvents = [*(*(&v18 + 1) + 8 * v13) guidanceEvents];
+          guidanceEvents = [*(*(&v17 + 1) + 8 * v13) guidanceEvents];
           [(NSMutableArray *)v7 addObjectsFromArray:guidanceEvents];
 
           ++v13;
         }
 
         while (v11 != v13);
-        v11 = [enrouteNotices countByEnumeratingWithState:&v18 objects:v22 count:16];
+        v11 = [enrouteNotices countByEnumeratingWithState:&v17 objects:v21 count:16];
       }
 
       while (v11);
@@ -182,8 +187,6 @@
 
     events = self->_events;
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return events;
 }
@@ -592,7 +595,7 @@ LABEL_20:
 
 - (void)_considerLaneGuidance
 {
-  v44[1] = *MEMORY[0x1E69E9840];
+  v42[1] = *MEMORY[0x1E69E9840];
   _nextLaneGuidanceEvent = [(MNGuidanceManager *)self _nextLaneGuidanceEvent];
   v4 = _nextLaneGuidanceEvent;
   if (_nextLaneGuidanceEvent)
@@ -603,9 +606,9 @@ LABEL_20:
     v8 = v7;
     navigationSessionState = [(MNGuidanceManager *)self navigationSessionState];
     currentWaypoint = [navigationSessionState currentWaypoint];
-    v44[0] = currentWaypoint;
-    v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v44 count:1];
-    v39 = [(MNGuidanceManager *)self _serverStringDictionaryForEvent:v4 distance:0 validDistance:v11 spoken:v6 waypoints:v8];
+    v42[0] = currentWaypoint;
+    v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v42 count:1];
+    v37 = [(MNGuidanceManager *)self _serverStringDictionaryForEvent:v4 distance:0 validDistance:v11 spoken:v6 waypoints:v8];
 
     uniqueID = [v4 uniqueID];
     LODWORD(v11) = [(MNGuidanceManager *)self _indexForEventUUID:uniqueID];
@@ -616,9 +619,9 @@ LABEL_20:
     lanes = [v4 lanes];
     laneTitles = [v4 laneTitles];
     laneInstructions = [v4 laneInstructions];
-    v19 = [v39 objectForKeyedSubscript:@"{fromOrigin}"];
-    LODWORD(v38) = v11;
-    v20 = [(MNGuidanceLaneInfo *)v13 initWithID:uniqueID2 isForManeuver:isLaneGuidanceForManeuver lanes:lanes titles:laneTitles instructions:laneInstructions variableOverrides:v19 distanceDetailLevel:0 composedGuidanceEventIndex:v38];
+    v19 = [v37 objectForKeyedSubscript:@"{fromOrigin}"];
+    LODWORD(v36) = v11;
+    v20 = [(MNGuidanceLaneInfo *)v13 initWithID:uniqueID2 isForManeuver:isLaneGuidanceForManeuver lanes:lanes titles:laneTitles instructions:laneInstructions variableOverrides:v19 distanceDetailLevel:0 composedGuidanceEventIndex:v36];
 
     primaryLaneStrings = [v4 primaryLaneStrings];
     v22 = [(MNGuidanceManager *)self _evaluatedStringsForEvent:v4 signStrings:primaryLaneStrings shouldUpdateFormatStrings:1 argumentHandler:0];
@@ -628,19 +631,18 @@ LABEL_20:
     v24 = [(MNGuidanceManager *)self _evaluatedStringsForEvent:v4 signStrings:secondaryLaneStrings shouldUpdateFormatStrings:1 argumentHandler:0];
     [(MNGuidanceLaneInfo *)v20 setSecondaryStrings:v24];
 
-    isInPreArrivalState = self->_isInPreArrivalState;
     if (self->_currentLaneGuidanceEvent)
     {
       if (!self->_isInPreArrivalState)
       {
-        v26 = MNGetMNGuidanceManagerLog();
-        if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
+        v25 = MNGetMNGuidanceManagerLog();
+        if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
         {
           *buf = 138412290;
-          v43 = v4;
-          v27 = "ⓖ Replacing lane guidance with: %@";
+          v41 = v4;
+          v26 = "ⓖ Replacing lane guidance with: %@";
 LABEL_14:
-          _os_log_impl(&dword_1D311E000, v26, OS_LOG_TYPE_INFO, v27, buf, 0xCu);
+          _os_log_impl(&dword_1D311E000, v25, OS_LOG_TYPE_INFO, v26, buf, 0xCu);
           goto LABEL_15;
         }
 
@@ -650,12 +652,12 @@ LABEL_14:
 
     else if (!self->_isInPreArrivalState)
     {
-      v26 = MNGetMNGuidanceManagerLog();
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
+      v25 = MNGetMNGuidanceManagerLog();
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v43 = v4;
-        v27 = "ⓖ Adding lane guidance: %@";
+        v41 = v4;
+        v26 = "ⓖ Adding lane guidance: %@";
         goto LABEL_14;
       }
 
@@ -666,36 +668,36 @@ LABEL_15:
       [WeakRetained guidanceManager:self showLaneDirections:v20];
     }
 
-    v41 = v4;
-    v33 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v41 count:1];
+    v39 = v4;
+    v32 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v39 count:1];
     goto LABEL_17;
   }
 
   if (self->_currentLaneGuidanceEvent)
   {
-    v28 = MNGetMNGuidanceManagerLog();
-    if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
+    v27 = MNGetMNGuidanceManagerLog();
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
     {
       currentLaneGuidanceEvent = self->_currentLaneGuidanceEvent;
       *buf = 138412290;
-      v43 = currentLaneGuidanceEvent;
-      _os_log_impl(&dword_1D311E000, v28, OS_LOG_TYPE_INFO, "ⓖ Removing lane guidance: %@", buf, 0xCu);
+      v41 = currentLaneGuidanceEvent;
+      _os_log_impl(&dword_1D311E000, v27, OS_LOG_TYPE_INFO, "ⓖ Removing lane guidance: %@", buf, 0xCu);
     }
 
-    v30 = objc_loadWeakRetained(&self->_delegate);
+    v29 = objc_loadWeakRetained(&self->_delegate);
     uniqueID3 = [(GEOComposedGuidanceEvent *)self->_currentLaneGuidanceEvent uniqueID];
-    [v30 guidanceManager:self hideLaneDirectionsForId:uniqueID3];
+    [v29 guidanceManager:self hideLaneDirectionsForId:uniqueID3];
 
-    v32 = self->_currentLaneGuidanceEvent;
+    v31 = self->_currentLaneGuidanceEvent;
     self->_currentLaneGuidanceEvent = 0;
   }
 
   v20 = 0;
-  v33 = 0;
+  v32 = 0;
 LABEL_17:
   if (!self->_previousLaneGuidanceEvent)
   {
-    [(MNGuidanceManager *)self _notifyAnalyticsForNewEvents:v33 previousEvents:0];
+    [(MNGuidanceManager *)self _notifyAnalyticsForNewEvents:v32 previousEvents:0];
     if (!v4)
     {
       goto LABEL_20;
@@ -705,8 +707,8 @@ LABEL_17:
   }
 
   previousLaneGuidanceEvent = self->_previousLaneGuidanceEvent;
-  v35 = [MEMORY[0x1E695DEC8] arrayWithObjects:&previousLaneGuidanceEvent count:1];
-  [(MNGuidanceManager *)self _notifyAnalyticsForNewEvents:v33 previousEvents:v35];
+  v34 = [MEMORY[0x1E695DEC8] arrayWithObjects:&previousLaneGuidanceEvent count:1];
+  [(MNGuidanceManager *)self _notifyAnalyticsForNewEvents:v32 previousEvents:v34];
 
   if (v4)
   {
@@ -714,34 +716,32 @@ LABEL_19:
   }
 
 LABEL_20:
-  v36 = self->_previousLaneGuidanceEvent;
+  v35 = self->_previousLaneGuidanceEvent;
   self->_previousLaneGuidanceEvent = v4;
-
-  v37 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_nextLaneGuidanceEvent
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   v2 = self->_validEvents;
-  v3 = [(NSMutableArray *)v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v3 = [(NSMutableArray *)v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v3)
   {
-    v4 = *v12;
+    v4 = *v11;
     while (2)
     {
       for (i = 0; i != v3; i = i + 1)
       {
-        if (*v12 != v4)
+        if (*v11 != v4)
         {
           objc_enumerationMutation(v2);
         }
 
-        v6 = *(*(&v11 + 1) + 8 * i);
+        v6 = *(*(&v10 + 1) + 8 * i);
         lanes = [v6 lanes];
         v8 = [lanes count];
 
@@ -752,7 +752,7 @@ LABEL_20:
         }
       }
 
-      v3 = [(NSMutableArray *)v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v3 = [(NSMutableArray *)v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
       if (v3)
       {
         continue;
@@ -764,16 +764,14 @@ LABEL_20:
 
 LABEL_11:
 
-  v9 = *MEMORY[0x1E69E9840];
-
   return v3;
 }
 
 - (void)_considerSignGuidance
 {
-  v35 = *MEMORY[0x1E69E9840];
-  v32 = 0;
-  v3 = [(MNGuidanceManager *)self _validEventsForSignGuidance:&v32];
+  v34 = *MEMORY[0x1E69E9840];
+  v31 = 0;
+  v3 = [(MNGuidanceManager *)self _validEventsForSignGuidance:&v31];
   if ([v3 count])
   {
     v4 = [(MNGuidanceManager *)self _sortedSignEventsFromValidSignEvents:v3];
@@ -790,12 +788,12 @@ LABEL_16:
     secondarySign = [(MNGuidanceSignInfo *)self->_signInfo secondarySign];
     uniqueID2 = [secondarySign uniqueID];
 
-    v31 = 0.0;
+    v30 = 0.0;
     if ([v4 count])
     {
       v8 = [v4 objectAtIndexedSubscript:0];
       stepIndex = [v8 stepIndex];
-      v10 = [(MNGuidanceManager *)self _signForGuidanceEvent:v8 isPrimary:1 shouldOverridePrimaryDistances:v32 distance:&v31];
+      v10 = [(MNGuidanceManager *)self _signForGuidanceEvent:v8 isPrimary:1 shouldOverridePrimaryDistances:v31 distance:&v30];
     }
 
     else
@@ -804,16 +802,16 @@ LABEL_16:
       stepIndex = 0x7FFFFFFFFFFFFFFFLL;
     }
 
-    v30 = 0.0;
+    v29 = 0.0;
     v11 = 0;
     if ([v4 count] >= 2)
     {
       v12 = [v4 objectAtIndexedSubscript:1];
-      v11 = [(MNGuidanceManager *)self _signForGuidanceEvent:v12 isPrimary:0 shouldOverridePrimaryDistances:v32 distance:&v30];
+      v11 = [(MNGuidanceManager *)self _signForGuidanceEvent:v12 isPrimary:0 shouldOverridePrimaryDistances:v31 distance:&v29];
     }
 
     v13 = [MNGuidanceSignInfo alloc];
-    v14 = [(MNGuidanceSignInfo *)v13 initWithPrimarySign:v10 secondarySign:v11 stepIndex:stepIndex primaryDistance:v31 secondaryDistance:v30 timeUntilPrimarySign:v31 / self->_speed timeUntilSecondarySign:v30 / self->_speed];
+    v14 = [(MNGuidanceSignInfo *)v13 initWithPrimarySign:v10 secondarySign:v11 stepIndex:stepIndex primaryDistance:v30 secondaryDistance:v29 timeUntilPrimarySign:v30 / self->_speed timeUntilSecondarySign:v29 / self->_speed];
     signInfo = self->_signInfo;
     self->_signInfo = v14;
 
@@ -822,7 +820,7 @@ LABEL_16:
     if ([MNComparison isValue:uniqueID equalTo:uniqueID3])
     {
       [(MNGuidanceSignInfo *)self->_signInfo secondarySign];
-      v28 = v11;
+      v27 = v11;
       v18 = v10;
       v19 = v3;
       v21 = v20 = uniqueID2;
@@ -832,7 +830,7 @@ LABEL_16:
       uniqueID2 = v20;
       v3 = v19;
       v10 = v18;
-      v11 = v28;
+      v11 = v27;
 
       if (v23)
       {
@@ -855,7 +853,7 @@ LABEL_15:
     {
       v25 = self->_signInfo;
       *buf = 138412290;
-      v34 = v25;
+      v33 = v25;
       _os_log_impl(&dword_1D311E000, v24, OS_LOG_TYPE_INFO, "ⓖ New sign guidance: %@", buf, 0xCu);
     }
 
@@ -863,13 +861,11 @@ LABEL_15:
   }
 
 LABEL_17:
-
-  v27 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_considerNavTrayGuidance
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   navigationSessionState = [(MNGuidanceManager *)self navigationSessionState];
   navigationState = [navigationSessionState navigationState];
 
@@ -883,9 +879,9 @@ LABEL_17:
       v7 = MNGetMNGuidanceManagerLog();
       if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
-        v18 = 138412290;
-        v19 = @"CHARGING_AT_STATION";
-        _os_log_impl(&dword_1D311E000, v7, OS_LOG_TYPE_ERROR, "Found multiple nav tray guidance events for guidance event type '%@'. This is a Routing error. Using the first one found.", &v18, 0xCu);
+        v17 = 138412290;
+        v18 = @"CHARGING_AT_STATION";
+        _os_log_impl(&dword_1D311E000, v7, OS_LOG_TYPE_ERROR, "Found multiple nav tray guidance events for guidance event type '%@'. This is a Routing error. Using the first one found.", &v17, 0xCu);
       }
     }
 
@@ -917,8 +913,6 @@ LABEL_17:
       }
     }
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_considerPersistence
@@ -934,35 +928,35 @@ LABEL_17:
 
 - (BOOL)_hasPersistentEvents
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   if (self->_preferredGuidanceLevel == 2)
   {
-    v22 = 0u;
-    v23 = 0u;
-    v20 = 0u;
     v21 = 0u;
+    v22 = 0u;
+    v19 = 0u;
+    v20 = 0u;
     composedGuidanceEvents = self->_validEvents;
-    v4 = [(NSMutableArray *)composedGuidanceEvents countByEnumeratingWithState:&v20 objects:v25 count:16];
+    v4 = [(NSMutableArray *)composedGuidanceEvents countByEnumeratingWithState:&v19 objects:v24 count:16];
     if (v4)
     {
-      v5 = *v21;
+      v5 = *v20;
 LABEL_4:
       v6 = 0;
       while (1)
       {
-        if (*v21 != v5)
+        if (*v20 != v5)
         {
           objc_enumerationMutation(composedGuidanceEvents);
         }
 
-        if ([*(*(&v20 + 1) + 8 * v6) isSticky])
+        if ([*(*(&v19 + 1) + 8 * v6) isSticky])
         {
           break;
         }
 
         if (v4 == ++v6)
         {
-          v4 = [(NSMutableArray *)composedGuidanceEvents countByEnumeratingWithState:&v20 objects:v25 count:16];
+          v4 = [(NSMutableArray *)composedGuidanceEvents countByEnumeratingWithState:&v19 objects:v24 count:16];
           if (v4)
           {
             goto LABEL_4;
@@ -982,28 +976,28 @@ LABEL_21:
     routeMatch = [(MNLocation *)self->_location routeMatch];
     [routeMatch routeCoordinate];
 
-    v18 = 0u;
-    v19 = 0u;
-    v16 = 0u;
     v17 = 0u;
+    v18 = 0u;
+    v15 = 0u;
+    v16 = 0u;
     route = [(MNGuidanceManager *)self route];
     composedGuidanceEvents = [route composedGuidanceEvents];
 
-    v9 = [(NSMutableArray *)composedGuidanceEvents countByEnumeratingWithState:&v16 objects:v24 count:16];
+    v9 = [(NSMutableArray *)composedGuidanceEvents countByEnumeratingWithState:&v15 objects:v23 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v17;
+      v11 = *v16;
 LABEL_13:
       v12 = 0;
       while (1)
       {
-        if (*v17 != v11)
+        if (*v16 != v11)
         {
           objc_enumerationMutation(composedGuidanceEvents);
         }
 
-        v13 = *(*(&v16 + 1) + 8 * v12);
+        v13 = *(*(&v15 + 1) + 8 * v12);
         if ([v13 isSticky])
         {
           [v13 startValidRouteCoordinate];
@@ -1016,7 +1010,7 @@ LABEL_13:
 
         if (v10 == ++v12)
         {
-          v10 = [(NSMutableArray *)composedGuidanceEvents countByEnumeratingWithState:&v16 objects:v24 count:16];
+          v10 = [(NSMutableArray *)composedGuidanceEvents countByEnumeratingWithState:&v15 objects:v23 count:16];
           if (v10)
           {
             goto LABEL_13;
@@ -1032,13 +1026,12 @@ LABEL_13:
 
 LABEL_22:
 
-  v14 = *MEMORY[0x1E69E9840];
   return v4;
 }
 
 - (void)_considerJunctionViewGuidance
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   _nextJunctionViewGuidanceEvent = [(MNGuidanceManager *)self _nextJunctionViewGuidanceEvent];
   v4 = _nextJunctionViewGuidanceEvent;
   if (_nextJunctionViewGuidanceEvent)
@@ -1063,11 +1056,11 @@ LABEL_22:
           uniqueID5 = [(GEOComposedGuidanceEvent *)self->_currentJunctionViewGuidanceEvent uniqueID];
           uniqueID6 = [(GEOComposedGuidanceEvent *)self->_pendingJunctionViewGuidanceEvent uniqueID];
           *buf = 138412802;
-          v30 = v4;
-          v31 = 2112;
-          v32 = uniqueID5;
-          v33 = 2112;
-          v34 = uniqueID6;
+          v29 = v4;
+          v30 = 2112;
+          v31 = uniqueID5;
+          v32 = 2112;
+          v33 = uniqueID6;
           _os_log_impl(&dword_1D311E000, v13, OS_LOG_TYPE_INFO, "ⓖ Requesting new junction view: %@ | previous: %@ | pending: %@", buf, 0x20u);
         }
 
@@ -1076,14 +1069,14 @@ LABEL_22:
         junctionViewImageLoader = self->_junctionViewImageLoader;
         junctionView = [v4 junctionView];
         uniqueID7 = [v4 uniqueID];
-        v26[0] = MEMORY[0x1E69E9820];
-        v26[1] = 3221225472;
-        v26[2] = __50__MNGuidanceManager__considerJunctionViewGuidance__block_invoke;
-        v26[3] = &unk_1E842B4F0;
-        objc_copyWeak(&v27, buf);
-        [(MNJunctionViewImageLoader *)junctionViewImageLoader imagesForJunctionView:junctionView eventID:uniqueID7 handler:v26];
+        v25[0] = MEMORY[0x1E69E9820];
+        v25[1] = 3221225472;
+        v25[2] = __50__MNGuidanceManager__considerJunctionViewGuidance__block_invoke;
+        v25[3] = &unk_1E842B4F0;
+        objc_copyWeak(&v26, buf);
+        [(MNJunctionViewImageLoader *)junctionViewImageLoader imagesForJunctionView:junctionView eventID:uniqueID7 handler:v25];
 
-        objc_destroyWeak(&v27);
+        objc_destroyWeak(&v26);
         objc_destroyWeak(buf);
       }
     }
@@ -1098,7 +1091,7 @@ LABEL_22:
       {
         uniqueID8 = [(GEOComposedGuidanceEvent *)self->_currentJunctionViewGuidanceEvent uniqueID];
         *buf = 138412290;
-        v30 = uniqueID8;
+        v29 = uniqueID8;
         _os_log_impl(&dword_1D311E000, v7, OS_LOG_TYPE_INFO, "ⓖ Removing displayed junction view: %@", buf, 0xCu);
       }
 
@@ -1129,7 +1122,7 @@ LABEL_22:
       {
         uniqueID10 = [(GEOComposedGuidanceEvent *)self->_pendingJunctionViewGuidanceEvent uniqueID];
         *buf = 138412290;
-        v30 = uniqueID10;
+        v29 = uniqueID10;
         _os_log_impl(&dword_1D311E000, v22, OS_LOG_TYPE_INFO, "ⓖ Removing pending junction view: %@", buf, 0xCu);
       }
 
@@ -1137,32 +1130,30 @@ LABEL_22:
       self->_pendingJunctionViewGuidanceEvent = 0;
     }
   }
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_nextJunctionViewGuidanceEvent
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   v2 = self->_validEvents;
-  v3 = [(NSMutableArray *)v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v3 = [(NSMutableArray *)v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v3)
   {
-    v4 = *v11;
+    v4 = *v10;
     while (2)
     {
       for (i = 0; i != v3; i = i + 1)
       {
-        if (*v11 != v4)
+        if (*v10 != v4)
         {
           objc_enumerationMutation(v2);
         }
 
-        v6 = *(*(&v10 + 1) + 8 * i);
+        v6 = *(*(&v9 + 1) + 8 * i);
         junctionView = [v6 junctionView];
 
         if (junctionView)
@@ -1172,7 +1163,7 @@ LABEL_22:
         }
       }
 
-      v3 = [(NSMutableArray *)v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v3 = [(NSMutableArray *)v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
       if (v3)
       {
         continue;
@@ -1184,39 +1175,37 @@ LABEL_22:
 
 LABEL_11:
 
-  v8 = *MEMORY[0x1E69E9840];
-
   return v3;
 }
 
 - (void)_considerARGuidance
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   _validEventsForARGuidance = [(MNGuidanceManager *)self _validEventsForARGuidance];
   if ([_validEventsForARGuidance count])
   {
     array = [MEMORY[0x1E695DF70] array];
+    v17 = 0u;
     v18 = 0u;
     v19 = 0u;
     v20 = 0u;
-    v21 = 0u;
     v5 = _validEventsForARGuidance;
-    v6 = [v5 countByEnumeratingWithState:&v18 objects:v24 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v17 objects:v23 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v19;
+      v8 = *v18;
       do
       {
         v9 = 0;
         do
         {
-          if (*v19 != v8)
+          if (*v18 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          v10 = *(*(&v18 + 1) + 8 * v9);
+          v10 = *(*(&v17 + 1) + 8 * v9);
           route = [(MNGuidanceManager *)self route];
           v12 = [route stepAtIndex:{objc_msgSend(v10, "stepIndex")}];
 
@@ -1227,7 +1216,7 @@ LABEL_11:
         }
 
         while (v7 != v9);
-        v7 = [v5 countByEnumeratingWithState:&v18 objects:v24 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v17 objects:v23 count:16];
       }
 
       while (v7);
@@ -1240,7 +1229,7 @@ LABEL_11:
       {
         v15 = [array valueForKey:@"debugDescription"];
         *buf = 138412290;
-        v23 = v15;
+        v22 = v15;
         _os_log_impl(&dword_1D311E000, v14, OS_LOG_TYPE_INFO, "ⓖ New ar guidance events: %@", buf, 0xCu);
       }
     }
@@ -1252,13 +1241,11 @@ LABEL_11:
       [WeakRetained guidanceManager:self updateSignsWithARInfo:self->_arEvents];
     }
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_validEventsForARGuidance
 {
-  v71 = *MEMORY[0x1E69E9840];
+  v70 = *MEMORY[0x1E69E9840];
   v3 = [MEMORY[0x1E695DFA0] orderedSetWithCapacity:{-[NSMutableArray count](self->_validEvents, "count")}];
   routeMatch = [(MNLocation *)self->_location routeMatch];
   stepIndex = [routeMatch stepIndex];
@@ -1310,26 +1297,26 @@ LABEL_11:
 
         if (v19 < v21)
         {
-          v61 = 0u;
-          v62 = 0u;
-          v59 = 0u;
           v60 = 0u;
+          v61 = 0u;
+          v58 = 0u;
+          v59 = 0u;
           v22 = v15;
-          v23 = [v22 countByEnumeratingWithState:&v59 objects:v69 count:16];
+          v23 = [v22 countByEnumeratingWithState:&v58 objects:v68 count:16];
           if (v23)
           {
             v24 = v23;
-            v25 = *v60;
+            v25 = *v59;
             while (2)
             {
               for (i = 0; i != v24; ++i)
               {
-                if (*v60 != v25)
+                if (*v59 != v25)
                 {
                   objc_enumerationMutation(v22);
                 }
 
-                v27 = *(*(&v59 + 1) + 8 * i);
+                v27 = *(*(&v58 + 1) + 8 * i);
                 if ([v27 arType] == 1)
                 {
                   [v3 addObject:v27];
@@ -1337,7 +1324,7 @@ LABEL_11:
                 }
               }
 
-              v24 = [v22 countByEnumeratingWithState:&v59 objects:v69 count:16];
+              v24 = [v22 countByEnumeratingWithState:&v58 objects:v68 count:16];
               if (v24)
               {
                 continue;
@@ -1349,36 +1336,36 @@ LABEL_11:
 
 LABEL_50:
 
-          v57 = 0u;
-          v58 = 0u;
-          v55 = 0u;
           v56 = 0u;
-          v40 = self->_events;
-          v46 = [(NSMutableArray *)v40 countByEnumeratingWithState:&v55 objects:v68 count:16];
-          if (v46)
+          v57 = 0u;
+          v54 = 0u;
+          v55 = 0u;
+          v39 = self->_events;
+          v45 = [(NSMutableArray *)v39 countByEnumeratingWithState:&v54 objects:v67 count:16];
+          if (v45)
           {
-            v47 = v46;
-            v48 = *v56;
+            v46 = v45;
+            v47 = *v55;
             do
             {
-              for (j = 0; j != v47; ++j)
+              for (j = 0; j != v46; ++j)
               {
-                if (*v56 != v48)
+                if (*v55 != v47)
                 {
-                  objc_enumerationMutation(v40);
+                  objc_enumerationMutation(v39);
                 }
 
-                v50 = *(*(&v55 + 1) + 8 * j);
-                if ([v50 stepIndex] == 1 && objc_msgSend(v50, "hasArGuidance") && objc_msgSend(v50, "arType") == 2)
+                v49 = *(*(&v54 + 1) + 8 * j);
+                if ([v49 stepIndex] == 1 && objc_msgSend(v49, "hasArGuidance") && objc_msgSend(v49, "arType") == 2)
                 {
-                  [v3 addObject:v50];
+                  [v3 addObject:v49];
                 }
               }
 
-              v47 = [(NSMutableArray *)v40 countByEnumeratingWithState:&v55 objects:v68 count:16];
+              v46 = [(NSMutableArray *)v39 countByEnumeratingWithState:&v54 objects:v67 count:16];
             }
 
-            while (v47);
+            while (v46);
           }
 
 LABEL_61:
@@ -1387,35 +1374,35 @@ LABEL_61:
         }
       }
 
-      v53 = 0u;
-      v54 = 0u;
-      v51 = 0u;
       v52 = 0u;
-      v40 = v15;
-      v41 = [(NSMutableArray *)v40 countByEnumeratingWithState:&v51 objects:v67 count:16];
-      if (v41)
+      v53 = 0u;
+      v50 = 0u;
+      v51 = 0u;
+      v39 = v15;
+      v40 = [(NSMutableArray *)v39 countByEnumeratingWithState:&v50 objects:v66 count:16];
+      if (v40)
       {
-        v42 = v41;
-        v43 = *v52;
+        v41 = v40;
+        v42 = *v51;
         while (2)
         {
-          for (k = 0; k != v42; ++k)
+          for (k = 0; k != v41; ++k)
           {
-            if (*v52 != v43)
+            if (*v51 != v42)
             {
-              objc_enumerationMutation(v40);
+              objc_enumerationMutation(v39);
             }
 
-            v45 = *(*(&v51 + 1) + 8 * k);
-            if ([v45 arType] == 2)
+            v44 = *(*(&v50 + 1) + 8 * k);
+            if ([v44 arType] == 2)
             {
-              [v3 addObject:v45];
+              [v3 addObject:v44];
               goto LABEL_61;
             }
           }
 
-          v42 = [(NSMutableArray *)v40 countByEnumeratingWithState:&v51 objects:v67 count:16];
-          if (v42)
+          v41 = [(NSMutableArray *)v39 countByEnumeratingWithState:&v50 objects:v66 count:16];
+          if (v41)
           {
             continue;
           }
@@ -1443,33 +1430,33 @@ LABEL_34:
     }
 
     self->_hasBeenOnRouteOnce = 1;
+    v62 = 0u;
     v63 = 0u;
     v64 = 0u;
     v65 = 0u;
-    v66 = 0u;
     v28 = self->_validEvents;
-    v29 = [(NSMutableArray *)v28 countByEnumeratingWithState:&v63 objects:v70 count:16];
+    v29 = [(NSMutableArray *)v28 countByEnumeratingWithState:&v62 objects:v69 count:16];
     if (v29)
     {
       v30 = v29;
-      v31 = *v64;
+      v31 = *v63;
       do
       {
         for (m = 0; m != v30; ++m)
         {
-          if (*v64 != v31)
+          if (*v63 != v31)
           {
             objc_enumerationMutation(v28);
           }
 
-          v33 = *(*(&v63 + 1) + 8 * m);
+          v33 = *(*(&v62 + 1) + 8 * m);
           if ([v33 hasArGuidance])
           {
             [v3 addObject:v33];
           }
         }
 
-        v30 = [(NSMutableArray *)v28 countByEnumeratingWithState:&v63 objects:v70 count:16];
+        v30 = [(NSMutableArray *)v28 countByEnumeratingWithState:&v62 objects:v69 count:16];
       }
 
       while (v30);
@@ -1488,37 +1475,35 @@ LABEL_34:
 LABEL_35:
   array = [v3 array];
 
-  v38 = *MEMORY[0x1E69E9840];
-
   return array;
 }
 
 - (unint64_t)_trafficColorForRoute:(id)route routeCoordinate:(id)coordinate
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   traffic = [route traffic];
   routeTrafficColors = [traffic routeTrafficColors];
 
-  v6 = [routeTrafficColors countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v6 = [routeTrafficColors countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v15;
+    v8 = *v14;
     color = 4;
 LABEL_3:
     v10 = 0;
     while (1)
     {
-      if (*v15 != v8)
+      if (*v14 != v8)
       {
         objc_enumerationMutation(routeTrafficColors);
       }
 
-      v11 = *(*(&v14 + 1) + 8 * v10);
+      v11 = *(*(&v13 + 1) + 8 * v10);
       [v11 routeCoordinate];
       if (GEOPolylineCoordinateIsABeforeB())
       {
@@ -1528,7 +1513,7 @@ LABEL_3:
       color = [v11 color];
       if (v7 == ++v10)
       {
-        v7 = [routeTrafficColors countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v7 = [routeTrafficColors countByEnumeratingWithState:&v13 objects:v17 count:16];
         if (v7)
         {
           goto LABEL_3;
@@ -1544,35 +1529,34 @@ LABEL_3:
     color = 4;
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return color;
 }
 
 - (void)_notifyAnalyticsForNewEvents:(id)events previousEvents:(id)previousEvents
 {
-  v61 = *MEMORY[0x1E69E9840];
+  v60 = *MEMORY[0x1E69E9840];
   eventsCopy = events;
   previousEventsCopy = previousEvents;
+  v54 = 0u;
   v55 = 0u;
   v56 = 0u;
   v57 = 0u;
-  v58 = 0u;
-  v7 = [eventsCopy countByEnumeratingWithState:&v55 objects:v60 count:16];
+  v7 = [eventsCopy countByEnumeratingWithState:&v54 objects:v59 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v56;
-    v50 = *v56;
+    v9 = *v55;
+    v49 = *v55;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v56 != v9)
+        if (*v55 != v9)
         {
           objc_enumerationMutation(eventsCopy);
         }
 
-        v11 = *(*(&v55 + 1) + 8 * i);
+        v11 = *(*(&v54 + 1) + 8 * i);
         feedback = self->_feedback;
         uniqueID = [v11 uniqueID];
         v14 = [(NSMutableDictionary *)feedback objectForKey:uniqueID];
@@ -1644,36 +1628,36 @@ LABEL_3:
           delegate = [(MNGuidanceManager *)self delegate];
           [delegate guidanceManager:self newGuidanceEventFeedback:v15];
 
-          v9 = v50;
+          v9 = v49;
         }
       }
 
-      v8 = [eventsCopy countByEnumeratingWithState:&v55 objects:v60 count:16];
+      v8 = [eventsCopy countByEnumeratingWithState:&v54 objects:v59 count:16];
     }
 
     while (v8);
   }
 
-  v53 = 0u;
-  v54 = 0u;
-  v51 = 0u;
   v52 = 0u;
+  v53 = 0u;
+  v50 = 0u;
+  v51 = 0u;
   v38 = previousEventsCopy;
-  v39 = [v38 countByEnumeratingWithState:&v51 objects:v59 count:16];
+  v39 = [v38 countByEnumeratingWithState:&v50 objects:v58 count:16];
   if (v39)
   {
     v40 = v39;
-    v41 = *v52;
+    v41 = *v51;
     do
     {
       for (j = 0; j != v40; ++j)
       {
-        if (*v52 != v41)
+        if (*v51 != v41)
         {
           objc_enumerationMutation(v38);
         }
 
-        v43 = *(*(&v51 + 1) + 8 * j);
+        v43 = *(*(&v50 + 1) + 8 * j);
         if (([eventsCopy containsObject:v43] & 1) == 0)
         {
           v44 = self->_feedback;
@@ -1692,18 +1676,16 @@ LABEL_3:
         }
       }
 
-      v40 = [v38 countByEnumeratingWithState:&v51 objects:v59 count:16];
+      v40 = [v38 countByEnumeratingWithState:&v50 objects:v58 count:16];
     }
 
     while (v40);
   }
-
-  v48 = *MEMORY[0x1E69E9840];
 }
 
 - (double)durationOfEvent:(id)event announcementIndex:(unint64_t)index distance:(double)distance
 {
-  v31[1] = *MEMORY[0x1E69E9840];
+  v30[1] = *MEMORY[0x1E69E9840];
   eventCopy = event;
   announcements = [eventCopy announcements];
   v10 = [announcements count];
@@ -1717,19 +1699,19 @@ LABEL_3:
     v15 = fmax(distance - v14, 0.0);
     route = [(MNGuidanceManager *)self route];
     destination = [route destination];
-    v31[0] = destination;
-    v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:v31 count:1];
+    v30[0] = destination;
+    v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:v30 count:1];
     navigationSessionState = [(MNGuidanceManager *)self navigationSessionState];
     currentWaypoint = [navigationSessionState currentWaypoint];
     v21 = [v11 _navigation_serverStringDictionaryForDistance:v18 validDistance:currentWaypoint waypoints:-[MNGuidanceManager currentLegIndex](self currentDestination:"currentLegIndex") legIndex:1 spoken:0 useDisplayName:{v13, v15}];
 
-    v30 = 1;
+    v29 = 1;
     v22 = MEMORY[0x1E696AEC0];
     announcements2 = [eventCopy announcements];
     v24 = [announcements2 objectAtIndexedSubscript:index];
-    v25 = [v22 _navigation_stringForServerFormattedString:v24 abbreviatedUnits:0 detail:1 spoken:1 wrappedOverrideVariables:v21 allTokensExpanded:&v30];
+    v25 = [v22 _navigation_stringForServerFormattedString:v24 abbreviatedUnits:0 detail:1 spoken:1 wrappedOverrideVariables:v21 allTokensExpanded:&v29];
 
-    if (v30 == 1)
+    if (v29 == 1)
     {
       [(MNAudioManager *)self->_audioManager durationOf:v25];
       v27 = v26;
@@ -1746,7 +1728,6 @@ LABEL_3:
     v27 = 978307200.0;
   }
 
-  v28 = *MEMORY[0x1E69E9840];
   return v27;
 }
 
@@ -2045,30 +2026,52 @@ LABEL_15:
   return v9;
 }
 
+- (id)_specialSpokenEvents:(int)events forLegIndex:(unint64_t)index
+{
+  v5 = *&events;
+  specialSpokenEvents = self->_specialSpokenEvents;
+  v8 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:index];
+  v9 = [(NSMutableDictionary *)specialSpokenEvents objectForKeyedSubscript:v8];
+  v10 = [MEMORY[0x1E696AD98] numberWithInt:v5];
+  v11 = [v9 objectForKeyedSubscript:v10];
+
+  v12 = [v11 count];
+  if (index && !v12)
+  {
+    v13 = [(NSMutableDictionary *)self->_specialSpokenEvents objectForKeyedSubscript:&unk_1F4EE2458];
+    v14 = [MEMORY[0x1E696AD98] numberWithInt:v5];
+    v15 = [v13 objectForKeyedSubscript:v14];
+
+    v11 = v15;
+  }
+
+  return v11;
+}
+
 - (id)_junctionViewEvents
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   array = [MEMORY[0x1E695DF70] array];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   events = [(MNGuidanceManager *)self events];
-  v5 = [events countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [events countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = *v12;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(events);
         }
 
-        v9 = *(*(&v12 + 1) + 8 * i);
+        v9 = *(*(&v11 + 1) + 8 * i);
         if ([v9 hasJunctionView])
         {
           [v9 startValidRouteCoordinate];
@@ -2079,20 +2082,18 @@ LABEL_15:
         }
       }
 
-      v6 = [events countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [events countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v6);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return array;
 }
 
 - (void)_handleJunctionViewInfo:(id)info
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   infoCopy = info;
   uniqueID = [infoCopy uniqueID];
   uniqueID2 = [(GEOComposedGuidanceEvent *)self->_pendingJunctionViewGuidanceEvent uniqueID];
@@ -2107,9 +2108,9 @@ LABEL_15:
       uniqueID3 = [(GEOComposedGuidanceEvent *)self->_pendingJunctionViewGuidanceEvent uniqueID];
       uniqueID4 = [(GEOComposedGuidanceEvent *)self->_currentJunctionViewGuidanceEvent uniqueID];
       *buf = 138412546;
-      v22 = uniqueID3;
-      v23 = 2112;
-      v24 = uniqueID4;
+      v21 = uniqueID3;
+      v22 = 2112;
+      v23 = uniqueID4;
       _os_log_impl(&dword_1D311E000, v8, OS_LOG_TYPE_INFO, "ⓖ Showing junction view: %@ | previous: %@", buf, 0x16u);
     }
 
@@ -2121,8 +2122,8 @@ LABEL_15:
     currentJunctionViewGuidanceEvent = self->_currentJunctionViewGuidanceEvent;
     if (currentJunctionViewGuidanceEvent)
     {
-      v20 = self->_currentJunctionViewGuidanceEvent;
-      v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v20 count:1];
+      v19 = self->_currentJunctionViewGuidanceEvent;
+      v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v19 count:1];
       if (v8)
       {
         goto LABEL_6;
@@ -2135,8 +2136,8 @@ LABEL_15:
       if (v8)
       {
 LABEL_6:
-        v19 = v8;
-        v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v19 count:1];
+        v18 = v8;
+        v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v18 count:1];
         [(MNGuidanceManager *)self _notifyAnalyticsForNewEvents:v14 previousEvents:v15];
 
         if (!currentJunctionViewGuidanceEvent)
@@ -2169,17 +2170,15 @@ LABEL_7:
     WeakRetained = [infoCopy uniqueID];
     uniqueID5 = [(GEOComposedGuidanceEvent *)self->_pendingJunctionViewGuidanceEvent uniqueID];
     *buf = 138412546;
-    v22 = WeakRetained;
-    v23 = 2112;
-    v24 = uniqueID5;
+    v21 = WeakRetained;
+    v22 = 2112;
+    v23 = uniqueID5;
     _os_log_impl(&dword_1D311E000, v8, OS_LOG_TYPE_INFO, "ⓖ Junction view info was received for request %@, but a newer junction view info was requested: %@", buf, 0x16u);
 
     goto LABEL_11;
   }
 
 LABEL_12:
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 void __50__MNGuidanceManager__considerJunctionViewGuidance__block_invoke(uint64_t a1, void *a2)
@@ -2265,7 +2264,7 @@ void __50__MNGuidanceManager__considerJunctionViewGuidance__block_invoke(uint64_
 
 - (int)_maneuverTypeForAREvent:(id)event
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   eventCopy = event;
   if ([eventCopy hasArGuidance])
   {
@@ -2276,28 +2275,28 @@ void __50__MNGuidanceManager__considerJunctionViewGuidance__block_invoke(uint64_
 
     else
     {
-      v17 = 0u;
-      v18 = 0u;
-      v15 = 0u;
       v16 = 0u;
+      v17 = 0u;
+      v14 = 0u;
+      v15 = 0u;
       arInstruction = [eventCopy arInstruction];
       formatTokens = [arInstruction formatTokens];
 
-      v7 = [formatTokens countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v7 = [formatTokens countByEnumeratingWithState:&v14 objects:v18 count:16];
       if (v7)
       {
         v8 = v7;
-        v9 = *v16;
+        v9 = *v15;
         while (2)
         {
           for (i = 0; i != v8; ++i)
           {
-            if (*v16 != v9)
+            if (*v15 != v9)
             {
               objc_enumerationMutation(formatTokens);
             }
 
-            v11 = *(*(&v15 + 1) + 8 * i);
+            v11 = *(*(&v14 + 1) + 8 * i);
             if ([v11 type] == 15)
             {
               maneuverValue = [v11 maneuverValue];
@@ -2307,7 +2306,7 @@ void __50__MNGuidanceManager__considerJunctionViewGuidance__block_invoke(uint64_
             }
           }
 
-          v8 = [formatTokens countByEnumeratingWithState:&v15 objects:v19 count:16];
+          v8 = [formatTokens countByEnumeratingWithState:&v14 objects:v18 count:16];
           if (v8)
           {
             continue;
@@ -2328,35 +2327,46 @@ void __50__MNGuidanceManager__considerJunctionViewGuidance__block_invoke(uint64_
 
 LABEL_15:
 
-  v13 = *MEMORY[0x1E69E9840];
   return maneuverType;
+}
+
+- (id)_specialAREvents:(int)events forLeg:(unint64_t)leg
+{
+  v4 = *&events;
+  specialAREvents = self->_specialAREvents;
+  v6 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:leg];
+  v7 = [(NSMutableDictionary *)specialAREvents objectForKeyedSubscript:v6];
+  v8 = [MEMORY[0x1E696AD98] numberWithInt:v4];
+  v9 = [v7 objectForKeyedSubscript:v8];
+
+  return v9;
 }
 
 - (id)_arrivalARGuidanceEventsForLeg:(unint64_t)leg
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v5 = [MEMORY[0x1E695DFD8] setWithObjects:{&unk_1F4EE2488, &unk_1F4EE24A0, &unk_1F4EE24B8, &unk_1F4EE24D0, &unk_1F4EE24E8, 0}];
-  v16 = objc_opt_new();
+  v15 = objc_opt_new();
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   v6 = self->_events;
-  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v18;
+    v9 = *v17;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v18 != v9)
+        if (*v17 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v17 + 1) + 8 * i);
+        v11 = *(*(&v16 + 1) + 8 * i);
         if ([v11 legIndex] == leg)
         {
           if ([v11 hasArGuidance])
@@ -2368,47 +2378,45 @@ LABEL_15:
 
               if (v13)
               {
-                [v16 addObject:v11];
+                [v15 addObject:v11];
               }
             }
           }
         }
       }
 
-      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v8);
   }
 
-  v14 = *MEMORY[0x1E69E9840];
-
-  return v16;
+  return v15;
 }
 
 - (id)_closestContinueAREventToRouteCoordinate:(id)coordinate
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v3 = self->_events;
-  v4 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v4 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v13;
+    v6 = *v12;
     while (2)
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v13 != v6)
+        if (*v12 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v12 + 1) + 8 * i);
+        v8 = *(*(&v11 + 1) + 8 * i);
         [v8 startValidRouteCoordinate];
         if (GEOPolylineCoordinateIsABeforeOrEqualToB())
         {
@@ -2424,7 +2432,7 @@ LABEL_15:
         }
       }
 
-      v5 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v5 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
       if (v5)
       {
         continue;
@@ -2437,26 +2445,24 @@ LABEL_15:
   v9 = 0;
 LABEL_13:
 
-  v10 = *MEMORY[0x1E69E9840];
-
   return v9;
 }
 
 - (id)_createArGuidanceInfosForEvent:(id)event forStep:(id)step
 {
-  v154[1] = *MEMORY[0x1E69E9840];
+  v153[1] = *MEMORY[0x1E69E9840];
   eventCopy = event;
   stepCopy = step;
-  v130 = [MEMORY[0x1E695DFA0] orderedSetWithCapacity:1];
+  v129 = [MEMORY[0x1E695DFA0] orderedSetWithCapacity:1];
   -[MNGuidanceManager _distanceToRouteCoordinate:](self, "_distanceToRouteCoordinate:", [eventCopy coordinateForDistanceStrings]);
   v9 = fmax(v8, 0.0);
   -[MNGuidanceManager _distanceToRouteCoordinate:](self, "_distanceToRouteCoordinate:", [eventCopy endValidRouteCoordinate]);
   v11 = fmax(v10, 0.0);
   navigationSessionState = [(MNGuidanceManager *)self navigationSessionState];
   currentWaypoint = [navigationSessionState currentWaypoint];
-  v154[0] = currentWaypoint;
-  v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v154 count:1];
-  v129 = [(MNGuidanceManager *)self _serverStringDictionaryForEvent:eventCopy distance:0 validDistance:v14 spoken:v9 waypoints:v11];
+  v153[0] = currentWaypoint;
+  v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v153 count:1];
+  v128 = [(MNGuidanceManager *)self _serverStringDictionaryForEvent:eventCopy distance:0 validDistance:v14 spoken:v9 waypoints:v11];
 
   if ([eventCopy arType] == 1)
   {
@@ -2470,40 +2476,40 @@ LABEL_13:
     startRouteCoordinate = [v20 startRouteCoordinate];
 
     gapRanges = [eventCopy gapRanges];
-    v128 = stepCopy;
-    v141 = v15;
+    v127 = stepCopy;
+    v140 = v15;
     selfCopy = self;
     if (gapRanges && (v22 = gapRanges, [eventCopy gapRanges], v23 = objc_claimAutoreleasedReturnValue(), v24 = objc_msgSend(v23, "count"), v23, v22, v24))
     {
       startRouteCoordinate2 = [stepCopy startRouteCoordinate];
+      v145 = 0u;
       v146 = 0u;
       v147 = 0u;
       v148 = 0u;
-      v149 = 0u;
-      v126 = eventCopy;
+      v125 = eventCopy;
       obj = [eventCopy gapRanges];
-      v138 = [obj countByEnumeratingWithState:&v146 objects:v153 count:16];
-      if (v138)
+      v137 = [obj countByEnumeratingWithState:&v145 objects:v152 count:16];
+      if (v137)
       {
-        v133 = *v147;
+        v132 = *v146;
         v26 = *MEMORY[0x1E69A1918];
         v27 = *(MEMORY[0x1E69A1918] + 4) << 32;
         do
         {
-          for (i = 0; i != v138; ++i)
+          for (i = 0; i != v137; ++i)
           {
-            if (*v147 != v133)
+            if (*v146 != v132)
             {
               objc_enumerationMutation(obj);
             }
 
-            v29 = *(*(&v146 + 1) + 8 * i);
+            v29 = *(*(&v145 + 1) + 8 * i);
             route3 = [(MNGuidanceManager *)self route];
             [route3 routeCoordinateForDistance:startRouteCoordinate afterRouteCoordinate:{objc_msgSend(v29, "startValidDistanceOffsetCm") * 0.01}];
             v31 = GEOPolylineCoordinateNearestIndex();
 
+            v143 = 0;
             v144 = 0;
-            v145 = 0;
             IsInvalid = GEOPolylineCoordinateIsInvalid();
             LODWORD(v33) = vcvtms_u32_f32(*(&startRouteCoordinate2 + 1)) + startRouteCoordinate2;
             v34 = COERCE_UNSIGNED_INT(*(&startRouteCoordinate2 + 1) - floorf(*(&startRouteCoordinate2 + 1))) << 32;
@@ -2540,23 +2546,23 @@ LABEL_13:
               v38 = 0;
             }
 
-            v144 = v35;
-            v145 = v38 | v37;
-            v39 = [MEMORY[0x1E696B098] valueWithBytes:&v144 objCType:"{GEOPolylineCoordinateRange={?=If}{?=If}}"];
-            v15 = v141;
-            [(MNGuidanceARInfo *)v141 addObject:v39];
+            v143 = v35;
+            v144 = v38 | v37;
+            v39 = [MEMORY[0x1E696B098] valueWithBytes:&v143 objCType:"{GEOPolylineCoordinateRange={?=If}{?=If}}"];
+            v15 = v140;
+            [(MNGuidanceARInfo *)v140 addObject:v39];
 
             route4 = [(MNGuidanceManager *)self route];
             startRouteCoordinate2 = [route4 routeCoordinateForDistance:startRouteCoordinate afterRouteCoordinate:{objc_msgSend(v29, "endValidDistanceOffsetCm") * 0.01}];
           }
 
-          v138 = [obj countByEnumeratingWithState:&v146 objects:v153 count:16];
+          v137 = [obj countByEnumeratingWithState:&v145 objects:v152 count:16];
         }
 
-        while (v138);
+        while (v137);
       }
 
-      eventCopy = v126;
+      eventCopy = v125;
     }
 
     else
@@ -2599,9 +2605,9 @@ LABEL_13:
         v70 = 0;
       }
 
-      v144 = v68;
-      v145 = v70 | v71;
-      v72 = [MEMORY[0x1E696B098] valueWithBytes:&v144 objCType:"{GEOPolylineCoordinateRange={?=If}{?=If}}"];
+      v143 = v68;
+      v144 = v70 | v71;
+      v72 = [MEMORY[0x1E696B098] valueWithBytes:&v143 objCType:"{GEOPolylineCoordinateRange={?=If}{?=If}}"];
       [(MNGuidanceARInfo *)v15 addObject:v72];
     }
 
@@ -2612,53 +2618,53 @@ LABEL_13:
       do
       {
         v75 = [(MNGuidanceARInfo *)v15 objectAtIndex:v74];
+        v143 = 0;
         v144 = 0;
-        v145 = 0;
-        v139 = v75;
-        [v75 getValue:&v144];
-        v134 = [MNGuidanceARInfo alloc];
+        v138 = v75;
+        [v75 getValue:&v143];
+        v133 = [MNGuidanceARInfo alloc];
         obja = [eventCopy uniqueID];
         arType = [eventCopy arType];
         v77 = [(MNGuidanceManager *)self _maneuverTypeForAREvent:eventCopy];
         arInstruction = [eventCopy arInstruction];
-        v79 = [v129 objectForKeyedSubscript:@"{fromOrigin}"];
+        v79 = [v128 objectForKeyedSubscript:@"{fromOrigin}"];
         [eventCopy arArrowLabel];
         v81 = v80 = v73;
-        maneuverRoadName = [v128 maneuverRoadName];
-        stepIndex = [v128 stepIndex];
+        maneuverRoadName = [v127 maneuverRoadName];
+        stepIndex = [v127 stepIndex];
         v84 = v77;
-        v15 = v141;
-        v85 = [(MNGuidanceARInfo *)v134 initWithEventID:obja type:arType maneuverType:v84 instruction:arInstruction variableOverrides:v79 arrowLabel:v81 locationCoordinateRange:v144 maneuverRoadName:v145 stepIndex:maneuverRoadName, stepIndex];
+        v15 = v140;
+        v85 = [(MNGuidanceARInfo *)v133 initWithEventID:obja type:arType maneuverType:v84 instruction:arInstruction variableOverrides:v79 arrowLabel:v81 locationCoordinateRange:v143 maneuverRoadName:v144 stepIndex:maneuverRoadName, stepIndex];
 
         v86 = v80;
         self = selfCopy;
 
-        [(MNGuidanceARInfo *)v85 setPriority:[(MNGuidanceARInfo *)v141 count]+ v80];
+        [(MNGuidanceARInfo *)v85 setPriority:[(MNGuidanceARInfo *)v140 count]+ v80];
         arInstructionString = [eventCopy arInstructionString];
 
         if (arInstructionString)
         {
           arInstructionString2 = [eventCopy arInstructionString];
-          v152 = arInstructionString2;
-          v89 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v152 count:1];
+          v151 = arInstructionString2;
+          v89 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v151 count:1];
           v90 = [(MNGuidanceManager *)selfCopy _evaluatedStringsForEvent:eventCopy signStrings:v89 shouldUpdateFormatStrings:0 argumentHandler:0];
           firstObject = [v90 firstObject];
           [(MNGuidanceARInfo *)v85 setInstructionString:firstObject];
         }
 
-        [v130 addObject:v85];
+        [v129 addObject:v85];
 
         ++v74;
         v73 = v86 - 1;
       }
 
-      while (v74 < [(MNGuidanceARInfo *)v141 count]);
+      while (v74 < [(MNGuidanceARInfo *)v140 count]);
     }
 
     gapRanges2 = [eventCopy gapRanges];
     lastObject = [gapRanges2 lastObject];
 
-    stepCopy = v128;
+    stepCopy = v127;
     if (lastObject)
     {
       route5 = [(MNGuidanceManager *)self route];
@@ -2668,13 +2674,13 @@ LABEL_13:
       if (GEOPolylineCoordinateNearestIndex() == route5)
       {
         v96 = HIDWORD(v95);
-        v127 = eventCopy;
+        v126 = eventCopy;
         if ((GEOPolylineCoordinateIsInvalid() & 1) == 0)
         {
-          LODWORD(v144) = 0;
-          if (modff(*(&v95 + 1), &v144) > 0.0)
+          LODWORD(v143) = 0;
+          if (modff(*(&v95 + 1), &v143) > 0.0)
           {
-            LODWORD(v96) = v144;
+            LODWORD(v96) = v143;
             LODWORD(v95) = v95 + 1;
           }
         }
@@ -2684,7 +2690,7 @@ LABEL_13:
         v99 = [route6 stepAtIndex:{objc_msgSend(v97, "stepIndex")}];
         startRouteCoordinate4 = [v99 startRouteCoordinate];
         route7 = [(MNGuidanceManager *)self route];
-        v140 = v97;
+        v139 = v97;
         v102 = [route7 stepAtIndex:{objc_msgSend(v97, "stepIndex")}];
         [v102 endRouteCoordinate];
         v103 = GEOPolylineCoordinateNearestIndex();
@@ -2704,7 +2710,7 @@ LABEL_13:
           v104 = COERCE_UNSIGNED_INT(*(&startRouteCoordinate4 + 1) - floorf(*(&startRouteCoordinate4 + 1)));
         }
 
-        v137 = v106 | (v104 << 32);
+        v136 = v106 | (v104 << 32);
         v107 = GEOPolylineCoordinateIsInvalid();
         v108 = v105 << 32;
         if (v107)
@@ -2722,35 +2728,35 @@ LABEL_13:
           v108 = 0;
         }
 
-        v135 = v108 | v109;
+        v134 = v108 | v109;
 
         v110 = [MNGuidanceARInfo alloc];
-        uniqueID = [v127 uniqueID];
+        uniqueID = [v126 uniqueID];
         arType2 = [v97 arType];
-        v113 = [(MNGuidanceManager *)self _maneuverTypeForAREvent:v127];
-        arInstruction2 = [v127 arInstruction];
-        arArrowLabel = [v140 arArrowLabel];
-        maneuverRoadName2 = [v128 maneuverRoadName];
-        v117 = -[MNGuidanceARInfo initWithEventID:type:maneuverType:instruction:variableOverrides:arrowLabel:locationCoordinateRange:maneuverRoadName:stepIndex:](v110, "initWithEventID:type:maneuverType:instruction:variableOverrides:arrowLabel:locationCoordinateRange:maneuverRoadName:stepIndex:", uniqueID, arType2, v113, arInstruction2, v129, arArrowLabel, v137, v135, maneuverRoadName2, [v128 stepIndex]);
+        v113 = [(MNGuidanceManager *)self _maneuverTypeForAREvent:v126];
+        arInstruction2 = [v126 arInstruction];
+        arArrowLabel = [v139 arArrowLabel];
+        maneuverRoadName2 = [v127 maneuverRoadName];
+        v117 = -[MNGuidanceARInfo initWithEventID:type:maneuverType:instruction:variableOverrides:arrowLabel:locationCoordinateRange:maneuverRoadName:stepIndex:](v110, "initWithEventID:type:maneuverType:instruction:variableOverrides:arrowLabel:locationCoordinateRange:maneuverRoadName:stepIndex:", uniqueID, arType2, v113, arInstruction2, v128, arArrowLabel, v136, v134, maneuverRoadName2, [v127 stepIndex]);
 
-        eventCopy = v127;
+        eventCopy = v126;
         [(MNGuidanceARInfo *)v117 setPriority:0];
-        arInstructionString3 = [v127 arInstructionString];
+        arInstructionString3 = [v126 arInstructionString];
 
         if (arInstructionString3)
         {
-          arInstructionString4 = [v127 arInstructionString];
-          v151 = arInstructionString4;
-          v120 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v151 count:1];
-          v121 = [(MNGuidanceManager *)selfCopy _evaluatedStringsForEvent:v127 signStrings:v120 shouldUpdateFormatStrings:0 argumentHandler:0];
+          arInstructionString4 = [v126 arInstructionString];
+          v150 = arInstructionString4;
+          v120 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v150 count:1];
+          v121 = [(MNGuidanceManager *)selfCopy _evaluatedStringsForEvent:v126 signStrings:v120 shouldUpdateFormatStrings:0 argumentHandler:0];
           firstObject2 = [v121 firstObject];
           [(MNGuidanceARInfo *)v117 setInstructionString:firstObject2];
         }
 
-        [v130 addObject:v117];
+        [v129 addObject:v117];
 
-        stepCopy = v128;
-        v15 = v141;
+        stepCopy = v127;
+        v15 = v140;
       }
     }
   }
@@ -2762,7 +2768,7 @@ LABEL_13:
       goto LABEL_57;
     }
 
-    v142 = [MNGuidanceARInfo alloc];
+    v141 = [MNGuidanceARInfo alloc];
     uniqueID2 = [eventCopy uniqueID];
     arType3 = [eventCopy arType];
     v43 = [(MNGuidanceManager *)self _maneuverTypeForAREvent:eventCopy];
@@ -2777,7 +2783,7 @@ LABEL_13:
     v53 = v52;
     maneuverRoadName3 = [stepCopy maneuverRoadName];
     [(MNGuidanceManager *)self _headingForArEvent:v45];
-    v15 = -[MNGuidanceARInfo initWithEventID:type:maneuverType:instruction:variableOverrides:arrowLabel:locationCoordinate:maneuverRoadName:heading:stepIndex:](v142, "initWithEventID:type:maneuverType:instruction:variableOverrides:arrowLabel:locationCoordinate:maneuverRoadName:heading:stepIndex:", uniqueID2, arType3, v43, arInstruction3, v129, v46, v49, v51, v53, v55, maneuverRoadName3, [stepCopy stepIndex]);
+    v15 = -[MNGuidanceARInfo initWithEventID:type:maneuverType:instruction:variableOverrides:arrowLabel:locationCoordinate:maneuverRoadName:heading:stepIndex:](v141, "initWithEventID:type:maneuverType:instruction:variableOverrides:arrowLabel:locationCoordinate:maneuverRoadName:heading:stepIndex:", uniqueID2, arType3, v43, arInstruction3, v128, v46, v49, v51, v53, v55, maneuverRoadName3, [stepCopy stepIndex]);
 
     eventCopy = v45;
     arInstructionString5 = [v45 arInstructionString];
@@ -2785,27 +2791,25 @@ LABEL_13:
     if (arInstructionString5)
     {
       arInstructionString6 = [v45 arInstructionString];
-      v150 = arInstructionString6;
-      v58 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v150 count:1];
+      v149 = arInstructionString6;
+      v58 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v149 count:1];
       v59 = [(MNGuidanceManager *)self _evaluatedStringsForEvent:v45 signStrings:v58 shouldUpdateFormatStrings:0 argumentHandler:0];
       firstObject3 = [v59 firstObject];
       [(MNGuidanceARInfo *)v15 setInstructionString:firstObject3];
     }
 
-    [v130 addObject:v15];
+    [v129 addObject:v15];
   }
 
 LABEL_57:
-  array = [v130 array];
-
-  v124 = *MEMORY[0x1E69E9840];
+  array = [v129 array];
 
   return array;
 }
 
 - (BOOL)_updateDisplayStringArgument:(id)argument event:(id)event
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   argumentCopy = argument;
   eventCopy = event;
   type = [argumentCopy type];
@@ -2895,66 +2899,65 @@ LABEL_21:
   v16 = MNGetMNGuidanceManagerLog();
   if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
   {
-    v30 = 138412290;
-    v31 = argumentCopy;
-    _os_log_impl(&dword_1D311E000, v16, OS_LOG_TYPE_FAULT, "ⓖ Unhandled argument for display string: %@", &v30, 0xCu);
+    v29 = 138412290;
+    v30 = argumentCopy;
+    _os_log_impl(&dword_1D311E000, v16, OS_LOG_TYPE_FAULT, "ⓖ Unhandled argument for display string: %@", &v29, 0xCu);
   }
 
   v15 = 0;
 LABEL_22:
 
-  v28 = *MEMORY[0x1E69E9840];
   return v15;
 }
 
 - (id)_evaluatedStringsForEvent:(id)event signStrings:(id)strings shouldUpdateFormatStrings:(BOOL)formatStrings argumentHandler:(id)handler
 {
   formatStringsCopy = formatStrings;
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   eventCopy = event;
   stringsCopy = strings;
   handlerCopy = handler;
   if (stringsCopy)
   {
-    v24 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(stringsCopy, "count")}];
+    v23 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(stringsCopy, "count")}];
+    v30 = 0u;
     v31 = 0u;
     v32 = 0u;
     v33 = 0u;
-    v34 = 0u;
-    v22 = stringsCopy;
+    v21 = stringsCopy;
     obj = stringsCopy;
-    v10 = [obj countByEnumeratingWithState:&v31 objects:v37 count:16];
+    v10 = [obj countByEnumeratingWithState:&v30 objects:v36 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v32;
+      v12 = *v31;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v32 != v12)
+          if (*v31 != v12)
           {
             objc_enumerationMutation(obj);
           }
 
-          v14 = *(*(&v31 + 1) + 8 * i);
+          v14 = *(*(&v30 + 1) + 8 * i);
           defaultOptions = [v14 defaultOptions];
           arguments = [defaultOptions arguments];
-          v28[0] = MEMORY[0x1E69E9820];
-          v28[1] = 3221225472;
-          v28[2] = __101__MNGuidanceManager__evaluatedStringsForEvent_signStrings_shouldUpdateFormatStrings_argumentHandler___block_invoke;
-          v28[3] = &unk_1E842B4C8;
-          v28[4] = self;
-          v29 = eventCopy;
-          v30 = handlerCopy;
-          v17 = [arguments _geo_compactMap:v28];
+          v27[0] = MEMORY[0x1E69E9820];
+          v27[1] = 3221225472;
+          v27[2] = __101__MNGuidanceManager__evaluatedStringsForEvent_signStrings_shouldUpdateFormatStrings_argumentHandler___block_invoke;
+          v27[3] = &unk_1E842B4C8;
+          v27[4] = self;
+          v28 = eventCopy;
+          v29 = handlerCopy;
+          v17 = [arguments _geo_compactMap:v27];
 
           [defaultOptions setArguments:v17];
           [defaultOptions setShouldUpdateFormatStrings:formatStringsCopy];
           v18 = [v14 composedStringWithOptions:defaultOptions];
           if (v18)
           {
-            [v24 addObject:v18];
+            [v23 addObject:v18];
           }
 
           else
@@ -2963,29 +2966,27 @@ LABEL_22:
             if (os_log_type_enabled(v19, OS_LOG_TYPE_FAULT))
             {
               *buf = 138412290;
-              v36 = v14;
+              v35 = v14;
               _os_log_impl(&dword_1D311E000, v19, OS_LOG_TYPE_FAULT, "ⓖ Error evaluating string: %@", buf, 0xCu);
             }
           }
         }
 
-        v11 = [obj countByEnumeratingWithState:&v31 objects:v37 count:16];
+        v11 = [obj countByEnumeratingWithState:&v30 objects:v36 count:16];
       }
 
       while (v11);
     }
 
-    stringsCopy = v22;
+    stringsCopy = v21;
   }
 
   else
   {
-    v24 = 0;
+    v23 = 0;
   }
 
-  v20 = *MEMORY[0x1E69E9840];
-
-  return v24;
+  return v23;
 }
 
 void *__101__MNGuidanceManager__evaluatedStringsForEvent_signStrings_shouldUpdateFormatStrings_argumentHandler___block_invoke(uint64_t a1, void *a2)
@@ -3016,7 +3017,7 @@ void *__101__MNGuidanceManager__evaluatedStringsForEvent_signStrings_shouldUpdat
 {
   distancesCopy = distances;
   primaryCopy = primary;
-  v64[1] = *MEMORY[0x1E69E9840];
+  v63[1] = *MEMORY[0x1E69E9840];
   eventCopy = event;
   signDetails = [eventCopy signDetails];
   shieldInfo = [eventCopy shieldInfo];
@@ -3065,15 +3066,15 @@ LABEL_12:
       }
 
       firstObject = [signDetails firstObject];
-      v63 = firstObject;
-      v22 = &v63;
+      v62 = firstObject;
+      v22 = &v62;
     }
 
     else
     {
       firstObject = [signDetails objectAtIndexedSubscript:waypointCategory];
-      v64[0] = firstObject;
-      v22 = v64;
+      v63[0] = firstObject;
+      v22 = v63;
     }
 
     v23 = [MEMORY[0x1E695DEC8] arrayWithObjects:v22 count:1];
@@ -3096,9 +3097,9 @@ LABEL_15:
   *distance = v15;
   navigationSessionState2 = [(MNGuidanceManager *)self navigationSessionState];
   currentWaypoint2 = [navigationSessionState2 currentWaypoint];
-  v62 = currentWaypoint2;
-  v28 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v62 count:1];
-  v50 = [(MNGuidanceManager *)self _serverStringDictionaryForEvent:eventCopy distance:0 validDistance:v28 spoken:v15 waypoints:v17];
+  v61 = currentWaypoint2;
+  v28 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v61 count:1];
+  v49 = [(MNGuidanceManager *)self _serverStringDictionaryForEvent:eventCopy distance:0 validDistance:v28 spoken:v15 waypoints:v17];
 
   signTitles = [eventCopy signTitles];
   if ([signTitles count])
@@ -3116,56 +3117,54 @@ LABEL_15:
     }
   }
 
-  v53 = 0;
+  v52 = 0;
   v31 = [eventCopy transportType] == 2;
-  v58 = 0;
-  v59 = &v58;
-  v60 = 0x2020000000;
-  v61 = 0xBFF0000000000000;
+  v57 = 0;
+  v58 = &v57;
+  v59 = 0x2020000000;
+  v60 = 0xBFF0000000000000;
   if (primaryCopy)
   {
     aBlock[0] = MEMORY[0x1E69E9820];
     aBlock[1] = 3221225472;
     aBlock[2] = __93__MNGuidanceManager__signForGuidanceEvent_isPrimary_shouldOverridePrimaryDistances_distance___block_invoke;
     aBlock[3] = &unk_1E842B4A0;
-    aBlock[4] = &v58;
+    aBlock[4] = &v57;
     *&aBlock[5] = v17;
     *&aBlock[6] = v15;
-    v53 = _Block_copy(aBlock);
+    v52 = _Block_copy(aBlock);
   }
 
   v32 = [MNGuidanceSignDescription alloc];
   uniqueID = [eventCopy uniqueID];
   signTitles2 = [eventCopy signTitles];
-  v35 = [v50 objectForKeyedSubscript:@"{fromOrigin}"];
+  v35 = [v49 objectForKeyedSubscript:@"{fromOrigin}"];
   maneuverJunction = [eventCopy maneuverJunction];
   artworkOverride = [eventCopy artworkOverride];
   uniqueID2 = [eventCopy uniqueID];
-  LODWORD(v49) = [(MNGuidanceManager *)self _indexForEventUUID:uniqueID2];
-  LODWORD(v48) = shieldType;
-  v39 = [(MNGuidanceSignDescription *)v32 initWithID:uniqueID titles:signTitles2 details:signDetails variableOverrides:v35 distanceDetailLevel:(2 * v31) junction:maneuverJunction artworkOverride:artworkOverride shieldText:shield shieldID:v48 shieldStringID:name composedGuidanceEventIndex:v49];
+  LODWORD(v48) = [(MNGuidanceManager *)self _indexForEventUUID:uniqueID2];
+  LODWORD(v47) = shieldType;
+  v39 = [(MNGuidanceSignDescription *)v32 initWithID:uniqueID titles:signTitles2 details:signDetails variableOverrides:v35 distanceDetailLevel:(2 * v31) junction:maneuverJunction artworkOverride:artworkOverride shieldText:shield shieldID:v47 shieldStringID:name composedGuidanceEventIndex:v48];
 
   primarySignStrings = [eventCopy primarySignStrings];
-  v41 = [(MNGuidanceManager *)self _evaluatedStringsForEvent:eventCopy signStrings:primarySignStrings shouldUpdateFormatStrings:1 argumentHandler:v53];
+  v41 = [(MNGuidanceManager *)self _evaluatedStringsForEvent:eventCopy signStrings:primarySignStrings shouldUpdateFormatStrings:1 argumentHandler:v52];
   [(MNGuidanceSignDescription *)v39 setPrimaryStrings:v41];
 
   secondarySignStrings = [eventCopy secondarySignStrings];
   v43 = [(MNGuidanceManager *)self _evaluatedStringsForEvent:eventCopy signStrings:secondarySignStrings shouldUpdateFormatStrings:1 argumentHandler:0];
   [(MNGuidanceSignDescription *)v39 setSecondaryStrings:v43];
 
-  [(MNGuidanceSignDescription *)v39 setIsStaticText:v59[3] < 0.0];
-  if (primaryCopy && v59[3] >= 0.0)
+  [(MNGuidanceSignDescription *)v39 setIsStaticText:v58[3] < 0.0];
+  if (primaryCopy && v58[3] >= 0.0)
   {
     [(MNGuidanceSignDescription *)v39 setRemainingDistance:?];
-    v44 = [MEMORY[0x1E696AD28] _geo_distanceMeasurementForMeters:v59[3]];
+    v44 = [MEMORY[0x1E696AD28] _geo_distanceMeasurementForMeters:v58[3]];
     v45 = GEORoundedDistanceMeasurement();
     [(MNGuidanceSignDescription *)v39 setDisplayRemainingDistance:v45];
   }
 
-  _Block_object_dispose(&v58, 8);
+  _Block_object_dispose(&v57, 8);
 LABEL_24:
-
-  v46 = *MEMORY[0x1E69E9840];
 
   return v39;
 }
@@ -3190,43 +3189,42 @@ void __93__MNGuidanceManager__signForGuidanceEvent_isPrimary_shouldOverridePrima
 
 - (id)_sortedSignEventsFromValidSignEvents:(id)events
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   eventsCopy = events;
   array = [MEMORY[0x1E695DF70] array];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v5 = eventsCopy;
-  v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v14;
+    v8 = *v13;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v13 + 1) + 8 * i);
+        v10 = *(*(&v12 + 1) + 8 * i);
         if ([v10 hasSignGuidance])
         {
           [array addObject:v10];
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v7);
   }
 
   [array sortUsingComparator:&__block_literal_global_6385];
-  v11 = *MEMORY[0x1E69E9840];
 
   return array;
 }
@@ -3248,6 +3246,28 @@ uint64_t __58__MNGuidanceManager__sortedSignEventsFromValidSignEvents___block_in
   }
 
   return v7;
+}
+
+- (id)_specialSignEvents:(int)events forLeg:(unint64_t)leg
+{
+  v5 = *&events;
+  specialSignEvents = self->_specialSignEvents;
+  v8 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:leg];
+  v9 = [(NSMutableDictionary *)specialSignEvents objectForKeyedSubscript:v8];
+  v10 = [MEMORY[0x1E696AD98] numberWithInt:v5];
+  v11 = [v9 objectForKeyedSubscript:v10];
+
+  v12 = [v11 count];
+  if (leg && !v12)
+  {
+    v13 = [(NSMutableDictionary *)self->_specialSignEvents objectForKeyedSubscript:&unk_1F4EE2458];
+    v14 = [MEMORY[0x1E696AD98] numberWithInt:v5];
+    v15 = [v13 objectForKeyedSubscript:v14];
+
+    v11 = v15;
+  }
+
+  return v11;
 }
 
 - (id)_validEventsForSignGuidance:(BOOL *)guidance
@@ -3454,7 +3474,7 @@ LABEL_46:
 
 - (void)_triggerHapticsForEvent:(id)event timeUntilAnnouncement:(double)announcement
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   eventCopy = event;
   if ([eventCopy hasHaptics])
   {
@@ -3464,13 +3484,13 @@ LABEL_46:
       routeMatch = [(MNLocation *)self->_location routeMatch];
       [routeMatch routeCoordinate];
       v9 = GEOPolylineCoordinateAsFullString();
-      v15 = 138412802;
-      v16 = v9;
-      v17 = 2048;
+      v14 = 138412802;
+      v15 = v9;
+      v16 = 2048;
       announcementCopy = announcement;
-      v19 = 2112;
-      v20 = eventCopy;
-      _os_log_impl(&dword_1D311E000, v7, OS_LOG_TYPE_DEFAULT, "Triggering haptics at [%@], %0.2f seconds before announcement: %@", &v15, 0x20u);
+      v18 = 2112;
+      v19 = eventCopy;
+      _os_log_impl(&dword_1D311E000, v7, OS_LOG_TYPE_DEFAULT, "Triggering haptics at [%@], %0.2f seconds before announcement: %@", &v14, 0x20u);
     }
 
     v10 = +[MNTimeManager currentDate];
@@ -3481,13 +3501,11 @@ LABEL_46:
     WeakRetained = objc_loadWeakRetained(&self->_delegate);
     [WeakRetained guidanceManager:self triggerHaptics:{objc_msgSend(eventCopy, "maneuverType")}];
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_considerHapticsWithNoGuidance
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   routeMatch = [(MNLocation *)self->_location routeMatch];
   isGoodMatch = [routeMatch isGoodMatch];
 
@@ -3498,26 +3516,26 @@ LABEL_46:
 
     if (navigationState == 2)
     {
-      v20 = 0u;
-      v21 = 0u;
-      v18 = 0u;
       v19 = 0u;
+      v20 = 0u;
+      v17 = 0u;
+      v18 = 0u;
       v7 = self->_events;
-      v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
       if (v8)
       {
         v9 = v8;
-        v10 = *v19;
+        v10 = *v18;
         while (2)
         {
           for (i = 0; i != v9; ++i)
           {
-            if (*v19 != v10)
+            if (*v18 != v10)
             {
               objc_enumerationMutation(v7);
             }
 
-            v12 = *(*(&v18 + 1) + 8 * i);
+            v12 = *(*(&v17 + 1) + 8 * i);
             if ([v12 hasHaptics] && (objc_msgSend(v12, "isSpecial") & 1) == 0)
             {
               hapticsTriggered = self->_hapticsTriggered;
@@ -3544,7 +3562,7 @@ LABEL_46:
             }
           }
 
-          v9 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
+          v9 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
           if (v9)
           {
             continue;
@@ -3557,8 +3575,6 @@ LABEL_46:
 LABEL_19:
     }
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_durationsForEvent:(id)event
@@ -3598,7 +3614,7 @@ id __40__MNGuidanceManager__durationsForEvent___block_invoke(uint64_t a1, void *
 
 - (id)_serverStringDictionaryForChargingEvent:(id)event
 {
-  v14[1] = *MEMORY[0x1E69E9840];
+  v13[1] = *MEMORY[0x1E69E9840];
   route = [(MNGuidanceManager *)self route];
   mutableData = [route mutableData];
   v6 = [mutableData chargingStationInfoForLegIndex:{-[MNGuidanceManager currentLegIndex](self, "currentLegIndex")}];
@@ -3612,18 +3628,37 @@ id __40__MNGuidanceManager__durationsForEvent___block_invoke(uint64_t a1, void *
   v9 = [MEMORY[0x1E696AD98] numberWithDouble:?];
   [v7 setObject:v9 forKeyedSubscript:@"{ChargePercentage}"];
 
-  v13 = @"{fromOrigin}";
-  v14[0] = v7;
-  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:&v13 count:1];
-
-  v11 = *MEMORY[0x1E69E9840];
+  v12 = @"{fromOrigin}";
+  v13[0] = v7;
+  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:&v12 count:1];
 
   return v10;
 }
 
+- (id)_serverStringDictionaryForEvent:(id)event distance:(double)distance validDistance:(double)validDistance spoken:(BOOL)spoken waypoints:(id)waypoints
+{
+  spokenCopy = spoken;
+  eventCopy = event;
+  waypointsCopy = waypoints;
+  if ([(MNGuidanceManager *)self _isEVChargingEvent:eventCopy])
+  {
+    v14 = [(MNGuidanceManager *)self _serverStringDictionaryForChargingEvent:eventCopy];
+  }
+
+  else
+  {
+    v15 = MEMORY[0x1E695DF20];
+    navigationSessionState = [(MNGuidanceManager *)self navigationSessionState];
+    currentWaypoint = [navigationSessionState currentWaypoint];
+    v14 = [v15 _navigation_serverStringDictionaryForDistance:waypointsCopy validDistance:currentWaypoint waypoints:-[MNGuidanceManager currentLegIndex](self currentDestination:"currentLegIndex") legIndex:spokenCopy spoken:objc_msgSend(eventCopy useDisplayName:{"hasArGuidance"), distance, validDistance}];
+  }
+
+  return v14;
+}
+
 - (void)_handleNoGuidanceAnnouncementTimerFiredForEvent:(id)event
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   eventCopy = event;
   noGuidanceHandledEvents = self->_noGuidanceHandledEvents;
   if (!noGuidanceHandledEvents)
@@ -3645,46 +3680,44 @@ id __40__MNGuidanceManager__durationsForEvent___block_invoke(uint64_t a1, void *
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     uniqueID2 = [eventCopy uniqueID];
-    v14 = 138412290;
-    v15 = uniqueID2;
-    _os_log_impl(&dword_1D311E000, v10, OS_LOG_TYPE_DEFAULT, "Sending fake didProcessSpeechEvent: %@", &v14, 0xCu);
+    v13 = 138412290;
+    v14 = uniqueID2;
+    _os_log_impl(&dword_1D311E000, v10, OS_LOG_TYPE_DEFAULT, "Sending fake didProcessSpeechEvent: %@", &v13, 0xCu);
   }
 
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
   [WeakRetained guidanceManager:self didProcessSpeechEvent:eventCopy];
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_considerCallbacksForNoAnnouncements
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   if ([(MNGuidanceManager *)self preferredGuidanceLevel]!= 2 && !self->_noGuidanceFauxAnnouncementTimer)
   {
     routeMatch = [(MNLocation *)self->_location routeMatch];
     [routeMatch routeCoordinate];
 
-    v33 = 0u;
-    v34 = 0u;
-    v31 = 0u;
     v32 = 0u;
+    v33 = 0u;
+    v30 = 0u;
+    v31 = 0u;
     route = [(MNGuidanceManager *)self route];
     composedGuidanceEvents = [route composedGuidanceEvents];
 
-    v6 = [composedGuidanceEvents countByEnumeratingWithState:&v31 objects:v37 count:16];
+    v6 = [composedGuidanceEvents countByEnumeratingWithState:&v30 objects:v36 count:16];
     if (v6)
     {
-      v7 = *v32;
+      v7 = *v31;
       while (2)
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v32 != v7)
+          if (*v31 != v7)
           {
             objc_enumerationMutation(composedGuidanceEvents);
           }
 
-          v9 = *(*(&v31 + 1) + 8 * i);
+          v9 = *(*(&v30 + 1) + 8 * i);
           noGuidanceHandledEvents = self->_noGuidanceHandledEvents;
           uniqueID = [v9 uniqueID];
           LOBYTE(noGuidanceHandledEvents) = [(NSMutableSet *)noGuidanceHandledEvents containsObject:uniqueID];
@@ -3713,7 +3746,7 @@ id __40__MNGuidanceManager__durationsForEvent___block_invoke(uint64_t a1, void *
                     {
                       uniqueID2 = [v14 uniqueID];
                       *buf = 138412290;
-                      v36 = uniqueID2;
+                      v35 = uniqueID2;
                       _os_log_impl(&dword_1D311E000, v17, OS_LOG_TYPE_DEFAULT, "Sending fake willProcessSpeechEvent: %@", buf, 0xCu);
                     }
 
@@ -3723,19 +3756,19 @@ id __40__MNGuidanceManager__durationsForEvent___block_invoke(uint64_t a1, void *
                     objc_initWeak(buf, self);
                     v20 = [MNDispatchTimer alloc];
                     v21 = MNNavigationQueue();
-                    v25 = MEMORY[0x1E69E9820];
-                    v26 = 3221225472;
-                    v27 = __57__MNGuidanceManager__considerCallbacksForNoAnnouncements__block_invoke;
-                    v28 = &unk_1E8430100;
-                    objc_copyWeak(&v30, buf);
+                    v24 = MEMORY[0x1E69E9820];
+                    v25 = 3221225472;
+                    v26 = __57__MNGuidanceManager__considerCallbacksForNoAnnouncements__block_invoke;
+                    v27 = &unk_1E8430100;
+                    objc_copyWeak(&v29, buf);
                     v14 = v14;
-                    v29 = v14;
-                    v22 = [(MNDispatchTimer *)v20 initWithTime:v21 queue:&v25 handler:v16];
+                    v28 = v14;
+                    v22 = [(MNDispatchTimer *)v20 initWithTime:v21 queue:&v24 handler:v16];
                     noGuidanceFauxAnnouncementTimer = self->_noGuidanceFauxAnnouncementTimer;
                     self->_noGuidanceFauxAnnouncementTimer = v22;
 
-                    [(MNDispatchTimer *)self->_noGuidanceFauxAnnouncementTimer activate:v25];
-                    objc_destroyWeak(&v30);
+                    [(MNDispatchTimer *)self->_noGuidanceFauxAnnouncementTimer activate:v24];
+                    objc_destroyWeak(&v29);
                     objc_destroyWeak(buf);
                   }
                 }
@@ -3746,7 +3779,7 @@ id __40__MNGuidanceManager__durationsForEvent___block_invoke(uint64_t a1, void *
           }
         }
 
-        v6 = [composedGuidanceEvents countByEnumeratingWithState:&v31 objects:v37 count:16];
+        v6 = [composedGuidanceEvents countByEnumeratingWithState:&v30 objects:v36 count:16];
         if (v6)
         {
           continue;
@@ -3759,8 +3792,6 @@ id __40__MNGuidanceManager__durationsForEvent___block_invoke(uint64_t a1, void *
     v14 = 0;
 LABEL_19:
   }
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 void __57__MNGuidanceManager__considerCallbacksForNoAnnouncements__block_invoke(uint64_t a1)
@@ -3945,7 +3976,7 @@ LABEL_5:
 
 - (id)_selectAnnouncementForEvent:(id)event withTimeRemaining:(double)remaining selectedVariantIndex:(unint64_t *)index
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   eventCopy = event;
   spokenStrings = [eventCopy spokenStrings];
   v9 = [spokenStrings count];
@@ -3969,14 +4000,14 @@ LABEL_5:
       spokenStrings2 = [eventCopy spokenStrings];
       v13 = [spokenStrings2 objectAtIndexedSubscript:v9];
 
-      v39[0] = MEMORY[0x1E69E9820];
-      v39[1] = 3221225472;
-      v39[2] = __88__MNGuidanceManager__selectAnnouncementForEvent_withTimeRemaining_selectedVariantIndex___block_invoke;
-      v39[3] = &unk_1E842B408;
-      v39[4] = self;
+      v38[0] = MEMORY[0x1E69E9820];
+      v38[1] = 3221225472;
+      v38[2] = __88__MNGuidanceManager__selectAnnouncementForEvent_withTimeRemaining_selectedVariantIndex___block_invoke;
+      v38[3] = &unk_1E842B408;
+      v38[4] = self;
       v14 = eventCopy;
-      v40 = v14;
-      v15 = [v13 optionsWithArgumentHandler:v39];
+      v39 = v14;
+      v15 = [v13 optionsWithArgumentHandler:v38];
       v16 = [v13 stringResultWithOptions:v15];
       if ([v16 success])
       {
@@ -3988,11 +4019,11 @@ LABEL_5:
         if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
         {
           *buf = 67109632;
-          *v42 = v9;
-          *&v42[4] = 2048;
-          *&v42[6] = v19;
-          *&v42[14] = 2048;
-          *&v42[16] = remainingCopy;
+          *v41 = v9;
+          *&v41[4] = 2048;
+          *&v41[6] = v19;
+          *&v41[14] = 2048;
+          *&v41[16] = remainingCopy;
           _os_log_impl(&dword_1D311E000, v20, OS_LOG_TYPE_DEBUG, "ⓖ Considering announcement %d with duration %.1f, time remaining %.1f", buf, 0x1Cu);
         }
 
@@ -4007,9 +4038,9 @@ LABEL_5:
         {
           string2 = [v16 string];
           *buf = 138412546;
-          *v42 = string2;
-          *&v42[8] = 2112;
-          *&v42[10] = v13;
+          *v41 = string2;
+          *&v41[8] = 2112;
+          *&v41[10] = v13;
           _os_log_impl(&dword_1D311E000, v22, OS_LOG_TYPE_FAULT, "ⓖ Error building spoken string, probably because some arguments were not handled.\nResult: %@\nOriginal string: %@", buf, 0x16u);
         }
 
@@ -4041,7 +4072,7 @@ LABEL_5:
     if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
     {
       *buf = 67109120;
-      *v42 = v9;
+      *v41 = v9;
       _os_log_impl(&dword_1D311E000, v28, OS_LOG_TYPE_DEBUG, "ⓖ Selected announcement %d (not short enough)", buf, 8u);
     }
   }
@@ -4054,9 +4085,9 @@ LABEL_5:
       announcements = [eventCopy announcements];
       v30 = [announcements count];
       *buf = 67109376;
-      *v42 = v9;
-      *&v42[4] = 1024;
-      *&v42[6] = v30;
+      *v41 = v9;
+      *&v41[4] = 1024;
+      *&v41[6] = v30;
       _os_log_impl(&dword_1D311E000, v28, OS_LOG_TYPE_DEBUG, "ⓖ Selected announcement %d (%d variant(s))", buf, 0xEu);
     }
   }
@@ -4073,9 +4104,99 @@ LABEL_5:
     v10 = _navigation_stringByMarkingAsPrivateText;
   }
 
-  v36 = *MEMORY[0x1E69E9840];
-
   return v10;
+}
+
+- (id)_spokenStringForEvent:(id)event waypointCategory:(int)category
+{
+  v4 = *&category;
+  v29 = *MEMORY[0x1E69E9840];
+  eventCopy = event;
+  spokenStrings = [eventCopy spokenStrings];
+  if ([spokenStrings count])
+  {
+    firstObject = [spokenStrings firstObject];
+    v9 = [spokenStrings count];
+    if (v4 && v9 >= 2)
+    {
+      v10 = MNGetMNGuidanceManagerLog();
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      {
+        composedGuidanceEventType = [eventCopy composedGuidanceEventType];
+        if (composedGuidanceEventType >= 0xF)
+        {
+          v12 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", composedGuidanceEventType];
+        }
+
+        else
+        {
+          v12 = off_1E842B610[composedGuidanceEventType];
+        }
+
+        v13 = v12;
+        if (v4 >= 0xE)
+        {
+          v14 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", v4];
+        }
+
+        else
+        {
+          v14 = off_1E842B688[(v4 - 1)];
+        }
+
+        *buf = 138412546;
+        v26 = v13;
+        v27 = 2112;
+        v28 = v14;
+        _os_log_impl(&dword_1D311E000, v10, OS_LOG_TYPE_ERROR, "Requested announcement from event (%@) with a waypoint category of (%@), but there are multiple spoken variants. This probably means Routing is still sending the old style variant lists for this event.", buf, 0x16u);
+      }
+
+      if ([spokenStrings count] <= v4)
+      {
+        v15 = 0;
+      }
+
+      else
+      {
+        v15 = v4;
+      }
+
+      v16 = [spokenStrings objectAtIndexedSubscript:v15];
+
+      firstObject = v16;
+    }
+
+    v23[0] = MEMORY[0x1E69E9820];
+    v23[1] = 3221225472;
+    v23[2] = __60__MNGuidanceManager__spokenStringForEvent_waypointCategory___block_invoke;
+    v23[3] = &unk_1E842B408;
+    v23[4] = self;
+    v24 = eventCopy;
+    v17 = [(__CFString *)firstObject optionsWithArgumentHandler:v23];
+    v18 = [(__CFString *)firstObject stringResultWithOptions:v17];
+    if (([v18 success] & 1) == 0)
+    {
+      v19 = MNGetMNGuidanceManagerLog();
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_FAULT))
+      {
+        string = [v18 string];
+        *buf = 138412546;
+        v26 = string;
+        v27 = 2112;
+        v28 = firstObject;
+        _os_log_impl(&dword_1D311E000, v19, OS_LOG_TYPE_FAULT, "ⓖ Error building spoken string, probably because some arguments were not handled.\nResult: %@\nOriginal string: %@", buf, 0x16u);
+      }
+    }
+
+    string2 = [v18 string];
+  }
+
+  else
+  {
+    string2 = 0;
+  }
+
+  return string2;
 }
 
 - (unint64_t)_announcementStageForEvent:(id)event
@@ -4103,9 +4224,112 @@ LABEL_5:
   return v5;
 }
 
+- (void)_notifySpeechEvent:(id)event waypointCategory:(int)category startingVariantIndex:(unint64_t)index
+{
+  v6 = *&category;
+  v40 = *MEMORY[0x1E69E9840];
+  eventCopy = event;
+  if ([(MNGuidanceManager *)self _checkValidSpokenEventForGuidanceLevel:eventCopy])
+  {
+    [(MNGuidanceManager *)self _markEventSpoken:eventCopy];
+    +[MNTimeManager currentTime];
+    self->_timeLastAnnouncementStarted = v9;
+    v10 = [MNAnnouncementPlanEvent alloc];
+    [(MNGuidanceManager *)self _distanceToEndOfRoute];
+    v12 = v11;
+    speed = self->_speed;
+    v14 = [(MNGuidanceManager *)self _durationsForEvent:eventCopy];
+    v15 = [(MNAnnouncementPlanEvent *)v10 initWithEvent:eventCopy distance:v14 speed:v12 durations:speed];
+    lastAnnouncementEvent = self->_lastAnnouncementEvent;
+    self->_lastAnnouncementEvent = v15;
+
+    if (index == 0x7FFFFFFFFFFFFFFFLL)
+    {
+      v17 = [(MNGuidanceManager *)self _spokenStringForEvent:eventCopy waypointCategory:v6];
+      v18 = MNGetMNGuidanceManagerLog();
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+      {
+        composedGuidanceEventType = [eventCopy composedGuidanceEventType];
+        if (composedGuidanceEventType >= 0xF)
+        {
+          v20 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", composedGuidanceEventType];
+        }
+
+        else
+        {
+          v20 = off_1E842B610[composedGuidanceEventType];
+        }
+
+        v24 = v20;
+        if (v6 >= 0xE)
+        {
+          v25 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", v6];
+        }
+
+        else
+        {
+          v25 = off_1E842B558[v6];
+        }
+
+        *buf = 138412803;
+        *v37 = v24;
+        *&v37[8] = 2112;
+        *&v37[10] = v25;
+        v38 = 2113;
+        v39 = v17;
+        _os_log_impl(&dword_1D311E000, v18, OS_LOG_TYPE_DEFAULT, "ⓖ Requesting announcement with event type (%@) and waypoint category (%@): %{private}@", buf, 0x20u);
+      }
+
+      spokenStrings = [eventCopy spokenStrings];
+      [spokenStrings count];
+
+      v23 = self->_lastAnnouncementEvent;
+      v22 = 0;
+    }
+
+    else
+    {
+      [(MNGuidanceManager *)self _timeRemainingForEvent:eventCopy];
+      v34 = 0;
+      v17 = [(MNGuidanceManager *)self _selectAnnouncementForEvent:eventCopy withTimeRemaining:&v34 selectedVariantIndex:?];
+      v21 = MNGetMNGuidanceManagerLog();
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 67109379;
+        *v37 = v34;
+        *&v37[4] = 2113;
+        *&v37[6] = v17;
+        _os_log_impl(&dword_1D311E000, v21, OS_LOG_TYPE_DEFAULT, "ⓖ Requesting announcement with variant index (%d): %{private}@", buf, 0x12u);
+      }
+
+      v22 = v34;
+      v23 = self->_lastAnnouncementEvent;
+    }
+
+    [(MNAnnouncementPlanEvent *)v23 setVariantIndex:v22];
+    v35 = eventCopy;
+    v27 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v35 count:1];
+    [(MNGuidanceManager *)self _notifyAnalyticsForNewEvents:v27 previousEvents:0];
+
+    delegate = [(MNGuidanceManager *)self delegate];
+    [delegate guidanceManager:self willProcessSpeechEvent:eventCopy];
+
+    aBlock[0] = MEMORY[0x1E69E9820];
+    aBlock[1] = 3221225472;
+    aBlock[2] = __78__MNGuidanceManager__notifySpeechEvent_waypointCategory_startingVariantIndex___block_invoke;
+    aBlock[3] = &unk_1E8430BF8;
+    aBlock[4] = self;
+    v29 = eventCopy;
+    v33 = v29;
+    v30 = _Block_copy(aBlock);
+    delegate2 = [(MNGuidanceManager *)self delegate];
+    [delegate2 guidanceManager:self announce:v17 isImportant:objc_msgSend(v29 shortPromptType:"isImportant") stage:MNInstructionsShortPromptTypeForManeuver(objc_msgSend(v29 completionBlock:{"maneuverType"), objc_msgSend(v29, "drivingSide")), -[MNGuidanceManager _announcementStageForEvent:](self, "_announcementStageForEvent:", v29), v30}];
+  }
+}
+
 void __78__MNGuidanceManager__notifySpeechEvent_waypointCategory_startingVariantIndex___block_invoke(uint64_t a1, unint64_t a2)
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   +[MNTimeManager currentTime];
   *(*(a1 + 32) + 112) = v4;
   if (a2 < 9)
@@ -4114,9 +4338,9 @@ void __78__MNGuidanceManager__notifySpeechEvent_waypointCategory_startingVariant
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       v6 = off_1E842B5C8[a2];
-      v22 = 138412290;
-      v23 = v6;
-      _os_log_impl(&dword_1D311E000, v5, OS_LOG_TYPE_ERROR, "⒢ Announcement not spoken, MNAudioCompletionStatus code=%@", &v22, 0xCu);
+      v21 = 138412290;
+      v22 = v6;
+      _os_log_impl(&dword_1D311E000, v5, OS_LOG_TYPE_ERROR, "⒢ Announcement not spoken, MNAudioCompletionStatus code=%@", &v21, 0xCu);
     }
 
     v7 = *(*(a1 + 32) + 240);
@@ -4138,36 +4362,36 @@ void __78__MNGuidanceManager__notifySpeechEvent_waypointCategory_startingVariant
     goto LABEL_8;
   }
 
-  v13 = MNGetMNGuidanceManagerLog();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+  v12 = MNGetMNGuidanceManagerLog();
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
   {
     if (a2 == 10)
     {
-      v14 = "sound effect";
+      v13 = "sound effect";
     }
 
     else
     {
-      v14 = "speech";
+      v13 = "speech";
     }
 
-    v15 = *(a1 + 32);
-    v16 = v15[14] - v15[13];
-    v17 = [v15 route];
-    v18 = [*(*(a1 + 32) + 216) routeMatch];
-    [v17 stepDistanceFromPoint:objc_msgSend(v18 toPoint:{"routeCoordinate"), objc_msgSend(*(a1 + 40), "endValidRouteCoordinate")}];
-    v22 = 136315650;
-    v23 = v14;
-    v24 = 2048;
-    v25 = v16;
-    v26 = 2048;
-    v27 = v19;
-    _os_log_impl(&dword_1D311E000, v13, OS_LOG_TYPE_INFO, "ⓖ Finished %s announcement in %.2f seconds, with %.2f meters to go", &v22, 0x20u);
+    v14 = *(a1 + 32);
+    v15 = v14[14] - v14[13];
+    v16 = [v14 route];
+    v17 = [*(*(a1 + 32) + 216) routeMatch];
+    [v16 stepDistanceFromPoint:objc_msgSend(v17 toPoint:{"routeCoordinate"), objc_msgSend(*(a1 + 40), "endValidRouteCoordinate")}];
+    v21 = 136315650;
+    v22 = v13;
+    v23 = 2048;
+    v24 = v15;
+    v25 = 2048;
+    v26 = v18;
+    _os_log_impl(&dword_1D311E000, v12, OS_LOG_TYPE_INFO, "ⓖ Finished %s announcement in %.2f seconds, with %.2f meters to go", &v21, 0x20u);
   }
 
-  v20 = *(*(a1 + 32) + 240);
-  v21 = [*(a1 + 40) uniqueID];
-  v9 = [v20 objectForKeyedSubscript:v21];
+  v19 = *(*(a1 + 32) + 240);
+  v20 = [*(a1 + 40) uniqueID];
+  v9 = [v19 objectForKeyedSubscript:v20];
 
   if (v9)
   {
@@ -4184,13 +4408,11 @@ LABEL_7:
 LABEL_8:
   v11 = [*(a1 + 32) delegate];
   [v11 guidanceManager:*(a1 + 32) didProcessSpeechEvent:*(a1 + 40)];
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)_checkValidSpokenEventForGuidanceLevel:(id)level
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   levelCopy = level;
   if ([levelCopy hasSpokenGuidance] && (objc_msgSend(levelCopy, "supportsGuidanceLevel:", self->_preferredGuidanceLevel) & 1) == 0)
   {
@@ -4224,9 +4446,9 @@ LABEL_8:
         }
 
         *buf = 138412546;
-        v19 = v13;
-        v20 = 2112;
-        v21 = levelCopy;
+        v18 = v13;
+        v19 = 2112;
+        v20 = levelCopy;
         _os_log_impl(&dword_1D311E000, v11, OS_LOG_TYPE_DEFAULT, "Tried to announce guidance event, but skipping because the user's preferred guidance level %@ does not support the event's type:\n\t%@", buf, 0x16u);
       }
 
@@ -4243,38 +4465,37 @@ LABEL_8:
     v5 = 1;
   }
 
-  v16 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
 - (id)_spokenEventsRemainingInStep
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   routeMatch = [(MNLocation *)self->_location routeMatch];
   step = [routeMatch step];
   [step endRouteCoordinate];
 
   v5 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   obj = [(MNGuidanceManager *)self events];
-  v6 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v6 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v20;
+    v8 = *v19;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v20 != v8)
+        if (*v19 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v19 + 1) + 8 * i);
+        v10 = *(*(&v18 + 1) + 8 * i);
         if (([v10 isSpecial] & 1) == 0)
         {
           announcements = [v10 announcements];
@@ -4310,49 +4531,48 @@ LABEL_8:
         }
       }
 
-      v7 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v7 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v7);
   }
 
-  v18[0] = MEMORY[0x1E69E9820];
-  v18[1] = 3221225472;
-  v18[2] = __49__MNGuidanceManager__spokenEventsRemainingInStep__block_invoke;
-  v18[3] = &unk_1E842B3E0;
-  v18[4] = self;
-  [v5 sortUsingComparator:v18];
-  v15 = *MEMORY[0x1E69E9840];
+  v17[0] = MEMORY[0x1E69E9820];
+  v17[1] = 3221225472;
+  v17[2] = __49__MNGuidanceManager__spokenEventsRemainingInStep__block_invoke;
+  v17[3] = &unk_1E842B3E0;
+  v17[4] = self;
+  [v5 sortUsingComparator:v17];
 
   return v5;
 }
 
 - (void)_planAnnouncements
 {
-  v102 = *MEMORY[0x1E69E9840];
+  v101 = *MEMORY[0x1E69E9840];
   v3 = +[MNTimeManager currentDate];
   v4 = COERCE_DOUBLE(objc_alloc_init(MEMORY[0x1E695DF70]));
+  v89 = 0u;
   v90 = 0u;
   v91 = 0u;
   v92 = 0u;
-  v93 = 0u;
   v5 = self->_validEvents;
-  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v90 objects:v101 count:16];
+  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v89 objects:v100 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v91;
-    v76 = v5;
+    v8 = *v90;
+    v75 = v5;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v91 != v8)
+        if (*v90 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v90 + 1) + 8 * i);
+        v10 = *(*(&v89 + 1) + 8 * i);
         announcements = [v10 announcements];
         v12 = [announcements count];
 
@@ -4380,7 +4600,7 @@ LABEL_8:
               v3 = v23;
               v4 = v22;
               self = selfCopy;
-              v5 = v76;
+              v5 = v75;
             }
           }
 
@@ -4391,7 +4611,7 @@ LABEL_8:
         }
       }
 
-      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v90 objects:v101 count:16];
+      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v89 objects:v100 count:16];
     }
 
     while (v7);
@@ -4399,54 +4619,54 @@ LABEL_8:
 
   [(MNGuidanceManager *)self _spokenEventsRemainingInStep];
   v25 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
-  if ([*&v4 count] || objc_msgSend(*&v25, "count") && (-[MNGuidanceManager timeUntilNextAnnouncement](self, "timeUntilNextAnnouncement"), v73 == 1.79769313e308))
+  if ([*&v4 count] || objc_msgSend(*&v25, "count") && (-[MNGuidanceManager timeUntilNextAnnouncement](self, "timeUntilNextAnnouncement"), v72 == 1.79769313e308))
   {
     v26 = MNGetMNGuidanceManagerLog();
     if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138477827;
-      v97 = v4;
+      v96 = v4;
       _os_log_impl(&dword_1D311E000, v26, OS_LOG_TYPE_DEBUG, "ⓖ Valid spoken events : %{private}@", buf, 0xCu);
     }
 
-    v77 = v3;
+    v76 = v3;
 
     v27 = MNGetMNGuidanceManagerLog();
     if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138477827;
-      v97 = v25;
+      v96 = v25;
       _os_log_impl(&dword_1D311E000, v27, OS_LOG_TYPE_DEBUG, "ⓖ Remaining events : %{private}@", buf, 0xCu);
     }
 
     v28 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:{objc_msgSend(*&v25, "count")}];
+    v85 = 0u;
     v86 = 0u;
     v87 = 0u;
     v88 = 0u;
-    v89 = 0u;
-    v75 = v25;
+    v74 = v25;
     v29 = *&v25;
-    v30 = [v29 countByEnumeratingWithState:&v86 objects:v100 count:16];
+    v30 = [v29 countByEnumeratingWithState:&v85 objects:v99 count:16];
     if (v30)
     {
       v31 = v30;
-      v32 = *v87;
+      v32 = *v86;
       do
       {
         for (j = 0; j != v31; ++j)
         {
-          if (*v87 != v32)
+          if (*v86 != v32)
           {
             objc_enumerationMutation(v29);
           }
 
-          v34 = *(*(&v86 + 1) + 8 * j);
+          v34 = *(*(&v85 + 1) + 8 * j);
           v35 = [(MNGuidanceManager *)self _durationsForEvent:v34];
           uniqueID2 = [v34 uniqueID];
           [v28 setObject:v35 forKey:uniqueID2];
         }
 
-        v31 = [v29 countByEnumeratingWithState:&v86 objects:v100 count:16];
+        v31 = [v29 countByEnumeratingWithState:&v85 objects:v99 count:16];
       }
 
       while (v31);
@@ -4466,9 +4686,9 @@ LABEL_8:
     {
       plan = [(MNAnnouncementEngine *)self->_announcementEngine plan];
       *buf = 134218243;
-      v97 = (v44 - Current) * 1000.0;
-      v98 = 2113;
-      v99 = plan;
+      v96 = (v44 - Current) * 1000.0;
+      v97 = 2113;
+      v98 = plan;
       _os_log_impl(&dword_1D311E000, v45, OS_LOG_TYPE_DEBUG, "ⓖ Planned announcements in %.2fms : %{private}@", buf, 0x16u);
     }
 
@@ -4481,34 +4701,34 @@ LABEL_8:
 
       if (v50)
       {
-        v84 = 0u;
-        v85 = 0u;
-        v82 = 0u;
         v83 = 0u;
+        v84 = 0u;
+        v81 = 0u;
+        v82 = 0u;
         plan2 = [(MNAnnouncementEngine *)self->_announcementEngine plan];
         plannedEvents = [plan2 plannedEvents];
 
-        v53 = [plannedEvents countByEnumeratingWithState:&v82 objects:v95 count:16];
+        v53 = [plannedEvents countByEnumeratingWithState:&v81 objects:v94 count:16];
         if (v53)
         {
           v54 = v53;
-          v55 = *v83;
+          v55 = *v82;
 LABEL_34:
           v56 = 0;
           while (1)
           {
-            if (*v83 != v55)
+            if (*v82 != v55)
             {
               objc_enumerationMutation(plannedEvents);
             }
 
-            v57 = *(*(&v82 + 1) + 8 * v56);
+            v57 = *(*(&v81 + 1) + 8 * v56);
             if (v57 == v48)
             {
               break;
             }
 
-            if (([*(*(&v82 + 1) + 8 * v56) includeInPlan] & 1) == 0)
+            if (([*(*(&v81 + 1) + 8 * v56) includeInPlan] & 1) == 0)
             {
               event2 = [v57 event];
               [(MNGuidanceManager *)self _markEventSpoken:event2];
@@ -4516,7 +4736,7 @@ LABEL_34:
 
             if (v54 == ++v56)
             {
-              v54 = [plannedEvents countByEnumeratingWithState:&v82 objects:v95 count:16];
+              v54 = [plannedEvents countByEnumeratingWithState:&v81 objects:v94 count:16];
               if (v54)
               {
                 goto LABEL_34;
@@ -4532,32 +4752,32 @@ LABEL_34:
       }
     }
 
-    v74 = v48;
+    v73 = v48;
     nextEvent = self->_nextEvent;
     self->_nextEvent = 0;
 
-    v80 = 0u;
-    v81 = 0u;
-    v78 = 0u;
     v79 = 0u;
+    v80 = 0u;
+    v77 = 0u;
+    v78 = 0u;
     plan3 = [(MNAnnouncementEngine *)self->_announcementEngine plan];
     plannedEvents2 = [plan3 plannedEvents];
 
-    v63 = [plannedEvents2 countByEnumeratingWithState:&v78 objects:v94 count:16];
+    v63 = [plannedEvents2 countByEnumeratingWithState:&v77 objects:v93 count:16];
     if (v63)
     {
       v64 = v63;
-      v65 = *v79;
+      v65 = *v78;
       while (2)
       {
         for (k = 0; k != v64; ++k)
         {
-          if (*v79 != v65)
+          if (*v78 != v65)
           {
             objc_enumerationMutation(plannedEvents2);
           }
 
-          v67 = *(*(&v78 + 1) + 8 * k);
+          v67 = *(*(&v77 + 1) + 8 * k);
           if ([v67 includeInPlan])
           {
             event4 = [v67 event];
@@ -4574,7 +4794,7 @@ LABEL_34:
           }
         }
 
-        v64 = [plannedEvents2 countByEnumeratingWithState:&v78 objects:v94 count:16];
+        v64 = [plannedEvents2 countByEnumeratingWithState:&v77 objects:v93 count:16];
         if (v64)
         {
           continue;
@@ -4586,11 +4806,21 @@ LABEL_34:
 
 LABEL_54:
 
-    v25 = v75;
-    v3 = v77;
+    v25 = v74;
+    v3 = v76;
   }
+}
 
-  v72 = *MEMORY[0x1E69E9840];
+- (id)_specialNavTrayEvents:(int)events forLeg:(unint64_t)leg
+{
+  v4 = *&events;
+  specialNavTrayEvents = self->_specialNavTrayEvents;
+  v6 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:leg];
+  v7 = [(NSMutableDictionary *)specialNavTrayEvents objectForKeyedSubscript:v6];
+  v8 = [MEMORY[0x1E696AD98] numberWithInt:v4];
+  v9 = [v7 objectForKeyedSubscript:v8];
+
+  return v9;
 }
 
 - (void)updateGuidanceForLocation:(id)location navigatorState:(int)state
@@ -4644,7 +4874,7 @@ LABEL_54:
 
 - (void)updateSessionStateForReroute:(id)reroute reason:(unint64_t)reason location:(id)location
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   rerouteCopy = reroute;
   locationCopy = location;
   v10 = 0;
@@ -4717,7 +4947,7 @@ LABEL_8:
     {
       v19 = GEOPolylineCoordinateAsFullString();
       *buf = 138412290;
-      v40 = v19;
+      v39 = v19;
       _os_log_impl(&dword_1D311E000, v18, OS_LOG_TYPE_DEFAULT, "Updating guidance manager for new route. New location is on route, so suppressing guidance events up to [%@].", buf, 0xCu);
     }
 
@@ -4732,31 +4962,31 @@ LABEL_8:
       v21 = stepIndex;
     }
 
-    v33 = rerouteCopy;
+    v32 = rerouteCopy;
     currentRouteInfo = [rerouteCopy currentRouteInfo];
     route2 = [currentRouteInfo route];
 
-    v36 = 0u;
-    v37 = 0u;
-    v34 = 0u;
     v35 = 0u;
-    v32 = route2;
+    v36 = 0u;
+    v33 = 0u;
+    v34 = 0u;
+    v31 = route2;
     composedGuidanceEvents = [route2 composedGuidanceEvents];
-    v25 = [composedGuidanceEvents countByEnumeratingWithState:&v34 objects:v38 count:16];
+    v25 = [composedGuidanceEvents countByEnumeratingWithState:&v33 objects:v37 count:16];
     if (v25)
     {
       v26 = v25;
-      v27 = *v35;
+      v27 = *v34;
       do
       {
         for (i = 0; i != v26; ++i)
         {
-          if (*v35 != v27)
+          if (*v34 != v27)
           {
             objc_enumerationMutation(composedGuidanceEvents);
           }
 
-          v29 = *(*(&v34 + 1) + 8 * i);
+          v29 = *(*(&v33 + 1) + 8 * i);
           if ([v29 hasSpokenGuidance])
           {
             if (([v29 isSpecial] & 1) == 0 && objc_msgSend(v29, "stepIndex") <= v21)
@@ -4767,7 +4997,7 @@ LABEL_8:
                 if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
                 {
                   *buf = 138412290;
-                  v40 = v29;
+                  v39 = v29;
                   _os_log_impl(&dword_1D311E000, v30, OS_LOG_TYPE_INFO, "Suppressing guidance event: %@", buf, 0xCu);
                 }
 
@@ -4777,41 +5007,37 @@ LABEL_8:
           }
         }
 
-        v26 = [composedGuidanceEvents countByEnumeratingWithState:&v34 objects:v38 count:16];
+        v26 = [composedGuidanceEvents countByEnumeratingWithState:&v33 objects:v37 count:16];
       }
 
       while (v26);
     }
 
-    rerouteCopy = v33;
+    rerouteCopy = v32;
   }
-
-  v31 = *MEMORY[0x1E69E9840];
 }
 
 - (void)updateDestination:(id)destination
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v3 = MNGetMNGuidanceManagerLog();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    v5 = 136315138;
-    v6 = "[MNGuidanceManager updateDestination:]";
-    _os_log_impl(&dword_1D311E000, v3, OS_LOG_TYPE_DEBUG, "ⓖ %s", &v5, 0xCu);
+    v4 = 136315138;
+    v5 = "[MNGuidanceManager updateDestination:]";
+    _os_log_impl(&dword_1D311E000, v3, OS_LOG_TYPE_DEBUG, "ⓖ %s", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)repeatLastGuidanceAnnouncement:(id)announcement
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   announcementCopy = announcement;
   v6 = MNGetMNGuidanceManagerLog();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315138;
-    v31 = "[MNGuidanceManager repeatLastGuidanceAnnouncement:]";
+    v30 = "[MNGuidanceManager repeatLastGuidanceAnnouncement:]";
     _os_log_impl(&dword_1D311E000, v6, OS_LOG_TYPE_DEBUG, "ⓖ %s", buf, 0xCu);
   }
 
@@ -4819,26 +5045,26 @@ LABEL_8:
   [(MNGuidanceManager *)self _adjustedVehicleSpeed];
   self->_speed = v7;
   v8 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v24 = 0u;
   v25 = 0u;
   v26 = 0u;
   v27 = 0u;
-  v28 = 0u;
   v9 = self->_validEvents;
-  v10 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v25 objects:v29 count:16];
+  v10 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v24 objects:v28 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v26;
+    v12 = *v25;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v26 != v12)
+        if (*v25 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = *(*(&v25 + 1) + 8 * i);
+        v14 = *(*(&v24 + 1) + 8 * i);
         announcements = [v14 announcements];
         v16 = [announcements count];
 
@@ -4848,7 +5074,7 @@ LABEL_8:
         }
       }
 
-      v11 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v25 objects:v29 count:16];
+      v11 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v24 objects:v28 count:16];
     }
 
     while (v11);
@@ -4878,27 +5104,24 @@ LABEL_8:
     v20 = 0x7FFFFFFFFFFFFFFFLL;
   }
 
-  [(MNGuidanceManager *)selfCopy2 _notifySpeechEvent:v19 waypointCategory:0 startingVariantIndex:v20, v25];
+  [(MNGuidanceManager *)selfCopy2 _notifySpeechEvent:v19 waypointCategory:0 startingVariantIndex:v20, v24];
 
   v22 = 1;
 LABEL_17:
 
-  v23 = *MEMORY[0x1E69E9840];
   return v22;
 }
 
 - (void)stop
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v2 = MNGetMNGuidanceManagerLog();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
-    v4 = 136315138;
-    v5 = "[MNGuidanceManager stop]";
-    _os_log_impl(&dword_1D311E000, v2, OS_LOG_TYPE_DEBUG, "ⓖ %s", &v4, 0xCu);
+    v3 = 136315138;
+    v4 = "[MNGuidanceManager stop]";
+    _os_log_impl(&dword_1D311E000, v2, OS_LOG_TYPE_DEBUG, "ⓖ %s", &v3, 0xCu);
   }
-
-  v3 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_resetLastAnnouncementTime
@@ -4910,7 +5133,7 @@ LABEL_17:
 
 - (void)reset
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   junctionViewImageLoader = self->_junctionViewImageLoader;
   self->_junctionViewImageLoader = 0;
 
@@ -4967,27 +5190,27 @@ LABEL_17:
   route = [(MNGuidanceManager *)self route];
   [(MNGuidanceManager *)self _initSpecialGuidanceEventsForRoute:route];
 
-  v29 = 0u;
-  v30 = 0u;
-  v27 = 0u;
   v28 = 0u;
+  v29 = 0u;
+  v26 = 0u;
+  v27 = 0u;
   v19 = v10;
-  v20 = [v19 countByEnumeratingWithState:&v27 objects:v31 count:16];
+  v20 = [v19 countByEnumeratingWithState:&v26 objects:v30 count:16];
   if (v20)
   {
     v21 = v20;
-    v22 = *v28;
+    v22 = *v27;
     do
     {
       v23 = 0;
       do
       {
-        if (*v28 != v22)
+        if (*v27 != v22)
         {
           objc_enumerationMutation(v19);
         }
 
-        v24 = -[MNGuidanceManager _specialSpokenEvents:forLegIndex:](self, "_specialSpokenEvents:forLegIndex:", [*(*(&v27 + 1) + 8 * v23) unsignedIntegerValue], 0);
+        v24 = -[MNGuidanceManager _specialSpokenEvents:forLegIndex:](self, "_specialSpokenEvents:forLegIndex:", [*(*(&v26 + 1) + 8 * v23) unsignedIntegerValue], 0);
         firstObject3 = [v24 firstObject];
 
         [(MNGuidanceManager *)self _markEventSpoken:firstObject3];
@@ -4995,13 +5218,11 @@ LABEL_17:
       }
 
       while (v21 != v23);
-      v21 = [v19 countByEnumeratingWithState:&v27 objects:v31 count:16];
+      v21 = [v19 countByEnumeratingWithState:&v26 objects:v30 count:16];
     }
 
     while (v21);
   }
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 - (void)dealloc
@@ -5017,7 +5238,7 @@ LABEL_17:
 
 - (void)_initSpecialGuidanceEventsForRoute:(id)route
 {
-  v44 = *MEMORY[0x1E69E9840];
+  v43 = *MEMORY[0x1E69E9840];
   routeCopy = route;
   if (routeCopy)
   {
@@ -5041,31 +5262,31 @@ LABEL_17:
     p_specialAREvents = &self->_specialAREvents;
     self->_specialAREvents = dictionary4;
 
-    v41 = 0u;
-    v42 = 0u;
-    v39 = 0u;
     v40 = 0u;
-    v33 = routeCopy;
+    v41 = 0u;
+    v38 = 0u;
+    v39 = 0u;
+    v32 = routeCopy;
     obj = [routeCopy composedGuidanceEvents];
-    v13 = [obj countByEnumeratingWithState:&v39 objects:v43 count:16];
+    v13 = [obj countByEnumeratingWithState:&v38 objects:v42 count:16];
     if (!v13)
     {
       goto LABEL_22;
     }
 
     v14 = v13;
-    v15 = *v40;
+    v15 = *v39;
     v16 = 0x1E696A000uLL;
     while (1)
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v40 != v15)
+        if (*v39 != v15)
         {
           objc_enumerationMutation(obj);
         }
 
-        v18 = *(*(&v39 + 1) + 8 * i);
+        v18 = *(*(&v38 + 1) + 8 * i);
         if ([v18 isSpecial])
         {
           hasSpokenGuidance = [v18 hasSpokenGuidance];
@@ -5129,28 +5350,26 @@ LABEL_17:
         }
       }
 
-      v14 = [obj countByEnumeratingWithState:&v39 objects:v43 count:16];
+      v14 = [obj countByEnumeratingWithState:&v38 objects:v42 count:16];
       if (!v14)
       {
 LABEL_22:
 
-        routeCopy = v33;
+        routeCopy = v32;
         break;
       }
     }
   }
-
-  v32 = *MEMORY[0x1E69E9840];
 }
 
 - (MNGuidanceManager)initWithNavigationSessionState:(id)state audioManager:(id)manager isReconnecting:(BOOL)reconnecting announcementsToIgnore:(id)ignore
 {
   reconnectingCopy = reconnecting;
-  v55 = *MEMORY[0x1E69E9840];
+  v54 = *MEMORY[0x1E69E9840];
   stateCopy = state;
   managerCopy = manager;
   ignoreCopy = ignore;
-  if (stateCopy && ([stateCopy currentRouteInfo], v13 = objc_claimAutoreleasedReturnValue(), v13, v13) && (v51.receiver = self, v51.super_class = MNGuidanceManager, v14 = -[MNGuidanceManager init](&v51, sel_init), (self = v14) != 0))
+  if (stateCopy && ([stateCopy currentRouteInfo], v13 = objc_claimAutoreleasedReturnValue(), v13, v13) && (v50.receiver = self, v50.super_class = MNGuidanceManager, v14 = -[MNGuidanceManager init](&v50, sel_init), (self = v14) != 0))
   {
     objc_storeStrong(&v14->_audioManager, manager);
     v15 = objc_alloc_init(MNAnnouncementEngine);
@@ -5188,7 +5407,7 @@ LABEL_22:
 
     if (reconnectingCopy)
     {
-      v46 = managerCopy;
+      v45 = managerCopy;
       v28 = [(MNGuidanceManager *)self _specialSpokenEvents:1 forLegIndex:0];
       firstObject = [v28 firstObject];
       [(MNGuidanceManager *)self _markEventSpoken:firstObject];
@@ -5200,27 +5419,27 @@ LABEL_22:
       v32 = [(NSMutableDictionary *)self->_specialSignEvents objectForKeyedSubscript:&unk_1F4EE2458];
       [v32 setObject:0 forKeyedSubscript:&unk_1F4EE2470];
 
-      v49 = 0u;
-      v50 = 0u;
-      v47 = 0u;
       v48 = 0u;
+      v49 = 0u;
+      v46 = 0u;
+      v47 = 0u;
       v33 = ignoreCopy;
-      v34 = [v33 countByEnumeratingWithState:&v47 objects:v54 count:16];
+      v34 = [v33 countByEnumeratingWithState:&v46 objects:v53 count:16];
       if (v34)
       {
         v35 = v34;
-        v36 = *v48;
+        v36 = *v47;
         do
         {
           v37 = 0;
           do
           {
-            if (*v48 != v36)
+            if (*v47 != v36)
             {
               objc_enumerationMutation(v33);
             }
 
-            v38 = *(*(&v47 + 1) + 8 * v37);
+            v38 = *(*(&v46 + 1) + 8 * v37);
             v39 = +[MNTimeManager currentDate];
             [(NSMutableDictionary *)self->_announcementsSpoken setObject:v39 forKeyedSubscript:v38];
 
@@ -5228,7 +5447,7 @@ LABEL_22:
           }
 
           while (v35 != v37);
-          v35 = [v33 countByEnumeratingWithState:&v47 objects:v54 count:16];
+          v35 = [v33 countByEnumeratingWithState:&v46 objects:v53 count:16];
         }
 
         while (v35);
@@ -5239,11 +5458,11 @@ LABEL_22:
       {
         v41 = self->_announcementsSpoken;
         *buf = 138412290;
-        v53 = v41;
+        v52 = v41;
         _os_log_impl(&dword_1D311E000, v40, OS_LOG_TYPE_INFO, "ⓖ Restarting guidance after a navd reconnection. Ignoring announcements: %@", buf, 0xCu);
       }
 
-      managerCopy = v46;
+      managerCopy = v45;
     }
 
     v42 = +[MNTimeManager sharedManager];
@@ -5258,7 +5477,6 @@ LABEL_22:
     selfCopy = 0;
   }
 
-  v44 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 

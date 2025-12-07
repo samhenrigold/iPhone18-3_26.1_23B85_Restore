@@ -17,11 +17,14 @@
 - (UARPSuperBinaryAssetPayload)initWithDictionary:(id)dictionary;
 - (UARPSuperBinaryAssetPayload)initWithPayloadHeader:(UARPPayloadHeader *)header;
 - (UARPSuperBinaryAssetPayload)initWithPayloadTag:(id)tag assetVersion:(id)version;
+- (UARPSuperBinaryAssetPayload)initWithPayloadTag:(id)tag assetVersion:(id)version writable:(BOOL)writable;
 - (UARPSuperBinaryAssetPayload)initWithPayloadTag:(id)tag majorVersion:(unint64_t)version minorVersion:(unint64_t)minorVersion releaseVersion:(unint64_t)releaseVersion buildVersion:(unint64_t)buildVersion;
 - (UARPSuperBinaryAssetPayload)initWithTag:(id)tag majorVersion:(id)version minorVersion:(id)minorVersion releaseVersion:(id)releaseVersion buildVersion:(id)buildVersion;
 - (_NSRange)rangeMetadata;
 - (_NSRange)rangePayload;
 - (id)description;
+- (id)hashMetaDataWithAlgorithm:(int)algorithm error:(id *)error;
+- (id)hashPayloadWithAlgorithm:(int)algorithm error:(id *)error;
 - (id)prepareData;
 - (id)prepareMetaData;
 - (unint64_t)preparePackedTag;
@@ -85,6 +88,21 @@
   }
 
   return v10;
+}
+
+- (UARPSuperBinaryAssetPayload)initWithPayloadTag:(id)tag assetVersion:(id)version writable:(BOOL)writable
+{
+  writable = [(UARPSuperBinaryAssetPayload *)self initWithPayloadTag:tag assetVersion:version, writable];
+  v6 = writable;
+  if (writable)
+  {
+    writable->_isWritable = 1;
+    v7 = UARPUtilsBuildURLForTemporaryFile(writable);
+    url = v6->_url;
+    v6->_url = v7;
+  }
+
+  return v6;
 }
 
 - (UARPSuperBinaryAssetPayload)initWithPayloadTag:(id)tag majorVersion:(unint64_t)version minorVersion:(unint64_t)minorVersion releaseVersion:(unint64_t)releaseVersion buildVersion:(unint64_t)buildVersion
@@ -427,64 +445,59 @@ LABEL_12:
 
 - (id)prepareData
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CBEB28]);
   compressionHeaders = self->_compressionHeaders;
   self->_compressionHeaders = v3;
 
-  v5 = UARPUtilsBuildURLForTemporaryFile();
+  v6 = UARPUtilsBuildURLForTemporaryFile(v5);
   p_compressedPayloadURL = &self->_compressedPayloadURL;
   compressedPayloadURL = self->_compressedPayloadURL;
-  self->_compressedPayloadURL = v5;
+  self->_compressedPayloadURL = v6;
 
-  if (!self->_compressedPayloadURL)
+  if (!self->_compressedPayloadURL && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-    {
-      [UARPSuperBinaryAssetPayload prepareData];
-    }
-
-    v8 = *p_compressedPayloadURL;
+    [UARPSuperBinaryAssetPayload prepareData];
   }
 
-  v40 = 0;
+  v39 = 0;
   v9 = [MEMORY[0x277CCA9F8] fileHandleForWritingToURL:? error:?];
   v10 = 0;
   if (v9)
   {
-    v38 = 0u;
-    v39 = 0u;
-    v36 = 0u;
     v37 = 0u;
+    v38 = 0u;
+    v35 = 0u;
+    v36 = 0u;
     v11 = self->_tlvs;
-    v12 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v36 objects:v41 count:16];
+    v12 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v35 objects:v40 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v37;
-LABEL_8:
+      v14 = *v36;
+LABEL_7:
       v15 = 0;
       while (1)
       {
-        if (*v37 != v14)
+        if (*v36 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        if ([*(*(&v36 + 1) + 8 * v15) type] == 3166200583)
+        if ([*(*(&v35 + 1) + 8 * v15) type] == 3166200583)
         {
           break;
         }
 
         if (v13 == ++v15)
         {
-          v13 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v36 objects:v41 count:16];
+          v13 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v35 objects:v40 count:16];
           if (v13)
           {
-            goto LABEL_8;
+            goto LABEL_7;
           }
 
-          goto LABEL_14;
+          goto LABEL_13;
         }
       }
 
@@ -492,44 +505,44 @@ LABEL_8:
 
       if (!v16)
       {
-        goto LABEL_22;
+        goto LABEL_21;
       }
 
-      v35 = v10;
-      v17 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v16 requiringSecureCoding:0 error:&v35];
-      v18 = v35;
+      v34 = v10;
+      v17 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v16 requiringSecureCoding:0 error:&v34];
+      v18 = v34;
 
-      if (!v17 || (v34 = 0, v19 = [v9 uarpWriteData:v17 error:&v34], v20 = v34, v18, v18 = v20, (v19 & 1) == 0))
+      if (!v17 || (v33 = 0, v19 = [v9 uarpWriteData:v17 error:&v33], v20 = v33, v18, v18 = v20, (v19 & 1) == 0))
       {
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
         {
-          [(UARPSuperBinaryAssetPayload *)p_compressedPayloadURL prepareData];
+          [UARPSuperBinaryAssetPayload prepareData];
         }
 
         v21 = *p_compressedPayloadURL;
         *p_compressedPayloadURL = 0;
       }
 
-      goto LABEL_39;
+      goto LABEL_38;
     }
 
-LABEL_14:
+LABEL_13:
 
-LABEL_22:
+LABEL_21:
     if (self->_url)
     {
-      v33 = v10;
-      v22 = [(UARPSuperBinaryAssetPayload *)self compressPayloadURLToFileHandle:v9 error:&v33];
-      v18 = v33;
+      v32 = v10;
+      v22 = [(UARPSuperBinaryAssetPayload *)self compressPayloadURLToFileHandle:v9 error:&v32];
+      v18 = v32;
 
       if (!v22)
       {
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
         {
-          [(UARPSuperBinaryAssetPayload *)p_compressedPayloadURL prepareData];
+          [UARPSuperBinaryAssetPayload prepareData];
         }
 
-LABEL_33:
+LABEL_32:
         v27 = *p_compressedPayloadURL;
         *p_compressedPayloadURL = 0;
       }
@@ -543,49 +556,47 @@ LABEL_33:
         metaData = self->_metaData;
         if ((!metaData || ![(NSMutableData *)metaData length]) && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
         {
-          [(UARPSuperBinaryAssetPayload *)&self->_compressedPayloadURL prepareData];
+          [UARPSuperBinaryAssetPayload prepareData];
         }
 
         v18 = v10;
-        goto LABEL_39;
+        goto LABEL_38;
       }
 
-      v32 = 0;
-      v26 = [v9 uarpWriteData:payload error:&v32];
-      v18 = v32;
+      v31 = 0;
+      v26 = [v9 uarpWriteData:payload error:&v31];
+      v18 = v31;
 
       if ((v26 & 1) == 0)
       {
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
         {
-          [(UARPSuperBinaryAssetPayload *)p_compressedPayloadURL prepareData];
+          [UARPSuperBinaryAssetPayload prepareData];
         }
 
-        goto LABEL_33;
+        goto LABEL_32;
       }
     }
 
-LABEL_39:
-    v31 = 0;
-    [v9 uarpCloseAndReturnError:&v31];
-    v10 = v31;
+LABEL_38:
+    v30 = 0;
+    [v9 uarpCloseAndReturnError:&v30];
+    v10 = v30;
 
     v24 = [*p_compressedPayloadURL copy];
-    goto LABEL_40;
+    goto LABEL_39;
   }
 
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    [(UARPSuperBinaryAssetPayload *)&self->_compressedPayloadURL prepareData];
+    [UARPSuperBinaryAssetPayload prepareData];
   }
 
   v23 = *p_compressedPayloadURL;
   *p_compressedPayloadURL = 0;
 
   v24 = 0;
-LABEL_40:
-
-  v29 = *MEMORY[0x277D85DE8];
+LABEL_39:
 
   return v24;
 }
@@ -670,7 +681,7 @@ LABEL_40:
 
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      [UARPSuperBinaryAssetPayload appendCompressedPayloadToFile:? error:?];
+      [UARPSuperBinaryAssetPayload appendCompressedPayloadToFile:error:];
     }
 
     [v7 uarpCloseAndReturnError:error];
@@ -678,13 +689,172 @@ LABEL_40:
 
   else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    [UARPSuperBinaryAssetPayload appendCompressedPayloadToFile:? error:?];
+    [UARPSuperBinaryAssetPayload appendCompressedPayloadToFile:error:];
   }
 
   v11 = 0;
 LABEL_12:
 
   return v11;
+}
+
+- (id)hashPayloadWithAlgorithm:(int)algorithm error:(id *)error
+{
+  v37 = *MEMORY[0x277D85DE8];
+  if (!self->_url)
+  {
+    goto LABEL_14;
+  }
+
+  v5 = *&algorithm;
+  v35 = 0;
+  v33 = 0u;
+  v34 = 0u;
+  v31 = 0u;
+  v32 = 0u;
+  v29 = 0u;
+  v30 = 0u;
+  v27 = 0u;
+  memset(&c, 0, sizeof(c));
+  v25 = 0u;
+  v26 = 0u;
+  v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
+  switch(algorithm)
+  {
+    case 1:
+      p_c = &v29;
+      v8 = 32;
+      break;
+    case 3:
+      p_c = &v15;
+      v8 = 64;
+      break;
+    case 2:
+      p_c = &c;
+      v8 = 48;
+      break;
+    default:
+LABEL_14:
+      v9 = 0;
+      goto LABEL_15;
+  }
+
+  uarpPlatformDarwinHashInit(*&algorithm, p_c);
+  v9 = [MEMORY[0x277CCA9F8] fileHandleForReadingFromURL:self->_url error:{error, v15, v16, v17, v18, v19, v20, v21, v22, v23, v24, v25, v26, v27, c.count[0], c.count[1], c.hash[0], c.hash[1], c.hash[2], c.hash[3], c.hash[4], c.hash[5], c.hash[6], c.hash[7], c.wbuf[0], c.wbuf[1], c.wbuf[2], c.wbuf[3], c.wbuf[4], c.wbuf[5], c.wbuf[6], c.wbuf[7], c.wbuf[8], c.wbuf[9], c.wbuf[10], c.wbuf[11], c.wbuf[12], c.wbuf[13], c.wbuf[14], c.wbuf[15], v29, v30, v31, v32}];
+  if (!v9)
+  {
+    goto LABEL_15;
+  }
+
+  v10 = v9;
+  v11 = [v9 uarpReadDataUpToLength:self->_blockSize error:0];
+  if (!v11)
+  {
+LABEL_13:
+
+    goto LABEL_14;
+  }
+
+  v12 = v11;
+  while (1)
+  {
+    uarpPlatformDarwinHashUpdate(v5, p_c, [v12 bytes], objc_msgSend(v12, "length"));
+    blockSize = self->_blockSize;
+    if ([v12 length] < blockSize)
+    {
+      break;
+    }
+
+    v12 = [v10 uarpReadDataUpToLength:self->_blockSize error:0];
+    if (!v12)
+    {
+      goto LABEL_13;
+    }
+  }
+
+  [v10 uarpCloseAndReturnError:error];
+
+  uarpPlatformDarwinHashFinal(v5, p_c, md, v8);
+  v9 = [MEMORY[0x277CBEA90] dataWithBytes:md length:v8];
+LABEL_15:
+
+  return v9;
+}
+
+- (id)hashMetaDataWithAlgorithm:(int)algorithm error:(id *)error
+{
+  v32 = *MEMORY[0x277D85DE8];
+  if (self->_url)
+  {
+    v4 = *&algorithm;
+    v30 = 0;
+    v28 = 0u;
+    v29 = 0u;
+    v26 = 0u;
+    v27 = 0u;
+    v24 = 0u;
+    v25 = 0u;
+    v22 = 0u;
+    memset(&c, 0, sizeof(c));
+    v20 = 0u;
+    v21 = 0u;
+    v18 = 0u;
+    v19 = 0u;
+    v16 = 0u;
+    v17 = 0u;
+    v14 = 0u;
+    v15 = 0u;
+    v12 = 0u;
+    v13 = 0u;
+    v10 = 0u;
+    v11 = 0u;
+    if (algorithm == 1)
+    {
+      p_c = &v24;
+      v8 = 32;
+    }
+
+    else if (algorithm == 3)
+    {
+      p_c = &v10;
+      v8 = 64;
+    }
+
+    else
+    {
+      v6 = 0;
+      if (algorithm != 2)
+      {
+        goto LABEL_10;
+      }
+
+      p_c = &c;
+      v8 = 48;
+    }
+
+    uarpPlatformDarwinHashInit(*&algorithm, p_c);
+    uarpPlatformDarwinHashUpdate(v4, p_c, [(NSMutableData *)self->_metaData bytes:v10], [(NSMutableData *)self->_metaData length]);
+    uarpPlatformDarwinHashFinal(v4, p_c, md, v8);
+    v6 = [MEMORY[0x277CBEA90] dataWithBytes:md length:v8];
+  }
+
+  else
+  {
+    v6 = 0;
+  }
+
+LABEL_10:
+
+  return v6;
 }
 
 - (void)processVersionString:(id)string
@@ -854,49 +1024,47 @@ LABEL_12:
 
 void __83__UARPSuperBinaryAssetPayload_parseFromPlistPayloadMetaDataTLVs_payloadsURL_error___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v4 = *(a1 + 32);
   v5 = *(a1 + 40);
   v6 = *(*(a1 + 56) + 8);
   obj = 0;
   v7 = [v4 tlvArrayWithKey:a2 keyValue:a3 payloadsURL:v5 error:&obj];
   objc_storeStrong((v6 + 40), obj);
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   v8 = v7;
-  v9 = [v8 countByEnumeratingWithState:&v14 objects:v19 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v13 objects:v18 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v15;
+    v11 = *v14;
     do
     {
       v12 = 0;
       do
       {
-        if (*v15 != v11)
+        if (*v14 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        [*(a1 + 48) addMetaDataTLV:{*(*(&v14 + 1) + 8 * v12++), v14}];
+        [*(a1 + 48) addMetaDataTLV:{*(*(&v13 + 1) + 8 * v12++), v13}];
       }
 
       while (v10 != v12);
-      v10 = [v8 countByEnumeratingWithState:&v14 objects:v19 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v13 objects:v18 count:16];
     }
 
     while (v10);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)expandPayloadToURL:(id)l payloadFilename:(id)filename superbinary:(id)superbinary offset:(unint64_t)offset length:(unint64_t)length error:(id *)error
 {
-  v72 = *MEMORY[0x277D85DE8];
+  v71 = *MEMORY[0x277D85DE8];
   lCopy = l;
   filenameCopy = filename;
   superbinaryCopy = superbinary;
@@ -913,50 +1081,50 @@ void __83__UARPSuperBinaryAssetPayload_parseFromPlistPayloadMetaDataTLVs_payload
 
   v18 = [v16 initFileURLWithPath:tag relativeToURL:lCopy];
   uRLByDeletingLastPathComponent = [v18 URLByDeletingLastPathComponent];
-  if (uRLByDeletingLastPathComponent && (v59 = offset, [MEMORY[0x277CCAA00] defaultManager], v20 = objc_claimAutoreleasedReturnValue(), v21 = objc_msgSend(v20, "createDirectoryAtURL:withIntermediateDirectories:attributes:error:", uRLByDeletingLastPathComponent, 1, 0, error), v20, v21) && objc_msgSend(superbinaryCopy, "uarpSeekToOffset:error:", v59, error))
+  if (uRLByDeletingLastPathComponent && (v58 = offset, [MEMORY[0x277CCAA00] defaultManager], v20 = objc_claimAutoreleasedReturnValue(), v21 = objc_msgSend(v20, "createDirectoryAtURL:withIntermediateDirectories:attributes:error:", uRLByDeletingLastPathComponent, 1, 0, error), v20, v21) && objc_msgSend(superbinaryCopy, "uarpSeekToOffset:error:", v58, error))
   {
-    v57 = superbinaryCopy;
+    v56 = superbinaryCopy;
     selfCopy = self;
-    v55 = lCopy;
-    v63 = 0u;
-    v64 = 0u;
-    v61 = 0u;
+    v54 = lCopy;
     v62 = 0u;
+    v63 = 0u;
+    v60 = 0u;
+    v61 = 0u;
     v22 = self->_tlvs;
-    v23 = [(NSMutableArray *)v22 countByEnumeratingWithState:&v61 objects:v71 count:16];
+    v23 = [(NSMutableArray *)v22 countByEnumeratingWithState:&v60 objects:v70 count:16];
     if (v23)
     {
       v24 = v23;
-      v25 = *v62;
+      v25 = *v61;
       while (2)
       {
         for (i = 0; i != v24; ++i)
         {
-          if (*v62 != v25)
+          if (*v61 != v25)
           {
             objc_enumerationMutation(v22);
           }
 
-          if ([*(*(&v61 + 1) + 8 * i) type] == 3166200583)
+          if ([*(*(&v60 + 1) + 8 * i) type] == 3166200583)
           {
 
-            superbinaryCopy = v57;
-            v27 = [v57 uarpReadDataUpToLength:length error:0];
-            v41 = MEMORY[0x277CBEB98];
+            superbinaryCopy = v56;
+            v27 = [v56 uarpReadDataUpToLength:length error:0];
+            v40 = MEMORY[0x277CBEB98];
+            v41 = objc_opt_class();
             v42 = objc_opt_class();
             v43 = objc_opt_class();
-            v44 = objc_opt_class();
-            v45 = [v41 setWithObjects:{v42, v43, v44, objc_opt_class(), 0}];
-            v46 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClasses:v45 fromData:v27 error:0];
-            [v46 writeToURL:v18 error:0];
+            v44 = [v40 setWithObjects:{v41, v42, v43, objc_opt_class(), 0}];
+            v45 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClasses:v44 fromData:v27 error:0];
+            [v45 writeToURL:v18 error:0];
 
-            v48 = 1;
-            lCopy = v55;
+            v47 = 1;
+            lCopy = v54;
             goto LABEL_36;
           }
         }
 
-        v24 = [(NSMutableArray *)v22 countByEnumeratingWithState:&v61 objects:v71 count:16];
+        v24 = [(NSMutableArray *)v22 countByEnumeratingWithState:&v60 objects:v70 count:16];
         if (v24)
         {
           continue;
@@ -973,8 +1141,8 @@ void __83__UARPSuperBinaryAssetPayload_parseFromPlistPayloadMetaDataTLVs_payload
     if (v29)
     {
       [MEMORY[0x277CCA9F8] fileHandleForWritingToURL:v18 error:error];
-      v54 = superbinaryCopy = v57;
-      if (v54)
+      v53 = superbinaryCopy = v56;
+      if (v53)
       {
         log = self->_log;
         if (os_log_type_enabled(log, OS_LOG_TYPE_INFO))
@@ -984,11 +1152,11 @@ void __83__UARPSuperBinaryAssetPayload_parseFromPlistPayloadMetaDataTLVs_payload
           _os_log_impl(&dword_247AA7000, log, OS_LOG_TYPE_INFO, "Decomposing Payload of length <%lu>", buf, 0xCu);
         }
 
-        v53 = v27;
+        v52 = v27;
         if (length)
         {
           v31 = 0;
-          v56 = 0;
+          v55 = 0;
           v32 = 0;
           while (1)
           {
@@ -1002,7 +1170,7 @@ void __83__UARPSuperBinaryAssetPayload_parseFromPlistPayloadMetaDataTLVs_payload
               v33 = length - v31;
             }
 
-            v34 = [v57 uarpReadDataUpToLength:v33 error:error];
+            v34 = [v56 uarpReadDataUpToLength:v33 error:error];
             v35 = v34;
             if (!v34 || ![v34 length])
             {
@@ -1011,27 +1179,27 @@ void __83__UARPSuperBinaryAssetPayload_parseFromPlistPayloadMetaDataTLVs_payload
               {
                 *buf = 134218496;
                 lengthCopy2 = length;
-                v67 = 2048;
-                v68 = v59;
-                v69 = 2048;
-                v70 = v31;
+                v66 = 2048;
+                v67 = v58;
+                v68 = 2048;
+                v69 = v31;
                 _os_log_error_impl(&dword_247AA7000, v36, OS_LOG_TYPE_ERROR, "Could not read payload data; payload length is <%lu>, Payload Offset is <%lu>, Bytes Read is <%lu>", buf, 0x20u);
               }
             }
 
             v32 += v33;
             v37 = [v35 length];
-            if (([v54 uarpWriteData:v35 error:error] & 1) == 0)
+            if (([v53 uarpWriteData:v35 error:error] & 1) == 0)
             {
               break;
             }
 
-            v56 += [v35 length];
+            v55 += [v35 length];
             v38 = selfCopy->_log;
             if (os_log_type_enabled(v38, OS_LOG_TYPE_INFO))
             {
               *buf = 134217984;
-              lengthCopy2 = v56;
+              lengthCopy2 = v55;
               _os_log_impl(&dword_247AA7000, v38, OS_LOG_TYPE_INFO, "Bytes Written <%lu>", buf, 0xCu);
             }
 
@@ -1039,38 +1207,46 @@ void __83__UARPSuperBinaryAssetPayload_parseFromPlistPayloadMetaDataTLVs_payload
 
             if (v31 >= length)
             {
-              v48 = 1;
+              v47 = 1;
               goto LABEL_44;
             }
           }
 
-          v47 = selfCopy->_log;
-          if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
+          v46 = selfCopy->_log;
+          if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
           {
-            [UARPSuperBinaryAssetPayload expandPayloadToURL:v47 payloadFilename:? superbinary:? offset:? length:? error:?];
+            [UARPSuperBinaryAssetPayload expandPayloadToURL:v46 payloadFilename:? superbinary:? offset:? length:? error:?];
           }
 
-          v48 = 0;
+          v47 = 0;
 LABEL_44:
-          lCopy = v55;
-          superbinaryCopy = v57;
+          lCopy = v54;
+          superbinaryCopy = v56;
         }
 
         else
         {
           v32 = 0;
-          v48 = 1;
-          lCopy = v55;
+          v47 = 1;
+          lCopy = v54;
         }
 
-        v45 = v54;
-        [v54 uarpCloseAndReturnError:0];
+        v44 = v53;
+        [v53 uarpCloseAndReturnError:0];
+        v48 = selfCopy->_log;
+        if (os_log_type_enabled(v48, OS_LOG_TYPE_INFO))
+        {
+          *buf = 67109120;
+          LODWORD(lengthCopy2) = 0;
+          _os_log_impl(&dword_247AA7000, v48, OS_LOG_TYPE_INFO, "Total Headers <%u>\n", buf, 8u);
+        }
+
         v49 = selfCopy->_log;
         if (os_log_type_enabled(v49, OS_LOG_TYPE_INFO))
         {
           *buf = 67109120;
           LODWORD(lengthCopy2) = 0;
-          _os_log_impl(&dword_247AA7000, v49, OS_LOG_TYPE_INFO, "Total Headers <%u>\n", buf, 8u);
+          _os_log_impl(&dword_247AA7000, v49, OS_LOG_TYPE_INFO, "Total Header Bytes <%u>\n", buf, 8u);
         }
 
         v50 = selfCopy->_log;
@@ -1078,33 +1254,25 @@ LABEL_44:
         {
           *buf = 67109120;
           LODWORD(lengthCopy2) = 0;
-          _os_log_impl(&dword_247AA7000, v50, OS_LOG_TYPE_INFO, "Total Header Bytes <%u>\n", buf, 8u);
+          _os_log_impl(&dword_247AA7000, v50, OS_LOG_TYPE_INFO, "Total Compressed Bytes <%u>\n", buf, 8u);
         }
 
         v51 = selfCopy->_log;
         if (os_log_type_enabled(v51, OS_LOG_TYPE_INFO))
         {
           *buf = 67109120;
-          LODWORD(lengthCopy2) = 0;
-          _os_log_impl(&dword_247AA7000, v51, OS_LOG_TYPE_INFO, "Total Compressed Bytes <%u>\n", buf, 8u);
-        }
-
-        v52 = selfCopy->_log;
-        if (os_log_type_enabled(v52, OS_LOG_TYPE_INFO))
-        {
-          *buf = 67109120;
           LODWORD(lengthCopy2) = v32;
-          _os_log_impl(&dword_247AA7000, v52, OS_LOG_TYPE_INFO, "Total Uncompressed Bytes <%u>\n", buf, 8u);
+          _os_log_impl(&dword_247AA7000, v51, OS_LOG_TYPE_INFO, "Total Uncompressed Bytes <%u>\n", buf, 8u);
         }
 
-        v27 = v53;
+        v27 = v52;
       }
 
       else
       {
-        v48 = 0;
-        v45 = 0;
-        lCopy = v55;
+        v47 = 0;
+        v44 = 0;
+        lCopy = v54;
       }
 
 LABEL_36:
@@ -1112,32 +1280,31 @@ LABEL_36:
 
     else
     {
-      v48 = 0;
-      lCopy = v55;
-      superbinaryCopy = v57;
+      v47 = 0;
+      lCopy = v54;
+      superbinaryCopy = v56;
     }
   }
 
   else
   {
-    v48 = 0;
+    v47 = 0;
   }
 
-  v39 = *MEMORY[0x277D85DE8];
-  return v48;
+  return v47;
 }
 
 - (id)description
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CCAB68]);
   [v3 appendFormat:@"--------------\n"];
   [v3 appendFormat:@"Payload Header\n"];
   [v3 appendFormat:@"---------------\n"];
   [v3 appendFormat:@"Header Length   - %u\n", self->_payloadHeader.payloadHeaderLength];
   [v3 appendFormat:@"Tag             - "];
-  uarpPayloadTagUnpack(self->_payloadHeader.payloadTag, v32);
-  [v3 appendFormat:@"%c%c%c%c\n", v32[0], v32[1], v32[2], v32[3]];
+  uarpPayloadTagUnpack(self->_payloadHeader.payloadTag, v31);
+  [v3 appendFormat:@"%c%c%c%c\n", v31[0], v31[1], v31[2], v31[3]];
   [v3 appendFormat:@"Version         - <"];
   [v3 appendFormat:@"%u.", self->_payloadHeader.payloadVersion.major];
   [v3 appendFormat:@"%u.", self->_payloadHeader.payloadVersion.minor];
@@ -1152,25 +1319,25 @@ LABEL_36:
   [v3 appendFormat:@"---------------------\n"];
   [v3 appendFormat:@"Payload MetaData TLVs\n"];
   [v3 appendFormat:@"---------------------\n"];
-  v30 = 0u;
-  v31 = 0u;
-  v28 = 0u;
   v29 = 0u;
+  v30 = 0u;
+  v27 = 0u;
+  v28 = 0u;
   obj = self->_tlvs;
-  v23 = [(NSMutableArray *)obj countByEnumeratingWithState:&v28 objects:v34 count:16];
-  if (v23)
+  v22 = [(NSMutableArray *)obj countByEnumeratingWithState:&v27 objects:v33 count:16];
+  if (v22)
   {
-    v22 = *v29;
+    v21 = *v28;
     do
     {
-      for (i = 0; i != v23; ++i)
+      for (i = 0; i != v22; ++i)
       {
-        if (*v29 != v22)
+        if (*v28 != v21)
         {
           objc_enumerationMutation(obj);
         }
 
-        v5 = *(*(&v28 + 1) + 8 * i);
+        v5 = *(*(&v27 + 1) + 8 * i);
         [v3 appendFormat:@"%@\n", v5];
         if ([v5 type] == 3436347667)
         {
@@ -1201,29 +1368,29 @@ LABEL_36:
           valueAsData2 = [v5 valueAsData];
           v13 = [UARPSuperBinaryAssetTLV decomposeTLVs:valueAsData2];
           [v3 appendFormat:@"<Nested TLVs>\n"];
-          v26 = 0u;
-          v27 = 0u;
-          v24 = 0u;
           v25 = 0u;
+          v26 = 0u;
+          v23 = 0u;
+          v24 = 0u;
           v14 = v13;
-          v15 = [v14 countByEnumeratingWithState:&v24 objects:v33 count:16];
+          v15 = [v14 countByEnumeratingWithState:&v23 objects:v32 count:16];
           if (v15)
           {
             v16 = v15;
-            v17 = *v25;
+            v17 = *v24;
             do
             {
               for (j = 0; j != v16; ++j)
               {
-                if (*v25 != v17)
+                if (*v24 != v17)
                 {
                   objc_enumerationMutation(v14);
                 }
 
-                [v3 appendFormat:@"    %@\n", *(*(&v24 + 1) + 8 * j)];
+                [v3 appendFormat:@"    %@\n", *(*(&v23 + 1) + 8 * j)];
               }
 
-              v16 = [v14 countByEnumeratingWithState:&v24 objects:v33 count:16];
+              v16 = [v14 countByEnumeratingWithState:&v23 objects:v32 count:16];
             }
 
             while (v16);
@@ -1233,13 +1400,11 @@ LABEL_36:
         }
       }
 
-      v23 = [(NSMutableArray *)obj countByEnumeratingWithState:&v28 objects:v34 count:16];
+      v22 = [(NSMutableArray *)obj countByEnumeratingWithState:&v27 objects:v33 count:16];
     }
 
-    while (v23);
+    while (v22);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
@@ -1319,40 +1484,37 @@ LABEL_36:
 
 - (void)addMetaDataTLV:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0(&dword_247AA7000, MEMORY[0x277D86220], a3, "attempting to add a nil tlv to payload %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_0(&dword_247AA7000, MEMORY[0x277D86220], a3, "attempting to add a nil tlv to payload %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)prepareData
 {
-  OUTLINED_FUNCTION_4_0(self, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_4_0(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_3_1();
-  OUTLINED_FUNCTION_0_0(&dword_247AA7000, MEMORY[0x277D86220], v1, "could not open url for writing %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_0(&dword_247AA7000, MEMORY[0x277D86220], v0, "could not open url for writing %@", v1, v2, v3, v4);
 }
 
-- (void)appendCompressedPayloadToFile:(uint64_t *)a1 error:.cold.1(uint64_t *a1)
+- (void)appendCompressedPayloadToFile:error:.cold.1()
 {
-  OUTLINED_FUNCTION_4_0(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_4_0(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_3_1();
-  OUTLINED_FUNCTION_0_0(&dword_247AA7000, MEMORY[0x277D86220], v1, "Could not write data to %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_0(&dword_247AA7000, MEMORY[0x277D86220], v0, "Could not write data to %@", v1, v2, v3, v4);
 }
 
-- (void)appendCompressedPayloadToFile:(uint64_t *)a1 error:.cold.2(uint64_t *a1)
+- (void)appendCompressedPayloadToFile:error:.cold.2()
 {
-  OUTLINED_FUNCTION_4_0(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_4_0(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_3_1();
-  OUTLINED_FUNCTION_0_0(&dword_247AA7000, MEMORY[0x277D86220], v1, "Could not open file handle for reading %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_0(&dword_247AA7000, MEMORY[0x277D86220], v0, "Could not open file handle for reading %@", v1, v2, v3, v4);
 }
 
 - (void)expandDictionaryWithPayloadsFolder:(uint64_t)a3 metaDataTable:(uint64_t)a4 error:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0(&dword_247AA7000, MEMORY[0x277D86220], a3, "%@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_0(&dword_247AA7000, MEMORY[0x277D86220], a3, "%@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

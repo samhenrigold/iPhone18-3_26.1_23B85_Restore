@@ -21,6 +21,7 @@
 - (void)_startEffectiveUnlockedAfterBootTimer:(unint64_t)timer;
 - (void)_startPairingCompletionTimer:(id)timer;
 - (void)_startPairingModeTimer:(id)timer;
+- (void)_startPairingUI:(id)i repairMode:(BOOL)mode;
 - (void)activate;
 - (void)invalidate;
 - (void)proxCardUserActionOnHeadphone:(id)headphone btAddress:(id)address withAction:(unsigned __int8)action completion:(id)completion;
@@ -111,7 +112,7 @@
     [(AADeviceManager *)v4 setDeviceLostHandler:v10];
     if (dword_1002F72A0 <= 30 && (dword_1002F72A0 != -1 || _LogCategory_Initialize()))
     {
-      sub_1001F891C();
+      sub_1001F891C(v4);
     }
 
     v7[0] = _NSConcreteStackBlock;
@@ -140,40 +141,43 @@
 {
   initiateCopy = initiate;
   deviceCopy = device;
-  v7 = deviceCopy;
+  v9 = deviceCopy;
   if (self->_prefUSBAudioDevice)
   {
     if (deviceCopy)
     {
-      v8 = objc_alloc_init(CBDevice);
-      [v8 setIdentifier:v7];
-      v9 = objc_alloc_init(CBConnection);
-      [v9 setPeerDevice:v8];
-      [v9 setDispatchQueue:self->_dispatchQueue];
-      [v9 setConnectionFlags:2];
+      v10 = objc_alloc_init(CBDevice);
+      [v10 setIdentifier:v9];
+      v11 = objc_alloc_init(CBConnection);
+      [v11 setPeerDevice:v10];
+      [v11 setDispatchQueue:self->_dispatchQueue];
+      [v11 setConnectionFlags:2];
       if (initiateCopy)
       {
-        [v9 setConnectionFlags:{objc_msgSend(v9, "connectionFlags") | 0x30}];
+        [v11 setConnectionFlags:{objc_msgSend(v11, "connectionFlags") | 0x30}];
       }
 
-      [v9 setServiceFlags:0xFFFFFFFFLL];
+      [v11 setServiceFlags:0xFFFFFFFFLL];
       if (dword_1002F72A0 <= 30 && (dword_1002F72A0 != -1 || _LogCategory_Initialize()))
       {
-        sub_1001F8A58();
+        sub_1001F8A58(v9);
       }
 
-      v10[0] = _NSConcreteStackBlock;
-      v10[1] = 3221225472;
-      v10[2] = sub_1000CDE28;
-      v10[3] = &unk_1002B68A8;
-      v11 = v7;
-      v12 = v9;
-      [v9 activateWithCompletion:v10];
+      v12[0] = _NSConcreteStackBlock;
+      v12[1] = 3221225472;
+      v12[2] = sub_1000CDE28;
+      v12[3] = &unk_1002B68A8;
+      v13 = v9;
+      v14 = v11;
+      [v11 activateWithCompletion:v12];
     }
 
-    else if (dword_1002F72A0 <= 90 && (dword_1002F72A0 != -1 || _LogCategory_Initialize()))
+    else if (dword_1002F72A0 <= 90)
     {
-      sub_1001F8A98();
+      if (dword_1002F72A0 != -1 || (deviceCopy = _LogCategory_Initialize(), deviceCopy))
+      {
+        sub_1001F8A98(deviceCopy, v7, v8);
+      }
     }
   }
 }
@@ -181,65 +185,65 @@
 - (void)_bluetoothDeviceFound:(id)found
 {
   bluetoothAddress = [found bluetoothAddress];
-  v10 = bluetoothAddress;
+  v14 = bluetoothAddress;
   if (bluetoothAddress)
   {
-    v5 = [(NSMutableDictionary *)self->_aaUSBDeviceMap objectForKeyedSubscript:bluetoothAddress];
-    v6 = v5;
-    if (v5)
+    v7 = [(NSMutableDictionary *)self->_aaUSBDeviceMap objectForKeyedSubscript:bluetoothAddress];
+    v10 = v7;
+    if (v7)
     {
-      if ([v5 isPairingInProgress])
+      if ([v7 isPairingInProgress])
       {
         pairingCompletionTimer = self->_pairingCompletionTimer;
         if (pairingCompletionTimer)
         {
-          v8 = pairingCompletionTimer;
-          dispatch_source_cancel(v8);
-          v9 = self->_pairingCompletionTimer;
+          v12 = pairingCompletionTimer;
+          dispatch_source_cancel(v12);
+          v13 = self->_pairingCompletionTimer;
           self->_pairingCompletionTimer = 0;
         }
 
-        [(AAUSBSupportedDeviceManagerDaemon *)self _invokeAnyProxCardUserActionCompletion:v10 result:1];
+        [(AAUSBSupportedDeviceManagerDaemon *)self _invokeAnyProxCardUserActionCompletion:v14 result:1];
       }
 
-      [v6 setConnectionState:2];
-      [v6 setIsPairingInProgress:0];
+      [v10 setConnectionState:2];
+      [v10 setIsPairingInProgress:0];
     }
 
     else
     {
-      sub_1001F8AB4();
+      sub_1001F8AB4(0, v8, v9);
     }
   }
 
   else
   {
-    sub_1001F8B14();
+    sub_1001F8B14(0, v5, v6);
   }
 }
 
 - (void)_bluetoothDeviceLost:(id)lost
 {
   bluetoothAddress = [lost bluetoothAddress];
-  v7 = bluetoothAddress;
+  v11 = bluetoothAddress;
   if (bluetoothAddress)
   {
-    v5 = [(NSMutableDictionary *)self->_aaUSBDeviceMap objectForKeyedSubscript:bluetoothAddress];
-    v6 = v5;
-    if (v5)
+    v7 = [(NSMutableDictionary *)self->_aaUSBDeviceMap objectForKeyedSubscript:bluetoothAddress];
+    v10 = v7;
+    if (v7)
     {
-      [v5 setConnectionState:0];
+      [v7 setConnectionState:0];
     }
 
     else
     {
-      sub_1001F8B74();
+      sub_1001F8B74(0, v8, v9);
     }
   }
 
   else
   {
-    sub_1001F8BD4();
+    sub_1001F8BD4(0, v5, v6);
   }
 }
 
@@ -297,7 +301,7 @@
       v14 = completionCopy;
       if (dword_1002F72A0 <= 90 && (dword_1002F72A0 != -1 || _LogCategory_Initialize()))
       {
-        sub_1001F8CB0();
+        sub_1001F8CB0(v14);
       }
 
       v9 = [NSError alloc];
@@ -309,7 +313,7 @@
       v14 = completionCopy;
       if (dword_1002F72A0 <= 90 && (dword_1002F72A0 != -1 || _LogCategory_Initialize()))
       {
-        sub_1001F8CF0();
+        sub_1001F8CF0(v14);
       }
 
       v9 = [NSError alloc];
@@ -330,7 +334,7 @@ LABEL_19:
       v14 = completionCopy;
       if (dword_1002F72A0 <= 30 && (dword_1002F72A0 != -1 || _LogCategory_Initialize()))
       {
-        sub_1001F8D30();
+        sub_1001F8D30(v14);
       }
 
       v8 = 0;
@@ -342,7 +346,7 @@ LABEL_19:
     v14 = completionCopy;
     if (dword_1002F72A0 != -1 || (completionCopy = _LogCategory_Initialize(), v7 = v14, completionCopy))
     {
-      completionCopy = sub_1001F8D70();
+      completionCopy = sub_1001F8D70(resultCopy, v14);
       goto LABEL_19;
     }
   }
@@ -360,7 +364,7 @@ LABEL_20:
     v4 = v3;
     if (dword_1002F72A0 <= 30 && (dword_1002F72A0 != -1 || _LogCategory_Initialize()))
     {
-      sub_1001F8DC8();
+      sub_1001F8DC8(v4);
     }
 
     self->_prefUSBAudioDevice = v4;
@@ -371,50 +375,54 @@ LABEL_20:
 {
   if (!self->_pairedDiscovery)
   {
-    v13[5] = v5;
-    v13[6] = v4;
-    v13[11] = v2;
-    v13[12] = v3;
-    if (dword_1002F72A0 <= 30 && (dword_1002F72A0 != -1 || _LogCategory_Initialize()))
+    v14[5] = v6;
+    v14[6] = v5;
+    v14[11] = v3;
+    v14[12] = v4;
+    selfCopy = self;
+    if (dword_1002F72A0 <= 30)
     {
-      sub_1001F8E24();
+      if (dword_1002F72A0 != -1 || (self = _LogCategory_Initialize(), self))
+      {
+        sub_1001F8E24(self, a2, v2);
+      }
     }
 
-    v7 = objc_alloc_init(CBDiscovery);
-    pairedDiscovery = self->_pairedDiscovery;
-    self->_pairedDiscovery = v7;
-    v9 = v7;
+    v8 = objc_alloc_init(CBDiscovery);
+    pairedDiscovery = selfCopy->_pairedDiscovery;
+    selfCopy->_pairedDiscovery = v8;
+    v10 = v8;
 
-    [(CBDiscovery *)v9 setDispatchQueue:self->_dispatchQueue];
-    [(CBDiscovery *)v9 setLabel:@"AAPairingManagerDaemon"];
-    [(CBDiscovery *)v9 setDiscoveryFlags:[(CBDiscovery *)v9 discoveryFlags]| 0x800000];
+    [(CBDiscovery *)v10 setDispatchQueue:selfCopy->_dispatchQueue];
+    [(CBDiscovery *)v10 setLabel:@"AAPairingManagerDaemon"];
+    [(CBDiscovery *)v10 setDiscoveryFlags:[(CBDiscovery *)v10 discoveryFlags]| 0x800000];
+    v14[0] = _NSConcreteStackBlock;
+    v14[1] = 3221225472;
+    v14[2] = sub_1000CE5E4;
+    v14[3] = &unk_1002B6880;
+    v14[4] = selfCopy;
+    [(CBDiscovery *)v10 setBluetoothStateChangedHandler:v14];
     v13[0] = _NSConcreteStackBlock;
     v13[1] = 3221225472;
-    v13[2] = sub_1000CE5E4;
-    v13[3] = &unk_1002B6880;
-    v13[4] = self;
-    [(CBDiscovery *)v9 setBluetoothStateChangedHandler:v13];
+    v13[2] = sub_1000CE624;
+    v13[3] = &unk_1002B6DA8;
+    v13[4] = selfCopy;
+    v13[5] = v10;
+    [(CBDiscovery *)v10 setDeviceFoundHandler:v13];
     v12[0] = _NSConcreteStackBlock;
     v12[1] = 3221225472;
-    v12[2] = sub_1000CE624;
+    v12[2] = sub_1000CE6B8;
     v12[3] = &unk_1002B6DA8;
-    v12[4] = self;
-    v12[5] = v9;
-    [(CBDiscovery *)v9 setDeviceFoundHandler:v12];
+    v12[4] = selfCopy;
+    v12[5] = v10;
+    [(CBDiscovery *)v10 setDeviceLostHandler:v12];
     v11[0] = _NSConcreteStackBlock;
     v11[1] = 3221225472;
-    v11[2] = sub_1000CE6B8;
-    v11[3] = &unk_1002B6DA8;
-    v11[4] = self;
-    v11[5] = v9;
-    [(CBDiscovery *)v9 setDeviceLostHandler:v11];
-    v10[0] = _NSConcreteStackBlock;
-    v10[1] = 3221225472;
-    v10[2] = sub_1000CE74C;
-    v10[3] = &unk_1002B68A8;
-    v10[4] = self;
-    v10[5] = v9;
-    [(CBDiscovery *)v9 activateWithCompletion:v10];
+    v11[2] = sub_1000CE74C;
+    v11[3] = &unk_1002B68A8;
+    v11[4] = selfCopy;
+    v11[5] = v10;
+    [(CBDiscovery *)v10 activateWithCompletion:v11];
   }
 }
 
@@ -422,14 +430,18 @@ LABEL_20:
 {
   if (self->_pairedDiscovery)
   {
-    if (dword_1002F72A0 <= 30 && (dword_1002F72A0 != -1 || _LogCategory_Initialize()))
+    selfCopy = self;
+    if (dword_1002F72A0 <= 30)
     {
-      sub_1001F8F00();
+      if (dword_1002F72A0 != -1 || (self = _LogCategory_Initialize(), self))
+      {
+        sub_1001F8F00(self, a2, v2);
+      }
     }
 
-    [(CBDiscovery *)self->_pairedDiscovery invalidate];
-    pairedDiscovery = self->_pairedDiscovery;
-    self->_pairedDiscovery = 0;
+    [(CBDiscovery *)selfCopy->_pairedDiscovery invalidate];
+    pairedDiscovery = selfCopy->_pairedDiscovery;
+    selfCopy->_pairedDiscovery = 0;
   }
 }
 
@@ -437,30 +449,34 @@ LABEL_20:
 {
   if (!self->_powerMonitor)
   {
-    v9[10] = v2;
-    v9[11] = v3;
-    if (dword_1002F72A0 <= 30 && (dword_1002F72A0 != -1 || _LogCategory_Initialize()))
+    v10[10] = v3;
+    v10[11] = v4;
+    selfCopy = self;
+    if (dword_1002F72A0 <= 30)
     {
-      sub_1001F8F1C();
+      if (dword_1002F72A0 != -1 || (self = _LogCategory_Initialize(), self))
+      {
+        sub_1001F8F1C(self, a2, v2);
+      }
     }
 
-    v5 = objc_alloc_init(CUSystemMonitor);
-    powerMonitor = self->_powerMonitor;
-    self->_powerMonitor = v5;
-    v7 = v5;
+    v6 = objc_alloc_init(CUSystemMonitor);
+    powerMonitor = selfCopy->_powerMonitor;
+    selfCopy->_powerMonitor = v6;
+    v8 = v6;
 
-    [(CUSystemMonitor *)v7 setDispatchQueue:self->_dispatchQueue];
-    v9[0] = _NSConcreteStackBlock;
-    v9[1] = 3221225472;
-    v9[2] = sub_1000CE9B8;
-    v9[3] = &unk_1002B6D18;
-    v9[4] = v7;
-    v9[5] = self;
-    v8 = objc_retainBlock(v9);
-    [(CUSystemMonitor *)v7 setFirstUnlockHandler:v8];
-    [(CUSystemMonitor *)v7 setScreenOnChangedHandler:v8];
-    [(CUSystemMonitor *)v7 setScreenStateChangedHandler:v8];
-    [(CUSystemMonitor *)v7 activateWithCompletion:v8];
+    [(CUSystemMonitor *)v8 setDispatchQueue:selfCopy->_dispatchQueue];
+    v10[0] = _NSConcreteStackBlock;
+    v10[1] = 3221225472;
+    v10[2] = sub_1000CE9B8;
+    v10[3] = &unk_1002B6D18;
+    v10[4] = v8;
+    v10[5] = selfCopy;
+    v9 = objc_retainBlock(v10);
+    [(CUSystemMonitor *)v8 setFirstUnlockHandler:v9];
+    [(CUSystemMonitor *)v8 setScreenOnChangedHandler:v9];
+    [(CUSystemMonitor *)v8 setScreenStateChangedHandler:v9];
+    [(CUSystemMonitor *)v8 activateWithCompletion:v9];
   }
 }
 
@@ -468,37 +484,42 @@ LABEL_20:
 {
   if (self->_powerMonitor)
   {
-    if (dword_1002F72A0 <= 30 && (dword_1002F72A0 != -1 || _LogCategory_Initialize()))
+    selfCopy = self;
+    if (dword_1002F72A0 <= 30)
     {
-      sub_1001F8F38();
+      if (dword_1002F72A0 != -1 || (self = _LogCategory_Initialize(), self))
+      {
+        sub_1001F8F38(self, a2, v2);
+      }
     }
 
-    [(CUSystemMonitor *)self->_powerMonitor invalidate];
-    powerMonitor = self->_powerMonitor;
-    self->_powerMonitor = 0;
+    [(CUSystemMonitor *)selfCopy->_powerMonitor invalidate];
+    powerMonitor = selfCopy->_powerMonitor;
+    selfCopy->_powerMonitor = 0;
   }
 }
 
 - (void)_startEffectiveUnlockedAfterBootTimer:(unint64_t)timer
 {
+  timerCopy = timer;
   if (dword_1002F72A0 <= 30 && (dword_1002F72A0 != -1 || _LogCategory_Initialize()))
   {
-    sub_1001F8F54();
+    sub_1001F8F54(timerCopy);
   }
 
-  v4 = dispatch_source_create(&_dispatch_source_type_timer, 0, 0, self->_dispatchQueue);
+  v5 = dispatch_source_create(&_dispatch_source_type_timer, 0, 0, self->_dispatchQueue);
   effectiveUnlockedAfterBootTimer = self->_effectiveUnlockedAfterBootTimer;
-  self->_effectiveUnlockedAfterBootTimer = v4;
-  v6 = v4;
+  self->_effectiveUnlockedAfterBootTimer = v5;
+  v7 = v5;
 
   handler[0] = _NSConcreteStackBlock;
   handler[1] = 3221225472;
   handler[2] = sub_1000CEBC4;
   handler[3] = &unk_1002B6880;
   handler[4] = self;
-  dispatch_source_set_event_handler(v6, handler);
+  dispatch_source_set_event_handler(v7, handler);
   CUDispatchTimerSet();
-  dispatch_activate(v6);
+  dispatch_activate(v7);
 }
 
 - (void)usbDeviceFound:(id)found
@@ -513,6 +534,88 @@ LABEL_20:
   v8 = foundCopy;
   v6 = foundCopy;
   dispatch_async(dispatchQueue, v7);
+}
+
+- (void)_startPairingUI:(id)i repairMode:(BOOL)mode
+{
+  modeCopy = mode;
+  iCopy = i;
+  v9 = iCopy;
+  if (iCopy)
+  {
+    if (self->_bluetoothState == 4)
+    {
+      if (dword_1002F72A0 <= 90)
+      {
+        if (dword_1002F72A0 != -1 || (iCopy = _LogCategory_Initialize(), iCopy))
+        {
+          sub_1001F9050(iCopy, v7, v8);
+        }
+      }
+    }
+
+    else if (self->_screenActive && self->_effectiveUnlockedAfterBoot)
+    {
+      [(AAUSBSupportedDeviceManagerDaemon *)self _dismissAnyPairingProxCard];
+      v10 = objc_alloc_init(NSMutableDictionary);
+      v11 = [v9 pid];
+      unsignedIntValue = [v11 unsignedIntValue];
+
+      color = [v9 color];
+      unsignedIntValue2 = [color unsignedIntValue];
+
+      v15 = [NSNumber numberWithUnsignedChar:unsignedIntValue2];
+      [v10 setObject:v15 forKeyedSubscript:@"colorCode"];
+
+      btAddress = [v9 btAddress];
+      [v10 setObject:btAddress forKeyedSubscript:@"deviceAddress"];
+
+      [v10 setObject:@"AAUSBSupportedDeviceManagerDaemon" forKeyedSubscript:@"launchSource"];
+      model = [v9 model];
+      [v10 setObject:model forKeyedSubscript:@"model"];
+
+      v18 = [NSNumber numberWithUnsignedInt:unsignedIntValue];
+      [v10 setObject:v18 forKeyedSubscript:@"pid"];
+
+      v19 = [NSNumber numberWithBool:modeCopy];
+      [v10 setObject:v19 forKeyedSubscript:@"repairMode"];
+
+      v20 = [NSNumber numberWithInteger:-60];
+      [v10 setObject:v20 forKeyedSubscript:@"repairRSSI"];
+
+      [v10 setObject:&__kCFBooleanTrue forKeyedSubscript:@"supportedDevice"];
+      if (dword_1002F72A0 <= 30 && (dword_1002F72A0 != -1 || _LogCategory_Initialize()))
+      {
+        sub_1001F9010(v10);
+      }
+
+      v21 = [[AAProxCardHandler alloc] initWithInfo:v10];
+      proxCardHandler = self->_proxCardHandler;
+      self->_proxCardHandler = v21;
+
+      [(AAProxCardHandler *)self->_proxCardHandler setDispatchQueue:self->_dispatchQueue];
+      [(AAProxCardHandler *)self->_proxCardHandler setDismissExistingProxCards:1];
+      objc_initWeak(&location, self);
+      v23[0] = _NSConcreteStackBlock;
+      v23[1] = 3221225472;
+      v23[2] = sub_1000CF45C;
+      v23[3] = &unk_1002BB108;
+      objc_copyWeak(&v24, &location);
+      v23[4] = self;
+      [(AAProxCardHandler *)self->_proxCardHandler setOnDismissalHandler:v23];
+      [(AAProxCardHandler *)self->_proxCardHandler launchWithCompletion:&stru_1002BB128];
+      objc_destroyWeak(&v24);
+      objc_destroyWeak(&location);
+    }
+
+    else if (dword_1002F72A0 <= 30)
+    {
+      if (dword_1002F72A0 != -1 || (iCopy = _LogCategory_Initialize(), iCopy))
+      {
+        sub_1001F8FF4(iCopy, v7, v8);
+      }
+    }
+  }
 }
 
 - (void)_dismissAnyPairingProxCard
@@ -649,7 +752,7 @@ LABEL_14:
   btAddress = [timerCopy btAddress];
   if (dword_1002F72A0 <= 30 && (dword_1002F72A0 != -1 || _LogCategory_Initialize()))
   {
-    sub_1001F91C0();
+    sub_1001F91C0(btAddress);
   }
 
   v6 = dispatch_source_create(&_dispatch_source_type_timer, 0, 0, self->_dispatchQueue);
@@ -677,7 +780,7 @@ LABEL_14:
   btAddress = [timerCopy btAddress];
   if (dword_1002F72A0 <= 30 && (dword_1002F72A0 != -1 || _LogCategory_Initialize()))
   {
-    sub_1001F9248();
+    sub_1001F9248(btAddress);
   }
 
   v6 = dispatch_source_create(&_dispatch_source_type_timer, 0, 0, self->_dispatchQueue);

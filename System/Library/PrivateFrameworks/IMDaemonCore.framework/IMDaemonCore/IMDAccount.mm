@@ -19,12 +19,16 @@
 - (int64_t)profileValidationStatus;
 - (int64_t)registrationStatus;
 - (void)_createReplicationSessionsIfNecessary;
+- (void)_forceSetLoginStatus:(unint64_t)status message:(id)message reason:(int)reason properties:(id)properties;
 - (void)createSessionIfNecessary;
 - (void)dealloc;
 - (void)postAccountCapabilities;
 - (void)releaseSession;
 - (void)resetReplicationSessions;
 - (void)setIsManaged:(BOOL)managed;
+- (void)setLoginStatus:(unint64_t)status message:(id)message reason:(int)reason properties:(id)properties;
+- (void)setRegistrationStatus:(int64_t)status error:(int)error alertInfo:(id)info;
+- (void)setWasDisabledAutomatically:(BOOL)automatically;
 - (void)writeAccountDefaults:(id)defaults;
 @end
 
@@ -117,13 +121,13 @@
 
 - (IMDAccount)initWithAccountID:(id)d defaults:(id)defaults service:(id)service
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   dCopy = d;
   defaultsCopy = defaults;
   serviceCopy = service;
-  v24.receiver = self;
-  v24.super_class = IMDAccount;
-  v12 = [(IMDAccount *)&v24 init];
+  v23.receiver = self;
+  v23.super_class = IMDAccount;
+  v12 = [(IMDAccount *)&v23 init];
   if (v12)
   {
     if (IMOSLoggingEnabled())
@@ -132,11 +136,11 @@
       if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
       {
         *buf = 138412802;
-        v26 = dCopy;
-        v27 = 2112;
-        v28 = defaultsCopy;
-        v29 = 2112;
-        v30 = serviceCopy;
+        v25 = dCopy;
+        v26 = 2112;
+        v27 = defaultsCopy;
+        v28 = 2112;
+        v29 = serviceCopy;
         _os_log_impl(&dword_22B4CC000, v13, OS_LOG_TYPE_INFO, "Creating account id: %@    defaults: %@    on service: %@", buf, 0x20u);
       }
     }
@@ -156,28 +160,27 @@
 
     else
     {
-      v19 = objc_alloc_init(MEMORY[0x277CBEB38]);
-      v20 = v12->_accountDefaults;
-      v12->_accountDefaults = v19;
+      v18 = objc_alloc_init(MEMORY[0x277CBEB38]);
+      v19 = v12->_accountDefaults;
+      v12->_accountDefaults = v18;
 
       if (IMOSLoggingEnabled())
       {
-        v21 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
+        v20 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
         {
-          v22 = objc_opt_class();
+          v21 = objc_opt_class();
           *buf = 138412546;
-          v26 = defaultsCopy;
-          v27 = 2112;
-          v28 = v22;
-          v23 = v22;
-          _os_log_impl(&dword_22B4CC000, v21, OS_LOG_TYPE_INFO, "IMDAccount: incoming 'defaults' is not a dictionary, %@, %@", buf, 0x16u);
+          v25 = defaultsCopy;
+          v26 = 2112;
+          v27 = v21;
+          v22 = v21;
+          _os_log_impl(&dword_22B4CC000, v20, OS_LOG_TYPE_INFO, "IMDAccount: incoming 'defaults' is not a dictionary, %@, %@", buf, 0x16u);
         }
       }
     }
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
@@ -239,6 +242,14 @@
   return bOOLValue;
 }
 
+- (void)setWasDisabledAutomatically:(BOOL)automatically
+{
+  v4 = MEMORY[0x277CBEAC0];
+  v6 = [MEMORY[0x277CCABB0] numberWithBool:automatically];
+  v5 = [v4 dictionaryWithObject:v6 forKey:@"AccountManaged"];
+  [(IMDAccount *)self writeAccountDefaults:v5];
+}
+
 - (BOOL)isDisabled
 {
   v3 = +[IMDLocalDaemon sharedDaemon];
@@ -250,7 +261,7 @@
 
 - (void)writeAccountDefaults:(id)defaults
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   defaultsCopy = defaults;
   if (IMOSLoggingEnabled())
   {
@@ -259,8 +270,8 @@
     {
       *buf = 138412546;
       selfCopy = self;
-      v29 = 2112;
-      v30 = defaultsCopy;
+      v28 = 2112;
+      v29 = defaultsCopy;
       _os_log_impl(&dword_22B4CC000, v5, OS_LOG_TYPE_INFO, "%@ - write account defaults: %@", buf, 0x16u);
     }
   }
@@ -268,25 +279,25 @@
   if ([defaultsCopy count])
   {
     v6 = [defaultsCopy mutableCopy];
-    v24 = 0u;
-    v25 = 0u;
-    v22 = 0u;
     v23 = 0u;
+    v24 = 0u;
+    v21 = 0u;
+    v22 = 0u;
     allKeys = [defaultsCopy allKeys];
-    v8 = [allKeys countByEnumeratingWithState:&v22 objects:v26 count:16];
+    v8 = [allKeys countByEnumeratingWithState:&v21 objects:v25 count:16];
     if (v8)
     {
-      v9 = *v23;
+      v9 = *v22;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v23 != v9)
+          if (*v22 != v9)
           {
             objc_enumerationMutation(allKeys);
           }
 
-          v11 = *(*(&v22 + 1) + 8 * i);
+          v11 = *(*(&v21 + 1) + 8 * i);
           v12 = [defaultsCopy objectForKey:v11];
           if ([v12 isNull] & 1) != 0 || (objc_opt_class(), (objc_opt_isKindOfClass()) && !objc_msgSend(v12, "length"))
           {
@@ -295,7 +306,7 @@
           }
         }
 
-        v8 = [allKeys countByEnumeratingWithState:&v22 objects:v26 count:16];
+        v8 = [allKeys countByEnumeratingWithState:&v21 objects:v25 count:16];
       }
 
       while (v8);
@@ -320,8 +331,6 @@
     service2 = [(IMDAccount *)self service];
     [service2 delayedSaveSettings];
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)postAccountCapabilities
@@ -348,20 +357,20 @@
 
 - (void)createSessionIfNecessary
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   if ([(IMDAccount *)self isDisabled])
   {
     registration = [MEMORY[0x277D19298] registration];
     if (os_log_type_enabled(registration, OS_LOG_TYPE_DEFAULT))
     {
-      v23 = 138412290;
+      v22 = 138412290;
       selfCopy6 = self;
-      _os_log_impl(&dword_22B4CC000, registration, OS_LOG_TYPE_DEFAULT, "%@: Account is restricted, not creating session", &v23, 0xCu);
+      _os_log_impl(&dword_22B4CC000, registration, OS_LOG_TYPE_DEFAULT, "%@: Account is restricted, not creating session", &v22, 0xCu);
     }
 
 LABEL_27:
 
-    goto LABEL_28;
+    return;
   }
 
   if ([(IMDAccount *)self wasDisabledAutomatically])
@@ -391,11 +400,11 @@ LABEL_27:
       if (os_log_type_enabled(registration2, OS_LOG_TYPE_DEFAULT))
       {
         session = self->_session;
-        v23 = 138412546;
+        v22 = 138412546;
         selfCopy6 = self;
-        v25 = 2112;
-        v26 = session;
-        _os_log_impl(&dword_22B4CC000, registration2, OS_LOG_TYPE_DEFAULT, "%@: Reused existing session: %@", &v23, 0x16u);
+        v24 = 2112;
+        v25 = session;
+        _os_log_impl(&dword_22B4CC000, registration2, OS_LOG_TYPE_DEFAULT, "%@: Reused existing session: %@", &v22, 0x16u);
       }
     }
 
@@ -410,15 +419,15 @@ LABEL_27:
         v11 = self->_session;
         internalName = [registration internalName];
         v13 = NSStringFromClass([registration sessionClass]);
-        v23 = 138413058;
+        v22 = 138413058;
         selfCopy6 = self;
-        v25 = 2112;
-        v26 = v11;
-        v27 = 2112;
-        v28 = internalName;
-        v29 = 2112;
-        v30 = v13;
-        _os_log_impl(&dword_22B4CC000, registration2, OS_LOG_TYPE_DEFAULT, "%@: Created active session: %@ of service type: %@   (Session class: %@)", &v23, 0x2Au);
+        v24 = 2112;
+        v25 = v11;
+        v26 = 2112;
+        v27 = internalName;
+        v28 = 2112;
+        v29 = v13;
+        _os_log_impl(&dword_22B4CC000, registration2, OS_LOG_TYPE_DEFAULT, "%@: Created active session: %@ of service type: %@   (Session class: %@)", &v22, 0x2Au);
       }
     }
 
@@ -427,9 +436,9 @@ LABEL_27:
       v14 = OSLogHandleForIMFoundationCategory();
       if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
       {
-        v23 = 138412290;
+        v22 = 138412290;
         selfCopy6 = self;
-        _os_log_impl(&dword_22B4CC000, v14, OS_LOG_TYPE_INFO, "%@: Telling session it became active", &v23, 0xCu);
+        _os_log_impl(&dword_22B4CC000, v14, OS_LOG_TYPE_INFO, "%@: Telling session it became active", &v22, 0xCu);
       }
     }
 
@@ -446,9 +455,9 @@ LABEL_27:
         v18 = OSLogHandleForIMFoundationCategory();
         if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
         {
-          v23 = 138412290;
+          v22 = 138412290;
           selfCopy6 = self;
-          _os_log_impl(&dword_22B4CC000, v18, OS_LOG_TYPE_INFO, "%@: Forcing login", &v23, 0xCu);
+          _os_log_impl(&dword_22B4CC000, v18, OS_LOG_TYPE_INFO, "%@: Forcing login", &v22, 0xCu);
         }
       }
 
@@ -460,23 +469,20 @@ LABEL_27:
     if (os_log_type_enabled(registration3, OS_LOG_TYPE_DEFAULT))
     {
       session5 = [(IMDAccount *)self session];
-      v23 = 138412546;
+      v22 = 138412546;
       selfCopy6 = self;
-      v25 = 2112;
-      v26 = session5;
-      _os_log_impl(&dword_22B4CC000, registration3, OS_LOG_TYPE_DEFAULT, "%@: Done setting up session: %@", &v23, 0x16u);
+      v24 = 2112;
+      v25 = session5;
+      _os_log_impl(&dword_22B4CC000, registration3, OS_LOG_TYPE_DEFAULT, "%@: Done setting up session: %@", &v22, 0x16u);
     }
 
     goto LABEL_27;
   }
-
-LABEL_28:
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_createReplicationSessionsIfNecessary
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   if (!self->_replicationSessions)
   {
     session = [(IMDAccount *)self session];
@@ -485,87 +491,85 @@ LABEL_28:
       service = [(IMDAccount *)self service];
       mainService = [service mainService];
       replicationServices = [mainService replicationServices];
-      v8 = [replicationServices count];
+      v7 = [replicationServices count];
 
-      if (v8)
+      if (v7)
       {
-        v30 = objc_alloc_init(MEMORY[0x277CBEB18]);
+        v29 = objc_alloc_init(MEMORY[0x277CBEB18]);
         service2 = [(IMDAccount *)self service];
         mainService2 = [service2 mainService];
         replicationServices2 = [mainService2 replicationServices];
 
-        v33 = 0u;
-        v34 = 0u;
-        v31 = 0u;
         v32 = 0u;
+        v33 = 0u;
+        v30 = 0u;
+        v31 = 0u;
         obj = replicationServices2;
-        v12 = [obj countByEnumeratingWithState:&v31 objects:v41 count:16];
-        if (v12)
+        v11 = [obj countByEnumeratingWithState:&v30 objects:v40 count:16];
+        if (v11)
         {
-          v14 = *v32;
-          *&v13 = 138412802;
-          v28 = v13;
+          v13 = *v31;
+          *&v12 = 138412802;
+          v27 = v12;
           do
           {
-            v15 = 0;
+            v14 = 0;
             do
             {
-              if (*v32 != v14)
+              if (*v31 != v13)
               {
                 objc_enumerationMutation(obj);
               }
 
-              v16 = *(*(&v31 + 1) + 8 * v15);
-              v17 = +[IMDAccountController sharedAccountController];
-              v18 = [v17 activeAccountsForService:v16];
+              v15 = *(*(&v30 + 1) + 8 * v14);
+              v16 = +[IMDAccountController sharedAccountController];
+              v17 = [v16 activeAccountsForService:v15];
 
               session2 = [(IMDAccount *)self session];
-              v20 = [session2 preferredAccountForReplicationOnService:v16 eligibleAccounts:v18];
+              v19 = [session2 preferredAccountForReplicationOnService:v15 eligibleAccounts:v17];
 
-              if (v20)
+              if (v19)
               {
-                v21 = objc_alloc([v16 sessionClass]);
+                v20 = objc_alloc([v15 sessionClass]);
                 session3 = [(IMDAccount *)self session];
-                v23 = [v21 initWithAccount:v20 service:v16 replicatingForSession:session3];
+                v22 = [v20 initWithAccount:v19 service:v15 replicatingForSession:session3];
 
-                [v23 sessionDidBecomeActive];
-                [v30 addObject:v23];
+                [v22 sessionDidBecomeActive];
+                [v29 addObject:v22];
               }
 
               else if (IMOSLoggingEnabled())
               {
-                v24 = OSLogHandleForIMFoundationCategory();
-                if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
+                v23 = OSLogHandleForIMFoundationCategory();
+                if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
                 {
                   loginID = [(IMDAccount *)self loginID];
-                  *buf = v28;
+                  *buf = v27;
                   selfCopy = self;
-                  v37 = 2112;
-                  v38 = v16;
-                  v39 = 2112;
-                  v40 = loginID;
-                  _os_log_impl(&dword_22B4CC000, v24, OS_LOG_TYPE_INFO, "Cannot create replication session for %@, no account found for %@ (loginID: %@)", buf, 0x20u);
+                  v36 = 2112;
+                  v37 = v15;
+                  v38 = 2112;
+                  v39 = loginID;
+                  _os_log_impl(&dword_22B4CC000, v23, OS_LOG_TYPE_INFO, "Cannot create replication session for %@, no account found for %@ (loginID: %@)", buf, 0x20u);
                 }
               }
 
-              ++v15;
+              ++v14;
             }
 
-            while (v12 != v15);
-            v12 = [obj countByEnumeratingWithState:&v31 objects:v41 count:16];
+            while (v11 != v14);
+            v11 = [obj countByEnumeratingWithState:&v30 objects:v40 count:16];
           }
 
-          while (v12);
+          while (v11);
         }
 
-        v26 = [v30 copy];
+        v25 = [v29 copy];
         replicationSessions = self->_replicationSessions;
-        self->_replicationSessions = v26;
+        self->_replicationSessions = v25;
       }
     }
   }
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 - (void)releaseSession
@@ -587,15 +591,15 @@ LABEL_28:
 
 - (void)resetReplicationSessions
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   if (IMOSLoggingEnabled())
   {
     v3 = OSLogHandleForIMFoundationCategory();
     if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
-      v7 = 138412290;
+      v6 = 138412290;
       selfCopy = self;
-      _os_log_impl(&dword_22B4CC000, v3, OS_LOG_TYPE_INFO, "Resetting replication session for %@", &v7, 0xCu);
+      _os_log_impl(&dword_22B4CC000, v3, OS_LOG_TYPE_INFO, "Resetting replication session for %@", &v6, 0xCu);
     }
   }
 
@@ -604,38 +608,62 @@ LABEL_28:
 
   session = [(IMDAccount *)self session];
   [session _replicationSessionsChanged];
+}
 
-  v6 = *MEMORY[0x277D85DE8];
+- (void)setRegistrationStatus:(int64_t)status error:(int)error alertInfo:(id)info
+{
+  v5 = *&error;
+  value = info;
+  v8 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v9 = [MEMORY[0x277CCABB0] numberWithInteger:status];
+  if (v9)
+  {
+    CFDictionarySetValue(v8, *MEMORY[0x277D19470], v9);
+  }
+
+  v10 = [MEMORY[0x277CCABB0] numberWithInt:v5];
+  if (v10)
+  {
+    CFDictionarySetValue(v8, *MEMORY[0x277D19460], v10);
+  }
+
+  if (value)
+  {
+    CFDictionarySetValue(v8, *MEMORY[0x277D19458], value);
+  }
+
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObject:v8 forKey:*MEMORY[0x277D19468]];
+  [(IMDAccount *)self writeAccountDefaults:v11];
 }
 
 - (NSArray)aliases
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   accountDefaults = [(IMDAccount *)self accountDefaults];
   v3 = [accountDefaults objectForKeyedSubscript:*MEMORY[0x277D193F0]];
 
   v4 = objc_alloc_init(MEMORY[0x277CBEB58]);
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   v5 = v3;
-  v6 = [v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v18;
+    v8 = *v17;
     v9 = *MEMORY[0x277D193E8];
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v18 != v8)
+        if (*v17 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v11 = [*(*(&v17 + 1) + 8 * i) objectForKeyedSubscript:{v9, v17}];
+        v11 = [*(*(&v16 + 1) + 8 * i) objectForKeyedSubscript:{v9, v16}];
         lowercaseString = [v11 lowercaseString];
         trimmedString = [lowercaseString trimmedString];
 
@@ -645,15 +673,13 @@ LABEL_28:
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v7);
   }
 
   allObjects = [v4 allObjects];
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return allObjects;
 }
@@ -690,6 +716,79 @@ LABEL_28:
   v3 = [_registrationInfo objectForKey:*MEMORY[0x277D19458]];
 
   return v3;
+}
+
+- (void)setLoginStatus:(unint64_t)status message:(id)message reason:(int)reason properties:(id)properties
+{
+  v7 = *&reason;
+  messageCopy = message;
+  propertiesCopy = properties;
+  if ([(IMDAccount *)self loginStatus]!= status || [(IMDAccount *)self serviceDisconnectReason]!= v7)
+  {
+LABEL_5:
+    [(IMDAccount *)self _forceSetLoginStatus:status message:messageCopy reason:v7 properties:propertiesCopy];
+    goto LABEL_6;
+  }
+
+  serviceLoginStatusMessage = [(IMDAccount *)self serviceLoginStatusMessage];
+  if (serviceLoginStatusMessage != messageCopy)
+  {
+    serviceLoginStatusMessage2 = [(IMDAccount *)self serviceLoginStatusMessage];
+    v13 = [messageCopy isEqualToString:serviceLoginStatusMessage2];
+
+    if (v13)
+    {
+      goto LABEL_6;
+    }
+
+    goto LABEL_5;
+  }
+
+LABEL_6:
+}
+
+- (void)_forceSetLoginStatus:(unint64_t)status message:(id)message reason:(int)reason properties:(id)properties
+{
+  v7 = *&reason;
+  v31 = *MEMORY[0x277D85DE8];
+  messageCopy = message;
+  propertiesCopy = properties;
+  if (IMOSLoggingEnabled())
+  {
+    v12 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+    {
+      session = [(IMDAccount *)self session];
+      v19 = 138413570;
+      selfCopy = self;
+      v21 = 2048;
+      statusCopy = status;
+      v23 = 2112;
+      v24 = messageCopy;
+      v25 = 1024;
+      v26 = v7;
+      v27 = 2112;
+      v28 = propertiesCopy;
+      v29 = 2112;
+      v30 = session;
+      _os_log_impl(&dword_22B4CC000, v12, OS_LOG_TYPE_INFO, "[%@ _forceSetLoginStatus:%lu] session=%@", &v19, 0x3Au);
+    }
+  }
+
+  loginStatus = [(IMDAccount *)self loginStatus];
+  [(IMDAccount *)self setLoginStatus:status];
+  [(IMDAccount *)self setServiceDisconnectReason:v7];
+  serviceLoginStatusMessage = [(IMDAccount *)self serviceLoginStatusMessage];
+  v16 = serviceLoginStatusMessage == messageCopy;
+
+  if (!v16)
+  {
+    v17 = [messageCopy copy];
+    [(IMDAccount *)self setServiceLoginStatusMessage:v17];
+  }
+
+  session2 = [(IMDAccount *)self session];
+  [session2 __forceSetLoginStatus:status oldStatus:loginStatus message:messageCopy reason:v7 properties:propertiesCopy account:self];
 }
 
 - (id)description

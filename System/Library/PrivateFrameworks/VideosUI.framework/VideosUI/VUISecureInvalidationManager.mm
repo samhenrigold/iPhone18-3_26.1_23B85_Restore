@@ -547,7 +547,7 @@ __CFString *__61__VUISecureInvalidationManager__registerStateMachineHandlers__bl
   return v8;
 }
 
-uint64_t __63__VUISecureInvalidationManager__invalidateKeysForDeletedVideos__block_invoke(uint64_t a1)
+void *__63__VUISecureInvalidationManager__invalidateKeysForDeletedVideos__block_invoke(uint64_t a1)
 {
   v1 = (a1 + 32);
   result = [*(a1 + 32) backgroundTaskIdentifier];

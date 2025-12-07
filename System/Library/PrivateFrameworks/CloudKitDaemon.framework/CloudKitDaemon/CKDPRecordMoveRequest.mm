@@ -185,7 +185,6 @@
   toCopy = to;
   if (*&self->_has)
   {
-    semantics = self->_semantics;
     PBDataWriterWriteInt32Field();
   }
 
@@ -221,7 +220,6 @@
 
   if ((*&self->_has & 2) != 0)
   {
-    merge = self->_merge;
     PBDataWriterWriteBOOLField();
   }
 }
@@ -332,7 +330,6 @@
     goto LABEL_21;
   }
 
-  v8 = *(equalCopy + 64);
   if (*&self->_has)
   {
     if ((equalCopy[8] & 1) == 0 || self->_semantics != *(equalCopy + 14))
@@ -347,69 +344,69 @@
   }
 
   originId = self->_originId;
-  v10 = equalCopy[6];
-  if (originId | v10 && !objc_msgSend_isEqual_(originId, v7, v10))
+  v9 = equalCopy[6];
+  if (originId | v9 && !objc_msgSend_isEqual_(originId, v7, v9))
   {
     goto LABEL_21;
   }
 
   originEtag = self->_originEtag;
-  v12 = equalCopy[5];
-  if (originEtag | v12)
+  v11 = equalCopy[5];
+  if (originEtag | v11)
   {
-    if (!objc_msgSend_isEqual_(originEtag, v7, v12))
+    if (!objc_msgSend_isEqual_(originEtag, v7, v11))
     {
       goto LABEL_21;
     }
   }
 
   destinationEtag = self->_destinationEtag;
-  v14 = equalCopy[1];
-  if (destinationEtag | v14)
+  v13 = equalCopy[1];
+  if (destinationEtag | v13)
   {
-    if (!objc_msgSend_isEqual_(destinationEtag, v7, v14))
+    if (!objc_msgSend_isEqual_(destinationEtag, v7, v13))
     {
       goto LABEL_21;
     }
   }
 
   destinationZoneProtectionInfoTag = self->_destinationZoneProtectionInfoTag;
-  v16 = equalCopy[4];
-  if (destinationZoneProtectionInfoTag | v16)
+  v15 = equalCopy[4];
+  if (destinationZoneProtectionInfoTag | v15)
   {
-    if (!objc_msgSend_isEqual_(destinationZoneProtectionInfoTag, v7, v16))
+    if (!objc_msgSend_isEqual_(destinationZoneProtectionInfoTag, v7, v15))
     {
       goto LABEL_21;
     }
   }
 
   destinationRecordProtectionInfoTag = self->_destinationRecordProtectionInfoTag;
-  v18 = equalCopy[3];
-  if (destinationRecordProtectionInfoTag | v18)
+  v17 = equalCopy[3];
+  if (destinationRecordProtectionInfoTag | v17)
   {
-    if (!objc_msgSend_isEqual_(destinationRecordProtectionInfoTag, v7, v18))
+    if (!objc_msgSend_isEqual_(destinationRecordProtectionInfoTag, v7, v17))
     {
       goto LABEL_21;
     }
   }
 
   destinationRecord = self->_destinationRecord;
-  v20 = equalCopy[2];
-  if (destinationRecord | v20)
+  v19 = equalCopy[2];
+  if (destinationRecord | v19)
   {
-    if (!objc_msgSend_isEqual_(destinationRecord, v7, v20))
+    if (!objc_msgSend_isEqual_(destinationRecord, v7, v19))
     {
       goto LABEL_21;
     }
   }
 
-  v21 = (equalCopy[8] & 2) == 0;
+  v20 = (equalCopy[8] & 2) == 0;
   if ((*&self->_has & 2) != 0)
   {
     if ((equalCopy[8] & 2) == 0)
     {
 LABEL_21:
-      v21 = 0;
+      v20 = 0;
       goto LABEL_22;
     }
 
@@ -426,12 +423,12 @@ LABEL_21:
       goto LABEL_21;
     }
 
-    v21 = 1;
+    v20 = 1;
   }
 
 LABEL_22:
 
-  return v21;
+  return v20;
 }
 
 - (unint64_t)hash

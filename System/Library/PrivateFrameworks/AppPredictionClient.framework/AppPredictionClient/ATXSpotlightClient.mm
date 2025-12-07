@@ -91,85 +91,86 @@ void __59__ATXSpotlightClient_predictionsForRequest_withCompletion___block_invok
 
 + (id)suggestedResultResponseWithLimit:(int64_t)limit
 {
-  v44 = *MEMORY[0x1E69E9840];
+  v51 = *MEMORY[0x1E69E9840];
   v5 = +[ATXSpotlightZKWTrialClientWrapper sharedInstance];
   alternateRecentsRanking = [v5 alternateRecentsRanking];
   v7 = CFPreferencesCopyAppValue(@"SuggestionsSpotlightZKWRecentsEnabled", @"com.apple.suggestions");
   if (!v7 || (v8 = v7, v9 = [v7 BOOLValue], v8, v9))
   {
-    v10 = [self _fetchSpotlightRecentTopics:4];
-    v11 = __atxlog_handle_ui();
-    v12 = os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
+    v11 = [self _fetchSpotlightRecentTopics:4];
+    v12 = __atxlog_handle_ui(v11);
+    v13 = os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT);
     if (!alternateRecentsRanking)
     {
-      if (v12)
+      if (v13)
       {
         *buf = 0;
-        _os_log_impl(&dword_1BF549000, v11, OS_LOG_TYPE_DEFAULT, "ATXSpotlightClient: [Recents] AB match: NO", buf, 2u);
+        _os_log_impl(&dword_1BF549000, v12, OS_LOG_TYPE_DEFAULT, "ATXSpotlightClient: [Recents] AB match: NO", buf, 2u);
       }
 
       goto LABEL_32;
     }
 
-    if (v12)
+    if (v13)
     {
       *buf = 134217984;
-      v39 = alternateRecentsRanking;
-      _os_log_impl(&dword_1BF549000, v11, OS_LOG_TYPE_DEFAULT, "ATXSpotlightClient: [Recents] AB match: YES, Test ranking %lu", buf, 0xCu);
+      v46 = alternateRecentsRanking;
+      _os_log_impl(&dword_1BF549000, v12, OS_LOG_TYPE_DEFAULT, "ATXSpotlightClient: [Recents] AB match: YES, Test ranking %lu", buf, 0xCu);
     }
 
     matchesAlternateRecentsControlCodePath = [v5 matchesAlternateRecentsControlCodePath];
     matchesAlternateRecentsTreatmentCodePath = [v5 matchesAlternateRecentsTreatmentCodePath];
-    v15 = __atxlog_handle_ui();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v16 = matchesAlternateRecentsTreatmentCodePath;
+    v17 = __atxlog_handle_ui(matchesAlternateRecentsTreatmentCodePath);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
-      v16 = &stru_1F3E050C8;
-      v17 = @"control";
+      v18 = &stru_1F3E050C8;
+      v19 = @"control";
       if (!matchesAlternateRecentsControlCodePath)
       {
-        v17 = &stru_1F3E050C8;
+        v19 = &stru_1F3E050C8;
       }
 
       *buf = 134218498;
-      v39 = alternateRecentsRanking;
-      v41 = v17;
-      v40 = 2112;
-      if (matchesAlternateRecentsTreatmentCodePath)
+      v46 = alternateRecentsRanking;
+      v48 = v19;
+      v47 = 2112;
+      if (v16)
       {
-        v16 = @"treatment";
+        v18 = @"treatment";
       }
 
-      v42 = 2112;
-      v43 = v16;
-      _os_log_impl(&dword_1BF549000, v15, OS_LOG_TYPE_DEFAULT, "ATXSpotlightClient: [Recents] Test ranking %lu, %@%@", buf, 0x20u);
+      v49 = 2112;
+      v50 = v18;
+      _os_log_impl(&dword_1BF549000, v17, OS_LOG_TYPE_DEFAULT, "ATXSpotlightClient: [Recents] Test ranking %lu, %@%@", buf, 0x20u);
     }
 
-    v18 = __atxlog_handle_metrics();
-    v19 = os_signpost_id_generate(v18);
+    v21 = __atxlog_handle_metrics(v20);
+    v22 = os_signpost_id_generate(v21);
 
-    v20 = __atxlog_handle_metrics();
-    v21 = v20;
-    if (v19 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v20))
+    v24 = __atxlog_handle_metrics(v23);
+    v25 = v24;
+    if (v22 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v24))
     {
       *buf = 0;
-      _os_signpost_emit_with_name_impl(&dword_1BF549000, v21, OS_SIGNPOST_INTERVAL_BEGIN, v19, "ATXSpotlightClient.SpotlightRecentsAlternate", " enableTelemetry=YES ", buf, 2u);
+      _os_signpost_emit_with_name_impl(&dword_1BF549000, v25, OS_SIGNPOST_INTERVAL_BEGIN, v22, "ATXSpotlightClient.SpotlightRecentsAlternate", " enableTelemetry=YES ", buf, 2u);
     }
 
-    v11 = [self _fetchSpotlightRecentTopicsWithAlternateRanking:alternateRecentsRanking limit:4];
-    v22 = __atxlog_handle_metrics();
-    v23 = v22;
-    if (v19 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v22))
+    v12 = [self _fetchSpotlightRecentTopicsWithAlternateRanking:alternateRecentsRanking limit:4];
+    v26 = __atxlog_handle_metrics(v12);
+    v27 = v26;
+    if (v22 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v26))
     {
       *buf = 134349056;
-      v39 = alternateRecentsRanking;
-      _os_signpost_emit_with_name_impl(&dword_1BF549000, v23, OS_SIGNPOST_INTERVAL_END, v19, "ATXSpotlightClient.SpotlightRecentsAlternate", "alt=%{public, signpost.telemetry:number1}ld enableTelemetry=YES ", buf, 0xCu);
+      v46 = alternateRecentsRanking;
+      _os_signpost_emit_with_name_impl(&dword_1BF549000, v27, OS_SIGNPOST_INTERVAL_END, v22, "ATXSpotlightClient.SpotlightRecentsAlternate", "alt=%{public, signpost.telemetry:number1}ld enableTelemetry=YES ", buf, 0xCu);
     }
 
-    v24 = [self _isEqualRecentTopics:v10 otherRecentTopics:v11];
-    if ((matchesAlternateRecentsControlCodePath & matchesAlternateRecentsTreatmentCodePath) == 1)
+    v28 = [self _isEqualRecentTopics:v11 otherRecentTopics:v12];
+    if ((matchesAlternateRecentsControlCodePath & v16) == 1)
     {
-      v25 = __atxlog_handle_ui();
-      if (os_log_type_enabled(v25, OS_LOG_TYPE_FAULT))
+      v29 = __atxlog_handle_ui(v28);
+      if (os_log_type_enabled(v29, OS_LOG_TYPE_FAULT))
       {
         +[ATXSpotlightClient suggestedResultResponseWithLimit:];
       }
@@ -179,12 +180,12 @@ void __59__ATXSpotlightClient_predictionsForRequest_withCompletion___block_invok
     {
       if (matchesAlternateRecentsControlCodePath)
       {
-        if ((v24 & 1) == 0)
+        if ((v28 & 1) == 0)
         {
           codePathForAlternateRecentsControl = [v5 codePathForAlternateRecentsControl];
 LABEL_33:
 
-          v27 = [self _extractTopicsFromRecentTopics:v10];
+          v31 = [self _extractTopicsFromRecentTopics:v11];
           goto LABEL_34;
         }
 
@@ -193,22 +194,22 @@ LABEL_32:
         goto LABEL_33;
       }
 
-      if (matchesAlternateRecentsTreatmentCodePath)
+      if (v16)
       {
-        if ((v24 & 1) == 0)
+        if ((v28 & 1) == 0)
         {
           codePathForAlternateRecentsControl = [v5 codePathForAlternateRecentsTreatment];
-          v11 = v11;
+          v12 = v12;
 
-          v10 = v11;
+          v11 = v12;
           goto LABEL_33;
         }
 
         goto LABEL_32;
       }
 
-      v25 = __atxlog_handle_ui();
-      if (os_log_type_enabled(v25, OS_LOG_TYPE_FAULT))
+      v29 = __atxlog_handle_ui(v28);
+      if (os_log_type_enabled(v29, OS_LOG_TYPE_FAULT))
       {
         +[ATXSpotlightClient suggestedResultResponseWithLimit:];
       }
@@ -217,60 +218,60 @@ LABEL_32:
     goto LABEL_32;
   }
 
-  v10 = __atxlog_handle_ui();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v11 = __atxlog_handle_ui(v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_1BF549000, v10, OS_LOG_TYPE_DEFAULT, "ATXSpotlightClient: suggestedResultResponseWithLimit: Siri setting 'Show Recents' turned off. spotlightRecentTopics = @[]", buf, 2u);
+    _os_log_impl(&dword_1BF549000, v11, OS_LOG_TYPE_DEFAULT, "ATXSpotlightClient: suggestedResultResponseWithLimit: Siri setting 'Show Recents' turned off. spotlightRecentTopics = @[]", buf, 2u);
   }
 
   codePathForAlternateRecentsControl = 0;
-  v27 = MEMORY[0x1E695E0F0];
+  v31 = MEMORY[0x1E695E0F0];
 LABEL_34:
 
-  v28 = __atxlog_handle_metrics();
-  v29 = os_signpost_id_generate(v28);
+  v33 = __atxlog_handle_metrics(v32);
+  v34 = os_signpost_id_generate(v33);
 
-  v30 = __atxlog_handle_metrics();
-  v31 = v30;
-  if (v29 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v30))
+  v36 = __atxlog_handle_metrics(v35);
+  v37 = v36;
+  if (v34 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v36))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_1BF549000, v31, OS_SIGNPOST_INTERVAL_BEGIN, v29, "ATXSpotlightClient.SuggestedActions", " enableTelemetry=YES ", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1BF549000, v37, OS_SIGNPOST_INTERVAL_BEGIN, v34, "ATXSpotlightClient.SuggestedActions", " enableTelemetry=YES ", buf, 2u);
   }
 
-  v32 = [self suggestedResultResponseWithLimit:limit andSpotlightRecentTopics:v27];
-  v33 = __atxlog_handle_metrics();
-  v34 = v33;
-  if (v29 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v33))
+  v38 = [self suggestedResultResponseWithLimit:limit andSpotlightRecentTopics:v31];
+  v39 = __atxlog_handle_metrics(v38);
+  v40 = v39;
+  if (v34 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v39))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_1BF549000, v34, OS_SIGNPOST_INTERVAL_END, v29, "ATXSpotlightClient.SuggestedActions", " enableTelemetry=YES ", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1BF549000, v40, OS_SIGNPOST_INTERVAL_END, v34, "ATXSpotlightClient.SuggestedActions", " enableTelemetry=YES ", buf, 2u);
   }
 
-  v35 = __atxlog_handle_ui();
-  v36 = os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT);
+  v42 = __atxlog_handle_ui(v41);
+  v43 = os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT);
   if (codePathForAlternateRecentsControl)
   {
-    if (v36)
+    if (v43)
     {
       *buf = 0;
-      _os_log_impl(&dword_1BF549000, v35, OS_LOG_TYPE_DEFAULT, "ATXSpotlightClient: [Recents] send code path trigger", buf, 2u);
+      _os_log_impl(&dword_1BF549000, v42, OS_LOG_TYPE_DEFAULT, "ATXSpotlightClient: [Recents] send code path trigger", buf, 2u);
     }
 
-    [v32 addCodePathId:codePathForAlternateRecentsControl];
+    [v38 addCodePathId:codePathForAlternateRecentsControl];
   }
 
   else
   {
-    if (v36)
+    if (v43)
     {
       *buf = 0;
-      _os_log_impl(&dword_1BF549000, v35, OS_LOG_TYPE_DEFAULT, "ATXSpotlightClient: [Recents] Alternate ranking did not change results", buf, 2u);
+      _os_log_impl(&dword_1BF549000, v42, OS_LOG_TYPE_DEFAULT, "ATXSpotlightClient: [Recents] Alternate ranking did not change results", buf, 2u);
     }
   }
 
-  return v32;
+  return v38;
 }
 
 + (id)suggestedResultResponseWithLimit:(int64_t)limit andSpotlightRecentTopics:(id)topics
@@ -289,7 +290,7 @@ LABEL_34:
   v10 = CFPreferencesCopyAppValue(@"SuggestionsSpotlightZKWEnabled", @"com.apple.suggestions");
   if (v10 && (v11 = v10, v12 = [v10 BOOLValue], v11, !v12))
   {
-    v14 = __atxlog_handle_ui();
+    v14 = __atxlog_handle_ui(v10);
     if (os_log_type_enabled(&v14->super, OS_LOG_TYPE_DEFAULT))
     {
       LOWORD(v19) = 0;
@@ -301,7 +302,7 @@ LABEL_34:
 
   else
   {
-    v13 = __atxlog_handle_ui();
+    v13 = __atxlog_handle_ui(v10);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       v19 = 134217984;
@@ -311,7 +312,7 @@ LABEL_34:
 
     v14 = [[ATXProactiveSuggestionClient alloc] initWithConsumerSubType:21];
     spotlightSuggestionLayoutFromCache = [(ATXProactiveSuggestionClient *)v14 spotlightSuggestionLayoutFromCache];
-    v16 = __atxlog_handle_ui();
+    v16 = __atxlog_handle_ui(spotlightSuggestionLayoutFromCache);
     if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       v19 = 138412290;
@@ -437,7 +438,7 @@ LABEL_19:
 
 + (BOOL)_isValidSuggestion:(id)suggestion forWorldState:(id)state
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   suggestionCopy = suggestion;
   stateCopy = state;
   atxActionCriteria = [suggestionCopy atxActionCriteria];
@@ -445,18 +446,18 @@ LABEL_19:
 
   if ((v8 & 1) == 0)
   {
-    v12 = __atxlog_handle_ui();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v14 = __atxlog_handle_ui(v9);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       uiSpecification = [suggestionCopy uiSpecification];
       title = [uiSpecification title];
       executableSpecification = [suggestionCopy executableSpecification];
       executableClassString = [executableSpecification executableClassString];
-      v18 = 138412546;
-      v19 = title;
-      v20 = 2112;
-      v21 = executableClassString;
-      _os_log_impl(&dword_1BF549000, v12, OS_LOG_TYPE_DEFAULT, "ATXSpotlightClient: Not valid for device state, hiding: %@, type %@", &v18, 0x16u);
+      v20 = 138412546;
+      v21 = title;
+      v22 = 2112;
+      v23 = executableClassString;
+      _os_log_impl(&dword_1BF549000, v14, OS_LOG_TYPE_DEFAULT, "ATXSpotlightClient: Not valid for device state, hiding: %@, type %@", &v20, 0x16u);
     }
 
     goto LABEL_8;
@@ -467,22 +468,22 @@ LABEL_19:
 
   if ((predictionReasons & 0x1000000) != 0)
   {
-    v12 = __atxlog_handle_ui();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v14 = __atxlog_handle_ui(v12);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       +[ATXSpotlightClient _isValidSuggestion:forWorldState:];
     }
 
 LABEL_8:
 
-    v11 = 0;
+    v13 = 0;
     goto LABEL_9;
   }
 
-  v11 = 1;
+  v13 = 1;
 LABEL_9:
 
-  return v11;
+  return v13;
 }
 
 + (BOOL)isValidSuggestion:(id)suggestion forScope:(id)scope
@@ -639,7 +640,7 @@ LABEL_19:
 
 + (id)_responseWithSpotlightLayout:(id)layout andSpotlightRecentTopics:(id)topics actionScope:(id)scope limit:(int64_t)limit
 {
-  v112 = *MEMORY[0x1E69E9840];
+  v116 = *MEMORY[0x1E69E9840];
   layoutCopy = layout;
   topicsCopy = topics;
   scopeCopy = scope;
@@ -649,131 +650,132 @@ LABEL_19:
     goto LABEL_67;
   }
 
-  v69 = topicsCopy;
+  v73 = topicsCopy;
   uuid = [layoutCopy uuid];
-  v82 = layoutCopy;
+  v86 = layoutCopy;
   collections = [layoutCopy collections];
-  v80 = objc_opt_new();
-  v79 = objc_opt_new();
-  v71 = objc_opt_new();
-  v85 = objc_opt_new();
-  v13 = __atxlog_handle_ui();
+  v84 = objc_opt_new();
+  v83 = objc_opt_new();
+  v75 = objc_opt_new();
+  v89 = objc_opt_new();
+  v13 = __atxlog_handle_ui(v89);
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
     _os_log_impl(&dword_1BF549000, v13, OS_LOG_TYPE_DEFAULT, "ATXSpotlightClient: Response: create sections and topics ", buf, 2u);
   }
 
-  v100 = 0u;
-  v101 = 0u;
-  v98 = 0u;
-  v99 = 0u;
+  v104 = 0u;
+  v105 = 0u;
+  v102 = 0u;
+  v103 = 0u;
   obj = collections;
-  v73 = [obj countByEnumeratingWithState:&v98 objects:v111 count:16];
-  if (v73)
+  v77 = [obj countByEnumeratingWithState:&v102 objects:v115 count:16];
+  if (v77)
   {
     v14 = 0;
-    v72 = *v99;
+    v76 = *v103;
     do
     {
       v15 = 0;
       do
       {
-        if (*v99 != v72)
+        if (*v103 != v76)
         {
           objc_enumerationMutation(obj);
         }
 
-        v75 = v15;
-        v16 = *(*(&v98 + 1) + 8 * v15);
+        v79 = v15;
+        v16 = *(*(&v102 + 1) + 8 * v15);
         suggestions = [v16 suggestions];
         firstObject = [suggestions firstObject];
         uiSpecification = [firstObject uiSpecification];
         predictionReasons = [uiSpecification predictionReasons];
 
-        v21 = __atxlog_handle_ui();
-        if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+        v22 = __atxlog_handle_ui(v21);
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
         {
           contextTitle = [v16 contextTitle];
-          v23 = [contextTitle hash];
+          v24 = [contextTitle hash];
           suggestions2 = [v16 suggestions];
-          v25 = [suggestions2 count];
+          v26 = [suggestions2 count];
           *buf = 134218496;
-          v106 = v23;
-          v107 = 2048;
-          v108 = predictionReasons;
-          v109 = 2048;
-          v110 = v25;
-          _os_log_impl(&dword_1BF549000, v21, OS_LOG_TYPE_DEFAULT, "ATXSpotlightClient: Section.hash: %lu, type: %llu, count: %lu", buf, 0x20u);
+          v110 = v24;
+          v111 = 2048;
+          v112 = predictionReasons;
+          v113 = 2048;
+          v114 = v26;
+          _os_log_impl(&dword_1BF549000, v22, OS_LOG_TYPE_DEFAULT, "ATXSpotlightClient: Section.hash: %lu, type: %llu, count: %lu", buf, 0x20u);
         }
 
-        v96 = 0u;
-        v97 = 0u;
-        v94 = 0u;
-        v95 = 0u;
-        v74 = v16;
+        v100 = 0u;
+        v101 = 0u;
+        v98 = 0u;
+        v99 = 0u;
+        v78 = v16;
         suggestions3 = [v16 suggestions];
-        v27 = [suggestions3 countByEnumeratingWithState:&v94 objects:v104 count:16];
-        if (v27)
+        v28 = [suggestions3 countByEnumeratingWithState:&v98 objects:v108 count:16];
+        if (v28)
         {
-          v28 = v27;
-          v84 = 0;
-          v29 = *v95;
-          v30 = scopeCopy;
+          v29 = v28;
+          v88 = 0;
+          v30 = *v99;
+          v31 = scopeCopy;
           do
           {
-            for (i = 0; i != v28; ++i)
+            for (i = 0; i != v29; ++i)
             {
-              if (*v95 != v29)
+              if (*v99 != v30)
               {
                 objc_enumerationMutation(suggestions3);
               }
 
-              v32 = *(*(&v94 + 1) + 8 * i);
-              if ([objc_opt_class() isValidSuggestion:v32 forScope:v30])
+              v33 = *(*(&v98 + 1) + 8 * i);
+              v34 = [objc_opt_class() isValidSuggestion:v33 forScope:v31];
+              if (v34)
               {
-                if ([objc_opt_class() _isValidSuggestion:v32 forWorldState:v85])
+                if ([objc_opt_class() _isValidSuggestion:v33 forWorldState:v89])
                 {
-                  v33 = [self _topicWithSuggestion:v32 layoutUUID:uuid];
-                  scores = [v82 scores];
-                  v35 = [scores objectAtIndexedSubscript:v14];
+                  v35 = [self _topicWithSuggestion:v33 layoutUUID:uuid];
+                  scores = [v86 scores];
+                  v37 = [scores objectAtIndexedSubscript:v14];
 
-                  v36 = __atxlog_handle_ui();
-                  v37 = v36;
-                  if (v33)
+                  v39 = __atxlog_handle_ui(v38);
+                  v40 = v39;
+                  if (v35)
                   {
-                    if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
+                    if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
                     {
-                      v38 = [self descriptionForTopic:v33];
+                      v41 = [self descriptionForTopic:v35];
                       *buf = 138740227;
-                      v106 = v38;
-                      v107 = 2112;
-                      v108 = v35;
-                      _os_log_impl(&dword_1BF549000, v37, OS_LOG_TYPE_DEFAULT, "ATXSpotlightClient: Topic: %{sensitive}@ Score: %@, ", buf, 0x16u);
+                      v110 = v41;
+                      v111 = 2112;
+                      v112 = v37;
+                      _os_log_impl(&dword_1BF549000, v40, OS_LOG_TYPE_DEFAULT, "ATXSpotlightClient: Topic: %{sensitive}@ Score: %@, ", buf, 0x16u);
                     }
 
-                    ++v84;
-                    [v80 addObject:v33];
-                    [v79 addObject:v35];
+                    ++v88;
+                    [v84 addObject:v35];
+                    [v83 addObject:v37];
                   }
 
                   else
                   {
-                    if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
+                    if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
                     {
-                      uiSpecification2 = [v32 uiSpecification];
+                      uiSpecification2 = [v33 uiSpecification];
                       title = [uiSpecification2 title];
-                      executableSpecification = [v32 executableSpecification];
+                      executableSpecification = [v33 executableSpecification];
                       executableClassString = [executableSpecification executableClassString];
                       *buf = 138412546;
-                      v106 = title;
-                      v107 = 2112;
-                      v108 = executableClassString;
-                      _os_log_error_impl(&dword_1BF549000, v37, OS_LOG_TYPE_ERROR, "ATXSpotlightClient: Topic: nil: %@, type %@", buf, 0x16u);
+                      v110 = title;
+                      v111 = 2112;
+                      v112 = executableClassString;
+                      _os_log_error_impl(&dword_1BF549000, v40, OS_LOG_TYPE_ERROR, "ATXSpotlightClient: Topic: nil: %@, type %@", buf, 0x16u);
                     }
                   }
 
-                  v30 = scopeCopy;
+                  v31 = scopeCopy;
                 }
 
                 ++v14;
@@ -781,60 +783,60 @@ LABEL_19:
 
               else
               {
-                v39 = __atxlog_handle_ui();
-                if (os_log_type_enabled(v39, OS_LOG_TYPE_INFO))
+                v42 = __atxlog_handle_ui(v34);
+                if (os_log_type_enabled(v42, OS_LOG_TYPE_INFO))
                 {
                   *buf = 138412546;
-                  v106 = v32;
-                  v107 = 2112;
-                  v108 = v30;
-                  _os_log_impl(&dword_1BF549000, v39, OS_LOG_TYPE_INFO, "Filtering %@ as it doesn't meet the scope: %@", buf, 0x16u);
+                  v110 = v33;
+                  v111 = 2112;
+                  v112 = v31;
+                  _os_log_impl(&dword_1BF549000, v42, OS_LOG_TYPE_INFO, "Filtering %@ as it doesn't meet the scope: %@", buf, 0x16u);
                 }
               }
             }
 
-            v28 = [suggestions3 countByEnumeratingWithState:&v94 objects:v104 count:16];
+            v29 = [suggestions3 countByEnumeratingWithState:&v98 objects:v108 count:16];
           }
 
-          while (v28);
+          while (v29);
         }
 
         else
         {
-          v84 = 0;
+          v88 = 0;
         }
 
-        contextTitle2 = [v74 contextTitle];
-        v42 = objc_opt_new();
-        v90 = 0u;
-        v91 = 0u;
-        v92 = 0u;
-        v93 = 0u;
-        suggestions4 = [v74 suggestions];
-        v44 = [suggestions4 countByEnumeratingWithState:&v90 objects:v103 count:16];
-        if (v44)
+        contextTitle2 = [v78 contextTitle];
+        v45 = objc_opt_new();
+        v94 = 0u;
+        v95 = 0u;
+        v96 = 0u;
+        v97 = 0u;
+        suggestions4 = [v78 suggestions];
+        v47 = [suggestions4 countByEnumeratingWithState:&v94 objects:v107 count:16];
+        if (v47)
         {
-          v45 = v44;
-          v46 = *v91;
+          v48 = v47;
+          v49 = *v95;
           while (2)
           {
-            for (j = 0; j != v45; ++j)
+            for (j = 0; j != v48; ++j)
             {
-              if (*v91 != v46)
+              if (*v95 != v49)
               {
                 objc_enumerationMutation(suggestions4);
               }
 
-              v48 = [v42 contextTitleWithSuggestion:*(*(&v90 + 1) + 8 * j) eventTitle:contextTitle2];
-              if ([v48 length])
+              v51 = [v45 contextTitleWithSuggestion:*(*(&v94 + 1) + 8 * j) eventTitle:contextTitle2];
+              if ([v51 length])
               {
 
                 goto LABEL_45;
               }
             }
 
-            v45 = [suggestions4 countByEnumeratingWithState:&v90 objects:v103 count:16];
-            if (v45)
+            v48 = [suggestions4 countByEnumeratingWithState:&v94 objects:v107 count:16];
+            if (v48)
             {
               continue;
             }
@@ -843,103 +845,103 @@ LABEL_19:
           }
         }
 
-        v48 = contextTitle2;
+        v51 = contextTitle2;
 LABEL_45:
 
-        sectionIdentifier = __atxlog_handle_ui();
-        v50 = os_log_type_enabled(sectionIdentifier, OS_LOG_TYPE_DEFAULT);
-        if (v84)
+        sectionIdentifier = __atxlog_handle_ui(v52);
+        v54 = os_log_type_enabled(sectionIdentifier, OS_LOG_TYPE_DEFAULT);
+        if (v88)
         {
-          if (v50)
+          if (v54)
           {
-            contextTitle3 = [v74 contextTitle];
-            v52 = [contextTitle3 hash];
+            contextTitle3 = [v78 contextTitle];
+            v56 = [contextTitle3 hash];
             *buf = 134218240;
-            v106 = v52;
-            v107 = 2048;
-            v108 = v84;
+            v110 = v56;
+            v111 = 2048;
+            v112 = v88;
             _os_log_impl(&dword_1BF549000, sectionIdentifier, OS_LOG_TYPE_DEFAULT, "ATXSpotlightClient: Creating Section [%lu] with suggestions count %lu", buf, 0x16u);
           }
 
-          sectionIdentifier = [v74 sectionIdentifier];
-          contextTitle4 = [ATXSpotlightClientResponse createSectionWithTitle:v48 sectionBundleIdentifier:sectionIdentifier resultCount:v84];
-          [v71 addObject:contextTitle4];
+          sectionIdentifier = [v78 sectionIdentifier];
+          contextTitle4 = [ATXSpotlightClientResponse createSectionWithTitle:v51 sectionBundleIdentifier:sectionIdentifier resultCount:v88];
+          [v75 addObject:contextTitle4];
         }
 
         else
         {
-          if (!v50)
+          if (!v54)
           {
             goto LABEL_52;
           }
 
-          contextTitle4 = [v74 contextTitle];
-          v54 = [contextTitle4 hash];
+          contextTitle4 = [v78 contextTitle];
+          v58 = [contextTitle4 hash];
           *buf = 134217984;
-          v106 = v54;
+          v110 = v58;
           _os_log_impl(&dword_1BF549000, sectionIdentifier, OS_LOG_TYPE_DEFAULT, "ATXSpotlightClient: Skipping Section [%lu] no longer has valid suggestions", buf, 0xCu);
         }
 
 LABEL_52:
-        v15 = v75 + 1;
+        v15 = v79 + 1;
       }
 
-      while (v75 + 1 != v73);
-      v73 = [obj countByEnumeratingWithState:&v98 objects:v111 count:16];
+      while (v79 + 1 != v77);
+      v77 = [obj countByEnumeratingWithState:&v102 objects:v115 count:16];
     }
 
-    while (v73);
+    while (v77);
   }
 
-  v88 = 0u;
-  v89 = 0u;
-  v86 = 0u;
-  v87 = 0u;
-  topicsCopy = v69;
-  v55 = v69;
-  v56 = [v55 countByEnumeratingWithState:&v86 objects:v102 count:16];
-  if (v56)
+  v92 = 0u;
+  v93 = 0u;
+  v90 = 0u;
+  v91 = 0u;
+  topicsCopy = v73;
+  v59 = v73;
+  v60 = [v59 countByEnumeratingWithState:&v90 objects:v106 count:16];
+  if (v60)
   {
-    v57 = v56;
-    v58 = 0;
-    v59 = *v87;
-    v60 = 10.0;
+    v61 = v60;
+    v62 = 0;
+    v63 = *v91;
+    v64 = 10.0;
 LABEL_56:
-    v61 = 0;
-    if (v58 <= 3)
+    v65 = 0;
+    if (v62 <= 3)
     {
-      v62 = 3 - v58;
+      v66 = 3 - v62;
     }
 
     else
     {
-      v62 = 0;
+      v66 = 0;
     }
 
     while (1)
     {
-      v63 = v58;
-      if (*v87 != v59)
+      v67 = v62;
+      if (*v91 != v63)
       {
-        objc_enumerationMutation(v55);
+        objc_enumerationMutation(v59);
       }
 
-      [v80 addObject:*(*(&v86 + 1) + 8 * v61)];
-      v64 = [MEMORY[0x1E696AD98] numberWithDouble:v60];
-      [v79 addObject:v64];
+      [v84 addObject:*(*(&v90 + 1) + 8 * v65)];
+      v68 = [MEMORY[0x1E696AD98] numberWithDouble:v64];
+      [v83 addObject:v68];
 
-      if (v62 == v61)
+      if (v66 == v65)
       {
         break;
       }
 
-      v60 = v60 + -1.0;
-      ++v61;
-      v58 = v63 + 1;
-      if (v57 == v61)
+      v64 = v64 + -1.0;
+      ++v65;
+      v62 = v67 + 1;
+      if (v61 == v65)
       {
-        v57 = [v55 countByEnumeratingWithState:&v86 objects:v102 count:16];
-        if (v57)
+        v61 = [v59 countByEnumeratingWithState:&v90 objects:v106 count:16];
+        if (v61)
         {
           goto LABEL_56;
         }
@@ -948,22 +950,22 @@ LABEL_56:
       }
     }
 
-    v55 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
-    v65 = [v55 localizedStringForKey:@"SPOTLIGHT_SECTION_RECENTS" value:&stru_1F3E050C8 table:0];
-    v66 = [ATXSpotlightClientResponse createSectionWithTitle:v65 sectionBundleIdentifier:@"com.apple.spotlight.dec.zkw.recents" resultCount:v63 + 1];
-    v67 = v71;
-    [v71 addObject:v66];
+    v59 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
+    v69 = [v59 localizedStringForKey:@"SPOTLIGHT_SECTION_RECENTS" value:&stru_1F3E050C8 table:0];
+    v70 = [ATXSpotlightClientResponse createSectionWithTitle:v69 sectionBundleIdentifier:@"com.apple.spotlight.dec.zkw.recents" resultCount:v67 + 1];
+    v71 = v75;
+    [v75 addObject:v70];
 
-    topicsCopy = v69;
+    topicsCopy = v73;
   }
 
   else
   {
-    v67 = v71;
+    v71 = v75;
   }
 
-  _responseWithUpcomingMedia = [[ATXSpotlightClientResponse alloc] initWithTopics:v80 scores:v79 sections:v67];
-  layoutCopy = v82;
+  _responseWithUpcomingMedia = [[ATXSpotlightClientResponse alloc] initWithTopics:v84 scores:v83 sections:v71];
+  layoutCopy = v86;
 LABEL_67:
 
   return _responseWithUpcomingMedia;
@@ -981,7 +983,7 @@ LABEL_67:
     atxSpotlightActionExecutableObject = [suggestionCopy atxSpotlightActionExecutableObject];
     topic = [atxSpotlightActionExecutableObject topic];
 LABEL_9:
-    v20 = topic;
+    v21 = topic;
     goto LABEL_10;
   }
 
@@ -994,87 +996,87 @@ LABEL_9:
 
     if (!v14)
     {
-      v15 = __atxlog_handle_ui();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
+      v16 = __atxlog_handle_ui(v15);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
       {
         +[ATXSpotlightClient _topicWithSuggestion:layoutUUID:];
       }
 
-      v16 = objc_opt_new();
-      uUIDString = [v16 UUIDString];
+      v17 = objc_opt_new();
+      uUIDString = [v17 UUIDString];
       [atxSpotlightActionExecutableObject setIdentifier:uUIDString];
     }
 
-    v18 = [suggestionCopy copy];
-    [atxSpotlightActionExecutableObject setProactiveSuggestion:v18];
+    v19 = [suggestionCopy copy];
+    [atxSpotlightActionExecutableObject setProactiveSuggestion:v19];
 
-    v19 = [dCopy copy];
-    [atxSpotlightActionExecutableObject setBlendingModelUICacheUpdateUUID:v19];
+    v20 = [dCopy copy];
+    [atxSpotlightActionExecutableObject setBlendingModelUICacheUpdateUUID:v20];
 
     topic = [MEMORY[0x1E69D3DE8] proactiveTopicWithResult:atxSpotlightActionExecutableObject];
     goto LABEL_9;
   }
 
-  v20 = 0;
+  v21 = 0;
 LABEL_10:
 
-  return v20;
+  return v21;
 }
 
 + (id)_fetchSpotlightRecentTopics:(int64_t)topics
 {
-  v23[1] = *MEMORY[0x1E69E9840];
-  v4 = __atxlog_handle_metrics();
+  v27[1] = *MEMORY[0x1E69E9840];
+  v4 = __atxlog_handle_metrics(self);
   v5 = os_signpost_id_generate(v4);
 
-  v6 = __atxlog_handle_ui();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = __atxlog_handle_ui(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v18 = 134217984;
+    v22 = 134217984;
     topicsCopy = topics;
-    _os_log_impl(&dword_1BF549000, v6, OS_LOG_TYPE_DEFAULT, "spotlight recents request: %ld", &v18, 0xCu);
+    _os_log_impl(&dword_1BF549000, v7, OS_LOG_TYPE_DEFAULT, "spotlight recents request: %ld", &v22, 0xCu);
   }
 
-  v7 = __atxlog_handle_metrics();
-  v8 = v7;
-  if (v5 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v7))
+  v9 = __atxlog_handle_metrics(v8);
+  v10 = v9;
+  if (v5 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v9))
   {
-    LOWORD(v18) = 0;
-    _os_signpost_emit_with_name_impl(&dword_1BF549000, v8, OS_SIGNPOST_INTERVAL_BEGIN, v5, "ATXSpotlightClient.SpotlightRecents", " enableTelemetry=YES ", &v18, 2u);
+    LOWORD(v22) = 0;
+    _os_signpost_emit_with_name_impl(&dword_1BF549000, v10, OS_SIGNPOST_INTERVAL_BEGIN, v5, "ATXSpotlightClient.SpotlightRecents", " enableTelemetry=YES ", &v22, 2u);
   }
 
-  v9 = MEMORY[0x1E69D3DF0];
-  v22 = *MEMORY[0x1E69D3DF8];
-  v10 = [MEMORY[0x1E696AD98] numberWithInteger:topics];
-  v23[0] = v10;
-  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:&v22 count:1];
-  v12 = [v9 recentResultsWithOptions:v11];
+  v11 = MEMORY[0x1E69D3DF0];
+  v26 = *MEMORY[0x1E69D3DF8];
+  v12 = [MEMORY[0x1E696AD98] numberWithInteger:topics];
+  v27[0] = v12;
+  v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v27 forKeys:&v26 count:1];
+  v14 = [v11 recentResultsWithOptions:v13];
 
-  v13 = __atxlog_handle_metrics();
-  v14 = v13;
-  if (v5 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v13))
+  v16 = __atxlog_handle_metrics(v15);
+  v17 = v16;
+  if (v5 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v16))
   {
-    LOWORD(v18) = 0;
-    _os_signpost_emit_with_name_impl(&dword_1BF549000, v14, OS_SIGNPOST_INTERVAL_END, v5, "ATXSpotlightClient.SpotlightRecents", " enableTelemetry=YES ", &v18, 2u);
+    LOWORD(v22) = 0;
+    _os_signpost_emit_with_name_impl(&dword_1BF549000, v17, OS_SIGNPOST_INTERVAL_END, v5, "ATXSpotlightClient.SpotlightRecents", " enableTelemetry=YES ", &v22, 2u);
   }
 
-  v15 = __atxlog_handle_ui();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+  v19 = __atxlog_handle_ui(v18);
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
   {
-    v16 = [v12 count];
-    v18 = 134218243;
-    topicsCopy = v16;
-    v20 = 2117;
-    v21 = v12;
-    _os_log_impl(&dword_1BF549000, v15, OS_LOG_TYPE_DEFAULT, "spotlight recents results: %ld %{sensitive}@", &v18, 0x16u);
+    v20 = [v14 count];
+    v22 = 134218243;
+    topicsCopy = v20;
+    v24 = 2117;
+    v25 = v14;
+    _os_log_impl(&dword_1BF549000, v19, OS_LOG_TYPE_DEFAULT, "spotlight recents results: %ld %{sensitive}@", &v22, 0x16u);
   }
 
-  return v12;
+  return v14;
 }
 
 id __53__ATXSpotlightClient__extractTopicsFromRecentTopics___block_invoke(uint64_t a1, void *a2)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v2 = a2;
   v3 = [v2 topic];
   objc_opt_class();
@@ -1082,45 +1084,45 @@ id __53__ATXSpotlightClient__extractTopicsFromRecentTopics___block_invoke(uint64
 
   if ((isKindOfClass & 1) == 0)
   {
-    v5 = __atxlog_handle_ui();
-    if (!os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = __atxlog_handle_ui(v5);
+    if (!os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_8;
     }
 
-    v10 = objc_opt_class();
-    v6 = NSStringFromClass(v10);
-    v8 = [v2 topic];
-    v13 = 138412547;
-    v14 = v6;
-    v15 = 2117;
-    v16 = v8;
-    _os_log_impl(&dword_1BF549000, v5, OS_LOG_TYPE_DEFAULT, "spotlight recent %@: %{sensitive}@", &v13, 0x16u);
+    v11 = objc_opt_class();
+    v7 = NSStringFromClass(v11);
+    v9 = [v2 topic];
+    v14 = 138412547;
+    v15 = v7;
+    v16 = 2117;
+    v17 = v9;
+    _os_log_impl(&dword_1BF549000, v6, OS_LOG_TYPE_DEFAULT, "spotlight recent %@: %{sensitive}@", &v14, 0x16u);
     goto LABEL_6;
   }
 
-  v5 = [v2 topic];
-  v6 = __atxlog_handle_ui();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v6 = [v2 topic];
+  v7 = __atxlog_handle_ui(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = objc_opt_class();
-    v8 = NSStringFromClass(v7);
-    v9 = [v5 query];
-    v13 = 138412803;
-    v14 = v8;
-    v15 = 2117;
-    v16 = v9;
-    v17 = 1024;
-    v18 = [v5 queryType];
-    _os_log_impl(&dword_1BF549000, v6, OS_LOG_TYPE_DEFAULT, "spotlight recent %@: %{sensitive}@, %d", &v13, 0x1Cu);
+    v8 = objc_opt_class();
+    v9 = NSStringFromClass(v8);
+    v10 = [v6 query];
+    v14 = 138412803;
+    v15 = v9;
+    v16 = 2117;
+    v17 = v10;
+    v18 = 1024;
+    v19 = [v6 queryType];
+    _os_log_impl(&dword_1BF549000, v7, OS_LOG_TYPE_DEFAULT, "spotlight recent %@: %{sensitive}@, %d", &v14, 0x1Cu);
 
 LABEL_6:
   }
 
 LABEL_8:
-  v11 = [v2 topic];
+  v12 = [v2 topic];
 
-  return v11;
+  return v12;
 }
 
 + (id)_fetchSpotlightRecentTopicsWithAlternateRanking:(int64_t)ranking limit:(int64_t)limit
@@ -1164,7 +1166,7 @@ id __76__ATXSpotlightClient__fetchSpotlightRecentTopicsWithAlternateRanking_limi
 + (id)rerankRecents:(id)recents withAlternateRanking:(unint64_t)ranking
 {
   recentsCopy = recents;
-  v7 = __atxlog_handle_ui();
+  v7 = __atxlog_handle_ui(recentsCopy);
   v8 = v7;
   if (ranking > 1)
   {
@@ -1235,7 +1237,7 @@ LABEL_16:
   v9 = [self rerankRecents_Filter:recentsCopy removingType:30];
 LABEL_21:
   v12 = v9;
-  v13 = __atxlog_handle_ui();
+  v13 = __atxlog_handle_ui(v9);
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
   {
     [ATXSpotlightClient rerankRecents:v12 withAlternateRanking:?];
@@ -1246,84 +1248,85 @@ LABEL_21:
 
 + (id)rerankRecents_Normal:(id)normal
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v49 = *MEMORY[0x1E69E9840];
   normalCopy = normal;
   v4 = objc_alloc_init(MEMORY[0x1E695DF70]);
   v5 = objc_alloc_init(MEMORY[0x1E695DF00]);
   v6 = [v5 dateByAddingTimeInterval:-604800.0];
-  v41 = 0u;
-  v42 = 0u;
-  v43 = 0u;
   v44 = 0u;
+  v45 = 0u;
+  v46 = 0u;
+  v47 = 0u;
   v7 = normalCopy;
-  v8 = [v7 countByEnumeratingWithState:&v41 objects:v45 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v44 objects:v48 count:16];
   if (!v8)
   {
     goto LABEL_28;
   }
 
   v9 = v8;
-  v10 = *v42;
-  v32 = v5;
+  v10 = *v45;
+  v35 = v5;
   while (2)
   {
     for (i = 0; i != v9; ++i)
     {
-      if (*v42 != v10)
+      if (*v45 != v10)
       {
         objc_enumerationMutation(v7);
       }
 
-      v12 = *(*(&v41 + 1) + 8 * i);
-      if ([v4 count] >= 0xA)
+      v12 = *(*(&v44 + 1) + 8 * i);
+      v13 = [v4 count];
+      if (v13 >= 0xA)
       {
-        v29 = __atxlog_handle_ui();
-        if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+        v32 = __atxlog_handle_ui(v13);
+        if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          v30 = "[Recents]: V0 only considers first 10";
+          v33 = "[Recents]: V0 only considers first 10";
 LABEL_26:
-          _os_log_impl(&dword_1BF549000, v29, OS_LOG_TYPE_DEFAULT, v30, buf, 2u);
+          _os_log_impl(&dword_1BF549000, v32, OS_LOG_TYPE_DEFAULT, v33, buf, 2u);
         }
 
 LABEL_27:
-        v5 = v32;
+        v5 = v35;
 
         goto LABEL_28;
       }
 
       engagementTime = [v12 engagementTime];
       [engagementTime timeIntervalSinceReferenceDate];
-      v15 = v14;
+      v16 = v15;
       [v6 timeIntervalSinceReferenceDate];
-      v17 = v16;
+      v18 = v17;
 
-      if (v15 < v17)
+      if (v16 < v18)
       {
-        v29 = __atxlog_handle_ui();
-        if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+        v32 = __atxlog_handle_ui(v19);
+        if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          v30 = "[Recents]: V0 no need to consider more past max date";
+          v33 = "[Recents]: V0 no need to consider more past max date";
           goto LABEL_26;
         }
 
         goto LABEL_27;
       }
 
-      v39[0] = MEMORY[0x1E69E9820];
-      v39[1] = 3221225472;
-      v39[2] = __43__ATXSpotlightClient_rerankRecents_Normal___block_invoke;
-      v39[3] = &unk_1E80C6290;
-      v39[4] = v12;
-      v18 = [v4 indexOfObjectPassingTest:v39];
-      v19 = __atxlog_handle_ui();
-      v20 = os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG);
-      if (v18 == 0x7FFFFFFFFFFFFFFFLL)
+      v42[0] = MEMORY[0x1E69E9820];
+      v42[1] = 3221225472;
+      v42[2] = __43__ATXSpotlightClient_rerankRecents_Normal___block_invoke;
+      v42[3] = &unk_1E80C6290;
+      v42[4] = v12;
+      v20 = [v4 indexOfObjectPassingTest:v42];
+      v21 = __atxlog_handle_ui(v20);
+      v22 = os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG);
+      if (v20 == 0x7FFFFFFFFFFFFFFFLL)
       {
-        if (v20)
+        if (v22)
         {
-          [(ATXSpotlightClient *)&v37 rerankRecents_Normal:v38];
+          [(ATXSpotlightClient *)&v40 rerankRecents_Normal:v41];
         }
 
         [v4 addObject:v12];
@@ -1331,32 +1334,32 @@ LABEL_27:
 
       else
       {
-        if (v20)
+        if (v22)
         {
-          [(ATXSpotlightClient *)&v35 rerankRecents_Normal:v36];
+          [(ATXSpotlightClient *)&v38 rerankRecents_Normal:v39];
         }
 
-        v21 = [v4 objectAtIndexedSubscript:v18];
-        engagementTime2 = [v21 engagementTime];
+        v23 = [v4 objectAtIndexedSubscript:v20];
+        engagementTime2 = [v23 engagementTime];
         [engagementTime2 timeIntervalSinceReferenceDate];
-        v24 = v23;
+        v26 = v25;
         engagementTime3 = [v12 engagementTime];
         [engagementTime3 timeIntervalSinceReferenceDate];
-        v27 = v26;
+        v29 = v28;
 
-        if (v24 < v27)
+        if (v26 < v29)
         {
-          v28 = __atxlog_handle_ui();
-          if (os_log_type_enabled(v28, OS_LOG_TYPE_FAULT))
+          v31 = __atxlog_handle_ui(v30);
+          if (os_log_type_enabled(v31, OS_LOG_TYPE_FAULT))
           {
-            [(ATXSpotlightClient *)&v33 rerankRecents_Normal:v34];
+            [(ATXSpotlightClient *)&v36 rerankRecents_Normal:v37];
           }
         }
       }
     }
 
-    v9 = [v7 countByEnumeratingWithState:&v41 objects:v45 count:16];
-    v5 = v32;
+    v9 = [v7 countByEnumeratingWithState:&v44 objects:v48 count:16];
+    v5 = v35;
     if (v9)
     {
       continue;
@@ -1406,65 +1409,66 @@ uint64_t __43__ATXSpotlightClient_rerankRecents_Normal___block_invoke(uint64_t a
 BOOL __56__ATXSpotlightClient_rerankRecents_Filter_removingType___block_invoke(uint64_t a1, void *a2)
 {
   v3 = [a2 type];
-  v6 = *(a1 + 32);
-  v4 = (a1 + 32);
-  v5 = v6;
-  if (v3 == v6)
+  v4 = v3;
+  v7 = *(a1 + 32);
+  v5 = (a1 + 32);
+  v6 = v7;
+  if (v3 == v7)
   {
-    v7 = __atxlog_handle_ui();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+    v8 = __atxlog_handle_ui(v3);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
-      __56__ATXSpotlightClient_rerankRecents_Filter_removingType___block_invoke_cold_1(v4, v7);
+      __56__ATXSpotlightClient_rerankRecents_Filter_removingType___block_invoke_cold_1(v5, v8);
     }
   }
 
-  return v3 != v5;
+  return v4 != v6;
 }
 
 + (id)rerankRecents_LimitCount:(id)count oneCountDays:(double)days twoCountDays:(double)countDays
 {
-  v56 = *MEMORY[0x1E69E9840];
+  v58 = *MEMORY[0x1E69E9840];
   countCopy = count;
   v8 = objc_alloc_init(MEMORY[0x1E695DF70]);
   v9 = objc_alloc_init(MEMORY[0x1E695DF70]);
   v10 = objc_alloc_init(MEMORY[0x1E695DF00]);
-  v37 = [v10 dateByAddingTimeInterval:days * -86400.0];
-  v38 = v10;
-  v36 = [v10 dateByAddingTimeInterval:countDays * -86400.0];
-  v51 = 0u;
-  v52 = 0u;
+  v39 = [v10 dateByAddingTimeInterval:days * -86400.0];
+  v40 = v10;
+  v38 = [v10 dateByAddingTimeInterval:countDays * -86400.0];
   v53 = 0u;
   v54 = 0u;
+  v55 = 0u;
+  v56 = 0u;
   obj = countCopy;
-  v11 = [obj countByEnumeratingWithState:&v51 objects:v55 count:16];
+  v11 = [obj countByEnumeratingWithState:&v53 objects:v57 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v52;
+    v13 = *v54;
     do
     {
       v14 = 0;
       do
       {
-        if (*v52 != v13)
+        if (*v54 != v13)
         {
           objc_enumerationMutation(obj);
         }
 
-        v15 = *(*(&v51 + 1) + 8 * v14);
-        v50[0] = MEMORY[0x1E69E9820];
-        v50[1] = 3221225472;
-        v50[2] = __73__ATXSpotlightClient_rerankRecents_LimitCount_oneCountDays_twoCountDays___block_invoke;
-        v50[3] = &unk_1E80C6290;
-        v50[4] = v15;
-        v16 = [v8 indexOfObjectPassingTest:v50];
-        v17 = __atxlog_handle_ui();
+        v15 = *(*(&v53 + 1) + 8 * v14);
+        v52[0] = MEMORY[0x1E69E9820];
+        v52[1] = 3221225472;
+        v52[2] = __73__ATXSpotlightClient_rerankRecents_LimitCount_oneCountDays_twoCountDays___block_invoke;
+        v52[3] = &unk_1E80C6290;
+        v52[4] = v15;
+        v16 = [v8 indexOfObjectPassingTest:v52];
+        v17 = __atxlog_handle_ui(v16);
         v18 = os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG);
         if (v16 == 0x7FFFFFFFFFFFFFFFLL)
         {
           if (v18)
           {
-            [(ATXSpotlightClient *)&v48 rerankRecents_Normal:v49];
+            [(ATXSpotlightClient *)&v50 rerankRecents_Normal:v51];
           }
 
           [v8 addObject:v15];
@@ -1475,7 +1479,7 @@ BOOL __56__ATXSpotlightClient_rerankRecents_Filter_removingType___block_invoke(u
         {
           if (v18)
           {
-            [ATXSpotlightClient rerankRecents_LimitCount:v47 oneCountDays:? twoCountDays:?];
+            [ATXSpotlightClient rerankRecents_LimitCount:v49 oneCountDays:? twoCountDays:?];
           }
 
           v19 = [v9 objectAtIndexedSubscript:v16];
@@ -1492,10 +1496,10 @@ BOOL __56__ATXSpotlightClient_rerankRecents_Filter_removingType___block_invoke(u
 
           if (v24 < v27)
           {
-            v28 = __atxlog_handle_ui();
-            if (os_log_type_enabled(v28, OS_LOG_TYPE_FAULT))
+            v29 = __atxlog_handle_ui(v28);
+            if (os_log_type_enabled(v29, OS_LOG_TYPE_FAULT))
             {
-              [(ATXSpotlightClient *)&v44 rerankRecents_Normal:v45];
+              [(ATXSpotlightClient *)&v46 rerankRecents_Normal:v47];
             }
           }
         }
@@ -1504,36 +1508,36 @@ BOOL __56__ATXSpotlightClient_rerankRecents_Filter_removingType___block_invoke(u
       }
 
       while (v12 != v14);
-      v12 = [obj countByEnumeratingWithState:&v51 objects:v55 count:16];
+      v12 = [obj countByEnumeratingWithState:&v53 objects:v57 count:16];
     }
 
     while (v12);
   }
 
-  v29 = __atxlog_handle_ui();
-  if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
+  v31 = __atxlog_handle_ui(v30);
+  if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
   {
     [ATXSpotlightClient rerankRecents_LimitCount:v8 oneCountDays:? twoCountDays:?];
   }
 
-  v40[0] = MEMORY[0x1E69E9820];
-  v40[1] = 3221225472;
-  v40[2] = __73__ATXSpotlightClient_rerankRecents_LimitCount_oneCountDays_twoCountDays___block_invoke_339;
-  v40[3] = &unk_1E80C62D8;
-  v41 = v9;
-  v42 = v37;
-  v43 = v36;
-  v30 = v36;
-  v31 = v37;
-  v32 = v9;
-  v33 = [v8 _pas_filteredArrayWithIndexedTest:v40];
-  v34 = __atxlog_handle_ui();
-  if (os_log_type_enabled(v34, OS_LOG_TYPE_DEBUG))
+  v42[0] = MEMORY[0x1E69E9820];
+  v42[1] = 3221225472;
+  v42[2] = __73__ATXSpotlightClient_rerankRecents_LimitCount_oneCountDays_twoCountDays___block_invoke_339;
+  v42[3] = &unk_1E80C62D8;
+  v43 = v9;
+  v44 = v39;
+  v45 = v38;
+  v32 = v38;
+  v33 = v39;
+  v34 = v9;
+  v35 = [v8 _pas_filteredArrayWithIndexedTest:v42];
+  v36 = __atxlog_handle_ui(v35);
+  if (os_log_type_enabled(v36, OS_LOG_TYPE_DEBUG))
   {
-    [ATXSpotlightClient rerankRecents_LimitCount:v33 oneCountDays:? twoCountDays:?];
+    [ATXSpotlightClient rerankRecents_LimitCount:v35 oneCountDays:? twoCountDays:?];
   }
 
-  return v33;
+  return v35;
 }
 
 uint64_t __73__ATXSpotlightClient_rerankRecents_LimitCount_oneCountDays_twoCountDays___block_invoke(uint64_t a1, void *a2)
@@ -1564,16 +1568,16 @@ uint64_t __73__ATXSpotlightClient_rerankRecents_LimitCount_oneCountDays_twoCount
 
   if (v7 == 2)
   {
-    v14 = [v5 engagementTime];
-    [v14 timeIntervalSinceReferenceDate];
-    v16 = v15;
+    v15 = [v5 engagementTime];
+    [v15 timeIntervalSinceReferenceDate];
+    v17 = v16;
     [a1[6] timeIntervalSinceReferenceDate];
-    v18 = v17;
+    v19 = v18;
 
-    if (v16 < v18)
+    if (v17 < v19)
     {
-      v13 = __atxlog_handle_ui();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+      v14 = __atxlog_handle_ui(v20);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
       {
         __73__ATXSpotlightClient_rerankRecents_LimitCount_oneCountDays_twoCountDays___block_invoke_339_cold_1(v5);
       }
@@ -1582,7 +1586,7 @@ uint64_t __73__ATXSpotlightClient_rerankRecents_LimitCount_oneCountDays_twoCount
     }
 
 LABEL_10:
-    v19 = 1;
+    v21 = 1;
     goto LABEL_11;
   }
 
@@ -1602,18 +1606,18 @@ LABEL_10:
     goto LABEL_10;
   }
 
-  v13 = __atxlog_handle_ui();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+  v14 = __atxlog_handle_ui(v13);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
   {
     __73__ATXSpotlightClient_rerankRecents_LimitCount_oneCountDays_twoCountDays___block_invoke_339_cold_2(v5);
   }
 
 LABEL_9:
 
-  v19 = 0;
+  v21 = 0;
 LABEL_11:
 
-  return v19;
+  return v21;
 }
 
 + (BOOL)_isEqualRecentTopics:(id)topics otherRecentTopics:(id)recentTopics
@@ -1675,16 +1679,16 @@ LABEL_11:
 
   if (executableType == 2)
   {
-    v7 = __atxlog_handle_ui();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = __atxlog_handle_ui(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_1BF549000, v7, OS_LOG_TYPE_DEFAULT, "ATXSpotlightClient: _resultWithSuggestion is ATXSuggestionExecutableTypeAction", buf, 2u);
+      _os_log_impl(&dword_1BF549000, v8, OS_LOG_TYPE_DEFAULT, "ATXSpotlightClient: _resultWithSuggestion is ATXSuggestionExecutableTypeAction", buf, 2u);
     }
 
-    v8 = [self _resultWithActionSuggestion:suggestionCopy];
+    v9 = [self _resultWithActionSuggestion:suggestionCopy];
 LABEL_17:
-    v19 = v8;
+    v23 = v9;
     goto LABEL_18;
   }
 
@@ -1693,14 +1697,14 @@ LABEL_17:
 
   if (executableType2 == 5)
   {
-    v11 = __atxlog_handle_ui();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v13 = __atxlog_handle_ui(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      *v23 = 0;
-      _os_log_impl(&dword_1BF549000, v11, OS_LOG_TYPE_DEFAULT, "ATXSpotlightClient: _resultWithSuggestion is ATXSuggestionExecutableTypeAppClip", v23, 2u);
+      *v27 = 0;
+      _os_log_impl(&dword_1BF549000, v13, OS_LOG_TYPE_DEFAULT, "ATXSpotlightClient: _resultWithSuggestion is ATXSuggestionExecutableTypeAppClip", v27, 2u);
     }
 
-    v8 = [self _resultWithAppClipSuggestion:suggestionCopy];
+    v9 = [self _resultWithAppClipSuggestion:suggestionCopy];
     goto LABEL_17;
   }
 
@@ -1709,50 +1713,50 @@ LABEL_17:
 
   if (executableType3 == 9)
   {
-    v14 = __atxlog_handle_ui();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v17 = __atxlog_handle_ui(v16);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
-      *v22 = 0;
-      _os_log_impl(&dword_1BF549000, v14, OS_LOG_TYPE_DEFAULT, "ATXSpotlightClient: _resultWithSuggestion is ATXSuggestionExecutableTypeShortcutsAction", v22, 2u);
+      *v26 = 0;
+      _os_log_impl(&dword_1BF549000, v17, OS_LOG_TYPE_DEFAULT, "ATXSpotlightClient: _resultWithSuggestion is ATXSuggestionExecutableTypeShortcutsAction", v26, 2u);
     }
 
-    v8 = [self _resultWithShortcutsActionSuggestion:suggestionCopy];
+    v9 = [self _resultWithShortcutsActionSuggestion:suggestionCopy];
     goto LABEL_17;
   }
 
   executableSpecification4 = [suggestionCopy executableSpecification];
   executableType4 = [executableSpecification4 executableType];
 
-  v17 = __atxlog_handle_ui();
-  v18 = v17;
+  v21 = __atxlog_handle_ui(v20);
+  v22 = v21;
   if (executableType4 == 10)
   {
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
     {
-      *v21 = 0;
-      _os_log_impl(&dword_1BF549000, v18, OS_LOG_TYPE_DEFAULT, "ATXSpotlightClient: _resultWithSuggestion is ATXSuggestionExecutableTypeLinkAction", v21, 2u);
+      *v25 = 0;
+      _os_log_impl(&dword_1BF549000, v22, OS_LOG_TYPE_DEFAULT, "ATXSpotlightClient: _resultWithSuggestion is ATXSuggestionExecutableTypeLinkAction", v25, 2u);
     }
 
-    v8 = [self _resultWithLinkActionSuggestion:suggestionCopy];
+    v9 = [self _resultWithLinkActionSuggestion:suggestionCopy];
     goto LABEL_17;
   }
 
-  if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
   {
     [ATXSpotlightClient _resultWithSuggestion:suggestionCopy];
   }
 
-  v19 = 0;
+  v23 = 0;
 LABEL_18:
 
-  return v19;
+  return v23;
 }
 
 + (id)_resultWithLinkActionSuggestion:(id)suggestion
 {
   v13 = *MEMORY[0x1E69E9840];
   suggestionCopy = suggestion;
-  v5 = __atxlog_handle_ui();
+  v5 = __atxlog_handle_ui(suggestionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     uiSpecification = [suggestionCopy uiSpecification];
@@ -1778,7 +1782,7 @@ LABEL_18:
 
 + (id)_resultWithLinkActionContainer:(id)container
 {
-  v33[1] = *MEMORY[0x1E69E9840];
+  v34[1] = *MEMORY[0x1E69E9840];
   containerCopy = container;
   image = [containerCopy image];
 
@@ -1800,18 +1804,19 @@ LABEL_18:
   bundleId = [containerCopy bundleId];
   v11 = [v8 initWithAction:action appBundleIdentifier:bundleId extensionBundleIdentifier:0 authenticationPolicy:0];
 
-  v31 = 0;
-  v12 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:v11 requiringSecureCoding:1 error:&v31];
-  v13 = v31;
+  v32 = 0;
+  v12 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:v11 requiringSecureCoding:1 error:&v32];
+  v13 = v32;
+  v14 = v13;
   if (v13)
   {
-    v14 = __atxlog_handle_ui();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v15 = __atxlog_handle_ui(v13);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       +[ATXSpotlightClient _resultWithLinkActionContainer:];
     }
 
-    v15 = 0;
+    v16 = 0;
   }
 
   else
@@ -1820,57 +1825,57 @@ LABEL_18:
     if (subtitle)
     {
       subtitle2 = [v11 subtitle];
-      v33[0] = subtitle2;
-      v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v33 count:1];
+      v34[0] = subtitle2;
+      v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v34 count:1];
     }
 
     else
     {
-      v14 = MEMORY[0x1E695E0F0];
+      v15 = MEMORY[0x1E695E0F0];
     }
 
     title = [v11 title];
-    v19 = [self _accessoryImageWithContextualAction:v11];
-    v20 = [self detailedRowCardSectionWithTitle:title subtitles:v14 thumbnail:v7 trailingImage:v19];
+    v20 = [self _accessoryImageWithContextualAction:v11];
+    v21 = [self detailedRowCardSectionWithTitle:title subtitles:v15 thumbnail:v7 trailingImage:v20];
 
-    v21 = objc_opt_new();
-    [v21 setIsRunnableWorkflow:1];
-    [v21 setIntentMessageData:v12];
+    v22 = objc_opt_new();
+    [v22 setIsRunnableWorkflow:1];
+    [v22 setIntentMessageData:v12];
     identifier = [v11 identifier];
-    [v21 setIntentMessageName:identifier];
+    [v22 setIntentMessageName:identifier];
 
-    [v20 setCommand:v21];
+    [v21 setCommand:v22];
     identifier2 = [v11 identifier];
-    [v20 setCommandDetail:identifier2];
+    [v21 setCommandDetail:identifier2];
 
-    v15 = objc_opt_new();
+    v16 = objc_opt_new();
     [v11 uniqueIdentifier];
-    v24 = v30 = v7;
-    [v15 setIdentifier:v24];
+    v25 = v31 = v7;
+    [v16 setIdentifier:v25];
 
     associatedAppBundleIdentifier = [v11 associatedAppBundleIdentifier];
-    [v15 setApplicationBundleIdentifier:associatedAppBundleIdentifier];
+    [v16 setApplicationBundleIdentifier:associatedAppBundleIdentifier];
 
-    applicationBundleIdentifier = [v15 applicationBundleIdentifier];
-    [v15 setResultBundleId:applicationBundleIdentifier];
+    applicationBundleIdentifier = [v16 applicationBundleIdentifier];
+    [v16 setResultBundleId:applicationBundleIdentifier];
 
-    v27 = objc_opt_new();
-    v32 = v20;
-    v28 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v32 count:1];
-    [v27 setCardSections:v28];
+    v28 = objc_opt_new();
+    v33 = v21;
+    v29 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v33 count:1];
+    [v28 setCardSections:v29];
 
-    [v15 setInlineCard:v27];
-    v7 = v30;
+    [v16 setInlineCard:v28];
+    v7 = v31;
   }
 
-  return v15;
+  return v16;
 }
 
 + (id)_resultWithShortcutsActionSuggestion:(id)suggestion
 {
   v19 = *MEMORY[0x1E69E9840];
   suggestionCopy = suggestion;
-  v5 = __atxlog_handle_ui();
+  v5 = __atxlog_handle_ui(suggestionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     uiSpecification = [suggestionCopy uiSpecification];
@@ -1903,7 +1908,7 @@ LABEL_18:
 
 + (id)_resultWithContextualAction:(id)action title:(id)title subtitle:(id)subtitle
 {
-  v63[1] = *MEMORY[0x1E69E9840];
+  v66[1] = *MEMORY[0x1E69E9840];
   actionCopy = action;
   titleCopy = title;
   subtitleCopy = subtitle;
@@ -1934,7 +1939,7 @@ LABEL_9:
       goto LABEL_33;
     }
 
-    v58 = v12;
+    v61 = v12;
     integerValue = [subtitleCopy integerValue];
     v14 = [MEMORY[0x1E695DF00] now];
     [v14 timeIntervalSinceReferenceDate];
@@ -1957,14 +1962,14 @@ LABEL_9:
       v24 = [v22 stringFromTimeInterval:v23];
       v25 = MEMORY[0x1E696AEC0];
       [v17 localizedStringForKey:@"SPOTLIGHT_TIME_TO_ALARM" value:&stru_1F3E050C8 table:0];
-      v56 = v17;
+      v59 = v17;
       v26 = v11;
       v28 = v27 = titleCopy;
       v20 = [v25 localizedStringWithFormat:v28, v19, v24];
 
       titleCopy = v27;
       v11 = v26;
-      v17 = v56;
+      v17 = v59;
 
       subtitleCopy = v22;
     }
@@ -1975,21 +1980,21 @@ LABEL_9:
     }
 
     subtitleCopy = v20;
-    v12 = v58;
+    v12 = v61;
   }
 
   v29 = objc_autoreleasePoolPush();
-  v61 = 0;
-  v30 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:actionCopy requiringSecureCoding:1 error:&v61];
-  v31 = v61;
+  v64 = 0;
+  v30 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:actionCopy requiringSecureCoding:1 error:&v64];
+  v31 = v64;
   v32 = v29;
   v33 = v31;
   objc_autoreleasePoolPop(v32);
   if (v33)
   {
-    v34 = v30;
-    v35 = __atxlog_handle_ui();
-    if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+    v35 = v30;
+    v36 = __atxlog_handle_ui(v34);
+    if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
     {
       +[ATXSpotlightClient _resultWithContextualAction:title:subtitle:];
     }
@@ -2004,69 +2009,70 @@ LABEL_9:
     if (icon)
     {
       icon2 = [actionCopy icon];
-      v35 = [self _imageWithContextualActionIcon:icon2];
+      v36 = [self _imageWithContextualActionIcon:icon2];
     }
 
     else
     {
-      icon2 = __atxlog_handle_ui();
+      icon2 = __atxlog_handle_ui(v38);
       if (os_log_type_enabled(icon2, OS_LOG_TYPE_FAULT))
       {
         +[ATXSpotlightClient _resultWithContextualAction:title:subtitle:];
       }
 
-      v35 = 0;
+      v36 = 0;
     }
 
-    v38 = [self _iconForParameterizedAutoShortcutContextualAction:v11 provider:v12];
-    v59 = v12;
-    if (v38)
+    v40 = [self _iconForParameterizedAutoShortcutContextualAction:v11 provider:v12];
+    v41 = v40;
+    v62 = v12;
+    if (v40)
     {
-      v39 = __atxlog_handle_ui();
-      if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
+      v42 = __atxlog_handle_ui(v40);
+      if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_1BF549000, v39, OS_LOG_TYPE_DEFAULT, "ATXSpotlightClient: using icon from parameterized app shortcut", buf, 2u);
+        _os_log_impl(&dword_1BF549000, v42, OS_LOG_TYPE_DEFAULT, "ATXSpotlightClient: using icon from parameterized app shortcut", buf, 2u);
       }
 
-      v40 = [self _imageWithContextualActionIcon:v38];
+      v43 = [self _imageWithContextualActionIcon:v41];
     }
 
     else
     {
-      v40 = [self _accessoryImageWithContextualAction:actionCopy];
+      v43 = [self _accessoryImageWithContextualAction:actionCopy];
     }
 
-    v57 = titleCopy;
-    v54 = v40;
-    v55 = v38;
+    v60 = titleCopy;
+    v57 = v43;
+    v58 = v41;
     if (subtitleCopy)
     {
-      v63[0] = subtitleCopy;
-      v41 = v40;
-      v42 = [MEMORY[0x1E695DEC8] arrayWithObjects:v63 count:1];
-      v43 = [self detailedRowCardSectionWithTitle:titleCopy subtitles:v42 thumbnail:v35 trailingImage:v41];
+      v66[0] = subtitleCopy;
+      v44 = v43;
+      v45 = [MEMORY[0x1E695DEC8] arrayWithObjects:v66 count:1];
+      v46 = [self detailedRowCardSectionWithTitle:titleCopy subtitles:v45 thumbnail:v36 trailingImage:v44];
     }
 
     else
     {
-      v43 = [self detailedRowCardSectionWithTitle:titleCopy subtitles:MEMORY[0x1E695E0F0] thumbnail:v35 trailingImage:v40];
+      v46 = [self detailedRowCardSectionWithTitle:titleCopy subtitles:MEMORY[0x1E695E0F0] thumbnail:v36 trailingImage:v43];
     }
 
-    v44 = objc_opt_new();
-    [v44 setIsRunnableWorkflow:1];
-    [v44 setIntentMessageData:v30];
+    v47 = objc_opt_new();
+    [v47 setIsRunnableWorkflow:1];
+    [v47 setIntentMessageData:v30];
     identifier = [actionCopy identifier];
-    [v44 setIntentMessageName:identifier];
+    [v47 setIntentMessageName:identifier];
 
     settingBiomeStreamIdentifier = [actionCopy settingBiomeStreamIdentifier];
-    [v44 setBiomeStreamIdentifier:settingBiomeStreamIdentifier];
+    [v47 setBiomeStreamIdentifier:settingBiomeStreamIdentifier];
 
-    [v43 setCommand:v44];
+    [v46 setCommand:v47];
     identifier2 = [actionCopy identifier];
-    [v43 setCommandDetail:identifier2];
+    [v46 setCommandDetail:identifier2];
 
-    v34 = v30;
+    v35 = v30;
     v21 = objc_opt_new();
     uniqueIdentifier = [actionCopy uniqueIdentifier];
     [v21 setIdentifier:uniqueIdentifier];
@@ -2077,14 +2083,14 @@ LABEL_9:
     applicationBundleIdentifier = [v21 applicationBundleIdentifier];
     [v21 setResultBundleId:applicationBundleIdentifier];
 
-    v51 = objc_opt_new();
-    v62 = v43;
-    v52 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v62 count:1];
-    [v51 setCardSections:v52];
+    v54 = objc_opt_new();
+    v65 = v46;
+    v55 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v65 count:1];
+    [v54 setCardSections:v55];
 
-    [v21 setInlineCard:v51];
-    titleCopy = v57;
-    v12 = v59;
+    [v21 setInlineCard:v54];
+    titleCopy = v60;
+    v12 = v62;
     v33 = 0;
   }
 
@@ -2131,28 +2137,29 @@ LABEL_6:
 
 + (id)_imageWithContextualActionIcon:(id)icon
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   iconCopy = icon;
   applicationBundleIdentifier = [iconCopy applicationBundleIdentifier];
+  v6 = applicationBundleIdentifier;
   if (applicationBundleIdentifier)
   {
-    v6 = __atxlog_handle_ui();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = __atxlog_handle_ui(applicationBundleIdentifier);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v17 = 138412290;
-      v18 = applicationBundleIdentifier;
-      _os_log_impl(&dword_1BF549000, v6, OS_LOG_TYPE_DEFAULT, "ATXSpotlightClient: using contextualAction.icon.applicationBundleIdentifier %@", &v17, 0xCu);
+      v20 = 138412290;
+      v21 = v6;
+      _os_log_impl(&dword_1BF549000, v7, OS_LOG_TYPE_DEFAULT, "ATXSpotlightClient: using contextualAction.icon.applicationBundleIdentifier %@", &v20, 0xCu);
     }
 
-    v7 = objc_opt_new();
-    if ([applicationBundleIdentifier isEqualToString:@"com.apple.mobilesafari"])
+    v8 = objc_opt_new();
+    if ([v6 isEqualToString:@"com.apple.mobilesafari"])
     {
-      [v7 setIconType:1];
+      [v8 setIconType:1];
     }
 
     else
     {
-      [v7 setBundleIdentifier:applicationBundleIdentifier];
+      [v8 setBundleIdentifier:v6];
     }
   }
 
@@ -2162,59 +2169,59 @@ LABEL_6:
 
     if (imageData)
     {
-      v9 = __atxlog_handle_ui();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      v11 = __atxlog_handle_ui(v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v17) = 0;
-        _os_log_impl(&dword_1BF549000, v9, OS_LOG_TYPE_DEFAULT, "ATXSpotlightClient: using icon.imageData ", &v17, 2u);
+        LOWORD(v20) = 0;
+        _os_log_impl(&dword_1BF549000, v11, OS_LOG_TYPE_DEFAULT, "ATXSpotlightClient: using icon.imageData ", &v20, 2u);
       }
 
-      v7 = objc_alloc_init(MEMORY[0x1E69CA138]);
+      v8 = objc_alloc_init(MEMORY[0x1E69CA138]);
       imageData2 = [iconCopy imageData];
-      [v7 setImageData:imageData2];
+      [v8 setImageData:imageData2];
 
       [iconCopy imageScale];
-      [v7 setScale:?];
+      [v8 setScale:?];
     }
 
     else
     {
       systemName = [iconCopy systemName];
 
-      v12 = __atxlog_handle_ui();
-      v13 = v12;
+      v15 = __atxlog_handle_ui(v14);
+      v16 = v15;
       if (systemName)
       {
-        if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+        if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
         {
           systemName2 = [iconCopy systemName];
-          v17 = 138412290;
-          v18 = systemName2;
-          _os_log_impl(&dword_1BF549000, v13, OS_LOG_TYPE_DEFAULT, "ATXSpotlightClient: using icon.systemName %@", &v17, 0xCu);
+          v20 = 138412290;
+          v21 = systemName2;
+          _os_log_impl(&dword_1BF549000, v16, OS_LOG_TYPE_DEFAULT, "ATXSpotlightClient: using icon.systemName %@", &v20, 0xCu);
         }
 
-        v7 = objc_alloc_init(MEMORY[0x1E69CA4C8]);
+        v8 = objc_alloc_init(MEMORY[0x1E69CA4C8]);
         systemName3 = [iconCopy systemName];
-        [v7 setSymbolName:systemName3];
+        [v8 setSymbolName:systemName3];
 
-        [v7 setIsTemplate:1];
+        [v8 setIsTemplate:1];
       }
 
       else
       {
-        if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
+        if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
         {
           +[ATXSpotlightClient _imageWithContextualActionIcon:];
         }
 
-        v7 = 0;
+        v8 = 0;
       }
     }
   }
 
-  [v7 setCornerRoundingStyle:{objc_msgSend(self, "_imageCornerRoundingStyleForIconDisplayStyle:", objc_msgSend(iconCopy, "displayStyle"))}];
+  [v8 setCornerRoundingStyle:{objc_msgSend(self, "_imageCornerRoundingStyleForIconDisplayStyle:", objc_msgSend(iconCopy, "displayStyle"))}];
 
-  return v7;
+  return v8;
 }
 
 + (id)_imageWithDirectionsContextualAction:(id)action
@@ -2239,51 +2246,51 @@ LABEL_6:
 
 + (id)_resultWithActionSuggestion:(id)suggestion
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   suggestionCopy = suggestion;
   executableSpecification = [suggestionCopy executableSpecification];
   executableClassString = [executableSpecification executableClassString];
 
-  v7 = __atxlog_handle_ui();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v8 = __atxlog_handle_ui(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v14 = 138412290;
-    v15 = executableClassString;
-    _os_log_impl(&dword_1BF549000, v7, OS_LOG_TYPE_DEFAULT, "ATXSpotlightClient: _resultWithActionSuggestion executableClassString:%@", &v14, 0xCu);
+    v16 = 138412290;
+    v17 = executableClassString;
+    _os_log_impl(&dword_1BF549000, v8, OS_LOG_TYPE_DEFAULT, "ATXSpotlightClient: _resultWithActionSuggestion executableClassString:%@", &v16, 0xCu);
   }
 
-  v8 = objc_opt_class();
-  v9 = NSStringFromClass(v8);
-  v10 = [executableClassString isEqualToString:v9];
+  v9 = objc_opt_class();
+  v10 = NSStringFromClass(v9);
+  v11 = [executableClassString isEqualToString:v10];
 
-  if (v10)
+  if (v11)
   {
     atxActionExecutableObject = [suggestionCopy atxActionExecutableObject];
     if (atxActionExecutableObject)
     {
-      v12 = [self _resultWithATXAction:atxActionExecutableObject];
+      v14 = [self _resultWithATXAction:atxActionExecutableObject];
       goto LABEL_9;
     }
   }
 
   else
   {
-    atxActionExecutableObject = __atxlog_handle_ui();
+    atxActionExecutableObject = __atxlog_handle_ui(v12);
     if (os_log_type_enabled(atxActionExecutableObject, OS_LOG_TYPE_ERROR))
     {
       +[ATXSpotlightClient _resultWithActionSuggestion:];
     }
   }
 
-  v12 = 0;
+  v14 = 0;
 LABEL_9:
 
-  return v12;
+  return v14;
 }
 
 + (id)_resultWithIntent:(id)intent title:(id)title subtitle:(id)subtitle bundleIdForDisplay:(id)display appIcon:(id)icon
 {
-  v60 = *MEMORY[0x1E69E9840];
+  v62 = *MEMORY[0x1E69E9840];
   intentCopy = intent;
   titleCopy = title;
   subtitleCopy = subtitle;
@@ -2299,40 +2306,41 @@ LABEL_9:
   }
 
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  isKindOfClass = objc_opt_isKindOfClass();
+  if (isKindOfClass)
   {
-    [iconCopy setBundleIdentifier:@"com.apple.mobilephone"];
+    isKindOfClass = [iconCopy setBundleIdentifier:@"com.apple.mobilephone"];
   }
 
-  v19 = __atxlog_handle_ui();
-  v20 = displayCopy;
-  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+  v20 = __atxlog_handle_ui(isKindOfClass);
+  v21 = displayCopy;
+  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v57 = titleCopy;
-    v58 = 2112;
-    v59 = intentCopy;
-    _os_log_impl(&dword_1BF549000, v19, OS_LOG_TYPE_DEFAULT, "ATXSpotlightClient: _resultWithIntent [%@] intent:%@", buf, 0x16u);
+    v59 = titleCopy;
+    v60 = 2112;
+    v61 = intentCopy;
+    _os_log_impl(&dword_1BF549000, v20, OS_LOG_TYPE_DEFAULT, "ATXSpotlightClient: _resultWithIntent [%@] intent:%@", buf, 0x16u);
   }
 
   INUISearchFoundationImageAdapterClass = getINUISearchFoundationImageAdapterClass();
-  if (intentCopy && (v22 = INUISearchFoundationImageAdapterClass, objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+  if (intentCopy && (v23 = INUISearchFoundationImageAdapterClass, objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
   {
 
-    v23 = [objc_alloc(MEMORY[0x1E696E8B8]) initWithIntent:intentCopy response:0];
-    _keyImage = [v23 _keyImage];
-    v25 = __atxlog_handle_ui();
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+    v24 = [objc_alloc(MEMORY[0x1E696E8B8]) initWithIntent:intentCopy response:0];
+    _keyImage = [v24 _keyImage];
+    v26 = __atxlog_handle_ui(_keyImage);
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
     {
       _identifier = [_keyImage _identifier];
       *buf = 138412290;
-      v57 = _identifier;
-      _os_log_impl(&dword_1BF549000, v25, OS_LOG_TYPE_DEFAULT, "ATXSpotlightClient: _resultWithIntent intentsImage._identifier:%@", buf, 0xCu);
+      v59 = _identifier;
+      _os_log_impl(&dword_1BF549000, v26, OS_LOG_TYPE_DEFAULT, "ATXSpotlightClient: _resultWithIntent intentsImage._identifier:%@", buf, 0xCu);
     }
 
     if (_keyImage)
     {
-      subtitleCopy = [[v22 alloc] initWithIntentsImage:_keyImage];
+      subtitleCopy = [[v23 alloc] initWithIntentsImage:_keyImage];
       [subtitleCopy setSize:{32.0, 32.0}];
     }
 
@@ -2341,99 +2349,100 @@ LABEL_9:
       subtitleCopy = 0;
     }
 
-    v49 = 0;
-    v27 = MEMORY[0x1E695E0F0];
-    v20 = displayCopy;
+    v51 = 0;
+    v28 = MEMORY[0x1E695E0F0];
+    v21 = displayCopy;
   }
 
   else if (subtitleCopy)
   {
-    v49 = subtitleCopy;
-    v55 = subtitleCopy;
-    v27 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v55 count:1];
+    v51 = subtitleCopy;
+    v57 = subtitleCopy;
+    v28 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v57 count:1];
     subtitleCopy = 0;
   }
 
   else
   {
-    v49 = 0;
-    v27 = MEMORY[0x1E695E0F0];
+    v51 = 0;
+    v28 = MEMORY[0x1E695E0F0];
   }
 
-  v50 = iconCopy;
-  v51 = titleCopy;
-  v28 = [self detailedRowCardSectionWithTitle:titleCopy subtitles:v27 thumbnail:iconCopy trailingImage:subtitleCopy];
-  v29 = objc_opt_new();
+  v52 = iconCopy;
+  v53 = titleCopy;
+  v29 = [self detailedRowCardSectionWithTitle:titleCopy subtitles:v28 thumbnail:iconCopy trailingImage:subtitleCopy];
+  v30 = objc_opt_new();
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
     backingStore = [intentCopy backingStore];
     data = [backingStore data];
-    [v29 setIntentMessageData:data];
+    [v30 setIntentMessageData:data];
 
 LABEL_25:
     _intentInstanceDescription = [intentCopy _intentInstanceDescription];
     type = [_intentInstanceDescription type];
-    [v29 setIntentMessageName:type];
+    [v30 setIntentMessageName:type];
 
-    [v29 setApplicationBundleIdentifier:v20];
-    [v28 setCommand:v29];
-    v42 = objc_opt_new();
-    v43 = objc_opt_new();
-    uUIDString = [v43 UUIDString];
-    [v42 setIdentifier:uUIDString];
+    [v30 setApplicationBundleIdentifier:v21];
+    [v29 setCommand:v30];
+    v44 = objc_opt_new();
+    v45 = objc_opt_new();
+    uUIDString = [v45 UUIDString];
+    [v44 setIdentifier:uUIDString];
 
-    [v42 setApplicationBundleIdentifier:v20];
-    applicationBundleIdentifier = [v42 applicationBundleIdentifier];
-    [v42 setResultBundleId:applicationBundleIdentifier];
+    [v44 setApplicationBundleIdentifier:v21];
+    applicationBundleIdentifier = [v44 applicationBundleIdentifier];
+    [v44 setResultBundleId:applicationBundleIdentifier];
 
-    v46 = objc_opt_new();
-    v54 = v28;
-    v47 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v54 count:1];
-    [v46 setCardSections:v47];
+    v48 = objc_opt_new();
+    v56 = v29;
+    v49 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v56 count:1];
+    [v48 setCardSections:v49];
 
-    [v42 setInlineCard:v46];
+    [v44 setInlineCard:v48];
     goto LABEL_26;
   }
 
-  v30 = intentCopy;
-  v31 = objc_alloc(MEMORY[0x1E69E0BC0]);
-  linkAction = [v30 linkAction];
-  v33 = [v31 initWithAction:linkAction appBundleIdentifier:v20 extensionBundleIdentifier:0 authenticationPolicy:0];
+  v31 = intentCopy;
+  v32 = objc_alloc(MEMORY[0x1E69E0BC0]);
+  linkAction = [v31 linkAction];
+  v34 = [v32 initWithAction:linkAction appBundleIdentifier:v21 extensionBundleIdentifier:0 authenticationPolicy:0];
 
-  v53 = 0;
-  v34 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:v33 requiringSecureCoding:1 error:&v53];
-  v35 = v53;
-  if (v34)
+  v55 = 0;
+  v35 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:v34 requiringSecureCoding:1 error:&v55];
+  v36 = v55;
+  v37 = v36;
+  if (v35)
   {
-    [v29 setIsRunnableWorkflow:1];
-    [v29 setIntentMessageData:v34];
-    identifier = [v33 identifier];
-    [v29 setIntentMessageName:identifier];
+    [v30 setIsRunnableWorkflow:1];
+    [v30 setIntentMessageData:v35];
+    identifier = [v34 identifier];
+    [v30 setIntentMessageName:identifier];
 
-    identifier2 = [v33 identifier];
-    [v28 setCommandDetail:identifier2];
+    identifier2 = [v34 identifier];
+    [v29 setCommandDetail:identifier2];
   }
 
   else
   {
-    identifier2 = __atxlog_handle_ui();
+    identifier2 = __atxlog_handle_ui(v36);
     if (os_log_type_enabled(identifier2, OS_LOG_TYPE_ERROR))
     {
       +[ATXSpotlightClient _resultWithLinkActionContainer:];
     }
   }
 
-  v20 = displayCopy;
-  if (v34)
+  v21 = displayCopy;
+  if (v35)
   {
     goto LABEL_25;
   }
 
-  v42 = 0;
+  v44 = 0;
 LABEL_26:
 
-  return v42;
+  return v44;
 }
 
 + (id)_resultWithAppBundleId:(id)id
@@ -2443,7 +2452,7 @@ LABEL_26:
   v4 = [ATXApplicationRecord localizedNameForBundle:idCopy];
   if (![v4 length])
   {
-    v5 = __atxlog_handle_ui();
+    v5 = __atxlog_handle_ui(0);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
       +[ATXSpotlightClient _resultWithAppBundleId:];
@@ -2479,7 +2488,7 @@ LABEL_26:
 
 + (id)_resultWithATXAction:(id)action
 {
-  v63 = *MEMORY[0x1E69E9840];
+  v66 = *MEMORY[0x1E69E9840];
   actionCopy = action;
   actionTitle = [actionCopy actionTitle];
   _bundleIdForDisplay = [actionCopy _bundleIdForDisplay];
@@ -2495,28 +2504,28 @@ LABEL_26:
   v11 = objc_opt_new();
   if ([_bundleIdForDisplay isEqualToString:@"com.apple.mobilesafari"])
   {
-    [v11 setIconType:1];
+    v12 = [v11 setIconType:1];
   }
 
   else
   {
     userActivity = [actionCopy userActivity];
     webpageURL = [userActivity webpageURL];
-    v14 = ATXBundleIdReplacementForBundleIdWithWebpageURLHint();
+    v15 = ATXBundleIdReplacementForBundleIdWithWebpageURLHint();
 
-    [v11 setBundleIdentifier:v14];
-    _bundleIdForDisplay = v14;
+    v12 = [v11 setBundleIdentifier:v15];
+    _bundleIdForDisplay = v15;
   }
 
-  v15 = __atxlog_handle_ui();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+  v16 = __atxlog_handle_ui(v12);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
     bundleId = [actionCopy bundleId];
     *keyExistsAndHasValidFormat = 138412546;
-    v60 = actionTitle;
-    v61 = 2112;
-    v62 = bundleId;
-    _os_log_impl(&dword_1BF549000, v15, OS_LOG_TYPE_DEFAULT, "ATXSpotlightClient: _resultWithATXAction [%@] action.bundleId=%@", keyExistsAndHasValidFormat, 0x16u);
+    v63 = actionTitle;
+    v64 = 2112;
+    v65 = bundleId;
+    _os_log_impl(&dword_1BF549000, v16, OS_LOG_TYPE_DEFAULT, "ATXSpotlightClient: _resultWithATXAction [%@] action.bundleId=%@", keyExistsAndHasValidFormat, 0x16u);
   }
 
   intent = [actionCopy intent];
@@ -2532,11 +2541,11 @@ LABEL_26:
       webpageURL3 = [userActivity3 webpageURL];
 
       host = [webpageURL3 host];
-      v24 = [host isEqualToString:@"trackingshipment.apple.com"];
+      v25 = [host isEqualToString:@"trackingshipment.apple.com"];
 
-      if (v24)
+      if (v25)
       {
-        v25 = 0;
+        v27 = 0;
       }
 
       else
@@ -2550,54 +2559,55 @@ LABEL_26:
           actionSubtitle = schemelessAbsoluteString;
         }
 
-        v25 = [self _symbolImageForName:@"link"];
+        v26 = [self _symbolImageForName:@"link"];
+        v27 = v26;
       }
 
-      v28 = __atxlog_handle_ui();
-      if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+      v30 = __atxlog_handle_ui(v26);
+      if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
       {
         *keyExistsAndHasValidFormat = 138412546;
-        v60 = actionTitle;
-        v61 = 2112;
-        v62 = webpageURL3;
-        _os_log_impl(&dword_1BF549000, v28, OS_LOG_TYPE_DEFAULT, "ATXSpotlightClient: _resultWithATXAction [%@] userActivity webpageURL:%@", keyExistsAndHasValidFormat, 0x16u);
+        v63 = actionTitle;
+        v64 = 2112;
+        v65 = webpageURL3;
+        _os_log_impl(&dword_1BF549000, v30, OS_LOG_TYPE_DEFAULT, "ATXSpotlightClient: _resultWithATXAction [%@] userActivity webpageURL:%@", keyExistsAndHasValidFormat, 0x16u);
       }
     }
 
     else
     {
-      v25 = 0;
+      v27 = 0;
     }
 
     if (actionSubtitle)
     {
-      v58 = actionSubtitle;
-      v29 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v58 count:1];
+      v61 = actionSubtitle;
+      v31 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v61 count:1];
     }
 
     else
     {
-      v29 = MEMORY[0x1E695E0F0];
+      v31 = MEMORY[0x1E695E0F0];
     }
 
-    v55 = v29;
-    v56 = v11;
-    v54 = v25;
-    v30 = [self detailedRowCardSectionWithTitle:actionTitle subtitles:v29 thumbnail:v11 trailingImage:v25];
+    v58 = v31;
+    v59 = v11;
+    v57 = v27;
+    v32 = [self detailedRowCardSectionWithTitle:actionTitle subtitles:v31 thumbnail:v11 trailingImage:v27];
     userActivity4 = [actionCopy userActivity];
     webpageURL4 = [userActivity4 webpageURL];
 
     if (webpageURL4)
     {
-      v33 = objc_opt_new();
-      v34 = MEMORY[0x1E69CA320];
+      v35 = objc_opt_new();
+      v36 = MEMORY[0x1E69CA320];
       userActivity5 = [actionCopy userActivity];
       webpageURL5 = [userActivity5 webpageURL];
-      v37 = [v34 punchoutWithURL:webpageURL5];
-      [v33 setPunchout:v37];
+      v39 = [v36 punchoutWithURL:webpageURL5];
+      [v35 setPunchout:v39];
 
-      [v30 setCommand:v33];
-      v38 = v30;
+      [v32 setCommand:v35];
+      v40 = v32;
     }
 
     else
@@ -2606,40 +2616,41 @@ LABEL_26:
 
       if (userActivity6)
       {
-        v33 = objc_alloc_init(MEMORY[0x1E69CA158]);
+        v35 = objc_alloc_init(MEMORY[0x1E69CA158]);
         userActivityString = [actionCopy userActivityString];
-        [v33 setUserActivityRequiredString:userActivityString];
+        [v35 setUserActivityRequiredString:userActivityString];
 
-        [v33 setApplicationBundleIdentifier:_bundleIdForDisplay];
-        v38 = v30;
-        v41 = v30;
+        [v35 setApplicationBundleIdentifier:_bundleIdForDisplay];
+        v40 = v32;
+        v43 = v32;
       }
 
       else
       {
         if ([actionCopy actionType] == 6)
         {
-          v33 = objc_opt_new();
+          v35 = objc_opt_new();
           menuItemPath = [actionCopy menuItemPath];
           lastObject = [menuItemPath lastObject];
-          [v33 setMenuItemIdentifier:lastObject];
+          [v35 setMenuItemIdentifier:lastObject];
 
-          [v33 setApplicationBundleIdentifier:_bundleIdForDisplay];
-          v44 = [self _symbolImageForName:@"filemenu.and.selection"];
-          [v44 setSize:{36.0, 36.0}];
-          [v44 setBadgingImage:v56];
-          v38 = v30;
-          [v30 setThumbnail:v44];
-          [v30 setCommand:v33];
+          [v35 setApplicationBundleIdentifier:_bundleIdForDisplay];
+          v46 = [self _symbolImageForName:@"filemenu.and.selection"];
+          [v46 setSize:{36.0, 36.0}];
+          [v46 setBadgingImage:v59];
+          v40 = v32;
+          [v32 setThumbnail:v46];
+          [v32 setCommand:v35];
 
           goto LABEL_40;
         }
 
-        if ([actionCopy actionType] != 7)
+        actionType = [actionCopy actionType];
+        if (actionType != 7)
         {
-          v33 = __atxlog_handle_ui();
-          v38 = v30;
-          if (os_log_type_enabled(v33, OS_LOG_TYPE_FAULT))
+          v35 = __atxlog_handle_ui(actionType);
+          v40 = v32;
+          if (os_log_type_enabled(v35, OS_LOG_TYPE_FAULT))
           {
             +[ATXSpotlightClient _resultWithATXAction:];
           }
@@ -2647,45 +2658,45 @@ LABEL_26:
           goto LABEL_40;
         }
 
-        v33 = objc_opt_new();
+        v35 = objc_opt_new();
         parameterKeysForToolInvocation = [actionCopy parameterKeysForToolInvocation];
-        v46 = [parameterKeysForToolInvocation count];
+        v49 = [parameterKeysForToolInvocation count];
 
-        v38 = v30;
-        if (v46)
+        v40 = v32;
+        if (v49)
         {
           encodedToolInvocation = [actionCopy encodedToolInvocation];
-          [v33 setToolInvocationData:encodedToolInvocation];
+          [v35 setToolInvocationData:encodedToolInvocation];
         }
 
         toolInvocationID = [actionCopy toolInvocationID];
-        [v33 setToolIdentifier:toolInvocationID];
+        [v35 setToolIdentifier:toolInvocationID];
 
-        v41 = v30;
+        v43 = v32;
       }
 
-      [v41 setCommand:v33];
+      [v43 setCommand:v35];
     }
 
 LABEL_40:
-    intent2 = v54;
+    intent2 = v57;
 
     v9 = objc_opt_new();
-    v49 = objc_opt_new();
-    uUIDString = [v49 UUIDString];
+    v52 = objc_opt_new();
+    uUIDString = [v52 UUIDString];
     [v9 setIdentifier:uUIDString];
 
     [v9 setApplicationBundleIdentifier:_bundleIdForDisplay];
     applicationBundleIdentifier = [v9 applicationBundleIdentifier];
     [v9 setResultBundleId:applicationBundleIdentifier];
 
-    v52 = objc_opt_new();
-    v57 = v38;
-    v53 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v57 count:1];
-    [v52 setCardSections:v53];
+    v55 = objc_opt_new();
+    v60 = v40;
+    v56 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v60 count:1];
+    [v55 setCardSections:v56];
 
-    [v9 setInlineCard:v52];
-    v11 = v56;
+    [v9 setInlineCard:v55];
+    v11 = v59;
     goto LABEL_41;
   }
 
@@ -2919,47 +2930,47 @@ LABEL_26:
 
 + (BOOL)_isAutoShortcutEnabledForSpotlight:(id)spotlight
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   spotlightCopy = spotlight;
   bundleIdentifier = [spotlightCopy bundleIdentifier];
   v6 = [self isAutoShortcutsEnabledForSpotlightForBundleId:bundleIdentifier];
 
   if ((v6 & 1) == 0)
   {
-    v11 = __atxlog_handle_zkw_hide();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v13 = __atxlog_handle_zkw_hide(v7);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       bundleIdentifier2 = [spotlightCopy bundleIdentifier];
-      v21 = 138412290;
-      v22 = bundleIdentifier2;
-      _os_log_impl(&dword_1BF549000, v11, OS_LOG_TYPE_DEFAULT, "ATXSFL: All auto shortcuts are disabled for app: %@", &v21, 0xCu);
+      v23 = 138412290;
+      v24 = bundleIdentifier2;
+      _os_log_impl(&dword_1BF549000, v13, OS_LOG_TYPE_DEFAULT, "ATXSFL: All auto shortcuts are disabled for app: %@", &v23, 0xCu);
 LABEL_10:
     }
 
 LABEL_11:
-    v16 = 0;
+    v18 = 0;
     goto LABEL_12;
   }
 
   bundleIdentifier3 = [spotlightCopy bundleIdentifier];
   phrase = [spotlightCopy phrase];
   signature = [phrase signature];
-  v10 = [self isAutoShortcutEnabledForSpotlightForBundleId:bundleIdentifier3 signature:signature];
+  v11 = [self isAutoShortcutEnabledForSpotlightForBundleId:bundleIdentifier3 signature:signature];
 
-  v11 = __atxlog_handle_zkw_hide();
-  v12 = os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
-  if ((v10 & 1) == 0)
+  v13 = __atxlog_handle_zkw_hide(v12);
+  v14 = os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT);
+  if ((v11 & 1) == 0)
   {
-    if (v12)
+    if (v14)
     {
       bundleIdentifier2 = [spotlightCopy phrase];
       signature2 = [bundleIdentifier2 signature];
       bundleIdentifier4 = [spotlightCopy bundleIdentifier];
-      v21 = 138412546;
-      v22 = signature2;
-      v23 = 2112;
-      v24 = bundleIdentifier4;
-      _os_log_impl(&dword_1BF549000, v11, OS_LOG_TYPE_DEFAULT, "ATXSFL: Auto shortcut is hidden for shortcut with signature: %@ from app: %@", &v21, 0x16u);
+      v23 = 138412546;
+      v24 = signature2;
+      v25 = 2112;
+      v26 = bundleIdentifier4;
+      _os_log_impl(&dword_1BF549000, v13, OS_LOG_TYPE_DEFAULT, "ATXSFL: Auto shortcut is hidden for shortcut with signature: %@ from app: %@", &v23, 0x16u);
 
       goto LABEL_10;
     }
@@ -2967,22 +2978,22 @@ LABEL_11:
     goto LABEL_11;
   }
 
-  if (v12)
+  if (v14)
   {
     bundleIdentifier5 = [spotlightCopy bundleIdentifier];
     phrase2 = [spotlightCopy phrase];
     signature3 = [phrase2 signature];
-    v21 = 138412546;
-    v22 = bundleIdentifier5;
-    v23 = 2112;
-    v24 = signature3;
-    _os_log_impl(&dword_1BF549000, v11, OS_LOG_TYPE_DEFAULT, "ATXSFL: Can display auto shortcut for app: %@ with shortcut signature: %@", &v21, 0x16u);
+    v23 = 138412546;
+    v24 = bundleIdentifier5;
+    v25 = 2112;
+    v26 = signature3;
+    _os_log_impl(&dword_1BF549000, v13, OS_LOG_TYPE_DEFAULT, "ATXSFL: Can display auto shortcut for app: %@ with shortcut signature: %@", &v23, 0x16u);
   }
 
-  v16 = 1;
+  v18 = 1;
 LABEL_12:
 
-  return v16;
+  return v18;
 }
 
 + (BOOL)isAutoShortcutsEnabledForSpotlightForBundleId:(id)id
@@ -3007,7 +3018,7 @@ LABEL_12:
   [v9 removeObject:@"com.apple.CloudDocs.MobileDocumentsFileProvider"];
   [v9 removeObject:@"com.apple.CloudDocs.iCloudDriveFileProvider"];
   [v9 removeObject:@"com.apple.CloudDocs.iCloudDriveFileProviderManaged"];
-  if ([v8 containsObject:@"com.apple.DocumentsApp"])
+  if (objc_msgSend_containsObject_(v8))
   {
     [v9 addObject:@"com.apple.CloudDocs.MobileDocumentsFileProvider"];
     [v9 addObject:@"com.apple.CloudDocs.iCloudDriveFileProvider"];
@@ -3018,7 +3029,7 @@ LABEL_12:
   v10 = [MEMORY[0x1E695DFA8] setWithArray:v9];
 
   v11 = [v4 initWithSet:v10];
-  if ([v11 containsObject:idCopy])
+  if (objc_msgSend_containsObject_(v11))
   {
     LOBYTE(v12) = 0;
   }
@@ -3045,9 +3056,10 @@ LABEL_12:
 
 + (id)_iconForParameterizedAutoShortcutContextualAction:(id)action provider:(id)provider
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   actionCopy = action;
   providerCopy = provider;
+  v8 = providerCopy;
   if (actionCopy)
   {
     phrase = [actionCopy phrase];
@@ -3055,32 +3067,32 @@ LABEL_12:
 
     if (!parameterIdentifier)
     {
-      v12 = __atxlog_handle_blending();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      v14 = __atxlog_handle_blending(v11);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
         bundleIdentifier = [actionCopy bundleIdentifier];
         actionIdentifier = [actionCopy actionIdentifier];
         *buf = 138412546;
-        v27 = bundleIdentifier;
-        v28 = 2112;
-        v29 = actionIdentifier;
-        _os_log_impl(&dword_1BF549000, v12, OS_LOG_TYPE_DEFAULT, "ATXSpotlightClient: [AutoShortcut] not a phrase with parameters, use contextualAction icon %@, %@", buf, 0x16u);
+        v30 = bundleIdentifier;
+        v31 = 2112;
+        v32 = actionIdentifier;
+        _os_log_impl(&dword_1BF549000, v14, OS_LOG_TYPE_DEFAULT, "ATXSpotlightClient: [AutoShortcut] not a phrase with parameters, use contextualAction icon %@, %@", buf, 0x16u);
       }
 
-      v14 = 0;
+      v17 = 0;
       goto LABEL_23;
     }
 
-    v25 = parameterIdentifier;
-    v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v25 count:1];
-    v24 = 0;
-    v11 = [providerCopy propertiesForIdentifiers:v10 error:&v24];
-    v12 = v24;
+    v28 = parameterIdentifier;
+    v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v28 count:1];
+    v27 = 0;
+    v13 = [v8 propertiesForIdentifiers:v12 error:&v27];
+    v14 = v27;
 
-    if (v12)
+    if (v14)
     {
-      v13 = __atxlog_handle_blending();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      v16 = __atxlog_handle_blending(v15);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
         [ATXSpotlightClient _iconForParameterizedAutoShortcutContextualAction:actionCopy provider:?];
       }
@@ -3088,68 +3100,68 @@ LABEL_12:
 
     else
     {
-      if (v11)
+      if (v13)
       {
-        v19 = [v11 objectForKeyedSubscript:parameterIdentifier];
-        v13 = v19;
-        if (v19)
+        v22 = [v13 objectForKeyedSubscript:parameterIdentifier];
+        v16 = v22;
+        if (v22)
         {
-          value = [v19 value];
+          value = [v22 value];
           displayRepresentation = [value displayRepresentation];
 
           image = [displayRepresentation image];
-          v14 = [self _contextualActionIconFromLNImage:image];
+          v17 = [self _contextualActionIconFromLNImage:image];
         }
 
         else
         {
-          displayRepresentation = __atxlog_handle_blending();
+          displayRepresentation = __atxlog_handle_blending(0);
           if (os_log_type_enabled(displayRepresentation, OS_LOG_TYPE_ERROR))
           {
             [ATXSpotlightClient _iconForParameterizedAutoShortcutContextualAction:actionCopy provider:?];
           }
 
-          v14 = 0;
+          v17 = 0;
         }
 
         goto LABEL_22;
       }
 
-      v13 = __atxlog_handle_blending();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      v16 = __atxlog_handle_blending(v15);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
         [ATXSpotlightClient _iconForParameterizedAutoShortcutContextualAction:actionCopy provider:?];
       }
     }
 
-    v14 = 0;
+    v17 = 0;
 LABEL_22:
 
 LABEL_23:
     goto LABEL_24;
   }
 
-  parameterIdentifier = __atxlog_handle_blending();
+  parameterIdentifier = __atxlog_handle_blending(providerCopy);
   if (os_log_type_enabled(parameterIdentifier, OS_LOG_TYPE_DEFAULT))
   {
     bundleIdentifier2 = [0 bundleIdentifier];
     actionIdentifier2 = [0 actionIdentifier];
     *buf = 138412546;
-    v27 = bundleIdentifier2;
-    v28 = 2112;
-    v29 = actionIdentifier2;
+    v30 = bundleIdentifier2;
+    v31 = 2112;
+    v32 = actionIdentifier2;
     _os_log_impl(&dword_1BF549000, parameterIdentifier, OS_LOG_TYPE_DEFAULT, "ATXSpotlightClient: [AutoShortcut] is not an Auto Shortcut, use contextualAction icon %@, %@", buf, 0x16u);
   }
 
-  v14 = 0;
+  v17 = 0;
 LABEL_24:
 
-  return v14;
+  return v17;
 }
 
 + (id)_contextualActionIconFromLNImage:(id)image
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   imageCopy = image;
   processInfo = [MEMORY[0x1E696AE30] processInfo];
   processName = [processInfo processName];
@@ -3158,16 +3170,16 @@ LABEL_24:
 
   if (!v7)
   {
-    v20 = 0;
+    v22 = 0;
     if (!WorkflowKitLibraryCore_frameworkLibrary)
     {
       *buf = MEMORY[0x1E69E9820];
-      v22 = 3221225472;
-      v23 = __WorkflowKitLibraryCore_block_invoke;
-      v24 = &__block_descriptor_40_e5_v8__0l;
-      v25 = &v20;
-      v26 = xmmword_1E80C6310;
-      v27 = 0;
+      v24 = 3221225472;
+      v25 = __WorkflowKitLibraryCore_block_invoke;
+      v26 = &__block_descriptor_40_e5_v8__0l;
+      v27 = &v22;
+      v28 = xmmword_1E80C6310;
+      v29 = 0;
       WorkflowKitLibraryCore_frameworkLibrary = _sl_dlopen();
     }
 
@@ -3176,50 +3188,50 @@ LABEL_24:
       [ATXSpotlightClient _contextualActionIconFromLNImage:?];
     }
 
-    if (v20)
+    if (v22)
     {
-      free(v20);
+      free(v22);
     }
 
     wf_image = [imageCopy wf_image];
-    v8 = wf_image;
+    v9 = wf_image;
     if (wf_image)
     {
-      v11 = [wf_image URL];
+      v12 = [wf_image URL];
 
-      if (v11)
+      if (v12)
       {
-        v12 = MEMORY[0x1E69E0A40];
-        data2 = [v8 URL];
+        v13 = MEMORY[0x1E69E0A40];
+        data2 = [v9 URL];
         [imageCopy displayStyle];
-        v14 = [v12 iconWithImageURL:data2 displayStyle:WFContextualActionIconDisplayStyleForLNImageDisplayStyle()];
+        v15 = [v13 iconWithImageURL:data2 displayStyle:WFContextualActionIconDisplayStyleForLNImageDisplayStyle()];
 LABEL_20:
-        v9 = v14;
+        v10 = v15;
         goto LABEL_21;
       }
 
-      data = [v8 data];
+      data = [v9 data];
 
       if (data)
       {
-        v16 = MEMORY[0x1E69E0A40];
-        data2 = [v8 data];
+        v17 = MEMORY[0x1E69E0A40];
+        data2 = [v9 data];
         [imageCopy displayStyle];
-        v14 = [v16 iconWithImageData:data2 scale:WFContextualActionIconDisplayStyleForLNImageDisplayStyle() displayStyle:0.0];
+        v15 = [v17 iconWithImageData:data2 scale:WFContextualActionIconDisplayStyleForLNImageDisplayStyle() displayStyle:0.0];
         goto LABEL_20;
       }
 
-      symbolName = [v8 symbolName];
+      symbolName = [v9 symbolName];
 
       if (symbolName)
       {
-        v18 = MEMORY[0x1E69E0A40];
-        data2 = [v8 symbolName];
-        v14 = [v18 iconWithSystemName:data2];
+        v20 = MEMORY[0x1E69E0A40];
+        data2 = [v9 symbolName];
+        v15 = [v20 iconWithSystemName:data2];
         goto LABEL_20;
       }
 
-      data2 = __atxlog_handle_ui();
+      data2 = __atxlog_handle_ui(v19);
       if (os_log_type_enabled(data2, OS_LOG_TYPE_FAULT))
       {
         +[ATXSpotlightClient _contextualActionIconFromLNImage:];
@@ -3228,7 +3240,7 @@ LABEL_20:
 
     else
     {
-      data2 = __atxlog_handle_blending();
+      data2 = __atxlog_handle_blending(0);
       if (os_log_type_enabled(data2, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
@@ -3236,22 +3248,22 @@ LABEL_20:
       }
     }
 
-    v9 = 0;
+    v10 = 0;
 LABEL_21:
 
     goto LABEL_22;
   }
 
-  v8 = __atxlog_handle_ui();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
+  v9 = __atxlog_handle_ui(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
   {
     +[ATXSpotlightClient _contextualActionIconFromLNImage:];
   }
 
-  v9 = 0;
+  v10 = 0;
 LABEL_22:
 
-  return v9;
+  return v10;
 }
 
 + (id)_responseWithUpcomingMedia
@@ -3289,10 +3301,11 @@ LABEL_22:
 
         v13 = *(*(&v29 + 1) + 8 * v12);
         v14 = [self _resultWithATXAction:v13];
-        if (v14 && ([*(v11 + 3560) proactiveTopicWithResult:v14], (v15 = objc_claimAutoreleasedReturnValue()) != 0))
+        v15 = v14;
+        if (v14 && ([*(v11 + 3560) proactiveTopicWithResult:v14], (v14 = objc_claimAutoreleasedReturnValue()) != 0))
         {
-          v16 = v15;
-          v17 = __atxlog_handle_ui();
+          v16 = v14;
+          v17 = __atxlog_handle_ui(v14);
           if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
           {
             [self descriptionForTopic:v16];
@@ -3319,7 +3332,7 @@ LABEL_22:
 
         else
         {
-          v16 = __atxlog_handle_ui();
+          v16 = __atxlog_handle_ui(v14);
           if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
           {
             [(ATXSpotlightClient *)v33 _responseWithUpcomingMedia:v13];
@@ -3343,35 +3356,35 @@ LABEL_22:
 
 + (id)recentUpcomingMediaActionsWithLimit:(unint64_t)limit
 {
-  v43 = *MEMORY[0x1E69E9840];
-  v30 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:limit];
-  v29 = +[ATXUpcomingMediaQuery getAllUpcomingMedia];
-  sortedUpcomingMedia = [v29 sortedUpcomingMedia];
+  v44 = *MEMORY[0x1E69E9840];
+  v31 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:limit];
+  v30 = +[ATXUpcomingMediaQuery getAllUpcomingMedia];
+  sortedUpcomingMedia = [v30 sortedUpcomingMedia];
   v5 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:limit];
-  v35 = 0u;
   v36 = 0u;
   v37 = 0u;
   v38 = 0u;
+  v39 = 0u;
   v6 = sortedUpcomingMedia;
-  v7 = [v6 countByEnumeratingWithState:&v35 objects:v42 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v36 objects:v43 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v36;
+    v9 = *v37;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v36 != v9)
+        if (*v37 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        first = [*(*(&v35 + 1) + 8 * i) first];
+        first = [*(*(&v36 + 1) + 8 * i) first];
         [v5 addObject:first];
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v35 objects:v42 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v36 objects:v43 count:16];
     }
 
     while (v8);
@@ -3389,25 +3402,25 @@ LABEL_22:
   }
 
   v14 = [v5 subarrayWithRange:{0, limitCopy}];
-  v31 = 0u;
   v32 = 0u;
   v33 = 0u;
   v34 = 0u;
-  v15 = [v14 countByEnumeratingWithState:&v31 objects:v41 count:16];
+  v35 = 0u;
+  v15 = [v14 countByEnumeratingWithState:&v32 objects:v42 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v32;
+    v17 = *v33;
     do
     {
       for (j = 0; j != v16; ++j)
       {
-        if (*v32 != v17)
+        if (*v33 != v17)
         {
           objc_enumerationMutation(v14);
         }
 
-        v19 = *(*(&v31 + 1) + 8 * j);
+        v19 = *(*(&v32 + 1) + 8 * j);
         launchId = [v19 launchId];
 
         if (launchId)
@@ -3415,33 +3428,33 @@ LABEL_22:
           v21 = [ATXAction alloc];
           v22 = objc_opt_new();
           launchId2 = [v19 launchId];
-          LOBYTE(v28) = 0;
-          v24 = [(ATXAction *)v21 initWithIntent:v19 actionUUID:v22 bundleId:launchId2 heuristic:0 heuristicMetadata:0 criteria:0 isFutureMedia:v28 title:0 subtitle:0];
+          LOBYTE(v29) = 0;
+          v24 = [(ATXAction *)v21 initWithIntent:v19 actionUUID:v22 bundleId:launchId2 heuristic:0 heuristicMetadata:0 criteria:0 isFutureMedia:v29 title:0 subtitle:0];
 
           if (v24)
           {
-            v25 = __atxlog_handle_context_heuristic();
-            if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+            v26 = __atxlog_handle_context_heuristic(v25);
+            if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138412290;
-              v40 = v24;
-              _os_log_impl(&dword_1BF549000, v25, OS_LOG_TYPE_DEFAULT, "recentUpcomingMediaActionsWithLimit action:%@", buf, 0xCu);
+              v41 = v24;
+              _os_log_impl(&dword_1BF549000, v26, OS_LOG_TYPE_DEFAULT, "recentUpcomingMediaActionsWithLimit action:%@", buf, 0xCu);
             }
 
-            [v30 addObject:v24];
+            [v31 addObject:v24];
           }
         }
       }
 
-      v16 = [v14 countByEnumeratingWithState:&v31 objects:v41 count:16];
+      v16 = [v14 countByEnumeratingWithState:&v32 objects:v42 count:16];
     }
 
     while (v16);
   }
 
-  v26 = [v30 copy];
+  v27 = [v31 copy];
 
-  return v26;
+  return v27;
 }
 
 + (void)rerankRecents:(void *)a1 withAlternateRanking:.cold.2(void *a1)

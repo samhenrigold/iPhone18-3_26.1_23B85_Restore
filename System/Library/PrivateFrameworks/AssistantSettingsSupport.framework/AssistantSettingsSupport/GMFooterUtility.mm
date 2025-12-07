@@ -48,46 +48,44 @@
 - (id)openStorageManagement
 {
   v0 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E542938, &qword_2414130A0);
-  v1 = *(*(v0 - 8) + 64);
   MEMORY[0x28223BE20](v0 - 8);
-  v3 = &v16 - v2;
-  v4 = sub_24140E24C();
-  v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
-  MEMORY[0x28223BE20](v4);
-  v8 = &v16 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v2 = &v14 - v1;
+  v3 = sub_24140E24C();
+  v4 = *(v3 - 8);
+  MEMORY[0x28223BE20](v3);
+  v6 = &v14 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   if (qword_27E5426B8 != -1)
   {
     swift_once();
   }
 
-  v9 = sub_24140E72C();
-  __swift_project_value_buffer(v9, qword_27E543B00);
-  v10 = sub_24140E70C();
-  v11 = sub_24140ED8C();
-  if (os_log_type_enabled(v10, v11))
+  v7 = sub_24140E72C();
+  __swift_project_value_buffer(v7, qword_27E543B00);
+  v8 = sub_24140E70C();
+  v9 = sub_24140ED8C();
+  if (os_log_type_enabled(v8, v9))
   {
-    v12 = swift_slowAlloc();
-    *v12 = 0;
-    _os_log_impl(&dword_2413B9000, v10, v11, "openStorageManagement being called", v12, 2u);
-    MEMORY[0x245CE6B00](v12, -1, -1);
+    v10 = swift_slowAlloc();
+    *v10 = 0;
+    _os_log_impl(&dword_2413B9000, v8, v9, "openStorageManagement being called", v10, 2u);
+    MEMORY[0x245CE6B00](v10, -1, -1);
   }
 
   sub_24140E23C();
-  if ((*(v5 + 48))(v3, 1, v4) == 1)
+  if ((*(v4 + 48))(v2, 1, v3) == 1)
   {
-    return sub_2413E8560(v3, &qword_27E542938, &qword_2414130A0);
+    return sub_2413E8560(v2, &qword_27E542938, &qword_2414130A0);
   }
 
-  (*(v5 + 32))(v8, v3, v4);
+  (*(v4 + 32))(v6, v2, v3);
   result = [objc_opt_self() defaultWorkspace];
   if (result)
   {
-    v14 = result;
-    v15 = sub_24140E21C();
-    [v14 openSensitiveURL:v15 withOptions:0];
+    v12 = result;
+    v13 = sub_24140E21C();
+    [v12 openSensitiveURL:v13 withOptions:0];
 
-    return (*(v5 + 8))(v8, v4);
+    return (*(v4 + 8))(v6, v3);
   }
 
   else
@@ -101,40 +99,38 @@
 - (id)openAppleIntelligenceURL
 {
   v0 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E542938, &qword_2414130A0);
-  v1 = *(*(v0 - 8) + 64);
-  v2 = MEMORY[0x28223BE20](v0 - 8);
-  v4 = &v24 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v2);
-  v6 = &v24 - v5;
-  v7 = sub_24140E24C();
-  v8 = *(v7 - 8);
-  v9 = *(v8 + 64);
-  v10 = MEMORY[0x28223BE20](v7);
-  v12 = &v24 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v10);
-  v14 = &v24 - v13;
+  v1 = MEMORY[0x28223BE20](v0 - 8);
+  v3 = &v22 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v1);
+  v5 = &v22 - v4;
+  v6 = sub_24140E24C();
+  v7 = *(v6 - 8);
+  v8 = MEMORY[0x28223BE20](v6);
+  v10 = &v22 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v8);
+  v12 = &v22 - v11;
   currentDevice = [objc_opt_self() currentDevice];
   sf_isiPad = [currentDevice sf_isiPad];
 
-  v17 = (v8 + 48);
+  v15 = (v7 + 48);
   if (sf_isiPad)
   {
     sub_24140E23C();
-    if ((*v17)(v6, 1, v7) == 1)
+    if ((*v15)(v5, 1, v6) == 1)
     {
-      v18 = v6;
-      return sub_2413E8560(v18, &qword_27E542938, &qword_2414130A0);
+      v16 = v5;
+      return sub_2413E8560(v16, &qword_27E542938, &qword_2414130A0);
     }
 
-    (*(v8 + 32))(v14, v6, v7);
+    (*(v7 + 32))(v12, v5, v6);
     result = [objc_opt_self() defaultWorkspace];
     if (result)
     {
-      v20 = result;
-      v21 = sub_24140E21C();
-      [v20 openSensitiveURL:v21 withOptions:0];
+      v18 = result;
+      v19 = sub_24140E21C();
+      [v18 openSensitiveURL:v19 withOptions:0];
 
-      return (*(v8 + 8))(v14, v7);
+      return (*(v7 + 8))(v12, v6);
     }
 
     __break(1u);
@@ -142,13 +138,13 @@
   }
 
   sub_24140E23C();
-  if ((*v17)(v4, 1, v7) == 1)
+  if ((*v15)(v3, 1, v6) == 1)
   {
-    v18 = v4;
-    return sub_2413E8560(v18, &qword_27E542938, &qword_2414130A0);
+    v16 = v3;
+    return sub_2413E8560(v16, &qword_27E542938, &qword_2414130A0);
   }
 
-  (*(v8 + 32))(v12, v4, v7);
+  (*(v7 + 32))(v10, v3, v6);
   result = [objc_opt_self() defaultWorkspace];
   if (!result)
   {
@@ -157,11 +153,11 @@ LABEL_13:
     return result;
   }
 
-  v22 = result;
-  v23 = sub_24140E21C();
-  [v22 openSensitiveURL:v23 withOptions:0];
+  v20 = result;
+  v21 = sub_24140E21C();
+  [v20 openSensitiveURL:v21 withOptions:0];
 
-  return (*(v8 + 8))(v12, v7);
+  return (*(v7 + 8))(v10, v6);
 }
 
 @end

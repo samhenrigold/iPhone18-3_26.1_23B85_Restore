@@ -72,10 +72,7 @@
 
 - (void)setSharedSecretOperation:(id)operation
 {
-  v4 = [operation copyWithZone:0];
-  x963KeyDerivationOperationInternal = self->_x963KeyDerivationOperationInternal;
-  v6 = x963KeyDerivationOperationInternal[1];
-  x963KeyDerivationOperationInternal[1] = v4;
+  *(self->_x963KeyDerivationOperationInternal + 1) = [operation copyWithZone:0];
 
   MEMORY[0x2821F96F8]();
 }
@@ -89,10 +86,7 @@
 
 - (void)setDigestOperation:(id)operation
 {
-  v4 = [operation copyWithZone:0];
-  x963KeyDerivationOperationInternal = self->_x963KeyDerivationOperationInternal;
-  v6 = x963KeyDerivationOperationInternal[2];
-  x963KeyDerivationOperationInternal[2] = v4;
+  *(self->_x963KeyDerivationOperationInternal + 2) = [operation copyWithZone:0];
 
   MEMORY[0x2821F96F8]();
 }

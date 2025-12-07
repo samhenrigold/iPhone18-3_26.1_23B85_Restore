@@ -1,3 +1,87 @@
+void HGRenderJob::AddRenderNode(HGRenderJob *this, HGRenderNode *a2)
+{
+  v4 = a2;
+  (*(*a2 + 16))(a2);
+  std::vector<HGMetalDeviceInfo *>::push_back[abi:ne200100](this + 304, &v4);
+  *(this + 31) = (*(this + 39) - *(this + 38)) >> 3;
+  v3 = *(this + 22);
+  if (v3)
+  {
+    HGRenderNode::SetRenderer(v4, v3);
+  }
+}
+
+void HGRenderJob::AddRenderNodeInternal(HGRenderJob *this, HGRenderNode *a2)
+{
+  v4 = a2;
+  (*(*a2 + 16))(a2);
+  std::vector<HGMetalDeviceInfo *>::push_back[abi:ne200100](this + 304, &v4);
+  v3 = *(this + 22);
+  if (v3)
+  {
+    HGRenderNode::SetRenderer(v4, v3);
+  }
+}
+
+void HGRenderJob::SetComputeDevice(uint64_t a1, uint64_t *a2)
+{
+  v3 = *a2;
+  v2 = a2[1];
+  if (v2)
+  {
+    atomic_fetch_add_explicit((v2 + 8), 1uLL, memory_order_relaxed);
+  }
+
+  v4 = *(a1 + 32);
+  *(a1 + 24) = v3;
+  *(a1 + 32) = v2;
+  if (v4 && !atomic_fetch_add(&v4->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  {
+    (v4->__on_zero_shared)(v4);
+
+    std::__shared_weak_count::__release_weak(v4);
+  }
+}
+
+HGRenderJob *HGRenderJob::SetRenderer(HGRenderJob *this, HGRenderer *a2)
+{
+  v3 = this;
+  *(this + 22) = a2;
+  v4 = *(this + 38);
+  if (*(this + 39) != v4)
+  {
+    v5 = 0;
+    v6 = 1;
+    do
+    {
+      this = HGRenderNode::SetRenderer(*(v4 + 8 * v5), a2);
+      v5 = v6;
+      v4 = *(v3 + 38);
+      ++v6;
+    }
+
+    while (v5 < (*(v3 + 39) - v4) >> 3);
+  }
+
+  if (a2)
+  {
+    this = (*(*a2 + 304))(a2);
+    if (this)
+    {
+      v7 = 1;
+    }
+
+    else
+    {
+      v7 = 2;
+    }
+
+    *(v3 + 4) = v7;
+  }
+
+  return this;
+}
+
 HGRenderJob *HGRenderJob::SetVirtualScreen(HGRenderJob *this, int a2)
 {
   if ((a2 & 0x80000000) == 0)
@@ -465,7 +549,7 @@ LABEL_12:
 
   __asm { FMOV            V0.4S, #1.0 }
 
-  HGLinearFilter2D::normalize(a1, 4u, _Q0);
+  HGLinearFilter2D::normalize(a1, 4, _Q0);
   if (HGLogger::getLevel("prefilter", v48))
   {
     v51 = *(a1 + 8);
@@ -502,16 +586,16 @@ LABEL_12:
   return 1;
 }
 
-void sub_25FD20364(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_25FD20364(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   HGLinearFilter2D::~HGLinearFilter2D(va);
   _Unwind_Resume(a1);
 }
 
-void sub_25FD20378(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_25FD20378(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   HGLinearFilter2D::~HGLinearFilter2D(va);
   _Unwind_Resume(a1);
 }
@@ -1467,47 +1551,47 @@ uint64_t HGRenderQueue::AddRenderContext(HGRenderQueue *this, HGRenderContext *a
   return 0;
 }
 
-void sub_25FD21F7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_25FD21F7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va1, a5);
-  va_start(va, a5);
-  v6 = va_arg(va1, void);
-  v8 = va_arg(va1, void);
+  va_start(va1, a9);
+  va_start(va, a9);
+  v10 = va_arg(va1, void);
+  v12 = va_arg(va1, void);
   std::shared_ptr<HGPool::ServicingPolicy>::~shared_ptr[abi:ne200100](va);
   HGSynchronizer::~HGSynchronizer(va1);
   _Unwind_Resume(a1);
 }
 
-void sub_25FD21F98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_25FD21F98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   HGSynchronizer::~HGSynchronizer(va);
   _Unwind_Resume(a1);
 }
 
-void sub_25FD21FAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_25FD21FAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
-  MEMORY[0x2666E9F00](v7, 0x10B1C403C2B9999);
+  va_start(va, a13);
+  MEMORY[0x2666E9F00](v13, 0x10B1C403C2B9999, a3, a4, a5, a6, a7);
   HGSynchronizer::~HGSynchronizer(va);
   _Unwind_Resume(a1);
 }
 
-void sub_25FD21FD8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_25FD21FD8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   HGSynchronizer::~HGSynchronizer(va);
   _Unwind_Resume(a1);
 }
 
-void sub_25FD21FF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_25FD21FF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   HGSynchronizer::~HGSynchronizer(va);
   _Unwind_Resume(a1);
 }
 
-void sub_25FD22004(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, PCSharedCount a11, PCSharedCount a12, char a13, uint64_t a14, HGSynchronizable *a15)
+void sub_25FD22004(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, PCSharedCount a11, PCSharedCount a12, uint64_t a13, uint64_t a14, HGSynchronizable *a15)
 {
   PCSharedCount::PCSharedCount(&a11);
   MEMORY[0x2666E9F00](v15, 0x10E1C404D8AC037);
@@ -1854,30 +1938,30 @@ LABEL_21:
   return HGSynchronizable::Unlock(v26);
 }
 
-void sub_25FD229E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_25FD229E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   HGSynchronizer::~HGSynchronizer(va);
   _Unwind_Resume(a1);
 }
 
-void sub_25FD229FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_25FD229FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   HGSynchronizer::~HGSynchronizer(va);
   _Unwind_Resume(a1);
 }
 
-void sub_25FD22A1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_25FD22A1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   HGSynchronizer::~HGSynchronizer(va);
   _Unwind_Resume(a1);
 }
 
-void sub_25FD22A30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_25FD22A30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   HGSynchronizer::~HGSynchronizer(va);
   _Unwind_Resume(a1);
 }
@@ -2086,44 +2170,44 @@ LABEL_18:
   }
 }
 
-void sub_25FD22DF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_25FD22DF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   HGSynchronizer::~HGSynchronizer(va);
   _Unwind_Resume(a1);
 }
 
-void sub_25FD22E08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_25FD22E08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   HGSynchronizer::~HGSynchronizer(va);
   _Unwind_Resume(a1);
 }
 
-void sub_25FD22E20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_25FD22E20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   HGSynchronizer::~HGSynchronizer(va);
   _Unwind_Resume(a1);
 }
 
-void sub_25FD22E38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_25FD22E38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   HGSynchronizer::~HGSynchronizer(va);
   _Unwind_Resume(a1);
 }
 
-void sub_25FD22E54(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_25FD22E54(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   HGSynchronizer::~HGSynchronizer(va);
   _Unwind_Resume(a1);
 }
 
-void sub_25FD22E68(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_25FD22E68(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   std::shared_ptr<HGPool::ServicingPolicy>::~shared_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -2769,16 +2853,16 @@ LABEL_122:
   return v12;
 }
 
-void sub_25FD239B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_25FD239B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   std::shared_ptr<HGPool::ServicingPolicy>::~shared_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-void sub_25FD23A10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_25FD23A10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   std::shared_ptr<HGPool::ServicingPolicy>::~shared_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -2996,91 +3080,91 @@ LABEL_44:
   return 0;
 }
 
-void sub_25FD23EAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_25FD23EAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   HGSynchronizer::~HGSynchronizer(va);
   _Unwind_Resume(a1);
 }
 
-void sub_25FD23EC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_25FD23EC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   HGSynchronizer::~HGSynchronizer(va);
   _Unwind_Resume(a1);
 }
 
-void sub_25FD23ED4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_25FD23ED4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   HGSynchronizer::~HGSynchronizer(va);
   _Unwind_Resume(a1);
 }
 
-void sub_25FD23EE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_25FD23EE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   HGSynchronizer::~HGSynchronizer(va);
   _Unwind_Resume(a1);
 }
 
-void sub_25FD23F00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_25FD23F00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   HGSynchronizer::~HGSynchronizer(va);
   _Unwind_Resume(a1);
 }
 
-void sub_25FD23F18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_25FD23F18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   HGSynchronizer::~HGSynchronizer(va);
   _Unwind_Resume(a1);
 }
 
-void sub_25FD23F2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_25FD23F2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   HGSynchronizer::~HGSynchronizer(va);
   _Unwind_Resume(a1);
 }
 
-void sub_25FD23F44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_25FD23F44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   HGSynchronizer::~HGSynchronizer(va);
   _Unwind_Resume(a1);
 }
 
-void sub_25FD23F5C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_25FD23F5C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   HGSynchronizer::~HGSynchronizer(va);
   _Unwind_Resume(a1);
 }
 
-void sub_25FD23F74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_25FD23F74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   HGSynchronizer::~HGSynchronizer(va);
   _Unwind_Resume(a1);
 }
 
-void sub_25FD23F88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_25FD23F88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   HGSynchronizer::~HGSynchronizer(va);
   _Unwind_Resume(a1);
 }
 
-void sub_25FD23FA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_25FD23FA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   HGSynchronizer::~HGSynchronizer(va);
   _Unwind_Resume(a1);
 }
 
-void *std::deque<HGRenderJob *>::insert(void *a1, char *a2, uint64_t a3, char *a4)
+void *std::deque<HGRenderJob *>::insert(unint64_t *a1, char *a2, uint64_t a3, uint64_t *a4)
 {
   v6 = a1[4];
   v7 = a1[1];
@@ -3106,7 +3190,7 @@ LABEL_3:
 
   else
   {
-    v10 = *v9 + 8 * (a1[4] & 0x1FFLL);
+    v10 = *v9 + 8 * (a1[4] & 0x1FF);
     if (a3 == v10)
     {
       goto LABEL_3;
@@ -3174,7 +3258,7 @@ LABEL_55:
       v29 = v28;
     }
 
-    v30 = (v29 - v27) >> 3;
+    v30 = v29 - v27;
     if (v30 < 2)
     {
       v31 = &v26[-8 * ((512 - v30) >> 9)];
@@ -3274,10 +3358,10 @@ LABEL_16:
 
       else
       {
-        v21 = (*v20 + 8 * (a1[4] & 0x1FFLL));
+        v21 = (*v20 + 8 * (a1[4] & 0x1FF));
       }
 
-      v22 = &v21[-*v20] >> 3;
+      v22 = (v21 - *v20) >> 3;
       if (v22 < 2)
       {
         v23 = (*&v20[-8 * ((512 - v22) >> 9)] + 8 * (~(512 - v22) & 0x1FF));
@@ -3364,7 +3448,7 @@ LABEL_54:
 
   else
   {
-    v36 = *v35 + 8 * (a1[4] & 0x1FFLL);
+    v36 = *v35 + 8 * (a1[4] & 0x1FF);
   }
 
   if (v36 == *v35)
@@ -3423,7 +3507,7 @@ uint64_t HGRenderQueue::CancelAllQueuedRenderJobs(HGRenderQueue *this)
 
   else
   {
-    v6 = *v5 + 8 * (*(this + 41) & 0x1FFLL);
+    v6 = (*v5 + 8 * (*(this + 41) & 0x1FFLL));
   }
 
   v7 = 0;
@@ -3531,8 +3615,7 @@ LABEL_21:
     }
 
     ++v9;
-    v6 += 8;
-    if (*v5 + 4096 == v6)
+    if (*v5 + 4096 == ++v6)
     {
       v12 = v5[1];
       ++v5;
@@ -3581,10 +3664,10 @@ LABEL_32:
       }
 
       v32 = *v30;
-      if (*(*v30 + 176))
+      if (*(*v30 + 22))
       {
-        *(v32 + 12) = 4;
-        *(v32 + 104) = 10;
+        *(v32 + 3) = 4;
+        *(v32 + 26) = 10;
         HGRenderQueue::EnqueueRenderJob(this, v32);
       }
 
@@ -3650,12 +3733,12 @@ LABEL_51:
   return v7;
 }
 
-void sub_25FD24890(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_25FD24890(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va1, a3);
-  va_start(va, a3);
-  v4 = va_arg(va1, HGSynchronizable *);
-  v6 = va_arg(va1, void);
+  va_start(va1, a5);
+  va_start(va, a5);
+  v6 = va_arg(va1, HGSynchronizable *);
+  v8 = va_arg(va1, void);
   HGSynchronizer::~HGSynchronizer(va);
   std::deque<HGNode *>::~deque[abi:ne200100](va1);
   _Unwind_Resume(a1);
@@ -3806,16 +3889,16 @@ LABEL_23:
   return v7;
 }
 
-void sub_25FD24B14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_25FD24B14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   HGSynchronizer::~HGSynchronizer(va);
   _Unwind_Resume(a1);
 }
 
-void sub_25FD24B28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_25FD24B28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   HGSynchronizer::~HGSynchronizer(va);
   _Unwind_Resume(a1);
 }
@@ -3843,8 +3926,7 @@ uint64_t HGRenderQueue::CancelRenderJob(HGRenderQueue *this, HGRenderJob *a2)
         break;
       }
 
-      v8 += 8;
-      if (&v8[-*v7] == 4096)
+      if ((++v8 - *v7) == 4096)
       {
         v10 = *(v7 + 8);
         v7 += 8;
@@ -3968,7 +4050,7 @@ LABEL_29:
 
     else
     {
-      v26 = *v24 + 8 * (*(this + 71) & 0x1FFLL);
+      v26 = (*v24 + 8 * (*(this + 71) & 0x1FFLL));
     }
 
     v27 = 0;
@@ -3996,7 +4078,7 @@ LABEL_45:
       }
 
       v30 = *v28;
-      if (*(*(*v28 + 40) + 192) == a2)
+      if (*(*(*v28 + 5) + 192) == a2)
       {
         v24 = std::deque<Pipeline *>::erase((this + 536), v24, v26);
         v26 = v32;
@@ -4012,9 +4094,8 @@ LABEL_45:
         goto LABEL_36;
       }
 
-      v28 += 8;
-      v26 += 8;
-      if (*v24 + 4096 == v26)
+      ++v28;
+      if (*v24 + 4096 == ++v26)
       {
         v31 = v24[1];
         ++v24;
@@ -4027,58 +4108,58 @@ LABEL_45:
   return 1;
 }
 
-void sub_25FD24F3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_25FD24F3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   HGSynchronizer::~HGSynchronizer(va);
   _Unwind_Resume(a1);
 }
 
-void sub_25FD24F50(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_25FD24F50(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   HGSynchronizer::~HGSynchronizer(va);
   _Unwind_Resume(a1);
 }
 
-void sub_25FD24F64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_25FD24F64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   HGSynchronizer::~HGSynchronizer(va);
   _Unwind_Resume(a1);
 }
 
-void sub_25FD24F78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_25FD24F78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   HGSynchronizer::~HGSynchronizer(va);
   _Unwind_Resume(a1);
 }
 
-void sub_25FD24F90(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_25FD24F90(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   HGSynchronizer::~HGSynchronizer(va);
   _Unwind_Resume(a1);
 }
 
-void sub_25FD24FA4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_25FD24FA4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   HGSynchronizer::~HGSynchronizer(va);
   _Unwind_Resume(a1);
 }
 
-void sub_25FD24FBC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_25FD24FBC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   HGSynchronizer::~HGSynchronizer(va);
   _Unwind_Resume(a1);
 }
 
-void sub_25FD24FD0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_25FD24FD0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   HGSynchronizer::~HGSynchronizer(va);
   _Unwind_Resume(a1);
 }
@@ -4107,11 +4188,11 @@ uint64_t HGRenderQueue::ExecuteRenderJob(HGRenderQueue *this, HGRenderJob *a2)
   return 4294966304;
 }
 
-void sub_25FD25190(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
+void sub_25FD25190(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
   if (a10)
   {
-    (*(*a10 + 24))(a10);
+    (*(*a10 + 24))(a10, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -4176,29 +4257,29 @@ uint64_t HGRenderQueue::GetNumActiveGPURenderJobs(uint64_t a1, int a2, int a3)
   return v9;
 }
 
-uint64_t HGRenderQueue::GetNumActiveGPUCustomRenderJobs(HGRenderQueue *this)
+uint64_t HGRenderQueue::GetNumActiveGPUCustomRenderJobs(HGRenderQueue *this, int a2)
 {
-  v2 = *(this + 43);
-  v6[2] = v2;
-  v7 = 0;
-  HGSynchronizable::Lock(v2);
+  v3 = *(this + 43);
+  v7[2] = v3;
+  v8 = 0;
+  HGSynchronizable::Lock(v3);
   for (i = *(this + 21); i != (this + 160); i = *(i + 8))
   {
-    v4 = *(i + 16);
-    if (((*(**(v4 + 176) + 304))(*(v4 + 176)) & 1) == 0)
+    v5 = *(i + 16);
+    if (((*(**(v5 + 176) + 304))(*(v5 + 176)) & 1) == 0)
     {
-      HGGPURenderer::GetContext(*(v4 + 176), 24, v6);
+      HGGPURenderer::GetContext(*(v5 + 176), 24, v7);
       HGGLContext::Share();
     }
   }
 
-  HGSynchronizable::Unlock(v2);
+  HGSynchronizable::Unlock(v3);
   return 0;
 }
 
-void sub_25FD254D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_25FD254D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   HGSynchronizer::~HGSynchronizer(va);
   _Unwind_Resume(a1);
 }
@@ -4333,20 +4414,20 @@ HGSynchronizable *HGRenderQueue::ReleasePBOToSharedPool(HGRenderQueue *this, HGP
   return HGSynchronizable::Unlock(v6);
 }
 
-void sub_25FD25AE8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, PCSharedCount a13, uint64_t a14, HGSynchronizable *a15)
+void sub_25FD25AE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, PCSharedCount a13, uint64_t a14, HGSynchronizable *a15)
 {
   if (a14)
   {
-    (*(*a14 + 24))(a14);
+    (*(*a14 + 24))(a14, a2, a3, a4, a5, a6, a7, a8);
   }
 
   HGSynchronizer::~HGSynchronizer(&a15);
   _Unwind_Resume(a1);
 }
 
-void *std::map<HGPixelBufferObj *,unsigned long long>::operator[](uint64_t a1, unint64_t *a2)
+uint64_t *std::map<HGPixelBufferObj *,unsigned long long>::operator[](uint64_t **a1, unint64_t *a2)
 {
-  v2 = *(a1 + 8);
+  v2 = a1[1];
   if (!v2)
   {
 LABEL_7:
@@ -4590,16 +4671,16 @@ uint64_t HGRenderQueue::NotifyIdleRenderUnits(HGRenderQueue *this)
   return result;
 }
 
-void sub_25FD261A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_25FD261A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   HGSynchronizer::~HGSynchronizer(va);
   _Unwind_Resume(a1);
 }
 
-void sub_25FD261C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_25FD261C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   HGSynchronizer::~HGSynchronizer(va);
   _Unwind_Resume(a1);
 }
@@ -4847,30 +4928,30 @@ LABEL_25:
   return RenderJobFromQueue;
 }
 
-void sub_25FD26858(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_25FD26858(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   HGSynchronizer::~HGSynchronizer(va);
   _Unwind_Resume(a1);
 }
 
-void sub_25FD2686C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_25FD2686C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   HGSynchronizer::~HGSynchronizer(va);
   _Unwind_Resume(a1);
 }
 
-void sub_25FD26884(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_25FD26884(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   HGSynchronizer::~HGSynchronizer(va);
   _Unwind_Resume(a1);
 }
 
-void sub_25FD268A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_25FD268A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   HGSynchronizer::~HGSynchronizer(va);
   _Unwind_Resume(a1);
 }
@@ -4930,7 +5011,7 @@ uint64_t HGRenderQueue::GetRenderJobFromQueue(HGRenderQueue *this, HGRenderExecU
 
   v18 = 0;
   v19 = 0;
-  v20 = this + 136;
+  v20 = (this + 136);
   v88 = a2;
   v87 = v12;
   while (1)
@@ -4939,7 +5020,7 @@ uint64_t HGRenderQueue::GetRenderJobFromQueue(HGRenderQueue *this, HGRenderExecU
     {
       if (!v17)
       {
-        goto LABEL_183;
+        goto LABEL_184;
       }
     }
 
@@ -4948,7 +5029,7 @@ uint64_t HGRenderQueue::GetRenderJobFromQueue(HGRenderQueue *this, HGRenderExecU
       v21 = *(this + 42) + *(this + 41);
       if (v17 == (*(v14 + ((v21 >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * (v21 & 0x1FF)))
       {
-        goto LABEL_183;
+        goto LABEL_184;
       }
     }
 
@@ -5029,7 +5110,7 @@ LABEL_29:
           {
             *v90 = v36;
             v18 = "Synchronous Render Job: GPU resource requested.";
-            goto LABEL_184;
+            goto LABEL_185;
           }
 
           if (!HGRenderJob::IsRequestedVirtualScreen(v36, GLVirtualScreen))
@@ -5371,12 +5452,12 @@ LABEL_110:
       {
         if (v52 != 7)
         {
-          goto LABEL_183;
+          goto LABEL_184;
         }
 
         if (*(this + 75) == 1)
         {
-          if (HGRenderQueue::GetNumActiveGPUCustomRenderJobs(this))
+          if (HGRenderQueue::GetNumActiveGPUCustomRenderJobs(this, GLVirtualScreen))
           {
             if ((*(this + 68) & 0x10) != 0)
             {
@@ -5385,7 +5466,7 @@ LABEL_110:
               printf("%s : NOT DEQUEUED : kTypeCustom : (%s) :  Reason: Serialize custom jobs. '%s'\n");
             }
 
-            goto LABEL_214;
+            goto LABEL_215;
           }
 
           v22 = *v90;
@@ -5395,6 +5476,8 @@ LABEL_110:
         {
           *(v22 + 22) = *(a2 + 7);
         }
+
+        v20 = (this + 160);
       }
 
       else if (*(a2 + 10))
@@ -5408,10 +5491,10 @@ LABEL_110:
             printf("%s :NOT DEQUEUED: kTypeRender : (%s) :  Reason: CPU Locked by Client. '%s'\n");
           }
 
-LABEL_214:
+LABEL_215:
           v7 = 0;
           *v90 = 0;
-          goto LABEL_215;
+          goto LABEL_216;
         }
 
         if (*(this + 73) == 1 && HGRenderQueue::GetNumActiveCPURenderJobs(this))
@@ -5423,7 +5506,7 @@ LABEL_214:
             printf("%s :NOT DEQUEUED: kTypeRender : (%s) :  Reason: Serializing CPU renders. '%s'\n");
           }
 
-          goto LABEL_214;
+          goto LABEL_215;
         }
 
         if (!*(*v90 + 22))
@@ -5443,7 +5526,7 @@ LABEL_214:
             printf("%s :NOT DEQUEUED: kTypeRender : (%s) :  Reason: Throttle for PBO downloads. '%s'\n");
           }
 
-          goto LABEL_214;
+          goto LABEL_215;
         }
 
         if (HGRenderQueue::GetLockFlagOnVirtualScreen(this, GLVirtualScreen))
@@ -5455,7 +5538,7 @@ LABEL_214:
             printf("%s :NOT DEQUEUED: kTypeRender : (%s) :  Reason: Virtual Screen Locked by Client. '%s'\n");
           }
 
-          goto LABEL_214;
+          goto LABEL_215;
         }
 
         if (*(this + 72) == 1)
@@ -5490,7 +5573,7 @@ LABEL_214:
               *(v84 + 22) = *(a2 + 7);
             }
 
-            std::list<HGRenderJob *>::push_back();
+            std::list<HGRenderJob *>::push_back(this + 17, v90);
           }
 
           if ((*(this + 68) & 0x10) != 0)
@@ -5500,7 +5583,7 @@ LABEL_214:
             printf("%s : NOT DEQUEUED : kTypeRender : (%s) :  Reason: Serialize renders. '%s'\n");
           }
 
-          goto LABEL_214;
+          goto LABEL_215;
         }
 
         v80 = *v90;
@@ -5522,8 +5605,8 @@ LABEL_214:
         }
       }
 
-LABEL_182:
-      std::list<HGRenderJob *>::push_back();
+LABEL_183:
+      std::list<HGRenderJob *>::push_back(v20, v90);
     }
 
     if (*(this + 77) != 1)
@@ -5541,7 +5624,7 @@ LABEL_182:
         std::shared_ptr<HGComputeDevice const>::operator=[abi:ne200100]<HGGPUComputeDevice const,0>(v63, (*(a2 + 6) + 16));
       }
 
-      goto LABEL_183;
+      goto LABEL_184;
     }
 
     v53 = *(this + 43);
@@ -5561,13 +5644,13 @@ LABEL_182:
       v56 = 0;
       do
       {
-        v57 = *(v55 + 16);
+        v57 = v55[2];
         if (((*(**(v57 + 176) + 304))(*(v57 + 176)) & 1) == 0 && (*(v57 + 104) & 0x80000000) == 0 && *(v57 + 184) == GLVirtualScreen)
         {
           ++v56;
         }
 
-        v55 = *(v55 + 8);
+        v55 = v55[1];
       }
 
       while (v55 != v20);
@@ -5593,7 +5676,7 @@ LABEL_182:
         std::shared_ptr<HGComputeDevice const>::operator=[abi:ne200100]<HGGPUComputeDevice const,0>(v66, (*(a2 + 6) + 16));
       }
 
-      goto LABEL_182;
+      goto LABEL_183;
     }
 
     v13 = v59;
@@ -5622,16 +5705,16 @@ LABEL_139:
   {
 LABEL_164:
     v18 = 0;
-    goto LABEL_183;
+    goto LABEL_184;
   }
 
   printf("GetRenderJobFromQueue: Job<%p> not executed: Work unit only performs CPU to GPU buffer copy/delete jobs \n");
 LABEL_175:
   v18 = 0;
-LABEL_183:
+LABEL_184:
   if (*v90)
   {
-LABEL_184:
+LABEL_185:
     std::deque<Pipeline *>::erase((this + 296), v16, v17);
     v68 = *(*v90 + 22);
     if (v68)
@@ -5655,7 +5738,7 @@ LABEL_184:
 
     if ((*(this + 69) & 8) == 0 || *(*v90 + 3))
     {
-      goto LABEL_192;
+      goto LABEL_193;
     }
 
     v7 = 1;
@@ -5674,7 +5757,7 @@ LABEL_184:
           if (!*(*v76 + 12))
           {
             *(this + 352) = 0;
-            goto LABEL_192;
+            goto LABEL_193;
           }
 
           v76 += 8;
@@ -5688,7 +5771,7 @@ LABEL_184:
       }
 
       *(this + 45) = mach_absolute_time();
-LABEL_192:
+LABEL_193:
       v7 = 1;
     }
   }
@@ -5698,7 +5781,7 @@ LABEL_192:
     v7 = 0;
   }
 
-LABEL_215:
+LABEL_216:
   v83 = v95;
   if (v95 && !atomic_fetch_add(&v95->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
@@ -5715,7 +5798,7 @@ LABEL_6:
   return v7;
 }
 
-void sub_25FD276D4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, PCSharedCount a21, char a22, uint64_t a23, HGSynchronizable *a24)
+void sub_25FD276D4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, PCSharedCount a21, uint64_t a22, uint64_t a23, HGSynchronizable *a24)
 {
   std::shared_ptr<HGPool::ServicingPolicy>::~shared_ptr[abi:ne200100](&a22);
   HGSynchronizer::~HGSynchronizer(&a24);
@@ -5733,7 +5816,7 @@ void ___ZN13HGRenderQueue12GetRenderJobEP16HGRenderExecUnitPP11HGRenderJob_block
 
 void sub_25FD27920(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, HGSynchronizable *a9)
 {
-  MEMORY[0x2666E9F00](v9, 0x10A1C4022CE9198);
+  MEMORY[0x2666E9F00](v9, 0x10A1C4022CE9198, a3, a4, a5, a6, a7, a8);
   HGSynchronizer::~HGSynchronizer(&a9);
   _Unwind_Resume(a1);
 }
@@ -5857,21 +5940,21 @@ LABEL_8:
   return v6;
 }
 
-void sub_25FD27B80(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25FD27B80(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   HGSynchronizer::~HGSynchronizer(va);
   _Unwind_Resume(a1);
 }
 
-void sub_25FD27B98(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25FD27B98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   HGSynchronizer::~HGSynchronizer(va);
   _Unwind_Resume(a1);
 }
 
-void *std::deque<HGUserJob *>::insert(void *a1, char *a2, uint64_t a3, char *a4)
+void *std::deque<HGUserJob *>::insert(unint64_t *a1, char *a2, uint64_t a3, uint64_t *a4)
 {
   v6 = a1[4];
   v7 = a1[1];
@@ -5897,7 +5980,7 @@ LABEL_3:
 
   else
   {
-    v10 = *v9 + 8 * (a1[4] & 0x1FFLL);
+    v10 = *v9 + 8 * (a1[4] & 0x1FF);
     if (a3 == v10)
     {
       goto LABEL_3;
@@ -5965,7 +6048,7 @@ LABEL_55:
       v29 = v28;
     }
 
-    v30 = (v29 - v27) >> 3;
+    v30 = v29 - v27;
     if (v30 < 2)
     {
       v31 = &v26[-8 * ((512 - v30) >> 9)];
@@ -6065,10 +6148,10 @@ LABEL_16:
 
       else
       {
-        v21 = (*v20 + 8 * (a1[4] & 0x1FFLL));
+        v21 = (*v20 + 8 * (a1[4] & 0x1FF));
       }
 
-      v22 = &v21[-*v20] >> 3;
+      v22 = (v21 - *v20) >> 3;
       if (v22 < 2)
       {
         v23 = (*&v20[-8 * ((512 - v22) >> 9)] + 8 * (~(512 - v22) & 0x1FF));
@@ -6155,7 +6238,7 @@ LABEL_54:
 
   else
   {
-    v36 = *v35 + 8 * (a1[4] & 0x1FFLL);
+    v36 = *v35 + 8 * (a1[4] & 0x1FF);
   }
 
   if (v36 == *v35)
@@ -6409,19 +6492,19 @@ LABEL_38:
   return v8;
 }
 
-void sub_25FD28434(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_25FD28434(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   std::deque<HGNode *>::~deque[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-void sub_25FD28468(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_25FD28468(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va1, a5);
-  va_start(va, a5);
-  v6 = va_arg(va1, HGSynchronizable *);
-  v8 = va_arg(va1, void);
+  va_start(va1, a9);
+  va_start(va, a9);
+  v10 = va_arg(va1, HGSynchronizable *);
+  v12 = va_arg(va1, void);
   HGSynchronizer::~HGSynchronizer(va);
   std::deque<HGNode *>::~deque[abi:ne200100](va1);
   _Unwind_Resume(a1);
@@ -6505,7 +6588,7 @@ uint64_t HGRenderQueue::GetUserJobFromQueue(HGRenderQueue *this, HGUserExecUnit 
               }
             }
 
-            v21 = &v18[-*v17] >> 3;
+            v21 = (v18 - *v17) >> 3;
             v22 = v21 + v9;
             if (v21 + v9 < 1)
             {
@@ -6552,7 +6635,7 @@ LABEL_31:
           }
         }
 
-        v19 = &v15[-*v14] >> 3;
+        v19 = (v15 - *v14) >> 3;
         v20 = v19 + v9;
         if (v19 + v9 < 1)
         {
@@ -6589,55 +6672,55 @@ LABEL_10:
   return 0;
 }
 
-void sub_25FD2880C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_25FD2880C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   HGSynchronizer::~HGSynchronizer(va);
   _Unwind_Resume(a1);
 }
 
-void sub_25FD28820(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_25FD28820(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   HGSynchronizer::~HGSynchronizer(va);
   _Unwind_Resume(a1);
 }
 
-void sub_25FD28834(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_25FD28834(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   HGSynchronizer::~HGSynchronizer(va);
   _Unwind_Resume(a1);
 }
 
-void sub_25FD2884C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_25FD2884C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va1, a3);
-  va_start(va, a3);
-  v4 = va_arg(va1, HGSynchronizable *);
-  v6 = va_arg(va1, void);
+  va_start(va1, a5);
+  va_start(va, a5);
+  v6 = va_arg(va1, HGSynchronizable *);
+  v8 = va_arg(va1, void);
   HGSynchronizer::~HGSynchronizer(va);
   HGSynchronizer::~HGSynchronizer(va1);
   _Unwind_Resume(a1);
 }
 
-void sub_25FD28868(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_25FD28868(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   HGSynchronizer::~HGSynchronizer(va);
   _Unwind_Resume(a1);
 }
 
-void sub_25FD28880(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_25FD28880(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   HGSynchronizer::~HGSynchronizer(va);
   _Unwind_Resume(a1);
 }
 
-void sub_25FD28898(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_25FD28898(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   HGSynchronizer::~HGSynchronizer(va);
   _Unwind_Resume(a1);
 }
@@ -6722,37 +6805,37 @@ LABEL_12:
   return HGSynchronizable::Unlock(v17);
 }
 
-void sub_25FD28A68(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_25FD28A68(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   HGSynchronizer::~HGSynchronizer(va);
   _Unwind_Resume(a1);
 }
 
-void sub_25FD28A80(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_25FD28A80(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   HGSynchronizer::~HGSynchronizer(va);
   _Unwind_Resume(a1);
 }
 
-void sub_25FD28A94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_25FD28A94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   HGSynchronizer::~HGSynchronizer(va);
   _Unwind_Resume(a1);
 }
 
-void sub_25FD28AA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_25FD28AA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   HGSynchronizer::~HGSynchronizer(va);
   _Unwind_Resume(a1);
 }
 
-void sub_25FD28ABC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_25FD28ABC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   HGSynchronizer::~HGSynchronizer(va);
   _Unwind_Resume(a1);
 }
@@ -6872,7 +6955,7 @@ LABEL_21:
               }
             }
 
-            v22 = (&v20[-*v19] >> 3) + v15;
+            v22 = ((v20 - *v19) >> 3) + v15;
             if (v22 < 1)
             {
               v23 = 511 - v22;
@@ -6941,58 +7024,58 @@ LABEL_24:
   return 0;
 }
 
-void sub_25FD28EA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_25FD28EA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   HGSynchronizer::~HGSynchronizer(va);
   _Unwind_Resume(a1);
 }
 
-void sub_25FD28EB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_25FD28EB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   HGSynchronizer::~HGSynchronizer(va);
   _Unwind_Resume(a1);
 }
 
-void sub_25FD28EC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_25FD28EC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   HGSynchronizer::~HGSynchronizer(va);
   _Unwind_Resume(a1);
 }
 
-void sub_25FD28EDC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_25FD28EDC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   HGSynchronizer::~HGSynchronizer(va);
   _Unwind_Resume(a1);
 }
 
-void sub_25FD28EF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_25FD28EF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   HGSynchronizer::~HGSynchronizer(va);
   _Unwind_Resume(a1);
 }
 
-void sub_25FD28F08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_25FD28F08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   HGSynchronizer::~HGSynchronizer(va);
   _Unwind_Resume(a1);
 }
 
-void sub_25FD28F20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_25FD28F20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   HGSynchronizer::~HGSynchronizer(va);
   _Unwind_Resume(a1);
 }
 
-void sub_25FD28F38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_25FD28F38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   HGSynchronizer::~HGSynchronizer(va);
   _Unwind_Resume(a1);
 }
@@ -7067,9 +7150,8 @@ void sub_25FD29490(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void *std::deque<HGPixelBufferObj *>::push_back(void *result, void *a2)
+void std::deque<HGPixelBufferObj *>::push_back(unint64_t *result, void *a2)
 {
-  v3 = result;
   v4 = result[2];
   v5 = result[1];
   if (v4 == v5)
@@ -7086,18 +7168,17 @@ void *std::deque<HGPixelBufferObj *>::push_back(void *result, void *a2)
   v8 = v7 + result[4];
   if (v6 == v8)
   {
-    result = std::deque<HGPixelBufferObj *>::__add_back_capacity(result);
-    v5 = v3[1];
-    v7 = v3[5];
-    v8 = v3[4] + v7;
+    std::deque<HGPixelBufferObj *>::__add_back_capacity(result);
+    v5 = result[1];
+    v7 = result[5];
+    v8 = result[4] + v7;
   }
 
   *(*(v5 + ((v8 >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * (v8 & 0x1FF)) = *a2;
-  v3[5] = v7 + 1;
-  return result;
+  result[5] = v7 + 1;
 }
 
-uint64_t std::deque<HGRef<HGGLContext>>::push_back(void *a1, uint64_t *a2)
+uint64_t std::deque<HGRef<HGGLContext>>::push_back(unint64_t *a1, uint64_t *a2)
 {
   v4 = a1[2];
   v5 = a1[1];
@@ -7265,10 +7346,10 @@ LABEL_12:
   a1[4] = v11;
 }
 
-const void **std::deque<HGRenderJob *>::__add_front_capacity(uint64_t a1)
+void std::deque<HGRenderJob *>::__add_front_capacity(const void **a1)
 {
-  v1 = *(a1 + 8);
-  v2 = *(a1 + 16);
+  v1 = a1[1];
+  v2 = a1[2];
   v3 = v2 - v1;
   if (v2 == v1)
   {
@@ -7280,15 +7361,15 @@ const void **std::deque<HGRenderJob *>::__add_front_capacity(uint64_t a1)
     v4 = ((v2 - v1) << 6) - 1;
   }
 
-  v5 = *(a1 + 32);
-  if ((v4 - (*(a1 + 40) + v5)) < 0x200)
+  v5 = a1[4];
+  if ((v4 - (a1[5] + v5)) < 0x200)
   {
-    v7 = *(a1 + 24);
-    v8 = *a1;
-    v9 = &v7[-*a1];
-    if (v3 < v9)
+    v6 = a1[3];
+    v7 = *a1;
+    v8 = v6 - *a1;
+    if (v3 < v8)
     {
-      if (v1 != v8)
+      if (v1 != v7)
       {
         operator new();
       }
@@ -7296,17 +7377,17 @@ const void **std::deque<HGRenderJob *>::__add_front_capacity(uint64_t a1)
       operator new();
     }
 
-    if (v7 == v8)
+    if (v6 == v7)
     {
-      v10 = 1;
+      v9 = 1;
     }
 
     else
     {
-      v10 = v9 >> 2;
+      v9 = v8 >> 2;
     }
 
-    if (!(v10 >> 61))
+    if (!(v9 >> 61))
     {
       operator new();
     }
@@ -7314,10 +7395,10 @@ const void **std::deque<HGRenderJob *>::__add_front_capacity(uint64_t a1)
     std::__throw_bad_array_new_length[abi:ne200100]();
   }
 
-  *(a1 + 32) = v5 + 512;
-  v11 = *(v2 - 1);
-  *(a1 + 16) = v2 - 8;
-  return std::__split_buffer<HGNode **>::emplace_front<HGNode **>(a1, &v11);
+  a1[4] = (v5 + 512);
+  v10 = *(v2 - 8);
+  a1[2] = (v2 - 8);
+  std::__split_buffer<HGNode **>::emplace_front<HGNode **>(a1, &v10);
 }
 
 void sub_25FD29D00(_Unwind_Exception *a1)
@@ -7460,19 +7541,19 @@ char *std::deque<HGRenderJob *>::__move_and_check(int a1, char *a2, char *__src,
   return a6;
 }
 
-void *std::deque<HGRenderJob *>::__add_back_capacity(void *a1)
+void std::deque<HGRenderJob *>::__add_back_capacity(unint64_t *a1)
 {
   v1 = a1[4];
   v2 = v1 >= 0x200;
   v3 = v1 - 512;
   if (!v2)
   {
-    v7 = a1[2];
-    v6 = a1[3];
-    v8 = v6 - *a1;
-    if (v7 - a1[1] < v8)
+    v6 = a1[2];
+    v5 = a1[3];
+    v7 = v5 - *a1;
+    if (v6 - a1[1] < v7)
     {
-      if (v6 != v7)
+      if (v5 != v6)
       {
         operator new();
       }
@@ -7480,18 +7561,18 @@ void *std::deque<HGRenderJob *>::__add_back_capacity(void *a1)
       operator new();
     }
 
-    v9 = v8 >> 2;
-    if (v6 == *a1)
+    v8 = v7 >> 2;
+    if (v5 == *a1)
     {
-      v10 = 1;
+      v9 = 1;
     }
 
     else
     {
-      v10 = v9;
+      v9 = v8;
     }
 
-    if (!(v10 >> 61))
+    if (!(v9 >> 61))
     {
       operator new();
     }
@@ -7501,9 +7582,9 @@ void *std::deque<HGRenderJob *>::__add_back_capacity(void *a1)
 
   a1[4] = v3;
   v4 = a1[1];
-  v11 = *v4;
-  a1[1] = v4 + 1;
-  return std::__split_buffer<HGNode **>::emplace_back<HGNode **&>(a1, &v11);
+  v10 = *v4;
+  a1[1] = (v4 + 1);
+  std::__split_buffer<HGNode **>::emplace_back<HGNode **&>(a1, &v10);
 }
 
 void sub_25FD2A2CC(_Unwind_Exception *a1)
@@ -7660,10 +7741,10 @@ LABEL_21:
   return a6;
 }
 
-const void **std::deque<HGUserJob *>::__add_front_capacity(uint64_t a1)
+void std::deque<HGUserJob *>::__add_front_capacity(const void **a1)
 {
-  v1 = *(a1 + 8);
-  v2 = *(a1 + 16);
+  v1 = a1[1];
+  v2 = a1[2];
   v3 = v2 - v1;
   if (v2 == v1)
   {
@@ -7675,15 +7756,15 @@ const void **std::deque<HGUserJob *>::__add_front_capacity(uint64_t a1)
     v4 = ((v2 - v1) << 6) - 1;
   }
 
-  v5 = *(a1 + 32);
-  if ((v4 - (*(a1 + 40) + v5)) < 0x200)
+  v5 = a1[4];
+  if ((v4 - (a1[5] + v5)) < 0x200)
   {
-    v7 = *(a1 + 24);
-    v8 = *a1;
-    v9 = &v7[-*a1];
-    if (v3 < v9)
+    v6 = a1[3];
+    v7 = *a1;
+    v8 = v6 - *a1;
+    if (v3 < v8)
     {
-      if (v1 != v8)
+      if (v1 != v7)
       {
         operator new();
       }
@@ -7691,17 +7772,17 @@ const void **std::deque<HGUserJob *>::__add_front_capacity(uint64_t a1)
       operator new();
     }
 
-    if (v7 == v8)
+    if (v6 == v7)
     {
-      v10 = 1;
+      v9 = 1;
     }
 
     else
     {
-      v10 = v9 >> 2;
+      v9 = v8 >> 2;
     }
 
-    if (!(v10 >> 61))
+    if (!(v9 >> 61))
     {
       operator new();
     }
@@ -7709,10 +7790,10 @@ const void **std::deque<HGUserJob *>::__add_front_capacity(uint64_t a1)
     std::__throw_bad_array_new_length[abi:ne200100]();
   }
 
-  *(a1 + 32) = v5 + 512;
-  v11 = *(v2 - 1);
-  *(a1 + 16) = v2 - 8;
-  return std::__split_buffer<HGNode **>::emplace_front<HGNode **>(a1, &v11);
+  a1[4] = (v5 + 512);
+  v10 = *(v2 - 8);
+  a1[2] = (v2 - 8);
+  std::__split_buffer<HGNode **>::emplace_front<HGNode **>(a1, &v10);
 }
 
 void sub_25FD2A908(_Unwind_Exception *a1)
@@ -7722,19 +7803,19 @@ void sub_25FD2A908(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void *std::deque<HGUserJob *>::__add_back_capacity(void *a1)
+void std::deque<HGUserJob *>::__add_back_capacity(unint64_t *a1)
 {
   v1 = a1[4];
   v2 = v1 >= 0x200;
   v3 = v1 - 512;
   if (!v2)
   {
-    v7 = a1[2];
-    v6 = a1[3];
-    v8 = v6 - *a1;
-    if (v7 - a1[1] < v8)
+    v6 = a1[2];
+    v5 = a1[3];
+    v7 = v5 - *a1;
+    if (v6 - a1[1] < v7)
     {
-      if (v6 != v7)
+      if (v5 != v6)
       {
         operator new();
       }
@@ -7742,18 +7823,18 @@ void *std::deque<HGUserJob *>::__add_back_capacity(void *a1)
       operator new();
     }
 
-    v9 = v8 >> 2;
-    if (v6 == *a1)
+    v8 = v7 >> 2;
+    if (v5 == *a1)
     {
-      v10 = 1;
+      v9 = 1;
     }
 
     else
     {
-      v10 = v9;
+      v9 = v8;
     }
 
-    if (!(v10 >> 61))
+    if (!(v9 >> 61))
     {
       operator new();
     }
@@ -7763,9 +7844,9 @@ void *std::deque<HGUserJob *>::__add_back_capacity(void *a1)
 
   a1[4] = v3;
   v4 = a1[1];
-  v11 = *v4;
-  a1[1] = v4 + 1;
-  return std::__split_buffer<HGNode **>::emplace_back<HGNode **&>(a1, &v11);
+  v10 = *v4;
+  a1[1] = (v4 + 1);
+  std::__split_buffer<HGNode **>::emplace_back<HGNode **&>(a1, &v10);
 }
 
 void sub_25FD2ACB4(_Unwind_Exception *a1)
@@ -7775,19 +7856,19 @@ void sub_25FD2ACB4(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void *std::deque<HGGPUReadbackJob *>::__add_back_capacity(void *a1)
+void std::deque<HGGPUReadbackJob *>::__add_back_capacity(unint64_t *a1)
 {
   v1 = a1[4];
   v2 = v1 >= 0x200;
   v3 = v1 - 512;
   if (!v2)
   {
-    v7 = a1[2];
-    v6 = a1[3];
-    v8 = v6 - *a1;
-    if (v7 - a1[1] < v8)
+    v6 = a1[2];
+    v5 = a1[3];
+    v7 = v5 - *a1;
+    if (v6 - a1[1] < v7)
     {
-      if (v6 != v7)
+      if (v5 != v6)
       {
         operator new();
       }
@@ -7795,18 +7876,18 @@ void *std::deque<HGGPUReadbackJob *>::__add_back_capacity(void *a1)
       operator new();
     }
 
-    v9 = v8 >> 2;
-    if (v6 == *a1)
+    v8 = v7 >> 2;
+    if (v5 == *a1)
     {
-      v10 = 1;
+      v9 = 1;
     }
 
     else
     {
-      v10 = v9;
+      v9 = v8;
     }
 
-    if (!(v10 >> 61))
+    if (!(v9 >> 61))
     {
       operator new();
     }
@@ -7816,9 +7897,9 @@ void *std::deque<HGGPUReadbackJob *>::__add_back_capacity(void *a1)
 
   a1[4] = v3;
   v4 = a1[1];
-  v11 = *v4;
-  a1[1] = v4 + 1;
-  return std::__split_buffer<HGNode **>::emplace_back<HGNode **&>(a1, &v11);
+  v10 = *v4;
+  a1[1] = (v4 + 1);
+  std::__split_buffer<HGNode **>::emplace_back<HGNode **&>(a1, &v10);
 }
 
 void sub_25FD2B07C(_Unwind_Exception *a1)
@@ -7828,19 +7909,19 @@ void sub_25FD2B07C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void *std::deque<HGPixelBufferObj *>::__add_back_capacity(void *a1)
+void std::deque<HGPixelBufferObj *>::__add_back_capacity(unint64_t *a1)
 {
   v1 = a1[4];
   v2 = v1 >= 0x200;
   v3 = v1 - 512;
   if (!v2)
   {
-    v7 = a1[2];
-    v6 = a1[3];
-    v8 = v6 - *a1;
-    if (v7 - a1[1] < v8)
+    v6 = a1[2];
+    v5 = a1[3];
+    v7 = v5 - *a1;
+    if (v6 - a1[1] < v7)
     {
-      if (v6 != v7)
+      if (v5 != v6)
       {
         operator new();
       }
@@ -7848,18 +7929,18 @@ void *std::deque<HGPixelBufferObj *>::__add_back_capacity(void *a1)
       operator new();
     }
 
-    v9 = v8 >> 2;
-    if (v6 == *a1)
+    v8 = v7 >> 2;
+    if (v5 == *a1)
     {
-      v10 = 1;
+      v9 = 1;
     }
 
     else
     {
-      v10 = v9;
+      v9 = v8;
     }
 
-    if (!(v10 >> 61))
+    if (!(v9 >> 61))
     {
       operator new();
     }
@@ -7869,9 +7950,9 @@ void *std::deque<HGPixelBufferObj *>::__add_back_capacity(void *a1)
 
   a1[4] = v3;
   v4 = a1[1];
-  v11 = *v4;
-  a1[1] = v4 + 1;
-  return std::__split_buffer<HGNode **>::emplace_back<HGNode **&>(a1, &v11);
+  v10 = *v4;
+  a1[1] = (v4 + 1);
+  std::__split_buffer<HGNode **>::emplace_back<HGNode **&>(a1, &v10);
 }
 
 void sub_25FD2B444(_Unwind_Exception *a1)
@@ -7881,19 +7962,19 @@ void sub_25FD2B444(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void *std::deque<HGRef<HGGLContext>>::__add_back_capacity(void *a1)
+void std::deque<HGRef<HGGLContext>>::__add_back_capacity(unint64_t *a1)
 {
   v1 = a1[4];
   v2 = v1 >= 0x200;
   v3 = v1 - 512;
   if (!v2)
   {
-    v7 = a1[2];
-    v6 = a1[3];
-    v8 = v6 - *a1;
-    if (v7 - a1[1] < v8)
+    v6 = a1[2];
+    v5 = a1[3];
+    v7 = v5 - *a1;
+    if (v6 - a1[1] < v7)
     {
-      if (v6 != v7)
+      if (v5 != v6)
       {
         operator new();
       }
@@ -7901,18 +7982,18 @@ void *std::deque<HGRef<HGGLContext>>::__add_back_capacity(void *a1)
       operator new();
     }
 
-    v9 = v8 >> 2;
-    if (v6 == *a1)
+    v8 = v7 >> 2;
+    if (v5 == *a1)
     {
-      v10 = 1;
+      v9 = 1;
     }
 
     else
     {
-      v10 = v9;
+      v9 = v8;
     }
 
-    if (!(v10 >> 61))
+    if (!(v9 >> 61))
     {
       operator new();
     }
@@ -7922,9 +8003,9 @@ void *std::deque<HGRef<HGGLContext>>::__add_back_capacity(void *a1)
 
   a1[4] = v3;
   v4 = a1[1];
-  v11 = *v4;
-  a1[1] = v4 + 1;
-  return std::__split_buffer<HGPool::Entry<__CVBuffer *,HGCVPixelBufferPool::Descriptor> *,std::allocator<HGPool::Entry<__CVBuffer *,HGCVPixelBufferPool::Descriptor> *>>::emplace_back<HGPool::Entry<__CVBuffer *,HGCVPixelBufferPool::Descriptor> *&>(a1, &v11);
+  v10 = *v4;
+  a1[1] = (v4 + 1);
+  std::__split_buffer<HGPool::Entry<__CVBuffer *,HGCVPixelBufferPool::Descriptor> *,std::allocator<HGPool::Entry<__CVBuffer *,HGCVPixelBufferPool::Descriptor> *>>::emplace_back<HGPool::Entry<__CVBuffer *,HGCVPixelBufferPool::Descriptor> *&>(a1, &v10);
 }
 
 void sub_25FD2B804(_Unwind_Exception *a1)
@@ -7953,7 +8034,7 @@ const char *HGNode::RenderPageDeluxeMetalTextures(uint64_t a1, HGGPURenderer **a
       v12 = [*(MetalContext + 32) commandBuffer];
       (*(*a1 + 552))(a1, a2, v12);
       [v12 commit];
-      HGGPURenderer::SetLastMetalCmdBuffer(*a2);
+      HGGPURenderer::SetLastMetalCmdBuffer(*a2, v12);
     case 3:
       v10 = *(MetalContext + 32);
       v11 = *(*a1 + 560);
@@ -8070,7 +8151,7 @@ uint64_t HGComicStroke::GetROI(HGComicStroke *this, HGRenderer *a2, int a3, HGRe
   if (a3 == 1)
   {
     v19 = a4;
-    v14 = HGRectMake4i(0xFFFFFFFF, 0xFFFFFFFF, 1u, 1u);
+    v14 = HGRectMake4i(-1, -1, 1, 1);
     v16 = v15;
     *&v22.var0 = v14;
     *&v22.var2 = v16;
@@ -8100,7 +8181,7 @@ uint64_t HGComicStroke::GetROI(HGComicStroke *this, HGRenderer *a2, int a3, HGRe
     v20.var0 = -v10;
     v20.var1 = -v10;
     HGRect::Grow(&v19, v20);
-    v11 = HGRectMake4i(0xFFFFFFFF, 0xFFFFFFFF, 1u, 1u);
+    v11 = HGRectMake4i(-1, -1, 1, 1);
     v13 = v12;
     *&v21.var0 = v11;
     *&v21.var2 = v13;
@@ -8573,7 +8654,7 @@ void HGApplyNDLUTInfo::colorAtIndex(HGApplyNDLUTInfo *this, float a2, float a3, 
   *a8 = 0.0;
 }
 
-void *HGApplyNDLUTEntry::HGApplyNDLUTEntry(void *a1, uint64_t a2, uint64_t a3)
+HGApplyNDLUTEntry *HGApplyNDLUTEntry::HGApplyNDLUTEntry(HGApplyNDLUTEntry *a1, void *a2, uint64_t a3)
 {
   v3 = a2;
   v5 = HGLUTCache::LUTEntry::LUTEntry(a1, a2, a3);
@@ -8588,14 +8669,14 @@ void *HGApplyNDLUTEntry::HGApplyNDLUTEntry(void *a1, uint64_t a2, uint64_t a3)
   v7 = *(v3 + 2);
   if (*(v3 + 2) == 1)
   {
-    v9 = HGRectMake4i(0, 0, v7 + 1, 1u);
+    v9 = HGRectMake4i(0, 0, v7 + 1, 1);
     v10 = v8;
     if ((v8 - v9) < 0x801uLL)
     {
       goto LABEL_8;
     }
 
-    v11 = HGRectMake4i(0, 0, 0x800u, ((v8 - v9) >> 11) + 1);
+    v11 = HGRectMake4i(0, 0, 2048, ((v8 - v9) >> 11) + 1);
   }
 
   else
@@ -8787,7 +8868,8 @@ uint64_t HGApplyNDLUTEntry::CopyData(uint64_t this, const HGApplyNDLUTInfo *a2)
             v42.i64[0] = __PAIR64__(v62[0], v62[1]);
             v42.i64[1] = __PAIR64__(LODWORD(v60), LODWORD(v61));
             v43 = vmulq_f32(vmaxnmq_f32(vminnmq_f32(v42, v59), 0), v56);
-            *v62 = __PAIR64__(v43.u32[0], v43.u32[1]);
+            v62[0] = v43.u32[1];
+            v62[1] = v43.i32[0];
             v60 = v43.f32[3];
             v61 = v43.f32[2];
             *(v39 + 8 * i) = vmovn_s32(vcvtq_u32_f32(v43));
@@ -8975,11 +9057,11 @@ LABEL_11:
   return *v7;
 }
 
-void sub_25FD2DA9C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
+void sub_25FD2DA9C(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
   if (a10)
   {
-    (*(*a10 + 24))(a10);
+    (*(*a10 + 24))(a10, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -9028,7 +9110,7 @@ uint64_t HGInvertAlpha::GetOutput(HGInvertAlpha *this, HGRenderer *a2)
 const char *HGFractured::GetProgram(HGNode *this, HGRenderer *a2)
 {
   v4 = *(this + 432);
-  Input = HGRenderer::GetInput(a2, this, 1u);
+  Input = HGRenderer::GetInput(a2, this, 1);
   v6 = *(this + 53);
   if (v4)
   {
@@ -9264,14 +9346,14 @@ HGFractured *HGFractured::GetOutput(HGFractured *this, HGRenderer *a2)
   return this;
 }
 
-char *HGFractured::RenderPage(HGNode *this, HGPage *a2)
+HGBuffer *HGFractured::RenderPage(HGNode *this, HGPage *a2)
 {
   v23[16] = *MEMORY[0x277D85DE8];
   v5 = *a2;
   Buffer = *(a2 + 1);
   Input = HGRenderer::GetInput(*a2, this, 0);
-  v7 = HGRenderer::GetInput(v5, this, 1u);
-  v8 = HGRenderer::GetInput(v5, this, 2u);
+  v7 = HGRenderer::GetInput(v5, this, 1);
+  v8 = HGRenderer::GetInput(v5, this, 2);
   if (Input)
   {
     NodeTexture = HGGPURenderer::GetNodeTexture(v5, Input, *(a2 + 36), 0, 1u);
@@ -9412,18 +9494,27 @@ LABEL_16:
   return Buffer;
 }
 
-void sub_25FD2EA64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, char a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, char a46)
+void sub_25FD2EA64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, ...)
 {
+  va_start(va, a45);
   HGTransform::~HGTransform(&a28);
-  HGTransform::~HGTransform(&a46);
+  HGTransform::~HGTransform(va);
   _Unwind_Resume(a1);
 }
 
-void sub_25FD2EAB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, char a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, char a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, char a46)
+void sub_25FD2EA9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, ...)
 {
+  va_start(va, a45);
+  HGTransform::~HGTransform(va);
+  _Unwind_Resume(a1);
+}
+
+void sub_25FD2EAB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, ...)
+{
+  va_start(va, a45);
   HGTransform::~HGTransform(&a10);
   HGTransform::~HGTransform(&a28);
-  HGTransform::~HGTransform(&a46);
+  HGTransform::~HGTransform(va);
   _Unwind_Resume(a1);
 }
 

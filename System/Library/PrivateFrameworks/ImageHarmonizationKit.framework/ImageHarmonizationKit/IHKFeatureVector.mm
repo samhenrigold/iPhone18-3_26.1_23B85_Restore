@@ -1,6 +1,7 @@
 @interface IHKFeatureVector
 + (id)addFeatureVectorA:(id)a B:(id)b;
 + (id)copy:(id)copy;
++ (id)multiplyFeatureVector:(id)vector byScalar:(float)scalar;
 - (IHKFeatureVector)initWithCoder:(id)coder;
 - (IHKFeatureVector)initWithData:(id)data;
 - (IHKFeatureVector)initWithTensor:(EspressoTensor *)tensor;
@@ -180,50 +181,50 @@ LABEL_13:
 
 - (void)saveToTextFile:(id)file
 {
-  v39[19] = *MEMORY[0x277D85DE8];
+  v38[19] = *MEMORY[0x277D85DE8];
   fileCopy = file;
   v5 = fileCopy;
-  objc_msgSend_UTF8String(v5, v6, v7, v8, v9);
-  sub_254ACACE4(&v37);
-  objc_msgSend_tensor(self, v10, v11, v12, v13);
-  if (v36 && !atomic_fetch_add(&v36->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  v10 = objc_msgSend_UTF8String(v5, v6, v7, v8, v9);
+  sub_254ACACE4(&v36, v10, 16);
+  objc_msgSend_tensor(self, v11, v12, v13, v14);
+  if (v35 && !atomic_fetch_add(&v35->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
-    (v36->__on_zero_shared)();
-    std::__shared_weak_count::__release_weak(v36);
+    (v35->__on_zero_shared)();
+    std::__shared_weak_count::__release_weak(v35);
   }
 
   if (__p)
   {
-    v34 = __p;
+    v33 = __p;
     operator delete(__p);
   }
 
-  if (__p != v34)
+  if (__p != v33)
   {
-    v14 = sub_254ACEA80(&v37, "", 0);
-    MEMORY[0x259C231E0](v14, *__p);
-    for (i = __p + 1; i != v34; ++i)
+    v15 = sub_254ACEA80(&v36, "", 0);
+    MEMORY[0x259C231E0](v15, *__p);
+    for (i = __p + 1; i != v33; ++i)
     {
-      v16 = sub_254ACEA80(&v37, ", ", 2);
-      MEMORY[0x259C231E0](v16, *i);
+      v17 = sub_254ACEA80(&v36, ", ", 2);
+      MEMORY[0x259C231E0](v17, *i);
     }
   }
 
-  sub_254ACEA80(&v37, "\n", 1);
-  objc_msgSend_tensor(self, v17, v18, v19, v20, &unk_2866F58E8);
-  if (v32 != 4)
+  sub_254ACEA80(&v36, "\n", 1);
+  objc_msgSend_tensor(self, v18, v19, v20, v21, &unk_2866F58E8);
+  if (v31 != 4)
   {
     exception = __cxa_allocate_exception(0x10uLL);
     std::runtime_error::runtime_error(exception, "Incorrect data type requested.");
     __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
   }
 
-  v21 = (*(*v35 + 24))();
-  v23 = v22;
-  if (v36 && !atomic_fetch_add(&v36->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  v22 = (*(*v34 + 24))();
+  v24 = v23;
+  if (v35 && !atomic_fetch_add(&v35->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
-    (v36->__on_zero_shared)();
-    std::__shared_weak_count::__release_weak(v36);
+    (v35->__on_zero_shared)();
+    std::__shared_weak_count::__release_weak(v35);
   }
 
   if (__p)
@@ -231,45 +232,42 @@ LABEL_13:
     operator delete(__p);
   }
 
-  if (v23 >= 4)
+  if (v24 >= 4)
   {
-    v24 = 4 * (v23 >> 2);
-    v25 = "";
-    v26 = -1;
-    v27 = 1;
+    v25 = 4 * (v24 >> 2);
+    v26 = "";
+    v27 = -1;
+    v28 = 1;
     do
     {
-      v28 = strlen(v25);
-      sub_254ACEA80(&v37, v25, v28);
-      v29 = *v21;
+      v29 = strlen(v26);
+      sub_254ACEA80(&v36, v26, v29);
       std::ostream::operator<<();
-      if (v26 + 10 * (v27 / 0xA))
+      if (v27 + 10 * (v28 / 0xA))
       {
-        v25 = ", ";
+        v26 = ", ";
       }
 
       else
       {
-        v25 = ",\n";
+        v26 = ",\n";
       }
 
-      ++v21;
-      --v26;
-      ++v27;
-      v24 -= 4;
+      v22 += 4;
+      --v27;
+      ++v28;
+      v25 -= 4;
     }
 
-    while (v24);
+    while (v25);
   }
 
-  sub_254ACEA80(&v37, "\n", 1);
-  v37 = *MEMORY[0x277D82810];
-  *(&v37 + *(v37 - 24)) = *(MEMORY[0x277D82810] + 24);
-  MEMORY[0x259C23190](&v38);
+  sub_254ACEA80(&v36, "\n", 1);
+  v36 = *MEMORY[0x277D82810];
+  *(&v36 + *(v36 - 24)) = *(MEMORY[0x277D82810] + 24);
+  MEMORY[0x259C23190](&v37);
   std::ostream::~ostream();
-  MEMORY[0x259C23250](v39);
-
-  v30 = *MEMORY[0x277D85DE8];
+  MEMORY[0x259C23250](v38);
 }
 
 - (void)saveToBinaryFile:(id)file
@@ -717,10 +715,23 @@ LABEL_21:
   if (copyCopy)
   {
     objc_msgSend_tensor(copyCopy, v4, v5, v6, v7);
+    v21 = DWORD2(v17);
     objc_msgSend_tensor(v8, v9, v10, v11, v12);
   }
 
-  sub_254ACDCBC();
+  else
+  {
+    v20 = 0;
+    v18 = 0u;
+    v19 = 0u;
+    v17 = 0u;
+    v21 = 0;
+    v16 = 0;
+    *__p = 0u;
+    v15 = 0u;
+  }
+
+  sub_254ACDCBC(&v22, &v21, __p);
 }
 
 + (id)addFeatureVectorA:(id)a B:(id)b
@@ -730,48 +741,85 @@ LABEL_21:
   if (aCopy)
   {
     objc_msgSend_tensor(aCopy, v6, v7, v8, v9);
-    if (v22 == 4)
+    if (DWORD2(v24) == 4)
     {
-      (*(*v24 + 24))();
-      if (v25 && !atomic_fetch_add(&v25->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+      (*(**(&v26 + 1) + 24))(*(&v26 + 1));
+      *&v24 = &unk_2866F58E8;
+      if (v27 && !atomic_fetch_add(&v27->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
       {
-        (v25->__on_zero_shared)();
-        std::__shared_weak_count::__release_weak(v25);
+        (v27->__on_zero_shared)(v27);
+        std::__shared_weak_count::__release_weak(v27);
       }
 
       if (__p)
       {
+        *(&__p + 1) = __p;
         operator delete(__p);
       }
 
       if (bCopy)
       {
         objc_msgSend_tensor(bCopy, v11, v12, v13, v14);
-        (*(*v24 + 24))();
-        if (v25 && !atomic_fetch_add(&v25->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+        (*(**(&v26 + 1) + 24))(*(&v26 + 1));
+        *&v24 = &unk_2866F58E8;
+        if (v27 && !atomic_fetch_add(&v27->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
         {
-          (v25->__on_zero_shared)();
-          std::__shared_weak_count::__release_weak(v25);
+          (v27->__on_zero_shared)(v27);
+          std::__shared_weak_count::__release_weak(v27);
         }
 
         if (__p)
         {
+          *(&__p + 1) = __p;
           operator delete(__p);
         }
 
+        v23 = 4;
         objc_msgSend_tensor(aCopy, v15, v16, v17, v18);
-        sub_254ACDCBC();
+        sub_254ACDCBC(&v24, &v23, &v22);
       }
 
+      v27 = 0;
+      __p = 0u;
+      v26 = 0u;
+      v24 = 0u;
       exception = __cxa_allocate_exception(0x10uLL);
       std::runtime_error::runtime_error(exception, "Incorrect data type requested.");
       __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
     }
   }
 
+  else
+  {
+    v27 = 0;
+    __p = 0u;
+    v26 = 0u;
+    v24 = 0u;
+  }
+
   v19 = __cxa_allocate_exception(0x10uLL);
   std::runtime_error::runtime_error(v19, "Incorrect data type requested.");
   __cxa_throw(v19, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+}
+
++ (id)multiplyFeatureVector:(id)vector byScalar:(float)scalar
+{
+  v10 = *&scalar;
+  vectorCopy = vector;
+  v14 = 4;
+  if (vectorCopy)
+  {
+    objc_msgSend_tensor(vectorCopy, v5, v6, v7, v8, v10);
+  }
+
+  else
+  {
+    v13 = 0;
+    *__p = 0u;
+    v12 = 0u;
+  }
+
+  sub_254ACDCBC(&v15, &v14, __p);
 }
 
 - (void)encodeWithCoder:(id)coder

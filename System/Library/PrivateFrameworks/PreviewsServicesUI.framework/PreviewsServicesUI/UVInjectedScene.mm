@@ -1,6 +1,7 @@
 @interface UVInjectedScene
 + (id)_baseSceneSettings:(id)settings sceneIdentifier:(id)identifier parentSettings:(id)parentSettings;
 + (id)_injectInProcessHandle:(id)handle error:(id *)error;
++ (id)injectInProcess:(int)process error:(id *)error;
 + (id)injectInRunningTarget:(id)target error:(id *)error;
 - (BOOL)_computeAndUpdateSceneSettings:(id *)settings;
 - (BOOL)setMaximizedWithParent:(id)parent error:(id *)error;
@@ -58,27 +59,24 @@
 
 - (void)dealloc
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v0 = objc_opt_class();
-  v1 = NSStringFromClass(v0);
+  v2 = objc_opt_class();
+  v3 = NSStringFromClass(v2);
   callStackSymbols = [MEMORY[0x277CCACC8] callStackSymbols];
   OUTLINED_FUNCTION_0();
-  _os_log_fault_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_fault_impl(v4, v5, v6, v7, v8, 0x16u);
 }
 
 - (void)invalidate
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   if (!self->_invalidated)
   {
     v3 = UVLog();
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = 138412290;
+      v12 = 138412290;
       selfCopy = self;
-      _os_log_impl(&dword_25F542000, v3, OS_LOG_TYPE_DEFAULT, "Invalidation of %@", &v13, 0xCu);
+      _os_log_impl(&dword_25F542000, v3, OS_LOG_TYPE_DEFAULT, "Invalidation of %@", &v12, 0xCu);
     }
 
     self->_invalidated = 1;
@@ -114,8 +112,6 @@
     actionHandler = self->_actionHandler;
     self->_actionHandler = 0;
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setInvalidationHandler:(id)handler
@@ -177,44 +173,41 @@ LABEL_6:
 
 - (void)_handleActionsFromHostedScene:(id)scene
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   sceneCopy = scene;
   v5 = sceneCopy;
   if (self->_actionHandler)
   {
-    v14 = 0u;
-    v15 = 0u;
     v12 = 0u;
     v13 = 0u;
-    v6 = [sceneCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
+    v10 = 0u;
+    v11 = 0u;
+    v6 = [sceneCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v13;
+      v8 = *v11;
       do
       {
         v9 = 0;
         do
         {
-          if (*v13 != v8)
+          if (*v11 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          v10 = *(*(&v12 + 1) + 8 * v9);
           (*(self->_actionHandler + 2))();
           ++v9;
         }
 
         while (v7 != v9);
-        v7 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
       }
 
       while (v7);
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)scene:(id)scene didUpdateClientSettingsWithDiff:(id)diff oldClientSettings:(id)settings transitionContext:(id)context
@@ -225,17 +218,16 @@ LABEL_6:
 
 - (void)sceneDidInvalidate:(id)invalidate
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v4 = UVLog();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 138412290;
+    v5 = 138412290;
     selfCopy = self;
-    _os_log_impl(&dword_25F542000, v4, OS_LOG_TYPE_DEFAULT, "Scene triggered invalidation of %@", &v6, 0xCu);
+    _os_log_impl(&dword_25F542000, v4, OS_LOG_TYPE_DEFAULT, "Scene triggered invalidation of %@", &v5, 0xCu);
   }
 
   [(UVInjectedScene *)self invalidate];
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_performActionsForUIScene:(id)scene withUpdatedFBSScene:(id)sScene settingsDiff:(id)diff fromSettings:(id)settings transitionContext:(id)context lifecycleActionType:(unsigned int)type
@@ -256,7 +248,7 @@ LABEL_6:
 
 - (void)_setParentScene:(id)scene
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   sceneCopy = scene;
   parentScene = self->_parentScene;
   if (parentScene != sceneCopy)
@@ -266,13 +258,11 @@ LABEL_6:
 
     objc_storeStrong(&self->_parentScene, scene);
     v8 = self->_parentScene;
-    v12[0] = self;
-    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
+    v11[0] = self;
+    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
     identifier2 = [(FBScene *)self->_scene identifier];
     [(UIWindowScene *)v8 _registerSettingsDiffActionArray:v9 forKey:identifier2];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)setMaximizedWithParent:(id)parent error:(id *)error
@@ -498,12 +488,12 @@ LABEL_29:
 
 + (id)injectInRunningTarget:(id)target error:(id *)error
 {
-  v19[1] = *MEMORY[0x277D85DE8];
+  v18[1] = *MEMORY[0x277D85DE8];
   targetCopy = target;
   v7 = [MEMORY[0x277D46FA0] predicateMatchingBundleIdentifier:targetCopy];
-  v17 = 0;
-  v8 = [MEMORY[0x277D46F48] handleForPredicate:v7 error:&v17];
-  v9 = v17;
+  v16 = 0;
+  v8 = [MEMORY[0x277D46F48] handleForPredicate:v7 error:&v16];
+  v9 = v16;
   if (v8)
   {
     v10 = [self _injectInProcessHandle:v8 error:error];
@@ -521,38 +511,73 @@ LABEL_29:
     if (error)
     {
       v13 = MEMORY[0x277CCA9B8];
-      v18 = *MEMORY[0x277CCA450];
-      v19[0] = v11;
-      v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:&v18 count:1];
+      v17 = *MEMORY[0x277CCA450];
+      v18[0] = v11;
+      v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:&v17 count:1];
       *error = [v13 errorWithDomain:@"UVErrorDomain" code:1 userInfo:v14];
     }
 
     v10 = 0;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
+  return v10;
+}
+
++ (id)injectInProcess:(int)process error:(id *)error
+{
+  v5 = *&process;
+  v18[1] = *MEMORY[0x277D85DE8];
+  v7 = [MEMORY[0x277D46F50] identifierWithPid:?];
+  v16 = 0;
+  v8 = [MEMORY[0x277D46F48] handleForIdentifier:v7 error:&v16];
+  v9 = v16;
+  if (v8)
+  {
+    v10 = [self _injectInProcessHandle:v8 error:error];
+  }
+
+  else
+  {
+    v11 = [MEMORY[0x277CCACA8] stringWithFormat:@"Failed to get process handle for pid %d: %@", v5, v9];
+    v12 = UVLog();
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    {
+      +[UVInjectedScene injectInRunningTarget:error:];
+    }
+
+    if (error)
+    {
+      v13 = MEMORY[0x277CCA9B8];
+      v17 = *MEMORY[0x277CCA450];
+      v18[0] = v11;
+      v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:&v17 count:1];
+      *error = [v13 errorWithDomain:@"UVErrorDomain" code:1 userInfo:v14];
+    }
+
+    v10 = 0;
+  }
 
   return v10;
 }
 
 + (id)_injectInProcessHandle:(id)handle error:(id *)error
 {
-  v37[1] = *MEMORY[0x277D85DE8];
+  v36[1] = *MEMORY[0x277D85DE8];
   handleCopy = handle;
   mEMORY[0x277D0AAC0] = [MEMORY[0x277D0AAC0] sharedInstance];
-  v34 = handleCopy;
+  v33 = handleCopy;
   errorCopy = error;
   if (handleCopy)
   {
-    [handleCopy auditToken];
+    objc_msgSend_auditToken(handleCopy);
   }
 
   else
   {
-    memset(v35, 0, sizeof(v35));
+    memset(v34, 0, sizeof(v34));
   }
 
-  v8 = [mEMORY[0x277D0AAC0] registerProcessForAuditToken:v35];
+  v8 = [mEMORY[0x277D0AAC0] registerProcessForAuditToken:v34];
 
   v9 = MEMORY[0x277D0ADA8];
   identity = [v8 identity];
@@ -566,7 +591,7 @@ LABEL_29:
   mainScreen = [MEMORY[0x277D759A0] mainScreen];
   displayConfiguration = [mainScreen displayConfiguration];
 
-  v33 = displayConfiguration;
+  v32 = displayConfiguration;
   v19 = [self _baseSceneSettings:displayConfiguration sceneIdentifier:v14 parentSettings:0];
   v20 = [v19 copy];
   [v16 setSettings:v20];
@@ -596,38 +621,25 @@ LABEL_29:
 
     if (errorCopy)
     {
-      v31 = MEMORY[0x277CCA9B8];
-      v36 = *MEMORY[0x277CCA450];
-      v37[0] = v26;
-      v28 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v37 forKeys:&v36 count:1];
-      *errorCopy = [v31 errorWithDomain:@"UVErrorDomain" code:2 userInfo:v28];
+      v30 = MEMORY[0x277CCA9B8];
+      v35 = *MEMORY[0x277CCA450];
+      v36[0] = v26;
+      v28 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v36 forKeys:&v35 count:1];
+      *errorCopy = [v30 errorWithDomain:@"UVErrorDomain" code:2 userInfo:v28];
     }
 
     v25 = 0;
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 
   return v25;
 }
 
 - (void)_computeSceneSettingsUsing:(void *)a1 error:.cold.1(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 localizedDescription];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
   _os_log_fault_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
-}
-
-+ (void)injectInRunningTarget:error:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_2(&dword_25F542000, v0, v1, "%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

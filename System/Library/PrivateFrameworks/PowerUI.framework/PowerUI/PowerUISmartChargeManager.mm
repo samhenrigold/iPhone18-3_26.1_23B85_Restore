@@ -7,6 +7,7 @@
 - (BOOL)isExternalConnected;
 - (BOOL)isMCLSupported;
 - (BOOL)listener:(id)listener shouldAcceptNewConnection:(id)connection;
+- (BOOL)shouldContinueAfterMCMCheckWithBatteryLevel:(int)level withIsCharging:(BOOL)charging withIsExternalConnected:(BOOL)connected withIsPluggedIn:(BOOL)in;
 - (BOOL)shouldDisableChargingOverrideModel:(unint64_t)model;
 - (NSDictionary)signalDeadline;
 - (PowerUISmartChargeManager)initWithDefaultsDomain:(id)domain contextStore:(id)store beforeHandlingBatteryChangeCallback:(id)callback afterHandlingBatteryChangeCallback:(id)changeCallback;
@@ -38,10 +39,12 @@
 - (id)setFullChargeDeadline:(id)deadline;
 - (id)shouldDisableChargingAsOfDate:(id)date atBatteryLevel:(unint64_t)level overrideAllSignals:(BOOL)signals withPredictor:(id)predictor bypassSaved:(BOOL)saved;
 - (id)shouldDisableChargingAtBatteryLevel:(unint64_t)level withPredictor:(id)predictor;
+- (id)smartTopOffFailureNotificationAtBatteryLevel:(int)level withDate:(id)date;
 - (id)stringFromDecisionMaker:(int64_t)maker decisionDate:(id)date;
 - (id)stringFromInterval:(id)interval;
 - (id)stringFromState:(unint64_t)state;
 - (id)timeStringFromDate:(id)date;
+- (id)ttrURLforBatteryLevel:(int)level withDate:(id)date;
 - (id)ttrURLforGenericFailure:(id)failure;
 - (id)uiDeadlineFromFullChargeDeadline:(id)deadline atDate:(id)date;
 - (id)updateAnalyticsWithPluginMetrics:(id)metrics withBatteryLevel:(int)level;
@@ -51,6 +54,7 @@
 - (unint64_t)mostRecentOBCModeOfoperationFromTimeline;
 - (unint64_t)projectedBatteryLevelForDuration:(unint64_t)duration withInitialBatteryLevel:(unint64_t)level;
 - (unsigned)getUISoCChargeLimit;
+- (void)_submitEngagementEventWithBatteryLevel:(id)level eventType:(int)type;
 - (void)accessoryConnectionAttached:(id)attached type:(int)type;
 - (void)accessoryConnectionDetached:(id)detached;
 - (void)accessoryNFCConnectionCallback:(id)callback;
@@ -65,6 +69,7 @@
 - (void)client:(id)client getMCLLimitWithHandler:(id)handler;
 - (void)client:(id)client setCECState:(unint64_t)state withHandler:(id)handler;
 - (void)client:(id)client setDEoCState:(unint64_t)state withHandler:(id)handler;
+- (void)client:(id)client setMCLLimit:(unsigned __int8)limit withHandler:(id)handler;
 - (void)client:(id)client setMCMState:(unint64_t)state withHandler:(id)handler;
 - (void)client:(id)client setState:(unint64_t)state withHandler:(id)handler;
 - (void)currentChargeLimitWithHandler:(id)handler;
@@ -76,6 +81,7 @@
 - (void)enableCharging;
 - (void)enableDEoC;
 - (void)enableMCL;
+- (void)engageFrom:(id)from until:(id)until repeatUntil:(id)repeatUntil overrideAllSignals:(BOOL)signals withHandler:(id)handler;
 - (void)engageManualChargeLimit;
 - (void)enterDevelopmentMode;
 - (void)evaluateChargeLimitRecommendationForced:(BOOL)forced;
@@ -87,7 +93,9 @@
 - (void)handleCallback:(BOOL)callback;
 - (void)handleDebounceTimerEvent;
 - (void)handleInternalCarryPromptEvent;
+- (void)handleNewBatteryLevel:(int)level whileExternalConnected:(BOOL)connected fullyCharged:(BOOL)charged;
 - (void)handleNewBatteryLevelForMCL:(int)l whileExternalConnected:(BOOL)connected;
+- (void)handleNewPluginWithBatteryLevel:(int)level pluginDate:(id)date;
 - (void)handleNotificationResponse:(id)response;
 - (void)handleTopOffSupervisorEvent;
 - (void)handleTopOffSupervisorEventInternal;
@@ -123,6 +131,7 @@
 - (void)registerBDCXPC;
 - (void)reportAggDKeys:(id)keys;
 - (void)reportBatteryHealthMetrics;
+- (void)reportMCMStatusWithBatteryLevel:(int)level;
 - (void)reportMonthlyData;
 - (void)requestPeriodicCheck;
 - (void)requestPeriodicCheckWithDuration:(double)duration withAlarmKey:(const char *)key;
@@ -139,8 +148,10 @@
 - (void)setCurrentState:(unint64_t)state;
 - (void)setDate:(id)date forPreferenceKey:(id)key;
 - (void)setEnabled:(BOOL)enabled;
+- (void)setMCLLimit:(unsigned __int8)limit;
 - (void)setTemporarilyDisabled:(BOOL)disabled until:(id)until;
 - (void)shouldMCMBeDisplayedWithHandler:(id)handler;
+- (void)simulateCurrentOutputAsOfDate:(id)date overrideAllSignals:(BOOL)signals withHandler:(id)handler;
 - (void)smartChargingUIStateWithHandler:(id)handler;
 - (void)startAllMonitoring;
 - (void)startFidgetMitigationTimer;
@@ -153,23 +164,24 @@
 - (void)updateDecisionMakerID:(int64_t)d withCheckpoint:(unint64_t)checkpoint;
 - (void)updateNotificationSettings:(BOOL)settings;
 - (void)updateResourceHint;
+- (void)updateTimeLineForCurrentBatteryLevel:(int)level withIsExternalConnected:(BOOL)connected forDate:(id)date;
 @end
 
 @implementation PowerUISmartChargeManager
 
 - (PowerUISmartChargeManager)initWithDefaultsDomain:(id)domain contextStore:(id)store beforeHandlingBatteryChangeCallback:(id)callback afterHandlingBatteryChangeCallback:(id)changeCallback
 {
-  v254[4] = *MEMORY[0x277D85DE8];
+  v253[4] = *MEMORY[0x277D85DE8];
   domainCopy = domain;
   storeCopy = store;
   callbackCopy = callback;
   changeCallbackCopy = changeCallback;
-  v249.receiver = self;
-  v249.super_class = PowerUISmartChargeManager;
-  v11 = [(PowerUISmartChargeManager *)&v249 init];
+  v248.receiver = self;
+  v248.super_class = PowerUISmartChargeManager;
+  v11 = [(PowerUISmartChargeManager *)&v248 init];
   if (v11)
   {
-    v154 = os_transaction_create();
+    v153 = os_transaction_create();
     v12 = os_log_create("com.apple.powerui.smartcharging", "smartChargeManager");
     v13 = *(v11 + 12);
     *(v11 + 12) = v12;
@@ -188,10 +200,10 @@
     v19 = *(v11 + 53);
     *(v11 + 53) = v18;
 
-    v158 = [v11 readStringForPreferenceKey:@"bootUUIDOnLastInit"];
-    v162 = +[PowerUISmartChargeUtilities getCurrentBootSessionUUID];
-    v20 = [v162 isEqualToString:v158];
-    [v11 setString:v162 forPreferenceKey:@"bootUUIDOnLastInit"];
+    v157 = [v11 readStringForPreferenceKey:@"bootUUIDOnLastInit"];
+    v161 = +[PowerUISmartChargeUtilities getCurrentBootSessionUUID];
+    v20 = [v161 isEqualToString:v157];
+    [v11 setString:v161 forPreferenceKey:@"bootUUIDOnLastInit"];
     v21 = *(v11 + 12);
     if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
     {
@@ -199,7 +211,7 @@
       v23 = v21;
       v24 = [v22 numberWithBool:v20 ^ 1u];
       *buf = 138412290;
-      v251 = v24;
+      v250 = v24;
       _os_log_impl(&dword_21B766000, v23, OS_LOG_TYPE_DEFAULT, "SmartChargeManager initializing. Was the device restarted: %@", buf, 0xCu);
     }
 
@@ -252,29 +264,29 @@
     v39 = *(v11 + 11);
     *(v11 + 11) = defaultCenter2;
 
-    v165 = [v11 readNumberForPreferenceKey:@"MCMCurrentState"];
-    if (!v165)
-    {
-      [v11 setNumber:&unk_282D4E5A8 forPreferenceKey:@"MCMCurrentState"];
-      v165 = &unk_282D4E5A8;
-    }
-
-    v164 = [v11 readNumberForPreferenceKey:@"MCMForbidsCharging"];
+    v164 = [v11 readNumberForPreferenceKey:@"MCMCurrentState"];
     if (!v164)
     {
+      [v11 setNumber:&unk_282D4E5A8 forPreferenceKey:@"MCMCurrentState"];
+      v164 = &unk_282D4E5A8;
+    }
+
+    v163 = [v11 readNumberForPreferenceKey:@"MCMForbidsCharging"];
+    if (!v163)
+    {
       [v11 setNumber:MEMORY[0x277CBEC28] forPreferenceKey:@"MCMForbidsCharging"];
-      v164 = MEMORY[0x277CBEC28];
+      v163 = MEMORY[0x277CBEC28];
     }
 
     *(v11 + 17) = 0;
-    unsignedIntValue = [v165 unsignedIntValue];
+    unsignedIntValue = [v164 unsignedIntValue];
     *(v11 + 54) = unsignedIntValue;
     if (unsignedIntValue == 2)
     {
       [v11 startFidgetMitigationTimer];
     }
 
-    *(v11 + 18) = [v164 BOOLValue];
+    *(v11 + 18) = [v163 BOOLValue];
     mEMORY[0x277CFD210] = [MEMORY[0x277CFD210] sharedInstance];
     v42 = *(v11 + 55);
     *(v11 + 55) = mEMORY[0x277CFD210];
@@ -285,7 +297,7 @@
     }
 
     v43 = [v11 readNumberForPreferenceKey:@"NumberOfTimesMCMNotificationWasDisplayed"];
-    v157 = v43;
+    v156 = v43;
     if (v43)
     {
       *(v11 + 59) = [v43 unsignedIntValue];
@@ -308,14 +320,14 @@
 
     [PowerUISmartChargeUtilities logMemoryUsageInternalForEvent:@"smartChargeManager init before monitors"];
     v48 = [PowerUIAlarmSignalMonitor monitorWithDelegate:v11 trialManager:*(v11 + 51) withContext:*(v11 + 6)];
-    v254[0] = v48;
+    v253[0] = v48;
     v49 = [PowerUICalendarSignalMonitor monitorWithDelegate:v11 trialManager:*(v11 + 51) withContext:*(v11 + 6)];
-    v254[1] = v49;
+    v253[1] = v49;
     v50 = [PowerUILocationSignalMonitor monitorWithDelegate:v11 trialManager:*(v11 + 51) withContext:*(v11 + 6)];
-    v254[2] = v50;
+    v253[2] = v50;
     v51 = [PowerUIWalletSignalMonitor monitorWithDelegate:v11];
-    v254[3] = v51;
-    v52 = [MEMORY[0x277CBEA60] arrayWithObjects:v254 count:4];
+    v253[3] = v51;
+    v52 = [MEMORY[0x277CBEA60] arrayWithObjects:v253 count:4];
     v53 = *(v11 + 41);
     *(v11 + 41) = v52;
 
@@ -375,10 +387,10 @@
       *(v11 + 31) = &unk_282D4E5D8;
     }
 
-    v161 = [v11 readNumberForPreferenceKey:@"previousDecisionMaker"];
-    if (v161)
+    v160 = [v11 readNumberForPreferenceKey:@"previousDecisionMaker"];
+    if (v160)
     {
-      *(v11 + 36) = [v161 integerValue];
+      *(v11 + 36) = [v160 integerValue];
     }
 
     v64 = [v11 readDateForPreferenceKey:@"previousDecisionMakerDate"];
@@ -402,12 +414,12 @@
 
     objc_initWeak(&location, v11);
     v71 = *(v11 + 51);
-    v246[0] = MEMORY[0x277D85DD0];
-    v246[1] = 3221225472;
-    v246[2] = __136__PowerUISmartChargeManager_initWithDefaultsDomain_contextStore_beforeHandlingBatteryChangeCallback_afterHandlingBatteryChangeCallback___block_invoke;
-    v246[3] = &unk_2782D4C58;
-    objc_copyWeak(&v247, &location);
-    [v71 addUpdateHandler:v246];
+    v245[0] = MEMORY[0x277D85DD0];
+    v245[1] = 3221225472;
+    v245[2] = __136__PowerUISmartChargeManager_initWithDefaultsDomain_contextStore_beforeHandlingBatteryChangeCallback_afterHandlingBatteryChangeCallback___block_invoke;
+    v245[3] = &unk_2782D4C58;
+    objc_copyWeak(&v246, &location);
+    [v71 addUpdateHandler:v245];
     if (!+[PowerUISmartChargeUtilities isUltraWatch])
     {
       kMaxDEoCBatteryDrain = 1;
@@ -424,7 +436,7 @@
       {
         v73 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:*(v11 + 15)];
         *buf = 138412290;
-        v251 = v73;
+        v250 = v73;
         _os_log_impl(&dword_21B766000, v72, OS_LOG_TYPE_DEFAULT, "Loading checkpoint value: %@", buf, 0xCu);
       }
     }
@@ -432,11 +444,11 @@
     else
     {
       [v11 setCheckpoint:0 withSelector:a2 forceWrite:1];
-      v153 = *(v11 + 12);
-      if (os_log_type_enabled(v153, OS_LOG_TYPE_DEFAULT))
+      v152 = *(v11 + 12);
+      if (os_log_type_enabled(v152, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_21B766000, v153, OS_LOG_TYPE_DEFAULT, "Device was restarted, reset checkpoint.", buf, 2u);
+        _os_log_impl(&dword_21B766000, v152, OS_LOG_TYPE_DEFAULT, "Device was restarted, reset checkpoint.", buf, 2u);
       }
     }
 
@@ -454,9 +466,9 @@
       v79 = *(v11 + 18);
       [v79 timeIntervalSinceNow];
       *buf = 138412546;
-      v251 = v79;
-      v252 = 1024;
-      v253 = v80 > 0.0;
+      v250 = v79;
+      v251 = 1024;
+      v252 = v80 > 0.0;
       _os_log_impl(&dword_21B766000, v78, OS_LOG_TYPE_DEFAULT, "Temp disabled until date: %@ (temp disabled: %u)", buf, 0x12u);
     }
 
@@ -486,22 +498,22 @@
     keyPathForBatteryStateDataDictionary2 = [MEMORY[0x277CFE338] keyPathForBatteryStateDataDictionary];
     keyPathForForegroundApp = [MEMORY[0x277CFE338] keyPathForForegroundApp];
     keyPathForBatteryStateDataDictionary3 = [MEMORY[0x277CFE338] keyPathForBatteryStateDataDictionary];
-    v156 = [v85 predicateForKeyPath:keyPathForBatteryStateDataDictionary withFormat:@"(SELF.%@.value.rawExternalConnected = %@) AND NOT (SELF.%@.value = %@) AND NOT (SELF.%@.value.fullyCharged = %@)", keyPathForBatteryStateDataDictionary2, MEMORY[0x277CBEC38], keyPathForForegroundApp, @"com.apple.camera", keyPathForBatteryStateDataDictionary3, &unk_282D4E5F0];
+    v155 = [v85 predicateForKeyPath:keyPathForBatteryStateDataDictionary withFormat:@"(SELF.%@.value.rawExternalConnected = %@) AND NOT (SELF.%@.value = %@) AND NOT (SELF.%@.value.fullyCharged = %@)", keyPathForBatteryStateDataDictionary2, MEMORY[0x277CBEC38], keyPathForForegroundApp, @"com.apple.camera", keyPathForBatteryStateDataDictionary3, &unk_282D4E5F0];
 
-    v242[0] = MEMORY[0x277D85DD0];
-    v242[1] = 3221225472;
-    v242[2] = __136__PowerUISmartChargeManager_initWithDefaultsDomain_contextStore_beforeHandlingBatteryChangeCallback_afterHandlingBatteryChangeCallback___block_invoke_999;
-    v242[3] = &unk_2782D4CA8;
+    v241[0] = MEMORY[0x277D85DD0];
+    v241[1] = 3221225472;
+    v241[2] = __136__PowerUISmartChargeManager_initWithDefaultsDomain_contextStore_beforeHandlingBatteryChangeCallback_afterHandlingBatteryChangeCallback___block_invoke_999;
+    v241[3] = &unk_2782D4CA8;
     v90 = v11;
-    v243 = v90;
-    v244 = callbackCopy;
-    v245 = changeCallbackCopy;
-    v91 = MEMORY[0x21CEF8A60](v242);
+    v242 = v90;
+    v243 = callbackCopy;
+    v244 = changeCallbackCopy;
+    v91 = MEMORY[0x21CEF8A60](v241);
     v92 = MEMORY[0x277CFE360];
     keyPathForPluginStatus = [MEMORY[0x277CFE338] keyPathForPluginStatus];
     v94 = [v92 predicateForChangeAtKeyPath:keyPathForPluginStatus];
 
-    v95 = [MEMORY[0x277CFE350] localWakingRegistrationWithIdentifier:@"com.apple.powerui.smartcharge" contextualPredicate:v156 clientIdentifier:@"com.apple.powerui.smartChargeManager" callback:v91];
+    v95 = [MEMORY[0x277CFE350] localWakingRegistrationWithIdentifier:@"com.apple.powerui.smartcharge" contextualPredicate:v155 clientIdentifier:@"com.apple.powerui.smartChargeManager" callback:v91];
     v96 = [MEMORY[0x277CFE350] localWakingRegistrationWithIdentifier:@"com.apple.powerui.smartcharge.unplug" contextualPredicate:v94 clientIdentifier:@"com.apple.powerui.smartChargeManager" callback:v91];
     [*(v11 + 6) registerCallback:v95];
     [*(v11 + 6) registerCallback:v96];
@@ -511,7 +523,7 @@
     block[2] = __136__PowerUISmartChargeManager_initWithDefaultsDomain_contextStore_beforeHandlingBatteryChangeCallback_afterHandlingBatteryChangeCallback___block_invoke_3;
     block[3] = &unk_2782D3EA8;
     v98 = v90;
-    v241 = v98;
+    v240 = v98;
     dispatch_async(v97, block);
     v99 = [objc_alloc(MEMORY[0x277CCAE98]) initWithMachServiceName:@"com.apple.powerui.smartChargeManager"];
     v100 = v98[50];
@@ -527,228 +539,228 @@
     handler[2] = __136__PowerUISmartChargeManager_initWithDefaultsDomain_contextStore_beforeHandlingBatteryChangeCallback_afterHandlingBatteryChangeCallback___block_invoke_4;
     handler[3] = &unk_2782D3E60;
     v102 = v98;
-    v239 = v102;
+    v238 = v102;
     notify_register_dispatch("AppleLanguagePreferencesChangedNotification", buf, v101, handler);
     out_token = 0;
     v103 = *(v11 + 23);
-    v235[0] = MEMORY[0x277D85DD0];
-    v235[1] = 3221225472;
-    v235[2] = __136__PowerUISmartChargeManager_initWithDefaultsDomain_contextStore_beforeHandlingBatteryChangeCallback_afterHandlingBatteryChangeCallback___block_invoke_1020;
-    v235[3] = &unk_2782D3E60;
+    v234[0] = MEMORY[0x277D85DD0];
+    v234[1] = 3221225472;
+    v234[2] = __136__PowerUISmartChargeManager_initWithDefaultsDomain_contextStore_beforeHandlingBatteryChangeCallback_afterHandlingBatteryChangeCallback___block_invoke_1020;
+    v234[3] = &unk_2782D3E60;
     v104 = v102;
-    v236 = v104;
-    notify_register_dispatch("com.apple.powerui.checkpoint", &out_token, v103, v235);
-    v234 = 0;
+    v235 = v104;
+    notify_register_dispatch("com.apple.powerui.checkpoint", &out_token, v103, v234);
+    v233 = 0;
     uTF8String = [@"com.apple.smartcharging.defaultschanged" UTF8String];
     v106 = *(v11 + 23);
-    v232[0] = MEMORY[0x277D85DD0];
-    v232[1] = 3221225472;
-    v232[2] = __136__PowerUISmartChargeManager_initWithDefaultsDomain_contextStore_beforeHandlingBatteryChangeCallback_afterHandlingBatteryChangeCallback___block_invoke_2_1021;
-    v232[3] = &unk_2782D3E60;
+    v231[0] = MEMORY[0x277D85DD0];
+    v231[1] = 3221225472;
+    v231[2] = __136__PowerUISmartChargeManager_initWithDefaultsDomain_contextStore_beforeHandlingBatteryChangeCallback_afterHandlingBatteryChangeCallback___block_invoke_2_1021;
+    v231[3] = &unk_2782D3E60;
     v107 = v104;
-    v233 = v107;
-    notify_register_dispatch(uTF8String, &v234, v106, v232);
-    v231 = 0;
+    v232 = v107;
+    notify_register_dispatch(uTF8String, &v233, v106, v231);
+    v230 = 0;
     v108 = *(v11 + 23);
-    v229[0] = MEMORY[0x277D85DD0];
-    v229[1] = 3221225472;
-    v229[2] = __136__PowerUISmartChargeManager_initWithDefaultsDomain_contextStore_beforeHandlingBatteryChangeCallback_afterHandlingBatteryChangeCallback___block_invoke_3_1023;
-    v229[3] = &unk_2782D3E60;
+    v228[0] = MEMORY[0x277D85DD0];
+    v228[1] = 3221225472;
+    v228[2] = __136__PowerUISmartChargeManager_initWithDefaultsDomain_contextStore_beforeHandlingBatteryChangeCallback_afterHandlingBatteryChangeCallback___block_invoke_3_1023;
+    v228[3] = &unk_2782D3E60;
     v109 = v107;
-    v230 = v109;
-    notify_register_dispatch("com.apple.powerui.requiredFullCharge", &v231, v108, v229);
-    v228 = 0;
+    v229 = v109;
+    notify_register_dispatch("com.apple.powerui.requiredFullCharge", &v230, v108, v228);
+    v227 = 0;
     v110 = *(v11 + 23);
-    v226[0] = MEMORY[0x277D85DD0];
-    v226[1] = 3221225472;
-    v226[2] = __136__PowerUISmartChargeManager_initWithDefaultsDomain_contextStore_beforeHandlingBatteryChangeCallback_afterHandlingBatteryChangeCallback___block_invoke_1025;
-    v226[3] = &unk_2782D3E60;
+    v225[0] = MEMORY[0x277D85DD0];
+    v225[1] = 3221225472;
+    v225[2] = __136__PowerUISmartChargeManager_initWithDefaultsDomain_contextStore_beforeHandlingBatteryChangeCallback_afterHandlingBatteryChangeCallback___block_invoke_1025;
+    v225[3] = &unk_2782D3E60;
     v111 = v109;
-    v227 = v111;
-    notify_register_dispatch("com.apple.powerui.ptoengaged", &v228, v110, v226);
-    v225 = 0;
+    v226 = v111;
+    notify_register_dispatch("com.apple.powerui.ptoengaged", &v227, v110, v225);
+    v224 = 0;
     v112 = *(v11 + 23);
-    v223[0] = MEMORY[0x277D85DD0];
-    v223[1] = 3221225472;
-    v223[2] = __136__PowerUISmartChargeManager_initWithDefaultsDomain_contextStore_beforeHandlingBatteryChangeCallback_afterHandlingBatteryChangeCallback___block_invoke_2_1027;
-    v223[3] = &unk_2782D3E60;
+    v222[0] = MEMORY[0x277D85DD0];
+    v222[1] = 3221225472;
+    v222[2] = __136__PowerUISmartChargeManager_initWithDefaultsDomain_contextStore_beforeHandlingBatteryChangeCallback_afterHandlingBatteryChangeCallback___block_invoke_2_1027;
+    v222[3] = &unk_2782D3E60;
     v113 = v111;
-    v224 = v113;
-    notify_register_dispatch("com.apple.powerui.ttr", &v225, v112, v223);
-    v222 = 0;
+    v223 = v113;
+    notify_register_dispatch("com.apple.powerui.ttr", &v224, v112, v222);
+    v221 = 0;
     v114 = *(v11 + 23);
-    v219[0] = MEMORY[0x277D85DD0];
-    v219[1] = 3221225472;
-    v219[2] = __136__PowerUISmartChargeManager_initWithDefaultsDomain_contextStore_beforeHandlingBatteryChangeCallback_afterHandlingBatteryChangeCallback___block_invoke_3_1029;
-    v219[3] = &unk_2782D4CD0;
+    v218[0] = MEMORY[0x277D85DD0];
+    v218[1] = 3221225472;
+    v218[2] = __136__PowerUISmartChargeManager_initWithDefaultsDomain_contextStore_beforeHandlingBatteryChangeCallback_afterHandlingBatteryChangeCallback___block_invoke_3_1029;
+    v218[3] = &unk_2782D4CD0;
     v115 = v113;
-    v220 = v115;
-    v221 = a2;
-    notify_register_dispatch("com.apple.system.powersources.chargingtofulloverride", &v222, v114, v219);
-    v218 = 0;
+    v219 = v115;
+    v220 = a2;
+    notify_register_dispatch("com.apple.system.powersources.chargingtofulloverride", &v221, v114, v218);
+    v217 = 0;
     v116 = *(v11 + 23);
-    v216[0] = MEMORY[0x277D85DD0];
-    v216[1] = 3221225472;
-    v216[2] = __136__PowerUISmartChargeManager_initWithDefaultsDomain_contextStore_beforeHandlingBatteryChangeCallback_afterHandlingBatteryChangeCallback___block_invoke_1031;
-    v216[3] = &unk_2782D3E60;
+    v215[0] = MEMORY[0x277D85DD0];
+    v215[1] = 3221225472;
+    v215[2] = __136__PowerUISmartChargeManager_initWithDefaultsDomain_contextStore_beforeHandlingBatteryChangeCallback_afterHandlingBatteryChangeCallback___block_invoke_1031;
+    v215[3] = &unk_2782D3E60;
     v117 = v115;
-    v217 = v117;
-    notify_register_dispatch("com.apple.powerui.computehistorical", &v218, v116, v216);
-    v215 = 0;
+    v216 = v117;
+    notify_register_dispatch("com.apple.powerui.computehistorical", &v217, v116, v215);
+    v214 = 0;
     v118 = *(v11 + 23);
-    v213[0] = MEMORY[0x277D85DD0];
-    v213[1] = 3221225472;
-    v213[2] = __136__PowerUISmartChargeManager_initWithDefaultsDomain_contextStore_beforeHandlingBatteryChangeCallback_afterHandlingBatteryChangeCallback___block_invoke_1033;
-    v213[3] = &unk_2782D3E60;
+    v212[0] = MEMORY[0x277D85DD0];
+    v212[1] = 3221225472;
+    v212[2] = __136__PowerUISmartChargeManager_initWithDefaultsDomain_contextStore_beforeHandlingBatteryChangeCallback_afterHandlingBatteryChangeCallback___block_invoke_1033;
+    v212[3] = &unk_2782D3E60;
     v119 = v117;
-    v214 = v119;
-    notify_register_dispatch("com.apple.powerui.testMCMActiveNotificationRequest", &v215, v118, v213);
-    v212 = 0;
+    v213 = v119;
+    notify_register_dispatch("com.apple.powerui.testMCMActiveNotificationRequest", &v214, v118, v212);
+    v211 = 0;
     v120 = *(v11 + 23);
-    v210[0] = MEMORY[0x277D85DD0];
-    v210[1] = 3221225472;
-    v210[2] = __136__PowerUISmartChargeManager_initWithDefaultsDomain_contextStore_beforeHandlingBatteryChangeCallback_afterHandlingBatteryChangeCallback___block_invoke_2_1035;
-    v210[3] = &unk_2782D3E60;
+    v209[0] = MEMORY[0x277D85DD0];
+    v209[1] = 3221225472;
+    v209[2] = __136__PowerUISmartChargeManager_initWithDefaultsDomain_contextStore_beforeHandlingBatteryChangeCallback_afterHandlingBatteryChangeCallback___block_invoke_2_1035;
+    v209[3] = &unk_2782D3E60;
     v121 = v119;
-    v211 = v121;
-    notify_register_dispatch("com.apple.powerui.genericttr", &v212, v120, v210);
-    v209 = 0;
+    v210 = v121;
+    notify_register_dispatch("com.apple.powerui.genericttr", &v211, v120, v209);
+    v208 = 0;
     v122 = *(v11 + 23);
-    v207[0] = MEMORY[0x277D85DD0];
-    v207[1] = 3221225472;
-    v207[2] = __136__PowerUISmartChargeManager_initWithDefaultsDomain_contextStore_beforeHandlingBatteryChangeCallback_afterHandlingBatteryChangeCallback___block_invoke_3_1040;
-    v207[3] = &unk_2782D3E60;
+    v206[0] = MEMORY[0x277D85DD0];
+    v206[1] = 3221225472;
+    v206[2] = __136__PowerUISmartChargeManager_initWithDefaultsDomain_contextStore_beforeHandlingBatteryChangeCallback_afterHandlingBatteryChangeCallback___block_invoke_3_1040;
+    v206[3] = &unk_2782D3E60;
     v123 = v121;
-    v208 = v123;
-    notify_register_dispatch("com.apple.powerui.checklocation", &v209, v122, v207);
-    v206 = 0;
+    v207 = v123;
+    notify_register_dispatch("com.apple.powerui.checklocation", &v208, v122, v206);
+    v205 = 0;
     v124 = *(v11 + 23);
-    v204[0] = MEMORY[0x277D85DD0];
-    v204[1] = 3221225472;
-    v204[2] = __136__PowerUISmartChargeManager_initWithDefaultsDomain_contextStore_beforeHandlingBatteryChangeCallback_afterHandlingBatteryChangeCallback___block_invoke_1042;
-    v204[3] = &unk_2782D3E60;
+    v203[0] = MEMORY[0x277D85DD0];
+    v203[1] = 3221225472;
+    v203[2] = __136__PowerUISmartChargeManager_initWithDefaultsDomain_contextStore_beforeHandlingBatteryChangeCallback_afterHandlingBatteryChangeCallback___block_invoke_1042;
+    v203[3] = &unk_2782D3E60;
     v125 = v123;
-    v205 = v125;
-    notify_register_dispatch("com.apple.powerui.testMonthlyAnalytics", &v206, v124, v204);
-    v203 = 0;
+    v204 = v125;
+    notify_register_dispatch("com.apple.powerui.testMonthlyAnalytics", &v205, v124, v203);
+    v202 = 0;
     v126 = *(v11 + 23);
-    v201[0] = MEMORY[0x277D85DD0];
-    v201[1] = 3221225472;
-    v201[2] = __136__PowerUISmartChargeManager_initWithDefaultsDomain_contextStore_beforeHandlingBatteryChangeCallback_afterHandlingBatteryChangeCallback___block_invoke_2_1044;
-    v201[3] = &unk_2782D3E60;
+    v200[0] = MEMORY[0x277D85DD0];
+    v200[1] = 3221225472;
+    v200[2] = __136__PowerUISmartChargeManager_initWithDefaultsDomain_contextStore_beforeHandlingBatteryChangeCallback_afterHandlingBatteryChangeCallback___block_invoke_2_1044;
+    v200[3] = &unk_2782D3E60;
     v127 = v125;
-    v202 = v127;
-    notify_register_dispatch("com.apple.powerui.testHardwareCheck", &v203, v126, v201);
-    v200 = 0;
+    v201 = v127;
+    notify_register_dispatch("com.apple.powerui.testHardwareCheck", &v202, v126, v200);
+    v199 = 0;
     v128 = *(v11 + 23);
-    v198[0] = MEMORY[0x277D85DD0];
-    v198[1] = 3221225472;
-    v198[2] = __136__PowerUISmartChargeManager_initWithDefaultsDomain_contextStore_beforeHandlingBatteryChangeCallback_afterHandlingBatteryChangeCallback___block_invoke_1049;
-    v198[3] = &unk_2782D3E60;
+    v197[0] = MEMORY[0x277D85DD0];
+    v197[1] = 3221225472;
+    v197[2] = __136__PowerUISmartChargeManager_initWithDefaultsDomain_contextStore_beforeHandlingBatteryChangeCallback_afterHandlingBatteryChangeCallback___block_invoke_1049;
+    v197[3] = &unk_2782D3E60;
     v129 = v127;
-    v199 = v129;
-    notify_register_dispatch("com.apple.powerui.evaluateDEoC", &v200, v128, v198);
-    v197 = 0;
+    v198 = v129;
+    notify_register_dispatch("com.apple.powerui.evaluateDEoC", &v199, v128, v197);
+    v196 = 0;
     v130 = *(v11 + 23);
-    v195[0] = MEMORY[0x277D85DD0];
-    v195[1] = 3221225472;
-    v195[2] = __136__PowerUISmartChargeManager_initWithDefaultsDomain_contextStore_beforeHandlingBatteryChangeCallback_afterHandlingBatteryChangeCallback___block_invoke_2_1051;
-    v195[3] = &unk_2782D3E60;
+    v194[0] = MEMORY[0x277D85DD0];
+    v194[1] = 3221225472;
+    v194[2] = __136__PowerUISmartChargeManager_initWithDefaultsDomain_contextStore_beforeHandlingBatteryChangeCallback_afterHandlingBatteryChangeCallback___block_invoke_2_1051;
+    v194[3] = &unk_2782D3E60;
     v131 = v129;
-    v196 = v131;
-    notify_register_dispatch("com.apple.powerui.printBiomeStreams", &v197, v130, v195);
-    v194 = 0;
+    v195 = v131;
+    notify_register_dispatch("com.apple.powerui.printBiomeStreams", &v196, v130, v194);
+    v193 = 0;
     v132 = *(v11 + 23);
-    v192[0] = MEMORY[0x277D85DD0];
-    v192[1] = 3221225472;
-    v192[2] = __136__PowerUISmartChargeManager_initWithDefaultsDomain_contextStore_beforeHandlingBatteryChangeCallback_afterHandlingBatteryChangeCallback___block_invoke_1053;
-    v192[3] = &unk_2782D3E60;
+    v191[0] = MEMORY[0x277D85DD0];
+    v191[1] = 3221225472;
+    v191[2] = __136__PowerUISmartChargeManager_initWithDefaultsDomain_contextStore_beforeHandlingBatteryChangeCallback_afterHandlingBatteryChangeCallback___block_invoke_1053;
+    v191[3] = &unk_2782D3E60;
     v133 = v131;
-    v193 = v133;
-    notify_register_dispatch("com.apple.powerui.pluginEvents", &v194, v132, v192);
-    v191 = 0;
+    v192 = v133;
+    notify_register_dispatch("com.apple.powerui.pluginEvents", &v193, v132, v191);
+    v190 = 0;
     v134 = *(v11 + 23);
-    v189[0] = MEMORY[0x277D85DD0];
-    v189[1] = 3221225472;
-    v189[2] = __136__PowerUISmartChargeManager_initWithDefaultsDomain_contextStore_beforeHandlingBatteryChangeCallback_afterHandlingBatteryChangeCallback___block_invoke_1055;
-    v189[3] = &unk_2782D3E60;
+    v188[0] = MEMORY[0x277D85DD0];
+    v188[1] = 3221225472;
+    v188[2] = __136__PowerUISmartChargeManager_initWithDefaultsDomain_contextStore_beforeHandlingBatteryChangeCallback_afterHandlingBatteryChangeCallback___block_invoke_1055;
+    v188[3] = &unk_2782D3E60;
     v135 = v133;
-    v190 = v135;
-    notify_register_dispatch("com.apple.powerui.gaugingStatistics", &v191, v134, v189);
-    v188 = 0;
+    v189 = v135;
+    notify_register_dispatch("com.apple.powerui.gaugingStatistics", &v190, v134, v188);
+    v187 = 0;
     v136 = *(v11 + 23);
-    v186[0] = MEMORY[0x277D85DD0];
-    v186[1] = 3221225472;
-    v186[2] = __136__PowerUISmartChargeManager_initWithDefaultsDomain_contextStore_beforeHandlingBatteryChangeCallback_afterHandlingBatteryChangeCallback___block_invoke_1057;
-    v186[3] = &unk_2782D3E60;
+    v185[0] = MEMORY[0x277D85DD0];
+    v185[1] = 3221225472;
+    v185[2] = __136__PowerUISmartChargeManager_initWithDefaultsDomain_contextStore_beforeHandlingBatteryChangeCallback_afterHandlingBatteryChangeCallback___block_invoke_1057;
+    v185[3] = &unk_2782D3E60;
     v137 = v135;
-    v187 = v137;
-    notify_register_dispatch("com.apple.powerui.evaluateChargeLimitRecommendation", &v188, v136, v186);
-    v185 = 0;
+    v186 = v137;
+    notify_register_dispatch("com.apple.powerui.evaluateChargeLimitRecommendation", &v187, v136, v185);
+    v184 = 0;
     v138 = *(v11 + 23);
-    v183[0] = MEMORY[0x277D85DD0];
-    v183[1] = 3221225472;
-    v183[2] = __136__PowerUISmartChargeManager_initWithDefaultsDomain_contextStore_beforeHandlingBatteryChangeCallback_afterHandlingBatteryChangeCallback___block_invoke_2_1059;
-    v183[3] = &unk_2782D3E60;
+    v182[0] = MEMORY[0x277D85DD0];
+    v182[1] = 3221225472;
+    v182[2] = __136__PowerUISmartChargeManager_initWithDefaultsDomain_contextStore_beforeHandlingBatteryChangeCallback_afterHandlingBatteryChangeCallback___block_invoke_2_1059;
+    v182[3] = &unk_2782D3E60;
     v139 = v137;
-    v184 = v139;
-    notify_register_dispatch("com.apple.powerui.postChargeLimitRecommendation", &v185, v138, v183);
-    v182 = 0;
+    v183 = v139;
+    notify_register_dispatch("com.apple.powerui.postChargeLimitRecommendation", &v184, v138, v182);
+    v181 = 0;
     v140 = *(v11 + 23);
-    v180[0] = MEMORY[0x277D85DD0];
-    v180[1] = 3221225472;
-    v180[2] = __136__PowerUISmartChargeManager_initWithDefaultsDomain_contextStore_beforeHandlingBatteryChangeCallback_afterHandlingBatteryChangeCallback___block_invoke_3_1061;
-    v180[3] = &unk_2782D3E60;
+    v179[0] = MEMORY[0x277D85DD0];
+    v179[1] = 3221225472;
+    v179[2] = __136__PowerUISmartChargeManager_initWithDefaultsDomain_contextStore_beforeHandlingBatteryChangeCallback_afterHandlingBatteryChangeCallback___block_invoke_3_1061;
+    v179[3] = &unk_2782D3E60;
     v141 = v139;
-    v181 = v141;
-    notify_register_dispatch("com.apple.powerui.testTmpDisableChargeLimit", &v182, v140, v180);
-    v179 = 0;
+    v180 = v141;
+    notify_register_dispatch("com.apple.powerui.testTmpDisableChargeLimit", &v181, v140, v179);
+    v178 = 0;
     v142 = *(v11 + 23);
-    v177[0] = MEMORY[0x277D85DD0];
-    v177[1] = 3221225472;
-    v177[2] = __136__PowerUISmartChargeManager_initWithDefaultsDomain_contextStore_beforeHandlingBatteryChangeCallback_afterHandlingBatteryChangeCallback___block_invoke_4_1063;
-    v177[3] = &unk_2782D3E60;
+    v176[0] = MEMORY[0x277D85DD0];
+    v176[1] = 3221225472;
+    v176[2] = __136__PowerUISmartChargeManager_initWithDefaultsDomain_contextStore_beforeHandlingBatteryChangeCallback_afterHandlingBatteryChangeCallback___block_invoke_4_1063;
+    v176[3] = &unk_2782D3E60;
     v143 = v141;
-    v178 = v143;
-    notify_register_dispatch("com.apple.powerui.testCheckForTempDisabled", &v179, v142, v177);
+    v177 = v143;
+    notify_register_dispatch("com.apple.powerui.testCheckForTempDisabled", &v178, v142, v176);
     v144 = *(v11 + 23);
-    v175[0] = MEMORY[0x277D85DD0];
-    v175[1] = 3221225472;
-    v175[2] = __136__PowerUISmartChargeManager_initWithDefaultsDomain_contextStore_beforeHandlingBatteryChangeCallback_afterHandlingBatteryChangeCallback___block_invoke_5;
-    v175[3] = &unk_2782D3E60;
+    v174[0] = MEMORY[0x277D85DD0];
+    v174[1] = 3221225472;
+    v174[2] = __136__PowerUISmartChargeManager_initWithDefaultsDomain_contextStore_beforeHandlingBatteryChangeCallback_afterHandlingBatteryChangeCallback___block_invoke_5;
+    v174[3] = &unk_2782D3E60;
     v145 = v143;
-    v176 = v145;
-    notify_register_dispatch("com.apple.perfpowerservices.reportobcanalytics", v143 + 7, v144, v175);
+    v175 = v145;
+    notify_register_dispatch("com.apple.perfpowerservices.reportobcanalytics", v143 + 7, v144, v174);
     v146 = *MEMORY[0x277D86238];
-    v173[0] = MEMORY[0x277D85DD0];
-    v173[1] = 3221225472;
-    v173[2] = __136__PowerUISmartChargeManager_initWithDefaultsDomain_contextStore_beforeHandlingBatteryChangeCallback_afterHandlingBatteryChangeCallback___block_invoke_1065;
-    v173[3] = &unk_2782D48D8;
+    v172[0] = MEMORY[0x277D85DD0];
+    v172[1] = 3221225472;
+    v172[2] = __136__PowerUISmartChargeManager_initWithDefaultsDomain_contextStore_beforeHandlingBatteryChangeCallback_afterHandlingBatteryChangeCallback___block_invoke_1065;
+    v172[3] = &unk_2782D48D8;
     v147 = v145;
-    v174 = v147;
-    xpc_activity_register("com.apple.poweruiagent.reportAnalyticsRepeating", v146, v173);
-    v171[0] = MEMORY[0x277D85DD0];
-    v171[1] = 3221225472;
-    v171[2] = __136__PowerUISmartChargeManager_initWithDefaultsDomain_contextStore_beforeHandlingBatteryChangeCallback_afterHandlingBatteryChangeCallback___block_invoke_2_1068;
-    v171[3] = &unk_2782D48D8;
+    v173 = v147;
+    xpc_activity_register("com.apple.poweruiagent.reportAnalyticsRepeating", v146, v172);
+    v170[0] = MEMORY[0x277D85DD0];
+    v170[1] = 3221225472;
+    v170[2] = __136__PowerUISmartChargeManager_initWithDefaultsDomain_contextStore_beforeHandlingBatteryChangeCallback_afterHandlingBatteryChangeCallback___block_invoke_2_1068;
+    v170[3] = &unk_2782D48D8;
     v148 = v147;
-    v172 = v148;
-    xpc_activity_register("com.apple.poweruiagent.reportMonthlyAnalytics", v146, v171);
-    v169[0] = MEMORY[0x277D85DD0];
-    v169[1] = 3221225472;
-    v169[2] = __136__PowerUISmartChargeManager_initWithDefaultsDomain_contextStore_beforeHandlingBatteryChangeCallback_afterHandlingBatteryChangeCallback___block_invoke_1069;
-    v169[3] = &unk_2782D48D8;
+    v171 = v148;
+    xpc_activity_register("com.apple.poweruiagent.reportMonthlyAnalytics", v146, v170);
+    v168[0] = MEMORY[0x277D85DD0];
+    v168[1] = 3221225472;
+    v168[2] = __136__PowerUISmartChargeManager_initWithDefaultsDomain_contextStore_beforeHandlingBatteryChangeCallback_afterHandlingBatteryChangeCallback___block_invoke_1069;
+    v168[3] = &unk_2782D48D8;
     v149 = v148;
-    v170 = v149;
-    xpc_activity_register("com.apple.poweruiagent.reportBatteryHealthMetrics", v146, v169);
+    v169 = v149;
+    xpc_activity_register("com.apple.poweruiagent.reportBatteryHealthMetrics", v146, v168);
     if ([v149 isMCLSupported])
     {
-      v167[0] = MEMORY[0x277D85DD0];
-      v167[1] = 3221225472;
-      v167[2] = __136__PowerUISmartChargeManager_initWithDefaultsDomain_contextStore_beforeHandlingBatteryChangeCallback_afterHandlingBatteryChangeCallback___block_invoke_1070;
-      v167[3] = &unk_2782D48D8;
-      v168 = v149;
-      xpc_activity_register("com.apple.poweruiagent.evaluateRecommendedLimit", v146, v167);
+      v166[0] = MEMORY[0x277D85DD0];
+      v166[1] = 3221225472;
+      v166[2] = __136__PowerUISmartChargeManager_initWithDefaultsDomain_contextStore_beforeHandlingBatteryChangeCallback_afterHandlingBatteryChangeCallback___block_invoke_1070;
+      v166[3] = &unk_2782D48D8;
+      v167 = v149;
+      xpc_activity_register("com.apple.poweruiagent.evaluateRecommendedLimit", v146, v166);
     }
 
     else
@@ -758,7 +770,7 @@
 
     [PowerUISmartChargeUtilities logMemoryUsageInternalForEvent:@"End of smartChargeManager init"];
 
-    objc_destroyWeak(&v247);
+    objc_destroyWeak(&v246);
     objc_destroyWeak(&location);
   }
 
@@ -769,7 +781,6 @@
     _os_log_impl(&dword_21B766000, v150, OS_LOG_TYPE_DEFAULT, "smartChargeManager init complete!", buf, 2u);
   }
 
-  v151 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
@@ -801,7 +812,7 @@ void __136__PowerUISmartChargeManager_initWithDefaultsDomain_contextStore_before
   dispatch_sync(v2, block);
 }
 
-uint64_t __136__PowerUISmartChargeManager_initWithDefaultsDomain_contextStore_beforeHandlingBatteryChangeCallback_afterHandlingBatteryChangeCallback___block_invoke_2(void *a1)
+void *__136__PowerUISmartChargeManager_initWithDefaultsDomain_contextStore_beforeHandlingBatteryChangeCallback_afterHandlingBatteryChangeCallback___block_invoke_2(void *a1)
 {
   v2 = a1[4];
   if (v2[8])
@@ -877,38 +888,38 @@ uint64_t __136__PowerUISmartChargeManager_initWithDefaultsDomain_contextStore_be
 
 void __136__PowerUISmartChargeManager_initWithDefaultsDomain_contextStore_beforeHandlingBatteryChangeCallback_afterHandlingBatteryChangeCallback___block_invoke_3_1023(uint64_t a1)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v2 = [*(a1 + 32) monitors];
-  v3 = [v2 countByEnumeratingWithState:&v13 objects:v21 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v12 objects:v20 count:16];
   if (v3)
   {
     v5 = v3;
-    v6 = *v14;
+    v6 = *v13;
     *&v4 = 138412546;
-    v12 = v4;
+    v11 = v4;
     do
     {
       v7 = 0;
       do
       {
-        if (*v14 != v6)
+        if (*v13 != v6)
         {
           objc_enumerationMutation(v2);
         }
 
-        v8 = *(*(&v13 + 1) + 8 * v7);
+        v8 = *(*(&v12 + 1) + 8 * v7);
         v9 = [*(a1 + 32) log];
         if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
         {
           v10 = [v8 requiredFullChargeDate];
-          *buf = v12;
-          v18 = v8;
-          v19 = 2112;
-          v20 = v10;
+          *buf = v11;
+          v17 = v8;
+          v18 = 2112;
+          v19 = v10;
           _os_log_impl(&dword_21B766000, v9, OS_LOG_TYPE_DEFAULT, "%@ requires full charge by %@", buf, 0x16u);
         }
 
@@ -916,13 +927,11 @@ void __136__PowerUISmartChargeManager_initWithDefaultsDomain_contextStore_before
       }
 
       while (v5 != v7);
-      v5 = [v2 countByEnumeratingWithState:&v13 objects:v21 count:16];
+      v5 = [v2 countByEnumeratingWithState:&v12 objects:v20 count:16];
     }
 
     while (v5);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __136__PowerUISmartChargeManager_initWithDefaultsDomain_contextStore_beforeHandlingBatteryChangeCallback_afterHandlingBatteryChangeCallback___block_invoke_1025(uint64_t a1, int token)
@@ -972,7 +981,7 @@ void __136__PowerUISmartChargeManager_initWithDefaultsDomain_contextStore_before
 
 void __136__PowerUISmartChargeManager_initWithDefaultsDomain_contextStore_beforeHandlingBatteryChangeCallback_afterHandlingBatteryChangeCallback___block_invoke_3_1029(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v2 = [*(*(a1 + 32) + 384) fetchCurrentMitigationState];
   v3 = *(a1 + 32);
   v4 = *(v3 + 96);
@@ -982,9 +991,9 @@ void __136__PowerUISmartChargeManager_initWithDefaultsDomain_contextStore_before
     {
       v5 = *(*(a1 + 32) + 384);
       v6 = v4;
-      v11[0] = 67109120;
-      v11[1] = [v5 mitigationsCurrentlyEnabled];
-      _os_log_impl(&dword_21B766000, v6, OS_LOG_TYPE_DEFAULT, "Gauging mitigation state changed, new state: %d", v11, 8u);
+      v10[0] = 67109120;
+      v10[1] = [v5 mitigationsCurrentlyEnabled];
+      _os_log_impl(&dword_21B766000, v6, OS_LOG_TYPE_DEFAULT, "Gauging mitigation state changed, new state: %d", v10, 8u);
     }
 
     if ([*(*(a1 + 32) + 384) mitigationsCurrentlyEnabled])
@@ -1016,27 +1025,23 @@ void __136__PowerUISmartChargeManager_initWithDefaultsDomain_contextStore_before
   {
     __136__PowerUISmartChargeManager_initWithDefaultsDomain_contextStore_beforeHandlingBatteryChangeCallback_afterHandlingBatteryChangeCallback___block_invoke_3_1029_cold_1();
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __136__PowerUISmartChargeManager_initWithDefaultsDomain_contextStore_beforeHandlingBatteryChangeCallback_afterHandlingBatteryChangeCallback___block_invoke_1031(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v2 = [PowerUISmartChargeUtilities historicalFullChargeDurationStartingAt:80 withMinimumPluginDuration:1200];
   v3 = *(*(a1 + 32) + 96);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = v3;
     [v2 percentile:0.95];
-    v7 = 138412546;
-    v8 = v2;
-    v9 = 2048;
-    v10 = v5;
-    _os_log_impl(&dword_21B766000, v4, OS_LOG_TYPE_DEFAULT, "Durations are %@, and 95th percentile is %.0lf", &v7, 0x16u);
+    v6 = 138412546;
+    v7 = v2;
+    v8 = 2048;
+    v9 = v5;
+    _os_log_impl(&dword_21B766000, v4, OS_LOG_TYPE_DEFAULT, "Durations are %@, and 95th percentile is %.0lf", &v6, 0x16u);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __136__PowerUISmartChargeManager_initWithDefaultsDomain_contextStore_beforeHandlingBatteryChangeCallback_afterHandlingBatteryChangeCallback___block_invoke_1033(uint64_t a1)
@@ -1058,29 +1063,29 @@ void __136__PowerUISmartChargeManager_initWithDefaultsDomain_contextStore_before
 
 void __136__PowerUISmartChargeManager_initWithDefaultsDomain_contextStore_beforeHandlingBatteryChangeCallback_afterHandlingBatteryChangeCallback___block_invoke_3_1040(uint64_t a1)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v2 = *(*(a1 + 32) + 328);
-  v3 = [v2 countByEnumeratingWithState:&v15 objects:v21 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v14 objects:v20 count:16];
   if (v3)
   {
     v5 = v3;
-    v6 = *v16;
+    v6 = *v15;
     *&v4 = 138412290;
-    v14 = v4;
+    v13 = v4;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v16 != v6)
+        if (*v15 != v6)
         {
           objc_enumerationMutation(v2);
         }
 
-        v8 = *(*(&v15 + 1) + 8 * i);
+        v8 = *(*(&v14 + 1) + 8 * i);
         if ([v8 signalID] == 4)
         {
           v9 = v8;
@@ -1089,25 +1094,23 @@ void __136__PowerUISmartChargeManager_initWithDefaultsDomain_contextStore_before
           {
             v11 = v10;
             v12 = [v9 requiredFullChargeDate];
-            *buf = v14;
-            v20 = v12;
+            *buf = v13;
+            v19 = v12;
             _os_log_impl(&dword_21B766000, v11, OS_LOG_TYPE_DEFAULT, "Required full charge date from location monitor: %@", buf, 0xCu);
           }
         }
       }
 
-      v5 = [v2 countByEnumeratingWithState:&v15 objects:v21 count:16];
+      v5 = [v2 countByEnumeratingWithState:&v14 objects:v20 count:16];
     }
 
     while (v5);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __136__PowerUISmartChargeManager_initWithDefaultsDomain_contextStore_beforeHandlingBatteryChangeCallback_afterHandlingBatteryChangeCallback___block_invoke_2_1044(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v2 = *(*(a1 + 32) + 96);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
@@ -1117,21 +1120,19 @@ void __136__PowerUISmartChargeManager_initWithDefaultsDomain_contextStore_before
     v6 = [v3 numberWithBool:{objc_msgSend(v4, "isDEoCSupported")}];
     v7 = [MEMORY[0x277CCABB0] numberWithBool:{+[PowerUISmartChargeUtilities isDEoCDryRunSupported](PowerUISmartChargeUtilities, "isDEoCDryRunSupported")}];
     v8 = [MEMORY[0x277CCABB0] numberWithBool:MGGetBoolAnswer()];
-    v10 = 138412802;
-    v11 = v6;
-    v12 = 2112;
-    v13 = v7;
-    v14 = 2112;
-    v15 = v8;
-    _os_log_impl(&dword_21B766000, v5, OS_LOG_TYPE_DEFAULT, "DEoC Supported: %@ - DEoC DryRun Supported: %@ - BOOL answer: %@", &v10, 0x20u);
+    v9 = 138412802;
+    v10 = v6;
+    v11 = 2112;
+    v12 = v7;
+    v13 = 2112;
+    v14 = v8;
+    _os_log_impl(&dword_21B766000, v5, OS_LOG_TYPE_DEFAULT, "DEoC Supported: %@ - DEoC DryRun Supported: %@ - BOOL answer: %@", &v9, 0x20u);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __136__PowerUISmartChargeManager_initWithDefaultsDomain_contextStore_beforeHandlingBatteryChangeCallback_afterHandlingBatteryChangeCallback___block_invoke_2_1051(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   [*(*(a1 + 32) + 424) printExistingEvents];
   v2 = *(*(a1 + 32) + 96);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
@@ -1141,16 +1142,16 @@ void __136__PowerUISmartChargeManager_initWithDefaultsDomain_contextStore_before
     v5 = v2;
     v6 = [v4 distantPast];
     v7 = [v3 chargingStatisticsSince:v6];
-    v15 = 138412290;
-    v16 = v7;
-    _os_log_impl(&dword_21B766000, v5, OS_LOG_TYPE_DEFAULT, "chargingStatisticsSince: %@", &v15, 0xCu);
+    v14 = 138412290;
+    v15 = v7;
+    _os_log_impl(&dword_21B766000, v5, OS_LOG_TYPE_DEFAULT, "chargingStatisticsSince: %@", &v14, 0xCu);
   }
 
   v8 = *(*(a1 + 32) + 96);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v15) = 0;
-    _os_log_impl(&dword_21B766000, v8, OS_LOG_TYPE_DEFAULT, "Get charging statistics since last charge session", &v15, 2u);
+    LOWORD(v14) = 0;
+    _os_log_impl(&dword_21B766000, v8, OS_LOG_TYPE_DEFAULT, "Get charging statistics since last charge session", &v14, 2u);
   }
 
   v9 = +[PowerUISmartChargeUtilities lastPluggedInDate];
@@ -1160,17 +1161,15 @@ void __136__PowerUISmartChargeManager_initWithDefaultsDomain_contextStore_before
     v11 = *(*(a1 + 32) + 424);
     v12 = v10;
     v13 = [v11 chargingStatisticsSince:v9];
-    v15 = 138412290;
-    v16 = v13;
-    _os_log_impl(&dword_21B766000, v12, OS_LOG_TYPE_DEFAULT, "chargingStatistics since last charge session: %@", &v15, 0xCu);
+    v14 = 138412290;
+    v15 = v13;
+    _os_log_impl(&dword_21B766000, v12, OS_LOG_TYPE_DEFAULT, "chargingStatistics since last charge session: %@", &v14, 0xCu);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __136__PowerUISmartChargeManager_initWithDefaultsDomain_contextStore_beforeHandlingBatteryChangeCallback_afterHandlingBatteryChangeCallback___block_invoke_1053(uint64_t a1)
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   v2 = *(*(a1 + 32) + 96);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
@@ -1182,23 +1181,23 @@ void __136__PowerUISmartChargeManager_initWithDefaultsDomain_contextStore_before
   [*(*(a1 + 32) + 312) minInputChargeDuration];
   v4 = [PowerUISmartChargeUtilities pluginEventsBefore:"pluginEventsBefore:withMinimumDuration:ignoringDisconnectsShorterThan:" withMinimumDuration:v3 ignoringDisconnectsShorterThan:?];
 
-  v37 = 0u;
-  v38 = 0u;
-  v35 = 0u;
   v36 = 0u;
+  v37 = 0u;
+  v34 = 0u;
+  v35 = 0u;
   v5 = v4;
-  v6 = [v5 countByEnumeratingWithState:&v35 objects:v44 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v34 objects:v43 count:16];
   if (v6)
   {
     v8 = v6;
-    v9 = *v36;
+    v9 = *v35;
     *&v7 = 138412546;
-    v30 = v7;
+    v29 = v7;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v36 != v9)
+        if (*v35 != v9)
         {
           objc_enumerationMutation(v5);
         }
@@ -1206,19 +1205,19 @@ void __136__PowerUISmartChargeManager_initWithDefaultsDomain_contextStore_before
         v11 = *(*(a1 + 32) + 96);
         if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
         {
-          v12 = *(*(&v35 + 1) + 8 * i);
+          v12 = *(*(&v34 + 1) + 8 * i);
           v13 = v11;
           v14 = [v12 startDate];
           v15 = [v12 endDate];
-          *buf = v30;
-          v41 = v14;
-          v42 = 2112;
-          v43 = v15;
+          *buf = v29;
+          v40 = v14;
+          v41 = 2112;
+          v42 = v15;
           _os_log_impl(&dword_21B766000, v13, OS_LOG_TYPE_DEFAULT, "  start: %@ - end %@", buf, 0x16u);
         }
       }
 
-      v8 = [v5 countByEnumeratingWithState:&v35 objects:v44 count:16];
+      v8 = [v5 countByEnumeratingWithState:&v34 objects:v43 count:16];
     }
 
     while (v8);
@@ -1235,21 +1234,21 @@ void __136__PowerUISmartChargeManager_initWithDefaultsDomain_contextStore_before
   [*(*(a1 + 32) + 312) minInputChargeDuration];
   v18 = [PowerUISmartChargeUtilities pluginEventsBefore:"pluginEventsBefore:withMinimumDuration:ignoringDisconnectsShorterThan:" withMinimumDuration:v17 ignoringDisconnectsShorterThan:?];
 
-  v33 = 0u;
-  v34 = 0u;
-  v31 = 0u;
   v32 = 0u;
+  v33 = 0u;
+  v30 = 0u;
+  v31 = 0u;
   v19 = v18;
-  v20 = [v19 countByEnumeratingWithState:&v31 objects:v39 count:16];
+  v20 = [v19 countByEnumeratingWithState:&v30 objects:v38 count:16];
   if (v20)
   {
     v21 = v20;
-    v22 = *v32;
+    v22 = *v31;
     do
     {
       for (j = 0; j != v21; ++j)
       {
-        if (*v32 != v22)
+        if (*v31 != v22)
         {
           objc_enumerationMutation(v19);
         }
@@ -1257,30 +1256,28 @@ void __136__PowerUISmartChargeManager_initWithDefaultsDomain_contextStore_before
         v24 = *(*(a1 + 32) + 96);
         if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
         {
-          v25 = *(*(&v31 + 1) + 8 * j);
+          v25 = *(*(&v30 + 1) + 8 * j);
           v26 = v24;
           v27 = [v25 startDate];
           v28 = [v25 endDate];
           *buf = 138412546;
-          v41 = v27;
-          v42 = 2112;
-          v43 = v28;
+          v40 = v27;
+          v41 = 2112;
+          v42 = v28;
           _os_log_impl(&dword_21B766000, v26, OS_LOG_TYPE_DEFAULT, "  start: %@ - end %@", buf, 0x16u);
         }
       }
 
-      v21 = [v19 countByEnumeratingWithState:&v31 objects:v39 count:16];
+      v21 = [v19 countByEnumeratingWithState:&v30 objects:v38 count:16];
     }
 
     while (v21);
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 void __136__PowerUISmartChargeManager_initWithDefaultsDomain_contextStore_beforeHandlingBatteryChangeCallback_afterHandlingBatteryChangeCallback___block_invoke_1055(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v2 = *(*(a1 + 32) + 96);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
@@ -1289,12 +1286,10 @@ void __136__PowerUISmartChargeManager_initWithDefaultsDomain_contextStore_before
     v5 = v2;
     v6 = [v4 distantPast];
     v7 = [v3 gaugingMitigationStatisticsSince:v6];
-    v9 = 138412290;
-    v10 = v7;
-    _os_log_impl(&dword_21B766000, v5, OS_LOG_TYPE_DEFAULT, "gaugingMitigationStatisticsSince: %@", &v9, 0xCu);
+    v8 = 138412290;
+    v9 = v7;
+    _os_log_impl(&dword_21B766000, v5, OS_LOG_TYPE_DEFAULT, "gaugingMitigationStatisticsSince: %@", &v8, 0xCu);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __136__PowerUISmartChargeManager_initWithDefaultsDomain_contextStore_beforeHandlingBatteryChangeCallback_afterHandlingBatteryChangeCallback___block_invoke_2_1059(uint64_t a1)
@@ -1305,16 +1300,16 @@ void __136__PowerUISmartChargeManager_initWithDefaultsDomain_contextStore_before
 
 void __136__PowerUISmartChargeManager_initWithDefaultsDomain_contextStore_beforeHandlingBatteryChangeCallback_afterHandlingBatteryChangeCallback___block_invoke_5(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v2 = *(*(a1 + 32) + 104);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     v4 = v2;
     v5 = [v3 powerLogStatus];
-    v9 = 138412290;
-    v10 = v5;
-    _os_log_impl(&dword_21B766000, v4, OS_LOG_TYPE_DEFAULT, "Writing to PowerLog %@", &v9, 0xCu);
+    v8 = 138412290;
+    v9 = v5;
+    _os_log_impl(&dword_21B766000, v4, OS_LOG_TYPE_DEFAULT, "Writing to PowerLog %@", &v8, 0xCu);
   }
 
   v6 = objc_autoreleasePoolPush();
@@ -1322,7 +1317,6 @@ void __136__PowerUISmartChargeManager_initWithDefaultsDomain_contextStore_before
   PLLogRegisteredEvent();
 
   objc_autoreleasePoolPop(v6);
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __136__PowerUISmartChargeManager_initWithDefaultsDomain_contextStore_beforeHandlingBatteryChangeCallback_afterHandlingBatteryChangeCallback___block_invoke_1065(uint64_t a1, xpc_activity_t activity)
@@ -1428,12 +1422,11 @@ void __136__PowerUISmartChargeManager_initWithDefaultsDomain_contextStore_before
 
 void __36__PowerUISmartChargeManager_manager__block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
-  v2 = objc_alloc(objc_opt_class());
-  v5 = [MEMORY[0x277CFE318] userContext];
-  v3 = [v2 initWithDefaultsDomain:@"com.apple.smartcharging.topoffprotection" contextStore:v5 beforeHandlingBatteryChangeCallback:0 afterHandlingBatteryChangeCallback:0];
-  v4 = manager_manager_0;
-  manager_manager_0 = v3;
+  v1 = objc_alloc(objc_opt_class());
+  v4 = [MEMORY[0x277CFE318] userContext];
+  v2 = [v1 initWithDefaultsDomain:@"com.apple.smartcharging.topoffprotection" contextStore:v4 beforeHandlingBatteryChangeCallback:0 afterHandlingBatteryChangeCallback:0];
+  v3 = manager_manager_0;
+  manager_manager_0 = v2;
 }
 
 - (void)handleXPCActivityOnBoot
@@ -1514,7 +1507,7 @@ void __52__PowerUISmartChargeManager_handleXPCActivityOnBoot__block_invoke(uint6
 - (void)setCheckpoint:(unint64_t)checkpoint withSelector:(SEL)selector forceWrite:(BOOL)write
 {
   writeCopy = write;
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v9 = os_transaction_create();
   log = self->_log;
   if (os_log_type_enabled(log, OS_LOG_TYPE_DEFAULT))
@@ -1523,8 +1516,8 @@ void __52__PowerUISmartChargeManager_handleXPCActivityOnBoot__block_invoke(uint6
     v12 = NSStringFromSelector(selector);
     *buf = 134218242;
     checkpointCopy2 = checkpoint;
-    v24 = 2112;
-    v25 = v12;
+    v23 = 2112;
+    v24 = v12;
     _os_log_impl(&dword_21B766000, v11, OS_LOG_TYPE_DEFAULT, "Set Checkpoint: %llu from %@", buf, 0x16u);
   }
 
@@ -1561,8 +1554,6 @@ void __52__PowerUISmartChargeManager_handleXPCActivityOnBoot__block_invoke(uint6
   }
 
   objc_autoreleasePoolPop(v13);
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateResourceHint
@@ -1589,9 +1580,7 @@ LABEL_6:
     return;
   }
 
-  v6 = [objc_alloc(MEMORY[0x277D3F038]) initWithResourceType:13 andState:1];
-  v7 = self->_resourceHint;
-  self->_resourceHint = v6;
+  self->_resourceHint = [objc_alloc(MEMORY[0x277D3F038]) initWithResourceType:13 andState:1];
 
   MEMORY[0x2821F96F8]();
 }
@@ -1649,29 +1638,29 @@ LABEL_6:
 
 - (id)eligibleEngagementIntervalFromTimelineEvents:(id)events
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   eventsCopy = events;
+  v29 = 0u;
   v30 = 0u;
   v31 = 0u;
   v32 = 0u;
-  v33 = 0u;
-  v5 = [eventsCopy countByEnumeratingWithState:&v30 objects:v34 count:16];
+  v5 = [eventsCopy countByEnumeratingWithState:&v29 objects:v33 count:16];
   if (v5)
   {
     selfCopy = self;
     v6 = 1.79769313e308;
-    v7 = *v31;
+    v7 = *v30;
     v8 = 1.79769313e308;
     do
     {
       for (i = 0; i != v5; i = i + 1)
       {
-        if (*v31 != v7)
+        if (*v30 != v7)
         {
           objc_enumerationMutation(eventsCopy);
         }
 
-        v10 = *(*(&v30 + 1) + 8 * i);
+        v10 = *(*(&v29 + 1) + 8 * i);
         v11 = [v10 objectForKeyedSubscript:@"event"];
         v12 = [v11 isEqualToString:@"EligibleForIdle"];
 
@@ -1706,7 +1695,7 @@ LABEL_6:
         }
       }
 
-      v5 = [eventsCopy countByEnumeratingWithState:&v30 objects:v34 count:16];
+      v5 = [eventsCopy countByEnumeratingWithState:&v29 objects:v33 count:16];
     }
 
     while (v5);
@@ -1729,14 +1718,23 @@ LABEL_6:
     }
   }
 
-  v27 = *MEMORY[0x277D85DE8];
-
   return v5;
+}
+
+- (void)_submitEngagementEventWithBatteryLevel:(id)level eventType:(int)type
+{
+  v4 = *&type;
+  levelCopy = level;
+  v7 = [PowerUIAnalyticsManager obcModeOfOperationToBiomeModeOfOperation:[(PowerUISmartChargeManager *)self currentModeOfOperation]];
+  v10 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[PowerUISmartChargeManager currentChargeLimit](self, "currentChargeLimit")}];
+  analyticsManager = self->_analyticsManager;
+  fullChargeDeadline = [(PowerUISmartChargeManager *)self fullChargeDeadline];
+  [(PowerUIAnalyticsManager *)analyticsManager submitEngagementEventWithBatteryLevel:levelCopy targetSoC:v10 predictedEndOfCharge:fullChargeDeadline modeOfOperation:v7 eventType:v4];
 }
 
 - (void)pluginTimelineAddEvent:(id)event atDate:(id)date withBatteryLevel:(unint64_t)level
 {
-  v25[4] = *MEMORY[0x277D85DE8];
+  v24[4] = *MEMORY[0x277D85DE8];
   eventCopy = event;
   v9 = MEMORY[0x277CCABB0];
   dateCopy = date;
@@ -1752,28 +1750,26 @@ LABEL_6:
   }
 
   currentModeOfOperation = [(PowerUISmartChargeManager *)self currentModeOfOperation];
-  v25[0] = eventCopy;
-  v24[0] = @"event";
-  v24[1] = @"date";
+  v24[0] = eventCopy;
+  v23[0] = @"event";
+  v23[1] = @"date";
   v15 = MEMORY[0x277CCABB0];
   [dateCopy timeIntervalSinceReferenceDate];
   v17 = v16;
 
   v18 = [v15 numberWithDouble:v17];
-  v25[1] = v18;
-  v24[2] = @"batteryLevel";
+  v24[1] = v18;
+  v23[2] = @"batteryLevel";
   v19 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:level];
-  v25[2] = v19;
-  v24[3] = @"obcModeOfOperation";
+  v24[2] = v19;
+  v23[3] = @"obcModeOfOperation";
   v20 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:currentModeOfOperation];
-  v25[3] = v20;
-  v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:v24 count:4];
+  v24[3] = v20;
+  v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:v23 count:4];
   [array addObject:v21];
 
   v22 = [array copy];
   CFPreferencesSetAppValue(@"timeline", v22, self->_defaultsDomain);
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)clearPluginTimeline
@@ -1791,7 +1787,7 @@ LABEL_6:
 
 - (void)reportMonthlyData
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = os_transaction_create();
   if (self->_enabled || [(PowerUISmartChargeManager *)self isMCLSupported])
   {
@@ -1804,7 +1800,7 @@ LABEL_6:
       if (os_log_type_enabled(log, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v15 = v4;
+        v14 = v4;
         _os_log_impl(&dword_21B766000, log, OS_LOG_TYPE_DEFAULT, "Considered submitting monthly OBC analytics, but not enough time has passed since last submission: %@", buf, 0xCu);
       }
     }
@@ -1812,9 +1808,9 @@ LABEL_6:
     else
     {
       [(PowerUISmartChargeManager *)self sendLegacyData];
-      v13 = v4;
+      v12 = v4;
       AnalyticsSendEventLazy();
-      v9 = [(PowerUIAnalyticsManager *)self->_analyticsManager gaugingMitigationStatisticsSince:v13];
+      v9 = [(PowerUIAnalyticsManager *)self->_analyticsManager gaugingMitigationStatisticsSince:v12];
       v10 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:self->_manualChargeLimitStatus];
       [v9 setObject:v10 forKeyedSubscript:@"CurrentMCLEnabled"];
 
@@ -1822,13 +1818,11 @@ LABEL_6:
       AnalyticsSendEventLazy();
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sendLegacyData
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   v4 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:self->_deocFeatureState];
   [dictionary setObject:v4 forKeyedSubscript:@"currentDEoCState"];
@@ -1840,18 +1834,16 @@ LABEL_6:
   if (os_log_type_enabled(log, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v12 = dictionary;
+    v11 = dictionary;
     _os_log_impl(&dword_21B766000, log, OS_LOG_TYPE_DEFAULT, "Reporting monthly metrics to CoreAnalytics %@", buf, 0xCu);
   }
 
   date = [MEMORY[0x277CBEAA8] date];
   [(PowerUISmartChargeManager *)self setDate:date forPreferenceKey:@"MonthlyDataReportedDate"];
 
-  v10 = dictionary;
+  v9 = dictionary;
   v8 = dictionary;
   AnalyticsSendEventLazy();
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sendHistoricalDEoCEngagementEventToCA:(id)a
@@ -1863,18 +1855,18 @@ LABEL_6:
 
 - (void)reportBatteryHealthMetrics
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   v4 = +[PowerUISmartChargeUtilities batteryProperties];
   v5 = [v4 objectForKey:@"CycleCount"];
   [dictionary setObject:v5 forKeyedSubscript:@"CycleCount"];
-  v22 = v5;
-  v21 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{50 * (objc_msgSend(v5, "unsignedIntegerValue") / 0x32uLL)}];
+  v21 = v5;
+  v20 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{50 * (objc_msgSend(v5, "unsignedIntegerValue") / 0x32uLL)}];
   [dictionary setObject:? forKeyedSubscript:?];
   v6 = [v4 objectForKey:@"BatteryData"];
   v7 = [v6 objectForKey:@"ChemID"];
 
-  v20 = v7;
+  v19 = v7;
   [dictionary setObject:v7 forKeyedSubscript:@"BatteryChemID"];
   v8 = [v4 objectForKey:@"BatteryData"];
   v9 = [v8 objectForKey:@"ChemicalWeightedRa"];
@@ -1916,11 +1908,9 @@ LABEL_6:
   if (os_log_type_enabled(log, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v24 = v17;
+    v23 = v17;
     _os_log_impl(&dword_21B766000, log, OS_LOG_TYPE_DEFAULT, "Reported battery health metrics to CoreAnalytics %@", buf, 0xCu);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (double)idleDurationWithEngagedCheckpoints:(id)checkpoints withTopOffStartCheckpoints:(id)startCheckpoints withDisabledCheckpoints:(id)disabledCheckpoints withTopOffStart:(id)start withIdleStart:(id)idleStart withTemporarilyDisabledStart:(id)disabledStart withPluginEnd:(id)end
@@ -2222,10 +2212,10 @@ LABEL_12:
 
 - (id)constructAnalyticsStatusFromEvents:(id)events
 {
-  v183 = *MEMORY[0x277D85DE8];
+  v182 = *MEMORY[0x277D85DE8];
   eventsCopy = events;
   v5 = !self->_enabled || self->_temporarilyDisabled;
-  v154 = v5;
+  v153 = v5;
   array = [MEMORY[0x277CBEB18] array];
   isDesktopDevice = self->_isDesktopDevice;
   dictionary = [MEMORY[0x277CBEB38] dictionary];
@@ -2234,48 +2224,48 @@ LABEL_12:
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v182 = eventsCopy;
+    v181 = eventsCopy;
     _os_log_impl(&dword_21B766000, v7, OS_LOG_TYPE_DEFAULT, "Events are %@", buf, 0xCu);
   }
 
-  v165 = dictionary;
+  v164 = dictionary;
 
-  v177 = 0u;
-  v178 = 0u;
-  v175 = 0u;
   v176 = 0u;
+  v177 = 0u;
+  v174 = 0u;
+  v175 = 0u;
   v8 = eventsCopy;
-  v9 = [v8 countByEnumeratingWithState:&v175 objects:v180 count:16];
-  v168 = v8;
+  v9 = [v8 countByEnumeratingWithState:&v174 objects:v179 count:16];
+  v167 = v8;
   if (v9)
   {
     v10 = v9;
+    v156 = 0;
     v157 = 0;
     v158 = 0;
     v159 = 0;
-    v160 = 0;
-    v155 = 0;
+    v154 = 0;
+    v161 = 0;
     v162 = 0;
     v163 = 0;
-    v164 = 0;
-    v166 = 0;
+    v165 = 0;
     v11 = 0;
-    v12 = *v176;
+    v12 = *v175;
     v13 = @"event";
     v14 = @"Plugin";
-    v169 = *v176;
+    v168 = *v175;
     while (1)
     {
       v15 = 0;
-      v170 = v10;
+      v169 = v10;
       do
       {
-        if (*v176 != v12)
+        if (*v175 != v12)
         {
           objc_enumerationMutation(v8);
         }
 
-        v16 = *(*(&v175 + 1) + 8 * v15);
+        v16 = *(*(&v174 + 1) + 8 * v15);
         v17 = [v16 objectForKeyedSubscript:v13];
         v18 = [v17 isEqualToString:v14];
         if (v18 & v11)
@@ -2298,8 +2288,8 @@ LABEL_12:
         if (v24 <= 0.0 || unsignedIntegerValue == 0)
         {
           v13 = v21;
-          v12 = v169;
-          v10 = v170;
+          v12 = v168;
+          v10 = v169;
           v8 = v20;
           v14 = v19;
           goto LABEL_35;
@@ -2311,14 +2301,14 @@ LABEL_12:
         if ([v17 isEqualToString:v19])
         {
           v31 = v29;
-          if (!v166 || ([v166 timeIntervalSinceDate:v29], v32 < 0.0))
+          if (!v165 || ([v165 timeIntervalSinceDate:v29], v32 < 0.0))
           {
             v33 = v29;
 
             v34 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:unsignedIntegerValue];
-            [v165 setObject:v34 forKeyedSubscript:v28];
+            [v164 setObject:v34 forKeyedSubscript:v28];
 
-            v166 = v33;
+            v165 = v33;
             v31 = v29;
           }
 
@@ -2326,21 +2316,21 @@ LABEL_12:
           goto LABEL_34;
         }
 
-        if (![v17 isEqualToString:@"EligibleForIdle"] || v164)
+        if (![v17 isEqualToString:@"EligibleForIdle"] || v163)
         {
           if ([v17 isEqualToString:@"Engaged"])
           {
-            if (v162)
+            if (v161)
             {
               goto LABEL_33;
             }
 
-            v162 = v29;
+            v161 = v29;
             v36 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:unsignedIntegerValue];
-            [v165 setObject:v36 forKeyedSubscript:v28];
+            [v164 setObject:v36 forKeyedSubscript:v28];
 
             v31 = v29;
-            v160 = unsignedIntegerValue;
+            v159 = unsignedIntegerValue;
           }
 
           else
@@ -2354,15 +2344,15 @@ LABEL_12:
             if ([v17 isEqualToString:@"TopOff"])
             {
               v31 = v29;
-              if (v158)
+              if (v157)
               {
                 goto LABEL_34;
               }
 
-              v158 = v29;
+              v157 = v29;
 LABEL_43:
               v37 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:unsignedIntegerValue];
-              [v165 setObject:v37 forKeyedSubscript:v28];
+              [v164 setObject:v37 forKeyedSubscript:v28];
 
 LABEL_33:
               v31 = v29;
@@ -2372,22 +2362,22 @@ LABEL_33:
             v31 = v29;
             if (![v17 isEqualToString:@"FullyCharged"])
             {
-              if ([v17 isEqualToString:@"Unplug"] && !v157)
+              if ([v17 isEqualToString:@"Unplug"] && !v156)
               {
-                v157 = v29;
+                v156 = v29;
                 v38 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:unsignedIntegerValue];
-                [v165 setObject:v38 forKeyedSubscript:v28];
+                [v164 setObject:v38 forKeyedSubscript:v28];
 
                 v31 = v29;
-                v155 = unsignedIntegerValue;
+                v154 = unsignedIntegerValue;
               }
 
               goto LABEL_34;
             }
 
-            if (!v159)
+            if (!v158)
             {
-              v159 = v29;
+              v158 = v29;
               goto LABEL_43;
             }
           }
@@ -2395,27 +2385,27 @@ LABEL_33:
 
         else
         {
-          v164 = v29;
+          v163 = v29;
           v35 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:unsignedIntegerValue];
-          [v165 setObject:v35 forKeyedSubscript:v28];
+          [v164 setObject:v35 forKeyedSubscript:v28];
 
           v31 = v29;
-          v163 = unsignedIntegerValue;
+          v162 = unsignedIntegerValue;
         }
 
 LABEL_34:
 
         v13 = v21;
-        v8 = v168;
-        v12 = v169;
-        v10 = v170;
+        v8 = v167;
+        v12 = v168;
+        v10 = v169;
 LABEL_35:
 
         ++v15;
       }
 
       while (v10 != v15);
-      v39 = [v8 countByEnumeratingWithState:&v175 objects:v180 count:16];
+      v39 = [v8 countByEnumeratingWithState:&v174 objects:v179 count:16];
       v10 = v39;
       if (!v39)
       {
@@ -2424,20 +2414,20 @@ LABEL_35:
     }
   }
 
+  v156 = 0;
   v157 = 0;
   v158 = 0;
   v159 = 0;
-  v160 = 0;
-  v155 = 0;
+  v154 = 0;
+  v161 = 0;
   v162 = 0;
   v163 = 0;
-  v164 = 0;
-  v166 = 0;
+  v165 = 0;
 LABEL_50:
   v40 = v8;
 
   v41 = [MEMORY[0x277CCABB0] numberWithBool:isDesktopDevice];
-  [v165 setObject:v41 forKeyedSubscript:@"ChargeLimited"];
+  [v164 setObject:v41 forKeyedSubscript:@"ChargeLimited"];
 
   if (selfCopy->_manualChargeLimitStatus)
   {
@@ -2449,29 +2439,29 @@ LABEL_50:
     v42 = MEMORY[0x277CBEC28];
   }
 
-  [v165 setObject:v42 forKeyedSubscript:@"ManualChargeLimit"];
-  v44 = v166;
-  if (!v166)
+  [v164 setObject:v42 forKeyedSubscript:@"ManualChargeLimit"];
+  v44 = v165;
+  if (!v165)
   {
     v44 = +[PowerUISmartChargeUtilities lastPluggedInDate];
   }
 
-  if (v157 && v44)
+  if (v156 && v44)
   {
     v45 = MEMORY[0x277CCABB0];
     [v44 timeIntervalSince1970];
     v46 = [v45 numberWithDouble:?];
-    [v165 setObject:v46 forKeyedSubscript:@"AnalyticsPluginDate"];
+    [v164 setObject:v46 forKeyedSubscript:@"AnalyticsPluginDate"];
 
     v47 = MEMORY[0x277CCABB0];
-    [v157 timeIntervalSinceDate:v44];
+    [v156 timeIntervalSinceDate:v44];
     v48 = [v47 numberWithDouble:?];
-    [v165 setObject:v48 forKeyedSubscript:@"PluginDuration"];
+    [v164 setObject:v48 forKeyedSubscript:@"PluginDuration"];
   }
 
-  if (v157)
+  if (v156)
   {
-    v49 = v164 == 0;
+    v49 = v163 == 0;
   }
 
   else
@@ -2481,38 +2471,38 @@ LABEL_50:
 
   v50 = v49;
   v51 = 0x277CCA000uLL;
-  v52 = v155;
-  if (((v50 | v154) & 1) == 0)
+  v52 = v154;
+  if (((v50 | v153) & 1) == 0)
   {
-    v53 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v163];
-    [v165 setObject:v53 forKeyedSubscript:@"EligibleForIdleBatteryLevelScore"];
+    v53 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v162];
+    [v164 setObject:v53 forKeyedSubscript:@"EligibleForIdleBatteryLevelScore"];
 
     v54 = [(PowerUISmartChargeManager *)selfCopy readNumberForPreferenceKey:@"recentlyInterrupted"];
     bOOLValue = [v54 BOOLValue];
 
     if (bOOLValue)
     {
-      [v165 setObject:MEMORY[0x277CBEC38] forKeyedSubscript:@"recentlyInterrupted"];
+      [v164 setObject:MEMORY[0x277CBEC38] forKeyedSubscript:@"recentlyInterrupted"];
       [(PowerUISmartChargeManager *)selfCopy setNumber:0 forPreferenceKey:@"recentlyInterrupted"];
     }
 
-    v56 = [v165 objectForKeyedSubscript:@"PluginDuration"];
+    v56 = [v164 objectForKeyedSubscript:@"PluginDuration"];
     unsignedIntegerValue2 = [v56 unsignedIntegerValue];
 
     if (!unsignedIntegerValue2)
     {
-      [v165 setObject:MEMORY[0x277CBEC38] forKeyedSubscript:@"BadSession"];
+      [v164 setObject:MEMORY[0x277CBEC38] forKeyedSubscript:@"BadSession"];
 LABEL_79:
       v51 = 0x277CCA000;
       goto LABEL_81;
     }
 
-    [(PowerUISmartChargeManager *)selfCopy durationToFullChargeFromBatteryLevel:v163];
+    [(PowerUISmartChargeManager *)selfCopy durationToFullChargeFromBatteryLevel:v162];
     v59 = v58;
-    [v157 timeIntervalSinceDate:v164];
+    [v156 timeIntervalSinceDate:v163];
     v61 = v60;
     v62 = [MEMORY[0x277CCABB0] numberWithDouble:?];
-    [v165 setObject:v62 forKeyedSubscript:@"TotalEligibleDuration"];
+    [v164 setObject:v62 forKeyedSubscript:@"TotalEligibleDuration"];
 
     v63 = v61 - v59;
     v64 = 0.0;
@@ -2522,16 +2512,16 @@ LABEL_79:
     }
 
     v65 = [MEMORY[0x277CCABB0] numberWithDouble:v64];
-    [v165 setObject:v65 forKeyedSubscript:@"EstimatedUsableEligibleDuration"];
+    [v164 setObject:v65 forKeyedSubscript:@"EstimatedUsableEligibleDuration"];
 
-    if (v159 && v158)
+    if (v158 && v157)
     {
-      v66 = v159;
+      v66 = v158;
 LABEL_77:
-      [v66 timeIntervalSinceDate:v158];
+      [v66 timeIntervalSinceDate:v157];
       v68 = v67;
       v69 = [MEMORY[0x277CCABB0] numberWithDouble:?];
-      [v165 setObject:v69 forKeyedSubscript:@"TopOffDuration"];
+      [v164 setObject:v69 forKeyedSubscript:@"TopOffDuration"];
 
       v51 = 0x277CCA000uLL;
       v43 = v61 - v68;
@@ -2541,28 +2531,28 @@ LABEL_77:
       }
 
       v70 = [MEMORY[0x277CCABB0] numberWithDouble:v43];
-      [v165 setObject:v70 forKeyedSubscript:@"ActualUsableEligibleDuration"];
+      [v164 setObject:v70 forKeyedSubscript:@"ActualUsableEligibleDuration"];
 
       goto LABEL_79;
     }
 
-    if (v158 && v155 == 100)
+    if (v157 && v154 == 100)
     {
-      v66 = v157;
+      v66 = v156;
       goto LABEL_77;
     }
 
     v71 = [MEMORY[0x277CCABB0] numberWithDouble:v63];
-    [v165 setObject:v71 forKeyedSubscript:@"ActualUsableEligibleDuration"];
+    [v164 setObject:v71 forKeyedSubscript:@"ActualUsableEligibleDuration"];
 
     v51 = 0x277CCA000uLL;
   }
 
 LABEL_81:
-  [(PowerUISmartChargeManager *)selfCopy idleDurationWithEngagedCheckpoints:0 withTopOffStartCheckpoints:0 withDisabledCheckpoints:0 withTopOffStart:v158 withIdleStart:v162 withTemporarilyDisabledStart:0 withPluginEnd:v43, v157];
+  [(PowerUISmartChargeManager *)selfCopy idleDurationWithEngagedCheckpoints:0 withTopOffStartCheckpoints:0 withDisabledCheckpoints:0 withTopOffStart:v157 withIdleStart:v161 withTemporarilyDisabledStart:0 withPluginEnd:v43, v156];
   v73 = v72;
   v74 = [*(v51 + 2992) numberWithDouble:?];
-  [v165 setObject:v74 forKeyedSubscript:@"IdleDuration"];
+  [v164 setObject:v74 forKeyedSubscript:@"IdleDuration"];
 
   if (v73 < 0.0)
   {
@@ -2572,40 +2562,40 @@ LABEL_81:
       [(PowerUISmartChargeManager *)v40 constructAnalyticsStatusFromEvents:v75];
     }
 
-    [v165 setObject:MEMORY[0x277CBEC38] forKeyedSubscript:@"BadSession"];
+    [v164 setObject:MEMORY[0x277CBEC38] forKeyedSubscript:@"BadSession"];
   }
 
   v76 = [MEMORY[0x277CCABB0] numberWithInt:v73 > 0.0];
-  [v165 setObject:v76 forKeyedSubscript:@"Engaged"];
+  [v164 setObject:v76 forKeyedSubscript:@"Engaged"];
 
-  v77 = [v165 objectForKeyedSubscript:@"ActualUsableEligibleDuration"];
+  v77 = [v164 objectForKeyedSubscript:@"ActualUsableEligibleDuration"];
   [v77 doubleValue];
   v79 = v78 - v73;
 
   if (v79 > 0.0)
   {
     v80 = [MEMORY[0x277CCABB0] numberWithDouble:v79];
-    [v165 setObject:v80 forKeyedSubscript:@"EstimatedMissedIdleDuration"];
+    [v164 setObject:v80 forKeyedSubscript:@"EstimatedMissedIdleDuration"];
   }
 
-  v81 = [(PowerUISmartChargeManager *)selfCopy cloakingMetrics:v165 withIdleCheckpoints:array withIdleStart:v162 withTopOffStart:v158 withPluginEnd:v157];
+  v81 = [(PowerUISmartChargeManager *)selfCopy cloakingMetrics:v164 withIdleCheckpoints:array withIdleStart:v161 withTopOffStart:v157 withPluginEnd:v156];
 
-  if (v157 && v159)
+  if (v156 && v158)
   {
     v82 = MEMORY[0x277CCABB0];
-    [v157 timeIntervalSinceDate:v159];
+    [v156 timeIntervalSinceDate:v158];
     v83 = [v82 numberWithDouble:?];
     [v81 setObject:v83 forKeyedSubscript:@"FullChargeDuration"];
   }
 
-  if (v157 && v155)
+  if (v156 && v154)
   {
-    v52 = v155 & 0xFFFFFFFFFFFFFFFELL;
-    0xFFFFFFFFFFFFFFFELL = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v155 & 0xFFFFFFFFFFFFFFFELL];
+    v52 = v154 & 0xFFFFFFFFFFFFFFFELL;
+    0xFFFFFFFFFFFFFFFELL = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v154 & 0xFFFFFFFFFFFFFFFELL];
     [v81 setObject:0xFFFFFFFFFFFFFFFELL forKeyedSubscript:@"PluginEndBatteryLevelScore"];
   }
 
-  if (v157 && v162)
+  if (v156 && v161)
   {
     v85 = [v81 objectForKeyedSubscript:@"PluginDuration"];
     unsignedIntegerValue3 = [v85 unsignedIntegerValue];
@@ -2621,7 +2611,7 @@ LABEL_81:
     [v81 setObject:v87 forKeyedSubscript:@"UnderChargedTLC"];
     if (v52 <= 0x63)
     {
-      [(PowerUISmartChargeManager *)selfCopy durationToFullChargeFromBatteryLevel:v160];
+      [(PowerUISmartChargeManager *)selfCopy durationToFullChargeFromBatteryLevel:v159];
       v89 = v88;
       v90 = [v81 objectForKeyedSubscript:@"TotalEligibleDuration"];
       unsignedIntegerValue4 = [v90 unsignedIntegerValue];
@@ -2648,9 +2638,9 @@ LABEL_81:
     }
   }
 
-  else if (!v162)
+  else if (!v161)
   {
-    if (!v158)
+    if (!v157)
     {
       goto LABEL_103;
     }
@@ -2658,30 +2648,30 @@ LABEL_81:
     goto LABEL_102;
   }
 
-  0xFFFFFFFFFFFFFFFELL2 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v160 & 0xFFFFFFFFFFFFFFFELL];
+  0xFFFFFFFFFFFFFFFELL2 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v159 & 0xFFFFFFFFFFFFFFFELL];
   [v81 setObject:0xFFFFFFFFFFFFFFFELL2 forKeyedSubscript:@"IdleBatteryLevelScore"];
 
-  v150 = [v81 objectForKeyedSubscript:@"IdleDuration"];
-  v151 = -[PowerUISmartChargeManager projectedBatteryLevelForDuration:withInitialBatteryLevel:](selfCopy, "projectedBatteryLevelForDuration:withInitialBatteryLevel:", [v150 unsignedIntegerValue], v160 & 0xFFFFFFFFFFFFFFFELL);
+  v149 = [v81 objectForKeyedSubscript:@"IdleDuration"];
+  v150 = -[PowerUISmartChargeManager projectedBatteryLevelForDuration:withInitialBatteryLevel:](selfCopy, "projectedBatteryLevelForDuration:withInitialBatteryLevel:", [v149 unsignedIntegerValue], v159 & 0xFFFFFFFFFFFFFFFELL);
 
-  0xFFFFFFFFFFFFFFFELL3 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v151 & 0xFFFFFFFFFFFFFFFELL];
+  0xFFFFFFFFFFFFFFFELL3 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v150 & 0xFFFFFFFFFFFFFFFELL];
   [v81 setObject:0xFFFFFFFFFFFFFFFELL3 forKeyedSubscript:@"ProjectedPluginEndBatteryLevelScore"];
 
-  if (v158)
+  if (v157)
   {
 LABEL_102:
     [v81 setObject:MEMORY[0x277CBEC38] forKeyedSubscript:@"TopOffInitiated"];
   }
 
 LABEL_103:
-  if (v159)
+  if (v158)
   {
     [v81 setObject:MEMORY[0x277CBEC38] forKeyedSubscript:@"FullCharged"];
   }
 
-  if (v157 && v158 && v162)
+  if (v156 && v157 && v161)
   {
-    [(PowerUISmartChargeManager *)selfCopy totalTopOffDurationWithTopOffStartCheckpoints:0 withFullyChargedCheckpoints:0 withTopOffStart:v158 withFullyChargedDate:v159 withPluginEnd:v157];
+    [(PowerUISmartChargeManager *)selfCopy totalTopOffDurationWithTopOffStartCheckpoints:0 withFullyChargedCheckpoints:0 withTopOffStart:v157 withFullyChargedDate:v158 withPluginEnd:v156];
     v94 = [MEMORY[0x277CCABB0] numberWithDouble:v73 / (v73 + v93) * 100.0];
     [v81 setObject:v94 forKeyedSubscript:@"ImpactRatio"];
   }
@@ -2731,7 +2721,7 @@ LABEL_103:
     }
   }
 
-  v167 = v44;
+  v166 = v44;
   v110 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[PowerUIMLTwoStageModelPredictor engagementModelVersion](selfCopy->_modelTwoStagePredictor, "engagementModelVersion")}];
   [v81 setObject:v110 forKeyedSubscript:@"EngageModelVersion"];
 
@@ -2792,33 +2782,33 @@ LABEL_103:
   v137 = [v81 objectForKeyedSubscript:@"EligibleForIdleBatteryLevelScore"];
   unsignedIntegerValue7 = [v137 unsignedIntegerValue];
 
-  v173 = 0u;
-  v174 = 0u;
-  v171 = 0u;
   v172 = 0u;
+  v173 = 0u;
+  v170 = 0u;
+  v171 = 0u;
   v139 = selfCopy->_monitors;
-  v140 = [(NSArray *)v139 countByEnumeratingWithState:&v171 objects:v179 count:16];
+  v140 = [(NSArray *)v139 countByEnumeratingWithState:&v170 objects:v178 count:16];
   if (v140)
   {
     v141 = v140;
-    v142 = *v172;
+    v142 = *v171;
     do
     {
       for (i = 0; i != v141; ++i)
       {
-        if (*v172 != v142)
+        if (*v171 != v142)
         {
           objc_enumerationMutation(v139);
         }
 
-        v144 = *(*(&v171 + 1) + 8 * i);
+        v144 = *(*(&v170 + 1) + 8 * i);
         if ([v144 signalID] == 4)
         {
           v131 = [v144 notAuthorizedForLocation] ^ 1;
         }
       }
 
-      v141 = [(NSArray *)v139 countByEnumeratingWithState:&v171 objects:v179 count:16];
+      v141 = [(NSArray *)v139 countByEnumeratingWithState:&v170 objects:v178 count:16];
     }
 
     while (v141);
@@ -2838,7 +2828,6 @@ LABEL_103:
   [v81 setObject:v145 forKeyedSubscript:@"ModelExecutionPath"];
 
   v146 = [v81 copy];
-  v147 = *MEMORY[0x277D85DE8];
 
   return v146;
 }
@@ -2853,7 +2842,7 @@ LABEL_103:
 
 - (void)recordDEoCAnalytics:(id)analytics
 {
-  v62 = *MEMORY[0x277D85DE8];
+  v61 = *MEMORY[0x277D85DE8];
   analyticsCopy = analytics;
   v5 = [PowerUISmartChargeUtilities readDictForPreferenceKey:@"PreviousDEoCStatus" inDomain:self->_defaultsDomain];
   log = self->_log;
@@ -2863,7 +2852,7 @@ LABEL_103:
     if (v7)
     {
       *buf = 138412290;
-      *v59 = v5;
+      *v58 = v5;
       _os_log_impl(&dword_21B766000, log, OS_LOG_TYPE_DEFAULT, "Got previous DEoC status: %@", buf, 0xCu);
     }
 
@@ -2884,11 +2873,11 @@ LABEL_103:
     if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109632;
-      *v59 = intValue;
-      *&v59[4] = 1024;
-      *&v59[6] = bOOLValue;
-      v60 = 2048;
-      v61 = unsignedIntValue;
+      *v58 = intValue;
+      *&v58[4] = 1024;
+      *&v58[6] = bOOLValue;
+      v59 = 2048;
+      v60 = unsignedIntValue;
       _os_log_impl(&dword_21B766000, v16, OS_LOG_TYPE_DEFAULT, "DEoC Analytics - most recent drain: %d, last charge DEoC: %d, last status: %lu", buf, 0x18u);
     }
 
@@ -2941,7 +2930,7 @@ LABEL_103:
         if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 134217984;
-          *v59 = v24;
+          *v58 = v24;
           _os_log_impl(&dword_21B766000, v25, OS_LOG_TYPE_DEFAULT, "Last DEoC decision was: %lu", buf, 0xCu);
         }
 
@@ -3019,7 +3008,7 @@ LABEL_40:
     if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      *v59 = dictionary;
+      *v58 = dictionary;
       _os_log_impl(&dword_21B766000, v42, OS_LOG_TYPE_DEFAULT, "Reporting DEoC plugout metrics to CoreAnalytics %@", buf, 0xCu);
     }
 
@@ -3083,8 +3072,6 @@ LABEL_43:
 
     [PowerUISmartChargeUtilities setDict:v46 forPreferenceKey:@"PreviousDEoCStatus" inDomain:self->_defaultsDomain];
   }
-
-  v57 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sendDEoCAnalyticsToCA:(id)a
@@ -3096,7 +3083,7 @@ LABEL_43:
 
 - (id)defaultDateToDisableUntilGivenDate:(id)date
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   dateCopy = date;
   if (defaultDateToDisableUntilGivenDate__onceToken_0 != -1)
   {
@@ -3114,12 +3101,10 @@ LABEL_43:
   log = self->_log;
   if (os_log_type_enabled(log, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 138412290;
-    v11 = v6;
-    _os_log_impl(&dword_21B766000, log, OS_LOG_TYPE_DEFAULT, "Feature disabled until: %@", &v10, 0xCu);
+    v9 = 138412290;
+    v10 = v6;
+    _os_log_impl(&dword_21B766000, log, OS_LOG_TYPE_DEFAULT, "Feature disabled until: %@", &v9, 0xCu);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -3219,7 +3204,7 @@ LABEL_16:
 
 - (void)loadDefaults
 {
-  v113[1] = *MEMORY[0x277D85DE8];
+  v111[1] = *MEMORY[0x277D85DE8];
   v3 = [(PowerUISmartChargeManager *)self readNumberForPreferenceKey:@"enabled"];
   if (+[PowerUISmartChargeUtilities isiPad])
   {
@@ -3242,10 +3227,10 @@ LABEL_16:
   }
 
   ADClientSetValueForScalarKey();
-  v112 = @"enabled";
+  v110 = @"enabled";
   v5 = [MEMORY[0x277CCABB0] numberWithInt:self->_enabled];
-  v113[0] = v5;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v113 forKeys:&v112 count:1];
+  v111[0] = v5;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v111 forKeys:&v110 count:1];
   AnalyticsSendEvent();
 
   v7 = [(PowerUISmartChargeManager *)self readNumberForPreferenceKey:@"currentState"];
@@ -3262,8 +3247,6 @@ LABEL_16:
       self->_currentState = 0;
       date = [MEMORY[0x277CBEAA8] date];
       [(PowerUISmartChargeManager *)self addPowerLogEventForCheckpoint:10 decisionSignalID:0 decisionDate:date];
-
-      currentState = self->_currentState;
     }
 
     date2 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:?];
@@ -3281,55 +3264,55 @@ LABEL_16:
 LABEL_15:
   }
 
-  v13 = [(PowerUISmartChargeManager *)self readDateForPreferenceKey:@"potentialUnplugDate"];
+  v12 = [(PowerUISmartChargeManager *)self readDateForPreferenceKey:@"potentialUnplugDate"];
   potentialUnplugDate = self->_potentialUnplugDate;
-  self->_potentialUnplugDate = v13;
+  self->_potentialUnplugDate = v12;
 
   if (+[PowerUISmartChargeUtilities isInternalBuild])
   {
-    v15 = [(PowerUISmartChargeManager *)self readNumberForPreferenceKey:@"debounceOverrideInSeconds"];
-    if (v15)
+    v14 = [(PowerUISmartChargeManager *)self readNumberForPreferenceKey:@"debounceOverrideInSeconds"];
+    if (v14)
     {
-      v16 = self->_log;
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+      v15 = self->_log;
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        *v91 = v15;
-        _os_log_impl(&dword_21B766000, v16, OS_LOG_TYPE_DEFAULT, "Overriding debounce time to %@ seconds", buf, 0xCu);
+        *v89 = v14;
+        _os_log_impl(&dword_21B766000, v15, OS_LOG_TYPE_DEFAULT, "Overriding debounce time to %@ seconds", buf, 0xCu);
       }
 
-      [v15 doubleValue];
+      [v14 doubleValue];
     }
 
     else
     {
-      v17 = -1.0;
+      v16 = -1.0;
     }
 
-    self->_debounceOverride = v17;
-    v18 = [(PowerUISmartChargeManager *)self readNumberForPreferenceKey:@"overrideRecentDeviceConnectedToChargerThresholdSeconds"];
-    if (v18)
+    self->_debounceOverride = v16;
+    v17 = [(PowerUISmartChargeManager *)self readNumberForPreferenceKey:@"overrideRecentDeviceConnectedToChargerThresholdSeconds"];
+    if (v17)
     {
-      v19 = self->_log;
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+      v18 = self->_log;
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        *v91 = v15;
-        _os_log_impl(&dword_21B766000, v19, OS_LOG_TYPE_DEFAULT, "Overriding recently connected duration to %@ seconds", buf, 0xCu);
+        *v89 = v14;
+        _os_log_impl(&dword_21B766000, v18, OS_LOG_TYPE_DEFAULT, "Overriding recently connected duration to %@ seconds", buf, 0xCu);
       }
 
-      *&kRecentDeviceConnectedToChargerThresholdSeconds = [v18 intValue];
+      *&kRecentDeviceConnectedToChargerThresholdSeconds = [v17 intValue];
     }
   }
 
-  v20 = [(PowerUISmartChargeManager *)self readDateForPreferenceKey:@"MCLTempDisabledUntilDate"];
+  v19 = [(PowerUISmartChargeManager *)self readDateForPreferenceKey:@"MCLTempDisabledUntilDate"];
   mclDisabledUntilDate = self->_mclDisabledUntilDate;
-  self->_mclDisabledUntilDate = v20;
+  self->_mclDisabledUntilDate = v19;
 
-  v89 = [(PowerUISmartChargeManager *)self readNumberForPreferenceKey:@"MCLFeatureState"];
-  if (v89)
+  v87 = [(PowerUISmartChargeManager *)self readNumberForPreferenceKey:@"MCLFeatureState"];
+  if (v87)
   {
-    unsignedIntValue = [v89 unsignedIntValue];
+    unsignedIntValue = [v87 unsignedIntValue];
   }
 
   else
@@ -3338,8 +3321,8 @@ LABEL_15:
   }
 
   self->_manualChargeLimitStatus = unsignedIntValue;
-  v84 = [(PowerUISmartChargeManager *)self readDateForPreferenceKey:@"initialChargeLimitSetDate"];
-  if (v84)
+  v82 = [(PowerUISmartChargeManager *)self readDateForPreferenceKey:@"initialChargeLimitSetDate"];
+  if (v82)
   {
     self->_manualChargeLimitWasEverEnabled = 1;
   }
@@ -3347,8 +3330,8 @@ LABEL_15:
   else if (self->_manualChargeLimitStatus)
   {
     self->_manualChargeLimitWasEverEnabled = 1;
-    v23 = [MEMORY[0x277CBEAA8] now];
-    [(PowerUISmartChargeManager *)self setDate:v23 forPreferenceKey:@"initialChargeLimitSetDate"];
+    v22 = [MEMORY[0x277CBEAA8] now];
+    [(PowerUISmartChargeManager *)self setDate:v22 forPreferenceKey:@"initialChargeLimitSetDate"];
 
     [(PowerUISmartChargeManager *)self setNumber:&unk_282D4E668 forPreferenceKey:@"mclLimitValue"];
   }
@@ -3358,11 +3341,11 @@ LABEL_15:
     self->_manualChargeLimitWasEverEnabled = 0;
   }
 
-  v24 = [(PowerUISmartChargeManager *)self readNumberForPreferenceKey:@"mclLimitValue"];
-  v25 = v24;
-  if (v24)
+  v23 = [(PowerUISmartChargeManager *)self readNumberForPreferenceKey:@"mclLimitValue"];
+  v24 = v23;
+  if (v23)
   {
-    unsignedCharValue = [v24 unsignedCharValue];
+    unsignedCharValue = [v23 unsignedCharValue];
   }
 
   else
@@ -3371,11 +3354,11 @@ LABEL_15:
   }
 
   self->_mclTargetSoC = unsignedCharValue;
-  v27 = [(PowerUISmartChargeManager *)self readNumberForPreferenceKey:@"ChargeLimitRecommendation"];
-  v88 = v27;
-  if (v27)
+  v26 = [(PowerUISmartChargeManager *)self readNumberForPreferenceKey:@"ChargeLimitRecommendation"];
+  v86 = v26;
+  if (v26)
   {
-    unsignedIntValue2 = [v27 unsignedIntValue];
+    unsignedIntValue2 = [v26 unsignedIntValue];
   }
 
   else
@@ -3384,9 +3367,9 @@ LABEL_15:
   }
 
   self->_recommendedLimit = unsignedIntValue2;
-  v29 = [(PowerUISmartChargeManager *)self readNumberForPreferenceKey:@"DEoCFeatureState"];
+  v28 = [(PowerUISmartChargeManager *)self readNumberForPreferenceKey:@"DEoCFeatureState"];
 
-  v87 = v29;
+  v85 = v28;
   if (+[PowerUISmartChargeUtilities isiPad])
   {
     self->_deocFeatureState = 0;
@@ -3394,196 +3377,194 @@ LABEL_15:
 
   else
   {
-    if (v29)
+    if (v28)
     {
-      v30 = [v29 unsignedIntValue] != 0;
+      v29 = [v28 unsignedIntValue] != 0;
     }
 
     else
     {
-      v30 = 1;
+      v29 = 1;
     }
 
-    self->_deocFeatureState = v30;
+    self->_deocFeatureState = v29;
   }
 
-  v31 = [(PowerUISmartChargeManager *)self readNumberForPreferenceKey:@"alarmsIgnored"];
-  self->_signalsIgnored = [v31 BOOLValue];
+  v30 = [(PowerUISmartChargeManager *)self readNumberForPreferenceKey:@"alarmsIgnored"];
+  self->_signalsIgnored = [v30 BOOLValue];
 
   [(NSLock *)self->_deocCurrentStatusLock lock];
-  v32 = [PowerUISmartChargeUtilities readDictForPreferenceKey:@"CurrentDEoCStatus" inDomain:self->_defaultsDomain];
+  v31 = [PowerUISmartChargeUtilities readDictForPreferenceKey:@"CurrentDEoCStatus" inDomain:self->_defaultsDomain];
   [(NSLock *)self->_deocCurrentStatusLock unlock];
-  if (v32)
+  if (v31)
   {
-    v33 = [v32 objectForKeyedSubscript:@"dryRun"];
-    bOOLValue2 = [v33 BOOLValue];
+    v32 = [v31 objectForKeyedSubscript:@"dryRun"];
+    bOOLValue2 = [v32 BOOLValue];
 
     if ((bOOLValue2 & 1) == 0)
     {
-      v35 = [v32 objectForKeyedSubscript:@"limitCharge"];
-      self->_isDesktopDevice = [v35 BOOLValue];
+      v34 = [v31 objectForKeyedSubscript:@"limitCharge"];
+      self->_isDesktopDevice = [v34 BOOLValue];
     }
   }
 
-  v36 = [(PowerUISmartChargeManager *)self readDateForPreferenceKey:@"lastDesktopModeChangeDate"];
+  v35 = [(PowerUISmartChargeManager *)self readDateForPreferenceKey:@"lastDesktopModeChangeDate"];
   lastDesktopModeChangeDate = self->_lastDesktopModeChangeDate;
-  self->_lastDesktopModeChangeDate = v36;
+  self->_lastDesktopModeChangeDate = v35;
 
-  v38 = [(PowerUISmartChargeManager *)self readNumberForPreferenceKey:@"lastNonEngagementSignalID"];
+  v37 = [(PowerUISmartChargeManager *)self readNumberForPreferenceKey:@"lastNonEngagementSignalID"];
   lastNonEngagementSignalID = self->_lastNonEngagementSignalID;
-  self->_lastNonEngagementSignalID = v38;
+  self->_lastNonEngagementSignalID = v37;
 
-  v40 = [(PowerUISmartChargeManager *)self readNumberForPreferenceKey:@"chargePredictionModel"];
-  v41 = self->_log;
-  if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
+  v39 = [(PowerUISmartChargeManager *)self readNumberForPreferenceKey:@"chargePredictionModel"];
+  v40 = self->_log;
+  if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    *v91 = v40;
-    _os_log_impl(&dword_21B766000, v41, OS_LOG_TYPE_DEFAULT, "Loading model: %@", buf, 0xCu);
+    *v89 = v39;
+    _os_log_impl(&dword_21B766000, v40, OS_LOG_TYPE_DEFAULT, "Loading model: %@", buf, 0xCu);
   }
 
-  if (!v40 || [v40 unsignedIntegerValue] == 2)
+  if (!v39 || [v39 unsignedIntegerValue] == 2)
   {
-    v42 = 2;
+    v41 = 2;
 LABEL_55:
-    self->_predictorType = v42;
+    self->_predictorType = v41;
     goto LABEL_56;
   }
 
-  if ([v40 unsignedIntegerValue] == 4)
+  if ([v39 unsignedIntegerValue] == 4)
   {
-    v42 = 4;
+    v41 = 4;
     goto LABEL_55;
   }
 
-  if ([v40 unsignedIntegerValue] == -1)
+  if ([v39 unsignedIntegerValue] == -1)
   {
-    v42 = -1;
+    v41 = -1;
     goto LABEL_55;
   }
 
   self->_predictorType = 2;
-  v75 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:2];
-  [(PowerUISmartChargeManager *)self setNumber:v75 forPreferenceKey:@"chargePredictionModel"];
+  v73 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:2];
+  [(PowerUISmartChargeManager *)self setNumber:v73 forPreferenceKey:@"chargePredictionModel"];
 
 LABEL_56:
-  v43 = [(PowerUISmartChargeManager *)self readNumberForPreferenceKey:@"fullChargeDeadline"];
-  v44 = v43;
-  if (v43)
+  v42 = [(PowerUISmartChargeManager *)self readNumberForPreferenceKey:@"fullChargeDeadline"];
+  v43 = v42;
+  if (v42)
   {
-    v45 = MEMORY[0x277CBEAA8];
-    [v43 doubleValue];
-    v46 = [v45 dateWithTimeIntervalSinceReferenceDate:?];
+    v44 = MEMORY[0x277CBEAA8];
+    [v42 doubleValue];
+    v45 = [v44 dateWithTimeIntervalSinceReferenceDate:?];
     fullChargeDeadline = self->__fullChargeDeadline;
-    self->__fullChargeDeadline = v46;
+    self->__fullChargeDeadline = v45;
   }
 
-  v48 = [(PowerUISmartChargeManager *)self readNumberForPreferenceKey:@"empiricalFullChargeDuration"];
-  [v48 doubleValue];
-  self->_empiricalTimeToFullChargeDurationMinutes = v49;
+  v47 = [(PowerUISmartChargeManager *)self readNumberForPreferenceKey:@"empiricalFullChargeDuration"];
+  [v47 doubleValue];
+  self->_empiricalTimeToFullChargeDurationMinutes = v48;
 
   empiricalTimeToFullChargeDurationMinutes = self->_empiricalTimeToFullChargeDurationMinutes;
-  v51 = fmax(fmin(empiricalTimeToFullChargeDurationMinutes, 180.0), 40.0);
-  v52 = empiricalTimeToFullChargeDurationMinutes - v51;
-  if (v52 < 0.0)
+  v50 = fmax(fmin(empiricalTimeToFullChargeDurationMinutes, 180.0), 40.0);
+  v51 = empiricalTimeToFullChargeDurationMinutes - v50;
+  if (v51 < 0.0)
   {
-    v52 = -v52;
+    v51 = -v51;
   }
 
-  if (v52 > 1.0)
+  if (v51 > 1.0)
   {
-    self->_empiricalTimeToFullChargeDurationMinutes = v51;
-    v53 = [MEMORY[0x277CCABB0] numberWithDouble:?];
-    [(PowerUISmartChargeManager *)self setNumber:v53 forPreferenceKey:@"empiricalFullChargeDuration"];
+    self->_empiricalTimeToFullChargeDurationMinutes = v50;
+    v52 = [MEMORY[0x277CCABB0] numberWithDouble:?];
+    [(PowerUISmartChargeManager *)self setNumber:v52 forPreferenceKey:@"empiricalFullChargeDuration"];
   }
 
-  v54 = [(PowerUISmartChargeManager *)self readNumberForPreferenceKey:@"wirelessCharger"];
-  self->_lastChargerWasWireless = [v54 BOOLValue];
+  v53 = [(PowerUISmartChargeManager *)self readNumberForPreferenceKey:@"wirelessCharger"];
+  self->_lastChargerWasWireless = [v53 BOOLValue];
 
-  v55 = [(PowerUISmartChargeManager *)self readDateForPreferenceKey:@"engagementTimeOverride"];
-  [(PowerUISmartChargeManager *)self setEngagementTimeOverride:v55];
+  v54 = [(PowerUISmartChargeManager *)self readDateForPreferenceKey:@"engagementTimeOverride"];
+  [(PowerUISmartChargeManager *)self setEngagementTimeOverride:v54];
 
-  v56 = [(PowerUISmartChargeManager *)self readDateForPreferenceKey:@"fullChargeDeadlineOverride"];
-  [(PowerUISmartChargeManager *)self setFullChargeDeadlineOverride:v56];
+  v55 = [(PowerUISmartChargeManager *)self readDateForPreferenceKey:@"fullChargeDeadlineOverride"];
+  [(PowerUISmartChargeManager *)self setFullChargeDeadlineOverride:v55];
 
-  v57 = [(PowerUISmartChargeManager *)self readDateForPreferenceKey:@"repeatEngagementOverrideEndDate"];
-  [(PowerUISmartChargeManager *)self setRepeatEngagementOverrideEndDate:v57];
+  v56 = [(PowerUISmartChargeManager *)self readDateForPreferenceKey:@"repeatEngagementOverrideEndDate"];
+  [(PowerUISmartChargeManager *)self setRepeatEngagementOverrideEndDate:v56];
 
   [(PowerUISmartChargeManager *)self cleanupOverrides];
-  v58 = [PowerUISmartChargeUtilities readDictForPreferenceKey:@"powerLogStatus" inDomain:self->_defaultsDomain];
-  [(PowerUISmartChargeManager *)self setPowerLogStatus:v58];
+  v57 = [PowerUISmartChargeUtilities readDictForPreferenceKey:@"powerLogStatus" inDomain:self->_defaultsDomain];
+  [(PowerUISmartChargeManager *)self setPowerLogStatus:v57];
 
-  v59 = [(PowerUISmartChargeManager *)self readNumberForPreferenceKey:@"becameOBCEligible"];
-  v60 = v59;
-  v85 = v44;
-  if (v59)
+  v58 = [(PowerUISmartChargeManager *)self readNumberForPreferenceKey:@"becameOBCEligible"];
+  v59 = v58;
+  v83 = v43;
+  if (v58)
   {
-    LOBYTE(v59) = [v59 BOOLValue];
+    LOBYTE(v58) = [v58 BOOLValue];
   }
 
-  self->_becameOBCEligible = v59;
-  v61 = [(PowerUISmartChargeManager *)self readNumberForPreferenceKey:@"reachedTargetSoC"];
-  v62 = v61;
-  v86 = v40;
-  if (v61)
+  self->_becameOBCEligible = v58;
+  v60 = [(PowerUISmartChargeManager *)self readNumberForPreferenceKey:@"reachedTargetSoC"];
+  v61 = v60;
+  v84 = v39;
+  if (v60)
   {
-    LOBYTE(v61) = [v61 BOOLValue];
+    LOBYTE(v60) = [v60 BOOLValue];
   }
 
-  self->_reachedTargetSoC = v61;
-  v63 = self->_log;
-  if (os_log_type_enabled(v63, OS_LOG_TYPE_DEFAULT))
+  self->_reachedTargetSoC = v60;
+  v62 = self->_log;
+  if (os_log_type_enabled(v62, OS_LOG_TYPE_DEFAULT))
   {
-    v82 = v25;
-    v83 = v8;
+    v80 = v24;
+    v81 = v8;
     enabled = self->_enabled;
-    v76 = self->_currentState;
+    currentState = self->_currentState;
     signalsIgnored = self->_signalsIgnored;
     isDesktopDevice = self->_isDesktopDevice;
     manualChargeLimitStatus = self->_manualChargeLimitStatus;
-    v65 = MEMORY[0x277CCABB0];
+    v64 = MEMORY[0x277CCABB0];
     predictorType = self->_predictorType;
-    log = v63;
-    v67 = [v65 numberWithUnsignedInteger:predictorType];
+    log = v62;
+    v66 = [v64 numberWithUnsignedInteger:predictorType];
     signalDeadline = self->_signalDeadline;
     engagementTimeOverride = [(PowerUISmartChargeManager *)self engagementTimeOverride];
     fullChargeDeadlineOverride = [(PowerUISmartChargeManager *)self fullChargeDeadlineOverride];
     [(PowerUISmartChargeManager *)self repeatEngagementOverrideEndDate];
-    v71 = v81 = v32;
-    v72 = [MEMORY[0x277CCABB0] numberWithBool:self->_overrideAllSignals];
-    v73 = self->_empiricalTimeToFullChargeDurationMinutes;
+    v70 = v79 = v31;
+    v71 = [MEMORY[0x277CCABB0] numberWithBool:self->_overrideAllSignals];
+    v72 = self->_empiricalTimeToFullChargeDurationMinutes;
     *buf = 67111938;
-    *v91 = enabled;
-    v25 = v82;
-    *&v91[4] = 2048;
-    *&v91[6] = v76;
+    *v89 = enabled;
+    v24 = v80;
+    *&v89[4] = 2048;
+    *&v89[6] = currentState;
+    v90 = 1024;
+    v91 = signalsIgnored;
     v92 = 1024;
-    v93 = signalsIgnored;
-    v94 = 1024;
-    v95 = isDesktopDevice;
-    v96 = 2048;
-    v97 = manualChargeLimitStatus;
+    v93 = isDesktopDevice;
+    v94 = 2048;
+    v95 = manualChargeLimitStatus;
+    v96 = 2112;
+    v97 = v66;
     v98 = 2112;
-    v99 = v67;
+    v99 = signalDeadline;
     v100 = 2112;
-    v101 = signalDeadline;
+    v101 = engagementTimeOverride;
     v102 = 2112;
-    v103 = engagementTimeOverride;
+    v103 = fullChargeDeadlineOverride;
     v104 = 2112;
-    v105 = fullChargeDeadlineOverride;
+    v105 = v70;
     v106 = 2112;
     v107 = v71;
-    v108 = 2112;
+    v108 = 2048;
     v109 = v72;
-    v110 = 2048;
-    v111 = v73;
     _os_log_impl(&dword_21B766000, log, OS_LOG_TYPE_DEFAULT, "Loaded Settings: Enabled=%u, CurrentState=%lu, Signals Ignored=%u, Desktop device=%u, Manual Charge Limit=%lu, Predictor = %@, Full Charge Deadline=%@, EngagementTimeOverride=%@, FullChargeDeadlineOverride=%@, repeatEngagementOverrideEndDate=%@ OverrideAllSignals=%@ minutesToFullCharge=%f", buf, 0x6Eu);
 
-    v32 = v81;
-    v8 = v83;
+    v31 = v79;
+    v8 = v81;
   }
-
-  v74 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isExternalConnected
@@ -3720,7 +3701,7 @@ void __59__PowerUISmartChargeManager_handleInternalCarryPromptEvent__block_invok
 
 - (void)handleAlarmEvent:(id)event
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v4 = MEMORY[0x277CCACA8];
   v5 = *MEMORY[0x277D86430];
   eventCopy = event;
@@ -3732,9 +3713,9 @@ void __59__PowerUISmartChargeManager_handleInternalCarryPromptEvent__block_invok
   verboseLog = self->_verboseLog;
   if (os_log_type_enabled(verboseLog, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = 138412290;
-    v13 = v7;
-    _os_log_impl(&dword_21B766000, verboseLog, OS_LOG_TYPE_DEFAULT, "Alarm fired for %@", &v12, 0xCu);
+    v11 = 138412290;
+    v12 = v7;
+    _os_log_impl(&dword_21B766000, verboseLog, OS_LOG_TYPE_DEFAULT, "Alarm fired for %@", &v11, 0xCu);
   }
 
   if ([v7 isEqualToString:@"TopOffSupervisor"])
@@ -3751,22 +3732,20 @@ void __59__PowerUISmartChargeManager_handleInternalCarryPromptEvent__block_invok
   {
     [(PowerUISmartChargeManager *)self handleDebounceTimerEvent];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dispatchAlarmAfter:(int64_t)after withName:(id)name
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   log = self->_log;
   if (os_log_type_enabled(log, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 134218242;
+    v10 = 134218242;
     afterCopy = after;
-    v13 = 2112;
-    v14 = nameCopy;
-    _os_log_impl(&dword_21B766000, log, OS_LOG_TYPE_DEFAULT, "Requesting wake in %llu seconds for %@", &v11, 0x16u);
+    v12 = 2112;
+    v13 = nameCopy;
+    _os_log_impl(&dword_21B766000, log, OS_LOG_TYPE_DEFAULT, "Requesting wake in %llu seconds for %@", &v10, 0x16u);
   }
 
   v8 = xpc_dictionary_create(0, 0, 0);
@@ -3774,8 +3753,6 @@ void __59__PowerUISmartChargeManager_handleInternalCarryPromptEvent__block_invok
   xpc_dictionary_set_date(v8, "Date", 1000000000 * (v9 + after));
   [nameCopy UTF8String];
   xpc_set_event();
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)promptBDCToQueryCurrentState
@@ -3827,13 +3804,13 @@ void __59__PowerUISmartChargeManager_handleInternalCarryPromptEvent__block_invok
 
 void __43__PowerUISmartChargeManager_registerBDCXPC__block_invoke(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = *(*(a1 + 32) + 96);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v8) = 0;
-    _os_log_impl(&dword_21B766000, v4, OS_LOG_TYPE_DEFAULT, "xpcRegister event handler called", &v8, 2u);
+    LOWORD(v7) = 0;
+    _os_log_impl(&dword_21B766000, v4, OS_LOG_TYPE_DEFAULT, "xpcRegister event handler called", &v7, 2u);
   }
 
   if (MEMORY[0x21CEF8D90](v3) == MEMORY[0x277D86450])
@@ -3847,15 +3824,13 @@ void __43__PowerUISmartChargeManager_registerBDCXPC__block_invoke(uint64_t a1, v
     v6 = *(*(a1 + 32) + 96);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 136315138;
-      v9 = v5;
-      _os_log_impl(&dword_21B766000, v6, OS_LOG_TYPE_DEFAULT, "Received object: %s", &v8, 0xCu);
+      v7 = 136315138;
+      v8 = v5;
+      _os_log_impl(&dword_21B766000, v6, OS_LOG_TYPE_DEFAULT, "Received object: %s", &v7, 0xCu);
     }
 
     free(v5);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)incomingBDCRequest:(id)request
@@ -3878,13 +3853,13 @@ void __43__PowerUISmartChargeManager_registerBDCXPC__block_invoke(uint64_t a1, v
 
 void __48__PowerUISmartChargeManager_incomingBDCRequest___block_invoke(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = *(*(a1 + 32) + 96);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
-    LOWORD(v11) = 0;
-    _os_log_impl(&dword_21B766000, v4, OS_LOG_TYPE_INFO, "incomingBDCRequest event handler called", &v11, 2u);
+    LOWORD(v10) = 0;
+    _os_log_impl(&dword_21B766000, v4, OS_LOG_TYPE_INFO, "incomingBDCRequest event handler called", &v10, 2u);
   }
 
   if (MEMORY[0x21CEF8D90](v3) == MEMORY[0x277D86480])
@@ -3893,9 +3868,9 @@ void __48__PowerUISmartChargeManager_incomingBDCRequest___block_invoke(uint64_t 
     v9 = *(*(a1 + 32) + 96);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
-      v11 = 136315138;
-      v12 = v8;
-      _os_log_impl(&dword_21B766000, v9, OS_LOG_TYPE_INFO, "Connection received error: %s", &v11, 0xCu);
+      v10 = 136315138;
+      v11 = v8;
+      _os_log_impl(&dword_21B766000, v9, OS_LOG_TYPE_INFO, "Connection received error: %s", &v10, 0xCu);
     }
 
     free(v8);
@@ -3915,8 +3890,8 @@ void __48__PowerUISmartChargeManager_incomingBDCRequest___block_invoke(uint64_t 
     {
       if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v11) = 0;
-        _os_log_impl(&dword_21B766000, v6, OS_LOG_TYPE_DEFAULT, "incoming xpc connection event: currentSmartChargingStateRequest", &v11, 2u);
+        LOWORD(v10) = 0;
+        _os_log_impl(&dword_21B766000, v6, OS_LOG_TYPE_DEFAULT, "incoming xpc connection event: currentSmartChargingStateRequest", &v10, 2u);
       }
 
       [*(a1 + 32) sendBDCData:*(a1 + 40) withMessage:v3];
@@ -3929,13 +3904,11 @@ void __48__PowerUISmartChargeManager_incomingBDCRequest___block_invoke(uint64_t 
       __48__PowerUISmartChargeManager_incomingBDCRequest___block_invoke_cold_2();
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sendBDCData:(id)data withMessage:(id)message
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   messageCopy = message;
   v8 = messageCopy;
@@ -3945,7 +3918,7 @@ void __48__PowerUISmartChargeManager_incomingBDCRequest___block_invoke(uint64_t 
     if (reply)
     {
       *buf = 0u;
-      v40 = 0u;
+      v39 = 0u;
       xpc_connection_get_audit_token();
       v10 = *MEMORY[0x277CBECE8];
       memset(&token, 0, sizeof(token));
@@ -3979,14 +3952,14 @@ void __48__PowerUISmartChargeManager_incomingBDCRequest___block_invoke(uint64_t 
         v22 = [(PowerUISmartChargeManager *)self log];
         if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
         {
-          v37 = [getNextBDCDataDict objectForKeyedSubscript:@"MessageVersion"];
-          intValue = [v37 intValue];
-          v36 = [getNextBDCDataDict objectForKeyedSubscript:@"ChargingState"];
-          bOOLValue = [v36 BOOLValue];
-          v35 = [getNextBDCDataDict objectForKeyedSubscript:@"InflowState"];
-          bOOLValue2 = [v35 BOOLValue];
-          v34 = [getNextBDCDataDict objectForKeyedSubscript:@"ChargeLimit"];
-          intValue2 = [v34 intValue];
+          v36 = [getNextBDCDataDict objectForKeyedSubscript:@"MessageVersion"];
+          intValue = [v36 intValue];
+          v35 = [getNextBDCDataDict objectForKeyedSubscript:@"ChargingState"];
+          bOOLValue = [v35 BOOLValue];
+          v34 = [getNextBDCDataDict objectForKeyedSubscript:@"InflowState"];
+          bOOLValue2 = [v34 BOOLValue];
+          v33 = [getNextBDCDataDict objectForKeyedSubscript:@"ChargeLimit"];
+          intValue2 = [v33 intValue];
           v23 = [getNextBDCDataDict objectForKeyedSubscript:@"CheckPoint"];
           intValue3 = [v23 intValue];
           v25 = [getNextBDCDataDict objectForKeyedSubscript:@"DecisionMaker"];
@@ -3998,15 +3971,15 @@ void __48__PowerUISmartChargeManager_incomingBDCRequest___block_invoke(uint64_t 
           *&buf[8] = 1024;
           *&buf[10] = bOOLValue;
           *&buf[14] = 1024;
-          LODWORD(v40) = bOOLValue2;
-          WORD2(v40) = 1024;
-          *(&v40 + 6) = intValue2;
-          WORD5(v40) = 1024;
-          HIDWORD(v40) = intValue3;
-          v41 = 1024;
-          v42 = intValue4;
-          v43 = 1024;
-          v44 = intValue5;
+          LODWORD(v39) = bOOLValue2;
+          WORD2(v39) = 1024;
+          *(&v39 + 6) = intValue2;
+          WORD5(v39) = 1024;
+          HIDWORD(v39) = intValue3;
+          v40 = 1024;
+          v41 = intValue4;
+          v42 = 1024;
+          v43 = intValue5;
           _os_log_impl(&dword_21B766000, v22, OS_LOG_TYPE_INFO, "Sent data to BDC: MessageVersion=%d - ChargingState=%d - InflowState=%d - ChargeLimit=%d - CheckPoint=%d - DecisionMaker=%d - ModeOfOperation: %d", buf, 0x2Cu);
         }
       }
@@ -4033,8 +4006,6 @@ void __48__PowerUISmartChargeManager_incomingBDCRequest___block_invoke(uint64_t 
   {
     [PowerUISmartChargeManager sendBDCData:withMessage:];
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 - (unint64_t)currentModeOfOperation
@@ -4133,8 +4104,8 @@ void __48__PowerUISmartChargeManager_incomingBDCRequest___block_invoke(uint64_t 
 
 - (void)handleCallback:(BOOL)callback
 {
-  v63 = *MEMORY[0x277D85DE8];
-  v57 = os_transaction_create();
+  v62 = *MEMORY[0x277D85DE8];
+  v56 = os_transaction_create();
   [PowerUISmartChargeUtilities logMemoryUsageInternalForEvent:@"Beginning of handleCallback"];
   context = [(PowerUISmartChargeManager *)self context];
   keyPathForBatteryStateDataDictionary = [MEMORY[0x277CFE338] keyPathForBatteryStateDataDictionary];
@@ -4412,10 +4383,10 @@ LABEL_55:
         {
           *&buf = 0;
           *(&buf + 1) = &buf;
-          v59 = 0x3032000000;
-          v60 = __Block_byref_object_copy__8;
-          v61 = __Block_byref_object_dispose__8;
-          v62 = [v53 objectForKey:@"featureAnalytics"];
+          v58 = 0x3032000000;
+          v59 = __Block_byref_object_copy__8;
+          v60 = __Block_byref_object_dispose__8;
+          v61 = [v53 objectForKey:@"featureAnalytics"];
           if (*(*(&buf + 1) + 40))
           {
             AnalyticsSendEventLazy();
@@ -4462,8 +4433,80 @@ LABEL_18:
 
 LABEL_92:
   }
+}
 
-  v55 = *MEMORY[0x277D85DE8];
+- (void)handleNewPluginWithBatteryLevel:(int)level pluginDate:(id)date
+{
+  v4 = *&level;
+  v23 = *MEMORY[0x277D85DE8];
+  dateCopy = date;
+  [(PowerUISmartChargeManager *)self checkWhetherMCLTempDisablementCanBeClearedOnPlugin:1];
+  [(PowerUIMLTwoStageModelPredictor *)self->_modelTwoStagePredictor resetSavedDeadline];
+  v7 = [PowerUISmartChargeUtilities readDictForPreferenceKey:@"CAPluggedInStatus" inDomain:self->_defaultsDomain];
+  v8 = [(PowerUISmartChargeManager *)self updateAnalyticsWithPluginMetrics:v7 withBatteryLevel:v4];
+
+  if (v8)
+  {
+    v9 = v8;
+    AnalyticsSendEventLazy();
+    log = self->_log;
+    if (os_log_type_enabled(log, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 138412290;
+      v20 = v9;
+      _os_log_impl(&dword_21B766000, log, OS_LOG_TYPE_DEFAULT, "Reported Plugin Metrics to CoreAnalytics %@", buf, 0xCu);
+    }
+
+    [PowerUISmartChargeUtilities setDict:0 forPreferenceKey:@"CAPluggedInStatus" inDomain:self->_defaultsDomain];
+  }
+
+  [(PowerUISmartChargeManager *)self evaluateIfDesktopDevice];
+  [(PowerUISmartChargeManager *)self pluginTimelineAddEvent:@"Plugin" atDate:dateCopy withBatteryLevel:v4];
+
+  if ([(PowerUITrialManager *)self->_trialManager useTrialEnabledFeature:@"useSleepBasedPredictor"]&& [PowerUISleepBasedPredictor shouldUseSleepPredictorWithLog:self->_log])
+  {
+    [(PowerUISmartChargeManager *)self setNumber:&unk_282D4E680 forPreferenceKey:@"chargePredictionModel"];
+    self->_predictorType = 4;
+    v11 = [(PowerUISmartChargeManager *)self log];
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 0;
+      _os_log_impl(&dword_21B766000, v11, OS_LOG_TYPE_DEFAULT, "Sleep schedule is relevant, use sleep predictor for smart charging", buf, 2u);
+    }
+  }
+
+  if (+[PowerUISmartChargeUtilities isInternalBuild]&& _os_feature_enabled_impl() && !self->_isDesktopDevice)
+  {
+    if (v4 <= 80)
+    {
+      v12 = 80;
+    }
+
+    else
+    {
+      v12 = v4;
+    }
+
+    v13 = [PowerUISmartChargeUtilities historicalFullChargeDurationStartingAt:v12 withMinimumPluginDuration:300];
+    v14 = [(PowerUISmartChargeManager *)self log];
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    {
+      v15 = [v13 count];
+      *buf = 134218242;
+      v20 = v15;
+      v21 = 2112;
+      v22 = v13;
+      _os_log_impl(&dword_21B766000, v14, OS_LOG_TYPE_DEFAULT, "Found %lu applicable charge sessions for duration estimation: %@", buf, 0x16u);
+    }
+
+    if ([v13 count])
+    {
+      [v13 percentile:0.1];
+      v16 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceNow:?];
+      v17 = +[PowerUINotificationManager sharedInstance];
+      v18 = [v17 postOBCEngagedTopOffNotificationWithDate:v16];
+    }
+  }
 }
 
 - (void)handleUnplugAtDate:(id)date withBatteryLevel:(int)level
@@ -4497,21 +4540,175 @@ LABEL_92:
   [(PowerUISmartChargeManager *)self clearManualChargeLimit];
 }
 
+- (void)updateTimeLineForCurrentBatteryLevel:(int)level withIsExternalConnected:(BOOL)connected forDate:(id)date
+{
+  connectedCopy = connected;
+  v6 = *&level;
+  dateCopy = date;
+  v8 = self->_isDesktopDevice || self->_manualChargeLimitStatus == 1;
+  lastBatteryLevel = [(PowerUISmartChargeManager *)self lastBatteryLevel];
+  if (v6 <= 99 && lastBatteryLevel == 100 && !v8)
+  {
+    v10 = [MEMORY[0x277CCABB0] numberWithInt:v6];
+    [(PowerUISmartChargeManager *)self _submitEngagementEventWithBatteryLevel:v10 eventType:11];
+
+    self->_reachedTargetSoC = 0;
+    [(PowerUISmartChargeManager *)self setNumber:&unk_282D4E5C0 forPreferenceKey:@"reachedTargetSoC"];
+  }
+
+  if ((v6 - 95) < 0xFFFFFFF1 || self->_becameOBCEligible)
+  {
+    v11 = v6 == 100 && connectedCopy;
+    if (v11 == 1 && !self->_lastFullyCharged)
+    {
+      [(PowerUISmartChargeManager *)self pluginTimelineAddEvent:@"FullyCharged" atDate:dateCopy withBatteryLevel:100];
+      notify_post([@"com.apple.smartcharging.statechange" UTF8String]);
+      v11 = 1;
+    }
+  }
+
+  else
+  {
+    [(PowerUISmartChargeManager *)self pluginTimelineAddEvent:@"EligibleForIdle" atDate:dateCopy withBatteryLevel:v6];
+    self->_becameOBCEligible = 1;
+    [(PowerUISmartChargeManager *)self setNumber:&unk_282D4E5F0 forPreferenceKey:@"becameOBCEligible"];
+    v11 = 0;
+  }
+
+  [(PowerUISmartChargeManager *)self setLastFullyCharged:v11];
+  if (v8 && v6 >= 80 && !self->_reachedTargetSoC)
+  {
+    v12 = [MEMORY[0x277CCABB0] numberWithInt:v6];
+    [(PowerUISmartChargeManager *)self _submitEngagementEventWithBatteryLevel:v12 eventType:10];
+
+    self->_reachedTargetSoC = 1;
+    [(PowerUISmartChargeManager *)self setNumber:&unk_282D4E5F0 forPreferenceKey:@"reachedTargetSoC"];
+  }
+}
+
+- (BOOL)shouldContinueAfterMCMCheckWithBatteryLevel:(int)level withIsCharging:(BOOL)charging withIsExternalConnected:(BOOL)connected withIsPluggedIn:(BOOL)in
+{
+  inCopy = in;
+  connectedCopy = connected;
+  chargingCopy = charging;
+  v8 = *&level;
+  v39 = *MEMORY[0x277D85DE8];
+  mcmLog = self->_mcmLog;
+  if (os_log_type_enabled(mcmLog, OS_LOG_TYPE_INFO))
+  {
+    v11 = MEMORY[0x277CCABB0];
+    isChargePackConnected = self->_isChargePackConnected;
+    v13 = mcmLog;
+    v14 = [v11 numberWithBool:isChargePackConnected];
+    v15 = [MEMORY[0x277CCABB0] numberWithBool:chargingCopy];
+    v16 = [MEMORY[0x277CCABB0] numberWithBool:self->_mcmForbidsCharging];
+    [MEMORY[0x277CCABB0] numberWithInt:v8];
+    v18 = v17 = v8;
+    v19 = [MEMORY[0x277CCABB0] numberWithBool:inCopy];
+    v20 = [MEMORY[0x277CCABB0] numberWithBool:connectedCopy];
+    *buf = 138413570;
+    v28 = v14;
+    v29 = 2112;
+    v30 = v15;
+    v31 = 2112;
+    v32 = v16;
+    v33 = 2112;
+    v34 = v18;
+    v35 = 2112;
+    v36 = v19;
+    v37 = 2112;
+    v38 = v20;
+    _os_log_impl(&dword_21B766000, v13, OS_LOG_TYPE_INFO, "Handle callback. _isChargePackConnected: %@ - isCharging: %@ - mcmForbidsCharging: %@ - batteryLevel: %@, isPluggedIn: %@ - isExternalConnected: %@", buf, 0x3Eu);
+
+    v8 = v17;
+  }
+
+  if (self->_isChargePackConnected && (self->_manualChargeLimitStatus != 1 || self->_mclTargetSoC >= 0x5Bu))
+  {
+    v21 = connectedCopy || inCopy;
+    if (!connectedCopy && !inCopy)
+    {
+      if (self->_mcmCurrentState == 1)
+      {
+        if (v8 < 0x5A)
+        {
+          if (v8 != 89 && self->_mcmForbidsCharging)
+          {
+            v22 = self->_mcmLog;
+            if (!os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+            {
+              goto LABEL_22;
+            }
+
+            *buf = 0;
+            v23 = "Mobile Charge Mode enable charging";
+            goto LABEL_10;
+          }
+        }
+
+        else if (!self->_mcmForbidsCharging)
+        {
+          v25 = self->_mcmLog;
+          if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+          {
+            *buf = 0;
+            _os_log_impl(&dword_21B766000, v25, OS_LOG_TYPE_DEFAULT, "Mobile Charge Mode disable charging", buf, 2u);
+          }
+
+          [(PowerUISmartChargeManager *)self mcmDisableCharging];
+          goto LABEL_23;
+        }
+      }
+
+      else if (self->_mcmForbidsCharging)
+      {
+        if (os_log_type_enabled(self->_mcmLog, OS_LOG_TYPE_ERROR))
+        {
+          [PowerUISmartChargeManager shouldContinueAfterMCMCheckWithBatteryLevel:withIsCharging:withIsExternalConnected:withIsPluggedIn:];
+        }
+
+        goto LABEL_22;
+      }
+
+      return 0;
+    }
+
+    if (self->_mcmForbidsCharging)
+    {
+      v22 = self->_mcmLog;
+      if (!os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+      {
+LABEL_22:
+        [(PowerUISmartChargeManager *)self mcmEnableCharging];
+LABEL_23:
+        [(PowerUISmartChargeManager *)self reportMCMStatusWithBatteryLevel:v8];
+        return v21;
+      }
+
+      *buf = 0;
+      v23 = "Mobile Charge Mode enable charging - external power available";
+LABEL_10:
+      _os_log_impl(&dword_21B766000, v22, OS_LOG_TYPE_DEFAULT, v23, buf, 2u);
+      goto LABEL_22;
+    }
+  }
+
+  return 1;
+}
+
 - (void)reportAggDKeys:(id)keys
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   keysCopy = keys;
   log = self->_log;
   if (os_log_type_enabled(log, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
-    v8 = keysCopy;
-    _os_log_impl(&dword_21B766000, log, OS_LOG_TYPE_DEFAULT, "Reporting to aggd %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = keysCopy;
+    _os_log_impl(&dword_21B766000, log, OS_LOG_TYPE_DEFAULT, "Reporting to aggd %@", &v6, 0xCu);
   }
 
   [keysCopy enumerateKeysAndObjectsUsingBlock:&__block_literal_global_1346];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __44__PowerUISmartChargeManager_reportAggDKeys___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -4523,33 +4720,33 @@ void __44__PowerUISmartChargeManager_reportAggDKeys___block_invoke(uint64_t a1, 
 
 - (unint64_t)mostRecentOBCModeOfoperationFromTimeline
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v2 = CFPreferencesCopyAppValue(@"timeline", self->_defaultsDomain);
   v3 = [v2 mutableCopy];
 
   if (v3)
   {
-    v16 = 0u;
-    v17 = 0u;
-    v14 = 0u;
     v15 = 0u;
+    v16 = 0u;
+    v13 = 0u;
+    v14 = 0u;
     reverseObjectEnumerator = [v3 reverseObjectEnumerator];
-    v5 = [reverseObjectEnumerator countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v5 = [reverseObjectEnumerator countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v15;
+      v7 = *v14;
       while (2)
       {
         v8 = 0;
         do
         {
-          if (*v15 != v7)
+          if (*v14 != v7)
           {
             objc_enumerationMutation(reverseObjectEnumerator);
           }
 
-          v9 = [*(*(&v14 + 1) + 8 * v8) objectForKey:@"obcModeOfOperation"];
+          v9 = [*(*(&v13 + 1) + 8 * v8) objectForKey:@"obcModeOfOperation"];
           unsignedIntValue = [v9 unsignedIntValue];
 
           if (unsignedIntValue)
@@ -4562,7 +4759,7 @@ void __44__PowerUISmartChargeManager_reportAggDKeys___block_invoke(uint64_t a1, 
         }
 
         while (v6 != v8);
-        v6 = [reverseObjectEnumerator countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v6 = [reverseObjectEnumerator countByEnumeratingWithState:&v13 objects:v17 count:16];
         if (v6)
         {
           continue;
@@ -4581,13 +4778,12 @@ LABEL_12:
     v11 = 0;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
 - (void)recordAnalytics
 {
-  v241 = *MEMORY[0x277D85DE8];
+  v240 = *MEMORY[0x277D85DE8];
   [PowerUISmartChargeUtilities logMemoryUsageInternalForEvent:@"Beginning of recordAnalytics"];
   v3 = [PowerUISmartChargeUtilities readDictForPreferenceKey:@"AggDStatus" inDomain:self->_defaultsDomain];
   dictionary = [v3 mutableCopy];
@@ -4597,19 +4793,19 @@ LABEL_12:
     dictionary = [MEMORY[0x277CBEB38] dictionary];
   }
 
-  v208 = dictionary;
+  v207 = dictionary;
   mostRecentOBCModeOfoperationFromTimeline = [(PowerUISmartChargeManager *)self mostRecentOBCModeOfoperationFromTimeline];
   v5 = mostRecentOBCModeOfoperationFromTimeline - 2;
   if (mostRecentOBCModeOfoperationFromTimeline - 2 > 5)
   {
     v7 = @"com.apple.das.smartcharging.analytics.countOBCSessions";
     v6 = @"com.apple.das.smartcharging.analytics.countOBCSessionsTempDisabled";
-    v203 = @"com.apple.das.smartcharging.analytics.countTotalMinutesIdledInOBC";
+    v202 = @"com.apple.das.smartcharging.analytics.countTotalMinutesIdledInOBC";
   }
 
   else
   {
-    v203 = off_2782D4F28[v5];
+    v202 = off_2782D4F28[v5];
     v6 = off_2782D4F58[v5];
     v7 = off_2782D4F88[v5];
   }
@@ -4634,17 +4830,17 @@ LABEL_12:
   unsignedIntegerValue6 = [v17 unsignedIntegerValue];
 
   dictionary2 = [MEMORY[0x277CBEB38] dictionary];
-  v202 = unsignedIntegerValue2;
+  v201 = unsignedIntegerValue2;
   v20 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:unsignedIntegerValue2];
-  v201 = v7;
+  v200 = v7;
   v21 = v7;
   v22 = unsignedIntegerValue6;
   v23 = unsignedIntegerValue5;
   [(NSArray *)dictionary2 setObject:v20 forKeyedSubscript:v21];
 
-  v207 = unsignedIntegerValue3;
+  v206 = unsignedIntegerValue3;
   v24 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:unsignedIntegerValue3];
-  v209 = v6;
+  v208 = v6;
   [(NSArray *)dictionary2 setObject:v24 forKeyedSubscript:v6];
 
   v25 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:unsignedIntegerValue4];
@@ -4660,7 +4856,7 @@ LABEL_12:
   temporarilyDisabled = selfCopy->_temporarilyDisabled;
   if (temporarilyDisabled)
   {
-    v29 = v208;
+    v29 = v207;
     v30 = unsignedIntegerValue4;
   }
 
@@ -4682,7 +4878,7 @@ LABEL_12:
       ++v22;
     }
 
-    v29 = v208;
+    v29 = v207;
   }
 
   v31 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:unsignedIntegerValue + 1];
@@ -4700,8 +4896,8 @@ LABEL_12:
   v35 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v22];
   [(PowerUISmartChargeManager *)selfCopy setNumber:v35 forPreferenceKey:@"com.apple.das.smartcharging.analytics.countDEoCSessionsEnabled"];
 
-  temporarilyDisabled = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v207 + temporarilyDisabled];
-  [(PowerUISmartChargeManager *)selfCopy setNumber:temporarilyDisabled forPreferenceKey:v209];
+  temporarilyDisabled = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v206 + temporarilyDisabled];
+  [(PowerUISmartChargeManager *)selfCopy setNumber:temporarilyDisabled forPreferenceKey:v208];
 
   if ([(PowerUISmartChargeManager *)selfCopy isDeviceWithLegitimateUsage])
   {
@@ -4717,17 +4913,17 @@ LABEL_12:
       }
 
       [(PowerUISmartChargeManager *)selfCopy reportAggDKeys:v29];
-      v237[1] = MEMORY[0x277D85DD0];
-      v237[2] = 3221225472;
-      v237[3] = __44__PowerUISmartChargeManager_recordAnalytics__block_invoke_1362;
-      v237[4] = &unk_2782D4188;
-      v237[5] = @"StatusReason";
+      v236[1] = MEMORY[0x277D85DD0];
+      v236[2] = 3221225472;
+      v236[3] = __44__PowerUISmartChargeManager_recordAnalytics__block_invoke_1362;
+      v236[4] = &unk_2782D4188;
+      v236[5] = @"StatusReason";
       AnalyticsSendEventLazy();
       v39 = @"StatusReason";
       goto LABEL_99;
     }
 
-    v197 = v30;
+    v196 = v30;
     constructAnalyticsStatus = [(PowerUISmartChargeManager *)selfCopy constructAnalyticsStatus];
     v42 = [(__CFString *)constructAnalyticsStatus valueForKey:@"EligibleForIdleBatteryLevelScore"];
     if (v42)
@@ -4763,13 +4959,13 @@ LABEL_12:
     [v51 doubleValue];
     v53 = v52;
 
-    v198 = v22;
-    v205 = constructAnalyticsStatus;
-    v196 = v23;
+    v197 = v22;
+    v204 = constructAnalyticsStatus;
+    v195 = v23;
     if (!selfCopy->_enabled && unsignedIntegerValue7 <= 0x3B && ![(PowerUISmartChargeManager *)selfCopy isMCLSupported])
     {
-      v66 = v212;
-      v212[0] = @"StatusReason";
+      v66 = v211;
+      v211[0] = @"StatusReason";
       AnalyticsSendEventLazy();
 LABEL_57:
 
@@ -4777,7 +4973,7 @@ LABEL_57:
       [v77 doubleValue];
       v79 = v78;
 
-      v80 = [(__CFString *)v205 objectForKeyedSubscript:@"EngageModelVersion"];
+      v80 = [(__CFString *)v204 objectForKeyedSubscript:@"EngageModelVersion"];
       unsignedIntegerValue9 = [v80 unsignedIntegerValue];
 
       v82 = [MEMORY[0x277CCABB0] numberWithInteger:100 * v79];
@@ -4786,11 +4982,11 @@ LABEL_57:
       v83 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:unsignedIntegerValue9];
       [v29 setObject:v83 forKeyedSubscript:@"com.apple.das.smartcharging.analytics.engageModelVersion"];
 
-      v84 = [(__CFString *)v205 objectForKeyedSubscript:@"DurationModelResult"];
+      v84 = [(__CFString *)v204 objectForKeyedSubscript:@"DurationModelResult"];
       [v84 doubleValue];
       v86 = v85;
 
-      v87 = [(__CFString *)v205 objectForKeyedSubscript:@"DurationModelVersion"];
+      v87 = [(__CFString *)v204 objectForKeyedSubscript:@"DurationModelVersion"];
       unsignedIntegerValue10 = [v87 unsignedIntegerValue];
 
       v89 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:unsignedIntegerValue10];
@@ -4799,7 +4995,7 @@ LABEL_57:
       v90 = [MEMORY[0x277CCABB0] numberWithInteger:60 * v86];
       [v29 setObject:v90 forKeyedSubscript:@"com.apple.das.smartcharging.analytics.durationModelResult"];
 
-      v91 = [(__CFString *)v205 objectForKeyedSubscript:@"DecisionMaker"];
+      v91 = [(__CFString *)v204 objectForKeyedSubscript:@"DecisionMaker"];
       v92 = v91;
       if (v91)
       {
@@ -4826,10 +5022,10 @@ LABEL_57:
         [v29 setObject:v101 forKeyedSubscript:@"com.apple.das.smartcharging.analytics.countChargeSessionsEngaged"];
       }
 
-      v102 = [(__CFString *)v205 objectForKeyedSubscript:@"TopOffInitiated"];
+      v102 = [(__CFString *)v204 objectForKeyedSubscript:@"TopOffInitiated"];
       bOOLValue = [v102 BOOLValue];
 
-      v104 = [(__CFString *)v205 objectForKeyedSubscript:@"FullCharged"];
+      v104 = [(__CFString *)v204 objectForKeyedSubscript:@"FullCharged"];
       bOOLValue2 = [v104 BOOLValue];
 
       if (bOOLValue)
@@ -4844,7 +5040,7 @@ LABEL_57:
         [v29 setObject:v109 forKeyedSubscript:@"com.apple.das.smartcharging.analytics.countChargeSessionsTopOffEngaged"];
       }
 
-      v195 = v92;
+      v194 = v92;
       if (bOOLValue2)
       {
         v110 = [(PowerUISmartChargeManager *)selfCopy readNumberForPreferenceKey:@"com.apple.das.smartcharging.analytics.countChargeSessionsFullCharged"];
@@ -4858,7 +5054,7 @@ LABEL_57:
       }
 
       v114 = unsignedIntegerValue7 / 0x3C;
-      v115 = [(__CFString *)v205 objectForKeyedSubscript:@"PluginDuration"];
+      v115 = [(__CFString *)v204 objectForKeyedSubscript:@"PluginDuration"];
       unsignedIntegerValue15 = [v115 unsignedIntegerValue];
 
       v116 = [(PowerUISmartChargeManager *)selfCopy readNumberForPreferenceKey:@"com.apple.das.smartcharging.analytics.countMinutesIdled"];
@@ -4870,7 +5066,7 @@ LABEL_57:
       v120 = [(PowerUISmartChargeManager *)selfCopy readNumberForPreferenceKey:@"com.apple.das.smartcharging.analytics.countMinutesTotal"];
       unsignedIntegerValue18 = [v120 unsignedIntegerValue];
 
-      v122 = [(PowerUISmartChargeManager *)selfCopy readNumberForPreferenceKey:v203];
+      v122 = [(PowerUISmartChargeManager *)selfCopy readNumberForPreferenceKey:v202];
       unsignedIntegerValue19 = [v122 unsignedIntegerValue];
 
       v124 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:unsignedIntegerValue16];
@@ -4878,12 +5074,12 @@ LABEL_57:
       [(NSArray *)dictionary2 setObject:v124 forKeyedSubscript:@"com.apple.das.smartcharging.analytics.countMinutesIdled"];
 
       v126 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:unsignedIntegerValue19];
-      [(NSArray *)dictionary2 setObject:v126 forKeyedSubscript:v203];
+      [(NSArray *)dictionary2 setObject:v126 forKeyedSubscript:v202];
 
       if (unsignedIntegerValue7 >= 0x3C)
       {
         unsignedIntegerValue16 += v114;
-        ++v202;
+        ++v201;
         v127 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:unsignedIntegerValue16];
         [v29 setObject:v127 forKeyedSubscript:@"com.apple.das.smartcharging.analytics.countMinutesIdled"];
 
@@ -4891,7 +5087,7 @@ LABEL_57:
         ADClientSetValueForScalarKey();
       }
 
-      v39 = v205;
+      v39 = v204;
       if (unsignedIntegerValue8 >= 0x3C)
       {
         ADClientAddValueForScalarKey();
@@ -4917,40 +5113,40 @@ LABEL_57:
       [(PowerUISmartChargeManager *)selfCopy setNumber:v132 forPreferenceKey:@"com.apple.das.smartcharging.analytics.countMinutesTotal"];
 
       v133 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v125];
-      [(PowerUISmartChargeManager *)selfCopy setNumber:v133 forPreferenceKey:v203];
+      [(PowerUISmartChargeManager *)selfCopy setNumber:v133 forPreferenceKey:v202];
 
-      v134 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v202];
-      [(PowerUISmartChargeManager *)selfCopy setNumber:v134 forPreferenceKey:v201];
+      v134 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v201];
+      [(PowerUISmartChargeManager *)selfCopy setNumber:v134 forPreferenceKey:v200];
 
       [MEMORY[0x277CBEB38] dictionary];
       v136 = v135 = v125;
-      v137 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v202];
-      [(NSArray *)v136 setObject:v137 forKeyedSubscript:v201];
+      v137 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v201];
+      [(NSArray *)v136 setObject:v137 forKeyedSubscript:v200];
 
-      temporarilyDisabled2 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v207 + temporarilyDisabled];
-      [(NSArray *)v136 setObject:temporarilyDisabled2 forKeyedSubscript:v209];
+      temporarilyDisabled2 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v206 + temporarilyDisabled];
+      [(NSArray *)v136 setObject:temporarilyDisabled2 forKeyedSubscript:v208];
 
-      v139 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v197];
+      v139 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v196];
       [(NSArray *)v136 setObject:v139 forKeyedSubscript:@"com.apple.das.smartcharging.analytics.countMCLChargeSessionsEnabled"];
 
-      v140 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v196];
+      v140 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v195];
       [(NSArray *)v136 setObject:v140 forKeyedSubscript:@"com.apple.das.smartcharging.analytics.countOBCSessionsEnabled"];
 
-      v141 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v198];
+      v141 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v197];
       [(NSArray *)v136 setObject:v141 forKeyedSubscript:@"com.apple.das.smartcharging.analytics.countDEoCSessionsEnabled"];
 
       v142 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:unsignedIntegerValue16];
       [(NSArray *)v136 setObject:v142 forKeyedSubscript:@"com.apple.das.smartcharging.analytics.countMinutesIdled"];
 
       v143 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v135];
-      [(NSArray *)v136 setObject:v143 forKeyedSubscript:v203];
+      [(NSArray *)v136 setObject:v143 forKeyedSubscript:v202];
 
       v144 = selfCopy->_log;
       if (os_log_type_enabled(v144, OS_LOG_TYPE_DEFAULT))
       {
         v145 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:mostRecentOBCModeOfoperationFromTimeline];
         *buf = 138412290;
-        v240 = v145;
+        v239 = v145;
         _os_log_impl(&dword_21B766000, v144, OS_LOG_TYPE_DEFAULT, "Most recent SmartCharging mode of operation: %@", buf, 0xCu);
       }
 
@@ -4960,16 +5156,16 @@ LABEL_57:
       {
         0x3C = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:unsignedIntegerValue7 / 0x3C];
         *buf = 138412290;
-        v240 = 0x3C;
+        v239 = 0x3C;
         _os_log_impl(&dword_21B766000, v146, OS_LOG_TYPE_DEFAULT, "Idled minutes in last session: %@", buf, 0xCu);
       }
 
       v148 = selfCopy->_log;
-      v29 = v208;
+      v29 = v207;
       if (os_log_type_enabled(v148, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v240 = dictionary2;
+        v239 = dictionary2;
         _os_log_impl(&dword_21B766000, v148, OS_LOG_TYPE_DEFAULT, "Previous values %@", buf, 0xCu);
       }
 
@@ -4977,7 +5173,7 @@ LABEL_57:
       if (os_log_type_enabled(v149, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v240 = v136;
+        v239 = v136;
         _os_log_impl(&dword_21B766000, v149, OS_LOG_TYPE_DEFAULT, "Updated values %@", buf, 0xCu);
       }
 
@@ -4987,21 +5183,21 @@ LABEL_57:
       if (unsignedIntegerValue20)
       {
         v152 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:unsignedIntegerValue20];
-        [v208 setObject:v152 forKeyedSubscript:@"com.apple.das.smartcharging.analytics.fullChargeDuration"];
+        [v207 setObject:v152 forKeyedSubscript:@"com.apple.das.smartcharging.analytics.fullChargeDuration"];
       }
 
-      v153 = [(__CFString *)v205 objectForKeyedSubscript:@"IdleBatteryLevelScore"];
+      v153 = [(__CFString *)v204 objectForKeyedSubscript:@"IdleBatteryLevelScore"];
       unsignedIntegerValue21 = [v153 unsignedIntegerValue];
 
-      v155 = [(__CFString *)v205 objectForKeyedSubscript:@"PluginEndBatteryLevelScore"];
+      v155 = [(__CFString *)v204 objectForKeyedSubscript:@"PluginEndBatteryLevelScore"];
       unsignedIntegerValue22 = [v155 unsignedIntegerValue];
 
-      v157 = [(__CFString *)v205 objectForKeyedSubscript:@"ProjectedPluginEndBatteryLevelScore"];
+      v157 = [(__CFString *)v204 objectForKeyedSubscript:@"ProjectedPluginEndBatteryLevelScore"];
       unsignedIntegerValue23 = [v157 unsignedIntegerValue];
 
       if (unsignedIntegerValue21 && unsignedIntegerValue22)
       {
-        v210 = v136;
+        v209 = v136;
         v154 = [MEMORY[0x277CCACA8] stringWithFormat:@"com.apple.das.smartcharging.analytics.countChargeSessionsIdleStartBatteryLevel.%lu", unsignedIntegerValue21];
         v160 = [(PowerUISmartChargeManager *)selfCopy readNumberForPreferenceKey:v154];
         unsignedIntegerValue24 = [v160 unsignedIntegerValue];
@@ -5010,7 +5206,7 @@ LABEL_57:
         [(PowerUISmartChargeManager *)selfCopy setNumber:v162 forPreferenceKey:v154];
 
         v163 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:unsignedIntegerValue24 + 1];
-        [v208 setObject:v163 forKeyedSubscript:v154];
+        [v207 setObject:v163 forKeyedSubscript:v154];
 
         v156 = [MEMORY[0x277CCACA8] stringWithFormat:@"com.apple.das.smartcharging.analytics.countChargeSessionsPlugOutBatteryLevel.%lu", unsignedIntegerValue22];
 
@@ -5018,7 +5214,7 @@ LABEL_57:
         unsignedIntegerValue25 = [v165 unsignedIntegerValue];
 
         v167 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:unsignedIntegerValue25 + 1];
-        [v208 setObject:v167 forKeyedSubscript:v156];
+        [v207 setObject:v167 forKeyedSubscript:v156];
 
         if (unsignedIntegerValue22 != 100)
         {
@@ -5029,7 +5225,7 @@ LABEL_57:
           [(PowerUISmartChargeManager *)selfCopy setNumber:v170 forPreferenceKey:@"com.apple.das.smartcharging.analytics.countUndercharged"];
 
           v171 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:unsignedIntegerValue26 + 1];
-          [v208 setObject:v171 forKeyedSubscript:@"com.apple.das.smartcharging.analytics.countUndercharged"];
+          [v207 setObject:v171 forKeyedSubscript:@"com.apple.das.smartcharging.analytics.countUndercharged"];
         }
 
         if (selfCopy->_encounteredTLCDuringTopOff)
@@ -5041,10 +5237,10 @@ LABEL_57:
           [(PowerUISmartChargeManager *)selfCopy setNumber:v174 forPreferenceKey:@"com.apple.das.smartcharging.analytics.countUnderchargedTLC"];
 
           v175 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:unsignedIntegerValue27 + 1];
-          [v208 setObject:v175 forKeyedSubscript:@"com.apple.das.smartcharging.analytics.countUnderchargedTLC"];
+          [v207 setObject:v175 forKeyedSubscript:@"com.apple.das.smartcharging.analytics.countUnderchargedTLC"];
         }
 
-        v136 = v210;
+        v136 = v209;
         if (unsignedIntegerValue22 != 100 && unsignedIntegerValue23 == 100 && !selfCopy->_encounteredTLCDuringTopOff)
         {
           v1562 = [MEMORY[0x277CCACA8] stringWithFormat:@"com.apple.das.smartcharging.analytics.countUnderchargedPreventableBatteryLevel.%lu", unsignedIntegerValue22];
@@ -5055,7 +5251,7 @@ LABEL_57:
           [(PowerUISmartChargeManager *)selfCopy setNumber:v179 forPreferenceKey:v1562];
 
           v180 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:unsignedIntegerValue28 + 1];
-          [v208 setObject:v180 forKeyedSubscript:v1562];
+          [v207 setObject:v180 forKeyedSubscript:v1562];
 
           v181 = [(PowerUISmartChargeManager *)selfCopy readNumberForPreferenceKey:@"com.apple.das.smartcharging.analytics.countUnderchargedPreventable"];
           unsignedIntegerValue29 = [v181 unsignedIntegerValue];
@@ -5064,13 +5260,13 @@ LABEL_57:
           [(PowerUISmartChargeManager *)selfCopy setNumber:v183 forPreferenceKey:@"com.apple.das.smartcharging.analytics.countUnderchargedPreventable"];
 
           v184 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:unsignedIntegerValue29 + 1];
-          [v208 setObject:v184 forKeyedSubscript:@"com.apple.das.smartcharging.analytics.countUnderchargedPreventable"];
+          [v207 setObject:v184 forKeyedSubscript:@"com.apple.das.smartcharging.analytics.countUnderchargedPreventable"];
         }
 
         v26 = dictionary2;
       }
 
-      v185 = [(__CFString *)v205 objectForKeyedSubscript:@"ShouldHaveEngaged"];
+      v185 = [(__CFString *)v204 objectForKeyedSubscript:@"ShouldHaveEngaged"];
       unsignedIntegerValue30 = [v185 unsignedIntegerValue];
 
       if (unsignedIntegerValue30)
@@ -5082,16 +5278,16 @@ LABEL_57:
         [(PowerUISmartChargeManager *)selfCopy setNumber:v189 forPreferenceKey:@"com.apple.das.smartcharging.analytics.countChargeSessionsFailedToEngage"];
 
         v190 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:unsignedIntegerValue31 + 1];
-        [v208 setObject:v190 forKeyedSubscript:@"com.apple.das.smartcharging.analytics.countChargeSessionsFailedToEngage"];
+        [v207 setObject:v190 forKeyedSubscript:@"com.apple.das.smartcharging.analytics.countChargeSessionsFailedToEngage"];
       }
 
-      [(PowerUISmartChargeManager *)selfCopy reportAggDKeys:v208];
-      if (v208)
+      [(PowerUISmartChargeManager *)selfCopy reportAggDKeys:v207];
+      if (v207)
       {
-        [PowerUISmartChargeUtilities setDict:v208 forPreferenceKey:@"AggDStatus" inDomain:selfCopy->_defaultsDomain];
+        [PowerUISmartChargeUtilities setDict:v207 forPreferenceKey:@"AggDStatus" inDomain:selfCopy->_defaultsDomain];
       }
 
-      v191 = [(PowerUISmartChargeManager *)selfCopy constructDailyStats:v205];
+      v191 = [(PowerUISmartChargeManager *)selfCopy constructDailyStats:v204];
       if (v191)
       {
         [PowerUISmartChargeUtilities setDict:v191 forPreferenceKey:@"DailyStatus" inDomain:selfCopy->_defaultsDomain];
@@ -5102,30 +5298,30 @@ LABEL_57:
       goto LABEL_99;
     }
 
-    v233 = MEMORY[0x277D85DD0];
-    v234 = 3221225472;
-    v235 = __44__PowerUISmartChargeManager_recordAnalytics__block_invoke_2;
-    v236 = &unk_2782D4188;
-    v237[0] = constructAnalyticsStatus;
+    v232 = MEMORY[0x277D85DD0];
+    v233 = 3221225472;
+    v234 = __44__PowerUISmartChargeManager_recordAnalytics__block_invoke_2;
+    v235 = &unk_2782D4188;
+    v236[0] = constructAnalyticsStatus;
     AnalyticsSendEventLazy();
-    v228 = MEMORY[0x277D85DD0];
-    v229 = 3221225472;
-    v230 = __44__PowerUISmartChargeManager_recordAnalytics__block_invoke_3;
-    v231 = &unk_2782D4188;
-    v54 = v237[0];
-    v232 = v54;
+    v227 = MEMORY[0x277D85DD0];
+    v228 = 3221225472;
+    v229 = __44__PowerUISmartChargeManager_recordAnalytics__block_invoke_3;
+    v230 = &unk_2782D4188;
+    v54 = v236[0];
+    v231 = v54;
     AnalyticsSendEventLazy();
-    v223 = MEMORY[0x277D85DD0];
-    v224 = 3221225472;
-    v225 = __44__PowerUISmartChargeManager_recordAnalytics__block_invoke_4;
-    v226 = &unk_2782D4188;
-    v227 = @"StatusReason";
+    v222 = MEMORY[0x277D85DD0];
+    v223 = 3221225472;
+    v224 = __44__PowerUISmartChargeManager_recordAnalytics__block_invoke_4;
+    v225 = &unk_2782D4188;
+    v226 = @"StatusReason";
     AnalyticsSendEventLazy();
     v55 = selfCopy->_log;
     if (os_log_type_enabled(v55, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v240 = v54;
+      v239 = v54;
       _os_log_impl(&dword_21B766000, v55, OS_LOG_TYPE_DEFAULT, "Reported Plugout Metrics to CoreAnalytics %@", buf, 0xCu);
     }
 
@@ -5175,41 +5371,41 @@ LABEL_57:
         if (os_log_type_enabled(v64, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v240 = v61;
+          v239 = v61;
           _os_log_impl(&dword_21B766000, v64, OS_LOG_TYPE_DEFAULT, "Reporting Biome Plugout Metrics to CoreAnalytics %@", buf, 0xCu);
         }
 
-        v218 = MEMORY[0x277D85DD0];
-        v219 = 3221225472;
-        v220 = __44__PowerUISmartChargeManager_recordAnalytics__block_invoke_1381;
-        v221 = &unk_2782D4188;
-        v222 = v61;
+        v217 = MEMORY[0x277D85DD0];
+        v218 = 3221225472;
+        v219 = __44__PowerUISmartChargeManager_recordAnalytics__block_invoke_1381;
+        v220 = &unk_2782D4188;
+        v221 = v61;
         AnalyticsSendEventLazy();
       }
     }
 
-    v66 = v237;
-    v216 = 0u;
-    v217 = 0u;
-    v214 = 0u;
+    v66 = v236;
     v215 = 0u;
+    v216 = 0u;
+    v213 = 0u;
+    v214 = 0u;
     v67 = selfCopy->_monitors;
-    v68 = [(NSArray *)v67 countByEnumeratingWithState:&v214 objects:v238 count:16];
+    v68 = [(NSArray *)v67 countByEnumeratingWithState:&v213 objects:v237 count:16];
     if (v68)
     {
       v69 = v68;
       v70 = 0;
-      v71 = *v215;
+      v71 = *v214;
       do
       {
         for (i = 0; i != v69; ++i)
         {
-          if (*v215 != v71)
+          if (*v214 != v71)
           {
             objc_enumerationMutation(v67);
           }
 
-          v73 = *(*(&v214 + 1) + 8 * i);
+          v73 = *(*(&v213 + 1) + 8 * i);
           if ([v73 signalID] == 4)
           {
             v74 = v73;
@@ -5219,29 +5415,29 @@ LABEL_57:
           }
         }
 
-        v69 = [(NSArray *)v67 countByEnumeratingWithState:&v214 objects:v238 count:16];
+        v69 = [(NSArray *)v67 countByEnumeratingWithState:&v213 objects:v237 count:16];
       }
 
       while (v69);
 
-      constructAnalyticsStatus = v205;
+      constructAnalyticsStatus = v204;
       if (!v70)
       {
         goto LABEL_56;
       }
 
-      v212[1] = MEMORY[0x277D85DD0];
-      v212[2] = 3221225472;
-      v212[3] = __44__PowerUISmartChargeManager_recordAnalytics__block_invoke_1385;
-      v212[4] = &unk_2782D4188;
+      v211[1] = MEMORY[0x277D85DD0];
+      v211[2] = 3221225472;
+      v211[3] = __44__PowerUISmartChargeManager_recordAnalytics__block_invoke_1385;
+      v211[4] = &unk_2782D4188;
       v67 = v70;
-      v213 = v67;
+      v212 = v67;
       AnalyticsSendEventLazy();
       v76 = selfCopy->_log;
       if (os_log_type_enabled(v76, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v240 = v67;
+        v239 = v67;
         _os_log_impl(&dword_21B766000, v76, OS_LOG_TYPE_DEFAULT, "Reported location decision metadata to CoreAnalytics %@", buf, 0xCu);
       }
     }
@@ -5259,65 +5455,59 @@ LABEL_56:
   }
 
   [(PowerUISmartChargeManager *)selfCopy reportAggDKeys:v29];
-  v237[6] = MEMORY[0x277D85DD0];
-  v237[7] = 3221225472;
-  v237[8] = __44__PowerUISmartChargeManager_recordAnalytics__block_invoke;
-  v237[9] = &unk_2782D4188;
-  v237[10] = @"StatusReason";
+  v236[6] = MEMORY[0x277D85DD0];
+  v236[7] = 3221225472;
+  v236[8] = __44__PowerUISmartChargeManager_recordAnalytics__block_invoke;
+  v236[9] = &unk_2782D4188;
+  v236[10] = @"StatusReason";
   AnalyticsSendEventLazy();
   v39 = @"StatusReason";
 LABEL_99:
-
-  v192 = *MEMORY[0x277D85DE8];
 }
 
 id __44__PowerUISmartChargeManager_recordAnalytics__block_invoke(uint64_t a1)
 {
-  v5[1] = *MEMORY[0x277D85DE8];
-  v4 = *(a1 + 32);
-  v5[0] = @"DeviceNotLegitimate";
-  v1 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:&v4 count:1];
-  v2 = *MEMORY[0x277D85DE8];
+  v4[1] = *MEMORY[0x277D85DE8];
+  v3 = *(a1 + 32);
+  v4[0] = @"DeviceNotLegitimate";
+  v1 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v4 forKeys:&v3 count:1];
 
   return v1;
 }
 
 id __44__PowerUISmartChargeManager_recordAnalytics__block_invoke_1362(uint64_t a1)
 {
-  v5[1] = *MEMORY[0x277D85DE8];
-  v4 = *(a1 + 32);
-  v5[0] = @"DeviceOverride";
-  v1 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:&v4 count:1];
-  v2 = *MEMORY[0x277D85DE8];
+  v4[1] = *MEMORY[0x277D85DE8];
+  v3 = *(a1 + 32);
+  v4[0] = @"DeviceOverride";
+  v1 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v4 forKeys:&v3 count:1];
 
   return v1;
 }
 
 id __44__PowerUISmartChargeManager_recordAnalytics__block_invoke_4(uint64_t a1)
 {
-  v5[1] = *MEMORY[0x277D85DE8];
-  v4 = *(a1 + 32);
-  v5[0] = @"EnabledAndLegitimate";
-  v1 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:&v4 count:1];
-  v2 = *MEMORY[0x277D85DE8];
+  v4[1] = *MEMORY[0x277D85DE8];
+  v3 = *(a1 + 32);
+  v4[0] = @"EnabledAndLegitimate";
+  v1 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v4 forKeys:&v3 count:1];
 
   return v1;
 }
 
 id __44__PowerUISmartChargeManager_recordAnalytics__block_invoke_1386(uint64_t a1)
 {
-  v5[1] = *MEMORY[0x277D85DE8];
-  v4 = *(a1 + 32);
-  v5[0] = @"FeatureDisabled";
-  v1 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:&v4 count:1];
-  v2 = *MEMORY[0x277D85DE8];
+  v4[1] = *MEMORY[0x277D85DE8];
+  v3 = *(a1 + 32);
+  v4[0] = @"FeatureDisabled";
+  v1 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v4 forKeys:&v3 count:1];
 
   return v1;
 }
 
 - (id)dailyStatsFromLastReported:(id)reported
 {
-  v36[3] = *MEMORY[0x277D85DE8];
+  v35[3] = *MEMORY[0x277D85DE8];
   reportedCopy = reported;
   v5 = CFPreferencesCopyAppValue(@"timeline", self->_defaultsDomain);
   array = [MEMORY[0x277CBEB18] array];
@@ -5339,17 +5529,17 @@ id __44__PowerUISmartChargeManager_recordAnalytics__block_invoke_1386(uint64_t a
   {
     v11 = [v5 mutableCopy];
 
-    v36[0] = @"Unplug";
-    v35[0] = @"event";
-    v35[1] = @"date";
+    v35[0] = @"Unplug";
+    v34[0] = @"event";
+    v34[1] = @"date";
     v12 = MEMORY[0x277CCABB0];
     date = [MEMORY[0x277CBEAA8] date];
     [date timeIntervalSinceReferenceDate];
     v14 = [v12 numberWithDouble:?];
-    v35[2] = @"batteryLevel";
-    v36[1] = v14;
-    v36[2] = v9;
-    v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v36 forKeys:v35 count:3];
+    v34[2] = @"batteryLevel";
+    v35[1] = v14;
+    v35[2] = v9;
+    v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v35 forKeys:v34 count:3];
     [v11 addObject:v15];
 
     array = v11;
@@ -5410,8 +5600,6 @@ id __44__PowerUISmartChargeManager_recordAnalytics__block_invoke_1386(uint64_t a
     v32 = [MEMORY[0x277CCABB0] numberWithDouble:v31 / v30];
     [v18 setObject:v32 forKeyedSubscript:@"DailyHoursSaved"];
   }
-
-  v33 = *MEMORY[0x277D85DE8];
 
   return v18;
 }
@@ -5520,79 +5708,75 @@ id __44__PowerUISmartChargeManager_recordAnalytics__block_invoke_1386(uint64_t a
 
 - (void)startAllMonitoring
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
+  v7 = 0u;
   v8 = 0u;
   v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
   v2 = self->_monitors;
-  v3 = [(NSArray *)v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+  v3 = [(NSArray *)v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v9;
+    v5 = *v8;
     do
     {
       v6 = 0;
       do
       {
-        if (*v9 != v5)
+        if (*v8 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        [*(*(&v8 + 1) + 8 * v6++) startMonitoring];
+        [*(*(&v7 + 1) + 8 * v6++) startMonitoring];
       }
 
       while (v4 != v6);
-      v4 = [(NSArray *)v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+      v4 = [(NSArray *)v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
     }
 
     while (v4);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stopAllMonitoring
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
+  v7 = 0u;
   v8 = 0u;
   v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
   v2 = self->_monitors;
-  v3 = [(NSArray *)v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+  v3 = [(NSArray *)v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v9;
+    v5 = *v8;
     do
     {
       v6 = 0;
       do
       {
-        if (*v9 != v5)
+        if (*v8 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        [*(*(&v8 + 1) + 8 * v6++) stopMonitoring];
+        [*(*(&v7 + 1) + 8 * v6++) stopMonitoring];
       }
 
       while (v4 != v6);
-      v4 = [(NSArray *)v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+      v4 = [(NSArray *)v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
     }
 
     while (v4);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addPowerLogEventForCheckpoint:(unint64_t)checkpoint decisionSignalID:(id)d decisionDate:(id)date
 {
-  v58 = *MEMORY[0x277D85DE8];
+  v57 = *MEMORY[0x277D85DE8];
   dCopy = d;
   dateCopy = date;
   powerLogStatus = [(PowerUISmartChargeManager *)self powerLogStatus];
@@ -5749,16 +5933,14 @@ id __44__PowerUISmartChargeManager_recordAnalytics__block_invoke_1386(uint64_t a
   verboseLog = self->_verboseLog;
   if (os_log_type_enabled(verboseLog, OS_LOG_TYPE_DEFAULT))
   {
-    v56 = 138412290;
-    v57 = v12;
-    _os_log_impl(&dword_21B766000, verboseLog, OS_LOG_TYPE_DEFAULT, "Writing to PowerLog %@", &v56, 0xCu);
+    v55 = 138412290;
+    v56 = v12;
+    _os_log_impl(&dword_21B766000, verboseLog, OS_LOG_TYPE_DEFAULT, "Writing to PowerLog %@", &v55, 0xCu);
   }
 
   v54 = objc_autoreleasePoolPush();
   PLLogRegisteredEvent();
   objc_autoreleasePoolPop(v54);
-
-  v55 = *MEMORY[0x277D85DE8];
 }
 
 - (id)adjustedFullChargeDeadlineWithSignals:(id)signals withDesktopMode:(BOOL)mode withFullChargeDeadline:(id)deadline withResult:(id)result
@@ -5835,7 +6017,7 @@ uint64_t __66__PowerUISmartChargeManager_stringFromDecisionMaker_decisionDate___
 
 - (void)cleanupOverrides
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   fullChargeDeadlineOverride = [(PowerUISmartChargeManager *)self fullChargeDeadlineOverride];
   if (fullChargeDeadlineOverride)
   {
@@ -5847,15 +6029,15 @@ uint64_t __66__PowerUISmartChargeManager_stringFromDecisionMaker_decisionDate___
     if (v7 <= 0.0)
     {
       fullChargeDeadlineOverride3 = [(PowerUISmartChargeManager *)self fullChargeDeadlineOverride];
-      v11 = [fullChargeDeadlineOverride3 dateByAddingTimeInterval:86400.0];
+      v10 = [fullChargeDeadlineOverride3 dateByAddingTimeInterval:86400.0];
 
       repeatEngagementOverrideEndDate = [(PowerUISmartChargeManager *)self repeatEngagementOverrideEndDate];
       if (repeatEngagementOverrideEndDate)
       {
-        v13 = repeatEngagementOverrideEndDate;
+        v12 = repeatEngagementOverrideEndDate;
         repeatEngagementOverrideEndDate2 = [(PowerUISmartChargeManager *)self repeatEngagementOverrideEndDate];
-        [v11 timeIntervalSinceDate:repeatEngagementOverrideEndDate2];
-        if (v15 >= 0.0)
+        [v10 timeIntervalSinceDate:repeatEngagementOverrideEndDate2];
+        if (v14 >= 0.0)
         {
         }
 
@@ -5863,44 +6045,44 @@ uint64_t __66__PowerUISmartChargeManager_stringFromDecisionMaker_decisionDate___
         {
           repeatEngagementOverrideEndDate3 = [(PowerUISmartChargeManager *)self repeatEngagementOverrideEndDate];
           [repeatEngagementOverrideEndDate3 timeIntervalSinceNow];
-          v18 = v17;
+          v17 = v16;
 
-          if (v18 > 0.0)
+          if (v17 > 0.0)
           {
             engagementTimeOverride = [(PowerUISmartChargeManager *)self engagementTimeOverride];
-            v20 = [engagementTimeOverride dateByAddingTimeInterval:86400.0];
+            v19 = [engagementTimeOverride dateByAddingTimeInterval:86400.0];
 
-            v21 = MEMORY[0x277CCABB0];
-            [v11 timeIntervalSinceReferenceDate];
-            v22 = [v21 numberWithDouble:?];
-            [(PowerUISmartChargeManager *)self setNumber:v22 forPreferenceKey:@"fullChargeDeadlineOverride"];
+            v20 = MEMORY[0x277CCABB0];
+            [v10 timeIntervalSinceReferenceDate];
+            v21 = [v20 numberWithDouble:?];
+            [(PowerUISmartChargeManager *)self setNumber:v21 forPreferenceKey:@"fullChargeDeadlineOverride"];
 
-            v23 = MEMORY[0x277CCABB0];
-            [v20 timeIntervalSinceReferenceDate];
-            v24 = [v23 numberWithDouble:?];
-            [(PowerUISmartChargeManager *)self setNumber:v24 forPreferenceKey:@"engagementTimeOverride"];
+            v22 = MEMORY[0x277CCABB0];
+            [v19 timeIntervalSinceReferenceDate];
+            v23 = [v22 numberWithDouble:?];
+            [(PowerUISmartChargeManager *)self setNumber:v23 forPreferenceKey:@"engagementTimeOverride"];
 
             log = self->_log;
             if (os_log_type_enabled(log, OS_LOG_TYPE_DEFAULT))
             {
-              v26 = log;
+              v25 = log;
               fullChargeDeadlineOverride4 = [(PowerUISmartChargeManager *)self fullChargeDeadlineOverride];
               engagementTimeOverride2 = [(PowerUISmartChargeManager *)self engagementTimeOverride];
-              v33 = 138413058;
-              v34 = fullChargeDeadlineOverride4;
-              v35 = 2112;
-              v36 = v11;
-              v37 = 2112;
-              v38 = engagementTimeOverride2;
-              v39 = 2112;
-              v40 = v20;
-              _os_log_impl(&dword_21B766000, v26, OS_LOG_TYPE_DEFAULT, "Forwarding fullChargeDeadlineOverride = %@ to %@ and engagementTimeOverrideDate = %@ to %@", &v33, 0x2Au);
+              v30 = 138413058;
+              v31 = fullChargeDeadlineOverride4;
+              v32 = 2112;
+              v33 = v10;
+              v34 = 2112;
+              v35 = engagementTimeOverride2;
+              v36 = 2112;
+              v37 = v19;
+              _os_log_impl(&dword_21B766000, v25, OS_LOG_TYPE_DEFAULT, "Forwarding fullChargeDeadlineOverride = %@ to %@ and engagementTimeOverrideDate = %@ to %@", &v30, 0x2Au);
             }
 
-            [(PowerUISmartChargeManager *)self setFullChargeDeadlineOverride:v11];
-            [(PowerUISmartChargeManager *)self setEngagementTimeOverride:v20];
-            v29 = [(PowerUISmartChargeManager *)self readNumberForPreferenceKey:@"overrideAllSignals"];
-            -[PowerUISmartChargeManager setOverrideAllSignals:](self, "setOverrideAllSignals:", [v29 BOOLValue]);
+            [(PowerUISmartChargeManager *)self setFullChargeDeadlineOverride:v10];
+            [(PowerUISmartChargeManager *)self setEngagementTimeOverride:v19];
+            v28 = [(PowerUISmartChargeManager *)self readNumberForPreferenceKey:@"overrideAllSignals"];
+            -[PowerUISmartChargeManager setOverrideAllSignals:](self, "setOverrideAllSignals:", [v28 BOOLValue]);
 
             goto LABEL_19;
           }
@@ -5910,30 +6092,25 @@ uint64_t __66__PowerUISmartChargeManager_stringFromDecisionMaker_decisionDate___
       [(PowerUISmartChargeManager *)self resetEngagementOverrideWithHandler:&__block_literal_global_1571];
 LABEL_19:
 
-      goto LABEL_20;
+      return;
     }
   }
 
   fullChargeDeadlineOverride5 = [(PowerUISmartChargeManager *)self fullChargeDeadlineOverride];
   if (fullChargeDeadlineOverride5)
   {
-    v9 = *MEMORY[0x277D85DE8];
-
-    return;
   }
 
-  engagementTimeOverride3 = [(PowerUISmartChargeManager *)self engagementTimeOverride];
-
-  if (!engagementTimeOverride3)
+  else
   {
-LABEL_20:
-    v32 = *MEMORY[0x277D85DE8];
-    return;
+    engagementTimeOverride3 = [(PowerUISmartChargeManager *)self engagementTimeOverride];
+
+    if (engagementTimeOverride3)
+    {
+
+      [(PowerUISmartChargeManager *)self resetEngagementOverrideWithHandler:&__block_literal_global_1573];
+    }
   }
-
-  v31 = *MEMORY[0x277D85DE8];
-
-  [(PowerUISmartChargeManager *)self resetEngagementOverrideWithHandler:&__block_literal_global_1573];
 }
 
 - (void)updateDecisionMakerID:(int64_t)d withCheckpoint:(unint64_t)checkpoint
@@ -5985,6 +6162,338 @@ LABEL_11:
   [(PowerUISmartChargeManager *)self setDate:v14 forPreferenceKey:@"previousDecisionMakerDate"];
 }
 
+- (void)handleNewBatteryLevel:(int)level whileExternalConnected:(BOOL)connected fullyCharged:(BOOL)charged
+{
+  connectedCopy = connected;
+  v66 = *MEMORY[0x277D85DE8];
+  [PowerUISmartChargeUtilities logMemoryUsageInternalForEvent:@"Beginning of handleNewBatteryLevel", connected, charged];
+  if (!connectedCopy)
+  {
+    queue = [(PowerUISmartChargeManager *)self queue];
+    block[0] = MEMORY[0x277D85DD0];
+    block[1] = 3221225472;
+    block[2] = __87__PowerUISmartChargeManager_handleNewBatteryLevel_whileExternalConnected_fullyCharged___block_invoke;
+    block[3] = &unk_2782D3EA8;
+    block[4] = self;
+    dispatch_async(queue, block);
+  }
+
+  v10 = level == 100 && connectedCopy;
+  if ([(PowerUISmartChargeManager *)self isDeviceWithLegitimateUsage])
+  {
+    checkpoint = self->_checkpoint;
+    if (!self->_enabled || self->_temporarilyDisabled)
+    {
+      [(PowerUISmartChargeManager *)self stopAllMonitoring];
+      if (checkpoint - 1 > 8)
+      {
+        if ((checkpoint & 0xFFFFFFFFFFFFFFFELL) != 0xA)
+        {
+          goto LABEL_17;
+        }
+
+        date = [MEMORY[0x277CBEAA8] date];
+        [(PowerUISmartChargeManager *)self addPowerLogEventForCheckpoint:0 decisionSignalID:0 decisionDate:date];
+
+        selfCopy2 = self;
+        v14 = 0;
+      }
+
+      else
+      {
+        date2 = [MEMORY[0x277CBEAA8] date];
+        [(PowerUISmartChargeManager *)self addPowerLogEventForCheckpoint:10 decisionSignalID:0 decisionDate:date2];
+
+        selfCopy2 = self;
+        v14 = 10;
+      }
+
+      [(PowerUISmartChargeManager *)selfCopy2 setCheckpoint:v14 withSelector:a2];
+LABEL_17:
+      log = self->_log;
+      if (os_log_type_enabled(log, OS_LOG_TYPE_DEFAULT))
+      {
+        v18 = self->_checkpoint;
+        *buf = 67109632;
+        levelCopy = level;
+        v62 = 1024;
+        v63 = connectedCopy;
+        v64 = 2048;
+        v65 = v18;
+        _os_log_impl(&dword_21B766000, log, OS_LOG_TYPE_DEFAULT, "Called for battery level=%d, externalConnected=%u - current checkpoint: %lu", buf, 0x18u);
+      }
+
+      v19 = self->_checkpoint;
+      if (checkpoint == v19 || !v19)
+      {
+        goto LABEL_61;
+      }
+
+      if (v19 <= 6)
+      {
+        if (v19 == 2)
+        {
+          if (!self->_isDesktopDevice)
+          {
+            v41 = self->_log;
+            if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
+            {
+              *buf = 0;
+              _os_log_impl(&dword_21B766000, v41, OS_LOG_TYPE_DEFAULT, "Top-Off Detected. Provide non-obvious notification", buf, 2u);
+            }
+
+            selfCopy4 = self;
+            v22 = 0;
+            goto LABEL_55;
+          }
+        }
+
+        else if (v19 == 5)
+        {
+          v20 = self->_log;
+          if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+          {
+            *buf = 0;
+            _os_log_impl(&dword_21B766000, v20, OS_LOG_TYPE_DEFAULT, "Top-Off Engaged. Provide obvious notification", buf, 2u);
+          }
+
+          [(PowerUISmartChargeManager *)self clearAllNotificationState];
+          selfCopy4 = self;
+          v22 = 1;
+LABEL_55:
+          [(PowerUISmartChargeManager *)selfCopy4 postOBCNotificationWithTopOff:v22];
+        }
+
+LABEL_61:
+        if (checkpoint != self->_checkpoint)
+        {
+          [(PowerUISmartChargeManager *)self promptBDCToQueryCurrentState];
+        }
+
+        if (!connectedCopy && (self->_checkpoint & 0xFFFFFFFFFFFFFFFELL) == 8)
+        {
+          date3 = [MEMORY[0x277CBEAA8] date];
+          [(PowerUISmartChargeManager *)self addPowerLogEventForCheckpoint:0 decisionSignalID:0 decisionDate:date3];
+
+          [(PowerUISmartChargeManager *)self setCheckpoint:0 withSelector:a2];
+          [(PowerUIChargingController *)self->_chargingController clearAllChargeLimits];
+          notify_post([@"com.apple.powerui.smartchargestatuschanged" UTF8String]);
+        }
+
+        [PowerUISmartChargeUtilities logMemoryUsageInternalForEvent:@"End of handleNewBatterylevel"];
+        return;
+      }
+
+      if (v19 != 8)
+      {
+        if (v19 != 7)
+        {
+          goto LABEL_61;
+        }
+
+        v36 = self->_log;
+        if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
+        {
+          *buf = 0;
+          _os_log_impl(&dword_21B766000, v36, OS_LOG_TYPE_DEFAULT, "Success: Removing all notifications.", buf, 2u);
+        }
+
+LABEL_60:
+        [(PowerUISmartChargeManager *)self clearAllNotificationState];
+        goto LABEL_61;
+      }
+
+      fullChargeDeadlineOverride = [(PowerUISmartChargeManager *)self fullChargeDeadlineOverride];
+      if (!fullChargeDeadlineOverride)
+      {
+        if (self->_lastChargerWasWireless)
+        {
+          goto LABEL_60;
+        }
+
+        fullChargeDeadlineOverride = [MEMORY[0x277CBEAA8] date];
+        [(PowerUISmartChargeManager *)self setDate:fullChargeDeadlineOverride forPreferenceKey:@"lastInterrupted"];
+      }
+
+      goto LABEL_60;
+    }
+
+    if (!connectedCopy)
+    {
+      date4 = [MEMORY[0x277CBEAA8] date];
+      [(PowerUISmartChargeManager *)self updateChargingTimeSaved];
+      [(PowerUISmartChargeManager *)self stopAllMonitoring];
+      if (checkpoint == 1)
+      {
+        v38 = 0;
+      }
+
+      else
+      {
+        v38 = checkpoint;
+      }
+
+      if (checkpoint - 6 >= 3)
+      {
+        v39 = v38;
+      }
+
+      else
+      {
+        v39 = 0;
+      }
+
+      if (checkpoint - 2 >= 4)
+      {
+        v40 = v39;
+      }
+
+      else
+      {
+        v40 = 8;
+      }
+
+      [(PowerUISmartChargeManager *)self addPowerLogEventForCheckpoint:v40 decisionSignalID:0 decisionDate:date4];
+      [(PowerUISmartChargeManager *)self setCheckpoint:v40 withSelector:a2];
+      [(PowerUISmartChargeManager *)self cleanupOverrides];
+
+      goto LABEL_17;
+    }
+
+    v23 = [(PowerUISmartChargeManager *)self readDateForPreferenceKey:@"lastInterrupted"];
+    date5 = [MEMORY[0x277CBEAA8] date];
+    v25 = date5;
+    if (v23)
+    {
+      [date5 timeIntervalSinceDate:v23];
+      if (v26 < 8.0)
+      {
+        v27 = self->_log;
+        if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+        {
+          *buf = 0;
+          _os_log_impl(&dword_21B766000, v27, OS_LOG_TYPE_DEFAULT, "Device unplugged and reconnected...logging this behavior", buf, 2u);
+        }
+
+        [(PowerUISmartChargeManager *)self setNumber:&unk_282D4E5F0 forPreferenceKey:@"recentlyInterrupted"];
+      }
+    }
+
+    v58 = v25;
+    v28 = [(PowerUISmartChargeManager *)self chargePrediction:level fullyCharged:v10 previousCheckpoint:checkpoint predictor:self->_predictorType];
+    v29 = [v28 objectForKeyedSubscript:@"checkpoint"];
+
+    if (!v29)
+    {
+LABEL_72:
+      [(PowerUISmartChargeManager *)self requestPeriodicCheck];
+      v45 = [v28 objectForKeyedSubscript:@"checkpoint"];
+      if (!v45)
+      {
+        goto LABEL_82;
+      }
+
+      v46 = v45;
+      v47 = [v28 objectForKeyedSubscript:@"shouldDisableCharging"];
+
+      if (!v47)
+      {
+        goto LABEL_82;
+      }
+
+      v48 = [v28 objectForKeyedSubscript:@"shouldDisableCharging"];
+      bOOLValue = [v48 BOOLValue];
+
+      if (bOOLValue)
+      {
+        [(PowerUISmartChargeManager *)self disableCharging];
+        v50 = self->_checkpoint;
+        if (checkpoint == v50 || v50 == 4)
+        {
+          goto LABEL_82;
+        }
+
+        [MEMORY[0x277CBEAA8] timeIntervalSinceReferenceDate];
+        v52 = v51;
+        v53 = [MEMORY[0x277CCABB0] numberWithDouble:?];
+        [(PowerUISmartChargeManager *)self setNumber:v53 forPreferenceKey:@"chargingDisabledAt"];
+
+        v54 = [MEMORY[0x277CCABB0] numberWithDouble:v52];
+        [(PowerUISmartChargeManager *)self setNumber:v54 forPreferenceKey:@"lastEnabled"];
+      }
+
+      else
+      {
+        [(PowerUISmartChargeManager *)self enableCharging];
+        v55 = self->_checkpoint;
+        if (checkpoint == v55 || v55 == 3)
+        {
+          goto LABEL_82;
+        }
+
+        [(PowerUISmartChargeManager *)self updateChargingTimeSaved];
+      }
+
+      notify_post([@"com.apple.powerui.smartchargestatuschanged" UTF8String]);
+LABEL_82:
+
+      goto LABEL_17;
+    }
+
+    v57 = v23;
+    v30 = [v28 objectForKeyedSubscript:@"checkpoint"];
+    unsignedIntegerValue = [v30 unsignedIntegerValue];
+
+    v32 = [v28 objectForKeyedSubscript:@"decisionMaker"];
+    integerValue = [v32 integerValue];
+
+    v34 = [v28 objectForKeyedSubscript:@"decisionDate"];
+    [(PowerUISmartChargeManager *)self updateDecisionMakerID:integerValue withCheckpoint:unsignedIntegerValue];
+    v35 = [MEMORY[0x277CCABB0] numberWithInteger:integerValue];
+    [(PowerUISmartChargeManager *)self addPowerLogEventForCheckpoint:unsignedIntegerValue decisionSignalID:v35 decisionDate:v34];
+
+    if (checkpoint == unsignedIntegerValue)
+    {
+LABEL_71:
+
+      v23 = v57;
+      goto LABEL_72;
+    }
+
+    if (unsignedIntegerValue != 7)
+    {
+      v56 = [(PowerUISmartChargeManager *)self checkpointNameFromCheckpoint:unsignedIntegerValue];
+      date6 = [MEMORY[0x277CBEAA8] date];
+      [(PowerUISmartChargeManager *)self pluginTimelineAddEvent:v56 atDate:date6 withBatteryLevel:level];
+
+      if (unsignedIntegerValue == 2)
+      {
+        [(PowerUISmartChargeManager *)self startAllMonitoring];
+        goto LABEL_69;
+      }
+
+      if (unsignedIntegerValue < 5)
+      {
+        goto LABEL_70;
+      }
+    }
+
+    [(PowerUISmartChargeManager *)self stopAllMonitoring];
+LABEL_69:
+    notify_post([@"com.apple.smartcharging.statechange" UTF8String]);
+LABEL_70:
+    [(PowerUISmartChargeManager *)self setCheckpoint:unsignedIntegerValue withSelector:a2];
+    goto LABEL_71;
+  }
+
+  v15 = [(PowerUISmartChargeManager *)self log];
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 0;
+    _os_log_impl(&dword_21B766000, v15, OS_LOG_TYPE_DEFAULT, "Skipping prediction check: Device does not seem like a legitimate carry device", buf, 2u);
+  }
+}
+
 void *__87__PowerUISmartChargeManager_handleNewBatteryLevel_whileExternalConnected_fullyCharged___block_invoke(uint64_t a1)
 {
   [*(a1 + 32) resetState];
@@ -6001,15 +6510,15 @@ void *__87__PowerUISmartChargeManager_handleNewBatteryLevel_whileExternalConnect
 - (void)handleNewBatteryLevelForMCL:(int)l whileExternalConnected:(BOOL)connected
 {
   connectedCopy = connected;
-  *&v24[5] = *MEMORY[0x277D85DE8];
+  *&v23[5] = *MEMORY[0x277D85DE8];
   log = self->_log;
   if (os_log_type_enabled(log, OS_LOG_TYPE_DEFAULT))
   {
-    v23 = 67109376;
-    v24[0] = l;
-    LOWORD(v24[1]) = 1024;
-    *(&v24[1] + 2) = connectedCopy;
-    _os_log_impl(&dword_21B766000, log, OS_LOG_TYPE_DEFAULT, "Called for MCL battery level=%d, externalConnected=%u", &v23, 0xEu);
+    v22 = 67109376;
+    v23[0] = l;
+    LOWORD(v23[1]) = 1024;
+    *(&v23[1] + 2) = connectedCopy;
+    _os_log_impl(&dword_21B766000, log, OS_LOG_TYPE_DEFAULT, "Called for MCL battery level=%d, externalConnected=%u", &v22, 0xEu);
   }
 
   if (connectedCopy)
@@ -6020,8 +6529,8 @@ void *__87__PowerUISmartChargeManager_handleNewBatteryLevel_whileExternalConnect
       v10 = self->_log;
       if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v23) = 0;
-        _os_log_impl(&dword_21B766000, v10, OS_LOG_TYPE_DEFAULT, "Battery mitigations are in place, MCL will be ignored", &v23, 2u);
+        LOWORD(v22) = 0;
+        _os_log_impl(&dword_21B766000, v10, OS_LOG_TYPE_DEFAULT, "Battery mitigations are in place, MCL will be ignored", &v22, 2u);
       }
 
       if (l == 100)
@@ -6096,12 +6605,10 @@ void *__87__PowerUISmartChargeManager_handleNewBatteryLevel_whileExternalConnect
     v19 = self->_checkpoint;
     v20 = v17;
     v21 = [v18 numberWithUnsignedInteger:v19];
-    v23 = 138412290;
-    *v24 = v21;
-    _os_log_impl(&dword_21B766000, v20, OS_LOG_TYPE_DEFAULT, "Checkpoint through MCL: %@", &v23, 0xCu);
+    v22 = 138412290;
+    *v23 = v21;
+    _os_log_impl(&dword_21B766000, v20, OS_LOG_TYPE_DEFAULT, "Checkpoint through MCL: %@", &v22, 0xCu);
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (id)shouldDisableChargingAtBatteryLevel:(unint64_t)level withPredictor:(id)predictor
@@ -6117,7 +6624,7 @@ void *__87__PowerUISmartChargeManager_handleNewBatteryLevel_whileExternalConnect
 - (id)shouldDisableChargingAsOfDate:(id)date atBatteryLevel:(unint64_t)level overrideAllSignals:(BOOL)signals withPredictor:(id)predictor bypassSaved:(BOOL)saved
 {
   savedCopy = saved;
-  v69 = *MEMORY[0x277D85DE8];
+  v68 = *MEMORY[0x277D85DE8];
   dateCopy = date;
   predictorCopy = predictor;
   dictionary = [MEMORY[0x277CBEB38] dictionary];
@@ -6163,7 +6670,7 @@ void *__87__PowerUISmartChargeManager_handleNewBatteryLevel_whileExternalConnect
         v25 = v23;
         v26 = [v24 numberWithDouble:v22 / 60.0];
         *buf = 138412290;
-        v66 = v26;
+        v65 = v26;
         _os_log_impl(&dword_21B766000, v25, OS_LOG_TYPE_DEFAULT, "Very lengthy prediction (%@ mins); limiting idle time", buf, 0xCu);
       }
 
@@ -6268,7 +6775,7 @@ void *__87__PowerUISmartChargeManager_handleNewBatteryLevel_whileExternalConnect
       goto LABEL_45;
     }
 
-    v64 = v42;
+    v63 = v42;
     v44 = [v31 objectForKeyedSubscript:@"decisionMaker"];
     v45 = [&unk_282D4E680 isEqualToNumber:v44];
 
@@ -6294,8 +6801,8 @@ void *__87__PowerUISmartChargeManager_handleNewBatteryLevel_whileExternalConnect
 
         if (!v50)
         {
-          v42 = v64;
-          [v64 setObject:&unk_282D4E620 forKeyedSubscript:@"DEoCStatus"];
+          v42 = v63;
+          [v63 setObject:&unk_282D4E620 forKeyedSubscript:@"DEoCStatus"];
           if (os_log_type_enabled(self->_log, OS_LOG_TYPE_ERROR))
           {
             [PowerUISmartChargeManager shouldDisableChargingAsOfDate:atBatteryLevel:overrideAllSignals:withPredictor:bypassSaved:];
@@ -6308,15 +6815,15 @@ void *__87__PowerUISmartChargeManager_handleNewBatteryLevel_whileExternalConnect
       }
     }
 
-    v42 = v64;
-    [v64 setObject:v46 forKeyedSubscript:@"DEoCStatus"];
+    v42 = v63;
+    [v63 setObject:v46 forKeyedSubscript:@"DEoCStatus"];
 LABEL_45:
     [PowerUISmartChargeUtilities setDict:v42 forPreferenceKey:@"CurrentDEoCStatus" inDomain:self->_defaultsDomain];
     v51 = self->_log;
     if (os_log_type_enabled(v51, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v66 = v42;
+      v65 = v42;
       _os_log_impl(&dword_21B766000, v51, OS_LOG_TYPE_DEFAULT, "SignalMonitors updated currentDEoCStatus: %@", buf, 0xCu);
     }
 
@@ -6354,9 +6861,9 @@ LABEL_51:
     v58 = v57;
     v59 = [v16 dateByAddingTimeInterval:v56];
     *buf = 138412546;
-    v66 = v52;
-    v67 = 2112;
-    v68 = v59;
+    v65 = v52;
+    v66 = 2112;
+    v67 = v59;
     _os_log_impl(&dword_21B766000, v58, OS_LOG_TYPE_DEFAULT, "Deadline for full charge is: %@ and resuming now would get us there by %@", buf, 0x16u);
   }
 
@@ -6373,74 +6880,68 @@ LABEL_51:
 
   [v31 setObject:v61 forKeyedSubscript:@"shouldDisableCharging"];
 
-  v62 = *MEMORY[0x277D85DE8];
-
   return v31;
 }
 
 - (BOOL)shouldDisableChargingOverrideModel:(unint64_t)model
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   fullChargeDeadlineOverride = [(PowerUISmartChargeManager *)self fullChargeDeadlineOverride];
 
-  if (fullChargeDeadlineOverride)
+  if (!fullChargeDeadlineOverride)
   {
-    date = [MEMORY[0x277CBEAA8] date];
-    engagementTimeOverride = [(PowerUISmartChargeManager *)self engagementTimeOverride];
-    if (engagementTimeOverride && (v8 = engagementTimeOverride, -[PowerUISmartChargeManager engagementTimeOverride](self, "engagementTimeOverride"), v9 = objc_claimAutoreleasedReturnValue(), [date timeIntervalSinceDate:v9], v11 = v10, v9, v8, v11 < 0.0))
-    {
-      v12 = 0;
-    }
-
-    else
-    {
-      fullChargeDeadlineOverride2 = [(PowerUISmartChargeManager *)self fullChargeDeadlineOverride];
-      if (!self->_overrideAllSignals)
-      {
-        computeSignalDeadline = [(PowerUISmartChargeManager *)self computeSignalDeadline];
-        v15 = [computeSignalDeadline objectForKeyedSubscript:@"decisionDate"];
-        v16 = [computeSignalDeadline objectForKeyedSubscript:@"decisionMaker"];
-        self->_deadlineSignalID = [v16 integerValue];
-
-        v17 = [fullChargeDeadlineOverride2 earlierDate:v15];
-
-        fullChargeDeadlineOverride2 = v17;
-      }
-
-      v18 = [(PowerUISmartChargeManager *)self setFullChargeDeadline:fullChargeDeadlineOverride2];
-
-      [(PowerUISmartChargeManager *)self durationToFullChargeFromBatteryLevel:model includeTLCDelay:1];
-      v20 = v19;
-      log = self->_log;
-      if (os_log_type_enabled(log, OS_LOG_TYPE_DEFAULT))
-      {
-        v22 = log;
-        v23 = [date dateByAddingTimeInterval:v20];
-        v27 = 138412546;
-        v28 = v18;
-        v29 = 2112;
-        v30 = v23;
-        _os_log_impl(&dword_21B766000, v22, OS_LOG_TYPE_DEFAULT, "Deadline for full charge is: %@ and resuming now would get us there by %@", &v27, 0x16u);
-      }
-
-      [v18 timeIntervalSinceDate:date];
-      v12 = v24 > v20;
-    }
+    return 0;
   }
 
-  else
+  date = [MEMORY[0x277CBEAA8] date];
+  engagementTimeOverride = [(PowerUISmartChargeManager *)self engagementTimeOverride];
+  if (engagementTimeOverride && (v8 = engagementTimeOverride, -[PowerUISmartChargeManager engagementTimeOverride](self, "engagementTimeOverride"), v9 = objc_claimAutoreleasedReturnValue(), [date timeIntervalSinceDate:v9], v11 = v10, v9, v8, v11 < 0.0))
   {
     v12 = 0;
   }
 
-  v25 = *MEMORY[0x277D85DE8];
+  else
+  {
+    fullChargeDeadlineOverride2 = [(PowerUISmartChargeManager *)self fullChargeDeadlineOverride];
+    if (!self->_overrideAllSignals)
+    {
+      computeSignalDeadline = [(PowerUISmartChargeManager *)self computeSignalDeadline];
+      v15 = [computeSignalDeadline objectForKeyedSubscript:@"decisionDate"];
+      v16 = [computeSignalDeadline objectForKeyedSubscript:@"decisionMaker"];
+      self->_deadlineSignalID = [v16 integerValue];
+
+      v17 = [fullChargeDeadlineOverride2 earlierDate:v15];
+
+      fullChargeDeadlineOverride2 = v17;
+    }
+
+    v18 = [(PowerUISmartChargeManager *)self setFullChargeDeadline:fullChargeDeadlineOverride2];
+
+    [(PowerUISmartChargeManager *)self durationToFullChargeFromBatteryLevel:model includeTLCDelay:1];
+    v20 = v19;
+    log = self->_log;
+    if (os_log_type_enabled(log, OS_LOG_TYPE_DEFAULT))
+    {
+      v22 = log;
+      v23 = [date dateByAddingTimeInterval:v20];
+      v26 = 138412546;
+      v27 = v18;
+      v28 = 2112;
+      v29 = v23;
+      _os_log_impl(&dword_21B766000, v22, OS_LOG_TYPE_DEFAULT, "Deadline for full charge is: %@ and resuming now would get us there by %@", &v26, 0x16u);
+    }
+
+    [v18 timeIntervalSinceDate:date];
+    v12 = v24 > v20;
+  }
+
   return v12;
 }
 
 - (id)chargePrediction:(unint64_t)prediction fullyCharged:(BOOL)charged previousCheckpoint:(unint64_t)checkpoint predictor:(unint64_t)predictor
 {
   chargedCopy = charged;
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   [dictionary setObject:&unk_282D4E5D8 forKeyedSubscript:@"decisionMaker"];
   if (checkpoint)
@@ -6451,42 +6952,42 @@ LABEL_51:
   deviceWasRecentlyConnectedToCharger = [(PowerUISmartChargeManager *)self deviceWasRecentlyConnectedToCharger];
   if ((prediction < 0x50 || deviceWasRecentlyConnectedToCharger) && !self->_isDesktopDevice)
   {
-    v33 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:0];
-    [dictionary setObject:v33 forKeyedSubscript:@"checkpoint"];
+    v32 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:0];
+    [dictionary setObject:v32 forKeyedSubscript:@"checkpoint"];
 
-    v34 = [MEMORY[0x277CCABB0] numberWithBool:0];
-    [dictionary setObject:v34 forKeyedSubscript:@"shouldDisableCharging"];
+    v33 = [MEMORY[0x277CCABB0] numberWithBool:0];
+    [dictionary setObject:v33 forKeyedSubscript:@"shouldDisableCharging"];
 
     v19 = [(PowerUISmartChargeManager *)self log];
-    v35 = os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT);
+    v34 = os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT);
     if (prediction > 0x4F)
     {
-      if (!v35)
+      if (!v34)
       {
         goto LABEL_75;
       }
 
       *buf = 0;
-      v36 = "Skipping prediction check: Device was just recently plugged-in";
-      v37 = v19;
-      v38 = 2;
+      v35 = "Skipping prediction check: Device was just recently plugged-in";
+      v36 = v19;
+      v37 = 2;
     }
 
     else
     {
-      if (!v35)
+      if (!v34)
       {
         goto LABEL_75;
       }
 
       *buf = 67109120;
-      v44 = 80;
-      v36 = "Skipping prediction check: Battery level below %d%%";
-      v37 = v19;
-      v38 = 8;
+      v43 = 80;
+      v35 = "Skipping prediction check: Battery level below %d%%";
+      v36 = v19;
+      v37 = 8;
     }
 
-    _os_log_impl(&dword_21B766000, v37, OS_LOG_TYPE_DEFAULT, v36, buf, v38);
+    _os_log_impl(&dword_21B766000, v36, OS_LOG_TYPE_DEFAULT, v35, buf, v37);
     goto LABEL_75;
   }
 
@@ -6643,13 +7144,13 @@ LABEL_50:
 
         checkpointCopy3 = checkpoint;
 LABEL_61:
-        v39 = 75;
+        v38 = 75;
         if (kTopOffProtectionSoCFloor)
         {
-          v39 = 77;
+          v38 = 77;
         }
 
-        if (v39 >= prediction)
+        if (v38 >= prediction)
         {
           if (checkpoint == 4 || checkpoint == 2)
           {
@@ -6659,8 +7160,8 @@ LABEL_61:
 
         else if (checkpoint != 3 && checkpointCopy3 != 1 && checkpointCopy3 != 2 && checkpointCopy3 != 4)
         {
-          v40 = [(PowerUISmartChargeManager *)self log];
-          if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
+          v39 = [(PowerUISmartChargeManager *)self log];
+          if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
           {
             [PowerUISmartChargeManager chargePrediction:fullyCharged:previousCheckpoint:predictor:];
           }
@@ -6709,11 +7210,9 @@ LABEL_53:
 
 LABEL_75:
 
-  v41 = dictionary;
+  v40 = dictionary;
   v15 = &unk_282D4E5D8;
 LABEL_54:
-
-  v31 = *MEMORY[0x277D85DE8];
 
   return dictionary;
 }
@@ -6787,7 +7286,7 @@ uint64_t __48__PowerUISmartChargeManager_timeStringFromDate___block_invoke()
 
 - (void)recomputeEmpiricalTimeToFullCharge
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   date = [MEMORY[0x277CBEAA8] date];
   if (!recomputeEmpiricalTimeToFullCharge_lastComputedDate || ([recomputeEmpiricalTimeToFullCharge_lastComputedDate timeIntervalSinceDate:date], v4 < -43200.0))
   {
@@ -6815,23 +7314,21 @@ uint64_t __48__PowerUISmartChargeManager_timeStringFromDate___block_invoke()
     if (os_log_type_enabled(log, OS_LOG_TYPE_DEFAULT))
     {
       empiricalTimeToFullChargeDurationMinutes = self->_empiricalTimeToFullChargeDurationMinutes;
-      v16 = 134218240;
-      v17 = v9;
-      v18 = 2048;
-      v19 = empiricalTimeToFullChargeDurationMinutes;
-      _os_log_impl(&dword_21B766000, log, OS_LOG_TYPE_DEFAULT, "Recompiled empirical TTFC - raw: %f, adjusted: %f", &v16, 0x16u);
+      v15 = 134218240;
+      v16 = v9;
+      v17 = 2048;
+      v18 = empiricalTimeToFullChargeDurationMinutes;
+      _os_log_impl(&dword_21B766000, log, OS_LOG_TYPE_DEFAULT, "Recompiled empirical TTFC - raw: %f, adjusted: %f", &v15, 0x16u);
     }
 
     v14 = [MEMORY[0x277CCABB0] numberWithDouble:self->_empiricalTimeToFullChargeDurationMinutes];
     [(PowerUISmartChargeManager *)self setNumber:v14 forPreferenceKey:@"empiricalFullChargeDuration"];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (double)durationToFullChargeFromBatteryLevel:(unint64_t)level includeTLCDelay:(BOOL)delay
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   if (delay)
   {
     v6 = +[PowerUISmartChargeUtilities batteryProperties];
@@ -6850,9 +7347,9 @@ uint64_t __48__PowerUISmartChargeManager_timeStringFromDate___block_invoke()
       if (os_log_type_enabled(log, OS_LOG_TYPE_DEFAULT))
       {
         v11 = log;
-        v17 = 134217984;
+        v16 = 134217984;
         unsignedLongLongValue = [v8 unsignedLongLongValue];
-        _os_log_impl(&dword_21B766000, v11, OS_LOG_TYPE_DEFAULT, "TLC Engaged; Projecting additional charge delay (Not Charging reason: %llu)", &v17, 0xCu);
+        _os_log_impl(&dword_21B766000, v11, OS_LOG_TYPE_DEFAULT, "TLC Engaged; Projecting additional charge delay (Not Charging reason: %llu)", &v16, 0xCu);
       }
     }
 
@@ -6880,7 +7377,6 @@ uint64_t __48__PowerUISmartChargeManager_timeStringFromDate___block_invoke()
     v14 = v13;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v10 + v14 * 60.0;
 }
 
@@ -6938,7 +7434,7 @@ uint64_t __50__PowerUISmartChargeManager_forceDEoCReevaluation__block_invoke(uin
 
 - (void)cacheCurrentDEoCBehaviorForced:(BOOL)forced
 {
-  v169 = *MEMORY[0x277D85DE8];
+  v168 = *MEMORY[0x277D85DE8];
   v5 = os_transaction_create();
   v6 = 0x2782D3000uLL;
   [PowerUISmartChargeUtilities logMemoryUsageInternalForEvent:@"Beginning of cacheCurrentDEoC"];
@@ -7015,7 +7511,7 @@ LABEL_53:
   {
     if (os_log_type_enabled(self->_log, OS_LOG_TYPE_ERROR))
     {
-      [PowerUISmartChargeManager cacheCurrentDEoCBehaviorForced:?];
+      [PowerUISmartChargeManager cacheCurrentDEoCBehaviorForced:];
     }
 
     v16 = &unk_282D4E608;
@@ -7029,31 +7525,31 @@ LABEL_53:
   }
 
   date2 = [MEMORY[0x277CBEAA8] date];
-  v37 = [PowerUISmartChargeUtilities drainSessionsInfoBetweenRelevantChargesBefore:date2 withMinimumDuration:0.0];
+  v36 = [PowerUISmartChargeUtilities drainSessionsInfoBetweenRelevantChargesBefore:date2 withMinimumDuration:0.0];
 
-  v38 = self->_log;
-  if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
+  v37 = self->_log;
+  if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v157 = v37;
-    _os_log_impl(&dword_21B766000, v38, OS_LOG_TYPE_DEFAULT, "Drain sessions info found: %@", buf, 0xCu);
+    v156 = v36;
+    _os_log_impl(&dword_21B766000, v37, OS_LOG_TYPE_DEFAULT, "Drain sessions info found: %@", buf, 0xCu);
   }
 
-  v137 = v37;
-  v39 = [PowerUISmartChargeUtilities drainBetweenRelevantEventsFromDrainSessionInfo:v37];
-  v40 = self->_log;
-  if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
+  v136 = v36;
+  v38 = [PowerUISmartChargeUtilities drainBetweenRelevantEventsFromDrainSessionInfo:v36];
+  v39 = self->_log;
+  if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
   {
-    v41 = v40;
-    v42 = [v39 count];
+    v40 = v39;
+    v41 = [v38 count];
     *buf = 134217984;
-    v157 = v42;
-    _os_log_impl(&dword_21B766000, v41, OS_LOG_TYPE_DEFAULT, "Found %lu instances of historic drain between relevant charge sessions", buf, 0xCu);
+    v156 = v41;
+    _os_log_impl(&dword_21B766000, v40, OS_LOG_TYPE_DEFAULT, "Found %lu instances of historic drain between relevant charge sessions", buf, 0xCu);
   }
 
-  if ([v39 count])
+  if ([v38 count])
   {
-    lastObject = [v39 lastObject];
+    lastObject = [v38 lastObject];
     [dictionary setObject:lastObject forKeyedSubscript:@"mostRecentDrain"];
   }
 
@@ -7072,132 +7568,132 @@ LABEL_53:
     intValue2 = 70;
   }
 
-  v46 = [(PowerUISmartChargeManager *)self readNumberForPreferenceKey:@"DEoCThresholdOverride"];
-  if (v46)
+  v45 = [(PowerUISmartChargeManager *)self readNumberForPreferenceKey:@"DEoCThresholdOverride"];
+  if (v45)
   {
-    v47 = self->_log;
-    if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
+    v46 = self->_log;
+    if (os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT))
     {
-      v48 = v47;
-      intValue = [v46 intValue];
+      v47 = v46;
+      intValue = [v45 intValue];
       *buf = 67109120;
-      LODWORD(v157) = intValue;
-      _os_log_impl(&dword_21B766000, v48, OS_LOG_TYPE_DEFAULT, "Using DEoC override value: %d", buf, 8u);
+      LODWORD(v156) = intValue;
+      _os_log_impl(&dword_21B766000, v47, OS_LOG_TYPE_DEFAULT, "Using DEoC override value: %d", buf, 8u);
     }
 
-    intValue2 = [v46 intValue];
+    intValue2 = [v45 intValue];
   }
 
-  v135 = v46;
-  v153 = 0u;
-  v154 = 0u;
-  v151 = 0u;
+  v134 = v45;
   v152 = 0u;
-  obj = v39;
-  v50 = [obj countByEnumeratingWithState:&v151 objects:v168 count:16];
-  v141 = dictionary;
+  v153 = 0u;
+  v150 = 0u;
+  v151 = 0u;
+  obj = v38;
+  v49 = [obj countByEnumeratingWithState:&v150 objects:v167 count:16];
+  v140 = dictionary;
   forcedCopy = forced;
-  if (v50)
+  if (v49)
   {
-    v51 = v50;
-    v138 = v5;
-    v52 = 0;
-    v53 = *v152;
+    v50 = v49;
+    v137 = v5;
+    v51 = 0;
+    v52 = *v151;
     do
     {
-      for (i = 0; i != v51; ++i)
+      for (i = 0; i != v50; ++i)
       {
-        if (*v152 != v53)
+        if (*v151 != v52)
         {
           objc_enumerationMutation(obj);
         }
 
-        v55 = *(*(&v151 + 1) + 8 * i);
-        v56 = self->_log;
-        if (os_log_type_enabled(v56, OS_LOG_TYPE_DEFAULT))
+        v54 = *(*(&v150 + 1) + 8 * i);
+        v55 = self->_log;
+        if (os_log_type_enabled(v55, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v157 = v55;
-          _os_log_impl(&dword_21B766000, v56, OS_LOG_TYPE_DEFAULT, "  drain: %@", buf, 0xCu);
+          v156 = v54;
+          _os_log_impl(&dword_21B766000, v55, OS_LOG_TYPE_DEFAULT, "  drain: %@", buf, 0xCu);
         }
 
-        if ([v55 intValue] >= intValue2)
+        if ([v54 intValue] >= intValue2)
         {
-          ++v52;
+          ++v51;
         }
       }
 
-      v51 = [obj countByEnumeratingWithState:&v151 objects:v168 count:16];
+      v50 = [obj countByEnumeratingWithState:&v150 objects:v167 count:16];
     }
 
-    while (v51);
-    v57 = v52;
-    v5 = v138;
+    while (v50);
+    v56 = v51;
+    v5 = v137;
   }
 
   else
   {
-    v57 = 0;
+    v56 = 0;
   }
 
-  v58 = self->_log;
-  if (os_log_type_enabled(v58, OS_LOG_TYPE_DEFAULT))
+  v57 = self->_log;
+  if (os_log_type_enabled(v57, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134218240;
-    v157 = v57;
-    v158 = 2048;
-    v159 = intValue2;
-    _os_log_impl(&dword_21B766000, v58, OS_LOG_TYPE_DEFAULT, "Found %lu instances of historic drain above the threshold of %lu between relevant charge sessions", buf, 0x16u);
+    v156 = v56;
+    v157 = 2048;
+    v158 = intValue2;
+    _os_log_impl(&dword_21B766000, v57, OS_LOG_TYPE_DEFAULT, "Found %lu instances of historic drain above the threshold of %lu between relevant charge sessions", buf, 0x16u);
   }
 
-  firstObject = [v137 firstObject];
-  v134 = firstObject;
+  firstObject = [v136 firstObject];
+  v133 = firstObject;
   if (firstObject)
   {
-    v60 = firstObject;
+    v59 = firstObject;
     date3 = [MEMORY[0x277CBEAA8] date];
-    v62 = [v60 objectForKeyedSubscript:@"start"];
-    [date3 timeIntervalSinceDate:v62];
-    v64 = v63 / 86400;
+    v61 = [v59 objectForKeyedSubscript:@"start"];
+    [date3 timeIntervalSinceDate:v61];
+    v63 = v62 / 86400;
   }
 
   else
   {
-    v64 = 0;
+    v63 = 0;
   }
 
   v6 = 0x2782D3000uLL;
-  v65 = [(PowerUITrialManager *)self->_trialManager longFactorForName:@"minDaysOfChargingHistoryRequiredForDEoCModel"];
-  v66 = [(PowerUITrialManager *)self->_trialManager longFactorForName:@"minNumberOfRelevantDrainsRequiredForDEoCModel"];
-  v67 = self->_log;
-  if (os_log_type_enabled(v67, OS_LOG_TYPE_DEFAULT))
+  v64 = [(PowerUITrialManager *)self->_trialManager longFactorForName:@"minDaysOfChargingHistoryRequiredForDEoCModel"];
+  v65 = [(PowerUITrialManager *)self->_trialManager longFactorForName:@"minNumberOfRelevantDrainsRequiredForDEoCModel"];
+  v66 = self->_log;
+  if (os_log_type_enabled(v66, OS_LOG_TYPE_DEFAULT))
   {
     trialManager = self->_trialManager;
-    v69 = v67;
+    v68 = v66;
     experimentID = [(PowerUITrialManager *)trialManager experimentID];
     treatmentID = [(PowerUITrialManager *)self->_trialManager treatmentID];
     *buf = 138413570;
-    v157 = experimentID;
-    v158 = 2112;
-    v159 = treatmentID;
-    v160 = 2112;
-    v161 = @"minDaysOfChargingHistoryRequiredForDEoCModel";
-    v162 = 2048;
-    v163 = v65;
-    v164 = 2112;
-    v165 = @"minNumberOfRelevantDrainsRequiredForDEoCModel";
-    v166 = 2048;
-    v167 = v66;
-    _os_log_impl(&dword_21B766000, v69, OS_LOG_TYPE_DEFAULT, "DEoC Trial parameters from experiment: %@ and treatment: %@ \n loaded: \n %@:%ld \n %@:%ld", buf, 0x3Eu);
+    v156 = experimentID;
+    v157 = 2112;
+    v158 = treatmentID;
+    v159 = 2112;
+    v160 = @"minDaysOfChargingHistoryRequiredForDEoCModel";
+    v161 = 2048;
+    v162 = v64;
+    v163 = 2112;
+    v164 = @"minNumberOfRelevantDrainsRequiredForDEoCModel";
+    v165 = 2048;
+    v166 = v65;
+    _os_log_impl(&dword_21B766000, v68, OS_LOG_TYPE_DEFAULT, "DEoC Trial parameters from experiment: %@ and treatment: %@ \n loaded: \n %@:%ld \n %@:%ld", buf, 0x3Eu);
   }
 
-  if (v64 < v65)
+  if (v63 < v64)
   {
-    dictionary = v141;
-    [v141 setObject:&unk_282D4E7D0 forKeyedSubscript:@"DEoCStatus"];
-    [MEMORY[0x277CCACA8] stringWithFormat:@"daysSinceFirstChargeSession : %ld < minDaysOfChargingHistoryRequiredForDEoCModel : %ld", v64, v65, v134, v135];
-    v72 = LABEL_95:;
-    [dictionary setObject:v72 forKeyedSubscript:@"reasonString"];
+    dictionary = v140;
+    [v140 setObject:&unk_282D4E7D0 forKeyedSubscript:@"DEoCStatus"];
+    [MEMORY[0x277CCACA8] stringWithFormat:@"daysSinceFirstChargeSession : %ld < minDaysOfChargingHistoryRequiredForDEoCModel : %ld", v63, v64, v133, v134];
+    v71 = LABEL_95:;
+    [dictionary setObject:v71 forKeyedSubscript:@"reasonString"];
     v17 = 0;
     forced = forcedCopy;
     v12 = 0x277CCA000;
@@ -7206,157 +7702,157 @@ LABEL_96:
     goto LABEL_97;
   }
 
-  if ([v137 count] < v66)
+  if ([v136 count] < v65)
   {
-    dictionary = v141;
-    [v141 setObject:&unk_282D4E7E8 forKeyedSubscript:@"DEoCStatus"];
-    [MEMORY[0x277CCACA8] stringWithFormat:@"numberOfHistoricalDrainSessions : %ld < minNumberOfRelevantDrainsRequiredForDEoCModel : %ld", objc_msgSend(v137, "count"), v66, v134, v135];
+    dictionary = v140;
+    [v140 setObject:&unk_282D4E7E8 forKeyedSubscript:@"DEoCStatus"];
+    [MEMORY[0x277CCACA8] stringWithFormat:@"numberOfHistoricalDrainSessions : %ld < minNumberOfRelevantDrainsRequiredForDEoCModel : %ld", objc_msgSend(v136, "count"), v65, v133, v134];
     goto LABEL_95;
   }
 
-  v149 = 0u;
-  v150 = 0u;
-  v147 = 0u;
   v148 = 0u;
-  v142 = self->_monitors;
-  v73 = [(NSArray *)v142 countByEnumeratingWithState:&v147 objects:v155 count:16];
-  if (!v73)
+  v149 = 0u;
+  v146 = 0u;
+  v147 = 0u;
+  v141 = self->_monitors;
+  v72 = [(NSArray *)v141 countByEnumeratingWithState:&v146 objects:v154 count:16];
+  if (!v72)
   {
 
 LABEL_128:
-    v72 = [[PowerUIMLRelevantDrainPredictor alloc] initWithDefaultsDomain:self->_defaultsDomain withContextStore:self->_context withTrialManager:self->_trialManager];
-    v89 = [PowerUISmartChargeUtilities currentBatteryLevelWithContext:self->_context];
+    v71 = [[PowerUIMLRelevantDrainPredictor alloc] initWithDefaultsDomain:self->_defaultsDomain withContextStore:self->_context withTrialManager:self->_trialManager];
+    v88 = [PowerUISmartChargeUtilities currentBatteryLevelWithContext:self->_context];
     date4 = [MEMORY[0x277CBEAA8] date];
-    v91 = [MEMORY[0x277CCABB0] numberWithInteger:v89];
-    v92 = [(PowerUIMLRelevantDrainPredictor *)v72 featuresForChargeSessionAtDate:date4 withChargeStartSoC:v91 withChargeAndDrainSessionHistory:v137];
+    v90 = [MEMORY[0x277CCABB0] numberWithInteger:v88];
+    v91 = [(PowerUIMLRelevantDrainPredictor *)v71 featuresForChargeSessionAtDate:date4 withChargeStartSoC:v90 withChargeAndDrainSessionHistory:v136];
 
-    v93 = [(PowerUIMLRelevantDrainPredictor *)v72 predictedRelevantDrainwithFeatures:v92];
-    v94 = [(PowerUIMLRelevantDrainPredictor *)v72 predictedRelevantDrainWithFeatures:v92 forSchemes:&unk_282D4EAD0];
-    v95 = [v94 objectForKey:&unk_282D4E800];
-    v96 = v95;
+    v92 = [(PowerUIMLRelevantDrainPredictor *)v71 predictedRelevantDrainwithFeatures:v91];
+    v93 = [(PowerUIMLRelevantDrainPredictor *)v71 predictedRelevantDrainWithFeatures:v91 forSchemes:&unk_282D4EAD0];
+    v94 = [v93 objectForKey:&unk_282D4E800];
+    v95 = v94;
     forced = forcedCopy;
-    v143 = v94;
-    if (!v95)
+    v142 = v93;
+    if (!v94)
     {
       if (os_log_type_enabled(self->_log, OS_LOG_TYPE_FAULT))
       {
         [PowerUISmartChargeManager cacheCurrentDEoCBehaviorForced:];
       }
 
-      [v141 setObject:&unk_282D4E608 forKeyedSubscript:@"DEoCStatus"];
+      [v140 setObject:&unk_282D4E608 forKeyedSubscript:@"DEoCStatus"];
       v17 = 0;
       v12 = 0x277CCA000;
       goto LABEL_152;
     }
 
-    v140 = v93;
-    significantDrainAhead = [v95 significantDrainAhead];
-    v98 = self->_log;
-    v99 = os_log_type_enabled(v98, OS_LOG_TYPE_DEFAULT);
+    v139 = v92;
+    significantDrainAhead = [v94 significantDrainAhead];
+    v97 = self->_log;
+    v98 = os_log_type_enabled(v97, OS_LOG_TYPE_DEFAULT);
     if (!significantDrainAhead)
     {
-      if (v99)
+      if (v98)
       {
-        v118 = v98;
-        [v96 confidence];
+        v117 = v97;
+        [v95 confidence];
         *buf = 134217984;
-        v157 = v119;
-        _os_log_impl(&dword_21B766000, v118, OS_LOG_TYPE_DEFAULT, "80%% model engaged. (confidence: %f)", buf, 0xCu);
+        v156 = v118;
+        _os_log_impl(&dword_21B766000, v117, OS_LOG_TYPE_DEFAULT, "80%% model engaged. (confidence: %f)", buf, 0xCu);
       }
 
-      [v141 setObject:&unk_282D4E740 forKeyedSubscript:@"DEoCStatus"];
-      v120 = MEMORY[0x277CCACA8];
-      v121 = [v96 description];
-      v121 = [v120 stringWithFormat:@"Prediction output %@", v121];
-      [v141 setObject:v121 forKeyedSubscript:@"reasonString"];
+      [v140 setObject:&unk_282D4E740 forKeyedSubscript:@"DEoCStatus"];
+      v119 = MEMORY[0x277CCACA8];
+      v120 = [v95 description];
+      v120 = [v119 stringWithFormat:@"Prediction output %@", v120];
+      [v140 setObject:v120 forKeyedSubscript:@"reasonString"];
 
-      v123 = [(PowerUIMLRelevantDrainPredictor *)v72 analyticsEventFromFeatures:v92];
-      [v141 setObject:v123 forKeyedSubscript:@"featureAnalytics"];
+      v122 = [(PowerUIMLRelevantDrainPredictor *)v71 analyticsEventFromFeatures:v91];
+      [v140 setObject:v122 forKeyedSubscript:@"featureAnalytics"];
 
-      v124 = MEMORY[0x277CCABB0];
-      [(PowerUIMLRelevantDrainPredictor *)v72 threshold];
-      v125 = [v124 numberWithDouble:?];
-      [v141 setObject:v125 forKeyedSubscript:@"modelThreshold"];
+      v123 = MEMORY[0x277CCABB0];
+      [(PowerUIMLRelevantDrainPredictor *)v71 threshold];
+      v124 = [v123 numberWithDouble:?];
+      [v140 setObject:v124 forKeyedSubscript:@"modelThreshold"];
 
       v12 = 0x277CCA000uLL;
-      [v141 setObject:&unk_282D4E848 forKeyedSubscript:@"socLimit"];
+      [v140 setObject:&unk_282D4E848 forKeyedSubscript:@"socLimit"];
       v17 = 1;
       forced = forcedCopy;
       goto LABEL_151;
     }
 
-    if (v99)
+    if (v98)
     {
-      v100 = v98;
-      [v96 confidence];
+      v99 = v97;
+      [v95 confidence];
       *buf = 134217984;
-      v157 = v101;
-      _os_log_impl(&dword_21B766000, v100, OS_LOG_TYPE_DEFAULT, "80%% model predicts deep drain ahead, check 95%% model. (confidence: %f)", buf, 0xCu);
+      v156 = v100;
+      _os_log_impl(&dword_21B766000, v99, OS_LOG_TYPE_DEFAULT, "80%% model predicts deep drain ahead, check 95%% model. (confidence: %f)", buf, 0xCu);
     }
 
-    v102 = [v94 objectForKey:&unk_282D4E818];
-    v103 = v102;
-    if (v102)
+    v101 = [v93 objectForKey:&unk_282D4E818];
+    v102 = v101;
+    if (v101)
     {
-      significantDrainAhead2 = [v102 significantDrainAhead];
-      v105 = self->_log;
-      v106 = os_log_type_enabled(v105, OS_LOG_TYPE_DEFAULT);
+      significantDrainAhead2 = [v101 significantDrainAhead];
+      v104 = self->_log;
+      v105 = os_log_type_enabled(v104, OS_LOG_TYPE_DEFAULT);
       if (!significantDrainAhead2)
       {
-        if (v106)
+        if (v105)
         {
-          v126 = v105;
-          [v103 confidence];
+          v125 = v104;
+          [v102 confidence];
           *buf = 134217984;
-          v157 = v127;
-          _os_log_impl(&dword_21B766000, v126, OS_LOG_TYPE_DEFAULT, "95%% model engaged. (confidence: %f)", buf, 0xCu);
+          v156 = v126;
+          _os_log_impl(&dword_21B766000, v125, OS_LOG_TYPE_DEFAULT, "95%% model engaged. (confidence: %f)", buf, 0xCu);
         }
 
-        [v141 setObject:&unk_282D4E740 forKeyedSubscript:@"DEoCStatus"];
-        v128 = MEMORY[0x277CCACA8];
-        v129 = [v103 description];
-        v129 = [v128 stringWithFormat:@"Prediction output %@", v129];
-        [v141 setObject:v129 forKeyedSubscript:@"reasonString"];
+        [v140 setObject:&unk_282D4E740 forKeyedSubscript:@"DEoCStatus"];
+        v127 = MEMORY[0x277CCACA8];
+        v128 = [v102 description];
+        v128 = [v127 stringWithFormat:@"Prediction output %@", v128];
+        [v140 setObject:v128 forKeyedSubscript:@"reasonString"];
 
-        v131 = [(PowerUIMLRelevantDrainPredictor *)v72 analyticsEventFromFeatures:v92];
-        [v141 setObject:v131 forKeyedSubscript:@"featureAnalytics"];
+        v130 = [(PowerUIMLRelevantDrainPredictor *)v71 analyticsEventFromFeatures:v91];
+        [v140 setObject:v130 forKeyedSubscript:@"featureAnalytics"];
 
-        v132 = MEMORY[0x277CCABB0];
-        [(PowerUIMLRelevantDrainPredictor *)v72 threshold];
-        v133 = [v132 numberWithDouble:?];
-        [v141 setObject:v133 forKeyedSubscript:@"modelThreshold"];
+        v131 = MEMORY[0x277CCABB0];
+        [(PowerUIMLRelevantDrainPredictor *)v71 threshold];
+        v132 = [v131 numberWithDouble:?];
+        [v140 setObject:v132 forKeyedSubscript:@"modelThreshold"];
 
-        [v141 setObject:&unk_282D4E830 forKeyedSubscript:@"socLimit"];
+        [v140 setObject:&unk_282D4E830 forKeyedSubscript:@"socLimit"];
         v17 = 1;
         goto LABEL_150;
       }
 
-      if (v106)
+      if (v105)
       {
-        v107 = v105;
-        [v103 confidence];
+        v106 = v104;
+        [v102 confidence];
         *buf = 134217984;
-        v157 = v108;
-        _os_log_impl(&dword_21B766000, v107, OS_LOG_TYPE_DEFAULT, "95%% model predicts deep drain ahead, do not engage. (confidence: %f)", buf, 0xCu);
+        v156 = v107;
+        _os_log_impl(&dword_21B766000, v106, OS_LOG_TYPE_DEFAULT, "95%% model predicts deep drain ahead, do not engage. (confidence: %f)", buf, 0xCu);
       }
 
-      [v141 setObject:&unk_282D4E5A8 forKeyedSubscript:@"DEoCStatus"];
-      v109 = MEMORY[0x277CCACA8];
-      v110 = [v103 description];
-      v110 = [v109 stringWithFormat:@"Prediction output %@", v110];
-      [v141 setObject:v110 forKeyedSubscript:@"reasonString"];
+      [v140 setObject:&unk_282D4E5A8 forKeyedSubscript:@"DEoCStatus"];
+      v108 = MEMORY[0x277CCACA8];
+      v109 = [v102 description];
+      v109 = [v108 stringWithFormat:@"Prediction output %@", v109];
+      [v140 setObject:v109 forKeyedSubscript:@"reasonString"];
 
-      v112 = [(PowerUIMLRelevantDrainPredictor *)v72 analyticsEventFromFeatures:v92];
-      [v141 setObject:v112 forKeyedSubscript:@"featureAnalytics"];
+      v111 = [(PowerUIMLRelevantDrainPredictor *)v71 analyticsEventFromFeatures:v91];
+      [v140 setObject:v111 forKeyedSubscript:@"featureAnalytics"];
 
-      v113 = MEMORY[0x277CCABB0];
-      [(PowerUIMLRelevantDrainPredictor *)v72 threshold];
-      v114 = [v113 numberWithDouble:?];
-      [v141 setObject:v114 forKeyedSubscript:@"modelThreshold"];
+      v112 = MEMORY[0x277CCABB0];
+      [(PowerUIMLRelevantDrainPredictor *)v71 threshold];
+      v113 = [v112 numberWithDouble:?];
+      [v140 setObject:v113 forKeyedSubscript:@"modelThreshold"];
 
-      v115 = &unk_282D4E620;
-      v116 = @"socLimit";
-      v117 = v141;
+      v114 = &unk_282D4E620;
+      v115 = @"socLimit";
+      v116 = v140;
     }
 
     else
@@ -7366,12 +7862,12 @@ LABEL_128:
         [PowerUISmartChargeManager cacheCurrentDEoCBehaviorForced:];
       }
 
-      v115 = &unk_282D4E608;
-      v116 = @"DEoCStatus";
-      v117 = v141;
+      v114 = &unk_282D4E608;
+      v115 = @"DEoCStatus";
+      v116 = v140;
     }
 
-    [v117 setObject:v115 forKeyedSubscript:v116];
+    [v116 setObject:v114 forKeyedSubscript:v115];
     v17 = 0;
 LABEL_150:
     v6 = 0x2782D3000;
@@ -7379,55 +7875,55 @@ LABEL_150:
 
     v12 = 0x277CCA000;
 LABEL_151:
-    v93 = v140;
+    v92 = v139;
 LABEL_152:
 
-    dictionary = v141;
+    dictionary = v140;
     goto LABEL_96;
   }
 
-  v74 = v73;
-  v139 = 1;
-  v75 = *v148;
+  v73 = v72;
+  v138 = 1;
+  v74 = *v147;
   do
   {
-    for (j = 0; j != v74; ++j)
+    for (j = 0; j != v73; ++j)
     {
-      if (*v148 != v75)
+      if (*v147 != v74)
       {
-        objc_enumerationMutation(v142);
+        objc_enumerationMutation(v141);
       }
 
-      v77 = *(*(&v147 + 1) + 8 * j);
+      v76 = *(*(&v146 + 1) + 8 * j);
       if (![(PowerUITrialManager *)self->_trialManager useTrialEnabledFeature:@"disableLocationCheckForDEoC"]|| (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
       {
-        requiredFullChargeDate = [v77 requiredFullChargeDate];
+        requiredFullChargeDate = [v76 requiredFullChargeDate];
         if (!requiredFullChargeDate)
         {
           goto LABEL_122;
         }
 
         distantPast2 = [MEMORY[0x277CBEAA8] distantPast];
-        v81 = [requiredFullChargeDate isEqualToDate:distantPast2];
+        v80 = [requiredFullChargeDate isEqualToDate:distantPast2];
 
-        if (!v81)
+        if (!v80)
         {
           goto LABEL_122;
         }
 
-        signalID = [v77 signalID];
+        signalID = [v76 signalID];
         if (signalID == 3)
         {
-          [v141 setObject:&unk_282D4E758 forKeyedSubscript:@"DEoCStatus"];
-          v87 = self->_log;
-          if (!os_log_type_enabled(v87, OS_LOG_TYPE_DEFAULT))
+          [v140 setObject:&unk_282D4E758 forKeyedSubscript:@"DEoCStatus"];
+          v86 = self->_log;
+          if (!os_log_type_enabled(v86, OS_LOG_TYPE_DEFAULT))
           {
             goto LABEL_121;
           }
 
           *buf = 0;
-          v84 = v87;
-          v85 = "Opting out of DEoC due to calendar";
+          v83 = v86;
+          v84 = "Opting out of DEoC due to calendar";
         }
 
         else
@@ -7436,71 +7932,71 @@ LABEL_152:
           {
             if (signalID == 4)
             {
-              [v141 setObject:&unk_282D4E6F8 forKeyedSubscript:@"DEoCStatus"];
-              v83 = self->_log;
-              if (os_log_type_enabled(v83, OS_LOG_TYPE_DEFAULT))
+              [v140 setObject:&unk_282D4E6F8 forKeyedSubscript:@"DEoCStatus"];
+              v82 = self->_log;
+              if (os_log_type_enabled(v82, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 0;
-                v84 = v83;
-                v85 = "Opting out of DEoC due to location";
+                v83 = v82;
+                v84 = "Opting out of DEoC due to location";
                 goto LABEL_118;
               }
             }
 
             else
             {
-              [v141 setObject:&unk_282D4E620 forKeyedSubscript:@"DEoCStatus"];
-              v88 = self->_log;
-              if (os_log_type_enabled(v88, OS_LOG_TYPE_FAULT))
+              [v140 setObject:&unk_282D4E620 forKeyedSubscript:@"DEoCStatus"];
+              v87 = self->_log;
+              if (os_log_type_enabled(v87, OS_LOG_TYPE_FAULT))
               {
-                [(PowerUISmartChargeManager *)&v145 cacheCurrentDEoCBehaviorForced:v146, v88];
+                [(PowerUISmartChargeManager *)&v144 cacheCurrentDEoCBehaviorForced:v145, v87];
               }
             }
 
 LABEL_121:
-            v139 = 0;
+            v138 = 0;
 LABEL_122:
 
             continue;
           }
 
-          [v141 setObject:&unk_282D4E6C8 forKeyedSubscript:@"DEoCStatus"];
-          v86 = self->_log;
-          if (!os_log_type_enabled(v86, OS_LOG_TYPE_DEFAULT))
+          [v140 setObject:&unk_282D4E6C8 forKeyedSubscript:@"DEoCStatus"];
+          v85 = self->_log;
+          if (!os_log_type_enabled(v85, OS_LOG_TYPE_DEFAULT))
           {
             goto LABEL_121;
           }
 
           *buf = 0;
-          v84 = v86;
-          v85 = "Opting out of DEoC due to wallet";
+          v83 = v85;
+          v84 = "Opting out of DEoC due to wallet";
         }
 
 LABEL_118:
-        _os_log_impl(&dword_21B766000, v84, OS_LOG_TYPE_DEFAULT, v85, buf, 2u);
+        _os_log_impl(&dword_21B766000, v83, OS_LOG_TYPE_DEFAULT, v84, buf, 2u);
         goto LABEL_121;
       }
 
-      v78 = self->_log;
-      if (os_log_type_enabled(v78, OS_LOG_TYPE_DEFAULT))
+      v77 = self->_log;
+      if (os_log_type_enabled(v77, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_21B766000, v78, OS_LOG_TYPE_DEFAULT, "Skipping location check for DEoC", buf, 2u);
+        _os_log_impl(&dword_21B766000, v77, OS_LOG_TYPE_DEFAULT, "Skipping location check for DEoC", buf, 2u);
       }
     }
 
-    v74 = [(NSArray *)v142 countByEnumeratingWithState:&v147 objects:v155 count:16];
+    v73 = [(NSArray *)v141 countByEnumeratingWithState:&v146 objects:v154 count:16];
   }
 
-  while (v74);
+  while (v73);
 
-  if (v139)
+  if (v138)
   {
     goto LABEL_128;
   }
 
   v17 = 0;
-  dictionary = v141;
+  dictionary = v140;
   forced = forcedCopy;
   v12 = 0x277CCA000;
 LABEL_97:
@@ -7542,11 +8038,11 @@ LABEL_31:
 
       else
       {
-        v44 = self->_log;
-        if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
+        v43 = self->_log;
+        if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&dword_21B766000, v44, OS_LOG_TYPE_DEFAULT, "DEoC engagement forced by internal settings override", buf, 2u);
+          _os_log_impl(&dword_21B766000, v43, OS_LOG_TYPE_DEFAULT, "DEoC engagement forced by internal settings override", buf, 2u);
         }
 
         [dictionary setObject:&unk_282D4E860 forKeyedSubscript:@"DEoCStatus"];
@@ -7564,7 +8060,7 @@ LABEL_31:
   {
     isDesktopDevice = self->_isDesktopDevice;
     *buf = 67109120;
-    LODWORD(v157) = isDesktopDevice;
+    LODWORD(v156) = isDesktopDevice;
     _os_log_impl(&dword_21B766000, v26, OS_LOG_TYPE_DEFAULT, "Device is detected to be eligible for DEoC: %hhd", buf, 8u);
   }
 
@@ -7597,7 +8093,7 @@ LABEL_31:
   if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v157 = dictionary;
+    v156 = dictionary;
     _os_log_impl(&dword_21B766000, v34, OS_LOG_TYPE_DEFAULT, "Saved current DEoC status: %@", buf, 0xCu);
   }
 
@@ -7606,12 +8102,11 @@ LABEL_31:
 LABEL_45:
 
 LABEL_46:
-  v35 = *MEMORY[0x277D85DE8];
 }
 
 - (void)evaluateChargeLimitRecommendationForced:(BOOL)forced
 {
-  v76 = *MEMORY[0x277D85DE8];
+  v75 = *MEMORY[0x277D85DE8];
   v5 = os_transaction_create();
   date = [MEMORY[0x277CBEAA8] date];
   v7 = [PowerUISmartChargeUtilities drainSessionsInfoBetweenRelevantChargesBefore:date withMinimumDuration:0.0];
@@ -7638,7 +8133,7 @@ LABEL_46:
     {
       v16 = log;
       *buf = 134217984;
-      *v72 = [v14 count];
+      *v71 = [v14 count];
       _os_log_impl(&dword_21B766000, v16, OS_LOG_TYPE_DEFAULT, "Found %lu instances of historic drain between relevant charge sessions", buf, 0xCu);
     }
 
@@ -7650,7 +8145,7 @@ LABEL_46:
         v18 = v17;
         v19 = [v14 count];
         *buf = 134217984;
-        *v72 = v19;
+        *v71 = v19;
         _os_log_impl(&dword_21B766000, v18, OS_LOG_TYPE_DEFAULT, "Only %lu available", buf, 0xCu);
       }
 
@@ -7666,22 +8161,22 @@ LABEL_60:
     if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109120;
-      *v72 = v20;
+      *v71 = v20;
       _os_log_impl(&dword_21B766000, v21, OS_LOG_TYPE_DEFAULT, "  max instances above threshold: %d", buf, 8u);
     }
 
-    v61 = v20;
-    v63 = firstObject;
-    v64 = v7;
+    v60 = v20;
+    v62 = firstObject;
+    v63 = v7;
     selfCopy = self;
-    v65 = v5;
-    v69 = 0u;
-    v70 = 0u;
-    v67 = 0u;
+    v64 = v5;
     v68 = 0u;
-    v62 = v14;
+    v69 = 0u;
+    v66 = 0u;
+    v67 = 0u;
+    v61 = v14;
     obj = v14;
-    v23 = [obj countByEnumeratingWithState:&v67 objects:v75 count:16];
+    v23 = [obj countByEnumeratingWithState:&v66 objects:v74 count:16];
     if (v23)
     {
       v24 = v23;
@@ -7689,22 +8184,22 @@ LABEL_60:
       v26 = 0;
       v27 = 0;
       v28 = 0;
-      v29 = *v68;
+      v29 = *v67;
       do
       {
         for (i = 0; i != v24; ++i)
         {
-          if (*v68 != v29)
+          if (*v67 != v29)
           {
             objc_enumerationMutation(obj);
           }
 
-          v31 = *(*(&v67 + 1) + 8 * i);
+          v31 = *(*(&v66 + 1) + 8 * i);
           v32 = selfCopy->_log;
           if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            *v72 = v31;
+            *v71 = v31;
             _os_log_impl(&dword_21B766000, v32, OS_LOG_TYPE_DEFAULT, "  drain: %@", buf, 0xCu);
           }
 
@@ -7729,7 +8224,7 @@ LABEL_60:
           }
         }
 
-        v24 = [obj countByEnumeratingWithState:&v67 objects:v75 count:16];
+        v24 = [obj countByEnumeratingWithState:&v66 objects:v74 count:16];
       }
 
       while (v24);
@@ -7744,17 +8239,17 @@ LABEL_60:
     }
 
     v33 = 0x277CBE000;
-    if (v28 <= v61)
+    if (v28 <= v60)
     {
       v35 = selfCopy;
       v40 = selfCopy->_log;
-      v5 = v65;
-      firstObject = v63;
+      v5 = v64;
+      firstObject = v62;
       if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 134217984;
         v38 = 80;
-        *v72 = 80;
+        *v71 = 80;
         _os_log_impl(&dword_21B766000, v40, OS_LOG_TYPE_DEFAULT, "Recommend limit %lu", buf, 0xCu);
         v39 = &unk_282D4E848;
       }
@@ -7765,24 +8260,24 @@ LABEL_60:
         v38 = 80;
       }
 
-      v7 = v64;
+      v7 = v63;
     }
 
     else
     {
-      v34 = v27 <= v61;
-      v5 = v65;
+      v34 = v27 <= v60;
+      v5 = v64;
       v35 = selfCopy;
-      firstObject = v63;
+      firstObject = v62;
       if (v34)
       {
         v41 = selfCopy->_log;
-        v7 = v64;
+        v7 = v63;
         if (os_log_type_enabled(v35->_log, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 134217984;
           v38 = 85;
-          *v72 = 85;
+          *v71 = 85;
           _os_log_impl(&dword_21B766000, v41, OS_LOG_TYPE_DEFAULT, "Recommend limit %lu", buf, 0xCu);
           v39 = &unk_282D4E890;
         }
@@ -7796,19 +8291,19 @@ LABEL_60:
 
       else
       {
-        if (v26 > v61)
+        if (v26 > v60)
         {
           v36 = selfCopy->_log;
           v37 = os_log_type_enabled(v35->_log, OS_LOG_TYPE_DEFAULT);
-          v7 = v64;
-          if (v25 <= v61)
+          v7 = v63;
+          if (v25 <= v60)
           {
-            v14 = v62;
+            v14 = v61;
             if (v37)
             {
               *buf = 134217984;
               v38 = 95;
-              *v72 = 95;
+              *v71 = 95;
               _os_log_impl(&dword_21B766000, v36, OS_LOG_TYPE_DEFAULT, "Recommend limit %lu", buf, 0xCu);
               v39 = &unk_282D4E830;
             }
@@ -7822,12 +8317,12 @@ LABEL_60:
 
           else
           {
-            v14 = v62;
+            v14 = v61;
             if (v37)
             {
               *buf = 134217984;
               v38 = 100;
-              *v72 = 100;
+              *v71 = 100;
               _os_log_impl(&dword_21B766000, v36, OS_LOG_TYPE_DEFAULT, "Recommend limit %lu", buf, 0xCu);
               v39 = &unk_282D4E620;
             }
@@ -7842,14 +8337,14 @@ LABEL_60:
           goto LABEL_50;
         }
 
-        v51 = selfCopy->_log;
-        v7 = v64;
+        v50 = selfCopy->_log;
+        v7 = v63;
         if (os_log_type_enabled(v35->_log, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 134217984;
           v38 = 90;
-          *v72 = 90;
-          _os_log_impl(&dword_21B766000, v51, OS_LOG_TYPE_DEFAULT, "Recommend limit %lu", buf, 0xCu);
+          *v71 = 90;
+          _os_log_impl(&dword_21B766000, v50, OS_LOG_TYPE_DEFAULT, "Recommend limit %lu", buf, 0xCu);
           v39 = &unk_282D4E860;
         }
 
@@ -7861,7 +8356,7 @@ LABEL_60:
       }
     }
 
-    v14 = v62;
+    v14 = v61;
 LABEL_50:
     v35->_recommendedLimit = v38;
     [PowerUISmartChargeUtilities setNumber:v39 forPreferenceKey:@"ChargeLimitRecommendation" inDomain:v35->_defaultsDomain];
@@ -7874,11 +8369,11 @@ LABEL_50:
         recommendedLimit = v35->_recommendedLimit;
         mclTargetSoC = v35->_mclTargetSoC;
         *buf = 67109632;
-        *v72 = manualChargeLimitWasEverEnabled;
-        *&v72[4] = 2048;
-        *&v72[6] = recommendedLimit;
-        v73 = 1024;
-        v74 = mclTargetSoC;
+        *v71 = manualChargeLimitWasEverEnabled;
+        *&v71[4] = 2048;
+        *&v71[6] = recommendedLimit;
+        v72 = 1024;
+        v73 = mclTargetSoC;
         _os_log_impl(&dword_21B766000, v46, OS_LOG_TYPE_DEFAULT, "Don't recommend new limit - MCLWasEverEnabled: %d - _recommendedLimit: %lu - _mclTargetSoC: %hhu", buf, 0x18u);
       }
     }
@@ -7893,7 +8388,7 @@ LABEL_50:
         if (v45)
         {
           *buf = 138412290;
-          *v72 = v43;
+          *v71 = v43;
           _os_log_impl(&dword_21B766000, v44, OS_LOG_TYPE_DEFAULT, "Don't recommend new limit, already recommended at %@", buf, 0xCu);
         }
       }
@@ -7902,25 +8397,25 @@ LABEL_50:
       {
         if (v45)
         {
-          v52 = MEMORY[0x277CCABB0];
-          v53 = v35->_recommendedLimit;
-          v54 = v44;
-          v55 = v53;
+          v51 = MEMORY[0x277CCABB0];
+          v52 = v35->_recommendedLimit;
+          v53 = v44;
+          v54 = v52;
           v33 = 0x277CBE000uLL;
-          v56 = [v52 numberWithUnsignedInteger:v55];
+          v55 = [v51 numberWithUnsignedInteger:v54];
           *buf = 138412290;
-          *v72 = v56;
-          _os_log_impl(&dword_21B766000, v54, OS_LOG_TYPE_DEFAULT, "Recommend charge limit for %@", buf, 0xCu);
+          *v71 = v55;
+          _os_log_impl(&dword_21B766000, v53, OS_LOG_TYPE_DEFAULT, "Recommend charge limit for %@", buf, 0xCu);
         }
 
-        v57 = +[PowerUINotificationManager sharedInstance];
-        v58 = [v57 postChargeLimitRecommendationWithLimit:{-[PowerUISmartChargeManager getUISoCChargeLimit](v35, "getUISoCChargeLimit")}];
+        v56 = +[PowerUINotificationManager sharedInstance];
+        v57 = [v56 postChargeLimitRecommendationWithLimit:{-[PowerUISmartChargeManager getUISoCChargeLimit](v35, "getUISoCChargeLimit")}];
 
-        v59 = [*(v33 + 2728) now];
-        [(PowerUISmartChargeManager *)v35 setDate:v59 forPreferenceKey:@"chargeLimitRecommendationPostDate"];
+        v58 = [*(v33 + 2728) now];
+        [(PowerUISmartChargeManager *)v35 setDate:v58 forPreferenceKey:@"chargeLimitRecommendationPostDate"];
 
-        v60 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v35->_recommendedLimit];
-        [(PowerUISmartChargeManager *)v35 setNumber:v60 forPreferenceKey:@"chargeLimitRecommendationValue"];
+        v59 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v35->_recommendedLimit];
+        [(PowerUISmartChargeManager *)v35 setNumber:v59 forPreferenceKey:@"chargeLimitRecommendationValue"];
       }
     }
 
@@ -7932,20 +8427,18 @@ LABEL_50:
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    *v72 = v12;
+    *v71 = v12;
     _os_log_impl(&dword_21B766000, v13, OS_LOG_TYPE_DEFAULT, "Earliest charge session is only %lu days old", buf, 0xCu);
   }
 
   self->_recommendedLimit = 201;
   [PowerUISmartChargeUtilities setNumber:&unk_282D4E650 forPreferenceKey:@"ChargeLimitRecommendation" inDomain:self->_defaultsDomain];
 LABEL_61:
-
-  v50 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sendChargeLimitRecommendationAnalytics
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   v4 = dictionary;
   if (self->_manualChargeLimitStatus == 1)
@@ -8040,15 +8533,13 @@ LABEL_24:
   if (os_log_type_enabled(log, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v29 = v4;
+    v28 = v4;
     _os_log_impl(&dword_21B766000, log, OS_LOG_TYPE_DEFAULT, "Sending chargelimitrecommendation to CA: %@", buf, 0xCu);
   }
 
-  v27 = v4;
+  v26 = v4;
   v25 = v4;
   AnalyticsSendEventLazy();
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (void)powerStateChangedCallback
@@ -8078,7 +8569,7 @@ LABEL_24:
 
 - (void)evaluateIfDEoCDevice
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   [(NSLock *)self->_deocCurrentStatusLock lock];
   v3 = [PowerUISmartChargeUtilities readDictForPreferenceKey:@"CurrentDEoCStatus" inDomain:self->_defaultsDomain];
   [(NSLock *)self->_deocCurrentStatusLock unlock];
@@ -8093,9 +8584,9 @@ LABEL_24:
   {
     if (v9)
     {
-      v12 = 138412290;
-      v13 = v3;
-      _os_log_impl(&dword_21B766000, log, OS_LOG_TYPE_DEFAULT, "DEoC cached prediction is invalid, do not engage DEoC: %@", &v12, 0xCu);
+      v11 = 138412290;
+      v12 = v3;
+      _os_log_impl(&dword_21B766000, log, OS_LOG_TYPE_DEFAULT, "DEoC cached prediction is invalid, do not engage DEoC: %@", &v11, 0xCu);
     }
 
     goto LABEL_9;
@@ -8103,9 +8594,9 @@ LABEL_24:
 
   if (v9)
   {
-    v12 = 138412290;
-    v13 = v3;
-    _os_log_impl(&dword_21B766000, log, OS_LOG_TYPE_DEFAULT, "DEoC has a valid cached prediction: %@", &v12, 0xCu);
+    v11 = 138412290;
+    v12 = v3;
+    _os_log_impl(&dword_21B766000, log, OS_LOG_TYPE_DEFAULT, "DEoC has a valid cached prediction: %@", &v11, 0xCu);
   }
 
   if (![(PowerUISmartChargeManager *)self isDEoCSupported])
@@ -8119,26 +8610,23 @@ LABEL_9:
   self->_isDesktopDevice = [v10 BOOLValue];
 
 LABEL_10:
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)resetDeviceHasLegitimateUsage
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = self->_checkpoint || [(PowerUISmartChargeManager *)self deviceHasOverriddenLegitimateUsageDetection]|| [(PowerUISmartChargeManager *)self deviceHasEnoughPluggedInTime];
   self->__hasLegitimateUsage = v3;
   log = self->_log;
   if (os_log_type_enabled(log, OS_LOG_TYPE_DEFAULT))
   {
     hasLegitimateUsage = self->__hasLegitimateUsage;
-    v8[0] = 67109120;
-    v8[1] = hasLegitimateUsage;
-    _os_log_impl(&dword_21B766000, log, OS_LOG_TYPE_DEFAULT, "Legitimate Usage = %d", v8, 8u);
+    v6[0] = 67109120;
+    v6[1] = hasLegitimateUsage;
+    _os_log_impl(&dword_21B766000, log, OS_LOG_TYPE_DEFAULT, "Legitimate Usage = %d", v6, 8u);
   }
 
-  v6 = self->__hasLegitimateUsage;
   ADClientSetValueForScalarKey();
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)deviceHasOverriddenLegitimateUsageDetection
@@ -8205,31 +8693,31 @@ _BYTE *__56__PowerUISmartChargeManager_isDeviceWithLegitimateUsage__block_invoke
 
 - (id)computeSignalDeadline
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   distantFuture = [MEMORY[0x277CBEAA8] distantFuture];
   dictionary = [MEMORY[0x277CBEB38] dictionary];
+  v24 = 0u;
   v25 = 0u;
   v26 = 0u;
   v27 = 0u;
-  v28 = 0u;
   v4 = self->_monitors;
-  v5 = [(NSArray *)v4 countByEnumeratingWithState:&v25 objects:v33 count:16];
+  v5 = [(NSArray *)v4 countByEnumeratingWithState:&v24 objects:v32 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v26;
+    v7 = *v25;
     signalID = -1;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v26 != v7)
+        if (*v25 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v25 + 1) + 8 * i);
-        if (!self->_checkpoint || [*(*(&v25 + 1) + 8 * i) signalID] != 4)
+        v9 = *(*(&v24 + 1) + 8 * i);
+        if (!self->_checkpoint || [*(*(&v24 + 1) + 8 * i) signalID] != 4)
         {
           requiredFullChargeDate = [v9 requiredFullChargeDate];
           if (requiredFullChargeDate)
@@ -8238,9 +8726,9 @@ _BYTE *__56__PowerUISmartChargeManager_isDeviceWithLegitimateUsage__block_invoke
             if (os_log_type_enabled(log, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138412546;
-              v30 = v9;
-              v31 = 2112;
-              v32 = requiredFullChargeDate;
+              v29 = v9;
+              v30 = 2112;
+              v31 = requiredFullChargeDate;
               _os_log_impl(&dword_21B766000, log, OS_LOG_TYPE_DEFAULT, "Monitor %@ suggested %@", buf, 0x16u);
             }
 
@@ -8266,7 +8754,7 @@ _BYTE *__56__PowerUISmartChargeManager_isDeviceWithLegitimateUsage__block_invoke
         }
       }
 
-      v6 = [(NSArray *)v4 countByEnumeratingWithState:&v25 objects:v33 count:16];
+      v6 = [(NSArray *)v4 countByEnumeratingWithState:&v24 objects:v32 count:16];
     }
 
     while (v6);
@@ -8313,11 +8801,9 @@ _BYTE *__56__PowerUISmartChargeManager_isDeviceWithLegitimateUsage__block_invoke
   if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v30 = distantFuture;
+    v29 = distantFuture;
     _os_log_impl(&dword_21B766000, v20, OS_LOG_TYPE_DEFAULT, "Monitors suggested: %@", buf, 0xCu);
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 
   return dictionary;
 }
@@ -8524,9 +9010,36 @@ LABEL_11:
   }
 }
 
+- (id)ttrURLforBatteryLevel:(int)level withDate:(id)date
+{
+  v4 = *&level;
+  v19 = *MEMORY[0x277D85DE8];
+  v6 = MEMORY[0x277CCACA8];
+  v7 = MEMORY[0x277CCABB0];
+  dateCopy = date;
+  v9 = [v7 numberWithInt:v4];
+  v10 = [(PowerUISmartChargeManager *)self timeStringFromDate:dateCopy];
+
+  v11 = [v6 stringWithFormat:@"tap-to-radar://new?Title=Potential Optimized Battery Charging Failure (Unplugged at %@ percent)&Classification=Serious Bug&ComponentID=971083&ComponentName=PowerUI&ComponentVersion=all&Reproducible=Sometimes&Description=PLEASE ANSWER THESE QUESTIONS TO AID DEBUGGING:\n\n* Why did you unplug your device at %@?\n* Do you usually leave your device charged for a while at this time?\n* Is this your regular carry device?", v9, v10];
+
+  uRLQueryAllowedCharacterSet = [MEMORY[0x277CCA900] URLQueryAllowedCharacterSet];
+  v13 = [v11 stringByAddingPercentEncodingWithAllowedCharacters:uRLQueryAllowedCharacterSet];
+
+  v14 = [MEMORY[0x277CBEBC0] URLWithString:v13];
+  log = self->_log;
+  if (os_log_type_enabled(log, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 138412290;
+    v18 = v14;
+    _os_log_impl(&dword_21B766000, log, OS_LOG_TYPE_DEFAULT, "TTR URL is %@", buf, 0xCu);
+  }
+
+  return v14;
+}
+
 - (id)ttrURLforGenericFailure:(id)failure
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   failure = [MEMORY[0x277CCACA8] stringWithFormat:@"tap-to-radar://new?Title=Optimized Battery Charging Error of type: %@&Classification=Serious Bug&ComponentID=971083&ComponentName=PowerUI&ComponentVersion=all&Reproducible=Sometimes&Description=Could you please describe how you were (or are currently) charging your phone/watch?", failure];
   uRLQueryAllowedCharacterSet = [MEMORY[0x277CCA900] URLQueryAllowedCharacterSet];
   v6 = [failure stringByAddingPercentEncodingWithAllowedCharacters:uRLQueryAllowedCharacterSet];
@@ -8536,37 +9049,35 @@ LABEL_11:
   if (os_log_type_enabled(log, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v12 = v7;
+    v11 = v7;
     _os_log_impl(&dword_21B766000, log, OS_LOG_TYPE_DEFAULT, "TTR URL is %@", buf, 0xCu);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
 
 - (id)lastAcquiredLocation
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   v2 = self->_monitors;
-  lastAcquiredLocation = [(NSArray *)v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  lastAcquiredLocation = [(NSArray *)v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (lastAcquiredLocation)
   {
-    v4 = *v10;
+    v4 = *v9;
     while (2)
     {
       for (i = 0; i != lastAcquiredLocation; i = i + 1)
       {
-        if (*v10 != v4)
+        if (*v9 != v4)
         {
           objc_enumerationMutation(v2);
         }
 
-        v6 = *(*(&v9 + 1) + 8 * i);
+        v6 = *(*(&v8 + 1) + 8 * i);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -8575,7 +9086,7 @@ LABEL_11:
         }
       }
 
-      lastAcquiredLocation = [(NSArray *)v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      lastAcquiredLocation = [(NSArray *)v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
       if (lastAcquiredLocation)
       {
         continue;
@@ -8587,14 +9098,12 @@ LABEL_11:
 
 LABEL_11:
 
-  v7 = *MEMORY[0x277D85DE8];
-
   return lastAcquiredLocation;
 }
 
 - (void)engageManualChargeLimit
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   if ((_os_feature_enabled_impl() & 1) != 0 || _os_feature_enabled_impl())
   {
     if ([(PowerUISmartChargeManager *)self isExternalConnected]|| !self->_isChargePackConnected)
@@ -8611,13 +9120,11 @@ LABEL_11:
     if (os_log_type_enabled(log, OS_LOG_TYPE_DEFAULT))
     {
       mclTargetSoC = self->_mclTargetSoC;
-      v6[0] = 67109120;
-      v6[1] = mclTargetSoC;
-      _os_log_impl(&dword_21B766000, log, OS_LOG_TYPE_DEFAULT, "Limiting charging to %hhu%% SoC", v6, 8u);
+      v5[0] = 67109120;
+      v5[1] = mclTargetSoC;
+      _os_log_impl(&dword_21B766000, log, OS_LOG_TYPE_DEFAULT, "Limiting charging to %hhu%% SoC", v5, 8u);
     }
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)clearAllNotificationState
@@ -8627,6 +9134,31 @@ LABEL_11:
 
   v3 = +[PowerUINotificationManager sharedInstance];
   [v3 resetAll];
+}
+
+- (id)smartTopOffFailureNotificationAtBatteryLevel:(int)level withDate:(id)date
+{
+  v4 = *&level;
+  v6 = MEMORY[0x277CE1F60];
+  dateCopy = date;
+  v8 = objc_alloc_init(v6);
+  v9 = [objc_alloc(MEMORY[0x277CBEBC0]) initFileURLWithPath:@"/System/Library/PrivateFrameworks/PowerUI.framework"];
+  v10 = [MEMORY[0x277CCA8D8] bundleWithURL:v9];
+  v11 = [v10 localizedStringForKey:@"OBC_FEATURE_TITLE" value:&stru_282D0B728 table:@"Localizable"];
+  [v8 setTitle:v11];
+
+  [v8 setBody:@"Potential charging issue detected. Please file a radar by tapping on the notification."];
+  [v8 setShouldIgnoreDoNotDisturb:1];
+  v12 = [(PowerUISmartChargeManager *)self ttrURLforBatteryLevel:v4 withDate:dateCopy];
+
+  [v8 setDefaultActionURL:v12];
+  v13 = MEMORY[0x277CE1FC0];
+  v14 = MEMORY[0x277CCACA8];
+  date = [MEMORY[0x277CBEAA8] date];
+  v16 = [v14 stringWithFormat:@"chargingRequest-%@", date];
+  v17 = [v13 requestWithIdentifier:v16 content:v8 trigger:0];
+
+  return v17;
 }
 
 - (id)genericOBCFailureNotification:(id)notification
@@ -8708,7 +9240,7 @@ LABEL_11:
 
 void __69__PowerUISmartChargeManager_monitor_maySuggestNewFullChargeDeadline___block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   if ((v2[15] - 2) <= 2)
   {
@@ -8725,11 +9257,11 @@ void __69__PowerUISmartChargeManager_monitor_maySuggestNewFullChargeDeadline___b
       {
         v10 = *(a1 + 40);
         v9 = *(a1 + 48);
-        v16 = 138412546;
-        v17 = v9;
-        v18 = 2112;
-        v19 = v10;
-        _os_log_impl(&dword_21B766000, v7, OS_LOG_TYPE_DEFAULT, "Monitor %@ with new data (%@). Recomputing full charge deadline", &v16, 0x16u);
+        v15 = 138412546;
+        v16 = v9;
+        v17 = 2112;
+        v18 = v10;
+        _os_log_impl(&dword_21B766000, v7, OS_LOG_TYPE_DEFAULT, "Monitor %@ with new data (%@). Recomputing full charge deadline", &v15, 0x16u);
       }
 
       v11 = *(a1 + 32);
@@ -8743,32 +9275,28 @@ void __69__PowerUISmartChargeManager_monitor_maySuggestNewFullChargeDeadline___b
     {
       v14 = *(a1 + 40);
       v13 = *(a1 + 48);
-      v16 = 138412546;
-      v17 = v13;
-      v18 = 2112;
-      v19 = v14;
-      _os_log_impl(&dword_21B766000, v7, OS_LOG_TYPE_DEFAULT, "Monitor %@ with new data (%@). Not recomputing as it is later than target date.", &v16, 0x16u);
+      v15 = 138412546;
+      v16 = v13;
+      v17 = 2112;
+      v18 = v14;
+      _os_log_impl(&dword_21B766000, v7, OS_LOG_TYPE_DEFAULT, "Monitor %@ with new data (%@). Not recomputing as it is later than target date.", &v15, 0x16u);
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)monitorMayInvalidateDEoCCache:(id)cache
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   cacheCopy = cache;
   log = self->_log;
   if (os_log_type_enabled(log, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
-    v8 = cacheCopy;
-    _os_log_impl(&dword_21B766000, log, OS_LOG_TYPE_DEFAULT, "Monitor %@ forced DEoC re-caching", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = cacheCopy;
+    _os_log_impl(&dword_21B766000, log, OS_LOG_TYPE_DEFAULT, "Monitor %@ forced DEoC re-caching", &v6, 0xCu);
   }
 
   [(PowerUISmartChargeManager *)self forceDEoCReevaluation];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleNotificationResponse:(id)response
@@ -8997,34 +9525,34 @@ void __59__PowerUISmartChargeManager_readAndRemoveRecentEngagements__block_invok
 
 - (void)statusWithHandler:(id)handler
 {
-  v94[2] = *MEMORY[0x277D85DE8];
+  v93[2] = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
-  v81 = CFPreferencesCopyAppValue(@"timeline", self->_defaultsDomain);
-  v75 = CFPreferencesCopyAppValue(@"timeline.archive", self->_defaultsDomain);
+  v80 = CFPreferencesCopyAppValue(@"timeline", self->_defaultsDomain);
+  v74 = CFPreferencesCopyAppValue(@"timeline.archive", self->_defaultsDomain);
   v4 = [(PowerUISmartChargeManager *)self eligibleEngagementIntervalFromTimelineEvents:?];
-  v80 = [(PowerUISmartChargeManager *)self readNumberForPreferenceKey:@"lastEnabled"];
-  v79 = [(PowerUISmartChargeManager *)self readNumberForPreferenceKey:@"lastSavedSeconds"];
+  v79 = [(PowerUISmartChargeManager *)self readNumberForPreferenceKey:@"lastEnabled"];
+  v78 = [(PowerUISmartChargeManager *)self readNumberForPreferenceKey:@"lastSavedSeconds"];
   v5 = MEMORY[0x277CCABB0];
   v6 = [(PowerUISmartChargeManager *)self readNumberForPreferenceKey:@"totalTimeSaved"];
   [v6 doubleValue];
-  v78 = [v5 numberWithDouble:v7 / 3600.0];
+  v77 = [v5 numberWithDouble:v7 / 3600.0];
 
   dictionary = [MEMORY[0x277CBEB38] dictionary];
-  v77 = v4;
+  v76 = v4;
   if (self->_predictorType == 2)
   {
     v8 = [PowerUISmartChargeUtilities currentBatteryLevelWithContext:self->_context];
     date = [MEMORY[0x277CBEAA8] date];
     modelTwoStagePredictor = self->_modelTwoStagePredictor;
-    v83 = date;
+    v82 = date;
     if (self->_lastPluginStatus < 1)
     {
       v36 = 1;
       [(PowerUIMLTwoStageModelPredictor *)modelTwoStagePredictor adjustedChargingDecision:v8 withPluginDate:date withPluginBatteryLevel:date forDate:1 forStatus:v8];
       pluginDate = [date dateByAddingTimeInterval:?];
-      v91[0] = date;
-      v91[1] = pluginDate;
-      v37 = [MEMORY[0x277CBEA60] arrayWithObjects:v91 count:2];
+      v90[0] = date;
+      v90[1] = pluginDate;
+      v37 = [MEMORY[0x277CBEA60] arrayWithObjects:v90 count:2];
       [dictionary setObject:v37 forKeyedSubscript:@"CurrentPluginPrediction"];
 
       v38 = 0;
@@ -9051,9 +9579,9 @@ void __59__PowerUISmartChargeManager_readAndRemoveRecentEngagements__block_invok
 
         if ((v38 & 1) == 0 && v46 > 3600.0)
         {
-          v90[0] = v42;
-          v90[1] = pluginDate;
-          v47 = [MEMORY[0x277CBEA60] arrayWithObjects:v90 count:2];
+          v89[0] = v42;
+          v89[1] = pluginDate;
+          v47 = [MEMORY[0x277CBEA60] arrayWithObjects:v89 count:2];
           [dictionary setObject:v47 forKeyedSubscript:@"NextPluginPrediction"];
 
           v38 = 1;
@@ -9063,15 +9591,15 @@ void __59__PowerUISmartChargeManager_readAndRemoveRecentEngagements__block_invok
         v49 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v36];
         v50 = [v48 stringWithFormat:@"PluginPredictionIn%@Hours", v49];
 
-        v89[0] = v42;
-        v89[1] = pluginDate;
-        v51 = [MEMORY[0x277CBEA60] arrayWithObjects:v89 count:2];
+        v88[0] = v42;
+        v88[1] = pluginDate;
+        v51 = [MEMORY[0x277CBEA60] arrayWithObjects:v88 count:2];
         [dictionary setObject:v51 forKeyedSubscript:v50];
 
         ++v36;
         v39 -= 5;
         v40 += 3600;
-        date = v83;
+        date = v82;
       }
 
       while (v36 != 24);
@@ -9087,9 +9615,9 @@ void __59__PowerUISmartChargeManager_readAndRemoveRecentEngagements__block_invok
       v15 = 1;
       [(PowerUIMLTwoStageModelPredictor *)v12 adjustedChargingDecision:v14 withPluginDate:pluginDate withPluginBatteryLevel:pluginDate forDate:1 forStatus:?];
       v16 = [pluginDate dateByAddingTimeInterval:?];
-      v94[0] = pluginDate;
-      v94[1] = v16;
-      v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v94 count:2];
+      v93[0] = pluginDate;
+      v93[1] = v16;
+      v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v93 count:2];
       [dictionary setObject:v17 forKeyedSubscript:@"PluginPredictionAtPlugin"];
 
       v18 = self->_modelTwoStagePredictor;
@@ -9101,9 +9629,9 @@ void __59__PowerUISmartChargeManager_readAndRemoveRecentEngagements__block_invok
 
       v24 = [pluginDate dateByAddingTimeInterval:v23];
 
-      v93[0] = pluginDate;
-      v93[1] = v24;
-      v25 = [MEMORY[0x277CBEA60] arrayWithObjects:v93 count:2];
+      v92[0] = pluginDate;
+      v92[1] = v24;
+      v25 = [MEMORY[0x277CBEA60] arrayWithObjects:v92 count:2];
       [dictionary setObject:v25 forKeyedSubscript:@"CurrentPluginPrediction"];
 
       v26 = v8 - 5;
@@ -9130,12 +9658,12 @@ void __59__PowerUISmartChargeManager_readAndRemoveRecentEngagements__block_invok
         v33 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v15];
         v34 = [v32 stringWithFormat:@"PluginPredictionIn%@Hours", v33];
 
-        v92[0] = v29;
-        v92[1] = v24;
-        v35 = [MEMORY[0x277CBEA60] arrayWithObjects:v92 count:2];
+        v91[0] = v29;
+        v91[1] = v24;
+        v35 = [MEMORY[0x277CBEA60] arrayWithObjects:v91 count:2];
         [dictionary setObject:v35 forKeyedSubscript:v34];
 
-        date = v83;
+        date = v82;
         ++v15;
         v26 -= 5;
         v27 += 3600;
@@ -9144,53 +9672,53 @@ void __59__PowerUISmartChargeManager_readAndRemoveRecentEngagements__block_invok
       while (v15 != 24);
     }
 
-    v4 = v77;
+    v4 = v76;
   }
 
   v52 = [(PowerUISmartChargeManager *)self stringFromDecisionMaker:self->_previousDecisionMakerID decisionDate:self->_previousDecisionMakerDate];
   recentEngagements = [(PowerUISmartChargeManager *)self recentEngagements];
-  v87[0] = @"Enabled";
+  v86[0] = @"Enabled";
   v54 = [MEMORY[0x277CCABB0] numberWithBool:self->_enabled];
-  v88[0] = v54;
-  v87[1] = @"TemporarilyDisabled";
+  v87[0] = v54;
+  v86[1] = @"TemporarilyDisabled";
   v55 = [MEMORY[0x277CCABB0] numberWithBool:self->_temporarilyDisabled];
-  v88[1] = v55;
-  v87[2] = @"CurrentState";
+  v87[1] = v55;
+  v86[2] = @"CurrentState";
   v56 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:self->_currentState];
-  v88[2] = v56;
-  v87[3] = @"Checkpoint";
+  v87[2] = v56;
+  v86[3] = @"Checkpoint";
   v57 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:self->_checkpoint];
   v58 = v57;
   v59 = MEMORY[0x277CBEBF8];
-  if (v81)
+  if (v80)
   {
-    v59 = v81;
+    v59 = v80;
   }
 
-  v88[3] = v57;
-  v88[4] = v59;
-  v87[4] = @"Timeline";
-  v87[5] = @"LastEnabled";
+  v87[3] = v57;
+  v87[4] = v59;
+  v86[4] = @"Timeline";
+  v86[5] = @"LastEnabled";
   v60 = &unk_282D4E5C0;
-  v62 = v79;
-  v61 = v80;
-  if (!v80)
+  v62 = v78;
+  v61 = v79;
+  if (!v79)
   {
     v61 = &unk_282D4E5C0;
   }
 
-  if (!v79)
+  if (!v78)
   {
     v62 = &unk_282D4E5C0;
   }
 
-  v88[5] = v61;
-  v88[6] = v62;
-  v87[6] = @"LastSavedSeconds";
-  v87[7] = @"TotalHoursSaved";
-  if (v78)
+  v87[5] = v61;
+  v87[6] = v62;
+  v86[6] = @"LastSavedSeconds";
+  v86[7] = @"TotalHoursSaved";
+  if (v77)
   {
-    v60 = v78;
+    v60 = v77;
   }
 
   v63 = MEMORY[0x277CBEC10];
@@ -9199,19 +9727,19 @@ void __59__PowerUISmartChargeManager_readAndRemoveRecentEngagements__block_invok
     v63 = recentEngagements;
   }
 
-  v88[7] = v60;
-  v88[8] = v63;
-  v87[8] = @"RecentEngagements";
-  v87[9] = @"PreviousDecisionMaker";
+  v87[7] = v60;
+  v87[8] = v63;
+  v86[8] = @"RecentEngagements";
+  v86[9] = @"PreviousDecisionMaker";
   v64 = &stru_282D0B728;
-  v84 = v52;
+  v83 = v52;
   if (v52)
   {
     v64 = v52;
   }
 
-  v88[9] = v64;
-  v87[10] = @"LastEligibleStart";
+  v87[9] = v64;
+  v86[10] = @"LastEligibleStart";
   startDate = [v4 startDate];
   distantFuture = startDate;
   if (!startDate)
@@ -9219,13 +9747,13 @@ void __59__PowerUISmartChargeManager_readAndRemoveRecentEngagements__block_invok
     distantFuture = [MEMORY[0x277CBEAA8] distantFuture];
   }
 
-  v88[10] = distantFuture;
-  v87[11] = @"LastEligibleDuration";
+  v87[10] = distantFuture;
+  v86[11] = @"LastEligibleDuration";
   v67 = MEMORY[0x277CCABB0];
   [v4 duration];
   v68 = [v67 numberWithDouble:?];
-  v88[11] = v68;
-  v69 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v88 forKeys:v87 count:12];
+  v87[11] = v68;
+  v69 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v87 forKeys:v86 count:12];
 
   if (!startDate)
   {
@@ -9242,13 +9770,11 @@ void __59__PowerUISmartChargeManager_readAndRemoveRecentEngagements__block_invok
   if (os_log_type_enabled(log, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v86 = v72;
+    v85 = v72;
     _os_log_impl(&dword_21B766000, log, OS_LOG_TYPE_DEFAULT, "Status Requested: %@", buf, 0xCu);
   }
 
   handlerCopy[2](handlerCopy, v72);
-
-  v74 = *MEMORY[0x277D85DE8];
 }
 
 - (void)powerLogStatusWithHandler:(id)handler
@@ -9262,7 +9788,7 @@ void __59__PowerUISmartChargeManager_readAndRemoveRecentEngagements__block_invok
 
 - (void)legacy_isOBCEngagedWithHandler:(id)handler
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   context = self->_context;
   handlerCopy = handler;
   v6 = [PowerUISmartChargeUtilities isPluggedInWithContext:context];
@@ -9273,44 +9799,42 @@ void __59__PowerUISmartChargeManager_readAndRemoveRecentEngagements__block_invok
   if (os_log_type_enabled(log, OS_LOG_TYPE_DEFAULT))
   {
     isDesktopDevice = self->_isDesktopDevice;
-    v13[0] = 67109632;
-    v13[1] = v8;
-    v14 = 1024;
-    v15 = isDesktopDevice;
-    v16 = 1024;
-    v17 = v9;
-    _os_log_impl(&dword_21B766000, log, OS_LOG_TYPE_DEFAULT, "Returning currently engaged state: %u, desktop device: %u, chargingOverrideAllowed: %u", v13, 0x14u);
+    v12[0] = 67109632;
+    v12[1] = v8;
+    v13 = 1024;
+    v14 = isDesktopDevice;
+    v15 = 1024;
+    v16 = v9;
+    _os_log_impl(&dword_21B766000, log, OS_LOG_TYPE_DEFAULT, "Returning currently engaged state: %u, desktop device: %u, chargingOverrideAllowed: %u", v12, 0x14u);
   }
 
   handlerCopy[2](handlerCopy, v8, self->_isDesktopDevice, v9, 0);
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (id)getCurrentSystemChargeLimit
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v2 = IOPSCopyBatteryLevelLimits();
-  v3 = [v2 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v14;
+    v5 = *v13;
     while (2)
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v14 != v5)
+        if (*v13 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v13 + 1) + 8 * i);
-        v8 = [v7 objectForKeyedSubscript:{@"chargeSocLimitOwner", v13}];
+        v7 = *(*(&v12 + 1) + 8 * i);
+        v8 = [v7 objectForKeyedSubscript:{@"chargeSocLimitOwner", v12}];
         v9 = v8;
         if (v8 && ![v8 intValue])
         {
@@ -9320,7 +9844,7 @@ void __59__PowerUISmartChargeManager_readAndRemoveRecentEngagements__block_invok
         }
       }
 
-      v4 = [v2 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
       if (v4)
       {
         continue;
@@ -9333,14 +9857,12 @@ void __59__PowerUISmartChargeManager_readAndRemoveRecentEngagements__block_invok
   v10 = 0;
 LABEL_12:
 
-  v11 = *MEMORY[0x277D85DE8];
-
   return v10;
 }
 
 - (void)smartChargingUIStateWithHandler:(id)handler
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   v5 = [PowerUISmartChargeUtilities currentBatteryLevelWithContext:self->_context];
   v6 = [PowerUISmartChargeUtilities isPluggedInWithContext:self->_context];
@@ -9405,49 +9927,48 @@ LABEL_13:
   }
 
   getCurrentSystemChargeLimit = [(PowerUISmartChargeManager *)self getCurrentSystemChargeLimit];
-  v15 = getCurrentSystemChargeLimit;
+  v14 = getCurrentSystemChargeLimit;
   if (getCurrentSystemChargeLimit)
   {
-    v16 = [getCurrentSystemChargeLimit objectForKeyedSubscript:@"chargeSocLimitDrain"];
-    bOOLValue = [v16 BOOLValue];
+    v15 = [getCurrentSystemChargeLimit objectForKeyedSubscript:@"chargeSocLimitDrain"];
+    bOOLValue = [v15 BOOLValue];
 
-    v17 = [v15 objectForKeyedSubscript:@"chargeSocLimitSoc"];
-    intValue = [v17 intValue];
+    v16 = [v14 objectForKeyedSubscript:@"chargeSocLimitSoc"];
+    intValue = [v16 intValue];
 
-    v19 = intValue;
-    v20 = bOOLValue;
+    v18 = intValue;
+    v19 = bOOLValue;
   }
 
   else
   {
-    v20 = 0;
-    v19 = 100;
+    v19 = 0;
+    v18 = 100;
   }
 
-  v21 = [PowerUISmartChargeUtilities deviceConnectedToWirelessChargerWithContext:self->_context];
-  isDesktopDevice = self->_isDesktopDevice;
-  if ((v20 & 1) != 0 || v21)
+  v20 = [PowerUISmartChargeUtilities deviceConnectedToWirelessChargerWithContext:self->_context];
+  if ((v19 & 1) != 0 || v20)
   {
-    v23 = 7;
+    v21 = 7;
     if (v5 > 80)
     {
-      v23 = 8;
+      v21 = 8;
     }
 
-    v24 = 11;
-    if (v5 > v19)
+    v22 = 11;
+    if (v5 > v18)
     {
-      v24 = 12;
+      v22 = 12;
     }
 
     if (self->_isDesktopDevice)
     {
-      v10 = v24;
+      v10 = v22;
     }
 
     else
     {
-      v10 = v23;
+      v10 = v21;
     }
   }
 
@@ -9467,22 +9988,20 @@ LABEL_14:
   if (os_log_type_enabled(log, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134218496;
-    v27 = v10;
-    v28 = 2048;
-    v29 = currentChargeLimit;
-    v30 = 1024;
-    v31 = v11;
+    v25 = v10;
+    v26 = 2048;
+    v27 = currentChargeLimit;
+    v28 = 1024;
+    v29 = v11;
     _os_log_impl(&dword_21B766000, log, OS_LOG_TYPE_DEFAULT, "Returning currently desired UI state: %lu, charge limit: %lu, chargingOverrideAllowed: %u", buf, 0x1Cu);
   }
 
   handlerCopy[2](handlerCopy, v10, currentChargeLimit, v11, 0);
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)isSmartChargingCurrentlyEnabledWithHandler:(id)handler
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   log = self->_log;
   if (os_log_type_enabled(log, OS_LOG_TYPE_DEFAULT))
@@ -9491,14 +10010,12 @@ LABEL_14:
     currentState = self->_currentState;
     v8 = log;
     v9 = [v6 numberWithUnsignedInteger:currentState];
-    v11 = 138412290;
-    v12 = v9;
-    _os_log_impl(&dword_21B766000, v8, OS_LOG_TYPE_DEFAULT, "Returning current state: %@", &v11, 0xCu);
+    v10 = 138412290;
+    v11 = v9;
+    _os_log_impl(&dword_21B766000, v8, OS_LOG_TYPE_DEFAULT, "Returning current state: %@", &v10, 0xCu);
   }
 
   handlerCopy[2](handlerCopy, self->_currentState, 0);
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)fullChargeDeadlineWithHandler:(id)handler
@@ -9542,7 +10059,7 @@ LABEL_14:
 
 - (void)client:(id)client setState:(unint64_t)state withHandler:(id)handler
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   clientCopy = client;
   handlerCopy = handler;
   if (state == 1 && !+[PowerUISmartChargeUtilities isOBCSupported])
@@ -9564,25 +10081,23 @@ LABEL_14:
       v12 = log;
       v13 = [(PowerUISmartChargeManager *)self stringFromState:state];
       *buf = 138412546;
-      v22 = clientCopy;
-      v23 = 2112;
-      v24 = v13;
+      v21 = clientCopy;
+      v22 = 2112;
+      v23 = v13;
       _os_log_impl(&dword_21B766000, v12, OS_LOG_TYPE_DEFAULT, "%@ requests state: %@", buf, 0x16u);
     }
 
     queue = self->_queue;
-    v17[0] = MEMORY[0x277D85DD0];
-    v17[1] = 3221225472;
-    v17[2] = __57__PowerUISmartChargeManager_client_setState_withHandler___block_invoke;
-    v17[3] = &unk_2782D4E20;
+    v16[0] = MEMORY[0x277D85DD0];
+    v16[1] = 3221225472;
+    v16[2] = __57__PowerUISmartChargeManager_client_setState_withHandler___block_invoke;
+    v16[3] = &unk_2782D4E20;
     stateCopy = state;
-    v20 = a2;
-    v17[4] = self;
-    v18 = handlerCopy;
-    dispatch_async(queue, v17);
+    v19 = a2;
+    v16[4] = self;
+    v17 = handlerCopy;
+    dispatch_async(queue, v16);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __57__PowerUISmartChargeManager_client_setState_withHandler___block_invoke(uint64_t a1)
@@ -9724,42 +10239,38 @@ LABEL_16:
 
 id __57__PowerUISmartChargeManager_client_setState_withHandler___block_invoke_2(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = +[PowerUISmartChargeUtilities recentEngagementHistory];
   v3 = [v2 mutableCopy];
   [v3 setObject:@"Disabled" forKeyedSubscript:@"DisableType"];
   v4 = *(*(a1 + 32) + 96);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138412290;
-    v9 = v3;
-    _os_log_impl(&dword_21B766000, v4, OS_LOG_TYPE_DEFAULT, "After disablement, reporting %@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = v3;
+    _os_log_impl(&dword_21B766000, v4, OS_LOG_TYPE_DEFAULT, "After disablement, reporting %@", &v7, 0xCu);
   }
 
   v5 = [v3 copy];
-
-  v6 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
 
 id __57__PowerUISmartChargeManager_client_setState_withHandler___block_invoke_1952(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = +[PowerUISmartChargeUtilities recentEngagementHistory];
   v3 = [v2 mutableCopy];
   [v3 setObject:@"TemporaryDisabled" forKeyedSubscript:@"DisableType"];
   v4 = *(*(a1 + 32) + 96);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138412290;
-    v9 = v3;
-    _os_log_impl(&dword_21B766000, v4, OS_LOG_TYPE_DEFAULT, "After disablement, reporting %@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = v3;
+    _os_log_impl(&dword_21B766000, v4, OS_LOG_TYPE_DEFAULT, "After disablement, reporting %@", &v7, 0xCu);
   }
 
   v5 = [v3 copy];
-
-  v6 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -9806,17 +10317,77 @@ id __57__PowerUISmartChargeManager_client_setState_withHandler___block_invoke_19
   return v3 & 1;
 }
 
-- (void)client:(id)client getMCLLimitWithHandler:(id)handler
+- (void)client:(id)client setMCLLimit:(unsigned __int8)limit withHandler:(id)handler
 {
-  v13 = *MEMORY[0x277D85DE8];
+  limitCopy = limit;
+  v23 = *MEMORY[0x277D85DE8];
   clientCopy = client;
   handlerCopy = handler;
   log = self->_log;
   if (os_log_type_enabled(log, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 138412290;
-    v12 = clientCopy;
-    _os_log_impl(&dword_21B766000, log, OS_LOG_TYPE_DEFAULT, "Client %@ queries MCL limit", &v11, 0xCu);
+    v11 = MEMORY[0x277CCABB0];
+    v12 = log;
+    v13 = [v11 numberWithUnsignedChar:limitCopy];
+    v19 = 138412546;
+    v20 = clientCopy;
+    v21 = 2112;
+    v22 = v13;
+    _os_log_impl(&dword_21B766000, v12, OS_LOG_TYPE_DEFAULT, "Client %@ requests MCL limit: %@", &v19, 0x16u);
+  }
+
+  if (![(PowerUISmartChargeManager *)self isMCLSupported])
+  {
+    v16 = self->_log;
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    {
+      [PowerUISmartChargeManager client:clientCopy setMCLLimit:v16 withHandler:limitCopy];
+    }
+
+    goto LABEL_12;
+  }
+
+  if ((limitCopy - 80) > 0x14)
+  {
+    v17 = self->_log;
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    {
+      [PowerUISmartChargeManager client:clientCopy setMCLLimit:v17 withHandler:limitCopy];
+    }
+
+LABEL_12:
+    v18 = [MEMORY[0x277CCA9B8] errorWithDomain:@"PowerUISmartChargingErrorDomain" code:4 userInfo:0];
+    handlerCopy[2](handlerCopy, 0, v18);
+
+    goto LABEL_13;
+  }
+
+  if (!self->_manualChargeLimitWasEverEnabled)
+  {
+    self->_manualChargeLimitWasEverEnabled = 1;
+    v14 = [MEMORY[0x277CBEAA8] now];
+    [(PowerUISmartChargeManager *)self setDate:v14 forPreferenceKey:@"initialChargeLimitSetDate"];
+  }
+
+  [(PowerUISmartChargeManager *)self setMCLLimit:limitCopy];
+  v15 = [MEMORY[0x277CBEAA8] now];
+  [(PowerUISmartChargeManager *)self setDate:v15 forPreferenceKey:@"mostRecentChargeLimitSetDate"];
+
+  handlerCopy[2](handlerCopy, 1, 0);
+LABEL_13:
+}
+
+- (void)client:(id)client getMCLLimitWithHandler:(id)handler
+{
+  v12 = *MEMORY[0x277D85DE8];
+  clientCopy = client;
+  handlerCopy = handler;
+  log = self->_log;
+  if (os_log_type_enabled(log, OS_LOG_TYPE_DEFAULT))
+  {
+    v10 = 138412290;
+    v11 = clientCopy;
+    _os_log_impl(&dword_21B766000, log, OS_LOG_TYPE_DEFAULT, "Client %@ queries MCL limit", &v10, 0xCu);
   }
 
   if ([(PowerUISmartChargeManager *)self isMCLSupported])
@@ -9838,21 +10409,19 @@ id __57__PowerUISmartChargeManager_client_setState_withHandler___block_invoke_19
     v9 = [MEMORY[0x277CCA9B8] errorWithDomain:@"PowerUISmartChargingErrorDomain" code:4 userInfo:0];
     (*(handlerCopy + 2))(handlerCopy, 0, v9);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)tmpDisableMCLViaClient:(id)client withHandler:(id)handler
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   clientCopy = client;
   handlerCopy = handler;
   log = self->_log;
   if (os_log_type_enabled(log, OS_LOG_TYPE_DEFAULT))
   {
-    v13 = 138412290;
-    v14 = clientCopy;
-    _os_log_impl(&dword_21B766000, log, OS_LOG_TYPE_DEFAULT, "Client %@ requests MCL tmp disablement", &v13, 0xCu);
+    v12 = 138412290;
+    v13 = clientCopy;
+    _os_log_impl(&dword_21B766000, log, OS_LOG_TYPE_DEFAULT, "Client %@ requests MCL tmp disablement", &v12, 0xCu);
   }
 
   if (![(PowerUISmartChargeManager *)self isMCLSupported])
@@ -9886,8 +10455,6 @@ LABEL_12:
   [(PowerUISmartChargeManager *)self tempDisableMCL];
   handlerCopy[2](handlerCopy, 1, 0);
 LABEL_13:
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (unsigned)getUISoCChargeLimit
@@ -9899,6 +10466,60 @@ LABEL_13:
   }
 
   return recommendedLimit;
+}
+
+- (void)setMCLLimit:(unsigned __int8)limit
+{
+  limitCopy = limit;
+  v13 = *MEMORY[0x277D85DE8];
+  if (self->_mclTargetSoC == limit && self->_manualChargeLimitStatus != 2)
+  {
+    log = self->_log;
+    if (os_log_type_enabled(log, OS_LOG_TYPE_DEBUG))
+    {
+      [(PowerUISmartChargeManager *)limitCopy setMCLLimit:?];
+    }
+  }
+
+  else
+  {
+    self->_mclTargetSoC = limit;
+    v5 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:limit];
+    [(PowerUISmartChargeManager *)self setNumber:v5 forPreferenceKey:@"mclLimitValue"];
+
+    if (limitCopy == 100)
+    {
+      [(PowerUISmartChargeManager *)self disableMCL];
+      v6 = self->_log;
+      if (!os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      {
+        return;
+      }
+
+      LOWORD(v12[0]) = 0;
+      v7 = "Charge limit was disabled";
+      v8 = v6;
+      v9 = 2;
+    }
+
+    else
+    {
+      [(PowerUISmartChargeManager *)self enableMCL];
+      v10 = self->_log;
+      if (!os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      {
+        return;
+      }
+
+      v12[0] = 67109120;
+      v12[1] = limitCopy;
+      v7 = "Charge limit was set to: %hhu";
+      v8 = v10;
+      v9 = 8;
+    }
+
+    _os_log_impl(&dword_21B766000, v8, OS_LOG_TYPE_DEFAULT, v7, v12, v9);
+  }
 }
 
 - (void)enableMCL
@@ -9970,7 +10591,7 @@ uint64_t __38__PowerUISmartChargeManager_enableMCL__block_invoke(uint64_t a1)
 
 uint64_t __43__PowerUISmartChargeManager_tempDisableMCL__block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   [*(*(a1 + 32) + 424) submitEngagementEventWithBatteryLevel:0 targetSoC:0 predictedEndOfCharge:0 modeOfOperation:6 eventType:3];
   if ([PowerUISmartChargeUtilities isPluggedInWithContext:*(*(a1 + 32) + 48)])
   {
@@ -9992,20 +10613,18 @@ uint64_t __43__PowerUISmartChargeManager_tempDisableMCL__block_invoke(uint64_t a
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = *(*(a1 + 32) + 520);
-    v11 = 138412290;
-    v12 = v8;
-    _os_log_impl(&dword_21B766000, v7, OS_LOG_TYPE_DEFAULT, "MCL has been temp disabled until %@", &v11, 0xCu);
+    v10 = 138412290;
+    v11 = v8;
+    _os_log_impl(&dword_21B766000, v7, OS_LOG_TYPE_DEFAULT, "MCL has been temp disabled until %@", &v10, 0xCu);
   }
 
-  result = notify_post([@"com.apple.powerui.mclstatuschanged" UTF8String]);
-  v10 = *MEMORY[0x277D85DE8];
-  return result;
+  return notify_post([@"com.apple.powerui.mclstatuschanged" UTF8String]);
 }
 
 - (void)checkWhetherMCLTempDisablementCanBeClearedOnPlugin:(BOOL)plugin
 {
   pluginCopy = plugin;
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v5 = [PowerUISmartChargeUtilities isPluggedInWithContext:self->_context];
   mclDisabledUntilDate = self->_mclDisabledUntilDate;
   v7 = !v5 || pluginCopy;
@@ -10031,7 +10650,7 @@ uint64_t __43__PowerUISmartChargeManager_tempDisableMCL__block_invoke(uint64_t a
       {
         v14 = self->_mclDisabledUntilDate;
         *buf = 138412290;
-        v19 = v14;
+        v18 = v14;
         _os_log_impl(&dword_21B766000, log, OS_LOG_TYPE_DEFAULT, "MCL temp disablement date of %@ has passed, reenable feature", buf, 0xCu);
       }
 
@@ -10048,12 +10667,10 @@ uint64_t __43__PowerUISmartChargeManager_tempDisableMCL__block_invoke(uint64_t a
     {
       v13 = self->_mclDisabledUntilDate;
       *buf = 138412290;
-      v19 = v13;
+      v18 = v13;
       _os_log_impl(&dword_21B766000, log, OS_LOG_TYPE_DEFAULT, "MCL temp disablement date of %@ still upcoming", buf, 0xCu);
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __80__PowerUISmartChargeManager_checkWhetherMCLTempDisablementCanBeClearedOnPlugin___block_invoke(uint64_t a1)
@@ -10068,13 +10685,12 @@ uint64_t __80__PowerUISmartChargeManager_checkWhetherMCLTempDisablementCanBeClea
 {
   handlerCopy = handler;
   [(PowerUISmartChargeManager *)self checkWhetherMCLTempDisablementCanBeClearedOnPlugin:0];
-  self->_manualChargeLimitStatus;
   handlerCopy[2]();
 }
 
 - (unint64_t)currentChargeLimit
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CBEAA8] now];
   [(NSLock *)self->_deocCurrentStatusLock lock];
   date = [MEMORY[0x277CBEAA8] date];
@@ -10090,9 +10706,9 @@ uint64_t __80__PowerUISmartChargeManager_checkWhetherMCLTempDisablementCanBeClea
     log = self->_log;
     if (os_log_type_enabled(log, OS_LOG_TYPE_DEFAULT))
     {
-      v21 = 134217984;
-      v22 = 100;
-      _os_log_impl(&dword_21B766000, log, OS_LOG_TYPE_DEFAULT, "Cached DEoC state nonexistent. Committed to charge limit: %lu", &v21, 0xCu);
+      v20 = 134217984;
+      v21 = 100;
+      _os_log_impl(&dword_21B766000, log, OS_LOG_TYPE_DEFAULT, "Cached DEoC state nonexistent. Committed to charge limit: %lu", &v20, 0xCu);
     }
 
     [v9 setObject:MEMORY[0x277CBEC28] forKeyedSubscript:@"limitCharge"];
@@ -10109,9 +10725,9 @@ uint64_t __80__PowerUISmartChargeManager_checkWhetherMCLTempDisablementCanBeClea
   {
     v11 = v10;
     [v3 timeIntervalSinceNow];
-    v21 = 134217984;
-    *&v22 = v12 * -1000.0;
-    _os_log_impl(&dword_21B766000, v11, OS_LOG_TYPE_DEFAULT, "Elapsed time for currentChargeLimit: %f ms", &v21, 0xCu);
+    v20 = 134217984;
+    *&v21 = v12 * -1000.0;
+    _os_log_impl(&dword_21B766000, v11, OS_LOG_TYPE_DEFAULT, "Elapsed time for currentChargeLimit: %f ms", &v20, 0xCu);
   }
 
   v13 = [v9 objectForKeyedSubscript:@"limitCharge"];
@@ -10129,9 +10745,9 @@ uint64_t __80__PowerUISmartChargeManager_checkWhetherMCLTempDisablementCanBeClea
         goto LABEL_17;
       }
 
-      v21 = 134217984;
+      v20 = 134217984;
       v17 = 80;
-      v22 = 80;
+      v21 = 80;
       goto LABEL_15;
     }
   }
@@ -10148,14 +10764,13 @@ LABEL_16:
     goto LABEL_17;
   }
 
-  v21 = 134217984;
+  v20 = 134217984;
   v17 = 100;
-  v22 = 100;
+  v21 = 100;
 LABEL_15:
-  _os_log_impl(&dword_21B766000, v16, OS_LOG_TYPE_DEFAULT, "Committed to charge limit: %lu", &v21, 0xCu);
+  _os_log_impl(&dword_21B766000, v16, OS_LOG_TYPE_DEFAULT, "Committed to charge limit: %lu", &v20, 0xCu);
 LABEL_17:
 
-  v19 = *MEMORY[0x277D85DE8];
   return v17;
 }
 
@@ -10197,7 +10812,7 @@ LABEL_17:
 
 - (void)isDEoCCurrentlyEnabledWithHandler:(id)handler
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   log = self->_log;
   if (os_log_type_enabled(log, OS_LOG_TYPE_DEFAULT))
@@ -10206,19 +10821,17 @@ LABEL_17:
     deocFeatureState = self->_deocFeatureState;
     v8 = log;
     v9 = [v6 numberWithUnsignedInteger:deocFeatureState];
-    v11 = 138412290;
-    v12 = v9;
-    _os_log_impl(&dword_21B766000, v8, OS_LOG_TYPE_DEFAULT, "Returning current DEoC state: %@", &v11, 0xCu);
+    v10 = 138412290;
+    v11 = v9;
+    _os_log_impl(&dword_21B766000, v8, OS_LOG_TYPE_DEFAULT, "Returning current DEoC state: %@", &v10, 0xCu);
   }
 
   handlerCopy[2](handlerCopy, self->_deocFeatureState, 0);
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)client:(id)client setDEoCState:(unint64_t)state withHandler:(id)handler
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   clientCopy = client;
   handlerCopy = handler;
   isDEoCSupported = [(PowerUISmartChargeManager *)self isDEoCSupported];
@@ -10240,11 +10853,11 @@ LABEL_17:
     v12 = MEMORY[0x277CCABB0];
     v13 = log;
     v14 = [v12 numberWithUnsignedInteger:state];
-    v19 = 138412546;
-    v20 = clientCopy;
-    v21 = 2112;
-    v22 = v14;
-    _os_log_impl(&dword_21B766000, v13, OS_LOG_TYPE_DEFAULT, "%@ requests DEoC state: %@", &v19, 0x16u);
+    v18 = 138412546;
+    v19 = clientCopy;
+    v20 = 2112;
+    v21 = v14;
+    _os_log_impl(&dword_21B766000, v13, OS_LOG_TYPE_DEFAULT, "%@ requests DEoC state: %@", &v18, 0x16u);
   }
 
   if (!state)
@@ -10267,8 +10880,6 @@ LABEL_12:
   [(PowerUISmartChargeManager *)self enableDEoC];
 LABEL_13:
   handlerCopy[2](handlerCopy, 1, 0);
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)disableDEoC
@@ -10297,7 +10908,6 @@ void __40__PowerUISmartChargeManager_disableDEoC__block_invoke(uint64_t a1)
   [*(a1 + 32) forceDEoCReevaluation];
   [*(*(a1 + 32) + 416) clearChargeLimitForLimitType:2];
   [*(a1 + 32) handleCallback:1];
-  v6 = *(a1 + 32);
   AnalyticsSendEventLazy();
   v3 = *(a1 + 32);
   v4 = *(v3 + 424);
@@ -10307,21 +10917,19 @@ void __40__PowerUISmartChargeManager_disableDEoC__block_invoke(uint64_t a1)
 
 id __40__PowerUISmartChargeManager_disableDEoC__block_invoke_1965(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = +[PowerUISmartChargeUtilities recentEngagementHistory];
   v3 = [v2 mutableCopy];
   [v3 setObject:@"DEoCDisabled" forKeyedSubscript:@"DisableType"];
   v4 = *(*(a1 + 32) + 96);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
-    v8 = 138412290;
-    v9 = v3;
-    _os_log_impl(&dword_21B766000, v4, OS_LOG_TYPE_INFO, "After DEoC disablement, reporting %@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = v3;
+    _os_log_impl(&dword_21B766000, v4, OS_LOG_TYPE_INFO, "After DEoC disablement, reporting %@", &v7, 0xCu);
   }
 
   v5 = [v3 copy];
-
-  v6 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -10337,7 +10945,7 @@ id __40__PowerUISmartChargeManager_disableDEoC__block_invoke_1965(uint64_t a1)
   dispatch_async(queue, block);
 }
 
-uint64_t __39__PowerUISmartChargeManager_enableDEoC__block_invoke(uint64_t a1)
+void *__39__PowerUISmartChargeManager_enableDEoC__block_invoke(uint64_t a1)
 {
   v2 = *(*(a1 + 32) + 96);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
@@ -10392,7 +11000,7 @@ uint64_t __39__PowerUISmartChargeManager_enableDEoC__block_invoke(uint64_t a1)
 
 - (void)getDEoCPredictionsWithHandler:(id)handler
 {
-  v34[3] = *MEMORY[0x277D85DE8];
+  v33[3] = *MEMORY[0x277D85DE8];
   v4 = MEMORY[0x277CBEAA8];
   handlerCopy = handler;
   date = [v4 date];
@@ -10402,26 +11010,26 @@ uint64_t __39__PowerUISmartChargeManager_enableDEoC__block_invoke(uint64_t a1)
   v8 = [PowerUISmartChargeUtilities currentBatteryLevelWithContext:self->_context];
   date2 = [MEMORY[0x277CBEAA8] date];
   v10 = [MEMORY[0x277CCABB0] numberWithInteger:v8];
-  v30 = v6;
+  v29 = v6;
   v11 = [(PowerUIMLRelevantDrainPredictor *)v7 featuresForChargeSessionAtDate:date2 withChargeStartSoC:v10 withChargeAndDrainSessionHistory:v6];
 
   v12 = [(PowerUIMLRelevantDrainPredictor *)v7 predictedRelevantDrainwithFeatures:v11];
-  v27 = [(PowerUITrialManager *)self->_trialManager longFactorForName:@"minDaysOfChargingHistoryRequiredForDEoCModel"];
-  v28 = [(PowerUITrialManager *)self->_trialManager longFactorForName:@"minNumberOfRelevantDrainsRequiredForDEoCModel"];
-  v33[0] = @"confidence";
+  v26 = [(PowerUITrialManager *)self->_trialManager longFactorForName:@"minDaysOfChargingHistoryRequiredForDEoCModel"];
+  v27 = [(PowerUITrialManager *)self->_trialManager longFactorForName:@"minNumberOfRelevantDrainsRequiredForDEoCModel"];
+  v32[0] = @"confidence";
   v13 = MEMORY[0x277CCABB0];
   [v12 confidence];
   v14 = [v13 numberWithDouble:?];
-  v34[0] = v14;
-  v33[1] = @"significantDrainAhead";
+  v33[0] = v14;
+  v32[1] = @"significantDrainAhead";
   v15 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(v12, "significantDrainAhead")}];
-  v34[1] = v15;
-  v33[2] = @"threshold";
+  v33[1] = v15;
+  v32[2] = @"threshold";
   v16 = MEMORY[0x277CCABB0];
   [v12 threshold];
   v17 = [v16 numberWithDouble:?];
-  v34[2] = v17;
-  v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v34 forKeys:v33 count:3];
+  v33[2] = v17;
+  v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v33 forKeys:v32 count:3];
 
   experimentID = [(PowerUITrialManager *)self->_trialManager experimentID];
 
@@ -10447,31 +11055,30 @@ uint64_t __39__PowerUISmartChargeManager_enableDEoC__block_invoke(uint64_t a1)
     treatmentID2 = @"Nil";
   }
 
-  v31[0] = @"predictions";
-  v31[1] = @"features";
-  v32[0] = v18;
-  v32[1] = v11;
-  v32[2] = v30;
-  v31[2] = @"drainInfo";
-  v31[3] = @"minDaysCharging";
-  v23 = [MEMORY[0x277CCABB0] numberWithInteger:v27];
-  v32[3] = v23;
-  v31[4] = @"minNumberOfRelevantDrains";
-  v24 = [MEMORY[0x277CCABB0] numberWithInteger:v28];
-  v32[4] = v24;
-  v32[5] = experimentID2;
-  v31[5] = @"trialexperiment";
-  v31[6] = @"trialTreatment";
-  v32[6] = treatmentID2;
-  v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v32 forKeys:v31 count:7];
+  v30[0] = @"predictions";
+  v30[1] = @"features";
+  v31[0] = v18;
+  v31[1] = v11;
+  v31[2] = v29;
+  v30[2] = @"drainInfo";
+  v30[3] = @"minDaysCharging";
+  v23 = [MEMORY[0x277CCABB0] numberWithInteger:v26];
+  v31[3] = v23;
+  v30[4] = @"minNumberOfRelevantDrains";
+  v24 = [MEMORY[0x277CCABB0] numberWithInteger:v27];
+  v31[4] = v24;
+  v31[5] = experimentID2;
+  v30[5] = @"trialexperiment";
+  v30[6] = @"trialTreatment";
+  v31[6] = treatmentID2;
+  v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v31 forKeys:v30 count:7];
 
   handlerCopy[2](handlerCopy, v25, 0);
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (void)isOBCEngagedOrChargeLimitedWithHandler:(id)handler
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   context = self->_context;
   handlerCopy = handler;
   v6 = [PowerUISmartChargeUtilities isPluggedInWithContext:context];
@@ -10482,23 +11089,21 @@ uint64_t __39__PowerUISmartChargeManager_enableDEoC__block_invoke(uint64_t a1)
   log = self->_log;
   if (os_log_type_enabled(log, OS_LOG_TYPE_DEFAULT))
   {
-    v13[0] = 67109632;
-    v13[1] = v8;
-    v14 = 2048;
-    v15 = currentChargeLimit;
-    v16 = 1024;
-    v17 = v9;
-    _os_log_impl(&dword_21B766000, log, OS_LOG_TYPE_DEFAULT, "Returning currently engaged state: %u, charge limit: %lu, chargingOverrideAllowed: %u", v13, 0x18u);
+    v12[0] = 67109632;
+    v12[1] = v8;
+    v13 = 2048;
+    v14 = currentChargeLimit;
+    v15 = 1024;
+    v16 = v9;
+    _os_log_impl(&dword_21B766000, log, OS_LOG_TYPE_DEFAULT, "Returning currently engaged state: %u, charge limit: %lu, chargingOverrideAllowed: %u", v12, 0x18u);
   }
 
   handlerCopy[2](handlerCopy, v8, currentChargeLimit, v9, 0);
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateCurrentDEoCStatusAsGaugingMitigated
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   [(NSLock *)self->_deocCurrentStatusLock lock];
   v3 = [PowerUISmartChargeUtilities readDictForPreferenceKey:@"CurrentDEoCStatus" inDomain:self->_defaultsDomain];
   if (v3)
@@ -10509,9 +11114,9 @@ uint64_t __39__PowerUISmartChargeManager_enableDEoC__block_invoke(uint64_t a1)
     log = self->_log;
     if (os_log_type_enabled(log, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = 138412290;
-      v8 = v4;
-      _os_log_impl(&dword_21B766000, log, OS_LOG_TYPE_DEFAULT, "GaugingMitigation updated currentDEoCStatus: %@", &v7, 0xCu);
+      v6 = 138412290;
+      v7 = v4;
+      _os_log_impl(&dword_21B766000, log, OS_LOG_TYPE_DEFAULT, "GaugingMitigation updated currentDEoCStatus: %@", &v6, 0xCu);
     }
   }
 
@@ -10521,8 +11126,6 @@ uint64_t __39__PowerUISmartChargeManager_enableDEoC__block_invoke(uint64_t a1)
   }
 
   [(NSLock *)self->_deocCurrentStatusLock unlock];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)isCECSupportedWithHandler:(id)handler
@@ -10533,7 +11136,7 @@ uint64_t __39__PowerUISmartChargeManager_enableDEoC__block_invoke(uint64_t a1)
 
 - (void)isCECCurrentlyEnabledWithHandler:(id)handler
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   v5 = +[PowerUICECManager manager];
   cecState = [v5 cecState];
@@ -10544,19 +11147,17 @@ uint64_t __39__PowerUISmartChargeManager_enableDEoC__block_invoke(uint64_t a1)
     v8 = MEMORY[0x277CCABB0];
     v9 = log;
     v10 = [v8 numberWithUnsignedInteger:cecState];
-    v12 = 138412290;
-    v13 = v10;
-    _os_log_impl(&dword_21B766000, v9, OS_LOG_TYPE_DEFAULT, "Returning current state: %@", &v12, 0xCu);
+    v11 = 138412290;
+    v12 = v10;
+    _os_log_impl(&dword_21B766000, v9, OS_LOG_TYPE_DEFAULT, "Returning current state: %@", &v11, 0xCu);
   }
 
   handlerCopy[2](handlerCopy, cecState, 0);
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)client:(id)client setCECState:(unint64_t)state withHandler:(id)handler
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   clientCopy = client;
   handlerCopy = handler;
   isCECSupported = [(PowerUISmartChargeManager *)self isCECSupported];
@@ -10568,11 +11169,11 @@ uint64_t __39__PowerUISmartChargeManager_enableDEoC__block_invoke(uint64_t a1)
       v12 = MEMORY[0x277CCABB0];
       v13 = log;
       v14 = [v12 numberWithUnsignedInteger:state];
-      v17 = 138412546;
-      v18 = clientCopy;
-      v19 = 2112;
-      v20 = v14;
-      _os_log_impl(&dword_21B766000, v13, OS_LOG_TYPE_DEFAULT, "%@ requests CEC state: %@", &v17, 0x16u);
+      v16 = 138412546;
+      v17 = clientCopy;
+      v18 = 2112;
+      v19 = v14;
+      _os_log_impl(&dword_21B766000, v13, OS_LOG_TYPE_DEFAULT, "%@ requests CEC state: %@", &v16, 0x16u);
     }
 
     v15 = +[PowerUICECManager manager];
@@ -10589,8 +11190,6 @@ uint64_t __39__PowerUISmartChargeManager_enableDEoC__block_invoke(uint64_t a1)
     v15 = [MEMORY[0x277CCA9B8] errorWithDomain:@"PowerUISmartChargingErrorDomain" code:4 userInfo:0];
     handlerCopy[2](handlerCopy, 0, v15);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cecFullChargeDeadlineWithHandler:(id)handler
@@ -10621,7 +11220,7 @@ uint64_t __39__PowerUISmartChargeManager_enableDEoC__block_invoke(uint64_t a1)
 
 - (void)shouldMCMBeDisplayedWithHandler:(id)handler
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   if ([(PowerUISmartChargeManager *)self isMCMSupported])
   {
@@ -10632,9 +11231,9 @@ uint64_t __39__PowerUISmartChargeManager_enableDEoC__block_invoke(uint64_t a1)
       isChargePackConnected = self->_isChargePackConnected;
       v8 = mcmLog;
       v9 = [v6 numberWithBool:isChargePackConnected];
-      v11 = 138412290;
-      v12 = v9;
-      _os_log_impl(&dword_21B766000, v8, OS_LOG_TYPE_DEFAULT, "Returning whether MCM settings should be displayed: %@", &v11, 0xCu);
+      v10 = 138412290;
+      v11 = v9;
+      _os_log_impl(&dword_21B766000, v8, OS_LOG_TYPE_DEFAULT, "Returning whether MCM settings should be displayed: %@", &v10, 0xCu);
     }
 
     handlerCopy[2](handlerCopy, self->_isChargePackConnected, 0);
@@ -10644,13 +11243,11 @@ uint64_t __39__PowerUISmartChargeManager_enableDEoC__block_invoke(uint64_t a1)
   {
     handlerCopy[2](handlerCopy, 0, 0);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)isMCMCurrentlyEnabledWithHandler:(id)handler
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   mcmLog = self->_mcmLog;
   if (os_log_type_enabled(mcmLog, OS_LOG_TYPE_DEFAULT))
@@ -10659,19 +11256,17 @@ uint64_t __39__PowerUISmartChargeManager_enableDEoC__block_invoke(uint64_t a1)
     mcmCurrentState = self->_mcmCurrentState;
     v8 = mcmLog;
     v9 = [v6 numberWithUnsignedInteger:mcmCurrentState];
-    v11 = 138412290;
-    v12 = v9;
-    _os_log_impl(&dword_21B766000, v8, OS_LOG_TYPE_DEFAULT, "Returning current MCM state: %@", &v11, 0xCu);
+    v10 = 138412290;
+    v11 = v9;
+    _os_log_impl(&dword_21B766000, v8, OS_LOG_TYPE_DEFAULT, "Returning current MCM state: %@", &v10, 0xCu);
   }
 
   handlerCopy[2](handlerCopy, self->_mcmCurrentState, 0);
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)client:(id)client setMCMState:(unint64_t)state withHandler:(id)handler
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   clientCopy = client;
   handlerCopy = handler;
   isMCMSupported = [(PowerUISmartChargeManager *)self isMCMSupported];
@@ -10683,11 +11278,11 @@ uint64_t __39__PowerUISmartChargeManager_enableDEoC__block_invoke(uint64_t a1)
       v12 = MEMORY[0x277CCABB0];
       v13 = mcmLog;
       v14 = [v12 numberWithUnsignedInteger:state];
-      v20 = 138412546;
-      v21 = clientCopy;
-      v22 = 2112;
-      v23 = v14;
-      _os_log_impl(&dword_21B766000, v13, OS_LOG_TYPE_DEFAULT, "%@ requests state: %@", &v20, 0x16u);
+      v19 = 138412546;
+      v20 = clientCopy;
+      v21 = 2112;
+      v22 = v14;
+      _os_log_impl(&dword_21B766000, v13, OS_LOG_TYPE_DEFAULT, "%@ requests state: %@", &v19, 0x16u);
     }
 
     switch(state)
@@ -10731,7 +11326,69 @@ LABEL_14:
   (handlerCopy)[2](handlerCopy, 0, v18);
 
 LABEL_16:
-  v19 = *MEMORY[0x277D85DE8];
+}
+
+- (void)engageFrom:(id)from until:(id)until repeatUntil:(id)repeatUntil overrideAllSignals:(BOOL)signals withHandler:(id)handler
+{
+  signalsCopy = signals;
+  v39 = *MEMORY[0x277D85DE8];
+  fromCopy = from;
+  untilCopy = until;
+  repeatUntilCopy = repeatUntil;
+  handlerCopy = handler;
+  [(PowerUISmartChargeManager *)self setEngagementTimeOverride:fromCopy];
+  [(PowerUISmartChargeManager *)self setFullChargeDeadlineOverride:untilCopy];
+  [(PowerUISmartChargeManager *)self setRepeatEngagementOverrideEndDate:repeatUntilCopy];
+  v16 = MEMORY[0x277CCABB0];
+  engagementTimeOverride = [(PowerUISmartChargeManager *)self engagementTimeOverride];
+  [engagementTimeOverride timeIntervalSinceReferenceDate];
+  v18 = [v16 numberWithDouble:?];
+  [(PowerUISmartChargeManager *)self setNumber:v18 forPreferenceKey:@"engagementTimeOverride"];
+
+  v19 = MEMORY[0x277CCABB0];
+  fullChargeDeadlineOverride = [(PowerUISmartChargeManager *)self fullChargeDeadlineOverride];
+  [fullChargeDeadlineOverride timeIntervalSinceReferenceDate];
+  v21 = [v19 numberWithDouble:?];
+  [(PowerUISmartChargeManager *)self setNumber:v21 forPreferenceKey:@"fullChargeDeadlineOverride"];
+
+  v22 = MEMORY[0x277CCABB0];
+  repeatEngagementOverrideEndDate = [(PowerUISmartChargeManager *)self repeatEngagementOverrideEndDate];
+  [repeatEngagementOverrideEndDate timeIntervalSinceReferenceDate];
+  v24 = [v22 numberWithDouble:?];
+  [(PowerUISmartChargeManager *)self setNumber:v24 forPreferenceKey:@"repeatEngagementOverrideEndDate"];
+
+  self->_overrideAllSignals = signalsCopy;
+  if (signalsCopy)
+  {
+    v25 = [MEMORY[0x277CCABB0] numberWithBool:1];
+    [(PowerUISmartChargeManager *)self setNumber:v25 forPreferenceKey:@"overrideAllSignals"];
+  }
+
+  self->_predictorType = -1;
+  v26 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:-1];
+  [(PowerUISmartChargeManager *)self setNumber:v26 forPreferenceKey:@"chargePredictionModel"];
+
+  [(PowerUISmartChargeManager *)self setEnabled:1];
+  [(PowerUISmartChargeManager *)self setCurrentState:1];
+  [(PowerUISmartChargeManager *)self setTemporarilyDisabled:0];
+  log = self->_log;
+  if (os_log_type_enabled(log, OS_LOG_TYPE_DEFAULT))
+  {
+    v28 = MEMORY[0x277CCABB0];
+    v29 = log;
+    v30 = [v28 numberWithBool:signalsCopy];
+    v31 = 138413058;
+    v32 = fromCopy;
+    v33 = 2112;
+    v34 = untilCopy;
+    v35 = 2112;
+    v36 = repeatUntilCopy;
+    v37 = 2112;
+    v38 = v30;
+    _os_log_impl(&dword_21B766000, v29, OS_LOG_TYPE_DEFAULT, "Top-off will engage after %@ targetting full deadline of %@. Repeat until %@, Signal override=%@", &v31, 0x2Au);
+  }
+
+  handlerCopy[2](handlerCopy, 1);
 }
 
 - (void)resetEngagementOverrideWithHandler:(id)handler
@@ -10758,6 +11415,51 @@ LABEL_16:
   }
 
   handlerCopy[2](handlerCopy, 1);
+}
+
+- (void)simulateCurrentOutputAsOfDate:(id)date overrideAllSignals:(BOOL)signals withHandler:(id)handler
+{
+  signalsCopy = signals;
+  dateCopy = date;
+  handlerCopy = handler;
+  if (+[PowerUISmartChargeUtilities isInternalBuild])
+  {
+    log = self->_log;
+    if (os_log_type_enabled(log, OS_LOG_TYPE_DEFAULT))
+    {
+      *v15 = 0;
+      _os_log_impl(&dword_21B766000, log, OS_LOG_TYPE_DEFAULT, "Simulating output", v15, 2u);
+    }
+
+    date = dateCopy;
+    if (!dateCopy)
+    {
+      date = [MEMORY[0x277CBEAA8] date];
+    }
+
+    distantPast2 = [(PowerUISmartChargeManager *)self shouldDisableChargingAsOfDate:date atBatteryLevel:80 overrideAllSignals:signalsCopy withPredictor:self->_modelTwoStagePredictor bypassSaved:1];
+    if (!dateCopy)
+    {
+    }
+
+    v13 = [distantPast2 objectForKeyedSubscript:@"decisionDate"];
+    if (v13)
+    {
+      handlerCopy[2](handlerCopy, v13, 0);
+    }
+
+    else
+    {
+      distantPast = [MEMORY[0x277CBEAA8] distantPast];
+      handlerCopy[2](handlerCopy, distantPast, 0);
+    }
+  }
+
+  else
+  {
+    distantPast2 = [MEMORY[0x277CBEAA8] distantPast];
+    handlerCopy[2](handlerCopy, distantPast2, 0);
+  }
 }
 
 - (void)enterDevelopmentMode
@@ -10796,50 +11498,50 @@ LABEL_16:
 
 - (void)listMonitorSignals
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
+  v43 = 0u;
   v44 = 0u;
   v45 = 0u;
   v46 = 0u;
-  v47 = 0u;
   obj = self->_monitors;
-  v3 = [(NSArray *)obj countByEnumeratingWithState:&v44 objects:v53 count:16];
+  v3 = [(NSArray *)obj countByEnumeratingWithState:&v43 objects:v52 count:16];
   if (v3)
   {
     v5 = v3;
-    v6 = *v45;
+    v6 = *v44;
     *&v4 = 138412290;
-    v34 = v4;
-    v35 = *v45;
+    v33 = v4;
+    v34 = *v44;
     do
     {
       v7 = 0;
-      v36 = v5;
+      v35 = v5;
       do
       {
-        if (*v45 != v6)
+        if (*v44 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v44 + 1) + 8 * v7);
+        v8 = *(*(&v43 + 1) + 8 * v7);
         if (objc_opt_respondsToSelector())
         {
-          v38 = v7;
+          v37 = v7;
           detectedSignals = [v8 detectedSignals];
+          v39 = 0u;
           v40 = 0u;
           v41 = 0u;
           v42 = 0u;
-          v43 = 0u;
-          v10 = [detectedSignals countByEnumeratingWithState:&v40 objects:v52 count:16];
+          v10 = [detectedSignals countByEnumeratingWithState:&v39 objects:v51 count:16];
           if (v10)
           {
             v11 = v10;
-            v12 = *v41;
+            v12 = *v40;
             do
             {
               for (i = 0; i != v11; ++i)
               {
-                if (*v41 != v12)
+                if (*v40 != v12)
                 {
                   objc_enumerationMutation(detectedSignals);
                 }
@@ -10847,19 +11549,19 @@ LABEL_16:
                 log = self->_log;
                 if (os_log_type_enabled(log, OS_LOG_TYPE_DEFAULT))
                 {
-                  v15 = *(*(&v40 + 1) + 8 * i);
+                  v15 = *(*(&v39 + 1) + 8 * i);
                   v16 = log;
                   v17 = objc_opt_class();
                   *buf = 138412546;
-                  v49 = v17;
-                  v50 = 2112;
-                  v51 = v15;
+                  v48 = v17;
+                  v49 = 2112;
+                  v50 = v15;
                   v18 = v17;
                   _os_log_impl(&dword_21B766000, v16, OS_LOG_TYPE_DEFAULT, "Monitor of type '%@' detected signal with start date: %@", buf, 0x16u);
                 }
               }
 
-              v11 = [detectedSignals countByEnumeratingWithState:&v40 objects:v52 count:16];
+              v11 = [detectedSignals countByEnumeratingWithState:&v39 objects:v51 count:16];
             }
 
             while (v11);
@@ -10872,16 +11574,16 @@ LABEL_16:
             {
               v20 = v19;
               v21 = objc_opt_class();
-              *buf = v34;
-              v49 = v21;
+              *buf = v33;
+              v48 = v21;
               v22 = v21;
               _os_log_impl(&dword_21B766000, v20, OS_LOG_TYPE_DEFAULT, "Monitor of type '%@' did not detect any valid signals.", buf, 0xCu);
             }
           }
 
-          v6 = v35;
-          v5 = v36;
-          v7 = v38;
+          v6 = v34;
+          v5 = v35;
+          v7 = v37;
         }
 
         else if ([v8 signalID] == 4)
@@ -10892,16 +11594,16 @@ LABEL_16:
           {
             v25 = v24;
             v26 = objc_opt_class();
-            v39 = v7;
+            v38 = v7;
             v27 = v26;
             requiredFullChargeDate = [v23 requiredFullChargeDate];
             *buf = 138412546;
-            v49 = v26;
-            v50 = 2112;
-            v51 = requiredFullChargeDate;
+            v48 = v26;
+            v49 = 2112;
+            v50 = requiredFullChargeDate;
             _os_log_impl(&dword_21B766000, v25, OS_LOG_TYPE_DEFAULT, "Required full charge date from %@: %@", buf, 0x16u);
 
-            v7 = v39;
+            v7 = v38;
           }
         }
 
@@ -10912,8 +11614,8 @@ LABEL_16:
           {
             v30 = v29;
             v31 = objc_opt_class();
-            *buf = v34;
-            v49 = v31;
+            *buf = v33;
+            v48 = v31;
             v32 = v31;
             _os_log_impl(&dword_21B766000, v30, OS_LOG_TYPE_DEFAULT, "Monitor of type '%@' does not respond to signals debug query.", buf, 0xCu);
           }
@@ -10923,13 +11625,11 @@ LABEL_16:
       }
 
       while (v7 != v5);
-      v5 = [(NSArray *)obj countByEnumeratingWithState:&v44 objects:v53 count:16];
+      v5 = [(NSArray *)obj countByEnumeratingWithState:&v43 objects:v52 count:16];
     }
 
     while (v5);
   }
-
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 - (void)mcmEnableCharging
@@ -10992,18 +11692,92 @@ LABEL_16:
   return v16;
 }
 
+- (void)reportMCMStatusWithBatteryLevel:(int)level
+{
+  v3 = *&level;
+  v31 = *MEMORY[0x277D85DE8];
+  dictionary = [MEMORY[0x277CBEB38] dictionary];
+  v6 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:self->_mcmCurrentState];
+  [dictionary setObject:v6 forKeyedSubscript:@"mcmCurrentState"];
+
+  v7 = [MEMORY[0x277CCABB0] numberWithBool:self->_isChargePackConnected];
+  [dictionary setObject:v7 forKeyedSubscript:@"isChargePackConnected"];
+
+  v8 = [MEMORY[0x277CCABB0] numberWithBool:self->_mcmForbidsCharging];
+  [dictionary setObject:v8 forKeyedSubscript:@"mcmForbidsCharging"];
+
+  if (v3 <= 0x64)
+  {
+    v9 = [MEMORY[0x277CCABB0] numberWithInt:v3];
+    [dictionary setObject:v9 forKeyedSubscript:@"batteryLevel"];
+  }
+
+  mcmLog = self->_mcmLog;
+  if (os_log_type_enabled(mcmLog, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 0;
+    _os_log_impl(&dword_21B766000, mcmLog, OS_LOG_TYPE_DEFAULT, "Reporting to PowerLog and BDC for MCM:", buf, 2u);
+  }
+
+  v24 = 0u;
+  v25 = 0u;
+  v22 = 0u;
+  v23 = 0u;
+  allKeys = [dictionary allKeys];
+  v12 = [allKeys countByEnumeratingWithState:&v22 objects:v30 count:16];
+  if (v12)
+  {
+    v13 = v12;
+    v14 = *v23;
+    do
+    {
+      for (i = 0; i != v13; ++i)
+      {
+        if (*v23 != v14)
+        {
+          objc_enumerationMutation(allKeys);
+        }
+
+        v16 = self->_mcmLog;
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+        {
+          v17 = *(*(&v22 + 1) + 8 * i);
+          v18 = v16;
+          v19 = [dictionary valueForKey:v17];
+          *buf = 138412546;
+          v27 = v17;
+          v28 = 2112;
+          v29 = v19;
+          _os_log_impl(&dword_21B766000, v18, OS_LOG_TYPE_DEFAULT, "  %@: %@", buf, 0x16u);
+        }
+      }
+
+      v13 = [allKeys countByEnumeratingWithState:&v22 objects:v30 count:16];
+    }
+
+    while (v13);
+  }
+
+  v20 = objc_autoreleasePoolPush();
+  v21 = [MEMORY[0x277CBEAC0] dictionaryWithDictionary:dictionary];
+  PLLogRegisteredEvent();
+  [(NSDistributedNotificationCenter *)self->_notificationCenter postNotificationName:@"com.apple.powerui.mcmstatusasnotification" object:@"PowerUI" userInfo:v21];
+
+  objc_autoreleasePoolPop(v20);
+}
+
 - (void)accessoryConnectionAttached:(id)attached type:(int)type
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   attachedCopy = attached;
   if (type == 9)
   {
     mcmLog = self->_mcmLog;
     if (os_log_type_enabled(mcmLog, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = 138412290;
-      v12 = attachedCopy;
-      _os_log_impl(&dword_21B766000, mcmLog, OS_LOG_TYPE_DEFAULT, "New accessory (%@), connection type: NFC", &v11, 0xCu);
+      v10 = 138412290;
+      v11 = attachedCopy;
+      _os_log_impl(&dword_21B766000, mcmLog, OS_LOG_TYPE_DEFAULT, "New accessory (%@), connection type: NFC", &v10, 0xCu);
     }
 
     [(PowerUISmartChargeManager *)self accessoryNFCConnectionCallback:attachedCopy];
@@ -11014,15 +11788,13 @@ LABEL_16:
     v8 = self->_mcmLog;
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = 138412290;
-      v12 = attachedCopy;
-      _os_log_impl(&dword_21B766000, v8, OS_LOG_TYPE_DEFAULT, "New accessory (%@), connection type: Inductive", &v11, 0xCu);
+      v10 = 138412290;
+      v11 = attachedCopy;
+      _os_log_impl(&dword_21B766000, v8, OS_LOG_TYPE_DEFAULT, "New accessory (%@), connection type: Inductive", &v10, 0xCu);
     }
 
     objc_storeStrong(&self->_currentChargePackInductiveConnectionUUID, attached);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)accessoryNFCConnectionCallback:(id)callback
@@ -11038,7 +11810,7 @@ LABEL_16:
 
 void __60__PowerUISmartChargeManager_accessoryNFCConnectionCallback___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = *(*(a1 + 32) + 112);
@@ -11046,55 +11818,53 @@ void __60__PowerUISmartChargeManager_accessoryNFCConnectionCallback___block_invo
   {
     v8 = v7;
     *buf = 134218242;
-    v26 = [v6 count];
-    v27 = 2112;
-    v28 = v5;
+    v25 = [v6 count];
+    v26 = 2112;
+    v27 = v5;
     _os_log_impl(&dword_21B766000, v8, OS_LOG_TYPE_DEFAULT, "%lu endpoints for NFC connection (%@)", buf, 0x16u);
   }
 
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
   v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   v9 = v6;
-  v10 = [v9 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v21;
+    v12 = *v20;
     v13 = *MEMORY[0x277CFD330];
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v21 != v12)
+        if (*v20 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v15 = *(*(&v20 + 1) + 8 * i);
+        v15 = *(*(&v19 + 1) + 8 * i);
         v16 = *(a1 + 32);
         v17 = *(v16 + 440);
-        v19[0] = MEMORY[0x277D85DD0];
-        v19[1] = 3221225472;
-        v19[2] = __60__PowerUISmartChargeManager_accessoryNFCConnectionCallback___block_invoke_2043;
-        v19[3] = &unk_2782D4E48;
-        v19[4] = v16;
-        [v17 accessoryProperty:v13 forEndpoint:v15 connection:v5 withReply:v19];
+        v18[0] = MEMORY[0x277D85DD0];
+        v18[1] = 3221225472;
+        v18[2] = __60__PowerUISmartChargeManager_accessoryNFCConnectionCallback___block_invoke_2043;
+        v18[3] = &unk_2782D4E48;
+        v18[4] = v16;
+        [v17 accessoryProperty:v13 forEndpoint:v15 connection:v5 withReply:v18];
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v11);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void __60__PowerUISmartChargeManager_accessoryNFCConnectionCallback___block_invoke_2043(uint64_t a1, void *a2, void *a3, void *a4, void *a5)
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   v9 = a2;
   v10 = a3;
   v11 = a4;
@@ -11130,33 +11900,33 @@ void __60__PowerUISmartChargeManager_accessoryNFCConnectionCallback___block_invo
       [*(a1 + 32) reportMCMStatusWithBatteryLevel:0xFFFFFFFFLL];
       if (*(*(a1 + 32) + 472) <= 2uLL)
       {
-        v38 = v13;
-        v39 = v11;
-        v37 = v10;
-        v40 = v9;
+        v37 = v13;
+        v38 = v11;
+        v36 = v10;
+        v39 = v9;
         v17 = +[PowerUINotificationManager sharedInstance];
         v18 = [v17 getDeliveredNotifications];
 
-        v43 = 0u;
-        v44 = 0u;
-        v41 = 0u;
         v42 = 0u;
+        v43 = 0u;
+        v40 = 0u;
+        v41 = 0u;
         v19 = v18;
-        v20 = [v19 countByEnumeratingWithState:&v41 objects:v45 count:16];
+        v20 = [v19 countByEnumeratingWithState:&v40 objects:v44 count:16];
         if (v20)
         {
           v21 = v20;
-          v22 = *v42;
+          v22 = *v41;
           while (2)
           {
             for (i = 0; i != v21; ++i)
             {
-              if (*v42 != v22)
+              if (*v41 != v22)
               {
                 objc_enumerationMutation(v19);
               }
 
-              v24 = [*(*(&v41 + 1) + 8 * i) request];
+              v24 = [*(*(&v40 + 1) + 8 * i) request];
               v25 = [v24 content];
               v26 = [v25 categoryIdentifier];
               v27 = [v26 isEqualToString:@"mcmActiveCategory"];
@@ -11165,10 +11935,10 @@ void __60__PowerUISmartChargeManager_accessoryNFCConnectionCallback___block_invo
               {
                 v33 = *(*(a1 + 32) + 112);
                 v30 = v19;
-                v11 = v39;
-                v9 = v40;
-                v10 = v37;
-                v13 = v38;
+                v11 = v38;
+                v9 = v39;
+                v10 = v36;
+                v13 = v37;
                 if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
                 {
                   *buf = 0;
@@ -11180,7 +11950,7 @@ void __60__PowerUISmartChargeManager_accessoryNFCConnectionCallback___block_invo
               }
             }
 
-            v21 = [v19 countByEnumeratingWithState:&v41 objects:v45 count:16];
+            v21 = [v19 countByEnumeratingWithState:&v40 objects:v44 count:16];
             if (v21)
             {
               continue;
@@ -11197,13 +11967,13 @@ void __60__PowerUISmartChargeManager_accessoryNFCConnectionCallback___block_invo
         v31 = *(a1 + 32);
         if (v30)
         {
-          v10 = v37;
+          v10 = v36;
           if (os_log_type_enabled(*(v31 + 112), OS_LOG_TYPE_ERROR))
           {
             __60__PowerUISmartChargeManager_accessoryNFCConnectionCallback___block_invoke_2043_cold_2();
           }
 
-          v9 = v40;
+          v9 = v39;
         }
 
         else
@@ -11213,12 +11983,12 @@ void __60__PowerUISmartChargeManager_accessoryNFCConnectionCallback___block_invo
           v35 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v34[59]];
           [v34 setNumber:v35 forPreferenceKey:@"NumberOfTimesMCMNotificationWasDisplayed"];
 
-          v9 = v40;
-          v10 = v37;
+          v9 = v39;
+          v10 = v36;
         }
 
-        v13 = v38;
-        v11 = v39;
+        v13 = v37;
+        v11 = v38;
 LABEL_31:
       }
     }
@@ -11235,17 +12005,15 @@ LABEL_31:
     if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v47 = v9;
+      v46 = v9;
       _os_log_impl(&dword_21B766000, v32, OS_LOG_TYPE_DEFAULT, "No NFC property value for endpoint (%@)", buf, 0xCu);
     }
   }
-
-  v36 = *MEMORY[0x277D85DE8];
 }
 
 - (void)accessoryConnectionDetached:(id)detached
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   detachedCopy = detached;
   if (![detachedCopy isEqualToString:self->_currentChargePackNFCConnectionUUID])
   {
@@ -11260,8 +12028,8 @@ LABEL_31:
         goto LABEL_12;
       }
 
-      v10 = 138412290;
-      v11 = detachedCopy;
+      v9 = 138412290;
+      v10 = detachedCopy;
       v8 = "Known inductive connection '%@' lost.";
     }
 
@@ -11273,21 +12041,21 @@ LABEL_31:
         goto LABEL_12;
       }
 
-      v10 = 138412290;
-      v11 = detachedCopy;
+      v9 = 138412290;
+      v10 = detachedCopy;
       v8 = "Accessory '%@' disconnected.";
     }
 
-    _os_log_impl(&dword_21B766000, mcmLog, OS_LOG_TYPE_DEFAULT, v8, &v10, 0xCu);
+    _os_log_impl(&dword_21B766000, mcmLog, OS_LOG_TYPE_DEFAULT, v8, &v9, 0xCu);
     goto LABEL_12;
   }
 
   v5 = self->_mcmLog;
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 138412290;
-    v11 = detachedCopy;
-    _os_log_impl(&dword_21B766000, v5, OS_LOG_TYPE_DEFAULT, "Known charge pack disconnected (%@). Reset state.", &v10, 0xCu);
+    v9 = 138412290;
+    v10 = detachedCopy;
+    _os_log_impl(&dword_21B766000, v5, OS_LOG_TYPE_DEFAULT, "Known charge pack disconnected (%@). Reset state.", &v9, 0xCu);
   }
 
   self->_isChargePackConnected = 0;
@@ -11300,8 +12068,6 @@ LABEL_31:
   }
 
 LABEL_12:
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startFidgetMitigationTimer
@@ -11345,126 +12111,97 @@ uint64_t __55__PowerUISmartChargeManager_startFidgetMitigationTimer__block_invok
 
 - (void)idleDurationWithEngagedCheckpoints:(void *)a1 withTopOffStartCheckpoints:withDisabledCheckpoints:withTopOffStart:withIdleStart:withTemporarilyDisabledStart:withPluginEnd:.cold.1(void *a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
   v2 = a1;
   v3 = OUTLINED_FUNCTION_5_1();
   v5 = [v4 numberWithDouble:v3];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_1_2(&dword_21B766000, v6, v7, "ERROR: idleStart after pluginEnd, duration: %@", v8, v9, v10, v11, v13);
-
-  v12 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_2(&dword_21B766000, v6, v7, "ERROR: idleStart after pluginEnd, duration: %@", v8, v9, v10, v11);
 }
 
 - (void)idleDurationWithEngagedCheckpoints:(void *)a1 withTopOffStartCheckpoints:withDisabledCheckpoints:withTopOffStart:withIdleStart:withTemporarilyDisabledStart:withPluginEnd:.cold.2(void *a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
   v2 = a1;
   v3 = OUTLINED_FUNCTION_5_1();
   v5 = [v4 numberWithDouble:v3];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_1_2(&dword_21B766000, v6, v7, "ERROR: idleStart after temporarilyDisabledStart, duration: %@", v8, v9, v10, v11, v13);
-
-  v12 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_2(&dword_21B766000, v6, v7, "ERROR: idleStart after temporarilyDisabledStart, duration: %@", v8, v9, v10, v11);
 }
 
 - (void)idleDurationWithEngagedCheckpoints:(void *)a1 withTopOffStartCheckpoints:withDisabledCheckpoints:withTopOffStart:withIdleStart:withTemporarilyDisabledStart:withPluginEnd:.cold.3(void *a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
   v2 = a1;
   v3 = OUTLINED_FUNCTION_5_1();
   v5 = [v4 numberWithDouble:v3];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_1_2(&dword_21B766000, v6, v7, "ERROR: idleStart after topOffStart, duration: %@", v8, v9, v10, v11, v13);
-
-  v12 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_2(&dword_21B766000, v6, v7, "ERROR: idleStart after topOffStart, duration: %@", v8, v9, v10, v11);
 }
 
 - (void)constructAnalyticsStatusFromEvents:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v4 = [MEMORY[0x277CCABB0] numberWithDouble:?];
   OUTLINED_FUNCTION_1();
-  v7 = 2112;
-  v8 = a1;
-  _os_log_fault_impl(&dword_21B766000, a2, OS_LOG_TYPE_FAULT, "Negative idleDuration %@, events are %@", v6, 0x16u);
-
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)recordDEoCAnalytics:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x277D85DE8];
+  v6 = 2112;
+  v7 = a1;
+  _os_log_fault_impl(&dword_21B766000, a2, OS_LOG_TYPE_FAULT, "Negative idleDuration %@, events are %@", v5, 0x16u);
 }
 
 - (void)sendBDCData:withMessage:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
-  v4 = 2112;
-  v5 = v0;
-  _os_log_error_impl(&dword_21B766000, v1, OS_LOG_TYPE_ERROR, "Invalid parameters. remoteConn: %@ msg: %@", v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = 2112;
+  v4 = v0;
+  _os_log_error_impl(&dword_21B766000, v1, OS_LOG_TYPE_ERROR, "Invalid parameters. remoteConn: %@ msg: %@", v2, 0x16u);
 }
 
 - (void)handleCallback:(NSObject *)a3 .cold.3(void *a1, int a2, NSObject *a3)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v6[0] = 67109376;
-  v6[1] = [a1 lastPluginStatus];
-  v7 = 1024;
-  v8 = a2;
-  _os_log_debug_impl(&dword_21B766000, a3, OS_LOG_TYPE_DEBUG, "lastPluginStatus: %d - newPluginStatus: %d", v6, 0xEu);
-  v5 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
+  v5[0] = 67109376;
+  v5[1] = [a1 lastPluginStatus];
+  v6 = 1024;
+  v7 = a2;
+  _os_log_debug_impl(&dword_21B766000, a3, OS_LOG_TYPE_DEBUG, "lastPluginStatus: %d - newPluginStatus: %d", v5, 0xEu);
 }
 
 - (void)handleCallback:(uint64_t)a1 .cold.4(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 9);
-  v4[0] = 67109120;
-  v4[1] = v2;
-  _os_log_debug_impl(&dword_21B766000, a2, OS_LOG_TYPE_DEBUG, "Skipping prediction check: Feature disabled (temporarily %d)", v4, 8u);
-  v3 = *MEMORY[0x277D85DE8];
+  v3[0] = 67109120;
+  v3[1] = v2;
+  _os_log_debug_impl(&dword_21B766000, a2, OS_LOG_TYPE_DEBUG, "Skipping prediction check: Feature disabled (temporarily %d)", v3, 8u);
 }
 
 - (void)handleCallback:.cold.5()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
-  _os_log_debug_impl(&dword_21B766000, v0, OS_LOG_TYPE_DEBUG, "Plugin date set to %@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_21B766000, v0, OS_LOG_TYPE_DEBUG, "Plugin date set to %@", v1, 0xCu);
 }
 
 - (void)constructDailyStats:(void *)a1 .cold.1(void *a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
   v2 = a1;
   v3 = OUTLINED_FUNCTION_5_1();
   v5 = [v4 numberWithDouble:v3];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_1_2(&dword_21B766000, v6, v7, "ERROR: Suspicious number of idleDurationHours: %@", v8, v9, v10, v11, v13);
-
-  v12 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_2(&dword_21B766000, v6, v7, "ERROR: Suspicious number of idleDurationHours: %@", v8, v9, v10, v11);
 }
 
 - (void)constructDailyStats:(void *)a1 .cold.2(void *a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
   v2 = a1;
   v3 = OUTLINED_FUNCTION_5_1();
   v5 = [v4 numberWithDouble:v3];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_1_2(&dword_21B766000, v6, v7, "ERROR: Suspicious number of eligibleDurationHours: %@", v8, v9, v10, v11, v13);
-
-  v12 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_2(&dword_21B766000, v6, v7, "ERROR: Suspicious number of eligibleDurationHours: %@", v8, v9, v10, v11);
 }
 
 - (void)cacheCurrentDEoCBehaviorForced:(unsigned __int8 *)a1 .cold.1(unsigned __int8 *a1, void *a2)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CCABB0];
   v4 = a1[8];
   v5 = a2;
@@ -11472,26 +12209,15 @@ uint64_t __55__PowerUISmartChargeManager_startFidgetMitigationTimer__block_invok
   v7 = [MEMORY[0x277CCABB0] numberWithBool:a1[9]];
   v8 = [MEMORY[0x277CCABB0] numberWithInt:{+[PowerUISmartChargeUtilities isOBCSupported](PowerUISmartChargeUtilities, "isOBCSupported") ^ 1}];
   v9 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(a1, "isDEoCSupported") ^ 1}];
-  v11 = 138413058;
-  v12 = v6;
-  v13 = 2112;
-  v14 = v7;
-  v15 = 2112;
-  v16 = v8;
-  v17 = 2112;
-  v18 = v9;
-  _os_log_debug_impl(&dword_21B766000, v5, OS_LOG_TYPE_DEBUG, "!_enabled: %@ - _temporarilyDisabled: %@ - ![PowerUISmartChargeUtilities isOBCSupported]: %@ - ![self isDEoCSupported]: %@", &v11, 0x2Au);
-
-  v10 = *MEMORY[0x277D85DE8];
-}
-
-- (void)cacheCurrentDEoCBehaviorForced:(uint64_t *)a1 .cold.3(uint64_t *a1)
-{
-  v8 = *MEMORY[0x277D85DE8];
-  v7 = *a1;
-  OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x277D85DE8];
+  v10 = 138413058;
+  v11 = v6;
+  v12 = 2112;
+  v13 = v7;
+  v14 = 2112;
+  v15 = v8;
+  v16 = 2112;
+  v17 = v9;
+  _os_log_debug_impl(&dword_21B766000, v5, OS_LOG_TYPE_DEBUG, "!_enabled: %@ - _temporarilyDisabled: %@ - ![PowerUISmartChargeUtilities isOBCSupported]: %@ - ![self isDEoCSupported]: %@", &v10, 0x2Au);
 }
 
 - (void)cacheCurrentDEoCBehaviorForced:(os_log_t)log .cold.4(uint8_t *buf, _BYTE *a2, os_log_t log)
@@ -11504,118 +12230,92 @@ uint64_t __55__PowerUISmartChargeManager_startFidgetMitigationTimer__block_invok
 - (void)client:setState:withHandler:.cold.1()
 {
   OUTLINED_FUNCTION_10();
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v2 = v1;
   v3 = [v0 stringFromState:1];
   OUTLINED_FUNCTION_0_7();
-  _os_log_error_impl(&dword_21B766000, v2, OS_LOG_TYPE_ERROR, "%@ requests state: %@, but the state is not supported!", v5, 0x16u);
-
-  v4 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_21B766000, v2, OS_LOG_TYPE_ERROR, "%@ requests state: %@, but the state is not supported!", v4, 0x16u);
 }
 
 - (void)client:(uint64_t)a1 setMCLLimit:(void *)a2 withHandler:(unsigned __int8)a3 .cold.1(uint64_t a1, void *a2, unsigned __int8 a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
   v4 = MEMORY[0x277CCABB0];
   v5 = a2;
   v6 = [v4 numberWithUnsignedChar:a3];
   OUTLINED_FUNCTION_0_7();
-  OUTLINED_FUNCTION_4_0(&dword_21B766000, v7, v8, "%@ requests MCL limit: %@, but MCL is not supported on this hardware!", v9, v10, v11, v12, v14);
-
-  v13 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4_0(&dword_21B766000, v7, v8, "%@ requests MCL limit: %@, but MCL is not supported on this hardware!", v9, v10, v11, v12);
 }
 
 - (void)client:(uint64_t)a1 setMCLLimit:(void *)a2 withHandler:(unsigned __int8)a3 .cold.2(uint64_t a1, void *a2, unsigned __int8 a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
   v4 = MEMORY[0x277CCABB0];
   v5 = a2;
   v6 = [v4 numberWithUnsignedChar:a3];
   OUTLINED_FUNCTION_0_7();
-  OUTLINED_FUNCTION_4_0(&dword_21B766000, v7, v8, "%@ requests MCL limit: %@, but this number is out of bounds!", v9, v10, v11, v12, v14);
-
-  v13 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4_0(&dword_21B766000, v7, v8, "%@ requests MCL limit: %@, but this number is out of bounds!", v9, v10, v11, v12);
 }
 
 - (void)tmpDisableMCLViaClient:withHandler:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)tmpDisableMCLViaClient:withHandler:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setMCLLimit:(int)a1 .cold.1(int a1, NSObject *a2)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v3[0] = 67109120;
-  v3[1] = a1;
-  _os_log_debug_impl(&dword_21B766000, a2, OS_LOG_TYPE_DEBUG, "Charge limit %hhu requested, but is unchanged", v3, 8u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v2[0] = 67109120;
+  v2[1] = a1;
+  _os_log_debug_impl(&dword_21B766000, a2, OS_LOG_TYPE_DEBUG, "Charge limit %hhu requested, but is unchanged", v2, 8u);
 }
 
 - (void)client:setDEoCState:withHandler:.cold.1()
 {
   OUTLINED_FUNCTION_10();
-  v12 = *MEMORY[0x277D85DE8];
   v2 = v1;
   v3 = [OUTLINED_FUNCTION_9() numberWithUnsignedInteger:?];
   OUTLINED_FUNCTION_0_7();
-  OUTLINED_FUNCTION_4_0(&dword_21B766000, v4, v5, "%@ requests DEoC state: %@, but DEoC is not supported on this hardware!", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4_0(&dword_21B766000, v4, v5, "%@ requests DEoC state: %@, but DEoC is not supported on this hardware!", v6, v7, v8, v9);
 }
 
 - (void)client:setCECState:withHandler:.cold.1()
 {
   OUTLINED_FUNCTION_10();
-  v12 = *MEMORY[0x277D85DE8];
   v2 = v1;
   v3 = [OUTLINED_FUNCTION_9() numberWithUnsignedInteger:?];
   OUTLINED_FUNCTION_0_7();
-  OUTLINED_FUNCTION_4_0(&dword_21B766000, v4, v5, "%@ requests state: %@, but CEC is not supported on this device!", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4_0(&dword_21B766000, v4, v5, "%@ requests state: %@, but CEC is not supported on this device!", v6, v7, v8, v9);
 }
 
 - (void)client:setMCMState:withHandler:.cold.1()
 {
   OUTLINED_FUNCTION_10();
-  v12 = *MEMORY[0x277D85DE8];
   v2 = v1;
   v3 = [OUTLINED_FUNCTION_9() numberWithUnsignedInteger:?];
   OUTLINED_FUNCTION_0_7();
-  OUTLINED_FUNCTION_4_0(&dword_21B766000, v4, v5, "%@ requests state: %@, but MCM is not supported on this hardware!", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4_0(&dword_21B766000, v4, v5, "%@ requests state: %@, but MCM is not supported on this hardware!", v6, v7, v8, v9);
 }
 
 void __60__PowerUISmartChargeManager_accessoryNFCConnectionCallback___block_invoke_2043_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __60__PowerUISmartChargeManager_accessoryNFCConnectionCallback___block_invoke_2043_cold_2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

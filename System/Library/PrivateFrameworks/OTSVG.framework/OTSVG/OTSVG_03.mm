@@ -1,3 +1,52 @@
+uint64_t SVG::parseUnits(uint64_t a1)
+{
+  v2 = 0;
+  do
+  {
+    v3 = v2;
+    v2 = SVG::consumeWsp(a1, v2);
+  }
+
+  while ((v4 & 1) != 0);
+  memset(v13, 170, sizeof(v13));
+  SVG::consumeUnits(a1, v3, v13);
+  if (LOBYTE(v13[2]) != 1)
+  {
+    goto LABEL_10;
+  }
+
+  v5 = v13[1];
+  do
+  {
+    v6 = v5;
+    v5 = SVG::consumeWsp(a1, v5);
+  }
+
+  while ((v7 & 1) != 0);
+  v8 = *(a1 + 23);
+  if ((v8 & 0x80u) != 0)
+  {
+    v8 = *(a1 + 8);
+  }
+
+  if (v6 == v8)
+  {
+    v9 = v13[0] & 0xFFFFFF00;
+    v10 = LOBYTE(v13[0]);
+    v11 = 0x100000000;
+  }
+
+  else
+  {
+LABEL_10:
+    v11 = 0;
+    v10 = 0;
+    v9 = 0;
+  }
+
+  return v11 | v9 | v10;
+}
+
 uint64_t SVG::consumeUnits@<X0>(uint64_t result@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
   v3 = a2;
@@ -372,9 +421,9 @@ void SVG::SVGElement::~SVGElement(SVG::SVGElement *this)
   JUMPOUT(0x25F894240);
 }
 
-void SVG::convertToMask(SVG *this@<X0>, CGImageRef *a2@<X8>)
+void SVG::convertToMask(CGImageRef *__return_ptr a1@<X8>, SVG *this@<X0>)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   bitmapInfo = CGBitmapContextGetBitmapInfo(this);
   ColorSpace = CGBitmapContextGetColorSpace(this);
   Width = CGBitmapContextGetWidth(this);
@@ -406,22 +455,22 @@ void SVG::convertToMask(SVG *this@<X0>, CGImageRef *a2@<X8>)
   src.width = Width;
   src.rowBytes = BytesPerRow;
   matrix = 255;
-  v22 = 0;
-  v23 = xmmword_25D1D7510;
-  v24 = 1179666;
-  v25 = 18;
-  if (vImageMatrixMultiply_ARGB8888(&src, &dest, &matrix, 255, 0, 0, 0) || (*color = 255, vImageBufferFill_ARGB8888(&srcBottom, color, 0)) || vImageAlphaBlend_ARGB8888(&dest, &srcBottom, &dest, 0) || (*v17 = 0, v18 = 1, memset(v20, 0, sizeof(v20)), v19 = 0, vImageMatrixMultiply_ARGB8888(&dest, &dest, v17, 1, 0, 0, 0)))
+  v21 = 0;
+  v22 = xmmword_25D1D7510;
+  v23 = 1179666;
+  v24 = 18;
+  if (vImageMatrixMultiply_ARGB8888(&src, &dest, &matrix, 255, 0, 0, 0) || (*color = 255, vImageBufferFill_ARGB8888(&srcBottom, color, 0)) || vImageAlphaBlend_ARGB8888(&dest, &srcBottom, &dest, 0) || (*v16 = 0, v17 = 1, memset(v19, 0, sizeof(v19)), v18 = 0, vImageMatrixMultiply_ARGB8888(&dest, &dest, v16, 1, 0, 0, 0)))
   {
-    *a2 = 0;
+    *a1 = 0;
   }
 
   else
   {
-    v11 = CGBitmapContextCreate(0, Width, Height, BitsPerComponent, BytesPerRow, ColorSpace, bitmapInfo);
-    *a2 = CGBitmapContextCreateImage(v11);
-    if (v11)
+    v10 = CGBitmapContextCreate(0, Width, Height, BitsPerComponent, BytesPerRow, ColorSpace, bitmapInfo);
+    *a1 = CGBitmapContextCreateImage(v10);
+    if (v10)
     {
-      CFRelease(v11);
+      CFRelease(v10);
     }
   }
 }
@@ -968,17 +1017,17 @@ void SVG::Image::~Image(SVG::Image *this)
   JUMPOUT(0x25F894240);
 }
 
-void SVG::Path::transformIntoVariant(SVG::Path *this@<X0>, CGAffineTransform *a2@<X1>, uint64_t a3@<X8>)
+void SVG::Path::transformIntoVariant(SVG::Path *this@<X0>, uint64_t a2@<X8>, _OWORD *a3@<X1>)
 {
-  v4 = *&a2->c;
-  v5[0] = *&a2->a;
+  v4 = a3[1];
+  v5[0] = *a3;
   v5[1] = v4;
-  v5[2] = *&a2->tx;
+  v5[2] = a3[2];
   SVG::Path::transform(v6, *(this + 8), *(this + 2), v5);
-  *a3 = &unk_286EB96F8;
-  *(a3 + 8) = v6[8];
-  *(a3 + 16) = v7;
-  *(a3 + 48) = 1;
+  *a2 = &unk_286EB96F8;
+  *(a2 + 8) = v6[8];
+  *(a2 + 16) = v7;
+  *(a2 + 48) = 1;
 }
 
 void SVG::Path::transform(SVG::Path *this, CGAffineTransform *a2, uint64_t a3, uint64_t a4)
@@ -1628,7 +1677,7 @@ LABEL_95:
   v150.origin.y = v42;
   v150.size.width = v45;
   v150.size.height = v44;
-  SVG::createParallelBitmapContext(a3, v150, &c);
+  SVG::createParallelBitmapContext(&c, a3, v150);
   v93 = c;
   if (!c)
   {
@@ -1836,11 +1885,11 @@ LABEL_139:
   std::vector<std::variant<SVG::Image,SVG::Path>>::__destroy_vector::operator()[abi:nn200100](v143);
 }
 
-double SVG::ClipToPaths::boundingRect(SVG **this, SVG::BoundingRectState *a2)
+double SVG::ClipToPaths::boundingRect(SVG **this, SVG::BoundingRectState *x1_0)
 {
-  v4.origin.x = SVG::boundingRect(this[1], a2);
-  v5.origin.x = SVG::BoundingRectState::deviceRect(a2, v4);
-  SVG::BoundingRectState::clip(a2, v5);
+  v4.origin.x = SVG::boundingRect(this[1], x1_0);
+  v5.origin.x = SVG::BoundingRectState::deviceRect(x1_0, v4);
+  SVG::BoundingRectState::clip(x1_0, v5);
   return *MEMORY[0x277CBF3A0];
 }
 
@@ -1853,78 +1902,77 @@ double SVG::boundingRect(SVG *this, const SVG::ClipToPaths::BaseClipNode *a2)
   v7 = *(this + 1);
   if (v7)
   {
-    SVG::boundingRect(v7, a2);
-    v36.origin.x = v8;
-    v36.origin.y = v9;
-    v36.size.width = v10;
-    v36.size.height = v11;
-    v28.origin.x = x;
-    v28.origin.y = y;
-    v28.size.width = width;
-    v28.size.height = height;
-    v29 = CGRectIntersection(v28, v36);
-    x = v29.origin.x;
-    y = v29.origin.y;
-    width = v29.size.width;
-    height = v29.size.height;
+    v35.origin.x = SVG::boundingRect(v7, a2);
+    v35.origin.y = v8;
+    v35.size.width = v9;
+    v35.size.height = v10;
+    v27.origin.x = x;
+    v27.origin.y = y;
+    v27.size.width = width;
+    v27.size.height = height;
+    v28 = CGRectIntersection(v27, v35);
+    x = v28.origin.x;
+    y = v28.origin.y;
+    width = v28.size.width;
+    height = v28.size.height;
   }
 
-  if (v12)
+  if (v11)
   {
-    v14 = v12;
-    v15 = *MEMORY[0x277CBF3A0];
-    v16 = *(MEMORY[0x277CBF3A0] + 8);
-    v17 = *(MEMORY[0x277CBF3A0] + 16);
-    v18 = *(MEMORY[0x277CBF3A0] + 24);
-    v19 = v12[9];
-    v20 = v12[10];
-    while (v19 != v20)
+    v13 = v11;
+    v14 = *MEMORY[0x277CBF3A0];
+    v15 = *(MEMORY[0x277CBF3A0] + 8);
+    v16 = *(MEMORY[0x277CBF3A0] + 16);
+    v17 = *(MEMORY[0x277CBF3A0] + 24);
+    v18 = v11[9];
+    v19 = v11[10];
+    while (v18 != v19)
     {
-      v21 = *v19;
-      v19 += 2;
-      SVG::boundingRect(v21, v13);
-      v22 = *(v14 + 5);
-      *&v27.a = *(v14 + 3);
-      *&v27.c = v22;
-      *&v27.tx = *(v14 + 7);
-      v37 = CGRectApplyAffineTransform(v30, &v27);
-      v31.origin.x = v15;
-      v31.origin.y = v16;
-      v31.size.width = v17;
-      v31.size.height = v18;
-      v32 = CGRectUnion(v31, v37);
-      v15 = v32.origin.x;
-      v16 = v32.origin.y;
-      v17 = v32.size.width;
-      v18 = v32.size.height;
+      v20 = *v18;
+      v18 += 2;
+      v29.origin.x = SVG::boundingRect(v20, v12);
+      v21 = *(v13 + 5);
+      *&v26.a = *(v13 + 3);
+      *&v26.c = v21;
+      *&v26.tx = *(v13 + 7);
+      v36 = CGRectApplyAffineTransform(v29, &v26);
+      v30.origin.x = v14;
+      v30.origin.y = v15;
+      v30.size.width = v16;
+      v30.size.height = v17;
+      v31 = CGRectUnion(v30, v36);
+      v14 = v31.origin.x;
+      v15 = v31.origin.y;
+      v16 = v31.size.width;
+      v17 = v31.size.height;
     }
 
     goto LABEL_9;
   }
 
-  if (v23)
+  if (v22)
   {
-    v24 = v23;
-    BoundingBox = CGPathGetBoundingBox(v23[9]);
-    v25 = *(v24 + 5);
-    *&v27.a = *(v24 + 3);
-    *&v27.c = v25;
-    *&v27.tx = *(v24 + 7);
-    v34 = CGRectApplyAffineTransform(BoundingBox, &v27);
-    v15 = v34.origin.x;
-    v16 = v34.origin.y;
-    v17 = v34.size.width;
-    v18 = v34.size.height;
+    v23 = v22;
+    BoundingBox = CGPathGetBoundingBox(v22[9]);
+    v24 = *(v23 + 5);
+    *&v26.a = *(v23 + 3);
+    *&v26.c = v24;
+    *&v26.tx = *(v23 + 7);
+    v33 = CGRectApplyAffineTransform(BoundingBox, &v26);
+    v14 = v33.origin.x;
+    v15 = v33.origin.y;
+    v16 = v33.size.width;
+    v17 = v33.size.height;
 LABEL_9:
-    v35.origin.x = x;
-    v35.origin.y = y;
-    v35.size.width = width;
-    v35.size.height = height;
-    v38.origin.x = v15;
-    v38.origin.y = v16;
-    v38.size.width = v17;
-    v38.size.height = v18;
-    *&x = CGRectIntersection(v35, v38);
+    v34.origin.x = x;
+    v34.origin.y = y;
+    v34.size.width = width;
+    v34.size.height = height;
+    v37.origin.x = v14;
+    v37.origin.y = v15;
+    v37.size.width = v16;
+    v37.size.height = v17;
+    *&x = CGRectIntersection(v34, v37);
   }
 
   return x;
@@ -1944,54 +1992,52 @@ double SVG::timeCost(SVG *this, const SVG::ClipToPaths::BaseClipNode *a2, const 
   v5 = *(this + 1);
   if (v5)
   {
-    SVG::timeCost(v5, a2, a3);
-    v7 = v6 + 0.0;
+    v6 = SVG::timeCost(v5, a2, a3) + 0.0;
   }
 
   else
   {
-    v7 = 0.0;
+    v6 = 0.0;
   }
 
-  if (v8)
+  if (v7)
   {
-    v11 = v8;
-    v12 = v8[9];
-    v13 = v8[10];
-    if (v12 == v13)
+    v10 = v7;
+    v11 = v7[9];
+    v12 = v7[10];
+    if (v11 == v12)
     {
-      v16 = v8[9];
+      v14 = v7[9];
     }
 
     else
     {
       do
       {
-        v14 = *v12;
-        v12 += 2;
-        SVG::timeCost(v14, a2, v10);
-        v7 = v7 + v15;
+        v13 = *v11;
+        v11 += 2;
+        v6 = v6 + SVG::timeCost(v13, a2, v9);
       }
 
-      while (v12 != v13);
-      v12 = v11[9];
-      v16 = v11[10];
+      while (v11 != v12);
+      v11 = v10[9];
+      v14 = v10[10];
     }
 
-    if ((v16 - v12) > 0x10)
+    if ((v14 - v11) > 0x10)
     {
-      v18 = SVG::ClipToMask::staticTimeCost(a2, v9);
-      return v7 + v18;
+      v16 = SVG::ClipToMask::staticTimeCost(a2, v8);
+      return v6 + v16;
     }
   }
 
   {
-    v17 = CGRectGetWidth(*a2) * 0.0008;
-    v18 = v17 * CGRectGetHeight(*a2) + 100.93;
-    return v7 + v18;
+    v15 = CGRectGetWidth(*a2) * 0.0008;
+    v16 = v15 * CGRectGetHeight(*a2) + 100.93;
+    return v6 + v16;
   }
 
-  return v7;
+  return v6;
 }
 
 void SVG::ClipToPaths::memoryCost(SVG **this, const CGRect *a2, const SVG::BoundingRectState *a3)
@@ -2362,17 +2408,17 @@ void std::vector<std::variant<SVG::Image,SVG::Path>>::__destroy_vector::operator
     {
       do
       {
-        v6 = v4 - 56;
+        v6 = v4 - 14;
         v7 = *(v4 - 2);
         if (v7 != -1)
         {
           v9[0] = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm0EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG5ImageENS8_4PathEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSC_1EJS9_SA_EEEEEEDcSE_DpT0_;
           v9[1] = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm1EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG5ImageENS8_4PathEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSC_1EJS9_SA_EEEEEEDcSE_DpT0_;
-          (v9[v7])(&v8, v4 - 56);
+          (v9[v7])(&v8, v4 - 14);
         }
 
         *(v4 - 2) = -1;
-        v4 -= 56;
+        v4 -= 14;
       }
 
       while (v6 != v2);
@@ -2561,42 +2607,42 @@ uint64_t SVG::RadialGradientElement::RadialGradientElement(uint64_t a1, uint64_t
   return a1;
 }
 
-void SVG::RadialGradientElement::specifiedRadialState(void *a1@<X0>, uint64_t a2@<X8>)
+void SVG::RadialGradientElement::specifiedRadialState(void *a1@<X0>, uint64_t a3@<X8>)
 {
-  *(a2 + 128) = xmmword_25D1D7618;
-  *(a2 + 144) = unk_25D1D7628;
-  *(a2 + 160) = xmmword_25D1D7638;
-  *(a2 + 176) = unk_25D1D7648;
-  *(a2 + 64) = xmmword_25D1D75D8;
-  *(a2 + 80) = unk_25D1D75E8;
-  *(a2 + 96) = xmmword_25D1D75F8;
-  *(a2 + 112) = unk_25D1D7608;
-  *a2 = xmmword_25D1D7598;
-  *(a2 + 16) = unk_25D1D75A8;
-  *(a2 + 32) = xmmword_25D1D75B8;
-  *(a2 + 48) = unk_25D1D75C8;
-  *a2 = 0;
-  *(a2 + 8) = 0;
-  *(a2 + 4) = 0;
-  *(a2 + 56) = 0;
-  *(a2 + 64) = 0;
-  *(a2 + 72) = 0;
-  *(a2 + 68) = 0;
-  *(a2 + 88) = 0;
-  *(a2 + 96) = 0;
-  *(a2 + 120) = 0;
-  *(a2 + 112) = 0;
-  *(a2 + 136) = 0;
-  *(a2 + 144) = 0;
-  *(a2 + 168) = 0;
-  *(a2 + 160) = 0;
-  *(a2 + 184) = 0;
-  memset(v5, 0, sizeof(v5));
-  v2[0] = a1;
-  std::vector<std::reference_wrapper<SVG::GradientElement const>>::push_back[abi:nn200100](v5, v2);
-  *v2 = 0u;
+  *(a3 + 128) = xmmword_25D1D7618;
+  *(a3 + 144) = unk_25D1D7628;
+  *(a3 + 160) = xmmword_25D1D7638;
+  *(a3 + 176) = unk_25D1D7648;
+  *(a3 + 64) = xmmword_25D1D75D8;
+  *(a3 + 80) = unk_25D1D75E8;
+  *(a3 + 96) = xmmword_25D1D75F8;
+  *(a3 + 112) = unk_25D1D7608;
+  *a3 = xmmword_25D1D7598;
+  *(a3 + 16) = unk_25D1D75A8;
+  *(a3 + 32) = xmmword_25D1D75B8;
+  *(a3 + 48) = unk_25D1D75C8;
+  *a3 = 0;
+  *(a3 + 8) = 0;
+  *(a3 + 4) = 0;
+  *(a3 + 56) = 0;
+  *(a3 + 64) = 0;
+  *(a3 + 72) = 0;
+  *(a3 + 68) = 0;
+  *(a3 + 88) = 0;
+  *(a3 + 96) = 0;
+  *(a3 + 120) = 0;
+  *(a3 + 112) = 0;
+  *(a3 + 136) = 0;
+  *(a3 + 144) = 0;
+  *(a3 + 168) = 0;
+  *(a3 + 160) = 0;
+  *(a3 + 184) = 0;
+  memset(v6, 0, sizeof(v6));
+  v3[0] = a1;
+  std::vector<std::reference_wrapper<SVG::GradientElement const>>::push_back[abi:nn200100](v6, v3);
+  *v3 = 0u;
   *__p = 0u;
-  *&v4 = 0xAAAAAAAA3F800000;
+  *&v5 = 0xAAAAAAAA3F800000;
   operator new();
 }
 
@@ -2767,10 +2813,10 @@ void SVG::StopElement::~StopElement(SVG::StopElement *this)
   JUMPOUT(0x25F894240);
 }
 
-uint64_t SVG::decodeBase64@<X0>(SVG *this@<X0>, void *a2@<X8>)
+uint64_t *SVG::decodeBase64@<X0>(uint64_t *__return_ptr a1@<X8>, SVG *this@<X0>)
 {
   result = [objc_alloc(MEMORY[0x277CBEA90]) initWithBase64EncodedString:this options:1];
-  *a2 = result;
+  *a1 = result;
   return result;
 }
 

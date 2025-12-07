@@ -14,7 +14,7 @@
 
 - (id)_readCachedNumberValueForKey:(id)key
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   keyCopy = key;
   v5 = [(CDMMarisaTrie *)self traversePrefix:keyCopy];
   if ([v5 count] == 1)
@@ -30,24 +30,21 @@
     v9 = CDMOSLoggerForCategory(0);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
-      v12 = 136315394;
-      v13 = "[CDMMarisaTrie _readCachedNumberValueForKey:]";
-      v14 = 2112;
-      v15 = keyCopy;
-      _os_log_impl(&dword_1DC287000, v9, OS_LOG_TYPE_INFO, "%s WARNING: Failed to find entry for key: %@", &v12, 0x16u);
+      v11 = 136315394;
+      v12 = "[CDMMarisaTrie _readCachedNumberValueForKey:]";
+      v13 = 2112;
+      v14 = keyCopy;
+      _os_log_impl(&dword_1DC287000, v9, OS_LOG_TYPE_INFO, "%s WARNING: Failed to find entry for key: %@", &v11, 0x16u);
     }
 
     v8 = 0;
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v8;
 }
 
 - (BOOL)_loadTrie
 {
-  v8 = *MEMORY[0x1E69E9840];
   marisa::Trie::clear(&self->_readOnlyTrie);
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
   v4 = [defaultManager fileExistsAtPath:self->_filePath];
@@ -57,9 +54,7 @@
     marisa::Trie::mmap(&self->_readOnlyTrie, [(NSString *)self->_filePath UTF8String]);
   }
 
-  v5 = marisa::Trie::empty(&self->_readOnlyTrie);
-  v6 = *MEMORY[0x1E69E9840];
-  return v5 ^ 1;
+  return marisa::Trie::empty(&self->_readOnlyTrie) ^ 1;
 }
 
 - (id)traversePrefix:(id)prefix
@@ -104,34 +99,34 @@
 
 - (BOOL)createFromEntries:(id)entries withHashValue:(id)value
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   entriesCopy = entries;
   valueCopy = value;
-  marisa::Keyset::Keyset(v27);
-  v25 = 0u;
-  v26 = 0u;
-  v23 = 0u;
+  marisa::Keyset::Keyset(v26);
   v24 = 0u;
+  v25 = 0u;
+  v22 = 0u;
+  v23 = 0u;
   v8 = entriesCopy;
-  v9 = [v8 countByEnumeratingWithState:&v23 objects:v31 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v22 objects:v30 count:16];
   if (v9)
   {
-    v10 = *v24;
+    v10 = *v23;
     do
     {
       v11 = 0;
       do
       {
-        if (*v24 != v10)
+        if (*v23 != v10)
         {
           objc_enumerationMutation(v8);
         }
 
-        marisa::Keyset::push_back(v27, [*(*(&v23 + 1) + 8 * v11++) UTF8String]);
+        marisa::Keyset::push_back(v26, [*(*(&v22 + 1) + 8 * v11++) UTF8String]);
       }
 
       while (v9 != v11);
-      v9 = [v8 countByEnumeratingWithState:&v23 objects:v31 count:16];
+      v9 = [v8 countByEnumeratingWithState:&v22 objects:v30 count:16];
     }
 
     while (v9);
@@ -146,21 +141,20 @@
   valueCopy = [v15 stringWithFormat:v16, valueCopy];
 
   v18 = v14;
-  marisa::Keyset::push_back(v27, [v14 UTF8String]);
+  marisa::Keyset::push_back(v26, [v14 UTF8String]);
   v19 = valueCopy;
-  marisa::Keyset::push_back(v27, [valueCopy UTF8String]);
-  marisa::Trie::Trie(v30);
-  marisa::Trie::build(v30, v27);
-  marisa::Trie::save(v30, [(NSString *)self->_filePath UTF8String]);
-  marisa::Trie::clear(v30);
-  MEMORY[0x1E1297700](v30);
+  marisa::Keyset::push_back(v26, [valueCopy UTF8String]);
+  marisa::Trie::Trie(v29);
+  marisa::Trie::build(v29, v26);
+  marisa::Trie::save(v29, [(NSString *)self->_filePath UTF8String]);
+  marisa::Trie::clear(v29);
+  MEMORY[0x1E1297700](v29);
   _loadTrie = [(CDMMarisaTrie *)self _loadTrie];
 
-  marisa::scoped_array<marisa::scoped_array<marisa::Key>>::~scoped_array(v29);
-  marisa::scoped_array<marisa::scoped_array<char>>::~scoped_array(v28);
+  marisa::scoped_array<marisa::scoped_array<marisa::Key>>::~scoped_array(v28);
   marisa::scoped_array<marisa::scoped_array<char>>::~scoped_array(v27);
+  marisa::scoped_array<marisa::scoped_array<char>>::~scoped_array(v26);
 
-  v21 = *MEMORY[0x1E69E9840];
   return _loadTrie;
 }
 
@@ -182,12 +176,12 @@
 
 - (CDMMarisaTrie)initWithFilePath:(id)path versionNumber:(id)number
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   pathCopy = path;
   numberCopy = number;
-  v18.receiver = self;
-  v18.super_class = CDMMarisaTrie;
-  v8 = [(CDMMarisaTrie *)&v18 init];
+  v17.receiver = self;
+  v17.super_class = CDMMarisaTrie;
+  v8 = [(CDMMarisaTrie *)&v17 init];
   if (v8)
   {
     v9 = [pathCopy copy];
@@ -209,7 +203,7 @@
         if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
         {
           *buf = 136315138;
-          v20 = "[CDMMarisaTrie initWithFilePath:versionNumber:]";
+          v19 = "[CDMMarisaTrie initWithFilePath:versionNumber:]";
           _os_log_impl(&dword_1DC287000, v15, OS_LOG_TYPE_INFO, "%s WARNING : Version mismatch", buf, 0xCu);
         }
 
@@ -218,7 +212,6 @@
     }
   }
 
-  v16 = *MEMORY[0x1E69E9840];
   return v8;
 }
 

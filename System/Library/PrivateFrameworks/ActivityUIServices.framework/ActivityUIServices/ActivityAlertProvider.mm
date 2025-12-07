@@ -10,12 +10,10 @@
 
 - (NSString)identifier
 {
-  v2 = *(&self->super.isa + OBJC_IVAR____TtC18ActivityUIServices21ActivityAlertProvider_activityIdentifier);
-  v3 = *(&self->configuration + OBJC_IVAR____TtC18ActivityUIServices21ActivityAlertProvider_activityIdentifier);
 
-  v4 = sub_18E65F8F0();
+  v2 = sub_18E65F8F0();
 
-  return v4;
+  return v2;
 }
 
 - (TLAlertConfiguration)configuration
@@ -35,29 +33,28 @@
 - (_TtC18ActivityUIServices21ActivityAlertProvider)initWithIdentifier:(id)identifier action:(int64_t)action presentationOptions:(id)options payload:(id)payload
 {
   v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EAC89D08, &qword_18E663F30);
-  v10 = *(*(v9 - 8) + 64);
   MEMORY[0x1EEE9AC00](v9 - 8);
-  v12 = &v21 - v11;
-  v13 = sub_18E65F900();
-  v15 = v14;
+  v11 = &v20 - v10;
+  v12 = sub_18E65F900();
+  v14 = v13;
   if (payload)
   {
-    v16 = sub_18E65F5D0();
+    v15 = sub_18E65F5D0();
     sub_18E624678();
     sub_18E65F670();
-    (*(*(v16 - 8) + 56))(v12, 0, 1, v16);
+    (*(*(v15 - 8) + 56))(v11, 0, 1, v15);
   }
 
   else
   {
-    v17 = sub_18E65F5D0();
-    (*(*(v17 - 8) + 56))(v12, 1, 1, v17);
+    v16 = sub_18E65F5D0();
+    (*(*(v16 - 8) + 56))(v11, 1, 1, v16);
   }
 
   optionsCopy = options;
-  v19 = sub_18E611A08(v13, v15, action, options, v12);
+  v18 = sub_18E611A08(v12, v14, action, options, v11);
 
-  return v19;
+  return v18;
 }
 
 - (_TtC18ActivityUIServices21ActivityAlertProvider)init

@@ -7,7 +7,7 @@
 - (BOOL)icd_isConnectionAllowedForService:(int64_t)service validationReason:(int64_t)reason
 {
   processIdentifier = [(NSXPCConnection *)self processIdentifier];
-  [(NSXPCConnection *)self auditToken];
+  objc_msgSend_auditToken(self);
   memset(buf, 0, 32);
   v8 = MSVBundleIDForAuditToken();
   v9 = ICCloudServerSupportedServiceGetName();

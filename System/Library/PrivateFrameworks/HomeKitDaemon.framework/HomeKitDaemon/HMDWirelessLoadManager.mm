@@ -8,7 +8,7 @@
 
 - (id)getBtLoadData
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   date = [MEMORY[0x277CBEAA8] date];
@@ -32,15 +32,15 @@
     {
       v12 = HMFGetLogIdentifier();
       *buf = 138544386;
-      v22 = v12;
-      v23 = 1024;
+      v21 = v12;
+      v22 = 1024;
       btLoad = [(HMDWirelessLoadManager *)v10 btLoad];
-      v25 = 1024;
+      v24 = 1024;
       btAudioTask = [(HMDWirelessLoadManager *)v10 btAudioTask];
-      v27 = 1024;
+      v26 = 1024;
       btNonAudioTask = [(HMDWirelessLoadManager *)v10 btNonAudioTask];
-      v29 = 2048;
-      v30 = v8;
+      v28 = 2048;
+      v29 = v8;
       _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@BT Load: %d AudioTsk: %d NonAudioTsk: %d Raw: %lld", buf, 0x28u);
     }
 
@@ -48,17 +48,16 @@
   }
 
   v13 = [MEMORY[0x277CCABB0] numberWithInt:{-[HMDWirelessLoadManager btLoad](selfCopy, "btLoad", @"kBtLoadKey"}];
-  v20[0] = v13;
-  v19[1] = @"kBtAudioTask";
+  v19[0] = v13;
+  v18[1] = @"kBtAudioTask";
   v14 = [MEMORY[0x277CCABB0] numberWithInt:{-[HMDWirelessLoadManager btAudioTask](selfCopy, "btAudioTask")}];
-  v20[1] = v14;
-  v19[2] = @"kBtNonAudioTask";
+  v19[1] = v14;
+  v18[2] = @"kBtNonAudioTask";
   v15 = [MEMORY[0x277CCABB0] numberWithInt:{-[HMDWirelessLoadManager btNonAudioTask](selfCopy, "btNonAudioTask")}];
-  v20[2] = v15;
-  v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:3];
+  v19[2] = v15;
+  v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:3];
 
   objc_sync_exit(selfCopy);
-  v17 = *MEMORY[0x277D85DE8];
 
   return v16;
 }

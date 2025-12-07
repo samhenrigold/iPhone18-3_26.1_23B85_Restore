@@ -117,7 +117,7 @@
 
 - (void)_usageLimitDidChangeFromOldApplicationIdentifiers:(id)identifiers oldCategoryIdentifiers:(id)categoryIdentifiers oldCategoryIdentifiersVersion2:(id)version2 oldWebDomains:(id)domains oldItemIdentifiers:(id)itemIdentifiers oldItemType:(id)type toNewApplicationIdentifiers:(id)applicationIdentifiers newCategoryIdentifiers:(id)self0 newCategoryIdentifiersVersion2:(id)self1 newWebDomains:(id)self2 newItemIdentifiers:(id)self3 newItemType:(id)self4
 {
-  v54[2] = *MEMORY[0x1E69E9840];
+  v53[2] = *MEMORY[0x1E69E9840];
   identifiersCopy = identifiers;
   categoryIdentifiersCopy = categoryIdentifiers;
   version2Copy = version2;
@@ -130,16 +130,16 @@
   webDomainsCopy = webDomains;
   newItemIdentifiersCopy = newItemIdentifiers;
   itemTypeCopy = itemType;
-  v52 = identifiersCopy;
+  v51 = identifiersCopy;
   if ([identifiersCopy count] || objc_msgSend(categoryIdentifiersCopy, "count") || objc_msgSend(version2Copy, "count") || objc_msgSend(domainsCopy, "count") || (v29 = objc_msgSend(typeCopy, "isEqualToString:", @"app"), v30 = itemIdentifiersCopy, (v29 & 1) == 0))
   {
     v30 = identifiersCopy;
   }
 
-  v45 = domainsCopy;
-  v46 = itemIdentifiersCopy;
-  v48 = version2Copy;
-  v49 = categoryIdentifiersCopy;
+  v44 = domainsCopy;
+  v45 = itemIdentifiersCopy;
+  v47 = version2Copy;
+  v48 = categoryIdentifiersCopy;
   v31 = v30;
   if ([applicationIdentifiersCopy count] || objc_msgSend(newCategoryIdentifiersCopy, "count") || objc_msgSend(identifiersVersion2Copy, "count") || objc_msgSend(webDomainsCopy, "count") || (v32 = objc_msgSend(itemTypeCopy, "isEqualToString:", @"app"), v33 = newItemIdentifiersCopy, (v32 & 1) == 0))
   {
@@ -170,31 +170,28 @@
     v39 = v36;
   }
 
-  v53[0] = @"OldBundleIdentifiers";
-  v53[1] = @"NewBundleIdentifiers";
-  v54[0] = v37;
-  v54[1] = v39;
-  v40 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v54 forKeys:v53 count:2];
+  v52[0] = @"OldBundleIdentifiers";
+  v52[1] = @"NewBundleIdentifiers";
+  v53[0] = v37;
+  v53[1] = v39;
+  v40 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v53 forKeys:v52 count:2];
   defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
   [(STBlueprintUsageLimit *)self blueprint];
   v43 = v42 = newCategoryIdentifiersCopy;
   [defaultCenter postNotificationName:@"LimitedApplicationsDidChange" object:v43 userInfo:v40];
-
-  v44 = *MEMORY[0x1E69E9840];
 }
 
 + (id)limitKeyPaths
 {
-  v5[7] = *MEMORY[0x1E69E9840];
-  v5[0] = @"day0Limit";
-  v5[1] = @"day1Limit";
-  v5[2] = @"day2Limit";
-  v5[3] = @"day3Limit";
-  v5[4] = @"day4Limit";
-  v5[5] = @"day5Limit";
-  v5[6] = @"day6Limit";
-  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:7];
-  v3 = *MEMORY[0x1E69E9840];
+  v4[7] = *MEMORY[0x1E69E9840];
+  v4[0] = @"day0Limit";
+  v4[1] = @"day1Limit";
+  v4[2] = @"day2Limit";
+  v4[3] = @"day3Limit";
+  v4[4] = @"day4Limit";
+  v4[5] = @"day5Limit";
+  v4[6] = @"day6Limit";
+  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v4 count:7];
 
   return v2;
 }
@@ -254,28 +251,28 @@ LABEL_10:
 
 - (void)setBudgetLimit:(double)limit
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v5 = +[STBlueprintUsageLimit limitKeyPaths];
-  v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v14;
+    v8 = *v13;
     do
     {
       v9 = 0;
       do
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v13 + 1) + 8 * v9);
+        v10 = *(*(&v12 + 1) + 8 * v9);
         v11 = [MEMORY[0x1E696AD98] numberWithDouble:limit];
         [(STBlueprintUsageLimit *)self setValue:v11 forKeyPath:v10];
 
@@ -283,13 +280,11 @@ LABEL_10:
       }
 
       while (v7 != v9);
-      v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v7);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setBudgetLimit:(double)limit forDay:(unint64_t)day
@@ -307,7 +302,7 @@ LABEL_10:
 
 - (void)setBudgetLimitScheduleRepresentation:(id)representation
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   representationCopy = representation;
   simpleSchedule = [representationCopy simpleSchedule];
   v6 = simpleSchedule;
@@ -317,42 +312,40 @@ LABEL_10:
     [(STBlueprintUsageLimit *)self setBudgetLimit:?];
   }
 
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   customScheduleItems = [representationCopy customScheduleItems];
-  v8 = [customScheduleItems countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v8 = [customScheduleItems countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v16;
+    v10 = *v15;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v16 != v10)
+        if (*v15 != v10)
         {
           objc_enumerationMutation(customScheduleItems);
         }
 
-        v12 = *(*(&v15 + 1) + 8 * i);
+        v12 = *(*(&v14 + 1) + 8 * i);
         [v12 budgetLimit];
         -[STBlueprintUsageLimit setBudgetLimit:forDay:](self, "setBudgetLimit:forDay:", [v12 day], v13);
       }
 
-      v9 = [customScheduleItems countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v9 = [customScheduleItems countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v9);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)updateWithDictionaryRepresentation:(id)representation
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   representationCopy = representation;
   v5 = [representationCopy objectForKeyedSubscript:@"applicationIdentifiers"];
   [(STBlueprintUsageLimit *)self setApplicationIdentifiers:v5];
@@ -376,42 +369,41 @@ LABEL_10:
   [(STBlueprintUsageLimit *)self setNotificationTimeInterval:v11];
 
   v12 = +[STBlueprintUsageLimit limitKeyPaths];
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
-  v13 = [v12 countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v22;
+    v15 = *v21;
     do
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v22 != v15)
+        if (*v21 != v15)
         {
           objc_enumerationMutation(v12);
         }
 
-        v17 = *(*(&v21 + 1) + 8 * i);
+        v17 = *(*(&v20 + 1) + 8 * i);
         v18 = [representationCopy objectForKeyedSubscript:v17];
         [(STBlueprintUsageLimit *)self setValue:v18 forKeyPath:v17];
       }
 
-      v14 = [v12 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v14 = [v12 countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v14);
   }
 
-  v19 = *MEMORY[0x1E69E9840];
   return 1;
 }
 
 - (id)dictionaryRepresentation
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v3 = objc_opt_new();
   applicationIdentifiers = [(STBlueprintUsageLimit *)self applicationIdentifiers];
   [v3 setObject:applicationIdentifiers forKeyedSubscript:@"applicationIdentifiers"];
@@ -435,38 +427,36 @@ LABEL_10:
   [v3 setObject:notificationTimeInterval forKeyedSubscript:@"notificationTimeInterval"];
 
   v11 = +[STBlueprintUsageLimit limitKeyPaths];
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
-  v12 = [v11 countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v22;
+    v14 = *v21;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v22 != v14)
+        if (*v21 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        v16 = *(*(&v21 + 1) + 8 * i);
+        v16 = *(*(&v20 + 1) + 8 * i);
         v17 = [(STBlueprintUsageLimit *)self valueForKeyPath:v16];
         [v3 setObject:v17 forKeyedSubscript:v16];
       }
 
-      v13 = [v11 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v13);
   }
 
   v18 = [v3 copy];
-
-  v19 = *MEMORY[0x1E69E9840];
 
   return v18;
 }
@@ -490,7 +480,7 @@ LABEL_10:
       v6 = +[STLog coreDataValidation];
       if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
       {
-        [STBlueprintUsageLimit validateForUpdate:update];
+        [STBlueprintUsageLimit validateForUpdate:];
       }
     }
 
@@ -504,7 +494,7 @@ LABEL_10:
     v5 = +[STLog coreDataValidation];
     if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
-      [STBlueprintUsageLimit validateForUpdate:update];
+      [STBlueprintUsageLimit validateForUpdate:];
     }
 
     v7 = 0;
@@ -532,7 +522,7 @@ LABEL_10:
       v6 = +[STLog coreDataValidation];
       if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
       {
-        [STBlueprintUsageLimit validateForInsert:insert];
+        [STBlueprintUsageLimit validateForInsert:];
       }
     }
 
@@ -546,7 +536,7 @@ LABEL_10:
     v5 = +[STLog coreDataValidation];
     if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
-      [STBlueprintUsageLimit validateForInsert:insert];
+      [STBlueprintUsageLimit validateForInsert:];
     }
 
     v7 = 0;
@@ -572,7 +562,7 @@ LABEL_10:
       v6 = +[STLog coreDataValidation];
       if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
       {
-        [STBlueprintUsageLimit validateForDelete:delete];
+        [STBlueprintUsageLimit validateForDelete:];
       }
     }
 
@@ -586,7 +576,7 @@ LABEL_10:
     v5 = +[STLog coreDataValidation];
     if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
-      [STBlueprintUsageLimit validateForDelete:delete];
+      [STBlueprintUsageLimit validateForDelete:];
     }
 
     v7 = 0;
@@ -597,27 +587,26 @@ LABEL_10:
 
 - (BOOL)_validateBlueprint:(id)blueprint
 {
-  v12[1] = *MEMORY[0x1E69E9840];
+  v11[1] = *MEMORY[0x1E69E9840];
   blueprintCopy = blueprint;
   blueprint = [(STBlueprintUsageLimit *)self blueprint];
 
   if (!blueprint)
   {
     v6 = MEMORY[0x1E696ABC0];
-    v11 = *MEMORY[0x1E696A578];
-    v12[0] = @"STBlueprintUsageLimit is missing a blueprint.";
-    v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:&v11 count:1];
+    v10 = *MEMORY[0x1E696A578];
+    v11[0] = @"STBlueprintUsageLimit is missing a blueprint.";
+    v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:&v10 count:1];
     v8 = [v6 errorWithDomain:@"STErrorDomain" code:547 userInfo:v7];
     [blueprintCopy addObject:v8];
   }
 
-  v9 = *MEMORY[0x1E69E9840];
   return blueprint != 0;
 }
 
 - (BOOL)_validateIdentifiers:(id)identifiers
 {
-  v19[1] = *MEMORY[0x1E69E9840];
+  v18[1] = *MEMORY[0x1E69E9840];
   identifiersCopy = identifiers;
   applicationIdentifiers = [(STBlueprintUsageLimit *)self applicationIdentifiers];
   if (!applicationIdentifiers)
@@ -648,9 +637,9 @@ LABEL_7:
   {
 LABEL_8:
     v13 = MEMORY[0x1E696ABC0];
-    v18 = *MEMORY[0x1E696A578];
-    v19[0] = @"STBlueprintUsageLimit is missing a valid identifier";
-    v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:&v18 count:1];
+    v17 = *MEMORY[0x1E696A578];
+    v18[0] = @"STBlueprintUsageLimit is missing a valid identifier";
+    v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:&v17 count:1];
     v15 = [v13 errorWithDomain:@"STErrorDomain" code:548 userInfo:v14];
     [identifiersCopy addObject:v15];
 
@@ -661,7 +650,6 @@ LABEL_8:
   v12 = 1;
 LABEL_9:
 
-  v16 = *MEMORY[0x1E69E9840];
   return v12;
 }
 
@@ -671,28 +659,28 @@ LABEL_9:
   [v4 handleFailureInMethod:a1 object:a2 file:@"STBlueprintUsageLimit.m" lineNumber:325 description:{@"Invalid parameter not satisfying: %@", @"day >= 1 && day <= 7"}];
 }
 
-- (void)validateForUpdate:(uint64_t *)a1 .cold.1(uint64_t *a1)
+- (void)validateForUpdate:.cold.1()
 {
-  OUTLINED_FUNCTION_2_0(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2_0(*MEMORY[0x1E69E9840]);
+  v6 = 136446466;
   OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1_0(&dword_1B831F000, v1, v2, "%{public}s Built-in CoreData Validation for update on BlueprintSchedule failed with: %{public}@", v3, v4, v5, v6, 2u);
-  v7 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_0(&dword_1B831F000, v0, v1, "%{public}s Built-in CoreData Validation for update on BlueprintSchedule failed with: %{public}@", v2, v3, v4, v5, v6);
 }
 
-- (void)validateForInsert:(uint64_t *)a1 .cold.1(uint64_t *a1)
+- (void)validateForInsert:.cold.1()
 {
-  OUTLINED_FUNCTION_2_0(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2_0(*MEMORY[0x1E69E9840]);
+  v6 = 136446466;
   OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1_0(&dword_1B831F000, v1, v2, "%{public}s Built-in CoreData Validation for insert on BlueprintUsageLimit failed with: %{public}@", v3, v4, v5, v6, 2u);
-  v7 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_0(&dword_1B831F000, v0, v1, "%{public}s Built-in CoreData Validation for insert on BlueprintUsageLimit failed with: %{public}@", v2, v3, v4, v5, v6);
 }
 
-- (void)validateForDelete:(uint64_t *)a1 .cold.1(uint64_t *a1)
+- (void)validateForDelete:.cold.1()
 {
-  OUTLINED_FUNCTION_2_0(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2_0(*MEMORY[0x1E69E9840]);
+  v6 = 136446466;
   OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1_0(&dword_1B831F000, v1, v2, "%{public}s Built-in CoreData Validation for delete on BlueprintUsageLimit failed with: %{public}@", v3, v4, v5, v6, 2u);
-  v7 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_0(&dword_1B831F000, v0, v1, "%{public}s Built-in CoreData Validation for delete on BlueprintUsageLimit failed with: %{public}@", v2, v3, v4, v5, v6);
 }
 
 @end

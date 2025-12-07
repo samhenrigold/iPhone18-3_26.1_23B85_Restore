@@ -12,12 +12,14 @@
 - (NSString)appBundleIdentifier;
 - (NSString)localizedDescription;
 - (NSUUID)identifier;
+- (id)descriptionWithIndent:(int)indent options:(unint64_t)options;
 - (void)createEmptyConfiguration;
 - (void)dealloc;
 - (void)fetchStatusWithCompletionHandler:(id)handler;
 - (void)loadFromPreferencesWithCompletionHandler:(void *)completionHandler;
 - (void)removeFromPreferencesWithCompletionHandler:(void *)completionHandler;
 - (void)saveToPreferencesWithCompletionHandler:(void *)completionHandler;
+- (void)setEnabled:(BOOL)enabled;
 - (void)setLocalizedDescription:(NSString *)localizedDescription;
 - (void)setProviderProtocol:(NEDNSProxyProviderProtocol *)providerProtocol;
 @end
@@ -67,15 +69,10 @@ uint64_t __54__NEDNSProxyManager_fetchStatusWithCompletionHandler___block_invoke
     v3 = 0;
   }
 
-  v4 = [v3 status];
-  if (v4 <= 5)
-  {
-    v5 = qword_1BAA4F9D8[v4];
-  }
+  [v3 status];
+  v4 = *(*(a1 + 40) + 16);
 
-  v6 = *(*(a1 + 40) + 16);
-
-  return v6();
+  return v4();
 }
 
 - (NEProfileIngestionPayloadInfo)configurationPayloadInfo
@@ -125,6 +122,23 @@ uint64_t __54__NEDNSProxyManager_fetchStatusWithCompletionHandler___block_invoke
   return identifier;
 }
 
+- (id)descriptionWithIndent:(int)indent options:(unint64_t)options
+{
+  v5 = *&indent;
+  v7 = [objc_alloc(MEMORY[0x1E696AD60]) initWithCapacity:0];
+  [v7 appendString:@"{"];
+  localizedDescription = [(NEDNSProxyManager *)self localizedDescription];
+  [v7 appendPrettyObject:localizedDescription withName:@"localizedDescription" andIndent:v5 options:options];
+
+  [v7 appendPrettyBOOL:-[NEDNSProxyManager isEnabled](self withName:"isEnabled") andIndent:@"enabled" options:{v5, options}];
+  providerProtocol = [(NEDNSProxyManager *)self providerProtocol];
+  [v7 appendPrettyObject:providerProtocol withName:@"providerProtocol" andIndent:v5 options:options];
+
+  [v7 appendString:@"\n}"];
+
+  return v7;
+}
+
 - (void)setLocalizedDescription:(NSString *)localizedDescription
 {
   v6 = localizedDescription;
@@ -146,6 +160,18 @@ uint64_t __54__NEDNSProxyManager_fetchStatusWithCompletionHandler___block_invoke
   objc_sync_exit(selfCopy);
 
   return name;
+}
+
+- (void)setEnabled:(BOOL)enabled
+{
+  v3 = enabled;
+  obj = self;
+  objc_sync_enter(obj);
+  configuration = [(NEDNSProxyManager *)obj configuration];
+  dnsProxy = [configuration dnsProxy];
+  [dnsProxy setEnabled:v3];
+
+  objc_sync_exit(obj);
 }
 
 - (BOOL)isEnabled
@@ -280,7 +306,7 @@ void __60__NEDNSProxyManager_saveToPreferencesWithCompletionHandler___block_invo
 
 void __60__NEDNSProxyManager_saveToPreferencesWithCompletionHandler___block_invoke_3(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = v3;
   if (v3 && [v3 code] != 9)
@@ -289,9 +315,9 @@ void __60__NEDNSProxyManager_saveToPreferencesWithCompletionHandler___block_invo
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v12 = "[NEDNSProxyManager saveToPreferencesWithCompletionHandler:]_block_invoke_3";
-      v13 = 2112;
-      v14 = v4;
+      v11 = "[NEDNSProxyManager saveToPreferencesWithCompletionHandler:]_block_invoke_3";
+      v12 = 2112;
+      v13 = v4;
       _os_log_error_impl(&dword_1BA83C000, v5, OS_LOG_TYPE_ERROR, "%s: failed to save the new configuration: %@", buf, 0x16u);
     }
   }
@@ -299,16 +325,14 @@ void __60__NEDNSProxyManager_saveToPreferencesWithCompletionHandler___block_invo
   v6 = *(a1 + 32);
   if (v6)
   {
-    v8[0] = MEMORY[0x1E69E9820];
-    v8[1] = 3221225472;
-    v8[2] = __60__NEDNSProxyManager_saveToPreferencesWithCompletionHandler___block_invoke_33;
-    v8[3] = &unk_1E7F0B588;
-    v10 = v6;
-    v9 = v4;
-    dispatch_async(MEMORY[0x1E69E96A0], v8);
+    v7[0] = MEMORY[0x1E69E9820];
+    v7[1] = 3221225472;
+    v7[2] = __60__NEDNSProxyManager_saveToPreferencesWithCompletionHandler___block_invoke_33;
+    v7[3] = &unk_1E7F0B588;
+    v9 = v6;
+    v8 = v4;
+    dispatch_async(MEMORY[0x1E69E96A0], v7);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __60__NEDNSProxyManager_saveToPreferencesWithCompletionHandler___block_invoke_33(uint64_t a1)
@@ -405,7 +429,7 @@ void __64__NEDNSProxyManager_removeFromPreferencesWithCompletionHandler___block_
 
 void __64__NEDNSProxyManager_removeFromPreferencesWithCompletionHandler___block_invoke_3(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (v3)
   {
@@ -413,9 +437,9 @@ void __64__NEDNSProxyManager_removeFromPreferencesWithCompletionHandler___block_
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v11 = "[NEDNSProxyManager removeFromPreferencesWithCompletionHandler:]_block_invoke_3";
-      v12 = 2112;
-      v13 = v3;
+      v10 = "[NEDNSProxyManager removeFromPreferencesWithCompletionHandler:]_block_invoke_3";
+      v11 = 2112;
+      v12 = v3;
       _os_log_error_impl(&dword_1BA83C000, v4, OS_LOG_TYPE_ERROR, "%s: failed to remove the configuration: %@", buf, 0x16u);
     }
   }
@@ -423,16 +447,14 @@ void __64__NEDNSProxyManager_removeFromPreferencesWithCompletionHandler___block_
   v5 = *(a1 + 32);
   if (v5)
   {
-    v7[0] = MEMORY[0x1E69E9820];
-    v7[1] = 3221225472;
-    v7[2] = __64__NEDNSProxyManager_removeFromPreferencesWithCompletionHandler___block_invoke_28;
-    v7[3] = &unk_1E7F0B588;
-    v9 = v5;
-    v8 = v3;
-    dispatch_async(MEMORY[0x1E69E96A0], v7);
+    v6[0] = MEMORY[0x1E69E9820];
+    v6[1] = 3221225472;
+    v6[2] = __64__NEDNSProxyManager_removeFromPreferencesWithCompletionHandler___block_invoke_28;
+    v6[3] = &unk_1E7F0B588;
+    v8 = v5;
+    v7 = v3;
+    dispatch_async(MEMORY[0x1E69E96A0], v6);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __64__NEDNSProxyManager_removeFromPreferencesWithCompletionHandler___block_invoke_28(uint64_t a1)
@@ -476,8 +498,8 @@ void __64__NEDNSProxyManager_removeFromPreferencesWithCompletionHandler___block_
 
 void __62__NEDNSProxyManager_loadFromPreferencesWithCompletionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v30 = *MEMORY[0x1E69E9840];
-  v21 = a2;
+  v29 = *MEMORY[0x1E69E9840];
+  v20 = a2;
   v5 = a3;
   v6 = *(a1 + 32);
   objc_sync_enter(v6);
@@ -486,12 +508,12 @@ void __62__NEDNSProxyManager_loadFromPreferencesWithCompletionHandler___block_in
     goto LABEL_22;
   }
 
-  v27 = 0u;
-  v28 = 0u;
-  v25 = 0u;
   v26 = 0u;
-  v7 = v21;
-  v8 = [v7 countByEnumeratingWithState:&v25 objects:v29 count:16];
+  v27 = 0u;
+  v24 = 0u;
+  v25 = 0u;
+  v7 = v20;
+  v8 = [v7 countByEnumeratingWithState:&v24 objects:v28 count:16];
   if (!v8)
   {
 
@@ -502,17 +524,17 @@ LABEL_18:
   }
 
   v9 = 0;
-  v10 = *v26;
+  v10 = *v25;
   while (2)
   {
     for (i = 0; i != v8; ++i)
     {
-      if (*v26 != v10)
+      if (*v25 != v10)
       {
         objc_enumerationMutation(v7);
       }
 
-      v12 = *(*(&v25 + 1) + 8 * i);
+      v12 = *(*(&v24 + 1) + 8 * i);
       v13 = [v12 dnsProxy];
       v14 = v13 == 0;
 
@@ -536,7 +558,7 @@ LABEL_18:
       }
     }
 
-    v8 = [v7 countByEnumeratingWithState:&v25 objects:v29 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v24 objects:v28 count:16];
     if (v8)
     {
       continue;
@@ -568,14 +590,12 @@ LABEL_22:
     block[1] = 3221225472;
     block[2] = __62__NEDNSProxyManager_loadFromPreferencesWithCompletionHandler___block_invoke_2;
     block[3] = &unk_1E7F0B588;
-    v24 = v19;
-    v23 = v5;
+    v23 = v19;
+    v22 = v5;
     dispatch_async(MEMORY[0x1E69E96A0], block);
   }
 
   objc_sync_exit(v6);
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (void)createEmptyConfiguration
@@ -671,17 +691,17 @@ void __62__NEDNSProxyManager_loadFromPreferencesWithCompletionHandler___block_in
     dispatch_once(&globalConfigurationManager_onceToken, &__block_literal_global_17);
   }
 
-  v0 = globalConfigurationManager_gConfigurationManager;
+  v1 = globalConfigurationManager_gConfigurationManager;
 
-  return v0;
+  return v1;
 }
 
 void __65__NEDNSProxyManager_loadAllFromPreferencesWithCompletionHandler___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v54 = *MEMORY[0x1E69E9840];
+  v53 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = dispatch_group_create();
-  v36 = v5;
+  v35 = v5;
   if (a3)
   {
     v7 = *(a1 + 32);
@@ -691,30 +711,30 @@ void __65__NEDNSProxyManager_loadAllFromPreferencesWithCompletionHandler___block
 
   else
   {
-    v35 = a1;
-    v38 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v34 = a1;
+    v37 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v43 = 0u;
     v44 = 0u;
     v45 = 0u;
     v46 = 0u;
-    v47 = 0u;
     obj = v5;
-    v9 = [obj countByEnumeratingWithState:&v44 objects:v53 count:16];
+    v9 = [obj countByEnumeratingWithState:&v43 objects:v52 count:16];
     if (v9)
     {
-      v10 = *v45;
+      v10 = *v44;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v45 != v10)
+          if (*v44 != v10)
           {
             objc_enumerationMutation(obj);
           }
 
-          v12 = *(*(&v44 + 1) + 8 * i);
+          v12 = *(*(&v43 + 1) + 8 * i);
           if (v12)
           {
-            v13 = [*(*(&v44 + 1) + 8 * i) dnsProxy];
+            v13 = [*(*(&v43 + 1) + 8 * i) dnsProxy];
             v14 = v13 == 0;
 
             if (!v14)
@@ -722,7 +742,7 @@ void __65__NEDNSProxyManager_loadAllFromPreferencesWithCompletionHandler___block
               dispatch_group_enter(v6);
               v15 = [NEDNSProxyManager alloc];
               v16 = v12;
-              if (v15 && (v48.receiver = v15, v48.super_class = NEDNSProxyManager, v17 = objc_msgSendSuper2(&v48, sel_init), (v18 = v17) != 0))
+              if (v15 && (v47.receiver = v15, v47.super_class = NEDNSProxyManager, v17 = objc_msgSendSuper2(&v47, sel_init), (v18 = v17) != 0))
               {
                 objc_storeStrong(v17 + 5, v12);
                 v19 = +[NEDNSProxyManager globalConfigurationManager];
@@ -742,25 +762,25 @@ void __65__NEDNSProxyManager_loadAllFromPreferencesWithCompletionHandler___block
                 v18 = 0;
               }
 
-              v42[0] = MEMORY[0x1E69E9820];
-              v42[1] = 3221225472;
-              v42[2] = __65__NEDNSProxyManager_loadAllFromPreferencesWithCompletionHandler___block_invoke_2;
-              v42[3] = &unk_1E7F09758;
-              v42[4] = v16;
-              v43 = v6;
-              v23 = v42;
+              v41[0] = MEMORY[0x1E69E9820];
+              v41[1] = 3221225472;
+              v41[2] = __65__NEDNSProxyManager_loadAllFromPreferencesWithCompletionHandler___block_invoke_2;
+              v41[3] = &unk_1E7F09758;
+              v41[4] = v16;
+              v42 = v6;
+              v23 = v41;
               if (v18)
               {
                 objc_initWeak(&location, v18);
                 v24 = [MEMORY[0x1E696AD88] defaultCenter];
                 v25 = v18[3];
                 v26 = [MEMORY[0x1E696ADC8] mainQueue];
-                v48.receiver = MEMORY[0x1E69E9820];
-                v48.super_class = 3221225472;
-                v49 = __55__NEDNSProxyManager_setupSessionWithCompletionHandler___block_invoke;
-                v50 = &unk_1E7F09780;
-                objc_copyWeak(&v51, &location);
-                v27 = [v24 addObserverForName:@"com.apple.networkextension.statuschanged" object:v25 queue:v26 usingBlock:&v48];
+                v47.receiver = MEMORY[0x1E69E9820];
+                v47.super_class = 3221225472;
+                v48 = __55__NEDNSProxyManager_setupSessionWithCompletionHandler___block_invoke;
+                v49 = &unk_1E7F09780;
+                objc_copyWeak(&v50, &location);
+                v27 = [v24 addObserverForName:@"com.apple.networkextension.statuschanged" object:v25 queue:v26 usingBlock:&v47];
                 v28 = v18[4];
                 v18[4] = v27;
 
@@ -772,16 +792,16 @@ void __65__NEDNSProxyManager_loadAllFromPreferencesWithCompletionHandler___block
                   [(NEVPNConnection *)v29 createSessionWithConfigurationIdentifier:v31 forceInfoFetch:0 completionHandler:v23];
                 }
 
-                objc_destroyWeak(&v51);
+                objc_destroyWeak(&v50);
                 objc_destroyWeak(&location);
               }
 
-              [v38 addObject:v18];
+              [v37 addObject:v18];
             }
           }
         }
 
-        v9 = [obj countByEnumeratingWithState:&v44 objects:v53 count:16];
+        v9 = [obj countByEnumeratingWithState:&v43 objects:v52 count:16];
       }
 
       while (v9);
@@ -791,40 +811,36 @@ void __65__NEDNSProxyManager_loadAllFromPreferencesWithCompletionHandler___block
     block[1] = 3221225472;
     block[2] = __65__NEDNSProxyManager_loadAllFromPreferencesWithCompletionHandler___block_invoke_23;
     block[3] = &unk_1E7F0B588;
-    v32 = *(v35 + 32);
-    v40 = v38;
-    v41 = v32;
-    v33 = v38;
+    v32 = *(v34 + 32);
+    v39 = v37;
+    v40 = v32;
+    v33 = v37;
     dispatch_group_notify(v6, MEMORY[0x1E69E96A0], block);
   }
-
-  v34 = *MEMORY[0x1E69E9840];
 }
 
 void __65__NEDNSProxyManager_loadAllFromPreferencesWithCompletionHandler___block_invoke_2(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (v3)
   {
     v4 = ne_log_obj();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v6 = [*(a1 + 32) name];
-      v7 = [*(a1 + 32) identifier];
-      v8 = 138412802;
-      v9 = v6;
-      v10 = 2112;
-      v11 = v7;
-      v12 = 2112;
-      v13 = v3;
-      _os_log_error_impl(&dword_1BA83C000, v4, OS_LOG_TYPE_ERROR, "Failed to create a DNS proxy session for configuration %@ (%@): %@", &v8, 0x20u);
+      v5 = [*(a1 + 32) name];
+      v6 = [*(a1 + 32) identifier];
+      v7 = 138412802;
+      v8 = v5;
+      v9 = 2112;
+      v10 = v6;
+      v11 = 2112;
+      v12 = v3;
+      _os_log_error_impl(&dword_1BA83C000, v4, OS_LOG_TYPE_ERROR, "Failed to create a DNS proxy session for configuration %@ (%@): %@", &v7, 0x20u);
     }
   }
 
   dispatch_group_leave(*(a1 + 40));
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __65__NEDNSProxyManager_loadAllFromPreferencesWithCompletionHandler___block_invoke_23(uint64_t a1)

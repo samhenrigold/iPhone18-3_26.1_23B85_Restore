@@ -1,3 +1,410 @@
+void cti_connection_finalize(void *a1)
+{
+  v2 = a1[3];
+  if (v2)
+  {
+    xpc_release(v2);
+  }
+
+  free(a1);
+}
+
+void cti_event_handler(xpc_object_t object, uint64_t a2)
+{
+  if (object == &_xpc_error_connection_invalid)
+  {
+    v16 = global_os_log;
+    if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_DEFAULT))
+    {
+      v17 = *(a2 + 80);
+      v18 = *(a2 + 72);
+      *buf = 136446722;
+      v59 = "cti_event_handler";
+      v60 = 1024;
+      v61 = v17;
+      v62 = 2082;
+      string = v18;
+      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "%{public}s: [CX%d] (%{public}s): cleanup", buf, 0x1Cu);
+    }
+
+    if (*(a2 + 8))
+    {
+      (*(a2 + 56))(a2, &_xpc_error_connection_invalid, 4294901727);
+    }
+
+    else
+    {
+      v22 = global_os_log;
+      if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_DEFAULT))
+      {
+        v23 = *(a2 + 80);
+        *buf = 136446466;
+        v59 = "cti_event_handler";
+        v60 = 1024;
+        v61 = v23;
+        _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "%{public}s: [CX%d] No callback", buf, 0x12u);
+      }
+    }
+
+    v24 = global_os_log;
+    if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_DEFAULT))
+    {
+      v25 = *(a2 + 80);
+      v26 = *(a2 + 16);
+      *buf = 136446722;
+      v59 = "cti_event_handler";
+      v60 = 1024;
+      v61 = v25;
+      v62 = 2048;
+      string = v26;
+      _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "%{public}s: [CX%d] releasing connection %p", buf, 0x1Cu);
+    }
+
+    v27 = *(a2 + 16);
+    if (v27)
+    {
+      xpc_release(v27);
+      *(a2 + 16) = 0;
+    }
+  }
+
+  else if (*(a2 + 16))
+  {
+    type = xpc_get_type(object);
+    v5 = *(a2 + 80);
+    v6 = *(a2 + 72);
+    if (type == &_xpc_type_dictionary)
+    {
+      cti_log_object("cti_event_handler", v5, v6, "", "", object, "");
+      if (*(a2 + 84))
+      {
+        v21 = *(a2 + 56);
+
+        v21(a2, object, 0);
+        return;
+      }
+
+      value = xpc_dictionary_get_value(object, "commandResult");
+      if (value)
+      {
+        if (xpc_int64_get_value(value) || (v32 = xpc_dictionary_get_value(object, "commandData")) != 0 && (v33 = xpc_dictionary_get_value(v32, "ret")) != 0 && xpc_int64_get_value(v33))
+        {
+          (*(a2 + 56))(a2, object, 4294901759);
+          v29 = global_os_log;
+          if (!os_log_type_enabled(global_os_log, OS_LOG_TYPE_DEFAULT))
+          {
+            goto LABEL_11;
+          }
+
+          v30 = *(a2 + 80);
+          v31 = *(a2 + 16);
+          *buf = 136446722;
+          v59 = "cti_event_handler";
+          v60 = 1024;
+          v61 = v30;
+          v62 = 2048;
+          string = v31;
+          v12 = "%{public}s: [CX%d] canceling xpc connection %p";
+          v13 = v29;
+LABEL_9:
+          v14 = OS_LOG_TYPE_DEFAULT;
+          v15 = 28;
+LABEL_10:
+          _os_log_impl(&_mh_execute_header, v13, v14, v12, buf, v15);
+          goto LABEL_11;
+        }
+      }
+
+      if (*(a2 + 40))
+      {
+        v34 = xpc_dictionary_create(0, 0, 0);
+        if (!v34)
+        {
+          v48 = global_os_log;
+          if (!os_log_type_enabled(global_os_log, OS_LOG_TYPE_ERROR))
+          {
+            goto LABEL_11;
+          }
+
+          v49 = *(a2 + 80);
+          v50 = *(a2 + 72);
+          v51 = *(a2 + 16);
+          *buf = 136446978;
+          v59 = "cti_event_handler";
+          v60 = 1024;
+          v61 = v49;
+          v62 = 2082;
+          string = v50;
+          v64 = 2048;
+          v65 = v51;
+          v12 = "%{public}s: [CX%d] cti_event_handler(%{public}s): no memory, canceling %p.";
+          v13 = v48;
+          v14 = OS_LOG_TYPE_ERROR;
+          v15 = 38;
+          goto LABEL_10;
+        }
+
+        v35 = v34;
+        v36 = xpc_array_create(0, 0);
+        if (v36)
+        {
+          v37 = v36;
+          xpc_dictionary_set_string(v35, "command", "eventsOn");
+          xpc_dictionary_set_string(v35, "clientName", "srp-mdns-proxy");
+          xpc_dictionary_set_value(v35, "eventList", v37);
+          xpc_array_set_string(v37, 0xFFFFFFFFFFFFFFFFLL, *(a2 + 40));
+          *(a2 + 40) = 0;
+          cti_log_object("cti_event_handler/events on", *(a2 + 80), *(a2 + 72), "", "", v35, "");
+          v38 = global_os_log;
+          if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_DEFAULT))
+          {
+            v39 = *(a2 + 80);
+            v40 = *(a2 + 16);
+            *buf = 136446722;
+            v59 = "cti_event_handler";
+            v60 = 1024;
+            v61 = v39;
+            v62 = 2048;
+            string = v40;
+            _os_log_impl(&_mh_execute_header, v38, OS_LOG_TYPE_DEFAULT, "%{public}s: [CX%d] sending message on connection %p", buf, 0x1Cu);
+          }
+
+          v41 = *(a2 + 16);
+          v42 = *(a2 + 32);
+          handler[0] = _NSConcreteStackBlock;
+          handler[1] = 0x40000000;
+          handler[2] = __cti_event_handler_block_invoke;
+          handler[3] = &__block_descriptor_tmp_122;
+          handler[4] = a2;
+          xpc_connection_send_message_with_reply(v41, v35, v42, handler);
+          xpc_release(v37);
+        }
+
+        else
+        {
+          v52 = global_os_log;
+          if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_ERROR))
+          {
+            v53 = *(a2 + 80);
+            v54 = *(a2 + 72);
+            v55 = *(a2 + 16);
+            *buf = 136446978;
+            v59 = "cti_event_handler";
+            v60 = 1024;
+            v61 = v53;
+            v62 = 2082;
+            string = v54;
+            v64 = 2048;
+            v65 = v55;
+            _os_log_impl(&_mh_execute_header, v52, OS_LOG_TYPE_ERROR, "%{public}s: [CX%d] cti_event_handler(%{public}s): no memory, canceling %p.", buf, 0x26u);
+          }
+
+          xpc_connection_cancel(*(a2 + 16));
+        }
+      }
+
+      else
+      {
+        v35 = *(a2 + 24);
+        *(a2 + 24) = 0;
+        cti_log_object("cti_event_handler/command is", *(a2 + 80), *(a2 + 72), "", "", v35, "");
+        *(a2 + 84) = 1;
+        v43 = global_os_log;
+        if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_DEFAULT))
+        {
+          v44 = *(a2 + 80);
+          v45 = *(a2 + 16);
+          *buf = 136446722;
+          v59 = "cti_event_handler";
+          v60 = 1024;
+          v61 = v44;
+          v62 = 2048;
+          string = v45;
+          _os_log_impl(&_mh_execute_header, v43, OS_LOG_TYPE_DEFAULT, "%{public}s: [CX%d] sending message on connection %p", buf, 0x1Cu);
+        }
+
+        v46 = *(a2 + 16);
+        v47 = *(a2 + 32);
+        v56[0] = _NSConcreteStackBlock;
+        v56[1] = 0x40000000;
+        v56[2] = __cti_event_handler_block_invoke_124;
+        v56[3] = &__block_descriptor_tmp_125;
+        v56[4] = a2;
+        xpc_connection_send_message_with_reply(v46, v35, v47, v56);
+        if (!v35)
+        {
+          return;
+        }
+      }
+
+      xpc_release(v35);
+      return;
+    }
+
+    cti_log_object("cti_event_handler/other", v5, v6, "", "", object, "");
+    v7 = global_os_log;
+    if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_ERROR))
+    {
+      v8 = *(a2 + 80);
+      *buf = 136446722;
+      v59 = "cti_event_handler";
+      v60 = 1024;
+      v61 = v8;
+      v62 = 2082;
+      string = xpc_dictionary_get_string(object, _xpc_error_key_description);
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_ERROR, "%{public}s: [CX%d] cti_event_handler: Unexpected Connection Error [%{public}s]", buf, 0x1Cu);
+    }
+
+    (*(a2 + 56))(a2, 0, 4294901733);
+    if (object != &_xpc_error_connection_interrupted)
+    {
+      v9 = global_os_log;
+      if (!os_log_type_enabled(global_os_log, OS_LOG_TYPE_DEFAULT))
+      {
+LABEL_11:
+        xpc_connection_cancel(*(a2 + 16));
+        return;
+      }
+
+      v10 = *(a2 + 80);
+      v11 = *(a2 + 16);
+      *buf = 136446722;
+      v59 = "cti_event_handler";
+      v60 = 1024;
+      v61 = v10;
+      v62 = 2048;
+      string = v11;
+      v12 = "%{public}s: [CX%d] canceling xpc connection %p";
+      v13 = v9;
+      goto LABEL_9;
+    }
+  }
+
+  else
+  {
+    v19 = *(a2 + 80);
+    v20 = *(a2 + 72);
+
+    cti_log_object("cti_event_handler NULL connection", v19, v20, "", "", object, "");
+  }
+}
+
+void cti_xpc_connection_finalize(uint64_t a1)
+{
+  v2 = global_os_log;
+  if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_DEFAULT))
+  {
+    v3 = *(a1 + 80);
+    v4 = *(a1 + 72);
+    v5 = 136446722;
+    v6 = "cti_xpc_connection_finalize";
+    v7 = 1024;
+    v8 = v3;
+    v9 = 2082;
+    v10 = v4;
+    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "%{public}s: [CX%d] %{public}s", &v5, 0x1Cu);
+  }
+
+  cti_connection_release_(a1, 114);
+}
+
+void cti_connection_release_(void *a1, int a2)
+{
+  a1[1] = 0;
+  v4 = *a1;
+  if (!*a1)
+  {
+    v5 = global_os_log;
+    if (!os_log_type_enabled(global_os_log, OS_LOG_TYPE_FAULT))
+    {
+      goto LABEL_15;
+    }
+
+    v8 = 136447490;
+    v9 = "cti_connection_release_";
+    v10 = 1024;
+    *v11 = 0;
+    *&v11[4] = 2048;
+    *&v11[6] = a1;
+    *&v11[14] = 2080;
+    *&v11[16] = "ref";
+    *&v11[24] = 2080;
+    *&v11[26] = "cti-services.c";
+    v12 = 1024;
+    v13 = a2;
+    v7 = "%{public}s: ALLOC: release after finalize at %2.2d: %p (%10s): %s:%d";
+    goto LABEL_14;
+  }
+
+  v5 = global_os_log;
+  if (v4 >= 10001)
+  {
+    if (!os_log_type_enabled(global_os_log, OS_LOG_TYPE_FAULT))
+    {
+      goto LABEL_15;
+    }
+
+    v8 = 136447490;
+    v9 = "cti_connection_release_";
+    v10 = 1024;
+    *v11 = v4;
+    *&v11[4] = 2048;
+    *&v11[6] = a1;
+    *&v11[14] = 2080;
+    *&v11[16] = "ref";
+    *&v11[24] = 2080;
+    *&v11[26] = "cti-services.c";
+    v12 = 1024;
+    v13 = a2;
+    v7 = "%{public}s: ALLOC: release at %2.2d: %p (%10s): %s:%d";
+LABEL_14:
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_FAULT, v7, &v8, 0x36u);
+LABEL_15:
+    abort();
+  }
+
+  if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_DEFAULT))
+  {
+    v8 = 136447490;
+    v9 = "cti_connection_release_";
+    v10 = 1024;
+    *v11 = v4;
+    *&v11[4] = 2048;
+    *&v11[6] = a1;
+    *&v11[14] = 2080;
+    *&v11[16] = "ref";
+    *&v11[24] = 2080;
+    *&v11[26] = "cti-services.c";
+    v12 = 1024;
+    v13 = a2;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "%{public}s: ALLOC: release at %2.2d: %p (%10s): %s:%d", &v8, 0x36u);
+    v4 = *a1;
+  }
+
+  *a1 = v4 - 1;
+  if (v4 == 1)
+  {
+    v6 = global_os_log;
+    if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_DEFAULT))
+    {
+      v8 = 136447234;
+      v9 = "cti_connection_release_";
+      v10 = 2048;
+      *v11 = a1;
+      *&v11[8] = 2080;
+      *&v11[10] = "ref";
+      *&v11[18] = 2080;
+      *&v11[20] = "cti-services.c";
+      *&v11[28] = 1024;
+      *&v11[30] = a2;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "%{public}s: ALLOC:      finalize: %p (%10s): %s:%d", &v8, 0x30u);
+    }
+
+    ++cti_connection_finalized;
+    cti_connection_finalize(a1);
+  }
+}
+
 uint64_t __cti_log_object_block_invoke(uint64_t a1, int a2, xpc_object_t object)
 {
   type = xpc_get_type(object);
@@ -37,18 +444,10 @@ uint64_t __cti_log_object_block_invoke_95(uint64_t a1, uint64_t a2, void *a3)
   return 1;
 }
 
-uint64_t __cti_log_object_block_invoke_104(uint64_t a1, int a2, xpc_object_t object)
-{
-  v3 = *(a1 + 48);
-  cti_log_object(*(a1 + 32), *(a1 + 56), *(a1 + 40), a2, ": ", object);
-  return 1;
-}
-
 uint64_t __cti_log_object_block_invoke_2_107(uint64_t a1, uint64_t a2, void *a3)
 {
   snprintf(__str, 0x17uLL, "%zd", a2);
-  v5 = *(a1 + 48);
-  cti_log_object(*(a1 + 32), *(a1 + 56), *(a1 + 40), __str, ": ", a3);
+  cti_log_object(*(a1 + 32), *(a1 + 56), *(a1 + 40), __str, ": ", a3, *(a1 + 48));
   return 1;
 }
 
@@ -6403,17 +6802,18 @@ void cti_events_discontinue(uint64_t a1)
   cti_connection_release_(a1, 3117);
 }
 
-uint64_t state_machine_next_state(uint64_t a1, unsigned int a2)
+uint64_t state_machine_next_state(uint64_t *a1, uint64_t a2)
 {
+  v2 = a2;
   do
   {
-    result = state_machine_state_get(a1, a2);
+    result = state_machine_state_get(a1, v2);
     if (!result)
     {
       v6 = global_os_log;
       if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_ERROR))
       {
-        v7 = *(a1 + 32);
+        v7 = a1[4];
         v8 = *a1;
         v9 = 136447235;
         v10 = "state_machine_next_state";
@@ -6424,24 +6824,24 @@ uint64_t state_machine_next_state(uint64_t a1, unsigned int a2)
         v15 = 2081;
         v16 = v8;
         v17 = 1024;
-        v18 = a2;
+        v18 = v2;
         _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_ERROR, "%{public}s: %{public}s/%{private, mask.hash}s next state is invalid: %d", &v9, 0x30u);
       }
 
       abort();
     }
 
-    *(a1 + 48) = a2;
+    *(a1 + 12) = v2;
     v5 = *(result + 16);
-    *(a1 + 16) = *(result + 8);
+    a1[2] = *(result + 8);
     if (v5)
     {
       result = v5(a1, 0);
-      a2 = result;
+      v2 = result;
     }
   }
 
-  while (a2);
+  while (v2);
   return result;
 }
 
@@ -6475,7 +6875,7 @@ uint64_t state_machine_state_get(uint64_t *a1, unsigned int a2)
       {
         v10 = a1[4];
         v11 = *a1;
-        v12 = *&v4[6 * v3 + 2];
+        v12 = *(v4 + 24 * v3 + 8);
         v13 = 136447491;
         v14 = "state_machine_state_get";
         v15 = 2082;
@@ -6873,7 +7273,7 @@ LABEL_15:
             while (v18 < i);
           }
 
-          if ((a2[2] + ~v12) <= v17)
+          if (a2[2] + ~v12 <= v17)
           {
             *(a2 + 14) |= 1u;
             v25 = 110;
@@ -7225,9 +7625,9 @@ BOOL srp_tls_init()
       Count = CFArrayGetCount(*result);
       if (Count >= 1)
       {
-        v70.length = Count;
-        v70.location = 0;
-        CFArrayAppendArray(Mutable, *result, v70);
+        v74.length = Count;
+        v74.location = 0;
+        CFArrayAppendArray(Mutable, *result, v74);
       }
     }
 
@@ -7406,64 +7806,230 @@ LABEL_21:
     v34 = CFUUIDCreate(kCFAllocatorDefault);
     if (!v34 || (v35 = v34, v36 = CFUUIDCreateString(kCFAllocatorDefault, v34), CFRelease(v35), !v36))
     {
-      v57 = global_os_log;
+      v60 = global_os_log;
       if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_FAULT))
       {
         *result = 136446210;
         *&result[4] = "tls_identity_init";
-        _os_log_impl(&_mh_execute_header, v57, OS_LOG_TYPE_FAULT, "%{public}s: Failed to generate an UUID.", result, 0xCu);
+        _os_log_impl(&_mh_execute_header, v60, OS_LOG_TYPE_FAULT, "%{public}s: Failed to generate an UUID.", result, 0xCu);
       }
 
-      goto LABEL_132;
+      goto LABEL_133;
     }
 
-    *&v65[8] = 0;
-    v37 = CFStringCreateF();
-    *v65 = CFPropertyListCreateFormatted();
-    if (!*v65)
+    Formatted = 0;
+    v69 = 0;
+    v37 = CFStringCreateF(&Formatted, "%s%@", "Key ", v36);
+    v38 = v37;
+    if (!Formatted)
     {
-      error = 0;
-      v38 = SecKeyCreateRandomKey(*&v65[4], &error);
-      if (v38)
+      Formatted = CFPropertyListCreateFormatted(kCFAllocatorDefault, &v69, "{%kO=%O%kO=%i%kO=%O%kO=%O%kO=%O%kO=%O}", kSecAttrKeyClass, kSecAttrKeyClassPrivate, kSecAttrKeySizeInBits, 384, kSecAttrKeyType, kSecAttrKeyTypeECSECPrimeRandom, kSecUseDataProtectionKeychain, kCFBooleanTrue, kSecAttrSynchronizable, kCFBooleanTrue, kSecAttrLabel, v37);
+      if (!Formatted)
       {
-LABEL_65:
-        if (*&v65[4])
+        error = 0;
+        v39 = SecKeyCreateRandomKey(v69, &error);
+        if (v39)
         {
-          CFRelease(*&v65[4]);
-          *&v65[4] = 0;
-        }
-
-        if (v37)
-        {
-          CFRelease(v37);
-        }
-
-        if (v38)
-        {
-          LODWORD(error) = 0;
-          *&v65[4] = 0;
-          *cf = 0;
-          v39 = CFStringCreateF();
-          if (error || (LODWORD(error) = CFPropertyListCreateFormatted(), error))
+LABEL_66:
+          if (v69)
           {
-            v40 = 0;
-            v41 = 0;
+            CFRelease(v69);
+            v69 = 0;
           }
 
-          else
+          if (v38)
           {
-            v41 = CFStringCreateF();
-            if (error || (LODWORD(error) = CFPropertyListCreateFormatted(), error))
+            CFRelease(v38);
+          }
+
+          if (v39)
+          {
+            LODWORD(error) = 0;
+            v69 = 0;
+            *cf = 0;
+            v40 = CFStringCreateF(&error, "%s%@", "Certificate ", v36);
+            v41 = v40;
+            if (error || (LODWORD(error) = CFPropertyListCreateFormatted(kCFAllocatorDefault, cf, "{%kO=%lli%kO=%i%kO=%O%kO={%kO=%O}}", kSecCertificateKeyUsage, 0, kSecCSRBasicContraintsPathLen, 0, kSecAttrLabel, v40, kSecSubjectAltName, kSecSubjectAltNameDNSName, @"com.apple.dnssd-proxy"), error))
             {
-              v40 = 0;
+              v42 = 0;
+              v43 = 0;
             }
 
             else
             {
-              SelfSignedCertificate = SecGenerateSelfSignedCertificate();
-              if (SelfSignedCertificate)
+              v55 = CFStringCreateF(&error, "%s %@", "com.apple.dnssd-proxy", v36);
+              v43 = v55;
+              if (error || (LODWORD(error) = CFPropertyListCreateFormatted(kCFAllocatorDefault, &v69, "[[[%O%O]][[%O%O]][[%O%O]][[%O%O]][[%O%O]][[%O%O]]]", kSecOidCommonName, v55, kSecOidOrganizationalUnit, @"Networking", kSecOidOrganization, @"Apple Inc.", kSecOidLocalityName, @"Cupertino", kSecOidStateProvinceName, @"California", kSecOidCountryName, @"US"), error))
               {
-                v40 = SelfSignedCertificate;
+                v42 = 0;
+              }
+
+              else
+              {
+                SelfSignedCertificate = SecGenerateSelfSignedCertificate();
+                if (SelfSignedCertificate)
+                {
+                  v42 = SelfSignedCertificate;
+                }
+
+                else
+                {
+                  v66 = global_os_log;
+                  if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_FAULT))
+                  {
+                    *result = 136446210;
+                    *&result[4] = "certificate_generate";
+                    _os_log_impl(&_mh_execute_header, v66, OS_LOG_TYPE_FAULT, "%{public}s: SecGenerateSelfSignedCertificate failed.", result, 0xCu);
+                  }
+
+                  v42 = 0;
+                  v0 = -67672;
+                }
+              }
+            }
+
+            if (v69)
+            {
+              CFRelease(v69);
+              v69 = 0;
+            }
+
+            if (v43)
+            {
+              CFRelease(v43);
+            }
+
+            if (*cf)
+            {
+              CFRelease(*cf);
+              *cf = 0;
+            }
+
+            if (v41)
+            {
+              CFRelease(v41);
+            }
+
+            if (v42)
+            {
+              v44 = SecIdentityCreate();
+              if (v44)
+              {
+                v45 = v44;
+                *result = 0;
+                *cf = 0;
+                v46 = CFStringCreateMutable(kCFAllocatorDefault, 0);
+                v47 = v46;
+                if (v46)
+                {
+                  CFStringAppend(v46, @"Key ");
+                  CFStringAppend(v47, v36);
+                  v48 = CFStringCreateMutable(kCFAllocatorDefault, 0);
+                  v49 = v48;
+                  if (v48)
+                  {
+                    CFStringAppend(v48, @"Certificate ");
+                    CFStringAppend(v49, v36);
+                    v50 = SecIdentityCopyPrivateKey(v45, result);
+                    if (v50 || (v50 = SecIdentityCopyCertificate(v45, cf)) != 0)
+                    {
+                      v0 = v50;
+                    }
+
+                    else
+                    {
+                      v56 = CFDictionaryCreateMutable(kCFAllocatorDefault, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
+                      if (v56)
+                      {
+                        v57 = v56;
+                        CFDictionaryAddValue(v56, kSecAttrLabel, v47);
+                        CFDictionaryAddValue(v57, kSecAttrAccessGroup, @"com.apple.srp-mdns-proxy");
+                        CFDictionaryAddValue(v57, kSecAttrAccessible, kSecAttrAccessibleAfterFirstUnlock);
+                        CFDictionaryAddValue(v57, kSecAttrSynchronizable, kCFBooleanFalse);
+                        CFDictionaryAddValue(v57, kSecUseDataProtectionKeychain, kCFBooleanTrue);
+                        CFDictionaryAddValue(v57, kSecValueRef, *result);
+                        v0 = SecItemAdd(v57, 0);
+                        if (!v0)
+                        {
+                          CFDictionaryReplaceValue(v57, kSecAttrLabel, v49);
+                          CFDictionaryReplaceValue(v57, kSecValueRef, *cf);
+                          CFDictionaryReplaceValue(v57, kSecAttrSynchronizable, kCFBooleanTrue);
+                          CFDictionaryAddValue(v57, kSecAttrSyncViewHint, kSecAttrViewHintLimitedPeersAllowed);
+                          v58 = SecItemAdd(v57, 0);
+                          if (v58)
+                          {
+                            v0 = v58;
+                            keychain_key_remove();
+                          }
+
+                          else
+                          {
+                            v0 = 0;
+                          }
+                        }
+
+                        CFRelease(v57);
+                      }
+
+                      else
+                      {
+                        v0 = 0;
+                      }
+                    }
+                  }
+
+                  if (*cf)
+                  {
+                    CFRelease(*cf);
+                    *cf = 0;
+                  }
+                }
+
+                else
+                {
+                  v49 = 0;
+                }
+
+                if (*result)
+                {
+                  CFRelease(*result);
+                  *result = 0;
+                }
+
+                if (v49)
+                {
+                  CFRelease(v49);
+                }
+
+                if (v47)
+                {
+                  CFRelease(v47);
+                }
+
+                if (!v0)
+                {
+                  v51 = keychain_identity_query(0, &g_tls_identity, &g_tls_identity_creation_time);
+                  CFRelease(v45);
+                  CFRelease(v42);
+                  CFRelease(v39);
+                  CFRelease(v36);
+                  if (!v51)
+                  {
+                    return 1;
+                  }
+
+                  goto LABEL_133;
+                }
+
+                v64 = global_os_log;
+                if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_FAULT))
+                {
+                  *result = 136446210;
+                  *&result[4] = "tls_identity_init";
+                  _os_log_impl(&_mh_execute_header, v64, OS_LOG_TYPE_FAULT, "%{public}s: Failed to add the identity into keychain.", result, 0xCu);
+                }
+
+                CFRelease(v45);
               }
 
               else
@@ -7472,243 +8038,84 @@ LABEL_65:
                 if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_FAULT))
                 {
                   *result = 136446210;
-                  *&result[4] = "certificate_generate";
-                  _os_log_impl(&_mh_execute_header, v63, OS_LOG_TYPE_FAULT, "%{public}s: SecGenerateSelfSignedCertificate failed.", result, 0xCu);
-                }
-
-                v40 = 0;
-                v0 = -67672;
-              }
-            }
-          }
-
-          if (*&v65[4])
-          {
-            CFRelease(*&v65[4]);
-            *&v65[4] = 0;
-          }
-
-          if (v41)
-          {
-            CFRelease(v41);
-          }
-
-          if (*cf)
-          {
-            CFRelease(*cf);
-            *cf = 0;
-          }
-
-          if (v39)
-          {
-            CFRelease(v39);
-          }
-
-          if (v40)
-          {
-            v42 = SecIdentityCreate();
-            if (v42)
-            {
-              v43 = v42;
-              *result = 0;
-              *cf = 0;
-              v44 = CFStringCreateMutable(kCFAllocatorDefault, 0);
-              v45 = v44;
-              if (v44)
-              {
-                CFStringAppend(v44, @"Key ");
-                CFStringAppend(v45, v36);
-                v46 = CFStringCreateMutable(kCFAllocatorDefault, 0);
-                v47 = v46;
-                if (v46)
-                {
-                  CFStringAppend(v46, @"Certificate ");
-                  CFStringAppend(v47, v36);
-                  v48 = SecIdentityCopyPrivateKey(v43, result);
-                  if (v48 || (v48 = SecIdentityCopyCertificate(v43, cf)) != 0)
-                  {
-                    v0 = v48;
-                  }
-
-                  else
-                  {
-                    v53 = CFDictionaryCreateMutable(kCFAllocatorDefault, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
-                    if (v53)
-                    {
-                      v54 = v53;
-                      CFDictionaryAddValue(v53, kSecAttrLabel, v45);
-                      CFDictionaryAddValue(v54, kSecAttrAccessGroup, @"com.apple.srp-mdns-proxy");
-                      CFDictionaryAddValue(v54, kSecAttrAccessible, kSecAttrAccessibleAfterFirstUnlock);
-                      CFDictionaryAddValue(v54, kSecAttrSynchronizable, kCFBooleanFalse);
-                      CFDictionaryAddValue(v54, kSecUseDataProtectionKeychain, kCFBooleanTrue);
-                      CFDictionaryAddValue(v54, kSecValueRef, *result);
-                      v0 = SecItemAdd(v54, 0);
-                      if (!v0)
-                      {
-                        CFDictionaryReplaceValue(v54, kSecAttrLabel, v47);
-                        CFDictionaryReplaceValue(v54, kSecValueRef, *cf);
-                        CFDictionaryReplaceValue(v54, kSecAttrSynchronizable, kCFBooleanTrue);
-                        CFDictionaryAddValue(v54, kSecAttrSyncViewHint, kSecAttrViewHintLimitedPeersAllowed);
-                        v55 = SecItemAdd(v54, 0);
-                        if (v55)
-                        {
-                          v0 = v55;
-                          keychain_key_remove();
-                        }
-
-                        else
-                        {
-                          v0 = 0;
-                        }
-                      }
-
-                      CFRelease(v54);
-                    }
-
-                    else
-                    {
-                      v0 = 0;
-                    }
-                  }
-                }
-
-                if (*cf)
-                {
-                  CFRelease(*cf);
-                  *cf = 0;
+                  *&result[4] = "tls_identity_init";
+                  _os_log_impl(&_mh_execute_header, v63, OS_LOG_TYPE_FAULT, "%{public}s: Failed to create the identity with the given private key and certificate.", result, 0xCu);
                 }
               }
 
-              else
-              {
-                v47 = 0;
-              }
-
-              if (*result)
-              {
-                CFRelease(*result);
-                *result = 0;
-              }
-
-              if (v47)
-              {
-                CFRelease(v47);
-              }
-
-              if (v45)
-              {
-                CFRelease(v45);
-              }
-
-              if (!v0)
-              {
-                v49 = keychain_identity_query(0, &g_tls_identity, &g_tls_identity_creation_time);
-                CFRelease(v43);
-                CFRelease(v40);
-                CFRelease(v38);
-                CFRelease(v36);
-                if (!v49)
-                {
-                  return 1;
-                }
-
-                goto LABEL_132;
-              }
-
-              v61 = global_os_log;
-              if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_FAULT))
-              {
-                *result = 136446210;
-                *&result[4] = "tls_identity_init";
-                _os_log_impl(&_mh_execute_header, v61, OS_LOG_TYPE_FAULT, "%{public}s: Failed to add the identity into keychain.", result, 0xCu);
-              }
-
-              CFRelease(v43);
+              CFRelease(v42);
             }
 
             else
             {
-              v60 = global_os_log;
+              v62 = global_os_log;
               if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_FAULT))
               {
                 *result = 136446210;
                 *&result[4] = "tls_identity_init";
-                _os_log_impl(&_mh_execute_header, v60, OS_LOG_TYPE_FAULT, "%{public}s: Failed to create the identity with the given private key and certificate.", result, 0xCu);
+                _os_log_impl(&_mh_execute_header, v62, OS_LOG_TYPE_FAULT, "%{public}s: Failed to generate a new TLS certificate.", result, 0xCu);
               }
             }
 
-            CFRelease(v40);
+            CFRelease(v39);
           }
 
           else
           {
-            v59 = global_os_log;
+            v61 = global_os_log;
             if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_FAULT))
             {
               *result = 136446210;
               *&result[4] = "tls_identity_init";
-              _os_log_impl(&_mh_execute_header, v59, OS_LOG_TYPE_FAULT, "%{public}s: Failed to generate a new TLS certificate.", result, 0xCu);
+              _os_log_impl(&_mh_execute_header, v61, OS_LOG_TYPE_FAULT, "%{public}s: Failed to generate a new TLS key.", result, 0xCu);
             }
           }
 
-          CFRelease(v38);
+          CFRelease(v36);
+          goto LABEL_133;
         }
 
-        else
+        v53 = CFErrorCopyDescription(error);
+        CFStringGetCString(v53, result, 200, 0x8000100u);
+        v54 = global_os_log;
+        if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_FAULT))
         {
-          v58 = global_os_log;
-          if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_FAULT))
-          {
-            *result = 136446210;
-            *&result[4] = "tls_identity_init";
-            _os_log_impl(&_mh_execute_header, v58, OS_LOG_TYPE_FAULT, "%{public}s: Failed to generate a new TLS key.", result, 0xCu);
-          }
+          *cf = 136446466;
+          *&cf[4] = "private_key_generate";
+          v71 = 2080;
+          v72 = result;
+          _os_log_impl(&_mh_execute_header, v54, OS_LOG_TYPE_FAULT, "%{public}s: SecKeyCreateRandomKey failed to create private key - error description: %s.", cf, 0x16u);
         }
 
-        CFRelease(v36);
-        goto LABEL_132;
-      }
+        if (v53)
+        {
+          CFRelease(v53);
+        }
 
-      v51 = CFErrorCopyDescription(error);
-      CFStringGetCString(v51, result, 200, 0x8000100u);
-      v52 = global_os_log;
-      if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_FAULT))
-      {
-        *cf = 136446466;
-        *&cf[4] = "private_key_generate";
-        v67 = 2080;
-        v68 = result;
-        _os_log_impl(&_mh_execute_header, v52, OS_LOG_TYPE_FAULT, "%{public}s: SecKeyCreateRandomKey failed to create private key - error description: %s.", cf, 0x16u);
-      }
-
-      if (v51)
-      {
-        CFRelease(v51);
-      }
-
-      if (error)
-      {
-        CFRelease(error);
-        error = 0;
+        if (error)
+        {
+          CFRelease(error);
+          error = 0;
+        }
       }
     }
 
-    v38 = 0;
-    goto LABEL_65;
+    v39 = 0;
+    goto LABEL_66;
   }
 
-LABEL_132:
-  v62 = global_os_log;
-  v50 = os_log_type_enabled(global_os_log, OS_LOG_TYPE_ERROR);
-  if (v50)
+LABEL_133:
+  v65 = global_os_log;
+  v52 = os_log_type_enabled(global_os_log, OS_LOG_TYPE_ERROR);
+  if (v52)
   {
     *result = 136446210;
     *&result[4] = "srp_tls_init";
-    _os_log_impl(&_mh_execute_header, v62, OS_LOG_TYPE_ERROR, "%{public}s: srp_tls_init: tls_identity_init failed.", result, 0xCu);
+    _os_log_impl(&_mh_execute_header, v65, OS_LOG_TYPE_ERROR, "%{public}s: srp_tls_init: tls_identity_init failed.", result, 0xCu);
     return 0;
   }
 
-  return v50;
+  return v52;
 }
 
 void srp_tls_configure(nw_protocol_options_t *a1)
@@ -7900,7 +8307,7 @@ void srpk_full_name_from_wire(uint64_t a1, void *a2)
   }
 }
 
-BOOL srpk_integer_from_wire_max_(uint64_t a1, unint64_t *a2, int a3, int a4, int a5)
+BOOL srpk_integer_from_wire_max_(uint64_t a1, unint64_t *a2, unsigned int a3, int a4, int a5)
 {
   v9 = 0;
   v10 = *(a1 + 8);
@@ -8017,41 +8424,41 @@ uint64_t srpk_hostname_to_wire(void *a1, uint64_t a2)
   return result;
 }
 
-void srpk_decompress_instance_labels(uint64_t a1, uint64_t a2, uint64_t a3, int a4, _OWORD *a5, uint64_t a6, int a7)
+void srpk_decompress_instance_labels(uint64_t a1, __int128 *a2, uint64_t a3, int a4, _OWORD *a5, uint64_t a6, int a7)
 {
+  v33 = 0;
   v34 = 0;
-  v35 = 0;
-  srpk_label_from_wire_(a1, &v34, 554);
+  srpk_label_from_wire_(a1, &v33, 554);
   if (!v14)
   {
     return;
   }
 
-  srpk_label_from_wire_(a1, &v35, 558);
+  srpk_label_from_wire_(a1, &v34, 558);
   if (!v15)
   {
     return;
   }
 
-  v16 = v35;
-  srpk_label_from_wire_(a1, v35, 561);
+  v16 = v34;
+  srpk_label_from_wire_(a1, v34, 561);
   if (!v17)
   {
     return;
   }
 
-  memset(v33, 0, sizeof(v33));
-  *(v33 + 8) = *a2;
+  memset(v32, 0, sizeof(v32));
+  *(v32 + 8) = *a2;
   if (a5)
   {
-    v18 = v33[1];
-    *a5 = v33[0];
+    v18 = v32[1];
+    *a5 = v32[0];
     a5[1] = v18;
   }
 
   srpk_name_to_wire(a2, v16);
   dns_pointer_to_wire_(a2, a3 + 48, 575);
-  if (*(a2 + 56) > 1u)
+  if (*(a2 + 14) > 1u)
   {
 LABEL_20:
     if (!a6)
@@ -8062,35 +8469,35 @@ LABEL_20:
     goto LABEL_21;
   }
 
-  v19 = *(a2 + 8);
-  if ((v19 + 2) >= *(a2 + 16))
+  v19 = *(a2 + 1);
+  if ((v19 + 2) >= *(a2 + 2))
   {
-    *(a2 + 56) = 111;
+    *(a2 + 14) = 111;
     v27 = 578;
 LABEL_19:
-    *(a2 + 48) = v27;
+    *(a2 + 12) = v27;
     goto LABEL_20;
   }
 
-  *(a2 + 8) = v19 + 1;
+  *(a2 + 1) = v19 + 1;
   *v19 = 0;
-  v20 = *(a2 + 8);
-  *(a2 + 8) = v20 + 1;
+  v20 = *(a2 + 1);
+  *(a2 + 1) = v20 + 1;
   *v20 = 12;
-  if (*(a2 + 56) > 1u)
+  if (*(a2 + 14) > 1u)
   {
     goto LABEL_20;
   }
 
-  v21 = *(a2 + 8);
-  if ((v21 + 2) >= *(a2 + 16))
+  v21 = *(a2 + 1);
+  if ((v21 + 2) >= *(a2 + 2))
   {
-    *(a2 + 56) = 111;
+    *(a2 + 14) = 111;
     v27 = 579;
     goto LABEL_19;
   }
 
-  *(a2 + 8) = v21 + 1;
+  *(a2 + 1) = v21 + 1;
   *v21 = 0;
   if (a4)
   {
@@ -8102,39 +8509,39 @@ LABEL_19:
     v22 = 1;
   }
 
-  v23 = *(a2 + 8);
-  *(a2 + 8) = v23 + 1;
+  v23 = *(a2 + 1);
+  *(a2 + 1) = v23 + 1;
   *v23 = v22;
-  if (*(a2 + 56) > 1u)
+  if (*(a2 + 14) > 1u)
   {
     goto LABEL_20;
   }
 
   dns_u32_to_wire_(a2, a7, 580);
-  v24 = *(a2 + 56);
+  v24 = *(a2 + 14);
   if (v24 > 1)
   {
     goto LABEL_20;
   }
 
-  v25 = *(a2 + 8);
-  if ((v25 + 2) >= *(a2 + 16))
+  v25 = *(a2 + 1);
+  if ((v25 + 2) >= *(a2 + 2))
   {
     v26 = 111;
     goto LABEL_30;
   }
 
-  if (*(a2 + 24))
+  if (*(a2 + 3))
   {
     v26 = v24 | 0x2C;
 LABEL_30:
-    *(a2 + 56) = v26;
+    *(a2 + 14) = v26;
     v27 = 581;
     goto LABEL_19;
   }
 
-  *(a2 + 24) = v25;
-  *(a2 + 8) = v25 + 2;
+  *(a2 + 3) = v25;
+  *(a2 + 1) = v25 + 2;
   if (a6)
   {
 LABEL_21:
@@ -8145,25 +8552,24 @@ LABEL_21:
   }
 
 LABEL_22:
-  srpk_name_to_wire(a2, v34);
-  dns_pointer_to_wire_(a2, v33, 593);
-  v29 = *(a2 + 56);
+  srpk_name_to_wire(a2, v33);
+  dns_pointer_to_wire_(a2, v32, 593);
+  v29 = *(a2 + 14);
   if (v29 <= 1)
   {
-    v30 = *(a2 + 24);
+    v30 = *(a2 + 3);
     if (v30)
     {
-      v31 = *(a2 + 8) - v30 - 2;
+      v31 = *(a2 + 1) - v30 - 2;
       *v30 = BYTE1(v31);
-      *(*(a2 + 24) + 1) = v31;
-      *(a2 + 24) = 0;
-      v32 = *(a2 + 56) < 2u;
+      *(*(a2 + 3) + 1) = v31;
+      *(a2 + 3) = 0;
     }
 
     else
     {
-      *(a2 + 56) = v29 | 0x2C;
-      *(a2 + 48) = 594;
+      *(a2 + 14) = v29 | 0x2C;
+      *(a2 + 12) = 594;
     }
   }
 }
@@ -8283,7 +8689,7 @@ LABEL_52:
         }
 
         v78 = 0;
-        if (!srpk_integer_from_wire_max_(a1, &v78, 31, 32, 260))
+        if (!srpk_integer_from_wire_max_(a1, &v78, 0x1Fu, 32, 260))
         {
           return;
         }
@@ -8470,7 +8876,7 @@ LABEL_109:
         v30 = *(a1 + 8);
         *(a1 + 8) = v30 + 1;
         v31 = *v30;
-        if (!srpk_integer_from_wire_max_(a1, &v78, 127, 128, 339))
+        if (!srpk_integer_from_wire_max_(a1, &v78, 0x7Fu, 128, 339))
         {
           goto LABEL_108;
         }
@@ -8578,7 +8984,7 @@ LABEL_93:
     _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEBUG, "%{public}s: pointer to label: %x", buf, 0x12u);
   }
 
-  if (!srpk_integer_from_wire_max_(a1, v79, 63, 64, 205))
+  if (!srpk_integer_from_wire_max_(a1, v79, 0x3Fu, 64, 205))
   {
     return;
   }
@@ -9612,1431 +10018,4 @@ LABEL_44:
 
     free(v15);
   }
-}
-
-void thread_device_rloc16_callback(uint64_t a1, int a2, int a3)
-{
-  if (a3)
-  {
-    v4 = global_os_log;
-    if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 136446466;
-      v114 = "thread_device_rloc16_callback";
-      v115 = 1024;
-      *v116 = a3;
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_ERROR, "%{public}s: rloc16 get failed with status %d", buf, 0x12u);
-    }
-
-    return;
-  }
-
-  *(a1 + 408) = a2;
-  *(a1 + 417) = 1;
-  v7 = global_os_log;
-  if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_DEFAULT))
-  {
-    *buf = 136446466;
-    v114 = "thread_device_rloc16_callback";
-    v115 = 1024;
-    *v116 = a2;
-    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "%{public}s: server_state->rloc16 updated to %x", buf, 0x12u);
-  }
-
-  if (*(a1 + 420))
-  {
-    v8 = state_machine_event_create(21);
-    service_publisher_deliver_event_to_all_publishers(a1, v8);
-    v9 = *v8;
-    if (!*v8)
-    {
-      v10 = global_os_log;
-      if (!os_log_type_enabled(global_os_log, OS_LOG_TYPE_FAULT))
-      {
-        goto LABEL_221;
-      }
-
-      *buf = 136447490;
-      v114 = "thread_device_network_state_changed";
-      v115 = 1024;
-      *v116 = 0;
-      *&v116[4] = 2048;
-      *&v116[6] = v8;
-      *&v116[14] = 2080;
-      *&v116[16] = "event";
-      *&v116[24] = 2080;
-      *&v116[26] = "thread-device.c";
-      v117 = 1024;
-      v118 = 166;
-      v24 = "%{public}s: ALLOC: release after finalize at %2.2d: %p (%10s): %s:%d";
-      goto LABEL_195;
-    }
-
-    v10 = global_os_log;
-    if (v9 < 10001)
-    {
-      if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_DEFAULT))
-      {
-        *buf = 136447490;
-        v114 = "thread_device_network_state_changed";
-        v115 = 1024;
-        *v116 = v9;
-        *&v116[4] = 2048;
-        *&v116[6] = v8;
-        *&v116[14] = 2080;
-        *&v116[16] = "event";
-        *&v116[24] = 2080;
-        *&v116[26] = "thread-device.c";
-        v117 = 1024;
-        v118 = 166;
-        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "%{public}s: ALLOC: release at %2.2d: %p (%10s): %s:%d", buf, 0x36u);
-        v9 = *v8;
-      }
-
-      *v8 = v9 - 1;
-      if (v9 == 1)
-      {
-        v11 = global_os_log;
-        if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_DEFAULT))
-        {
-          *buf = 136447234;
-          v114 = "thread_device_network_state_changed";
-          v115 = 2048;
-          *v116 = v8;
-          *&v116[8] = 2080;
-          *&v116[10] = "event";
-          *&v116[18] = 2080;
-          *&v116[20] = "thread-device.c";
-          *&v116[28] = 1024;
-          *&v116[30] = 166;
-          _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "%{public}s: ALLOC:      finalize: %p (%10s): %s:%d", buf, 0x30u);
-        }
-
-        ++state_machine_event_finalized;
-        v12 = *(v8 + 4);
-        if (v12)
-        {
-          v12(v8);
-        }
-
-        free(v8);
-      }
-
-      return;
-    }
-
-    if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_FAULT))
-    {
-      *buf = 136447490;
-      v114 = "thread_device_network_state_changed";
-      v115 = 1024;
-      *v116 = v9;
-      *&v116[4] = 2048;
-      *&v116[6] = v8;
-      *&v116[14] = 2080;
-      *&v116[16] = "event";
-      *&v116[24] = 2080;
-      *&v116[26] = "thread-device.c";
-      v117 = 1024;
-      v118 = 166;
-      v24 = "%{public}s: ALLOC: release at %2.2d: %p (%10s): %s:%d";
-LABEL_195:
-      v110 = buf;
-LABEL_219:
-      v112 = v10;
-LABEL_220:
-      _os_log_impl(&_mh_execute_header, v112, OS_LOG_TYPE_FAULT, v24, v110, 0x36u);
-    }
-
-LABEL_221:
-    abort();
-  }
-
-  v13 = _os_feature_enabled_impl();
-  *(a1 + 428) = v13;
-  v14 = global_os_log;
-  if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_DEFAULT))
-  {
-    v15 = "disabled";
-    if (v13)
-    {
-      v15 = "enabled";
-    }
-
-    *buf = 136446466;
-    v114 = "thread_device_start_trackers";
-    v115 = 2082;
-    *v116 = v15;
-    _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "%{public}s: srp on demand is %{public}s", buf, 0x16u);
-  }
-
-  v16 = *(a1 + 48);
-  v17 = v16 == 0;
-  if (!v16)
-  {
-    v18 = malloc_type_calloc(1uLL, 0x40uLL, 0x83F37E3AuLL);
-    v19 = global_os_log;
-    if (!v18)
-    {
-      if (!os_log_type_enabled(global_os_log, OS_LOG_TYPE_ERROR))
-      {
-        goto LABEL_190;
-      }
-
-      *buf = 136446722;
-      v114 = "service_tracker_create";
-      v115 = 2048;
-      *v116 = 1;
-      *&v116[8] = 2048;
-      *&v116[10] = 64;
-      v106 = "%{public}s: strict_calloc(%zu, %zu) failed";
-LABEL_204:
-      v107 = buf;
-LABEL_214:
-      v108 = v19;
-      goto LABEL_215;
-    }
-
-    v20 = v18;
-    if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_DEFAULT))
-    {
-      v21 = *v20;
-      *buf = 136447490;
-      v114 = "service_tracker_create";
-      v115 = 1024;
-      *v116 = v21;
-      *&v116[4] = 2048;
-      *&v116[6] = v20;
-      *&v116[14] = 2080;
-      *&v116[16] = "tracker";
-      *&v116[24] = 2080;
-      *&v116[26] = "service-tracker.c";
-      v117 = 1024;
-      v118 = 393;
-      _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "%{public}s: ALLOC:  retain at %2.2d: %p (%10s): %s:%d", buf, 0x36u);
-    }
-
-    v22 = *v20;
-    if (*v20)
-    {
-      v23 = v22 + 1;
-      *v20 = v22 + 1;
-      if (v22 + 1 >= 10001)
-      {
-        v10 = global_os_log;
-        if (!os_log_type_enabled(global_os_log, OS_LOG_TYPE_FAULT))
-        {
-          goto LABEL_221;
-        }
-
-        *buf = 136447490;
-        v114 = "service_tracker_create";
-        v115 = 1024;
-        *v116 = v23;
-        *&v116[4] = 2048;
-        *&v116[6] = v20;
-        *&v116[14] = 2080;
-        *&v116[16] = "tracker";
-        *&v116[24] = 2080;
-        *&v116[26] = "service-tracker.c";
-        v117 = 1024;
-        v118 = 393;
-        v24 = "%{public}s: ALLOC: retain at %2.2d: %p (%10s): %s:%d";
-        goto LABEL_195;
-      }
-    }
-
-    else
-    {
-      ++service_tracker_created;
-      *v20 = 1;
-    }
-
-    v20[1] = ++service_tracker_serial_number;
-    v20[3] = a1;
-    *(a1 + 48) = v20;
-  }
-
-  if (*(a1 + 80))
-  {
-    goto LABEL_41;
-  }
-
-  v25 = malloc_type_calloc(1uLL, 0x50uLL, 0x2D9F0C5BuLL);
-  v19 = global_os_log;
-  if (!v25)
-  {
-    if (!os_log_type_enabled(global_os_log, OS_LOG_TYPE_ERROR))
-    {
-      goto LABEL_190;
-    }
-
-    *buf = 136446722;
-    v114 = "thread_tracker_create";
-    v115 = 2048;
-    *v116 = 1;
-    *&v116[8] = 2048;
-    *&v116[10] = 80;
-    v106 = "%{public}s: strict_calloc(%zu, %zu) failed";
-    goto LABEL_204;
-  }
-
-  v26 = v25;
-  if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_DEFAULT))
-  {
-    v27 = *v26;
-    *buf = 136447490;
-    v114 = "thread_tracker_create";
-    v115 = 1024;
-    *v116 = v27;
-    *&v116[4] = 2048;
-    *&v116[6] = v26;
-    *&v116[14] = 2080;
-    *&v116[16] = "tracker";
-    *&v116[24] = 2080;
-    *&v116[26] = "thread-tracker.c";
-    v117 = 1024;
-    v118 = 202;
-    _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "%{public}s: ALLOC:  retain at %2.2d: %p (%10s): %s:%d", buf, 0x36u);
-  }
-
-  v28 = *v26;
-  if (*v26)
-  {
-    v29 = v28 + 1;
-    *v26 = v28 + 1;
-    if (v28 + 1 >= 10001)
-    {
-      v10 = global_os_log;
-      if (!os_log_type_enabled(global_os_log, OS_LOG_TYPE_FAULT))
-      {
-        goto LABEL_221;
-      }
-
-      *buf = 136447490;
-      v114 = "thread_tracker_create";
-      v115 = 1024;
-      *v116 = v29;
-      *&v116[4] = 2048;
-      *&v116[6] = v26;
-      *&v116[14] = 2080;
-      *&v116[16] = "tracker";
-      *&v116[24] = 2080;
-      *&v116[26] = "thread-tracker.c";
-      v117 = 1024;
-      v118 = 202;
-      v24 = "%{public}s: ALLOC: retain at %2.2d: %p (%10s): %s:%d";
-      goto LABEL_195;
-    }
-  }
-
-  else
-  {
-    ++thread_tracker_created;
-    *v26 = 1;
-  }
-
-  v26[1] = ++thread_tracker_serial_number;
-  v26[4] = a1;
-  v26[8] = 0;
-  *(v26 + 36) = 0;
-  *(a1 + 80) = v26;
-  v17 = 1;
-LABEL_41:
-  if (*(a1 + 88))
-  {
-    goto LABEL_51;
-  }
-
-  v30 = malloc_type_calloc(1uLL, 0x48uLL, 0xC0AC03F5uLL);
-  v19 = global_os_log;
-  if (!v30)
-  {
-    if (!os_log_type_enabled(global_os_log, OS_LOG_TYPE_ERROR))
-    {
-      goto LABEL_190;
-    }
-
-    *buf = 136446722;
-    v114 = "node_type_tracker_create";
-    v115 = 2048;
-    *v116 = 1;
-    *&v116[8] = 2048;
-    *&v116[10] = 72;
-    v106 = "%{public}s: strict_calloc(%zu, %zu) failed";
-    goto LABEL_204;
-  }
-
-  v31 = v30;
-  if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_DEFAULT))
-  {
-    v32 = *v31;
-    *buf = 136447490;
-    v114 = "node_type_tracker_create";
-    v115 = 1024;
-    *v116 = v32;
-    *&v116[4] = 2048;
-    *&v116[6] = v31;
-    *&v116[14] = 2080;
-    *&v116[16] = "tracker";
-    *&v116[24] = 2080;
-    *&v116[26] = "node-type-tracker.c";
-    v117 = 1024;
-    v118 = 175;
-    _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "%{public}s: ALLOC:  retain at %2.2d: %p (%10s): %s:%d", buf, 0x36u);
-  }
-
-  v33 = *v31;
-  if (*v31)
-  {
-    v34 = v33 + 1;
-    *v31 = v33 + 1;
-    if (v33 + 1 >= 10001)
-    {
-      v10 = global_os_log;
-      if (!os_log_type_enabled(global_os_log, OS_LOG_TYPE_FAULT))
-      {
-        goto LABEL_221;
-      }
-
-      *buf = 136447490;
-      v114 = "node_type_tracker_create";
-      v115 = 1024;
-      *v116 = v34;
-      *&v116[4] = 2048;
-      *&v116[6] = v31;
-      *&v116[14] = 2080;
-      *&v116[16] = "tracker";
-      *&v116[24] = 2080;
-      *&v116[26] = "node-type-tracker.c";
-      v117 = 1024;
-      v118 = 175;
-      v24 = "%{public}s: ALLOC: retain at %2.2d: %p (%10s): %s:%d";
-      goto LABEL_195;
-    }
-  }
-
-  else
-  {
-    ++node_type_tracker_created;
-    *v31 = 1;
-  }
-
-  v31[1] = ++node_type_tracker_serial_number;
-  v31[4] = a1;
-  v31[8] = 0;
-  *(a1 + 88) = v31;
-  v17 = 1;
-LABEL_51:
-  if (*(a1 + 56))
-  {
-    v35 = (a1 + 152);
-    if (*(a1 + 152))
-    {
-      if (!v17)
-      {
-        goto LABEL_161;
-      }
-
-LABEL_126:
-      v71 = *(a1 + 80);
-      v72 = xpc_dictionary_create(0, 0, 0);
-      xpc_dictionary_set_string(v72, "interface", "org.wpantund.v1");
-      xpc_dictionary_set_string(v72, "path", "/org/wpantund/utun2");
-      xpc_dictionary_set_string(v72, "method", "PropGet");
-      xpc_dictionary_set_string(v72, "property_name", "NCP:State");
-      v73 = setup_for_command((v71 + 40), "get_state", "NCP:State", 0, v72, v71, thread_tracker_callback, cti_internal_state_reply_callback, 0, "/Library/Caches/com.apple.xbs/Sources/mDNSResponderExtras/ServiceRegistration/thread-tracker.c", 220);
-      if (v72)
-      {
-        xpc_release(v72);
-      }
-
-      v74 = global_os_log;
-      if (v73 && os_log_type_enabled(global_os_log, OS_LOG_TYPE_DEFAULT))
-      {
-        v75 = *(v71 + 8);
-        *buf = 136446722;
-        v114 = "thread_tracker_start";
-        v115 = 2048;
-        *v116 = v75;
-        *&v116[8] = 1024;
-        *&v116[10] = v73;
-        _os_log_impl(&_mh_execute_header, v74, OS_LOG_TYPE_DEFAULT, "%{public}s: [TT%lld] service list get failed: %d", buf, 0x1Cu);
-        v74 = global_os_log;
-      }
-
-      if (os_log_type_enabled(v74, OS_LOG_TYPE_DEFAULT))
-      {
-        v76 = *v71;
-        *buf = 136447490;
-        v114 = "thread_tracker_start";
-        v115 = 1024;
-        *v116 = v76;
-        *&v116[4] = 2048;
-        *&v116[6] = v71;
-        *&v116[14] = 2080;
-        *&v116[16] = "tracker";
-        *&v116[24] = 2080;
-        *&v116[26] = "thread-tracker.c";
-        v117 = 1024;
-        v118 = 224;
-        _os_log_impl(&_mh_execute_header, v74, OS_LOG_TYPE_DEFAULT, "%{public}s: ALLOC:  retain at %2.2d: %p (%10s): %s:%d", buf, 0x36u);
-      }
-
-      v77 = *v71;
-      if (*v71)
-      {
-        v78 = v77 + 1;
-        *v71 = v77 + 1;
-        if (v77 + 1 >= 10001)
-        {
-          v10 = global_os_log;
-          if (!os_log_type_enabled(global_os_log, OS_LOG_TYPE_FAULT))
-          {
-            goto LABEL_221;
-          }
-
-          *buf = 136447490;
-          v114 = "thread_tracker_start";
-          v115 = 1024;
-          *v116 = v78;
-          *&v116[4] = 2048;
-          *&v116[6] = v71;
-          *&v116[14] = 2080;
-          *&v116[16] = "tracker";
-          *&v116[24] = 2080;
-          *&v116[26] = "thread-tracker.c";
-          v117 = 1024;
-          v118 = 224;
-          v24 = "%{public}s: ALLOC: retain at %2.2d: %p (%10s): %s:%d";
-          goto LABEL_195;
-        }
-      }
-
-      else
-      {
-        ++thread_tracker_created;
-        *v71 = 1;
-      }
-
-      if ((*(a1 + 419) & 1) == 0)
-      {
-        v79 = *(a1 + 88);
-        v80 = xpc_dictionary_create(0, 0, 0);
-        xpc_dictionary_set_string(v80, "interface", "org.wpantund.v1");
-        xpc_dictionary_set_string(v80, "path", "/org/wpantund/utun2");
-        xpc_dictionary_set_string(v80, "method", "PropGet");
-        xpc_dictionary_set_string(v80, "property_name", "Network:NodeType");
-        v81 = setup_for_command((v79 + 40), "get_network_node_type", "Network:NodeType", 0, v80, v79, node_type_tracker_callback, cti_internal_network_node_type_callback, 0, "/Library/Caches/com.apple.xbs/Sources/mDNSResponderExtras/ServiceRegistration/node-type-tracker.c", 193);
-        if (v80)
-        {
-          xpc_release(v80);
-        }
-
-        v82 = global_os_log;
-        if (v81 && os_log_type_enabled(global_os_log, OS_LOG_TYPE_DEFAULT))
-        {
-          v83 = *(v79 + 8);
-          *buf = 136446722;
-          v114 = "node_type_tracker_start";
-          v115 = 2048;
-          *v116 = v83;
-          *&v116[8] = 1024;
-          *&v116[10] = v81;
-          _os_log_impl(&_mh_execute_header, v82, OS_LOG_TYPE_DEFAULT, "%{public}s: [TT%lld] service list get failed: %d", buf, 0x1Cu);
-          v82 = global_os_log;
-        }
-
-        if (os_log_type_enabled(v82, OS_LOG_TYPE_DEFAULT))
-        {
-          v84 = *v79;
-          *buf = 136447490;
-          v114 = "node_type_tracker_start";
-          v115 = 1024;
-          *v116 = v84;
-          *&v116[4] = 2048;
-          *&v116[6] = v79;
-          *&v116[14] = 2080;
-          *&v116[16] = "tracker";
-          *&v116[24] = 2080;
-          *&v116[26] = "node-type-tracker.c";
-          v117 = 1024;
-          v118 = 197;
-          _os_log_impl(&_mh_execute_header, v82, OS_LOG_TYPE_DEFAULT, "%{public}s: ALLOC:  retain at %2.2d: %p (%10s): %s:%d", buf, 0x36u);
-        }
-
-        v85 = *v79;
-        if (*v79)
-        {
-          v86 = v85 + 1;
-          *v79 = v85 + 1;
-          if (v85 + 1 >= 10001)
-          {
-            v10 = global_os_log;
-            if (!os_log_type_enabled(global_os_log, OS_LOG_TYPE_FAULT))
-            {
-              goto LABEL_221;
-            }
-
-            *buf = 136447490;
-            v114 = "node_type_tracker_start";
-            v115 = 1024;
-            *v116 = v86;
-            *&v116[4] = 2048;
-            *&v116[6] = v79;
-            *&v116[14] = 2080;
-            *&v116[16] = "tracker";
-            *&v116[24] = 2080;
-            *&v116[26] = "node-type-tracker.c";
-            v117 = 1024;
-            v118 = 197;
-            v24 = "%{public}s: ALLOC: retain at %2.2d: %p (%10s): %s:%d";
-            goto LABEL_195;
-          }
-        }
-
-        else
-        {
-          ++node_type_tracker_created;
-          *v79 = 1;
-        }
-
-        *(a1 + 419) = 1;
-      }
-
-      state_machine_next_state(*(a1 + 56) + 8, 1u);
-      v87 = *(a1 + 152);
-      if (v87)
-      {
-        cti_track_active_data_set_((v87 + 96), *(a1 + 152), dnssd_client_active_data_set_changed_callback, "/Library/Caches/com.apple.xbs/Sources/mDNSResponderExtras/ServiceRegistration/dnssd-client.c", 721);
-        v88 = global_os_log;
-        if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_DEFAULT))
-        {
-          v89 = *v87;
-          *buf = 136447490;
-          v114 = "dnssd_client_start";
-          v115 = 1024;
-          *v116 = v89;
-          *&v116[4] = 2048;
-          *&v116[6] = v87;
-          *&v116[14] = 2080;
-          *&v116[16] = "client";
-          *&v116[24] = 2080;
-          *&v116[26] = "dnssd-client.c";
-          v117 = 1024;
-          v118 = 722;
-          _os_log_impl(&_mh_execute_header, v88, OS_LOG_TYPE_DEFAULT, "%{public}s: ALLOC:  retain at %2.2d: %p (%10s): %s:%d", buf, 0x36u);
-        }
-
-        v90 = *v87;
-        if (*v87)
-        {
-          v91 = v90 + 1;
-          *v87 = v90 + 1;
-          if (v90 + 1 >= 10001)
-          {
-            v10 = global_os_log;
-            if (!os_log_type_enabled(global_os_log, OS_LOG_TYPE_FAULT))
-            {
-              goto LABEL_221;
-            }
-
-            *buf = 136447490;
-            v114 = "dnssd_client_start";
-            v115 = 1024;
-            *v116 = v91;
-            *&v116[4] = 2048;
-            *&v116[6] = v87;
-            *&v116[14] = 2080;
-            *&v116[16] = "client";
-            *&v116[24] = 2080;
-            *&v116[26] = "dnssd-client.c";
-            v117 = 1024;
-            v118 = 722;
-            v24 = "%{public}s: ALLOC: retain at %2.2d: %p (%10s): %s:%d";
-            goto LABEL_195;
-          }
-        }
-
-        else
-        {
-          ++dnssd_client_created;
-          *v87 = 1;
-        }
-
-        dnssd_client_active_data_set_changed_callback(v87, 0);
-        state_machine_next_state(v87 + 8, 1u);
-      }
-
-      goto LABEL_161;
-    }
-
-    goto LABEL_94;
-  }
-
-  v36 = malloc_type_calloc(1uLL, 0xA8uLL, 0xA348DF12uLL);
-  v19 = global_os_log;
-  if (!v36)
-  {
-    if (!os_log_type_enabled(global_os_log, OS_LOG_TYPE_ERROR))
-    {
-      goto LABEL_190;
-    }
-
-    *v119 = 136446722;
-    v120 = "service_publisher_create";
-    v121 = 2048;
-    *v122 = 1;
-    *&v122[8] = 2048;
-    *&v122[10] = 168;
-    v106 = "%{public}s: strict_calloc(%zu, %zu) failed";
-LABEL_213:
-    v107 = v119;
-    goto LABEL_214;
-  }
-
-  v37 = v36;
-  if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_DEFAULT))
-  {
-    v38 = *v37;
-    *v119 = 136447490;
-    v120 = "service_publisher_create";
-    v121 = 1024;
-    *v122 = v38;
-    *&v122[4] = 2048;
-    *&v122[6] = v37;
-    *&v122[14] = 2080;
-    *&v122[16] = "publisher";
-    *&v122[24] = 2080;
-    *&v122[26] = "service-publisher.c";
-    v123 = 1024;
-    v124 = 2184;
-    _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "%{public}s: ALLOC:  retain at %2.2d: %p (%10s): %s:%d", v119, 0x36u);
-  }
-
-  v39 = *v37;
-  if (*v37)
-  {
-    v40 = v39 + 1;
-    *v37 = v39 + 1;
-    if (v39 + 1 >= 10001)
-    {
-      v10 = global_os_log;
-      if (!os_log_type_enabled(global_os_log, OS_LOG_TYPE_FAULT))
-      {
-        goto LABEL_221;
-      }
-
-      *v119 = 136447490;
-      v120 = "service_publisher_create";
-      v121 = 1024;
-      *v122 = v40;
-      *&v122[4] = 2048;
-      *&v122[6] = v37;
-      *&v122[14] = 2080;
-      *&v122[16] = "publisher";
-      *&v122[24] = 2080;
-      *&v122[26] = "service-publisher.c";
-      v123 = 1024;
-      v124 = 2184;
-      v24 = "%{public}s: ALLOC: retain at %2.2d: %p (%10s): %s:%d";
-LABEL_218:
-      v110 = v119;
-      goto LABEL_219;
-    }
-  }
-
-  else
-  {
-    ++service_publisher_created;
-    *v37 = 1;
-  }
-
-  *(v37 + 88) = ioloop_wakeup_create_("/Library/Caches/com.apple.xbs/Sources/mDNSResponderExtras/ServiceRegistration/service-publisher.c", 2185);
-  snprintf(buf, 0x64uLL, "[SP%lld %s]", ++service_publisher_serial_number, "uni");
-  v41 = strdup(buf);
-  if (!v41)
-  {
-    v105 = global_os_log;
-    if (!os_log_type_enabled(global_os_log, OS_LOG_TYPE_ERROR))
-    {
-      goto LABEL_190;
-    }
-
-    *v119 = 136446210;
-    v120 = "strict_strdup";
-    v106 = "%{public}s: strdup() failed";
-    goto LABEL_188;
-  }
-
-  *(v37 + 72) = v41;
-  *(v37 + 144) = 2;
-  if (state_machine_header_setup(v37 + 8, v37, v41, 2, &service_publisher_states, 7))
-  {
-    *(v37 + 80) = a1;
-    service_tracker_callback_add(*(a1 + 48), service_publisher_service_tracker_callback, service_publisher_context_release, v37);
-    if (v42)
-    {
-      v43 = global_os_log;
-      if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_DEFAULT))
-      {
-        v44 = *v37;
-        *v119 = 136447490;
-        v120 = "service_publisher_create";
-        v121 = 1024;
-        *v122 = v44;
-        *&v122[4] = 2048;
-        *&v122[6] = v37;
-        *&v122[14] = 2080;
-        *&v122[16] = "publisher";
-        *&v122[24] = 2080;
-        *&v122[26] = "service-publisher.c";
-        v123 = 1024;
-        v124 = 2216;
-        _os_log_impl(&_mh_execute_header, v43, OS_LOG_TYPE_DEFAULT, "%{public}s: ALLOC:  retain at %2.2d: %p (%10s): %s:%d", v119, 0x36u);
-      }
-
-      v45 = *v37;
-      if (*v37)
-      {
-        v46 = v45 + 1;
-        *v37 = v45 + 1;
-        if (v45 + 1 >= 10001)
-        {
-          v10 = global_os_log;
-          if (!os_log_type_enabled(global_os_log, OS_LOG_TYPE_FAULT))
-          {
-            goto LABEL_221;
-          }
-
-          *v119 = 136447490;
-          v120 = "service_publisher_create";
-          v121 = 1024;
-          *v122 = v46;
-          *&v122[4] = 2048;
-          *&v122[6] = v37;
-          *&v122[14] = 2080;
-          *&v122[16] = "publisher";
-          *&v122[24] = 2080;
-          *&v122[26] = "service-publisher.c";
-          v123 = 1024;
-          v124 = 2216;
-          v24 = "%{public}s: ALLOC: retain at %2.2d: %p (%10s): %s:%d";
-          goto LABEL_218;
-        }
-      }
-
-      else
-      {
-        ++service_publisher_created;
-        *v37 = 1;
-      }
-
-      node_type_tracker_callback_add(*(a1 + 88), service_publisher_node_type_tracker_callback, service_publisher_context_release, v37);
-      if (v49)
-      {
-        v50 = global_os_log;
-        if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_DEFAULT))
-        {
-          v51 = *v37;
-          *v119 = 136447490;
-          v120 = "service_publisher_create";
-          v121 = 1024;
-          *v122 = v51;
-          *&v122[4] = 2048;
-          *&v122[6] = v37;
-          *&v122[14] = 2080;
-          *&v122[16] = "publisher";
-          *&v122[24] = 2080;
-          *&v122[26] = "service-publisher.c";
-          v123 = 1024;
-          v124 = 2223;
-          _os_log_impl(&_mh_execute_header, v50, OS_LOG_TYPE_DEFAULT, "%{public}s: ALLOC:  retain at %2.2d: %p (%10s): %s:%d", v119, 0x36u);
-        }
-
-        v52 = *v37;
-        if (*v37)
-        {
-          v53 = v52 + 1;
-          *v37 = v52 + 1;
-          if (v52 + 1 >= 10001)
-          {
-            v10 = global_os_log;
-            if (!os_log_type_enabled(global_os_log, OS_LOG_TYPE_FAULT))
-            {
-              goto LABEL_221;
-            }
-
-            *v119 = 136447490;
-            v120 = "service_publisher_create";
-            v121 = 1024;
-            *v122 = v53;
-            *&v122[4] = 2048;
-            *&v122[6] = v37;
-            *&v122[14] = 2080;
-            *&v122[16] = "publisher";
-            *&v122[24] = 2080;
-            *&v122[26] = "service-publisher.c";
-            v123 = 1024;
-            v124 = 2223;
-            v24 = "%{public}s: ALLOC: retain at %2.2d: %p (%10s): %s:%d";
-            goto LABEL_218;
-          }
-        }
-
-        else
-        {
-          ++service_publisher_created;
-          *v37 = 1;
-        }
-
-        *(v37 + 158) = 1;
-        *(v37 + 148) = 750;
-        v35 = (a1 + 152);
-        v57 = *(a1 + 152);
-        *(a1 + 56) = v37;
-        if (v57)
-        {
-          goto LABEL_126;
-        }
-
-LABEL_94:
-        v58 = malloc_type_calloc(1uLL, 0xB0uLL, 0xA3DDC3D2uLL);
-        v19 = global_os_log;
-        if (v58)
-        {
-          v59 = v58;
-          if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_DEFAULT))
-          {
-            v60 = *v59;
-            *v119 = 136447490;
-            v120 = "dnssd_client_create";
-            v121 = 1024;
-            *v122 = v60;
-            *&v122[4] = 2048;
-            *&v122[6] = v59;
-            *&v122[14] = 2080;
-            *&v122[16] = "client";
-            *&v122[24] = 2080;
-            *&v122[26] = "dnssd-client.c";
-            v123 = 1024;
-            v124 = 633;
-            _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "%{public}s: ALLOC:  retain at %2.2d: %p (%10s): %s:%d", v119, 0x36u);
-          }
-
-          v61 = *v59;
-          if (*v59)
-          {
-            v62 = v61 + 1;
-            *v59 = v61 + 1;
-            if (v61 + 1 >= 10001)
-            {
-              v10 = global_os_log;
-              if (!os_log_type_enabled(global_os_log, OS_LOG_TYPE_FAULT))
-              {
-                goto LABEL_221;
-              }
-
-              *v119 = 136447490;
-              v120 = "dnssd_client_create";
-              v121 = 1024;
-              *v122 = v62;
-              *&v122[4] = 2048;
-              *&v122[6] = v59;
-              *&v122[14] = 2080;
-              *&v122[16] = "client";
-              *&v122[24] = 2080;
-              *&v122[26] = "dnssd-client.c";
-              v123 = 1024;
-              v124 = 633;
-              v24 = "%{public}s: ALLOC: retain at %2.2d: %p (%10s): %s:%d";
-              goto LABEL_218;
-            }
-          }
-
-          else
-          {
-            ++dnssd_client_created;
-            *v59 = 1;
-          }
-
-          *(v59 + 88) = ioloop_wakeup_create_("/Library/Caches/com.apple.xbs/Sources/mDNSResponderExtras/ServiceRegistration/dnssd-client.c", 634);
-          snprintf(buf, 0x64uLL, "[DC%lld]", ++dnssd_client_serial_number);
-          v63 = strdup(buf);
-          if (v63)
-          {
-            *(v59 + 72) = v63;
-            *(v59 + 160) = 0xFFFFFFFF00000002;
-            *(v59 + 168) = 853;
-            if (state_machine_header_setup(v59 + 8, v59, v63, 3, &dnssd_client_states, 5))
-            {
-              *(v59 + 80) = a1;
-              service_tracker_callback_add(*(a1 + 48), dnssd_client_service_tracker_callback, dnssd_client_context_release, v59);
-              if (v64)
-              {
-                v65 = global_os_log;
-                if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_DEFAULT))
-                {
-                  v66 = *v59;
-                  *v119 = 136447490;
-                  v120 = "dnssd_client_create";
-                  v121 = 1024;
-                  *v122 = v66;
-                  *&v122[4] = 2048;
-                  *&v122[6] = v59;
-                  *&v122[14] = 2080;
-                  *&v122[16] = "client";
-                  *&v122[24] = 2080;
-                  *&v122[26] = "dnssd-client.c";
-                  v123 = 1024;
-                  v124 = 666;
-                  _os_log_impl(&_mh_execute_header, v65, OS_LOG_TYPE_DEFAULT, "%{public}s: ALLOC:  retain at %2.2d: %p (%10s): %s:%d", v119, 0x36u);
-                }
-
-                v67 = *v59;
-                if (*v59)
-                {
-                  v68 = v67 + 1;
-                  *v59 = v67 + 1;
-                  if (v67 + 1 >= 10001)
-                  {
-                    v10 = global_os_log;
-                    if (!os_log_type_enabled(global_os_log, OS_LOG_TYPE_FAULT))
-                    {
-                      goto LABEL_221;
-                    }
-
-                    *v119 = 136447490;
-                    v120 = "dnssd_client_create";
-                    v121 = 1024;
-                    *v122 = v68;
-                    *&v122[4] = 2048;
-                    *&v122[6] = v59;
-                    *&v122[14] = 2080;
-                    *&v122[16] = "client";
-                    *&v122[24] = 2080;
-                    *&v122[26] = "dnssd-client.c";
-                    v123 = 1024;
-                    v124 = 666;
-                    v24 = "%{public}s: ALLOC: retain at %2.2d: %p (%10s): %s:%d";
-                    goto LABEL_218;
-                  }
-                }
-
-                else
-                {
-                  ++dnssd_client_created;
-                  *v59 = 1;
-                }
-
-                *v35 = v59;
-                goto LABEL_126;
-              }
-            }
-
-            else
-            {
-              v69 = global_os_log;
-              if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_ERROR))
-              {
-                *v119 = 136446210;
-                v120 = "dnssd_client_create";
-                _os_log_impl(&_mh_execute_header, v69, OS_LOG_TYPE_ERROR, "%{public}s: header setup failed", v119, 0xCu);
-              }
-            }
-
-            v70 = *v59;
-            if (!*v59)
-            {
-              v10 = global_os_log;
-              if (!os_log_type_enabled(global_os_log, OS_LOG_TYPE_FAULT))
-              {
-                goto LABEL_221;
-              }
-
-              *v119 = 136447490;
-              v120 = "dnssd_client_create";
-              v121 = 1024;
-              *v122 = 0;
-              *&v122[4] = 2048;
-              *&v122[6] = v59;
-              *&v122[14] = 2080;
-              *&v122[16] = "client";
-              *&v122[24] = 2080;
-              *&v122[26] = "dnssd-client.c";
-              v123 = 1024;
-              v124 = 672;
-              v24 = "%{public}s: ALLOC: release after finalize at %2.2d: %p (%10s): %s:%d";
-              goto LABEL_218;
-            }
-
-            v55 = global_os_log;
-            if (v70 < 10001)
-            {
-              if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_DEFAULT))
-              {
-                *v119 = 136447490;
-                v120 = "dnssd_client_create";
-                v121 = 1024;
-                *v122 = v70;
-                *&v122[4] = 2048;
-                *&v122[6] = v59;
-                *&v122[14] = 2080;
-                *&v122[16] = "client";
-                *&v122[24] = 2080;
-                *&v122[26] = "dnssd-client.c";
-                v123 = 1024;
-                v124 = 672;
-                _os_log_impl(&_mh_execute_header, v55, OS_LOG_TYPE_DEFAULT, "%{public}s: ALLOC: release at %2.2d: %p (%10s): %s:%d", v119, 0x36u);
-                v70 = *v59;
-                v55 = global_os_log;
-              }
-
-              *v59 = v70 - 1;
-              if (v70 == 1)
-              {
-                if (os_log_type_enabled(v55, OS_LOG_TYPE_DEFAULT))
-                {
-                  *v119 = 136447234;
-                  v120 = "dnssd_client_create";
-                  v121 = 2048;
-                  *v122 = v59;
-                  *&v122[8] = 2080;
-                  *&v122[10] = "client";
-                  *&v122[18] = 2080;
-                  *&v122[20] = "dnssd-client.c";
-                  *&v122[28] = 1024;
-                  *&v122[30] = 672;
-                  _os_log_impl(&_mh_execute_header, v55, OS_LOG_TYPE_DEFAULT, "%{public}s: ALLOC:      finalize: %p (%10s): %s:%d", v119, 0x30u);
-                }
-
-                ++dnssd_client_finalized;
-                dnssd_client_finalize(v59);
-                v55 = global_os_log;
-              }
-
-              *v35 = 0;
-              if (!os_log_type_enabled(v55, OS_LOG_TYPE_FAULT))
-              {
-                goto LABEL_161;
-              }
-
-              *buf = 136446210;
-              v114 = "thread_device_start_trackers";
-              v56 = "%{public}s: can't create dnssd client";
-              goto LABEL_123;
-            }
-
-            if (!os_log_type_enabled(global_os_log, OS_LOG_TYPE_FAULT))
-            {
-              goto LABEL_221;
-            }
-
-            *v119 = 136447490;
-            v120 = "dnssd_client_create";
-            v121 = 1024;
-            *v122 = v70;
-            *&v122[4] = 2048;
-            *&v122[6] = v59;
-            *&v122[14] = 2080;
-            *&v122[16] = "client";
-            *&v122[24] = 2080;
-            *&v122[26] = "dnssd-client.c";
-            v123 = 1024;
-            v124 = 672;
-            v24 = "%{public}s: ALLOC: release at %2.2d: %p (%10s): %s:%d";
-LABEL_224:
-            v110 = v119;
-            v112 = v55;
-            goto LABEL_220;
-          }
-
-          v105 = global_os_log;
-          if (!os_log_type_enabled(global_os_log, OS_LOG_TYPE_ERROR))
-          {
-            goto LABEL_190;
-          }
-
-          *v119 = 136446210;
-          v120 = "strict_strdup";
-          v106 = "%{public}s: strdup() failed";
-LABEL_188:
-          v107 = v119;
-          v108 = v105;
-          v109 = 12;
-LABEL_189:
-          _os_log_impl(&_mh_execute_header, v108, OS_LOG_TYPE_ERROR, v106, v107, v109);
-          goto LABEL_190;
-        }
-
-        if (!os_log_type_enabled(global_os_log, OS_LOG_TYPE_ERROR))
-        {
-          goto LABEL_190;
-        }
-
-        *v119 = 136446722;
-        v120 = "dnssd_client_create";
-        v121 = 2048;
-        *v122 = 1;
-        *&v122[8] = 2048;
-        *&v122[10] = 176;
-        v106 = "%{public}s: strict_calloc(%zu, %zu) failed";
-        goto LABEL_213;
-      }
-    }
-  }
-
-  else
-  {
-    v47 = global_os_log;
-    if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_ERROR))
-    {
-      v48 = *(v37 + 72);
-      *v119 = 136446466;
-      v120 = "service_publisher_create";
-      v121 = 2082;
-      *v122 = v48;
-      _os_log_impl(&_mh_execute_header, v47, OS_LOG_TYPE_ERROR, "%{public}s: %{public}s header setup failed", v119, 0x16u);
-    }
-  }
-
-  v54 = *v37;
-  if (!*v37)
-  {
-    v10 = global_os_log;
-    if (!os_log_type_enabled(global_os_log, OS_LOG_TYPE_FAULT))
-    {
-      goto LABEL_221;
-    }
-
-    *v119 = 136447490;
-    v120 = "service_publisher_create";
-    v121 = 1024;
-    *v122 = 0;
-    *&v122[4] = 2048;
-    *&v122[6] = v37;
-    *&v122[14] = 2080;
-    *&v122[16] = "publisher";
-    *&v122[24] = 2080;
-    *&v122[26] = "service-publisher.c";
-    v123 = 1024;
-    v124 = 2232;
-    v24 = "%{public}s: ALLOC: release after finalize at %2.2d: %p (%10s): %s:%d";
-    goto LABEL_218;
-  }
-
-  v55 = global_os_log;
-  if (v54 >= 10001)
-  {
-    if (!os_log_type_enabled(global_os_log, OS_LOG_TYPE_FAULT))
-    {
-      goto LABEL_221;
-    }
-
-    *v119 = 136447490;
-    v120 = "service_publisher_create";
-    v121 = 1024;
-    *v122 = v54;
-    *&v122[4] = 2048;
-    *&v122[6] = v37;
-    *&v122[14] = 2080;
-    *&v122[16] = "publisher";
-    *&v122[24] = 2080;
-    *&v122[26] = "service-publisher.c";
-    v123 = 1024;
-    v124 = 2232;
-    v24 = "%{public}s: ALLOC: release at %2.2d: %p (%10s): %s:%d";
-    goto LABEL_224;
-  }
-
-  if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_DEFAULT))
-  {
-    *v119 = 136447490;
-    v120 = "service_publisher_create";
-    v121 = 1024;
-    *v122 = v54;
-    *&v122[4] = 2048;
-    *&v122[6] = v37;
-    *&v122[14] = 2080;
-    *&v122[16] = "publisher";
-    *&v122[24] = 2080;
-    *&v122[26] = "service-publisher.c";
-    v123 = 1024;
-    v124 = 2232;
-    _os_log_impl(&_mh_execute_header, v55, OS_LOG_TYPE_DEFAULT, "%{public}s: ALLOC: release at %2.2d: %p (%10s): %s:%d", v119, 0x36u);
-    v54 = *v37;
-    v55 = global_os_log;
-  }
-
-  *v37 = v54 - 1;
-  if (v54 == 1)
-  {
-    if (os_log_type_enabled(v55, OS_LOG_TYPE_DEFAULT))
-    {
-      *v119 = 136447234;
-      v120 = "service_publisher_create";
-      v121 = 2048;
-      *v122 = v37;
-      *&v122[8] = 2080;
-      *&v122[10] = "publisher";
-      *&v122[18] = 2080;
-      *&v122[20] = "service-publisher.c";
-      *&v122[28] = 1024;
-      *&v122[30] = 2232;
-      _os_log_impl(&_mh_execute_header, v55, OS_LOG_TYPE_DEFAULT, "%{public}s: ALLOC:      finalize: %p (%10s): %s:%d", v119, 0x30u);
-    }
-
-    ++service_publisher_finalized;
-    service_publisher_finalize(v37);
-    v55 = global_os_log;
-  }
-
-  *(a1 + 56) = 0;
-  if (!os_log_type_enabled(v55, OS_LOG_TYPE_FAULT))
-  {
-    goto LABEL_161;
-  }
-
-  *buf = 136446210;
-  v114 = "thread_device_start_trackers";
-  v56 = "%{public}s: can't create unicast service publisher.";
-LABEL_123:
-  _os_log_impl(&_mh_execute_header, v55, OS_LOG_TYPE_FAULT, v56, buf, 0xCu);
-LABEL_161:
-  v92 = *(a1 + 80);
-  v93 = v92 + 12;
-  do
-  {
-    v94 = *v93;
-    if (!*v93)
-    {
-      v97 = malloc_type_calloc(1uLL, 0x20uLL, 0xC69E3B29uLL);
-      if (v97)
-      {
-        v98 = v97;
-        v97[1] = 0;
-        v97[2] = thread_device_thread_tracker_callback;
-        v97[3] = a1;
-        if (v92 && !*(v92 + 6))
-        {
-          v99 = global_os_log;
-          if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_DEFAULT))
-          {
-            v100 = *v92;
-            *buf = 136447490;
-            v114 = "thread_tracker_callback_add";
-            v115 = 1024;
-            *v116 = v100;
-            *&v116[4] = 2048;
-            *&v116[6] = v92;
-            *&v116[14] = 2080;
-            *&v116[16] = "tracker";
-            *&v116[24] = 2080;
-            *&v116[26] = "thread-tracker.c";
-            v117 = 1024;
-            v118 = 253;
-            _os_log_impl(&_mh_execute_header, v99, OS_LOG_TYPE_DEFAULT, "%{public}s: ALLOC:  retain at %2.2d: %p (%10s): %s:%d", buf, 0x36u);
-          }
-
-          v101 = *v92;
-          if (*v92)
-          {
-            v102 = v101 + 1;
-            *v92 = v101 + 1;
-            if (v101 + 1 >= 10001)
-            {
-              v10 = global_os_log;
-              if (!os_log_type_enabled(global_os_log, OS_LOG_TYPE_FAULT))
-              {
-                goto LABEL_221;
-              }
-
-              *buf = 136447490;
-              v114 = "thread_tracker_callback_add";
-              v115 = 1024;
-              *v116 = v102;
-              *&v116[4] = 2048;
-              *&v116[6] = v92;
-              *&v116[14] = 2080;
-              *&v116[16] = "tracker";
-              *&v116[24] = 2080;
-              *&v116[26] = "thread-tracker.c";
-              v117 = 1024;
-              v118 = 253;
-              v24 = "%{public}s: ALLOC: retain at %2.2d: %p (%10s): %s:%d";
-              goto LABEL_195;
-            }
-          }
-
-          else
-          {
-            ++thread_tracker_created;
-            *v92 = 1;
-          }
-        }
-
-        *v93 = v98;
-        goto LABEL_179;
-      }
-
-      v111 = global_os_log;
-      if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_ERROR))
-      {
-        *buf = 136446722;
-        v114 = "thread_tracker_callback_add";
-        v115 = 2048;
-        *v116 = 1;
-        *&v116[8] = 2048;
-        *&v116[10] = 32;
-        v106 = "%{public}s: strict_calloc(%zu, %zu) failed";
-        v107 = buf;
-        v108 = v111;
-LABEL_215:
-        v109 = 32;
-        goto LABEL_189;
-      }
-
-LABEL_190:
-      __break(1u);
-    }
-
-    v93 = *v93;
-  }
-
-  while (v94[3] != a1);
-  v95 = global_os_log;
-  if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_FAULT))
-  {
-    v96 = *(v92 + 1);
-    *buf = 136446722;
-    v114 = "thread_tracker_callback_add";
-    v115 = 2048;
-    *v116 = v96;
-    *&v116[8] = 2048;
-    *&v116[10] = a1;
-    _os_log_impl(&_mh_execute_header, v95, OS_LOG_TYPE_FAULT, "%{public}s: [TT%lld] duplicate context %p", buf, 0x20u);
-    v95 = global_os_log;
-  }
-
-  if (os_log_type_enabled(v95, OS_LOG_TYPE_FAULT))
-  {
-    *buf = 136446210;
-    v114 = "thread_device_rloc16_callback";
-    _os_log_impl(&_mh_execute_header, v95, OS_LOG_TYPE_FAULT, "%{public}s: could not add thread_tracker_callback", buf, 0xCu);
-  }
-
-LABEL_179:
-  node_type_tracker_callback_add(*(a1 + 88), thread_device_node_type_callback, 0, a1);
-  if ((v103 & 1) == 0)
-  {
-    v104 = global_os_log;
-    if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_FAULT))
-    {
-      *buf = 136446210;
-      v114 = "thread_device_rloc16_callback";
-      _os_log_impl(&_mh_execute_header, v104, OS_LOG_TYPE_FAULT, "%{public}s: could not add node_type_tracker_callback", buf, 0xCu);
-    }
-  }
-
-  *(a1 + 420) = 1;
 }

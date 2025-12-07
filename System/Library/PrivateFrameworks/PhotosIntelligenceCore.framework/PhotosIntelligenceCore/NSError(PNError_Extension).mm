@@ -10,20 +10,22 @@
 
 + (id)pn_genericErrorWithUnderlyingError:()PNError_Extension localizedDescription:
 {
-  v11 = *MEMORY[0x277CBECE8];
-  v12 = a3;
-  v13 = CFStringCreateWithFormatAndArguments(v11, 0, a4, &a9);
-  v14 = [self _pn_genericErrorWithUnderlyingError:v12 localizedDescription:v13];
+  va_start(va, a8);
+  v10 = *MEMORY[0x277CBECE8];
+  v11 = a3;
+  v12 = CFStringCreateWithFormatAndArguments(v10, 0, a4, va);
+  v13 = [self _pn_genericErrorWithUnderlyingError:v11 localizedDescription:v12];
 
-  return v14;
+  return v13;
 }
 
 + (id)pn_genericErrorWithLocalizedDescription:()PNError_Extension
 {
-  v10 = CFStringCreateWithFormatAndArguments(*MEMORY[0x277CBECE8], 0, a3, &a9);
-  v11 = [self _pn_genericErrorWithUnderlyingError:0 localizedDescription:v10];
+  va_start(va, a8);
+  v9 = CFStringCreateWithFormatAndArguments(*MEMORY[0x277CBECE8], 0, a3, va);
+  v10 = [self _pn_genericErrorWithUnderlyingError:0 localizedDescription:v9];
 
-  return v11;
+  return v10;
 }
 
 + (id)pn_errorWithCode:()PNError_Extension localizedDescription:

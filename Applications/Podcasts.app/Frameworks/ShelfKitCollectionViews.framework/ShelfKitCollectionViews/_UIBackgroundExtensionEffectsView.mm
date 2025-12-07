@@ -8,7 +8,7 @@
 {
   layerCopy = layer;
   selfCopy = self;
-  sub_151E5C(layerCopy);
+  sub_151E5C(layerCopy, selfCopy);
 }
 
 @end

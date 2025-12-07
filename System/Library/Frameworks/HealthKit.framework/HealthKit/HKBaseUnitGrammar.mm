@@ -26,42 +26,42 @@ id ___HKBaseUnitGrammar_block_invoke_3(uint64_t a1, void *a2)
 
 void ___HKBaseUnitGrammar_block_invoke()
 {
-  v71[1] = *MEMORY[0x1E69E9840];
+  v70[1] = *MEMORY[0x1E69E9840];
   v0 = [_HKCFGNonTerminal nonTerminalWithLabel:@"U"];
   v1 = [_HKCFGNonTerminal nonTerminalWithLabel:@"R"];
   v2 = [_HKCFGNonTerminal nonTerminalWithLabel:@"P"];
   v3 = [_HKCFGNonTerminal nonTerminalWithLabel:@"Q"];
   [v3 setCharactersToBeSkipped:0];
-  v53 = [_HKCFGNonTerminal nonTerminalWithLabel:@"M"];
-  [v53 setCharactersToBeSkipped:0];
-  v54 = v1;
-  v71[0] = v1;
-  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v71 count:1];
+  v52 = [_HKCFGNonTerminal nonTerminalWithLabel:@"M"];
+  [v52 setCharactersToBeSkipped:0];
+  v53 = v1;
+  v70[0] = v1;
+  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v70 count:1];
   [v0 addReplacementRuleWithExpressions:v4 nodeEvaluator:&__block_literal_global_821];
 
-  v52 = v2;
-  v70[0] = v2;
-  v70[1] = v3;
-  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v70 count:2];
+  v51 = v2;
+  v69[0] = v2;
+  v69[1] = v3;
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v69 count:2];
   [v0 addReplacementRuleWithExpressions:v5 nodeEvaluator:&__block_literal_global_824];
 
   v6 = off_1E7375000;
   v7 = [_HKCFGTerminal terminalMatchingIntegerWithCondition:&__block_literal_global_828];
   v8 = [_HKCFGTerminal terminalMatchingIntegerWithCondition:&__block_literal_global_830];
-  v69[0] = v7;
-  v69[1] = @"^";
-  v69[2] = v8;
-  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v69 count:3];
-  [v0 addReplacementRuleWithExpressions:v9 nodeEvaluator:&__block_literal_global_835];
-
-  v48 = v8;
-  v49 = v7;
   v68[0] = v7;
   v68[1] = @"^";
   v68[2] = v8;
-  v68[3] = v0;
-  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v68 count:4];
-  v51 = v0;
+  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v68 count:3];
+  [v0 addReplacementRuleWithExpressions:v9 nodeEvaluator:&__block_literal_global_835];
+
+  v47 = v8;
+  v48 = v7;
+  v67[0] = v7;
+  v67[1] = @"^";
+  v67[2] = v8;
+  v67[3] = v0;
+  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v67 count:4];
+  v50 = v0;
   [v0 addReplacementRuleWithExpressions:v10 nodeEvaluator:&__block_literal_global_837];
 
   v11 = &__SIUnitDefinitions;
@@ -75,16 +75,16 @@ void ___HKBaseUnitGrammar_block_invoke()
     aBlock[1] = 3221225472;
     aBlock[2] = ___HKBaseUnitGrammar_block_invoke_8;
     aBlock[3] = &unk_1E7382CB0;
-    v60 = v13;
+    v59 = v13;
     v15 = v6;
     v16 = v13;
     v17 = _Block_copy(aBlock);
-    v67 = v14;
-    v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v67 count:1];
+    v66 = v14;
+    v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v66 count:1];
     [v1 addReplacementRuleWithExpressions:v18 nodeEvaluator:v17];
 
-    v66 = v14;
-    v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v66 count:1];
+    v65 = v14;
+    v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v65 count:1];
     [v3 addReplacementRuleWithExpressions:v19 nodeEvaluator:v17];
 
     v6 = v15;
@@ -93,13 +93,13 @@ void ___HKBaseUnitGrammar_block_invoke()
   }
 
   while (v12);
-  v65 = v53;
-  v20 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v65 count:1];
+  v64 = v52;
+  v20 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v64 count:1];
   [v1 addReplacementRuleWithExpressions:v20 nodeEvaluator:&__block_literal_global_839];
 
-  v64 = v53;
-  v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v64 count:1];
-  v50 = v3;
+  v63 = v52;
+  v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v63 count:1];
+  v49 = v3;
   [v3 addReplacementRuleWithExpressions:v21 nodeEvaluator:&__block_literal_global_839];
 
   v22 = &__OtherUnitDefinitions;
@@ -109,15 +109,15 @@ void ___HKBaseUnitGrammar_block_invoke()
     v24 = [MEMORY[0x1E696AEC0] stringWithUTF8String:*v22];
     v25 = [(__objc2_class *)v15[283] terminalMatchingString:v24 caseSensitive:1];
     [v25 setIsPrivate:(v22[5] & 1) == 0];
-    v63 = v25;
-    v26 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v63 count:1];
-    v57[0] = MEMORY[0x1E69E9820];
-    v57[1] = 3221225472;
-    v57[2] = ___HKBaseUnitGrammar_block_invoke_10;
-    v57[3] = &unk_1E7382CB0;
-    v58 = v24;
+    v62 = v25;
+    v26 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v62 count:1];
+    v56[0] = MEMORY[0x1E69E9820];
+    v56[1] = 3221225472;
+    v56[2] = ___HKBaseUnitGrammar_block_invoke_10;
+    v56[3] = &unk_1E7382CB0;
+    v57 = v24;
     v27 = v24;
-    [v54 addReplacementRuleWithExpressions:v26 nodeEvaluator:v57];
+    [v53 addReplacementRuleWithExpressions:v26 nodeEvaluator:v56];
 
     v22 += 6;
     --v23;
@@ -130,9 +130,9 @@ void ___HKBaseUnitGrammar_block_invoke()
   do
   {
     v31 = [MEMORY[0x1E696AEC0] stringWithUTF8String:(&__PrefixDefinitions)[v28]];
-    v62 = v31;
-    v32 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v62 count:1];
-    [v52 addReplacementRuleWithExpressions:v32 nodeEvaluator:&__block_literal_global_841];
+    v61 = v31;
+    v32 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v61 count:1];
+    [v51 addReplacementRuleWithExpressions:v32 nodeEvaluator:&__block_literal_global_841];
 
     v28 += 2;
   }
@@ -152,19 +152,19 @@ void ___HKBaseUnitGrammar_block_invoke()
     [(__objc2_class *)v36[283] terminalMatchingDoubleWithCondition:&__block_literal_global_844];
     v41 = v40 = v30;
     [v41 setIsPrivate:(v33[5] & 1) == 0];
-    v61[0] = v38;
-    v61[1] = @"<";
-    v61[2] = v41;
-    v61[3] = @">";
-    [*(v29 + 3784) arrayWithObjects:v61 count:4];
+    v60[0] = v38;
+    v60[1] = @"<";
+    v60[2] = v41;
+    v60[3] = @">";
+    [*(v29 + 3784) arrayWithObjects:v60 count:4];
     v43 = v42 = v29;
-    v55[0] = MEMORY[0x1E69E9820];
-    v55[1] = 3221225472;
-    v55[2] = ___HKBaseUnitGrammar_block_invoke_13;
-    v55[3] = &unk_1E737E158;
-    v56 = v37;
+    v54[0] = MEMORY[0x1E69E9820];
+    v54[1] = 3221225472;
+    v54[2] = ___HKBaseUnitGrammar_block_invoke_13;
+    v54[3] = &unk_1E737E158;
+    v55 = v37;
     v44 = v37;
-    [v53 addReplacementRuleWithExpressions:v43 nodeEvaluator:v55];
+    [v52 addReplacementRuleWithExpressions:v43 nodeEvaluator:v54];
 
     v29 = v42;
     v30 = v40;
@@ -174,11 +174,9 @@ void ___HKBaseUnitGrammar_block_invoke()
   }
 
   while (v35);
-  v45 = [_HKContextFreeGrammar grammarWithRootNonTerminal:v51 emptyStringEvaluator:&__block_literal_global_854];
+  v45 = [_HKContextFreeGrammar grammarWithRootNonTerminal:v50 emptyStringEvaluator:&__block_literal_global_854];
   v46 = _HKBaseUnitGrammar___grammar;
   _HKBaseUnitGrammar___grammar = v45;
-
-  v47 = *MEMORY[0x1E69E9840];
 }
 
 id ___HKBaseUnitGrammar_block_invoke_6(uint64_t a1, void *a2)

@@ -117,29 +117,30 @@ LABEL_7:
 - (id)pickerView:(id)view accessibilityLabelForComponent:(int64_t)component
 {
   viewCopy = view;
+  v6 = viewCopy;
   if (component == 1)
   {
-    v6 = RemindersUICoreBundleGet();
-    v7 = v6;
-    v8 = @"Day of The Week";
+    v7 = RemindersUICoreBundleGet(viewCopy);
+    v8 = v7;
+    v9 = @"Day of The Week";
     goto LABEL_5;
   }
 
   if (!component)
   {
-    v6 = RemindersUICoreBundleGet();
-    v7 = v6;
-    v8 = @"Ordinal";
+    v7 = RemindersUICoreBundleGet(viewCopy);
+    v8 = v7;
+    v9 = @"Ordinal";
 LABEL_5:
-    v9 = [v6 localizedStringForKey:v8 value:v8 table:@"Localizable"];
+    v10 = [v7 localizedStringForKey:v9 value:v9 table:@"Localizable"];
 
     goto LABEL_7;
   }
 
-  v9 = 0;
+  v10 = 0;
 LABEL_7:
 
-  return v9;
+  return v10;
 }
 
 - (id)newLabel
@@ -514,30 +515,30 @@ LABEL_14:
   return v3;
 }
 
-void __56__TTRIRecurrenceOrdinalPickerViewController__leftColumn__block_invoke()
+void __56__TTRIRecurrenceOrdinalPickerViewController__leftColumn__block_invoke(uint64_t a1)
 {
-  v14[6] = *MEMORY[0x277D85DE8];
-  v13 = RemindersUICoreBundleGet();
-  v12 = [v13 localizedStringForKey:@"first" value:@"first" table:@"Localizable"];
-  v14[0] = v12;
-  v0 = RemindersUICoreBundleGet();
-  v1 = [v0 localizedStringForKey:@"second" value:@"second" table:@"Localizable"];
-  v14[1] = v1;
-  v2 = RemindersUICoreBundleGet();
-  v3 = [v2 localizedStringForKey:@"third" value:@"third" table:@"Localizable"];
-  v14[2] = v3;
-  v4 = RemindersUICoreBundleGet();
-  v5 = [v4 localizedStringForKey:@"fourth" value:@"fourth" table:@"Localizable"];
-  v14[3] = v5;
-  v6 = RemindersUICoreBundleGet();
-  v7 = [v6 localizedStringForKey:@"fifth" value:@"fifth" table:@"Localizable"];
-  v14[4] = v7;
-  v8 = RemindersUICoreBundleGet();
-  v9 = [v8 localizedStringForKey:@"last" value:@"last" table:@"Localizable"];
-  v14[5] = v9;
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:6];
-  v11 = _leftColumn___leftColumn;
-  _leftColumn___leftColumn = v10;
+  v15[6] = *MEMORY[0x277D85DE8];
+  v14 = RemindersUICoreBundleGet(a1);
+  v13 = [v14 localizedStringForKey:@"first" value:@"first" table:@"Localizable"];
+  v15[0] = v13;
+  v1 = RemindersUICoreBundleGet(v13);
+  v2 = [v1 localizedStringForKey:@"second" value:@"second" table:@"Localizable"];
+  v15[1] = v2;
+  v3 = RemindersUICoreBundleGet(v2);
+  v4 = [v3 localizedStringForKey:@"third" value:@"third" table:@"Localizable"];
+  v15[2] = v4;
+  v5 = RemindersUICoreBundleGet(v4);
+  v6 = [v5 localizedStringForKey:@"fourth" value:@"fourth" table:@"Localizable"];
+  v15[3] = v6;
+  v7 = RemindersUICoreBundleGet(v6);
+  v8 = [v7 localizedStringForKey:@"fifth" value:@"fifth" table:@"Localizable"];
+  v15[4] = v8;
+  v9 = RemindersUICoreBundleGet(v8);
+  v10 = [v9 localizedStringForKey:@"last" value:@"last" table:@"Localizable"];
+  v15[5] = v10;
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:6];
+  v12 = _leftColumn___leftColumn;
+  _leftColumn___leftColumn = v11;
 }
 
 - (id)_rightColumn
@@ -569,13 +570,13 @@ void __57__TTRIRecurrenceOrdinalPickerViewController__rightColumn__block_invoke(
   v15[5] = v2;
   v3 = CUIKStringForDayOfWeekNotStandalone();
   v15[6] = v3;
-  v4 = RemindersUICoreBundleGet();
+  v4 = RemindersUICoreBundleGet(v3);
   v5 = [v4 localizedStringForKey:@"day" value:@"day" table:@"Localizable"];
   v15[7] = v5;
-  v6 = RemindersUICoreBundleGet();
+  v6 = RemindersUICoreBundleGet(v5);
   v7 = [v6 localizedStringForKey:@"weekday" value:@"weekday" table:@"Localizable"];
   v15[8] = v7;
-  v8 = RemindersUICoreBundleGet();
+  v8 = RemindersUICoreBundleGet(v7);
   v9 = [v8 localizedStringForKey:@"weekend day" value:@"weekend day" table:@"Localizable"];
   v15[9] = v9;
   v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:10];

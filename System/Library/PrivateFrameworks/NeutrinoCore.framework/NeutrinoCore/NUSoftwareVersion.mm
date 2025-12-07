@@ -321,9 +321,11 @@ LABEL_20:
 
 uint64_t __37__NUSoftwareVersion_frameworkVersion__block_invoke(uint64_t a1)
 {
-  frameworkVersion_version = [*(a1 + 32) _frameworkVersion];
+  v1 = [*(a1 + 32) _frameworkVersion];
+  v2 = frameworkVersion_version;
+  frameworkVersion_version = v1;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v1, v2);
 }
 
 + (id)systemBuildVersion
@@ -340,9 +342,11 @@ uint64_t __37__NUSoftwareVersion_frameworkVersion__block_invoke(uint64_t a1)
 
 uint64_t __39__NUSoftwareVersion_systemBuildVersion__block_invoke()
 {
-  systemBuildVersion_buildVersion = _CFCopySystemVersionDictionaryValue();
+  v0 = _CFCopySystemVersionDictionaryValue();
+  v1 = systemBuildVersion_buildVersion;
+  systemBuildVersion_buildVersion = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (id)currentSoftwareVersion

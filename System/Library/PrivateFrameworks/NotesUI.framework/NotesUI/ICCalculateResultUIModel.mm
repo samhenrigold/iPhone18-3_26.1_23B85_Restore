@@ -53,7 +53,7 @@
     v34 = v13 + v15;
     v33 = v16 - (v13 + v15);
     v18 = *MEMORY[0x1E69DB650];
-    v19 = [v6 objectForKeyedSubscript:*MEMORY[0x1E69DB650]];
+    v19 = objc_msgSend_objectForKeyedSubscript_(v6);
     v20 = v19;
     if (v19)
     {

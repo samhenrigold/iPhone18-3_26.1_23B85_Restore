@@ -3,9 +3,41 @@
 - (void)_subscribeToNotificationsForSpecifiers:(id)specifiers;
 - (void)_unsubscribeFromNotificationsForSpecifiers:(id)specifiers;
 - (void)dealloc;
+- (void)showController:(id)controller animate:(BOOL)animate;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation CSLNotificationsController
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v9.receiver = self;
+  v9.super_class = CSLNotificationsController;
+  [(CSLNotificationsController *)&v9 viewWillAppear:appear];
+  v3 = [_NSLocalizedStringResource alloc];
+  v4 = +[NSLocale currentLocale];
+  v5 = [NSBundle bundleWithIdentifier:@"com.apple.Bridge"];
+  bundleURL = [v5 bundleURL];
+  v7 = [v3 initWithKey:@"NOTIFICATIONS" table:@"Settings" locale:v4 bundleURL:bundleURL];
+
+  v8 = [NSURL URLWithString:@"bridge:root=NOTIFICATIONS_ID"];
+  [BPSWatchSettingsNavigationDonation emitNavigationEventForSystemSettingWithIconSpecifierIdentifier:@"NOTIFICATIONS_ID" title:v7 localizedNavigationComponents:&__NSArray0__struct deepLink:v8];
+}
+
+- (void)showController:(id)controller animate:(BOOL)animate
+{
+  animateCopy = animate;
+  controllerCopy = controller;
+  objc_opt_class();
+  if (objc_opt_isKindOfClass())
+  {
+    [controllerCopy setSettingsMode:1];
+  }
+
+  v7.receiver = self;
+  v7.super_class = CSLNotificationsController;
+  [(CSLNotificationsController *)&v7 showController:controllerCopy animate:animateCopy];
+}
 
 - (id)specifiers
 {

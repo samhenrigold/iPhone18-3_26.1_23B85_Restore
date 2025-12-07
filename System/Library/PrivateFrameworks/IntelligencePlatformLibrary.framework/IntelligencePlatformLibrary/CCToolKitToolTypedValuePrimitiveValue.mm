@@ -1595,15 +1595,15 @@ LABEL_103:
 
         if (*&v6[*v9])
         {
-          v331 = 1;
+          v330 = 1;
         }
 
         else
         {
-          v331 = v192 == 0;
+          v330 = v192 == 0;
         }
 
-        v197 = !v331;
+        v197 = !v330;
 LABEL_111:
         self->_BOOLType = v197;
         self->_hasBoolType = 1;
@@ -1642,9 +1642,9 @@ LABEL_112:
       case 5u:
         v241 = [CCToolKitToolTypedValuePrimitiveValueDecimal alloc];
         v242 = CCPBReaderReadDataNoCopy();
-        v372 = 0;
-        v243 = [(CCItemMessage *)v241 initWithData:v242 error:&v372];
-        v10 = v372;
+        v370 = 0;
+        v243 = [(CCItemMessage *)v241 initWithData:v242 error:&v370];
+        v10 = v370;
         decimal = self->_decimal;
         self->_decimal = v243;
 
@@ -1682,9 +1682,9 @@ LABEL_112:
       case 7u:
         v198 = [CCToolKitToolTimestamp alloc];
         v199 = CCPBReaderReadDataNoCopy();
-        v371 = 0;
-        v200 = [(CCItemMessage *)v198 initWithData:v199 error:&v371];
-        v10 = v371;
+        v369 = 0;
+        v200 = [(CCItemMessage *)v198 initWithData:v199 error:&v369];
+        v10 = v369;
         v201 = self->_date;
         self->_date = v200;
 
@@ -1790,9 +1790,9 @@ LABEL_74:
       case 0xBu:
         v106 = [CCToolKitToolTypedValuePrimitiveValueMeasurement alloc];
         v107 = CCPBReaderReadDataNoCopy();
-        v370 = 0;
-        v108 = [(CCItemMessage *)v106 initWithData:v107 error:&v370];
-        v10 = v370;
+        v368 = 0;
+        v108 = [(CCItemMessage *)v106 initWithData:v107 error:&v368];
+        v10 = v368;
         v109 = self->_measurement;
         self->_measurement = v108;
 
@@ -1832,9 +1832,9 @@ LABEL_75:
       case 0xCu:
         v179 = [CCToolKitToolTypedValuePrimitiveValueCurrencyAmount alloc];
         v180 = CCPBReaderReadDataNoCopy();
-        v369 = 0;
-        v181 = [(CCItemMessage *)v179 initWithData:v180 error:&v369];
-        v10 = v369;
+        v367 = 0;
+        v181 = [(CCItemMessage *)v179 initWithData:v180 error:&v367];
+        v10 = v367;
         v182 = self->_currencyAmount;
         self->_currencyAmount = v181;
 
@@ -1877,9 +1877,9 @@ LABEL_76:
       case 0xDu:
         v138 = [CCToolKitToolTypedValuePrimitiveValuePaymentMethod alloc];
         v139 = CCPBReaderReadDataNoCopy();
-        v368 = 0;
-        v140 = [(CCItemMessage *)v138 initWithData:v139 error:&v368];
-        v10 = v368;
+        v366 = 0;
+        v140 = [(CCItemMessage *)v138 initWithData:v139 error:&v366];
+        v10 = v366;
         v141 = self->_paymentMethod;
         self->_paymentMethod = v140;
 
@@ -1925,9 +1925,9 @@ LABEL_77:
       case 0xEu:
         v70 = [CCToolKitToolTypedValuePrimitiveValuePlacemark alloc];
         v71 = CCPBReaderReadDataNoCopy();
-        v367 = 0;
-        v72 = [(CCItemMessage *)v70 initWithData:v71 error:&v367];
-        v10 = v367;
+        v365 = 0;
+        v72 = [(CCItemMessage *)v70 initWithData:v71 error:&v365];
+        v10 = v365;
         v73 = self->_placemark;
         self->_placemark = v72;
 
@@ -1976,9 +1976,9 @@ LABEL_78:
       case 0xFu:
         v209 = [CCToolKitToolTypedValuePrimitiveValuePerson alloc];
         v210 = CCPBReaderReadDataNoCopy();
-        v366 = 0;
-        v211 = [(CCItemMessage *)v209 initWithData:v210 error:&v366];
-        v10 = v366;
+        v364 = 0;
+        v211 = [(CCItemMessage *)v209 initWithData:v210 error:&v364];
+        v10 = v364;
         v212 = self->_person;
         self->_person = v211;
 
@@ -2030,9 +2030,9 @@ LABEL_79:
       case 0x10u:
         v223 = [CCToolKitToolTypedValuePrimitiveValueFile alloc];
         v224 = CCPBReaderReadDataNoCopy();
-        v365 = 0;
-        v225 = [(CCItemMessage *)v223 initWithData:v224 error:&v365];
-        v10 = v365;
+        v363 = 0;
+        v225 = [(CCItemMessage *)v223 initWithData:v224 error:&v363];
+        v10 = v363;
         v226 = self->_file;
         self->_file = v225;
 
@@ -2087,9 +2087,9 @@ LABEL_80:
       case 0x11u:
         v292 = [CCToolKitToolTypedValuePrimitiveValueApp alloc];
         v293 = CCPBReaderReadDataNoCopy();
-        v364 = 0;
-        v294 = [(CCItemMessage *)v292 initWithData:v293 error:&v364];
-        v10 = v364;
+        v362 = 0;
+        v294 = [(CCItemMessage *)v292 initWithData:v293 error:&v362];
+        v10 = v362;
         v295 = self->_app;
         self->_app = v294;
 
@@ -2200,9 +2200,9 @@ LABEL_81:
       case 0x13u:
         v31 = [CCToolKitToolTypedValuePrimitiveValueDateComponents alloc];
         v32 = CCPBReaderReadDataNoCopy();
-        v363 = 0;
-        v33 = [(CCItemMessage *)v31 initWithData:v32 error:&v363];
-        v10 = v363;
+        v361 = 0;
+        v33 = [(CCItemMessage *)v31 initWithData:v32 error:&v361];
+        v10 = v361;
         v34 = self->_encodedDateComponents;
         self->_encodedDateComponents = v33;
 
@@ -2266,9 +2266,9 @@ LABEL_82:
       case 0x14u:
         v150 = [CCToolKitToolTypedValuePrimitiveValueShortcut alloc];
         v151 = CCPBReaderReadDataNoCopy();
-        v362 = 0;
-        v152 = [(CCItemMessage *)v150 initWithData:v151 error:&v362];
-        v10 = v362;
+        v360 = 0;
+        v152 = [(CCItemMessage *)v150 initWithData:v151 error:&v360];
+        v10 = v360;
         v153 = self->_shortcut;
         self->_shortcut = v152;
 
@@ -2335,9 +2335,9 @@ LABEL_83:
       case 0x16u:
         v308 = [CCToolKitToolTypedValuePrimitiveValueRecurrenceRule alloc];
         v309 = CCPBReaderReadDataNoCopy();
-        v361 = 0;
-        v310 = [(CCItemMessage *)v308 initWithData:v309 error:&v361];
-        v10 = v361;
+        v359 = 0;
+        v310 = [(CCItemMessage *)v308 initWithData:v309 error:&v359];
+        v10 = v359;
         v311 = self->_recurrenceRule;
         self->_recurrenceRule = v310;
 
@@ -2407,9 +2407,9 @@ LABEL_84:
       case 0x17u:
         v49 = [CCToolKitToolTypedValuePrimitiveValueDateInterval alloc];
         v50 = CCPBReaderReadDataNoCopy();
-        v360 = 0;
-        v51 = [(CCItemMessage *)v49 initWithData:v50 error:&v360];
-        v10 = v360;
+        v358 = 0;
+        v51 = [(CCItemMessage *)v49 initWithData:v50 error:&v358];
+        v10 = v358;
         v52 = self->_dateInterval;
         self->_dateInterval = v51;
 
@@ -2482,9 +2482,9 @@ LABEL_85:
       case 0x18u:
         v116 = [CCToolKitToolTypedValuePrimitiveValuePersonNameComponents alloc];
         v117 = CCPBReaderReadDataNoCopy();
-        v359 = 0;
-        v118 = [(CCItemMessage *)v116 initWithData:v117 error:&v359];
-        v10 = v359;
+        v357 = 0;
+        v118 = [(CCItemMessage *)v116 initWithData:v117 error:&v357];
+        v10 = v357;
         v119 = self->_personNameComponents;
         self->_personNameComponents = v118;
 
@@ -2560,9 +2560,9 @@ LABEL_86:
       case 0x19u:
         v83 = [CCToolKitToolTypedValuePrimitiveValueDuration alloc];
         v84 = CCPBReaderReadDataNoCopy();
-        v358 = 0;
-        v85 = [(CCItemMessage *)v83 initWithData:v84 error:&v358];
-        v10 = v358;
+        v356 = 0;
+        v85 = [(CCItemMessage *)v83 initWithData:v84 error:&v356];
+        v10 = v356;
         v86 = self->_duration;
         self->_duration = v85;
 
@@ -2641,7 +2641,6 @@ LABEL_86:
 
         v328 = objc_opt_class();
         v329 = NSStringFromClass(v328);
-        v330 = *&v6[*v9];
         v10 = CCSkipFieldErrorForMessage();
 
         continue;
@@ -2690,69 +2689,69 @@ LABEL_99:
 LABEL_113:
     self->_number = 0.0;
 LABEL_116:
-    v332 = self->_decimal;
+    v331 = self->_decimal;
     self->_decimal = 0;
 
-    v333 = self->_string;
+    v332 = self->_string;
     self->_string = 0;
 
 LABEL_117:
-    v334 = self->_date;
+    v333 = self->_date;
     self->_date = 0;
 
-    v335 = self->_dateComponents;
+    v334 = self->_dateComponents;
     self->_dateComponents = 0;
 
 LABEL_118:
-    v336 = self->_url;
+    v335 = self->_url;
     self->_url = 0;
 
 LABEL_119:
-    v337 = self->_attributedString;
+    v336 = self->_attributedString;
     self->_attributedString = 0;
 
 LABEL_120:
-    v338 = self->_measurement;
+    v337 = self->_measurement;
     self->_measurement = 0;
 
-    v339 = self->_currencyAmount;
+    v338 = self->_currencyAmount;
     self->_currencyAmount = 0;
 
-    v340 = self->_paymentMethod;
+    v339 = self->_paymentMethod;
     self->_paymentMethod = 0;
 
-    v341 = self->_placemark;
+    v340 = self->_placemark;
     self->_placemark = 0;
 
-    v342 = self->_person;
+    v341 = self->_person;
     self->_person = 0;
 
-    v343 = self->_file;
+    v342 = self->_file;
     self->_file = 0;
 
-    v344 = self->_app;
+    v343 = self->_app;
     self->_app = 0;
 
-    v345 = self->_searchableItem;
+    v344 = self->_searchableItem;
     self->_searchableItem = 0;
 
 LABEL_121:
-    v346 = self->_encodedDateComponents;
+    v345 = self->_encodedDateComponents;
     self->_encodedDateComponents = 0;
 
-    v347 = self->_shortcut;
+    v346 = self->_shortcut;
     self->_shortcut = 0;
 
-    v348 = self->_recurrenceRule;
+    v347 = self->_recurrenceRule;
     self->_recurrenceRule = 0;
 
-    v349 = self->_dateInterval;
+    v348 = self->_dateInterval;
     self->_dateInterval = 0;
 
-    v350 = self->_personNameComponents;
+    v349 = self->_personNameComponents;
     self->_personNameComponents = 0;
 
-    v351 = self->_duration;
+    v350 = self->_duration;
     self->_duration = 0;
 
 LABEL_122:
@@ -2771,24 +2770,23 @@ LABEL_126:
     if (!*&v6[*v9])
     {
       v10 = 0;
-      v356 = 1;
+      v354 = 1;
       goto LABEL_130;
     }
 
 LABEL_127:
-    v352 = objc_opt_class();
-    v353 = NSStringFromClass(v352);
-    v354 = *&v6[*v9];
-    v355 = CCInvalidBufferErrorForMessage();
+    v351 = objc_opt_class();
+    v352 = NSStringFromClass(v351);
+    v353 = CCInvalidBufferErrorForMessage();
     CCSetError();
 
     v10 = 0;
   }
 
-  v356 = 0;
+  v354 = 0;
 LABEL_130:
 
-  return v356;
+  return v354;
 }
 
 - (CCToolKitToolTypedValuePrimitiveValue)initWithPrimitiveValue_kind:(id)value_kind primitiveValue_kindType:(unsigned int)type error:(id *)error

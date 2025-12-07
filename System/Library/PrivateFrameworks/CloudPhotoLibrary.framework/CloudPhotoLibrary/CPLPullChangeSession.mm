@@ -7,7 +7,7 @@
 
 - (void)acknowledgeChangeBatch:(id)batch withCompletionHandler:(id)handler
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   batchCopy = batch;
   handlerCopy = handler;
   if ((_CPLSilentLogging & 1) == 0)
@@ -30,20 +30,20 @@
     {
       if ((_CPLSilentLogging & 1) == 0)
       {
-        v20 = __CPLSessionOSLogDomain_0();
-        if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+        v19 = __CPLSessionOSLogDomain_0();
+        if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
         {
-          v21 = [objc_opt_class() stateDescriptionForState:{-[CPLChangeSession state](self, "state")}];
+          v20 = [objc_opt_class() stateDescriptionForState:{-[CPLChangeSession state](self, "state")}];
           *buf = 138412290;
-          selfCopy = v21;
-          _os_log_impl(&dword_1DC05A000, v20, OS_LOG_TYPE_ERROR, "can't finalize a session that is in %@ state", buf, 0xCu);
+          selfCopy = v20;
+          _os_log_impl(&dword_1DC05A000, v19, OS_LOG_TYPE_ERROR, "can't finalize a session that is in %@ state", buf, 0xCu);
         }
       }
 
       currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-      v23 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Framework/Sources/CPLPullChangeSession.m"];
-      v24 = [objc_opt_class() stateDescriptionForState:{-[CPLChangeSession state](self, "state")}];
-      [currentHandler handleFailureInMethod:a2 object:self file:v23 lineNumber:65 description:{@"can't finalize a session that is in %@ state", v24}];
+      v22 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Framework/Sources/CPLPullChangeSession.m"];
+      v23 = [objc_opt_class() stateDescriptionForState:{-[CPLChangeSession state](self, "state")}];
+      [currentHandler handleFailureInMethod:a2 object:self file:v22 lineNumber:65 description:{@"can't finalize a session that is in %@ state", v23}];
 
       abort();
     }
@@ -57,22 +57,22 @@
       {
         *buf = 138412546;
         selfCopy = self;
-        v31 = 2112;
-        v32 = batchCopy;
+        v30 = 2112;
+        v31 = batchCopy;
         _os_log_impl(&dword_1DC05A000, v14, OS_LOG_TYPE_DEBUG, "%@ acknowledging %@", buf, 0x16u);
       }
     }
 
     platformObject = [(CPLChangeSession *)self platformObject];
-    v25[0] = MEMORY[0x1E69E9820];
-    v25[1] = 3221225472;
-    v25[2] = __69__CPLPullChangeSession_acknowledgeChangeBatch_withCompletionHandler___block_invoke;
-    v25[3] = &unk_1E861CB58;
-    v25[4] = self;
-    v28 = v13;
-    v26 = batchCopy;
-    v27 = handlerCopy;
-    [platformObject acknowledgeChangeBatch:v26 withCompletionHandler:v25];
+    v24[0] = MEMORY[0x1E69E9820];
+    v24[1] = 3221225472;
+    v24[2] = __69__CPLPullChangeSession_acknowledgeChangeBatch_withCompletionHandler___block_invoke;
+    v24[3] = &unk_1E861CB58;
+    v24[4] = self;
+    v27 = v13;
+    v25 = batchCopy;
+    v26 = handlerCopy;
+    [platformObject acknowledgeChangeBatch:v25 withCompletionHandler:v24];
   }
 
   else
@@ -92,13 +92,11 @@
     v18 = [CPLErrors incorrectMachineStateErrorWithReason:@"Trying to acknowledge a batch while session is not waiting for that"];
     (*(handlerCopy + 2))(handlerCopy, v18, 0);
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 void __69__CPLPullChangeSession_acknowledgeChangeBatch_withCompletionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if ((_CPLSilentLogging & 1) == 0)
@@ -107,13 +105,13 @@ void __69__CPLPullChangeSession_acknowledgeChangeBatch_withCompletionHandler___b
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
       v8 = *(a1 + 32);
-      v14 = 138412802;
-      v15 = v8;
-      v16 = 2112;
-      v17 = v6;
-      v18 = 2112;
-      v19 = v5;
-      _os_log_impl(&dword_1DC05A000, v7, OS_LOG_TYPE_DEBUG, "%@ acknowledged batch to new version %@ with error %@", &v14, 0x20u);
+      v13 = 138412802;
+      v14 = v8;
+      v15 = 2112;
+      v16 = v6;
+      v17 = 2112;
+      v18 = v5;
+      _os_log_impl(&dword_1DC05A000, v7, OS_LOG_TYPE_DEBUG, "%@ acknowledged batch to new version %@ with error %@", &v13, 0x20u);
     }
   }
 
@@ -127,11 +125,11 @@ void __69__CPLPullChangeSession_acknowledgeChangeBatch_withCompletionHandler___b
       {
         v10 = *(a1 + 56);
         v11 = *(a1 + 40);
-        v14 = 134218242;
-        v15 = v10;
-        v16 = 2112;
-        v17 = v11;
-        _os_log_impl(&dword_1DC05A000, v9, OS_LOG_TYPE_DEFAULT, "Client acknowledged (used %.1fs) %@", &v14, 0x16u);
+        v13 = 134218242;
+        v14 = v10;
+        v15 = 2112;
+        v16 = v11;
+        _os_log_impl(&dword_1DC05A000, v9, OS_LOG_TYPE_DEFAULT, "Client acknowledged (used %.1fs) %@", &v13, 0x16u);
       }
     }
 
@@ -140,13 +138,11 @@ void __69__CPLPullChangeSession_acknowledgeChangeBatch_withCompletionHandler___b
   }
 
   (*(*(a1 + 48) + 16))();
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)getChangeBatchWithCompletionHandler:(id)handler
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   if ((_CPLSilentLogging & 1) == 0)
   {
@@ -175,13 +171,13 @@ void __69__CPLPullChangeSession_acknowledgeChangeBatch_withCompletionHandler___b
     }
 
     platformObject = [(CPLChangeSession *)self platformObject];
-    v14[0] = MEMORY[0x1E69E9820];
-    v14[1] = 3221225472;
-    v14[2] = __60__CPLPullChangeSession_getChangeBatchWithCompletionHandler___block_invoke;
-    v14[3] = &unk_1E861B578;
-    v14[4] = self;
-    v15 = handlerCopy;
-    [platformObject getChangeBatchWithCompletionHandler:v14];
+    v13[0] = MEMORY[0x1E69E9820];
+    v13[1] = 3221225472;
+    v13[2] = __60__CPLPullChangeSession_getChangeBatchWithCompletionHandler___block_invoke;
+    v13[3] = &unk_1E861B578;
+    v13[4] = self;
+    v14 = handlerCopy;
+    [platformObject getChangeBatchWithCompletionHandler:v13];
   }
 
   else
@@ -201,13 +197,11 @@ void __69__CPLPullChangeSession_acknowledgeChangeBatch_withCompletionHandler___b
     v12 = [CPLErrors incorrectMachineStateErrorWithReason:@"Trying to get change batches while session is not idle"];
     (*(handlerCopy + 2))(handlerCopy, v12, 0);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 void __60__CPLPullChangeSession_getChangeBatchWithCompletionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (v5)
@@ -224,10 +218,10 @@ void __60__CPLPullChangeSession_getChangeBatchWithCompletionHandler___block_invo
     }
 
     v8 = *(a1 + 32);
-    *v15 = 138412546;
-    *&v15[4] = v8;
-    *&v15[12] = 2112;
-    *&v15[14] = v5;
+    *v14 = 138412546;
+    *&v14[4] = v8;
+    *&v14[12] = 2112;
+    *&v14[14] = v5;
     v9 = "%@ got error: %@";
     v10 = v7;
     v11 = 22;
@@ -243,17 +237,17 @@ void __60__CPLPullChangeSession_getChangeBatchWithCompletionHandler___block_invo
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     v12 = *(a1 + 32);
-    *v15 = 138412802;
-    *&v15[4] = v12;
-    *&v15[12] = 2048;
-    *&v15[14] = [v6 count];
-    *&v15[22] = 2112;
-    v16 = v6;
+    *v14 = 138412802;
+    *&v14[4] = v12;
+    *&v14[12] = 2048;
+    *&v14[14] = [v6 count];
+    *&v14[22] = 2112;
+    v15 = v6;
     v9 = "%@ got %lu changes in %@";
     v10 = v7;
     v11 = 32;
 LABEL_8:
-    _os_log_impl(&dword_1DC05A000, v10, OS_LOG_TYPE_DEBUG, v9, v15, v11);
+    _os_log_impl(&dword_1DC05A000, v10, OS_LOG_TYPE_DEBUG, v9, v14, v11);
   }
 
 LABEL_9:
@@ -269,11 +263,9 @@ LABEL_10:
     v13 = 1;
   }
 
-  [*(a1 + 32) setState:{v13, *v15, *&v15[16], v16}];
+  [*(a1 + 32) setState:{v13, *v14, *&v14[8], v15}];
   *(*(a1 + 32) + 48) = CFAbsoluteTimeGetCurrent();
   (*(*(a1 + 40) + 16))();
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 @end

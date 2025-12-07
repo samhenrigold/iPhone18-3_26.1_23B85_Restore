@@ -61,12 +61,10 @@
 
 - (id)errorWithMessage:(id)message code:(int64_t)code
 {
-  v7[1] = *MEMORY[0x277D85DE8];
-  v6 = *MEMORY[0x277CCA450];
-  v7[0] = message;
-  result = [MEMORY[0x277CCA9B8] errorWithDomain:@"MFAttachmentDataProviderErrorDomain" code:0 userInfo:{objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithObjects:forKeys:count:", v7, &v6, 1)}];
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  v6[1] = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277CCA450];
+  v6[0] = message;
+  return [MEMORY[0x277CCA9B8] errorWithDomain:@"MFAttachmentDataProviderErrorDomain" code:0 userInfo:{objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithObjects:forKeys:count:", v6, &v5, 1)}];
 }
 
 - (BOOL)exists
@@ -101,15 +99,15 @@
 
 - (BOOL)save:(id)save
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v5 = [-[MFAttachmentDataProvider _path](self "_path")];
   stringByDeletingLastPathComponent = [v5 stringByDeletingLastPathComponent];
   if (stringByDeletingLastPathComponent)
   {
     v7 = stringByDeletingLastPathComponent;
     defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-    v14 = 0;
-    if ([defaultManager createDirectoryAtPath:v7 withIntermediateDirectories:1 attributes:0 error:&v14])
+    v13 = 0;
+    if ([defaultManager createDirectoryAtPath:v7 withIntermediateDirectories:1 attributes:0 error:&v13])
     {
       v9 = [MEMORY[0x277CBEB38] dictionaryWithDictionary:{-[MFAttachmentDataProvider _fileAttributes:](self, "_fileAttributes:", 0)}];
       [v9 setObject:*MEMORY[0x277CCA198] forKey:*MEMORY[0x277CCA1B0]];
@@ -119,9 +117,9 @@
         if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
         {
           *buf = 138412546;
-          v16 = v5;
-          v17 = 2112;
-          v18 = v14;
+          v15 = v5;
+          v16 = 2112;
+          v17 = v13;
           v11 = "#Attachments Failed to create file for attachment %@: %@";
 LABEL_8:
           _os_log_impl(&dword_258BDA000, v10, OS_LOG_TYPE_INFO, v11, buf, 0x16u);
@@ -135,16 +133,15 @@ LABEL_8:
       if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
       {
         *buf = 138412546;
-        v16 = v7;
-        v17 = 2112;
-        v18 = v14;
+        v15 = v7;
+        v16 = 2112;
+        v17 = v13;
         v11 = "#Attachments Failed to create directory for attachment %@: %@";
         goto LABEL_8;
       }
     }
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return 0;
 }
 

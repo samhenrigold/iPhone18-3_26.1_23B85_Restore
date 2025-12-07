@@ -160,46 +160,46 @@
 
 - (id)address
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E695DF70];
   children = [(MFComposeRecipientGroup *)self children];
   v5 = [v3 arrayWithCapacity:{objc_msgSend(children, "count")}];
 
-  v16 = 0u;
   v17 = 0u;
-  v14 = 0u;
+  v18 = 0u;
   v15 = 0u;
+  v16 = 0u;
   children2 = [(MFComposeRecipientGroup *)self children];
-  v7 = [children2 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v7 = [children2 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v7)
   {
-    v8 = *v15;
+    v8 = *v16;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v15 != v8)
+        if (*v16 != v8)
         {
           objc_enumerationMutation(children2);
         }
 
-        address = [*(*(&v14 + 1) + 8 * i) address];
+        address = [*(*(&v15 + 1) + 8 * i) address];
         if (address)
         {
           [v5 addObject:address];
         }
       }
 
-      v7 = [children2 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v7 = [children2 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v7);
   }
 
-  v11 = MFLocalizedAddressSeparator();
-  v12 = [v5 componentsJoinedByString:v11];
+  v12 = MFLocalizedAddressSeparator(v11);
+  v13 = [v5 componentsJoinedByString:v12];
 
-  return v12;
+  return v13;
 }
 
 - (BOOL)isEqual:(id)equal

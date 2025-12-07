@@ -13,6 +13,7 @@
 - (EKAttachment)init;
 - (EKAttachment)initWithFilepath:(id)filepath;
 - (EKAttachment)initWithUUID:(id)d;
+- (EKAttachment)initWithUUID:(id)d fileName:(id)name autoArchived:(BOOL)archived urlForPendingFileCopy:(id)copy;
 - (NSString)contentType;
 - (NSString)fileName;
 - (NSURL)URL;
@@ -28,6 +29,8 @@
 - (void)assignIdentity:(id)identity;
 - (void)assignNewIdentity;
 - (void)invalidateLocalFilePropertiesForNewCopiedFile;
+- (void)setFlags:(unsigned int)flags;
+- (void)setShouldSetQuarantineAttributesOnCopiedFile:(BOOL)file;
 - (void)setURL:(id)l;
 - (void)setURLForPendingFileCopy:(id)copy;
 @end
@@ -48,13 +51,11 @@
 
 void __46__EKAttachment_knownIdentityKeysForComparison__block_invoke()
 {
-  v3[1] = *MEMORY[0x1E69E9840];
-  v3[0] = *MEMORY[0x1E6992B08];
-  v0 = [MEMORY[0x1E695DEC8] arrayWithObjects:v3 count:1];
+  v2[1] = *MEMORY[0x1E69E9840];
+  v2[0] = *MEMORY[0x1E6992B08];
+  v0 = [MEMORY[0x1E695DEC8] arrayWithObjects:v2 count:1];
   v1 = knownIdentityKeysForComparison_keys_12;
   knownIdentityKeysForComparison_keys_12 = v0;
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 + (id)knownSingleValueKeysForComparison
@@ -71,21 +72,19 @@ void __46__EKAttachment_knownIdentityKeysForComparison__block_invoke()
 
 void __49__EKAttachment_knownSingleValueKeysForComparison__block_invoke()
 {
-  v6[6] = *MEMORY[0x1E69E9840];
+  v5[6] = *MEMORY[0x1E69E9840];
   v0 = *MEMORY[0x1E69924B0];
-  v6[0] = *MEMORY[0x1E69924A8];
-  v6[1] = v0;
+  v5[0] = *MEMORY[0x1E69924A8];
+  v5[1] = v0;
   v1 = *MEMORY[0x1E69924C8];
-  v6[2] = *MEMORY[0x1E69924B8];
-  v6[3] = v1;
+  v5[2] = *MEMORY[0x1E69924B8];
+  v5[3] = v1;
   v2 = *MEMORY[0x1E69924E0];
-  v6[4] = *MEMORY[0x1E69924D0];
-  v6[5] = v2;
-  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:6];
+  v5[4] = *MEMORY[0x1E69924D0];
+  v5[5] = v2;
+  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:6];
   v4 = knownSingleValueKeysForComparison_keys_11;
   knownSingleValueKeysForComparison_keys_11 = v3;
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 + (id)knownRelationshipWeakKeys
@@ -102,13 +101,11 @@ void __49__EKAttachment_knownSingleValueKeysForComparison__block_invoke()
 
 void __41__EKAttachment_knownRelationshipWeakKeys__block_invoke()
 {
-  v3[1] = *MEMORY[0x1E69E9840];
-  v3[0] = *MEMORY[0x1E6992B18];
-  v0 = [MEMORY[0x1E695DEC8] arrayWithObjects:v3 count:1];
+  v2[1] = *MEMORY[0x1E69E9840];
+  v2[0] = *MEMORY[0x1E6992B18];
+  v0 = [MEMORY[0x1E695DEC8] arrayWithObjects:v2 count:1];
   v1 = knownRelationshipWeakKeys_keys_7;
   knownRelationshipWeakKeys_keys_7 = v0;
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 - (EKAttachment)init
@@ -154,6 +151,23 @@ void __41__EKAttachment_knownRelationshipWeakKeys__block_invoke()
   }
 
   return v5;
+}
+
+- (EKAttachment)initWithUUID:(id)d fileName:(id)name autoArchived:(BOOL)archived urlForPendingFileCopy:(id)copy
+{
+  archivedCopy = archived;
+  nameCopy = name;
+  copyCopy = copy;
+  v12 = [(EKAttachment *)self initWithUUID:d];
+  v13 = v12;
+  if (v12)
+  {
+    [(EKAttachment *)v12 setFileNameRaw:nameCopy];
+    [(EKAttachment *)v13 setAutoArchived:archivedCopy];
+    [(EKAttachment *)v13 setURLWrapperForPendingFileCopy:copyCopy];
+  }
+
+  return v13;
 }
 
 - (id)duplicateWithNewIdentity
@@ -483,6 +497,12 @@ LABEL_11:
   return unsignedIntValue;
 }
 
+- (void)setFlags:(unsigned int)flags
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:*&flags];
+  [(EKObject *)self setSingleChangedValue:v4 forKey:*MEMORY[0x1E6992760]];
+}
+
 - (void)_setFlagValue:(BOOL)value withMask:(unsigned int)mask
 {
   valueCopy = value;
@@ -557,6 +577,12 @@ LABEL_11:
   bOOLValue = [v2 BOOLValue];
 
   return bOOLValue;
+}
+
+- (void)setShouldSetQuarantineAttributesOnCopiedFile:(BOOL)file
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:file];
+  [(EKObject *)self setSingleChangedValue:v4 forKey:*MEMORY[0x1E6992500]];
 }
 
 - (int64_t)compareFileNames:(id)names
@@ -738,22 +764,6 @@ LABEL_10:
   [(EKObject *)self insertPersistentObjectIfNeeded];
   [(EKObject *)self updatePersistentObject];
   return 1;
-}
-
-+ (void)_prepareFileAtURLInTemporaryDirectory:.cold.1()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_7();
-  OUTLINED_FUNCTION_9(&dword_1A805E000, v0, v1, "Unable to determine if %@ is a file or directory: %@");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-+ (void)_compressItemAtURLToTemporaryDirectory:.cold.1()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_7();
-  OUTLINED_FUNCTION_9(&dword_1A805E000, v0, v1, "Error creating archive of %@: %@");
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 @end

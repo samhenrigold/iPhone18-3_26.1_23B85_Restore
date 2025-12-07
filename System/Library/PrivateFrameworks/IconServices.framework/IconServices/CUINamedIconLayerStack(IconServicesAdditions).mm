@@ -12,19 +12,19 @@
   cUINamedImageDeviceClass = [v4 CUINamedImageDeviceClass];
   iCRAppearance = [v4 ICRAppearance];
   iCRRenderingMode = [v4 ICRRenderingMode];
-  [v4 scale];
-  *&v8 = v8;
-  v9 = llroundf(*&v8);
-  v10 = _ISDefaultLog();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+  scale = [v4 scale];
+  *&v9 = v9;
+  v10 = llroundf(*&v9);
+  v11 = _ISDefaultLog(scale);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
-    [(CUINamedIconLayerStack(IconServicesAdditions) *)self _IS_finalizedIconWithCompositingDescriptor:v4, v10];
+    [(CUINamedIconLayerStack(IconServicesAdditions) *)self _IS_finalizedIconWithCompositingDescriptor:v4, v11];
   }
 
   if (objc_opt_respondsToSelector())
   {
     [v4 size];
-    v13 = [self finalizedIconWithSize:v9 scale:cUINamedImageDeviceClass deviceClass:iCRAppearance appearance:iCRRenderingMode renderingMode:objc_msgSend(v4 layoutDirection:"languageDirection") isLegacyContent:{objc_msgSend(v4, "useLegacyCompatibilityMode"), v11, v12}];
+    v14 = [self finalizedIconWithSize:v10 scale:cUINamedImageDeviceClass deviceClass:iCRAppearance appearance:iCRRenderingMode renderingMode:objc_msgSend(v4 layoutDirection:"languageDirection") isLegacyContent:{objc_msgSend(v4, "useLegacyCompatibilityMode"), v12, v13}];
   }
 
   else
@@ -33,32 +33,32 @@
     [v4 size];
     if (useLegacyCompatibilityMode)
     {
-      [self legacyFinalizedIconWithSize:v9 scale:cUINamedImageDeviceClass deviceClass:iCRAppearance appearance:iCRRenderingMode renderingMode:?];
+      [self legacyFinalizedIconWithSize:v10 scale:cUINamedImageDeviceClass deviceClass:iCRAppearance appearance:iCRRenderingMode renderingMode:?];
     }
 
     else
     {
-      [self finalizedIconWithSize:v9 scale:cUINamedImageDeviceClass deviceClass:iCRAppearance appearance:iCRRenderingMode renderingMode:?];
+      [self finalizedIconWithSize:v10 scale:cUINamedImageDeviceClass deviceClass:iCRAppearance appearance:iCRRenderingMode renderingMode:?];
     }
-    v13 = ;
+    v14 = ;
   }
 
-  v15 = v13;
-  if (v13)
+  v16 = v14;
+  if (v14)
   {
-    v16 = v13;
+    v17 = v14;
   }
 
   else
   {
-    v17 = _ISDefaultLog();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v18 = _ISDefaultLog(0);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      [CUINamedIconLayerStack(IconServicesAdditions) _IS_finalizedIconWithCompositingDescriptor:v17];
+      [CUINamedIconLayerStack(IconServicesAdditions) _IS_finalizedIconWithCompositingDescriptor:v18];
     }
   }
 
-  return v15;
+  return v16;
 }
 
 - (id)_IS_imageWithCompositingDescriptor:()IconServicesAdditions
@@ -99,8 +99,8 @@
 
 - (void)_IS_finalizedIconWithCompositingDescriptor:()IconServicesAdditions .cold.1(void *a1, void *a2, NSObject *a3)
 {
-  v42 = *MEMORY[0x1E69E9840];
-  v20 = [a1 layers];
+  v41 = *MEMORY[0x1E69E9840];
+  v19 = [a1 layers];
   [a2 size];
   v6 = v5;
   [a2 size];
@@ -125,27 +125,25 @@
   }
 
   *buf = 138414594;
-  v23 = a1;
-  v24 = 2112;
-  v25 = v20;
-  v26 = 2048;
-  v27 = v6;
-  v28 = 2048;
-  v29 = v8;
-  v30 = 2048;
-  v31 = v10;
-  v32 = 2048;
-  v33 = v11;
-  v34 = 2048;
-  v35 = v12;
-  v36 = 2048;
-  v37 = v13;
-  v38 = 2112;
-  v39 = v18;
-  v40 = 1024;
-  v41 = [a2 useLegacyCompatibilityMode];
-
-  v19 = *MEMORY[0x1E69E9840];
+  v22 = a1;
+  v23 = 2112;
+  v24 = v19;
+  v25 = 2048;
+  v26 = v6;
+  v27 = 2048;
+  v28 = v8;
+  v29 = 2048;
+  v30 = v10;
+  v31 = 2048;
+  v32 = v11;
+  v33 = 2048;
+  v34 = v12;
+  v35 = 2048;
+  v36 = v13;
+  v37 = 2112;
+  v38 = v18;
+  v39 = 1024;
+  v40 = [a2 useLegacyCompatibilityMode];
 }
 
 @end

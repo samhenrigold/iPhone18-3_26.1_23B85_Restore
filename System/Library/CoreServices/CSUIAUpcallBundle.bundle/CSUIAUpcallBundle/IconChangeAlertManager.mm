@@ -18,22 +18,21 @@
 - (void)showAlertWithCompletion:(id)completion
 {
   v5 = sub_1C70(&qword_19388, &qword_ECC0);
-  v6 = *(*(v5 - 8) + 64);
   __chkstk_darwin(v5 - 8);
-  v8 = &v14 - v7;
-  v9 = _Block_copy(completion);
-  v10 = swift_allocObject();
-  *(v10 + 16) = v9;
-  v11 = sub_D8E4();
-  (*(*(v11 - 8) + 56))(v8, 1, 1, v11);
-  v12 = swift_allocObject();
-  v12[2] = 0;
-  v12[3] = 0;
-  v12[4] = self;
-  v12[5] = sub_C0AC;
-  v12[6] = v10;
+  v7 = &v13 - v6;
+  v8 = _Block_copy(completion);
+  v9 = swift_allocObject();
+  *(v9 + 16) = v8;
+  v10 = sub_D8E4();
+  (*(*(v10 - 8) + 56))(v7, 1, 1, v10);
+  v11 = swift_allocObject();
+  v11[2] = 0;
+  v11[3] = 0;
+  v11[4] = self;
+  v11[5] = sub_C0AC;
+  v11[6] = v9;
   selfCopy = self;
-  sub_1F6C(0, 0, v8, &unk_EFE8, v12);
+  sub_1F6C(0, 0, v7, &unk_EFE8, v11);
 }
 
 - (_TtC17CSUIAUpcallBundle22IconChangeAlertManager)init

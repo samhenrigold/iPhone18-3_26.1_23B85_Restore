@@ -1,5 +1,6 @@
 @interface FCBundleEntitlementsProvider
 - (FCBundleEntitlementsProvider)initWithConfigurationManager:(id)manager entitlementService:(id)service;
+- (void)_fetchEntitlementsWithIgnoreCache:(BOOL)cache configuration:(id)configuration completion:(id)completion;
 - (void)fetchEntitlementsWithIgnoreCache:(BOOL)cache completion:(id)completion;
 @end
 
@@ -58,7 +59,7 @@ void __76__FCBundleEntitlementsProvider_fetchEntitlementsWithIgnoreCache_complet
 
 void __76__FCBundleEntitlementsProvider_fetchEntitlementsWithIgnoreCache_completion___block_invoke_2(uint64_t a1, void *a2)
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (NFInternalBuild())
   {
@@ -147,7 +148,7 @@ LABEL_16:
     if (os_log_type_enabled(FCPurchaseLog, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v39 = v8;
+      v38 = v8;
       _os_log_impl(&dword_1B63EF000, v30, OS_LOG_TYPE_DEFAULT, "Temporary access activated with purchaseID:%@", buf, 0xCu);
     }
 
@@ -172,9 +173,9 @@ LABEL_16:
     block[2] = __76__FCBundleEntitlementsProvider_fetchEntitlementsWithIgnoreCache_completion___block_invoke_6;
     block[3] = &unk_1E7C43648;
     block[4] = v3;
-    v37 = *(a1 + 48);
-    v35 = *(a1 + 32);
-    v36 = *(a1 + 40);
+    v36 = *(a1 + 48);
+    v34 = *(a1 + 32);
+    v35 = *(a1 + 40);
     dispatch_async(v32, block);
   }
 
@@ -184,13 +185,34 @@ LABEL_16:
   }
 
 LABEL_29:
+}
 
-  v33 = *MEMORY[0x1E69E9840];
+- (void)_fetchEntitlementsWithIgnoreCache:(BOOL)cache configuration:(id)configuration completion:(id)completion
+{
+  cacheCopy = cache;
+  configurationCopy = configuration;
+  completionCopy = completion;
+  objc_initWeak(&location, self);
+  entitlementService = [(FCBundleEntitlementsProvider *)self entitlementService];
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __91__FCBundleEntitlementsProvider__fetchEntitlementsWithIgnoreCache_configuration_completion___block_invoke;
+  v13[3] = &unk_1E7C43710;
+  v13[4] = self;
+  v11 = completionCopy;
+  v15 = v11;
+  objc_copyWeak(&v16, &location);
+  v12 = configurationCopy;
+  v14 = v12;
+  [entitlementService performEntitlementWithIgnoreCache:cacheCopy completion:v13];
+
+  objc_destroyWeak(&v16);
+  objc_destroyWeak(&location);
 }
 
 void __91__FCBundleEntitlementsProvider__fetchEntitlementsWithIgnoreCache_configuration_completion___block_invoke(id *a1, void *a2, int a3, void *a4)
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   v7 = a2;
   v8 = a4;
   v9 = FCPurchaseLog;
@@ -201,15 +223,14 @@ void __91__FCBundleEntitlementsProvider__fetchEntitlementsWithIgnoreCache_config
       goto LABEL_7;
     }
 
-    v10 = a1[4];
-    v11 = v9;
+    v10 = v9;
     *buf = 138412802;
-    v32 = objc_opt_class();
-    v33 = 2114;
-    v34 = v7;
-    v35 = 2114;
-    v36 = v8;
-    _os_log_error_impl(&dword_1B63EF000, v11, OS_LOG_TYPE_ERROR, "%@ failed to fetch entitlements with entitlements:%{public}@, error: %{public}@", buf, 0x20u);
+    v29 = objc_opt_class();
+    v30 = 2114;
+    v31 = v7;
+    v32 = 2114;
+    v33 = v8;
+    _os_log_error_impl(&dword_1B63EF000, v10, OS_LOG_TYPE_ERROR, "%@ failed to fetch entitlements with entitlements:%{public}@, error: %{public}@", buf, 0x20u);
   }
 
   else
@@ -219,45 +240,44 @@ void __91__FCBundleEntitlementsProvider__fetchEntitlementsWithIgnoreCache_config
       goto LABEL_7;
     }
 
-    v12 = a1[4];
-    v11 = v9;
+    v10 = v9;
     *buf = 138412546;
-    v32 = objc_opt_class();
-    v33 = 2114;
-    v34 = v7;
-    _os_log_impl(&dword_1B63EF000, v11, OS_LOG_TYPE_DEFAULT, "%@ Entitlements response received with entitlements: %{public}@", buf, 0x16u);
+    v29 = objc_opt_class();
+    v30 = 2114;
+    v31 = v7;
+    _os_log_impl(&dword_1B63EF000, v10, OS_LOG_TYPE_DEFAULT, "%@ Entitlements response received with entitlements: %{public}@", buf, 0x16u);
   }
 
 LABEL_7:
-  v13 = [v7 fc_arrayByTransformingWithBlock:&__block_literal_global_121];
-  v14 = [a1[4] entitlementsOverrideProvider];
+  v11 = [v7 fc_arrayByTransformingWithBlock:&__block_literal_global_121];
+  v12 = [a1[4] entitlementsOverrideProvider];
 
-  if (v14)
+  if (v12)
   {
-    v15 = [a1[4] entitlementsOverrideProvider];
-    v16 = [v15 entitlementsOverrideWithDefaultEntitlements:v13];
+    v13 = [a1[4] entitlementsOverrideProvider];
+    v14 = [v13 entitlementsOverrideWithDefaultEntitlements:v11];
 
-    if (v16)
+    if (v14)
     {
-      v17 = [v16 entitlements];
+      v15 = [v14 entitlements];
 
-      v18 = [v16 error];
+      v16 = [v14 error];
 
-      v13 = v17;
-      v8 = v18;
+      v11 = v15;
+      v8 = v16;
     }
   }
 
   if ([v8 code] == 3001)
   {
-    v19 = MEMORY[0x1E696ABC0];
-    v20 = 3001;
+    v17 = MEMORY[0x1E696ABC0];
+    v18 = 3001;
     goto LABEL_24;
   }
 
-  if (!a3 || (v21 = [v13 count], v8) || v21)
+  if (!a3 || (v19 = [v11 count], v8) || v19)
   {
-    if (!v13 || v8 && ![v13 count])
+    if (!v11 || v8 && ![v11 count])
     {
       goto LABEL_23;
     }
@@ -265,46 +285,44 @@ LABEL_7:
     goto LABEL_22;
   }
 
-  v22 = [a1[4] entitlementsOverrideProvider];
+  v20 = [a1[4] entitlementsOverrideProvider];
 
-  if (v22)
+  if (v20)
   {
-    if (!v13)
+    if (!v11)
     {
 LABEL_23:
-      v19 = MEMORY[0x1E696ABC0];
-      v20 = 5001;
+      v17 = MEMORY[0x1E696ABC0];
+      v18 = 5001;
       goto LABEL_24;
     }
 
 LABEL_22:
     WeakRetained = objc_loadWeakRetained(a1 + 7);
-    v27[0] = MEMORY[0x1E69E9820];
-    v27[1] = 3221225472;
-    v27[2] = __91__FCBundleEntitlementsProvider__fetchEntitlementsWithIgnoreCache_configuration_completion___block_invoke_2;
-    v27[3] = &unk_1E7C436E8;
-    v28 = v13;
-    v29 = a1[5];
-    v30 = a1[6];
-    FCPerformIfNonNil(WeakRetained, v27);
+    v24[0] = MEMORY[0x1E69E9820];
+    v24[1] = 3221225472;
+    v24[2] = __91__FCBundleEntitlementsProvider__fetchEntitlementsWithIgnoreCache_configuration_completion___block_invoke_2;
+    v24[3] = &unk_1E7C436E8;
+    v25 = v11;
+    v26 = a1[5];
+    v27 = a1[6];
+    FCPerformIfNonNil(WeakRetained, v24);
 
-    v24 = v28;
+    v22 = v25;
     goto LABEL_26;
   }
 
-  v19 = MEMORY[0x1E696ABC0];
-  v20 = 5003;
+  v17 = MEMORY[0x1E696ABC0];
+  v18 = 5003;
 LABEL_24:
-  v24 = [v19 errorWithDomain:@"BundleEntitlementsProviderErrorDomain" code:v20 userInfo:0];
-  v25 = a1[6];
-  if (v25)
+  v22 = [v17 errorWithDomain:@"BundleEntitlementsProviderErrorDomain" code:v18 userInfo:0];
+  v23 = a1[6];
+  if (v23)
   {
-    v25[2](v25, 0, v24);
+    v23[2](v23, 0, v22);
   }
 
 LABEL_26:
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 FCSubscriptionEntitlement *__91__FCBundleEntitlementsProvider__fetchEntitlementsWithIgnoreCache_configuration_completion___block_invoke_10(uint64_t a1, void *a2)

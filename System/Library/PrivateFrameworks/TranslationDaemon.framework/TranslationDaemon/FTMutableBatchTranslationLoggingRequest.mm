@@ -5,6 +5,9 @@
 - (int)time_to_page_complete;
 - (int)time_to_viewport_complete;
 - (void)setSession_id:(id)session_id;
+- (void)setTime_to_first_response:(int)time_to_first_response;
+- (void)setTime_to_page_complete:(int)time_to_page_complete;
+- (void)setTime_to_viewport_complete:(int)time_to_viewport_complete;
 @end
 
 @implementation FTMutableBatchTranslationLoggingRequest
@@ -48,6 +51,12 @@
   return intValue;
 }
 
+- (void)setTime_to_first_response:(int)time_to_first_response
+{
+  v4 = [objc_alloc(MEMORY[0x277CCABB0]) initWithInt:*&time_to_first_response];
+  [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
+}
+
 - (int)time_to_viewport_complete
 {
   v2 = [(NSMutableDictionary *)self->super._storage objectForKeyedSubscript:@"time_to_viewport_complete"];
@@ -56,12 +65,24 @@
   return intValue;
 }
 
+- (void)setTime_to_viewport_complete:(int)time_to_viewport_complete
+{
+  v4 = [objc_alloc(MEMORY[0x277CCABB0]) initWithInt:*&time_to_viewport_complete];
+  [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
+}
+
 - (int)time_to_page_complete
 {
   v2 = [(NSMutableDictionary *)self->super._storage objectForKeyedSubscript:@"time_to_page_complete"];
   intValue = [v2 intValue];
 
   return intValue;
+}
+
+- (void)setTime_to_page_complete:(int)time_to_page_complete
+{
+  v4 = [objc_alloc(MEMORY[0x277CCABB0]) initWithInt:*&time_to_page_complete];
+  [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
 }
 
 @end

@@ -201,13 +201,13 @@ void __52__LNProcessInstanceRegistryClient_makeXPCConnection__block_invoke(uint6
   }
 }
 
-void __52__LNProcessInstanceRegistryClient_makeXPCConnection__block_invoke_17()
+void __52__LNProcessInstanceRegistryClient_makeXPCConnection__block_invoke_17(uint64_t a1)
 {
-  v0 = getLNLogCategoryConnection();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v1 = getLNLogCategoryConnection();
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
-    *v1 = 0;
-    _os_log_impl(&dword_18F0E9000, v0, OS_LOG_TYPE_DEFAULT, "Process Instance Registry XPC connection has been invalidated", v1, 2u);
+    *v2 = 0;
+    _os_log_impl(&dword_18F0E9000, v1, OS_LOG_TYPE_DEFAULT, "Process Instance Registry XPC connection has been invalidated", v2, 2u);
   }
 }
 

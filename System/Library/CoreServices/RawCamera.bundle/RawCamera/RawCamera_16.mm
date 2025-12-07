@@ -1,4 +1,14 @@
-void *sub_233859A38(void *a1, void *a2, unint64_t *a3, void *a4, _OWORD *a5, uint64_t *a6, char *a7, int *a8)
+void sub_23385994C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::__shared_weak_count *a10)
+{
+  if (a10)
+  {
+    sub_2337239E8(a10);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void *sub_233859A38(void *a1, void *a2, unint64_t *a3, void *a4, _OWORD *a5, uint64_t a6, char *a7, unsigned int *a8)
 {
   a1[1] = 0;
   a1[2] = 0;
@@ -15,7 +25,7 @@ void sub_233859AC0(std::__shared_weak_count *a1)
   JUMPOUT(0x2383ABF10);
 }
 
-uint64_t sub_233859B3C(uint64_t a1, void *a2, unint64_t a3, void *a4, _OWORD *a5, uint64_t *a6, char a7, int a8)
+uint64_t sub_233859B3C(uint64_t a1, void *a2, unint64_t a3, void *a4, _OWORD *a5, uint64_t a6, char a7, int a8)
 {
   v12 = sub_2337AD9D8(a1, a2, a3, a4, a5);
   *(v12 + 200) = 0;
@@ -26,7 +36,7 @@ uint64_t sub_233859B3C(uint64_t a1, void *a2, unint64_t a3, void *a4, _OWORD *a5
   *(v12 + 232) = 0;
   *(v12 + 240) = 0;
   *(v12 + 224) = 0;
-  sub_233729070(v12 + 224, *a6, a6[1], (a6[1] - *a6) >> 2);
+  sub_233729070((v12 + 224), *a6, *(a6 + 8), (*(a6 + 8) - *a6) >> 2);
   *(a1 + 248) = a7;
   *(a1 + 252) = a8;
   return a1;
@@ -125,7 +135,7 @@ void sub_233859DF4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 void sub_233859E60(uint64_t a1)
 {
   sub_233726218(&__p, *(a1 + 24));
-  sub_23385BE00(v20, 4uLL);
+  sub_23385BE00(v20, 4uLL, &__p);
   if (__p)
   {
     v19 = __p;
@@ -133,7 +143,7 @@ void sub_233859E60(uint64_t a1)
   }
 
   sub_233726218(v16, *(a1 + 24));
-  sub_23385BE00(&__p, 4uLL);
+  sub_23385BE00(&__p, 4uLL, v16);
   v2 = v16[0];
   if (v16[0])
   {
@@ -175,14 +185,14 @@ void sub_233859E60(uint64_t a1)
         }
 
         v13 = v20[0][3 * v3];
-        if (v5 >= v20[0][3 * v3 + 1] - v13)
+        if (v5 >= (v20[0][3 * v3 + 1] - v13) >> 1)
         {
           sub_2337306B0();
         }
 
         v14 = v12;
         v2 = *(a1 + 8);
-        v13[v5] = *(v14 + 2 * (v2[14] * v5) + 2 * v3 + 2 * v10);
+        *&v13[2 * v5] = *(v14 + 2 * (v2[14] * v5) + 2 * v3 + 2 * v10);
         ++v5;
         v4 = *(a1 + 24);
       }
@@ -363,11 +373,11 @@ LABEL_34:
 
   else
   {
-    v14 = *(&v24 + 1);
-    v11 = v24;
-    if (*(&v24 + 1))
+    v14 = v24.n128_u64[1];
+    v11 = v24.n128_u64[0];
+    if (v24.n128_u64[1])
     {
-      atomic_fetch_add_explicit((*(&v24 + 1) + 8), 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit((v24.n128_u64[1] + 8), 1uLL, memory_order_relaxed);
     }
 
     if (v12)
@@ -385,14 +395,14 @@ LABEL_34:
   sub_23385B0D0(a1, 1u, 0, 0, 0, 0, 0, &v25, &v23);
   v15 = v23;
   v23 = 0uLL;
-  v16 = *(&v24 + 1);
+  v16 = v24.n128_u64[1];
   v24 = v15;
   if (v16)
   {
     sub_2337239E8(v16);
-    if (*(&v23 + 1))
+    if (v23.n128_u64[1])
     {
-      sub_2337239E8(*(&v23 + 1));
+      sub_2337239E8(v23.n128_u64[1]);
     }
   }
 
@@ -408,11 +418,11 @@ LABEL_34:
 
   else
   {
-    v18 = *(&v24 + 1);
-    v11 = v24;
-    if (*(&v24 + 1))
+    v18 = v24.n128_u64[1];
+    v11 = v24.n128_u64[0];
+    if (v24.n128_u64[1])
     {
-      atomic_fetch_add_explicit((*(&v24 + 1) + 8), 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit((v24.n128_u64[1] + 8), 1uLL, memory_order_relaxed);
     }
 
     if (v14)
@@ -438,14 +448,14 @@ LABEL_34:
   sub_23385B0D0(a1, 0, 0, 0, 0, 0, 1, &v25, &v23);
   v19 = v23;
   v23 = 0uLL;
-  v20 = *(&v24 + 1);
+  v20 = v24.n128_u64[1];
   v24 = v19;
   if (v20)
   {
     sub_2337239E8(v20);
-    if (*(&v23 + 1))
+    if (v23.n128_u64[1])
     {
-      sub_2337239E8(*(&v23 + 1));
+      sub_2337239E8(v23.n128_u64[1]);
     }
   }
 
@@ -461,11 +471,11 @@ LABEL_64:
     goto LABEL_65;
   }
 
-  v21 = *(&v24 + 1);
-  v11 = v24;
-  if (*(&v24 + 1))
+  v21 = v24.n128_u64[1];
+  v11 = v24.n128_u64[0];
+  if (v24.n128_u64[1])
   {
-    atomic_fetch_add_explicit((*(&v24 + 1) + 8), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v24.n128_u64[1] + 8), 1uLL, memory_order_relaxed);
   }
 
   if (v18)
@@ -476,7 +486,7 @@ LABEL_64:
   if (v11)
   {
 LABEL_65:
-    nullsub_1(v11);
+    nullsub_1();
   }
 
 LABEL_66:
@@ -493,9 +503,9 @@ LABEL_66:
     sub_2337239E8(v22);
   }
 
-  if (*(&v24 + 1))
+  if (v24.n128_u64[1])
   {
-    sub_2337239E8(*(&v24 + 1));
+    sub_2337239E8(v24.n128_u64[1]);
   }
 
   if (v27)
@@ -549,7 +559,7 @@ void sub_23385A538(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_23385A5B0(uint64_t a1, uint64_t *a2)
+void sub_23385A5B0(uint64_t a1, char ***a2)
 {
   v3 = *a2;
   v4 = a2[1];
@@ -562,14 +572,14 @@ void sub_23385A5B0(uint64_t a1, uint64_t *a2)
   v46 = 0;
   v47 = 0;
   v48 = 0;
-  sub_23385BFA0(&v46, v3, v4, 0xAAAAAAAAAAAAAAABLL * ((v4 - v3) >> 3));
+  sub_23385BFA0(&v46, v3, v4, 0xAAAAAAAAAAAAAAABLL * (v4 - v3));
   v9 = **a2;
-  v10 = *(*a2 + 24);
-  v11 = *(*a2 + 48);
+  v10 = (*a2)[3];
+  v11 = (*a2)[6];
   v12 = 0.0;
   v13 = 0.0;
-  v14 = *(*a2 + 72);
-  v15 = (v9 + 2);
+  v14 = (*a2)[9];
+  v15 = v9 + 2;
   v16 = (v10 + 2);
   v17 = (v11 + 2);
   v18 = (v14 + 2);
@@ -624,7 +634,7 @@ void sub_23385A5B0(uint64_t a1, uint64_t *a2)
     v38 = 101;
     do
     {
-      LOWORD(v8) = *(v9 + 2 * (v33 + 50));
+      LOWORD(v8) = *&v9[2 * v33 + 100];
       *&v39 = (v12 / 50.0 + *&v8) * 0.5;
       *&v34[2 * v33 + 100] = *&v39;
       LOWORD(v39) = *(v10 + 2 * (v33 + 50));
@@ -636,7 +646,7 @@ void sub_23385A5B0(uint64_t a1, uint64_t *a2)
       LOWORD(v41) = *(v14 + 2 * (v33 + 50));
       *&v42 = (v24 / 50.0 + v41) * 0.5;
       *&v37[2 * v33 + 100] = *&v42;
-      LOWORD(v42) = *(v9 + 2 * (v33 + 51));
+      LOWORD(v42) = *&v9[2 * v33 + 102];
       *&v43 = (v23 / 50.0 + v42) * 0.5;
       *&v34[2 * v33 + 102] = *&v43;
       LOWORD(v43) = *(v10 + 2 * (v33 + 51));
@@ -647,11 +657,11 @@ void sub_23385A5B0(uint64_t a1, uint64_t *a2)
       *&v36[2 * v33 + 102] = *&v45;
       LOWORD(v45) = *(v14 + 2 * (v33 + 51));
       *&v37[2 * v33 + 102] = ((v20 / 50.0 + v45) * 0.5);
-      v12 = v12 + (*(v9 + 2 * (v33 + 100)) - *(v9 + 2 * v33));
+      v12 = v12 + (*&v9[2 * v33 + 200] - *&v9[2 * v33]);
       v13 = v13 + (*(v10 + 2 * (v33 + 100)) - *(v10 + 2 * v33));
       v25 = v25 + (*(v11 + 2 * (v33 + 100)) - *(v11 + 2 * v33));
       v24 = v24 + (*(v14 + 2 * (v33 + 100)) - *(v14 + 2 * v33));
-      v23 = v23 + (*(v9 + 2 * v38) - *(v9 + 2 * (v33 + 1)));
+      v23 = v23 + (*&v9[2 * v38] - *&v9[2 * v33 + 2]);
       v22 = v22 + (*(v10 + 2 * v38) - *(v10 + 2 * (v33 + 1)));
       v21 = v21 + (*(v11 + 2 * v38) - *(v11 + 2 * (v33 + 1)));
       v8 = (*(v14 + 2 * v38) - *(v14 + 2 * (v33 + 1)));
@@ -679,7 +689,7 @@ void sub_23385A8E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sub_23385A8FC(unsigned __int16 ***a1@<X1>, uint64_t *a2@<X2>, uint64_t **a3@<X8>)
+void sub_23385A8FC(char ***a1@<X1>, uint64_t **a2@<X2>, uint64_t **a3@<X8>)
 {
   if (a1[1] == *a1)
   {
@@ -688,8 +698,8 @@ void sub_23385A8FC(unsigned __int16 ***a1@<X1>, uint64_t *a2@<X2>, uint64_t **a3
 
   v5 = (*a1)[1] - **a1;
   v98 = 0x4197D78400000000;
-  sub_233731694(__p, ((v5 >> 1) >> 1) + 1);
-  sub_23385C2FC(v102, (v5 >> 1));
+  sub_233731694(__p, ((v5 >> 1) >> 1) + 1, &v98);
+  sub_23385C2FC(v102, (v5 >> 1), __p);
   v6 = v5 >> 1;
   if (__p[0])
   {
@@ -834,7 +844,7 @@ LABEL_13:
 
   while (!v75);
   sub_233730758(__p, (v5 >> 1));
-  sub_23385C2FC(a3, 2uLL);
+  sub_23385C2FC(a3, 2uLL, __p);
   if (__p[0])
   {
     __p[1] = __p[0];
@@ -842,7 +852,7 @@ LABEL_13:
   }
 
   sub_233730758(&v98, (v5 >> 1));
-  sub_23385C2FC(__p, 2uLL);
+  sub_23385C2FC(__p, 2uLL, &v98);
   sub_23385BF60(a2);
   *a2 = *__p;
   a2[2] = v101;
@@ -865,7 +875,7 @@ LABEL_13:
     v81 = v102[0];
     v82 = **a3;
     v83 = (*a3)[3];
-    v84 = *(*a2 + 24);
+    v84 = (*a2)[3];
     v85 = **a2;
     v86 = -400;
     do
@@ -915,9 +925,9 @@ LABEL_13:
         v94 = (*(v81 + 24 * v78) + ((4 * v87) & 0x1FFFFFFF8));
         do
         {
-          LOWORD(v76) = (*v80)[v93];
+          LOWORD(v76) = *&(*v80)[2 * v93];
           v76 = *&v76;
-          LOWORD(v77) = v80[3][v93];
+          LOWORD(v77) = *&v80[3][2 * v93];
           v77 = *&v77;
           v95 = *v94++;
           v90 = v90 + v76 * (1.0 / v95);
@@ -1031,7 +1041,7 @@ double sub_23385AEFC(void *a1, BOOL *a2, double *a3, double *a4)
   return result;
 }
 
-void sub_23385B0D0(void *a1@<X0>, unsigned int a2@<W1>, int a3@<W2>, int a4@<W3>, int a5@<W4>, int a6@<W5>, int a7@<W6>, void *a8@<X7>, void *a9@<X8>)
+void sub_23385B0D0(void *a1@<X0>, unsigned int a2@<W1>, int a3@<W2>, int a4@<W3>, int a5@<W4>, int a6@<W5>, int a7@<W6>, double *a8@<X7>, void *a9@<X8>)
 {
   v9 = a1[4];
   if (a1[5] == v9)
@@ -1056,8 +1066,8 @@ void sub_23385B0D0(void *a1@<X0>, unsigned int a2@<W1>, int a3@<W2>, int a4@<W3>
   v64 = v66 + a5 + a6;
   v18 = v64 + v17;
   v71[0] = 0;
-  sub_233731694(&__p, (v18 + 1));
-  sub_23385C2FC(v74, (v16 >> 2) & 0xFFFFFFFE);
+  sub_233731694(&__p, (v18 + 1), v71);
+  sub_23385C2FC(v74, (v16 >> 2) & 0xFFFFFFFE, &__p);
   if (__p)
   {
     v73 = __p;
@@ -1291,7 +1301,7 @@ LABEL_40:
     }
   }
 
-  *a8 = 0x4202A05F20000000;
+  *a8 = 1.0e10;
   *a9 = 0;
   a9[1] = 0;
   __p = v74;
@@ -1316,7 +1326,7 @@ void sub_23385B788(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void *sub_23385B894(uint64_t a1, int a2, uint64_t a3, const void *a4, void *a5)
+void *sub_23385B894(uint64_t a1, int a2, int a3, const void *a4, void *a5)
 {
   v7 = dgels_NEWLAPACK();
   MEMORY[0x28223BE20](v7);
@@ -1379,20 +1389,20 @@ void sub_23385BB08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sub_23385BB38(char ***a1, double ***a2, uint64_t *a3, uint64_t *a4)
+void sub_23385BB38(char ***result, double ***a2, uint64_t a3, uint64_t **a4)
 {
-  if (a1 + 4 != a3)
+  if (result + 4 != a3)
   {
-    sub_23385C3B8(a3, a1[4], a1[5], 0xAAAAAAAAAAAAAAABLL * (a1[5] - a1[4]));
+    sub_23385C3B8(a3, result[4], result[5], 0xAAAAAAAAAAAAAAABLL * (result[5] - result[4]));
   }
 
-  if (a1 + 10 != a4)
+  if (result + 10 != a4)
   {
-    sub_23385C3B8(a4, a1[10], a1[11], 0xAAAAAAAAAAAAAAABLL * (a1[11] - a1[10]));
+    sub_23385C3B8(a4, result[10], result[11], 0xAAAAAAAAAAAAAAABLL * (result[11] - result[10]));
   }
 
   v8 = *a3;
-  if (a3[1] == *a3)
+  if (*(a3 + 8) == *a3)
   {
     sub_2337306B0();
   }
@@ -1403,7 +1413,7 @@ void sub_23385BB38(char ***a1, double ***a2, uint64_t *a3, uint64_t *a4)
   v12 = 0.0;
   v13 = 0.0;
   v14 = 0.0;
-  v15 = (*a2)[1] - v10;
+  v15 = ((*a2)[1] - v10);
   if (v15)
   {
     v13 = *v10;
@@ -1449,7 +1459,7 @@ void sub_23385BB38(char ***a1, double ***a2, uint64_t *a3, uint64_t *a4)
         v26 = v25 + 1;
         v27 = v20 | (v25 >> 1);
         v28 = v8[3 * ((v25 + 1) & 1)];
-        v29 = *(v24 + 24 * (v25 & 1));
+        v29 = v24[3 * (v25 & 1)];
         v30 = *(v28 + 8 * v27);
         v31 = *(v29 + 8 * v27);
         if (v30 <= 2000.0 && v31 <= 2000.0)
@@ -1508,20 +1518,20 @@ void sub_23385BDC8(uint64_t a1)
   JUMPOUT(0x2383ABF10);
 }
 
-void *sub_23385BE00(void *result, unint64_t a2)
+uint64_t *sub_23385BE00(uint64_t *a1, unint64_t a2, uint64_t a3)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    sub_23385BEBC(result, a2);
+    sub_23385BEBC(a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
-void sub_23385BEBC(uint64_t a1, unint64_t a2)
+void sub_23385BEBC(uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0xAAAAAAAAAAAAAABLL)
   {
@@ -1553,7 +1563,7 @@ void sub_23385BF60(uint64_t *a1)
   }
 }
 
-uint64_t sub_23385BFA0(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *sub_23385BFA0(uint64_t *result, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -1570,7 +1580,7 @@ void sub_23385C008(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void *sub_23385C028(uint64_t a1, uint64_t *a2, uint64_t *a3, void *a4)
+uint64_t *sub_23385C028(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
   v4 = a4;
   v10 = a4;
@@ -1587,8 +1597,8 @@ void *sub_23385C028(uint64_t a1, uint64_t *a2, uint64_t *a3, void *a4)
       *v4 = 0;
       v4[1] = 0;
       v4[2] = 0;
-      sub_233728FF4(v4, *v6, v6[1], (v6[1] - *v6) >> 1);
-      v6 += 3;
+      sub_233728FF4(v4, *v6, *(v6 + 8), (*(v6 + 8) - *v6) >> 1);
+      v6 += 24;
       v4 = v11 + 3;
       v11 += 3;
     }
@@ -1611,21 +1621,21 @@ uint64_t sub_23385C0DC(uint64_t a1)
   return a1;
 }
 
-void sub_23385C114(uint64_t *a1, char **a2, char **a3, unint64_t a4)
+void sub_23385C114(uint64_t a1, char **a2, char **a3, unint64_t a4)
 {
   v8 = *a1;
-  if (0xAAAAAAAAAAAAAAABLL * ((a1[2] - *a1) >> 3) < a4)
+  if (0xAAAAAAAAAAAAAAABLL * ((*(a1 + 16) - *a1) >> 3) < a4)
   {
     sub_23385BF60(a1);
     if (a4 <= 0xAAAAAAAAAAAAAAALL)
     {
-      v9 = 0x5555555555555556 * ((a1[2] - *a1) >> 3);
+      v9 = 0x5555555555555556 * ((*(a1 + 16) - *a1) >> 3);
       if (v9 <= a4)
       {
         v9 = a4;
       }
 
-      if (0xAAAAAAAAAAAAAAABLL * ((a1[2] - *a1) >> 3) >= 0x555555555555555)
+      if (0xAAAAAAAAAAAAAAABLL * ((*(a1 + 16) - *a1) >> 3) >= 0x555555555555555)
       {
         v10 = 0xAAAAAAAAAAAAAAALL;
       }
@@ -1641,15 +1651,15 @@ void sub_23385C114(uint64_t *a1, char **a2, char **a3, unint64_t a4)
     sub_2337235BC();
   }
 
-  v11 = a1[1] - v8;
+  v11 = *(a1 + 8) - v8;
   if (0xAAAAAAAAAAAAAAABLL * (v11 >> 3) >= a4)
   {
     sub_23385C28C(&v19, a2, a3, v8);
     v13 = v12;
-    v14 = a1[1];
+    v14 = *(a1 + 8);
     if (v14 != v12)
     {
-      v15 = a1[1];
+      v15 = *(a1 + 8);
       do
       {
         v17 = *(v15 - 24);
@@ -1667,17 +1677,17 @@ void sub_23385C114(uint64_t *a1, char **a2, char **a3, unint64_t a4)
       while (v15 != v13);
     }
 
-    a1[1] = v13;
+    *(a1 + 8) = v13;
   }
 
   else
   {
     sub_23385C28C(&v18, a2, (a2 + v11), v8);
-    a1[1] = sub_23385C028(a1, (a2 + v11), a3, a1[1]);
+    *(a1 + 8) = sub_23385C028(a1, a2 + v11, a3, *(a1 + 8));
   }
 }
 
-char **sub_23385C28C(int a1, char **a2, char **a3, char **a4)
+char **sub_23385C28C(int a1, char **a2, char **a3, uint64_t *a4)
 {
   v5 = a2;
   if (a2 != a3)
@@ -1700,34 +1710,34 @@ char **sub_23385C28C(int a1, char **a2, char **a3, char **a4)
   return v5;
 }
 
-void *sub_23385C2FC(void *result, unint64_t a2)
+uint64_t *sub_23385C2FC(uint64_t *a1, unint64_t a2, uint64_t a3)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    sub_2337A6C64(result, a2);
+    sub_2337A6C64(a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
-void sub_23385C3B8(uint64_t *a1, char **a2, char **a3, unint64_t a4)
+void sub_23385C3B8(uint64_t **a1, char **a2, char **a3, unint64_t a4)
 {
   v8 = *a1;
-  if (0xAAAAAAAAAAAAAAABLL * ((a1[2] - *a1) >> 3) < a4)
+  if (0xAAAAAAAAAAAAAAABLL * (a1[2] - *a1) < a4)
   {
     sub_23385BF60(a1);
     if (a4 <= 0xAAAAAAAAAAAAAAALL)
     {
-      v9 = 0x5555555555555556 * ((a1[2] - *a1) >> 3);
+      v9 = 0x5555555555555556 * (a1[2] - *a1);
       if (v9 <= a4)
       {
         v9 = a4;
       }
 
-      if (0xAAAAAAAAAAAAAAABLL * ((a1[2] - *a1) >> 3) >= 0x555555555555555)
+      if (0xAAAAAAAAAAAAAAABLL * (a1[2] - *a1) >= 0x555555555555555)
       {
         v10 = 0xAAAAAAAAAAAAAAALL;
       }
@@ -1775,11 +1785,11 @@ void sub_23385C3B8(uint64_t *a1, char **a2, char **a3, unint64_t a4)
   else
   {
     sub_23385C61C(&v18, a2, (a2 + v11), v8);
-    a1[1] = sub_23385C530(a1, (a2 + v11), a3, a1[1]);
+    a1[1] = sub_23385C530(a1, a2 + v11, a3, a1[1]);
   }
 }
 
-void *sub_23385C530(uint64_t a1, uint64_t *a2, uint64_t *a3, void *a4)
+uint64_t *sub_23385C530(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
   v4 = a4;
   v10 = a4;
@@ -1796,8 +1806,8 @@ void *sub_23385C530(uint64_t a1, uint64_t *a2, uint64_t *a3, void *a4)
       *v4 = 0;
       v4[1] = 0;
       v4[2] = 0;
-      sub_2337236E0(v4, *v6, v6[1], (v6[1] - *v6) >> 3);
-      v6 += 3;
+      sub_2337236E0(v4, *v6, *(v6 + 8), (*(v6 + 8) - *v6) >> 3);
+      v6 += 24;
       v4 = v11 + 3;
       v11 += 3;
     }
@@ -1820,7 +1830,7 @@ uint64_t sub_23385C5E4(uint64_t a1)
   return a1;
 }
 
-char **sub_23385C61C(int a1, char **a2, char **a3, char **a4)
+char **sub_23385C61C(int a1, char **a2, char **a3, uint64_t *a4)
 {
   v5 = a2;
   if (a2 != a3)
@@ -1915,7 +1925,7 @@ double sub_23385C8C0(uint64_t a1)
   return v1;
 }
 
-void *sub_23385C944@<X0>(uint64_t a1@<X1>, unsigned int a2@<W2>, uint64_t *a3@<X8>, double a4@<D0>)
+uint64_t *sub_23385C944@<X0>(uint64_t a1@<X1>, unsigned int a2@<W2>, uint64_t *a3@<X8>, double a4@<D0>)
 {
   v8 = a2;
   result = sub_233730758(a3, a2);
@@ -2154,17 +2164,18 @@ void sub_23385CF5C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_23385CFBC(uint64_t a1, unsigned int a2, float *a3, _BYTE *a4)
+void sub_23385CFBC(uint64_t result, uint64_t a2, float *a3, _BYTE *a4)
 {
   *(a3 + 2) = 0u;
   *(a3 + 3) = 0u;
   *a3 = 0u;
   *(a3 + 1) = 0u;
-  v4 = *(a1 + 8);
+  v4 = *(result + 8);
   if (v4)
   {
+    v6 = a2;
     *a4 = *(v4 + 8);
-    sub_23385D108(a1, a2, &v28);
+    sub_23385D108(result, a2, &v28);
     v9 = v28;
     v8 = v29;
     if (v28 != v29)
@@ -2182,7 +2193,7 @@ void sub_23385CFBC(uint64_t a1, unsigned int a2, float *a3, _BYTE *a4)
       while (v11 != v8);
     }
 
-    sub_23385D38C(a1, a2, &v26);
+    sub_23385D38C(result, v6, &v26);
     if (v9)
     {
       operator delete(v9);
@@ -2205,7 +2216,7 @@ void sub_23385CFBC(uint64_t a1, unsigned int a2, float *a3, _BYTE *a4)
       while (v17 != v14);
     }
 
-    sub_23385D600(a1, a2, &v26);
+    sub_23385D600(result, v6, &v26);
     if (v15)
     {
       operator delete(v15);
@@ -2228,7 +2239,7 @@ void sub_23385CFBC(uint64_t a1, unsigned int a2, float *a3, _BYTE *a4)
       while (v23 != v20);
     }
 
-    sub_23385D874(a1, &v26);
+    sub_23385D874(result, &v26);
     sub_2338FD13C(v21, &v28, a3, &v26);
   }
 }
@@ -2255,11 +2266,11 @@ void sub_23385D108(uint64_t a1@<X0>, unsigned int a2@<W1>, double **a3@<X8>)
   }
 
   v9 = 0;
-  v10 = &v7[4 * v8];
+  v10 = v7 + 16 * (v8 - 1) + 16;
   while (*v7 < a2)
   {
     ++v9;
-    v7 += 4;
+    v7 += 16;
     if (v8 == v9)
     {
       v7 = v10;
@@ -2281,7 +2292,7 @@ LABEL_14:
       v22 = __p;
       while (v20)
       {
-        *v22++ = *(*(v7 + 1) + v19);
+        *v22++ = *(*(v7 + 8) + v19);
         --v20;
         v19 += 24;
         if (v21 == v19)
@@ -2311,7 +2322,7 @@ LABEL_9:
       v17 = __p;
       while (v15)
       {
-        *v17++ = *(*(v7 - 1) + v14);
+        *v17++ = *(*(v7 - 8) + v14);
         --v15;
         v14 += 24;
         if (v16 == v14)
@@ -2330,11 +2341,12 @@ LABEL_18:
     return;
   }
 
-  sub_23385D108(a1, *(v7 - 4));
-  sub_23385D108(a1, *v7);
+  sub_23385D108(a1, *(v7 - 16), a3);
+  sub_23385D108(a1, *v7, v32);
   v26 = *a3;
   v25 = a3[1];
-  if (v25 - *a3 != v32 - v31)
+  v27 = v32[0];
+  if (v25 - *a3 != v32[1] - v32[0])
   {
     exception = __cxa_allocate_exception(0x10uLL);
     MEMORY[0x2383ABCE0](exception, "RawCameraException");
@@ -2343,23 +2355,23 @@ LABEL_18:
 
   if (v26 != v25)
   {
-    LODWORD(v23) = *(v7 - 4);
+    LODWORD(v23) = *(v7 - 16);
     LODWORD(v24) = *v7;
-    v27 = (a2 - v23) / (v24 - v23);
-    v28 = v31;
+    v28 = (a2 - v23) / (v24 - v23);
+    v29 = v32[0];
     do
     {
-      v29 = *v28++;
-      *v26 = *v26 + (v29 - *v26) * v27;
+      v30 = *v29++;
+      *v26 = *v26 + (v30 - *v26) * v28;
       ++v26;
     }
 
     while (v26 != v25);
   }
 
-  if (v31)
+  if (v27)
   {
-    operator delete(v31);
+    operator delete(v27);
   }
 
   if (__p)
@@ -2398,11 +2410,11 @@ void sub_23385D38C(uint64_t a1@<X0>, unsigned int a2@<W1>, double **a3@<X8>)
   }
 
   v9 = 0;
-  v10 = &v7[4 * v8];
+  v10 = v7 + 16 * (v8 - 1) + 16;
   while (*v7 < a2)
   {
     ++v9;
-    v7 += 4;
+    v7 += 16;
     if (v8 == v9)
     {
       v7 = v10;
@@ -2423,7 +2435,7 @@ LABEL_14:
       v20 = __p;
       while (v18)
       {
-        *v20++ = *(*(v7 + 1) + v19);
+        *v20++ = *(*(v7 + 8) + v19);
         --v18;
         v19 += 24;
         if (!--v17)
@@ -2452,7 +2464,7 @@ LABEL_9:
       v16 = __p;
       while (v14)
       {
-        *v16++ = *(*(v7 - 1) + v15);
+        *v16++ = *(*(v7 - 8) + v15);
         --v14;
         v15 += 24;
         if (!--v11)
@@ -2471,11 +2483,12 @@ LABEL_18:
     return;
   }
 
-  sub_23385D38C(a1, *(v7 - 4));
-  sub_23385D38C(a1, *v7);
+  sub_23385D38C(a1, *(v7 - 16), a3);
+  sub_23385D38C(a1, *v7, v30);
   v24 = *a3;
   v23 = a3[1];
-  if (v23 - *a3 != v30 - v29)
+  v25 = v30[0];
+  if (v23 - *a3 != v30[1] - v30[0])
   {
     exception = __cxa_allocate_exception(0x10uLL);
     MEMORY[0x2383ABCE0](exception, "RawCameraException");
@@ -2484,23 +2497,23 @@ LABEL_18:
 
   if (v24 != v23)
   {
-    LODWORD(v21) = *(v7 - 4);
+    LODWORD(v21) = *(v7 - 16);
     LODWORD(v22) = *v7;
-    v25 = (a2 - v21) / (v22 - v21);
-    v26 = v29;
+    v26 = (a2 - v21) / (v22 - v21);
+    v27 = v30[0];
     do
     {
-      v27 = *v26++;
-      *v24 = *v24 + (v27 - *v24) * v25;
+      v28 = *v27++;
+      *v24 = *v24 + (v28 - *v24) * v26;
       ++v24;
     }
 
     while (v24 != v23);
   }
 
-  if (v29)
+  if (v25)
   {
-    operator delete(v29);
+    operator delete(v25);
   }
 
   if (__p)
@@ -2539,11 +2552,11 @@ void sub_23385D600(uint64_t a1@<X0>, unsigned int a2@<W1>, double **a3@<X8>)
   }
 
   v9 = 0;
-  v10 = &v7[4 * v8];
+  v10 = v7 + 16 * (v8 - 1) + 16;
   while (*v7 < a2)
   {
     ++v9;
-    v7 += 4;
+    v7 += 16;
     if (v8 == v9)
     {
       v7 = v10;
@@ -2564,7 +2577,7 @@ LABEL_14:
       v20 = __p;
       while (v18)
       {
-        *v20++ = *(*(v7 + 1) + v19);
+        *v20++ = *(*(v7 + 8) + v19);
         --v18;
         v19 += 24;
         if (!--v17)
@@ -2593,7 +2606,7 @@ LABEL_9:
       v16 = __p;
       while (v14)
       {
-        *v16++ = *(*(v7 - 1) + v15);
+        *v16++ = *(*(v7 - 8) + v15);
         --v14;
         v15 += 24;
         if (!--v11)
@@ -2612,11 +2625,12 @@ LABEL_18:
     return;
   }
 
-  sub_23385D600(a1, *(v7 - 4));
-  sub_23385D600(a1, *v7);
+  sub_23385D600(a1, *(v7 - 16), a3);
+  sub_23385D600(a1, *v7, v30);
   v24 = *a3;
   v23 = a3[1];
-  if (v23 - *a3 != v30 - v29)
+  v25 = v30[0];
+  if (v23 - *a3 != v30[1] - v30[0])
   {
     exception = __cxa_allocate_exception(0x10uLL);
     MEMORY[0x2383ABCE0](exception, "RawCameraException");
@@ -2625,23 +2639,23 @@ LABEL_18:
 
   if (v24 != v23)
   {
-    LODWORD(v21) = *(v7 - 4);
+    LODWORD(v21) = *(v7 - 16);
     LODWORD(v22) = *v7;
-    v25 = (a2 - v21) / (v22 - v21);
-    v26 = v29;
+    v26 = (a2 - v21) / (v22 - v21);
+    v27 = v30[0];
     do
     {
-      v27 = *v26++;
-      *v24 = *v24 + (v27 - *v24) * v25;
+      v28 = *v27++;
+      *v24 = *v24 + (v28 - *v24) * v26;
       ++v24;
     }
 
     while (v24 != v23);
   }
 
-  if (v29)
+  if (v25)
   {
-    operator delete(v29);
+    operator delete(v25);
   }
 
   if (__p)
@@ -2739,7 +2753,7 @@ void sub_23385DA88(std::__shared_weak_count *a1)
   JUMPOUT(0x2383ABF10);
 }
 
-void *sub_23385DB34@<X0>(uint64_t a1@<X1>, unsigned int a2@<W2>, uint64_t *a3@<X8>, double a4@<D0>)
+uint64_t *sub_23385DB34@<X0>(uint64_t a1@<X1>, unsigned int a2@<W2>, uint64_t *a3@<X8>, double a4@<D0>)
 {
   v8 = a2;
   result = sub_233730758(a3, a2);
@@ -3009,26 +3023,26 @@ void sub_23385E284(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_23385E2E4(void *a1, unint64_t a2)
+void sub_23385E2E4(void *result, unint64_t a2)
 {
-  v2 = (a1[1] - *a1) >> 4;
+  v2 = (result[1] - *result) >> 4;
   if (a2 <= v2)
   {
     if (a2 < v2)
     {
-      a1[1] = *a1 + 16 * a2;
+      result[1] = *result + 16 * a2;
     }
   }
 
   else
   {
-    sub_23385EEE4(a1, a2 - v2);
+    sub_23385EEE4(result, a2 - v2);
   }
 }
 
 void sub_23385E340(uint64_t a1, uint64_t *a2)
 {
-  v4 = sub_2338571C8();
+  v4 = sub_2338571C8(*a2);
   sub_23385E4E0(a1, v4);
   v13 = *(*a2 + 48);
   sub_23385E544(a1, &v13, &v14);
@@ -3303,7 +3317,7 @@ LABEL_32:
     if ((vaddvq_s32(vandq_s8(v36, xmmword_23390A090)) & 0xF) == 0 && *(a1 + 96) <= 0x3FFuLL)
     {
       v38 = &v40;
-      v28 = sub_23385F2A8(a1 + 80, &v40) + 5;
+      v28 = (sub_23385F2A8(a1 + 80, &v40, &unk_233905F1C, &v38) + 5);
       if (v28 != a3)
       {
         sub_233723454(v28, *a3, *(a3 + 8), (*(a3 + 8) - *a3) >> 2);
@@ -3335,7 +3349,7 @@ void sub_23385E8F8(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void sub_23385E93C(uint64_t *a1@<X0>, unsigned int **a2@<X1>, uint64_t a3@<X8>)
+void sub_23385E93C(void **a1@<X0>, unsigned int **a2@<X1>, uint64_t a3@<X8>)
 {
   *a3 = 0;
   *(a3 + 8) = 0;
@@ -3349,7 +3363,7 @@ void sub_23385E93C(uint64_t *a1@<X0>, unsigned int **a2@<X1>, uint64_t a3@<X8>)
     if (v9 > (a1[14] - v8) >> 4)
     {
       v11 = 0uLL;
-      sub_23385EABC((a1 + 13), v9, &v11);
+      sub_23385EABC(a1 + 13, v9, &v11);
       if (*(&v11 + 1))
       {
         sub_2337239E8(*(&v11 + 1));
@@ -3358,7 +3372,7 @@ void sub_23385E93C(uint64_t *a1@<X0>, unsigned int **a2@<X1>, uint64_t a3@<X8>)
       v8 = a1[13];
     }
 
-    v10 = *(v8 + 16 * v7);
+    v10 = *&v8[16 * v7];
     v11 = v10;
     if (*(&v10 + 1))
     {
@@ -3382,22 +3396,22 @@ void sub_23385E93C(uint64_t *a1@<X0>, unsigned int **a2@<X1>, uint64_t a3@<X8>)
   sub_233723948(&v11);
 }
 
-void sub_23385EA78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_23385EA78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va1, a3);
-  va_start(va, a3);
+  va_start(va1, a5);
+  va_start(va, a5);
   va_arg(va1, void);
-  v6 = va_arg(va1, void);
-  v7 = va_arg(va1, void);
-  va_copy(v4, va1);
+  v8 = va_arg(va1, void);
+  v9 = va_arg(va1, void);
+  va_copy(v6, va1);
   sub_233723948(va);
   sub_233723948(va1);
   _Unwind_Resume(a1);
 }
 
-void sub_23385EABC(uint64_t a1, unint64_t a2, void *a3)
+void sub_23385EABC(void **a1, unint64_t a2, void *a3)
 {
-  v4 = *(a1 + 8);
+  v4 = a1[1];
   v5 = (v4 - *a1) >> 4;
   if (a2 <= v5)
   {
@@ -3406,7 +3420,7 @@ void sub_23385EABC(uint64_t a1, unint64_t a2, void *a3)
       v7 = *a1 + 16 * a2;
       while (v4 != v7)
       {
-        v8 = *(v4 - 8);
+        v8 = *(v4 - 1);
         if (v8)
         {
           sub_2337239E8(v8);
@@ -3415,7 +3429,7 @@ void sub_23385EABC(uint64_t a1, unint64_t a2, void *a3)
         v4 -= 16;
       }
 
-      *(a1 + 8) = v7;
+      a1[1] = v7;
     }
   }
 
@@ -3427,11 +3441,12 @@ void sub_23385EABC(uint64_t a1, unint64_t a2, void *a3)
   }
 }
 
-void sub_23385EB4C(uint64_t a1, unsigned int a2)
+void sub_23385EB4C(uint64_t a1, uint64_t a2)
 {
-  sub_23385EC98(a1, a2);
-  sub_23385EE50(a1);
-  sub_233857B6C();
+  v6[0] = sub_23385EC98(a1, a2);
+  v6[1] = v4;
+  v5 = sub_23385EE50(a1);
+  sub_233857B6C(v6, v5);
 }
 
 uint64_t sub_23385EBD4(uint64_t a1)
@@ -3738,7 +3753,7 @@ void **sub_23385EFF8(void **result, unint64_t a2, void *a3)
 
     while (v16 != v15);
     v18 = result[1] - *result;
-    v19 = v14 - v18;
+    v19 = (v14 - v18);
     memcpy((v14 - v18), *result, v18);
     v20 = *v4;
     *v4 = v19;
@@ -3772,41 +3787,41 @@ void sub_23385F22C(std::__shared_weak_count *a1)
   JUMPOUT(0x2383ABF10);
 }
 
-void *sub_23385F2A8(uint64_t a1, unint64_t *a2)
+void *sub_23385F2A8(uint64_t a1, unint64_t *a2, uint64_t a3, uint64_t **a4)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v4 = *(a1 + 8);
+  if (!v4)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v5 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = v2[4];
-      if (v3 >= v5)
+      v6 = v4;
+      v7 = v4[4];
+      if (v5 >= v7)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v4 = *v6;
+      if (!*v6)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v7 >= v5)
     {
-      return v4;
+      return v6;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v4 = v6[1];
+    if (!v4)
     {
       goto LABEL_8;
     }
@@ -3934,7 +3949,7 @@ uint64_t sub_23385F470(int *a1, int *a2)
 
 id sub_23385F504(int a1)
 {
-  v24[3] = *MEMORY[0x277D85DE8];
+  v9[3] = *MEMORY[0x277D85DE8];
   if (qword_27DE3DE18 != -1)
   {
     sub_2338FD198();
@@ -3942,29 +3957,29 @@ id sub_23385F504(int a1)
 
   v2 = qword_27DE3DE08[a1];
   objc_sync_enter(v2);
-  if (objc_msgSend_count(v2, v3, v4, v5, v6))
+  if ([v2 count])
   {
-    v11 = objc_msgSend_firstObject(v2, v7, v8, v9, v10);
-    objc_msgSend_removeObjectAtIndex_(v2, v12, 0, v13, v14);
+    v3 = [v2 firstObject];
+    [v2 removeObjectAtIndex:0];
   }
 
   else
   {
-    v23[0] = *MEMORY[0x277CBF928];
-    v23[1] = @"kCIContextUseMetalRenderer";
-    v15 = MEMORY[0x277CBF740];
-    v24[0] = @"RawCamera-Internal-Context";
-    v24[1] = MEMORY[0x277CBEC38];
-    v23[2] = *MEMORY[0x277CBF950];
-    v16 = objc_msgSend_numberWithInt_(MEMORY[0x277CCABB0], v7, *MEMORY[0x277CBF9D8], v9, v10);
-    v24[2] = v16;
-    v18 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v17, v24, v23, 3);
-    v11 = objc_msgSend_contextWithOptions_(v15, v19, v18, v20, v21);
+    v8[0] = *MEMORY[0x277CBF928];
+    v8[1] = @"kCIContextUseMetalRenderer";
+    v4 = MEMORY[0x277CBF740];
+    v9[0] = @"RawCamera-Internal-Context";
+    v9[1] = MEMORY[0x277CBEC38];
+    v8[2] = *MEMORY[0x277CBF950];
+    v5 = [MEMORY[0x277CCABB0] numberWithInt:*MEMORY[0x277CBF9D8]];
+    v9[2] = v5;
+    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:3];
+    v3 = [v4 contextWithOptions:v6];
   }
 
   objc_sync_exit(v2);
 
-  return v11;
+  return v3;
 }
 
 void sub_23385F698(_Unwind_Exception *a1)
@@ -3977,22 +3992,24 @@ void sub_23385F698(_Unwind_Exception *a1)
 uint64_t sub_23385F6D8()
 {
   v0 = objc_opt_new();
-  v1 = qword_27DE3DE08;
-  qword_27DE3DE08 = v0;
+  v1 = qword_27DE3DE08[0];
+  qword_27DE3DE08[0] = v0;
 
-  qword_27DE3DE10 = objc_opt_new();
+  v2 = objc_opt_new();
+  v3 = qword_27DE3DE10;
+  qword_27DE3DE10 = v2;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v2, v3);
 }
 
 void sub_23385F734(void *a1, int a2)
 {
-  v11 = a1;
+  v4 = a1;
   v3 = qword_27DE3DE08[a2];
   objc_sync_enter(v3);
-  if (objc_msgSend_count(v3, v4, v5, v6, v7) <= 4)
+  if ([v3 count] <= 4)
   {
-    objc_msgSend_addObject_(v3, v8, v11, v9, v10);
+    [v3 addObject:v4];
   }
 
   objc_sync_exit(v3);
@@ -4076,8 +4093,8 @@ uint64_t sub_23385F938@<X0>(uint64_t result@<X0>, void *a2@<X8>)
 
 uint64_t sub_23385F9A8(uint64_t a1, unsigned int ***a2)
 {
-  v139[1] = *MEMORY[0x277D85DE8];
-  if ((atomic_load_explicit(&qword_280C04EC0, memory_order_acquire) & 1) == 0)
+  v65[1] = *MEMORY[0x277D85DE8];
+  if ((atomic_load_explicit(byte_280C04EC0, memory_order_acquire) & 1) == 0)
   {
     sub_2338FD1AC();
   }
@@ -4086,7 +4103,7 @@ uint64_t sub_23385F9A8(uint64_t a1, unsigned int ***a2)
   if (*a2 != a2[1])
   {
     context = v3;
-    v125 = *MEMORY[0x277CBF9D8];
+    v51 = *MEMORY[0x277CBF9D8];
     if ((**a2)[11] == 16)
     {
       v4 = *MEMORY[0x277CBF9D8];
@@ -4097,7 +4114,7 @@ uint64_t sub_23385F9A8(uint64_t a1, unsigned int ***a2)
       v4 = *MEMORY[0x277CBF9C8];
     }
 
-    v127 = v4;
+    v53 = v4;
     sub_23385F938(a1, &dest);
     v5 = sub_233739B84(dest.data);
     if (dest.height)
@@ -4121,151 +4138,152 @@ uint64_t sub_23385F9A8(uint64_t a1, unsigned int ***a2)
 
       if (v6 == 3)
       {
-        v126 = sub_2338F297C();
-        v127 = *MEMORY[0x277CBF980];
+        v52 = sub_2338F297C();
+        v53 = *MEMORY[0x277CBF980];
 LABEL_18:
         v7 = sub_23385F80C(a1);
         v8 = *MEMORY[0x277CBF348];
         v9 = *(MEMORY[0x277CBF348] + 8);
-        v134 = sub_23385F504(0);
-        v10 = *a2;
-        v124 = a2[1];
-        if (*a2 != v124)
+        v10 = sub_23385F504(0);
+        v60 = v10;
+        v11 = *a2;
+        v50 = a2[1];
+        if (*a2 != v50)
         {
           do
           {
-            v11 = sub_23378E0C0();
-            v12 = v11;
-            v13 = v7;
-            if (v7 + 1 >= 2 && os_signpost_enabled(v11))
+            v12 = sub_23378E0C0(v10);
+            v13 = v12;
+            v14 = v7;
+            if (v7 + 1 >= 2 && os_signpost_enabled(v12))
             {
-              v113 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v110, @"{{%d, %d}, {%d, %d}}", v111, v112, *(*v10 + 7), HIDWORD(*(*v10 + 7)), *(*v10 + 9), HIDWORD(*(*v10 + 9)));
-              v114 = v113;
-              v119 = objc_msgSend_UTF8String(v113, v115, v116, v117, v118);
+              v43 = [MEMORY[0x277CCACA8] stringWithFormat:@"{{%d, %d}, {%d, %d}}", *(*v11 + 7), HIDWORD(*(*v11 + 7)), *(*v11 + 9), HIDWORD(*(*v11 + 9))];
+              v44 = v43;
+              v45 = [v43 UTF8String];
               LODWORD(dest.data) = 136315138;
-              *(&dest.data + 4) = v119;
-              _os_signpost_emit_with_name_impl(&dword_23371F000, v12, OS_SIGNPOST_INTERVAL_BEGIN, v13, "renderToBlock", "%s", &dest, 0xCu);
+              *(&dest.data + 4) = v45;
+              _os_signpost_emit_with_name_impl(&dword_23371F000, v13, OS_SIGNPOST_INTERVAL_BEGIN, v14, "renderToBlock", "%s", &dest, 0xCu);
             }
 
-            v136[0] = MEMORY[0x277D85DD0];
-            v136[1] = 3221225472;
-            v136[2] = sub_2338602A8;
-            v136[3] = &unk_2789EF2C8;
-            v136[4] = v13;
-            v136[5] = v10;
-            v133 = MEMORY[0x2383AC810](v136);
-            v14 = *(*v10 + 7);
-            v15 = *(*v10 + 9);
-            v132 = sub_233857E34(*v10);
-            v16 = v13;
-            v21 = (*(**v10 + 8))(*v10, 0);
+            v62[0] = MEMORY[0x277D85DD0];
+            v62[1] = 3221225472;
+            v62[2] = sub_2338602A8;
+            v62[3] = &unk_2789EF2C8;
+            v62[4] = v14;
+            v62[5] = v11;
+            v59 = MEMORY[0x2383AC810](v62);
+            v15 = *(*v11 + 7);
+            v16 = *(*v11 + 9);
+            v58 = sub_233857E34(*v11);
+            v17 = v14;
+            v18 = (*(**v11 + 8))(*v11, 0);
             if (byte_280C04EB8 == 1)
             {
+              v19 = MEMORY[0x277CCACA8];
+              sub_23385F938(a1, &dest);
+              v20 = sub_233739B8C(dest.data);
+              v21 = sub_2338191A8(v20);
+              v56 = [v19 stringWithFormat:@"Requested Sushi Mode : %@", v21];
+
+              if (dest.height)
+              {
+                sub_2337239E8(dest.height);
+              }
+
               v22 = MEMORY[0x277CCACA8];
               sub_23385F938(a1, &dest);
-              v23 = sub_233739B8C(dest.data);
+              v23 = sub_233739B84(dest.data);
               v24 = sub_2338191A8(v23);
-              v130 = objc_msgSend_stringWithFormat_(v22, v25, @"Requested Sushi Mode : %@", v26, v27, v24);
+              v55 = [v22 stringWithFormat:@"Sushi Mode : %@", v24];
 
               if (dest.height)
               {
                 sub_2337239E8(dest.height);
               }
 
-              v28 = MEMORY[0x277CCACA8];
+              v25 = MEMORY[0x277CCACA8];
               sub_23385F938(a1, &dest);
-              v29 = sub_233739B84(dest.data);
-              v30 = sub_2338191A8(v29);
-              v129 = objc_msgSend_stringWithFormat_(v28, v31, @"Sushi Mode : %@", v32, v33, v30);
+              v61 = (*(*dest.data + 120))(dest.data);
+              v26 = sub_2337584A8(&v61);
+              v54 = [v25 stringWithFormat:@"Version : %@", v26];
 
               if (dest.height)
               {
                 sub_2337239E8(dest.height);
               }
 
-              v34 = MEMORY[0x277CCACA8];
-              sub_23385F938(a1, &dest);
-              v135 = (*(*dest.data + 120))(dest.data);
-              v35 = sub_2337584A8(&v135);
-              v128 = objc_msgSend_stringWithFormat_(v34, v36, @"Version : %@", v37, v38, v35);
+              v27 = [MEMORY[0x277CCACA8] stringWithFormat:@" %@ \n %@ \n %@ ", v56, v55, v54];
+              v28 = MEMORY[0x277CBF750];
+              v64 = @"inputText";
+              v65[0] = v27;
+              v49 = v27;
+              v29 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v65 forKeys:&v64 count:1];
+              v30 = [v28 filterWithName:@"CITextImageGenerator" withInputParameters:v29];
 
-              if (dest.height)
-              {
-                sub_2337239E8(dest.height);
-              }
+              [v14 extent];
+              v32 = v31;
+              v33 = [v30 outputImage];
+              [v33 extent];
+              v35 = v34;
 
-              v42 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v39, @" %@ \n %@ \n %@ ", v40, v41, v130, v129, v128);
-              v43 = MEMORY[0x277CBF750];
-              v138 = @"inputText";
-              v139[0] = v42;
-              v123 = v42;
-              v45 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v44, v139, &v138, 1);
-              v48 = objc_msgSend_filterWithName_withInputParameters_(v43, v46, @"CITextImageGenerator", v45, v47);
+              v36 = [MEMORY[0x277CCABB0] numberWithDouble:v32 * 0.25 / v35];
+              [v30 setValue:v36 forKey:@"inputScaleFactor"];
 
-              objc_msgSend_extent(v13, v49, v50, v51, v52);
-              v54 = v53;
-              v59 = objc_msgSend_outputImage(v48, v55, v56, v57, v58);
-              objc_msgSend_extent(v59, v60, v61, v62, v63);
-              v65 = v64;
+              v37 = [MEMORY[0x277CBF758] whiteImage];
+              v38 = [v30 outputImage];
+              [v38 extent];
+              v39 = [v37 imageByCroppingToRect:?];
 
-              v70 = objc_msgSend_numberWithDouble_(MEMORY[0x277CCABB0], v66, v67, v68, v69, v54 * 0.25 / v65);
-              objc_msgSend_setValue_forKey_(v48, v71, v70, @"inputScaleFactor", v72);
+              v40 = [v30 outputImage];
+              v41 = [v40 imageByCompositingOverImage:v39];
 
-              v77 = objc_msgSend_whiteImage(MEMORY[0x277CBF758], v73, v74, v75, v76);
-              v82 = objc_msgSend_outputImage(v48, v78, v79, v80, v81);
-              objc_msgSend_extent(v82, v83, v84, v85, v86);
-              v91 = objc_msgSend_imageByCroppingToRect_(v77, v87, v88, v89, v90);
-
-              v96 = objc_msgSend_outputImage(v48, v92, v93, v94, v95);
-              v100 = objc_msgSend_imageByCompositingOverImage_(v96, v97, v91, v98, v99);
-
-              v16 = objc_msgSend_imageByCompositingOverImage_(v100, v101, v13, v102, v103);
+              v17 = [v41 imageByCompositingOverImage:v14];
             }
 
-            objc_msgSend_extent(v16, v17, v18, v19, v20);
-            objc_msgSend_render_toBitmap_rowBytes_bounds_format_colorSpace_(v134, v105, v16, v21, v132, v127, v126, v14 - v8, v104 - SHIDWORD(v14) - SHIDWORD(v15) - v9, v15);
-            if (v127 == v125)
+            [v17 extent];
+            [v60 render:v17 toBitmap:v18 rowBytes:v58 bounds:v53 format:v52 colorSpace:{v15 - v8, v42 - SHIDWORD(v15) - SHIDWORD(v16) - v9, v16}];
+            if (v53 == v51)
             {
-              dest.data = v21;
-              dest.height = v15 >> 32;
-              dest.width = 4 * v15;
-              dest.rowBytes = v132;
+              dest.data = v18;
+              dest.height = v16 >> 32;
+              dest.width = 4 * v16;
+              dest.rowBytes = v58;
               vImageConvert_16Fto16U(&dest, &dest, 0);
             }
 
-            objc_msgSend_clearCaches(v134, v106, v107, v108, v109);
-            v133[2](v133);
+            [v60 clearCaches];
+            v59[2](v59);
 
-            v10 += 2;
-            v7 = v16;
+            v11 += 2;
+            v7 = v17;
           }
 
-          while (v10 != v124);
+          while (v11 != v50);
         }
 
-        sub_23385F734(v134, 0);
+        sub_23385F734(v60, 0);
 
         v3 = context;
         goto LABEL_35;
       }
 
       sub_23385F938(a1, &dest);
-      v121 = sub_233739B94(dest.data);
+      v47 = sub_233739B94(dest.data);
       if (dest.height)
       {
         sub_2337239E8(dest.height);
       }
 
-      if (!v121)
+      if (!v47)
       {
 LABEL_17:
-        v126 = sub_2338F28E4();
+        v52 = sub_2338F28E4();
         goto LABEL_18;
       }
     }
 
     sub_23385F938(a1, &dest);
-    v126 = sub_233739BB4(dest.data);
+    v52 = sub_233739BB4(dest.data);
     if (dest.height)
     {
       sub_2337239E8(dest.height);
@@ -4292,16 +4310,15 @@ void sub_2338600D4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void sub_2338602A8(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
-  v2 = sub_23378E0C0();
+  v8 = *MEMORY[0x277D85DE8];
+  v2 = sub_23378E0C0(a1);
   v3 = v2;
   v4 = *(a1 + 32);
   if (v4 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v2))
   {
-    v8 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v5, @"{{%d, %d}, {%d, %d}}", v6, v7, *(**(a1 + 40) + 28), HIDWORD(*(**(a1 + 40) + 28)), *(**(a1 + 40) + 36), HIDWORD(*(**(a1 + 40) + 36)));
-    v9 = v8;
+    v5 = [MEMORY[0x277CCACA8] stringWithFormat:@"{{%d, %d}, {%d, %d}}", *(**(a1 + 40) + 28), HIDWORD(*(**(a1 + 40) + 28)), *(**(a1 + 40) + 36), HIDWORD(*(**(a1 + 40) + 36))];
     *buf = 136315138;
-    v15 = objc_msgSend_UTF8String(v9, v10, v11, v12, v13);
+    v7 = [v5 UTF8String];
     _os_signpost_emit_with_name_impl(&dword_23371F000, v3, OS_SIGNPOST_INTERVAL_END, v4, "renderToBlock", "%s", buf, 0xCu);
   }
 }
@@ -4388,38 +4405,38 @@ void *sub_2338606A8(uint64_t a1, void *a2, int a3, uint64_t a4, uint64_t a5)
   return result;
 }
 
-uint64_t *sub_233860700(uint64_t a1, uint64_t *a2)
+uint64_t *sub_233860700(uint64_t a1, uint64_t *a2, uint64_t a3)
 {
-  v31 = *MEMORY[0x277D85DE8];
-  sub_233754E04(v18, a2);
-  v29 = 0u;
-  memset(v30, 0, sizeof(v30));
-  v27 = 0u;
+  v32 = *MEMORY[0x277D85DE8];
+  sub_233754E04(v19, a2);
+  v30 = 0u;
+  memset(v31, 0, sizeof(v31));
   v28 = 0u;
-  v25 = 0u;
+  v29 = 0u;
   v26 = 0u;
-  v23 = 0u;
+  v27 = 0u;
   v24 = 0u;
-  v21 = 0u;
+  v25 = 0u;
   v22 = 0u;
-  v19 = 0u;
+  v23 = 0u;
   v20 = 0u;
-  v15 = 0;
+  v21 = 0u;
   v16 = 0;
   v17 = 0;
-  v13 = 0;
+  v18 = 0;
   v14 = 0;
-  v10 = 0;
+  v15 = 0;
   v11 = 0;
   v12 = 0;
+  v13 = 0;
   JxlDecoderCreate();
   JxlDecoderSubscribeEvents();
-  v4 = *(a1 + 40);
-  sub_233726154(__p, v4);
-  v5 = *a2;
-  sub_2337268D8(&v8, (a1 + 32));
-  (*(*v5 + 40))(v5, &v8, 0);
-  (*(**a2 + 32))(*a2, __p[0], v4);
+  v5 = *(a1 + 40);
+  sub_233726154(__p, v5);
+  v6 = *a2;
+  sub_2337268D8(&v9, (a1 + 32));
+  (*(*v6 + 40))(v6, &v9, 0);
+  (*(**a2 + 32))(*a2, __p[0], v5);
   if (!JxlDecoderSetInput() && JxlDecoderProcessInput() == 64 && !JxlDecoderGetBasicInfo() && JxlDecoderProcessInput() == 256)
   {
     if (JxlDecoderGetColorAsEncodedProfile())
@@ -4429,9 +4446,9 @@ uint64_t *sub_233860700(uint64_t a1, uint64_t *a2)
         goto LABEL_15;
       }
 
-      if (v14)
+      if (v15)
       {
-        sub_233860CC8(&v15, v14);
+        sub_233860CC8(&v16, v15);
       }
 
       ColorAsICCProfile = JxlDecoderGetColorAsICCProfile();
@@ -4444,8 +4461,8 @@ uint64_t *sub_233860700(uint64_t a1, uint64_t *a2)
 
     if (!ColorAsICCProfile)
     {
-      v10 = 0x200000003;
-      v12 = 1;
+      v11 = 0x200000003;
+      v13 = 1;
       if (!JxlDecoderImageOutBufferSize() && !JxlDecoderSetImageOutBuffer())
       {
         JxlDecoderProcessInput();
@@ -4461,13 +4478,13 @@ LABEL_15:
     operator delete(__p[0]);
   }
 
-  if (v15)
+  if (v16)
   {
-    v16 = v15;
-    operator delete(v15);
+    v17 = v16;
+    operator delete(v16);
   }
 
-  return sub_233725FD4(v18);
+  return sub_233725FD4(v19);
 }
 
 void sub_23386096C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, void *a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, void *__p, uint64_t a32, uint64_t a33, uint64_t a34)
@@ -4641,7 +4658,7 @@ void sub_233860CC8(char **a1, size_t a2)
   }
 }
 
-uint64_t sub_233860E00(uint64_t a1, int a2, uint64_t *a3)
+uint64_t sub_233860E00(uint64_t a1, uint64_t a2, uint64_t *a3)
 {
   v5 = sub_2338F4DD0(a1, a2);
   *v5 = &unk_2849259D0;
@@ -4731,50 +4748,49 @@ void sub_233860FB0(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-id sub_233860FDC(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5)
+RAWOpcodeScalePerRow *sub_233860FDC(uint64_t a1)
 {
-  v6 = objc_msgSend_dictionary(MEMORY[0x277CBEB38], a2, a3, a4, a5);
-  v10 = objc_msgSend_numberWithUnsignedInt_(MEMORY[0x277CCABB0], v7, *(a1 + 12), v8, v9);
-  objc_msgSend_setObject_forKeyedSubscript_(v6, v11, v10, @"Top", v12);
+  v2 = [MEMORY[0x277CBEB38] dictionary];
+  v3 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:*(a1 + 12)];
+  [v2 setObject:v3 forKeyedSubscript:@"Top"];
 
-  v16 = objc_msgSend_numberWithUnsignedInt_(MEMORY[0x277CCABB0], v13, *(a1 + 16), v14, v15);
-  objc_msgSend_setObject_forKeyedSubscript_(v6, v17, v16, @"Left", v18);
+  v4 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:*(a1 + 16)];
+  [v2 setObject:v4 forKeyedSubscript:@"Left"];
 
-  v22 = objc_msgSend_numberWithUnsignedInt_(MEMORY[0x277CCABB0], v19, *(a1 + 20), v20, v21);
-  objc_msgSend_setObject_forKeyedSubscript_(v6, v23, v22, @"Bottom", v24);
+  v5 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:*(a1 + 20)];
+  [v2 setObject:v5 forKeyedSubscript:@"Bottom"];
 
-  v28 = objc_msgSend_numberWithUnsignedInt_(MEMORY[0x277CCABB0], v25, *(a1 + 24), v26, v27);
-  objc_msgSend_setObject_forKeyedSubscript_(v6, v29, v28, @"Right", v30);
+  v6 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:*(a1 + 24)];
+  [v2 setObject:v6 forKeyedSubscript:@"Right"];
 
-  v34 = objc_msgSend_numberWithUnsignedInt_(MEMORY[0x277CCABB0], v31, *(a1 + 28), v32, v33);
-  objc_msgSend_setObject_forKeyedSubscript_(v6, v35, v34, @"Plane", v36);
+  v7 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:*(a1 + 28)];
+  [v2 setObject:v7 forKeyedSubscript:@"Plane"];
 
-  v40 = objc_msgSend_numberWithUnsignedInt_(MEMORY[0x277CCABB0], v37, *(a1 + 32), v38, v39);
-  objc_msgSend_setObject_forKeyedSubscript_(v6, v41, v40, @"Planes", v42);
+  v8 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:*(a1 + 32)];
+  [v2 setObject:v8 forKeyedSubscript:@"Planes"];
 
-  v46 = objc_msgSend_numberWithUnsignedInt_(MEMORY[0x277CCABB0], v43, *(a1 + 36), v44, v45);
-  objc_msgSend_setObject_forKeyedSubscript_(v6, v47, v46, @"RowPitch", v48);
+  v9 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:*(a1 + 36)];
+  [v2 setObject:v9 forKeyedSubscript:@"RowPitch"];
 
-  v52 = objc_msgSend_numberWithUnsignedInt_(MEMORY[0x277CCABB0], v49, *(a1 + 40), v50, v51);
-  objc_msgSend_setObject_forKeyedSubscript_(v6, v53, v52, @"ColPitch", v54);
+  v10 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:*(a1 + 40)];
+  [v2 setObject:v10 forKeyedSubscript:@"ColPitch"];
 
-  v63 = objc_msgSend_array(MEMORY[0x277CBEB18], v55, v56, v57, v58);
-  v65 = *(a1 + 48);
-  v66 = *(a1 + 56);
-  while (v65 != v66)
+  v11 = [MEMORY[0x277CBEB18] array];
+  v13 = *(a1 + 48);
+  v14 = *(a1 + 56);
+  while (v13 != v14)
   {
-    LODWORD(v64) = *v65;
-    v67 = objc_msgSend_numberWithFloat_(MEMORY[0x277CCABB0], v59, v60, v61, v62, v64);
-    objc_msgSend_addObject_(v63, v68, v67, v69, v70);
+    LODWORD(v12) = *v13;
+    v15 = [MEMORY[0x277CCABB0] numberWithFloat:v12];
+    [v11 addObject:v15];
 
-    ++v65;
+    ++v13;
   }
 
-  objc_msgSend_setObject_forKeyedSubscript_(v6, v59, v63, @"Scale", v62);
-  v71 = [RAWOpcodeScalePerRow alloc];
-  v75 = objc_msgSend_initWithArguments_(v71, v72, v6, v73, v74);
+  [v2 setObject:v11 forKeyedSubscript:@"Scale"];
+  v16 = [[RAWOpcodeScalePerRow alloc] initWithArguments:v2];
 
-  return v75;
+  return v16;
 }
 
 void *sub_23386126C(void *a1)
@@ -4901,7 +4917,7 @@ void sub_23386156C(void *a1)
   JUMPOUT(0x2383ABF10);
 }
 
-void *sub_233861690(void *a1, uint64_t *a2, double *a3, int *a4, double *a5)
+void *sub_233861690(void *a1, uint64_t a2, double *a3, unsigned int *a4, double *a5)
 {
   a1[1] = 0;
   a1[2] = 0;
@@ -4918,7 +4934,7 @@ void sub_233861718(std::__shared_weak_count *a1)
   JUMPOUT(0x2383ABF10);
 }
 
-uint64_t sub_233861794(uint64_t a1, uint64_t *a2, int a3, double a4, double a5)
+uint64_t sub_233861794(uint64_t a1, uint64_t a2, int a3, double a4, double a5)
 {
   *(a1 + 16) = 0;
   *(a1 + 24) = 0;
@@ -4927,7 +4943,7 @@ uint64_t sub_233861794(uint64_t a1, uint64_t *a2, int a3, double a4, double a5)
   *(a1 + 8) = 0;
   *(a1 + 40) = 0;
   *(a1 + 48) = 0;
-  sub_2337236E0(a1 + 32, *a2, a2[1], (a2[1] - *a2) >> 3);
+  sub_2337236E0((a1 + 32), *a2, *(a2 + 8), (*(a2 + 8) - *a2) >> 3);
   *(a1 + 56) = a4;
   *(a1 + 64) = a3;
   *(a1 + 72) = a5;
@@ -5075,7 +5091,7 @@ uint64_t sub_233861C08(void *a1)
 
 void sub_233861C64(_DWORD *a1)
 {
-  v2 = sub_23378E038();
+  v2 = sub_23378E038(a1);
   v3 = v2;
   if (a1 + 1 >= 2 && os_signpost_enabled(v2))
   {
@@ -5202,7 +5218,7 @@ void sub_233861C64(_DWORD *a1)
 
 void sub_2338620D4(uint64_t a1)
 {
-  v2 = sub_23378E038();
+  v2 = sub_23378E038(a1);
   v3 = v2;
   v4 = *(a1 + 32);
   if (v4 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v2))
@@ -5214,7 +5230,7 @@ void sub_2338620D4(uint64_t a1)
 
 double sub_233862170(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42[101] = *MEMORY[0x277D85DE8];
   bzero(v42, 0x328uLL);
   v6 = 0;
   v7 = *(a1 + 40);
@@ -5469,7 +5485,7 @@ void sub_2338629A4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_2338629DC(uint64_t a1@<X0>, void *a2@<X8>)
+void sub_2338629DC(uint64_t a1@<X0>, uint64_t *a2@<X8>)
 {
   v4 = (*(*a1 + 2952))(a1);
   v22 = v4;
@@ -5532,7 +5548,7 @@ void sub_2338629DC(uint64_t a1@<X0>, void *a2@<X8>)
     }
   }
 
-  sub_233731694(a2, 4uLL);
+  sub_233731694(a2, 4uLL, &v22);
   if (v19)
   {
     v20 = v19;
@@ -5669,67 +5685,67 @@ id sub_233862EA8(uint64_t a1, unsigned int a2)
 
   else
   {
-    (*(*a1 + 160))(&v87, a1);
-    sub_2337D032C(&v87, &v94);
-    if (v88)
+    (*(*a1 + 160))(&v22, a1);
+    sub_2337D032C(&v22, &v29);
+    if (v23)
     {
-      sub_2337239E8(v88);
+      sub_2337239E8(v23);
     }
 
-    if (v94)
+    if (v29)
     {
-      (*(*v94 + 800))(v94, &v87);
-      if (v87)
+      (*(*v29 + 800))(v29, &v22);
+      if (v22)
       {
         v5 = sub_2337854A4(v3, @"PanasonicChromaticAberration", 0);
         v6 = objc_autoreleasePoolPush();
-        v10 = objc_msgSend_numberWithUnsignedChar_(MEMORY[0x277CCABB0], v7, v87, v8, v9);
-        objc_msgSend_setObject_forKeyedSubscript_(v5, v11, v10, @"ChAber_SW", v12);
+        v7 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:v22];
+        [v5 setObject:v7 forKeyedSubscript:@"ChAber_SW"];
 
-        v16 = objc_msgSend_numberWithUnsignedShort_(MEMORY[0x277CCABB0], v13, WORD1(v87), v14, v15);
-        objc_msgSend_setObject_forKeyedSubscript_(v5, v17, v16, @"CA1", v18);
+        v8 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:WORD1(v22)];
+        [v5 setObject:v8 forKeyedSubscript:@"CA1"];
 
-        v22 = objc_msgSend_numberWithUnsignedShort_(MEMORY[0x277CCABB0], v19, WORD2(v87), v20, v21);
-        objc_msgSend_setObject_forKeyedSubscript_(v5, v23, v22, @"CA2", v24);
+        v9 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:WORD2(v22)];
+        [v5 setObject:v9 forKeyedSubscript:@"CA2"];
 
-        v28 = objc_msgSend_numberWithUnsignedShort_(MEMORY[0x277CCABB0], v25, HIWORD(v87), v26, v27);
-        objc_msgSend_setObject_forKeyedSubscript_(v5, v29, v28, @"CA3", v30);
+        v10 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:HIWORD(v22)];
+        [v5 setObject:v10 forKeyedSubscript:@"CA3"];
 
-        v34 = objc_msgSend_numberWithUnsignedShort_(MEMORY[0x277CCABB0], v31, v88, v32, v33);
-        objc_msgSend_setObject_forKeyedSubscript_(v5, v35, v34, @"CA4", v36);
+        v11 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:v23];
+        [v5 setObject:v11 forKeyedSubscript:@"CA4"];
 
-        v40 = objc_msgSend_numberWithShort_(MEMORY[0x277CCABB0], v37, SWORD1(v88), v38, v39);
-        objc_msgSend_setObject_forKeyedSubscript_(v5, v41, v40, @"RG1", v42);
+        v12 = [MEMORY[0x277CCABB0] numberWithShort:SWORD1(v23)];
+        [v5 setObject:v12 forKeyedSubscript:@"RG1"];
 
-        v46 = objc_msgSend_numberWithShort_(MEMORY[0x277CCABB0], v43, SWORD2(v88), v44, v45);
-        objc_msgSend_setObject_forKeyedSubscript_(v5, v47, v46, @"RG2", v48);
+        v13 = [MEMORY[0x277CCABB0] numberWithShort:SWORD2(v23)];
+        [v5 setObject:v13 forKeyedSubscript:@"RG2"];
 
-        v52 = objc_msgSend_numberWithShort_(MEMORY[0x277CCABB0], v49, SHIWORD(v88), v50, v51);
-        objc_msgSend_setObject_forKeyedSubscript_(v5, v53, v52, @"RG3", v54);
+        v14 = [MEMORY[0x277CCABB0] numberWithShort:SHIWORD(v23)];
+        [v5 setObject:v14 forKeyedSubscript:@"RG3"];
 
-        v58 = objc_msgSend_numberWithShort_(MEMORY[0x277CCABB0], v55, v89, v56, v57);
-        objc_msgSend_setObject_forKeyedSubscript_(v5, v59, v58, @"RG4", v60);
+        v15 = [MEMORY[0x277CCABB0] numberWithShort:v24];
+        [v5 setObject:v15 forKeyedSubscript:@"RG4"];
 
-        v64 = objc_msgSend_numberWithShort_(MEMORY[0x277CCABB0], v61, v90, v62, v63);
-        objc_msgSend_setObject_forKeyedSubscript_(v5, v65, v64, @"BG1", v66);
+        v16 = [MEMORY[0x277CCABB0] numberWithShort:v25];
+        [v5 setObject:v16 forKeyedSubscript:@"BG1"];
 
-        v70 = objc_msgSend_numberWithShort_(MEMORY[0x277CCABB0], v67, v91, v68, v69);
-        objc_msgSend_setObject_forKeyedSubscript_(v5, v71, v70, @"BG2", v72);
+        v17 = [MEMORY[0x277CCABB0] numberWithShort:v26];
+        [v5 setObject:v17 forKeyedSubscript:@"BG2"];
 
-        v76 = objc_msgSend_numberWithShort_(MEMORY[0x277CCABB0], v73, v92, v74, v75);
-        objc_msgSend_setObject_forKeyedSubscript_(v5, v77, v76, @"BG3", v78);
+        v18 = [MEMORY[0x277CCABB0] numberWithShort:v27];
+        [v5 setObject:v18 forKeyedSubscript:@"BG3"];
 
-        v82 = objc_msgSend_numberWithShort_(MEMORY[0x277CCABB0], v79, v93, v80, v81);
-        objc_msgSend_setObject_forKeyedSubscript_(v5, v83, v82, @"BG4", v84);
+        v19 = [MEMORY[0x277CCABB0] numberWithShort:v28];
+        [v5 setObject:v19 forKeyedSubscript:@"BG4"];
 
         objc_autoreleasePoolPop(v6);
       }
     }
 
-    v85 = v3;
-    if (v95)
+    v20 = v3;
+    if (v30)
     {
-      sub_2337239E8(v95);
+      sub_2337239E8(v30);
     }
   }
 
@@ -5749,37 +5765,37 @@ void sub_23386321C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 id sub_233863290(uint64_t a1, void *a2)
 {
   v3 = a2;
-  if (objc_msgSend_isEqualToString_(v3, v4, @"leicaCropRect", v5, v6))
+  if ([v3 isEqualToString:@"leicaCropRect"])
   {
-    (*(*a1 + 160))(&v21, a1);
-    v23 = (*(*v21 + 448))(v21);
-    v24 = v10;
-    v14 = sub_2337D891C(&v23, v10, v11, v12, v13);
+    (*(*a1 + 160))(&v9, a1);
+    v11 = (*(*v9 + 448))(v9);
+    v12 = v4;
+    v5 = sub_2337D891C(&v11);
   }
 
   else
   {
-    if (!objc_msgSend_isEqualToString_(v3, v7, @"cropRectFromTag", v8, v9))
+    if (![v3 isEqualToString:@"cropRectFromTag"])
     {
-      v19 = sub_2338D3C20(a1, v3);
+      v7 = sub_2338D3C20(a1, v3);
       goto LABEL_8;
     }
 
-    (*(*a1 + 160))(&v21, a1);
-    v23 = (*(*v21 + 456))(v21);
-    v24 = v15;
-    v14 = sub_2337D891C(&v23, v15, v16, v17, v18);
+    (*(*a1 + 160))(&v9, a1);
+    v11 = (*(*v9 + 456))(v9);
+    v12 = v6;
+    v5 = sub_2337D891C(&v11);
   }
 
-  v19 = v14;
-  if (v22)
+  v7 = v5;
+  if (v10)
   {
-    sub_2337239E8(v22);
+    sub_2337239E8(v10);
   }
 
 LABEL_8:
 
-  return v19;
+  return v7;
 }
 
 double sub_233863430(uint64_t a1)
@@ -5806,7 +5822,7 @@ void sub_2338634E4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void *sub_233863504(uint64_t a1, int a2, int a3, char **a4, char **a5)
+void **sub_233863504(uint64_t a1, int a2, int a3, char **a4, char **a5)
 {
   *(a1 + 188) = a2;
   *(a1 + 192) = a3;
@@ -5853,69 +5869,68 @@ void sub_23386364C(void *a1)
   JUMPOUT(0x233863634);
 }
 
-void sub_233863670(uint64_t a1, uint64_t a2, int *a3, uint64_t a4, int *a5)
+void sub_233863670(uint64_t a1, uint64_t a2, int *a3, uint64_t a4, int *a5, uint64_t a6, uint64_t a7)
 {
   applejpeg_decode_create();
-  if (applejpeg_decode_open_mem() || applejpeg_decode_set_option_outformat() || applejpeg_decode_get_image_info() || a5[2] != 2 * v37 || a5[3] != 2 * v38 || applejpeg_decode_get_output_buffer_size() || 2 * a5[2] * a5[2])
+  if (applejpeg_decode_open_mem() || applejpeg_decode_set_option_outformat() || applejpeg_decode_get_image_info() || a5[2] != 2 * v27 || a5[3] != 2 * v28 || applejpeg_decode_get_output_buffer_size() || 2 * a5[2] * a5[2])
   {
-    v12 = 0;
+    v11 = 0;
   }
 
   else
   {
-    v12 = objc_msgSend_dataWithLength_(MEMORY[0x277CBEB28], v9, 0, v10, v11);
-    objc_msgSend_mutableBytes(v12, v13, v14, v15, v16);
+    v11 = [MEMORY[0x277CBEB28] dataWithLength:?];
+    [v11 mutableBytes];
     if (!applejpeg_decode_image_all())
     {
-      v39.origin.x = *a3;
-      v39.origin.y = a3[1];
-      v39.size.width = a3[2];
-      v39.size.height = a3[3];
-      v41.origin.x = *a5;
-      v41.origin.y = a5[1];
-      v41.size.width = a5[2];
-      v41.size.height = a5[3];
-      v40 = CGRectIntersection(v39, v41);
-      v17 = (v40.origin.y - a3[1]);
-      v18 = v17 + v40.size.height;
-      if (v18 > v17)
+      v29.origin.x = *a3;
+      v29.origin.y = a3[1];
+      v29.size.width = a3[2];
+      v29.size.height = a3[3];
+      v31.origin.x = *a5;
+      v31.origin.y = a5[1];
+      v31.size.width = a5[2];
+      v31.size.height = a5[3];
+      v30 = CGRectIntersection(v29, v31);
+      v12 = (v30.origin.y - a3[1]);
+      v13 = v12 + v30.size.height;
+      if (v13 > v12)
       {
-        v19 = (v40.origin.x - *a3);
-        v20 = v19 + v40.size.width;
-        v21 = v17 * a4 + 2 * v19;
-        v22 = v21 + a4 + a2 + 2;
-        v23 = 2 * a4;
-        v24 = a2 + v21;
-        v25 = v17;
+        v14 = (v30.origin.x - *a3);
+        v15 = v14 + v30.size.width;
+        v16 = v12 * a4 + 2 * v14;
+        v17 = v16 + a4 + a2 + 2;
+        v18 = 2 * a4;
+        v19 = a2 + v16;
+        v20 = v12;
         do
         {
-          v26 = v12;
-          v31 = objc_msgSend_bytes(v26, v27, v28, v29, v30);
-          if (v20 > v19)
+          v21 = [v11 bytes];
+          if (v15 > v14)
           {
-            v32 = 0;
-            v33 = v19;
+            v22 = 0;
+            v23 = v14;
             do
             {
-              v34 = *(v31 + ((2 * v32) | 4));
-              v35 = *(v31 + ((2 * v32) | 6));
-              *(v24 + v32) = *(v31 + 2 * (v32 & 0x7FFFFFFFFFFFFFFCLL));
-              v36 = (v22 + v32);
-              *(v36 - 1) = v34;
-              *v36 = v35;
-              v33 += 2;
-              v32 += 4;
+              v24 = *(v21 + ((2 * v22) | 4));
+              v25 = *(v21 + ((2 * v22) | 6));
+              *(v19 + v22) = *(v21 + 2 * (v22 & 0x7FFFFFFFFFFFFFFCLL));
+              v26 = (v17 + v22);
+              *(v26 - 1) = v24;
+              *v26 = v25;
+              v23 += 2;
+              v22 += 4;
             }
 
-            while (v33 < v20);
+            while (v23 < v15);
           }
 
-          v25 += 2;
-          v22 += v23;
-          v24 += v23;
+          v20 += 2;
+          v17 += v18;
+          v19 += v18;
         }
 
-        while (v25 < v18);
+        while (v20 < v13);
       }
     }
   }
@@ -5997,7 +6012,7 @@ void sub_233863908(uint64_t a1)
       if (v11)
       {
         v12 = v11;
-        sub_233863670(v11, v15 + 2 * v8 * v3 + 2 * v9, &v16, 2 * v3, &v16);
+        sub_233863670(v11, v15 + 2 * v8 * v3 + 2 * v9, &v16, 2 * v3, &v16, v11, *(*(a1 + 224) + v7));
         free(v12);
       }
 
@@ -6104,7 +6119,7 @@ void sub_233863BB0(uint64_t a1, uint64_t a2, int *a3, uint64_t a4)
         if (v14)
         {
           v15 = v14;
-          sub_233863670(v14, a2, a3, a4, &v19);
+          sub_233863670(v14, a2, a3, a4, &v19, v14, *(*(a1 + 224) + v10));
           free(v15);
         }
       }
@@ -6179,41 +6194,41 @@ void sub_233863EC0(void *a1)
   JUMPOUT(0x2383ABF10);
 }
 
-id sub_2338641B0(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5)
+id sub_2338641B0()
 {
-  v43[1] = *MEMORY[0x277D85DE8];
-  v5 = *MEMORY[0x277CD3720];
-  v34 = *MEMORY[0x277CD3700];
-  v35 = v5;
-  v42[0] = MEMORY[0x277CBEC38];
-  v42[1] = @"com.samsung.raw-image";
-  v6 = *MEMORY[0x277CD3718];
-  v36 = *MEMORY[0x277CD36E0];
-  v42[2] = @".srw.";
-  v42[3] = &unk_284957FD0;
-  v42[4] = &unk_284957FE8;
-  v7 = objc_msgSend_numberWithUnsignedLong_(MEMORY[0x277CCABB0], a2, sub_2338644A8, a4, a5, v34, v35, v36, v6, *MEMORY[0x277CD3708], *MEMORY[0x277CD3710]);
-  v42[5] = v7;
-  v37 = *MEMORY[0x277CD36C8];
-  v11 = objc_msgSend_numberWithUnsignedLong_(MEMORY[0x277CCABB0], v8, sub_2338644F4, v9, v10);
-  v42[6] = v11;
-  v38 = *MEMORY[0x277CD36E8];
-  v15 = objc_msgSend_numberWithUnsignedLong_(MEMORY[0x277CCABB0], v12, sub_233864500, v13, v14);
-  v42[7] = v15;
-  v39 = *MEMORY[0x277CD36D0];
-  v19 = objc_msgSend_numberWithUnsignedLong_(MEMORY[0x277CCABB0], v16, sub_23378BC54, v17, v18);
-  v42[8] = v19;
-  v40 = *MEMORY[0x277CD36F0];
-  v23 = objc_msgSend_numberWithUnsignedLong_(MEMORY[0x277CCABB0], v20, sub_23386450C, v21, v22);
-  v42[9] = v23;
-  v41 = *MEMORY[0x277CD36F8];
-  v27 = objc_msgSend_numberWithUnsignedLong_(MEMORY[0x277CCABB0], v24, sub_233864518, v25, v26);
-  v42[10] = v27;
-  v29 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v28, v42, &v34, 11);
-  v43[0] = v29;
-  v32 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v30, v43, 1, v31);
+  v20[1] = *MEMORY[0x277D85DE8];
+  v0 = *MEMORY[0x277CD3720];
+  v11 = *MEMORY[0x277CD3700];
+  v12 = v0;
+  v19[0] = MEMORY[0x277CBEC38];
+  v19[1] = @"com.samsung.raw-image";
+  v1 = *MEMORY[0x277CD3718];
+  v13 = *MEMORY[0x277CD36E0];
+  v19[2] = @".srw.";
+  v19[3] = &unk_284957FD0;
+  v19[4] = &unk_284957FE8;
+  v2 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:{sub_2338644A8, v11, v12, v13, v1, *MEMORY[0x277CD3708], *MEMORY[0x277CD3710]}];
+  v19[5] = v2;
+  v14 = *MEMORY[0x277CD36C8];
+  v3 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:sub_2338644F4];
+  v19[6] = v3;
+  v15 = *MEMORY[0x277CD36E8];
+  v4 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:sub_233864500];
+  v19[7] = v4;
+  v16 = *MEMORY[0x277CD36D0];
+  v5 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:sub_23378BC54];
+  v19[8] = v5;
+  v17 = *MEMORY[0x277CD36F0];
+  v6 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:sub_23386450C];
+  v19[9] = v6;
+  v18 = *MEMORY[0x277CD36F8];
+  v7 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:sub_233864518];
+  v19[10] = v7;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:&v11 count:11];
+  v20[0] = v8;
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:1];
 
-  return v32;
+  return v9;
 }
 
 uint64_t sub_2338644A8(unsigned __int8 *a1, unint64_t a2, void *a3)
@@ -6228,10 +6243,10 @@ uint64_t sub_2338644A8(unsigned __int8 *a1, unint64_t a2, void *a3)
   return result;
 }
 
-void sub_233864524(uint64_t a1, uint64_t a2, uint64_t a3, void *a4, void *a5)
+void sub_233864524(void x0_0, uint64_t a1, char a2, void *a3, void *a4)
 {
+  a3;
   a4;
-  a5;
   sub_233865B50();
 }
 
@@ -6473,7 +6488,7 @@ void sub_233864700(uint64_t a1, uint64_t a2, unsigned __int16 *a3)
       v24 = *(a1 + 1184);
       do
       {
-        *(v21 + 4 * v23) -= *(v24 + 4 * (v23 % v22));
+        v21[v23] -= *(v24 + 4 * (v23 % v22));
         ++v23;
       }
 
@@ -6485,7 +6500,7 @@ void sub_233864700(uint64_t a1, uint64_t a2, unsigned __int16 *a3)
     v42 = 0;
     sub_233865A78(v41, v21, v20, v22);
     v40[0] = &__dst;
-    v25 = sub_233757B14(a1 + 264, &__dst.__r_.__value_.__l.__data_);
+    v25 = sub_233757B14((a1 + 264), &__dst, &unk_233905F1C, v40, &p_dst);
     v26 = v25[7];
     if (v26)
     {
@@ -6592,14 +6607,14 @@ LABEL_72:
   }
 
   p_dst = &__dst;
-  v34 = (sub_2337577E4(a1 + 120, &__dst.__r_.__value_.__l.__data_) + 56);
+  v34 = (sub_2337577E4((a1 + 120), &__dst, &unk_233905F1C, &p_dst, &v37) + 7);
   if (v34 != &v43)
   {
     sub_233723454(v34, v43, v44, (v44 - v43) >> 2);
   }
 
   p_dst = &__p;
-  v35 = (sub_2337577E4(a1 + 120, &__p.__r_.__value_.__l.__data_) + 56);
+  v35 = (sub_2337577E4((a1 + 120), &__p, &unk_233905F1C, &p_dst, &v37) + 7);
   if (v35 != v41)
   {
     sub_233723454(v35, v41[0], v41[1], (v41[1] - v41[0]) >> 2);
@@ -6885,26 +6900,25 @@ uint64_t sub_233865550(void *a1)
   return sub_23373279C(a1);
 }
 
-uint64_t sub_2338655CC@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
+void sub_2338655CC(uint64_t a1@<X0>, void *a4@<X8>)
 {
-  result = (*(*a1 + 536))(a1);
-  if (result == 32769)
+  v6 = (*(*a1 + 536))(a1);
+  if (v6 == 32769)
   {
-    (*(*a1 + 384))(&v5, a1);
+    (*(*a1 + 384))(&v7, a1);
     (*(*a1 + 424))(a1);
     sub_23376419C();
   }
 
-  if (result == 32770)
+  if (v6 == 32770)
   {
-    (*(*a1 + 384))(&v5, a1);
+    (*(*a1 + 384))(&v7, a1);
     (*(*a1 + 424))(a1);
     sub_2337646DC();
   }
 
-  *a2 = 0;
-  a2[1] = 0;
-  return result;
+  *a4 = 0;
+  a4[1] = 0;
 }
 
 void sub_2338657B0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, std::__shared_weak_count *a14)
@@ -6917,11 +6931,11 @@ void sub_2338657B0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_2338657DC(uint64_t a1@<X0>, void *a2@<X8>)
+void sub_2338657DC(uint64_t a1@<X0>, uint64_t a2@<X8>)
 {
   *a2 = 0;
-  a2[1] = 0;
-  a2[2] = 0;
+  *(a2 + 8) = 0;
+  *(a2 + 16) = 0;
   sub_23372A488(&__p, "srw");
   sub_233735478(a2, &__p);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
@@ -6957,26 +6971,26 @@ void sub_233865890(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 id sub_2338658D0()
 {
-  v17[5] = *MEMORY[0x277D85DE8];
+  v6[5] = *MEMORY[0x277D85DE8];
   v0 = sub_23374CF00();
-  v5 = objc_msgSend_mutableCopy(v0, v1, v2, v3, v4);
+  v1 = [v0 mutableCopy];
 
-  v16[0] = &unk_284958000;
-  v16[1] = &unk_284958030;
-  v17[0] = &unk_28495D9D8;
-  v17[1] = &unk_28495DA00;
-  v16[2] = &unk_284958048;
-  v16[3] = &unk_284958060;
-  v17[2] = &unk_28495DA28;
-  v17[3] = &unk_28495DA50;
-  v16[4] = &unk_284958078;
-  v17[4] = &unk_28495DA78;
-  v7 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v6, v17, v16, 5);
-  objc_msgSend_addEntriesFromDictionary_(v5, v8, v7, v9, v10);
+  v5[0] = &unk_284958000;
+  v5[1] = &unk_284958030;
+  v6[0] = &unk_28495D9D8;
+  v6[1] = &unk_28495DA00;
+  v5[2] = &unk_284958048;
+  v5[3] = &unk_284958060;
+  v6[2] = &unk_28495DA28;
+  v6[3] = &unk_28495DA50;
+  v5[4] = &unk_284958078;
+  v6[4] = &unk_28495DA78;
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:v5 count:5];
+  [v1 addEntriesFromDictionary:v2];
 
-  v14 = objc_msgSend_dictionaryWithDictionary_(MEMORY[0x277CBEAC0], v11, v5, v12, v13);
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithDictionary:v1];
 
-  return v14;
+  return v3;
 }
 
 void sub_233865A04(_Unwind_Exception *a1)
@@ -6993,7 +7007,7 @@ void sub_233865A40(void *a1)
   JUMPOUT(0x2383ABF10);
 }
 
-uint64_t sub_233865A78(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *sub_233865A78(uint64_t *result, int *a2, int *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -7052,26 +7066,26 @@ void sub_233865CA4(std::__shared_weak_count *a1)
 id sub_233865D20(uint64_t a1, void *a2)
 {
   v3 = a2;
-  if (objc_msgSend_isEqualToString_(v3, v4, @"isSonySRFCompressedRaw", v5, v6))
+  if ([v3 isEqualToString:@"isSonySRFCompressedRaw"])
   {
-    v7 = sub_233865DBC(a1);
-    v8 = MEMORY[0x277CBEC28];
-    if (v7)
+    v4 = sub_233865DBC(a1);
+    v5 = MEMORY[0x277CBEC28];
+    if (v4)
     {
-      v8 = MEMORY[0x277CBEC38];
+      v5 = MEMORY[0x277CBEC38];
     }
 
-    v9 = v8;
+    v6 = v5;
   }
 
   else
   {
-    v9 = sub_2338D3C20(a1, v3);
+    v6 = sub_2338D3C20(a1, v3);
   }
 
-  v10 = v9;
+  v7 = v6;
 
-  return v10;
+  return v7;
 }
 
 BOOL sub_233865DBC(uint64_t a1)
@@ -7176,7 +7190,7 @@ void sub_233866054(uint64_t a1@<X0>, void **a2@<X8>)
         operator delete(__p);
       }
 
-      v8 = v6 - v7;
+      v8 = &v6[-v7];
       if (v18)
       {
         sub_2337239E8(v18);
@@ -7459,7 +7473,7 @@ BOOL sub_233866948(uint64_t a1)
   return v2 != v1;
 }
 
-void sub_2338669B8(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
+void sub_2338669B8(uint64_t *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
   *(a3 + 480) = 0u;
   *(a3 + 496) = 0u;
@@ -7595,12 +7609,12 @@ id sub_233866CB4(uint64_t a1, unsigned int a2)
 
   else
   {
-    (*(*a1 + 2824))(&v247, a1);
-    v9 = v247;
-    v10 = v248 - v247;
-    if (v248 == v247)
+    (*(*a1 + 2824))(&v82, a1);
+    v9 = v82;
+    v10 = v83 - v82;
+    if (v83 == v82)
     {
-      v231 = v3;
+      v66 = v3;
     }
 
     else
@@ -7612,27 +7626,27 @@ id sub_233866CB4(uint64_t a1, unsigned int a2)
         __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
       }
 
-      v12 = *v247;
+      v12 = *v82;
       v13 = (v11 - 4) >> 1;
       if (v12 - 9 < 0xFFFFFFFFFFFFFFF8 || v13 < v12)
       {
-        v234 = __cxa_allocate_exception(0x10uLL);
-        MEMORY[0x2383ABCE0](v234, "RawCameraException");
-        __cxa_throw(v234, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+        v69 = __cxa_allocate_exception(0x10uLL);
+        MEMORY[0x2383ABCE0](v69, "RawCameraException");
+        __cxa_throw(v69, MEMORY[0x277D82760], MEMORY[0x277D82600]);
       }
 
-      v15 = v247[2 * v12 + 1];
+      v15 = v82[2 * v12 + 1];
       if (v15 - 9 < 0xFFFFFFFFFFFFFFF8 || v13 < v15)
       {
-        v235 = __cxa_allocate_exception(0x10uLL);
-        MEMORY[0x2383ABCE0](v235, "RawCameraException");
-        __cxa_throw(v235, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+        v70 = __cxa_allocate_exception(0x10uLL);
+        MEMORY[0x2383ABCE0](v70, "RawCameraException");
+        __cxa_throw(v70, MEMORY[0x277D82760], MEMORY[0x277D82600]);
       }
 
-      v17 = &v247[2 * v12];
-      v18 = v244;
-      v19 = v247 + 2;
-      v20 = *v247;
+      v17 = &v82[2 * v12];
+      v18 = v79;
+      v19 = v82 + 2;
+      v20 = *v82;
       do
       {
         *(v18 - 8) = *(v19 - 1);
@@ -7648,121 +7662,121 @@ id sub_233866CB4(uint64_t a1, unsigned int a2)
       v24 = vmovn_s64(vcvtq_s64_f64(*(v21 + 5)));
       v25 = vmovn_s64(vcvtq_s64_f64(*(v21 + 3)));
       *v22.i8 = vmovn_s64(vcvtq_s64_f64(*(v21 + 1)));
-      v245 = vqtbl4q_s8(*(&v5 - 3), xmmword_23390A3A0);
+      v80 = vqtbl4q_s8(*(&v5 - 3), xmmword_23390A3A0);
       v26 = &v17[v12];
       v27 = vcvtq_s64_f64(v26[4]);
       v28 = vmovn_s64(v27);
       v29 = vmovn_s64(vcvtq_s64_f64(v26[3]));
       v30 = vmovn_s64(vcvtq_s64_f64(v26[2]));
       *v27.i8 = vmovn_s64(vcvtq_s64_f64(v26[1]));
-      v246 = vqtbl4q_s8(*(&v6 - 3), xmmword_23390A3A0);
+      v81 = vqtbl4q_s8(*(&v6 - 3), xmmword_23390A3A0);
       v31 = sub_2337854A4(v3, @"PanasonicChromaticAberrationExtended", 0);
-      v35 = objc_msgSend_numberWithUnsignedChar_(MEMORY[0x277CCABB0], v32, 1, v33, v34);
-      objc_msgSend_setObject_forKeyedSubscript_(v31, v36, v35, @"ChAber_SW_Extended", v37);
+      v32 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:1];
+      [v31 setObject:v32 forKeyedSubscript:@"ChAber_SW_Extended"];
 
-      v41 = objc_msgSend_numberWithUnsignedShort_(MEMORY[0x277CCABB0], v38, v236, v39, v40);
-      objc_msgSend_setObject_forKeyedSubscript_(v31, v42, v41, @"CA_blu0", v43);
+      v33 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:v71];
+      [v31 setObject:v33 forKeyedSubscript:@"CA_blu0"];
 
-      v47 = objc_msgSend_numberWithUnsignedShort_(MEMORY[0x277CCABB0], v44, v237, v45, v46);
-      objc_msgSend_setObject_forKeyedSubscript_(v31, v48, v47, @"CA_blu1", v49);
+      v34 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:v72];
+      [v31 setObject:v34 forKeyedSubscript:@"CA_blu1"];
 
-      v53 = objc_msgSend_numberWithUnsignedShort_(MEMORY[0x277CCABB0], v50, v238, v51, v52);
-      objc_msgSend_setObject_forKeyedSubscript_(v31, v54, v53, @"CA_blu2", v55);
+      v35 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:v73];
+      [v31 setObject:v35 forKeyedSubscript:@"CA_blu2"];
 
-      v59 = objc_msgSend_numberWithUnsignedShort_(MEMORY[0x277CCABB0], v56, v239, v57, v58);
-      objc_msgSend_setObject_forKeyedSubscript_(v31, v60, v59, @"CA_blu3", v61);
+      v36 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:v74];
+      [v31 setObject:v36 forKeyedSubscript:@"CA_blu3"];
 
-      v65 = objc_msgSend_numberWithUnsignedShort_(MEMORY[0x277CCABB0], v62, v240, v63, v64);
-      objc_msgSend_setObject_forKeyedSubscript_(v31, v66, v65, @"CA_blu4", v67);
+      v37 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:v75];
+      [v31 setObject:v37 forKeyedSubscript:@"CA_blu4"];
 
-      v71 = objc_msgSend_numberWithUnsignedShort_(MEMORY[0x277CCABB0], v68, v241, v69, v70);
-      objc_msgSend_setObject_forKeyedSubscript_(v31, v72, v71, @"CA_blu5", v73);
+      v38 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:v76];
+      [v31 setObject:v38 forKeyedSubscript:@"CA_blu5"];
 
-      v77 = objc_msgSend_numberWithUnsignedShort_(MEMORY[0x277CCABB0], v74, v242, v75, v76);
-      objc_msgSend_setObject_forKeyedSubscript_(v31, v78, v77, @"CA_blu6", v79);
+      v39 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:v77];
+      [v31 setObject:v39 forKeyedSubscript:@"CA_blu6"];
 
-      v83 = objc_msgSend_numberWithUnsignedShort_(MEMORY[0x277CCABB0], v80, v243, v81, v82);
-      objc_msgSend_setObject_forKeyedSubscript_(v31, v84, v83, @"CA_blu7", v85);
+      v40 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:v78];
+      [v31 setObject:v40 forKeyedSubscript:@"CA_blu7"];
 
-      v89 = objc_msgSend_numberWithUnsignedShort_(MEMORY[0x277CCABB0], v86, v244[0], v87, v88);
-      objc_msgSend_setObject_forKeyedSubscript_(v31, v90, v89, @"CA_red0", v91);
+      v41 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:v79[0]];
+      [v31 setObject:v41 forKeyedSubscript:@"CA_red0"];
 
-      v95 = objc_msgSend_numberWithUnsignedShort_(MEMORY[0x277CCABB0], v92, v244[1], v93, v94);
-      objc_msgSend_setObject_forKeyedSubscript_(v31, v96, v95, @"CA_red1", v97);
+      v42 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:v79[1]];
+      [v31 setObject:v42 forKeyedSubscript:@"CA_red1"];
 
-      v101 = objc_msgSend_numberWithUnsignedShort_(MEMORY[0x277CCABB0], v98, v244[2], v99, v100);
-      objc_msgSend_setObject_forKeyedSubscript_(v31, v102, v101, @"CA_red2", v103);
+      v43 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:v79[2]];
+      [v31 setObject:v43 forKeyedSubscript:@"CA_red2"];
 
-      v107 = objc_msgSend_numberWithUnsignedShort_(MEMORY[0x277CCABB0], v104, v244[3], v105, v106);
-      objc_msgSend_setObject_forKeyedSubscript_(v31, v108, v107, @"CA_red3", v109);
+      v44 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:v79[3]];
+      [v31 setObject:v44 forKeyedSubscript:@"CA_red3"];
 
-      v113 = objc_msgSend_numberWithUnsignedShort_(MEMORY[0x277CCABB0], v110, v244[4], v111, v112);
-      objc_msgSend_setObject_forKeyedSubscript_(v31, v114, v113, @"CA_red4", v115);
+      v45 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:v79[4]];
+      [v31 setObject:v45 forKeyedSubscript:@"CA_red4"];
 
-      v119 = objc_msgSend_numberWithUnsignedShort_(MEMORY[0x277CCABB0], v116, v244[5], v117, v118);
-      objc_msgSend_setObject_forKeyedSubscript_(v31, v120, v119, @"CA_red5", v121);
+      v46 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:v79[5]];
+      [v31 setObject:v46 forKeyedSubscript:@"CA_red5"];
 
-      v125 = objc_msgSend_numberWithUnsignedShort_(MEMORY[0x277CCABB0], v122, v244[6], v123, v124);
-      objc_msgSend_setObject_forKeyedSubscript_(v31, v126, v125, @"CA_red6", v127);
+      v47 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:v79[6]];
+      [v31 setObject:v47 forKeyedSubscript:@"CA_red6"];
 
-      v131 = objc_msgSend_numberWithUnsignedShort_(MEMORY[0x277CCABB0], v128, v244[7], v129, v130);
-      objc_msgSend_setObject_forKeyedSubscript_(v31, v132, v131, @"CA_red7", v133);
+      v48 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:v79[7]];
+      [v31 setObject:v48 forKeyedSubscript:@"CA_red7"];
 
-      v137 = objc_msgSend_numberWithShort_(MEMORY[0x277CCABB0], v134, v245.i16[0], v135, v136);
-      objc_msgSend_setObject_forKeyedSubscript_(v31, v138, v137, @"BG0", v139);
+      v49 = [MEMORY[0x277CCABB0] numberWithShort:v80.i16[0]];
+      [v31 setObject:v49 forKeyedSubscript:@"BG0"];
 
-      v143 = objc_msgSend_numberWithShort_(MEMORY[0x277CCABB0], v140, v245.i16[1], v141, v142);
-      objc_msgSend_setObject_forKeyedSubscript_(v31, v144, v143, @"BG1", v145);
+      v50 = [MEMORY[0x277CCABB0] numberWithShort:v80.i16[1]];
+      [v31 setObject:v50 forKeyedSubscript:@"BG1"];
 
-      v149 = objc_msgSend_numberWithShort_(MEMORY[0x277CCABB0], v146, v245.i16[2], v147, v148);
-      objc_msgSend_setObject_forKeyedSubscript_(v31, v150, v149, @"BG2", v151);
+      v51 = [MEMORY[0x277CCABB0] numberWithShort:v80.i16[2]];
+      [v31 setObject:v51 forKeyedSubscript:@"BG2"];
 
-      v155 = objc_msgSend_numberWithShort_(MEMORY[0x277CCABB0], v152, v245.i16[3], v153, v154);
-      objc_msgSend_setObject_forKeyedSubscript_(v31, v156, v155, @"BG3", v157);
+      v52 = [MEMORY[0x277CCABB0] numberWithShort:v80.i16[3]];
+      [v31 setObject:v52 forKeyedSubscript:@"BG3"];
 
-      v161 = objc_msgSend_numberWithShort_(MEMORY[0x277CCABB0], v158, v245.i16[4], v159, v160);
-      objc_msgSend_setObject_forKeyedSubscript_(v31, v162, v161, @"BG4", v163);
+      v53 = [MEMORY[0x277CCABB0] numberWithShort:v80.i16[4]];
+      [v31 setObject:v53 forKeyedSubscript:@"BG4"];
 
-      v167 = objc_msgSend_numberWithShort_(MEMORY[0x277CCABB0], v164, v245.i16[5], v165, v166);
-      objc_msgSend_setObject_forKeyedSubscript_(v31, v168, v167, @"BG5", v169);
+      v54 = [MEMORY[0x277CCABB0] numberWithShort:v80.i16[5]];
+      [v31 setObject:v54 forKeyedSubscript:@"BG5"];
 
-      v173 = objc_msgSend_numberWithShort_(MEMORY[0x277CCABB0], v170, v245.i16[6], v171, v172);
-      objc_msgSend_setObject_forKeyedSubscript_(v31, v174, v173, @"BG6", v175);
+      v55 = [MEMORY[0x277CCABB0] numberWithShort:v80.i16[6]];
+      [v31 setObject:v55 forKeyedSubscript:@"BG6"];
 
-      v179 = objc_msgSend_numberWithShort_(MEMORY[0x277CCABB0], v176, v245.i16[7], v177, v178);
-      objc_msgSend_setObject_forKeyedSubscript_(v31, v180, v179, @"BG7", v181);
+      v56 = [MEMORY[0x277CCABB0] numberWithShort:v80.i16[7]];
+      [v31 setObject:v56 forKeyedSubscript:@"BG7"];
 
-      v185 = objc_msgSend_numberWithShort_(MEMORY[0x277CCABB0], v182, v246.i16[0], v183, v184);
-      objc_msgSend_setObject_forKeyedSubscript_(v31, v186, v185, @"RG0", v187);
+      v57 = [MEMORY[0x277CCABB0] numberWithShort:v81.i16[0]];
+      [v31 setObject:v57 forKeyedSubscript:@"RG0"];
 
-      v191 = objc_msgSend_numberWithShort_(MEMORY[0x277CCABB0], v188, v246.i16[1], v189, v190);
-      objc_msgSend_setObject_forKeyedSubscript_(v31, v192, v191, @"RG1", v193);
+      v58 = [MEMORY[0x277CCABB0] numberWithShort:v81.i16[1]];
+      [v31 setObject:v58 forKeyedSubscript:@"RG1"];
 
-      v197 = objc_msgSend_numberWithShort_(MEMORY[0x277CCABB0], v194, v246.i16[2], v195, v196);
-      objc_msgSend_setObject_forKeyedSubscript_(v31, v198, v197, @"RG2", v199);
+      v59 = [MEMORY[0x277CCABB0] numberWithShort:v81.i16[2]];
+      [v31 setObject:v59 forKeyedSubscript:@"RG2"];
 
-      v203 = objc_msgSend_numberWithShort_(MEMORY[0x277CCABB0], v200, v246.i16[3], v201, v202);
-      objc_msgSend_setObject_forKeyedSubscript_(v31, v204, v203, @"RG3", v205);
+      v60 = [MEMORY[0x277CCABB0] numberWithShort:v81.i16[3]];
+      [v31 setObject:v60 forKeyedSubscript:@"RG3"];
 
-      v209 = objc_msgSend_numberWithShort_(MEMORY[0x277CCABB0], v206, v246.i16[4], v207, v208);
-      objc_msgSend_setObject_forKeyedSubscript_(v31, v210, v209, @"RG4", v211);
+      v61 = [MEMORY[0x277CCABB0] numberWithShort:v81.i16[4]];
+      [v31 setObject:v61 forKeyedSubscript:@"RG4"];
 
-      v215 = objc_msgSend_numberWithShort_(MEMORY[0x277CCABB0], v212, v246.i16[5], v213, v214);
-      objc_msgSend_setObject_forKeyedSubscript_(v31, v216, v215, @"RG5", v217);
+      v62 = [MEMORY[0x277CCABB0] numberWithShort:v81.i16[5]];
+      [v31 setObject:v62 forKeyedSubscript:@"RG5"];
 
-      v221 = objc_msgSend_numberWithShort_(MEMORY[0x277CCABB0], v218, v246.i16[6], v219, v220);
-      objc_msgSend_setObject_forKeyedSubscript_(v31, v222, v221, @"RG6", v223);
+      v63 = [MEMORY[0x277CCABB0] numberWithShort:v81.i16[6]];
+      [v31 setObject:v63 forKeyedSubscript:@"RG6"];
 
-      v227 = objc_msgSend_numberWithShort_(MEMORY[0x277CCABB0], v224, v246.i16[7], v225, v226);
-      objc_msgSend_setObject_forKeyedSubscript_(v31, v228, v227, @"RG7", v229);
+      v64 = [MEMORY[0x277CCABB0] numberWithShort:v81.i16[7]];
+      [v31 setObject:v64 forKeyedSubscript:@"RG7"];
 
-      v230 = v3;
+      v65 = v3;
     }
 
-    if (v247)
+    if (v82)
     {
-      v248 = v247;
-      operator delete(v247);
+      v83 = v82;
+      operator delete(v82);
     }
   }
 
@@ -7829,7 +7843,7 @@ void sub_233867770(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_233867790(uint64_t a1@<X0>, void *a2@<X8>)
+void sub_233867790(uint64_t a1@<X0>, uint64_t *a2@<X8>)
 {
   (*(*a1 + 72))(&v6);
   v4 = v6;
@@ -7858,7 +7872,7 @@ void sub_23386785C(void *a1@<X8>)
   a1[2] = 0;
 }
 
-void sub_233867868(uint64_t a1@<X0>, void *a2@<X8>)
+void sub_233867868(uint64_t a1@<X0>, uint64_t *a2@<X8>)
 {
   (*(*a1 + 72))(&v6);
   v4 = v6;
@@ -7909,21 +7923,21 @@ void sub_233867A68(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t *sub_233867A98(uint64_t *a1, void *a2)
+void **sub_233867A98(void **a1, void *a2)
 {
   v3 = a2;
   *a1 = 0;
   a1[1] = 0;
-  v7 = objc_msgSend_dataWithContentsOfFile_(MEMORY[0x277CBEA90], v4, v3, v5, v6);
-  v8 = *a1;
-  *a1 = v7;
+  v4 = [MEMORY[0x277CBEA90] dataWithContentsOfFile:v3];
+  v5 = *a1;
+  *a1 = v4;
 
-  v9 = MEMORY[0x277CE1CB8];
-  v14 = objc_msgSend_pathExtension(v3, v10, v11, v12, v13);
-  v18 = objc_msgSend_typeWithFilenameExtension_(v9, v15, v14, v16, v17);
-  v23 = objc_msgSend_identifier(v18, v19, v20, v21, v22);
-  v24 = a1[1];
-  a1[1] = v23;
+  v6 = MEMORY[0x277CE1CB8];
+  v7 = [v3 pathExtension];
+  v8 = [v6 typeWithFilenameExtension:v7];
+  v9 = [v8 identifier];
+  v10 = a1[1];
+  a1[1] = v9;
 
   return a1;
 }
@@ -7937,400 +7951,400 @@ void sub_233867B3C(_Unwind_Exception *a1)
 
 void sub_233867B78(float a1, uint64_t a2, void *a3, void *a4)
 {
-  v13 = a3;
+  v8 = a3;
   v6 = a4;
-  v10 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v7, @"%af\t// %g", v8, v9, a1, a1);
-  objc_msgSend_setValue_forKey_(v13, v11, v10, v6, v12);
+  v7 = [MEMORY[0x277CCACA8] stringWithFormat:@"%af\t// %g", a1, a1];
+  [v8 setValue:v7 forKey:v6];
 }
 
 void sub_233867C38(uint64_t a1, void *a2, void *a3, uint64_t a4, int a5)
 {
-  v20 = a2;
-  v11 = a3;
+  v12 = a2;
+  v8 = a3;
   if (a5)
   {
-    v12 = 0;
+    v9 = 0;
     do
     {
-      v13 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v8, @"%af\t// %g", v9, v10, *(a4 + 4 * v12), *(a4 + 4 * v12));
-      v17 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v14, @"%@[%d]", v15, v16, v11, v12);
-      objc_msgSend_setValue_forKey_(v20, v18, v13, v17, v19);
+      v10 = [MEMORY[0x277CCACA8] stringWithFormat:@"%af\t// %g", *(a4 + 4 * v9), *(a4 + 4 * v9)];
+      v11 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@[%d]", v8, v9];
+      [v12 setValue:v10 forKey:v11];
 
-      ++v12;
+      ++v9;
     }
 
-    while (a5 != v12);
+    while (a5 != v9);
   }
 }
 
 void sub_233867D5C(uint64_t a1, void *a2, uint64_t a3)
 {
-  v17 = a2;
-  sub_233867B78(*a3, v17, v17, @"otrc.s0");
-  sub_233867B78(*(a3 + 4), v4, v17, @"otrc.y1");
-  sub_233867B78(*(a3 + 8), v5, v17, @"otrc.s1");
-  sub_233867B78(*(a3 + 12), v6, v17, @"otrc.y2");
-  sub_233867B78(*(a3 + 16), v7, v17, @"otrc.s2");
-  sub_233867B78(*(a3 + 20), v8, v17, @"otrc.y3");
-  sub_233867B78(*(a3 + 24), v9, v17, @"otrc.s3");
-  sub_233867B78(*(a3 + 28), v10, v17, @"otrc.s4");
-  v14 = objc_msgSend_numberWithBool_(MEMORY[0x277CCABB0], v11, *(a3 + 32), v12, v13);
-  objc_msgSend_setObject_forKeyedSubscript_(v17, v15, v14, @"otrc.disabled", v16);
+  v12 = a2;
+  sub_233867B78(*a3, v12, v12, @"otrc.s0");
+  sub_233867B78(*(a3 + 4), v4, v12, @"otrc.y1");
+  sub_233867B78(*(a3 + 8), v5, v12, @"otrc.s1");
+  sub_233867B78(*(a3 + 12), v6, v12, @"otrc.y2");
+  sub_233867B78(*(a3 + 16), v7, v12, @"otrc.s2");
+  sub_233867B78(*(a3 + 20), v8, v12, @"otrc.y3");
+  sub_233867B78(*(a3 + 24), v9, v12, @"otrc.s3");
+  sub_233867B78(*(a3 + 28), v10, v12, @"otrc.s4");
+  v11 = [MEMORY[0x277CCABB0] numberWithBool:*(a3 + 32)];
+  [v12 setObject:v11 forKeyedSubscript:@"otrc.disabled"];
 }
 
 id sub_233867E90(uint64_t a1, uint64_t *a2)
 {
-  memset(v535, 0, 96);
-  v534 = 0u;
-  v532 = 0u;
-  memset(v533, 0, sizeof(v533));
-  v530 = 0u;
-  v531 = 0u;
-  v528 = 0u;
-  v529 = 0u;
-  v526 = 0u;
-  v527 = 0u;
-  v524 = 0u;
-  v525 = 0u;
-  v522 = 0u;
-  v523 = 0u;
-  v520 = 0u;
-  v521 = 0u;
+  memset(v191, 0, 96);
+  v190 = 0u;
+  v188 = 0u;
+  memset(v189, 0, sizeof(v189));
+  v186 = 0u;
+  v187 = 0u;
+  v184 = 0u;
+  v185 = 0u;
+  v182 = 0u;
+  v183 = 0u;
+  v180 = 0u;
+  v181 = 0u;
+  v178 = 0u;
+  v179 = 0u;
+  v176 = 0u;
+  v177 = 0u;
   v2 = *a2;
   v3 = sub_233739B84(*a2);
-  (*(*v2 + 2696))(&v520, v2, v3);
-  v8 = objc_msgSend_dictionary(MEMORY[0x277CBEB38], v4, v5, v6, v7);
-  v12 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v9, @"%#x", v10, v11, v520);
-  objc_msgSend_setObject_forKeyedSubscript_(v8, v13, v12, @"pattern", v14);
+  (*(*v2 + 2696))(&v176, v2, v3);
+  v4 = [MEMORY[0x277CBEB38] dictionary];
+  v5 = [MEMORY[0x277CCACA8] stringWithFormat:@"%#x", v176];
+  [v4 setObject:v5 forKeyedSubscript:@"pattern"];
 
-  v18 = objc_msgSend_numberWithInt_(MEMORY[0x277CCABB0], v15, DWORD1(v520), v16, v17);
-  objc_msgSend_setObject_forKeyedSubscript_(v8, v19, v18, @"bitmapType", v20);
+  v6 = [MEMORY[0x277CCABB0] numberWithInt:DWORD1(v176)];
+  [v4 setObject:v6 forKeyedSubscript:@"bitmapType"];
 
-  v24 = objc_msgSend_numberWithBool_(MEMORY[0x277CCABB0], v21, BYTE8(v520), v22, v23);
-  objc_msgSend_setObject_forKeyedSubscript_(v8, v25, v24, @"despeckleBlackNoiseEnabled", v26);
+  v7 = [MEMORY[0x277CCABB0] numberWithBool:BYTE8(v176)];
+  [v4 setObject:v7 forKeyedSubscript:@"despeckleBlackNoiseEnabled"];
 
-  v30 = objc_msgSend_numberWithBool_(MEMORY[0x277CCABB0], v27, BYTE9(v520), v28, v29);
-  objc_msgSend_setObject_forKeyedSubscript_(v8, v31, v30, @"blackLevelExtendEnabled", v32);
+  v8 = [MEMORY[0x277CCABB0] numberWithBool:BYTE9(v176)];
+  [v4 setObject:v8 forKeyedSubscript:@"blackLevelExtendEnabled"];
 
-  sub_233867B78(*(&v520 + 3), v33, v8, @"blackDespeckleNoiseFactor");
-  v37 = objc_msgSend_numberWithBool_(MEMORY[0x277CCABB0], v34, v521, v35, v36);
-  objc_msgSend_setObject_forKeyedSubscript_(v8, v38, v37, @"greenSplitEnabled", v39);
+  sub_233867B78(*(&v176 + 3), v9, v4, @"blackDespeckleNoiseFactor");
+  v10 = [MEMORY[0x277CCABB0] numberWithBool:v177];
+  [v4 setObject:v10 forKeyedSubscript:@"greenSplitEnabled"];
 
-  v43 = objc_msgSend_numberWithBool_(MEMORY[0x277CCABB0], v40, BYTE1(v521), v41, v42);
-  objc_msgSend_setObject_forKeyedSubscript_(v8, v44, v43, @"unknownDNGCamera", v45);
+  v11 = [MEMORY[0x277CCABB0] numberWithBool:BYTE1(v177)];
+  [v4 setObject:v11 forKeyedSubscript:@"unknownDNGCamera"];
 
-  sub_233867B78(*(&v521 + 1), v46, v8, @"greenSplitRed");
-  sub_233867B78(*(&v521 + 2), v47, v8, @"greenSplitGreen1");
-  sub_233867B78(*(&v521 + 3), v48, v8, @"greenSplitBlue");
-  v52 = objc_msgSend_numberWithInt_(MEMORY[0x277CCABB0], v49, v522, v50, v51);
-  objc_msgSend_setObject_forKeyedSubscript_(v8, v53, v52, @"greenBayerSplit", v54);
+  sub_233867B78(*(&v177 + 1), v12, v4, @"greenSplitRed");
+  sub_233867B78(*(&v177 + 2), v13, v4, @"greenSplitGreen1");
+  sub_233867B78(*(&v177 + 3), v14, v4, @"greenSplitBlue");
+  v15 = [MEMORY[0x277CCABB0] numberWithInt:v178];
+  [v4 setObject:v15 forKeyedSubscript:@"greenBayerSplit"];
 
-  v58 = objc_msgSend_numberWithBool_(MEMORY[0x277CCABB0], v55, BYTE4(v522), v56, v57);
-  objc_msgSend_setObject_forKeyedSubscript_(v8, v59, v58, @"HREnabled", v60);
+  v16 = [MEMORY[0x277CCABB0] numberWithBool:BYTE4(v178)];
+  [v4 setObject:v16 forKeyedSubscript:@"HREnabled"];
 
-  sub_233867B78(*(&v522 + 2), v61, v8, @"HRGreenClip");
-  v65 = objc_msgSend_numberWithBool_(MEMORY[0x277CCABB0], v62, BYTE12(v522), v63, v64);
-  objc_msgSend_setObject_forKeyedSubscript_(v8, v66, v65, @"SPEEnabled", v67);
+  sub_233867B78(*(&v178 + 2), v17, v4, @"HRGreenClip");
+  v18 = [MEMORY[0x277CCABB0] numberWithBool:BYTE12(v178)];
+  [v4 setObject:v18 forKeyedSubscript:@"SPEEnabled"];
 
-  sub_233867B78(*&v523, v68, v8, @"SPEDeadNoiseFactor");
-  sub_233867B78(*(&v523 + 1), v69, v8, @"SPEDeadNoticeabilityFactor");
-  sub_233867B78(*(&v523 + 2), v70, v8, @"SPEHotNoiseFactor");
-  v74 = objc_msgSend_numberWithBool_(MEMORY[0x277CCABB0], v71, BYTE12(v523), v72, v73);
-  objc_msgSend_setObject_forKeyedSubscript_(v8, v75, v74, @"DESEnabled", v76);
+  sub_233867B78(*&v179, v19, v4, @"SPEDeadNoiseFactor");
+  sub_233867B78(*(&v179 + 1), v20, v4, @"SPEDeadNoticeabilityFactor");
+  sub_233867B78(*(&v179 + 2), v21, v4, @"SPEHotNoiseFactor");
+  v22 = [MEMORY[0x277CCABB0] numberWithBool:BYTE12(v179)];
+  [v4 setObject:v22 forKeyedSubscript:@"DESEnabled"];
 
-  sub_233867B78(*&v524, v77, v8, @"DESNoiseFactor");
-  sub_233867B78(*(&v524 + 1), v78, v8, @"DESSignalToNoiseThreshold");
-  v82 = objc_msgSend_numberWithInt_(MEMORY[0x277CCABB0], v79, DWORD2(v524), v80, v81);
-  objc_msgSend_setObject_forKeyedSubscript_(v8, v83, v82, @"DESDoEarlyOut", v84);
+  sub_233867B78(*&v180, v23, v4, @"DESNoiseFactor");
+  sub_233867B78(*(&v180 + 1), v24, v4, @"DESSignalToNoiseThreshold");
+  v25 = [MEMORY[0x277CCABB0] numberWithInt:DWORD2(v180)];
+  [v4 setObject:v25 forKeyedSubscript:@"DESDoEarlyOut"];
 
-  sub_233867B78(*(&v524 + 3), v85, v8, @"DESEarlyOutFactor");
-  v89 = objc_msgSend_numberWithInt_(MEMORY[0x277CCABB0], v86, v525, v87, v88);
-  objc_msgSend_setObject_forKeyedSubscript_(v8, v90, v89, @"DESDoRed", v91);
+  sub_233867B78(*(&v180 + 3), v26, v4, @"DESEarlyOutFactor");
+  v27 = [MEMORY[0x277CCABB0] numberWithInt:v181];
+  [v4 setObject:v27 forKeyedSubscript:@"DESDoRed"];
 
-  v95 = objc_msgSend_numberWithInt_(MEMORY[0x277CCABB0], v92, DWORD1(v525), v93, v94);
-  objc_msgSend_setObject_forKeyedSubscript_(v8, v96, v95, @"DESDoGreen", v97);
+  v28 = [MEMORY[0x277CCABB0] numberWithInt:DWORD1(v181)];
+  [v4 setObject:v28 forKeyedSubscript:@"DESDoGreen"];
 
-  v101 = objc_msgSend_numberWithInt_(MEMORY[0x277CCABB0], v98, DWORD2(v525), v99, v100);
-  objc_msgSend_setObject_forKeyedSubscript_(v8, v102, v101, @"DESDoBlue", v103);
+  v29 = [MEMORY[0x277CCABB0] numberWithInt:DWORD2(v181)];
+  [v4 setObject:v29 forKeyedSubscript:@"DESDoBlue"];
 
-  v107 = objc_msgSend_numberWithInt_(MEMORY[0x277CCABB0], v104, HIDWORD(v525), v105, v106);
-  objc_msgSend_setObject_forKeyedSubscript_(v8, v108, v107, @"DESTaperMethod", v109);
+  v30 = [MEMORY[0x277CCABB0] numberWithInt:HIDWORD(v181)];
+  [v4 setObject:v30 forKeyedSubscript:@"DESTaperMethod"];
 
-  v113 = objc_msgSend_numberWithInt_(MEMORY[0x277CCABB0], v110, v526, v111, v112);
-  objc_msgSend_setObject_forKeyedSubscript_(v8, v114, v113, @"DESMethod", v115);
+  v31 = [MEMORY[0x277CCABB0] numberWithInt:v182];
+  [v4 setObject:v31 forKeyedSubscript:@"DESMethod"];
 
-  v119 = objc_msgSend_numberWithUnsignedChar_(MEMORY[0x277CCABB0], v116, BYTE8(v526), v117, v118);
-  objc_msgSend_setObject_forKeyedSubscript_(v8, v120, v119, @"CAParameters.ChAber_SW_Extended", v121);
+  v32 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:BYTE8(v182)];
+  [v4 setObject:v32 forKeyedSubscript:@"CAParameters.ChAber_SW_Extended"];
 
-  v125 = 0;
-  v126 = &v529 + 5;
+  v33 = 0;
+  v34 = &v185 + 5;
   do
   {
-    v127 = objc_msgSend_numberWithUnsignedShort_(MEMORY[0x277CCABB0], v122, *(v126 - 24), v123, v124);
-    v131 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v128, @"CAParameters.CA_blu[%d]", v129, v130, v125);
-    objc_msgSend_setValue_forKey_(v8, v132, v127, v131, v133);
+    v35 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:*(v34 - 24)];
+    v36 = [MEMORY[0x277CCACA8] stringWithFormat:@"CAParameters.CA_blu[%d]", v33];
+    [v4 setValue:v35 forKey:v36];
 
-    v137 = objc_msgSend_numberWithUnsignedShort_(MEMORY[0x277CCABB0], v134, *(v126 - 16), v135, v136);
-    v141 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v138, @"CAParameters.CA_red[%d]", v139, v140, v125);
-    objc_msgSend_setValue_forKey_(v8, v142, v137, v141, v143);
+    v37 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:*(v34 - 16)];
+    v38 = [MEMORY[0x277CCACA8] stringWithFormat:@"CAParameters.CA_red[%d]", v33];
+    [v4 setValue:v37 forKey:v38];
 
-    v147 = objc_msgSend_numberWithShort_(MEMORY[0x277CCABB0], v144, *(v126 - 8), v145, v146);
-    v151 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v148, @"CAParameters.BG[%d]", v149, v150, v125);
-    objc_msgSend_setValue_forKey_(v8, v152, v147, v151, v153);
+    v39 = [MEMORY[0x277CCABB0] numberWithShort:*(v34 - 8)];
+    v40 = [MEMORY[0x277CCACA8] stringWithFormat:@"CAParameters.BG[%d]", v33];
+    [v4 setValue:v39 forKey:v40];
 
-    v157 = objc_msgSend_numberWithShort_(MEMORY[0x277CCABB0], v154, *v126, v155, v156);
-    v161 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v158, @"CAParameters.RG[%d]", v159, v160, v125);
-    objc_msgSend_setValue_forKey_(v8, v162, v157, v161, v163);
-    ++v126;
+    v41 = [MEMORY[0x277CCABB0] numberWithShort:*v34];
+    v42 = [MEMORY[0x277CCACA8] stringWithFormat:@"CAParameters.RG[%d]", v33];
+    [v4 setValue:v41 forKey:v42];
+    ++v34;
 
-    ++v125;
+    ++v33;
   }
 
-  while (v125 != 8);
-  v164 = objc_msgSend_numberWithBool_(MEMORY[0x277CCABB0], v122, BYTE10(v530), v123, v124);
-  objc_msgSend_setObject_forKeyedSubscript_(v8, v165, v164, @"CACorrectionEnabled", v166);
+  while (v33 != 8);
+  v43 = [MEMORY[0x277CCABB0] numberWithBool:BYTE10(v186)];
+  [v4 setObject:v43 forKeyedSubscript:@"CACorrectionEnabled"];
 
-  sub_233867B78(*(&v530 + 3), v167, v8, @"CACorrectionRedPower");
-  sub_233867B78(*&v531, v168, v8, @"CACorrectionBluePower");
-  sub_233867B78(*(&v531 + 1), v169, v8, @"CACorrectionRedScale");
-  sub_233867B78(*(&v531 + 2), v170, v8, @"CACorrectionBlueScale");
-  v174 = objc_msgSend_numberWithInt_(MEMORY[0x277CCABB0], v171, HIDWORD(v531), v172, v173);
-  objc_msgSend_setObject_forKeyedSubscript_(v8, v175, v174, @"fullWidth", v176);
+  sub_233867B78(*(&v186 + 3), v44, v4, @"CACorrectionRedPower");
+  sub_233867B78(*&v187, v45, v4, @"CACorrectionBluePower");
+  sub_233867B78(*(&v187 + 1), v46, v4, @"CACorrectionRedScale");
+  sub_233867B78(*(&v187 + 2), v47, v4, @"CACorrectionBlueScale");
+  v48 = [MEMORY[0x277CCABB0] numberWithInt:HIDWORD(v187)];
+  [v4 setObject:v48 forKeyedSubscript:@"fullWidth"];
 
-  v180 = objc_msgSend_numberWithInt_(MEMORY[0x277CCABB0], v177, v532, v178, v179);
-  objc_msgSend_setObject_forKeyedSubscript_(v8, v181, v180, @"fullHeight", v182);
+  v49 = [MEMORY[0x277CCABB0] numberWithInt:v188];
+  [v4 setObject:v49 forKeyedSubscript:@"fullHeight"];
 
-  v186 = objc_msgSend_numberWithBool_(MEMORY[0x277CCABB0], v183, BYTE4(v532), v184, v185);
-  objc_msgSend_setObject_forKeyedSubscript_(v8, v187, v186, @"vignetteCorrectionEnabled", v188);
+  v50 = [MEMORY[0x277CCABB0] numberWithBool:BYTE4(v188)];
+  [v4 setObject:v50 forKeyedSubscript:@"vignetteCorrectionEnabled"];
 
-  sub_233867B78(*(&v532 + 2), v189, v8, @"vignetteCorrectionPower");
-  sub_233867B78(*(&v532 + 3), v190, v8, @"vignetteCorrectionAmount");
-  v194 = objc_msgSend_numberWithUnsignedChar_(MEMORY[0x277CCABB0], v191, LOBYTE(v533[0]), v192, v193);
-  objc_msgSend_setObject_forKeyedSubscript_(v8, v195, v194, @"fujiCAParameters.FujiCAEnable", v196);
+  sub_233867B78(*(&v188 + 2), v51, v4, @"vignetteCorrectionPower");
+  sub_233867B78(*(&v188 + 3), v52, v4, @"vignetteCorrectionAmount");
+  v53 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:LOBYTE(v189[0])];
+  [v4 setObject:v53 forKeyedSubscript:@"fujiCAParameters.FujiCAEnable"];
 
-  if (LOBYTE(v533[0]))
+  if (LOBYTE(v189[0]))
   {
-    v200 = objc_msgSend_numberWithInt_(MEMORY[0x277CCABB0], v197, DWORD1(v533[0]), v198, v199);
-    objc_msgSend_setObject_forKeyedSubscript_(v8, v201, v200, @"fujiCAParameters.numberOfPoints", v202);
+    v54 = [MEMORY[0x277CCABB0] numberWithInt:DWORD1(v189[0])];
+    [v4 setObject:v54 forKeyedSubscript:@"fujiCAParameters.numberOfPoints"];
 
-    v206 = objc_msgSend_numberWithInt_(MEMORY[0x277CCABB0], v203, DWORD2(v533[0]), v204, v205);
-    objc_msgSend_setObject_forKeyedSubscript_(v8, v207, v206, @"fujiCAParameters.maxDistance", v208);
+    v55 = [MEMORY[0x277CCABB0] numberWithInt:DWORD2(v189[0])];
+    [v4 setObject:v55 forKeyedSubscript:@"fujiCAParameters.maxDistance"];
 
-    sub_233867C38(v209, v8, @"fujiCAParameters.CA_LR", v533 + 12, 16);
-    sub_233867C38(v210, v8, @"fujiCAParameters.CA_red", &v533[4] + 12, 16);
-    sub_233867C38(v211, v8, @"fujiCAParameters.CA_blu", &v533[8] + 12, 16);
+    sub_233867C38(v56, v4, @"fujiCAParameters.CA_LR", v189 + 12, 16);
+    sub_233867C38(v57, v4, @"fujiCAParameters.CA_red", &v189[4] + 12, 16);
+    sub_233867C38(v58, v4, @"fujiCAParameters.CA_blu", &v189[8] + 12, 16);
   }
 
-  v212 = objc_msgSend_numberWithUnsignedChar_(MEMORY[0x277CCABB0], v197, BYTE12(v534), v198, v199);
-  objc_msgSend_setObject_forKeyedSubscript_(v8, v213, v212, @"fujiLensParameters.FujiLensCorrectionEnable", v214);
+  v59 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:BYTE12(v190)];
+  [v4 setObject:v59 forKeyedSubscript:@"fujiLensParameters.FujiLensCorrectionEnable"];
 
-  if (BYTE12(v534))
+  if (BYTE12(v190))
   {
-    v219 = objc_msgSend_numberWithInt_(MEMORY[0x277CCABB0], v216, LODWORD(v535[0]), v217, v218);
-    objc_msgSend_setObject_forKeyedSubscript_(v8, v220, v219, @"fujiLensParameters.maxDistance", v221);
+    v61 = [MEMORY[0x277CCABB0] numberWithInt:LODWORD(v191[0])];
+    [v4 setObject:v61 forKeyedSubscript:@"fujiLensParameters.maxDistance"];
 
-    v225 = objc_msgSend_numberWithInt_(MEMORY[0x277CCABB0], v222, DWORD1(v535[0]), v223, v224);
-    objc_msgSend_setObject_forKeyedSubscript_(v8, v226, v225, @"fujiLensParameters.numberOfPoints", v227);
+    v62 = [MEMORY[0x277CCABB0] numberWithInt:DWORD1(v191[0])];
+    [v4 setObject:v62 forKeyedSubscript:@"fujiLensParameters.numberOfPoints"];
 
-    sub_233867C38(v228, v8, @"fujiLensParameters.lengthRatio", v535 + 8, 16);
-    sub_233867C38(v229, v8, @"fujiLensParameters.factor", &v535[4] + 8, 16);
+    sub_233867C38(v63, v4, @"fujiLensParameters.lengthRatio", v191 + 8, 16);
+    sub_233867C38(v64, v4, @"fujiLensParameters.factor", &v191[4] + 8, 16);
   }
 
-  sub_233867B78(v536, v215, v8, off_27DE37638[0]);
-  sub_233867B78(v537, v230, v8, off_27DE37608[0]);
-  v234 = objc_msgSend_numberWithBool_(MEMORY[0x277CCABB0], v231, v538, v232, v233);
-  objc_msgSend_setObject_forKeyedSubscript_(v8, v235, v234, @"chromaBlurEnabled", v236);
+  sub_233867B78(v192, v60, v4, off_27DE37638[0]);
+  sub_233867B78(v193, v65, v4, off_27DE37608[0]);
+  v66 = [MEMORY[0x277CCABB0] numberWithBool:v194];
+  [v4 setObject:v66 forKeyedSubscript:@"chromaBlurEnabled"];
 
-  v240 = objc_msgSend_numberWithBool_(MEMORY[0x277CCABB0], v237, v539, v238, v239);
-  objc_msgSend_setObject_forKeyedSubscript_(v8, v241, v240, @"noAntiAliasingFilter", v242);
+  v67 = [MEMORY[0x277CCABB0] numberWithBool:v195];
+  [v4 setObject:v67 forKeyedSubscript:@"noAntiAliasingFilter"];
 
-  sub_233867B78(v540, v243, v8, off_27DE37740[0]);
-  sub_233867B78(v541, v244, v8, @"chromaBlurRadius2");
-  sub_233867B78(v542, v245, v8, off_27DE37650[0]);
-  sub_233867B78(v543, v246, v8, @"cnrNoiseFactor");
-  sub_233867B78(v544, v247, v8, @"cnrRadius");
-  sub_233867B78(v545, v248, v8, @"cnrAmount");
-  sub_233867B78(v546, v249, v8, off_27DE37748[0]);
-  sub_233867B78(v547, v250, v8, @"chromaBlurEdgeThreshold2");
-  sub_233867B78(v548, v251, v8, @"adaptiveNormalizationNoiseFactor");
-  v255 = objc_msgSend_numberWithBool_(MEMORY[0x277CCABB0], v252, v549, v253, v254);
-  objc_msgSend_setObject_forKeyedSubscript_(v8, v256, v255, @"adaptiveNormalizationSimple", v257);
+  sub_233867B78(v196, v68, v4, off_27DE37740[0]);
+  sub_233867B78(v197, v69, v4, @"chromaBlurRadius2");
+  sub_233867B78(v198, v70, v4, off_27DE37650[0]);
+  sub_233867B78(v199, v71, v4, @"cnrNoiseFactor");
+  sub_233867B78(v200, v72, v4, @"cnrRadius");
+  sub_233867B78(v201, v73, v4, @"cnrAmount");
+  sub_233867B78(v202, v74, v4, off_27DE37748[0]);
+  sub_233867B78(v203, v75, v4, @"chromaBlurEdgeThreshold2");
+  sub_233867B78(v204, v76, v4, @"adaptiveNormalizationNoiseFactor");
+  v77 = [MEMORY[0x277CCABB0] numberWithBool:v205];
+  [v4 setObject:v77 forKeyedSubscript:@"adaptiveNormalizationSimple"];
 
-  v261 = objc_msgSend_numberWithInt_(MEMORY[0x277CCABB0], v258, v550, v259, v260);
-  objc_msgSend_setObject_forKeyedSubscript_(v8, v262, v261, @"adaptiveNormalizationDirectionFindingMethod", v263);
+  v78 = [MEMORY[0x277CCABB0] numberWithInt:v206];
+  [v4 setObject:v78 forKeyedSubscript:@"adaptiveNormalizationDirectionFindingMethod"];
 
-  v267 = objc_msgSend_numberWithBool_(MEMORY[0x277CCABB0], v264, v551, v265, v266);
-  objc_msgSend_setObject_forKeyedSubscript_(v8, v268, v267, @"fujiGreenReconstructionCopyRaw", v269);
+  v79 = [MEMORY[0x277CCABB0] numberWithBool:v207];
+  [v4 setObject:v79 forKeyedSubscript:@"fujiGreenReconstructionCopyRaw"];
 
-  v273 = objc_msgSend_numberWithBool_(MEMORY[0x277CCABB0], v270, v552, v271, v272);
-  objc_msgSend_setObject_forKeyedSubscript_(v8, v274, v273, @"fujiGreenReconstructionHighFrequency", v275);
+  v80 = [MEMORY[0x277CCABB0] numberWithBool:v208];
+  [v4 setObject:v80 forKeyedSubscript:@"fujiGreenReconstructionHighFrequency"];
 
-  sub_233867B78(v553, v276, v8, @"fujiDirectionsNoiseFactor");
-  v280 = objc_msgSend_numberWithInt_(MEMORY[0x277CCABB0], v277, v554, v278, v279);
-  objc_msgSend_setObject_forKeyedSubscript_(v8, v281, v280, @"fujiGreenSmoothingEnabled", v282);
+  sub_233867B78(v209, v81, v4, @"fujiDirectionsNoiseFactor");
+  v82 = [MEMORY[0x277CCABB0] numberWithInt:v210];
+  [v4 setObject:v82 forKeyedSubscript:@"fujiGreenSmoothingEnabled"];
 
-  v286 = objc_msgSend_numberWithInt_(MEMORY[0x277CCABB0], v283, v555, v284, v285);
-  objc_msgSend_setObject_forKeyedSubscript_(v8, v287, v286, @"fujiGreenSmoothingThreshold", v288);
+  v83 = [MEMORY[0x277CCABB0] numberWithInt:v211];
+  [v4 setObject:v83 forKeyedSubscript:@"fujiGreenSmoothingThreshold"];
 
-  sub_233867B78(v556, v289, v8, @"fujiGreenSmoothingSharpeningAmount");
-  sub_233867B78(v557, v290, v8, @"fujiGreenSmoothingCornerThreshold");
-  sub_233867B78(v558, v291, v8, @"fujiGreenSmoothingAdjuster");
-  v295 = objc_msgSend_numberWithBool_(MEMORY[0x277CCABB0], v292, v559, v293, v294);
-  objc_msgSend_setObject_forKeyedSubscript_(v8, v296, v295, @"fujiRedBluePlanarValidity", v297);
+  sub_233867B78(v212, v84, v4, @"fujiGreenSmoothingSharpeningAmount");
+  sub_233867B78(v213, v85, v4, @"fujiGreenSmoothingCornerThreshold");
+  sub_233867B78(v214, v86, v4, @"fujiGreenSmoothingAdjuster");
+  v87 = [MEMORY[0x277CCABB0] numberWithBool:v215];
+  [v4 setObject:v87 forKeyedSubscript:@"fujiRedBluePlanarValidity"];
 
-  v301 = objc_msgSend_numberWithInt_(MEMORY[0x277CCABB0], v298, v560, v299, v300);
-  objc_msgSend_setObject_forKeyedSubscript_(v8, v302, v301, @"redBlueDefringe", v303);
+  v88 = [MEMORY[0x277CCABB0] numberWithInt:v216];
+  [v4 setObject:v88 forKeyedSubscript:@"redBlueDefringe"];
 
-  v307 = objc_msgSend_numberWithInt_(MEMORY[0x277CCABB0], v304, v561, v305, v306);
-  objc_msgSend_setObject_forKeyedSubscript_(v8, v308, v307, @"redBlueRangeLimit", v309);
+  v89 = [MEMORY[0x277CCABB0] numberWithInt:v217];
+  [v4 setObject:v89 forKeyedSubscript:@"redBlueRangeLimit"];
 
-  v313 = objc_msgSend_numberWithInt_(MEMORY[0x277CCABB0], v310, v562, v311, v312);
-  objc_msgSend_setObject_forKeyedSubscript_(v8, v314, v313, @"redBlueGradientThreshold", v315);
+  v90 = [MEMORY[0x277CCABB0] numberWithInt:v218];
+  [v4 setObject:v90 forKeyedSubscript:@"redBlueGradientThreshold"];
 
-  v319 = objc_msgSend_numberWithInt_(MEMORY[0x277CCABB0], v316, v563, v317, v318);
-  objc_msgSend_setObject_forKeyedSubscript_(v8, v320, v319, @"redBlueDumbOnly", v321);
+  v91 = [MEMORY[0x277CCABB0] numberWithInt:v219];
+  [v4 setObject:v91 forKeyedSubscript:@"redBlueDumbOnly"];
 
-  v325 = objc_msgSend_numberWithInt_(MEMORY[0x277CCABB0], v322, v564, v323, v324);
-  objc_msgSend_setObject_forKeyedSubscript_(v8, v326, v325, @"redBlueGreenOnly", v327);
+  v92 = [MEMORY[0x277CCABB0] numberWithInt:v220];
+  [v4 setObject:v92 forKeyedSubscript:@"redBlueGreenOnly"];
 
-  v331 = objc_msgSend_numberWithInt_(MEMORY[0x277CCABB0], v328, v565, v329, v330);
-  objc_msgSend_setObject_forKeyedSubscript_(v8, v332, v331, @"colorSmoothingEnabled", v333);
+  v93 = [MEMORY[0x277CCABB0] numberWithInt:v221];
+  [v4 setObject:v93 forKeyedSubscript:@"colorSmoothingEnabled"];
 
-  sub_233867B78(v566, v334, v8, @"colorSmoothingSharpnessAmount");
-  sub_233867B78(v567, v335, v8, @"resampleHorizScale");
-  sub_233867B78(v568, v336, v8, @"resampleVertScale");
-  sub_233867B78(v569, v337, v8, @"resampleVSharpness");
-  sub_233867B78(v570, v338, v8, @"minimumSignalToNoiseRatio");
-  sub_233867B78(v571, v339, v8, @"maximumSignalToNoiseRatio");
-  sub_233867C38(v340, v8, @"factors", &v572, 3);
-  sub_233867C38(v341, v8, @"RVector", &v573, 3);
-  sub_233867C38(v342, v8, @"GVector", &v574, 3);
-  sub_233867C38(v343, v8, @"BVector", &v575, 3);
-  sub_233867C38(v344, v8, @"bias", &v576, 3);
-  sub_233867C38(v345, v8, @"clipLevels", v577, 3);
-  v349 = objc_msgSend_numberWithInt_(MEMORY[0x277CCABB0], v346, v577[3], v347, v348);
-  objc_msgSend_setObject_forKeyedSubscript_(v8, v350, v349, @"biasOff", v351);
+  sub_233867B78(v222, v94, v4, @"colorSmoothingSharpnessAmount");
+  sub_233867B78(v223, v95, v4, @"resampleHorizScale");
+  sub_233867B78(v224, v96, v4, @"resampleVertScale");
+  sub_233867B78(v225, v97, v4, @"resampleVSharpness");
+  sub_233867B78(v226, v98, v4, @"minimumSignalToNoiseRatio");
+  sub_233867B78(v227, v99, v4, @"maximumSignalToNoiseRatio");
+  sub_233867C38(v100, v4, @"factors", &v228, 3);
+  sub_233867C38(v101, v4, @"RVector", &v229, 3);
+  sub_233867C38(v102, v4, @"GVector", &v230, 3);
+  sub_233867C38(v103, v4, @"BVector", &v231, 3);
+  sub_233867C38(v104, v4, @"bias", &v232, 3);
+  sub_233867C38(v105, v4, @"clipLevels", v233, 3);
+  v106 = [MEMORY[0x277CCABB0] numberWithInt:v233[3]];
+  [v4 setObject:v106 forKeyedSubscript:@"biasOff"];
 
-  v355 = objc_msgSend_numberWithBool_(MEMORY[0x277CCABB0], v352, v578, v353, v354);
-  objc_msgSend_setObject_forKeyedSubscript_(v8, v356, v355, @"boostEnabled", v357);
+  v107 = [MEMORY[0x277CCABB0] numberWithBool:v234];
+  [v4 setObject:v107 forKeyedSubscript:@"boostEnabled"];
 
-  sub_233867D5C(v358, v8, v579);
-  sub_233867B78(v579[9], v359, v8, @"gamma");
-  sub_233867B78(v579[10], v360, v8, @"shadowDesaturatePoint");
-  sub_233867B78(v579[11], v361, v8, @"shadowDesaturateWidth");
-  sub_233867B78(v579[12], v362, v8, @"shadowDesaturateAmount");
-  sub_233867B78(v579[13], v363, v8, off_27DE37660[0]);
-  sub_233867B78(v579[14], v364, v8, off_27DE37668[0]);
-  v368 = objc_msgSend_numberWithInt_(MEMORY[0x277CCABB0], v365, LODWORD(v579[15]), v366, v367);
-  objc_msgSend_setObject_forKeyedSubscript_(v8, v369, v368, @"ISO", v370);
+  sub_233867D5C(v108, v4, v235);
+  sub_233867B78(v235[9], v109, v4, @"gamma");
+  sub_233867B78(v235[10], v110, v4, @"shadowDesaturatePoint");
+  sub_233867B78(v235[11], v111, v4, @"shadowDesaturateWidth");
+  sub_233867B78(v235[12], v112, v4, @"shadowDesaturateAmount");
+  sub_233867B78(v235[13], v113, v4, off_27DE37660[0]);
+  sub_233867B78(v235[14], v114, v4, off_27DE37668[0]);
+  v115 = [MEMORY[0x277CCABB0] numberWithInt:LODWORD(v235[15])];
+  [v4 setObject:v115 forKeyedSubscript:@"ISO"];
 
-  sub_233867C38(v371, v8, @"blackLevels", &v580, 4);
-  sub_233867C38(v372, v8, @"darkNoise", v581, 4);
-  v376 = objc_msgSend_numberWithBool_(MEMORY[0x277CCABB0], v373, v581[16], v374, v375);
-  objc_msgSend_setObject_forKeyedSubscript_(v8, v377, v376, @"individualQuadratics", v378);
+  sub_233867C38(v116, v4, @"blackLevels", &v236, 4);
+  sub_233867C38(v117, v4, @"darkNoise", v237, 4);
+  v118 = [MEMORY[0x277CCABB0] numberWithBool:v237[16]];
+  [v4 setObject:v118 forKeyedSubscript:@"individualQuadratics"];
 
-  v382 = 0;
-  v383 = v582;
+  v119 = 0;
+  v120 = v238;
   do
   {
-    v384 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v379, @"signalNoiseModels[%d].a", v380, v381, v382);
-    sub_233867B78(*(v383 - 3), v384, v8, v384);
+    v121 = [MEMORY[0x277CCACA8] stringWithFormat:@"signalNoiseModels[%d].a", v119];
+    sub_233867B78(*(v120 - 3), v121, v4, v121);
 
-    v388 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v385, @"signalNoiseModels[%d].b", v386, v387, v382);
-    sub_233867B78(*(v383 - 2), v388, v8, v388);
+    v122 = [MEMORY[0x277CCACA8] stringWithFormat:@"signalNoiseModels[%d].b", v119];
+    sub_233867B78(*(v120 - 2), v122, v4, v122);
 
-    v392 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v389, @"signalNoiseModels[%d].c", v390, v391, v382);
-    sub_233867B78(*(v383 - 1), v392, v8, v392);
+    v123 = [MEMORY[0x277CCACA8] stringWithFormat:@"signalNoiseModels[%d].c", v119];
+    sub_233867B78(*(v120 - 1), v123, v4, v123);
 
-    v396 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v393, @"signalNoiseModels[%d].PRNU", v394, v395, v382);
-    sub_233867B78(*v383, v396, v8, v396);
+    v124 = [MEMORY[0x277CCACA8] stringWithFormat:@"signalNoiseModels[%d].PRNU", v119];
+    sub_233867B78(*v120, v124, v4, v124);
 
-    ++v382;
-    v383 += 4;
+    ++v119;
+    v120 += 4;
   }
 
-  while (v382 != 4);
-  v397 = objc_msgSend_numberWithBool_(MEMORY[0x277CCABB0], v379, v582[52], v380, v381);
-  objc_msgSend_setObject_forKeyedSubscript_(v8, v398, v397, @"moireSuppressionEnabled", v399);
+  while (v119 != 4);
+  v125 = [MEMORY[0x277CCABB0] numberWithBool:v238[52]];
+  [v4 setObject:v125 forKeyedSubscript:@"moireSuppressionEnabled"];
 
-  sub_233867B78(v583, v400, v8, @"hueMagMR");
-  sub_233867B78(v584, v401, v8, @"hueMagRY");
-  sub_233867B78(v585, v402, v8, @"hueMagYG");
-  sub_233867B78(v586, v403, v8, @"hueMagGC");
-  sub_233867B78(v587, v404, v8, @"hueMagCB");
-  sub_233867B78(v588, v405, v8, @"hueMagBM");
-  v409 = objc_msgSend_numberWithInt_(MEMORY[0x277CCABB0], v406, v589, v407, v408);
-  objc_msgSend_setObject_forKeyedSubscript_(v8, v410, v409, @"bitmapType", v411);
+  sub_233867B78(v239, v126, v4, @"hueMagMR");
+  sub_233867B78(v240, v127, v4, @"hueMagRY");
+  sub_233867B78(v241, v128, v4, @"hueMagYG");
+  sub_233867B78(v242, v129, v4, @"hueMagGC");
+  sub_233867B78(v243, v130, v4, @"hueMagCB");
+  sub_233867B78(v244, v131, v4, @"hueMagBM");
+  v132 = [MEMORY[0x277CCABB0] numberWithInt:v245];
+  [v4 setObject:v132 forKeyedSubscript:@"bitmapType"];
 
-  v415 = objc_msgSend_numberWithBool_(MEMORY[0x277CCABB0], v412, v590, v413, v414);
-  objc_msgSend_setObject_forKeyedSubscript_(v8, v416, v415, @"luminanceNoiseReductionEnabled", v417);
+  v133 = [MEMORY[0x277CCABB0] numberWithBool:v246];
+  [v4 setObject:v133 forKeyedSubscript:@"luminanceNoiseReductionEnabled"];
 
-  v421 = objc_msgSend_numberWithBool_(MEMORY[0x277CCABB0], v418, v591, v419, v420);
-  objc_msgSend_setObject_forKeyedSubscript_(v8, v422, v421, @"chromaNoiseReductionEnabled", v423);
+  v134 = [MEMORY[0x277CCABB0] numberWithBool:v247];
+  [v4 setObject:v134 forKeyedSubscript:@"chromaNoiseReductionEnabled"];
 
-  sub_233867B78(v592, v424, v8, @"luminanceNoiseReductionAmount");
-  v428 = objc_msgSend_numberWithBool_(MEMORY[0x277CCABB0], v425, v593, v426, v427);
-  objc_msgSend_setObject_forKeyedSubscript_(v8, v429, v428, @"vectorFieldProcessingEnabled", v430);
+  sub_233867B78(v248, v135, v4, @"luminanceNoiseReductionAmount");
+  v136 = [MEMORY[0x277CCABB0] numberWithBool:v249];
+  [v4 setObject:v136 forKeyedSubscript:@"vectorFieldProcessingEnabled"];
 
-  v434 = objc_msgSend_numberWithBool_(MEMORY[0x277CCABB0], v431, v594, v432, v433);
-  objc_msgSend_setObject_forKeyedSubscript_(v8, v435, v434, @"vectorFieldCorners", v436);
+  v137 = [MEMORY[0x277CCABB0] numberWithBool:v250];
+  [v4 setObject:v137 forKeyedSubscript:@"vectorFieldCorners"];
 
-  sub_233867B78(v595, v437, v8, @"vectorFieldSmoothingCoefficient");
-  sub_233867B78(v596, v438, v8, @"vectorFieldCornerThreshold");
-  sub_233867B78(v597, v439, v8, @"fullSizeSmoothingAmount");
-  sub_233867B78(v598, v440, v8, @"halfSizeSmoothingAmount");
-  sub_233867B78(v599, v441, v8, @"quarterSizeSmoothingAmount");
-  sub_233867B78(v600, v442, v8, @"fullSizeThreshold");
-  sub_233867B78(v601, v443, v8, @"fullSizeThresholdSoftness");
-  sub_233867B78(v602, v444, v8, @"halfSizeThreshold");
-  sub_233867B78(v603, v445, v8, @"halfSizeThresholdSoftness");
-  sub_233867B78(v604, v446, v8, @"quarterSizeThreshold");
-  sub_233867B78(v605, v447, v8, @"quarterSizeThresholdSoftness");
-  sub_233867B78(v606, v448, v8, @"fullSizeGradientMaskAmount");
-  sub_233867B78(v607, v449, v8, @"halfSizeGradientMaskAmount");
-  sub_233867B78(v608, v450, v8, @"quarterSizeGradientMaskAmount");
-  sub_233867B78(v609, v451, v8, @"contrastOverdrive");
-  v455 = objc_msgSend_numberWithBool_(MEMORY[0x277CCABB0], v452, v610, v453, v454);
-  objc_msgSend_setObject_forKeyedSubscript_(v8, v456, v455, @"sharpenEdgesEnabled", v457);
+  sub_233867B78(v251, v138, v4, @"vectorFieldSmoothingCoefficient");
+  sub_233867B78(v252, v139, v4, @"vectorFieldCornerThreshold");
+  sub_233867B78(v253, v140, v4, @"fullSizeSmoothingAmount");
+  sub_233867B78(v254, v141, v4, @"halfSizeSmoothingAmount");
+  sub_233867B78(v255, v142, v4, @"quarterSizeSmoothingAmount");
+  sub_233867B78(v256, v143, v4, @"fullSizeThreshold");
+  sub_233867B78(v257, v144, v4, @"fullSizeThresholdSoftness");
+  sub_233867B78(v258, v145, v4, @"halfSizeThreshold");
+  sub_233867B78(v259, v146, v4, @"halfSizeThresholdSoftness");
+  sub_233867B78(v260, v147, v4, @"quarterSizeThreshold");
+  sub_233867B78(v261, v148, v4, @"quarterSizeThresholdSoftness");
+  sub_233867B78(v262, v149, v4, @"fullSizeGradientMaskAmount");
+  sub_233867B78(v263, v150, v4, @"halfSizeGradientMaskAmount");
+  sub_233867B78(v264, v151, v4, @"quarterSizeGradientMaskAmount");
+  sub_233867B78(v265, v152, v4, @"contrastOverdrive");
+  v153 = [MEMORY[0x277CCABB0] numberWithBool:v266];
+  [v4 setObject:v153 forKeyedSubscript:@"sharpenEdgesEnabled"];
 
-  sub_233867B78(v611, v458, v8, @"sharpenIntensity");
-  sub_233867B78(v612, v459, v8, @"addNoiseAmount");
-  sub_233867C38(v460, v8, @"factors", v613, 3);
-  sub_233869688(v613[3], v461, v8, @"representativeNoiseAmount");
-  sub_233869688(v613[4], v462, v8, @"CNR_value");
-  sub_233869688(v613[5], v463, v8, @"CNR_radius");
-  sub_233867B78(v613[7], v464, v8, @"CNR_bias");
-  sub_233869688(v613[6], v465, v8, @"CNR_noiseFactor");
-  v469 = objc_msgSend_numberWithBool_(MEMORY[0x277CCABB0], v466, v614, v467, v468);
-  objc_msgSend_setObject_forKeyedSubscript_(v8, v470, v469, @"powerBlurPass1Enabled", v471);
+  sub_233867B78(v267, v154, v4, @"sharpenIntensity");
+  sub_233867B78(v268, v155, v4, @"addNoiseAmount");
+  sub_233867C38(v156, v4, @"factors", v269, 3);
+  sub_233869688(v269[3], v157, v4, @"representativeNoiseAmount");
+  sub_233869688(v269[4], v158, v4, @"CNR_value");
+  sub_233869688(v269[5], v159, v4, @"CNR_radius");
+  sub_233867B78(v269[7], v160, v4, @"CNR_bias");
+  sub_233869688(v269[6], v161, v4, @"CNR_noiseFactor");
+  v162 = [MEMORY[0x277CCABB0] numberWithBool:v270];
+  [v4 setObject:v162 forKeyedSubscript:@"powerBlurPass1Enabled"];
 
-  v475 = objc_msgSend_numberWithBool_(MEMORY[0x277CCABB0], v472, v615, v473, v474);
-  objc_msgSend_setObject_forKeyedSubscript_(v8, v476, v475, @"powerBlurPass2Enabled", v477);
+  v163 = [MEMORY[0x277CCABB0] numberWithBool:v271];
+  [v4 setObject:v163 forKeyedSubscript:@"powerBlurPass2Enabled"];
 
-  v481 = objc_msgSend_numberWithBool_(MEMORY[0x277CCABB0], v478, v616, v479, v480);
-  objc_msgSend_setObject_forKeyedSubscript_(v8, v482, v481, @"powerBlurPass3Enabled", v483);
+  v164 = [MEMORY[0x277CCABB0] numberWithBool:v272];
+  [v4 setObject:v164 forKeyedSubscript:@"powerBlurPass3Enabled"];
 
-  v487 = objc_msgSend_numberWithBool_(MEMORY[0x277CCABB0], v484, v617, v485, v486);
-  objc_msgSend_setObject_forKeyedSubscript_(v8, v488, v487, @"powerBlurPass4Enabled", v489);
+  v165 = [MEMORY[0x277CCABB0] numberWithBool:v273];
+  [v4 setObject:v165 forKeyedSubscript:@"powerBlurPass4Enabled"];
 
-  sub_233867B78(v618, v490, v8, @"powerBlurPass1Threshold");
-  sub_233867B78(v619, v491, v8, @"powerBlurPass2Threshold");
-  sub_233867B78(v620, v492, v8, @"powerBlurPass3Threshold");
-  sub_233867B78(v621, v493, v8, @"powerBlurPass4Threshold");
-  v497 = objc_msgSend_numberWithBool_(MEMORY[0x277CCABB0], v494, v622, v495, v496);
-  objc_msgSend_setObject_forKeyedSubscript_(v8, v498, v497, @"powerBlurPass2Despeckle", v499);
+  sub_233867B78(v274, v166, v4, @"powerBlurPass1Threshold");
+  sub_233867B78(v275, v167, v4, @"powerBlurPass2Threshold");
+  sub_233867B78(v276, v168, v4, @"powerBlurPass3Threshold");
+  sub_233867B78(v277, v169, v4, @"powerBlurPass4Threshold");
+  v170 = [MEMORY[0x277CCABB0] numberWithBool:v278];
+  [v4 setObject:v170 forKeyedSubscript:@"powerBlurPass2Despeckle"];
 
-  v503 = objc_msgSend_numberWithInt_(MEMORY[0x277CCABB0], v500, v623, v501, v502);
-  objc_msgSend_setObject_forKeyedSubscript_(v8, v504, v503, @"powerBlurPass2DespeckleCountThreshold", v505);
+  v171 = [MEMORY[0x277CCABB0] numberWithInt:v279];
+  [v4 setObject:v171 forKeyedSubscript:@"powerBlurPass2DespeckleCountThreshold"];
 
-  v509 = objc_msgSend_numberWithInt_(MEMORY[0x277CCABB0], v506, v624, v507, v508);
-  objc_msgSend_setObject_forKeyedSubscript_(v8, v510, v509, @"powerBlurPass2DespeckleLuminanceThreshold", v511);
+  v172 = [MEMORY[0x277CCABB0] numberWithInt:v280];
+  [v4 setObject:v172 forKeyedSubscript:@"powerBlurPass2DespeckleLuminanceThreshold"];
 
-  sub_233867B78(v625, v512, v8, @"powerBlurPass2DespeckleDifferenceAmount");
-  v516 = objc_msgSend_numberWithBool_(MEMORY[0x277CCABB0], v513, v626, v514, v515);
-  objc_msgSend_setObject_forKeyedSubscript_(v8, v517, v516, @"powerBlurPass2DespeckleAverageCloseIn", v518);
+  sub_233867B78(v281, v173, v4, @"powerBlurPass2DespeckleDifferenceAmount");
+  v174 = [MEMORY[0x277CCABB0] numberWithBool:v282];
+  [v4 setObject:v174 forKeyedSubscript:@"powerBlurPass2DespeckleAverageCloseIn"];
 
-  return v8;
+  return v4;
 }
 
 void sub_233869528(void *a1)
@@ -8343,10 +8357,10 @@ void sub_233869528(void *a1)
 
 void sub_233869688(double a1, uint64_t a2, void *a3, void *a4)
 {
-  v13 = a3;
+  v8 = a3;
   v6 = a4;
-  v10 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v7, @"%a\t// %lg", v8, v9, *&a1, *&a1);
-  objc_msgSend_setValue_forKey_(v13, v11, v10, v6, v12);
+  v7 = [MEMORY[0x277CCACA8] stringWithFormat:@"%a\t// %lg", *&a1, *&a1];
+  [v8 setValue:v7 forKey:v6];
 }
 
 void sub_23386989C(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, std::__shared_weak_count *a10)
@@ -8363,11 +8377,11 @@ void sub_23386989C(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5,
   JUMPOUT(0x23386984CLL);
 }
 
-void sub_2338698F8(uint64_t a1, void *a2)
+void sub_2338698F8(id *a1, void *a2)
 {
-  v2 = 0;
-  v3 = 0;
-  sub_2337583E0(a2);
+  v4[0] = 0;
+  v4[1] = 0;
+  sub_2337583E0(a2, v4);
 }
 
 void sub_233869AB0(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, std::__shared_weak_count *a16)
@@ -8410,124 +8424,124 @@ void sub_233869D4C(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5,
 
 id sub_233869DB8(uint64_t a1, void *a2, int a3)
 {
-  v88[1] = *MEMORY[0x277D85DE8];
-  v76 = a2;
+  v49[1] = *MEMORY[0x277D85DE8];
+  v37 = a2;
   v5 = objc_autoreleasePoolPush();
   v6 = *(a1 + 8);
-  v87 = *MEMORY[0x277CD3668];
-  v88[0] = v6;
-  v75 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v7, v88, &v87, 1);
-  v8 = CGImageSourceCreateWithData(*a1, v75);
+  v48 = *MEMORY[0x277CD3668];
+  v49[0] = v6;
+  v36 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v49 forKeys:&v48 count:1];
+  v7 = CGImageSourceCreateWithData(*a1, v36);
   context = v5;
-  if (!v8)
+  if (!v7)
   {
-    v64 = 0;
+    v25 = 0;
     goto LABEL_21;
   }
 
-  v9 = *MEMORY[0x277CD3628];
-  v85[0] = *MEMORY[0x277CD3628];
-  v10 = sub_2338191A8(1);
-  v85[1] = *MEMORY[0x277CD35D8];
-  v86[0] = v10;
-  v86[1] = MEMORY[0x277CBEC38];
-  v12 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v11, v86, v85, 2);
+  v8 = *MEMORY[0x277CD3628];
+  v46[0] = *MEMORY[0x277CD3628];
+  v9 = sub_2338191A8(1);
+  v46[1] = *MEMORY[0x277CD35D8];
+  v47[0] = v9;
+  v47[1] = MEMORY[0x277CBEC38];
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v47 forKeys:v46 count:2];
 
-  v13 = CGImageSourceCopyPropertiesAtIndex(v8, 0, v12);
-  v73 = objc_msgSend_valueForKeyPath_(v13, v14, @"kCGImageSourceRawReconstructionOptions.kCGImageSourceSupportedSushiLevels", v15, v16);
-  v72 = objc_msgSend_valueForKeyPath_(v13, v17, @"kCGImageSourceRawReconstructionOptions.kCGImageSourceRawReconstructionMethodVersions", v18, v19);
-  v20 = sub_2338191A8(a3);
-  if (objc_msgSend_containsObject_(v73, v21, v20, v22, v23))
+  v11 = CGImageSourceCopyPropertiesAtIndex(v7, 0, v10);
+  v34 = [(__CFDictionary *)v11 valueForKeyPath:@"kCGImageSourceRawReconstructionOptions.kCGImageSourceSupportedSushiLevels"];
+  v33 = [(__CFDictionary *)v11 valueForKeyPath:@"kCGImageSourceRawReconstructionOptions.kCGImageSourceRawReconstructionMethodVersions"];
+  v12 = sub_2338191A8(a3);
+  if ([v34 containsObject:v12])
   {
-    v27 = objc_msgSend_containsObject_(v72, v24, v76, v25, v26);
+    v13 = [v33 containsObject:v37];
 
-    if (!v27)
+    if (!v13)
     {
-      v64 = 0;
+      v25 = 0;
       goto LABEL_20;
     }
 
-    v83[0] = v9;
-    v28 = sub_2338191A8(a3);
-    v83[1] = *MEMORY[0x277CD3640];
-    v84[0] = v28;
-    v84[1] = v76;
-    options = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v29, v84, v83, 2);
+    v44[0] = v8;
+    v14 = sub_2338191A8(a3);
+    v44[1] = *MEMORY[0x277CD3640];
+    v45[0] = v14;
+    v45[1] = v37;
+    options = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v45 forKeys:v44 count:2];
 
-    image = CGImageSourceCreateImageAtIndex(v8, 0, options);
-    v70 = CGImageSourceCopyPropertiesAtIndex(v8, 0, options);
+    image = CGImageSourceCreateImageAtIndex(v7, 0, options);
+    v31 = CGImageSourceCopyPropertiesAtIndex(v7, 0, options);
 
-    v20 = objc_msgSend_imageWithCGImage_(MEMORY[0x277CBF758], v30, image, v31, v32);
-    v68 = objc_msgSend_debugDescription(v20, v33, v34, v35, v36);
-    v40 = objc_msgSend_objectForKeyedSubscript_(v70, v37, @"{Raw}", v38, v39);
-    v66 = v40;
-    if (v40)
+    v12 = [MEMORY[0x277CBF758] imageWithCGImage:image];
+    v29 = [v12 debugDescription];
+    v15 = [(__CFDictionary *)v31 objectForKeyedSubscript:@"{Raw}"];
+    v27 = v15;
+    if (v15)
     {
-      objc_msgSend_objectForKeyedSubscript_(v40, v41, @"filters", v43, v44, v40);
-      v79 = 0u;
-      v80 = 0u;
-      v77 = 0u;
-      v45 = v78 = 0u;
-      v49 = objc_msgSend_countByEnumeratingWithState_objects_count_(v45, v46, &v77, v82, 16);
-      if (v49)
+      [v15 objectForKeyedSubscript:{@"filters", v15}];
+      v40 = 0u;
+      v41 = 0u;
+      v38 = 0u;
+      v16 = v39 = 0u;
+      v17 = [v16 countByEnumeratingWithState:&v38 objects:v43 count:16];
+      if (v17)
       {
-        v50 = *v78;
-        v51 = *MEMORY[0x277CBFAF0];
-        v52 = *MEMORY[0x277CBFB50];
+        v18 = *v39;
+        v19 = *MEMORY[0x277CBFAF0];
+        v20 = *MEMORY[0x277CBFB50];
         do
         {
-          v53 = 0;
-          v54 = v20;
+          v21 = 0;
+          v22 = v12;
           do
           {
-            if (*v78 != v50)
+            if (*v39 != v18)
             {
-              objc_enumerationMutation(v45);
+              objc_enumerationMutation(v16);
             }
 
-            v55 = *(*(&v77 + 1) + 8 * v53);
-            objc_msgSend_setValue_forKey_(v55, v47, v54, v51, v48);
-            v20 = objc_msgSend_valueForKey_(v55, v56, v52, v57, v58);
+            v23 = *(*(&v38 + 1) + 8 * v21);
+            [v23 setValue:v22 forKey:v19];
+            v12 = [v23 valueForKey:v20];
 
-            objc_msgSend_setValue_forKey_(v55, v59, 0, v51, v60);
-            ++v53;
-            v54 = v20;
+            [v23 setValue:0 forKey:v19];
+            ++v21;
+            v22 = v12;
           }
 
-          while (v49 != v53);
-          v49 = objc_msgSend_countByEnumeratingWithState_objects_count_(v45, v47, &v77, v82, 16);
+          while (v17 != v21);
+          v17 = [v16 countByEnumeratingWithState:&v38 objects:v43 count:16];
         }
 
-        while (v49);
+        while (v17);
       }
     }
 
-    v63 = objc_msgSend_debugDescription(v20, v41, v42, v43, v44, v66);
+    v24 = [v12 debugDescription];
     if (image)
     {
       CGImageRelease(image);
     }
 
-    v81[0] = v68;
-    v81[1] = v63;
-    v64 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v61, v81, 2, v62);
+    v42[0] = v29;
+    v42[1] = v24;
+    v25 = [MEMORY[0x277CBEA60] arrayWithObjects:v42 count:2];
 
-    v13 = v70;
-    v12 = options;
+    v11 = v31;
+    v10 = options;
   }
 
   else
   {
-    v64 = 0;
+    v25 = 0;
   }
 
 LABEL_20:
-  CFRelease(v8);
+  CFRelease(v7);
 
 LABEL_21:
   objc_autoreleasePoolPop(context);
 
-  return v64;
+  return v25;
 }
 
 void sub_23386A1DC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, void *a10, uint64_t a11, void *a12, void *a13, void *a14, void *a15, uint64_t a16, void *a17, uint64_t a18)
@@ -8557,85 +8571,85 @@ void sub_23386A590(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5,
 
 id sub_23386A604(uint64_t a1)
 {
-  v54[1] = *MEMORY[0x277D85DE8];
+  v36[1] = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 8);
-  v53 = *MEMORY[0x277CD3668];
-  v54[0] = v3;
-  v5 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v4, v54, &v53, 1);
-  v6 = CGImageSourceCreateWithData(*a1, v5);
-  if (!v6)
+  v35 = *MEMORY[0x277CD3668];
+  v36[0] = v3;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v36 forKeys:&v35 count:1];
+  v5 = CGImageSourceCreateWithData(*a1, v4);
+  if (!v5)
   {
-    v39 = 0;
+    v21 = 0;
     goto LABEL_22;
   }
 
-  v7 = *MEMORY[0x277CD3628];
-  v51[0] = *MEMORY[0x277CD3628];
-  v8 = sub_2338191A8(1);
-  v51[1] = *MEMORY[0x277CD35D8];
-  v52[0] = v8;
-  v52[1] = MEMORY[0x277CBEC38];
-  v10 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v9, v52, v51, 2);
+  v6 = *MEMORY[0x277CD3628];
+  v33[0] = *MEMORY[0x277CD3628];
+  v7 = sub_2338191A8(1);
+  v33[1] = *MEMORY[0x277CD35D8];
+  v34[0] = v7;
+  v34[1] = MEMORY[0x277CBEC38];
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v34 forKeys:v33 count:2];
 
-  v11 = CGImageSourceCopyPropertiesAtIndex(v6, 0, v10);
-  v44 = objc_msgSend_valueForKeyPath_(v11, v12, @"kCGImageSourceRawReconstructionOptions.kCGImageSourceSupportedSushiLevels", v13, v14);
-  v43 = objc_msgSend_valueForKeyPath_(v11, v15, @"kCGImageSourceRawReconstructionOptions.kCGImageSourceRawReconstructionMethodVersions", v16, v17);
-  v18 = sub_2338191A8(2);
-  if (objc_msgSend_containsObject_(v44, v19, v18, v20, v21))
+  v9 = CGImageSourceCopyPropertiesAtIndex(v5, 0, v8);
+  v26 = [(__CFDictionary *)v9 valueForKeyPath:@"kCGImageSourceRawReconstructionOptions.kCGImageSourceSupportedSushiLevels"];
+  v25 = [(__CFDictionary *)v9 valueForKeyPath:@"kCGImageSourceRawReconstructionOptions.kCGImageSourceRawReconstructionMethodVersions"];
+  v10 = sub_2338191A8(2);
+  if ([v26 containsObject:v10])
   {
-    v25 = objc_msgSend_containsObject_(v43, v22, @"6", v23, v24);
+    v11 = [v25 containsObject:@"6"];
 
-    if (v25)
+    if (v11)
     {
-      v27 = *MEMORY[0x277CD3640];
-      v49[0] = v7;
-      v49[1] = v27;
-      v50[0] = @"2";
-      v50[1] = @"6";
-      v28 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v26, v50, v49, 2);
+      v12 = *MEMORY[0x277CD3640];
+      v31[0] = v6;
+      v31[1] = v12;
+      v32[0] = @"2";
+      v32[1] = @"6";
+      v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v32 forKeys:v31 count:2];
 
-      ImageAtIndex = CGImageSourceCreateImageAtIndex(v6, 0, v28);
+      ImageAtIndex = CGImageSourceCreateImageAtIndex(v5, 0, v13);
       DataProvider = CGImageGetDataProvider(ImageAtIndex);
-      v31 = CGDataProviderCopyData(DataProvider);
-      if (v31)
+      v16 = CGDataProviderCopyData(DataProvider);
+      if (v16)
       {
         CC_SHA256_Init(&c);
-        BytePtr = CFDataGetBytePtr(v31);
-        Length = CFDataGetLength(v31);
+        BytePtr = CFDataGetBytePtr(v16);
+        Length = CFDataGetLength(v16);
         CC_SHA256_Update(&c, BytePtr, Length);
         image = ImageAtIndex;
         CC_SHA256_Final(md, &c);
-        v34 = 0;
+        v19 = 0;
         __s1[0] = 0;
         do
         {
           __s2 = 0;
-          if (asprintf(&__s2, "%02xd", md[v34]) != 3)
+          if (asprintf(&__s2, "%02xd", md[v19]) != 3)
           {
             exception = __cxa_allocate_exception(0x10uLL);
             MEMORY[0x2383ABCE0](exception, "RawCameraException");
             __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
           }
 
-          v35 = __s2;
+          v20 = __s2;
           strncat(__s1, __s2, 2uLL);
-          if (v34 != 31 && (v34 & 1) != 0)
+          if (v19 != 31 && (v19 & 1) != 0)
           {
             *&__s1[strlen(__s1)] = 58;
           }
 
-          if (v35)
+          if (v20)
           {
-            free(v35);
+            free(v20);
           }
 
-          ++v34;
+          ++v19;
         }
 
-        while (v34 != 32);
-        v39 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v36, __s1, v37, v38);
-        CFRelease(v31);
+        while (v19 != 32);
+        v21 = [MEMORY[0x277CCACA8] stringWithUTF8String:__s1];
+        CFRelease(v16);
         ImageAtIndex = image;
         if (!image)
         {
@@ -8645,11 +8659,11 @@ id sub_23386A604(uint64_t a1)
 
       else
       {
-        v39 = 0;
+        v21 = 0;
         if (!ImageAtIndex)
         {
 LABEL_20:
-          v10 = v28;
+          v8 = v13;
           goto LABEL_21;
         }
       }
@@ -8663,14 +8677,14 @@ LABEL_20:
   {
   }
 
-  v39 = 0;
+  v21 = 0;
 LABEL_21:
-  CFRelease(v6);
+  CFRelease(v5);
 
 LABEL_22:
   objc_autoreleasePoolPop(v2);
 
-  return v39;
+  return v21;
 }
 
 void sub_23386A9A8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, void *a13, void *a14, void *a15)
@@ -8750,7 +8764,7 @@ void sub_23386AF4C(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int
   JUMPOUT(0x23386AF20);
 }
 
-uint64_t RawCameraTP(void *a1)
+void *RawCameraTP(void *a1)
 {
   v1 = a1;
   v2 = objc_autoreleasePoolPush();
@@ -8759,18 +8773,18 @@ uint64_t RawCameraTP(void *a1)
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v6 = objc_msgSend_objectForKeyedSubscript_(v1, v3, @"path", v4, v5);
-      if (v6)
+      v3 = [v1 objectForKeyedSubscript:@"path"];
+      if (v3)
       {
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          sub_233867A98(&v16, v6);
-          objc_msgSend_dictionary(MEMORY[0x277CBEB38], v7, v8, v9, v10, v2, v6, v1);
+          sub_233867A98(&v5, v3);
+          [MEMORY[0x277CBEB38] dictionary];
           objc_claimAutoreleasedReturnValue();
-          objc_msgSend_dictionary(MEMORY[0x277CBEB38], v11, v12, v13, v14);
+          [MEMORY[0x277CBEB38] dictionary];
           objc_claimAutoreleasedReturnValue();
-          sub_23386ADE4(&v16);
+          sub_23386ADE4(&v5);
         }
       }
     }
@@ -8873,7 +8887,7 @@ void sub_23386B6A4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_23386B6D4(uint64_t a1@<X0>, void *a2@<X8>)
+void sub_23386B6D4(uint64_t a1@<X0>, uint64_t *a2@<X8>)
 {
   v11[0] = 0;
   v11[1] = 0;
@@ -8918,7 +8932,7 @@ void sub_23386B6D4(uint64_t a1@<X0>, void *a2@<X8>)
   }
 
   __p[0] = 0;
-  sub_233731694(a2, 4uLL);
+  sub_233731694(a2, 4uLL, __p);
   if (v11[0])
   {
     v11[1] = v11[0];
@@ -8939,68 +8953,68 @@ void sub_23386B800(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 id sub_23386B84C(uint64_t a1, void *a2)
 {
   v3 = a2;
-  if (objc_msgSend_isEqualToString_(v3, v4, @"automaticDynamicRange", v5, v6))
+  if ([v3 isEqualToString:@"automaticDynamicRange"])
   {
-    (*(*a1 + 160))(&v21, a1);
-    sub_2337D065C(&v21, &v23);
-    if (v22)
+    (*(*a1 + 160))(&v9, a1);
+    sub_2337D065C(&v9, &v11);
+    if (v10)
     {
-      sub_2337239E8(v22);
+      sub_2337239E8(v10);
     }
 
-    if (v23)
+    if (v11)
     {
-      v13 = (*(*v23 + 808))(v23);
+      v4 = (*(*v11 + 808))(v11);
     }
 
     else
     {
-      v13 = 0;
+      v4 = 0;
     }
 
-    if (v24)
+    if (v12)
     {
-      sub_2337239E8(v24);
+      sub_2337239E8(v12);
     }
 
-    v18 = objc_msgSend_numberWithInt_(MEMORY[0x277CCABB0], v10, v13, v11, v12);
+    v6 = [MEMORY[0x277CCABB0] numberWithInt:v4];
   }
 
-  else if (objc_msgSend_isEqualToString_(v3, v7, @"hasExtendedRawData", v8, v9))
+  else if ([v3 isEqualToString:@"hasExtendedRawData"])
   {
-    (*(*a1 + 160))(&v21, a1);
-    sub_2337D065C(&v21, &v23);
-    if (v22)
+    (*(*a1 + 160))(&v9, a1);
+    sub_2337D065C(&v9, &v11);
+    if (v10)
     {
-      sub_2337239E8(v22);
+      sub_2337239E8(v10);
     }
 
-    if (v23)
+    if (v11)
     {
-      v17 = (*(*v23 + 800))(v23);
+      v5 = (*(*v11 + 800))(v11);
     }
 
     else
     {
-      v17 = 0;
+      v5 = 0;
     }
 
-    if (v24)
+    if (v12)
     {
-      sub_2337239E8(v24);
+      sub_2337239E8(v12);
     }
 
-    v18 = objc_msgSend_numberWithBool_(MEMORY[0x277CCABB0], v14, v17, v15, v16);
+    v6 = [MEMORY[0x277CCABB0] numberWithBool:v5];
   }
 
   else
   {
-    v18 = sub_2338D3C20(a1, v3);
+    v6 = sub_2338D3C20(a1, v3);
   }
 
-  v19 = v18;
+  v7 = v6;
 
-  return v19;
+  return v7;
 }
 
 void sub_23386BA1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, std::__shared_weak_count *a12)
@@ -9091,7 +9105,7 @@ void sub_23386BC54(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_23386BC6C(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
+void sub_23386BC6C(uint64_t *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
   *(a3 + 480) = 0u;
   *(a3 + 496) = 0u;
@@ -9275,10 +9289,9 @@ void sub_23386C088(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 void sub_23386C0D4(void *a1)
 {
   v1 = a1;
-  v2 = v1;
-  objc_msgSend_bytes(v2, v3, v4, v5, v6);
-  v11 = objc_msgSend_length(v1, v7, v8, v9, v10);
-  sub_233723C18(&v12, &v11);
+  [v1 bytes];
+  v2 = [v1 length];
+  sub_233723C18(&v3, &v2);
   sub_233725138();
 }
 
@@ -9305,15 +9318,15 @@ void sub_23386C1E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 void sub_23386C20C(void *a1)
 {
-  v1 = a1;
-  v3 = objc_msgSend_dataWithContentsOfURL_options_error_(MEMORY[0x277CBEA90], v2, v1, 1, 0);
+  v2 = a1;
+  v3 = [MEMORY[0x277CBEA90] dataWithContentsOfURL:v2 options:1 error:0];
   if (v3)
   {
     sub_23386C0D4(v3);
   }
 
-  v8 = objc_msgSend_path(v1, v4, v5, v6, v7);
-  objc_msgSend_UTF8String(v8, v9, v10, v11, v12);
+  [v2 path];
+  [objc_claimAutoreleasedReturnValue() UTF8String];
   sub_2337250F0();
 }
 
@@ -9329,7 +9342,7 @@ void sub_23386C2C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 void sub_23386C304(uint64_t a1)
 {
-  v55 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 24);
   if (!v2)
   {
@@ -9342,10 +9355,10 @@ void sub_23386C304(uint64_t a1)
   {
     sub_23372540C(v2, 1);
     v3 = *(a1 + 24);
-    *v54 = -278;
-    (*(*v3 + 40))(v3, v54, 2);
-    memset(v54, 0, sizeof(v54));
-    if ((*(**(a1 + 24) + 32))(*(a1 + 24), v54, 278) != 278)
+    *v38 = -278;
+    (*(*v3 + 40))(v3, v38, 2);
+    memset(v38, 0, sizeof(v38));
+    if ((*(**(a1 + 24) + 32))(*(a1 + 24), v38, 278) != 278)
     {
       __cxa_allocate_exception(0x10uLL);
       MEMORY[0x2383ABCE0]();
@@ -9354,7 +9367,7 @@ void sub_23386C304(uint64_t a1)
 
     v4 = -4;
     v5 = 277;
-    while (v54[v5 - 3] != 80 || v54[v5 - 2] != 75 || v54[v5 - 1] != 5 || v54[v5] != 6)
+    while (v38[v5 - 3] != 80 || v38[v5 - 2] != 75 || v38[v5 - 1] != 5 || v38[v5] != 6)
     {
       --v4;
       if (--v5 == 2)
@@ -9391,7 +9404,7 @@ void sub_23386C304(uint64_t a1)
     }
 
     v10 = sub_233725614(*(a1 + 24));
-    v53 = sub_233725614(*(a1 + 24));
+    v37 = sub_233725614(*(a1 + 24));
     if (v10 >= (*(**(a1 + 24) + 16))())
     {
       __cxa_allocate_exception(0x10uLL);
@@ -9400,7 +9413,7 @@ void sub_23386C304(uint64_t a1)
     }
 
     v11 = (*(**(a1 + 24) + 16))(*(a1 + 24));
-    if (v53 >= v11)
+    if (v37 >= v11)
     {
       __cxa_allocate_exception(0x10uLL);
       MEMORY[0x2383ABCE0]();
@@ -9415,10 +9428,10 @@ void sub_23386C304(uint64_t a1)
       sub_2338F83F4();
     }
 
-    v16 = objc_msgSend_dictionaryWithCapacity_(MEMORY[0x277CBEB38], v13, v8, v14, v15);
-    v17 = *(a1 + 24);
-    sub_233723AE0(__p, &v53);
-    (*(*v17 + 40))(v17, __p, 0);
+    v13 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:v8];
+    v14 = *(a1 + 24);
+    sub_233723AE0(__p, &v37);
+    (*(*v14 + 40))(v14, __p, 0);
     if (v8)
     {
       do
@@ -9435,70 +9448,70 @@ void sub_23386C304(uint64_t a1)
         sub_2337255C0(*(a1 + 24));
         if (sub_2337255C0(*(a1 + 24)))
         {
-          v45 = __cxa_allocate_exception(0x10uLL);
-          MEMORY[0x2383ABCE0](v45, "RawCameraException");
-          __cxa_throw(v45, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+          v29 = __cxa_allocate_exception(0x10uLL);
+          MEMORY[0x2383ABCE0](v29, "RawCameraException");
+          __cxa_throw(v29, MEMORY[0x277D82760], MEMORY[0x277D82600]);
         }
 
         sub_2337255C0(*(a1 + 24));
         sub_2337255C0(*(a1 + 24));
         sub_233725614(*(a1 + 24));
-        v18 = sub_233725614(*(a1 + 24));
-        if (v18 != sub_233725614(*(a1 + 24)))
+        v15 = sub_233725614(*(a1 + 24));
+        if (v15 != sub_233725614(*(a1 + 24)))
         {
-          v46 = __cxa_allocate_exception(0x10uLL);
-          MEMORY[0x2383ABCE0](v46, "RawCameraException");
-          __cxa_throw(v46, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+          v30 = __cxa_allocate_exception(0x10uLL);
+          MEMORY[0x2383ABCE0](v30, "RawCameraException");
+          __cxa_throw(v30, MEMORY[0x277D82760], MEMORY[0x277D82600]);
         }
 
-        v19 = sub_2337255C0(*(a1 + 24));
-        if (!v19)
+        v16 = sub_2337255C0(*(a1 + 24));
+        if (!v16)
         {
-          v47 = __cxa_allocate_exception(0x10uLL);
-          MEMORY[0x2383ABCE0](v47, "RawCameraException");
-          __cxa_throw(v47, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+          v31 = __cxa_allocate_exception(0x10uLL);
+          MEMORY[0x2383ABCE0](v31, "RawCameraException");
+          __cxa_throw(v31, MEMORY[0x277D82760], MEMORY[0x277D82600]);
         }
 
-        v20 = sub_2337255C0(*(a1 + 24));
-        v21 = sub_2337255C0(*(a1 + 24));
+        v17 = sub_2337255C0(*(a1 + 24));
+        v18 = sub_2337255C0(*(a1 + 24));
         sub_2337255C0(*(a1 + 24));
         sub_2337255C0(*(a1 + 24));
         sub_233725614(*(a1 + 24));
-        v22 = sub_233725614(*(a1 + 24));
-        if (v22 >= (*(**(a1 + 24) + 16))(*(a1 + 24)))
+        v19 = sub_233725614(*(a1 + 24));
+        if (v19 >= (*(**(a1 + 24) + 16))(*(a1 + 24)))
         {
-          v48 = __cxa_allocate_exception(0x10uLL);
-          MEMORY[0x2383ABCE0](v48, "RawCameraException");
-          __cxa_throw(v48, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+          v32 = __cxa_allocate_exception(0x10uLL);
+          MEMORY[0x2383ABCE0](v32, "RawCameraException");
+          __cxa_throw(v32, MEMORY[0x277D82760], MEMORY[0x277D82600]);
         }
 
         __p[0] = 0;
         __p[1] = 0;
-        v52 = 0;
-        v23 = *(a1 + 24);
-        v50 = v19;
-        sub_2337257E8(v23, &v50, __p);
-        v24 = *(a1 + 24);
-        v50 = v20;
-        (*(*v24 + 40))(v24, &v50, 1);
-        v25 = *(a1 + 24);
-        v50 = v21;
-        (*(*v25 + 40))(v25, &v50, 1);
-        v30 = sub_233729FBC(__p, v26, v27, v28, v29);
-        v31 = sub_233739ACC(v16, v30);
+        v36 = 0;
+        v20 = *(a1 + 24);
+        v34 = v16;
+        sub_2337257E8(v20, &v34, __p);
+        v21 = *(a1 + 24);
+        v34 = v17;
+        (*(*v21 + 40))(v21, &v34, 1);
+        v22 = *(a1 + 24);
+        v34 = v18;
+        (*(*v22 + 40))(v22, &v34, 1);
+        v23 = sub_233729FBC(__p);
+        v24 = sub_233739ACC(v13, v23);
 
-        if (v31)
+        if (v24)
         {
-          v49 = __cxa_allocate_exception(0x10uLL);
-          MEMORY[0x2383ABCE0](v49, "RawCameraException");
-          __cxa_throw(v49, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+          v33 = __cxa_allocate_exception(0x10uLL);
+          MEMORY[0x2383ABCE0](v33, "RawCameraException");
+          __cxa_throw(v33, MEMORY[0x277D82760], MEMORY[0x277D82600]);
         }
 
-        v36 = sub_233729FBC(__p, v32, v33, v34, v35);
-        v40 = objc_msgSend_numberWithUnsignedInt_(MEMORY[0x277CCABB0], v37, v22, v38, v39);
-        objc_msgSend_setObject_forKeyedSubscript_(v16, v41, v40, v36, v42);
+        v25 = sub_233729FBC(__p);
+        v26 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v19];
+        [v13 setObject:v26 forKeyedSubscript:v25];
 
-        if (SHIBYTE(v52) < 0)
+        if (SHIBYTE(v36) < 0)
         {
           operator delete(__p[0]);
         }
@@ -9509,12 +9522,12 @@ void sub_23386C304(uint64_t a1)
       while (v9);
     }
 
-    v43 = *(a1 + 48);
-    *(a1 + 48) = v16;
+    v27 = *(a1 + 48);
+    *(a1 + 48) = v13;
   }
 }
 
-void sub_23386CBE4(void *a1, uint64_t a2, void *a3)
+void sub_23386CBE4(void *a1, void *a2, void *a3)
 {
   v4 = a3;
   *a1 = &unk_284929CB8;
@@ -9523,11 +9536,11 @@ void sub_23386CBE4(void *a1, uint64_t a2, void *a3)
 
 void sub_23386CC6C(uint64_t a1@<X0>, void *a2@<X1>, void *a3@<X8>)
 {
-  v9 = a2;
-  if (sub_233739ACC(*(a1 + 48), v9))
+  v6 = a2;
+  if (sub_233739ACC(*(a1 + 48), v6))
   {
-    v8 = sub_2337397B0(*(a1 + 48), v9, v5, v6, v7);
-    sub_23386CCFC(a1, v8);
+    v5 = sub_2337397B0(*(a1 + 48), v6);
+    sub_23386CCFC(a1, v5);
   }
 
   *a3 = 0;
@@ -9536,15 +9549,15 @@ void sub_23386CC6C(uint64_t a1@<X0>, void *a2@<X1>, void *a3@<X8>)
 
 void sub_23386CCFC(uint64_t a1, uint64_t a2)
 {
-  v15 = a2;
-  sub_233785314(&v14, (a1 + 8));
-  v3 = *(a1 + 24);
-  if (v3)
+  v16 = a2;
+  sub_233785314(&v15, (a1 + 8));
+  v4 = *(a1 + 24);
+  if (v4)
   {
-    sub_23372540C(v3, 1);
-    v4 = *(a1 + 24);
-    sub_2337268D8(&v13, &v15);
-    (*(*v4 + 40))(v4, &v13, 0);
+    sub_23372540C(v4, 1);
+    v5 = *(a1 + 24);
+    sub_2337268D8(v14, &v16);
+    (*(*v5 + 40))(v5, v14, 0);
     if (sub_233725614(*(a1 + 24)) == 67324752)
     {
       sub_2337255C0(*(a1 + 24));
@@ -9554,17 +9567,17 @@ void sub_23386CCFC(uint64_t a1, uint64_t a2)
         sub_2337255C0(*(a1 + 24));
         sub_2337255C0(*(a1 + 24));
         sub_233725614(*(a1 + 24));
-        v5 = sub_233725614(*(a1 + 24));
-        if (v5 == sub_233725614(*(a1 + 24)))
+        v6 = sub_233725614(*(a1 + 24));
+        if (v6 == sub_233725614(*(a1 + 24)))
         {
-          v6 = sub_2337255C0(*(a1 + 24));
-          if (v6)
+          v7 = sub_2337255C0(*(a1 + 24));
+          if (v7)
           {
-            v7 = sub_2337255C0(*(a1 + 24));
-            v8 = *(a1 + 24);
-            LODWORD(v13) = v7 + v6;
-            (*(*v8 + 40))(v8, &v13, 1);
-            sub_2337AD310(v5, &v13);
+            v8 = sub_2337255C0(*(a1 + 24));
+            v9 = *(a1 + 24);
+            LODWORD(v14[0]) = v8 + v7;
+            (*(*v9 + 40))(v9, v14, 1);
+            sub_2337AD310(v6, v14);
           }
 
           exception = __cxa_allocate_exception(0x10uLL);
@@ -9572,32 +9585,32 @@ void sub_23386CCFC(uint64_t a1, uint64_t a2)
           __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
         }
 
-        v11 = __cxa_allocate_exception(0x10uLL);
-        MEMORY[0x2383ABCE0](v11, "RawCameraException");
-        __cxa_throw(v11, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+        v12 = __cxa_allocate_exception(0x10uLL);
+        MEMORY[0x2383ABCE0](v12, "RawCameraException");
+        __cxa_throw(v12, MEMORY[0x277D82760], MEMORY[0x277D82600]);
       }
 
-      v10 = __cxa_allocate_exception(0x10uLL);
-      MEMORY[0x2383ABCE0](v10, "RawCameraException");
-      __cxa_throw(v10, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+      v11 = __cxa_allocate_exception(0x10uLL);
+      MEMORY[0x2383ABCE0](v11, "RawCameraException");
+      __cxa_throw(v11, MEMORY[0x277D82760], MEMORY[0x277D82600]);
     }
 
-    v9 = __cxa_allocate_exception(0x10uLL);
-    MEMORY[0x2383ABCE0](v9, "RawCameraException");
+    v10 = __cxa_allocate_exception(0x10uLL);
+    MEMORY[0x2383ABCE0](v10, "RawCameraException");
   }
 
   else
   {
-    v9 = __cxa_allocate_exception(0x10uLL);
-    MEMORY[0x2383ABCE0](v9, "RawCameraException");
+    v10 = __cxa_allocate_exception(0x10uLL);
+    MEMORY[0x2383ABCE0](v10, "RawCameraException");
   }
 
-  __cxa_throw(v9, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+  __cxa_throw(v10, MEMORY[0x277D82760], MEMORY[0x277D82600]);
 }
 
-void sub_23386CFB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_23386CFB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   sub_2337853E4(va);
   _Unwind_Resume(a1);
 }
@@ -9609,7 +9622,7 @@ void sub_23386D03C(uint64_t a1)
   JUMPOUT(0x2383ABF10);
 }
 
-void sub_23386D0E8(void *a1, uint64_t a2, void **a3)
+void sub_23386D0E8(void *a1, void *a2, void **a3)
 {
   a1[1] = 0;
   a1[2] = 0;
@@ -9623,23 +9636,4 @@ void sub_23386D168(std::__shared_weak_count *a1)
   std::__shared_weak_count::~__shared_weak_count(a1);
 
   JUMPOUT(0x2383ABF10);
-}
-
-uint64_t sub_23386D1E4(uint64_t a1)
-{
-  *a1 = &unk_284929CB8;
-
-  v2 = *(a1 + 32);
-  if (v2)
-  {
-    sub_2337239E8(v2);
-  }
-
-  v3 = *(a1 + 16);
-  if (v3)
-  {
-    sub_2337239E8(v3);
-  }
-
-  return a1;
 }

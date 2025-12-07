@@ -5,9 +5,104 @@
 - (void)deRegisterFromSleepWake:(id)wake;
 - (void)dealloc;
 - (void)registerForSleepWake:(id)wake queue:(id)queue;
+- (void)systemPowerChanged:(unsigned int)changed notificationID:(void *)d;
 @end
 
 @implementation HAPPowerManager
+
+- (void)systemPowerChanged:(unsigned int)changed notificationID:(void *)d
+{
+  v5 = *&changed;
+  v38 = *MEMORY[0x277D85DE8];
+  v7 = objc_autoreleasePoolPush();
+  selfCopy = self;
+  v9 = HMFGetOSLogHandle();
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+  {
+    v10 = HMFGetLogIdentifier();
+    v11 = StringForSystemPowerChangedMessage(v5);
+    *buf = 138543618;
+    v33 = v10;
+    v34 = 2112;
+    v35 = v11;
+    _os_log_impl(&dword_22AADC000, v9, OS_LOG_TYPE_INFO, "%{public}@System power changed: %@", buf, 0x16u);
+  }
+
+  objc_autoreleasePoolPop(v7);
+  switch(v5)
+  {
+    case 0xE0000270:
+      goto LABEL_14;
+    case 0xE0000280:
+      v12 = 1;
+      [(HAPPowerManager *)selfCopy delegatesMap:1];
+      break;
+    case 0xE0000320:
+      v12 = 2;
+      [(HAPPowerManager *)selfCopy delegatesMap:0];
+      break;
+    default:
+      return;
+  }
+  v13 = ;
+  keyEnumerator = [v13 keyEnumerator];
+
+  nextObject = [keyEnumerator nextObject];
+  if (nextObject)
+  {
+    v16 = nextObject;
+    do
+    {
+      delegatesMap = [(HAPPowerManager *)selfCopy delegatesMap];
+      v18 = [delegatesMap objectForKey:v16];
+
+      if (v18)
+      {
+        block[0] = MEMORY[0x277D85DD0];
+        block[1] = 3221225472;
+        block[2] = __53__HAPPowerManager_systemPowerChanged_notificationID___block_invoke;
+        block[3] = &unk_2786D63C8;
+        v30 = v16;
+        v31 = v12;
+        dispatch_async(v18, block);
+      }
+
+      nextObject2 = [keyEnumerator nextObject];
+
+      v16 = nextObject2;
+    }
+
+    while (nextObject2);
+  }
+
+  d = v28;
+  if (v27)
+  {
+LABEL_14:
+    v20 = IOAllowPowerChange([(HAPPowerManager *)selfCopy systemPowerMgr], d);
+    if (v20)
+    {
+      v21 = v20;
+      v22 = objc_autoreleasePoolPush();
+      v23 = selfCopy;
+      v24 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+      {
+        v25 = HMFGetLogIdentifier();
+        v26 = StringForSystemPowerChangedMessage(v5);
+        *buf = 138543874;
+        v33 = v25;
+        v34 = 2112;
+        v35 = v26;
+        v36 = 1024;
+        v37 = v21;
+        _os_log_impl(&dword_22AADC000, v24, OS_LOG_TYPE_ERROR, "%{public}@Failed to allow for %@ with error: %d", buf, 0x1Cu);
+      }
+
+      objc_autoreleasePoolPop(v22);
+    }
+  }
+}
 
 - (void)deRegisterFromSleepWake:(id)wake
 {
@@ -57,7 +152,7 @@ void __46__HAPPowerManager_registerForSleepWake_queue___block_invoke(uint64_t a1
 
 - (void)dealloc
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   p_systemPowerNotifier = &self->_systemPowerNotifier;
   if (self->_systemPowerNotifier)
   {
@@ -72,9 +167,9 @@ void __46__HAPPowerManager_registerForSleepWake_queue___block_invoke(uint64_t a1
       {
         v9 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v25 = v9;
-        v26 = 1024;
-        v27 = v5;
+        v24 = v9;
+        v25 = 1024;
+        v26 = v5;
         _os_log_impl(&dword_22AADC000, v8, OS_LOG_TYPE_ERROR, "%{public}@Failed to deregister from system power with error: %d", buf, 0x12u);
       }
 
@@ -105,9 +200,9 @@ void __46__HAPPowerManager_registerForSleepWake_queue___block_invoke(uint64_t a1
       {
         v17 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v25 = v17;
-        v26 = 1024;
-        v27 = v13;
+        v24 = v17;
+        v25 = 1024;
+        v26 = v13;
         _os_log_impl(&dword_22AADC000, v16, OS_LOG_TYPE_ERROR, "%{public}@Failed to close power IO Service with error: %d", buf, 0x12u);
       }
 
@@ -124,23 +219,22 @@ void __46__HAPPowerManager_registerForSleepWake_queue___block_invoke(uint64_t a1
   {
     v21 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v25 = v21;
+    v24 = v21;
     _os_log_impl(&dword_22AADC000, v20, OS_LOG_TYPE_INFO, "%{public}@Deallocating Power Manager", buf, 0xCu);
   }
 
   objc_autoreleasePoolPop(v18);
-  v23.receiver = selfCopy3;
-  v23.super_class = HAPPowerManager;
-  [(HAPPowerManager *)&v23 dealloc];
-  v22 = *MEMORY[0x277D85DE8];
+  v22.receiver = selfCopy3;
+  v22.super_class = HAPPowerManager;
+  [(HAPPowerManager *)&v22 dealloc];
 }
 
 - (HAPPowerManager)init
 {
-  v22 = *MEMORY[0x277D85DE8];
-  v19.receiver = self;
-  v19.super_class = HAPPowerManager;
-  v2 = [(HAPPowerManager *)&v19 init];
+  v21 = *MEMORY[0x277D85DE8];
+  v18.receiver = self;
+  v18.super_class = HAPPowerManager;
+  v2 = [(HAPPowerManager *)&v18 init];
   if (v2)
   {
     v3 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
@@ -168,7 +262,7 @@ void __46__HAPPowerManager_registerForSleepWake_queue___block_invoke(uint64_t a1
       {
         v12 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v21 = v12;
+        v20 = v12;
         _os_log_impl(&dword_22AADC000, v11, OS_LOG_TYPE_ERROR, "%{public}@Error registering for system power", buf, 0xCu);
       }
 
@@ -183,12 +277,11 @@ void __46__HAPPowerManager_registerForSleepWake_queue___block_invoke(uint64_t a1
   {
     v16 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v21 = v16;
+    v20 = v16;
     _os_log_impl(&dword_22AADC000, v15, OS_LOG_TYPE_INFO, "%{public}@Initialized Power Manager.", buf, 0xCu);
   }
 
   objc_autoreleasePoolPop(v13);
-  v17 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
@@ -206,7 +299,6 @@ void __46__HAPPowerManager_registerForSleepWake_queue___block_invoke(uint64_t a1
 
 uint64_t __30__HAPPowerManager_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
   logCategory__hmf_once_v8 = HMFCreateOSLogHandle();
 
   return MEMORY[0x2821F96F8]();

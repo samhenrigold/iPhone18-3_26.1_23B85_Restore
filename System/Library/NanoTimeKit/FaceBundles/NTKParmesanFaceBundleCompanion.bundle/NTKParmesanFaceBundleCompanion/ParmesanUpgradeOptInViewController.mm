@@ -13,7 +13,7 @@
 
 - (id)titleString
 {
-  sub_23BF4BDF0(0, &qword_27E1E0930);
+  sub_23BF4BDF0(0, &qword_27E1E0930, off_278BA5488);
   ObjCClassFromMetadata = swift_getObjCClassFromMetadata();
   v3 = sub_23BFFA2C0();
   v4 = sub_23BFFA2C0();
@@ -27,7 +27,7 @@
 
 - (id)detailString
 {
-  sub_23BF4BDF0(0, &qword_27E1E0930);
+  sub_23BF4BDF0(0, &qword_27E1E0930, off_278BA5488);
   ObjCClassFromMetadata = swift_getObjCClassFromMetadata();
   v3 = sub_23BFFA2C0();
   v4 = sub_23BFFA2C0();
@@ -41,7 +41,7 @@
 
 - (id)suggestedButtonTitle
 {
-  sub_23BF4BDF0(0, &qword_27E1E0930);
+  sub_23BF4BDF0(0, &qword_27E1E0930, off_278BA5488);
   ObjCClassFromMetadata = swift_getObjCClassFromMetadata();
   v3 = sub_23BFFA2C0();
   v4 = sub_23BFFA2C0();
@@ -56,13 +56,14 @@
 - (void)loadView
 {
   selfCopy = self;
-  sub_23BFECAD0();
+  sub_23BFECAD0(selfCopy, v2);
 }
 
 - (void)viewWillAppear:(BOOL)appear
 {
+  appearCopy = appear;
   selfCopy = self;
-  sub_23BFECE0C(appear);
+  sub_23BFECE0C(appearCopy, selfCopy);
 }
 
 - (_TtC30NTKParmesanFaceBundleCompanion34ParmesanUpgradeOptInViewController)init

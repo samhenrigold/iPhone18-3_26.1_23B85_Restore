@@ -20,12 +20,12 @@
   v14 = v13;
   if (v13 && ([v13 conformsToProtocol:&unk_1F4B13C60] & 1) == 0)
   {
-    [_PRUISPosterSnapshotControllerImpl initWithCache:a2 instanceIdentifier:? extensionProvider:?];
+    [_PRUISPosterSnapshotControllerImpl initWithCache:a2 instanceIdentifier:self extensionProvider:?];
   }
 
-  v34.receiver = self;
-  v34.super_class = _PRUISPosterSnapshotControllerImpl;
-  v15 = [(_PRUISPosterSnapshotControllerImpl *)&v34 init];
+  v35.receiver = self;
+  v35.super_class = _PRUISPosterSnapshotControllerImpl;
+  v15 = [(_PRUISPosterSnapshotControllerImpl *)&v35 init];
   if (v15)
   {
     v16 = [objc_alloc(MEMORY[0x1E698E610]) initWithFlag:0];
@@ -56,15 +56,16 @@
     cache = v15->_cache;
     if (cache)
     {
-      v33 = 0;
-      v29 = [(PUIPosterSnapshotCache *)cache checkCacheIsReachableWithError:&v33];
-      v30 = v33;
+      v34 = 0;
+      v29 = [(PUIPosterSnapshotCache *)cache checkCacheIsReachableWithError:&v34];
+      v30 = v34;
+      v31 = v30;
       if (v30 || (v29 & 1) == 0)
       {
-        v31 = PRUISLogSnapshotting();
-        if (os_log_type_enabled(v31, OS_LOG_TYPE_FAULT))
+        v32 = PRUISLogSnapshotting(v30);
+        if (os_log_type_enabled(v32, OS_LOG_TYPE_FAULT))
         {
-          [_PRUISPosterSnapshotControllerImpl initWithCache:v30 instanceIdentifier:v31 extensionProvider:?];
+          [_PRUISPosterSnapshotControllerImpl initWithCache:v31 instanceIdentifier:v32 extensionProvider:?];
         }
       }
     }
@@ -89,12 +90,12 @@
 
 - (void)executeSnapshotRequest:(id)request completion:(id)completion
 {
-  v50[1] = *MEMORY[0x1E69E9840];
+  v51[1] = *MEMORY[0x1E69E9840];
   requestCopy = request;
   completionCopy = completion;
   if (!completionCopy)
   {
-    [_PRUISPosterSnapshotControllerImpl executeSnapshotRequest:a2 completion:?];
+    [_PRUISPosterSnapshotControllerImpl executeSnapshotRequest:a2 completion:self];
   }
 
   v9 = completionCopy;
@@ -111,10 +112,10 @@
     aBlock[1] = 3221225472;
     aBlock[2] = __72___PRUISPosterSnapshotControllerImpl_executeSnapshotRequest_completion___block_invoke;
     aBlock[3] = &unk_1E83A8EA8;
-    v37 = v11;
-    v47 = v37;
-    v48 = v9;
-    v38 = _Block_copy(aBlock);
+    v38 = v11;
+    v48 = v38;
+    v49 = v9;
+    v39 = _Block_copy(aBlock);
     path = [requestCopy path];
     serverIdentity = [path serverIdentity];
     provider = [serverIdentity provider];
@@ -153,73 +154,73 @@
       ++self->_lock_runningSnapshotters;
       if (lock_runtimeAssertion)
       {
-        v26 = PRUISLogSnapshotting();
-        if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
+        v27 = PRUISLogSnapshotting(v25);
+        if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
         {
-          [_PRUISPosterSnapshotControllerImpl executeSnapshotRequest:v26 completion:?];
+          [_PRUISPosterSnapshotControllerImpl executeSnapshotRequest:v27 completion:?];
         }
       }
 
       else
       {
-        v30 = MEMORY[0x1E69C7548];
+        v31 = MEMORY[0x1E69C7548];
         currentProcess = [MEMORY[0x1E69C7640] currentProcess];
-        v32 = [v30 pf_prewarmRuntimeAssertionForTarget:currentProcess explanation:@"Snapshotting assertion"];
+        v33 = [v31 pf_prewarmRuntimeAssertionForTarget:currentProcess explanation:@"Snapshotting assertion"];
 
-        v45 = 0;
-        LOBYTE(currentProcess) = [v32 acquireWithError:&v45];
-        v26 = v45;
-        v33 = PRUISLogSnapshotting();
-        v34 = v33;
+        v46 = 0;
+        LOBYTE(currentProcess) = [v33 acquireWithError:&v46];
+        v27 = v46;
+        v34 = PRUISLogSnapshotting(v27);
+        v35 = v34;
         if (currentProcess)
         {
-          if (os_log_type_enabled(v33, OS_LOG_TYPE_DEBUG))
+          if (os_log_type_enabled(v34, OS_LOG_TYPE_DEBUG))
           {
-            [_PRUISPosterSnapshotControllerImpl executeSnapshotRequest:v34 completion:?];
+            [_PRUISPosterSnapshotControllerImpl executeSnapshotRequest:v35 completion:?];
           }
 
-          v35 = v32;
+          v36 = v33;
         }
 
         else
         {
-          if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+          if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
           {
-            [_PRUISPosterSnapshotControllerImpl executeSnapshotRequest:v26 completion:v34];
+            [_PRUISPosterSnapshotControllerImpl executeSnapshotRequest:v27 completion:v35];
           }
 
-          v35 = 0;
+          v36 = 0;
         }
 
-        v36 = self->_lock_runtimeAssertion;
-        self->_lock_runtimeAssertion = v35;
+        v37 = self->_lock_runtimeAssertion;
+        self->_lock_runtimeAssertion = v36;
       }
 
       os_unfair_lock_unlock(&self->_lock);
       objc_initWeak(&location, self);
-      v40[0] = MEMORY[0x1E69E9820];
-      v40[1] = 3221225472;
-      v40[2] = __72___PRUISPosterSnapshotControllerImpl_executeSnapshotRequest_completion___block_invoke_118;
-      v40[3] = &unk_1E83A8ED0;
-      objc_copyWeak(&v43, &location);
-      v42 = v38;
-      v41 = requestCopy;
-      [v18 enqueueSnapshotRequest:v41 completion:v40];
+      v41[0] = MEMORY[0x1E69E9820];
+      v41[1] = 3221225472;
+      v41[2] = __72___PRUISPosterSnapshotControllerImpl_executeSnapshotRequest_completion___block_invoke_118;
+      v41[3] = &unk_1E83A8ED0;
+      objc_copyWeak(&v44, &location);
+      v43 = v39;
+      v42 = requestCopy;
+      [v18 enqueueSnapshotRequest:v42 completion:v41];
 
-      objc_destroyWeak(&v43);
+      objc_destroyWeak(&v44);
       objc_destroyWeak(&location);
     }
 
     else
     {
-      v27 = MEMORY[0x1E696ABC0];
-      v49 = *MEMORY[0x1E696A588];
-      v28 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Extension '%@' was not found", provider];
-      v50[0] = v28;
-      v29 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v50 forKeys:&v49 count:1];
-      v18 = [v27 pui_errorWithCode:3 userInfo:v29];
+      v28 = MEMORY[0x1E696ABC0];
+      v50 = *MEMORY[0x1E696A588];
+      v29 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Extension '%@' was not found", provider];
+      v51[0] = v29;
+      v30 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v51 forKeys:&v50 count:1];
+      v18 = [v28 pui_errorWithCode:3 userInfo:v30];
 
-      (*(v38 + 2))(v38, requestCopy, 0, v18, 0);
+      (*(v39 + 2))(v39, requestCopy, 0, v18, 0);
     }
   }
 }
@@ -242,7 +243,7 @@
   completionCopy = completion;
   if (!completionCopy)
   {
-    [_PRUISPosterSnapshotControllerImpl _snapshotRequestDidFinishWithResult:a2 snapshotterError:? request:? completion:?];
+    [_PRUISPosterSnapshotControllerImpl _snapshotRequestDidFinishWithResult:a2 snapshotterError:self request:? completion:?];
   }
 
   v15 = completionCopy;
@@ -314,7 +315,7 @@
 
 - (void)snapshotterDidInvalidateScene:(id)scene didWaitForSceneInvalidation:(BOOL)invalidation forRequest:(id)request
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   sceneCopy = scene;
   requestCopy = request;
   os_unfair_lock_lock(&self->_lock);
@@ -324,14 +325,14 @@
 
   if (v12)
   {
-    lock_runtimeAssertion = PRUISLogSnapshotting();
+    lock_runtimeAssertion = PRUISLogSnapshotting(v13);
     if (os_log_type_enabled(lock_runtimeAssertion, OS_LOG_TYPE_DEFAULT))
     {
-      v14 = NSStringFromSelector(a2);
+      v15 = NSStringFromSelector(a2);
       *buf = 138543618;
-      v29 = v14;
-      v30 = 2114;
-      v31 = sceneCopy;
+      v30 = v15;
+      v31 = 2114;
+      v32 = sceneCopy;
       _os_log_impl(&dword_1CAE63000, lock_runtimeAssertion, OS_LOG_TYPE_DEFAULT, "[%{public}@]: %{public}@, but we're still expecting more work from this snapshotter", buf, 0x16u);
     }
 
@@ -341,52 +342,52 @@ LABEL_15:
   }
 
   --self->_lock_runningSnapshotters;
-  v15 = PRUISLogSnapshotting();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+  v16 = PRUISLogSnapshotting(v13);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
-    v16 = NSStringFromSelector(a2);
+    v17 = NSStringFromSelector(a2);
     lock_runningSnapshotters = self->_lock_runningSnapshotters;
     *buf = 138544130;
-    v29 = v16;
-    v30 = 2114;
-    v31 = sceneCopy;
-    v32 = 2050;
-    v33 = lock_runningSnapshotters;
-    v34 = 2114;
-    v35 = requestCopy;
-    _os_log_impl(&dword_1CAE63000, v15, OS_LOG_TYPE_DEFAULT, "[%{public}@]: %{public}@, remaining running snapshotters: %{public}lu, request: %{public}@", buf, 0x2Au);
+    v30 = v17;
+    v31 = 2114;
+    v32 = sceneCopy;
+    v33 = 2050;
+    v34 = lock_runningSnapshotters;
+    v35 = 2114;
+    v36 = requestCopy;
+    _os_log_impl(&dword_1CAE63000, v16, OS_LOG_TYPE_DEFAULT, "[%{public}@]: %{public}@, remaining running snapshotters: %{public}lu, request: %{public}@", buf, 0x2Au);
   }
 
   if (!self->_lock_runningSnapshotters)
   {
-    v25 = 0u;
     v26 = 0u;
-    v23 = 0u;
+    v27 = 0u;
     v24 = 0u;
+    v25 = 0u;
     objectEnumerator = [(NSMapTable *)self->_lock_providerToSnapshotterMap objectEnumerator];
-    v19 = [objectEnumerator countByEnumeratingWithState:&v23 objects:v27 count:16];
-    if (v19)
+    v20 = [objectEnumerator countByEnumeratingWithState:&v24 objects:v28 count:16];
+    if (v20)
     {
-      v20 = v19;
-      v21 = *v24;
+      v21 = v20;
+      v22 = *v25;
       do
       {
-        v22 = 0;
+        v23 = 0;
         do
         {
-          if (*v24 != v21)
+          if (*v25 != v22)
           {
             objc_enumerationMutation(objectEnumerator);
           }
 
-          [*(*(&v23 + 1) + 8 * v22++) invalidate];
+          [*(*(&v24 + 1) + 8 * v23++) invalidate];
         }
 
-        while (v20 != v22);
-        v20 = [objectEnumerator countByEnumeratingWithState:&v23 objects:v27 count:16];
+        while (v21 != v23);
+        v21 = [objectEnumerator countByEnumeratingWithState:&v24 objects:v28 count:16];
       }
 
-      while (v20);
+      while (v21);
     }
 
     [(NSMapTable *)self->_lock_providerToSnapshotterMap removeAllObjects];
@@ -509,19 +510,19 @@ LABEL_16:
   }
 }
 
-- (void)initWithCache:(const char *)a1 instanceIdentifier:extensionProvider:.cold.1(const char *a1)
+- (void)initWithCache:(const char *)a1 instanceIdentifier:(uint64_t)a2 extensionProvider:.cold.1(const char *a1, uint64_t a2)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object conformsToProtocol:@protocol(PUIPosterSnapshotCache)]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v3 = NSStringFromSelector(a1);
-    v4 = objc_opt_class();
-    v5 = NSStringFromClass(v4);
+    v4 = NSStringFromSelector(a1);
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_0(&dword_1CAE63000, MEMORY[0x1E69E9C10], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, @"[_bs_assert_object conformsToProtocol:@protocol(PUIPosterSnapshotCache)]", v11, v12);
+    OUTLINED_FUNCTION_1_0(&dword_1CAE63000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
-  [v2 UTF8String];
+  [v3 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }
@@ -542,37 +543,37 @@ LABEL_16:
   _os_log_error_impl(&dword_1CAE63000, a2, OS_LOG_TYPE_ERROR, "Error acquiring runtime assertion:'%@'", &v2, 0xCu);
 }
 
-- (void)executeSnapshotRequest:(const char *)a1 completion:.cold.4(const char *a1)
+- (void)executeSnapshotRequest:(const char *)a1 completion:(uint64_t)a2 .cold.4(const char *a1, uint64_t a2)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"completion"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v3 = NSStringFromSelector(a1);
-    v4 = objc_opt_class();
-    v5 = NSStringFromClass(v4);
+    v4 = NSStringFromSelector(a1);
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_0(&dword_1CAE63000, MEMORY[0x1E69E9C10], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, @"completion", v12, v13);
+    OUTLINED_FUNCTION_1_0(&dword_1CAE63000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v13, v14);
   }
 
-  v11 = v2;
-  [v2 UTF8String];
+  v12 = v3;
+  [v3 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }
 
-- (void)_snapshotRequestDidFinishWithResult:(const char *)a1 snapshotterError:request:completion:.cold.1(const char *a1)
+- (void)_snapshotRequestDidFinishWithResult:(const char *)a1 snapshotterError:(uint64_t)a2 request:completion:.cold.1(const char *a1, uint64_t a2)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"completion"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v3 = NSStringFromSelector(a1);
-    v4 = objc_opt_class();
-    v5 = NSStringFromClass(v4);
+    v4 = NSStringFromSelector(a1);
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_0(&dword_1CAE63000, MEMORY[0x1E69E9C10], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, @"completion", v11, v12);
+    OUTLINED_FUNCTION_1_0(&dword_1CAE63000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
-  [v2 UTF8String];
+  [v3 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }

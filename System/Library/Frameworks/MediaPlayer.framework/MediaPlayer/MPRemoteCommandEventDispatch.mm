@@ -3,7 +3,7 @@
 
 @implementation MPRemoteCommandEventDispatch
 
-void __40___MPRemoteCommandEventDispatch_deliver__block_invoke(uint64_t a1, uint64_t a2)
+void __40___MPRemoteCommandEventDispatch_deliver__block_invoke(uint64_t result, uint64_t a2)
 {
   v10 = *MEMORY[0x1E69E9840];
   if (!a2)
@@ -11,8 +11,8 @@ void __40___MPRemoteCommandEventDispatch_deliver__block_invoke(uint64_t a1, uint
     v3 = os_log_create("com.apple.amp.mediaplayer", "RemoteControl");
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      v4 = [*(a1 + 32) commandID];
-      v5 = *(a1 + 48);
+      v4 = [*(result + 32) commandID];
+      v5 = *(result + 48);
       v6 = 138543618;
       v7 = v4;
       v8 = 2048;
@@ -20,7 +20,7 @@ void __40___MPRemoteCommandEventDispatch_deliver__block_invoke(uint64_t a1, uint
       _os_log_impl(&dword_1A238D000, v3, OS_LOG_TYPE_ERROR, "[RCE:%{public}@] deliver | timed out [waiting for delivery for %0.2gs]", &v6, 0x16u);
     }
 
-    [(_MPRemoteCommandEventDispatch *)*(a1 + 40) timeout];
+    [(_MPRemoteCommandEventDispatch *)*(result + 40) timeout];
   }
 }
 

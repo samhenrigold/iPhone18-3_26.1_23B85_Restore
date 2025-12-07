@@ -203,7 +203,7 @@ LABEL_28:
 
   v15 = objc_alloc_init(MEMORY[0x1E695DF70]);
 LABEL_14:
-  if ([v15 count] >= 0x64)
+  if (objc_msgSend_count(v15) >= 0x64)
   {
     [v15 removeObjectsInRange:{0, 50}];
   }

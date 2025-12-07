@@ -48,15 +48,17 @@
 
 - (CGSize)sizeThatFits:(CGSize)fits
 {
+  height = fits.height;
+  width = fits.width;
   selfCopy = self;
-  sub_10017C6E4();
-  v5 = v4;
+  sub_10017C6E4(width, height);
   v7 = v6;
+  v9 = v8;
 
-  v8 = v5;
-  v9 = v7;
-  result.height = v9;
-  result.width = v8;
+  v10 = v7;
+  v11 = v9;
+  result.height = v11;
+  result.width = v10;
   return result;
 }
 

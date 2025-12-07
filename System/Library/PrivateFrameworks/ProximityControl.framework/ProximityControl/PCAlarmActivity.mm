@@ -13,11 +13,11 @@
 
 - (id)initFromAlarm:(id)alarm
 {
-  v15[2] = *MEMORY[0x277D85DE8];
+  v14[2] = *MEMORY[0x277D85DE8];
   alarmCopy = alarm;
-  v13.receiver = self;
-  v13.super_class = PCAlarmActivity;
-  v5 = [(PCAlarmActivity *)&v13 initWithActivityType:@"com.apple.ProximityControl.activity.alarm"];
+  v12.receiver = self;
+  v12.super_class = PCAlarmActivity;
+  v5 = [(PCAlarmActivity *)&v12 initWithActivityType:@"com.apple.ProximityControl.activity.alarm"];
   v6 = v5;
   if (v5)
   {
@@ -31,16 +31,15 @@
     }
 
     [(PCAlarmActivity *)v6 setTitle:displayTitle];
-    v14[0] = @"fireDate";
+    v13[0] = @"fireDate";
     nextFireDate = [alarmCopy nextFireDate];
-    v14[1] = @"displayTitle";
-    v15[0] = nextFireDate;
-    v15[1] = displayTitle;
-    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:2];
+    v13[1] = @"displayTitle";
+    v14[0] = nextFireDate;
+    v14[1] = displayTitle;
+    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:2];
     [(PCAlarmActivity *)v6 setUserInfo:v10];
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v6;
 }
 

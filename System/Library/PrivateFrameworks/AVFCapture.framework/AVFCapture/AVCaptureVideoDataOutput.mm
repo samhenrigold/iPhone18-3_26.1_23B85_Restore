@@ -89,14 +89,14 @@
 
 - (void)setSampleBufferDelegate:(id)sampleBufferDelegate queue:(dispatch_queue_t)sampleBufferCallbackQueue
 {
-  if (AVCaptureIsRunningInMediaserverd())
+  if (AVCaptureIsRunningInMediaserverd(self, a2))
   {
     sampleBufferCallbackQueue = 0;
   }
 
   [(AVCaptureVideoDataOutput *)self willChangeValueForKey:@"sampleBufferDelegate"];
-  v8 = 0;
-  if ([(AVCaptureDataOutputDelegateCallbackHelper *)self->_internal->delegateCallbackHelper setClientDelegate:sampleBufferDelegate clientCallbackQueue:sampleBufferCallbackQueue exceptionReason:&v8])
+  v10 = 0;
+  if ([(AVCaptureDataOutputDelegateCallbackHelper *)self->_internal->delegateCallbackHelper setClientDelegate:sampleBufferDelegate clientCallbackQueue:sampleBufferCallbackQueue exceptionReason:&v10])
   {
     [(AVCaptureVideoDataOutput *)self didChangeValueForKey:@"sampleBufferDelegate"];
   }
@@ -104,8 +104,8 @@
   else
   {
     v7 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-    [(AVCaptureVideoDataOutput *)self didChangeValueForKey:@"sampleBufferDelegate"];
-    if (AVCaptureShouldThrowForAPIViolations())
+    v8 = [(AVCaptureVideoDataOutput *)self didChangeValueForKey:@"sampleBufferDelegate"];
+    if (AVCaptureShouldThrowForAPIViolations(v8, v9))
     {
       objc_exception_throw(v7);
     }
@@ -123,7 +123,7 @@
 
 - (id)outputScalingModeForSourceFormat:(id)format
 {
-  result = [(NSDictionary *)self->_internal->clientVideoSettings objectForKeyedSubscript:*MEMORY[0x1E6987DC8]];
+  result = objc_msgSend_objectForKeyedSubscript_(self->_internal->clientVideoSettings, a2, *MEMORY[0x1E6987DC8]);
   if (!result)
   {
     if ([(AVCaptureVideoDataOutput *)self deliversPreviewSizedOutputBuffers])
@@ -173,7 +173,7 @@
   if (enabled && ![(AVCaptureVideoDataOutput *)self isVideoSettingsAspectRatioOverrideSupported])
   {
     v6 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-    if (AVCaptureShouldThrowForAPIViolations())
+    if (AVCaptureShouldThrowForAPIViolations(v6, v7))
     {
       objc_exception_throw(v6);
     }
@@ -197,7 +197,7 @@
   if (enabled && ![(AVCaptureVideoDataOutput *)self isSceneStabilityMetadataSupported])
   {
     v6 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-    if (AVCaptureShouldThrowForAPIViolations())
+    if (AVCaptureShouldThrowForAPIViolations(v6, v7))
     {
       objc_exception_throw(v6);
     }
@@ -246,9 +246,9 @@
   v9 = [MEMORY[0x1E695DF90] dictionaryWithDictionary:v7];
   [v9 addEntriesFromDictionary:v8];
   v10 = *MEMORY[0x1E6987DC8];
-  v11 = [v7 objectForKeyedSubscript:*MEMORY[0x1E6987DC8]];
+  v11 = objc_msgSend_objectForKeyedSubscript_(v7);
   v12 = *MEMORY[0x1E6987DD0];
-  if ([v11 isEqual:*MEMORY[0x1E6987DD0]] && (objc_msgSend(objc_msgSend(v8, "objectForKeyedSubscript:", v10), "isEqual:", v12) & 1) == 0)
+  if ([v11 isEqual:*MEMORY[0x1E6987DD0]] && (objc_msgSend(objc_msgSend_objectForKeyedSubscript_(v8), "isEqual:", v12) & 1) == 0)
   {
     [v9 setObject:0 forKeyedSubscript:v10];
   }
@@ -262,7 +262,7 @@
   v8 = sourceDevice;
   if (dictionary)
   {
-    if (self->_internal->deliversPreviewSizedOutputBuffers && (v9 = *MEMORY[0x1E6987DC8], ![dictionary objectForKeyedSubscript:*MEMORY[0x1E6987DC8]]))
+    if (self->_internal->deliversPreviewSizedOutputBuffers && (v9 = *MEMORY[0x1E6987DC8], !objc_msgSend_objectForKeyedSubscript_(dictionary)))
     {
       v10 = [MEMORY[0x1E695DF90] dictionaryWithDictionary:dictionary];
       [v10 setObject:*MEMORY[0x1E6987DD0] forKeyedSubscript:v9];
@@ -274,7 +274,7 @@
     }
 
     v11 = *MEMORY[0x1E6966130];
-    v12 = [dictionary objectForKeyedSubscript:*MEMORY[0x1E6966130]];
+    v12 = objc_msgSend_objectForKeyedSubscript_(dictionary);
     if (v12 && ![(NSArray *)self->_internal->availableVideoCVPixelFormatTypes containsObject:v12])
     {
       if (!v10)
@@ -302,9 +302,9 @@
     }
 
     v33 = *MEMORY[0x1E6966208];
-    v34 = [dictionary objectForKeyedSubscript:*MEMORY[0x1E6966208]];
+    v34 = objc_msgSend_objectForKeyedSubscript_(dictionary);
     v35 = *MEMORY[0x1E69660B8];
-    v36 = [dictionary objectForKeyedSubscript:*MEMORY[0x1E69660B8]];
+    v36 = objc_msgSend_objectForKeyedSubscript_(dictionary);
     if (v34)
     {
       v37 = v36 == 0;
@@ -331,9 +331,7 @@
     v69 = v33;
     v70 = v35;
     _videoOrientation = [(AVCaptureConnection *)[(AVCaptureOutput *)self connectionWithMediaType:*MEMORY[0x1E6987608]] _videoOrientation];
-    [connection sourcesFromFrontFacingCamera];
-    [connection sourcesFromExternalCamera];
-    if (AVCapturePlatformMountsCamerasInLandscapeOrientation())
+    if (AVCapturePlatformMountsCamerasInLandscapeOrientation([connection sourcesFromFrontFacingCamera], objc_msgSend(connection, "sourcesFromExternalCamera")))
     {
       v42 = -1;
       v43 = v40;
@@ -508,9 +506,7 @@ LABEL_73:
     }
 
     _videoOrientation2 = [connection _videoOrientation];
-    [connection sourcesFromFrontFacingCamera];
-    [connection sourcesFromExternalCamera];
-    if (AVCapturePlatformMountsCamerasInLandscapeOrientation())
+    if (AVCapturePlatformMountsCamerasInLandscapeOrientation([connection sourcesFromFrontFacingCamera], objc_msgSend(connection, "sourcesFromExternalCamera")))
     {
       v23 = -1;
     }
@@ -530,19 +526,19 @@ LABEL_73:
     }
 
     v25 = *MEMORY[0x1E6966130];
-    v26 = [-[NSDictionary objectForKeyedSubscript:](self->_internal->clientVideoSettings objectForKeyedSubscript:{*MEMORY[0x1E6966130]), "intValue"}];
-    if (!v26)
+    intValue = [objc_msgSend_objectForKeyedSubscript_(self->_internal->clientVideoSettings) intValue];
+    if (!intValue)
     {
-      v26 = CMFormatDescriptionGetMediaSubType([v16 formatDescription]);
+      intValue = CMFormatDescriptionGetMediaSubType([v16 formatDescription]);
     }
 
     v27 = _videoOrientation2 + v23;
-    if (!-[NSArray containsObject:](self->_internal->availableVideoCVPixelFormatTypes, "containsObject:", [MEMORY[0x1E696AD98] numberWithUnsignedInt:v26]))
+    if (!-[NSArray containsObject:](self->_internal->availableVideoCVPixelFormatTypes, "containsObject:", [MEMORY[0x1E696AD98] numberWithUnsignedInt:intValue]))
     {
-      v26 = [-[NSArray firstObject](self->_internal->availableVideoCVPixelFormatTypes "firstObject")];
+      intValue = [-[NSArray firstObject](self->_internal->availableVideoCVPixelFormatTypes "firstObject")];
     }
 
-    [dictionary setObject:objc_msgSend(MEMORY[0x1E696AD98] forKeyedSubscript:{"numberWithUnsignedInt:", v26), v25}];
+    [dictionary setObject:objc_msgSend(MEMORY[0x1E696AD98] forKeyedSubscript:{"numberWithUnsignedInt:", intValue), v25}];
     if (v27 >= 2)
     {
       v28 = dynamicDimensions5;
@@ -626,29 +622,29 @@ LABEL_73:
     }
 
     dictionary = [MEMORY[0x1E695DF90] dictionary];
+    v51 = 0u;
     v52 = 0u;
     v53 = 0u;
     v54 = 0u;
-    v55 = 0u;
     allObjects2 = [v7 allObjects];
-    v13 = [allObjects2 countByEnumeratingWithState:&v52 objects:v51 count:16];
+    v13 = [allObjects2 countByEnumeratingWithState:&v51 objects:v50 count:16];
     if (v13)
     {
       v14 = v13;
-      v15 = *v53;
+      v15 = *v52;
       do
       {
         for (i = 0; i != v14; ++i)
         {
-          if (*v53 != v15)
+          if (*v52 != v15)
           {
             objc_enumerationMutation(allObjects2);
           }
 
-          [(NSDictionary *)dictionary setObject:[(NSDictionary *)videoSettings objectForKeyedSubscript:*(*(&v52 + 1) + 8 * i)] forKeyedSubscript:*(*(&v52 + 1) + 8 * i)];
+          [(NSDictionary *)dictionary setObject:objc_msgSend_objectForKeyedSubscript_(videoSettings) forKeyedSubscript:*(*(&v51 + 1) + 8 * i)];
         }
 
-        v14 = [allObjects2 countByEnumeratingWithState:&v52 objects:v51 count:16];
+        v14 = [allObjects2 countByEnumeratingWithState:&v51 objects:v50 count:16];
       }
 
       while (v14);
@@ -657,156 +653,152 @@ LABEL_73:
     videoSettings = dictionary;
   }
 
-  v17 = [(NSDictionary *)videoSettings objectForKeyedSubscript:*MEMORY[0x1E6966130]];
+  v17 = objc_msgSend_objectForKeyedSubscript_(videoSettings);
   if (v17 && ![(NSArray *)[(AVCaptureVideoDataOutput *)self availableVideoCVPixelFormatTypes] containsObject:v17])
   {
-    v37 = MEMORY[0x1E695DF30];
-    v38 = *MEMORY[0x1E695D940];
+    v35 = MEMORY[0x1E695DF30];
+    v36 = *MEMORY[0x1E695D940];
 LABEL_42:
-    v39 = [v37 exceptionWithName:v38 reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-    if (AVCaptureShouldThrowForAPIViolations())
+    v37 = [v35 exceptionWithName:v36 reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
+    if (AVCaptureShouldThrowForAPIViolations(v37, v38))
     {
-      objc_exception_throw(v39);
+      objc_exception_throw(v37);
     }
 
-    NSLog(&cfstr_SuppressingExc.isa, v39);
+    NSLog(&cfstr_SuppressingExc.isa, v37);
     return;
   }
 
-  v18 = [(NSDictionary *)videoSettings objectForKeyedSubscript:*MEMORY[0x1E6987CB0]];
+  v18 = objc_msgSend_objectForKeyedSubscript_(videoSettings);
   if (v18 && ![(NSArray *)[(AVCaptureVideoDataOutput *)self availableVideoCodecTypes] containsObject:v18])
   {
-    v37 = MEMORY[0x1E695DF30];
-    v38 = *MEMORY[0x1E695D940];
+    v35 = MEMORY[0x1E695DF30];
+    v36 = *MEMORY[0x1E695D940];
     goto LABEL_42;
   }
 
-  v19 = *MEMORY[0x1E6966208];
-  v20 = [(NSDictionary *)videoSettings objectForKeyedSubscript:*MEMORY[0x1E6966208]];
-  v21 = *MEMORY[0x1E69660B8];
-  v22 = [(NSDictionary *)videoSettings objectForKeyedSubscript:*MEMORY[0x1E69660B8]];
-  if (!self->_internal->videoSettingsDimensionsOverrideEnabled || (v20 | v22) == 0)
+  v19 = objc_msgSend_objectForKeyedSubscript_(videoSettings);
+  v20 = objc_msgSend_objectForKeyedSubscript_(videoSettings);
+  if (!self->_internal->videoSettingsDimensionsOverrideEnabled || (v19 | v20) == 0)
   {
     goto LABEL_34;
   }
 
-  v24 = v22;
-  if (v20 && ([v20 intValue] & 1) != 0)
+  v22 = v20;
+  if (v19 && ([v19 intValue] & 1) != 0)
   {
-    v37 = MEMORY[0x1E695DF30];
-    v38 = *MEMORY[0x1E695D940];
+    v35 = MEMORY[0x1E695DF30];
+    v36 = *MEMORY[0x1E695D940];
     goto LABEL_42;
   }
 
-  if (!v24)
+  if (!v22)
   {
     goto LABEL_45;
   }
 
-  if ([v24 intValue])
+  if ([v22 intValue])
   {
-    v37 = MEMORY[0x1E695DF30];
-    v38 = *MEMORY[0x1E695D940];
+    v35 = MEMORY[0x1E695DF30];
+    v36 = *MEMORY[0x1E695D940];
     goto LABEL_42;
   }
 
-  if (!v20)
+  if (!v19)
   {
 LABEL_45:
-    v37 = MEMORY[0x1E695DF30];
-    v38 = *MEMORY[0x1E695D940];
+    v35 = MEMORY[0x1E695DF30];
+    v36 = *MEMORY[0x1E695D940];
     goto LABEL_42;
   }
 
   internal = self->_internal;
-  if (internal->deliversPreviewSizedOutputBuffers && (![v20 isEqualToNumber:{-[NSDictionary objectForKeyedSubscript:](internal->videoSettings, "objectForKeyedSubscript:", v19)}] || (objc_msgSend(v24, "isEqualToNumber:", -[NSDictionary objectForKeyedSubscript:](self->_internal->videoSettings, "objectForKeyedSubscript:", v21)) & 1) == 0))
+  if (internal->deliversPreviewSizedOutputBuffers && (![v19 isEqualToNumber:objc_msgSend_objectForKeyedSubscript_(internal->videoSettings)] || (objc_msgSend(v22, "isEqualToNumber:", objc_msgSend_objectForKeyedSubscript_(self->_internal->videoSettings)) & 1) == 0))
   {
-    v37 = MEMORY[0x1E695DF30];
-    v38 = *MEMORY[0x1E695D940];
+    v35 = MEMORY[0x1E695DF30];
+    v36 = *MEMORY[0x1E695D940];
     goto LABEL_42;
   }
 
-  v26 = [-[AVCaptureConnection sourceDevice](v5 "sourceDevice")];
-  if (v26)
+  v24 = [-[AVCaptureConnection sourceDevice](v5 "sourceDevice")];
+  if (v24)
   {
+    v25 = v24;
+    v49.receiver = self;
+    v49.super_class = AVCaptureVideoDataOutput;
+    [(AVCaptureOutput *)&v49 outputSizeForSourceFormat:v24];
     v27 = v26;
-    v50.receiver = self;
-    v50.super_class = AVCaptureVideoDataOutput;
-    [(AVCaptureOutput *)&v50 outputSizeForSourceFormat:v26];
     v29 = v28;
-    v31 = v30;
     _videoOrientation = [(AVCaptureConnection *)v5 _videoOrientation];
-    [(AVCaptureConnection *)v5 sourcesFromFrontFacingCamera];
-    [(AVCaptureConnection *)v5 sourcesFromExternalCamera];
-    if (AVCapturePlatformMountsCamerasInLandscapeOrientation())
+    if (AVCapturePlatformMountsCamerasInLandscapeOrientation([(AVCaptureConnection *)v5 sourcesFromFrontFacingCamera], [(AVCaptureConnection *)v5 sourcesFromExternalCamera]))
     {
-      v33 = -1;
+      v31 = -1;
     }
 
     else
     {
-      [objc_msgSend(v27 "figCaptureSourceVideoFormat")];
-      IsSensorMountedInPortraitOrientation = AVCaptureIsSensorMountedInPortraitOrientation(v40);
-      v33 = -3;
+      [objc_msgSend(v25 "figCaptureSourceVideoFormat")];
+      IsSensorMountedInPortraitOrientation = AVCaptureIsSensorMountedInPortraitOrientation(v39);
+      v31 = -3;
       if (IsSensorMountedInPortraitOrientation)
       {
-        v33 = -1;
+        v31 = -1;
       }
     }
 
-    v42 = _videoOrientation + v33;
-    if (v42 >= 2)
+    v41 = _videoOrientation + v31;
+    if (v41 >= 2)
     {
-      v43 = v20;
+      v42 = v19;
     }
 
     else
     {
-      v43 = v24;
+      v42 = v22;
     }
 
-    if (v42 >= 2)
+    if (v41 >= 2)
     {
-      v20 = v24;
+      v19 = v22;
     }
 
-    [v43 floatValue];
+    [v42 floatValue];
+    v44 = v43;
+    [v19 floatValue];
     v45 = v44;
-    [v20 floatValue];
-    v46 = v45;
-    v48 = v47;
-    v49 = self->_internal;
-    if (!v49->videoSettingsDimensionsOverrideEnabledByClient && (v29 < v46 || v31 < v48))
+    v47 = v46;
+    v48 = self->_internal;
+    if (!v48->videoSettingsDimensionsOverrideEnabledByClient && (v27 < v45 || v29 < v47))
     {
-      v37 = MEMORY[0x1E695DF30];
-      v38 = *MEMORY[0x1E695D940];
+      v35 = MEMORY[0x1E695DF30];
+      v36 = *MEMORY[0x1E695D940];
       goto LABEL_42;
     }
 
-    if (v49->videoSettingsAspectRatioOverrideEnabled)
+    if (v48->videoSettingsAspectRatioOverrideEnabled)
     {
-      if (!vdo_dimensionsHaveValidAspectRatio(v46, v48))
+      if (!vdo_dimensionsHaveValidAspectRatio(v45, v47))
       {
-        v37 = MEMORY[0x1E695DF30];
-        v38 = *MEMORY[0x1E695D940];
+        v35 = MEMORY[0x1E695DF30];
+        v36 = *MEMORY[0x1E695D940];
         goto LABEL_42;
       }
     }
 
     else if ([-[AVCaptureConnection sourceDevice](v5 "sourceDevice")])
     {
-      if (!AVCaptureOutputDimensionsHaveSameAspectRatio([-[AVCaptureConnection sourceDevice](v5 "sourceDevice")], (objc_msgSend(-[AVCaptureConnection sourceDevice](v5, "sourceDevice"), "dynamicDimensions") >> 32), v46, v48))
+      if (!AVCaptureOutputDimensionsHaveSameAspectRatio([-[AVCaptureConnection sourceDevice](v5 "sourceDevice")], (objc_msgSend(-[AVCaptureConnection sourceDevice](v5, "sourceDevice"), "dynamicDimensions") >> 32), v45, v47))
       {
-        v37 = MEMORY[0x1E695DF30];
-        v38 = *MEMORY[0x1E695D940];
+        v35 = MEMORY[0x1E695DF30];
+        v36 = *MEMORY[0x1E695D940];
         goto LABEL_42;
       }
     }
 
-    else if (!AVCaptureOutputDimensionsHaveSameAspectRatio(v29, v31, v46, v48))
+    else if (!AVCaptureOutputDimensionsHaveSameAspectRatio(v27, v29, v45, v47))
     {
-      v37 = MEMORY[0x1E695DF30];
-      v38 = *MEMORY[0x1E695D940];
+      v35 = MEMORY[0x1E695DF30];
+      v36 = *MEMORY[0x1E695D940];
       goto LABEL_42;
     }
   }
@@ -816,22 +808,22 @@ LABEL_34:
   self->_internal->clientVideoSettings = [(NSDictionary *)videoSettings copy];
   if (SettingsArePassthru(videoSettings))
   {
-    v34 = 0;
+    v32 = 0;
   }
 
   else
   {
-    v34 = videoSettings;
+    v32 = videoSettings;
   }
 
-  v35 = [(AVCaptureVideoDataOutput *)self fullyPopulatedVideoSettingsForSettingsDictionary:v34 connection:v5];
-  if (v35 != self->_internal->videoSettings)
+  v33 = [(AVCaptureVideoDataOutput *)self fullyPopulatedVideoSettingsForSettingsDictionary:v32 connection:v5];
+  if (v33 != self->_internal->videoSettings)
   {
-    v36 = v35;
-    if (([(NSDictionary *)v35 isEqual:?]& 1) == 0)
+    v34 = v33;
+    if (([(NSDictionary *)v33 isEqual:?]& 1) == 0)
     {
 
-      self->_internal->videoSettings = [(NSDictionary *)v36 copy];
+      self->_internal->videoSettings = [(NSDictionary *)v34 copy];
       [(AVCaptureOutput *)self bumpChangeSeed];
     }
   }
@@ -854,15 +846,15 @@ LABEL_34:
     v6 = [(AVCaptureOutput *)self firstEnabledConnectionForMediaType:*MEMORY[0x1E6987608]];
     if ([v6 isLive])
     {
-      LODWORD(v9) = -65536;
-      return -[AVCaptureOutput recommendedOutputSettingsForConnection:sourceSettings:videoCodecType:fileType:isIris:outputFileURL:spatialAudioChannelLayoutTag:](self, "recommendedOutputSettingsForConnection:sourceSettings:videoCodecType:fileType:isIris:outputFileURL:spatialAudioChannelLayoutTag:", v6, -[AVCaptureVideoDataOutput videoSettings](self, "videoSettings"), [objc_msgSend(objc_opt_class() availableVideoCodecTypesForSourceDevice:objc_msgSend(v6 sourceFormat:"sourceDevice") outputDimensions:0 fileType:0 videoCodecTypesAllowList:outputFileType, 0), "firstObject"], outputFileType, 0, 0, v9);
+      LODWORD(v10) = -65536;
+      return -[AVCaptureOutput recommendedOutputSettingsForConnection:sourceSettings:videoCodecType:fileType:isIris:outputFileURL:spatialAudioChannelLayoutTag:](self, "recommendedOutputSettingsForConnection:sourceSettings:videoCodecType:fileType:isIris:outputFileURL:spatialAudioChannelLayoutTag:", v6, -[AVCaptureVideoDataOutput videoSettings](self, "videoSettings"), [objc_msgSend(objc_opt_class() availableVideoCodecTypesForSourceDevice:objc_msgSend(v6 sourceFormat:"sourceDevice") outputDimensions:0 fileType:0 videoCodecTypesAllowList:outputFileType, 0), "firstObject"], outputFileType, 0, 0, v10);
     }
   }
 
   else
   {
     v8 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:{0, supportedAssetWriterOutputFileTypes}];
-    if (AVCaptureShouldThrowForAPIViolations())
+    if (AVCaptureShouldThrowForAPIViolations(v8, v9))
     {
       objc_exception_throw(v8);
     }
@@ -879,7 +871,7 @@ LABEL_34:
   if (([supportedAssetWriterOutputFileTypes containsObject:outputFileType] & 1) == 0)
   {
     v10 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:{0, supportedAssetWriterOutputFileTypes}];
-    if (AVCaptureShouldThrowForAPIViolations())
+    if (AVCaptureShouldThrowForAPIViolations(v10, v11))
     {
       objc_exception_throw(v10);
     }
@@ -907,10 +899,10 @@ LABEL_34:
   {
     v11 = MEMORY[0x1E695DF30];
     v12 = *MEMORY[0x1E695D940];
-    v15 = supportedAssetWriterOutputFileTypes;
+    v16 = supportedAssetWriterOutputFileTypes;
 LABEL_6:
-    v13 = [v11 exceptionWithName:v12 reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:{0, v15}];
-    if (AVCaptureShouldThrowForAPIViolations())
+    v13 = [v11 exceptionWithName:v12 reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:{0, v16}];
+    if (AVCaptureShouldThrowForAPIViolations(v13, v14))
     {
       objc_exception_throw(v13);
     }
@@ -925,13 +917,13 @@ LABEL_6:
     v9 = [objc_opt_class() availableVideoCodecTypesForSourceDevice:objc_msgSend(v8 sourceFormat:"sourceDevice") outputDimensions:0 fileType:0 videoCodecTypesAllowList:outputFileType, 0];
     if ([v9 containsObject:videoCodecType])
     {
-      LODWORD(v14) = -65536;
-      return [(AVCaptureOutput *)self recommendedOutputSettingsForConnection:v8 sourceSettings:[(AVCaptureVideoDataOutput *)self videoSettings] videoCodecType:videoCodecType fileType:outputFileType isIris:0 outputFileURL:0 spatialAudioChannelLayoutTag:v14];
+      LODWORD(v15) = -65536;
+      return [(AVCaptureOutput *)self recommendedOutputSettingsForConnection:v8 sourceSettings:[(AVCaptureVideoDataOutput *)self videoSettings] videoCodecType:videoCodecType fileType:outputFileType isIris:0 outputFileURL:0 spatialAudioChannelLayoutTag:v15];
     }
 
     v11 = MEMORY[0x1E695DF30];
     v12 = *MEMORY[0x1E695D940];
-    v15 = v9;
+    v16 = v9;
     goto LABEL_6;
   }
 
@@ -946,7 +938,7 @@ LABEL_6:
     v16 = *MEMORY[0x1E695D940];
 LABEL_10:
     v17 = [v15 exceptionWithName:v16 reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-    if (AVCaptureShouldThrowForAPIViolations())
+    if (AVCaptureShouldThrowForAPIViolations(v17, v18))
     {
       objc_exception_throw(v17);
     }
@@ -957,11 +949,11 @@ LABEL_10:
 
   v9 = [(AVCaptureOutput *)self firstEnabledConnectionForMediaType:*MEMORY[0x1E6987608]];
   v10 = v9;
-  v19 = 0;
+  v20 = 0;
   if (v9)
   {
     -[AVCaptureVideoDataOutput outputSizeForSourceFormat:](self, "outputSizeForSourceFormat:", [objc_msgSend(v9 "sourceDevice")]);
-    if ((AVCaptureMovieFileURLIsValidForConnection(v10, v11, v12, outputFileURL, &v19) & 1) == 0)
+    if ((AVCaptureMovieFileURLIsValidForConnection(v10, outputFileURL, &v20, v11, v12) & 1) == 0)
     {
       v15 = MEMORY[0x1E695DF30];
       v16 = *MEMORY[0x1E695D940];
@@ -974,8 +966,8 @@ LABEL_10:
     if ([objc_msgSend(objc_opt_class() availableVideoCodecTypesForSourceDevice:objc_msgSend(v10 sourceFormat:"sourceDevice") outputDimensions:0 fileType:0 videoCodecTypesAllowList:outputFileType, 0), "containsObject:", videoCodecType])
     {
       videoSettings = [(AVCaptureVideoDataOutput *)self videoSettings];
-      LODWORD(v18) = -65536;
-      return [(AVCaptureOutput *)self recommendedOutputSettingsForConnection:v10 sourceSettings:videoSettings videoCodecType:videoCodecType fileType:outputFileType isIris:0 outputFileURL:outputFileURL spatialAudioChannelLayoutTag:v18, v19];
+      LODWORD(v19) = -65536;
+      return [(AVCaptureOutput *)self recommendedOutputSettingsForConnection:v10 sourceSettings:videoSettings videoCodecType:videoCodecType fileType:outputFileType isIris:0 outputFileURL:outputFileURL spatialAudioChannelLayoutTag:v19, v20];
     }
 
     v15 = MEMORY[0x1E695DF30];
@@ -992,25 +984,25 @@ LABEL_10:
   if ([supportedAssetWriterOutputFileTypes containsObject:fileType])
   {
     v8 = [(AVCaptureOutput *)self firstEnabledConnectionForMediaType:*MEMORY[0x1E6987608]];
-    v21 = 0;
-    v22 = &v21;
-    v23 = 0x3052000000;
-    v24 = __Block_byref_object_copy__3;
-    v25 = __Block_byref_object_dispose__3;
-    v26 = 0;
-    v15 = 0;
-    v16 = &v15;
-    v17 = 0x3052000000;
-    v18 = __Block_byref_object_copy__3;
-    v19 = __Block_byref_object_dispose__3;
-    v20 = 0;
+    v24 = 0;
+    v25 = &v24;
+    v26 = 0x3052000000;
+    v27 = __Block_byref_object_copy__3;
+    v28 = __Block_byref_object_dispose__3;
+    v29 = 0;
+    v18 = 0;
+    v19 = &v18;
+    v20 = 0x3052000000;
+    v21 = __Block_byref_object_copy__3;
+    v22 = __Block_byref_object_dispose__3;
+    v23 = 0;
     if ((AVCaptureVideoCodecTypeIsProResRaw(type) & 1) != 0 && [v8 isLive])
     {
       v9 = +[AVCaptureOutput availableVideoCodecTypesForSourceDevice:sourceFormat:outputDimensions:fileType:videoCodecTypesAllowList:](AVCaptureVideoDataOutput, "availableVideoCodecTypesForSourceDevice:sourceFormat:outputDimensions:fileType:videoCodecTypesAllowList:", [v8 sourceDevice], 0, 0, fileType, 0);
       if (([v9 containsObject:type] & 1) == 0)
       {
         v10 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:{0, v9}];
-        if (AVCaptureShouldThrowForAPIViolations())
+        if (AVCaptureShouldThrowForAPIViolations(v10, v15))
         {
           objc_exception_throw(v10);
         }
@@ -1021,41 +1013,41 @@ LABEL_10:
       if ([objc_msgSend(v8 "sourceDevice")])
       {
         v10 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-        if (AVCaptureShouldThrowForAPIViolations())
+        if (AVCaptureShouldThrowForAPIViolations(v10, v11))
         {
           objc_exception_throw(v10);
         }
 
 LABEL_11:
         NSLog(&cfstr_SuppressingExc.isa, v10);
-        v12 = 0;
+        v14 = 0;
 LABEL_14:
-        _Block_object_dispose(&v15, 8);
-        _Block_object_dispose(&v21, 8);
-        return v12;
+        _Block_object_dispose(&v18, 8);
+        _Block_object_dispose(&v24, 8);
+        return v14;
       }
 
-      v14[0] = MEMORY[0x1E69E9820];
-      v14[1] = 3221225472;
-      v14[2] = __96__AVCaptureVideoDataOutput_recommendedMovieMetadataForVideoCodecType_assetWriterOutputFileType___block_invoke;
-      v14[3] = &unk_1E786F210;
-      v14[4] = self;
-      v14[5] = &v15;
-      v14[6] = &v21;
-      [(AVCaptureOutput *)self performFigCaptureSessionOperationSafelyUsingBlock:v14];
+      v17[0] = MEMORY[0x1E69E9820];
+      v17[1] = 3221225472;
+      v17[2] = __96__AVCaptureVideoDataOutput_recommendedMovieMetadataForVideoCodecType_assetWriterOutputFileType___block_invoke;
+      v17[3] = &unk_1E786F210;
+      v17[4] = self;
+      v17[5] = &v18;
+      v17[6] = &v24;
+      [(AVCaptureOutput *)self performFigCaptureSessionOperationSafelyUsingBlock:v17];
     }
 
-    v12 = v22[5];
+    v14 = v25[5];
     goto LABEL_14;
   }
 
-  v11 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:{0, supportedAssetWriterOutputFileTypes}];
-  if (AVCaptureShouldThrowForAPIViolations())
+  v12 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:{0, supportedAssetWriterOutputFileTypes}];
+  if (AVCaptureShouldThrowForAPIViolations(v12, v13))
   {
-    objc_exception_throw(v11);
+    objc_exception_throw(v12);
   }
 
-  NSLog(&cfstr_SuppressingExc.isa, v11);
+  NSLog(&cfstr_SuppressingExc.isa, v12);
   return 0;
 }
 
@@ -1140,7 +1132,7 @@ LABEL_8:
               device = [input device];
               if (device)
               {
-                [device activeVideoMinFrameDuration];
+                objc_msgSend_activeVideoMinFrameDuration(device);
               }
 
               else
@@ -1154,7 +1146,7 @@ LABEL_8:
               device2 = [input device];
               if (device2)
               {
-                [device2 activeVideoMaxFrameDuration];
+                objc_msgSend_activeVideoMaxFrameDuration(device2);
               }
 
               else
@@ -1168,7 +1160,7 @@ LABEL_8:
               device3 = [input device];
               if (device3)
               {
-                [device3 activeVideoMinFrameDuration];
+                objc_msgSend_activeVideoMinFrameDuration(device3);
               }
 
               else
@@ -1243,7 +1235,7 @@ LABEL_28:
 {
   if (AVGestaltGetBoolAnswer(@"AVGQCaptureVDOFrameRatePropertiesAreDeprecated"))
   {
-    v6 = [objc_msgSend(objc_msgSend(MEMORY[0x1E696AE30] "processInfo")];
+    v6 = objc_msgSend_objectForKeyedSubscript_([objc_msgSend(MEMORY[0x1E696AE30] "processInfo")]);
     if (([v6 isEqualToString:@"YES"] & 1) == 0 && (objc_msgSend(v6, "isEqualToString:", @"yes") & 1) == 0 && (objc_msgSend(v6, "isEqualToString:", @"1") & 1) == 0)
     {
       v7 = objc_opt_class();
@@ -1260,7 +1252,7 @@ LABEL_28:
   if (result)
   {
 
-    return [(CMTime *)result _videoMinFrameDuration];
+    return objc_msgSend__videoMinFrameDuration(result);
   }
 
   return result;
@@ -1276,7 +1268,7 @@ LABEL_28:
     var3 = duration->var3;
     [v5 _setVideoMinFrameDuration:&v10];
     internal = self->_internal;
-    [v6 _videoMinFrameDuration];
+    objc_msgSend__videoMinFrameDuration(v6);
     *&internal->deprecatedMinFrameDuration.value = v10;
     internal->deprecatedMinFrameDuration.epoch = var3;
   }
@@ -1294,7 +1286,7 @@ LABEL_28:
 {
   if (AVGestaltGetBoolAnswer(@"AVGQCaptureVDOFrameRatePropertiesAreDeprecated"))
   {
-    v6 = [objc_msgSend(objc_msgSend(MEMORY[0x1E696AE30] "processInfo")];
+    v6 = objc_msgSend_objectForKeyedSubscript_([objc_msgSend(MEMORY[0x1E696AE30] "processInfo")]);
     if (([v6 isEqualToString:@"YES"] & 1) == 0 && (objc_msgSend(v6, "isEqualToString:", @"yes") & 1) == 0 && (objc_msgSend(v6, "isEqualToString:", @"1") & 1) == 0)
     {
       v7 = objc_opt_class();
@@ -1337,7 +1329,7 @@ LABEL_28:
   if (internal->automaticallyConfiguresOutputBufferDimensions)
   {
     v5 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-    if (AVCaptureShouldThrowForAPIViolations())
+    if (AVCaptureShouldThrowForAPIViolations(v5, v6))
     {
       objc_exception_throw(v5);
     }
@@ -1348,9 +1340,9 @@ LABEL_28:
   else if (internal->deliversPreviewSizedOutputBuffers != deliversPreviewSizedOutputBuffers)
   {
     internal->deliversPreviewSizedOutputBuffers = deliversPreviewSizedOutputBuffers;
-    v6 = *MEMORY[0x1E6987608];
+    v7 = *MEMORY[0x1E6987608];
     [(AVCaptureVideoDataOutput *)self _updateAvailableVideoCVPixelFormatTypesForConnection:[(AVCaptureOutput *)self connectionWithMediaType:*MEMORY[0x1E6987608]]];
-    if ([(AVCaptureVideoDataOutput *)self updateVideoSettingsForConnection:[(AVCaptureOutput *)self connectionWithMediaType:v6]])
+    if ([(AVCaptureVideoDataOutput *)self updateVideoSettingsForConnection:[(AVCaptureOutput *)self connectionWithMediaType:v7]])
     {
 
       [(AVCaptureOutput *)self bumpChangeSeed];
@@ -1404,7 +1396,7 @@ LABEL_28:
   else
   {
     v6 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D920] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-    if (AVCaptureShouldThrowForAPIViolations())
+    if (AVCaptureShouldThrowForAPIViolations(v6, v7))
     {
       objc_exception_throw(v6);
     }
@@ -1486,7 +1478,7 @@ LABEL_5:
     v8 = self->_internal;
     if (connection)
     {
-      [connection _videoMinFrameDuration];
+      objc_msgSend__videoMinFrameDuration(connection);
     }
 
     else
@@ -1548,7 +1540,7 @@ LABEL_5:
 {
   if ([(AVCaptureVideoDataOutput *)self hasRequiredOutputFormatForConnection:?])
   {
-    v5 = [(NSDictionary *)self->_internal->clientVideoSettings objectForKeyedSubscript:*MEMORY[0x1E6966130]];
+    v5 = objc_msgSend_objectForKeyedSubscript_(self->_internal->clientVideoSettings);
 
     return [v5 intValue];
   }
@@ -1598,7 +1590,7 @@ LABEL_5:
       if (AVCaptureOutputSessionPresetChangedContext == context)
       {
         v11 = [(AVCaptureOutput *)self connectionWithMediaType:*MEMORY[0x1E6987608]];
-        v12 = [change objectForKeyedSubscript:*MEMORY[0x1E696A4F0]];
+        v12 = objc_msgSend_objectForKeyedSubscript_(change);
 
         [(AVCaptureVideoDataOutput *)self _updateDeliversPreviewSizedOutputBuffersForConnection:v11 sessionPreset:v12];
       }
@@ -1627,18 +1619,18 @@ LABEL_5:
 
 - (void)_handleNotification:(id)notification payload:(id)payload
 {
-  if ([objc_msgSend(payload objectForKeyedSubscript:{*MEMORY[0x1E698FCD8]), "isEqual:", -[AVCaptureOutput sinkID](self, "sinkID")}])
+  if ([objc_msgSend_objectForKeyedSubscript_(payload a2])
   {
     if ([notification isEqualToString:*MEMORY[0x1E698FE48]])
     {
-      v7 = [payload objectForKeyedSubscript:*MEMORY[0x1E698FE38]];
+      v7 = objc_msgSend_objectForKeyedSubscript_(payload);
 
       [(AVCaptureVideoDataOutput *)self _updateRemoteQueue:v7];
     }
 
     else if ([notification isEqualToString:*MEMORY[0x1E698FE40]])
     {
-      v8 = [payload objectForKeyedSubscript:*MEMORY[0x1E698FBB8]];
+      v8 = objc_msgSend_objectForKeyedSubscript_(payload);
 
       [(AVCaptureVideoDataOutput *)self _updateLocalQueue:v8];
     }
@@ -1906,11 +1898,11 @@ LABEL_35:
   internal = self->_internal;
   if (internal->videoSettingsDimensionsOverrideEnabled)
   {
-    v8 = [(NSDictionary *)internal->clientVideoSettings objectForKeyedSubscript:*MEMORY[0x1E6966208]];
+    v8 = objc_msgSend_objectForKeyedSubscript_(internal->clientVideoSettings, a2, *MEMORY[0x1E6966208]);
     internal = self->_internal;
     if (v8)
     {
-      if ([(NSDictionary *)internal->clientVideoSettings objectForKeyedSubscript:*MEMORY[0x1E69660B8]])
+      if (objc_msgSend_objectForKeyedSubscript_(internal->clientVideoSettings))
       {
         deliversPreviewSizedOutputBuffers = 0;
         goto LABEL_11;
@@ -1963,9 +1955,9 @@ LABEL_11:
 - (void)updateClientVideoSettingsForAspectRatio:(id)ratio
 {
   v5 = *MEMORY[0x1E6966208];
-  v6 = [(NSDictionary *)self->_internal->clientVideoSettings objectForKeyedSubscript:*MEMORY[0x1E6966208]];
+  v6 = objc_msgSend_objectForKeyedSubscript_(self->_internal->clientVideoSettings, a2, *MEMORY[0x1E6966208]);
   v7 = *MEMORY[0x1E69660B8];
-  v8 = [(NSDictionary *)self->_internal->clientVideoSettings objectForKeyedSubscript:*MEMORY[0x1E69660B8]];
+  v8 = objc_msgSend_objectForKeyedSubscript_(self->_internal->clientVideoSettings);
   if (v6)
   {
     v9 = v8 == 0;
@@ -2005,7 +1997,7 @@ LABEL_11:
 
 - (void)setDelegateOverride:(id)override delegateOverrideCallbackQueue:(id)queue
 {
-  if (AVCaptureIsRunningInMediaserverd())
+  if (AVCaptureIsRunningInMediaserverd(self, a2))
   {
     queueCopy = 0;
   }
@@ -2015,11 +2007,11 @@ LABEL_11:
     queueCopy = queue;
   }
 
-  v9 = 0;
-  if (![(AVCaptureDataOutputDelegateCallbackHelper *)self->_internal->delegateCallbackHelper setDelegateOverride:override delegateOverrideCallbackQueue:queueCopy exceptionReason:&v9])
+  v10 = 0;
+  if (![(AVCaptureDataOutputDelegateCallbackHelper *)self->_internal->delegateCallbackHelper setDelegateOverride:override delegateOverrideCallbackQueue:queueCopy exceptionReason:&v10])
   {
     v8 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-    if (AVCaptureShouldThrowForAPIViolations())
+    if (AVCaptureShouldThrowForAPIViolations(v8, v9))
     {
       objc_exception_throw(v8);
     }
@@ -2058,7 +2050,7 @@ LABEL_11:
   }
 
   v10 = [v8 exceptionWithName:v9 reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-  if (AVCaptureShouldThrowForAPIViolations())
+  if (AVCaptureShouldThrowForAPIViolations(v10, v11))
   {
     objc_exception_throw(v10);
   }

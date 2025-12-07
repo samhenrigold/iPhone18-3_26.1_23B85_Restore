@@ -26,31 +26,33 @@
 - (void)locationManager:(id)manager didFailWithError:(id)error
 {
   errorCopy = error;
-  static os_log_type_t.error.getter();
+  v5 = static os_log_type_t.error.getter();
   if (qword_1005A7F18 != -1)
   {
     swift_once();
   }
 
+  v6 = qword_1005DFBE8;
   sub_10004B564(&qword_1005A8C90, &qword_1004C5FC0);
-  v5 = swift_allocObject();
-  *(v5 + 16) = xmmword_1004C1900;
-  v6 = errorCopy;
+  v7 = swift_allocObject();
+  *(v7 + 16) = xmmword_1004C1900;
+  v8 = errorCopy;
   sub_10004B564(&unk_1005AB510, &qword_1004C1AC0);
-  v7 = String.init<A>(describing:)();
-  v9 = v8;
-  *(v5 + 56) = &type metadata for String;
-  *(v5 + 64) = sub_1000588B8();
-  *(v5 + 32) = v7;
-  *(v5 + 40) = v9;
-  os_log(_:dso:log:_:_:)();
+  v9 = String.init<A>(describing:)();
+  v11 = v10;
+  *(v7 + 56) = &type metadata for String;
+  *(v7 + 64) = sub_1000588B8();
+  *(v7 + 32) = v9;
+  *(v7 + 40) = v11;
+  os_log(_:dso:log:_:_:)(v5, &_mh_execute_header, v6, "failed with error - %{public}@", 30, 2, v7);
 }
 
 - (void)locationManager:(id)manager didChangeAuthorizationStatus:(int)status
 {
+  v4 = *&status;
   managerCopy = manager;
   selfCopy = self;
-  sub_100133EBC(status);
+  sub_100133EBC(v4);
 }
 
 @end

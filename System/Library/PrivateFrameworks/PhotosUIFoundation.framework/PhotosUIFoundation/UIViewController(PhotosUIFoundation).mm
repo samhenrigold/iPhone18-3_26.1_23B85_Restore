@@ -8,11 +8,11 @@
 - (id)px_screen;
 - (id)px_topmostPresentedViewController;
 - (uint64_t)px_containsViewControllerModalInPresentation;
-- (uint64_t)px_setModalInPresentation:()PhotosUIFoundation;
 - (void)px_addOrReplaceChildViewController:()PhotosUIFoundation activateConstraints:;
 - (void)px_containedViewControllerModalStateChanged;
 - (void)px_enumerateDescendantViewControllersWithOptions:()PhotosUIFoundation usingBlock:;
 - (void)px_presentOverTopmostPresentedViewController:()PhotosUIFoundation animated:completion:;
+- (void)px_setModalInPresentation:()PhotosUIFoundation;
 @end
 
 @implementation UIViewController(PhotosUIFoundation)
@@ -110,7 +110,7 @@
   [v5 px_containedViewControllerModalStateChanged];
 }
 
-- (uint64_t)px_setModalInPresentation:()PhotosUIFoundation
+- (void)px_setModalInPresentation:()PhotosUIFoundation
 {
   result = [self isModalInPresentation];
   if (result != a3)

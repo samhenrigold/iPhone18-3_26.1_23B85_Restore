@@ -720,7 +720,7 @@ LABEL_51:
 LABEL_52:
 }
 
-void __68__UICollectionViewLayout__prepareForCollectionViewUpdates_animated___block_invoke(uint64_t a1, uint64_t a2)
+void __68__UICollectionViewLayout__prepareForCollectionViewUpdates_animated___block_invoke(uint64_t a1, void *a2)
 {
   v23 = *MEMORY[0x1E69E9840];
   v20 = 0u;
@@ -794,7 +794,7 @@ LABEL_13:
   }
 }
 
-void __68__UICollectionViewLayout__prepareForCollectionViewUpdates_animated___block_invoke_423(uint64_t a1, uint64_t a2)
+void __68__UICollectionViewLayout__prepareForCollectionViewUpdates_animated___block_invoke_423(uint64_t a1, void *a2)
 {
   v23 = *MEMORY[0x1E69E9840];
   v20 = 0u;
@@ -1262,9 +1262,9 @@ LABEL_12:
           v38 = v37;
           v39 = v34 ? v34[2] : 0;
           v40 = v39;
-          v41 = [v38 isEqualToString:v40];
+          isEqualToString = objc_msgSend_isEqualToString_(v38);
 
-          if (v41)
+          if (isEqualToString)
           {
             [v32 frame];
             v72.origin.x = v42;
@@ -1795,7 +1795,7 @@ LABEL_15:
     }
 
     reuseIdentifier = [v25[5] reuseIdentifier];
-    if ([reuseIdentifier length] && (objc_msgSend(reuseIdentifier, "isEqualToString:", _content) & 1) == 0)
+    if ([reuseIdentifier length] && (objc_msgSend_isEqualToString_(reuseIdentifier) & 1) == 0)
     {
       currentHandler2 = [MEMORY[0x1E696AAA8] currentHandler];
       [currentHandler2 handleFailureInMethod:a2 object:self file:@"UICollectionViewLayout.m" lineNumber:1943 description:{@"view reuse identifier in nib (%@) does not match the element kind used to register the nib (%@)", reuseIdentifier, _content}];
@@ -2241,7 +2241,7 @@ LABEL_15:
   [v10 _setPreviousIndexPathsForInteractivelyMovingItems:previousIndexPaths];
   [v10 _setTargetIndexPathsForInteractivelyMovingItems:targetIndexPaths];
   [v10 _setInteractiveMovementTarget:{x, y}];
-  if ([(NSArray *)targetIndexPaths isEqual:previousIndexPaths])
+  if (objc_msgSend_isEqual_(targetIndexPaths))
   {
     [v10 invalidateItemsAtIndexPaths:targetIndexPaths];
   }
@@ -2255,7 +2255,7 @@ LABEL_15:
   [v7 _setPreviousIndexPathsForInteractivelyMovingItems:previousIndexPaths];
   [v7 _setTargetIndexPathsForInteractivelyMovingItems:indexPaths];
   [v7 _setIntent:11];
-  if ([(NSArray *)indexPaths isEqual:previousIndexPaths])
+  if (objc_msgSend_isEqual_(indexPaths))
   {
     [v7 invalidateItemsAtIndexPaths:indexPaths];
   }
@@ -2536,7 +2536,7 @@ LABEL_49:
             v24 = v20;
             v25 = v21;
             v26 = [v12 indexPath];
-            if ([v26 isEqual:*(a1 + 40)])
+            if (objc_msgSend_isEqual_(v26))
             {
               goto LABEL_12;
             }
@@ -3071,7 +3071,7 @@ void __85__UICollectionViewLayout__centerInsertionIndicatorFrame_targetAttribute
   }
 
   v6 = [a2 indexPath];
-  if ([v6 isEqual:*(a1 + 32)])
+  if (objc_msgSend_isEqual_(v6))
   {
     v7 = *(a1 + 56);
 

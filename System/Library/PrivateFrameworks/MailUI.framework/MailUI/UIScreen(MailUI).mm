@@ -1,6 +1,6 @@
 @interface UIScreen(MailUI)
 + (double)mui_maxDimension;
-+ (uint64_t)mui_isLargeFormatPad;
++ (void)mui_isLargeFormatPad;
 @end
 
 @implementation UIScreen(MailUI)
@@ -19,13 +19,13 @@
   return v2;
 }
 
-+ (uint64_t)mui_isLargeFormatPad
++ (void)mui_isLargeFormatPad
 {
   result = [MEMORY[0x277D75418] mf_isPadIdiom];
   if (result)
   {
     [MEMORY[0x277D759A0] mui_maxDimension];
-    return v1 > 1200.0;
+    return (v1 > 1200.0);
   }
 
   return result;

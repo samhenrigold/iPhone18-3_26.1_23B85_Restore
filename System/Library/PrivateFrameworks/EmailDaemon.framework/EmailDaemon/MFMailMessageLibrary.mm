@@ -1,9 +1,23 @@
 @interface MFMailMessageLibrary
+- (id)libraryMessageForMessageId:(id)id libraryOptions:(unsigned int)options;
 - (id)libraryMessagesForMessageIds:(id)ids protectedDataAvailable:(BOOL *)available;
 - (id)loadLibraryMessagesFromLibraryMatchingCriterion:(id)criterion count:(unint64_t)count protectedDataAvailable:(BOOL *)available;
 @end
 
 @implementation MFMailMessageLibrary
+
+- (id)libraryMessageForMessageId:(id)id libraryOptions:(unsigned int)options
+{
+  v4 = *&options;
+  v5 = [NSURL URLWithString:id];
+  mf_messageCriterion = [v5 mf_messageCriterion];
+  v7 = +[MFMailMessageLibrary defaultInstance];
+  v8 = [v7 messagesMatchingCriterion:mf_messageCriterion options:v4];
+
+  firstObject = [v8 firstObject];
+
+  return firstObject;
+}
 
 - (id)libraryMessagesForMessageIds:(id)ids protectedDataAvailable:(BOOL *)available
 {

@@ -13,33 +13,33 @@
 - (id)description
 {
   v3 = MEMORY[0x277CCACA8];
-  v15.receiver = self;
-  v15.super_class = LIGHTHOUSE_BITACORA_PROTOLighthouseLedgerTrialIdentifiers;
-  v4 = [(LIGHTHOUSE_BITACORA_PROTOLighthouseLedgerTrialIdentifiers *)&v15 description];
-  v9 = objc_msgSend_dictionaryRepresentation(self, v5, v6, v7, v8);
-  v13 = objc_msgSend_stringWithFormat_(v3, v10, @"%@ %@", v11, v12, v4, v9);
+  v13.receiver = self;
+  v13.super_class = LIGHTHOUSE_BITACORA_PROTOLighthouseLedgerTrialIdentifiers;
+  v4 = [(LIGHTHOUSE_BITACORA_PROTOLighthouseLedgerTrialIdentifiers *)&v13 description];
+  v8 = objc_msgSend_dictionaryRepresentation(self, v5, v7, v6);
+  v11 = objc_msgSend_stringWithFormat_(v3, v9, v10, @"%@ %@", v4, v8);
 
-  return v13;
+  return v11;
 }
 
 - (id)dictionaryRepresentation
 {
-  v10 = objc_msgSend_dictionary(MEMORY[0x277CBEB38], a2, v2, v3, v4);
+  v7 = objc_msgSend_dictionary(MEMORY[0x277CBEB38], a2, v3, v2);
   experimentIdentifiers = self->_experimentIdentifiers;
   if (experimentIdentifiers)
   {
-    v12 = objc_msgSend_dictionaryRepresentation(experimentIdentifiers, v6, v7, v8, v9);
-    objc_msgSend_setObject_forKey_(v10, v13, v12, @"experimentIdentifiers", v14);
+    v10 = objc_msgSend_dictionaryRepresentation(experimentIdentifiers, v5, v8, v6);
+    objc_msgSend_setObject_forKey_(v7, v11, v12, v10, @"experimentIdentifiers");
   }
 
   bmltIdentifiers = self->_bmltIdentifiers;
   if (bmltIdentifiers)
   {
-    v16 = objc_msgSend_dictionaryRepresentation(bmltIdentifiers, v6, v7, v8, v9);
-    objc_msgSend_setObject_forKey_(v10, v17, v16, @"bmltIdentifiers", v18);
+    v14 = objc_msgSend_dictionaryRepresentation(bmltIdentifiers, v5, v8, v6);
+    objc_msgSend_setObject_forKey_(v7, v15, v16, v14, @"bmltIdentifiers");
   }
 
-  return v10;
+  return v7;
 }
 
 - (void)writeTo:(id)to
@@ -63,48 +63,48 @@
 {
   toCopy = to;
   experimentIdentifiers = self->_experimentIdentifiers;
-  v10 = toCopy;
+  v9 = toCopy;
   if (experimentIdentifiers)
   {
-    objc_msgSend_setExperimentIdentifiers_(toCopy, v5, experimentIdentifiers, v6, v7);
-    toCopy = v10;
+    objc_msgSend_setExperimentIdentifiers_(toCopy, v5, v6, experimentIdentifiers);
+    toCopy = v9;
   }
 
   bmltIdentifiers = self->_bmltIdentifiers;
   if (bmltIdentifiers)
   {
-    objc_msgSend_setBmltIdentifiers_(v10, v5, bmltIdentifiers, v6, v7);
-    toCopy = v10;
+    objc_msgSend_setBmltIdentifiers_(v9, v5, v6, bmltIdentifiers);
+    toCopy = v9;
   }
 }
 
 - (id)copyWithZone:(_NSZone *)zone
 {
   v5 = objc_opt_class();
-  v9 = objc_msgSend_allocWithZone_(v5, v6, zone, v7, v8);
-  v14 = objc_msgSend_init(v9, v10, v11, v12, v13);
-  v18 = objc_msgSend_copyWithZone_(self->_experimentIdentifiers, v15, zone, v16, v17);
-  v19 = v14[2];
-  v14[2] = v18;
+  v8 = objc_msgSend_allocWithZone_(v5, v6, v7, zone);
+  v12 = objc_msgSend_init(v8, v9, v11, v10);
+  v15 = objc_msgSend_copyWithZone_(self->_experimentIdentifiers, v13, v14, zone);
+  v16 = v12[2];
+  v12[2] = v15;
 
-  v23 = objc_msgSend_copyWithZone_(self->_bmltIdentifiers, v20, zone, v21, v22);
-  v24 = v14[1];
-  v14[1] = v23;
+  v19 = objc_msgSend_copyWithZone_(self->_bmltIdentifiers, v17, v18, zone);
+  v20 = v12[1];
+  v12[1] = v19;
 
-  return v14;
+  return v12;
 }
 
 - (BOOL)isEqual:(id)equal
 {
   equalCopy = equal;
   v5 = objc_opt_class();
-  if (objc_msgSend_isMemberOfClass_(equalCopy, v6, v5, v7, v8) && ((experimentIdentifiers = self->_experimentIdentifiers, v13 = equalCopy[2], !(experimentIdentifiers | v13)) || objc_msgSend_isEqual_(experimentIdentifiers, v9, v13, v10, v11)))
+  if (objc_msgSend_isMemberOfClass_(equalCopy, v6, v7, v5) && ((experimentIdentifiers = self->_experimentIdentifiers, v11 = equalCopy[2], !(experimentIdentifiers | v11)) || objc_msgSend_isEqual_(experimentIdentifiers, v8, v9, v11)))
   {
     bmltIdentifiers = self->_bmltIdentifiers;
-    v15 = equalCopy[1];
-    if (bmltIdentifiers | v15)
+    v13 = equalCopy[1];
+    if (bmltIdentifiers | v13)
     {
-      isEqual = objc_msgSend_isEqual_(bmltIdentifiers, v9, v15, v10, v11);
+      isEqual = objc_msgSend_isEqual_(bmltIdentifiers, v8, v9, v13);
     }
 
     else
@@ -125,43 +125,43 @@
 {
   fromCopy = from;
   experimentIdentifiers = self->_experimentIdentifiers;
-  v8 = fromCopy[2];
-  v11 = fromCopy;
+  v7 = fromCopy[2];
+  v10 = fromCopy;
   if (experimentIdentifiers)
   {
-    if (!v8)
+    if (!v7)
     {
       goto LABEL_7;
     }
 
-    objc_msgSend_mergeFrom_(experimentIdentifiers, fromCopy, v8, v5, v6);
+    objc_msgSend_mergeFrom_(experimentIdentifiers, fromCopy, v5, v7);
   }
 
   else
   {
-    if (!v8)
+    if (!v7)
     {
       goto LABEL_7;
     }
 
-    objc_msgSend_setExperimentIdentifiers_(self, fromCopy, v8, v5, v6);
+    objc_msgSend_setExperimentIdentifiers_(self, fromCopy, v5, v7);
   }
 
-  fromCopy = v11;
+  fromCopy = v10;
 LABEL_7:
   bmltIdentifiers = self->_bmltIdentifiers;
-  v10 = fromCopy[1];
+  v9 = fromCopy[1];
   if (bmltIdentifiers)
   {
-    if (v10)
+    if (v9)
     {
-      objc_msgSend_mergeFrom_(bmltIdentifiers, fromCopy, v10, v5, v6);
+      objc_msgSend_mergeFrom_(bmltIdentifiers, fromCopy, v5, v9);
     }
   }
 
-  else if (v10)
+  else if (v9)
   {
-    objc_msgSend_setBmltIdentifiers_(self, fromCopy, v10, v5, v6);
+    objc_msgSend_setBmltIdentifiers_(self, fromCopy, v5, v9);
   }
 
   MEMORY[0x2821F96F8]();

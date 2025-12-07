@@ -671,7 +671,6 @@ void __36__AKInlineSignInViewController_init__block_invoke_3(uint64_t a1)
   }
 
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)_presentShieldUIWithViewController:(id)controller
@@ -691,7 +690,6 @@ void __36__AKInlineSignInViewController_init__block_invoke_3(uint64_t a1)
   objc_storeStrong(&oslog, 0);
   [(AKInlineSignInViewController *)selfCopy _beginAuthenticationIfPossibleWithOption:1];
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)_setButtonTitles
@@ -1243,7 +1241,6 @@ double __65__AKInlineSignInViewController__setPasswordFieldHidden_animated___blo
 
   objc_storeStrong(&oslog, 0);
   [(AKInlineSignInViewController *)selfCopy _updateVibrancyAndBlurInTextFields];
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)setBlurEffectStyle:(int64_t)style
@@ -1264,7 +1261,6 @@ double __65__AKInlineSignInViewController__setPasswordFieldHidden_animated___blo
 
   objc_storeStrong(&oslog, 0);
   [(AKInlineSignInViewController *)selfCopy _updateVibrancyAndBlurInTextFields];
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)setFieldBackgroundColor:(id)color

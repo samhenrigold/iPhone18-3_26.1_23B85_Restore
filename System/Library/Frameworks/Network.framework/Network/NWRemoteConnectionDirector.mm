@@ -104,19 +104,18 @@
     v11 = nw_hash_table_add_object(protocolHashTable, handler, 0);
     if (v11)
     {
-      *(v11 + 32) = modeCopy;
+      *(v11 + 8) = modeCopy;
     }
   }
 }
 
 - (nw_protocol)outputHandlerForFlowID:(id)d
 {
-  v10[2] = *MEMORY[0x1E69E9840];
+  v8[2] = *MEMORY[0x1E69E9840];
   dCopy = d;
-  protocolHashTable = [(NWRemoteConnectionDirector *)self protocolHashTable];
-  if (nw_hash_table_count(protocolHashTable, v6) && (v10[0] = 0, v10[1] = 0, [dCopy getUUIDBytes:v10], (node = nw_hash_table_get_node(-[NWRemoteConnectionDirector protocolHashTable](self, "protocolHashTable"), v10, 16)) != 0))
+  if (nw_hash_table_count(-[NWRemoteConnectionDirector protocolHashTable](self, "protocolHashTable")) && (v8[0] = 0, v8[1] = 0, [dCopy getUUIDBytes:v8], (node = nw_hash_table_get_node(-[NWRemoteConnectionDirector protocolHashTable](self, "protocolHashTable"), v8, 16)) != 0))
   {
-    defaultOutputHandler = *(node + 16);
+    defaultOutputHandler = node[2];
   }
 
   else
@@ -129,32 +128,31 @@
 
 - (unint64_t)dataModeForFlowID:(id)d
 {
-  v10[2] = *MEMORY[0x1E69E9840];
+  v8[2] = *MEMORY[0x1E69E9840];
   dCopy = d;
-  protocolHashTable = [(NWRemoteConnectionDirector *)self protocolHashTable];
-  if (nw_hash_table_count(protocolHashTable, v6))
+  if (nw_hash_table_count([(NWRemoteConnectionDirector *)self protocolHashTable]))
   {
-    v10[0] = 0;
-    v10[1] = 0;
-    [dCopy getUUIDBytes:v10];
-    node = nw_hash_table_get_node([(NWRemoteConnectionDirector *)self protocolHashTable], v10, 16);
+    v8[0] = 0;
+    v8[1] = 0;
+    [dCopy getUUIDBytes:v8];
+    node = nw_hash_table_get_node([(NWRemoteConnectionDirector *)self protocolHashTable], v8, 16);
     if (node)
     {
-      v8 = *(node + 32);
+      v6 = *(node + 8);
     }
 
     else
     {
-      v8 = 0;
+      v6 = 0;
     }
   }
 
   else
   {
-    v8 = 1;
+    v6 = 1;
   }
 
-  return v8;
+  return v6;
 }
 
 - (BOOL)receiveRemoteReply:(id)reply
@@ -601,7 +599,7 @@ LABEL_77:
   v56 = __nwlog_obj();
   *buf = 136446210;
   v74 = "[NWRemoteConnectionDirector receiveRemoteReply:]";
-  v57 = _os_log_send_and_compose_impl();
+  v57 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v56, 16, "%{public}s called with null replyData", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v70 = 0;
@@ -730,7 +728,7 @@ LABEL_22:
     v23 = __nwlog_obj();
     *buf = 136446210;
     v31 = "[NWRemoteConnectionDirector createSendDataMessageForClientID:data:receiveWindow:]";
-    v19 = _os_log_send_and_compose_impl();
+    v19 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v23, 16, "%{public}s called with null data", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v28 = 0;
@@ -806,7 +804,7 @@ LABEL_28:
     v18 = __nwlog_obj();
     *buf = 136446210;
     v31 = "[NWRemoteConnectionDirector createSendDataMessageForClientID:data:receiveWindow:]";
-    v19 = _os_log_send_and_compose_impl();
+    v19 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v18, 16, "%{public}s called with null clientID", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v28 = 0;
@@ -924,7 +922,7 @@ LABEL_8:
   v11 = __nwlog_obj();
   *buf = 136446210;
   v21 = "[NWRemoteConnectionDirector createStopBrowseMessageForClientID:]";
-  v12 = _os_log_send_and_compose_impl();
+  v12 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v11, 16, "%{public}s called with null clientID", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v18 = 0;
@@ -1016,7 +1014,7 @@ LABEL_7:
     v21 = __nwlog_obj();
     *buf = 136446210;
     v36 = "[NWRemoteConnectionDirector createStartBrowseMessageForClientID:descriptor:parameters:]";
-    v22 = _os_log_send_and_compose_impl();
+    v22 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v21, 16, "%{public}s called with null clientID", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v33 = 0;
@@ -1097,7 +1095,7 @@ LABEL_37:
     v26 = __nwlog_obj();
     *buf = 136446210;
     v36 = "[NWRemoteConnectionDirector createStartBrowseMessageForClientID:descriptor:parameters:]";
-    v22 = _os_log_send_and_compose_impl();
+    v22 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v26, 16, "%{public}s called with null descriptor", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v33 = 0;
@@ -1211,7 +1209,7 @@ LABEL_37:
   v27 = __nwlog_obj();
   *buf = 136446210;
   v36 = "[NWRemoteConnectionDirector createStartBrowseMessageForClientID:descriptor:parameters:]";
-  v22 = _os_log_send_and_compose_impl();
+  v22 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v27, 16, "%{public}s called with null parameters", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v33 = 0;
@@ -1327,7 +1325,7 @@ LABEL_9:
   v11 = __nwlog_obj();
   *buf = 136446210;
   v21 = "[NWRemoteConnectionDirector createCloseConnectionMessageForClientID:]";
-  v12 = _os_log_send_and_compose_impl();
+  v12 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v11, 16, "%{public}s called with null clientID", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v18 = 0;
@@ -1419,7 +1417,7 @@ LABEL_7:
     v21 = __nwlog_obj();
     *buf = 136446210;
     v36 = "[NWRemoteConnectionDirector createOpenConnectionMessageForClientID:endpoint:parameters:]";
-    v22 = _os_log_send_and_compose_impl();
+    v22 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v21, 16, "%{public}s called with null clientID", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v33 = 0;
@@ -1500,7 +1498,7 @@ LABEL_37:
     v26 = __nwlog_obj();
     *buf = 136446210;
     v36 = "[NWRemoteConnectionDirector createOpenConnectionMessageForClientID:endpoint:parameters:]";
-    v22 = _os_log_send_and_compose_impl();
+    v22 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v26, 16, "%{public}s called with null endpoint", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v33 = 0;
@@ -1614,7 +1612,7 @@ LABEL_37:
   v27 = __nwlog_obj();
   *buf = 136446210;
   v36 = "[NWRemoteConnectionDirector createOpenConnectionMessageForClientID:endpoint:parameters:]";
-  v22 = _os_log_send_and_compose_impl();
+  v22 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v27, 16, "%{public}s called with null parameters", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v33 = 0;
@@ -1704,14 +1702,13 @@ LABEL_9:
 
   if ([(NWRemoteConnectionDirector *)self protocolHashTable]&& [(NWRemoteConnectionDirector *)self protocolHashTable])
   {
-    protocolHashTable = [(NWRemoteConnectionDirector *)self protocolHashTable];
-    _nw_hash_table_release(protocolHashTable, v4);
+    _nw_hash_table_release([(NWRemoteConnectionDirector *)self protocolHashTable]);
     [(NWRemoteConnectionDirector *)self setProtocolHashTable:0];
   }
 
-  v5.receiver = self;
-  v5.super_class = NWRemoteConnectionDirector;
-  [(NWRemoteConnectionDirector *)&v5 dealloc];
+  v3.receiver = self;
+  v3.super_class = NWRemoteConnectionDirector;
+  [(NWRemoteConnectionDirector *)&v3 dealloc];
 }
 
 - (NWRemoteConnectionDirector)initWithDelegate:(id)delegate
@@ -1723,7 +1720,7 @@ LABEL_9:
     v28 = __nwlog_obj();
     *buf = 136446210;
     v42 = "[NWRemoteConnectionDirector initWithDelegate:]";
-    v12 = _os_log_send_and_compose_impl();
+    v12 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v28, 16, "%{public}s called with null delegate", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v39 = 0;
@@ -1807,7 +1804,7 @@ LABEL_9:
     v29 = __nwlog_obj();
     *buf = 136446210;
     v42 = "[NWRemoteConnectionDirector initWithDelegate:]";
-    v30 = _os_log_send_and_compose_impl();
+    v30 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v29, 16, "%{public}s [super init] failed", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v39 = 0;
@@ -1904,7 +1901,7 @@ LABEL_75:
     v42 = "[NWRemoteConnectionDirector initWithDelegate:]";
     v43 = 2048;
     v44 = 64;
-    v12 = _os_log_send_and_compose_impl();
+    v12 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v11, 16, "%{public}s calloc(%zu) failed", buf, 22);
 
     type = OS_LOG_TYPE_ERROR;
     v39 = 0;
@@ -2021,7 +2018,7 @@ LABEL_35:
     v16 = gLogObj;
     *buf = 136446210;
     v42 = "[NWRemoteConnectionDirector initWithDelegate:]";
-    v12 = _os_log_send_and_compose_impl();
+    v12 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v16, 16, "%{public}s nw_protocol_hash_table_create failed", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v39 = 0;

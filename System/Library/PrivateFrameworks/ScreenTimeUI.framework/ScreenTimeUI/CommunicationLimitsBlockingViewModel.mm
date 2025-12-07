@@ -9,7 +9,7 @@
 - (int64_t)blockingViewType
 {
   swift_getKeyPath();
-  sub_21DDB85A8(&qword_27CE902D8, type metadata accessor for CommunicationLimitsBlockingViewModel);
+  sub_21DDB85A8(&qword_27CE902D8, type metadata accessor for CommunicationLimitsBlockingViewModel, &protocol conformance descriptor for CommunicationLimitsBlockingViewModel);
   selfCopy = self;
   sub_21DDBD5C0();
 

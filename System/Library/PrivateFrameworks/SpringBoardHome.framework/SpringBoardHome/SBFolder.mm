@@ -217,7 +217,7 @@
 - (NSArray)lists
 {
   swift_beginAccess();
-  sub_1BEB20D28(0, &qword_1EBDBFF10);
+  sub_1BEB20D28(0, &qword_1EBDBFF10, off_1E8087640);
 
   v2 = sub_1BEE4719C();
 
@@ -336,7 +336,7 @@
 
 - (id)indexPathForIconWithIdentifier:(id)identifier
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBDC7A28);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBDC7A28, &unk_1BEE8B0C0);
   MEMORY[0x1EEE9AC00](v4 - 8);
   v6 = aBlock - v5;
   v7 = sub_1BEE4708C();
@@ -391,7 +391,7 @@
 
 - (id)indexPathForIcon:(id)icon
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBDC7A28);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBDC7A28, &unk_1BEE8B0C0);
   MEMORY[0x1EEE9AC00](v5 - 8);
   v7 = &v18 - v6;
   iconCopy = icon;
@@ -510,7 +510,7 @@
 {
   selfCopy = self;
   lists = [(SBFolder *)selfCopy lists];
-  sub_1BEB20D28(0, &qword_1EBDBFF10);
+  sub_1BEB20D28(0, &qword_1EBDBFF10, off_1E8087640);
   v4 = sub_1BEE471AC();
 
   if (v4 >> 62)
@@ -740,7 +740,7 @@ LABEL_9:
 
 - (BOOL)isRootFolder
 {
-  sub_1BEB20D28(0, &qword_1EBDBFE90);
+  sub_1BEB20D28(0, &qword_1EBDBFE90, 0x1E69E58C0);
   selfCopy = self;
   rootFolder = [(SBFolder *)selfCopy rootFolder];
   v5 = sub_1BEE473CC();
@@ -752,7 +752,7 @@ LABEL_9:
 {
   selfCopy = self;
   lists = [(SBFolder *)selfCopy lists];
-  sub_1BEB20D28(0, &qword_1EBDBFF10);
+  sub_1BEB20D28(0, &qword_1EBDBFF10, off_1E8087640);
   v4 = sub_1BEE471AC();
 
   if (v4 >> 62)
@@ -772,7 +772,7 @@ LABEL_9:
 {
   selfCopy = self;
   lists = [(SBFolder *)selfCopy lists];
-  sub_1BEB20D28(0, &qword_1EBDBFF10);
+  sub_1BEB20D28(0, &qword_1EBDBFF10, off_1E8087640);
   v4 = sub_1BEE471AC();
 
   if (!(v4 >> 62))
@@ -835,7 +835,7 @@ LABEL_11:
 {
   selfCopy = self;
   lists = [(SBFolder *)selfCopy lists];
-  sub_1BEB20D28(0, &qword_1EBDBFF10);
+  sub_1BEB20D28(0, &qword_1EBDBFF10, off_1E8087640);
   v6 = sub_1BEE471AC();
 
   if ((v6 & 0xC000000000000001) != 0)
@@ -869,10 +869,10 @@ LABEL_5:
   listCopy = list;
   selfCopy = self;
   lists = [(SBFolder *)selfCopy lists];
-  sub_1BEB20D28(0, &qword_1EBDBFF10);
+  sub_1BEB20D28(0, &qword_1EBDBFF10, off_1E8087640);
   v7 = sub_1BEE471AC();
 
-  v8 = sub_1BEB31AEC(listCopy, v7, &qword_1EBDBFF10);
+  v8 = sub_1BEB31AEC(listCopy, v7, &qword_1EBDBFF10, off_1E8087640);
   v10 = v9;
 
   if (v10)
@@ -1160,7 +1160,7 @@ LABEL_5:
 
 - (Class)listModelClass
 {
-  sub_1BEB20D28(0, &qword_1EBDBFF10);
+  sub_1BEB20D28(0, &qword_1EBDBFF10, off_1E8087640);
 
   return swift_getObjCClassFromMetadata();
 }
@@ -1243,7 +1243,7 @@ LABEL_5:
 
 - (id)addListWithIcons:(id)icons removingHiddenListsIfNecessary:(BOOL)necessary
 {
-  sub_1BEB20D28(0, &qword_1EBDBFEA0);
+  sub_1BEB20D28(0, &qword_1EBDBFEA0, off_1E8087510);
   v6 = sub_1BEE471AC();
   selfCopy = self;
   v8 = sub_1BEDDB3D4(v6, necessary);
@@ -1253,7 +1253,7 @@ LABEL_5:
 
 - (void)removeList:(id)list
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EBDC7680);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EBDC7680, &unk_1BEE8AD10);
   inited = swift_initStackObject();
   *(inited + 16) = xmmword_1BEE8AF50;
   *(inited + 32) = list;
@@ -1270,7 +1270,7 @@ LABEL_5:
   selfCopy = self;
   if ([(SBFolder *)selfCopy isValidListIndex:index])
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EBDC7680);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EBDC7680, &unk_1BEE8AD10);
     inited = swift_initStackObject();
     *(inited + 16) = xmmword_1BEE8AF50;
     *(inited + 32) = [(SBFolder *)selfCopy listAtIndex:index];
@@ -1306,7 +1306,7 @@ LABEL_5:
   if (lastList)
   {
     v3 = lastList;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EBDC7680);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EBDC7680, &unk_1BEE8AD10);
     inited = swift_initStackObject();
     *(inited + 16) = xmmword_1BEE8AF50;
     *(inited + 32) = v3;
@@ -1326,7 +1326,7 @@ LABEL_5:
 {
   selfCopy = self;
   lists = [(SBFolder *)selfCopy lists];
-  sub_1BEB20D28(0, &qword_1EBDBFF10);
+  sub_1BEB20D28(0, &qword_1EBDBFF10, off_1E8087640);
   v3 = sub_1BEE471AC();
 
   sub_1BEB50DA8(v3);
@@ -1360,7 +1360,7 @@ LABEL_5:
 
 - (void)_setLists:(id)lists
 {
-  sub_1BEB20D28(0, &qword_1EBDBFF10);
+  sub_1BEB20D28(0, &qword_1EBDBFF10, off_1E8087640);
   v4 = sub_1BEE471AC();
   selfCopy = self;
   sub_1BEDDCA30(v4);
@@ -1374,13 +1374,14 @@ LABEL_5:
 
 - (id)changeGridSizeOfList:(id)list toGridSize:(SBHIconGridSize)size options:(unint64_t)options
 {
+  v6 = *&size.columns;
   listCopy = list;
   selfCopy = self;
-  v10 = sub_1BEDDD084(listCopy, *&size, options);
+  v10 = sub_1BEDDD084(listCopy, v6, options);
 
   if (v10)
   {
-    sub_1BEB20D28(0, &qword_1EBDBFEA0);
+    sub_1BEB20D28(0, &qword_1EBDBFEA0, off_1E8087510);
     v11 = sub_1BEE4719C();
   }
 
@@ -1400,7 +1401,7 @@ LABEL_5:
   if (v10)
   {
     v11 = v10;
-    sub_1BEB20D28(0, &qword_1EBDBFEA0);
+    sub_1BEB20D28(0, &qword_1EBDBFEA0, off_1E8087510);
     sub_1BEE471AC();
 
     v12 = sub_1BEE4719C();
@@ -1424,7 +1425,7 @@ LABEL_5:
 
   if (v7)
   {
-    sub_1BEB20D28(0, &qword_1EBDBFEA0);
+    sub_1BEB20D28(0, &qword_1EBDBFEA0, off_1E8087510);
     v8 = sub_1BEE4719C();
   }
 
@@ -1444,7 +1445,7 @@ LABEL_5:
 
   if (v10)
   {
-    sub_1BEB20D28(0, &qword_1EBDBFEA0);
+    sub_1BEB20D28(0, &qword_1EBDBFEA0, off_1E8087510);
     v11 = sub_1BEE4719C();
   }
 
@@ -1562,8 +1563,8 @@ LABEL_5:
   selfCopy = self;
   sub_1BEDDF674();
 
-  sub_1BEB20D28(0, &qword_1EBDBFEA0);
-  sub_1BEB2A7E0(&qword_1EBDBFDC0, &qword_1EBDBFEA0);
+  sub_1BEB20D28(0, &qword_1EBDBFEA0, off_1E8087510);
+  sub_1BEB2A7E0(&qword_1EBDBFDC0, &qword_1EBDBFEA0, off_1E8087510);
   v5 = sub_1BEE4724C();
 
   return v5;
@@ -1618,8 +1619,8 @@ LABEL_5:
   sub_1BEDDFCE0(sub_1BEDFBDEC, v8);
   _Block_release(v4);
 
-  sub_1BEB20D28(0, &qword_1EBDBFEA0);
-  sub_1BEB2A7E0(&qword_1EBDBFDC0, &qword_1EBDBFEA0);
+  sub_1BEB20D28(0, &qword_1EBDBFEA0, off_1E8087510);
+  sub_1BEB2A7E0(&qword_1EBDBFDC0, &qword_1EBDBFEA0, off_1E8087510);
   v6 = sub_1BEE4724C();
 
   return v6;
@@ -1632,8 +1633,8 @@ LABEL_5:
   selfCopy = self;
   sub_1BEDE0418(v4, v6);
 
-  sub_1BEB20D28(0, &unk_1EBDBFFD0);
-  sub_1BEB2A7E0(&qword_1EBDC7A58, &unk_1EBDBFFD0);
+  sub_1BEB20D28(0, &unk_1EBDBFFD0, off_1E8086BF0);
+  sub_1BEB2A7E0(&qword_1EBDC7A58, &unk_1EBDBFFD0, off_1E8086BF0);
   v8 = sub_1BEE4724C();
 
   return v8;
@@ -1713,7 +1714,7 @@ LABEL_5:
   iconsCopy = icons;
   if (icons)
   {
-    sub_1BEB20D28(0, &qword_1EBDBFEA0);
+    sub_1BEB20D28(0, &qword_1EBDBFEA0, off_1E8087510);
     iconsCopy = sub_1BEE471AC();
   }
 
@@ -1724,7 +1725,7 @@ LABEL_5:
 
   if (v14)
   {
-    sub_1BEB20D28(0, &qword_1EBDBFEA0);
+    sub_1BEB20D28(0, &qword_1EBDBFEA0, off_1E8087510);
     v15 = sub_1BEE4719C();
   }
 
@@ -1805,7 +1806,7 @@ LABEL_5:
 - (id)indexPathForFirstFreeSlotAvoidingFirstList:(BOOL)list
 {
   listCopy = list;
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBDC7A28);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBDC7A28, &unk_1BEE8B0C0);
   MEMORY[0x1EEE9AC00](v5 - 8);
   v7 = &v15 - v6;
   selfCopy = self;
@@ -1827,7 +1828,7 @@ LABEL_5:
 
 - (id)indexPathForFirstFreeSlotStartingAtList:(id)list avoidingFirstList:(BOOL)firstList
 {
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBDC7A28);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBDC7A28, &unk_1BEE8B0C0);
   MEMORY[0x1EEE9AC00](v7 - 8);
   v9 = &v18 - v8;
   listCopy = list;
@@ -1850,7 +1851,7 @@ LABEL_5:
 
 - (NSIndexPath)_indexPathToRevealForJiggleMode
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBDC7A28);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBDC7A28, &unk_1BEE8B0C0);
   v4 = MEMORY[0x1EEE9AC00](v3 - 8);
   v6 = &v18 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v4);
@@ -1894,7 +1895,7 @@ LABEL_5:
   v7 = *(v6 - 8);
   MEMORY[0x1EEE9AC00](v6);
   v9 = &v19 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBDC7A28);
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBDC7A28, &unk_1BEE8B0C0);
   MEMORY[0x1EEE9AC00](v10 - 8);
   v12 = &v19 - v11;
   sub_1BEE4697C();
@@ -1984,7 +1985,7 @@ LABEL_5:
 
 - (id)indexPathForNodeIdentifier:(id)identifier
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBDC7A28);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBDC7A28, &unk_1BEE8B0C0);
   v6 = MEMORY[0x1EEE9AC00](v5 - 8);
   v8 = &v20 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v6);
@@ -2101,8 +2102,8 @@ LABEL_5:
   selfCopy = self;
   sub_1BEDE74AC(v6, options);
 
-  sub_1BEB20D28(0, &qword_1EBDC7A30);
-  sub_1BEB49FBC(&qword_1EBDC7A38, MEMORY[0x1E6969C28]);
+  sub_1BEB20D28(0, &qword_1EBDC7A30, off_1E8086E18);
+  sub_1BEB49FBC(&qword_1EBDC7A38, MEMORY[0x1E6969C28], MEMORY[0x1E6969C38]);
   v8 = sub_1BEE4700C();
 
   return v8;
@@ -2377,7 +2378,7 @@ LABEL_8:
   (*(v9 + 8))(v11, v8);
   if (v14)
   {
-    sub_1BEB20D28(0, &qword_1EBDBFEA0);
+    sub_1BEB20D28(0, &qword_1EBDBFEA0, off_1E8087510);
     v15 = sub_1BEE4719C();
   }
 
@@ -2395,7 +2396,7 @@ LABEL_8:
   v8 = *(v7 - 8);
   MEMORY[0x1EEE9AC00](v7);
   v10 = &v16 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  sub_1BEB20D28(0, &qword_1EBDBFEA0);
+  sub_1BEB20D28(0, &qword_1EBDBFEA0, off_1E8087510);
   v11 = sub_1BEE471AC();
   sub_1BEE4697C();
   selfCopy = self;
@@ -2424,7 +2425,7 @@ LABEL_8:
 
   if (v11)
   {
-    sub_1BEB20D28(0, &qword_1EBDBFEA0);
+    sub_1BEB20D28(0, &qword_1EBDBFEA0, off_1E8087510);
     v12 = sub_1BEE4719C();
   }
 
@@ -2438,7 +2439,7 @@ LABEL_8:
 
 - (id)insertIcons:(id)icons atGridPath:(id)path options:(unint64_t)options
 {
-  sub_1BEB20D28(0, &qword_1EBDBFEA0);
+  sub_1BEB20D28(0, &qword_1EBDBFEA0, off_1E8087510);
   v8 = sub_1BEE471AC();
   pathCopy = path;
   selfCopy = self;
@@ -2487,7 +2488,7 @@ LABEL_8:
 
 - (id)replaceIcon:(id)icon withIcons:(id)icons options:(unint64_t)options
 {
-  sub_1BEB20D28(0, &qword_1EBDBFEA0);
+  sub_1BEB20D28(0, &qword_1EBDBFEA0, off_1E8087510);
   v8 = sub_1BEE471AC();
   iconCopy = icon;
   selfCopy = self;
@@ -2508,7 +2509,7 @@ LABEL_8:
 
 - (id)replaceIcon:(id)icon withIcons:(id)icons options:(unint64_t)options listGridCellInfoOptions:(unint64_t)infoOptions
 {
-  sub_1BEB20D28(0, &qword_1EBDBFEA0);
+  sub_1BEB20D28(0, &qword_1EBDBFEA0, off_1E8087510);
   v10 = sub_1BEE471AC();
   iconCopy = icon;
   selfCopy = self;
@@ -2535,7 +2536,7 @@ LABEL_8:
   if (v6)
   {
     v7 = v6;
-    sub_1BEB20D28(0, &qword_1EBDBFEA0);
+    sub_1BEB20D28(0, &qword_1EBDBFEA0, off_1E8087510);
     sub_1BEE471AC();
 
     v8 = sub_1BEE4719C();
@@ -2558,7 +2559,7 @@ LABEL_8:
   if (v8)
   {
     v9 = v8;
-    sub_1BEB20D28(0, &qword_1EBDBFEA0);
+    sub_1BEB20D28(0, &qword_1EBDBFEA0, off_1E8087510);
     sub_1BEE471AC();
 
     v10 = sub_1BEE4719C();
@@ -2580,7 +2581,7 @@ LABEL_8:
   if (v5)
   {
     v6 = v5;
-    sub_1BEB20D28(0, &qword_1EBDBFEA0);
+    sub_1BEB20D28(0, &qword_1EBDBFEA0, off_1E8087510);
     sub_1BEE471AC();
 
     v7 = sub_1BEE4719C();
@@ -2597,7 +2598,7 @@ LABEL_8:
 
 - (id)addIcons:(id)icons options:(unint64_t)options
 {
-  sub_1BEB20D28(0, &qword_1EBDBFEA0);
+  sub_1BEB20D28(0, &qword_1EBDBFEA0, off_1E8087510);
   v6 = sub_1BEE471AC();
   selfCopy = self;
   v8 = sub_1BEDEEDF0(v6, options);
@@ -2624,7 +2625,7 @@ LABEL_8:
   if (v11)
   {
     v12 = v11;
-    sub_1BEB20D28(0, &qword_1EBDBFEA0);
+    sub_1BEB20D28(0, &qword_1EBDBFEA0, off_1E8087510);
     sub_1BEE471AC();
 
     v13 = sub_1BEE4719C();
@@ -2648,7 +2649,7 @@ LABEL_8:
 
   if (v11)
   {
-    sub_1BEB20D28(0, &qword_1EBDBFEA0);
+    sub_1BEB20D28(0, &qword_1EBDBFEA0, off_1E8087510);
     v12 = sub_1BEE4719C();
   }
 
@@ -2668,7 +2669,7 @@ LABEL_8:
 
   if (v12)
   {
-    sub_1BEB20D28(0, &qword_1EBDBFEA0);
+    sub_1BEB20D28(0, &qword_1EBDBFEA0, off_1E8087510);
     v13 = sub_1BEE4719C();
   }
 
@@ -2688,7 +2689,7 @@ LABEL_8:
   if (v8)
   {
     v9 = v8;
-    sub_1BEB20D28(0, &qword_1EBDBFEA0);
+    sub_1BEB20D28(0, &qword_1EBDBFEA0, off_1E8087510);
     sub_1BEE471AC();
 
     v10 = sub_1BEE4719C();
@@ -2724,11 +2725,11 @@ LABEL_8:
 
 - (BOOL)canAddIcon:(id)icon
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EBDC7680);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EBDC7680, &unk_1BEE8AD10);
   v5 = swift_allocObject();
   *(v5 + 16) = xmmword_1BEE8AF50;
   *(v5 + 32) = icon;
-  sub_1BEB20D28(0, &qword_1EBDBFEA0);
+  sub_1BEB20D28(0, &qword_1EBDBFEA0, off_1E8087510);
   iconCopy = icon;
   selfCopy = self;
   v8 = sub_1BEE4719C();
@@ -2740,7 +2741,7 @@ LABEL_8:
 
 - (BOOL)canAddIcons:(id)icons startingAtList:(id)list
 {
-  sub_1BEB20D28(0, &qword_1EBDBFEA0);
+  sub_1BEB20D28(0, &qword_1EBDBFEA0, off_1E8087510);
   v6 = sub_1BEE471AC();
   listCopy = list;
   selfCopy = self;
@@ -2772,7 +2773,7 @@ LABEL_8:
 
 - (BOOL)isAllowedToContainIcons:(id)icons
 {
-  sub_1BEB20D28(0, &qword_1EBDBFEA0);
+  sub_1BEB20D28(0, &qword_1EBDBFEA0, off_1E8087510);
   v4 = sub_1BEE471AC();
   v5 = v4;
   v6 = v4 & 0xFFFFFFFFFFFFFF8;
@@ -2848,7 +2849,7 @@ LABEL_14:
 
 - (void)removeIcons:(id)icons options:(unint64_t)options
 {
-  sub_1BEB20D28(0, &qword_1EBDBFEA0);
+  sub_1BEB20D28(0, &qword_1EBDBFEA0, off_1E8087510);
   v6 = sub_1BEE471AC();
   v7 = v6;
   if (v6 >> 62)
@@ -2897,7 +2898,7 @@ LABEL_10:
 
 - (void)removeIcons:(id)icons options:(unint64_t)options listGridCellInfoOptions:(unint64_t)infoOptions
 {
-  sub_1BEB20D28(0, &qword_1EBDBFEA0);
+  sub_1BEB20D28(0, &qword_1EBDBFEA0, off_1E8087510);
   v8 = sub_1BEE471AC();
   v9 = v8;
   if (v8 >> 62)
@@ -2957,7 +2958,7 @@ LABEL_10:
     if (v13)
     {
       v14 = v13;
-      sub_1BEB20D28(0, &qword_1EBDBFEA0);
+      sub_1BEB20D28(0, &qword_1EBDBFEA0, off_1E8087510);
       sub_1BEE471AC();
 
       v15 = sub_1BEE4719C();
@@ -2996,7 +2997,7 @@ LABEL_7:
   if (v18)
   {
     v19 = v18;
-    sub_1BEB20D28(0, &qword_1EBDBFEA0);
+    sub_1BEB20D28(0, &qword_1EBDBFEA0, off_1E8087510);
     sub_1BEE471AC();
 
     (*(v11 + 8))(v13, v10);
@@ -3015,7 +3016,7 @@ LABEL_7:
 
 - (void)_swapInsertIcons:(id)icons atIndexPaths:(id)paths
 {
-  sub_1BEB20D28(0, &qword_1EBDBFEA0);
+  sub_1BEB20D28(0, &qword_1EBDBFEA0, off_1E8087510);
   v5 = sub_1BEE471AC();
   sub_1BEE469DC();
   v6 = sub_1BEE471AC();
@@ -3061,12 +3062,12 @@ LABEL_7:
 {
   selfCopy = self;
   lists = [(SBFolder *)selfCopy lists];
-  sub_1BEB20D28(0, &qword_1EBDBFF10);
+  sub_1BEB20D28(0, &qword_1EBDBFF10, off_1E8087640);
   v4 = sub_1BEE471AC();
 
   sub_1BEE09DE0(v4);
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EBDC79F0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EBDC79F0, &qword_1BEE8B098);
   v5 = sub_1BEE4719C();
 
   return v5;
@@ -3200,14 +3201,14 @@ LABEL_7:
 
 - (id)iconListModel:(id)model shouldBounceIcon:(id)icon afterInsertingIcons:(id)icons
 {
-  sub_1BEB20D28(0, &qword_1EBDBFEA0);
-  sub_1BEE471AC();
+  sub_1BEB20D28(0, &qword_1EBDBFEA0, off_1E8087510);
+  v8 = sub_1BEE471AC();
   modelCopy = model;
   iconCopy = icon;
   selfCopy = self;
-  v11 = sub_1BEDF5300(modelCopy, iconCopy);
+  v12 = sub_1BEDF5300(modelCopy, iconCopy, v8);
 
-  return v11;
+  return v12;
 }
 
 - (id)copyWithZone:(void *)zone
@@ -3345,15 +3346,15 @@ LABEL_7:
   iconsCopy = icons;
   if (icons)
   {
-    sub_1BEB20D28(0, &qword_1EBDBFEA0);
-    sub_1BEB2A7E0(&qword_1EBDBFDC0, &qword_1EBDBFEA0);
+    sub_1BEB20D28(0, &qword_1EBDBFEA0, off_1E8087510);
+    sub_1BEB2A7E0(&qword_1EBDBFDC0, &qword_1EBDBFEA0, off_1E8087510);
     iconsCopy = sub_1BEE4726C();
   }
 
   if (removedIcons)
   {
-    sub_1BEB20D28(0, &qword_1EBDBFEA0);
-    sub_1BEB2A7E0(&qword_1EBDBFDC0, &qword_1EBDBFEA0);
+    sub_1BEB20D28(0, &qword_1EBDBFEA0, off_1E8087510);
+    sub_1BEB2A7E0(&qword_1EBDBFDC0, &qword_1EBDBFEA0, off_1E8087510);
     removedIcons = sub_1BEE4726C();
   }
 

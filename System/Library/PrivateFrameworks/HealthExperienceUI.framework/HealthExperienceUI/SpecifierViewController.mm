@@ -27,7 +27,7 @@
   v8.super_class = type metadata accessor for SpecifierViewController();
   v2 = v8.receiver;
   [(SpecifierViewController *)&v8 viewDidLoad];
-  sub_1B9F7A684();
+  sub_1B9F7A684(0);
   v3 = swift_allocObject();
   *(v3 + 16) = xmmword_1BA4B5460;
   v4 = sub_1BA4A4178();
@@ -90,14 +90,14 @@
 {
   v6 = sub_1BA4A1998();
   v7 = *(v6 - 8);
-  MEMORY[0x1EEE9AC00](v6);
-  v9 = &v12 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v6, v8);
+  v10 = &v13 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1BA4A1918();
   viewCopy = view;
   selfCopy = self;
-  sub_1B9FCE5A4(viewCopy, v9);
+  sub_1B9FCE5A4(viewCopy, v10);
 
-  (*(v7 + 8))(v9, v6);
+  (*(v7 + 8))(v10, v6);
 }
 
 - (_TtC18HealthExperienceUI23SpecifierViewController)initWithNibName:(id)name bundle:(id)bundle

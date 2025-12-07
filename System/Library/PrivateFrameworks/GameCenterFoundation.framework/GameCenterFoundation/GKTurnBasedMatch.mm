@@ -8,6 +8,7 @@
 + (void)loadMatchWithID:(NSString *)matchID withCompletionHandler:(void *)completionHandler;
 + (void)loadMatchesIncludingCompatibleBundleID:(BOOL)d withCompletionHandler:(id)handler;
 + (void)loadTurnBasedMatchDetailsForMatchIDs:(id)ds loadGameData:(BOOL)data withCompletionHandler:(id)handler;
++ (void)loadTurnBasedMatchSummariesIncludingCompatibleBundleID:(BOOL)d withCompletionHandler:(id)handler;
 + (void)loadTurnBasedMatchWithDetailsForMatchID:(id)d withCompletionHandler:(id)handler;
 - (BOOL)isEqual:(id)equal;
 - (BOOL)isMyTurn;
@@ -111,7 +112,7 @@
 
 + (id)matchesWithInternalRepresentations:(id)representations
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   representationsCopy = representations;
   v4 = [representationsCopy count];
   if (v4)
@@ -124,26 +125,26 @@
     v5 = 0;
   }
 
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   v6 = representationsCopy;
-  v7 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v17;
+    v9 = *v16;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v17 != v9)
+        if (*v16 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v16 + 1) + 8 * i);
+        v11 = *(*(&v15 + 1) + 8 * i);
         matchID = [v11 matchID];
 
         if (matchID)
@@ -153,13 +154,11 @@
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v8);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -371,6 +370,23 @@ void __81__GKTurnBasedMatch_loadMatchesIncludingCompatibleBundleID_withCompletio
 
       (*(v4 + 16))(v4, v6, 0);
     }
+  }
+}
+
++ (void)loadTurnBasedMatchSummariesIncludingCompatibleBundleID:(BOOL)d withCompletionHandler:(id)handler
+{
+  dCopy = d;
+  handlerCopy = handler;
+  if (handlerCopy)
+  {
+    v6 = +[GKDaemonProxy proxyForLocalPlayer];
+    turnBasedService = [v6 turnBasedService];
+    v8[0] = MEMORY[0x277D85DD0];
+    v8[1] = 3221225472;
+    v8[2] = __97__GKTurnBasedMatch_loadTurnBasedMatchSummariesIncludingCompatibleBundleID_withCompletionHandler___block_invoke;
+    v8[3] = &unk_2785DDCB0;
+    v9 = handlerCopy;
+    [turnBasedService getTurnBasedMatchesAndCompatibleBundleID:dCopy handler:v8];
   }
 }
 
@@ -874,64 +890,64 @@ GKTurnBasedExchangeReply *__69__GKTurnBasedMatch__exchangesForInternalRepresenta
 
 + (id)_localizableMessageWithKey:(id)key arguments:(id)arguments defaultMessage:(id)message
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   keyCopy = key;
   argumentsCopy = arguments;
   messageCopy = message;
   array = [MEMORY[0x277CBEB18] array];
   if (!keyCopy)
   {
-    v32 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:@"nil key" userInfo:0];
-    objc_exception_throw(v32);
+    v31 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:@"nil key" userInfo:0];
+    objc_exception_throw(v31);
   }
 
   v10 = array;
-  v36 = 0u;
-  v37 = 0u;
-  v34 = 0u;
   v35 = 0u;
+  v36 = 0u;
+  v33 = 0u;
+  v34 = 0u;
   v11 = argumentsCopy;
-  v12 = [(__CFString *)v11 countByEnumeratingWithState:&v34 objects:v44 count:16];
+  v12 = [(__CFString *)v11 countByEnumeratingWithState:&v33 objects:v43 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v35;
+    v14 = *v34;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v35 != v14)
+        if (*v34 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        v16 = *(*(&v34 + 1) + 8 * i);
+        v16 = *(*(&v33 + 1) + 8 * i);
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
           if ((objc_opt_respondsToSelector() & 1) == 0)
           {
-            v22 = MEMORY[0x277CBEAD8];
-            v23 = *MEMORY[0x277CBE660];
-            v40[0] = @"key";
-            v40[1] = @"arguments";
-            v28 = @"nil";
+            v21 = MEMORY[0x277CBEAD8];
+            v22 = *MEMORY[0x277CBE660];
+            v39[0] = @"key";
+            v39[1] = @"arguments";
+            v27 = @"nil";
             if (v11)
             {
-              v28 = v11;
+              v27 = v11;
             }
 
-            v41[0] = keyCopy;
-            v41[1] = v28;
-            v25 = MEMORY[0x277CBEAC0];
-            v26 = v41;
-            v27 = v40;
+            v40[0] = keyCopy;
+            v40[1] = v27;
+            v24 = MEMORY[0x277CBEAC0];
+            v25 = v40;
+            v26 = v39;
 LABEL_25:
-            v29 = [v25 dictionaryWithObjects:v26 forKeys:v27 count:2];
-            v30 = [v22 exceptionWithName:v23 reason:@"localized message arguments must be strings or implement stringValue" userInfo:v29];
-            v31 = v30;
+            v28 = [v24 dictionaryWithObjects:v25 forKeys:v26 count:2];
+            v29 = [v21 exceptionWithName:v22 reason:@"localized message arguments must be strings or implement stringValue" userInfo:v28];
+            v30 = v29;
 
-            objc_exception_throw(v30);
+            objc_exception_throw(v29);
           }
 
           stringValue = [v16 stringValue];
@@ -939,21 +955,21 @@ LABEL_25:
           objc_opt_class();
           if ((objc_opt_isKindOfClass() & 1) == 0)
           {
-            v22 = MEMORY[0x277CBEAD8];
-            v23 = *MEMORY[0x277CBE660];
-            v42[0] = @"key";
-            v42[1] = @"arguments";
-            v24 = @"nil";
+            v21 = MEMORY[0x277CBEAD8];
+            v22 = *MEMORY[0x277CBE660];
+            v41[0] = @"key";
+            v41[1] = @"arguments";
+            v23 = @"nil";
             if (v11)
             {
-              v24 = v11;
+              v23 = v11;
             }
 
-            v43[0] = keyCopy;
-            v43[1] = v24;
-            v25 = MEMORY[0x277CBEAC0];
-            v26 = v43;
-            v27 = v42;
+            v42[0] = keyCopy;
+            v42[1] = v23;
+            v24 = MEMORY[0x277CBEAC0];
+            v25 = v42;
+            v26 = v41;
             goto LABEL_25;
           }
 
@@ -963,17 +979,17 @@ LABEL_25:
         [v10 addObject:v16];
       }
 
-      v13 = [(__CFString *)v11 countByEnumeratingWithState:&v34 objects:v44 count:16];
+      v13 = [(__CFString *)v11 countByEnumeratingWithState:&v33 objects:v43 count:16];
     }
 
     while (v13);
   }
 
-  v38[0] = @"loc-key";
-  v38[1] = @"loc-args";
-  v39[0] = keyCopy;
-  v39[1] = v10;
-  v38[2] = @"loc-default";
+  v37[0] = @"loc-key";
+  v37[1] = @"loc-args";
+  v38[0] = keyCopy;
+  v38[1] = v10;
+  v37[2] = @"loc-default";
   if (messageCopy)
   {
     v18 = messageCopy;
@@ -984,10 +1000,8 @@ LABEL_25:
     v18 = &stru_283AFD1E0;
   }
 
-  v39[2] = v18;
-  v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v39 forKeys:v38 count:3];
-
-  v20 = *MEMORY[0x277D85DE8];
+  v38[2] = v18;
+  v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v38 forKeys:v37 count:3];
 
   return v19;
 }
@@ -1327,7 +1341,7 @@ void __31__GKTurnBasedMatch_description__block_invoke()
 
 - (void)rematchWithCompletionHandler:(void *)completionHandler
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   v4 = completionHandler;
   v5 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s:%d %s", "GKTurnBasedMatch.m", 1207, "-[GKTurnBasedMatch rematchWithCompletionHandler:]"];
   v6 = [GKDispatchGroup dispatchGroupWithName:v5];
@@ -1354,39 +1368,39 @@ LABEL_21:
     goto LABEL_21;
   }
 
-  v37 = v6;
-  v38 = v8;
-  v39 = v4;
+  v36 = v6;
+  v37 = v8;
+  v38 = v4;
   v11 = objc_alloc_init(GKMatchRequest);
   [(GKMatchRequest *)v11 setMinPlayers:v10];
   [(GKMatchRequest *)v11 setMaxPlayers:v10];
-  v36 = v11;
+  v35 = v11;
   internal = [(GKMatchRequest *)v11 internal];
   [internal setMatchType:2];
 
   v13 = [MEMORY[0x277CBEB18] arrayWithCapacity:v10 - 1];
   v14 = [MEMORY[0x277CBEB58] set];
+  v45 = 0u;
   v46 = 0u;
   v47 = 0u;
   v48 = 0u;
-  v49 = 0u;
   participants3 = [(GKTurnBasedMatch *)self participants];
-  v16 = [participants3 countByEnumeratingWithState:&v46 objects:v50 count:16];
+  v16 = [participants3 countByEnumeratingWithState:&v45 objects:v49 count:16];
   if (v16)
   {
     v17 = v16;
-    v18 = *v47;
+    v18 = *v46;
     do
     {
       v19 = 0;
       do
       {
-        if (*v47 != v18)
+        if (*v46 != v18)
         {
           objc_enumerationMutation(participants3);
         }
 
-        player = [*(*(&v46 + 1) + 8 * v19) player];
+        player = [*(*(&v45 + 1) + 8 * v19) player];
         v21 = player;
         if (player)
         {
@@ -1415,7 +1429,7 @@ LABEL_21:
       }
 
       while (v17 != v19);
-      v27 = [participants3 countByEnumeratingWithState:&v46 objects:v50 count:16];
+      v27 = [participants3 countByEnumeratingWithState:&v45 objects:v49 count:16];
       v17 = v27;
     }
 
@@ -1423,35 +1437,33 @@ LABEL_21:
   }
 
   allObjects = [v14 allObjects];
-  [(GKMatchRequest *)v36 setRecipients:allObjects];
+  [(GKMatchRequest *)v35 setRecipients:allObjects];
 
-  internal4 = [(GKMatchRequest *)v36 internal];
+  internal4 = [(GKMatchRequest *)v35 internal];
   [internal4 setRecipientPlayerIDs:v13];
 
-  v43[0] = MEMORY[0x277D85DD0];
-  v43[1] = 3221225472;
-  v43[2] = __49__GKTurnBasedMatch_rematchWithCompletionHandler___block_invoke;
-  v43[3] = &unk_2785DD898;
+  v42[0] = MEMORY[0x277D85DD0];
+  v42[1] = 3221225472;
+  v42[2] = __49__GKTurnBasedMatch_rematchWithCompletionHandler___block_invoke;
+  v42[3] = &unk_2785DD898;
+  v43 = v35;
+  v6 = v36;
   v44 = v36;
-  v6 = v37;
-  v45 = v37;
-  v30 = v36;
-  [v45 perform:v43];
+  v30 = v35;
+  [v44 perform:v42];
 
-  v8 = v38;
-  v4 = v39;
+  v8 = v37;
+  v4 = v38;
 LABEL_22:
-  v40[0] = MEMORY[0x277D85DD0];
-  v40[1] = 3221225472;
-  v40[2] = __49__GKTurnBasedMatch_rematchWithCompletionHandler___block_invoke_3;
-  v40[3] = &unk_2785DE540;
-  v41 = v6;
-  v42 = v4;
+  v39[0] = MEMORY[0x277D85DD0];
+  v39[1] = 3221225472;
+  v39[2] = __49__GKTurnBasedMatch_rematchWithCompletionHandler___block_invoke_3;
+  v39[3] = &unk_2785DE540;
+  v40 = v6;
+  v41 = v4;
   v33 = v4;
   v34 = v6;
-  [v34 notifyOnMainQueueWithBlock:v40];
-
-  v35 = *MEMORY[0x277D85DE8];
+  [v34 notifyOnMainQueueWithBlock:v39];
 }
 
 void __49__GKTurnBasedMatch_rematchWithCompletionHandler___block_invoke(uint64_t a1, void *a2)
@@ -1670,28 +1682,28 @@ void __55__GKTurnBasedMatch_declineInviteWithCompletionHandler___block_invoke(ui
 
 - (GKTurnBasedParticipant)previousParticipant
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   participants = [(GKTurnBasedMatch *)self participants];
-  v3 = [participants countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v3 = [participants countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v3)
   {
     v4 = v3;
     v5 = 0;
-    v6 = *v17;
+    v6 = *v16;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v17 != v6)
+        if (*v16 != v6)
         {
           objc_enumerationMutation(participants);
         }
 
-        v8 = *(*(&v16 + 1) + 8 * i);
+        v8 = *(*(&v15 + 1) + 8 * i);
         lastTurnDate = [v8 lastTurnDate];
 
         if (lastTurnDate)
@@ -1705,7 +1717,7 @@ void __55__GKTurnBasedMatch_declineInviteWithCompletionHandler___block_invoke(ui
         }
       }
 
-      v4 = [participants countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v4 = [participants countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v4);
@@ -1716,54 +1728,41 @@ void __55__GKTurnBasedMatch_declineInviteWithCompletionHandler___block_invoke(ui
     v5 = 0;
   }
 
-  v14 = *MEMORY[0x277D85DE8];
-
   return v5;
 }
 
 - (GKTurnBasedParticipant)previousParticipantOrFirstKnownPlayer
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   previousParticipant = [(GKTurnBasedMatch *)self previousParticipant];
   v4 = previousParticipant;
-  if (!previousParticipant)
+  if (!previousParticipant || ([previousParticipant internal], v5 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v5, "player"), v6 = objc_claimAutoreleasedReturnValue(), v7 = objc_msgSend(v6, "isLocalPlayer"), v6, v5, v8 = v4, v7))
   {
-    goto LABEL_3;
-  }
-
-  internal = [previousParticipant internal];
-  player = [internal player];
-  isLocalPlayer = [player isLocalPlayer];
-
-  v8 = v4;
-  if (isLocalPlayer)
-  {
-LABEL_3:
-    v21 = 0u;
-    v22 = 0u;
-    v19 = 0u;
     v20 = 0u;
+    v21 = 0u;
+    v18 = 0u;
+    v19 = 0u;
     participants = [(GKTurnBasedMatch *)self participants];
-    v10 = [participants countByEnumeratingWithState:&v19 objects:v23 count:16];
+    v10 = [participants countByEnumeratingWithState:&v18 objects:v22 count:16];
     v8 = v4;
     if (v10)
     {
       v11 = v10;
-      v12 = *v20;
+      v12 = *v19;
       while (2)
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v20 != v12)
+          if (*v19 != v12)
           {
             objc_enumerationMutation(participants);
           }
 
-          v14 = *(*(&v19 + 1) + 8 * i);
-          internal2 = [v14 internal];
-          player2 = [internal2 player];
+          v14 = *(*(&v18 + 1) + 8 * i);
+          internal = [v14 internal];
+          player = [internal player];
 
-          if (player2 && ([player2 isLocalPlayer] & 1) == 0)
+          if (player && ([player isLocalPlayer] & 1) == 0)
           {
             v8 = v14;
 
@@ -1771,7 +1770,7 @@ LABEL_3:
           }
         }
 
-        v11 = [participants countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v11 = [participants countByEnumeratingWithState:&v18 objects:v22 count:16];
         if (v11)
         {
           continue;
@@ -1790,8 +1789,6 @@ LABEL_14:
       v8 = v4;
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -1820,26 +1817,26 @@ LABEL_14:
 
 - (GKTurnBasedParticipant)localPlayerParticipant
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   participants = [(GKTurnBasedMatch *)self participants];
-  v3 = [participants countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v3 = [participants countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v3)
   {
-    v4 = *v13;
+    v4 = *v12;
     while (2)
     {
       for (i = 0; i != v3; i = i + 1)
       {
-        if (*v13 != v4)
+        if (*v12 != v4)
         {
           objc_enumerationMutation(participants);
         }
 
-        v6 = *(*(&v12 + 1) + 8 * i);
+        v6 = *(*(&v11 + 1) + 8 * i);
         internal = [v6 internal];
         player = [internal player];
         isLocalPlayer = [player isLocalPlayer];
@@ -1851,7 +1848,7 @@ LABEL_14:
         }
       }
 
-      v3 = [participants countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v3 = [participants countByEnumeratingWithState:&v11 objects:v15 count:16];
       if (v3)
       {
         continue;
@@ -1862,8 +1859,6 @@ LABEL_14:
   }
 
 LABEL_11:
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
@@ -1893,14 +1888,14 @@ LABEL_11:
 
 - (GKTurnBasedParticipant)firstWinnerOrTiedOrLastLoser
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
+  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
   participants = [(GKTurnBasedMatch *)self participants];
-  v25 = [participants countByEnumeratingWithState:&v26 objects:v30 count:16];
-  if (!v25)
+  v24 = [participants countByEnumeratingWithState:&v25 objects:v29 count:16];
+  if (!v24)
   {
 
     v3 = 0;
@@ -1914,17 +1909,17 @@ LABEL_27:
   v4 = 0;
   v5 = 0;
   obj = participants;
-  v24 = *v27;
+  v23 = *v26;
   do
   {
-    for (i = 0; i != v25; ++i)
+    for (i = 0; i != v24; ++i)
     {
-      if (*v27 != v24)
+      if (*v26 != v23)
       {
         objc_enumerationMutation(obj);
       }
 
-      v7 = *(*(&v26 + 1) + 8 * i);
+      v7 = *(*(&v25 + 1) + 8 * i);
       if ([v7 isWinner])
       {
         if (v5)
@@ -2006,10 +2001,10 @@ LABEL_20:
       }
     }
 
-    v25 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
+    v24 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
   }
 
-  while (v25);
+  while (v24);
 
   if (v5)
   {
@@ -2025,40 +2020,38 @@ LABEL_20:
 
 LABEL_29:
 
-  v21 = *MEMORY[0x277D85DE8];
-
   return v4;
 }
 
 - (NSArray)activeExchanges
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   if ([(GKTurnBasedMatch *)self status]== GKTurnBasedMatchStatusOpen)
   {
     localPlayerParticipant = [(GKTurnBasedMatch *)self localPlayerParticipant];
     array = [MEMORY[0x277CBEB18] array];
     exchanges = [(GKTurnBasedMatch *)self exchanges];
+    v30 = 0u;
     v31 = 0u;
     v32 = 0u;
     v33 = 0u;
-    v34 = 0u;
-    v5 = [exchanges countByEnumeratingWithState:&v31 objects:v36 count:16];
+    v5 = [exchanges countByEnumeratingWithState:&v30 objects:v35 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v32;
-      v24 = *v32;
-      v25 = exchanges;
+      v7 = *v31;
+      v23 = *v31;
+      v24 = exchanges;
       do
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v32 != v7)
+          if (*v31 != v7)
           {
             objc_enumerationMutation(exchanges);
           }
 
-          v9 = *(*(&v31 + 1) + 8 * i);
+          v9 = *(*(&v30 + 1) + 8 * i);
           if ([v9 status] == 1)
           {
             recipients = [v9 recipients];
@@ -2067,11 +2060,11 @@ LABEL_29:
             if (v11 != 0x7FFFFFFFFFFFFFFFLL)
             {
               replies = [v9 replies];
+              v26 = 0u;
               v27 = 0u;
               v28 = 0u;
               v29 = 0u;
-              v30 = 0u;
-              v13 = [replies countByEnumeratingWithState:&v27 objects:v35 count:16];
+              v13 = [replies countByEnumeratingWithState:&v26 objects:v34 count:16];
               if (!v13)
               {
                 goto LABEL_17;
@@ -2079,28 +2072,28 @@ LABEL_29:
 
               v14 = v13;
               v15 = 0;
-              v16 = *v28;
+              v16 = *v27;
               do
               {
                 for (j = 0; j != v14; ++j)
                 {
-                  if (*v28 != v16)
+                  if (*v27 != v16)
                   {
                     objc_enumerationMutation(replies);
                   }
 
-                  recipient = [*(*(&v27 + 1) + 8 * j) recipient];
+                  recipient = [*(*(&v26 + 1) + 8 * j) recipient];
                   v19 = recipient == localPlayerParticipant;
 
                   v15 |= v19;
                 }
 
-                v14 = [replies countByEnumeratingWithState:&v27 objects:v35 count:16];
+                v14 = [replies countByEnumeratingWithState:&v26 objects:v34 count:16];
               }
 
               while (v14);
-              v7 = v24;
-              exchanges = v25;
+              v7 = v23;
+              exchanges = v24;
               if ((v15 & 1) == 0)
               {
 LABEL_17:
@@ -2110,7 +2103,7 @@ LABEL_17:
           }
         }
 
-        v6 = [exchanges countByEnumeratingWithState:&v31 objects:v36 count:16];
+        v6 = [exchanges countByEnumeratingWithState:&v30 objects:v35 count:16];
       }
 
       while (v6);
@@ -2134,14 +2127,12 @@ LABEL_17:
     v21 = 0;
   }
 
-  v22 = *MEMORY[0x277D85DE8];
-
   return v21;
 }
 
 - (NSArray)completedExchanges
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   if ([(GKTurnBasedMatch *)self status]== GKTurnBasedMatchStatusOpen)
   {
     localPlayerParticipant = [(GKTurnBasedMatch *)self localPlayerParticipant];
@@ -2150,32 +2141,32 @@ LABEL_17:
     {
       array = [MEMORY[0x277CBEB18] array];
       exchanges = [(GKTurnBasedMatch *)self exchanges];
+      v15 = 0u;
       v16 = 0u;
       v17 = 0u;
       v18 = 0u;
-      v19 = 0u;
-      v8 = [exchanges countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v8 = [exchanges countByEnumeratingWithState:&v15 objects:v19 count:16];
       if (v8)
       {
         v9 = v8;
-        v10 = *v17;
+        v10 = *v16;
         do
         {
           for (i = 0; i != v9; ++i)
           {
-            if (*v17 != v10)
+            if (*v16 != v10)
             {
               objc_enumerationMutation(exchanges);
             }
 
-            v12 = *(*(&v16 + 1) + 8 * i);
+            v12 = *(*(&v15 + 1) + 8 * i);
             if ([v12 status] == 2)
             {
               [array addObject:v12];
             }
           }
 
-          v9 = [exchanges countByEnumeratingWithState:&v16 objects:v20 count:16];
+          v9 = [exchanges countByEnumeratingWithState:&v15 objects:v19 count:16];
         }
 
         while (v9);
@@ -2204,8 +2195,6 @@ LABEL_17:
   {
     v5 = 0;
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -2296,23 +2285,21 @@ void __48__GKTurnBasedMatch_removeWithCompletionHandler___block_invoke_4(uint64_
 
 - (void)loadMatchDataWithCompletionHandler:(void *)completionHandler
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   v4 = completionHandler;
   v5 = +[GKDaemonProxy proxyForLocalPlayer];
   turnBasedService = [v5 turnBasedService];
   matchID = [(GKTurnBasedMatch *)self matchID];
-  v13[0] = matchID;
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __55__GKTurnBasedMatch_loadMatchDataWithCompletionHandler___block_invoke;
-  v11[3] = &unk_2785DDC38;
-  v11[4] = self;
-  v12 = v4;
+  v12[0] = matchID;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __55__GKTurnBasedMatch_loadMatchDataWithCompletionHandler___block_invoke;
+  v10[3] = &unk_2785DDC38;
+  v10[4] = self;
+  v11 = v4;
   v9 = v4;
-  [turnBasedService getDetailsForTurnBasedMatchIDs:v8 includeGameData:1 handler:v11];
-
-  v10 = *MEMORY[0x277D85DE8];
+  [turnBasedService getDetailsForTurnBasedMatchIDs:v8 includeGameData:1 handler:v10];
 }
 
 void __55__GKTurnBasedMatch_loadMatchDataWithCompletionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -2410,23 +2397,21 @@ void __82__GKTurnBasedMatch_loadTurnBasedMatchWithDetailsForMatchID_withCompleti
 
 void __82__GKTurnBasedMatch_loadTurnBasedMatchWithDetailsForMatchID_withCompletionHandler___block_invoke_369(uint64_t a1, void *a2)
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = +[GKDaemonProxy proxyForLocalPlayer];
   v5 = [v4 turnBasedService];
-  v13[0] = *(a1 + 32);
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __82__GKTurnBasedMatch_loadTurnBasedMatchWithDetailsForMatchID_withCompletionHandler___block_invoke_2;
-  v9[3] = &unk_2785DE568;
-  v10 = *(a1 + 32);
-  v11 = *(a1 + 40);
-  v12 = v3;
+  v12[0] = *(a1 + 32);
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __82__GKTurnBasedMatch_loadTurnBasedMatchWithDetailsForMatchID_withCompletionHandler___block_invoke_2;
+  v8[3] = &unk_2785DE568;
+  v9 = *(a1 + 32);
+  v10 = *(a1 + 40);
+  v11 = v3;
   v7 = v3;
-  [v5 getDetailsForTurnBasedMatchIDs:v6 includeGameData:1 handler:v9];
-
-  v8 = *MEMORY[0x277D85DE8];
+  [v5 getDetailsForTurnBasedMatchIDs:v6 includeGameData:1 handler:v8];
 }
 
 void __82__GKTurnBasedMatch_loadTurnBasedMatchWithDetailsForMatchID_withCompletionHandler___block_invoke_2(uint64_t a1, void *a2, void *a3)
@@ -2466,7 +2451,7 @@ void __82__GKTurnBasedMatch_loadTurnBasedMatchWithDetailsForMatchID_withCompleti
 
 - (void)loadURLWithMatchRequest:(id)request completionHandler:(id)handler
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   handlerCopy = handler;
   aBlock[0] = MEMORY[0x277D85DD0];
@@ -2474,15 +2459,15 @@ void __82__GKTurnBasedMatch_loadTurnBasedMatchWithDetailsForMatchID_withCompleti
   aBlock[2] = __62__GKTurnBasedMatch_loadURLWithMatchRequest_completionHandler___block_invoke;
   aBlock[3] = &unk_2785DE008;
   v8 = handlerCopy;
-  v37 = v8;
+  v36 = v8;
   v9 = _Block_copy(aBlock);
-  v34[0] = MEMORY[0x277D85DD0];
-  v34[1] = 3221225472;
-  v34[2] = __62__GKTurnBasedMatch_loadURLWithMatchRequest_completionHandler___block_invoke_2;
-  v34[3] = &unk_2785DF930;
+  v33[0] = MEMORY[0x277D85DD0];
+  v33[1] = 3221225472;
+  v33[2] = __62__GKTurnBasedMatch_loadURLWithMatchRequest_completionHandler___block_invoke_2;
+  v33[3] = &unk_2785DF930;
   v10 = v9;
-  v35 = v10;
-  v11 = _Block_copy(v34);
+  v34 = v10;
+  v11 = _Block_copy(v33);
   if (!os_log_GKGeneral)
   {
     v12 = GKOSLoggers();
@@ -2529,7 +2514,7 @@ void __82__GKTurnBasedMatch_loadTurnBasedMatchWithDetailsForMatchID_withCompleti
         if (os_log_type_enabled(os_log_GKMatch, OS_LOG_TYPE_INFO))
         {
           *buf = 138412290;
-          v39 = requestCopy;
+          v38 = requestCopy;
           _os_log_impl(&dword_227904000, v22, OS_LOG_TYPE_INFO, "TBGame - isTurnBasedValid: NO, request = %@", buf, 0xCu);
         }
 
@@ -2541,23 +2526,23 @@ void __82__GKTurnBasedMatch_loadTurnBasedMatchWithDetailsForMatchID_withCompleti
         v23 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s:%d %s", "GKTurnBasedMatch.m", 1568, "-[GKTurnBasedMatch loadURLWithMatchRequest:completionHandler:]"];
         v24 = [GKDispatchGroup dispatchGroupWithName:v23];
 
-        v31[0] = MEMORY[0x277D85DD0];
-        v31[1] = 3221225472;
-        v31[2] = __62__GKTurnBasedMatch_loadURLWithMatchRequest_completionHandler___block_invoke_373;
-        v31[3] = &unk_2785DD910;
-        v31[4] = self;
-        v32 = requestCopy;
+        v30[0] = MEMORY[0x277D85DD0];
+        v30[1] = 3221225472;
+        v30[2] = __62__GKTurnBasedMatch_loadURLWithMatchRequest_completionHandler___block_invoke_373;
+        v30[3] = &unk_2785DD910;
+        v30[4] = self;
+        v31 = requestCopy;
         v25 = v24;
-        v33 = v25;
-        [v25 perform:v31];
-        v28[0] = MEMORY[0x277D85DD0];
-        v28[1] = 3221225472;
-        v28[2] = __62__GKTurnBasedMatch_loadURLWithMatchRequest_completionHandler___block_invoke_376;
-        v28[3] = &unk_2785DDC10;
-        v29 = v25;
-        v30 = v8;
+        v32 = v25;
+        [v25 perform:v30];
+        v27[0] = MEMORY[0x277D85DD0];
+        v27[1] = 3221225472;
+        v27[2] = __62__GKTurnBasedMatch_loadURLWithMatchRequest_completionHandler___block_invoke_376;
+        v27[3] = &unk_2785DDC10;
+        v28 = v25;
+        v29 = v8;
         v26 = v25;
-        [v26 notifyOnMainQueueWithBlock:v28];
+        [v26 notifyOnMainQueueWithBlock:v27];
       }
     }
 
@@ -2571,8 +2556,6 @@ void __82__GKTurnBasedMatch_loadTurnBasedMatchWithDetailsForMatchID_withCompleti
   {
     v11[2](v11, 6);
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 void __62__GKTurnBasedMatch_loadURLWithMatchRequest_completionHandler___block_invoke(uint64_t a1, void *a2)
@@ -2629,7 +2612,7 @@ void __62__GKTurnBasedMatch_loadURLWithMatchRequest_completionHandler___block_in
 
 void __62__GKTurnBasedMatch_loadURLWithMatchRequest_completionHandler___block_invoke_2_374(uint64_t a1, void *a2, void *a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (!os_log_GKGeneral)
@@ -2640,18 +2623,16 @@ void __62__GKTurnBasedMatch_loadURLWithMatchRequest_completionHandler___block_in
   v8 = os_log_GKMatch;
   if (os_log_type_enabled(os_log_GKMatch, OS_LOG_TYPE_INFO))
   {
-    v10 = 138412546;
-    v11 = v5;
-    v12 = 2112;
-    v13 = v6;
-    _os_log_impl(&dword_227904000, v8, OS_LOG_TYPE_INFO, "TBGame - turnBasedService loadURLWithTBGMatch result, url = %@, error = %@", &v10, 0x16u);
+    v9 = 138412546;
+    v10 = v5;
+    v11 = 2112;
+    v12 = v6;
+    _os_log_impl(&dword_227904000, v8, OS_LOG_TYPE_INFO, "TBGame - turnBasedService loadURLWithTBGMatch result, url = %@, error = %@", &v9, 0x16u);
   }
 
   [*(a1 + 32) setResult:v5];
   [*(a1 + 32) setError:v6];
   (*(*(a1 + 40) + 16))();
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __62__GKTurnBasedMatch_loadURLWithMatchRequest_completionHandler___block_invoke_376(uint64_t a1)
@@ -2687,32 +2668,32 @@ void __62__GKTurnBasedMatch_loadURLWithMatchRequest_completionHandler___block_in
 
 - (id)indexesForParticipants:(id)participants
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   participantsCopy = participants;
   if ([participantsCopy count])
   {
     v5 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(participantsCopy, "count")}];
+    v17 = 0u;
     v18 = 0u;
     v19 = 0u;
     v20 = 0u;
-    v21 = 0u;
     v6 = participantsCopy;
-    v7 = [v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
     if (v7)
     {
       v8 = v7;
-      v17 = participantsCopy;
-      v9 = *v19;
+      v16 = participantsCopy;
+      v9 = *v18;
       while (2)
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v19 != v9)
+          if (*v18 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          v11 = *(*(&v18 + 1) + 8 * i);
+          v11 = *(*(&v17 + 1) + 8 * i);
           participants = [(GKTurnBasedMatch *)self participants];
           v13 = [participants indexOfObject:v11];
 
@@ -2727,7 +2708,7 @@ void __62__GKTurnBasedMatch_loadURLWithMatchRequest_completionHandler___block_in
           [v5 addObject:v14];
         }
 
-        v8 = [v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
         if (v8)
         {
           continue;
@@ -2737,7 +2718,7 @@ void __62__GKTurnBasedMatch_loadURLWithMatchRequest_completionHandler___block_in
       }
 
 LABEL_12:
-      participantsCopy = v17;
+      participantsCopy = v16;
     }
   }
 
@@ -2746,14 +2727,12 @@ LABEL_12:
     v5 = 0;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
-
   return v5;
 }
 
 - (void)endTurnWithNextParticipants:(NSArray *)nextParticipants turnTimeout:(NSTimeInterval)timeout matchData:(NSData *)matchData completionHandler:(void *)completionHandler
 {
-  v39[1] = *MEMORY[0x277D85DE8];
+  v38[1] = *MEMORY[0x277D85DE8];
   v10 = nextParticipants;
   v11 = matchData;
   v12 = completionHandler;
@@ -2770,31 +2749,31 @@ LABEL_12:
     {
       if (!v11)
       {
-        v24 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:@"nil matchData" userInfo:0];
-        objc_exception_throw(v24);
+        v23 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:@"nil matchData" userInfo:0];
+        objc_exception_throw(v23);
       }
 
       if (!v17)
       {
-        v25 = MEMORY[0x277CBEAD8];
-        v26 = *MEMORY[0x277CBE660];
+        v24 = MEMORY[0x277CBEAD8];
+        v25 = *MEMORY[0x277CBE660];
         if (v10)
         {
-          v27 = v10;
+          v26 = v10;
         }
 
         else
         {
-          v27 = @"nil";
+          v26 = @"nil";
         }
 
-        v38 = @"nextParticipants";
-        v39[0] = v27;
-        v28 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v39 forKeys:&v38 count:1];
-        v29 = [v25 exceptionWithName:v26 reason:@"invalid list of nextParticipants" userInfo:v28];
-        v30 = v29;
+        v37 = @"nextParticipants";
+        v38[0] = v26;
+        v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v38 forKeys:&v37 count:1];
+        v28 = [v24 exceptionWithName:v25 reason:@"invalid list of nextParticipants" userInfo:v27];
+        v29 = v28;
 
-        objc_exception_throw(v29);
+        objc_exception_throw(v28);
       }
     }
 
@@ -2806,15 +2785,15 @@ LABEL_12:
       internal = [(GKTurnBasedMatch *)self internal];
       [internal setMatchData:v11];
 
-      v34[0] = MEMORY[0x277D85DD0];
-      v34[1] = 3221225472;
-      v34[2] = __88__GKTurnBasedMatch_endTurnWithNextParticipants_turnTimeout_matchData_completionHandler___block_invoke;
-      v34[3] = &unk_2785DDBE8;
-      v34[4] = self;
-      v35 = v17;
-      v37 = timeout;
-      v36 = v14;
-      [v36 perform:v34];
+      v33[0] = MEMORY[0x277D85DD0];
+      v33[1] = 3221225472;
+      v33[2] = __88__GKTurnBasedMatch_endTurnWithNextParticipants_turnTimeout_matchData_completionHandler___block_invoke;
+      v33[3] = &unk_2785DDBE8;
+      v33[4] = self;
+      v34 = v17;
+      v36 = timeout;
+      v35 = v14;
+      [v35 perform:v33];
     }
 
     else
@@ -2830,18 +2809,16 @@ LABEL_12:
     [v14 setError:v17];
   }
 
-  v31[0] = MEMORY[0x277D85DD0];
-  v31[1] = 3221225472;
-  v31[2] = __88__GKTurnBasedMatch_endTurnWithNextParticipants_turnTimeout_matchData_completionHandler___block_invoke_3;
-  v31[3] = &unk_2785DE478;
-  v32 = v14;
-  v33 = v12;
-  v31[4] = self;
+  v30[0] = MEMORY[0x277D85DD0];
+  v30[1] = 3221225472;
+  v30[2] = __88__GKTurnBasedMatch_endTurnWithNextParticipants_turnTimeout_matchData_completionHandler___block_invoke_3;
+  v30[3] = &unk_2785DE478;
+  v31 = v14;
+  v32 = v12;
+  v30[4] = self;
   v21 = v14;
   v22 = v12;
-  [v21 notifyOnMainQueueWithBlock:v31];
-
-  v23 = *MEMORY[0x277D85DE8];
+  [v21 notifyOnMainQueueWithBlock:v30];
 }
 
 void __88__GKTurnBasedMatch_endTurnWithNextParticipants_turnTimeout_matchData_completionHandler___block_invoke(uint64_t a1, void *a2)
@@ -2900,7 +2877,7 @@ void __88__GKTurnBasedMatch_endTurnWithNextParticipants_turnTimeout_matchData_co
 
 - (void)participantQuitInTurnWithOutcome:(GKTurnBasedMatchOutcome)matchOutcome nextParticipants:(NSArray *)nextParticipants turnTimeout:(NSTimeInterval)timeout matchData:(NSData *)matchData completionHandler:(void *)completionHandler
 {
-  v40[1] = *MEMORY[0x277D85DE8];
+  v39[1] = *MEMORY[0x277D85DE8];
   v12 = nextParticipants;
   v13 = matchData;
   v14 = completionHandler;
@@ -2910,46 +2887,46 @@ void __88__GKTurnBasedMatch_endTurnWithNextParticipants_turnTimeout_matchData_co
   {
     if (!v13)
     {
-      v21 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:@"nil matchData" userInfo:0];
-      objc_exception_throw(v21);
+      v20 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:@"nil matchData" userInfo:0];
+      objc_exception_throw(v20);
     }
 
     if (!v16)
     {
-      v22 = MEMORY[0x277CBEAD8];
-      v23 = *MEMORY[0x277CBE660];
-      v39 = @"matchOutcome";
+      v21 = MEMORY[0x277CBEAD8];
+      v22 = *MEMORY[0x277CBE660];
+      v38 = @"matchOutcome";
       participants = [(GKTurnBasedMatch *)self participants];
-      v25 = +[GKTurnBasedParticipant stringForMatchOutcome:totalParticipant:](GKTurnBasedParticipant, "stringForMatchOutcome:totalParticipant:", matchOutcome, [participants count]);
-      v40[0] = v25;
-      v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v40 forKeys:&v39 count:1];
-      v27 = [v22 exceptionWithName:v23 reason:@"invalid matchOutcome" userInfo:v26];
-      v28 = v27;
+      v24 = +[GKTurnBasedParticipant stringForMatchOutcome:totalParticipant:](GKTurnBasedParticipant, "stringForMatchOutcome:totalParticipant:", matchOutcome, [participants count]);
+      v39[0] = v24;
+      v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v39 forKeys:&v38 count:1];
+      v26 = [v21 exceptionWithName:v22 reason:@"invalid matchOutcome" userInfo:v25];
+      v27 = v26;
 
-      objc_exception_throw(v27);
+      objc_exception_throw(v26);
     }
 
     if (!v15)
     {
-      v29 = MEMORY[0x277CBEAD8];
-      v30 = *MEMORY[0x277CBE660];
+      v28 = MEMORY[0x277CBEAD8];
+      v29 = *MEMORY[0x277CBE660];
       if (v12)
       {
-        v31 = v12;
+        v30 = v12;
       }
 
       else
       {
-        v31 = @"nil";
+        v30 = @"nil";
       }
 
-      v37 = @"nextParticipants";
-      v38 = v31;
-      v32 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v38 forKeys:&v37 count:1];
-      v33 = [v29 exceptionWithName:v30 reason:@"invalid nextParticipants" userInfo:v32];
-      v34 = v33;
+      v36 = @"nextParticipants";
+      v37 = v30;
+      v31 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v37 forKeys:&v36 count:1];
+      v32 = [v28 exceptionWithName:v29 reason:@"invalid nextParticipants" userInfo:v31];
+      v33 = v32;
 
-      objc_exception_throw(v33);
+      objc_exception_throw(v32);
     }
   }
 
@@ -2981,11 +2958,9 @@ void __88__GKTurnBasedMatch_endTurnWithNextParticipants_turnTimeout_matchData_co
     block[2] = __110__GKTurnBasedMatch_participantQuitInTurnWithOutcome_nextParticipants_turnTimeout_matchData_completionHandler___block_invoke;
     block[3] = &unk_2785DE540;
     block[4] = self;
-    v36 = v14;
+    v35 = v14;
     dispatch_async(MEMORY[0x277D85CD0], block);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void __110__GKTurnBasedMatch_participantQuitInTurnWithOutcome_nextParticipants_turnTimeout_matchData_completionHandler___block_invoke(uint64_t a1)
@@ -3001,7 +2976,7 @@ void __110__GKTurnBasedMatch_participantQuitInTurnWithOutcome_nextParticipants_t
 
 - (void)participantQuitOutOfTurnWithOutcome:(GKTurnBasedMatchOutcome)matchOutcome withCompletionHandler:(void *)completionHandler
 {
-  v31[1] = *MEMORY[0x277D85DE8];
+  v30[1] = *MEMORY[0x277D85DE8];
   v6 = completionHandler;
   v7 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s:%d %s", "GKTurnBasedMatch.m", 1687, "-[GKTurnBasedMatch participantQuitOutOfTurnWithOutcome:withCompletionHandler:]"];
   v8 = [GKDispatchGroup dispatchGroupWithName:v7];
@@ -3014,8 +2989,8 @@ void __110__GKTurnBasedMatch_participantQuitInTurnWithOutcome_nextParticipants_t
     {
       if (GKApplicationLinkedOnOrAfter(458752, 657920))
       {
-        v23 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:@"current turn holder can not quit out of turn" userInfo:0];
-        objc_exception_throw(v23);
+        v22 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:@"current turn holder can not quit out of turn" userInfo:0];
+        objc_exception_throw(v22);
       }
 
       v11 = [MEMORY[0x277CCA9B8] userErrorForCode:17 underlyingError:0];
@@ -3026,14 +3001,14 @@ void __110__GKTurnBasedMatch_participantQuitInTurnWithOutcome_nextParticipants_t
     {
       [localPlayerParticipant setStatus:5];
       [localPlayerParticipant setMatchOutcome:matchOutcome];
-      v27[0] = MEMORY[0x277D85DD0];
-      v27[1] = 3221225472;
-      v27[2] = __78__GKTurnBasedMatch_participantQuitOutOfTurnWithOutcome_withCompletionHandler___block_invoke;
-      v27[3] = &unk_2785DE6E0;
-      v27[4] = self;
-      v29 = matchOutcome;
-      v28 = v8;
-      [v28 perform:v27];
+      v26[0] = MEMORY[0x277D85DD0];
+      v26[1] = 3221225472;
+      v26[2] = __78__GKTurnBasedMatch_participantQuitOutOfTurnWithOutcome_withCompletionHandler___block_invoke;
+      v26[3] = &unk_2785DE6E0;
+      v26[4] = self;
+      v28 = matchOutcome;
+      v27 = v8;
+      [v27 perform:v26];
     }
   }
 
@@ -3041,35 +3016,33 @@ void __110__GKTurnBasedMatch_participantQuitInTurnWithOutcome_nextParticipants_t
   {
     if (GKApplicationLinkedOnOrAfter(458752, 657920))
     {
-      v16 = MEMORY[0x277CBEAD8];
-      v17 = *MEMORY[0x277CBE660];
-      v30 = @"matchOutcome";
+      v15 = MEMORY[0x277CBEAD8];
+      v16 = *MEMORY[0x277CBE660];
+      v29 = @"matchOutcome";
       participants = [(GKTurnBasedMatch *)self participants];
-      v19 = +[GKTurnBasedParticipant stringForMatchOutcome:totalParticipant:](GKTurnBasedParticipant, "stringForMatchOutcome:totalParticipant:", matchOutcome, [participants count]);
-      v31[0] = v19;
-      v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v31 forKeys:&v30 count:1];
-      v21 = [v16 exceptionWithName:v17 reason:@"invalid matchOutcome" userInfo:v20];
-      v22 = v21;
+      v18 = +[GKTurnBasedParticipant stringForMatchOutcome:totalParticipant:](GKTurnBasedParticipant, "stringForMatchOutcome:totalParticipant:", matchOutcome, [participants count]);
+      v30[0] = v18;
+      v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:&v29 count:1];
+      v20 = [v15 exceptionWithName:v16 reason:@"invalid matchOutcome" userInfo:v19];
+      v21 = v20;
 
-      objc_exception_throw(v21);
+      objc_exception_throw(v20);
     }
 
     v12 = [MEMORY[0x277CCA9B8] userErrorForCode:17 underlyingError:0];
     [v8 setError:v12];
   }
 
-  v24[0] = MEMORY[0x277D85DD0];
-  v24[1] = 3221225472;
-  v24[2] = __78__GKTurnBasedMatch_participantQuitOutOfTurnWithOutcome_withCompletionHandler___block_invoke_3;
-  v24[3] = &unk_2785DE478;
-  v25 = v8;
-  v26 = v6;
-  v24[4] = self;
+  v23[0] = MEMORY[0x277D85DD0];
+  v23[1] = 3221225472;
+  v23[2] = __78__GKTurnBasedMatch_participantQuitOutOfTurnWithOutcome_withCompletionHandler___block_invoke_3;
+  v23[3] = &unk_2785DE478;
+  v24 = v8;
+  v25 = v6;
+  v23[4] = self;
   v13 = v8;
   v14 = v6;
-  [v13 notifyOnMainQueueWithBlock:v24];
-
-  v15 = *MEMORY[0x277D85DE8];
+  [v13 notifyOnMainQueueWithBlock:v23];
 }
 
 void __78__GKTurnBasedMatch_participantQuitOutOfTurnWithOutcome_withCompletionHandler___block_invoke(uint64_t a1, void *a2)
@@ -3129,7 +3102,7 @@ void __78__GKTurnBasedMatch_participantQuitOutOfTurnWithOutcome_withCompletionHa
 
 - (void)endMatchInTurnWithMatchData:(NSData *)matchData scores:(NSArray *)scores achievements:(NSArray *)achievements completionHandler:(void *)completionHandler
 {
-  v69 = *MEMORY[0x277D85DE8];
+  v68 = *MEMORY[0x277D85DE8];
   v10 = matchData;
   v11 = scores;
   v12 = achievements;
@@ -3141,52 +3114,52 @@ void __78__GKTurnBasedMatch_participantQuitOutOfTurnWithOutcome_withCompletionHa
   if (v10)
   {
     selfCopy = self;
-    v49 = v11;
-    v47 = v10;
-    v63 = 0u;
-    v64 = 0u;
-    v61 = 0u;
+    v48 = v11;
+    v46 = v10;
     v62 = 0u;
+    v63 = 0u;
+    v60 = 0u;
+    v61 = 0u;
     participants = [(GKTurnBasedMatch *)self participants];
-    v18 = [participants countByEnumeratingWithState:&v61 objects:v68 count:16];
+    v18 = [participants countByEnumeratingWithState:&v60 objects:v67 count:16];
     if (v18)
     {
       v19 = v18;
-      v20 = *v62;
+      v20 = *v61;
 LABEL_4:
       v21 = 0;
       while (1)
       {
-        if (*v62 != v20)
+        if (*v61 != v20)
         {
           objc_enumerationMutation(participants);
         }
 
-        v22 = *(*(&v61 + 1) + 8 * v21);
+        v22 = *(*(&v60 + 1) + 8 * v21);
         if (([(__CFString *)v22 status]& 0xFFFFFFFFFFFFFFFELL) == 4 && ![GKTurnBasedParticipant matchOutcomeIsValidForDoneState:[(__CFString *)v22 matchOutcome]])
         {
           if (GKApplicationLinkedOnOrAfter(458752, 657920))
           {
-            v37 = MEMORY[0x277CBEAD8];
-            v38 = *MEMORY[0x277CBE660];
-            v39 = @"nil";
+            v36 = MEMORY[0x277CBEAD8];
+            v37 = *MEMORY[0x277CBE660];
+            v38 = @"nil";
             if (v22)
             {
-              v39 = v22;
+              v38 = v22;
             }
 
-            v67[0] = v39;
-            v66[0] = @"participant";
-            v66[1] = @"matchOutcome";
+            v66[0] = v38;
+            v65[0] = @"participant";
+            v65[1] = @"matchOutcome";
             matchOutcome = [(__CFString *)v22 matchOutcome];
             participants2 = [(GKTurnBasedMatch *)selfCopy participants];
-            v42 = +[GKTurnBasedParticipant stringForMatchOutcome:totalParticipant:](GKTurnBasedParticipant, "stringForMatchOutcome:totalParticipant:", matchOutcome, [participants2 count]);
-            v67[1] = v42;
-            v43 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v67 forKeys:v66 count:2];
-            v44 = [v37 exceptionWithName:v38 reason:@"invalid matchOutcome for participant" userInfo:v43];
-            v45 = v44;
+            v41 = +[GKTurnBasedParticipant stringForMatchOutcome:totalParticipant:](GKTurnBasedParticipant, "stringForMatchOutcome:totalParticipant:", matchOutcome, [participants2 count]);
+            v66[1] = v41;
+            v42 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v66 forKeys:v65 count:2];
+            v43 = [v36 exceptionWithName:v37 reason:@"invalid matchOutcome for participant" userInfo:v42];
+            v44 = v43;
 
-            objc_exception_throw(v44);
+            objc_exception_throw(v43);
           }
 
           v23 = [MEMORY[0x277CCA9B8] userErrorForCode:17 underlyingError:0];
@@ -3202,7 +3175,7 @@ LABEL_4:
 
         if (v19 == ++v21)
         {
-          v19 = [participants countByEnumeratingWithState:&v61 objects:v68 count:16];
+          v19 = [participants countByEnumeratingWithState:&v60 objects:v67 count:16];
           if (v19)
           {
             goto LABEL_4;
@@ -3215,9 +3188,9 @@ LABEL_4:
 
     error2 = [v15 error];
 
-    v10 = v47;
+    v10 = v46;
     self = selfCopy;
-    v11 = v49;
+    v11 = v48;
     v16 = "Close the challenge received alert without further action" + 16;
     if (!error2)
     {
@@ -3225,47 +3198,47 @@ LABEL_4:
       [currentParticipant setStatus:5];
 
       internal = [(GKTurnBasedMatch *)selfCopy internal];
-      [internal setMatchData:v47];
+      [internal setMatchData:v46];
 
-      v59 = 0u;
-      v60 = 0u;
       v58 = 0u;
+      v59 = 0u;
       v57 = 0u;
+      v56 = 0u;
       participants3 = [(GKTurnBasedMatch *)selfCopy participants];
-      v29 = [participants3 countByEnumeratingWithState:&v57 objects:v65 count:16];
+      v29 = [participants3 countByEnumeratingWithState:&v56 objects:v64 count:16];
       if (v29)
       {
         v30 = v29;
-        v31 = *v58;
+        v31 = *v57;
         do
         {
           for (i = 0; i != v30; ++i)
           {
-            if (*v58 != v31)
+            if (*v57 != v31)
             {
               objc_enumerationMutation(participants3);
             }
 
-            [*(*(&v57 + 1) + 8 * i) setStatus:5];
+            [*(*(&v56 + 1) + 8 * i) setStatus:5];
           }
 
-          v30 = [participants3 countByEnumeratingWithState:&v57 objects:v65 count:16];
+          v30 = [participants3 countByEnumeratingWithState:&v56 objects:v64 count:16];
         }
 
         while (v30);
       }
 
-      v53[0] = MEMORY[0x277D85DD0];
+      v52[0] = MEMORY[0x277D85DD0];
       v16 = "nge received alert without further action";
-      v53[1] = 3221225472;
-      v53[2] = __86__GKTurnBasedMatch_endMatchInTurnWithMatchData_scores_achievements_completionHandler___block_invoke;
-      v53[3] = &unk_2785DE4C8;
-      v53[4] = selfCopy;
-      v11 = v49;
-      v54 = v49;
-      v55 = v12;
-      v56 = v15;
-      [v56 perform:v53];
+      v52[1] = 3221225472;
+      v52[2] = __86__GKTurnBasedMatch_endMatchInTurnWithMatchData_scores_achievements_completionHandler___block_invoke;
+      v52[3] = &unk_2785DE4C8;
+      v52[4] = selfCopy;
+      v11 = v48;
+      v53 = v48;
+      v54 = v12;
+      v55 = v15;
+      [v55 perform:v52];
     }
   }
 
@@ -3273,26 +3246,24 @@ LABEL_4:
   {
     if (GKApplicationLinkedOnOrAfter(458752, 657920))
     {
-      v46 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:@"nil matchData" userInfo:0];
-      objc_exception_throw(v46);
+      v45 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:@"nil matchData" userInfo:0];
+      objc_exception_throw(v45);
     }
 
     v33 = [MEMORY[0x277CCA9B8] userErrorForCode:17 underlyingError:0];
     [v15 setError:v33];
   }
 
-  v50[0] = MEMORY[0x277D85DD0];
-  v50[1] = *(v16 + 434);
-  v50[2] = __86__GKTurnBasedMatch_endMatchInTurnWithMatchData_scores_achievements_completionHandler___block_invoke_3;
-  v50[3] = &unk_2785DE478;
-  v51 = v15;
-  v52 = v13;
-  v50[4] = self;
+  v49[0] = MEMORY[0x277D85DD0];
+  v49[1] = *(v16 + 434);
+  v49[2] = __86__GKTurnBasedMatch_endMatchInTurnWithMatchData_scores_achievements_completionHandler___block_invoke_3;
+  v49[3] = &unk_2785DE478;
+  v50 = v15;
+  v51 = v13;
+  v49[4] = self;
   v34 = v15;
   v35 = v13;
-  [v34 notifyOnMainQueueWithBlock:v50];
-
-  v36 = *MEMORY[0x277D85DE8];
+  [v34 notifyOnMainQueueWithBlock:v49];
 }
 
 void __86__GKTurnBasedMatch_endMatchInTurnWithMatchData_scores_achievements_completionHandler___block_invoke(id *a1, void *a2)
@@ -3455,27 +3426,27 @@ void __67__GKTurnBasedMatch_saveCurrentTurnWithMatchData_completionHandler___blo
 
 - (id)exchangeForID:(id)d
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   dCopy = d;
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   exchanges = [(GKTurnBasedMatch *)self exchanges];
-  v6 = [exchanges countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v6 = [exchanges countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
-    v7 = *v15;
+    v7 = *v14;
     while (2)
     {
       for (i = 0; i != v6; i = i + 1)
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(exchanges);
         }
 
-        v9 = *(*(&v14 + 1) + 8 * i);
+        v9 = *(*(&v13 + 1) + 8 * i);
         exchangeID = [v9 exchangeID];
         v11 = [dCopy isEqualToString:exchangeID];
 
@@ -3486,7 +3457,7 @@ void __67__GKTurnBasedMatch_saveCurrentTurnWithMatchData_completionHandler___blo
         }
       }
 
-      v6 = [exchanges countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [exchanges countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v6)
       {
         continue;
@@ -3498,14 +3469,12 @@ void __67__GKTurnBasedMatch_saveCurrentTurnWithMatchData_completionHandler___blo
 
 LABEL_11:
 
-  v12 = *MEMORY[0x277D85DE8];
-
   return v6;
 }
 
 - (void)saveMergedMatchData:(NSData *)matchData withResolvedExchanges:(NSArray *)exchanges completionHandler:(void *)completionHandler
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   v8 = matchData;
   v9 = exchanges;
   v10 = completionHandler;
@@ -3516,8 +3485,8 @@ LABEL_11:
   {
     if (GKApplicationLinkedOnOrAfter(458752, 657920))
     {
-      v30 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:@"nil matchData" userInfo:0];
-      objc_exception_throw(v30);
+      v29 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:@"nil matchData" userInfo:0];
+      objc_exception_throw(v29);
     }
 
     v24 = MEMORY[0x277CCA9B8];
@@ -3540,31 +3509,31 @@ LABEL_14:
   }
 
   v15 = [MEMORY[0x277CBEB18] arrayWithCapacity:{-[NSArray count](v9, "count")}];
+  v37 = 0u;
   v38 = 0u;
   v39 = 0u;
   v40 = 0u;
-  v41 = 0u;
-  v31 = v9;
+  v30 = v9;
   v16 = v9;
-  v17 = [(NSArray *)v16 countByEnumeratingWithState:&v38 objects:v42 count:16];
+  v17 = [(NSArray *)v16 countByEnumeratingWithState:&v37 objects:v41 count:16];
   if (v17)
   {
     v18 = v17;
-    v19 = *v39;
+    v19 = *v38;
     do
     {
       for (i = 0; i != v18; ++i)
       {
-        if (*v39 != v19)
+        if (*v38 != v19)
         {
           objc_enumerationMutation(v16);
         }
 
-        exchangeID = [*(*(&v38 + 1) + 8 * i) exchangeID];
+        exchangeID = [*(*(&v37 + 1) + 8 * i) exchangeID];
         [v15 addObject:exchangeID];
       }
 
-      v18 = [(NSArray *)v16 countByEnumeratingWithState:&v38 objects:v42 count:16];
+      v18 = [(NSArray *)v16 countByEnumeratingWithState:&v37 objects:v41 count:16];
     }
 
     while (v18);
@@ -3573,30 +3542,28 @@ LABEL_14:
   internal = [(GKTurnBasedMatch *)self internal];
   [internal setMatchData:v8];
 
-  v35[0] = MEMORY[0x277D85DD0];
-  v35[1] = 3221225472;
-  v35[2] = __80__GKTurnBasedMatch_saveMergedMatchData_withResolvedExchanges_completionHandler___block_invoke;
-  v35[3] = &unk_2785DD910;
-  v35[4] = self;
-  v36 = v15;
-  v37 = v12;
+  v34[0] = MEMORY[0x277D85DD0];
+  v34[1] = 3221225472;
+  v34[2] = __80__GKTurnBasedMatch_saveMergedMatchData_withResolvedExchanges_completionHandler___block_invoke;
+  v34[3] = &unk_2785DD910;
+  v34[4] = self;
+  v35 = v15;
+  v36 = v12;
   v23 = v15;
-  [v37 perform:v35];
+  [v36 perform:v34];
 
-  v9 = v31;
+  v9 = v30;
 LABEL_15:
-  v32[0] = MEMORY[0x277D85DD0];
-  v32[1] = 3221225472;
-  v32[2] = __80__GKTurnBasedMatch_saveMergedMatchData_withResolvedExchanges_completionHandler___block_invoke_3;
-  v32[3] = &unk_2785DE478;
-  v33 = v12;
-  v34 = v10;
-  v32[4] = self;
+  v31[0] = MEMORY[0x277D85DD0];
+  v31[1] = 3221225472;
+  v31[2] = __80__GKTurnBasedMatch_saveMergedMatchData_withResolvedExchanges_completionHandler___block_invoke_3;
+  v31[3] = &unk_2785DE478;
+  v32 = v12;
+  v33 = v10;
+  v31[4] = self;
   v27 = v12;
   v28 = v10;
-  [v27 notifyOnMainQueueWithBlock:v32];
-
-  v29 = *MEMORY[0x277D85DE8];
+  [v27 notifyOnMainQueueWithBlock:v31];
 }
 
 void __80__GKTurnBasedMatch_saveMergedMatchData_withResolvedExchanges_completionHandler___block_invoke(uint64_t a1, void *a2)
@@ -3645,7 +3612,7 @@ void __80__GKTurnBasedMatch_saveMergedMatchData_withResolvedExchanges_completion
 
 - (void)sendExchangeToParticipants:(NSArray *)participants data:(NSData *)data localizableMessageKey:(NSString *)key arguments:(NSArray *)arguments timeout:(NSTimeInterval)timeout completionHandler:(void *)completionHandler
 {
-  v48[1] = *MEMORY[0x277D85DE8];
+  v47[1] = *MEMORY[0x277D85DE8];
   v14 = participants;
   v15 = data;
   v16 = key;
@@ -3661,32 +3628,32 @@ void __80__GKTurnBasedMatch_saveMergedMatchData_withResolvedExchanges_completion
   {
     if (!v16)
     {
-      v29 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:@"nil or invalid localizable message key" userInfo:0];
-      objc_exception_throw(v29);
+      v28 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:@"nil or invalid localizable message key" userInfo:0];
+      objc_exception_throw(v28);
     }
 
     v23 = [(GKTurnBasedMatch *)self indexesForParticipants:v14];
     if (!v23)
     {
-      v30 = MEMORY[0x277CBEAD8];
-      v31 = *MEMORY[0x277CBE660];
+      v29 = MEMORY[0x277CBEAD8];
+      v30 = *MEMORY[0x277CBE660];
       if (v14)
       {
-        v32 = v14;
+        v31 = v14;
       }
 
       else
       {
-        v32 = @"nil";
+        v31 = @"nil";
       }
 
-      v47 = @"participants";
-      v48[0] = v32;
-      v33 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v48 forKeys:&v47 count:1];
-      v34 = [v30 exceptionWithName:v31 reason:@"invalid list of recipient participants" userInfo:v33];
-      v35 = v34;
+      v46 = @"participants";
+      v47[0] = v31;
+      v32 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v47 forKeys:&v46 count:1];
+      v33 = [v29 exceptionWithName:v30 reason:@"invalid list of recipient participants" userInfo:v32];
+      v34 = v33;
 
-      objc_exception_throw(v34);
+      objc_exception_throw(v33);
     }
 
     v24 = v23;
@@ -3695,20 +3662,20 @@ void __80__GKTurnBasedMatch_saveMergedMatchData_withResolvedExchanges_completion
       v17 = MEMORY[0x277CBEBF8];
     }
 
-    v39[0] = MEMORY[0x277D85DD0];
-    v39[1] = 3221225472;
-    v39[2] = __110__GKTurnBasedMatch_sendExchangeToParticipants_data_localizableMessageKey_arguments_timeout_completionHandler___block_invoke;
-    v39[3] = &unk_2785E0240;
-    v40 = v16;
+    v38[0] = MEMORY[0x277D85DD0];
+    v38[1] = 3221225472;
+    v38[2] = __110__GKTurnBasedMatch_sendExchangeToParticipants_data_localizableMessageKey_arguments_timeout_completionHandler___block_invoke;
+    v38[3] = &unk_2785E0240;
+    v39 = v16;
     v17 = v17;
-    v41 = v17;
-    v42 = v24;
-    v46 = timeout;
-    v43 = v15;
+    v40 = v17;
+    v41 = v24;
+    v45 = timeout;
+    v42 = v15;
     selfCopy = self;
-    v45 = v20;
+    v44 = v20;
     v25 = v24;
-    [v45 perform:v39];
+    [v44 perform:v38];
   }
 
   else
@@ -3717,18 +3684,16 @@ void __80__GKTurnBasedMatch_saveMergedMatchData_withResolvedExchanges_completion
     [v20 setError:v25];
   }
 
-  v36[0] = MEMORY[0x277D85DD0];
-  v36[1] = 3221225472;
-  v36[2] = __110__GKTurnBasedMatch_sendExchangeToParticipants_data_localizableMessageKey_arguments_timeout_completionHandler___block_invoke_3;
-  v36[3] = &unk_2785DE478;
-  v37 = v20;
-  v38 = v18;
-  v36[4] = self;
+  v35[0] = MEMORY[0x277D85DD0];
+  v35[1] = 3221225472;
+  v35[2] = __110__GKTurnBasedMatch_sendExchangeToParticipants_data_localizableMessageKey_arguments_timeout_completionHandler___block_invoke_3;
+  v35[3] = &unk_2785DE478;
+  v36 = v20;
+  v37 = v18;
+  v35[4] = self;
   v26 = v20;
   v27 = v18;
-  [v26 notifyOnMainQueueWithBlock:v36];
-
-  v28 = *MEMORY[0x277D85DE8];
+  [v26 notifyOnMainQueueWithBlock:v35];
 }
 
 void __110__GKTurnBasedMatch_sendExchangeToParticipants_data_localizableMessageKey_arguments_timeout_completionHandler___block_invoke(uint64_t a1, void *a2)
@@ -3757,34 +3722,34 @@ void __110__GKTurnBasedMatch_sendExchangeToParticipants_data_localizableMessageK
 
 void __110__GKTurnBasedMatch_sendExchangeToParticipants_data_localizableMessageKey_arguments_timeout_completionHandler___block_invoke_2(uint64_t a1, void *a2, uint64_t a3, void *a4)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a4;
   v9 = v8;
   if (a3)
   {
-    v19 = v8;
+    v18 = v8;
     [*(a1 + 32) setInternal:a3];
-    v22 = 0u;
-    v23 = 0u;
-    v20 = 0u;
     v21 = 0u;
+    v22 = 0u;
+    v19 = 0u;
+    v20 = 0u;
     v10 = [*(a1 + 32) exchanges];
-    v11 = [v10 countByEnumeratingWithState:&v20 objects:v24 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v19 objects:v23 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v21;
+      v13 = *v20;
       do
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v21 != v13)
+          if (*v20 != v13)
           {
             objc_enumerationMutation(v10);
           }
 
-          v15 = *(*(&v20 + 1) + 8 * i);
+          v15 = *(*(&v19 + 1) + 8 * i);
           v16 = [v15 exchangeID];
           v17 = [v7 isEqualToString:v16];
 
@@ -3794,19 +3759,17 @@ void __110__GKTurnBasedMatch_sendExchangeToParticipants_data_localizableMessageK
           }
         }
 
-        v12 = [v10 countByEnumeratingWithState:&v20 objects:v24 count:16];
+        v12 = [v10 countByEnumeratingWithState:&v19 objects:v23 count:16];
       }
 
       while (v12);
     }
 
-    v9 = v19;
+    v9 = v18;
   }
 
   [*(a1 + 40) setError:v9];
   (*(*(a1 + 48) + 16))();
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void __110__GKTurnBasedMatch_sendExchangeToParticipants_data_localizableMessageKey_arguments_timeout_completionHandler___block_invoke_3(uint64_t a1)
@@ -3826,7 +3789,7 @@ void __110__GKTurnBasedMatch_sendExchangeToParticipants_data_localizableMessageK
 
 - (void)sendReminderToParticipants:(NSArray *)participants localizableMessageKey:(NSString *)key arguments:(NSArray *)arguments completionHandler:(void *)completionHandler
 {
-  v43[1] = *MEMORY[0x277D85DE8];
+  v42[1] = *MEMORY[0x277D85DE8];
   v10 = participants;
   v11 = key;
   v12 = arguments;
@@ -3839,8 +3802,8 @@ void __110__GKTurnBasedMatch_sendExchangeToParticipants_data_localizableMessageK
 
   if (!multiplayerAllowedPlayerType)
   {
-    v23 = [MEMORY[0x277CCA9B8] userErrorForCode:10 underlyingError:0];
-    [v15 setError:v23];
+    v22 = [MEMORY[0x277CCA9B8] userErrorForCode:10 underlyingError:0];
+    [v15 setError:v22];
 
     if (!v13)
     {
@@ -3850,41 +3813,41 @@ void __110__GKTurnBasedMatch_sendExchangeToParticipants_data_localizableMessageK
     goto LABEL_7;
   }
 
-  v40[0] = MEMORY[0x277D85DD0];
-  v40[1] = 3221225472;
-  v40[2] = __97__GKTurnBasedMatch_sendReminderToParticipants_localizableMessageKey_arguments_completionHandler___block_invoke;
-  v40[3] = &unk_2785E0268;
+  v39[0] = MEMORY[0x277D85DD0];
+  v39[1] = 3221225472;
+  v39[2] = __97__GKTurnBasedMatch_sendReminderToParticipants_localizableMessageKey_arguments_completionHandler___block_invoke;
+  v39[3] = &unk_2785E0268;
   v18 = v10;
-  v41 = v18;
-  [(NSArray *)v18 enumerateObjectsUsingBlock:v40];
+  v40 = v18;
+  [(NSArray *)v18 enumerateObjectsUsingBlock:v39];
   v19 = [(GKTurnBasedMatch *)self indexesForParticipants:v18];
   if (!v19)
   {
-    v24 = MEMORY[0x277CBEAD8];
-    v25 = *MEMORY[0x277CBE660];
+    v23 = MEMORY[0x277CBEAD8];
+    v24 = *MEMORY[0x277CBE660];
     if (v18)
     {
-      v26 = v18;
+      v25 = v18;
     }
 
     else
     {
-      v26 = @"nil";
+      v25 = @"nil";
     }
 
-    v42 = @"participants";
-    v43[0] = v26;
-    v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v43 forKeys:&v42 count:1];
-    v28 = [v24 exceptionWithName:v25 reason:@"invalid list of recipient participants" userInfo:v27];
-    v29 = v28;
+    v41 = @"participants";
+    v42[0] = v25;
+    v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v42 forKeys:&v41 count:1];
+    v27 = [v23 exceptionWithName:v24 reason:@"invalid list of recipient participants" userInfo:v26];
+    v28 = v27;
 
-    objc_exception_throw(v28);
+    objc_exception_throw(v27);
   }
 
   if (!v11)
   {
-    v30 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:@"nil or invalid localizable message key" userInfo:0];
-    objc_exception_throw(v30);
+    v29 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:@"nil or invalid localizable message key" userInfo:0];
+    objc_exception_throw(v29);
   }
 
   v20 = v19;
@@ -3893,59 +3856,55 @@ void __110__GKTurnBasedMatch_sendExchangeToParticipants_data_localizableMessageK
     v12 = MEMORY[0x277CBEBF8];
   }
 
-  v34[0] = MEMORY[0x277D85DD0];
-  v34[1] = 3221225472;
-  v34[2] = __97__GKTurnBasedMatch_sendReminderToParticipants_localizableMessageKey_arguments_completionHandler___block_invoke_2;
-  v34[3] = &unk_2785DF868;
-  v35 = v11;
+  v33[0] = MEMORY[0x277D85DD0];
+  v33[1] = 3221225472;
+  v33[2] = __97__GKTurnBasedMatch_sendReminderToParticipants_localizableMessageKey_arguments_completionHandler___block_invoke_2;
+  v33[3] = &unk_2785DF868;
+  v34 = v11;
   v12 = v12;
-  v36 = v12;
-  v37 = v20;
+  v35 = v12;
+  v36 = v20;
   selfCopy = self;
-  v39 = v15;
+  v38 = v15;
   v21 = v20;
-  [v39 perform:v34];
+  [v38 perform:v33];
 
   if (v13)
   {
 LABEL_7:
-    v31[0] = MEMORY[0x277D85DD0];
-    v31[1] = 3221225472;
-    v31[2] = __97__GKTurnBasedMatch_sendReminderToParticipants_localizableMessageKey_arguments_completionHandler___block_invoke_4;
-    v31[3] = &unk_2785DDC10;
-    v33 = v13;
-    v32 = v15;
-    [v32 notifyOnMainQueueWithBlock:v31];
+    v30[0] = MEMORY[0x277D85DD0];
+    v30[1] = 3221225472;
+    v30[2] = __97__GKTurnBasedMatch_sendReminderToParticipants_localizableMessageKey_arguments_completionHandler___block_invoke_4;
+    v30[3] = &unk_2785DDC10;
+    v32 = v13;
+    v31 = v15;
+    [v31 notifyOnMainQueueWithBlock:v30];
   }
 
 LABEL_8:
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 void __97__GKTurnBasedMatch_sendReminderToParticipants_localizableMessageKey_arguments_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v15[1] = *MEMORY[0x277D85DE8];
-  v13 = a2;
-  v3 = [v13 player];
+  v14[1] = *MEMORY[0x277D85DE8];
+  v12 = a2;
+  v3 = [v12 player];
   v4 = +[GKLocalPlayer localPlayer];
   v5 = [v3 isEqual:v4];
 
   if (v5)
   {
-    v7 = MEMORY[0x277CBEAD8];
-    v8 = *MEMORY[0x277CBE660];
-    v9 = *(a1 + 32);
-    v14 = @"participants";
-    v15[0] = v9;
-    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:&v14 count:1];
-    v11 = [v7 exceptionWithName:v8 reason:@"localPlayer is not a valid participant for reminder" userInfo:v10];
-    v12 = v11;
+    v6 = MEMORY[0x277CBEAD8];
+    v7 = *MEMORY[0x277CBE660];
+    v8 = *(a1 + 32);
+    v13 = @"participants";
+    v14[0] = v8;
+    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:&v13 count:1];
+    v10 = [v6 exceptionWithName:v7 reason:@"localPlayer is not a valid participant for reminder" userInfo:v9];
+    v11 = v10;
 
-    objc_exception_throw(v11);
+    objc_exception_throw(v10);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __97__GKTurnBasedMatch_sendReminderToParticipants_localizableMessageKey_arguments_completionHandler___block_invoke_2(uint64_t a1, void *a2)
@@ -3985,38 +3944,33 @@ void __97__GKTurnBasedMatch_sendReminderToParticipants_localizableMessageKey_arg
 
 - (void)state
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   selfCopy = self;
-  v5[0] = 67109378;
-  v5[1] = [a2 status];
-  v6 = 2112;
-  v7 = a2;
-  _os_log_error_impl(&dword_227904000, selfCopy, OS_LOG_TYPE_ERROR, "Unexpected match status encountered: %d for match:%@", v5, 0x12u);
-
-  v4 = *MEMORY[0x277D85DE8];
+  v4[0] = 67109378;
+  v4[1] = [a2 status];
+  v5 = 2112;
+  v6 = a2;
+  _os_log_error_impl(&dword_227904000, selfCopy, OS_LOG_TYPE_ERROR, "Unexpected match status encountered: %d for match:%@", v4, 0x12u);
 }
 
 void __82__GKTurnBasedMatch_loadTurnBasedMatchWithDetailsForMatchID_withCompletionHandler___block_invoke_2_cold_1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 32);
-  v5 = 138412546;
-  v6 = v3;
-  v7 = 2112;
-  v8 = a2;
-  _os_log_error_impl(&dword_227904000, log, OS_LOG_TYPE_ERROR, "loadTurnBasedMatchWithDetailsForMatchID:Failed to get details for TBG MatchID:%@ .Error: %@", &v5, 0x16u);
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138412546;
+  v5 = v3;
+  v6 = 2112;
+  v7 = a2;
+  _os_log_error_impl(&dword_227904000, log, OS_LOG_TYPE_ERROR, "loadTurnBasedMatchWithDetailsForMatchID:Failed to get details for TBG MatchID:%@ .Error: %@", &v4, 0x16u);
 }
 
 void __62__GKTurnBasedMatch_loadURLWithMatchRequest_completionHandler___block_invoke_cold_1(void *a1, void *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = [a2 debugDescription];
   OUTLINED_FUNCTION_0();
-  _os_log_error_impl(&dword_227904000, v3, OS_LOG_TYPE_ERROR, "GKTurnBasedMatch loadURLWithMatchRequest completed with error: %@", v6, 0xCu);
-
-  v5 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_227904000, v3, OS_LOG_TYPE_ERROR, "GKTurnBasedMatch loadURLWithMatchRequest completed with error: %@", v5, 0xCu);
 }
 
 @end

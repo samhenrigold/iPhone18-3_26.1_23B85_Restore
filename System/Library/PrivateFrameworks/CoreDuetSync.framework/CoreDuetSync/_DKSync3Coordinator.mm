@@ -93,13 +93,13 @@
 
 - (void)setupStorage
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   underlyingQueue = [MEMORY[0x277CFE290] underlyingQueue];
   dispatch_assert_queue_V2(underlyingQueue);
 
-  v11.receiver = self;
-  v11.super_class = _DKSync3Coordinator;
-  [(_DKSync2Coordinator *)&v11 setupStorage];
+  v10.receiver = self;
+  v10.super_class = _DKSync3Coordinator;
+  [(_DKSync2Coordinator *)&v10 setupStorage];
   v4 = [(_DKSync2Coordinator *)self policyForSyncTransportType:1];
   if ([v4 syncDisabled])
   {
@@ -117,7 +117,7 @@ LABEL_4:
     {
       v7 = [objc_opt_class() description];
       *buf = 138543362;
-      v13 = v7;
+      v12 = v7;
       _os_log_impl(&dword_245377000, syncChannel, OS_LOG_TYPE_INFO, "%{public}@: Rapport context store transport disabled by policy", buf, 0xCu);
     }
 
@@ -135,48 +135,43 @@ LABEL_4:
   }
 
 LABEL_8:
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)start
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v0 = [objc_opt_class() description];
+  v1 = [objc_opt_class() description];
   OUTLINED_FUNCTION_7();
   OUTLINED_FUNCTION_2();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
 }
 
 - (id)multiDeviceContextStoreDevices
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   mEMORY[0x277CFE280] = [MEMORY[0x277CFE280] sharedInstance];
   v2 = [mEMORY[0x277CFE280] peersWithActiveTransports:1];
   v3 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v2, "count")}];
+  v31 = 0u;
   v32 = 0u;
   v33 = 0u;
   v34 = 0u;
-  v35 = 0u;
   v4 = v2;
-  v5 = [v4 countByEnumeratingWithState:&v32 objects:v44 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v31 objects:v43 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v33;
+    v7 = *v32;
     do
     {
       v8 = 0;
       do
       {
-        if (*v33 != v7)
+        if (*v32 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v32 + 1) + 8 * v8);
+        v9 = *(*(&v31 + 1) + 8 * v8);
         version = [v9 version];
         [version doubleValue];
         v12 = v11;
@@ -198,7 +193,7 @@ LABEL_8:
             syncChannel = [MEMORY[0x277CFE0C8] syncChannel];
             if (os_log_type_enabled(syncChannel, OS_LOG_TYPE_DEBUG))
             {
-              v30 = [objc_opt_class() description];
+              v29 = [objc_opt_class() description];
               v18 = [v9 me];
               v19 = @"pseudo ";
               if (!v18)
@@ -206,26 +201,26 @@ LABEL_8:
                 v19 = &stru_28584E620;
               }
 
-              v29 = v19;
+              v28 = v19;
               identifier = [v9 identifier];
               model2 = [v9 model];
               v21 = &stru_28584E620;
               if (model2)
               {
-                v27 = MEMORY[0x277CCACA8];
+                v26 = MEMORY[0x277CCACA8];
                 model3 = [v9 model];
-                v26 = [v27 stringWithFormat:@" (%@)", model3];
-                v21 = v26;
+                v25 = [v26 stringWithFormat:@" (%@)", model3];
+                v21 = v25;
               }
 
               *buf = 138544130;
-              v37 = v30;
-              v38 = 2114;
-              v39 = v29;
-              v40 = 2114;
-              v41 = identifier;
-              v42 = 2114;
-              v43 = v21;
+              v36 = v29;
+              v37 = 2114;
+              v38 = v28;
+              v39 = 2114;
+              v40 = identifier;
+              v41 = 2114;
+              v42 = v21;
               _os_log_debug_impl(&dword_245377000, syncChannel, OS_LOG_TYPE_DEBUG, "%{public}@: Unable to convert %{public}@peer %{public}@%{public}@ to device, skipping", buf, 0x2Au);
               if (model2)
               {
@@ -238,28 +233,26 @@ LABEL_8:
       }
 
       while (v6 != v8);
-      v22 = [v4 countByEnumeratingWithState:&v32 objects:v44 count:16];
+      v22 = [v4 countByEnumeratingWithState:&v31 objects:v43 count:16];
       v6 = v22;
     }
 
     while (v22);
   }
 
-  v23 = *MEMORY[0x277D85DE8];
-
   return v3;
 }
 
 - (void)handleStatusChangeForPeer:(id)peer previousTransports:(int64_t)transports
 {
-  v23[1] = *MEMORY[0x277D85DE8];
+  v22[1] = *MEMORY[0x277D85DE8];
   peerCopy = peer;
   underlyingQueue = [MEMORY[0x277CFE290] underlyingQueue];
   dispatch_assert_queue_V2(underlyingQueue);
 
-  v22.receiver = self;
-  v22.super_class = _DKSync3Coordinator;
-  [(_DKSync2Coordinator *)&v22 handleStatusChangeForPeer:peerCopy previousTransports:transports];
+  v21.receiver = self;
+  v21.super_class = _DKSync3Coordinator;
+  [(_DKSync2Coordinator *)&v21 handleStatusChangeForPeer:peerCopy previousTransports:transports];
   if (!self->_watchingDeviceTypes)
   {
     syncChannel = [MEMORY[0x277CFE0C8] syncChannel];
@@ -298,8 +291,8 @@ LABEL_18:
       model = [peerCopy model];
       multiDeviceContextStoreDevices = [v17 initWithName:&stru_28584E620 deviceID:sourceDeviceID model:model companion:{objc_msgSend(peerCopy, "isCompanion")}];
 
-      v23[0] = multiDeviceContextStoreDevices;
-      syncChannel3 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:1];
+      v22[0] = multiDeviceContextStoreDevices;
+      syncChannel3 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:1];
       deviceUUID = [(_DKSync2Coordinator *)self deviceUUID];
       [syncChannel deactivateDevices:syncChannel3 remoteUserContextProxySourceDeviceUUID:deviceUUID];
     }
@@ -323,7 +316,7 @@ LABEL_18:
 
       else if (v15)
       {
-        [_DKSync3Coordinator handleStatusChangeForPeer:previousTransports:];
+        [_DKSync3Coordinator handleStatusChangeForPeer:? previousTransports:?];
       }
     }
 
@@ -331,13 +324,11 @@ LABEL_18:
   }
 
 LABEL_19:
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleContextChangedNotification:(id)notification
 {
-  v72 = *MEMORY[0x277D85DE8];
+  v71 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   syncChannel = [MEMORY[0x277CFE0C8] syncChannel];
   if (os_log_type_enabled(syncChannel, OS_LOG_TYPE_DEBUG))
@@ -345,35 +336,35 @@ LABEL_19:
     [_DKSync3Coordinator handleContextChangedNotification:];
   }
 
-  v35 = notificationCopy;
+  v34 = notificationCopy;
   userInfo = [notificationCopy userInfo];
-  v54 = [userInfo objectForKeyedSubscript:*MEMORY[0x277CFE3B0]];
-  v34 = userInfo;
-  v52 = [userInfo objectForKeyedSubscript:*MEMORY[0x277CFE3A8]];
-  v53 = [(__CFString *)v52 objectForKeyedSubscript:*MEMORY[0x277CFE3B8]];
+  v53 = [userInfo objectForKeyedSubscript:*MEMORY[0x277CFE3B0]];
+  v33 = userInfo;
+  v51 = [userInfo objectForKeyedSubscript:*MEMORY[0x277CFE3A8]];
+  v52 = [(__CFString *)v51 objectForKeyedSubscript:*MEMORY[0x277CFE3B8]];
+  v55 = 0u;
   v56 = 0u;
   v57 = 0u;
   v58 = 0u;
-  v59 = 0u;
   mEMORY[0x277CFE280] = [MEMORY[0x277CFE280] sharedInstance];
   v7 = [mEMORY[0x277CFE280] peersWithActiveTransports:1];
 
-  v8 = [v7 countByEnumeratingWithState:&v56 objects:v71 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v55 objects:v70 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v57;
+    v10 = *v56;
     do
     {
       v11 = 0;
       do
       {
-        if (*v57 != v10)
+        if (*v56 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        sourceDeviceID = [*(*(&v56 + 1) + 8 * v11) sourceDeviceID];
+        sourceDeviceID = [*(*(&v55 + 1) + 8 * v11) sourceDeviceID];
         if (sourceDeviceID)
         {
           mEMORY[0x277CFE280]2 = [MEMORY[0x277CFE280] sharedInstance];
@@ -387,7 +378,7 @@ LABEL_19:
             {
               if (v17)
               {
-                v51 = [objc_opt_class() description];
+                v50 = [objc_opt_class() description];
                 v28 = [v14 me];
                 v29 = @"pseudo ";
                 if (!v28)
@@ -395,28 +386,28 @@ LABEL_19:
                   v29 = &stru_28584E620;
                 }
 
-                v47 = v29;
+                v46 = v29;
                 identifier = [v14 identifier];
                 model = [v14 model];
                 v31 = &stru_28584E620;
                 if (model)
                 {
-                  v37 = MEMORY[0x277CCACA8];
+                  v36 = MEMORY[0x277CCACA8];
                   model2 = [v14 model];
-                  v36 = [v37 stringWithFormat:@" (%@)", model2];
-                  v31 = v36;
+                  v35 = [v36 stringWithFormat:@" (%@)", model2];
+                  v31 = v35;
                 }
 
                 *buf = 138544386;
-                v62 = v51;
-                v63 = 2114;
-                v64 = v47;
-                v65 = 2114;
-                v66 = identifier;
-                v67 = 2114;
-                v68 = v31;
-                v69 = 2112;
-                v70 = v52;
+                v61 = v50;
+                v62 = 2114;
+                v63 = v46;
+                v64 = 2114;
+                v65 = identifier;
+                v66 = 2114;
+                v67 = v31;
+                v68 = 2112;
+                v69 = v51;
                 _os_log_debug_impl(&dword_245377000, syncChannel2, OS_LOG_TYPE_DEBUG, "%{public}@: Forwarding context changed notification to %{public}@peer %{public}@%{public}@: %@", buf, 0x34u);
                 if (model)
                 {
@@ -424,15 +415,15 @@ LABEL_19:
               }
 
               v26 = MEMORY[0x277CBEB98];
-              v60 = v53;
-              syncChannel2 = [MEMORY[0x277CBEA60] arrayWithObjects:&v60 count:1];
+              v59 = v52;
+              syncChannel2 = [MEMORY[0x277CBEA60] arrayWithObjects:&v59 count:1];
               v27 = [v26 setWithArray:syncChannel2];
-              [(_DKSync3Coordinator *)self sendContextValuesToPeer:v14 registrationIdentifier:v54 keyPaths:v27];
+              [(_DKSync3Coordinator *)self sendContextValuesToPeer:v14 registrationIdentifier:v53 keyPaths:v27];
             }
 
             else if (v17)
             {
-              v50 = [objc_opt_class() description];
+              v49 = [objc_opt_class() description];
               v18 = [v14 me];
               v19 = @"pseudo ";
               if (!v18)
@@ -440,28 +431,28 @@ LABEL_19:
                 v19 = &stru_28584E620;
               }
 
-              v45 = v19;
+              v44 = v19;
               identifier2 = [v14 identifier];
               model3 = [v14 model];
               v21 = &stru_28584E620;
               if (model3)
               {
-                v39 = MEMORY[0x277CCACA8];
+                v38 = MEMORY[0x277CCACA8];
                 model4 = [v14 model];
-                v38 = [v39 stringWithFormat:@" (%@)", model4];
-                v21 = v38;
+                v37 = [v38 stringWithFormat:@" (%@)", model4];
+                v21 = v37;
               }
 
               *buf = 138544386;
-              v62 = v50;
-              v63 = 2114;
-              v64 = v45;
-              v65 = 2114;
-              v66 = identifier2;
-              v67 = 2114;
-              v68 = v21;
-              v69 = 2112;
-              v70 = v52;
+              v61 = v49;
+              v62 = 2114;
+              v63 = v44;
+              v64 = 2114;
+              v65 = identifier2;
+              v66 = 2114;
+              v67 = v21;
+              v68 = 2112;
+              v69 = v51;
               _os_log_debug_impl(&dword_245377000, syncChannel2, OS_LOG_TYPE_DEBUG, "%{public}@: Not forwarding context changed notification to unavailable %{public}@peer %{public}@%{public}@: %@", buf, 0x34u);
               if (model3)
               {
@@ -479,7 +470,7 @@ LABEL_19:
             syncChannel2 = [MEMORY[0x277CFE0C8] syncChannel];
             if (os_log_type_enabled(syncChannel2, OS_LOG_TYPE_DEBUG))
             {
-              v50 = [objc_opt_class() description];
+              v49 = [objc_opt_class() description];
               v23 = [0 me];
               v24 = @"pseudo ";
               if (!v23)
@@ -487,28 +478,28 @@ LABEL_19:
                 v24 = &stru_28584E620;
               }
 
-              v46 = v24;
+              v45 = v24;
               identifier2 = [0 identifier];
               model3 = [0 model];
               v25 = &stru_28584E620;
               if (model3)
               {
-                v43 = MEMORY[0x277CCACA8];
+                v42 = MEMORY[0x277CCACA8];
                 model5 = [0 model];
-                v42 = [v43 stringWithFormat:@" (%@)", model5];
-                v25 = v42;
+                v41 = [v42 stringWithFormat:@" (%@)", model5];
+                v25 = v41;
               }
 
               *buf = 138544386;
-              v62 = v50;
-              v63 = 2114;
-              v64 = v46;
-              v65 = 2114;
-              v66 = identifier2;
-              v67 = 2114;
-              v68 = v25;
-              v69 = 2112;
-              v70 = v52;
+              v61 = v49;
+              v62 = 2114;
+              v63 = v45;
+              v64 = 2114;
+              v65 = identifier2;
+              v66 = 2114;
+              v67 = v25;
+              v68 = 2112;
+              v69 = v51;
               _os_log_debug_impl(&dword_245377000, syncChannel2, OS_LOG_TYPE_DEBUG, "%{public}@: Not forwarding context changed notification to unknown %{public}@peer %{public}@%{public}@: %@", buf, 0x34u);
               if (model3)
               {
@@ -532,9 +523,9 @@ LABEL_28:
 
         v14 = [objc_opt_class() description];
         *buf = 138543618;
-        v62 = v14;
-        v63 = 2112;
-        v64 = v52;
+        v61 = v14;
+        v62 = 2112;
+        v63 = v51;
         _os_log_debug_impl(&dword_245377000, mEMORY[0x277CFE280]2, OS_LOG_TYPE_DEBUG, "%{public}@: No need to forward context changed notification: %@", buf, 0x16u);
 LABEL_32:
 
@@ -543,14 +534,12 @@ LABEL_33:
       }
 
       while (v9 != v11);
-      v32 = [v7 countByEnumeratingWithState:&v56 objects:v71 count:16];
+      v32 = [v7 countByEnumeratingWithState:&v55 objects:v70 count:16];
       v9 = v32;
     }
 
     while (v32);
   }
-
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)remoteContextStorage:(id)storage hasKnowledgeOfKeyPath:(id)path
@@ -563,18 +552,18 @@ LABEL_33:
   {
     syncChannel2 = [MEMORY[0x277CFE358] keyPathWithKey:pathCopy];
     userContext = [MEMORY[0x277CFE318] userContext];
-    v8 = [userContext hasKnowledgeOfContextualKeyPath:syncChannel2];
+    v9 = [userContext hasKnowledgeOfContextualKeyPath:syncChannel2];
     syncChannel = [MEMORY[0x277CFE0C8] syncChannel];
-    v10 = os_log_type_enabled(syncChannel, OS_LOG_TYPE_DEBUG);
-    if (v8)
+    v11 = os_log_type_enabled(syncChannel, OS_LOG_TYPE_DEBUG);
+    if (v9)
     {
-      if (v10)
+      if (v11)
       {
         [_DKSync3Coordinator(_DKSyncRemoteContextStorageDelegate) remoteContextStorage:hasKnowledgeOfKeyPath:];
       }
     }
 
-    else if (v10)
+    else if (v11)
     {
       [_DKSync3Coordinator(_DKSyncRemoteContextStorageDelegate) remoteContextStorage:hasKnowledgeOfKeyPath:];
     }
@@ -585,18 +574,18 @@ LABEL_33:
     syncChannel2 = [MEMORY[0x277CFE0C8] syncChannel];
     if (os_log_type_enabled(syncChannel2, OS_LOG_TYPE_ERROR))
     {
-      [_DKSync3Coordinator(_DKSyncRemoteContextStorageDelegate) remoteContextStorage:hasKnowledgeOfKeyPath:];
+      [_DKSync3Coordinator(_DKSyncRemoteContextStorageDelegate) remoteContextStorage:? hasKnowledgeOfKeyPath:?];
     }
 
-    LOBYTE(v8) = 0;
+    LOBYTE(v9) = 0;
   }
 
-  return v8;
+  return v9;
 }
 
 - (id)remoteContextStorage:(id)storage archivedObjectsForKeyPaths:(id)paths
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   pathsCopy = paths;
   underlyingQueue = [MEMORY[0x277CFE290] underlyingQueue];
   dispatch_assert_queue_V2(underlyingQueue);
@@ -604,30 +593,30 @@ LABEL_33:
   if (pathsCopy)
   {
     syncChannel = [MEMORY[0x277CBEB58] setWithCapacity:{objc_msgSend(pathsCopy, "count")}];
+    v16 = 0u;
     v17 = 0u;
     v18 = 0u;
     v19 = 0u;
-    v20 = 0u;
     v8 = pathsCopy;
-    v9 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v18;
+      v11 = *v17;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v18 != v11)
+          if (*v17 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          v13 = [MEMORY[0x277CFE358] keyPathWithKey:{*(*(&v17 + 1) + 8 * i), v17}];
+          v13 = [MEMORY[0x277CFE358] keyPathWithKey:{*(*(&v16 + 1) + 8 * i), v16}];
           [syncChannel addObject:v13];
         }
 
-        v10 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
       }
 
       while (v10);
@@ -641,13 +630,11 @@ LABEL_33:
     syncChannel = [MEMORY[0x277CFE0C8] syncChannel];
     if (os_log_type_enabled(syncChannel, OS_LOG_TYPE_ERROR))
     {
-      [_DKSync3Coordinator(_DKSyncRemoteContextStorageDelegate) remoteContextStorage:hasKnowledgeOfKeyPath:];
+      [_DKSync3Coordinator(_DKSyncRemoteContextStorageDelegate) remoteContextStorage:? hasKnowledgeOfKeyPath:?];
     }
 
     v14 = 0;
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v14;
 }
@@ -669,14 +656,14 @@ LABEL_33:
     syncChannel = [MEMORY[0x277CFE0C8] syncChannel];
     if (os_log_type_enabled(syncChannel, OS_LOG_TYPE_ERROR))
     {
-      [_DKSync3Coordinator(_DKSyncRemoteContextStorageDelegate) remoteContextStorage:hasKnowledgeOfKeyPath:];
+      [_DKSync3Coordinator(_DKSyncRemoteContextStorageDelegate) remoteContextStorage:? hasKnowledgeOfKeyPath:?];
     }
   }
 }
 
 - (void)remoteContextStorage:(id)storage subscribeToChangesWithPeer:(id)peer registrationIdentifier:(id)identifier predicate:(id)predicate
 {
-  v62 = *MEMORY[0x277D85DE8];
+  v61 = *MEMORY[0x277D85DE8];
   storageCopy = storage;
   peerCopy = peer;
   identifierCopy = identifier;
@@ -687,43 +674,43 @@ LABEL_33:
   syncChannel = [MEMORY[0x277CFE0C8] syncChannel];
   if (os_log_type_enabled(syncChannel, OS_LOG_TYPE_DEBUG))
   {
-    v28 = [objc_opt_class() description];
+    v27 = [objc_opt_class() description];
     if ([peerCopy me])
     {
-      v29 = @"pseudo ";
+      v28 = @"pseudo ";
     }
 
     else
     {
-      v29 = &stru_28584E620;
+      v28 = &stru_28584E620;
     }
 
     identifier = [peerCopy identifier];
     model = [peerCopy model];
     if (model)
     {
-      v36 = MEMORY[0x277CCACA8];
+      v35 = MEMORY[0x277CCACA8];
       model2 = [peerCopy model];
-      v32 = [v36 stringWithFormat:@" (%@)", model2];
+      v31 = [v35 stringWithFormat:@" (%@)", model2];
     }
 
     else
     {
-      v32 = &stru_28584E620;
+      v31 = &stru_28584E620;
     }
 
     *buf = 138544642;
-    v51 = v28;
-    v52 = 2114;
-    v53 = v29;
-    v54 = 2114;
-    v55 = identifier;
-    v56 = 2114;
-    v57 = v32;
-    v58 = 2114;
-    v59 = predicateCopy;
-    v60 = 2114;
-    v61 = identifierCopy;
+    v50 = v27;
+    v51 = 2114;
+    v52 = v28;
+    v53 = 2114;
+    v54 = identifier;
+    v55 = 2114;
+    v56 = v31;
+    v57 = 2114;
+    v58 = predicateCopy;
+    v59 = 2114;
+    v60 = identifierCopy;
     _os_log_debug_impl(&dword_245377000, syncChannel, OS_LOG_TYPE_DEBUG, "%{public}@: Remote context storage has requested that %{public}@peer %{public}@%{public}@ be informed of changes to predicate %{public}@ using identifier %{public}@", buf, 0x3Eu);
     if (model)
     {
@@ -738,67 +725,67 @@ LABEL_33:
     objc_initWeak(&location, self);
     keyPaths = [v17 keyPaths];
     v19 = MEMORY[0x277CFE350];
-    v44[0] = MEMORY[0x277D85DD0];
-    v44[1] = 3221225472;
-    v44[2] = __141___DKSync3Coordinator__DKSyncRemoteContextStorageDelegate__remoteContextStorage_subscribeToChangesWithPeer_registrationIdentifier_predicate___block_invoke;
-    v44[3] = &unk_278E35058;
-    objc_copyWeak(&v48, &location);
-    v44[4] = self;
+    v43[0] = MEMORY[0x277D85DD0];
+    v43[1] = 3221225472;
+    v43[2] = __141___DKSync3Coordinator__DKSyncRemoteContextStorageDelegate__remoteContextStorage_subscribeToChangesWithPeer_registrationIdentifier_predicate___block_invoke;
+    v43[3] = &unk_278E35058;
+    objc_copyWeak(&v47, &location);
+    v43[4] = self;
     v20 = identifierCopy;
-    v45 = v20;
+    v44 = v20;
     v21 = peerCopy;
-    v46 = v21;
+    v45 = v21;
     v22 = keyPaths;
-    v47 = v22;
-    v23 = [v19 registrationWithIdentifier:v15 contextualPredicate:v17 dismissalPolicy:0 deviceSet:0 clientIdentifier:@"com.apple.coreduetd" mustWake:1 callback:v44];
+    v46 = v22;
+    v23 = [v19 registrationWithIdentifier:v15 contextualPredicate:v17 dismissalPolicy:0 deviceSet:0 clientIdentifier:@"com.apple.coreduetd" mustWake:1 callback:v43];
     userContext = [MEMORY[0x277CFE318] userContext];
     [userContext registerCallback:v23];
 
     syncChannel2 = [MEMORY[0x277CFE0C8] syncChannel];
     if (os_log_type_enabled(syncChannel2, OS_LOG_TYPE_DEBUG))
     {
-      v40 = [objc_opt_class() description];
-      v33 = [v21 me];
-      v34 = &stru_28584E620;
-      if (v33)
+      v39 = [objc_opt_class() description];
+      v32 = [v21 me];
+      v33 = &stru_28584E620;
+      if (v32)
       {
-        v34 = @"pseudo ";
+        v33 = @"pseudo ";
       }
 
-      v38 = v34;
+      v37 = v33;
       identifier2 = [v21 identifier];
       model3 = [v21 model];
       if (model3)
       {
-        v37 = MEMORY[0x277CCACA8];
+        v36 = MEMORY[0x277CCACA8];
         self = [v21 model];
-        v35 = [v37 stringWithFormat:@" (%@)", self];
+        v34 = [v36 stringWithFormat:@" (%@)", self];
       }
 
       else
       {
-        v35 = &stru_28584E620;
+        v34 = &stru_28584E620;
       }
 
       *buf = 138544642;
-      v51 = v40;
-      v52 = 2114;
-      v53 = v38;
-      v54 = 2114;
-      v55 = identifier2;
-      v56 = 2114;
-      v57 = v35;
-      v58 = 2114;
-      v59 = v17;
-      v60 = 2114;
-      v61 = v20;
+      v50 = v39;
+      v51 = 2114;
+      v52 = v37;
+      v53 = 2114;
+      v54 = identifier2;
+      v55 = 2114;
+      v56 = v34;
+      v57 = 2114;
+      v58 = v17;
+      v59 = 2114;
+      v60 = v20;
       _os_log_debug_impl(&dword_245377000, syncChannel2, OS_LOG_TYPE_DEBUG, "%{public}@: Successfully handled remote context storage requested that %{public}@peer %{public}@%{public}@ be informed of changes to predicate %{public}@ using identifier %{public}@", buf, 0x3Eu);
       if (model3)
       {
       }
     }
 
-    objc_destroyWeak(&v48);
+    objc_destroyWeak(&v47);
     objc_destroyWeak(&location);
   }
 
@@ -807,16 +794,14 @@ LABEL_33:
     syncChannel3 = [MEMORY[0x277CFE0C8] syncChannel];
     if (os_log_type_enabled(syncChannel3, OS_LOG_TYPE_ERROR))
     {
-      [_DKSync3Coordinator(_DKSyncRemoteContextStorageDelegate) remoteContextStorage:subscribeToChangesWithPeer:registrationIdentifier:predicate:];
+      [_DKSync3Coordinator(_DKSyncRemoteContextStorageDelegate) remoteContextStorage:? subscribeToChangesWithPeer:? registrationIdentifier:? predicate:?];
     }
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (void)remoteContextStorage:(id)storage unsubscribeFromChangesWithPeer:(id)peer registrationIdentifier:(id)identifier predicate:(id)predicate
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   peerCopy = peer;
   identifierCopy = identifier;
   predicateCopy = predicate;
@@ -827,37 +812,37 @@ LABEL_33:
   syncChannel = [MEMORY[0x277CFE0C8] syncChannel];
   if (os_log_type_enabled(syncChannel, OS_LOG_TYPE_DEBUG))
   {
-    v37 = [objc_opt_class() description];
-    v26 = [peerCopy me];
-    v27 = &stru_28584E620;
-    v28 = @"pseudo ";
-    if (!v26)
+    v36 = [objc_opt_class() description];
+    v25 = [peerCopy me];
+    v26 = &stru_28584E620;
+    v27 = @"pseudo ";
+    if (!v25)
     {
-      v28 = &stru_28584E620;
+      v27 = &stru_28584E620;
     }
 
-    v35 = v28;
+    v34 = v27;
     identifier = [peerCopy identifier];
     model = [peerCopy model];
     if (model)
     {
-      v31 = MEMORY[0x277CCACA8];
+      v30 = MEMORY[0x277CCACA8];
       model2 = [peerCopy model];
-      v27 = [v31 stringWithFormat:@" (%@)", model2];
+      v26 = [v30 stringWithFormat:@" (%@)", model2];
     }
 
     *buf = 138544642;
-    v39 = v37;
-    v40 = 2114;
-    v41 = v35;
-    v42 = 2114;
-    v43 = identifier;
-    v44 = 2114;
-    v45 = v27;
-    v46 = 2114;
-    v47 = predicateCopy;
-    v48 = 2114;
-    v49 = identifierCopy;
+    v38 = v36;
+    v39 = 2114;
+    v40 = v34;
+    v41 = 2114;
+    v42 = identifier;
+    v43 = 2114;
+    v44 = v26;
+    v45 = 2114;
+    v46 = predicateCopy;
+    v47 = 2114;
+    v48 = identifierCopy;
     _os_log_debug_impl(&dword_245377000, syncChannel, OS_LOG_TYPE_DEBUG, "%{public}@: Remote context storage has requested that %{public}@peer %{public}@%{public}@ no longer be informed of changes to predicate %{public}@ using identifier %{public}@", buf, 0x3Eu);
     if (model)
     {
@@ -877,7 +862,7 @@ LABEL_33:
       syncChannel2 = [MEMORY[0x277CFE0C8] syncChannel];
       if (os_log_type_enabled(syncChannel2, OS_LOG_TYPE_DEBUG))
       {
-        v36 = [objc_opt_class() description];
+        v35 = [objc_opt_class() description];
         v20 = [peerCopy me];
         v21 = &stru_28584E620;
         v22 = @"pseudo ";
@@ -886,28 +871,28 @@ LABEL_33:
           v22 = &stru_28584E620;
         }
 
-        v34 = v22;
+        v33 = v22;
         identifier2 = [peerCopy identifier];
         model3 = [peerCopy model];
         if (model3)
         {
-          v32 = MEMORY[0x277CCACA8];
+          v31 = MEMORY[0x277CCACA8];
           model2 = [peerCopy model];
-          v21 = [v32 stringWithFormat:@" (%@)", model2];
+          v21 = [v31 stringWithFormat:@" (%@)", model2];
         }
 
         *buf = 138544642;
-        v39 = v36;
-        v40 = 2114;
-        v41 = v34;
-        v42 = 2114;
-        v43 = identifier2;
-        v44 = 2114;
-        v45 = v21;
-        v46 = 2114;
-        v47 = v13;
-        v48 = 2114;
-        v49 = identifierCopy;
+        v38 = v35;
+        v39 = 2114;
+        v40 = v33;
+        v41 = 2114;
+        v42 = identifier2;
+        v43 = 2114;
+        v44 = v21;
+        v45 = 2114;
+        v46 = v13;
+        v47 = 2114;
+        v48 = identifierCopy;
         _os_log_debug_impl(&dword_245377000, syncChannel2, OS_LOG_TYPE_DEBUG, "%{public}@: Successfully handled remote context storage requested that %{public}@peer %{public}@%{public}@ no longer be informed of changes to predicate %{public}@ using identifier %{public}@", buf, 0x3Eu);
         if (model3)
         {
@@ -920,7 +905,7 @@ LABEL_33:
       syncChannel2 = [MEMORY[0x277CFE0C8] syncChannel];
       if (os_log_type_enabled(syncChannel2, OS_LOG_TYPE_ERROR))
       {
-        [_DKSync3Coordinator(_DKSyncRemoteContextStorageDelegate) remoteContextStorage:unsubscribeFromChangesWithPeer:registrationIdentifier:predicate:];
+        [_DKSync3Coordinator(_DKSyncRemoteContextStorageDelegate) remoteContextStorage:? unsubscribeFromChangesWithPeer:? registrationIdentifier:? predicate:?];
       }
     }
   }
@@ -930,11 +915,9 @@ LABEL_33:
     syncChannel3 = [MEMORY[0x277CFE0C8] syncChannel];
     if (os_log_type_enabled(syncChannel3, OS_LOG_TYPE_ERROR))
     {
-      [_DKSync3Coordinator(_DKSyncRemoteContextStorageDelegate) remoteContextStorage:hasKnowledgeOfKeyPath:];
+      [_DKSync3Coordinator(_DKSyncRemoteContextStorageDelegate) remoteContextStorage:? hasKnowledgeOfKeyPath:?];
     }
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (void)subscribeToContextValueChangeNotificationsWithRegistration:(id)registration deviceIDs:(id)ds handler:(id)handler
@@ -994,7 +977,7 @@ LABEL_33:
 
 - (BOOL)subscribeToContextValueChangeNotificationsWithRegistration:(id)registration deviceIDs:(id)ds error:(id *)error
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   registrationCopy = registration;
   dsCopy = ds;
   underlyingQueue = [MEMORY[0x277CFE290] underlyingQueue];
@@ -1008,55 +991,55 @@ LABEL_33:
 
   if ([registrationCopy isMultiDeviceRegistration])
   {
-    v23 = dsCopy;
+    v22 = dsCopy;
     v11 = [(_DKSync3Coordinator *)self peersForContextStoreDeviceIDs:dsCopy];
-    v26 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v11, "count")}];
+    v25 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v11, "count")}];
     predicate = [registrationCopy predicate];
+    v29 = 0u;
     v30 = 0u;
     v31 = 0u;
     v32 = 0u;
-    v33 = 0u;
     obj = v11;
-    v12 = [obj countByEnumeratingWithState:&v30 objects:v34 count:16];
+    v12 = [obj countByEnumeratingWithState:&v29 objects:v33 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v31;
+      v14 = *v30;
       do
       {
         v15 = 0;
         do
         {
-          if (*v31 != v14)
+          if (*v30 != v14)
           {
             objc_enumerationMutation(obj);
           }
 
-          v16 = *(*(&v30 + 1) + 8 * v15);
+          v16 = *(*(&v29 + 1) + 8 * v15);
           transportMDCSRapport = self->_transportMDCSRapport;
           identifier = [registrationCopy identifier];
           plistDictionary = [predicate plistDictionary];
-          v27[0] = MEMORY[0x277D85DD0];
-          v27[1] = 3221225472;
-          v27[2] = __126___DKSync3Coordinator__CDRemoteUserContextServer__subscribeToContextValueChangeNotificationsWithRegistration_deviceIDs_error___block_invoke;
-          v27[3] = &unk_278E350F0;
-          v27[4] = self;
-          v27[5] = v16;
-          v28 = registrationCopy;
-          v29 = v26;
-          [(_DKSyncRemoteContextStorage *)transportMDCSRapport subscribeToContextValueChangeNotificationsFromPeer:v16 registrationIdentifier:identifier predicate:plistDictionary highPriority:1 completion:v27];
+          v26[0] = MEMORY[0x277D85DD0];
+          v26[1] = 3221225472;
+          v26[2] = __126___DKSync3Coordinator__CDRemoteUserContextServer__subscribeToContextValueChangeNotificationsWithRegistration_deviceIDs_error___block_invoke;
+          v26[3] = &unk_278E350F0;
+          v26[4] = self;
+          v26[5] = v16;
+          v27 = registrationCopy;
+          v28 = v25;
+          [(_DKSyncRemoteContextStorage *)transportMDCSRapport subscribeToContextValueChangeNotificationsFromPeer:v16 registrationIdentifier:identifier predicate:plistDictionary highPriority:1 completion:v26];
 
           ++v15;
         }
 
         while (v13 != v15);
-        v13 = [obj countByEnumeratingWithState:&v30 objects:v34 count:16];
+        v13 = [obj countByEnumeratingWithState:&v29 objects:v33 count:16];
       }
 
       while (v13);
     }
 
-    dsCopy = v23;
+    dsCopy = v22;
     if (![obj count])
     {
       syncChannel2 = [MEMORY[0x277CFE0C8] syncChannel];
@@ -1076,13 +1059,12 @@ LABEL_33:
     }
   }
 
-  v21 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
 - (BOOL)unsubscribeFromContextValueChangeNotificationsWithRegistration:(id)registration deviceIDs:(id)ds error:(id *)error
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   registrationCopy = registration;
   dsCopy = ds;
   underlyingQueue = [MEMORY[0x277CFE290] underlyingQueue];
@@ -1096,47 +1078,47 @@ LABEL_33:
 
   if ([registrationCopy isMultiDeviceRegistration])
   {
-    v23 = dsCopy;
+    v22 = dsCopy;
     v11 = [(_DKSync3Coordinator *)self peersForContextStoreDeviceIDs:dsCopy];
     predicate = [registrationCopy predicate];
+    v27 = 0u;
     v28 = 0u;
     v29 = 0u;
     v30 = 0u;
-    v31 = 0u;
     obj = v11;
-    v12 = [obj countByEnumeratingWithState:&v28 objects:v32 count:16];
+    v12 = [obj countByEnumeratingWithState:&v27 objects:v31 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v29;
+      v14 = *v28;
       do
       {
         v15 = 0;
         do
         {
-          if (*v29 != v14)
+          if (*v28 != v14)
           {
             objc_enumerationMutation(obj);
           }
 
-          v16 = *(*(&v28 + 1) + 8 * v15);
+          v16 = *(*(&v27 + 1) + 8 * v15);
           transportMDCSRapport = self->_transportMDCSRapport;
           identifier = [registrationCopy identifier];
           plistDictionary = [predicate plistDictionary];
-          v26[0] = MEMORY[0x277D85DD0];
-          v26[1] = 3221225472;
-          v26[2] = __130___DKSync3Coordinator__CDRemoteUserContextServer__unsubscribeFromContextValueChangeNotificationsWithRegistration_deviceIDs_error___block_invoke;
-          v26[3] = &unk_278E35118;
-          v26[4] = self;
-          v26[5] = v16;
-          v27 = registrationCopy;
-          [(_DKSyncRemoteContextStorage *)transportMDCSRapport unsubscribeFromContextValueChangeNotificationsFromPeer:v16 registrationIdentifier:identifier predicate:plistDictionary highPriority:1 completion:v26];
+          v25[0] = MEMORY[0x277D85DD0];
+          v25[1] = 3221225472;
+          v25[2] = __130___DKSync3Coordinator__CDRemoteUserContextServer__unsubscribeFromContextValueChangeNotificationsWithRegistration_deviceIDs_error___block_invoke;
+          v25[3] = &unk_278E35118;
+          v25[4] = self;
+          v25[5] = v16;
+          v26 = registrationCopy;
+          [(_DKSyncRemoteContextStorage *)transportMDCSRapport unsubscribeFromContextValueChangeNotificationsFromPeer:v16 registrationIdentifier:identifier predicate:plistDictionary highPriority:1 completion:v25];
 
           ++v15;
         }
 
         while (v13 != v15);
-        v13 = [obj countByEnumeratingWithState:&v28 objects:v32 count:16];
+        v13 = [obj countByEnumeratingWithState:&v27 objects:v31 count:16];
       }
 
       while (v13);
@@ -1151,7 +1133,7 @@ LABEL_33:
       }
     }
 
-    dsCopy = v23;
+    dsCopy = v22;
   }
 
   else
@@ -1163,7 +1145,6 @@ LABEL_33:
     }
   }
 
-  v21 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
@@ -1219,7 +1200,7 @@ LABEL_8:
 
 - (void)_fetchPropertiesOfRemoteKeyPaths:(id)paths handler:(id)handler
 {
-  v72 = *MEMORY[0x277D85DE8];
+  v71 = *MEMORY[0x277D85DE8];
   pathsCopy = paths;
   handlerCopy = handler;
   underlyingQueue = [MEMORY[0x277CFE290] underlyingQueue];
@@ -1239,38 +1220,38 @@ LABEL_8:
     goto LABEL_29;
   }
 
-  v44 = v9;
-  v45 = handlerCopy;
-  v34 = pathsCopy;
+  v43 = v9;
+  v44 = handlerCopy;
+  v33 = pathsCopy;
   v10 = [(_DKSync3Coordinator *)self keyPathsByDeviceIDFromRemoteKeyPaths:pathsCopy];
   allKeys = [v10 allKeys];
   v12 = [allKeys mutableCopy];
 
   mEMORY[0x277CFE280] = [MEMORY[0x277CFE280] sharedInstance];
+  v54 = 0u;
   v55 = 0u;
   v56 = 0u;
   v57 = 0u;
-  v58 = 0u;
   firstObject = v10;
-  v14 = [firstObject countByEnumeratingWithState:&v55 objects:v71 count:16];
+  v14 = [firstObject countByEnumeratingWithState:&v54 objects:v70 count:16];
   if (!v14)
   {
     goto LABEL_27;
   }
 
   v15 = v14;
-  v46 = *v56;
+  v45 = *v55;
   do
   {
     v16 = 0;
     do
     {
-      if (*v56 != v46)
+      if (*v55 != v45)
       {
         objc_enumerationMutation(firstObject);
       }
 
-      v17 = *(*(&v55 + 1) + 8 * v16);
+      v17 = *(*(&v54 + 1) + 8 * v16);
       v18 = [mEMORY[0x277CFE280] existingPeerWithSourceDeviceID:v17];
       if (v18)
       {
@@ -1279,8 +1260,8 @@ LABEL_8:
         syncChannel2 = [MEMORY[0x277CFE0C8] syncChannel];
         if (os_log_type_enabled(syncChannel2, OS_LOG_TYPE_DEBUG))
         {
-          v42 = [objc_opt_class() description];
-          v41 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(allObjects, "count")}];
+          v41 = [objc_opt_class() description];
+          v40 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(allObjects, "count")}];
           v26 = [v18 me];
           v27 = &stru_28584E620;
           v28 = @"pseudo ";
@@ -1289,31 +1270,31 @@ LABEL_8:
             v28 = &stru_28584E620;
           }
 
-          v37 = v28;
+          v36 = v28;
           identifier = [v18 identifier];
           model = [v18 model];
           if (model)
           {
             v29 = MEMORY[0x277CCACA8];
             model2 = [v18 model];
-            v35 = [v29 stringWithFormat:@" (%@)", model2];
-            v27 = v35;
+            v34 = [v29 stringWithFormat:@" (%@)", model2];
+            v27 = v34;
           }
 
           v30 = _CDPrettyPrintCollection();
           *buf = 138544642;
-          v60 = v42;
-          v61 = 2112;
-          v62 = v41;
-          v63 = 2114;
-          v64 = v37;
-          v65 = 2114;
-          v66 = identifier;
-          v67 = 2114;
-          v68 = v27;
-          v69 = 2114;
-          v38 = v30;
-          v70 = v30;
+          v59 = v41;
+          v60 = 2112;
+          v61 = v40;
+          v62 = 2114;
+          v63 = v36;
+          v64 = 2114;
+          v65 = identifier;
+          v66 = 2114;
+          v67 = v27;
+          v68 = 2114;
+          v37 = v30;
+          v69 = v30;
           _os_log_debug_impl(&dword_245377000, syncChannel2, OS_LOG_TYPE_DEBUG, "%{public}@: Fetching properties of %@ key paths from %{public}@peer %{public}@%{public}@: %{public}@", buf, 0x3Eu);
           if (model)
           {
@@ -1321,20 +1302,20 @@ LABEL_8:
         }
 
         transportMDCSRapport = self->_transportMDCSRapport;
-        v48[0] = MEMORY[0x277D85DD0];
-        v48[1] = 3221225472;
-        v48[2] = &__92___DKSync3Coordinator__CDRemoteUserContextServer___fetchPropertiesOfRemoteKeyPaths_handler___block_invoke;
-        v48[3] = &unk_278E35190;
-        v48[4] = self;
-        v49 = allObjects;
+        v47[0] = MEMORY[0x277D85DD0];
+        v47[1] = 3221225472;
+        v47[2] = &__92___DKSync3Coordinator__CDRemoteUserContextServer___fetchPropertiesOfRemoteKeyPaths_handler___block_invoke;
+        v47[3] = &unk_278E35190;
+        v47[4] = self;
+        v48 = allObjects;
         v23 = v18;
-        v50 = v23;
-        v51 = v44;
-        v52 = v12;
-        v53 = v17;
-        v54 = v45;
+        v49 = v23;
+        v50 = v43;
+        v51 = v12;
+        v52 = v17;
+        v53 = v44;
         v24 = allObjects;
-        [(_DKSyncRemoteContextStorage *)transportMDCSRapport fetchContextValuesFromPeer:v23 forKeyPaths:v24 highPriority:1 completion:v48];
+        [(_DKSyncRemoteContextStorage *)transportMDCSRapport fetchContextValuesFromPeer:v23 forKeyPaths:v24 highPriority:1 completion:v47];
 
         goto LABEL_12;
       }
@@ -1344,17 +1325,17 @@ LABEL_8:
       {
         v31 = [objc_opt_class() description];
         *buf = 138543618;
-        v60 = v31;
-        v61 = 2114;
-        v62 = v17;
+        v59 = v31;
+        v60 = 2114;
+        v61 = v17;
         _os_log_error_impl(&dword_245377000, syncChannel3, OS_LOG_TYPE_ERROR, "%{public}@: Failed to fetch properties of key paths due to unknown peer: %{public}@", buf, 0x16u);
       }
 
       [v12 removeObject:v17];
       if (![v12 count])
       {
-        firstObject2 = [v44 firstObject];
-        v45[2](v45, firstObject2);
+        firstObject2 = [v43 firstObject];
+        v44[2](v44, firstObject2);
 LABEL_12:
       }
 
@@ -1362,19 +1343,17 @@ LABEL_12:
     }
 
     while (v15 != v16);
-    v32 = [firstObject countByEnumeratingWithState:&v55 objects:v71 count:16];
+    v32 = [firstObject countByEnumeratingWithState:&v54 objects:v70 count:16];
     v15 = v32;
   }
 
   while (v32);
 LABEL_27:
 
-  pathsCopy = v34;
-  v9 = v44;
-  handlerCopy = v45;
+  pathsCopy = v33;
+  v9 = v43;
+  handlerCopy = v44;
 LABEL_29:
-
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 - (void)requestActivateDevicesWithHandler:(id)handler
@@ -1400,7 +1379,7 @@ LABEL_29:
   syncChannel = [MEMORY[0x277CFE0C8] syncChannel];
   if (os_log_type_enabled(syncChannel, OS_LOG_TYPE_DEBUG))
   {
-    [_DKSync3Coordinator(_CDRemoteUserContextServer) _requestActivateDevicesWithHandler:];
+    [_DKSync3Coordinator(_CDRemoteUserContextServer) _requestActivateDevicesWithHandler:?];
   }
 
   multiDeviceContextStoreDevices = [(_DKSync3Coordinator *)self multiDeviceContextStoreDevices];
@@ -1421,7 +1400,7 @@ LABEL_29:
 
   else if (v10)
   {
-    [_DKSync3Coordinator handleStatusChangeForPeer:previousTransports:];
+    [_DKSync3Coordinator handleStatusChangeForPeer:? previousTransports:?];
   }
 
   if (handlerCopy)
@@ -1432,29 +1411,29 @@ LABEL_29:
 
 - (id)keyPathsByDeviceIDFromRemoteKeyPaths:(id)paths
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   pathsCopy = paths;
   v4 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:1];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v5 = pathsCopy;
-  v6 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v17;
+    v8 = *v16;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v17 != v8)
+        if (*v16 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v16 + 1) + 8 * i);
+        v10 = *(*(&v15 + 1) + 8 * i);
         deviceID = [v10 deviceID];
         if (deviceID)
         {
@@ -1470,20 +1449,18 @@ LABEL_29:
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v7);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
 
 - (id)archivedObjectsForKeyPaths:(id)paths
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   pathsCopy = paths;
   syncChannel = [MEMORY[0x277CFE0C8] syncChannel];
   if (os_log_type_enabled(syncChannel, OS_LOG_TYPE_DEBUG))
@@ -1491,55 +1468,55 @@ LABEL_29:
     [(_DKSync3Coordinator(_CDRemoteUserContextServer) *)self archivedObjectsForKeyPaths:pathsCopy, syncChannel];
   }
 
-  v27 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:{objc_msgSend(pathsCopy, "count")}];
+  v26 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:{objc_msgSend(pathsCopy, "count")}];
   userContext = [MEMORY[0x277CFE318] userContext];
-  v31 = 0u;
-  v32 = 0u;
-  v29 = 0u;
   v30 = 0u;
+  v31 = 0u;
+  v28 = 0u;
+  v29 = 0u;
   obj = pathsCopy;
-  v6 = [obj countByEnumeratingWithState:&v29 objects:v43 count:16];
+  v6 = [obj countByEnumeratingWithState:&v28 objects:v42 count:16];
   if (v6)
   {
-    v26 = *v30;
+    v25 = *v29;
     *&v7 = 138412290;
-    v22 = v7;
+    v21 = v7;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v30 != v26)
+        if (*v29 != v25)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v29 + 1) + 8 * i);
-        v10 = [userContext objectForContextualKeyPath:{v9, v22}];
+        v9 = *(*(&v28 + 1) + 8 * i);
+        v10 = [userContext objectForContextualKeyPath:{v9, v21}];
         v11 = [userContext lastModifiedDateForContextualKeyPath:v9];
         v12 = [v9 key];
         if (v10)
         {
-          v28 = 0;
-          v13 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v10 requiringSecureCoding:1 error:&v28];
-          v14 = v28;
+          v27 = 0;
+          v13 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v10 requiringSecureCoding:1 error:&v27];
+          v14 = v27;
           if (v14)
           {
             syncChannel2 = [MEMORY[0x277CFE0C8] syncChannel];
             if (os_log_type_enabled(syncChannel2, OS_LOG_TYPE_ERROR))
             {
-              v24 = [objc_opt_class() description];
+              v23 = [objc_opt_class() description];
               domain = [v14 domain];
               code = [v14 code];
               *buf = 138544386;
-              v34 = v24;
-              v35 = 2112;
-              v36 = v12;
-              v37 = 2114;
-              v38 = domain;
-              v39 = 2048;
-              v40 = code;
-              v41 = 2112;
-              v42 = v14;
+              v33 = v23;
+              v34 = 2112;
+              v35 = v12;
+              v36 = 2114;
+              v37 = domain;
+              v38 = 2048;
+              v39 = code;
+              v40 = 2112;
+              v41 = v14;
               _os_log_error_impl(&dword_245377000, syncChannel2, OS_LOG_TYPE_ERROR, "%{public}@: Failed to archive context object for %@: %{public}@:%lld (%@)", buf, 0x34u);
             }
           }
@@ -1562,23 +1539,21 @@ LABEL_29:
           [v17 setObject:v11 forKeyedSubscript:@"modified"];
         }
 
-        [v27 setObject:v17 forKeyedSubscript:v12];
+        [v26 setObject:v17 forKeyedSubscript:v12];
       }
 
-      v6 = [obj countByEnumeratingWithState:&v29 objects:v43 count:16];
+      v6 = [obj countByEnumeratingWithState:&v28 objects:v42 count:16];
     }
 
     while (v6);
   }
 
-  v20 = *MEMORY[0x277D85DE8];
-
-  return v27;
+  return v26;
 }
 
 - (void)setArchivedObjects:(id)objects peer:(id)peer
 {
-  v58 = *MEMORY[0x277D85DE8];
+  v57 = *MEMORY[0x277D85DE8];
   objectsCopy = objects;
   peerCopy = peer;
   underlyingQueue = [MEMORY[0x277CFE290] underlyingQueue];
@@ -1587,42 +1562,42 @@ LABEL_29:
   syncChannel = [MEMORY[0x277CFE0C8] syncChannel];
   if (os_log_type_enabled(syncChannel, OS_LOG_TYPE_DEBUG))
   {
-    v29 = [objc_opt_class() description];
-    v30 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(objectsCopy, "count")}];
+    v28 = [objc_opt_class() description];
+    v29 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(objectsCopy, "count")}];
     if ([peerCopy me])
     {
-      v31 = @"pseudo ";
+      v30 = @"pseudo ";
     }
 
     else
     {
-      v31 = &stru_28584E620;
+      v30 = &stru_28584E620;
     }
 
     identifier = [peerCopy identifier];
     model = [peerCopy model];
     if (model)
     {
-      v35 = MEMORY[0x277CCACA8];
+      v34 = MEMORY[0x277CCACA8];
       model2 = [peerCopy model];
-      v34 = [v35 stringWithFormat:@" (%@)", model2];
+      v33 = [v34 stringWithFormat:@" (%@)", model2];
     }
 
     else
     {
-      v34 = &stru_28584E620;
+      v33 = &stru_28584E620;
     }
 
     *buf = 138544386;
-    v49 = v29;
-    v50 = 2112;
-    v51 = v30;
-    v52 = 2114;
-    v53 = v31;
-    v54 = 2114;
-    v55 = identifier;
-    v56 = 2114;
-    v57 = v34;
+    v48 = v28;
+    v49 = 2112;
+    v50 = v29;
+    v51 = 2114;
+    v52 = v30;
+    v53 = 2114;
+    v54 = identifier;
+    v55 = 2114;
+    v56 = v33;
     _os_log_debug_impl(&dword_245377000, syncChannel, OS_LOG_TYPE_DEBUG, "%{public}@: Setting %@ archived objects from %{public}@peer %{public}@%{public}@", buf, 0x34u);
     if (model)
     {
@@ -1631,31 +1606,31 @@ LABEL_29:
 
   supportedContextValueClasses = [MEMORY[0x277CFE340] supportedContextValueClasses];
   userContext = [MEMORY[0x277CFE318] userContext];
-  v45 = 0u;
-  v46 = 0u;
-  v43 = 0u;
   v44 = 0u;
+  v45 = 0u;
+  v42 = 0u;
+  v43 = 0u;
   obj = objectsCopy;
-  v40 = [obj countByEnumeratingWithState:&v43 objects:v47 count:16];
-  if (!v40)
+  v39 = [obj countByEnumeratingWithState:&v42 objects:v46 count:16];
+  if (!v39)
   {
     v9 = 0;
     goto LABEL_25;
   }
 
   v9 = 0;
-  v39 = *v44;
+  v38 = *v43;
   do
   {
     v10 = 0;
     do
     {
-      if (*v44 != v39)
+      if (*v43 != v38)
       {
         objc_enumerationMutation(obj);
       }
 
-      v11 = *(*(&v43 + 1) + 8 * v10);
+      v11 = *(*(&v42 + 1) + 8 * v10);
       v12 = [obj objectForKeyedSubscript:v11];
       v13 = [v12 objectForKeyedSubscript:@"object"];
       v14 = [v12 objectForKeyedSubscript:@"modified"];
@@ -1672,9 +1647,9 @@ LABEL_13:
         goto LABEL_14;
       }
 
-      v42 = v9;
-      v15 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClasses:supportedContextValueClasses fromData:v13 error:&v42];
-      v16 = v42;
+      v41 = v9;
+      v15 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClasses:supportedContextValueClasses fromData:v13 error:&v41];
+      v16 = v41;
 
       if (v16)
       {
@@ -1685,15 +1660,15 @@ LABEL_13:
           domain = [(__CFString *)v16 domain];
           code = [(__CFString *)v16 code];
           *buf = 138544386;
-          v49 = v22;
-          v50 = 2112;
-          v51 = v11;
-          v52 = 2114;
-          v53 = domain;
-          v54 = 2048;
-          v55 = code;
-          v56 = 2112;
-          v57 = v16;
+          v48 = v22;
+          v49 = 2112;
+          v50 = v11;
+          v51 = 2114;
+          v52 = domain;
+          v53 = 2048;
+          v54 = code;
+          v55 = 2112;
+          v56 = v16;
           _os_log_error_impl(&dword_245377000, syncChannel2, OS_LOG_TYPE_ERROR, "%{public}@: Failed to unarchive context object for %@: %{public}@:%lld (%@)", buf, 0x34u);
         }
 
@@ -1713,11 +1688,11 @@ LABEL_13:
         v25 = [objc_opt_class() description];
         v26 = objc_opt_class();
         *buf = 138543874;
-        v49 = v25;
-        v50 = 2114;
-        v51 = v26;
-        v52 = 2112;
-        v53 = v15;
+        v48 = v25;
+        v49 = 2114;
+        v50 = v26;
+        v51 = 2112;
+        v52 = v15;
         _os_log_error_impl(&dword_245377000, syncChannel3, OS_LOG_TYPE_ERROR, "%{public}@: Rejecting invalid object of class %{public}@ for not implementing protocols: %@", buf, 0x20u);
       }
 
@@ -1727,20 +1702,18 @@ LABEL_14:
       ++v10;
     }
 
-    while (v40 != v10);
-    v27 = [obj countByEnumeratingWithState:&v43 objects:v47 count:16];
-    v40 = v27;
+    while (v39 != v10);
+    v27 = [obj countByEnumeratingWithState:&v42 objects:v46 count:16];
+    v39 = v27;
   }
 
   while (v27);
 LABEL_25:
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sendContextValuesToPeer:(id)peer registrationIdentifier:(id)identifier keyPaths:(id)paths
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   peerCopy = peer;
   identifierCopy = identifier;
   pathsCopy = paths;
@@ -1750,37 +1723,37 @@ LABEL_25:
   syncChannel = [MEMORY[0x277CFE0C8] syncChannel];
   if (os_log_type_enabled(syncChannel, OS_LOG_TYPE_DEBUG))
   {
-    v37 = [objc_opt_class() description];
-    v17 = [peerCopy me];
-    v18 = &stru_28584E620;
-    v19 = @"pseudo ";
-    if (!v17)
+    v36 = [objc_opt_class() description];
+    v16 = [peerCopy me];
+    v17 = &stru_28584E620;
+    v18 = @"pseudo ";
+    if (!v16)
     {
-      v19 = &stru_28584E620;
+      v18 = &stru_28584E620;
     }
 
-    v33 = v19;
+    v32 = v18;
     identifier = [peerCopy identifier];
     model = [peerCopy model];
     if (model)
     {
-      v21 = MEMORY[0x277CCACA8];
+      v20 = MEMORY[0x277CCACA8];
       model2 = [peerCopy model];
-      v18 = [v21 stringWithFormat:@" (%@)", model2];
+      v17 = [v20 stringWithFormat:@" (%@)", model2];
     }
 
-    v22 = [pathsCopy valueForKey:@"key"];
-    v23 = _CDPrettyPrintCollection();
+    v21 = [pathsCopy valueForKey:@"key"];
+    v22 = _CDPrettyPrintCollection();
     *buf = 138544386;
-    v43 = v37;
-    v44 = 2114;
-    v45 = v33;
-    v46 = 2114;
-    v47 = identifier;
-    v48 = 2114;
-    v49 = v18;
-    v50 = 2114;
-    v51 = v23;
+    v42 = v36;
+    v43 = 2114;
+    v44 = v32;
+    v45 = 2114;
+    v46 = identifier;
+    v47 = 2114;
+    v48 = v17;
+    v49 = 2114;
+    v50 = v22;
     _os_log_debug_impl(&dword_245377000, syncChannel, OS_LOG_TYPE_DEBUG, "%{public}@: Sending context values to %{public}@peer %{public}@%{public}@ for key paths: %{public}@", buf, 0x34u);
 
     if (model)
@@ -1794,43 +1767,43 @@ LABEL_25:
     syncChannel2 = [MEMORY[0x277CFE0C8] syncChannel];
     if (os_log_type_enabled(syncChannel2, OS_LOG_TYPE_DEBUG))
     {
-      v38 = [objc_opt_class() description];
-      v36 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[NSObject count](syncChannel3, "count")}];
-      v24 = &stru_28584E620;
+      v37 = [objc_opt_class() description];
+      v35 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[NSObject count](syncChannel3, "count")}];
+      v23 = &stru_28584E620;
       if ([peerCopy me])
       {
-        v25 = @"pseudo ";
+        v24 = @"pseudo ";
       }
 
       else
       {
-        v25 = &stru_28584E620;
+        v24 = &stru_28584E620;
       }
 
       identifier2 = [peerCopy identifier];
       model3 = [peerCopy model];
-      v32 = v25;
+      v31 = v24;
       if (model3)
       {
-        v27 = MEMORY[0x277CCACA8];
+        v26 = MEMORY[0x277CCACA8];
         model4 = [peerCopy model];
-        v24 = [v27 stringWithFormat:@" (%@)", model4];
+        v23 = [v26 stringWithFormat:@" (%@)", model4];
       }
 
-      v28 = [pathsCopy valueForKey:@"key"];
-      v29 = _CDPrettyPrintCollection();
+      v27 = [pathsCopy valueForKey:@"key"];
+      v28 = _CDPrettyPrintCollection();
       *buf = 138544642;
-      v43 = v38;
-      v44 = 2112;
-      v45 = v36;
-      v46 = 2114;
-      v47 = v32;
-      v48 = 2114;
-      v49 = identifier2;
-      v50 = 2114;
-      v51 = v24;
-      v52 = 2114;
-      v53 = v29;
+      v42 = v37;
+      v43 = 2112;
+      v44 = v35;
+      v45 = 2114;
+      v46 = v31;
+      v47 = 2114;
+      v48 = identifier2;
+      v49 = 2114;
+      v50 = v23;
+      v51 = 2114;
+      v52 = v28;
       _os_log_debug_impl(&dword_245377000, syncChannel2, OS_LOG_TYPE_DEBUG, "%{public}@: Found %@ context values to send to %{public}@peer %{public}@%{public}@ for key paths: %{public}@", buf, 0x3Eu);
 
       if (model3)
@@ -1839,14 +1812,14 @@ LABEL_25:
     }
 
     transportMDCSRapport = self->_transportMDCSRapport;
-    v39[0] = MEMORY[0x277D85DD0];
-    v39[1] = 3221225472;
-    v39[2] = __107___DKSync3Coordinator__CDRemoteUserContextServer__sendContextValuesToPeer_registrationIdentifier_keyPaths___block_invoke;
-    v39[3] = &unk_278E35118;
-    v39[4] = self;
-    v40 = peerCopy;
-    v41 = pathsCopy;
-    [(_DKSyncRemoteContextStorage *)transportMDCSRapport sendContextValuesToPeer:v40 registrationIdentifier:identifierCopy archivedObjects:syncChannel3 highPriority:1 completion:v39];
+    v38[0] = MEMORY[0x277D85DD0];
+    v38[1] = 3221225472;
+    v38[2] = __107___DKSync3Coordinator__CDRemoteUserContextServer__sendContextValuesToPeer_registrationIdentifier_keyPaths___block_invoke;
+    v38[3] = &unk_278E35118;
+    v38[4] = self;
+    v39 = peerCopy;
+    v40 = pathsCopy;
+    [(_DKSyncRemoteContextStorage *)transportMDCSRapport sendContextValuesToPeer:v39 registrationIdentifier:identifierCopy archivedObjects:syncChannel3 highPriority:1 completion:v38];
   }
 
   else
@@ -1854,11 +1827,9 @@ LABEL_25:
     syncChannel3 = [MEMORY[0x277CFE0C8] syncChannel];
     if (os_log_type_enabled(syncChannel3, OS_LOG_TYPE_ERROR))
     {
-      [_DKSync3Coordinator(_CDRemoteUserContextServer) sendContextValuesToPeer:registrationIdentifier:keyPaths:];
+      [_DKSync3Coordinator(_CDRemoteUserContextServer) sendContextValuesToPeer:? registrationIdentifier:? keyPaths:?];
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (id)registrationIdentifierForPeer:(id)peer remoteRegistrationIdentifier:(id)identifier
@@ -1880,34 +1851,34 @@ LABEL_25:
 
 - (id)peersForContextStoreDeviceIDs:(id)ds
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   dsCopy = ds;
   v4 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(dsCopy, "count")}];
   mEMORY[0x277CFE280] = [MEMORY[0x277CFE280] sharedInstance];
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   v6 = dsCopy;
-  v7 = [v6 countByEnumeratingWithState:&v20 objects:v28 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v19 objects:v27 count:16];
   if (v7)
   {
     v9 = v7;
-    v10 = *v21;
+    v10 = *v20;
     v11 = 0x277CFE000uLL;
     *&v8 = 138543618;
-    v19 = v8;
+    v18 = v8;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v21 != v10)
+        if (*v20 != v10)
         {
           objc_enumerationMutation(v6);
         }
 
-        v13 = *(*(&v20 + 1) + 8 * i);
-        v14 = [mEMORY[0x277CFE280] existingPeerWithSourceDeviceID:{v13, v19}];
+        v13 = *(*(&v19 + 1) + 8 * i);
+        v14 = [mEMORY[0x277CFE280] existingPeerWithSourceDeviceID:{v13, v18}];
         if (v14)
         {
           [v4 addObject:v14];
@@ -1919,10 +1890,10 @@ LABEL_25:
           if (os_log_type_enabled(syncChannel, OS_LOG_TYPE_ERROR))
           {
             v16 = [objc_opt_class() description];
-            *buf = v19;
-            v25 = v16;
-            v26 = 2112;
-            v27 = v13;
+            *buf = v18;
+            v24 = v16;
+            v25 = 2112;
+            v26 = v13;
             _os_log_error_impl(&dword_245377000, syncChannel, OS_LOG_TYPE_ERROR, "%{public}@: Unknown peer context store device id: %@", buf, 0x16u);
 
             v11 = 0x277CFE000;
@@ -1930,13 +1901,11 @@ LABEL_25:
         }
       }
 
-      v9 = [v6 countByEnumeratingWithState:&v20 objects:v28 count:16];
+      v9 = [v6 countByEnumeratingWithState:&v19 objects:v27 count:16];
     }
 
     while (v9);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -1944,7 +1913,6 @@ LABEL_25:
 - (void)handleStatusChangeForPeer:previousTransports:.cold.1()
 {
   OUTLINED_FUNCTION_9();
-  v10 = *MEMORY[0x277D85DE8];
   v1 = [objc_opt_class() description];
   v2 = [v0 valueForKeyPath:@"deviceID"];
   OUTLINED_FUNCTION_5();
@@ -1952,26 +1920,20 @@ LABEL_25:
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
   _os_log_debug_impl(v4, v5, v6, v7, v8, 0x16u);
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
-- (void)handleStatusChangeForPeer:previousTransports:.cold.2()
+- (void)handleStatusChangeForPeer:(uint64_t)a1 previousTransports:.cold.2(uint64_t a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v0 = [objc_opt_class() description];
+  v1 = [objc_opt_class() description];
   OUTLINED_FUNCTION_7();
   OUTLINED_FUNCTION_2();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
 }
 
 - (void)handleStatusChangeForPeer:previousTransports:.cold.3()
 {
   OUTLINED_FUNCTION_19();
   v1 = v0;
-  v13 = *MEMORY[0x277D85DE8];
   v2 = [objc_opt_class() description];
   v3 = &stru_28584E620;
   [v1 me];
@@ -1994,7 +1956,6 @@ LABEL_25:
   {
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_20();
 }
 
@@ -2002,7 +1963,6 @@ LABEL_25:
 {
   OUTLINED_FUNCTION_19();
   v1 = v0;
-  v13 = *MEMORY[0x277D85DE8];
   v2 = [objc_opt_class() description];
   v3 = &stru_28584E620;
   [v1 me];
@@ -2025,21 +1985,17 @@ LABEL_25:
   {
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_20();
 }
 
 - (void)handleContextChangedNotification:.cold.1()
 {
   OUTLINED_FUNCTION_9();
-  v7 = *MEMORY[0x277D85DE8];
   v0 = [objc_opt_class() description];
   OUTLINED_FUNCTION_7();
   OUTLINED_FUNCTION_11();
   OUTLINED_FUNCTION_2();
   _os_log_debug_impl(v1, v2, v3, v4, v5, 0x16u);
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

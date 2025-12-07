@@ -4,6 +4,7 @@
 - (BRKIDSServiceCompanionContextManagerDelegate)companionContextManagerDelegate;
 - (BRKIDSServiceCompanionDataCollectionDelegate)dataCollectionDelegate;
 - (BRKIDSServiceContextManagerDelegate)contextManagerDelegate;
+- (id)sendProtobuf:(id)protobuf type:(unsigned __int16)type priority:(int64_t)priority completionHandler:(id)handler withTimeout:(double)timeout;
 - (id)sendResourceAtURL:(id)l metadata:(id)metadata priority:(int64_t)priority completionHandler:(id)handler withTimeout:(double)timeout;
 - (void)locationManagerDidEnterRegion:(id)region;
 - (void)locationManagerDidExitRegion:(id)region;
@@ -65,7 +66,7 @@ uint64_t __31__BRKIDSService_sharedInstance__block_invoke()
 
 - (void)locationManagerDidEnterRegion:(id)region
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   regionCopy = region;
   v5 = [BRKIDSMessage alloc];
   data = [regionCopy data];
@@ -74,20 +75,20 @@ uint64_t __31__BRKIDSService_sharedInstance__block_invoke()
   v8 = BRKLoggingObjectForDomain(11);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v24 = 136315394;
-    v25 = "[BRKIDSService locationManagerDidEnterRegion:]";
-    v26 = 2112;
-    v27 = v7;
-    _os_log_impl(&dword_241EE4000, v8, OS_LOG_TYPE_DEFAULT, "%s %@", &v24, 0x16u);
+    v23 = 136315394;
+    v24 = "[BRKIDSService locationManagerDidEnterRegion:]";
+    v25 = 2112;
+    v26 = v7;
+    _os_log_impl(&dword_241EE4000, v8, OS_LOG_TYPE_DEFAULT, "%s %@", &v23, 0x16u);
   }
 
   [(BRKIDSMessage *)v7 latitude];
   v10 = v9;
   [(BRKIDSMessage *)v7 longitude];
-  v29 = CLLocationCoordinate2DMake(v10, v11);
-  latitude = v29.latitude;
-  longitude = v29.longitude;
-  if (CLLocationCoordinate2DIsValid(v29) && [(BRKIDSMessage *)v7 hasIdentifier]&& [(BRKIDSMessage *)v7 hasRadius])
+  v28 = CLLocationCoordinate2DMake(v10, v11);
+  latitude = v28.latitude;
+  longitude = v28.longitude;
+  if (CLLocationCoordinate2DIsValid(v28) && [(BRKIDSMessage *)v7 hasIdentifier]&& [(BRKIDSMessage *)v7 hasRadius])
   {
     v14 = objc_alloc(MEMORY[0x277CBFBC8]);
     [(BRKIDSMessage *)v7 radius];
@@ -98,11 +99,11 @@ uint64_t __31__BRKIDSService_sharedInstance__block_invoke()
     v19 = BRKLoggingObjectForDomain(11);
     if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
-      v24 = 136315394;
-      v25 = "[BRKIDSService locationManagerDidEnterRegion:]";
-      v26 = 2112;
-      v27 = v18;
-      _os_log_impl(&dword_241EE4000, v19, OS_LOG_TYPE_DEFAULT, "%s locationManagerDidEnterRegion: %@", &v24, 0x16u);
+      v23 = 136315394;
+      v24 = "[BRKIDSService locationManagerDidEnterRegion:]";
+      v25 = 2112;
+      v26 = v18;
+      _os_log_impl(&dword_241EE4000, v19, OS_LOG_TYPE_DEFAULT, "%s locationManagerDidEnterRegion: %@", &v23, 0x16u);
     }
 
     contextManagerDelegate = [(BRKIDSService *)self contextManagerDelegate];
@@ -114,20 +115,18 @@ uint64_t __31__BRKIDSService_sharedInstance__block_invoke()
       [contextManagerDelegate2 didEnter:self forRegion:v18];
     }
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)locationManagerDidExitRegion:(id)region
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   regionCopy = region;
   v4 = BRKLoggingObjectForDomain(11);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = 136315138;
-    v13 = "[BRKIDSService locationManagerDidExitRegion:]";
-    _os_log_impl(&dword_241EE4000, v4, OS_LOG_TYPE_DEFAULT, "%s", &v12, 0xCu);
+    v11 = 136315138;
+    v12 = "[BRKIDSService locationManagerDidExitRegion:]";
+    _os_log_impl(&dword_241EE4000, v4, OS_LOG_TYPE_DEFAULT, "%s", &v11, 0xCu);
   }
 
   v5 = [BRKIDSMessage alloc];
@@ -137,25 +136,23 @@ uint64_t __31__BRKIDSService_sharedInstance__block_invoke()
   [(BRKIDSMessage *)v7 latitude];
   v9 = v8;
   [(BRKIDSMessage *)v7 longitude];
-  v15 = CLLocationCoordinate2DMake(v9, v10);
-  if (CLLocationCoordinate2DIsValid(v15))
+  v14 = CLLocationCoordinate2DMake(v9, v10);
+  if (CLLocationCoordinate2DIsValid(v14))
   {
     [(BRKIDSMessage *)v7 hasIdentifier];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)locationManagerStartMonitoringForRegion:(id)region
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   regionCopy = region;
   v5 = BRKLoggingObjectForDomain(11);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v24 = 136315138;
-    v25 = "[BRKIDSService locationManagerStartMonitoringForRegion:]";
-    _os_log_impl(&dword_241EE4000, v5, OS_LOG_TYPE_DEFAULT, "%s", &v24, 0xCu);
+    v23 = 136315138;
+    v24 = "[BRKIDSService locationManagerStartMonitoringForRegion:]";
+    _os_log_impl(&dword_241EE4000, v5, OS_LOG_TYPE_DEFAULT, "%s", &v23, 0xCu);
   }
 
   v6 = [BRKIDSMessage alloc];
@@ -165,10 +162,10 @@ uint64_t __31__BRKIDSService_sharedInstance__block_invoke()
   [(BRKIDSMessage *)v8 latitude];
   v10 = v9;
   [(BRKIDSMessage *)v8 longitude];
-  v29 = CLLocationCoordinate2DMake(v10, v11);
-  latitude = v29.latitude;
-  longitude = v29.longitude;
-  if (CLLocationCoordinate2DIsValid(v29) && [(BRKIDSMessage *)v8 hasIdentifier])
+  v28 = CLLocationCoordinate2DMake(v10, v11);
+  latitude = v28.latitude;
+  longitude = v28.longitude;
+  if (CLLocationCoordinate2DIsValid(v28) && [(BRKIDSMessage *)v8 hasIdentifier])
   {
     v14 = objc_alloc(MEMORY[0x277CBFBC8]);
     [(BRKIDSMessage *)v8 radius];
@@ -179,11 +176,11 @@ uint64_t __31__BRKIDSService_sharedInstance__block_invoke()
     v19 = BRKLoggingObjectForDomain(11);
     if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
-      v24 = 136315394;
-      v25 = "[BRKIDSService locationManagerStartMonitoringForRegion:]";
-      v26 = 2112;
-      v27 = v18;
-      _os_log_impl(&dword_241EE4000, v19, OS_LOG_TYPE_DEFAULT, "%s startMonitoringForRegion: %@", &v24, 0x16u);
+      v23 = 136315394;
+      v24 = "[BRKIDSService locationManagerStartMonitoringForRegion:]";
+      v25 = 2112;
+      v26 = v18;
+      _os_log_impl(&dword_241EE4000, v19, OS_LOG_TYPE_DEFAULT, "%s startMonitoringForRegion: %@", &v23, 0x16u);
     }
 
     companionContextManagerDelegate = [(BRKIDSService *)self companionContextManagerDelegate];
@@ -201,27 +198,25 @@ uint64_t __31__BRKIDSService_sharedInstance__block_invoke()
     v18 = BRKLoggingObjectForDomain(11);
     if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
-      v24 = 136315394;
-      v25 = "[BRKIDSService locationManagerStartMonitoringForRegion:]";
-      v26 = 2112;
-      v27 = v8;
-      _os_log_impl(&dword_241EE4000, v18, OS_LOG_TYPE_DEFAULT, "%s error startMonitoringForRegion: n/a message: %@", &v24, 0x16u);
+      v23 = 136315394;
+      v24 = "[BRKIDSService locationManagerStartMonitoringForRegion:]";
+      v25 = 2112;
+      v26 = v8;
+      _os_log_impl(&dword_241EE4000, v18, OS_LOG_TYPE_DEFAULT, "%s error startMonitoringForRegion: n/a message: %@", &v23, 0x16u);
     }
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)locationManagerStopMonitoringForRegion:(id)region
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   regionCopy = region;
   v5 = BRKLoggingObjectForDomain(11);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v16 = 136315138;
-    v17 = "[BRKIDSService locationManagerStopMonitoringForRegion:]";
-    _os_log_impl(&dword_241EE4000, v5, OS_LOG_TYPE_DEFAULT, "%s", &v16, 0xCu);
+    v15 = 136315138;
+    v16 = "[BRKIDSService locationManagerStopMonitoringForRegion:]";
+    _os_log_impl(&dword_241EE4000, v5, OS_LOG_TYPE_DEFAULT, "%s", &v15, 0xCu);
   }
 
   v6 = [BRKIDSMessage alloc];
@@ -235,11 +230,11 @@ uint64_t __31__BRKIDSService_sharedInstance__block_invoke()
   {
     if (v10)
     {
-      v16 = 136315394;
-      v17 = "[BRKIDSService locationManagerStopMonitoringForRegion:]";
-      v18 = 2112;
-      v19 = v8;
-      _os_log_impl(&dword_241EE4000, companionContextManagerDelegate2, OS_LOG_TYPE_DEFAULT, "%s error stopMonitoringForRegion: n/a message: %@", &v16, 0x16u);
+      v15 = 136315394;
+      v16 = "[BRKIDSService locationManagerStopMonitoringForRegion:]";
+      v17 = 2112;
+      v18 = v8;
+      _os_log_impl(&dword_241EE4000, companionContextManagerDelegate2, OS_LOG_TYPE_DEFAULT, "%s error stopMonitoringForRegion: n/a message: %@", &v15, 0x16u);
     }
 
     goto LABEL_10;
@@ -248,11 +243,11 @@ uint64_t __31__BRKIDSService_sharedInstance__block_invoke()
   if (v10)
   {
     identifier = [(BRKIDSMessage *)v8 identifier];
-    v16 = 136315394;
-    v17 = "[BRKIDSService locationManagerStopMonitoringForRegion:]";
-    v18 = 2112;
-    v19 = identifier;
-    _os_log_impl(&dword_241EE4000, companionContextManagerDelegate2, OS_LOG_TYPE_DEFAULT, "%s stopMonitoringForRegionIdentifier: %@", &v16, 0x16u);
+    v15 = 136315394;
+    v16 = "[BRKIDSService locationManagerStopMonitoringForRegion:]";
+    v17 = 2112;
+    v18 = identifier;
+    _os_log_impl(&dword_241EE4000, companionContextManagerDelegate2, OS_LOG_TYPE_DEFAULT, "%s stopMonitoringForRegionIdentifier: %@", &v15, 0x16u);
   }
 
   companionContextManagerDelegate = [(BRKIDSService *)self companionContextManagerDelegate];
@@ -266,52 +261,46 @@ uint64_t __31__BRKIDSService_sharedInstance__block_invoke()
 
 LABEL_10:
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)service:(id)service activeAccountsChanged:(id)changed
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   changedCopy = changed;
   v5 = BRKLoggingObjectForDomain(11);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = objc_opt_class();
     v7 = NSStringFromClass(v6);
-    v9 = 138543618;
-    v10 = v7;
-    v11 = 2112;
-    v12 = changedCopy;
-    _os_log_impl(&dword_241EE4000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@: IDS service accounts changed: %@", &v9, 0x16u);
+    v8 = 138543618;
+    v9 = v7;
+    v10 = 2112;
+    v11 = changedCopy;
+    _os_log_impl(&dword_241EE4000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@: IDS service accounts changed: %@", &v8, 0x16u);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)service:(id)service devicesChanged:(id)changed
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   changedCopy = changed;
   v5 = BRKLoggingObjectForDomain(11);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = objc_opt_class();
     v7 = NSStringFromClass(v6);
-    v9 = 138543618;
-    v10 = v7;
-    v11 = 2112;
-    v12 = changedCopy;
-    _os_log_impl(&dword_241EE4000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@: IDS service devices changed: %@", &v9, 0x16u);
+    v8 = 138543618;
+    v9 = v7;
+    v10 = 2112;
+    v11 = changedCopy;
+    _os_log_impl(&dword_241EE4000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@: IDS service devices changed: %@", &v8, 0x16u);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)service:(id)service account:(id)account identifier:(id)identifier didSendWithSuccess:(BOOL)success error:(id)error
 {
   successCopy = success;
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   serviceCopy = service;
   accountCopy = account;
   identifierCopy = identifier;
@@ -321,44 +310,40 @@ LABEL_10:
   {
     v16 = objc_opt_class();
     v17 = NSStringFromClass(v16);
-    v19 = 138544642;
-    v20 = v17;
-    v21 = 2112;
-    v22 = serviceCopy;
-    v23 = 2112;
-    v24 = accountCopy;
-    v25 = 2112;
-    v26 = identifierCopy;
-    v27 = 1024;
-    v28 = successCopy;
-    v29 = 2112;
-    v30 = errorCopy;
-    _os_log_impl(&dword_241EE4000, v15, OS_LOG_TYPE_DEFAULT, "%{public}@: IDS service did send with success: %@ %@ %@ %d %@", &v19, 0x3Au);
+    v18 = 138544642;
+    v19 = v17;
+    v20 = 2112;
+    v21 = serviceCopy;
+    v22 = 2112;
+    v23 = accountCopy;
+    v24 = 2112;
+    v25 = identifierCopy;
+    v26 = 1024;
+    v27 = successCopy;
+    v28 = 2112;
+    v29 = errorCopy;
+    _os_log_impl(&dword_241EE4000, v15, OS_LOG_TYPE_DEFAULT, "%{public}@: IDS service did send with success: %@ %@ %@ %d %@", &v18, 0x3Au);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)service:(id)service account:(id)account incomingUnhandledProtobuf:(id)protobuf fromID:(id)d context:(id)context
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   protobufCopy = protobuf;
   v8 = BRKLoggingObjectForDomain(11);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 136315394;
-    v11 = "[BRKIDSService service:account:incomingUnhandledProtobuf:fromID:context:]";
-    v12 = 2112;
-    v13 = protobufCopy;
-    _os_log_impl(&dword_241EE4000, v8, OS_LOG_TYPE_DEFAULT, "%s incomingUnhandledProtobuf: %@", &v10, 0x16u);
+    v9 = 136315394;
+    v10 = "[BRKIDSService service:account:incomingUnhandledProtobuf:fromID:context:]";
+    v11 = 2112;
+    v12 = protobufCopy;
+    _os_log_impl(&dword_241EE4000, v8, OS_LOG_TYPE_DEFAULT, "%s incomingUnhandledProtobuf: %@", &v9, 0x16u);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)service:(id)service account:(id)account incomingResourceAtURL:(id)l fromID:(id)d context:(id)context
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   serviceCopy = service;
   accountCopy = account;
   lCopy = l;
@@ -369,19 +354,19 @@ LABEL_10:
   {
     v18 = objc_opt_class();
     v19 = NSStringFromClass(v18);
-    v24 = 138544642;
-    v25 = v19;
-    v26 = 2112;
-    v27 = serviceCopy;
-    v28 = 2112;
-    v29 = accountCopy;
-    v30 = 2112;
-    v31 = lCopy;
-    v32 = 2112;
-    v33 = dCopy;
-    v34 = 2112;
-    v35 = contextCopy;
-    _os_log_impl(&dword_241EE4000, v17, OS_LOG_TYPE_DEFAULT, "%{public}@: IDS service did receive url: %@ %@ %@ %@ %@", &v24, 0x3Eu);
+    v23 = 138544642;
+    v24 = v19;
+    v25 = 2112;
+    v26 = serviceCopy;
+    v27 = 2112;
+    v28 = accountCopy;
+    v29 = 2112;
+    v30 = lCopy;
+    v31 = 2112;
+    v32 = dCopy;
+    v33 = 2112;
+    v34 = contextCopy;
+    _os_log_impl(&dword_241EE4000, v17, OS_LOG_TYPE_DEFAULT, "%{public}@: IDS service did receive url: %@ %@ %@ %@ %@", &v23, 0x3Eu);
   }
 
   dataCollectionDelegate = [(BRKIDSService *)self dataCollectionDelegate];
@@ -392,21 +377,88 @@ LABEL_10:
     dataCollectionDelegate2 = [(BRKIDSService *)self dataCollectionDelegate];
     [dataCollectionDelegate2 service:self didReceiveResourceURL:lCopy];
   }
+}
 
-  v23 = *MEMORY[0x277D85DE8];
+- (id)sendProtobuf:(id)protobuf type:(unsigned __int16)type priority:(int64_t)priority completionHandler:(id)handler withTimeout:(double)timeout
+{
+  typeCopy = type;
+  v45[1] = *MEMORY[0x277D85DE8];
+  handlerCopy = handler;
+  v44 = *MEMORY[0x277D18650];
+  v13 = MEMORY[0x277CCABB0];
+  protobufCopy = protobuf;
+  v15 = [v13 numberWithDouble:timeout];
+  v45[0] = v15;
+  v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v45 forKeys:&v44 count:1];
+
+  v17 = objc_alloc(MEMORY[0x277D189F0]);
+  data = [protobufCopy data];
+
+  v19 = [v17 initWithProtobufData:data type:typeCopy isResponse:0];
+  idsService = self->_idsService;
+  v21 = [MEMORY[0x277CBEB98] setWithObject:*MEMORY[0x277D187E8]];
+  v36 = 0;
+  v37 = 0;
+  LODWORD(protobufCopy) = [(IDSService *)idsService sendProtobuf:v19 toDestinations:v21 priority:priority options:v16 identifier:&v37 error:&v36];
+  v22 = v37;
+  v23 = v36;
+
+  v24 = BRKLoggingObjectForDomain(11);
+  v25 = os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT);
+  if (protobufCopy)
+  {
+    if (v25)
+    {
+      data2 = [v19 data];
+      v27 = [data2 length];
+      context = [v19 context];
+      outgoingResponseIdentifier = [context outgoingResponseIdentifier];
+      *buf = 134218498;
+      v39 = v27;
+      v40 = 2112;
+      v41 = v22;
+      v42 = 2112;
+      v43 = outgoingResponseIdentifier;
+      _os_log_impl(&dword_241EE4000, v24, OS_LOG_TYPE_DEFAULT, "IDS Sent: %ld bytes, identifier %@ (for %@)", buf, 0x20u);
+    }
+  }
+
+  else if (v25)
+  {
+    data3 = [v19 data];
+    v31 = [data3 length];
+    context2 = [v19 context];
+    outgoingResponseIdentifier2 = [context2 outgoingResponseIdentifier];
+    *buf = 134218498;
+    v39 = v31;
+    v40 = 2112;
+    v41 = v22;
+    v42 = 2112;
+    v43 = outgoingResponseIdentifier2;
+    _os_log_impl(&dword_241EE4000, v24, OS_LOG_TYPE_DEFAULT, "IDS Failed to Send: %ld bytes, identifier %@ (for %@)", buf, 0x20u);
+  }
+
+  if (handlerCopy)
+  {
+    handlerCopy[2](handlerCopy, v23);
+  }
+
+  v34 = v22;
+
+  return v22;
 }
 
 - (id)sendResourceAtURL:(id)l metadata:(id)metadata priority:(int64_t)priority completionHandler:(id)handler withTimeout:(double)timeout
 {
-  v37[1] = *MEMORY[0x277D85DE8];
+  v36[1] = *MEMORY[0x277D85DE8];
   lCopy = l;
   handlerCopy = handler;
-  v36 = *MEMORY[0x277D18650];
+  v35 = *MEMORY[0x277D18650];
   v14 = MEMORY[0x277CCABB0];
   metadataCopy = metadata;
   v16 = [v14 numberWithDouble:timeout];
-  v37[0] = v16;
-  v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v37 forKeys:&v36 count:1];
+  v36[0] = v16;
+  v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v36 forKeys:&v35 count:1];
 
   idsService = self->_idsService;
   if (metadataCopy)
@@ -420,12 +472,12 @@ LABEL_10:
   }
 
   v20 = [MEMORY[0x277CBEB98] setWithObject:*MEMORY[0x277D187E8]];
+  v29 = 0;
   v30 = 0;
-  v31 = 0;
-  v21 = [(IDSService *)idsService sendResourceAtURL:lCopy metadata:v19 toDestinations:v20 priority:priority options:v17 identifier:&v31 error:&v30];
+  v21 = [(IDSService *)idsService sendResourceAtURL:lCopy metadata:v19 toDestinations:v20 priority:priority options:v17 identifier:&v30 error:&v29];
 
-  v22 = v31;
-  v23 = v30;
+  v22 = v30;
+  v23 = v29;
 
   v24 = BRKLoggingObjectForDomain(11);
   v25 = os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT);
@@ -437,9 +489,9 @@ LABEL_10:
     }
 
     *buf = 138412546;
-    v33 = lCopy;
-    v34 = 2112;
-    v35 = v22;
+    v32 = lCopy;
+    v33 = 2112;
+    v34 = v22;
     v26 = "IDS Sent: %@ resource, identifier %@";
   }
 
@@ -451,9 +503,9 @@ LABEL_10:
     }
 
     *buf = 138412546;
-    v33 = lCopy;
-    v34 = 2112;
-    v35 = v22;
+    v32 = lCopy;
+    v33 = 2112;
+    v34 = v22;
     v26 = "IDS Failed to Send: %@ resource, identifier %@";
   }
 
@@ -467,7 +519,6 @@ LABEL_10:
 
   v27 = v22;
 
-  v28 = *MEMORY[0x277D85DE8];
   return v22;
 }
 

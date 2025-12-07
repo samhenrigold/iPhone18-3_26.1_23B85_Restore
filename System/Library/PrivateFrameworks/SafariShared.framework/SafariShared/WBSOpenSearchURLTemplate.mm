@@ -158,30 +158,30 @@ LABEL_23:
 
 - (id)URLWithSearchTerms:(id)terms
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   termsCopy = terms;
   string = [MEMORY[0x1E696AD60] string];
-  v22 = 0u;
-  v23 = 0u;
-  v24 = 0u;
-  v25 = 0u;
+  v26 = 0u;
+  v27 = 0u;
+  v28 = 0u;
+  v29 = 0u;
   v5 = self->_parameters;
-  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v22 objects:v28 count:16];
+  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v26 objects:v32 count:16];
   if (v6)
   {
     v7 = v6;
     v8 = 0;
-    v9 = *v23;
+    v9 = *v27;
 LABEL_3:
     v10 = 0;
     while (1)
     {
-      if (*v23 != v9)
+      if (*v27 != v9)
       {
         objc_enumerationMutation(v5);
       }
 
-      v11 = *(*(&v22 + 1) + 8 * v10);
+      v11 = *(*(&v26 + 1) + 8 * v10);
       prefix = [v11 prefix];
       [string appendString:prefix];
 
@@ -207,12 +207,13 @@ LABEL_18:
         break;
       }
 
-      if (([v11 isOptional] & 1) == 0)
+      isOptional = [v11 isOptional];
+      if ((isOptional & 1) == 0)
       {
-        v17 = WBS_LOG_CHANNEL_PREFIXSafariSuggestions();
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+        v19 = WBS_LOG_CHANNEL_PREFIXSafariSuggestions(isOptional, v18);
+        if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
         {
-          [(WBSOpenSearchURLTemplate *)v26 URLWithSearchTerms:v17, v11, &v27];
+          [(WBSOpenSearchURLTemplate *)v30 URLWithSearchTerms:v19, v11, &v31];
         }
 
         name3 = [v11 name];
@@ -223,7 +224,7 @@ LABEL_18:
 LABEL_16:
       if (v7 == ++v10)
       {
-        v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v22 objects:v28 count:16];
+        v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v26 objects:v32 count:16];
         if (v7)
         {
           goto LABEL_3;
@@ -246,16 +247,16 @@ LABEL_15:
   }
 
 LABEL_21:
-  v18 = WBS_LOG_CHANNEL_PREFIXSafariSuggestions();
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+  v22 = WBS_LOG_CHANNEL_PREFIXSafariSuggestions(v20, v21);
+  if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
   {
-    [WBSOpenSearchURLTemplate URLWithSearchTerms:v18];
+    [WBSOpenSearchURLTemplate URLWithSearchTerms:v22];
   }
 
 LABEL_23:
-  v19 = [MEMORY[0x1E695DFF8] safari_URLWithUserTypedString:string];
+  v23 = [MEMORY[0x1E695DFF8] safari_URLWithUserTypedString:string];
 
-  return v19;
+  return v23;
 }
 
 - (id)templateBySubstitutingValue:(id)value forParameter:(id)parameter

@@ -49,7 +49,7 @@
   v11 = transformingImageView3;
   if (transformingImageView3)
   {
-    [transformingImageView3 transform];
+    objc_msgSend_transform(transformingImageView3);
   }
 
   else

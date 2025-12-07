@@ -637,7 +637,7 @@ LABEL_42:
 void __38__PSBadgedTableCell_unreadBubbleImage__block_invoke(uint64_t a1)
 {
   v2 = MEMORY[0x1E69DCAB8];
-  v3 = PSPreferencesFrameworkBundle();
+  v3 = PSPreferencesFrameworkBundle(a1);
   v4 = [MEMORY[0x1E69DCEB0] mainScreen];
   v5 = [v4 traitCollection];
   v6 = [v2 imageNamed:@"UnreadBubble" inBundle:v3 compatibleWithTraitCollection:v5];

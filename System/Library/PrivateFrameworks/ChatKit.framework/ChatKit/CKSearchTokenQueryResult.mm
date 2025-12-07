@@ -158,29 +158,30 @@ LABEL_20:
     itemIdentifier = [(CKSearchTokenQueryResult *)self itemIdentifier];
   }
 
-  if ([(CKSearchTokenQueryResult *)self hasFilterOption:2])
+  v9 = [(CKSearchTokenQueryResult *)self hasFilterOption:2];
+  if (v9)
   {
-    v9 = MEMORY[0x1E696AEC0];
-    v10 = CKFrameworkBundle();
-    v11 = [v10 localizedStringForKey:@"FROM_%@" value:&stru_1F04268F8 table:@"ChatKit"];
-    v12 = [v9 stringWithFormat:v11, itemIdentifier];
+    v10 = MEMORY[0x1E696AEC0];
+    v11 = CKFrameworkBundle(v9);
+    v12 = [v11 localizedStringForKey:@"FROM_%@" value:&stru_1F04268F8 table:@"ChatKit"];
+    v13 = [v10 stringWithFormat:v12, itemIdentifier];
 
     mEMORY[0x1E69DC668] = [MEMORY[0x1E69DC668] sharedApplication];
     userInterfaceLayoutDirection = [mEMORY[0x1E69DC668] userInterfaceLayoutDirection];
 
     if (userInterfaceLayoutDirection == 1)
     {
-      v15 = @"\u200F";
+      v16 = @"\u200F";
     }
 
     else
     {
-      v15 = @"\u200E";
+      v16 = @"\u200E";
     }
 
-    v16 = [(__CFString *)v15 stringByAppendingString:v12];
+    v17 = [(__CFString *)v16 stringByAppendingString:v13];
 
-    itemIdentifier = v16;
+    itemIdentifier = v17;
   }
 
   return itemIdentifier;
@@ -188,7 +189,7 @@ LABEL_20:
 
 - (id)attributedSuggestionTextForSearchText:(id)text font:(id)font
 {
-  v31[1] = *MEMORY[0x1E69E9840];
+  v33[1] = *MEMORY[0x1E69E9840];
   textCopy = text;
   fontCopy = font;
   conversation = [(CKSpotlightQueryResult *)self conversation];
@@ -229,16 +230,16 @@ LABEL_20:
   }
   v16 = ;
 
-  if (!-[CKSearchTokenQueryResult contentType](self, "contentType") && (-[CKSpotlightQueryResult conversation](self, "conversation"), v19 = objc_claimAutoreleasedReturnValue(), v19, v19) && (!-[CKSearchTokenQueryResult hasFilterOption:](self, "hasFilterOption:", 2) ? ((-[CKSpotlightQueryResult conversation](self, "conversation"), v23 = objc_claimAutoreleasedReturnValue(), v24 = [v23 isGroupConversation], v23, CKFrameworkBundle(), v20 = objc_claimAutoreleasedReturnValue(), v21 = v20, !v24) ? (v22 = @"MESSAGES_WITH_%@") : (v22 = @"MESSAGES_IN_%@")) : (CKFrameworkBundle(), v20 = objc_claimAutoreleasedReturnValue(), v21 = v20, v22 = @"MESSAGES_FROM_%@"), objc_msgSend(v20, "localizedStringForKey:value:table:", v22, &stru_1F04268F8, @"ChatKit"), v25 = objc_claimAutoreleasedReturnValue(), v21, v25))
+  if (!-[CKSearchTokenQueryResult contentType](self, "contentType") && (-[CKSpotlightQueryResult conversation](self, "conversation"), v19 = objc_claimAutoreleasedReturnValue(), v19, v19) && ((v20 = -[CKSearchTokenQueryResult hasFilterOption:](self, "hasFilterOption:", 2), !v20) ? ((-[CKSpotlightQueryResult conversation](self, "conversation"), v24 = objc_claimAutoreleasedReturnValue(), v25 = [v24 isGroupConversation], v24, CKFrameworkBundle(v26), v21 = objc_claimAutoreleasedReturnValue(), v22 = v21, !v25) ? (v23 = @"MESSAGES_WITH_%@") : (v23 = @"MESSAGES_IN_%@")) : (CKFrameworkBundle(v20), v21 = objc_claimAutoreleasedReturnValue(), v22 = v21, v23 = @"MESSAGES_FROM_%@"), objc_msgSend(v21, "localizedStringForKey:value:table:", v23, &stru_1F04268F8, @"ChatKit"), v27 = objc_claimAutoreleasedReturnValue(), v22, v27))
   {
-    v26 = objc_alloc(MEMORY[0x1E696AAB0]);
-    v30 = *MEMORY[0x1E69DB650];
+    v28 = objc_alloc(MEMORY[0x1E696AAB0]);
+    v32 = *MEMORY[0x1E69DB650];
     secondaryLabelColor2 = [MEMORY[0x1E69DC888] secondaryLabelColor];
-    v31[0] = secondaryLabelColor2;
-    v28 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v31 forKeys:&v30 count:1];
-    v29 = [v26 initWithString:v25 attributes:v28];
+    v33[0] = secondaryLabelColor2;
+    v30 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v33 forKeys:&v32 count:1];
+    v31 = [v28 initWithString:v27 attributes:v30];
 
-    v17 = [MEMORY[0x1E696AAB0] localizedAttributedStringWithFormat:v29, v16];
+    v17 = [MEMORY[0x1E696AAB0] localizedAttributedStringWithFormat:v31, v16];
   }
 
   else

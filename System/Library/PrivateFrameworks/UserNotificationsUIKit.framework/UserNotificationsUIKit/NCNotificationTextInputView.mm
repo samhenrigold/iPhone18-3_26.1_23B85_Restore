@@ -25,9 +25,9 @@
 
 - (NCNotificationTextInputView)initWithFrame:(CGRect)frame
 {
-  v33.receiver = self;
-  v33.super_class = NCNotificationTextInputView;
-  v3 = [(NCNotificationTextInputView *)&v33 initWithFrame:frame.origin.x, frame.origin.y, frame.size.width, frame.size.height];
+  v34.receiver = self;
+  v34.super_class = NCNotificationTextInputView;
+  v3 = [(NCNotificationTextInputView *)&v34 initWithFrame:frame.origin.x, frame.origin.y, frame.size.width, frame.size.height];
   v4 = v3;
   if (v3)
   {
@@ -62,14 +62,14 @@
     [titleLabel setFont:v19];
 
     v20 = v4->_button;
-    v21 = NCUserNotificationsUIKitFrameworkBundle();
-    v22 = [v21 localizedStringForKey:@"QUICK_REPLY_SEND_BUTTON_TITLE" value:&stru_282FE84F8 table:0];
-    [(UIButton *)v20 setTitle:v22 forState:0];
+    v22 = NCUserNotificationsUIKitFrameworkBundle(v21);
+    v23 = [v22 localizedStringForKey:@"QUICK_REPLY_SEND_BUTTON_TITLE" value:&stru_282FE84F8 table:0];
+    [(UIButton *)v20 setTitle:v23 forState:0];
 
     [(UIButton *)v4->_button addTarget:v4 action:sel__buttonPressed_ forControlEvents:64];
-    v23 = [objc_alloc(MEMORY[0x277D75A68]) initWithFrame:{v6, v7, v8, v9}];
+    v24 = [objc_alloc(MEMORY[0x277D75A68]) initWithFrame:{v6, v7, v8, v9}];
     horizontalStack = v4->_horizontalStack;
-    v4->_horizontalStack = v23;
+    v4->_horizontalStack = v24;
 
     [(UIStackView *)v4->_horizontalStack addArrangedSubview:v4->_textView];
     [(UIStackView *)v4->_horizontalStack addArrangedSubview:v4->_button];
@@ -80,17 +80,17 @@
     clearColor = [MEMORY[0x277D75348] clearColor];
     [(NCNotificationTextInputView *)v4 setBackgroundColor:clearColor];
 
-    v26 = [objc_alloc(MEMORY[0x277D763B0]) initWithVariant:0 smoothness:12.0];
-    v27 = v4->_textView;
+    v27 = [objc_alloc(MEMORY[0x277D763B0]) initWithVariant:0 smoothness:12.0];
+    v28 = v4->_textView;
     clearColor2 = [MEMORY[0x277D75348] clearColor];
-    [(UITextView *)v27 setBackgroundColor:clearColor2];
+    [(UITextView *)v28 setBackgroundColor:clearColor2];
 
-    [(UIStackView *)v4->_horizontalStack _setBackground:v26];
+    [(UIStackView *)v4->_horizontalStack _setBackground:v27];
     [(UIStackView *)v4->_horizontalStack setLayoutMargins:0.0, 12.0, 0.0, 12.0];
     [(UIStackView *)v4->_horizontalStack setLayoutMarginsRelativeArrangement:1];
-    v29 = [objc_alloc(MEMORY[0x277D759B0]) initWithDelegate:v4];
+    v30 = [objc_alloc(MEMORY[0x277D759B0]) initWithDelegate:v4];
     scribbleInteraction = v4->_scribbleInteraction;
-    v4->_scribbleInteraction = v29;
+    v4->_scribbleInteraction = v30;
 
     textView = [(NCNotificationTextInputView *)v4 textView];
     [textView addInteraction:v4->_scribbleInteraction];
@@ -191,7 +191,7 @@
 
   else
   {
-    v7 = NCUserNotificationsUIKitFrameworkBundle();
+    v7 = NCUserNotificationsUIKitFrameworkBundle(button);
     v8 = [v7 localizedStringForKey:@"QUICK_REPLY_SEND_BUTTON_TITLE" value:&stru_282FE84F8 table:0];
     [v6 setTitle:v8 forState:0];
   }

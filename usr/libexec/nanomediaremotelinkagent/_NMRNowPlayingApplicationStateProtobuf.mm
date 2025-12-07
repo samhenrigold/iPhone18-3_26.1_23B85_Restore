@@ -84,43 +84,41 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v7 = toCopy;
+  v5 = toCopy;
   if (self->_companionBundleIdentifier)
   {
     PBDataWriterWriteStringField();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (self->_localizedDisplayName)
   {
     PBDataWriterWriteStringField();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (*&self->_has)
   {
-    playbackState = self->_playbackState;
     PBDataWriterWriteUint32Field();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (self->_watchBundleIdentifier)
   {
     PBDataWriterWriteStringField();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (self->_iconDigest)
   {
     PBDataWriterWriteDataField();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if ((*&self->_has & 2) != 0)
   {
-    processID = self->_processID;
     PBDataWriterWriteInt32Field();
-    toCopy = v7;
+    toCopy = v5;
   }
 }
 
@@ -225,7 +223,6 @@
     }
   }
 
-  v7 = *(equalCopy + 48);
   if (*&self->_has)
   {
     if ((*(equalCopy + 48) & 1) == 0 || self->_playbackState != *(equalCopy + 8))
@@ -237,7 +234,7 @@
   else if (*(equalCopy + 48))
   {
 LABEL_19:
-    v10 = 0;
+    v9 = 0;
     goto LABEL_20;
   }
 
@@ -256,7 +253,7 @@ LABEL_19:
     }
   }
 
-  v10 = (*(equalCopy + 48) & 2) == 0;
+  v9 = (*(equalCopy + 48) & 2) == 0;
   if ((*&self->_has & 2) != 0)
   {
     if ((*(equalCopy + 48) & 2) == 0 || self->_processID != *(equalCopy + 9))
@@ -264,12 +261,12 @@ LABEL_19:
       goto LABEL_19;
     }
 
-    v10 = 1;
+    v9 = 1;
   }
 
 LABEL_20:
 
-  return v10;
+  return v9;
 }
 
 - (unint64_t)hash

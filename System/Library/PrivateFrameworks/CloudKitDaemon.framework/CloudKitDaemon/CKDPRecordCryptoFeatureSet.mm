@@ -53,7 +53,6 @@
 {
   if (*&self->_has)
   {
-    minimumSchemaVersion = self->_minimumSchemaVersion;
     PBDataWriterWriteInt32Field();
   }
 }

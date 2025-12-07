@@ -17,7 +17,7 @@
 
 + (id)insertDataObject:(id)object withProvenance:(id)provenance inDatabase:(id)database persistentID:(id)d error:(id *)error
 {
-  v57[13] = *MEMORY[0x277D85DE8];
+  v56[13] = *MEMORY[0x277D85DE8];
   objectCopy = object;
   databaseCopy = database;
   dCopy = d;
@@ -28,20 +28,20 @@
     [currentHandler handleFailureInMethod:a2 object:self file:@"HDMedicalRecordEntity.m" lineNumber:93 description:{@"Subclasses must override %s", "+[HDMedicalRecordEntity insertDataObject:withProvenance:inDatabase:persistentID:error:]"}];
   }
 
-  v57[0] = @"data_id";
-  v57[1] = @"note";
-  v57[2] = @"entered_in_error";
-  v57[3] = @"modified_date";
-  v57[4] = @"fhir_identifier";
-  v57[5] = @"original_fhir_resource_rowid";
-  v57[6] = @"original_signed_clinical_data_rowid";
-  v57[7] = @"locale";
-  v57[8] = @"extraction_version";
-  v57[9] = @"sort_date";
-  v57[10] = @"sort_date_key_path";
-  v57[11] = @"country";
-  v57[12] = @"state";
-  v47 = [MEMORY[0x277CBEA60] arrayWithObjects:v57 count:13];
+  v56[0] = @"data_id";
+  v56[1] = @"note";
+  v56[2] = @"entered_in_error";
+  v56[3] = @"modified_date";
+  v56[4] = @"fhir_identifier";
+  v56[5] = @"original_fhir_resource_rowid";
+  v56[6] = @"original_signed_clinical_data_rowid";
+  v56[7] = @"locale";
+  v56[8] = @"extraction_version";
+  v56[9] = @"sort_date";
+  v56[10] = @"sort_date_key_path";
+  v56[11] = @"country";
+  v56[12] = @"state";
+  v46 = [MEMORY[0x277CBEA60] arrayWithObjects:v56 count:13];
   fHIRIdentifier = [objectCopy FHIRIdentifier];
 
   if (fHIRIdentifier)
@@ -69,23 +69,23 @@
     persistentID = 0;
 LABEL_8:
 
-    v48[0] = MEMORY[0x277D85DD0];
-    v48[1] = 3221225472;
-    v48[2] = __87__HDMedicalRecordEntity_insertDataObject_withProvenance_inDatabase_persistentID_error___block_invoke;
-    v48[3] = &unk_278626C10;
+    v47[0] = MEMORY[0x277D85DD0];
+    v47[1] = 3221225472;
+    v47[2] = __87__HDMedicalRecordEntity_insertDataObject_withProvenance_inDatabase_persistentID_error___block_invoke;
+    v47[3] = &unk_278626C10;
     v26 = dCopy;
-    v49 = v26;
-    v50 = objectCopy;
+    v48 = v26;
+    v49 = objectCopy;
     v27 = stringValue;
-    v51 = stringValue;
-    v52 = longLongValue;
-    v53 = persistentID;
-    v54 = a2;
+    v50 = stringValue;
+    v51 = longLongValue;
+    v52 = persistentID;
+    v53 = a2;
     selfCopy = self;
     databaseCopy = v21;
     v28 = v21;
-    v29 = v47;
-    v30 = [self insertOrReplaceEntity:1 database:v28 properties:v47 error:errorCopy2 bindingHandler:v48];
+    v29 = v46;
+    v30 = [self insertOrReplaceEntity:1 database:v28 properties:v46 error:errorCopy2 bindingHandler:v47];
     if (v30)
     {
       v31 = v26;
@@ -108,12 +108,12 @@ LABEL_8:
   {
     errorCopy2 = error;
     [objectCopy originIdentifier];
-    v38 = v37 = databaseCopy;
-    signedClinicalDataRecordIdentifier2 = [v38 signedClinicalDataRecordIdentifier];
-    v56 = 0;
-    v21 = v37;
-    v23 = [HDOriginalSignedClinicalDataRecordEntity entityWithSyncIdentifier:signedClinicalDataRecordIdentifier2 database:v37 error:&v56];
-    metadata2 = v56;
+    v37 = v36 = databaseCopy;
+    signedClinicalDataRecordIdentifier2 = [v37 signedClinicalDataRecordIdentifier];
+    v55 = 0;
+    v21 = v36;
+    v23 = [HDOriginalSignedClinicalDataRecordEntity entityWithSyncIdentifier:signedClinicalDataRecordIdentifier2 database:v36 error:&v55];
+    metadata2 = v55;
 
     if (v23)
     {
@@ -128,7 +128,7 @@ LABEL_8:
       v27 = stringValue;
       if (errorCopy2)
       {
-        v40 = metadata2;
+        v39 = metadata2;
         *errorCopy2 = metadata2;
       }
 
@@ -137,19 +137,19 @@ LABEL_8:
         _HKLogDroppedError();
       }
 
-      v29 = v47;
+      v29 = v46;
     }
 
     else
     {
-      v41 = MEMORY[0x277CCA9B8];
+      v40 = MEMORY[0x277CCA9B8];
       originIdentifier2 = [objectCopy originIdentifier];
       signedClinicalDataRecordIdentifier3 = [originIdentifier2 signedClinicalDataRecordIdentifier];
-      [v41 hk_assignError:errorCopy2 code:118 format:{@"Original signed clinical data record with sync identifier %@ does not exist", signedClinicalDataRecordIdentifier3}];
+      [v40 hk_assignError:errorCopy2 code:118 format:{@"Original signed clinical data record with sync identifier %@ does not exist", signedClinicalDataRecordIdentifier3}];
 
       databaseCopy = v21;
       v27 = stringValue;
-      v29 = v47;
+      v29 = v46;
     }
 
     v32 = 0;
@@ -160,12 +160,10 @@ LABEL_8:
     [MEMORY[0x277CCA9B8] hk_assignError:error code:100 format:@"Attempting to save a medical record without an origin."];
     v32 = 0;
     v27 = stringValue;
-    v29 = v47;
+    v29 = v46;
   }
 
 LABEL_12:
-
-  v33 = *MEMORY[0x277D85DE8];
 
   return v32;
 }
@@ -201,35 +199,31 @@ void __87__HDMedicalRecordEntity_insertDataObject_withProvenance_inDatabase_pers
   if (*(a1 + 56) >= 1)
   {
     MEMORY[0x22AAC6BA0](a2, @"original_signed_clinical_data_rowid");
-    v13 = *(a1 + 56);
     goto LABEL_5;
   }
 
   if (*(a1 + 64) >= 1)
   {
     MEMORY[0x22AAC6BA0](a2, @"original_fhir_resource_rowid");
-    v14 = *(a1 + 64);
 LABEL_5:
 
     JUMPOUT(0x22AAC6B90);
   }
 
-  v15 = [MEMORY[0x277CCA890] currentHandler];
-  [v15 handleFailureInMethod:*(a1 + 72) object:*(a1 + 80) file:@"HDMedicalRecordEntity.m" lineNumber:173 description:@"No OrignalFHIRResource or OriginalSignedClinicalDataRecord ROWID provided for FK on insert"];
+  v13 = [MEMORY[0x277CCA890] currentHandler];
+  [v13 handleFailureInMethod:*(a1 + 72) object:*(a1 + 80) file:@"HDMedicalRecordEntity.m" lineNumber:173 description:@"No OrignalFHIRResource or OriginalSignedClinicalDataRecord ROWID provided for FK on insert"];
 }
 
 + (id)foreignKeys
 {
-  v8[2] = *MEMORY[0x277D85DE8];
-  v7[0] = @"original_fhir_resource_rowid";
+  v7[2] = *MEMORY[0x277D85DE8];
+  v6[0] = @"original_fhir_resource_rowid";
   v2 = +[(HDHealthEntity *)HDOriginalFHIRResourceEntity];
-  v7[1] = @"original_signed_clinical_data_rowid";
-  v8[0] = v2;
+  v6[1] = @"original_signed_clinical_data_rowid";
+  v7[0] = v2;
   v3 = +[(HDHealthEntity *)HDOriginalSignedClinicalDataRecordEntity];
-  v8[1] = v3;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:2];
-
-  v5 = *MEMORY[0x277D85DE8];
+  v7[1] = v3;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:v6 count:2];
 
   return v4;
 }
@@ -388,15 +382,15 @@ LABEL_4:
 
 + (id)medicalRecordWithAttachmentObjectIdentifier:(id)identifier profile:(id)profile error:(id *)error
 {
-  v42[1] = *MEMORY[0x277D85DE8];
+  v41[1] = *MEMORY[0x277D85DE8];
   profileCopy = profile;
-  v35 = 0;
-  v36 = 0;
   v34 = 0;
-  v9 = [MEMORY[0x277CCD008] componentsFromAttachmentObjectIdentifier:identifier sampleTypeIdentifier:&v36 bundleIdentifier:&v35 FHIRIdentifier:&v34];
-  v10 = v36;
-  v11 = v35;
-  v12 = v34;
+  v35 = 0;
+  v33 = 0;
+  v9 = [MEMORY[0x277CCD008] componentsFromAttachmentObjectIdentifier:identifier sampleTypeIdentifier:&v35 bundleIdentifier:&v34 FHIRIdentifier:&v33];
+  v10 = v35;
+  v11 = v34;
+  v12 = v33;
   if ((v9 & 1) == 0)
   {
     v15 = [MEMORY[0x277CCA9B8] hk_error:2000 description:@"Failed parse attachment objectIdentifier into components"];
@@ -458,15 +452,15 @@ LABEL_23:
   v14 = v14;
   v17 = profileCopy;
   v15 = v15;
-  v30 = objc_opt_self();
-  v33 = v16;
-  v31 = HDMedicalRecordEntityPredicateForFHIRIdentifier(v16);
+  v29 = objc_opt_self();
+  v32 = v16;
+  v30 = HDMedicalRecordEntityPredicateForFHIRIdentifier(v16);
   v18 = [MEMORY[0x277D10B70] compoundPredicateWithPredicate:v15 otherPredicate:?];
 
-  v41 = @"SkipApplyingConceptIndex";
-  v42[0] = MEMORY[0x277CBEC38];
-  v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v42 forKeys:&v41 count:1];
-  v32 = v17;
+  v40 = @"SkipApplyingConceptIndex";
+  v41[0] = MEMORY[0x277CBEC38];
+  v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v41 forKeys:&v40 count:1];
+  v31 = v17;
   v20 = [(HDSampleEntity *)HDMedicalRecordEntity samplesWithType:v14 profile:v17 encodingOptions:v19 predicate:v18 limit:0 anchor:0 error:error];
   v21 = v20;
   if (v20 && [v20 count])
@@ -477,13 +471,13 @@ LABEL_23:
       v22 = *MEMORY[0x277CCC2C0];
       if (os_log_type_enabled(*MEMORY[0x277CCC2C0], OS_LOG_TYPE_FAULT))
       {
-        v28 = v22;
-        v29 = HKSensitiveLogItem();
+        v27 = v22;
+        v28 = HKSensitiveLogItem();
         *buf = 138543618;
-        v38 = v30;
-        v39 = 2114;
-        v40 = v29;
-        _os_log_fault_impl(&dword_228986000, v28, OS_LOG_TYPE_FAULT, "%{public}@ Unexpectedly found more than 1 medical record for FHIR resource %{public}@!", buf, 0x16u);
+        v37 = v29;
+        v38 = 2114;
+        v39 = v28;
+        _os_log_fault_impl(&dword_228986000, v27, OS_LOG_TYPE_FAULT, "%{public}@ Unexpectedly found more than 1 medical record for FHIR resource %{public}@!", buf, 0x16u);
       }
     }
 
@@ -496,25 +490,22 @@ LABEL_23:
   }
 
 LABEL_24:
-  v26 = *MEMORY[0x277D85DE8];
 
   return firstObject;
 }
 
 + (id)attachmentObjectIdentifierForSampleWithUUID:(id)d profile:(id)profile transaction:(id)transaction error:(id *)error
 {
-  v17[1] = *MEMORY[0x277D85DE8];
+  v16[1] = *MEMORY[0x277D85DE8];
   profileCopy = profile;
   dCopy = d;
   v10 = objc_opt_class();
-  v16 = @"SkipApplyingConceptIndex";
-  v17[0] = MEMORY[0x277CBEC38];
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:&v16 count:1];
+  v15 = @"SkipApplyingConceptIndex";
+  v16[0] = MEMORY[0x277CBEC38];
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:&v15 count:1];
   v12 = [v10 objectWithUUID:dCopy encodingOptions:v11 profile:profileCopy error:error];
 
   attachmentObjectIdentifier = [v12 attachmentObjectIdentifier];
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return attachmentObjectIdentifier;
 }
@@ -589,7 +580,7 @@ LABEL_7:
     v10 = [v8 innerJoinClauseFromTable:disambiguatedDatabaseTable toTargetEntity:objc_opt_class() as:0 localReference:@"data_id" targetKey:@"data_id"];
     [v7 addObject:v10];
 
-    v11 = [v7 copy];
+    v11 = objc_msgSend_copy(v7);
   }
 
   else

@@ -1,4 +1,4 @@
-uint64_t _LTOSLogOnboarding()
+uint64_t _LTOSLogOnboarding(uint64_t a1, uint64_t a2)
 {
   if (_LTOSLogOnboarding_onceToken != -1)
   {
@@ -8,7 +8,7 @@ uint64_t _LTOSLogOnboarding()
   return _LTOSLogOnboarding_log;
 }
 
-uint64_t _LTOSLogSignpost()
+uint64_t _LTOSLogSignpost(uint64_t a1, uint64_t a2)
 {
   if (_LTOSLogSignpost_onceToken != -1)
   {
@@ -18,7 +18,7 @@ uint64_t _LTOSLogSignpost()
   return _LTOSLogSignpost_log;
 }
 
-uint64_t _LTOSLogSystemTranslation()
+uint64_t _LTOSLogSystemTranslation(uint64_t a1, uint64_t a2)
 {
   if (_LTOSLogSystemTranslation_onceToken != -1)
   {
@@ -28,7 +28,7 @@ uint64_t _LTOSLogSystemTranslation()
   return _LTOSLogSystemTranslation_log;
 }
 
-uint64_t _LTOSLogXPC()
+uint64_t _LTOSLogXPC(uint64_t a1, uint64_t a2)
 {
   if (_LTOSLogXPC_onceToken != -1)
   {

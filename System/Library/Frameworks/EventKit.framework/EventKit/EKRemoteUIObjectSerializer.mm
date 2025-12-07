@@ -52,35 +52,34 @@
 {
   selfCopy = self;
   v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB2E2810, &qword_1A81C4330);
-  v10 = *(*(v9 - 8) + 64);
   MEMORY[0x1EEE9AC00](v9 - 8);
-  v12 = &v22 - v11;
-  v13 = sub_1A81ACC94();
+  v11 = &v21 - v10;
+  v12 = sub_1A81ACC94();
   sub_1A81831D0(0, &qword_1EB2E2650, off_1E77FBA00);
   __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB2E2820, &qword_1A81C4338);
   sub_1A819550C(&qword_1EB2E2828, &qword_1EB2E2650, off_1E77FBA00);
+  v13 = sub_1A81ACC94();
   v14 = sub_1A81ACC94();
-  v15 = sub_1A81ACC94();
   if (date)
   {
     sub_1A81ACA44();
-    v16 = sub_1A81ACA54();
-    (*(*(v16 - 8) + 56))(v12, 0, 1, v16);
+    v15 = sub_1A81ACA54();
+    (*(*(v15 - 8) + 56))(v11, 0, 1, v15);
   }
 
   else
   {
-    v17 = sub_1A81ACA54();
-    (*(*(v17 - 8) + 56))(v12, 1, 1, v17);
+    v16 = sub_1A81ACA54();
+    (*(*(v16 - 8) + 56))(v11, 1, 1, v16);
   }
 
   storeCopy = store;
-  v19 = selfCopy;
-  v20 = EKRemoteUIObjectSerializer.deserializedRepresentation(serializedDictionary:objectIDToChangeSetDictionaryMap:objectIDToPersistentDictionaryMap:eventStore:occurrenceDate:)(v13, v14, v15, storeCopy, v12);
+  v18 = selfCopy;
+  v19 = EKRemoteUIObjectSerializer.deserializedRepresentation(serializedDictionary:objectIDToChangeSetDictionaryMap:objectIDToPersistentDictionaryMap:eventStore:occurrenceDate:)(v12, v13, v14, storeCopy, v11);
 
-  sub_1A8188C34(v12, &unk_1EB2E2810, &qword_1A81C4330);
+  sub_1A8188C34(v11, &unk_1EB2E2810, &qword_1A81C4330);
 
-  return v20;
+  return v19;
 }
 
 @end

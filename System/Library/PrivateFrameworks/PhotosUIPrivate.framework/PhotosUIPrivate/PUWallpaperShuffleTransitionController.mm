@@ -453,88 +453,88 @@ LABEL_10:
 
 - (void)_updateViewProperties
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   fromViewModel = [(PUWallpaperShuffleTransitionController *)self fromViewModel];
   viewManager = [fromViewModel viewManager];
   fadeOutAnimator = [(PUWallpaperShuffleTransitionController *)self fadeOutAnimator];
-  v33[0] = MEMORY[0x1E69E9820];
-  v33[1] = 3221225472;
-  v33[2] = __63__PUWallpaperShuffleTransitionController__updateViewProperties__block_invoke;
-  v33[3] = &unk_1E7B80328;
+  v35[0] = MEMORY[0x1E69E9820];
+  v35[1] = 3221225472;
+  v35[2] = __63__PUWallpaperShuffleTransitionController__updateViewProperties__block_invoke;
+  v35[3] = &unk_1E7B80328;
   v6 = fadeOutAnimator;
-  v34 = v6;
-  [fromViewModel performChanges:v33];
+  v36 = v6;
+  [fromViewModel performChanges:v35];
   isAnimating = [v6 isAnimating];
-  memset(&v32, 0, sizeof(v32));
-  [(PUWallpaperShuffleTransitionController *)self _inactiveTransformForViewModel:fromViewModel];
-  memset(&v31, 0, sizeof(v31));
+  memset(&v34, 0, sizeof(v34));
+  objc_msgSend__inactiveTransformForViewModel_(self);
+  memset(&v33, 0, sizeof(v33));
   [v6 presentationValue];
-  v35 = v32;
-  PUAffineTransformByLinearlyInterpolatingBetweenTransforms();
+  v37 = v34;
+  PUAffineTransformByLinearlyInterpolatingBetweenTransforms(1.0 - v8, &v33, MEMORY[0x1E695EFD0], &v37);
   PUPosterAdditionalTransformForDeviceOrientation([fromViewModel deviceOrientation], &t2);
-  t1 = v31;
-  CGAffineTransformConcat(&v35, &t1, &t2);
-  v31 = v35;
-  v26[0] = MEMORY[0x1E69E9820];
-  v26[1] = 3221225472;
-  v26[2] = __63__PUWallpaperShuffleTransitionController__updateViewProperties__block_invoke_2;
-  v26[3] = &__block_descriptor_81_e29_v16__0__PUParallaxLayerView_8l;
-  v28 = isAnimating;
-  v27 = v35;
-  PUParallaxLayerStackViewManagerPerformChangesInAllLayerViews(viewManager, v26);
-  v8 = PLWallpaperGetLog();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  t1 = v33;
+  CGAffineTransformConcat(&v37, &t1, &t2);
+  v33 = v37;
+  v28[0] = MEMORY[0x1E69E9820];
+  v28[1] = 3221225472;
+  v28[2] = __63__PUWallpaperShuffleTransitionController__updateViewProperties__block_invoke_2;
+  v28[3] = &__block_descriptor_81_e29_v16__0__PUParallaxLayerView_8l;
+  v30 = isAnimating;
+  v29 = v37;
+  PUParallaxLayerStackViewManagerPerformChangesInAllLayerViews(viewManager, v28);
+  v9 = PLWallpaperGetLog();
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = objc_opt_class();
+    v10 = objc_opt_class();
     [v6 presentationValue];
-    LODWORD(v35.a) = 138412546;
-    *(&v35.a + 4) = v9;
-    WORD2(v35.b) = 2048;
-    *(&v35.b + 6) = v10;
-    _os_log_impl(&dword_1B36F3000, v8, OS_LOG_TYPE_DEFAULT, "[%@] Fade out to: %.2f", &v35, 0x16u);
+    LODWORD(v37.a) = 138412546;
+    *(&v37.a + 4) = v10;
+    WORD2(v37.b) = 2048;
+    *(&v37.b + 6) = v11;
+    _os_log_impl(&dword_1B36F3000, v9, OS_LOG_TYPE_DEFAULT, "[%@] Fade out to: %.2f", &v37, 0x16u);
   }
 
   toViewModel = [(PUWallpaperShuffleTransitionController *)self toViewModel];
   viewManager2 = [toViewModel viewManager];
   fadeInAnimator = [(PUWallpaperShuffleTransitionController *)self fadeInAnimator];
-  v24[0] = MEMORY[0x1E69E9820];
-  v24[1] = 3221225472;
-  v24[2] = __63__PUWallpaperShuffleTransitionController__updateViewProperties__block_invoke_233;
-  v24[3] = &unk_1E7B80328;
-  v14 = fadeInAnimator;
-  v25 = v14;
-  [toViewModel performChanges:v24];
-  isAnimating2 = [v14 isAnimating];
+  v26[0] = MEMORY[0x1E69E9820];
+  v26[1] = 3221225472;
+  v26[2] = __63__PUWallpaperShuffleTransitionController__updateViewProperties__block_invoke_233;
+  v26[3] = &unk_1E7B80328;
+  v15 = fadeInAnimator;
+  v27 = v15;
+  [toViewModel performChanges:v26];
+  isAnimating2 = [v15 isAnimating];
   fadeOutAnimator2 = [(PUWallpaperShuffleTransitionController *)self fadeOutAnimator];
   isAnimating3 = [fadeOutAnimator2 isAnimating];
 
-  memset(&v32, 0, sizeof(v32));
-  [(PUWallpaperShuffleTransitionController *)self _inactiveTransformForViewModel:toViewModel];
-  memset(&v31, 0, sizeof(v31));
-  [v14 presentationValue];
-  v35 = v32;
-  PUAffineTransformByLinearlyInterpolatingBetweenTransforms();
+  memset(&v34, 0, sizeof(v34));
+  objc_msgSend__inactiveTransformForViewModel_(self);
+  memset(&v33, 0, sizeof(v33));
+  [v15 presentationValue];
+  v37 = v34;
+  PUAffineTransformByLinearlyInterpolatingBetweenTransforms(v19, &v33, &v37, MEMORY[0x1E695EFD0]);
   PUPosterAdditionalTransformForDeviceOrientation([toViewModel deviceOrientation], &t2);
-  t1 = v31;
-  CGAffineTransformConcat(&v35, &t1, &t2);
-  v31 = v35;
-  v21[0] = MEMORY[0x1E69E9820];
-  v21[1] = 3221225472;
-  v21[2] = __63__PUWallpaperShuffleTransitionController__updateViewProperties__block_invoke_2_234;
-  v21[3] = &__block_descriptor_81_e29_v16__0__PUParallaxLayerView_8l;
-  v23 = (isAnimating2 ^ 1) & isAnimating3;
-  v22 = v35;
-  PUParallaxLayerStackViewManagerPerformChangesInAllLayerViews(viewManager2, v21);
-  v18 = PLWallpaperGetLog();
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+  t1 = v33;
+  CGAffineTransformConcat(&v37, &t1, &t2);
+  v33 = v37;
+  v23[0] = MEMORY[0x1E69E9820];
+  v23[1] = 3221225472;
+  v23[2] = __63__PUWallpaperShuffleTransitionController__updateViewProperties__block_invoke_2_234;
+  v23[3] = &__block_descriptor_81_e29_v16__0__PUParallaxLayerView_8l;
+  v25 = (isAnimating2 ^ 1) & isAnimating3;
+  v24 = v37;
+  PUParallaxLayerStackViewManagerPerformChangesInAllLayerViews(viewManager2, v23);
+  v20 = PLWallpaperGetLog();
+  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
   {
-    v19 = objc_opt_class();
-    [v14 presentationValue];
-    LODWORD(v35.a) = 138412546;
-    *(&v35.a + 4) = v19;
-    WORD2(v35.b) = 2048;
-    *(&v35.b + 6) = v20;
-    _os_log_impl(&dword_1B36F3000, v18, OS_LOG_TYPE_DEFAULT, "[%@] Fade in to: %.2f", &v35, 0x16u);
+    v21 = objc_opt_class();
+    [v15 presentationValue];
+    LODWORD(v37.a) = 138412546;
+    *(&v37.a + 4) = v21;
+    WORD2(v37.b) = 2048;
+    *(&v37.b + 6) = v22;
+    _os_log_impl(&dword_1B36F3000, v20, OS_LOG_TYPE_DEFAULT, "[%@] Fade in to: %.2f", &v37, 0x16u);
   }
 }
 

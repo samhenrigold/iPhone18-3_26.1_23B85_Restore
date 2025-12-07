@@ -265,7 +265,7 @@
 
         if (equal)
         {
-          [equal smartCamTimestamp];
+          objc_msgSend_smartCamTimestamp(equal);
         }
 
         else

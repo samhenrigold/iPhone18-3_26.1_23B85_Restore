@@ -1,4 +1,5 @@
 @interface TIKeyboardInputManager_zh_SegmentPicker
+- (BOOL)_adjustPhraseBoundaryInForwardDirection:(BOOL)direction granularity:(int)granularity;
 - (BOOL)closeCandidateGenerationContextWithResults:(id)results;
 - (NSString)inputString;
 - (TIKeyboardInputManager_zh_SegmentPicker)initWithConfig:(id)config keyboardState:(id)state segments:(id)segments at:(unint64_t)at wordSearch:(id)search;
@@ -11,6 +12,7 @@
 - (void)openCandidateGenerationContextWithCandidateHandler:(id)handler;
 - (void)selectCandidate:(id)candidate;
 - (void)setPhraseBoundary:(unint64_t)boundary;
+- (void)syncToKeyboardState:(id)state from:(id)from afterContextChange:(BOOL)change;
 - (void)updateMarkedText;
 @end
 
@@ -158,34 +160,34 @@
 
 - (id)markedText
 {
-  v32 = *MEMORY[0x29EDCA608];
+  v31 = *MEMORY[0x29EDCA608];
   rawInputString = [(TIKeyboardInputManager_zh_SegmentPicker *)self rawInputString];
   inputString = [(TIKeyboardInputManager_zh_SegmentPicker *)self inputString];
   inputIndex = [(TIKeyboardInputManager_zh_SegmentPicker *)self inputIndex];
   searchStringForMarkedText = [(TIKeyboardInputManager_zh_SegmentPicker *)self searchStringForMarkedText];
   array = [MEMORY[0x29EDB8DE8] array];
+  v26 = 0u;
   v27 = 0u;
   v28 = 0u;
   v29 = 0u;
-  v30 = 0u;
   selfCopy = self;
   segments = [(TIKeyboardInputManager_zh_SegmentPicker *)self segments];
-  v5 = [segments countByEnumeratingWithState:&v27 objects:v31 count:16];
+  v5 = [segments countByEnumeratingWithState:&v26 objects:v30 count:16];
   if (v5)
   {
     v6 = v5;
     v7 = 0;
-    v8 = *v28;
+    v8 = *v27;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v28 != v8)
+        if (*v27 != v8)
         {
           objc_enumerationMutation(segments);
         }
 
-        v10 = *(*(&v27 + 1) + 8 * i);
+        v10 = *(*(&v26 + 1) + 8 * i);
         surface = [v10 surface];
         v12 = [surface length];
 
@@ -196,7 +198,7 @@
         v7 += [surface2 length];
       }
 
-      v6 = [segments countByEnumeratingWithState:&v27 objects:v31 count:16];
+      v6 = [segments countByEnumeratingWithState:&v26 objects:v30 count:16];
     }
 
     while (v6);
@@ -207,8 +209,6 @@
   v17 = [autoCommitString length];
   v18 = [array copy];
   v19 = [v15 intermediateTextWithInputString:rawInputString displayString:inputString selectionLocation:inputIndex searchString:searchStringForMarkedText candidateOffset:v17 liveConversionSegments:v18 highlightSegmentIndex:-[TIKeyboardInputManager_zh_SegmentPicker index](selfCopy lastInputString:{"index"), 0}];
-
-  v20 = *MEMORY[0x29EDCA608];
 
   return v19;
 }
@@ -373,6 +373,21 @@ LABEL_13:
   return inputString;
 }
 
+- (void)syncToKeyboardState:(id)state from:(id)from afterContextChange:(BOOL)change
+{
+  changeCopy = change;
+  v10.receiver = self;
+  v10.super_class = TIKeyboardInputManager_zh_SegmentPicker;
+  stateCopy = state;
+  [(TIKeyboardInputManagerMecabra *)&v10 syncToKeyboardState:stateCopy from:from afterContextChange:changeCopy];
+  currentCandidate = [stateCopy currentCandidate];
+
+  if (currentCandidate)
+  {
+    [(TIKeyboardInputManager_zh_SegmentPicker *)self selectCandidate:currentCandidate];
+  }
+}
+
 - (void)selectCandidate:(id)candidate
 {
   candidateCopy = candidate;
@@ -417,15 +432,68 @@ LABEL_13:
   [(TIKeyboardInputManager_zh_SegmentPicker *)self updateMarkedText];
 }
 
+- (BOOL)_adjustPhraseBoundaryInForwardDirection:(BOOL)direction granularity:(int)granularity
+{
+  v4 = *&granularity;
+  if (TICanLogMessageAtLevel())
+  {
+    v7 = TIOSLogFacility();
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+    {
+      [(TIKeyboardInputManager_zh_SegmentPicker *)direction _adjustPhraseBoundaryInForwardDirection:v4 granularity:v7];
+    }
+  }
+
+  if (v4 == 4)
+  {
+    goto LABEL_15;
+  }
+
+  if (!v4 && [(TIKeyboardInputManager_zh_SegmentPicker *)self shouldShowCandidateWindow])
+  {
+    index = [(TIKeyboardInputManager_zh_SegmentPicker *)self index];
+    v9 = index;
+    if (direction)
+    {
+      segments = [(TIKeyboardInputManager_zh_SegmentPicker *)self segments];
+      v11 = [segments count] - 1;
+
+      v12 = 1;
+      if (v9 == v11)
+      {
+        return v12;
+      }
+    }
+
+    else
+    {
+      if (!index)
+      {
+LABEL_15:
+        LOBYTE(v12) = 1;
+        return v12;
+      }
+
+      v12 = -1;
+    }
+
+    self->_index = [(TIKeyboardInputManager_zh_SegmentPicker *)self index]+ v12;
+    [(TIKeyboardInputManager_zh_SegmentPicker *)self updateMarkedText];
+    goto LABEL_15;
+  }
+
+  [(TIKeyboardInputManagerMecabra *)self completeComposition];
+  LOBYTE(v12) = 0;
+  return v12;
+}
+
 - (void)_adjustPhraseBoundaryInForwardDirection:(NSObject *)a3 granularity:.cold.1(char a1, uint64_t a2, NSObject *a3)
 {
-  v8 = *MEMORY[0x29EDCA608];
+  v7 = *MEMORY[0x29EDCA608];
   v4 = [MEMORY[0x29EDBA0F8] stringWithFormat:@"%s adjust phrase: %d %d", "-[TIKeyboardInputManager_zh_SegmentPicker _adjustPhraseBoundaryInForwardDirection:granularity:]", a1 & 1, a2];
   *buf = 138412290;
-  v7 = v4;
+  v6 = v4;
   _os_log_debug_impl(&dword_29EA88000, a3, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
-
-  v5 = *MEMORY[0x29EDCA608];
 }
 
 @end

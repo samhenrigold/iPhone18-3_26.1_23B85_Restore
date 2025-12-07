@@ -24,11 +24,11 @@
 
 - (HKWorkoutSessionTaskConfiguration)initWithCoder:(id)coder
 {
-  v20[2] = *MEMORY[0x1E69E9840];
+  v19[2] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
-  v19.receiver = self;
-  v19.super_class = HKWorkoutSessionTaskConfiguration;
-  v5 = [(HKTaskConfiguration *)&v19 initWithCoder:coderCopy];
+  v18.receiver = self;
+  v18.super_class = HKWorkoutSessionTaskConfiguration;
+  v5 = [(HKTaskConfiguration *)&v18 initWithCoder:coderCopy];
   if (v5)
   {
     v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"session_uuid"];
@@ -49,9 +49,9 @@
     v5->_currentActivity = v10;
 
     v12 = MEMORY[0x1E695DFD8];
-    v20[0] = objc_opt_class();
-    v20[1] = objc_opt_class();
-    v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v20 count:2];
+    v19[0] = objc_opt_class();
+    v19[1] = objc_opt_class();
+    v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:2];
     v14 = [v12 setWithArray:v13];
     v15 = [coderCopy decodeObjectOfClasses:v14 forKey:@"activity_configurations"];
     activityConfigurations = v5->_activityConfigurations;
@@ -60,7 +60,6 @@
     v5->_sessionType = [coderCopy decodeIntegerForKey:@"session_type"];
   }
 
-  v17 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

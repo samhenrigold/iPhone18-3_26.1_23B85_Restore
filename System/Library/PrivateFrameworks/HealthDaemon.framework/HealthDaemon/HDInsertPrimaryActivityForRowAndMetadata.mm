@@ -46,15 +46,14 @@ uint64_t ___HDInsertPrimaryActivityForRowAndMetadata_block_invoke_3(void *a1, ui
 
 void ___HDInsertPrimaryActivityForRowAndMetadata_block_invoke_5(uint64_t a1, sqlite3_stmt *a2)
 {
-  v4 = *(a1 + 32);
   HDSQLiteBindFoundationValueToStatement();
   sqlite3_bind_int64(a2, 2, *(a1 + 64));
   sqlite3_bind_int64(a2, 3, *(a1 + 72));
   sqlite3_bind_int64(a2, 4, *(*(*(a1 + 40) + 8) + 24));
   sqlite3_bind_int64(a2, 5, *(*(*(a1 + 48) + 8) + 24));
-  v6 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:*(*(*(a1 + 56) + 8) + 40) requiringSecureCoding:1 error:0];
-  v5 = v6;
-  sqlite3_bind_blob64(a2, 6, [v6 bytes], objc_msgSend(v6, "length"), 0xFFFFFFFFFFFFFFFFLL);
+  v5 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:*(*(*(a1 + 56) + 8) + 40) requiringSecureCoding:1 error:0];
+  v4 = v5;
+  sqlite3_bind_blob64(a2, 6, [v5 bytes], objc_msgSend(v5, "length"), 0xFFFFFFFFFFFFFFFFLL);
   sqlite3_bind_double(a2, 7, *(a1 + 80));
   sqlite3_bind_double(a2, 8, *(a1 + 88));
   sqlite3_bind_double(a2, 9, *(a1 + 96));

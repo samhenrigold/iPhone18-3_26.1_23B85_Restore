@@ -10,17 +10,17 @@
 
 - (id)permanentRefreshTriggers
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   contextDateInterval = [objc_opt_class() contextDateInterval];
-  v3 = __atxlog_handle_context_heuristic();
+  v3 = __atxlog_handle_context_heuristic(contextDateInterval);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     startDate = [contextDateInterval startDate];
     endDate = [contextDateInterval endDate];
     *buf = 138412546;
-    v14 = startDate;
-    v15 = 2112;
-    v16 = endDate;
+    v13 = startDate;
+    v14 = 2112;
+    v15 = endDate;
     _os_log_impl(&dword_23E3EA000, v3, OS_LOG_TYPE_DEFAULT, "ATXHeuristicGoodMorning permanentRefreshTriggers, context valid from %@ to %@", buf, 0x16u);
   }
 
@@ -31,8 +31,6 @@
   v10 = [objc_alloc(MEMORY[0x277CBEB98]) initWithObjects:{v6, v8, 0}];
   objc_autoreleasePoolPop(v9);
 
-  v11 = *MEMORY[0x277D85DE8];
-
   return v10;
 }
 
@@ -40,104 +38,102 @@
 {
   v32 = *MEMORY[0x277D85DE8];
   environmentCopy = environment;
-  v5 = __atxlog_handle_context_heuristic();
+  v5 = __atxlog_handle_context_heuristic(environmentCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
     _os_log_impl(&dword_23E3EA000, v5, OS_LOG_TYPE_DEFAULT, "ATXHeuristicGoodMorning heuristicResultWithEnvironment", buf, 2u);
   }
 
-  if (_os_feature_enabled_impl())
+  v6 = _os_feature_enabled_impl();
+  if (v6)
   {
-    v6 = objc_opt_new();
-    [(ATXHeuristicGoodMorning *)self _addRefreshTimeTriggerWithHour:6 refreshTriggers:v6];
-    [(ATXHeuristicGoodMorning *)self _addRefreshTimeTriggerWithHour:10 refreshTriggers:v6];
     v7 = objc_opt_new();
+    [(ATXHeuristicGoodMorning *)self _addRefreshTimeTriggerWithHour:6 refreshTriggers:v7];
+    [(ATXHeuristicGoodMorning *)self _addRefreshTimeTriggerWithHour:10 refreshTriggers:v7];
+    v8 = objc_opt_new();
     contextDateInterval = [objc_opt_class() contextDateInterval];
-    v9 = [MEMORY[0x277CBEAA8] now];
-    v10 = [contextDateInterval containsDate:v9];
+    v10 = [MEMORY[0x277CBEAA8] now];
+    v11 = [contextDateInterval containsDate:v10];
 
-    if (v10)
+    if (v11)
     {
-      v11 = [[ATXContextWeatherSuggestionProducer alloc] initWithValidDateInterval:contextDateInterval reasonCode:40 score:50.0];
-      dummySuggestion = [(ATXContextWeatherSuggestionProducer *)v11 weatherSuggestionWithRefreshTriggers:v6];
+      v12 = [[ATXContextWeatherSuggestionProducer alloc] initWithValidDateInterval:contextDateInterval reasonCode:40 score:50.0];
+      dummySuggestion = [(ATXContextWeatherSuggestionProducer *)v12 weatherSuggestionWithRefreshTriggers:v7];
       if (!dummySuggestion)
       {
-        dummySuggestion = [(ATXContextWeatherSuggestionProducer *)v11 dummySuggestion];
+        dummySuggestion = [(ATXContextWeatherSuggestionProducer *)v12 dummySuggestion];
       }
 
-      v25 = v11;
-      [v7 addObject:dummySuggestion];
+      v25 = v12;
+      [v8 addObject:dummySuggestion];
       v24 = [[ATXContextAlarmSuggestionProducer alloc] initWithValidDateInterval:contextDateInterval reasonCode:40 score:45.0];
-      v13 = [(ATXContextAlarmSuggestionProducer *)v24 morningAlarmToggleSuggestionsWithEnvironment:environmentCopy];
-      [v7 addObjectsFromArray:v13];
+      v14 = [(ATXContextAlarmSuggestionProducer *)v24 morningAlarmToggleSuggestionsWithEnvironment:environmentCopy];
+      [v8 addObjectsFromArray:v14];
 
-      v14 = [[ATXContextWebsiteSuggestionProducer alloc] initWithValidDateInterval:contextDateInterval reasonCode:40 score:40.0];
-      websiteSuggestions = [(ATXContextWebsiteSuggestionProducer *)v14 websiteSuggestions];
+      v15 = [[ATXContextWebsiteSuggestionProducer alloc] initWithValidDateInterval:contextDateInterval reasonCode:40 score:40.0];
+      websiteSuggestions = [(ATXContextWebsiteSuggestionProducer *)v15 websiteSuggestions];
       v26 = 0u;
       v27 = 0u;
       v28 = 0u;
       v29 = 0u;
-      v16 = [websiteSuggestions countByEnumeratingWithState:&v26 objects:v31 count:16];
-      if (v16)
+      v17 = [websiteSuggestions countByEnumeratingWithState:&v26 objects:v31 count:16];
+      if (v17)
       {
-        v17 = v16;
-        v18 = *v27;
+        v18 = v17;
+        v19 = *v27;
         do
         {
-          for (i = 0; i != v17; ++i)
+          for (i = 0; i != v18; ++i)
           {
-            if (*v27 != v18)
+            if (*v27 != v19)
             {
               objc_enumerationMutation(websiteSuggestions);
             }
 
-            [v7 addObject:*(*(&v26 + 1) + 8 * i)];
+            [v8 addObject:*(*(&v26 + 1) + 8 * i)];
           }
 
-          v17 = [websiteSuggestions countByEnumeratingWithState:&v26 objects:v31 count:16];
+          v18 = [websiteSuggestions countByEnumeratingWithState:&v26 objects:v31 count:16];
         }
 
-        while (v17);
+        while (v18);
       }
     }
 
-    v20 = [[ATXContextHeuristicResult alloc] initWithSuggestions:v7 additionalRefreshTriggers:v6];
+    v21 = [[ATXContextHeuristicResult alloc] initWithSuggestions:v8 additionalRefreshTriggers:v7];
   }
 
   else
   {
-    v21 = __atxlog_handle_context_heuristic();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+    v22 = __atxlog_handle_context_heuristic(v6);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_23E3EA000, v21, OS_LOG_TYPE_DEFAULT, "ATXHeuristicGoodMorning heuristicResultWithEnvironment feature: zkw_routines is off. Dropping", buf, 2u);
+      _os_log_impl(&dword_23E3EA000, v22, OS_LOG_TYPE_DEFAULT, "ATXHeuristicGoodMorning heuristicResultWithEnvironment feature: zkw_routines is off. Dropping", buf, 2u);
     }
 
-    v20 = objc_opt_new();
+    v21 = objc_opt_new();
   }
 
-  v22 = *MEMORY[0x277D85DE8];
-
-  return v20;
+  return v21;
 }
 
 - (void)_addRefreshTimeTriggerWithHour:(unint64_t)hour refreshTriggers:(id)triggers
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   triggersCopy = triggers;
   v6 = [objc_opt_class() nextDateWithHour:hour];
   v7 = [[ATXInformationHeuristicRefreshTimeTrigger alloc] initWithFireDate:v6];
-  v8 = __atxlog_handle_context_heuristic();
+  v8 = __atxlog_handle_context_heuristic(v7);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 138412290;
-    v11 = v6;
-    _os_log_impl(&dword_23E3EA000, v8, OS_LOG_TYPE_DEFAULT, "ATXHeuristicGoodMorning _addRefreshTimeTriggerWithHour adding a trigger at %@", &v10, 0xCu);
+    v9 = 138412290;
+    v10 = v6;
+    _os_log_impl(&dword_23E3EA000, v8, OS_LOG_TYPE_DEFAULT, "ATXHeuristicGoodMorning _addRefreshTimeTriggerWithHour adding a trigger at %@", &v9, 0xCu);
   }
 
   [triggersCopy addObject:v7];
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 + (id)contextDateInterval

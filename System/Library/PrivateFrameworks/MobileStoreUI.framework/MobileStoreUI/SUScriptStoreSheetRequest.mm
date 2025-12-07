@@ -91,13 +91,13 @@
 - (void)setProductParameters:(id)parameters
 {
   parametersCopy = parameters;
-  v5 = SUUIWebCoreFramework();
-  v6 = SUUIWeakLinkedClassForString(&cfstr_Webscriptobjec.isa, v5);
+  v6 = SUUIWebCoreFramework(parametersCopy, v5);
+  v7 = SUUIWeakLinkedClassForString(&cfstr_Webscriptobjec.isa, v6);
   obj = [(SUScriptStoreSheetRequest *)self _safeValueForValue:parametersCopy];
 
   if (obj && (objc_opt_isKindOfClass() & 1) == 0)
   {
-    [v6 throwException:@"Invalid argument"];
+    [v7 throwException:@"Invalid argument"];
   }
 
   else
@@ -115,10 +115,10 @@
 - (void)setProductURL:(id)l
 {
   obj = [(SUScriptStoreSheetRequest *)self _safeValueForValue:l];
-  if (obj && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
+  if (obj && (objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), (isKindOfClass & 1) == 0))
   {
-    v4 = SUUIWebCoreFramework();
-    [SUUIWeakLinkedClassForString(&cfstr_Webscriptobjec.isa v4)];
+    v6 = SUUIWebCoreFramework(isKindOfClass, v5);
+    [SUUIWeakLinkedClassForString(&cfstr_Webscriptobjec.isa v6)];
   }
 
   else
@@ -137,13 +137,14 @@
 {
   valueCopy = value;
   objc_opt_class();
-  if (objc_opt_isKindOfClass() & 1) != 0 || (v4 = SUUIWebCoreFramework(), SUUIWeakLinkedClassForString(&cfstr_Webundefined.isa, v4), v5 = valueCopy, (objc_opt_isKindOfClass()))
+  isKindOfClass = objc_opt_isKindOfClass();
+  if (isKindOfClass & 1) != 0 || (v6 = SUUIWebCoreFramework(isKindOfClass, v5), SUUIWeakLinkedClassForString(&cfstr_Webundefined.isa, v6), v7 = valueCopy, (objc_opt_isKindOfClass()))
   {
 
-    v5 = 0;
+    v7 = 0;
   }
 
-  return v5;
+  return v7;
 }
 
 + (id)webScriptNameForKey:(const char *)key

@@ -55,7 +55,7 @@
   if (fallbacks)
   {
     v26 = [MEMORY[0x277CCABB0] numberWithInteger:subtype];
-    v27 = [&unk_28336DB60 containsObject:v26];
+    v27 = objc_msgSend_containsObject_(&unk_28336DB60);
 
     if ((v27 & 1) == 0)
     {

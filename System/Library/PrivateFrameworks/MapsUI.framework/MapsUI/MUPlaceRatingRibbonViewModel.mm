@@ -111,11 +111,11 @@
 
 id __54__MUPlaceRatingRibbonViewModel__updateStringProviders__block_invoke(uint64_t a1)
 {
-  v72 = *MEMORY[0x1E69E9840];
+  v71 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   if (WeakRetained)
   {
-    v67 = WeakRetained;
+    v66 = WeakRetained;
     v3 = [*(a1 + 32) _geoMapItem];
     if ([v3 _hasAppleRatings])
     {
@@ -150,7 +150,7 @@ id __54__MUPlaceRatingRibbonViewModel__updateStringProviders__block_invoke(uint6
     v16 = [v15 _mapkit_fontWithWeight:*MEMORY[0x1E69DB980]];
     v17 = [v11 configurationWithFont:v16 scale:1];
     v18 = [v10 systemImageNamed:v14 withConfiguration:v17];
-    v66 = v14;
+    v65 = v14;
 
     v19 = [v18 imageWithRenderingMode:2];
 
@@ -159,22 +159,22 @@ id __54__MUPlaceRatingRibbonViewModel__updateStringProviders__block_invoke(uint6
     v22 = v19;
     v23 = objc_alloc_init(v21);
     v24 = [v22 imageWithRenderingMode:2];
-    v65 = v22;
+    v64 = v22;
 
     [v23 setImage:v24];
     v25 = [MEMORY[0x1E696AAB0] attributedStringWithAttachment:v23];
     v26 = [objc_alloc(MEMORY[0x1E696AD40]) initWithAttributedString:v25];
     v27 = *MEMORY[0x1E69DB650];
-    v68 = *MEMORY[0x1E69DB650];
-    v70 = v20;
+    v67 = *MEMORY[0x1E69DB650];
+    v69 = v20;
     v28 = MEMORY[0x1E695DF20];
     v29 = v20;
-    v30 = [v28 dictionaryWithObjects:&v70 forKeys:&v68 count:1];
+    v30 = [v28 dictionaryWithObjects:&v69 forKeys:&v67 count:1];
 
     [v26 addAttributes:v30 range:{0, objc_msgSend(v26, "length")}];
-    v63 = [v26 copy];
+    v62 = [v26 copy];
 
-    v64 = v29;
+    v63 = v29;
     v31 = [*(a1 + 32) _geoMapItem];
     LODWORD(v23) = [v31 _hasAppleRatings];
 
@@ -206,29 +206,29 @@ id __54__MUPlaceRatingRibbonViewModel__updateStringProviders__block_invoke(uint6
     v44 = [MEMORY[0x1E69DB878] preferredFontForTextStyle:*MEMORY[0x1E69DDCF8]];
     v45 = *MEMORY[0x1E69DB970];
     v46 = [v44 _mapkit_fontWithWeight:*MEMORY[0x1E69DB970]];
-    v68 = *MEMORY[0x1E69DB648];
-    v47 = v68;
-    v69 = v27;
+    v67 = *MEMORY[0x1E69DB648];
+    v47 = v67;
+    v68 = v27;
     v48 = v27;
-    v70 = v46;
-    v71 = v8;
+    v69 = v46;
+    v70 = v8;
     v49 = MEMORY[0x1E695DF20];
     v50 = v8;
-    v51 = [v49 dictionaryWithObjects:&v70 forKeys:&v68 count:2];
+    v51 = [v49 dictionaryWithObjects:&v69 forKeys:&v67 count:2];
 
     v52 = [v42 initWithString:v40 attributes:v51];
     v53 = objc_alloc_init(MEMORY[0x1E695DF70]);
-    [v53 addObject:v63];
+    [v53 addObject:v62];
     v54 = objc_alloc(MEMORY[0x1E696AAB0]);
     v55 = [MEMORY[0x1E69DB878] preferredFontForTextStyle:v43];
     v56 = [v55 _mapkit_fontWithWeight:v45];
-    v68 = v47;
-    v69 = v48;
-    v70 = v56;
-    v71 = v50;
+    v67 = v47;
+    v68 = v48;
+    v69 = v56;
+    v70 = v50;
     v57 = MEMORY[0x1E695DF20];
     v58 = v50;
-    v59 = [v57 dictionaryWithObjects:&v70 forKeys:&v68 count:2];
+    v59 = [v57 dictionaryWithObjects:&v69 forKeys:&v67 count:2];
 
     v60 = [v54 initWithString:@" " attributes:v59];
     [v53 addObject:v60];
@@ -236,15 +236,13 @@ id __54__MUPlaceRatingRibbonViewModel__updateStringProviders__block_invoke(uint6
     [v53 addObject:v52];
     v6 = [MapsUILayout buildAttributedDisplayStringForComponents:v53 reverseIfRTLLayout:1];
 
-    WeakRetained = v67;
+    WeakRetained = v66;
   }
 
   else
   {
     v6 = 0;
   }
-
-  v61 = *MEMORY[0x1E69E9840];
 
   return v6;
 }

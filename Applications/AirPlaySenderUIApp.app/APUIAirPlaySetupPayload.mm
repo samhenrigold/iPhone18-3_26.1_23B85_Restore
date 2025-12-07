@@ -161,7 +161,7 @@
   equalCopy = equal;
   if (!equalCopy || (NSClassFromString(@"APUIAirPlaySetupPayload"), (objc_opt_isKindOfClass() & 1) == 0))
   {
-    v34 = 0;
+    v29 = 0;
     v8 = 0;
     goto LABEL_48;
   }
@@ -191,14 +191,13 @@
   }
 
   v11 = wifiSSID2;
-  v12 = self->_wifiSSID;
   [v8 wifiSSID];
   objc_claimAutoreleasedReturnValue();
-  v13 = [sub_100004F40() isEqualToString:?];
+  v12 = [sub_100004F40() isEqualToString:?];
 
   if (wifiSSID)
   {
-    if (!v13)
+    if (!v12)
     {
       goto LABEL_47;
     }
@@ -207,7 +206,7 @@
   else
   {
 
-    if ((v13 & 1) == 0)
+    if ((v12 & 1) == 0)
     {
       goto LABEL_47;
     }
@@ -236,15 +235,14 @@ LABEL_12:
     goto LABEL_45;
   }
 
-  v16 = wifiPassphrase2;
-  wifiPassphrase = self->_wifiPassphrase;
+  v15 = wifiPassphrase2;
   [v8 wifiPassphrase];
   objc_claimAutoreleasedReturnValue();
-  v18 = [sub_100004F40() isEqualToString:?];
+  v16 = [sub_100004F40() isEqualToString:?];
 
   if (wifiSSID)
   {
-    if (!v18)
+    if (!v16)
     {
       goto LABEL_47;
     }
@@ -253,7 +251,7 @@ LABEL_12:
   else
   {
 
-    if ((v18 & 1) == 0)
+    if ((v16 & 1) == 0)
     {
       goto LABEL_47;
     }
@@ -282,15 +280,14 @@ LABEL_21:
     goto LABEL_45;
   }
 
-  v21 = captivePortalAuthToken2;
-  captivePortalAuthToken = self->_captivePortalAuthToken;
+  v19 = captivePortalAuthToken2;
   [v8 captivePortalAuthToken];
   objc_claimAutoreleasedReturnValue();
-  v23 = [sub_100004F40() isEqual:?];
+  v20 = [sub_100004F40() isEqual:?];
 
   if (wifiSSID)
   {
-    if (!v23)
+    if (!v20)
     {
       goto LABEL_47;
     }
@@ -299,7 +296,7 @@ LABEL_21:
   else
   {
 
-    if ((v23 & 1) == 0)
+    if ((v20 & 1) == 0)
     {
       goto LABEL_47;
     }
@@ -334,15 +331,14 @@ LABEL_30:
     goto LABEL_45;
   }
 
-  v26 = brokerToken2;
-  brokerToken = self->_brokerToken;
+  v23 = brokerToken2;
   [v8 brokerToken];
   objc_claimAutoreleasedReturnValue();
-  v28 = [sub_100004F40() isEqualToString:?];
+  v24 = [sub_100004F40() isEqualToString:?];
 
   if (wifiSSID)
   {
-    if (!v28)
+    if (!v24)
     {
       goto LABEL_47;
     }
@@ -351,7 +347,7 @@ LABEL_30:
   else
   {
 
-    if ((v28 & 1) == 0)
+    if ((v24 & 1) == 0)
     {
       goto LABEL_47;
     }
@@ -388,36 +384,35 @@ LABEL_45:
     goto LABEL_46;
   }
 
-  v31 = receiverToken2;
-  receiverToken = self->_receiverToken;
+  v27 = receiverToken2;
   [v8 receiverToken];
   objc_claimAutoreleasedReturnValue();
-  v33 = [sub_100004F40() isEqualToString:?];
+  v28 = [sub_100004F40() isEqualToString:?];
 
   if (!wifiSSID)
   {
 
-    if ((v33 & 1) == 0)
+    if ((v28 & 1) == 0)
     {
       goto LABEL_47;
     }
 
 LABEL_53:
     routeToReceiver = self->_routeToReceiver;
-    v34 = routeToReceiver == [v8 routeToReceiver];
+    v29 = routeToReceiver == [v8 routeToReceiver];
     goto LABEL_48;
   }
 
-  if (v33)
+  if (v28)
   {
     goto LABEL_53;
   }
 
 LABEL_47:
-  v34 = 0;
+  v29 = 0;
 LABEL_48:
 
-  return v34;
+  return v29;
 }
 
 @end

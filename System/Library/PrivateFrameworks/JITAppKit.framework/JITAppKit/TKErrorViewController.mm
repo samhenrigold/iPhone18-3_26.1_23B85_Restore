@@ -92,7 +92,6 @@
   MEMORY[0x277D82BD8](topAnchor2);
   MEMORY[0x277D82BD8](view5);
   MEMORY[0x277D82BD8](topAnchor);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)viewDidLoad

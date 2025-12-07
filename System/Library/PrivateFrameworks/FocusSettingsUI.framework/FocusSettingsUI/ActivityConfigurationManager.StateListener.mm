@@ -15,7 +15,7 @@
 
 - (_TtCC15FocusSettingsUI28ActivityConfigurationManagerP33_2D32E0A4A8017E0B91C01818CA0AAB7813StateListener)init
 {
-  v2 = (&self->super.isa + OBJC_IVAR____TtCC15FocusSettingsUI28ActivityConfigurationManagerP33_2D32E0A4A8017E0B91C01818CA0AAB7813StateListener_stateDidChange);
+  v2 = (self + OBJC_IVAR____TtCC15FocusSettingsUI28ActivityConfigurationManagerP33_2D32E0A4A8017E0B91C01818CA0AAB7813StateListener_stateDidChange);
   *v2 = nullsub_1;
   v2[1] = 0;
   v4.receiver = self;

@@ -13,6 +13,7 @@
 - (void)encodeSignalEvent:(id)event value:(unint64_t)value;
 - (void)encodeSubmitSleepMS:(unsigned int)s;
 - (void)encodeWaitForEvent:(id)event value:(unint64_t)value;
+- (void)encodeWaitForEvent:(id)event value:(unint64_t)value timeout:(unsigned int)timeout;
 - (void)getCurrentKernelCommandBufferPointer:(void *)pointer end:(void *)end;
 - (void)getCurrentKernelCommandBufferStart:(void *)start current:(void *)current end:(void *)end;
 - (void)kernelCommandCollectTimeStamp;
@@ -23,6 +24,7 @@
 - (void)setCurrentSegmentListPointer:(void *)pointer;
 - (void)setLabel:(id)label;
 - (void)setProtectionOptions:(unint64_t)options;
+- (void)setResponsibleTaskIDs:(const unsigned int *)ds count:(unsigned int)count;
 - (void)validate;
 @end
 
@@ -32,8 +34,8 @@
 {
   modeCopy = mode;
   referencesCopy = references;
-  v14.receiver = self;
-  v14.super_class = MTLIOAccelCommandBuffer;
+  v13.receiver = self;
+  v13.super_class = MTLIOAccelCommandBuffer;
   v8 = [_MTLCommandBuffer initWithQueue:sel_initWithQueue_retainedReferences_synchronousDebugMode_ retainedReferences:? synchronousDebugMode:?];
   if (v8)
   {
@@ -55,7 +57,6 @@
       v8->_storage->var23 = NextGlobalTraceID;
       if (**MEMORY[0x1E69A8488])
       {
-        globalTraceObjectID = v8->super._globalTraceObjectID;
         IOAccelDeviceTraceEvent();
       }
     }
@@ -72,14 +73,12 @@
 
 - (void)setLabel:(id)label
 {
-  v7.receiver = self;
-  v7.super_class = MTLIOAccelCommandBuffer;
-  [(_MTLObjectWithLabel *)&v7 setLabel:?];
+  v5.receiver = self;
+  v5.super_class = MTLIOAccelCommandBuffer;
+  [(_MTLObjectWithLabel *)&v5 setLabel:?];
   if (**MEMORY[0x1E69A8488])
   {
     [(MTLDevice *)self->_device deviceRef];
-    globalTraceObjectID = self->super._globalTraceObjectID;
-    labelTraceID = self->super._labelTraceID;
     [label cStringUsingEncoding:1];
     self->super._labelTraceID = IOAccelDeviceTraceObjectLabel();
   }
@@ -189,13 +188,12 @@
   MTLIOAccelCommandBufferStorageFinalizeShmemHeader(self->_storage, v3, v4, v5, v6, v7, v8, v9);
   if (**MEMORY[0x1E69A8488])
   {
-    globalTraceObjectID = self->super._globalTraceObjectID;
     IOAccelDeviceTraceEvent();
   }
 
-  v11.receiver = self;
-  v11.super_class = MTLIOAccelCommandBuffer;
-  [(_MTLCommandBuffer *)&v11 commit];
+  v10.receiver = self;
+  v10.super_class = MTLIOAccelCommandBuffer;
+  [(_MTLCommandBuffer *)&v10 commit];
 }
 
 - (void)commitAndReset
@@ -245,12 +243,11 @@
 
 - (void)setCurrentCommandEncoder:(id)encoder
 {
-  v7.receiver = self;
-  v7.super_class = MTLIOAccelCommandBuffer;
-  [(_MTLCommandBuffer *)&v7 setCurrentCommandEncoder:?];
+  v6.receiver = self;
+  v6.super_class = MTLIOAccelCommandBuffer;
+  [(_MTLCommandBuffer *)&v6 setCurrentCommandEncoder:?];
   if (**MEMORY[0x1E69A8488])
   {
-    globalTraceObjectID = self->super._globalTraceObjectID;
     [encoder globalTraceObjectID];
     getpid();
     IOAccelDeviceTraceEvent();
@@ -391,6 +388,29 @@
   }
 }
 
+- (void)encodeWaitForEvent:(id)event value:(unint64_t)value timeout:(unsigned int)timeout
+{
+  v8 = *&timeout;
+  if (self->super._currentCommandEncoder)
+  {
+    [(MTLIOAccelCommandBuffer *)self encodeWaitForEvent:a2 value:event timeout:value, *&timeout, v5, v6, v7, v19];
+  }
+
+  [(MTLIOAccelCommandBuffer *)self commitEncoder];
+  v12 = [(MTLIOAccelCommandBuffer *)self _reserveKernelCommandBufferSpace:24];
+  *(v12 + 2) = 0;
+  *(v12 + 1) = 0;
+  *v12 = [event encodeKernelWaitEventCommandArgs:v12 + 2 value:value timeout:v8];
+  v12[1] = 24;
+  MTLIOAccelCommandBufferStorageBeginKernelCommands(self->_storage, v12, v13, v14, v15, v16, v17, v18);
+  MTLIOAccelCommandBufferStorageEndKernelCommands(self->_storage, v12 + 24);
+  if (self->super._retainedReferences)
+  {
+
+    [(_MTLCommandBuffer *)self _addRetainedObject:event];
+  }
+}
+
 - (void)encodeConditionalAbortEvent:(id)event
 {
   if (self->super._currentCommandEncoder)
@@ -464,40 +484,40 @@
 
 - (void)_encodePurgedResources
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v3 = 4 * [(NSMutableSet *)self->_purgedResources count]+ 12;
   v4 = [(MTLIOAccelCommandBuffer *)self _reserveKernelCommandBufferSpace:v3];
   *v4 = 9;
   v4[1] = v3;
-  v19 = v3;
+  v18 = v3;
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   purgedResources = self->_purgedResources;
-  v6 = [(NSMutableSet *)purgedResources countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v6 = [(NSMutableSet *)purgedResources countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v6)
   {
     v13 = v6;
     v14 = 0;
-    v15 = *v21;
+    v15 = *v20;
     do
     {
       v16 = 0;
       v17 = v14;
       do
       {
-        if (*v21 != v15)
+        if (*v20 != v15)
         {
           objc_enumerationMutation(purgedResources);
         }
 
         v14 = v17 + 1;
-        v4[v17++ + 3] = *(*(*(&v20 + 1) + 8 * v16++) + 80);
+        v4[v17++ + 3] = *(*(*(&v19 + 1) + 8 * v16++) + 80);
       }
 
       while (v13 != v16);
-      v13 = [(NSMutableSet *)purgedResources countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v13 = [(NSMutableSet *)purgedResources countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v13);
@@ -510,10 +530,53 @@
 
   v4[2] = v14;
   MTLIOAccelCommandBufferStorageBeginKernelCommands(self->_storage, v4, v7, v8, v9, v10, v11, v12);
-  MTLIOAccelCommandBufferStorageEndKernelCommands(self->_storage, v4 + v19);
+  MTLIOAccelCommandBufferStorageEndKernelCommands(self->_storage, v4 + v18);
 
   self->_purgedResources = 0;
-  v18 = *MEMORY[0x1E69E9840];
+}
+
+- (void)setResponsibleTaskIDs:(const unsigned int *)ds count:(unsigned int)count
+{
+  dsCopy = ds;
+  if (self->super._currentCommandEncoder)
+  {
+    [(MTLIOAccelCommandBuffer *)self setResponsibleTaskIDs:a2 count:ds, *&count, v4, v5, v6, v7, v24];
+  }
+
+  [(MTLIOAccelCommandBuffer *)self commitEncoder];
+  if (dsCopy)
+  {
+    countCopy = count;
+  }
+
+  else
+  {
+    countCopy = 0;
+  }
+
+  v12 = (4 * countCopy + 15) & 0xFFFFFFFC;
+  0x7FFFFFFFCLL = [(MTLIOAccelCommandBuffer *)self _reserveKernelCommandBufferSpace:(4 * countCopy + 15) & 0x7FFFFFFFCLL];
+  v20 = 0x7FFFFFFFCLL;
+  *0x7FFFFFFFCLL = 14;
+  0x7FFFFFFFCLL[1] = v12;
+  0x7FFFFFFFCLL[2] = countCopy;
+  if (countCopy)
+  {
+    v21 = 0x7FFFFFFFCLL + 3;
+    do
+    {
+      v22 = *dsCopy++;
+      *v21++ = v22;
+      --countCopy;
+    }
+
+    while (countCopy);
+  }
+
+  MTLIOAccelCommandBufferStorageBeginKernelCommands(self->_storage, 0x7FFFFFFFCLL, v14, v15, v16, v17, v18, v19);
+  storage = self->_storage;
+
+  MTLIOAccelCommandBufferStorageEndKernelCommands(storage, v20 + v12);
 }
 
 @end

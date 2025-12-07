@@ -1,7 +1,10 @@
 @interface SQLiteStatement
 - (int)clearBindings;
+- (void)bindArray:(id)array atPosition:(int)position;
 - (void)bindData:(id)data atPosition:(int)position;
 - (void)bindDataCopy:(id)copy atPosition:(int)position;
+- (void)bindDate:(id)date atPosition:(int)position;
+- (void)bindDictionary:(id)dictionary atPosition:(int)position;
 - (void)bindDouble:(double)double atPosition:(int)position;
 - (void)bindFloat:(float)float atPosition:(int)position;
 - (void)bindInt64:(int64_t)int64 atPosition:(int)position;
@@ -10,9 +13,18 @@
 - (void)bindNumber:(id)number atPosition:(int)position;
 - (void)bindString:(id)string atPosition:(int)position;
 - (void)bindStringCopy:(id)copy atPosition:(int)position;
+- (void)bindURL:(id)l atPosition:(int)position;
+- (void)bindUUID:(id)d atPosition:(int)position;
 @end
 
 @implementation SQLiteStatement
+
+- (void)bindArray:(id)array atPosition:(int)position
+{
+  v4 = *&position;
+  v6 = [NSJSONSerialization dataWithJSONObject:array options:0 error:0];
+  [(SQLiteStatement *)self bindData:v6 atPosition:v4];
+}
 
 - (void)bindData:(id)data atPosition:(int)position
 {
@@ -46,6 +58,21 @@
   {
     [NSException raise:NSInternalInconsistencyException format:@"Statement already finalized"];
   }
+}
+
+- (void)bindDate:(id)date atPosition:(int)position
+{
+  v4 = *&position;
+  [date timeIntervalSinceReferenceDate];
+
+  [(SQLiteStatement *)self bindDouble:v4 atPosition:?];
+}
+
+- (void)bindDictionary:(id)dictionary atPosition:(int)position
+{
+  v4 = *&position;
+  v6 = [NSJSONSerialization dataWithJSONObject:dictionary options:0 error:0];
+  [(SQLiteStatement *)self bindData:v6 atPosition:v4];
 }
 
 - (void)bindDouble:(double)double atPosition:(int)position
@@ -220,6 +247,20 @@ LABEL_12:
 
     [NSException raise:NSInternalInconsistencyException format:@"Statement already finalized"];
   }
+}
+
+- (void)bindUUID:(id)d atPosition:(int)position
+{
+  v4 = *&position;
+  uUIDString = [d UUIDString];
+  [(SQLiteStatement *)self bindString:uUIDString atPosition:v4];
+}
+
+- (void)bindURL:(id)l atPosition:(int)position
+{
+  v4 = *&position;
+  absoluteString = [l absoluteString];
+  [(SQLiteStatement *)self bindString:absoluteString atPosition:v4];
 }
 
 - (int)clearBindings

@@ -36,14 +36,15 @@
   v8 = connectionCopy;
   if (connectionCopy)
   {
-    [connectionCopy auditToken];
+    objc_msgSend_auditToken(connectionCopy);
   }
 
   HasEntitlement = WBSAuditTokenHasEntitlement();
+  v11 = HasEntitlement;
   if (HasEntitlement)
   {
-    v10 = WBSAuthenticationServicesAgentCredentialSharingGroupsUserNotificationsInterface();
-    [v8 setExportedInterface:{v10, 0, 0, 0, 0}];
+    v12 = WBSAuthenticationServicesAgentCredentialSharingGroupsUserNotificationsInterface();
+    [v8 setExportedInterface:{v12, 0, 0, 0, 0}];
 
     [v8 setExportedObject:self->_notificationManager];
     [v8 resume];
@@ -51,14 +52,14 @@
 
   else
   {
-    v11 = WBS_LOG_CHANNEL_PREFIXAuthenticationServicesAgent();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
+    v13 = WBS_LOG_CHANNEL_PREFIXAuthenticationServicesAgent(HasEntitlement, v10);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
     {
-      [_ASAgentCredentialSharingGroupsListener listener:v11 shouldAcceptNewConnection:?];
+      [_ASAgentCredentialSharingGroupsListener listener:v13 shouldAcceptNewConnection:?];
     }
   }
 
-  return HasEntitlement;
+  return v11;
 }
 
 @end

@@ -259,7 +259,7 @@ void __57__SKUIProductPageDataConsumer_productPageWithDictionary___block_invoke(
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0 || (-[SKUIProductPageDataConsumer productPageWithDictionary:](self, "productPageWithDictionary:", v12), v14 = objc_claimAutoreleasedReturnValue(), [responseCopy URL], v15 = objc_claimAutoreleasedReturnValue(), -[SKUIProductPage setPageURL:](v14, "setPageURL:", v15), v15, !v14))
   {
-    if ([v11 isEqualToString:@"text/html"])
+    if (objc_msgSend_isEqualToString_(v11))
     {
       v16 = [MEMORY[0x277CCA9B8] errorWithDomain:@"SKUIErrorDomain" code:1 userInfo:0];
 

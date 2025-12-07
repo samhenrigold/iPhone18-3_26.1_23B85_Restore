@@ -16,26 +16,24 @@
 
 - (id)attributeDescriptions
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277D0F778]);
   conditions = [(HMDBulletinNotificationRegistration *)self conditions];
   v5 = [v3 initWithName:@"conditions" value:conditions];
-  v9[0] = v5;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v8[0] = v5;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
 
   return v6;
 }
 
 - (HMDBulletinNotificationRegistration)initWithCoder:(id)coder
 {
-  v20[2] = *MEMORY[0x277D85DE8];
+  v19[2] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   v5 = MEMORY[0x277CBEB98];
-  v20[0] = objc_opt_class();
-  v20[1] = objc_opt_class();
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:2];
+  v19[0] = objc_opt_class();
+  v19[1] = objc_opt_class();
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:2];
   v7 = [v5 setWithArray:v6];
   v8 = [coderCopy decodeObjectOfClasses:v7 forKey:@"HMDBNR.ck.c"];
 
@@ -53,18 +51,17 @@
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       v13 = HMFGetLogIdentifier();
-      v16 = 138543618;
-      v17 = v13;
-      v18 = 2112;
-      v19 = 0;
-      _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_ERROR, "%{public}@Could not initialize from decoded conditions: %@", &v16, 0x16u);
+      v15 = 138543618;
+      v16 = v13;
+      v17 = 2112;
+      v18 = 0;
+      _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_ERROR, "%{public}@Could not initialize from decoded conditions: %@", &v15, 0x16u);
     }
 
     objc_autoreleasePoolPop(v11);
     v10 = 0;
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -115,37 +112,35 @@
 
 - (id)serializedRegistrationForRemoteMessage
 {
-  v16[2] = *MEMORY[0x277D85DE8];
+  v15[2] = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CBEB18];
   conditions = [(HMDBulletinNotificationRegistration *)self conditions];
   v5 = [v3 arrayWithCapacity:{objc_msgSend(conditions, "count")}];
 
   conditions2 = [(HMDBulletinNotificationRegistration *)self conditions];
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __77__HMDBulletinNotificationRegistration_serializedRegistrationForRemoteMessage__block_invoke;
-  v13[3] = &unk_278672688;
-  v13[4] = self;
-  v14 = v5;
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __77__HMDBulletinNotificationRegistration_serializedRegistrationForRemoteMessage__block_invoke;
+  v12[3] = &unk_278672688;
+  v12[4] = self;
+  v13 = v5;
   v7 = v5;
-  [conditions2 hmf_enumerateWithAutoreleasePoolUsingBlock:v13];
+  [conditions2 hmf_enumerateWithAutoreleasePoolUsingBlock:v12];
 
-  v15[0] = @"HMDBNR.reg.type";
+  v14[0] = @"HMDBNR.reg.type";
   type = [objc_opt_class() type];
-  v16[0] = type;
-  v15[1] = @"HMDBNR.ck.c";
-  v9 = [v7 copy];
-  v16[1] = v9;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:2];
-
-  v11 = *MEMORY[0x277D85DE8];
+  v15[0] = type;
+  v14[1] = @"HMDBNR.ck.c";
+  v9 = objc_msgSend_copy(v7);
+  v15[1] = v9;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:2];
 
   return v10;
 }
 
 void __77__HMDBulletinNotificationRegistration_serializedRegistrationForRemoteMessage__block_invoke(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 serializedRegistrationForRemoteMessage];
   if (v4)
@@ -161,17 +156,15 @@ void __77__HMDBulletinNotificationRegistration_serializedRegistrationForRemoteMe
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       v8 = HMFGetLogIdentifier();
-      v10 = 138543618;
-      v11 = v8;
-      v12 = 2112;
-      v13 = v3;
-      _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_ERROR, "%{public}@Unable to serialize condition %@ for remote message", &v10, 0x16u);
+      v9 = 138543618;
+      v10 = v8;
+      v11 = 2112;
+      v12 = v3;
+      _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_ERROR, "%{public}@Unable to serialize condition %@ for remote message", &v9, 0x16u);
     }
 
     objc_autoreleasePoolPop(v5);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (HMDBulletinNotificationRegistration)initWithDictionary:(id)dictionary
@@ -197,7 +190,7 @@ void __77__HMDBulletinNotificationRegistration_serializedRegistrationForRemoteMe
 
 void __58__HMDBulletinNotificationRegistration_initWithDictionary___block_invoke(uint64_t a1, void *a2)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_opt_class();
   v5 = off_2786662D8;
@@ -222,17 +215,15 @@ void __58__HMDBulletinNotificationRegistration_initWithDictionary___block_invoke
     if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
     {
       v14 = HMFGetLogIdentifier();
-      v16 = 138543618;
-      v17 = v14;
-      v18 = 2112;
-      v19 = v3;
-      _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_INFO, "%{public}@Dropping unknown type : %@", &v16, 0x16u);
+      v15 = 138543618;
+      v16 = v14;
+      v17 = 2112;
+      v18 = v3;
+      _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_INFO, "%{public}@Dropping unknown type : %@", &v15, 0x16u);
     }
 
     objc_autoreleasePoolPop(v11);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (NSPredicate)predicate

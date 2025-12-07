@@ -268,13 +268,13 @@ LABEL_12:
     {
       traitCollection = [(CKImageBalloonView *)v3 traitCollection];
       v11 = [_TtC7ChatKit18CKBalloonMaskLayer alloc];
-      [(CKImageBalloonView *)v3 imageContentMaskBalloonDescriptor];
+      objc_msgSend_imageContentMaskBalloonDescriptor(v3);
       v12 = [(CKBalloonMaskLayer *)v11 initWithDescriptor:v22];
       imageContentViewMaskLayer = v3->_imageContentViewMaskLayer;
       v3->_imageContentViewMaskLayer = v12;
 
       v14 = [_TtC7ChatKit14CKBalloonLayer alloc];
-      [(CKImageBalloonView *)v3 imageBackdropBalloonDescriptor];
+      objc_msgSend_imageBackdropBalloonDescriptor(v3);
       v15 = [(CKBalloonLayer *)v14 initWithDescriptor:v22 traitCollection:traitCollection];
       imageContentBackdropBalloonLayer = v3->_imageContentBackdropBalloonLayer;
       v3->_imageContentBackdropBalloonLayer = v15;
@@ -610,7 +610,7 @@ LABEL_10:
   v109 = 0u;
   v106 = 0u;
   v107 = 0u;
-  [(CKImageBalloonView *)self imageContentMaskBalloonDescriptor];
+  objc_msgSend_imageContentMaskBalloonDescriptor(self);
   imageContentViewMaskLayer = self->_imageContentViewMaskLayer;
   v105[4] = v110;
   v105[5] = v111;
@@ -660,7 +660,7 @@ LABEL_19:
   }
 
   v98 = [_TtC7ChatKit18CKBalloonMaskLayer alloc];
-  [(CKBalloonView *)self balloonDescriptor];
+  objc_msgSend_balloonDescriptor(self);
   v99 = [(CKBalloonMaskLayer *)v98 initWithDescriptor:v105];
   [(CKImageBalloonView *)self bounds];
   [(CKBalloonMaskLayer *)v99 setFrame:?];
@@ -679,7 +679,7 @@ LABEL_22:
   *&retstr->var7.blue = 0u;
   *&retstr->var0 = 0u;
   *&retstr->var5 = 0u;
-  [(CKBalloonView *)self balloonDescriptor];
+  objc_msgSend_balloonDescriptor(self, a3);
   result = [(CKImageBalloonView *)self imageInsets];
   v9.f64[1] = v6;
   v10.f64[0] = v7;
@@ -1153,7 +1153,7 @@ LABEL_8:
 {
   animatedImage = [(CKImageBalloonView *)self animatedImage];
   image = [animatedImage image];
-  [image duration];
+  objc_msgSend_duration(image);
   v6 = v5;
 
   v7 = 5.0;
@@ -1236,7 +1236,7 @@ LABEL_10:
     if (os_log_shim_legacy_logging_enabled() && _CKShouldLog())
     {
       backdropFilterLayer = [(CKBalloonView *)self backdropFilterLayer];
-      _CKAssert(backdropFilterLayer == 0);
+      _CKAssert(backdropFilterLayer == 0, 0x2Bu, @"Cannot have two backdrop filter layers", v9, v10, v11, v12, v13, v23.receiver);
     }
 
     backdropFilterLayer2 = [(CKBalloonView *)self backdropFilterLayer];
@@ -1252,15 +1252,15 @@ LABEL_10:
     layer = [(CKImageBalloonView *)self layer];
     [layer setAllowsGroupBlending:0];
 
-    v12 = objc_alloc_init(MEMORY[0x1E6979310]);
+    v17 = objc_alloc_init(MEMORY[0x1E6979310]);
     [(CKImageBalloonView *)self bounds];
-    [v12 setFrame:?];
-    [v12 setGroupName:@"FSMBackdropGroup"];
+    [v17 setFrame:?];
+    [v17 setGroupName:@"FSMBackdropGroup"];
     balloonBackdropFilters2 = [filterCopy balloonBackdropFilters];
-    [v12 setFilters:balloonBackdropFilters2];
+    [v17 setFilters:balloonBackdropFilters2];
 
-    [v12 setScale:0.25];
-    [(CKBalloonView *)self setBackdropFilterLayer:v12];
+    [v17 setScale:0.25];
+    [(CKBalloonView *)self setBackdropFilterLayer:v17];
     [(CKBalloonView *)self setInvisibleInkEffectEnabled:0];
   }
 
@@ -1272,9 +1272,9 @@ LABEL_10:
   balloonCompositingFilter = [filterCopy balloonCompositingFilter];
   [layer3 setCompositingFilter:balloonCompositingFilter];
 
-  v18.receiver = self;
-  v18.super_class = CKImageBalloonView;
-  [(CKBalloonView *)&v18 addFilter:filterCopy];
+  v23.receiver = self;
+  v23.super_class = CKImageBalloonView;
+  [(CKBalloonView *)&v23 addFilter:filterCopy];
   [(CKImageBalloonView *)self setNeedsLayout];
 }
 
@@ -1330,7 +1330,7 @@ LABEL_10:
   *&retstr->var7.blue = 0u;
   *&retstr->var0 = 0u;
   *&retstr->var5 = 0u;
-  [(CKBalloonView *)self balloonDescriptor];
+  objc_msgSend_balloonDescriptor(self, a3);
   if ([(CKImageBalloonView *)self isScheduled])
   {
     v5 = 15;
@@ -1367,7 +1367,7 @@ LABEL_10:
     [(CKBalloonLayer *)self->_imageContentBackdropBalloonLayer setFrame:?];
     traitCollection = [(CKImageBalloonView *)self traitCollection];
     imageContentBackdropBalloonLayer = self->_imageContentBackdropBalloonLayer;
-    [(CKImageBalloonView *)self imageBackdropBalloonDescriptor];
+    objc_msgSend_imageBackdropBalloonDescriptor(self);
     [(CKBalloonLayer *)imageContentBackdropBalloonLayer updateDescriptor:v17 traitCollection:traitCollection];
     layer = [(CKImageBalloonView *)self layer];
     v6 = self->_imageContentBackdropBalloonLayer;
@@ -1381,7 +1381,7 @@ LABEL_10:
     if (effectView)
     {
       v11 = [_TtC7ChatKit18CKBalloonMaskLayer alloc];
-      [(CKBalloonView *)self balloonDescriptor];
+      objc_msgSend_balloonDescriptor(self);
       v12 = [(CKBalloonMaskLayer *)v11 initWithDescriptor:v17];
       [(CKImageBalloonView *)self bounds];
       [(CKBalloonMaskLayer *)v12 setFrame:?];
@@ -1392,7 +1392,7 @@ LABEL_10:
     monoskiBadgeView = [(CKImageBalloonView *)self monoskiBadgeView];
     if (monoskiBadgeView)
     {
-      [(CKImageBalloonView *)self imageContentMaskBalloonDescriptor];
+      objc_msgSend_imageContentMaskBalloonDescriptor(self);
       layer4 = [monoskiBadgeView layer];
       [layer4 setCornerRadius:v16];
       [layer4 setCornerCurve:*MEMORY[0x1E69796E8]];

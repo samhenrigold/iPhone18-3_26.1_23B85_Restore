@@ -841,7 +841,7 @@ LABEL_10:
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          [v15 duration];
+          objc_msgSend_duration(v15);
           if (v17 <= 0.0)
           {
             v18 = dsCopy;

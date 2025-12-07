@@ -36,7 +36,7 @@
     {
       v10 = v8;
       v9 = [SBApplication _bestClassicModeForScreenType:v8];
-      if (v10 == 1 && ![&unk_28336DDE8 containsObject:argumentCopy])
+      if (v10 == 1 && !objc_msgSend_containsObject_(&unk_28336DDE8))
       {
         v9 = -1;
       }

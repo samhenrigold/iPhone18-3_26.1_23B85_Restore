@@ -41,7 +41,7 @@
   if (hasCellularTelephonyCapabilities)
   {
     v10 = [SXBlockActionActivity alloc];
-    v11 = SXBundle();
+    v11 = SXBundle(v10);
     v12 = [v11 localizedStringForKey:@"Call" value:&stru_1F532F6C0 table:0];
     v40[0] = MEMORY[0x1E69E9820];
     v40[1] = 3221225472;
@@ -77,7 +77,7 @@
   if (v15)
   {
     v19 = [SXBlockActionActivity alloc];
-    v20 = SXBundle();
+    v20 = SXBundle(v19);
     v21 = [v20 localizedStringForKey:@"Send Message" value:&stru_1F532F6C0 table:0];
     v30 = MEMORY[0x1E69E9820];
     v31 = 3221225472;
@@ -90,7 +90,7 @@
   }
 
   v23 = [SXPasteboardActionActivity alloc];
-  v24 = SXBundle();
+  v24 = SXBundle(v23);
   v25 = [v24 localizedStringForKey:@"Copy" value:&stru_1F532F6C0 table:0];
   generalPasteboard = [MEMORY[0x1E69DCD50] generalPasteboard];
   phoneNumber2 = [v16 phoneNumber];

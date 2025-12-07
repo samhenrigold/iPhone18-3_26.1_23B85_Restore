@@ -41,7 +41,7 @@
   }
 
   v7.receiver = self;
-  v7.super_class = type metadata accessor for ConfirmationSheetContainerViewController();
+  v7.super_class = type metadata accessor for ConfirmationSheetContainerViewController(0);
   selfCopy = self;
   [(ConfirmationSheetContainerViewController *)&v7 viewDidLoad];
   v4 = [(ConfirmationSheetContainerViewController *)selfCopy view:v7.receiver];

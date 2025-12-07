@@ -23,7 +23,7 @@
 {
   serviceCopy = service;
   selfCopy = self;
-  CAFRequestTemporaryContentObservable.requestTemporaryContentService(_:didUpdateOn:)();
+  CAFRequestTemporaryContentObservable.requestTemporaryContentService(_:didUpdateOn:)(selfCopy, on);
 }
 
 - (void)serviceDidUpdate:(id)update characteristic:(id)characteristic fromGroupUpdate:(BOOL)groupUpdate

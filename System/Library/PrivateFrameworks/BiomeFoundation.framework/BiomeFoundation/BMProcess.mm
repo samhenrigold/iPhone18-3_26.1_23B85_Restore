@@ -40,15 +40,13 @@
 
 - (void)_initializeProcessProperties
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   executableName = [self executableName];
-  v6 = 138543618;
-  v7 = executableName;
-  v8 = 1024;
-  v9 = [self pid];
-  _os_log_error_impl(&dword_1AC15D000, a2, OS_LOG_TYPE_ERROR, "Warning: Not trusting process %{public}@(%d)", &v6, 0x12u);
-
-  v5 = *MEMORY[0x1E69E9840];
+  v5 = 138543618;
+  v6 = executableName;
+  v7 = 1024;
+  v8 = [self pid];
+  _os_log_error_impl(&dword_1AC15D000, a2, OS_LOG_TYPE_ERROR, "Warning: Not trusting process %{public}@(%d)", &v5, 0x12u);
 }
 
 - (NSString)executableName
@@ -61,7 +59,7 @@
 
 - (NSString)executablePath
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   executablePath = self->_executablePath;
   if (!executablePath)
   {
@@ -108,66 +106,65 @@ LABEL_6:
 LABEL_10:
   v4 = self->_executablePath;
 LABEL_11:
-  v10 = *MEMORY[0x1E69E9840];
 
   return v4;
 }
 
 - (NSSet)useCases
 {
-  v33[1] = *MEMORY[0x1E69E9840];
+  v32[1] = *MEMORY[0x1E69E9840];
   v2 = objc_alloc_init(MEMORY[0x1E695DFA8]);
-  v33[0] = @"com.apple.private.intelligenceplatform.use-cases";
-  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v33 count:1];
+  v32[0] = @"com.apple.private.intelligenceplatform.use-cases";
+  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v32 count:1];
   if (os_variant_allows_internal_security_policies())
   {
-    v32 = @"com.apple.internal.intelligenceplatform.use-cases";
-    v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v32 count:1];
+    v31 = @"com.apple.internal.intelligenceplatform.use-cases";
+    v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v31 count:1];
     v5 = [v3 arrayByAddingObjectsFromArray:v4];
 
     v3 = v5;
   }
 
-  v28 = 0u;
-  v29 = 0u;
-  v26 = 0u;
   v27 = 0u;
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
   obj = v3;
-  v6 = [obj countByEnumeratingWithState:&v26 objects:v31 count:16];
+  v6 = [obj countByEnumeratingWithState:&v25 objects:v30 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v27;
+    v8 = *v26;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v27 != v8)
+        if (*v26 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v26 + 1) + 8 * i);
+        v10 = *(*(&v25 + 1) + 8 * i);
+        v21 = 0u;
         v22 = 0u;
         v23 = 0u;
         v24 = 0u;
-        v25 = 0u;
         v11 = [(BMProcess *)self dictionaryForEntitlement:v10];
-        v12 = [v11 countByEnumeratingWithState:&v22 objects:v30 count:16];
+        v12 = [v11 countByEnumeratingWithState:&v21 objects:v29 count:16];
         if (v12)
         {
           v13 = v12;
-          v14 = *v23;
+          v14 = *v22;
           do
           {
             for (j = 0; j != v13; ++j)
             {
-              if (*v23 != v14)
+              if (*v22 != v14)
               {
                 objc_enumerationMutation(v11);
               }
 
-              v16 = *(*(&v22 + 1) + 8 * j);
+              v16 = *(*(&v21 + 1) + 8 * j);
               objc_opt_class();
               if (objc_opt_isKindOfClass())
               {
@@ -175,21 +172,20 @@ LABEL_11:
               }
             }
 
-            v13 = [v11 countByEnumeratingWithState:&v22 objects:v30 count:16];
+            v13 = [v11 countByEnumeratingWithState:&v21 objects:v29 count:16];
           }
 
           while (v13);
         }
       }
 
-      v7 = [obj countByEnumeratingWithState:&v26 objects:v31 count:16];
+      v7 = [obj countByEnumeratingWithState:&v25 objects:v30 count:16];
     }
 
     while (v7);
   }
 
   v17 = [v2 copy];
-  v18 = *MEMORY[0x1E69E9840];
 
   return v17;
 }
@@ -298,21 +294,20 @@ void __20__BMProcess_current__block_invoke()
 
 - (BOOL)canPerformSyscall:(id)syscall report:(BOOL)report
 {
-  v5 = *self->_auditToken.val;
-  v6 = *&self->_auditToken.val[4];
+  v5 = *&self->_auditToken.val[4];
   if (report)
   {
-    v7 = 14;
+    v6 = 14;
   }
 
   else
   {
-    v7 = *MEMORY[0x1E69E9BD0] | 0xE;
+    v6 = *MEMORY[0x1E69E9BD0] | 0xEu;
   }
 
-  v9[0] = *self->_auditToken.val;
-  v9[1] = v6;
-  return BMSandboxCheck(v9, @"syscall-unix", v7, syscall) == 0;
+  v8[0] = *self->_auditToken.val;
+  v8[1] = v5;
+  return BMSandboxCheck(v8, @"syscall-unix", v6, syscall) == 0;
 }
 
 - (BOOL)canPerformGlobalMachLookup:(id)lookup report:(BOOL)report
@@ -373,7 +368,7 @@ LABEL_13:
 
   else
   {
-    v12 = *MEMORY[0x1E69E9BD0] | 2;
+    v12 = *MEMORY[0x1E69E9BD0] | 2u;
   }
 
   v13 = *&self->_auditToken.val[4];
@@ -393,26 +388,25 @@ LABEL_18:
 
 - (BOOL)canPerformFileOperation:(id)operation onPath:(id)path report:(BOOL)report
 {
-  v6 = *self->_auditToken.val;
-  v7 = *&self->_auditToken.val[4];
+  v6 = *&self->_auditToken.val[4];
   if (report)
   {
-    v8 = 1;
+    v7 = 1;
   }
 
   else
   {
-    v8 = *MEMORY[0x1E69E9BD0] | 1;
+    v7 = *MEMORY[0x1E69E9BD0] | 1u;
   }
 
-  v10[0] = *self->_auditToken.val;
-  v10[1] = v7;
-  return BMSandboxCheck(v10, operation, v8, path) == 0;
+  v9[0] = *self->_auditToken.val;
+  v9[1] = v6;
+  return BMSandboxCheck(v9, operation, v7, path) == 0;
 }
 
 - (void)cacheValuesForEntitlements:(id)entitlements
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   entitlementsCopy = entitlements;
   os_unfair_lock_lock(&self->_entitlementCacheLock);
   selfCopy = self;
@@ -420,25 +414,25 @@ LABEL_18:
   v6 = v5;
   if (!v5 || MEMORY[0x1AC5ADDC0](v5) == MEMORY[0x1E69E9E80])
   {
-    v24 = 0u;
-    v25 = 0u;
-    v22 = 0u;
     v23 = 0u;
+    v24 = 0u;
+    v21 = 0u;
+    v22 = 0u;
     v7 = entitlementsCopy;
-    v9 = [v7 countByEnumeratingWithState:&v22 objects:v31 count:16];
+    v9 = [v7 countByEnumeratingWithState:&v21 objects:v30 count:16];
     if (v9)
     {
-      v10 = *v23;
+      v10 = *v22;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v23 != v10)
+          if (*v22 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          v12 = *(*(&v22 + 1) + 8 * i);
+          v12 = *(*(&v21 + 1) + 8 * i);
           v13 = v12;
           v14 = xpc_dictionary_get_value(v6, [v12 UTF8String]);
           if (v14 && (v15 = _CFXPCCreateCFObjectFromXPCObject(), (v16 = v15) != 0))
@@ -461,7 +455,7 @@ LABEL_18:
           }
         }
 
-        v9 = [v7 countByEnumeratingWithState:&v22 objects:v31 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v21 objects:v30 count:16];
       }
 
       while (v9);
@@ -472,9 +466,9 @@ LABEL_18:
   {
     v7 = __biome_log_for_category(6);
     *buf = 0;
-    v28 = buf;
-    v29 = 0x2020000000;
-    v30 = 16;
+    v27 = buf;
+    v28 = 0x2020000000;
+    v29 = 16;
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = __40__BMProcess_cacheValuesForEntitlements___block_invoke;
@@ -485,7 +479,7 @@ LABEL_18:
       dispatch_once(&cacheValuesForEntitlements__onceToken, block);
     }
 
-    v8 = v28[24];
+    v8 = v27[24];
     _Block_object_dispose(buf, 8);
     if (os_log_type_enabled(v7, v8))
     {
@@ -495,7 +489,6 @@ LABEL_18:
   }
 
   os_unfair_lock_unlock(&selfCopy->_entitlementCacheLock);
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (id)valueForEntitlement:(id)entitlement
@@ -568,7 +561,7 @@ LABEL_18:
 
 - (id)nonnullArrayForEntitlement:(id)entitlement
 {
-  v8[1] = *MEMORY[0x1E69E9840];
+  v7[1] = *MEMORY[0x1E69E9840];
   v3 = [(BMProcess *)self valueForEntitlement:entitlement];
   if (v3)
   {
@@ -580,8 +573,8 @@ LABEL_18:
 
     else
     {
-      v8[0] = v3;
-      v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:1];
+      v7[0] = v3;
+      v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:1];
     }
 
     v5 = v4;
@@ -591,8 +584,6 @@ LABEL_18:
   {
     v5 = MEMORY[0x1E695E0F0];
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 
   return v5;
 }

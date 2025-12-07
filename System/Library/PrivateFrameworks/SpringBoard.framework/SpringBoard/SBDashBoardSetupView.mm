@@ -942,7 +942,7 @@ void __66__SBDashBoardSetupView_animateComponents_toActive_withCompletion___bloc
   homeAffordanceCallToActionLabel = self->_homeAffordanceCallToActionLabel;
   if (homeAffordanceCallToActionLabel)
   {
-    [(SBUILegibilityLabel *)homeAffordanceCallToActionLabel frame];
+    objc_msgSend_frame(homeAffordanceCallToActionLabel);
     v6 = v5 + -33.0;
   }
 
@@ -951,7 +951,7 @@ void __66__SBDashBoardSetupView_animateComponents_toActive_withCompletion___bloc
     homeButtonCallToActionLabel = self->_homeButtonCallToActionLabel;
     if (homeButtonCallToActionLabel)
     {
-      [(SBUICallToActionLabel *)homeButtonCallToActionLabel frame];
+      objc_msgSend_frame(homeButtonCallToActionLabel);
       v6 = v8;
     }
 
@@ -961,9 +961,9 @@ void __66__SBDashBoardSetupView_animateComponents_toActive_withCompletion___bloc
     }
   }
 
-  [(UIView *)self->_activationInfoView frame];
+  objc_msgSend_frame(self->_activationInfoView);
   v10 = v9;
-  [(UIView *)self->_activationInfoView frame];
+  objc_msgSend_frame(self->_activationInfoView);
   v12 = v10 + v11 > v6;
   [(SBUILegibilityLabel *)self->_homeAffordanceCallToActionLabel setHidden:self->_suppressingElements || v12, v10 + v11];
   [(SBUICallToActionLabel *)self->_homeButtonCallToActionLabel setHidden:self->_suppressingElements || v12];
@@ -1858,7 +1858,7 @@ LABEL_19:
     v6 = v5;
     v8 = v7;
     v10 = v9;
-    [(SBUICallToActionLabel *)self->_homeButtonCallToActionLabel frame];
+    objc_msgSend_frame(self->_homeButtonCallToActionLabel);
     [MEMORY[0x277D65E38] suggestedFrameForCallToActionLabel:self->_homeButtonCallToActionLabel yOffset:CGRectGetHeight(v13) + 15.0 inBounds:{v4, v6, v8, v10}];
     homeButtonCallToActionLabel = self->_homeButtonCallToActionLabel;
 

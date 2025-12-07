@@ -179,43 +179,42 @@ LABEL_9:
 
 + (void)dump
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v2 = +[CaliCalendarAnonymizer sharedAnonymizedStrings];
   v3 = +[CaliCalendarAnonymizer sharedAnonymizedStringsCount];
   v4 = v2;
   objc_sync_enter(v4);
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v5 = v4;
-  v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v6)
   {
-    v7 = *v14;
+    v7 = *v13;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v14 != v7)
+        if (*v13 != v7)
         {
           objc_enumerationMutation(v5);
         }
 
-        v9 = *(*(&v13 + 1) + 8 * i);
+        v9 = *(*(&v12 + 1) + 8 * i);
         v10 = [v3 countForObject:v9];
         v11 = [v5 objectForKeyedSubscript:v9];
         NSLog(&cfstr_Lu.isa, v10, v11, v9);
       }
 
-      v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v6);
   }
 
   objc_sync_exit(v5);
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 @end

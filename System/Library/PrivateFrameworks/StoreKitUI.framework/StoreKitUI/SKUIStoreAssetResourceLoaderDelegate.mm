@@ -237,4 +237,16 @@ void __95__SKUIStoreAssetResourceLoaderDelegate_resourceLoader_shouldWaitForLoad
   (*(a1[4] + 16))();
 }
 
++ (void)storeAssetResourceLoaderDelegateForPlayableAsset:(uint64_t)a3 clientContext:(uint64_t)a4 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIStoreAssetResourceLoaderDelegate storeAssetResourceLoaderDelegateForPlayableAsset:clientContext:]";
+}
+
+- (void)resourceLoader:(uint64_t)a3 shouldWaitForLoadingOfRequestedResource:(uint64_t)a4 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIStoreAssetResourceLoaderDelegate resourceLoader:shouldWaitForLoadingOfRequestedResource:]";
+}
+
 @end

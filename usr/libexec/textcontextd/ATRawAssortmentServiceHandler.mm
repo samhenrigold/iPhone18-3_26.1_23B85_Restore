@@ -24,7 +24,7 @@
 
   selfCopy = self;
   _s12textcontextd29ATRawAssortmentServiceHandlerC19spotlightItemTitles_010completionE0ySi_ySSSgcSgtF_0(titles, v6, v7);
-  sub_10000308C(v6);
+  sub_10000308C(v6, v7);
 }
 
 - (void)spotlightEmailAttributes:(int64_t)attributes completionHandler:(id)handler
@@ -44,7 +44,7 @@
 
   selfCopy = self;
   _s12textcontextd29ATRawAssortmentServiceHandlerC24spotlightEmailAttributes_010completionE0ySi_ySSSgcSgtF_0(attributes, v6, v7);
-  sub_10000308C(v6);
+  sub_10000308C(v6, v7);
 }
 
 - (void)textOnScreenAX:(id)x
@@ -64,7 +64,7 @@
 
   selfCopy = self;
   _s12textcontextd29ATRawAssortmentServiceHandlerC4text10onScreenAXyySSSgcSg_tF_0(v4, v5);
-  sub_10000308C(v4);
+  sub_10000308C(v4, v5);
 }
 
 - (_TtC12textcontextd29ATRawAssortmentServiceHandler)init

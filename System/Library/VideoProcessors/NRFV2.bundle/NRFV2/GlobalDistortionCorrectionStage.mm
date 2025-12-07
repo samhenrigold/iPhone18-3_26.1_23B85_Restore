@@ -63,7 +63,7 @@
 {
   inplaceCopy = inplace;
   v249 = 0;
-  v250 = 0;
+  v250[0] = 0;
   if (!inplace)
   {
     sub_2958C3810(&v244);
@@ -111,7 +111,7 @@ LABEL_32:
   v16 = objc_msgSend_bindYCbCrTexture_alignmentFactor_(inplaceCopy, v12, self->_metal, 1);
   if (v16)
   {
-    v231 = v16;
+    LODWORD(v231) = v16;
     sub_2958C2D30();
     v63 = 0;
     v29 = 0;
@@ -189,7 +189,7 @@ LABEL_44:
     sub_2958C33CC(&v244);
 LABEL_45:
     v137 = 0;
-    v231 = v244;
+    LODWORD(v231) = v244;
     goto LABEL_28;
   }
 
@@ -239,7 +239,7 @@ LABEL_45:
     {
       v123 = objc_msgSend_allocator(self->_metal, v120, v121, v122);
       v126 = objc_msgSend_newTextureWithDescriptor_(v123, v124, v29, v125);
-      v250 = v126;
+      v250[0] = v126;
 
       if (v126)
       {
@@ -269,7 +269,7 @@ LABEL_45:
     }
 
 LABEL_48:
-    v231 = v244;
+    LODWORD(v231) = v244;
     v137 = v238;
     goto LABEL_28;
   }
@@ -291,7 +291,7 @@ LABEL_48:
 
     v168 = objc_msgSend_allocator(self->_metal, v165, v166, v167);
     v126 = objc_msgSend_newTextureWithDescriptor_(v168, v169, v29, v170);
-    v250 = v126;
+    v250[0] = v126;
 
     if (v126)
     {
@@ -353,7 +353,7 @@ LABEL_48:
             FigMetalDecRef();
             FigMetalDecRef();
 
-            v231 = 0;
+            LODWORD(v231) = 0;
             goto LABEL_24;
           }
 
@@ -385,7 +385,7 @@ LABEL_48:
   }
 
   v209 = 0;
-  v231 = v244;
+  LODWORD(v231) = v244;
   v137 = v238;
 LABEL_24:
 
@@ -401,7 +401,7 @@ LABEL_25:
   FigMetalDecRef();
   if (v231)
   {
-    sub_2958C3270();
+    sub_2958C3270(v231);
     goto LABEL_40;
   }
 
@@ -410,7 +410,7 @@ LABEL_25:
   v29 = v237;
   if (v231)
   {
-    sub_2958C32D0();
+    sub_2958C32D0(v231);
   }
 
 LABEL_28:

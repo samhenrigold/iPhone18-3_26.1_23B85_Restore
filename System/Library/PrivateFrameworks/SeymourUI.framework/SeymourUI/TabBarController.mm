@@ -19,7 +19,8 @@
 
   v5 = qword_27C76F6C0;
   v6 = objc_allocWithZone(type metadata accessor for PaletteContainerView());
-  *(&self->super.super.super.super.isa + v4) = sub_20BE4B8E8(v5);
+  v7 = v5;
+  *(&self->super.super.super.super.isa + v4) = sub_20BE4B8E8(v7, v8);
   *(&self->super.super.super.super.isa + OBJC_IVAR____TtC9SeymourUI16TabBarController_miniPlayerViewController) = 0;
   result = sub_20C13DE24();
   __break(1u);
@@ -43,7 +44,7 @@
   controllersCopy = controllers;
   if (controllers)
   {
-    sub_20B51C88C(0, &qword_281100550);
+    sub_20B51C88C(0, &qword_281100550, 0x277D75D28);
     controllersCopy = sub_20C13CC74();
   }
 

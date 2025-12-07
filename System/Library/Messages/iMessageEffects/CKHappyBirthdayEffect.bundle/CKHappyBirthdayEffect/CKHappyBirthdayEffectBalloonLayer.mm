@@ -77,7 +77,7 @@
 {
   v4 = +[NSMutableArray array];
   v5 = +[NSMutableArray array];
-  v6 = &unk_36E0 + 8 * index;
+  v6 = &dbl_36E0[index];
   v7 = 7;
   v8 = &unk_36A8 + 8 * index;
   do
@@ -85,10 +85,10 @@
     v9 = [NSNumber numberWithDouble:*&v8[-56 * (index / 7)]];
     [v4 addObject:v9];
 
-    v10 = [UIColor colorWithWhite:*&v6[-56 * (index / 7)] alpha:1.0];
+    v10 = [UIColor colorWithWhite:v6[-7 * (index / 7)] alpha:1.0];
     [v5 addObject:{objc_msgSend(v10, "CGColor")}];
 
-    v6 += 8;
+    ++v6;
     ++index;
     v8 += 8;
     --v7;

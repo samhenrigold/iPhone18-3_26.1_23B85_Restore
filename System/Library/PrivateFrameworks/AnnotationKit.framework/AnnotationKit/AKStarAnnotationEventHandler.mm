@@ -56,7 +56,7 @@
   v13 = v12;
   v15 = v14;
   [annotation rotationAngle];
-  [AKGeometryHelper rotationTransformForRect:v9 withAngle:v11, v13, v15, -v16];
+  objc_msgSend_rotationTransformForRect_withAngle_(AKGeometryHelper, v9, v11, v13, v15, -v16);
   v17 = vaddq_f64(0, vmlaq_n_f64(vmulq_n_f64(0, y), 0, x));
   if ([(AKAnnotationEventHandler *)self initiallyDraggedArea]== 16)
   {

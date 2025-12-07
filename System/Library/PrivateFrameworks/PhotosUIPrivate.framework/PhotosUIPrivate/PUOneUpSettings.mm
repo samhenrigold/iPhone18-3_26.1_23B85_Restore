@@ -18,9 +18,11 @@
 
 - (void)createChildren
 {
-  self->_scrubberSettings = [(PTSettings *)[PUScrubberSettings alloc] initWithDefaultValues];
+  initWithDefaultValues = [(PTSettings *)[PUScrubberSettings alloc] initWithDefaultValues];
+  scrubberSettings = self->_scrubberSettings;
+  self->_scrubberSettings = initWithDefaultValues;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](initWithDefaultValues, scrubberSettings);
 }
 
 - (void)setDefaultValues

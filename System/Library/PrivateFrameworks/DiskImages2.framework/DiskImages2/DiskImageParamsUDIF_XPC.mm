@@ -29,7 +29,7 @@
 
     if (!*(v9 + 492))
     {
-      [(DiskImageParamsUDIF_XPC *)v8 createSinkDiskImage];
+      objc_msgSend_createSinkDiskImage(v8);
       *(v8->_header.__ptr_ + 492) = (*(*v12 + 32))();
       if (v12)
       {
@@ -47,15 +47,15 @@
   v4 = backendXPC;
   if (backendXPC)
   {
-    [backendXPC backend];
+    objc_msgSend_backend(backendXPC);
   }
 
   else
   {
-    v8 = 0uLL;
+    v7 = 0uLL;
   }
 
-  if ((*(*v8 + 48))(v8))
+  if ((*(*v7 + 48))(v7))
   {
     backendXPC2 = [(DiskImageParamsXPC *)self backendXPC];
     isUnlocked = [backendXPC2 isUnlocked];
@@ -67,7 +67,6 @@
     }
   }
 
-  ptr = self->_header.__ptr_;
   operator new();
 }
 
@@ -109,19 +108,17 @@
 
 - (id)instanceID
 {
-  v13 = *MEMORY[0x277D85DE8];
-  bzero(v11, 0x210uLL);
-  v9.receiver = self;
-  v9.super_class = DiskImageParamsUDIF_XPC;
-  instanceID = [(DiskImageParamsXPC *)&v9 instanceID];
-  [instanceID getUUIDBytes:v11];
-  udif::header::write(self->_header.__ptr_, v12);
+  v12 = *MEMORY[0x277D85DE8];
+  bzero(v10, 0x210uLL);
+  v8.receiver = self;
+  v8.super_class = DiskImageParamsUDIF_XPC;
+  instanceID = [(DiskImageParamsXPC *)&v8 instanceID];
+  [instanceID getUUIDBytes:v10];
+  udif::header::write(self->_header.__ptr_, v11);
   v4 = objc_alloc(MEMORY[0x277CCAD78]);
-  v10[0] = di_utils::buffer_to_uuid(v11, 528);
-  v10[1] = v5;
-  v6 = [v4 initWithUUIDBytes:v10];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v9[0] = di_utils::buffer_to_uuid(v10, 528);
+  v9[1] = v5;
+  v6 = [v4 initWithUUIDBytes:v9];
 
   return v6;
 }

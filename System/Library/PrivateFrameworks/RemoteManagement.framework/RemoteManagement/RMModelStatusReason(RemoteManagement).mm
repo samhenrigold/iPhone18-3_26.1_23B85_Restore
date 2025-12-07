@@ -31,7 +31,7 @@
 
 + (id)reasonWithCode:()RemoteManagement description:underlyingError:
 {
-  v23[1] = *MEMORY[0x1E69E9840];
+  v22[1] = *MEMORY[0x1E69E9840];
   v8 = a5;
   v9 = a4;
   v10 = a3;
@@ -62,9 +62,9 @@
       v14 = localizedFailureReason;
     }
 
-    v22 = @"Error";
-    v23[0] = v14;
-    v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:&v22 count:1];
+    v21 = @"Error";
+    v22[0] = v14;
+    v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:&v21 count:1];
     v15 = [self reasonWithCode:v10 description:v9 details:v19];
   }
 
@@ -73,14 +73,12 @@
     v15 = [self reasonWithCode:v10 description:v9 details:0];
   }
 
-  v20 = *MEMORY[0x1E69E9840];
-
   return v15;
 }
 
 + (id)reasonWithError:()RemoteManagement
 {
-  v24[2] = *MEMORY[0x1E69E9840];
+  v23[2] = *MEMORY[0x1E69E9840];
   v4 = a3;
   userInfo = [v4 userInfo];
   v6 = [userInfo objectForKeyedSubscript:@"RMErrorUserInfoKeyDescriptionKey"];
@@ -119,18 +117,16 @@
   {
     v15 = [MEMORY[0x1E696AEC0] stringWithFormat:@"An unknown error occurred: %@", v10];
     v16 = MEMORY[0x1E69C6D90];
-    v23[0] = @"Domain";
+    v22[0] = @"Domain";
     domain = [v4 domain];
-    v23[1] = @"Code";
-    v24[0] = domain;
+    v22[1] = @"Code";
+    v23[0] = domain;
     v18 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(v4, "code")}];
-    v24[1] = v18;
-    v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v24 forKeys:v23 count:2];
+    v23[1] = v18;
+    v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:v22 count:2];
     v20 = [v16 buildFromDictionary:v19];
     v14 = [self buildWithCode:@"Error.Unknown" description:v15 details:v20];
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 
   return v14;
 }

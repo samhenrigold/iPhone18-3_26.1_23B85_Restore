@@ -51,29 +51,29 @@
 
 - (id)_recordIDsInModeConfigurations:(id)configurations
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   configurationsCopy = configurations;
   array = [MEMORY[0x277CBEB18] array];
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   obj = configurationsCopy;
-  v6 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v6 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v20;
+    v8 = *v19;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v20 != v8)
+        if (*v19 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v19 + 1) + 8 * i);
+        v10 = *(*(&v18 + 1) + 8 * i);
         v11 = objc_alloc(MEMORY[0x277CBC5D0]);
         mode = [v10 mode];
         modeIdentifier = [mode modeIdentifier];
@@ -83,42 +83,40 @@
         [array addObject:v15];
       }
 
-      v7 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v7 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v7);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return array;
 }
 
 - (id)_modifiedConfigurations
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   modeConfigurations = [(DNDSModeConfigurationsRecord *)self->_updated modeConfigurations];
   array = [MEMORY[0x277CBEB18] array];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v5 = modeConfigurations;
-  v6 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v17;
+    v8 = *v16;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v17 != v8)
+        if (*v16 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v16 + 1) + 8 * i);
+        v10 = *(*(&v15 + 1) + 8 * i);
         mode = [v10 mode];
         modeIdentifier = [mode modeIdentifier];
 
@@ -129,41 +127,39 @@
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v7);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return array;
 }
 
 - (id)_removedConfigurations
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   array = [MEMORY[0x277CBEB18] array];
   modeConfigurations = [(DNDSModeConfigurationsRecord *)self->_original modeConfigurations];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
-  v5 = [modeConfigurations countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v5 = [modeConfigurations countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v16;
+    v7 = *v15;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v16 != v7)
+        if (*v15 != v7)
         {
           objc_enumerationMutation(modeConfigurations);
         }
 
-        v9 = *(*(&v15 + 1) + 8 * i);
+        v9 = *(*(&v14 + 1) + 8 * i);
         mode = [v9 mode];
         modeIdentifier = [mode modeIdentifier];
 
@@ -174,13 +170,11 @@
         }
       }
 
-      v6 = [modeConfigurations countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v6 = [modeConfigurations countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v6);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return array;
 }

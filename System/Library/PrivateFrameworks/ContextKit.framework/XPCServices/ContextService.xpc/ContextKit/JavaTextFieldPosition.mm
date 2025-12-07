@@ -2,7 +2,6 @@
 - (BOOL)isEqual:(id)equal;
 - (JavaTextFieldPosition)initWithJavaTextFormat_Field:(id)field;
 - (JavaTextFieldPosition)initWithJavaTextFormat_Field:(id)field withInt:(int)int;
-- (id)description;
 - (unint64_t)hash;
 - (void)dealloc;
 @end
@@ -54,16 +53,6 @@
   }
 
   return attribute + 10 * self->field_ + 100 * self->beginIndex_ + self->endIndex_;
-}
-
-- (id)description
-{
-  v3 = [-[JavaTextFieldPosition getClass](self "getClass")];
-  endIndex = self->endIndex_;
-  beginIndex = self->beginIndex_;
-  field = self->field_;
-  attribute = self->attribute_;
-  return JreStrcat("$$@$I$I$IC", v4, v5, v6, v7, v8, v9, v10, v3);
 }
 
 - (void)dealloc

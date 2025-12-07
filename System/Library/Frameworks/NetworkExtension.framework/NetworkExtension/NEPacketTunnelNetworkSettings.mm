@@ -3,6 +3,7 @@
 - (NEPacketTunnelNetworkSettings)initWithCoder:(id)coder;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
+- (id)descriptionWithIndent:(int)indent options:(unint64_t)options;
 - (id)initFromLegacyDictionary:(id)dictionary;
 - (void)encodeWithCoder:(id)coder;
 @end
@@ -118,6 +119,30 @@ LABEL_22:
   [v3 appendString:@"\n}"];
 
   return v3;
+}
+
+- (id)descriptionWithIndent:(int)indent options:(unint64_t)options
+{
+  v5 = *&indent;
+  v7 = objc_alloc(MEMORY[0x1E696AD60]);
+  v15.receiver = self;
+  v15.super_class = NEPacketTunnelNetworkSettings;
+  v8 = [(NETunnelNetworkSettings *)&v15 descriptionWithIndent:v5 options:options];
+  v9 = [v7 initWithString:v8];
+
+  iPv4Settings = [(NEPacketTunnelNetworkSettings *)self IPv4Settings];
+  [v9 appendPrettyObject:iPv4Settings withName:@"IPv4Settings" andIndent:v5 options:options];
+
+  iPv6Settings = [(NEPacketTunnelNetworkSettings *)self IPv6Settings];
+  [v9 appendPrettyObject:iPv6Settings withName:@"IPv6Settings" andIndent:v5 options:options];
+
+  tunnelOverheadBytes = [(NEPacketTunnelNetworkSettings *)self tunnelOverheadBytes];
+  [v9 appendPrettyObject:tunnelOverheadBytes withName:@"tunnelOverheadBytes" andIndent:v5 options:options];
+
+  v13 = [(NEPacketTunnelNetworkSettings *)self MTU];
+  [v9 appendPrettyObject:v13 withName:@"MTU" andIndent:v5 options:options];
+
+  return v9;
 }
 
 - (BOOL)checkValidityAndCollectErrors:(id)errors

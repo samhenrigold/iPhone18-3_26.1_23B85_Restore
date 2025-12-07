@@ -27,41 +27,49 @@
 {
   serviceCopy = service;
   selfCopy = self;
-  CAFVolumeObservable.volumeService(_:didUpdateVolumeType:)();
+  CAFVolumeObservable.volumeService(_:didUpdateVolumeType:)(selfCopy, type);
 }
 
 - (void)volumeService:(id)service didUpdateVolume:(unsigned __int8)volume
 {
   serviceCopy = service;
   selfCopy = self;
-  CAFVolumeObservable.volumeService(_:didUpdateVolume:)();
+  CAFVolumeObservable.volumeService(_:didUpdateVolume:)(selfCopy, volume);
 }
 
 - (void)volumeService:(id)service didUpdateUserVisibleLabel:(id)label
 {
   if (label)
   {
-    static String._unconditionallyBridgeFromObjectiveC(_:)();
+    v6 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+    v8 = v7;
+  }
+
+  else
+  {
+    v6 = 0;
+    v8 = 0;
   }
 
   serviceCopy = service;
   selfCopy = self;
-  CAFVolumeObservable.volumeService(_:didUpdateUserVisibleLabel:)();
+  CAFVolumeObservable.volumeService(_:didUpdateUserVisibleLabel:)(selfCopy, v6, v8);
 }
 
 - (void)volumeService:(id)service didUpdateMute:(BOOL)mute
 {
   serviceCopy = service;
   selfCopy = self;
-  CAFVolumeObservable.volumeService(_:didUpdateMute:)();
+  CAFVolumeObservable.volumeService(_:didUpdateMute:)(selfCopy, mute);
 }
 
 - (void)volumeService:(id)service didUpdateName:(id)name
 {
-  static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v6 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v8 = v7;
   serviceCopy = service;
   selfCopy = self;
-  CAFVolumeObservable.volumeService(_:didUpdateName:)();
+  CAFVolumeObservable.volumeService(_:didUpdateName:)(selfCopy, v6, v8);
 }
 
 - (void)serviceDidUpdate:(id)update characteristic:(id)characteristic fromGroupUpdate:(BOOL)groupUpdate

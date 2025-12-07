@@ -1062,7 +1062,7 @@ LABEL_14:
   {
     v5 = PKPairedOrPairingDevice();
     v6 = v5;
-    if (v5 && (softLinkNRWatchOSVersionForRemoteDevice[0])(v5) >= 0x30000 && [(NSArray *)self->_paymentPasses count])
+    if (v5 && softLinkNRWatchOSVersionForRemoteDevice(v5) >= 0x30000 && [(NSArray *)self->_paymentPasses count])
     {
       _handoffSwitchGroupSpecifiers = [(PKPassbookSettingsController *)self _handoffSwitchGroupSpecifiers];
       [array addObjectsFromArray:_handoffSwitchGroupSpecifiers];
@@ -3013,7 +3013,7 @@ uint64_t __143__PKPassbookSettingsController__presentFPANAdditionFlowWithEligibl
 - (void)openPaymentSetupWithMode:(int64_t)mode referrerIdentifier:(id)identifier allowedFeatureIdentifiers:(id)identifiers force:(BOOL)force
 {
   forceCopy = force;
-  v25 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   identifiersCopy = identifiers;
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
@@ -3036,19 +3036,19 @@ LABEL_13:
 
     if ((bOOLValue & 1) == 0)
     {
-      v15 = PKUIStoreDemoGatewayViewController();
+      v15 = PKUIStoreDemoGatewayViewController(v18, v19, v20);
       if (v15)
       {
-        v18 = objc_loadWeakRetained(&self->_delegate);
-        v19 = v18;
+        v21 = objc_loadWeakRetained(&self->_delegate);
+        v22 = v21;
         if (forceCopy)
         {
-          [v18 settingsController:self requestsForcedPresentViewController:v15 animated:1 completion:0];
+          [v21 settingsController:self requestsForcedPresentViewController:v15 animated:1 completion:0];
         }
 
         else
         {
-          [v18 settingsController:self requestsPresentViewController:v15 animated:1 completion:0];
+          [v21 settingsController:self requestsPresentViewController:v15 animated:1 completion:0];
         }
       }
 
@@ -3057,8 +3057,8 @@ LABEL_13:
         [(PSSpecifier *)self->_addCardButtonSpecifier setObject:MEMORY[0x1E695E110] forKeyedSubscript:v14];
         [(PSSpecifier *)self->_addCardButtonSpecifier setObject:MEMORY[0x1E695E118] forKeyedSubscript:@"PKSettingsSpecifierLoadingKey"];
         [(PKPassbookSettingsController *)self _updateCompanionPassesAddButton];
-        v22 = objc_loadWeakRetained(&self->_delegate);
-        [v22 settingsController:self requestsReloadSpecifier:self->_addCardButtonSpecifier];
+        v25 = objc_loadWeakRetained(&self->_delegate);
+        [v25 settingsController:self requestsReloadSpecifier:self->_addCardButtonSpecifier];
 
         [(PKPassbookSettingsController *)self _startPreflightWithMode:mode referrerIdentifier:identifierCopy allowedFeatureIdentifiers:identifiersCopy force:forceCopy];
       }
@@ -3069,13 +3069,13 @@ LABEL_13:
 
   else
   {
-    v20 = PKLogFacilityTypeGetObject();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+    v23 = PKLogFacilityTypeGetObject();
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
     {
-      v21 = objc_loadWeakRetained(&self->_delegate);
-      v23 = 138412290;
-      v24 = v21;
-      _os_log_impl(&dword_1BD026000, v20, OS_LOG_TYPE_DEFAULT, "Cannot open payment setup! Delegate %@ is not setup to handle settingsController:requestsAddCardPreflightWithCompletion:", &v23, 0xCu);
+      v24 = objc_loadWeakRetained(&self->_delegate);
+      v26 = 138412290;
+      v27 = v24;
+      _os_log_impl(&dword_1BD026000, v23, OS_LOG_TYPE_DEFAULT, "Cannot open payment setup! Delegate %@ is not setup to handle settingsController:requestsAddCardPreflightWithCompletion:", &v26, 0xCu);
     }
   }
 
@@ -3401,7 +3401,7 @@ LABEL_15:
   return v11;
 }
 
-void __102__PKPassbookSettingsController__passSpecifiersForPasses_peerPaymentPassUniqueID_showPeerPaymentSetup___block_invoke_2(uint64_t a1, void *a2, uint64_t a3)
+void __102__PKPassbookSettingsController__passSpecifiersForPasses_peerPaymentPassUniqueID_showPeerPaymentSetup___block_invoke_2(uint64_t a1, void *a2, _BYTE *a3)
 {
   v58 = a2;
   v5 = [MEMORY[0x1E69C5748] preferenceSpecifierNamed:0 target:*(a1 + 32) set:0 get:0 detail:0 cell:3 edit:0];
@@ -4932,7 +4932,7 @@ LABEL_12:
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
   if (objc_opt_respondsToSelector())
   {
-    makeViewController = [getFKOrderTrackingSettingsViewControllerProviderClass[0]() makeViewController];
+    makeViewController = [(objc_class *)getFKOrderTrackingSettingsViewControllerProviderClass() makeViewController];
     [WeakRetained settingsController:self requestsPushViewController:makeViewController animated:controller != 0];
   }
 }
@@ -5020,11 +5020,11 @@ LABEL_12:
   if (objc_opt_respondsToSelector())
   {
     v12 = [(objc_class *)_MergedGlobals_618() makeViewControllerWithInstitutionIdentifier:institutionCopy];
-    [WeakRetained settingsController:self requestsPushViewController:v12 animated:1];
+    v13 = [WeakRetained settingsController:self requestsPushViewController:v12 animated:1];
     if (identifierCopy)
     {
-      v13 = [(objc_class *)off_1EE98A668() makeViewControllerWithAccountIdentifier:identifierCopy institutionIdentifier:institutionCopy];
-      [WeakRetained settingsController:self requestsPushViewController:v13 animated:1];
+      v14 = [off_1EE98A668(v13) makeViewControllerWithAccountIdentifier:identifierCopy institutionIdentifier:institutionCopy];
+      [WeakRetained settingsController:self requestsPushViewController:v14 animated:1];
     }
 
     if (completionCopy)
@@ -6808,12 +6808,12 @@ void __80__PKPassbookSettingsController_didUpdateDefaultPaymentPassWithUniqueIde
   dispatch_async(MEMORY[0x1E69E96A0], block);
 }
 
-uint64_t __99__PKPassbookSettingsController_paymentPassWithUniqueIdentifier_didUpdateWithTransitPassProperties___block_invoke(uint64_t result)
+void *__99__PKPassbookSettingsController_paymentPassWithUniqueIdentifier_didUpdateWithTransitPassProperties___block_invoke(void *result)
 {
-  v1 = *(result + 32);
+  v1 = *(result + 4);
   if (v1)
   {
-    return [*(result + 40) _updateBalancesWithServerBalances:0 transitPassProperties:v1 forPassWithUniqueIdentifier:*(result + 48)];
+    return [*(result + 5) _updateBalancesWithServerBalances:0 transitPassProperties:v1 forPassWithUniqueIdentifier:*(result + 6)];
   }
 
   return result;
@@ -7177,31 +7177,31 @@ void __69__PKPassbookSettingsController__registerForPeerPaymentWithSpecifier___b
   dispatch_async(MEMORY[0x1E69E96A0], block);
 }
 
-void __69__PKPassbookSettingsController__registerForPeerPaymentWithSpecifier___block_invoke_8(uint64_t a1)
+void __69__PKPassbookSettingsController__registerForPeerPaymentWithSpecifier___block_invoke_8(uint64_t a1, uint64_t a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
-  v2 = PKLogFacilityTypeGetObject();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v13 = *MEMORY[0x1E69E9840];
+  v3 = PKLogFacilityTypeGetObject();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = PKSecurityCapabilitiesErrorToString(*(a1 + 72));
-    v4 = *(a1 + 32);
-    v8 = 138412546;
-    v9 = v3;
-    v10 = 2112;
-    v11 = v4;
-    _os_log_impl(&dword_1BD026000, v2, OS_LOG_TYPE_DEFAULT, "Finished checking peer payment security capabilities with upgrade error %@, error %@", &v8, 0x16u);
+    v4 = PKSecurityCapabilitiesErrorToString(*(a1 + 72));
+    v5 = *(a1 + 32);
+    v9 = 138412546;
+    v10 = v4;
+    v11 = 2112;
+    v12 = v5;
+    _os_log_impl(&dword_1BD026000, v3, OS_LOG_TYPE_DEFAULT, "Finished checking peer payment security capabilities with upgrade error %@, error %@", &v9, 0x16u);
   }
 
-  v5 = *(a1 + 72);
-  if (v5 == 3)
+  v6 = *(a1 + 72);
+  if (v6 == 3)
   {
     (*(*(a1 + 56) + 16))();
   }
 
-  else if (v5)
+  else if (v6)
   {
-    v6 = [MEMORY[0x1E69B8F28] displayableErrorForError:*(a1 + 32)];
-    v7 = PKAlertForDisplayableErrorWithHandlers(v6, 0, 0, 0);
+    v7 = [MEMORY[0x1E69B8F28] displayableErrorForError:*(a1 + 32)];
+    v8 = PKAlertForDisplayableErrorWithHandlers(v7, 0, 0, 0);
     (*(*(a1 + 64) + 16))();
   }
 
@@ -7232,7 +7232,7 @@ void __69__PKPassbookSettingsController__registerForPeerPaymentWithSpecifier___b
 
 - (void)_presentFeatureNotEnabledForDemoForSpecifier:(id)specifier
 {
-  v5 = PKUIStoreDemoGatewayViewController();
+  v5 = PKUIStoreDemoGatewayViewController(self, a2, specifier);
   delegate = [(PKPassbookSettingsController *)self delegate];
   [delegate settingsController:self requestsPresentViewController:v5 animated:1 completion:0];
 }
@@ -7547,9 +7547,9 @@ void __71__PKPassbookSettingsController__unregisterForPeerPaymentWithSpecifier__
   dispatch_async(MEMORY[0x1E69E96A0], block);
 }
 
-void __71__PKPassbookSettingsController__unregisterForPeerPaymentWithSpecifier___block_invoke_4(uint64_t a1)
+void __71__PKPassbookSettingsController__unregisterForPeerPaymentWithSpecifier___block_invoke_4(uint64_t a1, uint64_t a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   if (*(a1 + 72) == 1 && !*(a1 + 32))
   {
     if (*(a1 + 48))
@@ -7563,10 +7563,10 @@ void __71__PKPassbookSettingsController__unregisterForPeerPaymentWithSpecifier__
       WeakRetained = PKLogFacilityTypeGetObject();
       if (os_log_type_enabled(WeakRetained, OS_LOG_TYPE_DEFAULT))
       {
-        v8 = *(a1 + 56);
-        v9 = 138412290;
-        v10 = v8;
-        _os_log_impl(&dword_1BD026000, WeakRetained, OS_LOG_TYPE_DEFAULT, "Unable to remove peer payment pass. Pass library data provider failed to vend pass with uniqueID: %@", &v9, 0xCu);
+        v9 = *(a1 + 56);
+        v10 = 138412290;
+        v11 = v9;
+        _os_log_impl(&dword_1BD026000, WeakRetained, OS_LOG_TYPE_DEFAULT, "Unable to remove peer payment pass. Pass library data provider failed to vend pass with uniqueID: %@", &v10, 0xCu);
       }
     }
 
@@ -7575,21 +7575,21 @@ void __71__PKPassbookSettingsController__unregisterForPeerPaymentWithSpecifier__
 
   else
   {
-    v2 = [*(*(a1 + 40) + 432) targetDevice];
-    [v2 setUserHasDisabledPeerPayment:0];
+    v3 = [*(*(a1 + 40) + 432) targetDevice];
+    [v3 setUserHasDisabledPeerPayment:0];
 
-    v3 = [MEMORY[0x1E69B8F28] displayableErrorForError:*(a1 + 32)];
-    v4 = PKAlertForDisplayableErrorWithHandlers(v3, 0, 0, 0);
+    v4 = [MEMORY[0x1E69B8F28] displayableErrorForError:*(a1 + 32)];
+    v5 = PKAlertForDisplayableErrorWithHandlers(v4, 0, 0, 0);
 
-    [*(a1 + 40) _requestDelegatePresentViewController:v4];
+    [*(a1 + 40) _requestDelegatePresentViewController:v5];
   }
 
   [*(a1 + 64) setObject:MEMORY[0x1E695E110] forKeyedSubscript:@"PKSwitchSpinnerTableCellShowSpinner"];
-  v5 = [MEMORY[0x1E696AD98] numberWithBool:{objc_msgSend(*(a1 + 40), "_isPeerPaymentRegistered")}];
-  [*(a1 + 64) setObject:v5 forKeyedSubscript:@"PKSwitchSpinnerTableCellSwitchIsOn"];
+  v6 = [MEMORY[0x1E696AD98] numberWithBool:{objc_msgSend(*(a1 + 40), "_isPeerPaymentRegistered")}];
+  [*(a1 + 64) setObject:v6 forKeyedSubscript:@"PKSwitchSpinnerTableCellSwitchIsOn"];
 
-  v6 = objc_loadWeakRetained((*(a1 + 40) + 744));
-  [v6 settingsControllerRequestsReloadSpecifiers:*(a1 + 40)];
+  v7 = objc_loadWeakRetained((*(a1 + 40) + 744));
+  [v7 settingsControllerRequestsReloadSpecifiers:*(a1 + 40)];
 }
 
 void __71__PKPassbookSettingsController__unregisterForPeerPaymentWithSpecifier___block_invoke_751(void *a1)
@@ -7986,7 +7986,7 @@ void __58__PKPassbookSettingsController__updateAccountIfNecessary___block_invoke
   dispatch_async(MEMORY[0x1E69E96A0], v6);
 }
 
-uint64_t __55__PKPassbookSettingsController__processAccountChanged___block_invoke(uint64_t a1)
+void *__55__PKPassbookSettingsController__processAccountChanged___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) feature];
   if (result == 5)
@@ -8048,7 +8048,7 @@ uint64_t __55__PKPassbookSettingsController__processAccountChanged___block_invok
   dispatch_async(MEMORY[0x1E69E96A0], v6);
 }
 
-uint64_t __47__PKPassbookSettingsController_accountRemoved___block_invoke(uint64_t a1)
+void *__47__PKPassbookSettingsController_accountRemoved___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) feature];
   if (result == 5)
@@ -8463,7 +8463,7 @@ void __94__PKPassbookSettingsController__checkPairedDeviceSupportOfHiddenPassesA
   }
 }
 
-uint64_t __94__PKPassbookSettingsController__checkPairedDeviceSupportOfHiddenPassesAndRefreshUIIfNecessary__block_invoke_791(uint64_t a1)
+void *__94__PKPassbookSettingsController__checkPairedDeviceSupportOfHiddenPassesAndRefreshUIIfNecessary__block_invoke_791(uint64_t a1)
 {
   v12 = *MEMORY[0x1E69E9840];
   v2 = [MEMORY[0x1E696AD98] numberWithBool:*(a1 + 56)];

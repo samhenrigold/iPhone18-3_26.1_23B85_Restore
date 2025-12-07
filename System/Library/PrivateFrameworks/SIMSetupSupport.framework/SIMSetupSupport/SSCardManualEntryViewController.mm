@@ -13,8 +13,11 @@
 - (void)textFieldDidBeginEditing:(id)editing;
 - (void)textFieldDidEndEditing:(id)editing;
 - (void)updateTableHeightAnchor;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLayoutSubviews;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation SSCardManualEntryViewController
@@ -131,6 +134,27 @@
   [(OBTableWelcomeController *)&v4 viewDidLayoutSubviews];
 }
 
+- (void)viewWillAppear:(BOOL)appear
+{
+  v6.receiver = self;
+  v6.super_class = SSCardManualEntryViewController;
+  [(OBTableWelcomeController *)&v6 viewWillAppear:appear];
+  self->_keyboardSize = *MEMORY[0x277CBF3A8];
+  defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
+  [defaultCenter addObserver:self selector:sel_keyboardWasShown_ name:*MEMORY[0x277D76BA8] object:0];
+
+  defaultCenter2 = [MEMORY[0x277CCAB98] defaultCenter];
+  [defaultCenter2 addObserver:self selector:sel_keyboardDidHide_ name:*MEMORY[0x277D76BA0] object:0];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = SSCardManualEntryViewController;
+  [(OBBaseWelcomeController *)&v4 viewDidAppear:appear];
+  [(SSCardManualEntryViewController *)self resetFirstResponder];
+}
+
 - (void)resetFirstResponder
 {
   v6 = [MEMORY[0x277CCAA70] indexPathForRow:0 inSection:0];
@@ -141,9 +165,24 @@
   [editableTextField becomeFirstResponder];
 }
 
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  v7.receiver = self;
+  v7.super_class = SSCardManualEntryViewController;
+  [(OBBaseWelcomeController *)&v7 viewWillDisappear:disappear];
+  WeakRetained = objc_loadWeakRetained(&self->_delegate);
+  [WeakRetained receivedResponse];
+
+  defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
+  [defaultCenter removeObserver:self name:*MEMORY[0x277D76BA8] object:0];
+
+  defaultCenter2 = [MEMORY[0x277CCAB98] defaultCenter];
+  [defaultCenter2 removeObserver:self name:*MEMORY[0x277D76BA0] object:0];
+}
+
 - (id)findFirstResponderInView:(id)view
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   viewCopy = view;
   if ([viewCopy isFirstResponder])
   {
@@ -152,26 +191,26 @@
 
   else
   {
-    v16 = 0u;
-    v17 = 0u;
-    v14 = 0u;
     v15 = 0u;
+    v16 = 0u;
+    v13 = 0u;
+    v14 = 0u;
     subviews = [viewCopy subviews];
-    v7 = [subviews countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v7 = [subviews countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v15;
+      v9 = *v14;
       while (2)
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v15 != v9)
+          if (*v14 != v9)
           {
             objc_enumerationMutation(subviews);
           }
 
-          v11 = [(SSCardManualEntryViewController *)self findFirstResponderInView:*(*(&v14 + 1) + 8 * i)];
+          v11 = [(SSCardManualEntryViewController *)self findFirstResponderInView:*(*(&v13 + 1) + 8 * i)];
           if (v11)
           {
             v5 = v11;
@@ -180,7 +219,7 @@
           }
         }
 
-        v8 = [subviews countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v8 = [subviews countByEnumeratingWithState:&v13 objects:v17 count:16];
         if (v8)
         {
           continue;
@@ -194,8 +233,6 @@
   }
 
 LABEL_13:
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -282,7 +319,7 @@ LABEL_6:
     goto LABEL_10;
   }
 
-  v14 = _TSLogDomain();
+  v14 = _TSLogDomain(v8);
   if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
   {
     [SSCardManualEntryViewController tableView:pathCopy cellForRowAtIndexPath:v14];
@@ -351,25 +388,23 @@ void __57__SSCardManualEntryViewController_textFieldShouldReturn___block_invoke(
   v2 = [*(a1 + 32) editableTextField];
   [v2 becomeFirstResponder];
 
-  v3 = _TSLogDomain();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  v4 = _TSLogDomain(v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v4 = [*(a1 + 32) editableTextField];
-    v5 = [v4 isFirstResponder];
-    v6 = @"NO";
-    if (v5)
+    v5 = [*(a1 + 32) editableTextField];
+    v6 = [v5 isFirstResponder];
+    v7 = @"NO";
+    if (v6)
     {
-      v6 = @"YES";
+      v7 = @"YES";
     }
 
     v8 = 138412546;
-    v9 = v6;
+    v9 = v7;
     v10 = 2080;
     v11 = "[SSCardManualEntryViewController textFieldShouldReturn:]_block_invoke";
-    _os_log_impl(&dword_262AA8000, v3, OS_LOG_TYPE_DEFAULT, "Next field is first responder: %@ @%s", &v8, 0x16u);
+    _os_log_impl(&dword_262AA8000, v4, OS_LOG_TYPE_DEFAULT, "Next field is first responder: %@ @%s", &v8, 0x16u);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)textFieldDidBeginEditing:(id)editing
@@ -431,7 +466,7 @@ void __57__SSCardManualEntryViewController_textFieldShouldReturn___block_invoke(
 
 - (void)addNewPlanWithUserInfo
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   view = [(SSCardManualEntryViewController *)self view];
   [view endEditing:1];
 
@@ -441,25 +476,23 @@ void __57__SSCardManualEntryViewController_textFieldShouldReturn___block_invoke(
   v5 = [(NSMutableArray *)self->_values objectAtIndexedSubscript:0];
   v6 = [(NSMutableArray *)self->_values objectAtIndexedSubscript:1];
   v7 = [(NSMutableArray *)self->_values objectAtIndexedSubscript:2];
-  v8 = _TSLogDomain();
+  v8 = _TSLogDomain(v7);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = 138413058;
-    v13 = v5;
-    v14 = 2112;
-    v15 = v6;
-    v16 = 2112;
-    v17 = v7;
-    v18 = 2080;
-    v19 = "[SSCardManualEntryViewController addNewPlanWithUserInfo]";
-    _os_log_impl(&dword_262AA8000, v8, OS_LOG_TYPE_DEFAULT, "addressField:%@, activationCode:%@, confirmationCode:%@ @%s", &v12, 0x2Au);
+    v11 = 138413058;
+    v12 = v5;
+    v13 = 2112;
+    v14 = v6;
+    v15 = 2112;
+    v16 = v7;
+    v17 = 2080;
+    v18 = "[SSCardManualEntryViewController addNewPlanWithUserInfo]";
+    _os_log_impl(&dword_262AA8000, v8, OS_LOG_TYPE_DEFAULT, "addressField:%@, activationCode:%@, confirmationCode:%@ @%s", &v11, 0x2Au);
   }
 
   v9 = +[TSCellularPlanManagerCache sharedInstance];
   v10 = objc_loadWeakRetained(&self->_delegate);
   [v9 addNewPlanWithAddress:v5 matchingId:v6 confirmationCode:v7 userConsent:objc_msgSend(v10 completion:{"signupUserConsentResponse"), &__block_literal_global_15}];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (TSSIMSetupFlowDelegate)delegate
@@ -471,13 +504,12 @@ void __57__SSCardManualEntryViewController_textFieldShouldReturn___block_invoke(
 
 - (void)tableView:(uint64_t)a1 cellForRowAtIndexPath:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v3 = 138412546;
-  v4 = a1;
-  v5 = 2080;
-  v6 = "[SSCardManualEntryViewController tableView:cellForRowAtIndexPath:]";
-  _os_log_error_impl(&dword_262AA8000, a2, OS_LOG_TYPE_ERROR, "[E]No defined cell for index: %@ @%s", &v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
+  v2 = 138412546;
+  v3 = a1;
+  v4 = 2080;
+  v5 = "[SSCardManualEntryViewController tableView:cellForRowAtIndexPath:]";
+  _os_log_error_impl(&dword_262AA8000, a2, OS_LOG_TYPE_ERROR, "[E]No defined cell for index: %@ @%s", &v2, 0x16u);
 }
 
 @end

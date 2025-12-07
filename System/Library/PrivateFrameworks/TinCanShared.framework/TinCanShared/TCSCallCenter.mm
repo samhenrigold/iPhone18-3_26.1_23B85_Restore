@@ -14,6 +14,7 @@
 - (void)queryIsTinCannable:(id)cannable;
 - (void)remoteUplinkMuteChanged:(id)changed;
 - (void)sessionViewControllerViewDidAppear;
+- (void)setUplinkMuted:(BOOL)muted for:(id)for completion:(id)completion;
 - (void)synchronouslyFetchCall;
 @end
 
@@ -21,10 +22,10 @@
 
 - (TCSCallCenter)init
 {
-  v27 = *MEMORY[0x277D85DE8];
-  v24.receiver = self;
-  v24.super_class = TCSCallCenter;
-  v2 = [(TCSCallCenter *)&v24 init];
+  v28 = *MEMORY[0x277D85DE8];
+  v25.receiver = self;
+  v25.super_class = TCSCallCenter;
+  v2 = [(TCSCallCenter *)&v25 init];
   if (v2)
   {
     v3 = [objc_alloc(MEMORY[0x277CCAE80]) initWithMachServiceName:@"com.apple.tincan.server" options:0];
@@ -43,88 +44,85 @@
     objc_initWeak(&location, v2);
     objc_initWeak(&from, v2->_connection);
     v9 = v2->_connection;
-    v20[0] = MEMORY[0x277D85DD0];
-    v20[1] = 3221225472;
-    v20[2] = __21__TCSCallCenter_init__block_invoke;
-    v20[3] = &unk_279DC1990;
-    objc_copyWeak(&v21, &location);
-    [(NSXPCConnection *)v9 setInvalidationHandler:v20];
+    v21[0] = MEMORY[0x277D85DD0];
+    v21[1] = 3221225472;
+    v21[2] = __21__TCSCallCenter_init__block_invoke;
+    v21[3] = &unk_279DC1990;
+    objc_copyWeak(&v22, &location);
+    [(NSXPCConnection *)v9 setInvalidationHandler:v21];
     v10 = v2->_connection;
-    v15 = MEMORY[0x277D85DD0];
-    v16 = 3221225472;
-    v17 = __21__TCSCallCenter_init__block_invoke_107;
-    v18 = &unk_279DC1990;
-    objc_copyWeak(&v19, &from);
-    [(NSXPCConnection *)v10 setInterruptionHandler:&v15];
-    [(NSXPCConnection *)v2->_connection resume:v15];
-    [(TCSCallCenter *)v2 synchronouslyFetchCall];
-    _TCSInitializeLogging();
-    v11 = TCSLogDefault;
+    v16 = MEMORY[0x277D85DD0];
+    v17 = 3221225472;
+    v18 = __21__TCSCallCenter_init__block_invoke_107;
+    v19 = &unk_279DC1990;
+    objc_copyWeak(&v20, &from);
+    [(NSXPCConnection *)v10 setInterruptionHandler:&v16];
+    [(NSXPCConnection *)v2->_connection resume:v16];
+    synchronouslyFetchCall = [(TCSCallCenter *)v2 synchronouslyFetchCall];
+    _TCSInitializeLogging(synchronouslyFetchCall, v12);
+    v13 = TCSLogDefault;
     if (os_log_type_enabled(TCSLogDefault, OS_LOG_TYPE_DEFAULT))
     {
       call = v2->_call;
       *buf = 138412290;
-      v26 = call;
-      _os_log_impl(&dword_26F110000, v11, OS_LOG_TYPE_DEFAULT, "TCSCallCenter (init) now tracking call: %@", buf, 0xCu);
+      v27 = call;
+      _os_log_impl(&dword_26F110000, v13, OS_LOG_TYPE_DEFAULT, "TCSCallCenter (init) now tracking call: %@", buf, 0xCu);
     }
 
-    objc_destroyWeak(&v19);
-    objc_destroyWeak(&v21);
+    objc_destroyWeak(&v20);
+    objc_destroyWeak(&v22);
     objc_destroyWeak(&from);
     objc_destroyWeak(&location);
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
 void __21__TCSCallCenter_init__block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
+  v3 = WeakRetained;
   if (WeakRetained)
   {
-    _TCSInitializeLogging();
-    v2 = TCSLogDefault;
+    _TCSInitializeLogging(WeakRetained, v2);
+    v4 = TCSLogDefault;
     if (os_log_type_enabled(TCSLogDefault, OS_LOG_TYPE_DEFAULT))
     {
-      v3 = WeakRetained[1];
-      v6 = 138412290;
-      v7 = v3;
-      _os_log_impl(&dword_26F110000, v2, OS_LOG_TYPE_DEFAULT, "TCSCallCenter connection invalidation handler called for %@", &v6, 0xCu);
+      v5 = v3[1];
+      v7 = 138412290;
+      v8 = v5;
+      _os_log_impl(&dword_26F110000, v4, OS_LOG_TYPE_DEFAULT, "TCSCallCenter connection invalidation handler called for %@", &v7, 0xCu);
     }
 
-    v4 = WeakRetained[1];
-    WeakRetained[1] = 0;
+    v6 = v3[1];
+    v3[1] = 0;
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __21__TCSCallCenter_init__block_invoke_107(uint64_t a1)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
+  v3 = WeakRetained;
   if (WeakRetained)
   {
-    _TCSInitializeLogging();
-    v2 = TCSLogDefault;
+    _TCSInitializeLogging(WeakRetained, v2);
+    v4 = TCSLogDefault;
     if (os_log_type_enabled(TCSLogDefault, OS_LOG_TYPE_DEFAULT))
     {
-      v4 = 138412290;
-      v5 = WeakRetained;
-      _os_log_impl(&dword_26F110000, v2, OS_LOG_TYPE_DEFAULT, "TCSCallCenter connection interruption handler called for %@", &v4, 0xCu);
+      v5 = 138412290;
+      v6 = v3;
+      _os_log_impl(&dword_26F110000, v4, OS_LOG_TYPE_DEFAULT, "TCSCallCenter connection interruption handler called for %@", &v5, 0xCu);
     }
 
-    [WeakRetained invalidate];
+    [v3 invalidate];
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (void)invalidate
 {
-  _TCSInitializeLogging();
+  _TCSInitializeLogging(self, a2);
   v3 = TCSLogDefault;
   if (os_log_type_enabled(TCSLogDefault, OS_LOG_TYPE_DEFAULT))
   {
@@ -164,9 +162,10 @@ void __21__TCSCallCenter_init__block_invoke_107(uint64_t a1)
 void __39__TCSCallCenter_synchronouslyFetchCall__block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
+  v4 = v2;
   if (v2)
   {
-    _TCSInitializeLogging();
+    _TCSInitializeLogging(v2, v3);
     if (os_log_type_enabled(TCSLogDefault, OS_LOG_TYPE_ERROR))
     {
       __39__TCSCallCenter_synchronouslyFetchCall__block_invoke_cold_1();
@@ -176,83 +175,78 @@ void __39__TCSCallCenter_synchronouslyFetchCall__block_invoke(uint64_t a1, void 
 
 void __39__TCSCallCenter_synchronouslyFetchCall__block_invoke_111(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v4 = a2;
   objc_storeStrong((*(a1 + 32) + 16), a2);
-  [*(*(a1 + 32) + 16) setCallCenter:?];
-  _TCSInitializeLogging();
-  v5 = TCSLogDefault;
+  v5 = [*(*(a1 + 32) + 16) setCallCenter:?];
+  _TCSInitializeLogging(v5, v6);
+  v7 = TCSLogDefault;
   if (os_log_type_enabled(TCSLogDefault, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
-    v8 = v4;
-    _os_log_impl(&dword_26F110000, v5, OS_LOG_TYPE_DEFAULT, "TCSCallCenter synchronously fetched call: %@", &v7, 0xCu);
+    v8 = 138412290;
+    v9 = v4;
+    _os_log_impl(&dword_26F110000, v7, OS_LOG_TYPE_DEFAULT, "TCSCallCenter synchronously fetched call: %@", &v8, 0xCu);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (id)ringingCall
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = [(TCSCallCenter *)self _callPassingPredicate:&__block_literal_global_104];
+  v4 = v2;
   if (v2)
   {
-    _TCSInitializeLogging();
-    v3 = TCSLogDefault;
+    _TCSInitializeLogging(v2, v3);
+    v5 = TCSLogDefault;
     if (os_log_type_enabled(TCSLogDefault, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = 138412290;
-      v7 = v2;
-      _os_log_impl(&dword_26F110000, v3, OS_LOG_TYPE_DEFAULT, "TCSCallCenter has a ringing call: %@", &v6, 0xCu);
+      v7 = 138412290;
+      v8 = v4;
+      _os_log_impl(&dword_26F110000, v5, OS_LOG_TYPE_DEFAULT, "TCSCallCenter has a ringing call: %@", &v7, 0xCu);
     }
   }
 
-  v4 = *MEMORY[0x277D85DE8];
-
-  return v2;
+  return v4;
 }
 
 - (id)activeCall
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = [(TCSCallCenter *)self _callPassingPredicate:&__block_literal_global_2];
+  v4 = v2;
   if (v2)
   {
-    _TCSInitializeLogging();
-    v3 = TCSLogDefault;
+    _TCSInitializeLogging(v2, v3);
+    v5 = TCSLogDefault;
     if (os_log_type_enabled(TCSLogDefault, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = 138412290;
-      v7 = v2;
-      _os_log_impl(&dword_26F110000, v3, OS_LOG_TYPE_DEFAULT, "TCSCallCenter has an active call: %@", &v6, 0xCu);
+      v7 = 138412290;
+      v8 = v4;
+      _os_log_impl(&dword_26F110000, v5, OS_LOG_TYPE_DEFAULT, "TCSCallCenter has an active call: %@", &v7, 0xCu);
     }
   }
 
-  v4 = *MEMORY[0x277D85DE8];
-
-  return v2;
+  return v4;
 }
 
 - (id)currentCall
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = [(TCSCallCenter *)self _callPassingPredicate:&__block_literal_global_100];
+  v4 = v2;
   if (v2)
   {
-    _TCSInitializeLogging();
-    v3 = TCSLogDefault;
+    _TCSInitializeLogging(v2, v3);
+    v5 = TCSLogDefault;
     if (os_log_type_enabled(TCSLogDefault, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = 138412290;
-      v7 = v2;
-      _os_log_impl(&dword_26F110000, v3, OS_LOG_TYPE_DEFAULT, "TCSCallCenter has a current call: %@", &v6, 0xCu);
+      v7 = 138412290;
+      v8 = v4;
+      _os_log_impl(&dword_26F110000, v5, OS_LOG_TYPE_DEFAULT, "TCSCallCenter has a current call: %@", &v7, 0xCu);
     }
   }
 
-  v4 = *MEMORY[0x277D85DE8];
-
-  return v2;
+  return v4;
 }
 
 - (void)sessionViewControllerViewDidAppear
@@ -264,19 +258,20 @@ void __39__TCSCallCenter_synchronouslyFetchCall__block_invoke_111(uint64_t a1, v
 - (void)queryIsTinCannable:(id)cannable
 {
   cannableCopy = cannable;
-  if (+[TCSBehavior isRunningInStoreDemoModeOrSimulator])
+  v5 = +[TCSBehavior isRunningInStoreDemoModeOrSimulator];
+  if (v5)
   {
-    _TCSInitializeLogging();
-    v5 = TCSLogDefault;
+    _TCSInitializeLogging(v5, v6);
+    v7 = TCSLogDefault;
     if (os_log_type_enabled(TCSLogDefault, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_26F110000, v5, OS_LOG_TYPE_DEFAULT, "Skipping invitation IDS query since we are running in store demo mode or the simulator.", buf, 2u);
+      _os_log_impl(&dword_26F110000, v7, OS_LOG_TYPE_DEFAULT, "Skipping invitation IDS query since we are running in store demo mode or the simulator.", buf, 2u);
     }
 
-    v6 = objc_opt_new();
-    v7 = [MEMORY[0x277CBEAA8] now];
-    [v6 didReceiveCallFromContact:cannableCopy date:v7];
+    v8 = objc_opt_new();
+    v9 = [MEMORY[0x277CBEAA8] now];
+    [v8 didReceiveCallFromContact:cannableCopy date:v9];
   }
 
   else
@@ -318,19 +313,20 @@ void __39__TCSCallCenter_synchronouslyFetchCall__block_invoke_111(uint64_t a1, v
 void __69__TCSCallCenter_logEntryForCallWithUniqueProxyIdentifier_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
+  v5 = v3;
   if (v3)
   {
-    _TCSInitializeLogging();
+    _TCSInitializeLogging(v3, v4);
     if (os_log_type_enabled(TCSLogDefault, OS_LOG_TYPE_ERROR))
     {
       __69__TCSCallCenter_logEntryForCallWithUniqueProxyIdentifier_completion___block_invoke_cold_1();
     }
 
-    v4 = *(a1 + 32);
-    if (v4)
+    v6 = *(a1 + 32);
+    if (v6)
     {
-      v5 = objc_opt_new();
-      (*(v4 + 16))(v4, v5);
+      v7 = objc_opt_new();
+      (*(v6 + 16))(v6, v7);
     }
   }
 }
@@ -346,49 +342,78 @@ uint64_t __69__TCSCallCenter_logEntryForCallWithUniqueProxyIdentifier_completion
   return result;
 }
 
-uint64_t __47__TCSCallCenter_setUplinkMuted_for_completion___block_invoke(uint64_t result)
+- (void)setUplinkMuted:(BOOL)muted for:(id)for completion:(id)completion
+{
+  mutedCopy = muted;
+  forCopy = for;
+  completionCopy = completion;
+  v20[0] = 0;
+  v20[1] = v20;
+  v20[2] = 0x2020000000;
+  v21 = 0;
+  v10 = dispatch_time(0, 100000000);
+  block[0] = MEMORY[0x277D85DD0];
+  block[1] = 3221225472;
+  block[2] = __47__TCSCallCenter_setUplinkMuted_for_completion___block_invoke;
+  block[3] = &unk_279DC1E18;
+  v19 = v20;
+  v11 = completionCopy;
+  v18 = v11;
+  dispatch_after(v10, MEMORY[0x277D85CD0], block);
+  remoteObjectProxy = [(NSXPCConnection *)self->_connection remoteObjectProxy];
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __47__TCSCallCenter_setUplinkMuted_for_completion___block_invoke_118;
+  v14[3] = &unk_279DC1E18;
+  v16 = v20;
+  v13 = v11;
+  v15 = v13;
+  [remoteObjectProxy setUplinkMuted:mutedCopy for:forCopy completion:v14];
+
+  _Block_object_dispose(v20, 8);
+}
+
+uint64_t __47__TCSCallCenter_setUplinkMuted_for_completion___block_invoke(uint64_t result, uint64_t a2)
 {
   v6 = *MEMORY[0x277D85DE8];
   if ((*(*(*(result + 40) + 8) + 24) & 1) == 0)
   {
-    v1 = result;
-    _TCSInitializeLogging();
-    v2 = TCSLogDefault;
+    v2 = result;
+    _TCSInitializeLogging(result, a2);
+    v3 = TCSLogDefault;
     if (os_log_type_enabled(TCSLogDefault, OS_LOG_TYPE_DEFAULT))
     {
       v4 = 136315138;
       v5 = "[TCSCallCenter setUplinkMuted:for:completion:]_block_invoke";
-      _os_log_impl(&dword_26F110000, v2, OS_LOG_TYPE_DEFAULT, "Timed out waiting for completion to fire for %s, manually firing", &v4, 0xCu);
+      _os_log_impl(&dword_26F110000, v3, OS_LOG_TYPE_DEFAULT, "Timed out waiting for completion to fire for %s, manually firing", &v4, 0xCu);
     }
 
-    *(*(*(v1 + 40) + 8) + 24) = 1;
-    result = (*(*(v1 + 32) + 16))();
+    *(*(*(v2 + 40) + 8) + 24) = 1;
+    return (*(*(v2 + 32) + 16))();
   }
 
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-uint64_t __47__TCSCallCenter_setUplinkMuted_for_completion___block_invoke_118(uint64_t result)
+uint64_t __47__TCSCallCenter_setUplinkMuted_for_completion___block_invoke_118(uint64_t result, uint64_t a2)
 {
   v6 = *MEMORY[0x277D85DE8];
   if ((*(*(*(result + 40) + 8) + 24) & 1) == 0)
   {
-    v1 = result;
-    _TCSInitializeLogging();
-    v2 = TCSLogDefault;
+    v2 = result;
+    _TCSInitializeLogging(result, a2);
+    v3 = TCSLogDefault;
     if (os_log_type_enabled(TCSLogDefault, OS_LOG_TYPE_DEFAULT))
     {
       v4 = 136315138;
       v5 = "[TCSCallCenter setUplinkMuted:for:completion:]_block_invoke";
-      _os_log_impl(&dword_26F110000, v2, OS_LOG_TYPE_DEFAULT, "Calling completion for %s", &v4, 0xCu);
+      _os_log_impl(&dword_26F110000, v3, OS_LOG_TYPE_DEFAULT, "Calling completion for %s", &v4, 0xCu);
     }
 
-    *(*(*(v1 + 40) + 8) + 24) = 1;
-    result = (*(*(v1 + 32) + 16))();
+    *(*(*(v2 + 40) + 8) + 24) = 1;
+    return (*(*(v2 + 32) + 16))();
   }
 
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -402,68 +427,62 @@ uint64_t __47__TCSCallCenter_setUplinkMuted_for_completion___block_invoke_118(ui
 
 - (void)callStatusChanged:(id)changed
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   changedCopy = changed;
   objc_storeStrong(&self->_call, changed);
-  [(TCSCall *)self->_call setCallCenter:self];
-  _TCSInitializeLogging();
-  v6 = TCSLogDefault;
+  v6 = [(TCSCall *)self->_call setCallCenter:self];
+  _TCSInitializeLogging(v6, v7);
+  v8 = TCSLogDefault;
   if (os_log_type_enabled(TCSLogDefault, OS_LOG_TYPE_DEFAULT))
   {
     call = self->_call;
-    v10 = 138412290;
-    v11 = call;
-    _os_log_impl(&dword_26F110000, v6, OS_LOG_TYPE_DEFAULT, "TCSCallCenter (callStatusChanged) now tracking call: %@", &v10, 0xCu);
+    v11 = 138412290;
+    v12 = call;
+    _os_log_impl(&dword_26F110000, v8, OS_LOG_TYPE_DEFAULT, "TCSCallCenter (callStatusChanged) now tracking call: %@", &v11, 0xCu);
   }
 
   delegate = [(TCSCallCenter *)self delegate];
   [delegate callStatusChanged:changedCopy];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)callConnected:(id)connected
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   connectedCopy = connected;
   objc_storeStrong(&self->_call, connected);
-  [(TCSCall *)self->_call setCallCenter:self];
-  _TCSInitializeLogging();
-  v6 = TCSLogDefault;
+  v6 = [(TCSCall *)self->_call setCallCenter:self];
+  _TCSInitializeLogging(v6, v7);
+  v8 = TCSLogDefault;
   if (os_log_type_enabled(TCSLogDefault, OS_LOG_TYPE_DEFAULT))
   {
     call = self->_call;
-    v10 = 138412290;
-    v11 = call;
-    _os_log_impl(&dword_26F110000, v6, OS_LOG_TYPE_DEFAULT, "TCSCallCenter (callConnected) now tracking call: %@", &v10, 0xCu);
+    v11 = 138412290;
+    v12 = call;
+    _os_log_impl(&dword_26F110000, v8, OS_LOG_TYPE_DEFAULT, "TCSCallCenter (callConnected) now tracking call: %@", &v11, 0xCu);
   }
 
   delegate = [(TCSCallCenter *)self delegate];
   [delegate callConnected:connectedCopy];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)remoteUplinkMuteChanged:(id)changed
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   changedCopy = changed;
   objc_storeStrong(&self->_call, changed);
-  [(TCSCall *)self->_call setCallCenter:self];
-  _TCSInitializeLogging();
-  v6 = TCSLogDefault;
+  v6 = [(TCSCall *)self->_call setCallCenter:self];
+  _TCSInitializeLogging(v6, v7);
+  v8 = TCSLogDefault;
   if (os_log_type_enabled(TCSLogDefault, OS_LOG_TYPE_DEFAULT))
   {
     call = self->_call;
-    v10 = 138412290;
-    v11 = call;
-    _os_log_impl(&dword_26F110000, v6, OS_LOG_TYPE_DEFAULT, "TCSCallCenter (remoteUplinkMuteChanged) now tracking call: %@", &v10, 0xCu);
+    v11 = 138412290;
+    v12 = call;
+    _os_log_impl(&dword_26F110000, v8, OS_LOG_TYPE_DEFAULT, "TCSCallCenter (remoteUplinkMuteChanged) now tracking call: %@", &v11, 0xCu);
   }
 
   delegate = [(TCSCallCenter *)self delegate];
   [delegate remoteUplinkMuteChanged:changedCopy];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (TCSCallCenterDelegate)delegate
@@ -475,20 +494,18 @@ uint64_t __47__TCSCallCenter_setUplinkMuted_for_completion___block_invoke_118(ui
 
 void __39__TCSCallCenter_synchronouslyFetchCall__block_invoke_cold_1()
 {
-  v3 = *MEMORY[0x277D85DE8];
-  v2[0] = 136315394;
+  v2 = *MEMORY[0x277D85DE8];
+  v1[0] = 136315394;
   OUTLINED_FUNCTION_0_0();
-  _os_log_error_impl(&dword_26F110000, v0, OS_LOG_TYPE_ERROR, "%s %@", v2, 0x16u);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_26F110000, v0, OS_LOG_TYPE_ERROR, "%s %@", v1, 0x16u);
 }
 
 void __69__TCSCallCenter_logEntryForCallWithUniqueProxyIdentifier_completion___block_invoke_cold_1()
 {
-  v3 = *MEMORY[0x277D85DE8];
-  v2[0] = 136315394;
+  v2 = *MEMORY[0x277D85DE8];
+  v1[0] = 136315394;
   OUTLINED_FUNCTION_0_0();
-  _os_log_error_impl(&dword_26F110000, v0, OS_LOG_TYPE_ERROR, "%s %@", v2, 0x16u);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_26F110000, v0, OS_LOG_TYPE_ERROR, "%s %@", v1, 0x16u);
 }
 
 @end

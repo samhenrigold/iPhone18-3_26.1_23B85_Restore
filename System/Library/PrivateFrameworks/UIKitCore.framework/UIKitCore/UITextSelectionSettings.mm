@@ -3,11 +3,11 @@
 
 @implementation UITextSelectionSettings
 
-void __42___UITextSelectionSettings_sharedInstance__block_invoke()
+void __42___UITextSelectionSettings_sharedInstance__block_invoke(uint64_t a1)
 {
-  v0 = objc_alloc_init(objc_opt_class());
-  v1 = _MergedGlobals_8;
-  _MergedGlobals_8 = v0;
+  v1 = objc_alloc_init(objc_opt_class());
+  v2 = _MergedGlobals_8;
+  _MergedGlobals_8 = v1;
 }
 
 @end

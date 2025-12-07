@@ -25,20 +25,21 @@ void sub_1840(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_185C(uint64_t a1, int a2, void *a3)
+void sub_185C(uint64_t a1, uint64_t a2, void *a3)
 {
+  v3 = a2;
   v5 = a3;
   v6 = AXLogSpeakTyping();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
-    sub_4370(a2, v6);
+    sub_4370(v3, v6);
   }
 
-  if (a2 <= 1019)
+  if (v3 <= 1019)
   {
-    if ((a2 - 1000) >= 2)
+    if ((v3 - 1000) >= 2)
     {
-      if (a2 == 1005)
+      if (v3 == 1005)
       {
         WeakRetained = objc_loadWeakRetained((a1 + 40));
         [WeakRetained handleValueChange:v5];
@@ -47,7 +48,7 @@ void sub_185C(uint64_t a1, int a2, void *a3)
         goto LABEL_17;
       }
 
-      if (a2 != 1018)
+      if (v3 != 1018)
       {
         goto LABEL_17;
       }
@@ -56,11 +57,11 @@ void sub_185C(uint64_t a1, int a2, void *a3)
     goto LABEL_15;
   }
 
-  if (a2 > 1053)
+  if (v3 > 1053)
   {
-    if (a2 != 5001)
+    if (v3 != 5001)
     {
-      if (a2 == 1054)
+      if (v3 == 1054)
       {
         *(*(a1 + 32) + 16) = 1;
       }
@@ -74,12 +75,12 @@ LABEL_15:
     goto LABEL_16;
   }
 
-  if (a2 == 1020)
+  if (v3 == 1020)
   {
     goto LABEL_15;
   }
 
-  if (a2 == 1052)
+  if (v3 == 1052)
   {
     v7 = objc_loadWeakRetained((a1 + 40));
     [v7 handleTextReplacementOccurred:v5];
@@ -91,11 +92,9 @@ LABEL_17:
 
 void sub_1B54(uint64_t a1)
 {
-  v2 = objc_alloc_init(AXIndexMap);
-  v3 = *(*(a1 + 32) + 8);
+  v1 = objc_alloc_init(AXIndexMap);
   AXLoadPunctuationTable();
-  v5 = *(a1 + 32);
-  v4 = v2;
+  v2 = v1;
   AXPerformBlockAsynchronouslyOnMainThread();
 }
 
@@ -104,23 +103,22 @@ void sub_1CA4(uint64_t a1, void *a2)
   v3 = a2;
   if (!UIAccessibilityIsVoiceOverRunning())
   {
-    v4 = *(a1 + 32);
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
       if (_AXSWordFeedbackEnabled() && [*(a1 + 32) length])
       {
-        v5 = [*(a1 + 40) responderElement];
-        v6 = [v5 application];
-        v7 = [v6 isDictationListening];
+        v4 = [*(a1 + 40) responderElement];
+        v5 = [v4 application];
+        v6 = [v5 isDictationListening];
 
-        if (v7)
+        if (v6)
         {
-          v8 = AXLogSpeakTyping();
-          if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+          v7 = AXLogSpeakTyping();
+          if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
           {
-            *v10 = 0;
-            _os_log_impl(&dword_0, v8, OS_LOG_TYPE_DEFAULT, "Will not speak because app-dictation is running", v10, 2u);
+            *v9 = 0;
+            _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEFAULT, "Will not speak because app-dictation is running", v9, 2u);
           }
         }
 
@@ -131,8 +129,8 @@ void sub_1CA4(uint64_t a1, void *a2)
       }
 
       *(*(a1 + 40) + 120) = CFAbsoluteTimeGetCurrent();
-      v9 = [v3 value];
-      [*(a1 + 40) setElementValueText:v9];
+      v8 = [v3 value];
+      [*(a1 + 40) setElementValueText:v8];
     }
   }
 }

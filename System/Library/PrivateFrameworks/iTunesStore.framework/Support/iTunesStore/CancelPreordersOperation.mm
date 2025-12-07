@@ -83,8 +83,8 @@
 
 - (BOOL)_cancelPreorderWithOperation:(id)operation error:(id *)error
 {
-  v25 = 0;
-  LODWORD(v6) = [(CancelPreordersOperation *)self runSubOperation:operation returningError:&v25];
+  v26 = 0;
+  LODWORD(v6) = [(CancelPreordersOperation *)self runSubOperation:operation returningError:&v26];
   if (v6)
   {
     v7 = [objc_msgSend(operation "dataProvider")];
@@ -104,33 +104,38 @@
         shouldLog = [v10 shouldLog];
         if ([v10 shouldLogToDisk])
         {
-          v12 = shouldLog | 2;
+          LODWORD(v12) = shouldLog | 2;
         }
 
         else
         {
-          v12 = shouldLog;
+          LODWORD(v12) = shouldLog;
         }
 
-        if (!os_log_type_enabled([v10 OSLogObject], OS_LOG_TYPE_DEFAULT))
+        oSLogObject = [v10 OSLogObject];
+        if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+        {
+          v12 = v12;
+        }
+
+        else
         {
           v12 &= 2u;
         }
 
         if (v12)
         {
-          v13 = objc_opt_class();
-          v26 = 138412546;
-          v27 = v13;
-          v28 = 2112;
-          v29 = v9;
-          LODWORD(v24) = 22;
-          v14 = _os_log_send_and_compose_impl();
-          if (v14)
+          v14 = objc_opt_class();
+          v27 = 138412546;
+          v28 = v14;
+          v29 = 2112;
+          v30 = v9;
+          v15 = _os_log_send_and_compose_impl(v12, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%@: Cancel failed with failureType: %@", &v27, 22);
+          if (v15)
           {
-            v15 = v14;
-            [NSString stringWithCString:v14 encoding:4, &v26, v24];
-            free(v15);
+            v16 = v15;
+            [NSString stringWithCString:v15 encoding:4];
+            free(v16);
             SSFileLog();
           }
         }
@@ -140,9 +145,9 @@
           [v9 intValue];
         }
 
-        v22 = SSError();
+        v24 = SSError();
         LOBYTE(v6) = 0;
-        v25 = v22;
+        v26 = v24;
       }
 
       else
@@ -153,46 +158,51 @@
 
     else
     {
-      v16 = +[SSLogConfig sharedDaemonConfig];
-      if (!v16)
+      v17 = +[SSLogConfig sharedDaemonConfig];
+      if (!v17)
       {
-        v16 = +[SSLogConfig sharedConfig];
+        v17 = +[SSLogConfig sharedConfig];
       }
 
-      shouldLog2 = [v16 shouldLog];
-      if ([v16 shouldLogToDisk])
+      shouldLog2 = [v17 shouldLog];
+      if ([v17 shouldLogToDisk])
       {
-        v18 = shouldLog2 | 2;
+        LODWORD(v19) = shouldLog2 | 2;
       }
 
       else
       {
-        v18 = shouldLog2;
+        LODWORD(v19) = shouldLog2;
       }
 
-      if (!os_log_type_enabled([v16 OSLogObject], OS_LOG_TYPE_DEFAULT))
+      oSLogObject2 = [v17 OSLogObject];
+      if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEFAULT))
       {
-        v18 &= 2u;
+        v19 = v19;
       }
 
-      if (v18)
+      else
       {
-        v19 = objc_opt_class();
-        v20 = objc_opt_class();
-        v26 = 138412546;
-        v27 = v19;
-        v28 = 2112;
-        v29 = v20;
-        LODWORD(v24) = 22;
-        v6 = _os_log_send_and_compose_impl();
+        v19 &= 2u;
+      }
+
+      if (v19)
+      {
+        v21 = objc_opt_class();
+        v22 = objc_opt_class();
+        v27 = 138412546;
+        v28 = v21;
+        v29 = 2112;
+        v30 = v22;
+        v6 = _os_log_send_and_compose_impl(v19, 0, 0, 0, &_mh_execute_header, oSLogObject2, 0, "%@: Invalid response type: %@", &v27, 22);
         if (!v6)
         {
-          goto LABEL_29;
+          goto LABEL_31;
         }
 
-        v21 = v6;
-        [NSString stringWithCString:v6 encoding:4, &v26, v24];
-        free(v21);
+        v23 = v6;
+        [NSString stringWithCString:v6 encoding:4];
+        free(v23);
         SSFileLog();
       }
 
@@ -200,10 +210,10 @@
     }
   }
 
-LABEL_29:
+LABEL_31:
   if (error)
   {
-    *error = v25;
+    *error = v26;
   }
 
   return v6;

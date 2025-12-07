@@ -3,7 +3,7 @@
 
 @implementation TVShelfViewLayout
 
-void __50___TVShelfViewLayout_invalidateLayoutWithContext___block_invoke(uint64_t a1, void *a2, uint64_t a3)
+void __50___TVShelfViewLayout_invalidateLayoutWithContext___block_invoke(uint64_t a1, void *a2, void *a3)
 {
   v9 = a2;
   if ([*(a1 + 32) section] != a3 || *(a1 + 56) != 1 || (objc_msgSend(*(a1 + 40), "_bumpHeaderForLayoutSection:forIndexPath:", v9, *(a1 + 32)) & 1) == 0)

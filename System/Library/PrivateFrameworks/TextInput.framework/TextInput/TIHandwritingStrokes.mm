@@ -283,61 +283,62 @@
 
 - (void)encodeWithCoder:(id)coder
 {
-  v22[1] = *MEMORY[0x1E69E9840];
+  v23[1] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
-  v5 = 0xAAAAAAAAAAAAAAABLL * ((self->_strokes.__end_ - self->_strokes.__begin_) >> 3);
-  if (v5 >= 1)
+  v5 = coderCopy;
+  v6 = 0xAAAAAAAAAAAAAAABLL * ((self->_strokes.__end_ - self->_strokes.__begin_) >> 3);
+  if (v6 >= 1)
   {
-    v6 = v5 & 0x7FFFFFFF;
-    (MEMORY[0x1EEE9AC00])();
-    v8 = v22 - ((v7 + 15) & 0x3FFFFFFF0);
-    v9 = 0;
-    LODWORD(v10) = 0;
-    v11 = self->_strokes.__begin_ + 8;
+    v7 = v6 & 0x7FFFFFFF;
+    MEMORY[0x1EEE9AC00](coderCopy);
+    v9 = v23 - ((v8 + 15) & 0x3FFFFFFF0);
+    v10 = 0;
+    LODWORD(v11) = 0;
+    v12 = self->_strokes.__begin_ + 8;
     do
     {
-      v12 = (*v11 - *(v11 - 1)) >> 4;
-      *&v8[4 * v9] = v12;
-      v10 = (v10 + v12);
-      ++v9;
-      v11 += 3;
+      v13 = (*v12 - *(v12 - 1)) >> 4;
+      *&v9[4 * v10] = v13;
+      v11 = (v11 + v13);
+      ++v10;
+      v12 += 3;
     }
 
-    while (v6 != v9);
-    v13 = [coderCopy encodeBytes:? length:? forKey:?];
-    MEMORY[0x1EEE9AC00](v13);
-    v14 = 0;
+    while (v7 != v10);
+    v14 = [v5 encodeBytes:? length:? forKey:?];
+    MEMORY[0x1EEE9AC00](v14);
     v15 = 0;
+    v16 = 0;
     begin = self->_strokes.__begin_;
     do
     {
-      v17 = begin[3 * v14];
-      v18 = begin[3 * v14 + 1] - v17;
-      if (v18)
+      v18 = begin[3 * v15];
+      v19 = begin[3 * v15 + 1] - v18;
+      if (v19)
       {
-        v19 = v18 >> 4;
-        if (v19 <= 1)
+        v20 = v19 >> 4;
+        if (v20 <= 1)
         {
-          v19 = 1;
+          v20 = 1;
         }
 
-        v20 = &v22[2 * v15 + -2 * v10];
-        v15 += v19;
+        v21 = &v23[2 * v16 + -2 * v11];
+        v16 += v20;
         do
         {
-          v21 = *v17++;
-          *v20++ = v21;
-          --v19;
+          v22 = *v18++;
+          *v21++ = v22;
+          --v20;
         }
 
-        while (v19);
+        while (v20);
       }
 
-      ++v14;
+      ++v15;
     }
 
-    while (v14 != v6);
-    [coderCopy encodeBytes:? length:? forKey:?];
+    while (v15 != v7);
+    [v5 encodeBytes:? length:? forKey:?];
   }
 }
 
@@ -413,7 +414,7 @@ LABEL_26:
                 *(v24 + 16) = 0;
                 if (v13)
                 {
-                  std::vector<TIHandwritingPoint>::__vallocate[abi:nn200100](24 * v20, v13 >> 4);
+                  std::vector<TIHandwritingPoint>::__vallocate[abi:nn200100]((24 * v20), v13 >> 4);
                 }
 
                 v19 = (v24 + 24);
@@ -435,8 +436,8 @@ LABEL_26:
               }
 
               *end = 0;
-              *(end + 1) = 0;
-              *(end + 2) = 0;
+              end[1] = 0;
+              end[2] = 0;
             }
 
             else
@@ -477,15 +478,15 @@ LABEL_26:
               }
 
               *end = 0;
-              *(end + 1) = 0;
-              *(end + 2) = 0;
+              end[1] = 0;
+              end[2] = 0;
               if (v13)
               {
                 std::vector<TIHandwritingPoint>::__vallocate[abi:nn200100](end, v13 >> 4);
               }
             }
 
-            v19 = end + 24;
+            v19 = end + 3;
             v8 = v9;
 LABEL_37:
             v5->_strokes.__end_ = v19;
@@ -566,12 +567,12 @@ LABEL_37:
         v22 = v5[2];
         do
         {
-          v24 = *(v22 - 24);
-          v22 -= 24;
+          v24 = *(v22 - 3);
+          v22 -= 3;
           v23 = v24;
           if (v24)
           {
-            *(v21 - 16) = v23;
+            *(v21 - 2) = v23;
             operator delete(v23);
           }
 

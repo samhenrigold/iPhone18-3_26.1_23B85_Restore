@@ -95,7 +95,7 @@
 - (void)healthRecordsStore:(id)store observedAccountsEvent:(unint64_t)event
 {
   ObjectType = swift_getObjectType();
-  sub_1C3C48E9C();
+  sub_1C3C48E9C(0);
   MEMORY[0x1EEE9AC00](v7 - 8);
   v9 = &v15 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   v10 = sub_1C3D203A4();

@@ -32,7 +32,7 @@
 
 - (BOOL)__createReadmeFileWithError:(id *)error
 {
-  v5 = shared_filesystem_metadata_snapshot_service_log_handle();
+  v5 = shared_filesystem_metadata_snapshot_service_log_handle(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -44,26 +44,27 @@
     *error = 0;
   }
 
-  v11 = 0;
-  v6 = [(DSSnapshotFileManager *)self createFileForWritingWithName:@"README.txt" error:&v11];
-  v7 = v11;
+  v12 = 0;
+  v6 = [(DSSnapshotFileManager *)self createFileForWritingWithName:@"README.txt" error:&v12];
+  v7 = v12;
+  v8 = v7;
   if (v6)
   {
     fputs("A filesystem metadata snapshot contains information necessary to investigate reports of issues with disk space.\n\nUse dsf(1) to inspect the contents:\n\n   xcrun -sdk iphoneos dsf -h\n\nSee man page for more:\n\n   man $(xcrun --show-sdk-platform-path -sdk iphoneos)/usr/local/share/man/man1/dsf.1\n", v6);
     if (error)
     {
 LABEL_7:
-      v8 = v7;
-      *error = v7;
+      v9 = v8;
+      *error = v8;
     }
   }
 
   else
   {
-    v10 = shared_filesystem_metadata_snapshot_service_log_handle();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = shared_filesystem_metadata_snapshot_service_log_handle(v7);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      sub_10002FAB8(v7);
+      sub_10002FAB8(v8);
     }
 
     if (error)
@@ -82,49 +83,50 @@ LABEL_7:
     *error = 0;
   }
 
-  if (![(DSSnapshotFileManager *)self shouldHashVolumeListings])
+  shouldHashVolumeListings = [(DSSnapshotFileManager *)self shouldHashVolumeListings];
+  if (!shouldHashVolumeListings)
   {
-    v9 = 0;
-    v10 = 1;
+    v10 = 0;
+    v11 = 1;
     if (!error)
     {
       goto LABEL_14;
     }
 
 LABEL_13:
-    v14 = v9;
-    *error = v9;
+    v16 = v10;
+    *error = v10;
     goto LABEL_14;
   }
 
-  v5 = shared_filesystem_metadata_snapshot_service_log_handle();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = shared_filesystem_metadata_snapshot_service_log_handle(shouldHashVolumeListings);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Creating shared directories map file", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Creating shared directories map file", buf, 2u);
   }
 
-  v16 = 0;
-  v6 = [(DSSnapshotFileManager *)self createFileForWritingWithName:@"directories.fsmap" error:&v16];
-  v7 = v16;
-  self->_sharedDirectoriesMapFile = v6;
+  v18 = 0;
+  v7 = [(DSSnapshotFileManager *)self createFileForWritingWithName:@"directories.fsmap" error:&v18];
+  v8 = v18;
+  self->_sharedDirectoriesMapFile = v7;
   sharedDirectoriesMapFile = [(DSSnapshotFileManager *)self sharedDirectoriesMapFile];
-  v9 = 0;
-  v10 = sharedDirectoriesMapFile != 0;
+  v10 = 0;
+  v11 = sharedDirectoriesMapFile != 0;
   if (!sharedDirectoriesMapFile)
   {
-    v11 = [NSString stringWithFormat:@"Failed to create mapping file for directories (%@): %@", @"directories.fsmap", v7];
-    v18[0] = NSUnderlyingErrorKey;
-    v18[1] = NSLocalizedDescriptionKey;
-    v19[0] = v7;
-    v19[1] = v11;
-    v12 = [NSDictionary dictionaryWithObjects:v19 forKeys:v18 count:2];
-    v9 = [NSError errorWithDomain:@"com.apple.FilesystemMetadataSnapshot" code:65543 userInfo:v12];
+    v12 = [NSString stringWithFormat:@"Failed to create mapping file for directories (%@): %@", @"directories.fsmap", v8];
+    v20[0] = NSUnderlyingErrorKey;
+    v20[1] = NSLocalizedDescriptionKey;
+    v21[0] = v8;
+    v21[1] = v12;
+    v13 = [NSDictionary dictionaryWithObjects:v21 forKeys:v20 count:2];
+    v10 = [NSError errorWithDomain:@"com.apple.FilesystemMetadataSnapshot" code:65543 userInfo:v13];
 
-    v13 = shared_filesystem_metadata_snapshot_service_log_handle();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v15 = shared_filesystem_metadata_snapshot_service_log_handle(v14);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      sub_10002FB3C(v7);
+      sub_10002FB3C(v8);
     }
   }
 
@@ -135,12 +137,12 @@ LABEL_13:
 
 LABEL_14:
 
-  return v10;
+  return v11;
 }
 
 - (BOOL)__createSharedLogFileWithError:(id *)error
 {
-  v5 = shared_filesystem_metadata_snapshot_service_log_handle();
+  v5 = shared_filesystem_metadata_snapshot_service_log_handle(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -160,7 +162,7 @@ LABEL_14:
   if (!sharedLogFile)
   {
     self->_sharedLogFile = __stderrp;
-    v9 = shared_filesystem_metadata_snapshot_service_log_handle();
+    v9 = shared_filesystem_metadata_snapshot_service_log_handle(0);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       sub_10002FBC0(v7);
@@ -178,7 +180,7 @@ LABEL_14:
 
 - (void)__flushFiles
 {
-  v3 = shared_filesystem_metadata_snapshot_service_log_handle();
+  v3 = shared_filesystem_metadata_snapshot_service_log_handle(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v11 = 0;
@@ -210,7 +212,7 @@ LABEL_14:
 
 - (void)__closeFiles
 {
-  v3 = shared_filesystem_metadata_snapshot_service_log_handle();
+  v3 = shared_filesystem_metadata_snapshot_service_log_handle(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v12 = 0;
@@ -246,12 +248,12 @@ LABEL_14:
 - (id)_archiveToDirectoryAtPath:(id)path error:(id *)error
 {
   pathCopy = path;
-  v7 = shared_filesystem_metadata_snapshot_service_log_handle();
+  v7 = shared_filesystem_metadata_snapshot_service_log_handle(pathCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     _workingDirectoryName = [(DSSnapshotFileManager *)self _workingDirectoryName];
     *buf = 138412290;
-    v50 = _workingDirectoryName;
+    v47 = _workingDirectoryName;
     _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Archiving %@", buf, 0xCu);
   }
 
@@ -264,9 +266,9 @@ LABEL_14:
   v9 = objc_autoreleasePoolPush();
   _workingDirectoryName2 = [(DSSnapshotFileManager *)self _workingDirectoryName];
   __workingDirectoryParentPath = [(DSSnapshotFileManager *)self __workingDirectoryParentPath];
-  v46 = 0;
-  v12 = [DSFilesystemMetadataSnapshotArchiver compressSnapshotWithName:_workingDirectoryName2 atPath:__workingDirectoryParentPath withLogFile:[(DSSnapshotFileManager *)self sharedLogFile] archiveName:&v46];
-  v13 = v46;
+  v43 = 0;
+  v12 = [DSFilesystemMetadataSnapshotArchiver compressSnapshotWithName:_workingDirectoryName2 atPath:__workingDirectoryParentPath withLogFile:[(DSSnapshotFileManager *)self sharedLogFile] archiveName:&v43];
+  v13 = v43;
 
   objc_autoreleasePoolPop(v9);
   if (v12)
@@ -280,131 +282,130 @@ LABEL_14:
       v16 = __error();
       if ((byte_10006E509 & 1) == 0)
       {
-        v17 = *v16;
         byte_10006E509 = 1;
-        v18 = shared_filesystem_metadata_snapshot_service_log_handle();
-        if (os_log_type_enabled(v18, OS_LOG_TYPE_FAULT))
+        v17 = shared_filesystem_metadata_snapshot_service_log_handle(v16);
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
         {
           sub_10002FC44();
         }
       }
     }
 
-    v19 = shared_filesystem_metadata_snapshot_service_log_handle();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+    v18 = shared_filesystem_metadata_snapshot_service_log_handle(v16);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
       _workingDirectoryName4 = [(DSSnapshotFileManager *)self _workingDirectoryName];
       uTF8String = [_workingDirectoryName4 UTF8String];
       uTF8String2 = [v13 UTF8String];
       *buf = 136315394;
-      v50 = uTF8String;
-      v51 = 2080;
-      v52 = uTF8String2;
-      _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "Successfully compressed directory %s into archive %s", buf, 0x16u);
+      v47 = uTF8String;
+      v48 = 2080;
+      v49 = uTF8String2;
+      _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "Successfully compressed directory %s into archive %s", buf, 0x16u);
     }
 
     __workingDirectoryParentPath2 = [(DSSnapshotFileManager *)self __workingDirectoryParentPath];
-    v24 = [NSString stringWithFormat:@"%@/%@", __workingDirectoryParentPath2, v13];
+    v23 = [NSString stringWithFormat:@"%@/%@", __workingDirectoryParentPath2, v13];
 
-    v25 = [NSString stringWithFormat:@"%@/%@", pathCopy, v13];
-    v26 = +[NSFileManager defaultManager];
-    v45 = 0;
-    v27 = [v26 moveItemAtPath:v24 toPath:v25 error:&v45];
-    v28 = v45;
+    v24 = [NSString stringWithFormat:@"%@/%@", pathCopy, v13];
+    v25 = +[NSFileManager defaultManager];
+    v42 = 0;
+    v26 = [v25 moveItemAtPath:v23 toPath:v24 error:&v42];
+    v27 = v42;
 
-    if (v27)
+    if (v26)
     {
-      v29 = v25;
-      v30 = 0;
+      v28 = v24;
+      v29 = 0;
     }
 
     else
     {
-      v37 = [NSString stringWithFormat:@"Failed to move %@ to %@", v24, v25];
-      v47[0] = NSUnderlyingErrorKey;
-      v47[1] = NSLocalizedDescriptionKey;
-      v48[0] = v28;
-      v48[1] = v37;
-      v38 = [NSDictionary dictionaryWithObjects:v48 forKeys:v47 count:2];
-      v30 = [NSError errorWithDomain:@"com.apple.FilesystemMetadataSnapshot" code:65543 userInfo:v38];
+      v35 = [NSString stringWithFormat:@"Failed to move %@ to %@", v23, v24];
+      v44[0] = NSUnderlyingErrorKey;
+      v44[1] = NSLocalizedDescriptionKey;
+      v45[0] = v27;
+      v45[1] = v35;
+      v36 = [NSDictionary dictionaryWithObjects:v45 forKeys:v44 count:2];
+      v29 = [NSError errorWithDomain:@"com.apple.FilesystemMetadataSnapshot" code:65543 userInfo:v36];
 
       if (error)
       {
-        v39 = v30;
-        *error = v30;
+        v37 = v29;
+        *error = v29;
       }
 
-      if (fprintf(-[DSSnapshotFileManager sharedLogFile](self, "sharedLogFile"), "%s\n", [v37 UTF8String]) == -1)
+      v38 = fprintf(-[DSSnapshotFileManager sharedLogFile](self, "sharedLogFile"), "%s\n", [v35 UTF8String]);
+      if (v38 == -1)
       {
-        v40 = __error();
+        v38 = __error();
         if ((byte_10006E50A & 1) == 0)
         {
-          v41 = *v40;
           byte_10006E50A = 1;
-          v42 = shared_filesystem_metadata_snapshot_service_log_handle();
-          if (os_log_type_enabled(v42, OS_LOG_TYPE_FAULT))
+          v39 = shared_filesystem_metadata_snapshot_service_log_handle(v38);
+          if (os_log_type_enabled(v39, OS_LOG_TYPE_FAULT))
           {
             sub_10002FC44();
           }
         }
       }
 
-      v43 = shared_filesystem_metadata_snapshot_service_log_handle();
-      if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
+      v40 = shared_filesystem_metadata_snapshot_service_log_handle(v38);
+      if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
       {
-        sub_10002FCAC(v37);
+        sub_10002FCAC(v35);
       }
 
-      v29 = 0;
+      v28 = 0;
     }
   }
 
   else
   {
     _workingDirectoryName5 = [(DSSnapshotFileManager *)self _workingDirectoryName];
-    v24 = [NSString stringWithFormat:@"Failed to compress directory %@", _workingDirectoryName5];
+    v23 = [NSString stringWithFormat:@"Failed to compress directory %@", _workingDirectoryName5];
 
-    v53 = NSLocalizedDescriptionKey;
-    v54 = v24;
-    v32 = [NSDictionary dictionaryWithObjects:&v54 forKeys:&v53 count:1];
-    v30 = [NSError errorWithDomain:@"com.apple.FilesystemMetadataSnapshot" code:131073 userInfo:v32];
+    v50 = NSLocalizedDescriptionKey;
+    v51 = v23;
+    v31 = [NSDictionary dictionaryWithObjects:&v51 forKeys:&v50 count:1];
+    v29 = [NSError errorWithDomain:@"com.apple.FilesystemMetadataSnapshot" code:131073 userInfo:v31];
 
     if (error)
     {
-      v33 = v30;
-      *error = v30;
+      v32 = v29;
+      *error = v29;
     }
 
-    if (fprintf(-[DSSnapshotFileManager sharedLogFile](self, "sharedLogFile"), "%s\n", [v24 UTF8String]) == -1)
+    v33 = fprintf(-[DSSnapshotFileManager sharedLogFile](self, "sharedLogFile"), "%s\n", [v23 UTF8String]);
+    if (v33 == -1)
     {
-      v34 = __error();
+      v33 = __error();
       if ((byte_10006E508 & 1) == 0)
       {
-        v35 = *v34;
         byte_10006E508 = 1;
-        v36 = shared_filesystem_metadata_snapshot_service_log_handle();
-        if (os_log_type_enabled(v36, OS_LOG_TYPE_FAULT))
+        v34 = shared_filesystem_metadata_snapshot_service_log_handle(v33);
+        if (os_log_type_enabled(v34, OS_LOG_TYPE_FAULT))
         {
           sub_10002FC44();
         }
       }
     }
 
-    v25 = shared_filesystem_metadata_snapshot_service_log_handle();
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+    v24 = shared_filesystem_metadata_snapshot_service_log_handle(v33);
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
-      sub_10002FCAC(v24);
+      sub_10002FCAC(v23);
     }
 
-    v29 = 0;
+    v28 = 0;
   }
 
-  return v29;
+  return v28;
 }
 
 - (BOOL)createWorkingDirectoryAndSharedFilesWithError:(id *)error
 {
-  v5 = shared_filesystem_metadata_snapshot_service_log_handle();
+  v5 = shared_filesystem_metadata_snapshot_service_log_handle(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -440,50 +441,50 @@ LABEL_14:
 
   if (v18)
   {
-    v20 = shared_filesystem_metadata_snapshot_service_log_handle();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+    v21 = shared_filesystem_metadata_snapshot_service_log_handle(v20);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
     {
       _workingDirectoryPath2 = [(DSSnapshotFileManager *)self _workingDirectoryPath];
       *buf = 138412290;
       v42 = _workingDirectoryPath2;
-      _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "Created working directory at %@", buf, 0xCu);
+      _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "Created working directory at %@", buf, 0xCu);
     }
 
     v39 = 0;
-    v22 = [(DSSnapshotFileManager *)self __createSharedLogFileWithError:&v39];
-    v23 = v39;
-    v24 = v23;
-    if (v22)
+    v23 = [(DSSnapshotFileManager *)self __createSharedLogFileWithError:&v39];
+    v24 = v39;
+    v25 = v24;
+    if (v23)
     {
-      v38 = v23;
-      v25 = [(DSSnapshotFileManager *)self __createSharedDirectoriesMapFileWithError:&v38];
-      v26 = v38;
+      v38 = v24;
+      v26 = [(DSSnapshotFileManager *)self __createSharedDirectoriesMapFileWithError:&v38];
+      v27 = v38;
 
-      if (v25)
+      if (v26)
       {
         [(DSSnapshotFileManager *)self __createReadmeFileWithError:0];
-        v27 = 1;
+        v28 = 1;
 LABEL_28:
-        v24 = v26;
+        v25 = v27;
         goto LABEL_29;
       }
 
       if (!error)
       {
-        v27 = 0;
+        v28 = 0;
         goto LABEL_28;
       }
 
-      v24 = v26;
+      v25 = v27;
       goto LABEL_26;
     }
 
     if (error)
     {
 LABEL_26:
-      v36 = v24;
-      v27 = 0;
-      *error = v24;
+      v36 = v25;
+      v28 = 0;
+      *error = v25;
       goto LABEL_29;
     }
   }
@@ -491,29 +492,29 @@ LABEL_26:
   else
   {
     _workingDirectoryPath3 = [(DSSnapshotFileManager *)self _workingDirectoryPath];
-    v29 = [NSString stringWithFormat:@"Failed to create directory %@: %@", _workingDirectoryPath3, v19];
+    v30 = [NSString stringWithFormat:@"Failed to create directory %@: %@", _workingDirectoryPath3, v19];
 
     v43[0] = NSUnderlyingErrorKey;
     v43[1] = NSLocalizedDescriptionKey;
     v44[0] = v19;
-    v44[1] = v29;
-    v30 = [NSDictionary dictionaryWithObjects:v44 forKeys:v43 count:2];
-    v24 = [NSError errorWithDomain:@"com.apple.FilesystemMetadataSnapshot" code:65543 userInfo:v30];
+    v44[1] = v30;
+    v31 = [NSDictionary dictionaryWithObjects:v44 forKeys:v43 count:2];
+    v25 = [NSError errorWithDomain:@"com.apple.FilesystemMetadataSnapshot" code:65543 userInfo:v31];
 
     if (error)
     {
-      v31 = v24;
-      *error = v24;
+      v32 = v25;
+      *error = v25;
     }
 
-    if (fprintf(__stderrp, "%s\n", [v29 UTF8String]) == -1)
+    v33 = fprintf(__stderrp, "%s\n", [v30 UTF8String]);
+    if (v33 == -1)
     {
-      v32 = __error();
+      v33 = __error();
       if ((byte_10006E50B & 1) == 0)
       {
-        v33 = *v32;
         byte_10006E50B = 1;
-        v34 = shared_filesystem_metadata_snapshot_service_log_handle();
+        v34 = shared_filesystem_metadata_snapshot_service_log_handle(v33);
         if (os_log_type_enabled(v34, OS_LOG_TYPE_FAULT))
         {
           sub_10002FC44();
@@ -521,27 +522,27 @@ LABEL_26:
       }
     }
 
-    v35 = shared_filesystem_metadata_snapshot_service_log_handle();
+    v35 = shared_filesystem_metadata_snapshot_service_log_handle(v33);
     if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
     {
-      sub_10002FCAC(v29);
+      sub_10002FCAC(v30);
     }
   }
 
-  v27 = 0;
+  v28 = 0;
 LABEL_29:
 
-  return v27;
+  return v28;
 }
 
 - (__sFILE)createFileForWritingWithName:(id)name error:(id *)error
 {
   nameCopy = name;
-  v7 = shared_filesystem_metadata_snapshot_service_log_handle();
+  v7 = shared_filesystem_metadata_snapshot_service_log_handle(nameCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v26 = nameCopy;
+    v25 = nameCopy;
     _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Creating file named %@", buf, 0xCu);
   }
 
@@ -567,11 +568,11 @@ LABEL_29:
     __openFiles = [NSString stringWithFormat:@"Failed to open output file at %@/%@: %s. Aborting.", _workingDirectoryPath2, nameCopy, strerror(v12)];
 
     v14 = [NSError errorWithDomain:NSPOSIXErrorDomain code:v12 userInfo:0];
-    v23[0] = NSUnderlyingErrorKey;
-    v23[1] = NSLocalizedDescriptionKey;
-    v24[0] = v14;
-    v24[1] = __openFiles;
-    v15 = [NSDictionary dictionaryWithObjects:v24 forKeys:v23 count:2];
+    v22[0] = NSUnderlyingErrorKey;
+    v22[1] = NSLocalizedDescriptionKey;
+    v23[0] = v14;
+    v23[1] = __openFiles;
+    v15 = [NSDictionary dictionaryWithObjects:v23 forKeys:v22 count:2];
     v16 = [NSError errorWithDomain:@"com.apple.FilesystemMetadataSnapshot" code:65543 userInfo:v15];
 
     if (error)
@@ -580,23 +581,23 @@ LABEL_29:
       *error = v16;
     }
 
-    if (fprintf(-[DSSnapshotFileManager sharedLogFile](self, "sharedLogFile"), "%s\n", [__openFiles UTF8String]) == -1)
+    v18 = fprintf(-[DSSnapshotFileManager sharedLogFile](self, "sharedLogFile"), "%s\n", [__openFiles UTF8String]);
+    if (v18 == -1)
     {
       v18 = __error();
       if ((byte_10006E50C & 1) == 0)
       {
-        v19 = *v18;
         byte_10006E50C = 1;
-        v20 = shared_filesystem_metadata_snapshot_service_log_handle();
-        if (os_log_type_enabled(v20, OS_LOG_TYPE_FAULT))
+        v19 = shared_filesystem_metadata_snapshot_service_log_handle(v18);
+        if (os_log_type_enabled(v19, OS_LOG_TYPE_FAULT))
         {
           sub_10002FC44();
         }
       }
     }
 
-    v21 = shared_filesystem_metadata_snapshot_service_log_handle();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    v20 = shared_filesystem_metadata_snapshot_service_log_handle(v18);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
       sub_10002FCAC(__openFiles);
     }
@@ -614,9 +615,9 @@ LABEL_29:
   }
 
   v7 = [(DSSnapshotFileManager *)self fileURLForFileNamed:@"metadata.plist" error:error];
-  v21 = 0;
-  v8 = [metadataCopy writeToURL:v7 error:&v21];
-  v9 = v21;
+  v20 = 0;
+  v8 = [metadataCopy writeToURL:v7 error:&v20];
+  v9 = v20;
   v10 = v9;
   if (!v8 || v9)
   {
@@ -631,25 +632,24 @@ LABEL_29:
       v15 = __error();
       if ((byte_10006E50D & 1) == 0)
       {
-        v16 = *v15;
         byte_10006E50D = 1;
-        v17 = shared_filesystem_metadata_snapshot_service_log_handle();
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
+        v16 = shared_filesystem_metadata_snapshot_service_log_handle(v15);
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
         {
           sub_10002FC44();
         }
       }
     }
 
-    v18 = shared_filesystem_metadata_snapshot_service_log_handle();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    v17 = shared_filesystem_metadata_snapshot_service_log_handle(v15);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       sub_10002FD28(v10, metadataCopy);
     }
 
     if (error)
     {
-      v19 = v10;
+      v18 = v10;
       *error = v10;
     }
   }
@@ -672,29 +672,29 @@ LABEL_29:
     v9 = [NSString stringWithFormat:@"%@/%@", _workingDirectoryPath, v7];
     v10 = [NSURL fileURLWithPath:v9 isDirectory:0];
 
-    v11 = shared_filesystem_metadata_snapshot_service_log_handle();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v12 = shared_filesystem_metadata_snapshot_service_log_handle(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v17 = v7;
-      v18 = 2112;
-      v19 = v10;
-      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "File URL for file named %@: %@", buf, 0x16u);
+      v18 = v7;
+      v19 = 2112;
+      v20 = v10;
+      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "File URL for file named %@: %@", buf, 0x16u);
     }
   }
 
   else
   {
-    v11 = [NSString stringWithFormat:@"Invalid name for file URL: %@", 0];
-    v20 = NSLocalizedDescriptionKey;
-    v21 = v11;
-    v12 = [NSDictionary dictionaryWithObjects:&v21 forKeys:&v20 count:1];
-    v13 = [NSError errorWithDomain:@"com.apple.FilesystemMetadataSnapshot" code:65543 userInfo:v12];
+    v12 = [NSString stringWithFormat:@"Invalid name for file URL: %@", 0];
+    v21 = NSLocalizedDescriptionKey;
+    v22 = v12;
+    v13 = [NSDictionary dictionaryWithObjects:&v22 forKeys:&v21 count:1];
+    v14 = [NSError errorWithDomain:@"com.apple.FilesystemMetadataSnapshot" code:65543 userInfo:v13];
 
     if (error)
     {
-      v14 = v13;
-      *error = v13;
+      v15 = v14;
+      *error = v14;
     }
 
     v10 = 0;
@@ -705,13 +705,12 @@ LABEL_29:
 
 - (BOOL)cleanupWithError:(id *)error
 {
-  [(DSSnapshotFileManager *)self __closeFiles];
-  v5 = shared_filesystem_metadata_snapshot_service_log_handle();
+  v5 = shared_filesystem_metadata_snapshot_service_log_handle([(DSSnapshotFileManager *)self __closeFiles]);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     _workingDirectoryPath = [(DSSnapshotFileManager *)self _workingDirectoryPath];
     *buf = 138412290;
-    v20 = _workingDirectoryPath;
+    v19 = _workingDirectoryPath;
     _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Deleting snapshot directory at %@", buf, 0xCu);
   }
 
@@ -732,18 +731,17 @@ LABEL_29:
       v14 = __error();
       if ((byte_10006E50E & 1) == 0)
       {
-        v15 = *v14;
         byte_10006E50E = 1;
-        v16 = shared_filesystem_metadata_snapshot_service_log_handle();
-        if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
+        v15 = shared_filesystem_metadata_snapshot_service_log_handle(v14);
+        if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
         {
           sub_10002FC44();
         }
       }
     }
 
-    v17 = shared_filesystem_metadata_snapshot_service_log_handle();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v16 = shared_filesystem_metadata_snapshot_service_log_handle(v14);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       sub_10002FDE0(self, error);
     }

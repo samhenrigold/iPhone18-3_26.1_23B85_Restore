@@ -32,12 +32,12 @@
   return v2;
 }
 
-void __36__EKUITableViewCell_reuseIdentifier__block_invoke()
+void __36__EKUITableViewCell_reuseIdentifier__block_invoke(uint64_t a1)
 {
-  v0 = objc_opt_class();
-  v1 = NSStringFromClass(v0);
-  v2 = reuseIdentifier_reuseIdentifier_1;
-  reuseIdentifier_reuseIdentifier_1 = v1;
+  v1 = objc_opt_class();
+  v2 = NSStringFromClass(v1);
+  v3 = reuseIdentifier_reuseIdentifier_1;
+  reuseIdentifier_reuseIdentifier_1 = v2;
 }
 
 - (EKUITableViewCell)initWithStyle:(int64_t)style reuseIdentifier:(id)identifier
@@ -76,30 +76,30 @@ void __36__EKUITableViewCell_reuseIdentifier__block_invoke()
     v12 = 15.0;
     if (!usesInsetMargin)
     {
-      [(EKUITableViewCell *)self separatorInset];
-      if (v13 > 0.0)
+      separatorInset = [(EKUITableViewCell *)self separatorInset];
+      if (v15 > 0.0)
       {
-        if (CalInterfaceIsLeftToRight())
+        if (CalInterfaceIsLeftToRight(separatorInset, v14))
         {
           [(EKUITableViewCell *)self separatorInset];
-          v6 = v6 + v14;
+          v6 = v6 + v16;
         }
 
         [(EKUITableViewCell *)self separatorInset];
-        v8 = v8 - v15;
+        v8 = v8 - v17;
       }
 
-      [(EKUITableViewCell *)self separatorInset];
-      if (v16 > 0.0)
+      separatorInset2 = [(EKUITableViewCell *)self separatorInset];
+      if (v20 > 0.0)
       {
-        if ((CalInterfaceIsLeftToRight() & 1) == 0)
+        if ((CalInterfaceIsLeftToRight(separatorInset2, v19) & 1) == 0)
         {
           [(EKUITableViewCell *)self separatorInset];
-          v6 = v6 + v17;
+          v6 = v6 + v21;
         }
 
         [(EKUITableViewCell *)self separatorInset];
-        v8 = v8 - v18;
+        v8 = v8 - v22;
       }
 
       v12 = v6;
@@ -111,63 +111,64 @@ void __36__EKUITableViewCell_reuseIdentifier__block_invoke()
   if (self->_topSeparatorViewForNonOpaqueTables)
   {
     [(EKUITableViewCell *)self bounds];
-    v20 = v19;
-    v22 = v21;
     v24 = v23;
+    v26 = v25;
+    v28 = v27;
     rowSeparatorThickness = [objc_opt_class() rowSeparatorThickness];
-    v27 = v26;
-    if (MEMORY[0x1D38B98D0](rowSeparatorThickness))
+    v31 = v30;
+    v32 = MEMORY[0x1D38B98D0](rowSeparatorThickness);
+    if (v32)
     {
-      [(EKUITableViewCell *)self separatorInset];
-      if (v28 > 0.0)
+      separatorInset3 = [(EKUITableViewCell *)self separatorInset];
+      if (v36 > 0.0)
       {
-        if (CalInterfaceIsLeftToRight())
+        if (CalInterfaceIsLeftToRight(separatorInset3, v35))
         {
           [(EKUITableViewCell *)self separatorInset];
-          v20 = v20 + v29;
+          v24 = v24 + v37;
         }
 
         [(EKUITableViewCell *)self separatorInset];
-        v24 = v24 - v30;
+        v28 = v28 - v38;
       }
 
-      [(EKUITableViewCell *)self separatorInset];
-      if (v31 > 0.0)
+      separatorInset4 = [(EKUITableViewCell *)self separatorInset];
+      if (v41 > 0.0)
       {
-        if ((CalInterfaceIsLeftToRight() & 1) == 0)
+        if ((CalInterfaceIsLeftToRight(separatorInset4, v40) & 1) == 0)
         {
           [(EKUITableViewCell *)self separatorInset];
-          v20 = v20 + v32;
+          v24 = v24 + v42;
         }
 
         [(EKUITableViewCell *)self separatorInset];
-        v24 = v24 - v33;
+        v28 = v28 - v43;
       }
     }
 
     else
     {
-      IsLeftToRight = CalInterfaceIsLeftToRight();
+      IsLeftToRight = CalInterfaceIsLeftToRight(v32, v33);
       [(EKUITableViewCell *)self safeAreaInsets];
-      v36 = v35;
-      v38 = v37;
+      v46 = v45;
+      v48 = v47;
       [(EKUITableViewCell *)self _contentMargin];
-      v40 = v24 - (v38 + v39);
-      v41 = v36 + v39;
+      v50 = v28 - (v48 + v49);
+      v51 = v46 + v49;
       if (IsLeftToRight)
       {
-        v20 = v41;
+        v24 = v51;
       }
 
       else
       {
-        v24 = v40;
+        v28 = v50;
       }
     }
 
     topSeparatorViewForNonOpaqueTables = self->_topSeparatorViewForNonOpaqueTables;
 
-    [(RowSeparatorView *)topSeparatorViewForNonOpaqueTables setFrame:v20, v22, v24, v27];
+    [(RowSeparatorView *)topSeparatorViewForNonOpaqueTables setFrame:v24, v26, v28, v31];
   }
 }
 
@@ -219,14 +220,14 @@ void __36__EKUITableViewCell_reuseIdentifier__block_invoke()
   -[RowSeparatorView setVibrant:](v3, "setVibrant:", [objc_opt_class() vibrant]);
   if ([objc_opt_class() vibrant])
   {
-    contentView = [(UIVisualEffectView *)self->_bottomRowSeparatorParentView contentView];
-    tintColor = [contentView tintColor];
+    rowSeparatorColor = objc_msgSend_contentView(self->_bottomRowSeparatorParentView);
+    v7 = objc_msgSend_tintColor(rowSeparatorColor);
   }
 
   else
   {
-    contentView = [(EKUITableViewCell *)self rowSeparatorColor];
-    if (contentView)
+    rowSeparatorColor = [(EKUITableViewCell *)self rowSeparatorColor];
+    if (rowSeparatorColor)
     {
       [(EKUITableViewCell *)self rowSeparatorColor];
     }
@@ -235,11 +236,11 @@ void __36__EKUITableViewCell_reuseIdentifier__block_invoke()
     {
       [MEMORY[0x1E69DC888] separatorColor];
     }
-    tintColor = ;
+    v7 = ;
   }
 
-  v8 = tintColor;
-  [(RowSeparatorView *)v3 setBackgroundColor:tintColor];
+  v8 = v7;
+  [(RowSeparatorView *)v3 setBackgroundColor:v7];
 
   return v3;
 }
@@ -261,7 +262,7 @@ void __36__EKUITableViewCell_reuseIdentifier__block_invoke()
   selfCopy = self;
   vibrant = [objc_opt_class() vibrant];
   v6 = selfCopy;
-  contentView2 = selfCopy;
+  v7 = selfCopy;
   if (vibrant)
   {
     v6 = selfCopy;
@@ -275,10 +276,10 @@ void __36__EKUITableViewCell_reuseIdentifier__block_invoke()
       rowSeparatorVisualEffect = selfCopy->_rowSeparatorVisualEffect;
       selfCopy->_rowSeparatorVisualEffect = rowSeparatorVisualEffect;
 
-      contentView = [(UIVisualEffectView *)selfCopy->_bottomRowSeparatorParentView contentView];
+      v27 = objc_msgSend_contentView(selfCopy->_bottomRowSeparatorParentView);
 
       [(EKUITableViewCell *)selfCopy addSubview:selfCopy->_bottomRowSeparatorParentView];
-      v6 = contentView;
+      v6 = v27;
       if (v3)
       {
 LABEL_8:
@@ -289,7 +290,7 @@ LABEL_8:
           topRowSeparatorParentView = selfCopy->_topRowSeparatorParentView;
           selfCopy->_topRowSeparatorParentView = separatorParentView2;
 
-          contentView2 = [(UIVisualEffectView *)selfCopy->_topRowSeparatorParentView contentView];
+          v7 = objc_msgSend_contentView(selfCopy->_topRowSeparatorParentView);
 
           [(EKUITableViewCell *)selfCopy addSubview:selfCopy->_topRowSeparatorParentView];
           v6 = v26;
@@ -303,7 +304,7 @@ LABEL_8:
       goto LABEL_8;
     }
 
-    contentView2 = selfCopy;
+    v7 = selfCopy;
   }
 
 LABEL_12:
@@ -337,7 +338,7 @@ LABEL_12:
       v20 = selfCopy->_topSeparatorViewForNonOpaqueTables;
       selfCopy->_topSeparatorViewForNonOpaqueTables = separatorView2;
 
-      [contentView2 addSubview:selfCopy->_topSeparatorViewForNonOpaqueTables];
+      [v7 addSubview:selfCopy->_topSeparatorViewForNonOpaqueTables];
     }
   }
 

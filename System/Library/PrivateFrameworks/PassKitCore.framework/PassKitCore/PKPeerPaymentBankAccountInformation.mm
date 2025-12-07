@@ -143,9 +143,9 @@ LABEL_11:
 {
   nameCopy = name;
   bankName = [(PKBankAccountInformation *)self bankName];
-  v6 = [nameCopy isEqualToString:bankName];
+  isEqualToString = objc_msgSend_isEqualToString_(nameCopy);
 
-  if ((v6 & 1) == 0)
+  if ((isEqualToString & 1) == 0)
   {
     v7.receiver = self;
     v7.super_class = PKPeerPaymentBankAccountInformation;
@@ -158,9 +158,9 @@ LABEL_11:
 {
   numberCopy = number;
   accountNumber = [(PKBankAccountInformation *)self accountNumber];
-  v6 = [numberCopy isEqualToString:accountNumber];
+  isEqualToString = objc_msgSend_isEqualToString_(numberCopy);
 
-  if ((v6 & 1) == 0)
+  if ((isEqualToString & 1) == 0)
   {
     v7.receiver = self;
     v7.super_class = PKPeerPaymentBankAccountInformation;
@@ -173,9 +173,9 @@ LABEL_11:
 {
   numberCopy = number;
   routingNumber = [(PKBankAccountInformation *)self routingNumber];
-  v6 = [numberCopy isEqualToString:routingNumber];
+  isEqualToString = objc_msgSend_isEqualToString_(numberCopy);
 
-  if ((v6 & 1) == 0)
+  if ((isEqualToString & 1) == 0)
   {
     v7.receiver = self;
     v7.super_class = PKPeerPaymentBankAccountInformation;
@@ -188,9 +188,9 @@ LABEL_11:
 {
   identifierCopy = identifier;
   identifier = [(PKBankAccountInformation *)self identifier];
-  v6 = [identifierCopy isEqualToString:identifier];
+  isEqualToString = objc_msgSend_isEqualToString_(identifierCopy);
 
-  if ((v6 & 1) == 0)
+  if ((isEqualToString & 1) == 0)
   {
     v7.receiver = self;
     v7.super_class = PKPeerPaymentBankAccountInformation;

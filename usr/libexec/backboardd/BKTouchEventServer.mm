@@ -130,8 +130,8 @@
   parametersCopy = parameters;
   v6 = +[BSServiceConnection currentContext];
   remoteProcess = [v6 remoteProcess];
-  auditToken = [remoteProcess auditToken];
-  if (([auditToken hasEntitlement:BKHitTestContextFilteringEntitlement] & 1) != 0 || objc_msgSend(auditToken, "hasEntitlement:", BKExcludeZoomContextsFromHitTestingEntitlement))
+  v8 = objc_msgSend_auditToken(remoteProcess);
+  if (([v8 hasEntitlement:BKHitTestContextFilteringEntitlement] & 1) != 0 || objc_msgSend(v8, "hasEntitlement:", BKExcludeZoomContextsFromHitTestingEntitlement))
   {
     os_unfair_lock_lock(&self->_lock);
     v9 = [(BKHIDDomainServiceServer *)self->_server userInfoForConnection:v6];
@@ -166,9 +166,9 @@
     v8 = integerValue;
     v9 = +[BSServiceConnection currentContext];
     remoteProcess = [v9 remoteProcess];
-    auditToken = [remoteProcess auditToken];
+    v11 = objc_msgSend_auditToken(remoteProcess);
     v12 = BKHitTestContextCategoryEntitlement;
-    v13 = [auditToken hasEntitlement:BKHitTestContextCategoryEntitlement];
+    v13 = [v11 hasEntitlement:BKHitTestContextCategoryEntitlement];
 
     if (v13)
     {
@@ -226,9 +226,9 @@
   contextIDCopy = contextID;
   v10 = +[BSServiceConnection currentContext];
   remoteProcess = [v10 remoteProcess];
-  auditToken = [remoteProcess auditToken];
+  v12 = objc_msgSend_auditToken(remoteProcess);
   v13 = BKLayerTransformLookupEntitlement;
-  v14 = [auditToken hasEntitlement:BKLayerTransformLookupEntitlement];
+  v14 = [v12 hasEntitlement:BKLayerTransformLookupEntitlement];
 
   if (v14)
   {
@@ -243,41 +243,41 @@
       v16 = sub_1000076E8();
     }
 
-    v28 = 0u;
-    v29 = 0u;
     v26 = 0u;
     v27 = 0u;
     v24 = 0u;
     v25 = 0u;
+    v22 = 0u;
+    v23 = 0u;
     memset(buf, 0, sizeof(buf));
-    unsignedLongLongValue = [iDCopy unsignedLongLongValue];
-    unsignedIntValue = [contextIDCopy unsignedIntValue];
+    [iDCopy unsignedLongLongValue];
+    [contextIDCopy unsignedIntValue];
     if (v16)
     {
-      [v16 transformFromLayerId:unsignedLongLongValue inContextId:unsignedIntValue];
+      objc_msgSend_transformFromLayerId_inContextId_(v16);
     }
 
     else
     {
-      v28 = 0u;
-      v29 = 0u;
       v26 = 0u;
       v27 = 0u;
       v24 = 0u;
       v25 = 0u;
+      v22 = 0u;
+      v23 = 0u;
       memset(buf, 0, sizeof(buf));
     }
 
     v17 = objc_alloc_init(_BKSCATransform3DContainer);
-    v22[4] = v26;
-    v22[5] = v27;
-    v22[6] = v28;
-    v22[7] = v29;
-    v22[0] = *buf;
-    v22[1] = *&buf[16];
-    v22[2] = v24;
-    v22[3] = v25;
-    [v17 setTransform:v22];
+    v20[4] = v24;
+    v20[5] = v25;
+    v20[6] = v26;
+    v20[7] = v27;
+    v20[0] = *buf;
+    v20[1] = *&buf[16];
+    v20[2] = v22;
+    v20[3] = v23;
+    [v17 setTransform:v20];
   }
 
   else
@@ -286,9 +286,9 @@
     if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       [remoteProcess pid];
-      v21 = BSProcessDescriptionForPID();
+      v19 = BSProcessDescriptionForPID();
       *buf = 138543618;
-      *&buf[4] = v21;
+      *&buf[4] = v19;
       *&buf[12] = 2114;
       *&buf[14] = v13;
       _os_log_error_impl(&_mh_execute_header, v16, OS_LOG_TYPE_ERROR, "process '%{public}@' must have entitlement %{public}@ to look up CA transforms", buf, 0x16u);
@@ -308,11 +308,11 @@
   remoteProcess = [v8 remoteProcess];
   v25 = 0u;
   v26 = 0u;
-  auditToken = [remoteProcess auditToken];
-  v11 = auditToken;
-  if (auditToken)
+  v10 = objc_msgSend_auditToken(remoteProcess);
+  v11 = v10;
+  if (v10)
   {
-    [auditToken realToken];
+    objc_msgSend_realToken(v10);
   }
 
   else

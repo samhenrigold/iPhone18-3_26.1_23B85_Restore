@@ -38,13 +38,13 @@
 {
   *(&self->super.super.super.isa + OBJC_IVAR___UIStepperDesignLibraryVisualElement_value) = value;
   selfCopy = self;
-  sub_1890F2C00();
-  v3 = selfCopy;
-  v4 = *(&selfCopy->super.super.super.isa + OBJC_IVAR___UIStepperDesignLibraryVisualElement_stepperControl);
-  if (v4)
+  v3 = sub_1890F2C00();
+  v4 = selfCopy;
+  v5 = *(&selfCopy->super.super.super.isa + OBJC_IVAR___UIStepperDesignLibraryVisualElement_stepperControl);
+  if (v5)
   {
-    [v4 visualElementDidSetValue_];
-    v3 = selfCopy;
+    [v5 visualElementDidSetValue_];
+    v4 = selfCopy;
   }
 }
 
@@ -78,25 +78,26 @@
 
 - (void)layoutSubviews
 {
-  v5.receiver = self;
-  v5.super_class = type metadata accessor for UIStepperDesignLibraryVisualElement();
-  v2 = v5.receiver;
-  [(UIView *)&v5 layoutSubviews];
-  v3 = *&v2[OBJC_IVAR___UIStepperDesignLibraryVisualElement_coreHostingView];
-  if (v3)
+  type metadata accessor for UIStepperDesignLibraryVisualElement();
+  v7.receiver = self;
+  v7.super_class = v3;
+  selfCopy = self;
+  [(UIView *)&v7 layoutSubviews];
+  v5 = *(&selfCopy->super.super.super.isa + OBJC_IVAR___UIStepperDesignLibraryVisualElement_coreHostingView);
+  if (v5)
   {
-    v4 = v3;
-    [v2 bounds];
-    [v4 setFrame_];
+    v6 = v5;
+    [(UIView *)selfCopy bounds:v7.receiver];
+    [v6 setFrame_];
   }
 }
 
 + (UIEdgeInsets)initialAlignmentRectInsets
 {
-  v2 = *&qword_1EA995190;
-  v3 = *algn_1EA995198;
-  v4 = *&qword_1EA9951A0;
-  v5 = unk_1EA9951A8;
+  v2 = *ymmword_1EA995190;
+  v3 = *&ymmword_1EA995190[8];
+  v4 = *&ymmword_1EA995190[16];
+  v5 = *&ymmword_1EA995190[24];
   result.right = v5;
   result.bottom = v4;
   result.left = v3;
@@ -106,13 +107,14 @@
 
 - (UIEdgeInsets)alignmentRectInsetsForControl:(id)control
 {
-  v7.receiver = self;
-  v7.super_class = type metadata accessor for UIStepperDesignLibraryVisualElement();
-  [(UIView *)&v7 alignmentRectInsets];
-  result.right = v6;
-  result.bottom = v5;
-  result.left = v4;
-  result.top = v3;
+  v4 = type metadata accessor for UIStepperDesignLibraryVisualElement();
+  v10.receiver = self;
+  v10.super_class = v5;
+  [(UIView *)&v10 alignmentRectInsets];
+  result.right = v9;
+  result.bottom = v8;
+  result.left = v7;
+  result.top = v6;
   return result;
 }
 

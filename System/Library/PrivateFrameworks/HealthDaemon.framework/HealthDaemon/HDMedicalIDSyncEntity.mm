@@ -86,22 +86,22 @@ LABEL_11:
 {
   end = range.end;
   start = range.start;
-  v56 = *MEMORY[0x277D85DE8];
+  v55 = *MEMORY[0x277D85DE8];
   sessionCopy = session;
   profileCopy = profile;
   handlerCopy = handler;
   medicalIDDataManager = [profileCopy medicalIDDataManager];
-  v47 = 0;
-  v16 = [medicalIDDataManager fetchMedicalIDWithError:&v47];
-  v17 = v47;
+  v46 = 0;
+  v16 = [medicalIDDataManager fetchMedicalIDWithError:&v46];
+  v17 = v46;
   v18 = v17;
   if (v16 || !v17)
   {
-    v43 = handlerCopy;
+    v42 = handlerCopy;
     v21 = [(HDMedicalIDSyncEntity *)self _getCurrentSyncAnchorWithProfile:profileCopy error:error];
     _HKInitializeLogging();
     v22 = *MEMORY[0x277CCC2E0];
-    v42 = end;
+    v41 = end;
     if (os_log_type_enabled(*MEMORY[0x277CCC2E0], OS_LOG_TYPE_DEFAULT))
     {
       v23 = v22;
@@ -109,12 +109,12 @@ LABEL_11:
       v25 = v24 = sessionCopy;
       *buf = 138544130;
       selfCopy = self;
-      v50 = 2112;
-      v51 = v16;
-      v52 = 2114;
-      v53 = v25;
-      v54 = 2048;
-      v55 = v21;
+      v49 = 2112;
+      v50 = v16;
+      v51 = 2114;
+      v52 = v25;
+      v53 = 2048;
+      v54 = v21;
       _os_log_impl(&dword_228986000, v23, OS_LOG_TYPE_DEFAULT, "%{public}@ Generate sync objects for MedicalID %@ with syncAnchorRange %{public}@ and newSyncAnchor %lld", buf, 0x2Au);
 
       sessionCopy = v24;
@@ -122,10 +122,10 @@ LABEL_11:
 
     if (v16)
     {
-      v46 = 0;
-      v26 = [self getSyncProvencanceOfMedicalIDForProfile:profileCopy error:&v46];
-      v41 = v46;
-      v38 = v26;
+      v45 = 0;
+      v26 = [self getSyncProvencanceOfMedicalIDForProfile:profileCopy error:&v45];
+      v40 = v45;
+      v37 = v26;
       if (v26)
       {
         longLongValue = [v26 longLongValue];
@@ -138,14 +138,14 @@ LABEL_11:
         if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
         {
           *buf = 138543362;
-          selfCopy = v41;
+          selfCopy = v40;
           _os_log_error_impl(&dword_228986000, v28, OS_LOG_TYPE_ERROR, "Error reading syncProvenance, even though medical ID exists on disk %{public}@", buf, 0xCu);
         }
 
         longLongValue = 0;
       }
 
-      v40 = sessionCopy;
+      v39 = sessionCopy;
       excludedSyncStores = [sessionCopy excludedSyncStores];
       v30 = [excludedSyncStores hk_map:&__block_literal_global_127];
       if (v21 == -1)
@@ -156,12 +156,12 @@ LABEL_11:
       else
       {
         v20 = 1;
-        if (v21 > start && v21 <= v42)
+        if (v21 > start && v21 <= v41)
         {
           v31 = longLongValue;
           v32 = v30;
           v33 = [MEMORY[0x277CCABB0] numberWithLongLong:v31];
-          v45 = v32;
+          v44 = v32;
           LOBYTE(v32) = [v32 containsObject:v33];
 
           if (v32)
@@ -176,7 +176,7 @@ LABEL_11:
             if (v35)
             {
               [array addObject:v35];
-              v20 = [v43 sendCodableChange:array resultAnchor:v21 sequence:0 done:1 error:error];
+              v20 = [v42 sendCodableChange:array resultAnchor:v21 sequence:0 done:1 error:error];
             }
 
             else
@@ -185,11 +185,11 @@ LABEL_11:
             }
           }
 
-          v30 = v45;
+          v30 = v44;
         }
       }
 
-      sessionCopy = v40;
+      sessionCopy = v39;
     }
 
     else
@@ -197,7 +197,7 @@ LABEL_11:
       v20 = 1;
     }
 
-    handlerCopy = v43;
+    handlerCopy = v42;
   }
 
   else if (error)
@@ -213,7 +213,6 @@ LABEL_11:
     v20 = 0;
   }
 
-  v36 = *MEMORY[0x277D85DE8];
   return v20;
 }
 
@@ -286,7 +285,7 @@ uint64_t __81__HDMedicalIDSyncEntity_nextSyncAnchorWithSession_startSyncAnchor_p
 
 + (int64_t)receiveSyncObjects:(id)objects version:(id)version syncStore:(id)store profile:(id)profile error:(id *)error
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   objectsCopy = objects;
   storeCopy = store;
   profileCopy = profile;
@@ -301,13 +300,13 @@ uint64_t __81__HDMedicalIDSyncEntity_nextSyncAnchorWithSession_startSyncAnchor_p
       {
         v17 = v16;
         [profileCopy medicalIDDataManager];
-        v18 = v29 = error;
+        v18 = v28 = error;
         v19 = [MEMORY[0x277CCABB0] numberWithLongLong:{objc_msgSend(storeCopy, "syncProvenance")}];
-        v30 = 0;
-        v20 = [v18 updateMedicalIDWithSyncedData:v17 provenance:v19 error:&v30];
-        v21 = v30;
+        v29 = 0;
+        v20 = [v18 updateMedicalIDWithSyncedData:v17 provenance:v19 error:&v29];
+        v21 = v29;
 
-        error = v29;
+        error = v28;
         v22 = 0;
         if (v20)
         {
@@ -330,10 +329,10 @@ LABEL_8:
   {
     *buf = 138543874;
     selfCopy = self;
-    v33 = 2048;
-    v34 = v24;
-    v35 = 2114;
-    v36 = v21;
+    v32 = 2048;
+    v33 = v24;
+    v34 = 2114;
+    v35 = v21;
     _os_log_fault_impl(&dword_228986000, v25, OS_LOG_TYPE_FAULT, "%{public}@ Failed to save MedicalID with ignorable failure, SyncAnchor: %lld, Error: %{public}@, ", buf, 0x20u);
   }
 
@@ -355,16 +354,15 @@ LABEL_8:
   v22 = 1;
 LABEL_15:
 
-  v27 = *MEMORY[0x277D85DE8];
   return v22;
 }
 
 + (id)_codableFromMedicalID:(id)d
 {
-  v12 = *MEMORY[0x277D85DE8];
-  v9 = 0;
-  v3 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:d requiringSecureCoding:1 error:&v9];
-  v4 = v9;
+  v11 = *MEMORY[0x277D85DE8];
+  v8 = 0;
+  v3 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:d requiringSecureCoding:1 error:&v8];
+  v4 = v8;
   if (v3)
   {
     v5 = objc_alloc_init(HDCodableMedicalIDData);
@@ -378,25 +376,23 @@ LABEL_15:
     if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v11 = v4;
+      v10 = v4;
       _os_log_error_impl(&dword_228986000, v6, OS_LOG_TYPE_ERROR, "Failed to encode codable medical ID: %{public}@", buf, 0xCu);
     }
 
     v5 = 0;
   }
 
-  v7 = *MEMORY[0x277D85DE8];
-
   return v5;
 }
 
 + (id)_medicalIDFromCodable:(id)codable
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   medicalIDBytes = [codable medicalIDBytes];
-  v9 = 0;
-  v4 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClass:objc_opt_class() fromData:medicalIDBytes error:&v9];
-  v5 = v9;
+  v8 = 0;
+  v4 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClass:objc_opt_class() fromData:medicalIDBytes error:&v8];
+  v5 = v8;
   if (!v4)
   {
     _HKInitializeLogging();
@@ -404,12 +400,10 @@ LABEL_15:
     if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v11 = v5;
+      v10 = v5;
       _os_log_error_impl(&dword_228986000, v6, OS_LOG_TYPE_ERROR, "Failed to decode codable medical ID: %{public}@", buf, 0xCu);
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v4;
 }

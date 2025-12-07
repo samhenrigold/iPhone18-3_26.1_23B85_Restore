@@ -10,6 +10,7 @@
 - (void)_updateSoundVolumeSpecifiers:(BOOL)specifiers;
 - (void)setVoiceOverSoundsEnabled:(id)enabled;
 - (void)setVoiceOverSoundsMatchSpeechVolumeEnabled:(id)enabled;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation VoiceOverSoundsAndHapticsController
@@ -48,6 +49,42 @@
   }
 
   return v4;
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v24[3] = *MEMORY[0x277D85DE8];
+  v23.receiver = self;
+  v23.super_class = VoiceOverSoundsAndHapticsController;
+  [(AccessibilityBridgeBaseController *)&v23 viewWillAppear:appear];
+  v3 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v4 = objc_alloc(MEMORY[0x277CCAEB8]);
+  currentLocale = [MEMORY[0x277CBEAF8] currentLocale];
+  bundleURL = [v3 bundleURL];
+  v7 = [v4 initWithKey:@"SOUNDS_AND_HAPTICS" table:@"VoiceOverAudioSettings" locale:currentLocale bundleURL:bundleURL];
+
+  v8 = objc_alloc(MEMORY[0x277CCAEB8]);
+  currentLocale2 = [MEMORY[0x277CBEAF8] currentLocale];
+  bundleURL2 = [v3 bundleURL];
+  v11 = [v8 initWithKey:@"AUDIO" table:@"VoiceOverSettings" locale:currentLocale2 bundleURL:bundleURL2];
+
+  v12 = objc_alloc(MEMORY[0x277CCAEB8]);
+  currentLocale3 = [MEMORY[0x277CBEAF8] currentLocale];
+  bundleURL3 = [v3 bundleURL];
+  v15 = [v12 initWithKey:@"VOICEOVER_TITLE" table:@"AccessibilitySettings" locale:currentLocale3 bundleURL:bundleURL3];
+
+  v16 = objc_alloc(MEMORY[0x277CCAEB8]);
+  currentLocale4 = [MEMORY[0x277CBEAF8] currentLocale];
+  bundleURL4 = [v3 bundleURL];
+  v19 = [v16 initWithKey:@"ACCESSIBILITY_TITLE" table:@"AccessibilitySettings" locale:currentLocale4 bundleURL:bundleURL4];
+
+  v20 = MEMORY[0x277CF3470];
+  v24[0] = v19;
+  v24[1] = v15;
+  v24[2] = v11;
+  v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:3];
+  v22 = [MEMORY[0x277CBEBC0] URLWithString:@"bridge:root=ACCESSIBILITY_ID&path=VOICEOVER_ID/AudioRow/SOUNDS_AND_HAPTICS_ID"];
+  [v20 emitNavigationEventForSystemSettingWithIconSpecifierIdentifier:@"ACCESSIBILITY_ID" title:v7 localizedNavigationComponents:v21 deepLink:v22];
 }
 
 - (id)voiceOverSoundsEnabled
@@ -153,42 +190,39 @@
 
 - (id)_soundVolumeSpecifiers
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   if ([(VoiceOverSoundsAndHapticsController *)self hasSoundVolumeSpecifiers])
   {
     voiceOverSoundsMatchSpeechVolumeEnabled = [(VoiceOverSoundsAndHapticsController *)self voiceOverSoundsMatchSpeechVolumeEnabled];
     bOOLValue = [voiceOverSoundsMatchSpeechVolumeEnabled BOOLValue];
 
-    soundVolumeMatchesSpeechSwitchSpecifier = self->_soundVolumeMatchesSpeechSwitchSpecifier;
     if (bOOLValue)
     {
-      v13 = self->_soundVolumeMatchesSpeechSwitchSpecifier;
-      v6 = MEMORY[0x277CBEA60];
-      v7 = &v13;
-      v8 = 1;
+      soundVolumeMatchesSpeechSwitchSpecifier = self->_soundVolumeMatchesSpeechSwitchSpecifier;
+      v5 = MEMORY[0x277CBEA60];
+      p_soundVolumeMatchesSpeechSwitchSpecifier = &soundVolumeMatchesSpeechSwitchSpecifier;
+      v7 = 1;
     }
 
     else
     {
       soundVolumeSliderSpecifier = self->_soundVolumeSliderSpecifier;
-      v14 = self->_soundVolumeMatchesSpeechSwitchSpecifier;
-      v15 = soundVolumeSliderSpecifier;
-      v6 = MEMORY[0x277CBEA60];
-      v7 = &v14;
-      v8 = 2;
+      v12 = self->_soundVolumeMatchesSpeechSwitchSpecifier;
+      v13 = soundVolumeSliderSpecifier;
+      v5 = MEMORY[0x277CBEA60];
+      p_soundVolumeMatchesSpeechSwitchSpecifier = &v12;
+      v7 = 2;
     }
 
-    v9 = [v6 arrayWithObjects:v7 count:{v8, v13, v14, v15}];
+    v8 = [v5 arrayWithObjects:p_soundVolumeMatchesSpeechSwitchSpecifier count:{v7, soundVolumeMatchesSpeechSwitchSpecifier, v12, v13}];
   }
 
   else
   {
-    v9 = MEMORY[0x277CBEBF8];
+    v8 = MEMORY[0x277CBEBF8];
   }
 
-  v11 = *MEMORY[0x277D85DE8];
-
-  return v9;
+  return v8;
 }
 
 - (void)_updateSoundVolumeSpecifiers:(BOOL)specifiers
@@ -320,7 +354,7 @@ void __68__VoiceOverSoundsAndHapticsController__updateSoundVolumeSpecifiers___bl
     *(*(*(a1 + 40) + 8) + 24) = 1;
   }
 
-  (*(v3 + 2))();
+  v3[2]();
 }
 
 void __68__VoiceOverSoundsAndHapticsController__updateSoundVolumeSpecifiers___block_invoke_2(uint64_t a1)

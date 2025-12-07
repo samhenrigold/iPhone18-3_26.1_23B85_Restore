@@ -54,7 +54,7 @@
   {
     eventCopy = event;
     delegate = [(PXFocusTimelineView *)self delegate];
-    [eventCopy time];
+    objc_msgSend_time(eventCopy);
 
     v6 = [delegate axDescriptionForFocusEventATime:v8];
   }
@@ -134,7 +134,7 @@ void __53__PXFocusTimelineView__isTickWithinActiveTrackRange___block_invoke(uint
   {
     if (v7)
     {
-      [v7 time];
+      objc_msgSend_time(v7);
     }
 
     else
@@ -156,7 +156,7 @@ void __53__PXFocusTimelineView__isTickWithinActiveTrackRange___block_invoke(uint
     {
       if (v12)
       {
-        [v12 time];
+        objc_msgSend_time(v12);
       }
 
       else
@@ -192,7 +192,7 @@ void __53__PXFocusTimelineView__isTickWithinActiveTrackRange___block_invoke(uint
   zoomMinValue = self->_zoomMinValue;
   if (rangeCopy)
   {
-    [rangeCopy time];
+    objc_msgSend_time(rangeCopy);
     LODWORD(rangeCopy) = v17;
   }
 
@@ -223,21 +223,21 @@ LABEL_15:
     goto LABEL_16;
   }
 
-  [v5 time];
+  objc_msgSend_time(v5);
   CMTimeMakeWithSeconds(&v15, zoomMaxValue, preferredTimescale[0]);
   if (!self->_zoomed)
   {
     goto LABEL_15;
   }
 
-  [v5 time];
+  objc_msgSend_time(v5);
 LABEL_9:
   v10 = v19;
   if (CMTimeCompare(&v10, &time2) <= 0)
   {
     if (v5)
     {
-      [v5 time];
+      objc_msgSend_time(v5);
     }
 
     else
@@ -394,10 +394,10 @@ void __50__PXFocusTimelineView__eventAtLocation_threshold___block_invoke(uint64_
   v9 = v8;
   v11 = v10;
   v13 = v12;
-  [(PXFocusTimelineView *)self timeRange];
+  objc_msgSend_timeRange(self);
   v14 = v27;
-  [(PXFocusTimelineView *)self timeRange];
-  v15 = v26;
+  objc_msgSend_timeRange(self);
+  v15 = v26[0];
   CMTimeMakeWithSeconds(&v25, self->_zoomMinValue, timestamp->var1);
   value = v25.value;
   CMTimeMakeWithSeconds(&v24, self->_zoomMaxValue, timestamp->var1);
@@ -743,7 +743,7 @@ void __61__PXFocusTimelineView__animateFocusChangeFrom_to_completion___block_inv
   v5 = eventCopy;
   if (eventCopy)
   {
-    [eventCopy time];
+    objc_msgSend_time(eventCopy);
   }
 
   else
@@ -877,7 +877,7 @@ LABEL_7:
 - (void)updateTimeline
 {
   v24 = *MEMORY[0x1E69E9840];
-  [(PXFocusTimelineView *)self timeRange];
+  objc_msgSend_timeRange(self, a2);
   if ((v22 & 1) != 0 && [(NSMutableArray *)self->_focusEvents count])
   {
     subviews = [(UIView *)self->_focusEventsView subviews];
@@ -985,11 +985,11 @@ void __37__PXFocusTimelineView_updateTimeline__block_invoke_2(uint64_t a1, void 
   v11 = v10;
   v12 = vcvtpd_s64_f64(v10 * v7);
   v13 = vcvtpd_s64_f64(v10 * v9);
-  [(PXFocusTimelineView *)self timeRange];
+  objc_msgSend_timeRange(self);
   *&v41.a = v44;
   v41.c = v45;
   Seconds = CMTimeGetSeconds(&v41);
-  [(PXFocusTimelineView *)self timeRange];
+  objc_msgSend_timeRange(self);
   *&v41.a = v42;
   v41.c = v43;
   v15 = CMTimeGetSeconds(&v41);
@@ -1262,7 +1262,7 @@ void __37__PXFocusTimelineView_updateTimeline__block_invoke_2(uint64_t a1, void 
     if (animateCopy)
     {
       objectTrackingEvent = self->_objectTrackingEvent;
-      if (!objectTrackingEvent || ([(PXFocusTimelineEvent *)objectTrackingEvent time], v15 = *event, CMTimeCompare(&time1, &v15)))
+      if (!objectTrackingEvent || (objc_msgSend_time(objectTrackingEvent), v15 = *event, CMTimeCompare(&time1, &v15)))
       {
         [(PXFocusTimelineEvent *)v10 setShouldAnimate:1];
         [(NSMutableArray *)self->_animatableFocusEvents addObject:v10];
@@ -1289,7 +1289,7 @@ LABEL_8:
   if (v4)
   {
     v5 = objc_alloc_init(PXFocusTimelineAction);
-    [v4 time];
+    objc_msgSend_time(v4);
     v7 = v9;
     v8 = v10;
     [(PXFocusTimelineAction *)v5 setTime:&v7];

@@ -37,29 +37,26 @@
 {
   v4 = sub_22D81A8C8();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   MEMORY[0x28223BE20](v4);
-  v8 = &v14 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = sub_22D81A918();
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  MEMORY[0x28223BE20](v9);
-  v13 = &v14 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = &v12 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = sub_22D81A918();
+  v9 = *(v8 - 8);
+  MEMORY[0x28223BE20](v8);
+  v11 = &v12 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_22D81A8F8();
   sub_22D81A878();
-  (*(v5 + 8))(v8, v4);
-  (*(v10 + 8))(v13, v9);
+  (*(v5 + 8))(v7, v4);
+  (*(v9 + 8))(v11, v8);
 }
 
 - (void)endActivityWithAlarmID:(id)d
 {
   v3 = sub_22D81A918();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
   MEMORY[0x28223BE20](v3);
-  v7 = &v8 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = &v7 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_22D81A8F8();
-  (*(v4 + 8))(v7, v3);
+  (*(v4 + 8))(v6, v3);
 }
 
 - (_TtC18MobileTimerSupport22MTWatchActivityManager)init

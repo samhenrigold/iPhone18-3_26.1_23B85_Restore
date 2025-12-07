@@ -51,7 +51,7 @@
     }
 
     v9 = +[PKStatisticsManager sharedStatisticsManager];
-    [PKStatisticsManager recordTextLineStraighteningPerSession:v9 Undos:?];
+    [(PKStatisticsManager *)v9 recordTextLineStraighteningPerSession:self[1] Undos:?];
 
     self[1] = 0;
     self[2] = 0;
@@ -59,7 +59,7 @@
   }
 }
 
-void __53__PKAnalyticsSession__sendSessionAnalyticsMainThread__block_invoke(uint64_t a1, uint64_t a2)
+void __53__PKAnalyticsSession__sendSessionAnalyticsMainThread__block_invoke(uint64_t a1, char a2)
 {
   v4 = +[PKStatisticsManager sharedStatisticsManager];
   [(PKStatisticsManager *)v4 recordNumberOfUndos:*(a1 + 48) numberOfStrokes:a2 showEffectsEnabled:0 shadowEnabled:*(a1 + 32) bundleID:?];

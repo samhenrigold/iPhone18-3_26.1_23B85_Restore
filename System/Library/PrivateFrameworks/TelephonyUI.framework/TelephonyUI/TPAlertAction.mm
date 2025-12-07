@@ -24,7 +24,7 @@
   {
     if (type == 1)
     {
-      v4 = TelephonyUIBundle();
+      v4 = TelephonyUIBundle(self, a2);
       v5 = [v4 localizedStringForKey:@"ALERT_ACTION_TITLE_CANCEL" value:&stru_1F2CA8008 table:@"General"];
       v9 = v5;
       v10 = 1;
@@ -35,7 +35,7 @@
     {
       if (type == 2)
       {
-        v4 = TelephonyUIBundle();
+        v4 = TelephonyUIBundle(self, a2);
         v5 = [v4 localizedStringForKey:@"ALERT_ACTION_TITLE_DISABLE_AIRPLANE_MODE" value:&stru_1F2CA8008 table:@"General"];
         v6 = &__block_literal_global;
       }
@@ -47,7 +47,7 @@
           goto LABEL_17;
         }
 
-        v4 = TelephonyUIBundle();
+        v4 = TelephonyUIBundle(self, a2);
         v5 = [v4 localizedStringForKey:@"ALERT_ACTION_TITLE_CELLULAR_SETTINGS" value:&stru_1F2CA8008 table:@"General"];
         v6 = &__block_literal_global_40;
       }
@@ -64,7 +64,7 @@
   {
     if (type == 5)
     {
-      v4 = TelephonyUIBundle();
+      v4 = TelephonyUIBundle(self, a2);
       v5 = TUStringKeyForNetwork();
       v7 = [v4 localizedStringForKey:v5 value:&stru_1F2CA8008 table:@"General"];
       v8 = &__block_literal_global_69;
@@ -77,7 +77,7 @@
     }
   }
 
-  v4 = TelephonyUIBundle();
+  v4 = TelephonyUIBundle(self, a2);
   v5 = TUStringKeyForNetwork();
   v7 = [v4 localizedStringForKey:v5 value:&stru_1F2CA8008 table:@"General"];
   v8 = &__block_literal_global_58;

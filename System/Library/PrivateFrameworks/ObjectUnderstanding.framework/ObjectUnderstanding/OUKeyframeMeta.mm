@@ -1,6 +1,5 @@
 @interface OUKeyframeMeta
 - (OUKeyframeMeta)init;
-- (__n128)cameraPose;
 - (__n128)setCameraPose:(__n128)pose;
 - (id)copyWithZone:(_NSZone *)zone;
 @end
@@ -35,15 +34,6 @@
   *(v4 + 16) = self->_size;
   *(v4 + 24) = self->_timestamp;
   return v4;
-}
-
-- (__n128)cameraPose
-{
-  result = *(self + 32);
-  v2 = *(self + 48);
-  v3 = *(self + 64);
-  v4 = *(self + 80);
-  return result;
 }
 
 - (__n128)setCameraPose:(__n128)pose

@@ -40,9 +40,11 @@
 
 uint64_t __36__ICSecurityInfo_sharedSecurityInfo__block_invoke()
 {
-  sharedSecurityInfo_sSharedInstance = objc_alloc_init(ICSecurityInfo);
+  v0 = objc_alloc_init(ICSecurityInfo);
+  v1 = sharedSecurityInfo_sSharedInstance;
+  sharedSecurityInfo_sSharedInstance = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (ICSecurityInfo)init
@@ -304,7 +306,7 @@ void *__70__ICSecurityInfo__getContentProtectionEnabled_isDeviceClassCUnlocked__
   return result;
 }
 
-uint64_t __70__ICSecurityInfo__getContentProtectionEnabled_isDeviceClassCUnlocked___block_invoke_2(uint64_t a1)
+void *__70__ICSecurityInfo__getContentProtectionEnabled_isDeviceClassCUnlocked___block_invoke_2(uint64_t a1)
 {
   result = [*(a1 + 32) _loadContentProtectionEnabled:*(a1 + 56) != 0 isDeviceClassCUnlocked:*(a1 + 64) != 0];
   *(*(*(a1 + 40) + 8) + 24) = *(*(a1 + 32) + 11);

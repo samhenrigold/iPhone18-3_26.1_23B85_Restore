@@ -7,7 +7,7 @@
 
 + (id)hk_sevenDayDoseWithExposureLevel:()HeadphoneSevenDayDose exposureDuration:error:
 {
-  [MEMORY[0x277CCD028] maximumDurationInSecondsForLEQ:7 days:?];
+  [MEMORY[0x277CCD028] maximumDurationInSecondsForLEQ:7 days:self];
   if (v7 <= 2.22044605e-16)
   {
     [MEMORY[0x277CCA9B8] hk_assignError:a5 code:3 description:@"compute 7-day headphone dose failed"];

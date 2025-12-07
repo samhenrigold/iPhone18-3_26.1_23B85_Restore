@@ -696,19 +696,19 @@ uint64_t __36__TUCallContainer_callWithCallUUID___block_invoke(uint64_t a1, void
 
 - (id)displayedCallFromCalls:(id)calls
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   callsCopy = calls;
   if (!callsCopy)
   {
     callsCopy = [(TUCallContainer *)self currentCalls];
   }
 
-  v30 = 0u;
-  v31 = 0u;
-  v28 = 0u;
   v29 = 0u;
+  v30 = 0u;
+  v27 = 0u;
+  v28 = 0u;
   v5 = callsCopy;
-  v6 = [v5 countByEnumeratingWithState:&v28 objects:v32 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v27 objects:v31 count:16];
   if (!v6)
   {
     v8 = 0;
@@ -719,7 +719,7 @@ uint64_t __36__TUCallContainer_callWithCallUUID___block_invoke(uint64_t a1, void
   v7 = v6;
   v8 = 0;
   v9 = 0;
-  v10 = *v29;
+  v10 = *v28;
   v11 = 0.0;
   v12 = 0.0;
   do
@@ -727,12 +727,12 @@ uint64_t __36__TUCallContainer_callWithCallUUID___block_invoke(uint64_t a1, void
     v13 = 0;
     do
     {
-      if (*v29 != v10)
+      if (*v28 != v10)
       {
         objc_enumerationMutation(v5);
       }
 
-      v14 = *(*(&v28 + 1) + 8 * v13);
+      v14 = *(*(&v27 + 1) + 8 * v13);
       status = [v14 status];
       if ((status - 5) > 0xFFFFFFFD)
       {
@@ -819,14 +819,12 @@ LABEL_24:
     }
 
     while (v7 != v13);
-    v24 = [v5 countByEnumeratingWithState:&v28 objects:v32 count:16];
+    v24 = [v5 countByEnumeratingWithState:&v27 objects:v31 count:16];
     v7 = v24;
   }
 
   while (v24);
 LABEL_32:
-
-  v26 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
@@ -962,7 +960,7 @@ uint64_t __53__TUCallContainer_existingCallsHaveMultipleProviders__block_invoke(
 
 - (id)_callGroupsFromCalls:(id)calls
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v4 = [calls mutableCopy];
   v5 = [MEMORY[0x1E695DF70] arrayWithCapacity:2];
   conferenceCall = [(TUCallContainer *)self conferenceCall];
@@ -978,38 +976,36 @@ uint64_t __53__TUCallContainer_existingCallsHaveMultipleProviders__block_invoke(
     [v4 removeObjectsInArray:calls];
   }
 
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
   v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   v11 = v4;
-  v12 = [v11 countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v22;
+    v14 = *v21;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v22 != v14)
+        if (*v21 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        v16 = *(*(&v21 + 1) + 8 * i);
+        v16 = *(*(&v20 + 1) + 8 * i);
         v17 = [TUCallGroup alloc];
-        v18 = [(TUCallGroup *)v17 initWithCall:v16, v21];
+        v18 = [(TUCallGroup *)v17 initWithCall:v16, v20];
         [v5 addObject:v18];
       }
 
-      v13 = [v11 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v13);
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 
   return v5;
 }

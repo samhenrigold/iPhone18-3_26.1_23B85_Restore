@@ -49,28 +49,28 @@
 
 - (int)validateAndProcessArgumentValues
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v3 = self->_conversionOptionSets;
-  v4 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v4 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v14;
+    v6 = *v13;
     while (2)
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v14 != v6)
+        if (*v13 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v13 + 1) + 8 * i);
-        [v8 setReplaceExistingOutput:{self->_replaceExistingOutput, v13}];
+        v8 = *(*(&v12 + 1) + 8 * i);
+        [v8 setReplaceExistingOutput:{self->_replaceExistingOutput, v12}];
         [v8 setVerbose:self->_verbose];
         validateAndProcess = [v8 validateAndProcess];
         if (validateAndProcess)
@@ -80,7 +80,7 @@
         }
       }
 
-      v5 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v5 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
       if (v5)
       {
         continue;
@@ -93,7 +93,6 @@
   v10 = 0;
 LABEL_11:
 
-  v11 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -165,17 +164,16 @@ LABEL_11:
 
 void __100__MediaConversionServiceCommandLineDriver_runVideoStillExtractionConversionWithConversionOptionSet___block_invoke(uint64_t a1, uint64_t a2, void *a3, void *a4)
 {
-  v11 = a3;
+  v10 = a3;
   v7 = a4;
   if (a2 == 1)
   {
     if (*(*(a1 + 32) + 8) == 1)
     {
-      [objc_opt_class() output:{@"Raw output information: %@\n", v11}];
-      v8 = *(a1 + 32);
+      [objc_opt_class() output:{@"Raw output information: %@\n", v10}];
     }
 
-    if ([objc_opt_class() outputJSONDataForConversionOutputInformation:v11])
+    if ([objc_opt_class() outputJSONDataForConversionOutputInformation:v10])
     {
       *(*(*(a1 + 48) + 8) + 24) = 0;
     }
@@ -187,9 +185,9 @@ void __100__MediaConversionServiceCommandLineDriver_runVideoStillExtractionConve
   }
 
   [*(*(a1 + 32) + 24) removeObserver:*(a1 + 32) forKeyPath:@"fractionCompleted"];
-  v9 = *(a1 + 32);
-  v10 = *(v9 + 24);
-  *(v9 + 24) = 0;
+  v8 = *(a1 + 32);
+  v9 = *(v8 + 24);
+  *(v8 + 24) = 0;
 
   dispatch_semaphore_signal(*(a1 + 40));
 }
@@ -278,17 +276,16 @@ void __100__MediaConversionServiceCommandLineDriver_runVideoStillExtractionConve
 
 void __85__MediaConversionServiceCommandLineDriver_runVideoConversionWithConversionOptionSet___block_invoke(uint64_t a1, uint64_t a2, void *a3, void *a4)
 {
-  v11 = a3;
+  v10 = a3;
   v7 = a4;
   if (a2 == 1)
   {
     if (*(*(a1 + 32) + 8) == 1)
     {
-      [objc_opt_class() output:{@"Raw output information: %@\n", v11}];
-      v8 = *(a1 + 32);
+      [objc_opt_class() output:{@"Raw output information: %@\n", v10}];
     }
 
-    if ([objc_opt_class() outputJSONDataForConversionOutputInformation:v11])
+    if ([objc_opt_class() outputJSONDataForConversionOutputInformation:v10])
     {
       *(*(*(a1 + 48) + 8) + 24) = 0;
     }
@@ -300,20 +297,19 @@ void __85__MediaConversionServiceCommandLineDriver_runVideoConversionWithConvers
   }
 
   [*(*(a1 + 32) + 24) removeObserver:*(a1 + 32) forKeyPath:@"fractionCompleted"];
-  v9 = *(a1 + 32);
-  v10 = *(v9 + 24);
-  *(v9 + 24) = 0;
+  v8 = *(a1 + 32);
+  v9 = *(v8 + 24);
+  *(v8 + 24) = 0;
 
   dispatch_semaphore_signal(*(a1 + 40));
 }
 
 uint64_t __85__MediaConversionServiceCommandLineDriver_runVideoConversionWithConversionOptionSet___block_invoke_2(uint64_t a1)
 {
-  v2 = *(a1 + 32);
   [objc_opt_class() outputError:{@"Received SIGINT, cancelling conversion\n"}];
-  v3 = *(*(a1 + 32) + 24);
+  v2 = *(*(a1 + 32) + 24);
 
-  return [v3 cancel];
+  return [v2 cancel];
 }
 
 - (int)runImageConversionWithConversionOptionSet:(id)set
@@ -377,23 +373,22 @@ uint64_t __85__MediaConversionServiceCommandLineDriver_runVideoConversionWithCon
 
 void __85__MediaConversionServiceCommandLineDriver_runImageConversionWithConversionOptionSet___block_invoke(uint64_t a1, uint64_t a2, void *a3, void *a4)
 {
-  v14 = a3;
+  v12 = a3;
   v7 = a4;
   if (a2 != 1)
   {
-    v11 = *(a1 + 32);
     [objc_opt_class() outputConversionError:v7 status:a2];
-    v12 = 70;
+    v11 = 70;
 LABEL_10:
-    *(*(*(a1 + 48) + 8) + 24) = v12;
+    *(*(*(a1 + 48) + 8) + 24) = v11;
     goto LABEL_11;
   }
 
-  v8 = [v14 objectForKeyedSubscript:@"PAMediaConversionServiceResultDataKey"];
+  v8 = [v12 objectForKeyedSubscript:@"PAMediaConversionServiceResultDataKey"];
 
   if (v8)
   {
-    v9 = [v14 mutableCopy];
+    v9 = [v12 mutableCopy];
     [v9 setObject:@"(NSData removed)" forKeyedSubscript:@"PAMediaConversionServiceResultDataKey"];
 
     v10 = v9;
@@ -401,19 +396,18 @@ LABEL_10:
 
   else
   {
-    v10 = v14;
+    v10 = v12;
   }
 
-  v14 = v10;
+  v12 = v10;
   if (*(*(a1 + 32) + 8) == 1)
   {
     [objc_opt_class() output:{@"Raw output information: %@\n", v10}];
-    v13 = *(a1 + 32);
   }
 
-  if ([objc_opt_class() outputJSONDataForConversionOutputInformation:v14])
+  if ([objc_opt_class() outputJSONDataForConversionOutputInformation:v12])
   {
-    v12 = 0;
+    v11 = 0;
     goto LABEL_10;
   }
 
@@ -470,7 +464,7 @@ LABEL_11:
 
 void __69__MediaConversionServiceCommandLineDriver_sendMessageToLaunchService__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v7 = a3;
+  v6 = a3;
   if (a2)
   {
     v5 = [a2 objectForKeyedSubscript:@"PAMediaConversionServiceProcessIdentifierKey"];
@@ -479,8 +473,7 @@ void __69__MediaConversionServiceCommandLineDriver_sendMessageToLaunchService__b
 
   else
   {
-    v6 = *(a1 + 32);
-    [objc_opt_class() outputError:{@"Unable to get image conversion service status: %@\n", v7}];
+    [objc_opt_class() outputError:{@"Unable to get image conversion service status: %@\n", v6}];
   }
 
   dispatch_semaphore_signal(*(a1 + 40));
@@ -488,7 +481,7 @@ void __69__MediaConversionServiceCommandLineDriver_sendMessageToLaunchService__b
 
 void __69__MediaConversionServiceCommandLineDriver_sendMessageToLaunchService__block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v7 = a3;
+  v6 = a3;
   if (a2)
   {
     v5 = [a2 objectForKeyedSubscript:@"PAMediaConversionServiceProcessIdentifierKey"];
@@ -497,8 +490,7 @@ void __69__MediaConversionServiceCommandLineDriver_sendMessageToLaunchService__b
 
   else
   {
-    v6 = *(a1 + 32);
-    [objc_opt_class() outputError:{@"Unable to get video conversion service status: %@\n", v7}];
+    [objc_opt_class() outputError:{@"Unable to get video conversion service status: %@\n", v6}];
   }
 
   dispatch_semaphore_signal(*(a1 + 40));
@@ -506,7 +498,7 @@ void __69__MediaConversionServiceCommandLineDriver_sendMessageToLaunchService__b
 
 - (int)run
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   validateAndProcessArgumentValues = [(MediaConversionServiceCommandLineDriver *)self validateAndProcessArgumentValues];
   if (!validateAndProcessArgumentValues)
   {
@@ -522,26 +514,26 @@ void __69__MediaConversionServiceCommandLineDriver_sendMessageToLaunchService__b
       [(MediaConversionServiceCommandLineDriver *)self sendMessageToLaunchService];
     }
 
-    v18 = 0u;
-    v19 = 0u;
-    v16 = 0u;
     v17 = 0u;
+    v18 = 0u;
+    v15 = 0u;
+    v16 = 0u;
     obj = self->_conversionOptionSets;
-    v14 = [(NSMutableArray *)obj countByEnumeratingWithState:&v16 objects:v20 count:16];
-    if (v14)
+    v13 = [(NSMutableArray *)obj countByEnumeratingWithState:&v15 objects:v19 count:16];
+    if (v13)
     {
-      v15 = *v17;
+      v14 = *v16;
       validateAndProcessArgumentValues = 70;
       do
       {
-        for (i = 0; i != v14; ++i)
+        for (i = 0; i != v13; ++i)
         {
-          if (*v17 != v15)
+          if (*v16 != v14)
           {
             objc_enumerationMutation(obj);
           }
 
-          v6 = *(*(&v16 + 1) + 8 * i);
+          v6 = *(*(&v15 + 1) + 8 * i);
           if ([v6 repeatCount] >= 1)
           {
             for (j = 0; j < [v6 repeatCount]; ++j)
@@ -565,8 +557,7 @@ void __69__MediaConversionServiceCommandLineDriver_sendMessageToLaunchService__b
                   [objc_opt_class() outputError:{@"Conversion type %@ is unsupported\n", conversionType}];
 
                   objc_autoreleasePoolPop(v8);
-                  validateAndProcessArgumentValues = 70;
-                  goto LABEL_28;
+                  return 70;
                 }
 
                 v10 = [(MediaConversionServiceCommandLineDriver *)self runVideoStillExtractionConversionWithConversionOptionSet:v6];
@@ -579,10 +570,10 @@ void __69__MediaConversionServiceCommandLineDriver_sendMessageToLaunchService__b
           }
         }
 
-        v14 = [(NSMutableArray *)obj countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v13 = [(NSMutableArray *)obj countByEnumeratingWithState:&v15 objects:v19 count:16];
       }
 
-      while (v14);
+      while (v13);
     }
 
     else
@@ -598,34 +589,32 @@ void __69__MediaConversionServiceCommandLineDriver_sendMessageToLaunchService__b
     [(PAVideoConversionServiceClient *)self->_videoConversionServiceClient invalidateAfterPendingRequestCompletion];
   }
 
-LABEL_28:
-  v11 = *MEMORY[0x277D85DE8];
   return validateAndProcessArgumentValues;
 }
 
 - (BOOL)hasConversionOfType:(id)type
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   typeCopy = type;
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v5 = self->_conversionOptionSets;
-  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v6)
   {
-    v7 = *v14;
+    v7 = *v13;
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v14 != v7)
+        if (*v13 != v7)
         {
           objc_enumerationMutation(v5);
         }
 
-        conversionType = [*(*(&v13 + 1) + 8 * i) conversionType];
+        conversionType = [*(*(&v12 + 1) + 8 * i) conversionType];
         v10 = [conversionType isEqualToString:typeCopy];
 
         if (v10)
@@ -635,7 +624,7 @@ LABEL_28:
         }
       }
 
-      v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
       if (v6)
       {
         continue;
@@ -647,7 +636,6 @@ LABEL_28:
 
 LABEL_11:
 
-  v11 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -889,7 +877,7 @@ LABEL_41:
 
 + (id)replacementObjectForObject:(id)object valueConversionHandler:(id)handler
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   objectCopy = object;
   handlerCopy = handler;
   v9 = handlerCopy;
@@ -921,30 +909,30 @@ LABEL_3:
   {
     v10 = objectCopy;
     array = [MEMORY[0x277CBEB18] array];
+    v30 = 0u;
     v31 = 0u;
     v32 = 0u;
     v33 = 0u;
-    v34 = 0u;
     v12 = v10;
-    v13 = [v12 countByEnumeratingWithState:&v31 objects:v35 count:16];
+    v13 = [v12 countByEnumeratingWithState:&v30 objects:v34 count:16];
     if (v13)
     {
       v14 = v13;
-      v15 = *v32;
+      v15 = *v31;
       do
       {
         for (i = 0; i != v14; ++i)
         {
-          if (*v32 != v15)
+          if (*v31 != v15)
           {
             objc_enumerationMutation(v12);
           }
 
-          v17 = [self replacementObjectForObject:*(*(&v31 + 1) + 8 * i) valueConversionHandler:v9];
+          v17 = [self replacementObjectForObject:*(*(&v30 + 1) + 8 * i) valueConversionHandler:v9];
           [array addObject:v17];
         }
 
-        v14 = [v12 countByEnumeratingWithState:&v31 objects:v35 count:16];
+        v14 = [v12 countByEnumeratingWithState:&v30 objects:v34 count:16];
       }
 
       while (v14);
@@ -959,17 +947,17 @@ LABEL_3:
       v18 = MEMORY[0x277CBEB38];
       v19 = objectCopy;
       dictionary = [v18 dictionary];
-      v27[0] = MEMORY[0x277D85DD0];
-      v27[1] = 3221225472;
-      v27[2] = __93__MediaConversionServiceCommandLineDriver_replacementObjectForObject_valueConversionHandler___block_invoke;
-      v27[3] = &unk_27989BA90;
+      v26[0] = MEMORY[0x277D85DD0];
+      v26[1] = 3221225472;
+      v26[2] = __93__MediaConversionServiceCommandLineDriver_replacementObjectForObject_valueConversionHandler___block_invoke;
+      v26[3] = &unk_27989BA90;
       v21 = dictionary;
-      v28 = v21;
+      v27 = v21;
       selfCopy = self;
-      v29 = v9;
-      [v19 enumerateKeysAndObjectsUsingBlock:v27];
+      v28 = v9;
+      [v19 enumerateKeysAndObjectsUsingBlock:v26];
 
-      v22 = v29;
+      v22 = v28;
       array = v21;
     }
 
@@ -978,8 +966,6 @@ LABEL_3:
       array = (v9)[2](v9, objectCopy);
     }
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 
   return array;
 }

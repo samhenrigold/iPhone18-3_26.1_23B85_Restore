@@ -162,21 +162,20 @@ LABEL_22:
     [requestCopy addServiceTag:v24];
   }
 
-  v46[0] = _NSConcreteStackBlock;
-  v46[1] = 3221225472;
-  v46[2] = sub_100052EE4;
-  v46[3] = &unk_100083E20;
-  v37 = sendRequestCopy;
-  v47 = v37;
-  v25 = objc_retainBlock(v46);
-  v44[0] = _NSConcreteStackBlock;
-  v44[1] = 3221225472;
-  v44[2] = sub_100052FD4;
-  v44[3] = &unk_100083E48;
+  v45[0] = _NSConcreteStackBlock;
+  v45[1] = 3221225472;
+  v45[2] = sub_100052EE4;
+  v45[3] = &unk_100083E20;
+  v36 = sendRequestCopy;
+  v46 = v36;
+  v25 = objc_retainBlock(v45);
+  v43[0] = _NSConcreteStackBlock;
+  v43[1] = 3221225472;
+  v43[2] = sub_100052FD4;
+  v43[3] = &unk_100083E48;
   v26 = finishedCopy;
-  v45 = v26;
-  v27 = objc_retainBlock(v44);
-  v28 = GeoServicesConfig_ValidateSensitiveFieldsAtSend_ETA[1];
+  v44 = v26;
+  v27 = objc_retainBlock(v43);
   if (GEOConfigGetBOOL() && GEOETATrafficUpdateRequestHasSensitiveFields())
   {
     [requestCopy clearSensitiveFields:0];
@@ -185,7 +184,7 @@ LABEL_22:
   privacyMetadata = +[GEOPlatform sharedPlatform];
   if ([privacyMetadata isInternalInstall])
   {
-    v30 = traitsCopy;
+    v29 = traitsCopy;
     hasPrivacyMetadata = [traitsCopy hasPrivacyMetadata];
 
     if (!hasPrivacyMetadata)
@@ -193,14 +192,14 @@ LABEL_22:
       goto LABEL_11;
     }
 
-    privacyMetadata = [v30 privacyMetadata];
-    v32 = [privacyMetadata copy];
-    [requestCopy setPrivacyMetadata:v32];
+    privacyMetadata = [v29 privacyMetadata];
+    v31 = [privacyMetadata copy];
+    [requestCopy setPrivacyMetadata:v31];
   }
 
   else
   {
-    v30 = traitsCopy;
+    v29 = traitsCopy;
   }
 
 LABEL_11:
@@ -209,18 +208,18 @@ LABEL_11:
     activityCopy[2](activityCopy, 1);
   }
 
-  v33 = objc_alloc_init(_GEOTrafficUpdateETARequestConfig);
-  v40[0] = _NSConcreteStackBlock;
-  v40[1] = 3221225472;
-  v40[2] = sub_10005317C;
-  v40[3] = &unk_100083DD0;
-  v41 = activityCopy;
-  v42 = errorCopy;
-  v43 = v27;
-  v34 = v27;
-  v35 = errorCopy;
-  v36 = activityCopy;
-  [(GEOETAServiceRequester *)self _startWithRequest:requestCopy traits:v30 auditToken:tokenCopy config:v33 throttleToken:0 options:0 willSendRequestHandler:v25 completionHandler:v40];
+  v32 = objc_alloc_init(_GEOTrafficUpdateETARequestConfig);
+  v39[0] = _NSConcreteStackBlock;
+  v39[1] = 3221225472;
+  v39[2] = sub_10005317C;
+  v39[3] = &unk_100083DD0;
+  v40 = activityCopy;
+  v41 = errorCopy;
+  v42 = v27;
+  v33 = v27;
+  v34 = errorCopy;
+  v35 = activityCopy;
+  [(GEOETAServiceRequester *)self _startWithRequest:requestCopy traits:v29 auditToken:tokenCopy config:v32 throttleToken:0 options:0 willSendRequestHandler:v25 completionHandler:v39];
 }
 
 - (void)startSimpleETARequest:(id)request traits:(id)traits auditToken:(id)token finished:(id)finished networkActivity:(id)activity error:(id)error
@@ -253,7 +252,6 @@ LABEL_11:
     [requestCopy addServiceTag:v24];
   }
 
-  v25 = GeoServicesConfig_ValidateSensitiveFieldsAtSend_ETA[1];
   if (GEOConfigGetBOOL())
   {
     GEOETARequestRemoveFieldsForSendingRequest();
@@ -270,24 +268,24 @@ LABEL_11:
   if (hasPrivacyMetadata)
   {
     privacyMetadata = [traitsCopy privacyMetadata];
-    v28 = [privacyMetadata copy];
-    [requestCopy setPrivacyMetadata:v28];
+    v27 = [privacyMetadata copy];
+    [requestCopy setPrivacyMetadata:v27];
 
 LABEL_13:
   }
 
-  v29 = objc_alloc_init(_GEOSimpleETARequestConfig);
-  v33[0] = _NSConcreteStackBlock;
-  v33[1] = 3221225472;
-  v33[2] = sub_100053618;
-  v33[3] = &unk_100083DD0;
-  v34 = activityCopy;
-  v35 = finishedCopy;
-  v36 = errorCopy;
-  v30 = errorCopy;
-  v31 = finishedCopy;
-  v32 = activityCopy;
-  [(GEOETAServiceRequester *)self _startWithRequest:requestCopy traits:traitsCopy auditToken:tokenCopy config:v29 throttleToken:0 options:0 completionHandler:v33];
+  v28 = objc_alloc_init(_GEOSimpleETARequestConfig);
+  v32[0] = _NSConcreteStackBlock;
+  v32[1] = 3221225472;
+  v32[2] = sub_100053618;
+  v32[3] = &unk_100083DD0;
+  v33 = activityCopy;
+  v34 = finishedCopy;
+  v35 = errorCopy;
+  v29 = errorCopy;
+  v30 = finishedCopy;
+  v31 = activityCopy;
+  [(GEOETAServiceRequester *)self _startWithRequest:requestCopy traits:traitsCopy auditToken:tokenCopy config:v28 throttleToken:0 options:0 completionHandler:v32];
 }
 
 - (GEOETAServiceRequester)init

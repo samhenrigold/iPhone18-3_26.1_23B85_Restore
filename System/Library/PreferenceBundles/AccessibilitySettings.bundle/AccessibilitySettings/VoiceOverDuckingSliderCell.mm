@@ -22,29 +22,31 @@
 
 - (void)_updateRightLabelWithValue:(double)value
 {
-  v5 = AXFormatFloatWithPercentage();
-  [(VoiceOverDuckingSliderCell *)self setLabelText:v5];
+  valueCopy = value;
+  v6 = AXFormatFloatWithPercentage(valueCopy);
+  [(VoiceOverDuckingSliderCell *)self setLabelText:v6];
 
   slider = [(VoiceOverDuckingSliderCell *)self slider];
-  v7 = objc_opt_respondsToSelector();
+  v8 = objc_opt_respondsToSelector();
 
-  if (v7)
+  if (v8)
   {
     slider2 = [(VoiceOverDuckingSliderCell *)self slider];
-    v9[0] = _NSConcreteStackBlock;
-    v9[1] = 3221225472;
-    v9[2] = __57__VoiceOverDuckingSliderCell__updateRightLabelWithValue___block_invoke;
-    v9[3] = &__block_descriptor_40_e15___NSString_8__0l;
-    *&v9[4] = value;
-    [slider2 _setAccessibilityValueBlock:v9];
+    v10[0] = _NSConcreteStackBlock;
+    v10[1] = 3221225472;
+    v10[2] = __57__VoiceOverDuckingSliderCell__updateRightLabelWithValue___block_invoke;
+    v10[3] = &__block_descriptor_40_e15___NSString_8__0l;
+    *&v10[4] = value;
+    [slider2 _setAccessibilityValueBlock:v10];
   }
 }
 
 - (id)accessibilityValue
 {
   [(VoiceOverDuckingSliderCell *)self _currentDuckingValue];
+  v3 = v2;
 
-  return AXFormatFloatWithPercentage();
+  return AXFormatFloatWithPercentage(v3);
 }
 
 - (double)_currentDuckingValue

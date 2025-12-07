@@ -9,7 +9,7 @@
 
 - (void)main
 {
-  v3 = CATGetCatalystQueue();
+  v3 = CATGetCatalystQueue(self);
   CATAssertIsQueue(v3);
 
   transport = [(_CATXPCTransportSendMessageOperation *)self transport];

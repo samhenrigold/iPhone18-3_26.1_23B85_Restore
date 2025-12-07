@@ -75,31 +75,31 @@
 
   device = device;
 
+  v52 = 0u;
+  v53 = 0u;
   v50 = 0u;
   v51 = 0u;
-  v48 = 0u;
-  v49 = 0u;
   v6 = v7;
-  v9 = [v6 countByEnumeratingWithState:&v48 objects:v64 count:16];
+  v9 = [v6 countByEnumeratingWithState:&v50 objects:v66 count:16];
   if (v9)
   {
     v10 = v9;
-    v46 = 0;
-    v47 = 0;
+    v48 = 0;
+    v49 = 0;
     v11 = 0;
     v12 = 0;
-    v13 = *v49;
+    v13 = *v51;
     do
     {
       v14 = v6;
       for (i = 0; i != v10; i = i + 1)
       {
-        if (*v49 != v13)
+        if (*v51 != v13)
         {
           objc_enumerationMutation(v14);
         }
 
-        v16 = *(*(&v48 + 1) + 8 * i);
+        v16 = *(*(&v50 + 1) + 8 * i);
         v17 = [NSString stringWithUTF8String:"DeviceUsage"];
         v18 = [v16 objectForKeyedSubscript:v17];
 
@@ -109,7 +109,7 @@
         intValue = [v20 intValue];
         if ([v20 intValue] == 96)
         {
-          v46 |= [v18 intValue] == 1;
+          v48 |= [v18 intValue] == 1;
         }
 
         if (intValue == 1)
@@ -118,13 +118,13 @@
           v23 = [v18 intValue] == 6 || objc_msgSend(v18, "intValue") == 7;
           v12 |= v22;
           v11 = v23 | v11 & 1;
-          BYTE4(v47) |= [v18 intValue] == 4;
-          LOBYTE(v47) = v47 | ([v18 intValue] == 5);
+          BYTE4(v49) |= [v18 intValue] == 4;
+          LOBYTE(v49) = v49 | ([v18 intValue] == 5);
         }
       }
 
       v6 = v14;
-      v10 = [v14 countByEnumeratingWithState:&v48 objects:v64 count:16];
+      v10 = [v14 countByEnumeratingWithState:&v50 objects:v66 count:16];
     }
 
     while (v10);
@@ -132,8 +132,8 @@
 
   else
   {
-    v46 = 0;
-    v47 = 0;
+    v48 = 0;
+    v49 = 0;
     v11 = 0;
     v12 = 0;
   }
@@ -145,41 +145,41 @@
   {
     v27 = NSStringFromBOOL();
     NSStringFromBOOL();
-    v28 = v44 = v25;
+    v28 = v46 = v25;
     v29 = NSStringFromBOOL();
     v30 = NSStringFromBOOL();
     v31 = NSStringFromBOOL();
     v32 = NSStringFromBOOL();
     *buf = 138413570;
     deviceCopy2 = v27;
-    v54 = 2112;
-    v55 = v28;
     v56 = 2112;
-    v57 = v29;
+    v57 = v28;
     v58 = 2112;
-    v59 = v30;
+    v59 = v29;
     v60 = 2112;
-    v61 = v31;
+    v61 = v30;
     v62 = 2112;
-    v63 = v32;
+    v63 = v31;
+    v64 = 2112;
+    v65 = v32;
     _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_INFO, "\n                \t - hasMouseCapabilities: %@\n                \t - hasMouseKeysCapabilities: %@\n                \t - hasJoystickCapabilities: %@\n                \t - hasGamePadCapabilities: %@\n                \t - hasTadmorCapabilities: %@\n                \t - isIAPDevice: %@", buf, 0x3Eu);
 
     deviceCopy4 = device;
-    v25 = v44;
+    v25 = v46;
   }
 
   if (v12)
   {
-    if (sub_100042C64() && v25 != 2)
+    if (sub_100042C64(v33, v34) && v25 != 2)
     {
-      v33 = ASTLogMouse();
-      if (os_log_type_enabled(v33, OS_LOG_TYPE_INFO))
+      v35 = ASTLogMouse();
+      if (os_log_type_enabled(v35, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
         deviceCopy2 = deviceCopy4;
-        v34 = "let the system handle mouse devices. skipping %@";
+        v36 = "let the system handle mouse devices. skipping %@";
 LABEL_46:
-        _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_INFO, v34, buf, 0xCu);
+        _os_log_impl(&_mh_execute_header, v35, OS_LOG_TYPE_INFO, v36, buf, 0xCu);
         goto LABEL_47;
       }
 
@@ -189,12 +189,12 @@ LABEL_46:
 
   else
   {
-    v35 = +[AXSettings sharedInstance];
-    if (([v35 assistiveTouchMouseKeysEnabled] & v11) == 1 && _AXSAssistiveTouchEnabled())
+    v37 = +[AXSettings sharedInstance];
+    if (([v37 assistiveTouchMouseKeysEnabled] & v11) == 1 && _AXSAssistiveTouchEnabled())
     {
-      v36 = UIAccessibilityIsSwitchControlRunning();
+      v38 = UIAccessibilityIsSwitchControlRunning();
 
-      if (BYTE4(v47) & 1 | !v36)
+      if (BYTE4(v49) & 1 | !v38)
       {
         goto LABEL_40;
       }
@@ -203,55 +203,55 @@ LABEL_46:
     else
     {
 
-      if ((v47 & 0x100000000) != 0)
+      if ((v49 & 0x100000000) != 0)
       {
         goto LABEL_40;
       }
     }
 
-    if ((v47 & 1) == 0 || (+[AXSettings sharedInstance](AXSettings, "sharedInstance"), v37 = objc_claimAutoreleasedReturnValue(), v38 = [v37 assistiveTouchGameControllerEnabled], v37, (v38 & 1) == 0))
+    if ((v49 & 1) == 0 || (+[AXSettings sharedInstance](AXSettings, "sharedInstance"), v39 = objc_claimAutoreleasedReturnValue(), v40 = [v39 assistiveTouchGameControllerEnabled], v39, (v40 & 1) == 0))
     {
-      if ((v46 & 1) == 0 || !AXDeviceSupportsTadmor())
+      if ((v48 & 1) == 0 || !AXDeviceSupportsTadmor())
       {
 LABEL_44:
-        v33 = ASTLogMouse();
-        if (os_log_type_enabled(v33, OS_LOG_TYPE_INFO))
+        v35 = ASTLogMouse();
+        if (os_log_type_enabled(v35, OS_LOG_TYPE_INFO))
         {
           *buf = 138412290;
           deviceCopy2 = deviceCopy4;
-          v34 = "Unsupported device: %@";
+          v36 = "Unsupported device: %@";
           goto LABEL_46;
         }
 
 LABEL_47:
 
 LABEL_48:
-        v42 = 0;
+        v44 = 0;
         goto LABEL_49;
       }
     }
   }
 
 LABEL_40:
-  v39 = objc_opt_class();
-  if (!v39)
+  v41 = objc_opt_class();
+  if (!v41)
   {
     goto LABEL_44;
   }
 
-  v40 = v39;
-  v41 = ASTLogMouse();
-  if (os_log_type_enabled(v41, OS_LOG_TYPE_INFO))
+  v42 = v41;
+  v43 = ASTLogMouse();
+  if (os_log_type_enabled(v43, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    deviceCopy2 = v40;
-    _os_log_impl(&_mh_execute_header, v41, OS_LOG_TYPE_INFO, "making device: %@", buf, 0xCu);
+    deviceCopy2 = v42;
+    _os_log_impl(&_mh_execute_header, v43, OS_LOG_TYPE_INFO, "making device: %@", buf, 0xCu);
   }
 
-  v42 = [objc_allocWithZone(v40) _initWithHIDDevice:deviceCopy4];
+  v44 = [objc_allocWithZone(v42) _initWithHIDDevice:deviceCopy4];
 LABEL_49:
 
-  return v42;
+  return v44;
 }
 
 - (void)dealloc

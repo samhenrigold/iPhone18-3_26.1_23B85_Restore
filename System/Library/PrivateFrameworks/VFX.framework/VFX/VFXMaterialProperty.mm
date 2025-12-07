@@ -142,9 +142,9 @@
 
 + (id)precomputedLightingEnvironmentContentsWithURL:(id)l error:(id *)error
 {
-  v6 = objc_msgSend_dataWithContentsOfURL_options_error_(MEMORY[0x1E695DEF0], a2, l, 1, error);
+  v5 = objc_msgSend_dataWithContentsOfURL_options_error_(MEMORY[0x1E695DEF0], a2, l, 1, error);
 
-  return MEMORY[0x1EEE66B58](self, sel_precomputedLightingEnvironmentContentsWithData_error_, v6, error);
+  return MEMORY[0x1EEE66B58](self, sel_precomputedLightingEnvironmentContentsWithData_error_, v5);
 }
 
 + (id)precomputedLightingEnvironmentContentsWithData:(id)data error:(id *)error
@@ -162,121 +162,120 @@
 
 + (id)precomputedLightingEnvironmentDataForContents:(id)contents radianceTextureSize:(unint64_t)size device:(id)device error:(id *)error
 {
-  sizeCopy = size;
   contentsCopy = contents;
-  v97[1] = *MEMORY[0x1E69E9840];
-  objc_msgSend_begin(VFXTransaction, a2, contents, size);
-  objc_msgSend_setImmediateMode_(VFXTransaction, v10, 1, v11);
+  v75[1] = *MEMORY[0x1E69E9840];
+  objc_msgSend_begin(VFXTransaction, a2, contents);
+  objc_msgSend_setImmediateMode_(VFXTransaction, v10, 1);
   objc_opt_class();
   isKindOfClass = objc_opt_isKindOfClass();
   if (isKindOfClass)
   {
-    contentsCopy = objc_msgSend_copy(contentsCopy, v12, v13, v14);
-    objc_msgSend__forceSynchronousLoading(contentsCopy, v16, v17, v18);
+    contentsCopy = objc_msgSend_copy(contentsCopy, v11, v12);
+    objc_msgSend__forceSynchronousLoading(contentsCopy, v14, v15);
   }
 
-  v19 = [VFXWorld alloc];
-  v96 = @"VFXWorldLoaderDisableVFXCoreSupport";
-  v97[0] = objc_msgSend_numberWithBool_(MEMORY[0x1E696AD98], v20, (isKindOfClass & 1) == 0, v21);
-  v23 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v22, v97, &v96, 1);
-  v26 = objc_msgSend_initWithOptions_(v19, v24, v23, v25);
-  v30 = v26;
+  v16 = [VFXWorld alloc];
+  v74 = @"VFXWorldLoaderDisableVFXCoreSupport";
+  v75[0] = objc_msgSend_numberWithBool_(MEMORY[0x1E696AD98], v17, (isKindOfClass & 1) == 0);
+  v19 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v18, v75, &v74, 1);
+  v21 = objc_msgSend_initWithOptions_(v16, v20, v19);
+  v24 = v21;
   if (isKindOfClass)
   {
-    v31 = objc_msgSend_assets(v26, v27, v28, v29);
-    v35 = objc_msgSend_rootNode(v31, v32, v33, v34);
-    v38 = objc_msgSend_assetNodeWithAsset_(VFXAssetNode, v36, contentsCopy, v37);
-    objc_msgSend_addChildNode_(v35, v39, v38, v40);
+    v25 = objc_msgSend_assets(v21, v22, v23);
+    v28 = objc_msgSend_rootNode(v25, v26, v27);
+    v30 = objc_msgSend_assetNodeWithAsset_(VFXAssetNode, v29, contentsCopy);
+    objc_msgSend_addChildNode_(v28, v31, v30);
   }
 
-  v41 = objc_msgSend_lightingEnvironment(v30, v27, v28, v29);
-  objc_msgSend_setContents_(v41, v42, contentsCopy, v43);
-  v50 = objc_msgSend_materialProperty(v41, v44, v45, v46);
-  if (!v50)
+  v32 = objc_msgSend_lightingEnvironment(v24, v22, v23);
+  objc_msgSend_setContents_(v32, v33, contentsCopy);
+  v38 = objc_msgSend_materialProperty(v32, v34, v35);
+  if (!v38)
   {
-    v51 = sub_1AF0D5194();
-    if (os_log_type_enabled(v51, OS_LOG_TYPE_FAULT))
+    v39 = sub_1AF0D5194(0, v36);
+    if (os_log_type_enabled(v39, OS_LOG_TYPE_FAULT))
     {
-      sub_1AFDF3B20(v51);
+      sub_1AFDF3B20(v39);
     }
   }
 
-  objc_msgSend_commit(VFXTransaction, v47, v48, v49);
-  if (sub_1AF166220(v50))
+  objc_msgSend_commit(VFXTransaction, v36, v37);
+  if (sub_1AF166220(v38, v40))
   {
-    v53 = objc_msgSend_rendererWithDevice_options_(VFXRenderer, v52, device, 0);
-    objc_msgSend_setWorld_(v53, v54, v30, v55);
-    v62 = objc_msgSend__renderContextMetal(v53, v56, v57, v58);
+    v42 = objc_msgSend_rendererWithDevice_options_(VFXRenderer, v41, device, 0);
+    objc_msgSend_setWorld_(v42, v43, v24);
+    v48 = objc_msgSend__renderContextMetal(v42, v44, v45);
     if (isKindOfClass)
     {
-      objc_msgSend_updateAtTime_(v53, v59, v60, v61, 0.0);
+      objc_msgSend_updateAtTime_(v42, v46, v47, 0.0);
     }
 
-    objc_msgSend_beginFrame_(v62, v59, 0, v61);
-    v65 = objc_msgSend_textureForMaterialProperty_(v62, v63, v50, v64);
-    if (v65 && (v69 = v65, objc_msgSend_textureType(v65, v66, v67, v68) == 5))
+    objc_msgSend_beginFrame_(v48, v46, 0);
+    v50 = objc_msgSend_textureForMaterialProperty_(v48, v49, v38);
+    if (v50 && (v53 = v50, objc_msgSend_textureType(v50, v51, v52) == 5))
     {
-      v74 = objc_msgSend_resourceManager(v62, v66, v70, v68);
-      if (sizeCopy)
+      v57 = objc_msgSend_resourceManager(v48, v51, v54);
+      if (size)
       {
-        sizeCopy = sizeCopy;
+        size = size;
       }
 
       else
       {
-        sizeCopy = 256;
+        size = 256;
       }
 
-      v75 = objc_msgSend_engineContext(v62, v71, v72, v73);
-      v77 = objc_msgSend_newRadianceTextureForEnvironmentTexture_size_engineContext_cpuAccessible_(v74, v76, v69, sizeCopy, v75, 0);
+      v58 = objc_msgSend_engineContext(v48, v55, v56);
+      v60 = objc_msgSend_newRadianceTextureForEnvironmentTexture_size_engineContext_cpuAccessible_(v57, v59, v53, size, v58, 0);
     }
 
     else
     {
-      v77 = 0;
+      v60 = 0;
     }
 
-    v80 = objc_msgSend_irradianceTextureForMaterialProperty_(v62, v66, v50, v68);
-    v95 = 5;
-    objc_msgSend_endFrameWaitingUntilCompleted_status_error_(v62, v81, 1, &v95, error);
-    v78 = 0;
-    if (v77 && v80 && v95 == 4)
+    v64 = objc_msgSend_irradianceTextureForMaterialProperty_(v48, v51, v38);
+    v73 = 5;
+    objc_msgSend_endFrameWaitingUntilCompleted_status_error_(v48, v65, 1, &v73, error);
+    v62 = 0;
+    if (v60 && v64 && v73 == 4)
     {
-      v84 = sub_1AF1F3328(v77, 1, v82, v83);
-      v87 = sub_1AF1F3328(v80, 1, v85, v86);
-      v78 = objc_alloc_init(VFXPrecomputedLightingEnvironment);
-      objc_msgSend_setRadianceData_(v78, v88, v84, v89);
-      objc_msgSend_setIrradianceData_(v78, v90, v87, v91);
+      v66 = sub_1AF1F3328(v60, 1);
+      v67 = sub_1AF1F3328(v64, 1);
+      v62 = objc_alloc_init(VFXPrecomputedLightingEnvironment);
+      objc_msgSend_setRadianceData_(v62, v68, v66);
+      objc_msgSend_setIrradianceData_(v62, v69, v67);
     }
   }
 
   else
   {
-    if (!sub_1AF1676A0(v50))
+    if (!sub_1AF1676A0(v38, v41))
     {
 
       return 0;
     }
 
-    v78 = sub_1AF1676F4(v50);
-    v79 = v78;
+    v62 = sub_1AF1676F4(v38, v61);
+    v63 = v62;
   }
 
-  if (!v78)
+  if (!v62)
   {
     return 0;
   }
 
-  v93 = objc_msgSend_archivedDataWithRootObject_requiringSecureCoding_error_(MEMORY[0x1E696ACC8], v92, v78, 1, error);
+  v71 = objc_msgSend_archivedDataWithRootObject_requiringSecureCoding_error_(MEMORY[0x1E696ACC8], v70, v62, 1, error);
 
-  return v93;
+  return v71;
 }
 
 - (VFXMaterialProperty)init
 {
-  v8.receiver = self;
-  v8.super_class = VFXMaterialProperty;
-  v2 = [(VFXMaterialProperty *)&v8 init];
+  v7.receiver = self;
+  v7.super_class = VFXMaterialProperty;
+  v2 = [(VFXMaterialProperty *)&v7 init];
   v3 = v2;
   if (v2)
   {
@@ -285,7 +284,7 @@
     *(v2 + 8) &= ~2u;
     v2->_customMaterialProperty = sub_1AF16578C(0, 28);
     v3->_animationsLock._os_unfair_lock_opaque = 0;
-    objc_msgSend__updateModelFromPresentation(v3, v4, v5, v6);
+    objc_msgSend__updateModelFromPresentation(v3, v4, v5);
   }
 
   return v3;
@@ -295,111 +294,111 @@
 {
   v4 = [self alloc];
   v6 = objc_msgSend_initWithParent_propertyType_(v4, v5, 0, 28);
-  objc_msgSend_setContents_(v6, v7, contents, v8);
+  objc_msgSend_setContents_(v6, v7, contents);
   return v6;
 }
 
 - (VFXMaterialProperty)initWithParent:(id)parent propertyType:(char)type
 {
   typeCopy = type;
-  v17.receiver = self;
-  v17.super_class = VFXMaterialProperty;
-  v6 = [(VFXMaterialProperty *)&v17 init];
-  v9 = v6;
+  v14.receiver = self;
+  v14.super_class = VFXMaterialProperty;
+  v6 = [(VFXMaterialProperty *)&v14 init];
+  v8 = v6;
   if (v6)
   {
     if (v6 == parent)
     {
-      objc_msgSend__setParent_(v6, v7, 0, v8);
+      objc_msgSend__setParent_(v6, v7, 0);
     }
 
     else
     {
-      objc_msgSend__setParent_(v6, v7, parent, v8);
+      objc_msgSend__setParent_(v6, v7, parent);
     }
 
-    v9->_propertyType = typeCopy;
-    *(v9 + 8) = *(v9 + 8) & 0xFD | (2 * (typeCopy < 22));
+    v8->_propertyType = typeCopy;
+    *(v8 + 8) = *(v8 + 8) & 0xFD | (2 * (typeCopy < 22));
     if (typeCopy <= 21)
     {
-      v9->_commonProfile = objc_msgSend_commonProfile(v9->_parent, v10, v11, v12);
+      v8->_commonProfile = objc_msgSend_commonProfile(v8->_parent, v9, v10);
     }
 
-    if (!v9->_parent)
+    if (!v8->_parent)
     {
-      v9->_customMaterialProperty = sub_1AF16578C(0, 28);
+      v8->_customMaterialProperty = sub_1AF16578C(0, 28);
     }
 
-    v9->_animationsLock._os_unfair_lock_opaque = 0;
-    objc_msgSend__updateModelFromPresentation(v9, v10, v11, v12);
-    objc_msgSend__syncObjCAnimations(v9, v13, v14, v15);
+    v8->_animationsLock._os_unfair_lock_opaque = 0;
+    objc_msgSend__updateModelFromPresentation(v8, v9, v10);
+    objc_msgSend__syncObjCAnimations(v8, v11, v12);
   }
 
-  return v9;
+  return v8;
 }
 
 - (VFXMaterialProperty)initWithParent:(id)parent andCustomName:(id)name
 {
-  v20.receiver = self;
-  v20.super_class = VFXMaterialProperty;
-  v6 = [(VFXMaterialProperty *)&v20 init];
-  v9 = v6;
+  v16.receiver = self;
+  v16.super_class = VFXMaterialProperty;
+  v6 = [(VFXMaterialProperty *)&v16 init];
+  v8 = v6;
   if (v6)
   {
     if (v6 == parent)
     {
-      objc_msgSend__setParent_(v6, v7, 0, v8);
+      objc_msgSend__setParent_(v6, v7, 0);
     }
 
     else
     {
-      objc_msgSend__setParent_(v6, v7, parent, v8);
+      objc_msgSend__setParent_(v6, v7, parent);
     }
 
-    v9->_propertyType = 28;
-    v9->_customMaterialPropertyName = objc_msgSend_copy(name, v10, v11, v12);
-    *(v9 + 8) &= ~2u;
-    v9->_animationsLock._os_unfair_lock_opaque = 0;
-    objc_msgSend__updateModelFromPresentation(v9, v13, v14, v15);
-    objc_msgSend__syncObjCAnimations(v9, v16, v17, v18);
+    v8->_propertyType = 28;
+    v8->_customMaterialPropertyName = objc_msgSend_copy(name, v9, v10);
+    *(v8 + 8) &= ~2u;
+    v8->_animationsLock._os_unfair_lock_opaque = 0;
+    objc_msgSend__updateModelFromPresentation(v8, v11, v12);
+    objc_msgSend__syncObjCAnimations(v8, v13, v14);
   }
 
-  return v9;
+  return v8;
 }
 
 - (id)initPresentationMaterialPropertyWithModelProperty:(id)property
 {
-  v23.receiver = self;
-  v23.super_class = VFXMaterialProperty;
-  v7 = [(VFXMaterialProperty *)&v23 init];
-  if (v7)
+  v18.receiver = self;
+  v18.super_class = VFXMaterialProperty;
+  v6 = [(VFXMaterialProperty *)&v18 init];
+  if (v6)
   {
-    if (objc_msgSend_parent(property, v4, v5, v6) == v7)
+    if (objc_msgSend_parent(property, v4, v5) == v6)
     {
-      objc_msgSend__setParent_(v7, v8, 0, v10);
+      objc_msgSend__setParent_(v6, v7, 0);
     }
 
     else
     {
-      v11 = objc_msgSend_parent(property, v8, v9, v10);
-      objc_msgSend__setParent_(v7, v12, v11, v13);
+      v9 = objc_msgSend_parent(property, v7, v8);
+      objc_msgSend__setParent_(v6, v10, v9);
     }
 
-    v17 = objc_msgSend_propertyType(property, v14, v15, v16);
-    v7->_propertyType = v17;
-    v21 = *(v7 + 8) & 0xFD | (2 * (v17 < 22));
-    *(v7 + 8) = v21;
-    if (v17 <= 21)
+    v13 = objc_msgSend_propertyType(property, v11, v12);
+    v6->_propertyType = v13;
+    v16 = *(v6 + 8) & 0xFD | (2 * (v13 < 22));
+    *(v6 + 8) = v16;
+    if (v13 <= 21)
     {
-      v7->_commonProfile = objc_msgSend_commonProfile(v7->_parent, v18, v19, v20);
-      v21 = *(v7 + 8);
+      v6->_commonProfile = objc_msgSend_commonProfile(v6->_parent, v14, v15);
+      v16 = *(v6 + 8);
     }
 
-    *(v7 + 8) = v21 | 1;
-    v7->_animationsLock._os_unfair_lock_opaque = 0;
+    *(v6 + 8) = v16 | 1;
+    v6->_animationsLock._os_unfair_lock_opaque = 0;
   }
 
-  return v7;
+  return v6;
 }
 
 - (void)__allocateContentTransformIfNeeded
@@ -415,34 +414,34 @@
 
 - (void)dealloc
 {
-  v5 = objc_msgSend_defaultCenter(MEMORY[0x1E696AD88], a2, v2, v3);
-  objc_msgSend_removeObserver_(v5, v6, self, v7);
+  v4 = objc_msgSend_defaultCenter(MEMORY[0x1E696AD88], a2, v2);
+  objc_msgSend_removeObserver_(v4, v5, self);
 
   self->_runtimeResolvedURL = 0;
-  objc_msgSend__clearContentsForDeallocation_(self, v8, 1, v9);
+  objc_msgSend__clearContentsForDeallocation_(self, v6, 1);
 
   customMaterialProperty = self->_customMaterialProperty;
   if (customMaterialProperty)
   {
-    objc_msgSend_postReleaseCommandWithCFXObject_(VFXTransaction, v10, customMaterialProperty, v11);
+    objc_msgSend_postReleaseCommandWithCFXObject_(VFXTransaction, v7, customMaterialProperty);
   }
 
   commonProfile = self->_commonProfile;
   if (commonProfile)
   {
-    objc_msgSend_postReleaseCommandWithCFXObject_(VFXTransaction, v10, commonProfile, v11);
+    objc_msgSend_postReleaseCommandWithCFXObject_(VFXTransaction, v7, commonProfile);
   }
 
   parentRef = self->_parentRef;
   if (parentRef)
   {
-    objc_msgSend_postReleaseCommandWithCFXObject_(VFXTransaction, v10, parentRef, v11);
+    objc_msgSend_postReleaseCommandWithCFXObject_(VFXTransaction, v7, parentRef);
   }
 
   free(self->_contentTransform);
-  v15.receiver = self;
-  v15.super_class = VFXMaterialProperty;
-  [(VFXMaterialProperty *)&v15 dealloc];
+  v11.receiver = self;
+  v11.super_class = VFXMaterialProperty;
+  [(VFXMaterialProperty *)&v11 dealloc];
 }
 
 - (id)contentsAbsoluteURL
@@ -450,11 +449,11 @@
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v6 = objc_msgSend_world(self, v3, v4, v5);
-    v10 = objc_msgSend_assetPathResolver(v6, v7, v8, v9);
-    v15 = objc_msgSend_filename(self->_contents, v11, v12, v13);
+    v5 = objc_msgSend_world(self, v3, v4);
+    v8 = objc_msgSend_assetPathResolver(v5, v6, v7);
+    v12 = objc_msgSend_filename(self->_contents, v9, v10);
 
-    return objc_msgSend_absoluteURLForAssetPath_(v10, v14, v15, v16);
+    return objc_msgSend_absoluteURLForAssetPath_(v8, v11, v12);
   }
 
   runtimeResolvedURL = self->_runtimeResolvedURL;
@@ -477,32 +476,32 @@
     return 0;
   }
 
-  v22 = MEMORY[0x1E695DFF8];
+  v17 = MEMORY[0x1E695DFF8];
   contents = self->_contents;
 
-  return objc_msgSend_fileURLWithPath_(v22, v20, contents, v21);
+  return objc_msgSend_fileURLWithPath_(v17, v16, contents);
 }
 
 - (void)_setParent:(id)parent
 {
   self->_parent = parent;
   parentRef = self->_parentRef;
-  if (parentRef != objc_msgSend___CFObject(parent, a2, parent, v3))
+  if (parentRef != objc_msgSend___CFObject(parent, a2, parent))
   {
-    v10 = self->_parentRef;
-    if (v10)
+    v8 = self->_parentRef;
+    if (v8)
     {
-      CFRelease(v10);
+      CFRelease(v8);
       self->_parentRef = 0;
     }
 
-    v11 = objc_msgSend___CFObject(parent, v7, v8, v9);
-    if (v11)
+    v9 = objc_msgSend___CFObject(parent, v6, v7);
+    if (v9)
     {
-      v11 = CFRetain(v11);
+      v9 = CFRetain(v9);
     }
 
-    self->_parentRef = v11;
+    self->_parentRef = v9;
   }
 }
 
@@ -514,28 +513,28 @@
     parent = 0;
   }
 
-  objc_msgSend__setParent_(self, a2, parent, name);
+  objc_msgSend__setParent_(self, a2, parent);
 
-  v10 = objc_msgSend_copy(name, v7, v8, v9);
-  self->_customMaterialPropertyName = v10;
+  v9 = objc_msgSend_copy(name, v7, v8);
+  self->_customMaterialPropertyName = v9;
   self->_propertyType = 28;
   *(self + 8) &= ~2u;
-  if (v10 && !self->_customMaterialProperty)
+  if (v9 && !self->_customMaterialProperty)
   {
     self->_customMaterialProperty = sub_1AF16578C(0, 28);
   }
 
-  if (objc_msgSend___CFObject(parentCopy, v11, v12, v13) == self)
+  if (objc_msgSend___CFObject(parentCopy, v10, v11) == self)
   {
-    v17 = 0;
+    v14 = 0;
   }
 
   else
   {
-    v17 = objc_msgSend___CFObject(parentCopy, v14, v15, v16);
+    v14 = objc_msgSend___CFObject(parentCopy, v12, v13);
   }
 
-  self->_customMaterialProperty->var13 = v17;
+  self->_customMaterialProperty->var13 = v14;
 }
 
 - (__CFXMaterialProperty)materialPropertyCreateIfNeeded:(BOOL)needed
@@ -552,19 +551,19 @@
         return 0;
       }
 
-      v20 = CFGetTypeID(parentRef);
-      if (v20 != sub_1AF19AF4C())
+      v23 = CFGetTypeID(parentRef);
+      if (v23 != sub_1AF19AF4C(v23, v24))
       {
         return 0;
       }
 
-      v21 = self->_parentRef;
-      if (!v21)
+      v25 = self->_parentRef;
+      if (!v25)
       {
         return 0;
       }
 
-      return sub_1AF19B4EC(v21, neededCopy);
+      return sub_1AF19B4EC(v25, neededCopy);
     }
 
     else
@@ -572,25 +571,25 @@
       if (propertyType != 25)
       {
 LABEL_32:
-        v22 = objc_msgSend_commonProfile(self, a2, needed, v3);
-        if (v22)
+        v26 = objc_msgSend_commonProfile(self, a2, needed);
+        if (v26)
         {
-          v23 = self->_propertyType;
+          v27 = self->_propertyType;
 
-          return sub_1AF1656E4(v22, v23, neededCopy);
+          return sub_1AF1656E4(v26, v27, neededCopy);
         }
 
         return 0;
       }
 
-      v8 = self->_parentRef;
-      if (!v8)
+      v7 = self->_parentRef;
+      if (!v7)
       {
         return 0;
       }
 
-      v9 = CFGetTypeID(v8);
-      if (v9 != sub_1AF1CF31C())
+      v8 = CFGetTypeID(v7);
+      if (v8 != sub_1AF1CF31C(v8, v9))
       {
         return 0;
       }
@@ -611,24 +610,24 @@ LABEL_32:
     {
       if (propertyType == 27)
       {
-        v16 = self->_parentRef;
-        if (v16)
+        v17 = self->_parentRef;
+        if (v17)
         {
-          v17 = CFGetTypeID(v16);
-          if (v17 == sub_1AF162694())
+          v18 = CFGetTypeID(v17);
+          if (v18 == sub_1AF162694(v18, v19))
           {
-            v18 = self->_parentRef;
-            if (v18)
+            v21 = self->_parentRef;
+            if (v21)
             {
-              v7 = sub_1AF162BF0(self->_parentRef);
-              if (!v7 && neededCopy)
+              v6 = sub_1AF162BF0(self->_parentRef, v20);
+              if (!v6 && neededCopy)
               {
-                v7 = sub_1AF16578C(v18, 27);
-                sub_1AF162B68(v18, v7);
-                CFRelease(v7);
+                v6 = sub_1AF16578C(v21, 27);
+                sub_1AF162B68(v21, v6);
+                CFRelease(v6);
               }
 
-              return v7;
+              return v6;
             }
           }
         }
@@ -651,43 +650,43 @@ LABEL_32:
     }
 
     v13 = CFGetTypeID(v12);
-    v14 = sub_1AF1CF31C();
-    v15 = self->_parentRef;
-    if (v13 == v14)
+    v15 = sub_1AF1CF31C(v13, v14);
+    v16 = self->_parentRef;
+    if (v13 == v15)
     {
-      if (!v15)
+      if (!v16)
       {
         return 0;
       }
 
-      return sub_1AF1D005C(v15, neededCopy);
+      return sub_1AF1D005C(v16, neededCopy);
     }
 
     else
     {
-      v24 = CFGetTypeID(v15);
-      if (v24 != sub_1AF19AF4C())
+      v28 = CFGetTypeID(v16);
+      if (v28 != sub_1AF19AF4C(v28, v29))
       {
         return 0;
       }
 
-      v25 = self->_parentRef;
-      if (!v25)
+      v30 = self->_parentRef;
+      if (!v30)
       {
         return 0;
       }
 
-      return sub_1AF19B558(v25, neededCopy);
+      return sub_1AF19B558(v30, neededCopy);
     }
   }
 }
 
 - (id)_animationPathForKey:(id)key
 {
-  v5 = objc_msgSend_materialPropertyName(self, a2, key, v3);
-  v8 = objc_msgSend_stringByAppendingString_(v5, v6, @".", v7);
+  v4 = objc_msgSend_materialPropertyName(self, a2, key);
+  v6 = objc_msgSend_stringByAppendingString_(v4, v5, @".");
 
-  return objc_msgSend_stringByAppendingString_(v8, v9, key, v10);
+  return objc_msgSend_stringByAppendingString_(v6, v7, key);
 }
 
 - (void)_clearContentsForDeallocation:(BOOL)deallocation
@@ -742,19 +741,19 @@ LABEL_32:
 {
   if ((*(self + 8) & 1) != 0 || self->_contents != color)
   {
-    objc_msgSend__clearContentsForDeallocation_(self, a2, 0, v3);
+    objc_msgSend__clearContentsForDeallocation_(self, a2, 0);
     self->_contents = color;
     self->_contentType = 0;
     if (color)
     {
-      v8 = objc_msgSend__animationPathForKey_(self, v6, @"contents", v7);
-      v10[0] = MEMORY[0x1E69E9820];
-      v10[1] = 3221225472;
-      v10[2] = sub_1AF2DAE00;
-      v10[3] = &unk_1E7A7E220;
-      v10[4] = self;
-      v10[5] = color;
-      objc_msgSend_postCommandWithObject_keyPath_applyBlock_(VFXTransaction, v9, self, v8, v10);
+      v6 = objc_msgSend__animationPathForKey_(self, v5, @"contents");
+      v8[0] = MEMORY[0x1E69E9820];
+      v8[1] = 3221225472;
+      v8[2] = sub_1AF2DAE00;
+      v8[3] = &unk_1E7A7E220;
+      v8[4] = self;
+      v8[5] = color;
+      objc_msgSend_postCommandWithObject_keyPath_applyBlock_(VFXTransaction, v7, self, v6, v8);
     }
   }
 }
@@ -763,37 +762,37 @@ LABEL_32:
 {
   if (*(self + 8))
   {
-    v6 = objc_msgSend_worldRef(self, a2, v2, v3);
-    v10 = v6;
-    if (v6)
+    v5 = objc_msgSend_worldRef(self, a2, v2);
+    v8 = v5;
+    if (v5)
     {
-      sub_1AF1CEA20(v6);
+      sub_1AF1CEA20(v5, v6);
     }
 
-    v11 = objc_msgSend_materialProperty(self, v7, v8, v9);
-    if (v11 && (v12 = sub_1AF1660D8(v11)) != 0)
+    v9 = objc_msgSend_materialProperty(self, v6, v7);
+    if (v9 && (v11 = sub_1AF1660D8(v9, v10)) != 0)
     {
-      v16 = v12;
-      v17 = MEMORY[0x1E69DC888];
-      isColorManaged = objc_msgSend_isColorManaged(self, v13, v14, v15);
-      v5 = objc_msgSend_vfx_colorWithCFXColor_ignoringColorSpace_(v17, v19, v16, isColorManaged ^ 1u);
-      if (!v10)
+      v13 = v11;
+      v14 = MEMORY[0x1E69DC888];
+      isColorManaged = objc_msgSend_isColorManaged(self, v10, v12);
+      v4 = objc_msgSend_vfx_colorWithCFXColor_ignoringColorSpace_(v14, v16, v13, isColorManaged ^ 1u);
+      if (!v8)
       {
-        return v5;
+        return v4;
       }
     }
 
     else
     {
-      v5 = 0;
-      if (!v10)
+      v4 = 0;
+      if (!v8)
       {
-        return v5;
+        return v4;
       }
     }
 
-    sub_1AF1CEA9C(v10);
-    return v5;
+    sub_1AF1CEA9C(v8, v10);
+    return v4;
   }
 
   if (self->_contentType)
@@ -801,23 +800,23 @@ LABEL_32:
     return 0;
   }
 
-  v21 = self->_contents;
+  v18 = self->_contents;
 
-  return v21;
+  return v18;
 }
 
 - (double)linearExtendedSRGBColor
 {
-  v4 = objc_msgSend_color(self, a2, a3, a4);
+  v3 = objc_msgSend_color(self, a2, a3);
 
-  return CFXColorGetLinearExtendedSRGBComponents(v4);
+  return CFXColorGetLinearExtendedSRGBComponents(v3);
 }
 
 - (void)setLinearExtendedSRGBColor:(VFXMaterialProperty *)self
 {
-  v4 = sub_1AF16484C(v2);
-  v7 = objc_msgSend_colorWithCGColor_(MEMORY[0x1E69DC888], v5, v4, v6);
-  objc_msgSend_setColor_(self, v8, v7, v9);
+  v4 = sub_1AF16484C(self, a2, v2);
+  v6 = objc_msgSend_colorWithCGColor_(MEMORY[0x1E69DC888], v5, v4);
+  objc_msgSend_setColor_(self, v7, v6);
   if (v4)
   {
 
@@ -828,21 +827,21 @@ LABEL_32:
 - (void)setFloatValue:(id)value
 {
   contents = self->_contents;
-  if (contents != value && (objc_msgSend_isEqual_(contents, a2, value, v3) & 1) == 0)
+  if (contents != value && (objc_msgSend_isEqual_(contents, a2, value) & 1) == 0)
   {
-    objc_msgSend__clearContentsForDeallocation_(self, v7, 0, v8);
+    objc_msgSend__clearContentsForDeallocation_(self, v6, 0);
     self->_contents = value;
     self->_contentType = 5;
     if (value)
     {
-      v11 = objc_msgSend__animationPathForKey_(self, v9, @"contents", v10);
-      v13[0] = MEMORY[0x1E69E9820];
-      v13[1] = 3221225472;
-      v13[2] = sub_1AF2DB054;
-      v13[3] = &unk_1E7A7E220;
-      v13[4] = self;
-      v13[5] = value;
-      objc_msgSend_postCommandWithObject_keyPath_applyBlock_(VFXTransaction, v12, self, v11, v13);
+      v8 = objc_msgSend__animationPathForKey_(self, v7, @"contents");
+      v10[0] = MEMORY[0x1E69E9820];
+      v10[1] = 3221225472;
+      v10[2] = sub_1AF2DB054;
+      v10[3] = &unk_1E7A7E220;
+      v10[4] = self;
+      v10[5] = value;
+      objc_msgSend_postCommandWithObject_keyPath_applyBlock_(VFXTransaction, v9, self, v8, v10);
     }
   }
 }
@@ -851,48 +850,48 @@ LABEL_32:
 {
   if (*(self + 8))
   {
-    v7 = objc_msgSend_worldRef(self, a2, v2, v3);
-    v11 = v7;
-    if (v7)
+    v6 = objc_msgSend_worldRef(self, a2, v2);
+    v9 = v6;
+    if (v6)
     {
-      sub_1AF1CEA20(v7);
+      sub_1AF1CEA20(v6, v7);
     }
 
-    v12 = objc_msgSend_materialProperty(self, v8, v9, v10);
-    if (v12)
+    v10 = objc_msgSend_materialProperty(self, v7, v8);
+    if (v10)
     {
-      v13 = v12;
-      v14 = sub_1AF1660D8(v12);
-      if (v14)
+      v12 = v10;
+      v13 = sub_1AF1660D8(v10, v11);
+      if (v13)
       {
-        v15 = sub_1AF167CD8(v13);
-        v20 = 12;
-        if (v15 != 4)
+        v14 = sub_1AF167CD8(v12);
+        v18 = 12;
+        if (v14 != 4)
         {
-          v20 = 0;
+          v18 = 0;
         }
 
-        LODWORD(v19) = *&v14[v20];
-        v14 = objc_msgSend_numberWithFloat_(MEMORY[0x1E696AD98], v16, v17, v18, v19);
+        LODWORD(v17) = *&v13[v18];
+        v13 = objc_msgSend_numberWithFloat_(MEMORY[0x1E696AD98], v15, v16, v17);
       }
 
-      if (!v11)
+      if (!v9)
       {
-        return v14;
+        return v13;
       }
     }
 
     else
     {
-      v14 = 0;
-      if (!v11)
+      v13 = 0;
+      if (!v9)
       {
-        return v14;
+        return v13;
       }
     }
 
-    sub_1AF1CEA9C(v11);
-    return v14;
+    sub_1AF1CEA9C(v9, v11);
+    return v13;
   }
 
   if (self->_contentType != 5)
@@ -900,16 +899,16 @@ LABEL_32:
     return 0;
   }
 
-  v5 = self->_contents;
+  v4 = self->_contents;
 
-  return v5;
+  return v4;
 }
 
 - (void)setAssetValue:(id)value
 {
   if (self->_contents != value)
   {
-    objc_msgSend__clearContentsForDeallocation_(self, a2, 0, v3);
+    objc_msgSend__clearContentsForDeallocation_(self, a2, 0);
     self->_contents = value;
     self->_contentType = 6;
     if (value)
@@ -917,31 +916,31 @@ LABEL_32:
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v9 = objc_msgSend_rootLayer(value, v6, v7, v8);
-        if (v9)
+        v7 = objc_msgSend_rootLayer(value, v5, v6);
+        if (v7)
         {
-          objc_msgSend_postCommandWithObject_applyBlock_(VFXTransaction, v10, self, v26, v25[0], v25[1], v25[2], v25[3], v25[4], v25[5], MEMORY[0x1E69E9820], 3221225472, sub_1AF2DB340, &unk_1E7A7E220, self, v9);
+          objc_msgSend_postCommandWithObject_applyBlock_(VFXTransaction, v8, self, v19, v18[0], v18[1], v18[2], v18[3], v18[4], v18[5], MEMORY[0x1E69E9820], 3221225472, sub_1AF2DB340, &unk_1E7A7E220, self, v7);
         }
 
         else
         {
-          v24 = sub_1AF0D5194();
-          if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+          v17 = sub_1AF0D5194(0, v8);
+          if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
           {
             sub_1AFDF5BC0();
           }
         }
       }
 
-      else if (self->_propertyType == 26 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0) && (v13 = objc_msgSend_filename(value, v6, v11, v12), v17 = objc_msgSend_pathExtension(v13, v14, v15, v16), objc_msgSend_isEqualToString_(v17, v18, @"vfxibl", v19)) && (v21 = objc_msgSend_resolvedURLForContents_(self, v6, v13, v20)) != 0 && (v22 = objc_msgSend_precomputedLightingEnvironmentContentsWithURL_error_(VFXMaterialProperty, v6, v21, 0)) != 0)
+      else if (self->_propertyType == 26 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0) && (v10 = objc_msgSend_filename(value, v5, v9), v13 = objc_msgSend_pathExtension(v10, v11, v12), objc_msgSend_isEqualToString_(v13, v14, @"vfxibl")) && (v15 = objc_msgSend_resolvedURLForContents_(self, v5, v10)) != 0 && (v16 = objc_msgSend_precomputedLightingEnvironmentContentsWithURL_error_(VFXMaterialProperty, v5, v15, 0)) != 0)
       {
 
-        MEMORY[0x1EEE66B58](self, sel__updatePrecomputedLightingEnvironment_, v22, v23);
+        MEMORY[0x1EEE66B58](self, sel__updatePrecomputedLightingEnvironment_, v16);
       }
 
       else
       {
-        objc_msgSend_postCommandWithObject_applyBlock_(VFXTransaction, v6, self, v25, MEMORY[0x1E69E9820], 3221225472, sub_1AF2DB34C, &unk_1E7A7E220, self, value, v26[0], v26[1], v26[2], v26[3], v26[4], v26[5]);
+        objc_msgSend_postCommandWithObject_applyBlock_(VFXTransaction, v5, self, v18, MEMORY[0x1E69E9820], 3221225472, sub_1AF2DB34C, &unk_1E7A7E220, self, value, v19[0], v19[1], v19[2], v19[3], v19[4], v19[5]);
       }
     }
   }
@@ -951,34 +950,34 @@ LABEL_32:
 {
   if (*(self + 8))
   {
-    v7 = objc_msgSend_worldRef(self, a2, v2, v3);
-    v11 = v7;
-    if (v7)
+    v6 = objc_msgSend_worldRef(self, a2, v2);
+    v9 = v6;
+    if (v6)
     {
-      sub_1AF1CEA20(v7);
+      sub_1AF1CEA20(v6, v7);
     }
 
-    v12 = objc_msgSend_materialProperty(self, v8, v9, v10);
-    if (v12)
+    v10 = objc_msgSend_materialProperty(self, v7, v8);
+    if (v10)
     {
-      v13 = sub_1AF167054(v12);
-      if (!v11)
+      v12 = sub_1AF167054(v10, v11);
+      if (!v9)
       {
-        return v13;
+        return v12;
       }
     }
 
     else
     {
-      v13 = 0;
-      if (!v11)
+      v12 = 0;
+      if (!v9)
       {
-        return v13;
+        return v12;
       }
     }
 
-    sub_1AF1CEA9C(v11);
-    return v13;
+    sub_1AF1CEA9C(v9, v11);
+    return v12;
   }
 
   if (self->_contentType != 6)
@@ -986,9 +985,9 @@ LABEL_32:
     return 0;
   }
 
-  v5 = self->_contents;
+  v4 = self->_contents;
 
-  return v5;
+  return v4;
 }
 
 - (CGImage)contentsAsCGImage
@@ -1013,33 +1012,43 @@ LABEL_32:
 
 - (CGContext)copyBitmap
 {
-  v4 = objc_msgSend_contentsAbsoluteURL(self, a2, v2, v3);
-  if (!v4)
+  v3 = objc_msgSend_contentsAbsoluteURL(self, a2, v2);
+  if (!v3)
   {
     return 0;
   }
 
-  v5 = v4;
-  v6 = objc_opt_class();
-  v9 = objc_msgSend_copyCFXImageFromImage_(v6, v7, v5, v8);
-  if (!v9)
+  v4 = v3;
+  v5 = objc_opt_class();
+  v7 = objc_msgSend_copyCFXImageFromImage_(v5, v6, v4);
+  if (!v7)
   {
     return 0;
   }
 
-  v10 = v9;
-  v11 = sub_1AF197BC0(v9, 1);
-  CFRelease(v10);
-  return v11;
+  v8 = v7;
+  v9 = sub_1AF197BC0(v7, 1);
+  CFRelease(v8);
+  return v9;
 }
 
 - (CFXColor4)color4
 {
-  v16 = 0;
-  v4 = objc_msgSend_color(self, a2, v2, v3);
-  v5 = sub_1AF3710D4(v4);
-  v7 = objc_msgSend_vfx_CFXColorIgnoringColorSpace_success_(v5, v6, 0, &v16);
-  if (v16)
+  v15 = 0;
+  v3 = objc_msgSend_color(self, a2, v2);
+  v4 = sub_1AF3710D4(v3);
+  v6 = objc_msgSend_vfx_CFXColorIgnoringColorSpace_success_(v4, v5, 0, &v15);
+  if (v15)
+  {
+    v9 = v7;
+  }
+
+  else
+  {
+    v9 = 0;
+  }
+
+  if (v15)
   {
     v10 = v8;
   }
@@ -1049,9 +1058,9 @@ LABEL_32:
     v10 = 0;
   }
 
-  if (v16)
+  if (v15)
   {
-    v11 = v9;
+    v11 = HIDWORD(v6);
   }
 
   else
@@ -1059,9 +1068,9 @@ LABEL_32:
     v11 = 0;
   }
 
-  if (v16)
+  if (v15)
   {
-    v12 = HIDWORD(v7);
+    v12 = v6;
   }
 
   else
@@ -1069,20 +1078,10 @@ LABEL_32:
     v12 = 0;
   }
 
-  if (v16)
-  {
-    v13 = v7;
-  }
-
-  else
-  {
-    v13 = 0;
-  }
-
-  v14 = v10 | (v11 << 32);
-  v15 = v13 | (v12 << 32);
-  *&result.var0.var1.var2 = v14;
-  *result.var0.var0 = v15;
+  v13 = v9 | (v10 << 32);
+  v14 = v12 | (v11 << 32);
+  *&result.var0.var1.var2 = v13;
+  *result.var0.var0 = v14;
   return result;
 }
 
@@ -1093,17 +1092,17 @@ LABEL_32:
     return *(self + 74) & 3;
   }
 
-  v6 = objc_msgSend_worldRef(self, a2, v2, v3);
-  if (!v6)
+  v5 = objc_msgSend_worldRef(self, a2, v2);
+  if (!v5)
   {
-    return objc_msgSend_textureSampler(self, v7, v8, v9);
+    return objc_msgSend_textureSampler(self, v6, v7);
   }
 
-  v10 = v6;
-  sub_1AF1CEA20(v6);
-  v5 = objc_msgSend_textureSampler(self, v11, v12, v13);
-  sub_1AF1CEA9C(v10);
-  return v5;
+  v8 = v5;
+  sub_1AF1CEA20(v5, v6);
+  v4 = objc_msgSend_textureSampler(self, v9, v10);
+  sub_1AF1CEA9C(v8, v11);
+  return v4;
 }
 
 - (int64_t)magnificationFilter
@@ -1113,17 +1112,17 @@ LABEL_32:
     return (*(self + 74) >> 2) & 3;
   }
 
-  v6 = objc_msgSend_worldRef(self, a2, v2, v3);
-  if (!v6)
+  v5 = objc_msgSend_worldRef(self, a2, v2);
+  if (!v5)
   {
-    return (objc_msgSend_textureSampler(self, v7, v8, v9) >> 8);
+    return (objc_msgSend_textureSampler(self, v6, v7) >> 8);
   }
 
-  v10 = v6;
-  sub_1AF1CEA20(v6);
-  v5 = (objc_msgSend_textureSampler(self, v11, v12, v13) >> 8);
-  sub_1AF1CEA9C(v10);
-  return v5;
+  v8 = v5;
+  sub_1AF1CEA20(v5, v6);
+  v4 = (objc_msgSend_textureSampler(self, v9, v10) >> 8);
+  sub_1AF1CEA9C(v8, v11);
+  return v4;
 }
 
 - (int64_t)mipFilter
@@ -1133,17 +1132,17 @@ LABEL_32:
     return (*(self + 74) >> 4) & 3;
   }
 
-  v6 = objc_msgSend_worldRef(self, a2, v2, v3);
-  if (!v6)
+  v5 = objc_msgSend_worldRef(self, a2, v2);
+  if (!v5)
   {
-    return (objc_msgSend_textureSampler(self, v7, v8, v9) >> 16);
+    return (objc_msgSend_textureSampler(self, v6, v7) >> 16);
   }
 
-  v10 = v6;
-  sub_1AF1CEA20(v6);
-  v5 = (objc_msgSend_textureSampler(self, v11, v12, v13) >> 16);
-  sub_1AF1CEA9C(v10);
-  return v5;
+  v8 = v5;
+  sub_1AF1CEA20(v5, v6);
+  v4 = (objc_msgSend_textureSampler(self, v9, v10) >> 16);
+  sub_1AF1CEA9C(v8, v11);
+  return v4;
 }
 
 - (void)setMinificationFilter:(int64_t)filter
@@ -1199,13 +1198,13 @@ LABEL_32:
 
 - (int64_t)_presentationMappingChannel
 {
-  v4 = objc_msgSend_materialProperty(self, a2, v2, v3);
-  if (!v4)
+  v3 = objc_msgSend_materialProperty(self, a2, v2);
+  if (!v3)
   {
     return -1;
   }
 
-  return sub_1AF1666D4(v4);
+  return sub_1AF1666D4(v3, v4);
 }
 
 - (int64_t)mappingChannel
@@ -1215,20 +1214,20 @@ LABEL_32:
     return self->_mappingChannel;
   }
 
-  v6 = objc_msgSend_worldRef(self, a2, v2, v3);
-  if (v6)
+  v5 = objc_msgSend_worldRef(self, a2, v2);
+  if (v5)
   {
-    v10 = v6;
-    sub_1AF1CEA20(v6);
-    v14 = objc_msgSend__presentationMappingChannel(self, v11, v12, v13);
-    sub_1AF1CEA9C(v10);
-    return v14;
+    v8 = v5;
+    sub_1AF1CEA20(v5, v6);
+    v11 = objc_msgSend__presentationMappingChannel(self, v9, v10);
+    sub_1AF1CEA9C(v8, v12);
+    return v11;
   }
 
   else
   {
 
-    return objc_msgSend__presentationMappingChannel(self, v7, v8, v9);
+    return objc_msgSend__presentationMappingChannel(self, v6, v7);
   }
 }
 
@@ -1253,34 +1252,34 @@ LABEL_32:
 {
   if (*(self + 8))
   {
-    v6 = objc_msgSend_worldRef(self, a2, v2, v3);
-    v10 = v6;
-    if (v6)
+    v5 = objc_msgSend_worldRef(self, a2, v2);
+    v8 = v5;
+    if (v5)
     {
-      sub_1AF1CEA20(v6);
+      sub_1AF1CEA20(v5, v6);
     }
 
-    v11 = objc_msgSend_materialProperty(self, v7, v8, v9);
-    if (v11)
+    v9 = objc_msgSend_materialProperty(self, v6, v7);
+    if (v9)
     {
-      v5 = sub_1AF167B64(v11);
-      if (!v10)
+      v4 = sub_1AF167B64(v9, v10);
+      if (!v8)
       {
-        return v5;
+        return v4;
       }
     }
 
     else
     {
-      v5 = 15;
-      if (!v10)
+      v4 = 15;
+      if (!v8)
       {
-        return v5;
+        return v4;
       }
     }
 
-    sub_1AF1CEA9C(v10);
-    return v5;
+    sub_1AF1CEA9C(v8, v10);
+    return v4;
   }
 
   return *(self + 76) & 0xF;
@@ -1309,14 +1308,14 @@ LABEL_32:
   if ((*(self + 8) & 1) != 0 || self->_intensity != intensity)
   {
     self->_intensity = intensity;
-    v6 = objc_msgSend__animationPathForKey_(self, a2, @"intensity", v3);
-    v8[0] = MEMORY[0x1E69E9820];
-    v8[1] = 3221225472;
-    v8[2] = sub_1AF2DBC20;
-    v8[3] = &unk_1E7A7E270;
-    v8[4] = self;
+    v5 = objc_msgSend__animationPathForKey_(self, a2, @"intensity");
+    v7[0] = MEMORY[0x1E69E9820];
+    v7[1] = 3221225472;
+    v7[2] = sub_1AF2DBC20;
+    v7[3] = &unk_1E7A7E270;
+    v7[4] = self;
     intensityCopy = intensity;
-    objc_msgSend_postCommandWithObject_keyPath_applyBlock_(VFXTransaction, v7, self, v6, v8);
+    objc_msgSend_postCommandWithObject_keyPath_applyBlock_(VFXTransaction, v6, self, v5, v7);
   }
 }
 
@@ -1324,34 +1323,34 @@ LABEL_32:
 {
   if (*(self + 8))
   {
-    v6 = objc_msgSend_worldRef(self, a2, v2, v3);
-    v10 = v6;
-    if (v6)
+    v5 = objc_msgSend_worldRef(self, a2, v2);
+    v8 = v5;
+    if (v5)
     {
-      sub_1AF1CEA20(v6);
+      sub_1AF1CEA20(v5, v6);
     }
 
-    v11 = objc_msgSend_materialProperty(self, v7, v8, v9);
-    if (v11)
+    v9 = objc_msgSend_materialProperty(self, v6, v7);
+    if (v9)
     {
-      v5 = sub_1AF166598(v11);
-      if (!v10)
+      v4 = sub_1AF166598(v9, v10);
+      if (!v8)
       {
-        return v5;
+        return v4;
       }
     }
 
     else
     {
-      v5 = 0.0;
-      if (!v10)
+      v4 = 0.0;
+      if (!v8)
       {
-        return v5;
+        return v4;
       }
     }
 
-    sub_1AF1CEA9C(v10);
-    return v5;
+    sub_1AF1CEA9C(v8, v10);
+    return v4;
   }
 
   return self->_intensity;
@@ -1364,17 +1363,17 @@ LABEL_32:
     return *(self + 75) & 7;
   }
 
-  v6 = objc_msgSend_worldRef(self, a2, v2, v3);
-  if (!v6)
+  v5 = objc_msgSend_worldRef(self, a2, v2);
+  if (!v5)
   {
-    return (objc_msgSend_textureSampler(self, v7, v8, v9) >> 24) + 1;
+    return (objc_msgSend_textureSampler(self, v6, v7) >> 24) + 1;
   }
 
-  v10 = v6;
-  sub_1AF1CEA20(v6);
-  v5 = (objc_msgSend_textureSampler(self, v11, v12, v13) >> 24) + 1;
-  sub_1AF1CEA9C(v10);
-  return v5;
+  v8 = v5;
+  sub_1AF1CEA20(v5, v6);
+  v4 = (objc_msgSend_textureSampler(self, v9, v10) >> 24) + 1;
+  sub_1AF1CEA9C(v8, v11);
+  return v4;
 }
 
 - (void)setWrapS:(int64_t)s
@@ -1396,7 +1395,7 @@ LABEL_32:
 
   else
   {
-    v3 = sub_1AF0D5194();
+    v3 = sub_1AF0D5194(self, a2);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       sub_1AFDF5BFC();
@@ -1411,20 +1410,20 @@ LABEL_32:
     return (*(self + 75) >> 3) & 7;
   }
 
-  v6 = objc_msgSend_worldRef(self, a2, v2, v3);
-  v10 = v6;
-  if (v6)
+  v5 = objc_msgSend_worldRef(self, a2, v2);
+  v8 = v5;
+  if (v5)
   {
-    sub_1AF1CEA20(v6);
+    sub_1AF1CEA20(v5, v6);
   }
 
-  v5 = (objc_msgSend_textureSampler(self, v7, v8, v9) >> 32) + 1;
-  if (v10)
+  v4 = (objc_msgSend_textureSampler(self, v6, v7) >> 32) + 1;
+  if (v8)
   {
-    sub_1AF1CEA9C(v10);
+    sub_1AF1CEA9C(v8, v9);
   }
 
-  return v5;
+  return v4;
 }
 
 - (void)setWrapT:(int64_t)t
@@ -1446,7 +1445,7 @@ LABEL_32:
 
   else
   {
-    v3 = sub_1AF0D5194();
+    v3 = sub_1AF0D5194(self, a2);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       sub_1AFDF5C70();
@@ -1456,28 +1455,28 @@ LABEL_32:
 
 - (BOOL)isColorManaged
 {
-  v4 = *(self + 8);
-  if (v4)
+  v3 = *(self + 8);
+  if (v3)
   {
     selfCopy = self;
-    v6 = objc_msgSend_worldRef(self, a2, v2, v3);
-    v10 = v6;
-    if (v6)
+    v5 = objc_msgSend_worldRef(self, a2, v2);
+    v8 = v5;
+    if (v5)
     {
-      sub_1AF1CEA20(v6);
+      sub_1AF1CEA20(v5, v6);
     }
 
-    v11 = objc_msgSend_materialProperty(selfCopy, v7, v8, v9);
-    LOBYTE(selfCopy) = sub_1AF167CE0(v11);
-    if (v10)
+    v9 = objc_msgSend_materialProperty(selfCopy, v6, v7);
+    LOBYTE(selfCopy) = sub_1AF167CE0(v9);
+    if (v8)
     {
-      sub_1AF1CEA9C(v10);
+      sub_1AF1CEA9C(v8, v10);
     }
   }
 
   else
   {
-    LODWORD(selfCopy) = (v4 >> 2) & 1;
+    LODWORD(selfCopy) = (v3 >> 2) & 1;
   }
 
   return selfCopy;
@@ -1511,24 +1510,24 @@ LABEL_32:
 
 - (unsigned)_textureOptions
 {
-  IfNeeded = objc_msgSend_materialPropertyCreateIfNeeded_(self, a2, 0, v2);
+  IfNeeded = objc_msgSend_materialPropertyCreateIfNeeded_(self, a2, 0);
   if (IfNeeded)
   {
-    v8 = IfNeeded;
-    v9 = objc_msgSend_worldRef(self, v5, v6, v7);
-    if (v9)
+    v6 = IfNeeded;
+    v7 = objc_msgSend_worldRef(self, v4, v5);
+    if (v7)
     {
-      v10 = v9;
-      sub_1AF1CEA20(v9);
-      v11 = sub_1AF1678F4(v8);
-      sub_1AF1CEA9C(v10);
-      return v11;
+      v9 = v7;
+      sub_1AF1CEA20(v7, v8);
+      v10 = sub_1AF1678F4(v6);
+      sub_1AF1CEA9C(v9, v11);
+      return v10;
     }
 
     else
     {
 
-      return sub_1AF1678F4(v8);
+      return sub_1AF1678F4(v6);
     }
   }
 
@@ -1544,7 +1543,7 @@ LABEL_32:
 - (id)resolvedURLForContents:(id)contents
 {
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0 || (v8 = objc_msgSend_world(self, v5, v6, v7), (v12 = objc_msgSend_assetPathResolver(v8, v9, v10, v11)) == 0) || (result = objc_msgSend_absoluteURLForAssetPath_(v12, v13, contents, v14)) == 0)
+  if ((objc_opt_isKindOfClass() & 1) == 0 || (v7 = objc_msgSend_world(self, v5, v6), (v10 = objc_msgSend_assetPathResolver(v7, v8, v9)) == 0) || (result = objc_msgSend_absoluteURLForAssetPath_(v10, v11, contents)) == 0)
   {
     objc_opt_class();
     if (objc_opt_isKindOfClass())
@@ -1564,35 +1563,35 @@ LABEL_32:
 - (void)_updateCFXImageWithContents:(id)contents
 {
   contentsCopy = contents;
-  v6 = objc_msgSend_resolvedURLForContents_(self, a2, contents, v3);
-  if (v6)
+  v5 = objc_msgSend_resolvedURLForContents_(self, a2, contents);
+  if (v5)
   {
-    v10 = v6;
+    v8 = v5;
 
-    self->_runtimeResolvedURL = v10;
-    contentsCopy = v10;
+    self->_runtimeResolvedURL = v8;
+    contentsCopy = v8;
   }
 
-  v11 = objc_msgSend__textureOptions(self, v7, v8, v9);
-  v13 = objc_msgSend_copyCFXImageFromImage_textureOptions_(VFXMaterialProperty, v12, contentsCopy, v11);
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = sub_1AF2DC2E4;
-  v15[3] = &unk_1E7A7E220;
-  v15[4] = self;
-  v15[5] = v13;
-  objc_msgSend_postCommandWithObject_applyBlock_(VFXTransaction, v14, self, v15);
+  v9 = objc_msgSend__textureOptions(self, v6, v7);
+  v11 = objc_msgSend_copyCFXImageFromImage_textureOptions_(VFXMaterialProperty, v10, contentsCopy, v9);
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = sub_1AF2DC2E4;
+  v13[3] = &unk_1E7A7E220;
+  v13[4] = self;
+  v13[5] = v11;
+  objc_msgSend_postCommandWithObject_applyBlock_(VFXTransaction, v12, self, v13);
 }
 
 - (void)setImage:(id)image
 {
   if (self->_contents != image)
   {
-    objc_msgSend__clearContentsForDeallocation_(self, a2, 0, v3);
+    objc_msgSend__clearContentsForDeallocation_(self, a2, 0);
     self->_contents = image;
     self->_contentType = 1;
 
-    objc_msgSend__updateCFXImageWithContents_(self, v7, image, v8);
+    objc_msgSend__updateCFXImageWithContents_(self, v6, image);
   }
 }
 
@@ -1613,18 +1612,18 @@ LABEL_32:
 {
   if (self->_contents != layer)
   {
-    v9[8] = v4;
-    v9[9] = v5;
-    objc_msgSend__clearContentsForDeallocation_(self, a2, 0, v3);
+    v8[8] = v3;
+    v8[9] = v4;
+    objc_msgSend__clearContentsForDeallocation_(self, a2, 0);
     self->_contents = layer;
     self->_contentType = 2;
-    v9[0] = MEMORY[0x1E69E9820];
-    v9[1] = 3221225472;
-    v9[2] = sub_1AF2DC420;
-    v9[3] = &unk_1E7A7E220;
-    v9[4] = self;
-    v9[5] = layer;
-    objc_msgSend_postCommandWithObject_applyBlock_(VFXTransaction, v8, self, v9);
+    v8[0] = MEMORY[0x1E69E9820];
+    v8[1] = 3221225472;
+    v8[2] = sub_1AF2DC420;
+    v8[3] = &unk_1E7A7E220;
+    v8[4] = self;
+    v8[5] = layer;
+    objc_msgSend_postCommandWithObject_applyBlock_(VFXTransaction, v7, self, v8);
   }
 }
 
@@ -1645,18 +1644,18 @@ LABEL_32:
 {
   if (self->_contents != player)
   {
-    v9[8] = v4;
-    v9[9] = v5;
-    objc_msgSend__clearContentsForDeallocation_(self, a2, 0, v3);
+    v8[8] = v3;
+    v8[9] = v4;
+    objc_msgSend__clearContentsForDeallocation_(self, a2, 0);
     self->_contents = player;
     self->_contentType = 7;
-    v9[0] = MEMORY[0x1E69E9820];
-    v9[1] = 3221225472;
-    v9[2] = sub_1AF2DC4F8;
-    v9[3] = &unk_1E7A7E220;
-    v9[4] = self;
-    v9[5] = player;
-    objc_msgSend_postCommandWithObject_applyBlock_(VFXTransaction, v8, self, v9);
+    v8[0] = MEMORY[0x1E69E9820];
+    v8[1] = 3221225472;
+    v8[2] = sub_1AF2DC4F8;
+    v8[3] = &unk_1E7A7E220;
+    v8[4] = self;
+    v8[5] = player;
+    objc_msgSend_postCommandWithObject_applyBlock_(VFXTransaction, v7, self, v8);
   }
 }
 
@@ -1677,18 +1676,18 @@ LABEL_32:
 {
   if (self->_contents != device)
   {
-    v9[8] = v4;
-    v9[9] = v5;
-    objc_msgSend__clearContentsForDeallocation_(self, a2, 0, v3);
+    v8[8] = v3;
+    v8[9] = v4;
+    objc_msgSend__clearContentsForDeallocation_(self, a2, 0);
     self->_contents = device;
     self->_contentType = 8;
-    v9[0] = MEMORY[0x1E69E9820];
-    v9[1] = 3221225472;
-    v9[2] = sub_1AF2DC5D0;
-    v9[3] = &unk_1E7A7E220;
-    v9[4] = self;
-    v9[5] = device;
-    objc_msgSend_postCommandWithObject_applyBlock_(VFXTransaction, v8, self, v9);
+    v8[0] = MEMORY[0x1E69E9820];
+    v8[1] = 3221225472;
+    v8[2] = sub_1AF2DC5D0;
+    v8[3] = &unk_1E7A7E220;
+    v8[4] = self;
+    v8[5] = device;
+    objc_msgSend_postCommandWithObject_applyBlock_(VFXTransaction, v7, self, v8);
   }
 }
 
@@ -1709,18 +1708,18 @@ LABEL_32:
 {
   if (self->_contents != source)
   {
-    v9[8] = v4;
-    v9[9] = v5;
-    objc_msgSend__clearContentsForDeallocation_(self, a2, 0, v3);
+    v8[8] = v3;
+    v8[9] = v4;
+    objc_msgSend__clearContentsForDeallocation_(self, a2, 0);
     self->_contents = source;
     self->_contentType = 9;
-    v9[0] = MEMORY[0x1E69E9820];
-    v9[1] = 3221225472;
-    v9[2] = sub_1AF2DC6A8;
-    v9[3] = &unk_1E7A7E220;
-    v9[4] = self;
-    v9[5] = source;
-    objc_msgSend_postCommandWithObject_applyBlock_(VFXTransaction, v8, self, v9);
+    v8[0] = MEMORY[0x1E69E9820];
+    v8[1] = 3221225472;
+    v8[2] = sub_1AF2DC6A8;
+    v8[3] = &unk_1E7A7E220;
+    v8[4] = self;
+    v8[5] = source;
+    objc_msgSend_postCommandWithObject_applyBlock_(VFXTransaction, v7, self, v8);
   }
 }
 
@@ -1741,18 +1740,18 @@ LABEL_32:
 {
   if (self->_contents != provider)
   {
-    v9[8] = v4;
-    v9[9] = v5;
-    objc_msgSend__clearContentsForDeallocation_(self, a2, 0, v3);
+    v8[8] = v3;
+    v8[9] = v4;
+    objc_msgSend__clearContentsForDeallocation_(self, a2, 0);
     self->_contents = provider;
     self->_contentType = 10;
-    v9[0] = MEMORY[0x1E69E9820];
-    v9[1] = 3221225472;
-    v9[2] = sub_1AF2DC780;
-    v9[3] = &unk_1E7A7E220;
-    v9[4] = self;
-    v9[5] = provider;
-    objc_msgSend_postCommandWithObject_applyBlock_(VFXTransaction, v8, self, v9);
+    v8[0] = MEMORY[0x1E69E9820];
+    v8[1] = 3221225472;
+    v8[2] = sub_1AF2DC780;
+    v8[3] = &unk_1E7A7E220;
+    v8[4] = self;
+    v8[5] = provider;
+    objc_msgSend_postCommandWithObject_applyBlock_(VFXTransaction, v7, self, v8);
   }
 }
 
@@ -1773,18 +1772,18 @@ LABEL_32:
 {
   if (self->_contents != environment)
   {
-    v9[8] = v4;
-    v9[9] = v5;
-    objc_msgSend__clearContentsForDeallocation_(self, a2, 0, v3);
+    v8[8] = v3;
+    v8[9] = v4;
+    objc_msgSend__clearContentsForDeallocation_(self, a2, 0);
     self->_contents = environment;
     self->_contentType = 11;
-    v9[0] = MEMORY[0x1E69E9820];
-    v9[1] = 3221225472;
-    v9[2] = sub_1AF2DC858;
-    v9[3] = &unk_1E7A7E220;
-    v9[4] = self;
-    v9[5] = environment;
-    objc_msgSend_postCommandWithObject_applyBlock_(VFXTransaction, v8, self, v9);
+    v8[0] = MEMORY[0x1E69E9820];
+    v8[1] = 3221225472;
+    v8[2] = sub_1AF2DC858;
+    v8[3] = &unk_1E7A7E220;
+    v8[4] = self;
+    v8[5] = environment;
+    objc_msgSend_postCommandWithObject_applyBlock_(VFXTransaction, v7, self, v8);
   }
 }
 
@@ -1803,30 +1802,30 @@ LABEL_32:
 
 - (void)_updateMaterialUIComponent:(id)component
 {
-  v6 = objc_msgSend_materialProperty(self, a2, component, v3);
-  if (v6)
+  v5 = objc_msgSend_materialProperty(self, a2, component);
+  if (v5)
   {
-    v10 = v6;
+    v8 = v5;
     if (component)
     {
-      v20[0] = MEMORY[0x1E69E9820];
-      v20[1] = 3221225472;
-      v20[2] = sub_1AF2DC9C8;
-      v20[3] = &unk_1E7A7E880;
-      v20[4] = component;
-      v11 = sub_1AF37174C(component, v20);
-      v15 = objc_msgSend_defaultCenter(MEMORY[0x1E696AD88], v12, v13, v14);
-      v16 = sub_1AF276608(v11);
-      objc_msgSend_addObserver_selector_name_object_(v15, v17, self, sel__layerDidChange_, @"VFXUITreeDidChange", v16);
-      sub_1AF1679CC(v10, v11);
+      v18[0] = MEMORY[0x1E69E9820];
+      v18[1] = 3221225472;
+      v18[2] = sub_1AF2DC9C8;
+      v18[3] = &unk_1E7A7E880;
+      v18[4] = component;
+      v9 = sub_1AF37174C(component, v18);
+      v12 = objc_msgSend_defaultCenter(MEMORY[0x1E696AD88], v10, v11);
+      v14 = sub_1AF276608(v9, v13);
+      objc_msgSend_addObserver_selector_name_object_(v12, v15, self, sel__layerDidChange_, @"VFXUITreeDidChange", v14);
+      sub_1AF1679CC(v8, v9);
     }
 
     else
     {
-      v18 = objc_msgSend_defaultCenter(MEMORY[0x1E696AD88], v7, v8, v9);
-      objc_msgSend_removeObserver_name_object_(v18, v19, self, @"VFXUITreeDidChange", 0);
+      v16 = objc_msgSend_defaultCenter(MEMORY[0x1E696AD88], v6, v7);
+      objc_msgSend_removeObserver_name_object_(v16, v17, self, @"VFXUITreeDidChange", 0);
 
-      sub_1AF1679CC(v10, 0);
+      sub_1AF1679CC(v8, 0);
     }
   }
 }
@@ -1835,18 +1834,18 @@ LABEL_32:
 {
   if (self->_contents != view)
   {
-    v9[8] = v4;
-    v9[9] = v5;
-    objc_msgSend__clearContentsForDeallocation_(self, a2, 0, v3);
+    v8[8] = v3;
+    v8[9] = v4;
+    objc_msgSend__clearContentsForDeallocation_(self, a2, 0);
     self->_contents = view;
     self->_contentType = 4;
-    v9[0] = MEMORY[0x1E69E9820];
-    v9[1] = 3221225472;
-    v9[2] = sub_1AF2DCB08;
-    v9[3] = &unk_1E7A7E220;
-    v9[4] = self;
-    v9[5] = view;
-    objc_msgSend_postCommandWithObject_applyBlock_(VFXTransaction, v8, self, v9);
+    v8[0] = MEMORY[0x1E69E9820];
+    v8[1] = 3221225472;
+    v8[2] = sub_1AF2DCB08;
+    v8[3] = &unk_1E7A7E220;
+    v8[4] = self;
+    v8[5] = view;
+    objc_msgSend_postCommandWithObject_applyBlock_(VFXTransaction, v7, self, v8);
   }
 }
 
@@ -1867,34 +1866,34 @@ LABEL_32:
 {
   if (self->_contents != window)
   {
-    v9[8] = v4;
-    v9[9] = v5;
-    objc_msgSend__clearContentsForDeallocation_(self, a2, 0, v3);
+    v8[8] = v3;
+    v8[9] = v4;
+    objc_msgSend__clearContentsForDeallocation_(self, a2, 0);
     self->_contents = window;
     self->_contentType = 4;
-    v9[0] = MEMORY[0x1E69E9820];
-    v9[1] = 3221225472;
-    v9[2] = sub_1AF2DCBE0;
-    v9[3] = &unk_1E7A7E220;
-    v9[4] = self;
-    v9[5] = window;
-    objc_msgSend_postCommandWithObject_applyBlock_(VFXTransaction, v8, self, v9);
+    v8[0] = MEMORY[0x1E69E9820];
+    v8[1] = 3221225472;
+    v8[2] = sub_1AF2DCBE0;
+    v8[3] = &unk_1E7A7E220;
+    v8[4] = self;
+    v8[5] = window;
+    objc_msgSend_postCommandWithObject_applyBlock_(VFXTransaction, v7, self, v8);
   }
 }
 
 - (void)setContents:(id)contents
 {
-  if ((*(self + 8) & 1) == 0 && objc_msgSend_contents(self, a2, contents, v3) == contents)
+  if ((*(self + 8) & 1) == 0 && objc_msgSend_contents(self, a2, contents) == contents)
   {
     return;
   }
 
   self->_runtimeResolvedURL = 0;
-  v6 = sub_1AF3710D4(contents);
+  v5 = sub_1AF3710D4(contents);
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    objc_msgSend_setColor_(self, v7, v6, v8);
+    objc_msgSend_setColor_(self, v6, v5);
     goto LABEL_9;
   }
 
@@ -1919,12 +1918,12 @@ LABEL_32:
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    objc_msgSend_setLayer_(self, v14, v6, v15);
+    objc_msgSend_setLayer_(self, v10, v5);
   }
 
-  else if (objc_msgSend_conformsToProtocol_(v6, v14, &unk_1F2629960, v15))
+  else if (objc_msgSend_conformsToProtocol_(v5, v10, &unk_1F2629960))
   {
-    objc_msgSend_setMtlTexture_(self, v16, v6, v17);
+    objc_msgSend_setMtlTexture_(self, v11, v5);
   }
 
   else
@@ -1932,7 +1931,7 @@ LABEL_32:
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      objc_msgSend_setUIView_(self, v18, v6, v19);
+      objc_msgSend_setUIView_(self, v12, v5);
     }
 
     else
@@ -1940,7 +1939,7 @@ LABEL_32:
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        objc_msgSend_setUIWindow_(self, v20, v6, v21);
+        objc_msgSend_setUIWindow_(self, v13, v5);
       }
 
       else
@@ -1948,7 +1947,7 @@ LABEL_32:
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          objc_msgSend_setFloatValue_(self, v22, v6, v23);
+          objc_msgSend_setFloatValue_(self, v14, v5);
         }
 
         else
@@ -1956,7 +1955,7 @@ LABEL_32:
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            objc_msgSend_setAssetValue_(self, v24, v6, v25);
+            objc_msgSend_setAssetValue_(self, v15, v5);
           }
 
           else
@@ -1964,7 +1963,7 @@ LABEL_32:
             NSClassFromString(&cfstr_Avplayer.isa);
             if (objc_opt_isKindOfClass())
             {
-              objc_msgSend_setAvPlayer_(self, v26, v6, v27);
+              objc_msgSend_setAvPlayer_(self, v16, v5);
             }
 
             else
@@ -1972,7 +1971,7 @@ LABEL_32:
               NSClassFromString(&cfstr_Avcapturedevic.isa);
               if (objc_opt_isKindOfClass())
               {
-                objc_msgSend_setCaptureDevice_(self, v28, v6, v29);
+                objc_msgSend_setCaptureDevice_(self, v17, v5);
               }
 
               else
@@ -1980,12 +1979,12 @@ LABEL_32:
                 objc_opt_class();
                 if (objc_opt_isKindOfClass())
                 {
-                  objc_msgSend_setCaptureDeviceOutputConsumerSource_(self, v30, v6, v31);
+                  objc_msgSend_setCaptureDeviceOutputConsumerSource_(self, v18, v5);
                 }
 
-                else if (objc_msgSend_conformsToProtocol_(v6, v30, &unk_1F262AD98, v31))
+                else if (objc_msgSend_conformsToProtocol_(v5, v18, &unk_1F262AD98))
                 {
-                  objc_msgSend_setTextureProvider_(self, v32, v6, v33);
+                  objc_msgSend_setTextureProvider_(self, v19, v5);
                 }
 
                 else
@@ -1994,11 +1993,11 @@ LABEL_32:
                   if ((objc_opt_isKindOfClass() & 1) == 0)
                   {
 LABEL_8:
-                    objc_msgSend_setImage_(self, v9, v6, v10);
+                    objc_msgSend_setImage_(self, v7, v5);
                     goto LABEL_9;
                   }
 
-                  objc_msgSend_setPrecomputedLightingEnvironment_(self, v9, v6, v10);
+                  objc_msgSend_setPrecomputedLightingEnvironment_(self, v7, v5);
                 }
               }
             }
@@ -2014,7 +2013,7 @@ LABEL_9:
   {
     parent = self->_parent;
 
-    MEMORY[0x1EEE66B58](parent, sel__updateProbeStamp, v11, v12);
+    MEMORY[0x1EEE66B58](parent, sel__updateProbeStamp, v8);
   }
 }
 
@@ -2025,47 +2024,47 @@ LABEL_9:
     contentType = self->_contentType;
     if (contentType == 5 || contentType == 0)
     {
-      v7 = objc_msgSend_worldRef(self, a2, v2, v3);
-      v10 = v7;
-      if (v7)
+      v6 = objc_msgSend_worldRef(self, a2, v2);
+      v8 = v6;
+      if (v6)
       {
-        sub_1AF1CEA20(v7);
+        sub_1AF1CEA20(v6, v7);
       }
 
-      IfNeeded = objc_msgSend_materialPropertyCreateIfNeeded_(self, v8, 0, v9);
-      v12 = sub_1AF1660D8(IfNeeded);
-      if (v12)
+      IfNeeded = objc_msgSend_materialPropertyCreateIfNeeded_(self, v7, 0);
+      v11 = sub_1AF1660D8(IfNeeded, v10);
+      if (v11)
       {
-        v16 = sub_1AF371814(v12, v13, v14, v15);
-        if (!v10)
+        v13 = sub_1AF371814(v11, v12);
+        if (!v8)
         {
-          return v16;
+          return v13;
         }
       }
 
       else
       {
-        v16 = 0;
-        if (!v10)
+        v13 = 0;
+        if (!v8)
         {
-          return v16;
+          return v13;
         }
       }
 
-      sub_1AF1CEA9C(v10);
-      return v16;
+      sub_1AF1CEA9C(v8, v12);
+      return v13;
     }
   }
 
-  v18 = self->_contents;
+  v15 = self->_contents;
 
-  return v18;
+  return v15;
 }
 
 - (void)_setImagePath:(id)path withResolvedURL:(id)l
 {
-  objc_msgSend__updateCFXImageWithContents_(self, a2, l, l);
-  objc_msgSend__clearContentsForDeallocation_(self, v7, 0, v8);
+  objc_msgSend__updateCFXImageWithContents_(self, a2, l);
+  objc_msgSend__clearContentsForDeallocation_(self, v7, 0);
   self->_contents = path;
   self->_contentType = 1;
   runtimeResolvedURL = self->_runtimeResolvedURL;
@@ -2083,17 +2082,17 @@ LABEL_9:
     return *(self + 77) & 0x1F;
   }
 
-  v6 = objc_msgSend_worldRef(self, a2, v2, v3);
-  if (!v6)
+  v5 = objc_msgSend_worldRef(self, a2, v2);
+  if (!v5)
   {
-    return (objc_msgSend_textureSampler(self, v7, v8, v9) >> 56) & 0x7F;
+    return (objc_msgSend_textureSampler(self, v6, v7) >> 56) & 0x7F;
   }
 
-  v10 = v6;
-  sub_1AF1CEA20(v6);
-  v5 = (objc_msgSend_textureSampler(self, v11, v12, v13) >> 56) & 0x7F;
-  sub_1AF1CEA9C(v10);
-  return v5;
+  v8 = v5;
+  sub_1AF1CEA20(v5, v6);
+  v4 = (objc_msgSend_textureSampler(self, v9, v10) >> 56) & 0x7F;
+  sub_1AF1CEA9C(v8, v11);
+  return v4;
 }
 
 - (void)setMaxAnisotropy:(unint64_t)anisotropy
@@ -2128,18 +2127,18 @@ LABEL_9:
 {
   if (self->_contents != texture)
   {
-    v9[8] = v4;
-    v9[9] = v5;
-    objc_msgSend__clearContentsForDeallocation_(self, a2, 0, v3);
+    v8[8] = v3;
+    v8[9] = v4;
+    objc_msgSend__clearContentsForDeallocation_(self, a2, 0);
     self->_contents = texture;
     self->_contentType = 3;
-    v9[0] = MEMORY[0x1E69E9820];
-    v9[1] = 3221225472;
-    v9[2] = sub_1AF2DD1E8;
-    v9[3] = &unk_1E7A7E220;
-    v9[4] = self;
-    v9[5] = texture;
-    objc_msgSend_postCommandWithObject_applyBlock_(VFXTransaction, v8, self, v9);
+    v8[0] = MEMORY[0x1E69E9820];
+    v8[1] = 3221225472;
+    v8[2] = sub_1AF2DD1E8;
+    v8[3] = &unk_1E7A7E220;
+    v8[4] = self;
+    v8[5] = texture;
+    objc_msgSend_postCommandWithObject_applyBlock_(VFXTransaction, v7, self, v8);
   }
 }
 
@@ -2158,12 +2157,12 @@ LABEL_9:
 
 - (uint64_t)setContentsTransform:(__n128)transform
 {
-  v30 = a2;
+  v29 = a2;
   transformCopy = transform;
-  v32 = a4;
-  v33 = a5;
-  v6 = self[13];
-  if (!v6 || (v7 = sub_1AF1CBF20(v6), result = VFXMatrix4EqualToMatrix4(a2, transform, a4, a5, v7, v8, v9, v10), (result & 1) == 0))
+  v31 = a4;
+  v32 = a5;
+  v7 = self[13];
+  if (!v7 || (v8 = sub_1AF1CBF20(v7, v5), result = VFXMatrix4EqualToMatrix4(a2, transform, a4, a5, v8, v9, v10, v11), (result & 1) == 0))
   {
     if (VFXMatrix4IsIdentity(a2, transform, a4, a5))
     {
@@ -2179,21 +2178,21 @@ LABEL_9:
 
     else
     {
-      objc_msgSend___allocateContentTransformIfNeeded(self, v12, v13, v14);
-      *&v17 = sub_1AF1CBF04(self[13], &v30).n128_u64[0];
+      objc_msgSend___allocateContentTransformIfNeeded(self, v13, v14);
+      *&v16 = sub_1AF1CBF04(self[13], &v29).n128_u64[0];
     }
 
-    v18 = objc_msgSend__animationPathForKey_(self, v15, @"contentsTransform", v16, v17, *&a2, *&transform, *&a4, *&a5);
-    v24[0] = MEMORY[0x1E69E9820];
-    v24[1] = 3221225472;
-    v24[2] = sub_1AF2DD33C;
-    v24[3] = &unk_1E7A7E578;
+    v17 = objc_msgSend__animationPathForKey_(self, v15, @"contentsTransform", v16, *&a2, *&transform, *&a4, *&a5);
+    v23[0] = MEMORY[0x1E69E9820];
+    v23[1] = 3221225472;
+    v23[2] = sub_1AF2DD33C;
+    v23[3] = &unk_1E7A7E578;
     selfCopy = self;
-    v25 = v30;
-    v26 = transformCopy;
+    v24 = v29;
+    v25 = transformCopy;
+    v26 = v31;
     v27 = v32;
-    v28 = v33;
-    return objc_msgSend_postCommandWithObject_keyPath_applyBlock_(VFXTransaction, v19, self, v18, v24);
+    return objc_msgSend_postCommandWithObject_keyPath_applyBlock_(VFXTransaction, v18, self, v17, v23);
   }
 
   return result;
@@ -2204,27 +2203,27 @@ LABEL_9:
   result = VFXMatrix4Identity;
   if ((*(self + 8) & 1) == 0)
   {
-    v6 = *(self + 104);
-    if (v6)
+    v5 = *(self + 104);
+    if (v5)
     {
-      result.n128_u64[0] = sub_1AF1CBF20(v6).n128_u64[0];
+      return sub_1AF1CBF20(v5, v1);
     }
 
     return result;
   }
 
-  v7 = objc_msgSend_worldRef(self, a2, a3, a4);
-  v11 = v7;
-  if (v7)
+  v6 = objc_msgSend_worldRef(self, v1, v2);
+  v9 = v6;
+  if (v6)
   {
-    sub_1AF1CEA20(v7);
+    sub_1AF1CEA20(v6, v7);
   }
 
-  v12 = objc_msgSend_materialProperty(self, v8, v9, v10);
-  if (!v12)
+  v10 = objc_msgSend_materialProperty(self, v7, v8);
+  if (!v10)
   {
     result = VFXMatrix4Identity;
-    if (!v11)
+    if (!v9)
     {
       return result;
     }
@@ -2232,19 +2231,19 @@ LABEL_9:
     goto LABEL_10;
   }
 
-  v13 = sub_1AF167220(v12);
+  v12 = sub_1AF167220(v10, v11);
   result = VFXMatrix4Identity;
-  if (v13)
+  if (v12)
   {
-    result = *v13;
+    result = *v12;
   }
 
-  if (v11)
+  if (v9)
   {
 LABEL_10:
-    v14 = result;
-    sub_1AF1CEA9C(v11);
-    return v14;
+    v13 = result;
+    sub_1AF1CEA9C(v9, v11);
+    return v13;
   }
 
   return result;
@@ -2252,41 +2251,41 @@ LABEL_10:
 
 - (void)setContentsOffset:(VFXMaterialProperty *)self
 {
-  v16 = v4;
+  v15 = v3;
   contentTransform = self->_contentTransform;
-  if (!contentTransform || (v7 = sub_1AF1CCB30(contentTransform), (VFXVector3EqualToVector3(v16, v7) & 1) == 0))
+  if (!contentTransform || (v6 = sub_1AF1CCB30(contentTransform), (VFXVector3EqualToVector3(v15, v6) & 1) == 0))
   {
-    objc_msgSend___allocateContentTransformIfNeeded(self, a2, v2, v3, *&v16);
-    sub_1AF1CCB38(self->_contentTransform, v17);
-    v8 = self->_contentTransform;
-    v9 = *(v8 + 3);
-    v28 = *(v8 + 2);
-    v29 = v9;
-    v10 = *(v8 + 5);
-    v30 = *(v8 + 4);
-    v31 = v10;
-    v11 = *(v8 + 1);
-    v26 = *v8;
-    v27 = v11;
-    if (sub_1AF1CCE54(v8))
+    objc_msgSend___allocateContentTransformIfNeeded(self, a2, v2, *&v15);
+    sub_1AF1CCB38(self->_contentTransform, v16);
+    v7 = self->_contentTransform;
+    v8 = *(v7 + 3);
+    v27 = *(v7 + 2);
+    v28 = v8;
+    v9 = *(v7 + 5);
+    v29 = *(v7 + 4);
+    v30 = v9;
+    v10 = *(v7 + 1);
+    v25 = *v7;
+    v26 = v10;
+    if (sub_1AF1CCE54(v7, v11))
     {
       free(self->_contentTransform);
       self->_contentTransform = 0;
     }
 
-    v14 = objc_msgSend__animationPathForKey_(self, v12, @"contentsTransform", v13);
-    v18[0] = MEMORY[0x1E69E9820];
-    v18[1] = 3221225472;
-    v18[2] = sub_1AF2DD580;
-    v18[3] = &unk_1E7A7E8A8;
+    v13 = objc_msgSend__animationPathForKey_(self, v12, @"contentsTransform");
+    v17[0] = MEMORY[0x1E69E9820];
+    v17[1] = 3221225472;
+    v17[2] = sub_1AF2DD580;
+    v17[3] = &unk_1E7A7E8A8;
     selfCopy = self;
+    v20 = v27;
     v21 = v28;
     v22 = v29;
     v23 = v30;
-    v24 = v31;
+    v18 = v25;
     v19 = v26;
-    v20 = v27;
-    objc_msgSend_postCommandWithObject_keyPath_applyBlock_(VFXTransaction, v15, self, v14, v18);
+    objc_msgSend_postCommandWithObject_keyPath_applyBlock_(VFXTransaction, v14, self, v13, v17);
   }
 }
 
@@ -2294,39 +2293,39 @@ LABEL_10:
 {
   if (*(self + 8))
   {
-    v7 = objc_msgSend_worldRef(self, a2, a3, a4);
-    v11 = v7;
-    if (v7)
+    v6 = objc_msgSend_worldRef(self, a2, a3);
+    v9 = v6;
+    if (v6)
     {
-      sub_1AF1CEA20(v7);
+      sub_1AF1CEA20(v6, v7);
     }
 
-    v12 = objc_msgSend_materialProperty(self, v8, v9, v10);
+    v10 = objc_msgSend_materialProperty(self, v7, v8);
     result = 0.0;
-    if (v12)
+    if (v10)
     {
-      v13 = sub_1AF167270(v12);
+      v12 = sub_1AF167270(v10, v11);
       result = 0.0;
-      if (v13)
+      if (v12)
       {
-        *&result = sub_1AF1CCB30(v13).n128_u64[0];
+        *&result = sub_1AF1CCB30(v12).n128_u64[0];
       }
     }
 
-    if (v11)
+    if (v9)
     {
-      v14 = result;
-      sub_1AF1CEA9C(v11);
-      return v14;
+      v13 = result;
+      sub_1AF1CEA9C(v9, v11);
+      return v13;
     }
   }
 
   else
   {
-    v5 = *(self + 104);
-    if (v5)
+    v4 = *(self + 104);
+    if (v4)
     {
-      *&result = sub_1AF1CCB30(v5).n128_u64[0];
+      *&result = sub_1AF1CCB30(v4).n128_u64[0];
     }
 
     else
@@ -2340,12 +2339,12 @@ LABEL_10:
 
 - (void)setContentsScale:(VFXMaterialProperty *)self
 {
-  v22 = v4;
+  v22 = v3;
   contentTransform = self->_contentTransform;
-  if (!contentTransform || (v13 = sub_1AF1CCB48(contentTransform, *v4.i64, v5, v6, v7, v8, v9, v10), (VFXVector3EqualToVector3(v22, v13) & 1) == 0))
+  if (!contentTransform || (v12 = sub_1AF1CCB48(contentTransform, a2, *v3.i64, v4, v5, v6, v7, v8, v9), (VFXVector3EqualToVector3(v22, v12) & 1) == 0))
   {
-    objc_msgSend___allocateContentTransformIfNeeded(self, a2, v2, v3, *&v22);
-    sub_1AF1CCB7C(self->_contentTransform, v23);
+    objc_msgSend___allocateContentTransformIfNeeded(self, a2, v2, *&v22);
+    sub_1AF1CCB7C(self->_contentTransform, v13, v23);
     v14 = self->_contentTransform;
     v15 = *(v14 + 3);
     v34 = *(v14 + 2);
@@ -2356,13 +2355,13 @@ LABEL_10:
     v17 = *(v14 + 1);
     v32 = *v14;
     v33 = v17;
-    if (sub_1AF1CCE54(v14))
+    if (sub_1AF1CCE54(v14, v18))
     {
       free(self->_contentTransform);
       self->_contentTransform = 0;
     }
 
-    v20 = objc_msgSend__animationPathForKey_(self, v18, @"contentsTransform", v19);
+    v20 = objc_msgSend__animationPathForKey_(self, v19, @"contentsTransform");
     v24[0] = MEMORY[0x1E69E9820];
     v24[1] = 3221225472;
     v24[2] = sub_1AF2DD784;
@@ -2382,41 +2381,41 @@ LABEL_10:
 {
   if (*(self + 8))
   {
-    v14 = objc_msgSend_worldRef(self, a2, a3, a4);
-    v18 = v14;
-    if (v14)
+    v13 = objc_msgSend_worldRef(self, a2, a10, a3, a4, a5, a6, a7, a8, *a9.i64);
+    v16 = v13;
+    if (v13)
     {
-      sub_1AF1CEA20(v14);
+      sub_1AF1CEA20(v13, v14);
     }
 
-    v19 = objc_msgSend_materialProperty(self, v15, v16, v17);
+    v17 = objc_msgSend_materialProperty(self, v14, v15);
     __asm { FMOV            V0.4S, #1.0 }
 
-    if (v19)
+    if (v17)
     {
-      v31 = result;
-      v24 = sub_1AF167270(v19);
-      result = v31;
-      if (v24)
+      v30 = result;
+      v23 = sub_1AF167270(v17, v18);
+      result = v30;
+      if (v23)
       {
-        result = sub_1AF1CCB48(v24, v31.n128_f64[0], v25, v26, v27, v28, v29, v30);
+        result = sub_1AF1CCB48(v23, v18, v30.n128_f64[0], v24, v25, v26, v27, v28, v29);
       }
     }
 
-    if (v18)
+    if (v16)
     {
-      v32 = result;
-      sub_1AF1CEA9C(v18);
-      return v32;
+      v31 = result;
+      sub_1AF1CEA9C(v16, v18);
+      return v31;
     }
   }
 
   else
   {
-    v12 = *(self + 104);
-    if (v12)
+    v11 = *(self + 104);
+    if (v11)
     {
-      result.n128_u64[0] = sub_1AF1CCB48(v12, a5, a6, a7, a8, a9, a10, a11).n128_u64[0];
+      result.n128_u64[0] = sub_1AF1CCB48(v11, a2, a3, a4, a5, a6, a7, a8, a9).n128_u64[0];
     }
 
     else
@@ -2430,15 +2429,15 @@ LABEL_10:
 
 - (void)setContentsRotation:(float)rotation
 {
-  v11.i64[0] = 0;
-  LODWORD(v5) = 1.0;
-  v11.i64[1] = __PAIR64__(LODWORD(rotation), 1.0);
-  v22 = v11;
+  v10.i64[0] = 0;
+  LODWORD(v4) = 1.0;
+  v10.i64[1] = __PAIR64__(LODWORD(rotation), 1.0);
+  v22 = v10;
   contentTransform = self->_contentTransform;
-  if (!contentTransform || (sub_1AF1CC9D8(contentTransform, *&rotation, v5, 0.0, v6, v7, v8, v9), (VFXVector4EqualToVector4(v22, v13) & 1) == 0))
+  if (!contentTransform || (sub_1AF1CC9D8(contentTransform, a2, *&rotation, v4, 0.0, v5, v6, v7, v8), (VFXVector4EqualToVector4(v22, v12) & 1) == 0))
   {
-    objc_msgSend___allocateContentTransformIfNeeded(self, a2, v3, v4, *&v22);
-    sub_1AF1CCAD8(self->_contentTransform, v23);
+    objc_msgSend___allocateContentTransformIfNeeded(self, a2, v3, *&v22);
+    sub_1AF1CCAD8(self->_contentTransform, v13, v23);
     v14 = self->_contentTransform;
     v15 = *(v14 + 3);
     v34 = *(v14 + 2);
@@ -2449,13 +2448,13 @@ LABEL_10:
     v17 = *(v14 + 1);
     v32 = *v14;
     v33 = v17;
-    if (sub_1AF1CCE54(v14))
+    if (sub_1AF1CCE54(v14, v18))
     {
       free(self->_contentTransform);
       self->_contentTransform = 0;
     }
 
-    v20 = objc_msgSend__animationPathForKey_(self, v18, @"contentsTransform", v19);
+    v20 = objc_msgSend__animationPathForKey_(self, v19, @"contentsTransform");
     v24[0] = MEMORY[0x1E69E9820];
     v24[1] = 3221225472;
     v24[2] = sub_1AF2DD9A0;
@@ -2475,28 +2474,28 @@ LABEL_10:
 {
   if (*(self + 8))
   {
-    v15 = objc_msgSend_worldRef(self, a2, v2, v3);
-    v19 = v15;
-    if (v15)
+    v14 = objc_msgSend_worldRef(self, a2, v2);
+    v17 = v14;
+    if (v14)
     {
-      sub_1AF1CEA20(v15);
+      sub_1AF1CEA20(v14, v15);
     }
 
-    v20 = objc_msgSend_materialProperty(self, v16, v17, v18);
-    v14 = 0.0;
-    if (v20)
+    v18 = objc_msgSend_materialProperty(self, v15, v16);
+    v13 = 0.0;
+    if (v18)
     {
-      v21 = sub_1AF167270(v20);
-      if (v21)
+      v20 = sub_1AF167270(v18, v19);
+      if (v20)
       {
-        sub_1AF1CC9D8(v21, v22, v23, v24, v25, v26, v27, v28);
-        v14 = v29;
+        sub_1AF1CC9D8(v20, v19, v21, v22, v23, v24, v25, v26, v27);
+        v13 = v28;
       }
     }
 
-    if (v19)
+    if (v17)
     {
-      sub_1AF1CEA9C(v19);
+      sub_1AF1CEA9C(v17, v19);
     }
   }
 
@@ -2505,8 +2504,8 @@ LABEL_10:
     contentTransform = self->_contentTransform;
     if (contentTransform)
     {
-      sub_1AF1CC9D8(contentTransform, v4, v5, v6, v7, v8, v9, v10);
-      return v13;
+      sub_1AF1CC9D8(contentTransform, a2, v3, v4, v5, v6, v7, v8, v9);
+      return v12;
     }
 
     else
@@ -2515,12 +2514,12 @@ LABEL_10:
     }
   }
 
-  return v14;
+  return v13;
 }
 
 - (id)propertyName
 {
-  objc_msgSend_propertyType(self, a2, v2, v3);
+  objc_msgSend_propertyType(self, a2, v2);
   result = @"diffuse";
   switch(@"diffuse")
   {
@@ -2590,7 +2589,7 @@ LABEL_10:
       result = @"background";
       break;
     case 0x1Au:
-      objc_msgSend_parent(self, v5, v6, v7);
+      objc_msgSend_parent(self, v4, v5);
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
@@ -2610,10 +2609,10 @@ LABEL_10:
       result = self->_customMaterialPropertyName;
       break;
     default:
-      v9 = sub_1AF0D5194();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v7 = sub_1AF0D5194(@"diffuse", v4);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
-        sub_1AFDF5CE4(self, v9, v10, v11);
+        sub_1AFDF5CE4(self, v7, v8);
       }
 
       result = 0;
@@ -2625,18 +2624,18 @@ LABEL_10:
 
 - (NSString)description
 {
-  v5 = objc_msgSend_contents(self, a2, v2, v3);
-  v6 = MEMORY[0x1E696AEC0];
-  v7 = objc_opt_class();
-  v8 = NSStringFromClass(v7);
-  v12 = objc_msgSend_propertyName(self, v9, v10, v11);
+  v4 = objc_msgSend_contents(self, a2, v2);
+  v5 = MEMORY[0x1E696AEC0];
+  v6 = objc_opt_class();
+  v7 = NSStringFromClass(v6);
+  v10 = objc_msgSend_propertyName(self, v8, v9);
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v5 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v13, @"<data %p>", v14, v5);
+    v4 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v11, @"<data %p>", v4);
   }
 
-  return objc_msgSend_stringWithFormat_(v6, v13, @"<%@: %p | %@ contents=%@>", v14, v8, self, v12, v5);
+  return objc_msgSend_stringWithFormat_(v5, v11, @"<%@: %p | %@ contents=%@>", v7, self, v10, v4);
 }
 
 + (__CFXImage)_createCFXImageFromImage:(id)image
@@ -2644,16 +2643,16 @@ LABEL_10:
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v6 = objc_msgSend_URLWithString_(MEMORY[0x1E695DFF8], v4, image, v5);
-    if (objc_msgSend_scheme(v6, v7, v8, v9))
+    v5 = objc_msgSend_URLWithString_(MEMORY[0x1E695DFF8], v4, image);
+    if (objc_msgSend_scheme(v5, v6, v7))
     {
-      imageCopy = v6;
+      imageCopy = v5;
 LABEL_6:
 
-      return sub_1AF195FC0(imageCopy);
+      return sub_1AF195FC0(imageCopy, v8);
     }
 
-    return sub_1AF196E08(image, v10, v11, v12);
+    return sub_1AF196E08(image, v8, v9);
   }
 
   else
@@ -2669,16 +2668,16 @@ LABEL_6:
     if (objc_opt_isKindOfClass())
     {
 
-      return sub_1AF196004(image);
+      return sub_1AF196004(image, v12);
     }
 
     else
     {
-      v15 = CFGetTypeID(image);
-      if (v15 == CGImageGetTypeID())
+      v13 = CFGetTypeID(image);
+      if (v13 == CGImageGetTypeID())
       {
 
-        return sub_1AF196CC4(image);
+        return sub_1AF196CC4(image, v14);
       }
 
       else
@@ -2687,7 +2686,7 @@ LABEL_6:
         if (objc_opt_isKindOfClass())
         {
 
-          return sub_1AF196DC4(image);
+          return sub_1AF196DC4(image, v15);
         }
 
         else
@@ -2696,7 +2695,7 @@ LABEL_6:
           if (objc_opt_isKindOfClass())
           {
 
-            return sub_1AF2ED094(image, v16, v17, v18);
+            return sub_1AF2ED094(image, v16, v17);
           }
 
           else
@@ -2711,7 +2710,7 @@ LABEL_6:
 
 + (__CFXImage)copyCFXImageFromImage:(id)image textureOptions:(unsigned __int8)options wasCached:(BOOL *)cached
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v39[7] = *MEMORY[0x1E69E9840];
   if (!image)
   {
     return 0;
@@ -2719,119 +2718,120 @@ LABEL_6:
 
   optionsCopy = options;
   v8 = CFGetTypeID(image);
-  if (v8 != sub_1AF195EF4())
+  if (v8 != sub_1AF195EF4(v8, v9))
   {
-    v32 = 0;
-    v33 = &v32;
-    v34 = 0x2020000000;
-    v35 = 0;
+    v33 = 0;
+    v34 = &v33;
+    v35 = 0x2020000000;
+    v36 = 0;
     objc_opt_class();
     isKindOfClass = objc_opt_isKindOfClass();
     objc_opt_class();
     v15 = isKindOfClass ^ 1;
     if (objc_opt_isKindOfClass())
     {
-      if (objc_msgSend_count(image, v12, v13, v14) != 6)
+      v16 = objc_msgSend_count(image, v13, v14);
+      if (v16 != 6)
       {
-        v27 = sub_1AF0D5194();
-        if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+        v28 = sub_1AF0D5194(v16, v17);
+        if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
         {
           sub_1AFDF5D70();
         }
 
-        v10 = 0;
+        v11 = 0;
         if (!cached)
         {
           goto LABEL_35;
         }
 
-        v26 = 0;
+        v27 = 0;
         goto LABEL_34;
       }
 
       v18 = 0;
-      memset(v38, 0, 48);
-      v28 = 0x8400102uLL;
+      memset(v39, 0, 48);
+      v29 = 0x8400102uLL;
       do
       {
-        v19 = objc_msgSend_objectAtIndexedSubscript_(image, v16, v18, v17, v28);
+        v19 = objc_msgSend_objectAtIndexedSubscript_(image, v17, v18, v29);
         v21 = objc_msgSend_copyCFXImageFromImage_textureOptions_wasCached_(self, v20, v19, optionsCopy, 0);
         if (!v21)
         {
-          v22 = sub_1AF0D5194();
+          v22 = sub_1AF0D5194(0, v17);
           if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
           {
-            v23 = objc_msgSend_objectAtIndexedSubscript_(image, v16, v18, v17);
-            *buf = v28;
-            v37 = v23;
+            v23 = objc_msgSend_objectAtIndexedSubscript_(image, v17, v18);
+            *buf = v29;
+            v38 = v23;
             _os_log_impl(&dword_1AF0CE000, v22, OS_LOG_TYPE_DEFAULT, "Warning: copyCFXImageFromImage: invalid sub-image %@\n", buf, 0xCu);
           }
         }
 
-        v38[v18++] = v21;
+        v39[v18++] = v21;
       }
 
       while (v18 != 6);
-      v31[0] = MEMORY[0x1E69E9820];
-      v31[1] = 3221225472;
-      v31[2] = sub_1AF2DE274;
-      v31[3] = &unk_1E7A7E8D0;
-      v31[4] = &v32;
-      v31[5] = v38;
-      v10 = sub_1AF198494(image, v15 & 1, v31);
+      v32[0] = MEMORY[0x1E69E9820];
+      v32[1] = 3221225472;
+      v32[2] = sub_1AF2DE274;
+      v32[3] = &unk_1E7A7E8D0;
+      v32[4] = &v33;
+      v32[5] = v39;
+      v11 = sub_1AF198494(image, v15 & 1, v32);
       for (i = 0; i != 6; ++i)
       {
-        v25 = v38[i];
-        if (v25)
+        v26 = v39[i];
+        if (v26)
         {
-          CFRelease(v25);
-          v38[i] = 0;
+          CFRelease(v26);
+          v39[i] = 0;
         }
       }
 
-      if (!v10)
+      if (!v11)
       {
 LABEL_28:
         if (!cached)
         {
 LABEL_35:
-          _Block_object_dispose(&v32, 8);
-          return v10;
+          _Block_object_dispose(&v33, 8);
+          return v11;
         }
 
-        v26 = (v33[3] & 1) == 0;
+        v27 = (v34[3] & 1) == 0;
 LABEL_34:
-        *cached = v26;
+        *cached = v27;
         goto LABEL_35;
       }
     }
 
     else
     {
-      v30[0] = MEMORY[0x1E69E9820];
-      v30[1] = 3221225472;
-      v30[2] = sub_1AF2DE288;
-      v30[3] = &unk_1E7A7E8F8;
-      v30[4] = self;
-      v30[5] = image;
-      v30[6] = &v32;
-      v10 = sub_1AF198494(image, (isKindOfClass ^ 1) & 1, v30);
-      if (!v10)
+      v31[0] = MEMORY[0x1E69E9820];
+      v31[1] = 3221225472;
+      v31[2] = sub_1AF2DE288;
+      v31[3] = &unk_1E7A7E8F8;
+      v31[4] = self;
+      v31[5] = image;
+      v31[6] = &v33;
+      v11 = sub_1AF198494(image, (isKindOfClass ^ 1) & 1, v31);
+      if (!v11)
       {
         goto LABEL_28;
       }
     }
 
-    if (*(v33 + 24) == 1)
+    if (*(v34 + 24) == 1)
     {
       if ((optionsCopy & 2) != 0)
       {
-        sub_1AF197FCC(v10);
+        sub_1AF197FCC();
       }
 
       if ((optionsCopy & 8) != 0)
       {
-        sub_1AF197F40(v10);
+        sub_1AF197F40(v11, v24);
       }
     }
 
@@ -2848,18 +2848,18 @@ LABEL_34:
 
 - (void)getCFXImageRef
 {
-  v5 = objc_msgSend_contents(self, a2, v2, v3);
-  v9 = objc_msgSend__textureOptions(self, v6, v7, v8);
-  v11 = objc_msgSend_copyCFXImageFromImage_textureOptions_(VFXMaterialProperty, v10, v5, v9);
+  v4 = objc_msgSend_contents(self, a2, v2);
+  v7 = objc_msgSend__textureOptions(self, v5, v6);
+  v9 = objc_msgSend_copyCFXImageFromImage_textureOptions_(VFXMaterialProperty, v8, v4, v7);
 
-  return v11;
+  return v9;
 }
 
 - (void)parentWillDie:(id)die
 {
   if (self->_parent != die)
   {
-    v4 = sub_1AF0D5194();
+    v4 = sub_1AF0D5194(self, a2);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
     {
       sub_1AFDF5DAC(v4, v5, v6, v7, v8, v9, v10, v11);
@@ -2871,11 +2871,11 @@ LABEL_34:
 
 - ($42C19FAB4E3144CC06073197E1960D27)textureSampler
 {
-  v4 = objc_msgSend_materialProperty(self, a2, v2, v3);
-  if (v4)
+  v3 = objc_msgSend_materialProperty(self, a2, v2);
+  if (v3)
   {
 
-    return sub_1AF16679C(v4);
+    return sub_1AF16679C(v3, v4);
   }
 
   else
@@ -2887,11 +2887,11 @@ LABEL_34:
 
 - (__CFXAnimationManager)animationManager
 {
-  result = objc_msgSend_worldRef(self, a2, v2, v3);
+  result = objc_msgSend_worldRef(self, a2, v2);
   if (result)
   {
 
-    return sub_1AF1CF830(result);
+    return sub_1AF1CF830(result, v4);
   }
 
   return result;
@@ -2905,28 +2905,29 @@ LABEL_34:
   }
 
   os_unfair_lock_lock(&self->_animationsLock);
-  v9 = objc_msgSend_objectForKey_(self->_animations, v7, key, v8);
-  v16 = objc_msgSend_animation(v9, v10, v11, v12) == animation;
-  if (v16)
+  v8 = objc_msgSend_objectForKey_(self->_animations, v7, key);
+  v13 = objc_msgSend_animation(v8, v9, v10) == animation;
+  if (v13)
   {
-    v17 = objc_msgSend_world(self, v13, v14, v15);
-    objc_msgSend_removeWorldReference_(v9, v18, v17, v19);
-    objc_msgSend_removeObjectForKey_(self->_animations, v20, key, v21);
-    v25 = objc_msgSend___CFObject(self, v22, v23, v24);
-    if ((sub_1AF16D234(v25) & 1) == 0)
+    v14 = objc_msgSend_world(self, v11, v12);
+    objc_msgSend_removeWorldReference_(v8, v15, v14);
+    objc_msgSend_removeObjectForKey_(self->_animations, v16, key);
+    v19 = objc_msgSend___CFObject(self, v17, v18);
+    v20 = sub_1AF16D234(v19);
+    if ((v20 & 1) == 0)
     {
-      v26 = sub_1AF0D5194();
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_FAULT))
+      v22 = sub_1AF0D5194(v20, v21);
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_FAULT))
       {
-        sub_1AFDF4558(v26, v27, v28, v29, v30, v31, v32, v33);
+        sub_1AFDF4558(v22, v23, v24, v25, v26, v27, v28, v29);
       }
     }
 
-    sub_1AF16D870(v25, key, 1);
+    sub_1AF16D870(v19, key, 1);
   }
 
   os_unfair_lock_unlock(&self->_animationsLock);
-  return v16;
+  return v13;
 }
 
 - (void)addAnimationPlayer:(id)player forKey:(id)key
@@ -2936,15 +2937,15 @@ LABEL_34:
     keyCopy = key;
     if (!key)
     {
-      v7 = objc_msgSend_UUID(MEMORY[0x1E696AFB0], a2, player, 0);
-      keyCopy = objc_msgSend_UUIDString(v7, v8, v9, v10);
+      v7 = objc_msgSend_UUID(MEMORY[0x1E696AFB0], a2, player);
+      keyCopy = objc_msgSend_UUIDString(v7, v8, v9);
     }
 
     if ((*(self + 8) & 1) == 0)
     {
       os_unfair_lock_lock(&self->_animationsLock);
-      v14 = objc_msgSend_world(self, v11, v12, v13);
-      objc_msgSend_addWorldReference_(player, v15, v14, v16);
+      v12 = objc_msgSend_world(self, v10, v11);
+      objc_msgSend_addWorldReference_(player, v13, v12);
       animations = self->_animations;
       if (!animations)
       {
@@ -2952,26 +2953,26 @@ LABEL_34:
         self->_animations = animations;
       }
 
-      objc_msgSend_setObject_forKey_(animations, v17, player, keyCopy);
+      objc_msgSend_setObject_forKey_(animations, v14, player, keyCopy);
       os_unfair_lock_unlock(&self->_animationsLock);
     }
 
-    v19 = objc_msgSend_timingFunction(VFXTransaction, a2, player, key);
-    v22[0] = MEMORY[0x1E69E9820];
-    v22[1] = 3221225472;
-    v22[2] = sub_1AF2DE61C;
-    v22[3] = &unk_1E7A7E2C0;
-    v22[4] = player;
-    v22[5] = self;
-    v22[6] = keyCopy;
-    v22[7] = v19;
-    objc_msgSend_postCommandWithObject_applyBlock_(VFXTransaction, v20, self, v22);
+    v16 = objc_msgSend_timingFunction(VFXTransaction, a2, player);
+    v19[0] = MEMORY[0x1E69E9820];
+    v19[1] = 3221225472;
+    v19[2] = sub_1AF2DE61C;
+    v19[3] = &unk_1E7A7E2C0;
+    v19[4] = player;
+    v19[5] = self;
+    v19[6] = keyCopy;
+    v19[7] = v16;
+    objc_msgSend_postCommandWithObject_applyBlock_(VFXTransaction, v17, self, v19);
   }
 
   else
   {
-    v21 = sub_1AF0D5194();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    v18 = sub_1AF0D5194(self, a2);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       sub_1AFDF4E4C();
     }
@@ -2986,26 +2987,26 @@ LABEL_34:
     animationCopy = animation;
     if (!key)
     {
-      v7 = objc_msgSend_UUID(MEMORY[0x1E696AFB0], a2, animation, 0);
-      keyCopy = objc_msgSend_UUIDString(v7, v8, v9, v10);
+      v7 = objc_msgSend_UUID(MEMORY[0x1E696AFB0], a2, animation);
+      keyCopy = objc_msgSend_UUIDString(v7, v8, v9);
     }
 
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      animationCopy = objc_msgSend_animationWithCAAnimation_(VFXAnimation, v11, animationCopy, v12);
+      animationCopy = objc_msgSend_animationWithCAAnimation_(VFXAnimation, v10, animationCopy);
     }
 
-    v13 = objc_msgSend_animationPlayerWithVFXAnimation_(VFXAnimationPlayer, v11, animationCopy, v12);
-    objc_msgSend_addAnimationPlayer_forKey_(self, v14, v13, keyCopy);
+    v11 = objc_msgSend_animationPlayerWithVFXAnimation_(VFXAnimationPlayer, v10, animationCopy);
+    objc_msgSend_addAnimationPlayer_forKey_(self, v12, v11, keyCopy);
 
-    objc_msgSend_play(v13, v15, v16, v17);
+    objc_msgSend_play(v11, v13, v14);
   }
 
   else
   {
-    v18 = sub_1AF0D5194();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    v15 = sub_1AF0D5194(self, a2);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       sub_1AFDF4EC0();
     }
@@ -3014,50 +3015,50 @@ LABEL_34:
 
 - (void)removeAllAnimations
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   os_unfair_lock_lock(&self->_animationsLock);
-  v6 = objc_msgSend_world(self, v3, v4, v5);
-  v28 = 0u;
-  v29 = 0u;
-  v30 = 0u;
-  v31 = 0u;
+  v5 = objc_msgSend_world(self, v3, v4);
+  v24 = 0u;
+  v25 = 0u;
+  v26 = 0u;
+  v27 = 0u;
   animations = self->_animations;
-  v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(animations, v8, &v28, v32, 16);
-  if (v9)
+  v8 = objc_msgSend_countByEnumeratingWithState_objects_count_(animations, v7, &v24, v28, 16);
+  if (v8)
   {
-    v13 = v9;
-    v14 = *v29;
+    v11 = v8;
+    v12 = *v25;
     do
     {
-      for (i = 0; i != v13; ++i)
+      for (i = 0; i != v11; ++i)
       {
-        if (*v29 != v14)
+        if (*v25 != v12)
         {
           objc_enumerationMutation(animations);
         }
 
-        objc_msgSend_removeWorldReference_(*(*(&v28 + 1) + 8 * i), v10, v6, v12);
+        objc_msgSend_removeWorldReference_(*(*(&v24 + 1) + 8 * i), v9, v5);
       }
 
-      v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(animations, v10, &v28, v32, 16);
+      v11 = objc_msgSend_countByEnumeratingWithState_objects_count_(animations, v9, &v24, v28, 16);
     }
 
-    while (v13);
+    while (v11);
   }
 
-  objc_msgSend_removeAllObjects(self->_animations, v10, v11, v12);
+  objc_msgSend_removeAllObjects(self->_animations, v9, v10);
   os_unfair_lock_unlock(&self->_animationsLock);
-  objc_msgSend_duration(VFXTransaction, v16, v17, v18);
-  if (v22 <= 0.0)
+  objc_msgSend_duration(VFXTransaction, v14, v15);
+  if (v18 <= 0.0)
   {
-    objc_msgSend_postCommandWithObject_applyBlock_(VFXTransaction, v19, self, v26, MEMORY[0x1E69E9820], 3221225472, sub_1AF2DE9B0, &unk_1E7A7E1D0, self, v27[0], v27[1], v27[2], v27[3], v27[4], v27[5], v27[6]);
+    objc_msgSend_postCommandWithObject_applyBlock_(VFXTransaction, v16, self, v22, MEMORY[0x1E69E9820], 3221225472, sub_1AF2DE9B0, &unk_1E7A7E1D0, self, v23[0], v23[1], v23[2], v23[3], v23[4], v23[5], v23[6]);
   }
 
   else
   {
-    v23 = v22;
-    v24 = objc_msgSend_timingFunction(VFXTransaction, v19, v20, v21);
-    objc_msgSend_postCommandWithObject_applyBlock_(VFXTransaction, v25, self, v27, v26[0], v26[1], v26[2], v26[3], v26[4], MEMORY[0x1E69E9820], 3221225472, sub_1AF2DE9A0, &unk_1E7A7E2E8, self, v24, *&v23);
+    v19 = v18;
+    v20 = objc_msgSend_timingFunction(VFXTransaction, v16, v17);
+    objc_msgSend_postCommandWithObject_applyBlock_(VFXTransaction, v21, self, v23, v22[0], v22[1], v22[2], v22[3], v22[4], MEMORY[0x1E69E9820], 3221225472, sub_1AF2DE9A0, &unk_1E7A7E2E8, self, v20, *&v19);
   }
 }
 
@@ -3069,35 +3070,35 @@ LABEL_34:
     animations = self->_animations;
     if (animations)
     {
-      v8 = objc_msgSend_objectForKey_(animations, v5, key, v6);
-      v12 = objc_msgSend_world(self, v9, v10, v11);
-      objc_msgSend_removeWorldReference_(v8, v13, v12, v14);
-      objc_msgSend_removeObjectForKey_(self->_animations, v15, key, v16);
+      v7 = objc_msgSend_objectForKey_(animations, v5, key);
+      v10 = objc_msgSend_world(self, v8, v9);
+      objc_msgSend_removeWorldReference_(v7, v11, v10);
+      objc_msgSend_removeObjectForKey_(self->_animations, v12, key);
     }
 
     os_unfair_lock_unlock(&self->_animationsLock);
-    v20 = objc_msgSend_timingFunction(VFXTransaction, v17, v18, v19);
-    objc_msgSend_animationDuration(VFXTransaction, v21, v22, v23);
-    v26[0] = MEMORY[0x1E69E9820];
-    v26[1] = 3221225472;
-    v26[2] = sub_1AF2DEAB0;
-    v26[3] = &unk_1E7A7E310;
-    v26[7] = v24;
-    v26[4] = self;
-    v26[5] = key;
-    v26[6] = v20;
-    objc_msgSend_postCommandWithObject_applyBlock_(VFXTransaction, v25, self, v26);
+    v15 = objc_msgSend_timingFunction(VFXTransaction, v13, v14);
+    objc_msgSend_animationDuration(VFXTransaction, v16, v17);
+    v20[0] = MEMORY[0x1E69E9820];
+    v20[1] = 3221225472;
+    v20[2] = sub_1AF2DEAB0;
+    v20[3] = &unk_1E7A7E310;
+    v20[7] = v18;
+    v20[4] = self;
+    v20[5] = key;
+    v20[6] = v15;
+    objc_msgSend_postCommandWithObject_applyBlock_(VFXTransaction, v19, self, v20);
   }
 }
 
 - (NSArray)animationKeys
 {
   os_unfair_lock_lock(&self->_animationsLock);
-  v6 = objc_msgSend_allKeys(self->_animations, v3, v4, v5);
+  v5 = objc_msgSend_allKeys(self->_animations, v3, v4);
   os_unfair_lock_unlock(&self->_animationsLock);
-  if (objc_msgSend_count(v6, v7, v8, v9))
+  if (objc_msgSend_count(v5, v6, v7))
   {
-    return v6;
+    return v5;
   }
 
   else
@@ -3108,48 +3109,49 @@ LABEL_34:
 
 - (void)_syncObjCAnimations
 {
-  v5 = objc_msgSend_worldRef(self, a2, v2, v3);
-  v6 = v5;
-  if (v5)
+  v4 = objc_msgSend_worldRef(self, a2, v2);
+  v6 = v4;
+  if (v4)
   {
-    sub_1AF1CEA20(v5);
+    sub_1AF1CEA20(v4, v5);
   }
 
   os_unfair_lock_lock(&self->_animationsLock);
 
   self->_animations = objc_alloc_init(VFXOrderedDictionary);
   os_unfair_lock_unlock(&self->_animationsLock);
-  v10 = objc_msgSend___CFObject(self, v7, v8, v9);
-  if (v10)
+  v9 = objc_msgSend___CFObject(self, v7, v8);
+  if (v9)
   {
-    v11 = v10;
-    if ((sub_1AF16D234(v10) & 1) == 0)
+    v11 = v9;
+    v12 = sub_1AF16D234(v9);
+    if ((v12 & 1) == 0)
     {
-      v12 = sub_1AF0D5194();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
+      v14 = sub_1AF0D5194(v12, v13);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
       {
-        sub_1AFDF46B0(v12, v13, v14, v15, v16, v17, v18, v19);
+        sub_1AFDF46B0(v14, v13, v15, v16, v17, v18, v19, v20);
       }
     }
 
-    v20 = sub_1AF16D614(v11);
-    if (v20)
+    v21 = sub_1AF16D614(v11, v13);
+    if (v21)
     {
-      v21 = v20;
+      v22 = v21;
       os_unfair_lock_lock(&self->_animationsLock);
-      v24[0] = MEMORY[0x1E69E9820];
-      v24[1] = 3221225472;
-      v24[2] = sub_1AF2DEC4C;
-      v24[3] = &unk_1E7A7E338;
-      v24[4] = self;
-      sub_1AF375240(v21, v24, v22, v23);
+      v23[0] = MEMORY[0x1E69E9820];
+      v23[1] = 3221225472;
+      v23[2] = sub_1AF2DEC4C;
+      v23[3] = &unk_1E7A7E338;
+      v23[4] = self;
+      sub_1AF375240(v22, v23);
       os_unfair_lock_unlock(&self->_animationsLock);
     }
   }
 
   if (v6)
   {
-    sub_1AF1CEA9C(v6);
+    sub_1AF1CEA9C(v6, v10);
   }
 }
 
@@ -3162,8 +3164,8 @@ LABEL_34:
     animations = self->_animations;
     if (animations)
     {
-      v8 = objc_msgSend_objectForKey_(animations, v5, keyCopy, v6);
-      keyCopy = objc_msgSend_animation(v8, v9, v10, v11);
+      v7 = objc_msgSend_objectForKey_(animations, v5, keyCopy);
+      keyCopy = objc_msgSend_animation(v7, v8, v9);
     }
 
     else
@@ -3179,36 +3181,36 @@ LABEL_34:
 
 - (void)_copyAnimationsFrom:(id)from
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
+  v18 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
-  v23 = 0u;
-  v24 = 0u;
-  v6 = objc_msgSend_animationKeys(from, a2, from, v3, 0);
-  v8 = objc_msgSend_countByEnumeratingWithState_objects_count_(v6, v7, &v21, v25, 16);
-  if (v8)
+  v5 = objc_msgSend_animationKeys(from, a2, from, 0);
+  v7 = objc_msgSend_countByEnumeratingWithState_objects_count_(v5, v6, &v18, v22, 16);
+  if (v7)
   {
-    v11 = v8;
-    v12 = *v22;
+    v9 = v7;
+    v10 = *v19;
     do
     {
-      for (i = 0; i != v11; ++i)
+      for (i = 0; i != v9; ++i)
       {
-        if (*v22 != v12)
+        if (*v19 != v10)
         {
-          objc_enumerationMutation(v6);
+          objc_enumerationMutation(v5);
         }
 
-        v14 = *(*(&v21 + 1) + 8 * i);
-        v15 = objc_msgSend_animationPlayerForKey_(from, v9, v14, v10);
-        v19 = objc_msgSend_copy(v15, v16, v17, v18);
-        objc_msgSend_addAnimationPlayer_forKey_(self, v20, v19, v14);
+        v12 = *(*(&v18 + 1) + 8 * i);
+        v13 = objc_msgSend_animationPlayerForKey_(from, v8, v12);
+        v16 = objc_msgSend_copy(v13, v14, v15);
+        objc_msgSend_addAnimationPlayer_forKey_(self, v17, v16, v12);
       }
 
-      v11 = objc_msgSend_countByEnumeratingWithState_objects_count_(v6, v9, &v21, v25, 16);
+      v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(v5, v8, &v18, v22, 16);
     }
 
-    while (v11);
+    while (v9);
   }
 }
 
@@ -3221,7 +3223,7 @@ LABEL_34:
     animations = self->_animations;
     if (animations)
     {
-      keyCopy = objc_msgSend_objectForKey_(animations, v5, keyCopy, v6);
+      keyCopy = objc_msgSend_objectForKey_(animations, v5, keyCopy);
     }
 
     else
@@ -3239,17 +3241,17 @@ LABEL_34:
 {
   nodeCopy = node;
   animationCopy = animation;
-  v9 = objc_msgSend___CFObject(self, a2, animation, key);
+  v9 = objc_msgSend___CFObject(self, a2, animation);
   if (v9)
   {
-    v13 = v9;
-    v14 = objc_msgSend_animationManager(self, v10, v11, v12);
-    if (v14)
+    v12 = v9;
+    v13 = objc_msgSend_animationManager(self, v10, v11);
+    if (v13)
     {
-      v15 = v14;
-      v16 = CACurrentMediaTime();
+      v14 = v13;
+      v15 = CACurrentMediaTime();
 
-      sub_1AF118EBC(v15, v13, key, animationCopy, nodeCopy, v16);
+      sub_1AF118EBC(v14, v12, key, animationCopy, nodeCopy, v15);
     }
   }
 }
@@ -3258,13 +3260,13 @@ LABEL_34:
 {
   if (self != object)
   {
-    v25[15] = v6;
-    v25[16] = v7;
+    v21[15] = v6;
+    v21[16] = v7;
     v13 = objc_alloc_init(CFXBinding);
-    objc_msgSend_setSourceObject_(v13, v14, object, v15);
-    objc_msgSend_setKeyPathDst_(v13, v16, path, v17);
-    objc_msgSend_setKeyPathSrc_(v13, v18, keyPath, v19);
-    objc_msgSend_setOptions_(v13, v20, options, v21);
+    objc_msgSend_setSourceObject_(v13, v14, object);
+    objc_msgSend_setKeyPathDst_(v13, v15, path);
+    objc_msgSend_setKeyPathSrc_(v13, v16, keyPath);
+    objc_msgSend_setOptions_(v13, v17, options);
     bindings = self->_bindings;
     if (!bindings)
     {
@@ -3272,37 +3274,37 @@ LABEL_34:
       self->_bindings = bindings;
     }
 
-    objc_msgSend_setValue_forKey_(bindings, v22, v13, path);
+    objc_msgSend_setValue_forKey_(bindings, v18, v13, path);
 
-    v25[0] = MEMORY[0x1E69E9820];
-    v25[1] = 3221225472;
-    v25[2] = sub_1AF2DF06C;
-    v25[3] = &unk_1E7A7E360;
-    v25[4] = self;
-    v25[5] = object;
-    v25[6] = path;
-    v25[7] = keyPath;
-    v25[8] = options;
-    objc_msgSend_postCommandWithObject_applyBlock_(VFXTransaction, v24, self, v25);
+    v21[0] = MEMORY[0x1E69E9820];
+    v21[1] = 3221225472;
+    v21[2] = sub_1AF2DF06C;
+    v21[3] = &unk_1E7A7E360;
+    v21[4] = self;
+    v21[5] = object;
+    v21[6] = path;
+    v21[7] = keyPath;
+    v21[8] = options;
+    objc_msgSend_postCommandWithObject_applyBlock_(VFXTransaction, v20, self, v21);
   }
 }
 
 - (void)unbindAnimatablePath:(id)path
 {
-  objc_msgSend_removeObjectForKey_(self->_bindings, a2, path, v3);
-  if (!objc_msgSend_count(self->_bindings, v6, v7, v8))
+  objc_msgSend_removeObjectForKey_(self->_bindings, a2, path);
+  if (!objc_msgSend_count(self->_bindings, v5, v6))
   {
 
     self->_bindings = 0;
   }
 
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 3221225472;
-  v10[2] = sub_1AF2DF1B0;
-  v10[3] = &unk_1E7A7E220;
-  v10[4] = self;
-  v10[5] = path;
-  objc_msgSend_postCommandWithObject_applyBlock_(VFXTransaction, v9, self, v10);
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = sub_1AF2DF1B0;
+  v8[3] = &unk_1E7A7E220;
+  v8[4] = self;
+  v8[5] = path;
+  objc_msgSend_postCommandWithObject_applyBlock_(VFXTransaction, v7, self, v8);
 }
 
 - (void)removeAllBindings
@@ -3318,105 +3320,105 @@ LABEL_34:
 
 - (void)_copyBindingsFrom:(id)from
 {
-  v5 = objc_msgSend__vfxBindings(from, a2, from, v3);
-  v8[0] = MEMORY[0x1E69E9820];
-  v8[1] = 3221225472;
-  v8[2] = sub_1AF2DF328;
-  v8[3] = &unk_1E7A7E388;
-  v8[4] = self;
-  objc_msgSend_enumerateKeysAndObjectsUsingBlock_(v5, v6, v8, v7);
+  v4 = objc_msgSend__vfxBindings(from, a2, from);
+  v6[0] = MEMORY[0x1E69E9820];
+  v6[1] = 3221225472;
+  v6[2] = sub_1AF2DF328;
+  v6[3] = &unk_1E7A7E388;
+  v6[4] = self;
+  objc_msgSend_enumerateKeysAndObjectsUsingBlock_(v4, v5, v6);
 }
 
 - (void)_setSourceObject:(id)object forBinding:(id)binding
 {
-  if (objc_msgSend_sourceObject(binding, a2, object, binding) != object)
+  if (objc_msgSend_sourceObject(binding, a2, object) != object)
   {
-    objc_msgSend_setSourceObject_(binding, v7, object, v8);
-    v10[0] = MEMORY[0x1E69E9820];
-    v10[1] = 3221225472;
-    v10[2] = sub_1AF2DF460;
-    v10[3] = &unk_1E7A7E3B0;
-    v10[4] = self;
-    v10[5] = binding;
-    v10[6] = object;
-    objc_msgSend_postCommandWithObject_applyBlock_(VFXTransaction, v9, self, v10);
+    objc_msgSend_setSourceObject_(binding, v7, object);
+    v9[0] = MEMORY[0x1E69E9820];
+    v9[1] = 3221225472;
+    v9[2] = sub_1AF2DF460;
+    v9[3] = &unk_1E7A7E3B0;
+    v9[4] = self;
+    v9[5] = binding;
+    v9[6] = object;
+    objc_msgSend_postCommandWithObject_applyBlock_(VFXTransaction, v8, self, v9);
   }
 }
 
 - (void)enumerateAnimationReferencesUsingBlock:(id)block
 {
   bindings = self->_bindings;
-  v5[0] = MEMORY[0x1E69E9820];
-  v5[1] = 3221225472;
-  v5[2] = sub_1AF2DF59C;
-  v5[3] = &unk_1E7A7E400;
-  v5[4] = self;
-  v5[5] = block;
-  objc_msgSend_enumerateKeysAndObjectsUsingBlock_(bindings, a2, v5, v3);
+  v4[0] = MEMORY[0x1E69E9820];
+  v4[1] = 3221225472;
+  v4[2] = sub_1AF2DF59C;
+  v4[3] = &unk_1E7A7E400;
+  v4[4] = self;
+  v4[5] = block;
+  objc_msgSend_enumerateKeysAndObjectsUsingBlock_(bindings, a2, v4);
 }
 
 - (void)removeAllAnimationsWithBlendOutDuration:(float)duration
 {
-  objc_msgSend_begin(VFXTransaction, a2, v3, v4);
-  objc_msgSend_setAnimationDuration_(VFXTransaction, v7, v8, v9, duration);
-  objc_msgSend_removeAllAnimations(self, v10, v11, v12);
+  objc_msgSend_begin(VFXTransaction, a2, v3);
+  objc_msgSend_setAnimationDuration_(VFXTransaction, v6, v7, duration);
+  objc_msgSend_removeAllAnimations(self, v8, v9);
 
-  objc_msgSend_commit(VFXTransaction, v13, v14, v15);
+  objc_msgSend_commit(VFXTransaction, v10, v11);
 }
 
 - (void)removeAnimationForKey:(id)key blendOutDuration:(float)duration
 {
-  objc_msgSend_begin(VFXTransaction, a2, key, v4);
-  objc_msgSend_setAnimationDuration_(VFXTransaction, v8, v9, v10, duration);
-  objc_msgSend_removeAnimationForKey_(self, v11, key, v12);
+  objc_msgSend_begin(VFXTransaction, a2, key);
+  objc_msgSend_setAnimationDuration_(VFXTransaction, v7, v8, duration);
+  objc_msgSend_removeAnimationForKey_(self, v9, key);
 
-  objc_msgSend_commit(VFXTransaction, v13, v14, v15);
+  objc_msgSend_commit(VFXTransaction, v10, v11);
 }
 
 - (void)_updateModelFromPresentation
 {
-  v5 = objc_msgSend_worldRef(self, a2, v2, v3);
-  v6 = v5;
-  if (v5)
+  v4 = objc_msgSend_worldRef(self, a2, v2);
+  v6 = v4;
+  if (v4)
   {
-    sub_1AF1CEA20(v5);
+    sub_1AF1CEA20(v4, v5);
   }
 
   v7 = sub_1AF1C4F78();
-  IfNeeded = objc_msgSend_materialPropertyCreateIfNeeded_(self, v8, 0, v9);
+  IfNeeded = objc_msgSend_materialPropertyCreateIfNeeded_(self, v8, 0);
   if (IfNeeded)
   {
     v11 = IfNeeded;
-    v7 = sub_1AF16679C(IfNeeded);
-    self->_intensity = sub_1AF166598(v11);
-    self->_mappingChannel = sub_1AF1666D4(v11);
-    *(self + 76) = *(self + 76) & 0xF0 | sub_1AF167B64(v11) & 0xF;
+    v7 = sub_1AF16679C(IfNeeded, v10);
+    self->_intensity = sub_1AF166598(v11, v12);
+    self->_mappingChannel = sub_1AF1666D4(v11, v13);
+    *(self + 76) = *(self + 76) & 0xF0 | sub_1AF167B64(v11, v14) & 0xF;
     if (sub_1AF167CE0(v11))
     {
-      v12 = 4;
+      v15 = 4;
     }
 
     else
     {
-      v12 = 0;
+      v15 = 0;
     }
 
-    *(self + 8) = *(self + 8) & 0xFB | v12;
+    *(self + 8) = *(self + 8) & 0xFB | v15;
     if (sub_1AF167434(v11))
     {
-      objc_msgSend___allocateContentTransformIfNeeded(self, v13, v14, v15);
+      objc_msgSend___allocateContentTransformIfNeeded(self, v16, v17);
       contentTransform = self->_contentTransform;
-      v17 = sub_1AF167270(v11);
-      v18 = v17[1];
-      *contentTransform = *v17;
-      *(contentTransform + 1) = v18;
-      v19 = v17[5];
-      v21 = v17[2];
-      v20 = v17[3];
-      *(contentTransform + 4) = v17[4];
-      *(contentTransform + 5) = v19;
-      *(contentTransform + 2) = v21;
-      *(contentTransform + 3) = v20;
+      v20 = sub_1AF167270(v11, v19);
+      v22 = v20[1];
+      *contentTransform = *v20;
+      *(contentTransform + 1) = v22;
+      v23 = v20[5];
+      v25 = v20[2];
+      v24 = v20[3];
+      *(contentTransform + 4) = v20[4];
+      *(contentTransform + 5) = v23;
+      *(contentTransform + 2) = v25;
+      *(contentTransform + 3) = v24;
     }
 
     else
@@ -3432,15 +3434,15 @@ LABEL_34:
     *(self + 76) = *(self + 76) & 0xF0 | sub_1AF167B50(self->_propertyType) & 0xF;
     if (sub_1AF167CB8(self->_propertyType))
     {
-      v22 = 4;
+      v26 = 4;
     }
 
     else
     {
-      v22 = 0;
+      v26 = 0;
     }
 
-    *(self + 8) = *(self + 8) & 0xFB | v22;
+    *(self + 8) = *(self + 8) & 0xFB | v26;
   }
 
   *(self + 74) = *(self + 74) & 0xC0 | v7 & 3 | (v7 >> 6) & 0xC | (v7 >> 12) & 0x30;
@@ -3449,7 +3451,7 @@ LABEL_34:
   if (v6)
   {
 
-    sub_1AF1CEA9C(v6);
+    sub_1AF1CEA9C(v6, v21);
   }
 }
 
@@ -3465,9 +3467,9 @@ LABEL_34:
 
 - (void)copyPropertiesFrom:(id)from copyContext:(id)context
 {
-  if (*(from + 14) && (objc_msgSend_contents(from, a2, from, context), objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+  if (*(from + 14) && (objc_msgSend_contents(from, a2, from), objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
   {
-    v7 = objc_msgSend_contents(from, a2, from, context);
+    v7 = objc_msgSend_contents(from, a2, from);
     objc_msgSend__setImagePath_withResolvedURL_(self, v8, v7, *(from + 14));
   }
 
@@ -3475,51 +3477,51 @@ LABEL_34:
   {
     if (context && *(from + 72) == 6)
     {
-      v12 = objc_msgSend_contents(from, a2, from, context);
-      v13 = sub_1AF2BED30(v12, context);
+      v11 = objc_msgSend_contents(from, a2, from);
+      v12 = sub_1AF2BED30(v11, context);
     }
 
     else
     {
-      v13 = objc_msgSend_contents(from, a2, from, context);
+      v12 = objc_msgSend_contents(from, a2, from);
     }
 
-    objc_msgSend_setContents_(self, v14, v13, v15);
+    objc_msgSend_setContents_(self, v13, v12);
   }
 
-  v16 = objc_msgSend_minificationFilter(from, v9, v10, v11);
-  objc_msgSend_setMinificationFilter_(self, v17, v16, v18);
-  v22 = objc_msgSend_magnificationFilter(from, v19, v20, v21);
-  objc_msgSend_setMagnificationFilter_(self, v23, v22, v24);
-  v28 = objc_msgSend_mipFilter(from, v25, v26, v27);
-  objc_msgSend_setMipFilter_(self, v29, v28, v30);
-  objc_msgSend_contentsTransform(from, v31, v32, v33);
-  objc_msgSend_setContentsTransform_(self, v34, v35, v36);
-  v40 = objc_msgSend_wrapS(from, v37, v38, v39);
-  objc_msgSend_setWrapS_(self, v41, v40, v42);
-  v46 = objc_msgSend_wrapT(from, v43, v44, v45);
-  objc_msgSend_setWrapT_(self, v47, v46, v48);
-  objc_msgSend_intensity(from, v49, v50, v51);
-  objc_msgSend_setIntensity_(self, v52, v53, v54);
-  isColorManaged = objc_msgSend_isColorManaged(from, v55, v56, v57);
-  objc_msgSend_setColorManaged_(self, v59, isColorManaged, v60);
-  v64 = objc_msgSend_mappingChannel(from, v61, v62, v63);
-  objc_msgSend_setMappingChannel_(self, v65, v64, v66);
-  v70 = objc_msgSend_textureComponents(from, v67, v68, v69);
-  objc_msgSend_setTextureComponents_(self, v71, v70, v72);
-  objc_msgSend__copyAnimationsFrom_(self, v73, from, v74);
+  v14 = objc_msgSend_minificationFilter(from, v9, v10);
+  objc_msgSend_setMinificationFilter_(self, v15, v14);
+  v18 = objc_msgSend_magnificationFilter(from, v16, v17);
+  objc_msgSend_setMagnificationFilter_(self, v19, v18);
+  v22 = objc_msgSend_mipFilter(from, v20, v21);
+  objc_msgSend_setMipFilter_(self, v23, v22);
+  objc_msgSend_contentsTransform(from, v24, v25);
+  objc_msgSend_setContentsTransform_(self, v26, v27);
+  v30 = objc_msgSend_wrapS(from, v28, v29);
+  objc_msgSend_setWrapS_(self, v31, v30);
+  v34 = objc_msgSend_wrapT(from, v32, v33);
+  objc_msgSend_setWrapT_(self, v35, v34);
+  objc_msgSend_intensity(from, v36, v37);
+  objc_msgSend_setIntensity_(self, v38, v39);
+  isColorManaged = objc_msgSend_isColorManaged(from, v40, v41);
+  objc_msgSend_setColorManaged_(self, v43, isColorManaged);
+  v46 = objc_msgSend_mappingChannel(from, v44, v45);
+  objc_msgSend_setMappingChannel_(self, v47, v46);
+  v50 = objc_msgSend_textureComponents(from, v48, v49);
+  objc_msgSend_setTextureComponents_(self, v51, v50);
+  objc_msgSend__copyAnimationsFrom_(self, v52, from);
 
-  objc_msgSend__copyBindingsFrom_(self, v75, from, v76);
+  objc_msgSend__copyBindingsFrom_(self, v53, from);
 }
 
 - (id)copyWithZone:(_NSZone *)zone
 {
   v4 = objc_opt_class();
-  v7 = objc_msgSend_materialPropertyWithContents_(v4, v5, 0, v6);
-  v7[9] = self->_propertyType;
-  v8 = v7;
-  objc_msgSend_copyPropertiesFrom_copyContext_(v7, v9, self, 0);
-  return v7;
+  v6 = objc_msgSend_materialPropertyWithContents_(v4, v5, 0);
+  v6[9] = self->_propertyType;
+  v7 = v6;
+  objc_msgSend_copyPropertiesFrom_copyContext_(v6, v8, self, 0);
+  return v6;
 }
 
 - (void)enumerateReferencesForOperation:(int64_t)operation usingBlock:(id)block
@@ -3544,7 +3546,7 @@ LABEL_34:
   if ((*(self + 8) & 1) == 0)
   {
     v3 = [VFXMaterialProperty alloc];
-    inited = objc_msgSend_initPresentationMaterialPropertyWithModelProperty_(v3, v4, selfCopy, v5);
+    inited = objc_msgSend_initPresentationMaterialPropertyWithModelProperty_(v3, v4, selfCopy);
 
     return inited;
   }
@@ -3554,179 +3556,179 @@ LABEL_34:
 
 - (void)_updateSampler
 {
-  v5 = objc_msgSend_materialProperty(self, a2, v2, v3);
-  if (v5)
+  v4 = objc_msgSend_materialProperty(self, a2, v2);
+  if (v4)
   {
-    v6 = *(self + 74) & 3 | (((*(self + 74) >> 2) & 3) << 8) & 0xFFFFFFFF00FFFFFFLL | (((*(self + 74) >> 4) & 3) << 16) & 0xFFFFFFFF00FFFFFFLL | (((*(self + 75) & 7) - 1) << 24) | ((((*(self + 75) >> 3) & 7) - 1) << 32) | ((*(self + 77) & 0x1F) << 56);
+    v5 = *(self + 74) & 3 | (((*(self + 74) >> 2) & 3) << 8) & 0xFFFFFFFF00FFFFFFLL | (((*(self + 74) >> 4) & 3) << 16) & 0xFFFFFFFF00FFFFFFLL | (((*(self + 75) & 7) - 1) << 24) | ((((*(self + 75) >> 3) & 7) - 1) << 32) | ((*(self + 77) & 0x1F) << 56);
 
-    sub_1AF1667E4(v5, v6);
+    sub_1AF1667E4(v4, v5);
   }
 }
 
 - (void)_layerDidChange:(id)change
 {
-  v5 = objc_msgSend_defaultCenter(MEMORY[0x1E696AD88], a2, change, v3);
-  v10 = objc_msgSend_worldRef(self, v6, v7, v8);
+  v4 = objc_msgSend_defaultCenter(MEMORY[0x1E696AD88], a2, change);
+  v8 = objc_msgSend_worldRef(self, v5, v6);
 
-  objc_msgSend_postNotificationName_object_(v5, v9, @"kCFXWorldDidUpdateNotification", v10);
+  objc_msgSend_postNotificationName_object_(v4, v7, @"kCFXWorldDidUpdateNotification", v8);
 }
 
 - (void)_updateMaterialMTLTexture:(id)texture
 {
-  v5 = objc_msgSend_materialProperty(self, a2, texture, v3);
-  if (v5)
+  v4 = objc_msgSend_materialProperty(self, a2, texture);
+  if (v4)
   {
 
-    sub_1AF167934(v5, texture);
+    sub_1AF167934(v4, texture);
   }
 }
 
 - (void)_updateMaterialLayer:(id)layer
 {
-  v6 = objc_msgSend_materialProperty(self, a2, layer, v3);
-  if (v6)
+  v5 = objc_msgSend_materialProperty(self, a2, layer);
+  if (v5)
   {
-    v10 = v6;
+    v8 = v5;
     if (layer)
     {
-      v11 = objc_msgSend_defaultCenter(MEMORY[0x1E696AD88], v7, v8, v9);
-      objc_msgSend_addObserver_selector_name_object_(v11, v12, self, sel__layerDidChange_, @"VFXLayerTreeDidChange", layer);
-      v19[0] = MEMORY[0x1E69E9820];
-      v19[1] = 3221225472;
-      v19[2] = sub_1AF2DFF8C;
-      v19[3] = &unk_1E7A7E880;
-      v19[4] = layer;
-      v13 = sub_1AF37174C(layer, v19);
-      sub_1AF1679CC(v10, v13);
+      v9 = objc_msgSend_defaultCenter(MEMORY[0x1E696AD88], v6, v7);
+      objc_msgSend_addObserver_selector_name_object_(v9, v10, self, sel__layerDidChange_, @"VFXLayerTreeDidChange", layer);
+      v16[0] = MEMORY[0x1E69E9820];
+      v16[1] = 3221225472;
+      v16[2] = sub_1AF2DFF8C;
+      v16[3] = &unk_1E7A7E880;
+      v16[4] = layer;
+      v11 = sub_1AF37174C(layer, v16);
+      sub_1AF1679CC(v8, v11);
     }
 
     else
     {
-      sub_1AF1679CC(v6, 0);
-      v17 = objc_msgSend_defaultCenter(MEMORY[0x1E696AD88], v14, v15, v16);
+      sub_1AF1679CC(v5, 0);
+      v14 = objc_msgSend_defaultCenter(MEMORY[0x1E696AD88], v12, v13);
 
-      objc_msgSend_removeObserver_name_object_(v17, v18, self, @"VFXLayerTreeDidChange", 0);
+      objc_msgSend_removeObserver_name_object_(v14, v15, self, @"VFXLayerTreeDidChange", 0);
     }
   }
 }
 
 - (void)_updateMaterialAVPlayer:(id)player
 {
-  v5 = objc_msgSend_materialProperty(self, a2, player, v3);
-  if (v5)
+  v4 = objc_msgSend_materialProperty(self, a2, player);
+  if (v4)
   {
-    v6 = v5;
+    v5 = v4;
     if (player)
     {
-      v8[0] = MEMORY[0x1E69E9820];
-      v8[1] = 3221225472;
-      v8[2] = sub_1AF2E00AC;
-      v8[3] = &unk_1E7A7E880;
-      v8[4] = player;
-      v7 = sub_1AF37174C(player, v8);
-      sub_1AF1679CC(v6, v7);
+      v7[0] = MEMORY[0x1E69E9820];
+      v7[1] = 3221225472;
+      v7[2] = sub_1AF2E00AC;
+      v7[3] = &unk_1E7A7E880;
+      v7[4] = player;
+      v6 = sub_1AF37174C(player, v7);
+      sub_1AF1679CC(v5, v6);
     }
 
     else
     {
 
-      sub_1AF1679CC(v5, 0);
+      sub_1AF1679CC(v4, 0);
     }
   }
 }
 
 - (void)_updateMaterialCaptureDevice:(id)device
 {
-  v5 = objc_msgSend_materialProperty(self, a2, device, v3);
-  if (v5)
+  v4 = objc_msgSend_materialProperty(self, a2, device);
+  if (v4)
   {
-    v6 = v5;
+    v5 = v4;
     if (device)
     {
-      v8[0] = MEMORY[0x1E69E9820];
-      v8[1] = 3221225472;
-      v8[2] = sub_1AF2E01CC;
-      v8[3] = &unk_1E7A7E880;
-      v8[4] = device;
-      v7 = sub_1AF37174C(device, v8);
-      sub_1AF1679CC(v6, v7);
+      v7[0] = MEMORY[0x1E69E9820];
+      v7[1] = 3221225472;
+      v7[2] = sub_1AF2E01CC;
+      v7[3] = &unk_1E7A7E880;
+      v7[4] = device;
+      v6 = sub_1AF37174C(device, v7);
+      sub_1AF1679CC(v5, v6);
     }
 
     else
     {
 
-      sub_1AF1679CC(v5, 0);
+      sub_1AF1679CC(v4, 0);
     }
   }
 }
 
 - (void)_updateMaterialCaptureDeviceOutputConsumerSource:(id)source
 {
-  v5 = objc_msgSend_materialProperty(self, a2, source, v3);
-  if (v5)
+  v4 = objc_msgSend_materialProperty(self, a2, source);
+  if (v4)
   {
-    v6 = v5;
+    v5 = v4;
     if (source)
     {
-      v8[0] = MEMORY[0x1E69E9820];
-      v8[1] = 3221225472;
-      v8[2] = sub_1AF2E02EC;
-      v8[3] = &unk_1E7A7E880;
-      v8[4] = source;
-      v7 = sub_1AF37174C(source, v8);
-      sub_1AF1679CC(v6, v7);
+      v7[0] = MEMORY[0x1E69E9820];
+      v7[1] = 3221225472;
+      v7[2] = sub_1AF2E02EC;
+      v7[3] = &unk_1E7A7E880;
+      v7[4] = source;
+      v6 = sub_1AF37174C(source, v7);
+      sub_1AF1679CC(v5, v6);
     }
 
     else
     {
 
-      sub_1AF1679CC(v5, 0);
+      sub_1AF1679CC(v4, 0);
     }
   }
 }
 
 - (void)_updateMaterialTextureProvider:(id)provider
 {
-  v5 = objc_msgSend_materialProperty(self, a2, provider, v3);
-  if (v5)
+  v4 = objc_msgSend_materialProperty(self, a2, provider);
+  if (v4)
   {
-    v6 = v5;
+    v5 = v4;
     if (provider)
     {
-      v8[0] = MEMORY[0x1E69E9820];
-      v8[1] = 3221225472;
-      v8[2] = sub_1AF2E03E8;
-      v8[3] = &unk_1E7A7E880;
-      v8[4] = provider;
-      v7 = sub_1AF37174C(provider, v8);
-      sub_1AF1679CC(v6, v7);
+      v7[0] = MEMORY[0x1E69E9820];
+      v7[1] = 3221225472;
+      v7[2] = sub_1AF2E03E8;
+      v7[3] = &unk_1E7A7E880;
+      v7[4] = provider;
+      v6 = sub_1AF37174C(provider, v7);
+      sub_1AF1679CC(v5, v6);
     }
 
     else
     {
 
-      sub_1AF1679CC(v5, 0);
+      sub_1AF1679CC(v4, 0);
     }
   }
 }
 
 - (void)_updatePrecomputedLightingEnvironment:(id)environment
 {
-  v5 = objc_msgSend_materialProperty(self, a2, environment, v3);
-  if (v5)
+  v4 = objc_msgSend_materialProperty(self, a2, environment);
+  if (v4)
   {
 
-    sub_1AF167A88(v5, environment);
+    sub_1AF167A88(v4, environment);
   }
 }
 
 - (void)_updateMaterialImage:(id)image
 {
-  v5 = objc_msgSend_materialProperty(self, a2, image, v3);
-  if (v5)
+  v4 = objc_msgSend_materialProperty(self, a2, image);
+  if (v4)
   {
 
-    sub_1AF1664F4(v5, image);
+    sub_1AF1664F4(v4, image);
   }
 }
 
@@ -3734,14 +3736,14 @@ LABEL_34:
 {
   if (!asset)
   {
-    v6 = sub_1AF0D5194();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
+    v5 = sub_1AF0D5194(self, a2);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
-      sub_1AFDF5E24(v6, a2, asset, v3, v7, v8, v9, v10);
+      sub_1AFDF5E24(v5, a2, asset, v6, v7, v8, v9, v10);
     }
   }
 
-  v11 = objc_msgSend_materialProperty(self, a2, asset, v3);
+  v11 = objc_msgSend_materialProperty(self, a2, asset);
   if (v11)
   {
     sub_1AF1670B0(v11, asset);
@@ -3752,35 +3754,35 @@ LABEL_34:
 {
   if (!number)
   {
-    v6 = sub_1AF0D5194();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
+    v5 = sub_1AF0D5194(self, a2);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
-      sub_1AFDDFA20(v6, a2, number, v3, v7, v8, v9, v10);
+      sub_1AFDDFA20(v5, a2, number, v6, v7, v8, v9, v10);
     }
   }
 
-  v11 = objc_msgSend_materialProperty(self, a2, number, v3);
+  v11 = objc_msgSend_materialProperty(self, a2, number);
   if (v11)
   {
-    v15 = v11;
-    objc_msgSend_floatValue(number, v12, v13, v14);
-    v23 = v16;
-    if (sub_1AF167CD8(v15) == 4)
+    v14 = v11;
+    objc_msgSend_floatValue(number, v12, v13);
+    v22 = v15;
+    if (sub_1AF167CD8(v14) == 4)
     {
-      v17 = vdupq_lane_s32(v23, 0);
+      v16 = vdupq_lane_s32(v22, 0);
     }
 
     else
     {
       __asm { FMOV            V0.4S, #1.0 }
 
-      _Q0.i32[0] = v23.i32[0];
-      v17 = vzip1q_s32(_Q0, _Q0);
-      v17.i32[2] = v23.i32[0];
+      _Q0.i32[0] = v22.i32[0];
+      v16 = vzip1q_s32(_Q0, _Q0);
+      v16.i32[2] = v22.i32[0];
     }
 
-    v24 = v17;
-    sub_1AF165848(v15, v24.i32);
+    v23 = v16;
+    sub_1AF165848(v14, v23.i32);
   }
 }
 
@@ -3788,14 +3790,14 @@ LABEL_34:
 {
   if (!color)
   {
-    v6 = sub_1AF0D5194();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
+    v5 = sub_1AF0D5194(self, a2);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
-      sub_1AFDD6F14(v6, a2, color, v3, v7, v8, v9, v10);
+      sub_1AFDD6F14(v5, a2, color, v6, v7, v8, v9, v10);
     }
   }
 
-  v11 = objc_msgSend_materialProperty(self, a2, color, v3);
+  v11 = objc_msgSend_materialProperty(self, a2, color);
   if (v11)
   {
     v12 = v11;
@@ -3810,88 +3812,88 @@ LABEL_34:
 + (id)captureDeviceOutputConsumerWithOptions:(id)options
 {
   v4 = [VFXCaptureDeviceOutputConsumerSource alloc];
-  v7 = objc_msgSend_initWithOptions_(v4, v5, options, v6);
+  v6 = objc_msgSend_initWithOptions_(v4, v5, options);
 
-  return v7;
+  return v6;
 }
 
 - (id)valueForKey:(id)key
 {
-  if (objc_msgSend_isEqualToString_(key, a2, @"contentsTransform", v3))
+  if (objc_msgSend_isEqualToString_(key, a2, @"contentsTransform"))
   {
-    v9 = MEMORY[0x1E696B098];
-    objc_msgSend_contentsTransform(self, v6, v7, v8);
+    v7 = MEMORY[0x1E696B098];
+    objc_msgSend_contentsTransform(self, v5, v6);
 
-    return objc_msgSend_valueWithVFXMatrix4_(v9, v10, v11, v12);
+    return objc_msgSend_valueWithVFXMatrix4_(v7, v8, v9);
   }
 
-  if (objc_msgSend_isEqualToString_(key, v6, @"contentsOffset", v8))
+  if (objc_msgSend_isEqualToString_(key, v5, @"contentsOffset"))
   {
-    v17 = MEMORY[0x1E696B098];
-    objc_msgSend_contentsOffset(self, v14, v15, v16);
+    v13 = MEMORY[0x1E696B098];
+    objc_msgSend_contentsOffset(self, v11, v12);
 LABEL_9:
 
-    return objc_msgSend_valueWithVFXFloat3_(v17, v18, v19, v20);
+    return objc_msgSend_valueWithVFXFloat3_(v13, v14, v15);
   }
 
-  if (objc_msgSend_isEqualToString_(key, v14, @"contentsScale", v16))
+  if (objc_msgSend_isEqualToString_(key, v11, @"contentsScale"))
   {
-    v17 = MEMORY[0x1E696B098];
-    objc_msgSend_contentsScale(self, v21, v22, v23);
+    v13 = MEMORY[0x1E696B098];
+    objc_msgSend_contentsScale(self, v16, v17);
     goto LABEL_9;
   }
 
-  if (objc_msgSend_isEqualToString_(key, v21, @"linearExtendedSRGBColor", v23))
+  if (objc_msgSend_isEqualToString_(key, v16, @"linearExtendedSRGBColor"))
   {
-    v27 = MEMORY[0x1E696B098];
-    objc_msgSend_linearExtendedSRGBColor(self, v24, v25, v26);
+    v20 = MEMORY[0x1E696B098];
+    objc_msgSend_linearExtendedSRGBColor(self, v18, v19);
 
-    return objc_msgSend_valueWithVFXFloat4_(v27, v28, v29, v30);
+    return objc_msgSend_valueWithVFXFloat4_(v20, v21, v22);
   }
 
   else
   {
-    v31.receiver = self;
-    v31.super_class = VFXMaterialProperty;
-    return [(VFXMaterialProperty *)&v31 valueForKey:key];
+    v23.receiver = self;
+    v23.super_class = VFXMaterialProperty;
+    return [(VFXMaterialProperty *)&v23 valueForKey:key];
   }
 }
 
 - (void)setValue:(id)value forKey:(id)key
 {
-  if (objc_msgSend_isEqualToString_(key, a2, @"contentsTransform", key))
+  if (objc_msgSend_isEqualToString_(key, a2, @"contentsTransform"))
   {
-    objc_msgSend_VFXMatrix4Value(value, v7, v8, v9);
+    objc_msgSend_VFXMatrix4Value(value, v7, v8);
 
-    objc_msgSend_setContentsTransform_(self, v10, v11, v12);
+    objc_msgSend_setContentsTransform_(self, v9, v10);
   }
 
-  else if (objc_msgSend_isEqualToString_(key, v7, @"contentsOffset", v9))
+  else if (objc_msgSend_isEqualToString_(key, v7, @"contentsOffset"))
   {
-    objc_msgSend_VFXFloat3Value(value, v13, v14, v15);
+    objc_msgSend_VFXFloat3Value(value, v11, v12);
 
-    MEMORY[0x1EEE66B58](self, sel_setContentsOffset_, v16, v17);
+    MEMORY[0x1EEE66B58](self, sel_setContentsOffset_, v13);
   }
 
-  else if (objc_msgSend_isEqualToString_(key, v13, @"contentsScale", v15))
+  else if (objc_msgSend_isEqualToString_(key, v11, @"contentsScale"))
   {
-    objc_msgSend_VFXFloat3Value(value, v18, v19, v20);
+    objc_msgSend_VFXFloat3Value(value, v14, v15);
 
-    MEMORY[0x1EEE66B58](self, sel_setContentsScale_, v21, v22);
+    MEMORY[0x1EEE66B58](self, sel_setContentsScale_, v16);
   }
 
-  else if (objc_msgSend_isEqualToString_(key, v18, @"linearExtendedSRGBColor", v20))
+  else if (objc_msgSend_isEqualToString_(key, v14, @"linearExtendedSRGBColor"))
   {
-    objc_msgSend_VFXFloat4Value(value, v23, v24, v25);
+    objc_msgSend_VFXFloat4Value(value, v17, v18);
 
-    MEMORY[0x1EEE66B58](self, sel_setLinearExtendedSRGBColor_, v26, v27);
+    MEMORY[0x1EEE66B58](self, sel_setLinearExtendedSRGBColor_, v19);
   }
 
   else
   {
-    v28.receiver = self;
-    v28.super_class = VFXMaterialProperty;
-    [(VFXMaterialProperty *)&v28 setValue:value forKey:key];
+    v20.receiver = self;
+    v20.super_class = VFXMaterialProperty;
+    [(VFXMaterialProperty *)&v20 setValue:value forKey:key];
   }
 }
 
@@ -3900,13 +3902,13 @@ LABEL_9:
   contentTransform = self->_contentTransform;
   if (contentTransform)
   {
-    v63 = sub_1AF1CCB30(contentTransform);
-    v64 = sub_1AF1CCB48(self->_contentTransform, v63.n128_f64[0], v6, v7, v8, v9, v10, v11);
-    sub_1AF1CC9D8(self->_contentTransform, v64.n128_f64[0], v12, v13, v14, v15, v16, v17);
-    v65 = v18;
-    sub_1AF371A8C(property, @"tr_p", v63);
-    sub_1AF371A8C(property, @"tr_s", v64);
-    sub_1AF371AF4(property, @"tr_a", v65);
+    v57 = sub_1AF1CCB30(contentTransform);
+    v58 = sub_1AF1CCB48(self->_contentTransform, v6, v57.n128_f64[0], v7, v8, v9, v10, v11, v12);
+    sub_1AF1CC9D8(self->_contentTransform, v13, v58.n128_f64[0], v14, v15, v16, v17, v18, v19);
+    v59 = v20;
+    sub_1AF371A8C(property, @"tr_p", v57);
+    sub_1AF371A8C(property, @"tr_s", v58);
+    sub_1AF371AF4(property, @"tr_a", v59);
   }
 
   p_contents = &self->_contents;
@@ -3918,14 +3920,14 @@ LABEL_9:
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        sub_1AF3741F8(property, *p_contents, @"imageArray", v22);
+        sub_1AF3741F8(property, *p_contents, @"imageArray");
         goto LABEL_18;
       }
     }
 
     else if (contentType == 6)
     {
-      objc_msgSend_encodeObject_forKey_(property, a2, self->_contents, @"asset", *&v63);
+      objc_msgSend_encodeObject_forKey_(property, a2, self->_contents, @"asset", *&v57);
       goto LABEL_18;
     }
   }
@@ -3934,7 +3936,7 @@ LABEL_9:
   if (objc_opt_isKindOfClass() & 1) != 0 || (objc_opt_class(), (objc_opt_isKindOfClass()))
   {
     objc_opt_class();
-    if ((objc_opt_isKindOfClass() & 1) == 0 || (v28 = objc_msgSend_options(property, v25, v26, v27), v31 = objc_msgSend_objectForKeyedSubscript_(v28, v29, @"VFXWorldExportEmbedImages", v30), !objc_msgSend_BOOLValue(v31, v32, v33, v34)) || (runtimeResolvedURL = self->_runtimeResolvedURL) == 0)
+    if ((objc_opt_isKindOfClass() & 1) == 0 || (v27 = objc_msgSend_options(property, v25, v26), v29 = objc_msgSend_objectForKeyedSubscript_(v27, v28, @"VFXWorldExportEmbedImages"), !objc_msgSend_BOOLValue(v29, v30, v31)) || (runtimeResolvedURL = self->_runtimeResolvedURL) == 0)
     {
       runtimeResolvedURL = *p_contents;
     }
@@ -3948,12 +3950,12 @@ LABEL_9:
     goto LABEL_18;
   }
 
-  v43 = self->_contentType;
-  if (v43 <= 2)
+  v40 = self->_contentType;
+  if (v40 <= 2)
   {
     if (self->_contentType)
     {
-      if (v43 == 1)
+      if (v40 == 1)
       {
 LABEL_16:
         propertyCopy3 = property;
@@ -3962,7 +3964,7 @@ LABEL_17:
         goto LABEL_18;
       }
 
-      if (v43 == 2)
+      if (v40 == 2)
       {
         sub_1AF37266C(property, runtimeResolvedURL, @"layer");
         goto LABEL_18;
@@ -3971,30 +3973,30 @@ LABEL_17:
       goto LABEL_38;
     }
 
-    v46 = @"color";
+    v42 = @"color";
 LABEL_37:
-    objc_msgSend_encodeObject_forKey_(property, runtimeResolvedURL, *p_contents, v46, *&v63);
+    objc_msgSend_encodeObject_forKey_(property, runtimeResolvedURL, *p_contents, v42, *&v57);
     goto LABEL_18;
   }
 
   if (self->_contentType > 9u)
   {
-    if (v43 == 10)
+    if (v40 == 10)
     {
       sub_1AF37448C(property, runtimeResolvedURL, @"data");
       goto LABEL_18;
     }
 
-    if (v43 != 11)
+    if (v40 != 11)
     {
       goto LABEL_38;
     }
 
-    v46 = @"precomputedLightingEnvironment";
+    v42 = @"precomputedLightingEnvironment";
     goto LABEL_37;
   }
 
-  if (v43 == 3)
+  if (v40 == 3)
   {
     propertyCopy4 = property;
 LABEL_41:
@@ -4002,82 +4004,84 @@ LABEL_41:
     goto LABEL_18;
   }
 
-  if (v43 == 5)
+  if (v40 == 5)
   {
-    objc_msgSend_floatValue(*p_contents, runtimeResolvedURL, v23, v24);
-    objc_msgSend_encodeFloat_forKey_(property, v44, @"float", v45);
+    objc_msgSend_floatValue(*p_contents, runtimeResolvedURL, v24);
+    objc_msgSend_encodeFloat_forKey_(property, v41, @"float");
     goto LABEL_18;
   }
 
 LABEL_38:
-  v47 = objc_msgSend_replacementObjectForCoder_(*p_contents, runtimeResolvedURL, property, v24, *&v63);
+  v43 = objc_msgSend_replacementObjectForCoder_(*p_contents, runtimeResolvedURL, property, *&v57);
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
     propertyCopy3 = property;
-    runtimeResolvedURL = v47;
+    runtimeResolvedURL = v43;
     goto LABEL_17;
   }
 
-  if (objc_msgSend_conformsToProtocol_(v47, v48, &unk_1F2629960, v49))
+  if (objc_msgSend_conformsToProtocol_(v43, v44, &unk_1F2629960))
   {
     propertyCopy4 = property;
-    runtimeResolvedURL = v47;
+    runtimeResolvedURL = v43;
     goto LABEL_41;
   }
 
-  if (objc_msgSend_conformsToProtocol_(*p_contents, v51, &unk_1F25D6CB0, v52))
+  v47 = objc_msgSend_conformsToProtocol_(*p_contents, v46, &unk_1F25D6CB0);
+  if (v47)
   {
-    v56 = objc_msgSend_classForCoder(*p_contents, v53, v54, v55);
-    v57 = objc_opt_class();
-    if (objc_msgSend_isSubclassOfClass_(v56, v58, v57, v59))
+    v50 = objc_msgSend_classForCoder(*p_contents, v48, v49);
+    v51 = objc_opt_class();
+    isSubclassOfClass = objc_msgSend_isSubclassOfClass_(v50, v52, v51);
+    if (isSubclassOfClass)
     {
-      objc_msgSend_encodeObject_forKey_(property, v60, *p_contents, @"image", *&v63);
+      objc_msgSend_encodeObject_forKey_(property, v54, *p_contents, @"image", *&v57);
     }
 
     else
     {
-      v62 = sub_1AF0D5194();
-      if (os_log_type_enabled(v62, OS_LOG_TYPE_ERROR))
+      v56 = sub_1AF0D5194(isSubclassOfClass, v54);
+      if (os_log_type_enabled(v56, OS_LOG_TYPE_ERROR))
       {
-        sub_1AFDF5F14(v56, &self->_contents, v62);
+        sub_1AFDF5F14(v50, &self->_contents, v56);
       }
     }
   }
 
   else
   {
-    v61 = sub_1AF0D5194();
-    if (os_log_type_enabled(v61, OS_LOG_TYPE_ERROR))
+    v55 = sub_1AF0D5194(v47, v48);
+    if (os_log_type_enabled(v55, OS_LOG_TYPE_ERROR))
     {
       sub_1AFDF5E9C();
     }
   }
 
 LABEL_18:
-  objc_msgSend_encodeInteger_forKey_(property, runtimeResolvedURL, self->_mappingChannel, @"mappingChannel", *&v63);
-  v37 = *(self + 76);
-  if ((v37 & 0xF) != 0xF)
+  objc_msgSend_encodeInteger_forKey_(property, runtimeResolvedURL, self->_mappingChannel, @"mappingChannel", *&v57);
+  v34 = *(self + 76);
+  if ((v34 & 0xF) != 0xF)
   {
-    objc_msgSend_encodeInteger_forKey_(property, v36, v37 & 0xF, @"textureComponents");
+    objc_msgSend_encodeInteger_forKey_(property, v33, v34 & 0xF, @"textureComponents");
   }
 
-  v38 = *(self + 77);
-  if ((v38 & 0x1F) != 0x10)
+  v35 = *(self + 77);
+  if ((v35 & 0x1F) != 0x10)
   {
-    objc_msgSend_encodeInteger_forKey_(property, v36, v38 & 0x1F, @"anisotropy");
+    objc_msgSend_encodeInteger_forKey_(property, v33, v35 & 0x1F, @"anisotropy");
   }
 
-  objc_msgSend_encodeInteger_forKey_(property, v36, *(self + 74) & 3, @"minificationFilter");
-  objc_msgSend_encodeInteger_forKey_(property, v39, (*(self + 74) >> 2) & 3, @"magnificationFilter");
-  objc_msgSend_encodeInteger_forKey_(property, v40, (*(self + 74) >> 4) & 3, @"mipFilter");
-  objc_msgSend_encodeInteger_forKey_(property, v41, *(self + 75) & 7, @"wrapS");
-  objc_msgSend_encodeInteger_forKey_(property, v42, (*(self + 75) >> 3) & 7, @"wrapT");
+  objc_msgSend_encodeInteger_forKey_(property, v33, *(self + 74) & 3, @"minificationFilter");
+  objc_msgSend_encodeInteger_forKey_(property, v36, (*(self + 74) >> 2) & 3, @"magnificationFilter");
+  objc_msgSend_encodeInteger_forKey_(property, v37, (*(self + 74) >> 4) & 3, @"mipFilter");
+  objc_msgSend_encodeInteger_forKey_(property, v38, *(self + 75) & 7, @"wrapS");
+  objc_msgSend_encodeInteger_forKey_(property, v39, (*(self + 75) >> 3) & 7, @"wrapT");
 }
 
 - (void)_didDecodeVFXMaterialProperty:(id)property
 {
-  v129 = *MEMORY[0x1E69E9840];
+  v100 = *MEMORY[0x1E69E9840];
   if (self->_customMaterialPropertyName && !self->_customMaterialProperty)
   {
     self->_customMaterialProperty = sub_1AF16578C(0, 28);
@@ -4086,101 +4090,101 @@ LABEL_18:
   v5 = sub_1AF373644(property, @"image");
   if (v5)
   {
-    v8 = v5;
-    v9 = objc_msgSend_valueForKey_(VFXTransaction, v6, @"VFXWorldLoadingContextKey", v7);
-    v12 = objc_msgSend_objectForKeyedSubscript_(v9, v10, @"VFXWorldLoaderAssetPathResolver", v11);
-    if (v12)
+    v7 = v5;
+    v8 = objc_msgSend_valueForKey_(VFXTransaction, v6, @"VFXWorldLoadingContextKey");
+    v10 = objc_msgSend_objectForKeyedSubscript_(v8, v9, @"VFXWorldLoaderAssetPathResolver");
+    if (v10)
     {
-      v13 = v12;
+      v11 = v10;
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v16 = objc_msgSend_absoluteURLForAssetPath_(v13, v14, v8, v15);
-        if (v16)
+        v13 = objc_msgSend_absoluteURLForAssetPath_(v11, v12, v7);
+        if (v13)
         {
-          objc_msgSend__setImagePath_withResolvedURL_(self, v17, v8, v16);
+          objc_msgSend__setImagePath_withResolvedURL_(self, v14, v7, v13);
           goto LABEL_30;
         }
       }
     }
 
-    v20 = sub_1AF2CBA78(property);
-    if (v20)
+    v16 = sub_1AF2CBA78(property);
+    if (v16)
     {
-      v23 = VFXResolveImageContents(v8, v20);
-      if (v23)
+      v18 = VFXResolveImageContents(v7, v16);
+      if (v18)
       {
-        v24 = v23;
+        v19 = v18;
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v24 = objc_msgSend_fileURLWithPath_(MEMORY[0x1E695DFF8], v25, v24, v26);
+          v19 = objc_msgSend_fileURLWithPath_(MEMORY[0x1E695DFF8], v20, v19);
         }
 
-        objc_msgSend__setImagePath_withResolvedURL_(self, v25, v8, v24);
+        objc_msgSend__setImagePath_withResolvedURL_(self, v20, v7, v19);
         goto LABEL_30;
       }
     }
 
 LABEL_29:
-    objc_msgSend_setContents_(self, v21, v8, v22);
+    objc_msgSend_setContents_(self, v17, v7);
     goto LABEL_30;
   }
 
-  v27 = objc_opt_class();
-  v29 = objc_msgSend_decodeObjectOfClass_forKey_(property, v28, v27, @"asset");
-  if (v29 || (v32 = objc_opt_class(), (v29 = objc_msgSend_decodeObjectOfClass_forKey_(property, v33, v32, @"data")) != 0))
+  v21 = objc_opt_class();
+  v23 = objc_msgSend_decodeObjectOfClass_forKey_(property, v22, v21, @"asset");
+  if (v23 || (v25 = objc_opt_class(), (v23 = objc_msgSend_decodeObjectOfClass_forKey_(property, v26, v25, @"data")) != 0))
   {
-    objc_msgSend_setContents_(self, v30, v29, v31);
+    objc_msgSend_setContents_(self, v24, v23);
     goto LABEL_30;
   }
 
-  v34 = sub_1AF374344(property, @"imageArray");
-  if (v34)
+  v27 = sub_1AF374344(property, @"imageArray");
+  if (v27)
   {
-    v8 = v34;
-    v35 = sub_1AF2CBA78(property);
-    if (v35)
+    v7 = v27;
+    v28 = sub_1AF2CBA78(property);
+    if (v28)
     {
-      v36 = v35;
-      v37 = objc_msgSend_arrayWithCapacity_(MEMORY[0x1E695DF70], v21, 6, v22);
-      v124 = 0u;
-      v125 = 0u;
-      v126 = 0u;
-      v127 = 0u;
-      v39 = objc_msgSend_countByEnumeratingWithState_objects_count_(v8, v38, &v124, v128, 16);
-      if (!v39)
+      v29 = v28;
+      v30 = objc_msgSend_arrayWithCapacity_(MEMORY[0x1E695DF70], v17, 6);
+      v95 = 0u;
+      v96 = 0u;
+      v97 = 0u;
+      v98 = 0u;
+      v32 = objc_msgSend_countByEnumeratingWithState_objects_count_(v7, v31, &v95, v99, 16);
+      if (!v32)
       {
 LABEL_28:
-        objc_msgSend__updateCFXImageWithContents_(self, v40, v37, v41);
-        objc_msgSend__clearContentsForDeallocation_(self, v47, 0, v48);
-        self->_contents = v8;
+        objc_msgSend__updateCFXImageWithContents_(self, v33, v30);
+        objc_msgSend__clearContentsForDeallocation_(self, v39, 0);
+        self->_contents = v7;
         self->_contentType = 1;
         goto LABEL_30;
       }
 
-      v42 = v39;
-      v43 = *v125;
+      v34 = v32;
+      v35 = *v96;
 LABEL_22:
-      v44 = 0;
+      v36 = 0;
       while (1)
       {
-        if (*v125 != v43)
+        if (*v96 != v35)
         {
-          objc_enumerationMutation(v8);
+          objc_enumerationMutation(v7);
         }
 
-        v45 = VFXResolveImageContents(*(*(&v124 + 1) + 8 * v44), v36);
-        if (!v45)
+        v37 = VFXResolveImageContents(*(*(&v95 + 1) + 8 * v36), v29);
+        if (!v37)
         {
           break;
         }
 
-        objc_msgSend_addObject_(v37, v21, v45, v22);
-        if (v42 == ++v44)
+        objc_msgSend_addObject_(v30, v17, v37);
+        if (v34 == ++v36)
         {
-          v42 = objc_msgSend_countByEnumeratingWithState_objects_count_(v8, v46, &v124, v128, 16);
-          if (v42)
+          v34 = objc_msgSend_countByEnumeratingWithState_objects_count_(v7, v38, &v95, v99, 16);
+          if (v34)
           {
             goto LABEL_22;
           }
@@ -4193,131 +4197,131 @@ LABEL_22:
     goto LABEL_29;
   }
 
-  v83 = objc_opt_class();
-  v85 = objc_msgSend_decodeObjectOfClass_forKey_(property, v84, v83, @"color");
-  if (v85)
+  v64 = objc_opt_class();
+  v66 = objc_msgSend_decodeObjectOfClass_forKey_(property, v65, v64, @"color");
+  if (v66)
   {
-    objc_msgSend_setColor_(self, v86, v85, v87);
+    objc_msgSend_setColor_(self, v67, v66);
   }
 
   else
   {
-    v91 = pthread_main_np();
-    if (!v91)
+    v70 = pthread_main_np();
+    if (!v70)
     {
-      objc_msgSend_begin(MEMORY[0x1E6979518], v88, v89, v90);
-      objc_msgSend_activateBackground_(MEMORY[0x1E6979518], v92, 1, v93);
+      objc_msgSend_begin(MEMORY[0x1E6979518], v68, v69);
+      objc_msgSend_activateBackground_(MEMORY[0x1E6979518], v71, 1);
     }
 
-    v94 = MEMORY[0x1E695DFD8];
-    v95 = objc_opt_class();
-    v98 = objc_msgSend_setWithObject_(v94, v96, v95, v97);
-    v99 = sub_1AF3726E8(property, @"layer", v98);
-    if (v99)
+    v72 = MEMORY[0x1E695DFD8];
+    v73 = objc_opt_class();
+    v75 = objc_msgSend_setWithObject_(v72, v74, v73);
+    v76 = sub_1AF3726E8(property, @"layer", v75);
+    if (v76)
     {
-      objc_msgSend_setLayer_(self, v100, v99, v102);
-      if (!v91)
+      objc_msgSend_setLayer_(self, v77, v76);
+      if (!v70)
       {
-        objc_msgSend_commit(MEMORY[0x1E6979518], v18, v103, v19);
+        objc_msgSend_commit(MEMORY[0x1E6979518], v15, v79);
       }
     }
 
     else
     {
-      if (!v91)
+      if (!v70)
       {
-        objc_msgSend_commit(MEMORY[0x1E6979518], v100, v101, v102);
+        objc_msgSend_commit(MEMORY[0x1E6979518], v77, v78);
       }
 
-      if (objc_msgSend_containsValueForKey_(property, v100, @"float", v102))
+      if (objc_msgSend_containsValueForKey_(property, v77, @"float"))
       {
-        objc_msgSend_decodeFloatForKey_(property, v104, @"float", v105);
-        v109 = objc_msgSend_numberWithFloat_(MEMORY[0x1E696AD98], v106, v107, v108);
-        objc_msgSend_setFloatValue_(self, v110, v109, v111);
+        objc_msgSend_decodeFloatForKey_(property, v80, @"float");
+        v83 = objc_msgSend_numberWithFloat_(MEMORY[0x1E696AD98], v81, v82);
+        objc_msgSend_setFloatValue_(self, v84, v83);
       }
 
-      else if (objc_msgSend_containsValueForKey_(property, v104, @"precomputedLightingEnvironment", v105))
+      else if (objc_msgSend_containsValueForKey_(property, v80, @"precomputedLightingEnvironment"))
       {
-        v112 = MEMORY[0x1E695DFD8];
-        v113 = objc_opt_class();
-        v116 = objc_msgSend_setWithObject_(v112, v114, v113, v115);
-        v117 = sub_1AF3726E8(property, @"precomputedLightingEnvironment", v116);
-        objc_msgSend_setPrecomputedLightingEnvironment_(self, v118, v117, v119);
+        v85 = MEMORY[0x1E695DFD8];
+        v86 = objc_opt_class();
+        v88 = objc_msgSend_setWithObject_(v85, v87, v86);
+        v89 = sub_1AF3726E8(property, @"precomputedLightingEnvironment", v88);
+        objc_msgSend_setPrecomputedLightingEnvironment_(self, v90, v89);
       }
     }
   }
 
 LABEL_30:
-  v49 = objc_msgSend_decodeIntegerForKey_(property, v18, @"mappingChannel", v19);
-  if (v49 != -1)
+  v40 = objc_msgSend_decodeIntegerForKey_(property, v15, @"mappingChannel");
+  if (v40 != -1)
   {
-    objc_msgSend_setMappingChannel_(self, v50, v49, v51);
+    objc_msgSend_setMappingChannel_(self, v41, v40);
   }
 
-  if (objc_msgSend_containsValueForKey_(property, v50, @"textureComponents", v51))
+  if (objc_msgSend_containsValueForKey_(property, v41, @"textureComponents"))
   {
-    v54 = objc_msgSend_decodeIntegerForKey_(property, v52, @"textureComponents", v53);
-    objc_msgSend_setTextureComponents_(self, v55, v54, v56);
+    v43 = objc_msgSend_decodeIntegerForKey_(property, v42, @"textureComponents");
+    objc_msgSend_setTextureComponents_(self, v44, v43);
   }
 
-  *(self + 74) = *(self + 74) & 0xFC | objc_msgSend_decodeIntegerForKey_(property, v52, @"minificationFilter", v53) & 3;
-  *(self + 74) = (4 * (objc_msgSend_decodeIntegerForKey_(property, v57, @"magnificationFilter", v58) & 3)) | *(self + 74) & 0xF3;
-  *(self + 74) = (16 * (objc_msgSend_decodeIntegerForKey_(property, v59, @"mipFilter", v60) & 3)) | *(self + 74) & 0xCF;
-  *(self + 75) = *(self + 75) & 0xF8 | objc_msgSend_decodeIntegerForKey_(property, v61, @"wrapS", v62) & 7;
-  *(self + 75) = (8 * (objc_msgSend_decodeIntegerForKey_(property, v63, @"wrapT", v64) & 7)) | *(self + 75) & 0xC7;
-  objc_msgSend__updateSampler(self, v65, v66, v67);
+  *(self + 74) = *(self + 74) & 0xFC | objc_msgSend_decodeIntegerForKey_(property, v42, @"minificationFilter") & 3;
+  *(self + 74) = (4 * (objc_msgSend_decodeIntegerForKey_(property, v45, @"magnificationFilter") & 3)) | *(self + 74) & 0xF3;
+  *(self + 74) = (16 * (objc_msgSend_decodeIntegerForKey_(property, v46, @"mipFilter") & 3)) | *(self + 74) & 0xCF;
+  *(self + 75) = *(self + 75) & 0xF8 | objc_msgSend_decodeIntegerForKey_(property, v47, @"wrapS") & 7;
+  *(self + 75) = (8 * (objc_msgSend_decodeIntegerForKey_(property, v48, @"wrapT") & 7)) | *(self + 75) & 0xC7;
+  objc_msgSend__updateSampler(self, v49, v50);
   *(self + 77) = *(self + 77) & 0xE0 | 0x10;
-  if (objc_msgSend_containsValueForKey_(property, v68, @"anisotropy", v69))
+  if (objc_msgSend_containsValueForKey_(property, v51, @"anisotropy"))
   {
-    v72 = objc_msgSend_decodeIntegerForKey_(property, v70, @"anisotropy", v71);
-    objc_msgSend_setMaxAnisotropy_(self, v73, v72, v74);
+    v53 = objc_msgSend_decodeIntegerForKey_(property, v52, @"anisotropy");
+    objc_msgSend_setMaxAnisotropy_(self, v54, v53);
   }
 
-  if (objc_msgSend_containsValueForKey_(property, v70, @"contentsTransform", v71))
+  if (objc_msgSend_containsValueForKey_(property, v52, @"contentsTransform"))
   {
-    v80 = sub_1AF371C4C(property, @"contentsTransform").n128_u64[0];
+    v58 = sub_1AF371C4C(property, @"contentsTransform").n128_u64[0];
   }
 
   else
   {
-    if (!objc_msgSend_containsValueForKey_(property, v75, @"tr_p", v76))
+    if (!objc_msgSend_containsValueForKey_(property, v55, @"tr_p"))
     {
       return;
     }
 
-    v81.n128_f64[0] = sub_1AF371BC4(property, @"tr_p");
-    v122 = v81;
-    v82.n128_f64[0] = sub_1AF371BC4(property, @"tr_s");
-    v121 = v82;
-    v120 = sub_1AF371C0C(property, @"tr_a");
-    memset(v123, 0, sizeof(v123));
-    sub_1AF1CCEE0(v123);
-    sub_1AF1CCB38(v123, v122);
-    sub_1AF1CCB7C(v123, v121);
-    sub_1AF1CCAD8(v123, v120);
-    v80 = sub_1AF1CBF20(v123).n128_u64[0];
+    v59.n128_f64[0] = sub_1AF371BC4(property, @"tr_p");
+    v93 = v59;
+    v60.n128_f64[0] = sub_1AF371BC4(property, @"tr_s");
+    v92 = v60;
+    v91 = sub_1AF371C0C(property, @"tr_a");
+    memset(v94, 0, sizeof(v94));
+    sub_1AF1CCEE0(v94);
+    sub_1AF1CCB38(v94, v93);
+    sub_1AF1CCB7C(v94, v61, v92);
+    sub_1AF1CCAD8(v94, v62, v91);
+    v58 = sub_1AF1CBF20(v94, v63).n128_u64[0];
   }
 
-  objc_msgSend_setContentsTransform_(self, v77, v78, v79, *&v80, *&v120);
+  objc_msgSend_setContentsTransform_(self, v56, v57, *&v58, *&v91);
 }
 
 - (BOOL)_hasDefaultValues
 {
   if ((*(self + 8) & 2) != 0)
   {
+    v17 = v3;
     v18 = v4;
-    v19 = v5;
-    if (!self->_customMaterialPropertyName && !objc_msgSend_count(self->_animations, a2, v2, v3) && !self->_contentType && !self->_mappingChannel && self->_intensity == 1.0)
+    if (!self->_customMaterialPropertyName && !objc_msgSend_count(self->_animations, a2, v2) && !self->_contentType && !self->_mappingChannel && self->_intensity == 1.0)
     {
-      v8 = sub_1AF1C4F78();
-      v9 = *(self + 74);
-      if ((v9 & 3) == v8 && ((v9 >> 2) & 3) == BYTE1(v8) && ((v9 >> 4) & 3) == BYTE2(v8))
+      v7 = sub_1AF1C4F78();
+      v8 = *(self + 74);
+      if ((v8 & 3) == v7 && ((v8 >> 2) & 3) == BYTE1(v7) && ((v8 >> 4) & 3) == BYTE2(v7))
       {
-        v10 = *(self + 75);
-        if (BYTE3(v8) + 1 == (v10 & 7) && BYTE4(v8) + 1 == ((v10 >> 3) & 7) && (HIBYTE(v8) & 0x7F) == (*(self + 77) & 0x1F) && !self->_contentTransform)
+        v9 = *(self + 75);
+        if (BYTE3(v7) + 1 == (v9 & 7) && BYTE4(v7) + 1 == ((v9 >> 3) & 7) && (HIBYTE(v7) & 0x7F) == (*(self + 77) & 0x1F) && !self->_contentTransform)
         {
-          v11 = *(self + 76) & 0xF;
-          if (v11 == sub_1AF167B50(self->_propertyType))
+          v10 = *(self + 76) & 0xF;
+          if (v10 == sub_1AF167B50(self->_propertyType))
           {
             if (!self->_contents)
             {
@@ -4327,21 +4331,21 @@ LABEL_30:
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              v12 = sub_1AF1656B8(self->_propertyType);
-              v17 = 1;
-              v16[0] = objc_msgSend_vfx_CFXColorIgnoringColorSpace_success_(self->_contents, v13, 1, &v17);
-              v16[1] = v14;
-              if (v17 == 1)
+              v11 = sub_1AF1656B8(self->_propertyType);
+              v16 = 1;
+              v15[0] = objc_msgSend_vfx_CFXColorIgnoringColorSpace_success_(self->_contents, v12, 1, &v16);
+              v15[1] = v13;
+              if (v16 == 1)
               {
-                v6 = sub_1AF163EE0(v16, v12);
-                if (!v6)
+                v5 = sub_1AF163EE0(v15, v11);
+                if (!v5)
                 {
-                  return v6;
+                  return v5;
                 }
 
 LABEL_20:
-                LOBYTE(v6) = 1;
-                return v6;
+                LOBYTE(v5) = 1;
+                return v5;
               }
             }
           }
@@ -4349,27 +4353,27 @@ LABEL_20:
       }
     }
 
-    LOBYTE(v6) = 0;
-    return v6;
+    LOBYTE(v5) = 0;
+    return v5;
   }
 
-  LOBYTE(v6) = 0;
-  return v6;
+  LOBYTE(v5) = 0;
+  return v5;
 }
 
 - (void)encodeWithCoder:(id)coder
 {
   if (*(self + 8))
   {
-    objc_msgSend__updateModelFromPresentation(self, a2, coder, v3);
+    objc_msgSend__updateModelFromPresentation(self, a2, coder);
   }
 
-  objc_msgSend__customEncodingOfVFXMaterialProperty_(self, a2, coder, v3);
-  objc_msgSend_encodeInt_forKey_(coder, v6, (*(self + 8) >> 1) & 1, @"isCommonProfileProperty");
+  objc_msgSend__customEncodingOfVFXMaterialProperty_(self, a2, coder);
+  v6 = objc_msgSend_encodeInt_forKey_(coder, v5, (*(self + 8) >> 1) & 1, @"isCommonProfileProperty");
   parent = self->_parent;
   if (parent)
   {
-    objc_msgSend_encodeObject_forKey_(coder, v7, parent, @"parent");
+    v6 = objc_msgSend_encodeObject_forKey_(coder, v7, parent, @"parent");
   }
 
   propertyType = self->_propertyType;
@@ -4380,13 +4384,13 @@ LABEL_20:
 
   else
   {
-    v13 = sub_1AF0D5194();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v12 = sub_1AF0D5194(v6, v7);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       sub_1AFDF5FB4();
     }
 
-    objc_msgSend_encodeInteger_forKey_(coder, v14, 0, @"propertyType");
+    objc_msgSend_encodeInteger_forKey_(coder, v13, 0, @"propertyType");
   }
 
   customMaterialPropertyName = self->_customMaterialPropertyName;
@@ -4395,93 +4399,93 @@ LABEL_20:
     objc_msgSend_encodeObject_forKey_(coder, v10, customMaterialPropertyName, @"customMaterialPropertyName");
   }
 
-  *&v12 = self->_intensity;
-  objc_msgSend_encodeFloat_forKey_(coder, v10, @"intensity", v11, v12);
-  if (objc_msgSend_materialPropertyCreateIfNeeded_(self, v16, 0, v17))
+  *&v11 = self->_intensity;
+  objc_msgSend_encodeFloat_forKey_(coder, v10, @"intensity", v11);
+  if (objc_msgSend_materialPropertyCreateIfNeeded_(self, v15, 0))
   {
-    isColorManaged = objc_msgSend_isColorManaged(self, v18, v19, v20);
-    objc_msgSend_encodeBool_forKey_(coder, v22, isColorManaged, @"isColorManaged");
+    isColorManaged = objc_msgSend_isColorManaged(self, v16, v17);
+    objc_msgSend_encodeBool_forKey_(coder, v19, isColorManaged, @"isColorManaged");
   }
 
-  sub_1AF3728B4(coder, self, v19, v20);
+  sub_1AF3728B4(coder, self, v17);
 }
 
 - (VFXMaterialProperty)initWithCoder:(id)coder
 {
-  v55[6] = *MEMORY[0x1E69E9840];
-  v54.receiver = self;
-  v54.super_class = VFXMaterialProperty;
-  v7 = [(VFXMaterialProperty *)&v54 init];
-  if (v7)
+  v41[6] = *MEMORY[0x1E69E9840];
+  v40.receiver = self;
+  v40.super_class = VFXMaterialProperty;
+  v6 = [(VFXMaterialProperty *)&v40 init];
+  if (v6)
   {
-    v8 = objc_msgSend_immediateMode(VFXTransaction, v4, v5, v6);
-    objc_msgSend_setImmediateMode_(VFXTransaction, v9, 1, v10);
-    *(v7 + 8) |= 8u;
-    v13 = objc_msgSend_decodeIntegerForKey_(coder, v11, @"propertyType", v12);
-    if (v13 < 0x1A && ((0x3FFFFFDu >> v13) & 1) != 0)
+    v7 = objc_msgSend_immediateMode(VFXTransaction, v4, v5);
+    objc_msgSend_setImmediateMode_(VFXTransaction, v8, 1);
+    *(v6 + 8) |= 8u;
+    v10 = objc_msgSend_decodeIntegerForKey_(coder, v9, @"propertyType");
+    if (v10 < 0x1A && ((0x3FFFFFDu >> v10) & 1) != 0)
     {
-      v14 = byte_1AFE479D8[v13];
+      v12 = byte_1AFE479D8[v10];
     }
 
     else
     {
-      v15 = sub_1AF0D5194();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      v13 = sub_1AF0D5194(v10, v11);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
         sub_1AFDF5FF0();
       }
 
-      v14 = 0;
+      v12 = 0;
     }
 
-    v7->_propertyType = v14;
-    v16 = MEMORY[0x1E695DFD8];
-    v55[0] = objc_opt_class();
-    v55[1] = objc_opt_class();
-    v55[2] = objc_opt_class();
-    v55[3] = objc_opt_class();
-    v55[4] = objc_opt_class();
-    v55[5] = objc_opt_class();
-    v18 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v17, v55, 6);
-    v21 = objc_msgSend_setWithArray_(v16, v19, v18, v20);
-    v23 = objc_msgSend_decodeObjectOfClasses_forKey_(coder, v22, v21, @"parent");
-    if (v23 == v7)
+    v6->_propertyType = v12;
+    v14 = MEMORY[0x1E695DFD8];
+    v41[0] = objc_opt_class();
+    v41[1] = objc_opt_class();
+    v41[2] = objc_opt_class();
+    v41[3] = objc_opt_class();
+    v41[4] = objc_opt_class();
+    v41[5] = objc_opt_class();
+    v16 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v15, v41, 6);
+    v18 = objc_msgSend_setWithArray_(v14, v17, v16);
+    v20 = objc_msgSend_decodeObjectOfClasses_forKey_(coder, v19, v18, @"parent");
+    if (v20 == v6)
     {
-      objc_msgSend__setParent_(v7, v24, 0, v25);
+      objc_msgSend__setParent_(v6, v21, 0);
     }
 
     else
     {
-      objc_msgSend__setParent_(v7, v24, v23, v25);
+      objc_msgSend__setParent_(v6, v21, v20);
     }
 
-    objc_msgSend__customDecodingOfVFXMaterialProperty_(v7, v26, coder, v27);
-    v30 = objc_msgSend_decodeIntForKey_(coder, v28, @"isCommonProfileProperty", v29);
-    *(v7 + 8) = (2 * (v30 & 1)) | *(v7 + 8) & 0xFD;
-    if (v30)
+    objc_msgSend__customDecodingOfVFXMaterialProperty_(v6, v22, coder);
+    v24 = objc_msgSend_decodeIntForKey_(coder, v23, @"isCommonProfileProperty");
+    *(v6 + 8) = (2 * (v24 & 1)) | *(v6 + 8) & 0xFD;
+    if (v24)
     {
-      v7->_commonProfile = objc_msgSend_commonProfile(v7->_parent, v31, v32, v33);
+      v6->_commonProfile = objc_msgSend_commonProfile(v6->_parent, v25, v26);
     }
 
-    v34 = objc_opt_class();
-    v7->_customMaterialPropertyName = objc_msgSend_decodeObjectOfClass_forKey_(coder, v35, v34, @"customMaterialPropertyName");
-    objc_msgSend_decodeFloatForKey_(coder, v36, @"intensity", v37);
-    objc_msgSend_setIntensity_(v7, v38, v39, v40);
-    v41 = @"sRGB";
-    if ((objc_msgSend_containsValueForKey_(coder, v42, @"sRGB", v43) & 1) != 0 || (v41 = @"colorManaged", objc_msgSend_containsValueForKey_(coder, v44, @"colorManaged", v45)))
+    v27 = objc_opt_class();
+    v6->_customMaterialPropertyName = objc_msgSend_decodeObjectOfClass_forKey_(coder, v28, v27, @"customMaterialPropertyName");
+    objc_msgSend_decodeFloatForKey_(coder, v29, @"intensity");
+    objc_msgSend_setIntensity_(v6, v30, v31);
+    v32 = @"sRGB";
+    if ((objc_msgSend_containsValueForKey_(coder, v33, @"sRGB") & 1) != 0 || (v32 = @"colorManaged", objc_msgSend_containsValueForKey_(coder, v34, @"colorManaged")))
     {
-      v46 = objc_msgSend_decodeBoolForKey_(coder, v44, v41, v45);
-      objc_msgSend_setColorManaged_(v7, v47, v46, v48);
+      v35 = objc_msgSend_decodeBoolForKey_(coder, v34, v32);
+      objc_msgSend_setColorManaged_(v6, v36, v35);
     }
 
-    v7->_animationsLock._os_unfair_lock_opaque = 0;
-    sub_1AF372B94(coder, v7);
-    objc_msgSend__didDecodeVFXMaterialProperty_(v7, v49, coder, v50);
-    *(v7 + 8) &= ~8u;
-    objc_msgSend_setImmediateMode_(VFXTransaction, v51, v8, v52);
+    v6->_animationsLock._os_unfair_lock_opaque = 0;
+    sub_1AF372B94(coder, v6);
+    objc_msgSend__didDecodeVFXMaterialProperty_(v6, v37, coder);
+    *(v6 + 8) &= ~8u;
+    objc_msgSend_setImmediateMode_(VFXTransaction, v38, v7);
   }
 
-  return v7;
+  return v6;
 }
 
 @end

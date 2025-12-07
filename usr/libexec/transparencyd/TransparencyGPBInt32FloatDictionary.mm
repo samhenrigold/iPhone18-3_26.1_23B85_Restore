@@ -1,4 +1,5 @@
 @interface TransparencyGPBInt32FloatDictionary
+- (BOOL)getFloat:(float *)float forKey:(int)key;
 - (BOOL)isEqual:(id)equal;
 - (TransparencyGPBInt32FloatDictionary)initWithDictionary:(id)dictionary;
 - (TransparencyGPBInt32FloatDictionary)initWithFloats:(const float *)floats forKeys:(const int *)keys count:(unint64_t)count;
@@ -8,6 +9,8 @@
 - (void)dealloc;
 - (void)enumerateForTextFormat:(id)format;
 - (void)enumerateKeysAndFloatsUsingBlock:(id)block;
+- (void)removeFloatForKey:(int)key;
+- (void)setFloat:(float)float forKey:(int)key;
 - (void)setTransparencyGPBGenericValue:(id *)value forTransparencyGPBGenericValueKey:(id *)key;
 - (void)writeToCodedOutputStream:(id)stream asField:(id)field;
 @end
@@ -200,6 +203,19 @@
   [(TransparencyGPBInt32FloatDictionary *)self enumerateKeysAndFloatsUsingBlock:v3];
 }
 
+- (BOOL)getFloat:(float *)float forKey:(int)key
+{
+  v5 = [(NSMutableDictionary *)self->_dictionary objectForKey:[NSNumber numberWithInt:*&key]];
+  v6 = v5;
+  if (float && v5)
+  {
+    [v5 floatValue];
+    *float = v7;
+  }
+
+  return v6 != 0;
+}
+
 - (void)addEntriesFromDictionary:(id)dictionary
 {
   if (dictionary)
@@ -212,6 +228,25 @@
       sub_100192DE8(autocreator, self);
     }
   }
+}
+
+- (void)setFloat:(float)float forKey:(int)key
+{
+  [(NSMutableDictionary *)self->_dictionary setObject:[NSNumber numberWithFloat:?], [NSNumber numberWithInt:*&key]];
+  autocreator = self->_autocreator;
+  if (autocreator)
+  {
+
+    sub_100192DE8(autocreator, self);
+  }
+}
+
+- (void)removeFloatForKey:(int)key
+{
+  dictionary = self->_dictionary;
+  v4 = [NSNumber numberWithInt:*&key];
+
+  [(NSMutableDictionary *)dictionary removeObjectForKey:v4];
 }
 
 @end

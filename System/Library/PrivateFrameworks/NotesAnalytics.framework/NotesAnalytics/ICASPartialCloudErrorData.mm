@@ -22,8 +22,8 @@
 
 - (id)toDict
 {
-  v10[1] = *MEMORY[0x277D85DE8];
-  v9 = @"partialErrorSummary";
+  v9[1] = *MEMORY[0x277D85DE8];
+  v8 = @"partialErrorSummary";
   partialErrorSummary = [(ICASPartialCloudErrorData *)self partialErrorSummary];
   if (partialErrorSummary)
   {
@@ -36,10 +36,8 @@
   }
 
   v5 = partialErrorSummary2;
-  v10[0] = partialErrorSummary2;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v9[0] = partialErrorSummary2;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
 
   return v6;
 }

@@ -22,9 +22,7 @@
 
   else
   {
-    useFallbackForRTP = self->_useFallbackForRTP;
     v4 = HMFBooleanToString();
-    useFallbackForHDS = self->_useFallbackForHDS;
     lanRules = HMFBooleanToString();
     v8 = [v3 stringWithFormat:@"<HomeKitOnly synthetic RTP = %@, HDS = %@>", v4, lanRules];
   }
@@ -34,19 +32,19 @@
 
 - (HMDNetworkRouterHomeKitOnlyFirewallConfiguration)initWithAccessory:(id)accessory sourceConfiguration:(id)configuration
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   accessoryCopy = accessory;
   configurationCopy = configuration;
-  v46 = 0;
-  array = [MEMORY[0x277CBEB18] array];
-  v42 = 0;
-  v43 = &v42;
-  v44 = 0x2020000000;
   v45 = 0;
-  v38 = 0;
-  v39 = &v38;
-  v40 = 0x2020000000;
+  array = [MEMORY[0x277CBEB18] array];
   v41 = 0;
+  v42 = &v41;
+  v43 = 0x2020000000;
+  v44 = 0;
+  v37 = 0;
+  v38 = &v37;
+  v39 = 0x2020000000;
+  v40 = 0;
   if (configurationCopy)
   {
     accessoryIdentifier = [configurationCopy accessoryIdentifier];
@@ -59,15 +57,15 @@
     }
 
     lanRules2 = [configurationCopy lanRules];
-    v36[0] = MEMORY[0x277D85DD0];
-    v36[1] = 3221225472;
-    v36[2] = __90__HMDNetworkRouterHomeKitOnlyFirewallConfiguration_initWithAccessory_sourceConfiguration___block_invoke;
-    v36[3] = &unk_27867B080;
-    v37 = array;
-    [lanRules2 hmf_enumerateWithAutoreleasePoolUsingBlock:v36];
+    v35[0] = MEMORY[0x277D85DD0];
+    v35[1] = 3221225472;
+    v35[2] = __90__HMDNetworkRouterHomeKitOnlyFirewallConfiguration_initWithAccessory_sourceConfiguration___block_invoke;
+    v35[3] = &unk_27867B080;
+    v36 = array;
+    [lanRules2 hmf_enumerateWithAutoreleasePoolUsingBlock:v35];
 
     LOBYTE(lanRules) = 0;
-    v12 = v37;
+    v12 = v36;
   }
 
   else
@@ -78,8 +76,8 @@
     aBlock[1] = 3221225472;
     aBlock[2] = __90__HMDNetworkRouterHomeKitOnlyFirewallConfiguration_initWithAccessory_sourceConfiguration___block_invoke_2;
     aBlock[3] = &unk_27867B0A8;
-    aBlock[4] = &v42;
-    aBlock[5] = &v38;
+    aBlock[4] = &v41;
+    aBlock[5] = &v37;
     v12 = _Block_copy(aBlock);
     v13 = accessoryCopy;
     objc_opt_class();
@@ -99,15 +97,15 @@
     {
       v12[2](v12, v15);
       identifiersForBridgedAccessories = [v15 identifiersForBridgedAccessories];
-      v32[0] = MEMORY[0x277D85DD0];
-      v32[1] = 3221225472;
-      v32[2] = __90__HMDNetworkRouterHomeKitOnlyFirewallConfiguration_initWithAccessory_sourceConfiguration___block_invoke_3;
-      v32[3] = &unk_27867B0D0;
-      v33 = v15;
-      v34 = v12;
-      [identifiersForBridgedAccessories hmf_enumerateWithAutoreleasePoolUsingBlock:v32];
+      v31[0] = MEMORY[0x277D85DD0];
+      v31[1] = 3221225472;
+      v31[2] = __90__HMDNetworkRouterHomeKitOnlyFirewallConfiguration_initWithAccessory_sourceConfiguration___block_invoke_3;
+      v31[3] = &unk_27867B0D0;
+      v32 = v15;
+      v33 = v12;
+      [identifiersForBridgedAccessories hmf_enumerateWithAutoreleasePoolUsingBlock:v31];
 
-      if (*(v43 + 24) == 1)
+      if (*(v42 + 24) == 1)
       {
         context = objc_autoreleasePoolPush();
         selfCopy = self;
@@ -116,18 +114,18 @@
         {
           v19 = HMFGetLogIdentifier();
           *buf = 138543618;
-          v48 = v19;
-          v49 = 2112;
-          v50 = @"RTP";
+          v47 = v19;
+          v48 = 2112;
+          v49 = @"RTP";
           _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_INFO, "%{public}@Adding fallback LAN rules for %@", buf, 0x16u);
         }
 
         objc_autoreleasePoolPop(context);
         v20 = [objc_opt_class() fallbackConfigurationForRuleset:@"RTP"];
-        addFallbackLANRules(&v46, array, v20);
+        addFallbackLANRules(&v45, array, v20);
       }
 
-      if (*(v39 + 24) == 1)
+      if (*(v38 + 24) == 1)
       {
         context = objc_autoreleasePoolPush();
         selfCopy2 = self;
@@ -136,18 +134,18 @@
         {
           v23 = HMFGetLogIdentifier();
           *buf = 138543618;
-          v48 = v23;
-          v49 = 2112;
-          v50 = @"HDS";
+          v47 = v23;
+          v48 = 2112;
+          v49 = @"HDS";
           _os_log_impl(&dword_229538000, v22, OS_LOG_TYPE_INFO, "%{public}@Adding fallback LAN rules for %@", buf, 0x16u);
         }
 
         objc_autoreleasePoolPop(context);
         v24 = [objc_opt_class() fallbackConfigurationForRuleset:@"HDS"];
-        addFallbackLANRules(&v46, array, v24);
+        addFallbackLANRules(&v45, array, v24);
       }
 
-      LOBYTE(lanRules) = v46;
+      LOBYTE(lanRules) = v45;
     }
 
     else
@@ -157,22 +155,21 @@
   }
 
 LABEL_20:
-  v25 = [array copy];
-  v31.receiver = self;
-  v31.super_class = HMDNetworkRouterHomeKitOnlyFirewallConfiguration;
-  v26 = [(HMDNetworkRouterFirewallRuleConfiguration *)&v31 initWithAccessoryIdentifier:accessoryIdentifier lastModifiedTime:lastModifiedTime fullAccessLAN:lanRules & 1 lanRules:v25 fullAccessWAN:0 wanRules:MEMORY[0x277CBEBF8]];
+  v25 = objc_msgSend_copy(array, context);
+  v30.receiver = self;
+  v30.super_class = HMDNetworkRouterHomeKitOnlyFirewallConfiguration;
+  v26 = [(HMDNetworkRouterFirewallRuleConfiguration *)&v30 initWithAccessoryIdentifier:accessoryIdentifier lastModifiedTime:lastModifiedTime fullAccessLAN:lanRules & 1 lanRules:v25 fullAccessWAN:0 wanRules:MEMORY[0x277CBEBF8]];
 
   if (v26)
   {
     v26->_isFiltered = configurationCopy != 0;
-    v26->_useFallbackForRTP = *(v43 + 24);
-    v26->_useFallbackForHDS = *(v39 + 24);
+    v26->_useFallbackForRTP = *(v42 + 24);
+    v26->_useFallbackForHDS = *(v38 + 24);
   }
 
-  _Block_object_dispose(&v38, 8);
-  _Block_object_dispose(&v42, 8);
+  _Block_object_dispose(&v37, 8);
+  _Block_object_dispose(&v41, 8);
 
-  v27 = *MEMORY[0x277D85DE8];
   return v26;
 }
 
@@ -253,7 +250,7 @@ void __90__HMDNetworkRouterHomeKitOnlyFirewallConfiguration_initWithAccessory_so
 
 void __84__HMDNetworkRouterHomeKitOnlyFirewallConfiguration_fallbackConfigurationForRuleset___block_invoke(uint64_t a1)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CCA8D8] bundleForClass:*(a1 + 32)];
   v3 = [v2 pathForResource:@"NetworkProtectionRules" ofType:@"plist"];
 
@@ -263,16 +260,16 @@ void __84__HMDNetworkRouterHomeKitOnlyFirewallConfiguration_fallbackConfiguratio
     if (v4)
     {
       v5 = [objc_alloc(MEMORY[0x277CBEB38]) initWithCapacity:{objc_msgSend(v4, "count")}];
-      v19 = MEMORY[0x277D85DD0];
-      v20 = 3221225472;
-      v21 = __84__HMDNetworkRouterHomeKitOnlyFirewallConfiguration_fallbackConfigurationForRuleset___block_invoke_20;
-      v22 = &unk_27867B058;
+      v18 = MEMORY[0x277D85DD0];
+      v19 = 3221225472;
+      v20 = __84__HMDNetworkRouterHomeKitOnlyFirewallConfiguration_fallbackConfigurationForRuleset___block_invoke_20;
+      v21 = &unk_27867B058;
       v6 = *(a1 + 32);
-      v23 = v5;
-      v24 = v6;
+      v22 = v5;
+      v23 = v6;
       v7 = v5;
-      [v4 enumerateKeysAndObjectsUsingBlock:&v19];
-      v8 = [v7 copy];
+      [v4 enumerateKeysAndObjectsUsingBlock:&v18];
+      v8 = objc_msgSend_copy(v7, v18, v19, v20, v21);
       v9 = fallbackConfigurationForRuleset__fallback;
       fallbackConfigurationForRuleset__fallback = v8;
     }
@@ -286,7 +283,7 @@ void __84__HMDNetworkRouterHomeKitOnlyFirewallConfiguration_fallbackConfiguratio
       {
         v17 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v26 = v17;
+        v25 = v17;
         _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_ERROR, "%{public}@Unable to load fallback network protection rules", buf, 0xCu);
       }
 
@@ -303,19 +300,17 @@ void __84__HMDNetworkRouterHomeKitOnlyFirewallConfiguration_fallbackConfiguratio
     {
       v13 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v26 = v13;
+      v25 = v13;
       _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_ERROR, "%{public}@Unable to locate fallback network protection rules", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v10);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void __84__HMDNetworkRouterHomeKitOnlyFirewallConfiguration_fallbackConfigurationForRuleset___block_invoke_20(uint64_t a1, void *a2, void *a3)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = v5;
@@ -364,11 +359,11 @@ void __84__HMDNetworkRouterHomeKitOnlyFirewallConfiguration_fallbackConfiguratio
     if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
       v20 = HMFGetLogIdentifier();
-      v22 = 138543618;
-      v23 = v20;
-      v24 = 2112;
-      v25 = v7;
-      _os_log_impl(&dword_229538000, v19, OS_LOG_TYPE_ERROR, "%{public}@Failed to parse fallback network protection rules for '%@'", &v22, 0x16u);
+      v21 = 138543618;
+      v22 = v20;
+      v23 = 2112;
+      v24 = v7;
+      _os_log_impl(&dword_229538000, v19, OS_LOG_TYPE_ERROR, "%{public}@Failed to parse fallback network protection rules for '%@'", &v21, 0x16u);
     }
 
     objc_autoreleasePoolPop(v17);
@@ -378,8 +373,6 @@ void __84__HMDNetworkRouterHomeKitOnlyFirewallConfiguration_fallbackConfiguratio
   {
     [*(a1 + 32) setObject:v16 forKeyedSubscript:v9];
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 + (id)fallbackIdentifier

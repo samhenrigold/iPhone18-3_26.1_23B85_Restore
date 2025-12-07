@@ -26,6 +26,8 @@
 - (void)_showWebExtensionSettings:(id)settings;
 - (void)_updateAllowInPrivateBrowsingValue:(id)value forWebExtension:(id)extension;
 - (void)tableView:(id)view commitEditingStyle:(int64_t)style forRowAtIndexPath:(id)path;
+- (void)viewWillAppear:(BOOL)appear;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation SafariWebExtensionsPermissionsSettingsController
@@ -81,6 +83,26 @@ void __73__SafariWebExtensionsPermissionsSettingsController__reloadSpecifiersSoo
     [WeakRetained reloadSpecifiers];
     WeakRetained = v2;
   }
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v5.receiver = self;
+  v5.super_class = SafariWebExtensionsPermissionsSettingsController;
+  [(SafariWebExtensionsPermissionsSettingsController *)&v5 viewWillAppear:appear];
+  v4 = webExtensionsController();
+  [v4 addObserver:self];
+
+  [(SafariWebExtensionsPermissionsSettingsController *)self _setExtensionIfNeeded];
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  v5.receiver = self;
+  v5.super_class = SafariWebExtensionsPermissionsSettingsController;
+  [(SafariWebExtensionsPermissionsSettingsController *)&v5 viewWillDisappear:disappear];
+  v4 = webExtensionsController();
+  [v4 removeObserver:self];
 }
 
 - (id)_specifiersForEnablingExtension
@@ -594,22 +616,20 @@ void __76__SafariWebExtensionsPermissionsSettingsController__deleteExtensionStor
 
 uint64_t __76__SafariWebExtensionsPermissionsSettingsController__deleteExtensionStorage___block_invoke_2(uint64_t a1)
 {
-  v2 = *(a1 + 32);
   if (objc_opt_respondsToSelector())
   {
-    v3 = [*(a1 + 32) errors];
-    v4 = [v3 count];
+    v2 = [*(a1 + 32) errors];
+    v3 = [v2 count];
 
-    if (v4)
+    if (v3)
     {
       *(*(*(a1 + 56) + 8) + 24) = 1;
     }
   }
 
-  v5 = *(a1 + 40);
-  v6 = *(*(a1 + 48) + 16);
+  v4 = *(*(a1 + 48) + 16);
 
-  return v6();
+  return v4();
 }
 
 - (BOOL)_isExtensionEnabledInMoreThanOneProfile
@@ -919,7 +939,7 @@ LABEL_12:
 void __109__SafariWebExtensionsPermissionsSettingsController__calculateExtensionStorageSizeAndCreateClearStorageButton__block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v14 = v3;
+  v12 = v3;
   if (!*(*(a1 + 32) + 152))
   {
     v4 = +[NSMapTable weakToStrongObjectsMapTable];
@@ -927,19 +947,19 @@ void __109__SafariWebExtensionsPermissionsSettingsController__calculateExtension
     v6 = *(v5 + 152);
     *(v5 + 152) = v4;
 
-    v3 = v14;
+    v3 = v12;
   }
 
   if (v3)
   {
     v7 = *(*(a1 + 32) + 152);
     v8 = [*(a1 + 40) webKitContext];
-    [v7 setObject:v14 forKey:v8];
+    [v7 setObject:v12 forKey:v8];
   }
 
   if (objc_opt_respondsToSelector())
   {
-    v9 = [v14 errors];
+    v9 = [v12 errors];
     v10 = [v9 count];
 
     if (v10)
@@ -950,16 +970,14 @@ void __109__SafariWebExtensionsPermissionsSettingsController__calculateExtension
 
   if (objc_opt_respondsToSelector())
   {
-    v11 = [v14 totalSizeInBytes];
+    v11 = [v12 totalSizeInBytes];
   }
 
   else
   {
-    v11 = [v14 totalSize];
+    v11 = [v12 totalSize];
   }
 
-  v12 = *(a1 + 40);
-  v13 = *(a1 + 64);
   (*(*(a1 + 48) + 16))(v11);
 }
 

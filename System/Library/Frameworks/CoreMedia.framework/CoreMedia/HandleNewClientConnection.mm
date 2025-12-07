@@ -13,7 +13,7 @@ void __figXPC_HandleNewClientConnection_block_invoke(void *a1, void *a2)
       int64 = xpc_dictionary_get_int64(a2, ".Date");
       if (int64 >= 1)
       {
-        v6 = ((FigGetUpTimeNanoseconds() - int64) / 0xF4240);
+        v6 = ((FigGetUpTimeNanoseconds() - int64) / 0xF4240uLL);
         EnvironmentName = FigServer_GetEnvironmentName();
         FigCAStatsReportingSubmitData(EnvironmentName, @"com.apple.coremedia.serverstartup", @"startupTime", v6);
       }

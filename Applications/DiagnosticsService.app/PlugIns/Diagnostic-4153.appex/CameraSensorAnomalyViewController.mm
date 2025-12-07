@@ -1234,19 +1234,7 @@ LABEL_11:
   fileDataRepresentation = [photoCopy fileDataRepresentation];
 
   v188 = fileDataRepresentation;
-  if (!fileDataRepresentation)
-  {
-    goto LABEL_10;
-  }
-
-  view2 = [(CameraSensorAnomalyViewController *)self view];
-  window = [view2 window];
-  windowScene = [window windowScene];
-  screen = [windowScene screen];
-  [screen scale];
-  v19 = [UIImage imageWithData:fileDataRepresentation scale:?];
-
-  if (v19)
+  if (fileDataRepresentation && (-[CameraSensorAnomalyViewController view](self, "view"), v15 = objc_claimAutoreleasedReturnValue(), [v15 window], v16 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v16, "windowScene"), v17 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v17, "screen"), v18 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v18, "scale"), +[UIImage imageWithData:scale:](UIImage, "imageWithData:scale:", fileDataRepresentation), v19 = objc_claimAutoreleasedReturnValue(), v18, v17, v16, v15, v19))
   {
     v187 = errorCopy;
     [(CameraSensorAnomalyViewController *)self setDrawingMode:1];
@@ -1313,11 +1301,11 @@ LABEL_11:
     [currentImageView13 addSubview:drawableView];
 
     v63 = [UIScrollView alloc];
+    view2 = [(CameraSensorAnomalyViewController *)self view];
+    [view2 frame];
+    v66 = v65;
     view3 = [(CameraSensorAnomalyViewController *)self view];
     [view3 frame];
-    v66 = v65;
-    view4 = [(CameraSensorAnomalyViewController *)self view];
-    [view4 frame];
     v69 = [v63 initWithFrame:{0.0, 0.0, v66, v68 - 85.0}];
     [(CameraSensorAnomalyViewController *)self setImageScrollView:v69];
 
@@ -1522,8 +1510,8 @@ LABEL_11:
     continueButton13 = [(CameraSensorAnomalyViewController *)self continueButton];
     [continueButton13 setHidden:1];
 
-    view5 = [(CameraSensorAnomalyViewController *)self view];
-    [view5 setNeedsUpdateConstraints];
+    view4 = [(CameraSensorAnomalyViewController *)self view];
+    [view4 setNeedsUpdateConstraints];
 
     bottomBar4 = [(CameraSensorAnomalyViewController *)self bottomBar];
     retakeButton13 = [(CameraSensorAnomalyViewController *)self retakeButton];
@@ -1537,13 +1525,13 @@ LABEL_11:
     continueButton14 = [(CameraSensorAnomalyViewController *)self continueButton];
     [bottomBar6 addSubview:continueButton14];
 
-    view6 = [(CameraSensorAnomalyViewController *)self view];
+    view5 = [(CameraSensorAnomalyViewController *)self view];
     imageScrollView11 = [(CameraSensorAnomalyViewController *)self imageScrollView];
-    [view6 addSubview:imageScrollView11];
+    [view5 addSubview:imageScrollView11];
 
-    view7 = [(CameraSensorAnomalyViewController *)self view];
+    view6 = [(CameraSensorAnomalyViewController *)self view];
     bottomBar7 = [(CameraSensorAnomalyViewController *)self bottomBar];
-    [view7 addSubview:bottomBar7];
+    [view6 addSubview:bottomBar7];
 
     v174 = +[DSTestAutomation sharedInstance];
     LODWORD(bottomBar7) = [v174 testAutomationEnabled];
@@ -1558,7 +1546,6 @@ LABEL_11:
 
   else
   {
-LABEL_10:
     v176 = DiagnosticLogHandleForCategory();
     if (os_log_type_enabled(v176, OS_LOG_TYPE_ERROR))
     {

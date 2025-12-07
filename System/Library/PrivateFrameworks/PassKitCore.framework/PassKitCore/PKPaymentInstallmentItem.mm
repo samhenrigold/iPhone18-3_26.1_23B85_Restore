@@ -62,15 +62,15 @@ LABEL_10:
 
         else
         {
-          LOBYTE(v8) = 0;
+          LOBYTE(isEqualToString) = 0;
           if (!v11 || !v12)
           {
             goto LABEL_32;
           }
 
-          v8 = [(NSString *)v11 isEqualToString:v12];
+          isEqualToString = objc_msgSend_isEqualToString_(v11);
 
-          if (!v8)
+          if (!isEqualToString)
           {
             goto LABEL_9;
           }
@@ -98,15 +98,15 @@ LABEL_27:
               v13 = v20;
               if (v11 == v20)
               {
-                LOBYTE(v8) = 1;
+                LOBYTE(isEqualToString) = 1;
               }
 
               else
               {
-                LOBYTE(v8) = 0;
+                LOBYTE(isEqualToString) = 0;
                 if (v11 && v20)
                 {
-                  LOBYTE(v8) = [(NSString *)v11 isEqualToString:v20];
+                  LOBYTE(isEqualToString) = objc_msgSend_isEqualToString_(v11);
                 }
               }
 
@@ -122,12 +122,12 @@ LABEL_27:
           goto LABEL_8;
         }
 
-        LOBYTE(v8) = 0;
+        LOBYTE(isEqualToString) = 0;
         if (v11 && v15)
         {
-          v8 = [(NSString *)v11 isEqualToString:v15];
+          isEqualToString = objc_msgSend_isEqualToString_(v11);
 
-          if (!v8)
+          if (!isEqualToString)
           {
             goto LABEL_9;
           }
@@ -148,10 +148,10 @@ LABEL_32:
   }
 
 LABEL_8:
-  LOBYTE(v8) = 0;
+  LOBYTE(isEqualToString) = 0;
 LABEL_9:
 
-  return v8;
+  return isEqualToString;
 }
 
 - (PKPaymentInstallmentItem)initWithCoder:(id)coder

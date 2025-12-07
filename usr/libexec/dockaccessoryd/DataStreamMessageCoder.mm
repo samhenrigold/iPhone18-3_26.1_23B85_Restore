@@ -9,6 +9,7 @@
 + (id)_encryptEncryptedOPACKHeader:(id)header payload:(id)payload sessionEncryption:(id)encryption error:(id *)error;
 + (id)eventHeaderForProtocol:(id)protocol topic:(id)topic;
 + (id)requestHeaderForProtocol:(id)protocol topic:(id)topic identifier:(id)identifier;
++ (id)responseHeaderForRequestHeader:(id)header status:(unsigned __int16)status;
 @end
 
 @implementation DataStreamMessageCoder
@@ -68,23 +69,22 @@
 
   if (v11 && (v11 - 1) >= *bytes)
   {
-    v13 = *bytes;
-    v14 = OPACKDecodeBytes();
-    if (v14 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+    v13 = OPACKDecodeBytes();
+    if (v13 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
     {
-      v15 = OPACKDecodeBytes();
-      if (v15 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+      v14 = OPACKDecodeBytes();
+      if (v14 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
       {
         if (header)
         {
-          v16 = v14;
-          *header = v14;
+          v15 = v13;
+          *header = v13;
         }
 
         if (payload)
         {
-          v17 = v15;
-          *payload = v15;
+          v16 = v14;
+          *payload = v14;
         }
 
         v12 = 1;
@@ -362,6 +362,28 @@ LABEL_7:
   topicCopy = topic;
   protocolCopy = protocol;
   v10 = [NSDictionary dictionaryWithObjects:v13 forKeys:v12 count:3];
+
+  return v10;
+}
+
++ (id)responseHeaderForRequestHeader:(id)header status:(unsigned __int16)status
+{
+  statusCopy = status;
+  v12[0] = @"protocol";
+  headerCopy = header;
+  v6 = [headerCopy objectForKeyedSubscript:@"protocol"];
+  v13[0] = v6;
+  v12[1] = @"response";
+  v7 = [headerCopy objectForKeyedSubscript:@"request"];
+  v13[1] = v7;
+  v12[2] = @"id";
+  v8 = [headerCopy objectForKeyedSubscript:?];
+
+  v13[2] = v8;
+  v12[3] = @"status";
+  v9 = [NSNumber numberWithUnsignedShort:statusCopy];
+  v13[3] = v9;
+  v10 = [NSDictionary dictionaryWithObjects:v13 forKeys:v12 count:4];
 
   return v10;
 }

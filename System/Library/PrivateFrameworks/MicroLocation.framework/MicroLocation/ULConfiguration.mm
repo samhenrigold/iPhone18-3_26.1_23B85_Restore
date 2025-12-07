@@ -51,17 +51,17 @@
 
 - (ULConfiguration)initWithCoder:(id)coder
 {
-  v19[2] = *MEMORY[0x277D85DE8];
+  v18[2] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v18.receiver = self;
-  v18.super_class = ULConfiguration;
-  v5 = [(ULConfiguration *)&v18 init];
+  v17.receiver = self;
+  v17.super_class = ULConfiguration;
+  v5 = [(ULConfiguration *)&v17 init];
   if (v5)
   {
     v6 = MEMORY[0x277CBEB98];
-    v19[0] = objc_opt_class();
-    v19[1] = objc_opt_class();
-    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:2];
+    v18[0] = objc_opt_class();
+    v18[1] = objc_opt_class();
+    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:2];
     v8 = [v6 setWithArray:v7];
     v9 = [coderCopy decodeObjectOfClasses:v8 forKey:@"contextLayers"];
 
@@ -97,7 +97,6 @@
     v9 = 0;
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v9;
 }
 

@@ -7,7 +7,7 @@
 - (void)viewDidLoad
 {
   v4.receiver = self;
-  v4.super_class = type metadata accessor for InsightsPlacesDetailView.ContentViewController();
+  v4.super_class = type metadata accessor for InsightsPlacesDetailView.ContentViewController(0);
   v2 = v4.receiver;
   [(JournalEntryCollectionViewController *)&v4 viewDidLoad];
   v3 = sub_1008A96F8();

@@ -24,7 +24,7 @@
   v15 = v14;
   if (v14)
   {
-    [v14 indexPath];
+    objc_msgSend_indexPath(v14);
   }
 
   else

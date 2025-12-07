@@ -64,194 +64,193 @@
     v6 = shouldLog;
   }
 
-  if (os_log_type_enabled([v4 OSLogObject], OS_LOG_TYPE_INFO))
+  oSLogObject = [v4 OSLogObject];
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
   {
-    v7 = v6;
+    v8 = v6;
   }
 
   else
   {
-    v7 = v6 & 2;
+    v8 = v6 & 2;
   }
 
-  if (v7)
+  if (v8)
   {
-    v49 = 138412290;
-    v50 = objc_opt_class();
-    LODWORD(v41) = 12;
-    v39 = &v49;
-    v8 = _os_log_send_and_compose_impl();
-    if (v8)
+    v52 = 138412290;
+    v53 = objc_opt_class();
+    v9 = _os_log_send_and_compose_impl(v8, 0, 0, 0, &_mh_execute_header, oSLogObject, 1, "%@: Loading preorder queue", &v52, 12);
+    if (v9)
     {
-      v9 = v8;
-      v10 = [NSString stringWithCString:v8 encoding:4, &v49, v41];
-      free(v9);
-      v39 = v10;
+      v10 = v9;
+      v11 = [NSString stringWithCString:v9 encoding:4];
+      free(v10);
+      v42 = v11;
       SSFileLog();
     }
   }
 
-  v47 = 0;
-  v11 = [(LoadPreorderQueueOperation *)self runSubOperation:_newURLOperation returningError:&v47, v39];
-  if (v11)
+  v50 = 0;
+  v12 = [(LoadPreorderQueueOperation *)self runSubOperation:_newURLOperation returningError:&v50, v42];
+  if (v12)
   {
-    v12 = [objc_msgSend(_newURLOperation "dataProvider")];
+    v13 = [objc_msgSend(_newURLOperation "dataProvider")];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v13 = [v12 objectForKey:@"items"];
+      v14 = [v13 objectForKey:@"items"];
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v42 = _newURLOperation;
-        v14 = objc_alloc_init(NSMutableArray);
-        v43 = 0u;
-        v44 = 0u;
-        v45 = 0u;
+        v45 = _newURLOperation;
+        v15 = objc_alloc_init(NSMutableArray);
         v46 = 0u;
-        v15 = [v13 countByEnumeratingWithState:&v43 objects:v48 count:16];
-        if (v15)
+        v47 = 0u;
+        v48 = 0u;
+        v49 = 0u;
+        v16 = [v14 countByEnumeratingWithState:&v46 objects:v51 count:16];
+        if (v16)
         {
-          v16 = v15;
-          v17 = *v44;
+          v17 = v16;
+          v18 = *v47;
           do
           {
-            for (i = 0; i != v16; i = i + 1)
+            for (i = 0; i != v17; i = i + 1)
             {
-              if (*v44 != v17)
+              if (*v47 != v18)
               {
-                objc_enumerationMutation(v13);
+                objc_enumerationMutation(v14);
               }
 
-              v19 = *(*(&v43 + 1) + 8 * i);
+              v20 = *(*(&v46 + 1) + 8 * i);
               objc_opt_class();
               if (objc_opt_isKindOfClass())
               {
-                v20 = [[SSItem alloc] initWithItemDictionary:v19];
-                if (v20)
+                v21 = [[SSItem alloc] initWithItemDictionary:v20];
+                if (v21)
                 {
-                  v21 = v20;
-                  [v14 addObject:v20];
+                  v22 = v21;
+                  [v15 addObject:v21];
                 }
               }
             }
 
-            v16 = [v13 countByEnumeratingWithState:&v43 objects:v48 count:16];
+            v17 = [v14 countByEnumeratingWithState:&v46 objects:v51 count:16];
           }
 
-          while (v16);
+          while (v17);
         }
 
-        v22 = +[SSLogConfig sharedDaemonConfig];
-        if (!v22)
+        v23 = +[SSLogConfig sharedDaemonConfig];
+        if (!v23)
         {
-          v22 = +[SSLogConfig sharedConfig];
+          v23 = +[SSLogConfig sharedConfig];
         }
 
-        shouldLog2 = [v22 shouldLog];
-        if ([v22 shouldLogToDisk])
+        shouldLog2 = [v23 shouldLog];
+        if ([v23 shouldLogToDisk])
         {
-          v24 = shouldLog2 | 2;
-        }
-
-        else
-        {
-          v24 = shouldLog2;
-        }
-
-        if (os_log_type_enabled([v22 OSLogObject], OS_LOG_TYPE_INFO))
-        {
-          v25 = v24;
+          v25 = shouldLog2 | 2;
         }
 
         else
         {
-          v25 = v24 & 2;
+          v25 = shouldLog2;
         }
 
-        if (v25)
+        oSLogObject2 = [v23 OSLogObject];
+        if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_INFO))
         {
-          v26 = objc_opt_class();
-          v27 = [v14 count];
-          v49 = 138412546;
-          v50 = v26;
-          v51 = 2048;
-          v52 = v27;
-          LODWORD(v41) = 22;
-          v40 = &v49;
-          v28 = _os_log_send_and_compose_impl();
-          if (v28)
+          v27 = v25;
+        }
+
+        else
+        {
+          v27 = v25 & 2;
+        }
+
+        if (v27)
+        {
+          v28 = objc_opt_class();
+          v29 = [v15 count];
+          v52 = 138412546;
+          v53 = v28;
+          v54 = 2048;
+          v55 = v29;
+          LODWORD(v44) = 22;
+          v30 = _os_log_send_and_compose_impl(v27, 0, 0, 0, &_mh_execute_header, oSLogObject2, 1, "%@: Loaded %lu preorder items", &v52, v44);
+          if (v30)
           {
-            v29 = v28;
-            v30 = [NSString stringWithCString:v28 encoding:4, &v49, v41];
-            free(v29);
-            v40 = v30;
+            v31 = v30;
+            v32 = [NSString stringWithCString:v30 encoding:4];
+            free(v31);
+            v43 = v32;
             SSFileLog();
           }
         }
 
         [(LoadPreorderQueueOperation *)self lock];
 
-        self->_items = [v14 copy];
+        self->_items = [v15 copy];
         [(LoadPreorderQueueOperation *)self unlock];
 
-        _newURLOperation = v42;
+        _newURLOperation = v45;
       }
     }
   }
 
   else
   {
-    v31 = +[SSLogConfig sharedDaemonConfig];
-    if (!v31)
+    v33 = +[SSLogConfig sharedDaemonConfig];
+    if (!v33)
     {
-      v31 = +[SSLogConfig sharedConfig];
+      v33 = +[SSLogConfig sharedConfig];
     }
 
-    shouldLog3 = [v31 shouldLog];
-    if ([v31 shouldLogToDisk])
+    shouldLog3 = [v33 shouldLog];
+    if ([v33 shouldLogToDisk])
     {
-      v33 = shouldLog3 | 2;
-    }
-
-    else
-    {
-      v33 = shouldLog3;
-    }
-
-    if (os_log_type_enabled([v31 OSLogObject], OS_LOG_TYPE_DEFAULT))
-    {
-      v34 = v33;
+      v35 = shouldLog3 | 2;
     }
 
     else
     {
-      v34 = v33 & 2;
+      v35 = shouldLog3;
     }
 
-    if (v34)
+    oSLogObject3 = [v33 OSLogObject];
+    if (os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_DEFAULT))
     {
-      v35 = objc_opt_class();
-      v49 = 138412546;
-      v50 = v35;
-      v51 = 2112;
-      v52 = v47;
-      LODWORD(v41) = 22;
-      v40 = &v49;
-      v36 = _os_log_send_and_compose_impl();
-      if (v36)
+      v37 = v35;
+    }
+
+    else
+    {
+      v37 = v35 & 2;
+    }
+
+    if (v37)
+    {
+      v38 = objc_opt_class();
+      v52 = 138412546;
+      v53 = v38;
+      v54 = 2112;
+      v55 = v50;
+      LODWORD(v44) = 22;
+      v39 = _os_log_send_and_compose_impl(v37, 0, 0, 0, &_mh_execute_header, oSLogObject3, 0, "%@: Could not load preorder queue: %@", &v52, v44);
+      if (v39)
       {
-        v37 = v36;
-        v38 = [NSString stringWithCString:v36 encoding:4, &v49, v41];
-        free(v37);
-        v40 = v38;
+        v40 = v39;
+        v41 = [NSString stringWithCString:v39 encoding:4];
+        free(v40);
+        v43 = v41;
         SSFileLog();
       }
     }
   }
 
-  [(LoadPreorderQueueOperation *)self setError:v47, v40];
-  [(LoadPreorderQueueOperation *)self setSuccess:v11];
+  [(LoadPreorderQueueOperation *)self setError:v50, v43];
+  [(LoadPreorderQueueOperation *)self setSuccess:v12];
 }
 
 - (id)_newURLOperation

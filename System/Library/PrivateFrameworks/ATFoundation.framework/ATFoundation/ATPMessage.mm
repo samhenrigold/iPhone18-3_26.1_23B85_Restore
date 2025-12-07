@@ -5,6 +5,7 @@
 - (id)description;
 - (id)dictionaryRepresentation;
 - (id)formattedDescription;
+- (id)messageTypeAsString:(int)string;
 - (int)StringAsMessageType:(id)type;
 - (int)messageType;
 - (unint64_t)hash;
@@ -217,7 +218,6 @@ LABEL_8:
     goto LABEL_34;
   }
 
-  v5 = *(equalCopy + 84);
   if ((*&self->_has & 2) != 0)
   {
     if ((*(equalCopy + 84) & 2) == 0 || self->_messageType != *(equalCopy + 3))
@@ -308,7 +308,6 @@ LABEL_8:
     }
   }
 
-  v12 = *(equalCopy + 84);
   if ((*&self->_has & 8) == 0)
   {
     if ((*(equalCopy + 84) & 8) == 0)
@@ -317,7 +316,7 @@ LABEL_8:
     }
 
 LABEL_34:
-    v14 = 0;
+    v12 = 0;
     goto LABEL_35;
   }
 
@@ -326,7 +325,6 @@ LABEL_34:
     goto LABEL_34;
   }
 
-  v16 = *(equalCopy + 80);
   if (self->_additionalPayload)
   {
     if ((*(equalCopy + 80) & 1) == 0)
@@ -344,17 +342,17 @@ LABEL_31:
   streamError = self->_streamError;
   if (streamError | *(equalCopy + 9))
   {
-    v14 = [(ATPError *)streamError isEqual:?];
+    v12 = [(ATPError *)streamError isEqual:?];
   }
 
   else
   {
-    v14 = 1;
+    v12 = 1;
   }
 
 LABEL_35:
 
-  return v14;
+  return v12;
 }
 
 - (id)copyWithZone:(_NSZone *)zone
@@ -521,12 +519,11 @@ LABEL_5:
 {
   toCopy = to;
   has = self->_has;
-  v10 = toCopy;
+  v6 = toCopy;
   if ((has & 2) != 0)
   {
-    messageType = self->_messageType;
     PBDataWriterWriteInt32Field();
-    toCopy = v10;
+    toCopy = v6;
     has = self->_has;
     if ((has & 1) == 0)
     {
@@ -545,65 +542,62 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  messageID = self->_messageID;
   PBDataWriterWriteUint32Field();
-  toCopy = v10;
+  toCopy = v6;
   if ((*&self->_has & 4) != 0)
   {
 LABEL_4:
-    sessionID = self->_sessionID;
     PBDataWriterWriteUint32Field();
-    toCopy = v10;
+    toCopy = v6;
   }
 
 LABEL_5:
   if (self->_parameters)
   {
     PBDataWriterWriteDataField();
-    toCopy = v10;
+    toCopy = v6;
   }
 
   if (self->_paramsSignature)
   {
     PBDataWriterWriteDataField();
-    toCopy = v10;
+    toCopy = v6;
   }
 
   if (self->_payloadSignature)
   {
     PBDataWriterWriteDataField();
-    toCopy = v10;
+    toCopy = v6;
   }
 
   if (self->_request)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v10;
+    toCopy = v6;
   }
 
   if (self->_response)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v10;
+    toCopy = v6;
   }
 
   if (self->_payload)
   {
     PBDataWriterWriteDataField();
-    toCopy = v10;
+    toCopy = v6;
   }
 
   if ((*&self->_has & 8) != 0)
   {
-    additionalPayload = self->_additionalPayload;
     PBDataWriterWriteBOOLField();
-    toCopy = v10;
+    toCopy = v6;
   }
 
   if (self->_streamError)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v10;
+    toCopy = v6;
   }
 }
 
@@ -1124,6 +1118,21 @@ LABEL_98:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)messageTypeAsString:(int)string
+{
+  if (string >= 5)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_2784E8D50[string];
   }
 
   return v4;

@@ -3,12 +3,24 @@
 - (void)cancelNotificationsForCodeType:(int64_t)type;
 - (void)dealloc;
 - (void)didReceiveNotificationResponse:(id)response;
+- (void)notifyParsedCodeWithData:(id)data codePayload:(id)payload shouldReplacePreviousNotifications:(BOOL)notifications withReply:(id)reply;
 - (void)setInterruptionHandler:(id)handler;
 - (void)startNFCReaderWithDelegate:(id)delegate errorHandler:(id)handler;
 - (void)stopNFCReaderWithErrorHandler:(id)handler;
 @end
 
 @implementation BCSNotificationServiceConnection
+
+- (void)notifyParsedCodeWithData:(id)data codePayload:(id)payload shouldReplacePreviousNotifications:(BOOL)notifications withReply:(id)reply
+{
+  notificationsCopy = notifications;
+  replyCopy = reply;
+  payloadCopy = payload;
+  dataCopy = data;
+  serviceConnection = [(BCSNotificationServiceConnection *)self serviceConnection];
+  v13 = [serviceConnection remoteObjectProxyWithErrorHandler:&__block_literal_global_5];
+  [v13 notifyParsedCodeWithData:dataCopy codePayload:payloadCopy shouldReplacePreviousNotifications:notificationsCopy reply:replyCopy];
+}
 
 void __118__BCSNotificationServiceConnection_notifyParsedCodeWithData_codePayload_shouldReplacePreviousNotifications_withReply___block_invoke(uint64_t a1, void *a2)
 {
@@ -170,12 +182,9 @@ void __53__BCSNotificationServiceConnection_serviceConnection__block_invoke(uint
 
 void __118__BCSNotificationServiceConnection_notifyParsedCodeWithData_codePayload_shouldReplacePreviousNotifications_withReply___block_invoke_cold_1(void *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   v1 = [a1 _bcs_privacyPreservingDescription];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_241993000, MEMORY[0x277D86220], v2, "Cannot connect to remote service with error: %{public}@", v3, v4, v5, v6, v8);
-
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0(&dword_241993000, MEMORY[0x277D86220], v2, "Cannot connect to remote service with error: %{public}@", v3, v4, v5, v6);
 }
 
 @end

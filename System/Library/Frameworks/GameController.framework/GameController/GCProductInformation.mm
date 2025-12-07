@@ -51,51 +51,52 @@
 - (GCProductInformation)initWithCoder:(id)coder
 {
   coderCopy = coder;
-  v28.receiver = self;
-  v28.super_class = GCProductInformation;
-  v5 = [(GCProductInformation *)&v28 init];
+  v29.receiver = self;
+  v29.super_class = GCProductInformation;
+  v5 = [(GCProductInformation *)&v29 init];
+  v6 = v5;
   if (v5)
   {
-    v6 = GCIPCObjectIdentifier_Classes();
-    v7 = [coderCopy decodeObjectOfClasses:v6 forKey:@"identifier"];
-    identifier = v5->_identifier;
-    v5->_identifier = v7;
+    v7 = GCIPCObjectIdentifier_Classes(v5);
+    v8 = [coderCopy decodeObjectOfClasses:v7 forKey:@"identifier"];
+    identifier = v6->_identifier;
+    v6->_identifier = v8;
 
-    v9 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"uniformTypeIdentifier"];
-    uniformTypeIdentifier = v5->_uniformTypeIdentifier;
-    v5->_uniformTypeIdentifier = v9;
+    v10 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"uniformTypeIdentifier"];
+    uniformTypeIdentifier = v6->_uniformTypeIdentifier;
+    v6->_uniformTypeIdentifier = v10;
 
-    v11 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"productCategory"];
-    productCategory = v5->_productCategory;
-    v5->_productCategory = v11;
+    v12 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"productCategory"];
+    productCategory = v6->_productCategory;
+    v6->_productCategory = v12;
 
-    v13 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"detailedProductCategory"];
-    detailedProductCategory = v5->_detailedProductCategory;
-    v5->_detailedProductCategory = v13;
+    v14 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"detailedProductCategory"];
+    detailedProductCategory = v6->_detailedProductCategory;
+    v6->_detailedProductCategory = v14;
 
-    v15 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"vendorName"];
-    vendorName = v5->_vendorName;
-    v5->_vendorName = v15;
+    v16 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"vendorName"];
+    vendorName = v6->_vendorName;
+    v6->_vendorName = v16;
 
-    v17 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"attachedToDevice"];
-    attachedToDevice = v5->_attachedToDevice;
-    v5->_attachedToDevice = v17;
+    v18 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"attachedToDevice"];
+    attachedToDevice = v6->_attachedToDevice;
+    v6->_attachedToDevice = v18;
 
-    v19 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"anonymizedIdentifier"];
-    anonymizedIdentifier = v5->_anonymizedIdentifier;
-    v5->_anonymizedIdentifier = v19;
+    v20 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"anonymizedIdentifier"];
+    anonymizedIdentifier = v6->_anonymizedIdentifier;
+    v6->_anonymizedIdentifier = v20;
 
-    v5->_deviceOnly = [coderCopy decodeBoolForKey:@"deviceOnly"];
-    v21 = MEMORY[0x1E695DFD8];
-    v22 = objc_opt_class();
+    v6->_deviceOnly = [coderCopy decodeBoolForKey:@"deviceOnly"];
+    v22 = MEMORY[0x1E695DFD8];
     v23 = objc_opt_class();
-    v24 = [v21 setWithObjects:{v22, v23, objc_opt_class(), 0}];
-    v25 = [coderCopy decodeObjectOfClasses:v24 forKey:@"miscellaneous"];
-    miscellaneous = v5->_miscellaneous;
-    v5->_miscellaneous = v25;
+    v24 = objc_opt_class();
+    v25 = [v22 setWithObjects:{v23, v24, objc_opt_class(), 0}];
+    v26 = [coderCopy decodeObjectOfClasses:v25 forKey:@"miscellaneous"];
+    miscellaneous = v6->_miscellaneous;
+    v6->_miscellaneous = v26;
   }
 
-  return v5;
+  return v6;
 }
 
 - (void)encodeWithCoder:(id)coder

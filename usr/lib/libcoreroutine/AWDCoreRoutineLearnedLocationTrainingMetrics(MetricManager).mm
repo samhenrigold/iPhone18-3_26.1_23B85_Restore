@@ -85,27 +85,27 @@ LABEL_9:
 
 - (id)description
 {
-  v16 = MEMORY[0x277CCACA8];
-  v2 = objc_opt_class();
-  v15 = NSStringFromClass(v2);
+  v17 = MEMORY[0x277CCACA8];
+  v3 = objc_opt_class();
+  v16 = NSStringFromClass(v3);
   trainedVisits = [self trainedVisits];
-  v4 = @"NO";
+  v5 = @"NO";
   if (trainedVisits)
   {
-    v4 = @"YES";
+    v5 = @"YES";
   }
 
-  v14 = v4;
+  v15 = v5;
   latency = [self latency];
   intervalSinceLastAttempt = [self intervalSinceLastAttempt];
   locationsProcessed = [self locationsProcessed];
   maxIntervalBetweenLocations = [self maxIntervalBetweenLocations];
   visits = [self visits];
-  v8 = [visits count];
+  v9 = [visits count];
   places = [self places];
-  v10 = [v16 stringWithFormat:@"%@, trainedVisits, %@, latency, %llu, intervalSinceLastAttempt, %llu, locationsProcessed, %u, maxIntervalBetweenLocations, %llu, new visits, %lu, new places, %lu, visitCountDevice, %u, visitCountTotal, %u, placeCountDevice, %u, placeCountTotal, %u", v15, v14, latency, intervalSinceLastAttempt, locationsProcessed, maxIntervalBetweenLocations, v8, objc_msgSend(places, "count"), objc_msgSend(self, "visitCountDevice"), objc_msgSend(self, "visitCountTotal"), objc_msgSend(self, "placeCountDevice"), objc_msgSend(self, "placeCountTotal")];
+  v11 = [v17 stringWithFormat:@"%@, trainedVisits, %@, latency, %llu, intervalSinceLastAttempt, %llu, locationsProcessed, %u, maxIntervalBetweenLocations, %llu, new visits, %lu, new places, %lu, visitCountDevice, %u, visitCountTotal, %u, placeCountDevice, %u, placeCountTotal, %u", v16, v15, latency, intervalSinceLastAttempt, locationsProcessed, maxIntervalBetweenLocations, v9, objc_msgSend(places, "count"), objc_msgSend(self, "visitCountDevice"), objc_msgSend(self, "visitCountTotal"), objc_msgSend(self, "placeCountDevice"), objc_msgSend(self, "placeCountTotal")];
 
-  return v10;
+  return v11;
 }
 
 @end

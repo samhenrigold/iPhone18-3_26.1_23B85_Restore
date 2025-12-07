@@ -77,8 +77,7 @@
 {
   v5 = type metadata accessor for DateInterval();
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
-  MEMORY[0x28223BE20](v5);
+  MEMORY[0x28223BE20](v5, v7);
   v9 = &v12 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   static DateInterval._unconditionallyBridgeFromObjectiveC(_:)();
   if (events)

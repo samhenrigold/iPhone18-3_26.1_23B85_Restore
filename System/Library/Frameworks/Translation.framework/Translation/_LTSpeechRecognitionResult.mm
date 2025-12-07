@@ -7,11 +7,11 @@
 
 - (_LTSpeechRecognitionResult)initWithCoder:(id)coder
 {
-  v19[2] = *MEMORY[0x277D85DE8];
+  v18[2] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v18.receiver = self;
-  v18.super_class = _LTSpeechRecognitionResult;
-  v5 = [(_LTSpeechRecognitionResult *)&v18 init];
+  v17.receiver = self;
+  v17.super_class = _LTSpeechRecognitionResult;
+  v5 = [(_LTSpeechRecognitionResult *)&v17 init];
   if (v5)
   {
     v5->_final = [coderCopy decodeBoolForKey:@"final"];
@@ -22,9 +22,9 @@
 
     v5->_endOfUtterance = [coderCopy decodeBoolForKey:@"endOfUtterance"];
     v8 = MEMORY[0x277CBEB98];
-    v19[0] = objc_opt_class();
-    v19[1] = objc_opt_class();
-    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:2];
+    v18[0] = objc_opt_class();
+    v18[1] = objc_opt_class();
+    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:2];
     v10 = [v8 setWithArray:v9];
 
     v11 = [coderCopy decodeObjectOfClasses:v10 forKey:@"transcriptions"];
@@ -38,7 +38,6 @@
     v15 = v5;
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

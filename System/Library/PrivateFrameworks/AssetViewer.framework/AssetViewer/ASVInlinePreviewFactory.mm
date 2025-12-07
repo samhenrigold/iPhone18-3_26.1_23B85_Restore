@@ -61,7 +61,7 @@ void __33__ASVInlinePreviewFactory_shared__block_invoke()
 
 - (void)_getSharedInlineServiceWithCompletionHandler:(id)handler
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   dispatch_assert_queue_V2(self->_accessQueue);
   if (self->_extension)
@@ -69,26 +69,26 @@ void __33__ASVInlinePreviewFactory_shared__block_invoke()
     goto LABEL_2;
   }
 
-  v6 = _asvLogHandle;
+  v8 = _asvLogHandle;
   if (!_asvLogHandle)
   {
-    ASVInitLogging();
-    v6 = _asvLogHandle;
+    ASVInitLogging(v6, v7);
+    v8 = _asvLogHandle;
   }
 
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
-    _os_log_impl(&dword_241215000, v6, OS_LOG_TYPE_INFO, "#Inline: Retrieving extension", buf, 2u);
+    _os_log_impl(&dword_241215000, v8, OS_LOG_TYPE_INFO, "#Inline: Retrieving extension", buf, 2u);
   }
 
-  v17 = 0;
-  v7 = [MEMORY[0x277CCA9C8] extensionWithIdentifier:@"com.apple.AssetViewer.ASVAssetViewer" error:&v17];
-  v8 = v17;
-  if (!v8)
+  v21 = 0;
+  v9 = [MEMORY[0x277CCA9C8] extensionWithIdentifier:@"com.apple.AssetViewer.ASVAssetViewer" error:&v21];
+  v10 = v21;
+  if (!v10)
   {
     extension = self->_extension;
-    self->_extension = v7;
+    self->_extension = v9;
 
 LABEL_2:
     if (self->_sharedInlineService)
@@ -98,165 +98,168 @@ LABEL_2:
 
     else
     {
-      v12 = self->_extension;
-      v14[0] = MEMORY[0x277D85DD0];
-      v14[1] = 3221225472;
-      v14[2] = __72__ASVInlinePreviewFactory__getSharedInlineServiceWithCompletionHandler___block_invoke;
-      v14[3] = &unk_278CCB100;
-      v16 = a2;
-      v14[4] = self;
-      v15 = handlerCopy;
-      [(NSExtension *)v12 instantiateViewControllerWithInputItems:0 connectionHandler:v14];
+      v16 = self->_extension;
+      v18[0] = MEMORY[0x277D85DD0];
+      v18[1] = 3221225472;
+      v18[2] = __72__ASVInlinePreviewFactory__getSharedInlineServiceWithCompletionHandler___block_invoke;
+      v18[3] = &unk_278CCB100;
+      v20 = a2;
+      v18[4] = self;
+      v19 = handlerCopy;
+      [(NSExtension *)v16 instantiateViewControllerWithInputItems:0 connectionHandler:v18];
     }
 
     goto LABEL_15;
   }
 
-  v9 = v8;
-  v10 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.AssetViewer.ASVInlinePreview" code:2 userInfo:0];
-  v11 = _asvLogHandle;
+  v11 = v10;
+  v12 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.AssetViewer.ASVInlinePreview" code:2 userInfo:0];
+  v14 = v12;
+  v15 = _asvLogHandle;
   if (!_asvLogHandle)
   {
-    ASVInitLogging();
-    v11 = _asvLogHandle;
+    ASVInitLogging(v12, v13);
+    v15 = _asvLogHandle;
   }
 
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
   {
     *buf = 138412290;
-    v19 = v10;
-    _os_log_impl(&dword_241215000, v11, OS_LOG_TYPE_ERROR, "#Inline: Couldn't retrieve extension, error: %@", buf, 0xCu);
+    v23 = v14;
+    _os_log_impl(&dword_241215000, v15, OS_LOG_TYPE_ERROR, "#Inline: Couldn't retrieve extension, error: %@", buf, 0xCu);
   }
 
-  (handlerCopy)[2](handlerCopy, v10);
+  (handlerCopy)[2](handlerCopy, v14);
 
 LABEL_15:
 }
 
 void __72__ASVInlinePreviewFactory__getSharedInlineServiceWithCompletionHandler___block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = a4;
+  v11 = v9;
   if (v9)
   {
-    v10 = _asvLogHandle;
+    v12 = _asvLogHandle;
     if (!_asvLogHandle)
     {
-      ASVInitLogging();
-      v10 = _asvLogHandle;
+      ASVInitLogging(v9, v10);
+      v12 = _asvLogHandle;
     }
 
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v27 = v9;
-      _os_log_impl(&dword_241215000, v10, OS_LOG_TYPE_ERROR, "#Inline: Error instantiating view controller: %@", buf, 0xCu);
+      v29 = v11;
+      _os_log_impl(&dword_241215000, v12, OS_LOG_TYPE_ERROR, "#Inline: Error instantiating view controller: %@", buf, 0xCu);
     }
 
-    v11 = [MEMORY[0x277CCA890] currentHandler];
-    [v11 handleFailureInMethod:*(a1 + 48) object:*(a1 + 32) file:@"ASVInlinePreviewFactory.m" lineNumber:95 description:{@"Error instantiating view controller: %@", v9}];
+    v13 = [MEMORY[0x277CCA890] currentHandler];
+    [v13 handleFailureInMethod:*(a1 + 48) object:*(a1 + 32) file:@"ASVInlinePreviewFactory.m" lineNumber:95 description:{@"Error instantiating view controller: %@", v11}];
   }
 
   else
   {
     objc_storeStrong((*(a1 + 32) + 24), a3);
-    v11 = [*(*(a1 + 32) + 16) _extensionContextForUUID:v7];
-    v12 = [v11 _auxiliaryConnection];
+    v13 = [*(*(a1 + 32) + 16) _extensionContextForUUID:v7];
+    v14 = [v13 _auxiliaryConnection];
+    v26[0] = MEMORY[0x277D85DD0];
+    v26[1] = 3221225472;
+    v26[2] = __72__ASVInlinePreviewFactory__getSharedInlineServiceWithCompletionHandler___block_invoke_12;
+    v26[3] = &unk_278CCB088;
+    v26[4] = *(a1 + 32);
+    v20 = *(a1 + 40);
+    v15 = v20;
+    v27 = v20;
+    v16 = [v14 remoteObjectProxyWithErrorHandler:v26];
+
+    v25[0] = MEMORY[0x277D85DD0];
+    v25[1] = 3221225472;
+    v25[2] = __72__ASVInlinePreviewFactory__getSharedInlineServiceWithCompletionHandler___block_invoke_17;
+    v25[3] = &unk_278CCADC0;
+    v25[4] = *(a1 + 32);
+    v17 = [v13 _auxiliaryConnection];
+    [v17 setInterruptionHandler:v25];
+
     v24[0] = MEMORY[0x277D85DD0];
     v24[1] = 3221225472;
-    v24[2] = __72__ASVInlinePreviewFactory__getSharedInlineServiceWithCompletionHandler___block_invoke_12;
-    v24[3] = &unk_278CCB088;
+    v24[2] = __72__ASVInlinePreviewFactory__getSharedInlineServiceWithCompletionHandler___block_invoke_18;
+    v24[3] = &unk_278CCADC0;
     v24[4] = *(a1 + 32);
-    v18 = *(a1 + 40);
-    v13 = v18;
-    v25 = v18;
-    v14 = [v12 remoteObjectProxyWithErrorHandler:v24];
-
-    v23[0] = MEMORY[0x277D85DD0];
-    v23[1] = 3221225472;
-    v23[2] = __72__ASVInlinePreviewFactory__getSharedInlineServiceWithCompletionHandler___block_invoke_17;
-    v23[3] = &unk_278CCADC0;
-    v23[4] = *(a1 + 32);
-    v15 = [v11 _auxiliaryConnection];
-    [v15 setInterruptionHandler:v23];
+    v18 = [v13 _auxiliaryConnection];
+    [v18 setInvalidationHandler:v24];
 
     v22[0] = MEMORY[0x277D85DD0];
     v22[1] = 3221225472;
-    v22[2] = __72__ASVInlinePreviewFactory__getSharedInlineServiceWithCompletionHandler___block_invoke_18;
-    v22[3] = &unk_278CCADC0;
+    v22[2] = __72__ASVInlinePreviewFactory__getSharedInlineServiceWithCompletionHandler___block_invoke_19;
+    v22[3] = &unk_278CCB0D8;
     v22[4] = *(a1 + 32);
-    v16 = [v11 _auxiliaryConnection];
-    [v16 setInvalidationHandler:v22];
-
-    v20[0] = MEMORY[0x277D85DD0];
-    v20[1] = 3221225472;
-    v20[2] = __72__ASVInlinePreviewFactory__getSharedInlineServiceWithCompletionHandler___block_invoke_19;
-    v20[3] = &unk_278CCB0D8;
-    v20[4] = *(a1 + 32);
-    v19 = *(a1 + 40);
-    v17 = v19;
-    v21 = v19;
-    [v14 getARQLInlineProxy3WithCompletionHandler:v20];
+    v21 = *(a1 + 40);
+    v19 = v21;
+    v23 = v21;
+    [v16 getARQLInlineProxy3WithCompletionHandler:v22];
   }
 }
 
 void __72__ASVInlinePreviewFactory__getSharedInlineServiceWithCompletionHandler___block_invoke_12(void *a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = _asvLogHandle;
+  v5 = v3;
+  v6 = _asvLogHandle;
   if (!_asvLogHandle)
   {
-    ASVInitLogging();
-    v4 = _asvLogHandle;
+    ASVInitLogging(v3, v4);
+    v6 = _asvLogHandle;
   }
 
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
     *buf = 138412290;
-    v7 = v3;
-    _os_log_impl(&dword_241215000, v4, OS_LOG_TYPE_ERROR, "#Inline: Failed to get protocol service, error: %@", buf, 0xCu);
+    v9 = v5;
+    _os_log_impl(&dword_241215000, v6, OS_LOG_TYPE_ERROR, "#Inline: Failed to get protocol service, error: %@", buf, 0xCu);
   }
 
-  v5 = [MEMORY[0x277CCA890] currentHandler];
-  [v5 handleFailureInMethod:a1[6] object:a1[4] file:@"ASVInlinePreviewFactory.m" lineNumber:105 description:{@"Failed to get protocol service, error: %@", v3}];
+  v7 = [MEMORY[0x277CCA890] currentHandler];
+  [v7 handleFailureInMethod:a1[6] object:a1[4] file:@"ASVInlinePreviewFactory.m" lineNumber:105 description:{@"Failed to get protocol service, error: %@", v5}];
 
   (*(a1[5] + 16))();
 }
 
-uint64_t __72__ASVInlinePreviewFactory__getSharedInlineServiceWithCompletionHandler___block_invoke_17(uint64_t a1)
+uint64_t __72__ASVInlinePreviewFactory__getSharedInlineServiceWithCompletionHandler___block_invoke_17(uint64_t a1, uint64_t a2)
 {
-  v2 = _asvLogHandle;
+  v3 = _asvLogHandle;
   if (!_asvLogHandle)
   {
-    ASVInitLogging();
-    v2 = _asvLogHandle;
+    ASVInitLogging(a1, a2);
+    v3 = _asvLogHandle;
   }
 
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    *v4 = 0;
-    _os_log_impl(&dword_241215000, v2, OS_LOG_TYPE_ERROR, "#Inline: Connection interrupted @@@", v4, 2u);
+    *v5 = 0;
+    _os_log_impl(&dword_241215000, v3, OS_LOG_TYPE_ERROR, "#Inline: Connection interrupted @@@", v5, 2u);
   }
 
   return [*(a1 + 32) handleInterruptionOrInvalidation];
 }
 
-uint64_t __72__ASVInlinePreviewFactory__getSharedInlineServiceWithCompletionHandler___block_invoke_18(uint64_t a1)
+uint64_t __72__ASVInlinePreviewFactory__getSharedInlineServiceWithCompletionHandler___block_invoke_18(uint64_t a1, uint64_t a2)
 {
-  v2 = _asvLogHandle;
+  v3 = _asvLogHandle;
   if (!_asvLogHandle)
   {
-    ASVInitLogging();
-    v2 = _asvLogHandle;
+    ASVInitLogging(a1, a2);
+    v3 = _asvLogHandle;
   }
 
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    *v4 = 0;
-    _os_log_impl(&dword_241215000, v2, OS_LOG_TYPE_ERROR, "#Inline: Connection invalidated @@@", v4, 2u);
+    *v5 = 0;
+    _os_log_impl(&dword_241215000, v3, OS_LOG_TYPE_ERROR, "#Inline: Connection invalidated @@@", v5, 2u);
   }
 
   return [*(a1 + 32) handleInterruptionOrInvalidation];
@@ -364,24 +367,25 @@ void __106__ASVInlinePreviewFactory_createFullscreenInstanceWithUUID_initialFram
 
 void __106__ASVInlinePreviewFactory_createFullscreenInstanceWithUUID_initialFrame_previewOptions_completionHandler___block_invoke_2(void *a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = _asvLogHandle;
+  v5 = v3;
+  v6 = _asvLogHandle;
   if (!_asvLogHandle)
   {
-    ASVInitLogging();
-    v4 = _asvLogHandle;
+    ASVInitLogging(v3, v4);
+    v6 = _asvLogHandle;
   }
 
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
     *buf = 138412290;
-    v7 = v3;
-    _os_log_impl(&dword_241215000, v4, OS_LOG_TYPE_ERROR, "#Inline: Failed to get protocol service, error: %@", buf, 0xCu);
+    v9 = v5;
+    _os_log_impl(&dword_241215000, v6, OS_LOG_TYPE_ERROR, "#Inline: Failed to get protocol service, error: %@", buf, 0xCu);
   }
 
-  v5 = [MEMORY[0x277CCA890] currentHandler];
-  [v5 handleFailureInMethod:a1[6] object:a1[4] file:@"ASVInlinePreviewFactory.m" lineNumber:146 description:{@"Failed to get protocol service: %@", v3}];
+  v7 = [MEMORY[0x277CCA890] currentHandler];
+  [v7 handleFailureInMethod:a1[6] object:a1[4] file:@"ASVInlinePreviewFactory.m" lineNumber:146 description:{@"Failed to get protocol service: %@", v5}];
 
   (*(a1[5] + 16))();
 }

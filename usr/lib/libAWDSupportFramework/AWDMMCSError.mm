@@ -43,7 +43,7 @@
 
 - (id)dictionaryRepresentation
 {
-  v19 = *MEMORY[0x29EDCA608];
+  v18 = *MEMORY[0x29EDCA608];
   dictionary = [MEMORY[0x29EDB8E00] dictionary];
   v4 = dictionary;
   domain = self->_domain;
@@ -60,29 +60,29 @@
   if ([(NSMutableArray *)self->_underlyingErrors count])
   {
     v6 = [objc_alloc(MEMORY[0x29EDB8DE8]) initWithCapacity:{-[NSMutableArray count](self->_underlyingErrors, "count")}];
+    v13 = 0u;
     v14 = 0u;
     v15 = 0u;
     v16 = 0u;
-    v17 = 0u;
     underlyingErrors = self->_underlyingErrors;
-    v8 = [(NSMutableArray *)underlyingErrors countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v8 = [(NSMutableArray *)underlyingErrors countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v15;
+      v10 = *v14;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v15 != v10)
+          if (*v14 != v10)
           {
             objc_enumerationMutation(underlyingErrors);
           }
 
-          [v6 addObject:{objc_msgSend(*(*(&v14 + 1) + 8 * i), "dictionaryRepresentation")}];
+          [v6 addObject:{objc_msgSend(*(*(&v13 + 1) + 8 * i), "dictionaryRepresentation")}];
         }
 
-        v9 = [(NSMutableArray *)underlyingErrors countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v9 = [(NSMutableArray *)underlyingErrors countByEnumeratingWithState:&v13 objects:v17 count:16];
       }
 
       while (v9);
@@ -91,13 +91,12 @@
     [v4 setObject:v6 forKey:@"underlyingErrors"];
   }
 
-  v12 = *MEMORY[0x29EDCA608];
   return v4;
 }
 
 - (void)writeTo:(id)to
 {
-  v17 = *MEMORY[0x29EDCA608];
+  v14 = *MEMORY[0x29EDCA608];
   if (self->_domain)
   {
     PBDataWriterWriteStringField();
@@ -105,43 +104,39 @@
 
   if (*&self->_has)
   {
-    code = self->_code;
     PBDataWriterWriteInt32Field();
   }
 
-  v14 = 0u;
-  v15 = 0u;
+  v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
+  v9 = 0u;
+  v10 = 0u;
   underlyingErrors = self->_underlyingErrors;
-  v6 = [(NSMutableArray *)underlyingErrors countByEnumeratingWithState:&v12 objects:v16 count:16];
-  if (v6)
+  v5 = [(NSMutableArray *)underlyingErrors countByEnumeratingWithState:&v9 objects:v13 count:16];
+  if (v5)
   {
-    v7 = v6;
-    v8 = *v13;
+    v6 = v5;
+    v7 = *v10;
     do
     {
-      v9 = 0;
+      v8 = 0;
       do
       {
-        if (*v13 != v8)
+        if (*v10 != v7)
         {
           objc_enumerationMutation(underlyingErrors);
         }
 
-        v10 = *(*(&v12 + 1) + 8 * v9);
         PBDataWriterWriteSubmessage();
-        ++v9;
+        ++v8;
       }
 
-      while (v7 != v9);
-      v7 = [(NSMutableArray *)underlyingErrors countByEnumeratingWithState:&v12 objects:v16 count:16];
+      while (v6 != v8);
+      v6 = [(NSMutableArray *)underlyingErrors countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
-    while (v7);
+    while (v6);
   }
-
-  v11 = *MEMORY[0x29EDCA608];
 }
 
 - (void)copyTo:(id)to
@@ -174,7 +169,7 @@
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v19 = *MEMORY[0x29EDCA608];
+  v18 = *MEMORY[0x29EDCA608];
   v5 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
 
   *(v5 + 16) = [(NSString *)self->_domain copyWithZone:zone];
@@ -184,40 +179,39 @@
     *(v5 + 32) |= 1u;
   }
 
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   underlyingErrors = self->_underlyingErrors;
-  v7 = [(NSMutableArray *)underlyingErrors countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v7 = [(NSMutableArray *)underlyingErrors countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v15;
+    v9 = *v14;
     do
     {
       v10 = 0;
       do
       {
-        if (*v15 != v9)
+        if (*v14 != v9)
         {
           objc_enumerationMutation(underlyingErrors);
         }
 
-        v11 = [*(*(&v14 + 1) + 8 * v10) copyWithZone:zone];
+        v11 = [*(*(&v13 + 1) + 8 * v10) copyWithZone:zone];
         [v5 addUnderlyingErrors:v11];
 
         ++v10;
       }
 
       while (v8 != v10);
-      v8 = [(NSMutableArray *)underlyingErrors countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v8 = [(NSMutableArray *)underlyingErrors countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v8);
   }
 
-  v12 = *MEMORY[0x29EDCA608];
   return v5;
 }
 
@@ -229,7 +223,6 @@
     domain = self->_domain;
     if (!(domain | *(equal + 2)) || (v5 = [(NSString *)domain isEqual:?]) != 0)
     {
-      v7 = *(equal + 32);
       if (*&self->_has)
       {
         if ((*(equal + 32) & 1) == 0 || self->_code != *(equal + 2))
@@ -280,7 +273,7 @@ LABEL_11:
 
 - (void)mergeFrom:(id)from
 {
-  v16 = *MEMORY[0x29EDCA608];
+  v15 = *MEMORY[0x29EDCA608];
   if (*(from + 2))
   {
     [(AWDMMCSError *)self setDomain:?];
@@ -292,35 +285,33 @@ LABEL_11:
     *&self->_has |= 1u;
   }
 
-  v13 = 0u;
-  v14 = 0u;
-  v11 = 0u;
   v12 = 0u;
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
   v5 = *(from + 3);
-  v6 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v12;
+    v8 = *v11;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v12 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        [(AWDMMCSError *)self addUnderlyingErrors:*(*(&v11 + 1) + 8 * i)];
+        [(AWDMMCSError *)self addUnderlyingErrors:*(*(&v10 + 1) + 8 * i)];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v7);
   }
-
-  v10 = *MEMORY[0x29EDCA608];
 }
 
 @end

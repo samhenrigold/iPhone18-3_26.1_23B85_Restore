@@ -3,7 +3,7 @@
 
 @implementation AXSPointerAllowAppCustomizationEnabled
 
-uint64_t ___AXSPointerAllowAppCustomizationEnabled_block_invoke()
+void *___AXSPointerAllowAppCustomizationEnabled_block_invoke()
 {
   if (!_processIsResponsibleForPreferenceObserving())
   {

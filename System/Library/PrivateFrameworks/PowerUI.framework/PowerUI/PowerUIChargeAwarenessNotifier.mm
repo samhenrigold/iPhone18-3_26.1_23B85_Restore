@@ -1,5 +1,6 @@
 @interface PowerUIChargeAwarenessNotifier
 + (id)contentForType:(int)type;
++ (id)requestForContent:(int)content;
 + (id)sharedInstance;
 - (BOOL)readHaveShownMCL;
 - (BOOL)readHaveShownWireless;
@@ -33,19 +34,18 @@ void __38__PowerUIChargeAwarenessNotifier_init__block_invoke_34(uint64_t a1)
 
 - (void)postNotificationsIfNecessary
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v3[0] = 67109120;
-  v3[1] = self;
-  _os_log_error_impl(&dword_21B766000, a2, OS_LOG_TYPE_ERROR, "Unable to get battery properties: %d", v3, 8u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v2[0] = 67109120;
+  v2[1] = self;
+  _os_log_error_impl(&dword_21B766000, a2, OS_LOG_TYPE_ERROR, "Unable to get battery properties: %d", v2, 8u);
 }
 
 - (PowerUIChargeAwarenessNotifier)init
 {
-  v61 = *MEMORY[0x277D85DE8];
-  v58.receiver = self;
-  v58.super_class = PowerUIChargeAwarenessNotifier;
-  v2 = [(PowerUIChargeAwarenessNotifier *)&v58 init];
+  v60 = *MEMORY[0x277D85DE8];
+  v57.receiver = self;
+  v57.super_class = PowerUIChargeAwarenessNotifier;
+  v2 = [(PowerUIChargeAwarenessNotifier *)&v57 init];
   if (!v2)
   {
 LABEL_43:
@@ -126,7 +126,7 @@ LABEL_28:
         if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 134217984;
-          v60 = currentState;
+          v59 = currentState;
           _os_log_impl(&dword_21B766000, v20, OS_LOG_TYPE_DEFAULT, "setup state: %lu", buf, 0xCu);
         }
 
@@ -152,12 +152,12 @@ LABEL_28:
           }
 
           mEMORY[0x277D4DA60]2 = [MEMORY[0x277D4DA60] sharedNotifier];
-          v56[0] = MEMORY[0x277D85DD0];
-          v56[1] = 3221225472;
-          v56[2] = __38__PowerUIChargeAwarenessNotifier_init__block_invoke;
-          v56[3] = &unk_2782D3EA8;
-          v57 = v2;
-          [mEMORY[0x277D4DA60]2 addStateCompletionObserver:v56 forState:2];
+          v55[0] = MEMORY[0x277D85DD0];
+          v55[1] = 3221225472;
+          v55[2] = __38__PowerUIChargeAwarenessNotifier_init__block_invoke;
+          v55[3] = &unk_2782D3EA8;
+          v56 = v2;
+          [mEMORY[0x277D4DA60]2 addStateCompletionObserver:v55 forState:2];
         }
       }
 
@@ -188,12 +188,12 @@ LABEL_28:
           }
 
           mEMORY[0x277D4DA60]4 = [MEMORY[0x277D4DA60] sharedNotifier];
-          v54[0] = MEMORY[0x277D85DD0];
-          v54[1] = 3221225472;
-          v54[2] = __38__PowerUIChargeAwarenessNotifier_init__block_invoke_23;
-          v54[3] = &unk_2782D3EA8;
-          v55 = v2;
-          [mEMORY[0x277D4DA60]4 addStateCompletionObserver:v54 forState:2];
+          v53[0] = MEMORY[0x277D85DD0];
+          v53[1] = 3221225472;
+          v53[2] = __38__PowerUIChargeAwarenessNotifier_init__block_invoke_23;
+          v53[3] = &unk_2782D3EA8;
+          v54 = v2;
+          [mEMORY[0x277D4DA60]4 addStateCompletionObserver:v53 forState:2];
         }
       }
 
@@ -207,13 +207,13 @@ LABEL_28:
       keyPathForForegroundApp = [MEMORY[0x277CFE338] keyPathForForegroundApp];
       v38 = [v34 predicateForKeyPath:keyPathForBatteryStateDataDictionary withFormat:@"(SELF.%@.value.rawExternalConnected = %@) AND NOT (SELF.%@.value = %@)", keyPathForBatteryStateDataDictionary2, MEMORY[0x277CBEC38], keyPathForForegroundApp, @"com.apple.camera"];
 
-      v52[0] = MEMORY[0x277D85DD0];
-      v52[1] = 3221225472;
-      v52[2] = __38__PowerUIChargeAwarenessNotifier_init__block_invoke_34;
-      v52[3] = &unk_2782D4138;
+      v51[0] = MEMORY[0x277D85DD0];
+      v51[1] = 3221225472;
+      v51[2] = __38__PowerUIChargeAwarenessNotifier_init__block_invoke_34;
+      v51[3] = &unk_2782D4138;
       v39 = v2;
-      v53 = v39;
-      v40 = MEMORY[0x21CEF8A60](v52);
+      v52 = v39;
+      v40 = MEMORY[0x21CEF8A60](v51);
       v41 = [MEMORY[0x277CFE350] localWakingRegistrationWithIdentifier:@"com.apple.powerui.chargingAwarenessNotifications" contextualPredicate:v38 clientIdentifier:@"com.apple.powerui.chargeAwarenessNotifier" callback:v40];
       [(_CDLocalContext *)v2->_context registerCallback:v41];
       *buf = 0;
@@ -223,16 +223,16 @@ LABEL_28:
       handler[2] = __38__PowerUIChargeAwarenessNotifier_init__block_invoke_3;
       handler[3] = &unk_2782D3E60;
       v43 = v39;
-      v51 = v43;
+      v50 = v43;
       notify_register_dispatch("com.apple.powerui.testdisplaywireless", buf, v42, handler);
       out_token = 0;
       v44 = v2->_queue;
-      v47[0] = MEMORY[0x277D85DD0];
-      v47[1] = 3221225472;
-      v47[2] = __38__PowerUIChargeAwarenessNotifier_init__block_invoke_47;
-      v47[3] = &unk_2782D3E60;
-      v48 = v43;
-      notify_register_dispatch("com.apple.powerui.testdisplaynotifications", &out_token, v44, v47);
+      v46[0] = MEMORY[0x277D85DD0];
+      v46[1] = 3221225472;
+      v46[2] = __38__PowerUIChargeAwarenessNotifier_init__block_invoke_47;
+      v46[3] = &unk_2782D3E60;
+      v47 = v43;
+      notify_register_dispatch("com.apple.powerui.testdisplaynotifications", &out_token, v44, v46);
 
       goto LABEL_43;
     }
@@ -249,7 +249,6 @@ LABEL_28:
   v26 = 0;
 LABEL_44:
 
-  v45 = *MEMORY[0x277D85DE8];
   return v26;
 }
 
@@ -439,6 +438,28 @@ LABEL_7:
   return v17;
 }
 
++ (id)requestForContent:(int)content
+{
+  v3 = *&content;
+  v4 = [objc_opt_class() contentForType:*&content];
+  if (v4)
+  {
+    v5 = MEMORY[0x277CCACA8];
+    v6 = [MEMORY[0x277CCABB0] numberWithInt:v3];
+    v7 = [v5 stringWithFormat:@"chargingAwareness-%@", v6];
+
+    v8 = [MEMORY[0x277CE1FC0] requestWithIdentifier:v7 content:v4 trigger:0];
+    [v8 setDestinations:15];
+  }
+
+  else
+  {
+    v8 = 0;
+  }
+
+  return v8;
+}
+
 - (void)forceDisplayMCLNotification:(id)notification
 {
   notificationCopy = notification;
@@ -477,27 +498,25 @@ LABEL_7:
 
 - (void)cancelNotificationRequestWithIdentifier:(id)identifier
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   unCenter = self->_unCenter;
-  v12[0] = identifier;
+  v11[0] = identifier;
   v5 = MEMORY[0x277CBEA60];
   identifierCopy = identifier;
-  v7 = [v5 arrayWithObjects:v12 count:1];
+  v7 = [v5 arrayWithObjects:v11 count:1];
   [(UNUserNotificationCenter *)unCenter removeDeliveredNotificationsWithIdentifiers:v7];
 
   v8 = self->_unCenter;
-  v11 = identifierCopy;
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:&v11 count:1];
+  v10 = identifierCopy;
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:&v10 count:1];
   [(UNUserNotificationCenter *)v8 removePendingNotificationRequestsWithIdentifiers:v9];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)displayNotificationForMCL:(BOOL)l forWireless:(BOOL)wireless
 {
   wirelessCopy = wireless;
   lCopy = l;
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   if ((!_os_feature_enabled_impl() || (MGGetBoolAnswer() & 1) == 0) && !self->_allowNotificationsOverride)
   {
     log = self->_log;
@@ -548,22 +567,22 @@ LABEL_7:
   {
     if (wirelessCopy)
     {
-      v44[0] = MEMORY[0x277D85DD0];
-      v44[1] = 3221225472;
-      v44[2] = __72__PowerUIChargeAwarenessNotifier_displayNotificationForMCL_forWireless___block_invoke;
-      v44[3] = &unk_2782D4160;
-      v44[4] = self;
-      [(PowerUIChargeAwarenessNotifier *)self forceDisplayWirelessChargingNotification:v44];
+      v43[0] = MEMORY[0x277D85DD0];
+      v43[1] = 3221225472;
+      v43[2] = __72__PowerUIChargeAwarenessNotifier_displayNotificationForMCL_forWireless___block_invoke;
+      v43[3] = &unk_2782D4160;
+      v43[4] = self;
+      [(PowerUIChargeAwarenessNotifier *)self forceDisplayWirelessChargingNotification:v43];
     }
 
     if (lCopy)
     {
-      v43[0] = MEMORY[0x277D85DD0];
-      v43[1] = 3221225472;
-      v43[2] = __72__PowerUIChargeAwarenessNotifier_displayNotificationForMCL_forWireless___block_invoke_119;
-      v43[3] = &unk_2782D4160;
-      v43[4] = self;
-      [(PowerUIChargeAwarenessNotifier *)self forceDisplayMCLNotification:v43];
+      v42[0] = MEMORY[0x277D85DD0];
+      v42[1] = 3221225472;
+      v42[2] = __72__PowerUIChargeAwarenessNotifier_displayNotificationForMCL_forWireless___block_invoke_119;
+      v42[3] = &unk_2782D4160;
+      v42[4] = self;
+      [(PowerUIChargeAwarenessNotifier *)self forceDisplayMCLNotification:v42];
     }
 
     dictionary = [MEMORY[0x277CBEB38] dictionary];
@@ -596,7 +615,7 @@ LABEL_7:
     if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v46 = v32;
+      v45 = v32;
       _os_log_impl(&dword_21B766000, v33, OS_LOG_TYPE_DEFAULT, "Sending charge awareness CA event: %@", buf, 0xCu);
     }
   }
@@ -609,8 +628,6 @@ LABEL_7:
       [(PowerUIChargeAwarenessNotifier *)v34 displayNotificationForMCL:v35 forWireless:v36, v37, v38, v39, v40, v41];
     }
   }
-
-  v42 = *MEMORY[0x277D85DE8];
 }
 
 void __72__PowerUIChargeAwarenessNotifier_displayNotificationForMCL_forWireless___block_invoke(uint64_t a1, void *a2)
@@ -653,7 +670,7 @@ void __72__PowerUIChargeAwarenessNotifier_displayNotificationForMCL_forWireless_
 
 - (void)userNotificationCenter:(id)center didReceiveNotificationResponse:(id)response withCompletionHandler:(id)handler
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   centerCopy = center;
   responseCopy = response;
   handlerCopy = handler;
@@ -661,9 +678,9 @@ void __72__PowerUIChargeAwarenessNotifier_displayNotificationForMCL_forWireless_
   if (os_log_type_enabled(log, OS_LOG_TYPE_INFO))
   {
     *buf = 138412546;
-    v39 = responseCopy;
-    v40 = 2112;
-    v41 = centerCopy;
+    v38 = responseCopy;
+    v39 = 2112;
+    v40 = centerCopy;
     _os_log_impl(&dword_21B766000, log, OS_LOG_TYPE_INFO, "notification request response coming in %@ for center %@", buf, 0x16u);
   }
 
@@ -673,7 +690,7 @@ void __72__PowerUIChargeAwarenessNotifier_displayNotificationForMCL_forWireless_
     v13 = v12;
     actionIdentifier = [responseCopy actionIdentifier];
     *buf = 138412290;
-    v39 = actionIdentifier;
+    v38 = actionIdentifier;
     _os_log_impl(&dword_21B766000, v13, OS_LOG_TYPE_INFO, "notification request coming in: %@", buf, 0xCu);
   }
 
@@ -727,7 +744,7 @@ LABEL_10:
     {
       v31 = [dictionary objectForKeyedSubscript:@"notificationType"];
       *buf = 138412290;
-      v39 = v31;
+      v38 = v31;
       v32 = "User selected 'OK' on %@ notification";
 LABEL_17:
       _os_log_impl(&dword_21B766000, v30, OS_LOG_TYPE_DEFAULT, v32, buf, 0xCu);
@@ -749,7 +766,7 @@ LABEL_17:
     {
       v31 = [dictionary objectForKeyedSubscript:@"notificationType"];
       *buf = 138412290;
-      v39 = v31;
+      v38 = v31;
       v32 = "User dismissed %@ notification";
       goto LABEL_17;
     }
@@ -761,31 +778,29 @@ LABEL_18:
   if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v39 = dictionary;
+    v38 = dictionary;
     _os_log_impl(&dword_21B766000, v35, OS_LOG_TYPE_DEFAULT, "Logging to CA: %@", buf, 0xCu);
   }
 
-  v37 = dictionary;
+  v36 = dictionary;
   AnalyticsSendEventLazy();
 
 LABEL_22:
   handlerCopy[2](handlerCopy);
-
-  v36 = *MEMORY[0x277D85DE8];
 }
 
 - (void)userNotificationCenter:(id)center didOpenApplicationForResponse:(id)response
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   centerCopy = center;
   responseCopy = response;
   log = self->_log;
   if (os_log_type_enabled(log, OS_LOG_TYPE_INFO))
   {
     *buf = 138412546;
-    v25 = responseCopy;
-    v26 = 2112;
-    v27 = centerCopy;
+    v24 = responseCopy;
+    v25 = 2112;
+    v26 = centerCopy;
     _os_log_impl(&dword_21B766000, log, OS_LOG_TYPE_INFO, "notification request response coming in %@ for center %@", buf, 0x16u);
   }
 
@@ -795,7 +810,7 @@ LABEL_22:
     v10 = v9;
     actionIdentifier = [responseCopy actionIdentifier];
     *buf = 138412290;
-    v25 = actionIdentifier;
+    v24 = actionIdentifier;
     _os_log_impl(&dword_21B766000, v10, OS_LOG_TYPE_INFO, "notification request coming in: %@", buf, 0xCu);
   }
 
@@ -834,7 +849,7 @@ LABEL_10:
     {
       v20 = [dictionary objectForKeyedSubscript:@"notificationType"];
       *buf = 138412290;
-      v25 = v20;
+      v24 = v20;
       _os_log_impl(&dword_21B766000, v19, OS_LOG_TYPE_DEFAULT, "User selected 'learn more' on %@ notification", buf, 0xCu);
     }
 
@@ -842,33 +857,29 @@ LABEL_10:
     if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v25 = dictionary;
+      v24 = dictionary;
       _os_log_impl(&dword_21B766000, v21, OS_LOG_TYPE_DEFAULT, "Logging to CA: %@", buf, 0xCu);
     }
 
-    v23 = dictionary;
+    v22 = dictionary;
     AnalyticsSendEventLazy();
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 void __72__PowerUIChargeAwarenessNotifier_displayNotificationForMCL_forWireless___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_21B766000, a2, OS_LOG_TYPE_ERROR, "Error showing wireless charging notification: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_21B766000, a2, OS_LOG_TYPE_ERROR, "Error showing wireless charging notification: %@", &v2, 0xCu);
 }
 
 void __72__PowerUIChargeAwarenessNotifier_displayNotificationForMCL_forWireless___block_invoke_119_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_21B766000, a2, OS_LOG_TYPE_ERROR, "Error showing mcl charging notification: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_21B766000, a2, OS_LOG_TYPE_ERROR, "Error showing mcl charging notification: %@", &v2, 0xCu);
 }
 
 @end

@@ -944,7 +944,7 @@ LABEL_3:
   return v11;
 }
 
-uint64_t __57__TSDTextureSet_newFlattenedTextureFromTextures_newRect___block_invoke(uint64_t a1, CGContextRef c)
+void *__57__TSDTextureSet_newFlattenedTextureFromTextures_newRect___block_invoke(uint64_t a1, CGContextRef c)
 {
   v26 = *MEMORY[0x277D85DE8];
   CGContextTranslateCTM(c, 0.0, *(a1 + 64));
@@ -989,7 +989,7 @@ uint64_t __57__TSDTextureSet_newFlattenedTextureFromTextures_newRect___block_inv
         [MEMORY[0x277CD9FF0] setDisableActions:1];
         [objc_msgSend(v9 "layer")];
         [MEMORY[0x277CD9FF0] commit];
-        ++v8;
+        v8 = v8 + 1;
       }
 
       while (v6 != v8);
@@ -1345,7 +1345,7 @@ LABEL_12:
       layout = [rep layout];
       if (layout)
       {
-        [layout transformInRoot];
+        objc_msgSend_transformInRoot(layout);
         v51 = *&v66.a;
         v52 = *&v66.c;
         v53 = *&v66.tx;
@@ -1620,8 +1620,8 @@ LABEL_64:
 
         v27 = 0;
 LABEL_28:
-        v75[0] = MEMORY[0x277D85DD0];
-        v75[1] = 3221225472;
+        *&v75[0] = MEMORY[0x277D85DD0];
+        *&v75[1] = 3221225472;
         v76 = __117__TSDTextureSet_applyActionEffect_viewScale_isMagicMove_shouldBake_applyScaleOnly_ignoreScale_shouldCheckActionKeys___block_invoke;
         v77 = &unk_279D48CA0;
         onlyCopy = only;
@@ -1826,32 +1826,32 @@ LABEL_51:
   [(TSDTextureSet *)self p_applyPositionFromAttributes:effectCopy viewScale:scale];
 }
 
-uint64_t __117__TSDTextureSet_applyActionEffect_viewScale_isMagicMove_shouldBake_applyScaleOnly_ignoreScale_shouldCheckActionKeys___block_invoke(uint64_t result, void *a2, void *a3)
+double *__117__TSDTextureSet_applyActionEffect_viewScale_isMagicMove_shouldBake_applyScaleOnly_ignoreScale_shouldCheckActionKeys___block_invoke(double *result, void *a2, void *a3)
 {
   v5 = result;
-  v6 = *(result + 72) == 1 && *(result + 56) != 1.0;
+  v6 = *(result + 72) == 1 && result[7] != 1.0;
   if ((*(result + 73) & 1) == 0 && !v6)
   {
-    if (*(result + 32))
+    if (*(result + 4))
     {
       if (*(result + 74) != 1 || (result = [a3 valueForKey:@"apple:action-rotation"]) == 0)
       {
-        result = [a3 setValue:objc_msgSend(MEMORY[0x277CCABB0] forKeyPath:{"numberWithDouble:", *(v5 + 64)), @"transform.rotation.z"}];
+        result = [a3 setValue:objc_msgSend(MEMORY[0x277CCABB0] forKeyPath:{"numberWithDouble:", v5[8]), @"transform.rotation.z"}];
       }
     }
   }
 
-  v7 = *(v5 + 56);
+  v7 = v5[7];
   if ((*(v5 + 75) & 1) == 0)
   {
-    if (*(v5 + 40))
+    if (*(v5 + 5))
     {
       if (*(v5 + 74) != 1 || (result = [a3 valueForKey:@"apple:action-scale"]) == 0)
       {
         [objc_msgSend(a3 valueForKey:{@"kTSDTextureLayerKeyBakedScale", "doubleValue"}];
-        if (v8 != 0.0 && (*(v5 + 76) & 1) == 0 && (*(v5 + 72) & 1) == 0)
+        if (v8 != 0.0 && (*(v5 + 76) & 1) == 0 && (v5[9] & 1) == 0)
         {
-          v7 = *(v5 + 56) / v8;
+          v7 = v5[7] / v8;
         }
 
         result = [a3 setValue:objc_msgSend(MEMORY[0x277CCABB0] forKeyPath:{"numberWithDouble:", v7), @"transform.scale.xy"}];
@@ -1861,7 +1861,7 @@ uint64_t __117__TSDTextureSet_applyActionEffect_viewScale_isMagicMove_shouldBake
 
   if (a2)
   {
-    v9 = *(v5 + 48);
+    v9 = *(v5 + 6);
     if (*(v9 + 264) != a3)
     {
       result = [a2 adjustAnchorRelativeToParentsCenterOfRotation:*(v5 + 73) isMagicMove:{*(v9 + 8), *(v9 + 16)}];
@@ -1870,11 +1870,11 @@ uint64_t __117__TSDTextureSet_applyActionEffect_viewScale_isMagicMove_shouldBake
         v10 = 0.0;
         if (*(v5 + 76) && (*(v5 + 73) & 1) == 0)
         {
-          v10 = *(v5 + 64);
+          v10 = v5[8];
         }
 
         result = [a2 bakeLayerWithAngle:v10 scale:v7];
-        if (v6 && (*(v5 + 73) & 1) == 0 && (*(v5 + 76) & 1) == 0 && *(v5 + 64) != 0.0)
+        if (v6 && (*(v5 + 73) & 1) == 0 && (*(v5 + 76) & 1) == 0 && v5[8] != 0.0)
         {
           v11 = [MEMORY[0x277CCABB0] numberWithDouble:?];
 

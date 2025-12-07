@@ -86,7 +86,7 @@ LABEL_3:
     v15 = objectReference;
     if (objectReference)
     {
-      [objectReference indexPath];
+      objc_msgSend_indexPath(objectReference);
       v16 = v53;
     }
 
@@ -111,7 +111,7 @@ LABEL_3:
     v38 = objectReference3;
     if (objectReference3)
     {
-      [objectReference3 indexPath];
+      objc_msgSend_indexPath(objectReference3);
     }
 
     else

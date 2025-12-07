@@ -570,7 +570,6 @@ LABEL_20:
   has = self->_has;
   if (*&has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((*&has & 4) == 0)
@@ -590,7 +589,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  wifi2P4GHzTxDuration = self->_wifi2P4GHzTxDuration;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 2) == 0)
@@ -605,7 +603,6 @@ LABEL_4:
   }
 
 LABEL_23:
-  wifi2P4GHzRxDuration = self->_wifi2P4GHzRxDuration;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x10) == 0)
@@ -620,7 +617,6 @@ LABEL_5:
   }
 
 LABEL_24:
-  wifi5GHz20MHzTxDuration = self->_wifi5GHz20MHzTxDuration;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x40) == 0)
@@ -635,7 +631,6 @@ LABEL_6:
   }
 
 LABEL_25:
-  wifi5GHz40MHzTxDuration = self->_wifi5GHz40MHzTxDuration;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x100) == 0)
@@ -650,7 +645,6 @@ LABEL_7:
   }
 
 LABEL_26:
-  wifi5GHz80MHzTxDuration = self->_wifi5GHz80MHzTxDuration;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 8) == 0)
@@ -665,7 +659,6 @@ LABEL_8:
   }
 
 LABEL_27:
-  wifi5GHz20MHzRxDuration = self->_wifi5GHz20MHzRxDuration;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x20) == 0)
@@ -680,7 +673,6 @@ LABEL_9:
   }
 
 LABEL_28:
-  wifi5GHz40MHzRxDuration = self->_wifi5GHz40MHzRxDuration;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x80) == 0)
@@ -695,7 +687,6 @@ LABEL_10:
   }
 
 LABEL_29:
-  wifi5GHz80MHzRxDuration = self->_wifi5GHz80MHzRxDuration;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x10000) == 0)
@@ -710,7 +701,6 @@ LABEL_11:
   }
 
 LABEL_30:
-  wifiSleepDuration = self->_wifiSleepDuration;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x20000) == 0)
@@ -725,7 +715,6 @@ LABEL_12:
   }
 
 LABEL_31:
-  wifiTotalDuration = self->_wifiTotalDuration;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x200) == 0)
@@ -740,7 +729,6 @@ LABEL_13:
   }
 
 LABEL_32:
-  wifiFRTSDuration = self->_wifiFRTSDuration;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x8000) == 0)
@@ -755,7 +743,6 @@ LABEL_14:
   }
 
 LABEL_33:
-  wifiScanDuration = self->_wifiScanDuration;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x800) == 0)
@@ -770,7 +757,6 @@ LABEL_15:
   }
 
 LABEL_34:
-  wifiPcieL0Duration = self->_wifiPcieL0Duration;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x1000) == 0)
@@ -785,7 +771,6 @@ LABEL_16:
   }
 
 LABEL_35:
-  wifiPcieL10Duration = self->_wifiPcieL10Duration;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x2000) == 0)
@@ -800,7 +785,6 @@ LABEL_17:
   }
 
 LABEL_36:
-  wifiPcieL11Duration = self->_wifiPcieL11Duration;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x4000) == 0)
@@ -812,7 +796,6 @@ LABEL_18:
     }
 
 LABEL_38:
-    wifiTotalPowerMicroWatt = self->_wifiTotalPowerMicroWatt;
     PBDataWriterWriteUint32Field();
     if ((*&self->_has & 0x400) == 0)
     {
@@ -823,7 +806,6 @@ LABEL_38:
   }
 
 LABEL_37:
-  wifiPcieL12Duration = self->_wifiPcieL12Duration;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x40000) != 0)
@@ -838,7 +820,6 @@ LABEL_19:
   }
 
 LABEL_39:
-  wifiHsicActiveDuration = self->_wifiHsicActiveDuration;
 
   PBDataWriterWriteUint32Field();
 }

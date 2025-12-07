@@ -38,10 +38,11 @@
 
 + (void)initialize
 {
-  if (objc_opt_class() == self)
+  v3 = objc_opt_class();
+  if (v3 == self)
   {
 
-    FCUIRegisterLogging();
+    FCUIRegisterLogging(v3, v4);
   }
 }
 
@@ -811,36 +812,36 @@ void __70__FCUIActivityPickerViewController__configureEducationCardIfNecessary__
   dispatch_async(MEMORY[0x277D85CD0], block);
 }
 
-void __70__FCUIActivityPickerViewController__configureEducationCardIfNecessary__block_invoke_2(uint64_t a1)
+void __70__FCUIActivityPickerViewController__configureEducationCardIfNecessary__block_invoke_2(uint64_t a1, uint64_t a2)
 {
   if (([objc_opt_class() isOnboardingComplete] & 1) == 0)
   {
     objc_initWeak(&location, *(a1 + 32));
-    v2 = *(*(*(a1 + 48) + 8) + 40);
-    v3 = MEMORY[0x277D750C8];
-    v10[0] = MEMORY[0x277D85DD0];
-    v10[1] = 3221225472;
-    v10[2] = __70__FCUIActivityPickerViewController__configureEducationCardIfNecessary__block_invoke_3;
-    v10[3] = &unk_27901A498;
-    objc_copyWeak(&v11, &location);
-    v4 = [v3 actionWithHandler:v10];
-    v5 = [FCUIActivityPickerEducationCardView defaultEducationCardViewWithProminentViewBaubleDescriptions:v2 dismissAction:v4];
+    v3 = *(*(*(a1 + 48) + 8) + 40);
+    v4 = MEMORY[0x277D750C8];
+    v11[0] = MEMORY[0x277D85DD0];
+    v11[1] = 3221225472;
+    v11[2] = __70__FCUIActivityPickerViewController__configureEducationCardIfNecessary__block_invoke_3;
+    v11[3] = &unk_27901A498;
+    objc_copyWeak(&v12, &location);
+    v5 = [v4 actionWithHandler:v11];
+    v6 = [FCUIActivityPickerEducationCardView defaultEducationCardViewWithProminentViewBaubleDescriptions:v3 dismissAction:v5];
 
-    v6 = [MEMORY[0x277D750C8] actionWithHandler:&__block_literal_global_46];
-    [v5 setDefaultAction:v6];
+    v7 = [MEMORY[0x277D750C8] actionWithHandler:&__block_literal_global_46];
+    [v6 setDefaultAction:v7];
 
-    [*(a1 + 40) setHeaderView:v5];
+    [*(a1 + 40) setHeaderView:v6];
     [*(a1 + 32) _setConfiguringEducationCard:0];
     [*(a1 + 32) _updatePreferredContentSize];
-    v7 = MEMORY[0x277D75D18];
-    v8[0] = MEMORY[0x277D85DD0];
-    v8[1] = 3221225472;
-    v8[2] = __70__FCUIActivityPickerViewController__configureEducationCardIfNecessary__block_invoke_48;
-    v8[3] = &unk_27901A470;
-    v9 = *(a1 + 40);
-    [v7 fcui_animateWithDefaultParameters:v8 completion:0];
+    v8 = MEMORY[0x277D75D18];
+    v9[0] = MEMORY[0x277D85DD0];
+    v9[1] = 3221225472;
+    v9[2] = __70__FCUIActivityPickerViewController__configureEducationCardIfNecessary__block_invoke_48;
+    v9[3] = &unk_27901A470;
+    v10 = *(a1 + 40);
+    [v8 fcui_animateWithDefaultParameters:v9 completion:0];
 
-    objc_destroyWeak(&v11);
+    objc_destroyWeak(&v12);
     objc_destroyWeak(&location);
   }
 }
@@ -952,11 +953,11 @@ LABEL_9:
   return v15;
 }
 
-uint64_t __68__FCUIActivityPickerViewController__updateHeaderOrFooterIfNecessary__block_invoke()
+uint64_t __68__FCUIActivityPickerViewController__updateHeaderOrFooterIfNecessary__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
+  v2 = objc_opt_class();
 
-  return [v0 _markOnboardingComplete];
+  return [v2 _markOnboardingComplete];
 }
 
 void __68__FCUIActivityPickerViewController__updateHeaderOrFooterIfNecessary__block_invoke_2(uint64_t a1)

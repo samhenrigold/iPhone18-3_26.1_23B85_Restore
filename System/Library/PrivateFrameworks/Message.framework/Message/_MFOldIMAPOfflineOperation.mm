@@ -115,25 +115,23 @@ LABEL_5:
 
 + (void)deserializedCopyFromData:(unsigned __int8 *)a1 cursor:(NSObject *)a2 .cold.1(unsigned __int8 *a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
   v2 = *a1;
-  v4[0] = 67109120;
-  v4[1] = v2;
-  _os_log_error_impl(&dword_1B0389000, a2, OS_LOG_TYPE_ERROR, "Unexpected type while unarchiving offline cache operation: %d", v4, 8u);
-  v3 = *MEMORY[0x1E69E9840];
+  v3[0] = 67109120;
+  v3[1] = v2;
+  _os_log_error_impl(&dword_1B0389000, a2, OS_LOG_TYPE_ERROR, "Unexpected type while unarchiving offline cache operation: %d", v3, 8u);
 }
 
 + (void)deserializedCopyFromData:(os_log_t)log cursor:.cold.2(unsigned __int8 *a1, uint64_t *a2, os_log_t log)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = *a1;
   v4 = *a2;
-  v6[0] = 67109376;
-  v6[1] = v3;
-  v7 = 2048;
-  v8 = v4;
-  _os_log_error_impl(&dword_1B0389000, log, OS_LOG_TYPE_ERROR, "Unexpected operationType while unarchiving offline cache %u at position %lu", v6, 0x12u);
-  v5 = *MEMORY[0x1E69E9840];
+  v5[0] = 67109376;
+  v5[1] = v3;
+  v6 = 2048;
+  v7 = v4;
+  _os_log_error_impl(&dword_1B0389000, log, OS_LOG_TYPE_ERROR, "Unexpected operationType while unarchiving offline cache %u at position %lu", v5, 0x12u);
 }
 
 @end

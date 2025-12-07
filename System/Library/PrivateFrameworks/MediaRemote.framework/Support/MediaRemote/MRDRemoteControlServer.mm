@@ -188,16 +188,16 @@
     _os_signpost_emit_with_name_impl(&_mh_execute_header, v8, OS_SIGNPOST_INTERVAL_BEGIN, v10, "SendCommandDaemon", "", &buf, 2u);
   }
 
-  v26[0] = _NSConcreteStackBlock;
-  v26[1] = 3221225472;
-  v26[2] = sub_100055164;
-  v26[3] = &unk_1004B7270;
+  v24[0] = _NSConcreteStackBlock;
+  v24[1] = 3221225472;
+  v24[2] = sub_100055164;
+  v24[3] = &unk_1004B7270;
   v11 = commandCopy;
-  v27 = v11;
+  v25 = v11;
   selfCopy = self;
   v12 = completionCopy;
-  v29 = v12;
-  v13 = objc_retainBlock(v26);
+  v27 = v12;
+  v13 = objc_retainBlock(v24);
   v14 = [v11 mutableCopy];
   if (-[MRDRemoteControlServer _isCommandCacheCreating:](self, "_isCommandCacheCreating:", [v11 commandType]))
   {
@@ -212,27 +212,25 @@
         _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Got a cache creating command from assistant, context: %{public}@.", &buf, 0xCu);
       }
 
-      serialQueue = self->_serialQueue;
-      v25 = v15;
+      v23 = v15;
       msv_dispatch_sync_on_queue();
     }
   }
 
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v31 = 0x2020000000;
-  v32 = 0;
+  v29 = 0x2020000000;
+  v30 = 0;
   if (-[MRDRemoteControlServer _isCommandCacheable:](self, "_isCommandCacheable:", [v11 commandType]))
   {
-    v18 = [(MRDRemoteControlServer *)self _effectiveContextIDForCommand:v11];
-    v19 = v18;
-    if (v18)
+    v17 = [(MRDRemoteControlServer *)self _effectiveContextIDForCommand:v11];
+    v18 = v17;
+    if (v17)
     {
-      v20 = self->_serialQueue;
-      v21 = v18;
-      v22 = v11;
-      v24 = v12;
-      v23 = v14;
+      v19 = v17;
+      v20 = v11;
+      v22 = v12;
+      v21 = v14;
       msv_dispatch_sync_on_queue();
     }
   }
@@ -292,9 +290,7 @@
 - (void)clearContextsForClient:(id)client
 {
   clientCopy = client;
-  serialQueue = self->_serialQueue;
-  v7 = clientCopy;
-  v6 = clientCopy;
+  v3 = clientCopy;
   msv_dispatch_sync_on_queue();
 }
 
@@ -1424,93 +1420,90 @@ LABEL_6:
   v17 = [v7 initWithOrigin:origin client:v14 player:player];
   [v6 setPlayerPath:v17];
 
-  serialQueue = self->_serialQueue;
-  v31 = _NSConcreteStackBlock;
-  v32 = 3221225472;
-  v33 = sub_10005DD08;
-  v34 = &unk_1004B69D0;
+  v30 = _NSConcreteStackBlock;
+  v31 = 3221225472;
+  v32 = sub_10005DD08;
+  v33 = &unk_1004B69D0;
   selfCopy = self;
-  v36 = dCopy;
-  v37 = v6;
+  v35 = dCopy;
+  v36 = v6;
   msv_dispatch_sync_on_queue();
-  v19 = +[MRUserSettings currentSettings];
-  [v19 queuedCommandsTimeoutInterval];
-  v21 = v20;
+  v18 = +[MRUserSettings currentSettings];
+  [v18 queuedCommandsTimeoutInterval];
+  v20 = v19;
 
-  v22 = dispatch_time(0, (v21 * 1000000000.0));
-  v23 = self->_serialQueue;
+  v21 = dispatch_time(0, (v20 * 1000000000.0));
+  serialQueue = self->_serialQueue;
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
   block[2] = sub_10005DD88;
   block[3] = &unk_1004B69D0;
   block[4] = self;
+  v28 = v35;
   v29 = v36;
-  v30 = v37;
-  v24 = v37;
-  v25 = v36;
-  dispatch_after(v22, v23, block);
+  v23 = v36;
+  v24 = v35;
+  dispatch_after(v21, serialQueue, block);
 }
 
 - (void)_sendQueuedCommandsForDestinationClient:(id)client
 {
+  v23 = 0;
+  v24 = &v23;
+  v25 = 0x3032000000;
+  v26 = sub_100034FB0;
+  v27 = sub_10003599C;
+  v28 = 0;
+  v16 = _NSConcreteStackBlock;
+  v17 = 3221225472;
+  v18 = sub_10005E228;
+  v19 = &unk_1004B78D8;
   clientCopy = client;
-  v25 = 0;
-  v26 = &v25;
-  v27 = 0x3032000000;
-  v28 = sub_100034FB0;
-  v29 = sub_10003599C;
-  v30 = 0;
-  serialQueue = self->_serialQueue;
-  v18 = _NSConcreteStackBlock;
-  v19 = 3221225472;
-  v20 = sub_10005E228;
-  v21 = &unk_1004B78D8;
-  v6 = clientCopy;
-  v22 = v6;
+  v20 = clientCopy;
   selfCopy = self;
-  v24 = &v25;
+  v22 = &v23;
   msv_dispatch_sync_on_queue();
-  v16 = 0u;
-  v17 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v7 = v26[5];
-  v8 = [v7 countByEnumeratingWithState:&v14 objects:v35 count:16];
-  if (v8)
+  v12 = 0u;
+  v13 = 0u;
+  v5 = v24[5];
+  v6 = [v5 countByEnumeratingWithState:&v12 objects:v33 count:16];
+  if (v6)
   {
-    v9 = *v15;
+    v7 = *v13;
     do
     {
-      for (i = 0; i != v8; i = i + 1)
+      for (i = 0; i != v6; i = i + 1)
       {
-        if (*v15 != v9)
+        if (*v13 != v7)
         {
-          objc_enumerationMutation(v7);
+          objc_enumerationMutation(v5);
         }
 
-        v11 = *(*(&v14 + 1) + 8 * i);
+        v9 = *(*(&v12 + 1) + 8 * i);
         kdebug_trace();
-        v12 = _MRLogForCategory();
-        if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+        v10 = _MRLogForCategory();
+        if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138543618;
-          v32 = v11;
-          v33 = 2114;
-          v34 = v6;
-          _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Sending previously queued command %{public}@ to client %{public}@.", buf, 0x16u);
+          v30 = v9;
+          v31 = 2114;
+          v32 = clientCopy;
+          _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Sending previously queued command %{public}@ to client %{public}@.", buf, 0x16u);
         }
 
-        _completionHandler = [v11 _completionHandler];
-        [(MRDRemoteControlServer *)self _sendRemoteControlCommand:v11 toDestinationClient:v6 withCompletion:_completionHandler];
+        _completionHandler = [v9 _completionHandler];
+        [(MRDRemoteControlServer *)self _sendRemoteControlCommand:v9 toDestinationClient:clientCopy withCompletion:_completionHandler];
       }
 
-      v8 = [v7 countByEnumeratingWithState:&v14 objects:v35 count:16];
+      v6 = [v5 countByEnumeratingWithState:&v12 objects:v33 count:16];
     }
 
-    while (v8);
+    while (v6);
   }
 
-  _Block_object_dispose(&v25, 8);
+  _Block_object_dispose(&v23, 8);
 }
 
 - (BOOL)_clearQueuedCommand:(id)command forUnavailableApplicationWithDisplayID:(id)d
@@ -1705,27 +1698,26 @@ LABEL_8:
 - (id)_remoteControlContextForCommand:(id)command
 {
   commandCopy = command;
-  v12 = 0;
-  v13 = &v12;
-  v14 = 0x3032000000;
-  v15 = sub_100034FB0;
-  v16 = sub_10003599C;
-  v17 = 0;
+  v10 = 0;
+  v11 = &v10;
+  v12 = 0x3032000000;
+  v13 = sub_100034FB0;
+  v14 = sub_10003599C;
+  v15 = 0;
   contextID = [commandCopy contextID];
-  v6 = contextID;
+  v5 = contextID;
   if (contextID)
   {
-    serialQueue = self->_serialQueue;
-    v10 = contextID;
-    v11 = commandCopy;
+    v8 = contextID;
+    v9 = commandCopy;
     msv_dispatch_sync_on_queue();
   }
 
-  v8 = v13[5];
+  v6 = v11[5];
 
-  _Block_object_dispose(&v12, 8);
+  _Block_object_dispose(&v10, 8);
 
-  return v8;
+  return v6;
 }
 
 - (id)_contextuallyAwareDestinationAppDisplayIDForCommand:(id)command
@@ -1938,18 +1930,16 @@ LABEL_23:
 
 - (BOOL)_applicationIsRunning:(id)running
 {
+  v6 = 0;
+  v7 = &v6;
+  v8 = 0x2020000000;
+  v9 = 0;
   runningCopy = running;
-  v8 = 0;
-  v9 = &v8;
-  v10 = 0x2020000000;
-  v11 = 0;
-  serialQueue = self->_serialQueue;
-  v7 = runningCopy;
   msv_dispatch_sync_on_queue();
-  LOBYTE(serialQueue) = *(v9 + 24);
+  v3 = *(v7 + 24);
 
-  _Block_object_dispose(&v8, 8);
-  return serialQueue;
+  _Block_object_dispose(&v6, 8);
+  return v3;
 }
 
 - (id)_createBroadcastCommandResponseFromStatuses:(id)statuses forClient:(id)client
@@ -2363,7 +2353,7 @@ LABEL_34:
       {
         if (clientCopy)
         {
-          [clientCopy realToken];
+          objc_msgSend_realToken(clientCopy);
         }
 
         path = [v21 path];

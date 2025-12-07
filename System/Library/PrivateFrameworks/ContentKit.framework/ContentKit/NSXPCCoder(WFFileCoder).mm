@@ -1,10 +1,10 @@
 @interface NSXPCCoder(WFFileCoder)
-- (id)wfFileCoder;
+- (WFSecurityScopedFileCoder)wfFileCoder;
 @end
 
 @implementation NSXPCCoder(WFFileCoder)
 
-- (id)wfFileCoder
+- (WFSecurityScopedFileCoder)wfFileCoder
 {
   v4.receiver = self;
   v4.super_class = &off_282F99CE8;

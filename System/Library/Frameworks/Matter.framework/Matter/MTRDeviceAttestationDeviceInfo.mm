@@ -15,9 +15,9 @@
   declarationCopy = declaration;
   dCopy = d;
   iDCopy = iD;
-  v56.receiver = self;
-  v56.super_class = MTRDeviceAttestationDeviceInfo;
-  v24 = [(MTRDeviceAttestationDeviceInfo *)&v56 init];
+  v58.receiver = self;
+  v58.super_class = MTRDeviceAttestationDeviceInfo;
+  v24 = [(MTRDeviceAttestationDeviceInfo *)&v58 init];
   if (v24)
   {
     v25 = [challengeCopy copy];
@@ -56,43 +56,43 @@
     basicInformationProductID = v24->_basicInformationProductID;
     v24->_basicInformationProductID = v41;
 
-    v52[0] = 0;
-    v54 = 0;
+    v54[0] = 0;
+    v56 = 0;
     v43 = v24->_dacCertificate;
-    sub_238DB6950(&v57, [(NSData *)v43 bytes], [(NSData *)v43 length]);
+    sub_238DB6950(&v59, [(NSData *)v43 bytes], [(NSData *)v43 length]);
 
-    *v51 = v57;
-    if (!sub_2393FB970(v51, v52))
+    v53 = v59;
+    if (!sub_2393FB970(&v53, v54))
     {
-      LOBYTE(v57) = v52[0];
-      if (v52[0] == 1)
+      LOBYTE(v59) = v54[0];
+      if (v54[0] == 1)
       {
-        WORD1(v57) = v53;
-        v44 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:*sub_238EAB248(&v57)];
+        WORD1(v59) = v55;
+        v45 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:{*sub_238EAB248(&v59, v44)}];
       }
 
       else
       {
-        v44 = 0;
+        v45 = 0;
       }
 
       vendorID = v24->_vendorID;
-      v24->_vendorID = v44;
+      v24->_vendorID = v45;
 
-      LOBYTE(v57) = v54;
-      if (v54 == 1)
+      LOBYTE(v59) = v56;
+      if (v56 == 1)
       {
-        WORD1(v57) = v55;
-        v46 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:*sub_238EAB248(&v57)];
+        WORD1(v59) = v57;
+        v48 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:{*sub_238EAB248(&v59, v47)}];
       }
 
       else
       {
-        v46 = 0;
+        v48 = 0;
       }
 
       productID = v24->_productID;
-      v24->_productID = v46;
+      v24->_productID = v48;
     }
   }
 

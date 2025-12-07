@@ -25,72 +25,73 @@ id __40__VCPCNNMetalContext_sharedCommandQueue__block_invoke()
 - (id)initNewContext:(BOOL)context
 {
   contextCopy = context;
-  v20.receiver = self;
-  v20.super_class = VCPCNNMetalContext;
-  v4 = [(VCPCNNMetalContext *)&v20 init];
-  if (v4 && SocType() != 246)
+  v22.receiver = self;
+  v22.super_class = VCPCNNMetalContext;
+  v4 = [(VCPCNNMetalContext *)&v22 init];
+  v6 = v4;
+  if (v4 && SocType(v4, v5) != 246)
   {
     if (contextCopy)
     {
       sharedCommandQueue = [objc_opt_class() sharedCommandQueue];
-      commandQueue = v4->_commandQueue;
-      v4->_commandQueue = sharedCommandQueue;
+      commandQueue = v6->_commandQueue;
+      v6->_commandQueue = sharedCommandQueue;
 
-      device = [(MTLCommandQueue *)v4->_commandQueue device];
-      device = v4->_device;
-      v4->_device = device;
+      device = [(MTLCommandQueue *)v6->_commandQueue device];
+      device = v6->_device;
+      v6->_device = device;
 
-      v9 = v4->_commandQueue;
-      objc_sync_enter(v9);
-      commandBuffer = [(MTLCommandQueue *)v4->_commandQueue commandBuffer];
-      commandBuffer = v4->_commandBuffer;
-      v4->_commandBuffer = commandBuffer;
+      v11 = v6->_commandQueue;
+      objc_sync_enter(v11);
+      commandBuffer = [(MTLCommandQueue *)v6->_commandQueue commandBuffer];
+      commandBuffer = v6->_commandBuffer;
+      v6->_commandBuffer = commandBuffer;
 
-      objc_sync_exit(v9);
+      objc_sync_exit(v11);
     }
 
     else
     {
-      v12 = MTLCreateSystemDefaultDevice();
-      v13 = v4->_device;
-      v4->_device = v12;
+      v14 = MTLCreateSystemDefaultDevice();
+      v15 = v6->_device;
+      v6->_device = v14;
 
-      newCommandQueue = [(MTLDevice *)v4->_device newCommandQueue];
-      v15 = v4->_commandQueue;
-      v4->_commandQueue = newCommandQueue;
+      newCommandQueue = [(MTLDevice *)v6->_device newCommandQueue];
+      v17 = v6->_commandQueue;
+      v6->_commandQueue = newCommandQueue;
 
-      commandBuffer2 = [(MTLCommandQueue *)v4->_commandQueue commandBuffer];
-      v9 = v4->_commandBuffer;
-      v4->_commandBuffer = commandBuffer2;
+      commandBuffer2 = [(MTLCommandQueue *)v6->_commandQueue commandBuffer];
+      v11 = v6->_commandBuffer;
+      v6->_commandBuffer = commandBuffer2;
     }
 
-    if (v4->_commandBuffer)
+    if (v6->_commandBuffer)
     {
       MEMORY[0x1CCA951B0](0.0);
     }
   }
 
-  v17 = v4->_device;
-  if (v17)
+  v19 = v6->_device;
+  if (v19)
   {
-    v17 = v4->_commandQueue;
-    if (v17)
+    v19 = v6->_commandQueue;
+    if (v19)
     {
-      if (v4->_commandBuffer)
+      if (v6->_commandBuffer)
       {
-        v17 = v4;
+        v19 = v6;
       }
 
       else
       {
-        v17 = 0;
+        v19 = 0;
       }
     }
   }
 
-  v18 = v17;
+  v20 = v19;
 
-  return v18;
+  return v20;
 }
 
 - (int)execute

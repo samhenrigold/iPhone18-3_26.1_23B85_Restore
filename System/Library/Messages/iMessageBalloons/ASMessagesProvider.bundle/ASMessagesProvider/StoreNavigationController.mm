@@ -106,21 +106,22 @@
 
 - (id)popToRootViewControllerAnimated:(BOOL)animated
 {
+  animatedCopy = animated;
   selfCopy = self;
-  v5 = sub_3B8AC(animated);
+  v6 = sub_3B8AC(animatedCopy, v5);
 
-  if (v5)
+  if (v6)
   {
     sub_3C80C();
-    v6.super.isa = sub_769450().super.isa;
+    v7.super.isa = sub_769450().super.isa;
   }
 
   else
   {
-    v6.super.isa = 0;
+    v7.super.isa = 0;
   }
 
-  return v6.super.isa;
+  return v7.super.isa;
 }
 
 - (BOOL)canPerformAction:(SEL)action withSender:(id)sender
@@ -141,7 +142,7 @@
 
   v8 = sub_3BA84(action, v10);
 
-  sub_10A2C(v10, &unk_93FBD0);
+  sub_10A2C(v10, &unk_93FBD0, &qword_77DFA0);
   return v8;
 }
 

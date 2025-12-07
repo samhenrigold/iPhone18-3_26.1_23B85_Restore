@@ -44,7 +44,7 @@ void sub_100001B1C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-_BYTE *sub_100001BE8(_BYTE *__dst, void *__src, size_t __len)
+void *sub_100001BE8(void *__dst, void *__src, size_t __len)
 {
   if (__len >= 0x7FFFFFFFFFFFFFF8)
   {
@@ -56,17 +56,17 @@ _BYTE *sub_100001BE8(_BYTE *__dst, void *__src, size_t __len)
     operator new();
   }
 
-  __dst[23] = __len;
+  *(__dst + 23) = __len;
   if (__len)
   {
     memmove(__dst, __src, __len);
   }
 
-  __dst[__len] = 0;
+  *(__dst + __len) = 0;
   return __dst;
 }
 
-_BYTE *sub_100001C98(_BYTE *a1, char *__s)
+void *sub_100001C98(void *a1, char *__s)
 {
   v4 = strlen(__s);
   if (v4 >= 0x7FFFFFFFFFFFFFF8)
@@ -80,13 +80,13 @@ _BYTE *sub_100001C98(_BYTE *a1, char *__s)
     operator new();
   }
 
-  a1[23] = v4;
+  *(a1 + 23) = v4;
   if (v4)
   {
     memmove(a1, __s, v4);
   }
 
-  a1[v5] = 0;
+  *(a1 + v5) = 0;
   return a1;
 }
 
@@ -123,50 +123,50 @@ uint64_t sub_100001D50(uint64_t a1, uint64_t a2)
   return a1;
 }
 
-uint64_t ConvertRavenSolutionEventToString(raven *a1)
+uint64_t ConvertRavenSolutionEventToString(raven *a1, uint64_t a2)
 {
-  CoreNavigation::CLP::LogEntry::LogEntry::LogEntry(v16);
-  v19 |= 1u;
-  if (!v17)
-  {
-    operator new();
-  }
-
-  raven::ConvertRavenTimeToProtobuf();
-  v19 |= 2u;
-  v3 = v18;
+  CoreNavigation::CLP::LogEntry::LogEntry::LogEntry(v17);
+  v20 |= 1u;
   if (!v18)
   {
     operator new();
   }
 
-  *(v18 + 320) |= 2u;
-  v4 = *(v3 + 272);
-  if (!v4)
+  raven::ConvertRavenTimeToProtobuf();
+  v20 |= 2u;
+  v4 = v19;
+  if (!v19)
   {
     operator new();
   }
 
-  *(v4 + 28) |= 1u;
-  v5 = *(v4 + 8);
+  *(v19 + 320) |= 2u;
+  v5 = *(v4 + 272);
   if (!v5)
   {
     operator new();
   }
 
-  raven::ConvertRavenSolutionEventToProtobuf(a1, v5, v2);
-  v6 = wireless_diagnostics::google::protobuf::MessageLite::SerializeToString();
-  if ((v6 & 1) == 0)
+  *(v5 + 28) |= 1u;
+  v6 = *(v5 + 8);
+  if (!v6)
   {
-    v7 = os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR);
-    if (v7)
+    operator new();
+  }
+
+  raven::ConvertRavenSolutionEventToProtobuf(a1, v6, v3);
+  v7 = wireless_diagnostics::google::protobuf::MessageLite::SerializeToString();
+  if ((v7 & 1) == 0)
+  {
+    v8 = os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR);
+    if (v8)
     {
-      sub_100004C48(v7, v8, v9, v10, v11, v12, v13, v14);
+      sub_100004C48(v8, v9, v10, v11, v12, v13, v14, v15);
     }
   }
 
-  CoreNavigation::CLP::LogEntry::LogEntry::~LogEntry(v16);
-  return v6;
+  CoreNavigation::CLP::LogEntry::LogEntry::~LogEntry(v17);
+  return v7;
 }
 
 void sub_100002208(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, char a16)
@@ -577,35 +577,35 @@ uint64_t sub_100002A34(uint64_t a1)
   return a1;
 }
 
-void sub_1000034B8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1000034B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  if (*(v2 + 3767) < 0)
+  va_start(va, a3);
+  if (*(v3 + 3767) < 0)
+  {
+    operator delete(*v7);
+  }
+
+  if (*(v3 + 3735) < 0)
   {
     operator delete(*v6);
   }
 
-  if (*(v2 + 3735) < 0)
+  if (*(v3 + 3703) < 0)
   {
     operator delete(*v5);
   }
 
-  if (*(v2 + 3703) < 0)
+  v9 = *(v3 + 2328);
+  if (v9)
   {
-    operator delete(*v4);
-  }
-
-  v8 = *(v2 + 2328);
-  if (v8)
-  {
-    sub_100003FF8(v8);
+    sub_100003FF8(v9);
   }
 
   sub_100004064(va);
-  *v2 = v3;
-  if (*(v2 + 31) < 0)
+  *v3 = v4;
+  if (*(v3 + 31) < 0)
   {
-    operator delete(*(v2 + 8));
+    operator delete(*(v3 + 8));
   }
 
   _Unwind_Resume(a1);
@@ -614,7 +614,7 @@ void sub_1000034B8(_Unwind_Exception *a1, uint64_t a2, ...)
 uint64_t sub_100003538(uint64_t a1, uint64_t a2, char a3)
 {
   *(a1 + 32) = a3;
-  sub_1000039E8(v26);
+  sub_1000039E8(v26, a2, 8);
   v4 = v26[0];
   if ((*(&v26[4] + *(v26[0] - 3)) & 5) != 0)
   {
@@ -786,31 +786,31 @@ uint64_t sub_100003538(uint64_t a1, uint64_t a2, char a3)
   return v21;
 }
 
-void sub_10000390C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::locale a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22, uint64_t a23)
+void sub_10000390C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::locale a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
   std::ios::~ios();
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_100003988(uint64_t a1, char *a2, char a3)
+uint64_t sub_100003988(_BYTE *a1, char *a2, char a3)
 {
-  *(a1 + 32) = a3;
+  a1[32] = a3;
   sub_100003C68((a1 + 8), a2);
   v4 = *(*a1 + 32);
 
   return v4(a1);
 }
 
-void (__cdecl ***sub_1000039E8(void (__cdecl ***a1)(std::ifstream *__hidden this)))(std::ifstream *__hidden this)
+void (__cdecl ***sub_1000039E8(void (__cdecl ***a1)(std::ifstream *__hidden this), uint64_t a2, int a3))(std::ifstream *__hidden this)
 {
   a1[59] = 0;
-  *a1 = v3;
-  *(*(v3 - 3) + a1) = v2;
+  *a1 = v5;
+  *(*(v5 - 3) + a1) = v4;
   a1[1] = 0;
-  v4 = (*(*a1 - 3) + a1);
-  std::ios_base::init(v4, a1 + 2);
-  v4[1].__vftable = 0;
-  v4[1].__fmtflags_ = -1;
+  v6 = (*(*a1 - 3) + a1);
+  std::ios_base::init(v6, a1 + 2);
+  v6[1].__vftable = 0;
+  v6[1].__fmtflags_ = -1;
   std::filebuf::basic_filebuf();
   if (!std::filebuf::open())
   {
@@ -966,7 +966,7 @@ void sub_100003E14(void *a1)
   __cxa_rethrow();
 }
 
-uint64_t sub_100003EA4(uint64_t result, unint64_t a2)
+uint64_t sub_100003EA4(uint64_t a1, unint64_t a2)
 {
   if (a2 >= 0x7FFFFFFFFFFFFFF8)
   {
@@ -978,11 +978,11 @@ uint64_t sub_100003EA4(uint64_t result, unint64_t a2)
     operator new();
   }
 
-  *(result + 8) = 0;
-  *(result + 16) = 0;
-  *result = 0;
-  *(result + 23) = a2;
-  return result;
+  *(a1 + 8) = 0;
+  *(a1 + 16) = 0;
+  *a1 = 0;
+  *(a1 + 23) = a2;
+  return a1;
 }
 
 uint64_t sub_100003F30(uint64_t *a1, uint64_t *a2)
@@ -1056,7 +1056,7 @@ uint64_t sub_100004108(uint64_t a1, uint64_t a2)
   return a1;
 }
 
-void sub_100004164(std::string **a1, std::string *__str, std::string *a3, unint64_t a4)
+void sub_100004164(uint64_t *a1, std::string *__str, std::string *a3, unint64_t a4)
 {
   v6 = __str;
   v8 = *a1;
@@ -1147,7 +1147,7 @@ void sub_100004304(uint64_t a1)
   }
 }
 
-void sub_100004344(uint64_t a1, unint64_t a2)
+void sub_100004344(uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0xAAAAAAAAAAAAAABLL)
   {
@@ -1286,12 +1286,12 @@ uint64_t sub_100004610(uint64_t a1)
   return a1;
 }
 
-uint64_t sub_100004654(uint64_t a1)
+void *sub_100004654(void *a1)
 {
-  sub_100004764(a1 + 8);
-  sub_1000047F4((a1 + 104));
-  sub_100004918((a1 + 1168));
-  sub_1000049F4(a1 + 2032);
+  sub_100004764((a1 + 1));
+  sub_1000047F4((a1 + 13));
+  sub_100004918(a1 + 73);
+  sub_1000049F4((a1 + 254));
   sub_1000046CC(a1);
   return a1;
 }
@@ -1555,10 +1555,11 @@ double sub_100004A94(uint64_t a1)
   return result;
 }
 
-void sub_100004B68(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100004B68(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 2u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 2u);
 }
 
 void sub_100004B84()

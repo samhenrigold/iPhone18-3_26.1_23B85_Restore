@@ -12,10 +12,10 @@
 
 - (_BlastDoorLPMapMetadata)init
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v7.receiver = self;
-  v7.super_class = _BlastDoorLPMapMetadata;
-  v2 = [(_BlastDoorLPMapMetadata *)&v7 init];
+  v7 = *MEMORY[0x277D85DE8];
+  v6.receiver = self;
+  v6.super_class = _BlastDoorLPMapMetadata;
+  v2 = [(_BlastDoorLPMapMetadata *)&v6 init];
   v3 = v2;
   if (v2)
   {
@@ -23,17 +23,16 @@
     v4 = v2;
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
 - (_BlastDoorLPMapMetadata)initWithCoder:(id)coder
 {
-  v63 = *MEMORY[0x277D85DE8];
+  v62 = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v62.receiver = self;
-  v62.super_class = _BlastDoorLPMapMetadata;
-  v5 = [(_BlastDoorLPMapMetadata *)&v62 init];
+  v61.receiver = self;
+  v61.super_class = _BlastDoorLPMapMetadata;
+  v5 = [(_BlastDoorLPMapMetadata *)&v61 init];
   if (v5)
   {
     v6 = decodeStringForKey(coderCopy, @"name");
@@ -140,7 +139,6 @@
     v59 = v5;
   }
 
-  v60 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -247,11 +245,11 @@
 
 - (BOOL)isEqual:(id)equal
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   equalCopy = equal;
-  v29.receiver = self;
-  v29.super_class = _BlastDoorLPMapMetadata;
-  if ([(_BlastDoorLPMapMetadata *)&v29 isEqual:equalCopy])
+  v28.receiver = self;
+  v28.super_class = _BlastDoorLPMapMetadata;
+  if ([(_BlastDoorLPMapMetadata *)&v28 isEqual:equalCopy])
   {
     v5 = 1;
   }
@@ -263,96 +261,7 @@
     {
       v6 = equalCopy;
       v7 = *(v6 + 2);
-      if (v7 | *&self->_isPointOfInterest && ![v7 isEqual:?])
-      {
-        goto LABEL_8;
-      }
-
-      v8 = v6 + 20;
-      if (v6[21] != self->_location.latitude)
-      {
-        goto LABEL_8;
-      }
-
-      v9 = *v8;
-      if (*v8 != *&self->_storeFrontImage)
-      {
-        goto LABEL_8;
-      }
-
-      v12 = *(v6 + 3);
-      if (v12 | self->_name)
-      {
-        if (![v12 isEqual:v9])
-        {
-          goto LABEL_8;
-        }
-      }
-
-      v13 = *(v6 + 4);
-      if (v13 | self->_address && ![v13 isEqual:v9])
-      {
-        goto LABEL_8;
-      }
-
-      v14 = *(v6 + 5);
-      if (v14 | self->_addressComponents && ![v14 isEqual:v9])
-      {
-        goto LABEL_8;
-      }
-
-      v15 = *(v6 + 6);
-      if (v15 | self->_category && ![v15 isEqual:v9])
-      {
-        goto LABEL_8;
-      }
-
-      v16 = *(v6 + 7);
-      if (v16 | self->_categoryIcon && ![v16 isEqual:v9])
-      {
-        goto LABEL_8;
-      }
-
-      v17 = *(v6 + 8);
-      if (v17 | self->_searchQuery && ![v17 isEqual:v9])
-      {
-        goto LABEL_8;
-      }
-
-      v18 = *(v6 + 9);
-      if (v18 | self->_directionsType && ![v18 isEqual:v9])
-      {
-        goto LABEL_8;
-      }
-
-      v19 = *(v6 + 10);
-      if (v19 | self->_transportType && ![v19 isEqual:v9])
-      {
-        goto LABEL_8;
-      }
-
-      v20 = *(v6 + 11);
-      if (v20 | self->_directionsSourceAddress && ![v20 isEqual:v9])
-      {
-        goto LABEL_8;
-      }
-
-      v21 = *(v6 + 12);
-      if (v21 | self->_directionsSourceAddressComponents && ![v21 isEqual:v9])
-      {
-        goto LABEL_8;
-      }
-
-      if (((v22 = *(v6 + 13), !(v22 | self->_directionsSourceLocationName)) || [v22 isEqual:v9]) && ((v23 = *(v6 + 14), !(v23 | self->_directionsDestinationAddress)) || objc_msgSend(v23, "isEqual:", v9)) && ((v24 = *(v6 + 15), !(v24 | self->_directionsDestinationAddressComponents)) || objc_msgSend(v24, "isEqual:", v9)) && ((v25 = *(v6 + 16), !(v25 | self->_directionsDestinationLocationName)) || objc_msgSend(v25, "isEqual:", v9)) && ((v26 = *(v6 + 17), !(v26 | self->_distance)) || objc_msgSend(v26, "isEqual:", v9)) && ((v27 = *(v6 + 18), !(v27 | self->_image)) || objc_msgSend(v27, "isEqual:", v9)) && ((v28 = *(v6 + 19), !(v28 | self->_darkImage)) || objc_msgSend(v28, "isEqual:", v9)))
-      {
-        v5 = *(v6 + 9) == *(&self->super.__dummyPropertyForObservation + 1);
-      }
-
-      else
-      {
-LABEL_8:
-        v5 = 0;
-      }
+      v5 = (!(v7 | *&self->_isPointOfInterest) || [v7 isEqual:?]) && (v8 = v6 + 20, v6[21] == self->_location.latitude) && (v9 = *v8, *v8 == *&self->_storeFrontImage) && ((v11 = *(v6 + 3), !(v11 | self->_name)) || objc_msgSend(v11, "isEqual:", v9)) && ((v12 = *(v6 + 4), !(v12 | self->_address)) || objc_msgSend(v12, "isEqual:", v9)) && ((v13 = *(v6 + 5), !(v13 | self->_addressComponents)) || objc_msgSend(v13, "isEqual:", v9)) && ((v14 = *(v6 + 6), !(v14 | self->_category)) || objc_msgSend(v14, "isEqual:", v9)) && ((v15 = *(v6 + 7), !(v15 | self->_categoryIcon)) || objc_msgSend(v15, "isEqual:", v9)) && ((v16 = *(v6 + 8), !(v16 | self->_searchQuery)) || objc_msgSend(v16, "isEqual:", v9)) && ((v17 = *(v6 + 9), !(v17 | self->_directionsType)) || objc_msgSend(v17, "isEqual:", v9)) && ((v18 = *(v6 + 10), !(v18 | self->_transportType)) || objc_msgSend(v18, "isEqual:", v9)) && ((v19 = *(v6 + 11), !(v19 | self->_directionsSourceAddress)) || objc_msgSend(v19, "isEqual:", v9)) && ((v20 = *(v6 + 12), !(v20 | self->_directionsSourceAddressComponents)) || objc_msgSend(v20, "isEqual:", v9)) && ((v21 = *(v6 + 13), !(v21 | self->_directionsSourceLocationName)) || objc_msgSend(v21, "isEqual:", v9)) && ((v22 = *(v6 + 14), !(v22 | self->_directionsDestinationAddress)) || objc_msgSend(v22, "isEqual:", v9)) && ((v23 = *(v6 + 15), !(v23 | self->_directionsDestinationAddressComponents)) || objc_msgSend(v23, "isEqual:", v9)) && ((v24 = *(v6 + 16), !(v24 | self->_directionsDestinationLocationName)) || objc_msgSend(v24, "isEqual:", v9)) && ((v25 = *(v6 + 17), !(v25 | self->_distance)) || objc_msgSend(v25, "isEqual:", v9)) && ((v26 = *(v6 + 18), !(v26 | self->_image)) || objc_msgSend(v26, "isEqual:", v9)) && ((v27 = *(v6 + 19), !(v27 | self->_darkImage)) || objc_msgSend(v27, "isEqual:", v9)) && *(v6 + 9) == *(&self->super.__dummyPropertyForObservation + 1);
     }
 
     else
@@ -361,7 +270,6 @@ LABEL_8:
     }
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

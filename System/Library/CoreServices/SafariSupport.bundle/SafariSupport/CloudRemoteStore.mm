@@ -76,7 +76,7 @@
   [v19 setPreviousServerChangeToken:tokenCopy];
 
   v20 = [[WBSRetryableCKFetchRecordZoneChangesOperation alloc] initWithOwner:self handlingQueue:self->_internalQueue];
-  [v20 setLog:-[CloudTabGroupSyncCoordinator _bookmarksLog]_0()];
+  [v20 setLog:{-[CloudTabGroupSyncCoordinator _bookmarksLog]_0(v20, v21)}];
   operationConfiguration = [(CloudRemoteStore *)self operationConfiguration];
   [v20 setConfiguration:operationConfiguration];
 
@@ -84,57 +84,57 @@
   _database = [(CloudRemoteStore *)self _database];
   [v20 setDatabase:_database];
 
-  v53 = _zoneID;
-  v23 = [NSArray arrayWithObjects:&v53 count:1];
-  [v20 setRecordZoneIDs:v23];
+  v56 = _zoneID;
+  v24 = [NSArray arrayWithObjects:&v56 count:1];
+  [v20 setRecordZoneIDs:v24];
 
-  v51 = _zoneID;
-  v52 = v19;
-  v24 = [NSDictionary dictionaryWithObjects:&v52 forKeys:&v51 count:1];
-  [v20 setConfigurationsByRecordZoneID:v24];
+  v54 = _zoneID;
+  v55 = v19;
+  v25 = [NSDictionary dictionaryWithObjects:&v55 forKeys:&v54 count:1];
+  [v20 setConfigurationsByRecordZoneID:v25];
 
-  v47[0] = _NSConcreteStackBlock;
-  v47[1] = 3221225472;
-  v47[2] = sub_1000D15B4;
-  v47[3] = &unk_100137010;
-  v48 = blockCopy;
-  v25 = blockCopy;
-  [v20 setRecordWasChangedBlock:v47];
-  v45[0] = _NSConcreteStackBlock;
-  v45[1] = 3221225472;
-  v45[2] = sub_1000D1628;
-  v45[3] = &unk_100137038;
-  v46 = deletedBlockCopy;
-  v26 = deletedBlockCopy;
-  [v20 setRecordWithIDWasDeletedBlock:v45];
-  v39 = _NSConcreteStackBlock;
-  v40 = 3221225472;
-  v41 = sub_1000D16A8;
-  v42 = &unk_100137060;
+  v50[0] = _NSConcreteStackBlock;
+  v50[1] = 3221225472;
+  v50[2] = sub_1000D15B4;
+  v50[3] = &unk_100137010;
+  v51 = blockCopy;
+  v26 = blockCopy;
+  [v20 setRecordWasChangedBlock:v50];
+  v48[0] = _NSConcreteStackBlock;
+  v48[1] = 3221225472;
+  v48[2] = sub_1000D1628;
+  v48[3] = &unk_100137038;
+  v49 = deletedBlockCopy;
+  v27 = deletedBlockCopy;
+  [v20 setRecordWithIDWasDeletedBlock:v48];
+  v42 = _NSConcreteStackBlock;
+  v43 = 3221225472;
+  v44 = sub_1000D16A8;
+  v45 = &unk_100137060;
   selfCopy = self;
-  v27 = v18;
-  v44 = v27;
-  [v20 setRecordZoneFetchCompletionBlock:&v39];
-  v33 = _NSConcreteStackBlock;
-  v34 = 3221225472;
-  v35 = sub_1000D19FC;
-  v36 = &unk_100137088;
+  v28 = v18;
+  v47 = v28;
+  [v20 setRecordZoneFetchCompletionBlock:&v42];
+  v36 = _NSConcreteStackBlock;
+  v37 = 3221225472;
+  v38 = sub_1000D19FC;
+  v39 = &unk_100137088;
   selfCopy2 = self;
-  v38 = v27;
-  v28 = v27;
-  [v20 setFetchRecordZoneChangesCompletionBlock:&v33];
-  v29 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0();
-  if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
+  v41 = v28;
+  v29 = v28;
+  v30 = [v20 setFetchRecordZoneChangesCompletionBlock:&v36];
+  v32 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(v30, v31);
+  if (os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
   {
-    v30 = v29;
-    v31 = [(CloudRemoteStore *)self _zoneLogName:v33];
+    v33 = v32;
+    v34 = [(CloudRemoteStore *)self _zoneLogName:v36];
     *buf = 138543362;
-    v50 = v31;
-    _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_INFO, "Enqueuing request to fetch records from record zone %{public}@", buf, 0xCu);
+    v53 = v34;
+    _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_INFO, "Enqueuing request to fetch records from record zone %{public}@", buf, 0xCu);
   }
 
-  v32 = [(CloudRemoteStore *)self _operationQueue:v33];
-  [v32 addOperation:v20];
+  v35 = [(CloudRemoteStore *)self _operationQueue:v36];
+  [v35 addOperation:v20];
 }
 
 - (void)_addDependenciesForModifyRecordsOperation:(id)operation operationQueue:(id)queue
@@ -185,43 +185,43 @@
   operationsCopy = operations;
   groupCopy = group;
   queueCopy = queue;
-  v11 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+  v12 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(queueCopy, v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
   {
-    v12 = v11;
+    v13 = v12;
     *buf = 134217984;
-    v25 = [operationsCopy count];
-    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_INFO, "Enqueuing %lu modify records operations", buf, 0xCu);
+    v26 = [operationsCopy count];
+    _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_INFO, "Enqueuing %lu modify records operations", buf, 0xCu);
   }
 
-  v21 = 0u;
   v22 = 0u;
-  v19 = 0u;
+  v23 = 0u;
   v20 = 0u;
-  v13 = operationsCopy;
-  v14 = [v13 countByEnumeratingWithState:&v19 objects:v23 count:16];
-  if (v14)
+  v21 = 0u;
+  v14 = operationsCopy;
+  v15 = [v14 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  if (v15)
   {
-    v15 = v14;
-    v16 = *v20;
+    v16 = v15;
+    v17 = *v21;
     do
     {
-      for (i = 0; i != v15; i = i + 1)
+      for (i = 0; i != v16; i = i + 1)
       {
-        if (*v20 != v16)
+        if (*v21 != v17)
         {
-          objc_enumerationMutation(v13);
+          objc_enumerationMutation(v14);
         }
 
-        v18 = *(*(&v19 + 1) + 8 * i);
-        [(CloudRemoteStore *)self _addDependenciesForModifyRecordsOperation:v18 operationQueue:queueCopy, v19];
-        [(CloudRemoteStore *)self _scheduleOperation:v18 inOperationGroup:groupCopy operationQueue:queueCopy];
+        v19 = *(*(&v20 + 1) + 8 * i);
+        [(CloudRemoteStore *)self _addDependenciesForModifyRecordsOperation:v19 operationQueue:queueCopy, v20];
+        [(CloudRemoteStore *)self _scheduleOperation:v19 inOperationGroup:groupCopy operationQueue:queueCopy];
       }
 
-      v15 = [v13 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v16 = [v14 countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
-    while (v15);
+    while (v16);
   }
 }
 

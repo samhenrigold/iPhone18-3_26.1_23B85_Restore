@@ -25,7 +25,7 @@
 
 - (void)setUuid:(char *)uuid
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   uuid = self->_uuid;
   if (uuid)
   {
@@ -35,11 +35,9 @@
       self->_uuid = uuid;
       if (!uuid)
       {
-        [(OS_remote_device *)&v8 setUuid:v9];
+        [(OS_remote_device *)&v6 setUuid:v7];
       }
     }
-
-    v6 = *MEMORY[0x277D85DE8];
 
     uuid_copy(uuid, uuid);
   }
@@ -48,7 +46,6 @@
   {
     free(uuid);
     self->_uuid = 0;
-    v7 = *MEMORY[0x277D85DE8];
   }
 }
 
@@ -71,35 +68,36 @@
 
 - (BOOL)hasServiceWithName:(const char *)name peerMessage:(id)message
 {
-  if (remote_device_get_state(self) != 2)
+  state = remote_device_get_state(self);
+  if (state != 2)
   {
-    v9 = rsd_log();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+    v10 = rsd_log(state);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
-      [OS_remote_device(RemoteDeviceCommon) hasServiceWithName:? peerMessage:?];
+      [OS_remote_device(RemoteDeviceCommon) hasServiceWithName:peerMessage:];
     }
 
     return 0;
   }
 
-  v6 = remote_device_copy_service_names(self);
-  if (!xpc_array_get_count(v6))
+  v7 = remote_device_copy_service_names(self);
+  if (!xpc_array_get_count(v7))
   {
 LABEL_6:
 
     return 0;
   }
 
-  v7 = 0;
+  v8 = 0;
   while (1)
   {
-    string = xpc_array_get_string(v6, v7);
+    string = xpc_array_get_string(v7, v8);
     if (!strcmp(name, string))
     {
       break;
     }
 
-    if (++v7 >= xpc_array_get_count(v6))
+    if (++v8 >= xpc_array_get_count(v7))
     {
       goto LABEL_6;
     }
@@ -113,8 +111,8 @@ LABEL_6:
   OUTLINED_FUNCTION_1(a1, a2);
   OUTLINED_FUNCTION_11();
   OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_12();
+  v8 = OUTLINED_FUNCTION_0(v2, v3, v4, v5, &dword_22E542000, v6, v7, "assertion failure: _uuid != ((void*)0) -> %llu");
+  OUTLINED_FUNCTION_12(v8);
   __break(1u);
 }
 

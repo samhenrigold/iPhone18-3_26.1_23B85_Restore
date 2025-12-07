@@ -95,7 +95,8 @@ void __46__ATXPredictionJSONScoreLogger_sharedInstance__block_invoke()
   dictCopy = dict;
   subscoresCopy = subscores;
   idCopy = id;
-  if ([MEMORY[0x277D42590] shouldIncludePredictionLogs])
+  shouldIncludePredictionLogs = [MEMORY[0x277D42590] shouldIncludePredictionLogs];
+  if (shouldIncludePredictionLogs)
   {
     if (dictCopy)
     {
@@ -104,42 +105,42 @@ void __46__ATXPredictionJSONScoreLogger_sharedInstance__block_invoke()
         if (idCopy)
         {
           fastQueue = self->_fastQueue;
-          v34[0] = MEMORY[0x277D85DD0];
-          v34[1] = 3221225472;
-          v34[2] = __67__ATXPredictionJSONScoreLogger_logInputDict_subscores_forBundleId___block_invoke;
-          v34[3] = &unk_2785978C0;
-          v34[4] = self;
-          v35 = idCopy;
-          v36 = dictCopy;
-          v37 = subscoresCopy;
-          dispatch_async(fastQueue, v34);
+          v35[0] = MEMORY[0x277D85DD0];
+          v35[1] = 3221225472;
+          v35[2] = __67__ATXPredictionJSONScoreLogger_logInputDict_subscores_forBundleId___block_invoke;
+          v35[3] = &unk_2785978C0;
+          v35[4] = self;
+          v36 = idCopy;
+          v37 = dictCopy;
+          v38 = subscoresCopy;
+          dispatch_async(fastQueue, v35);
 
           goto LABEL_13;
         }
 
-        v12 = __atxlog_handle_default();
-        if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+        v13 = __atxlog_handle_default(shouldIncludePredictionLogs);
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
         {
-          [(ATXPredictionJSONScoreLogger *)v12 logInputDict:v27 subscores:v28 forBundleId:v29, v30, v31, v32, v33];
+          [(ATXPredictionJSONScoreLogger *)v13 logInputDict:v28 subscores:v29 forBundleId:v30, v31, v32, v33, v34];
         }
       }
 
       else
       {
-        v12 = __atxlog_handle_default();
-        if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+        v13 = __atxlog_handle_default(shouldIncludePredictionLogs);
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
         {
-          [(ATXPredictionJSONScoreLogger *)v12 logInputDict:v20 subscores:v21 forBundleId:v22, v23, v24, v25, v26];
+          [(ATXPredictionJSONScoreLogger *)v13 logInputDict:v21 subscores:v22 forBundleId:v23, v24, v25, v26, v27];
         }
       }
     }
 
     else
     {
-      v12 = __atxlog_handle_default();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v13 = __atxlog_handle_default(shouldIncludePredictionLogs);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
-        [(ATXPredictionJSONScoreLogger *)v12 logInputDict:v13 subscores:v14 forBundleId:v15, v16, v17, v18, v19];
+        [(ATXPredictionJSONScoreLogger *)v13 logInputDict:v14 subscores:v15 forBundleId:v16, v17, v18, v19, v20];
       }
     }
   }
@@ -149,7 +150,7 @@ LABEL_13:
 
 void __67__ATXPredictionJSONScoreLogger_logInputDict_subscores_forBundleId___block_invoke(uint64_t a1)
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277CCABB0];
   v3 = [MEMORY[0x277CBEAA8] date];
   [v3 timeIntervalSince1970];
@@ -177,14 +178,14 @@ void __67__ATXPredictionJSONScoreLogger_logInputDict_subscores_forBundleId___blo
       {
 LABEL_15:
         v7 = [*(*(a1 + 32) + 8) objectForKeyedSubscript:@"predictionSubScores"];
-        v25 = *(a1 + 40);
-        v24[0] = @"bundleId";
-        v24[1] = @"inputs";
-        v24[2] = @"subscores";
-        v26 = *(a1 + 56);
+        v24 = *(a1 + 40);
+        v23[0] = @"bundleId";
+        v23[1] = @"inputs";
+        v23[2] = @"subscores";
+        v25 = *(a1 + 56);
         v8 = MEMORY[0x277CBEAC0];
-        v9 = &v25;
-        v10 = v24;
+        v9 = &v24;
+        v10 = v23;
         goto LABEL_16;
       }
 
@@ -200,22 +201,22 @@ LABEL_11:
 
         if (v18 < v12)
         {
-          v21 = [*(*(a1 + 32) + 8) objectForKeyedSubscript:@"predictionSubScores"];
-          v22 = [v21 count];
+          v20 = [*(*(a1 + 32) + 8) objectForKeyedSubscript:@"predictionSubScores"];
+          v21 = [v20 count];
 
-          if (v22 == 100)
+          if (v21 == 100)
           {
-            v23 = [*(*(a1 + 32) + 8) objectForKeyedSubscript:@"predictionSubScores"];
-            [v23 removeLastObject];
+            v22 = [*(*(a1 + 32) + 8) objectForKeyedSubscript:@"predictionSubScores"];
+            [v22 removeLastObject];
           }
 
           v7 = [*(*(a1 + 32) + 8) objectForKeyedSubscript:@"predictionSubScores"];
-          v28 = *(a1 + 40);
-          v27[0] = @"bundleId";
-          v27[1] = @"inputs";
-          v27[2] = @"subscores";
-          v29 = *(a1 + 56);
-          v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v28 forKeys:v27 count:3];
+          v27 = *(a1 + 40);
+          v26[0] = @"bundleId";
+          v26[1] = @"inputs";
+          v26[2] = @"subscores";
+          v28 = *(a1 + 56);
+          v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v27 forKeys:v26 count:3];
           [v7 insertObject:v19 atIndex:i];
           goto LABEL_17;
         }
@@ -223,40 +224,37 @@ LABEL_11:
 
       if (v6 > 0x63)
       {
-        goto LABEL_18;
+        return;
       }
 
       goto LABEL_15;
     }
 
     v7 = [*(*(a1 + 32) + 8) objectForKeyedSubscript:@"predictionSubScores"];
-    v31 = *(a1 + 40);
-    v30[0] = @"action";
-    v30[1] = @"inputs";
-    v30[2] = @"subscores";
-    v32 = *(a1 + 56);
+    v30 = *(a1 + 40);
+    v29[0] = @"action";
+    v29[1] = @"inputs";
+    v29[2] = @"subscores";
+    v31 = *(a1 + 56);
     v8 = MEMORY[0x277CBEAC0];
-    v9 = &v31;
-    v10 = v30;
+    v9 = &v30;
+    v10 = v29;
     goto LABEL_16;
   }
 
   v7 = [*(*(a1 + 32) + 8) objectForKeyedSubscript:@"predictionSubScores"];
-  v34 = *(a1 + 40);
-  v33[0] = @"actionKey";
-  v33[1] = @"inputs";
-  v33[2] = @"subscores";
-  v35 = *(a1 + 56);
+  v33 = *(a1 + 40);
+  v32[0] = @"actionKey";
+  v32[1] = @"inputs";
+  v32[2] = @"subscores";
+  v34 = *(a1 + 56);
   v8 = MEMORY[0x277CBEAC0];
-  v9 = &v34;
-  v10 = v33;
+  v9 = &v33;
+  v10 = v32;
 LABEL_16:
   v19 = [v8 dictionaryWithObjects:v9 forKeys:v10 count:3];
   [v7 addObject:v19];
 LABEL_17:
-
-LABEL_18:
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setConsumerSubType:(unsigned __int8)type
@@ -415,53 +413,51 @@ id __67__ATXPredictionJSONScoreLogger_flushWithCompletion_filenameSuffix___block
     [*(a1[4] + 24) removeObjectAtIndex:0];
   }
 
-  v2 = a1[6];
   return objc_opt_self();
 }
 
 uint64_t __67__ATXPredictionJSONScoreLogger_flushWithCompletion_filenameSuffix___block_invoke_3(uint64_t a1)
 {
-  v2 = __atxlog_handle_default();
+  v2 = __atxlog_handle_default(a1);
   v3 = os_signpost_id_generate(v2);
 
-  v4 = __atxlog_handle_default();
-  v5 = v4;
-  if (v3 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v4))
+  v5 = __atxlog_handle_default(v4);
+  v6 = v5;
+  if (v3 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v5))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_2263AA000, v5, OS_SIGNPOST_INTERVAL_BEGIN, v3, "JSONScoreLogWrite", " enableTelemetry=YES ", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_2263AA000, v6, OS_SIGNPOST_INTERVAL_BEGIN, v3, "JSONScoreLogWrite", " enableTelemetry=YES ", buf, 2u);
   }
 
-  v6 = objc_autoreleasePoolPush();
-  v7 = open_dprotected_np([*(a1 + 32) UTF8String], 1537, 3, 0, 384);
-  if ((v7 & 0x80000000) == 0)
+  v7 = objc_autoreleasePoolPush();
+  v8 = open_dprotected_np([*(a1 + 32) UTF8String], 1537, 3, 0, 384);
+  if ((v8 & 0x80000000) == 0)
   {
-    v8 = v7;
-    v9 = fdopen(v7, "w");
-    if (v9)
+    v9 = v8;
+    v10 = fdopen(v8, "w");
+    if (v10)
     {
-      v10 = v9;
-      [ATXScoreLogSerialization writeObject:*(*(a1 + 40) + 24) toFile:v9];
-      fclose(v10);
+      v11 = v10;
+      [ATXScoreLogSerialization writeObject:*(*(a1 + 40) + 24) toFile:v10];
+      fclose(v11);
     }
 
     else
     {
-      close(v8);
+      close(v9);
     }
   }
 
-  objc_autoreleasePoolPop(v6);
-  v11 = __atxlog_handle_default();
-  v12 = v11;
-  if (v3 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v11))
+  objc_autoreleasePoolPop(v7);
+  v13 = __atxlog_handle_default(v12);
+  v14 = v13;
+  if (v3 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v13))
   {
-    *v16 = 0;
-    _os_signpost_emit_with_name_impl(&dword_2263AA000, v12, OS_SIGNPOST_INTERVAL_END, v3, "JSONScoreLogWrite", " enableTelemetry=YES ", v16, 2u);
+    *v17 = 0;
+    _os_signpost_emit_with_name_impl(&dword_2263AA000, v14, OS_SIGNPOST_INTERVAL_END, v3, "JSONScoreLogWrite", " enableTelemetry=YES ", v17, 2u);
   }
 
-  v13 = *(a1 + 48);
-  v14 = objc_opt_self();
+  v15 = objc_opt_self();
   return (*(*(a1 + 56) + 16))();
 }
 

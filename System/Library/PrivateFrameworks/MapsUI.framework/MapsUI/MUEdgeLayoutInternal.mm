@@ -22,7 +22,7 @@
   top = insets.top;
   swift_unknownObjectRetain();
   swift_unknownObjectRetain();
-  v15 = sub_1C56233C8(item, top, leading, bottom, trailing, priority, container, edges);
+  v15 = sub_1C56233C8(item, container, edges, top, leading, bottom, trailing, priority);
   swift_unknownObjectRelease();
   swift_unknownObjectRelease();
   return v15;
@@ -30,12 +30,11 @@
 
 - (MULayoutItem)item
 {
-  v2 = *(&self->super.super.isa + OBJC_IVAR___MUEdgeLayoutInternal_builder);
   selfCopy = self;
-  sub_1C5623A68(v6);
+  sub_1C5623A68(v5);
   Strong = swift_unknownObjectWeakLoadStrong();
 
-  sub_1C5623F2C(v6);
+  sub_1C5623F2C(v5);
 
   return Strong;
 }
@@ -48,61 +47,55 @@
     [swift_unknownObjectRetain() _mapsui_disableTranslatesAutoresizingMaskIntoConstraints];
   }
 
-  v5 = *(&selfCopy->super.super.isa + OBJC_IVAR___MUEdgeLayoutInternal_builder);
-  sub_1C5623A68(v8);
+  sub_1C5623A68(v7);
   swift_unknownObjectWeakAssign();
-  sub_1C5623B08(v8, v7);
-  sub_1C5623B40(v7, v6);
+  sub_1C5623B08(v7, v6);
+  sub_1C5623B40(v6, v5);
   swift_unknownObjectRelease();
-  sub_1C5623F2C(v8);
+  sub_1C5623F2C(v7);
 }
 
 - (MULayoutItem)container
 {
-  v2 = *(&self->super.super.isa + OBJC_IVAR___MUEdgeLayoutInternal_builder);
   selfCopy = self;
-  sub_1C5623A68(v6);
+  sub_1C5623A68(v5);
   Strong = swift_unknownObjectWeakLoadStrong();
 
-  sub_1C5623F2C(v6);
+  sub_1C5623F2C(v5);
 
   return Strong;
 }
 
 - (void)setContainer:(id)container
 {
-  v4 = OBJC_IVAR___MUEdgeLayoutInternal_builder;
-  v5 = *(&self->super.super.isa + OBJC_IVAR___MUEdgeLayoutInternal_builder);
   swift_unknownObjectRetain();
   selfCopy = self;
-  sub_1C5623A68(v10);
+  sub_1C5623A68(v7);
   swift_unknownObjectWeakAssign();
-  v7 = *(&self->super.super.isa + v4);
-  sub_1C5623B08(v10, v9);
-  sub_1C5623B40(v9, v8);
+  sub_1C5623B08(v7, v6);
+  sub_1C5623B40(v6, v5);
   swift_unknownObjectRelease();
-  sub_1C5623F2C(v10);
+  sub_1C5623F2C(v7);
 }
 
 - (NSDirectionalEdgeInsets)insets
 {
-  v2 = *(&self->super.super.isa + OBJC_IVAR___MUEdgeLayoutInternal_builder);
   selfCopy = self;
-  sub_1C5623A68(v12);
+  sub_1C5623A68(v11);
 
-  v4 = *&v12[2];
-  v5 = *&v12[3];
-  v6 = *&v12[4];
-  v7 = *&v12[5];
-  sub_1C5623F2C(v12);
+  v3 = *&v11[2];
+  v4 = *&v11[3];
+  v5 = *&v11[4];
+  v6 = *&v11[5];
+  sub_1C5623F2C(v11);
+  v7 = v3;
   v8 = v4;
   v9 = v5;
   v10 = v6;
-  v11 = v7;
-  result.trailing = v11;
-  result.bottom = v10;
-  result.leading = v9;
-  result.top = v8;
+  result.trailing = v10;
+  result.bottom = v9;
+  result.leading = v8;
+  result.top = v7;
   return result;
 }
 
@@ -112,66 +105,55 @@
   bottom = insets.bottom;
   leading = insets.leading;
   top = insets.top;
-  v8 = OBJC_IVAR___MUEdgeLayoutInternal_builder;
-  v9 = *(&self->super.super.isa + OBJC_IVAR___MUEdgeLayoutInternal_builder);
   selfCopy = self;
-  sub_1C5623A68(v14);
-  v15 = top;
-  v16 = leading;
-  v17 = bottom;
-  v18 = trailing;
-  v11 = *(&self->super.super.isa + v8);
-  sub_1C5623B08(v14, v13);
-  sub_1C5623B40(v13, v12);
-  sub_1C5623F2C(v14);
+  sub_1C5623A68(v10);
+  v11 = top;
+  v12 = leading;
+  v13 = bottom;
+  v14 = trailing;
+  sub_1C5623B08(v10, v9);
+  sub_1C5623B40(v9, v8);
+  sub_1C5623F2C(v10);
 }
 
 - (unint64_t)edges
 {
-  v2 = *(&self->super.super.isa + OBJC_IVAR___MUEdgeLayoutInternal_builder);
   selfCopy = self;
-  sub_1C5623A68(v6);
+  sub_1C5623A68(v5);
 
-  v4 = v6[6];
-  sub_1C5623F2C(v6);
-  return v4;
+  v3 = v5[6];
+  sub_1C5623F2C(v5);
+  return v3;
 }
 
 - (void)setEdges:(unint64_t)edges
 {
-  v5 = OBJC_IVAR___MUEdgeLayoutInternal_builder;
-  v6 = *(&self->super.super.isa + OBJC_IVAR___MUEdgeLayoutInternal_builder);
   selfCopy = self;
-  sub_1C5623A68(v11);
+  sub_1C5623A68(v7);
   edgesCopy = edges;
-  v8 = *(&self->super.super.isa + v5);
-  sub_1C5623B08(v11, v10);
-  sub_1C5623B40(v10, v9);
-  sub_1C5623F2C(v11);
+  sub_1C5623B08(v7, v6);
+  sub_1C5623B40(v6, v5);
+  sub_1C5623F2C(v7);
 }
 
 - (float)priority
 {
-  v2 = *(&self->super.super.isa + OBJC_IVAR___MUEdgeLayoutInternal_builder);
   selfCopy = self;
-  sub_1C5623A68(v6);
+  sub_1C5623A68(v5);
 
-  v4 = *&v6[14];
-  sub_1C5623F2C(v6);
-  return v4;
+  v3 = *&v5[14];
+  sub_1C5623F2C(v5);
+  return v3;
 }
 
 - (void)setPriority:(float)priority
 {
-  v5 = OBJC_IVAR___MUEdgeLayoutInternal_builder;
-  v6 = *(&self->super.super.isa + OBJC_IVAR___MUEdgeLayoutInternal_builder);
   selfCopy = self;
-  sub_1C5623A68(v11);
+  sub_1C5623A68(v7);
   priorityCopy = priority;
-  v8 = *(&self->super.super.isa + v5);
-  sub_1C5623B08(v11, v10);
-  sub_1C5623B40(v10, v9);
-  sub_1C5623F2C(v11);
+  sub_1C5623B08(v7, v6);
+  sub_1C5623B40(v6, v5);
+  sub_1C5623F2C(v7);
 }
 
 @end

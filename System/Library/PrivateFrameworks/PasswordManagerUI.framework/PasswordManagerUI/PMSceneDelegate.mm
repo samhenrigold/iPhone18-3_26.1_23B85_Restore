@@ -34,13 +34,12 @@
   v12._countAndFlagsBits = v9;
   v12._object = v11;
   PMQuickAction.init(rawValue:)(v12);
-  if (v14 == 3)
+  if (v13 == 3)
   {
   }
 
   else
   {
-    v13 = *(&selfCopy->super.super.isa + OBJC_IVAR____TtC17PasswordManagerUI15PMSceneDelegate_selectedQuickAction);
     sub_21CB81D04();
   }
 }
@@ -49,14 +48,13 @@
 {
   v4 = sub_21CB807E4();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   MEMORY[0x28223BE20](v4);
-  v8 = &v10 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = &v9 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_21CB807B4();
   selfCopy = self;
   sub_21CB7F96C();
 
-  (*(v5 + 8))(v8, v4);
+  (*(v5 + 8))(v7, v4);
 }
 
 @end

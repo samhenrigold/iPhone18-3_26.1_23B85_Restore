@@ -8,7 +8,7 @@
 
 - (NSArray)sections
 {
-  sub_100014C84(0, &qword_1019167F0);
+  sub_100014C84(0, &qword_1019167F0, off_1015F6100);
 
   v2.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
@@ -17,7 +17,7 @@
 
 - (id)init:(id)init experimentMetadata:(id)metadata modelMetadata:(id)modelMetadata responseStatus:(int64_t)status
 {
-  sub_100014C84(0, &qword_1019167F0);
+  sub_100014C84(0, &qword_1019167F0, off_1015F6100);
   *(self + OBJC_IVAR____TtC4Maps38PersonalizedAutocompleteRankerResponse_sections) = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   *(self + OBJC_IVAR____TtC4Maps38PersonalizedAutocompleteRankerResponse_experimentMetadata) = metadata;
   *(self + OBJC_IVAR____TtC4Maps38PersonalizedAutocompleteRankerResponse_modelMetadata) = modelMetadata;

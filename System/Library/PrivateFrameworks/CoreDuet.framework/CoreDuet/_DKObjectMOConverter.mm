@@ -22,10 +22,10 @@
 
 - (id)objectsFromManagedObjects:(id)objects
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   objectsCopy = objects;
   v5 = [objectsCopy count];
-  v20 = [MEMORY[0x1E695DF70] arrayWithCapacity:v5];
+  v19 = [MEMORY[0x1E695DF70] arrayWithCapacity:v5];
   context = objc_autoreleasePoolPush();
   initWithReporting = 0;
   if (v5 >= 2 && self->_deduplicateValues)
@@ -33,26 +33,26 @@
     initWithReporting = [[_DKObjectFromMOCache alloc] initWithReporting];
   }
 
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
   v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   obj = objectsCopy;
-  v7 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v7 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v22;
+    v9 = *v21;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v22 != v9)
+        if (*v21 != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v21 + 1) + 8 * i);
+        v11 = *(*(&v20 + 1) + 8 * i);
         v12 = objc_autoreleasePoolPush();
         readMetadata = [(_DKObjectMOConverter *)self readMetadata];
         excludedMetadataKeys = [(_DKObjectMOConverter *)self excludedMetadataKeys];
@@ -60,49 +60,48 @@
 
         if (v15)
         {
-          [v20 addObject:v15];
+          [v19 addObject:v15];
         }
 
         objc_autoreleasePoolPop(v12);
       }
 
-      v8 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v8 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v8);
   }
 
   objc_autoreleasePoolPop(context);
-  v16 = *MEMORY[0x1E69E9840];
 
-  return v20;
+  return v19;
 }
 
 - (id)dataIntervalsFromManagedObjects:(id)objects
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   objectsCopy = objects;
-  v23 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(objectsCopy, "count")}];
+  v22 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(objectsCopy, "count")}];
+  v24 = 0u;
   v25 = 0u;
   v26 = 0u;
   v27 = 0u;
-  v28 = 0u;
   obj = objectsCopy;
-  v4 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
+  v4 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v26;
+    v6 = *v25;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v26 != v6)
+        if (*v25 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v25 + 1) + 8 * i);
+        v8 = *(*(&v24 + 1) + 8 * i);
         entity = [v8 entity];
         name = [entity name];
         v11 = +[_DKEvent entityName];
@@ -120,19 +119,17 @@
 
           v19 = [v16 dateWithTimeIntervalSinceReferenceDate:v18];
           v20 = [objc_alloc(MEMORY[0x1E696AB80]) initWithStartDate:v15 endDate:v19];
-          [v23 addObject:v20];
+          [v22 addObject:v20];
         }
       }
 
-      v5 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
+      v5 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
     }
 
     while (v5);
   }
 
-  v21 = *MEMORY[0x1E69E9840];
-
-  return v23;
+  return v22;
 }
 
 - (id)insertObject:(id)object inManagedObjectContext:(id)context

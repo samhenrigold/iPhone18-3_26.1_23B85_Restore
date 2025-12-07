@@ -18,69 +18,60 @@
   v9[3] = &unk_279665010;
   v9[4] = self;
   v8 = MEMORY[0x2530352B0](v9);
-  [coordinatorCopy animateAlongsideTransition:v8 completion:&__block_literal_global];
+  [coordinatorCopy animateAlongsideTransition:? completion:?];
 }
 
 void __79__DYPlaybackViewController_viewWillTransitionToSize_withTransitionCoordinator___block_invoke(uint64_t a1)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) view];
   v3 = [v2 layer];
-  v4 = v3;
   if (v3)
   {
-    [v3 transform];
+    [&v15 transform];
   }
 
   else
   {
-    memset(&v25, 0, sizeof(v25));
+    memset(&v15, 0, sizeof(v15));
   }
 
-  CATransform3DInvert(&v26, &v25);
-  v5 = [*(a1 + 32) view];
-  v6 = [v5 layer];
-  v25 = v26;
-  [v6 setSublayerTransform:&v25];
+  CATransform3DInvert(&v16, &v15);
+  v4 = [*(a1 + 32) view];
+  v5 = [v4 layer];
+  v15 = v16;
+  [v5 setSublayerTransform:?];
 
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
-  v22 = 0u;
-  v7 = [*(a1 + 32) view];
-  v8 = [v7 layer];
-  v9 = [v8 sublayers];
+  v6 = [*(a1 + 32) view];
+  v7 = [v6 layer];
+  v8 = [v7 sublayers];
 
-  v10 = [v9 countByEnumeratingWithState:&v21 objects:v27 count:16];
-  if (v10)
+  v9 = [v8 countByEnumeratingWithState:? objects:? count:?];
+  if (v9)
   {
-    v11 = *v22;
+    v10 = MEMORY[0];
     do
     {
-      for (i = 0; i != v10; ++i)
+      for (i = 0; i != v9; i = (i + 1))
       {
-        if (*v22 != v11)
+        if (MEMORY[0] != v10)
         {
-          objc_enumerationMutation(v9);
+          objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v21 + 1) + 8 * i);
-        v14 = [*(a1 + 32) view];
-        v15 = [v14 layer];
-        [v15 bounds];
-        v17 = v16;
-        v19 = v18;
+        v12 = *(8 * i);
+        v13 = [*(a1 + 32) view];
+        v14 = [v13 layer];
+        [v14 bounds];
 
-        [v13 setPosition:{v17 * 0.5, v19 * 0.5}];
+        [v12 setPosition:?];
       }
 
-      v10 = [v9 countByEnumeratingWithState:&v21 objects:v27 count:16];
+      v9 = [v8 countByEnumeratingWithState:? objects:? count:?];
     }
 
-    while (v10);
+    while (v9);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 @end

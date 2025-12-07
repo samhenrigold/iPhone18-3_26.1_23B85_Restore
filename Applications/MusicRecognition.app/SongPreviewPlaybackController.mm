@@ -56,13 +56,13 @@ LABEL_3:
 
 LABEL_4:
   type metadata accessor for NSKeyValueChangeKey(0);
-  sub_100084EF0(&qword_100141F00, type metadata accessor for NSKeyValueChangeKey);
+  sub_100084EF0(&qword_100141F00, type metadata accessor for NSKeyValueChangeKey, &unk_1000F4C00);
   v15 = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
 
 LABEL_8:
   sub_1000841FC(v10, v12, v18, v15, context);
 
-  sub_100007E14(v18, &qword_100145B28);
+  sub_100007E14(v18, &qword_100145B28, &qword_1000FA590);
 }
 
 @end

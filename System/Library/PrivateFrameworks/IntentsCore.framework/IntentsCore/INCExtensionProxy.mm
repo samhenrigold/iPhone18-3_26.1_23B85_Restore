@@ -17,6 +17,7 @@
 - (void)prewarmAppWithIntent:(id)intent completionHandler:(id)handler;
 - (void)resolveIntentSlotKeyPath:(id)path completionHandler:(id)handler;
 - (void)resolveIntentSlotKeyPaths:(id)paths completionHandler:(id)handler;
+- (void)setShouldResetRequestAfterHandle:(BOOL)handle;
 - (void)startSendingUpdatesToObserver:(id)observer;
 - (void)stopSendingUpdates;
 @end
@@ -95,7 +96,7 @@ void __91__INCExtensionProxy__isIntentRestrictedWhileProtectedDataUnavailableWit
 
 - (id)_processIntent:(id)intent intentResponse:(id)response withCacheItems:(id)items
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   intentCopy = intent;
   responseCopy = response;
   itemsCopy = items;
@@ -105,48 +106,48 @@ void __91__INCExtensionProxy__isIntentRestrictedWhileProtectedDataUnavailableWit
     v10 = v9;
     backingStore = [responseCopy backingStore];
     *buf = 136315394;
-    v40 = "[INCExtensionProxy _processIntent:intentResponse:withCacheItems:]";
-    v41 = 2112;
-    v42 = backingStore;
+    v39 = "[INCExtensionProxy _processIntent:intentResponse:withCacheItems:]";
+    v40 = 2112;
+    v41 = backingStore;
     _os_log_impl(&dword_255503000, v10, OS_LOG_TYPE_INFO, "%s intentResponse.backingStore = %@", buf, 0x16u);
   }
 
-  v26 = responseCopy;
+  v25 = responseCopy;
   v12 = objc_alloc_init(MEMORY[0x277CBEB58]);
   v13 = dispatch_group_create();
+  v33 = 0u;
   v34 = 0u;
   v35 = 0u;
   v36 = 0u;
-  v37 = 0u;
   obj = itemsCopy;
-  v14 = [obj countByEnumeratingWithState:&v34 objects:v38 count:16];
+  v14 = [obj countByEnumeratingWithState:&v33 objects:v37 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v35;
+    v16 = *v34;
     do
     {
       for (i = 0; i != v15; ++i)
       {
-        if (*v35 != v16)
+        if (*v34 != v16)
         {
           objc_enumerationMutation(obj);
         }
 
-        v18 = *(*(&v34 + 1) + 8 * i);
+        v18 = *(*(&v33 + 1) + 8 * i);
         dispatch_group_enter(v13);
         v19 = MEMORY[0x277CD40B0];
-        v30[0] = MEMORY[0x277D85DD0];
-        v30[1] = 3221225472;
-        v30[2] = __66__INCExtensionProxy__processIntent_intentResponse_withCacheItems___block_invoke;
-        v30[3] = &unk_2797E7FC8;
-        v31 = v12;
+        v29[0] = MEMORY[0x277D85DD0];
+        v29[1] = 3221225472;
+        v29[2] = __66__INCExtensionProxy__processIntent_intentResponse_withCacheItems___block_invoke;
+        v29[3] = &unk_2797E7FC8;
+        v30 = v12;
         selfCopy = self;
-        v33 = v13;
-        [v19 deserializeCacheItem:v18 completion:v30];
+        v32 = v13;
+        [v19 deserializeCacheItem:v18 completion:v29];
       }
 
-      v15 = [obj countByEnumeratingWithState:&v34 objects:v38 count:16];
+      v15 = [obj countByEnumeratingWithState:&v33 objects:v37 count:16];
     }
 
     while (v15);
@@ -159,9 +160,9 @@ void __91__INCExtensionProxy__isIntentRestrictedWhileProtectedDataUnavailableWit
     if (os_log_type_enabled(*MEMORY[0x277CD38C8], OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v40 = "[INCExtensionProxy _processIntent:intentResponse:withCacheItems:]";
-      v41 = 2112;
-      v42 = intentCopy;
+      v39 = "[INCExtensionProxy _processIntent:intentResponse:withCacheItems:]";
+      v40 = 2112;
+      v41 = intentCopy;
       _os_log_error_impl(&dword_255503000, v21, OS_LOG_TYPE_ERROR, "%s Image caching timed out for intent:%@", buf, 0x16u);
     }
   }
@@ -169,19 +170,17 @@ void __91__INCExtensionProxy__isIntentRestrictedWhileProtectedDataUnavailableWit
   if ([(INCExtensionProxy *)self shouldCache])
   {
     mEMORY[0x277CD3AD0] = [MEMORY[0x277CD3AD0] sharedCache];
-    [v26 _intents_updateContainerWithCache:mEMORY[0x277CD3AD0]];
+    [v25 _intents_updateContainerWithCache:mEMORY[0x277CD3AD0]];
   }
 
   v23 = [v12 copy];
-
-  v24 = *MEMORY[0x277D85DE8];
 
   return v23;
 }
 
 void __66__INCExtensionProxy__processIntent_intentResponse_withCacheItems___block_invoke(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = a2;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -219,54 +218,51 @@ LABEL_9:
   if (v7)
   {
     v8 = [*(a1 + 40) imageProcessingHandler];
-    v13[0] = MEMORY[0x277D85DD0];
-    v13[1] = 3221225472;
-    v13[2] = __66__INCExtensionProxy__processIntent_intentResponse_withCacheItems___block_invoke_2;
-    v13[3] = &unk_2797E7FA0;
-    v14 = *(a1 + 48);
-    (v8)[2](v8, v6, v13);
+    v12[0] = MEMORY[0x277D85DD0];
+    v12[1] = 3221225472;
+    v12[2] = __66__INCExtensionProxy__processIntent_intentResponse_withCacheItems___block_invoke_2;
+    v12[3] = &unk_2797E7FA0;
+    v13 = *(a1 + 48);
+    (v8)[2](v8, v6, v12);
   }
 
   else
   {
-    v11 = *MEMORY[0x277CD38C8];
+    v10 = *MEMORY[0x277CD38C8];
     if (os_log_type_enabled(*MEMORY[0x277CD38C8], OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v16 = "[INCExtensionProxy _processIntent:intentResponse:withCacheItems:]_block_invoke";
-      _os_log_error_impl(&dword_255503000, v11, OS_LOG_TYPE_ERROR, "%s Image caching handler is not set", buf, 0xCu);
+      v15 = "[INCExtensionProxy _processIntent:intentResponse:withCacheItems:]_block_invoke";
+      _os_log_error_impl(&dword_255503000, v10, OS_LOG_TYPE_ERROR, "%s Image caching handler is not set", buf, 0xCu);
     }
 
-    v12 = [MEMORY[0x277CD3AD0] sharedCache];
-    [v12 addCacheableObject:v6];
+    v11 = [MEMORY[0x277CD3AD0] sharedCache];
+    [v11 addCacheableObject:v6];
 
     dispatch_group_leave(*(a1 + 48));
   }
 
 LABEL_10:
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __66__INCExtensionProxy__processIntent_intentResponse_withCacheItems___block_invoke_2(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
     v4 = *MEMORY[0x277CD38C8];
     if (os_log_type_enabled(*MEMORY[0x277CD38C8], OS_LOG_TYPE_ERROR))
     {
-      v6 = 136315394;
-      v7 = "[INCExtensionProxy _processIntent:intentResponse:withCacheItems:]_block_invoke_2";
-      v8 = 2112;
-      v9 = v3;
-      _os_log_error_impl(&dword_255503000, v4, OS_LOG_TYPE_ERROR, "%s Error processing image : %@", &v6, 0x16u);
+      v5 = 136315394;
+      v6 = "[INCExtensionProxy _processIntent:intentResponse:withCacheItems:]_block_invoke_2";
+      v7 = 2112;
+      v8 = v3;
+      _os_log_error_impl(&dword_255503000, v4, OS_LOG_TYPE_ERROR, "%s Error processing image : %@", &v5, 0x16u);
     }
   }
 
   dispatch_group_leave(*(a1 + 32));
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_extensionProcessHasEntitlement:(id)entitlement
@@ -304,25 +300,25 @@ void __66__INCExtensionProxy__processIntent_intentResponse_withCacheItems___bloc
 
 - (void)prewarmAppWithIntent:(id)intent completionHandler:(id)handler
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   _intents_launchIdForCurrentPlatform = [intent _intents_launchIdForCurrentPlatform];
-  v23[1] = 0;
+  v22[1] = 0;
   INExtractAppInfoFromSiriLaunchId();
   v8 = 0;
 
-  v23[0] = 0;
-  v9 = [objc_alloc(MEMORY[0x277CC1E70]) initWithBundleIdentifier:v8 allowPlaceholder:0 error:v23];
-  v10 = v23[0];
+  v22[0] = 0;
+  v9 = [objc_alloc(MEMORY[0x277CC1E70]) initWithBundleIdentifier:v8 allowPlaceholder:0 error:v22];
+  v10 = v22[0];
   if (v10)
   {
     v11 = *MEMORY[0x277CD38C8];
     if (os_log_type_enabled(*MEMORY[0x277CD38C8], OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v27 = "[INCExtensionProxy prewarmAppWithIntent:completionHandler:]";
-      v28 = 2112;
-      v29 = v10;
+      v26 = "[INCExtensionProxy prewarmAppWithIntent:completionHandler:]";
+      v27 = 2112;
+      v28 = v10;
       _os_log_error_impl(&dword_255503000, v11, OS_LOG_TYPE_ERROR, "%s Unable to create application record: %@", buf, 0x16u);
     }
 
@@ -332,12 +328,12 @@ void __66__INCExtensionProxy__processIntent_intentResponse_withCacheItems___bloc
   else
   {
     v12 = *MEMORY[0x277D67110];
-    v24[0] = *MEMORY[0x277D0ABF0];
-    v24[1] = v12;
-    v25[0] = MEMORY[0x277CBEC38];
+    v23[0] = *MEMORY[0x277D0ABF0];
+    v23[1] = v12;
+    v24[0] = MEMORY[0x277CBEC38];
     v13 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(v9, "supportsMultiwindow")}];
-    v25[1] = v13;
-    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:v24 count:2];
+    v24[1] = v13;
+    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:v23 count:2];
 
     _connection = [(INCExtensionProxy *)self _connection];
     _queue = [_connection _queue];
@@ -345,14 +341,12 @@ void __66__INCExtensionProxy__processIntent_intentResponse_withCacheItems___bloc
     block[1] = 3221225472;
     block[2] = __60__INCExtensionProxy_prewarmAppWithIntent_completionHandler___block_invoke;
     block[3] = &unk_2797E8140;
-    v20 = v14;
-    v21 = v8;
-    v22 = handlerCopy;
+    v19 = v14;
+    v20 = v8;
+    v21 = handlerCopy;
     v17 = v14;
     dispatch_async(_queue, block);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void __60__INCExtensionProxy_prewarmAppWithIntent_completionHandler___block_invoke(uint64_t a1)
@@ -426,7 +420,7 @@ void __60__INCExtensionProxy_prewarmAppWithIntent_completionHandler___block_invo
 
 - (void)handleIntentWithCompletionHandler:(id)handler
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   _connection = [(INCExtensionProxy *)self _connection];
   _transaction = [_connection _transaction];
@@ -440,9 +434,9 @@ void __60__INCExtensionProxy_prewarmAppWithIntent_completionHandler___block_invo
       v9 = v8;
       backingStore = [currentIntent backingStore];
       *buf = 136315394;
-      v31 = "[INCExtensionProxy handleIntentWithCompletionHandler:]";
-      v32 = 2112;
-      v33 = backingStore;
+      v30 = "[INCExtensionProxy handleIntentWithCompletionHandler:]";
+      v31 = 2112;
+      v32 = backingStore;
       _os_log_impl(&dword_255503000, v9, OS_LOG_TYPE_INFO, "%s intent.backingStore = %@", buf, 0x16u);
     }
 
@@ -450,17 +444,17 @@ void __60__INCExtensionProxy_prewarmAppWithIntent_completionHandler___block_invo
     v11 = [[INCExtensionTransactionState alloc] initWithType:4 intent:currentIntent intentResponse:0 userActivities:0];
     [_transaction setState:v11];
 
-    v26[0] = MEMORY[0x277D85DD0];
-    v26[1] = 3221225472;
-    v26[2] = __55__INCExtensionProxy_handleIntentWithCompletionHandler___block_invoke;
-    v26[3] = &unk_2797E7EB8;
-    v26[4] = self;
+    v25[0] = MEMORY[0x277D85DD0];
+    v25[1] = 3221225472;
+    v25[2] = __55__INCExtensionProxy_handleIntentWithCompletionHandler___block_invoke;
+    v25[3] = &unk_2797E7EB8;
+    v25[4] = self;
     v12 = currentIntent;
-    v27 = v12;
-    v28 = _transaction;
+    v26 = v12;
+    v27 = _transaction;
     v13 = handlerCopy;
-    v29 = v13;
-    v14 = MEMORY[0x259C36E60](v26);
+    v28 = v13;
+    v14 = MEMORY[0x259C36E60](v25);
     [(INCExtensionConnection *)self->_connection _startRequestTimerWithExtensionProxy:self];
     v15 = [objc_alloc(MEMORY[0x277CD3CB0]) initWithIntent:v12];
     _connection2 = [(INCExtensionProxy *)self _connection];
@@ -468,21 +462,19 @@ void __60__INCExtensionProxy_prewarmAppWithIntent_completionHandler___block_invo
     [v15 setRequestTimeout:?];
 
     vendorRemote = self->_vendorRemote;
-    v21[0] = MEMORY[0x277D85DD0];
-    v21[1] = 3221225472;
-    v21[2] = __55__INCExtensionProxy_handleIntentWithCompletionHandler___block_invoke_2;
-    v21[3] = &unk_2797E7F30;
-    v21[4] = self;
-    v22 = v12;
-    v23 = v15;
-    v24 = v13;
-    v25 = v14;
+    v20[0] = MEMORY[0x277D85DD0];
+    v20[1] = 3221225472;
+    v20[2] = __55__INCExtensionProxy_handleIntentWithCompletionHandler___block_invoke_2;
+    v20[3] = &unk_2797E7F30;
+    v20[4] = self;
+    v21 = v12;
+    v22 = v15;
+    v23 = v13;
+    v24 = v14;
     v18 = v14;
     v19 = v15;
-    [v19 executeRemotelyWithVendorRemote:vendorRemote completionHandler:v21];
+    [v19 executeRemotelyWithVendorRemote:vendorRemote completionHandler:v20];
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void __55__INCExtensionProxy_handleIntentWithCompletionHandler___block_invoke(uint64_t a1, void *a2, uint64_t a3)
@@ -511,7 +503,7 @@ void __55__INCExtensionProxy_handleIntentWithCompletionHandler___block_invoke(ui
 
 void __55__INCExtensionProxy_handleIntentWithCompletionHandler___block_invoke_2(id *a1, void *a2)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 intentResponse];
   v5 = [v3 error];
@@ -519,9 +511,9 @@ void __55__INCExtensionProxy_handleIntentWithCompletionHandler___block_invoke_2(
   if (os_log_type_enabled(*MEMORY[0x277CD38C8], OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v25 = "[INCExtensionProxy handleIntentWithCompletionHandler:]_block_invoke_2";
-    v26 = 2112;
-    v27 = v4;
+    v24 = "[INCExtensionProxy handleIntentWithCompletionHandler:]_block_invoke_2";
+    v25 = 2112;
+    v26 = v4;
     _os_log_impl(&dword_255503000, v6, OS_LOG_TYPE_INFO, "%s Received handle response from vendor remote: %@", buf, 0x16u);
   }
 
@@ -535,42 +527,40 @@ void __55__INCExtensionProxy_handleIntentWithCompletionHandler___block_invoke_2(
 
   v9 = [a1[4] _connection];
   v10 = [v9 _queue];
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __55__INCExtensionProxy_handleIntentWithCompletionHandler___block_invoke_54;
-  v15[3] = &unk_2797E7F08;
-  v16 = v5;
-  v17 = a1[5];
-  v22 = a1[7];
-  v18 = a1[4];
-  v19 = v4;
-  v20 = a1[6];
-  v23 = a1[8];
-  v21 = v3;
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __55__INCExtensionProxy_handleIntentWithCompletionHandler___block_invoke_54;
+  v14[3] = &unk_2797E7F08;
+  v15 = v5;
+  v16 = a1[5];
+  v21 = a1[7];
+  v17 = a1[4];
+  v18 = v4;
+  v19 = a1[6];
+  v22 = a1[8];
+  v20 = v3;
   v11 = v3;
   v12 = v4;
   v13 = v5;
-  dispatch_async(v10, v15);
-
-  v14 = *MEMORY[0x277D85DE8];
+  dispatch_async(v10, v14);
 }
 
 void __55__INCExtensionProxy_handleIntentWithCompletionHandler___block_invoke_54(id *a1)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v2 = a1[4];
   if (v2)
   {
     v3 = *MEMORY[0x277CD38C8];
     if (os_log_type_enabled(*MEMORY[0x277CD38C8], OS_LOG_TYPE_ERROR))
     {
-      v16 = a1[5];
+      v14 = a1[5];
       *buf = 136315650;
-      v27 = "[INCExtensionProxy handleIntentWithCompletionHandler:]_block_invoke";
-      v28 = 2112;
-      v29 = v16;
-      v30 = 2114;
-      v31 = v2;
+      v25 = "[INCExtensionProxy handleIntentWithCompletionHandler:]_block_invoke";
+      v26 = 2112;
+      v27 = v14;
+      v28 = 2114;
+      v29 = v2;
       _os_log_error_impl(&dword_255503000, v3, OS_LOG_TYPE_ERROR, "%s Got error when vendor remote is trying to handle intent %@: %{public}@", buf, 0x20u);
     }
 
@@ -581,71 +571,68 @@ void __55__INCExtensionProxy_handleIntentWithCompletionHandler___block_invoke_54
       v4[2](v4, 0, v5);
     }
 
-    goto LABEL_19;
+    return;
   }
 
   if ([a1[6] _shouldForwardToAppWithIntent:a1[5] intentResponse:a1[7]])
   {
     [a1[8] setAllowsScenelessAppLaunch:0];
     v6 = [a1[5] _intents_launchIdForCurrentPlatform];
-    v25 = 0;
+    v23 = 0;
     INExtractAppInfoFromSiriLaunchId();
     v7 = 0;
 
     if (v7 && ([a1[6] _vendorRemote], v8 = objc_claimAutoreleasedReturnValue(), v8, v8))
     {
       v9 = [objc_alloc(MEMORY[0x277CD3A78]) initWithBundleIdentifier:v7 intentForwardingAction:a1[8]];
-      v19[0] = MEMORY[0x277D85DD0];
-      v19[1] = 3221225472;
-      v19[2] = __55__INCExtensionProxy_handleIntentWithCompletionHandler___block_invoke_56;
-      v19[3] = &unk_2797E7EE0;
-      v20 = a1[5];
-      v21 = a1[4];
-      v23 = a1[10];
-      v22 = a1[7];
-      v24 = a1[11];
-      [(INCExtensionError *)v9 deliverIntentForwardingActionWithResponseHandler:v19];
+      v17[0] = MEMORY[0x277D85DD0];
+      v17[1] = 3221225472;
+      v17[2] = __55__INCExtensionProxy_handleIntentWithCompletionHandler___block_invoke_56;
+      v17[3] = &unk_2797E7EE0;
+      v18 = a1[5];
+      v19 = a1[4];
+      v21 = a1[10];
+      v20 = a1[7];
+      v22 = a1[11];
+      [(INCExtensionError *)v9 deliverIntentForwardingActionWithResponseHandler:v17];
     }
 
     else
     {
-      v13 = *MEMORY[0x277CD38C8];
+      v12 = *MEMORY[0x277CD38C8];
       if (os_log_type_enabled(*MEMORY[0x277CD38C8], OS_LOG_TYPE_ERROR))
       {
-        v17 = a1[5];
+        v15 = a1[5];
         *buf = 136315394;
-        v27 = "[INCExtensionProxy handleIntentWithCompletionHandler:]_block_invoke";
-        v28 = 2112;
-        v29 = v17;
-        _os_log_error_impl(&dword_255503000, v13, OS_LOG_TYPE_ERROR, "%s No application id was found to handle intent %@", buf, 0x16u);
+        v25 = "[INCExtensionProxy handleIntentWithCompletionHandler:]_block_invoke";
+        v26 = 2112;
+        v27 = v15;
+        _os_log_error_impl(&dword_255503000, v12, OS_LOG_TYPE_ERROR, "%s No application id was found to handle intent %@", buf, 0x16u);
       }
 
-      v14 = a1[10];
-      if (!v14)
+      v13 = a1[10];
+      if (!v13)
       {
         goto LABEL_18;
       }
 
       v9 = [[INCExtensionError alloc] initWithErrorCode:1315 underlyingError:0];
-      v14[2](v14, 0, v9);
+      v13[2](v13, 0, v9);
     }
 
 LABEL_18:
-LABEL_19:
-    v15 = *MEMORY[0x277D85DE8];
     return;
   }
 
   v10 = a1[11];
   v11 = a1[7];
-  v18 = [a1[9] cacheItems];
+  v16 = [a1[9] cacheItems];
   v10[2](v10, v11);
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __55__INCExtensionProxy_handleIntentWithCompletionHandler___block_invoke_56(uint64_t a1, void *a2)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 error];
 
@@ -660,15 +647,15 @@ void __55__INCExtensionProxy_handleIntentWithCompletionHandler___block_invoke_56
   v5 = *MEMORY[0x277CD38C8];
   if (os_log_type_enabled(*MEMORY[0x277CD38C8], OS_LOG_TYPE_ERROR))
   {
-    v13 = *(a1 + 32);
-    v14 = *(a1 + 40);
-    v15 = 136315650;
-    v16 = "[INCExtensionProxy handleIntentWithCompletionHandler:]_block_invoke";
-    v17 = 2112;
-    v18 = v13;
-    v19 = 2114;
-    v20 = v14;
-    _os_log_error_impl(&dword_255503000, v5, OS_LOG_TYPE_ERROR, "%s Got error when application is trying to handle intent %@: %{public}@", &v15, 0x20u);
+    v12 = *(a1 + 32);
+    v13 = *(a1 + 40);
+    v14 = 136315650;
+    v15 = "[INCExtensionProxy handleIntentWithCompletionHandler:]_block_invoke";
+    v16 = 2112;
+    v17 = v12;
+    v18 = 2114;
+    v19 = v13;
+    _os_log_error_impl(&dword_255503000, v5, OS_LOG_TYPE_ERROR, "%s Got error when application is trying to handle intent %@: %{public}@", &v14, 0x20u);
   }
 
   if (*(a1 + 56))
@@ -682,13 +669,11 @@ void __55__INCExtensionProxy_handleIntentWithCompletionHandler___block_invoke_56
 
 LABEL_7:
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)confirmIntentWithCompletionHandler:(id)handler
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   _connection = [(INCExtensionProxy *)self _connection];
   _transaction = [_connection _transaction];
@@ -700,16 +685,16 @@ LABEL_7:
     v8 = [[INCExtensionTransactionState alloc] initWithType:2 intent:currentIntent intentResponse:0 userActivities:0];
     [_transaction setState:v8];
 
-    v33[0] = MEMORY[0x277D85DD0];
-    v33[1] = 3221225472;
-    v33[2] = __56__INCExtensionProxy_confirmIntentWithCompletionHandler___block_invoke;
-    v33[3] = &unk_2797E7E18;
-    v33[4] = self;
+    v32[0] = MEMORY[0x277D85DD0];
+    v32[1] = 3221225472;
+    v32[2] = __56__INCExtensionProxy_confirmIntentWithCompletionHandler___block_invoke;
+    v32[3] = &unk_2797E7E18;
+    v32[4] = self;
     v9 = currentIntent;
-    v34 = v9;
-    v36 = handlerCopy;
-    v35 = _transaction;
-    v10 = MEMORY[0x259C36E60](v33);
+    v33 = v9;
+    v35 = handlerCopy;
+    v34 = _transaction;
+    v10 = MEMORY[0x259C36E60](v32);
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
@@ -719,15 +704,15 @@ LABEL_7:
 
       if (!bOOLValue)
       {
-        v30[0] = MEMORY[0x277D85DD0];
-        v30[1] = 3221225472;
-        v30[2] = __56__INCExtensionProxy_confirmIntentWithCompletionHandler___block_invoke_37;
-        v30[3] = &unk_2797E7E68;
+        v29[0] = MEMORY[0x277D85DD0];
+        v29[1] = 3221225472;
+        v29[2] = __56__INCExtensionProxy_confirmIntentWithCompletionHandler___block_invoke_37;
+        v29[3] = &unk_2797E7E68;
         v15 = v10;
-        v32 = v15;
+        v31 = v15;
         v16 = v9;
-        v31 = v16;
-        v17 = MEMORY[0x259C36E60](v30);
+        v30 = v16;
+        v17 = MEMORY[0x259C36E60](v29);
         airPlayRouteIds = [v16 airPlayRouteIds];
         if ([airPlayRouteIds count])
         {
@@ -743,34 +728,34 @@ LABEL_7:
             if (os_log_type_enabled(*MEMORY[0x277CD38C8], OS_LOG_TYPE_INFO))
             {
               *buf = 136315394;
-              v38 = "[INCExtensionProxy confirmIntentWithCompletionHandler:]";
-              v39 = 2112;
-              v40 = hashedRouteUIDs;
+              v37 = "[INCExtensionProxy confirmIntentWithCompletionHandler:]";
+              v38 = 2112;
+              v39 = hashedRouteUIDs;
               _os_log_impl(&dword_255503000, v20, OS_LOG_TYPE_INFO, "%s Have encryptedAirPlayRouteIds: %@, will attempt decoding", buf, 0x16u);
             }
 
-            v27[0] = MEMORY[0x277D85DD0];
-            v27[1] = 3221225472;
-            v27[2] = __56__INCExtensionProxy_confirmIntentWithCompletionHandler___block_invoke_49;
-            v27[3] = &unk_2797E7E90;
-            v21 = &v28;
-            v28 = v17;
-            v22 = &v29;
-            v29 = v15;
-            INCDecodeHashedRouteUIDs(hashedRouteUIDs, v27);
+            v26[0] = MEMORY[0x277D85DD0];
+            v26[1] = 3221225472;
+            v26[2] = __56__INCExtensionProxy_confirmIntentWithCompletionHandler___block_invoke_49;
+            v26[3] = &unk_2797E7E90;
+            v21 = &v27;
+            v27 = v17;
+            v22 = &v28;
+            v28 = v15;
+            INCDecodeHashedRouteUIDs(hashedRouteUIDs, v26);
           }
 
           else
           {
-            v24[0] = MEMORY[0x277D85DD0];
-            v24[1] = 3221225472;
-            v24[2] = __56__INCExtensionProxy_confirmIntentWithCompletionHandler___block_invoke_51;
-            v24[3] = &unk_2797E7E90;
-            v21 = &v25;
-            v25 = v17;
-            v22 = &v26;
-            v26 = v15;
-            __56__INCExtensionProxy_confirmIntentWithCompletionHandler___block_invoke_51(v24, 0, 0);
+            v23[0] = MEMORY[0x277D85DD0];
+            v23[1] = 3221225472;
+            v23[2] = __56__INCExtensionProxy_confirmIntentWithCompletionHandler___block_invoke_51;
+            v23[3] = &unk_2797E7E90;
+            v21 = &v24;
+            v24 = v17;
+            v22 = &v25;
+            v25 = v15;
+            __56__INCExtensionProxy_confirmIntentWithCompletionHandler___block_invoke_51(v23, 0, 0);
           }
         }
 
@@ -781,7 +766,7 @@ LABEL_7:
       if (os_log_type_enabled(*MEMORY[0x277CD38C8], OS_LOG_TYPE_DEBUG))
       {
         *buf = 136315138;
-        v38 = "[INCExtensionProxy confirmIntentWithCompletionHandler:]";
+        v37 = "[INCExtensionProxy confirmIntentWithCompletionHandler:]";
         _os_log_debug_impl(&dword_255503000, v14, OS_LOG_TYPE_DEBUG, "%s Suppressing route setting due to intent-based flag", buf, 0xCu);
       }
     }
@@ -789,8 +774,6 @@ LABEL_7:
     v10[2](v10, 0);
 LABEL_17:
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 void __56__INCExtensionProxy_confirmIntentWithCompletionHandler___block_invoke(uint64_t a1)
@@ -820,7 +803,7 @@ void __56__INCExtensionProxy_confirmIntentWithCompletionHandler___block_invoke(u
 
 void __56__INCExtensionProxy_confirmIntentWithCompletionHandler___block_invoke_37(uint64_t a1, void *a2)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (INIsHomepod() && (_os_feature_enabled_impl() & 1) != 0)
   {
@@ -828,7 +811,7 @@ void __56__INCExtensionProxy_confirmIntentWithCompletionHandler___block_invoke_3
     if (os_log_type_enabled(*MEMORY[0x277CD38C8], OS_LOG_TYPE_DEBUG))
     {
       *buf = 136315138;
-      v17 = "[INCExtensionProxy confirmIntentWithCompletionHandler:]_block_invoke";
+      v16 = "[INCExtensionProxy confirmIntentWithCompletionHandler:]_block_invoke";
       _os_log_debug_impl(&dword_255503000, v4, OS_LOG_TYPE_DEBUG, "%s Suppressing route setting, leaving it to extension to handle", buf, 0xCu);
     }
 
@@ -843,7 +826,7 @@ void __56__INCExtensionProxy_confirmIntentWithCompletionHandler___block_invoke_3
     if (os_log_type_enabled(*MEMORY[0x277CD38C8], OS_LOG_TYPE_DEBUG))
     {
       *buf = 136315138;
-      v17 = "[INCExtensionProxy confirmIntentWithCompletionHandler:]_block_invoke";
+      v16 = "[INCExtensionProxy confirmIntentWithCompletionHandler:]_block_invoke";
       _os_log_debug_impl(&dword_255503000, v6, OS_LOG_TYPE_DEBUG, "%s Routing audio to airplay output devices", buf, 0xCu);
     }
 
@@ -854,26 +837,24 @@ void __56__INCExtensionProxy_confirmIntentWithCompletionHandler___block_invoke_3
     if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v9))
     {
       *buf = 67240192;
-      LODWORD(v17) = v7;
+      LODWORD(v16) = v7;
       _os_signpost_emit_with_name_impl(&dword_255503000, v10, OS_SIGNPOST_INTERVAL_BEGIN, v8, "INSignpostSiriAirPlayRouteSetup", " routeIdCount=%{public,signpost.telemetry:number1}d  enableTelemetry=YES ", buf, 8u);
     }
 
-    v12[0] = MEMORY[0x277D85DD0];
-    v12[1] = 3221225472;
-    v12[2] = __56__INCExtensionProxy_confirmIntentWithCompletionHandler___block_invoke_40;
-    v12[3] = &unk_2797E7E40;
-    v14 = v8;
-    v15 = v7;
-    v13 = *(a1 + 40);
-    INCRouteAudioToAirplayOutputDevices(v3, v12);
+    v11[0] = MEMORY[0x277D85DD0];
+    v11[1] = 3221225472;
+    v11[2] = __56__INCExtensionProxy_confirmIntentWithCompletionHandler___block_invoke_40;
+    v11[3] = &unk_2797E7E40;
+    v13 = v8;
+    v14 = v7;
+    v12 = *(a1 + 40);
+    INCRouteAudioToAirplayOutputDevices(v3, v11);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __56__INCExtensionProxy_confirmIntentWithCompletionHandler___block_invoke_49(uint64_t a1, void *a2, void *a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if ([v5 count])
@@ -881,11 +862,11 @@ void __56__INCExtensionProxy_confirmIntentWithCompletionHandler___block_invoke_4
     v7 = *MEMORY[0x277CD38C8];
     if (os_log_type_enabled(*MEMORY[0x277CD38C8], OS_LOG_TYPE_INFO))
     {
-      v10 = 136315394;
-      v11 = "[INCExtensionProxy confirmIntentWithCompletionHandler:]_block_invoke";
-      v12 = 2112;
-      v13 = v5;
-      _os_log_impl(&dword_255503000, v7, OS_LOG_TYPE_INFO, "%s Have decryptedRouteUIDs: %@, will attempt to set route", &v10, 0x16u);
+      v9 = 136315394;
+      v10 = "[INCExtensionProxy confirmIntentWithCompletionHandler:]_block_invoke";
+      v11 = 2112;
+      v12 = v5;
+      _os_log_impl(&dword_255503000, v7, OS_LOG_TYPE_INFO, "%s Have decryptedRouteUIDs: %@, will attempt to set route", &v9, 0x16u);
     }
 
     v8 = *(*(a1 + 32) + 16);
@@ -897,13 +878,11 @@ void __56__INCExtensionProxy_confirmIntentWithCompletionHandler___block_invoke_4
   }
 
   v8();
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __56__INCExtensionProxy_confirmIntentWithCompletionHandler___block_invoke_51(uint64_t a1, void *a2, void *a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if ([v5 count])
@@ -911,11 +890,11 @@ void __56__INCExtensionProxy_confirmIntentWithCompletionHandler___block_invoke_5
     v7 = *MEMORY[0x277CD38C8];
     if (os_log_type_enabled(*MEMORY[0x277CD38C8], OS_LOG_TYPE_INFO))
     {
-      v10 = 136315394;
-      v11 = "[INCExtensionProxy confirmIntentWithCompletionHandler:]_block_invoke";
-      v12 = 2112;
-      v13 = v5;
-      _os_log_impl(&dword_255503000, v7, OS_LOG_TYPE_INFO, "%s Have group deviceUIDs: %@, will attempt to set route", &v10, 0x16u);
+      v9 = 136315394;
+      v10 = "[INCExtensionProxy confirmIntentWithCompletionHandler:]_block_invoke";
+      v11 = 2112;
+      v12 = v5;
+      _os_log_impl(&dword_255503000, v7, OS_LOG_TYPE_INFO, "%s Have group deviceUIDs: %@, will attempt to set route", &v9, 0x16u);
     }
 
     v8 = *(*(a1 + 32) + 16);
@@ -927,13 +906,11 @@ void __56__INCExtensionProxy_confirmIntentWithCompletionHandler___block_invoke_5
   }
 
   v8();
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __56__INCExtensionProxy_confirmIntentWithCompletionHandler___block_invoke_40(void *a1, int a2, void *a3)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = MEMORY[0x277CD38C8];
   v7 = *MEMORY[0x277CD38C8];
@@ -942,25 +919,25 @@ void __56__INCExtensionProxy_confirmIntentWithCompletionHandler___block_invoke_4
   if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v7))
   {
     v10 = a1[6];
-    v15 = 67240192;
-    LODWORD(v16) = v10;
-    _os_signpost_emit_with_name_impl(&dword_255503000, v8, OS_SIGNPOST_INTERVAL_END, v9, "INSignpostSiriAirPlayRouteSetup", " routeIdCount=%{public,signpost.telemetry:number1}d  enableTelemetry=YES ", &v15, 8u);
+    v14 = 67240192;
+    LODWORD(v15) = v10;
+    _os_signpost_emit_with_name_impl(&dword_255503000, v8, OS_SIGNPOST_INTERVAL_END, v9, "INSignpostSiriAirPlayRouteSetup", " routeIdCount=%{public,signpost.telemetry:number1}d  enableTelemetry=YES ", &v14, 8u);
   }
 
   v11 = *v6;
   if (os_log_type_enabled(*v6, OS_LOG_TYPE_DEBUG))
   {
-    v14 = @"Unsuccessfully";
+    v13 = @"Unsuccessfully";
     if (a2)
     {
-      v14 = @"Successfully";
+      v13 = @"Successfully";
     }
 
-    v15 = 136315394;
-    v16 = "[INCExtensionProxy confirmIntentWithCompletionHandler:]_block_invoke";
-    v17 = 2114;
-    v18 = v14;
-    _os_log_debug_impl(&dword_255503000, v11, OS_LOG_TYPE_DEBUG, "%s %{public}@ routed output to airplay devices, continuing to confirm intent", &v15, 0x16u);
+    v14 = 136315394;
+    v15 = "[INCExtensionProxy confirmIntentWithCompletionHandler:]_block_invoke";
+    v16 = 2114;
+    v17 = v13;
+    _os_log_debug_impl(&dword_255503000, v11, OS_LOG_TYPE_DEBUG, "%s %{public}@ routed output to airplay devices, continuing to confirm intent", &v14, 0x16u);
   }
 
   if (a2)
@@ -974,13 +951,11 @@ void __56__INCExtensionProxy_confirmIntentWithCompletionHandler___block_invoke_4
   }
 
   (*(a1[4] + 16))(a1[4], v12);
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __56__INCExtensionProxy_confirmIntentWithCompletionHandler___block_invoke_2(id *a1, void *a2)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 intentResponse];
   v5 = [v3 error];
@@ -988,9 +963,9 @@ void __56__INCExtensionProxy_confirmIntentWithCompletionHandler___block_invoke_2
   if (os_log_type_enabled(*MEMORY[0x277CD38C8], OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v25 = "[INCExtensionProxy confirmIntentWithCompletionHandler:]_block_invoke_2";
-    v26 = 2112;
-    v27 = v4;
+    v24 = "[INCExtensionProxy confirmIntentWithCompletionHandler:]_block_invoke_2";
+    v25 = 2112;
+    v26 = v4;
     _os_log_impl(&dword_255503000, v6, OS_LOG_TYPE_INFO, "%s Received confirm response from vendor remote: %@", buf, 0x16u);
   }
 
@@ -1022,38 +997,36 @@ void __56__INCExtensionProxy_confirmIntentWithCompletionHandler___block_invoke_2
   block[1] = 3221225472;
   block[2] = __56__INCExtensionProxy_confirmIntentWithCompletionHandler___block_invoke_32;
   block[3] = &unk_2797E7DC8;
-  v17 = v5;
-  v18 = a1[5];
+  v16 = v5;
+  v17 = a1[5];
   v11 = a1[7];
-  v19 = a1[4];
-  v20 = v4;
-  v23 = v11;
-  v21 = v3;
-  v22 = a1[6];
+  v18 = a1[4];
+  v19 = v4;
+  v22 = v11;
+  v20 = v3;
+  v21 = a1[6];
   v12 = v3;
   v13 = v4;
   v14 = v5;
   dispatch_async(v10, block);
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __56__INCExtensionProxy_confirmIntentWithCompletionHandler___block_invoke_32(uint64_t a1)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   if (v2)
   {
     v3 = *MEMORY[0x277CD38C8];
     if (os_log_type_enabled(*MEMORY[0x277CD38C8], OS_LOG_TYPE_ERROR))
     {
-      v17 = *(a1 + 40);
+      v14 = *(a1 + 40);
       *buf = 136315650;
-      v20 = "[INCExtensionProxy confirmIntentWithCompletionHandler:]_block_invoke";
-      v21 = 2112;
-      v22 = v17;
-      v23 = 2114;
-      v24 = v2;
+      v17 = "[INCExtensionProxy confirmIntentWithCompletionHandler:]_block_invoke";
+      v18 = 2112;
+      v19 = v14;
+      v20 = 2114;
+      v21 = v2;
       _os_log_error_impl(&dword_255503000, v3, OS_LOG_TYPE_ERROR, "%s Got error when vendor remote is trying to confirm intent %@: %{public}@", buf, 0x20u);
     }
 
@@ -1063,30 +1036,27 @@ void __56__INCExtensionProxy_confirmIntentWithCompletionHandler___block_invoke_3
       v5 = [[INCExtensionError alloc] initWithErrorCode:1399 underlyingError:*(a1 + 32)];
       (*(v4 + 16))(v4, 0, v5);
     }
-
-    v6 = *MEMORY[0x277D85DE8];
   }
 
   else
   {
-    v8 = *(a1 + 40);
-    v7 = *(a1 + 48);
-    v9 = *(a1 + 56);
-    v10 = [*(a1 + 64) cacheItems];
-    v18 = [v7 _processIntent:v8 intentResponse:v9 withCacheItems:v10];
+    v7 = *(a1 + 40);
+    v6 = *(a1 + 48);
+    v8 = *(a1 + 56);
+    v9 = [*(a1 + 64) cacheItems];
+    v15 = [v6 _processIntent:v7 intentResponse:v8 withCacheItems:v9];
 
-    v11 = *(a1 + 72);
-    v12 = [[INCExtensionTransactionState alloc] initWithType:3 intent:*(a1 + 40) intentResponse:*(a1 + 56) userActivities:v18];
-    [v11 setState:v12];
+    v10 = *(a1 + 72);
+    v11 = [[INCExtensionTransactionState alloc] initWithType:3 intent:*(a1 + 40) intentResponse:*(a1 + 56) userActivities:v15];
+    [v10 setState:v11];
 
-    v13 = [*(a1 + 48) _connection];
-    if ([v13 _cancelRequestTimer])
+    v12 = [*(a1 + 48) _connection];
+    if ([v12 _cancelRequestTimer])
     {
-      v14 = *(a1 + 80);
+      v13 = *(a1 + 80);
 
-      if (v14)
+      if (v13)
       {
-        v15 = *(a1 + 56);
         (*(*(a1 + 80) + 16))();
       }
     }
@@ -1094,8 +1064,6 @@ void __56__INCExtensionProxy_confirmIntentWithCompletionHandler___block_invoke_3
     else
     {
     }
-
-    v16 = *MEMORY[0x277D85DE8];
   }
 }
 
@@ -1131,7 +1099,7 @@ void __56__INCExtensionProxy_confirmIntentWithCompletionHandler___block_invoke_3
 
 void __65__INCExtensionProxy_resolveIntentSlotKeyPaths_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 isSuccess];
   v5 = [v3 updatedIntent];
@@ -1141,9 +1109,9 @@ void __65__INCExtensionProxy_resolveIntentSlotKeyPaths_completionHandler___block
   if (os_log_type_enabled(*MEMORY[0x277CD38C8], OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v22 = "[INCExtensionProxy resolveIntentSlotKeyPaths:completionHandler:]_block_invoke";
-    v23 = 2112;
-    v24 = v6;
+    v21 = "[INCExtensionProxy resolveIntentSlotKeyPaths:completionHandler:]_block_invoke";
+    v22 = 2112;
+    v23 = v6;
     _os_log_impl(&dword_255503000, v7, OS_LOG_TYPE_INFO, "%s Received slot resolution results from vendor remote: %@", buf, 0x16u);
   }
 
@@ -1161,17 +1129,15 @@ void __65__INCExtensionProxy_resolveIntentSlotKeyPaths_completionHandler___block
   block[1] = 3221225472;
   block[2] = __65__INCExtensionProxy_resolveIntentSlotKeyPaths_completionHandler___block_invoke_29;
   block[3] = &unk_2797E7D78;
-  v20 = v4;
+  v19 = v4;
   v12 = *(a1 + 40);
   block[4] = *(a1 + 32);
-  v17 = v5;
-  v18 = v6;
-  v19 = v12;
+  v16 = v5;
+  v17 = v6;
+  v18 = v12;
   v13 = v6;
   v14 = v5;
   dispatch_async(v11, block);
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __65__INCExtensionProxy_resolveIntentSlotKeyPaths_completionHandler___block_invoke_29(uint64_t a1)
@@ -1182,19 +1148,16 @@ void __65__INCExtensionProxy_resolveIntentSlotKeyPaths_completionHandler___block
     [v2 setIntent:*(a1 + 40)];
   }
 
-  v8 = [*(a1 + 32) _connection];
-  if ([v8 _cancelRequestTimer])
+  v5 = [*(a1 + 32) _connection];
+  if ([v5 _cancelRequestTimer])
   {
     v3 = *(a1 + 56);
 
     if (v3)
     {
-      v4 = *(a1 + 48);
-      v5 = *(a1 + 64);
-      v6 = *(a1 + 40);
-      v7 = *(*(a1 + 56) + 16);
+      v4 = *(*(a1 + 56) + 16);
 
-      v7();
+      v4();
     }
   }
 
@@ -1236,7 +1199,7 @@ void __65__INCExtensionProxy_resolveIntentSlotKeyPaths_completionHandler___block
 
 void __64__INCExtensionProxy_resolveIntentSlotKeyPath_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v3 = [a2 parameterResolutionResults];
   v4 = [v3 objectForKeyedSubscript:*(a1 + 32)];
   v5 = [v4 data];
@@ -1245,7 +1208,7 @@ void __64__INCExtensionProxy_resolveIntentSlotKeyPath_completionHandler___block_
   if (os_log_type_enabled(*MEMORY[0x277CD38C8], OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v18 = "[INCExtensionProxy resolveIntentSlotKeyPath:completionHandler:]_block_invoke";
+    v17 = "[INCExtensionProxy resolveIntentSlotKeyPath:completionHandler:]_block_invoke";
     _os_log_impl(&dword_255503000, v6, OS_LOG_TYPE_INFO, "%s Received slot resolution result from vendor remote", buf, 0xCu);
   }
 
@@ -1265,19 +1228,17 @@ void __64__INCExtensionProxy_resolveIntentSlotKeyPath_completionHandler___block_
   block[3] = &unk_2797E8140;
   v11 = *(a1 + 48);
   block[4] = *(a1 + 40);
-  v15 = v5;
-  v16 = v11;
+  v14 = v5;
+  v15 = v11;
   v12 = v5;
   dispatch_async(v10, block);
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __64__INCExtensionProxy_resolveIntentSlotKeyPath_completionHandler___block_invoke_23(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
-  v9 = [*(a1 + 32) _connection];
-  if ([v9 _cancelRequestTimer])
+  v11 = *MEMORY[0x277D85DE8];
+  v6 = [*(a1 + 32) _connection];
+  if ([v6 _cancelRequestTimer])
   {
     v2 = *(a1 + 48);
 
@@ -1298,25 +1259,21 @@ void __64__INCExtensionProxy_resolveIntentSlotKeyPath_completionHandler___block_
         }
 
         *buf = 136315394;
-        v11 = "[INCExtensionProxy resolveIntentSlotKeyPath:completionHandler:]_block_invoke";
-        v12 = 2112;
-        v13 = v5;
+        v8 = "[INCExtensionProxy resolveIntentSlotKeyPath:completionHandler:]_block_invoke";
+        v9 = 2112;
+        v10 = v5;
         _os_log_impl(&dword_255503000, v3, OS_LOG_TYPE_INFO, "%s resolutionResultData = %@", buf, 0x16u);
         if (v4)
         {
         }
       }
 
-      v7 = *(a1 + 40);
       (*(*(a1 + 48) + 16))();
     }
-
-    v8 = *MEMORY[0x277D85DE8];
   }
 
   else
   {
-    v6 = *MEMORY[0x277D85DE8];
   }
 }
 
@@ -1391,7 +1348,7 @@ void __72__INCExtensionProxy_getDefaultValueForParameterNamed_completionHandler_
 
 void __72__INCExtensionProxy_getDefaultValueForParameterNamed_completionHandler___block_invoke_2(uint64_t a1)
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) _connection];
   v3 = [v2 _cancelRequestTimer];
 
@@ -1403,111 +1360,108 @@ void __72__INCExtensionProxy_getDefaultValueForParameterNamed_completionHandler_
       v5 = *MEMORY[0x277CD38C8];
       if (os_log_type_enabled(*MEMORY[0x277CD38C8], OS_LOG_TYPE_ERROR))
       {
-        v29 = *(a1 + 48);
+        v27 = *(a1 + 48);
         *buf = 136315650;
-        v38 = "[INCExtensionProxy getDefaultValueForParameterNamed:completionHandler:]_block_invoke_2";
+        v36 = "[INCExtensionProxy getDefaultValueForParameterNamed:completionHandler:]_block_invoke_2";
+        v37 = 2112;
+        v38 = v27;
         v39 = 2112;
-        v40 = v29;
-        v41 = 2112;
-        v42 = v4;
+        v40 = v4;
         _os_log_error_impl(&dword_255503000, v5, OS_LOG_TYPE_ERROR, "%s Error getting default value for parameter name: %@ - %@", buf, 0x20u);
       }
     }
 
-    if (*(a1 + 56))
+    if (!*(a1 + 56))
     {
-      v6 = objc_alloc_init(MEMORY[0x277CD3D60]);
-      v7 = MEMORY[0x277CCAAC8];
-      v8 = MEMORY[0x277CBEB98];
-      v9 = objc_opt_class();
-      v10 = objc_opt_class();
-      v11 = objc_opt_class();
-      v12 = objc_opt_class();
-      v13 = objc_opt_class();
-      v14 = [v8 setWithObjects:{v9, v10, v11, v12, v13, objc_opt_class(), 0}];
-      v15 = *(a1 + 56);
-      v35 = 0;
-      v16 = [v7 unarchivedObjectOfClasses:v14 fromData:v15 error:&v35];
-      v17 = v35;
-
-      objc_opt_class();
-      if (objc_opt_isKindOfClass())
-      {
-        v18 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(v16, "count")}];
-        v31 = 0u;
-        v32 = 0u;
-        v33 = 0u;
-        v34 = 0u;
-        v19 = v16;
-        v20 = [v19 countByEnumeratingWithState:&v31 objects:v36 count:16];
-        if (v20)
-        {
-          v21 = v20;
-          v22 = *v32;
-          do
-          {
-            v23 = 0;
-            do
-            {
-              if (*v32 != v22)
-              {
-                objc_enumerationMutation(v19);
-              }
-
-              v24 = [v6 decodeWithCodableAttribute:*(a1 + 64) from:*(*(&v31 + 1) + 8 * v23)];
-              [v18 if_addObjectIfNonNil:v24];
-
-              ++v23;
-            }
-
-            while (v21 != v23);
-            v21 = [v19 countByEnumeratingWithState:&v31 objects:v36 count:16];
-          }
-
-          while (v21);
-        }
-
-        v25 = [v18 copy];
-        if (!v17)
-        {
-          goto LABEL_20;
-        }
-      }
-
-      else
-      {
-        v25 = [v6 decodeWithCodableAttribute:*(a1 + 64) from:v16];
-        if (!v17)
-        {
-LABEL_20:
-          (*(*(a1 + 72) + 16))();
-
-          goto LABEL_21;
-        }
-      }
-
-      v27 = *MEMORY[0x277CD38C8];
-      if (os_log_type_enabled(*MEMORY[0x277CD38C8], OS_LOG_TYPE_ERROR))
-      {
-        v30 = *(a1 + 48);
-        *buf = 136315650;
-        v38 = "[INCExtensionProxy getDefaultValueForParameterNamed:completionHandler:]_block_invoke";
-        v39 = 2112;
-        v40 = v17;
-        v41 = 2112;
-        v42 = v30;
-        _os_log_error_impl(&dword_255503000, v27, OS_LOG_TYPE_ERROR, "%s Error unarchiving default value: %@. Parameter name: %@", buf, 0x20u);
-      }
-
-      goto LABEL_20;
+      (*(*(a1 + 72) + 16))();
+      return;
     }
 
-    v26 = *(a1 + 40);
-    (*(*(a1 + 72) + 16))();
-  }
+    v6 = objc_alloc_init(MEMORY[0x277CD3D60]);
+    v7 = MEMORY[0x277CCAAC8];
+    v8 = MEMORY[0x277CBEB98];
+    v9 = objc_opt_class();
+    v10 = objc_opt_class();
+    v11 = objc_opt_class();
+    v12 = objc_opt_class();
+    v13 = objc_opt_class();
+    v14 = [v8 setWithObjects:{v9, v10, v11, v12, v13, objc_opt_class(), 0}];
+    v15 = *(a1 + 56);
+    v33 = 0;
+    v16 = [v7 unarchivedObjectOfClasses:v14 fromData:v15 error:&v33];
+    v17 = v33;
 
-LABEL_21:
-  v28 = *MEMORY[0x277D85DE8];
+    objc_opt_class();
+    if (objc_opt_isKindOfClass())
+    {
+      v18 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(v16, "count")}];
+      v29 = 0u;
+      v30 = 0u;
+      v31 = 0u;
+      v32 = 0u;
+      v19 = v16;
+      v20 = [v19 countByEnumeratingWithState:&v29 objects:v34 count:16];
+      if (v20)
+      {
+        v21 = v20;
+        v22 = *v30;
+        do
+        {
+          v23 = 0;
+          do
+          {
+            if (*v30 != v22)
+            {
+              objc_enumerationMutation(v19);
+            }
+
+            v24 = [v6 decodeWithCodableAttribute:*(a1 + 64) from:*(*(&v29 + 1) + 8 * v23)];
+            [v18 if_addObjectIfNonNil:v24];
+
+            ++v23;
+          }
+
+          while (v21 != v23);
+          v21 = [v19 countByEnumeratingWithState:&v29 objects:v34 count:16];
+        }
+
+        while (v21);
+      }
+
+      v25 = [v18 copy];
+      if (!v17)
+      {
+        goto LABEL_20;
+      }
+    }
+
+    else
+    {
+      v25 = [v6 decodeWithCodableAttribute:*(a1 + 64) from:v16];
+      if (!v17)
+      {
+LABEL_20:
+        (*(*(a1 + 72) + 16))();
+
+        return;
+      }
+    }
+
+    v26 = *MEMORY[0x277CD38C8];
+    if (os_log_type_enabled(*MEMORY[0x277CD38C8], OS_LOG_TYPE_ERROR))
+    {
+      v28 = *(a1 + 48);
+      *buf = 136315650;
+      v36 = "[INCExtensionProxy getDefaultValueForParameterNamed:completionHandler:]_block_invoke";
+      v37 = 2112;
+      v38 = v17;
+      v39 = 2112;
+      v40 = v28;
+      _os_log_error_impl(&dword_255503000, v26, OS_LOG_TYPE_ERROR, "%s Error unarchiving default value: %@. Parameter name: %@", buf, 0x20u);
+    }
+
+    goto LABEL_20;
+  }
 }
 
 - (void)getOptionsForParameterNamed:(id)named searchTerm:(id)term completionHandler:(id)handler
@@ -1582,80 +1536,72 @@ void __78__INCExtensionProxy_getOptionsForParameterNamed_searchTerm_completionHa
 
 void __78__INCExtensionProxy_getOptionsForParameterNamed_searchTerm_completionHandler___block_invoke_2(uint64_t a1)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) _connection];
   v3 = [v2 _cancelRequestTimer];
 
-  if (!v3)
+  if (v3)
   {
-LABEL_16:
-    v18 = *MEMORY[0x277D85DE8];
-    return;
-  }
-
-  v4 = *(a1 + 40);
-  if (v4)
-  {
-    v5 = *MEMORY[0x277CD38C8];
-    if (os_log_type_enabled(*MEMORY[0x277CD38C8], OS_LOG_TYPE_ERROR))
+    v4 = *(a1 + 40);
+    if (v4)
     {
-      v19 = *(a1 + 48);
-      *buf = 136315650;
-      v25 = "[INCExtensionProxy getOptionsForParameterNamed:searchTerm:completionHandler:]_block_invoke_2";
-      v26 = 2112;
-      v27 = v19;
-      v28 = 2112;
-      v29 = v4;
-      _os_log_error_impl(&dword_255503000, v5, OS_LOG_TYPE_ERROR, "%s Error getting options for parameter: %@ - %@", buf, 0x20u);
-      v20 = *(a1 + 40);
-    }
-
-    (*(*(a1 + 72) + 16))();
-    goto LABEL_16;
-  }
-
-  if (*(a1 + 56))
-  {
-    v6 = MEMORY[0x277CCAAC8];
-    v7 = objc_opt_class();
-    v8 = *(a1 + 56);
-    v23 = 0;
-    v9 = [v6 unarchivedObjectOfClass:v7 fromData:v8 error:&v23];
-    v10 = v23;
-    if (v10)
-    {
-      v11 = *MEMORY[0x277CD38C8];
+      v5 = *MEMORY[0x277CD38C8];
       if (os_log_type_enabled(*MEMORY[0x277CD38C8], OS_LOG_TYPE_ERROR))
       {
-        v21 = *(a1 + 48);
+        v15 = *(a1 + 48);
         *buf = 136315650;
-        v25 = "[INCExtensionProxy getOptionsForParameterNamed:searchTerm:completionHandler:]_block_invoke";
-        v26 = 2112;
-        v27 = v10;
-        v28 = 2112;
-        v29 = v21;
-        _os_log_error_impl(&dword_255503000, v11, OS_LOG_TYPE_ERROR, "%s Error unarchiving options: %@. Parameter name: %@", buf, 0x20u);
+        v20 = "[INCExtensionProxy getOptionsForParameterNamed:searchTerm:completionHandler:]_block_invoke_2";
+        v21 = 2112;
+        v22 = v15;
+        v23 = 2112;
+        v24 = v4;
+        _os_log_error_impl(&dword_255503000, v5, OS_LOG_TYPE_ERROR, "%s Error getting options for parameter: %@ - %@", buf, 0x20u);
       }
 
       (*(*(a1 + 72) + 16))();
     }
 
-    else
+    else if (*(a1 + 56))
     {
-      v17 = [v9 _typedObjectCollectionWithCodableAttribute:*(a1 + 64)];
-      (*(*(a1 + 72) + 16))();
+      v6 = MEMORY[0x277CCAAC8];
+      v7 = objc_opt_class();
+      v8 = *(a1 + 56);
+      v18 = 0;
+      v9 = [v6 unarchivedObjectOfClass:v7 fromData:v8 error:&v18];
+      v10 = v18;
+      if (v10)
+      {
+        v11 = *MEMORY[0x277CD38C8];
+        if (os_log_type_enabled(*MEMORY[0x277CD38C8], OS_LOG_TYPE_ERROR))
+        {
+          v16 = *(a1 + 48);
+          *buf = 136315650;
+          v20 = "[INCExtensionProxy getOptionsForParameterNamed:searchTerm:completionHandler:]_block_invoke";
+          v21 = 2112;
+          v22 = v10;
+          v23 = 2112;
+          v24 = v16;
+          _os_log_error_impl(&dword_255503000, v11, OS_LOG_TYPE_ERROR, "%s Error unarchiving options: %@. Parameter name: %@", buf, 0x20u);
+        }
+
+        (*(*(a1 + 72) + 16))();
+      }
+
+      else
+      {
+        v14 = [v9 _typedObjectCollectionWithCodableAttribute:*(a1 + 64)];
+        (*(*(a1 + 72) + 16))();
+      }
     }
 
-    goto LABEL_16;
+    else
+    {
+      v12 = *(a1 + 72);
+      v13 = objc_alloc(MEMORY[0x277CD3E28]);
+      v17 = [v13 initWithItems:MEMORY[0x277CBEBF8]];
+      (*(v12 + 16))(v12);
+    }
   }
-
-  v12 = *(a1 + 72);
-  v13 = objc_alloc(MEMORY[0x277CD3E28]);
-  v14 = [v13 initWithItems:MEMORY[0x277CBEBF8]];
-  v15 = *(a1 + 40);
-  v22 = v14;
-  (*(v12 + 16))(v12);
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getOptionsForParameterNamed:(id)named completionHandler:(id)handler
@@ -1679,6 +1625,14 @@ void __67__INCExtensionProxy_getOptionsForParameterNamed_completionHandler___blo
   v5 = a3;
   v6 = [a2 allItems];
   (*(v4 + 16))(v4, v6, v5);
+}
+
+- (void)setShouldResetRequestAfterHandle:(BOOL)handle
+{
+  handleCopy = handle;
+  _connection = [(INCExtensionProxy *)self _connection];
+  _transaction = [_connection _transaction];
+  [_transaction setShouldResetRequestAfterHandle:handleCopy];
 }
 
 - (BOOL)shouldResetRequestAfterHandle

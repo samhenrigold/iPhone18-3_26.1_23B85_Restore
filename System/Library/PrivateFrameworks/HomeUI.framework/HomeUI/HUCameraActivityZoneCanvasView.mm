@@ -394,7 +394,7 @@ uint64_t __55__HUCameraActivityZoneCanvasView_canCreateActivityZone__block_invok
   return [a2 enumerateObjectsUsingBlock:v3];
 }
 
-uint64_t __55__HUCameraActivityZoneCanvasView_canCreateActivityZone__block_invoke_3(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
+void *__55__HUCameraActivityZoneCanvasView_canCreateActivityZone__block_invoke_3(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
 {
   [*(a1 + 32) _hmPointToCGPoint:a2];
   result = [*(*(*(a1 + 40) + 8) + 40) containsPoint:?];
@@ -858,7 +858,7 @@ void __80__HUCameraActivityZoneCanvasView_currentZonesIntersectSegmentFromPoint_
   }
 }
 
-uint64_t __80__HUCameraActivityZoneCanvasView_currentZonesIntersectSegmentFromPoint_toPoint___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
+void *__80__HUCameraActivityZoneCanvasView_currentZonesIntersectSegmentFromPoint_toPoint___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
 {
   result = [*(a1 + 32) _hmPointToCGPoint:a2];
   v10 = *(*(a1 + 40) + 8);
@@ -962,7 +962,7 @@ LABEL_22:
       v24 = [(HUCameraActivityZoneCanvasView *)self selectedActivityZoneAtPoint:v6, v8];
       if (v24)
       {
-        delegate5 = v24;
+        v25 = v24;
         [(HUCameraActivityZoneCanvasView *)self _editActivityZone:v24];
         [(HUCameraActivityZoneCanvasView *)self setNeedsDisplay];
       }
@@ -1014,7 +1014,7 @@ LABEL_22:
           [delegate2 didUpdateActivityZone:currentActivityZone3];
         }
 
-        delegate5 = 0;
+        v25 = 0;
       }
 
       goto LABEL_21;
@@ -1106,9 +1106,9 @@ LABEL_18:
 LABEL_19:
 
 LABEL_20:
-    delegate5 = [(HUCameraActivityZoneCanvasView *)self delegate];
+    v25 = [(HUCameraActivityZoneCanvasView *)self delegate:*v44];
     currentActivityZone10 = [(HUCameraActivityZoneCanvasView *)self currentActivityZone];
-    [delegate5 didUpdateActivityZone:currentActivityZone10];
+    [v25 didUpdateActivityZone:currentActivityZone10];
 
 LABEL_21:
     goto LABEL_22;

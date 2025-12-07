@@ -48,73 +48,72 @@ void __routingSessionManager_UpdateCurrentSessionFromLikelyDestinations_block_in
 
 void __routingSessionManager_UpdateCurrentSessionFromLikelyDestinations_block_invoke(uint64_t a1)
 {
-  v38[16] = *MEMORY[0x1E69E9840];
+  v35[16] = *MEMORY[0x1E69E9840];
   Current = CFAbsoluteTimeGetCurrent();
-  routingSessionManager_getConfiguration(&v36);
-  v3 = v37;
+  routingSessionManager_getConfiguration(&v33);
+  v3 = v34;
   v4 = *MEMORY[0x1E695E480];
   v5 = CFAbsoluteTimeGetCurrent();
-  routingSessionManager_getConfiguration(&v34);
-  v6 = CFDateCreate(v4, v5 - v35);
+  routingSessionManager_getConfiguration(&v31);
+  v6 = CFDateCreate(v4, v5 - v32);
   isVideoOnScreen = routingSessionManager_isVideoOnScreen(*(a1 + 32));
-  v8 = *(*(a1 + 40) + 40);
   FigSimpleMutexLock();
-  v9 = *(*(a1 + 40) + 48);
-  v31 = v6;
-  if (v9)
+  v8 = *(*(a1 + 40) + 48);
+  v28 = v6;
+  if (v8)
   {
-    v10 = 0;
-    while (CFArrayGetCount(v9) > v10)
+    v9 = 0;
+    while (CFArrayGetCount(v8) > v9)
     {
-      CFArrayGetValueAtIndex(*(*(a1 + 40) + 48), v10);
-      LOBYTE(v38[0]) = 0;
+      CFArrayGetValueAtIndex(*(*(a1 + 40) + 48), v9);
+      LOBYTE(v35[0]) = 0;
       FigCFDictionaryGetBooleanIfPresent();
-      if (LOBYTE(v38[0]))
+      if (LOBYTE(v35[0]))
       {
-        v11 = 0;
+        v10 = 0;
         goto LABEL_8;
       }
 
-      ++v10;
-      v9 = *(*(a1 + 40) + 48);
-      if (!v9)
+      ++v9;
+      v8 = *(*(a1 + 40) + 48);
+      if (!v8)
       {
         break;
       }
     }
   }
 
-  v11 = 1;
+  v10 = 1;
 LABEL_8:
-  v38[0] = 0;
-  v12 = OUTLINED_FUNCTION_20_1();
+  v35[0] = 0;
+  v11 = OUTLINED_FUNCTION_20_1();
   Mutable = CFArrayCreateMutable(v4, 0, MEMORY[0x1E695E9C0]);
-  v14 = OUTLINED_FUNCTION_20_1();
+  v13 = OUTLINED_FUNCTION_20_1();
   Float32 = FigCFNumberCreateFloat32();
-  CFDictionarySetValue(v14, @"RouteName", @"Fake route name");
-  CFDictionarySetValue(v14, @"RouteUID", @"Fake route ID");
-  CFDictionarySetValue(v14, @"AudioRouteName", @"AirTunes");
-  CFDictionarySetValue(v14, @"AudioRouteSubType", @"AppleTV");
-  v16 = *MEMORY[0x1E695E4D0];
-  CFDictionarySetValue(v14, @"RouteSupportsAirPlayVideo", *MEMORY[0x1E695E4D0]);
-  CFDictionarySetValue(v14, @"RouteSupportsAirPlayScreen", v16);
-  CFArrayAppendValue(Mutable, v14);
+  CFDictionarySetValue(v13, @"RouteName", @"Fake route name");
+  CFDictionarySetValue(v13, @"RouteUID", @"Fake route ID");
+  CFDictionarySetValue(v13, @"AudioRouteName", @"AirTunes");
+  CFDictionarySetValue(v13, @"AudioRouteSubType", @"AppleTV");
+  v15 = *MEMORY[0x1E695E4D0];
+  CFDictionarySetValue(v13, @"RouteSupportsAirPlayVideo", *MEMORY[0x1E695E4D0]);
+  CFDictionarySetValue(v13, @"RouteSupportsAirPlayScreen", v15);
+  CFArrayAppendValue(Mutable, v13);
   if (Mutable)
   {
-    CFDictionarySetValue(v12, @"routingSessionDestination_RouteDescriptors", Mutable);
+    CFDictionarySetValue(v11, @"routingSessionDestination_RouteDescriptors", Mutable);
   }
 
-  CFDictionarySetValue(v12, @"routingSessionDestination_Probability", Float32);
-  CFDictionarySetValue(v12, @"routingSessionDestination_ProvidesExternalVideoPlayback", v16);
-  if ((v11 & 1) == 0)
+  CFDictionarySetValue(v11, @"routingSessionDestination_Probability", Float32);
+  CFDictionarySetValue(v11, @"routingSessionDestination_ProvidesExternalVideoPlayback", v15);
+  if ((v10 & 1) == 0)
   {
-    CFDictionarySetValue(v12, @"routingSessionDestination_FromForcedPrediction", v16);
+    CFDictionarySetValue(v11, @"routingSessionDestination_FromForcedPrediction", v15);
   }
 
-  v17 = FigRoutingSessionCreate(v4, 1, v12, v38);
-  if (!v17 && v38[0])
+  v16 = FigRoutingSessionCreate(v4, 1, v11, v35);
+  if (!v16 && v35[0])
   {
-    v18 = CFRetain(v38[0]);
+    v17 = CFRetain(v35[0]);
     if (!Float32)
     {
       goto LABEL_16;
@@ -123,7 +122,7 @@ LABEL_8:
     goto LABEL_15;
   }
 
-  v18 = 0;
+  v17 = 0;
   if (Float32)
   {
 LABEL_15:
@@ -131,14 +130,14 @@ LABEL_15:
   }
 
 LABEL_16:
-  if (v38[0])
+  if (v35[0])
   {
-    CFRelease(v38[0]);
+    CFRelease(v35[0]);
   }
 
-  if (v14)
+  if (v13)
   {
-    CFRelease(v14);
+    CFRelease(v13);
   }
 
   if (Mutable)
@@ -146,53 +145,52 @@ LABEL_16:
     CFRelease(Mutable);
   }
 
-  if (v12)
+  if (v11)
   {
-    CFRelease(v12);
+    CFRelease(v11);
   }
 
-  if (v17)
+  if (v16)
   {
     FakePredictionContext = 0;
-    v22 = v31;
+    v20 = v28;
   }
 
   else
   {
     FakePredictionContext = routingSessionManager_createFakePredictionContext();
-    shouldUpdateCurrentSession = routingSessionManager_shouldUpdateCurrentSession(*(*(a1 + 40) + 24), *(*(a1 + 40) + 72), *(*(a1 + 40) + 88), *(*(a1 + 40) + 96), v18, FakePredictionContext, 1, 0, 0, isVideoOnScreen);
-    v21 = *(*(a1 + 40) + 40);
+    shouldUpdateCurrentSession = routingSessionManager_shouldUpdateCurrentSession(*(*(a1 + 40) + 24), *(*(a1 + 40) + 72), *(*(a1 + 40) + 88), *(*(a1 + 40) + 96), v17, FakePredictionContext, 1, 0, 0, isVideoOnScreen);
     FigSimpleMutexUnlock();
     if (shouldUpdateCurrentSession)
     {
-      v27 = Current + v3;
-      v28 = *(a1 + 32);
-      v22 = v31;
-      if (v28)
+      v24 = Current + v3;
+      v25 = *(a1 + 32);
+      v20 = v28;
+      if (v25)
       {
-        CFRetain(v28);
-        v29 = *(a1 + 32);
+        CFRetain(v25);
+        v26 = *(a1 + 32);
       }
 
       else
       {
-        v29 = 0;
+        v26 = 0;
       }
 
-      v30 = CFAbsoluteTimeGetCurrent();
-      v32[0] = MEMORY[0x1E69E9820];
-      v32[1] = 3221225472;
-      v32[2] = __routingSessionManager_UpdateCurrentSessionFromLikelyDestinations_block_invoke_2;
-      v32[3] = &__block_descriptor_64_e42_v24__0__NSArray_8__ARPPredictionContext_16l;
-      v32[4] = *(a1 + 32);
-      *&v32[5] = v27;
-      v33 = *(a1 + 48);
-      routingSessionManager_waitForRecentPredictions(v29, v31, v32, v27 - v30);
+      v27 = CFAbsoluteTimeGetCurrent();
+      v29[0] = MEMORY[0x1E69E9820];
+      v29[1] = 3221225472;
+      v29[2] = __routingSessionManager_UpdateCurrentSessionFromLikelyDestinations_block_invoke_2;
+      v29[3] = &__block_descriptor_64_e42_v24__0__NSArray_8__ARPPredictionContext_16l;
+      v29[4] = *(a1 + 32);
+      *&v29[5] = v24;
+      v30 = *(a1 + 48);
+      routingSessionManager_waitForRecentPredictions(v26, v28, v29, v24 - v27);
     }
 
     else
     {
-      v22 = v31;
+      v20 = v28;
       if (dword_1EB75DF00)
       {
         os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
@@ -201,31 +199,29 @@ LABEL_16:
         fig_log_call_emit_and_clean_up_after_send_and_compose();
       }
 
-      v24 = *(a1 + 48);
-      if (v24)
+      v22 = *(a1 + 48);
+      if (v22)
       {
-        v24(*(a1 + 56), 0);
+        v22(*(a1 + 56), 0);
       }
     }
   }
 
-  if (v18)
+  if (v17)
   {
-    CFRelease(v18);
+    CFRelease(v17);
   }
 
-  if (v22)
+  if (v20)
   {
-    CFRelease(v22);
+    CFRelease(v20);
   }
 
-  v25 = *(a1 + 32);
-  if (v25)
+  v23 = *(a1 + 32);
+  if (v23)
   {
-    CFRelease(v25);
+    CFRelease(v23);
   }
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 @end

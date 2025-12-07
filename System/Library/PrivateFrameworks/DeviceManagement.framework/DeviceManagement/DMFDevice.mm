@@ -77,48 +77,46 @@
 
 void __32__DMFDevice_propertyNameForKey___block_invoke()
 {
-  v4[18] = *MEMORY[0x1E69E9840];
-  v3[0] = @"DMFDeviceBluetoothMACKey";
-  v3[1] = @"DMFDeviceNameKey";
-  v4[0] = @"bluetoothAddress";
-  v4[1] = @"deviceName";
-  v3[2] = @"DMFDeviceTypeKey";
-  v3[3] = @"DMFDeviceAwaitingConfigurationKey";
-  v4[2] = @"deviceType";
-  v4[3] = @"isAwaitingConfiguration";
-  v3[4] = @"DMFDeviceIsDNDInEffectKey";
-  v3[5] = @"DMFDeviceOSVersionKey";
-  v4[4] = @"isDoNotDisturbInEffect";
-  v4[5] = @"osVersion";
-  v3[6] = @"DMFDeviceWiFiMACKey";
-  v3[7] = @"DMFDeviceAppAnalyticsEnabledKey";
-  v4[6] = @"wifiAddress";
-  v4[7] = @"isAppAnalyticsEnabled";
-  v3[8] = @"DMFDeviceDiagnosticSubmissionEnabledKey";
-  v3[9] = @"DMFDeviceEASIdentifierKey";
-  v4[8] = @"isDiagnosticSubmissionEnabled";
-  v4[9] = @"EASIdentifier";
-  v3[10] = @"DMFDeviceICCIDKey";
-  v3[11] = @"DMFDeviceIMEIKey";
-  v4[10] = @"ICCID";
-  v4[11] = @"IMEI";
-  v3[12] = @"DMFDeviceMEIDKey";
-  v3[13] = @"DMFDeviceDataRoamingEnabledKey";
-  v4[12] = @"MEID";
-  v4[13] = @"isDataRoamingEnabled";
-  v3[14] = @"DMFDevicePersonalHotspotEnabledKey";
-  v3[15] = @"DMFDeviceVoiceRoamingEnabledKey";
-  v4[14] = @"isPersonalHotspotEnabled";
-  v4[15] = @"isVoiceRoamingEnabled";
-  v3[16] = @"DMFDeviceSystemIntegrityProtectionEnabledKey";
-  v3[17] = @"DMFDeviceOSUpdateSettingsKey";
-  v4[16] = @"isSystemIntegrityProtectionEnabled";
-  v4[17] = @"osUpdateSettings";
-  v0 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v4 forKeys:v3 count:18];
+  v3[18] = *MEMORY[0x1E69E9840];
+  v2[0] = @"DMFDeviceBluetoothMACKey";
+  v2[1] = @"DMFDeviceNameKey";
+  v3[0] = @"bluetoothAddress";
+  v3[1] = @"deviceName";
+  v2[2] = @"DMFDeviceTypeKey";
+  v2[3] = @"DMFDeviceAwaitingConfigurationKey";
+  v3[2] = @"deviceType";
+  v3[3] = @"isAwaitingConfiguration";
+  v2[4] = @"DMFDeviceIsDNDInEffectKey";
+  v2[5] = @"DMFDeviceOSVersionKey";
+  v3[4] = @"isDoNotDisturbInEffect";
+  v3[5] = @"osVersion";
+  v2[6] = @"DMFDeviceWiFiMACKey";
+  v2[7] = @"DMFDeviceAppAnalyticsEnabledKey";
+  v3[6] = @"wifiAddress";
+  v3[7] = @"isAppAnalyticsEnabled";
+  v2[8] = @"DMFDeviceDiagnosticSubmissionEnabledKey";
+  v2[9] = @"DMFDeviceEASIdentifierKey";
+  v3[8] = @"isDiagnosticSubmissionEnabled";
+  v3[9] = @"EASIdentifier";
+  v2[10] = @"DMFDeviceICCIDKey";
+  v2[11] = @"DMFDeviceIMEIKey";
+  v3[10] = @"ICCID";
+  v3[11] = @"IMEI";
+  v2[12] = @"DMFDeviceMEIDKey";
+  v2[13] = @"DMFDeviceDataRoamingEnabledKey";
+  v3[12] = @"MEID";
+  v3[13] = @"isDataRoamingEnabled";
+  v2[14] = @"DMFDevicePersonalHotspotEnabledKey";
+  v2[15] = @"DMFDeviceVoiceRoamingEnabledKey";
+  v3[14] = @"isPersonalHotspotEnabled";
+  v3[15] = @"isVoiceRoamingEnabled";
+  v2[16] = @"DMFDeviceSystemIntegrityProtectionEnabledKey";
+  v2[17] = @"DMFDeviceOSUpdateSettingsKey";
+  v3[16] = @"isSystemIntegrityProtectionEnabled";
+  v3[17] = @"osUpdateSettings";
+  v0 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v3 forKeys:v2 count:18];
   v1 = propertyNameForKey__mappedKeys;
   propertyNameForKey__mappedKeys = v0;
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 - (id)valueForKey:(id)key error:(id *)error

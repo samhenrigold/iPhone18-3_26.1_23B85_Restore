@@ -65,7 +65,7 @@ void __30__HLPCommonDefines_isVisionOS__block_invoke()
 
 + (id)contentRequestHeaderFields
 {
-  v10[2] = *MEMORY[0x277D85DE8];
+  v9[2] = *MEMORY[0x277D85DE8];
   if (+[HLPCommonDefines hasServiceTicket])
   {
     v2 = +[HLPCommonDefines contentServiceTicket];
@@ -88,11 +88,11 @@ void __30__HLPCommonDefines_isVisionOS__block_invoke()
 
     else
     {
-      v9[0] = @"X-AppleConnect-Token";
-      v9[1] = @"X-AppleConnect-User";
-      v10[0] = v2;
-      v10[1] = v3;
-      v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:2];
+      v8[0] = @"X-AppleConnect-Token";
+      v8[1] = @"X-AppleConnect-User";
+      v9[0] = v2;
+      v9[1] = v3;
+      v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:2];
     }
   }
 
@@ -101,14 +101,12 @@ void __30__HLPCommonDefines_isVisionOS__block_invoke()
     v6 = 0;
   }
 
-  v7 = *MEMORY[0x277D85DE8];
-
   return v6;
 }
 
 + (id)assetRequestHeaderFields
 {
-  v12[3] = *MEMORY[0x277D85DE8];
+  v11[3] = *MEMORY[0x277D85DE8];
   if (+[HLPCommonDefines hasServiceTicket])
   {
     v2 = +[HLPCommonDefines assetServiceTicket];
@@ -132,13 +130,13 @@ void __30__HLPCommonDefines_isVisionOS__block_invoke()
 
     else
     {
-      v11[0] = @"X-AppleConnect-Token";
-      v11[1] = @"X-AppleConnect-User";
-      v12[0] = v2;
-      v12[1] = v3;
-      v11[2] = @"X-Client-Id";
-      v12[2] = v4;
-      v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:3];
+      v10[0] = @"X-AppleConnect-Token";
+      v10[1] = @"X-AppleConnect-User";
+      v11[0] = v2;
+      v11[1] = v3;
+      v10[2] = @"X-Client-Id";
+      v11[2] = v4;
+      v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:3];
     }
   }
 
@@ -146,8 +144,6 @@ void __30__HLPCommonDefines_isVisionOS__block_invoke()
   {
     v8 = 0;
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v8;
 }

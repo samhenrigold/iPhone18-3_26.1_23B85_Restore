@@ -533,7 +533,7 @@ LABEL_23:
         v62 = 0.0;
       }
 
-      v63 = UIKBCreateFadeClipImage(currentHandBias == 1, 1, v75, v7, v9, v74, v62, 0.0, v55, v61, 1.0);
+      v63 = UIKBCreateFadeClipImage((currentHandBias == 1), 1, v75, v7, v9, v74, v62, 0.0, v55, v61, 1.0);
       v64 = CGImageGetWidth(self->_inkMask);
       v65 = CGImageGetHeight(self->_inkMask);
       v66 = CGColorSpaceCreateWithName(*MEMORY[0x1E695F1C8]);
@@ -592,7 +592,7 @@ LABEL_23:
 
       if (v6)
       {
-        [v6 affineTransform];
+        objc_msgSend_affineTransform(v6);
         if (v25.d < 0.0)
         {
           v23 = *&[UIKBHandwritingView layerForRenderFlags:]::invertTransform[16];
@@ -1028,7 +1028,7 @@ void __44__UIKBHandwritingView_startFadeOutAnimation__block_invoke_2(uint64_t a1
 
   else
   {
-    +[UIColor blackColor];
+    objc_msgSend_blackColor(UIColor);
   }
   v3 = ;
   -[UIKBHandwritingView setInkColor:](self, "setInkColor:", [v3 CGColor]);
@@ -1064,8 +1064,8 @@ void __44__UIKBHandwritingView_startFadeOutAnimation__block_invoke_2(uint64_t a1
     keyplane = [(UIKBKeyView *)self keyplane];
     v18 = [factory traitsForKey:v10 onKeyplane:keyplane];
 
-    geometry = [v18 geometry];
-    [geometry roundRectRadius];
+    v12 = objc_msgSend_geometry(v18);
+    [v12 roundRectRadius];
     v7 = v13;
 
     if (v7 == 0.0)
@@ -1074,8 +1074,8 @@ void __44__UIKBHandwritingView_startFadeOutAnimation__block_invoke_2(uint64_t a1
       goto LABEL_7;
     }
 
-    geometry2 = [v18 geometry];
-    v8 = [geometry2 roundRectCorners] & 0xF;
+    v14 = objc_msgSend_geometry(v18);
+    v8 = [v14 roundRectCorners] & 0xF;
 
     if (!v8)
     {

@@ -70,7 +70,7 @@
   return v8;
 }
 
-id __60__CKInboxViewController_initWithConversationListController___block_invoke(uint64_t a1, uint64_t a2, void *a3)
+id __60__CKInboxViewController_initWithConversationListController___block_invoke(uint64_t a1, void *a2, void *a3)
 {
   v5 = a3;
   if ([*(a1 + 32) wantsCollapsedAppearance])
@@ -110,19 +110,19 @@ id __60__CKInboxViewController_initWithConversationListController___block_invoke
 
 - (void)viewDidLoad
 {
-  v23[1] = *MEMORY[0x1E69E9840];
-  v21.receiver = self;
-  v21.super_class = CKInboxViewController;
-  [(CKInboxViewController *)&v21 viewDidLoad];
-  v3 = CKFrameworkBundle();
-  v4 = [v3 localizedStringForKey:@"MESSAGES" value:&stru_1F04268F8 table:@"ChatKit"];
-  [(CKInboxViewController *)self setTitle:v4];
+  v24[1] = *MEMORY[0x1E69E9840];
+  v22.receiver = self;
+  v22.super_class = CKInboxViewController;
+  viewDidLoad = [(CKInboxViewController *)&v22 viewDidLoad];
+  v4 = CKFrameworkBundle(viewDidLoad);
+  v5 = [v4 localizedStringForKey:@"MESSAGES" value:&stru_1F04268F8 table:@"ChatKit"];
+  [(CKInboxViewController *)self setTitle:v5];
 
-  v5 = CKIsRunningInMacCatalyst();
+  v6 = CKIsRunningInMacCatalyst();
   navigationController = [(CKInboxViewController *)self navigationController];
   navigationBar = [navigationController navigationBar];
-  v8 = navigationBar;
-  if (v5)
+  v9 = navigationBar;
+  if (v6)
   {
     [navigationBar setPrefersLargeTitles:0];
 
@@ -130,11 +130,11 @@ id __60__CKInboxViewController_initWithConversationListController___block_invoke
     [navigationItem setLargeTitleDisplayMode:2];
 
     navigationItem3 = objc_alloc_init(MEMORY[0x1E69DCCC8]);
-    v22 = *MEMORY[0x1E69DB650];
+    v23 = *MEMORY[0x1E69DB650];
     clearColor = [MEMORY[0x1E69DC888] clearColor];
-    v23[0] = clearColor;
-    v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:&v22 count:1];
-    [navigationItem3 setTitleTextAttributes:v12];
+    v24[0] = clearColor;
+    v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v24 forKeys:&v23 count:1];
+    [navigationItem3 setTitleTextAttributes:v13];
 
     [navigationItem3 configureWithTransparentBackground];
     navigationItem2 = [(CKInboxViewController *)self navigationItem];
@@ -157,15 +157,15 @@ id __60__CKInboxViewController_initWithConversationListController___block_invoke
 
   if (isUnreadCountRefactorEnabled)
   {
-    v17 = *MEMORY[0x1E69A7DD0];
+    v18 = *MEMORY[0x1E69A7DD0];
   }
 
   else
   {
-    v17 = *MEMORY[0x1E69A5920];
+    v18 = *MEMORY[0x1E69A5920];
   }
 
-  [defaultCenter addObserver:self selector:sel__chatUnreadCountDidChange_ name:v17 object:0];
+  [defaultCenter addObserver:self selector:sel__chatUnreadCountDidChange_ name:v18 object:0];
   [defaultCenter addObserver:self selector:sel__conversationListDidFinishSorting_ name:@"CKConversationListDidFinishSorting" object:0];
   [defaultCenter addObserver:self selector:sel__messageFilteringEnabledDidChange_ name:CKMessageFilteringChangedNotification[0] object:0];
   [defaultCenter addObserver:self selector:sel__spamFilteringStateChanged name:CKMessageSpamFilteringChangedNotification object:0];
@@ -501,65 +501,65 @@ id __60__CKInboxViewController_initWithConversationListController___block_invoke
 
 - (id)footerTextView
 {
-  v3 = CKFrameworkBundle();
+  v3 = CKFrameworkBundle(self);
   v4 = [v3 localizedStringForKey:@"FILTER_JUNK_LINK" value:&stru_1F04268F8 table:@"ChatKit"];
 
   v5 = MEMORY[0x1E696AEC0];
-  v6 = CKFrameworkBundle();
-  v7 = [v6 localizedStringForKey:@"FILTER_FOOTER_TEXT_%@" value:&stru_1F04268F8 table:@"ChatKit"];
-  v8 = [v5 stringWithFormat:v7, v4];
+  v7 = CKFrameworkBundle(v6);
+  v8 = [v7 localizedStringForKey:@"FILTER_FOOTER_TEXT_%@" value:&stru_1F04268F8 table:@"ChatKit"];
+  v9 = [v5 stringWithFormat:v8, v4];
 
   mEMORY[0x1E69DC668] = [MEMORY[0x1E69DC668] sharedApplication];
   userInterfaceLayoutDirection = [mEMORY[0x1E69DC668] userInterfaceLayoutDirection];
 
   if (userInterfaceLayoutDirection == 1)
   {
-    v11 = @"\u200F";
+    v12 = @"\u200F";
   }
 
   else
   {
-    v11 = @"\u200E";
+    v12 = @"\u200E";
   }
 
-  v12 = [(__CFString *)v11 stringByAppendingString:v8];
+  v13 = [(__CFString *)v12 stringByAppendingString:v9];
 
-  v13 = [objc_alloc(MEMORY[0x1E696AD40]) initWithString:v12];
-  v14 = objc_opt_new();
-  [v14 setAlignment:1];
-  [v13 addAttribute:*MEMORY[0x1E69DB688] value:v14 range:{0, objc_msgSend(v13, "length")}];
+  v14 = [objc_alloc(MEMORY[0x1E696AD40]) initWithString:v13];
+  v15 = objc_opt_new();
+  [v15 setAlignment:1];
+  [v14 addAttribute:*MEMORY[0x1E69DB688] value:v15 range:{0, objc_msgSend(v14, "length")}];
   secondaryLabelColor = [MEMORY[0x1E69DC888] secondaryLabelColor];
-  [v13 addAttribute:*MEMORY[0x1E69DB650] value:secondaryLabelColor range:{0, objc_msgSend(v13, "length")}];
-  string = [v13 string];
-  v17 = [string rangeOfString:v4];
-  v19 = v18;
+  [v14 addAttribute:*MEMORY[0x1E69DB650] value:secondaryLabelColor range:{0, objc_msgSend(v14, "length")}];
+  string = [v14 string];
+  v18 = [string rangeOfString:v4];
+  v20 = v19;
 
-  [v13 addAttribute:*MEMORY[0x1E69DB670] value:&stru_1F04268F8 range:{v17, v19}];
-  v20 = *MEMORY[0x1E69DB648];
-  v21 = [MEMORY[0x1E69DB878] preferredFontForTextStyle:*MEMORY[0x1E69DDD08]];
-  [v13 addAttribute:v20 value:v21 range:{0, objc_msgSend(v13, "length")}];
+  [v14 addAttribute:*MEMORY[0x1E69DB670] value:&stru_1F04268F8 range:{v18, v20}];
+  v21 = *MEMORY[0x1E69DB648];
+  v22 = [MEMORY[0x1E69DB878] preferredFontForTextStyle:*MEMORY[0x1E69DDD08]];
+  [v14 addAttribute:v21 value:v22 range:{0, objc_msgSend(v14, "length")}];
 
-  v22 = objc_alloc(MEMORY[0x1E69DD168]);
-  v23 = [v22 initWithFrame:{*MEMORY[0x1E695F058], *(MEMORY[0x1E695F058] + 8), *(MEMORY[0x1E695F058] + 16), *(MEMORY[0x1E695F058] + 24)}];
-  [v23 _setInteractiveTextSelectionDisabled:1];
-  [v23 setScrollEnabled:0];
-  [v23 setEditable:0];
-  [v23 setSelectable:1];
-  [v23 setUserInteractionEnabled:1];
-  [v23 setDelegate:self];
-  textDragInteraction = [v23 textDragInteraction];
+  v23 = objc_alloc(MEMORY[0x1E69DD168]);
+  v24 = [v23 initWithFrame:{*MEMORY[0x1E695F058], *(MEMORY[0x1E695F058] + 8), *(MEMORY[0x1E695F058] + 16), *(MEMORY[0x1E695F058] + 24)}];
+  [v24 _setInteractiveTextSelectionDisabled:1];
+  [v24 setScrollEnabled:0];
+  [v24 setEditable:0];
+  [v24 setSelectable:1];
+  [v24 setUserInteractionEnabled:1];
+  [v24 setDelegate:self];
+  textDragInteraction = [v24 textDragInteraction];
   [textDragInteraction setEnabled:0];
 
-  [v23 setClipsToBounds:0];
-  [v23 setAdjustsFontForContentSizeCategory:1];
-  [v23 setAttributedText:v13];
+  [v24 setClipsToBounds:0];
+  [v24 setAdjustsFontForContentSizeCategory:1];
+  [v24 setAttributedText:v14];
   view = [(CKInboxViewController *)self view];
   backgroundColor = [view backgroundColor];
-  [v23 setBackgroundColor:backgroundColor];
+  [v24 setBackgroundColor:backgroundColor];
 
-  [v23 setTranslatesAutoresizingMaskIntoConstraints:0];
+  [v24 setTranslatesAutoresizingMaskIntoConstraints:0];
 
-  return v23;
+  return v24;
 }
 
 - (NSArray)primaryCellsData
@@ -571,27 +571,27 @@ id __60__CKInboxViewController_initWithConversationListController___block_invoke
     v5 = +[CKInboxCellData allMessagesCellData];
     [v4 addObject:v5];
 
-    if (CKMessageFilteringEnabled())
+    if (CKMessageFilteringEnabled(v6, v7))
     {
-      v6 = +[CKInboxCellData knownSendersCellData];
-      [v4 addObject:v6];
+      v8 = +[CKInboxCellData knownSendersCellData];
+      [v4 addObject:v8];
 
-      v7 = +[CKInboxCellData unknownSendersCellData];
-      [v4 addObject:v7];
+      v9 = +[CKInboxCellData unknownSendersCellData];
+      [v4 addObject:v9];
     }
 
     delegate = [(CKInboxViewController *)self delegate];
-    v9 = [delegate inboxViewController:self shouldShowFilterMode:8];
+    v11 = [delegate inboxViewController:self shouldShowFilterMode:8];
 
-    if (v9)
+    if (v11)
     {
-      v10 = +[CKInboxCellData unreadMessagesCellData];
-      [v4 addObject:v10];
+      v12 = +[CKInboxCellData unreadMessagesCellData];
+      [v4 addObject:v12];
     }
 
-    v11 = [v4 copy];
-    v12 = self->_primaryCellsData;
-    self->_primaryCellsData = v11;
+    v13 = [v4 copy];
+    v14 = self->_primaryCellsData;
+    self->_primaryCellsData = v13;
 
     primaryCellsData = self->_primaryCellsData;
   }
@@ -814,7 +814,7 @@ void __44__CKInboxViewController_setupCollectionView__block_invoke(uint64_t a1, 
   if (v8 == [*(a1 + 32) _primarySectionIndex] && CKIsRunningInMacCatalyst())
   {
     v9 = [MEMORY[0x1E69DCC28] prominentInsetGroupedHeaderConfiguration];
-    v10 = CKFrameworkBundle();
+    v10 = CKFrameworkBundle(v9);
     v11 = [v10 localizedStringForKey:@"MESSAGES" value:&stru_1F04268F8 table:@"ChatKit"];
     [v9 setText:v11];
 
@@ -1022,7 +1022,7 @@ id __44__CKInboxViewController_setupCollectionView__block_invoke_4(uint64_t a1, 
     {
 LABEL_13:
       v13 = [CKBackBarButtonItem alloc];
-      v14 = CKFrameworkBundle();
+      v14 = CKFrameworkBundle(v13);
       v15 = [v14 localizedStringForKey:@"FILTERS_BACK_BUTTON" value:&stru_1F04268F8 table:@"ChatKit"];
       v17 = [(CKBackBarButtonItem *)v13 initWithTitle:v15];
     }
@@ -1313,7 +1313,7 @@ void __52__CKInboxViewController__contentSizeCategoryChanged__block_invoke(uint6
 {
   v3 = MEMORY[0x1E696AEC0];
   extensionCopy = extension;
-  v5 = CKFrameworkBundle();
+  v5 = CKFrameworkBundle(extensionCopy);
   v6 = [v5 localizedStringForKey:@"FILTERED_BY_APP_NAME" value:&stru_1F04268F8 table:@"ChatKit"];
   extensionCopy = [v3 stringWithFormat:v6, extensionCopy];
 

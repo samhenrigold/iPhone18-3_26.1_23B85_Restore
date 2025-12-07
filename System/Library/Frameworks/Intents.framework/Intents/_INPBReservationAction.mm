@@ -3,6 +3,7 @@
 - (_INPBReservationAction)initWithCoder:(id)coder;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)dictionaryRepresentation;
+- (id)typeAsString:(int)string;
 - (int)StringAsType:(id)type;
 - (unint64_t)hash;
 - (void)encodeWithCoder:(id)coder;
@@ -196,7 +197,6 @@ LABEL_17:
   toCopy = to;
   if ([(_INPBReservationAction *)self hasType])
   {
-    type = self->_type;
     PBDataWriterWriteInt32Field();
   }
 
@@ -210,13 +210,13 @@ LABEL_17:
 
   validDuration = [(_INPBReservationAction *)self validDuration];
 
-  v8 = toCopy;
+  v7 = toCopy;
   if (validDuration)
   {
     validDuration2 = [(_INPBReservationAction *)self validDuration];
     PBDataWriterWriteSubmessage();
 
-    v8 = toCopy;
+    v7 = toCopy;
   }
 }
 
@@ -235,6 +235,26 @@ LABEL_17:
     {
       v4 = 1;
     }
+  }
+
+  return v4;
+}
+
+- (id)typeAsString:(int)string
+{
+  if (string == 1)
+  {
+    v4 = @"UNKNOWN_RESERVATION_ACTION";
+  }
+
+  else if (string == 2)
+  {
+    v4 = @"CHECK_IN";
+  }
+
+  else
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
   }
 
   return v4;

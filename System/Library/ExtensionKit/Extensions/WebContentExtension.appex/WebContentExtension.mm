@@ -1,12 +1,12 @@
 int main(int argc, const char **argv, const char **envp)
 {
   type metadata accessor for WebContentProcessExtension();
-  sub_100004D90(&qword_10000C118, v3, type metadata accessor for WebContentProcessExtension);
+  sub_100004D90(&qword_10000C118, v3, type metadata accessor for WebContentProcessExtension, &unk_1000054C0);
   sub_1000052C4();
   return 0;
 }
 
-uint64_t sub_100004D90(unint64_t *a1, uint64_t a2, void (*a3)(uint64_t))
+uint64_t sub_100004D90(unint64_t *a1, uint64_t a2, uint64_t (*a3)(uint64_t), uint64_t a4)
 {
   result = *a1;
   if (!result)
@@ -29,7 +29,7 @@ id sub_100004DD8@<X0>(void *a1@<X8>)
 uint64_t sub_100004E68()
 {
   v0 = type metadata accessor for WebContentProcessExtension();
-  v2 = sub_100004D90(&qword_10000C120, v1, type metadata accessor for WebContentProcessExtension);
+  v2 = sub_100004D90(&qword_10000C120, v1, type metadata accessor for WebContentProcessExtension, "I,");
 
   return WebContentExtension.configuration.getter(v0, v2);
 }
@@ -45,32 +45,31 @@ uint64_t sub_100004FB4(uint64_t a1, uint64_t a2)
 {
   v5 = sub_1000052A4();
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
   __chkstk_darwin();
-  v9 = &v13 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = &v12 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   if (a1 == 3157553 && a2 == 0xE300000000000000 || (sub_1000052E4() & 1) != 0)
   {
-    v14 = v2;
-    v10 = &enum case for RestrictedSandboxRevision.revision1(_:);
+    v13 = v2;
+    v9 = &enum case for RestrictedSandboxRevision.revision1(_:);
 LABEL_5:
-    (*(v6 + 104))(v9, *v10, v5);
+    (*(v6 + 104))(v8, *v9, v5);
     type metadata accessor for WebContentProcessExtension();
-    sub_100004D90(&qword_10000C120, v11, type metadata accessor for WebContentProcessExtension);
+    sub_100004D90(&qword_10000C120, v10, type metadata accessor for WebContentProcessExtension, "I,");
     sub_1000052B4();
-    return (*(v6 + 8))(v9, v5);
+    return (*(v6 + 8))(v8, v5);
   }
 
   if (a1 == 3157554 && a2 == 0xE300000000000000 || (result = sub_1000052E4(), (result & 1) != 0))
   {
-    v14 = v2;
-    v10 = &enum case for RestrictedSandboxRevision.revision2(_:);
+    v13 = v2;
+    v9 = &enum case for RestrictedSandboxRevision.revision2(_:);
     goto LABEL_5;
   }
 
   return result;
 }
 
-uint64_t sub_1000051E8()
+uint64_t sub_1000051E8(uint64_t a1, uint64_t a2)
 {
   swift_getWitnessTable();
 

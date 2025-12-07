@@ -478,9 +478,9 @@ void __51__TPSVideoAssetView_updateReplayButtonHiddenState___block_invoke_2(uint
   {
     if (currentItem)
     {
-      [currentItem currentTime];
+      objc_msgSend_currentTime(currentItem);
       v5 = v10;
-      [v4 duration];
+      objc_msgSend_duration(v4);
       v6 = v9;
     }
 
@@ -507,7 +507,7 @@ void __51__TPSVideoAssetView_updateReplayButtonHiddenState___block_invoke_2(uint
   if (currentItem)
   {
     v6 = currentItem;
-    [currentItem currentTime];
+    objc_msgSend_currentTime(currentItem);
     currentItem = v6;
   }
 
@@ -529,7 +529,7 @@ void __51__TPSVideoAssetView_updateReplayButtonHiddenState___block_invoke_2(uint
   v4 = currentItem;
   if (currentItem)
   {
-    [currentItem duration];
+    objc_msgSend_duration(currentItem);
   }
 
   else

@@ -195,15 +195,15 @@ LABEL_7:
 
 - (void)accessibilityIncrement
 {
-  if (CRLAccessibilityShouldPerformValidationChecks())
+  if (CRLAccessibilityShouldPerformValidationChecks(self, a2))
   {
     parentRep = [(CRLCanvasKnobAccessibilityElement *)self parentRep];
     crlaxInReadOnlyMode = [parentRep crlaxInReadOnlyMode];
 
     if (crlaxInReadOnlyMode)
     {
-      ShouldCrashOnValidationErrorAfterLaunch = CRLAccessibilityShouldCrashOnValidationErrorAfterLaunch();
-      if (__CRLAccessibilityHandleValidationErrorWithDescription(ShouldCrashOnValidationErrorAfterLaunch, 0, @"Trying to increment a knob while in read-only mode. This shouldn't happen.", v6, v7, v8, v9, v10, v11))
+      ShouldCrashOnValidationErrorAfterLaunch = CRLAccessibilityShouldCrashOnValidationErrorAfterLaunch(v5);
+      if (__CRLAccessibilityHandleValidationErrorWithDescription(ShouldCrashOnValidationErrorAfterLaunch, 0, @"Trying to increment a knob while in read-only mode. This shouldn't happen.", v7, v8, v9, v10, v11, v13))
       {
         abort();
       }
@@ -215,7 +215,7 @@ LABEL_7:
   {
     [knob crlaxCalculatedNextPositionInRepForAdjustable:1];
     [knob crlaxMoveKnobToRepPositionInNaturalSpace:?];
-    CRLAccessibilityPostLayoutChangedNotification(self);
+    CRLAccessibilityPostLayoutChangedNotification(self, v12);
   }
 
   else
@@ -226,15 +226,15 @@ LABEL_7:
 
 - (void)accessibilityDecrement
 {
-  if (CRLAccessibilityShouldPerformValidationChecks())
+  if (CRLAccessibilityShouldPerformValidationChecks(self, a2))
   {
     parentRep = [(CRLCanvasKnobAccessibilityElement *)self parentRep];
     crlaxInReadOnlyMode = [parentRep crlaxInReadOnlyMode];
 
     if (crlaxInReadOnlyMode)
     {
-      ShouldCrashOnValidationErrorAfterLaunch = CRLAccessibilityShouldCrashOnValidationErrorAfterLaunch();
-      if (__CRLAccessibilityHandleValidationErrorWithDescription(ShouldCrashOnValidationErrorAfterLaunch, 0, @"Trying to decrement a knob while in read-only mode. This shouldn't happen.", v6, v7, v8, v9, v10, v15))
+      ShouldCrashOnValidationErrorAfterLaunch = CRLAccessibilityShouldCrashOnValidationErrorAfterLaunch(v5);
+      if (__CRLAccessibilityHandleValidationErrorWithDescription(ShouldCrashOnValidationErrorAfterLaunch, 0, @"Trying to decrement a knob while in read-only mode. This shouldn't happen.", v7, v8, v9, v10, v11, v17))
       {
         abort();
       }
@@ -245,12 +245,12 @@ LABEL_7:
   if ([knob crlaxAdjustmentResizesShape])
   {
     [knob crlaxCalculatedNextPositionInRepForAdjustable:0];
-    v12 = v11;
-    v14 = v13;
-    if (-[CRLCanvasKnobAccessibilityElement _isValidToDecrementTag:toNextPosition:](self, "_isValidToDecrementTag:toNextPosition:", [knob crlaxKnobTag], v11, v13))
+    v13 = v12;
+    v15 = v14;
+    if (-[CRLCanvasKnobAccessibilityElement _isValidToDecrementTag:toNextPosition:](self, "_isValidToDecrementTag:toNextPosition:", [knob crlaxKnobTag], v12, v14))
     {
-      [knob crlaxMoveKnobToRepPositionInNaturalSpace:{v12, v14}];
-      CRLAccessibilityPostLayoutChangedNotification(self);
+      [knob crlaxMoveKnobToRepPositionInNaturalSpace:{v13, v15}];
+      CRLAccessibilityPostLayoutChangedNotification(self, v16);
     }
   }
 
@@ -713,18 +713,19 @@ LABEL_8:
 - (CRLCanvasKnobAccessibilityElement)initWithAccessibilityParent:(id)parent
 {
   parentCopy = parent;
-  if (CRLAccessibilityShouldPerformValidationChecks())
+  ShouldPerformValidationChecks = CRLAccessibilityShouldPerformValidationChecks(parentCopy, v5);
+  if (ShouldPerformValidationChecks)
   {
-    ShouldCrashOnValidationErrorAfterLaunch = CRLAccessibilityShouldCrashOnValidationErrorAfterLaunch();
-    if (__CRLAccessibilityHandleValidationErrorWithDescription(ShouldCrashOnValidationErrorAfterLaunch, 0, @"Use designated initializer!", v6, v7, v8, v9, v10, v13))
+    ShouldCrashOnValidationErrorAfterLaunch = CRLAccessibilityShouldCrashOnValidationErrorAfterLaunch(ShouldPerformValidationChecks);
+    if (__CRLAccessibilityHandleValidationErrorWithDescription(ShouldCrashOnValidationErrorAfterLaunch, 0, @"Use designated initializer!", v8, v9, v10, v11, v12, v15))
     {
       abort();
     }
   }
 
-  v11 = [(CRLCanvasKnobAccessibilityElement *)self initWithKnobTag:0 nodeIndex:0x7FFFFFFFFFFFFFFFLL parentRep:0 identifier:0];
+  v13 = [(CRLCanvasKnobAccessibilityElement *)self initWithKnobTag:0 nodeIndex:0x7FFFFFFFFFFFFFFFLL parentRep:0 identifier:0];
 
-  return v11;
+  return v13;
 }
 
 - (id)accessibilityUserInputLabels
@@ -1202,14 +1203,14 @@ LABEL_65:
 - (BOOL)i_crlaxEnsureReciprocalConnectionsAfterConnectingConnectionLineToRep:(id)rep
 {
   repCopy = rep;
-  v39 = 0;
+  v45 = 0;
   parentRep = [(CRLCanvasKnobAccessibilityElement *)self parentRep];
   crlaxLayout = [parentRep crlaxLayout];
   crlaxTarget = [crlaxLayout crlaxTarget];
 
   v8 = objc_opt_class();
-  v9 = __CRLAccessibilityCastAsClass(v8, crlaxTarget, 1, &v39);
-  if (v39 == 1)
+  v9 = __CRLAccessibilityCastAsClass(v8, crlaxTarget, 1, &v45);
+  if (v45 == 1)
   {
     goto LABEL_15;
   }
@@ -1238,16 +1239,18 @@ LABEL_65:
       v19 = connectedFrom == crlaxTarget4;
     }
 
-    if (!CRLAccessibilityShouldPerformValidationChecks() || v19 || (v21 = CRLAccessibilityShouldCrashOnValidationErrorAfterLaunch(), !__CRLAccessibilityHandleValidationErrorWithDescription(v21, 0, @"Unable to connect connection line to rep", v22, v23, v24, v25, v26, v38)))
+    ShouldPerformValidationChecks = CRLAccessibilityShouldPerformValidationChecks(v21, v22);
+    if (!ShouldPerformValidationChecks || v19 || (v24 = CRLAccessibilityShouldCrashOnValidationErrorAfterLaunch(ShouldPerformValidationChecks), !__CRLAccessibilityHandleValidationErrorWithDescription(v24, 0, @"Unable to connect connection line to rep", v25, v26, v27, v28, v29, v44)))
     {
       crlaxLayout5 = [repCopy crlaxLayout];
       crlaxTarget5 = [crlaxLayout5 crlaxTarget];
       connectedLayouts = [crlaxTarget5 connectedLayouts];
-      v30 = [connectedLayouts containsObject:v10];
+      v33 = [connectedLayouts containsObject:v10];
 
-      if (!CRLAccessibilityShouldPerformValidationChecks() || (v30 & 1) != 0 || (ShouldCrashOnValidationErrorAfterLaunch = CRLAccessibilityShouldCrashOnValidationErrorAfterLaunch(), !__CRLAccessibilityHandleValidationErrorWithDescription(ShouldCrashOnValidationErrorAfterLaunch, 0, @"Unable to connect rep back to connection line", v32, v33, v34, v35, v36, v38)))
+      v36 = CRLAccessibilityShouldPerformValidationChecks(v34, v35);
+      if (!v36 || (v33 & 1) != 0 || (ShouldCrashOnValidationErrorAfterLaunch = CRLAccessibilityShouldCrashOnValidationErrorAfterLaunch(v36), !__CRLAccessibilityHandleValidationErrorWithDescription(ShouldCrashOnValidationErrorAfterLaunch, 0, @"Unable to connect rep back to connection line", v38, v39, v40, v41, v42, v44)))
       {
-        v20 = v19 & v30;
+        v20 = v19 & v33;
         goto LABEL_14;
       }
     }
@@ -1851,47 +1854,47 @@ LABEL_28:
 {
   templatesCopy = templates;
   _crlaxAllRepsThatOccludeConnectionKnobDragsOrdered = [(CRLCanvasKnobAccessibilityElement *)self _crlaxAllRepsThatOccludeConnectionKnobDragsOrdered];
-  v56 = 0u;
-  v57 = 0u;
-  v58 = 0u;
   v59 = 0u;
+  v60 = 0u;
+  v61 = 0u;
+  v62 = 0u;
   obj = templatesCopy;
-  v45 = [obj countByEnumeratingWithState:&v56 objects:v61 count:16];
-  if (v45)
+  v48 = [obj countByEnumeratingWithState:&v59 objects:v64 count:16];
+  if (v48)
   {
-    v44 = *v57;
+    v47 = *v60;
     do
     {
       v6 = 0;
       do
       {
-        if (*v57 != v44)
+        if (*v60 != v47)
         {
           objc_enumerationMutation(obj);
         }
 
-        v46 = v6;
-        v7 = *(*(&v56 + 1) + 8 * v6);
-        v52 = 0u;
-        v53 = 0u;
-        v54 = 0u;
+        v49 = v6;
+        v7 = *(*(&v59 + 1) + 8 * v6);
         v55 = 0u;
-        v48 = v7;
+        v56 = 0u;
+        v57 = 0u;
+        v58 = 0u;
+        v51 = v7;
         repAccessibilitiesForDragging = [v7 repAccessibilitiesForDragging];
-        v50 = [repAccessibilitiesForDragging countByEnumeratingWithState:&v52 objects:v60 count:16];
-        if (v50)
+        v53 = [repAccessibilitiesForDragging countByEnumeratingWithState:&v55 objects:v63 count:16];
+        if (v53)
         {
-          v49 = *v53;
+          v52 = *v56;
           do
           {
-            for (i = 0; i != v50; i = i + 1)
+            for (i = 0; i != v53; i = i + 1)
             {
-              if (*v53 != v49)
+              if (*v56 != v52)
               {
                 objc_enumerationMutation(repAccessibilitiesForDragging);
               }
 
-              v9 = *(*(&v52 + 1) + 8 * i);
+              v9 = *(*(&v55 + 1) + 8 * i);
               crlaxTarget = [v9 crlaxTarget];
               layout = [crlaxTarget layout];
               v12 = [CRLCanvasRepAccessibility crlaxBoardItemIDForLayout:layout];
@@ -1913,11 +1916,11 @@ LABEL_28:
 
                     if (crlaxTarget2 != v22)
                     {
-                      v51 = 0;
+                      v54 = 0;
                       v24 = v22;
                       v25 = objc_opt_class();
-                      v26 = __CRLAccessibilityCastAsSafeCategory(v25, v24, 1, &v51);
-                      if (v51 == 1)
+                      v26 = __CRLAccessibilityCastAsSafeCategory(v25, v24, 1, &v54);
+                      if (v54 == 1)
                       {
                         goto LABEL_33;
                       }
@@ -1927,23 +1930,24 @@ LABEL_28:
                       if (!v27 || [v9 crlaxCanBeOccludedForConnectionKnobDraggingByRep:v27])
                       {
                         [v24 frameInUnscaledCanvas];
-                        v63.origin.x = v28;
-                        v63.origin.y = v29;
-                        v63.size.width = v30;
-                        v63.size.height = v31;
-                        v62.origin.x = v14;
-                        v62.origin.y = v16;
-                        v62.size.width = v18;
-                        v62.size.height = v20;
-                        if (CGRectIntersectsRect(v62, v63))
+                        v66.origin.x = v28;
+                        v66.origin.y = v29;
+                        v66.size.width = v30;
+                        v66.size.height = v31;
+                        v65.origin.x = v14;
+                        v65.origin.y = v16;
+                        v65.size.width = v18;
+                        v65.size.height = v20;
+                        if (CGRectIntersectsRect(v65, v66))
                         {
                           crlaxTarget3 = [v9 crlaxTarget];
                           v33 = [_crlaxAllRepsThatOccludeConnectionKnobDragsOrdered indexOfObject:crlaxTarget3];
 
-                          if (CRLAccessibilityShouldPerformValidationChecks() && v33 == 0x7FFFFFFFFFFFFFFFLL)
+                          ShouldPerformValidationChecks = CRLAccessibilityShouldPerformValidationChecks(v34, v35);
+                          if (ShouldPerformValidationChecks && v33 == 0x7FFFFFFFFFFFFFFFLL)
                           {
-                            ShouldCrashOnValidationErrorAfterLaunch = CRLAccessibilityShouldCrashOnValidationErrorAfterLaunch();
-                            if (__CRLAccessibilityHandleValidationErrorWithDescription(ShouldCrashOnValidationErrorAfterLaunch, 0, @"Found an occluding rep that had no index within allRepsOrdered", v35, v36, v37, v38, v39, v42))
+                            ShouldCrashOnValidationErrorAfterLaunch = CRLAccessibilityShouldCrashOnValidationErrorAfterLaunch(ShouldPerformValidationChecks);
+                            if (__CRLAccessibilityHandleValidationErrorWithDescription(ShouldCrashOnValidationErrorAfterLaunch, 0, @"Found an occluding rep that had no index within allRepsOrdered", v38, v39, v40, v41, v42, v45))
                             {
 LABEL_33:
                               abort();
@@ -1952,9 +1956,9 @@ LABEL_33:
 
                           else if (v33 != 0x7FFFFFFFFFFFFFFFLL && v33 < v21)
                           {
-                            occludingRepAccessibilitiesByUUID = [v48 occludingRepAccessibilitiesByUUID];
-                            v41 = [occludingRepAccessibilitiesByUUID objectForKeyedSubscript:v12];
-                            [v41 crl_addNonNilObject:v27];
+                            occludingRepAccessibilitiesByUUID = [v51 occludingRepAccessibilitiesByUUID];
+                            v44 = [occludingRepAccessibilitiesByUUID objectForKeyedSubscript:v12];
+                            [v44 crl_addNonNilObject:v27];
                           }
                         }
                       }
@@ -1968,20 +1972,20 @@ LABEL_33:
               }
             }
 
-            v50 = [repAccessibilitiesForDragging countByEnumeratingWithState:&v52 objects:v60 count:16];
+            v53 = [repAccessibilitiesForDragging countByEnumeratingWithState:&v55 objects:v63 count:16];
           }
 
-          while (v50);
+          while (v53);
         }
 
-        v6 = v46 + 1;
+        v6 = v49 + 1;
       }
 
-      while ((v46 + 1) != v45);
-      v45 = [obj countByEnumeratingWithState:&v56 objects:v61 count:16];
+      while ((v49 + 1) != v48);
+      v48 = [obj countByEnumeratingWithState:&v59 objects:v64 count:16];
     }
 
-    while (v45);
+    while (v48);
   }
 }
 

@@ -249,7 +249,7 @@
 
 - (void)updatePositionsOfKnobs:(id)knobs
 {
-  sub_100006370(0, &unk_101A28760);
+  sub_100006370(0, &unk_101A28760, off_10182F778);
   v4 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   selfCopy = self;
   sub_1012173B4(v4);
@@ -258,9 +258,9 @@
 - (NSArray)overlayRenderables
 {
   selfCopy = self;
-  sub_101218E44();
+  sub_101218E44(selfCopy);
 
-  sub_100006370(0, &qword_101A00020);
+  sub_100006370(0, &qword_101A00020, off_10182F790);
   v3.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
   return v3.super.isa;
@@ -358,7 +358,7 @@
 - (void)updateFromLayout
 {
   selfCopy = self;
-  sub_10121A284();
+  sub_10121A284(selfCopy);
 }
 
 - (void)dynamicOperationDidEnd
@@ -409,7 +409,7 @@
 
 - (id)selectionBehaviorToCommitDragTrackerWithDraggedReps:(id)reps
 {
-  sub_100006370(0, &qword_1019FB7A0);
+  sub_100006370(0, &qword_1019FB7A0, off_10182F798);
   v4 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   selfCopy = self;
   v6 = sub_10121B708(v4);

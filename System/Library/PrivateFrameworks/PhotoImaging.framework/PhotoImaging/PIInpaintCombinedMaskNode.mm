@@ -26,7 +26,7 @@
   height = size.height;
   width = size.width;
   imageCopy = image;
-  [imageCopy extent];
+  objc_msgSend_extent(imageCopy);
   if (v8 == width && v7 == height)
   {
     v13 = imageCopy;
@@ -34,9 +34,9 @@
 
   else
   {
-    [imageCopy extent];
+    objc_msgSend_extent(imageCopy);
     v11 = width / v10;
-    [imageCopy extent];
+    objc_msgSend_extent(imageCopy);
     memset(&v17, 0, sizeof(v17));
     CGAffineTransformMakeScale(&v17, v11, height / v12);
     v16 = v17;
@@ -102,7 +102,7 @@
   v8 = v7;
   if (v7)
   {
-    [v7 extent];
+    objc_msgSend_extent(v7);
     NUPixelRectToCGRect();
     v10 = v9;
     v12 = v11;
@@ -346,7 +346,7 @@ LABEL_33:
       if ([v34 options])
       {
         whiteImage = [MEMORY[0x1E695F658] whiteImage];
-        [v54 extent];
+        objc_msgSend_extent(v54);
         v55 = [whiteImage imageByCroppingToRect:?];
 
         v39 = 0;

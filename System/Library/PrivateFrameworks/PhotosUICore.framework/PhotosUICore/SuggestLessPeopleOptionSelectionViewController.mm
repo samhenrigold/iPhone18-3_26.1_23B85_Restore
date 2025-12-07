@@ -11,7 +11,7 @@
 - (_TtC12PhotosUICore46SuggestLessPeopleOptionSelectionViewController)initWithPeople:(id)people delegate:(id)delegate completionHandler:(id)handler
 {
   v6 = _Block_copy(handler);
-  sub_1A3C52C70(0, &qword_1EB1265C0);
+  sub_1A3C52C70(0, &qword_1EB1265C0, 0x1E6978980);
   v7 = sub_1A524CA34();
   v8 = swift_allocObject();
   *(v8 + 16) = v6;

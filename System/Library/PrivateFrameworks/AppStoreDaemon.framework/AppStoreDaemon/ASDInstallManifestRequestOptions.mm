@@ -8,11 +8,11 @@
 
 - (ASDInstallManifestRequestOptions)initWithManifest:(id)manifest
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   manifestCopy = manifest;
-  v12.receiver = self;
-  v12.super_class = ASDInstallManifestRequestOptions;
-  v5 = [(ASDInstallManifestRequestOptions *)&v12 init];
+  v11.receiver = self;
+  v11.super_class = ASDInstallManifestRequestOptions;
+  v5 = [(ASDInstallManifestRequestOptions *)&v11 init];
   if (v5)
   {
     if (manifestCopy)
@@ -27,16 +27,15 @@
       p_super = ASDLogHandleForCategory(13);
       if (os_log_type_enabled(p_super, OS_LOG_TYPE_ERROR))
       {
-        v10 = objc_opt_class();
+        v9 = objc_opt_class();
         *buf = 138543362;
-        v14 = v10;
-        v11 = v10;
+        v13 = v9;
+        v10 = v9;
         _os_log_error_impl(&dword_1B8220000, p_super, OS_LOG_TYPE_ERROR, "[%{public}@]: Request contained a nil manifest", buf, 0xCu);
       }
     }
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

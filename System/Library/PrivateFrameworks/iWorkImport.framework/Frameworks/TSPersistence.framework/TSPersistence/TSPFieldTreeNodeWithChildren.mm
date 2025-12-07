@@ -43,7 +43,7 @@
   numberCopy = number;
   nodeCopy = node;
   v5 = nodeCopy;
-  sub_276AD5504(&self->_children, &numberCopy);
+  sub_276AD5504(&self->_children, &numberCopy, &numberCopy);
   LOBYTE(self) = v6;
 
   return self & 1;
@@ -60,71 +60,69 @@
     if (begin_node != p_end_node)
     {
       v11 = v8;
-      v54 = p_end_node;
-      v55 = 0;
+      v52 = p_end_node;
+      v53 = 0;
       v12 = 0;
       do
       {
         objc_opt_class();
-        left = begin_node[5].__left_;
-        v14 = TSUDynamicCast();
-        v17 = v14;
-        if (v14)
+        v13 = TSUDynamicCast();
+        v16 = v13;
+        if (v13)
         {
-          v18 = objc_msgSend_field(v14, v15, v16);
-          v21 = v18;
+          v17 = objc_msgSend_field(v13, v14, v15);
+          v20 = v17;
           if (archiverCopy)
           {
-            objc_msgSend_saveToArchiver_(v18, v19, archiverCopy);
+            objc_msgSend_saveToArchiver_(v17, v18, archiverCopy);
           }
 
-          if (objc_msgSend_hasKnownValues(v21, v19, v20))
+          if (objc_msgSend_hasKnownValues(v20, v18, v19))
           {
-            objc_msgSend_mergeToMessage_reflection_(v21, v22, message, v11);
+            objc_msgSend_mergeToMessage_reflection_(v20, v21, message, v11);
           }
 
-          if (objc_msgSend_hasUnknownValues(v21, v22, v23))
+          if (objc_msgSend_hasUnknownValues(v20, v21, v22))
           {
             if (!v12)
             {
               v12 = google::protobuf::Reflection::MutableUnknownFields(v11, message);
             }
 
-            objc_msgSend_mergeToUnknownFieldSet_(v21, v24, v12);
+            objc_msgSend_mergeToUnknownFieldSet_(v20, v23, v12);
           }
         }
 
         else
         {
           objc_opt_class();
-          v25 = begin_node[5].__left_;
-          v21 = TSUDynamicCast();
-          if (v21)
+          v20 = TSUDynamicCast();
+          if (v20)
           {
-            v26 = v55;
-            if (!v55)
+            v24 = v53;
+            if (!v53)
             {
-              v26 = (*(message->var0 + 19))(message);
+              v24 = (*(message->var0 + 19))(message);
             }
 
-            v55 = v26;
-            FieldByNumber = google::protobuf::Descriptor::FindFieldByNumber(v26, begin_node[4].__left_);
+            v53 = v24;
+            FieldByNumber = google::protobuf::Descriptor::FindFieldByNumber(v24, begin_node[4].__left_);
             if (!FieldByNumber)
             {
               FieldByNumber = google::protobuf::Reflection::FindKnownExtensionByNumber(v11, LODWORD(begin_node[4].__left_));
             }
 
-            v29 = *(FieldByNumber + 48);
-            if (v29)
+            v27 = *(FieldByNumber + 48);
+            if (v27)
             {
-              v56 = FieldByNumber;
-              v57 = google::protobuf::FieldDescriptor::TypeOnceInit;
-              if (atomic_load_explicit(v29, memory_order_acquire) != -1)
+              v54 = FieldByNumber;
+              v55 = google::protobuf::FieldDescriptor::TypeOnceInit;
+              if (atomic_load_explicit(v27, memory_order_acquire) != -1)
               {
-                v59[0] = &v57;
-                v59[1] = &v56;
-                v58 = v59;
-                std::__call_once(v29, &v58, sub_2769C149C);
+                v57[0] = &v55;
+                v57[1] = &v54;
+                v56 = v57;
+                std::__call_once(v27, &v56, sub_2769C149C);
               }
             }
 
@@ -140,88 +138,88 @@
                 HasField = google::protobuf::Reflection::HasField(v11, message, FieldByNumber);
               }
 
-              v39 = HasField;
-              v40 = v12;
+              v37 = HasField;
+              v38 = v12;
               if (HasField >= 1)
               {
-                v41 = 0;
+                v39 = 0;
                 do
                 {
                   if (*(FieldByNumber + 60) == 3)
                   {
-                    v42 = google::protobuf::Reflection::MutableRepeatedMessage(v11, message, FieldByNumber, v41);
+                    v40 = google::protobuf::Reflection::MutableRepeatedMessage(v11, message, FieldByNumber, v39);
                   }
 
                   else
                   {
-                    v42 = google::protobuf::Reflection::MutableMessage(v11, message, FieldByNumber, 0);
+                    v40 = google::protobuf::Reflection::MutableMessage(v11, message, FieldByNumber, 0);
                   }
 
-                  objc_msgSend_saveToArchiver_message_(v21, v43, archiverCopy, v42);
-                  ++v41;
+                  objc_msgSend_saveToArchiver_message_(v20, v41, archiverCopy, v40);
+                  ++v39;
                 }
 
-                while (v39 != v41);
+                while (v37 != v39);
               }
 
-              v12 = v40;
-              p_end_node = v54;
+              v12 = v38;
+              p_end_node = v52;
             }
 
             else
             {
-              v31 = MEMORY[0x277D81150];
-              v32 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v27, "[TSPFieldTreeNodeWithChildren saveToArchiver:message:]");
-              v33 = v12;
-              v35 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v34, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPFieldTree.mm");
-              objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v31, v36, v32, v35, 169, 0, "Message was expeced for a multi-level field path.");
+              v29 = MEMORY[0x277D81150];
+              v30 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v25, "[TSPFieldTreeNodeWithChildren saveToArchiver:message:]");
+              v31 = v12;
+              v33 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v32, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPFieldTree.mm");
+              objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v29, v34, v30, v33, 169, 0, "Message was expeced for a multi-level field path.");
 
-              objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v37, v38);
-              v12 = v33;
-              p_end_node = v54;
+              objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v35, v36);
+              v12 = v31;
+              p_end_node = v52;
             }
           }
         }
 
-        v44 = begin_node[1].__left_;
-        if (v44)
+        left = begin_node[1].__left_;
+        if (left)
         {
           do
           {
-            v45 = v44;
-            v44 = v44->__left_;
+            v43 = left;
+            left = left->__left_;
           }
 
-          while (v44);
+          while (left);
         }
 
         else
         {
           do
           {
-            v45 = begin_node[2].__left_;
-            v46 = v45->__left_ == begin_node;
-            begin_node = v45;
+            v43 = begin_node[2].__left_;
+            v44 = v43->__left_ == begin_node;
+            begin_node = v43;
           }
 
-          while (!v46);
+          while (!v44);
         }
 
-        begin_node = v45;
+        begin_node = v43;
       }
 
-      while (v45 != p_end_node);
+      while (v43 != p_end_node);
     }
   }
 
   else
   {
-    v47 = MEMORY[0x277D81150];
-    v48 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v6, "[TSPFieldTreeNodeWithChildren saveToArchiver:message:]");
-    v50 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v49, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPFieldTree.mm");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v47, v51, v48, v50, 119, 0, "Message should have been defined.");
+    v45 = MEMORY[0x277D81150];
+    v46 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v6, "[TSPFieldTreeNodeWithChildren saveToArchiver:message:]");
+    v48 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v47, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPFieldTree.mm");
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v45, v49, v46, v48, 119, 0, "Message should have been defined.");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v52, v53);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v50, v51);
   }
 }
 

@@ -17,7 +17,6 @@
 - (BOOL)registrationSupported;
 - (BOOL)slowCPUDevice;
 - (BOOL)supportsApplePay;
-- (BOOL)supportsCinematicFraming;
 - (BOOL)supportsFriendingViaPush;
 - (BOOL)supportsFunCam;
 - (BOOL)supportsHDRdecoding;
@@ -113,28 +112,28 @@
     v4 = objc_alloc(MEMORY[0x1E69650A0]);
     v5 = im_primary_queue();
     v6 = [v4 initWithQueue:v5];
-    v7 = *(v3 + 152);
-    *(v3 + 152) = v6;
+    coreTelephonyClient = v3->_coreTelephonyClient;
+    v3->_coreTelephonyClient = v6;
 
-    if (!*(v3 + 152))
+    if (!v3->_coreTelephonyClient)
     {
       registration = [MEMORY[0x1E69A6138] registration];
       if (os_log_type_enabled(registration, OS_LOG_TYPE_FAULT))
       {
-        sub_1959629CC(v3, (v3 + 152));
+        sub_1959629CC();
       }
     }
 
     v9 = +[FTSelectedPNRSubscription sharedInstance];
-    v10 = *(v3 + 160);
-    *(v3 + 160) = v9;
+    selectedPNRSubscription = v3->_selectedPNRSubscription;
+    v3->_selectedPNRSubscription = v9;
 
-    *(v3 + 120) = -1;
-    [v3 _updateCapabilities];
-    [v3 _updateManagedConfigurationSettings];
-    *(v3 + 16) = 0;
-    *(v3 + 128) = -1;
-    *(v3 + 144) = -1;
+    v3->_simInserted = -1;
+    [(FTDeviceSupport *)v3 _updateCapabilities];
+    [(FTDeviceSupport *)v3 _updateManagedConfigurationSettings];
+    v3->_blockPost = 0;
+    v3->_isPNRSupportedCachedValue = -1;
+    v3->_performanceClass = -1;
     v12 = v3;
     im_dispatch_after_primary_queue();
   }
@@ -144,7 +143,7 @@
 
 - (void)_updateCapabilities
 {
-  v89 = *MEMORY[0x1E69E9840];
+  v88 = *MEMORY[0x1E69E9840];
   pthread_mutex_lock(&stru_1ED7685D8);
   context = objc_autoreleasePoolPush();
   registration = [MEMORY[0x1E69A6138] registration];
@@ -163,33 +162,33 @@
   _serviceStatus3 = [(FTDeviceSupport *)self _serviceStatus];
   faceTimeMultiwaySupported = [_serviceStatus3 faceTimeMultiwaySupported];
 
-  v84 = MGGetBoolAnswer();
   v83 = MGGetBoolAnswer();
+  v82 = MGGetBoolAnswer();
   if (MGGetBoolAnswer())
   {
-    v82 = [(FTDeviceSupport *)self deviceType]== 2;
+    v81 = [(FTDeviceSupport *)self deviceType]== 2;
   }
 
   else
   {
-    v82 = 0;
+    v81 = 0;
   }
 
   if (MGGetBoolAnswer())
   {
-    v80 = [(FTDeviceSupport *)self deviceType]== 2;
+    v79 = [(FTDeviceSupport *)self deviceType]== 2;
   }
 
   else
   {
-    v80 = 0;
+    v79 = 0;
   }
 
   v9 = MGGetBoolAnswer();
-  v79 = MGGetBoolAnswer();
-  v81 = MGGetBoolAnswer();
-  v77 = MGGetBoolAnswer();
   v78 = MGGetBoolAnswer();
+  v80 = MGGetBoolAnswer();
+  v76 = MGGetBoolAnswer();
+  v77 = MGGetBoolAnswer();
   if (v9)
   {
     v10 = [(FTDeviceSupport *)self deviceType]== 2 || [(FTDeviceSupport *)self deviceType]== 4;
@@ -201,7 +200,7 @@
   }
 
   v11 = [(FTDeviceSupport *)self performanceClass]!= -1;
-  v86 = v11 && v10;
+  v85 = v11 && v10;
   if ([(FTDeviceSupport *)self isInMultiUserMode])
   {
     v12 = faceTimeAudioSupported;
@@ -225,7 +224,7 @@
         _os_log_impl(&dword_195925000, registration2, OS_LOG_TYPE_DEFAULT, "In multi user mode, disabling handoff", buf, 2u);
       }
 
-      v86 = 0;
+      v85 = 0;
       v11 = 0;
     }
 
@@ -238,7 +237,7 @@
   registration3 = [MEMORY[0x1E69A6138] registration];
   if (os_log_type_enabled(registration3, OS_LOG_TYPE_DEFAULT))
   {
-    if (v82)
+    if (v81)
     {
       v18 = @"YES";
     }
@@ -249,14 +248,14 @@
     }
 
     *buf = 138412290;
-    v88 = v18;
+    v87 = v18;
     _os_log_impl(&dword_195925000, registration3, OS_LOG_TYPE_DEFAULT, "               Supports SMS: %@", buf, 0xCu);
   }
 
   registration4 = [MEMORY[0x1E69A6138] registration];
   if (os_log_type_enabled(registration4, OS_LOG_TYPE_DEFAULT))
   {
-    if (v80)
+    if (v79)
     {
       v20 = @"YES";
     }
@@ -267,7 +266,7 @@
     }
 
     *buf = 138412290;
-    v88 = v20;
+    v87 = v20;
     _os_log_impl(&dword_195925000, registration4, OS_LOG_TYPE_DEFAULT, "               Supports MMS: %@", buf, 0xCu);
   }
 
@@ -285,14 +284,14 @@
     }
 
     *buf = 138412290;
-    v88 = v22;
+    v87 = v22;
     _os_log_impl(&dword_195925000, registration5, OS_LOG_TYPE_DEFAULT, "             MMS Configured: %@", buf, 0xCu);
   }
 
   registration6 = [MEMORY[0x1E69A6138] registration];
   if (os_log_type_enabled(registration6, OS_LOG_TYPE_DEFAULT))
   {
-    if (v83)
+    if (v82)
     {
       v24 = @"YES";
     }
@@ -303,14 +302,14 @@
     }
 
     *buf = 138412290;
-    v88 = v24;
+    v87 = v24;
     _os_log_impl(&dword_195925000, registration6, OS_LOG_TYPE_DEFAULT, "                         GT: %@", buf, 0xCu);
   }
 
   registration7 = [MEMORY[0x1E69A6138] registration];
   if (os_log_type_enabled(registration7, OS_LOG_TYPE_DEFAULT))
   {
-    if (v84)
+    if (v83)
     {
       v26 = @"YES";
     }
@@ -321,7 +320,7 @@
     }
 
     *buf = 138412290;
-    v88 = v26;
+    v87 = v26;
     _os_log_impl(&dword_195925000, registration7, OS_LOG_TYPE_DEFAULT, "                Supports FT: %@", buf, 0xCu);
   }
 
@@ -339,7 +338,7 @@
     }
 
     *buf = 138412290;
-    v88 = v28;
+    v87 = v28;
     _os_log_impl(&dword_195925000, registration8, OS_LOG_TYPE_DEFAULT, "               Supports FTA: %@", buf, 0xCu);
   }
 
@@ -357,7 +356,7 @@
     }
 
     *buf = 138412290;
-    v88 = v30;
+    v87 = v30;
     _os_log_impl(&dword_195925000, registration9, OS_LOG_TYPE_DEFAULT, "              Supports FTMW: %@", buf, 0xCu);
   }
 
@@ -375,7 +374,7 @@
     }
 
     *buf = 138412290;
-    v88 = v32;
+    v87 = v32;
     _os_log_impl(&dword_195925000, registration10, OS_LOG_TYPE_DEFAULT, "          Supports iMessage: %@", buf, 0xCu);
   }
 
@@ -383,14 +382,14 @@
   if (os_log_type_enabled(registration11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v88 = @"YES";
+    v87 = @"YES";
     _os_log_impl(&dword_195925000, registration11, OS_LOG_TYPE_DEFAULT, "              Supports WiFi: %@", buf, 0xCu);
   }
 
   registration12 = [MEMORY[0x1E69A6138] registration];
   if (os_log_type_enabled(registration12, OS_LOG_TYPE_DEFAULT))
   {
-    if (v79)
+    if (v78)
     {
       v35 = @"YES";
     }
@@ -401,14 +400,14 @@
     }
 
     *buf = 138412290;
-    v88 = v35;
+    v87 = v35;
     _os_log_impl(&dword_195925000, registration12, OS_LOG_TYPE_DEFAULT, "             Supports 3G FT: %@", buf, 0xCu);
   }
 
   registration13 = [MEMORY[0x1E69A6138] registration];
   if (os_log_type_enabled(registration13, OS_LOG_TYPE_DEFAULT))
   {
-    if (v78)
+    if (v77)
     {
       v37 = @"YES";
     }
@@ -419,7 +418,7 @@
     }
 
     *buf = 138412290;
-    v88 = v37;
+    v87 = v37;
     _os_log_impl(&dword_195925000, registration13, OS_LOG_TYPE_DEFAULT, "              Supports WLAN: %@", buf, 0xCu);
   }
 
@@ -437,14 +436,14 @@
     }
 
     *buf = 138412290;
-    v88 = v39;
+    v87 = v39;
     _os_log_impl(&dword_195925000, registration14, OS_LOG_TYPE_DEFAULT, "         Supports Cell Data: %@", buf, 0xCu);
   }
 
   registration15 = [MEMORY[0x1E69A6138] registration];
   if (os_log_type_enabled(registration15, OS_LOG_TYPE_DEFAULT))
   {
-    if (v77)
+    if (v76)
     {
       v41 = @"YES";
     }
@@ -455,14 +454,14 @@
     }
 
     *buf = 138412290;
-    v88 = v41;
+    v87 = v41;
     _os_log_impl(&dword_195925000, registration15, OS_LOG_TYPE_DEFAULT, "      Supports Front Camera: %@", buf, 0xCu);
   }
 
   registration16 = [MEMORY[0x1E69A6138] registration];
   if (os_log_type_enabled(registration16, OS_LOG_TYPE_DEFAULT))
   {
-    if (v81)
+    if (v80)
     {
       v43 = @"YES";
     }
@@ -473,7 +472,7 @@
     }
 
     *buf = 138412290;
-    v88 = v43;
+    v87 = v43;
     _os_log_impl(&dword_195925000, registration16, OS_LOG_TYPE_DEFAULT, "       Supports Back Camera: %@", buf, 0xCu);
   }
 
@@ -491,14 +490,14 @@
     }
 
     *buf = 138412290;
-    v88 = v45;
+    v87 = v45;
     _os_log_impl(&dword_195925000, registration17, OS_LOG_TYPE_DEFAULT, "           Supports Handoff: %@", buf, 0xCu);
   }
 
   registration18 = [MEMORY[0x1E69A6138] registration];
   if (os_log_type_enabled(registration18, OS_LOG_TYPE_DEFAULT))
   {
-    if (v86)
+    if (v85)
     {
       v47 = @"YES";
     }
@@ -509,7 +508,7 @@
     }
 
     *buf = 138412290;
-    v88 = v47;
+    v87 = v47;
     _os_log_impl(&dword_195925000, registration18, OS_LOG_TYPE_DEFAULT, "         Supports Tethering: %@", buf, 0xCu);
   }
 
@@ -528,7 +527,7 @@
     }
 
     *buf = 138412290;
-    v88 = v50;
+    v87 = v50;
     _os_log_impl(&dword_195925000, registration19, OS_LOG_TYPE_DEFAULT, "         SIM Inserted State: %@", buf, 0xCu);
   }
 
@@ -547,33 +546,33 @@
     }
 
     *buf = 138412290;
-    v88 = v53;
+    v87 = v53;
     _os_log_impl(&dword_195925000, registration20, OS_LOG_TYPE_DEFAULT, "        PNR Supported State: %@", buf, 0xCu);
   }
 
-  v63 = self->_isGreenTea != v83 || self->_supportsHandoff != v11 || self->_supportsTethering != v86 || self->_supportsFT != v84 || self->_supportsFTA != faceTimeAudioSupported || self->_supportsFTMW != faceTimeMultiwaySupported || self->_supportsSMS != v82 || self->_supportsMMS != v80 || self->_mmsConfigured != isMmsConfigured || self->_supportsWLAN != v78;
+  v63 = self->_isGreenTea != v82 || self->_supportsHandoff != v11 || self->_supportsTethering != v85 || self->_supportsFT != v83 || self->_supportsFTA != faceTimeAudioSupported || self->_supportsFTMW != faceTimeMultiwaySupported || self->_supportsSMS != v81 || self->_supportsMMS != v79 || self->_mmsConfigured != isMmsConfigured || self->_supportsWLAN != v77;
   supportsWiFi = self->_supportsWiFi;
-  v65 = self->_supportsNonWiFiFaceTime != v79;
+  v65 = self->_supportsNonWiFiFaceTime != v78;
   v66 = self->_supportsiMessage != iMessageSupported;
   v67 = self->_supportsCellularData != v9;
   v68 = iMessageSupported;
-  v69 = self->_supportsFrontCamera != v77;
+  v69 = self->_supportsFrontCamera != v76;
   v70 = faceTimeAudioSupported;
   supportsBackCamera = self->_supportsBackCamera;
-  self->_isGreenTea = v83;
+  self->_isGreenTea = v82;
   self->_supportsHandoff = v11;
-  self->_supportsTethering = v86;
-  self->_supportsBackCamera = v81;
-  self->_supportsFrontCamera = v77;
-  self->_supportsMMS = v80;
+  self->_supportsTethering = v85;
+  self->_supportsBackCamera = v80;
+  self->_supportsFrontCamera = v76;
+  self->_supportsMMS = v79;
   self->_mmsConfigured = isMmsConfigured;
-  self->_supportsSMS = v82;
-  self->_supportsFT = v84;
+  self->_supportsSMS = v81;
+  self->_supportsFT = v83;
   self->_supportsFTA = v70;
   self->_supportsFTMW = faceTimeMultiwaySupported;
   self->_supportsWiFi = 1;
-  self->_supportsWLAN = v78;
-  self->_supportsNonWiFiFaceTime = v79;
+  self->_supportsWLAN = v77;
+  self->_supportsNonWiFiFaceTime = v78;
   self->_supportsiMessage = v68;
   self->_supportsCellularData = v9;
   self->_supportsStewieState = -1;
@@ -586,13 +585,11 @@
   *&self->_supportsApplePayState = v72;
   objc_autoreleasePoolPop(context);
   pthread_mutex_unlock(&stru_1ED7685D8);
-  if ((supportsBackCamera != v81 || !supportsWiFi || v65 || v66 || v67 || v69 || v63) && !self->_blockPost)
+  if ((supportsBackCamera != v80 || !supportsWiFi || v65 || v66 || v67 || v69 || v63) && !self->_blockPost)
   {
     defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
     [defaultCenter __mainThreadPostNotificationName:@"__kFaceTimeDeviceCapabilityChangedNotification" object:0];
   }
-
-  v74 = *MEMORY[0x1E69E9840];
 }
 
 - (int64_t)deviceType
@@ -661,7 +658,7 @@ LABEL_13:
 
 - (int64_t)performanceClass
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   result = self->_performanceClass;
   if (result < 0)
   {
@@ -686,26 +683,26 @@ LABEL_4:
         v7 = [objc_alloc(MEMORY[0x1E695DEC8]) initWithObjects:{@"N94", @"K94", @"K93", @"K95", @"J2A", @"J2a", @"J1A", @"J1a", 0}];
         v8 = [objc_alloc(MEMORY[0x1E695DEC8]) initWithObjects:{@"P105", @"P106", @"P107", 0}];
         v9 = [objc_alloc(MEMORY[0x1E695DEC8]) initWithObjects:{@"N41", @"N42", 0}];
+        v34 = 0u;
         v35 = 0u;
         v36 = 0u;
         v37 = 0u;
-        v38 = 0u;
         v10 = v7;
-        v11 = [v10 countByEnumeratingWithState:&v35 objects:v41 count:16];
+        v11 = [v10 countByEnumeratingWithState:&v34 objects:v40 count:16];
         if (v11)
         {
           v12 = v11;
-          v13 = *v36;
+          v13 = *v35;
           while (2)
           {
             for (i = 0; i != v12; ++i)
             {
-              if (*v36 != v13)
+              if (*v35 != v13)
               {
                 objc_enumerationMutation(v10);
               }
 
-              if ([v6 hasPrefix:*(*(&v35 + 1) + 8 * i)])
+              if ([v6 hasPrefix:*(*(&v34 + 1) + 8 * i)])
               {
                 v23 = -1;
                 v15 = v10;
@@ -713,7 +710,7 @@ LABEL_4:
               }
             }
 
-            v12 = [v10 countByEnumeratingWithState:&v35 objects:v41 count:16];
+            v12 = [v10 countByEnumeratingWithState:&v34 objects:v40 count:16];
             if (v12)
             {
               continue;
@@ -723,33 +720,33 @@ LABEL_4:
           }
         }
 
-        v33 = 0u;
-        v34 = 0u;
-        v31 = 0u;
         v32 = 0u;
+        v33 = 0u;
+        v30 = 0u;
+        v31 = 0u;
         v15 = v8;
-        v16 = [v15 countByEnumeratingWithState:&v31 objects:v40 count:16];
+        v16 = [v15 countByEnumeratingWithState:&v30 objects:v39 count:16];
         if (v16)
         {
           v17 = v16;
-          v18 = *v32;
+          v18 = *v31;
           while (2)
           {
             for (j = 0; j != v17; ++j)
             {
-              if (*v32 != v18)
+              if (*v31 != v18)
               {
                 objc_enumerationMutation(v15);
               }
 
-              if ([v6 hasPrefix:*(*(&v31 + 1) + 8 * j)])
+              if ([v6 hasPrefix:*(*(&v30 + 1) + 8 * j)])
               {
                 v23 = 0;
                 goto LABEL_36;
               }
             }
 
-            v17 = [v15 countByEnumeratingWithState:&v31 objects:v40 count:16];
+            v17 = [v15 countByEnumeratingWithState:&v30 objects:v39 count:16];
             if (v17)
             {
               continue;
@@ -759,35 +756,35 @@ LABEL_4:
           }
         }
 
-        v29 = 0u;
-        v30 = 0u;
-        v27 = 0u;
         v28 = 0u;
+        v29 = 0u;
+        v26 = 0u;
+        v27 = 0u;
         v15 = v9;
-        v20 = [v15 countByEnumeratingWithState:&v27 objects:v39 count:16];
+        v20 = [v15 countByEnumeratingWithState:&v26 objects:v38 count:16];
         if (v20)
         {
           v21 = v20;
-          v26 = v9;
-          v22 = *v28;
+          v25 = v9;
+          v22 = *v27;
           v23 = 2;
           while (2)
           {
             for (k = 0; k != v21; ++k)
             {
-              if (*v28 != v22)
+              if (*v27 != v22)
               {
                 objc_enumerationMutation(v15);
               }
 
-              if ([v6 hasPrefix:*(*(&v27 + 1) + 8 * k)])
+              if ([v6 hasPrefix:*(*(&v26 + 1) + 8 * k)])
               {
                 v23 = 1;
                 goto LABEL_34;
               }
             }
 
-            v21 = [v15 countByEnumeratingWithState:&v27 objects:v39 count:16];
+            v21 = [v15 countByEnumeratingWithState:&v26 objects:v38 count:16];
             if (v21)
             {
               continue;
@@ -797,7 +794,7 @@ LABEL_4:
           }
 
 LABEL_34:
-          v9 = v26;
+          v9 = v25;
         }
 
         else
@@ -815,10 +812,9 @@ LABEL_36:
 LABEL_37:
     self->_performanceClass = v23;
 
-    result = self->_performanceClass;
+    return self->_performanceClass;
   }
 
-  v25 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -957,13 +953,13 @@ LABEL_37:
 
 - (void)_registerForCarrierNotifications
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   registration = [MEMORY[0x1E69A6138] registration];
   if (os_log_type_enabled(registration, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 138412290;
+    v4 = 138412290;
     selfCopy = self;
-    _os_log_impl(&dword_195925000, registration, OS_LOG_TYPE_DEFAULT, "Registering %@ for carrier changes", &v5, 0xCu);
+    _os_log_impl(&dword_195925000, registration, OS_LOG_TYPE_DEFAULT, "Registering %@ for carrier changes", &v4, 0xCu);
   }
 
   if (self->_supportsSMS)
@@ -971,8 +967,6 @@ LABEL_37:
     [(FTDeviceSupport *)self _unregisterForCommCenterReadyNotifications];
     [(FTDeviceSupport *)self _registerForCommCenterReadyNotifications];
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (NSString)telephoneNumber
@@ -1030,19 +1024,17 @@ LABEL_37:
 
 - (void)_registerForLockdownNotifications
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   registration = [MEMORY[0x1E69A6138] registration];
   if (os_log_type_enabled(registration, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 138412290;
+    v5 = 138412290;
     selfCopy = self;
-    _os_log_impl(&dword_195925000, registration, OS_LOG_TYPE_DEFAULT, "Registering %@ for lockdown changes", &v6, 0xCu);
+    _os_log_impl(&dword_195925000, registration, OS_LOG_TYPE_DEFAULT, "Registering %@ for lockdown changes", &v5, 0xCu);
   }
 
   defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
   [defaultCenter addObserver:self selector:sel__lockdownStateChanged_ name:*MEMORY[0x1E69A5FC0] object:0];
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_registerForManagedConfigurationNotifications
@@ -1114,16 +1106,16 @@ LABEL_37:
 
 - (void)_registerForInternalCoreTelephonyNotifications
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   registration = [MEMORY[0x1E69A6138] registration];
   if (os_log_type_enabled(registration, OS_LOG_TYPE_DEFAULT))
   {
     coreTelephonyClient = self->_coreTelephonyClient;
-    v7 = 138412546;
+    v6 = 138412546;
     selfCopy = self;
-    v9 = 2112;
-    v10 = coreTelephonyClient;
-    _os_log_impl(&dword_195925000, registration, OS_LOG_TYPE_DEFAULT, "Setting CoreTelephonyClient delegate to start receiving notifications { self: %@, coreTelephonyClient: %@ }", &v7, 0x16u);
+    v8 = 2112;
+    v9 = coreTelephonyClient;
+    _os_log_impl(&dword_195925000, registration, OS_LOG_TYPE_DEFAULT, "Setting CoreTelephonyClient delegate to start receiving notifications { self: %@, coreTelephonyClient: %@ }", &v6, 0x16u);
   }
 
   [(CoreTelephonyClient *)self->_coreTelephonyClient setDelegate:self];
@@ -1133,8 +1125,6 @@ LABEL_37:
     defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
     [defaultCenter __mainThreadPostNotificationName:@"__kFaceTimeDeviceRegistrationCapabilityChangedNotification" object:0];
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)madridAvailable
@@ -1224,33 +1214,33 @@ LABEL_7:
 
 - (BOOL)inProcess_isCallingSupported
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   mEMORY[0x1E69A51E8] = [MEMORY[0x1E69A51E8] sharedInstance];
   v3 = [mEMORY[0x1E69A51E8] carrierBundleValueFromAllSIMsForKey:@"AllowsFaceTimeAudio" ofType:objc_opt_class() withFallback:MEMORY[0x1E695E110]];
 
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
   v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   v4 = v3;
-  v5 = [v4 countByEnumeratingWithState:&v20 objects:v30 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v19 objects:v29 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v21;
+    v7 = *v20;
     bOOLValue = 1;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v21 != v7)
+        if (*v20 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
         if (bOOLValue)
         {
-          bOOLValue = [*(*(&v20 + 1) + 8 * i) BOOLValue];
+          bOOLValue = [*(*(&v19 + 1) + 8 * i) BOOLValue];
         }
 
         else
@@ -1259,7 +1249,7 @@ LABEL_7:
         }
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v20 objects:v30 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v19 objects:v29 count:16];
     }
 
     while (v6);
@@ -1308,20 +1298,19 @@ LABEL_7:
     }
 
     *buf = 138412802;
-    v25 = v16;
-    v26 = 2112;
-    v27 = v17;
+    v24 = v16;
+    v25 = 2112;
+    v26 = v17;
     if (v11)
     {
       v15 = @"YES";
     }
 
-    v28 = 2112;
-    v29 = v15;
+    v27 = 2112;
+    v28 = v15;
     _os_log_impl(&dword_195925000, registration, OS_LOG_TYPE_DEFAULT, "Checked FTA support in process {supportsFT: %@, carrierOverrideFTA: %@, GT: %@}", buf, 0x20u);
   }
 
-  v18 = *MEMORY[0x1E69E9840];
   return v13 & 1;
 }
 
@@ -1386,14 +1375,6 @@ LABEL_7:
   return v3;
 }
 
-- (BOOL)supportsCinematicFraming
-{
-  v4 = *MEMORY[0x1E69E9840];
-  result = MGIsDeviceOneOfType();
-  v3 = *MEMORY[0x1E69E9840];
-  return result;
-}
-
 - (NSString)model
 {
   mEMORY[0x1E69A60B8] = [MEMORY[0x1E69A60B8] sharedInstance];
@@ -1419,39 +1400,38 @@ LABEL_7:
 
 - (NSDictionary)telephonyCapabilities
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   if (self->_supportsSMS)
   {
-    v2 = *MEMORY[0x1E695E480];
-    v3 = _CTServerConnectionCreate();
-    if (v3)
+    v2 = _CTServerConnectionCreate();
+    if (v2)
     {
-      v4 = _CTServerConnectionCopySystemCapabilities();
-      CFRelease(v3);
-      if (v4 != 2)
+      v3 = _CTServerConnectionCopySystemCapabilities();
+      CFRelease(v2);
+      if (v3 != 2)
       {
         registration = [MEMORY[0x1E69A6138] registration];
         if (os_log_type_enabled(registration, OS_LOG_TYPE_INFO))
         {
           *buf = 138412802;
-          v11 = 0;
+          v9 = 0;
+          v10 = 2048;
+          v11 = v3;
           v12 = 2048;
-          v13 = v4;
-          v14 = 2048;
-          v15 = v4 >> 32;
+          v13 = v3 >> 32;
           _os_log_impl(&dword_195925000, registration, OS_LOG_TYPE_INFO, "CT returned system capabilities: %@  error: (%ld:%ld)", buf, 0x20u);
         }
 
-        if (v4)
+        if (v3)
         {
-          v8 = OSLogHandleForIDSCategory();
-          if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+          v6 = OSLogHandleForIDSCategory();
+          if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
           {
             *buf = 134218240;
-            v11 = v4;
-            v12 = 2048;
-            v13 = v4 >> 32;
-            _os_log_impl(&dword_195925000, v8, OS_LOG_TYPE_ERROR, "Error querying system capabilities: (%ld:%ld)", buf, 0x16u);
+            v9 = v3;
+            v10 = 2048;
+            v11 = v3 >> 32;
+            _os_log_impl(&dword_195925000, v6, OS_LOG_TYPE_ERROR, "Error querying system capabilities: (%ld:%ld)", buf, 0x16u);
           }
 
           if (os_log_shim_legacy_logging_enabled())
@@ -1462,11 +1442,11 @@ LABEL_7:
           }
         }
 
-        v9 = OSLogHandleForIDSCategory();
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+        v7 = OSLogHandleForIDSCategory();
+        if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
         {
           *buf = 0;
-          _os_log_impl(&dword_195925000, v9, OS_LOG_TYPE_ERROR, "Empty system capabilities returned", buf, 2u);
+          _os_log_impl(&dword_195925000, v7, OS_LOG_TYPE_ERROR, "Empty system capabilities returned", buf, 2u);
         }
 
         if (os_log_shim_legacy_logging_enabled())
@@ -1478,8 +1458,6 @@ LABEL_7:
       }
     }
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 
   return 0;
 }
@@ -1526,17 +1504,17 @@ LABEL_7:
 
 - (void)_initializeSIMInsertedCachedValue
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   selectedPNRSubscription = self->_selectedPNRSubscription;
-  v15 = 0;
-  v4 = [(FTSelectedPNRSubscription *)selectedPNRSubscription selectedPhoneNumberRegistrationSubscriptionWithError:&v15];
-  v5 = v15;
+  v14 = 0;
+  v4 = [(FTSelectedPNRSubscription *)selectedPNRSubscription selectedPhoneNumberRegistrationSubscriptionWithError:&v14];
+  v5 = v14;
   if (v4)
   {
     coreTelephonyClient = self->_coreTelephonyClient;
-    v14 = 0;
-    v7 = [(CoreTelephonyClient *)coreTelephonyClient getSIMStatus:v4 error:&v14];
-    v8 = v14;
+    v13 = 0;
+    v7 = [(CoreTelephonyClient *)coreTelephonyClient getSIMStatus:v4 error:&v13];
+    v8 = v13;
     registration = [MEMORY[0x1E69A6138] registration];
     v10 = registration;
     if (v7)
@@ -1544,7 +1522,7 @@ LABEL_7:
       if (os_log_type_enabled(registration, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v17 = v7;
+        v16 = v7;
         _os_log_impl(&dword_195925000, v10, OS_LOG_TYPE_DEFAULT, "Loaded initial SIM status { simStatus: %@ }", buf, 0xCu);
       }
 
@@ -1571,7 +1549,7 @@ LABEL_7:
   if (os_log_type_enabled(registration2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v17 = v5;
+    v16 = v5;
     _os_log_impl(&dword_195925000, registration2, OS_LOG_TYPE_DEFAULT, "Unable to find selected context to load SIM status { subscriptionError: %@ }", buf, 0xCu);
   }
 
@@ -1579,13 +1557,11 @@ LABEL_7:
   v7 = 0;
 LABEL_14:
   self->_simInserted = v11;
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)supportsStewie
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   if (qword_1ED768628 != -1)
   {
     sub_195962B18();
@@ -1596,15 +1572,13 @@ LABEL_14:
     supportsStewieState = self->_supportsStewieState;
     if (supportsStewieState != -1)
     {
-LABEL_17:
-      result = supportsStewieState == 1;
-      goto LABEL_18;
+      return supportsStewieState == 1;
     }
 
     coreTelephonyClient = self->_coreTelephonyClient;
-    v15 = 0;
-    v7 = [(CoreTelephonyClient *)coreTelephonyClient getStewieSupport:&v15];
-    v8 = v15;
+    v14 = 0;
+    v7 = [(CoreTelephonyClient *)coreTelephonyClient getStewieSupport:&v14];
+    v8 = v14;
     hwSupport = [v7 hwSupport];
     registration = [MEMORY[0x1E69A6138] registration];
     v11 = os_log_type_enabled(registration, OS_LOG_TYPE_DEFAULT);
@@ -1613,7 +1587,7 @@ LABEL_17:
       if (v11)
       {
         *buf = 138412290;
-        v17 = v8;
+        v16 = v8;
         v12 = "Failed to get stewie hw support { error: %@ }";
 LABEL_15:
         _os_log_impl(&dword_195925000, registration, OS_LOG_TYPE_DEFAULT, v12, buf, 0xCu);
@@ -1629,14 +1603,14 @@ LABEL_15:
       }
 
       *buf = 138412290;
-      v17 = v13;
+      v16 = v13;
       v12 = "Got stewie hw support { stewieHWSupport: %@ }";
       goto LABEL_15;
     }
 
     self->_supportsStewieState = hwSupport;
     supportsStewieState = self->_supportsStewieState;
-    goto LABEL_17;
+    return supportsStewieState == 1;
   }
 
   registration2 = [MEMORY[0x1E69A6138] registration];
@@ -1646,10 +1620,7 @@ LABEL_15:
     _os_log_impl(&dword_195925000, registration2, OS_LOG_TYPE_DEFAULT, "Device is Dev Board, Returning YES for supporting Stewie", buf, 2u);
   }
 
-  result = 1;
-LABEL_18:
-  v14 = *MEMORY[0x1E69E9840];
-  return result;
+  return 1;
 }
 
 - (void)supportsStewieWithCompletion:(id)completion
@@ -1868,17 +1839,17 @@ LABEL_21:
 
 - (id)registrationState
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   selectedPNRSubscription = self->_selectedPNRSubscription;
-  v22 = 0;
-  v4 = [(FTSelectedPNRSubscription *)selectedPNRSubscription selectedPhoneNumberRegistrationSubscriptionWithError:&v22];
-  v5 = v22;
+  v21 = 0;
+  v4 = [(FTSelectedPNRSubscription *)selectedPNRSubscription selectedPhoneNumberRegistrationSubscriptionWithError:&v21];
+  v5 = v21;
   if (v4)
   {
     coreTelephonyClient = self->_coreTelephonyClient;
-    v21 = 0;
-    v7 = [(CoreTelephonyClient *)coreTelephonyClient getPNRContext:v4 outError:&v21];
-    registration2 = v21;
+    v20 = 0;
+    v7 = [(CoreTelephonyClient *)coreTelephonyClient getPNRContext:v4 outError:&v20];
+    registration2 = v20;
     registration = [MEMORY[0x1E69A6138] registration];
     plmn2 = registration;
     if (v7)
@@ -1899,17 +1870,17 @@ LABEL_21:
         imsi = [v7 imsi];
         plmn = [v7 plmn];
         *buf = 138413570;
-        v24 = v7;
-        v25 = 2112;
-        v26 = v11;
-        v27 = 2112;
-        v28 = phoneNumber;
-        v29 = 2112;
-        v30 = imsi;
-        v31 = 2112;
-        v32 = plmn;
-        v33 = 2112;
-        v34 = v4;
+        v23 = v7;
+        v24 = 2112;
+        v25 = v11;
+        v26 = 2112;
+        v27 = phoneNumber;
+        v28 = 2112;
+        v29 = imsi;
+        v30 = 2112;
+        v31 = plmn;
+        v32 = 2112;
+        v33 = v4;
         _os_log_impl(&dword_195925000, plmn2, OS_LOG_TYPE_DEFAULT, "Read telephony phone number registration context { PNRContext: %@, isReady: %@, phoneNumber: %@, IMSI: %@, PLMN: %@, subscriptionContext: %@ }", buf, 0x3Eu);
       }
 
@@ -1956,14 +1927,12 @@ LABEL_21:
     if (os_log_type_enabled(registration2, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v24 = v5;
+      v23 = v5;
       _os_log_impl(&dword_195925000, registration2, OS_LOG_TYPE_DEFAULT, "Could not find user-selected subscription to check phone number registration state -- returning nil { error: %@ }", buf, 0xCu);
     }
 
     v15 = 0;
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 
   return v15;
 }
@@ -2015,13 +1984,13 @@ LABEL_21:
 
 - (void)_handleSIMStatusChangedToStatus:(id)status
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   statusCopy = status;
   registration = [MEMORY[0x1E69A6138] registration];
   if (os_log_type_enabled(registration, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v9 = statusCopy;
+    v8 = statusCopy;
     _os_log_impl(&dword_195925000, registration, OS_LOG_TYPE_DEFAULT, "Handling relevant SIM status change { status: %@ }", buf, 0xCu);
   }
 
@@ -2046,8 +2015,6 @@ LABEL_21:
       im_dispatch_after_primary_queue();
     }
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_handleCarrierSettingsChanged
@@ -2080,7 +2047,6 @@ LABEL_21:
   self->_simBecameNotReady = 0;
   self->_simInserted = -1;
   self->_isPNRSupportedCachedValue = -1;
-  number = self->_number;
   self->_number = 0;
   MEMORY[0x1EEE66BB8]();
 }
@@ -2099,40 +2065,40 @@ LABEL_21:
 
 - (NSDictionary)CTNetworkInformation
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   if (self->_supportsSMS)
   {
     v3 = objc_alloc_init(MEMORY[0x1E695DF90]);
     selectedPNRSubscription = self->_selectedPNRSubscription;
-    v27 = 0;
-    v5 = [(FTSelectedPNRSubscription *)selectedPNRSubscription selectedPhoneNumberRegistrationSubscriptionWithError:&v27];
-    v6 = v27;
+    v26 = 0;
+    v5 = [(FTSelectedPNRSubscription *)selectedPNRSubscription selectedPhoneNumberRegistrationSubscriptionWithError:&v26];
+    v6 = v26;
     v7 = v6;
     if (v5)
     {
 
       coreTelephonyClient = self->_coreTelephonyClient;
-      v26 = 0;
-      registration = [(CoreTelephonyClient *)coreTelephonyClient copyLastKnownMobileSubscriberCountryCode:v5 error:&v26];
-      v10 = v26;
+      v25 = 0;
+      registration = [(CoreTelephonyClient *)coreTelephonyClient copyLastKnownMobileSubscriberCountryCode:v5 error:&v25];
+      v10 = v25;
       [(FTDeviceSupport *)self _updateCTNetworkDictionary:v3 key:@"sim-mcc" withTelephonyNetworkValue:registration telephonyError:v10];
 
       v11 = self->_coreTelephonyClient;
-      v25 = 0;
-      v12 = [(CoreTelephonyClient *)v11 copyMobileSubscriberNetworkCode:v5 error:&v25];
-      v13 = v25;
+      v24 = 0;
+      v12 = [(CoreTelephonyClient *)v11 copyMobileSubscriberNetworkCode:v5 error:&v24];
+      v13 = v24;
       [(FTDeviceSupport *)self _updateCTNetworkDictionary:v3 key:@"sim-mnc" withTelephonyNetworkValue:v12 telephonyError:v13];
 
       v14 = self->_coreTelephonyClient;
-      v24 = 0;
-      v15 = [(CoreTelephonyClient *)v14 copyMobileCountryCode:v5 error:&v24];
-      v16 = v24;
+      v23 = 0;
+      v15 = [(CoreTelephonyClient *)v14 copyMobileCountryCode:v5 error:&v23];
+      v16 = v23;
       [(FTDeviceSupport *)self _updateCTNetworkDictionary:v3 key:@"network-mcc" withTelephonyNetworkValue:v15 telephonyError:v16];
 
       v17 = self->_coreTelephonyClient;
-      v23 = 0;
-      v18 = [(CoreTelephonyClient *)v17 copyMobileNetworkCode:v5 error:&v23];
-      v7 = v23;
+      v22 = 0;
+      v18 = [(CoreTelephonyClient *)v17 copyMobileNetworkCode:v5 error:&v22];
+      v7 = v22;
       [(FTDeviceSupport *)self _updateCTNetworkDictionary:v3 key:@"network-mnc" withTelephonyNetworkValue:v18 telephonyError:v7];
     }
 
@@ -2142,7 +2108,7 @@ LABEL_21:
       if (os_log_type_enabled(registration, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v29 = v7;
+        v28 = v7;
         _os_log_impl(&dword_195925000, registration, OS_LOG_TYPE_DEFAULT, "Unable to find selected context to load telephony network information { error: %@ }", buf, 0xCu);
       }
     }
@@ -2151,7 +2117,7 @@ LABEL_21:
     if (os_log_type_enabled(registration2, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v29 = v3;
+      v28 = v3;
       _os_log_impl(&dword_195925000, registration2, OS_LOG_TYPE_DEFAULT, "Returning telephony network information { networkInformation: %@ }", buf, 0xCu);
     }
 
@@ -2163,14 +2129,12 @@ LABEL_21:
     v19 = 0;
   }
 
-  v21 = *MEMORY[0x1E69E9840];
-
   return v19;
 }
 
 - (void)_updateCTNetworkDictionary:(id)dictionary key:(id)key withTelephonyNetworkValue:(id)value telephonyError:(id)error
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   keyCopy = key;
   valueCopy = value;
@@ -2189,13 +2153,13 @@ LABEL_21:
     {
       if (os_log_type_enabled(registration, OS_LOG_TYPE_DEFAULT))
       {
-        v17 = 138412802;
-        v18 = keyCopy;
-        v19 = 2112;
-        v20 = valueCopy;
-        v21 = 2112;
-        v22 = errorCopy;
-        _os_log_impl(&dword_195925000, v15, OS_LOG_TYPE_DEFAULT, "Error reading telephony network information { key: %@, value: %@, error: %@ }", &v17, 0x20u);
+        v16 = 138412802;
+        v17 = keyCopy;
+        v18 = 2112;
+        v19 = valueCopy;
+        v20 = 2112;
+        v21 = errorCopy;
+        _os_log_impl(&dword_195925000, v15, OS_LOG_TYPE_DEFAULT, "Error reading telephony network information { key: %@, value: %@, error: %@ }", &v16, 0x20u);
       }
     }
 
@@ -2204,22 +2168,20 @@ LABEL_21:
       sub_195962BA0();
     }
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)supportsSMSIdentification
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   if (self->_supportsSMS)
   {
     isPNRSupportedCachedValue = self->_isPNRSupportedCachedValue;
     if (isPNRSupportedCachedValue == -1)
     {
       selectedPNRSubscription = self->_selectedPNRSubscription;
-      v18 = 0;
-      v6 = [(FTSelectedPNRSubscription *)selectedPNRSubscription selectedPhoneNumberRegistrationSubscriptionWithError:&v18];
-      v7 = v18;
+      v17 = 0;
+      v6 = [(FTSelectedPNRSubscription *)selectedPNRSubscription selectedPhoneNumberRegistrationSubscriptionWithError:&v17];
+      v7 = v17;
       registration = [MEMORY[0x1E69A6138] registration];
       v4 = registration;
       if (v6)
@@ -2230,9 +2192,9 @@ LABEL_21:
         }
 
         coreTelephonyClient = self->_coreTelephonyClient;
-        v17 = 0;
-        v10 = [(CoreTelephonyClient *)coreTelephonyClient getPNRSupportStatus:v6 outError:&v17];
-        v11 = v17;
+        v16 = 0;
+        v10 = [(CoreTelephonyClient *)coreTelephonyClient getPNRSupportStatus:v6 outError:&v16];
+        v11 = v16;
         LODWORD(v4) = [v10 isSupported];
 
         registration2 = [MEMORY[0x1E69A6138] registration];
@@ -2258,9 +2220,9 @@ LABEL_21:
             }
 
             *buf = 138412546;
-            v20 = v14;
-            v21 = 2112;
-            v22 = v6;
+            v19 = v14;
+            v20 = 2112;
+            v21 = v6;
             _os_log_impl(&dword_195925000, v13, OS_LOG_TYPE_DEFAULT, "Determined value for isPNRSupported { isPNRSupported: %@, subscription: %@ }", buf, 0x16u);
           }
 
@@ -2273,7 +2235,7 @@ LABEL_21:
         if (os_log_type_enabled(registration, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v20 = v7;
+          v19 = v7;
           _os_log_impl(&dword_195925000, v4, OS_LOG_TYPE_DEFAULT, "Unable to locate user-selected subscription to check isPNRSupported -- falling back { error: %@ }", buf, 0xCu);
         }
 
@@ -2292,16 +2254,15 @@ LABEL_21:
     LOBYTE(v4) = 0;
   }
 
-  v15 = *MEMORY[0x1E69E9840];
   return v4;
 }
 
 - (BOOL)_legacy_supportsSMSIdentification
 {
-  *&v17[7] = *MEMORY[0x1E69E9840];
-  v12 = 0;
+  *&v16[7] = *MEMORY[0x1E69E9840];
+  v11 = 0;
+  v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
   if (qword_1EAED77B0 != -1)
   {
     sub_195962CFC();
@@ -2312,56 +2273,51 @@ LABEL_21:
     sub_195962D10();
   }
 
-  v13 = -86;
-  v2 = off_1EAED77A8(*MEMORY[0x1E695E480], nullsub_1, &v10);
-  if (v2)
+  v12 = -86;
+  v2 = off_1EAED77A8(*MEMORY[0x1E695E480], nullsub_1, &v9);
+  if (!v2)
   {
-    v3 = v2;
-    v4 = off_1EAED77B8(v2, &v13);
     registration = [MEMORY[0x1E69A6138] registration];
     if (os_log_type_enabled(registration, OS_LOG_TYPE_DEFAULT))
     {
-      *buf = 67109632;
-      v15 = v13;
-      v16 = 1024;
-      *v17 = v4;
-      v17[2] = 2048;
-      *&v17[3] = v4 >> 32;
-      _os_log_impl(&dword_195925000, registration, OS_LOG_TYPE_DEFAULT, "_CTServerConnectionIsPhoneNumberRegistrationSupported returned value { registrationSupported: %d, error: (%d:%ld) }", buf, 0x18u);
+      *buf = 0;
+      _os_log_impl(&dword_195925000, registration, OS_LOG_TYPE_DEFAULT, "Could not create CT server connection to query _CTServerConnectionIsPhoneNumberRegistrationSupported", buf, 2u);
     }
 
-    CFRelease(v3);
-    if (!v4)
-    {
-      result = v13 != 0;
-      goto LABEL_17;
-    }
-
-    registration2 = [MEMORY[0x1E69A6138] registration];
-    if (os_log_type_enabled(registration2, OS_LOG_TYPE_DEFAULT))
-    {
-      *buf = 67109376;
-      v15 = v4;
-      v16 = 2048;
-      *v17 = v4 >> 32;
-      _os_log_impl(&dword_195925000, registration2, OS_LOG_TYPE_DEFAULT, "Failed to query _CTServerConnectionIsPhoneNumberRegistrationSupported from CT { error: (%d:%ld) }", buf, 0x12u);
-    }
+    return 1;
   }
 
-  else
+  v3 = v2;
+  v4 = off_1EAED77B8(v2, &v12);
+  registration2 = [MEMORY[0x1E69A6138] registration];
+  if (os_log_type_enabled(registration2, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 67109632;
+    v14 = v12;
+    v15 = 1024;
+    *v16 = v4;
+    v16[2] = 2048;
+    *&v16[3] = v4 >> 32;
+    _os_log_impl(&dword_195925000, registration2, OS_LOG_TYPE_DEFAULT, "_CTServerConnectionIsPhoneNumberRegistrationSupported returned value { registrationSupported: %d, error: (%d:%ld) }", buf, 0x18u);
+  }
+
+  CFRelease(v3);
+  if (v4)
   {
     registration3 = [MEMORY[0x1E69A6138] registration];
     if (os_log_type_enabled(registration3, OS_LOG_TYPE_DEFAULT))
     {
-      *buf = 0;
-      _os_log_impl(&dword_195925000, registration3, OS_LOG_TYPE_DEFAULT, "Could not create CT server connection to query _CTServerConnectionIsPhoneNumberRegistrationSupported", buf, 2u);
+      *buf = 67109376;
+      v14 = v4;
+      v15 = 2048;
+      *v16 = v4 >> 32;
+      _os_log_impl(&dword_195925000, registration3, OS_LOG_TYPE_DEFAULT, "Failed to query _CTServerConnectionIsPhoneNumberRegistrationSupported from CT { error: (%d:%ld) }", buf, 0x12u);
     }
+
+    return 1;
   }
 
-  result = 1;
-LABEL_17:
-  v9 = *MEMORY[0x1E69E9840];
-  return result;
+  return v12 != 0;
 }
 
 - (NSString)productName
@@ -2771,7 +2727,7 @@ LABEL_17:
 
 - (BOOL)supportsUWB
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   if (qword_1ED768628 != -1)
   {
     sub_195962B18();
@@ -2782,11 +2738,11 @@ LABEL_17:
     registration = [MEMORY[0x1E69A6138] registration];
     if (os_log_type_enabled(registration, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v10) = 0;
-      _os_log_impl(&dword_195925000, registration, OS_LOG_TYPE_DEFAULT, "Device is Dev Board, Returning YES for supporting UWB", &v10, 2u);
+      LOWORD(v9) = 0;
+      _os_log_impl(&dword_195925000, registration, OS_LOG_TYPE_DEFAULT, "Device is Dev Board, Returning YES for supporting UWB", &v9, 2u);
     }
 
-    result = 1;
+    return 1;
   }
 
   else
@@ -2805,19 +2761,16 @@ LABEL_17:
           v8 = @"YES";
         }
 
-        v10 = 138412290;
-        v11 = v8;
-        _os_log_impl(&dword_195925000, registration2, OS_LOG_TYPE_DEFAULT, "Supports UWB: %@", &v10, 0xCu);
+        v9 = 138412290;
+        v10 = v8;
+        _os_log_impl(&dword_195925000, registration2, OS_LOG_TYPE_DEFAULT, "Supports UWB: %@", &v9, 0xCu);
       }
 
       supportsUWBState = self->_supportsUWBState;
     }
 
-    result = supportsUWBState == 1;
+    return supportsUWBState == 1;
   }
-
-  v9 = *MEMORY[0x1E69E9840];
-  return result;
 }
 
 - (BOOL)slowCPUDevice

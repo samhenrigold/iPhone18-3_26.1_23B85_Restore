@@ -109,71 +109,69 @@ void __87__WFVariable_WFVariableStringContent__wf_getContentItemsWithContext_com
 - (NSString)propertyName
 {
   selfCopy = self;
-  v45 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   possibleContentClasses = [(WFVariable *)self possibleContentClasses];
+  v35 = 0u;
+  v36 = 0u;
+  v37 = 0u;
   v38 = 0u;
-  v39 = 0u;
-  v40 = 0u;
-  v41 = 0u;
   aggrandizements = [(WFVariable *)selfCopy aggrandizements];
-  v5 = [aggrandizements countByEnumeratingWithState:&v38 objects:v44 count:16];
+  v5 = [aggrandizements countByEnumeratingWithState:&v35 objects:v41 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v39;
-    v8 = &off_1E836E000;
-    v26 = selfCopy;
-    v27 = *v39;
+    v7 = *v36;
+    v23 = selfCopy;
+    v24 = *v36;
     do
     {
-      v9 = 0;
-      v10 = possibleContentClasses;
-      v28 = v6;
+      v8 = 0;
+      v9 = possibleContentClasses;
+      v25 = v6;
       do
       {
-        if (*v39 != v7)
+        if (*v36 != v7)
         {
           objc_enumerationMutation(aggrandizements);
         }
 
-        v11 = *(*(&v38 + 1) + 8 * v9);
-        v12 = v8[464];
+        v10 = *(*(&v35 + 1) + 8 * v8);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v29 = v11;
-          propertyName = [v29 propertyName];
+          v26 = v10;
+          propertyName = [v26 propertyName];
+          v31 = 0u;
+          v32 = 0u;
+          v33 = 0u;
           v34 = 0u;
-          v35 = 0u;
-          v36 = 0u;
-          v37 = 0u;
-          possibleContentClasses = v10;
-          v14 = [possibleContentClasses countByEnumeratingWithState:&v34 objects:v43 count:16];
-          if (v14)
+          possibleContentClasses = v9;
+          v12 = [possibleContentClasses countByEnumeratingWithState:&v31 objects:v40 count:16];
+          if (v12)
           {
-            v15 = v14;
-            v16 = *v35;
+            v13 = v12;
+            v14 = *v32;
             while (2)
             {
-              for (i = 0; i != v15; ++i)
+              for (i = 0; i != v13; ++i)
               {
-                if (*v35 != v16)
+                if (*v32 != v14)
                 {
                   objc_enumerationMutation(possibleContentClasses);
                 }
 
-                v18 = [*(*(&v34 + 1) + 8 * i) propertyForName:{propertyName, v26}];
-                if (v18)
+                v16 = [*(*(&v31 + 1) + 8 * i) propertyForName:{propertyName, v23}];
+                if (v16)
                 {
-                  v23 = v18;
-                  if ([v29 negativeProperty])
+                  v21 = v16;
+                  if ([v26 negativeProperty])
                   {
-                    [v23 localizedNegativeName];
+                    [v21 localizedNegativeName];
                   }
 
                   else
                   {
-                    [v23 localizedName];
+                    [v21 localizedName];
                   }
                   dictionaryKey = ;
 
@@ -181,8 +179,8 @@ void __87__WFVariable_WFVariableStringContent__wf_getContentItemsWithContext_com
                 }
               }
 
-              v15 = [possibleContentClasses countByEnumeratingWithState:&v34 objects:v43 count:16];
-              if (v15)
+              v13 = [possibleContentClasses countByEnumeratingWithState:&v31 objects:v40 count:16];
+              if (v13)
               {
                 continue;
               }
@@ -191,53 +189,52 @@ void __87__WFVariable_WFVariableStringContent__wf_getContentItemsWithContext_com
             }
           }
 
-          v7 = v27;
-          v6 = v28;
-          v8 = &off_1E836E000;
+          v7 = v24;
+          v6 = v25;
         }
 
-        possibleContentClasses = [v11 processedContentClasses:{v10, v26}];
+        possibleContentClasses = [v10 processedContentClasses:{v9, v23}];
 
-        ++v9;
-        v10 = possibleContentClasses;
+        ++v8;
+        v9 = possibleContentClasses;
       }
 
-      while (v9 != v6);
-      v6 = [aggrandizements countByEnumeratingWithState:&v38 objects:v44 count:16];
-      selfCopy = v26;
+      while (v8 != v6);
+      v6 = [aggrandizements countByEnumeratingWithState:&v35 objects:v41 count:16];
+      selfCopy = v23;
     }
 
     while (v6);
   }
 
-  v32 = 0u;
-  v33 = 0u;
+  v29 = 0u;
   v30 = 0u;
-  v31 = 0u;
+  v27 = 0u;
+  v28 = 0u;
   aggrandizements = [(WFVariable *)selfCopy aggrandizements];
-  dictionaryKey = [aggrandizements countByEnumeratingWithState:&v30 objects:v42 count:16];
+  dictionaryKey = [aggrandizements countByEnumeratingWithState:&v27 objects:v39 count:16];
   if (dictionaryKey)
   {
-    v20 = *v31;
+    v18 = *v28;
     while (2)
     {
       for (j = 0; j != dictionaryKey; j = j + 1)
       {
-        if (*v31 != v20)
+        if (*v28 != v18)
         {
           objc_enumerationMutation(aggrandizements);
         }
 
-        v22 = *(*(&v30 + 1) + 8 * j);
+        v20 = *(*(&v27 + 1) + 8 * j);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          dictionaryKey = [v22 dictionaryKey];
+          dictionaryKey = [v20 dictionaryKey];
           goto LABEL_32;
         }
       }
 
-      dictionaryKey = [aggrandizements countByEnumeratingWithState:&v30 objects:v42 count:16];
+      dictionaryKey = [aggrandizements countByEnumeratingWithState:&v27 objects:v39 count:16];
       if (dictionaryKey)
       {
         continue;
@@ -248,8 +245,6 @@ void __87__WFVariable_WFVariableStringContent__wf_getContentItemsWithContext_com
   }
 
 LABEL_32:
-
-  v24 = *MEMORY[0x1E69E9840];
 
   return dictionaryKey;
 }
@@ -565,7 +560,7 @@ void __78__WFVariable_getContentWithContext_trackContentAttribution_completionHa
 {
   v4 = a3;
   v5 = *(*(*(a1 + 48) + 8) + 40);
-  v12 = v4;
+  v11 = v4;
   if (v5)
   {
     if (*(a1 + 56) != 1)
@@ -577,7 +572,7 @@ void __78__WFVariable_getContentWithContext_trackContentAttribution_completionHa
     v7 = [v5 attributionSet];
     [v6 addContentAttributionSet:v7];
 
-    v4 = v12;
+    v4 = v11;
     v5 = *(*(*(a1 + 48) + 8) + 40);
   }
 
@@ -587,8 +582,6 @@ void __78__WFVariable_getContentWithContext_trackContentAttribution_completionHa
     v9 = *(*(a1 + 48) + 8);
     v10 = *(v9 + 40);
     *(v9 + 40) = v8;
-
-    v11 = *(*(*(a1 + 48) + 8) + 40);
   }
 
 LABEL_6:
@@ -620,43 +613,41 @@ void __78__WFVariable_getContentWithContext_trackContentAttribution_completionHa
 
 - (NSOrderedSet)possibleAggrandizedContentClasses
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   possibleContentClasses = [(WFVariable *)self possibleContentClasses];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   aggrandizements = [(WFVariable *)self aggrandizements];
-  v5 = [aggrandizements countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [aggrandizements countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = *v12;
     do
     {
       v8 = 0;
       v9 = possibleContentClasses;
       do
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(aggrandizements);
         }
 
-        possibleContentClasses = [*(*(&v12 + 1) + 8 * v8) processedContentClasses:v9];
+        possibleContentClasses = [*(*(&v11 + 1) + 8 * v8) processedContentClasses:v9];
 
         ++v8;
         v9 = possibleContentClasses;
       }
 
       while (v6 != v8);
-      v6 = [aggrandizements countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [aggrandizements countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v6);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return possibleContentClasses;
 }
@@ -670,40 +661,38 @@ void __78__WFVariable_getContentWithContext_trackContentAttribution_completionHa
 
 - (void)variableUpdated
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   delegates = [(WFVariable *)self delegates];
   v4 = [delegates copy];
 
-  v5 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v11;
+    v7 = *v10;
     do
     {
       v8 = 0;
       do
       {
-        if (*v11 != v7)
+        if (*v10 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        [*(*(&v10 + 1) + 8 * v8++) variableDidChange:self];
+        [*(*(&v9 + 1) + 8 * v8++) variableDidChange:self];
       }
 
       while (v6 != v8);
-      v6 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v6);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)removeDelegate:(id)delegate
@@ -771,17 +760,18 @@ void __78__WFVariable_getContentWithContext_trackContentAttribution_completionHa
   firstObject = WFEnforceClass_1501(v8, v9);
 
   v11 = objc_opt_class();
-  if (v11 == objc_opt_class())
+  v12 = objc_opt_class();
+  if (v11 == v12)
   {
-    v12 = WFVariableClassesByType();
-    v13 = [v12 objectForKey:firstObject];
+    v14 = WFVariableClassesByType(v12, v13);
+    v15 = [v14 objectForKey:firstObject];
 
-    if ([(objc_class *)v13 isSubclassOfClass:objc_opt_class()])
+    if ([(objc_class *)v15 isSubclassOfClass:objc_opt_class()])
     {
-      v14 = [[v13 alloc] initWithDictionary:dictionaryCopy variableProvider:providerCopy];
-      if (v14)
+      v16 = [[v15 alloc] initWithDictionary:dictionaryCopy variableProvider:providerCopy];
+      if (v16)
       {
-        selfCopy = v14;
+        selfCopy = v16;
 LABEL_17:
 
         goto LABEL_18;
@@ -789,56 +779,56 @@ LABEL_17:
     }
   }
 
-  v32.receiver = self;
-  v32.super_class = WFVariable;
-  v16 = [(WFVariable *)&v32 init];
-  if (v16)
+  v35.receiver = self;
+  v35.super_class = WFVariable;
+  v18 = [(WFVariable *)&v35 init];
+  if (v18)
   {
-    v17 = v16;
+    v19 = v18;
     if (!firstObject)
     {
-      v18 = objc_opt_class();
-      if (v18 == objc_opt_class())
+      v20 = objc_opt_class();
+      if (v20 == objc_opt_class())
       {
         firstObject = 0;
       }
 
       else
       {
-        v19 = [dictionaryCopy mutableCopy];
-        v20 = WFVariableClassesByType();
-        v21 = [v20 allKeysForObject:objc_opt_class()];
-        firstObject = [v21 firstObject];
+        v21 = [dictionaryCopy mutableCopy];
+        v23 = WFVariableClassesByType(v21, v22);
+        v24 = [v23 allKeysForObject:objc_opt_class()];
+        firstObject = [v24 firstObject];
 
-        [v19 setValue:firstObject forKey:@"Type"];
-        dictionaryCopy = v19;
+        [v21 setValue:firstObject forKey:@"Type"];
+        dictionaryCopy = v21;
       }
     }
 
-    v22 = [dictionaryCopy objectForKey:@"Aggrandizements"];
-    v23 = objc_opt_class();
-    v24 = WFEnforceClass_1501(v22, v23);
+    v25 = [dictionaryCopy objectForKey:@"Aggrandizements"];
+    v26 = objc_opt_class();
+    v27 = WFEnforceClass_1501(v25, v26);
 
-    v25 = [v24 if_map:&__block_literal_global_208_49520];
-    v26 = [v25 copy];
-    v27 = v26;
-    if (v26)
+    v28 = [v27 if_map:&__block_literal_global_208_49520];
+    v29 = [v28 copy];
+    v30 = v29;
+    if (v29)
     {
-      v28 = v26;
+      v31 = v29;
     }
 
     else
     {
-      v28 = MEMORY[0x1E695E0F0];
+      v31 = MEMORY[0x1E695E0F0];
     }
 
-    objc_storeStrong(&v17->_aggrandizements, v28);
+    objc_storeStrong(&v19->_aggrandizements, v31);
 
-    v29 = [dictionaryCopy copy];
-    dictionary = v17->_dictionary;
-    v17->_dictionary = v29;
+    v32 = [dictionaryCopy copy];
+    dictionary = v19->_dictionary;
+    v19->_dictionary = v32;
 
-    self = v17;
+    self = v19;
     selfCopy = self;
     goto LABEL_17;
   }

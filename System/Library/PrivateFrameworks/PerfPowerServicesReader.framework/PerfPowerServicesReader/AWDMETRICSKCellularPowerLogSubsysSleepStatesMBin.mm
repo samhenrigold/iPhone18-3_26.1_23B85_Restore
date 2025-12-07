@@ -1,5 +1,6 @@
 @interface AWDMETRICSKCellularPowerLogSubsysSleepStatesMBin
 - (BOOL)isEqual:(id)equal;
+- (id)binIdAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
@@ -40,6 +41,21 @@
   }
 
   *&self->_has = *&self->_has & 0xFD | v3;
+}
+
+- (id)binIdAsString:(int)string
+{
+  if (string >= 4)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_279A10080[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsBinId:(id)id
@@ -120,20 +136,18 @@
 {
   toCopy = to;
   has = self->_has;
-  v8 = toCopy;
+  v6 = toCopy;
   if ((has & 2) != 0)
   {
-    binId = self->_binId;
     PBDataWriterWriteInt32Field();
-    toCopy = v8;
+    toCopy = v6;
     has = self->_has;
   }
 
   if (has)
   {
-    duration = self->_duration;
     PBDataWriterWriteUint64Field();
-    toCopy = v8;
+    toCopy = v6;
   }
 }
 

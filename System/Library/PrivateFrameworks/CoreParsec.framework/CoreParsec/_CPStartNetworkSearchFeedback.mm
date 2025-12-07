@@ -267,11 +267,10 @@ LABEL_43:
 
 - (void)writeTo:(id)to
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   toCopy = to;
   if ([(_CPStartNetworkSearchFeedback *)self timestamp])
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
   }
 
@@ -279,7 +278,6 @@ LABEL_43:
 
   if (input)
   {
-    input = self->_input;
     PBDataWriterWriteStringField();
   }
 
@@ -287,73 +285,67 @@ LABEL_43:
 
   if (uuid)
   {
-    uuid = self->_uuid;
     PBDataWriterWriteStringField();
   }
 
   if ([(_CPStartNetworkSearchFeedback *)self queryId])
   {
-    queryId = self->_queryId;
     PBDataWriterWriteUint64Field();
   }
 
-  v11 = [(_CPStartNetworkSearchFeedback *)self url];
+  v7 = [(_CPStartNetworkSearchFeedback *)self url];
 
-  if (v11)
+  if (v7)
   {
-    url = self->_url;
     PBDataWriterWriteStringField();
   }
 
-  v35 = 0u;
-  v36 = 0u;
-  v33 = 0u;
-  v34 = 0u;
-  v13 = self->_headers;
-  v14 = [(NSDictionary *)v13 countByEnumeratingWithState:&v33 objects:v37 count:16];
-  if (v14)
+  v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
+  v8 = self->_headers;
+  v9 = [(NSDictionary *)v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  if (v9)
   {
-    v15 = v14;
-    v16 = *v34;
+    v10 = v9;
+    v11 = *v19;
     do
     {
-      for (i = 0; i != v15; ++i)
+      for (i = 0; i != v10; ++i)
       {
-        if (*v34 != v16)
+        if (*v19 != v11)
         {
-          objc_enumerationMutation(v13);
+          objc_enumerationMutation(v8);
         }
 
-        v18 = *(*(&v33 + 1) + 8 * i);
+        v13 = *(*(&v18 + 1) + 8 * i);
         PBDataWriterPlaceMark();
         PBDataWriterWriteStringField();
-        v19 = [(NSDictionary *)self->_headers objectForKeyedSubscript:v18];
+        v14 = [(NSDictionary *)self->_headers objectForKeyedSubscript:v13];
         PBDataWriterWriteStringField();
 
         PBDataWriterRecallMark();
       }
 
-      v15 = [(NSDictionary *)v13 countByEnumeratingWithState:&v33 objects:v37 count:16];
+      v10 = [(NSDictionary *)v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
-    while (v15);
+    while (v10);
   }
 
   if ([(_CPStartNetworkSearchFeedback *)self endpoint])
   {
-    endpoint = self->_endpoint;
     PBDataWriterWriteInt32Field();
   }
 
   if ([(_CPStartNetworkSearchFeedback *)self triggerEvent])
   {
-    triggerEvent = self->_triggerEvent;
     PBDataWriterWriteInt32Field();
   }
 
   if ([(_CPStartNetworkSearchFeedback *)self lookupSelectionType])
   {
-    lookupSelectionType = self->_lookupSelectionType;
     PBDataWriterWriteInt32Field();
   }
 
@@ -361,7 +353,6 @@ LABEL_43:
 
   if (bodyData)
   {
-    bodyData = self->_bodyData;
     PBDataWriterWriteDataField();
   }
 
@@ -369,7 +360,6 @@ LABEL_43:
 
   if (experimentId)
   {
-    experimentId = self->_experimentId;
     PBDataWriterWriteStringField();
   }
 
@@ -377,29 +367,23 @@ LABEL_43:
 
   if (treatmentId)
   {
-    treatmentId = self->_treatmentId;
     PBDataWriterWriteStringField();
   }
 
   if ([(_CPStartNetworkSearchFeedback *)self searchType])
   {
-    searchType = self->_searchType;
     PBDataWriterWriteInt32Field();
   }
 
   if ([(_CPStartNetworkSearchFeedback *)self rawRequestSize])
   {
-    rawRequestSize = self->_rawRequestSize;
     PBDataWriterWriteUint64Field();
   }
 
   if ([(_CPStartNetworkSearchFeedback *)self compressedRequestSize])
   {
-    compressedRequestSize = self->_compressedRequestSize;
     PBDataWriterWriteUint64Field();
   }
-
-  v32 = *MEMORY[0x1E69E9840];
 }
 
 - (int)lookupSelectionType
@@ -482,9 +466,7 @@ LABEL_43:
 
 - (void)setHeaders:(id)headers
 {
-  v4 = [headers mutableCopy];
-  headers = self->_headers;
-  self->_headers = v4;
+  self->_headers = [headers mutableCopy];
 
   MEMORY[0x1EEE66BB8]();
 }
@@ -512,11 +494,11 @@ LABEL_43:
 
 - (_CPStartNetworkSearchFeedback)initWithFacade:(id)facade
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   facadeCopy = facade;
-  v33.receiver = self;
-  v33.super_class = _CPStartNetworkSearchFeedback;
-  v5 = [(_CPStartNetworkSearchFeedback *)&v33 init];
+  v32.receiver = self;
+  v32.super_class = _CPStartNetworkSearchFeedback;
+  v5 = [(_CPStartNetworkSearchFeedback *)&v32 init];
   if (v5)
   {
     -[_CPStartNetworkSearchFeedback setTimestamp:](v5, "setTimestamp:", [facadeCopy timestamp]);
@@ -557,34 +539,34 @@ LABEL_43:
       v14 = 0;
     }
 
-    v31 = 0u;
-    v32 = 0u;
-    v29 = 0u;
     v30 = 0u;
+    v31 = 0u;
+    v28 = 0u;
+    v29 = 0u;
     v15 = v13;
-    v16 = [v15 countByEnumeratingWithState:&v29 objects:v34 count:16];
+    v16 = [v15 countByEnumeratingWithState:&v28 objects:v33 count:16];
     if (v16)
     {
       v17 = v16;
-      v18 = *v30;
+      v18 = *v29;
       do
       {
         for (i = 0; i != v17; ++i)
         {
-          if (*v30 != v18)
+          if (*v29 != v18)
           {
             objc_enumerationMutation(v15);
           }
 
-          v20 = *(*(&v29 + 1) + 8 * i);
-          v21 = [v15 objectForKey:{v20, v29}];
+          v20 = *(*(&v28 + 1) + 8 * i);
+          v21 = [v15 objectForKey:{v20, v28}];
           if (v21)
           {
             [v14 setObject:v21 forKey:v20];
           }
         }
 
-        v17 = [v15 countByEnumeratingWithState:&v29 objects:v34 count:16];
+        v17 = [v15 countByEnumeratingWithState:&v28 objects:v33 count:16];
       }
 
       while (v17);
@@ -615,7 +597,6 @@ LABEL_43:
     v26 = v5;
   }
 
-  v27 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

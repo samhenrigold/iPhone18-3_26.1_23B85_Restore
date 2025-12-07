@@ -106,12 +106,16 @@ LABEL_10:
 {
   widgetCopy = widget;
   v5 = [widgetCopy isEqualToString:*MEMORY[0x277CEBBA0]];
-  if ((v5 & 1) == 0 && ([widgetCopy isEqualToString:*MEMORY[0x277CEB1C0]] & 1) == 0)
+  if ((v5 & 1) == 0)
   {
-    v6 = __atxlog_handle_metrics();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
+    v6 = [widgetCopy isEqualToString:*MEMORY[0x277CEB1C0]];
+    if ((v6 & 1) == 0)
     {
-      [(ATXScreenLogUnlockSession *)self _widgetBundleIdIsSuggestionsWidget:widgetCopy, v6];
+      v7 = __atxlog_handle_metrics(v6);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
+      {
+        [(ATXScreenLogUnlockSession *)self _widgetBundleIdIsSuggestionsWidget:widgetCopy, v7];
+      }
     }
   }
 
@@ -295,26 +299,26 @@ LABEL_10:
   coderCopy = coder;
   v5 = MEMORY[0x277D42620];
   v6 = objc_opt_class();
-  v7 = __atxlog_handle_metrics();
+  v7 = __atxlog_handle_metrics(v6);
   v8 = [v5 robustDecodeObjectOfClass:v6 forKey:@"sessionStartDate" withCoder:coderCopy expectNonNull:1 errorDomain:@"com.apple.duetexpertd.ATXScreenLogUnlockSession" errorCode:-1 logHandle:v7];
 
   if (v8)
   {
     v9 = MEMORY[0x277D42620];
     v10 = objc_opt_class();
-    v11 = __atxlog_handle_metrics();
+    v11 = __atxlog_handle_metrics(v10);
     v12 = [v9 robustDecodeObjectOfClass:v10 forKey:@"sessionEndDate" withCoder:coderCopy expectNonNull:0 errorDomain:@"com.apple.duetexpertd.ATXScreenLogUnlockSession" errorCode:-1 logHandle:v11];
 
     v13 = MEMORY[0x277D42620];
     v14 = objc_opt_class();
-    v15 = __atxlog_handle_metrics();
+    v15 = __atxlog_handle_metrics(v14);
     v16 = [v13 robustDecodeObjectOfClass:v14 forKey:@"engagementsSpotlightApps" withCoder:coderCopy expectNonNull:1 errorDomain:@"com.apple.duetexpertd.ATXScreenLogUnlockSession" errorCode:-1 logHandle:v15];
 
     if (v16)
     {
       v17 = MEMORY[0x277D42620];
       v18 = objc_opt_class();
-      v19 = __atxlog_handle_metrics();
+      v19 = __atxlog_handle_metrics(v18);
       v20 = [v17 robustDecodeObjectOfClass:v18 forKey:@"engagementsSpotlightActions" withCoder:coderCopy expectNonNull:1 errorDomain:@"com.apple.duetexpertd.ATXScreenLogUnlockSession" errorCode:-1 logHandle:v19];
 
       if (v20)
@@ -322,7 +326,7 @@ LABEL_10:
         v84 = v12;
         v21 = MEMORY[0x277D42620];
         v22 = objc_opt_class();
-        v23 = __atxlog_handle_metrics();
+        v23 = __atxlog_handle_metrics(v22);
         v24 = [v21 robustDecodeObjectOfClass:v22 forKey:@"engagementsSuggestionsWidget" withCoder:coderCopy expectNonNull:1 errorDomain:@"com.apple.duetexpertd.ATXScreenLogUnlockSession" errorCode:-1 logHandle:v23];
 
         if (v24)
@@ -330,7 +334,7 @@ LABEL_10:
           selfCopy = self;
           v25 = MEMORY[0x277D42620];
           v26 = objc_opt_class();
-          v27 = __atxlog_handle_metrics();
+          v27 = __atxlog_handle_metrics(v26);
           selfCopy2 = [v25 robustDecodeObjectOfClass:v26 forKey:@"engagementsSuggestionsWidgetToday" withCoder:coderCopy expectNonNull:1 errorDomain:@"com.apple.duetexpertd.ATXScreenLogUnlockSession" errorCode:-1 logHandle:v27];
 
           v82 = selfCopy2;
@@ -338,7 +342,7 @@ LABEL_10:
           {
             v29 = MEMORY[0x277D42620];
             v30 = objc_opt_class();
-            v31 = __atxlog_handle_metrics();
+            v31 = __atxlog_handle_metrics(v30);
             selfCopy2 = [v29 robustDecodeObjectOfClass:v30 forKey:@"engagementsAppPanel" withCoder:coderCopy expectNonNull:1 errorDomain:@"com.apple.duetexpertd.ATXScreenLogUnlockSession" errorCode:-1 logHandle:v31];
 
             v81 = selfCopy2;
@@ -346,7 +350,7 @@ LABEL_10:
             {
               v32 = MEMORY[0x277D42620];
               v33 = objc_opt_class();
-              v34 = __atxlog_handle_metrics();
+              v34 = __atxlog_handle_metrics(v33);
               selfCopy2 = [v32 robustDecodeObjectOfClass:v33 forKey:@"engagementsAppPanelToday" withCoder:coderCopy expectNonNull:1 errorDomain:@"com.apple.duetexpertd.ATXScreenLogUnlockSession" errorCode:-1 logHandle:v34];
 
               v80 = selfCopy2;
@@ -354,7 +358,7 @@ LABEL_10:
               {
                 v35 = MEMORY[0x277D42620];
                 v36 = objc_opt_class();
-                v37 = __atxlog_handle_metrics();
+                v37 = __atxlog_handle_metrics(v36);
                 selfCopy2 = [v35 robustDecodeObjectOfClass:v36 forKey:@"engagementsAppLibrary" withCoder:coderCopy expectNonNull:1 errorDomain:@"com.apple.duetexpertd.ATXScreenLogUnlockSession" errorCode:-1 logHandle:v37];
 
                 v79 = selfCopy2;
@@ -362,7 +366,7 @@ LABEL_10:
                 {
                   v38 = MEMORY[0x277D42620];
                   v39 = objc_opt_class();
-                  v40 = __atxlog_handle_metrics();
+                  v40 = __atxlog_handle_metrics(v39);
                   selfCopy2 = [v38 robustDecodeObjectOfClass:v39 forKey:@"viewsSpotlightApps" withCoder:coderCopy expectNonNull:1 errorDomain:@"com.apple.duetexpertd.ATXScreenLogUnlockSession" errorCode:-1 logHandle:v40];
 
                   v78 = selfCopy2;
@@ -370,7 +374,7 @@ LABEL_10:
                   {
                     v41 = MEMORY[0x277D42620];
                     v42 = objc_opt_class();
-                    v43 = __atxlog_handle_metrics();
+                    v43 = __atxlog_handle_metrics(v42);
                     selfCopy2 = [v41 robustDecodeObjectOfClass:v42 forKey:@"viewsSpotlightActions" withCoder:coderCopy expectNonNull:1 errorDomain:@"com.apple.duetexpertd.ATXScreenLogUnlockSession" errorCode:-1 logHandle:v43];
 
                     v77 = selfCopy2;
@@ -378,7 +382,7 @@ LABEL_10:
                     {
                       v44 = MEMORY[0x277D42620];
                       v45 = objc_opt_class();
-                      v46 = __atxlog_handle_metrics();
+                      v46 = __atxlog_handle_metrics(v45);
                       selfCopy2 = [v44 robustDecodeObjectOfClass:v45 forKey:@"viewsSuggestionsWidget" withCoder:coderCopy expectNonNull:1 errorDomain:@"com.apple.duetexpertd.ATXScreenLogUnlockSession" errorCode:-1 logHandle:v46];
 
                       v76 = selfCopy2;
@@ -386,7 +390,7 @@ LABEL_10:
                       {
                         v47 = MEMORY[0x277D42620];
                         v48 = objc_opt_class();
-                        v49 = __atxlog_handle_metrics();
+                        v49 = __atxlog_handle_metrics(v48);
                         selfCopy2 = [v47 robustDecodeObjectOfClass:v48 forKey:@"viewsSuggestionsWidgetToday" withCoder:coderCopy expectNonNull:1 errorDomain:@"com.apple.duetexpertd.ATXScreenLogUnlockSession" errorCode:-1 logHandle:v49];
 
                         v75 = selfCopy2;
@@ -394,7 +398,7 @@ LABEL_10:
                         {
                           v50 = MEMORY[0x277D42620];
                           v51 = objc_opt_class();
-                          v52 = __atxlog_handle_metrics();
+                          v52 = __atxlog_handle_metrics(v51);
                           selfCopy2 = [v50 robustDecodeObjectOfClass:v51 forKey:@"viewsAppPanel" withCoder:coderCopy expectNonNull:1 errorDomain:@"com.apple.duetexpertd.ATXScreenLogUnlockSession" errorCode:-1 logHandle:v52];
 
                           v74 = selfCopy2;
@@ -402,7 +406,7 @@ LABEL_10:
                           {
                             v53 = MEMORY[0x277D42620];
                             v54 = objc_opt_class();
-                            v55 = __atxlog_handle_metrics();
+                            v55 = __atxlog_handle_metrics(v54);
                             selfCopy2 = [v53 robustDecodeObjectOfClass:v54 forKey:@"viewsAppPanelToday" withCoder:coderCopy expectNonNull:1 errorDomain:@"com.apple.duetexpertd.ATXScreenLogUnlockSession" errorCode:-1 logHandle:v55];
 
                             v73 = selfCopy2;
@@ -410,7 +414,7 @@ LABEL_10:
                             {
                               v56 = MEMORY[0x277D42620];
                               v57 = objc_opt_class();
-                              v58 = __atxlog_handle_metrics();
+                              v58 = __atxlog_handle_metrics(v57);
                               v59 = [v56 robustDecodeObjectOfClass:v57 forKey:@"viewsAppLibrary" withCoder:coderCopy expectNonNull:1 errorDomain:@"com.apple.duetexpertd.ATXScreenLogUnlockSession" errorCode:-1 logHandle:v58];
 
                               if (v59)
@@ -672,16 +676,14 @@ LABEL_30:
 
 - (void)_widgetBundleIdIsSuggestionsWidget:(NSObject *)a3 .cold.1(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v5 = objc_opt_class();
   v6 = NSStringFromClass(v5);
-  v8 = 138412546;
-  v9 = v6;
-  v10 = 2112;
-  v11 = a2;
-  _os_log_fault_impl(&dword_2263AA000, a3, OS_LOG_TYPE_FAULT, "%@ - received non-proactive widgetBundleId of %@", &v8, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
+  v7 = 138412546;
+  v8 = v6;
+  v9 = 2112;
+  v10 = a2;
+  _os_log_fault_impl(&dword_2263AA000, a3, OS_LOG_TYPE_FAULT, "%@ - received non-proactive widgetBundleId of %@", &v7, 0x16u);
 }
 
 @end

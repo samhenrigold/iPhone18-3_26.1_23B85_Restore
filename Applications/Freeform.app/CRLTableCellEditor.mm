@@ -63,7 +63,7 @@
 
   v8 = sub_1011C4518(action, v10);
 
-  sub_10000CAAC(v10, &unk_1019F4D00);
+  sub_10000CAAC(v10, &unk_1019F4D00, &unk_10146E7F0);
   return v8;
 }
 

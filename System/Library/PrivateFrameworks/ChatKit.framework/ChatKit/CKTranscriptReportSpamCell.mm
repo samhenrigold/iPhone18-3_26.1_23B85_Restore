@@ -18,7 +18,7 @@
 - (void)configureForChatItem:(id)item context:(id)context animated:(BOOL)animated animationDuration:(double)duration animationCurve:(int64_t)curve
 {
   animatedCopy = animated;
-  v29[1] = *MEMORY[0x1E69E9840];
+  v30[1] = *MEMORY[0x1E69E9840];
   itemCopy = item;
   contextCopy = context;
   objc_opt_class();
@@ -27,15 +27,15 @@
     v14 = IMLogHandleForCategory();
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      [CKTranscriptReportSpamCell(CKChatItem) configureForChatItem:context:animated:animationDuration:animationCurve:];
+      [CKTranscriptReportSpamCell(CKChatItem) configureForChatItem:itemCopy context:? animated:? animationDuration:? animationCurve:?];
     }
 
     v15 = MEMORY[0x1E696ABC0];
     v16 = *MEMORY[0x1E69A5F40];
-    v28 = *MEMORY[0x1E696A278];
+    v29 = *MEMORY[0x1E696A278];
     v17 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Calling into configureForChatItem: with an unexpected type: %@", objc_opt_class()];
-    v29[0] = v17;
-    v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v29 forKeys:&v28 count:1];
+    v30[0] = v17;
+    v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v30 forKeys:&v29 count:1];
     v19 = [v15 errorWithDomain:v16 code:0 userInfo:v18];
 
     mEMORY[0x1E69A8168] = [MEMORY[0x1E69A8168] sharedInstance];
@@ -57,13 +57,13 @@
     }
   }
 
-  v27.receiver = self;
-  v27.super_class = CKTranscriptReportSpamCell;
-  [(CKTranscriptStampCell *)&v27 configureForChatItem:itemCopy context:contextCopy animated:animatedCopy animationDuration:curve animationCurve:duration];
+  v28.receiver = self;
+  v28.super_class = CKTranscriptReportSpamCell;
+  [(CKTranscriptStampCell *)&v28 configureForChatItem:itemCopy context:contextCopy animated:animatedCopy animationDuration:curve animationCurve:duration];
   transcriptText = [itemCopy transcriptText];
   [(CKTranscriptLabelCell *)self setAttributedText:transcriptText];
 
-  if (CKIsRunningInMessagesNotificationExtension() || ([MEMORY[0x1E69A5B00] sharedInstance], v24 = objc_claimAutoreleasedReturnValue(), v25 = objc_msgSend(v24, "isSatelliteConnectionActive"), v24, v25))
+  if (CKIsRunningInMessagesNotificationExtension(v24) || ([MEMORY[0x1E69A5B00] sharedInstance], v25 = objc_claimAutoreleasedReturnValue(), v26 = objc_msgSend(v25, "isSatelliteConnectionActive"), v25, v26))
   {
     reportSpamButton = [(CKTranscriptReportSpamCell *)self reportSpamButton];
     [reportSpamButton setHidden:1];

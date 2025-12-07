@@ -4,8 +4,8 @@
 - (BWBracketSettings)initWithCoder:(id)coder;
 - (id)description;
 - (int)bracketFrameCount;
-- (uint64_t)classesForExposureValues;
-- (uint64_t)classesForManualExposureBracketedCaptureParams;
+- (void)classesForExposureValues;
+- (void)classesForManualExposureBracketedCaptureParams;
 - (void)dealloc;
 - (void)encodeWithCoder:(id)coder;
 @end
@@ -27,9 +27,9 @@
     v4->_bracketingMode = [coder decodeInt32ForKey:@"bracketingMode"];
     v4->_providePreBracketedEV0 = [coder decodeBoolForKey:@"providePreBracketedEV0"];
     v4->_lensStabilizationEnabledForClientBracket = [coder decodeBoolForKey:@"lensStabilizationEnabledForClientBracket"];
-    v4->_exposureValues = [coder decodeObjectOfClasses:-[BWBracketSettings classesForExposureValues](v4) forKey:@"exposureValues"];
-    v4->_manualExposureBracketedCaptureParams = [coder decodeObjectOfClasses:-[BWBracketSettings classesForManualExposureBracketedCaptureParams](v4) forKey:@"manualExposureBracketedCaptureParams"];
-    v4->_oisBracketedCaptureParams = [coder decodeObjectOfClasses:-[BWBracketSettings classesForManualExposureBracketedCaptureParams](v4) forKey:@"oisBracketedCaptureParams"];
+    v4->_exposureValues = [coder decodeObjectOfClasses:-[BWBracketSettings classesForExposureValues](v4 forKey:{v6), @"exposureValues"}];
+    v4->_manualExposureBracketedCaptureParams = [coder decodeObjectOfClasses:-[BWBracketSettings classesForManualExposureBracketedCaptureParams](v4 forKey:{v7), @"manualExposureBracketedCaptureParams"}];
+    v4->_oisBracketedCaptureParams = [coder decodeObjectOfClasses:-[BWBracketSettings classesForManualExposureBracketedCaptureParams](v4 forKey:{v8), @"oisBracketedCaptureParams"}];
   }
 
   return v4;
@@ -142,19 +142,19 @@ LABEL_7:
   return v4;
 }
 
-- (uint64_t)classesForExposureValues
+- (void)classesForExposureValues
 {
   if (result)
   {
-    v1 = MEMORY[0x1E695DFD8];
-    v2 = objc_opt_class();
-    return [v1 setWithObjects:{v2, objc_opt_class(), 0}];
+    v2 = MEMORY[0x1E695DFD8];
+    v3 = objc_opt_class();
+    return [v2 setWithObjects:{v3, objc_opt_class(), 0}];
   }
 
   return result;
 }
 
-- (uint64_t)classesForManualExposureBracketedCaptureParams
+- (void)classesForManualExposureBracketedCaptureParams
 {
   if (result)
   {

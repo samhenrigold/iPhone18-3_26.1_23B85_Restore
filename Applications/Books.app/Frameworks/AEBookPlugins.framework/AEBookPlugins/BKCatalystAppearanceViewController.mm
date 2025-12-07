@@ -287,13 +287,13 @@
 
   if (v9 != @"BKAppearanceMenuItemSelectedFont")
   {
-    v59.receiver = self;
-    v59.super_class = BKCatalystAppearanceViewController;
-    v10 = [(BKAppearanceViewController *)&v59 tableView:viewCopy cellForRowAtIndexPath:pathCopy];
+    v60.receiver = self;
+    v60.super_class = BKCatalystAppearanceViewController;
+    v10 = [(BKAppearanceViewController *)&v60 tableView:viewCopy cellForRowAtIndexPath:pathCopy];
     goto LABEL_26;
   }
 
-  v58 = [viewCopy dequeueReusableCellWithIdentifier:@"BKFontTableViewCell" forIndexPath:pathCopy];
+  v59 = [viewCopy dequeueReusableCellWithIdentifier:@"BKFontTableViewCell" forIndexPath:pathCopy];
 
   objc_opt_class();
   v10 = BUDynamicCast();
@@ -313,61 +313,61 @@
     displayName = [viewCopy displayName];
     familyName3 = [viewCopy familyName];
     [(BKCatalystAppearanceViewController *)self fontSizeForFontFamilyName:familyName3];
-    v21 = v20;
+    v22 = v21;
 
     if ([viewCopy kind] == &dword_4)
     {
-      v22 = [UIFont systemFontOfSize:kCTFontUIFontDesignSerif weight:v21 design:UIFontWeightRegular];
+      v23 = [UIFont systemFontOfSize:kCTFontUIFontDesignSerif weight:v22 design:UIFontWeightRegular];
 LABEL_9:
-      v26 = v22;
+      v27 = v23;
       goto LABEL_14;
     }
 
     if ([viewCopy kind] == &dword_0 + 3)
     {
-      v22 = [UIFont systemFontOfSize:v21];
+      v23 = [UIFont systemFontOfSize:v22];
       goto LABEL_9;
     }
 
     familyName4 = [viewCopy familyName];
-    v28 = [UIFont fontWithName:familyName4 size:v21];
-    _fontAdjustedForCurrentContentSizeCategory = [v28 _fontAdjustedForCurrentContentSizeCategory];
+    v29 = [UIFont fontWithName:familyName4 size:v22];
+    _fontAdjustedForCurrentContentSizeCategory = [v29 _fontAdjustedForCurrentContentSizeCategory];
 
     if (_fontAdjustedForCurrentContentSizeCategory)
     {
-      v25 = _fontAdjustedForCurrentContentSizeCategory;
+      v26 = _fontAdjustedForCurrentContentSizeCategory;
     }
 
     else
     {
-      v25 = [UIFont systemFontOfSize:v21];
+      v26 = [UIFont systemFontOfSize:v22];
     }
   }
 
   else
   {
-    v23 = AEBundle();
-    displayName = [v23 localizedStringForKey:@"Original" value:&stru_1E7188 table:0];
+    v24 = AEBundle(v18);
+    displayName = [v24 localizedStringForKey:@"Original" value:&stru_1E7188 table:0];
 
     _fontAdjustedForCurrentContentSizeCategory = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
     [_fontAdjustedForCurrentContentSizeCategory _scaledValueForValue:13.0];
-    v25 = [UIFont systemFontOfSize:"systemFontOfSize:weight:" weight:?];
+    v26 = [UIFont systemFontOfSize:"systemFontOfSize:weight:" weight:?];
   }
 
-  v26 = v25;
+  v27 = v26;
 
 LABEL_14:
   themePage = [(BKCatalystAppearanceViewController *)self themePage];
   keyColor = [themePage keyColor];
 
   [v10 setLabelText:displayName];
-  v57 = v26;
-  v31 = [v26 bkEffectiveFontForText:displayName];
-  [v10 setLabelFont:v31];
+  v58 = v27;
+  v32 = [v27 bkEffectiveFontForText:displayName];
+  [v10 setLabelFont:v32];
 
-  v32 = [viewCopy state] == 1;
+  v33 = [viewCopy state] == 1;
   label = [v10 label];
-  [label setEnabled:v32];
+  [label setEnabled:v33];
 
   selectionView = [v10 selectionView];
   [selectionView setHidden:v15 ^ 1];
@@ -379,13 +379,13 @@ LABEL_14:
   {
     if ([viewCopy state] == 3)
     {
-      accessoryView = [v58 accessoryView];
+      accessoryView = [v59 accessoryView];
       objc_opt_class();
       isKindOfClass = objc_opt_isKindOfClass();
 
       if (isKindOfClass)
       {
-        accessoryView2 = [v58 accessoryView];
+        accessoryView2 = [v59 accessoryView];
       }
 
       else
@@ -416,9 +416,9 @@ LABEL_14:
       }
 
       familyName5 = [viewCopy familyName];
-      v40 = [familyName5 isEqualToString:&stru_1E7188];
+      v41 = [familyName5 isEqualToString:&stru_1E7188];
 
-      if (v40)
+      if (v41)
       {
         goto LABEL_24;
       }
@@ -426,10 +426,10 @@ LABEL_14:
       accessoryView2 = [UIButton buttonWithType:0];
       [accessoryView2 addTarget:self action:"downloadFont:" forControlEvents:64];
       bc_constraintsToFitInSuperviewCentered = [UIImageSymbolConfiguration configurationWithTextStyle:UIFontTextStyleTitle3];
-      v42 = [UIImage systemImageNamed:@"icloud.and.arrow.down"];
-      v56 = [v42 bc_imageWithConfiguration:bc_constraintsToFitInSuperviewCentered limitedToContentSizeCategory:UIContentSizeCategoryAccessibilityExtraLarge];
+      v43 = [UIImage systemImageNamed:@"icloud.and.arrow.down"];
+      v57 = [v43 bc_imageWithConfiguration:bc_constraintsToFitInSuperviewCentered limitedToContentSizeCategory:UIContentSizeCategoryAccessibilityExtraLarge];
 
-      [accessoryView2 setImage:v56 forState:0];
+      [accessoryView2 setImage:v57 forState:0];
       [accessoryView2 setTintColor:keyColor];
       [accessoryView2 setTag:{objc_msgSend(pathCopy, "row")}];
       buttonContainerView2 = [v10 buttonContainerView];
@@ -438,17 +438,17 @@ LABEL_14:
       bc_constraintsToFitInSuperviewCentered2 = [accessoryView2 bc_constraintsToFitInSuperviewCentered];
       [NSLayoutConstraint activateConstraints:bc_constraintsToFitInSuperviewCentered2];
 
-      [v56 size];
-      v46 = v45;
-      [v56 size];
-      v48 = v46 / v47;
+      [v57 size];
+      v47 = v46;
+      [v57 size];
+      v49 = v47 / v48;
       widthAnchor = [accessoryView2 widthAnchor];
       heightAnchor = [accessoryView2 heightAnchor];
-      v50 = [widthAnchor constraintEqualToAnchor:heightAnchor multiplier:v48];
+      v51 = [widthAnchor constraintEqualToAnchor:heightAnchor multiplier:v49];
 
-      LODWORD(v51) = 1148846080;
-      [v50 setPriority:v51];
-      [v50 setActive:1];
+      LODWORD(v52) = 1148846080;
+      [v51 setPriority:v52];
+      [v51 setActive:1];
     }
 
 LABEL_24:
@@ -682,30 +682,31 @@ LABEL_26:
   {
     failedCopy = failed;
     v5 = MGGetBoolAnswer();
-    v6 = AEBundle();
-    v7 = v6;
-    if (v5)
+    v6 = v5;
+    v7 = AEBundle(v5);
+    v8 = v7;
+    if (v6)
     {
-      v8 = @"To download fonts, connect to WLAN.";
+      v9 = @"To download fonts, connect to WLAN.";
     }
 
     else
     {
-      v8 = @"To download fonts, connect to Wi-Fi.";
+      v9 = @"To download fonts, connect to Wi-Fi.";
     }
 
-    v17 = [v6 localizedStringForKey:v8 value:&stru_1E7188 table:0];
+    v20 = [v7 localizedStringForKey:v9 value:&stru_1E7188 table:0];
 
-    v9 = AEBundle();
-    v10 = [v9 localizedStringForKey:@"Couldn’t Download" value:&stru_1E7188 table:0];
-    v11 = [UIAlertController alertControllerWithTitle:v10 message:v17 preferredStyle:1];
+    v11 = AEBundle(v10);
+    v12 = [v11 localizedStringForKey:@"Couldn’t Download" value:&stru_1E7188 table:0];
+    v13 = [UIAlertController alertControllerWithTitle:v12 message:v20 preferredStyle:1];
 
-    v12 = AEBundle();
-    v13 = [v12 localizedStringForKey:@"OK" value:&stru_1E7188 table:0];
-    v14 = [UIAlertAction actionWithTitle:v13 style:1 handler:0];
-    [v11 addAction:v14];
+    v15 = AEBundle(v14);
+    v16 = [v15 localizedStringForKey:@"OK" value:&stru_1E7188 table:0];
+    v17 = [UIAlertAction actionWithTitle:v16 style:1 handler:0];
+    [v13 addAction:v17];
 
-    [(BKCatalystAppearanceViewController *)self presentViewController:v11 animated:1 completion:0];
+    [(BKCatalystAppearanceViewController *)self presentViewController:v13 animated:1 completion:0];
     self->_shownCannotDownloadFontAlert = 1;
     object = [failedCopy object];
 

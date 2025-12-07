@@ -47,6 +47,7 @@
 - (void)didDisableScreenTime;
 - (void)didEnableCloudSync;
 - (void)didEnableManagement;
+- (void)didEnableScreenTime:(BOOL)time;
 - (void)didJoinFamily:(id)family;
 - (void)didLeaveFamily;
 - (void)didReceiveBlueprintPayload:(id)payload;
@@ -407,6 +408,31 @@ LABEL_12:
 
   usageManager2 = [(STScreenTimeOrganizationController *)self usageManager];
   [usageManager2 setScreenTimeEnabled:1];
+
+  objc_sync_exit(accessLock);
+}
+
+- (void)didEnableScreenTime:(BOOL)time
+{
+  timeCopy = time;
+  accessLock = [(STScreenTimeOrganizationController *)self accessLock];
+  objc_sync_enter(accessLock);
+  [(STScreenTimeOrganizationController *)self startupScreenTime:timeCopy];
+  persistenceController = [(STScreenTimeOrganizationController *)self persistenceController];
+  v7 = [[NSManagedObjectContext alloc] initWithConcurrencyType:2];
+  viewContext = [persistenceController viewContext];
+  persistentStoreCoordinator = [viewContext persistentStoreCoordinator];
+  [v7 setPersistentStoreCoordinator:persistentStoreCoordinator];
+
+  [v7 setMergePolicy:NSMergeByPropertyObjectTrumpMergePolicy];
+  v11[0] = _NSConcreteStackBlock;
+  v11[1] = 3221225472;
+  v11[2] = sub_100079538;
+  v11[3] = &unk_1001A3180;
+  v10 = v7;
+  v12 = v10;
+  [v10 performBlockAndWait:v11];
+  [(STScreenTimeOrganizationController *)self attemptToAutomaticallyEnableScreenTimeSyncing];
 
   objc_sync_exit(accessLock);
 }
@@ -2475,43 +2501,42 @@ LABEL_11:
 
 - (id)fetchUnexpiredOneMoreMinuteBlueprintsWithMoc:(id)moc error:(id *)error
 {
+  v20[0] = 0;
+  v20[1] = v20;
+  v20[2] = 0x3032000000;
+  v20[3] = sub_10008281C;
+  v20[4] = sub_10008282C;
   v21 = 0;
-  v22 = &v21;
-  v23 = 0x3032000000;
-  v24 = sub_10008281C;
-  v25 = sub_10008282C;
-  v26 = 0;
-  v15 = 0;
-  v16 = &v15;
-  v17 = 0x3032000000;
-  v18 = sub_10008281C;
-  v19 = sub_10008282C;
-  v20 = 0;
-  v11[0] = _NSConcreteStackBlock;
-  v11[1] = 3221225472;
-  v11[2] = sub_10008521C;
-  v11[3] = &unk_1001A5B58;
+  v14 = 0;
+  v15 = &v14;
+  v16 = 0x3032000000;
+  v17 = sub_10008281C;
+  v18 = sub_10008282C;
+  v19 = 0;
+  v10[0] = _NSConcreteStackBlock;
+  v10[1] = 3221225472;
+  v10[2] = sub_10008521C;
+  v10[3] = &unk_1001A5B58;
   mocCopy = moc;
-  v12 = mocCopy;
-  v13 = &v21;
-  v14 = &v15;
-  [mocCopy performBlockAndWait:v11];
-  v6 = v16[5];
+  v11 = mocCopy;
+  v12 = v20;
+  v13 = &v14;
+  [mocCopy performBlockAndWait:v10];
+  v6 = v15[5];
   if (!v6)
   {
-    v7 = v22[5];
-    v8 = STSafeErrorFromCoreDataError();
-    *error = v8;
+    v7 = STSafeErrorFromCoreDataError();
+    *error = v7;
 
-    v6 = v16[5];
+    v6 = v15[5];
   }
 
-  v9 = v6;
+  v8 = v6;
 
-  _Block_object_dispose(&v15, 8);
-  _Block_object_dispose(&v21, 8);
+  _Block_object_dispose(&v14, 8);
+  _Block_object_dispose(v20, 8);
 
-  return v9;
+  return v8;
 }
 
 - (id)shouldAllowOneMoreMinuteForBundleIdentifier:(id)identifier error:(id *)error
@@ -2526,26 +2551,25 @@ LABEL_11:
     v10 = [(STScreenTimeOrganizationController *)self fetchUnexpiredOneMoreMinuteBlueprintsWithMoc:newBackgroundContext error:error];
     if (v10)
     {
-      v18 = 0;
-      v19 = &v18;
-      v20 = 0x2020000000;
-      v21 = 0;
-      v14[0] = _NSConcreteStackBlock;
-      v14[1] = 3221225472;
-      v14[2] = sub_100085524;
-      v14[3] = &unk_1001A5C40;
-      v17 = &v18;
-      v15 = identifierCopy;
-      v16 = v10;
-      [newBackgroundContext performBlockAndWait:v14];
-      v11 = [NSNumber numberWithBool:*(v19 + 24)];
+      v17 = 0;
+      v18 = &v17;
+      v19 = 0x2020000000;
+      v20 = 0;
+      v13[0] = _NSConcreteStackBlock;
+      v13[1] = 3221225472;
+      v13[2] = sub_100085524;
+      v13[3] = &unk_1001A5C40;
+      v16 = &v17;
+      v14 = identifierCopy;
+      v15 = v10;
+      [newBackgroundContext performBlockAndWait:v13];
+      v11 = [NSNumber numberWithBool:*(v18 + 24)];
 
-      _Block_object_dispose(&v18, 8);
+      _Block_object_dispose(&v17, 8);
     }
 
     else
     {
-      v12 = *error;
       STSafeErrorFromCoreDataError();
       *error = v11 = 0;
     }
@@ -2577,26 +2601,25 @@ LABEL_11:
     v10 = [(STScreenTimeOrganizationController *)self fetchUnexpiredOneMoreMinuteBlueprintsWithMoc:newBackgroundContext error:error];
     if (v10)
     {
-      v18 = 0;
-      v19 = &v18;
-      v20 = 0x2020000000;
-      v21 = 0;
-      v14[0] = _NSConcreteStackBlock;
-      v14[1] = 3221225472;
-      v14[2] = sub_1000857E8;
-      v14[3] = &unk_1001A5C40;
-      v17 = &v18;
-      v15 = domainCopy;
-      v16 = v10;
-      [newBackgroundContext performBlockAndWait:v14];
-      v11 = [NSNumber numberWithBool:*(v19 + 24)];
+      v17 = 0;
+      v18 = &v17;
+      v19 = 0x2020000000;
+      v20 = 0;
+      v13[0] = _NSConcreteStackBlock;
+      v13[1] = 3221225472;
+      v13[2] = sub_1000857E8;
+      v13[3] = &unk_1001A5C40;
+      v16 = &v17;
+      v14 = domainCopy;
+      v15 = v10;
+      [newBackgroundContext performBlockAndWait:v13];
+      v11 = [NSNumber numberWithBool:*(v18 + 24)];
 
-      _Block_object_dispose(&v18, 8);
+      _Block_object_dispose(&v17, 8);
     }
 
     else
     {
-      v12 = *error;
       STSafeErrorFromCoreDataError();
       *error = v11 = 0;
     }
@@ -2628,26 +2651,25 @@ LABEL_11:
     v10 = [(STScreenTimeOrganizationController *)self fetchUnexpiredOneMoreMinuteBlueprintsWithMoc:newBackgroundContext error:error];
     if (v10)
     {
-      v18 = 0;
-      v19 = &v18;
-      v20 = 0x2020000000;
-      v21 = 0;
-      v14[0] = _NSConcreteStackBlock;
-      v14[1] = 3221225472;
-      v14[2] = sub_100085AAC;
-      v14[3] = &unk_1001A5C40;
-      v17 = &v18;
-      v15 = identifierCopy;
-      v16 = v10;
-      [newBackgroundContext performBlockAndWait:v14];
-      v11 = [NSNumber numberWithBool:*(v19 + 24)];
+      v17 = 0;
+      v18 = &v17;
+      v19 = 0x2020000000;
+      v20 = 0;
+      v13[0] = _NSConcreteStackBlock;
+      v13[1] = 3221225472;
+      v13[2] = sub_100085AAC;
+      v13[3] = &unk_1001A5C40;
+      v16 = &v17;
+      v14 = identifierCopy;
+      v15 = v10;
+      [newBackgroundContext performBlockAndWait:v13];
+      v11 = [NSNumber numberWithBool:*(v18 + 24)];
 
-      _Block_object_dispose(&v18, 8);
+      _Block_object_dispose(&v17, 8);
     }
 
     else
     {
-      v12 = *error;
       STSafeErrorFromCoreDataError();
       *error = v11 = 0;
     }
@@ -2970,20 +2992,20 @@ LABEL_11:
   }
 
   *buf = 0;
-  v34 = buf;
-  v35 = 0x3032000000;
-  v36 = sub_10008281C;
-  v37 = sub_10008282C;
-  v38 = 0;
+  v37 = buf;
+  v38 = 0x3032000000;
+  v39 = sub_10008281C;
+  v40 = sub_10008282C;
+  v41 = 0;
   v30 = 0;
-  v31[0] = &v30;
-  v31[1] = 0x3032000000;
-  v31[2] = sub_10008281C;
-  v31[3] = sub_10008282C;
-  v32 = 0;
+  v31 = &v30;
+  v32 = 0x3032000000;
+  v33 = sub_10008281C;
+  v34 = sub_10008282C;
+  v35 = 0;
   if ([dCopy intValue])
   {
-    objc_storeStrong(v34 + 5, d);
+    objc_storeStrong(v37 + 5, d);
   }
 
   else
@@ -3005,7 +3027,7 @@ LABEL_11:
     _os_signpost_emit_with_name_impl(&_mh_execute_header, v16, OS_SIGNPOST_INTERVAL_END, v12, "Fetch Restrictions User", "", v28, 2u);
   }
 
-  if (*(v34 + 5))
+  if (*(v37 + 5))
   {
     v17 = +[STLog screenTimeOrganizationController];
     v18 = os_signpost_id_generate(v17);
@@ -3018,7 +3040,7 @@ LABEL_11:
       _os_signpost_emit_with_name_impl(&_mh_execute_header, v20, OS_SIGNPOST_INTERVAL_BEGIN, v18, "Fetch Restrictions", "", v28, 2u);
     }
 
-    v21 = *(v34 + 5);
+    v21 = *(v37 + 5);
     v23[0] = _NSConcreteStackBlock;
     v23[1] = 3221225472;
     v23[2] = sub_100088820;
@@ -3035,10 +3057,10 @@ LABEL_11:
     v22 = +[STLog screenTimeOrganizationController];
     if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
-      sub_10011FBB0(v31);
+      sub_10011FBB0();
     }
 
-    (*(handlerCopy + 2))(handlerCopy, 0, *(v31[0] + 40));
+    (*(handlerCopy + 2))(handlerCopy, 0, v31[5]);
   }
 
   _Block_object_dispose(&v30, 8);

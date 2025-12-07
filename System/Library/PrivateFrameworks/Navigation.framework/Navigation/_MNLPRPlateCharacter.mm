@@ -3,90 +3,88 @@
 - (id)description;
 - (id)valueMappings;
 - (uint64_t)isOfType:(void *)type alphabetics:(void *)alphabetics numerics:;
-- (uint64_t)validReplacementCount:(uint64_t)result;
+- (void)validReplacementCount:(void *)result;
 @end
 
 @implementation _MNLPRPlateCharacter
 
 - (id)description
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E696AD60];
   v4 = objc_opt_class();
   v5 = NSStringFromClass(v4);
   v6 = v5;
-  glyph = self->_glyph;
   if (self->_isPickupChar)
   {
-    v8 = "YES";
+    v7 = "YES";
   }
 
   else
   {
-    v8 = "NO";
+    v7 = "NO";
   }
 
-  v9 = [v3 stringWithFormat:@"<%@ %p> %@ { pickup: %s", v5, self, self->_glyph, v8];
+  v8 = [v3 stringWithFormat:@"<%@ %p> %@ { pickup: %s", v5, self, self->_glyph, v7];
 
   if ([(NSMutableDictionary *)self->_fillTypes count])
   {
-    v23 = v9;
-    v10 = [MEMORY[0x1E695DF70] arrayWithCapacity:{-[NSMutableDictionary count](self->_fillTypes, "count")}];
+    v21 = v8;
+    v9 = [MEMORY[0x1E695DF70] arrayWithCapacity:{-[NSMutableDictionary count](self->_fillTypes, "count")}];
+    v22 = 0u;
+    v23 = 0u;
     v24 = 0u;
     v25 = 0u;
-    v26 = 0u;
-    v27 = 0u;
-    v11 = self->_fillTypes;
-    v12 = [(NSMutableDictionary *)v11 countByEnumeratingWithState:&v24 objects:v28 count:16];
-    if (v12)
+    v10 = self->_fillTypes;
+    v11 = [(NSMutableDictionary *)v10 countByEnumeratingWithState:&v22 objects:v26 count:16];
+    if (v11)
     {
-      v13 = v12;
-      v14 = *v25;
+      v12 = v11;
+      v13 = *v23;
       do
       {
-        for (i = 0; i != v13; ++i)
+        for (i = 0; i != v12; ++i)
         {
-          if (*v25 != v14)
+          if (*v23 != v13)
           {
-            objc_enumerationMutation(v11);
+            objc_enumerationMutation(v10);
           }
 
-          intValue = [*(*(&v24 + 1) + 8 * i) intValue];
+          intValue = [*(*(&v22 + 1) + 8 * i) intValue];
           if ((intValue - 1) >= 3)
           {
-            v17 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", intValue];
+            v16 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", intValue];
           }
 
           else
           {
-            v17 = off_1E842B088[(intValue - 1)];
+            v16 = off_1E842B088[(intValue - 1)];
           }
 
-          [v10 addObject:v17];
+          [v9 addObject:v16];
         }
 
-        v13 = [(NSMutableDictionary *)v11 countByEnumeratingWithState:&v24 objects:v28 count:16];
+        v12 = [(NSMutableDictionary *)v10 countByEnumeratingWithState:&v22 objects:v26 count:16];
       }
 
-      while (v13);
+      while (v12);
     }
 
-    v18 = [v10 componentsJoinedByString:{@", "}];
-    v9 = v23;
-    [v23 appendFormat:@" fills: [%@]", v18];
+    v17 = [v9 componentsJoinedByString:{@", "}];
+    v8 = v21;
+    [v21 appendFormat:@" fills: [%@]", v17];
   }
 
   if ([(NSMutableOrderedSet *)self->_valueMappings count])
   {
     array = [(NSMutableOrderedSet *)self->_valueMappings array];
-    v20 = [array componentsJoinedByString:{@", "}];
-    [v9 appendFormat:@" mappings: [%@]", v20];
+    v19 = [array componentsJoinedByString:{@", "}];
+    [v8 appendFormat:@" mappings: [%@]", v19];
   }
 
-  [v9 appendString:@"}"];
-  v21 = *MEMORY[0x1E69E9840];
+  [v8 appendString:@"}"];
 
-  return v9;
+  return v8;
 }
 
 - (id)valueMappings
@@ -100,7 +98,7 @@
   return self;
 }
 
-- (uint64_t)validReplacementCount:(uint64_t)result
+- (void)validReplacementCount:(void *)result
 {
   if (result)
   {
@@ -115,7 +113,7 @@
 
 - (id)_validReplacements:(uint64_t)replacements
 {
-  v57[1] = *MEMORY[0x1E69E9840];
+  v56[1] = *MEMORY[0x1E69E9840];
   if (!replacements)
   {
     goto LABEL_41;
@@ -135,8 +133,8 @@ LABEL_4:
   {
     if (![*(replacements + 8) count])
     {
-      v57[0] = *(replacements + 32);
-      v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v57 count:1];
+      v56[0] = *(replacements + 32);
+      v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v56 count:1];
       goto LABEL_4;
     }
 
@@ -226,7 +224,7 @@ LABEL_24:
 
       v48 = *(replacements + 40);
       v49 = [MEMORY[0x1E696AD98] numberWithInt:intValue];
-      v56 = [v48 objectForKeyedSubscript:v49];
+      v55 = [v48 objectForKeyedSubscript:v49];
       _mnLPRWrappedError(a2, -103, 0, @"Unknown fill %@ %@", v50, v51, v52, v53, v42);
 
       v29 = MEMORY[0x1E69A1598];
@@ -273,7 +271,6 @@ LABEL_21:
 LABEL_41:
   v6 = 0;
 LABEL_42:
-  v54 = *MEMORY[0x1E69E9840];
 
   return v6;
 }

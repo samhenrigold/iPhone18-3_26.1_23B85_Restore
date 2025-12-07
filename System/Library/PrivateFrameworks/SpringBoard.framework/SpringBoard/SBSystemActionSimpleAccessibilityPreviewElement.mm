@@ -1,7 +1,7 @@
 @interface SBSystemActionSimpleAccessibilityPreviewElement
 - (SBSystemActionSimpleAccessibilityPreviewElement)initWithSystemAction:(id)action contentProvider:(id)provider keyColor:(id)color;
-- (uint64_t)_updateWithAccessibilityTripleClickStateIfNeeded:(uint64_t)needed animated:;
 - (void)_handleTripleClickOptionDidChangeNotification;
+- (void)_updateWithAccessibilityTripleClickStateIfNeeded:(uint64_t)needed animated:;
 - (void)dealloc;
 @end
 
@@ -87,14 +87,14 @@
   [(SBSystemActionSimpleAccessibilityPreviewElement *)&v4 dealloc];
 }
 
-- (uint64_t)_updateWithAccessibilityTripleClickStateIfNeeded:(uint64_t)needed animated:
+- (void)_updateWithAccessibilityTripleClickStateIfNeeded:(uint64_t)needed animated:
 {
   if (result)
   {
-    if (*(result + 184) != a2)
+    if (*(result + 23) != a2)
     {
-      *(result + 184) = a2;
-      return [*(result + 192) setEnabled:a2 != 2 animated:needed];
+      *(result + 23) = a2;
+      return [*(result + 24) setEnabled:a2 != 2 animated:needed];
     }
   }
 

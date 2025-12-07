@@ -304,21 +304,20 @@ void __68__AVTCoreDataRemoteChangesObserver_performManagedObjectContextWork___bl
 {
   v2 = *(a1 + 32);
   v3 = [MEMORY[0x277CBE4F8] currentQueryGenerationToken];
-  v9 = 0;
-  v4 = [v2 setQueryGenerationFromToken:v3 error:&v9];
-  v5 = v9;
+  v8 = 0;
+  v4 = [v2 setQueryGenerationFromToken:v3 error:&v8];
+  v5 = v8;
 
   if (v4)
   {
-    v6 = *(a1 + 32);
     (*(*(a1 + 48) + 16))();
   }
 
   else
   {
-    v7 = [*(a1 + 40) logger];
-    v8 = [v5 description];
-    [v7 logErrorPinningContextToCurrentQueryGenerationToken:v8];
+    v6 = [*(a1 + 40) logger];
+    v7 = [v5 description];
+    [v6 logErrorPinningContextToCurrentQueryGenerationToken:v7];
   }
 }
 

@@ -9,6 +9,7 @@
 - (id)_stsHandoverNotificationListenerCallbackProtocol;
 - (id)_stsHandoverNotificationListenerProtocol;
 - (id)_synchronousRemoteProxyWithErrorHandler:(id)handler;
+- (id)setRequestHandoverConfirmation:(BOOL)confirmation;
 - (id)startHandoff;
 - (unint64_t)_translateFromCarrierConnectionStatus:(unint64_t)status;
 - (void)_executeWhenXPCAvailable:(id)available;
@@ -21,6 +22,7 @@
 - (void)invalidateXPCConnection;
 - (void)iso18013DecryptedDeviceResponse:(id)response sessionDataStatus:(id)status mDocResponseStatus:(id)responseStatus error:(id)error;
 - (void)processCredentialRequestList:(id)list readerAuthInfo:(id)info;
+- (void)receivedRawDataFromAlternativeCarrier:(id)carrier dataPending:(BOOL)pending;
 - (void)sendConnectionHandoverCompleted;
 - (void)sendConnectionHandoverStarted;
 - (void)sendISO18013SessionData:(id)data status:(id)status completion:(id)completion;
@@ -142,6 +144,30 @@
   v2[3] = &unk_279B93910;
   v2[4] = self;
   [(STSXPCClientNotificationListener *)self _executeWhenXPCAvailable:v2];
+}
+
+- (id)setRequestHandoverConfirmation:(BOOL)confirmation
+{
+  confirmationCopy = confirmation;
+  v8 = 0;
+  v9 = &v8;
+  v10 = 0x3032000000;
+  v11 = sub_26538489C;
+  v12 = sub_2653848AC;
+  v13 = 0;
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = sub_2653848B4;
+  v7[3] = &unk_279B93E50;
+  v7[4] = self;
+  v7[5] = &v8;
+  v4 = [(STSXPCClientNotificationListener *)self _asynchronousRemoteProxyWithErrorHandler:v7];
+  [v4 setRequestHandoverConfirmation:confirmationCopy];
+
+  v5 = v9[5];
+  _Block_object_dispose(&v8, 8);
+
+  return v5;
 }
 
 - (id)startHandoff
@@ -338,35 +364,35 @@
 
 - (void)processCredentialRequestList:(id)list readerAuthInfo:(id)info
 {
-  v55 = *MEMORY[0x277D85DE8];
+  v54 = *MEMORY[0x277D85DE8];
   listCopy = list;
   infoCopy = info;
   delegate = [(STSXPCClientNotificationListener *)self delegate];
   if (delegate && (objc_opt_respondsToSelector() & 1) != 0)
   {
-    v47 = delegate;
+    v46 = delegate;
     v11 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v49 = 0u;
     v50 = 0u;
     v51 = 0u;
     v52 = 0u;
-    v53 = 0u;
-    v48 = listCopy;
+    v47 = listCopy;
     v12 = listCopy;
-    v13 = [v12 countByEnumeratingWithState:&v50 objects:v54 count:16];
+    v13 = [v12 countByEnumeratingWithState:&v49 objects:v53 count:16];
     if (v13)
     {
       v16 = v13;
-      v17 = *v51;
+      v17 = *v50;
       do
       {
         for (i = 0; i != v16; ++i)
         {
-          if (*v51 != v17)
+          if (*v50 != v17)
           {
             objc_enumerationMutation(v12);
           }
 
-          v19 = *(*(&v50 + 1) + 8 * i);
+          v19 = *(*(&v49 + 1) + 8 * i);
           if (v19 && *(v19 + 8))
           {
             sub_265398094(OS_LOG_TYPE_DEFAULT, 0, "[STSXPCClientNotificationListener processCredentialRequestList:readerAuthInfo:]", 328, self, @"Unexpected type=%lu", v14, v15, *(v19 + 8));
@@ -382,7 +408,7 @@
           }
         }
 
-        v16 = [v12 countByEnumeratingWithState:&v50 objects:v54 count:16];
+        v16 = [v12 countByEnumeratingWithState:&v49 objects:v53 count:16];
       }
 
       while (v16);
@@ -419,19 +445,19 @@
     }
 
     v29 = v28;
-    v49 = [(STS18013ReaderAnalyticsData *)v23 initWithTrusted:v24 & 1 untrustedIdentifier:v25 untrustedOrganization:v26 untrustedIssuerIdentifier:v27 untrustedIssuerOrganization:v29];
+    v48 = [(STS18013ReaderAnalyticsData *)v23 initWithTrusted:v24 & 1 untrustedIdentifier:v25 untrustedOrganization:v26 untrustedIssuerIdentifier:v27 untrustedIssuerOrganization:v29];
 
-    v45 = [v11 copy];
-    v44 = [STS18013ReaderAuthInfo alloc];
-    v46 = v22;
+    v44 = [v11 copy];
+    v43 = [STS18013ReaderAuthInfo alloc];
+    v45 = v22;
     if (infoCopy)
     {
       v30 = *(infoCopy + 1);
       v31 = *(infoCopy + 2);
       v32 = *(infoCopy + 3);
       v33 = *(infoCopy + 4);
-      v43 = *(infoCopy + 5);
-      v42 = *(infoCopy + 6);
+      v42 = *(infoCopy + 5);
+      v41 = *(infoCopy + 6);
       v34 = *(infoCopy + 7);
       v35 = *(infoCopy + 8);
       v36 = *(infoCopy + 9);
@@ -440,8 +466,8 @@
     else
     {
       v35 = 0;
+      v41 = 0;
       v42 = 0;
-      v43 = 0;
       v33 = 0;
       v31 = 0;
       v30 = 0;
@@ -450,21 +476,19 @@
       v36 = 0;
     }
 
-    listCopy = v48;
+    listCopy = v47;
     v37 = v36;
-    v41 = v33;
-    v38 = [(STS18013ReaderAuthInfo *)v44 initWithIdentifier:v30 organization:v31 organizationUnit:v32 iconData:v33 iconURL:v43 iconMediaType:v42 privacyPolicyURL:v34 merchantCategoryCode:v35 certificateData:v37 readerAnalyticsData:v49];
+    v40 = v33;
+    v38 = [(STS18013ReaderAuthInfo *)v43 initWithIdentifier:v30 organization:v31 organizationUnit:v32 iconData:v33 iconURL:v42 iconMediaType:v41 privacyPolicyURL:v34 merchantCategoryCode:v35 certificateData:v37 readerAnalyticsData:v48];
 
-    delegate = v47;
-    [v47 processISO18013CredentialProposals:v45 readerAuthInfo:v38];
+    delegate = v46;
+    [v46 processISO18013CredentialProposals:v44 readerAuthInfo:v38];
   }
 
   else
   {
-    sub_265398094(OS_LOG_TYPE_ERROR, 0, "[STSXPCClientNotificationListener processCredentialRequestList:readerAuthInfo:]", 321, self, @"Not implemented", v8, v9, v40);
+    sub_265398094(OS_LOG_TYPE_ERROR, 0, "[STSXPCClientNotificationListener processCredentialRequestList:readerAuthInfo:]", 321, self, @"Not implemented", v8, v9, v39);
   }
-
-  v39 = *MEMORY[0x277D85DE8];
 }
 
 - (void)transactionEndedWithIdentifier:(id)identifier error:(id)error
@@ -473,6 +497,17 @@
   identifierCopy = identifier;
   delegate = [(STSXPCClientNotificationListener *)self delegate];
   [delegate transactionEndedWithIdentifier:identifierCopy error:errorCopy];
+}
+
+- (void)receivedRawDataFromAlternativeCarrier:(id)carrier dataPending:(BOOL)pending
+{
+  pendingCopy = pending;
+  carrierCopy = carrier;
+  delegate = [(STSXPCClientNotificationListener *)self delegate];
+  if (objc_opt_respondsToSelector())
+  {
+    [delegate alternativeCarrierReceived:carrierCopy dataPending:pendingCopy];
+  }
 }
 
 - (void)alternativeCarrierConnectedWithStatus:(unint64_t)status

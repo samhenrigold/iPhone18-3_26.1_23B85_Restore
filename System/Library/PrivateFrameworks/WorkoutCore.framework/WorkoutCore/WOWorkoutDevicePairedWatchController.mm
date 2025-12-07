@@ -165,7 +165,7 @@ void __62__WOWorkoutDevicePairedWatchController__setupUnlockConnection__block_in
   objc_storeStrong(v11, 0);
 }
 
-uint64_t __60__WOWorkoutDevicePairedWatchController_isUnlockedAndOnWrist__block_invoke(uint64_t a1)
+void *__60__WOWorkoutDevicePairedWatchController_isUnlockedAndOnWrist__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _main_calculateUnlockedAndOnWristState];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -309,7 +309,6 @@ void __61__WOWorkoutDevicePairedWatchController__main_setupConnection__block_inv
 
   objc_storeStrong(&v18, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 void __61__WOWorkoutDevicePairedWatchController__main_setupConnection__block_invoke_296(id *a1)
@@ -338,11 +337,11 @@ void __61__WOWorkoutDevicePairedWatchController__main_setupConnection__block_inv
 
 - (void)_main_updateWristState:(int64_t)state
 {
-  v4 = MEMORY[0x277D85CD0];
+  v5 = MEMORY[0x277D85CD0];
   v3 = MEMORY[0x277D85CD0];
-  v5 = v4;
-  dispatch_assert_queue_V2(v5);
-  MEMORY[0x277D82BD8](v5);
+  v6 = v5;
+  dispatch_assert_queue_V2(v6);
+  *&v4 = MEMORY[0x277D82BD8](v6).n128_u64[0];
   self->_wristState = state;
   if (state)
   {
@@ -367,35 +366,33 @@ void __61__WOWorkoutDevicePairedWatchController__main_setupConnection__block_inv
   v3 = MEMORY[0x277D85CD0];
   v7 = v6;
   dispatch_assert_queue_V2(v7);
-  MEMORY[0x277D82BD8](v7);
-  v4 = [MEMORY[0x277CCABB0] numberWithBool:locked];
+  v4 = [MEMORY[0x277CCABB0] numberWithBool:{locked, MEMORY[0x277D82BD8](v7).n128_f64[0]}];
   isPasscodeLockedValue = self->_isPasscodeLockedValue;
   self->_isPasscodeLockedValue = v4;
-  MEMORY[0x277D82BD8](isPasscodeLockedValue);
   [(WOWorkoutDevicePairedWatchController *)self _main_logState];
   [(WOWorkoutDevicePairedWatchController *)self _main_notifyDelegateOfUnlockStatus];
 }
 
 - (BOOL)_main_calculateUnlockedAndOnWristState
 {
-  v5 = MEMORY[0x277D85CD0];
+  v6 = MEMORY[0x277D85CD0];
   v2 = MEMORY[0x277D85CD0];
-  v6 = v5;
-  dispatch_assert_queue_V2(v6);
-  MEMORY[0x277D82BD8](v6);
-  v7 = 0;
+  v7 = v6;
+  dispatch_assert_queue_V2(v7);
+  *&v3 = MEMORY[0x277D82BD8](v7).n128_u64[0];
+  v8 = 0;
   if (self->_wristState == 3)
   {
-    LOBYTE(v4) = 1;
+    LOBYTE(v5) = 1;
     if (self->_isPasscodeLockedValue)
     {
-      v4 = ![(NSNumber *)self->_isPasscodeLockedValue BOOLValue];
+      v5 = ![(NSNumber *)self->_isPasscodeLockedValue BOOLValue];
     }
 
-    v7 = v4;
+    v8 = v5;
   }
 
-  return v7 & 1;
+  return v8 & 1;
 }
 
 - (void)_main_logState
@@ -436,7 +433,6 @@ void __61__WOWorkoutDevicePairedWatchController__main_setupConnection__block_inv
   }
 
   objc_storeStrong(v13, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)_main_notifyDelegateOfUnlockStatus
@@ -445,7 +441,6 @@ void __61__WOWorkoutDevicePairedWatchController__main_setupConnection__block_inv
   v2 = MEMORY[0x277D85CD0];
   v4 = v3;
   dispatch_assert_queue_V2(v4);
-  MEMORY[0x277D82BD8](v4);
   delegate = [(WOWorkoutDevicePairedWatchController *)self delegate];
   [(WOWorkoutDevicePairedWatchControllerDelegate *)delegate workoutDevicePairedWatchControllerDidUpdateStatus:[(WOWorkoutDevicePairedWatchController *)self _main_calculateUnlockedAndOnWristState]];
   MEMORY[0x277D82BD8](delegate);

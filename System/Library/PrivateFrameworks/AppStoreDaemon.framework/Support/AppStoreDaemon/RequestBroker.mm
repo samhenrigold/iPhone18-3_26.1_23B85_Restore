@@ -64,7 +64,7 @@ LABEL_3:
       v49 = 0u;
       if (connectionCopy)
       {
-        [v9 auditToken];
+        objc_msgSend_auditToken(v9);
       }
 
       *token = *location;

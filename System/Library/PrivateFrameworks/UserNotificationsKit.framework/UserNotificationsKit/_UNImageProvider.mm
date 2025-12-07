@@ -8,7 +8,7 @@
 
 + (id)imageDataForContentURL:(id)l
 {
-  NCRegisterUserNotificationsUILogging();
+  NCRegisterUserNotificationsUILogging(self, a2);
   v3 = NCUILogCommunicationNotifications;
   if (os_log_type_enabled(NCUILogCommunicationNotifications, OS_LOG_TYPE_ERROR))
   {
@@ -20,7 +20,7 @@
 
 + (id)generateEphemeralContactsForImageRenderingWithContext:(id)context bundleIdentifier:(id)identifier descriptorForRequiredKeys:(id)keys
 {
-  NCRegisterUserNotificationsUILogging();
+  NCRegisterUserNotificationsUILogging(self, a2);
   v5 = NCUILogCommunicationNotifications;
   if (os_log_type_enabled(NCUILogCommunicationNotifications, OS_LOG_TYPE_ERROR))
   {
@@ -32,7 +32,7 @@
 
 + (id)generateEphemeralContactsForImageRenderingWithContext:(id)context descriptorForRequiredKeys:(id)keys
 {
-  NCRegisterUserNotificationsUILogging();
+  NCRegisterUserNotificationsUILogging(self, a2);
   v4 = NCUILogCommunicationNotifications;
   if (os_log_type_enabled(NCUILogCommunicationNotifications, OS_LOG_TYPE_ERROR))
   {

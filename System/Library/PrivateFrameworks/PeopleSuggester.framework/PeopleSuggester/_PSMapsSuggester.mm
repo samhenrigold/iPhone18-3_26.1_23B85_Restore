@@ -31,7 +31,7 @@
 
 - (void)provideMapsFeedback:(id)feedback
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   feedbackCopy = feedback;
   action = [feedbackCopy action];
   type = [action type];
@@ -83,9 +83,9 @@ LABEL_8:
       action2 = [feedbackCopy action];
       transportBundleID = [action2 transportBundleID];
       *buf = 138412546;
-      v17 = v10;
-      v18 = 2112;
-      v19 = transportBundleID;
+      v16 = v10;
+      v17 = 2112;
+      v18 = transportBundleID;
       _os_log_impl(&dword_1B5ED1000, v6, OS_LOG_TYPE_INFO, "Feedback for maps suggestions: Engagement with suggestion at index %@, transport: %@", buf, 0x16u);
     }
 
@@ -113,11 +113,9 @@ LABEL_8:
 LABEL_18:
 
   [feedbackCopy donateToBiome];
-  v15 = feedbackCopy;
+  v14 = feedbackCopy;
   v13 = feedbackCopy;
   AnalyticsSendEventLazy();
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)deleteMapsFeedbackEventsMatchingHandle:(id)handle contactId:(id)id startLocationId:(id)locationId endLocationId:(id)endLocationId

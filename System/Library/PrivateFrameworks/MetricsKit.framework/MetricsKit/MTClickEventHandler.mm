@@ -8,7 +8,7 @@
 
 - (id)knownFields
 {
-  v11[9] = *MEMORY[0x277D85DE8];
+  v10[9] = *MEMORY[0x277D85DE8];
   delegate = [(MTEventDataProvider *)self delegate];
   v4 = objc_opt_respondsToSelector();
 
@@ -20,23 +20,21 @@
 
   else
   {
-    v10.receiver = self;
-    v10.super_class = MTClickEventHandler;
-    delegate2 = [(MTImpressionableEventHandler *)&v10 knownFields];
-    v11[0] = @"actionContext";
-    v11[1] = @"actionDetails";
-    v11[2] = @"actionType";
-    v11[3] = @"actionUrl";
-    v11[4] = @"location";
-    v11[5] = @"targetId";
-    v11[6] = @"targetType";
-    v11[7] = @"positionX";
-    v11[8] = @"positionY";
-    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:9];
+    v9.receiver = self;
+    v9.super_class = MTClickEventHandler;
+    delegate2 = [(MTImpressionableEventHandler *)&v9 knownFields];
+    v10[0] = @"actionContext";
+    v10[1] = @"actionDetails";
+    v10[2] = @"actionType";
+    v10[3] = @"actionUrl";
+    v10[4] = @"location";
+    v10[5] = @"targetId";
+    v10[6] = @"targetType";
+    v10[7] = @"positionX";
+    v10[8] = @"positionY";
+    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:9];
     knownFields = [delegate2 arrayByAddingObjectsFromArray:v7];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return knownFields;
 }

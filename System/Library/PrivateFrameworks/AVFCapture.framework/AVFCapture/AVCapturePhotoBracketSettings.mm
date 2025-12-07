@@ -23,17 +23,17 @@
 
 + (AVCapturePhotoBracketSettings)photoBracketSettingsWithRawPixelFormatType:(OSType)rawPixelFormatType processedFormat:(NSDictionary *)processedFormat bracketedSettings:(NSArray *)bracketedSettings
 {
-  v9 = 0;
-  v5 = [objc_alloc(objc_opt_class()) _initWithFormat:processedFormat processedFileType:0 rawPixelFormatType:*&rawPixelFormatType rawFileType:0 bracketedSettings:bracketedSettings uniqueID:0 exceptionReason:&v9];
+  v11 = 0;
+  v5 = [objc_alloc(objc_opt_class()) _initWithFormat:processedFormat processedFileType:0 rawPixelFormatType:*&rawPixelFormatType rawFileType:0 bracketedSettings:bracketedSettings uniqueID:0 exceptionReason:&v11];
   v6 = v5;
-  if (!v9)
+  if (!v11)
   {
     return v5;
   }
 
   v7 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
 
-  if (AVCaptureShouldThrowForAPIViolations())
+  if (AVCaptureShouldThrowForAPIViolations(v8, v9))
   {
     objc_exception_throw(v7);
   }
@@ -44,17 +44,17 @@
 
 + (AVCapturePhotoBracketSettings)photoBracketSettingsWithRawPixelFormatType:(OSType)rawPixelFormatType rawFileType:(AVFileType)rawFileType processedFormat:(NSDictionary *)processedFormat processedFileType:(AVFileType)processedFileType bracketedSettings:(NSArray *)bracketedSettings
 {
-  v11 = 0;
-  v7 = [objc_alloc(objc_opt_class()) _initWithFormat:processedFormat processedFileType:processedFileType rawPixelFormatType:*&rawPixelFormatType rawFileType:rawFileType bracketedSettings:bracketedSettings uniqueID:0 exceptionReason:&v11];
+  v13 = 0;
+  v7 = [objc_alloc(objc_opt_class()) _initWithFormat:processedFormat processedFileType:processedFileType rawPixelFormatType:*&rawPixelFormatType rawFileType:rawFileType bracketedSettings:bracketedSettings uniqueID:0 exceptionReason:&v13];
   v8 = v7;
-  if (!v11)
+  if (!v13)
   {
     return v7;
   }
 
   v9 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
 
-  if (AVCaptureShouldThrowForAPIViolations())
+  if (AVCaptureShouldThrowForAPIViolations(v10, v11))
   {
     objc_exception_throw(v9);
   }
@@ -212,7 +212,7 @@ LABEL_18:
   if (mode)
   {
     v3 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-    if (AVCaptureShouldThrowForAPIViolations())
+    if (AVCaptureShouldThrowForAPIViolations(v3, v4))
     {
       objc_exception_throw(v3);
     }
@@ -222,9 +222,9 @@ LABEL_18:
 
   else
   {
-    v4.receiver = self;
-    v4.super_class = AVCapturePhotoBracketSettings;
-    [(AVCapturePhotoSettings *)&v4 setFlashMode:?];
+    v5.receiver = self;
+    v5.super_class = AVCapturePhotoBracketSettings;
+    [(AVCapturePhotoSettings *)&v5 setFlashMode:?];
   }
 }
 
@@ -233,7 +233,7 @@ LABEL_18:
   if (enabled)
   {
     v3 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-    if (AVCaptureShouldThrowForAPIViolations())
+    if (AVCaptureShouldThrowForAPIViolations(v3, v4))
     {
       objc_exception_throw(v3);
     }
@@ -243,9 +243,9 @@ LABEL_18:
 
   else
   {
-    v4.receiver = self;
-    v4.super_class = AVCapturePhotoBracketSettings;
-    [(AVCapturePhotoSettings *)&v4 setAutoRedEyeReductionEnabled:?];
+    v5.receiver = self;
+    v5.super_class = AVCapturePhotoBracketSettings;
+    [(AVCapturePhotoSettings *)&v5 setAutoRedEyeReductionEnabled:?];
   }
 }
 
@@ -254,7 +254,7 @@ LABEL_18:
   if (mode)
   {
     v3 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-    if (AVCaptureShouldThrowForAPIViolations())
+    if (AVCaptureShouldThrowForAPIViolations(v3, v4))
     {
       objc_exception_throw(v3);
     }
@@ -264,9 +264,9 @@ LABEL_18:
 
   else
   {
-    v4.receiver = self;
-    v4.super_class = AVCapturePhotoBracketSettings;
-    [(AVCapturePhotoSettings *)&v4 setHDRMode:?];
+    v5.receiver = self;
+    v5.super_class = AVCapturePhotoBracketSettings;
+    [(AVCapturePhotoSettings *)&v5 setHDRMode:?];
   }
 }
 
@@ -275,7 +275,7 @@ LABEL_18:
   if (enabled)
   {
     v3 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-    if (AVCaptureShouldThrowForAPIViolations())
+    if (AVCaptureShouldThrowForAPIViolations(v3, v4))
     {
       objc_exception_throw(v3);
     }
@@ -285,9 +285,9 @@ LABEL_18:
 
   else
   {
-    v4.receiver = self;
-    v4.super_class = AVCapturePhotoBracketSettings;
-    [(AVCapturePhotoSettings *)&v4 setEV0PhotoDeliveryEnabled:?];
+    v5.receiver = self;
+    v5.super_class = AVCapturePhotoBracketSettings;
+    [(AVCapturePhotoSettings *)&v5 setEV0PhotoDeliveryEnabled:?];
   }
 }
 
@@ -296,7 +296,7 @@ LABEL_18:
   if (enabled)
   {
     v3 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-    if (AVCaptureShouldThrowForAPIViolations())
+    if (AVCaptureShouldThrowForAPIViolations(v3, v4))
     {
       objc_exception_throw(v3);
     }
@@ -306,9 +306,9 @@ LABEL_18:
 
   else
   {
-    v4.receiver = self;
-    v4.super_class = AVCapturePhotoBracketSettings;
-    [(AVCapturePhotoSettings *)&v4 setAutoStillImageStabilizationEnabled:?];
+    v5.receiver = self;
+    v5.super_class = AVCapturePhotoBracketSettings;
+    [(AVCapturePhotoSettings *)&v5 setAutoStillImageStabilizationEnabled:?];
   }
 }
 
@@ -317,7 +317,7 @@ LABEL_18:
   if (enabled)
   {
     v3 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-    if (AVCaptureShouldThrowForAPIViolations())
+    if (AVCaptureShouldThrowForAPIViolations(v3, v4))
     {
       objc_exception_throw(v3);
     }
@@ -327,9 +327,9 @@ LABEL_18:
 
   else
   {
-    v4.receiver = self;
-    v4.super_class = AVCapturePhotoBracketSettings;
-    [(AVCapturePhotoSettings *)&v4 setAutoVirtualDeviceFusionEnabled:?];
+    v5.receiver = self;
+    v5.super_class = AVCapturePhotoBracketSettings;
+    [(AVCapturePhotoSettings *)&v5 setAutoVirtualDeviceFusionEnabled:?];
   }
 }
 
@@ -338,7 +338,7 @@ LABEL_18:
   if (enabled)
   {
     v3 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-    if (AVCaptureShouldThrowForAPIViolations())
+    if (AVCaptureShouldThrowForAPIViolations(v3, v4))
     {
       objc_exception_throw(v3);
     }
@@ -348,9 +348,9 @@ LABEL_18:
 
   else
   {
-    v4.receiver = self;
-    v4.super_class = AVCapturePhotoBracketSettings;
-    [(AVCapturePhotoSettings *)&v4 setAutoDualCameraFusionEnabled:?];
+    v5.receiver = self;
+    v5.super_class = AVCapturePhotoBracketSettings;
+    [(AVCapturePhotoSettings *)&v5 setAutoDualCameraFusionEnabled:?];
   }
 }
 
@@ -359,7 +359,7 @@ LABEL_18:
   if (l)
   {
     v3 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-    if (AVCaptureShouldThrowForAPIViolations())
+    if (AVCaptureShouldThrowForAPIViolations(v3, v4))
     {
       objc_exception_throw(v3);
     }
@@ -369,9 +369,9 @@ LABEL_18:
 
   else
   {
-    v4.receiver = self;
-    v4.super_class = AVCapturePhotoBracketSettings;
-    [(AVCapturePhotoSettings *)&v4 setLivePhotoMovieFileURL:?];
+    v5.receiver = self;
+    v5.super_class = AVCapturePhotoBracketSettings;
+    [(AVCapturePhotoSettings *)&v5 setLivePhotoMovieFileURL:?];
   }
 }
 
@@ -380,7 +380,7 @@ LABEL_18:
   if (photo)
   {
     v3 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-    if (AVCaptureShouldThrowForAPIViolations())
+    if (AVCaptureShouldThrowForAPIViolations(v3, v4))
     {
       objc_exception_throw(v3);
     }
@@ -390,9 +390,9 @@ LABEL_18:
 
   else
   {
-    v4.receiver = self;
-    v4.super_class = AVCapturePhotoBracketSettings;
-    [(AVCapturePhotoSettings *)&v4 setLivePhotoMovieFileURLForOriginalPhoto:?];
+    v5.receiver = self;
+    v5.super_class = AVCapturePhotoBracketSettings;
+    [(AVCapturePhotoSettings *)&v5 setLivePhotoMovieFileURLForOriginalPhoto:?];
   }
 }
 
@@ -401,7 +401,7 @@ LABEL_18:
   if (metadata)
   {
     v3 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-    if (AVCaptureShouldThrowForAPIViolations())
+    if (AVCaptureShouldThrowForAPIViolations(v3, v4))
     {
       objc_exception_throw(v3);
     }
@@ -411,9 +411,9 @@ LABEL_18:
 
   else
   {
-    v4.receiver = self;
-    v4.super_class = AVCapturePhotoBracketSettings;
-    [(AVCapturePhotoSettings *)&v4 setLivePhotoMovieMetadata:?];
+    v5.receiver = self;
+    v5.super_class = AVCapturePhotoBracketSettings;
+    [(AVCapturePhotoSettings *)&v5 setLivePhotoMovieMetadata:?];
   }
 }
 
@@ -422,7 +422,7 @@ LABEL_18:
   if (photo)
   {
     v3 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-    if (AVCaptureShouldThrowForAPIViolations())
+    if (AVCaptureShouldThrowForAPIViolations(v3, v4))
     {
       objc_exception_throw(v3);
     }
@@ -432,9 +432,9 @@ LABEL_18:
 
   else
   {
-    v4.receiver = self;
-    v4.super_class = AVCapturePhotoBracketSettings;
-    [(AVCapturePhotoSettings *)&v4 setLivePhotoMovieMetadataForOriginalPhoto:?];
+    v5.receiver = self;
+    v5.super_class = AVCapturePhotoBracketSettings;
+    [(AVCapturePhotoSettings *)&v5 setLivePhotoMovieMetadataForOriginalPhoto:?];
   }
 }
 

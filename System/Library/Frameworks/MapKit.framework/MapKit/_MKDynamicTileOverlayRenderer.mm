@@ -81,7 +81,7 @@
     v12 = v8;
     do
     {
-      [(_MKDynamicTileOverlayRenderer *)self _keyToTilePath:bytes];
+      objc_msgSend__keyToTilePath_(self);
       *v11 = v13;
       v11[1] = v14;
       v11 += 2;
@@ -101,7 +101,7 @@
   fallbackCopy = fallback;
   v8 = 0u;
   v9 = 0u;
-  [(_MKDynamicTileOverlayRenderer *)self _keyToTilePath:key];
+  objc_msgSend__keyToTilePath_(self, a2, key);
   v7[0] = v8;
   v7[1] = v9;
   [(_MKDynamicTileOverlayRenderer *)self didEnterTile:v7 withFallback:fallbackCopy];
@@ -111,7 +111,7 @@
 {
   v6 = 0u;
   v7 = 0u;
-  [(_MKDynamicTileOverlayRenderer *)self _keyToTilePath:key];
+  objc_msgSend__keyToTilePath_(self, a2, key);
   v5[0] = v6;
   v5[1] = v7;
   [(_MKDynamicTileOverlayRenderer *)self didExitTile:v5];
@@ -122,46 +122,46 @@
   v10 = 0u;
   v11 = 0u;
   dataCopy = data;
-  [(_MKDynamicTileOverlayRenderer *)self _keyToTilePath:key];
+  objc_msgSend__keyToTilePath_(self);
   v9[0] = v10;
   v9[1] = v11;
-  LOBYTE(key) = [(_MKDynamicTileOverlayRenderer *)self canDrawKey:v9 withTile:dataCopy];
+  v7 = [(_MKDynamicTileOverlayRenderer *)self canDrawKey:v9 withTile:dataCopy];
 
-  return key;
+  return v7;
 }
 
 - (void)overlay:(id)overlay drawKey:(id *)key withData:(id)data inIOSurface:(__IOSurface *)surface withTimestamp:(double)timestamp withTileScale:(float)scale
 {
+  v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   dataCopy = data;
-  [(_MKDynamicTileOverlayRenderer *)self _keyToTilePath:key];
-  v14[0] = v15;
-  v14[1] = v16;
-  [(_MKDynamicTileOverlayRenderer *)self drawTileAtPath:v14 withTile:dataCopy inIOSurface:surface withTimestamp:timestamp withTileScale:COERCE_DOUBLE(__PAIR64__(DWORD1(v16), LODWORD(scale)))];
+  objc_msgSend__keyToTilePath_(self);
+  v13[0] = v14;
+  v13[1] = v15;
+  [(_MKDynamicTileOverlayRenderer *)self drawTileAtPath:v13 withTile:dataCopy inIOSurface:surface withTimestamp:timestamp withTileScale:COERCE_DOUBLE(__PAIR64__(DWORD1(v15), LODWORD(scale)))];
 }
 
 - (void)overlay:(id)overlay drawKey:(id *)key withData:(id)data inTexture:(id)texture withTimestamp:(double)timestamp withTileScale:(float)scale
 {
+  v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   textureCopy = texture;
   dataCopy = data;
-  [(_MKDynamicTileOverlayRenderer *)self _keyToTilePath:key];
-  v15[0] = v16;
-  v15[1] = v17;
-  [(_MKDynamicTileOverlayRenderer *)self drawTileAtPath:v15 withTile:dataCopy inTexture:textureCopy withTimestamp:timestamp withTileScale:COERCE_DOUBLE(__PAIR64__(DWORD1(v17), LODWORD(scale)))];
+  objc_msgSend__keyToTilePath_(self);
+  v14[0] = v15;
+  v14[1] = v16;
+  [(_MKDynamicTileOverlayRenderer *)self drawTileAtPath:v14 withTile:dataCopy inTexture:textureCopy withTimestamp:timestamp withTileScale:COERCE_DOUBLE(__PAIR64__(DWORD1(v16), LODWORD(scale)))];
 }
 
 - (void)overlay:(id)overlay drawKey:(id *)key withData:(id)data inIOSurface:(__IOSurface *)surface withTimestamp:(double)timestamp
 {
+  v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   dataCopy = data;
-  [(_MKDynamicTileOverlayRenderer *)self _keyToTilePath:key];
-  v12[0] = v13;
-  v12[1] = v14;
-  [(_MKDynamicTileOverlayRenderer *)self drawTileAtPath:v12 withTile:dataCopy inIOSurface:surface withTimestamp:timestamp];
+  objc_msgSend__keyToTilePath_(self);
+  v11[0] = v12;
+  v11[1] = v13;
+  [(_MKDynamicTileOverlayRenderer *)self drawTileAtPath:v11 withTile:dataCopy inIOSurface:surface withTimestamp:timestamp];
 }
 
 - (void)setForceContinuousLayout:(BOOL)layout

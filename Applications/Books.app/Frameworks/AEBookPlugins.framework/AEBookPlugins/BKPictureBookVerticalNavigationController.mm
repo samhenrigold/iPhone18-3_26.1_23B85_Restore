@@ -84,35 +84,37 @@
 
 - (void)viewIsAppearing:(BOOL)appearing
 {
-  v11.receiver = self;
-  v11.super_class = BKPictureBookVerticalNavigationController;
-  [(BKPictureBookVerticalNavigationController *)&v11 viewIsAppearing:appearing];
+  v12.receiver = self;
+  v12.super_class = BKPictureBookVerticalNavigationController;
+  [(BKPictureBookVerticalNavigationController *)&v12 viewIsAppearing:appearing];
   delegate = [(BKPictureBookVerticalNavigationController *)self delegate];
   transitionLocationForNavigationController = [delegate transitionLocationForNavigationController];
 
   currentPageNumber = [(BKPictureBookVerticalNavigationController *)self currentPageNumber];
   objc_opt_class();
-  v7 = BUDynamicCast();
-  if (v7)
+  pageOffset = BUDynamicCast();
+  v8 = pageOffset;
+  if (pageOffset)
   {
-    v8 = _AECaptureLocationLog();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = _AECaptureLocationLog(pageOffset);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v13 = v7;
-      _os_log_impl(&dword_0, v8, OS_LOG_TYPE_DEFAULT, "#PictureBookVerticalNVC viewWillAppear using location:%@", buf, 0xCu);
+      v14 = v8;
+      _os_log_impl(&dword_0, v9, OS_LOG_TYPE_DEFAULT, "#PictureBookVerticalNVC viewWillAppear using location:%@", buf, 0xCu);
     }
 
-    ordinal = [v7 ordinal];
-    currentPageNumber = [v7 pageOffset] + ordinal + 1;
+    ordinal = [v8 ordinal];
+    pageOffset = [v8 pageOffset];
+    currentPageNumber = pageOffset + ordinal + 1;
   }
 
-  v10 = _AECaptureLocationLog();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v11 = _AECaptureLocationLog(pageOffset);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v13 = currentPageNumber;
-    _os_log_impl(&dword_0, v10, OS_LOG_TYPE_DEFAULT, "#PictureBookVerticalNVC viewWillAppear transitioning to page number: %lu", buf, 0xCu);
+    v14 = currentPageNumber;
+    _os_log_impl(&dword_0, v11, OS_LOG_TYPE_DEFAULT, "#PictureBookVerticalNVC viewWillAppear transitioning to page number: %lu", buf, 0xCu);
   }
 
   [(BKPictureBookVerticalNavigationController *)self setPageNumberBeforeTransition:currentPageNumber];
@@ -875,21 +877,22 @@ LABEL_4:
   v11 = v10;
   v13 = v12;
   5000 = [(UIView *)self->_pagesContainerView viewWithTag:number + 5000];
-  v21[0] = _NSConcreteStackBlock;
-  v21[1] = 3221225472;
-  v21[2] = sub_F7E94;
-  v21[3] = &unk_1E5DC0;
-  v21[4] = self;
-  v21[5] = number;
-  v14 = objc_retainBlock(v21);
+  v22[0] = _NSConcreteStackBlock;
+  v22[1] = 3221225472;
+  v22[2] = sub_F7E94;
+  v22[3] = &unk_1E5DC0;
+  v22[4] = self;
+  v22[5] = number;
+  v14 = objc_retainBlock(v22);
+  v15 = v14;
   if (!5000)
   {
-    v19 = _AEWKPictureBookLog();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+    v20 = _AEWKPictureBookLog(v14);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
       numberCopy = number;
-      _os_log_impl(&dword_0, v19, OS_LOG_TYPE_DEFAULT, "Creating View for page %lu", buf, 0xCu);
+      _os_log_impl(&dword_0, v20, OS_LOG_TYPE_DEFAULT, "Creating View for page %lu", buf, 0xCu);
     }
 
     5000 = [[BKPictureBookPageContainerView alloc] initWithFrame:v11, v13, v7, v9];
@@ -901,19 +904,19 @@ LABEL_4:
   }
 
   [(BKPictureBookPageContainerView *)5000 frame];
-  v26.origin.x = v15;
-  v26.origin.y = v16;
-  v26.size.width = v17;
-  v26.size.height = v18;
-  v25.origin.x = v11;
-  v25.origin.y = v13;
-  v25.size.width = v7;
-  v25.size.height = v9;
-  if (!CGRectEqualToRect(v25, v26))
+  v27.origin.x = v16;
+  v27.origin.y = v17;
+  v27.size.width = v18;
+  v27.size.height = v19;
+  v26.origin.x = v11;
+  v26.origin.y = v13;
+  v26.size.width = v7;
+  v26.size.height = v9;
+  if (!CGRectEqualToRect(v26, v27))
   {
     [(BKPictureBookPageContainerView *)5000 setFrame:v11, v13, v7, v9];
 LABEL_9:
-    (v14[2])(v14, 5000);
+    (v15)[2](v15, 5000);
   }
 
 LABEL_11:
@@ -1113,33 +1116,33 @@ LABEL_15:
 - (id)snapshotCurrentPageInContext
 {
   v2 = [(BKPictureBookVerticalNavigationController *)self viewForPageNumber:[(BKPictureBookVerticalNavigationController *)self currentPageNumber]];
-  [v2 bounds];
-  if (v3 <= 0.0 || (v5 = v4, v4 <= 0.0))
+  bounds = [v2 bounds];
+  if (v4 <= 0.0 || (v6 = v5, v5 <= 0.0))
   {
-    v7 = _AEWKPictureBookLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = _AEWKPictureBookLog(bounds);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      *v11 = 0;
-      _os_log_impl(&dword_0, v7, OS_LOG_TYPE_ERROR, "Snapshotting a CGSizeZero view", v11, 2u);
+      *v12 = 0;
+      _os_log_impl(&dword_0, v8, OS_LOG_TYPE_ERROR, "Snapshotting a CGSizeZero view", v12, 2u);
     }
 
-    v9 = 0;
+    v10 = 0;
   }
 
   else
   {
-    v6 = v3;
-    v7 = +[UIGraphicsImageRendererFormat preferredFormat];
-    v8 = [[UIGraphicsImageRenderer alloc] initWithSize:v7 format:{v6, v5}];
-    v12[0] = _NSConcreteStackBlock;
-    v12[1] = 3221225472;
-    v12[2] = sub_F8504;
-    v12[3] = &unk_1E5DE8;
-    v13 = v2;
-    v9 = [v8 imageWithActions:v12];
+    v7 = v4;
+    v8 = +[UIGraphicsImageRendererFormat preferredFormat];
+    v9 = [[UIGraphicsImageRenderer alloc] initWithSize:v8 format:{v7, v6}];
+    v13[0] = _NSConcreteStackBlock;
+    v13[1] = 3221225472;
+    v13[2] = sub_F8504;
+    v13[3] = &unk_1E5DE8;
+    v14 = v2;
+    v10 = [v9 imageWithActions:v13];
   }
 
-  return v9;
+  return v10;
 }
 
 - (void)contentViewImage:(BOOL)image afterScreenUpdates:(BOOL)updates completion:(id)completion
@@ -1502,23 +1505,23 @@ LABEL_14:
 
     if (v8 < BEWebViewMinimumZoomScale)
     {
-      v9 = v8 / BEWebViewMinimumZoomScale;
-      v10 = _AEWKPictureBookLog();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+      v10 = v8 / BEWebViewMinimumZoomScale;
+      v11 = _AEWKPictureBookLog(v9);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
       {
         LODWORD(buf.a) = 134218240;
-        *(&buf.a + 4) = v9;
+        *(&buf.a + 4) = v10;
         WORD2(buf.b) = 2048;
         *(&buf.b + 6) = [v4 ordinal];
-        _os_log_impl(&dword_0, v10, OS_LOG_TYPE_INFO, "{WebViewLifeCycle} Applying additional scale:%f for ordinal:%lu", &buf, 0x16u);
+        _os_log_impl(&dword_0, v11, OS_LOG_TYPE_INFO, "{WebViewLifeCycle} Applying additional scale:%f for ordinal:%lu", &buf, 0x16u);
       }
 
       memset(&buf, 0, sizeof(buf));
-      CGAffineTransformMakeScale(&buf, v9, v9);
-      v13 = buf;
+      CGAffineTransformMakeScale(&buf, v10, v10);
+      v14 = buf;
       view = [v4 view];
-      v12 = v13;
-      [view setTransform:&v12];
+      v13 = v14;
+      [view setTransform:&v13];
     }
   }
 }

@@ -27,13 +27,14 @@ void __102__PHMediaProcessingAlgorithmVersionProvider_MediaAnalysis__mad_sharedV
 
   v4 = objc_alloc(*(a1 + 40));
   v5 = VCPPhotosSceneProcessingVersionInternal();
-  HIDWORD(v9) = v2;
-  WORD1(v9) = v3;
-  LOWORD(v9) = 75;
-  LOWORD(v8) = VCPPhotosPECProcessingVersion;
-  v6 = [v4 initWithSceneAnalysisVersion:v5 faceAnalysisVersion:objc_msgSend(*(a1 + 32) characterRecognitionAlgorithmVersion:"mad_faceProcessingInternalVersion") visualSearchAlgorithmVersion:VCPPhotosOCRProcessingVersion stickerConfidenceAlgorithmVersion:VCPPhotosVisualSearchAlgorithmVersion() vaAnalysisVersion:1 vaLocationAnalysisVersion:v8 mediaAnalysisVersion:75 mediaAnalysisImageVersion:v9 captionGenerationVersion:? imageEmbeddingVersion:? videoEmbeddingVersion:?];
-  v7 = +[PHMediaProcessingAlgorithmVersionProvider(MediaAnalysis) mad_sharedVersionProviderWithPhotoLibrary:]::instance;
-  +[PHMediaProcessingAlgorithmVersionProvider(MediaAnalysis) mad_sharedVersionProviderWithPhotoLibrary:]::instance = v6;
+  v6 = [*(a1 + 32) mad_faceProcessingInternalVersion];
+  HIDWORD(v11) = v2;
+  WORD1(v11) = v3;
+  LOWORD(v11) = 75;
+  LOWORD(v10) = VCPPhotosPECProcessingVersion;
+  v8 = [v4 initWithSceneAnalysisVersion:v5 faceAnalysisVersion:v6 characterRecognitionAlgorithmVersion:VCPPhotosOCRProcessingVersion visualSearchAlgorithmVersion:VCPPhotosVisualSearchAlgorithmVersion(v6 stickerConfidenceAlgorithmVersion:v7) vaAnalysisVersion:1 vaLocationAnalysisVersion:v10 mediaAnalysisVersion:75 mediaAnalysisImageVersion:v11 captionGenerationVersion:? imageEmbeddingVersion:? videoEmbeddingVersion:?];
+  v9 = +[PHMediaProcessingAlgorithmVersionProvider(MediaAnalysis) mad_sharedVersionProviderWithPhotoLibrary:]::instance;
+  +[PHMediaProcessingAlgorithmVersionProvider(MediaAnalysis) mad_sharedVersionProviderWithPhotoLibrary:]::instance = v8;
 }
 
 void __116__PHMediaProcessingAlgorithmVersionProvider_MediaAnalysis__mad_sharedImageEmbeddingVersionProviderWithPhotoLibrary___block_invoke(uint64_t a1)

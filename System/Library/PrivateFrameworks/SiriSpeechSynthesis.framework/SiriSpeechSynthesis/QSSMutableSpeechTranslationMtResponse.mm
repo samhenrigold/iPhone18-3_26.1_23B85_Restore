@@ -4,13 +4,21 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (int)return_code;
 - (void)setConversation_id:(id)conversation_id;
+- (void)setIs_final:(BOOL)is_final;
 - (void)setN_best_translated_phrases:(id)n_best_translated_phrases;
 - (void)setRequest_id:(id)request_id;
+- (void)setReturn_code:(int)return_code;
 - (void)setReturn_str:(id)return_str;
 - (void)setTranslation_locale_pair:(id)translation_locale_pair;
 @end
 
 @implementation QSSMutableSpeechTranslationMtResponse
+
+- (void)setIs_final:(BOOL)is_final
+{
+  v4 = [objc_alloc(MEMORY[0x277CCABB0]) initWithBool:is_final];
+  [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
+}
 
 - (BOOL)is_final
 {
@@ -35,6 +43,12 @@
 - (void)setReturn_str:(id)return_str
 {
   v4 = [return_str copy];
+  [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
+}
+
+- (void)setReturn_code:(int)return_code
+{
+  v4 = [objc_alloc(MEMORY[0x277CCABB0]) initWithInt:*&return_code];
   [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
 }
 

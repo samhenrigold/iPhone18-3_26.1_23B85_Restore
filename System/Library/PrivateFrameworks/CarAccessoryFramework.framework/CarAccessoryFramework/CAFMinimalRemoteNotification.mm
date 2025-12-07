@@ -25,7 +25,9 @@
 - (NSString)userVisibleLabel;
 - (id)name;
 - (unsigned)trailingButtonState;
+- (void)_characteristicDidUpdate:(id)update fromGroupUpdate:(BOOL)groupUpdate;
 - (void)registerObserver:(id)observer;
+- (void)setTrailingButtonState:(unsigned __int8)state;
 - (void)unregisterObserver:(id)observer;
 @end
 
@@ -380,6 +382,196 @@
   buttonActionValue = [trailingButtonStateCharacteristic buttonActionValue];
 
   return buttonActionValue;
+}
+
+- (void)setTrailingButtonState:(unsigned __int8)state
+{
+  stateCopy = state;
+  trailingButtonStateCharacteristic = [(CAFMinimalRemoteNotification *)self trailingButtonStateCharacteristic];
+  [trailingButtonStateCharacteristic setButtonActionValue:stateCopy];
+}
+
+- (void)_characteristicDidUpdate:(id)update fromGroupUpdate:(BOOL)groupUpdate
+{
+  groupUpdateCopy = groupUpdate;
+  updateCopy = update;
+  characteristicType = [updateCopy characteristicType];
+  if ([characteristicType isEqual:@"0x0000000030000001"])
+  {
+    uniqueIdentifier = [updateCopy uniqueIdentifier];
+    userVisibleLabelCharacteristic = [(CAFMinimalRemoteNotification *)self userVisibleLabelCharacteristic];
+    uniqueIdentifier2 = [userVisibleLabelCharacteristic uniqueIdentifier];
+    v11 = [uniqueIdentifier isEqual:uniqueIdentifier2];
+
+    if (v11)
+    {
+      observers = [(CAFService *)self observers];
+      userVisibleLabel = [(CAFMinimalRemoteNotification *)self userVisibleLabel];
+      [observers minimalRemoteNotificationService:self didUpdateUserVisibleLabel:userVisibleLabel];
+LABEL_25:
+
+      goto LABEL_26;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType2 = [updateCopy characteristicType];
+  if ([characteristicType2 isEqual:@"0x0000000030000005"])
+  {
+    uniqueIdentifier3 = [updateCopy uniqueIdentifier];
+    userVisibleDescriptionCharacteristic = [(CAFMinimalRemoteNotification *)self userVisibleDescriptionCharacteristic];
+    uniqueIdentifier4 = [userVisibleDescriptionCharacteristic uniqueIdentifier];
+    v18 = [uniqueIdentifier3 isEqual:uniqueIdentifier4];
+
+    if (v18)
+    {
+      observers = [(CAFService *)self observers];
+      userVisibleLabel = [(CAFMinimalRemoteNotification *)self userVisibleDescription];
+      [observers minimalRemoteNotificationService:self didUpdateUserVisibleDescription:userVisibleLabel];
+      goto LABEL_25;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType3 = [updateCopy characteristicType];
+  if ([characteristicType3 isEqual:@"0x0000000030000019"])
+  {
+    uniqueIdentifier5 = [updateCopy uniqueIdentifier];
+    identifierCharacteristic = [(CAFMinimalRemoteNotification *)self identifierCharacteristic];
+    uniqueIdentifier6 = [identifierCharacteristic uniqueIdentifier];
+    v23 = [uniqueIdentifier5 isEqual:uniqueIdentifier6];
+
+    if (v23)
+    {
+      observers2 = [(CAFService *)self observers];
+      identifier = [(CAFMinimalRemoteNotification *)self identifier];
+      [observers2 minimalRemoteNotificationService:self didUpdateIdentifier:identifier];
+LABEL_24:
+
+      observers = [(CAFService *)self observers];
+      userVisibleLabel = [(CAFMinimalRemoteNotification *)self name];
+      [observers minimalRemoteNotificationService:self didUpdateName:userVisibleLabel];
+      goto LABEL_25;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType4 = [updateCopy characteristicType];
+  if ([characteristicType4 isEqual:@"0x0000000037000008"])
+  {
+    uniqueIdentifier7 = [updateCopy uniqueIdentifier];
+    symbolNameAndColorCharacteristic = [(CAFMinimalRemoteNotification *)self symbolNameAndColorCharacteristic];
+    uniqueIdentifier8 = [symbolNameAndColorCharacteristic uniqueIdentifier];
+    v30 = [uniqueIdentifier7 isEqual:uniqueIdentifier8];
+
+    if (v30)
+    {
+      observers = [(CAFService *)self observers];
+      userVisibleLabel = [(CAFMinimalRemoteNotification *)self symbolNameAndColor];
+      [observers minimalRemoteNotificationService:self didUpdateSymbolNameAndColor:userVisibleLabel];
+      goto LABEL_25;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType5 = [updateCopy characteristicType];
+  if ([characteristicType5 isEqual:@"0x0000000037000007"])
+  {
+    uniqueIdentifier9 = [updateCopy uniqueIdentifier];
+    displayPanelIdentifierCharacteristic = [(CAFMinimalRemoteNotification *)self displayPanelIdentifierCharacteristic];
+    uniqueIdentifier10 = [displayPanelIdentifierCharacteristic uniqueIdentifier];
+    v35 = [uniqueIdentifier9 isEqual:uniqueIdentifier10];
+
+    if (v35)
+    {
+      observers2 = [(CAFService *)self observers];
+      identifier = [(CAFMinimalRemoteNotification *)self displayPanelIdentifier];
+      [observers2 minimalRemoteNotificationService:self didUpdateDisplayPanelIdentifier:identifier];
+      goto LABEL_24;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType6 = [updateCopy characteristicType];
+  if ([characteristicType6 isEqual:@"0x000000003700000B"])
+  {
+    uniqueIdentifier11 = [updateCopy uniqueIdentifier];
+    displayZoneIdentifierCharacteristic = [(CAFMinimalRemoteNotification *)self displayZoneIdentifierCharacteristic];
+    uniqueIdentifier12 = [displayZoneIdentifierCharacteristic uniqueIdentifier];
+    v40 = [uniqueIdentifier11 isEqual:uniqueIdentifier12];
+
+    if (v40)
+    {
+      observers2 = [(CAFService *)self observers];
+      identifier = [(CAFMinimalRemoteNotification *)self displayZoneIdentifier];
+      [observers2 minimalRemoteNotificationService:self didUpdateDisplayZoneIdentifier:identifier];
+      goto LABEL_24;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType7 = [updateCopy characteristicType];
+  if ([characteristicType7 isEqual:@"0x000000003700000C"])
+  {
+    uniqueIdentifier13 = [updateCopy uniqueIdentifier];
+    trailingButtonCharacteristic = [(CAFMinimalRemoteNotification *)self trailingButtonCharacteristic];
+    uniqueIdentifier14 = [trailingButtonCharacteristic uniqueIdentifier];
+    v45 = [uniqueIdentifier13 isEqual:uniqueIdentifier14];
+
+    if (v45)
+    {
+      observers = [(CAFService *)self observers];
+      userVisibleLabel = [(CAFMinimalRemoteNotification *)self trailingButton];
+      [observers minimalRemoteNotificationService:self didUpdateTrailingButton:userVisibleLabel];
+      goto LABEL_25;
+    }
+  }
+
+  else
+  {
+  }
+
+  observers = [updateCopy characteristicType];
+  if ([observers isEqual:@"0x000000003700000D"])
+  {
+    uniqueIdentifier15 = [updateCopy uniqueIdentifier];
+    trailingButtonStateCharacteristic = [(CAFMinimalRemoteNotification *)self trailingButtonStateCharacteristic];
+    uniqueIdentifier16 = [trailingButtonStateCharacteristic uniqueIdentifier];
+    v49 = [uniqueIdentifier15 isEqual:uniqueIdentifier16];
+
+    if (!v49)
+    {
+      goto LABEL_27;
+    }
+
+    observers = [(CAFService *)self observers];
+    [observers minimalRemoteNotificationService:self didUpdateTrailingButtonState:{-[CAFMinimalRemoteNotification trailingButtonState](self, "trailingButtonState")}];
+  }
+
+LABEL_26:
+
+LABEL_27:
+  v50.receiver = self;
+  v50.super_class = CAFMinimalRemoteNotification;
+  [(CAFService *)&v50 _characteristicDidUpdate:updateCopy fromGroupUpdate:groupUpdateCopy];
 }
 
 - (BOOL)registeredForUserVisibleLabel

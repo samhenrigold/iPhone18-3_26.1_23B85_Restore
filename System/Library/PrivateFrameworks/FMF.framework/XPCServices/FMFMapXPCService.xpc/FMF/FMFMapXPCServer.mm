@@ -7,6 +7,8 @@
 - (void)dealloc;
 - (void)gridImageForScreenRatio:(double)ratio andCompletion:(id)completion;
 - (void)gridImageForWidth:(double)width height:(double)height andCompletion:(id)completion;
+- (void)mapImageForLocation:(id)location isShifted:(BOOL)shifted altitude:(double)altitude pitch:(double)pitch screenRatio:(double)ratio andCompletion:(id)completion;
+- (void)mapImageForLocation:(id)location isShifted:(BOOL)shifted altitude:(double)altitude pitch:(double)pitch width:(double)width height:(double)height andCompletion:(id)completion;
 - (void)mapImageForRequest:(id)request andCompletion:(id)completion;
 - (void)mapSnapshotForRequest:(id)request shiftedCoordinate:(CLLocationCoordinate2D)coordinate andCompletionHandler:(id)handler;
 - (void)noLocationImageForScreenRatio:(double)ratio andCompletion:(id)completion;
@@ -60,19 +62,18 @@
   {
 
 LABEL_4:
-    v9 = [NSXPCInterface interfaceWithProtocol:&OBJC_PROTOCOL___FMFMapXPCInterface];
-    [connectionCopy setExportedInterface:v9];
+    v10 = [NSXPCInterface interfaceWithProtocol:&OBJC_PROTOCOL___FMFMapXPCInterface];
+    [connectionCopy setExportedInterface:v10];
 
     [connectionCopy setExportedObject:self];
-    [connectionCopy resume];
-    v10 = sub_100003C04();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = sub_100003C04([connectionCopy resume]);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "New connection is received allowing client", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "New connection is received allowing client", buf, 2u);
     }
 
-    v11 = 1;
+    v12 = 1;
     goto LABEL_10;
   }
 
@@ -84,17 +85,17 @@ LABEL_4:
     goto LABEL_4;
   }
 
-  v10 = sub_100003C04();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v11 = sub_100003C04(v9);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
-    *v13 = 0;
-    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "New connection declined, missing entitlement com.apple.icloud.FMF.FMFMapXPCService.access", v13, 2u);
+    *v14 = 0;
+    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "New connection declined, missing entitlement com.apple.icloud.FMF.FMFMapXPCService.access", v14, 2u);
   }
 
-  v11 = 0;
+  v12 = 0;
 LABEL_10:
 
-  return v11;
+  return v12;
 }
 
 - (void)gridImageForWidth:(double)width height:(double)height andCompletion:(id)completion
@@ -146,11 +147,30 @@ LABEL_10:
   }
 }
 
+- (void)mapImageForLocation:(id)location isShifted:(BOOL)shifted altitude:(double)altitude pitch:(double)pitch width:(double)width height:(double)height andCompletion:(id)completion
+{
+  shiftedCopy = shifted;
+  locationCopy = location;
+  completionCopy = completion;
+  v18 = sub_100003C04(completionCopy);
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+  {
+    *v20 = 0;
+    _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "Received mapImageForLocation request", v20, 2u);
+  }
+
+  if (completionCopy)
+  {
+    v19 = [[FMFMapImageRequest alloc] initWithLocation:locationCopy isShifted:shiftedCopy altitude:0 pitch:altitude width:pitch height:width andCachingEnabled:height];
+    [(FMFMapXPCServer *)self mapImageForRequest:v19 andCompletion:completionCopy];
+  }
+}
+
 - (void)mapImageForRequest:(id)request andCompletion:(id)completion
 {
   requestCopy = request;
   completionCopy = completion;
-  v8 = sub_100003C04();
+  v8 = sub_100003C04(completionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     LOWORD(buf[0]) = 0;
@@ -212,6 +232,25 @@ LABEL_10:
   }
 }
 
+- (void)mapImageForLocation:(id)location isShifted:(BOOL)shifted altitude:(double)altitude pitch:(double)pitch screenRatio:(double)ratio andCompletion:(id)completion
+{
+  shiftedCopy = shifted;
+  completionCopy = completion;
+  if (completionCopy)
+  {
+    locationCopy = location;
+    [(FMFMapXPCServer *)self snapshotSize];
+    v17 = v16;
+    v18 = v16 * ratio;
+    v19[0] = _NSConcreteStackBlock;
+    v19[1] = 3221225472;
+    v19[2] = sub_10000327C;
+    v19[3] = &unk_1000083F0;
+    v20 = completionCopy;
+    [(FMFMapXPCServer *)self mapImageForLocation:locationCopy isShifted:shiftedCopy altitude:v19 pitch:altitude width:pitch height:v17 andCompletion:v18];
+  }
+}
+
 - (CGSize)snapshotSize
 {
   v2 = +[UIScreen mainScreen];
@@ -224,20 +263,20 @@ LABEL_10:
 
   if (v9)
   {
-    v10 = sub_100003C04();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = sub_100003C04(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      v13[0] = 0;
-      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "resizing snapshot width", v13, 2u);
+      v14[0] = 0;
+      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "resizing snapshot width", v14, 2u);
     }
 
     *&v4 = 556.0;
   }
 
-  v11 = *&v4;
-  v12 = v6;
-  result.height = v12;
-  result.width = v11;
+  v12 = *&v4;
+  v13 = v6;
+  result.height = v13;
+  result.width = v12;
   return result;
 }
 
@@ -248,61 +287,61 @@ LABEL_10:
   requestCopy = request;
   handlerCopy = handler;
   v11 = objc_opt_new();
-  [requestCopy radius];
-  v13 = v12;
-  v14 = sub_100003C04();
-  v15 = os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT);
-  if (v13 == 0.0)
+  radius = [requestCopy radius];
+  v14 = v13;
+  v15 = sub_100003C04(radius);
+  v16 = os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT);
+  if (v14 == 0.0)
   {
-    if (v15)
+    if (v16)
     {
-      *v32 = 0;
-      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "mapSnapshotForRequest using altitude.", v32, 2u);
+      *v33 = 0;
+      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "mapSnapshotForRequest using altitude.", v33, 2u);
     }
 
     [requestCopy altitude];
-    v21 = v20;
+    v22 = v21;
     [requestCopy pitch];
-    *&v22 = v22;
-    v23 = [MKMapCamera cameraLookingAtCenterCoordinate:latitude fromDistance:longitude pitch:v21 heading:*&v22, 0.0];
-    [v11 setCamera:v23];
+    *&v23 = v23;
+    v24 = [MKMapCamera cameraLookingAtCenterCoordinate:latitude fromDistance:longitude pitch:v22 heading:*&v23, 0.0];
+    [v11 setCamera:v24];
   }
 
   else
   {
-    if (v15)
+    if (v16)
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "mapSnapshotForRequest using radius.", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "mapSnapshotForRequest using radius.", buf, 2u);
     }
 
     [requestCopy radius];
-    v17 = v16 + v16;
+    v18 = v17 + v17;
     [requestCopy radius];
-    v19 = v18 + v18;
-    v34.latitude = latitude;
-    v34.longitude = longitude;
-    v35 = MKCoordinateRegionMakeWithDistance(v34, v17, v19);
-    [v11 setRegion:{v35.center.latitude, v35.center.longitude, v35.span.latitudeDelta, v35.span.longitudeDelta}];
+    v20 = v19 + v19;
+    v35.latitude = latitude;
+    v35.longitude = longitude;
+    v36 = MKCoordinateRegionMakeWithDistance(v35, v18, v20);
+    [v11 setRegion:{v36.center.latitude, v36.center.longitude, v36.span.latitudeDelta, v36.span.longitudeDelta}];
   }
 
   [requestCopy width];
-  v25 = v24;
+  v26 = v25;
   [requestCopy height];
-  [v11 setSize:{v25, v26}];
+  [v11 setSize:{v26, v27}];
   [(FMFMapXPCServer *)self screenScale];
   [v11 setScale:?];
-  v27 = [[MKMapSnapshotter alloc] initWithOptions:v11];
-  v28 = dispatch_queue_attr_make_with_qos_class(0, QOS_CLASS_USER_INITIATED, 0);
-  v29 = dispatch_queue_create("com.apple.mobileme.fmf1.mapimagerendering", v28);
-  v30 = sub_100003C04();
-  if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+  v28 = [[MKMapSnapshotter alloc] initWithOptions:v11];
+  v29 = dispatch_queue_attr_make_with_qos_class(0, QOS_CLASS_USER_INITIATED, 0);
+  v30 = dispatch_queue_create("com.apple.mobileme.fmf1.mapimagerendering", v29);
+  v31 = sub_100003C04(v30);
+  if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
   {
-    *v31 = 0;
-    _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEFAULT, "mapSnapshotForRequest starting map snapshot", v31, 2u);
+    *v32 = 0;
+    _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_DEFAULT, "mapSnapshotForRequest starting map snapshot", v32, 2u);
   }
 
-  [v27 startWithQueue:v29 completionHandler:handlerCopy];
+  [v28 startWithQueue:v30 completionHandler:handlerCopy];
 }
 
 - (void)shiftedLocationForRequest:(id)request withCompletionHandler:(id)handler
@@ -363,12 +402,12 @@ LABEL_10:
   idleTimer = [(FMFMapXPCServer *)self idleTimer];
   [idleTimer start];
 
-  v7 = sub_100003C04();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v8 = sub_100003C04(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 134217984;
-    v9 = 0x4072C00000000000;
-    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "FMFMapXPCService idleTimer set for %fs", &v8, 0xCu);
+    v9 = 134217984;
+    v10 = 0x4072C00000000000;
+    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "FMFMapXPCService idleTimer set for %fs", &v9, 0xCu);
   }
 }
 

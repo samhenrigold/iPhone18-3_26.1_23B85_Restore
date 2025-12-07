@@ -47,16 +47,16 @@
 
   if (v4)
   {
-    v5 = PUIPosterSnapshotBundleSharedDateFormatter();
-    v6 = [v5 dateFromString:v4];
+    v6 = PUIPosterSnapshotBundleSharedDateFormatter(v5);
+    v7 = [v6 dateFromString:v4];
   }
 
   else
   {
-    v6 = 0;
+    v7 = 0;
   }
 
-  return v6;
+  return v7;
 }
 
 - (unint64_t)snapshotEpoch

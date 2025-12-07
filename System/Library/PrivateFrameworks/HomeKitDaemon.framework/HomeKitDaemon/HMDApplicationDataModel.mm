@@ -24,15 +24,13 @@
 
 void __37__HMDApplicationDataModel_properties__block_invoke()
 {
-  v5[1] = *MEMORY[0x277D85DE8];
-  v4 = @"appDataDictionary";
+  v4[1] = *MEMORY[0x277D85DE8];
+  v3 = @"appDataDictionary";
   v0 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v5[0] = v0;
-  v1 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:&v4 count:1];
+  v4[0] = v0;
+  v1 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v4 forKeys:&v3 count:1];
   v2 = properties__properties_16033;
   properties__properties_16033 = v1;
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 + (id)modelWithAppDataPayload:(id)payload existingAppData:(id)data parentUUID:(id)d
@@ -51,7 +49,7 @@ void __37__HMDApplicationDataModel_properties__block_invoke()
       goto LABEL_8;
     }
 
-    v10 = [dataCopy copy];
+    v10 = objc_msgSend_copy(dataCopy);
     [(HMDApplicationData *)v10 setApplicationData:payloadCopy forIdentifier:@"com.apple.homekit-entitledclient.identifer"];
 LABEL_6:
     v11 = v10;
@@ -64,7 +62,7 @@ LABEL_8:
 
   if (dataCopy)
   {
-    v10 = [dataCopy copy];
+    v10 = objc_msgSend_copy(dataCopy);
     [(HMDApplicationData *)v10 removeApplicationDataForIdentifier:@"com.apple.homekit-entitledclient.identifer"];
     goto LABEL_6;
   }
@@ -123,7 +121,7 @@ LABEL_9:
 
 - (BOOL)cd_updateManagedObjectInContext:(id)context error:(id *)error
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   v7 = objc_alloc(MEMORY[0x277CCAD78]);
   v8 = [v7 initWithUUIDString:*MEMORY[0x277CD23C8]];
@@ -142,9 +140,9 @@ LABEL_9:
 
   else
   {
-    v47.receiver = self;
-    v47.super_class = HMDApplicationDataModel;
-    v15 = [(HMDBackingStoreModelObject *)&v47 cd_currentManagedObjectInContext:contextCopy error:error];
+    v46.receiver = self;
+    v46.super_class = HMDApplicationDataModel;
+    v15 = [(HMDBackingStoreModelObject *)&v46 cd_currentManagedObjectInContext:contextCopy error:error];
     v14 = v15 != 0;
     if (v15)
     {
@@ -154,36 +152,36 @@ LABEL_9:
       [v15 setAppDataDictionary:v17];
 
       parentUUID2 = [(HMDBackingStoreModelObject *)self parentUUID];
+      v42 = 0u;
       v43 = 0u;
       v44 = 0u;
       v45 = 0u;
-      v46 = 0u;
       obj = +[_MKFApplicationData hmd_parentAttributeKeyPaths];
-      v19 = [obj countByEnumeratingWithState:&v43 objects:v48 count:16];
+      v19 = [obj countByEnumeratingWithState:&v42 objects:v47 count:16];
       if (v19)
       {
         v20 = v19;
-        v21 = *v44;
-        v39 = v8;
-        v40 = contextCopy;
+        v21 = *v43;
+        v38 = v8;
+        v39 = contextCopy;
         while (2)
         {
           for (i = 0; i != v20; ++i)
           {
-            if (*v44 != v21)
+            if (*v43 != v21)
             {
               objc_enumerationMutation(obj);
             }
 
-            v23 = *(*(&v43 + 1) + 8 * i);
+            v23 = *(*(&v42 + 1) + 8 * i);
             v24 = [v15 valueForKeyPath:v23];
             if (v24)
             {
               v27 = v24;
 LABEL_22:
 
-              v8 = v39;
-              contextCopy = v40;
+              v8 = v38;
+              contextCopy = v39;
               v14 = v15 != 0;
               goto LABEL_23;
             }
@@ -218,9 +216,9 @@ LABEL_27:
             }
           }
 
-          v20 = [obj countByEnumeratingWithState:&v43 objects:v48 count:16];
-          v8 = v39;
-          contextCopy = v40;
+          v20 = [obj countByEnumeratingWithState:&v42 objects:v47 count:16];
+          v8 = v38;
+          contextCopy = v39;
           v14 = v15 != 0;
           if (v20)
           {
@@ -243,7 +241,7 @@ LABEL_23:
       {
         v35 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v50 = v35;
+        v49 = v35;
         _os_log_impl(&dword_229538000, v34, OS_LOG_TYPE_ERROR, "%{public}@Could not find current application data model to update", buf, 0xCu);
       }
 
@@ -251,7 +249,6 @@ LABEL_23:
     }
   }
 
-  v37 = *MEMORY[0x277D85DE8];
   return v14;
 }
 

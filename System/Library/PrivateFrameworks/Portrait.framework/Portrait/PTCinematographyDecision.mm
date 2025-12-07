@@ -121,7 +121,7 @@ uint64_t __45__PTCinematographyDecision_defaultTransition__block_invoke()
   }
 
   v6 = MEMORY[0x277CCACA8];
-  [(PTCinematographyDecision *)self time];
+  objc_msgSend_time(self);
   v7 = NSStringFromCMTime(&v17);
   trackIdentifier = [(PTCinematographyDecision *)self trackIdentifier];
   if (trackIdentifier == -1)
@@ -191,10 +191,10 @@ uint64_t __45__PTCinematographyDecision_defaultTransition__block_invoke()
       trackIdentifier = [(PTCinematographyDecision *)self trackIdentifier];
       if (trackIdentifier == [(PTCinematographyDecision *)v5 trackIdentifier]&& (v7 = [(PTCinematographyDecision *)self groupIdentifier], v7 == [(PTCinematographyDecision *)v5 groupIdentifier]) && (v8 = [(PTCinematographyDecision *)self options], v8 == [(PTCinematographyDecision *)v5 options]) && (v9 = [(PTCinematographyDecision *)self type], v9 == [(PTCinematographyDecision *)v5 type]))
       {
-        [(PTCinematographyDecision *)self time];
+        objc_msgSend_time(self);
         if (v5)
         {
-          [(PTCinematographyDecision *)v5 time];
+          objc_msgSend_time(v5);
         }
 
         else
@@ -226,7 +226,7 @@ uint64_t __45__PTCinematographyDecision_defaultTransition__block_invoke()
   v4 = [(PTCinematographyDecision *)self groupIdentifier]+ trackIdentifier;
   options = [(PTCinematographyDecision *)self options];
   v6 = (v4 + options + [(PTCinematographyDecision *)self type]);
-  [(PTCinematographyDecision *)self time];
+  objc_msgSend_time(self);
   return (v6 + CMTimeGetSeconds(&time) * 600.0);
 }
 
@@ -343,7 +343,7 @@ uint64_t __45__PTCinematographyDecision_defaultTransition__block_invoke()
 - (id)_asCinematographyDictionary
 {
   v3 = objc_opt_new();
-  [(PTCinematographyDecision *)self time];
+  objc_msgSend_time(self);
   v4 = PTCinematographyDictionaryFromCMTime(v13);
   [v3 setObject:v4 forKeyedSubscript:@"ptime"];
 
@@ -361,14 +361,14 @@ uint64_t __45__PTCinematographyDecision_defaultTransition__block_invoke()
 
   if ([(PTCinematographyDecision *)self hasMinimumDuration])
   {
-    [(PTCinematographyDecision *)self minimumDuration];
+    objc_msgSend_minimumDuration(self);
     v9 = PTCinematographyDictionaryFromCMTime(v13);
     [v3 setObject:v9 forKeyedSubscript:@"min_duration"];
   }
 
   if ([(PTCinematographyDecision *)self hasMaximumDuration])
   {
-    [(PTCinematographyDecision *)self maximumDuration];
+    objc_msgSend_maximumDuration(self);
     v10 = PTCinematographyDictionaryFromCMTime(v13);
     [v3 setObject:v10 forKeyedSubscript:@"max_duration"];
   }

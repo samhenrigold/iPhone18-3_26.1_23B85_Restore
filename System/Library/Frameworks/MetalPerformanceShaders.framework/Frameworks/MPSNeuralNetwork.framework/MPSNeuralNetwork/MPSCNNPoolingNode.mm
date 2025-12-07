@@ -25,37 +25,43 @@
 
 - (MPSCNNPoolingNode)initWithSource:(MPSNNImageNode *)sourceNode kernelWidth:(NSUInteger)kernelWidth kernelHeight:(NSUInteger)kernelHeight strideInPixelsX:(NSUInteger)strideInPixelsX strideInPixelsY:(NSUInteger)strideInPixelsY
 {
-  v17[1] = *MEMORY[0x277D85DE8];
+  v24[1] = *MEMORY[0x277D85DE8];
   if (!kernelWidth)
   {
     if (MTLReportFailureTypeEnabled())
     {
-      goto LABEL_9;
+      v15 = objc_opt_class();
+      NSStringFromClass(v15);
+      v20 = @"[%@ initWithSource:kernelWidth:kernelHeight:strideInPixelsX:strideInPixelsY]: kernelWidth may not be 0";
+      v21 = 50;
+LABEL_10:
+      MTLReportFailure(1, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Graph/MPSCNNPoolingNodes.mm", v21, v20, v16, v17, v18, v19);
     }
 
-    goto LABEL_10;
+LABEL_11:
+
+    return 0;
   }
 
   if (!kernelHeight)
   {
     if (MTLReportFailureTypeEnabled())
     {
-LABEL_9:
-      v15 = objc_opt_class();
-      NSStringFromClass(v15);
-      MTLReportFailure();
+      v22 = objc_opt_class();
+      NSStringFromClass(v22);
+      v20 = @"[%@ initWithSource:kernelWidth:kernelHeight:strideInPixelsX:strideInPixelsY]: kernelHeight may not be 0";
+      v21 = 51;
+      goto LABEL_10;
     }
 
-LABEL_10:
-
-    return 0;
+    goto LABEL_11;
   }
 
-  v17[0] = sourceNode;
-  v13 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], a2, v17, 1, kernelHeight, strideInPixelsX, strideInPixelsY, v7);
-  v16.receiver = self;
-  v16.super_class = MPSCNNPoolingNode;
-  result = [(MPSNNFilterNode *)&v16 initWithSourceImages:v13 sourceStates:0 paddingPolicy:0];
+  v24[0] = sourceNode;
+  v13 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], a2, v24, 1, kernelHeight, strideInPixelsX, strideInPixelsY, v7);
+  v23.receiver = self;
+  v23.super_class = MPSCNNPoolingNode;
+  result = [(MPSNNFilterNode *)&v23 initWithSourceImages:v13 sourceStates:0 paddingPolicy:0];
   if (result)
   {
     result->_kernelWidth = kernelWidth;
@@ -73,7 +79,7 @@ LABEL_10:
   {
     v2 = objc_opt_class();
     NSStringFromClass(v2);
-    MTLReportFailure();
+    MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Graph/MPSCNNPoolingNodes.mm", 0x5C, @"MPS internal error: Need to override newFilterNodeForDevice for %@\n", v3, v4, v5, v6);
   }
 
   return 0;

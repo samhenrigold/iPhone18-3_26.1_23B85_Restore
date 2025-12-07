@@ -1724,7 +1724,7 @@ LABEL_8:
 
 - (id)_buildDoneMenuElements
 {
-  v70 = +[NSMutableArray array];
+  v71 = +[NSMutableArray array];
   objc_initWeak(location, self);
   _screenshotsView = [(SSSScreenshotsViewController *)self _screenshotsView];
   editMode = [_screenshotsView editMode];
@@ -1732,62 +1732,62 @@ LABEL_8:
   v5 = +[NSBundle mainBundle];
   v6 = [v5 localizedStringForKey:@"SAVE_TO_PHOTOS" value:@"Save to Photos" table:0];
   v7 = [UIImage systemImageNamed:@"square.and.arrow.down"];
-  v94[0] = _NSConcreteStackBlock;
-  v94[1] = 3221225472;
-  v94[2] = sub_10004C6FC;
-  v94[3] = &unk_1000BAFC8;
-  objc_copyWeak(&v95, location);
-  v96 = editMode == 0;
-  v62 = [UIAction actionWithTitle:v6 image:v7 identifier:0 handler:v94];
+  v95[0] = _NSConcreteStackBlock;
+  v95[1] = 3221225472;
+  v95[2] = sub_10004C6FC;
+  v95[3] = &unk_1000BAFC8;
+  objc_copyWeak(&v96, location);
+  v97 = editMode == 0;
+  v63 = [UIAction actionWithTitle:v6 image:v7 identifier:0 handler:v95];
 
-  v69 = [UIImage systemImageNamed:@"folder"];
+  v70 = [UIImage systemImageNamed:@"folder"];
   v8 = +[NSBundle mainBundle];
-  v67 = [v8 localizedStringForKey:@"SAVE_TO_FILES" value:@"Save to Files" table:0];
+  v68 = [v8 localizedStringForKey:@"SAVE_TO_FILES" value:@"Save to Files" table:0];
 
   v9 = +[NSBundle mainBundle];
-  v66 = [v9 localizedStringForKey:@"SAVE_PDF_TO_FILES" value:@"Save PDF to Files" table:0];
+  v67 = [v9 localizedStringForKey:@"SAVE_PDF_TO_FILES" value:@"Save PDF to Files" table:0];
 
-  v10 = v67;
+  v10 = v68;
   if (editMode)
   {
-    v10 = v66;
+    v10 = v67;
   }
 
-  v65 = v10;
-  v91[0] = _NSConcreteStackBlock;
-  v91[1] = 3221225472;
-  v91[2] = sub_10004C7BC;
-  v91[3] = &unk_1000BAFC8;
-  objc_copyWeak(&v92, location);
-  v93 = editMode == 0;
-  v59 = [UIAction actionWithTitle:v65 image:v69 identifier:0 handler:v91];
-  v61 = [UIImage _systemImageNamed:@"quicknote"];
+  v66 = v10;
+  v92[0] = _NSConcreteStackBlock;
+  v92[1] = 3221225472;
+  v92[2] = sub_10004C7BC;
+  v92[3] = &unk_1000BAFC8;
+  objc_copyWeak(&v93, location);
+  v94 = editMode == 0;
+  v60 = [UIAction actionWithTitle:v66 image:v70 identifier:0 handler:v92];
+  v62 = [UIImage _systemImageNamed:@"quicknote"];
   if (_SSScreenshotsInQuickNoteEnabled())
   {
-    v99 = 0;
-    v100 = &v99;
-    v101 = 0x2020000000;
+    v100 = 0;
+    v101 = &v100;
+    v102 = 0x2020000000;
     v11 = off_1000D4AD8;
-    v102 = off_1000D4AD8;
+    v103 = off_1000D4AD8;
     if (!off_1000D4AD8)
     {
       location[1] = _NSConcreteStackBlock;
       location[2] = 3221225472;
       location[3] = sub_100052FC4;
       location[4] = &unk_1000B9FA8;
-      v98 = &v99;
+      v99 = &v100;
       v12 = sub_100053014();
       v13 = dlsym(v12, "SYIsQuickNoteAvailable");
-      *(v98[1] + 24) = v13;
-      off_1000D4AD8 = *(v98[1] + 24);
-      v11 = v100[3];
+      *(v99[1] + 24) = v13;
+      off_1000D4AD8 = *(v99[1] + 24);
+      v11 = v101[3];
     }
 
-    _Block_object_dispose(&v99, 8);
+    _Block_object_dispose(&v100, 8);
     if (!v11)
     {
-      dlerror();
-      abort_report_np();
+      v55 = dlerror();
+      abort_report_np("%s", v55);
       __break(1u);
     }
 
@@ -1797,13 +1797,13 @@ LABEL_8:
       v15 = +[NSBundle mainBundle];
       v16 = [v15 localizedStringForKey:@"SAVE_TO_QUICK_NOTE" value:@"Save to Quick Note" table:0];
 
-      v89[0] = _NSConcreteStackBlock;
-      v89[1] = 3221225472;
-      v89[2] = sub_10004C860;
-      v89[3] = &unk_1000BAF28;
-      objc_copyWeak(&v90, location);
-      v68 = [UIAction actionWithTitle:v16 image:v61 identifier:0 handler:v89];
-      objc_destroyWeak(&v90);
+      v90[0] = _NSConcreteStackBlock;
+      v90[1] = 3221225472;
+      v90[2] = sub_10004C860;
+      v90[3] = &unk_1000BAF28;
+      objc_copyWeak(&v91, location);
+      v69 = [UIAction actionWithTitle:v16 image:v62 identifier:0 handler:v90];
+      objc_destroyWeak(&v91);
 
       v14 = 1;
       goto LABEL_11;
@@ -1815,75 +1815,75 @@ LABEL_8:
     v14 = 0;
   }
 
-  v68 = 0;
+  v69 = 0;
 LABEL_11:
   v17 = +[NSBundle mainBundle];
-  v64 = [v17 localizedStringForKey:@"SAVE_TO_PHOTOS_AND_FILES" value:@"Save All to Photos and Files" table:0];
+  v65 = [v17 localizedStringForKey:@"SAVE_TO_PHOTOS_AND_FILES" value:@"Save All to Photos and Files" table:0];
 
-  v87[0] = _NSConcreteStackBlock;
-  v87[1] = 3221225472;
-  v87[2] = sub_10004C8F0;
-  v87[3] = &unk_1000BAF28;
-  objc_copyWeak(&v88, location);
-  v57 = [UIAction actionWithTitle:v64 image:v69 identifier:0 handler:v87];
+  v88[0] = _NSConcreteStackBlock;
+  v88[1] = 3221225472;
+  v88[2] = sub_10004C8F0;
+  v88[3] = &unk_1000BAF28;
+  objc_copyWeak(&v89, location);
+  v58 = [UIAction actionWithTitle:v65 image:v70 identifier:0 handler:v88];
   if (v14)
   {
     v18 = +[NSBundle mainBundle];
     v19 = [v18 localizedStringForKey:@"SAVE_ALL_TO_A_QUICK_NOTE_AND_FILES" value:@"Save All to a Quick Note and Files" table:0];
 
-    v85[0] = _NSConcreteStackBlock;
-    v85[1] = 3221225472;
-    v85[2] = sub_10004C980;
-    v85[3] = &unk_1000BAF28;
-    objc_copyWeak(&v86, location);
-    v56 = [UIAction actionWithTitle:v19 image:v61 identifier:0 handler:v85];
-    objc_destroyWeak(&v86);
+    v86[0] = _NSConcreteStackBlock;
+    v86[1] = 3221225472;
+    v86[2] = sub_10004C980;
+    v86[3] = &unk_1000BAF28;
+    objc_copyWeak(&v87, location);
+    v57 = [UIAction actionWithTitle:v19 image:v62 identifier:0 handler:v86];
+    objc_destroyWeak(&v87);
   }
 
   else
   {
-    v56 = 0;
+    v57 = 0;
   }
 
   v20 = +[NSBundle mainBundle];
-  v63 = [v20 localizedStringForKey:@"SAVE_ALL_TO_FILES" value:@"Save All to Files" table:0];
+  v64 = [v20 localizedStringForKey:@"SAVE_ALL_TO_FILES" value:@"Save All to Files" table:0];
 
-  v83[0] = _NSConcreteStackBlock;
-  v83[1] = 3221225472;
-  v83[2] = sub_10004CA10;
-  v83[3] = &unk_1000BAF28;
-  objc_copyWeak(&v84, location);
-  v55 = [UIAction actionWithTitle:v63 image:v69 identifier:0 handler:v83];
-  v81[0] = _NSConcreteStackBlock;
-  v81[1] = 3221225472;
-  v81[2] = sub_10004CAA0;
-  v81[3] = &unk_1000BAF28;
-  objc_copyWeak(&v82, location);
-  v58 = [UIAction actionWithTitle:@"Export Vellum PDF" image:0 identifier:0 handler:v81];
+  v84[0] = _NSConcreteStackBlock;
+  v84[1] = 3221225472;
+  v84[2] = sub_10004CA10;
+  v84[3] = &unk_1000BAF28;
+  objc_copyWeak(&v85, location);
+  v56 = [UIAction actionWithTitle:v64 image:v70 identifier:0 handler:v84];
+  v82[0] = _NSConcreteStackBlock;
+  v82[1] = 3221225472;
+  v82[2] = sub_10004CAA0;
+  v82[3] = &unk_1000BAF28;
+  objc_copyWeak(&v83, location);
+  v59 = [UIAction actionWithTitle:@"Export Vellum PDF" image:0 identifier:0 handler:v82];
   v21 = +[NSBundle mainBundle];
   v22 = [v21 localizedStringForKey:@"SHARE_BETA_FEEDBACK" value:@"Share Beta Feedback…" table:0];
   v23 = [UIImage systemImageNamed:@"exclamationmark.bubble"];
-  v79[0] = _NSConcreteStackBlock;
-  v79[1] = 3221225472;
-  v79[2] = sub_10004CAEC;
-  v79[3] = &unk_1000BAF28;
-  objc_copyWeak(&v80, location);
-  v60 = [UIAction actionWithTitle:v22 image:v23 identifier:0 handler:v79];
+  v80[0] = _NSConcreteStackBlock;
+  v80[1] = 3221225472;
+  v80[2] = sub_10004CAEC;
+  v80[3] = &unk_1000BAF28;
+  objc_copyWeak(&v81, location);
+  v61 = [UIAction actionWithTitle:v22 image:v23 identifier:0 handler:v80];
 
   if ([(SSSScreenshotsViewController *)self _shouldSendToDeveloper])
   {
-    [v70 addObject:v60];
+    [v71 addObject:v61];
   }
 
   v24 = +[NSBundle mainBundle];
   v25 = [v24 localizedStringForKey:@"COPY_AND_DELETE_ACTION_TITLE" value:@"Copy and Delete" table:0];
   v26 = [UIImage _systemImageNamed:@"document.on.trash"];
-  v77[0] = _NSConcreteStackBlock;
-  v77[1] = 3221225472;
-  v77[2] = sub_10004CB2C;
-  v77[3] = &unk_1000BAF28;
-  objc_copyWeak(&v78, location);
-  v27 = [UIAction actionWithTitle:v25 image:v26 identifier:0 handler:v77];
+  v78[0] = _NSConcreteStackBlock;
+  v78[1] = 3221225472;
+  v78[2] = sub_10004CB2C;
+  v78[3] = &unk_1000BAF28;
+  objc_copyWeak(&v79, location);
+  v27 = [UIAction actionWithTitle:v25 image:v26 identifier:0 handler:v78];
 
   [v27 setAttributes:2];
   v28 = +[NSBundle mainBundle];
@@ -1892,45 +1892,45 @@ LABEL_11:
   v31 = +[NSString localizedStringWithFormat:](NSString, "localizedStringWithFormat:", v29, [visibleScreenshots count]);
 
   v32 = [UIImage systemImageNamed:@"trash"];
-  v75[0] = _NSConcreteStackBlock;
-  v75[1] = 3221225472;
-  v75[2] = sub_10004CBD8;
-  v75[3] = &unk_1000BAF28;
-  objc_copyWeak(&v76, location);
-  v33 = [UIAction actionWithTitle:v31 image:v32 identifier:0 handler:v75];
+  v76[0] = _NSConcreteStackBlock;
+  v76[1] = 3221225472;
+  v76[2] = sub_10004CBD8;
+  v76[3] = &unk_1000BAF28;
+  objc_copyWeak(&v77, location);
+  v33 = [UIAction actionWithTitle:v31 image:v32 identifier:0 handler:v76];
 
   [v33 setAttributes:2];
-  v73 = 0u;
   v74 = 0u;
-  v71 = 0u;
+  v75 = 0u;
   v72 = 0u;
+  v73 = 0u;
   _screenshotsView2 = [(SSSScreenshotsViewController *)self _screenshotsView];
   visibleScreenshots2 = [_screenshotsView2 visibleScreenshots];
 
-  v36 = [visibleScreenshots2 countByEnumeratingWithState:&v71 objects:v105 count:16];
+  v36 = [visibleScreenshots2 countByEnumeratingWithState:&v72 objects:v106 count:16];
   if (!v36)
   {
 
 LABEL_28:
-    [v70 addObject:v62];
+    [v71 addObject:v63];
     goto LABEL_29;
   }
 
   v37 = 0;
-  v38 = *v72;
+  v38 = *v73;
   do
   {
     for (i = 0; i != v36; i = i + 1)
     {
-      if (*v72 != v38)
+      if (*v73 != v38)
       {
         objc_enumerationMutation(visibleScreenshots2);
       }
 
-      v37 |= [*(*(&v71 + 1) + 8 * i) lastViewEditMode] == 1;
+      v37 |= [*(*(&v72 + 1) + 8 * i) lastViewEditMode] == 1;
     }
 
-    v36 = [visibleScreenshots2 countByEnumeratingWithState:&v71 objects:v105 count:16];
+    v36 = [visibleScreenshots2 countByEnumeratingWithState:&v72 objects:v106 count:16];
   }
 
   while (v36);
@@ -1946,10 +1946,10 @@ LABEL_28:
 
   if (v42)
   {
-    [v70 addObject:v57];
-    [v70 addObject:v55];
-    v43 = v56;
-    if (!v56)
+    [v71 addObject:v58];
+    [v71 addObject:v56];
+    v43 = v57;
+    if (!v57)
     {
       goto LABEL_34;
     }
@@ -1970,47 +1970,47 @@ LABEL_28:
 LABEL_29:
   if (self->_shouldShowSharrow)
   {
-    [v70 addObject:v59];
+    [v71 addObject:v60];
   }
 
-  if (v68)
+  if (v69)
   {
-    v43 = v68;
+    v43 = v69;
     if (self->_shouldShowSharrow)
     {
 LABEL_33:
-      [v70 addObject:v43];
+      [v71 addObject:v43];
     }
   }
 
 LABEL_34:
   if (self->_shouldShowSharrow && _SSEnableVellumExport())
   {
-    [v70 addObject:v58];
+    [v71 addObject:v59];
   }
 
-  v44 = [v70 copy];
+  v44 = [v71 copy];
   v45 = [UIMenu menuWithTitle:&stru_1000BC350 image:0 identifier:0 options:1 children:v44];
-  v104[0] = v45;
-  v103[0] = v27;
-  v103[1] = v33;
-  v46 = [NSArray arrayWithObjects:v103 count:2];
+  v105[0] = v45;
+  v104[0] = v27;
+  v104[1] = v33;
+  v46 = [NSArray arrayWithObjects:v104 count:2];
   v47 = [UIMenu menuWithTitle:&stru_1000BC350 image:0 identifier:0 options:1 children:v46];
-  v104[1] = v47;
-  v48 = [NSArray arrayWithObjects:v104 count:2];
+  v105[1] = v47;
+  v48 = [NSArray arrayWithObjects:v105 count:2];
   v49 = [UIMenu menuWithTitle:&stru_1000BC350 image:0 identifier:0 options:1 children:v48];
 
-  objc_destroyWeak(&v76);
-  objc_destroyWeak(&v78);
+  objc_destroyWeak(&v77);
+  objc_destroyWeak(&v79);
 
-  objc_destroyWeak(&v80);
-  objc_destroyWeak(&v82);
+  objc_destroyWeak(&v81);
+  objc_destroyWeak(&v83);
 
-  objc_destroyWeak(&v84);
-  objc_destroyWeak(&v88);
+  objc_destroyWeak(&v85);
+  objc_destroyWeak(&v89);
 
-  objc_destroyWeak(&v92);
-  objc_destroyWeak(&v95);
+  objc_destroyWeak(&v93);
+  objc_destroyWeak(&v96);
   objc_destroyWeak(location);
 
   return v49;

@@ -19,31 +19,32 @@
 
 - (void)drawInRect:()Additions fromRect:blendMode:alpha:
 {
+  v12 = a11;
   cGImage = [self CGImage];
-  v31.origin.x = a6;
-  v31.origin.y = a7;
-  v31.size.width = a8;
-  v31.size.height = a9;
-  if (CGRectIsEmpty(v31))
+  v26.origin.x = a6;
+  v26.origin.y = a7;
+  v26.size.width = a8;
+  v26.size.height = a9;
+  if (CGRectIsEmpty(v26))
   {
     Width = CGImageGetWidth(cGImage);
     Height = CGImageGetHeight(cGImage);
 
-    compositeCGImageRefInRect(cGImage, a11, a2, a3, a4, a5, 0.0, 0.0, Width, Height, a12);
+    compositeCGImageRefInRect(cGImage, v12, a2, a3, a4, a5, 0.0, 0.0, Width, Height, *&a12);
   }
 
   else
   {
-    v32.origin.x = a6;
-    v32.origin.y = a7;
-    v32.size.width = a8;
-    v32.size.height = a9;
-    v28 = CGImageCreateWithImageInRect(cGImage, v32);
-    compositeCGImageRefInRect(v28, a11, a2, a3, a4, a5, a6, a7, a8, a9, a12);
-    if (v28)
+    v27.origin.x = a6;
+    v27.origin.y = a7;
+    v27.size.width = a8;
+    v27.size.height = a9;
+    v23 = CGImageCreateWithImageInRect(cGImage, v27);
+    compositeCGImageRefInRect(v23, v12, a2, a3, a4, a5, a6, a7, a8, a9, *&a12);
+    if (v23)
     {
 
-      CFRelease(v28);
+      CFRelease(v23);
     }
   }
 }

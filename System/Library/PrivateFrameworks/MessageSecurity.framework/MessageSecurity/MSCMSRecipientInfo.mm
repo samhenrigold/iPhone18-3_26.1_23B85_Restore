@@ -18,6 +18,7 @@
 - (__SecCertificate)recipientCertificate;
 - (id)decryptWrappedKey:(id)key kek:(id)kek iv:(heim_base_data *)iv;
 - (id)encryptBulkKey:(id)key;
+- (id)key:(BOOL)key;
 - (void)dealloc;
 - (void)freeKeyTransRecipientInfo:(const RecipientInfo *)info;
 - (void)freeRecipientInfo:(const RecipientInfo *)info;
@@ -108,12 +109,12 @@
 
 - (MSCMSRecipientInfo)initWithCertificate:(__SecCertificate *)certificate keyEncryptionAlgorithm:(id)algorithm keyWrapAlgorithm:(id)wrapAlgorithm originator:(__SecIdentity *)originator
 {
-  v70 = *MEMORY[0x277D85DE8];
+  v68 = *MEMORY[0x277D85DE8];
   algorithmCopy = algorithm;
   wrapAlgorithmCopy = wrapAlgorithm;
-  v64.receiver = self;
-  v64.super_class = MSCMSRecipientInfo;
-  v12 = [(MSCMSRecipientInfo *)&v64 init];
+  v62.receiver = self;
+  v62.super_class = MSCMSRecipientInfo;
+  v12 = [(MSCMSRecipientInfo *)&v62 init];
   v13 = v12;
   v14 = 0;
   if (!certificate || !v12)
@@ -168,7 +169,6 @@ LABEL_58:
 LABEL_59:
 
 LABEL_60:
-        v60 = *MEMORY[0x277D85DE8];
         return v14;
       }
 
@@ -287,16 +287,16 @@ LABEL_38:
   SecRandomCopyBytes(*MEMORY[0x277CDC540], v38, v39);
   *buf = v38;
   *&buf[8] = v39;
-  v63 = 0;
+  v61 = 0;
   v40 = length_DataContent(buf);
   v41 = [MEMORY[0x277CBEB28] dataWithLength:v40];
   if (v41)
   {
     v29 = v41;
-    v42 = encode_DataContent([(MSOID *)v41 mutableBytes]+ v40 - 1, v40, buf, &v63);
+    v42 = encode_DataContent([(MSOID *)v41 mutableBytes]+ v40 - 1, v40, buf, &v61);
     if (!v42)
     {
-      if (v40 != v63)
+      if (v40 != v61)
       {
         goto LABEL_62;
       }
@@ -315,9 +315,9 @@ LABEL_38:
   }
 
   v45 = MEMORY[0x277CCA9B8];
-  v67 = *MEMORY[0x277CCA450];
-  v68 = @"Failed encoding type DataContent";
-  v46 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v68 forKeys:&v67 count:1];
+  v65 = *MEMORY[0x277CCA450];
+  v66 = @"Failed encoding type DataContent";
+  v46 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v66 forKeys:&v65 count:1];
   v47 = [v45 errorWithDomain:@"com.apple.HeimASN1" code:v44 userInfo:v46];
 
   v29 = 0;
@@ -343,9 +343,9 @@ LABEL_50:
     v54 = v53;
 LABEL_54:
     v55 = MEMORY[0x277CCA9B8];
-    v65 = *MEMORY[0x277CCA450];
-    v66 = @"Failed encoding type AlgorithmIdentifier";
-    v56 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v66 forKeys:&v65 count:1];
+    v63 = *MEMORY[0x277CCA450];
+    v64 = @"Failed encoding type AlgorithmIdentifier";
+    v56 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v64 forKeys:&v63 count:1];
     v57 = [v55 errorWithDomain:@"com.apple.HeimASN1" code:v54 userInfo:v56];
 
     v51 = 0;
@@ -363,62 +363,67 @@ LABEL_56:
   }
 
 LABEL_62:
-  v62 = asn1_abort();
-  return __93__MSCMSRecipientInfo_initWithCertificate_keyEncryptionAlgorithm_keyWrapAlgorithm_originator___block_invoke(v62);
+  asn1_abort();
+  __93__MSCMSRecipientInfo_initWithCertificate_keyEncryptionAlgorithm_keyWrapAlgorithm_originator___block_invoke();
+  return result;
 }
 
 void __93__MSCMSRecipientInfo_initWithCertificate_keyEncryptionAlgorithm_keyWrapAlgorithm_originator___block_invoke()
 {
-  v5[1] = *MEMORY[0x277D85DE8];
+  v4[1] = *MEMORY[0x277D85DE8];
   v0 = MEMORY[0x277CBEB98];
-  v5[0] = @"1.2.840.113549.1.1.1";
-  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:1];
+  v4[0] = @"1.2.840.113549.1.1.1";
+  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:1];
   v2 = [v0 setWithArray:v1];
   v3 = initWithCertificate_keyEncryptionAlgorithm_keyWrapAlgorithm_originator__sAllowedRSAEncAlgs;
   initWithCertificate_keyEncryptionAlgorithm_keyWrapAlgorithm_originator__sAllowedRSAEncAlgs = v2;
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __93__MSCMSRecipientInfo_initWithCertificate_keyEncryptionAlgorithm_keyWrapAlgorithm_originator___block_invoke_2()
 {
-  MS_DEFAULT_LOG_INTERNAL = os_log_create("com.apple.MessageSecurity", "default");
+  v0 = os_log_create("com.apple.MessageSecurity", "default");
+  v1 = MS_DEFAULT_LOG_INTERNAL;
+  MS_DEFAULT_LOG_INTERNAL = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 uint64_t __93__MSCMSRecipientInfo_initWithCertificate_keyEncryptionAlgorithm_keyWrapAlgorithm_originator___block_invoke_9()
 {
-  MS_DEFAULT_LOG_INTERNAL = os_log_create("com.apple.MessageSecurity", "default");
+  v0 = os_log_create("com.apple.MessageSecurity", "default");
+  v1 = MS_DEFAULT_LOG_INTERNAL;
+  MS_DEFAULT_LOG_INTERNAL = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 void __93__MSCMSRecipientInfo_initWithCertificate_keyEncryptionAlgorithm_keyWrapAlgorithm_originator___block_invoke_13()
 {
-  v5[1] = *MEMORY[0x277D85DE8];
+  v4[1] = *MEMORY[0x277D85DE8];
   v0 = MEMORY[0x277CBEB98];
-  v5[0] = @"1.3.133.16.840.63.0.2";
-  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:1];
+  v4[0] = @"1.3.133.16.840.63.0.2";
+  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:1];
   v2 = [v0 setWithArray:v1];
   v3 = initWithCertificate_keyEncryptionAlgorithm_keyWrapAlgorithm_originator__sAllowedECEncAlgs;
   initWithCertificate_keyEncryptionAlgorithm_keyWrapAlgorithm_originator__sAllowedECEncAlgs = v2;
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __93__MSCMSRecipientInfo_initWithCertificate_keyEncryptionAlgorithm_keyWrapAlgorithm_originator___block_invoke_2_16()
 {
-  MS_DEFAULT_LOG_INTERNAL = os_log_create("com.apple.MessageSecurity", "default");
+  v0 = os_log_create("com.apple.MessageSecurity", "default");
+  v1 = MS_DEFAULT_LOG_INTERNAL;
+  MS_DEFAULT_LOG_INTERNAL = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 uint64_t __93__MSCMSRecipientInfo_initWithCertificate_keyEncryptionAlgorithm_keyWrapAlgorithm_originator___block_invoke_30()
 {
-  MS_DEFAULT_LOG_INTERNAL = os_log_create("com.apple.MessageSecurity", "default");
+  v0 = os_log_create("com.apple.MessageSecurity", "default");
+  v1 = MS_DEFAULT_LOG_INTERNAL;
+  MS_DEFAULT_LOG_INTERNAL = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 - (MSCMSRecipientInfo)initWithEmail:(id)email
@@ -585,7 +590,7 @@ LABEL_14:
   {
     v12 = recipientInfo != 0;
     errorCopy = error;
-    v30 = infoCopy;
+    v29 = infoCopy;
     if (recipientInfo)
     {
       *&recipientInfo->var1.var1.var3.var0.components = 0u;
@@ -608,9 +613,9 @@ LABEL_14:
           originatorIdentity = self->_originatorIdentity;
         }
 
-        v32[0] = v9;
-        originator = MSSecIdentityCopyCertificateWithError(originatorIdentity, v32);
-        v15 = v32[0];
+        v31[0] = v9;
+        originator = MSSecIdentityCopyCertificateWithError(originatorIdentity, v31);
+        v15 = v31[0];
 
         self->_originator = originator;
         v9 = v15;
@@ -619,20 +624,19 @@ LABEL_14:
       if (originator)
       {
         recipientInfo->var1.var1.var1.var0 = 1;
-        v16 = self->_originator;
-        v17 = SecCertificateCopyIssuerSequence();
-        recipientInfo->var1.var1.var1.var1.var0.var0.var0 = [v17 length];
-        recipientInfo->var1.var0.var2.var0.length = [v17 bytes];
-        v18 = SecCertificateCopySerialNumberData(self->_originator, 0);
-        recipientInfo->var1.var1.var1.var1.var2.var1.var0 = [(__CFData *)v18 bytes];
-        recipientInfo->var1.var1.var1.var1.var0.var1.var0 = [(__CFData *)v18 length];
+        v16 = SecCertificateCopyIssuerSequence();
+        recipientInfo->var1.var1.var1.var1.var0.var0.var0 = [v16 length];
+        recipientInfo->var1.var0.var2.var0.length = [v16 bytes];
+        v17 = SecCertificateCopySerialNumberData(self->_originator, 0);
+        recipientInfo->var1.var1.var1.var1.var2.var1.var0 = [(__CFData *)v17 bytes];
+        recipientInfo->var1.var1.var1.var1.var0.var1.var0 = [(__CFData *)v17 length];
         recipientInfo->var1.var1.var1.var1.var0.var1.var2 = 0;
       }
 
       else
       {
+        v16 = 0;
         v17 = 0;
-        v18 = 0;
       }
 
       recipientInfo->var1.var0.var3.var1 = malloc_type_malloc(0x10uLL, 0x108004057E67DB5uLL);
@@ -643,59 +647,59 @@ LABEL_14:
       recipientInfo->var1.var1.var3.var0 = asn1AlgId->var0;
       recipientInfo->var1.var1.var3.var1 = var1;
       recipientInfo->var1.var1.var4.var0 = 1;
-      v25 = malloc_type_malloc(0x20uLL, 0x10800403AF1B36BuLL);
-      v21 = SecCertificateCopySerialNumberData([(NSArray *)self->_recipientCertificates objectAtIndex:0], 0);
-      v19 = SecCertificateCopyIssuerSequence();
-      v22 = [[MSCMSIdentifier alloc] initWithIssuerName:v19 serialNumber:v21];
-      v31 = v9;
-      v20 = [(MSCMSIdentifier *)v22 encodeMessageSecurityObject:&v31];
-      v26 = v31;
+      v24 = malloc_type_malloc(0x20uLL, 0x10800403AF1B36BuLL);
+      v20 = SecCertificateCopySerialNumberData([(NSArray *)self->_recipientCertificates objectAtIndex:0], 0);
+      v18 = SecCertificateCopyIssuerSequence();
+      v21 = [[MSCMSIdentifier alloc] initWithIssuerName:v18 serialNumber:v20];
+      v30 = v9;
+      v19 = [(MSCMSIdentifier *)v21 encodeMessageSecurityObject:&v30];
+      v25 = v30;
 
-      *(v25 + 1) = [v20 bytes];
-      *v25 = [v20 length];
-      *(v25 + 3) = [v30 bytes];
-      *(v25 + 2) = [v30 length];
-      recipientInfo->var1.var1.var4.var1 = v25;
-      v9 = v26;
+      *(v24 + 1) = [v19 bytes];
+      *v24 = [v19 length];
+      *(v24 + 3) = [v29 bytes];
+      *(v24 + 2) = [v29 length];
+      recipientInfo->var1.var1.var4.var1 = v24;
+      v9 = v25;
       v12 = 1;
     }
 
     else
     {
       [MSCMSRecipientInfo encodeKeyTransRecipientInfo:recipientInfo:error:];
+      v18 = 0;
       v19 = 0;
       v20 = 0;
       v21 = 0;
-      v22 = 0;
+      v16 = 0;
       v17 = 0;
-      v18 = 0;
-      v9 = v32[1];
+      v9 = v31[1];
     }
 
     if (errorCopy)
     {
-      infoCopy = v30;
+      infoCopy = v29;
       if (v9)
       {
-        v27 = v9;
+        v26 = v9;
         *errorCopy = v9;
       }
     }
 
     else
     {
-      infoCopy = v30;
+      infoCopy = v29;
     }
   }
 
   else
   {
+    v18 = 0;
     v19 = 0;
     v20 = 0;
     v21 = 0;
-    v22 = 0;
+    v16 = 0;
     v17 = 0;
-    v18 = 0;
     v12 = 0;
   }
 
@@ -887,9 +891,11 @@ LABEL_26:
 
 uint64_t __79__MSCMSRecipientInfo_decodeKeyTransRecipientInfo_certificates_LAContext_error___block_invoke()
 {
-  MS_DEFAULT_LOG_INTERNAL = os_log_create("com.apple.MessageSecurity", "default");
+  v0 = os_log_create("com.apple.MessageSecurity", "default");
+  v1 = MS_DEFAULT_LOG_INTERNAL;
+  MS_DEFAULT_LOG_INTERNAL = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 + (id)decodeKeyAgreeRecipientInfo:(RecipientInfo *)info certificates:(id)certificates LAContext:(id)context error:(id *)error
@@ -1266,6 +1272,122 @@ LABEL_8:
   }
 
   return v15;
+}
+
+- (id)key:(BOOL)key
+{
+  v26[1] = 0;
+  privateKeyRef = 0;
+  v26[0] = 0;
+  recipientCertificates = self->_recipientCertificates;
+  if (!recipientCertificates || (v5 = key, ![(NSArray *)recipientCertificates count]) || (IdentityByCertificate = findIdentityByCertificate([(NSArray *)self->_recipientCertificates objectAtIndex:0], 0, 0)) == 0)
+  {
+    der_free_octet_string();
+    DecryptedData = 0;
+    goto LABEL_28;
+  }
+
+  v7 = IdentityByCertificate;
+  if (SecIdentityCopyPrivateKey(IdentityByCertificate, &privateKeyRef))
+  {
+    v8 = 1;
+  }
+
+  else
+  {
+    v8 = privateKeyRef == 0;
+  }
+
+  if (v8)
+  {
+    goto LABEL_23;
+  }
+
+  algorithm = [(MSAlgorithmIdentifier *)self->_keyEncryptionAlgorithm algorithm];
+  v10 = [algorithm isEqualToString:@"1.2.840.113549.1.1.1"];
+
+  if (!v10)
+  {
+    algorithm2 = [(MSAlgorithmIdentifier *)self->_keyEncryptionAlgorithm algorithm];
+    v14 = [algorithm2 isEqualToString:@"1.3.133.16.840.63.0.2"];
+
+    if (v14)
+    {
+      v15 = [MSAlgorithmIdentifier alloc];
+      parameters = [(MSAlgorithmIdentifier *)self->_keyEncryptionAlgorithm parameters];
+      v17 = [(MSAlgorithmIdentifier *)v15 decode:parameters error:0];
+
+      if (v17)
+      {
+        parameters2 = [v17 parameters];
+        if (!parameters2)
+        {
+          goto LABEL_19;
+        }
+
+        parameters3 = [v17 parameters];
+        v20 = [MEMORY[0x277CBEA90] dataWithBytes:&key__asn1NULL length:2];
+        v21 = [parameters3 isEqual:v20];
+
+        if (v21)
+        {
+          parameters2 = 0;
+          goto LABEL_19;
+        }
+
+        parameters4 = [v17 parameters];
+        parameters2 = parameters4;
+        if (!parameters4 || ![parameters4 length] || (v25 = 0, objc_msgSend(parameters2, "bytes"), objc_msgSend(parameters2, "length"), der_get_octet_string_ber(), objc_msgSend(parameters2, "length")))
+        {
+          v12 = 0;
+          goto LABEL_33;
+        }
+
+        if (v26[0] == [v17 blockSize:0])
+        {
+LABEL_19:
+          v12 = [(MSCMSRecipientInfo *)self keyEncryptionKey:v17 forEncryption:0 secCMSCompatibility:v5, v25];
+          if (v12)
+          {
+            DecryptedData = [(MSCMSRecipientInfo *)self decryptWrappedKey:v17 kek:v12 iv:v26];
+LABEL_21:
+
+            goto LABEL_24;
+          }
+
+LABEL_33:
+          DecryptedData = 0;
+          goto LABEL_21;
+        }
+      }
+    }
+
+LABEL_23:
+    v12 = 0;
+    DecryptedData = 0;
+    goto LABEL_24;
+  }
+
+  DecryptedData = SecKeyCreateDecryptedData(privateKeyRef, *MEMORY[0x277CDC368], [(NSArray *)self->_encryptedKeys objectAtIndex:0], 0);
+  v12 = 0;
+LABEL_24:
+  CFRelease(v7);
+  v23 = privateKeyRef;
+  if (privateKeyRef)
+  {
+    privateKeyRef = 0;
+    CFRelease(v23);
+  }
+
+  der_free_octet_string();
+  if (v12)
+  {
+    CFRelease(v12);
+  }
+
+LABEL_28:
+
+  return DecryptedData;
 }
 
 - (void)dealloc
@@ -1655,7 +1777,7 @@ LABEL_23:
   }
 
   v26 = v25;
-  if (!v25 || (v34 = [keyCopy keySize:0], (v34 - 0x7FFFFFFF) < 0xFFFFFFFF80000002))
+  if (!v25 || (v33 = [keyCopy keySize:0], (v33 - 0x7FFFFFFF) < 0xFFFFFFFF80000002))
   {
     v24 = 0;
     v28 = 0;
@@ -1664,7 +1786,7 @@ LABEL_61:
     goto LABEL_35;
   }
 
-  v27 = CFNumberCreate(0, kCFNumberSInt32Type, &v34);
+  v27 = CFNumberCreate(0, kCFNumberSInt32Type, &v33);
   v28 = v27;
   if (!v27)
   {
@@ -1673,11 +1795,11 @@ LABEL_61:
   }
 
   v29 = *MEMORY[0x277CDC400];
-  v38[0] = *MEMORY[0x277CDC3F8];
-  v38[1] = v29;
-  v37[0] = v27;
-  v37[1] = v26;
-  v30 = CFDictionaryCreate(0, v38, v37, 2, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
+  v37[0] = *MEMORY[0x277CDC3F8];
+  v37[1] = v29;
+  v36[0] = v27;
+  v36[1] = v26;
+  v30 = CFDictionaryCreate(0, v37, v36, 2, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
   if (v30)
   {
     v24 = SecKeyCopyKeyExchangeResult(privateKeyRef, *MEMORY[0x277CDC290], v22, v30, 0);
@@ -1737,7 +1859,6 @@ LABEL_39:
 
 LABEL_51:
 
-  v32 = *MEMORY[0x277D85DE8];
   return v24;
 }
 

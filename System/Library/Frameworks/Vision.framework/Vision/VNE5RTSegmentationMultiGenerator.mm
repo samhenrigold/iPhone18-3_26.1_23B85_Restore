@@ -153,37 +153,37 @@ uint64_t __95__VNE5RTSegmentationMultiGenerator_renderCIImage_width_height_forma
   return v3;
 }
 
-void __59__VNE5RTSegmentationMultiGenerator_requestKeyToRequestInfo__block_invoke()
+void __59__VNE5RTSegmentationMultiGenerator_requestKeyToRequestInfo__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v18[5] = *MEMORY[0x1E69E9840];
-  v0 = objc_opt_class();
-  v1 = NSStringFromClass(v0);
-  v17[0] = v1;
-  v2 = [[VNMultiDetectorOriginalRequestInfo alloc] initWithOriginatingRequestSpecifierProcessingOptionKey:@"VNSegmentationGeneratorProcessOption_PersonSegmentationDetectorOriginatingRequestSpecifier" originalRequestResultsIndex:0];
-  v18[0] = v2;
-  v3 = objc_opt_class();
-  v4 = NSStringFromClass(v3);
-  v17[1] = v4;
-  v5 = [[VNMultiDetectorOriginalRequestInfo alloc] initWithOriginatingRequestSpecifierProcessingOptionKey:@"VNSegmentationGeneratorProcessOption_SkySegmentationDetectorOriginatingRequestSpecifier" originalRequestResultsIndex:1];
-  v18[1] = v5;
-  v6 = objc_opt_class();
-  v7 = NSStringFromClass(v6);
-  v17[2] = v7;
-  v8 = [[VNMultiDetectorOriginalRequestInfo alloc] initWithOriginatingRequestSpecifierProcessingOptionKey:@"VNSegmentationGeneratorProcessOption_HumanAttributesSegmentationDetectorOriginatingRequestSpecifier" originalRequestResultsIndex:2];
-  v18[2] = v8;
-  v9 = objc_opt_class();
-  v10 = NSStringFromClass(v9);
-  v17[3] = v10;
-  v11 = [[VNMultiDetectorOriginalRequestInfo alloc] initWithOriginatingRequestSpecifierProcessingOptionKey:@"VNSegmentationGeneratorProcessOption_GlassesSegmentationDetectorOriginatingRequestSpecifier" originalRequestResultsIndex:3];
-  v18[3] = v11;
-  v12 = objc_opt_class();
-  v13 = NSStringFromClass(v12);
-  v17[4] = v13;
-  v14 = [[VNMultiDetectorOriginalRequestInfo alloc] initWithOriginatingRequestSpecifierProcessingOptionKey:@"VNSegmentationGeneratorProcessOption_AnimalSegmentationDetectorOriginatingRequestSpecifier" originalRequestResultsIndex:4];
-  v18[4] = v14;
-  v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:v17 count:5];
-  v16 = +[VNE5RTSegmentationMultiGenerator requestKeyToRequestInfo]::requestKeyToRequestInfo;
-  +[VNE5RTSegmentationMultiGenerator requestKeyToRequestInfo]::requestKeyToRequestInfo = v15;
+  v20[5] = *MEMORY[0x1E69E9840];
+  v2 = objc_opt_class();
+  v3 = NSStringFromClass(v2);
+  v19[0] = v3;
+  v4 = [[VNMultiDetectorOriginalRequestInfo alloc] initWithOriginatingRequestSpecifierProcessingOptionKey:@"VNSegmentationGeneratorProcessOption_PersonSegmentationDetectorOriginatingRequestSpecifier" originalRequestResultsIndex:0];
+  v20[0] = v4;
+  v5 = objc_opt_class();
+  v6 = NSStringFromClass(v5);
+  v19[1] = v6;
+  v7 = [[VNMultiDetectorOriginalRequestInfo alloc] initWithOriginatingRequestSpecifierProcessingOptionKey:@"VNSegmentationGeneratorProcessOption_SkySegmentationDetectorOriginatingRequestSpecifier" originalRequestResultsIndex:1];
+  v20[1] = v7;
+  v8 = objc_opt_class();
+  v9 = NSStringFromClass(v8);
+  v19[2] = v9;
+  v10 = [[VNMultiDetectorOriginalRequestInfo alloc] initWithOriginatingRequestSpecifierProcessingOptionKey:@"VNSegmentationGeneratorProcessOption_HumanAttributesSegmentationDetectorOriginatingRequestSpecifier" originalRequestResultsIndex:2];
+  v20[2] = v10;
+  v11 = objc_opt_class();
+  v12 = NSStringFromClass(v11);
+  v19[3] = v12;
+  v13 = [[VNMultiDetectorOriginalRequestInfo alloc] initWithOriginatingRequestSpecifierProcessingOptionKey:@"VNSegmentationGeneratorProcessOption_GlassesSegmentationDetectorOriginatingRequestSpecifier" originalRequestResultsIndex:3];
+  v20[3] = v13;
+  v14 = objc_opt_class();
+  v15 = NSStringFromClass(v14);
+  v19[4] = v15;
+  v16 = [[VNMultiDetectorOriginalRequestInfo alloc] initWithOriginatingRequestSpecifierProcessingOptionKey:@"VNSegmentationGeneratorProcessOption_AnimalSegmentationDetectorOriginatingRequestSpecifier" originalRequestResultsIndex:4];
+  v20[4] = v16;
+  v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:v19 count:5];
+  v18 = +[VNE5RTSegmentationMultiGenerator requestKeyToRequestInfo]::requestKeyToRequestInfo;
+  +[VNE5RTSegmentationMultiGenerator requestKeyToRequestInfo]::requestKeyToRequestInfo = v17;
 }
 
 + (id)requestInfoForRequest:(id)request

@@ -39,7 +39,7 @@
 - (void)dealloc
 {
   v9 = *MEMORY[0x277D85DE8];
-  v3 = SBLogVideoOut();
+  v3 = SBLogVideoOut(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = objc_opt_class();
@@ -61,7 +61,7 @@
   v10 = &v9;
   v11 = 0x2020000000;
   v12 = 0;
-  v3 = SBLogVideoOut();
+  v3 = SBLogVideoOut(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -106,7 +106,7 @@ void __51__SBDisplayPortObserver_startMatchingNotifications__block_invoke(uint64
   if (v8)
   {
     v9 = v8;
-    v10 = SBLogVideoOut();
+    v10 = SBLogVideoOut(v8);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       __51__SBDisplayPortObserver_startMatchingNotifications__block_invoke_cold_1(v9, v10, v11, v12, v13, v14, v15, v16);
@@ -123,7 +123,7 @@ void __51__SBDisplayPortObserver_startMatchingNotifications__block_invoke(uint64
 
 - (void)stopMatchingNotifications
 {
-  v3 = SBLogVideoOut();
+  v3 = SBLogVideoOut(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -194,13 +194,13 @@ void __50__SBDisplayPortObserver_stopMatchingNotifications__block_invoke_2(uint6
 - (void)_handleServiceAdded:(unsigned int)added
 {
   v3 = *&added;
-  v22 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   entryID = 0;
   RegistryEntryID = IORegistryEntryGetRegistryEntryID(added, &entryID);
   if (RegistryEntryID)
   {
     v6 = RegistryEntryID;
-    CFProperty = SBLogVideoOut();
+    CFProperty = SBLogVideoOut(RegistryEntryID);
     if (os_log_type_enabled(CFProperty, OS_LOG_TYPE_ERROR))
     {
       [(SBDisplayPortObserver *)v6 _handleServiceAdded:v8, v9, v10, v11, v12, v13];
@@ -215,7 +215,7 @@ void __50__SBDisplayPortObserver_stopMatchingNotifications__block_invoke_2(uint6
 
     if (v16)
     {
-      CFProperty = SBLogVideoOut();
+      CFProperty = SBLogVideoOut(v17);
       if (os_log_type_enabled(CFProperty, OS_LOG_TYPE_DEBUG))
       {
         [(SBDisplayPortObserver *)&entryID _handleServiceAdded:?];
@@ -225,18 +225,18 @@ void __50__SBDisplayPortObserver_stopMatchingNotifications__block_invoke_2(uint6
     else
     {
       CFProperty = IORegistryEntryCreateCFProperty(v3, @"TransportDescription", *MEMORY[0x277CBECE8], 0);
-      v17 = SBLogVideoOut();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+      v18 = SBLogVideoOut(CFProperty);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 134217984;
-        v21 = entryID;
-        _os_log_impl(&dword_21ED4E000, v17, OS_LOG_TYPE_DEFAULT, "[SBDisplayPortObserver] Adding transport interest notifications... (registryEntryID: %llu)", buf, 0xCu);
+        v23 = entryID;
+        _os_log_impl(&dword_21ED4E000, v18, OS_LOG_TYPE_DEFAULT, "[SBDisplayPortObserver] Adding transport interest notifications... (registryEntryID: %llu)", buf, 0xCu);
       }
 
-      v18 = SBLogVideoOut();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+      v20 = SBLogVideoOut(v19);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
       {
-        [(SBDisplayPortObserver *)CFProperty _handleServiceAdded:v18];
+        [(SBDisplayPortObserver *)CFProperty _handleServiceAdded:v20];
       }
 
       [(SBDisplayPortObserver *)self _addTransportNotificationForService:v3 andRegistryEntryID:entryID];
@@ -252,7 +252,7 @@ void __50__SBDisplayPortObserver_stopMatchingNotifications__block_invoke_2(uint6
   if (RegistryEntryID)
   {
     v9 = RegistryEntryID;
-    CFProperty = SBLogVideoOut();
+    CFProperty = SBLogVideoOut(RegistryEntryID);
     if (os_log_type_enabled(CFProperty, OS_LOG_TYPE_ERROR))
     {
       [(SBDisplayPortObserver *)v9 _handleServiceAdded:v11, v12, v13, v14, v15, v16];
@@ -262,7 +262,7 @@ void __50__SBDisplayPortObserver_stopMatchingNotifications__block_invoke_2(uint6
   }
 
   CFProperty = IORegistryEntryCreateCFProperty(service, @"TransportDescription", *MEMORY[0x277CBECE8], 0);
-  v17 = SBLogVideoOut();
+  v17 = SBLogVideoOut(CFProperty);
   v18 = os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT);
   if (type != -536870896)
   {
@@ -364,6 +364,20 @@ LABEL_15:
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
 
   return WeakRetained;
+}
+
+void __51__SBDisplayPortObserver_startMatchingNotifications__block_invoke_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 67109120;
+  HIDWORD(v8) = a1;
+  OUTLINED_FUNCTION_0_6(&dword_21ED4E000, a2, a3, "[SBDisplayPortObserver] IOServiceAddMatchingNotification failed: %08x", a5, a6, a7, a8, v8);
+}
+
+- (void)_handleServiceAdded:(uint64_t)a3 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 67109120;
+  HIDWORD(v8) = a1;
+  OUTLINED_FUNCTION_0_6(&dword_21ED4E000, a2, a3, "[SBDisplayPortObserver] IORegistryEntryGetRegistryEntryID failed: %08x", a5, a6, a7, a8, v8);
 }
 
 - (void)_handleServiceAdded:(uint64_t *)a1 .cold.2(uint64_t *a1, NSObject *a2)

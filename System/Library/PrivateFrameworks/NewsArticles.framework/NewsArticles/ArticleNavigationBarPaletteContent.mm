@@ -32,7 +32,7 @@
   colorCopy = color;
   secondaryColorCopy = secondaryColor;
   selfCopy = self;
-  sub_1D7B19D54(forCopy, color, factor);
+  sub_1D7B19D54(forCopy, color, secondaryColor, factor);
 }
 
 - (void)setBarColor:(id)color

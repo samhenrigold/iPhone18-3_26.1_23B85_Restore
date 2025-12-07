@@ -38,7 +38,7 @@
   v20 = "[NWSystemPathMonitor getSymptomsFallback]";
   v21 = 1024;
   v22 = v4;
-  v6 = _os_log_send_and_compose_impl();
+  v6 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v5, 16, "%{public}s notify_get_state [%u] failed", buf, 18);
 
   type = OS_LOG_TYPE_ERROR;
   v16 = 0;
@@ -175,7 +175,7 @@ LABEL_14:
     v22 = "com.apple.symptoms.celloutrankeffective";
     v23 = 1024;
     v24 = v4;
-    v6 = _os_log_send_and_compose_impl();
+    v6 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v5, 16, "%{public}s notify_register_dispatch(%{public}s) [status %u] failed", buf, 28);
 
     type = OS_LOG_TYPE_ERROR;
     v13 = 0;
@@ -378,7 +378,7 @@ void __62__NWSystemPathMonitor_registerForSymptomsFallbackNotification__block_in
   v16 = gLogObj;
   *buf = 136446210;
   v27 = "[NWSystemPathMonitor updateVPNMonitor]";
-  v17 = _os_log_send_and_compose_impl();
+  v17 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v16, 16, "%{public}s monitorWithNetworkDescription:endpoint:parameters: failed", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v24 = 0;
@@ -502,7 +502,7 @@ LABEL_37:
     v22 = "com.apple.neconfigurationchanged";
     v23 = 1024;
     v24 = v4;
-    v6 = _os_log_send_and_compose_impl();
+    v6 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v5, 16, "%{public}s notify_register_dispatch(%{public}s) [status %u] failed", buf, 28);
 
     type = OS_LOG_TYPE_ERROR;
     v13 = 0;
@@ -1170,7 +1170,7 @@ LABEL_21:
     v24 = __nwlog_obj();
     *location = 136446210;
     *&location[4] = "[NWSystemPathMonitor init]";
-    v25 = _os_log_send_and_compose_impl();
+    v25 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v24, 16, "%{public}s [super init] failed", location, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v39 = 0;
@@ -1257,7 +1257,7 @@ LABEL_50:
     v44 = @"com.apple.private.network.socket-delegate";
     v45 = 2114;
     v46 = v14;
-    v16 = _os_log_send_and_compose_impl();
+    v16 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v15, 16, "%{public}s This process does not have the %{public}@ entitlement required to use the %{public}@ API", location, 32);
 
     type = OS_LOG_TYPE_ERROR;
     v39 = 0;

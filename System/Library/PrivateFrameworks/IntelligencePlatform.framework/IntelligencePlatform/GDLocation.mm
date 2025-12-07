@@ -53,37 +53,37 @@ LABEL_9:
 
 - (GDLocation)initWithTriplesIterator:(id)iterator
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   iteratorCopy = iterator;
-  v37.receiver = self;
-  v37.super_class = GDLocation;
-  v5 = [(GDLocation *)&v37 init];
+  v36.receiver = self;
+  v36.super_class = GDLocation;
+  v5 = [(GDLocation *)&v36 init];
   if (v5)
   {
+    v30 = objc_opt_new();
     v31 = objc_opt_new();
-    v32 = objc_opt_new();
+    v32 = 0u;
     v33 = 0u;
     v34 = 0u;
     v35 = 0u;
-    v36 = 0u;
-    v30 = iteratorCopy;
+    v29 = iteratorCopy;
     v6 = iteratorCopy;
-    v7 = [v6 countByEnumeratingWithState:&v33 objects:v38 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v32 objects:v37 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v34;
+      v9 = *v33;
       do
       {
         v10 = 0;
         do
         {
-          if (*v34 != v9)
+          if (*v33 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          v11 = *(*(&v33 + 1) + 8 * v10);
+          v11 = *(*(&v32 + 1) + 8 * v10);
           if (!v5->_entityIdentifier)
           {
             v12 = [GDEntityIdentifier alloc];
@@ -97,7 +97,7 @@ LABEL_9:
           if ([predicate isEqual:@"PS33"])
           {
             object = [v11 object];
-            v18 = v32;
+            v18 = v31;
             goto LABEL_11;
           }
 
@@ -120,7 +120,7 @@ LABEL_9:
 
               if (object)
               {
-                v18 = v31;
+                v18 = v30;
 LABEL_11:
                 [v18 addObject:object];
               }
@@ -133,35 +133,34 @@ LABEL_12:
         }
 
         while (v8 != v10);
-        v8 = [v6 countByEnumeratingWithState:&v33 objects:v38 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v32 objects:v37 count:16];
       }
 
       while (v8);
     }
 
-    if (!v5->_entityIdentifier || ![v32 count] && !objc_msgSend(v31, "count"))
+    if (!v5->_entityIdentifier || ![v31 count] && !objc_msgSend(v30, "count"))
     {
 
       v27 = 0;
-      iteratorCopy = v30;
+      iteratorCopy = v29;
       goto LABEL_26;
     }
 
-    v23 = [v32 copy];
+    v23 = [v31 copy];
     names = v5->_names;
     v5->_names = v23;
 
-    v25 = [v31 copy];
+    v25 = [v30 copy];
     addresses = v5->_addresses;
     v5->_addresses = v25;
 
-    iteratorCopy = v30;
+    iteratorCopy = v29;
   }
 
   v27 = v5;
 LABEL_26:
 
-  v28 = *MEMORY[0x1E69E9840];
   return v27;
 }
 

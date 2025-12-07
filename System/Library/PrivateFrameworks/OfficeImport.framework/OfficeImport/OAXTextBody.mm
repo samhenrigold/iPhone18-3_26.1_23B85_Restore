@@ -48,7 +48,7 @@
   oAXMainNamespace4 = [stateCopy OAXMainNamespace];
   v17 = OCXFindChild(node, oAXMainNamespace4, "lstStyle");
 
-  if (v17 && *(v17 + 24))
+  if (v17 && v17->children)
   {
     overrideTextListStyle = [bodyCopy overrideTextListStyle];
     [OAXTextListStyle readNode:v17 textListStyle:overrideTextListStyle state:stateCopy];

@@ -39,76 +39,76 @@
 
 - (void)expandWithObjectsPendingCommit:()EKPredicateEvaluating deletedObjectIDs:andResultArray:
 {
-  v55 = *MEMORY[0x1E69E9840];
+  v54 = *MEMORY[0x1E69E9840];
   v8 = a3;
   v9 = a4;
-  v40 = a5;
+  v39 = a5;
   v10 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v48 = 0u;
   v49 = 0u;
   v50 = 0u;
   v51 = 0u;
-  v52 = 0u;
   v11 = v8;
-  v12 = [v11 countByEnumeratingWithState:&v49 objects:v54 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v48 objects:v53 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v50;
+    v14 = *v49;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v50 != v14)
+        if (*v49 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        v16 = *(*(&v49 + 1) + 8 * i);
+        v16 = *(*(&v48 + 1) + 8 * i);
         objectID = [v16 objectID];
         [v10 setObject:v16 forKeyedSubscript:objectID];
       }
 
-      v13 = [v11 countByEnumeratingWithState:&v49 objects:v54 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v48 objects:v53 count:16];
     }
 
     while (v13);
   }
 
   v18 = MEMORY[0x1E696AE18];
-  v45[0] = MEMORY[0x1E69E9820];
-  v45[1] = 3221225472;
-  v45[2] = __137__CADCalendarItemsWithExternalIdentifierPredicate_EKPredicateEvaluating__expandWithObjectsPendingCommit_deletedObjectIDs_andResultArray___block_invoke;
-  v45[3] = &unk_1E77FE698;
+  v44[0] = MEMORY[0x1E69E9820];
+  v44[1] = 3221225472;
+  v44[2] = __137__CADCalendarItemsWithExternalIdentifierPredicate_EKPredicateEvaluating__expandWithObjectsPendingCommit_deletedObjectIDs_andResultArray___block_invoke;
+  v44[3] = &unk_1E77FE698;
   v19 = v9;
-  v46 = v19;
+  v45 = v19;
   v20 = v10;
-  v47 = v20;
+  v46 = v20;
   selfCopy = self;
-  v21 = [v18 predicateWithBlock:v45];
-  [v40 filterUsingPredicate:v21];
+  v21 = [v18 predicateWithBlock:v44];
+  [v39 filterUsingPredicate:v21];
 
-  v43 = 0u;
-  v44 = 0u;
-  v41 = 0u;
   v42 = 0u;
+  v43 = 0u;
+  v40 = 0u;
+  v41 = 0u;
   v22 = v20;
-  v23 = [v22 countByEnumeratingWithState:&v41 objects:v53 count:16];
+  v23 = [v22 countByEnumeratingWithState:&v40 objects:v52 count:16];
   if (v23)
   {
     v24 = v23;
-    v25 = *v42;
-    v39 = v22;
+    v25 = *v41;
+    v38 = v22;
     do
     {
       for (j = 0; j != v24; ++j)
       {
-        if (*v42 != v25)
+        if (*v41 != v25)
         {
           objc_enumerationMutation(v22);
         }
 
-        v27 = *(*(&v41 + 1) + 8 * j);
-        v28 = [v22 objectForKeyedSubscript:{v27, v39}];
+        v27 = *(*(&v40 + 1) + 8 * j);
+        v28 = [v22 objectForKeyedSubscript:{v27, v38}];
         if ([self ekPredicateEvaluateWithObject:v28] && (objc_msgSend(v19, "containsObject:", v27) & 1) == 0)
         {
           v29 = [EKEvent alloc];
@@ -126,18 +126,16 @@
           self = selfCopy2;
           v25 = v31;
           v24 = v30;
-          v22 = v39;
-          [v40 addObject:v37];
+          v22 = v38;
+          [v39 addObject:v37];
         }
       }
 
-      v24 = [v22 countByEnumeratingWithState:&v41 objects:v53 count:16];
+      v24 = [v22 countByEnumeratingWithState:&v40 objects:v52 count:16];
     }
 
     while (v24);
   }
-
-  v38 = *MEMORY[0x1E69E9840];
 }
 
 @end

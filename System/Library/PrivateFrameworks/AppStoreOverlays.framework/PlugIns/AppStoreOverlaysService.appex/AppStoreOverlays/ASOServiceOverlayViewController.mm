@@ -5,7 +5,9 @@
 - (UIGestureRecognizer)panGestureRecognizer;
 - (double)overlayHeight;
 - (double)percentageForEdgePoint:(CGPoint)point;
+- (id)dismissOverlayAnimated:(BOOL)animated;
 - (id)hideOverlayAnimated:(BOOL)animated;
+- (id)presentOverlayPresenter:(id)presenter animated:(BOOL)animated;
 - (id)presentationQueue:(id)queue presentOverlayWithConfiguration:(id)configuration delegate:(id)delegate;
 - (id)showOverlayAnimated:(BOOL)animated;
 - (void)hostDidEnterBackground;
@@ -21,6 +23,7 @@
 - (void)setPercentageOnScreen:(double)screen animated:(BOOL)animated completion:(id)completion;
 - (void)updateRateLimiterConstantsIfNeeded;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 - (void)viewWillLayoutSubviews;
 @end
 
@@ -183,6 +186,67 @@ LABEL_9:
     containerConfiguration = [currentOverlayPresenter2 containerConfiguration];
     [(ASOServiceOverlayViewController *)self setContainerConfiguration:containerConfiguration];
   }
+}
+
+- (id)presentOverlayPresenter:(id)presenter animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  presenterCopy = presenter;
+  [(ASOServiceOverlayViewController *)self updateRateLimiterConstantsIfNeeded];
+  rateLimiter = [(ASOServiceOverlayViewController *)self rateLimiter];
+  recordAttempt = [rateLimiter recordAttempt];
+
+  if (recordAttempt)
+  {
+    v9 = [(ASOServiceOverlayViewController *)self dismissOverlayAnimated:animatedCopy];
+    v14[0] = _NSConcreteStackBlock;
+    v14[1] = 3221225472;
+    v14[2] = sub_100009448;
+    v14[3] = &unk_1000251A0;
+    v14[4] = self;
+    v15 = presenterCopy;
+    v16 = animatedCopy;
+    v10 = [v9 thenWithBlock:v14];
+  }
+
+  else
+  {
+    v11 = +[ASOServiceOverlayViewController log];
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    {
+      sub_100017FA0(v11);
+    }
+
+    v9 = [NSError errorWithDomain:@"ASOErrorDomain" code:5 userInfo:0];
+    v12 = +[ASCMetrics sharedMetrics];
+    [v12 logErrorMessage:&off_100025B48];
+
+    [presenterCopy didFailToLoadWithError:v9];
+    v10 = [AMSBinaryPromise promiseWithError:v9];
+  }
+
+  return v10;
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = ASOServiceOverlayViewController;
+  [(ASOServiceOverlayViewController *)&v4 viewWillAppear:appear];
+  [(ASOServiceOverlayViewController *)self reloadAXSize];
+}
+
+- (id)dismissOverlayAnimated:(BOOL)animated
+{
+  v4 = [(ASOServiceOverlayViewController *)self hideOverlayAnimated:animated];
+  v7[0] = _NSConcreteStackBlock;
+  v7[1] = 3221225472;
+  v7[2] = sub_100009848;
+  v7[3] = &unk_1000251C8;
+  v7[4] = self;
+  v5 = [v4 thenWithBlock:v7];
+
+  return v5;
 }
 
 - (void)viewWillLayoutSubviews

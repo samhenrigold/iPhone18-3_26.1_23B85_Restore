@@ -5,6 +5,7 @@
 - (id)formattedAttributedStringForType:(id)type value:(id)value;
 - (id)formattedStringForEnumType:(id)type number:(id)number;
 - (id)formattedStringForEnumType:(id)type value:(id)value;
+- (id)formattedStringForMultiPartRequestResponse:(id)response compressed:(unsigned __int8)compressed;
 - (id)formattedStringForProtobufType:(id)type data:(id)data;
 - (id)formattedStringForProtobufType:(id)type value:(id)value;
 - (id)formattedStringForRequestResponse:(id)response;
@@ -391,6 +392,36 @@ LABEL_10:
   return v22;
 }
 
+- (id)formattedStringForMultiPartRequestResponse:(id)response compressed:(unsigned __int8)compressed
+{
+  compressedCopy = compressed;
+  responseCopy = response;
+  if ([responseCopy length] >= 0xC)
+  {
+    v8 = objc_alloc_init(Multipart);
+    [responseCopy getBytes:&v8->identifier range:{1, 8}];
+    [responseCopy getBytes:&v8->partIndex range:{9, 1}];
+    [responseCopy getBytes:&v8->partCount range:{10, 1}];
+    v13 = 0;
+    v14 = 0;
+    NameAndRemainderAtOffset = getNameAndRemainderAtOffset(responseCopy, 0xBuLL, &v14, &v13);
+    v10 = v14;
+    v11 = v13;
+    v7 = 0;
+    if (NameAndRemainderAtOffset)
+    {
+      v7 = [(GEOLogFormatter *)self formattedStringForRequestResponseMultipart:v8 partData:v11 className:v10 compressed:compressedCopy];
+    }
+  }
+
+  else
+  {
+    v7 = 0;
+  }
+
+  return v7;
+}
+
 - (id)formattedStringForSinglePartRequestResponse:(id)response compressed:(unsigned __int8)compressed
 {
   compressedCopy = compressed;
@@ -513,10 +544,7 @@ LABEL_8:
 
 uint64_t __80__GEOLogFormatter_RequestResponse__formattedStringForRequestResponseType_value___block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) formattedStringForRequestResponse:*(a1 + 40)];
-  v3 = *(*(a1 + 48) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 48) + 8) + 40) = [*(a1 + 32) formattedStringForRequestResponse:*(a1 + 40)];
 
   return MEMORY[0x2A1C71028]();
 }

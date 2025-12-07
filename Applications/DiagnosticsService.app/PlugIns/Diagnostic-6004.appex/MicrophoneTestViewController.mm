@@ -31,7 +31,6 @@
   sub_100012D6C();
   if (*&selfCopy->DKDiagnosticViewController_opaque[OBJC_IVAR___MicrophoneTestViewController_responder])
   {
-    v3 = *&selfCopy->DKDiagnosticViewController_opaque[OBJC_IVAR___MicrophoneTestViewController_responder];
     [swift_unknownObjectRetain() enableVolumeHUD:1];
     swift_unknownObjectRelease();
   }

@@ -1,19 +1,17 @@
 uint64_t _ioSurfaceConnectInternal(char a1)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3[0] = MEMORY[0x1E69E9820];
-  v3[1] = 3221225472;
-  v3[2] = ___ioSurfaceConnectInternal_block_invoke;
-  v3[3] = &__block_descriptor_33_e5_v8__0l;
-  v4 = a1;
+  v4 = *MEMORY[0x1E69E9840];
+  v2[0] = MEMORY[0x1E69E9820];
+  v2[1] = 3221225472;
+  v2[2] = ___ioSurfaceConnectInternal_block_invoke;
+  v2[3] = &__block_descriptor_33_e5_v8__0l;
+  v3 = a1;
   if (_ioSurfaceConnectInternal_once != -1)
   {
-    dispatch_once(&_ioSurfaceConnectInternal_once, v3);
+    dispatch_once(&_ioSurfaceConnectInternal_once, v2);
   }
 
-  result = _iosConnect;
-  v2 = *MEMORY[0x1E69E9840];
-  return result;
+  return _iosConnect;
 }
 
 size_t IOSurfaceGetHeightOfPlane(size_t buffer, size_t planeIndex)
@@ -137,7 +135,6 @@ uint64_t IOSurfaceClientSetPurgeable(uint64_t a1, unsigned int a2, _DWORD *a3)
     *a3 = output;
   }
 
-  v7 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -175,13 +172,13 @@ BOOL IOSurfaceClientIsInUse(uint64_t a1)
 const void *IOSurfaceClientCopyValue(uint64_t a1, void *key)
 {
   v2 = key;
-  v8[1] = *MEMORY[0x1E69E9840];
-  v8[0] = 0;
+  v7[1] = *MEMORY[0x1E69E9840];
+  v7[0] = 0;
   if (key)
   {
-    if (_copySniffKeyFromStruct(key, *(a1 + 120) + 48, v8))
+    if (_copySniffKeyFromStruct(key, *(a1 + 120) + 48, v7))
     {
-      v2 = v8[0];
+      return v7[0];
     }
 
     else
@@ -204,23 +201,22 @@ const void *IOSurfaceClientCopyValue(uint64_t a1, void *key)
       else
       {
         pthread_mutex_unlock((a1 + 40));
-        v2 = 0;
+        return 0;
       }
     }
   }
 
-  v6 = *MEMORY[0x1E69E9840];
   return v2;
 }
 
 void IOSurfaceClientUpdateNonBulkValueCache(uint64_t a1)
 {
-  v21[1] = *MEMORY[0x1E69E9840];
+  v20[1] = *MEMORY[0x1E69E9840];
   v1 = *(a1 + 120);
   v2 = *(v1 + 40);
   if (!v2 || *(a1 + 32) == *(v1 + 32))
   {
-    goto LABEL_32;
+    return;
   }
 
   v4 = *(a1 + 16);
@@ -242,9 +238,9 @@ void IOSurfaceClientUpdateNonBulkValueCache(uint64_t a1)
     v6 = v5;
   }
 
-  v21[0] = v6;
-  v7 = (MEMORY[0x1EEE9AC00])();
-  memset(v19, 0, 13);
+  v20[0] = v6;
+  v7 = MEMORY[0x1EEE9AC00](v4);
+  memset(v18, 0, 13);
   while (1)
   {
     if (v6 > 0x4000)
@@ -255,23 +251,23 @@ void IOSurfaceClientUpdateNonBulkValueCache(uint64_t a1)
     else
     {
       MEMORY[0x1EEE9AC00](v7);
-      v8 = v19 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+      v8 = v18 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
       bzero(v8, v6);
     }
 
     v8[12] = 0;
-    v19[0] = *(a1 + 136);
-    v19[2] = *(a1 + 24) != 0;
-    LOBYTE(v19[3]) = 0;
+    v18[0] = *(a1 + 136);
+    v18[2] = *(a1 + 24) != 0;
+    LOBYTE(v18[3]) = 0;
     v9 = _ioSurfaceConnectInternal(0);
-    v7 = IOConnectCallMethod(v9, 0xAu, 0, 0, v19, 0xDuLL, 0, 0, v8, v21);
+    v7 = IOConnectCallMethod(v9, 0xAu, 0, 0, v18, 0xDuLL, 0, 0, v8, v20);
     if (v7 != -536870181)
     {
       break;
     }
 
-    v10 = 16 * v21[0];
-    v21[0] = v10;
+    v10 = 16 * v20[0];
+    v20[0] = v10;
     if (v10 > 0x1000000)
     {
       goto LABEL_30;
@@ -282,16 +278,16 @@ void IOSurfaceClientUpdateNonBulkValueCache(uint64_t a1)
     if (v11)
     {
       free(v8);
-      v6 = v21[0];
+      v6 = v20[0];
     }
   }
 
   if (!v7)
   {
     errorString = 0;
-    if (v21[0])
+    if (v20[0])
     {
-      v12 = IOCFUnserializeWithSize(v8 + 12, v21[0] - 12, 0, 0, &errorString);
+      v12 = IOCFUnserializeWithSize(v8 + 12, v20[0] - 12, 0, 0, &errorString);
       if (v12 || !errorString)
       {
         if (v12)
@@ -322,11 +318,11 @@ LABEL_28:
       Value = CFDictionaryGetValue(v14, @"CreationProperties");
       if (Value)
       {
-        v17 = Value;
-        v18 = CFGetTypeID(Value);
-        if (v18 == CFDictionaryGetTypeID())
+        v16 = Value;
+        v17 = CFGetTypeID(Value);
+        if (v17 == CFDictionaryGetTypeID())
         {
-          *(a1 + 24) = CFDictionaryCreateCopy(*MEMORY[0x1E695E480], v17);
+          *(a1 + 24) = CFDictionaryCreateCopy(*MEMORY[0x1E695E480], v16);
         }
       }
     }
@@ -341,9 +337,6 @@ LABEL_30:
   {
     free(v8);
   }
-
-LABEL_32:
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t IOSurfaceClientGetSliceCount(uint64_t a1)
@@ -412,20 +405,14 @@ uint64_t IOSurfaceClientBindAccel(uint64_t a1, unsigned int a2, unsigned int a3)
   v3 = *(a1 + 120);
   if (!*(v3 + 8) || *(v3 + 8) == a2 && *(v3 + 10) == a3)
   {
-    result = 0;
+    return 0;
   }
 
-  else
-  {
-    input[0] = *(a1 + 136);
-    input[1] = a2;
-    input[2] = a3;
-    v5 = _ioSurfaceConnectInternal(0);
-    result = IOConnectCallMethod(v5, 0xCu, input, 3u, 0, 0, 0, 0, 0, 0);
-  }
-
-  v6 = *MEMORY[0x1E69E9840];
-  return result;
+  input[0] = *(a1 + 136);
+  input[1] = a2;
+  input[2] = a3;
+  v5 = _ioSurfaceConnectInternal(0);
+  return IOConnectCallMethod(v5, 0xCu, input, 3u, 0, 0, 0, 0, 0, 0);
 }
 
 uint64_t IOSurfaceGetHeightInCompressedTilesOfPlane(uint64_t result, unsigned int a2)
@@ -474,11 +461,20 @@ uint64_t IOSurfaceClientGetBytesPerTileDataOfPlane(uint64_t a1, unsigned int a2)
   }
 }
 
-char *IOSurfaceClientLookup(unsigned int a1)
+IOSurfaceRef IOSurfaceLookup(IOSurfaceID csid)
 {
-  v44 = *MEMORY[0x1E69E9840];
+  v1 = *&csid;
+  v2 = [IOSurface alloc];
+
+  return [(IOSurface *)v2 initWithSurfaceID:v1];
+}
+
+char *IOSurfaceClientLookup(uint64_t a1)
+{
+  v1 = a1;
+  v43 = *MEMORY[0x1E69E9840];
   pthread_mutex_lock(&_iosCacheMutex);
-  v2 = iosCacheGet(a1);
+  v2 = iosCacheGet(v1);
   v3 = v2;
   if (v2)
   {
@@ -487,42 +483,42 @@ char *IOSurfaceClientLookup(unsigned int a1)
 
   else
   {
-    v42 = 0u;
-    v43 = 0u;
-    v40 = 0u;
     v41 = 0u;
-    v38 = 0u;
+    v42 = 0u;
     v39 = 0u;
-    v36 = 0u;
+    v40 = 0u;
     v37 = 0u;
-    v34 = 0u;
+    v38 = 0u;
     v35 = 0u;
-    v32 = 0u;
+    v36 = 0u;
     v33 = 0u;
-    v30 = 0u;
+    v34 = 0u;
     v31 = 0u;
-    v28 = 0u;
+    v32 = 0u;
     v29 = 0u;
-    v26 = 0u;
+    v30 = 0u;
     v27 = 0u;
-    v24 = 0u;
+    v28 = 0u;
     v25 = 0u;
-    v22 = 0u;
+    v26 = 0u;
     v23 = 0u;
-    v20 = 0u;
+    v24 = 0u;
     v21 = 0u;
-    v18 = 0u;
+    v22 = 0u;
     v19 = 0u;
-    v16 = 0u;
+    v20 = 0u;
     v17 = 0u;
-    v14 = 0u;
+    v18 = 0u;
     v15 = 0u;
-    outputStruct = 0u;
+    v16 = 0u;
     v13 = 0u;
-    input = a1;
-    v10 = 3176;
+    v14 = 0u;
+    outputStruct = 0u;
+    v12 = 0u;
+    input = v1;
+    v9 = 3176;
     v4 = _ioSurfaceConnectInternal(0);
-    if (!IOConnectCallMethod(v4, 4u, &input, 1u, 0, 0, 0, 0, &outputStruct, &v10))
+    if (!IOConnectCallMethod(v4, 4u, &input, 1u, 0, 0, 0, 0, &outputStruct, &v9))
     {
       v5 = _ioSurfaceClientCreateWithLockResult(&outputStruct);
       v3 = v5;
@@ -533,20 +529,19 @@ char *IOSurfaceClientLookup(unsigned int a1)
 
       else
       {
-        v6 = DWORD2(v13);
+        v6 = DWORD2(v12);
         v7 = _ioSurfaceConnectInternal(0);
         IOConnectTrap1(v7, 5u, v6);
       }
 
       if (*MEMORY[0x1E69E99E8])
       {
-        (*MEMORY[0x1E69E99E8])(1476395024, *MEMORY[0x1E69E9A60], v14, 0, outputStruct, 0);
+        (*MEMORY[0x1E69E99E8])(1476395024, *MEMORY[0x1E69E9A60], v13, 0, outputStruct, 0);
       }
     }
   }
 
   pthread_mutex_unlock(&_iosCacheMutex);
-  v8 = *MEMORY[0x1E69E9840];
   return v3;
 }
 
@@ -663,20 +658,20 @@ uint64_t IOSurfaceGetIndexedTimestamp(uint64_t result, unint64_t a2)
 
 IOSurfaceRef IOSurfaceCreate(CFDictionaryRef properties)
 {
-  DictionaryAddingMissingProperties = _iosCreateDictionaryAddingMissingProperties(properties);
-  v2 = [[IOSurface alloc] initWithProperties:DictionaryAddingMissingProperties];
+  DictionaryAddingMissingProperties = _iosCreateDictionaryAddingMissingProperties(properties, v1);
+  v3 = [[IOSurface alloc] initWithProperties:DictionaryAddingMissingProperties];
 
-  return v2;
+  return v3;
 }
 
-id _iosCreateDictionaryAddingMissingProperties(void *a1)
+id _iosCreateDictionaryAddingMissingProperties(void *a1, uint64_t a2)
 {
   v24 = *MEMORY[0x1E69E9840];
-  v2 = [a1 objectForKey:@"IOSurfaceName"];
-  v3 = [a1 objectForKey:@"IOSurfaceDefaultAttachments"];
-  v4 = [a1 objectForKey:@"IOSurfaceDefaultBulkAttachments"];
-  v5 = objc_autoreleasePoolPush();
-  if (!(v3 | v4))
+  v3 = [a1 objectForKey:@"IOSurfaceName"];
+  v4 = [a1 objectForKey:@"IOSurfaceDefaultAttachments"];
+  v5 = [a1 objectForKey:@"IOSurfaceDefaultBulkAttachments"];
+  v6 = objc_autoreleasePoolPush();
+  if (!(v4 | v5))
   {
     goto LABEL_12;
   }
@@ -691,14 +686,14 @@ id _iosCreateDictionaryAddingMissingProperties(void *a1)
   v17 = 0u;
   v14 = 0u;
   v15 = 0u;
-  if (v4)
+  if (v5)
   {
-    [v4 getBytes:&v14 length:132];
+    [v5 getBytes:&v14 length:132];
   }
 
-  if (v3)
+  if (v4)
   {
-    CFDictionaryApplyFunction(v3, _sniffKeysToStruct, &v14);
+    CFDictionaryApplyFunction(v4, _sniffKeysToStruct, &v14);
     if (cf[1])
     {
       CFRelease(cf[1]);
@@ -708,80 +703,79 @@ id _iosCreateDictionaryAddingMissingProperties(void *a1)
   if (!*(&v22 + 1))
   {
 LABEL_12:
-    v7 = 0;
+    v8 = 0;
     goto LABEL_13;
   }
 
-  v6 = objc_alloc_init(MEMORY[0x1E695DF90]);
-  v7 = v6;
-  if (!v6)
+  v7 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v8 = v7;
+  if (!v7)
   {
 LABEL_13:
-    v8 = 0;
+    v9 = 0;
     goto LABEL_14;
   }
 
+  if (v4)
+  {
+    [v7 addEntriesFromDictionary:{v4, v14, v15, v16, v17, v18, v19, v20, v21, v22}];
+  }
+
+  v9 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytes:&v14 length:132];
+  [v8 removeObjectForKey:@"IOSurfaceCleanAperture"];
+  [v8 removeObjectForKey:@"IOSurfacePixelAspectRatio"];
+  [v8 removeObjectForKey:@"IOSurfaceGammaLevel"];
+  [v8 removeObjectForKey:@"IOSurfaceFieldCount"];
+  [v8 removeObjectForKey:@"IOSurfaceFieldDetail"];
+  [v8 removeObjectForKey:@"IOSurfaceYCbCrMatrix"];
+  [v8 removeObjectForKey:@"IOSurfaceColorPrimaries"];
+  [v8 removeObjectForKey:@"IOSurfaceTransferFunction"];
+  [v8 removeObjectForKey:@"IOSurfaceChromaLocationTopField"];
+  [v8 removeObjectForKey:@"IOSurfaceChromaLocationBottomField"];
+  [v8 removeObjectForKey:@"IOSurfaceChromaSubsampling"];
+  [v8 removeObjectForKey:@"IOSurfaceEDRFactor"];
+LABEL_14:
   if (v3)
   {
-    [v6 addEntriesFromDictionary:{v3, v14, v15, v16, v17, v18, v19, v20, v21, v22}];
-  }
-
-  v8 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytes:&v14 length:132];
-  [v7 removeObjectForKey:@"IOSurfaceCleanAperture"];
-  [v7 removeObjectForKey:@"IOSurfacePixelAspectRatio"];
-  [v7 removeObjectForKey:@"IOSurfaceGammaLevel"];
-  [v7 removeObjectForKey:@"IOSurfaceFieldCount"];
-  [v7 removeObjectForKey:@"IOSurfaceFieldDetail"];
-  [v7 removeObjectForKey:@"IOSurfaceYCbCrMatrix"];
-  [v7 removeObjectForKey:@"IOSurfaceColorPrimaries"];
-  [v7 removeObjectForKey:@"IOSurfaceTransferFunction"];
-  [v7 removeObjectForKey:@"IOSurfaceChromaLocationTopField"];
-  [v7 removeObjectForKey:@"IOSurfaceChromaLocationBottomField"];
-  [v7 removeObjectForKey:@"IOSurfaceChromaSubsampling"];
-  [v7 removeObjectForKey:@"IOSurfaceEDRFactor"];
-LABEL_14:
-  if (v2)
-  {
-    v9 = v7 == 0;
+    v10 = v8 == 0;
   }
 
   else
   {
-    v9 = 0;
+    v10 = 0;
   }
 
-  if (v9)
+  if (v10)
   {
-    v10 = a1;
+    v11 = a1;
   }
 
   else
   {
-    v10 = objc_alloc_init(MEMORY[0x1E695DF90]);
-    [v10 addEntriesFromDictionary:a1];
-    if (!v2)
+    v11 = objc_alloc_init(MEMORY[0x1E695DF90]);
+    [v11 addEntriesFromDictionary:a1];
+    if (!v3)
     {
-      v11 = dyld_image_path_containing_address();
-      if (v11)
+      v12 = dyld_image_path_containing_address();
+      if (v12)
       {
-        [v10 setObject:objc_msgSend(objc_msgSend(objc_msgSend(MEMORY[0x1E696AC08] forKey:{"defaultManager"), "stringWithFileSystemRepresentation:length:", v11, strlen(v11)), "lastPathComponent"), @"IOSurfaceName"}];
+        [v11 setObject:objc_msgSend(objc_msgSend(objc_msgSend(MEMORY[0x1E696AC08] forKey:{"defaultManager"), "stringWithFileSystemRepresentation:length:", v12, strlen(v12)), "lastPathComponent"), @"IOSurfaceName"}];
       }
-    }
-
-    if (v7)
-    {
-      [v10 setValue:v7 forKey:@"IOSurfaceDefaultAttachments"];
     }
 
     if (v8)
     {
-      [v10 setValue:v8 forKey:@"IOSurfaceDefaultBulkAttachments"];
+      [v11 setValue:v8 forKey:@"IOSurfaceDefaultAttachments"];
+    }
+
+    if (v9)
+    {
+      [v11 setValue:v9 forKey:@"IOSurfaceDefaultBulkAttachments"];
     }
   }
 
-  objc_autoreleasePoolPop(v5);
-  v12 = *MEMORY[0x1E69E9840];
-  return v10;
+  objc_autoreleasePoolPop(v6);
+  return v11;
 }
 
 void *__cdecl IOSurfaceGetBaseAddress(void *buffer)
@@ -926,7 +920,7 @@ char *_ioSurfaceClientCreateWithLockResult(unsigned int *a1)
 
 char *IOSurfaceClientCreateChild(uint64_t a1, void *object)
 {
-  v69 = *MEMORY[0x1E69E9840];
+  v68 = *MEMORY[0x1E69E9840];
   if (a1)
   {
     v3 = *(a1 + 136);
@@ -937,39 +931,39 @@ char *IOSurfaceClientCreateChild(uint64_t a1, void *object)
     v3 = 0;
   }
 
-  v67 = 0u;
-  v68 = 0u;
-  v65 = 0u;
   v66 = 0u;
-  v63 = 0u;
+  v67 = 0u;
   v64 = 0u;
-  v61 = 0u;
+  v65 = 0u;
   v62 = 0u;
-  v59 = 0u;
+  v63 = 0u;
   v60 = 0u;
-  v57 = 0u;
+  v61 = 0u;
   v58 = 0u;
-  v55 = 0u;
+  v59 = 0u;
   v56 = 0u;
-  v53 = 0u;
+  v57 = 0u;
   v54 = 0u;
-  v51 = 0u;
+  v55 = 0u;
   v52 = 0u;
-  v49 = 0u;
+  v53 = 0u;
   v50 = 0u;
-  v47 = 0u;
+  v51 = 0u;
   v48 = 0u;
-  v45 = 0u;
+  v49 = 0u;
   v46 = 0u;
-  v43 = 0u;
+  v47 = 0u;
   v44 = 0u;
-  v41 = 0u;
+  v45 = 0u;
   v42 = 0u;
-  v39 = 0u;
+  v43 = 0u;
   v40 = 0u;
-  outputStruct = 0u;
+  v41 = 0u;
   v38 = 0u;
-  v26 = 3176;
+  v39 = 0u;
+  outputStruct = 0u;
+  v37 = 0u;
+  v25 = 3176;
   input = v3;
   v4 = IOCFSerialize(object, 1uLL);
   if (v4)
@@ -978,7 +972,7 @@ char *IOSurfaceClientCreateChild(uint64_t a1, void *object)
     v6 = _ioSurfaceConnectInternal(0);
     BytePtr = CFDataGetBytePtr(v5);
     Length = CFDataGetLength(v5);
-    v9 = IOConnectCallMethod(v6, 0, &input, 1u, BytePtr, Length, 0, 0, &outputStruct, &v26);
+    v9 = IOConnectCallMethod(v6, 0, &input, 1u, BytePtr, Length, 0, 0, &outputStruct, &v25);
     CFRelease(v5);
     if (!v9)
     {
@@ -1009,7 +1003,7 @@ char *IOSurfaceClientCreateChild(uint64_t a1, void *object)
 
           else if (!v3)
           {
-            v12(1476395024, *MEMORY[0x1E69E9A60], v39, 0, outputStruct, 0);
+            v12(1476395024, *MEMORY[0x1E69E9A60], v38, 0, outputStruct, 0);
           }
         }
 
@@ -1018,12 +1012,12 @@ char *IOSurfaceClientCreateChild(uint64_t a1, void *object)
 
       else
       {
-        v24 = DWORD2(v38);
-        v25 = _ioSurfaceConnectInternal(0);
-        IOConnectTrap1(v25, 5u, v24);
+        v23 = DWORD2(v37);
+        v24 = _ioSurfaceConnectInternal(0);
+        IOConnectTrap1(v24, 5u, v23);
       }
 
-      goto LABEL_35;
+      return v10;
     }
   }
 
@@ -1039,39 +1033,39 @@ char *IOSurfaceClientCreateChild(uint64_t a1, void *object)
       IOSurfaceClientCreateChild_cold_1();
     }
 
-    v35 = 0u;
-    v36 = 0u;
-    v33 = 0u;
     v34 = 0u;
-    v14 = [object countByEnumeratingWithState:&v33 objects:v32 count:16];
+    v35 = 0u;
+    v32 = 0u;
+    v33 = 0u;
+    v14 = [object countByEnumeratingWithState:&v32 objects:v31 count:16];
     if (v14)
     {
       v15 = v14;
-      v16 = *v34;
+      v16 = *v33;
       v17 = MEMORY[0x1E69E9C10];
       do
       {
         for (i = 0; i != v15; ++i)
         {
-          if (*v34 != v16)
+          if (*v33 != v16)
           {
             objc_enumerationMutation(object);
           }
 
           if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
           {
-            v19 = *(*(&v33 + 1) + 8 * i);
+            v19 = *(*(&v32 + 1) + 8 * i);
             LODWORD(input) = 67109634;
             HIDWORD(input) = v9;
-            v28 = 1024;
-            v29 = v3;
-            v30 = 2112;
-            v31 = v19;
+            v27 = 1024;
+            v28 = v3;
+            v29 = 2112;
+            v30 = v19;
             _os_log_error_impl(&dword_1B0173000, v17, OS_LOG_TYPE_ERROR, "IOSurface creation failed: %08x parentID: %08x property: %@", &input, 0x18u);
           }
         }
 
-        v15 = [object countByEnumeratingWithState:&v33 objects:v32 count:16];
+        v15 = [object countByEnumeratingWithState:&v32 objects:v31 count:16];
       }
 
       while (v15);
@@ -1096,10 +1090,7 @@ char *IOSurfaceClientCreateChild(uint64_t a1, void *object)
     }
   }
 
-  v10 = 0;
-LABEL_35:
-  v22 = *MEMORY[0x1E69E9840];
-  return v10;
+  return 0;
 }
 
 void _ioSurfaceAddClientRef(uint64_t a1)
@@ -1123,14 +1114,14 @@ void _ioSurfaceAddClientRef(uint64_t a1)
 
 void IOSurfaceClientSetValue(uint64_t a1, void *key, CFDictionaryRef theDict)
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   outputStruct = 0;
-  v32 = 4;
+  v31 = 4;
   if (theDict)
   {
     values = 0;
-    v35 = 0;
-    v30 = 0u;
+    v34 = 0;
+    v29 = 0u;
     *theDicta = 0u;
     memset(context, 0, sizeof(context));
     if (key)
@@ -1143,9 +1134,9 @@ void IOSurfaceClientSetValue(uint64_t a1, void *key, CFDictionaryRef theDict)
       CFDictionaryApplyFunction(theDict, _sniffKeysToStruct, context);
     }
 
-    if (*(&v30 + 1))
+    if (*(&v29 + 1))
     {
-      IOSurfaceClientSetBulkAttachments(a1, context, 0x84uLL, SDWORD2(v30));
+      IOSurfaceClientSetBulkAttachments(a1, context, 0x84uLL, *(&v29 + 1));
     }
 
     if (LOBYTE(theDicta[0]))
@@ -1158,7 +1149,7 @@ void IOSurfaceClientSetValue(uint64_t a1, void *key, CFDictionaryRef theDict)
         {
           v8 = serializeReplacementIOKitTypeRef(theDict);
           values = v8;
-          v35 = key;
+          v34 = key;
           v9 = 2;
 LABEL_18:
           v10 = CFArrayCreate(0, &values, v9, MEMORY[0x1E695E9C0]);
@@ -1183,7 +1174,7 @@ LABEL_18:
               BytePtr = CFDataGetBytePtr(v12);
               memcpy(v16 + 3, BytePtr, v14);
               v18 = _ioSurfaceConnectInternal(0);
-              IOConnectCallMethod(v18, 9u, 0, 0, v16, v15, 0, 0, &outputStruct, &v32);
+              IOConnectCallMethod(v18, 9u, 0, 0, v16, v15, 0, 0, &outputStruct, &v31);
               v19 = *(a1 + 32);
               if (v19)
               {
@@ -1235,7 +1226,7 @@ LABEL_18:
         }
       }
 
-      else if (!v6 || (v27 = *(a1 + 16), v28 = 1, CFDictionaryApplyFunction(theDict, compareKeys, &v27), v28 != 1) || *(a1 + 32) != *(*(a1 + 120) + 32))
+      else if (!v6 || (v26 = *(a1 + 16), v27 = 1, CFDictionaryApplyFunction(theDict, compareKeys, &v26), v27 != 1) || *(a1 + 32) != *(*(a1 + 120) + 32))
       {
         v8 = serializeReplacementIOKitTypeRef(theDicta[1]);
         values = v8;
@@ -1250,8 +1241,6 @@ LABEL_18:
       }
     }
   }
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 void IOSurfaceSetValue(IOSurfaceRef buffer, CFStringRef key, CFTypeRef value)
@@ -1380,7 +1369,7 @@ LABEL_14:
   return CFRetain(a1);
 }
 
-void unserializeReplacementDictionaryKeysAndValues(const void *a1, uint64_t a2, __CFDictionary *a3)
+void unserializeReplacementDictionaryKeysAndValues(const void *a1, const void *a2, __CFDictionary *a3)
 {
   v5 = unserializeReplacementIOKitTypeRef(a2, 0);
   Value = CFDictionaryGetValue(_creationPropertiesDict, a1);
@@ -1422,9 +1411,9 @@ CFMutableDictionaryRef serializeReplacementIOKitTypeRef(const void *a1)
         v11 = CFGetAllocator(a1);
         v12 = CFArrayGetCount(a1);
         Mutable = CFArrayCreateMutable(v11, v12, MEMORY[0x1E695E9C0]);
-        v24.length = CFArrayGetCount(a1);
-        v24.location = 0;
-        CFArrayApplyFunction(a1, v24, serializeReplacementArrayValues, Mutable);
+        v22.length = CFArrayGetCount(a1);
+        v22.location = 0;
+        CFArrayApplyFunction(a1, v22, serializeReplacementArrayValues, Mutable);
       }
 
       else
@@ -1442,8 +1431,6 @@ CFMutableDictionaryRef serializeReplacementIOKitTypeRef(const void *a1)
       }
     }
 
-LABEL_17:
-    v17 = *MEMORY[0x1E69E9840];
     return Mutable;
   }
 
@@ -1459,8 +1446,8 @@ LABEL_17:
 
     if (((1 << Type) & 0x12040) != 0)
     {
-      v20 = 0;
-      CFNumberGetValue(a1, kCFNumberDoubleType, &v20);
+      v18 = 0;
+      CFNumberGetValue(a1, kCFNumberDoubleType, &v18);
       v4 = CFGetAllocator(a1);
       v5 = 8;
     }
@@ -1472,13 +1459,13 @@ LABEL_17:
         goto LABEL_13;
       }
 
-      LODWORD(v20) = 0;
-      CFNumberGetValue(a1, kCFNumberFloatType, &v20);
+      LODWORD(v18) = 0;
+      CFNumberGetValue(a1, kCFNumberFloatType, &v18);
       v4 = CFGetAllocator(a1);
       v5 = 4;
     }
 
-    values[0] = CFDataCreate(v4, &v20, v5);
+    values[0] = CFDataCreate(v4, &v18, v5);
 LABEL_13:
     v13 = CFGetAllocator(a1);
     Mutable = CFDictionaryCreate(v13, &keys, values, 1, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
@@ -1487,11 +1474,10 @@ LABEL_13:
       CFRelease(values[0]);
     }
 
-    goto LABEL_17;
+    return Mutable;
   }
 
 LABEL_18:
-  v19 = *MEMORY[0x1E69E9840];
 
   return CFRetain(a1);
 }
@@ -1556,25 +1542,25 @@ size_t IOSurfaceGetPlaneCount(size_t buffer)
   return buffer;
 }
 
-uint64_t IOSurfaceQueryTransactionList(uint64_t a1, unint64_t a2)
+IOSurfaceTransactionListImpl *IOSurfaceQueryTransactionList(uint64_t a1, unint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v6[2] = *MEMORY[0x1E69E9840];
+  v7[2] = *MEMORY[0x1E69E9840];
   if (a1)
   {
     if (a2)
     {
       if (is_mul_ok(a2, 0x18uLL))
       {
-        v2 = 24 * a2;
+        v4 = 24 * a2;
       }
 
       else
       {
-        v2 = -1;
+        v4 = -1;
       }
 
-      v3 = operator new[](v2, MEMORY[0x1E69E5398]);
-      std::shared_ptr<IOSurfaceTransactionSerialized []>::shared_ptr[abi:ne200100]<IOSurfaceTransactionSerialized,std::default_delete<IOSurfaceTransactionSerialized []>,0>(v6, v3);
+      v5 = operator new[](v4, MEMORY[0x1E69E5398]);
+      std::shared_ptr<IOSurfaceTransactionSerialized []>::shared_ptr[abi:ne200100]<IOSurfaceTransactionSerialized,std::default_delete<IOSurfaceTransactionSerialized []>,0>(v7, v5);
     }
   }
 
@@ -1583,7 +1569,6 @@ uint64_t IOSurfaceQueryTransactionList(uint64_t a1, unint64_t a2)
     IOSurfaceQueryTransactionList_cold_3();
   }
 
-  v4 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
@@ -1622,20 +1607,19 @@ uint64_t IOSurfaceClientQueryTransactionList(uint64_t a1, uint64_t a2, uint64_t 
   input[3] = a4;
   input[4] = a5;
   output = 0;
+  v16 = 0;
   v17 = 0;
-  v18 = 0;
   outputCnt = 3;
   v11 = _ioSurfaceConnectInternal(0);
   result = IOConnectCallMethod(v11, 0x3Au, input, 5u, 0, 0, &output, &outputCnt, 0, 0);
   if (!result)
   {
-    v13 = v17;
+    v13 = v16;
     *a6 = output;
     *a7 = v13;
-    *a8 = v18;
+    *a8 = v17;
   }
 
-  v14 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -1651,21 +1635,20 @@ void std::__shared_weak_count::__release_shared[abi:ne200100](std::__shared_weak
 
 uint64_t IOSurfaceClientLock(uint64_t a1, unsigned int a2, _DWORD *a3)
 {
-  v11 = *MEMORY[0x1E69E9840];
-  v10 = 0;
+  v10 = *MEMORY[0x1E69E9840];
+  v9 = 0;
   v6 = _ioSurfaceConnectInternal(0);
-  result = IOConnectTrap3(v6, 2u, *(a1 + 136), a2, &v10);
+  result = IOConnectTrap3(v6, 2u, *(a1 + 136), a2, &v9);
   if (!result)
   {
-    v8 = v10;
-    *(a1 + 216) = v10;
+    v8 = v9;
+    *(a1 + 216) = v9;
     if (a3)
     {
       *a3 = v8;
     }
   }
 
-  v9 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -1697,40 +1680,36 @@ kern_return_t IOSurfaceUnlock(IOSurfaceRef buffer, IOSurfaceLockOptions options,
 
 uint64_t IOSurfaceClientUnlock(uint64_t a1, unsigned int a2, _DWORD *a3)
 {
-  v11 = *MEMORY[0x1E69E9840];
-  v10 = 0;
+  v10 = *MEMORY[0x1E69E9840];
+  v9 = 0;
   v6 = _ioSurfaceConnectInternal(0);
-  result = IOConnectTrap3(v6, 3u, *(a1 + 136), a2, &v10);
+  result = IOConnectTrap3(v6, 3u, *(a1 + 136), a2, &v9);
   if (!result)
   {
-    v8 = v10;
-    *(a1 + 216) = v10;
+    v8 = v9;
+    *(a1 + 216) = v9;
     if (a3)
     {
       *a3 = v8;
     }
   }
 
-  v9 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 CFNumberRef createColorSpaceIDFromStruct(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
   valuePtr = *(a1 + 101);
   if (valuePtr)
   {
-    result = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberSInt32Type, &valuePtr);
+    return CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberSInt32Type, &valuePtr);
   }
 
   else
   {
-    result = 0;
+    return 0;
   }
-
-  v2 = *MEMORY[0x1E69E9840];
-  return result;
 }
 
 uint64_t IOSurfaceGetBaseAddressOfCompressedTileHeaderRegionOfPlane(uint64_t result, unsigned int a2)
@@ -1875,7 +1854,7 @@ uint64_t IOSurfaceClientGetCompressionFootprintOfPlane(uint64_t a1, unint64_t a2
   }
 }
 
-void unserializeReplacementArrayValues(uint64_t a1, __CFArray *a2)
+void unserializeReplacementArrayValues(const void *a1, __CFArray *a2)
 {
   v3 = unserializeReplacementIOKitTypeRef(a1, 0);
   CFArrayAppendValue(a2, v3);
@@ -1962,37 +1941,33 @@ size_t IOSurfaceGetWidthOfPlane(size_t buffer, size_t planeIndex)
   return buffer;
 }
 
-uint64_t IOSurfaceClientSetBulkAttachments(uint64_t a1, uint64_t a2, unint64_t a3, int a4)
+uint64_t IOSurfaceClientSetBulkAttachments(uint64_t a1, uint64_t a2, unint64_t a3, uint64_t a4)
 {
-  v13 = *MEMORY[0x1E69E9840];
-  if (a3 <= 0x84)
+  v12 = *MEMORY[0x1E69E9840];
+  if (a3 > 0x84)
   {
-    result = getDirtyMask(*(a1 + 120) + 48, a2, a4);
-    if (result)
-    {
-      v7 = result;
-      v11 = 0u;
-      v12 = 0u;
-      memset(inputStruct, 0, sizeof(inputStruct));
-      DWORD2(v12) = *(a1 + 136);
-      __memcpy_chk();
-      *(&v11 + 1) = a3;
-      *&v12 = v7;
-      v8 = _ioSurfaceConnectInternal(0);
-      result = IOConnectCallMethod(v8, 0x1Bu, 0, 0, inputStruct, 0xA0uLL, 0, 0, 0, 0);
-    }
+    return 3758097084;
   }
 
-  else
+  result = getDirtyMask(*(a1 + 120) + 48, a2, a4);
+  if (result)
   {
-    result = 3758097084;
+    v7 = result;
+    v10 = 0u;
+    v11 = 0u;
+    memset(inputStruct, 0, sizeof(inputStruct));
+    DWORD2(v11) = *(a1 + 136);
+    __memcpy_chk();
+    *(&v10 + 1) = a3;
+    *&v11 = v7;
+    v8 = _ioSurfaceConnectInternal(0);
+    return IOConnectCallMethod(v8, 0x1Bu, 0, 0, inputStruct, 0xA0uLL, 0, 0, 0, 0);
   }
 
-  v9 = *MEMORY[0x1E69E9840];
   return result;
 }
 
-uint64_t IOSurfaceSetBulkAttachments2(uint64_t a1, uint64_t a2, unint64_t a3, int a4)
+uint64_t IOSurfaceSetBulkAttachments2(uint64_t a1, uint64_t a2, unint64_t a3, uint64_t a4)
 {
   if (a1)
   {
@@ -2529,16 +2504,13 @@ uint64_t IOSurfaceClientCreateMachPortWithOptions(uint64_t a1, uint64_t a2)
   v2 = _ioSurfaceConnectInternal(0);
   if (IOConnectCallMethod(v2, 0x23u, input, 2u, 0, 0, &output, &outputCnt, 0, 0))
   {
-    result = 0;
+    return 0;
   }
 
   else
   {
-    result = output;
+    return output;
   }
-
-  v4 = *MEMORY[0x1E69E9840];
-  return result;
 }
 
 mach_port_t IOSurfaceCreateMachPort(IOSurfaceRef buffer)
@@ -2639,111 +2611,115 @@ uint64_t IOSurfaceClientDecrementUseCountForCategory(uint64_t result, unsigned i
   return result;
 }
 
+IOSurfaceRef IOSurfaceLookupFromMachPort(mach_port_t port)
+{
+  v1 = *&port;
+  v2 = [IOSurface alloc];
+
+  return [(IOSurface *)v2 initWithMachPort:v1];
+}
+
 char *IOSurfaceClientLookupFromMachPort(unsigned int a1)
 {
-  v44 = *MEMORY[0x1E69E9840];
-  v42 = 0u;
-  v43 = 0u;
-  v40 = 0u;
+  v43 = *MEMORY[0x1E69E9840];
   v41 = 0u;
-  v38 = 0u;
+  v42 = 0u;
   v39 = 0u;
-  v36 = 0u;
+  v40 = 0u;
   v37 = 0u;
-  v34 = 0u;
+  v38 = 0u;
   v35 = 0u;
-  v32 = 0u;
+  v36 = 0u;
   v33 = 0u;
-  v30 = 0u;
+  v34 = 0u;
   v31 = 0u;
-  v28 = 0u;
+  v32 = 0u;
   v29 = 0u;
-  v26 = 0u;
+  v30 = 0u;
   v27 = 0u;
-  v24 = 0u;
+  v28 = 0u;
   v25 = 0u;
-  v22 = 0u;
+  v26 = 0u;
   v23 = 0u;
-  v20 = 0u;
+  v24 = 0u;
   v21 = 0u;
-  v18 = 0u;
+  v22 = 0u;
   v19 = 0u;
-  v16 = 0u;
+  v20 = 0u;
   v17 = 0u;
-  v14 = 0u;
+  v18 = 0u;
   v15 = 0u;
-  outputStruct = 0u;
+  v16 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  outputStruct = 0u;
+  v12 = 0u;
   _ioSurfaceConnectInternal(0);
   pthread_mutex_lock(&_iosCacheMutex);
-  v10 = 3176;
+  v9 = 3176;
   input = a1;
   v2 = _ioSurfaceConnectInternal(0);
-  if (IOConnectCallMethod(v2, 0x22u, &input, 1u, 0, 0, 0, 0, &outputStruct, &v10))
+  if (IOConnectCallMethod(v2, 0x22u, &input, 1u, 0, 0, 0, 0, &outputStruct, &v9))
   {
     v3 = 0;
   }
 
   else if (outputStruct == -1)
   {
-    v7 = iosCacheGet(DWORD2(v13));
-    v3 = v7;
-    if (v7)
+    v6 = iosCacheGet(DWORD2(v12));
+    v3 = v6;
+    if (v6)
     {
-      ++*v7;
+      ++*v6;
     }
   }
 
   else
   {
-    v6 = _ioSurfaceClientCreateWithLockResult(&outputStruct);
-    v3 = v6;
-    if (v6)
+    v5 = _ioSurfaceClientCreateWithLockResult(&outputStruct);
+    v3 = v5;
+    if (v5)
     {
-      _ioSurfaceAddClientRef(v6);
+      _ioSurfaceAddClientRef(v5);
     }
 
     else
     {
-      v8 = DWORD2(v13);
-      v9 = _ioSurfaceConnectInternal(0);
-      IOConnectTrap1(v9, 5u, v8);
+      v7 = DWORD2(v12);
+      v8 = _ioSurfaceConnectInternal(0);
+      IOConnectTrap1(v8, 5u, v7);
     }
 
     if (*MEMORY[0x1E69E99E8])
     {
-      (*MEMORY[0x1E69E99E8])(1476395024, *MEMORY[0x1E69E9A60], v14, 0, outputStruct, 0);
+      (*MEMORY[0x1E69E99E8])(1476395024, *MEMORY[0x1E69E9A60], v13, 0, outputStruct, 0);
     }
   }
 
   pthread_mutex_unlock(&_iosCacheMutex);
-  v4 = *MEMORY[0x1E69E9840];
   return v3;
 }
 
 uint64_t IOSurfaceGetGraphicsCommPageAddress()
 {
-  v5 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
   output = 0;
   outputCnt = 1;
   v0 = _ioSurfaceConnectInternal(0);
   if (IOConnectCallMethod(v0, 0x20u, 0, 0, 0, 0, &output, &outputCnt, 0, 0))
   {
-    result = 0;
+    return 0;
   }
 
   else
   {
-    result = output;
+    return output;
   }
-
-  v2 = *MEMORY[0x1E69E9840];
-  return result;
 }
 
 void ___ioSurfaceConnectInternal_block_invoke(uint64_t a1)
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   if (*(a1 + 32) == 1)
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
@@ -2868,7 +2844,7 @@ void ___ioSurfaceConnectInternal_block_invoke(uint64_t a1)
               v11 = 0;
               if (!MEMORY[0x1B271FC80](_iosService, "IOService", 0, &iterator))
               {
-                v31 = v9;
+                v30 = v9;
                 v12 = IOIteratorNext(iterator);
                 if (v12)
                 {
@@ -2925,7 +2901,7 @@ void ___ioSurfaceConnectInternal_block_invoke(uint64_t a1)
                 }
 
                 IOObjectRelease(iterator);
-                v9 = v31;
+                v9 = v30;
               }
 
               v29 = [objc_msgSend(v10 "description")];
@@ -2993,7 +2969,6 @@ LABEL_38:
   }
 
   _ensureKeySniffDictionaries();
-  v30 = *MEMORY[0x1E69E9840];
 }
 
 void _ensureKeySniffDictionaries()
@@ -3150,9 +3125,9 @@ uint64_t IOSurfaceClientGetPropertyMaximum(const void *a1)
   return 0;
 }
 
-CFTypeRef createColorPrimariesFromStruct(uint64_t a1)
+__CFString *createColorPrimariesFromStruct(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v1 = *(a1 + 59);
   if (v1 > 8)
   {
@@ -3161,13 +3136,13 @@ CFTypeRef createColorPrimariesFromStruct(uint64_t a1)
       if (v1 == 12)
       {
         v2 = kIOSurfaceColorPrimaries_P3_D65;
-        goto LABEL_20;
+        return *v2;
       }
 
       if (v1 == 22)
       {
         v2 = kIOSurfaceColorPrimaries_JEDEC_P22;
-        goto LABEL_20;
+        return *v2;
       }
     }
 
@@ -3176,13 +3151,13 @@ CFTypeRef createColorPrimariesFromStruct(uint64_t a1)
       if (v1 == 9)
       {
         v2 = kIOSurfaceColorPrimaries_ITU_R_2020;
-        goto LABEL_20;
+        return *v2;
       }
 
       if (v1 == 11)
       {
         v2 = kIOSurfaceColorPrimaries_DCI_P3;
-        goto LABEL_20;
+        return *v2;
       }
     }
   }
@@ -3192,13 +3167,13 @@ CFTypeRef createColorPrimariesFromStruct(uint64_t a1)
     if (v1 == 5)
     {
       v2 = kIOSurfaceColorPrimaries_EBU_3213;
-      goto LABEL_20;
+      return *v2;
     }
 
     if (v1 == 6)
     {
       v2 = kIOSurfaceColorPrimaries_SMPTE_C;
-      goto LABEL_20;
+      return *v2;
     }
   }
 
@@ -3206,16 +3181,13 @@ CFTypeRef createColorPrimariesFromStruct(uint64_t a1)
   {
     if (!*(a1 + 59))
     {
-      v3 = 0;
-      goto LABEL_21;
+      return 0;
     }
 
     if (v1 == 1)
     {
       v2 = kIOSurfaceColorPrimaries_ITU_R_709_2;
-LABEL_20:
-      v3 = *v2;
-      goto LABEL_21;
+      return *v2;
     }
   }
 
@@ -3230,8 +3202,6 @@ LABEL_20:
     CFRetain(cf);
   }
 
-LABEL_21:
-  v4 = *MEMORY[0x1E69E9840];
   return v3;
 }
 
@@ -3245,39 +3215,38 @@ size_t IOSurfaceGetElementWidth(size_t buffer)
   return buffer;
 }
 
-uint64_t IOSurfaceGetExtendedPixelsOfPlane(uint64_t result, unsigned int a2, void *a3, void *a4, void *a5, void *a6)
+uint64_t IOSurfaceGetExtendedPixelsOfPlane(uint64_t result, uint64_t a2, void *a3, void *a4, void *a5, void *a6)
 {
-  v14[1] = *MEMORY[0x1E69E9840];
-  v13 = 0;
-  v14[0] = 0;
-  v11 = 0;
+  v13[1] = *MEMORY[0x1E69E9840];
   v12 = 0;
+  v13[0] = 0;
+  v10 = 0;
+  v11 = 0;
   if (result)
   {
-    result = IOSurfaceClientGetExtendedPixelsOfPlane(*(result + 8), a2, v14, &v13, &v12, &v11);
+    result = IOSurfaceClientGetExtendedPixelsOfPlane(*(result + 8), a2, v13, &v12, &v11, &v10);
   }
 
   if (a3)
   {
-    *a3 = v14[0];
+    *a3 = v13[0];
   }
 
   if (a4)
   {
-    *a4 = v13;
+    *a4 = v12;
   }
 
   if (a5)
   {
-    *a5 = v12;
+    *a5 = v11;
   }
 
   if (a6)
   {
-    *a6 = v11;
+    *a6 = v10;
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -3301,10 +3270,9 @@ uint64_t IOSurfaceClientSetCompressedTileDataRegionMemoryUsedOfPlane(uint64_t a1
     input[1] = a2;
     input[2] = a3;
     v5 = _ioSurfaceConnectInternal(0);
-    result = IOConnectCallMethod(v5, 0x1Fu, input, 3u, 0, 0, 0, 0, 0, 0);
+    return IOConnectCallMethod(v5, 0x1Fu, input, 3u, 0, 0, 0, 0, 0, 0);
   }
 
-  v6 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -3324,7 +3292,7 @@ uint64_t IOSurfaceClientGetExtendedPixelsOfPlane(uint64_t result, unsigned int a
 
 CFTypeID sniffChromaLocationTopKeyToStruct(CFTypeID result, uint64_t a2)
 {
-  v7[1] = *MEMORY[0x1E69E9840];
+  v6[1] = *MEMORY[0x1E69E9840];
   if (!result)
   {
     v5 = 0;
@@ -3336,18 +3304,17 @@ CFTypeID sniffChromaLocationTopKeyToStruct(CFTypeID result, uint64_t a2)
   result = CFStringGetTypeID();
   if (v4 == result)
   {
-    v7[0] = 0;
-    result = CFDictionaryGetValueIfPresent(_chromaLocationKeysToStructDict, v3, v7);
+    v6[0] = 0;
+    result = CFDictionaryGetValueIfPresent(_chromaLocationKeysToStructDict, v3, v6);
     if (result)
     {
-      v5 = v7[0];
+      v5 = v6[0];
 LABEL_6:
       *(a2 + 61) = v5;
       *(a2 + 136) |= 0x100uLL;
     }
   }
 
-  v6 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -3359,9 +3326,7 @@ uint64_t IOSurfaceClientSetOwnership(uint64_t a1, unsigned int a2, int a3, unsig
   input[2] = a3;
   input[3] = a4;
   v4 = _ioSurfaceConnectInternal(0);
-  result = IOConnectCallMethod(v4, 0x15u, input, 4u, 0, 0, 0, 0, 0, 0);
-  v6 = *MEMORY[0x1E69E9840];
-  return result;
+  return IOConnectCallMethod(v4, 0x15u, input, 4u, 0, 0, 0, 0, 0, 0);
 }
 
 uint64_t IOSurfaceClientAlignProperty(const void *a1, uint64_t a2)
@@ -3392,88 +3357,87 @@ uint64_t IOSurfaceSetCompressedTileDataRegionMemoryUsedOfPlane(uint64_t result, 
   return result;
 }
 
-uint64_t IOSurfaceClientRemoveValue(uint64_t a1, __CFString *key)
+uintptr_t IOSurfaceClientRemoveValue(uint64_t a1, __CFString *key)
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   outputStruct = 0;
-  v31 = 4;
+  v28 = 4;
   if (!key)
   {
     IOSurfaceClientRemoveBulkAttachments(a1, 0x1FFFFF);
-    v7 = (a1 + 40);
+    v6 = (a1 + 40);
     pthread_mutex_lock((a1 + 40));
-    v8 = *(a1 + 16);
-    if ((!v8 || !CFDictionaryGetCount(v8)) && *(a1 + 32) == *(*(a1 + 120) + 32))
+    v7 = *(a1 + 16);
+    if ((!v7 || !CFDictionaryGetCount(v7)) && *(a1 + 32) == *(*(a1 + 120) + 32))
     {
       goto LABEL_13;
     }
 
-    v9 = 13;
-    v10 = malloc_type_malloc(0xDuLL, 0xB241E3E1uLL);
-    *v10 = *(a1 + 136);
-    v10[12] = 0;
+    v8 = 13;
+    v9 = malloc_type_malloc(0xDuLL, 0xB241E3E1uLL);
+    *v9 = *(a1 + 136);
+    v9[12] = 0;
     goto LABEL_18;
   }
 
   v4 = _sniffKeysToMask(key);
   if (v4)
   {
-    v5 = *MEMORY[0x1E69E9840];
 
     return IOSurfaceClientRemoveBulkAttachments(a1, v4);
   }
 
-  v7 = (a1 + 40);
+  v6 = (a1 + 40);
   pthread_mutex_lock((a1 + 40));
-  v11 = *(a1 + 16);
-  if (v11 && CFDictionaryGetValue(v11, key) || *(a1 + 32) != *(*(a1 + 120) + 32))
+  v10 = *(a1 + 16);
+  if (v10 && CFDictionaryGetValue(v10, key) || *(a1 + 32) != *(*(a1 + 120) + 32))
   {
     ExternalRepresentation = CFStringCreateExternalRepresentation(0, key, 0x8000100u, 0);
     if (!ExternalRepresentation)
     {
-      v10 = 0;
+      v9 = 0;
       goto LABEL_39;
     }
 
-    v14 = ExternalRepresentation;
+    v12 = ExternalRepresentation;
     Length = CFDataGetLength(ExternalRepresentation);
-    v9 = (Length + 13);
-    v10 = malloc_type_malloc(v9, 0xFD16FDAAuLL);
-    *v10 = *(a1 + 136);
-    BytePtr = CFDataGetBytePtr(v14);
-    memcpy(v10 + 12, BytePtr, Length);
-    v10[Length + 12] = 0;
-    CFRelease(v14);
+    v8 = (Length + 13);
+    v9 = malloc_type_malloc(v8, 0xFD16FDAAuLL);
+    *v9 = *(a1 + 136);
+    BytePtr = CFDataGetBytePtr(v12);
+    memcpy(v9 + 12, BytePtr, Length);
+    v9[Length + 12] = 0;
+    CFRelease(v12);
 LABEL_18:
-    v17 = _ioSurfaceConnectInternal(0);
-    v18 = IOConnectCallMethod(v17, 0xBu, 0, 0, v10, v9, 0, 0, &outputStruct, &v31);
-    if (v18)
+    v15 = _ioSurfaceConnectInternal(0);
+    v16 = IOConnectCallMethod(v15, 0xBu, 0, 0, v9, v8, 0, 0, &outputStruct, &v28);
+    if (v16)
     {
-      fprintf(*MEMORY[0x1E69E9848], "kIOSurfaceMethodRemoveValue failed: %08x\n", v18);
+      fprintf(*MEMORY[0x1E69E9848], "kIOSurfaceMethodRemoveValue failed: %08x\n", v16);
     }
 
-    v19 = *(a1 + 32);
-    if (!v19)
-    {
-      goto LABEL_39;
-    }
-
-    v20 = (v19 | 1) + 2;
-    if (outputStruct != v20)
+    v17 = *(a1 + 32);
+    if (!v17)
     {
       goto LABEL_39;
     }
 
-    *(a1 + 32) = v20;
+    v18 = (v17 | 1) + 2;
+    if (outputStruct != v18)
+    {
+      goto LABEL_39;
+    }
+
+    *(a1 + 32) = v18;
     if (key)
     {
       if (!CFEqual(@"CreationProperties", key))
       {
-        v21 = *(a1 + 16);
-        v22 = *MEMORY[0x1E695E480];
-        if (v21)
+        v19 = *(a1 + 16);
+        v20 = *MEMORY[0x1E695E480];
+        if (v19)
         {
-          MutableCopy = CFDictionaryCreateMutableCopy(*MEMORY[0x1E695E480], 0, v21);
+          MutableCopy = CFDictionaryCreateMutableCopy(*MEMORY[0x1E695E480], 0, v19);
         }
 
         else
@@ -3481,55 +3445,52 @@ LABEL_18:
           MutableCopy = CFDictionaryCreateMutable(*MEMORY[0x1E695E480], 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
         }
 
-        v26 = MutableCopy;
+        v24 = MutableCopy;
         if (!CFEqual(key, @"IOSurfaceName") && !CFEqual(key, @"CreationProperties"))
         {
-          CFDictionaryRemoveValue(v26, key);
+          CFDictionaryRemoveValue(v24, key);
         }
 
-        v29 = *(a1 + 16);
-        if (v29)
-        {
-          CFRelease(v29);
-        }
-
-        v28 = v22;
-LABEL_38:
-        *(a1 + 16) = CFDictionaryCreateCopy(v28, v26);
-        CFRelease(v26);
-      }
-    }
-
-    else
-    {
-      v24 = *(a1 + 16);
-      if (v24)
-      {
-        v25 = *MEMORY[0x1E695E480];
-        v26 = CFDictionaryCreateMutableCopy(*MEMORY[0x1E695E480], 0, v24);
-        CFDictionaryApplyFunction(*(a1 + 16), removeAllButNameAndCreation, v26);
         v27 = *(a1 + 16);
         if (v27)
         {
           CFRelease(v27);
         }
 
-        v28 = v25;
+        v26 = v20;
+LABEL_38:
+        *(a1 + 16) = CFDictionaryCreateCopy(v26, v24);
+        CFRelease(v24);
+      }
+    }
+
+    else
+    {
+      v22 = *(a1 + 16);
+      if (v22)
+      {
+        v23 = *MEMORY[0x1E695E480];
+        v24 = CFDictionaryCreateMutableCopy(*MEMORY[0x1E695E480], 0, v22);
+        CFDictionaryApplyFunction(*(a1 + 16), removeAllButNameAndCreation, v24);
+        v25 = *(a1 + 16);
+        if (v25)
+        {
+          CFRelease(v25);
+        }
+
+        v26 = v23;
         goto LABEL_38;
       }
     }
 
 LABEL_39:
-    free(v10);
-    result = pthread_mutex_unlock(v7);
-    v30 = *MEMORY[0x1E69E9840];
-    return result;
+    free(v9);
+    return pthread_mutex_unlock(v6);
   }
 
 LABEL_13:
-  v12 = *MEMORY[0x1E69E9840];
 
-  return pthread_mutex_unlock(v7);
+  return pthread_mutex_unlock(v6);
 }
 
 uint64_t IOSurfaceClientGetParentID(uint64_t result)
@@ -3544,12 +3505,12 @@ uint64_t IOSurfaceClientGetParentID(uint64_t result)
 
 uint64_t IOSurfaceSharedEventAddEventListener(unint64_t a1, IONotificationPortRef notify)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   reference[0] = 0;
+  v8 = 0u;
   v9 = 0u;
-  v10 = 0u;
   reference[1] = _ioSurfaceEventNotificationCallback2;
-  v8 = a1;
+  v7 = a1;
   MachPort = IONotificationPortGetMachPort(notify);
   if (!MachPort)
   {
@@ -3558,46 +3519,58 @@ uint64_t IOSurfaceSharedEventAddEventListener(unint64_t a1, IONotificationPortRe
 
   v3 = MachPort;
   v4 = _ioSurfaceConnect();
-  result = IOConnectCallAsyncMethod(v4, 0x28u, v3, reference, 3u, 0, 0, 0, 0, 0, 0, 0, 0);
-  v6 = *MEMORY[0x1E69E9840];
-  return result;
+  return IOConnectCallAsyncMethod(v4, 0x28u, v3, reference, 3u, 0, 0, 0, 0, 0, 0, 0, 0);
 }
 
 CFDictionaryRef createCleanApertureFromStruct(int *a1)
 {
   values[4] = *MEMORY[0x1E69E9840];
   v1 = a1[1];
-  if (v1 && (v2 = a1[3]) != 0 && (v3 = a1[5]) != 0 && (v4 = a1[7]) != 0)
+  if (!v1)
   {
-    keys[0] = @"Width";
-    keys[1] = @"Height";
-    v5 = *a1 / v1;
-    v15 = a1[2] / v2;
-    valuePtr = v5;
-    v6 = a1[4] / v3;
-    v7 = a1[6];
-    keys[2] = @"HorizontalOffset";
-    keys[3] = @"VerticalOffset";
-    v13 = v7 / v4;
-    v14 = v6;
-    v8 = *MEMORY[0x1E695E480];
-    values[0] = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberDoubleType, &valuePtr);
-    values[1] = CFNumberCreate(v8, kCFNumberDoubleType, &v15);
-    values[2] = CFNumberCreate(v8, kCFNumberDoubleType, &v14);
-    values[3] = CFNumberCreate(v8, kCFNumberDoubleType, &v13);
-    v9 = CFDictionaryCreate(v8, keys, values, 4, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
-    for (i = 0; i != 4; ++i)
-    {
-      CFRelease(values[i]);
-    }
+    return 0;
   }
 
-  else
+  v2 = a1[3];
+  if (!v2)
   {
-    v9 = 0;
+    return 0;
   }
 
-  v11 = *MEMORY[0x1E69E9840];
+  v3 = a1[5];
+  if (!v3)
+  {
+    return 0;
+  }
+
+  v4 = a1[7];
+  if (!v4)
+  {
+    return 0;
+  }
+
+  keys[0] = @"Width";
+  keys[1] = @"Height";
+  v5 = *a1 / v1;
+  v14 = a1[2] / v2;
+  valuePtr = v5;
+  v6 = a1[4] / v3;
+  v7 = a1[6];
+  keys[2] = @"HorizontalOffset";
+  keys[3] = @"VerticalOffset";
+  v12 = v7 / v4;
+  v13 = v6;
+  v8 = *MEMORY[0x1E695E480];
+  values[0] = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberDoubleType, &valuePtr);
+  values[1] = CFNumberCreate(v8, kCFNumberDoubleType, &v14);
+  values[2] = CFNumberCreate(v8, kCFNumberDoubleType, &v13);
+  values[3] = CFNumberCreate(v8, kCFNumberDoubleType, &v12);
+  v9 = CFDictionaryCreate(v8, keys, values, 4, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
+  for (i = 0; i != 4; ++i)
+  {
+    CFRelease(values[i]);
+  }
+
   return v9;
 }
 
@@ -3698,7 +3671,7 @@ uint64_t IOSurfaceClientGetPropertyAlignment(const void *a1)
 
 void _insertAllKeysFromStruct(const __CFDictionary *a1, uint64_t a2, __CFDictionary **a3)
 {
-  v58 = *MEMORY[0x1E69E9840];
+  v57 = *MEMORY[0x1E69E9840];
   CleanApertureFromStruct = createCleanApertureFromStruct(a2);
   PixelAspectRatioFromStruct = createPixelAspectRatioFromStruct(a2);
   v7 = PixelAspectRatioFromStruct;
@@ -3748,8 +3721,8 @@ void _insertAllKeysFromStruct(const __CFDictionary *a1, uint64_t a2, __CFDiction
   }
 
   v15 = *(a2 + 57);
-  v47 = GammaLevelFromStruct;
-  v45 = v12;
+  v46 = GammaLevelFromStruct;
+  v44 = v12;
   theDict = a1;
   if (v15 > 8)
   {
@@ -3854,7 +3827,7 @@ LABEL_45:
 
   v26 = 0;
 LABEL_47:
-  v46 = v26;
+  v45 = v26;
   if (v26)
   {
     v27 = v23 + 1;
@@ -3935,7 +3908,7 @@ LABEL_63:
     v36 = 0;
   }
 
-  v49 = v36;
+  v48 = v36;
   if (v36)
   {
     ++v34;
@@ -3954,8 +3927,8 @@ LABEL_63:
   }
 
   valuePtr = *(a2 + 128);
-  v53 = CFNumberCreate(v35, kCFNumberSInt32Type, &valuePtr);
-  if (v53)
+  v52 = CFNumberCreate(v35, kCFNumberSInt32Type, &valuePtr);
+  if (v52)
   {
     v37 = v34 + 1;
   }
@@ -3991,16 +3964,16 @@ LABEL_63:
       CFRelease(v7);
     }
 
-    if (v47)
+    if (v46)
     {
-      CFDictionarySetValue(v40, @"IOSurfaceGammaLevel", v47);
-      CFRelease(v47);
+      CFDictionarySetValue(v40, @"IOSurfaceGammaLevel", v46);
+      CFRelease(v46);
     }
 
-    if (v45)
+    if (v44)
     {
-      CFDictionarySetValue(v40, @"IOSurfaceFieldCount", v45);
-      CFRelease(v45);
+      CFDictionarySetValue(v40, @"IOSurfaceFieldCount", v44);
+      CFRelease(v44);
     }
 
     if (v13)
@@ -4039,10 +4012,10 @@ LABEL_63:
       CFRelease(v30);
     }
 
-    if (v46)
+    if (v45)
     {
-      CFDictionarySetValue(v40, @"IOSurfaceChromaSubsampling", v46);
-      CFRelease(v46);
+      CFDictionarySetValue(v40, @"IOSurfaceChromaSubsampling", v45);
+      CFRelease(v45);
     }
 
     if (EDRFactorFromStruct)
@@ -4075,10 +4048,10 @@ LABEL_63:
       CFRelease(SceneIlluminationFromStruct);
     }
 
-    if (v49)
+    if (v48)
     {
-      CFDictionarySetValue(v40, @"IOSurfaceColorSpaceID", v49);
-      CFRelease(v49);
+      CFDictionarySetValue(v40, @"IOSurfaceColorSpaceID", v48);
+      CFRelease(v48);
     }
 
     if (VersatileSenselArrayPatternFromStruct)
@@ -4093,10 +4066,10 @@ LABEL_63:
       CFRelease(DisplayMaskRectangleFromStruct);
     }
 
-    if (v53)
+    if (v52)
     {
-      CFDictionarySetValue(v40, @"HorizontalDisparityAdjustment", v53);
-      CFRelease(v53);
+      CFDictionarySetValue(v40, @"HorizontalDisparityAdjustment", v52);
+      CFRelease(v52);
     }
   }
 
@@ -4111,7 +4084,6 @@ LABEL_63:
   }
 
   *a3 = v40;
-  v41 = *MEMORY[0x1E69E9840];
 }
 
 CFNumberRef createFieldCountFromStruct(uint64_t a1)
@@ -4186,25 +4158,19 @@ uint64_t IOSurfaceClientGetSizeOfPlane(uint64_t a1, unsigned int a2)
 
 __CFDictionary *IOSurfaceClientCopyAllValues(uint64_t a1)
 {
-  v5[1] = *MEMORY[0x1E69E9840];
-  v5[0] = 0;
+  v4[1] = *MEMORY[0x1E69E9840];
+  v4[0] = 0;
   v1 = *(a1 + 120);
-  if (*(v1 + 40))
+  if (!*(v1 + 40))
   {
-    pthread_mutex_lock((a1 + 40));
-    IOSurfaceClientUpdateNonBulkValueCache(a1);
-    _insertAllKeysFromStruct(*(a1 + 16), v1 + 48, v5);
-    pthread_mutex_unlock((a1 + 40));
-    result = v5[0];
+    return 0;
   }
 
-  else
-  {
-    result = 0;
-  }
-
-  v4 = *MEMORY[0x1E69E9840];
-  return result;
+  pthread_mutex_lock((a1 + 40));
+  IOSurfaceClientUpdateNonBulkValueCache(a1);
+  _insertAllKeysFromStruct(*(a1 + 16), v1 + 48, v4);
+  pthread_mutex_unlock((a1 + 40));
+  return v4[0];
 }
 
 __CFString *createFieldDetailFromStruct(uint64_t a1)
@@ -4287,9 +4253,9 @@ uint64_t IOSurfaceClientGetElementWidthOfPlane(uint64_t a1, unsigned int a2)
   return *v2;
 }
 
-CFTypeRef createTransferFunctionFromStruct(uint64_t a1)
+__CFString *createTransferFunctionFromStruct(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v1 = *(a1 + 60);
   if (v1 > 0xD)
   {
@@ -4299,13 +4265,13 @@ CFTypeRef createTransferFunctionFromStruct(uint64_t a1)
       {
         case 0x11u:
           v2 = kIOSurfaceTransferFunction_SMPTE_ST_428_1;
-          goto LABEL_15;
+          return *v2;
         case 0x12u:
           v2 = kIOSurfaceTransferFunction_ITU_R_2100_HLG;
-          goto LABEL_15;
+          return *v2;
         case 0xFFu:
           v2 = kIOSurfaceTransferFunction_aYCC;
-          goto LABEL_15;
+          return *v2;
       }
     }
 
@@ -4319,7 +4285,7 @@ CFTypeRef createTransferFunctionFromStruct(uint64_t a1)
       if (v1 == 16)
       {
         v2 = kIOSurfaceTransferFunction_SMPTE_ST_2084_PQ;
-        goto LABEL_15;
+        return *v2;
       }
     }
   }
@@ -4328,8 +4294,7 @@ CFTypeRef createTransferFunctionFromStruct(uint64_t a1)
   {
     if (!*(a1 + 60))
     {
-      v3 = 0;
-      goto LABEL_16;
+      return 0;
     }
 
     if (v1 == 1)
@@ -4340,7 +4305,7 @@ CFTypeRef createTransferFunctionFromStruct(uint64_t a1)
     if (v1 == 2)
     {
       v2 = kIOSurfaceTransferFunction_UseGamma;
-      goto LABEL_15;
+      return *v2;
     }
   }
 
@@ -4351,26 +4316,24 @@ CFTypeRef createTransferFunctionFromStruct(uint64_t a1)
       if (v1 != 6)
       {
         v2 = kIOSurfaceTransferFunction_SMPTE_240M_1995;
-LABEL_15:
-        v3 = *v2;
-        goto LABEL_16;
+        return *v2;
       }
 
 LABEL_14:
       v2 = kIOSurfaceTransferFunction_ITU_R_709_2;
-      goto LABEL_15;
+      return *v2;
     }
 
     if (v1 == 8)
     {
       v2 = kIOSurfaceTransferFunction_Linear;
-      goto LABEL_15;
+      return *v2;
     }
 
     if (v1 == 13)
     {
       v2 = kIOSurfaceTransferFunction_sRGB;
-      goto LABEL_15;
+      return *v2;
     }
   }
 
@@ -4385,14 +4348,12 @@ LABEL_14:
     CFRetain(cf);
   }
 
-LABEL_16:
-  v4 = *MEMORY[0x1E69E9840];
   return v3;
 }
 
 uint64_t IOSurfaceClientInitDetachModeCode(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   if (byte_1ED4CE0C8 == 1)
   {
     v1 = *(a1 + 128);
@@ -4404,42 +4365,42 @@ uint64_t IOSurfaceClientInitDetachModeCode(uint64_t a1)
   else
   {
     input = *(a1 + 136);
-    v6 = xmmword_1B0189590;
-    v7 = mach_absolute_time();
+    v5 = xmmword_1B0189590;
+    v6 = mach_absolute_time();
     v3 = _ioSurfaceConnectInternal(0);
-    result = IOConnectCallMethod(v3, 0x2Bu, &input, 4u, 0, 0, 0, 0, 0, 0);
+    return IOConnectCallMethod(v3, 0x2Bu, &input, 4u, 0, 0, 0, 0, 0, 0);
   }
 
-  v4 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 CFDictionaryRef createPixelAspectRatioFromStruct(int *a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v1 = a1[9];
-  if (v1 && (v2 = a1[11]) != 0)
+  if (!v1)
   {
-    v3 = a1[8] / v1;
-    v4 = a1[10];
-    keys[0] = @"HorizontalSpacing";
-    keys[1] = @"VerticalSpacing";
-    v9 = v4 / v2;
-    valuePtr = v3;
-    v5 = *MEMORY[0x1E695E480];
-    values = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberDoubleType, &valuePtr);
-    cf = CFNumberCreate(v5, kCFNumberDoubleType, &v9);
-    v6 = CFDictionaryCreate(v5, keys, &values, 2, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
-    CFRelease(values);
-    CFRelease(cf);
+    return 0;
   }
 
-  else
+  v2 = a1[11];
+  if (!v2)
   {
-    v6 = 0;
+    return 0;
   }
 
-  v7 = *MEMORY[0x1E69E9840];
+  v3 = a1[8] / v1;
+  v4 = a1[10];
+  keys[0] = @"HorizontalSpacing";
+  keys[1] = @"VerticalSpacing";
+  v8 = v4 / v2;
+  valuePtr = v3;
+  v5 = *MEMORY[0x1E695E480];
+  values = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberDoubleType, &valuePtr);
+  cf = CFNumberCreate(v5, kCFNumberDoubleType, &v8);
+  v6 = CFDictionaryCreate(v5, keys, &values, 2, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
+  CFRelease(values);
+  CFRelease(cf);
   return v6;
 }
 
@@ -4455,21 +4416,15 @@ uint64_t IOSurfaceSetDetachModeCode(uint64_t result, uint64_t a2, uint64_t a3)
 
 CFNumberRef createGammaLevelFromStruct(uint64_t a1)
 {
-  v4[1] = *MEMORY[0x1E69E9840];
+  v3[1] = *MEMORY[0x1E69E9840];
   v1 = *(a1 + 52);
-  if (v1)
+  if (!v1)
   {
-    v4[0] = *(a1 + 48) / v1;
-    result = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberDoubleType, v4);
+    return 0;
   }
 
-  else
-  {
-    result = 0;
-  }
-
-  v3 = *MEMORY[0x1E69E9840];
-  return result;
+  v3[0] = *(a1 + 48) / v1;
+  return CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberDoubleType, v3);
 }
 
 uint64_t IOSurfaceClientSetDetachModeCode(uint64_t result, uint64_t a2, uint64_t a3)
@@ -4487,16 +4442,15 @@ uint64_t IOSurfaceClientSetDetachModeCode(uint64_t result, uint64_t a2, uint64_t
     input[2] = a3;
     input[3] = 0;
     v3 = _ioSurfaceConnectInternal(0);
-    result = IOConnectCallMethod(v3, 0x2Bu, input, 4u, 0, 0, 0, 0, 0, 0);
+    return IOConnectCallMethod(v3, 0x2Bu, input, 4u, 0, 0, 0, 0, 0, 0);
   }
 
-  v4 = *MEMORY[0x1E69E9840];
   return result;
 }
 
-CFTypeRef createYCbCrMatrixFromStruct(uint64_t a1)
+__CFString *createYCbCrMatrixFromStruct(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v1 = *(a1 + 58);
   if (v1 > 8)
   {
@@ -4506,13 +4460,13 @@ CFTypeRef createYCbCrMatrixFromStruct(uint64_t a1)
       {
         case 0xEu:
           v2 = kIOSurfaceYCbCrMatrix_ITU_R_2100_ICtCp_String;
-          goto LABEL_23;
+          return *v2;
         case 0xC8u:
           v2 = kIOSurfaceYCbCrMatrix_Identity_String;
-          goto LABEL_23;
+          return *v2;
         case 0xF8u:
           v2 = kIOSurfaceYCbCrMatrix_IPT_String;
-          goto LABEL_23;
+          return *v2;
       }
     }
 
@@ -4522,15 +4476,13 @@ CFTypeRef createYCbCrMatrixFromStruct(uint64_t a1)
       {
         case 9u:
           v2 = kIOSurfaceYCbCrMatrix_ITU_R_2020_String;
-          goto LABEL_23;
+          return *v2;
         case 0xBu:
           v2 = kIOSurfaceYCbCrMatrix_DCI_P3_String;
-          goto LABEL_23;
+          return *v2;
         case 0xCu:
           v2 = kIOSurfaceYCbCrMatrix_P3_D65_String;
-LABEL_23:
-          v3 = *v2;
-          goto LABEL_24;
+          return *v2;
       }
     }
 
@@ -4546,7 +4498,7 @@ LABEL_25:
       CFRetain(cf);
     }
 
-    goto LABEL_24;
+    return v3;
   }
 
   v3 = 0;
@@ -4555,13 +4507,13 @@ LABEL_25:
     switch(v1)
     {
       case 2u:
-        goto LABEL_24;
+        return v3;
       case 6u:
         v2 = kIOSurfaceYCbCrMatrix_ITU_R_601_4_String;
-        goto LABEL_23;
+        return *v2;
       case 7u:
         v2 = kIOSurfaceYCbCrMatrix_SMPTE_240M_1995_String;
-        goto LABEL_23;
+        return *v2;
     }
 
     goto LABEL_25;
@@ -4570,62 +4522,54 @@ LABEL_25:
   if (*(a1 + 58))
   {
     v2 = kIOSurfaceYCbCrMatrix_ITU_R_709_2_String;
-    goto LABEL_23;
+    return *v2;
   }
 
-LABEL_24:
-  v4 = *MEMORY[0x1E69E9840];
   return v3;
 }
 
 void sniffYCbCrMatrixKeyToStruct(const __CFString *a1, uint64_t a2)
 {
-  v10[1] = *MEMORY[0x1E69E9840];
+  v9[1] = *MEMORY[0x1E69E9840];
   if (!a1)
   {
     *(a2 + 58) = 0;
     goto LABEL_10;
   }
 
-  v10[0] = 0;
+  v9[0] = 0;
   v4 = CFGetTypeID(a1);
-  if (v4 == CFStringGetTypeID() && CFDictionaryGetValueIfPresent(_yCbCrMatrixKeysToStructDict, a1, v10))
+  if (v4 == CFStringGetTypeID() && CFDictionaryGetValueIfPresent(_yCbCrMatrixKeysToStructDict, a1, v9))
   {
-    *(a2 + 58) = v10[0];
+    *(a2 + 58) = v9[0];
 LABEL_10:
     *(a2 + 136) |= 0x20uLL;
-    goto LABEL_11;
+    return;
   }
 
   v5 = CFGetTypeID(a1);
-  if (v5 == CFStringGetTypeID())
+  if (v5 == CFStringGetTypeID() && CFStringHasPrefix(a1, @"YCbCrMatrix#"))
   {
-    if (CFStringHasPrefix(a1, @"YCbCrMatrix#"))
+    Length = CFStringGetLength(a1);
+    v10.location = CFStringGetLength(@"YCbCrMatrix#");
+    v10.length = Length - v10.location;
+    v7 = CFStringCreateWithSubstring(*MEMORY[0x1E695E480], a1, v10);
+    if (v7)
     {
-      Length = CFStringGetLength(a1);
-      v11.location = CFStringGetLength(@"YCbCrMatrix#");
-      v11.length = Length - v11.location;
-      v7 = CFStringCreateWithSubstring(*MEMORY[0x1E695E480], a1, v11);
-      if (v7)
-      {
-        v8 = v7;
-        *(a2 + 58) = CFStringGetIntValue(v7);
-        *(a2 + 136) |= 0x20uLL;
-        CFRelease(v8);
-      }
+      v8 = v7;
+      *(a2 + 58) = CFStringGetIntValue(v7);
+      *(a2 + 136) |= 0x20uLL;
+      CFRelease(v8);
     }
   }
-
-LABEL_11:
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t IOSurfaceClientRemoveCoreVideoBridgedValues(uint64_t a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
-  v10 = 0;
-  cf = 0;
+  v10 = *MEMORY[0x1E69E9840];
   v9 = 0;
+  cf = 0;
+  v8 = 0;
   if (*(a1 + 16))
   {
     v2 = *(a1 + 32) == *(*(a1 + 120) + 32);
@@ -4639,12 +4583,12 @@ uint64_t IOSurfaceClientRemoveCoreVideoBridgedValues(uint64_t a1)
   pthread_mutex_lock((a1 + 40));
   pthread_mutex_lock(&_iosCoreVideoBridgedKeysMutex);
   context = _iosBridgedCoreVideoKeys;
-  LOBYTE(v9) = 0;
+  LOBYTE(v8) = 0;
   if (v2)
   {
     cf = CFDictionaryCreateMutable(0, 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
     CFDictionaryApplyFunction(*(a1 + 16), insertKeyIfNotListedForRemoval, &context);
-    if (v9)
+    if (v8)
     {
       CFRelease(*(a1 + 16));
       *(a1 + 16) = cf;
@@ -4654,7 +4598,7 @@ uint64_t IOSurfaceClientRemoveCoreVideoBridgedValues(uint64_t a1)
   }
 
   pthread_mutex_unlock(&_iosCoreVideoBridgedKeysMutex);
-  if (v9 == 0 && v2)
+  if (v8 == 0 && v2)
   {
     IOSurfaceClientRemoveBulkAttachments(a1, 0x1FFFFF);
   }
@@ -4662,7 +4606,7 @@ uint64_t IOSurfaceClientRemoveCoreVideoBridgedValues(uint64_t a1)
   else
   {
     v3 = _ioSurfaceConnectInternal(0);
-    v4 = IOConnectTrap2(v3, 8u, *(a1 + 136), &v10);
+    v4 = IOConnectTrap2(v3, 8u, *(a1 + 136), &v9);
     if (v4)
     {
       fprintf(*MEMORY[0x1E69E9848], "kIOSurfaceTrapRemoveCoreVideoBridgedValues failed: %08x\n", v4);
@@ -4674,43 +4618,35 @@ uint64_t IOSurfaceClientRemoveCoreVideoBridgedValues(uint64_t a1)
     CFRelease(cf);
   }
 
-  result = pthread_mutex_unlock((a1 + 40));
-  v6 = *MEMORY[0x1E69E9840];
-  return result;
+  return pthread_mutex_unlock((a1 + 40));
 }
 
 CFNumberRef createVersatileSenselArrayPatternFromStruct(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
   valuePtr = *(a1 + 102);
-  if (valuePtr)
+  if (!valuePtr)
   {
-    if (valuePtr == 255)
-    {
-      valuePtr = 0;
-    }
-
-    result = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberSInt8Type, &valuePtr);
+    return 0;
   }
 
-  else
+  if (valuePtr == 255)
   {
-    result = 0;
+    valuePtr = 0;
   }
 
-  v2 = *MEMORY[0x1E69E9840];
-  return result;
+  return CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberSInt8Type, &valuePtr);
 }
 
 void sniffContentLightLevelInfoKeyToStruct(const __CFData *a1, uint64_t a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   *buffer = 0;
   if (a1 && (TypeID = CFDataGetTypeID(), TypeID == CFGetTypeID(a1)) && CFDataGetLength(a1) == 4)
   {
-    v12.location = 0;
-    v12.length = 4;
-    CFDataGetBytes(a1, v12, buffer);
+    v11.location = 0;
+    v11.length = 4;
+    CFDataGetBytes(a1, v11, buffer);
     v5 = buffer[0];
     v6 = buffer[1];
     v7 = buffer[2];
@@ -4728,7 +4664,6 @@ void sniffContentLightLevelInfoKeyToStruct(const __CFData *a1, uint64_t a2)
   *(a2 + 88) = v6 | (v5 << 8);
   *(a2 + 90) = v8 | (v7 << 8);
   *(a2 + 136) |= 0x1000uLL;
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 __CFString *createChromaLocationTopFieldFromStruct(uint64_t a1)
@@ -4813,40 +4748,42 @@ CFDictionaryRef createDisplayMaskRectangleFromStruct(_WORD *a1)
 {
   values[6] = *MEMORY[0x1E69E9840];
   v1 = a1[58];
-  if (v1 && (v2 = a1[59]) != 0)
+  if (!v1)
   {
-    keys[0] = @"ReferenceRasterWidth";
-    keys[1] = @"ReferenceRasterHeight";
-    keys[2] = @"RectangleLeft";
-    keys[3] = @"RectangleWidth";
-    keys[4] = @"RectangleTop";
-    keys[5] = @"RectangleHeight";
-    valuePtr = v1;
-    v12 = v2;
-    v11 = a1[60];
-    v10 = a1[61];
-    v9 = a1[62];
-    v8 = a1[63];
-    v3 = *MEMORY[0x1E695E480];
-    values[0] = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberSInt16Type, &valuePtr);
-    values[1] = CFNumberCreate(v3, kCFNumberSInt16Type, &v12);
-    values[2] = CFNumberCreate(v3, kCFNumberSInt16Type, &v11);
-    values[3] = CFNumberCreate(v3, kCFNumberSInt16Type, &v10);
-    values[4] = CFNumberCreate(v3, kCFNumberSInt16Type, &v9);
-    values[5] = CFNumberCreate(v3, kCFNumberSInt16Type, &v8);
-    v4 = CFDictionaryCreate(v3, keys, values, 6, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
-    for (i = 0; i != 6; ++i)
-    {
-      CFRelease(values[i]);
-    }
+    return 0;
   }
 
-  else
+  v2 = a1[59];
+  if (!v2)
   {
-    v4 = 0;
+    return 0;
   }
 
-  v6 = *MEMORY[0x1E69E9840];
+  keys[0] = @"ReferenceRasterWidth";
+  keys[1] = @"ReferenceRasterHeight";
+  keys[2] = @"RectangleLeft";
+  keys[3] = @"RectangleWidth";
+  keys[4] = @"RectangleTop";
+  keys[5] = @"RectangleHeight";
+  valuePtr = v1;
+  v11 = v2;
+  v10 = a1[60];
+  v9 = a1[61];
+  v8 = a1[62];
+  v7 = a1[63];
+  v3 = *MEMORY[0x1E695E480];
+  values[0] = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberSInt16Type, &valuePtr);
+  values[1] = CFNumberCreate(v3, kCFNumberSInt16Type, &v11);
+  values[2] = CFNumberCreate(v3, kCFNumberSInt16Type, &v10);
+  values[3] = CFNumberCreate(v3, kCFNumberSInt16Type, &v9);
+  values[4] = CFNumberCreate(v3, kCFNumberSInt16Type, &v8);
+  values[5] = CFNumberCreate(v3, kCFNumberSInt16Type, &v7);
+  v4 = CFDictionaryCreate(v3, keys, values, 6, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
+  for (i = 0; i != 6; ++i)
+  {
+    CFRelease(values[i]);
+  }
+
   return v4;
 }
 
@@ -4925,52 +4862,46 @@ uint64_t IOSurfaceGetBaseAddressOfCompressedTileDataRegionOfPlane(uint64_t resul
 
 CFDataRef createMasteringDisplayColorVolumeFromStruct(uint64_t a1)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v1 = *(a1 + 64);
-  if (v1 || *(a1 + 66))
+  if (__PAIR32__(*(a1 + 66), v1))
   {
     v2 = *(a1 + 66);
     v3 = HIBYTE(*(a1 + 66));
+LABEL_3:
+    v6[0] = HIBYTE(v1);
+    v6[1] = v1;
+    v6[2] = v3;
+    v6[3] = v2;
+    v7 = bswap32(*(a1 + 68)) >> 16;
+    v8 = bswap32(*(a1 + 70)) >> 16;
+    v9 = bswap32(*(a1 + 72)) >> 16;
+    v10 = bswap32(*(a1 + 74)) >> 16;
+    v11 = bswap32(*(a1 + 76)) >> 16;
+    v12 = bswap32(*(a1 + 78)) >> 16;
+    v4 = bswap32(*(a1 + 84));
+    v13 = bswap32(*(a1 + 80));
+    v14 = v4;
+    return CFDataCreate(*MEMORY[0x1E695E480], v6, 24);
   }
 
-  else
+  if (*(a1 + 68) || *(a1 + 70) || *(a1 + 72) || *(a1 + 74) || *(a1 + 76) || *(a1 + 78) || *(a1 + 80))
   {
-    if (!*(a1 + 68) && !*(a1 + 70) && !*(a1 + 72) && !*(a1 + 74) && !*(a1 + 76) && !*(a1 + 78) && !*(a1 + 80))
-    {
-      result = 0;
-      goto LABEL_5;
-    }
-
     v2 = 0;
     LOBYTE(v3) = 0;
+    goto LABEL_3;
   }
 
-  v7[0] = HIBYTE(v1);
-  v7[1] = v1;
-  v7[2] = v3;
-  v7[3] = v2;
-  v8 = bswap32(*(a1 + 68)) >> 16;
-  v9 = bswap32(*(a1 + 70)) >> 16;
-  v10 = bswap32(*(a1 + 72)) >> 16;
-  v11 = bswap32(*(a1 + 74)) >> 16;
-  v12 = bswap32(*(a1 + 76)) >> 16;
-  v13 = bswap32(*(a1 + 78)) >> 16;
-  v4 = bswap32(*(a1 + 84));
-  v14 = bswap32(*(a1 + 80));
-  v15 = v4;
-  result = CFDataCreate(*MEMORY[0x1E695E480], v7, 24);
-LABEL_5:
-  v6 = *MEMORY[0x1E69E9840];
-  return result;
+  return 0;
 }
 
-uint64_t IOSurfaceClientRemoveBulkAttachments(uint64_t a1, int a2)
+uintptr_t IOSurfaceClientRemoveBulkAttachments(uint64_t a1, int a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v4 = *(a1 + 120);
-  v10 = 0;
-  memset(v9, 0, sizeof(v9));
-  result = getDirtyMask(v4 + 48, v9, a2);
+  v9 = 0;
+  memset(v8, 0, sizeof(v8));
+  result = getDirtyMask(v4 + 48, v8, a2);
   if (result)
   {
     if ((~a2 & 0x1FFFFF) != 0)
@@ -4987,11 +4918,10 @@ uint64_t IOSurfaceClientRemoveBulkAttachments(uint64_t a1, int a2)
     result = IOConnectTrap2(v7, 9u, *(a1 + 136), v6);
     if (result)
     {
-      result = fprintf(*MEMORY[0x1E69E9848], "kIOSurfaceTrapRemoveBulkAttachments failed: %08x\n", result);
+      return fprintf(*MEMORY[0x1E69E9848], "kIOSurfaceTrapRemoveBulkAttachments failed: %08x\n", result);
     }
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -5007,7 +4937,7 @@ CFDictionaryRef IOSurfaceCopyAllValues(CFDictionaryRef buffer)
 
 const __CFDictionary *sniffCleanApertureKeyToStruct(const __CFDictionary *result, uint64_t a2)
 {
-  v12[1] = *MEMORY[0x1E69E9840];
+  v11[1] = *MEMORY[0x1E69E9840];
   if (!result)
   {
     *a2 = 0u;
@@ -5020,29 +4950,29 @@ const __CFDictionary *sniffCleanApertureKeyToStruct(const __CFDictionary *result
   result = CFDictionaryGetTypeID();
   if (v4 == result)
   {
-    v11 = 0.0;
-    v12[0] = 0.0;
-    v9 = 0.0;
     v10 = 0.0;
-    result = getDoubleFromDict(v3, @"Width", v12);
+    v11[0] = 0.0;
+    v8 = 0.0;
+    v9 = 0.0;
+    result = getDoubleFromDict(v3, @"Width", v11);
     if (result)
     {
-      result = getDoubleFromDict(v3, @"Height", &v11);
+      result = getDoubleFromDict(v3, @"Height", &v10);
       if (result)
       {
-        result = getDoubleFromDict(v3, @"HorizontalOffset", &v10);
+        result = getDoubleFromDict(v3, @"HorizontalOffset", &v9);
         if (result)
         {
-          result = getDoubleFromDict(v3, @"VerticalOffset", &v9);
+          result = getDoubleFromDict(v3, @"VerticalOffset", &v8);
           if (result)
           {
-            v5 = llround(v11 * 16.0);
-            *a2 = llround(v12[0] * 16.0);
+            v5 = llround(v10 * 16.0);
+            *a2 = llround(v11[0] * 16.0);
             *(a2 + 4) = 16;
-            v6 = llround(v10 * 16.0);
+            v6 = llround(v9 * 16.0);
             *(a2 + 8) = v5;
             *(a2 + 12) = 16;
-            v7 = llround(v9 * 16.0);
+            v7 = llround(v8 * 16.0);
             *(a2 + 16) = v6;
             *(a2 + 20) = 16;
             *(a2 + 24) = v7;
@@ -5055,51 +4985,38 @@ LABEL_9:
     }
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 CFNumberRef createSceneIlluminationFromStruct(uint64_t a1)
 {
-  v4[1] = *MEMORY[0x1E69E9840];
+  v3[1] = *MEMORY[0x1E69E9840];
   v1 = *(a1 + 112);
-  v4[0] = v1;
-  if (v1)
+  v3[0] = v1;
+  if (!v1)
   {
-    if (v1 == 1)
-    {
-      v4[0] = 0;
-    }
-
-    result = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberSInt64Type, v4);
+    return 0;
   }
 
-  else
+  if (v1 == 1)
   {
-    result = 0;
+    v3[0] = 0;
   }
 
-  v3 = *MEMORY[0x1E69E9840];
-  return result;
+  return CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberSInt64Type, v3);
 }
 
 CFNumberRef createEDRFactorFromStruct(uint64_t a1)
 {
-  v4[1] = *MEMORY[0x1E69E9840];
+  v3[1] = *MEMORY[0x1E69E9840];
   v1 = *(a1 + 96);
-  if (v1)
+  if (!v1)
   {
-    v4[0] = *(a1 + 92) / v1;
-    result = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberDoubleType, v4);
+    return 0;
   }
 
-  else
-  {
-    result = 0;
-  }
-
-  v3 = *MEMORY[0x1E69E9840];
-  return result;
+  v3[0] = *(a1 + 92) / v1;
+  return CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberDoubleType, v3);
 }
 
 uint64_t getDoubleFromDict(const __CFDictionary *a1, const void *a2, void *a3)
@@ -5139,25 +5056,19 @@ uint64_t IOSurfaceClientGetBaseAddressOfCompressedTileDataRegionOfPlane(uint64_t
 
 CFDataRef createContentLightLevelInfoFromStruct(uint64_t a1)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v1 = *(a1 + 88);
   v2 = *(a1 + 90);
-  if (v1 || *(a1 + 90))
+  if (!__PAIR32__(v2, v1))
   {
-    bytes[0] = HIBYTE(v1);
-    bytes[1] = v1;
-    bytes[2] = HIBYTE(v2);
-    bytes[3] = v2;
-    result = CFDataCreate(*MEMORY[0x1E695E480], bytes, 4);
+    return 0;
   }
 
-  else
-  {
-    result = 0;
-  }
-
-  v4 = *MEMORY[0x1E69E9840];
-  return result;
+  bytes[0] = HIBYTE(v1);
+  bytes[1] = v1;
+  bytes[2] = HIBYTE(v2);
+  bytes[3] = v2;
+  return CFDataCreate(*MEMORY[0x1E695E480], bytes, 4);
 }
 
 void IOSurfaceRemoveValue(IOSurfaceRef buffer, CFStringRef key)
@@ -5225,7 +5136,7 @@ uint64_t IOSurfaceClientGetBytesPerRowOfCompressedTileHeaderGroupsOfPlane(uint64
 
 const __CFDictionary *sniffPixelAspectRatioKeyToStruct(const __CFDictionary *result, uint64_t a2)
 {
-  v8[1] = *MEMORY[0x1E69E9840];
+  v7[1] = *MEMORY[0x1E69E9840];
   if (!result)
   {
     *(a2 + 32) = 0;
@@ -5238,16 +5149,16 @@ const __CFDictionary *sniffPixelAspectRatioKeyToStruct(const __CFDictionary *res
   result = CFDictionaryGetTypeID();
   if (v4 == result)
   {
-    v7 = 0.0;
-    v8[0] = 0.0;
-    result = getDoubleFromDict(v3, @"HorizontalSpacing", v8);
+    v6 = 0.0;
+    v7[0] = 0.0;
+    result = getDoubleFromDict(v3, @"HorizontalSpacing", v7);
     if (result)
     {
-      result = getDoubleFromDict(v3, @"VerticalSpacing", &v7);
+      result = getDoubleFromDict(v3, @"VerticalSpacing", &v6);
       if (result)
       {
-        v5 = llround(v7 * 16.0);
-        *(a2 + 32) = llround(v8[0] * 16.0);
+        v5 = llround(v6 * 16.0);
+        *(a2 + 32) = llround(v7[0] * 16.0);
         *(a2 + 36) = 16;
         *(a2 + 40) = v5;
         *(a2 + 44) = 16;
@@ -5257,7 +5168,6 @@ LABEL_7:
     }
   }
 
-  v6 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -5293,7 +5203,7 @@ void IOSurfaceSetValues(IOSurfaceRef buffer, CFDictionaryRef keysAndValues)
 
 CFTypeID sniffColorSpaceIDKeyToStruct(CFTypeID result, uint64_t a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   valuePtr = 0;
   if (result && (v3 = result, TypeID = CFNumberGetTypeID(), result = CFGetTypeID(v3), TypeID == result))
   {
@@ -5312,11 +5222,10 @@ CFTypeID sniffColorSpaceIDKeyToStruct(CFTypeID result, uint64_t a2)
 
   *(a2 + 101) = v5;
   *(a2 + 136) |= 0x20000uLL;
-  v6 = *MEMORY[0x1E69E9840];
   return result;
 }
 
-void serializeReplacementDictionaryKeysAndValues(const void *a1, uint64_t a2, __CFDictionary *a3)
+void serializeReplacementDictionaryKeysAndValues(const void *a1, const void *a2, __CFDictionary *a3)
 {
   v5 = serializeReplacementIOKitTypeRef(a2);
   CFDictionarySetValue(a3, a1, v5);
@@ -5336,44 +5245,43 @@ uint64_t IOSurfaceClientSetDataProperty(uint64_t a1, unsigned int a2, size_t a3,
     if (a3 || a4 || ((*(v8 + 47) >> a2) & 1) != 0)
     {
       v9 = _ioSurfaceConnectInternal(0);
-      result = IOConnectCallMethod(v9, 0x32u, input, 2u, a4, a3, 0, 0, 0, 0);
+      return IOConnectCallMethod(v9, 0x32u, input, 2u, a4, a3, 0, 0, 0, 0);
     }
 
     else
     {
-      result = 0;
+      return 0;
     }
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 void sniffColorPrimariesKeyToStruct(const __CFString *a1, uint64_t a2)
 {
-  v9[1] = *MEMORY[0x1E69E9840];
+  v8[1] = *MEMORY[0x1E69E9840];
   if (!a1)
   {
     *(a2 + 59) = 0;
     goto LABEL_9;
   }
 
-  v9[0] = 0;
+  v8[0] = 0;
   v4 = CFGetTypeID(a1);
-  if (v4 == CFStringGetTypeID() && CFDictionaryGetValueIfPresent(_colorPrimariesKeysToStructDict, a1, v9))
+  if (v4 == CFStringGetTypeID() && CFDictionaryGetValueIfPresent(_colorPrimariesKeysToStructDict, a1, v8))
   {
-    *(a2 + 59) = v9[0];
+    *(a2 + 59) = v8[0];
 LABEL_9:
     *(a2 + 136) |= 0x40uLL;
-    goto LABEL_10;
+    return;
   }
 
   if (CFStringHasPrefix(a1, @"ColorPrimaries#"))
   {
     Length = CFStringGetLength(a1);
-    v10.location = CFStringGetLength(@"ColorPrimaries#");
-    v10.length = Length - v10.location;
-    v6 = CFStringCreateWithSubstring(*MEMORY[0x1E695E480], a1, v10);
+    v9.location = CFStringGetLength(@"ColorPrimaries#");
+    v9.length = Length - v9.location;
+    v6 = CFStringCreateWithSubstring(*MEMORY[0x1E695E480], a1, v9);
     if (v6)
     {
       v7 = v6;
@@ -5382,9 +5290,6 @@ LABEL_9:
       CFRelease(v7);
     }
   }
-
-LABEL_10:
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t IOSurfaceSetDataProperty(uint64_t a1, unsigned int a2, size_t a3, const void *a4)
@@ -5420,29 +5325,29 @@ __CFString *createAlphaChannelModeFromStruct(uint64_t a1)
 
 void sniffTransferFunctionKeyToStruct(const __CFString *a1, uint64_t a2)
 {
-  v9[1] = *MEMORY[0x1E69E9840];
+  v8[1] = *MEMORY[0x1E69E9840];
   if (!a1)
   {
     *(a2 + 60) = 0;
     goto LABEL_9;
   }
 
-  v9[0] = 0;
+  v8[0] = 0;
   v4 = CFGetTypeID(a1);
-  if (v4 == CFStringGetTypeID() && CFDictionaryGetValueIfPresent(_transferFunctionKeysToStructDict, a1, v9))
+  if (v4 == CFStringGetTypeID() && CFDictionaryGetValueIfPresent(_transferFunctionKeysToStructDict, a1, v8))
   {
-    *(a2 + 60) = v9[0];
+    *(a2 + 60) = v8[0];
 LABEL_9:
     *(a2 + 136) |= 0x80uLL;
-    goto LABEL_10;
+    return;
   }
 
   if (CFStringHasPrefix(a1, @"TransferFunction#"))
   {
     Length = CFStringGetLength(a1);
-    v10.location = CFStringGetLength(@"TransferFunction#");
-    v10.length = Length - v10.location;
-    v6 = CFStringCreateWithSubstring(*MEMORY[0x1E695E480], a1, v10);
+    v9.location = CFStringGetLength(@"TransferFunction#");
+    v9.length = Length - v9.location;
+    v6 = CFStringCreateWithSubstring(*MEMORY[0x1E695E480], a1, v9);
     if (v6)
     {
       v7 = v6;
@@ -5451,40 +5356,39 @@ LABEL_9:
       CFRelease(v7);
     }
   }
-
-LABEL_10:
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 CFTypeID sniffFieldCountKeyToStruct(CFTypeID result, uint64_t a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   valuePtr = 0;
-  if (!result)
+  if (result)
   {
-    v5 = 0;
-    goto LABEL_5;
-  }
+    v3 = result;
+    v4 = CFGetTypeID(result);
+    result = CFNumberGetTypeID();
+    if (v4 != result)
+    {
+      return result;
+    }
 
-  v3 = result;
-  v4 = CFGetTypeID(result);
-  result = CFNumberGetTypeID();
-  if (v4 == result)
-  {
     result = CFNumberGetValue(v3, kCFNumberSInt8Type, &valuePtr);
     v5 = valuePtr;
-LABEL_5:
-    *(a2 + 56) = v5;
-    *(a2 + 136) |= 8uLL;
   }
 
-  v6 = *MEMORY[0x1E69E9840];
+  else
+  {
+    v5 = 0;
+  }
+
+  *(a2 + 56) = v5;
+  *(a2 + 136) |= 8uLL;
   return result;
 }
 
 CFTypeID sniffAlphaChannelModeKeyToStruct(CFTypeID result, uint64_t a2)
 {
-  v7[1] = *MEMORY[0x1E69E9840];
+  v6[1] = *MEMORY[0x1E69E9840];
   if (!result)
   {
     v5 = 0;
@@ -5496,24 +5400,23 @@ CFTypeID sniffAlphaChannelModeKeyToStruct(CFTypeID result, uint64_t a2)
   result = CFStringGetTypeID();
   if (v4 == result)
   {
-    v7[0] = 0;
-    result = CFDictionaryGetValueIfPresent(_premultipliedAlphaKeysToStructDict, v3, v7);
+    v6[0] = 0;
+    result = CFDictionaryGetValueIfPresent(_premultipliedAlphaKeysToStructDict, v3, v6);
     if (result)
     {
-      v5 = v7[0];
+      v5 = v6[0];
 LABEL_6:
       *(a2 + 100) = v5;
       *(a2 + 136) |= 0x4000uLL;
     }
   }
 
-  v6 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 CFTypeID sniffChromaLocationBottomKeyToStruct(CFTypeID result, uint64_t a2)
 {
-  v7[1] = *MEMORY[0x1E69E9840];
+  v6[1] = *MEMORY[0x1E69E9840];
   if (!result)
   {
     v5 = 0;
@@ -5525,22 +5428,21 @@ CFTypeID sniffChromaLocationBottomKeyToStruct(CFTypeID result, uint64_t a2)
   result = CFStringGetTypeID();
   if (v4 == result)
   {
-    v7[0] = 0;
-    result = CFDictionaryGetValueIfPresent(_chromaLocationKeysToStructDict, v3, v7);
+    v6[0] = 0;
+    result = CFDictionaryGetValueIfPresent(_chromaLocationKeysToStructDict, v3, v6);
     if (result)
     {
-      v5 = v7[0];
+      v5 = v6[0];
 LABEL_6:
       *(a2 + 62) = v5;
       *(a2 + 136) |= 0x200uLL;
     }
   }
 
-  v6 = *MEMORY[0x1E69E9840];
   return result;
 }
 
-uint64_t IOSurfaceCreateWiringAssertion(uint64_t a1)
+IOSurfaceWiringAssertion *IOSurfaceCreateWiringAssertion(uint64_t a1)
 {
   v2 = [IOSurfaceWiringAssertion alloc];
 
@@ -5587,20 +5489,14 @@ uint64_t IOSurfaceClearDataProperties(uint64_t a1)
 uint64_t IOSurfaceClientClearDataProperties(uint64_t a1)
 {
   input[1] = *MEMORY[0x1E69E9840];
-  if (*(*(a1 + 120) + 47))
+  if (!*(*(a1 + 120) + 47))
   {
-    input[0] = *(a1 + 136);
-    v1 = _ioSurfaceConnectInternal(0);
-    result = IOConnectCallMethod(v1, 0x34u, input, 1u, 0, 0, 0, 0, 0, 0);
+    return 0;
   }
 
-  else
-  {
-    result = 0;
-  }
-
-  v3 = *MEMORY[0x1E69E9840];
-  return result;
+  input[0] = *(a1 + 136);
+  v1 = _ioSurfaceConnectInternal(0);
+  return IOConnectCallMethod(v1, 0x34u, input, 1u, 0, 0, 0, 0, 0, 0);
 }
 
 void insertKeyIfNotListedForRemoval(void *value, const void *a2, uint64_t a3)
@@ -5635,9 +5531,7 @@ uint64_t IOSurfaceClientSetYCbCrMatrix(uint64_t a1, unsigned int a2)
   input[0] = *(a1 + 136);
   input[1] = a2;
   v2 = _ioSurfaceConnectInternal(0);
-  result = IOConnectCallMethod(v2, 5u, input, 2u, 0, 0, 0, 0, 0, 0);
-  v4 = *MEMORY[0x1E69E9840];
-  return result;
+  return IOConnectCallMethod(v2, 5u, input, 2u, 0, 0, 0, 0, 0, 0);
 }
 
 void setEachValueInDictionary(CFTypeRef cf2, const void *a2, __CFDictionary *a3)
@@ -5727,16 +5621,15 @@ uint64_t IOSurfaceClientSetTimestamp(uint64_t a1, void *a2, void *a3, uint64_t a
         CFRelease(v9);
       }
 
-      result = 0;
+      return 0;
     }
 
     else
     {
-      result = 3758097084;
+      return 3758097084;
     }
   }
 
-  v14 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -5758,9 +5651,7 @@ uint64_t IOSurfaceClientSetOwnershipIdentity(uint64_t a1, unsigned int a2, int a
   input[2] = a3;
   input[3] = a4;
   v4 = _ioSurfaceConnectInternal(0);
-  result = IOConnectCallMethod(v4, 0x2Cu, input, 4u, 0, 0, 0, 0, 0, 0);
-  v6 = *MEMORY[0x1E69E9840];
-  return result;
+  return IOConnectCallMethod(v4, 0x2Cu, input, 4u, 0, 0, 0, 0, 0, 0);
 }
 
 uint64_t IOSurfaceSetOwnershipIdentity(uint64_t a1, unsigned int a2, int a3, unsigned int a4)
@@ -5778,10 +5669,10 @@ uint64_t IOSurfaceSetOwnershipIdentity(uint64_t a1, unsigned int a2, int a3, uns
 
 uint64_t IOSurfaceCreateChildSurface(void *a1, void *a2)
 {
-  DictionaryAddingMissingProperties = _iosCreateDictionaryAddingMissingProperties(a2);
-  v4 = [a1 newChildSurfaceWithProperties:DictionaryAddingMissingProperties];
+  DictionaryAddingMissingProperties = _iosCreateDictionaryAddingMissingProperties(a2, v2);
+  v5 = [a1 newChildSurfaceWithProperties:DictionaryAddingMissingProperties];
 
-  return v4;
+  return v5;
 }
 
 BOOL IOSurfaceAppendTransaction(uint64_t a1, void *a2)
@@ -5876,77 +5767,69 @@ void *std::__hash_table<std::__hash_value_type<unsigned long,IOSurfaceTransactio
     return 0;
   }
 
-  result = *v6;
-  if (*v6)
+  for (result = *v6; result; result = *result)
   {
-    do
+    v8 = result[1];
+    if (v8 == v3)
     {
-      v8 = result[1];
-      if (v8 == v3)
+      if (result[2] == v3)
       {
-        if (result[2] == v3)
+        return result;
+      }
+    }
+
+    else
+    {
+      if (v4.u32[0] > 1uLL)
+      {
+        if (v8 >= *&v2)
         {
-          return result;
+          v8 %= *&v2;
         }
       }
 
       else
       {
-        if (v4.u32[0] > 1uLL)
-        {
-          if (v8 >= *&v2)
-          {
-            v8 %= *&v2;
-          }
-        }
-
-        else
-        {
-          v8 &= *&v2 - 1;
-        }
-
-        if (v8 != v5)
-        {
-          return 0;
-        }
+        v8 &= *&v2 - 1;
       }
 
-      result = *result;
+      if (v8 != v5)
+      {
+        return 0;
+      }
     }
-
-    while (result);
   }
 
   return result;
 }
 
-void *std::__hash_table<std::__hash_value_type<unsigned long,IOSurfaceTransaction *>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,IOSurfaceTransaction *>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,IOSurfaceTransaction *>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,IOSurfaceTransaction *>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>(void *a1, unint64_t *a2)
+void *std::__hash_table<std::__hash_value_type<unsigned long,IOSurfaceTransaction *>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,IOSurfaceTransaction *>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,IOSurfaceTransaction *>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,IOSurfaceTransaction *>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>(float *a1, unint64_t *a2, uint64_t a3, void **a4)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v4 = *a2;
+  v5 = *(a1 + 2);
+  if (!*&v5)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v6 = vcnt_s8(v5);
+  v6.i16[0] = vaddlv_u8(v6);
+  if (v6.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (v2 >= *&v3)
+    v7 = *a2;
+    if (v4 >= *&v5)
     {
-      v5 = v2 % *&v3;
+      v7 = v4 % *&v5;
     }
   }
 
   else
   {
-    v5 = (*&v3 - 1) & v2;
+    v7 = (*&v5 - 1) & v4;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v8 = *(*a1 + 8 * v7);
+  if (!v8 || (v9 = *v8) == 0)
   {
 LABEL_18:
     operator new();
@@ -5954,44 +5837,44 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v10 = v9[1];
+    if (v10 == v4)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v6.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v10 >= *&v5)
       {
-        v8 %= *&v3;
+        v10 %= *&v5;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v10 &= *&v5 - 1;
     }
 
-    if (v8 != v5)
+    if (v10 != v7)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v9 = *v9;
+    if (!v9)
     {
       goto LABEL_18;
     }
   }
 
-  if (v7[2] != v2)
+  if (v9[2] != v4)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v9;
 }
 
 void std::__throw_bad_array_new_length[abi:ne200100]()
@@ -6001,7 +5884,7 @@ void std::__throw_bad_array_new_length[abi:ne200100]()
   __cxa_throw(v1, MEMORY[0x1E69E5420], MEMORY[0x1E69E52A8]);
 }
 
-void std::__hash_table<std::__hash_value_type<unsigned long,IOSurfaceTransaction *>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,IOSurfaceTransaction *>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,IOSurfaceTransaction *>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,IOSurfaceTransaction *>>>::__rehash<true>(uint64_t a1, size_t __n)
+void std::__hash_table<std::__hash_value_type<unsigned long,IOSurfaceTransaction *>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,IOSurfaceTransaction *>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,IOSurfaceTransaction *>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,IOSurfaceTransaction *>>>::__rehash<true>(uint64_t result, size_t __n)
 {
   if (__n == 1)
   {
@@ -6017,7 +5900,7 @@ void std::__hash_table<std::__hash_value_type<unsigned long,IOSurfaceTransaction
     }
   }
 
-  v4 = *(a1 + 8);
+  v4 = *(result + 8);
   if (prime > *&v4)
   {
     goto LABEL_6;
@@ -6025,7 +5908,7 @@ void std::__hash_table<std::__hash_value_type<unsigned long,IOSurfaceTransaction
 
   if (prime < *&v4)
   {
-    v5 = vcvtps_u32_f32(*(a1 + 24) / *(a1 + 32));
+    v5 = vcvtps_u32_f32(*(result + 24) / *(result + 32));
     if (*&v4 < 3uLL || (v6 = vcnt_s8(v4), v6.i16[0] = vaddlv_u8(v6), v6.u32[0] > 1uLL))
     {
       v5 = std::__next_prime(v5);
@@ -6049,7 +5932,7 @@ void std::__hash_table<std::__hash_value_type<unsigned long,IOSurfaceTransaction
     {
 LABEL_6:
 
-      std::__hash_table<std::__hash_value_type<unsigned long,IOSurfaceTransaction *>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,IOSurfaceTransaction *>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,IOSurfaceTransaction *>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,IOSurfaceTransaction *>>>::__do_rehash<true>(a1, prime);
+      std::__hash_table<std::__hash_value_type<unsigned long,IOSurfaceTransaction *>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,IOSurfaceTransaction *>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,IOSurfaceTransaction *>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,IOSurfaceTransaction *>>>::__do_rehash<true>(result, prime);
     }
   }
 }
@@ -6112,16 +5995,18 @@ BOOL std::type_info::operator==[abi:ne200100](uint64_t a1, uint64_t a2)
   return 0;
 }
 
-void OUTLINED_FUNCTION_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_fault_impl(a1, a2, OS_LOG_TYPE_FAULT, a4, &a9, 2u);
+  _os_log_fault_impl(a1, a2, OS_LOG_TYPE_FAULT, a4, va, 2u);
 }
 
-void OUTLINED_FUNCTION_2(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_2(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_fault_impl(a1, a2, OS_LOG_TYPE_FAULT, a4, &a9, 0xCu);
+  _os_log_fault_impl(a1, a2, OS_LOG_TYPE_FAULT, a4, va, 0xCu);
 }
 
 void IOSurfaceLog(char *a1, ...)
@@ -6138,8 +6023,6 @@ void IOSurfaceLog(char *a1, ...)
     IOConnectCallMethod(v2, 0x13u, 0, 0, __s[0], v1 + 1, 0, 0, 0, 0);
     free(__s[0]);
   }
-
-  v3 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t IOSurfaceClientDisallowForever()
@@ -6252,7 +6135,7 @@ uint64_t IOSurfaceClientFlushProcessorCaches(uint64_t a1)
 
 uint64_t IOSurfaceClientCopyDataValueBytes(uint64_t a1, const __CFString *a2, _BYTE *a3, size_t *a4)
 {
-  v17[1] = *MEMORY[0x1E69E9840];
+  v16[1] = *MEMORY[0x1E69E9840];
   v4 = 3758097090;
   if (a2 && a3 && a4)
   {
@@ -6260,7 +6143,7 @@ uint64_t IOSurfaceClientCopyDataValueBytes(uint64_t a1, const __CFString *a2, _B
     {
       if (*(*(a1 + 120) + 40))
       {
-        v17[0] = *a4;
+        v16[0] = *a4;
         ExternalRepresentation = CFStringCreateExternalRepresentation(0, a2, 0x8000100u, 0);
         v4 = 3758097136;
         if (ExternalRepresentation)
@@ -6274,7 +6157,7 @@ uint64_t IOSurfaceClientCopyDataValueBytes(uint64_t a1, const __CFString *a2, _B
           memcpy(v11 + 3, BytePtr, Length);
           *(v11 + Length + 12) = 0;
           v13 = _ioSurfaceConnectInternal(0);
-          v14 = IOConnectCallMethod(v13, 0x1Au, 0, 0, v11, Length + 13, 0, 0, a3, v17);
+          v14 = IOConnectCallMethod(v13, 0x1Au, 0, 0, v11, Length + 13, 0, 0, a3, v16);
           v4 = v14;
           if (v14 && v14 != -536870181)
           {
@@ -6283,7 +6166,7 @@ uint64_t IOSurfaceClientCopyDataValueBytes(uint64_t a1, const __CFString *a2, _B
 
           else
           {
-            *a4 = v17[0];
+            *a4 = v16[0];
           }
 
           free(v11);
@@ -6293,17 +6176,16 @@ uint64_t IOSurfaceClientCopyDataValueBytes(uint64_t a1, const __CFString *a2, _B
 
       else
       {
-        v4 = 3758097136;
+        return 3758097136;
       }
     }
 
     else
     {
-      v4 = 0;
+      return 0;
     }
   }
 
-  v15 = *MEMORY[0x1E69E9840];
   return v4;
 }
 
@@ -6313,9 +6195,7 @@ uint64_t IOSurfaceClientSetTiled(uint64_t a1, unsigned int a2)
   input[0] = *(a1 + 136);
   input[1] = a2;
   v2 = _ioSurfaceConnectInternal(0);
-  result = IOConnectCallMethod(v2, 0x16u, input, 2u, 0, 0, 0, 0, 0, 0);
-  v4 = *MEMORY[0x1E69E9840];
-  return result;
+  return IOConnectCallMethod(v2, 0x16u, input, 2u, 0, 0, 0, 0, 0, 0);
 }
 
 uint64_t IOSurfaceClientGetTileFormat(uint64_t a1)
@@ -6327,22 +6207,19 @@ uint64_t IOSurfaceClientGetTileFormat(uint64_t a1)
   v1 = _ioSurfaceConnectInternal(0);
   if (IOConnectCallMethod(v1, 0x19u, input, 1u, 0, 0, &output, &outputCnt, 0, 0))
   {
-    result = 0;
+    return 0;
   }
 
   else
   {
-    result = output;
+    return output;
   }
-
-  v3 = *MEMORY[0x1E69E9840];
-  return result;
 }
 
 uint64_t IOSurfaceClientWrapClientImage(int a1, int a2, int a3, int a4, int a5, uint64_t a6)
 {
-  v55 = *MEMORY[0x1E69E9840];
-  v15 = 3176;
+  v54 = *MEMORY[0x1E69E9840];
+  v14 = 3176;
   if (a3 > 1380401728)
   {
     if (a3 <= 1395864161)
@@ -6433,48 +6310,48 @@ LABEL_23:
 LABEL_31:
   v7 = 1;
 LABEL_25:
-  v46 = 0u;
-  v47 = 0u;
-  v44 = 0u;
   v45 = 0u;
-  v42 = 0u;
+  v46 = 0u;
   v43 = 0u;
-  v40 = 0u;
+  v44 = 0u;
   v41 = 0u;
-  v38 = 0u;
+  v42 = 0u;
   v39 = 0u;
-  v36 = 0u;
+  v40 = 0u;
   v37 = 0u;
-  v34 = 0u;
+  v38 = 0u;
   v35 = 0u;
-  v32 = 0u;
+  v36 = 0u;
   v33 = 0u;
-  v30 = 0u;
+  v34 = 0u;
   v31 = 0u;
-  v28 = 0u;
+  v32 = 0u;
   v29 = 0u;
-  v26 = 0u;
+  v30 = 0u;
   v27 = 0u;
-  v24 = 0u;
+  v28 = 0u;
   v25 = 0u;
-  v22 = 0u;
+  v26 = 0u;
   v23 = 0u;
-  v20 = 0u;
+  v24 = 0u;
   v21 = 0u;
-  v18 = 0u;
+  v22 = 0u;
   v19 = 0u;
-  outputStruct = 0u;
+  v20 = 0u;
   v17 = 0u;
+  v18 = 0u;
+  outputStruct = 0u;
+  v16 = 0u;
   inputStruct = a6;
-  v49 = a1;
-  v50 = a2;
-  v51 = a3;
-  v52 = v7;
-  v53 = a4;
-  v54 = a5;
+  v48 = a1;
+  v49 = a2;
+  v50 = a3;
+  v51 = v7;
+  v52 = a4;
+  v53 = a5;
   v8 = _ioSurfaceConnectInternal(0);
   v9 = 0;
-  if (!IOConnectCallMethod(v8, 6u, 0, 0, &inputStruct, 0x20uLL, 0, 0, &outputStruct, &v15))
+  if (!IOConnectCallMethod(v8, 6u, 0, 0, &inputStruct, 0x20uLL, 0, 0, &outputStruct, &v14))
   {
     v10 = _ioSurfaceClientCreateWithLockResult(&outputStruct);
     if (v10)
@@ -6487,58 +6364,57 @@ LABEL_25:
 
     else
     {
-      v11 = DWORD2(v17);
+      v11 = DWORD2(v16);
       v12 = _ioSurfaceConnectInternal(0);
       IOConnectTrap1(v12, 5u, v11);
-      v9 = 0;
+      return 0;
     }
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
 uint64_t IOSurfaceClientWrapClientMemory(uint64_t a1, uint64_t a2)
 {
-  v43 = *MEMORY[0x1E69E9840];
-  v41 = 0u;
-  v42 = 0u;
-  v39 = 0u;
+  v42 = *MEMORY[0x1E69E9840];
   v40 = 0u;
-  v37 = 0u;
+  v41 = 0u;
   v38 = 0u;
-  v35 = 0u;
+  v39 = 0u;
   v36 = 0u;
-  v33 = 0u;
+  v37 = 0u;
   v34 = 0u;
-  v31 = 0u;
+  v35 = 0u;
   v32 = 0u;
-  v29 = 0u;
+  v33 = 0u;
   v30 = 0u;
-  v27 = 0u;
+  v31 = 0u;
   v28 = 0u;
-  v25 = 0u;
+  v29 = 0u;
   v26 = 0u;
-  v23 = 0u;
+  v27 = 0u;
   v24 = 0u;
-  v21 = 0u;
+  v25 = 0u;
   v22 = 0u;
-  v19 = 0u;
+  v23 = 0u;
   v20 = 0u;
+  v21 = 0u;
   v18 = 0u;
-  v16 = 0u;
+  v19 = 0u;
   v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
-  v12 = 0u;
+  v16 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   outputStruct = 0u;
-  v9 = 3176;
+  v8 = 3176;
   input[0] = a1;
   input[1] = a2;
   v2 = _ioSurfaceConnectInternal(0);
   v3 = 0;
-  if (!IOConnectCallMethod(v2, 7u, input, 2u, 0, 0, 0, 0, &outputStruct, &v9))
+  if (!IOConnectCallMethod(v2, 7u, input, 2u, 0, 0, 0, 0, &outputStruct, &v8))
   {
     v4 = _ioSurfaceClientCreateWithLockResult(&outputStruct);
     if (v4)
@@ -6551,32 +6427,29 @@ uint64_t IOSurfaceClientWrapClientMemory(uint64_t a1, uint64_t a2)
 
     else
     {
-      v5 = DWORD2(v12);
+      v5 = DWORD2(v11);
       v6 = _ioSurfaceConnectInternal(0);
       IOConnectTrap1(v6, 5u, v5);
-      v3 = 0;
+      return 0;
     }
   }
 
-  v7 = *MEMORY[0x1E69E9840];
   return v3;
 }
 
 uint64_t IOSurfaceClientSetSurfaceNotify(mach_port_t a1, uint64_t a2, unint64_t a3)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
+  v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
   reference[0] = 0;
   inputStruct[1] = a3;
   inputStruct[2] = 0;
   inputStruct[0] = a2;
   reference[1] = a2;
-  v9 = a3;
+  v8 = a3;
   v4 = _ioSurfaceConnectInternal(0);
-  result = IOConnectCallAsyncMethod(v4, 0x11u, a1, reference, 3u, 0, 0, inputStruct, 0x18uLL, 0, 0, 0, 0);
-  v6 = *MEMORY[0x1E69E9840];
-  return result;
+  return IOConnectCallAsyncMethod(v4, 0x11u, a1, reference, 3u, 0, 0, inputStruct, 0x18uLL, 0, 0, 0, 0);
 }
 
 uint64_t IOSurfaceClientRemoveSurfaceNotify(uint64_t a1)
@@ -6586,9 +6459,7 @@ uint64_t IOSurfaceClientRemoveSurfaceNotify(uint64_t a1)
   inputStruct[1] = a1;
   inputStruct[2] = 0;
   v1 = _ioSurfaceConnectInternal(0);
-  result = IOConnectCallMethod(v1, 0x12u, 0, 0, inputStruct, 0x18uLL, 0, 0, 0, 0);
-  v3 = *MEMORY[0x1E69E9840];
-  return result;
+  return IOConnectCallMethod(v1, 0x12u, 0, 0, inputStruct, 0x18uLL, 0, 0, 0, 0);
 }
 
 uint64_t IOSurfaceClientGetUseCount(uint64_t a1)
@@ -6915,11 +6786,10 @@ uint64_t IOSurfaceClientSetIndexedTimestamp(uint64_t result, uint64_t a2, uint64
       input[1] = a2;
       input[2] = a3;
       v3 = _ioSurfaceConnectInternal(0);
-      result = IOConnectCallMethod(v3, 0x21u, input, 3u, 0, 0, 0, 0, 0, 0);
+      return IOConnectCallMethod(v3, 0x21u, input, 3u, 0, 0, 0, 0, 0, 0);
     }
   }
 
-  v4 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -6929,9 +6799,9 @@ uint64_t IOSurfaceClientGetDataProperty(uint64_t a1, unsigned int a2, size_t a3,
   v5 = *(a1 + 120);
   input[0] = *(a1 + 136);
   input[1] = a2;
-  v15 = a3;
+  v14 = a3;
   output = 0;
-  v17 = 0;
+  v16 = 0;
   outputCnt = 2;
   if (a3)
   {
@@ -6955,20 +6825,19 @@ uint64_t IOSurfaceClientGetDataProperty(uint64_t a1, unsigned int a2, size_t a3,
     }
 
     v11 = _ioSurfaceConnectInternal(0);
-    result = IOConnectCallMethod(v11, 0x33u, input, 2u, 0, 0, &output, &outputCnt, a5, &v15);
+    result = IOConnectCallMethod(v11, 0x33u, input, 2u, 0, 0, &output, &outputCnt, a5, &v14);
     if (!result)
     {
       result = output;
       if (a4)
       {
-        v12 = v17;
+        v12 = v16;
 LABEL_14:
         *a4 = v12;
       }
     }
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -6988,7 +6857,7 @@ uint64_t IOSurfaceClientPruneTransactionList(uint64_t a1)
   return IOConnectTrap1(v2, 0xCu, v1);
 }
 
-void serializeReplacementArrayValues(uint64_t a1, __CFArray *a2)
+void serializeReplacementArrayValues(const void *a1, __CFArray *a2)
 {
   v3 = serializeReplacementIOKitTypeRef(a1);
   CFArrayAppendValue(a2, v3);
@@ -6996,7 +6865,7 @@ void serializeReplacementArrayValues(uint64_t a1, __CFArray *a2)
   CFRelease(v3);
 }
 
-void serializeReplacementSetValues(uint64_t a1, __CFSet *a2)
+void serializeReplacementSetValues(const void *a1, __CFSet *a2)
 {
   v3 = serializeReplacementIOKitTypeRef(a1);
   CFSetAddValue(a2, v3);
@@ -7004,7 +6873,7 @@ void serializeReplacementSetValues(uint64_t a1, __CFSet *a2)
   CFRelease(v3);
 }
 
-void unserializeReplacementSetValues(uint64_t a1, __CFSet *a2)
+void unserializeReplacementSetValues(const void *a1, __CFSet *a2)
 {
   v3 = unserializeReplacementIOKitTypeRef(a1, 0);
   CFSetAddValue(a2, v3);
@@ -7206,7 +7075,7 @@ uint64_t IOSurfaceAcceleratorConditionalTransferSurfaceWithSwap(uint64_t a1, uin
 
 uint64_t IOSurfaceAcceleratorBlitSurface(uint64_t a1, uint64_t a2, __int128 *a3, uint64_t a4, __int128 *a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v17 = off_1ED4CDF30;
   if (!off_1ED4CDF30)
   {
@@ -7218,18 +7087,16 @@ uint64_t IOSurfaceAcceleratorBlitSurface(uint64_t a1, uint64_t a2, __int128 *a3,
     }
   }
 
-  v22 = *a3;
-  v23 = *(a3 + 2);
-  v20 = *a5;
-  v21 = *(a5 + 2);
-  result = v17(a1, a2, &v22, a4, &v20, a6, a7, a8, a9);
-  v19 = *MEMORY[0x1E69E9840];
-  return result;
+  v21 = *a3;
+  v22 = *(a3 + 2);
+  v19 = *a5;
+  v20 = *(a5 + 2);
+  return v17(a1, a2, &v21, a4, &v19, a6, a7, a8, a9);
 }
 
 uint64_t IOSurfaceAcceleratorBlitSurfaceWithSwap(uint64_t a1, uint64_t a2, __int128 *a3, uint64_t a4, __int128 *a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, int a11)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v19 = off_1ED4CDF40;
   if (!off_1ED4CDF40)
   {
@@ -7241,13 +7108,11 @@ uint64_t IOSurfaceAcceleratorBlitSurfaceWithSwap(uint64_t a1, uint64_t a2, __int
     }
   }
 
-  v24 = *a3;
-  v25 = *(a3 + 2);
-  v22 = *a5;
-  v23 = *(a5 + 2);
-  result = v19(a1, a2, &v24, a4, &v22, a6, a7, a8, a9, a10, a11);
-  v21 = *MEMORY[0x1E69E9840];
-  return result;
+  v23 = *a3;
+  v24 = *(a3 + 2);
+  v21 = *a5;
+  v22 = *(a5 + 2);
+  return v19(a1, a2, &v23, a4, &v21, a6, a7, a8, a9, a10, a11);
 }
 
 uint64_t IOSurfaceAcceleratorAbortCaptures(uint64_t a1)
@@ -7351,7 +7216,7 @@ uint64_t _iosaLookupStubs()
   return result;
 }
 
-uint64_t IOSurfaceSharedEventCreateWithMachPort(uint64_t a1)
+IOSurfaceSharedEvent *IOSurfaceSharedEventCreateWithMachPort(uint64_t a1)
 {
   v2 = [IOSurfaceSharedEvent alloc];
 
@@ -7385,7 +7250,6 @@ uint64_t IOSurfaceSharedEventNotifyEventListener(void *a1, void *a2, unsigned in
     _iosRemoveEventBlock(v9);
   }
 
-  v14 = *MEMORY[0x1E69E9840];
   return v13;
 }
 
@@ -7394,9 +7258,7 @@ uint64_t IOSurfaceSharedEventRemoveEventListener(uint64_t a1)
   input[1] = *MEMORY[0x1E69E9840];
   input[0] = a1;
   v1 = _ioSurfaceConnect();
-  result = IOConnectCallMethod(v1, 0x29u, input, 1u, 0, 0, 0, 0, 0, 0);
-  v3 = *MEMORY[0x1E69E9840];
-  return result;
+  return IOConnectCallMethod(v1, 0x29u, input, 1u, 0, 0, 0, 0, 0, 0);
 }
 
 void _ioSurfaceEventNotificationCallback2(void *a1, int a2, void *a3)
@@ -7471,42 +7333,42 @@ __CFString *createChromaSubsamplingFromStruct(uint64_t a1)
 
 CFNumberRef createHorizontalDisparityAdjustmentFromStruct(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
   valuePtr = *(a1 + 128);
-  result = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberSInt32Type, &valuePtr);
-  v2 = *MEMORY[0x1E69E9840];
-  return result;
+  return CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberSInt32Type, &valuePtr);
 }
 
 CFTypeID sniffGammaLevelKeyToStruct(CFTypeID result, uint64_t a2)
 {
-  v6[1] = *MEMORY[0x1E69E9840];
-  if (!result)
+  v5[1] = *MEMORY[0x1E69E9840];
+  if (result)
+  {
+    v3 = result;
+    v4 = CFGetTypeID(result);
+    result = CFNumberGetTypeID();
+    if (v4 != result)
+    {
+      return result;
+    }
+
+    v5[0] = 0.0;
+    result = CFNumberGetValue(v3, kCFNumberDoubleType, v5);
+    *(a2 + 48) = llround(v5[0] * 268435456.0);
+    *(a2 + 52) = 0x10000000;
+  }
+
+  else
   {
     *(a2 + 48) = 0;
-    goto LABEL_5;
   }
 
-  v3 = result;
-  v4 = CFGetTypeID(result);
-  result = CFNumberGetTypeID();
-  if (v4 == result)
-  {
-    v6[0] = 0.0;
-    result = CFNumberGetValue(v3, kCFNumberDoubleType, v6);
-    *(a2 + 48) = llround(v6[0] * 268435456.0);
-    *(a2 + 52) = 0x10000000;
-LABEL_5:
-    *(a2 + 136) |= 4uLL;
-  }
-
-  v5 = *MEMORY[0x1E69E9840];
+  *(a2 + 136) |= 4uLL;
   return result;
 }
 
 CFTypeID sniffFieldDetailKeyToStruct(CFTypeID result, uint64_t a2)
 {
-  v7[1] = *MEMORY[0x1E69E9840];
+  v6[1] = *MEMORY[0x1E69E9840];
   if (!result)
   {
     v5 = 0;
@@ -7518,24 +7380,23 @@ CFTypeID sniffFieldDetailKeyToStruct(CFTypeID result, uint64_t a2)
   result = CFStringGetTypeID();
   if (v4 == result)
   {
-    v7[0] = 0;
-    result = CFDictionaryGetValueIfPresent(_fieldDetailKeysToStructDict, v3, v7);
+    v6[0] = 0;
+    result = CFDictionaryGetValueIfPresent(_fieldDetailKeysToStructDict, v3, v6);
     if (result)
     {
-      v5 = v7[0];
+      v5 = v6[0];
 LABEL_6:
       *(a2 + 57) = v5;
       *(a2 + 136) |= 0x10uLL;
     }
   }
 
-  v6 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 CFTypeID sniffChromaSubsamplingKeyToStruct(CFTypeID result, uint64_t a2)
 {
-  v7[1] = *MEMORY[0x1E69E9840];
+  v6[1] = *MEMORY[0x1E69E9840];
   if (!result)
   {
     v5 = 0;
@@ -7547,55 +7408,56 @@ CFTypeID sniffChromaSubsamplingKeyToStruct(CFTypeID result, uint64_t a2)
   result = CFStringGetTypeID();
   if (v4 == result)
   {
-    v7[0] = 0;
-    result = CFDictionaryGetValueIfPresent(_chromaSubsamplingKeysToStructDict, v3, v7);
+    v6[0] = 0;
+    result = CFDictionaryGetValueIfPresent(_chromaSubsamplingKeysToStructDict, v3, v6);
     if (result)
     {
-      v5 = v7[0];
+      v5 = v6[0];
 LABEL_6:
       *(a2 + 63) = v5;
       *(a2 + 136) |= 0x400uLL;
     }
   }
 
-  v6 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 CFTypeID sniffEDRFactorKeyToStruct(CFTypeID result, uint64_t a2)
 {
-  v6[1] = *MEMORY[0x1E69E9840];
-  if (!result)
+  v5[1] = *MEMORY[0x1E69E9840];
+  if (result)
+  {
+    v3 = result;
+    v4 = CFGetTypeID(result);
+    result = CFNumberGetTypeID();
+    if (v4 != result)
+    {
+      return result;
+    }
+
+    v5[0] = 0.0;
+    result = CFNumberGetValue(v3, kCFNumberDoubleType, v5);
+    *(a2 + 92) = llround(v5[0] * 1048576.0);
+    *(a2 + 96) = 0x100000;
+  }
+
+  else
   {
     *(a2 + 92) = 0;
     *(a2 + 96) = 0;
-    goto LABEL_5;
   }
 
-  v3 = result;
-  v4 = CFGetTypeID(result);
-  result = CFNumberGetTypeID();
-  if (v4 == result)
-  {
-    v6[0] = 0.0;
-    result = CFNumberGetValue(v3, kCFNumberDoubleType, v6);
-    *(a2 + 92) = llround(v6[0] * 1048576.0);
-    *(a2 + 96) = 0x100000;
-LABEL_5:
-    *(a2 + 136) |= 0x2000uLL;
-  }
-
-  v5 = *MEMORY[0x1E69E9840];
+  *(a2 + 136) |= 0x2000uLL;
   return result;
 }
 
 uint64_t sniffMasteringDisplayColorVolumeKeyToStruct(const void *a1, uint64_t a2)
 {
   v3 = a1;
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
+  v26 = 0;
   v27 = 0;
   v28 = 0;
-  v29 = 0;
   if (!a1)
   {
     v22 = 0;
@@ -7645,29 +7507,29 @@ LABEL_7:
     goto LABEL_8;
   }
 
-  v31.location = 0;
-  v31.length = 24;
-  CFDataGetBytes(v3, v31, &v27);
-  v5 = v27;
-  LOWORD(v3) = BYTE1(v27);
-  v6 = BYTE2(v27);
-  v7 = BYTE3(v27);
-  v8 = BYTE4(v27);
-  v9 = BYTE5(v27);
-  v10 = BYTE6(v27);
-  v11 = HIBYTE(v27);
-  v12 = v28;
-  LODWORD(a1) = BYTE1(v28);
-  v13 = BYTE2(v28);
-  v14 = BYTE3(v28);
-  v15 = BYTE4(v28);
-  v16 = BYTE5(v28);
-  v17 = BYTE6(v28);
-  v18 = HIBYTE(v28);
-  v19 = v29 << 24;
-  v20 = BYTE1(v29) << 16;
-  v21 = BYTE2(v29) << 8;
-  v22 = BYTE3(v29);
+  v30.location = 0;
+  v30.length = 24;
+  CFDataGetBytes(v3, v30, &v26);
+  v5 = v26;
+  LOWORD(v3) = BYTE1(v26);
+  v6 = BYTE2(v26);
+  v7 = BYTE3(v26);
+  v8 = BYTE4(v26);
+  v9 = BYTE5(v26);
+  v10 = BYTE6(v26);
+  v11 = HIBYTE(v26);
+  v12 = v27;
+  LODWORD(a1) = BYTE1(v27);
+  v13 = BYTE2(v27);
+  v14 = BYTE3(v27);
+  v15 = BYTE4(v27);
+  v16 = BYTE5(v27);
+  v17 = BYTE6(v27);
+  v18 = HIBYTE(v27);
+  v19 = v28 << 24;
+  v20 = BYTE1(v28) << 16;
+  v21 = BYTE2(v28) << 8;
+  v22 = BYTE3(v28);
 LABEL_8:
   *(a2 + 64) = v3 | (v5 << 8);
   *(a2 + 66) = v7 | (v6 << 8);
@@ -7679,25 +7541,24 @@ LABEL_8:
   *(a2 + 76) = v16 | (v15 << 8);
   *(a2 + 78) = v18 | (v17 << 8);
   v24 = v20 | v19 | v21 | v22;
-  v25 = bswap32(HIDWORD(v29));
+  v25 = bswap32(HIDWORD(v28));
   *(a2 + 80) = v24;
   *(a2 + 84) = v25;
   *(a2 + 136) |= 0x800uLL;
-  v26 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 CFTypeID sniffSceneIlluminationKeyToStruct(CFTypeID result, uint64_t a2)
 {
-  v7[1] = *MEMORY[0x1E69E9840];
-  v7[0] = 0;
+  v6[1] = *MEMORY[0x1E69E9840];
+  v6[0] = 0;
   if (!result)
   {
     v5 = 0;
 LABEL_8:
     *(a2 + 112) = v5;
     *(a2 + 136) |= 0x10000uLL;
-    goto LABEL_9;
+    return result;
   }
 
   v3 = result;
@@ -7705,11 +7566,11 @@ LABEL_8:
   result = CFNumberGetTypeID();
   if (v4 == result)
   {
-    result = CFNumberGetValue(v3, kCFNumberSInt64Type, v7);
-    v5 = v7[0];
-    if (!HIDWORD(v7[0]))
+    result = CFNumberGetValue(v3, kCFNumberSInt64Type, v6);
+    v5 = v6[0];
+    if (!HIDWORD(v6[0]))
     {
-      if (v7[0] <= 1uLL)
+      if (v6[0] <= 1uLL)
       {
         v5 = 1;
       }
@@ -7718,47 +7579,44 @@ LABEL_8:
     }
   }
 
-LABEL_9:
-  v6 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 CFTypeID sniffVersatileSenselArrayPatternKeyToStruct(CFTypeID result, uint64_t a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   valuePtr = 0;
-  if (!result)
+  if (result)
   {
-    v5 = 0;
-LABEL_7:
-    *(a2 + 102) = v5;
-    *(a2 + 136) |= 0x40000uLL;
-    goto LABEL_8;
-  }
+    v3 = result;
+    v4 = CFGetTypeID(result);
+    result = CFNumberGetTypeID();
+    if (v4 != result)
+    {
+      return result;
+    }
 
-  v3 = result;
-  v4 = CFGetTypeID(result);
-  result = CFNumberGetTypeID();
-  if (v4 == result)
-  {
     result = CFNumberGetValue(v3, kCFNumberSInt8Type, &valuePtr);
     v5 = valuePtr;
     if (!valuePtr)
     {
       v5 = -1;
     }
-
-    goto LABEL_7;
   }
 
-LABEL_8:
-  v6 = *MEMORY[0x1E69E9840];
+  else
+  {
+    v5 = 0;
+  }
+
+  *(a2 + 102) = v5;
+  *(a2 + 136) |= 0x40000uLL;
   return result;
 }
 
 const __CFDictionary *sniffDisplayMaskRectangleKeyToStruct(const __CFDictionary *result, uint64_t a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   if (!result)
   {
     *(a2 + 124) = 0;
@@ -7771,33 +7629,33 @@ const __CFDictionary *sniffDisplayMaskRectangleKeyToStruct(const __CFDictionary 
   result = CFDictionaryGetTypeID();
   if (v4 == result)
   {
-    v7 = 0;
-    v8 = 0;
     v6 = 0;
-    result = getUInt16FromDict(v3, @"ReferenceRasterWidth", &v8 + 2);
+    v7 = 0;
+    v5 = 0;
+    result = getUInt16FromDict(v3, @"ReferenceRasterWidth", &v7 + 2);
     if (result)
     {
-      result = getUInt16FromDict(v3, @"ReferenceRasterHeight", &v8);
+      result = getUInt16FromDict(v3, @"ReferenceRasterHeight", &v7);
       if (result)
       {
-        result = getUInt16FromDict(v3, @"RectangleLeft", &v7 + 2);
+        result = getUInt16FromDict(v3, @"RectangleLeft", &v6 + 2);
         if (result)
         {
-          result = getUInt16FromDict(v3, @"RectangleWidth", &v6 + 2);
+          result = getUInt16FromDict(v3, @"RectangleWidth", &v5 + 2);
           if (result)
           {
-            result = getUInt16FromDict(v3, @"RectangleTop", &v7);
+            result = getUInt16FromDict(v3, @"RectangleTop", &v6);
             if (result)
             {
-              result = getUInt16FromDict(v3, @"RectangleHeight", &v6);
+              result = getUInt16FromDict(v3, @"RectangleHeight", &v5);
               if (result)
               {
-                *(a2 + 116) = HIWORD(v8);
-                *(a2 + 118) = v8;
-                *(a2 + 120) = HIWORD(v7);
-                *(a2 + 122) = HIWORD(v6);
-                *(a2 + 124) = v7;
-                *(a2 + 126) = v6;
+                *(a2 + 116) = HIWORD(v7);
+                *(a2 + 118) = v7;
+                *(a2 + 120) = HIWORD(v6);
+                *(a2 + 122) = HIWORD(v5);
+                *(a2 + 124) = v6;
+                *(a2 + 126) = v5;
 LABEL_11:
                 *(a2 + 136) |= 0x80000uLL;
               }
@@ -7808,33 +7666,34 @@ LABEL_11:
     }
   }
 
-  v5 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 CFTypeID sniffHorizontalDisparityAdjustmentKeyToStruct(CFTypeID result, uint64_t a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   valuePtr = 0;
-  if (!result)
+  if (result)
   {
-    v5 = 0;
-    goto LABEL_5;
-  }
+    v3 = result;
+    v4 = CFGetTypeID(result);
+    result = CFNumberGetTypeID();
+    if (v4 != result)
+    {
+      return result;
+    }
 
-  v3 = result;
-  v4 = CFGetTypeID(result);
-  result = CFNumberGetTypeID();
-  if (v4 == result)
-  {
     result = CFNumberGetValue(v3, kCFNumberSInt16Type, &valuePtr);
     v5 = valuePtr;
-LABEL_5:
-    *(a2 + 128) = v5;
-    *(a2 + 136) |= 0x100000uLL;
   }
 
-  v6 = *MEMORY[0x1E69E9840];
+  else
+  {
+    v5 = 0;
+  }
+
+  *(a2 + 128) = v5;
+  *(a2 + 136) |= 0x100000uLL;
   return result;
 }
 
@@ -8158,7 +8017,7 @@ uint64_t IOSurfaceGetBlockHeightOfPlane(uint64_t result, unsigned int a2)
   return result;
 }
 
-uint64_t IOSurfaceSetBulkAttachments(uint64_t a1, uint64_t a2, unint64_t a3, int a4)
+uint64_t IOSurfaceSetBulkAttachments(uint64_t a1, uint64_t a2, unint64_t a3, uint64_t a4)
 {
   if (a1)
   {
@@ -8336,15 +8195,14 @@ uint64_t IOSurfaceGetHTPCVerticalHeaderGroupingModeOfPlane(uint64_t result, unsi
 
 uint64_t IOSurfaceGetCompressedTileDataRegionMemoryUsedOfPlane(uint64_t result, unsigned int a2)
 {
-  v3[1] = *MEMORY[0x1E69E9840];
-  v3[0] = 0;
+  v2[1] = *MEMORY[0x1E69E9840];
+  v2[0] = 0;
   if (result)
   {
-    IOSurfaceClientGetCompressedTileDataRegionMemoryUsedOfPlane(*(result + 8), a2, v3);
-    result = v3[0];
+    IOSurfaceClientGetCompressedTileDataRegionMemoryUsedOfPlane(*(result + 8), a2, v2);
+    return v2[0];
   }
 
-  v2 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -8474,32 +8332,32 @@ uint64_t _IOSurfaceRemoteMethodInitialize(uint64_t a1, uint64_t a2, void *a3)
 
 uint64_t _IOSurfaceRemoteMethodGetDebugInfo(void *a1, uint64_t a2, void *a3)
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v4 = a1;
   xdict = a3;
   v5 = xpc_array_create(0, 0);
   v6 = xpc_array_create(0, 0);
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   v7 = [v4 surfaceStates];
-  v8 = [v7 countByEnumeratingWithState:&v21 objects:v20 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v20 objects:v19 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v22;
+    v10 = *v21;
     do
     {
       v11 = 0;
       do
       {
-        if (*v22 != v10)
+        if (*v21 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v21 + 1) + 8 * v11);
+        v12 = *(*(&v20 + 1) + 8 * v11);
         v13 = [v4 surfaceStates];
         v14 = [v13 objectForKeyedSubscript:v12];
 
@@ -8513,7 +8371,7 @@ uint64_t _IOSurfaceRemoteMethodGetDebugInfo(void *a1, uint64_t a2, void *a3)
       }
 
       while (v9 != v11);
-      v9 = [v7 countByEnumeratingWithState:&v21 objects:v20 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v20 objects:v19 count:16];
     }
 
     while (v9);
@@ -8522,18 +8380,17 @@ uint64_t _IOSurfaceRemoteMethodGetDebugInfo(void *a1, uint64_t a2, void *a3)
   xpc_dictionary_set_value(xdict, "DebugSurfaceIDList", v5);
   xpc_dictionary_set_value(xdict, "DebugSurfaceRefCount", v6);
 
-  v17 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
 uint64_t _IOSurfaceRemoteMethodClientCreate(void *a1, void *a2, void *a3)
 {
-  v28[1] = *MEMORY[0x1E69E9840];
+  v27[1] = *MEMORY[0x1E69E9840];
   v5 = 3758097090;
   v6 = a1;
   v7 = a2;
   v8 = a3;
-  v28[0] = 0;
+  v27[0] = 0;
   uint64 = xpc_dictionary_get_uint64(v7, "LookupID");
   if (uint64)
   {
@@ -8545,13 +8402,13 @@ uint64_t _IOSurfaceRemoteMethodClientCreate(void *a1, void *a2, void *a3)
     v11 = xpc_dictionary_copy_mach_send();
     if (v11 - 1 > 0xFFFFFFFD)
     {
-      v21 = _ioSurfaceDeserializedFromXPCDictionaryWithKey(v7, "PropertiesDictionary");
-      if (!v21)
+      v20 = _ioSurfaceDeserializedFromXPCDictionaryWithKey(v7, "PropertiesDictionary");
+      if (!v20)
       {
         goto LABEL_8;
       }
 
-      v22 = v21;
+      v21 = v20;
       v14 = xpc_dictionary_get_value(v7, "ClientProvidedShmem");
       if (v14)
       {
@@ -8560,50 +8417,50 @@ uint64_t _IOSurfaceRemoteMethodClientCreate(void *a1, void *a2, void *a3)
           _IOSurfaceRemoteMethodClientCreate_cold_1(v6);
         }
 
-        v23 = xpc_shmem_map(v14, v28);
-        if (!v23)
+        v22 = xpc_shmem_map(v14, v27);
+        if (!v22)
         {
           if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_FAULT))
           {
             _IOSurfaceRemoteMethodClientCreate_cold_3(v6);
           }
 
-          CFRelease(v22);
+          CFRelease(v21);
           v5 = 3758097085;
           goto LABEL_7;
         }
 
-        v13 = v23;
-        MutableCopy = CFDictionaryCreateMutableCopy(*MEMORY[0x1E695E480], 0, v22);
-        CFDictionarySetValue(MutableCopy, @"IOSurfaceAddress", [MEMORY[0x1E696AD98] numberWithUnsignedLong:v28[0]]);
-        CFRelease(v22);
+        v13 = v22;
+        MutableCopy = CFDictionaryCreateMutableCopy(*MEMORY[0x1E695E480], 0, v21);
+        CFDictionarySetValue(MutableCopy, @"IOSurfaceAddress", [MEMORY[0x1E696AD98] numberWithUnsignedLong:v27[0]]);
+        CFRelease(v21);
         Value = CFDictionaryGetValue(MutableCopy, @"IOSurfaceAllocSize");
         if (Value)
         {
-          v26 = [Value unsignedIntegerValue];
-          if (v26 > v13)
+          v25 = [Value unsignedIntegerValue];
+          if (v25 > v13)
           {
-            v27 = v26;
+            v26 = v25;
             if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_FAULT))
             {
-              _IOSurfaceRemoteMethodClientCreate_cold_2(v13, v27);
+              _IOSurfaceRemoteMethodClientCreate_cold_2(v13, v26);
             }
           }
         }
       }
 
-      else if (CFDictionaryGetValueIfPresent(v22, @"IOSurfaceAddress", 0))
+      else if (CFDictionaryGetValueIfPresent(v21, @"IOSurfaceAddress", 0))
       {
-        MutableCopy = CFDictionaryCreateMutableCopy(*MEMORY[0x1E695E480], 0, v22);
+        MutableCopy = CFDictionaryCreateMutableCopy(*MEMORY[0x1E695E480], 0, v21);
         CFDictionaryRemoveValue(MutableCopy, @"IOSurfaceAddress");
-        CFRelease(v22);
+        CFRelease(v21);
         v13 = 0;
       }
 
       else
       {
         v13 = 0;
-        MutableCopy = v22;
+        MutableCopy = v21;
       }
 
       v10 = IOSurfaceClientCreate(MutableCopy);
@@ -8616,7 +8473,7 @@ uint64_t _IOSurfaceRemoteMethodClientCreate(void *a1, void *a2, void *a3)
 
 LABEL_6:
       v14 = xpc_dictionary_get_value(v7, "ExtraData");
-      [v6 _addSurface:v10 mappedAddress:v28[0] mappedSize:v13 extraData:v14];
+      [v6 _addSurface:v10 mappedAddress:v27[0] mappedSize:v13 extraData:v14];
       UnadjustedBaseAddress = _IOSurfaceClientGetUnadjustedBaseAddress(v10);
       AllocSize = IOSurfaceClientGetAllocSize(v10);
       v17 = xpc_shmem_create(UnadjustedBaseAddress, AllocSize);
@@ -8644,33 +8501,28 @@ LABEL_7:
 
 LABEL_8:
 
-  v19 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
 uint64_t _IOSurfaceRemoteMethodClientLock(int a1, uint64_t a2, xpc_object_t xdict)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   uint64 = xpc_dictionary_get_uint64(xdict, "Options");
-  v7 = 0;
-  result = IOSurfaceClientLock(a2, uint64, &v7);
-  v6 = *MEMORY[0x1E69E9840];
-  return result;
+  v6 = 0;
+  return IOSurfaceClientLock(a2, uint64, &v6);
 }
 
 uint64_t _IOSurfaceRemoteMethodClientUnlock(int a1, uint64_t a2, xpc_object_t xdict)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   uint64 = xpc_dictionary_get_uint64(xdict, "Options");
-  v7 = 0;
-  result = IOSurfaceClientUnlock(a2, uint64, &v7);
-  v6 = *MEMORY[0x1E69E9840];
-  return result;
+  v6 = 0;
+  return IOSurfaceClientUnlock(a2, uint64, &v6);
 }
 
 uint64_t _IOSurfaceRemoteMethodClientGetPlaneState(uint64_t a1, uint64_t a2, void *a3, void *a4)
 {
-  v25[1] = *MEMORY[0x1E69E9840];
+  v24[1] = *MEMORY[0x1E69E9840];
   v6 = 3758097085;
   v7 = a4;
   uint64 = xpc_dictionary_get_uint64(a3, "PlaneIndex");
@@ -8690,16 +8542,16 @@ uint64_t _IOSurfaceRemoteMethodClientGetPlaneState(uint64_t a1, uint64_t a2, voi
       v10[20] = IOSurfaceClientGetBytesPerElementOfPlane(a2, uint64);
       *(v10 + 42) = IOSurfaceClientGetElementWidthOfPlane(a2, uint64);
       *(v10 + 43) = IOSurfaceClientGetElementHeightOfPlane(a2, uint64);
-      v24 = 0;
-      v25[0] = 0;
-      v22 = 0;
       v23 = 0;
-      IOSurfaceClientGetExtendedPixelsOfPlane(a2, uint64, v25, &v24, &v23, &v22);
-      v11 = v24;
-      v12 = v23;
-      *(v10 + 8) = v25[0];
+      v24[0] = 0;
+      v21 = 0;
+      v22 = 0;
+      IOSurfaceClientGetExtendedPixelsOfPlane(a2, uint64, v24, &v23, &v22, &v21);
+      v11 = v23;
+      v12 = v22;
+      *(v10 + 8) = v24[0];
       *(v10 + 9) = v12;
-      v13 = v22;
+      v13 = v21;
       *(v10 + 6) = v11;
       *(v10 + 7) = v13;
       NumberOfComponentsOfPlane = IOSurfaceClientGetNumberOfComponentsOfPlane(a2, uint64);
@@ -8736,7 +8588,6 @@ uint64_t _IOSurfaceRemoteMethodClientGetPlaneState(uint64_t a1, uint64_t a2, voi
     v6 = 3758097090;
   }
 
-  v20 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
@@ -8840,7 +8691,6 @@ uint64_t _IOSurfaceRemoteMethodClientSetPurgeable(uint64_t a1, uint64_t a2, void
   v8 = IOSurfaceClientSetPurgeable(a2, uint64, value);
   xpc_dictionary_set_uint64(v6, "OldState", value[0]);
 
-  v9 = *MEMORY[0x1E69E9840];
   return v8;
 }
 
@@ -8917,7 +8767,6 @@ LABEL_11:
     }
   }
 
-  v18 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
@@ -8935,27 +8784,24 @@ uint64_t _IOSurfaceRemoteMethodClientSignalEvent(uint64_t a1, uint64_t a2, void 
 
 uint64_t _IOSurfaceRemoteMethodClientSetBulkAttachments(uint64_t a1, uint64_t a2, void *a3)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v8 = 0;
-  memset(v7, 0, sizeof(v7));
-  v6 = 0;
-  _ioSurfaceDeserializeBulkAttachmentsFromXPCDictionary(a3, v7, &v6);
-  result = IOSurfaceClientSetBulkAttachments(a2, v7, 0x84uLL, v6);
-  v5 = *MEMORY[0x1E69E9840];
-  return result;
+  v8 = *MEMORY[0x1E69E9840];
+  v7 = 0;
+  memset(v6, 0, sizeof(v6));
+  v5 = 0;
+  _ioSurfaceDeserializeBulkAttachmentsFromXPCDictionary(a3, v6, &v5);
+  return IOSurfaceClientSetBulkAttachments(a2, v6, 0x84uLL, v5);
 }
 
 uint64_t _IOSurfaceRemoteMethodClientGetBulkAttachments(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
 {
-  v12 = *MEMORY[0x1E69E9840];
-  v11 = 0;
+  v11 = *MEMORY[0x1E69E9840];
+  v10 = 0;
   memset(__dst, 0, sizeof(__dst));
-  v9 = 132;
+  v8 = 132;
   v5 = a4;
-  BulkAttachments = IOSurfaceClientGetBulkAttachments(a2, __dst, &v9);
+  BulkAttachments = IOSurfaceClientGetBulkAttachments(a2, __dst, &v8);
   _ioSurfaceSerializeBulkAttachmentsToXPCDictionary(v5, __dst, -1);
 
-  v7 = *MEMORY[0x1E69E9840];
   return BulkAttachments;
 }
 
@@ -9001,7 +8847,6 @@ uint64_t _IOSurfaceRemoteMethodClientGetYCbCrMatrix(uint64_t a1, uint64_t a2, ui
   IOSurfaceClientGetYCbCrMatrix(a2, value);
   xpc_dictionary_set_uint64(v5, "YCbCrMatrixIndex", value[0]);
 
-  v6 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
@@ -9063,7 +8908,7 @@ void _ioSurfaceAddClientState(uint64_t a1, int a2, void *a3)
 
 id _copyDescriptions(void *a1)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v2 = objc_alloc_init(MEMORY[0x1E695DF70]);
   v3 = [a1 count];
   if (v3)
@@ -9071,8 +8916,8 @@ id _copyDescriptions(void *a1)
     v4 = v3;
     for (i = 0; i != v4; ++i)
     {
-      v6 = [a1 objectAtIndex:{i, 0, v17}];
-      v7 = IOCFUnserializeWithSize([v6 bytes], objc_msgSend(v6, "length"), 0, 0, &v16);
+      v6 = [a1 objectAtIndex:{i, 0, v16}];
+      v7 = IOCFUnserializeWithSize([v6 bytes], objc_msgSend(v6, "length"), 0, 0, &v15);
       v8 = [v7 objectForKey:@"BasicInfo"];
       v9 = 0;
       if ([v8 length] == 120)
@@ -9100,7 +8945,6 @@ id _copyDescriptions(void *a1)
     }
   }
 
-  v14 = *MEMORY[0x1E69E9840];
   return v2;
 }
 
@@ -9210,7 +9054,7 @@ void ioSurfaceNotifierFinalize(uint64_t a1)
 
 void _ioSurfaceSerializeToXPCDictionaryWithKey(void *a1, const char *a2, const void *a3)
 {
-  v12[5] = *MEMORY[0x1E69E9840];
+  v11[5] = *MEMORY[0x1E69E9840];
   v5 = a1;
   if (v5)
   {
@@ -9247,16 +9091,14 @@ LABEL_4:
   v6 = IOCFSerialize(a3, 1uLL);
   BytePtr = CFDataGetBytePtr(v6);
   Length = CFDataGetLength(v6);
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = ___ioSurfaceSerializeToXPCDictionaryWithKey_block_invoke;
-  v12[3] = &__block_descriptor_40_e5_v8__0l;
-  v12[4] = v6;
-  v9 = dispatch_data_create(BytePtr, Length, 0, v12);
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = ___ioSurfaceSerializeToXPCDictionaryWithKey_block_invoke;
+  v11[3] = &__block_descriptor_40_e5_v8__0l;
+  v11[4] = v6;
+  v9 = dispatch_data_create(BytePtr, Length, 0, v11);
   v10 = xpc_data_create_with_dispatch_data(v9);
   xpc_dictionary_set_value(v5, a2, v10);
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 CFTypeRef _ioSurfaceDeserializedFromXPCDictionaryWithKey(void *a1, const char *a2)
@@ -9304,22 +9146,21 @@ LABEL_3:
     v5 = 0;
   }
 
-  v6 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
 void _ioSurfaceSerializeBulkAttachmentsToXPCDictionary(void *a1, uint64_t a2, __int16 a3)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v5 = a1;
   v6 = v5;
   if (a3)
   {
-    v11 = 0;
+    v10 = 0;
     v9 = *(a2 + 16);
-    *v12 = *a2;
-    *&v12[16] = v9;
-    xpc_dictionary_set_data(v5, "CleanAperture", &v11, 0x28uLL);
+    *v11 = *a2;
+    *&v11[16] = v9;
+    xpc_dictionary_set_data(v5, "CleanAperture", &v10, 0x28uLL);
     if ((a3 & 2) == 0)
     {
 LABEL_3:
@@ -9337,9 +9178,9 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  v11 = 0;
-  *v12 = *(a2 + 32);
-  xpc_dictionary_set_data(v6, "PixelAspectRatio", &v11, 0x18uLL);
+  v10 = 0;
+  *v11 = *(a2 + 32);
+  xpc_dictionary_set_data(v6, "PixelAspectRatio", &v10, 0x18uLL);
   if ((a3 & 0x800) == 0)
   {
 LABEL_4:
@@ -9352,10 +9193,10 @@ LABEL_4:
   }
 
 LABEL_21:
-  v11 = 0;
-  *v12 = *(a2 + 80);
-  *&v12[8] = *(a2 + 64);
-  xpc_dictionary_set_data(v6, "MasteringDisplayColorVolume", &v11, 0x20uLL);
+  v10 = 0;
+  *v11 = *(a2 + 80);
+  *&v11[8] = *(a2 + 64);
+  xpc_dictionary_set_data(v6, "MasteringDisplayColorVolume", &v10, 0x20uLL);
   if ((a3 & 4) == 0)
   {
 LABEL_5:
@@ -9368,8 +9209,8 @@ LABEL_5:
   }
 
 LABEL_22:
-  v11 = *(a2 + 48);
-  xpc_dictionary_set_data(v6, "GammaLevel", &v11, 8uLL);
+  v10 = *(a2 + 48);
+  xpc_dictionary_set_data(v6, "GammaLevel", &v10, 8uLL);
   if ((a3 & 0x2000) == 0)
   {
 LABEL_6:
@@ -9382,8 +9223,8 @@ LABEL_6:
   }
 
 LABEL_23:
-  v11 = *(a2 + 92);
-  xpc_dictionary_set_data(v6, "EDRFactor", &v11, 8uLL);
+  v10 = *(a2 + 92);
+  xpc_dictionary_set_data(v6, "EDRFactor", &v10, 8uLL);
   if ((a3 & 0x1000) == 0)
   {
 LABEL_7:
@@ -9396,9 +9237,9 @@ LABEL_7:
   }
 
 LABEL_24:
-  v11 = 0;
-  HIDWORD(v11) = *(a2 + 88);
-  xpc_dictionary_set_data(v6, "ContentLightLevelInfo", &v11, 8uLL);
+  v10 = 0;
+  HIDWORD(v10) = *(a2 + 88);
+  xpc_dictionary_set_data(v6, "ContentLightLevelInfo", &v10, 8uLL);
   if ((a3 & 8) == 0)
   {
 LABEL_8:
@@ -9515,64 +9356,62 @@ LABEL_34:
   }
 
 LABEL_35:
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void _ioSurfaceDeserializeBulkAttachmentsFromXPCDictionary(void *a1, uint64_t a2, uint64_t *a3)
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   v4 = a1;
-  memset(v35, 0, 40);
+  memset(v34, 0, 40);
   v5 = 0;
-  if (_ioSurfaceCopyStructFromKey(v4, "CleanAperture", v35, 0x28uLL))
+  if (_ioSurfaceCopyStructFromKey(v4, "CleanAperture", v34, 0x28uLL))
   {
-    v6 = *(&v35[1] + 8);
-    *a2 = *(v35 + 8);
+    v6 = *(&v34[1] + 8);
+    *a2 = *(v34 + 8);
     *(a2 + 16) = v6;
     v5 = 1;
   }
 
-  v33 = 0;
-  v34 = 0uLL;
-  if (_ioSurfaceCopyStructFromKey(v4, "PixelAspectRatio", &v33, 0x18uLL))
+  v32 = 0;
+  v33 = 0uLL;
+  if (_ioSurfaceCopyStructFromKey(v4, "PixelAspectRatio", &v32, 0x18uLL))
   {
     v5 |= 2uLL;
-    *(a2 + 32) = v34;
+    *(a2 + 32) = v33;
   }
 
+  v30 = 0u;
   v31 = 0u;
-  v32 = 0u;
-  if (_ioSurfaceCopyStructFromKey(v4, "MasteringDisplayColorVolume", &v31, 0x20uLL))
+  if (_ioSurfaceCopyStructFromKey(v4, "MasteringDisplayColorVolume", &v30, 0x20uLL))
   {
     v5 |= 0x800uLL;
-    *(a2 + 80) = *(&v31 + 1);
-    *(a2 + 64) = v32;
-  }
-
-  v30 = 0;
-  if (_ioSurfaceCopyStructFromKey(v4, "GammaLevel", &v30, 8uLL))
-  {
-    v5 |= 4uLL;
-    *(a2 + 48) = v30;
+    *(a2 + 80) = *(&v30 + 1);
+    *(a2 + 64) = v31;
   }
 
   v29 = 0;
-  if (_ioSurfaceCopyStructFromKey(v4, "EDRFactor", &v29, 8uLL))
+  if (_ioSurfaceCopyStructFromKey(v4, "GammaLevel", &v29, 8uLL))
   {
-    v5 |= 0x2000uLL;
-    *(a2 + 92) = v29;
+    v5 |= 4uLL;
+    *(a2 + 48) = v29;
   }
 
   v28 = 0;
-  if (_ioSurfaceCopyStructFromKey(v4, "ContentLightLevelInfo", &v28, 8uLL))
+  if (_ioSurfaceCopyStructFromKey(v4, "EDRFactor", &v28, 8uLL))
+  {
+    v5 |= 0x2000uLL;
+    *(a2 + 92) = v28;
+  }
+
+  v27 = 0;
+  if (_ioSurfaceCopyStructFromKey(v4, "ContentLightLevelInfo", &v27, 8uLL))
   {
     v5 |= 0x1000uLL;
-    *(a2 + 88) = HIDWORD(v28);
+    *(a2 + 88) = HIDWORD(v27);
   }
 
   v7 = xpc_dictionary_get_value(v4, "FieldCount");
-  v26 = v7;
+  v25 = v7;
   if (v7)
   {
     v5 |= 8uLL;
@@ -9580,7 +9419,7 @@ void _ioSurfaceDeserializeBulkAttachmentsFromXPCDictionary(void *a1, uint64_t a2
   }
 
   v8 = xpc_dictionary_get_value(v4, "FieldDetail");
-  v25 = v8;
+  v24 = v8;
   if (v8)
   {
     v5 |= 0x10uLL;
@@ -9657,8 +9496,6 @@ void _ioSurfaceDeserializeBulkAttachmentsFromXPCDictionary(void *a1, uint64_t a2
   {
     *a3 = v5;
   }
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 BOOL _ioSurfaceCopyStructFromKey(void *a1, const char *a2, void *a3, size_t a4)
@@ -9678,145 +9515,44 @@ BOOL _ioSurfaceCopyStructFromKey(void *a1, const char *a2, void *a3, size_t a4)
   return v7;
 }
 
-void IOSurfaceAppendTransaction_cold_1()
-{
-  v0 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_1B0173000, MEMORY[0x1E69E9C10], v1, "IOSurfaceAppendTransaction got non-success return from kernel", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void IOSurfaceAppendTransaction_cold_2()
-{
-  v0 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_1B0173000, MEMORY[0x1E69E9C10], v1, "IOSurfaceAppendTransaction got null transaction", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void IOSurfaceAppendTransaction_cold_3()
-{
-  v0 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_1B0173000, MEMORY[0x1E69E9C10], v1, "IOSurfaceAppendTransaction got null buffer", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void IOSurfaceQueryTransactionList_cold_1()
-{
-  v0 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_1B0173000, MEMORY[0x1E69E9C10], v1, "IOSurfaceQueryTransactionList got non-success return from kernel", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void IOSurfaceQueryTransactionList_cold_2()
-{
-  v0 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_1B0173000, MEMORY[0x1E69E9C10], v1, "IOSurfaceQueryTransactionList failed to allocate memory", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void IOSurfaceQueryTransactionList_cold_3()
-{
-  v0 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_1B0173000, MEMORY[0x1E69E9C10], v1, "IOSurfaceQueryTransactionList got null buffer", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void IOSurfacePruneTransactionList_cold_1()
-{
-  v0 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_1B0173000, MEMORY[0x1E69E9C10], v1, "IOSurfacePruneTransactionList got null buffer", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void ___ioSurfaceConnectInternal_block_invoke_cold_3()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
 void IOSurfaceClientDisallowForever_cold_1()
 {
-  v2 = *MEMORY[0x1E69E9840];
-  *v1 = 0;
-  _os_log_fault_impl(&dword_1B0173000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_FAULT, "IOSurfaceDisallowForever() invoked too late, connection to IOSurface.kext already established", v1, 2u);
-  v0 = *MEMORY[0x1E69E9840];
-}
-
-void IOSurfaceClientCreateChild_cold_1()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0x22u);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-void IOSurfaceClientCreateChild_cold_2()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-void IOSurfaceClientCreateChild_cold_3()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-void IOSurfaceClientRelease_cold_1()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
+  v1 = *MEMORY[0x1E69E9840];
+  *v0 = 0;
+  _os_log_fault_impl(&dword_1B0173000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_FAULT, "IOSurfaceDisallowForever() invoked too late, connection to IOSurface.kext already established", v0, 2u);
 }
 
 void IOSurfaceClientIncrementUseCountForCategory_cold_1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2(&dword_1B0173000, MEMORY[0x1E69E9C10], a3, "%s", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = crashMessage;
+  OUTLINED_FUNCTION_2(&dword_1B0173000, MEMORY[0x1E69E9C10], a3, "%s", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void _IOSurfaceRemoteMethodClientCreate_cold_1(void *a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
   [a1 pid];
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_0_0();
   _os_log_debug_impl(v1, v2, v3, v4, v5, 8u);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void _IOSurfaceRemoteMethodClientCreate_cold_2(uint64_t a1, uint64_t a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v3 = 134218240;
-  v4 = a1;
-  v5 = 2048;
-  v6 = a2;
-  _os_log_fault_impl(&dword_1B0173000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_FAULT, "IOSurface client memory mapping is %lu bytes but client claims allocation size of %lu bytes", &v3, 0x16u);
-  v2 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
+  v2 = 134218240;
+  v3 = a1;
+  v4 = 2048;
+  v5 = a2;
+  _os_log_fault_impl(&dword_1B0173000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_FAULT, "IOSurface client memory mapping is %lu bytes but client claims allocation size of %lu bytes", &v2, 0x16u);
 }
 
 void _IOSurfaceRemoteMethodClientCreate_cold_3(void *a1)
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   [a1 pid];
   OUTLINED_FUNCTION_2_0();
-  _os_log_fault_impl(&dword_1B0173000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_FAULT, "Failed to map client shared memory object from pid %d", v2, 8u);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_fault_impl(&dword_1B0173000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_FAULT, "Failed to map client shared memory object from pid %d", v1, 8u);
 }
 
 void _ioSurfaceSerializeToXPCDictionaryWithKey_cold_1()
@@ -9856,14 +9592,13 @@ void _ioSurfaceDeserializedFromXPCDictionaryWithKey_cold_2()
 
 void _ioSurfaceDeserializedFromXPCDictionaryWithKey_cold_3(uint64_t a1, uint64_t *a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v2 = *a2;
-  v4 = 136446466;
-  v5 = a1;
-  v6 = 2112;
-  v7 = v2;
-  _os_log_error_impl(&dword_1B0173000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "IOSurface Deserialization failure for key %{public}s: %@", &v4, 0x16u);
-  v3 = *MEMORY[0x1E69E9840];
+  v3 = 136446466;
+  v4 = a1;
+  v5 = 2112;
+  v6 = v2;
+  _os_log_error_impl(&dword_1B0173000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "IOSurface Deserialization failure for key %{public}s: %@", &v3, 0x16u);
 }
 
 void operator delete[]()

@@ -41,8 +41,8 @@
 - (id)copyWithZone:(_NSZone *)zone
 {
   v4 = objc_alloc(objc_opt_class());
-  home = [(HFUserItemProvider *)self home];
-  v6 = [v4 initWithHome:home];
+  v5 = objc_msgSend_home(self);
+  v6 = [v4 initWithHome:v5];
 
   return v6;
 }
@@ -57,12 +57,12 @@
   v3 = _Block_copy(aBlock);
   if ([(HFUserItemProvider *)self includeOtherUsers])
   {
-    home = [(HFUserItemProvider *)self home];
-    users = [home users];
+    v4 = objc_msgSend_home(self);
+    users = [v4 users];
     if (users)
     {
-      home2 = [(HFUserItemProvider *)self home];
-      users2 = [home2 users];
+      v6 = objc_msgSend_home(self);
+      users2 = [v6 users];
     }
 
     else
@@ -78,8 +78,8 @@
 
   if ([(HFUserItemProvider *)self includeCurrentUser])
   {
-    home3 = [(HFUserItemProvider *)self home];
-    currentUser = [home3 currentUser];
+    v8 = objc_msgSend_home(self);
+    currentUser = [v8 currentUser];
     v10 = [users2 arrayByAddingObject:currentUser];
 
     users2 = v10;
@@ -131,7 +131,7 @@ HFUserItem *__33__HFUserItemProvider_reloadItems__block_invoke(uint64_t a1, void
   v6 = v5;
 
   v7 = [HFUserItem alloc];
-  v8 = [*(a1 + 32) home];
+  v8 = objc_msgSend_home(*(a1 + 32));
   v9 = -[HFUserItem initWithHome:user:nameStyle:](v7, "initWithHome:user:nameStyle:", v8, v6, [*(a1 + 32) nameStyle]);
 
   return v9;
@@ -141,7 +141,7 @@ uint64_t __33__HFUserItemProvider_reloadItems__block_invoke_2(uint64_t a1, void 
 {
   v2 = *(a1 + 32);
   v3 = a2;
-  v4 = [v2 home];
+  v4 = objc_msgSend_home(v2);
   v5 = [v4 hf_userIsRestrictedGuest:v3];
 
   return v5 ^ 1u;

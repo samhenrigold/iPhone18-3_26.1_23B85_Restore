@@ -133,9 +133,9 @@
 
 - (id)menuConfigurationsForLinkIndex:(unint64_t)index
 {
-  v59 = *MEMORY[0x277D85DE8];
+  v58 = *MEMORY[0x277D85DE8];
   selectedTargetPhrase = [(_LTDisambiguableSentence *)self selectedTargetPhrase];
-  v41 = selectedTargetPhrase;
+  v40 = selectedTargetPhrase;
   if (!selectedTargetPhrase)
   {
     v6 = MEMORY[0x277CBEBF8];
@@ -151,31 +151,31 @@
     goto LABEL_29;
   }
 
-  v37 = [links objectAtIndexedSubscript:?];
+  v36 = [links objectAtIndexedSubscript:?];
   array = [MEMORY[0x277CBEB18] array];
   array2 = [MEMORY[0x277CBEB18] array];
-  v55 = 0u;
-  v56 = 0u;
-  v53 = 0u;
   v54 = 0u;
-  adjacencyList = [v37 adjacencyList];
-  v9 = [adjacencyList countByEnumeratingWithState:&v53 objects:v58 count:16];
+  v55 = 0u;
+  v52 = 0u;
+  v53 = 0u;
+  adjacencyList = [v36 adjacencyList];
+  v9 = [adjacencyList countByEnumeratingWithState:&v52 objects:v57 count:16];
   if (!v9)
   {
     goto LABEL_14;
   }
 
-  v10 = *v54;
+  v10 = *v53;
   do
   {
     for (i = 0; i != v9; ++i)
     {
-      if (*v54 != v10)
+      if (*v53 != v10)
       {
         objc_enumerationMutation(adjacencyList);
       }
 
-      v12 = *(*(&v53 + 1) + 8 * i);
+      v12 = *(*(&v52 + 1) + 8 * i);
       type = [v12 type];
       v14 = array;
       if (type)
@@ -191,32 +191,32 @@
       [v14 addObject:v12];
     }
 
-    v9 = [adjacencyList countByEnumeratingWithState:&v53 objects:v58 count:16];
+    v9 = [adjacencyList countByEnumeratingWithState:&v52 objects:v57 count:16];
   }
 
   while (v9);
 LABEL_14:
 
   dictionary = [MEMORY[0x277CBEB38] dictionary];
-  v51 = 0u;
-  v52 = 0u;
-  v49 = 0u;
   v50 = 0u;
+  v51 = 0u;
+  v48 = 0u;
+  v49 = 0u;
   v16 = array;
-  v17 = [v16 countByEnumeratingWithState:&v49 objects:v57 count:16];
+  v17 = [v16 countByEnumeratingWithState:&v48 objects:v56 count:16];
   if (v17)
   {
-    v18 = *v50;
+    v18 = *v49;
     do
     {
       for (j = 0; j != v17; ++j)
       {
-        if (*v50 != v18)
+        if (*v49 != v18)
         {
           objc_enumerationMutation(v16);
         }
 
-        v20 = *(*(&v49 + 1) + 8 * j);
+        v20 = *(*(&v48 + 1) + 8 * j);
         menuDescription = [v20 menuDescription];
         v22 = [dictionary objectForKeyedSubscript:menuDescription];
         v23 = v22;
@@ -237,7 +237,7 @@ LABEL_14:
         [dictionary setObject:v26 forKeyedSubscript:menuDescription];
       }
 
-      v17 = [v16 countByEnumeratingWithState:&v49 objects:v57 count:16];
+      v17 = [v16 countByEnumeratingWithState:&v48 objects:v56 count:16];
     }
 
     while (v17);
@@ -245,22 +245,22 @@ LABEL_14:
 
   dictionary2 = [MEMORY[0x277CBEB38] dictionary];
   objc_initWeak(&location, self);
-  v45[0] = MEMORY[0x277D85DD0];
-  v45[1] = 3221225472;
-  v45[2] = __59___LTDisambiguableSentence_menuConfigurationsForLinkIndex___block_invoke;
-  v45[3] = &unk_278B6CA98;
-  objc_copyWeak(v47, &location);
+  v44[0] = MEMORY[0x277D85DD0];
+  v44[1] = 3221225472;
+  v44[2] = __59___LTDisambiguableSentence_menuConfigurationsForLinkIndex___block_invoke;
+  v44[3] = &unk_278B6CA98;
+  objc_copyWeak(v46, &location);
   v28 = dictionary2;
-  v46 = v28;
-  v47[1] = index;
-  [dictionary enumerateKeysAndObjectsUsingBlock:v45];
-  v43[0] = MEMORY[0x277D85DD0];
-  v43[1] = 3221225472;
-  v43[2] = __59___LTDisambiguableSentence_menuConfigurationsForLinkIndex___block_invoke_2;
-  v43[3] = &unk_278B6CAC0;
+  v45 = v28;
+  v46[1] = index;
+  [dictionary enumerateKeysAndObjectsUsingBlock:v44];
+  v42[0] = MEMORY[0x277D85DD0];
+  v42[1] = 3221225472;
+  v42[2] = __59___LTDisambiguableSentence_menuConfigurationsForLinkIndex___block_invoke_2;
+  v42[3] = &unk_278B6CAC0;
   v29 = v28;
-  v44 = v29;
-  v30 = [v16 _ltCompactMap:v43];
+  v43 = v29;
+  v30 = [v16 _ltCompactMap:v42];
   v31 = [v30 sortedArrayUsingSelector:sel_compare_];
   v32 = [array2 sortedArrayUsingSelector:sel_compare_];
   _includedTypesFromDelegate = [(_LTDisambiguableSentence *)self _includedTypesFromDelegate];
@@ -277,14 +277,13 @@ LABEL_14:
 
   v6 = [array3 copy];
 
-  objc_destroyWeak(v47);
+  objc_destroyWeak(v46);
   objc_destroyWeak(&location);
 
   v4 = links;
 LABEL_29:
 
 LABEL_31:
-  v35 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -301,26 +300,26 @@ LABEL_31:
     if (v8 > index)
     {
       links2 = [v6 links];
-      v10 = [links2 objectAtIndexedSubscript:index];
+      v12 = [links2 objectAtIndexedSubscript:index];
 
       sourceText = [(_LTDisambiguableSentence *)self sourceText];
-      sourceRange = [v10 sourceRange];
-      v14 = [sourceText substringWithRange:{sourceRange, v13}];
+      sourceRange = [v12 sourceRange];
+      v16 = [sourceText substringWithRange:{sourceRange, v15}];
 
       goto LABEL_7;
     }
 
-    v15 = _LTOSLogDisambiguation();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v17 = _LTOSLogDisambiguation(v9, v10);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       [_LTDisambiguableSentence sourceTextSnippetForLinkIndex:];
     }
   }
 
-  v14 = 0;
+  v16 = 0;
 LABEL_7:
 
-  return v14;
+  return v16;
 }
 
 - (id)meaningDescriptionForLinkIndex:(unint64_t)index inTargetPhrase:(unint64_t)phrase
@@ -343,8 +342,8 @@ LABEL_7:
 
     if (v12 <= index)
     {
-      v18 = _LTOSLogDisambiguation();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+      v22 = _LTOSLogDisambiguation(v13, v14);
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
       {
         [_LTDisambiguableSentence meaningDescriptionForLinkIndex:inTargetPhrase:];
       }
@@ -355,25 +354,25 @@ LABEL_7:
     else
     {
       links2 = [v10 links];
-      v14 = [links2 objectAtIndexedSubscript:index];
+      v16 = [links2 objectAtIndexedSubscript:index];
 
-      adjacencyList = [v14 adjacencyList];
-      v21[0] = MEMORY[0x277D85DD0];
-      v21[1] = 3221225472;
-      v21[2] = __74___LTDisambiguableSentence_meaningDescriptionForLinkIndex_inTargetPhrase___block_invoke;
-      v21[3] = &__block_descriptor_40_e25_B16__0___LTDirectedEdge_8l;
-      v21[4] = phrase;
-      v16 = [adjacencyList lt_firstObjectPassingTest:v21];
+      adjacencyList = [v16 adjacencyList];
+      v25[0] = MEMORY[0x277D85DD0];
+      v25[1] = 3221225472;
+      v25[2] = __74___LTDisambiguableSentence_meaningDescriptionForLinkIndex_inTargetPhrase___block_invoke;
+      v25[3] = &__block_descriptor_40_e25_B16__0___LTDirectedEdge_8l;
+      v25[4] = phrase;
+      v18 = [adjacencyList lt_firstObjectPassingTest:v25];
 
-      if (v16)
+      if (v18)
       {
-        menuDescription = [v16 menuDescription];
+        menuDescription = [v18 menuDescription];
       }
 
       else
       {
-        v19 = _LTOSLogDisambiguation();
-        if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+        v23 = _LTOSLogDisambiguation(v19, v20);
+        if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
         {
           [_LTDisambiguableSentence meaningDescriptionForLinkIndex:inTargetPhrase:];
         }
@@ -388,7 +387,7 @@ LABEL_7:
 
 - (void)_insertPrefix:(id)prefix
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   prefixCopy = prefix;
   if ([prefixCopy length])
   {
@@ -396,38 +395,36 @@ LABEL_7:
     sourceText = self->_sourceText;
     self->_sourceText = v5;
 
-    v15 = 0u;
-    v16 = 0u;
-    v13 = 0u;
     v14 = 0u;
+    v15 = 0u;
+    v12 = 0u;
+    v13 = 0u;
     targetPhrases = [(_LTDisambiguableSentence *)self targetPhrases];
-    v8 = [targetPhrases countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v8 = [targetPhrases countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v14;
+      v10 = *v13;
       do
       {
         v11 = 0;
         do
         {
-          if (*v14 != v10)
+          if (*v13 != v10)
           {
             objc_enumerationMutation(targetPhrases);
           }
 
-          [*(*(&v13 + 1) + 8 * v11++) _insertPrefix:prefixCopy];
+          [*(*(&v12 + 1) + 8 * v11++) _insertPrefix:prefixCopy];
         }
 
         while (v9 != v11);
-        v9 = [targetPhrases countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v9 = [targetPhrases countByEnumeratingWithState:&v12 objects:v16 count:16];
       }
 
       while (v9);
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (NSArray)history
@@ -446,7 +443,7 @@ LABEL_7:
 
 - (void)setHistoryProvider:(id)provider
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   providerCopy = provider;
   WeakRetained = objc_loadWeakRetained(&self->_historyProvider);
 
@@ -454,31 +451,31 @@ LABEL_7:
   {
     v6 = objc_loadWeakRetained(&self->_historyProvider);
     objc_storeWeak(&self->_historyProvider, providerCopy);
+    v12 = 0u;
     v13 = 0u;
     v14 = 0u;
     v15 = 0u;
-    v16 = 0u;
     history = [(_LTDisambiguableSentence *)v6 history];
-    v8 = [history countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v8 = [history countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v14;
+      v10 = *v13;
       do
       {
         v11 = 0;
         do
         {
-          if (*v14 != v10)
+          if (*v13 != v10)
           {
             objc_enumerationMutation(history);
           }
 
-          [providerCopy addNodeIndexToHistory:{objc_msgSend(*(*(&v13 + 1) + 8 * v11++), "unsignedIntegerValue")}];
+          [providerCopy addNodeIndexToHistory:{objc_msgSend(*(*(&v12 + 1) + 8 * v11++), "unsignedIntegerValue")}];
         }
 
         while (v9 != v11);
-        v9 = [history countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v9 = [history countByEnumeratingWithState:&v12 objects:v16 count:16];
       }
 
       while (v9);
@@ -489,8 +486,6 @@ LABEL_7:
       [(NSMutableArray *)self->_history removeAllObjects];
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setSelectedPhraseIndex:(unint64_t)index
@@ -514,7 +509,7 @@ LABEL_7:
 
 - (BOOL)_restoreChanges:(id)changes
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   changesCopy = changes;
   changeMapping = [changesCopy changeMapping];
   aBlock[0] = MEMORY[0x277D85DD0];
@@ -523,80 +518,79 @@ LABEL_7:
   aBlock[3] = &unk_278B6CB08;
   aBlock[4] = self;
   v6 = changeMapping;
-  v34 = v6;
+  v35 = v6;
   v7 = _Block_copy(aBlock);
   targetPhrases = [(_LTDisambiguableSentence *)self targetPhrases];
   if ([targetPhrases count])
   {
     v9 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(targetPhrases, "count")}];
     targetPhrases2 = [(_LTDisambiguableSentence *)self targetPhrases];
-    v30[0] = MEMORY[0x277D85DD0];
-    v30[1] = 3221225472;
-    v30[2] = __44___LTDisambiguableSentence__restoreChanges___block_invoke_2;
-    v30[3] = &unk_278B6CB58;
-    v32 = v7;
+    v31[0] = MEMORY[0x277D85DD0];
+    v31[1] = 3221225472;
+    v31[2] = __44___LTDisambiguableSentence__restoreChanges___block_invoke_2;
+    v31[3] = &unk_278B6CB58;
+    v33 = v7;
     v11 = v9;
-    v31 = v11;
-    [targetPhrases2 enumerateObjectsUsingBlock:v30];
+    v32 = v11;
+    [targetPhrases2 enumerateObjectsUsingBlock:v31];
 
-    v28 = 0;
-    v29[0] = &v28;
-    v29[1] = 0x2020000000;
+    v29 = 0;
+    v30[0] = &v29;
+    v30[1] = 0x2020000000;
     firstObject = [v11 firstObject];
     [firstObject doubleValue];
     v14 = v13;
 
-    v29[2] = v14;
-    v24 = 0;
-    v25 = &v24;
-    v26 = 0x2020000000;
-    v27 = 0;
-    v23[0] = MEMORY[0x277D85DD0];
-    v23[1] = 3221225472;
-    v23[2] = __44___LTDisambiguableSentence__restoreChanges___block_invoke_4;
-    v23[3] = &unk_278B6CB80;
-    v23[4] = &v28;
-    v23[5] = &v24;
-    [v11 enumerateObjectsUsingBlock:v23];
-    v15 = v25[3];
-    v16 = v15 != 0;
-    if (v15)
+    v30[2] = v14;
+    v25 = 0;
+    v26 = &v25;
+    v27 = 0x2020000000;
+    v28 = 0;
+    v24[0] = MEMORY[0x277D85DD0];
+    v24[1] = 3221225472;
+    v24[2] = __44___LTDisambiguableSentence__restoreChanges___block_invoke_4;
+    v24[3] = &unk_278B6CB80;
+    v24[4] = &v29;
+    v24[5] = &v25;
+    v15 = [v11 enumerateObjectsUsingBlock:v24];
+    v17 = v26[3];
+    v18 = v17 != 0;
+    if (v17)
     {
-      v17 = _LTOSLogDisambiguation();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
+      v19 = _LTOSLogDisambiguation(v15, v16);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
       {
-        v18 = v25[3];
-        v19 = *(v29[0] + 24);
+        v20 = v26[3];
+        v21 = *(v30[0] + 24);
         *buf = 134218240;
-        v36 = v18;
-        v37 = 2048;
-        v38 = v19;
-        _os_log_impl(&dword_23AAF5000, v17, OS_LOG_TYPE_INFO, "Highest scoring node was %zu with score %f; making this the selected node in the sentence to restore user selections", buf, 0x16u);
+        v37 = v20;
+        v38 = 2048;
+        v39 = v21;
+        _os_log_impl(&dword_23AAF5000, v19, OS_LOG_TYPE_INFO, "Highest scoring node was %zu with score %f; making this the selected node in the sentence to restore user selections", buf, 0x16u);
       }
 
-      self->_selectedPhraseIndex = v25[3];
+      self->_selectedPhraseIndex = v26[3];
     }
 
     else
     {
-      v20 = _LTOSLogDisambiguation();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+      v22 = _LTOSLogDisambiguation(v15, v16);
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
       {
-        [(_LTDisambiguableSentence *)v29 _restoreChanges:v20];
+        [(_LTDisambiguableSentence *)v30 _restoreChanges:v22];
       }
     }
 
-    _Block_object_dispose(&v24, 8);
-    _Block_object_dispose(&v28, 8);
+    _Block_object_dispose(&v25, 8);
+    _Block_object_dispose(&v29, 8);
   }
 
   else
   {
-    v16 = 0;
+    v18 = 0;
   }
 
-  v21 = *MEMORY[0x277D85DE8];
-  return v16;
+  return v18;
 }
 
 - (id)_userSelectionFromIndex:(unint64_t)index toIndex:(unint64_t)toIndex
@@ -632,23 +626,23 @@ LABEL_7:
     [links enumerateObjectsUsingBlock:v19];
 
     v13 = [(_LTDisambiguableSentence *)self sourceTextSnippetForLinkIndex:v21[3]];
-    v14 = v13;
+    v15 = v13;
     if (v25[5] && v21[3] != 0x7FFFFFFFFFFFFFFFLL && v13)
     {
-      v15 = [_LTDisambiguationUserSelection alloc];
-      v9 = [(_LTDisambiguationUserSelection *)v15 initWithEdge:v25[5] sourceSnippet:v14 linkIndex:v21[3]];
+      v16 = [_LTDisambiguationUserSelection alloc];
+      v9 = [(_LTDisambiguationUserSelection *)v16 initWithEdge:v25[5] sourceSnippet:v15 linkIndex:v21[3]];
     }
 
     else
     {
-      v16 = _LTOSLogDisambiguation();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
+      v17 = _LTOSLogDisambiguation(v13, v14);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
       {
         *buf = 134218240;
         indexCopy = index;
         v32 = 2048;
         toIndexCopy = toIndex;
-        _os_log_impl(&dword_23AAF5000, v16, OS_LOG_TYPE_INFO, "Failed to find source edge when moving from node %zu to %zu; not providing user selection info", buf, 0x16u);
+        _os_log_impl(&dword_23AAF5000, v17, OS_LOG_TYPE_INFO, "Failed to find source edge when moving from node %zu to %zu; not providing user selection info", buf, 0x16u);
       }
 
       v9 = 0;
@@ -657,8 +651,6 @@ LABEL_7:
     _Block_object_dispose(&v20, 8);
     _Block_object_dispose(&v24, 8);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
@@ -691,7 +683,7 @@ LABEL_7:
 
 - (unint64_t)_preferredGenderFromEdgesWithDuplicateMeaning:(id)meaning forLinkIndex:(unint64_t)index inPhrase:(unint64_t)phrase
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   meaningCopy = meaning;
   v9 = [(_LTDisambiguableSentence *)self _genderForLinkIndex:index inPhraseIndex:phrase];
   v10 = v9;
@@ -703,38 +695,38 @@ LABEL_7:
   else
   {
     indexCopy = index;
-    v43 = 0u;
-    v44 = 0u;
-    v41 = 0u;
     v42 = 0u;
+    v43 = 0u;
+    v40 = 0u;
+    v41 = 0u;
     WeakRetained = objc_loadWeakRetained(&self->_historyProvider);
     history = [WeakRetained history];
     reverseObjectEnumerator = [history reverseObjectEnumerator];
 
     obj = reverseObjectEnumerator;
-    v15 = [reverseObjectEnumerator countByEnumeratingWithState:&v41 objects:v45 count:16];
+    v15 = [reverseObjectEnumerator countByEnumeratingWithState:&v40 objects:v44 count:16];
     if (v15)
     {
       v16 = v15;
-      v17 = *v42;
-      v18 = v40;
+      v17 = *v41;
+      v18 = v39;
 LABEL_5:
       v19 = 0;
-      v36 = v16;
+      v35 = v16;
       while (1)
       {
-        if (*v42 != v17)
+        if (*v41 != v17)
         {
           objc_enumerationMutation(obj);
         }
 
-        unsignedIntegerValue2 = [*(*(&v41 + 1) + 8 * v19) unsignedIntegerValue];
-        v39[0] = MEMORY[0x277D85DD0];
-        v39[1] = 3221225472;
-        v40[0] = __96___LTDisambiguableSentence__preferredGenderFromEdgesWithDuplicateMeaning_forLinkIndex_inPhrase___block_invoke;
-        v40[1] = &__block_descriptor_40_e25_B16__0___LTDirectedEdge_8l;
-        v40[2] = unsignedIntegerValue2;
-        v21 = [meaningCopy lt_firstObjectPassingTest:v39];
+        unsignedIntegerValue2 = [*(*(&v40 + 1) + 8 * v19) unsignedIntegerValue];
+        v38[0] = MEMORY[0x277D85DD0];
+        v38[1] = 3221225472;
+        v39[0] = __96___LTDisambiguableSentence__preferredGenderFromEdgesWithDuplicateMeaning_forLinkIndex_inPhrase___block_invoke;
+        v39[1] = &__block_descriptor_40_e25_B16__0___LTDirectedEdge_8l;
+        v39[2] = unsignedIntegerValue2;
+        v21 = [meaningCopy lt_firstObjectPassingTest:v38];
         targetGender = [v21 targetGender];
         v23 = targetGender;
         if (targetGender)
@@ -759,7 +751,7 @@ LABEL_5:
             gender = [v31 gender];
             if (gender)
             {
-              v35 = gender;
+              v34 = gender;
               unsignedIntegerValue = [gender unsignedIntegerValue];
 
               meaningCopy = v26;
@@ -770,12 +762,12 @@ LABEL_5:
           meaningCopy = v26;
           v17 = v25;
           v18 = v24;
-          v16 = v36;
+          v16 = v35;
         }
 
         if (v16 == ++v19)
         {
-          v16 = [obj countByEnumeratingWithState:&v41 objects:v45 count:16];
+          v16 = [obj countByEnumeratingWithState:&v40 objects:v44 count:16];
           if (v16)
           {
             goto LABEL_5;
@@ -798,7 +790,6 @@ LABEL_19:
     v10 = 0;
   }
 
-  v33 = *MEMORY[0x277D85DE8];
   return unsignedIntegerValue;
 }
 
@@ -919,23 +910,23 @@ LABEL_19:
 
 - (void)_validateAndPopulateEdges
 {
-  v22 = *MEMORY[0x277D85DE8];
-  v17 = 0;
-  v18 = &v17;
-  v19 = 0x2020000000;
-  v20 = 1;
+  v23 = *MEMORY[0x277D85DE8];
+  v18 = 0;
+  v19 = &v18;
+  v20 = 0x2020000000;
+  v21 = 1;
   objc_initWeak(&location, self);
   targetPhrases = [(_LTDisambiguableSentence *)self targetPhrases];
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __53___LTDisambiguableSentence__validateAndPopulateEdges__block_invoke;
-  v14[3] = &unk_278B6CC20;
-  objc_copyWeak(&v15, &location);
-  v14[4] = self;
-  v14[5] = &v17;
-  [targetPhrases enumerateObjectsUsingBlock:v14];
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __53___LTDisambiguableSentence__validateAndPopulateEdges__block_invoke;
+  v15[3] = &unk_278B6CC20;
+  objc_copyWeak(&v16, &location);
+  v15[4] = self;
+  v15[5] = &v18;
+  [targetPhrases enumerateObjectsUsingBlock:v15];
 
-  if (v18[3])
+  if (v19[3])
   {
     [(_LTDisambiguableSentence *)self _removeUnvalidatedAdjacencyLists];
     if ([(_LTDisambiguableSentence *)self hasDisambiguationsOfType:1])
@@ -946,97 +937,96 @@ LABEL_19:
 
   else
   {
-    v4 = _LTOSLogDisambiguation();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v6 = _LTOSLogDisambiguation(v4, v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      [(_LTDisambiguableSentence *)v4 _validateAndPopulateEdges];
+      [(_LTDisambiguableSentence *)v6 _validateAndPopulateEdges];
     }
 
-    v12 = 0u;
     v13 = 0u;
-    v10 = 0u;
+    v14 = 0u;
     v11 = 0u;
+    v12 = 0u;
     targetPhrases2 = [(_LTDisambiguableSentence *)self targetPhrases];
-    v6 = [targetPhrases2 countByEnumeratingWithState:&v10 objects:v21 count:16];
-    if (v6)
+    v8 = [targetPhrases2 countByEnumeratingWithState:&v11 objects:v22 count:16];
+    if (v8)
     {
-      v7 = *v11;
+      v9 = *v12;
       do
       {
-        v8 = 0;
+        v10 = 0;
         do
         {
-          if (*v11 != v7)
+          if (*v12 != v9)
           {
             objc_enumerationMutation(targetPhrases2);
           }
 
-          [*(*(&v10 + 1) + 8 * v8++) _removeAllLinks];
+          [*(*(&v11 + 1) + 8 * v10++) _removeAllLinks];
         }
 
-        while (v6 != v8);
-        v6 = [targetPhrases2 countByEnumeratingWithState:&v10 objects:v21 count:16];
+        while (v8 != v10);
+        v8 = [targetPhrases2 countByEnumeratingWithState:&v11 objects:v22 count:16];
       }
 
-      while (v6);
+      while (v8);
     }
   }
 
-  objc_destroyWeak(&v15);
+  objc_destroyWeak(&v16);
   objc_destroyWeak(&location);
-  _Block_object_dispose(&v17, 8);
-  v9 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v18, 8);
 }
 
 - (void)_removeUnvalidatedAdjacencyLists
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   targetPhrases = [(_LTDisambiguableSentence *)self targetPhrases];
-  v3 = [targetPhrases countByEnumeratingWithState:&v18 objects:v23 count:16];
+  v3 = [targetPhrases countByEnumeratingWithState:&v17 objects:v22 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v19;
+    v5 = *v18;
     do
     {
       v6 = 0;
       do
       {
-        if (*v19 != v5)
+        if (*v18 != v5)
         {
           objc_enumerationMutation(targetPhrases);
         }
 
-        v7 = *(*(&v18 + 1) + 8 * v6);
+        v7 = *(*(&v17 + 1) + 8 * v6);
+        v13 = 0u;
         v14 = 0u;
         v15 = 0u;
         v16 = 0u;
-        v17 = 0u;
         links = [v7 links];
-        v9 = [links countByEnumeratingWithState:&v14 objects:v22 count:16];
+        v9 = [links countByEnumeratingWithState:&v13 objects:v21 count:16];
         if (v9)
         {
           v10 = v9;
-          v11 = *v15;
+          v11 = *v14;
           do
           {
             v12 = 0;
             do
             {
-              if (*v15 != v11)
+              if (*v14 != v11)
               {
                 objc_enumerationMutation(links);
               }
 
-              [*(*(&v14 + 1) + 8 * v12++) _finishValidating];
+              [*(*(&v13 + 1) + 8 * v12++) _finishValidating];
             }
 
             while (v10 != v12);
-            v10 = [links countByEnumeratingWithState:&v14 objects:v22 count:16];
+            v10 = [links countByEnumeratingWithState:&v13 objects:v21 count:16];
           }
 
           while (v10);
@@ -1046,49 +1036,45 @@ LABEL_19:
       }
 
       while (v6 != v4);
-      v4 = [targetPhrases countByEnumeratingWithState:&v18 objects:v23 count:16];
+      v4 = [targetPhrases countByEnumeratingWithState:&v17 objects:v22 count:16];
     }
 
     while (v4);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_removeRomanization
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
+  v7 = 0u;
   v8 = 0u;
   v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
   targetPhrases = [(_LTDisambiguableSentence *)self targetPhrases];
-  v3 = [targetPhrases countByEnumeratingWithState:&v8 objects:v12 count:16];
+  v3 = [targetPhrases countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v9;
+    v5 = *v8;
     do
     {
       v6 = 0;
       do
       {
-        if (*v9 != v5)
+        if (*v8 != v5)
         {
           objc_enumerationMutation(targetPhrases);
         }
 
-        [*(*(&v8 + 1) + 8 * v6++) _removeRomanization];
+        [*(*(&v7 + 1) + 8 * v6++) _removeRomanization];
       }
 
       while (v4 != v6);
-      v4 = [targetPhrases countByEnumeratingWithState:&v8 objects:v12 count:16];
+      v4 = [targetPhrases countByEnumeratingWithState:&v7 objects:v11 count:16];
     }
 
     while (v4);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_directedEdgeFromUnvalidatedEdge:(id)edge
@@ -1096,133 +1082,136 @@ LABEL_19:
   edgeCopy = edge;
   targetPhrases = [(_LTDisambiguableSentence *)self targetPhrases];
   targetPhraseIndex = [edgeCopy targetPhraseIndex];
-  if (targetPhraseIndex >= [targetPhrases count])
+  v7 = [targetPhrases count];
+  if (targetPhraseIndex >= v7)
   {
-    v30 = _LTOSLogDisambiguation();
-    if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+    v38 = _LTOSLogDisambiguation(v7, v8);
+    if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
     {
-      [(_LTDisambiguableSentence *)targetPhraseIndex _directedEdgeFromUnvalidatedEdge:v30, v31, v32, v33, v34, v35, v36];
+      [(_LTDisambiguableSentence *)targetPhraseIndex _directedEdgeFromUnvalidatedEdge:v38, v39, v40, v41, v42, v43, v44];
     }
 
-    v37 = 0;
+    v45 = 0;
   }
 
   else
   {
-    v7 = [targetPhrases objectAtIndexedSubscript:targetPhraseIndex];
+    v9 = [targetPhrases objectAtIndexedSubscript:targetPhraseIndex];
     targetLinkIndex = [edgeCopy targetLinkIndex];
-    links = [v7 links];
-    v10 = [links count];
+    links = [v9 links];
+    v12 = [links count];
 
-    if (targetLinkIndex >= v10)
+    if (targetLinkIndex >= v12)
     {
-      v38 = _LTOSLogDisambiguation();
-      if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
+      v46 = _LTOSLogDisambiguation(v13, v14);
+      if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
       {
-        [(_LTDisambiguableSentence *)targetLinkIndex _directedEdgeFromUnvalidatedEdge:v38, v39, v40, v41, v42, v43, v44];
+        [(_LTDisambiguableSentence *)targetLinkIndex _directedEdgeFromUnvalidatedEdge:v46, v47, v48, v49, v50, v51, v52];
       }
 
-      v37 = 0;
+      v45 = 0;
     }
 
     else
     {
-      links2 = [v7 links];
-      v12 = [links2 objectAtIndexedSubscript:targetLinkIndex];
+      links2 = [v9 links];
+      v16 = [links2 objectAtIndexedSubscript:targetLinkIndex];
 
-      sourceRange = [v12 sourceRange];
-      v15 = v14;
+      sourceRange = [v16 sourceRange];
+      v19 = v18;
       sourceText = [(_LTDisambiguableSentence *)self sourceText];
-      if ([sourceText lt_validSubrange:{sourceRange, v15}])
+      v21 = [sourceText lt_validSubrange:{sourceRange, v19}];
+      if (v21)
       {
-        targetRange = [v12 targetRange];
-        v19 = v18;
-        text = [v7 text];
-        if ([text lt_validSubrange:{targetRange, v19}])
+        targetRange = [v16 targetRange];
+        v25 = v24;
+        text = [v9 text];
+        v27 = [text lt_validSubrange:{targetRange, v25}];
+        if (v27)
         {
-          v21 = [text substringWithRange:{targetRange, v19}];
-          v22 = [v12 _unvalidatedEdgeFromAdjacencyListMatchingTargetNodeIndex:targetPhraseIndex];
-          targetGender = [v22 targetGender];
-          v51 = v22;
-          defaultGender = [v22 defaultGender];
+          v29 = [text substringWithRange:{targetRange, v25}];
+          v30 = [v16 _unvalidatedEdgeFromAdjacencyListMatchingTargetNodeIndex:targetPhraseIndex];
+          targetGender = [v30 targetGender];
+          v59 = v30;
+          defaultGender = [v30 defaultGender];
           type = [edgeCopy type];
-          v50 = targetGender;
+          v58 = targetGender;
           if (type == 1)
           {
             [edgeCopy targetGender];
-            meaningDescription = v28 = defaultGender;
-            v29 = +[_LTDirectedEdge genderEdgeWithTargetPhraseIndex:targetPreview:gender:defaultGender:](_LTDirectedEdge, "genderEdgeWithTargetPhraseIndex:targetPreview:gender:defaultGender:", targetPhraseIndex, v21, [meaningDescription unsignedIntegerValue], objc_msgSend(v28, "unsignedIntegerValue"));
+            meaningDescription = v36 = defaultGender;
+            v37 = +[_LTDirectedEdge genderEdgeWithTargetPhraseIndex:targetPreview:gender:defaultGender:](_LTDirectedEdge, "genderEdgeWithTargetPhraseIndex:targetPreview:gender:defaultGender:", targetPhraseIndex, v29, [meaningDescription unsignedIntegerValue], objc_msgSend(v36, "unsignedIntegerValue"));
           }
 
           else
           {
-            v49 = defaultGender;
+            v57 = defaultGender;
             if (type)
             {
-              v48 = unexpectedDisambiguationTypeException([edgeCopy type]);
-              objc_exception_throw(v48);
+              v56 = unexpectedDisambiguationTypeException([edgeCopy type]);
+              objc_exception_throw(v56);
             }
 
             meaningDescription = [edgeCopy meaningDescription];
-            v27 = targetGender;
-            v28 = v49;
-            v29 = [_LTDirectedEdge meaningEdgeWithTargetPhraseIndex:targetPhraseIndex targetPreview:v21 meaningDescription:meaningDescription targetGender:v27 defaultGender:v49];
+            v35 = targetGender;
+            v36 = v57;
+            v37 = [_LTDirectedEdge meaningEdgeWithTargetPhraseIndex:targetPhraseIndex targetPreview:v29 meaningDescription:meaningDescription targetGender:v35 defaultGender:v57];
           }
 
-          v37 = v29;
+          v45 = v37;
         }
 
         else
         {
-          v46 = _LTOSLogDisambiguation();
-          if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
+          v54 = _LTOSLogDisambiguation(v27, v28);
+          if (os_log_type_enabled(v54, OS_LOG_TYPE_ERROR))
           {
-            [(_LTDisambiguableSentence *)v46 _directedEdgeFromUnvalidatedEdge:targetRange, v19, text];
+            [(_LTDisambiguableSentence *)v54 _directedEdgeFromUnvalidatedEdge:targetRange, v25, text];
           }
 
-          v37 = 0;
+          v45 = 0;
         }
       }
 
       else
       {
-        v45 = _LTOSLogDisambiguation();
-        if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
+        v53 = _LTOSLogDisambiguation(v21, v22);
+        if (os_log_type_enabled(v53, OS_LOG_TYPE_ERROR))
         {
-          [(_LTDisambiguableSentence *)v45 _directedEdgeFromUnvalidatedEdge:sourceRange, v15, sourceText];
+          [(_LTDisambiguableSentence *)v53 _directedEdgeFromUnvalidatedEdge:sourceRange, v19, sourceText];
         }
 
-        v37 = 0;
+        v45 = 0;
       }
     }
   }
 
-  return v37;
+  return v45;
 }
 
 - (BOOL)_hasOverlapInRangeArray:(id)array
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   [array sortedArrayUsingComparator:&__block_literal_global_41];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
-  v3 = v15 = 0u;
-  v4 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v3 = v14 = 0u;
+  v4 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v4)
   {
     v5 = 0;
-    v6 = *v13;
+    v6 = *v12;
     while (2)
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v13 != v6)
+        if (*v12 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        rangeValue = [*(*(&v12 + 1) + 8 * i) rangeValue];
+        rangeValue = [*(*(&v11 + 1) + 8 * i) rangeValue];
         if (rangeValue < v5)
         {
           LOBYTE(v4) = 1;
@@ -1232,7 +1221,7 @@ LABEL_19:
         v5 = rangeValue + v9;
       }
 
-      v4 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v4 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
       if (v4)
       {
         continue;
@@ -1244,7 +1233,6 @@ LABEL_19:
 
 LABEL_11:
 
-  v10 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
@@ -1272,11 +1260,11 @@ LABEL_11:
 
 - (_LTDisambiguableSentence)initWithCoder:(id)coder
 {
-  v26[2] = *MEMORY[0x277D85DE8];
+  v25[2] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v24.receiver = self;
-  v24.super_class = _LTDisambiguableSentence;
-  v5 = [(_LTDisambiguableSentence *)&v24 init];
+  v23.receiver = self;
+  v23.super_class = _LTDisambiguableSentence;
+  v5 = [(_LTDisambiguableSentence *)&v23 init];
   if (v5)
   {
     v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"sourceText"];
@@ -1284,9 +1272,9 @@ LABEL_11:
     v5->_sourceText = v6;
 
     v8 = MEMORY[0x277CBEB98];
-    v26[0] = objc_opt_class();
-    v26[1] = objc_opt_class();
-    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:2];
+    v25[0] = objc_opt_class();
+    v25[1] = objc_opt_class();
+    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:2];
     v10 = [v8 setWithArray:v9];
 
     v11 = [coderCopy decodeObjectOfClasses:v10 forKey:@"targetPhrases"];
@@ -1300,9 +1288,9 @@ LABEL_11:
 
     [(_LTDisambiguableSentence *)v5 _commonInit];
     v15 = MEMORY[0x277CBEB98];
-    v25[0] = objc_opt_class();
-    v25[1] = objc_opt_class();
-    v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:2];
+    v24[0] = objc_opt_class();
+    v24[1] = objc_opt_class();
+    v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:2];
     v17 = [v15 setWithArray:v16];
     v18 = [coderCopy decodeObjectOfClasses:v17 forKey:@"history"];
 
@@ -1316,7 +1304,6 @@ LABEL_11:
     v21 = v5;
   }
 
-  v22 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -1344,80 +1331,56 @@ LABEL_11:
   return WeakRetained;
 }
 
-- (void)sourceTextSnippetForLinkIndex:.cold.1()
-{
-  v5 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_3(&dword_23AAF5000, v0, v1, "Requested source snippet for out of bounds link index %zu of %zu, not providing a source snippet", v3, v4);
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)meaningDescriptionForLinkIndex:inTargetPhrase:.cold.1()
-{
-  v5 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_3(&dword_23AAF5000, v0, v1, "Requested meaning description for out of bounds link index %zu of %zu, not providing a meaning description", v3, v4);
-  v2 = *MEMORY[0x277D85DE8];
-}
-
 - (void)meaningDescriptionForLinkIndex:inTargetPhrase:.cold.2()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_1();
-  _os_log_debug_impl(&dword_23AAF5000, v0, OS_LOG_TYPE_DEBUG, "There are no meaning edges in phase %zu at link %zu; can't return a meaning description", v2, 0x16u);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_23AAF5000, v0, OS_LOG_TYPE_DEBUG, "There are no meaning edges in phase %zu at link %zu; can't return a meaning description", v1, 0x16u);
 }
 
 - (void)_restoreChanges:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v2 = *(*a1 + 24);
-  v4 = 134217984;
-  v5 = v2;
-  _os_log_debug_impl(&dword_23AAF5000, a2, OS_LOG_TYPE_DEBUG, "Highest scoring node was initial node with score %f; no need to change selected node to restore previous user selections", &v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  v3 = 134217984;
+  v4 = v2;
+  _os_log_debug_impl(&dword_23AAF5000, a2, OS_LOG_TYPE_DEBUG, "Highest scoring node was initial node with score %f; no need to change selected node to restore previous user selections", &v3, 0xCu);
 }
 
 - (void)_directedEdgeFromUnvalidatedEdge:(uint64_t)a3 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2(&dword_23AAF5000, a2, a3, "Failed to create directed edge; an edge references targetNode %zu which doesn't exist", a5, a6, a7, a8, 0);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 134217984;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_2(&dword_23AAF5000, a2, a3, "Failed to create directed edge; an edge references targetNode %zu which doesn't exist", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)_directedEdgeFromUnvalidatedEdge:(uint64_t)a3 .cold.2(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2(&dword_23AAF5000, a2, a3, "Failed to create directed edge; configuration references link index %zu which doesn't exist on this target node", a5, a6, a7, a8, 0);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 134217984;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_2(&dword_23AAF5000, a2, a3, "Failed to create directed edge; configuration references link index %zu which doesn't exist on this target node", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)_directedEdgeFromUnvalidatedEdge:(NSUInteger)a3 .cold.3(void *a1, NSUInteger a2, NSUInteger a3, void *a4)
 {
-  v17 = *MEMORY[0x277D85DE8];
   v7 = a1;
-  v18.location = a2;
-  v18.length = a3;
-  v8 = NSStringFromRange(v18);
+  v15.location = a2;
+  v15.length = a3;
+  v8 = NSStringFromRange(v15);
   [a4 length];
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_4(&dword_23AAF5000, v9, v10, "Failed to create directed edge; range %{public}@ invalid in source string of length %zu", v11, v12, v13, v14, v16);
-
-  v15 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4(&dword_23AAF5000, v9, v10, "Failed to create directed edge; range %{public}@ invalid in source string of length %zu", v11, v12, v13, v14);
 }
 
 - (void)_directedEdgeFromUnvalidatedEdge:(NSUInteger)a3 .cold.4(void *a1, NSUInteger a2, NSUInteger a3, void *a4)
 {
-  v17 = *MEMORY[0x277D85DE8];
   v7 = a1;
-  v18.location = a2;
-  v18.length = a3;
-  v8 = NSStringFromRange(v18);
+  v15.location = a2;
+  v15.length = a3;
+  v8 = NSStringFromRange(v15);
   [a4 length];
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_4(&dword_23AAF5000, v9, v10, "Failed to create directed edge; range %{public}@ invalid in target string of length %zu", v11, v12, v13, v14, v16);
-
-  v15 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4(&dword_23AAF5000, v9, v10, "Failed to create directed edge; range %{public}@ invalid in target string of length %zu", v11, v12, v13, v14);
 }
 
 @end

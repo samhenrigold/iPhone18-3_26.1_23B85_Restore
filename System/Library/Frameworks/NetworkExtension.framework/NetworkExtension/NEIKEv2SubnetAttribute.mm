@@ -2,6 +2,7 @@
 - (NEIKEv2SubnetAttribute)initWithAddress:(id)address prefix:(unsigned __int8)prefix;
 - (NWAddressEndpoint)subnetMaskAddress;
 - (id)copyWithZone:(_NSZone *)zone;
+- (id)descriptionWithIndent:(int)indent options:(unint64_t)options;
 - (id)initCustomWithAttributeType:(unint64_t)type attributeName:(id)name addressValue:(id)value prefix:(unsigned __int8)prefix;
 - (unint64_t)attributeType;
 - (unsigned)ipv4SubnetMask;
@@ -23,7 +24,7 @@
 
 - (NWAddressEndpoint)subnetMaskAddress
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   address = [(NEIKEv2SubnetAttribute *)self address];
   addressFamily = [address addressFamily];
 
@@ -32,20 +33,20 @@
   {
     if (prefix <= 0x20)
     {
-      HIDWORD(v11) = 0;
-      LODWORD(v11) = 528;
-      *(&v11 + 4) = [(NEIKEv2SubnetAttribute *)self ipv4SubnetMask];
+      HIDWORD(v10) = 0;
+      LODWORD(v10) = 528;
+      *(&v10 + 4) = [(NEIKEv2SubnetAttribute *)self ipv4SubnetMask];
 LABEL_8:
-      v8 = [MEMORY[0x1E6977E08] endpointWithAddress:&v11];
+      v8 = [MEMORY[0x1E6977E08] endpointWithAddress:&v10];
       goto LABEL_9;
     }
   }
 
   else if (prefix <= 0x80)
   {
-    v13 = 0;
     v12 = 0;
-    v11 = 0x1E1CuLL;
+    v11 = 0;
+    v10 = 0x1E1CuLL;
     if (prefix)
     {
       v6 = prefix >> 3;
@@ -53,7 +54,7 @@ LABEL_8:
       __memset_chk();
       if (v7)
       {
-        *(&v11 + v6 + 8) = -1 << (8 - v7);
+        *(&v10 + v6 + 8) = -1 << (8 - v7);
       }
     }
 
@@ -62,7 +63,6 @@ LABEL_8:
 
   v8 = 0;
 LABEL_9:
-  v9 = *MEMORY[0x1E69E9840];
 
   return v8;
 }
@@ -80,6 +80,27 @@ LABEL_9:
   {
     return 0;
   }
+}
+
+- (id)descriptionWithIndent:(int)indent options:(unint64_t)options
+{
+  v5 = *&indent;
+  v7 = [objc_alloc(MEMORY[0x1E696AD60]) initWithCapacity:0];
+  attributeName = [(NEIKEv2ConfigurationAttribute *)self attributeName];
+  [v7 appendPrettyObject:attributeName withName:@"Name" andIndent:v5 options:options];
+
+  String = NEIKEv2AttributeTypeCreateString([(NEIKEv2SubnetAttribute *)self attributeType]);
+  [v7 appendPrettyObject:String withName:@"Type" andIndent:v5 options:options];
+
+  typeDescription = [(NEIKEv2SubnetAttribute *)self typeDescription];
+  [v7 appendPrettyObject:typeDescription withName:@"Payload Type" andIndent:v5 options:options];
+
+  address = [(NEIKEv2SubnetAttribute *)self address];
+  [v7 appendPrettyObject:address withName:@"Address" andIndent:v5 options:options];
+
+  [v7 appendPrettyInt:-[NEIKEv2SubnetAttribute prefix](self withName:"prefix") andIndent:@"Prefix" options:{v5, options}];
+
+  return v7;
 }
 
 - (unint64_t)attributeType

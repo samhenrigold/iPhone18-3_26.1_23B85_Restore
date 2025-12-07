@@ -3,7 +3,7 @@
 
 @implementation MAPreferencesIsVerboseLoggingEnabled
 
-void ___MAPreferencesIsVerboseLoggingEnabled_block_invoke()
+void ___MAPreferencesIsVerboseLoggingEnabled_block_invoke(void *result, uint64_t a2)
 {
   if (_MAPreferencesIsInternalAllowed_onceToken != -1)
   {
@@ -12,9 +12,9 @@ void ___MAPreferencesIsVerboseLoggingEnabled_block_invoke()
 
   if (_MAPreferencesIsInternalAllowed__isAppleInternal == 1)
   {
-    v1 = 0;
-    AppBooleanValue = _MAPreferencesGetAppBooleanValue(@"EnableVerboseLogging", &v1);
-    if (v1)
+    v3 = 0;
+    AppBooleanValue = _MAPreferencesGetAppBooleanValue(@"EnableVerboseLogging", &v3);
+    if (v3)
     {
       _MAPreferencesIsVerboseLoggingEnabled__verboseLoggingEnabled = AppBooleanValue;
     }

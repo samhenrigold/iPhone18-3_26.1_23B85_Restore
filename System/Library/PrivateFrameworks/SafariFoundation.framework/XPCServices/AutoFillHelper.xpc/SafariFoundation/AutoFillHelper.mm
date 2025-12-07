@@ -20,7 +20,7 @@
     v32 = 0u;
     if (v14)
     {
-      [v14 auditToken];
+      objc_msgSend_auditToken(v14);
     }
 
     if ([(AutoFillHelper *)self _isKeychainSyncEnabled])
@@ -119,15 +119,16 @@ LABEL_18:
 
   [v2 setAltDSID:aa_altDSID];
   v6 = [[OTClique alloc] initWithContextData:v2];
-  v11 = 0;
-  v7 = [v6 fetchUserControllableViewsSyncingEnabled:&v11];
-  v8 = v11;
+  v13 = 0;
+  v7 = [v6 fetchUserControllableViewsSyncingEnabled:&v13];
+  v8 = v13;
+  v10 = v8;
   if (v8)
   {
-    v9 = sub_1000013FC();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v11 = sub_1000013FC(v8, v9);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      sub_10000157C(v9, v8);
+      sub_10000157C(v11, v10);
     }
   }
 

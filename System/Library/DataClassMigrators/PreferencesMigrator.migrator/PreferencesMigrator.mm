@@ -1,13 +1,13 @@
-id sub_F18()
+id sub_F18(uint64_t a1)
 {
   if (qword_C300 != -1)
   {
     sub_2B30();
   }
 
-  v1 = qword_C2F8;
+  v2 = qword_C2F8;
 
-  return v1;
+  return v2;
 }
 
 void sub_F5C(id a1)
@@ -17,9 +17,9 @@ void sub_F5C(id a1)
   _objc_release_x1();
 }
 
-void sub_2070(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2070(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -27,7 +27,7 @@ void sub_2070(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint
 void sub_2088(id a1, NSError *a2)
 {
   v2 = a2;
-  v3 = sub_F18();
+  v3 = sub_F18(v2);
   v4 = v3;
   if (v2)
   {
@@ -68,7 +68,7 @@ Class sub_27C0(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -88,7 +88,6 @@ LABEL_4:
 
 uint64_t sub_2904(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_C310 = result;
   return result;
@@ -118,7 +117,7 @@ Class sub_2978(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -138,7 +137,6 @@ LABEL_4:
 
 uint64_t sub_2ABC(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_C320 = result;
   return result;

@@ -15,15 +15,15 @@
 - (id)px_ancestorViewPassingTest:()PhotosUIFoundation;
 - (id)px_rootView;
 - (id)px_screen;
-- (uint64_t)px_convertTransform3D:()PhotosUIFoundation toView:;
-- (uint64_t)px_convertTransform:()PhotosUIFoundation toView:;
 - (uint64_t)px_hasHiddenAncestor;
 - (uint64_t)px_layoutDirection;
 - (uint64_t)px_leadingEdge;
 - (uint64_t)px_trailingEdge;
 - (void)px_addFullBoundsSubview:()PhotosUIFoundation;
 - (void)px_convertTransform3D:()PhotosUIFoundation fromView:;
+- (void)px_convertTransform3D:()PhotosUIFoundation toView:;
 - (void)px_convertTransform:()PhotosUIFoundation fromView:;
+- (void)px_convertTransform:()PhotosUIFoundation toView:;
 - (void)px_enumerateDescendantSubviewsPassingTest:()PhotosUIFoundation usingBlock:;
 - (void)px_enumerateSelfAndDescendantViewsPassingTest:()PhotosUIFoundation usingBlock:;
 - (void)px_enumerateSelfAndDescendantViewsUsingBlock:()PhotosUIFoundation;
@@ -150,15 +150,15 @@
     [selfCopy setCenter:?];
     if (selfCopy)
     {
-      [selfCopy transform3D];
+      objc_msgSend_transform3D(selfCopy);
       if (CATransform3DIsIdentity(&v22))
       {
         memset(&v22, 0, 48);
-        [selfCopy transform];
+        objc_msgSend_transform(selfCopy);
         if (v4)
         {
 LABEL_5:
-          [v4 px_convertTransform:&v14 fromView:superview];
+          objc_msgSend_px_convertTransform_fromView_(v4);
 LABEL_12:
           *&v13.m11 = *&v22.m11;
           *&v13.m13 = *&v22.m13;
@@ -186,11 +186,11 @@ LABEL_11:
       }
 
       memset(&v22, 0, sizeof(v22));
-      [selfCopy transform3D];
+      objc_msgSend_transform3D(selfCopy);
       if (v4)
       {
 LABEL_14:
-        [v4 px_convertTransform3D:&v14 fromView:superview];
+        objc_msgSend_px_convertTransform3D_fromView_(v4);
 LABEL_17:
         v13 = v22;
         [selfCopy setTransform3D:&v13];
@@ -247,18 +247,18 @@ LABEL_17:
 LABEL_21:
 }
 
-- (uint64_t)px_convertTransform:()PhotosUIFoundation toView:
+- (void)px_convertTransform:()PhotosUIFoundation toView:
 {
-  a4[1] = 0u;
-  a4[2] = 0u;
-  *a4 = 0u;
-  if (a3)
+  a5[1] = 0u;
+  a5[2] = 0u;
+  *a5 = 0u;
+  if (a4)
   {
-    v4 = a2[1];
-    v5[0] = *a2;
-    v5[1] = v4;
-    v5[2] = a2[2];
-    return [a3 px_convertTransform:v5 fromView:result];
+    v5 = a3[1];
+    v6[0] = *a3;
+    v6[1] = v5;
+    v6[2] = a3[2];
+    return objc_msgSend_px_convertTransform_fromView_(a4, a2, v6, result);
   }
 
   return result;
@@ -465,31 +465,31 @@ LABEL_8:
 LABEL_9:
 }
 
-- (uint64_t)px_convertTransform3D:()PhotosUIFoundation toView:
+- (void)px_convertTransform3D:()PhotosUIFoundation toView:
 {
-  a4[6] = 0u;
-  a4[7] = 0u;
-  a4[4] = 0u;
-  a4[5] = 0u;
-  a4[2] = 0u;
-  a4[3] = 0u;
-  *a4 = 0u;
-  a4[1] = 0u;
-  if (a3)
+  a5[6] = 0u;
+  a5[7] = 0u;
+  a5[4] = 0u;
+  a5[5] = 0u;
+  a5[2] = 0u;
+  a5[3] = 0u;
+  *a5 = 0u;
+  a5[1] = 0u;
+  if (a4)
   {
-    v4 = a2[5];
-    v8[4] = a2[4];
-    v8[5] = v4;
-    v5 = a2[7];
-    v8[6] = a2[6];
-    v8[7] = v5;
-    v6 = a2[1];
-    v8[0] = *a2;
-    v8[1] = v6;
-    v7 = a2[3];
-    v8[2] = a2[2];
-    v8[3] = v7;
-    return [a3 px_convertTransform3D:v8 fromView:result];
+    v5 = a3[5];
+    v9[4] = a3[4];
+    v9[5] = v5;
+    v6 = a3[7];
+    v9[6] = a3[6];
+    v9[7] = v6;
+    v7 = a3[1];
+    v9[0] = *a3;
+    v9[1] = v7;
+    v8 = a3[3];
+    v9[2] = a3[2];
+    v9[3] = v8;
+    return objc_msgSend_px_convertTransform3D_fromView_(a4, a2, v9, result);
   }
 
   return result;
@@ -950,7 +950,7 @@ LABEL_3:
   memset(&v142, 0, sizeof(v142));
   if (v29)
   {
-    [v29 transform];
+    objc_msgSend_transform(v29);
   }
 
   v140[0] = 0;
@@ -1247,7 +1247,7 @@ LABEL_3:
   v20[0] = *a11;
   v20[1] = v18;
   v20[2] = a11[2];
-  return [self _px_animateView:a10 toCenter:v20 bounds:v21 transform:a16 withInitialVelocity:a17 usingSpringAnimation:a18 completion:?];
+  return [self _px_animateView:a10 toCenter:v20 bounds:v21 transform:a13 withInitialVelocity:a14 usingSpringAnimation:a15 completion:{a2, a3, a4, a5, a6, a7, a16, a17, a18}];
 }
 
 + (uint64_t)px_animateView:()PhotosUIFoundation toCenter:bounds:transform:withDuration:delay:usingSpringWithDamping:initialVelocity:options:completion:
@@ -1264,7 +1264,7 @@ LABEL_3:
   v22[0] = *a12;
   v22[1] = v20;
   v22[2] = a12[2];
-  return [self _px_animateView:a11 toCenter:v22 bounds:v23 transform:a18 withInitialVelocity:a19 usingSpringAnimation:a20 completion:?];
+  return [self _px_animateView:a11 toCenter:v22 bounds:v23 transform:a14 withInitialVelocity:a15 usingSpringAnimation:a16 completion:{a2, a3, a4, a5, a6, a7, a18, a19, a20}];
 }
 
 @end

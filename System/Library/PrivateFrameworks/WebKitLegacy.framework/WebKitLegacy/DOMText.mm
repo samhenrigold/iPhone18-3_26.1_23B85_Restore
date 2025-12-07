@@ -52,36 +52,82 @@
 
 - (DOMText)splitText:(unsigned int)offset
 {
-  WebCore::JSMainThreadNullState::JSMainThreadNullState(v11);
-  v4 = WebCore::Text::splitText(self->super.super.super._internal);
-  if (v10)
+  WebCore::JSMainThreadNullState::JSMainThreadNullState(v16);
+  v4 = WebCore::Text::splitText(&v13, self->super.super.super._internal);
+  if (v15)
   {
-    if (v10 == 1)
+    if (v15 == 1)
     {
-      v11[80] = v8;
-      v12 = v9;
+      v16[80] = v13;
+      v12 = v14;
+      v14 = 0;
+      v17 = v12;
       raiseDOMErrorException();
     }
 
     mpark::throw_bad_variant_access(v4);
   }
 
-  v6 = kit(v8);
-  if (v8)
+  v5 = v13;
+  v13 = 0;
+  v7 = kit(v5);
+  if (!v5)
   {
-    if (*(v8 + 7) == 2)
+LABEL_5:
+    v8 = v15;
+    if (v15 == 255)
     {
-      WebCore::Node::removedLastRef(v8);
+      goto LABEL_16;
     }
 
-    else
+    goto LABEL_6;
+  }
+
+  if (*(v5 + 7) != 2)
+  {
+    *(v5 + 7) -= 2;
+    goto LABEL_5;
+  }
+
+  WebCore::Node::removedLastRef(v5);
+  v8 = v15;
+  if (v15 == 255)
+  {
+    goto LABEL_16;
+  }
+
+LABEL_6:
+  if (v8)
+  {
+    v10 = v14;
+    v14 = 0;
+    if (v10 && atomic_fetch_add_explicit(v10, 0xFFFFFFFE, memory_order_relaxed) == 2)
     {
-      *(v8 + 7) -= 2;
+      WTF::StringImpl::destroy(v10, v6);
     }
   }
 
-  WebCore::JSMainThreadNullState::~JSMainThreadNullState(v11, v5);
-  return v6;
+  else
+  {
+    v9 = v13;
+    v13 = 0;
+    if (v9)
+    {
+      if (*(v9 + 7) == 2)
+      {
+        WebCore::Node::removedLastRef(v9);
+      }
+
+      else
+      {
+        *(v9 + 7) -= 2;
+      }
+    }
+  }
+
+LABEL_16:
+  WebCore::JSMainThreadNullState::~JSMainThreadNullState(v16, v6);
+  return v7;
 }
 
 - (DOMText)replaceWholeText:(NSString *)content

@@ -27,7 +27,7 @@
 + (id)prefabWithNode:(id)node
 {
   v4 = objc_alloc_init(VFXPrefabAsset);
-  objc_msgSend_setHidden_(node, v5, 1, v6);
+  objc_msgSend_setHidden_(node, v5, 1);
   v4->_node = node;
 
   return v4;
@@ -44,18 +44,18 @@
 {
   if (self->_node != node)
   {
-    v8 = objc_msgSend_world(self, a2, node, v3);
-    if (v8)
+    v6 = objc_msgSend_world(self, a2, node);
+    if (v6)
     {
-      objc_msgSend_removeWorldReference_(self->_node, v6, v8, v7);
+      objc_msgSend_removeWorldReference_(self->_node, v5, v6);
     }
 
     nodeCopy = node;
     self->_node = nodeCopy;
-    if (v8)
+    if (v6)
     {
 
-      objc_msgSend_addWorldReference_(nodeCopy, v10, v8, v11);
+      objc_msgSend_addWorldReference_(nodeCopy, v8, v6);
     }
   }
 }
@@ -65,34 +65,34 @@
   node = self->_node;
   if (instantiate)
   {
-    v5 = objc_msgSend_deepClone(node, a2, instantiate, v3);
+    v4 = objc_msgSend_deepClone(node, a2, instantiate);
   }
 
   else
   {
-    v5 = objc_msgSend_clone(node, a2, instantiate, v3);
+    v4 = objc_msgSend_clone(node, a2, instantiate);
   }
 
-  v8 = v5;
-  objc_msgSend_enumerateHierarchyUsingBlock_(v5, v6, &unk_1F24EBF38, v7);
-  return v8;
+  v6 = v4;
+  objc_msgSend_enumerateHierarchyUsingBlock_(v4, v5, &unk_1F24EBF38);
+  return v6;
 }
 
 - (void)disableEntities:(id)entities
 {
-  v4 = objc_msgSend_node(self, a2, entities, v3);
+  v3 = objc_msgSend_node(self, a2, entities);
 
-  objc_msgSend_enumerateHierarchyUsingBlock_(v4, v5, &unk_1F24EBF58, v6);
+  objc_msgSend_enumerateHierarchyUsingBlock_(v3, v4, &unk_1F24EBF58);
 }
 
 - (void)copyTo:(id)to withContext:(id)context
 {
-  v7 = objc_msgSend_node(self, a2, to, context);
-  v10 = objc_msgSend_deepCloneWithContext_(v7, v8, context, v9);
-  objc_msgSend_setNode_(to, v11, v10, v12);
-  v17 = objc_msgSend_name(self, v13, v14, v15);
+  v7 = objc_msgSend_node(self, a2, to);
+  v9 = objc_msgSend_deepCloneWithContext_(v7, v8, context);
+  objc_msgSend_setNode_(to, v10, v9);
+  v14 = objc_msgSend_name(self, v11, v12);
 
-  objc_msgSend_setName_(to, v16, v17, v18);
+  objc_msgSend_setName_(to, v13, v14);
 }
 
 - (id)copyWithZone:(_NSZone *)zone
@@ -110,7 +110,7 @@
 {
   if (self->_world != reference)
   {
-    objc_msgSend_setWorld_(self, a2, reference, v3);
+    objc_msgSend_setWorld_(self, a2, reference);
   }
 }
 
@@ -119,29 +119,29 @@
   world = self->_world;
   if (world != world)
   {
-    v13[9] = v4;
-    v13[10] = v5;
+    v11[9] = v3;
+    v11[10] = v4;
     if (world)
     {
-      v13[0] = MEMORY[0x1E69E9820];
-      v13[1] = 3221225472;
-      v13[2] = sub_1AF29C92C;
-      v13[3] = &unk_1E7A7E428;
-      v13[4] = self;
-      objc_msgSend_enumerateReferencesForOperation_usingBlock_(self, a2, 1, v13);
-      objc_msgSend_didDetachFromWorld_(self, v9, self->_world, v10);
+      v11[0] = MEMORY[0x1E69E9820];
+      v11[1] = 3221225472;
+      v11[2] = sub_1AF29C92C;
+      v11[3] = &unk_1E7A7E428;
+      v11[4] = self;
+      objc_msgSend_enumerateReferencesForOperation_usingBlock_(self, a2, 1, v11);
+      objc_msgSend_didDetachFromWorld_(self, v8, self->_world);
     }
 
     self->_world = world;
     if (world)
     {
-      objc_msgSend_didAttachToWorld_(self, a2, world, v3);
-      v12[0] = MEMORY[0x1E69E9820];
-      v12[1] = 3221225472;
-      v12[2] = sub_1AF29C98C;
-      v12[3] = &unk_1E7A7E428;
-      v12[4] = self;
-      objc_msgSend_enumerateReferencesForOperation_usingBlock_(self, v11, 1, v12);
+      objc_msgSend_didAttachToWorld_(self, a2, world);
+      v10[0] = MEMORY[0x1E69E9820];
+      v10[1] = 3221225472;
+      v10[2] = sub_1AF29C98C;
+      v10[3] = &unk_1E7A7E428;
+      v10[4] = self;
+      objc_msgSend_enumerateReferencesForOperation_usingBlock_(self, v9, 1, v10);
     }
   }
 }
@@ -153,7 +153,7 @@
     return self->_world;
   }
 
-  result = objc_msgSend_worldRef(self, a2, v2, v3);
+  result = objc_msgSend_worldRef(self, a2, v2);
   if (result)
   {
 
@@ -165,23 +165,23 @@
 
 - (__CFXWorld)worldRef
 {
-  v4 = objc_msgSend___CFObject(self, a2, v2, v3);
+  v3 = objc_msgSend___CFObject(self, a2, v2);
 
-  return sub_1AF1C3FAC(v4);
+  return sub_1AF1C3FAC(v3, v4);
 }
 
 - (VFXPrefabAsset)initWithCoder:(id)coder
 {
-  v13.receiver = self;
-  v13.super_class = VFXPrefabAsset;
-  v4 = [(VFXPrefabAsset *)&v13 init];
+  v12.receiver = self;
+  v12.super_class = VFXPrefabAsset;
+  v4 = [(VFXPrefabAsset *)&v12 init];
   if (v4)
   {
     v5 = objc_opt_class();
     v7 = objc_msgSend_decodeObjectOfClass_forKey_(coder, v6, v5, @"rootNode");
-    objc_msgSend_setNode_(v4, v8, v7, v9);
-    v10 = objc_opt_class();
-    v4->_name = objc_msgSend_decodeObjectOfClass_forKey_(coder, v11, v10, @"name");
+    objc_msgSend_setNode_(v4, v8, v7);
+    v9 = objc_opt_class();
+    v4->_name = objc_msgSend_decodeObjectOfClass_forKey_(coder, v10, v9, @"name");
   }
 
   return v4;

@@ -1,9 +1,40 @@
 @interface TITextChecker
 + (id)_UITextCheckerWithAsynchronousLoading:(BOOL)loading;
 - (BOOL)doneLoading;
+- (TITextChecker)initWithAsynchronousLoading:(BOOL)loading;
+- (_NSRange)checkSpellingOfString:(id)string startingAt:(int64_t)at language:(id)language wrap:(BOOL)wrap correction:(id *)correction;
 @end
 
 @implementation TITextChecker
+
+- (_NSRange)checkSpellingOfString:(id)string startingAt:(int64_t)at language:(id)language wrap:(BOOL)wrap correction:(id *)correction
+{
+  wrapCopy = wrap;
+  stringCopy = string;
+  languageCopy = language;
+  *correction = 0;
+  checker = [(TITextChecker *)self checker];
+  _doneLoading = [checker _doneLoading];
+
+  if (_doneLoading)
+  {
+    checker2 = [(TITextChecker *)self checker];
+    v17 = [checker2 checkSpellingOfString:stringCopy startingAt:at language:languageCopy wrap:wrapCopy correction:correction];
+    v19 = v18;
+  }
+
+  else
+  {
+    v19 = 0;
+    v17 = 0x7FFFFFFFFFFFFFFFLL;
+  }
+
+  v20 = v17;
+  v21 = v19;
+  result.length = v21;
+  result.location = v20;
+  return result;
+}
 
 - (BOOL)doneLoading
 {
@@ -20,6 +51,22 @@
   }
 
   return _doneLoading;
+}
+
+- (TITextChecker)initWithAsynchronousLoading:(BOOL)loading
+{
+  loadingCopy = loading;
+  v8.receiver = self;
+  v8.super_class = TITextChecker;
+  v4 = [(TITextChecker *)&v8 init];
+  if (v4)
+  {
+    v5 = [TITextChecker _UITextCheckerWithAsynchronousLoading:loadingCopy];
+    checker = v4->_checker;
+    v4->_checker = v5;
+  }
+
+  return v4;
 }
 
 + (id)_UITextCheckerWithAsynchronousLoading:(BOOL)loading

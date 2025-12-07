@@ -1,3 +1,2092 @@
+void sub_1E06D1134(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17)
+{
+  if (a17 < 0)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+EmitterViewerSPI::MPSCastOpHandler *EmitterViewerSPI::MPSCastOpHandler::MPSCastOpHandler(EmitterViewerSPI::MPSCastOpHandler *this, EmitViewerSPI *a2, mlir::Operation *a3)
+{
+  *(this + 1) = a2;
+  *(this + 2) = a3;
+  *(this + 3) = 0;
+  *this = &unk_1F5B48120;
+  v5 = *(*(a3 + 6) + 8);
+  v30 = a3;
+  v31 = v5;
+  AttrData = mlir::OpaqueAttr::getAttrData(&v31);
+  v7 = strlen(AttrData);
+  if (v7 >= 0x7FFFFFFFFFFFFFF8)
+  {
+    std::string::__throw_length_error[abi:ne200100]();
+  }
+
+  v8 = v7;
+  if (v7 >= 0x17)
+  {
+    operator new();
+  }
+
+  v29 = v7;
+  if (v7)
+  {
+    memmove(&__dst, AttrData, v7);
+  }
+
+  *(&__dst + v8) = 0;
+  if (v29 >= 0)
+  {
+    p_dst = &__dst;
+  }
+
+  else
+  {
+    p_dst = __dst;
+  }
+
+  v27 = [MEMORY[0x1E696AEC0] stringWithCString:p_dst encoding:4];
+  v10 = [MEMORY[0x1E695DF70] array];
+  v11 = EmitViewerSPI::emitNodeInputPort(a2, @"input", *(*(v30 + 9) + 24));
+  if (v11)
+  {
+    [v10 addObject:v11];
+  }
+
+  v12 = [MEMORY[0x1E695DF70] array];
+  if (*(v30 + 9))
+  {
+    v13 = v30 - 16;
+  }
+
+  else
+  {
+    v13 = 0;
+  }
+
+  NextResultAtOffset = mlir::detail::OpResultImpl::getNextResultAtOffset(v13, 0);
+  v15 = EmitViewerSPI::emitNodeOutputPort(a2, @"result", NextResultAtOffset);
+  if (v15)
+  {
+    [v12 addObject:v15];
+  }
+
+  v16 = [MEMORY[0x1E695DF70] array];
+  mlir::pdl_interp::CheckTypeOp::getType(&v30);
+  v17 = [MEMORY[0x1E695DF70] array];
+  v18 = [MPSGraphViewerNodeSPI alloc];
+  v19 = [MEMORY[0x1E695DEC8] arrayWithArray:v10];
+  v20 = [MEMORY[0x1E695DEC8] arrayWithArray:v12];
+  v21 = [MEMORY[0x1E695DEC8] arrayWithArray:v16];
+  v22 = [MEMORY[0x1E695DEC8] arrayWithArray:v17];
+  v23 = [(MPSGraphViewerNodeSPI *)v18 initWithType:v27 inputs:v19 outputs:v20 properties:v21 regions:v22];
+  v24 = *(this + 3);
+  *(this + 3) = v23;
+
+  v25 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"Returns a tensor with the same shape and set resultElementType."];
+  [*(this + 3) setLocalizedDescription:v25];
+
+  if (v29 < 0)
+  {
+    operator delete(__dst);
+  }
+
+  return this;
+}
+
+void sub_1E06D158C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, void *a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17)
+{
+  if (a17 < 0)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+EmitterViewerSPI::MPSCeilOpHandler *EmitterViewerSPI::MPSCeilOpHandler::MPSCeilOpHandler(EmitterViewerSPI::MPSCeilOpHandler *this, EmitViewerSPI *a2, mlir::Operation *a3)
+{
+  *(this + 1) = a2;
+  *(this + 2) = a3;
+  *(this + 3) = 0;
+  *this = &unk_1F5B48150;
+  v30 = *(*(a3 + 6) + 8);
+  AttrData = mlir::OpaqueAttr::getAttrData(&v30);
+  v7 = strlen(AttrData);
+  if (v7 >= 0x7FFFFFFFFFFFFFF8)
+  {
+    std::string::__throw_length_error[abi:ne200100]();
+  }
+
+  v8 = v7;
+  if (v7 >= 0x17)
+  {
+    operator new();
+  }
+
+  v29 = v7;
+  if (v7)
+  {
+    memmove(&__dst, AttrData, v7);
+  }
+
+  *(&__dst + v8) = 0;
+  if (v29 >= 0)
+  {
+    p_dst = &__dst;
+  }
+
+  else
+  {
+    p_dst = __dst;
+  }
+
+  v27 = [MEMORY[0x1E696AEC0] stringWithCString:p_dst encoding:4];
+  v10 = [MEMORY[0x1E695DF70] array];
+  v11 = EmitViewerSPI::emitNodeInputPort(a2, @"input", *(*(a3 + 9) + 24));
+  if (v11)
+  {
+    [v10 addObject:v11];
+  }
+
+  v12 = [MEMORY[0x1E695DF70] array];
+  if (*(a3 + 9))
+  {
+    v13 = a3 - 16;
+  }
+
+  else
+  {
+    v13 = 0;
+  }
+
+  NextResultAtOffset = mlir::detail::OpResultImpl::getNextResultAtOffset(v13, 0);
+  v15 = EmitViewerSPI::emitNodeOutputPort(a2, @"result", NextResultAtOffset);
+  if (v15)
+  {
+    [v12 addObject:v15];
+  }
+
+  v16 = [MEMORY[0x1E695DF70] array];
+  v17 = [MEMORY[0x1E695DF70] array];
+  v18 = [MPSGraphViewerNodeSPI alloc];
+  v19 = [MEMORY[0x1E695DEC8] arrayWithArray:v10];
+  v20 = [MEMORY[0x1E695DEC8] arrayWithArray:v12];
+  v21 = [MEMORY[0x1E695DEC8] arrayWithArray:v16];
+  v22 = [MEMORY[0x1E695DEC8] arrayWithArray:v17];
+  v23 = [(MPSGraphViewerNodeSPI *)v18 initWithType:v27 inputs:v19 outputs:v20 properties:v21 regions:v22];
+  v24 = *(this + 3);
+  *(this + 3) = v23;
+  v25 = ;
+  [*(this + 3) setLocalizedDescription:v25];
+
+  if (v29 < 0)
+  {
+    operator delete(__dst);
+  }
+
+  return this;
+}
+
+void sub_1E06D1974(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, void *a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16)
+{
+  if (a16 < 0)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+EmitterViewerSPI::MPSClampOpHandler *EmitterViewerSPI::MPSClampOpHandler::MPSClampOpHandler(EmitterViewerSPI::MPSClampOpHandler *this, EmitViewerSPI *a2, mlir::Operation *a3)
+{
+  *(this + 1) = a2;
+  *(this + 2) = a3;
+  *(this + 3) = 0;
+  *this = &unk_1F5B48180;
+  v32 = *(*(a3 + 6) + 8);
+  AttrData = mlir::OpaqueAttr::getAttrData(&v32);
+  v7 = strlen(AttrData);
+  if (v7 >= 0x7FFFFFFFFFFFFFF8)
+  {
+    std::string::__throw_length_error[abi:ne200100]();
+  }
+
+  v8 = v7;
+  if (v7 >= 0x17)
+  {
+    operator new();
+  }
+
+  v31 = v7;
+  if (v7)
+  {
+    memmove(&__dst, AttrData, v7);
+  }
+
+  *(&__dst + v8) = 0;
+  if (v31 >= 0)
+  {
+    p_dst = &__dst;
+  }
+
+  else
+  {
+    p_dst = __dst;
+  }
+
+  v29 = [MEMORY[0x1E696AEC0] stringWithCString:p_dst encoding:4];
+  v10 = [MEMORY[0x1E695DF70] array];
+  v11 = EmitViewerSPI::emitNodeInputPort(a2, @"primary", *(*(a3 + 9) + 24));
+  if (v11)
+  {
+    [v10 addObject:v11];
+  }
+
+  v12 = EmitViewerSPI::emitNodeInputPort(a2, @"secondary", *(*(a3 + 9) + 56));
+  if (v12)
+  {
+    [v10 addObject:v12];
+  }
+
+  v13 = EmitViewerSPI::emitNodeInputPort(a2, @"tertiary", *(*(a3 + 9) + 88));
+  if (v13)
+  {
+    [v10 addObject:v13];
+  }
+
+  v14 = [MEMORY[0x1E695DF70] array];
+  if (*(a3 + 9))
+  {
+    v15 = a3 - 16;
+  }
+
+  else
+  {
+    v15 = 0;
+  }
+
+  NextResultAtOffset = mlir::detail::OpResultImpl::getNextResultAtOffset(v15, 0);
+  v17 = EmitViewerSPI::emitNodeOutputPort(a2, @"result", NextResultAtOffset);
+  if (v17)
+  {
+    [v14 addObject:v17];
+  }
+
+  v18 = [MEMORY[0x1E695DF70] array];
+  v19 = [MEMORY[0x1E695DF70] array];
+  v20 = [MPSGraphViewerNodeSPI alloc];
+  v21 = [MEMORY[0x1E695DEC8] arrayWithArray:v10];
+  v22 = [MEMORY[0x1E695DEC8] arrayWithArray:v14];
+  v23 = [MEMORY[0x1E695DEC8] arrayWithArray:v18];
+  v24 = [MEMORY[0x1E695DEC8] arrayWithArray:v19];
+  v25 = [(MPSGraphViewerNodeSPI *)v20 initWithType:v29 inputs:v21 outputs:v22 properties:v23 regions:v24];
+  v26 = *(this + 3);
+  *(this + 3) = v25;
+  v27 = ;
+  [*(this + 3) setLocalizedDescription:v27];
+
+  if (v31 < 0)
+  {
+    operator delete(__dst);
+  }
+
+  return this;
+}
+
+void sub_1E06D1DBC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, void *a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16)
+{
+  if (a16 < 0)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+EmitterViewerSPI::MPSColToImOpHandler *EmitterViewerSPI::MPSColToImOpHandler::MPSColToImOpHandler(EmitterViewerSPI::MPSColToImOpHandler *this, EmitViewerSPI *a2, mlir::Operation *a3)
+{
+  *(this + 1) = a2;
+  *(this + 2) = a3;
+  *(this + 3) = 0;
+  *this = &unk_1F5B481B0;
+  v5 = *(*(a3 + 6) + 8);
+  v61 = a3;
+  v62 = v5;
+  AttrData = mlir::OpaqueAttr::getAttrData(&v62);
+  v7 = strlen(AttrData);
+  if (v7 >= 0x7FFFFFFFFFFFFFF8)
+  {
+    std::string::__throw_length_error[abi:ne200100]();
+  }
+
+  v8 = v7;
+  if (v7 >= 0x17)
+  {
+    operator new();
+  }
+
+  v60 = v7;
+  if (v7)
+  {
+    memmove(&__dst, AttrData, v7);
+  }
+
+  *(&__dst + v8) = 0;
+  if (v60 >= 0)
+  {
+    p_dst = &__dst;
+  }
+
+  else
+  {
+    p_dst = __dst;
+  }
+
+  v57 = [MEMORY[0x1E696AEC0] stringWithCString:p_dst encoding:4];
+  v10 = [MEMORY[0x1E695DF70] array];
+  v11 = EmitViewerSPI::emitNodeInputPort(a2, @"input", *(*(v61 + 9) + 24));
+  if (v11)
+  {
+    [v10 addObject:v11];
+  }
+
+  v12 = EmitViewerSPI::emitNodeInputPort(a2, @"shape", *(*(v61 + 9) + 56));
+  if (v12)
+  {
+    [v10 addObject:v12];
+  }
+
+  v58 = [MEMORY[0x1E695DF70] array];
+  if (*(v61 + 9))
+  {
+    v13 = v61 - 16;
+  }
+
+  else
+  {
+    v13 = 0;
+  }
+
+  NextResultAtOffset = mlir::detail::OpResultImpl::getNextResultAtOffset(v13, 0);
+  v15 = EmitViewerSPI::emitNodeOutputPort(a2, @"result", NextResultAtOffset);
+  if (v15)
+  {
+    [v58 addObject:v15];
+  }
+
+  v16 = [MEMORY[0x1E695DF70] array];
+  KernelSizes = mlir::mps::ColToImOp::getKernelSizes(&v61);
+  v18 = KernelSizes;
+  if (KernelSizes)
+  {
+    v19 = mlir::detail::InterfaceMap::lookup<mlir::ElementsAttr>(*KernelSizes + 8);
+  }
+
+  else
+  {
+    v19 = 0;
+  }
+
+  v20 = EmitViewerSPI::emitElementsAttrProperty(@"kernel_sizes", v18, v19);
+  if (v20)
+  {
+    [v16 addObject:v20];
+  }
+
+  Strides = mlir::mps::ColToImOp::getStrides(&v61);
+  v22 = Strides;
+  if (Strides)
+  {
+    v23 = mlir::detail::InterfaceMap::lookup<mlir::ElementsAttr>(*Strides + 8);
+  }
+
+  else
+  {
+    v23 = 0;
+  }
+
+  v24 = EmitViewerSPI::emitElementsAttrProperty(@"strides", v22, v23);
+  if (v24)
+  {
+    [v16 addObject:v24];
+  }
+
+  InputAttributeNames = mlir::pdl_interp::CreateOperationOp::getInputAttributeNames(&v61);
+  v26 = InputAttributeNames;
+  if (InputAttributeNames)
+  {
+    v27 = mlir::detail::InterfaceMap::lookup<mlir::ElementsAttr>(*InputAttributeNames + 8);
+  }
+
+  else
+  {
+    v27 = 0;
+  }
+
+  v28 = EmitViewerSPI::emitElementsAttrProperty(@"dilation_rates", v26, v27);
+  if (v28)
+  {
+    [v16 addObject:v28];
+  }
+
+  Rewriter = mlir::pdl_interp::RecordMatchOp::getRewriter(&v61);
+  v30 = Rewriter;
+  if (Rewriter)
+  {
+    v31 = mlir::detail::InterfaceMap::lookup<mlir::ElementsAttr>(*Rewriter + 8);
+  }
+
+  else
+  {
+    v31 = 0;
+  }
+
+  v32 = EmitViewerSPI::emitElementsAttrProperty(@"explicit_padding", v30, v31);
+  if (v32)
+  {
+    [v16 addObject:v32];
+  }
+
+  StorageType = mlir::mps::MaterializeSparseTensorOp::getStorageType(&v61);
+  v34 = [MEMORY[0x1E695DF70] array];
+  v35 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"NCHW" value:0];
+  [v34 addObject:v35];
+
+  v36 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"NHWC" value:1];
+  [v34 addObject:v36];
+
+  v37 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"OIHW" value:2];
+  [v34 addObject:v37];
+
+  v38 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"HWIO" value:3];
+  [v34 addObject:v38];
+
+  v39 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"CHW" value:4];
+  [v34 addObject:v39];
+
+  v40 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"HWC" value:5];
+  [v34 addObject:v40];
+
+  v41 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"HW" value:6];
+  [v34 addObject:v41];
+
+  v42 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"NCDHW" value:7];
+  [v34 addObject:v42];
+
+  v43 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"NDHWC" value:8];
+  [v34 addObject:v43];
+
+  v44 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"OIDHW" value:9];
+  [v34 addObject:v44];
+
+  v45 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"DHWIO" value:10];
+  [v34 addObject:v45];
+
+  v46 = [[MPSGraphViewerNodePropertyEnumSPI alloc] initWithName:@"data_layout" type:@"MPSTensorDataLayout" cases:v34 value:StorageType];
+  if (v46)
+  {
+    [v16 addObject:v46];
+  }
+
+  v47 = [MEMORY[0x1E695DF70] array];
+  v48 = [MPSGraphViewerNodeSPI alloc];
+  v49 = [MEMORY[0x1E695DEC8] arrayWithArray:v10];
+  v50 = [MEMORY[0x1E695DEC8] arrayWithArray:v58];
+  v51 = [MEMORY[0x1E695DEC8] arrayWithArray:v16];
+  v52 = [MEMORY[0x1E695DEC8] arrayWithArray:v47];
+  v53 = [(MPSGraphViewerNodeSPI *)v48 initWithType:v57 inputs:v49 outputs:v50 properties:v51 regions:v52];
+  v54 = *(this + 3);
+  *(this + 3) = v53;
+  v55 = ;
+  [*(this + 3) setLocalizedDescription:v55];
+
+  if (v60 < 0)
+  {
+    operator delete(__dst);
+  }
+
+  return this;
+}
+
+void sub_1E06D259C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, void *a10, void *a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17)
+{
+  if (a17 < 0)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+EmitterViewerSPI::MPSConcatOpHandler *EmitterViewerSPI::MPSConcatOpHandler::MPSConcatOpHandler(EmitterViewerSPI::MPSConcatOpHandler *this, EmitViewerSPI *a2, mlir::Operation *a3)
+{
+  *(this + 1) = a2;
+  *(this + 2) = a3;
+  *(this + 3) = 0;
+  *this = &unk_1F5B481E0;
+  v4 = *(*(a3 + 6) + 8);
+  v45 = a3;
+  v46 = v4;
+  AttrData = mlir::OpaqueAttr::getAttrData(&v46);
+  v6 = strlen(AttrData);
+  if (v6 >= 0x7FFFFFFFFFFFFFF8)
+  {
+    std::string::__throw_length_error[abi:ne200100]();
+  }
+
+  v7 = v6;
+  if (v6 >= 0x17)
+  {
+    operator new();
+  }
+
+  v44 = v6;
+  if (v6)
+  {
+    memmove(&__dst, AttrData, v6);
+  }
+
+  *(&__dst + v7) = 0;
+  if (v44 >= 0)
+  {
+    p_dst = &__dst;
+  }
+
+  else
+  {
+    p_dst = __dst;
+  }
+
+  v41 = [MEMORY[0x1E696AEC0] stringWithCString:p_dst encoding:4];
+  v9 = [MEMORY[0x1E695DF70] array];
+  ODSOperandIndexAndLength = mlir::mps::ConcatOp::getODSOperandIndexAndLength(&v45, 0);
+  if ((*(v45 + 46) & 0x80) != 0)
+  {
+    v11 = *(v45 + 9);
+    v12 = ODSOperandIndexAndLength;
+    v13 = (HIDWORD(ODSOperandIndexAndLength) + ODSOperandIndexAndLength);
+    v14 = v13 - ODSOperandIndexAndLength;
+    if (v13 == ODSOperandIndexAndLength)
+    {
+      goto LABEL_12;
+    }
+  }
+
+  else
+  {
+    v11 = 0;
+    v12 = ODSOperandIndexAndLength;
+    v34 = (HIDWORD(ODSOperandIndexAndLength) + ODSOperandIndexAndLength);
+    v14 = v34 - ODSOperandIndexAndLength;
+    if (v34 == ODSOperandIndexAndLength)
+    {
+      goto LABEL_12;
+    }
+  }
+
+  v35 = 0;
+  v36 = v11 + 32 * v12;
+  v37 = 1;
+  do
+  {
+    v38 = *(v36 + 32 * v35 + 24);
+    v39 = [MEMORY[0x1E696AEC0] stringWithFormat:@"values%d", v37 - 1];
+    v40 = EmitViewerSPI::emitNodeInputPort(a2, v39, v38);
+
+    if (v40)
+    {
+      [v9 addObject:v40];
+    }
+
+    v35 = v37++;
+  }
+
+  while (v14 > v35);
+LABEL_12:
+  v15 = mlir::mps::ConcatOp::getODSOperandIndexAndLength(&v45, 1u);
+  v16 = EmitViewerSPI::emitNodeInputPort(a2, @"axis", *(*(v45 + 9) + 32 * v15 + 24));
+  if (v16)
+  {
+    [v9 addObject:v16];
+  }
+
+  v17 = [MEMORY[0x1E695DF70] array];
+  if (*(v45 + 9))
+  {
+    v18 = v45 - 16;
+  }
+
+  else
+  {
+    v18 = 0;
+  }
+
+  NextResultAtOffset = mlir::detail::OpResultImpl::getNextResultAtOffset(v18, 0);
+  v20 = EmitViewerSPI::emitNodeOutputPort(a2, @"result", NextResultAtOffset);
+  if (v20)
+  {
+    [v17 addObject:v20];
+  }
+
+  v21 = [MEMORY[0x1E695DF70] array];
+  LOBYTE(v46) = mlir::pdl_interp::CreateOperationOp::getInferredResultTypes(&v45);
+  v22 = [[MPSGraphViewerNodePropertyDataSPI alloc] initWithName:@"interleave" dataType:2147483656 shape:&unk_1F5B76220];
+  if (v22)
+  {
+    v23 = [MEMORY[0x1E695DEF0] dataWithBytes:&v46 length:1];
+    [(MPSGraphViewerNodePropertyDataSPI *)v22 setValue:v23];
+
+    [v21 addObject:v22];
+  }
+
+  v24 = [MEMORY[0x1E695DF70] array];
+  v25 = [MPSGraphViewerNodeSPI alloc];
+  v26 = [MEMORY[0x1E695DEC8] arrayWithArray:v9];
+  v27 = [MEMORY[0x1E695DEC8] arrayWithArray:v17];
+  v28 = [MEMORY[0x1E695DEC8] arrayWithArray:v21];
+  v29 = [MEMORY[0x1E695DEC8] arrayWithArray:v24];
+  v30 = [(MPSGraphViewerNodeSPI *)v25 initWithType:v41 inputs:v26 outputs:v27 properties:v28 regions:v29];
+  v31 = *(this + 3);
+  *(this + 3) = v30;
+  v32 = ;
+  [*(this + 3) setLocalizedDescription:v32];
+
+  if (v44 < 0)
+  {
+    operator delete(__dst);
+  }
+
+  return this;
+}
+
+void sub_1E06D2B98(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17)
+{
+  if (a17 < 0)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+EmitterViewerSPI::MPSConjugateOpHandler *EmitterViewerSPI::MPSConjugateOpHandler::MPSConjugateOpHandler(EmitterViewerSPI::MPSConjugateOpHandler *this, EmitViewerSPI *a2, mlir::Operation *a3)
+{
+  *(this + 1) = a2;
+  *(this + 2) = a3;
+  *(this + 3) = 0;
+  *this = &unk_1F5B48210;
+  v30 = *(*(a3 + 6) + 8);
+  AttrData = mlir::OpaqueAttr::getAttrData(&v30);
+  v7 = strlen(AttrData);
+  if (v7 >= 0x7FFFFFFFFFFFFFF8)
+  {
+    std::string::__throw_length_error[abi:ne200100]();
+  }
+
+  v8 = v7;
+  if (v7 >= 0x17)
+  {
+    operator new();
+  }
+
+  v29 = v7;
+  if (v7)
+  {
+    memmove(&__dst, AttrData, v7);
+  }
+
+  *(&__dst + v8) = 0;
+  if (v29 >= 0)
+  {
+    p_dst = &__dst;
+  }
+
+  else
+  {
+    p_dst = __dst;
+  }
+
+  v27 = [MEMORY[0x1E696AEC0] stringWithCString:p_dst encoding:4];
+  v10 = [MEMORY[0x1E695DF70] array];
+  v11 = EmitViewerSPI::emitNodeInputPort(a2, @"input", *(*(a3 + 9) + 24));
+  if (v11)
+  {
+    [v10 addObject:v11];
+  }
+
+  v12 = [MEMORY[0x1E695DF70] array];
+  if (*(a3 + 9))
+  {
+    v13 = a3 - 16;
+  }
+
+  else
+  {
+    v13 = 0;
+  }
+
+  NextResultAtOffset = mlir::detail::OpResultImpl::getNextResultAtOffset(v13, 0);
+  v15 = EmitViewerSPI::emitNodeOutputPort(a2, @"result", NextResultAtOffset);
+  if (v15)
+  {
+    [v12 addObject:v15];
+  }
+
+  v16 = [MEMORY[0x1E695DF70] array];
+  v17 = [MEMORY[0x1E695DF70] array];
+  v18 = [MPSGraphViewerNodeSPI alloc];
+  v19 = [MEMORY[0x1E695DEC8] arrayWithArray:v10];
+  v20 = [MEMORY[0x1E695DEC8] arrayWithArray:v12];
+  v21 = [MEMORY[0x1E695DEC8] arrayWithArray:v16];
+  v22 = [MEMORY[0x1E695DEC8] arrayWithArray:v17];
+  v23 = [(MPSGraphViewerNodeSPI *)v18 initWithType:v27 inputs:v19 outputs:v20 properties:v21 regions:v22];
+  v24 = *(this + 3);
+  *(this + 3) = v23;
+
+  v25 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"Calculates the complex complex conjugate of a tensor. For non-complex type tensors this is equivelent to an identity operation."];
+  [*(this + 3) setLocalizedDescription:v25];
+
+  if (v29 < 0)
+  {
+    operator delete(__dst);
+  }
+
+  return this;
+}
+
+void sub_1E06D2FBC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, void *a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16)
+{
+  if (a16 < 0)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+EmitterViewerSPI::MPSConstantOpHandler *EmitterViewerSPI::MPSConstantOpHandler::MPSConstantOpHandler(EmitterViewerSPI::MPSConstantOpHandler *this, EmitViewerSPI *a2, mlir::Operation *a3)
+{
+  *(this + 1) = a2;
+  *(this + 2) = a3;
+  *(this + 3) = 0;
+  *this = &unk_1F5B48240;
+  v41.n128_u64[0] = *(*(a3 + 6) + 8);
+  AttrData = mlir::OpaqueAttr::getAttrData(&v41);
+  v7 = strlen(AttrData);
+  if (v7 >= 0x7FFFFFFFFFFFFFF8)
+  {
+    std::string::__throw_length_error[abi:ne200100]();
+  }
+
+  v8 = v7;
+  if (v7 >= 0x17)
+  {
+    operator new();
+  }
+
+  v40 = v7;
+  if (v7)
+  {
+    memmove(&__dst, AttrData, v7);
+  }
+
+  *(&__dst + v8) = 0;
+  if (v40 >= 0)
+  {
+    p_dst = &__dst;
+  }
+
+  else
+  {
+    p_dst = __dst;
+  }
+
+  v37 = [MEMORY[0x1E696AEC0] stringWithCString:p_dst encoding:4];
+  v10 = [MEMORY[0x1E695DF70] array];
+  v11 = [MEMORY[0x1E695DF70] array];
+  if (*(a3 + 9))
+  {
+    v12 = a3 - 16;
+  }
+
+  else
+  {
+    v12 = 0;
+  }
+
+  NextResultAtOffset = mlir::detail::OpResultImpl::getNextResultAtOffset(v12, 0);
+  v14 = EmitViewerSPI::emitNodeOutputPort(a2, @"result", NextResultAtOffset);
+  if (v14)
+  {
+    [v11 addObject:v14];
+  }
+
+  v15 = [MEMORY[0x1E695DF70] array];
+  if (HIBYTE(*(a3 + 11)))
+  {
+    v16 = *(a3 + 2 * ((*(a3 + 11) >> 23) & 1) + 8);
+    v38 = v16;
+    if (v16 && ((v17 = *(v16->n128_u64[0] + 136), v18 = v17 == &mlir::detail::TypeIDResolver<mlir::mps::MPSBufferTensorAttr,void>::id, v17 != &mlir::detail::TypeIDResolver<mlir::mps::MPSBufferTensorAttr,void>::id) ? (v19 = 0) : (v19 = v16), (v42 = v19, !v18) || (mlir::mps::MPSBufferTensorAttr::getHandle(&v41, &v42), Context = mlir::Attribute::getContext(&v42), Manager = mlir::mps::MPSResourceBlobManagerInterface::getManager(Context, v21), v23 = v41.n128_u64[0], llvm::sys::RWMutexImpl::lock((Manager + 48)), ++*(v23 + 88), llvm::sys::RWMutexImpl::unlock_shared((Manager + 48)), (v16 = v38) != 0)))
+    {
+      v24 = mlir::detail::InterfaceMap::lookup<mlir::ElementsAttr>(v16->n128_u64[0] + 8);
+    }
+
+    else
+    {
+      v24 = 0;
+    }
+
+    mlir::mps::AttributeHandler::decrementRefCount(&v38);
+    v25 = EmitViewerSPI::emitElementsAttrProperty(@"value", v16, v24);
+    if (v25)
+    {
+      [v15 addObject:v25];
+    }
+  }
+
+  v26 = [MEMORY[0x1E695DF70] array];
+  v27 = [MPSGraphViewerNodeSPI alloc];
+  v28 = [MEMORY[0x1E695DEC8] arrayWithArray:v10];
+  v29 = v11;
+  v30 = [MEMORY[0x1E695DEC8] arrayWithArray:v11];
+  v31 = [MEMORY[0x1E695DEC8] arrayWithArray:v15];
+  v32 = [MEMORY[0x1E695DEC8] arrayWithArray:v26];
+  v33 = [(MPSGraphViewerNodeSPI *)v27 initWithType:v37 inputs:v28 outputs:v30 properties:v31 regions:v32];
+  v34 = *(this + 3);
+  *(this + 3) = v33;
+
+  v35 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"Turn a literal into an SSA value. The data is attached to the operation as an attribute."];
+  [*(this + 3) setLocalizedDescription:v35];
+
+  if (v40 < 0)
+  {
+    operator delete(__dst);
+  }
+
+  return this;
+}
+
+void sub_1E06D3448(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, void *a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17)
+{
+  mlir::mps::AttributeHandler::decrementRefCount(&a11);
+
+  if (a17 < 0)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+uint64_t *std::__optional_destruct_base<mlir::AsmResourceBlob,false>::reset[abi:ne200100](uint64_t *result)
+{
+  if (*(result + 64) == 1)
+  {
+    v1 = result;
+    v2 = result[6];
+    if (v2 >= 8)
+    {
+      v3 = result + 3;
+      v4 = *result;
+      v5 = result[1];
+      v6 = result[2];
+      v7 = result + 3;
+      if ((v2 & 2) == 0)
+      {
+        v7 = *v3;
+      }
+
+      result = (*(v2 & 0xFFFFFFFFFFFFFFF8))(v7, v4, v5, v6);
+      v8 = *(v1 + 48);
+      if (v8 >= 8)
+      {
+        if ((v8 & 4) != 0)
+        {
+          if ((v8 & 2) == 0)
+          {
+            v3 = *v3;
+          }
+
+          result = (*((v8 & 0xFFFFFFFFFFFFFFF8) + 16))(v3);
+        }
+
+        if ((v8 & 2) == 0)
+        {
+          llvm::deallocate_buffer(*(v1 + 24), *(v1 + 32));
+        }
+      }
+    }
+
+    *(v1 + 64) = 0;
+  }
+
+  return result;
+}
+
+EmitterViewerSPI::MPSConv2DDataGradientOpHandler *EmitterViewerSPI::MPSConv2DDataGradientOpHandler::MPSConv2DDataGradientOpHandler(EmitterViewerSPI::MPSConv2DDataGradientOpHandler *this, EmitViewerSPI *a2, mlir::Operation *a3)
+{
+  *(this + 1) = a2;
+  *(this + 2) = a3;
+  *(this + 3) = 0;
+  *this = &unk_1F5B48270;
+  v5 = *(*(a3 + 6) + 8);
+  v90 = a3;
+  Groups = v5;
+  AttrData = mlir::OpaqueAttr::getAttrData(&Groups);
+  v7 = strlen(AttrData);
+  if (v7 >= 0x7FFFFFFFFFFFFFF8)
+  {
+    std::string::__throw_length_error[abi:ne200100]();
+  }
+
+  v8 = v7;
+  if (v7 >= 0x17)
+  {
+    operator new();
+  }
+
+  v89 = v7;
+  if (v7)
+  {
+    memmove(&__dst, AttrData, v7);
+  }
+
+  *(&__dst + v8) = 0;
+  if (v89 >= 0)
+  {
+    p_dst = &__dst;
+  }
+
+  else
+  {
+    p_dst = __dst;
+  }
+
+  v10 = [MEMORY[0x1E696AEC0] stringWithCString:p_dst encoding:4];
+  v87 = [MEMORY[0x1E695DF70] array];
+  v85 = v10;
+  ODSOperandIndexAndLength = mlir::mps::Conv2DDataGradientOp::getODSOperandIndexAndLength(&v90, 0);
+  v12 = EmitViewerSPI::emitNodeInputPort(a2, @"gradient", *(*(v90 + 9) + 32 * ODSOperandIndexAndLength + 24));
+  if (v12)
+  {
+    [v87 addObject:v12];
+  }
+
+  v13 = mlir::mps::Conv2DDataGradientOp::getODSOperandIndexAndLength(&v90, 1u);
+  v14 = EmitViewerSPI::emitNodeInputPort(a2, @"weights", *(*(v90 + 9) + 32 * v13 + 24));
+  if (v14)
+  {
+    [v87 addObject:v14];
+  }
+
+  v15 = mlir::mps::Conv2DDataGradientOp::getODSOperandIndexAndLength(&v90, 2u);
+  if ((*(v90 + 46) & 0x80) != 0)
+  {
+    v16 = *(v90 + 9);
+    v17 = v15;
+    if (HIDWORD(v15) + v15 == v15)
+    {
+LABEL_16:
+      v18 = 0;
+      goto LABEL_19;
+    }
+  }
+
+  else
+  {
+    v16 = 0;
+    v17 = v15;
+    if (HIDWORD(v15) + v15 == v15)
+    {
+      goto LABEL_16;
+    }
+  }
+
+  v18 = *(v16 + 32 * v17 + 24);
+LABEL_19:
+  v19 = EmitViewerSPI::emitNodeInputPort(a2, @"outputShape", v18);
+  if (v19)
+  {
+    [v87 addObject:v19];
+  }
+
+  v86 = [MEMORY[0x1E695DF70] array];
+  if (*(v90 + 9))
+  {
+    v20 = v90 - 16;
+  }
+
+  else
+  {
+    v20 = 0;
+  }
+
+  NextResultAtOffset = mlir::detail::OpResultImpl::getNextResultAtOffset(v20, 0);
+  v22 = EmitViewerSPI::emitNodeOutputPort(a2, @"result", NextResultAtOffset);
+  if (v22)
+  {
+    [v86 addObject:v22];
+  }
+
+  v23 = [MEMORY[0x1E695DF70] array];
+  Groups = mlir::mps::Conv3DOp::getGroups(&v90);
+  v24 = [[MPSGraphViewerNodePropertyDataSPI alloc] initWithName:@"groups" dataType:64 shape:&unk_1F5B76238];
+  if (v24)
+  {
+    v25 = [MEMORY[0x1E695DEF0] dataWithBytes:&Groups length:8];
+    [(MPSGraphViewerNodePropertyDataSPI *)v24 setValue:v25];
+
+    [v23 addObject:v24];
+  }
+
+  Strides = mlir::mps::Conv3DOp::getStrides(&v90);
+  v27 = Strides;
+  if (Strides)
+  {
+    v28 = mlir::detail::InterfaceMap::lookup<mlir::ElementsAttr>(*Strides + 8);
+  }
+
+  else
+  {
+    v28 = 0;
+  }
+
+  v29 = EmitViewerSPI::emitElementsAttrProperty(@"strides", v27, v28);
+  v84 = v29;
+  if (v29)
+  {
+    [v23 addObject:v29];
+  }
+
+  InputAttributeNames = mlir::pdl_interp::CreateOperationOp::getInputAttributeNames(&v90);
+  v31 = InputAttributeNames;
+  if (InputAttributeNames)
+  {
+    v32 = mlir::detail::InterfaceMap::lookup<mlir::ElementsAttr>(*InputAttributeNames + 8);
+  }
+
+  else
+  {
+    v32 = 0;
+  }
+
+  v33 = EmitViewerSPI::emitElementsAttrProperty(@"dilation_rates", v31, v32);
+  if (v33)
+  {
+    [v23 addObject:v33];
+  }
+
+  Rewriter = mlir::pdl_interp::RecordMatchOp::getRewriter(&v90);
+  v35 = Rewriter;
+  if (Rewriter)
+  {
+    v36 = mlir::detail::InterfaceMap::lookup<mlir::ElementsAttr>(*Rewriter + 8);
+  }
+
+  else
+  {
+    v36 = 0;
+  }
+
+  v37 = EmitViewerSPI::emitElementsAttrProperty(@"explicit_padding", v35, v36);
+  if (v37)
+  {
+    [v23 addObject:v37];
+  }
+
+  PaddingStyle = mlir::mps::Conv3DOp::getPaddingStyle(&v90);
+  v39 = [MEMORY[0x1E695DF70] array];
+  v40 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"EXPLICIT" value:0];
+  [v39 addObject:v40];
+
+  v41 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"TF_VALID" value:1];
+  [v39 addObject:v41];
+
+  v42 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"TF_SAME" value:2];
+  [v39 addObject:v42];
+
+  v43 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"EXPLICIT_OFFSET" value:3];
+  [v39 addObject:v43];
+
+  v44 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"ONNX_SAME_LOWER" value:4];
+  [v39 addObject:v44];
+
+  v45 = [[MPSGraphViewerNodePropertyEnumSPI alloc] initWithName:@"padding_style" type:@"MPSPaddingStyle" cases:v39 value:PaddingStyle];
+  if (v45)
+  {
+    [v23 addObject:v45];
+  }
+
+  StorageType = mlir::mps::MaterializeSparseTensorOp::getStorageType(&v90);
+  v47 = [MEMORY[0x1E695DF70] array];
+  v48 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"NCHW" value:0];
+  [v47 addObject:v48];
+
+  v49 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"NHWC" value:1];
+  [v47 addObject:v49];
+
+  v50 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"OIHW" value:2];
+  [v47 addObject:v50];
+
+  v51 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"HWIO" value:3];
+  [v47 addObject:v51];
+
+  v52 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"CHW" value:4];
+  [v47 addObject:v52];
+
+  v53 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"HWC" value:5];
+  [v47 addObject:v53];
+
+  v54 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"HW" value:6];
+  [v47 addObject:v54];
+
+  v55 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"NCDHW" value:7];
+  [v47 addObject:v55];
+
+  v56 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"NDHWC" value:8];
+  [v47 addObject:v56];
+
+  v57 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"OIDHW" value:9];
+  [v47 addObject:v57];
+
+  v58 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"DHWIO" value:10];
+  [v47 addObject:v58];
+
+  v59 = [[MPSGraphViewerNodePropertyEnumSPI alloc] initWithName:@"data_layout" type:@"MPSTensorDataLayout" cases:v47 value:StorageType];
+  if (v59)
+  {
+    [v23 addObject:v59];
+  }
+
+  WeightsLayout = mlir::mps::Conv3DOp::getWeightsLayout(&v90);
+  v61 = [MEMORY[0x1E695DF70] array];
+  v62 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"NCHW" value:0];
+  [v61 addObject:v62];
+
+  v63 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"NHWC" value:1];
+  [v61 addObject:v63];
+
+  v64 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"OIHW" value:2];
+  [v61 addObject:v64];
+
+  v65 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"HWIO" value:3];
+  [v61 addObject:v65];
+
+  v66 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"CHW" value:4];
+  [v61 addObject:v66];
+
+  v67 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"HWC" value:5];
+  [v61 addObject:v67];
+
+  v68 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"HW" value:6];
+  [v61 addObject:v68];
+
+  v69 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"NCDHW" value:7];
+  [v61 addObject:v69];
+
+  v70 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"NDHWC" value:8];
+  [v61 addObject:v70];
+
+  v71 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"OIDHW" value:9];
+  [v61 addObject:v71];
+
+  v72 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"DHWIO" value:10];
+  [v61 addObject:v72];
+
+  v73 = [[MPSGraphViewerNodePropertyEnumSPI alloc] initWithName:@"weights_layout" type:@"MPSTensorDataLayout" cases:v61 value:WeightsLayout];
+  if (v73)
+  {
+    [v23 addObject:v73];
+  }
+
+  v74 = [MEMORY[0x1E695DF70] array];
+  v75 = [MPSGraphViewerNodeSPI alloc];
+  v76 = [MEMORY[0x1E695DEC8] arrayWithArray:v87];
+  v77 = [MEMORY[0x1E695DEC8] arrayWithArray:v86];
+  v78 = [MEMORY[0x1E695DEC8] arrayWithArray:v23];
+  v79 = [MEMORY[0x1E695DEC8] arrayWithArray:v74];
+  v80 = [(MPSGraphViewerNodeSPI *)v75 initWithType:v85 inputs:v76 outputs:v77 properties:v78 regions:v79];
+  v81 = *(this + 3);
+  *(this + 3) = v80;
+
+  v82 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"conv2DDataGradient operation"];
+  [*(this + 3) setLocalizedDescription:v82];
+
+  if (v89 < 0)
+  {
+    operator delete(__dst);
+  }
+
+  return this;
+}
+
+void sub_1E06D4124(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, void *a11, void *a12, void *a13, void *__p, uint64_t a15, int a16, __int16 a17, char a18, char a19)
+{
+  if (a19 < 0)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+EmitterViewerSPI::MPSConv2DOpHandler *EmitterViewerSPI::MPSConv2DOpHandler::MPSConv2DOpHandler(EmitterViewerSPI::MPSConv2DOpHandler *this, EmitViewerSPI *a2, mlir::Operation *a3)
+{
+  *(this + 1) = a2;
+  *(this + 2) = a3;
+  *(this + 3) = 0;
+  *this = &unk_1F5B482A0;
+  v5 = *(*(a3 + 6) + 8);
+  v82 = a3;
+  Groups = v5;
+  AttrData = mlir::OpaqueAttr::getAttrData(&Groups);
+  v7 = strlen(AttrData);
+  if (v7 >= 0x7FFFFFFFFFFFFFF8)
+  {
+    std::string::__throw_length_error[abi:ne200100]();
+  }
+
+  v8 = v7;
+  if (v7 >= 0x17)
+  {
+    operator new();
+  }
+
+  v81 = v7;
+  if (v7)
+  {
+    memmove(&__dst, AttrData, v7);
+  }
+
+  *(&__dst + v8) = 0;
+  if (v81 >= 0)
+  {
+    p_dst = &__dst;
+  }
+
+  else
+  {
+    p_dst = __dst;
+  }
+
+  v77 = [MEMORY[0x1E696AEC0] stringWithCString:p_dst encoding:4];
+  v79 = [MEMORY[0x1E695DF70] array];
+  v10 = EmitViewerSPI::emitNodeInputPort(a2, @"input", *(*(v82 + 9) + 24));
+  if (v10)
+  {
+    [v79 addObject:v10];
+  }
+
+  v11 = EmitViewerSPI::emitNodeInputPort(a2, @"weights", *(*(v82 + 9) + 56));
+  if (v11)
+  {
+    [v79 addObject:v11];
+  }
+
+  v78 = [MEMORY[0x1E695DF70] array];
+  if (*(v82 + 9))
+  {
+    v12 = v82 - 16;
+  }
+
+  else
+  {
+    v12 = 0;
+  }
+
+  NextResultAtOffset = mlir::detail::OpResultImpl::getNextResultAtOffset(v12, 0);
+  v14 = EmitViewerSPI::emitNodeOutputPort(a2, @"result", NextResultAtOffset);
+  if (v14)
+  {
+    [v78 addObject:v14];
+  }
+
+  v15 = [MEMORY[0x1E695DF70] array];
+  Groups = mlir::mps::Conv3DOp::getGroups(&v82);
+  v16 = [[MPSGraphViewerNodePropertyDataSPI alloc] initWithName:@"groups" dataType:64 shape:&unk_1F5B76250];
+  if (v16)
+  {
+    v17 = [MEMORY[0x1E695DEF0] dataWithBytes:&Groups length:8];
+    [(MPSGraphViewerNodePropertyDataSPI *)v16 setValue:v17];
+
+    [v15 addObject:v16];
+  }
+
+  Strides = mlir::mps::Conv3DOp::getStrides(&v82);
+  v19 = Strides;
+  if (Strides)
+  {
+    v20 = mlir::detail::InterfaceMap::lookup<mlir::ElementsAttr>(*Strides + 8);
+  }
+
+  else
+  {
+    v20 = 0;
+  }
+
+  v21 = EmitViewerSPI::emitElementsAttrProperty(@"strides", v19, v20);
+  v76 = v21;
+  if (v21)
+  {
+    [v15 addObject:v21];
+  }
+
+  InputAttributeNames = mlir::pdl_interp::CreateOperationOp::getInputAttributeNames(&v82);
+  v23 = InputAttributeNames;
+  if (InputAttributeNames)
+  {
+    v24 = mlir::detail::InterfaceMap::lookup<mlir::ElementsAttr>(*InputAttributeNames + 8);
+  }
+
+  else
+  {
+    v24 = 0;
+  }
+
+  v25 = EmitViewerSPI::emitElementsAttrProperty(@"dilation_rates", v23, v24);
+  if (v25)
+  {
+    [v15 addObject:v25];
+  }
+
+  Rewriter = mlir::pdl_interp::RecordMatchOp::getRewriter(&v82);
+  v27 = Rewriter;
+  if (Rewriter)
+  {
+    v28 = mlir::detail::InterfaceMap::lookup<mlir::ElementsAttr>(*Rewriter + 8);
+  }
+
+  else
+  {
+    v28 = 0;
+  }
+
+  v29 = EmitViewerSPI::emitElementsAttrProperty(@"explicit_padding", v27, v28);
+  if (v29)
+  {
+    [v15 addObject:v29];
+  }
+
+  PaddingStyle = mlir::mps::Conv3DOp::getPaddingStyle(&v82);
+  v31 = [MEMORY[0x1E695DF70] array];
+  v32 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"EXPLICIT" value:0];
+  [v31 addObject:v32];
+
+  v33 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"TF_VALID" value:1];
+  [v31 addObject:v33];
+
+  v34 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"TF_SAME" value:2];
+  [v31 addObject:v34];
+
+  v35 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"EXPLICIT_OFFSET" value:3];
+  [v31 addObject:v35];
+
+  v36 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"ONNX_SAME_LOWER" value:4];
+  [v31 addObject:v36];
+
+  v37 = [[MPSGraphViewerNodePropertyEnumSPI alloc] initWithName:@"padding_style" type:@"MPSPaddingStyle" cases:v31 value:PaddingStyle];
+  if (v37)
+  {
+    [v15 addObject:v37];
+  }
+
+  StorageType = mlir::mps::MaterializeSparseTensorOp::getStorageType(&v82);
+  v39 = [MEMORY[0x1E695DF70] array];
+  v40 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"NCHW" value:0];
+  [v39 addObject:v40];
+
+  v41 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"NHWC" value:1];
+  [v39 addObject:v41];
+
+  v42 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"OIHW" value:2];
+  [v39 addObject:v42];
+
+  v43 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"HWIO" value:3];
+  [v39 addObject:v43];
+
+  v44 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"CHW" value:4];
+  [v39 addObject:v44];
+
+  v45 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"HWC" value:5];
+  [v39 addObject:v45];
+
+  v46 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"HW" value:6];
+  [v39 addObject:v46];
+
+  v47 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"NCDHW" value:7];
+  [v39 addObject:v47];
+
+  v48 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"NDHWC" value:8];
+  [v39 addObject:v48];
+
+  v49 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"OIDHW" value:9];
+  [v39 addObject:v49];
+
+  v50 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"DHWIO" value:10];
+  [v39 addObject:v50];
+
+  v51 = [[MPSGraphViewerNodePropertyEnumSPI alloc] initWithName:@"data_layout" type:@"MPSTensorDataLayout" cases:v39 value:StorageType];
+  if (v51)
+  {
+    [v15 addObject:v51];
+  }
+
+  WeightsLayout = mlir::mps::Conv3DOp::getWeightsLayout(&v82);
+  v53 = [MEMORY[0x1E695DF70] array];
+  v54 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"NCHW" value:0];
+  [v53 addObject:v54];
+
+  v55 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"NHWC" value:1];
+  [v53 addObject:v55];
+
+  v56 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"OIHW" value:2];
+  [v53 addObject:v56];
+
+  v57 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"HWIO" value:3];
+  [v53 addObject:v57];
+
+  v58 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"CHW" value:4];
+  [v53 addObject:v58];
+
+  v59 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"HWC" value:5];
+  [v53 addObject:v59];
+
+  v60 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"HW" value:6];
+  [v53 addObject:v60];
+
+  v61 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"NCDHW" value:7];
+  [v53 addObject:v61];
+
+  v62 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"NDHWC" value:8];
+  [v53 addObject:v62];
+
+  v63 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"OIDHW" value:9];
+  [v53 addObject:v63];
+
+  v64 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"DHWIO" value:10];
+  [v53 addObject:v64];
+
+  v65 = [[MPSGraphViewerNodePropertyEnumSPI alloc] initWithName:@"weights_layout" type:@"MPSTensorDataLayout" cases:v53 value:WeightsLayout];
+  if (v65)
+  {
+    [v15 addObject:v65];
+  }
+
+  v66 = [MEMORY[0x1E695DF70] array];
+  v67 = [MPSGraphViewerNodeSPI alloc];
+  v68 = [MEMORY[0x1E695DEC8] arrayWithArray:v79];
+  v69 = [MEMORY[0x1E695DEC8] arrayWithArray:v78];
+  v70 = [MEMORY[0x1E695DEC8] arrayWithArray:v15];
+  v71 = [MEMORY[0x1E695DEC8] arrayWithArray:v66];
+  v72 = [(MPSGraphViewerNodeSPI *)v67 initWithType:v77 inputs:v68 outputs:v69 properties:v70 regions:v71];
+  v73 = *(this + 3);
+  *(this + 3) = v72;
+  v74 = ;
+  [*(this + 3) setLocalizedDescription:v74];
+
+  if (v81 < 0)
+  {
+    operator delete(__dst);
+  }
+
+  return this;
+}
+
+void sub_1E06D4E38(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, void *a11, void *a12, void *a13, void *__p, uint64_t a15, int a16, __int16 a17, char a18, char a19)
+{
+  if (a19 < 0)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+EmitterViewerSPI::MPSConv2DWeightsGradientOpHandler *EmitterViewerSPI::MPSConv2DWeightsGradientOpHandler::MPSConv2DWeightsGradientOpHandler(EmitterViewerSPI::MPSConv2DWeightsGradientOpHandler *this, EmitViewerSPI *a2, mlir::Operation *a3)
+{
+  *(this + 1) = a2;
+  *(this + 2) = a3;
+  *(this + 3) = 0;
+  *this = &unk_1F5B482D0;
+  v5 = *(*(a3 + 6) + 8);
+  v83 = a3;
+  Groups = v5;
+  AttrData = mlir::OpaqueAttr::getAttrData(&Groups);
+  v7 = strlen(AttrData);
+  if (v7 >= 0x7FFFFFFFFFFFFFF8)
+  {
+    std::string::__throw_length_error[abi:ne200100]();
+  }
+
+  v8 = v7;
+  if (v7 >= 0x17)
+  {
+    operator new();
+  }
+
+  v82 = v7;
+  if (v7)
+  {
+    memmove(&__dst, AttrData, v7);
+  }
+
+  *(&__dst + v8) = 0;
+  if (v82 >= 0)
+  {
+    p_dst = &__dst;
+  }
+
+  else
+  {
+    p_dst = __dst;
+  }
+
+  v78 = [MEMORY[0x1E696AEC0] stringWithCString:p_dst encoding:4];
+  v80 = [MEMORY[0x1E695DF70] array];
+  v10 = EmitViewerSPI::emitNodeInputPort(a2, @"gradient", *(*(v83 + 9) + 24));
+  if (v10)
+  {
+    [v80 addObject:v10];
+  }
+
+  v11 = EmitViewerSPI::emitNodeInputPort(a2, @"input", *(*(v83 + 9) + 56));
+  if (v11)
+  {
+    [v80 addObject:v11];
+  }
+
+  v12 = EmitViewerSPI::emitNodeInputPort(a2, @"outputShape", *(*(v83 + 9) + 88));
+  if (v12)
+  {
+    [v80 addObject:v12];
+  }
+
+  v79 = [MEMORY[0x1E695DF70] array];
+  if (*(v83 + 9))
+  {
+    v13 = v83 - 16;
+  }
+
+  else
+  {
+    v13 = 0;
+  }
+
+  NextResultAtOffset = mlir::detail::OpResultImpl::getNextResultAtOffset(v13, 0);
+  v15 = EmitViewerSPI::emitNodeOutputPort(a2, @"result", NextResultAtOffset);
+  if (v15)
+  {
+    [v79 addObject:v15];
+  }
+
+  v16 = [MEMORY[0x1E695DF70] array];
+  Groups = mlir::mps::Conv3DOp::getGroups(&v83);
+  v17 = [[MPSGraphViewerNodePropertyDataSPI alloc] initWithName:@"groups" dataType:64 shape:&unk_1F5B76268];
+  if (v17)
+  {
+    v18 = [MEMORY[0x1E695DEF0] dataWithBytes:&Groups length:8];
+    [(MPSGraphViewerNodePropertyDataSPI *)v17 setValue:v18];
+
+    [v16 addObject:v17];
+  }
+
+  Strides = mlir::mps::Conv3DOp::getStrides(&v83);
+  v20 = Strides;
+  if (Strides)
+  {
+    v21 = mlir::detail::InterfaceMap::lookup<mlir::ElementsAttr>(*Strides + 8);
+  }
+
+  else
+  {
+    v21 = 0;
+  }
+
+  v22 = EmitViewerSPI::emitElementsAttrProperty(@"strides", v20, v21);
+  v77 = v22;
+  if (v22)
+  {
+    [v16 addObject:v22];
+  }
+
+  InputAttributeNames = mlir::pdl_interp::CreateOperationOp::getInputAttributeNames(&v83);
+  v24 = InputAttributeNames;
+  if (InputAttributeNames)
+  {
+    v25 = mlir::detail::InterfaceMap::lookup<mlir::ElementsAttr>(*InputAttributeNames + 8);
+  }
+
+  else
+  {
+    v25 = 0;
+  }
+
+  v26 = EmitViewerSPI::emitElementsAttrProperty(@"dilation_rates", v24, v25);
+  if (v26)
+  {
+    [v16 addObject:v26];
+  }
+
+  Rewriter = mlir::pdl_interp::RecordMatchOp::getRewriter(&v83);
+  v28 = Rewriter;
+  if (Rewriter)
+  {
+    v29 = mlir::detail::InterfaceMap::lookup<mlir::ElementsAttr>(*Rewriter + 8);
+  }
+
+  else
+  {
+    v29 = 0;
+  }
+
+  v30 = EmitViewerSPI::emitElementsAttrProperty(@"explicit_padding", v28, v29);
+  if (v30)
+  {
+    [v16 addObject:v30];
+  }
+
+  PaddingStyle = mlir::mps::Conv3DOp::getPaddingStyle(&v83);
+  v32 = [MEMORY[0x1E695DF70] array];
+  v33 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"EXPLICIT" value:0];
+  [v32 addObject:v33];
+
+  v34 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"TF_VALID" value:1];
+  [v32 addObject:v34];
+
+  v35 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"TF_SAME" value:2];
+  [v32 addObject:v35];
+
+  v36 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"EXPLICIT_OFFSET" value:3];
+  [v32 addObject:v36];
+
+  v37 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"ONNX_SAME_LOWER" value:4];
+  [v32 addObject:v37];
+
+  v38 = [[MPSGraphViewerNodePropertyEnumSPI alloc] initWithName:@"padding_style" type:@"MPSPaddingStyle" cases:v32 value:PaddingStyle];
+  if (v38)
+  {
+    [v16 addObject:v38];
+  }
+
+  StorageType = mlir::mps::MaterializeSparseTensorOp::getStorageType(&v83);
+  v40 = [MEMORY[0x1E695DF70] array];
+  v41 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"NCHW" value:0];
+  [v40 addObject:v41];
+
+  v42 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"NHWC" value:1];
+  [v40 addObject:v42];
+
+  v43 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"OIHW" value:2];
+  [v40 addObject:v43];
+
+  v44 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"HWIO" value:3];
+  [v40 addObject:v44];
+
+  v45 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"CHW" value:4];
+  [v40 addObject:v45];
+
+  v46 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"HWC" value:5];
+  [v40 addObject:v46];
+
+  v47 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"HW" value:6];
+  [v40 addObject:v47];
+
+  v48 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"NCDHW" value:7];
+  [v40 addObject:v48];
+
+  v49 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"NDHWC" value:8];
+  [v40 addObject:v49];
+
+  v50 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"OIDHW" value:9];
+  [v40 addObject:v50];
+
+  v51 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"DHWIO" value:10];
+  [v40 addObject:v51];
+
+  v52 = [[MPSGraphViewerNodePropertyEnumSPI alloc] initWithName:@"data_layout" type:@"MPSTensorDataLayout" cases:v40 value:StorageType];
+  if (v52)
+  {
+    [v16 addObject:v52];
+  }
+
+  WeightsLayout = mlir::mps::Conv3DOp::getWeightsLayout(&v83);
+  v54 = [MEMORY[0x1E695DF70] array];
+  v55 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"NCHW" value:0];
+  [v54 addObject:v55];
+
+  v56 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"NHWC" value:1];
+  [v54 addObject:v56];
+
+  v57 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"OIHW" value:2];
+  [v54 addObject:v57];
+
+  v58 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"HWIO" value:3];
+  [v54 addObject:v58];
+
+  v59 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"CHW" value:4];
+  [v54 addObject:v59];
+
+  v60 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"HWC" value:5];
+  [v54 addObject:v60];
+
+  v61 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"HW" value:6];
+  [v54 addObject:v61];
+
+  v62 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"NCDHW" value:7];
+  [v54 addObject:v62];
+
+  v63 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"NDHWC" value:8];
+  [v54 addObject:v63];
+
+  v64 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"OIDHW" value:9];
+  [v54 addObject:v64];
+
+  v65 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"DHWIO" value:10];
+  [v54 addObject:v65];
+
+  v66 = [[MPSGraphViewerNodePropertyEnumSPI alloc] initWithName:@"weights_layout" type:@"MPSTensorDataLayout" cases:v54 value:WeightsLayout];
+  if (v66)
+  {
+    [v16 addObject:v66];
+  }
+
+  v67 = [MEMORY[0x1E695DF70] array];
+  v68 = [MPSGraphViewerNodeSPI alloc];
+  v69 = [MEMORY[0x1E695DEC8] arrayWithArray:v80];
+  v70 = [MEMORY[0x1E695DEC8] arrayWithArray:v79];
+  v71 = [MEMORY[0x1E695DEC8] arrayWithArray:v16];
+  v72 = [MEMORY[0x1E695DEC8] arrayWithArray:v67];
+  v73 = [(MPSGraphViewerNodeSPI *)v68 initWithType:v78 inputs:v69 outputs:v70 properties:v71 regions:v72];
+  v74 = *(this + 3);
+  *(this + 3) = v73;
+
+  v75 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"conv2DDataGradient operation"];
+  [*(this + 3) setLocalizedDescription:v75];
+
+  if (v82 < 0)
+  {
+    operator delete(__dst);
+  }
+
+  return this;
+}
+
+void sub_1E06D5B54(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, void *a11, void *a12, void *a13, void *__p, uint64_t a15, int a16, __int16 a17, char a18, char a19)
+{
+  if (a19 < 0)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+EmitterViewerSPI::MPSConv3DDataGradientOpHandler *EmitterViewerSPI::MPSConv3DDataGradientOpHandler::MPSConv3DDataGradientOpHandler(EmitterViewerSPI::MPSConv3DDataGradientOpHandler *this, EmitViewerSPI *a2, mlir::Operation *a3)
+{
+  *(this + 1) = a2;
+  *(this + 2) = a3;
+  *(this + 3) = 0;
+  *this = &unk_1F5B48300;
+  v5 = *(*(a3 + 6) + 8);
+  v88 = a3;
+  Groups = v5;
+  AttrData = mlir::OpaqueAttr::getAttrData(&Groups);
+  v7 = strlen(AttrData);
+  if (v7 >= 0x7FFFFFFFFFFFFFF8)
+  {
+    std::string::__throw_length_error[abi:ne200100]();
+  }
+
+  v8 = v7;
+  if (v7 >= 0x17)
+  {
+    operator new();
+  }
+
+  v87 = v7;
+  if (v7)
+  {
+    memmove(&__dst, AttrData, v7);
+  }
+
+  *(&__dst + v8) = 0;
+  if (v87 >= 0)
+  {
+    p_dst = &__dst;
+  }
+
+  else
+  {
+    p_dst = __dst;
+  }
+
+  v83 = [MEMORY[0x1E696AEC0] stringWithCString:p_dst encoding:4];
+  v85 = [MEMORY[0x1E695DF70] array];
+  ODSOperandIndexAndLength = mlir::mps::Conv2DDataGradientOp::getODSOperandIndexAndLength(&v88, 0);
+  v11 = EmitViewerSPI::emitNodeInputPort(a2, @"gradient", *(*(v88 + 9) + 32 * ODSOperandIndexAndLength + 24));
+  if (v11)
+  {
+    [v85 addObject:v11];
+  }
+
+  v12 = mlir::mps::Conv2DDataGradientOp::getODSOperandIndexAndLength(&v88, 1u);
+  v13 = EmitViewerSPI::emitNodeInputPort(a2, @"weights", *(*(v88 + 9) + 32 * v12 + 24));
+  if (v13)
+  {
+    [v85 addObject:v13];
+  }
+
+  v14 = mlir::mps::Conv2DDataGradientOp::getODSOperandIndexAndLength(&v88, 2u);
+  if ((*(v88 + 46) & 0x80) != 0)
+  {
+    v15 = *(v88 + 9);
+    v16 = v14;
+    if (HIDWORD(v14) + v14 == v14)
+    {
+LABEL_16:
+      v17 = 0;
+      goto LABEL_19;
+    }
+  }
+
+  else
+  {
+    v15 = 0;
+    v16 = v14;
+    if (HIDWORD(v14) + v14 == v14)
+    {
+      goto LABEL_16;
+    }
+  }
+
+  v17 = *(v15 + 32 * v16 + 24);
+LABEL_19:
+  v18 = EmitViewerSPI::emitNodeInputPort(a2, @"outputShape", v17);
+  if (v18)
+  {
+    [v85 addObject:v18];
+  }
+
+  v84 = [MEMORY[0x1E695DF70] array];
+  if (*(v88 + 9))
+  {
+    v19 = v88 - 16;
+  }
+
+  else
+  {
+    v19 = 0;
+  }
+
+  NextResultAtOffset = mlir::detail::OpResultImpl::getNextResultAtOffset(v19, 0);
+  v21 = EmitViewerSPI::emitNodeOutputPort(a2, @"result", NextResultAtOffset);
+  if (v21)
+  {
+    [v84 addObject:v21];
+  }
+
+  v22 = [MEMORY[0x1E695DF70] array];
+  Groups = mlir::mps::Conv3DOp::getGroups(&v88);
+  v23 = [[MPSGraphViewerNodePropertyDataSPI alloc] initWithName:@"groups" dataType:64 shape:&unk_1F5B76280];
+  if (v23)
+  {
+    v24 = [MEMORY[0x1E695DEF0] dataWithBytes:&Groups length:8];
+    [(MPSGraphViewerNodePropertyDataSPI *)v23 setValue:v24];
+
+    [v22 addObject:v23];
+  }
+
+  Strides = mlir::mps::Conv3DOp::getStrides(&v88);
+  v26 = Strides;
+  if (Strides)
+  {
+    v27 = mlir::detail::InterfaceMap::lookup<mlir::ElementsAttr>(*Strides + 8);
+  }
+
+  else
+  {
+    v27 = 0;
+  }
+
+  v28 = EmitViewerSPI::emitElementsAttrProperty(@"strides", v26, v27);
+  v82 = v28;
+  if (v28)
+  {
+    [v22 addObject:v28];
+  }
+
+  InputAttributeNames = mlir::pdl_interp::CreateOperationOp::getInputAttributeNames(&v88);
+  v30 = InputAttributeNames;
+  if (InputAttributeNames)
+  {
+    v31 = mlir::detail::InterfaceMap::lookup<mlir::ElementsAttr>(*InputAttributeNames + 8);
+  }
+
+  else
+  {
+    v31 = 0;
+  }
+
+  v32 = EmitViewerSPI::emitElementsAttrProperty(@"dilation_rates", v30, v31);
+  if (v32)
+  {
+    [v22 addObject:v32];
+  }
+
+  Rewriter = mlir::pdl_interp::RecordMatchOp::getRewriter(&v88);
+  v34 = Rewriter;
+  if (Rewriter)
+  {
+    v35 = mlir::detail::InterfaceMap::lookup<mlir::ElementsAttr>(*Rewriter + 8);
+  }
+
+  else
+  {
+    v35 = 0;
+  }
+
+  v36 = EmitViewerSPI::emitElementsAttrProperty(@"explicit_padding", v34, v35);
+  if (v36)
+  {
+    [v22 addObject:v36];
+  }
+
+  PaddingStyle = mlir::mps::Conv3DOp::getPaddingStyle(&v88);
+  v38 = [MEMORY[0x1E695DF70] array];
+  v39 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"EXPLICIT" value:0];
+  [v38 addObject:v39];
+
+  v40 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"TF_VALID" value:1];
+  [v38 addObject:v40];
+
+  v41 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"TF_SAME" value:2];
+  [v38 addObject:v41];
+
+  v42 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"EXPLICIT_OFFSET" value:3];
+  [v38 addObject:v42];
+
+  v43 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"ONNX_SAME_LOWER" value:4];
+  [v38 addObject:v43];
+
+  v44 = [[MPSGraphViewerNodePropertyEnumSPI alloc] initWithName:@"padding_style" type:@"MPSPaddingStyle" cases:v38 value:PaddingStyle];
+  if (v44)
+  {
+    [v22 addObject:v44];
+  }
+
+  StorageType = mlir::mps::MaterializeSparseTensorOp::getStorageType(&v88);
+  v46 = [MEMORY[0x1E695DF70] array];
+  v47 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"NCHW" value:0];
+  [v46 addObject:v47];
+
+  v48 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"NHWC" value:1];
+  [v46 addObject:v48];
+
+  v49 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"OIHW" value:2];
+  [v46 addObject:v49];
+
+  v50 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"HWIO" value:3];
+  [v46 addObject:v50];
+
+  v51 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"CHW" value:4];
+  [v46 addObject:v51];
+
+  v52 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"HWC" value:5];
+  [v46 addObject:v52];
+
+  v53 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"HW" value:6];
+  [v46 addObject:v53];
+
+  v54 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"NCDHW" value:7];
+  [v46 addObject:v54];
+
+  v55 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"NDHWC" value:8];
+  [v46 addObject:v55];
+
+  v56 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"OIDHW" value:9];
+  [v46 addObject:v56];
+
+  v57 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"DHWIO" value:10];
+  [v46 addObject:v57];
+
+  v58 = [[MPSGraphViewerNodePropertyEnumSPI alloc] initWithName:@"data_layout" type:@"MPSTensorDataLayout" cases:v46 value:StorageType];
+  if (v58)
+  {
+    [v22 addObject:v58];
+  }
+
+  WeightsLayout = mlir::mps::Conv3DOp::getWeightsLayout(&v88);
+  v60 = [MEMORY[0x1E695DF70] array];
+  v61 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"NCHW" value:0];
+  [v60 addObject:v61];
+
+  v62 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"NHWC" value:1];
+  [v60 addObject:v62];
+
+  v63 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"OIHW" value:2];
+  [v60 addObject:v63];
+
+  v64 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"HWIO" value:3];
+  [v60 addObject:v64];
+
+  v65 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"CHW" value:4];
+  [v60 addObject:v65];
+
+  v66 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"HWC" value:5];
+  [v60 addObject:v66];
+
+  v67 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"HW" value:6];
+  [v60 addObject:v67];
+
+  v68 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"NCDHW" value:7];
+  [v60 addObject:v68];
+
+  v69 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"NDHWC" value:8];
+  [v60 addObject:v69];
+
+  v70 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"OIDHW" value:9];
+  [v60 addObject:v70];
+
+  v71 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"DHWIO" value:10];
+  [v60 addObject:v71];
+
+  v72 = [[MPSGraphViewerNodePropertyEnumSPI alloc] initWithName:@"weights_layout" type:@"MPSTensorDataLayout" cases:v60 value:WeightsLayout];
+  if (v72)
+  {
+    [v22 addObject:v72];
+  }
+
+  v73 = [MEMORY[0x1E695DF70] array];
+  v74 = [MPSGraphViewerNodeSPI alloc];
+  v75 = [MEMORY[0x1E695DEC8] arrayWithArray:v85];
+  v76 = [MEMORY[0x1E695DEC8] arrayWithArray:v84];
+  v77 = [MEMORY[0x1E695DEC8] arrayWithArray:v22];
+  v78 = [MEMORY[0x1E695DEC8] arrayWithArray:v73];
+  v79 = [(MPSGraphViewerNodeSPI *)v74 initWithType:v83 inputs:v75 outputs:v76 properties:v77 regions:v78];
+  v80 = *(this + 3);
+  *(this + 3) = v79;
+
+  if (v87 < 0)
+  {
+    operator delete(__dst);
+  }
+
+  return this;
+}
+
+void sub_1E06D68D0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, void *a11, void *a12, void *a13, void *__p, uint64_t a15, int a16, __int16 a17, char a18, char a19)
+{
+  if (a19 < 0)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(a1);
+}
+
 EmitterViewerSPI::MPSConv3DOpHandler *EmitterViewerSPI::MPSConv3DOpHandler::MPSConv3DOpHandler(EmitterViewerSPI::MPSConv3DOpHandler *this, EmitViewerSPI *a2, mlir::Operation *a3)
 {
   *(this + 1) = a2;
@@ -1415,7 +3504,7 @@ EmitterViewerSPI::MPSCropResizeOpHandler *EmitterViewerSPI::MPSCropResizeOpHandl
     [v15 addObject:v18];
   }
 
-  mlir::mps::CropResizeOp::getSpatialScale(&v62, &v63);
+  mlir::mps::CropResizeOp::getSpatialScale(&v63, &v62);
   v20 = [[MPSGraphViewerNodePropertyDataSPI alloc] initWithName:@"spatial_scale" dataType:268435488 shape:&unk_1F5B763A0];
   if (v20)
   {
@@ -7058,2212 +9147,6 @@ EmitterViewerSPI::MPSHammingDistanceOpHandler *EmitterViewerSPI::MPSHammingDista
   [*(this + 3) setLocalizedDescription:v26];
 
   if (v30 < 0)
-  {
-    operator delete(__dst);
-  }
-
-  return this;
-}
-
-void sub_1E06E9898(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, void *a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17)
-{
-  if (a17 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-EmitterViewerSPI::MPSHermiteanToRealFFTOpHandler *EmitterViewerSPI::MPSHermiteanToRealFFTOpHandler::MPSHermiteanToRealFFTOpHandler(EmitterViewerSPI::MPSHermiteanToRealFFTOpHandler *this, EmitViewerSPI *a2, mlir::Operation *a3)
-{
-  *(this + 1) = a2;
-  *(this + 2) = a3;
-  *(this + 3) = 0;
-  *this = &unk_1F5B48C30;
-  v5 = *(*(a3 + 6) + 8);
-  v42 = a3;
-  v43 = v5;
-  AttrData = mlir::OpaqueAttr::getAttrData(&v43);
-  v7 = strlen(AttrData);
-  if (v7 >= 0x7FFFFFFFFFFFFFF8)
-  {
-    std::string::__throw_length_error[abi:ne200100]();
-  }
-
-  v8 = v7;
-  if (v7 >= 0x17)
-  {
-    operator new();
-  }
-
-  v41 = v7;
-  if (v7)
-  {
-    memmove(&__dst, AttrData, v7);
-  }
-
-  *(&__dst + v8) = 0;
-  if (v41 >= 0)
-  {
-    p_dst = &__dst;
-  }
-
-  else
-  {
-    p_dst = __dst;
-  }
-
-  v37 = [MEMORY[0x1E696AEC0] stringWithCString:p_dst encoding:4];
-  v10 = [MEMORY[0x1E695DF70] array];
-  v11 = EmitViewerSPI::emitNodeInputPort(a2, @"input", *(*(v42 + 9) + 24));
-  if (v11)
-  {
-    [v10 addObject:v11];
-  }
-
-  v12 = EmitViewerSPI::emitNodeInputPort(a2, @"axes", *(*(v42 + 9) + 56));
-  if (v12)
-  {
-    [v10 addObject:v12];
-  }
-
-  v38 = [MEMORY[0x1E695DF70] array];
-  if (*(v42 + 9))
-  {
-    v13 = v42 - 16;
-  }
-
-  else
-  {
-    v13 = 0;
-  }
-
-  NextResultAtOffset = mlir::detail::OpResultImpl::getNextResultAtOffset(v13, 0);
-  v15 = EmitViewerSPI::emitNodeOutputPort(a2, @"output", NextResultAtOffset);
-  if (v15)
-  {
-    [v38 addObject:v15];
-  }
-
-  v16 = [MEMORY[0x1E695DF70] array];
-  GateLayout = mlir::mps::LSTMOp::getGateLayout(&v42);
-  v18 = [MEMORY[0x1E695DF70] array];
-  v19 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"none" value:0];
-  [v18 addObject:v19];
-
-  v20 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"size" value:1];
-  [v18 addObject:v20];
-
-  v21 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"unitary" value:2];
-  [v18 addObject:v21];
-
-  v22 = [[MPSGraphViewerNodePropertyEnumSPI alloc] initWithName:@"scaling_mode" type:@"MPSFFTScalingMode" cases:v18 value:GateLayout];
-  if (v22)
-  {
-    [v16 addObject:v22];
-  }
-
-  LOBYTE(v43) = mlir::pdl_interp::CreateOperationOp::getInferredResultTypes(&v42);
-  v23 = [[MPSGraphViewerNodePropertyDataSPI alloc] initWithName:@"inverse" dataType:2147483656 shape:&unk_1F5B76640];
-  if (v23)
-  {
-    v24 = [MEMORY[0x1E695DEF0] dataWithBytes:&v43 length:1];
-    [(MPSGraphViewerNodePropertyDataSPI *)v23 setValue:v24];
-
-    [v16 addObject:v23];
-  }
-
-  IsSize = mlir::mps::StridedSliceOp::getEndIsSize(&v42);
-  v25 = [[MPSGraphViewerNodePropertyDataSPI alloc] initWithName:@"round_to_odd" dataType:2147483656 shape:&unk_1F5B76658];
-  if (v25)
-  {
-    v26 = [MEMORY[0x1E695DEF0] dataWithBytes:&IsSize length:1];
-    [(MPSGraphViewerNodePropertyDataSPI *)v25 setValue:v26];
-
-    [v16 addObject:v25];
-  }
-
-  v27 = [MEMORY[0x1E695DF70] array];
-  v28 = [MPSGraphViewerNodeSPI alloc];
-  v29 = [MEMORY[0x1E695DEC8] arrayWithArray:v10];
-  v30 = [MEMORY[0x1E695DEC8] arrayWithArray:v38];
-  v31 = [MEMORY[0x1E695DEC8] arrayWithArray:v16];
-  v32 = [MEMORY[0x1E695DEC8] arrayWithArray:v27];
-  v33 = [(MPSGraphViewerNodeSPI *)v28 initWithType:v37 inputs:v29 outputs:v30 properties:v31 regions:v32];
-  v34 = *(this + 3);
-  *(this + 3) = v33;
-  v35 = ;
-  [*(this + 3) setLocalizedDescription:v35];
-
-  if (v41 < 0)
-  {
-    operator delete(__dst);
-  }
-
-  return this;
-}
-
-void sub_1E06E9E90(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, void *a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17)
-{
-  if (a17 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-EmitterViewerSPI::MPSIdentityOpHandler *EmitterViewerSPI::MPSIdentityOpHandler::MPSIdentityOpHandler(EmitterViewerSPI::MPSIdentityOpHandler *this, EmitViewerSPI *a2, mlir::Operation *a3)
-{
-  *(this + 1) = a2;
-  *(this + 2) = a3;
-  *(this + 3) = 0;
-  *this = &unk_1F5B48C60;
-  v30 = *(*(a3 + 6) + 8);
-  AttrData = mlir::OpaqueAttr::getAttrData(&v30);
-  v7 = strlen(AttrData);
-  if (v7 >= 0x7FFFFFFFFFFFFFF8)
-  {
-    std::string::__throw_length_error[abi:ne200100]();
-  }
-
-  v8 = v7;
-  if (v7 >= 0x17)
-  {
-    operator new();
-  }
-
-  v29 = v7;
-  if (v7)
-  {
-    memmove(&__dst, AttrData, v7);
-  }
-
-  *(&__dst + v8) = 0;
-  if (v29 >= 0)
-  {
-    p_dst = &__dst;
-  }
-
-  else
-  {
-    p_dst = __dst;
-  }
-
-  v27 = [MEMORY[0x1E696AEC0] stringWithCString:p_dst encoding:4];
-  v10 = [MEMORY[0x1E695DF70] array];
-  v11 = EmitViewerSPI::emitNodeInputPort(a2, @"input", *(*(a3 + 9) + 24));
-  if (v11)
-  {
-    [v10 addObject:v11];
-  }
-
-  v12 = [MEMORY[0x1E695DF70] array];
-  if (*(a3 + 9))
-  {
-    v13 = a3 - 16;
-  }
-
-  else
-  {
-    v13 = 0;
-  }
-
-  NextResultAtOffset = mlir::detail::OpResultImpl::getNextResultAtOffset(v13, 0);
-  v15 = EmitViewerSPI::emitNodeOutputPort(a2, @"result", NextResultAtOffset);
-  if (v15)
-  {
-    [v12 addObject:v15];
-  }
-
-  v16 = [MEMORY[0x1E695DF70] array];
-  v17 = [MEMORY[0x1E695DF70] array];
-  v18 = [MPSGraphViewerNodeSPI alloc];
-  v19 = [MEMORY[0x1E695DEC8] arrayWithArray:v10];
-  v20 = [MEMORY[0x1E695DEC8] arrayWithArray:v12];
-  v21 = [MEMORY[0x1E695DEC8] arrayWithArray:v16];
-  v22 = [MEMORY[0x1E695DEC8] arrayWithArray:v17];
-  v23 = [(MPSGraphViewerNodeSPI *)v18 initWithType:v27 inputs:v19 outputs:v20 properties:v21 regions:v22];
-  v24 = *(this + 3);
-  *(this + 3) = v23;
-
-  v25 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"Returns a tensor with the same shape and contents as input."];
-  [*(this + 3) setLocalizedDescription:v25];
-
-  if (v29 < 0)
-  {
-    operator delete(__dst);
-  }
-
-  return this;
-}
-
-void sub_1E06EA2E8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, void *a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16)
-{
-  if (a16 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-EmitterViewerSPI::MPSImToColOpHandler *EmitterViewerSPI::MPSImToColOpHandler::MPSImToColOpHandler(EmitterViewerSPI::MPSImToColOpHandler *this, EmitViewerSPI *a2, mlir::Operation *a3)
-{
-  *(this + 1) = a2;
-  *(this + 2) = a3;
-  *(this + 3) = 0;
-  *this = &unk_1F5B48C90;
-  v5 = *(*(a3 + 6) + 8);
-  v60 = a3;
-  v61 = v5;
-  AttrData = mlir::OpaqueAttr::getAttrData(&v61);
-  v7 = strlen(AttrData);
-  if (v7 >= 0x7FFFFFFFFFFFFFF8)
-  {
-    std::string::__throw_length_error[abi:ne200100]();
-  }
-
-  v8 = v7;
-  if (v7 >= 0x17)
-  {
-    operator new();
-  }
-
-  v59 = v7;
-  if (v7)
-  {
-    memmove(&__dst, AttrData, v7);
-  }
-
-  *(&__dst + v8) = 0;
-  if (v59 >= 0)
-  {
-    p_dst = &__dst;
-  }
-
-  else
-  {
-    p_dst = __dst;
-  }
-
-  v55 = [MEMORY[0x1E696AEC0] stringWithCString:p_dst encoding:4];
-  v57 = [MEMORY[0x1E695DF70] array];
-  v10 = EmitViewerSPI::emitNodeInputPort(a2, @"input", *(*(v60 + 9) + 24));
-  if (v10)
-  {
-    [v57 addObject:v10];
-  }
-
-  v56 = [MEMORY[0x1E695DF70] array];
-  if (*(v60 + 9))
-  {
-    v11 = v60 - 16;
-  }
-
-  else
-  {
-    v11 = 0;
-  }
-
-  NextResultAtOffset = mlir::detail::OpResultImpl::getNextResultAtOffset(v11, 0);
-  v13 = EmitViewerSPI::emitNodeOutputPort(a2, @"result", NextResultAtOffset);
-  if (v13)
-  {
-    [v56 addObject:v13];
-  }
-
-  v14 = [MEMORY[0x1E695DF70] array];
-  KernelSizes = mlir::mps::ColToImOp::getKernelSizes(&v60);
-  v16 = KernelSizes;
-  if (KernelSizes)
-  {
-    v17 = mlir::detail::InterfaceMap::lookup<mlir::ElementsAttr>(*KernelSizes + 8);
-  }
-
-  else
-  {
-    v17 = 0;
-  }
-
-  v18 = EmitViewerSPI::emitElementsAttrProperty(@"kernel_sizes", v16, v17);
-  if (v18)
-  {
-    [v14 addObject:v18];
-  }
-
-  Strides = mlir::mps::ColToImOp::getStrides(&v60);
-  v20 = Strides;
-  if (Strides)
-  {
-    v21 = mlir::detail::InterfaceMap::lookup<mlir::ElementsAttr>(*Strides + 8);
-  }
-
-  else
-  {
-    v21 = 0;
-  }
-
-  v22 = EmitViewerSPI::emitElementsAttrProperty(@"strides", v20, v21);
-  if (v22)
-  {
-    [v14 addObject:v22];
-  }
-
-  InputAttributeNames = mlir::pdl_interp::CreateOperationOp::getInputAttributeNames(&v60);
-  v24 = InputAttributeNames;
-  if (InputAttributeNames)
-  {
-    v25 = mlir::detail::InterfaceMap::lookup<mlir::ElementsAttr>(*InputAttributeNames + 8);
-  }
-
-  else
-  {
-    v25 = 0;
-  }
-
-  v26 = EmitViewerSPI::emitElementsAttrProperty(@"dilation_rates", v24, v25);
-  if (v26)
-  {
-    [v14 addObject:v26];
-  }
-
-  Rewriter = mlir::pdl_interp::RecordMatchOp::getRewriter(&v60);
-  v28 = Rewriter;
-  if (Rewriter)
-  {
-    v29 = mlir::detail::InterfaceMap::lookup<mlir::ElementsAttr>(*Rewriter + 8);
-  }
-
-  else
-  {
-    v29 = 0;
-  }
-
-  v30 = EmitViewerSPI::emitElementsAttrProperty(@"explicit_padding", v28, v29);
-  if (v30)
-  {
-    [v14 addObject:v30];
-  }
-
-  StorageType = mlir::mps::MaterializeSparseTensorOp::getStorageType(&v60);
-  v32 = [MEMORY[0x1E695DF70] array];
-  v33 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"NCHW" value:0];
-  [v32 addObject:v33];
-
-  v34 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"NHWC" value:1];
-  [v32 addObject:v34];
-
-  v35 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"OIHW" value:2];
-  [v32 addObject:v35];
-
-  v36 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"HWIO" value:3];
-  [v32 addObject:v36];
-
-  v37 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"CHW" value:4];
-  [v32 addObject:v37];
-
-  v38 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"HWC" value:5];
-  [v32 addObject:v38];
-
-  v39 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"HW" value:6];
-  [v32 addObject:v39];
-
-  v40 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"NCDHW" value:7];
-  [v32 addObject:v40];
-
-  v41 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"NDHWC" value:8];
-  [v32 addObject:v41];
-
-  v42 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"OIDHW" value:9];
-  [v32 addObject:v42];
-
-  v43 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"DHWIO" value:10];
-  [v32 addObject:v43];
-
-  v44 = [[MPSGraphViewerNodePropertyEnumSPI alloc] initWithName:@"data_layout" type:@"MPSTensorDataLayout" cases:v32 value:StorageType];
-  if (v44)
-  {
-    [v14 addObject:v44];
-  }
-
-  v45 = [MEMORY[0x1E695DF70] array];
-  v46 = [MPSGraphViewerNodeSPI alloc];
-  v47 = [MEMORY[0x1E695DEC8] arrayWithArray:v57];
-  v48 = [MEMORY[0x1E695DEC8] arrayWithArray:v56];
-  v49 = [MEMORY[0x1E695DEC8] arrayWithArray:v14];
-  v50 = [MEMORY[0x1E695DEC8] arrayWithArray:v45];
-  v51 = [(MPSGraphViewerNodeSPI *)v46 initWithType:v55 inputs:v47 outputs:v48 properties:v49 regions:v50];
-  v52 = *(this + 3);
-  *(this + 3) = v51;
-  v53 = ;
-  [*(this + 3) setLocalizedDescription:v53];
-
-  if (v59 < 0)
-  {
-    operator delete(__dst);
-  }
-
-  return this;
-}
-
-void sub_1E06EAA68(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, _Unwind_Exception *exception_object, void *a11, void *a12, void *a13, void *__p, uint64_t a15, int a16, __int16 a17, char a18, char a19)
-{
-  if (a19 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-EmitterViewerSPI::MPSImaginaryPartOpHandler *EmitterViewerSPI::MPSImaginaryPartOpHandler::MPSImaginaryPartOpHandler(EmitterViewerSPI::MPSImaginaryPartOpHandler *this, EmitViewerSPI *a2, mlir::Operation *a3)
-{
-  *(this + 1) = a2;
-  *(this + 2) = a3;
-  *(this + 3) = 0;
-  *this = &unk_1F5B48CC0;
-  v30 = *(*(a3 + 6) + 8);
-  AttrData = mlir::OpaqueAttr::getAttrData(&v30);
-  v7 = strlen(AttrData);
-  if (v7 >= 0x7FFFFFFFFFFFFFF8)
-  {
-    std::string::__throw_length_error[abi:ne200100]();
-  }
-
-  v8 = v7;
-  if (v7 >= 0x17)
-  {
-    operator new();
-  }
-
-  v29 = v7;
-  if (v7)
-  {
-    memmove(&__dst, AttrData, v7);
-  }
-
-  *(&__dst + v8) = 0;
-  if (v29 >= 0)
-  {
-    p_dst = &__dst;
-  }
-
-  else
-  {
-    p_dst = __dst;
-  }
-
-  v27 = [MEMORY[0x1E696AEC0] stringWithCString:p_dst encoding:4];
-  v10 = [MEMORY[0x1E695DF70] array];
-  v11 = EmitViewerSPI::emitNodeInputPort(a2, @"input", *(*(a3 + 9) + 24));
-  if (v11)
-  {
-    [v10 addObject:v11];
-  }
-
-  v12 = [MEMORY[0x1E695DF70] array];
-  if (*(a3 + 9))
-  {
-    v13 = a3 - 16;
-  }
-
-  else
-  {
-    v13 = 0;
-  }
-
-  NextResultAtOffset = mlir::detail::OpResultImpl::getNextResultAtOffset(v13, 0);
-  v15 = EmitViewerSPI::emitNodeOutputPort(a2, @"output", NextResultAtOffset);
-  if (v15)
-  {
-    [v12 addObject:v15];
-  }
-
-  v16 = [MEMORY[0x1E695DF70] array];
-  v17 = [MEMORY[0x1E695DF70] array];
-  v18 = [MPSGraphViewerNodeSPI alloc];
-  v19 = [MEMORY[0x1E695DEC8] arrayWithArray:v10];
-  v20 = [MEMORY[0x1E695DEC8] arrayWithArray:v12];
-  v21 = [MEMORY[0x1E695DEC8] arrayWithArray:v16];
-  v22 = [MEMORY[0x1E695DEC8] arrayWithArray:v17];
-  v23 = [(MPSGraphViewerNodeSPI *)v18 initWithType:v27 inputs:v19 outputs:v20 properties:v21 regions:v22];
-  v24 = *(this + 3);
-  *(this + 3) = v23;
-
-  v25 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"Extracts the imaginary part of the input tensor."];
-  [*(this + 3) setLocalizedDescription:v25];
-
-  if (v29 < 0)
-  {
-    operator delete(__dst);
-  }
-
-  return this;
-}
-
-void sub_1E06EAEFC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, void *a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16)
-{
-  if (a16 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-EmitterViewerSPI::MPSInitRandomPhiloxStateOpHandler *EmitterViewerSPI::MPSInitRandomPhiloxStateOpHandler::MPSInitRandomPhiloxStateOpHandler(EmitterViewerSPI::MPSInitRandomPhiloxStateOpHandler *this, EmitViewerSPI *a2, mlir::Operation *a3)
-{
-  *(this + 1) = a2;
-  *(this + 2) = a3;
-  *(this + 3) = 0;
-  *this = &unk_1F5B48CF0;
-  v32 = *(*(a3 + 6) + 8);
-  AttrData = mlir::OpaqueAttr::getAttrData(&v32);
-  v7 = strlen(AttrData);
-  if (v7 >= 0x7FFFFFFFFFFFFFF8)
-  {
-    std::string::__throw_length_error[abi:ne200100]();
-  }
-
-  v8 = v7;
-  if (v7 >= 0x17)
-  {
-    operator new();
-  }
-
-  v31 = v7;
-  if (v7)
-  {
-    memmove(&__dst, AttrData, v7);
-  }
-
-  *(&__dst + v8) = 0;
-  if (v31 >= 0)
-  {
-    p_dst = &__dst;
-  }
-
-  else
-  {
-    p_dst = __dst;
-  }
-
-  v29 = [MEMORY[0x1E696AEC0] stringWithCString:p_dst encoding:4];
-  v10 = [MEMORY[0x1E695DF70] array];
-  v11 = EmitViewerSPI::emitNodeInputPort(a2, @"counter_low", *(*(a3 + 9) + 24));
-  if (v11)
-  {
-    [v10 addObject:v11];
-  }
-
-  v12 = EmitViewerSPI::emitNodeInputPort(a2, @"counter_high", *(*(a3 + 9) + 56));
-  if (v12)
-  {
-    [v10 addObject:v12];
-  }
-
-  v13 = EmitViewerSPI::emitNodeInputPort(a2, @"key", *(*(a3 + 9) + 88));
-  if (v13)
-  {
-    [v10 addObject:v13];
-  }
-
-  v14 = [MEMORY[0x1E695DF70] array];
-  if (*(a3 + 9))
-  {
-    v15 = a3 - 16;
-  }
-
-  else
-  {
-    v15 = 0;
-  }
-
-  NextResultAtOffset = mlir::detail::OpResultImpl::getNextResultAtOffset(v15, 0);
-  v17 = EmitViewerSPI::emitNodeOutputPort(a2, @"result", NextResultAtOffset);
-  if (v17)
-  {
-    [v14 addObject:v17];
-  }
-
-  v18 = [MEMORY[0x1E695DF70] array];
-  v19 = [MEMORY[0x1E695DF70] array];
-  v20 = [MPSGraphViewerNodeSPI alloc];
-  v21 = [MEMORY[0x1E695DEC8] arrayWithArray:v10];
-  v22 = [MEMORY[0x1E695DEC8] arrayWithArray:v14];
-  v23 = [MEMORY[0x1E695DEC8] arrayWithArray:v18];
-  v24 = [MEMORY[0x1E695DEC8] arrayWithArray:v19];
-  v25 = [(MPSGraphViewerNodeSPI *)v20 initWithType:v29 inputs:v21 outputs:v22 properties:v23 regions:v24];
-  v26 = *(this + 3);
-  *(this + 3) = v25;
-  v27 = ;
-  [*(this + 3) setLocalizedDescription:v27];
-
-  if (v31 < 0)
-  {
-    operator delete(__dst);
-  }
-
-  return this;
-}
-
-void sub_1E06EB344(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, void *a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16)
-{
-  if (a16 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-EmitterViewerSPI::MPSInstanceNormOpHandler *EmitterViewerSPI::MPSInstanceNormOpHandler::MPSInstanceNormOpHandler(EmitterViewerSPI::MPSInstanceNormOpHandler *this, EmitViewerSPI *a2, mlir::Operation *a3)
-{
-  v37[3] = *MEMORY[0x1E69E9840];
-  *(this + 1) = a2;
-  *(this + 2) = a3;
-  *(this + 3) = 0;
-  *this = &unk_1F5B48D20;
-  v5 = *(*(a3 + 6) + 8);
-  v35 = a3;
-  v36 = v5;
-  AttrData = mlir::OpaqueAttr::getAttrData(&v36);
-  v7 = strlen(AttrData);
-  if (v7 >= 0x7FFFFFFFFFFFFFF8)
-  {
-    std::string::__throw_length_error[abi:ne200100]();
-  }
-
-  v8 = v7;
-  if (v7 >= 0x17)
-  {
-    operator new();
-  }
-
-  v34 = v7;
-  if (v7)
-  {
-    memmove(&__dst, AttrData, v7);
-  }
-
-  *(&__dst + v8) = 0;
-  if (v34 >= 0)
-  {
-    p_dst = &__dst;
-  }
-
-  else
-  {
-    p_dst = __dst;
-  }
-
-  v32 = [MEMORY[0x1E696AEC0] stringWithCString:p_dst encoding:4];
-  v10 = [MEMORY[0x1E695DF70] array];
-  v11 = EmitViewerSPI::emitNodeInputPort(a2, @"input", *(*(v35 + 9) + 24));
-  if (v11)
-  {
-    [v10 addObject:v11];
-  }
-
-  v12 = EmitViewerSPI::emitNodeInputPort(a2, @"axes", *(*(v35 + 9) + 56));
-  if (v12)
-  {
-    [v10 addObject:v12];
-  }
-
-  v13 = [MEMORY[0x1E695DF70] array];
-  if (*(v35 + 9))
-  {
-    v14 = v35 - 16;
-  }
-
-  else
-  {
-    v14 = 0;
-  }
-
-  NextResultAtOffset = mlir::detail::OpResultImpl::getNextResultAtOffset(v14, 0);
-  v16 = EmitViewerSPI::emitNodeOutputPort(a2, @"result", NextResultAtOffset);
-  if (v16)
-  {
-    [v13 addObject:v16];
-  }
-
-  v17 = [MEMORY[0x1E695DF70] array];
-  mlir::mps::InstanceNormOp::getEpsilon(&v35, &v36);
-  v18 = [[MPSGraphViewerNodePropertyDataSPI alloc] initWithName:@"epsilon" dataType:268435488 shape:&unk_1F5B76670];
-  if (v18)
-  {
-    v19 = [MEMORY[0x1E695DEF0] dataWithBytes:&v36 length:32];
-    [(MPSGraphViewerNodePropertyDataSPI *)v18 setValue:v19];
-
-    [v17 addObject:v18];
-  }
-
-  v20 = v37[0];
-  if (llvm::APFloatBase::PPCDoubleDouble(v21) == v20)
-  {
-    llvm::detail::DoubleAPFloat::~DoubleAPFloat(v37);
-  }
-
-  else
-  {
-    llvm::detail::IEEEFloat::~IEEEFloat(v37);
-  }
-
-  v22 = [MEMORY[0x1E695DF70] array];
-  v23 = [MPSGraphViewerNodeSPI alloc];
-  v24 = [MEMORY[0x1E695DEC8] arrayWithArray:v10];
-  v25 = [MEMORY[0x1E695DEC8] arrayWithArray:v13];
-  v26 = [MEMORY[0x1E695DEC8] arrayWithArray:v17];
-  v27 = [MEMORY[0x1E695DEC8] arrayWithArray:v22];
-  v28 = [(MPSGraphViewerNodeSPI *)v23 initWithType:v32 inputs:v24 outputs:v25 properties:v26 regions:v27];
-  v29 = *(this + 3);
-  *(this + 3) = v28;
-  v30 = ;
-  [*(this + 3) setLocalizedDescription:v30];
-
-  if (v34 < 0)
-  {
-    operator delete(__dst);
-  }
-
-  return this;
-}
-
-void sub_1E06EB848(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, uint64_t a16, char a17)
-{
-  llvm::APFloat::~APFloat(&a17);
-
-  if (a15 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-EmitterViewerSPI::MPSIsFiniteOpHandler *EmitterViewerSPI::MPSIsFiniteOpHandler::MPSIsFiniteOpHandler(EmitterViewerSPI::MPSIsFiniteOpHandler *this, EmitViewerSPI *a2, mlir::Operation *a3)
-{
-  *(this + 1) = a2;
-  *(this + 2) = a3;
-  *(this + 3) = 0;
-  *this = &unk_1F5B48D50;
-  v30 = *(*(a3 + 6) + 8);
-  AttrData = mlir::OpaqueAttr::getAttrData(&v30);
-  v7 = strlen(AttrData);
-  if (v7 >= 0x7FFFFFFFFFFFFFF8)
-  {
-    std::string::__throw_length_error[abi:ne200100]();
-  }
-
-  v8 = v7;
-  if (v7 >= 0x17)
-  {
-    operator new();
-  }
-
-  v29 = v7;
-  if (v7)
-  {
-    memmove(&__dst, AttrData, v7);
-  }
-
-  *(&__dst + v8) = 0;
-  if (v29 >= 0)
-  {
-    p_dst = &__dst;
-  }
-
-  else
-  {
-    p_dst = __dst;
-  }
-
-  v27 = [MEMORY[0x1E696AEC0] stringWithCString:p_dst encoding:4];
-  v10 = [MEMORY[0x1E695DF70] array];
-  v11 = EmitViewerSPI::emitNodeInputPort(a2, @"input", *(*(a3 + 9) + 24));
-  if (v11)
-  {
-    [v10 addObject:v11];
-  }
-
-  v12 = [MEMORY[0x1E695DF70] array];
-  if (*(a3 + 9))
-  {
-    v13 = a3 - 16;
-  }
-
-  else
-  {
-    v13 = 0;
-  }
-
-  NextResultAtOffset = mlir::detail::OpResultImpl::getNextResultAtOffset(v13, 0);
-  v15 = EmitViewerSPI::emitNodeOutputPort(a2, @"result", NextResultAtOffset);
-  if (v15)
-  {
-    [v12 addObject:v15];
-  }
-
-  v16 = [MEMORY[0x1E695DF70] array];
-  v17 = [MEMORY[0x1E695DF70] array];
-  v18 = [MPSGraphViewerNodeSPI alloc];
-  v19 = [MEMORY[0x1E695DEC8] arrayWithArray:v10];
-  v20 = [MEMORY[0x1E695DEC8] arrayWithArray:v12];
-  v21 = [MEMORY[0x1E695DEC8] arrayWithArray:v16];
-  v22 = [MEMORY[0x1E695DEC8] arrayWithArray:v17];
-  v23 = [(MPSGraphViewerNodeSPI *)v18 initWithType:v27 inputs:v19 outputs:v20 properties:v21 regions:v22];
-  v24 = *(this + 3);
-  *(this + 3) = v23;
-  v25 = ;
-  [*(this + 3) setLocalizedDescription:v25];
-
-  if (v29 < 0)
-  {
-    operator delete(__dst);
-  }
-
-  return this;
-}
-
-void sub_1E06EBC5C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, void *a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16)
-{
-  if (a16 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-EmitterViewerSPI::MPSIsInfiniteOpHandler *EmitterViewerSPI::MPSIsInfiniteOpHandler::MPSIsInfiniteOpHandler(EmitterViewerSPI::MPSIsInfiniteOpHandler *this, EmitViewerSPI *a2, mlir::Operation *a3)
-{
-  *(this + 1) = a2;
-  *(this + 2) = a3;
-  *(this + 3) = 0;
-  *this = &unk_1F5B48D80;
-  v30 = *(*(a3 + 6) + 8);
-  AttrData = mlir::OpaqueAttr::getAttrData(&v30);
-  v7 = strlen(AttrData);
-  if (v7 >= 0x7FFFFFFFFFFFFFF8)
-  {
-    std::string::__throw_length_error[abi:ne200100]();
-  }
-
-  v8 = v7;
-  if (v7 >= 0x17)
-  {
-    operator new();
-  }
-
-  v29 = v7;
-  if (v7)
-  {
-    memmove(&__dst, AttrData, v7);
-  }
-
-  *(&__dst + v8) = 0;
-  if (v29 >= 0)
-  {
-    p_dst = &__dst;
-  }
-
-  else
-  {
-    p_dst = __dst;
-  }
-
-  v27 = [MEMORY[0x1E696AEC0] stringWithCString:p_dst encoding:4];
-  v10 = [MEMORY[0x1E695DF70] array];
-  v11 = EmitViewerSPI::emitNodeInputPort(a2, @"input", *(*(a3 + 9) + 24));
-  if (v11)
-  {
-    [v10 addObject:v11];
-  }
-
-  v12 = [MEMORY[0x1E695DF70] array];
-  if (*(a3 + 9))
-  {
-    v13 = a3 - 16;
-  }
-
-  else
-  {
-    v13 = 0;
-  }
-
-  NextResultAtOffset = mlir::detail::OpResultImpl::getNextResultAtOffset(v13, 0);
-  v15 = EmitViewerSPI::emitNodeOutputPort(a2, @"result", NextResultAtOffset);
-  if (v15)
-  {
-    [v12 addObject:v15];
-  }
-
-  v16 = [MEMORY[0x1E695DF70] array];
-  v17 = [MEMORY[0x1E695DF70] array];
-  v18 = [MPSGraphViewerNodeSPI alloc];
-  v19 = [MEMORY[0x1E695DEC8] arrayWithArray:v10];
-  v20 = [MEMORY[0x1E695DEC8] arrayWithArray:v12];
-  v21 = [MEMORY[0x1E695DEC8] arrayWithArray:v16];
-  v22 = [MEMORY[0x1E695DEC8] arrayWithArray:v17];
-  v23 = [(MPSGraphViewerNodeSPI *)v18 initWithType:v27 inputs:v19 outputs:v20 properties:v21 regions:v22];
-  v24 = *(this + 3);
-  *(this + 3) = v23;
-  v25 = ;
-  [*(this + 3) setLocalizedDescription:v25];
-
-  if (v29 < 0)
-  {
-    operator delete(__dst);
-  }
-
-  return this;
-}
-
-void sub_1E06EC03C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, void *a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16)
-{
-  if (a16 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-EmitterViewerSPI::MPSIsNaNOpHandler *EmitterViewerSPI::MPSIsNaNOpHandler::MPSIsNaNOpHandler(EmitterViewerSPI::MPSIsNaNOpHandler *this, EmitViewerSPI *a2, mlir::Operation *a3)
-{
-  *(this + 1) = a2;
-  *(this + 2) = a3;
-  *(this + 3) = 0;
-  *this = &unk_1F5B48DB0;
-  v30 = *(*(a3 + 6) + 8);
-  AttrData = mlir::OpaqueAttr::getAttrData(&v30);
-  v7 = strlen(AttrData);
-  if (v7 >= 0x7FFFFFFFFFFFFFF8)
-  {
-    std::string::__throw_length_error[abi:ne200100]();
-  }
-
-  v8 = v7;
-  if (v7 >= 0x17)
-  {
-    operator new();
-  }
-
-  v29 = v7;
-  if (v7)
-  {
-    memmove(&__dst, AttrData, v7);
-  }
-
-  *(&__dst + v8) = 0;
-  if (v29 >= 0)
-  {
-    p_dst = &__dst;
-  }
-
-  else
-  {
-    p_dst = __dst;
-  }
-
-  v27 = [MEMORY[0x1E696AEC0] stringWithCString:p_dst encoding:4];
-  v10 = [MEMORY[0x1E695DF70] array];
-  v11 = EmitViewerSPI::emitNodeInputPort(a2, @"input", *(*(a3 + 9) + 24));
-  if (v11)
-  {
-    [v10 addObject:v11];
-  }
-
-  v12 = [MEMORY[0x1E695DF70] array];
-  if (*(a3 + 9))
-  {
-    v13 = a3 - 16;
-  }
-
-  else
-  {
-    v13 = 0;
-  }
-
-  NextResultAtOffset = mlir::detail::OpResultImpl::getNextResultAtOffset(v13, 0);
-  v15 = EmitViewerSPI::emitNodeOutputPort(a2, @"result", NextResultAtOffset);
-  if (v15)
-  {
-    [v12 addObject:v15];
-  }
-
-  v16 = [MEMORY[0x1E695DF70] array];
-  v17 = [MEMORY[0x1E695DF70] array];
-  v18 = [MPSGraphViewerNodeSPI alloc];
-  v19 = [MEMORY[0x1E695DEC8] arrayWithArray:v10];
-  v20 = [MEMORY[0x1E695DEC8] arrayWithArray:v12];
-  v21 = [MEMORY[0x1E695DEC8] arrayWithArray:v16];
-  v22 = [MEMORY[0x1E695DEC8] arrayWithArray:v17];
-  v23 = [(MPSGraphViewerNodeSPI *)v18 initWithType:v27 inputs:v19 outputs:v20 properties:v21 regions:v22];
-  v24 = *(this + 3);
-  *(this + 3) = v23;
-  v25 = ;
-  [*(this + 3) setLocalizedDescription:v25];
-
-  if (v29 < 0)
-  {
-    operator delete(__dst);
-  }
-
-  return this;
-}
-
-void sub_1E06EC41C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, void *a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16)
-{
-  if (a16 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-EmitterViewerSPI::MPSLPNormOpHandler *EmitterViewerSPI::MPSLPNormOpHandler::MPSLPNormOpHandler(EmitterViewerSPI::MPSLPNormOpHandler *this, EmitViewerSPI *a2, mlir::Operation *a3)
-{
-  *(this + 1) = a2;
-  *(this + 2) = a3;
-  *(this + 3) = 0;
-  *this = &unk_1F5B48DE0;
-  v33 = *(*(a3 + 6) + 8);
-  AttrData = mlir::OpaqueAttr::getAttrData(&v33);
-  v7 = strlen(AttrData);
-  if (v7 >= 0x7FFFFFFFFFFFFFF8)
-  {
-    std::string::__throw_length_error[abi:ne200100]();
-  }
-
-  v8 = v7;
-  if (v7 >= 0x17)
-  {
-    operator new();
-  }
-
-  v32 = v7;
-  if (v7)
-  {
-    memmove(&__dst, AttrData, v7);
-  }
-
-  *(&__dst + v8) = 0;
-  if (v32 >= 0)
-  {
-    p_dst = &__dst;
-  }
-
-  else
-  {
-    p_dst = __dst;
-  }
-
-  v30 = [MEMORY[0x1E696AEC0] stringWithCString:p_dst encoding:4];
-  v10 = [MEMORY[0x1E695DF70] array];
-  v11 = EmitViewerSPI::emitNodeInputPort(a2, @"input", *(*(a3 + 9) + 24));
-  if (v11)
-  {
-    [v10 addObject:v11];
-  }
-
-  v12 = EmitViewerSPI::emitNodeInputPort(a2, @"p", *(*(a3 + 9) + 56));
-  if (v12)
-  {
-    [v10 addObject:v12];
-  }
-
-  v13 = EmitViewerSPI::emitNodeInputPort(a2, @"axes", *(*(a3 + 9) + 88));
-  if (v13)
-  {
-    [v10 addObject:v13];
-  }
-
-  v14 = EmitViewerSPI::emitNodeInputPort(a2, @"epsilon", *(*(a3 + 9) + 120));
-  if (v14)
-  {
-    [v10 addObject:v14];
-  }
-
-  v15 = [MEMORY[0x1E695DF70] array];
-  if (*(a3 + 9))
-  {
-    v16 = a3 - 16;
-  }
-
-  else
-  {
-    v16 = 0;
-  }
-
-  NextResultAtOffset = mlir::detail::OpResultImpl::getNextResultAtOffset(v16, 0);
-  v18 = EmitViewerSPI::emitNodeOutputPort(a2, @"result", NextResultAtOffset);
-  if (v18)
-  {
-    [v15 addObject:v18];
-  }
-
-  v19 = [MEMORY[0x1E695DF70] array];
-  v20 = [MEMORY[0x1E695DF70] array];
-  v21 = [MPSGraphViewerNodeSPI alloc];
-  v22 = [MEMORY[0x1E695DEC8] arrayWithArray:v10];
-  v23 = [MEMORY[0x1E695DEC8] arrayWithArray:v15];
-  v24 = [MEMORY[0x1E695DEC8] arrayWithArray:v19];
-  v25 = [MEMORY[0x1E695DEC8] arrayWithArray:v20];
-  v26 = [(MPSGraphViewerNodeSPI *)v21 initWithType:v30 inputs:v22 outputs:v23 properties:v24 regions:v25];
-  v27 = *(this + 3);
-  *(this + 3) = v26;
-
-  v28 = objc_msgSend(MEMORY[0x1E696AEC0], "stringWithUTF8String:", "Computes x = x / ||x||_{p} elementwise, where:\n* ||x||_{p} =\n(pow(pow(abs(x0), p) + pow(abs(x1), p) + ... + pow(abs(xn), p), 1/p)\n\n* p > 0.");;
-  [*(this + 3) setLocalizedDescription:v28];
-
-  if (v32 < 0)
-  {
-    operator delete(__dst);
-  }
-
-  return this;
-}
-
-void sub_1E06EC898(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, void *a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16)
-{
-  if (a16 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-EmitterViewerSPI::MPSLSTMGradientOpHandler *EmitterViewerSPI::MPSLSTMGradientOpHandler::MPSLSTMGradientOpHandler(EmitterViewerSPI::MPSLSTMGradientOpHandler *this, EmitViewerSPI *a2, mlir::Operation *a3)
-{
-  *(this + 1) = a2;
-  *(this + 2) = a3;
-  *(this + 3) = 0;
-  *this = &unk_1F5B48E10;
-  v5 = *(*(a3 + 6) + 8);
-  v146 = a3;
-  v147 = v5;
-  AttrData = mlir::OpaqueAttr::getAttrData(&v147);
-  v7 = strlen(AttrData);
-  if (v7 >= 0x7FFFFFFFFFFFFFF8)
-  {
-    std::string::__throw_length_error[abi:ne200100]();
-  }
-
-  v8 = v7;
-  if (v7 >= 0x17)
-  {
-    operator new();
-  }
-
-  v145 = v7;
-  if (v7)
-  {
-    memmove(&__dst, AttrData, v7);
-  }
-
-  *(&__dst + v8) = 0;
-  if (v145 >= 0)
-  {
-    p_dst = &__dst;
-  }
-
-  else
-  {
-    p_dst = __dst;
-  }
-
-  v143 = [MEMORY[0x1E696AEC0] stringWithCString:p_dst encoding:4];
-  v10 = [MEMORY[0x1E695DF70] array];
-  ODSOperandIndexAndLength = mlir::mps::GRUGradientOp::getODSOperandIndexAndLength(&v146, 0);
-  v12 = EmitViewerSPI::emitNodeInputPort(a2, @"gradient_input_sequence", *(*(v146 + 9) + 32 * ODSOperandIndexAndLength + 24));
-  if (v12)
-  {
-    [v10 addObject:v12];
-  }
-
-  v13 = mlir::mps::GRUGradientOp::getODSOperandIndexAndLength(&v146, 1u);
-  v14 = EmitViewerSPI::emitNodeInputPort(a2, @"recurrent_weight", *(*(v146 + 9) + 32 * v13 + 24));
-  if (v14)
-  {
-    [v10 addObject:v14];
-  }
-
-  v15 = mlir::mps::GRUGradientOp::getODSOperandIndexAndLength(&v146, 2u);
-  v16 = EmitViewerSPI::emitNodeInputPort(a2, @"training_state", *(*(v146 + 9) + 32 * v15 + 24));
-  if (v16)
-  {
-    [v10 addObject:v16];
-  }
-
-  v17 = mlir::mps::GRUGradientOp::getODSOperandIndexAndLength(&v146, 3u);
-  v18 = EmitViewerSPI::emitNodeInputPort(a2, @"output_cell_fwd", *(*(v146 + 9) + 32 * v17 + 24));
-  if (v18)
-  {
-    [v10 addObject:v18];
-  }
-
-  v19 = mlir::mps::GRUGradientOp::getODSOperandIndexAndLength(&v146, 4u);
-  if ((*(v146 + 46) & 0x80) != 0)
-  {
-    v20 = *(v146 + 9);
-    v21 = v19;
-    if (HIDWORD(v19) + v19 == v19)
-    {
-LABEL_20:
-      v22 = 0;
-      goto LABEL_23;
-    }
-  }
-
-  else
-  {
-    v20 = 0;
-    v21 = v19;
-    if (HIDWORD(v19) + v19 == v19)
-    {
-      goto LABEL_20;
-    }
-  }
-
-  v22 = *(v20 + 32 * v21 + 24);
-LABEL_23:
-  v23 = EmitViewerSPI::emitNodeInputPort(a2, @"input_state", v22);
-  if (v23)
-  {
-    [v10 addObject:v23];
-  }
-
-  v24 = mlir::mps::GRUGradientOp::getODSOperandIndexAndLength(&v146, 5u);
-  if ((*(v146 + 46) & 0x80) != 0)
-  {
-    v25 = *(v146 + 9);
-    v26 = v24;
-    if (HIDWORD(v24) + v24 == v24)
-    {
-LABEL_27:
-      v27 = 0;
-      goto LABEL_30;
-    }
-  }
-
-  else
-  {
-    v25 = 0;
-    v26 = v24;
-    if (HIDWORD(v24) + v24 == v24)
-    {
-      goto LABEL_27;
-    }
-  }
-
-  v27 = *(v25 + 32 * v26 + 24);
-LABEL_30:
-  v28 = EmitViewerSPI::emitNodeInputPort(a2, @"input_cell", v27);
-  if (v28)
-  {
-    [v10 addObject:v28];
-  }
-
-  v29 = mlir::mps::GRUGradientOp::getODSOperandIndexAndLength(&v146, 6u);
-  if ((*(v146 + 46) & 0x80) != 0)
-  {
-    v30 = *(v146 + 9);
-    v31 = v29;
-    if (HIDWORD(v29) + v29 == v29)
-    {
-LABEL_34:
-      v32 = 0;
-      goto LABEL_37;
-    }
-  }
-
-  else
-  {
-    v30 = 0;
-    v31 = v29;
-    if (HIDWORD(v29) + v29 == v29)
-    {
-      goto LABEL_34;
-    }
-  }
-
-  v32 = *(v30 + 32 * v31 + 24);
-LABEL_37:
-  v33 = EmitViewerSPI::emitNodeInputPort(a2, @"mask", v32);
-  if (v33)
-  {
-    [v10 addObject:v33];
-  }
-
-  v34 = mlir::mps::GRUGradientOp::getODSOperandIndexAndLength(&v146, 7u);
-  if ((*(v146 + 46) & 0x80) != 0)
-  {
-    v35 = *(v146 + 9);
-    v36 = v34;
-    if (HIDWORD(v34) + v34 == v34)
-    {
-LABEL_41:
-      v37 = 0;
-      goto LABEL_44;
-    }
-  }
-
-  else
-  {
-    v35 = 0;
-    v36 = v34;
-    if (HIDWORD(v34) + v34 == v34)
-    {
-      goto LABEL_41;
-    }
-  }
-
-  v37 = *(v35 + 32 * v36 + 24);
-LABEL_44:
-  v38 = EmitViewerSPI::emitNodeInputPort(a2, @"peephole", v37);
-  if (v38)
-  {
-    [v10 addObject:v38];
-  }
-
-  v39 = mlir::mps::GRUGradientOp::getODSOperandIndexAndLength(&v146, 8u);
-  if ((*(v146 + 46) & 0x80) != 0)
-  {
-    v40 = *(v146 + 9);
-    v41 = v39;
-    if (HIDWORD(v39) + v39 == v39)
-    {
-LABEL_48:
-      v42 = 0;
-      goto LABEL_51;
-    }
-  }
-
-  else
-  {
-    v40 = 0;
-    v41 = v39;
-    if (HIDWORD(v39) + v39 == v39)
-    {
-      goto LABEL_48;
-    }
-  }
-
-  v42 = *(v40 + 32 * v41 + 24);
-LABEL_51:
-  v43 = EmitViewerSPI::emitNodeInputPort(a2, @"cell_clip", v42);
-  if (v43)
-  {
-    [v10 addObject:v43];
-  }
-
-  v44 = mlir::mps::GRUGradientOp::getODSOperandIndexAndLength(&v146, 9u);
-  if ((*(v146 + 46) & 0x80) != 0)
-  {
-    v45 = *(v146 + 9);
-    v46 = v44;
-    if (HIDWORD(v44) + v44 == v44)
-    {
-LABEL_55:
-      v47 = 0;
-      goto LABEL_58;
-    }
-  }
-
-  else
-  {
-    v45 = 0;
-    v46 = v44;
-    if (HIDWORD(v44) + v44 == v44)
-    {
-      goto LABEL_55;
-    }
-  }
-
-  v47 = *(v45 + 32 * v46 + 24);
-LABEL_58:
-  v48 = EmitViewerSPI::emitNodeInputPort(a2, @"cell_gradient", v47);
-  if (v48)
-  {
-    [v10 addObject:v48];
-  }
-
-  v49 = [MEMORY[0x1E695DF70] array];
-  ODSResultIndexAndLength = mlir::mps::LSTMGradientOp::getODSResultIndexAndLength(&v146, 0, v50, v51);
-  if (*(v146 + 9))
-  {
-    NextResultAtOffset = v146 - 16;
-  }
-
-  else
-  {
-    NextResultAtOffset = 0;
-  }
-
-  if (ODSResultIndexAndLength)
-  {
-    NextResultAtOffset = mlir::detail::OpResultImpl::getNextResultAtOffset(NextResultAtOffset, ODSResultIndexAndLength);
-  }
-
-  v54 = mlir::detail::OpResultImpl::getNextResultAtOffset(NextResultAtOffset, 0);
-  v55 = EmitViewerSPI::emitNodeOutputPort(a2, @"gradient_output_sequence", v54);
-  if (v55)
-  {
-    [v49 addObject:v55];
-  }
-
-  v58 = mlir::mps::LSTMGradientOp::getODSResultIndexAndLength(&v146, 1u, v56, v57);
-  if (*(v146 + 9))
-  {
-    v59 = v146 - 16;
-  }
-
-  else
-  {
-    v59 = 0;
-  }
-
-  if (v58)
-  {
-    v59 = mlir::detail::OpResultImpl::getNextResultAtOffset(v59, v58);
-  }
-
-  v60 = mlir::detail::OpResultImpl::getNextResultAtOffset(v59, 0);
-  v61 = EmitViewerSPI::emitNodeOutputPort(a2, @"gradient_recurrent_weight", v60);
-  if (v61)
-  {
-    [v49 addObject:v61];
-  }
-
-  v64 = mlir::mps::LSTMGradientOp::getODSResultIndexAndLength(&v146, 2u, v62, v63);
-  if (*(v146 + 9))
-  {
-    v65 = v146 - 16;
-  }
-
-  else
-  {
-    v65 = 0;
-  }
-
-  if (v64)
-  {
-    v65 = mlir::detail::OpResultImpl::getNextResultAtOffset(v65, v64);
-  }
-
-  v66 = mlir::detail::OpResultImpl::getNextResultAtOffset(v65, 0);
-  v67 = EmitViewerSPI::emitNodeOutputPort(a2, @"gradient_input_state", v66);
-  if (v67)
-  {
-    [v49 addObject:v67];
-  }
-
-  v70 = mlir::mps::LSTMGradientOp::getODSResultIndexAndLength(&v146, 3u, v68, v69);
-  if (*(v146 + 9))
-  {
-    v71 = v146 - 16;
-  }
-
-  else
-  {
-    v71 = 0;
-  }
-
-  if (v70)
-  {
-    v71 = mlir::detail::OpResultImpl::getNextResultAtOffset(v71, v70);
-  }
-
-  v72 = mlir::detail::OpResultImpl::getNextResultAtOffset(v71, 0);
-  v73 = EmitViewerSPI::emitNodeOutputPort(a2, @"gradient_input_cell", v72);
-  if (v73)
-  {
-    [v49 addObject:v73];
-  }
-
-  v76 = mlir::mps::LSTMGradientOp::getODSResultIndexAndLength(&v146, 4u, v74, v75);
-  if (*(v146 + 9))
-  {
-    v77 = v146 - 16;
-  }
-
-  else
-  {
-    v77 = 0;
-  }
-
-  if (v76)
-  {
-    v77 = mlir::detail::OpResultImpl::getNextResultAtOffset(v77, v76);
-  }
-
-  if (HIDWORD(v76) + v76 == v76)
-  {
-    v78 = 0;
-  }
-
-  else
-  {
-    v78 = mlir::detail::OpResultImpl::getNextResultAtOffset(v77, 0);
-  }
-
-  v79 = EmitViewerSPI::emitNodeOutputPort(a2, @"gradient_peephole", v78);
-  if (v79)
-  {
-    [v49 addObject:v79];
-  }
-
-  v80 = [MEMORY[0x1E695DF70] array];
-  PaddingStyle = mlir::mps::DepthwiseConv2DDataGradientOp::getPaddingStyle(&v146);
-  v82 = [MEMORY[0x1E695DF70] array];
-  v83 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"none" value:0];
-  [v82 addObject:v83];
-
-  v84 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"relu" value:1];
-  [v82 addObject:v84];
-
-  v85 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"tanh" value:2];
-  [v82 addObject:v85];
-
-  v86 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"sigmoid" value:3];
-  [v82 addObject:v86];
-
-  v87 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"hard_sigmoid" value:4];
-  [v82 addObject:v87];
-
-  v88 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"scaled_tanh" value:5];
-  [v82 addObject:v88];
-
-  v89 = [[MPSGraphViewerNodePropertyEnumSPI alloc] initWithName:@"igate_activation" type:@"MPSRNNActivation" cases:v82 value:PaddingStyle];
-  if (v89)
-  {
-    [v80 addObject:v89];
-  }
-
-  Layout = mlir::mps::SampleGridOp::getLayout(&v146);
-  v91 = [MEMORY[0x1E695DF70] array];
-  v92 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"none" value:0];
-  [v91 addObject:v92];
-
-  v93 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"relu" value:1];
-  [v91 addObject:v93];
-
-  v94 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"tanh" value:2];
-  [v91 addObject:v94];
-
-  v95 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"sigmoid" value:3];
-  [v91 addObject:v95];
-
-  v96 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"hard_sigmoid" value:4];
-  [v91 addObject:v96];
-
-  v97 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"scaled_tanh" value:5];
-  [v91 addObject:v97];
-
-  v98 = [[MPSGraphViewerNodePropertyEnumSPI alloc] initWithName:@"fgate_activation" type:@"MPSRNNActivation" cases:v91 value:Layout];
-  if (v98)
-  {
-    [v80 addObject:v98];
-  }
-
-  v99 = mlir::mps::StencilOp::getPaddingStyle(&v146);
-  v100 = [MEMORY[0x1E695DF70] array];
-  v101 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"none" value:0];
-  [v100 addObject:v101];
-
-  v102 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"relu" value:1];
-  [v100 addObject:v102];
-
-  v103 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"tanh" value:2];
-  [v100 addObject:v103];
-
-  v104 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"sigmoid" value:3];
-  [v100 addObject:v104];
-
-  v105 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"hard_sigmoid" value:4];
-  [v100 addObject:v105];
-
-  v106 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"scaled_tanh" value:5];
-  [v100 addObject:v106];
-
-  v107 = [[MPSGraphViewerNodePropertyEnumSPI alloc] initWithName:@"zgate_activation" type:@"MPSRNNActivation" cases:v100 value:v99];
-  if (v107)
-  {
-    [v80 addObject:v107];
-  }
-
-  v108 = mlir::mps::Conv3DOp::getPaddingStyle(&v146);
-  v109 = [MEMORY[0x1E695DF70] array];
-  v110 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"none" value:0];
-  [v109 addObject:v110];
-
-  v111 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"relu" value:1];
-  [v109 addObject:v111];
-
-  v112 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"tanh" value:2];
-  [v109 addObject:v112];
-
-  v113 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"sigmoid" value:3];
-  [v109 addObject:v113];
-
-  v114 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"hard_sigmoid" value:4];
-  [v109 addObject:v114];
-
-  v115 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"scaled_tanh" value:5];
-  [v109 addObject:v115];
-
-  v116 = [[MPSGraphViewerNodePropertyEnumSPI alloc] initWithName:@"ogate_activation" type:@"MPSRNNActivation" cases:v109 value:v108];
-  if (v116)
-  {
-    [v80 addObject:v116];
-  }
-
-  StorageType = mlir::mps::MaterializeSparseTensorOp::getStorageType(&v146);
-  v118 = [MEMORY[0x1E695DF70] array];
-  v119 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"none" value:0];
-  [v118 addObject:v119];
-
-  v120 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"relu" value:1];
-  [v118 addObject:v120];
-
-  v121 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"tanh" value:2];
-  [v118 addObject:v121];
-
-  v122 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"sigmoid" value:3];
-  [v118 addObject:v122];
-
-  v123 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"hard_sigmoid" value:4];
-  [v118 addObject:v123];
-
-  v124 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"scaled_tanh" value:5];
-  [v118 addObject:v124];
-
-  v125 = [[MPSGraphViewerNodePropertyEnumSPI alloc] initWithName:@"cell_activation" type:@"MPSRNNActivation" cases:v118 value:StorageType];
-  if (v125)
-  {
-    [v80 addObject:v125];
-  }
-
-  GateLayout = mlir::mps::LSTMOp::getGateLayout(&v146);
-  v127 = [MEMORY[0x1E695DF70] array];
-  v128 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"IFZO" value:0];
-  [v127 addObject:v128];
-
-  v129 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"IZFO" value:1];
-  [v127 addObject:v129];
-
-  v130 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"IFOZ" value:2];
-  [v127 addObject:v130];
-
-  v131 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"IOFZ" value:3];
-  [v127 addObject:v131];
-
-  v132 = [[MPSGraphViewerNodePropertyEnumSPI alloc] initWithName:@"gate_layout" type:@"MPSLSTMGateLayout" cases:v127 value:GateLayout];
-  if (v132)
-  {
-    [v80 addObject:v132];
-  }
-
-  v133 = [MEMORY[0x1E695DF70] array];
-  v134 = [MPSGraphViewerNodeSPI alloc];
-  v135 = [MEMORY[0x1E695DEC8] arrayWithArray:v10];
-  v136 = [MEMORY[0x1E695DEC8] arrayWithArray:v49];
-  v137 = [MEMORY[0x1E695DEC8] arrayWithArray:v80];
-  v138 = [MEMORY[0x1E695DEC8] arrayWithArray:v133];
-  v139 = [(MPSGraphViewerNodeSPI *)v134 initWithType:v143 inputs:v135 outputs:v136 properties:v137 regions:v138];
-  v140 = *(this + 3);
-  *(this + 3) = v139;
-  v141 = ;
-  [*(this + 3) setLocalizedDescription:v141];
-
-  if (v145 < 0)
-  {
-    operator delete(__dst);
-  }
-
-  return this;
-}
-
-void sub_1E06EDAC4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
-{
-  if (a15 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-EmitterViewerSPI::MPSLSTMOpHandler *EmitterViewerSPI::MPSLSTMOpHandler::MPSLSTMOpHandler(EmitterViewerSPI::MPSLSTMOpHandler *this, EmitViewerSPI *a2, mlir::Operation *a3)
-{
-  *(this + 1) = a2;
-  *(this + 2) = a3;
-  *(this + 3) = 0;
-  *this = &unk_1F5B48E40;
-  v5 = *(*(a3 + 6) + 8);
-  v127 = a3;
-  v128 = v5;
-  AttrData = mlir::OpaqueAttr::getAttrData(&v128);
-  v7 = strlen(AttrData);
-  if (v7 >= 0x7FFFFFFFFFFFFFF8)
-  {
-    std::string::__throw_length_error[abi:ne200100]();
-  }
-
-  v8 = v7;
-  if (v7 >= 0x17)
-  {
-    operator new();
-  }
-
-  v126 = v7;
-  if (v7)
-  {
-    memmove(&__dst, AttrData, v7);
-  }
-
-  *(&__dst + v8) = 0;
-  if (v126 >= 0)
-  {
-    p_dst = &__dst;
-  }
-
-  else
-  {
-    p_dst = __dst;
-  }
-
-  v124 = [MEMORY[0x1E696AEC0] stringWithCString:p_dst encoding:4];
-  v10 = [MEMORY[0x1E695DF70] array];
-  ODSOperandIndexAndLength = mlir::mps::GRUOp::getODSOperandIndexAndLength(&v127, 0);
-  v12 = EmitViewerSPI::emitNodeInputPort(a2, @"input_sequence", *(*(v127 + 9) + 32 * ODSOperandIndexAndLength + 24));
-  if (v12)
-  {
-    [v10 addObject:v12];
-  }
-
-  v13 = mlir::mps::GRUOp::getODSOperandIndexAndLength(&v127, 1u);
-  v14 = EmitViewerSPI::emitNodeInputPort(a2, @"recurrent_weight", *(*(v127 + 9) + 32 * v13 + 24));
-  if (v14)
-  {
-    [v10 addObject:v14];
-  }
-
-  v15 = mlir::mps::GRUOp::getODSOperandIndexAndLength(&v127, 2u);
-  if ((*(v127 + 46) & 0x80) != 0)
-  {
-    v16 = *(v127 + 9);
-    v17 = v15;
-    if (HIDWORD(v15) + v15 == v15)
-    {
-LABEL_16:
-      v18 = 0;
-      goto LABEL_19;
-    }
-  }
-
-  else
-  {
-    v16 = 0;
-    v17 = v15;
-    if (HIDWORD(v15) + v15 == v15)
-    {
-      goto LABEL_16;
-    }
-  }
-
-  v18 = *(v16 + 32 * v17 + 24);
-LABEL_19:
-  v19 = EmitViewerSPI::emitNodeInputPort(a2, @"input_state", v18);
-  if (v19)
-  {
-    [v10 addObject:v19];
-  }
-
-  v20 = mlir::mps::GRUOp::getODSOperandIndexAndLength(&v127, 3u);
-  if ((*(v127 + 46) & 0x80) != 0)
-  {
-    v21 = *(v127 + 9);
-    v22 = v20;
-    if (HIDWORD(v20) + v20 == v20)
-    {
-LABEL_23:
-      v23 = 0;
-      goto LABEL_26;
-    }
-  }
-
-  else
-  {
-    v21 = 0;
-    v22 = v20;
-    if (HIDWORD(v20) + v20 == v20)
-    {
-      goto LABEL_23;
-    }
-  }
-
-  v23 = *(v21 + 32 * v22 + 24);
-LABEL_26:
-  v24 = EmitViewerSPI::emitNodeInputPort(a2, @"input_cell", v23);
-  if (v24)
-  {
-    [v10 addObject:v24];
-  }
-
-  v25 = mlir::mps::GRUOp::getODSOperandIndexAndLength(&v127, 4u);
-  if ((*(v127 + 46) & 0x80) != 0)
-  {
-    v26 = *(v127 + 9);
-    v27 = v25;
-    if (HIDWORD(v25) + v25 == v25)
-    {
-LABEL_30:
-      v28 = 0;
-      goto LABEL_33;
-    }
-  }
-
-  else
-  {
-    v26 = 0;
-    v27 = v25;
-    if (HIDWORD(v25) + v25 == v25)
-    {
-      goto LABEL_30;
-    }
-  }
-
-  v28 = *(v26 + 32 * v27 + 24);
-LABEL_33:
-  v29 = EmitViewerSPI::emitNodeInputPort(a2, @"mask", v28);
-  if (v29)
-  {
-    [v10 addObject:v29];
-  }
-
-  v30 = mlir::mps::GRUOp::getODSOperandIndexAndLength(&v127, 5u);
-  if ((*(v127 + 46) & 0x80) != 0)
-  {
-    v31 = *(v127 + 9);
-    v32 = v30;
-    if (HIDWORD(v30) + v30 == v30)
-    {
-LABEL_37:
-      v33 = 0;
-      goto LABEL_40;
-    }
-  }
-
-  else
-  {
-    v31 = 0;
-    v32 = v30;
-    if (HIDWORD(v30) + v30 == v30)
-    {
-      goto LABEL_37;
-    }
-  }
-
-  v33 = *(v31 + 32 * v32 + 24);
-LABEL_40:
-  v34 = EmitViewerSPI::emitNodeInputPort(a2, @"peephole", v33);
-  if (v34)
-  {
-    [v10 addObject:v34];
-  }
-
-  v35 = mlir::mps::GRUOp::getODSOperandIndexAndLength(&v127, 6u);
-  if ((*(v127 + 46) & 0x80) != 0)
-  {
-    v36 = *(v127 + 9);
-    v37 = v35;
-    if (HIDWORD(v35) + v35 == v35)
-    {
-LABEL_44:
-      v38 = 0;
-      goto LABEL_47;
-    }
-  }
-
-  else
-  {
-    v36 = 0;
-    v37 = v35;
-    if (HIDWORD(v35) + v35 == v35)
-    {
-      goto LABEL_44;
-    }
-  }
-
-  v38 = *(v36 + 32 * v37 + 24);
-LABEL_47:
-  v39 = EmitViewerSPI::emitNodeInputPort(a2, @"cell_clip", v38);
-  if (v39)
-  {
-    [v10 addObject:v39];
-  }
-
-  v40 = [MEMORY[0x1E695DF70] array];
-  ODSResultIndexAndLength = mlir::mps::LSTMOp::getODSResultIndexAndLength(&v127, 0, v41, v42);
-  if (*(v127 + 9))
-  {
-    NextResultAtOffset = v127 - 16;
-  }
-
-  else
-  {
-    NextResultAtOffset = 0;
-  }
-
-  if (ODSResultIndexAndLength)
-  {
-    NextResultAtOffset = mlir::detail::OpResultImpl::getNextResultAtOffset(NextResultAtOffset, ODSResultIndexAndLength);
-  }
-
-  v45 = mlir::detail::OpResultImpl::getNextResultAtOffset(NextResultAtOffset, 0);
-  v46 = EmitViewerSPI::emitNodeOutputPort(a2, @"result", v45);
-  if (v46)
-  {
-    [v40 addObject:v46];
-  }
-
-  v49 = mlir::mps::LSTMOp::getODSResultIndexAndLength(&v127, 1u, v47, v48);
-  if (*(v127 + 9))
-  {
-    v50 = v127 - 16;
-  }
-
-  else
-  {
-    v50 = 0;
-  }
-
-  if (v49)
-  {
-    v50 = mlir::detail::OpResultImpl::getNextResultAtOffset(v50, v49);
-  }
-
-  v51 = mlir::detail::OpResultImpl::getNextResultAtOffset(v50, 0);
-  v52 = EmitViewerSPI::emitNodeOutputPort(a2, @"output_cell", v51);
-  if (v52)
-  {
-    [v40 addObject:v52];
-  }
-
-  v55 = mlir::mps::LSTMOp::getODSResultIndexAndLength(&v127, 2u, v53, v54);
-  if (*(v127 + 9))
-  {
-    v56 = v127 - 16;
-  }
-
-  else
-  {
-    v56 = 0;
-  }
-
-  if (v55)
-  {
-    v56 = mlir::detail::OpResultImpl::getNextResultAtOffset(v56, v55);
-  }
-
-  if (HIDWORD(v55) + v55 == v55)
-  {
-    v57 = 0;
-  }
-
-  else
-  {
-    v57 = mlir::detail::OpResultImpl::getNextResultAtOffset(v56, 0);
-  }
-
-  v58 = EmitViewerSPI::emitNodeOutputPort(a2, @"training_state", v57);
-  if (v58)
-  {
-    [v40 addObject:v58];
-  }
-
-  v59 = [MEMORY[0x1E695DF70] array];
-  PaddingStyle = mlir::mps::DepthwiseConv2DDataGradientOp::getPaddingStyle(&v127);
-  v61 = [MEMORY[0x1E695DF70] array];
-  v62 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"none" value:0];
-  [v61 addObject:v62];
-
-  v63 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"relu" value:1];
-  [v61 addObject:v63];
-
-  v64 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"tanh" value:2];
-  [v61 addObject:v64];
-
-  v65 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"sigmoid" value:3];
-  [v61 addObject:v65];
-
-  v66 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"hard_sigmoid" value:4];
-  [v61 addObject:v66];
-
-  v67 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"scaled_tanh" value:5];
-  [v61 addObject:v67];
-
-  v68 = [[MPSGraphViewerNodePropertyEnumSPI alloc] initWithName:@"igate_activation" type:@"MPSRNNActivation" cases:v61 value:PaddingStyle];
-  if (v68)
-  {
-    [v59 addObject:v68];
-  }
-
-  Layout = mlir::mps::SampleGridOp::getLayout(&v127);
-  v70 = [MEMORY[0x1E695DF70] array];
-  v71 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"none" value:0];
-  [v70 addObject:v71];
-
-  v72 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"relu" value:1];
-  [v70 addObject:v72];
-
-  v73 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"tanh" value:2];
-  [v70 addObject:v73];
-
-  v74 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"sigmoid" value:3];
-  [v70 addObject:v74];
-
-  v75 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"hard_sigmoid" value:4];
-  [v70 addObject:v75];
-
-  v76 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"scaled_tanh" value:5];
-  [v70 addObject:v76];
-
-  v77 = [[MPSGraphViewerNodePropertyEnumSPI alloc] initWithName:@"fgate_activation" type:@"MPSRNNActivation" cases:v70 value:Layout];
-  if (v77)
-  {
-    [v59 addObject:v77];
-  }
-
-  WeightsLayout = mlir::mps::Conv3DOp::getWeightsLayout(&v127);
-  v79 = [MEMORY[0x1E695DF70] array];
-  v80 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"none" value:0];
-  [v79 addObject:v80];
-
-  v81 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"relu" value:1];
-  [v79 addObject:v81];
-
-  v82 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"tanh" value:2];
-  [v79 addObject:v82];
-
-  v83 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"sigmoid" value:3];
-  [v79 addObject:v83];
-
-  v84 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"hard_sigmoid" value:4];
-  [v79 addObject:v84];
-
-  v85 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"scaled_tanh" value:5];
-  [v79 addObject:v85];
-
-  v86 = [[MPSGraphViewerNodePropertyEnumSPI alloc] initWithName:@"zgate_activation" type:@"MPSRNNActivation" cases:v79 value:WeightsLayout];
-  if (v86)
-  {
-    [v59 addObject:v86];
-  }
-
-  v87 = mlir::mps::Conv3DOp::getPaddingStyle(&v127);
-  v88 = [MEMORY[0x1E695DF70] array];
-  v89 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"none" value:0];
-  [v88 addObject:v89];
-
-  v90 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"relu" value:1];
-  [v88 addObject:v90];
-
-  v91 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"tanh" value:2];
-  [v88 addObject:v91];
-
-  v92 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"sigmoid" value:3];
-  [v88 addObject:v92];
-
-  v93 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"hard_sigmoid" value:4];
-  [v88 addObject:v93];
-
-  v94 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"scaled_tanh" value:5];
-  [v88 addObject:v94];
-
-  v95 = [[MPSGraphViewerNodePropertyEnumSPI alloc] initWithName:@"ogate_activation" type:@"MPSRNNActivation" cases:v88 value:v87];
-  if (v95)
-  {
-    [v59 addObject:v95];
-  }
-
-  StorageType = mlir::mps::MaterializeSparseTensorOp::getStorageType(&v127);
-  v97 = [MEMORY[0x1E695DF70] array];
-  v98 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"none" value:0];
-  [v97 addObject:v98];
-
-  v99 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"relu" value:1];
-  [v97 addObject:v99];
-
-  v100 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"tanh" value:2];
-  [v97 addObject:v100];
-
-  v101 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"sigmoid" value:3];
-  [v97 addObject:v101];
-
-  v102 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"hard_sigmoid" value:4];
-  [v97 addObject:v102];
-
-  v103 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"scaled_tanh" value:5];
-  [v97 addObject:v103];
-
-  v104 = [[MPSGraphViewerNodePropertyEnumSPI alloc] initWithName:@"cell_activation" type:@"MPSRNNActivation" cases:v97 value:StorageType];
-  if (v104)
-  {
-    [v59 addObject:v104];
-  }
-
-  GateLayout = mlir::mps::LSTMOp::getGateLayout(&v127);
-  v106 = [MEMORY[0x1E695DF70] array];
-  v107 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"IFZO" value:0];
-  [v106 addObject:v107];
-
-  v108 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"IZFO" value:1];
-  [v106 addObject:v108];
-
-  v109 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"IFOZ" value:2];
-  [v106 addObject:v109];
-
-  v110 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"IOFZ" value:3];
-  [v106 addObject:v110];
-
-  v111 = [[MPSGraphViewerNodePropertyEnumSPI alloc] initWithName:@"gate_layout" type:@"MPSLSTMGateLayout" cases:v106 value:GateLayout];
-  if (v111)
-  {
-    [v59 addObject:v111];
-  }
-
-  LOBYTE(v128) = mlir::mps::GRUOp::getTraining(&v127);
-  v112 = [[MPSGraphViewerNodePropertyDataSPI alloc] initWithName:@"training" dataType:2147483656 shape:&unk_1F5B76688];
-  if (v112)
-  {
-    v113 = [MEMORY[0x1E695DEF0] dataWithBytes:&v128 length:1];
-    [(MPSGraphViewerNodePropertyDataSPI *)v112 setValue:v113];
-
-    [v59 addObject:v112];
-  }
-
-  v114 = [MEMORY[0x1E695DF70] array];
-  v115 = [MPSGraphViewerNodeSPI alloc];
-  v116 = [MEMORY[0x1E695DEC8] arrayWithArray:v10];
-  v117 = [MEMORY[0x1E695DEC8] arrayWithArray:v40];
-  v118 = [MEMORY[0x1E695DEC8] arrayWithArray:v59];
-  v119 = [MEMORY[0x1E695DEC8] arrayWithArray:v114];
-  v120 = [(MPSGraphViewerNodeSPI *)v115 initWithType:v124 inputs:v116 outputs:v117 properties:v118 regions:v119];
-  v121 = *(this + 3);
-  *(this + 3) = v120;
-  v122 = ;
-  [*(this + 3) setLocalizedDescription:v122];
-
-  if (v126 < 0)
   {
     operator delete(__dst);
   }

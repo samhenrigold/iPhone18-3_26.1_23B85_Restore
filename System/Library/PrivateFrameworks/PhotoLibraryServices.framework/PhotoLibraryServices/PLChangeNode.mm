@@ -161,17 +161,17 @@
   objc_autoreleasePoolPop(v6);
 }
 
-uint64_t __62__PLChangeNode_publishChangesForDidSaveObjectIDsNotification___block_invoke(void *a1)
+void *__62__PLChangeNode_publishChangesForDidSaveObjectIDsNotification___block_invoke(void *a1, uint64_t a2)
 {
   result = PLIsAssetsd();
   if (result)
   {
-    v3 = a1[5];
-    v4 = *(a1[4] + 72);
-    v5 = a1[6];
-    v6 = a1[7];
+    v4 = a1[5];
+    v5 = *(a1[4] + 72);
+    v6 = a1[6];
+    v7 = a1[7];
 
-    return [v4 processDelayedSaveActionsDetail:v3 withPhotoLibrary:v5 transaction:v6];
+    return [v5 processDelayedSaveActionsDetail:v4 withPhotoLibrary:v6 transaction:v7];
   }
 
   return result;
@@ -280,11 +280,11 @@ uint64_t __62__PLChangeNode_publishChangesForDidSaveObjectIDsNotification___bloc
 LABEL_15:
 }
 
-uint64_t __89__PLChangeNode_distributeRemoteContextDidSaveEvent_delayedSaveActionsDetail_transaction___block_invoke(uint64_t result)
+void *__89__PLChangeNode_distributeRemoteContextDidSaveEvent_delayedSaveActionsDetail_transaction___block_invoke(void *result)
 {
   if (*(result + 64) == 1)
   {
-    return [*(*(result + 32) + 72) processDelayedSaveActionsDetail:*(result + 40) withPhotoLibrary:*(result + 48) transaction:*(result + 56)];
+    return [*(result[4] + 72) processDelayedSaveActionsDetail:result[5] withPhotoLibrary:result[6] transaction:result[7]];
   }
 
   return result;

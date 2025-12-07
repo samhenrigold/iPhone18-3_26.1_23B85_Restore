@@ -11,10 +11,10 @@
 {
   v3 = [PXStoryConcreteViewLayoutSpec alloc];
   extendedTraitCollection = [(PXFeatureSpecManager *)self extendedTraitCollection];
-  options = [(PXFeatureSpecManager *)self options];
+  v5 = objc_msgSend_options(self);
   storyConfigurationOptions = [(PXStoryViewLayoutSpecManager *)self storyConfigurationOptions];
   customGeneralChromeTitleConfiguration = [(PXStoryViewLayoutSpecManager *)self customGeneralChromeTitleConfiguration];
-  v8 = [(PXStoryConcreteViewLayoutSpec *)v3 initWithExtendedTraitCollection:extendedTraitCollection options:options storyConfigurationOptions:storyConfigurationOptions customGeneralChromeTitleConfiguration:customGeneralChromeTitleConfiguration];
+  v8 = [(PXStoryConcreteViewLayoutSpec *)v3 initWithExtendedTraitCollection:extendedTraitCollection options:v5 storyConfigurationOptions:storyConfigurationOptions customGeneralChromeTitleConfiguration:customGeneralChromeTitleConfiguration];
 
   return v8;
 }

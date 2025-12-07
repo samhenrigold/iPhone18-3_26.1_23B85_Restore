@@ -222,10 +222,10 @@ LABEL_45:
   v12 = *(part + 4);
   v13 = *(part + 2);
   v14 = v9;
-  if (v46)
+  if (v48)
   {
-    v15 = v47;
-    v16 = &v47[7 * v46];
+    v15 = v49;
+    v16 = &v49[7 * v48];
     while (1)
     {
       v18 = [MEMORY[0x1E696AEC0] stringWithUTF8String:*v15];
@@ -256,13 +256,13 @@ LABEL_45:
         v20 = 0;
       }
 
-      v48[0] = 2 * v20;
-      v48[1] = v19;
-      v24 = re::bufferIdentifierForMeshAttribute(v48, v17);
+      v50[0] = 2 * v20;
+      v50[1] = v19;
+      v24 = re::bufferIdentifierForMeshAttribute(v50, v17);
       v26 = v24;
-      if (v48[0])
+      if (v50[0])
       {
-        if (v48[0])
+        if (v50[0])
         {
         }
       }
@@ -299,7 +299,7 @@ LABEL_45:
     }
 
     re::internal::assertLog(6, v25, "assertion failure: '%s' (%s:line %i) Index out of range. index = %zu, size = %zu", "index < size()", "operator[]", 264, 0, 0);
-    result = _os_crash();
+    result = _os_crash("assertion failure: (index < size()) Index out of range. index = %zu, size = %zu", v43, v45);
     __break(1u);
   }
 
@@ -346,12 +346,12 @@ LABEL_21:
     }
 
     HIDWORD(v42) = *(part + 30);
-    LODWORD(v43) = 0;
+    LODWORD(v44) = 0;
     BYTE1(v42) = v34;
     LOBYTE(v42) = v39;
-    v40 = [REMeshPartDescriptor initWithName:selfCopy vertexCount:"initWithName:vertexCount:indexCount:instanceCount:attributes:materialIndex:boundingBoxMin:boundingBoxMax:doubleSidedFlag:windingOrderIsCCW:transform:preSplitVertexCount:patchCount:" indexCount:v38 instanceCount:*(part + 10) attributes:*(part + 12) materialIndex:*MEMORY[0x1E69E9B18] boundingBoxMin:*(MEMORY[0x1E69E9B18] + 16) boundingBoxMax:*(MEMORY[0x1E69E9B18] + 32) doubleSidedFlag:*(MEMORY[0x1E69E9B18] + 48) windingOrderIsCCW:v42 transform:v43 preSplitVertexCount:? patchCount:?];
+    v40 = [REMeshPartDescriptor initWithName:selfCopy vertexCount:"initWithName:vertexCount:indexCount:instanceCount:attributes:materialIndex:boundingBoxMin:boundingBoxMax:doubleSidedFlag:windingOrderIsCCW:transform:preSplitVertexCount:patchCount:" indexCount:v38 instanceCount:*(part + 10) attributes:*(part + 12) materialIndex:*MEMORY[0x1E69E9B18] boundingBoxMin:*(MEMORY[0x1E69E9B18] + 16) boundingBoxMax:*(MEMORY[0x1E69E9B18] + 32) doubleSidedFlag:*(MEMORY[0x1E69E9B18] + 48) windingOrderIsCCW:v42 transform:v44 preSplitVertexCount:? patchCount:?];
 
-    re::FixedArray<re::MeshVertexAttributeBuffers::Attribute>::deinit(&v45);
+    re::FixedArray<re::MeshVertexAttributeBuffers::Attribute>::deinit(&v47);
     return v40;
   }
 
@@ -639,8 +639,7 @@ LABEL_18:
   v24->_name = v25;
 
   v27 = [transformCopy mutableCopy];
-  v28 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"indexTriangles"];
-  v29 = objc_claimAutoreleasedReturnValue();
+  v29 = v28 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"indexTriangles"];
 
   v24->_indexPayloadOffset = 0;
   v24->_indexCount = 0;
@@ -1252,7 +1251,7 @@ LABEL_9:
   }
 
   re::internal::assertLog(5, a2, "assertion failure: '%s' (%s:line %i) Invalid index type: %d", "false", "[REMeshPartDescriptor indexBufferSize]", 684, indexType);
-  result = _os_crash();
+  result = _os_crash("assertion failure: (false) Invalid index type: %d", v5);
   __break(1u);
   return result;
 }

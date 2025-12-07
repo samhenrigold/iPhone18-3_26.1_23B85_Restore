@@ -23,7 +23,7 @@
 
   v6 = sub_189041138(v8);
 
-  sub_188A3F5FC(v8, &qword_1EA934050);
+  sub_188A3F5FC(v8, &qword_1EA934050, qword_18A64CA10);
   return v6;
 }
 

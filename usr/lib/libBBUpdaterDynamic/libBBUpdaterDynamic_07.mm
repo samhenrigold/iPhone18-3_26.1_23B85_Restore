@@ -1,153 +1,634 @@
-uint64_t sendProvisionPing(ACFULogging *a1, uint64_t *a2, ACFUFirmware **a3, BOOL *a4, uint64_t *a5)
+void sub_1E5296EC0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, char a23, uint64_t a24, char a25, uint64_t a26, char a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, ...)
 {
-  v48 = 0xAAAAAAAAAAAAAAAALL;
-  memset(&v47, 0, sizeof(v47));
-  v49 = 0u;
-  v50 = 0u;
-  v51 = 0u;
-  *v52 = 0u;
-  v45 = 0;
-  cf = 0;
-  theDict = 0;
-  ACFULogging::getLogInstance(a1);
-  v10 = ACFULogging::handleMessage();
-  if (!a1 || !*a2 || !*a3)
+  va_start(va, a31);
+  if (*(v34 - 89) < 0)
   {
-    ACFULogging::getLogInstance(v10);
-    goto LABEL_45;
+    operator delete(*(v34 - 112));
+    operator delete(v32);
+    operator delete(v31);
+    if (!v33)
+    {
+LABEL_4:
+      std::shared_ptr<std::__empty_state<char>>::~shared_ptr[abi:ne200100](&a21);
+      BasebandProvisioning::~BasebandProvisioning(va);
+      _Unwind_Resume(a1);
+    }
   }
 
-  v11 = configureProvisioner(&v47, a1);
-  if ((v11 & 1) == 0)
+  else
   {
-    ACFULogging::getLogInstance(v11);
-    goto LABEL_45;
+    operator delete(v32);
+    operator delete(v31);
+    if (!v33)
+    {
+      goto LABEL_4;
+    }
   }
 
-  ACFULogging::getLogInstance(v11);
-  ACFULogging::handleMessage();
-  APProvisioningInfo = createAPProvisioningInfo(&cf);
-  if ((APProvisioningInfo & 1) == 0 || (v13 = cf) == 0)
+  (*(*v33 + 8))(v33);
+  goto LABEL_4;
+}
+
+void sub_1E529704C()
+{
+  operator delete(v1);
+  operator delete(v0);
+  if (!v2)
   {
-    ACFULogging::getLogInstance(APProvisioningInfo);
-    goto LABEL_45;
+    JUMPOUT(0x1E529700CLL);
   }
 
-  CFRetain(cf);
-  v14 = v52[0];
-  v52[0] = v13;
-  if (v14)
+  JUMPOUT(0x1E5296FE4);
+}
+
+void sub_1E5297088()
+{
+  if (*(v2 - 89) < 0)
   {
+    operator delete(*(v2 - 112));
+  }
+
+  operator delete(v1);
+  operator delete(v0);
+  JUMPOUT(0x1E529700CLL);
+}
+
+uint64_t createAPProvisioningInfo(__CFDictionary **a1)
+{
+  v65 = *MEMORY[0x1E69E9840];
+  LogInstance = ACFULogging::getLogInstance(a1);
+  if (!a1)
+  {
+    ACFULogging::handleMessage(LogInstance, 2, "%s::%s: Missing apProvInfo parameter\n");
+    return 0;
+  }
+
+  ACFULogging::handleMessage(LogInstance, 0, "%s::%s: Copy existing provisining info from the device\n", "BasebandProvisioning", "createAPProvisioningInfo");
+  v3 = *MEMORY[0x1E695E480];
+  Mutable = CFDictionaryCreateMutable(*MEMORY[0x1E695E480], 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
+  if (!Mutable)
+  {
+    v60 = ACFULogging::getLogInstance(0);
+    ACFULogging::handleMessage(v60, 2, "%s::%s: info dict alloc failed\n");
+    return 0;
+  }
+
+  v5 = Mutable;
+  if (BBUpdaterCommon::BBUMGCopyAnswer(__CFString const*)::onceToken == -1)
+  {
+    v6 = BBUpdaterCommon::BBUMGCopyAnswer(__CFString const*)::sCopyAnswer;
+    if (!BBUpdaterCommon::BBUMGCopyAnswer(__CFString const*)::sCopyAnswer)
+    {
+      goto LABEL_8;
+    }
+  }
+
+  else
+  {
+    dispatch_once(&BBUpdaterCommon::BBUMGCopyAnswer(__CFString const*)::onceToken, &__block_literal_global_6);
+    v6 = BBUpdaterCommon::BBUMGCopyAnswer(__CFString const*)::sCopyAnswer;
+    if (!BBUpdaterCommon::BBUMGCopyAnswer(__CFString const*)::sCopyAnswer)
+    {
+      goto LABEL_8;
+    }
+  }
+
+  v7 = v6(@"MLBSerialNumber", 0);
+  if (v7)
+  {
+    v8 = v7;
+    CFDictionarySetValue(v5, @"MLB", v7);
+    CFRelease(v8);
+  }
+
+  if (BBUpdaterCommon::BBUMGCopyAnswer(__CFString const*)::onceToken != -1)
+  {
+    dispatch_once(&BBUpdaterCommon::BBUMGCopyAnswer(__CFString const*)::onceToken, &__block_literal_global_6);
+    v9 = BBUpdaterCommon::BBUMGCopyAnswer(__CFString const*)::sCopyAnswer;
+    if (!BBUpdaterCommon::BBUMGCopyAnswer(__CFString const*)::sCopyAnswer)
+    {
+      goto LABEL_12;
+    }
+
+    goto LABEL_9;
+  }
+
+LABEL_8:
+  v9 = BBUpdaterCommon::BBUMGCopyAnswer(__CFString const*)::sCopyAnswer;
+  if (!BBUpdaterCommon::BBUMGCopyAnswer(__CFString const*)::sCopyAnswer)
+  {
+    goto LABEL_12;
+  }
+
+LABEL_9:
+  v10 = v9(@"ModelNumber", 0);
+  if (v10)
+  {
+    v11 = v10;
+    CFDictionarySetValue(v5, @"MPN", v10);
+    CFRelease(v11);
+  }
+
+  if (BBUpdaterCommon::BBUMGCopyAnswer(__CFString const*)::onceToken != -1)
+  {
+    dispatch_once(&BBUpdaterCommon::BBUMGCopyAnswer(__CFString const*)::onceToken, &__block_literal_global_6);
+    v12 = BBUpdaterCommon::BBUMGCopyAnswer(__CFString const*)::sCopyAnswer;
+    if (!BBUpdaterCommon::BBUMGCopyAnswer(__CFString const*)::sCopyAnswer)
+    {
+      goto LABEL_16;
+    }
+
+    goto LABEL_13;
+  }
+
+LABEL_12:
+  v12 = BBUpdaterCommon::BBUMGCopyAnswer(__CFString const*)::sCopyAnswer;
+  if (!BBUpdaterCommon::BBUMGCopyAnswer(__CFString const*)::sCopyAnswer)
+  {
+    goto LABEL_16;
+  }
+
+LABEL_13:
+  v13 = v12(@"RegionInfo", 0);
+  if (v13)
+  {
+    v14 = v13;
+    CFDictionarySetValue(v5, @"RGN", v13);
     CFRelease(v14);
   }
 
-  CFRelease(v13);
-  ACFULogging::getLogInstance(v15);
-  v16 = operator new(0x30uLL);
-  strcpy(v16, "BasebandProvisioning::sendProvisionPing");
-  HIBYTE(v35[1]) = 0;
-  strcpy(v35, "sendProvisionPinProvisioning::");
-  __p = v16;
-  v43 = xmmword_1E5391340;
+  if (BBUpdaterCommon::BBUMGCopyAnswer(__CFString const*)::onceToken != -1)
+  {
+    dispatch_once(&BBUpdaterCommon::BBUMGCopyAnswer(__CFString const*)::onceToken, &__block_literal_global_6);
+    v15 = BBUpdaterCommon::BBUMGCopyAnswer(__CFString const*)::sCopyAnswer;
+    if (!BBUpdaterCommon::BBUMGCopyAnswer(__CFString const*)::sCopyAnswer)
+    {
+      goto LABEL_22;
+    }
+
+    goto LABEL_17;
+  }
+
+LABEL_16:
+  v15 = BBUpdaterCommon::BBUMGCopyAnswer(__CFString const*)::sCopyAnswer;
+  if (!BBUpdaterCommon::BBUMGCopyAnswer(__CFString const*)::sCopyAnswer)
+  {
+    goto LABEL_22;
+  }
+
+LABEL_17:
+  v16 = v15(@"UniqueChipID", 0);
+  if (v16)
+  {
+    v17 = v16;
+    *&valuePtr[0] = 0;
+    if (CFNumberGetValue(v16, kCFNumberSInt64Type, valuePtr))
+    {
+      v18 = CFStringCreateWithFormat(v3, 0, @"%qu", *&valuePtr[0]);
+      if (!v18)
+      {
+        v61 = ACFULogging::getLogInstance(0);
+        ACFULogging::handleMessage(v61, 2, "%s::%s: ecid str alloc failed\n");
+        return 0;
+      }
+
+      v19 = v18;
+      CFDictionarySetValue(v5, @"ECID", v18);
+      CFRelease(v19);
+    }
+
+    CFRelease(v17);
+  }
+
+LABEL_22:
+  *&v20 = 0xAAAAAAAAAAAAAAAALL;
+  *(&v20 + 1) = 0xAAAAAAAAAAAAAAAALL;
+  valuePtr[6] = v20;
+  valuePtr[7] = v20;
+  valuePtr[4] = v20;
+  valuePtr[5] = v20;
+  valuePtr[2] = v20;
+  valuePtr[3] = v20;
+  valuePtr[0] = v20;
+  valuePtr[1] = v20;
+  v63 = 128;
+  v21 = sysctlbyname("hw.target", valuePtr, &v63, 0, 0);
+  if (v21)
+  {
+    v22 = ACFULogging::getLogInstance(v21);
+    v23 = __error();
+    v24 = strerror(*v23);
+    ACFULogging::handleMessage(v22, 0, "%s::%s: sysctlybyname for hw.target failed: %s\n", "BasebandProvisioning", "copy_hardware_model", v24);
+    v25 = @"unknown";
+  }
+
+  else
+  {
+    v25 = CFStringCreateWithCString(v3, valuePtr, 0x8000100u);
+    if (!v25)
+    {
+      goto LABEL_32;
+    }
+  }
+
+  MutableCopy = CFStringCreateMutableCopy(v3, 0, v25);
+  CFStringLowercase(MutableCopy, 0);
+  Length = CFStringGetLength(MutableCopy);
+  if (CFStringHasSuffix(MutableCopy, @"ap") == 1)
+  {
+    v28 = -2;
+    v29.length = 2;
+  }
+
+  else
+  {
+    if (CFStringHasSuffix(MutableCopy, @"dev") != 1)
+    {
+      goto LABEL_30;
+    }
+
+    v28 = -3;
+    v29.length = 3;
+  }
+
+  v29.location = v28 + Length;
+  CFStringDelete(MutableCopy, v29);
+LABEL_30:
+  CFRelease(v25);
+  if (MutableCopy)
+  {
+    CFStringUppercase(MutableCopy, 0);
+    CFDictionarySetValue(v5, @"PRODUCT", MutableCopy);
+    CFRelease(MutableCopy);
+  }
+
+LABEL_32:
+  if (BBUpdaterCommon::BBUMGCopyAnswer(__CFString const*)::onceToken == -1)
+  {
+    v30 = BBUpdaterCommon::BBUMGCopyAnswer(__CFString const*)::sCopyAnswer;
+    if (!BBUpdaterCommon::BBUMGCopyAnswer(__CFString const*)::sCopyAnswer)
+    {
+      goto LABEL_36;
+    }
+  }
+
+  else
+  {
+    dispatch_once(&BBUpdaterCommon::BBUMGCopyAnswer(__CFString const*)::onceToken, &__block_literal_global_6);
+    v30 = BBUpdaterCommon::BBUMGCopyAnswer(__CFString const*)::sCopyAnswer;
+    if (!BBUpdaterCommon::BBUMGCopyAnswer(__CFString const*)::sCopyAnswer)
+    {
+      goto LABEL_36;
+    }
+  }
+
+  v31 = v30(@"SerialNumber", 0);
+  if (v31)
+  {
+    v32 = v31;
+    CFDictionarySetValue(v5, @"SN", v31);
+    CFRelease(v32);
+  }
+
+LABEL_36:
+  v33 = copy_mac_address_existence(@"WifiAddress");
+  if (v33)
+  {
+    v34 = v33;
+    CFDictionarySetValue(v5, @"WIFI_MAC", v33);
+    CFRelease(v34);
+  }
+
+  v35 = copy_mac_address_existence(@"BluetoothAddress");
+  if (v35)
+  {
+    v36 = v35;
+    CFDictionarySetValue(v5, @"BT_MAC", v35);
+    CFRelease(v36);
+  }
+
+  v37 = copy_mac_address_existence(@"EthernetMacAddress");
+  if (v37)
+  {
+    v38 = v37;
+    CFDictionarySetValue(v5, @"USB_ETHER_MAC", v37);
+    CFRelease(v38);
+  }
+
+  v39 = copy_mac_address_existence(@"SecondaryWifiMacAddress");
+  if (v39)
+  {
+    v40 = v39;
+    CFDictionarySetValue(v5, @"WIFI_MAC2", v39);
+    CFRelease(v40);
+  }
+
+  v41 = copy_mac_address_existence(@"SecondaryBluetoothMacAddress");
+  if (v41)
+  {
+    v42 = v41;
+    CFDictionarySetValue(v5, @"BT_MAC2", v41);
+    CFRelease(v42);
+  }
+
+  v43 = copy_mac_address_existence(@"SecondaryEthernetMacAddress");
+  if (v43)
+  {
+    v44 = v43;
+    CFDictionarySetValue(v5, @"ETH_MAC", v43);
+    CFRelease(v44);
+  }
+
+  v45 = copy_mac_address_existence(@"ExtendedLOMMacAddress");
+  if (v45)
+  {
+    v46 = v45;
+    CFDictionarySetValue(v5, @"ETHER_MAC2", v45);
+    CFRelease(v46);
+  }
+
+  v47 = copy_mac_address_existence(@"PintoMacAddress");
+  if (v47)
+  {
+    v48 = v47;
+    CFDictionarySetValue(v5, @"PINTO_MAC", v47);
+    CFRelease(v48);
+  }
+
+  v49 = copy_mac_address_existence(@"ThreadRadioMacAddressForProvisioning");
+  if (v49)
+  {
+    v50 = v49;
+    CFDictionarySetValue(v5, @"T_MAC", v49);
+    CFRelease(v50);
+  }
+
+  if (BBUpdaterCommon::BBUMGCopyAnswer(__CFString const*)::onceToken == -1)
+  {
+    v51 = BBUpdaterCommon::BBUMGCopyAnswer(__CFString const*)::sCopyAnswer;
+    if (!BBUpdaterCommon::BBUMGCopyAnswer(__CFString const*)::sCopyAnswer)
+    {
+      goto LABEL_59;
+    }
+  }
+
+  else
+  {
+    dispatch_once(&BBUpdaterCommon::BBUMGCopyAnswer(__CFString const*)::onceToken, &__block_literal_global_6);
+    v51 = BBUpdaterCommon::BBUMGCopyAnswer(__CFString const*)::sCopyAnswer;
+    if (!BBUpdaterCommon::BBUMGCopyAnswer(__CFString const*)::sCopyAnswer)
+    {
+      goto LABEL_59;
+    }
+  }
+
+  v52 = v51(@"UniqueDeviceID", 0);
+  if (v52)
+  {
+    v53 = v52;
+    CFDictionarySetValue(v5, @"UDID", v52);
+    CFRelease(v53);
+  }
+
+  if (BBUpdaterCommon::BBUMGCopyAnswer(__CFString const*)::onceToken != -1)
+  {
+    dispatch_once(&BBUpdaterCommon::BBUMGCopyAnswer(__CFString const*)::onceToken, &__block_literal_global_6);
+    v54 = BBUpdaterCommon::BBUMGCopyAnswer(__CFString const*)::sCopyAnswer;
+    if (!BBUpdaterCommon::BBUMGCopyAnswer(__CFString const*)::sCopyAnswer)
+    {
+      goto LABEL_65;
+    }
+
+    goto LABEL_60;
+  }
+
+LABEL_59:
+  v54 = BBUpdaterCommon::BBUMGCopyAnswer(__CFString const*)::sCopyAnswer;
+  if (!BBUpdaterCommon::BBUMGCopyAnswer(__CFString const*)::sCopyAnswer)
+  {
+LABEL_65:
+    *a1 = v5;
+    return 1;
+  }
+
+LABEL_60:
+  v55 = v54(@"BoardId", 0);
+  if (!v55)
+  {
+    goto LABEL_65;
+  }
+
+  v56 = v55;
+  *&valuePtr[0] = 0;
+  if (!CFNumberGetValue(v55, kCFNumberSInt64Type, valuePtr))
+  {
+LABEL_64:
+    CFRelease(v56);
+    goto LABEL_65;
+  }
+
+  v57 = CFStringCreateWithFormat(v3, 0, @"%qx", *&valuePtr[0]);
+  if (v57)
+  {
+    v58 = v57;
+    CFDictionarySetValue(v5, @"BoardId", v57);
+    CFRelease(v58);
+    goto LABEL_64;
+  }
+
+  v62 = ACFULogging::getLogInstance(0);
+  ACFULogging::handleMessage(v62, 2, "%s::%s: boardid str alloc failed\n");
+  return 0;
+}
+
+uint64_t sendProvisionPing(ACFULogging *a1, uint64_t *a2, ACFUFirmware **a3, BOOL *a4, uint64_t *a5)
+{
+  v62 = 0xAAAAAAAAAAAAAAAALL;
+  memset(&v61, 0, sizeof(v61));
+  v63 = 0u;
+  v64 = 0u;
+  v65 = 0u;
+  *v66 = 0u;
+  v59 = 0;
+  cf = 0;
+  theDict = 0;
+  LogInstance = ACFULogging::getLogInstance(a1);
+  v11 = ACFULogging::handleMessage(LogInstance, 0, "%s::%s: Send Provisioning Ping\n", "BasebandProvisioning", "sendProvisionPing");
+  if (!a1)
+  {
+    v38 = ACFULogging::getLogInstance(v11);
+    ACFULogging::handleMessage(v38, 2, "%s::%s: Missing restore options\n");
+    goto LABEL_49;
+  }
+
+  if (!*a2)
+  {
+    v39 = ACFULogging::getLogInstance(v11);
+    ACFULogging::handleMessage(v39, 2, "%s::%s: Missing transport parameter\n");
+    goto LABEL_49;
+  }
+
+  if (!*a3)
+  {
+    v40 = ACFULogging::getLogInstance(v11);
+    ACFULogging::handleMessage(v40, 2, "%s::%s: Missing firmware parameter\n");
+    goto LABEL_49;
+  }
+
+  v12 = configureProvisioner(&v61, a1);
+  if ((v12 & 1) == 0)
+  {
+    v41 = ACFULogging::getLogInstance(v12);
+    ACFULogging::handleMessage(v41, 2, "%s::%s: Provisioner cfg failed\n");
+    goto LABEL_49;
+  }
+
+  v13 = ACFULogging::getLogInstance(v12);
+  ACFULogging::handleMessage(v13, 0, "%s::%s: Provisioner initialized\n", "BasebandProvisioning", "sendProvisionPing");
+  APProvisioningInfo = createAPProvisioningInfo(&cf);
+  if ((APProvisioningInfo & 1) == 0)
+  {
+    v42 = ACFULogging::getLogInstance(APProvisioningInfo);
+    ACFULogging::handleMessage(v42, 2, "%s::%s: copy prov info returned error\n");
+    goto LABEL_49;
+  }
+
+  v15 = cf;
+  if (!cf)
+  {
+    v43 = ACFULogging::getLogInstance(APProvisioningInfo);
+    ACFULogging::handleMessage(v43, 2, "%s::%s: copy prov info returned null data\n");
+    goto LABEL_49;
+  }
+
+  CFRetain(cf);
+  v16 = v66[0];
+  v66[0] = v15;
+  if (v16)
+  {
+    CFRelease(v16);
+  }
+
+  CFRelease(v15);
+  ACFULogging::getLogInstance(v17);
+  v18 = operator new(0x30uLL);
+  strcpy(v18, "BasebandProvisioning::sendProvisionPing");
+  HIBYTE(v49[1]) = 0;
+  strcpy(v49, "sendProvisionPinProvisioning::");
+  __p = v18;
+  v57 = xmmword_1E5391340;
   ACFULogging::handleMessageCFType();
   operator delete(__p);
-  v18 = a2[1];
-  v40 = *a2;
-  v41 = v18;
-  if (v18)
-  {
-    atomic_fetch_add_explicit(&v18->__shared_owners_, 1uLL, memory_order_relaxed);
-  }
-
-  v19 = a3[1];
-  v38 = *a3;
-  v39 = v19;
-  if (v19)
-  {
-    atomic_fetch_add_explicit(&v19->__shared_owners_, 1uLL, memory_order_relaxed);
-  }
-
-  v20 = a5[1];
-  v36 = *a5;
-  v37 = v20;
+  v20 = a2[1];
+  v54 = *a2;
+  v55 = v20;
   if (v20)
   {
-    atomic_fetch_add_explicit(&v20->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v20 + 8), 1uLL, memory_order_relaxed);
   }
 
-  v21 = createBasebandProvInfo(0, &v40, &v38, &v45, v17, a1);
-  v22 = v21;
-  if (v20 && !atomic_fetch_add(&v20->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  v21 = a3[1];
+  v52 = *a3;
+  v53 = v21;
+  if (v21)
   {
-    (v20->__on_zero_shared)(v20);
-    std::__shared_weak_count::__release_weak(v20);
+    atomic_fetch_add_explicit(v21 + 1, 1uLL, memory_order_relaxed);
   }
 
-  v23 = v39;
-  if (v39 && !atomic_fetch_add(&v39->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  v22 = a5[1];
+  v50 = *a5;
+  v51 = v22;
+  if (v22)
   {
-    (v23->__on_zero_shared)(v23);
-    std::__shared_weak_count::__release_weak(v23);
+    atomic_fetch_add_explicit(&v22->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  v24 = v41;
-  if (v41 && !atomic_fetch_add(&v41->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  v23 = createBasebandProvInfo(0, &v54, &v52, &v59, v19, a1);
+  v24 = v23;
+  if (v22 && !atomic_fetch_add(&v22->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
-    (v24->__on_zero_shared)(v24);
-    std::__shared_weak_count::__release_weak(v24);
+    (v22->__on_zero_shared)(v22);
+    std::__shared_weak_count::__release_weak(v22);
   }
 
-  if ((v22 & 1) == 0)
+  v25 = v53;
+  if (v53 && !atomic_fetch_add(&v53->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
-    goto LABEL_42;
+    (v25->__on_zero_shared)(v25);
+    std::__shared_weak_count::__release_weak(v25);
   }
 
-  v25 = v45;
-  if (!v45)
+  v26 = v55;
+  if (v55 && !atomic_fetch_add(&v55->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
-    goto LABEL_42;
+    (v26->__on_zero_shared)(v26);
+    std::__shared_weak_count::__release_weak(v26);
   }
 
-  CFRetain(v45);
-  v26 = v52[1];
-  v52[1] = v25;
-  if (v26)
+  if ((v24 & 1) == 0)
   {
-    CFRelease(v26);
+    v44 = ACFULogging::getLogInstance(v23);
+    ACFULogging::handleMessage(v44, 2, "%s::%s: copy baseband prov info returned error\n");
+    goto LABEL_49;
   }
 
-  CFRelease(v25);
-  ACFULogging::getLogInstance(v27);
-  v28 = operator new(0x30uLL);
-  *v28 = 0x646E616265736142;
-  *(v28 + 10) = 14906;
-  *(v28 + 4) = DWORD2(v35[1]);
-  *(v28 + 1) = *&v35[1];
-  *(v28 + 19) = 103;
-  *(v28 + 22) = v35[0];
-  __p = v28;
-  v43 = xmmword_1E5391340;
+  v27 = v59;
+  if (!v59)
+  {
+    v45 = ACFULogging::getLogInstance(v23);
+    ACFULogging::handleMessage(v45, 2, "%s::%s: copy baseband prov info returned null data\n");
+    goto LABEL_49;
+  }
+
+  CFRetain(v59);
+  v28 = v66[1];
+  v66[1] = v27;
+  if (v28)
+  {
+    CFRelease(v28);
+  }
+
+  CFRelease(v27);
+  ACFULogging::getLogInstance(v29);
+  v30 = operator new(0x30uLL);
+  *v30 = 0x646E616265736142;
+  *(v30 + 10) = 14906;
+  *(v30 + 4) = DWORD2(v49[1]);
+  *(v30 + 1) = *&v49[1];
+  *(v30 + 19) = 103;
+  *(v30 + 22) = v49[0];
+  __p = v30;
+  v57 = xmmword_1E5391340;
   ACFULogging::handleMessageCFType();
-  if (SHIBYTE(v43) < 0)
+  if (SHIBYTE(v57) < 0)
   {
     operator delete(__p);
   }
 
-  v21 = BasebandProvisioning::sendServerReq(&v47, @"1", a1, &theDict);
-  if ((v21 & 1) == 0)
+  v31 = BasebandProvisioning::sendServerReq(&v61, @"1", a1, &theDict);
+  if ((v31 & 1) == 0)
   {
-LABEL_42:
-    ACFULogging::getLogInstance(v21);
-    goto LABEL_45;
+    v46 = ACFULogging::getLogInstance(v31);
+    ACFULogging::handleMessage(v46, 2, "%s::%s: Send server req returned error for prov ping\n");
+    goto LABEL_49;
   }
 
-  if (!theDict || (Value = CFDictionaryGetValue(theDict, @"STATUS"), (v30 = Value) == 0))
+  if (!theDict)
   {
-    ACFULogging::getLogInstance(0);
-LABEL_45:
-    ACFULogging::handleMessage();
-    v32 = 0;
-    v33 = theDict;
+    v47 = ACFULogging::getLogInstance(0);
+    ACFULogging::handleMessage(v47, 2, "%s::%s: Returned null provisioned info\n");
+    goto LABEL_49;
+  }
+
+  Value = CFDictionaryGetValue(theDict, @"STATUS");
+  v33 = Value;
+  if (!Value)
+  {
+    v48 = ACFULogging::getLogInstance(0);
+    ACFULogging::handleMessage(v48, 2, "%s::%s: statusString is NULL\n");
+LABEL_49:
+    v35 = 0;
+    v36 = theDict;
     if (!theDict)
     {
       goto LABEL_37;
@@ -157,33 +638,33 @@ LABEL_45:
   }
 
   ACFULogging::getLogInstance(Value);
-  v31 = operator new(0x30uLL);
-  *v31 = 0x646E616265736142;
-  *(v31 + 10) = 14906;
-  *(v31 + 4) = DWORD2(v35[1]);
-  *(v31 + 1) = *&v35[1];
-  *(v31 + 19) = 103;
-  *(v31 + 22) = v35[0];
-  __p = v31;
-  v43 = xmmword_1E5391340;
+  v34 = operator new(0x30uLL);
+  *v34 = 0x646E616265736142;
+  *(v34 + 10) = 14906;
+  *(v34 + 4) = DWORD2(v49[1]);
+  *(v34 + 1) = *&v49[1];
+  *(v34 + 19) = 103;
+  *(v34 + 22) = v49[0];
+  __p = v34;
+  v57 = xmmword_1E5391340;
   ACFULogging::handleMessageCFType();
-  if (SHIBYTE(v43) < 0)
+  if (SHIBYTE(v57) < 0)
   {
     operator delete(__p);
   }
 
-  *a4 = CFStringCompare(v30, @"0", 0) == kCFCompareEqualTo;
-  v32 = 1;
-  v33 = theDict;
+  *a4 = CFStringCompare(v33, @"0", 0) == kCFCompareEqualTo;
+  v35 = 1;
+  v36 = theDict;
   if (theDict)
   {
 LABEL_36:
-    CFRelease(v33);
+    CFRelease(v36);
   }
 
 LABEL_37:
-  BasebandProvisioning::~BasebandProvisioning(&v47);
-  return v32;
+  BasebandProvisioning::~BasebandProvisioning(&v61);
+  return v35;
 }
 
 void sub_1E5297D9C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17, uint64_t a18, char a19, uint64_t a20, char a21, uint64_t a22, void *__p, uint64_t a24, int a25, __int16 a26, char a27, char a28, uint64_t a29, uint64_t a30, uint64_t a31, char a32)
@@ -277,9 +758,9 @@ std::string *std::vector<std::pair<std::string,std::vector<unsigned char>>>::__e
   return v14 + 2;
 }
 
-void sub_1E5297F78(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1E5297F78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<std::pair<std::string,std::vector<unsigned char>>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -1107,7 +1588,7 @@ LABEL_23:
   return a2;
 }
 
-void **std::vector<boost::io::detail::format_item<char,std::char_traits<char>,std::allocator<char>>>::~vector[abi:ne200100](void **a1)
+std::locale **std::vector<boost::io::detail::format_item<char,std::char_traits<char>,std::allocator<char>>>::~vector[abi:ne200100](std::locale **a1)
 {
   v2 = *a1;
   if (*a1)
@@ -1225,12 +1706,12 @@ void std::__tree<std::__value_type<__CFString const*,std::string>,std::__map_val
 
 const __CFString *copy_mac_address_existence(const __CFString *a1)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   if (!a1)
   {
-    ACFULogging::getLogInstance(0);
-    ACFULogging::handleMessage();
-    goto LABEL_18;
+    LogInstance = ACFULogging::getLogInstance(0);
+    ACFULogging::handleMessage(LogInstance, 2, "%s::%s: macAddrKey is NULL\n", "BasebandProvisioning", "copy_mac_address_existence");
+    return 0;
   }
 
   if (BBUpdaterCommon::BBUMGCopyAnswer(__CFString const*)::onceToken == -1)
@@ -1238,73 +1719,70 @@ const __CFString *copy_mac_address_existence(const __CFString *a1)
     v1 = BBUpdaterCommon::BBUMGCopyAnswer(__CFString const*)::sCopyAnswer;
     if (!BBUpdaterCommon::BBUMGCopyAnswer(__CFString const*)::sCopyAnswer)
     {
-LABEL_18:
-      v3 = 0;
-      goto LABEL_19;
+      return 0;
     }
   }
 
   else
   {
-    v9 = a1;
+    v13 = a1;
     dispatch_once(&BBUpdaterCommon::BBUMGCopyAnswer(__CFString const*)::onceToken, &__block_literal_global_6);
-    a1 = v9;
+    a1 = v13;
     v1 = BBUpdaterCommon::BBUMGCopyAnswer(__CFString const*)::sCopyAnswer;
     if (!BBUpdaterCommon::BBUMGCopyAnswer(__CFString const*)::sCopyAnswer)
     {
-      goto LABEL_18;
+      return 0;
     }
   }
 
   v2 = a1;
   v3 = v1();
-  if (v3)
+  if (!v3)
   {
-    v23 = -1431655766;
-    *&v4 = 0xAAAAAAAAAAAAAAAALL;
-    *(&v4 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    v21 = v4;
-    v22 = v4;
-    v19 = v4;
-    v20 = v4;
-    v18 = v4;
-    *buffer = v4;
-    v16 = -1431655766;
-    v14 = v4;
-    v15 = v4;
-    v12 = v4;
-    v13 = v4;
-    *__s = v4;
-    v11 = v4;
-    CFStringGetCString(v2, buffer, 100, 0x600u);
-    CString = CFStringGetCString(v3, __s, 100, 0x600u);
-    ACFULogging::getLogInstance(CString);
-    ACFULogging::handleMessage();
-    v6 = CFStringCompare(v3, @"00:00:00:00:00:00", 1uLL);
-    if (!v6)
-    {
-      goto LABEL_17;
-    }
+    return v3;
+  }
 
-    v6 = CFStringCompare(v3, @"BA:BA:BA:BA:BA:BA", 1uLL);
-    if (!v6)
-    {
-      goto LABEL_17;
-    }
+  v27 = -1431655766;
+  *&v4 = 0xAAAAAAAAAAAAAAAALL;
+  *(&v4 + 1) = 0xAAAAAAAAAAAAAAAALL;
+  v25 = v4;
+  v26 = v4;
+  v23 = v4;
+  v24 = v4;
+  v22 = v4;
+  *buffer = v4;
+  v20 = -1431655766;
+  v18 = v4;
+  v19 = v4;
+  v16 = v4;
+  v17 = v4;
+  *__s = v4;
+  v15 = v4;
+  CFStringGetCString(v2, buffer, 100, 0x600u);
+  CString = CFStringGetCString(v3, __s, 100, 0x600u);
+  v6 = ACFULogging::getLogInstance(CString);
+  ACFULogging::handleMessage(v6, 0, "%s::%s: found address (%s): %s\n", "BasebandProvisioning", "copy_mac_address_existence", buffer, __s);
+  v7 = CFStringCompare(v3, @"00:00:00:00:00:00", 1uLL);
+  if (!v7 || (v7 = CFStringCompare(v3, @"BA:BA:BA:BA:BA:BA", 1uLL)) == 0 || (v7 = CFStringCompare(v3, @"DE:AD:BE:FF:00:00", 1uLL)) == 0 || (v7 = CFStringCompare(v3, @"DE:AD:BE:FF:00:01", 1uLL)) == 0 || (v7 = CFStringCompare(v3, @"DF:AD:BE:FF:00:00", 1uLL)) == 0 || (v7 = CFStringCompare(v3, @"88:88:88:88:88:88", 1uLL)) == 0 || (v7 = CFStringCompare(v3, @"99:99:99:99:99:99", 1uLL)) == 0 || (v7 = CFStringCompare(v3, @"02:88:88:88:88:88", 1uLL)) == 0 || (v7 = CFStringCompare(v3, @"02:99:99:99:99:99", 1uLL)) == 0)
+  {
+    v9 = ACFULogging::getLogInstance(v7);
+    ACFULogging::handleMessage(v9, 0, "%s::%s: ignoring found value as it matches a value known to be used in testing\n");
+LABEL_18:
+    CFRelease(v3);
+    return 0;
+  }
 
-    v6 = CFStringCompare(v3, @"DE:AD:BE:FF:00:00", 1uLL);
-    if (!v6 || (v6 = CFStringCompare(v3, @"DE:AD:BE:FF:00:01", 1uLL)) == 0 || (v6 = CFStringCompare(v3, @"DF:AD:BE:FF:00:00", 1uLL)) == 0 || (v6 = CFStringCompare(v3, @"88:88:88:88:88:88", 1uLL)) == 0 || (v6 = CFStringCompare(v3, @"99:99:99:99:99:99", 1uLL)) == 0 || (v6 = CFStringCompare(v3, @"02:88:88:88:88:88", 1uLL)) == 0 || (v6 = CFStringCompare(v3, @"02:99:99:99:99:99", 1uLL)) == 0 || strlen(__s) > 2 && (v6 = AMSupportHexAsciiToNumeric(), !v6))
+  if (strlen(__s) > 2)
+  {
+    v8 = AMSupportHexAsciiToNumeric();
+    if (!v8)
     {
-LABEL_17:
-      ACFULogging::getLogInstance(v6);
-      ACFULogging::handleMessage();
-      CFRelease(v3);
+      v11 = ACFULogging::getLogInstance(v8);
+      ACFULogging::handleMessage(v11, 0, "%s::%s: AMSupportHexAsciiToNumeric failed to parse address.\n", "BasebandProvisioning", "copy_mac_address_existence");
       goto LABEL_18;
     }
   }
 
-LABEL_19:
-  v7 = *MEMORY[0x1E69E9840];
   return v3;
 }
 
@@ -1555,11 +2033,12 @@ void *dispatch::future_callback_impl<std::shared_ptr<ctu::Http::HttpResponse>,st
   return std::promise<std::shared_ptr<ctu::Http::HttpResponse>>::~promise(&v10);
 }
 
-void sub_1E52996DC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, char a14)
+void sub_1E52996DC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  std::mutex::unlock(v14);
-  _Block_object_dispose(&a14, 8);
-  std::promise<std::shared_ptr<ctu::Http::HttpResponse>>::~promise((v15 + 48));
+  va_start(va, a13);
+  std::mutex::unlock(v13);
+  _Block_object_dispose(va, 8);
+  std::promise<std::shared_ptr<ctu::Http::HttpResponse>>::~promise((v14 + 48));
   _Unwind_Resume(a1);
 }
 
@@ -1760,47 +2239,47 @@ LABEL_9:
   _Unwind_Resume(a1);
 }
 
-uint64_t boost::basic_format<char,std::char_traits<char>,std::allocator<char>>::parse(uint64_t a1, uint64_t a2)
+uint64_t boost::basic_format<char,std::char_traits<char>,std::allocator<char>>::parse(uint64_t a1, char *a2)
 {
-  v69 = *MEMORY[0x1E69E9840];
+  v68 = *MEMORY[0x1E69E9840];
   if (*(a1 + 184) == 1)
   {
-    std::locale::locale(&v57, (a1 + 192));
+    std::locale::locale(&v56, (a1 + 192));
   }
 
   else
   {
-    MEMORY[0x1E69272B0](&v57);
+    MEMORY[0x1E69272B0](&v56);
   }
 
-  v4 = std::locale::use_facet(&v57, MEMORY[0x1E69E5318]);
-  std::locale::~locale(&v57);
-  v54 = &v4->__vftable;
+  v4 = std::locale::use_facet(&v56, MEMORY[0x1E69E5318]);
+  std::locale::~locale(&v56);
+  v53 = &v4->__vftable;
   __c = (v4->__vftable[2].~facet_0)(v4, 37);
   v5 = boost::io::detail::upper_bound_from_fstring<std::string,std::ctype<char>>(a2, __c, v4, *(a1 + 88));
   boost::basic_format<char,std::char_traits<char>,std::allocator<char>>::make_or_reuse_data(a1, v5);
-  v56 = 0;
-  v6 = *(a2 + 23);
-  v7 = *(a2 + 23);
+  v55 = 0;
+  v6 = a2[23];
+  v7 = a2[23];
   v8 = v6 >> 31;
-  v9 = *(a2 + 8);
+  v9 = *(a2 + 1);
   if (v6 >= 0)
   {
-    v10 = *(a2 + 23);
+    v10 = a2[23];
   }
 
   else
   {
-    v10 = *(a2 + 8);
+    v10 = *(a2 + 1);
   }
 
-  if (!v10 || ((v11 = *a2, v6 >= 0) ? (v12 = a2) : (v12 = *a2), (v13 = memchr(v12, __c, v10), v14 = &v13[-v12], v13) ? (v15 = v14 == -1) : (v15 = 1), v15))
+  if (!v10 || ((v11 = *a2, v6 >= 0) ? (v12 = a2) : (v12 = *a2), (v13 = memchr(v12, __c, v10), v14 = v13 - v12, v13) ? (v15 = v14 == -1) : (v15 = 1), v15))
   {
     v24 = 0;
-    v53 = 0;
-    v50 = 0;
-    v51 = 1;
-    v52 = -1;
+    v52 = 0;
+    v49 = 0;
+    v50 = 1;
+    v51 = -1;
 LABEL_17:
     v16 = a1 + 64;
     goto LABEL_18;
@@ -1809,10 +2288,10 @@ LABEL_17:
   v23 = v13;
   v24 = 0;
   v25 = 0;
-  v53 = 0;
-  v52 = -1;
-  v50 = 0;
-  v51 = 1;
+  v52 = 0;
+  v51 = -1;
+  v49 = 0;
+  v50 = 1;
   do
   {
     v26 = a1 + 64;
@@ -1832,24 +2311,24 @@ LABEL_17:
       v28 = a2;
     }
 
-    if (*(v28 + v27) == *(v28 + v14))
+    if (v28[v27] == v28[v14])
     {
-      std::string::append[abi:ne200100]<std::__wrap_iter<char const*>,0>(v26, &v24[v12], v23 + 1);
-      v24 = (v14 + 2);
+      std::string::append[abi:ne200100]<std::__wrap_iter<char const*>,0>(v26, &v12[v24], v23 + 1);
+      v24 = v14 + 2;
       v29 = (v14 + 2);
       goto LABEL_66;
     }
 
     if (v14 != v24)
     {
-      std::string::append[abi:ne200100]<std::__wrap_iter<char const*>,0>(v26, &v24[v12], v23);
-      v7 = *(a2 + 23);
+      std::string::append[abi:ne200100]<std::__wrap_iter<char const*>,0>(v26, &v12[v24], v23);
+      v7 = a2[23];
     }
 
     if ((v7 & 0x80) != 0)
     {
       v30 = *a2;
-      v7 = *(a2 + 8);
+      v7 = *(a2 + 1);
     }
 
     else
@@ -1857,10 +2336,10 @@ LABEL_17:
       v30 = a2;
     }
 
-    v56 = (v27 + v30);
-    v57.__locale_ = (v30 + v7);
-    v31 = boost::io::detail::parse_printf_directive<char,std::char_traits<char>,std::allocator<char>,std::__wrap_iter<char const*>,std::ctype<char>>(&v56, &v57, *a1 + 120 * v25, v54, (v14 + 1), *(a1 + 88));
-    if (*(a2 + 23) >= 0)
+    v55 = &v30[v27];
+    v56.__locale_ = &v30[v7];
+    v31 = boost::io::detail::parse_printf_directive<char,std::char_traits<char>,std::allocator<char>,std::__wrap_iter<char const*>,std::ctype<char>>(&v55, &v56, *a1 + 120 * v25, v53, (v14 + 1), *(a1 + 88));
+    if (a2[23] >= 0)
     {
       v32 = a2;
     }
@@ -1870,7 +2349,7 @@ LABEL_17:
       v32 = *a2;
     }
 
-    v29 = &v56[-v32];
+    v29 = (v55 - v32);
     if (!v31)
     {
       v24 = v14;
@@ -1917,48 +2396,48 @@ LABEL_56:
     {
       if (v36 == -1)
       {
-        v51 = 0;
-        v37 = v53;
+        v50 = 0;
+        v37 = v52;
       }
 
       else
       {
-        v37 = v53;
+        v37 = v52;
         if (v36 == -2)
         {
-          v50 = 1;
+          v49 = 1;
         }
 
         else
         {
-          v38 = v52;
-          if (v36 > v52)
+          v38 = v51;
+          if (v36 > v51)
           {
             v38 = v36;
           }
 
-          v52 = v38;
+          v51 = v38;
         }
       }
 
-      v53 = v37 + 1;
+      v52 = v37 + 1;
       ++v25;
     }
 
     v24 = v29;
 LABEL_66:
-    v39 = *(a2 + 23);
-    v7 = *(a2 + 23);
+    v39 = a2[23];
+    v7 = a2[23];
     v8 = v39 >> 31;
-    v9 = *(a2 + 8);
+    v9 = *(a2 + 1);
     if (v39 >= 0)
     {
-      v40 = *(a2 + 23);
+      v40 = a2[23];
     }
 
     else
     {
-      v40 = *(a2 + 8);
+      v40 = *(a2 + 1);
     }
 
     if (v40 <= v29)
@@ -1975,10 +2454,10 @@ LABEL_66:
     }
 
     v23 = v41;
-    v14 = &v41[-v12];
+    v14 = v41 - v12;
   }
 
-  while (&v41[-v12] != -1);
+  while (v41 - v12 != -1);
   if (!v25)
   {
     goto LABEL_17;
@@ -2002,24 +2481,24 @@ LABEL_18:
     v18 = a2;
   }
 
-  std::string::append[abi:ne200100]<std::__wrap_iter<char const*>,0>(v16, &v24[v18], (v17 + v18));
-  if (v51)
+  std::string::append[abi:ne200100]<std::__wrap_iter<char const*>,0>(v16, &v18[v24], &v18[v17]);
+  if (v50)
   {
-    v19 = v54;
+    v19 = v53;
   }
 
   else
   {
-    v19 = v54;
-    if (v52 & 0x80000000) == 0 && (*(a1 + 88))
+    v19 = v53;
+    if (v51 & 0x80000000) == 0 && (*(a1 + 88))
     {
-      v57.__locale_ = &unk_1F5F00A40;
-      v58[0] = v52;
-      v58[1] = 0;
-      boost::throw_exception<boost::io::bad_format_string>(&v57);
+      v56.__locale_ = &unk_1F5F00A40;
+      v57[0] = v51;
+      v57[1] = 0;
+      boost::throw_exception<boost::io::bad_format_string>(&v56);
     }
 
-    if (v53 < 1)
+    if (v52 < 1)
     {
       v42 = -1;
     }
@@ -2028,7 +2507,7 @@ LABEL_18:
     {
       v20 = 0;
       v21 = *a1;
-      v22 = v53;
+      v22 = v52;
       do
       {
         if (*v21 == -1)
@@ -2044,33 +2523,33 @@ LABEL_18:
       v42 = v20 - 1;
     }
 
-    v52 = v42;
+    v51 = v42;
   }
 
   v43 = (*(*v19 + 56))(v19, 32);
-  LODWORD(v57.__locale_) = -1;
-  v66 = 0;
-  *v58 = 0u;
-  *__p = 0u;
-  v60 = 0u;
-  v61 = 0;
-  v62 = 6;
-  v63 = v43;
+  LODWORD(v56.__locale_) = -1;
   v65 = 0;
-  v64 = 4098;
-  v67[1].__locale_ = 0x7FFFFFFFFFFFFFFFLL;
-  v68 = 0;
+  *v57 = 0u;
+  *__p = 0u;
+  v59 = 0u;
+  v60 = 0;
+  v61 = 6;
+  v62 = v43;
+  v64 = 0;
+  v63 = 4098;
+  v66[1].__locale_ = 0x7FFFFFFFFFFFFFFFLL;
+  v67 = 0;
   v44 = *(a1 + 8);
   v45 = 0xEEEEEEEEEEEEEEEFLL * ((v44 - *a1) >> 3);
-  if (v53 > v45)
+  if (v52 > v45)
   {
-    std::vector<boost::io::detail::format_item<char,std::char_traits<char>,std::allocator<char>>>::__append(a1, v53 - v45, &v57);
+    std::vector<boost::io::detail::format_item<char,std::char_traits<char>,std::allocator<char>>>::__append(a1, v52 - v45, &v56);
     goto LABEL_94;
   }
 
-  if (v53 < v45)
+  if (v52 < v45)
   {
-    v46 = *a1 + 120 * v53;
+    v46 = *a1 + 120 * v52;
     while (1)
     {
       if (v44 == v46)
@@ -2114,11 +2593,11 @@ LABEL_85:
   }
 
 LABEL_94:
-  if (v66 == 1)
+  if (v65 == 1)
   {
-    std::locale::~locale(v67);
-    v66 = 0;
-    if (SHIBYTE(v60) < 0)
+    std::locale::~locale(v66);
+    v65 = 0;
+    if (SHIBYTE(v59) < 0)
     {
       goto LABEL_96;
     }
@@ -2130,9 +2609,9 @@ LABEL_100:
     }
 
 LABEL_97:
-    operator delete(v58[0]);
+    operator delete(v57[0]);
     v47 = *(a1 + 48);
-    if ((v50 & 1) == 0)
+    if ((v49 & 1) == 0)
     {
       goto LABEL_103;
     }
@@ -2143,7 +2622,7 @@ LABEL_102:
     goto LABEL_103;
   }
 
-  if ((SHIBYTE(v60) & 0x80000000) == 0)
+  if ((SHIBYTE(v59) & 0x80000000) == 0)
   {
     goto LABEL_100;
   }
@@ -2157,21 +2636,20 @@ LABEL_96:
 
 LABEL_101:
   v47 = *(a1 + 48);
-  if (v50)
+  if (v49)
   {
     goto LABEL_102;
   }
 
 LABEL_103:
-  *(a1 + 56) = v52 + 1;
-  *(a1 + 48) = v47 & 0xFFFFFFFE | v51 & 1;
-  v48 = *MEMORY[0x1E69E9840];
+  *(a1 + 56) = v51 + 1;
+  *(a1 + 48) = v47 & 0xFFFFFFFE | v50 & 1;
   return a1;
 }
 
-void sub_1E529A0E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_1E529A0E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   boost::io::detail::format_item<char,std::char_traits<char>,std::allocator<char>>::~format_item(va);
   _Unwind_Resume(a1);
 }
@@ -2300,43 +2778,43 @@ LABEL_9:
   return 0;
 }
 
-void boost::basic_format<char,std::char_traits<char>,std::allocator<char>>::make_or_reuse_data(uint64_t a1, unint64_t a2)
+void boost::basic_format<char,std::char_traits<char>,std::allocator<char>>::make_or_reuse_data(std::locale *a1, unint64_t a2)
 {
-  v31 = *MEMORY[0x1E69E9840];
-  if (*(a1 + 184) == 1)
+  v30 = *MEMORY[0x1E69E9840];
+  if (LOBYTE(a1[23].__locale_) == 1)
   {
-    std::locale::locale(&v18, (a1 + 192));
+    std::locale::locale(&v17, a1 + 24);
   }
 
   else
   {
-    MEMORY[0x1E69272B0](&v18);
+    MEMORY[0x1E69272B0](&v17);
   }
 
-  v4 = std::locale::use_facet(&v18, MEMORY[0x1E69E5318]);
+  v4 = std::locale::use_facet(&v17, MEMORY[0x1E69E5318]);
   v5 = (v4->__vftable[2].~facet_0)(v4, 32);
-  std::locale::~locale(&v18);
-  v6 = *(a1 + 8) - *a1;
+  std::locale::~locale(&v17);
+  v6 = a1[1].__locale_ - a1->__locale_;
   if (!v6)
   {
-    LODWORD(v18.__locale_) = -1;
-    v27 = 0;
-    *v19 = 0u;
-    *__p = 0u;
-    v21 = 0u;
-    v22 = 0;
-    v23 = 6;
-    v24 = v5;
+    LODWORD(v17.__locale_) = -1;
     v26 = 0;
-    v25 = 4098;
-    v29 = 0x7FFFFFFFFFFFFFFFLL;
-    v30 = 0;
-    std::vector<boost::io::detail::format_item<char,std::char_traits<char>,std::allocator<char>>>::assign(a1, a2, &v18);
-    if (v27 == 1)
+    *v18 = 0u;
+    *__p = 0u;
+    v20 = 0u;
+    v21 = 0;
+    v22 = 6;
+    v23 = v5;
+    v25 = 0;
+    v24 = 4098;
+    v28 = 0x7FFFFFFFFFFFFFFFLL;
+    v29 = 0;
+    std::vector<boost::io::detail::format_item<char,std::char_traits<char>,std::allocator<char>>>::assign(a1, a2, &v17);
+    if (v26 == 1)
     {
-      std::locale::~locale(&v28);
-      v27 = 0;
-      if ((SHIBYTE(v21) & 0x80000000) == 0)
+      std::locale::~locale(&v27);
+      v26 = 0;
+      if ((SHIBYTE(v20) & 0x80000000) == 0)
       {
 LABEL_12:
         if ((SHIBYTE(__p[0]) & 0x80000000) == 0)
@@ -2345,12 +2823,12 @@ LABEL_12:
         }
 
 LABEL_25:
-        operator delete(v19[0]);
+        operator delete(v18[0]);
         goto LABEL_26;
       }
     }
 
-    else if ((SHIBYTE(v21) & 0x80000000) == 0)
+    else if ((SHIBYTE(v20) & 0x80000000) == 0)
     {
       goto LABEL_12;
     }
@@ -2367,52 +2845,52 @@ LABEL_25:
   v7 = 0xEEEEEEEEEEEEEEEFLL * (v6 >> 3);
   if (a2 > v7)
   {
-    LODWORD(v18.__locale_) = -1;
-    v27 = 0;
-    *v19 = 0u;
-    *__p = 0u;
-    v21 = 0u;
-    v22 = 0;
-    v23 = 6;
-    v24 = v5;
+    LODWORD(v17.__locale_) = -1;
     v26 = 0;
-    v25 = 4098;
-    v29 = 0x7FFFFFFFFFFFFFFFLL;
-    v30 = 0;
-    std::vector<boost::io::detail::format_item<char,std::char_traits<char>,std::allocator<char>>>::__append(a1, a2 - v7, &v18);
-    if (v27 == 1)
+    *v18 = 0u;
+    *__p = 0u;
+    v20 = 0u;
+    v21 = 0;
+    v22 = 6;
+    v23 = v5;
+    v25 = 0;
+    v24 = 4098;
+    v28 = 0x7FFFFFFFFFFFFFFFLL;
+    v29 = 0;
+    std::vector<boost::io::detail::format_item<char,std::char_traits<char>,std::allocator<char>>>::__append(a1, a2 - v7, &v17);
+    if (v26 == 1)
     {
-      std::locale::~locale(&v28);
-      v27 = 0;
-      if ((SHIBYTE(v21) & 0x80000000) == 0)
+      std::locale::~locale(&v27);
+      v26 = 0;
+      if ((SHIBYTE(v20) & 0x80000000) == 0)
       {
 LABEL_8:
         if ((SHIBYTE(__p[0]) & 0x80000000) == 0)
         {
 LABEL_9:
-          std::vector<BOOL>::resize(a1 + 24, 0, 0);
+          std::vector<BOOL>::resize(&a1[3], 0, 0);
 LABEL_15:
           v8 = 56;
           while (1)
           {
-            v10 = *a1;
-            v11 = *a1 + v8;
-            *(v11 - 56) = -1;
-            *(v11 + 48) = 0x7FFFFFFFFFFFFFFFLL;
-            *(v11 + 56) = 0;
-            v12 = (v11 - 48);
+            v10.__locale_ = a1->__locale_;
+            v11 = a1->__locale_ + v8;
+            *(v11 - 14) = -1;
+            *(v11 + 6) = 0x7FFFFFFFFFFFFFFFLL;
+            *(v11 + 14) = 0;
+            v12 = v11 - 48;
             if (*(v11 - 25) < 0)
             {
               v15 = *v12;
-              *(v11 - 40) = 0;
+              *(v11 - 5) = 0;
               *v15 = 0;
-              v13 = v10 + v8;
-              v14 = (v10 + v8 - 24);
-              if (*(v10 + v8 - 1) < 0)
+              v13 = v10.__locale_ + v8;
+              v14 = (v10.__locale_ + v8 - 24);
+              if (*(v10.__locale_ + v8 - 1) < 0)
               {
 LABEL_22:
                 v14 = *v14;
-                *(v13 - 16) = 0;
+                *(v13 - 2) = 0;
                 goto LABEL_17;
               }
             }
@@ -2421,9 +2899,9 @@ LABEL_22:
             {
               *(v11 - 25) = 0;
               *v12 = 0;
-              v13 = v10 + v8;
-              v14 = (v10 + v8 - 24);
-              if (*(v10 + v8 - 1) < 0)
+              v13 = v10.__locale_ + v8;
+              v14 = (v10.__locale_ + v8 - 24);
+              if (*(v10.__locale_ + v8 - 1) < 0)
               {
                 goto LABEL_22;
               }
@@ -2432,10 +2910,10 @@ LABEL_22:
             *(v13 - 1) = 0;
 LABEL_17:
             *v14 = 0;
-            v9 = v10 + v8;
+            v9 = v10.__locale_ + v8;
             *v9 = xmmword_1E5391360;
-            *(v9 + 16) = v5;
-            *(v9 + 28) = 0;
+            v9[16] = v5;
+            *(v9 + 7) = 0;
             v8 += 120;
             *(v9 + 20) = 4098;
             if (!--a2)
@@ -2446,12 +2924,12 @@ LABEL_17:
         }
 
 LABEL_32:
-        operator delete(v19[0]);
+        operator delete(v18[0]);
         goto LABEL_9;
       }
     }
 
-    else if ((SHIBYTE(v21) & 0x80000000) == 0)
+    else if ((SHIBYTE(v20) & 0x80000000) == 0)
     {
       goto LABEL_8;
     }
@@ -2465,30 +2943,29 @@ LABEL_32:
     goto LABEL_32;
   }
 
-  std::vector<BOOL>::resize(a1 + 24, 0, 0);
+  std::vector<BOOL>::resize(&a1[3], 0, 0);
   if (a2)
   {
     goto LABEL_15;
   }
 
 LABEL_26:
-  if (*(a1 + 87) < 0)
+  if (SHIBYTE(a1[10].__locale_) < 0)
   {
-    v16 = *(a1 + 64);
-    *(a1 + 72) = 0;
+    locale = a1[8].__locale_;
+    a1[9].__locale_ = 0;
   }
 
   else
   {
-    v16 = (a1 + 64);
-    *(a1 + 87) = 0;
+    locale = &a1[8];
+    HIBYTE(a1[10].__locale_) = 0;
   }
 
-  *v16 = 0;
-  v17 = *MEMORY[0x1E69E9840];
+  *locale = 0;
 }
 
-uint64_t boost::io::detail::parse_printf_directive<char,std::char_traits<char>,std::allocator<char>,std::__wrap_iter<char const*>,std::ctype<char>>(char **a1, char **a2, uint64_t a3, void *a4, char *a5, uint64_t a6)
+uint64_t boost::io::detail::parse_printf_directive<char,std::char_traits<char>,std::allocator<char>,std::__wrap_iter<char const*>,std::ctype<char>>(char **a1, char **a2, uint64_t a3, void *a4, unsigned __int8 *a5, boost::io::detail *a6)
 {
   *a3 = -1;
   v8 = *a1;
@@ -2858,7 +3335,7 @@ LABEL_94:
 
       v41 = 0;
 LABEL_78:
-      v36 = *a1 + 1;
+      v36 = (*a1 + 1);
       *a1 = v36;
       if (v36 == *a2)
       {
@@ -2908,7 +3385,7 @@ LABEL_96:
   v45 = v58;
   if (v58 == v57 && (v46 = *v36, v47 = (*(*a4 + 56))(a4, 124), v36 = *a1, v43 = v46 == v47, v45 = v58, v43))
   {
-    v48 = v36 + 1;
+    v48 = (v36 + 1);
 LABEL_140:
     *a1 = v48;
   }
@@ -3041,13 +3518,13 @@ void boost::throw_exception<boost::io::bad_format_string>(uint64_t a1)
   boost::wrapexcept<boost::io::bad_format_string>::wrapexcept(exception, a1);
 }
 
-void std::vector<boost::io::detail::format_item<char,std::char_traits<char>,std::allocator<char>>>::assign(uint64_t *a1, unint64_t a2, uint64_t a3)
+void std::vector<boost::io::detail::format_item<char,std::char_traits<char>,std::allocator<char>>>::assign(std::locale **a1, unint64_t a2, uint64_t a3)
 {
   v6 = a1[2];
   v7 = *a1;
   if (0xEEEEEEEEEEEEEEEFLL * ((v6 - *a1) >> 3) >= a2)
   {
-    v10 = (a1[1] - v7) >> 3;
+    v10 = a1[1] - v7;
     v11 = 0xEEEEEEEEEEEEEEEFLL * v10;
     if (0xEEEEEEEEEEEEEEEFLL * v10 >= a2)
     {
@@ -3062,18 +3539,18 @@ void std::vector<boost::io::detail::format_item<char,std::char_traits<char>,std:
     for (; v12; --v12)
     {
       boost::io::detail::format_item<char,std::char_traits<char>,std::allocator<char>>::operator=(v7, a3);
-      v7 += 120;
+      v7 += 15;
     }
 
     if (a2 > v11)
     {
       v13 = a1[1];
-      v14 = v13 + 120 * (a2 - v11);
+      v14 = &v13[15 * (a2 - v11)];
       v15 = 120 * a2 - 120 * v11;
       do
       {
         std::construct_at[abi:ne200100]<boost::io::detail::format_item<char,std::char_traits<char>,std::allocator<char>>,boost::io::detail::format_item<char,std::char_traits<char>,std::allocator<char>> const&,boost::io::detail::format_item<char,std::char_traits<char>,std::allocator<char>>*>(v13, a3);
-        v13 += 120;
+        v13 += 15;
         v15 -= 120;
       }
 
@@ -3083,7 +3560,7 @@ void std::vector<boost::io::detail::format_item<char,std::char_traits<char>,std:
     }
 
     v16 = a1[1];
-    v17 = *a1 + 120 * a2;
+    v17 = &(*a1)[15 * a2];
     while (1)
     {
       if (v16 == v17)
@@ -3092,15 +3569,15 @@ void std::vector<boost::io::detail::format_item<char,std::char_traits<char>,std:
         return;
       }
 
-      if (*(v16 - 32) == 1)
+      if (LOBYTE(v16[-4].__locale_) == 1)
       {
-        std::locale::~locale((v16 - 24));
-        *(v16 - 32) = 0;
-        if (*(v16 - 65) < 0)
+        std::locale::~locale(v16 - 3);
+        LOBYTE(v16[-4].__locale_) = 0;
+        if (SHIBYTE(v16[-9].__locale_) < 0)
         {
 LABEL_30:
-          operator delete(*(v16 - 88));
-          if ((*(v16 - 89) & 0x80000000) == 0)
+          operator delete(v16[-11].__locale_);
+          if ((SHIBYTE(v16[-12].__locale_) & 0x80000000) == 0)
           {
             goto LABEL_23;
           }
@@ -3109,20 +3586,20 @@ LABEL_30:
         }
       }
 
-      else if (*(v16 - 65) < 0)
+      else if (SHIBYTE(v16[-9].__locale_) < 0)
       {
         goto LABEL_30;
       }
 
-      if ((*(v16 - 89) & 0x80000000) == 0)
+      if ((SHIBYTE(v16[-12].__locale_) & 0x80000000) == 0)
       {
         goto LABEL_23;
       }
 
 LABEL_31:
-      operator delete(*(v16 - 112));
+      operator delete(v16[-14].__locale_);
 LABEL_23:
-      v16 -= 120;
+      v16 -= 15;
     }
   }
 
@@ -3137,14 +3614,14 @@ LABEL_23:
   {
     while (1)
     {
-      if (*(v8 - 32) == 1)
+      if (LOBYTE(v8[-4].__locale_) == 1)
       {
-        std::locale::~locale((v8 - 24));
-        *(v8 - 32) = 0;
-        if ((*(v8 - 65) & 0x80000000) == 0)
+        std::locale::~locale(v8 - 3);
+        LOBYTE(v8[-4].__locale_) = 0;
+        if ((SHIBYTE(v8[-9].__locale_) & 0x80000000) == 0)
         {
 LABEL_8:
-          if (*(v8 - 89) < 0)
+          if (SHIBYTE(v8[-12].__locale_) < 0)
           {
             goto LABEL_12;
           }
@@ -3153,20 +3630,20 @@ LABEL_8:
         }
       }
 
-      else if ((*(v8 - 65) & 0x80000000) == 0)
+      else if ((SHIBYTE(v8[-9].__locale_) & 0x80000000) == 0)
       {
         goto LABEL_8;
       }
 
-      operator delete(*(v8 - 88));
-      if (*(v8 - 89) < 0)
+      operator delete(v8[-11].__locale_);
+      if (SHIBYTE(v8[-12].__locale_) < 0)
       {
 LABEL_12:
-        operator delete(*(v8 - 112));
+        operator delete(v8[-14].__locale_);
       }
 
 LABEL_5:
-      v8 -= 120;
+      v8 -= 15;
       if (v8 == v7)
       {
         v9 = *a1;
@@ -3201,17 +3678,17 @@ LABEL_45:
     std::vector<std::sub_match<char const*>>::__throw_length_error[abi:ne200100]();
   }
 
-  v21 = 120 * v20;
+  v21 = 15 * v20;
   v22 = operator new(120 * v20);
   *a1 = v22;
   a1[1] = v22;
   a1[2] = &v22[v21];
   v23 = 120 * a2;
-  v24 = &v22[120 * a2];
+  v24 = &v22[15 * a2];
   do
   {
     std::construct_at[abi:ne200100]<boost::io::detail::format_item<char,std::char_traits<char>,std::allocator<char>>,boost::io::detail::format_item<char,std::char_traits<char>,std::allocator<char>> const&,boost::io::detail::format_item<char,std::char_traits<char>,std::allocator<char>>*>(v22, a3);
-    v22 += 120;
+    v22 += 15;
     v23 -= 120;
   }
 
@@ -3442,7 +3919,7 @@ uint64_t boost::io::detail::format_item<char,std::char_traits<char>,std::allocat
       if (*(a1 + 55) < 0)
       {
 LABEL_16:
-        if ((v8 & 0x80u) == 0)
+        if (v8 >= 0)
         {
           v12 = v7;
         }
@@ -3452,7 +3929,7 @@ LABEL_16:
           v12 = *(a2 + 32);
         }
 
-        if ((v8 & 0x80u) == 0)
+        if (v8 >= 0)
         {
           v13 = v8;
         }
@@ -3497,18 +3974,17 @@ LABEL_24:
   v14 = *(a2 + 56);
   *(a1 + 72) = *(a2 + 72);
   *(a1 + 56) = v14;
-  v15 = *(a2 + 88);
   if (*(a1 + 88) == 1)
   {
-    v16 = (a1 + 96);
+    v15 = (a1 + 96);
     if (*(a2 + 88))
     {
-      std::locale::operator=(v16, (a2 + 96));
+      std::locale::operator=(v15, (a2 + 96));
     }
 
     else
     {
-      std::locale::~locale(v16);
+      std::locale::~locale(v15);
       *(a1 + 88) = 0;
     }
   }
@@ -3519,9 +3995,9 @@ LABEL_24:
     *(a1 + 88) = 1;
   }
 
-  v17 = *(a2 + 104);
+  v16 = *(a2 + 104);
   *(a1 + 112) = *(a2 + 112);
-  *(a1 + 104) = v17;
+  *(a1 + 104) = v16;
   return a1;
 }
 
@@ -3801,7 +4277,7 @@ LABEL_49:
     }
   }
 
-  if (&v9[v8 + 1] <= a2)
+  if (v9 + v8 + 1 <= a2)
   {
     goto LABEL_11;
   }
@@ -3921,13 +4397,11 @@ __n128 boost::wrapexcept<boost::io::bad_format_string>::wrapexcept(__n128 *a1, u
   a1->n128_u64[1] = &unk_1F5F00A40;
   result = *(a2 + 8);
   a1[1] = result;
-  a1[3].n128_u64[0] = 0;
-  a1[3].n128_u64[1] = 0;
+  a1[3] = 0uLL;
   a1[4].n128_u32[0] = -1;
   a1->n128_u64[0] = &unk_1F5F009C8;
   a1->n128_u64[1] = &unk_1F5F009F8;
-  a1[2].n128_u64[0] = &unk_1F5F00A20;
-  a1[2].n128_u64[1] = 0;
+  a1[2] = &unk_1F5F00A20;
   return result;
 }
 
@@ -4087,10 +4561,10 @@ __n128 boost::wrapexcept<boost::io::bad_format_string>::wrapexcept(uint64_t a1, 
   return result;
 }
 
-void std::vector<boost::io::detail::format_item<char,std::char_traits<char>,std::allocator<char>>>::__append(uint64_t a1, unint64_t a2, uint64_t a3)
+void std::vector<boost::io::detail::format_item<char,std::char_traits<char>,std::allocator<char>>>::__append(std::locale **a1, unint64_t a2, uint64_t a3)
 {
-  v6 = *(a1 + 8);
-  v5 = *(a1 + 16);
+  v6 = a1[1];
+  v5 = a1[2];
   if (0xEEEEEEEEEEEEEEEFLL * ((v5 - v6) >> 3) < a2)
   {
     v7 = 0xEEEEEEEEEEEEEEEFLL * ((v6 - *a1) >> 3);
@@ -4100,7 +4574,7 @@ void std::vector<boost::io::detail::format_item<char,std::char_traits<char>,std:
       std::vector<std::sub_match<char const*>>::__throw_length_error[abi:ne200100]();
     }
 
-    v9 = 0xEEEEEEEEEEEEEEEFLL * ((v5 - *a1) >> 3);
+    v9 = 0xEEEEEEEEEEEEEEEFLL * (v5 - *a1);
     if (2 * v9 > v8)
     {
       v8 = 2 * v9;
@@ -4217,19 +4691,19 @@ LABEL_28:
     v6 = v13;
   }
 
-  *(a1 + 8) = v6;
+  a1[1] = v6;
 }
 
-void sub_1E529C740(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1E529C740(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<boost::io::detail::format_item<char,std::char_traits<char>,std::allocator<char>>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
 
-void sub_1E529C75C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1E529C75C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<boost::io::detail::format_item<char,std::char_traits<char>,std::allocator<char>>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -4376,19 +4850,19 @@ LABEL_10:
   return a1;
 }
 
-uint64_t boost::io::detail::feed_impl<char,std::char_traits<char>,std::allocator<char>,boost::io::detail::put_holder<char,std::char_traits<char>> const&>(uint64_t a1, void *a2)
+uint64_t *boost::io::detail::feed_impl<char,std::char_traits<char>,std::allocator<char>,boost::io::detail::put_holder<char,std::char_traits<char>> const&>(uint64_t *a1, void *a2)
 {
   if (*(a1 + 60) == 1)
   {
     v4 = *a1;
-    v3 = *(a1 + 8);
+    v3 = a1[1];
     if (v3 != *a1)
     {
       v5 = 0;
       v6 = 0;
       do
       {
-        if (!*(a1 + 32) || (v8 = *(v4 + v5), (v8 & 0x80000000) != 0) || ((*(*(a1 + 24) + ((v8 >> 3) & 0x1FFFFFF8)) >> v8) & 1) == 0)
+        if (!a1[4] || (v8 = *(v4 + v5), (v8 & 0x80000000) != 0) || ((*(a1[3] + ((v8 >> 3) & 0x1FFFFFF8)) >> v8) & 1) == 0)
         {
           v9 = v4 + v5;
           v7 = (v9 + 8);
@@ -4405,7 +4879,7 @@ uint64_t boost::io::detail::feed_impl<char,std::char_traits<char>,std::allocator
 
           *v7 = 0;
           v4 = *a1;
-          v3 = *(a1 + 8);
+          v3 = a1[1];
         }
 
         ++v6;
@@ -4415,15 +4889,15 @@ uint64_t boost::io::detail::feed_impl<char,std::char_traits<char>,std::allocator
       while (v6 < 0xEEEEEEEEEEEEEEEFLL * ((v3 - v4) >> 3));
     }
 
-    *(a1 + 52) = 0;
+    *(a1 + 13) = 0;
     *(a1 + 60) = 0;
-    if (*(a1 + 32))
+    if (a1[4])
     {
-      v10 = *(a1 + 56);
+      v10 = *(a1 + 14);
       if (v10 >= 1)
       {
         v11 = 0;
-        v12 = *(a1 + 24);
+        v12 = a1[3];
         do
         {
           if (((*(v12 + ((v11 >> 3) & 0x1FFFFFFFFFFFFFF8)) >> v11) & 1) == 0)
@@ -4431,7 +4905,7 @@ uint64_t boost::io::detail::feed_impl<char,std::char_traits<char>,std::allocator
             break;
           }
 
-          *(a1 + 52) = ++v11;
+          *(a1 + 13) = ++v11;
         }
 
         while (v10 != v11);
@@ -4440,15 +4914,15 @@ uint64_t boost::io::detail::feed_impl<char,std::char_traits<char>,std::allocator
   }
 
   boost::io::detail::distribute<char,std::char_traits<char>,std::allocator<char>,boost::io::detail::put_holder<char,std::char_traits<char>> const&>(a1, a2);
-  v13 = *(a1 + 52);
+  v13 = *(a1 + 13);
   v14 = v13 + 1;
-  *(a1 + 52) = v13 + 1;
-  if (*(a1 + 32))
+  *(a1 + 13) = v13 + 1;
+  if (a1[4])
   {
-    v15 = *(a1 + 56);
+    v15 = *(a1 + 14);
     if (v14 < v15)
     {
-      v16 = *(a1 + 24);
+      v16 = a1[3];
       v17 = v13 + 2;
       do
       {
@@ -4458,7 +4932,7 @@ uint64_t boost::io::detail::feed_impl<char,std::char_traits<char>,std::allocator
         }
 
         ++v14;
-        *(a1 + 52) = v17++;
+        *(a1 + 13) = v17++;
       }
 
       while (v15 != v14);
@@ -4468,14 +4942,14 @@ uint64_t boost::io::detail::feed_impl<char,std::char_traits<char>,std::allocator
   return a1;
 }
 
-uint64_t boost::io::detail::distribute<char,std::char_traits<char>,std::allocator<char>,boost::io::detail::put_holder<char,std::char_traits<char>> const&>(uint64_t result, void *a2)
+uint64_t *boost::io::detail::distribute<char,std::char_traits<char>,std::allocator<char>,boost::io::detail::put_holder<char,std::char_traits<char>> const&>(uint64_t *result, void *a2)
 {
   v2 = result;
-  v3 = *(result + 52);
-  v4 = *(result + 56);
+  v3 = *(result + 13);
+  v4 = *(result + 14);
   if (v3 >= v4)
   {
-    if ((*(result + 88) & 4) != 0)
+    if ((result[11] & 4) != 0)
     {
       v11[0] = &unk_1F5F00B40;
       v11[1] = v3;
@@ -4487,7 +4961,7 @@ uint64_t boost::io::detail::distribute<char,std::char_traits<char>,std::allocato
   else
   {
     v6 = *result;
-    v5 = *(result + 8);
+    v5 = result[1];
     if (v5 != *result)
     {
       v8 = 0;
@@ -4530,45 +5004,45 @@ void boost::throw_exception<boost::io::too_many_args>(uint64_t a1)
 
 uint64_t boost::io::detail::put<char,std::char_traits<char>,std::allocator<char>,boost::io::detail::put_holder<char,std::char_traits<char>> const&>(void *a1, uint64_t a2, std::string *a3, void *a4, const std::locale *a5)
 {
-  v83 = *MEMORY[0x1E69E9840];
+  v82 = *MEMORY[0x1E69E9840];
   *&v10 = 0xAAAAAAAAAAAAAAAALL;
   *(&v10 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v70[8] = v10;
-  v70[9] = v10;
-  v70[7] = v10;
-  v70[5] = v10;
-  v70[6] = v10;
-  v70[3] = v10;
-  v70[4] = v10;
-  v70[1] = v10;
-  v70[2] = v10;
-  v69 = v10;
-  v70[0] = v10;
-  boost::io::basic_oaltstringstream<char,std::char_traits<char>,std::allocator<char>>::basic_oaltstringstream(&v69, a4);
+  v69[8] = v10;
+  v69[9] = v10;
+  v69[7] = v10;
+  v69[5] = v10;
+  v69[6] = v10;
+  v69[3] = v10;
+  v69[4] = v10;
+  v69[1] = v10;
+  v69[2] = v10;
+  v68 = v10;
+  v69[0] = v10;
+  boost::io::basic_oaltstringstream<char,std::char_traits<char>,std::allocator<char>>::basic_oaltstringstream(&v68, a4);
   if (a5)
   {
-    v11 = (&v70[-1] + *(v69 - 24));
-    v68.__locale_ = 0xAAAAAAAAAAAAAAAALL;
+    v11 = (&v69[-1] + *(v68 - 24));
+    v67.__locale_ = 0xAAAAAAAAAAAAAAAALL;
     std::ios_base::getloc(v11);
     std::ios_base::imbue(v11, a5);
-    std::locale::~locale(v71);
+    std::locale::~locale(v70);
     rdbuf = v11->__rdbuf_;
     if (rdbuf)
     {
       (*(rdbuf->__locale_ + 2))(rdbuf, a5);
-      v82.__locale_ = 0xAAAAAAAAAAAAAAAALL;
-      std::locale::locale(&v82, rdbuf + 1);
+      v81.__locale_ = 0xAAAAAAAAAAAAAAAALL;
+      std::locale::locale(&v81, rdbuf + 1);
       std::locale::operator=(rdbuf + 1, a5);
-      std::locale::~locale(&v82);
+      std::locale::~locale(&v81);
     }
 
-    std::locale::~locale(&v68);
+    std::locale::~locale(&v67);
   }
 
-  boost::io::detail::stream_format_state<char,std::char_traits<char>>::apply_on(a2 + 56, (&v70[-1] + *(v69 - 24)), a5);
-  (a1[1])(&v69, *a1);
-  v13 = v69;
-  v14 = &v70[-1] + *(v69 - 24);
+  boost::io::detail::stream_format_state<char,std::char_traits<char>>::apply_on(a2 + 56, (&v69[-1] + *(v68 - 24)), a5);
+  (a1[1])(&v68, *a1);
+  v13 = v68;
+  v14 = &v69[-1] + *(v68 - 24);
   v15 = *(v14 + 2);
   __n = *(v14 + 3);
   if (SHIBYTE(a3->__r_.__value_.__r.__words[2]) < 0)
@@ -4581,48 +5055,21 @@ uint64_t boost::io::detail::put<char,std::char_traits<char>,std::allocator<char>
 LABEL_19:
       if (__n >= 1)
       {
-        *(v70 + *(v13 - 24) + 8) = 0;
+        *(v69 + *(v13 - 24) + 8) = 0;
       }
 
-      (a1[2])(&v69, *a1);
+      (a1[2])(&v68, *a1);
       v29 = a4[5];
-      if ((*(a2 + 112) & 2) == 0)
+      if ((*(a2 + 112) & 2) != 0 && (a4[6] == v29 || (v30 = *v29, std::ios_base::getloc((&v69[-1] + *(v68 - 24))), v31 = std::locale::use_facet(v70, MEMORY[0x1E69E5318]), v32 = (v31->__vftable[2].~facet_0)(v31, 43), std::locale::~locale(v70), v30 != v32) && (v33 = *v29, std::ios_base::getloc((&v69[-1] + *(v68 - 24))), v34 = std::locale::use_facet(v70, MEMORY[0x1E69E5318]), v35 = (v34->__vftable[2].~facet_0)(v34, 45), std::locale::~locale(v70), v33 != v35)))
       {
-        goto LABEL_25;
-      }
-
-      if (a4[6] == v29)
-      {
-        goto LABEL_27;
-      }
-
-      v30 = *v29;
-      std::ios_base::getloc((&v70[-1] + *(v69 - 24)));
-      v31 = std::locale::use_facet(v71, MEMORY[0x1E69E5318]);
-      v32 = (v31->__vftable[2].~facet_0)(v31, 43);
-      std::locale::~locale(v71);
-      if (v30 == v32)
-      {
-        goto LABEL_25;
-      }
-
-      v33 = *v29;
-      std::ios_base::getloc((&v70[-1] + *(v69 - 24)));
-      v34 = std::locale::use_facet(v71, MEMORY[0x1E69E5318]);
-      v35 = (v34->__vftable[2].~facet_0)(v34, 45);
-      std::locale::~locale(v71);
-      if (v33 != v35)
-      {
-LABEL_27:
-        std::ios_base::getloc((&v70[-1] + *(v69 - 24)));
-        v37 = std::locale::use_facet(v71, MEMORY[0x1E69E5318]);
+        std::ios_base::getloc((&v69[-1] + *(v68 - 24)));
+        v37 = std::locale::use_facet(v70, MEMORY[0x1E69E5318]);
         v36 = (v37->__vftable[2].~facet_0)(v37, 32);
-        std::locale::~locale(v71);
+        std::locale::~locale(v70);
       }
 
       else
       {
-LABEL_25:
         v36 = 0;
       }
 
@@ -4637,14 +5084,14 @@ LABEL_25:
         v39 = a4[6] - v38;
       }
 
-      v40 = &v70[-1] + *(v69 - 24);
+      v40 = &v69[-1] + *(v68 - 24);
       v41 = *(v40 + 36);
       if (v41 == -1)
       {
-        std::ios_base::getloc((&v70[-1] + *(v69 - 24)));
-        v42 = std::locale::use_facet(v71, MEMORY[0x1E69E5318]);
+        std::ios_base::getloc((&v69[-1] + *(v68 - 24)));
+        v42 = std::locale::use_facet(v70, MEMORY[0x1E69E5318]);
         v41 = (v42->__vftable[2].~facet_0)(v42, 32);
-        std::locale::~locale(v71);
+        std::locale::~locale(v70);
         *(v40 + 36) = v41;
       }
 
@@ -4675,48 +5122,18 @@ LABEL_34:
     goto LABEL_19;
   }
 
-  (a1[2])(&v69, *a1);
+  (a1[2])(&v68, *a1);
   v18 = a4[5];
   v17 = a4[6];
   v19 = v17 - v18;
-  if ((*(a2 + 112) & 2) == 0)
+  if ((*(a2 + 112) & 2) != 0 && (v17 == v18 || (v65 = v17 - v18, v20 = *v18, std::ios_base::getloc((&v69[-1] + *(v68 - 24))), v21 = std::locale::use_facet(v70, MEMORY[0x1E69E5318]), v22 = (v21->__vftable[2].~facet_0)(v21, 43), std::locale::~locale(v70), v19 = v65, v20 != v22) && (v23 = *v18, std::ios_base::getloc((&v69[-1] + *(v68 - 24))), v24 = std::locale::use_facet(v70, MEMORY[0x1E69E5318]), v25 = (v24->__vftable[2].~facet_0)(v24, 45), std::locale::~locale(v70), v19 = v65, v23 != v25)))
   {
-    goto LABEL_14;
-  }
-
-  if (v17 == v18)
-  {
-    goto LABEL_36;
-  }
-
-  v66 = v17 - v18;
-  v20 = *v18;
-  std::ios_base::getloc((&v70[-1] + *(v69 - 24)));
-  v21 = std::locale::use_facet(v71, MEMORY[0x1E69E5318]);
-  v22 = (v21->__vftable[2].~facet_0)(v21, 43);
-  std::locale::~locale(v71);
-  v19 = v66;
-  if (v20 == v22)
-  {
-    goto LABEL_14;
-  }
-
-  v23 = *v18;
-  std::ios_base::getloc((&v70[-1] + *(v69 - 24)));
-  v24 = std::locale::use_facet(v71, MEMORY[0x1E69E5318]);
-  v25 = (v24->__vftable[2].~facet_0)(v24, 45);
-  std::locale::~locale(v71);
-  v19 = v66;
-  if (v23 != v25)
-  {
-LABEL_36:
     v26 = (a2 + 104);
     v28 = 1;
   }
 
   else
   {
-LABEL_14:
     v26 = (a2 + 104);
     if (v19 == __n && __n <= *(a2 + 104))
     {
@@ -4733,63 +5150,63 @@ LABEL_14:
   v46 = a4[6];
   if (v46 && v46 != a4[5])
   {
-    *&v79 = 0;
-    v77 = 0u;
-    v78 = 0u;
-    v75 = 0u;
+    *&v78 = 0;
     v76 = 0u;
-    v73 = 0u;
+    v77 = 0u;
     v74 = 0u;
-    *&v71[0].__locale_ = 0u;
+    v75 = 0u;
     v72 = 0u;
-    (*(*a4 + 40))(&v82, a4, v71, 16);
+    v73 = 0u;
+    *&v70[0].__locale_ = 0u;
+    v71 = 0u;
+    (*(*a4 + 40))(&v81, a4, v70, 16);
   }
 
   v47 = a4[3];
   if (v47 && v47 != a4[2])
   {
-    *&v79 = 0;
-    v77 = 0u;
-    v78 = 0u;
-    v75 = 0u;
+    *&v78 = 0;
     v76 = 0u;
-    v73 = 0u;
+    v77 = 0u;
     v74 = 0u;
-    *&v71[0].__locale_ = 0u;
+    v75 = 0u;
     v72 = 0u;
-    (*(*a4 + 40))(&v82, a4, v71, 8);
+    v73 = 0u;
+    *&v70[0].__locale_ = 0u;
+    v71 = 0u;
+    (*(*a4 + 40))(&v81, a4, v70, 8);
   }
 
   *&v48 = 0xAAAAAAAAAAAAAAAALL;
   *(&v48 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v80 = v48;
-  v81 = v48;
-  v78 = v48;
   v79 = v48;
-  v76 = v48;
+  v80 = v48;
   v77 = v48;
-  v74 = v48;
+  v78 = v48;
   v75 = v48;
-  v72 = v48;
+  v76 = v48;
   v73 = v48;
-  *&v71[0].__locale_ = v48;
-  boost::io::basic_oaltstringstream<char,std::char_traits<char>,std::allocator<char>>::basic_oaltstringstream(v71, a4);
-  boost::io::detail::stream_format_state<char,std::char_traits<char>>::apply_on(a2 + 56, (v71 + *(v71[0].__locale_ - 3)), a5);
-  (a1[1])(v71, *a1);
-  *(&v72 + *(v71[0].__locale_ - 3) + 8) = 0;
+  v74 = v48;
+  v71 = v48;
+  v72 = v48;
+  *&v70[0].__locale_ = v48;
+  boost::io::basic_oaltstringstream<char,std::char_traits<char>,std::allocator<char>>::basic_oaltstringstream(v70, a4);
+  boost::io::detail::stream_format_state<char,std::char_traits<char>>::apply_on(a2 + 56, (v70 + *(v70[0].__locale_ - 3)), a5);
+  (a1[1])(v70, *a1);
+  *(&v71 + *(v70[0].__locale_ - 3) + 8) = 0;
   if (v28)
   {
-    LOBYTE(v82.__locale_) = 32;
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v71, &v82, 1);
+    LOBYTE(v81.__locale_) = 32;
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v70, &v81, 1);
   }
 
-  (a1[2])(v71, *a1);
+  (a1[2])(v70, *a1);
   v50 = a4[5];
   v49 = a4[6];
   if (v49 == v50 && (*(a2 + 112) & 2) != 0)
   {
-    LOBYTE(v82.__locale_) = 32;
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v71, &v82, 1);
+    LOBYTE(v81.__locale_) = 32;
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v70, &v81, 1);
     v50 = a4[5];
     v49 = a4[6];
     v28 = 1;
@@ -4857,14 +5274,14 @@ LABEL_14:
     }
 
     std::string::__assign_external(a3, v50, v57);
-    v58 = v71 + *(v71[0].__locale_ - 3);
+    v58 = v70 + *(v70[0].__locale_ - 3);
     v59 = *(v58 + 36);
     if (v59 == -1)
     {
-      std::ios_base::getloc((v71 + *(v71[0].__locale_ - 3)));
-      v60 = std::locale::use_facet(&v82, MEMORY[0x1E69E5318]);
+      std::ios_base::getloc((v70 + *(v70[0].__locale_ - 3)));
+      v60 = std::locale::use_facet(&v81, MEMORY[0x1E69E5318]);
       v59 = (v60->__vftable[2].~facet_0)(v60, 32);
-      std::locale::~locale(&v82);
+      std::locale::~locale(&v81);
       *(v58 + 36) = v59;
     }
 
@@ -4873,10 +5290,10 @@ LABEL_14:
   }
 
   std::ostream::~ostream();
-  v61 = v72;
-  if (v72)
+  v61 = v71;
+  if (v71)
   {
-    if (atomic_fetch_add((v72 + 8), 0xFFFFFFFF) == 1)
+    if (atomic_fetch_add((v71 + 8), 0xFFFFFFFF) == 1)
     {
       (*(*v61 + 16))(v61);
       if (atomic_fetch_add(v61 + 3, 0xFFFFFFFF) == 1)
@@ -4886,23 +5303,23 @@ LABEL_14:
     }
   }
 
-  MEMORY[0x1E69273B0](&v72 + 8);
+  MEMORY[0x1E69273B0](&v71 + 8);
   v43 = a4[6];
   if (v43)
   {
 LABEL_73:
     if (v43 != a4[5])
     {
-      *&v79 = 0;
-      v77 = 0u;
-      v78 = 0u;
-      v75 = 0u;
+      *&v78 = 0;
       v76 = 0u;
-      v73 = 0u;
+      v77 = 0u;
       v74 = 0u;
-      *&v71[0].__locale_ = 0u;
+      v75 = 0u;
       v72 = 0u;
-      (*(*a4 + 40))(&v82, a4, v71, 16);
+      v73 = 0u;
+      *&v70[0].__locale_ = 0u;
+      v71 = 0u;
+      (*(*a4 + 40))(&v81, a4, v70, 16);
     }
   }
 
@@ -4910,23 +5327,23 @@ LABEL_75:
   v62 = a4[3];
   if (v62 && v62 != a4[2])
   {
-    *&v79 = 0;
-    v77 = 0u;
-    v78 = 0u;
-    v75 = 0u;
+    *&v78 = 0;
     v76 = 0u;
-    v73 = 0u;
+    v77 = 0u;
     v74 = 0u;
-    *&v71[0].__locale_ = 0u;
+    v75 = 0u;
     v72 = 0u;
-    (*(*a4 + 40))(&v82, a4, v71, 8);
+    v73 = 0u;
+    *&v70[0].__locale_ = 0u;
+    v71 = 0u;
+    (*(*a4 + 40))(&v81, a4, v70, 8);
   }
 
   std::ostream::~ostream();
-  v63 = *&v70[0];
-  if (*&v70[0])
+  v63 = *&v69[0];
+  if (*&v69[0])
   {
-    if (atomic_fetch_add((*&v70[0] + 8), 0xFFFFFFFF) == 1)
+    if (atomic_fetch_add((*&v69[0] + 8), 0xFFFFFFFF) == 1)
     {
       (*(*v63 + 16))(v63);
       if (atomic_fetch_add(v63 + 3, 0xFFFFFFFF) == 1)
@@ -4936,15 +5353,14 @@ LABEL_75:
     }
   }
 
-  result = MEMORY[0x1E69273B0](v70 + 8);
-  v65 = *MEMORY[0x1E69E9840];
-  return result;
+  return MEMORY[0x1E69273B0](v69 + 8);
 }
 
-void sub_1E529D700(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, char a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, char a35)
+void sub_1E529D700(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, ...)
 {
-  std::locale::~locale((v35 - 240));
-  boost::io::basic_oaltstringstream<char,std::char_traits<char>,std::allocator<char>>::~basic_oaltstringstream(&a35);
+  va_start(va, a34);
+  std::locale::~locale((v34 - 240));
+  boost::io::basic_oaltstringstream<char,std::char_traits<char>,std::allocator<char>>::~basic_oaltstringstream(va);
   boost::io::basic_oaltstringstream<char,std::char_traits<char>,std::allocator<char>>::~basic_oaltstringstream(&a13);
   _Unwind_Resume(a1);
 }
@@ -4959,30 +5375,31 @@ void sub_1E529D724(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_1E529D7BC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, std::locale a12, char a13)
+void sub_1E529D7BC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, std::locale a12, ...)
 {
+  va_start(va, a12);
   std::locale::~locale(&a12);
-  boost::io::basic_oaltstringstream<char,std::char_traits<char>,std::allocator<char>>::~basic_oaltstringstream(&a13);
-  _Unwind_Resume(a1);
-}
-
-void sub_1E529D7D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
-{
-  va_start(va, a5);
   boost::io::basic_oaltstringstream<char,std::char_traits<char>,std::allocator<char>>::~basic_oaltstringstream(va);
   _Unwind_Resume(a1);
 }
 
-void sub_1E529D808(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_1E529D7D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   boost::io::basic_oaltstringstream<char,std::char_traits<char>,std::allocator<char>>::~basic_oaltstringstream(va);
   _Unwind_Resume(a1);
 }
 
-void sub_1E529D81C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_1E529D808(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
+  boost::io::basic_oaltstringstream<char,std::char_traits<char>,std::allocator<char>>::~basic_oaltstringstream(va);
+  _Unwind_Resume(a1);
+}
+
+void sub_1E529D81C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+{
+  va_start(va, a9);
   boost::io::basic_oaltstringstream<char,std::char_traits<char>,std::allocator<char>>::~basic_oaltstringstream(va);
   _Unwind_Resume(a1);
 }
@@ -4993,13 +5410,11 @@ __n128 boost::wrapexcept<boost::io::too_many_args>::wrapexcept(__n128 *a1, uint6
   a1->n128_u64[1] = &unk_1F5F00B40;
   result = *(a2 + 8);
   a1[1] = result;
-  a1[3].n128_u64[0] = 0;
-  a1[3].n128_u64[1] = 0;
+  a1[3] = 0uLL;
   a1[4].n128_u32[0] = -1;
   a1->n128_u64[0] = &unk_1F5F00AC8;
   a1->n128_u64[1] = &unk_1F5F00AF8;
-  a1[2].n128_u64[0] = &unk_1F5F00B20;
-  a1[2].n128_u64[1] = 0;
+  a1[2] = &unk_1F5F00B20;
   return result;
 }
 
@@ -5275,7 +5690,7 @@ LABEL_10:
   std::ios_base::clear(this, this->__rdstate_);
 }
 
-void boost::io::detail::mk_str<char,std::char_traits<char>,std::allocator<char>>(std::string *__dst, std::string::value_type *__s, std::string::size_type __n, uint64_t a4, std::string::value_type __c, char a6, int a7, int a8)
+void boost::io::detail::mk_str<char,std::char_traits<char>,std::allocator<char>>(std::string *__dst, std::string::value_type *__s, std::string::size_type __n, unint64_t a4, std::string::value_type __c, char a6, int a7, int a8)
 {
   if (SHIBYTE(__dst->__r_.__value_.__r.__words[2]) < 0)
   {
@@ -5688,9 +6103,9 @@ void sub_1E529EBDC(void *a1)
   __cxa_end_catch();
 }
 
-void *boost::io::detail::call_put_last<char,std::char_traits<char>,std::string const>(void *a1, uint64_t a2)
+void *boost::io::detail::call_put_last<char,std::char_traits<char>,std::string const>(void *a1, uint64_t ***a2)
 {
-  v2 = *(a2 + 8);
+  v2 = a2[1];
   if (*(a2 + 23) >= 0)
   {
     v3 = *(a2 + 23);
@@ -5967,13 +6382,11 @@ __n128 boost::wrapexcept<boost::io::too_few_args>::wrapexcept(__n128 *a1, uint64
   a1->n128_u64[1] = &unk_1F5F00DB8;
   result = *(a2 + 8);
   a1[1] = result;
-  a1[3].n128_u64[0] = 0;
-  a1[3].n128_u64[1] = 0;
+  a1[3] = 0uLL;
   a1[4].n128_u32[0] = -1;
   a1->n128_u64[0] = &unk_1F5F00D40;
   a1->n128_u64[1] = &unk_1F5F00D70;
-  a1[2].n128_u64[0] = &unk_1F5F00D98;
-  a1[2].n128_u64[1] = 0;
+  a1[2] = &unk_1F5F00D98;
   return result;
 }
 
@@ -6153,63 +6566,63 @@ uint64_t __cxx_global_var_init_297()
 
 void DaleTransport_BootLogger_UART::start_pl_log(uint64_t a1, uint64_t a2, void *a3)
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   *&v5 = 0xAAAAAAAAAAAAAAAALL;
   *(&v5 + 1) = 0xAAAAAAAAAAAAAAAALL;
+  v26 = v5;
+  v28 = 0xAAAAAAAAAAAAAAAALL;
   v27 = v5;
-  v29 = 0xAAAAAAAAAAAAAAAALL;
-  v28 = v5;
-  WORD2(v27) = 1;
-  memset(&v26, 0, sizeof(v26));
-  v30 = 0;
-  v31 = 0xAAAAAAAAAAAA0000;
-  LODWORD(v27) = 921600;
+  WORD2(v26) = 1;
+  memset(&v25, 0, sizeof(v25));
+  v29 = 0;
+  v30 = 0xAAAAAAAAAAAA0000;
+  LODWORD(v26) = 921600;
   v6 = *(a1 + 16);
   if (v6)
   {
     dispatch_retain(*(a1 + 16));
   }
 
-  *(&v27 + 1) = v6;
-  std::function<void ()(unsigned char *,long)>::operator=<std::function<void ()(unsigned char const*,long)> &,void>(&v28, a3);
-  std::string::__assign_external(&v26, "/dev/tty.baseband-boot-logger", 0x1DuLL);
-  if (SHIBYTE(v26.__r_.__value_.__r.__words[2]) < 0)
+  *(&v26 + 1) = v6;
+  std::function<void ()(unsigned char *,long)>::operator=<std::function<void ()(unsigned char const*,long)> &,void>(&v27, a3);
+  std::string::__assign_external(&v25, "/dev/tty.baseband-boot-logger", 0x1DuLL);
+  if (SHIBYTE(v25.__r_.__value_.__r.__words[2]) < 0)
   {
-    std::string::__init_copy_ctor_external(&v19, v26.__r_.__value_.__l.__data_, v26.__r_.__value_.__l.__size_);
+    std::string::__init_copy_ctor_external(&v18, v25.__r_.__value_.__l.__data_, v25.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    v19 = v26;
+    v18 = v25;
   }
 
-  v20 = v27;
-  v21 = WORD2(v27);
-  v22 = *(&v27 + 1);
-  if (*(&v27 + 1))
+  v19 = v26;
+  v20 = WORD2(v26);
+  v21 = *(&v26 + 1);
+  if (*(&v26 + 1))
   {
-    dispatch_retain(*(&v27 + 1));
+    dispatch_retain(*(&v26 + 1));
   }
 
-  v7 = v30;
-  if (v30)
+  v7 = v29;
+  if (v29)
   {
-    if (v30 == &v28)
+    if (v29 == &v27)
     {
-      v24 = v23;
-      (*(*v30 + 24))();
+      v23 = v22;
+      (*(*v29 + 24))();
       goto LABEL_13;
     }
 
-    v7 = (*(*v30 + 16))();
+    v7 = (*(*v29 + 16))();
   }
 
-  v24 = v7;
+  v23 = v7;
 LABEL_13:
-  v25 = v31;
-  std::allocate_shared[abi:ne200100]<UART,std::allocator<UART>,UART::_Config &,0>(&v19, &v18);
-  v8 = v18;
-  v18 = 0uLL;
+  v24 = v30;
+  std::allocate_shared[abi:ne200100]<UART,std::allocator<UART>,UART::_Config &,0>(&v18, &v17);
+  v8 = v17;
+  v17 = 0uLL;
   v9 = *(a1 + 152);
   *(a1 + 144) = v8;
   if (v9 && !atomic_fetch_add(&v9->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
@@ -6218,13 +6631,13 @@ LABEL_13:
     std::__shared_weak_count::__release_weak(v9);
   }
 
-  v10 = *(&v18 + 1);
-  if (*(&v18 + 1) && !atomic_fetch_add((*(&v18 + 1) + 8), 0xFFFFFFFFFFFFFFFFLL))
+  v10 = *(&v17 + 1);
+  if (*(&v17 + 1) && !atomic_fetch_add((*(&v17 + 1) + 8), 0xFFFFFFFFFFFFFFFFLL))
   {
     (v10->__on_zero_shared)(v10);
     std::__shared_weak_count::__release_weak(v10);
-    v11 = v24;
-    if (v24 != v23)
+    v11 = v23;
+    if (v23 != v22)
     {
 LABEL_19:
       if (v11)
@@ -6232,8 +6645,8 @@ LABEL_19:
         (*(*v11 + 40))(v11);
       }
 
-      v12 = v22;
-      if (v22)
+      v12 = v21;
+      if (v21)
       {
         goto LABEL_22;
       }
@@ -6244,23 +6657,23 @@ LABEL_19:
 
   else
   {
-    v11 = v24;
-    if (v24 != v23)
+    v11 = v23;
+    if (v23 != v22)
     {
       goto LABEL_19;
     }
   }
 
   (*(*v11 + 32))(v11);
-  v12 = v22;
-  if (v22)
+  v12 = v21;
+  if (v21)
   {
 LABEL_22:
     dispatch_release(v12);
   }
 
 LABEL_23:
-  if ((SHIBYTE(v19.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+  if ((SHIBYTE(v18.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
   {
     v13 = *(a1 + 144);
     if (v13)
@@ -6272,10 +6685,10 @@ LABEL_28:
     v15 = **(a1 + 112);
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v18) = 0;
-      _os_log_error_impl(&dword_1E5234000, v15, OS_LOG_TYPE_ERROR, "error: Failed to create UART object", &v18, 2u);
-      v14 = v30;
-      if (v30 == &v28)
+      LOWORD(v17) = 0;
+      _os_log_error_impl(&dword_1E5234000, v15, OS_LOG_TYPE_ERROR, "error: Failed to create UART object", &v17, 2u);
+      v14 = v29;
+      if (v29 == &v27)
       {
         goto LABEL_41;
       }
@@ -6283,8 +6696,8 @@ LABEL_28:
 
     else
     {
-      v14 = v30;
-      if (v30 == &v28)
+      v14 = v29;
+      if (v29 == &v27)
       {
         goto LABEL_41;
       }
@@ -6293,7 +6706,7 @@ LABEL_28:
     goto LABEL_30;
   }
 
-  operator delete(v19.__r_.__value_.__l.__data_);
+  operator delete(v18.__r_.__value_.__l.__data_);
   v13 = *(a1 + 144);
   if (!v13)
   {
@@ -6302,13 +6715,13 @@ LABEL_28:
 
 LABEL_25:
   UART::startAsyncRead(v13);
-  v14 = v30;
-  if (v30 == &v28)
+  v14 = v29;
+  if (v29 == &v27)
   {
 LABEL_41:
     (*(*v14 + 32))(v14);
-    v16 = *(&v27 + 1);
-    if (!*(&v27 + 1))
+    v16 = *(&v26 + 1);
+    if (!*(&v26 + 1))
     {
       goto LABEL_34;
     }
@@ -6324,24 +6737,22 @@ LABEL_30:
     (*(*v14 + 40))(v14);
   }
 
-  v16 = *(&v27 + 1);
-  if (*(&v27 + 1))
+  v16 = *(&v26 + 1);
+  if (*(&v26 + 1))
   {
     goto LABEL_33;
   }
 
 LABEL_34:
-  if (SHIBYTE(v26.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v25.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v26.__r_.__value_.__l.__data_);
+    operator delete(v25.__r_.__value_.__l.__data_);
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
-void sub_1E529FB38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+void sub_1E529FB38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, ...)
 {
-  va_start(va, a16);
+  va_start(va, a23);
   UART::_Config::~_Config(va);
   _Unwind_Resume(a1);
 }
@@ -6369,42 +6780,42 @@ LABEL_3:
   _Unwind_Resume(a1);
 }
 
-void sub_1E529FB94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_1E529FB94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va1, a5);
-  va_start(va, a5);
-  v6 = va_arg(va1, void);
-  v8 = va_arg(va1, void);
-  v9 = va_arg(va1, void);
+  va_start(va1, a9);
+  va_start(va, a9);
   v10 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
   v12 = va_arg(va1, void);
   v13 = va_arg(va1, void);
   v14 = va_arg(va1, void);
   v15 = va_arg(va1, void);
   v16 = va_arg(va1, void);
   v17 = va_arg(va1, void);
+  v18 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
   UART::_Config::~_Config(va);
   UART::_Config::~_Config(va1);
   _Unwind_Resume(a1);
 }
 
-void sub_1E529FBB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+void sub_1E529FBB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, ...)
 {
-  va_start(va, a16);
+  va_start(va, a23);
   UART::_Config::~_Config(va);
   _Unwind_Resume(a1);
 }
 
 uint64_t std::function<void ()(unsigned char *,long)>::operator=<std::function<void ()(unsigned char const*,long)> &,void>(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v3 = a2[3];
   if (!v3)
   {
-    v11 = 0;
-    v13 = 0;
-    if (v12 != a1)
+    v10 = 0;
+    v12 = 0;
+    if (v11 != a1)
     {
       goto LABEL_13;
     }
@@ -6415,8 +6826,8 @@ uint64_t std::function<void ()(unsigned char *,long)>::operator=<std::function<v
   if (v3 != a2)
   {
     v4 = (*(*v3 + 16))(v3);
-    v11 = v4;
-    v13 = 0;
+    v10 = v4;
+    v12 = 0;
     if (v4)
     {
       goto LABEL_4;
@@ -6425,15 +6836,15 @@ uint64_t std::function<void ()(unsigned char *,long)>::operator=<std::function<v
     goto LABEL_9;
   }
 
-  v11 = v10;
-  (*(*v3 + 24))(v3, v10);
-  v4 = v11;
-  v13 = 0;
-  if (!v11)
+  v10 = v9;
+  (*(*v3 + 24))(v3, v9);
+  v4 = v10;
+  v12 = 0;
+  if (!v10)
   {
 LABEL_9:
     v3 = 0;
-    if (v12 != a1)
+    if (v11 != a1)
     {
       goto LABEL_13;
     }
@@ -6446,7 +6857,7 @@ LABEL_10:
 LABEL_4:
   v3 = operator new(0x28uLL);
   *v3 = &unk_1F5F00E38;
-  if (v4 == v10)
+  if (v4 == v9)
   {
     v3[4] = v3 + 1;
     v6 = v3;
@@ -6457,11 +6868,11 @@ LABEL_4:
   else
   {
     v3[4] = v4;
-    v11 = 0;
+    v10 = 0;
   }
 
-  v13 = v3;
-  if (v12 == a1)
+  v12 = v3;
+  if (v11 == a1)
   {
     goto LABEL_10;
   }
@@ -6470,18 +6881,18 @@ LABEL_13:
   v5 = *(a1 + 24);
   if (v5 == a1)
   {
-    (*(*v5 + 24))(*(a1 + 24), v12);
+    (*(*v5 + 24))(*(a1 + 24), v11);
     (*(**(a1 + 24) + 32))(*(a1 + 24));
-    *(a1 + 24) = v13;
-    v13 = v12;
-    v5 = v12;
+    *(a1 + 24) = v12;
+    v12 = v11;
+    v5 = v11;
   }
 
   else
   {
-    v13 = *(a1 + 24);
+    v12 = *(a1 + 24);
     *(a1 + 24) = v3;
-    if (v5 != v12)
+    if (v5 != v11)
     {
 LABEL_15:
       if (v5)
@@ -6489,21 +6900,21 @@ LABEL_15:
         (*(*v5 + 40))(v5);
       }
 
-      v7 = v11;
-      if (v11 != v10)
+      v7 = v10;
+      if (v10 != v9)
       {
         goto LABEL_18;
       }
 
 LABEL_22:
       (*(*v7 + 32))(v7);
-      goto LABEL_23;
+      return a1;
     }
   }
 
   (*(*v5 + 32))(v5);
-  v7 = v11;
-  if (v11 == v10)
+  v7 = v10;
+  if (v10 == v9)
   {
     goto LABEL_22;
   }
@@ -6514,8 +6925,6 @@ LABEL_18:
     (*(*v7 + 40))(v7);
   }
 
-LABEL_23:
-  v8 = *MEMORY[0x1E69E9840];
   return a1;
 }
 
@@ -6529,9 +6938,9 @@ void sub_1E529FEA8(_Unwind_Exception *exception_object, int a2)
   _Unwind_Resume(exception_object);
 }
 
-void sub_1E529FEC8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1E529FEC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::function<void ()(unsigned char const*,long)>::~function(va);
   _Unwind_Resume(a1);
 }
@@ -6583,63 +6992,63 @@ void DaleTransport_BootLogger_UART::stop_pl_log(uint64_t a1)
 
 void DaleTransport_BootLogger_UART::start_rom_log(uint64_t a1, uint64_t a2, void *a3)
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   *&v5 = 0xAAAAAAAAAAAAAAAALL;
   *(&v5 + 1) = 0xAAAAAAAAAAAAAAAALL;
+  v26 = v5;
+  v28 = 0xAAAAAAAAAAAAAAAALL;
   v27 = v5;
-  v29 = 0xAAAAAAAAAAAAAAAALL;
-  v28 = v5;
-  WORD2(v27) = 1;
-  memset(&v26, 0, sizeof(v26));
-  v30 = 0;
-  v31 = 0xAAAAAAAAAAAA0000;
-  LODWORD(v27) = 115200;
+  WORD2(v26) = 1;
+  memset(&v25, 0, sizeof(v25));
+  v29 = 0;
+  v30 = 0xAAAAAAAAAAAA0000;
+  LODWORD(v26) = 115200;
   v6 = *(a1 + 16);
   if (v6)
   {
     dispatch_retain(*(a1 + 16));
   }
 
-  *(&v27 + 1) = v6;
-  std::function<void ()(unsigned char *,long)>::operator=<std::function<void ()(unsigned char const*,long)> &,void>(&v28, a3);
-  std::string::__assign_external(&v26, "/dev/tty.baseband-boot-logger", 0x1DuLL);
-  if (SHIBYTE(v26.__r_.__value_.__r.__words[2]) < 0)
+  *(&v26 + 1) = v6;
+  std::function<void ()(unsigned char *,long)>::operator=<std::function<void ()(unsigned char const*,long)> &,void>(&v27, a3);
+  std::string::__assign_external(&v25, "/dev/tty.baseband-boot-logger", 0x1DuLL);
+  if (SHIBYTE(v25.__r_.__value_.__r.__words[2]) < 0)
   {
-    std::string::__init_copy_ctor_external(&v19, v26.__r_.__value_.__l.__data_, v26.__r_.__value_.__l.__size_);
+    std::string::__init_copy_ctor_external(&v18, v25.__r_.__value_.__l.__data_, v25.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    v19 = v26;
+    v18 = v25;
   }
 
-  v20 = v27;
-  v21 = WORD2(v27);
-  v22 = *(&v27 + 1);
-  if (*(&v27 + 1))
+  v19 = v26;
+  v20 = WORD2(v26);
+  v21 = *(&v26 + 1);
+  if (*(&v26 + 1))
   {
-    dispatch_retain(*(&v27 + 1));
+    dispatch_retain(*(&v26 + 1));
   }
 
-  v7 = v30;
-  if (v30)
+  v7 = v29;
+  if (v29)
   {
-    if (v30 == &v28)
+    if (v29 == &v27)
     {
-      v24 = v23;
-      (*(*v30 + 24))();
+      v23 = v22;
+      (*(*v29 + 24))();
       goto LABEL_13;
     }
 
-    v7 = (*(*v30 + 16))();
+    v7 = (*(*v29 + 16))();
   }
 
-  v24 = v7;
+  v23 = v7;
 LABEL_13:
-  v25 = v31;
-  std::allocate_shared[abi:ne200100]<UART,std::allocator<UART>,UART::_Config &,0>(&v19, &v18);
-  v8 = v18;
-  v18 = 0uLL;
+  v24 = v30;
+  std::allocate_shared[abi:ne200100]<UART,std::allocator<UART>,UART::_Config &,0>(&v18, &v17);
+  v8 = v17;
+  v17 = 0uLL;
   v9 = *(a1 + 152);
   *(a1 + 144) = v8;
   if (v9 && !atomic_fetch_add(&v9->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
@@ -6648,13 +7057,13 @@ LABEL_13:
     std::__shared_weak_count::__release_weak(v9);
   }
 
-  v10 = *(&v18 + 1);
-  if (*(&v18 + 1) && !atomic_fetch_add((*(&v18 + 1) + 8), 0xFFFFFFFFFFFFFFFFLL))
+  v10 = *(&v17 + 1);
+  if (*(&v17 + 1) && !atomic_fetch_add((*(&v17 + 1) + 8), 0xFFFFFFFFFFFFFFFFLL))
   {
     (v10->__on_zero_shared)(v10);
     std::__shared_weak_count::__release_weak(v10);
-    v11 = v24;
-    if (v24 != v23)
+    v11 = v23;
+    if (v23 != v22)
     {
 LABEL_19:
       if (v11)
@@ -6662,8 +7071,8 @@ LABEL_19:
         (*(*v11 + 40))(v11);
       }
 
-      v12 = v22;
-      if (v22)
+      v12 = v21;
+      if (v21)
       {
         goto LABEL_22;
       }
@@ -6674,23 +7083,23 @@ LABEL_19:
 
   else
   {
-    v11 = v24;
-    if (v24 != v23)
+    v11 = v23;
+    if (v23 != v22)
     {
       goto LABEL_19;
     }
   }
 
   (*(*v11 + 32))(v11);
-  v12 = v22;
-  if (v22)
+  v12 = v21;
+  if (v21)
   {
 LABEL_22:
     dispatch_release(v12);
   }
 
 LABEL_23:
-  if ((SHIBYTE(v19.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+  if ((SHIBYTE(v18.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
   {
     v13 = *(a1 + 144);
     if (v13)
@@ -6702,10 +7111,10 @@ LABEL_28:
     v15 = **(a1 + 112);
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v18) = 0;
-      _os_log_error_impl(&dword_1E5234000, v15, OS_LOG_TYPE_ERROR, "error: Failed to create UART object", &v18, 2u);
-      v14 = v30;
-      if (v30 == &v28)
+      LOWORD(v17) = 0;
+      _os_log_error_impl(&dword_1E5234000, v15, OS_LOG_TYPE_ERROR, "error: Failed to create UART object", &v17, 2u);
+      v14 = v29;
+      if (v29 == &v27)
       {
         goto LABEL_41;
       }
@@ -6713,8 +7122,8 @@ LABEL_28:
 
     else
     {
-      v14 = v30;
-      if (v30 == &v28)
+      v14 = v29;
+      if (v29 == &v27)
       {
         goto LABEL_41;
       }
@@ -6723,7 +7132,7 @@ LABEL_28:
     goto LABEL_30;
   }
 
-  operator delete(v19.__r_.__value_.__l.__data_);
+  operator delete(v18.__r_.__value_.__l.__data_);
   v13 = *(a1 + 144);
   if (!v13)
   {
@@ -6732,13 +7141,13 @@ LABEL_28:
 
 LABEL_25:
   UART::startAsyncRead(v13);
-  v14 = v30;
-  if (v30 == &v28)
+  v14 = v29;
+  if (v29 == &v27)
   {
 LABEL_41:
     (*(*v14 + 32))(v14);
-    v16 = *(&v27 + 1);
-    if (!*(&v27 + 1))
+    v16 = *(&v26 + 1);
+    if (!*(&v26 + 1))
     {
       goto LABEL_34;
     }
@@ -6754,24 +7163,22 @@ LABEL_30:
     (*(*v14 + 40))(v14);
   }
 
-  v16 = *(&v27 + 1);
-  if (*(&v27 + 1))
+  v16 = *(&v26 + 1);
+  if (*(&v26 + 1))
   {
     goto LABEL_33;
   }
 
 LABEL_34:
-  if (SHIBYTE(v26.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v25.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v26.__r_.__value_.__l.__data_);
+    operator delete(v25.__r_.__value_.__l.__data_);
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
-void sub_1E52A039C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+void sub_1E52A039C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, ...)
 {
-  va_start(va, a16);
+  va_start(va, a23);
   UART::_Config::~_Config(va);
   _Unwind_Resume(a1);
 }
@@ -6799,29 +7206,29 @@ LABEL_3:
   _Unwind_Resume(a1);
 }
 
-void sub_1E52A03F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_1E52A03F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va1, a5);
-  va_start(va, a5);
-  v6 = va_arg(va1, void);
-  v8 = va_arg(va1, void);
-  v9 = va_arg(va1, void);
+  va_start(va1, a9);
+  va_start(va, a9);
   v10 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
   v12 = va_arg(va1, void);
   v13 = va_arg(va1, void);
   v14 = va_arg(va1, void);
   v15 = va_arg(va1, void);
   v16 = va_arg(va1, void);
   v17 = va_arg(va1, void);
+  v18 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
   UART::_Config::~_Config(va);
   UART::_Config::~_Config(va1);
   _Unwind_Resume(a1);
 }
 
-void sub_1E52A0414(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+void sub_1E52A0414(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, ...)
 {
-  va_start(va, a16);
+  va_start(va, a23);
   UART::_Config::~_Config(va);
   _Unwind_Resume(a1);
 }
@@ -7156,7 +7563,7 @@ void BBUFileDataSource::~BBUFileDataSource(BBUFileDataSource *this)
   operator delete(v3);
 }
 
-uint64_t BBUFileDataSource::init(uint64_t a1, const char *a2, int a3)
+uint64_t BBUFileDataSource::init(uint64_t a1, __int128 *a2, int a3)
 {
   *(a1 + 44) = a3;
   if (gBBULogMaskGet(void)::once == -1)
@@ -7179,33 +7586,33 @@ uint64_t BBUFileDataSource::init(uint64_t a1, const char *a2, int a3)
   if (gBBULogVerbosity >= 7)
   {
     v5 = (*(*a1 + 56))(a1);
-    if (a2[23] >= 0)
+    if (*(a2 + 23) >= 0)
     {
-      LOBYTE(v9) = a2;
+      v6 = a2;
     }
 
     else
     {
-      v9 = *a2;
+      v6 = *a2;
     }
 
-    _BBULog(15, 7, v5, "", "Opening %s\n", v6, v7, v8, v9);
+    _BBULog(15, 7, v5, "", "Opening %s\n", v6);
   }
 
 LABEL_8:
-  if (a2[23] >= 0)
+  if (*(a2 + 23) >= 0)
   {
-    v10 = a2;
+    v7 = a2;
   }
 
   else
   {
-    v10 = *a2;
+    v7 = *a2;
   }
 
-  v11 = fopen(v10, "r");
-  *(a1 + 32) = v11;
-  if (!v11)
+  v8 = fopen(v7, "r");
+  *(a1 + 32) = v8;
+  if (!v8)
   {
     if (gBBULogMaskGet(void)::once == -1)
     {
@@ -7231,24 +7638,14 @@ LABEL_8:
       return result;
     }
 
-    v20 = (*(*a1 + 56))(a1);
-    if (a2[23] >= 0)
-    {
-      LOBYTE(v24) = a2;
-    }
-
-    else
-    {
-      v24 = *a2;
-    }
-
-    _BBULog(15, 0, v20, "", "Failed to open file %s\n", v21, v22, v23, v24);
+    v14 = (*(*a1 + 56))(a1);
+    _BBULog(15, 0, v14, "", "Failed to open file %s\n");
     return 35;
   }
 
-  if (fseek(v11, 0, 2))
+  if (fseek(v8, 0, 2))
   {
-    v12 = *__error();
+    v9 = *__error();
     if (gBBULogMaskGet(void)::once == -1)
     {
       result = 35;
@@ -7270,24 +7667,24 @@ LABEL_15:
         return result;
       }
 
-      v14 = (*(*a1 + 56))(a1);
-      v15 = strerror(v12);
-      v19 = "Failed to seek, err = %s (%u)\n";
+      v11 = (*(*a1 + 56))(a1);
+      v12 = strerror(v9);
+      v13 = "Failed to seek, err = %s (%u)\n";
       goto LABEL_17;
     }
 
     return result;
   }
 
-  v25 = MEMORY[0x1E69279A0](*(a1 + 32));
-  if ((v25 & 0x8000000000000000) == 0)
+  v15 = MEMORY[0x1E69279A0](*(a1 + 32));
+  if ((v15 & 0x8000000000000000) == 0)
   {
-    *(a1 + 40) = v25;
+    *(a1 + 40) = v15;
     if (gBBULogMaskGet(void)::once == -1)
     {
       if ((*(gBBULogMaskGet(void)::sBBULogMask + 1) & 0x80) != 0)
       {
-        goto LABEL_30;
+        goto LABEL_27;
       }
     }
 
@@ -7296,11 +7693,11 @@ LABEL_15:
       dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
       if ((*(gBBULogMaskGet(void)::sBBULogMask + 1) & 0x80) != 0)
       {
-LABEL_30:
+LABEL_27:
         if (gBBULogVerbosity >= 7)
         {
-          v26 = (*(*a1 + 56))(a1);
-          _BBULog(15, 7, v26, "", "File size is %u\n", v27, v28, v29, *(a1 + 40));
+          v16 = (*(*a1 + 56))(a1);
+          _BBULog(15, 7, v16, "", "File size is %u\n", *(a1 + 40));
         }
       }
     }
@@ -7309,40 +7706,40 @@ LABEL_30:
     {
       if ((a1 + 8) != a2)
       {
-        v32 = a2[23];
+        v17 = *(a2 + 23);
         if (*(a1 + 31) < 0)
         {
-          if (v32 >= 0)
+          if (v17 >= 0)
           {
-            v34 = a2;
+            v19 = a2;
           }
 
           else
           {
-            v34 = *a2;
+            v19 = *a2;
           }
 
-          if (v32 >= 0)
+          if (v17 >= 0)
           {
-            v35 = *(a2 + 23);
+            v20 = *(a2 + 23);
           }
 
           else
           {
-            v35 = *(a2 + 1);
+            v20 = *(a2 + 1);
           }
 
-          std::string::__assign_no_alias<false>((a1 + 8), v34, v35);
+          std::string::__assign_no_alias<false>((a1 + 8), v19, v20);
         }
 
         else
         {
-          if ((a2[23] & 0x80) == 0)
+          if ((*(a2 + 23) & 0x80) == 0)
           {
             result = 0;
-            v33 = *a2;
+            v18 = *a2;
             *(a1 + 24) = *(a2 + 2);
-            *(a1 + 8) = v33;
+            *(a1 + 8) = v18;
             return result;
           }
 
@@ -7353,7 +7750,7 @@ LABEL_30:
       return 0;
     }
 
-    v30 = *__error();
+    v9 = *__error();
     if (gBBULogMaskGet(void)::once == -1)
     {
       result = 35;
@@ -7378,15 +7775,15 @@ LABEL_30:
       return result;
     }
 
-    v14 = (*(*a1 + 56))(a1);
-    v15 = strerror(v30);
-    v19 = "Failed to re-seek, err = %s (%u)\n";
+    v11 = (*(*a1 + 56))(a1);
+    v12 = strerror(v9);
+    v13 = "Failed to re-seek, err = %s (%u)\n";
 LABEL_17:
-    _BBULog(15, 0, v14, "", v19, v16, v17, v18, v15);
+    _BBULog(15, 0, v11, "", v13, v12, v9);
     return 35;
   }
 
-  v31 = *__error();
+  v9 = *__error();
   if (gBBULogMaskGet(void)::once == -1)
   {
     result = 35;
@@ -7408,9 +7805,9 @@ LABEL_17:
 
   if ((gBBULogVerbosity & 0x80000000) == 0)
   {
-    v14 = (*(*a1 + 56))(a1);
-    v15 = strerror(v31);
-    v19 = "Failed to tell, err = %s (%u)\n";
+    v11 = (*(*a1 + 56))(a1);
+    v12 = strerror(v9);
+    v13 = "Failed to tell, err = %s (%u)\n";
     goto LABEL_17;
   }
 
@@ -7464,16 +7861,16 @@ uint64_t BBUFileDataSource::copyData(FILE **this, unsigned __int8 *a2, int a3, u
     {
       v13 = ((*this)->_close)(this);
       strerror(v12);
-      _BBULog(15, 0, v13, "", "Failed to seek to %u, err = %s (%u)\n", v14, v15, v16, a5);
+      _BBULog(15, 0, v13, "", "Failed to seek to %u, err = %s (%u)\n");
       return 35;
     }
   }
 
   else
   {
-    v17 = fread(a2, 1uLL, v7, this[4]);
-    *a4 = v17;
-    if (v7 <= v17)
+    v14 = fread(a2, 1uLL, v7, this[4]);
+    *a4 = v14;
+    if (v7 <= v14)
     {
       return 0;
     }
@@ -7499,8 +7896,8 @@ uint64_t BBUFileDataSource::copyData(FILE **this, unsigned __int8 *a2, int a3, u
 
     if ((gBBULogVerbosity & 0x80000000) == 0)
     {
-      v18 = ((*this)->_close)(this);
-      _BBULog(15, 0, v18, "", "Read only %u of %u bytes\n", v19, v20, v21, *a4);
+      v15 = ((*this)->_close)(this);
+      _BBULog(15, 0, v15, "", "Read only %u of %u bytes\n");
       return 35;
     }
   }
@@ -7566,12 +7963,12 @@ void *BBUFileDataSource::getNameAsString@<X0>(void *this@<X0>, uint64_t a2@<X8>)
 
   if (v3 >= 0)
   {
-    v10 = (v6 + 8);
+    v10 = v6 + 1;
   }
 
   else
   {
-    v10 = *(v6 + 8);
+    v10 = v6[1];
   }
 
   this = memmove(v9, v10, v4);
@@ -7580,21 +7977,20 @@ LABEL_15:
   return this;
 }
 
-BOOL BBUEUR20HashData::compare(BBUEUR20HashData *this, BBUFeedback *a2, char **lpsrc)
+BOOL BBUEUR20HashData::compare(BBUEUR20HashData *this, BBUFeedback *a2, const BBUHashData *lpsrc)
 {
   v4 = this;
   if (lpsrc)
   {
-    v5 = **lpsrc;
-    v6 = this;
+    v5 = this;
     if (this)
     {
       this = BBUHashData::compareHash(v4, a2, v4 + 8, this + 8, "SBL1");
       if (this)
       {
-        v7 = BBUHashData::compareHash(v4, a2, v4 + 56, v6 + 56, "ACDB");
-        v8 = v7;
-        if (!capabilities::updater::supportsBbcfgImage(v7))
+        v6 = BBUHashData::compareHash(v4, a2, v4 + 56, v5 + 56, "ACDB");
+        v7 = v6;
+        if (!capabilities::updater::supportsBbcfgImage(v6))
         {
           goto LABEL_5;
         }
@@ -7606,14 +8002,14 @@ BOOL BBUEUR20HashData::compare(BBUEUR20HashData *this, BBUFeedback *a2, char **l
 
   else
   {
-    v6 = 0;
+    v5 = 0;
   }
 
-  v8 = 0;
+  v7 = 0;
   if (!capabilities::updater::supportsBbcfgImage(this))
   {
 LABEL_5:
-    if (v8)
+    if (v7)
     {
       goto LABEL_11;
     }
@@ -7622,14 +8018,14 @@ LABEL_5:
   }
 
 LABEL_9:
-  if (!v8 || !BBUHashData::compareHash(v4, a2, v4 + 104, v6 + 104, "BBCFG"))
+  if (!v7 || !BBUHashData::compareHash(v4, a2, v4 + 104, v5 + 104, "BBCFG"))
   {
     return 0;
   }
 
 LABEL_11:
 
-  return BBUHashData::compareHash(v4, a2, v4 + 152, v6 + 152, "OEMMisc");
+  return BBUHashData::compareHash(v4, a2, v4 + 152, v5 + 152, "OEMMisc");
 }
 
 void BBUEUR20HashData::showHashes(BBUEUR20HashData *this, BBUFeedback *a2)
@@ -7726,7 +8122,7 @@ void BasebandUpdater::BasebandUpdater(BasebandUpdater *this, const void *a2, con
   *(this + 2) = 0;
   *(this + 3) = 0;
   capabilities::radio::vendor(this);
-  BasebandRestore::create(a3, &v8);
+  BasebandRestore::create(&v8, a3);
   v5 = v8;
   v8 = 0uLL;
   v6 = *(this + 3);
@@ -7811,26 +8207,25 @@ LABEL_6:
   operator delete(this);
 }
 
-BOOL BBUEUR25HashData::compare(BBUEUR25HashData *this, BBUFeedback *a2, char **lpsrc)
+BOOL BBUEUR25HashData::compare(BBUEUR25HashData *this, BBUFeedback *a2, const BBUHashData *lpsrc)
 {
   if (!lpsrc)
   {
     return 0;
   }
 
-  v5 = **lpsrc;
-  if (!v6)
+  if (!v5)
   {
     return 0;
   }
 
-  v7 = v6;
-  if (!BBUHashData::compareHash(this, a2, this + 8, v6 + 8, "XBLsc") || !BBUHashData::compareHash(this, a2, this + 56, v7 + 56, "ACDB") || !BBUHashData::compareHash(this, a2, this + 104, v7 + 104, "BBCFG"))
+  v6 = v5;
+  if (!BBUHashData::compareHash(this, a2, this + 8, v5 + 8, "XBLsc") || !BBUHashData::compareHash(this, a2, this + 56, v6 + 56, "ACDB") || !BBUHashData::compareHash(this, a2, this + 104, v6 + 104, "BBCFG"))
   {
     return 0;
   }
 
-  return BBUHashData::compareHash(this, a2, this + 152, v7 + 152, "OEMMisc");
+  return BBUHashData::compareHash(this, a2, this + 152, v6 + 152, "OEMMisc");
 }
 
 void BBUEUR25HashData::showHashes(BBUEUR25HashData *this, BBUFeedback *a2)
@@ -7993,11 +8388,11 @@ uint64_t BBUEUR20UpdateSource::BBUEUR20UpdateSource(uint64_t a1, uint64_t a2, ui
   return a1;
 }
 
-void sub_1E52A22B0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1E52A22B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<BBUZipFile>::~unique_ptr[abi:ne200100](va);
-  BBUUpdateSource::~BBUUpdateSource(v2);
+  BBUUpdateSource::~BBUUpdateSource(v3);
   _Unwind_Resume(a1);
 }
 
@@ -8313,14 +8708,14 @@ void BBUEUR20UpdateSource::~BBUEUR20UpdateSource(BBUEUR20UpdateSource *this)
 
 CFMutableDictionaryRef BBUEUR20UpdateSource::copyBasebandMigrationData(BBUEUR20UpdateSource *this, BBUFeedback *a2)
 {
-  memset(&v78, 170, sizeof(v78));
+  memset(&v66, 170, sizeof(v66));
   pthread_mutex_lock(&ctu::Singleton<BBUPartitionManager,BBUPartitionManager,ctu::PthreadMutexGuardPolicy<BBUPartitionManager>>::sInstance);
   v3 = off_1ED944170;
   if (!off_1ED944170)
   {
     v4 = operator new(0x18uLL);
     BBUPartitionManager::BBUPartitionManager(v4);
-    *&v79.st_dev = v4;
+    *&v67.st_dev = v4;
     v5 = operator new(0x20uLL);
     *v5 = &unk_1F5F05A00;
     v5[1] = 0;
@@ -8339,114 +8734,115 @@ CFMutableDictionaryRef BBUEUR20UpdateSource::copyBasebandMigrationData(BBUEUR20U
   }
 
   v7 = off_1ED944178;
-  *&v69 = v3;
-  *(&v69 + 1) = off_1ED944178;
+  *&v57 = v3;
+  *(&v57 + 1) = off_1ED944178;
   if (off_1ED944178)
   {
     atomic_fetch_add_explicit(off_1ED944178 + 1, 1uLL, memory_order_relaxed);
   }
 
   pthread_mutex_unlock(&ctu::Singleton<BBUPartitionManager,BBUPartitionManager,ctu::PthreadMutexGuardPolicy<BBUPartitionManager>>::sInstance);
-  BBUPartitionManager::getBBUFSPath(v3, &v78);
+  BBUPartitionManager::getBBUFSPath(v3, &v66);
   if (v7 && !atomic_fetch_add(&v7->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
     (v7->__on_zero_shared)(v7);
     std::__shared_weak_count::__release_weak(v7);
-    if ((v78.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    if ((v66.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      v15 = &v78;
+      v9 = &v66;
     }
 
     else
     {
-      v15 = v78.__r_.__value_.__r.__words[0];
+      v9 = v66.__r_.__value_.__r.__words[0];
     }
 
-    if (v15)
+    if (v9)
     {
       goto LABEL_14;
     }
 
 LABEL_29:
-    _BBUFSDebugPrint("BBUFSServerPrepare", "invalid path specified %s\n", v9, v10, v11, v12, v13, v14, 0);
+    _BBUFSDebugPrint("BBUFSServerPrepare", "invalid path specified %s\n", 0);
     goto LABEL_30;
   }
 
-  if ((v78.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  if ((v66.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v15 = &v78;
+    v9 = &v66;
   }
 
   else
   {
-    v15 = v78.__r_.__value_.__r.__words[0];
+    v9 = v66.__r_.__value_.__r.__words[0];
   }
 
-  if (!v15)
+  if (!v9)
   {
     goto LABEL_29;
   }
 
 LABEL_14:
-  if (bbufs::prepareDestination(v15, v8))
+  if (bbufs::prepareDestination(v9, v8))
   {
+    v10 = *MEMORY[0x1E695E480];
     Mutable = CFDictionaryCreateMutable(*MEMORY[0x1E695E480], 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
-    v77 = 0xAAAAAAAAAAAAAAAALL;
-    *&v23 = 0xAAAAAAAAAAAAAAAALL;
-    *(&v23 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    v76[7] = v23;
-    v76[8] = v23;
-    v76[5] = v23;
-    v76[6] = v23;
-    v76[3] = v23;
-    v76[4] = v23;
-    v76[1] = v23;
-    v76[2] = v23;
-    v75 = v23;
-    v76[0] = v23;
-    *v73 = v23;
-    v74 = v23;
-    v71 = v23;
-    v72 = v23;
-    v69 = v23;
-    v70 = v23;
-    std::ostringstream::basic_ostringstream[abi:ne200100](&v69);
-    if ((v78.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    v65 = 0xAAAAAAAAAAAAAAAALL;
+    *&v12 = 0xAAAAAAAAAAAAAAAALL;
+    *(&v12 + 1) = 0xAAAAAAAAAAAAAAAALL;
+    v64[7] = v12;
+    v64[8] = v12;
+    v64[5] = v12;
+    v64[6] = v12;
+    v64[3] = v12;
+    v64[4] = v12;
+    v64[1] = v12;
+    v64[2] = v12;
+    v63 = v12;
+    v64[0] = v12;
+    *v61 = v12;
+    v62 = v12;
+    v59 = v12;
+    v60 = v12;
+    v57 = v12;
+    v58 = v12;
+    std::ostringstream::basic_ostringstream[abi:ne200100](&v57);
+    if ((v66.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      v24 = &v78;
+      v13 = &v66;
     }
 
     else
     {
-      v24 = v78.__r_.__value_.__r.__words[0];
+      v13 = v66.__r_.__value_.__r.__words[0];
     }
 
-    if ((v78.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    if ((v66.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      size = HIBYTE(v78.__r_.__value_.__r.__words[2]);
+      size = HIBYTE(v66.__r_.__value_.__r.__words[2]);
     }
 
     else
     {
-      size = v78.__r_.__value_.__l.__size_;
+      size = v66.__r_.__value_.__l.__size_;
     }
 
-    v26 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v69, v24, size);
-    v27 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v26, "efs", 3);
-    v28 = MEMORY[0x1E69270E0](v27, 1);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v28, ".bin", 4);
-    if ((BYTE8(v75) & 0x10) != 0)
+    v15 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v57, v13, size);
+    v16 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v15, "efs", 3);
+    v17 = MEMORY[0x1E69270E0](v16, 1);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v17, ".bin", 4);
+    if ((BYTE8(v63) & 0x10) != 0)
     {
-      v32 = v75;
-      if (v75 < *(&v72 + 1))
+      v21 = v63;
+      if (v63 < *(&v60 + 1))
       {
-        *&v75 = *(&v72 + 1);
-        v32 = *(&v72 + 1);
+        *&v63 = *(&v60 + 1);
+        v21 = *(&v60 + 1);
       }
 
-      v33 = v72;
-      v29 = v32 - v72;
-      if ((v32 - v72) > 0x7FFFFFFFFFFFFFF7)
+      v22 = v60;
+      v18 = v21 - v60;
+      if ((v21 - v60) > 0x7FFFFFFFFFFFFFF7)
       {
         goto LABEL_63;
       }
@@ -8454,90 +8850,90 @@ LABEL_14:
 
     else
     {
-      if ((BYTE8(v75) & 8) == 0)
+      if ((BYTE8(v63) & 8) == 0)
       {
-        v29 = 0;
-        HIBYTE(v68) = 0;
-        v30 = __dst;
+        v18 = 0;
+        HIBYTE(v56) = 0;
+        v19 = __dst;
         goto LABEL_44;
       }
 
-      v33 = *(&v70 + 1);
-      v29 = *(&v71 + 1) - *(&v70 + 1);
-      if (*(&v71 + 1) - *(&v70 + 1) > 0x7FFFFFFFFFFFFFF7uLL)
+      v22 = *(&v58 + 1);
+      v18 = *(&v59 + 1) - *(&v58 + 1);
+      if (*(&v59 + 1) - *(&v58 + 1) > 0x7FFFFFFFFFFFFFF7uLL)
       {
 LABEL_63:
         std::string::__throw_length_error[abi:ne200100]();
       }
     }
 
-    if (v29 >= 0x17)
+    if (v18 >= 0x17)
     {
-      if ((v29 | 7) == 0x17)
+      if ((v18 | 7) == 0x17)
       {
-        v34 = 25;
+        v23 = 25;
       }
 
       else
       {
-        v34 = (v29 | 7) + 1;
+        v23 = (v18 | 7) + 1;
       }
 
-      v30 = operator new(v34);
-      __dst[1] = v29;
-      v68 = v34 | 0x8000000000000000;
-      __dst[0] = v30;
+      v19 = operator new(v23);
+      __dst[1] = v18;
+      v56 = v23 | 0x8000000000000000;
+      __dst[0] = v19;
     }
 
     else
     {
-      HIBYTE(v68) = v29;
-      v30 = __dst;
-      if (!v29)
+      HIBYTE(v56) = v18;
+      v19 = __dst;
+      if (!v18)
       {
 LABEL_44:
-        *(v30 + v29) = 0;
-        v35.tv_sec = 0xAAAAAAAAAAAAAAAALL;
-        v35.tv_nsec = 0xAAAAAAAAAAAAAAAALL;
-        *&v79.st_blksize = v35;
-        *v79.st_qspare = v35;
-        v79.st_birthtimespec = v35;
-        *&v79.st_size = v35;
-        v79.st_mtimespec = v35;
-        v79.st_ctimespec = v35;
-        *&v79.st_uid = v35;
-        v79.st_atimespec = v35;
-        *&v79.st_dev = v35;
-        if (v68 >= 0)
+        *(v19 + v18) = 0;
+        v24.tv_sec = 0xAAAAAAAAAAAAAAAALL;
+        v24.tv_nsec = 0xAAAAAAAAAAAAAAAALL;
+        *&v67.st_blksize = v24;
+        *v67.st_qspare = v24;
+        v67.st_birthtimespec = v24;
+        *&v67.st_size = v24;
+        v67.st_mtimespec = v24;
+        v67.st_ctimespec = v24;
+        *&v67.st_uid = v24;
+        v67.st_atimespec = v24;
+        *&v67.st_dev = v24;
+        if (v56 >= 0)
         {
-          v36 = __dst;
+          v25 = __dst;
         }
 
         else
         {
-          v36 = __dst[0];
+          v25 = __dst[0];
         }
 
-        v37 = stat(v36, &v79);
-        if (SHIBYTE(v68) < 0)
+        v26 = stat(v25, &v67);
+        if (SHIBYTE(v56) < 0)
         {
-          v40 = v37;
+          v29 = v26;
           operator delete(__dst[0]);
-          if (v40)
+          if (v29)
           {
 LABEL_49:
-            if ((BYTE8(v75) & 0x10) != 0)
+            if ((BYTE8(v63) & 0x10) != 0)
             {
-              v43 = v75;
-              if (v75 < *(&v72 + 1))
+              v32 = v63;
+              if (v63 < *(&v60 + 1))
               {
-                *&v75 = *(&v72 + 1);
-                v43 = *(&v72 + 1);
+                *&v63 = *(&v60 + 1);
+                v32 = *(&v60 + 1);
               }
 
-              v44 = v72;
-              v38 = v43 - v72;
-              if ((v43 - v72) > 0x7FFFFFFFFFFFFFF7)
+              v33 = v60;
+              v27 = v32 - v60;
+              if ((v32 - v60) > 0x7FFFFFFFFFFFFFF7)
               {
                 goto LABEL_81;
               }
@@ -8545,88 +8941,88 @@ LABEL_49:
 
             else
             {
-              if ((BYTE8(v75) & 8) == 0)
+              if ((BYTE8(v63) & 8) == 0)
               {
-                v38 = 0;
-                HIBYTE(v79.st_gid) = 0;
-                v39 = &v79;
+                v27 = 0;
+                HIBYTE(v67.st_gid) = 0;
+                v28 = &v67;
                 goto LABEL_69;
               }
 
-              v44 = *(&v70 + 1);
-              v38 = *(&v71 + 1) - *(&v70 + 1);
-              if (*(&v71 + 1) - *(&v70 + 1) > 0x7FFFFFFFFFFFFFF7uLL)
+              v33 = *(&v58 + 1);
+              v27 = *(&v59 + 1) - *(&v58 + 1);
+              if (*(&v59 + 1) - *(&v58 + 1) > 0x7FFFFFFFFFFFFFF7uLL)
               {
 LABEL_81:
                 std::string::__throw_length_error[abi:ne200100]();
               }
             }
 
-            if (v38 >= 0x17)
+            if (v27 >= 0x17)
             {
-              if ((v38 | 7) == 0x17)
+              if ((v27 | 7) == 0x17)
               {
-                v45 = 25;
+                v34 = 25;
               }
 
               else
               {
-                v45 = (v38 | 7) + 1;
+                v34 = (v27 | 7) + 1;
               }
 
-              v39 = operator new(v45);
-              v79.st_ino = v38;
-              *&v79.st_uid = v45 | 0x8000000000000000;
-              *&v79.st_dev = v39;
+              v28 = operator new(v34);
+              v67.st_ino = v27;
+              *&v67.st_uid = v34 | 0x8000000000000000;
+              *&v67.st_dev = v28;
             }
 
             else
             {
-              HIBYTE(v79.st_gid) = v38;
-              v39 = &v79;
-              if (!v38)
+              HIBYTE(v67.st_gid) = v27;
+              v28 = &v67;
+              if (!v27)
               {
                 goto LABEL_69;
               }
             }
 
-            memmove(v39, v44, v38);
+            memmove(v28, v33, v27);
 LABEL_69:
-            *(v39 + v38) = 0;
-            v46 = &v79;
-            if ((v79.st_gid & 0x80000000) != 0)
+            *(v28 + v27) = 0;
+            v35 = &v67;
+            if ((v67.st_gid & 0x80000000) != 0)
             {
-              v46 = *&v79.st_dev;
+              v35 = *&v67.st_dev;
             }
 
-            BBUFeedback::handleComment(this, "Failed to locate %s while copying baseband migration data\n", v46);
+            BBUFeedback::handleComment(this, "Failed to locate %s while copying baseband migration data\n", v35);
 LABEL_72:
-            if (SHIBYTE(v79.st_gid) < 0)
+            if (SHIBYTE(v67.st_gid) < 0)
             {
-              operator delete(*&v79.st_dev);
+              operator delete(*&v67.st_dev);
             }
 
             goto LABEL_121;
           }
         }
 
-        else if (v37)
+        else if (v26)
         {
           goto LABEL_49;
         }
 
-        if ((BYTE8(v75) & 0x10) != 0)
+        if ((BYTE8(v63) & 0x10) != 0)
         {
-          v47 = v75;
-          if (v75 < *(&v72 + 1))
+          v36 = v63;
+          if (v63 < *(&v60 + 1))
           {
-            *&v75 = *(&v72 + 1);
-            v47 = *(&v72 + 1);
+            *&v63 = *(&v60 + 1);
+            v36 = *(&v60 + 1);
           }
 
-          v48 = v72;
-          v41 = v47 - v72;
-          if ((v47 - v72) > 0x7FFFFFFFFFFFFFF7)
+          v37 = v60;
+          v30 = v36 - v60;
+          if ((v36 - v60) > 0x7FFFFFFFFFFFFFF7)
           {
             goto LABEL_102;
           }
@@ -8634,157 +9030,157 @@ LABEL_72:
 
         else
         {
-          if ((BYTE8(v75) & 8) == 0)
+          if ((BYTE8(v63) & 8) == 0)
           {
-            v41 = 0;
-            HIBYTE(v79.st_gid) = 0;
-            v42 = &v79;
+            v30 = 0;
+            HIBYTE(v67.st_gid) = 0;
+            v31 = &v67;
             goto LABEL_87;
           }
 
-          v48 = *(&v70 + 1);
-          v41 = *(&v71 + 1) - *(&v70 + 1);
-          if (*(&v71 + 1) - *(&v70 + 1) > 0x7FFFFFFFFFFFFFF7uLL)
+          v37 = *(&v58 + 1);
+          v30 = *(&v59 + 1) - *(&v58 + 1);
+          if (*(&v59 + 1) - *(&v58 + 1) > 0x7FFFFFFFFFFFFFF7uLL)
           {
 LABEL_102:
             std::string::__throw_length_error[abi:ne200100]();
           }
         }
 
-        if (v41 >= 0x17)
+        if (v30 >= 0x17)
         {
-          if ((v41 | 7) == 0x17)
+          if ((v30 | 7) == 0x17)
           {
-            v49 = 25;
+            v38 = 25;
           }
 
           else
           {
-            v49 = (v41 | 7) + 1;
+            v38 = (v30 | 7) + 1;
           }
 
-          v42 = operator new(v49);
-          v79.st_ino = v41;
-          *&v79.st_uid = v49 | 0x8000000000000000;
-          *&v79.st_dev = v42;
+          v31 = operator new(v38);
+          v67.st_ino = v30;
+          *&v67.st_uid = v38 | 0x8000000000000000;
+          *&v67.st_dev = v31;
         }
 
         else
         {
-          HIBYTE(v79.st_gid) = v41;
-          v42 = &v79;
-          if (!v41)
+          HIBYTE(v67.st_gid) = v30;
+          v31 = &v67;
+          if (!v30)
           {
 LABEL_87:
-            v42[v41] = 0;
-            v50 = operator new(0x30uLL);
-            *v50 = &unk_1F5F00F28;
-            *(v50 + 8) = 0u;
-            *(v50 + 24) = 0u;
-            if (BBUFileDataSource::init(v50, &v79, 0))
+            v31[v30] = 0;
+            v39 = operator new(0x30uLL);
+            *v39 = &unk_1F5F00F28;
+            *(v39 + 8) = 0u;
+            *(v39 + 24) = 0u;
+            if (BBUFileDataSource::init(v39, &v67.st_dev, 0))
             {
-              (*(*v50 + 8))(v50);
-              v50 = 0;
+              (*(*v39 + 8))(v39);
+              v39 = 0;
             }
 
-            if (SHIBYTE(v79.st_gid) < 0)
+            if (SHIBYTE(v67.st_gid) < 0)
             {
-              operator delete(*&v79.st_dev);
+              operator delete(*&v67.st_dev);
             }
 
-            if (v50)
+            if (v39)
             {
-              if ((BYTE8(v75) & 0x10) != 0)
+              if ((BYTE8(v63) & 0x10) != 0)
               {
-                v55 = v75;
-                if (v75 < *(&v72 + 1))
+                v44 = v63;
+                if (v63 < *(&v60 + 1))
                 {
-                  *&v75 = *(&v72 + 1);
-                  v55 = *(&v72 + 1);
+                  *&v63 = *(&v60 + 1);
+                  v44 = *(&v60 + 1);
                 }
 
-                v56 = &v72;
+                v45 = &v60;
               }
 
               else
               {
-                if ((BYTE8(v75) & 8) == 0)
+                if ((BYTE8(v63) & 8) == 0)
                 {
-                  v51 = 0;
-                  HIBYTE(v66) = 0;
-                  v52 = __p;
+                  v40 = 0;
+                  HIBYTE(v54) = 0;
+                  v41 = __p;
                   goto LABEL_116;
                 }
 
-                v56 = &v70 + 1;
-                v55 = *(&v71 + 1);
+                v45 = &v58 + 1;
+                v44 = *(&v59 + 1);
               }
 
-              v59 = *v56;
-              v51 = v55 - *v56;
-              if (v51 > 0x7FFFFFFFFFFFFFF7)
+              v48 = *v45;
+              v40 = v44 - *v45;
+              if (v40 > 0x7FFFFFFFFFFFFFF7)
               {
                 std::string::__throw_length_error[abi:ne200100]();
               }
 
-              if (v51 >= 0x17)
+              if (v40 >= 0x17)
               {
-                if ((v51 | 7) == 0x17)
+                if ((v40 | 7) == 0x17)
                 {
-                  v60 = 25;
+                  v49 = 25;
                 }
 
                 else
                 {
-                  v60 = (v51 | 7) + 1;
+                  v49 = (v40 | 7) + 1;
                 }
 
-                v52 = operator new(v60);
-                __p[1] = v51;
-                v66 = v60 | 0x8000000000000000;
-                __p[0] = v52;
+                v41 = operator new(v49);
+                __p[1] = v40;
+                v54 = v49 | 0x8000000000000000;
+                __p[0] = v41;
               }
 
               else
               {
-                HIBYTE(v66) = v55 - *v56;
-                v52 = __p;
-                if (!v51)
+                HIBYTE(v54) = v44 - *v45;
+                v41 = __p;
+                if (!v40)
                 {
                   goto LABEL_116;
                 }
               }
 
-              memmove(v52, v59, v51);
+              memmove(v41, v48, v40);
 LABEL_116:
-              *(v52 + v51) = 0;
-              BBUDataSource::createData(v50, &v79);
-              ctu::cf::insert<std::string,__CFData const*>(Mutable, __p, *&v79.st_dev);
-              if (*&v79.st_dev)
+              *(v41 + v40) = 0;
+              BBUDataSource::createData(&v67, v39);
+              ctu::cf::insert<std::string,__CFData const*>(Mutable, __p, *&v67.st_dev, v10);
+              if (*&v67.st_dev)
               {
-                CFRelease(*&v79.st_dev);
+                CFRelease(*&v67.st_dev);
               }
 
-              if (SHIBYTE(v66) < 0)
+              if (SHIBYTE(v54) < 0)
               {
                 operator delete(__p[0]);
               }
 
-              (*(*v50 + 8))(v50);
+              (*(*v39 + 8))(v39);
 LABEL_121:
-              *&v69 = *MEMORY[0x1E69E54E8];
-              *(&v69 + *(v69 - 24)) = *(MEMORY[0x1E69E54E8] + 24);
-              *(&v69 + 1) = MEMORY[0x1E69E5548] + 16;
-              if (SHIBYTE(v74) < 0)
+              *&v57 = *MEMORY[0x1E69E54E8];
+              *(&v57 + *(v57 - 24)) = *(MEMORY[0x1E69E54E8] + 24);
+              *(&v57 + 1) = MEMORY[0x1E69E5548] + 16;
+              if (SHIBYTE(v62) < 0)
               {
-                operator delete(v73[1]);
+                operator delete(v61[1]);
               }
 
-              *(&v69 + 1) = MEMORY[0x1E69E5538] + 16;
-              std::locale::~locale(&v70);
+              *(&v57 + 1) = MEMORY[0x1E69E5538] + 16;
+              std::locale::~locale(&v58);
               std::ostream::~ostream();
-              MEMORY[0x1E69273B0](v76);
-              if (SHIBYTE(v78.__r_.__value_.__r.__words[2]) < 0)
+              MEMORY[0x1E69273B0](v64);
+              if (SHIBYTE(v66.__r_.__value_.__r.__words[2]) < 0)
               {
                 goto LABEL_31;
               }
@@ -8792,98 +9188,98 @@ LABEL_121:
               return Mutable;
             }
 
-            if ((BYTE8(v75) & 0x10) != 0)
+            if ((BYTE8(v63) & 0x10) != 0)
             {
-              v57 = v75;
-              if (v75 < *(&v72 + 1))
+              v46 = v63;
+              if (v63 < *(&v60 + 1))
               {
-                *&v75 = *(&v72 + 1);
-                v57 = *(&v72 + 1);
+                *&v63 = *(&v60 + 1);
+                v46 = *(&v60 + 1);
               }
 
-              v58 = &v72;
+              v47 = &v60;
             }
 
             else
             {
-              if ((BYTE8(v75) & 8) == 0)
+              if ((BYTE8(v63) & 8) == 0)
               {
-                v53 = 0;
-                HIBYTE(v79.st_gid) = 0;
-                v54 = &v79;
+                v42 = 0;
+                HIBYTE(v67.st_gid) = 0;
+                v43 = &v67;
                 goto LABEL_135;
               }
 
-              v58 = &v70 + 1;
-              v57 = *(&v71 + 1);
+              v47 = &v58 + 1;
+              v46 = *(&v59 + 1);
             }
 
-            v61 = *v58;
-            v53 = v57 - *v58;
-            if (v53 > 0x7FFFFFFFFFFFFFF7)
+            v50 = *v47;
+            v42 = v46 - *v47;
+            if (v42 > 0x7FFFFFFFFFFFFFF7)
             {
               std::string::__throw_length_error[abi:ne200100]();
             }
 
-            if (v53 >= 0x17)
+            if (v42 >= 0x17)
             {
-              if ((v53 | 7) == 0x17)
+              if ((v42 | 7) == 0x17)
               {
-                v62 = 25;
+                v51 = 25;
               }
 
               else
               {
-                v62 = (v53 | 7) + 1;
+                v51 = (v42 | 7) + 1;
               }
 
-              v54 = operator new(v62);
-              v79.st_ino = v53;
-              *&v79.st_uid = v62 | 0x8000000000000000;
-              *&v79.st_dev = v54;
+              v43 = operator new(v51);
+              v67.st_ino = v42;
+              *&v67.st_uid = v51 | 0x8000000000000000;
+              *&v67.st_dev = v43;
             }
 
             else
             {
-              HIBYTE(v79.st_gid) = v57 - *v58;
-              v54 = &v79;
-              if (!v53)
+              HIBYTE(v67.st_gid) = v46 - *v47;
+              v43 = &v67;
+              if (!v42)
               {
                 goto LABEL_135;
               }
             }
 
-            memmove(v54, v61, v53);
+            memmove(v43, v50, v42);
 LABEL_135:
-            *(v54 + v53) = 0;
-            v63 = &v79;
-            if ((v79.st_gid & 0x80000000) != 0)
+            *(v43 + v42) = 0;
+            v52 = &v67;
+            if ((v67.st_gid & 0x80000000) != 0)
             {
-              v63 = *&v79.st_dev;
+              v52 = *&v67.st_dev;
             }
 
-            BBUFeedback::handleComment(this, "Failed generating data source for %s while copying baseband migration data\n", v63);
+            BBUFeedback::handleComment(this, "Failed generating data source for %s while copying baseband migration data\n", v52);
             goto LABEL_72;
           }
         }
 
-        memmove(v42, v48, v41);
+        memmove(v31, v37, v30);
         goto LABEL_87;
       }
     }
 
-    memmove(v30, v33, v29);
+    memmove(v19, v22, v18);
     goto LABEL_44;
   }
 
-  _BBUFSDebugPrint("BBUFSServerPrepare", "failed preparing baseband filesystem directory\n", v16, v17, v18, v19, v20, v21, v64);
+  _BBUFSDebugPrint("BBUFSServerPrepare", "failed preparing baseband filesystem directory\n");
 LABEL_30:
   BBUFeedback::handleComment(this, "Failed preparing baseband filesystem directory for copying baseband migration data\n");
   Mutable = 0;
-  if (SHIBYTE(v78.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v66.__r_.__value_.__r.__words[2]) < 0)
   {
 LABEL_31:
-    operator delete(v78.__r_.__value_.__l.__data_);
+    operator delete(v66.__r_.__value_.__l.__data_);
   }
 
   return Mutable;
@@ -8905,7 +9301,7 @@ void sub_1E52A3450(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t ctu::cf::insert<std::string,__CFData const*>(uint64_t a1, uint64_t a2, const void *a3)
+uint64_t ctu::cf::insert<std::string,__CFData const*>(__CFDictionary *a1, uint64_t a2, const void *a3, uint64_t a4)
 {
   ctu::cf::convert_copy();
   if (a3)
@@ -8952,8 +9348,8 @@ uint64_t BBUEUR20UpdateSource::restoreBasebandMigrationData(BBUEUR20UpdateSource
   }
 
   v9 = off_1ED944178;
-  *v47 = v5;
-  *&v47[8] = off_1ED944178;
+  *v34 = v5;
+  *&v34[8] = off_1ED944178;
   if (off_1ED944178)
   {
     atomic_fetch_add_explicit(off_1ED944178 + 1, 1uLL, memory_order_relaxed);
@@ -8981,7 +9377,7 @@ uint64_t BBUEUR20UpdateSource::restoreBasebandMigrationData(BBUEUR20UpdateSource
     }
 
 LABEL_21:
-    _BBUFSDebugPrint("BBUFSServerPrepare", "invalid path specified %s\n", v11, v12, v13, v14, v15, v16, 0);
+    _BBUFSDebugPrint("BBUFSServerPrepare", "invalid path specified %s\n", 0);
     goto LABEL_22;
   }
 
@@ -9003,27 +9399,27 @@ LABEL_21:
 LABEL_14:
   if (bbufs::prepareDestination(p_p, v10))
   {
-    v24 = 1;
+    v12 = 1;
     goto LABEL_23;
   }
 
-  _BBUFSDebugPrint("BBUFSServerPrepare", "failed preparing baseband filesystem directory\n", v18, v19, v20, v21, v22, v23, v44);
+  _BBUFSDebugPrint("BBUFSServerPrepare", "failed preparing baseband filesystem directory\n");
 LABEL_22:
   BBUFeedback::handleComment(this, "Failed preparing baseband filesystem directory for copying baseband migration data");
-  v24 = 0;
+  v12 = 0;
 LABEL_23:
-  *(&v48 + 1) = 0;
-  v49 = 0;
-  *&v48 = &v48 + 8;
-  *&v47[8] = 0uLL;
-  *v47 = &v47[8];
-  context.__r_.__value_.__r.__words[0] = v47;
-  context.__r_.__value_.__l.__size_ = &v47[8];
+  *(&v35 + 1) = 0;
+  v36 = 0;
+  *&v35 = &v35 + 8;
+  *&v34[8] = 0uLL;
+  *v34 = &v34[8];
+  context.__r_.__value_.__r.__words[0] = v34;
+  context.__r_.__value_.__l.__size_ = &v34[8];
   if (!a2)
   {
-    std::__tree<std::__value_type<std::string,__CFData const*>,std::__map_value_compare<std::string,std::__value_type<std::string,__CFData const*>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,__CFData const*>>>::destroy(v47, 0);
-    v30 = v48;
-    if (v48 == (&v48 + 8))
+    std::__tree<std::__value_type<std::string,__CFData const*>,std::__map_value_compare<std::string,std::__value_type<std::string,__CFData const*>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,__CFData const*>>>::destroy(v34, 0);
+    v18 = v35;
+    if (v35 == (&v35 + 8))
     {
       goto LABEL_81;
     }
@@ -9032,102 +9428,102 @@ LABEL_23:
   }
 
   CFDictionaryApplyFunction(a2, ctu::cf::_Applier_InsertMapDefault<std::string,__CFData const*,std::insert_iterator<std::map<std::string,__CFData const*>>>, &context);
-  v25 = v48;
-  v48 = *v47;
-  *v47 = v25;
-  v26 = v49;
-  v49 = *&v47[16];
-  *&v47[16] = v26;
-  v27 = &v48;
-  if (v49)
+  v13 = v35;
+  v35 = *v34;
+  *v34 = v13;
+  v14 = v36;
+  v36 = *&v34[16];
+  *&v34[16] = v14;
+  v15 = &v35;
+  if (v36)
   {
-    v27 = (*(&v48 + 1) + 16);
+    v15 = (*(&v35 + 1) + 16);
   }
 
-  *v27 = &v48 + 8;
-  v28 = v26 == 0;
-  v29 = v47;
-  if (!v28)
+  *v15 = &v35 + 8;
+  v16 = v14 == 0;
+  v17 = v34;
+  if (!v16)
   {
-    v29 = (*(&v25 + 1) + 16);
+    v17 = (*(&v13 + 1) + 16);
   }
 
-  *v29 = &v47[8];
-  std::__tree<std::__value_type<std::string,__CFData const*>,std::__map_value_compare<std::string,std::__value_type<std::string,__CFData const*>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,__CFData const*>>>::destroy(v47, *(&v25 + 1));
-  v30 = v48;
-  if (v48 != (&v48 + 8))
+  *v17 = &v34[8];
+  std::__tree<std::__value_type<std::string,__CFData const*>,std::__map_value_compare<std::string,std::__value_type<std::string,__CFData const*>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,__CFData const*>>>::destroy(v34, *(&v13 + 1));
+  v18 = v35;
+  if (v35 != (&v35 + 8))
   {
 LABEL_31:
-    v31 = *MEMORY[0x1E695E480];
+    v19 = *MEMORY[0x1E695E480];
     do
     {
-      *&v32 = 0xAAAAAAAAAAAAAAAALL;
-      *(&v32 + 1) = 0xAAAAAAAAAAAAAAAALL;
-      *v47 = v32;
-      *&v47[16] = v32;
-      if (*(v30 + 55) < 0)
+      *&v20 = 0xAAAAAAAAAAAAAAAALL;
+      *(&v20 + 1) = 0xAAAAAAAAAAAAAAAALL;
+      *v34 = v20;
+      *&v34[16] = v20;
+      if (*(v18 + 55) < 0)
       {
-        std::string::__init_copy_ctor_external(v47, *(v30 + 4), *(v30 + 5));
+        std::string::__init_copy_ctor_external(v34, *(v18 + 4), *(v18 + 5));
       }
 
       else
       {
-        *v47 = v30[2];
-        *&v47[16] = *(v30 + 6);
+        *v34 = v18[2];
+        *&v34[16] = *(v18 + 6);
       }
 
-      *&v47[24] = *(v30 + 7);
-      if ((v47[23] & 0x80000000) != 0)
+      *&v34[24] = *(v18 + 7);
+      if ((v34[23] & 0x80000000) != 0)
       {
-        std::string::__init_copy_ctor_external(&v45, *v47, *&v47[8]);
+        std::string::__init_copy_ctor_external(&v32, *v34, *&v34[8]);
       }
 
       else
       {
-        v45 = *v47;
+        v32 = *v34;
       }
 
-      if (SHIBYTE(v45.__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v32.__r_.__value_.__r.__words[2]) < 0)
       {
-        std::string::__init_copy_ctor_external(&v52, v45.__r_.__value_.__l.__data_, v45.__r_.__value_.__l.__size_);
+        std::string::__init_copy_ctor_external(&v39, v32.__r_.__value_.__l.__data_, v32.__r_.__value_.__l.__size_);
       }
 
       else
       {
-        v52 = v45;
+        v39 = v32;
       }
 
-      v51 = 0;
-      if (SHIBYTE(v52.__r_.__value_.__r.__words[2]) < 0)
+      v38 = 0;
+      if (SHIBYTE(v39.__r_.__value_.__r.__words[2]) < 0)
       {
-        std::string::__init_copy_ctor_external(&context, v52.__r_.__value_.__l.__data_, v52.__r_.__value_.__l.__size_);
+        std::string::__init_copy_ctor_external(&context, v39.__r_.__value_.__l.__data_, v39.__r_.__value_.__l.__size_);
       }
 
       else
       {
-        context = v52;
+        context = v39;
       }
 
-      v54 = 0;
+      v41 = 0;
       if (ctu::cf::convert_copy())
       {
-        v33 = v54;
+        v21 = v41;
       }
 
       else
       {
-        v33 = 0;
+        v21 = 0;
       }
 
       if (SHIBYTE(context.__r_.__value_.__r.__words[2]) < 0)
       {
         operator delete(context.__r_.__value_.__l.__data_);
-        v46 = v33;
-        if (SHIBYTE(v52.__r_.__value_.__r.__words[2]) < 0)
+        v33 = v21;
+        if (SHIBYTE(v39.__r_.__value_.__r.__words[2]) < 0)
         {
 LABEL_65:
-          operator delete(v52.__r_.__value_.__l.__data_);
-          if ((SHIBYTE(v45.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+          operator delete(v39.__r_.__value_.__l.__data_);
+          if ((SHIBYTE(v32.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
           {
             goto LABEL_51;
           }
@@ -9138,110 +9534,110 @@ LABEL_65:
 
       else
       {
-        v46 = v33;
-        if (SHIBYTE(v52.__r_.__value_.__r.__words[2]) < 0)
+        v33 = v21;
+        if (SHIBYTE(v39.__r_.__value_.__r.__words[2]) < 0)
         {
           goto LABEL_65;
         }
       }
 
-      if ((SHIBYTE(v45.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+      if ((SHIBYTE(v32.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
       {
         goto LABEL_51;
       }
 
 LABEL_66:
-      operator delete(v45.__r_.__value_.__l.__data_);
+      operator delete(v32.__r_.__value_.__l.__data_);
 LABEL_51:
-      v34 = CFURLCreateWithFileSystemPath(v31, v33, kCFURLPOSIXPathStyle, 0);
-      if (!v34)
+      v22 = CFURLCreateWithFileSystemPath(v19, v21, kCFURLPOSIXPathStyle, 0);
+      if (!v22)
       {
-        if (v47[23] >= 0)
+        if (v34[23] >= 0)
         {
-          v35 = v47;
+          v23 = v34;
         }
 
         else
         {
-          v35 = *v47;
+          v23 = *v34;
         }
 
-        BBUFeedback::handleComment(this, "Failed creating CFURLRef for %s while restoring baseband migration data", v35);
+        BBUFeedback::handleComment(this, "Failed creating CFURLRef for %s while restoring baseband migration data", v23);
       }
 
-      if (v33)
+      if (v21)
       {
-        CFRelease(v33);
+        CFRelease(v21);
       }
 
-      if (v34)
+      if (v22)
       {
-        context.__r_.__value_.__r.__words[0] = v34;
-        v52.__r_.__value_.__r.__words[0] = 0;
-        v36 = CFWriteStreamCreateWithFile(0, v34);
-        v37 = v36;
-        v52.__r_.__value_.__r.__words[0] = v36;
-        if (v36)
+        context.__r_.__value_.__r.__words[0] = v22;
+        v39.__r_.__value_.__r.__words[0] = 0;
+        v24 = CFWriteStreamCreateWithFile(0, v22);
+        v25 = v24;
+        v39.__r_.__value_.__r.__words[0] = v24;
+        if (v24)
         {
-          if (CFWriteStreamOpen(v36))
+          if (CFWriteStreamOpen(v24))
           {
-            BytePtr = CFDataGetBytePtr(*&v47[24]);
-            Length = CFDataGetLength(*&v47[24]);
-            v40 = CFWriteStreamWrite(v37, BytePtr, Length);
-            if (v40 <= 0)
+            BytePtr = CFDataGetBytePtr(*&v34[24]);
+            Length = CFDataGetLength(*&v34[24]);
+            v28 = CFWriteStreamWrite(v25, BytePtr, Length);
+            if (v28 <= 0)
             {
               BBUFeedback::handleComment(this, "Failed writing to stream for restoring baseband migration data");
             }
 
-            CFWriteStreamClose(v37);
-            v24 = v24 & (v40 > 0);
+            CFWriteStreamClose(v25);
+            v12 = v12 & (v28 > 0);
           }
 
           else
           {
             BBUFeedback::handleComment(this, "Failed opening stream for restoring baseband migration data");
-            v24 = 0;
+            v12 = 0;
           }
 
-          CFRelease(v37);
+          CFRelease(v25);
         }
 
         else
         {
           BBUFeedback::handleComment(this, "Failed creating CFWriteStremRef for restoring baseband migration data");
-          v24 = 0;
+          v12 = 0;
         }
 
-        CFRelease(v34);
+        CFRelease(v22);
       }
 
       else
       {
-        v24 = 0;
+        v12 = 0;
       }
 
-      if ((v47[23] & 0x80000000) != 0)
+      if ((v34[23] & 0x80000000) != 0)
       {
-        operator delete(*v47);
-        v41 = *(v30 + 1);
-        if (v41)
+        operator delete(*v34);
+        v29 = *(v18 + 1);
+        if (v29)
         {
           do
           {
 LABEL_76:
-            v42 = v41;
-            v41 = *v41;
+            v30 = v29;
+            v29 = *v29;
           }
 
-          while (v41);
+          while (v29);
           goto LABEL_32;
         }
       }
 
       else
       {
-        v41 = *(v30 + 1);
-        if (v41)
+        v29 = *(v18 + 1);
+        if (v29)
         {
           goto LABEL_76;
         }
@@ -9249,27 +9645,27 @@ LABEL_76:
 
       do
       {
-        v42 = *(v30 + 2);
-        v28 = *v42 == v30;
-        v30 = v42;
+        v30 = *(v18 + 2);
+        v16 = *v30 == v18;
+        v18 = v30;
       }
 
-      while (!v28);
+      while (!v16);
 LABEL_32:
-      v30 = v42;
+      v18 = v30;
     }
 
-    while (v42 != (&v48 + 8));
+    while (v30 != (&v35 + 8));
   }
 
 LABEL_81:
-  std::__tree<std::__value_type<std::string,__CFData const*>,std::__map_value_compare<std::string,std::__value_type<std::string,__CFData const*>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,__CFData const*>>>::destroy(&v48, *(&v48 + 1));
+  std::__tree<std::__value_type<std::string,__CFData const*>,std::__map_value_compare<std::string,std::__value_type<std::string,__CFData const*>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,__CFData const*>>>::destroy(&v35, *(&v35 + 1));
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
   }
 
-  return v24;
+  return v12;
 }
 
 void sub_1E52A3BA4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17, void *a18, uint64_t a19, int a20, __int16 a21, char a22, char a23, uint64_t a24, uint64_t a25, char a26, uint64_t a27, uint64_t a28, void *__p, uint64_t a30, int a31, __int16 a32, char a33, char a34, char a35, void *a36, uint64_t a37, int a38, __int16 a39, char a40, char a41)
@@ -9298,7 +9694,7 @@ void BBUEUR20UpdateSource::init(BBUEUR20UpdateSource *this)
   {
     v3 = operator new(0x18uLL);
     BBUPartitionManager::BBUPartitionManager(v3);
-    v335.__r_.__value_.__r.__words[0] = v3;
+    v209.__r_.__value_.__r.__words[0] = v3;
     v4 = operator new(0x20uLL);
     *v4 = &unk_1F5F05A00;
     v4[1] = 0;
@@ -9317,8 +9713,8 @@ void BBUEUR20UpdateSource::init(BBUEUR20UpdateSource *this)
   }
 
   v6 = off_1ED944178;
-  v336.__r_.__value_.__r.__words[0] = v2;
-  v336.__r_.__value_.__l.__size_ = off_1ED944178;
+  v210.__r_.__value_.__r.__words[0] = v2;
+  v210.__r_.__value_.__l.__size_ = off_1ED944178;
   if (off_1ED944178)
   {
     atomic_fetch_add_explicit(off_1ED944178 + 1, 1uLL, memory_order_relaxed);
@@ -9340,13 +9736,13 @@ void BBUEUR20UpdateSource::init(BBUEUR20UpdateSource *this)
   {
     if ((bbufs::prepareDestination(p_p, v7) & 1) == 0)
     {
-      _BBUFSDebugPrint("BBUFSServerPrepare", "failed preparing baseband filesystem directory\n", v15, v16, v17, v18, v19, v20, v331);
+      _BBUFSDebugPrint("BBUFSServerPrepare", "failed preparing baseband filesystem directory\n");
     }
   }
 
   else
   {
-    _BBUFSDebugPrint("BBUFSServerPrepare", "invalid path specified %s\n", v8, v9, v10, v11, v12, v13, 0);
+    _BBUFSDebugPrint("BBUFSServerPrepare", "invalid path specified %s\n", 0);
   }
 
   if (SHIBYTE(__p.st_gid) < 0)
@@ -9361,8 +9757,8 @@ void BBUEUR20UpdateSource::init(BBUEUR20UpdateSource *this)
   else if (!v6)
   {
 LABEL_20:
-    v21 = *(this + 103);
-    if ((v21 & 0x8000000000000000) == 0)
+    v9 = *(this + 103);
+    if ((v9 & 0x8000000000000000) == 0)
     {
       goto LABEL_21;
     }
@@ -9383,14 +9779,14 @@ LABEL_24:
 
   (v6->__on_zero_shared)(v6);
   std::__shared_weak_count::__release_weak(v6);
-  v21 = *(this + 103);
-  if (v21 < 0)
+  v9 = *(this + 103);
+  if (v9 < 0)
   {
     goto LABEL_24;
   }
 
 LABEL_21:
-  if (v21)
+  if (v9)
   {
     goto LABEL_26;
   }
@@ -9399,19 +9795,19 @@ LABEL_25:
   if (!*(this + 8))
   {
     exception = __cxa_allocate_exception(0x210uLL);
-    _BBUException::_BBUException(exception, 35, "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/Updater/Eureka/BBUEUR20UpdateSource.cpp", 0x109u, "Assertion failure(( !fFirmwareFolder.empty() || fZipFile) && Firmware data source error!)", v324, v325, v326, v331);
-LABEL_498:
+    _BBUException::_BBUException(exception, 35, "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/Updater/Eureka/BBUEUR20UpdateSource.cpp", 0x109u, "Assertion failure(( !fFirmwareFolder.empty() || fZipFile) && Firmware data source error!)");
+LABEL_493:
   }
 
 LABEL_26:
   HIBYTE(__p.st_gid) = 15;
   strcpy(&__p, "restoresbl1.mbn");
-  v22 = BBUEURUpdateSource::containsFile(this, &__p);
+  v10 = BBUEURUpdateSource::containsFile(this, &__p);
   if (SHIBYTE(__p.st_gid) < 0)
   {
-    v31 = v22;
+    v14 = v10;
     operator delete(*&__p.st_dev);
-    if (v31)
+    if (v14)
     {
       goto LABEL_28;
     }
@@ -9421,7 +9817,7 @@ LABEL_36:
     {
       if ((*gBBULogMaskGet(void)::sBBULogMask & 8) == 0)
       {
-        goto LABEL_41;
+        goto LABEL_40;
       }
     }
 
@@ -9430,23 +9826,20 @@ LABEL_36:
       dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
       if ((*gBBULogMaskGet(void)::sBBULogMask & 8) == 0)
       {
-        goto LABEL_41;
+        goto LABEL_40;
       }
     }
 
-    if (gBBULogVerbosity < 1)
+    if (gBBULogVerbosity >= 1)
     {
-      goto LABEL_41;
+      v15 = (**this)(this);
+      _BBULog(3, 1, v15, "", "File not present: %s\n");
     }
 
-    v25 = (**this)(this);
-    v29 = "File not present: %s\n";
-    v331 = "restoresbl1.mbn";
-    v30 = 1;
     goto LABEL_40;
   }
 
-  if (!v22)
+  if (!v10)
   {
     goto LABEL_36;
   }
@@ -9455,8 +9848,8 @@ LABEL_28:
   if (*(this + 20))
   {
     exception = __cxa_allocate_exception(0x210uLL);
-    _BBUException::_BBUException(exception, 2, "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/Updater/Eureka/BBUEUR20UpdateSource.cpp", 0x10Eu, "Assertion failure(fRestoreSBLImage == __null)", v318, v319, v320, v331);
-    goto LABEL_498;
+    _BBUException::_BBUException(exception, 2, "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/Updater/Eureka/BBUEUR20UpdateSource.cpp", 0x10Eu, "Assertion failure(fRestoreSBLImage == __null)");
+    goto LABEL_493;
   }
 
   HIBYTE(__p.st_gid) = 15;
@@ -9467,401 +9860,20 @@ LABEL_28:
     operator delete(*&__p.st_dev);
   }
 
-  v24 = operator new(0x58uLL);
-  BBUEURMIImage::BBUEURMIImage(v24, DataSource, 0);
-  *v24 = &unk_1F5F01210;
-  *(v24 + 10) = 0;
-  *(v24 + 74) = 0;
-  *(v24 + 36) = 19522;
-  *(v24 + 8) = *"restoreSBL";
-  v24[87] = 10;
-  *(this + 20) = v24;
+  v12 = operator new(0x58uLL);
+  BBUEURMIImage::BBUEURMIImage(v12, DataSource, 0);
+  *v12 = &unk_1F5F01210;
+  *(v12 + 10) = 0;
+  *(v12 + 74) = 0;
+  *(v12 + 36) = 19522;
+  *(v12 + 8) = *"restoreSBL";
+  v12[87] = 10;
+  *(this + 20) = v12;
   if (gBBULogMaskGet(void)::once == -1)
   {
     if ((*gBBULogMaskGet(void)::sBBULogMask & 8) == 0)
     {
-      goto LABEL_41;
-    }
-
-    goto LABEL_33;
-  }
-
-  dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
-  if ((*gBBULogMaskGet(void)::sBBULogMask & 8) != 0)
-  {
-LABEL_33:
-    if (gBBULogVerbosity < 0)
-    {
-      goto LABEL_41;
-    }
-
-    v25 = (**this)(this);
-    v29 = "Loaded restoreSBL1\n";
-    v30 = 0;
-LABEL_40:
-    _BBULog(3, v30, v25, "", v29, v26, v27, v28, v331);
-  }
-
-LABEL_41:
-  HIBYTE(__p.st_gid) = 8;
-  strcpy(&__p, "sbl1.mbn");
-  v32 = BBUEURUpdateSource::containsFile(this, &__p);
-  if ((SHIBYTE(__p.st_gid) & 0x80000000) == 0)
-  {
-    if (v32)
-    {
-      goto LABEL_43;
-    }
-
-LABEL_51:
-    if (gBBULogMaskGet(void)::once == -1)
-    {
-      if ((*gBBULogMaskGet(void)::sBBULogMask & 2) == 0)
-      {
-        goto LABEL_56;
-      }
-    }
-
-    else
-    {
-      dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
-      if ((*gBBULogMaskGet(void)::sBBULogMask & 2) == 0)
-      {
-        goto LABEL_56;
-      }
-    }
-
-    if (gBBULogVerbosity < 1)
-    {
-      goto LABEL_56;
-    }
-
-    v35 = (**this)(this);
-    v39 = "File not present: %s\n";
-    v331 = "sbl1.mbn";
-    v40 = 1;
-    v41 = 1;
-    goto LABEL_55;
-  }
-
-  v42 = v32;
-  operator delete(*&__p.st_dev);
-  if (!v42)
-  {
-    goto LABEL_51;
-  }
-
-LABEL_43:
-  if (*(this + 21))
-  {
-    exception = __cxa_allocate_exception(0x210uLL);
-    _BBUException::_BBUException(exception, 2, "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/Updater/Eureka/BBUEUR20UpdateSource.cpp", 0x11Du, "Assertion failure(fSBLImage == __null)", v321, v322, v323, v331);
-    goto LABEL_498;
-  }
-
-  HIBYTE(__p.st_gid) = 8;
-  strcpy(&__p, "sbl1.mbn");
-  v33 = BBUEURUpdateSource::createDataSource(this, &__p, 704643072);
-  if (SHIBYTE(__p.st_gid) < 0)
-  {
-    operator delete(*&__p.st_dev);
-  }
-
-  v34 = operator new(0x58uLL);
-  BBUEURMIImage::BBUEURMIImage(v34, v33, 0);
-  *v34 = &unk_1F5F01210;
-  *(v34 + 75) = 0;
-  *(v34 + 67) = 0;
-  *(v34 + 83) = 0;
-  *(v34 + 32) = 16979;
-  v34[66] = 76;
-  v34[87] = 3;
-  *(this + 21) = v34;
-  if (gBBULogMaskGet(void)::once == -1)
-  {
-    if ((*gBBULogMaskGet(void)::sBBULogMask & 8) == 0)
-    {
-      goto LABEL_56;
-    }
-
-    goto LABEL_48;
-  }
-
-  dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
-  if ((*gBBULogMaskGet(void)::sBBULogMask & 8) != 0)
-  {
-LABEL_48:
-    if (gBBULogVerbosity < 0)
-    {
-      goto LABEL_56;
-    }
-
-    v35 = (**this)(this);
-    v39 = "Loaded SBL1\n";
-    v40 = 3;
-    v41 = 0;
-LABEL_55:
-    _BBULog(v40, v41, v35, "", v39, v36, v37, v38, v331);
-  }
-
-LABEL_56:
-  HIBYTE(__p.st_gid) = 8;
-  strcpy(&__p, "apps.mbn");
-  v43 = BBUEURUpdateSource::containsFile(this, &__p);
-  if (SHIBYTE(__p.st_gid) < 0)
-  {
-    v53 = v43;
-    operator delete(*&__p.st_dev);
-    if (v53)
-    {
-      goto LABEL_58;
-    }
-
-LABEL_65:
-    if (gBBULogMaskGet(void)::once == -1)
-    {
-      if ((*gBBULogMaskGet(void)::sBBULogMask & 8) == 0)
-      {
-        goto LABEL_70;
-      }
-    }
-
-    else
-    {
-      dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
-      if ((*gBBULogMaskGet(void)::sBBULogMask & 8) == 0)
-      {
-        goto LABEL_70;
-      }
-    }
-
-    if (gBBULogVerbosity < 1)
-    {
-      goto LABEL_70;
-    }
-
-    v47 = (**this)(this);
-    v51 = "File not present: %s\n";
-    v331 = "apps.mbn";
-    v52 = 1;
-    goto LABEL_69;
-  }
-
-  if (!v43)
-  {
-    goto LABEL_65;
-  }
-
-LABEL_58:
-  HIBYTE(__p.st_gid) = 8;
-  strcpy(&__p, "apps.mbn");
-  v44 = BBUEURUpdateSource::createDataSource(this, &__p, 0);
-  if (SHIBYTE(__p.st_gid) < 0)
-  {
-    operator delete(*&__p.st_dev);
-  }
-
-  v45 = operator new(0x20uLL);
-  *v45 = &unk_1F5F014B0;
-  v45[1] = v44;
-  v45[2] = 0;
-  *(v45 + 6) = 0;
-  v46 = operator new(0x90uLL);
-  BBUELFHeader::BBUELFHeader(v46, v44, 0);
-  v45[2] = v46;
-  *v45 = &unk_1F5F00210;
-  *(this + 26) = v45;
-  if (gBBULogMaskGet(void)::once == -1)
-  {
-    if ((*gBBULogMaskGet(void)::sBBULogMask & 8) == 0)
-    {
-      goto LABEL_70;
-    }
-
-    goto LABEL_62;
-  }
-
-  dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
-  if ((*gBBULogMaskGet(void)::sBBULogMask & 8) != 0)
-  {
-LABEL_62:
-    if (gBBULogVerbosity < 0)
-    {
-      goto LABEL_70;
-    }
-
-    v47 = (**this)(this);
-    v51 = "Loaded APPS\n";
-    v52 = 0;
-LABEL_69:
-    _BBULog(3, v52, v47, "", v51, v48, v49, v50, v331);
-  }
-
-LABEL_70:
-  HIBYTE(__p.st_gid) = 11;
-  strcpy(&__p, "qdsp6sw.mbn");
-  v54 = BBUEURUpdateSource::containsFile(this, &__p);
-  if (SHIBYTE(__p.st_gid) < 0)
-  {
-    v64 = v54;
-    operator delete(*&__p.st_dev);
-    if (v64)
-    {
-      goto LABEL_72;
-    }
-
-LABEL_79:
-    if (gBBULogMaskGet(void)::once == -1)
-    {
-      if ((*gBBULogMaskGet(void)::sBBULogMask & 8) == 0)
-      {
-        goto LABEL_84;
-      }
-    }
-
-    else
-    {
-      dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
-      if ((*gBBULogMaskGet(void)::sBBULogMask & 8) == 0)
-      {
-        goto LABEL_84;
-      }
-    }
-
-    if (gBBULogVerbosity < 1)
-    {
-      goto LABEL_84;
-    }
-
-    v58 = (**this)(this);
-    v62 = "File not present: %s\n";
-    v331 = "qdsp6sw.mbn";
-    v63 = 1;
-    goto LABEL_83;
-  }
-
-  if (!v54)
-  {
-    goto LABEL_79;
-  }
-
-LABEL_72:
-  HIBYTE(__p.st_gid) = 11;
-  strcpy(&__p, "qdsp6sw.mbn");
-  v55 = BBUEURUpdateSource::createDataSource(this, &__p, 0);
-  if (SHIBYTE(__p.st_gid) < 0)
-  {
-    operator delete(*&__p.st_dev);
-  }
-
-  v56 = operator new(0x20uLL);
-  *v56 = &unk_1F5F014B0;
-  v56[1] = v55;
-  v56[2] = 0;
-  *(v56 + 6) = 0;
-  v57 = operator new(0x90uLL);
-  BBUELFHeader::BBUELFHeader(v57, v55, 0);
-  v56[2] = v57;
-  *v56 = &unk_1F5F00280;
-  *(this + 27) = v56;
-  if (gBBULogMaskGet(void)::once == -1)
-  {
-    if ((*gBBULogMaskGet(void)::sBBULogMask & 8) == 0)
-    {
-      goto LABEL_84;
-    }
-
-    goto LABEL_76;
-  }
-
-  dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
-  if ((*gBBULogMaskGet(void)::sBBULogMask & 8) != 0)
-  {
-LABEL_76:
-    if (gBBULogVerbosity < 0)
-    {
-      goto LABEL_84;
-    }
-
-    v58 = (**this)(this);
-    v62 = "Loaded QDSP6SW\n";
-    v63 = 0;
-LABEL_83:
-    _BBULog(3, v63, v58, "", v62, v59, v60, v61, v331);
-  }
-
-LABEL_84:
-  HIBYTE(__p.st_gid) = 6;
-  strcpy(&__p, "tz.mbn");
-  v65 = BBUEURUpdateSource::containsFile(this, &__p);
-  if (SHIBYTE(__p.st_gid) < 0)
-  {
-    v75 = v65;
-    operator delete(*&__p.st_dev);
-    if (v75)
-    {
-      goto LABEL_86;
-    }
-
-LABEL_93:
-    if (gBBULogMaskGet(void)::once == -1)
-    {
-      if ((*gBBULogMaskGet(void)::sBBULogMask & 8) == 0)
-      {
-        goto LABEL_98;
-      }
-    }
-
-    else
-    {
-      dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
-      if ((*gBBULogMaskGet(void)::sBBULogMask & 8) == 0)
-      {
-        goto LABEL_98;
-      }
-    }
-
-    if (gBBULogVerbosity >= 1)
-    {
-      v69 = (**this)(this);
-      v73 = "File not present: %s\n";
-      v331 = "tz.mbn";
-      v74 = 1;
-      goto LABEL_97;
-    }
-
-    goto LABEL_98;
-  }
-
-  if (!v65)
-  {
-    goto LABEL_93;
-  }
-
-LABEL_86:
-  HIBYTE(__p.st_gid) = 6;
-  strcpy(&__p, "tz.mbn");
-  v66 = BBUEURUpdateSource::createDataSource(this, &__p, 0);
-  if (SHIBYTE(__p.st_gid) < 0)
-  {
-    operator delete(*&__p.st_dev);
-  }
-
-  v67 = operator new(0x20uLL);
-  *v67 = &unk_1F5F014B0;
-  v67[1] = v66;
-  v67[2] = 0;
-  *(v67 + 6) = 0;
-  v68 = operator new(0x90uLL);
-  BBUELFHeader::BBUELFHeader(v68, v66, 0);
-  v67[2] = v68;
-  *v67 = &unk_1F5F002F0;
-  *(this + 28) = v67;
-  if (gBBULogMaskGet(void)::once == -1)
-  {
-    if ((*gBBULogMaskGet(void)::sBBULogMask & 8) == 0)
-    {
-      goto LABEL_98;
+      goto LABEL_40;
     }
   }
 
@@ -9870,418 +9882,129 @@ LABEL_86:
     dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
     if ((*gBBULogMaskGet(void)::sBBULogMask & 8) == 0)
     {
-      goto LABEL_98;
+      goto LABEL_40;
     }
   }
 
   if ((gBBULogVerbosity & 0x80000000) == 0)
   {
-    v69 = (**this)(this);
-    v73 = "Loaded TZ\n";
-    v74 = 0;
-LABEL_97:
-    _BBULog(3, v74, v69, "", v73, v70, v71, v72, v331);
+    v13 = (**this)(this);
+    _BBULog(3, 0, v13, "", "Loaded restoreSBL1\n");
   }
 
-LABEL_98:
-  memset(&v336, 170, sizeof(v336));
-  pthread_mutex_lock(&ctu::Singleton<BBUPartitionManager,BBUPartitionManager,ctu::PthreadMutexGuardPolicy<BBUPartitionManager>>::sInstance);
-  v76 = off_1ED944170;
-  if (!off_1ED944170)
+LABEL_40:
+  HIBYTE(__p.st_gid) = 8;
+  strcpy(&__p, "sbl1.mbn");
+  v16 = BBUEURUpdateSource::containsFile(this, &__p);
+  if ((SHIBYTE(__p.st_gid) & 0x80000000) == 0)
   {
-    v77 = operator new(0x18uLL);
-    BBUPartitionManager::BBUPartitionManager(v77);
-    v335.__r_.__value_.__r.__words[0] = v77;
-    v78 = operator new(0x20uLL);
-    *v78 = &unk_1F5F05A00;
-    v78[1] = 0;
-    v78[2] = 0;
-    v78[3] = v77;
-    v79 = off_1ED944178;
-    off_1ED944170 = v77;
-    off_1ED944178 = v78;
-    if (v79 && !atomic_fetch_add(&v79->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+    if (v16)
     {
-      (v79->__on_zero_shared)(v79);
-      std::__shared_weak_count::__release_weak(v79);
+      goto LABEL_42;
     }
 
-    v76 = off_1ED944170;
+LABEL_50:
+    if (gBBULogMaskGet(void)::once == -1)
+    {
+      if ((*gBBULogMaskGet(void)::sBBULogMask & 2) == 0)
+      {
+        goto LABEL_54;
+      }
+    }
+
+    else
+    {
+      dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
+      if ((*gBBULogMaskGet(void)::sBBULogMask & 2) == 0)
+      {
+        goto LABEL_54;
+      }
+    }
+
+    if (gBBULogVerbosity >= 1)
+    {
+      v21 = (**this)(this);
+      _BBULog(1, 1, v21, "", "File not present: %s\n");
+    }
+
+    goto LABEL_54;
   }
 
-  v80 = off_1ED944178;
-  *&__p.st_dev = v76;
-  __p.st_ino = off_1ED944178;
-  if (off_1ED944178)
+  v20 = v16;
+  operator delete(*&__p.st_dev);
+  if (!v20)
   {
-    atomic_fetch_add_explicit(off_1ED944178 + 1, 1uLL, memory_order_relaxed);
+    goto LABEL_50;
   }
 
-  pthread_mutex_unlock(&ctu::Singleton<BBUPartitionManager,BBUPartitionManager,ctu::PthreadMutexGuardPolicy<BBUPartitionManager>>::sInstance);
-  BBUPartitionManager::getBBUFSPath(v76, &v336);
-  if (v80 && !atomic_fetch_add(&v80->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+LABEL_42:
+  if (*(this + 21))
   {
-    (v80->__on_zero_shared)(v80);
-    std::__shared_weak_count::__release_weak(v80);
+    exception = __cxa_allocate_exception(0x210uLL);
+    _BBUException::_BBUException(exception, 2, "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/Updater/Eureka/BBUEUR20UpdateSource.cpp", 0x11Du, "Assertion failure(fSBLImage == __null)");
+    goto LABEL_493;
   }
 
-  for (i = 0; i != 3; ++i)
+  HIBYTE(__p.st_gid) = 8;
+  strcpy(&__p, "sbl1.mbn");
+  v17 = BBUEURUpdateSource::createDataSource(this, &__p, 704643072);
+  if (SHIBYTE(__p.st_gid) < 0)
   {
-    memset(&__p, 170, 24);
-    v82 = SHIBYTE(v336.__r_.__value_.__r.__words[2]);
-    if ((v336.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    operator delete(*&__p.st_dev);
+  }
+
+  v18 = operator new(0x58uLL);
+  BBUEURMIImage::BBUEURMIImage(v18, v17, 0);
+  *v18 = &unk_1F5F01210;
+  *(v18 + 75) = 0;
+  *(v18 + 67) = 0;
+  *(v18 + 83) = 0;
+  *(v18 + 32) = 16979;
+  v18[66] = 76;
+  v18[87] = 3;
+  *(this + 21) = v18;
+  if (gBBULogMaskGet(void)::once == -1)
+  {
+    if ((*gBBULogMaskGet(void)::sBBULogMask & 8) == 0)
     {
-      size = HIBYTE(v336.__r_.__value_.__r.__words[2]);
+      goto LABEL_54;
+    }
+  }
+
+  else
+  {
+    dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
+    if ((*gBBULogMaskGet(void)::sBBULogMask & 8) == 0)
+    {
+      goto LABEL_54;
+    }
+  }
+
+  if ((gBBULogVerbosity & 0x80000000) == 0)
+  {
+    v19 = (**this)(this);
+    _BBULog(3, 0, v19, "", "Loaded SBL1\n");
+  }
+
+LABEL_54:
+  HIBYTE(__p.st_gid) = 8;
+  strcpy(&__p, "apps.mbn");
+  v22 = BBUEURUpdateSource::containsFile(this, &__p);
+  if (SHIBYTE(__p.st_gid) < 0)
+  {
+    v27 = v22;
+    operator delete(*&__p.st_dev);
+    if (v27)
+    {
+      goto LABEL_56;
     }
 
-    else
-    {
-      size = v336.__r_.__value_.__l.__size_;
-    }
-
-    v84 = size + 3;
-    if (size + 3 > 0x7FFFFFFFFFFFFFF7)
-    {
-      std::string::__throw_length_error[abi:ne200100]();
-    }
-
-    v85 = this;
-    if (v84 < 0x17)
-    {
-      memset(&v334, 0, sizeof(v334));
-      v87 = &v334;
-      *(&v334.__r_.__value_.__s + 23) = size + 3;
-      if (!size)
-      {
-        goto LABEL_124;
-      }
-    }
-
-    else
-    {
-      if ((v84 | 7) == 0x17)
-      {
-        v86 = 25;
-      }
-
-      else
-      {
-        v86 = (v84 | 7) + 1;
-      }
-
-      v87 = operator new(v86);
-      v334.__r_.__value_.__l.__size_ = size + 3;
-      v334.__r_.__value_.__r.__words[2] = v86 | 0x8000000000000000;
-      v334.__r_.__value_.__r.__words[0] = v87;
-    }
-
-    if (v82 >= 0)
-    {
-      v88 = &v336;
-    }
-
-    else
-    {
-      v88 = v336.__r_.__value_.__r.__words[0];
-    }
-
-    memmove(v87, v88, size);
-LABEL_124:
-    v89 = &unk_1ED949000;
-    *&v87[size] = 7562853;
-    std::to_string(&v333, i + 1);
-    if ((v333.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-    {
-      v90 = &v333;
-    }
-
-    else
-    {
-      v90 = v333.__r_.__value_.__r.__words[0];
-    }
-
-    if ((v333.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-    {
-      v91 = HIBYTE(v333.__r_.__value_.__r.__words[2]);
-    }
-
-    else
-    {
-      v91 = v333.__r_.__value_.__l.__size_;
-    }
-
-    v92 = std::string::append(&v334, v90, v91);
-    this = v85;
-    v93 = *&v92->__r_.__value_.__l.__data_;
-    v335.__r_.__value_.__r.__words[2] = v92->__r_.__value_.__r.__words[2];
-    *&v335.__r_.__value_.__l.__data_ = v93;
-    v92->__r_.__value_.__l.__size_ = 0;
-    v92->__r_.__value_.__r.__words[2] = 0;
-    v92->__r_.__value_.__r.__words[0] = 0;
-    v94 = SHIBYTE(v335.__r_.__value_.__r.__words[2]);
-    if ((SHIBYTE(v335.__r_.__value_.__r.__words[2]) & 0x8000000000000000) == 0)
-    {
-      if ((SHIBYTE(v335.__r_.__value_.__r.__words[2]) - 19) < 4)
-      {
-        v95 = SHIBYTE(v335.__r_.__value_.__r.__words[2]) + 4;
-        v96 = &v335;
-        v97 = 22;
-LABEL_136:
-        v98 = 2 * v97;
-        if (v95 > 2 * v97)
-        {
-          v98 = v95;
-        }
-
-        if ((v98 | 7) == 0x17)
-        {
-          v99 = 25;
-        }
-
-        else
-        {
-          v99 = (v98 | 7) + 1;
-        }
-
-        if (v98 >= 0x17)
-        {
-          v100 = v99;
-        }
-
-        else
-        {
-          v100 = 23;
-        }
-
-        v101 = v97 == 22;
-        goto LABEL_145;
-      }
-
-      v105 = &v335;
-      *(&v335.__r_.__value_.__l.__data_ + SHIBYTE(v335.__r_.__value_.__r.__words[2])) = 1852400174;
-      v106 = v94 + 4;
-      if ((SHIBYTE(v335.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
-      {
-        goto LABEL_151;
-      }
-
-      goto LABEL_153;
-    }
-
-    v94 = v335.__r_.__value_.__l.__size_;
-    v97 = (v335.__r_.__value_.__r.__words[2] & 0x7FFFFFFFFFFFFFFFLL) - 1;
-    if (v97 - v335.__r_.__value_.__l.__size_ >= 4)
-    {
-      v105 = v335.__r_.__value_.__r.__words[0];
-      *(v335.__r_.__value_.__r.__words[0] + v335.__r_.__value_.__l.__size_) = 1852400174;
-      v106 = v94 + 4;
-      if ((SHIBYTE(v335.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
-      {
-LABEL_151:
-        *(&v335.__r_.__value_.__s + 23) = v106 & 0x7F;
-LABEL_154:
-        v104 = v105 + v106;
-        goto LABEL_155;
-      }
-
-LABEL_153:
-      v335.__r_.__value_.__l.__size_ = v106;
-      goto LABEL_154;
-    }
-
-    v95 = v335.__r_.__value_.__l.__size_ + 4;
-    if (0x7FFFFFFFFFFFFFF7 - (v335.__r_.__value_.__r.__words[2] & 0x7FFFFFFFFFFFFFFFLL) < v335.__r_.__value_.__l.__size_ + 4 - v97)
-    {
-      std::string::__throw_length_error[abi:ne200100]();
-    }
-
-    v96 = v335.__r_.__value_.__r.__words[0];
-    if (v97 < 0x3FFFFFFFFFFFFFF3)
-    {
-      goto LABEL_136;
-    }
-
-    v101 = 0;
-    v100 = 0x7FFFFFFFFFFFFFF7;
-LABEL_145:
-    v102 = operator new(v100);
-    v103 = v102;
-    if (v94)
-    {
-      memmove(v102, v96, v94);
-    }
-
-    *(v103 + v94) = 1852400174;
-    if (!v101)
-    {
-      operator delete(v96);
-    }
-
-    v335.__r_.__value_.__l.__size_ = v95;
-    v335.__r_.__value_.__r.__words[2] = v100 | 0x8000000000000000;
-    v335.__r_.__value_.__r.__words[0] = v103;
-    v104 = (v103 + v95);
-    this = v85;
-    v89 = &unk_1ED949000;
-LABEL_155:
-    *v104 = 0;
-    *&__p.st_dev = *&v335.__r_.__value_.__l.__data_;
-    *&__p.st_uid = *(&v335.__r_.__value_.__l + 2);
-    memset(&v335, 0, sizeof(v335));
-    if (SHIBYTE(v333.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v333.__r_.__value_.__l.__data_);
-      if ((SHIBYTE(v334.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
-      {
-        goto LABEL_157;
-      }
-    }
-
-    else if ((SHIBYTE(v334.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
-    {
-      goto LABEL_157;
-    }
-
-    operator delete(v334.__r_.__value_.__l.__data_);
-LABEL_157:
-    v107 = operator new(0x30uLL);
-    *v107 = &unk_1F5F00F28;
-    *(v107 + 8) = 0u;
-    *(v107 + 24) = 0u;
-    v108 = BBUFileDataSource::init(v107, &__p, 0);
-    v109 = *v107;
-    if (!v108)
-    {
-      if ((*(v109 + 24))(v107) >= 0x29)
-      {
-        v111 = operator new(0x58uLL);
-        BBUEUREFSImage::BBUEUREFSImage(v111, v107, i + 1, 0);
-        v112 = (*(*v107 + 24))(v107);
-        v113 = (*(*v111 + 72))(v111, v112);
-        (*(*v111 + 8))(v111);
-        if (v113)
-        {
-          v107 = operator new(0x30uLL);
-          *v107 = &unk_1F5F00F28;
-          *(v107 + 8) = 0u;
-          *(v107 + 24) = 0u;
-          if (BBUFileDataSource::init(v107, &__p, 0))
-          {
-            (*(*v107 + 8))(v107);
-            v107 = 0;
-          }
-
-          v110 = 1;
-          goto LABEL_169;
-        }
-
-        v107 = 0;
-      }
-
-      v110 = 0;
-LABEL_169:
-      BBUFeedback::handleComment(*(this + 1), "EFS file verify status: %d", v110);
-      goto LABEL_170;
-    }
-
-    (*(v109 + 8))(v107);
-    v107 = 0;
-    v110 = 1;
-LABEL_170:
-    if (i | v107 && v110)
-    {
-      if (!v107)
-      {
-        goto LABEL_193;
-      }
-    }
-
-    else
-    {
-      memset(&v335, 170, sizeof(v335));
-      if (v107)
-      {
-        v114 = (*(*v107 + 24))(v107);
-        std::to_string(&v335, v114);
-        v115 = &__p;
-        if ((__p.st_gid & 0x80000000) != 0)
-        {
-          v115 = *&__p.st_dev;
-        }
-
-        v116 = &v335;
-        if ((v335.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
-        {
-          v116 = v335.__r_.__value_.__r.__words[0];
-        }
-      }
-
-      else
-      {
-        *(&v335.__r_.__value_.__s + 23) = 4;
-        strcpy(&v335, "NULL");
-        v115 = &__p;
-        if ((__p.st_gid & 0x80000000) != 0)
-        {
-          v115 = *&__p.st_dev;
-        }
-
-        v116 = &v335;
-      }
-
-      BBUFeedback::handleComment(*(this + 1), "Failed to load %s (size %s), creating empty file (size %u)", v115, v116, 0x100000);
-      if (v107)
-      {
-        (*(*v107 + 8))(v107);
-      }
-
-      if (BBUScratchFile::createWithFile(&__p, 0x100000))
-      {
-        v312 = __cxa_allocate_exception(0x210uLL);
-        v310 = v312;
-        v316 = &__p;
-        if ((__p.st_gid & 0x80000000) != 0)
-        {
-          LOBYTE(v316) = __p.st_dev;
-        }
-
-        _BBUException::_BBUException(v312, 104, "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/Updater/Eureka/BBUEUR20UpdateSource.cpp", 0x17Bu, "Failed to create scratch %s (%d)", v313, v314, v315, v316);
-LABEL_492:
-      }
-
-      v107 = operator new(0x30uLL);
-      *v107 = &unk_1F5F00F28;
-      *(v107 + 8) = 0u;
-      *(v107 + 24) = 0u;
-      if (BBUFileDataSource::init(v107, &__p, 0))
-      {
-        (*(*v107 + 8))(v107);
-        v306 = __cxa_allocate_exception(0x210uLL);
-        v310 = v306;
-        v311 = &__p;
-        if ((__p.st_gid & 0x80000000) != 0)
-        {
-          LOBYTE(v311) = __p.st_dev;
-        }
-
-        _BBUException::_BBUException(v306, 104, "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/Updater/Eureka/BBUEUR20UpdateSource.cpp", 0x17Eu, "Failed to create data source from fresh scratch file %s (%d)", v307, v308, v309, v311);
-        goto LABEL_492;
-      }
-
-      if (SHIBYTE(v335.__r_.__value_.__r.__words[2]) < 0)
-      {
-        operator delete(v335.__r_.__value_.__l.__data_);
-      }
-    }
-
-    v117 = operator new(0x58uLL);
-    BBUEUREFSImage::BBUEUREFSImage(v117, v107, i + 1, 0);
-    *(*(this + 29) + 8 * i) = v117;
-    if (v89[396] == -1)
+LABEL_63:
+    if (gBBULogMaskGet(void)::once == -1)
     {
       if ((*gBBULogMaskGet(void)::sBBULogMask & 8) == 0)
       {
-        goto LABEL_193;
+        goto LABEL_67;
       }
     }
 
@@ -10290,17 +10013,658 @@ LABEL_492:
       dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
       if ((*gBBULogMaskGet(void)::sBBULogMask & 8) == 0)
       {
-        goto LABEL_193;
+        goto LABEL_67;
+      }
+    }
+
+    if (gBBULogVerbosity >= 1)
+    {
+      v28 = (**this)(this);
+      _BBULog(3, 1, v28, "", "File not present: %s\n");
+    }
+
+    goto LABEL_67;
+  }
+
+  if (!v22)
+  {
+    goto LABEL_63;
+  }
+
+LABEL_56:
+  HIBYTE(__p.st_gid) = 8;
+  strcpy(&__p, "apps.mbn");
+  v23 = BBUEURUpdateSource::createDataSource(this, &__p, 0);
+  if (SHIBYTE(__p.st_gid) < 0)
+  {
+    operator delete(*&__p.st_dev);
+  }
+
+  v24 = operator new(0x20uLL);
+  *v24 = &unk_1F5F014B0;
+  v24[1] = v23;
+  v24[2] = 0;
+  *(v24 + 6) = 0;
+  v25 = operator new(0x90uLL);
+  BBUELFHeader::BBUELFHeader(v25, v23, 0);
+  v24[2] = v25;
+  *v24 = &unk_1F5F00210;
+  *(this + 26) = v24;
+  if (gBBULogMaskGet(void)::once == -1)
+  {
+    if ((*gBBULogMaskGet(void)::sBBULogMask & 8) == 0)
+    {
+      goto LABEL_67;
+    }
+  }
+
+  else
+  {
+    dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
+    if ((*gBBULogMaskGet(void)::sBBULogMask & 8) == 0)
+    {
+      goto LABEL_67;
+    }
+  }
+
+  if ((gBBULogVerbosity & 0x80000000) == 0)
+  {
+    v26 = (**this)(this);
+    _BBULog(3, 0, v26, "", "Loaded APPS\n");
+  }
+
+LABEL_67:
+  HIBYTE(__p.st_gid) = 11;
+  strcpy(&__p, "qdsp6sw.mbn");
+  v29 = BBUEURUpdateSource::containsFile(this, &__p);
+  if (SHIBYTE(__p.st_gid) < 0)
+  {
+    v34 = v29;
+    operator delete(*&__p.st_dev);
+    if (v34)
+    {
+      goto LABEL_69;
+    }
+
+LABEL_76:
+    if (gBBULogMaskGet(void)::once == -1)
+    {
+      if ((*gBBULogMaskGet(void)::sBBULogMask & 8) == 0)
+      {
+        goto LABEL_80;
+      }
+    }
+
+    else
+    {
+      dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
+      if ((*gBBULogMaskGet(void)::sBBULogMask & 8) == 0)
+      {
+        goto LABEL_80;
+      }
+    }
+
+    if (gBBULogVerbosity >= 1)
+    {
+      v35 = (**this)(this);
+      _BBULog(3, 1, v35, "", "File not present: %s\n");
+    }
+
+    goto LABEL_80;
+  }
+
+  if (!v29)
+  {
+    goto LABEL_76;
+  }
+
+LABEL_69:
+  HIBYTE(__p.st_gid) = 11;
+  strcpy(&__p, "qdsp6sw.mbn");
+  v30 = BBUEURUpdateSource::createDataSource(this, &__p, 0);
+  if (SHIBYTE(__p.st_gid) < 0)
+  {
+    operator delete(*&__p.st_dev);
+  }
+
+  v31 = operator new(0x20uLL);
+  *v31 = &unk_1F5F014B0;
+  v31[1] = v30;
+  v31[2] = 0;
+  *(v31 + 6) = 0;
+  v32 = operator new(0x90uLL);
+  BBUELFHeader::BBUELFHeader(v32, v30, 0);
+  v31[2] = v32;
+  *v31 = &unk_1F5F00280;
+  *(this + 27) = v31;
+  if (gBBULogMaskGet(void)::once == -1)
+  {
+    if ((*gBBULogMaskGet(void)::sBBULogMask & 8) == 0)
+    {
+      goto LABEL_80;
+    }
+  }
+
+  else
+  {
+    dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
+    if ((*gBBULogMaskGet(void)::sBBULogMask & 8) == 0)
+    {
+      goto LABEL_80;
+    }
+  }
+
+  if ((gBBULogVerbosity & 0x80000000) == 0)
+  {
+    v33 = (**this)(this);
+    _BBULog(3, 0, v33, "", "Loaded QDSP6SW\n");
+  }
+
+LABEL_80:
+  HIBYTE(__p.st_gid) = 6;
+  strcpy(&__p, "tz.mbn");
+  v36 = BBUEURUpdateSource::containsFile(this, &__p);
+  if ((SHIBYTE(__p.st_gid) & 0x80000000) == 0)
+  {
+    if (v36)
+    {
+      goto LABEL_82;
+    }
+
+LABEL_89:
+    if (gBBULogMaskGet(void)::once == -1)
+    {
+      if ((*gBBULogMaskGet(void)::sBBULogMask & 8) == 0)
+      {
+        goto LABEL_93;
+      }
+    }
+
+    else
+    {
+      dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
+      if ((*gBBULogMaskGet(void)::sBBULogMask & 8) == 0)
+      {
+        goto LABEL_93;
+      }
+    }
+
+    if (gBBULogVerbosity >= 1)
+    {
+      v42 = (**this)(this);
+      _BBULog(3, 1, v42, "", "File not present: %s\n");
+    }
+
+    goto LABEL_93;
+  }
+
+  v41 = v36;
+  operator delete(*&__p.st_dev);
+  if (!v41)
+  {
+    goto LABEL_89;
+  }
+
+LABEL_82:
+  HIBYTE(__p.st_gid) = 6;
+  strcpy(&__p, "tz.mbn");
+  v37 = BBUEURUpdateSource::createDataSource(this, &__p, 0);
+  if (SHIBYTE(__p.st_gid) < 0)
+  {
+    operator delete(*&__p.st_dev);
+  }
+
+  v38 = operator new(0x20uLL);
+  *v38 = &unk_1F5F014B0;
+  v38[1] = v37;
+  v38[2] = 0;
+  *(v38 + 6) = 0;
+  v39 = operator new(0x90uLL);
+  BBUELFHeader::BBUELFHeader(v39, v37, 0);
+  v38[2] = v39;
+  *v38 = &unk_1F5F002F0;
+  *(this + 28) = v38;
+  if (gBBULogMaskGet(void)::once == -1)
+  {
+    if ((*gBBULogMaskGet(void)::sBBULogMask & 8) != 0)
+    {
+      goto LABEL_86;
+    }
+  }
+
+  else
+  {
+    dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
+    if ((*gBBULogMaskGet(void)::sBBULogMask & 8) != 0)
+    {
+LABEL_86:
+      if ((gBBULogVerbosity & 0x80000000) == 0)
+      {
+        v40 = (**this)(this);
+        _BBULog(3, 0, v40, "", "Loaded TZ\n");
+      }
+    }
+  }
+
+LABEL_93:
+  memset(&v210, 170, sizeof(v210));
+  pthread_mutex_lock(&ctu::Singleton<BBUPartitionManager,BBUPartitionManager,ctu::PthreadMutexGuardPolicy<BBUPartitionManager>>::sInstance);
+  v43 = off_1ED944170;
+  if (!off_1ED944170)
+  {
+    v44 = operator new(0x18uLL);
+    BBUPartitionManager::BBUPartitionManager(v44);
+    v209.__r_.__value_.__r.__words[0] = v44;
+    v45 = operator new(0x20uLL);
+    *v45 = &unk_1F5F05A00;
+    v45[1] = 0;
+    v45[2] = 0;
+    v45[3] = v44;
+    v46 = off_1ED944178;
+    off_1ED944170 = v44;
+    off_1ED944178 = v45;
+    if (v46 && !atomic_fetch_add(&v46->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+    {
+      (v46->__on_zero_shared)(v46);
+      std::__shared_weak_count::__release_weak(v46);
+    }
+
+    v43 = off_1ED944170;
+  }
+
+  v47 = off_1ED944178;
+  *&__p.st_dev = v43;
+  __p.st_ino = off_1ED944178;
+  if (off_1ED944178)
+  {
+    atomic_fetch_add_explicit(off_1ED944178 + 1, 1uLL, memory_order_relaxed);
+  }
+
+  pthread_mutex_unlock(&ctu::Singleton<BBUPartitionManager,BBUPartitionManager,ctu::PthreadMutexGuardPolicy<BBUPartitionManager>>::sInstance);
+  BBUPartitionManager::getBBUFSPath(v43, &v210);
+  if (v47 && !atomic_fetch_add(&v47->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  {
+    (v47->__on_zero_shared)(v47);
+    std::__shared_weak_count::__release_weak(v47);
+  }
+
+  for (i = 0; i != 3; ++i)
+  {
+    memset(&__p, 170, 24);
+    v49 = SHIBYTE(v210.__r_.__value_.__r.__words[2]);
+    if ((v210.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    {
+      size = HIBYTE(v210.__r_.__value_.__r.__words[2]);
+    }
+
+    else
+    {
+      size = v210.__r_.__value_.__l.__size_;
+    }
+
+    v51 = size + 3;
+    if (size + 3 > 0x7FFFFFFFFFFFFFF7)
+    {
+      std::string::__throw_length_error[abi:ne200100]();
+    }
+
+    v52 = this;
+    if (v51 < 0x17)
+    {
+      memset(&v208, 0, sizeof(v208));
+      v54 = &v208;
+      *(&v208.__r_.__value_.__s + 23) = size + 3;
+      if (!size)
+      {
+        goto LABEL_119;
+      }
+    }
+
+    else
+    {
+      if ((v51 | 7) == 0x17)
+      {
+        v53 = 25;
+      }
+
+      else
+      {
+        v53 = (v51 | 7) + 1;
+      }
+
+      v54 = operator new(v53);
+      v208.__r_.__value_.__l.__size_ = size + 3;
+      v208.__r_.__value_.__r.__words[2] = v53 | 0x8000000000000000;
+      v208.__r_.__value_.__r.__words[0] = v54;
+    }
+
+    if (v49 >= 0)
+    {
+      v55 = &v210;
+    }
+
+    else
+    {
+      v55 = v210.__r_.__value_.__r.__words[0];
+    }
+
+    memmove(v54, v55, size);
+LABEL_119:
+    v56 = &unk_1ED949000;
+    *&v54[size] = 7562853;
+    std::to_string(&v207, i + 1);
+    if ((v207.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    {
+      v57 = &v207;
+    }
+
+    else
+    {
+      v57 = v207.__r_.__value_.__r.__words[0];
+    }
+
+    if ((v207.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    {
+      v58 = HIBYTE(v207.__r_.__value_.__r.__words[2]);
+    }
+
+    else
+    {
+      v58 = v207.__r_.__value_.__l.__size_;
+    }
+
+    v59 = std::string::append(&v208, v57, v58);
+    this = v52;
+    v60 = *&v59->__r_.__value_.__l.__data_;
+    v209.__r_.__value_.__r.__words[2] = v59->__r_.__value_.__r.__words[2];
+    *&v209.__r_.__value_.__l.__data_ = v60;
+    v59->__r_.__value_.__l.__size_ = 0;
+    v59->__r_.__value_.__r.__words[2] = 0;
+    v59->__r_.__value_.__r.__words[0] = 0;
+    v61 = SHIBYTE(v209.__r_.__value_.__r.__words[2]);
+    if ((SHIBYTE(v209.__r_.__value_.__r.__words[2]) & 0x8000000000000000) == 0)
+    {
+      if ((SHIBYTE(v209.__r_.__value_.__r.__words[2]) - 19) < 4)
+      {
+        v62 = SHIBYTE(v209.__r_.__value_.__r.__words[2]) + 4;
+        v63 = &v209;
+        v64 = 22;
+LABEL_131:
+        v65 = 2 * v64;
+        if (v62 > 2 * v64)
+        {
+          v65 = v62;
+        }
+
+        if ((v65 | 7) == 0x17)
+        {
+          v66 = 25;
+        }
+
+        else
+        {
+          v66 = (v65 | 7) + 1;
+        }
+
+        if (v65 >= 0x17)
+        {
+          v67 = v66;
+        }
+
+        else
+        {
+          v67 = 23;
+        }
+
+        v68 = v64 == 22;
+        goto LABEL_140;
+      }
+
+      v72 = &v209;
+      *(&v209.__r_.__value_.__l.__data_ + SHIBYTE(v209.__r_.__value_.__r.__words[2])) = 1852400174;
+      v73 = v61 + 4;
+      if ((SHIBYTE(v209.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+      {
+        goto LABEL_146;
+      }
+
+      goto LABEL_148;
+    }
+
+    v61 = v209.__r_.__value_.__l.__size_;
+    v64 = (v209.__r_.__value_.__r.__words[2] & 0x7FFFFFFFFFFFFFFFLL) - 1;
+    if (v64 - v209.__r_.__value_.__l.__size_ >= 4)
+    {
+      v72 = v209.__r_.__value_.__r.__words[0];
+      *(v209.__r_.__value_.__r.__words[0] + v209.__r_.__value_.__l.__size_) = 1852400174;
+      v73 = v61 + 4;
+      if ((SHIBYTE(v209.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+      {
+LABEL_146:
+        *(&v209.__r_.__value_.__s + 23) = v73 & 0x7F;
+LABEL_149:
+        v71 = v72 + v73;
+        goto LABEL_150;
+      }
+
+LABEL_148:
+      v209.__r_.__value_.__l.__size_ = v73;
+      goto LABEL_149;
+    }
+
+    v62 = v209.__r_.__value_.__l.__size_ + 4;
+    if (0x7FFFFFFFFFFFFFF7 - (v209.__r_.__value_.__r.__words[2] & 0x7FFFFFFFFFFFFFFFLL) < v209.__r_.__value_.__l.__size_ + 4 - v64)
+    {
+      std::string::__throw_length_error[abi:ne200100]();
+    }
+
+    v63 = v209.__r_.__value_.__r.__words[0];
+    if (v64 < 0x3FFFFFFFFFFFFFF3)
+    {
+      goto LABEL_131;
+    }
+
+    v68 = 0;
+    v67 = 0x7FFFFFFFFFFFFFF7;
+LABEL_140:
+    v69 = operator new(v67);
+    v70 = v69;
+    if (v61)
+    {
+      memmove(v69, v63, v61);
+    }
+
+    *(v70 + v61) = 1852400174;
+    if (!v68)
+    {
+      operator delete(v63);
+    }
+
+    v209.__r_.__value_.__l.__size_ = v62;
+    v209.__r_.__value_.__r.__words[2] = v67 | 0x8000000000000000;
+    v209.__r_.__value_.__r.__words[0] = v70;
+    v71 = (v70 + v62);
+    this = v52;
+    v56 = &unk_1ED949000;
+LABEL_150:
+    *v71 = 0;
+    *&__p.st_dev = *&v209.__r_.__value_.__l.__data_;
+    *&__p.st_uid = *(&v209.__r_.__value_.__l + 2);
+    memset(&v209, 0, sizeof(v209));
+    if (SHIBYTE(v207.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(v207.__r_.__value_.__l.__data_);
+      if ((SHIBYTE(v208.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+      {
+        goto LABEL_152;
+      }
+    }
+
+    else if ((SHIBYTE(v208.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+    {
+      goto LABEL_152;
+    }
+
+    operator delete(v208.__r_.__value_.__l.__data_);
+LABEL_152:
+    v74 = operator new(0x30uLL);
+    *v74 = &unk_1F5F00F28;
+    *(v74 + 8) = 0u;
+    *(v74 + 24) = 0u;
+    v75 = BBUFileDataSource::init(v74, &__p.st_dev, 0);
+    v76 = *v74;
+    if (!v75)
+    {
+      if ((*(v76 + 24))(v74) >= 0x29)
+      {
+        v78 = operator new(0x58uLL);
+        BBUEUREFSImage::BBUEUREFSImage(v78, v74, i + 1, 0);
+        v79 = (*(*v74 + 24))(v74);
+        v80 = (*(*v78 + 72))(v78, v79);
+        (*(*v78 + 8))(v78);
+        if (v80)
+        {
+          v74 = operator new(0x30uLL);
+          *v74 = &unk_1F5F00F28;
+          *(v74 + 8) = 0u;
+          *(v74 + 24) = 0u;
+          if (BBUFileDataSource::init(v74, &__p.st_dev, 0))
+          {
+            (*(*v74 + 8))(v74);
+            v74 = 0;
+          }
+
+          v77 = 1;
+          goto LABEL_164;
+        }
+
+        v74 = 0;
+      }
+
+      v77 = 0;
+LABEL_164:
+      BBUFeedback::handleComment(*(this + 1), "EFS file verify status: %d", v77);
+      goto LABEL_165;
+    }
+
+    (*(v76 + 8))(v74);
+    v74 = 0;
+    v77 = 1;
+LABEL_165:
+    if (i | v74 && v77)
+    {
+      if (!v74)
+      {
+        goto LABEL_188;
+      }
+    }
+
+    else
+    {
+      memset(&v209, 170, sizeof(v209));
+      if (v74)
+      {
+        v81 = (*(*v74 + 24))(v74);
+        std::to_string(&v209, v81);
+        v82 = &__p;
+        if ((__p.st_gid & 0x80000000) != 0)
+        {
+          v82 = *&__p.st_dev;
+        }
+
+        v83 = &v209;
+        if ((v209.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+        {
+          v83 = v209.__r_.__value_.__r.__words[0];
+        }
+      }
+
+      else
+      {
+        *(&v209.__r_.__value_.__s + 23) = 4;
+        strcpy(&v209, "NULL");
+        v82 = &__p;
+        if ((__p.st_gid & 0x80000000) != 0)
+        {
+          v82 = *&__p.st_dev;
+        }
+
+        v83 = &v209;
+      }
+
+      BBUFeedback::handleComment(*(this + 1), "Failed to load %s (size %s), creating empty file (size %u)", v82, v83, 0x100000);
+      if (v74)
+      {
+        (*(*v74 + 8))(v74);
+      }
+
+      v84 = BBUScratchFile::createWithFile(&__p, 0x100000);
+      if (v84)
+      {
+        v202 = __cxa_allocate_exception(0x210uLL);
+        v200 = v202;
+        v203 = &__p;
+        if ((__p.st_gid & 0x80000000) != 0)
+        {
+          v203 = *&__p.st_dev;
+        }
+
+        _BBUException::_BBUException(v202, 104, "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/Updater/Eureka/BBUEUR20UpdateSource.cpp", 0x17Bu, "Failed to create scratch %s (%d)", v203, v84);
+LABEL_487:
+      }
+
+      v74 = operator new(0x30uLL);
+      *v74 = &unk_1F5F00F28;
+      *(v74 + 8) = 0u;
+      *(v74 + 24) = 0u;
+      if (BBUFileDataSource::init(v74, &__p.st_dev, 0))
+      {
+        (*(*v74 + 8))(v74);
+        v199 = __cxa_allocate_exception(0x210uLL);
+        v200 = v199;
+        v201 = &__p;
+        if ((__p.st_gid & 0x80000000) != 0)
+        {
+          v201 = *&__p.st_dev;
+        }
+
+        _BBUException::_BBUException(v199, 104, "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/Updater/Eureka/BBUEUR20UpdateSource.cpp", 0x17Eu, "Failed to create data source from fresh scratch file %s (%d)", v201, 0);
+        goto LABEL_487;
+      }
+
+      if (SHIBYTE(v209.__r_.__value_.__r.__words[2]) < 0)
+      {
+        operator delete(v209.__r_.__value_.__l.__data_);
+      }
+    }
+
+    v85 = operator new(0x58uLL);
+    BBUEUREFSImage::BBUEUREFSImage(v85, v74, i + 1, 0);
+    *(*(this + 29) + 8 * i) = v85;
+    if (v56[396] == -1)
+    {
+      if ((*gBBULogMaskGet(void)::sBBULogMask & 8) == 0)
+      {
+        goto LABEL_188;
+      }
+    }
+
+    else
+    {
+      dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
+      if ((*gBBULogMaskGet(void)::sBBULogMask & 8) == 0)
+      {
+        goto LABEL_188;
       }
     }
 
     if ((gBBULogVerbosity & 0x80000000) == 0)
     {
-      v118 = (**this)(this);
-      _BBULog(3, 0, v118, "", "Loaded EFS%u\n", v119, v120, v121, i + 1);
+      v86 = (**this)(this);
+      _BBULog(3, 0, v86, "", "Loaded EFS%u\n", i + 1);
     }
 
-LABEL_193:
+LABEL_188:
     if (SHIBYTE(__p.st_gid) < 0)
     {
       operator delete(*&__p.st_dev);
@@ -10309,34 +10673,34 @@ LABEL_193:
 
   HIBYTE(__p.st_gid) = 8;
   strcpy(&__p, "acdb.mbn");
-  v122 = BBUEURUpdateSource::containsFile(this, &__p);
+  v87 = BBUEURUpdateSource::containsFile(this, &__p);
   if (SHIBYTE(__p.st_gid) < 0)
   {
-    v129 = v122;
+    v91 = v87;
     operator delete(*&__p.st_dev);
-    if (!v129)
+    if (!v91)
     {
-      goto LABEL_206;
+      goto LABEL_201;
     }
 
-LABEL_199:
+LABEL_194:
     HIBYTE(__p.st_gid) = 8;
     strcpy(&__p, "acdb.mbn");
-    v123 = BBUEURUpdateSource::createDataSource(this, &__p, 0);
+    v88 = BBUEURUpdateSource::createDataSource(this, &__p, 0);
     if (SHIBYTE(__p.st_gid) < 0)
     {
       operator delete(*&__p.st_dev);
     }
 
-    v124 = operator new(0x40uLL);
-    BBUEURMIImage::BBUEURMIImage(v124, v123, 0);
-    *v124 = &unk_1F5F00360;
-    *(this + 32) = v124;
+    v89 = operator new(0x40uLL);
+    BBUEURMIImage::BBUEURMIImage(v89, v88, 0);
+    *v89 = &unk_1F5F00360;
+    *(this + 32) = v89;
     if (gBBULogMaskGet(void)::once == -1)
     {
       if ((*gBBULogMaskGet(void)::sBBULogMask & 8) == 0)
       {
-        goto LABEL_210;
+        goto LABEL_205;
       }
     }
 
@@ -10345,34 +10709,34 @@ LABEL_199:
       dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
       if ((*gBBULogMaskGet(void)::sBBULogMask & 8) == 0)
       {
-        goto LABEL_210;
+        goto LABEL_205;
       }
     }
 
     if ((gBBULogVerbosity & 0x80000000) == 0)
     {
-      v125 = (**this)(this);
-      _BBULog(3, 0, v125, "", "Loaded ACDB\n", v126, v127, v128, v331);
+      v90 = (**this)(this);
+      _BBULog(3, 0, v90, "", "Loaded ACDB\n");
     }
   }
 
   else
   {
-    if (v122)
+    if (v87)
     {
-      goto LABEL_199;
+      goto LABEL_194;
     }
 
-LABEL_206:
+LABEL_201:
     if (gBBULogMaskGet(void)::once == -1)
     {
       if ((*gBBULogMaskGet(void)::sBBULogMask & 8) != 0)
       {
-LABEL_208:
+LABEL_203:
         if (gBBULogVerbosity >= 1)
         {
-          v130 = (**this)(this);
-          _BBULog(3, 1, v130, "", "File not present: %s\n", v131, v132, v133, "acdb.mbn");
+          v92 = (**this)(this);
+          _BBULog(3, 1, v92, "", "File not present: %s\n", "acdb.mbn");
         }
       }
     }
@@ -10382,42 +10746,42 @@ LABEL_208:
       dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
       if ((*gBBULogMaskGet(void)::sBBULogMask & 8) != 0)
       {
-        goto LABEL_208;
+        goto LABEL_203;
       }
     }
   }
 
-LABEL_210:
+LABEL_205:
   HIBYTE(__p.st_gid) = 9;
   strcpy(&__p, "bbcfg.mbn");
-  v134 = BBUEURUpdateSource::containsFile(this, &__p);
+  v93 = BBUEURUpdateSource::containsFile(this, &__p);
   if (SHIBYTE(__p.st_gid) < 0)
   {
-    v141 = v134;
+    v97 = v93;
     operator delete(*&__p.st_dev);
-    if (!v141)
+    if (!v97)
     {
-      goto LABEL_219;
+      goto LABEL_214;
     }
 
-LABEL_212:
+LABEL_207:
     HIBYTE(__p.st_gid) = 9;
     strcpy(&__p, "bbcfg.mbn");
-    v135 = BBUEURUpdateSource::createDataSource(this, &__p, 0);
+    v94 = BBUEURUpdateSource::createDataSource(this, &__p, 0);
     if (SHIBYTE(__p.st_gid) < 0)
     {
       operator delete(*&__p.st_dev);
     }
 
-    v136 = operator new(0x40uLL);
-    BBUEURMIImage::BBUEURMIImage(v136, v135, 0);
-    *v136 = &unk_1F5F003D8;
-    *(this + 33) = v136;
+    v95 = operator new(0x40uLL);
+    BBUEURMIImage::BBUEURMIImage(v95, v94, 0);
+    *v95 = &unk_1F5F003D8;
+    *(this + 33) = v95;
     if (gBBULogMaskGet(void)::once == -1)
     {
       if ((*gBBULogMaskGet(void)::sBBULogMask & 8) == 0)
       {
-        goto LABEL_223;
+        goto LABEL_218;
       }
     }
 
@@ -10426,34 +10790,34 @@ LABEL_212:
       dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
       if ((*gBBULogMaskGet(void)::sBBULogMask & 8) == 0)
       {
-        goto LABEL_223;
+        goto LABEL_218;
       }
     }
 
     if ((gBBULogVerbosity & 0x80000000) == 0)
     {
-      v137 = (**this)(this);
-      _BBULog(3, 0, v137, "", "Loaded BBCFG\n", v138, v139, v140, v331);
+      v96 = (**this)(this);
+      _BBULog(3, 0, v96, "", "Loaded BBCFG\n");
     }
   }
 
   else
   {
-    if (v134)
+    if (v93)
     {
-      goto LABEL_212;
+      goto LABEL_207;
     }
 
-LABEL_219:
+LABEL_214:
     if (gBBULogMaskGet(void)::once == -1)
     {
       if ((*gBBULogMaskGet(void)::sBBULogMask & 8) != 0)
       {
-LABEL_221:
+LABEL_216:
         if (gBBULogVerbosity >= 1)
         {
-          v142 = (**this)(this);
-          _BBULog(3, 1, v142, "", "File not present: %s\n", v143, v144, v145, "bbcfg.mbn");
+          v98 = (**this)(this);
+          _BBULog(3, 1, v98, "", "File not present: %s\n", "bbcfg.mbn");
         }
       }
     }
@@ -10463,48 +10827,48 @@ LABEL_221:
       dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
       if ((*gBBULogMaskGet(void)::sBBULogMask & 8) != 0)
       {
-        goto LABEL_221;
+        goto LABEL_216;
       }
     }
   }
 
-LABEL_223:
+LABEL_218:
   HIBYTE(__p.st_gid) = 8;
   strcpy(&__p, "apdp.mbn");
-  v146 = BBUEURUpdateSource::containsFile(this, &__p);
+  v99 = BBUEURUpdateSource::containsFile(this, &__p);
   if (SHIBYTE(__p.st_gid) < 0)
   {
-    v154 = v146;
+    v104 = v99;
     operator delete(*&__p.st_dev);
-    if (!v154)
+    if (!v104)
     {
-      goto LABEL_232;
+      goto LABEL_227;
     }
 
-LABEL_225:
+LABEL_220:
     HIBYTE(__p.st_gid) = 8;
     strcpy(&__p, "apdp.mbn");
-    v147 = BBUEURUpdateSource::createDataSource(this, &__p, 0);
+    v100 = BBUEURUpdateSource::createDataSource(this, &__p, 0);
     if (SHIBYTE(__p.st_gid) < 0)
     {
       operator delete(*&__p.st_dev);
     }
 
-    v148 = operator new(0x20uLL);
-    *v148 = &unk_1F5F014B0;
-    v148[1] = v147;
-    v148[2] = 0;
-    *(v148 + 6) = 0;
-    v149 = operator new(0x90uLL);
-    BBUELFHeader::BBUELFHeader(v149, v147, 0);
-    v148[2] = v149;
-    *v148 = &unk_1F5F00450;
-    *(this + 34) = v148;
+    v101 = operator new(0x20uLL);
+    *v101 = &unk_1F5F014B0;
+    v101[1] = v100;
+    v101[2] = 0;
+    *(v101 + 6) = 0;
+    v102 = operator new(0x90uLL);
+    BBUELFHeader::BBUELFHeader(v102, v100, 0);
+    v101[2] = v102;
+    *v101 = &unk_1F5F00450;
+    *(this + 34) = v101;
     if (gBBULogMaskGet(void)::once == -1)
     {
       if ((*gBBULogMaskGet(void)::sBBULogMask & 8) == 0)
       {
-        goto LABEL_236;
+        goto LABEL_231;
       }
     }
 
@@ -10513,34 +10877,34 @@ LABEL_225:
       dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
       if ((*gBBULogMaskGet(void)::sBBULogMask & 8) == 0)
       {
-        goto LABEL_236;
+        goto LABEL_231;
       }
     }
 
     if ((gBBULogVerbosity & 0x80000000) == 0)
     {
-      v150 = (**this)(this);
-      _BBULog(3, 0, v150, "", "Loaded APDP\n", v151, v152, v153, v331);
+      v103 = (**this)(this);
+      _BBULog(3, 0, v103, "", "Loaded APDP\n");
     }
   }
 
   else
   {
-    if (v146)
+    if (v99)
     {
-      goto LABEL_225;
+      goto LABEL_220;
     }
 
-LABEL_232:
+LABEL_227:
     if (gBBULogMaskGet(void)::once == -1)
     {
       if ((*gBBULogMaskGet(void)::sBBULogMask & 8) != 0)
       {
-LABEL_234:
+LABEL_229:
         if (gBBULogVerbosity >= 1)
         {
-          v155 = (**this)(this);
-          _BBULog(3, 1, v155, "", "File not present: %s\n", v156, v157, v158, "apdp.mbn");
+          v105 = (**this)(this);
+          _BBULog(3, 1, v105, "", "File not present: %s\n", "apdp.mbn");
         }
       }
     }
@@ -10550,48 +10914,48 @@ LABEL_234:
       dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
       if ((*gBBULogMaskGet(void)::sBBULogMask & 8) != 0)
       {
-        goto LABEL_234;
+        goto LABEL_229;
       }
     }
   }
 
-LABEL_236:
+LABEL_231:
   HIBYTE(__p.st_gid) = 10;
   strcpy(&__p, "devcfg.mbn");
-  v159 = BBUEURUpdateSource::containsFile(this, &__p);
+  v106 = BBUEURUpdateSource::containsFile(this, &__p);
   if (SHIBYTE(__p.st_gid) < 0)
   {
-    v167 = v159;
+    v111 = v106;
     operator delete(*&__p.st_dev);
-    if (!v167)
+    if (!v111)
     {
-      goto LABEL_245;
+      goto LABEL_240;
     }
 
-LABEL_238:
+LABEL_233:
     HIBYTE(__p.st_gid) = 10;
     strcpy(&__p, "devcfg.mbn");
-    v160 = BBUEURUpdateSource::createDataSource(this, &__p, 0);
+    v107 = BBUEURUpdateSource::createDataSource(this, &__p, 0);
     if (SHIBYTE(__p.st_gid) < 0)
     {
       operator delete(*&__p.st_dev);
     }
 
-    v161 = operator new(0x20uLL);
-    *v161 = &unk_1F5F014B0;
-    v161[1] = v160;
-    v161[2] = 0;
-    *(v161 + 6) = 0;
-    v162 = operator new(0x90uLL);
-    BBUELFHeader::BBUELFHeader(v162, v160, 0);
-    v161[2] = v162;
-    *v161 = &unk_1F5F004C0;
-    *(this + 35) = v161;
+    v108 = operator new(0x20uLL);
+    *v108 = &unk_1F5F014B0;
+    v108[1] = v107;
+    v108[2] = 0;
+    *(v108 + 6) = 0;
+    v109 = operator new(0x90uLL);
+    BBUELFHeader::BBUELFHeader(v109, v107, 0);
+    v108[2] = v109;
+    *v108 = &unk_1F5F004C0;
+    *(this + 35) = v108;
     if (gBBULogMaskGet(void)::once == -1)
     {
       if ((*gBBULogMaskGet(void)::sBBULogMask & 8) == 0)
       {
-        goto LABEL_249;
+        goto LABEL_244;
       }
     }
 
@@ -10600,34 +10964,34 @@ LABEL_238:
       dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
       if ((*gBBULogMaskGet(void)::sBBULogMask & 8) == 0)
       {
-        goto LABEL_249;
+        goto LABEL_244;
       }
     }
 
     if ((gBBULogVerbosity & 0x80000000) == 0)
     {
-      v163 = (**this)(this);
-      _BBULog(3, 0, v163, "", "Loaded DEVCFG\n", v164, v165, v166, v331);
+      v110 = (**this)(this);
+      _BBULog(3, 0, v110, "", "Loaded DEVCFG\n");
     }
   }
 
   else
   {
-    if (v159)
+    if (v106)
     {
-      goto LABEL_238;
+      goto LABEL_233;
     }
 
-LABEL_245:
+LABEL_240:
     if (gBBULogMaskGet(void)::once == -1)
     {
       if ((*gBBULogMaskGet(void)::sBBULogMask & 8) != 0)
       {
-LABEL_247:
+LABEL_242:
         if (gBBULogVerbosity >= 1)
         {
-          v168 = (**this)(this);
-          _BBULog(3, 1, v168, "", "File not present: %s\n", v169, v170, v171, "devcfg.mbn");
+          v112 = (**this)(this);
+          _BBULog(3, 1, v112, "", "File not present: %s\n", "devcfg.mbn");
         }
       }
     }
@@ -10637,48 +11001,48 @@ LABEL_247:
       dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
       if ((*gBBULogMaskGet(void)::sBBULogMask & 8) != 0)
       {
-        goto LABEL_247;
+        goto LABEL_242;
       }
     }
   }
 
-LABEL_249:
+LABEL_244:
   HIBYTE(__p.st_gid) = 7;
   strcpy(&__p, "hyp.mbn");
-  v172 = BBUEURUpdateSource::containsFile(this, &__p);
+  v113 = BBUEURUpdateSource::containsFile(this, &__p);
   if (SHIBYTE(__p.st_gid) < 0)
   {
-    v180 = v172;
+    v118 = v113;
     operator delete(*&__p.st_dev);
-    if (!v180)
+    if (!v118)
     {
-      goto LABEL_258;
+      goto LABEL_253;
     }
 
-LABEL_251:
+LABEL_246:
     HIBYTE(__p.st_gid) = 7;
     strcpy(&__p, "hyp.mbn");
-    v173 = BBUEURUpdateSource::createDataSource(this, &__p, 0);
+    v114 = BBUEURUpdateSource::createDataSource(this, &__p, 0);
     if (SHIBYTE(__p.st_gid) < 0)
     {
       operator delete(*&__p.st_dev);
     }
 
-    v174 = operator new(0x20uLL);
-    *v174 = &unk_1F5F014B0;
-    v174[1] = v173;
-    v174[2] = 0;
-    *(v174 + 6) = 0;
-    v175 = operator new(0x90uLL);
-    BBUELFHeader::BBUELFHeader(v175, v173, 0);
-    v174[2] = v175;
-    *v174 = &unk_1F5F00530;
-    *(this + 36) = v174;
+    v115 = operator new(0x20uLL);
+    *v115 = &unk_1F5F014B0;
+    v115[1] = v114;
+    v115[2] = 0;
+    *(v115 + 6) = 0;
+    v116 = operator new(0x90uLL);
+    BBUELFHeader::BBUELFHeader(v116, v114, 0);
+    v115[2] = v116;
+    *v115 = &unk_1F5F00530;
+    *(this + 36) = v115;
     if (gBBULogMaskGet(void)::once == -1)
     {
       if ((*gBBULogMaskGet(void)::sBBULogMask & 8) == 0)
       {
-        goto LABEL_262;
+        goto LABEL_257;
       }
     }
 
@@ -10687,34 +11051,34 @@ LABEL_251:
       dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
       if ((*gBBULogMaskGet(void)::sBBULogMask & 8) == 0)
       {
-        goto LABEL_262;
+        goto LABEL_257;
       }
     }
 
     if ((gBBULogVerbosity & 0x80000000) == 0)
     {
-      v176 = (**this)(this);
-      _BBULog(3, 0, v176, "", "Loaded HYP\n", v177, v178, v179, v331);
+      v117 = (**this)(this);
+      _BBULog(3, 0, v117, "", "Loaded HYP\n");
     }
   }
 
   else
   {
-    if (v172)
+    if (v113)
     {
-      goto LABEL_251;
+      goto LABEL_246;
     }
 
-LABEL_258:
+LABEL_253:
     if (gBBULogMaskGet(void)::once == -1)
     {
       if ((*gBBULogMaskGet(void)::sBBULogMask & 8) != 0)
       {
-LABEL_260:
+LABEL_255:
         if (gBBULogVerbosity >= 1)
         {
-          v181 = (**this)(this);
-          _BBULog(3, 1, v181, "", "File not present: %s\n", v182, v183, v184, "hyp.mbn");
+          v119 = (**this)(this);
+          _BBULog(3, 1, v119, "", "File not present: %s\n", "hyp.mbn");
         }
       }
     }
@@ -10724,48 +11088,48 @@ LABEL_260:
       dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
       if ((*gBBULogMaskGet(void)::sBBULogMask & 8) != 0)
       {
-        goto LABEL_260;
+        goto LABEL_255;
       }
     }
   }
 
-LABEL_262:
+LABEL_257:
   HIBYTE(__p.st_gid) = 7;
   strcpy(&__p, "aop.mbn");
-  v185 = BBUEURUpdateSource::containsFile(this, &__p);
+  v120 = BBUEURUpdateSource::containsFile(this, &__p);
   if (SHIBYTE(__p.st_gid) < 0)
   {
-    v193 = v185;
+    v125 = v120;
     operator delete(*&__p.st_dev);
-    if (!v193)
+    if (!v125)
     {
-      goto LABEL_271;
+      goto LABEL_266;
     }
 
-LABEL_264:
+LABEL_259:
     HIBYTE(__p.st_gid) = 7;
     strcpy(&__p, "aop.mbn");
-    v186 = BBUEURUpdateSource::createDataSource(this, &__p, 0);
+    v121 = BBUEURUpdateSource::createDataSource(this, &__p, 0);
     if (SHIBYTE(__p.st_gid) < 0)
     {
       operator delete(*&__p.st_dev);
     }
 
-    v187 = operator new(0x20uLL);
-    *v187 = &unk_1F5F014B0;
-    v187[1] = v186;
-    v187[2] = 0;
-    *(v187 + 6) = 0;
-    v188 = operator new(0x90uLL);
-    BBUELFHeader::BBUELFHeader(v188, v186, 0);
-    v187[2] = v188;
-    *v187 = &unk_1F5F005A0;
-    *(this + 37) = v187;
+    v122 = operator new(0x20uLL);
+    *v122 = &unk_1F5F014B0;
+    v122[1] = v121;
+    v122[2] = 0;
+    *(v122 + 6) = 0;
+    v123 = operator new(0x90uLL);
+    BBUELFHeader::BBUELFHeader(v123, v121, 0);
+    v122[2] = v123;
+    *v122 = &unk_1F5F005A0;
+    *(this + 37) = v122;
     if (gBBULogMaskGet(void)::once == -1)
     {
       if ((*gBBULogMaskGet(void)::sBBULogMask & 8) == 0)
       {
-        goto LABEL_275;
+        goto LABEL_270;
       }
     }
 
@@ -10774,34 +11138,34 @@ LABEL_264:
       dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
       if ((*gBBULogMaskGet(void)::sBBULogMask & 8) == 0)
       {
-        goto LABEL_275;
+        goto LABEL_270;
       }
     }
 
     if ((gBBULogVerbosity & 0x80000000) == 0)
     {
-      v189 = (**this)(this);
-      _BBULog(3, 0, v189, "", "Loaded AOP\n", v190, v191, v192, v331);
+      v124 = (**this)(this);
+      _BBULog(3, 0, v124, "", "Loaded AOP\n");
     }
   }
 
   else
   {
-    if (v185)
+    if (v120)
     {
-      goto LABEL_264;
+      goto LABEL_259;
     }
 
-LABEL_271:
+LABEL_266:
     if (gBBULogMaskGet(void)::once == -1)
     {
       if ((*gBBULogMaskGet(void)::sBBULogMask & 8) != 0)
       {
-LABEL_273:
+LABEL_268:
         if (gBBULogVerbosity >= 1)
         {
-          v194 = (**this)(this);
-          _BBULog(3, 1, v194, "", "File not present: %s\n", v195, v196, v197, "aop.mbn");
+          v126 = (**this)(this);
+          _BBULog(3, 1, v126, "", "File not present: %s\n", "aop.mbn");
         }
       }
     }
@@ -10811,166 +11175,166 @@ LABEL_273:
       dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
       if ((*gBBULogMaskGet(void)::sBBULogMask & 8) != 0)
       {
-        goto LABEL_273;
+        goto LABEL_268;
       }
     }
   }
 
-LABEL_275:
-  memset(&v335, 170, sizeof(v335));
-  v198 = SHIBYTE(v336.__r_.__value_.__r.__words[2]);
-  if ((v336.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+LABEL_270:
+  memset(&v209, 170, sizeof(v209));
+  v127 = SHIBYTE(v210.__r_.__value_.__r.__words[2]);
+  if ((v210.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v199 = HIBYTE(v336.__r_.__value_.__r.__words[2]);
+    v128 = HIBYTE(v210.__r_.__value_.__r.__words[2]);
   }
 
   else
   {
-    v199 = v336.__r_.__value_.__l.__size_;
+    v128 = v210.__r_.__value_.__l.__size_;
   }
 
-  v200 = v199 + 1;
-  if (v199 + 1 > 0x7FFFFFFFFFFFFFF7)
+  v129 = v128 + 1;
+  if (v128 + 1 > 0x7FFFFFFFFFFFFFF7)
   {
     std::string::__throw_length_error[abi:ne200100]();
   }
 
-  if (v200 < 0x17)
+  if (v129 < 0x17)
   {
     memset(&__p, 0, 24);
-    v202 = &__p;
-    HIBYTE(__p.st_gid) = v199 + 1;
-    if (v199)
+    v131 = &__p;
+    HIBYTE(__p.st_gid) = v128 + 1;
+    if (v128)
     {
-      goto LABEL_285;
+      goto LABEL_280;
     }
   }
 
   else
   {
-    if ((v200 | 7) == 0x17)
+    if ((v129 | 7) == 0x17)
     {
-      v201 = 25;
+      v130 = 25;
     }
 
     else
     {
-      v201 = (v200 | 7) + 1;
+      v130 = (v129 | 7) + 1;
     }
 
-    v202 = operator new(v201);
-    __p.st_ino = v199 + 1;
-    *&__p.st_uid = v201 | 0x8000000000000000;
-    *&__p.st_dev = v202;
-LABEL_285:
-    if (v198 >= 0)
+    v131 = operator new(v130);
+    __p.st_ino = v128 + 1;
+    *&__p.st_uid = v130 | 0x8000000000000000;
+    *&__p.st_dev = v131;
+LABEL_280:
+    if (v127 >= 0)
     {
-      v203 = &v336;
+      v132 = &v210;
     }
 
     else
     {
-      v203 = v336.__r_.__value_.__r.__words[0];
+      v132 = v210.__r_.__value_.__r.__words[0];
     }
 
-    memmove(v202, v203, v199);
+    memmove(v131, v132, v128);
   }
 
-  *(&v202->st_dev + v199) = 47;
+  *(&v131->st_dev + v128) = 47;
   st_gid_high = SHIBYTE(__p.st_gid);
   if ((SHIBYTE(__p.st_gid) & 0x8000000000000000) != 0)
   {
     st_gid_high = __p.st_ino;
-    v207 = (*&__p.st_uid & 0x7FFFFFFFFFFFFFFFLL) - 1;
-    if (v207 - __p.st_ino >= 0xA)
+    v136 = (*&__p.st_uid & 0x7FFFFFFFFFFFFFFFLL) - 1;
+    if (v136 - __p.st_ino >= 0xA)
     {
-      v217 = *&__p.st_dev;
-      goto LABEL_311;
+      v146 = *&__p.st_dev;
+      goto LABEL_306;
     }
 
-    v205 = __p.st_ino + 10;
-    if (0x7FFFFFFFFFFFFFF7 - (*&__p.st_uid & 0x7FFFFFFFFFFFFFFFuLL) < __p.st_ino + 10 - v207)
+    v134 = __p.st_ino + 10;
+    if (0x7FFFFFFFFFFFFFF7 - (*&__p.st_uid & 0x7FFFFFFFFFFFFFFFuLL) < __p.st_ino + 10 - v136)
     {
       std::string::__throw_length_error[abi:ne200100]();
     }
 
-    v206 = *&__p.st_dev;
-    if (v207 >= 0x3FFFFFFFFFFFFFF3)
+    v135 = *&__p.st_dev;
+    if (v136 >= 0x3FFFFFFFFFFFFFF3)
     {
-      v211 = 0;
-      v210 = 0x7FFFFFFFFFFFFFF7;
+      v140 = 0;
+      v139 = 0x7FFFFFFFFFFFFFF7;
     }
 
     else
     {
-LABEL_295:
-      v208 = 2 * v207;
-      if (v205 > 2 * v207)
+LABEL_290:
+      v137 = 2 * v136;
+      if (v134 > 2 * v136)
       {
-        v208 = v205;
+        v137 = v134;
       }
 
-      if ((v208 | 7) == 0x17)
+      if ((v137 | 7) == 0x17)
       {
-        v209 = 25;
-      }
-
-      else
-      {
-        v209 = (v208 | 7) + 1;
-      }
-
-      if (v208 >= 0x17)
-      {
-        v210 = v209;
+        v138 = 25;
       }
 
       else
       {
-        v210 = 23;
+        v138 = (v137 | 7) + 1;
       }
 
-      v211 = v207 == 22;
+      if (v137 >= 0x17)
+      {
+        v139 = v138;
+      }
+
+      else
+      {
+        v139 = 23;
+      }
+
+      v140 = v136 == 22;
     }
 
-    v212 = v210;
-    v213 = operator new(v210);
-    v214 = v213;
+    v141 = v139;
+    v142 = operator new(v139);
+    v143 = v142;
     if (st_gid_high)
     {
-      memmove(v213, v206, st_gid_high);
+      memmove(v142, v135, st_gid_high);
     }
 
-    v215 = &v214[st_gid_high];
-    *v215 = *"mdmddr.mbn";
-    *(v215 + 4) = 28258;
-    if (!v211)
+    v144 = &v143[st_gid_high];
+    *v144 = *"mdmddr.mbn";
+    *(v144 + 4) = 28258;
+    if (!v140)
     {
-      operator delete(v206);
+      operator delete(v135);
     }
 
-    __p.st_ino = v205;
-    *&__p.st_uid = v212 | 0x8000000000000000;
-    *&__p.st_dev = v214;
-    v216 = &v214[v205];
+    __p.st_ino = v134;
+    *&__p.st_uid = v141 | 0x8000000000000000;
+    *&__p.st_dev = v143;
+    v145 = &v143[v134];
   }
 
   else
   {
     if ((SHIBYTE(__p.st_gid) - 13) < 0xA)
     {
-      v205 = SHIBYTE(__p.st_gid) + 10;
-      v206 = &__p;
-      v207 = 22;
-      goto LABEL_295;
+      v134 = SHIBYTE(__p.st_gid) + 10;
+      v135 = &__p;
+      v136 = 22;
+      goto LABEL_290;
     }
 
-    v217 = &__p;
-LABEL_311:
-    v218 = v217 + st_gid_high;
-    *v218 = *"mdmddr.mbn";
-    *(v218 + 4) = 28258;
-    v219 = st_gid_high + 10;
+    v146 = &__p;
+LABEL_306:
+    v147 = v146 + st_gid_high;
+    *v147 = *"mdmddr.mbn";
+    *(v147 + 4) = 28258;
+    v148 = st_gid_high + 10;
     if (SHIBYTE(__p.st_gid) < 0)
     {
       __p.st_ino = st_gid_high + 10;
@@ -10978,67 +11342,67 @@ LABEL_311:
 
     else
     {
-      HIBYTE(__p.st_gid) = v219 & 0x7F;
+      HIBYTE(__p.st_gid) = v148 & 0x7F;
     }
 
-    v216 = v217 + v219;
+    v145 = v146 + v148;
   }
 
-  *v216 = 0;
-  *&v335.__r_.__value_.__l.__data_ = *&__p.st_dev;
-  v335.__r_.__value_.__r.__words[2] = *&__p.st_uid;
-  v220 = *&__p.st_dev;
-  v221 = SHIBYTE(__p.st_gid);
-  v222.tv_sec = 0xAAAAAAAAAAAAAAAALL;
-  v222.tv_nsec = 0xAAAAAAAAAAAAAAAALL;
-  *&__p.st_blksize = v222;
-  *__p.st_qspare = v222;
-  __p.st_birthtimespec = v222;
-  *&__p.st_size = v222;
-  __p.st_mtimespec = v222;
-  __p.st_ctimespec = v222;
-  __p.st_atimespec = v222;
-  *&__p.st_dev = v222;
-  *&__p.st_uid = v222;
-  if (v221 >= 0)
+  *v145 = 0;
+  *&v209.__r_.__value_.__l.__data_ = *&__p.st_dev;
+  v209.__r_.__value_.__r.__words[2] = *&__p.st_uid;
+  v149 = *&__p.st_dev;
+  v150 = SHIBYTE(__p.st_gid);
+  v151.tv_sec = 0xAAAAAAAAAAAAAAAALL;
+  v151.tv_nsec = 0xAAAAAAAAAAAAAAAALL;
+  *&__p.st_blksize = v151;
+  *__p.st_qspare = v151;
+  __p.st_birthtimespec = v151;
+  *&__p.st_size = v151;
+  __p.st_mtimespec = v151;
+  __p.st_ctimespec = v151;
+  __p.st_atimespec = v151;
+  *&__p.st_dev = v151;
+  *&__p.st_uid = v151;
+  if (v150 >= 0)
   {
-    v223 = &v335;
+    v152 = &v209;
   }
 
   else
   {
-    v223 = v220;
+    v152 = v149;
   }
 
-  if (stat(v223, &__p))
+  if (stat(v152, &__p))
   {
     Mutable = CFDataCreateMutable(*MEMORY[0x1E695E480], 0);
-    v334.__r_.__value_.__r.__words[0] = Mutable;
+    v208.__r_.__value_.__r.__words[0] = Mutable;
     *&__p.st_dev = xmmword_1E53918B0;
     memset(&__p.st_uid, 0, 24);
     CFDataAppendBytes(Mutable, &__p, 40);
-    v225 = operator new(0x18uLL);
-    v225[4] = 0;
-    *v225 = &unk_1F5F04B00;
-    *(v225 + 1) = Mutable;
+    v154 = operator new(0x18uLL);
+    v154[4] = 0;
+    *v154 = &unk_1F5F04B00;
+    *(v154 + 1) = Mutable;
     if (Mutable)
     {
       CFRetain(Mutable);
     }
 
-    v226 = operator new(0x40uLL);
-    BBUEURMIImage::BBUEURMIImage(v226, v225, 0);
-    *v226 = &unk_1F5F01288;
-    *(this + 38) = v226;
+    v155 = operator new(0x40uLL);
+    BBUEURMIImage::BBUEURMIImage(v155, v154, 0);
+    *v155 = &unk_1F5F01288;
+    *(this + 38) = v155;
     if (gBBULogMaskGet(void)::once == -1)
     {
       if ((*gBBULogMaskGet(void)::sBBULogMask & 8) != 0)
       {
-LABEL_323:
+LABEL_318:
         if ((gBBULogVerbosity & 0x80000000) == 0)
         {
-          v227 = (**this)(this);
-          _BBULog(3, 0, v227, "", "created dummy MDMDDR\n", v228, v229, v230, v331);
+          v156 = (**this)(this);
+          _BBULog(3, 0, v156, "", "created dummy MDMDDR\n");
         }
       }
     }
@@ -11048,7 +11412,7 @@ LABEL_323:
       dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
       if ((*gBBULogMaskGet(void)::sBBULogMask & 8) != 0)
       {
-        goto LABEL_323;
+        goto LABEL_318;
       }
     }
 
@@ -11060,26 +11424,26 @@ LABEL_323:
 
   else
   {
-    v231 = operator new(0x30uLL);
-    *v231 = &unk_1F5F00F28;
-    *(v231 + 8) = 0u;
-    *(v231 + 24) = 0u;
-    if (BBUFileDataSource::init(v231, &v335, 0))
+    v157 = operator new(0x30uLL);
+    *v157 = &unk_1F5F00F28;
+    *(v157 + 8) = 0u;
+    *(v157 + 24) = 0u;
+    if (BBUFileDataSource::init(v157, &v209, 0))
     {
-      (*(*v231 + 8))(v231);
-      v327 = __cxa_allocate_exception(0x210uLL);
-      _BBUException::_BBUException(v327, 120, "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/Updater/Eureka/BBUEUR20UpdateSource.cpp", 0x1D6u, "Assertion failure(dataSource && Failed creating data source from file for MDMDDR)", v328, v329, v330, v331);
+      (*(*v157 + 8))(v157);
+      v205 = __cxa_allocate_exception(0x210uLL);
+      _BBUException::_BBUException(v205, 120, "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/Updater/Eureka/BBUEUR20UpdateSource.cpp", 0x1D6u, "Assertion failure(dataSource && Failed creating data source from file for MDMDDR)");
     }
 
-    v232 = operator new(0x40uLL);
-    BBUEURMIImage::BBUEURMIImage(v232, v231, 0);
-    *v232 = &unk_1F5F01288;
-    *(this + 38) = v232;
+    v158 = operator new(0x40uLL);
+    BBUEURMIImage::BBUEURMIImage(v158, v157, 0);
+    *v158 = &unk_1F5F01288;
+    *(this + 38) = v158;
     if (gBBULogMaskGet(void)::once == -1)
     {
       if ((*gBBULogMaskGet(void)::sBBULogMask & 8) == 0)
       {
-        goto LABEL_332;
+        goto LABEL_327;
       }
     }
 
@@ -11088,54 +11452,54 @@ LABEL_323:
       dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
       if ((*gBBULogMaskGet(void)::sBBULogMask & 8) == 0)
       {
-        goto LABEL_332;
+        goto LABEL_327;
       }
     }
 
     if ((gBBULogVerbosity & 0x80000000) == 0)
     {
-      v233 = (**this)(this);
-      _BBULog(3, 0, v233, "", "Loaded MDMDDR\n", v234, v235, v236, v331);
+      v159 = (**this)(this);
+      _BBULog(3, 0, v159, "", "Loaded MDMDDR\n");
     }
   }
 
-LABEL_332:
+LABEL_327:
   HIBYTE(__p.st_gid) = 15;
   strcpy(&__p, "multi_image.mbn");
-  v237 = BBUEURUpdateSource::containsFile(this, &__p);
+  v160 = BBUEURUpdateSource::containsFile(this, &__p);
   if (SHIBYTE(__p.st_gid) < 0)
   {
-    v245 = v237;
+    v165 = v160;
     operator delete(*&__p.st_dev);
-    if (!v245)
+    if (!v165)
     {
-      goto LABEL_341;
+      goto LABEL_336;
     }
 
-LABEL_334:
+LABEL_329:
     HIBYTE(__p.st_gid) = 15;
     strcpy(&__p, "multi_image.mbn");
-    v238 = BBUEURUpdateSource::createDataSource(this, &__p, 0);
+    v161 = BBUEURUpdateSource::createDataSource(this, &__p, 0);
     if (SHIBYTE(__p.st_gid) < 0)
     {
       operator delete(*&__p.st_dev);
     }
 
-    v239 = operator new(0x20uLL);
-    *v239 = &unk_1F5F014B0;
-    v239[1] = v238;
-    v239[2] = 0;
-    *(v239 + 6) = 0;
-    v240 = operator new(0x90uLL);
-    BBUELFHeader::BBUELFHeader(v240, v238, 0);
-    v239[2] = v240;
-    *v239 = &unk_1F5F00610;
-    *(this + 39) = v239;
+    v162 = operator new(0x20uLL);
+    *v162 = &unk_1F5F014B0;
+    v162[1] = v161;
+    v162[2] = 0;
+    *(v162 + 6) = 0;
+    v163 = operator new(0x90uLL);
+    BBUELFHeader::BBUELFHeader(v163, v161, 0);
+    v162[2] = v163;
+    *v162 = &unk_1F5F00610;
+    *(this + 39) = v162;
     if (gBBULogMaskGet(void)::once == -1)
     {
       if ((*gBBULogMaskGet(void)::sBBULogMask & 8) == 0)
       {
-        goto LABEL_345;
+        goto LABEL_340;
       }
     }
 
@@ -11144,34 +11508,34 @@ LABEL_334:
       dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
       if ((*gBBULogMaskGet(void)::sBBULogMask & 8) == 0)
       {
-        goto LABEL_345;
+        goto LABEL_340;
       }
     }
 
     if ((gBBULogVerbosity & 0x80000000) == 0)
     {
-      v241 = (**this)(this);
-      _BBULog(3, 0, v241, "", "Loaded OEMMisc\n", v242, v243, v244, v331);
+      v164 = (**this)(this);
+      _BBULog(3, 0, v164, "", "Loaded OEMMisc\n");
     }
   }
 
   else
   {
-    if (v237)
+    if (v160)
     {
-      goto LABEL_334;
+      goto LABEL_329;
     }
 
-LABEL_341:
+LABEL_336:
     if (gBBULogMaskGet(void)::once == -1)
     {
       if ((*gBBULogMaskGet(void)::sBBULogMask & 8) != 0)
       {
-LABEL_343:
+LABEL_338:
         if (gBBULogVerbosity >= 1)
         {
-          v246 = (**this)(this);
-          _BBULog(3, 1, v246, "", "File not present: %s\n", v247, v248, v249, "multi_image.mbn");
+          v166 = (**this)(this);
+          _BBULog(3, 1, v166, "", "File not present: %s\n", "multi_image.mbn");
         }
       }
     }
@@ -11181,48 +11545,48 @@ LABEL_343:
       dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
       if ((*gBBULogMaskGet(void)::sBBULogMask & 8) != 0)
       {
-        goto LABEL_343;
+        goto LABEL_338;
       }
     }
   }
 
-LABEL_345:
+LABEL_340:
   HIBYTE(__p.st_gid) = 19;
   strcpy(&__p, "multi_image_qti.mbn");
-  v250 = BBUEURUpdateSource::containsFile(this, &__p);
+  v167 = BBUEURUpdateSource::containsFile(this, &__p);
   if (SHIBYTE(__p.st_gid) < 0)
   {
-    v258 = v250;
+    v172 = v167;
     operator delete(*&__p.st_dev);
-    if (!v258)
+    if (!v172)
     {
-      goto LABEL_354;
+      goto LABEL_349;
     }
 
-LABEL_347:
+LABEL_342:
     HIBYTE(__p.st_gid) = 19;
     strcpy(&__p, "multi_image_qti.mbn");
-    v251 = BBUEURUpdateSource::createDataSource(this, &__p, 0);
+    v168 = BBUEURUpdateSource::createDataSource(this, &__p, 0);
     if (SHIBYTE(__p.st_gid) < 0)
     {
       operator delete(*&__p.st_dev);
     }
 
-    v252 = operator new(0x20uLL);
-    *v252 = &unk_1F5F014B0;
-    v252[1] = v251;
-    v252[2] = 0;
-    *(v252 + 6) = 0;
-    v253 = operator new(0x90uLL);
-    BBUELFHeader::BBUELFHeader(v253, v251, 0);
-    v252[2] = v253;
-    *v252 = &unk_1F5F00680;
-    *(this + 40) = v252;
+    v169 = operator new(0x20uLL);
+    *v169 = &unk_1F5F014B0;
+    v169[1] = v168;
+    v169[2] = 0;
+    *(v169 + 6) = 0;
+    v170 = operator new(0x90uLL);
+    BBUELFHeader::BBUELFHeader(v170, v168, 0);
+    v169[2] = v170;
+    *v169 = &unk_1F5F00680;
+    *(this + 40) = v169;
     if (gBBULogMaskGet(void)::once == -1)
     {
       if ((*gBBULogMaskGet(void)::sBBULogMask & 8) == 0)
       {
-        goto LABEL_358;
+        goto LABEL_353;
       }
     }
 
@@ -11231,34 +11595,34 @@ LABEL_347:
       dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
       if ((*gBBULogMaskGet(void)::sBBULogMask & 8) == 0)
       {
-        goto LABEL_358;
+        goto LABEL_353;
       }
     }
 
     if ((gBBULogVerbosity & 0x80000000) == 0)
     {
-      v254 = (**this)(this);
-      _BBULog(3, 0, v254, "", "Loaded QTIMisc\n", v255, v256, v257, v331);
+      v171 = (**this)(this);
+      _BBULog(3, 0, v171, "", "Loaded QTIMisc\n");
     }
   }
 
   else
   {
-    if (v250)
+    if (v167)
     {
-      goto LABEL_347;
+      goto LABEL_342;
     }
 
-LABEL_354:
+LABEL_349:
     if (gBBULogMaskGet(void)::once == -1)
     {
       if ((*gBBULogMaskGet(void)::sBBULogMask & 8) != 0)
       {
-LABEL_356:
+LABEL_351:
         if (gBBULogVerbosity >= 1)
         {
-          v259 = (**this)(this);
-          _BBULog(3, 1, v259, "", "File not present: %s\n", v260, v261, v262, "multi_image_qti.mbn");
+          v173 = (**this)(this);
+          _BBULog(3, 1, v173, "", "File not present: %s\n", "multi_image_qti.mbn");
         }
       }
     }
@@ -11268,48 +11632,48 @@ LABEL_356:
       dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
       if ((*gBBULogMaskGet(void)::sBBULogMask & 8) != 0)
       {
-        goto LABEL_356;
+        goto LABEL_351;
       }
     }
   }
 
-LABEL_358:
+LABEL_353:
   HIBYTE(__p.st_gid) = 11;
   strcpy(&__p, "xbl_cfg.elf");
-  v263 = BBUEURUpdateSource::containsFile(this, &__p);
+  v174 = BBUEURUpdateSource::containsFile(this, &__p);
   if (SHIBYTE(__p.st_gid) < 0)
   {
-    v271 = v263;
+    v179 = v174;
     operator delete(*&__p.st_dev);
-    if (!v271)
+    if (!v179)
     {
-      goto LABEL_367;
+      goto LABEL_362;
     }
 
-LABEL_360:
+LABEL_355:
     HIBYTE(__p.st_gid) = 11;
     strcpy(&__p, "xbl_cfg.elf");
-    v264 = BBUEURUpdateSource::createDataSource(this, &__p, 0);
+    v175 = BBUEURUpdateSource::createDataSource(this, &__p, 0);
     if (SHIBYTE(__p.st_gid) < 0)
     {
       operator delete(*&__p.st_dev);
     }
 
-    v265 = operator new(0x20uLL);
-    *v265 = &unk_1F5F014B0;
-    v265[1] = v264;
-    v265[2] = 0;
-    *(v265 + 6) = 0;
-    v266 = operator new(0x90uLL);
-    BBUELFHeader::BBUELFHeader(v266, v264, 0);
-    v265[2] = v266;
-    *v265 = &unk_1F5F006F0;
-    *(this + 41) = v265;
+    v176 = operator new(0x20uLL);
+    *v176 = &unk_1F5F014B0;
+    v176[1] = v175;
+    v176[2] = 0;
+    *(v176 + 6) = 0;
+    v177 = operator new(0x90uLL);
+    BBUELFHeader::BBUELFHeader(v177, v175, 0);
+    v176[2] = v177;
+    *v176 = &unk_1F5F006F0;
+    *(this + 41) = v176;
     if (gBBULogMaskGet(void)::once == -1)
     {
       if ((*gBBULogMaskGet(void)::sBBULogMask & 8) == 0)
       {
-        goto LABEL_371;
+        goto LABEL_366;
       }
     }
 
@@ -11318,34 +11682,34 @@ LABEL_360:
       dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
       if ((*gBBULogMaskGet(void)::sBBULogMask & 8) == 0)
       {
-        goto LABEL_371;
+        goto LABEL_366;
       }
     }
 
     if ((gBBULogVerbosity & 0x80000000) == 0)
     {
-      v267 = (**this)(this);
-      _BBULog(3, 0, v267, "", "Loaded XBL Config\n", v268, v269, v270, v331);
+      v178 = (**this)(this);
+      _BBULog(3, 0, v178, "", "Loaded XBL Config\n");
     }
   }
 
   else
   {
-    if (v263)
+    if (v174)
     {
-      goto LABEL_360;
+      goto LABEL_355;
     }
 
-LABEL_367:
+LABEL_362:
     if (gBBULogMaskGet(void)::once == -1)
     {
       if ((*gBBULogMaskGet(void)::sBBULogMask & 8) != 0)
       {
-LABEL_369:
+LABEL_364:
         if (gBBULogVerbosity >= 1)
         {
-          v272 = (**this)(this);
-          _BBULog(3, 1, v272, "", "File not present: %s\n", v273, v274, v275, "xbl_cfg.elf");
+          v180 = (**this)(this);
+          _BBULog(3, 1, v180, "", "File not present: %s\n", "xbl_cfg.elf");
         }
       }
     }
@@ -11355,48 +11719,48 @@ LABEL_369:
       dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
       if ((*gBBULogMaskGet(void)::sBBULogMask & 8) != 0)
       {
-        goto LABEL_369;
+        goto LABEL_364;
       }
     }
   }
 
-LABEL_371:
+LABEL_366:
   HIBYTE(__p.st_gid) = 8;
   strcpy(&__p, "uefi.elf");
-  v276 = BBUEURUpdateSource::containsFile(this, &__p);
+  v181 = BBUEURUpdateSource::containsFile(this, &__p);
   if (SHIBYTE(__p.st_gid) < 0)
   {
-    v284 = v276;
+    v186 = v181;
     operator delete(*&__p.st_dev);
-    if (!v284)
+    if (!v186)
     {
-      goto LABEL_380;
+      goto LABEL_375;
     }
 
-LABEL_373:
+LABEL_368:
     HIBYTE(__p.st_gid) = 8;
     strcpy(&__p, "uefi.elf");
-    v277 = BBUEURUpdateSource::createDataSource(this, &__p, 0);
+    v182 = BBUEURUpdateSource::createDataSource(this, &__p, 0);
     if (SHIBYTE(__p.st_gid) < 0)
     {
       operator delete(*&__p.st_dev);
     }
 
-    v278 = operator new(0x20uLL);
-    *v278 = &unk_1F5F014B0;
-    v278[1] = v277;
-    v278[2] = 0;
-    *(v278 + 6) = 0;
-    v279 = operator new(0x90uLL);
-    BBUELFHeader::BBUELFHeader(v279, v277, 0);
-    v278[2] = v279;
-    *v278 = &unk_1F5F00760;
-    *(this + 42) = v278;
+    v183 = operator new(0x20uLL);
+    *v183 = &unk_1F5F014B0;
+    v183[1] = v182;
+    v183[2] = 0;
+    *(v183 + 6) = 0;
+    v184 = operator new(0x90uLL);
+    BBUELFHeader::BBUELFHeader(v184, v182, 0);
+    v183[2] = v184;
+    *v183 = &unk_1F5F00760;
+    *(this + 42) = v183;
     if (gBBULogMaskGet(void)::once == -1)
     {
       if ((*gBBULogMaskGet(void)::sBBULogMask & 8) == 0)
       {
-        goto LABEL_384;
+        goto LABEL_379;
       }
     }
 
@@ -11405,34 +11769,34 @@ LABEL_373:
       dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
       if ((*gBBULogMaskGet(void)::sBBULogMask & 8) == 0)
       {
-        goto LABEL_384;
+        goto LABEL_379;
       }
     }
 
     if ((gBBULogVerbosity & 0x80000000) == 0)
     {
-      v280 = (**this)(this);
-      _BBULog(3, 0, v280, "", "Loaded UEFI\n", v281, v282, v283, v331);
+      v185 = (**this)(this);
+      _BBULog(3, 0, v185, "", "Loaded UEFI\n");
     }
   }
 
   else
   {
-    if (v276)
+    if (v181)
     {
-      goto LABEL_373;
+      goto LABEL_368;
     }
 
-LABEL_380:
+LABEL_375:
     if (gBBULogMaskGet(void)::once == -1)
     {
       if ((*gBBULogMaskGet(void)::sBBULogMask & 8) != 0)
       {
-LABEL_382:
+LABEL_377:
         if (gBBULogVerbosity >= 1)
         {
-          v285 = (**this)(this);
-          _BBULog(3, 1, v285, "", "File not present: %s\n", v286, v287, v288, "uefi.elf");
+          v187 = (**this)(this);
+          _BBULog(3, 1, v187, "", "File not present: %s\n", "uefi.elf");
         }
       }
     }
@@ -11442,48 +11806,48 @@ LABEL_382:
       dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
       if ((*gBBULogMaskGet(void)::sBBULogMask & 8) != 0)
       {
-        goto LABEL_382;
+        goto LABEL_377;
       }
     }
   }
 
-LABEL_384:
+LABEL_379:
   HIBYTE(__p.st_gid) = 15;
   strcpy(&__p, "xbl_support.elf");
-  v289 = BBUEURUpdateSource::containsFile(this, &__p);
+  v188 = BBUEURUpdateSource::containsFile(this, &__p);
   if (SHIBYTE(__p.st_gid) < 0)
   {
-    v297 = v289;
+    v193 = v188;
     operator delete(*&__p.st_dev);
-    if (!v297)
+    if (!v193)
     {
-      goto LABEL_393;
+      goto LABEL_388;
     }
 
-LABEL_386:
+LABEL_381:
     HIBYTE(__p.st_gid) = 15;
     strcpy(&__p, "xbl_support.elf");
-    v290 = BBUEURUpdateSource::createDataSource(this, &__p, 0);
+    v189 = BBUEURUpdateSource::createDataSource(this, &__p, 0);
     if (SHIBYTE(__p.st_gid) < 0)
     {
       operator delete(*&__p.st_dev);
     }
 
-    v291 = operator new(0x20uLL);
-    *v291 = &unk_1F5F014B0;
-    v291[1] = v290;
-    v291[2] = 0;
-    *(v291 + 6) = 0;
-    v292 = operator new(0x90uLL);
-    BBUELFHeader::BBUELFHeader(v292, v290, 0);
-    v291[2] = v292;
-    *v291 = &unk_1F5F007D0;
-    *(this + 43) = v291;
+    v190 = operator new(0x20uLL);
+    *v190 = &unk_1F5F014B0;
+    v190[1] = v189;
+    v190[2] = 0;
+    *(v190 + 6) = 0;
+    v191 = operator new(0x90uLL);
+    BBUELFHeader::BBUELFHeader(v191, v189, 0);
+    v190[2] = v191;
+    *v190 = &unk_1F5F007D0;
+    *(this + 43) = v190;
     if (gBBULogMaskGet(void)::once == -1)
     {
       if ((*gBBULogMaskGet(void)::sBBULogMask & 8) == 0)
       {
-        goto LABEL_397;
+        goto LABEL_392;
       }
     }
 
@@ -11492,34 +11856,34 @@ LABEL_386:
       dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
       if ((*gBBULogMaskGet(void)::sBBULogMask & 8) == 0)
       {
-        goto LABEL_397;
+        goto LABEL_392;
       }
     }
 
     if ((gBBULogVerbosity & 0x80000000) == 0)
     {
-      v293 = (**this)(this);
-      _BBULog(3, 0, v293, "", "Loaded XBL Support\n", v294, v295, v296, v331);
+      v192 = (**this)(this);
+      _BBULog(3, 0, v192, "", "Loaded XBL Support\n");
     }
   }
 
   else
   {
-    if (v289)
+    if (v188)
     {
-      goto LABEL_386;
+      goto LABEL_381;
     }
 
-LABEL_393:
+LABEL_388:
     if (gBBULogMaskGet(void)::once == -1)
     {
       if ((*gBBULogMaskGet(void)::sBBULogMask & 8) != 0)
       {
-LABEL_395:
+LABEL_390:
         if (gBBULogVerbosity >= 1)
         {
-          v298 = (**this)(this);
-          _BBULog(3, 1, v298, "", "File not present: %s\n", v299, v300, v301, "xbl_support.elf");
+          v194 = (**this)(this);
+          _BBULog(3, 1, v194, "", "File not present: %s\n", "xbl_support.elf");
         }
       }
     }
@@ -11529,56 +11893,56 @@ LABEL_395:
       dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
       if ((*gBBULogMaskGet(void)::sBBULogMask & 8) != 0)
       {
-        goto LABEL_395;
+        goto LABEL_390;
       }
     }
   }
 
-LABEL_397:
+LABEL_392:
   HIBYTE(__p.st_gid) = 13;
   strcpy(&__p, "Options.plist");
-  v302 = BBUEURUpdateSource::containsFile(this, &__p);
+  v195 = BBUEURUpdateSource::containsFile(this, &__p);
   if (SHIBYTE(__p.st_gid) < 0)
   {
-    v303 = v302;
+    v196 = v195;
     operator delete(*&__p.st_dev);
-    if (!v303)
+    if (!v196)
     {
-      goto LABEL_411;
+      goto LABEL_406;
     }
   }
 
-  else if (!v302)
+  else if (!v195)
   {
-    goto LABEL_411;
+    goto LABEL_406;
   }
 
   HIBYTE(__p.st_gid) = 13;
   strcpy(&__p, "Options.plist");
-  v304 = BBUEURUpdateSource::createDataSource(this, &__p, 0);
+  v197 = BBUEURUpdateSource::createDataSource(this, &__p, 0);
   if (SHIBYTE(__p.st_gid) < 0)
   {
     operator delete(*&__p.st_dev);
   }
 
   *&__p.st_dev = 0xAAAAAAAAAAAAAAAALL;
-  BBUDataSource::createData(v304, &__p);
-  if (v304)
+  BBUDataSource::createData(&__p, v197);
+  if (v197)
   {
-    (*(*v304 + 8))(v304);
+    (*(*v197 + 8))(v197);
   }
 
-  v305 = *&__p.st_dev;
-  v332 = *&__p.st_dev;
+  v198 = *&__p.st_dev;
+  v206 = *&__p.st_dev;
   if (*&__p.st_dev)
   {
     CFRetain(*&__p.st_dev);
   }
 
-  BBUUpdateSource::loadOptions(this, &v332);
-  if (v305)
+  BBUUpdateSource::loadOptions(this, &v206);
+  if (v198)
   {
-    CFRelease(v305);
+    CFRelease(v198);
   }
 
   if (*&__p.st_dev)
@@ -11586,23 +11950,23 @@ LABEL_397:
     CFRelease(*&__p.st_dev);
   }
 
-LABEL_411:
+LABEL_406:
   (*(*this + 264))(this);
-  if ((SHIBYTE(v335.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+  if ((SHIBYTE(v209.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
   {
-    if ((SHIBYTE(v336.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+    if ((SHIBYTE(v210.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
     {
       return;
     }
 
-LABEL_415:
-    operator delete(v336.__r_.__value_.__l.__data_);
+LABEL_410:
+    operator delete(v210.__r_.__value_.__l.__data_);
     return;
   }
 
-  operator delete(v335.__r_.__value_.__l.__data_);
-  if (SHIBYTE(v336.__r_.__value_.__r.__words[2]) < 0)
+  operator delete(v209.__r_.__value_.__l.__data_);
+  if (SHIBYTE(v210.__r_.__value_.__r.__words[2]) < 0)
   {
-    goto LABEL_415;
+    goto LABEL_410;
   }
 }

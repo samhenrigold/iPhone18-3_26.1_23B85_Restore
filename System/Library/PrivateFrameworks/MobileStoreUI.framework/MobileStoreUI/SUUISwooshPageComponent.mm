@@ -43,14 +43,14 @@
       goto LABEL_8;
     }
 
-    if ([v7 isEqualToString:@"brick"])
+    if (objc_msgSend_isEqualToString_(v7))
     {
       v8 = 1;
     }
 
     else
     {
-      if (![v7 isEqualToString:@"media"])
+      if (!objc_msgSend_isEqualToString_(v7))
       {
         goto LABEL_8;
       }
@@ -382,7 +382,7 @@ LABEL_27:
     v10->_lockups = v11;
 
     v10->_swooshType = type;
-    [(SUUISwooshPageComponent *)v10 _lockupStyleWithLockups:v10->_lockups];
+    objc_msgSend__lockupStyleWithLockups_(v10);
     v10->_lockupStyle.visibleFields = v17;
     *&v10->_lockupStyle.artworkSize = v16;
     v13 = [titleCopy copy];
@@ -531,13 +531,13 @@ LABEL_6:
 - (id)valueForMetricsField:(id)field
 {
   fieldCopy = field;
-  if (([fieldCopy isEqualToString:*MEMORY[0x277D6A4A0]] & 1) != 0 || objc_msgSend(fieldCopy, "isEqualToString:", *MEMORY[0x277D6A4A8]))
+  if ((objc_msgSend_isEqualToString_(fieldCopy) & 1) != 0 || objc_msgSend_isEqualToString_(fieldCopy))
   {
     title = [(SUUISwooshPageComponent *)self title];
     goto LABEL_4;
   }
 
-  if ([fieldCopy isEqualToString:*MEMORY[0x277D6A498]])
+  if (objc_msgSend_isEqualToString_(fieldCopy))
   {
     title = [MEMORY[0x277CCABB0] numberWithInteger:self->_fcKind];
 LABEL_4:
@@ -1217,7 +1217,7 @@ LABEL_7:
   v12 = 0;
   if (lockupCopy)
   {
-    [lockupCopy lockupStyle];
+    objc_msgSend_lockupStyle(lockupCopy);
   }
 
   if ([itemCopy itemKind] == 17)

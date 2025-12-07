@@ -92,7 +92,7 @@
           }
 
           v21 = *(*(&v38 + 1) + 8 * i);
-          if (([v21 isEqualToString:@"sublayers"] & 1) == 0 && (objc_msgSend(v21, "isEqualToString:", @"mask") & 1) == 0 && -[CALayer shouldArchiveValueForKey:](self, "shouldArchiveValueForKey:", v21))
+          if ((objc_msgSend_isEqualToString_(v21) & 1) == 0 && (objc_msgSend_isEqualToString_(v21) & 1) == 0 && [(CALayer *)self shouldArchiveValueForKey:v21])
           {
             v22 = [(CALayer *)self valueForKey:v21];
             [v3 setValue:v22 forKey:v21];
@@ -377,7 +377,7 @@ LABEL_8:
 
   if (flippedCopy)
   {
-    if ([(NSString *)gravityCopy isEqualToString:kCAGravityTopLeft])
+    if (objc_msgSend_isEqualToString_(gravityCopy))
     {
       v29 = &kCAGravityBottomLeft;
 LABEL_22:
@@ -389,33 +389,33 @@ LABEL_23:
       goto LABEL_24;
     }
 
-    if ([(NSString *)gravityCopy isEqualToString:kCAGravityTop])
+    if (objc_msgSend_isEqualToString_(gravityCopy))
     {
       v29 = &kCAGravityBottom;
       goto LABEL_22;
     }
 
-    if ([(NSString *)gravityCopy isEqualToString:kCAGravityTopRight])
+    if (objc_msgSend_isEqualToString_(gravityCopy))
     {
       v29 = &kCAGravityBottomRight;
       goto LABEL_22;
     }
 
-    v37 = [(NSString *)gravityCopy isEqualToString:kCAGravityBottomLeft];
+    v37 = objc_msgSend_isEqualToString_(gravityCopy);
     v30 = kCAGravityTopLeft;
     if (v37)
     {
       goto LABEL_23;
     }
 
-    v38 = [(NSString *)gravityCopy isEqualToString:kCAGravityBottom];
+    v38 = objc_msgSend_isEqualToString_(gravityCopy);
     v30 = kCAGravityTop;
     if (v38)
     {
       goto LABEL_23;
     }
 
-    v39 = [(NSString *)gravityCopy isEqualToString:kCAGravityBottomRight];
+    v39 = objc_msgSend_isEqualToString_(gravityCopy);
     v30 = kCAGravityTopRight;
     if (v39)
     {
@@ -424,7 +424,7 @@ LABEL_23:
   }
 
 LABEL_24:
-  if ([(NSString *)gravityCopy isEqualToString:kCAGravityTopLeft])
+  if (objc_msgSend_isEqualToString_(gravityCopy))
   {
 LABEL_29:
     y = y + v26 - v28;
@@ -435,31 +435,31 @@ LABEL_31:
     goto LABEL_32;
   }
 
-  if ([(NSString *)gravityCopy isEqualToString:kCAGravityTop])
+  if (objc_msgSend_isEqualToString_(gravityCopy))
   {
     x = x + v25 * 0.5 - v27 * 0.5;
     goto LABEL_29;
   }
 
-  if ([(NSString *)gravityCopy isEqualToString:kCAGravityTopRight])
+  if (objc_msgSend_isEqualToString_(gravityCopy))
   {
     x = x + v25 - v27;
     goto LABEL_29;
   }
 
-  if ([(NSString *)gravityCopy isEqualToString:kCAGravityLeft])
+  if (objc_msgSend_isEqualToString_(gravityCopy))
   {
     goto LABEL_40;
   }
 
-  if ([(NSString *)gravityCopy isEqualToString:kCAGravityCenter])
+  if (objc_msgSend_isEqualToString_(gravityCopy))
   {
     v36 = 0.5;
     x = x + v25 * 0.5 - v27 * 0.5;
     goto LABEL_47;
   }
 
-  if ([(NSString *)gravityCopy isEqualToString:kCAGravityRight])
+  if (objc_msgSend_isEqualToString_(gravityCopy))
   {
     x = x + v25 - v27;
 LABEL_40:
@@ -470,24 +470,24 @@ LABEL_47:
   }
 
   v32 = 1.0;
-  if ([(NSString *)gravityCopy isEqualToString:kCAGravityBottomLeft])
+  if (objc_msgSend_isEqualToString_(gravityCopy))
   {
     goto LABEL_31;
   }
 
-  if ([(NSString *)gravityCopy isEqualToString:kCAGravityBottom])
+  if (objc_msgSend_isEqualToString_(gravityCopy))
   {
     x = x + v25 * 0.5 - v27 * 0.5;
     goto LABEL_31;
   }
 
-  if ([(NSString *)gravityCopy isEqualToString:kCAGravityBottomRight])
+  if (objc_msgSend_isEqualToString_(gravityCopy))
   {
     x = x + v25 - v27;
     goto LABEL_31;
   }
 
-  if ([(NSString *)gravityCopy isEqualToString:kCAGravityResize])
+  if (objc_msgSend_isEqualToString_(gravityCopy))
   {
     v33 = v25 / v27;
     v32 = v26 / v28;
@@ -495,7 +495,7 @@ LABEL_47:
 
   else
   {
-    if ([(NSString *)gravityCopy isEqualToString:kCAGravityResizeAspect])
+    if (objc_msgSend_isEqualToString_(gravityCopy))
     {
       if (v25 / v27 >= v26 / v28)
       {
@@ -510,7 +510,7 @@ LABEL_47:
 
     else
     {
-      if (![(NSString *)gravityCopy isEqualToString:kCAGravityResizeAspectFill])
+      if (!objc_msgSend_isEqualToString_(gravityCopy))
       {
         x = CGPointZero.x;
         y = CGPointZero.y;

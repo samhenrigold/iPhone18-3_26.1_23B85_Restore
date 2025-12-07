@@ -150,16 +150,16 @@
 
 + (id)instantMessageUsernameWithSchemeForUsername:(id)username service:(id)service
 {
-  v22[2] = *MEMORY[0x277D85DE8];
+  v21[2] = *MEMORY[0x277D85DE8];
   serviceCopy = service;
   v6 = MEMORY[0x277CCA900];
   usernameCopy = username;
   uRLPathAllowedCharacterSet = [v6 URLPathAllowedCharacterSet];
   v9 = [usernameCopy stringByAddingPercentEncodingWithAllowedCharacters:uRLPathAllowedCharacterSet];
 
-  v22[0] = @"AIMInstant";
-  v22[1] = @"ICQInstant";
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:2];
+  v21[0] = @"AIMInstant";
+  v21[1] = @"ICQInstant";
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:2];
   LODWORD(usernameCopy) = [v10 containsObject:serviceCopy];
 
   if (usernameCopy)
@@ -168,10 +168,10 @@
     goto LABEL_14;
   }
 
-  v21[0] = @"FacebookInstant";
-  v21[1] = @"GoogleTalkInstant";
-  v21[2] = @"JabberInstant";
-  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:3];
+  v20[0] = @"FacebookInstant";
+  v20[1] = @"GoogleTalkInstant";
+  v20[2] = @"JabberInstant";
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:3];
   v12 = [v11 containsObject:serviceCopy];
 
   if (v12)
@@ -186,9 +186,9 @@
     goto LABEL_14;
   }
 
-  v20[0] = @"GaduGaduInstant";
-  v20[1] = @"QQInstant";
-  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:2];
+  v19[0] = @"GaduGaduInstant";
+  v19[1] = @"QQInstant";
+  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:2];
   v14 = [v13 containsObject:serviceCopy];
 
   if (v14)
@@ -218,31 +218,27 @@ LABEL_9:
 
   v17 = LABEL_14:;
 
-  v18 = *MEMORY[0x277D85DE8];
-
   return v17;
 }
 
 - (id)standardLabelsForLabel:(id)label
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   labelCopy = label;
   if ([labelCopy isEqualToString:@"MobileMe"])
   {
-    v10[0] = @"MobileMe";
-    v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
+    v9[0] = @"MobileMe";
+    v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
   }
 
   else
   {
-    v9.receiver = self;
-    v9.super_class = CNVCardInstantMessagingLineGenerator;
-    v5 = [(CNVCardLineGenerator *)&v9 standardLabelsForLabel:labelCopy];
+    v8.receiver = self;
+    v8.super_class = CNVCardInstantMessagingLineGenerator;
+    v5 = [(CNVCardLineGenerator *)&v8 standardLabelsForLabel:labelCopy];
   }
 
   v6 = v5;
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v6;
 }

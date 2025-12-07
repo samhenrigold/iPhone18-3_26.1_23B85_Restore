@@ -201,7 +201,7 @@ LABEL_12:
 
 void __endpointCentricPlugin_GetPropertyData_block_invoke(uint64_t a1)
 {
-  v57 = *MEMORY[0x1E69E9840];
+  v58 = *MEMORY[0x1E69E9840];
   Mutable = CFStringCreateMutable(*MEMORY[0x1E695E480], 0);
   v3 = *(a1 + 40);
   v5 = *(v3 + 64);
@@ -259,10 +259,11 @@ void __endpointCentricPlugin_GetPropertyData_block_invoke(uint64_t a1)
   }
 
   **(a1 + 56) = 4 * v14;
-  v42[0] = 0;
+  v42 = 0;
   type = OS_LOG_TYPE_DEFAULT;
-  os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(0, 1, v42, &type);
-  v20 = v42[0];
+  os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(0, 1, &v42, &type);
+  v20 = v42;
+  v21 = type;
   if (os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, type))
   {
     v22 = v20;
@@ -367,22 +368,22 @@ void __endpointCentricPlugin_GetPropertyData_block_invoke(uint64_t a1)
     }
 
     v39 = *(*(*(a1 + 32) + 8) + 24);
-    v42[1] = 136316674;
-    v43 = "endpointCentricPlugin_GetPropertyData_block_invoke";
-    v44 = 1024;
-    v45 = v40;
-    v46 = 1024;
-    v47 = v31;
-    v48 = 1024;
-    v49 = v35;
-    v50 = 1024;
-    v51 = v38;
-    v52 = 2048;
-    v53 = v39;
-    v54 = 2112;
-    v55 = Mutable;
-    v27 = _os_log_send_and_compose_impl();
-    LOBYTE(v20) = v42[0];
+    v43 = 136316674;
+    v44 = "endpointCentricPlugin_GetPropertyData_block_invoke";
+    v45 = 1024;
+    v46 = v40;
+    v47 = 1024;
+    v48 = v31;
+    v49 = 1024;
+    v50 = v35;
+    v51 = 1024;
+    v52 = v38;
+    v53 = 2048;
+    v54 = v39;
+    v55 = 2112;
+    v56 = Mutable;
+    v27 = _os_log_send_and_compose_impl(v22, 0, v57, 128, &dword_196FA7000, os_log_and_send_and_compose_flags_and_os_log_type, v21, "<<< EndpointCentricHALPlugin >>> %s: '%c%c%c%c' returning %ld devices:%@\n", &v43, 56);
+    LOBYTE(v20) = v42;
   }
 
   else
@@ -390,7 +391,7 @@ void __endpointCentricPlugin_GetPropertyData_block_invoke(uint64_t a1)
     v27 = 0;
   }
 
-  fig_log_call_emit_and_clean_up_after_send_and_compose(0, 1u, 1, v27, v27 != &v56, v20, 0, v21);
+  fig_log_call_emit_and_clean_up_after_send_and_compose(0, 1, 1, v27, v27 != v57, v20);
   CFRelease(Mutable);
   free(v9);
 }

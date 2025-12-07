@@ -11,9 +11,7 @@
 
 - (void)activitySharingManagerReady:(id)ready
 {
-  bulletinPostingManager = [ready bulletinPostingManager];
-  bulletinPostingManager = self->_bulletinPostingManager;
-  self->_bulletinPostingManager = bulletinPostingManager;
+  self->_bulletinPostingManager = [ready bulletinPostingManager];
 
   MEMORY[0x2821F96F8]();
 }

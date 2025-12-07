@@ -1,677 +1,3 @@
-uint64_t AirReflection::Node::node_as_ArrayOfType(AirReflection::Node *this)
-{
-  v1 = (this - *this);
-  v2 = *v1;
-  if (v2 < 5 || !v1[2])
-  {
-    return 0;
-  }
-
-  v3 = 0;
-  if (v2 >= 7 && *(this + v1[2]) == 532480)
-  {
-    v3 = v1[3];
-    if (v1[3])
-    {
-      v3 += this + *(this + v3);
-    }
-  }
-
-  return v3;
-}
-
-uint64_t AirReflection::ArrayOfType::HashImpl(int *a1, CC_SHA256_CTX *c)
-{
-  CC_SHA256_Update(c, "AirReflection.ArrayOfType", 0x19u);
-  v4 = (a1 - *a1);
-  if (*v4 < 5u)
-  {
-    LODWORD(v5) = 0;
-  }
-
-  else
-  {
-    v5 = v4[2];
-    if (v5)
-    {
-      LODWORD(v5) = *(a1 + v5);
-    }
-  }
-
-  data = v5;
-  CC_SHA256_Update(c, &data, 4u);
-  v6 = (a1 - *a1);
-  if (*v6 < 7u)
-  {
-    LODWORD(v7) = 0;
-  }
-
-  else
-  {
-    v7 = v6[3];
-    if (v7)
-    {
-      LODWORD(v7) = *(a1 + v7);
-    }
-  }
-
-  data = v7;
-  CC_SHA256_Update(c, &data, 4u);
-  v8 = (a1 - *a1);
-  if (*v8 >= 9u && (v9 = v8[4]) != 0)
-  {
-    v10 = (a1 + v9 + *(a1 + v9));
-    data = *v10;
-    CC_SHA256_Update(c, &data, 4u);
-    v11 = *v10;
-    if (v11)
-    {
-      v12 = (v10 + 1);
-      do
-      {
-        CC_SHA256_Update(c, "AirReflection.NodeId", 0x14u);
-        v13 = *v12++;
-        data = v13;
-        CC_SHA256_Update(c, &data, 4u);
-        --v11;
-      }
-
-      while (v11);
-    }
-  }
-
-  else
-  {
-    data = 0;
-    CC_SHA256_Update(c, &data, 4u);
-  }
-
-  v14 = (a1 - *a1);
-  if (*v14 >= 0xBu && (v15 = v14[5]) != 0)
-  {
-    v16 = v15;
-    CC_SHA256_Update(c, "AirReflection.NodeId", 0x14u);
-    data = *(a1 + v16);
-  }
-
-  else
-  {
-    data = 0;
-  }
-
-  CC_SHA256_Update(c, &data, 4u);
-  v17 = (a1 - *a1);
-  if (*v17 < 0xDu)
-  {
-    LODWORD(v18) = 0;
-  }
-
-  else
-  {
-    v18 = v17[6];
-    if (v18)
-    {
-      LODWORD(v18) = *(a1 + v18);
-    }
-  }
-
-  data = v18;
-  return CC_SHA256_Update(c, &data, 4u);
-}
-
-uint64_t AirReflection::Node::node_as_ArrayRefOfType(AirReflection::Node *this)
-{
-  v1 = (this - *this);
-  v2 = *v1;
-  if (v2 >= 5 && v1[2] && (v2 >= 7 ? (v3 = *(this + v1[2]) == 532481) : (v3 = 0), v3 && (v4 = v1[3]) != 0))
-  {
-    return this + v4 + *(this + v4);
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-uint64_t AirReflection::ArrayRefOfType::HashImpl(int *a1, CC_SHA256_CTX *c)
-{
-  CC_SHA256_Update(c, "AirReflection.ArrayRefOfType", 0x1Cu);
-  v4 = (a1 - *a1);
-  if (*v4 < 5u)
-  {
-    LODWORD(v5) = 0;
-  }
-
-  else
-  {
-    v5 = v4[2];
-    if (v5)
-    {
-      LODWORD(v5) = *(a1 + v5);
-    }
-  }
-
-  data = v5;
-  CC_SHA256_Update(c, &data, 4u);
-  v6 = (a1 - *a1);
-  if (*v6 < 7u)
-  {
-    LODWORD(v7) = 0;
-  }
-
-  else
-  {
-    v7 = v6[3];
-    if (v7)
-    {
-      LODWORD(v7) = *(a1 + v7);
-    }
-  }
-
-  data = v7;
-  CC_SHA256_Update(c, &data, 4u);
-  v8 = (a1 - *a1);
-  if (*v8 >= 9u && (v9 = v8[4]) != 0)
-  {
-    v10 = (a1 + v9 + *(a1 + v9));
-    data = *v10;
-    CC_SHA256_Update(c, &data, 4u);
-    v11 = *v10;
-    if (v11)
-    {
-      v12 = (v10 + 1);
-      do
-      {
-        CC_SHA256_Update(c, "AirReflection.NodeId", 0x14u);
-        v13 = *v12++;
-        data = v13;
-        CC_SHA256_Update(c, &data, 4u);
-        --v11;
-      }
-
-      while (v11);
-    }
-  }
-
-  else
-  {
-    data = 0;
-    CC_SHA256_Update(c, &data, 4u);
-  }
-
-  v14 = (a1 - *a1);
-  if (*v14 >= 0xBu && (v15 = v14[5]) != 0)
-  {
-    v16 = v15;
-    CC_SHA256_Update(c, "AirReflection.NodeId", 0x14u);
-    data = *(a1 + v16);
-  }
-
-  else
-  {
-    data = 0;
-  }
-
-  return CC_SHA256_Update(c, &data, 4u);
-}
-
-uint64_t AirReflection::Node::node_as_Texture1dType(AirReflection::Node *this)
-{
-  v1 = (this - *this);
-  v2 = *v1;
-  if (v2 >= 5 && v1[2] && (v2 >= 7 ? (v3 = *(this + v1[2]) == 532482) : (v3 = 0), v3 && (v4 = v1[3]) != 0))
-  {
-    return this + v4 + *(this + v4);
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-uint64_t AirReflection::Texture1dType::HashImpl(int *a1, CC_SHA256_CTX *c)
-{
-  CC_SHA256_Update(c, "AirReflection.Texture1dType", 0x1Bu);
-  v4 = (a1 - *a1);
-  if (*v4 < 5u)
-  {
-    LODWORD(v5) = 0;
-  }
-
-  else
-  {
-    v5 = v4[2];
-    if (v5)
-    {
-      LODWORD(v5) = *(a1 + v5);
-    }
-  }
-
-  data = v5;
-  CC_SHA256_Update(c, &data, 4u);
-  v6 = (a1 - *a1);
-  if (*v6 < 7u)
-  {
-    LODWORD(v7) = 0;
-  }
-
-  else
-  {
-    v7 = v6[3];
-    if (v7)
-    {
-      LODWORD(v7) = *(a1 + v7);
-    }
-  }
-
-  data = v7;
-  CC_SHA256_Update(c, &data, 4u);
-  v8 = (a1 - *a1);
-  if (*v8 >= 9u && (v9 = v8[4]) != 0)
-  {
-    v10 = (a1 + v9 + *(a1 + v9));
-    data = *v10;
-    CC_SHA256_Update(c, &data, 4u);
-    v11 = *v10;
-    if (v11)
-    {
-      v12 = (v10 + 1);
-      do
-      {
-        CC_SHA256_Update(c, "AirReflection.NodeId", 0x14u);
-        v13 = *v12++;
-        data = v13;
-        CC_SHA256_Update(c, &data, 4u);
-        --v11;
-      }
-
-      while (v11);
-    }
-  }
-
-  else
-  {
-    data = 0;
-    CC_SHA256_Update(c, &data, 4u);
-  }
-
-  v14 = (a1 - *a1);
-  if (*v14 >= 0xBu && (v15 = v14[5]) != 0)
-  {
-    v16 = v15;
-    CC_SHA256_Update(c, "AirReflection.NodeId", 0x14u);
-    data = *(a1 + v16);
-  }
-
-  else
-  {
-    data = 0;
-  }
-
-  CC_SHA256_Update(c, &data, 4u);
-  v17 = (a1 - *a1);
-  if (*v17 < 0xDu)
-  {
-    LODWORD(v18) = 0;
-  }
-
-  else
-  {
-    v18 = v17[6];
-    if (v18)
-    {
-      LODWORD(v18) = *(a1 + v18);
-    }
-  }
-
-  data = v18;
-  return CC_SHA256_Update(c, &data, 4u);
-}
-
-uint64_t AirReflection::Node::node_as_Texture1dArrayType(AirReflection::Node *this)
-{
-  v1 = (this - *this);
-  v2 = *v1;
-  if (v2 >= 5 && v1[2] && (v2 >= 7 ? (v3 = *(this + v1[2]) == 532483) : (v3 = 0), v3 && (v4 = v1[3]) != 0))
-  {
-    return this + v4 + *(this + v4);
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-uint64_t AirReflection::Texture1dArrayType::HashImpl(int *a1, CC_SHA256_CTX *c)
-{
-  CC_SHA256_Update(c, "AirReflection.Texture1dArrayType", 0x20u);
-  v4 = (a1 - *a1);
-  if (*v4 < 5u)
-  {
-    LODWORD(v5) = 0;
-  }
-
-  else
-  {
-    v5 = v4[2];
-    if (v5)
-    {
-      LODWORD(v5) = *(a1 + v5);
-    }
-  }
-
-  data = v5;
-  CC_SHA256_Update(c, &data, 4u);
-  v6 = (a1 - *a1);
-  if (*v6 < 7u)
-  {
-    LODWORD(v7) = 0;
-  }
-
-  else
-  {
-    v7 = v6[3];
-    if (v7)
-    {
-      LODWORD(v7) = *(a1 + v7);
-    }
-  }
-
-  data = v7;
-  CC_SHA256_Update(c, &data, 4u);
-  v8 = (a1 - *a1);
-  if (*v8 >= 9u && (v9 = v8[4]) != 0)
-  {
-    v10 = (a1 + v9 + *(a1 + v9));
-    data = *v10;
-    CC_SHA256_Update(c, &data, 4u);
-    v11 = *v10;
-    if (v11)
-    {
-      v12 = (v10 + 1);
-      do
-      {
-        CC_SHA256_Update(c, "AirReflection.NodeId", 0x14u);
-        v13 = *v12++;
-        data = v13;
-        CC_SHA256_Update(c, &data, 4u);
-        --v11;
-      }
-
-      while (v11);
-    }
-  }
-
-  else
-  {
-    data = 0;
-    CC_SHA256_Update(c, &data, 4u);
-  }
-
-  v14 = (a1 - *a1);
-  if (*v14 >= 0xBu && (v15 = v14[5]) != 0)
-  {
-    v16 = v15;
-    CC_SHA256_Update(c, "AirReflection.NodeId", 0x14u);
-    data = *(a1 + v16);
-  }
-
-  else
-  {
-    data = 0;
-  }
-
-  CC_SHA256_Update(c, &data, 4u);
-  v17 = (a1 - *a1);
-  if (*v17 < 0xDu)
-  {
-    LODWORD(v18) = 0;
-  }
-
-  else
-  {
-    v18 = v17[6];
-    if (v18)
-    {
-      LODWORD(v18) = *(a1 + v18);
-    }
-  }
-
-  data = v18;
-  return CC_SHA256_Update(c, &data, 4u);
-}
-
-uint64_t AirReflection::Node::node_as_Texture2dType(AirReflection::Node *this)
-{
-  v1 = (this - *this);
-  v2 = *v1;
-  if (v2 >= 5 && v1[2] && (v2 >= 7 ? (v3 = *(this + v1[2]) == 532484) : (v3 = 0), v3 && (v4 = v1[3]) != 0))
-  {
-    return this + v4 + *(this + v4);
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-uint64_t AirReflection::Texture2dType::HashImpl(int *a1, CC_SHA256_CTX *c)
-{
-  CC_SHA256_Update(c, "AirReflection.Texture2dType", 0x1Bu);
-  v4 = (a1 - *a1);
-  if (*v4 < 5u)
-  {
-    LODWORD(v5) = 0;
-  }
-
-  else
-  {
-    v5 = v4[2];
-    if (v5)
-    {
-      LODWORD(v5) = *(a1 + v5);
-    }
-  }
-
-  data = v5;
-  CC_SHA256_Update(c, &data, 4u);
-  v6 = (a1 - *a1);
-  if (*v6 < 7u)
-  {
-    LODWORD(v7) = 0;
-  }
-
-  else
-  {
-    v7 = v6[3];
-    if (v7)
-    {
-      LODWORD(v7) = *(a1 + v7);
-    }
-  }
-
-  data = v7;
-  CC_SHA256_Update(c, &data, 4u);
-  v8 = (a1 - *a1);
-  if (*v8 >= 9u && (v9 = v8[4]) != 0)
-  {
-    v10 = (a1 + v9 + *(a1 + v9));
-    data = *v10;
-    CC_SHA256_Update(c, &data, 4u);
-    v11 = *v10;
-    if (v11)
-    {
-      v12 = (v10 + 1);
-      do
-      {
-        CC_SHA256_Update(c, "AirReflection.NodeId", 0x14u);
-        v13 = *v12++;
-        data = v13;
-        CC_SHA256_Update(c, &data, 4u);
-        --v11;
-      }
-
-      while (v11);
-    }
-  }
-
-  else
-  {
-    data = 0;
-    CC_SHA256_Update(c, &data, 4u);
-  }
-
-  v14 = (a1 - *a1);
-  if (*v14 >= 0xBu && (v15 = v14[5]) != 0)
-  {
-    v16 = v15;
-    CC_SHA256_Update(c, "AirReflection.NodeId", 0x14u);
-    data = *(a1 + v16);
-  }
-
-  else
-  {
-    data = 0;
-  }
-
-  CC_SHA256_Update(c, &data, 4u);
-  v17 = (a1 - *a1);
-  if (*v17 < 0xDu)
-  {
-    LODWORD(v18) = 0;
-  }
-
-  else
-  {
-    v18 = v17[6];
-    if (v18)
-    {
-      LODWORD(v18) = *(a1 + v18);
-    }
-  }
-
-  data = v18;
-  return CC_SHA256_Update(c, &data, 4u);
-}
-
-uint64_t AirReflection::Node::node_as_Texture2dArrayType(AirReflection::Node *this)
-{
-  v1 = (this - *this);
-  v2 = *v1;
-  if (v2 >= 5 && v1[2] && (v2 >= 7 ? (v3 = *(this + v1[2]) == 532485) : (v3 = 0), v3 && (v4 = v1[3]) != 0))
-  {
-    return this + v4 + *(this + v4);
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-uint64_t AirReflection::Texture2dArrayType::HashImpl(int *a1, CC_SHA256_CTX *c)
-{
-  CC_SHA256_Update(c, "AirReflection.Texture2dArrayType", 0x20u);
-  v4 = (a1 - *a1);
-  if (*v4 < 5u)
-  {
-    LODWORD(v5) = 0;
-  }
-
-  else
-  {
-    v5 = v4[2];
-    if (v5)
-    {
-      LODWORD(v5) = *(a1 + v5);
-    }
-  }
-
-  data = v5;
-  CC_SHA256_Update(c, &data, 4u);
-  v6 = (a1 - *a1);
-  if (*v6 < 7u)
-  {
-    LODWORD(v7) = 0;
-  }
-
-  else
-  {
-    v7 = v6[3];
-    if (v7)
-    {
-      LODWORD(v7) = *(a1 + v7);
-    }
-  }
-
-  data = v7;
-  CC_SHA256_Update(c, &data, 4u);
-  v8 = (a1 - *a1);
-  if (*v8 >= 9u && (v9 = v8[4]) != 0)
-  {
-    v10 = (a1 + v9 + *(a1 + v9));
-    data = *v10;
-    CC_SHA256_Update(c, &data, 4u);
-    v11 = *v10;
-    if (v11)
-    {
-      v12 = (v10 + 1);
-      do
-      {
-        CC_SHA256_Update(c, "AirReflection.NodeId", 0x14u);
-        v13 = *v12++;
-        data = v13;
-        CC_SHA256_Update(c, &data, 4u);
-        --v11;
-      }
-
-      while (v11);
-    }
-  }
-
-  else
-  {
-    data = 0;
-    CC_SHA256_Update(c, &data, 4u);
-  }
-
-  v14 = (a1 - *a1);
-  if (*v14 >= 0xBu && (v15 = v14[5]) != 0)
-  {
-    v16 = v15;
-    CC_SHA256_Update(c, "AirReflection.NodeId", 0x14u);
-    data = *(a1 + v16);
-  }
-
-  else
-  {
-    data = 0;
-  }
-
-  CC_SHA256_Update(c, &data, 4u);
-  v17 = (a1 - *a1);
-  if (*v17 < 0xDu)
-  {
-    LODWORD(v18) = 0;
-  }
-
-  else
-  {
-    v18 = v17[6];
-    if (v18)
-    {
-      LODWORD(v18) = *(a1 + v18);
-    }
-  }
-
-  data = v18;
-  return CC_SHA256_Update(c, &data, 4u);
-}
-
 uint64_t AirReflection::Node::node_as_Texture3dType(AirReflection::Node *this)
 {
   v1 = (this - *this);
@@ -6682,7 +6008,7 @@ uint64_t AirReflection::BoolValue::HashImpl(_BYTE *a1, CC_SHA256_CTX *c)
 llvm::Value *expandVector(llvm::Type *a1, unsigned int **a2, llvm::Value *a3, unsigned int a4)
 {
   v5 = a3;
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v8 = *a3;
   v9 = *(*a3 + 8);
   if (*a3)
@@ -6710,25 +6036,22 @@ llvm::Value *expandVector(llvm::Type *a1, unsigned int **a2, llvm::Value *a3, un
     if ((v9 & 0xFE) == 0x12)
     {
       v12 = llvm::UndefValue::get();
-      v22 = xmmword_213C7D430;
-      v21 = 257;
-      ShuffleVector = llvm::IRBuilderBase::CreateShuffleVector(a2, v5, v12, &v22, a4, v20);
+      v21 = xmmword_213C7D430;
+      v20 = 257;
+      return llvm::IRBuilderBase::CreateShuffleVector(a2, v5, v12, &v21, a4, v19);
     }
 
     else
     {
-      vectorTypeGet(v8);
+      vectorTypeGet(v8, a4);
       v14 = llvm::UndefValue::get();
       llvm::Type::getInt32Ty(a1, v15);
       v16 = llvm::ConstantInt::get();
-      v21 = 257;
-      ShuffleVector = llvm::IRBuilderBase::CreateInsertElement(a2, v14, v5, v16, v20, v17);
+      v20 = 257;
+      return llvm::IRBuilderBase::CreateInsertElement(a2, v14, v5, v16, v19, v17);
     }
-
-    v5 = ShuffleVector;
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -6754,8 +6077,8 @@ uint64_t llvm::IRBuilderBase::CreateFPExt(llvm::IRBuilderBase *this, llvm::Value
 
 uint64_t callUnpackFunction(uint64_t a1, uint64_t a2, char *__s, uint64_t a4, void *a5)
 {
-  v18[2] = *MEMORY[0x277D85DE8];
-  v18[0] = a5;
+  v17[2] = *MEMORY[0x277D85DE8];
+  v17[0] = a5;
   if (__s)
   {
     strlen(__s);
@@ -6769,18 +6092,18 @@ uint64_t callUnpackFunction(uint64_t a1, uint64_t a2, char *__s, uint64_t a4, vo
 
   else
   {
-    v18[1] = *a5;
+    v17[1] = *a5;
     v11 = 1;
     v12 = llvm::FunctionType::get();
-    HIBYTE(v17) = 1;
+    HIBYTE(v16) = 1;
     if (*__s)
     {
-      v16[0] = __s;
+      v15[0] = __s;
       v11 = 3;
     }
 
-    LOBYTE(v17) = v11;
-    v10 = llvm::Function::Create(v12, 0, v16, a1);
+    LOBYTE(v16) = v11;
+    v10 = llvm::Function::Create(v12, 0, v15, a1);
     llvm::Function::addFnAttr();
     llvm::Function::addFnAttr();
     if (!v10)
@@ -6792,10 +6115,9 @@ uint64_t callUnpackFunction(uint64_t a1, uint64_t a2, char *__s, uint64_t a4, vo
 
   v13 = *(v10 + 24);
 LABEL_9:
-  v17 = 257;
-  result = llvm::IRBuilderBase::CreateCall(a2, v13, v10, v18, 1, v16, 0);
+  v16 = 257;
+  result = llvm::IRBuilderBase::CreateCall(a2, v13, v10, v17, 1, v15, 0);
   *(result + 18) = *(result + 18) & 0xFFFC | 1;
-  v15 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -6810,9 +6132,8 @@ uint64_t llvm::IRBuilderBase::CreateFDiv(uint64_t a1, uint64_t a2, uint64_t a3, 
   if (!result)
   {
     v9 = llvm::BinaryOperator::Create();
-    v10 = *(a1 + 96);
-    v11 = llvm::IRBuilderBase::setFPAttrs(a1, v9, a5);
-    return llvm::IRBuilderBase::Insert<llvm::CastInst>(a1, v11, a4);
+    v10 = llvm::IRBuilderBase::setFPAttrs(a1, v9, a5, *(a1 + 96));
+    return llvm::IRBuilderBase::Insert<llvm::CastInst>(a1, v10, a4);
   }
 
   return result;
@@ -6864,12 +6185,12 @@ llvm::Type **llvm::IRBuilderBase::CreateSExtOrTrunc(llvm::IRBuilderBase *this, l
 
 llvm::Value *loadPackedVector(unsigned int **a1, uint64_t *a2, uint64_t a3, unsigned int a4)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v8 = **(a3 + 16);
   v9 = *(v8 + 32);
   v10 = **(v8 + 16);
   ScalarSizeInBits = llvm::Type::getScalarSizeInBits(v10);
-  vectorTypeGet(v10);
+  vectorTypeGet(v10, v9);
   InsertElement = llvm::UndefValue::get();
   llvm::Type::getInt32Ty(*a3, v13);
   if (v9)
@@ -6900,27 +6221,26 @@ llvm::Value *loadPackedVector(unsigned int **a1, uint64_t *a2, uint64_t a3, unsi
 
     do
     {
+      v27 = 0;
       v28 = 0;
       v29 = 0;
-      v30 = 0;
+      v27 = llvm::ConstantInt::get();
       v28 = llvm::ConstantInt::get();
       v29 = llvm::ConstantInt::get();
-      v30 = llvm::ConstantInt::get();
-      v27 = 257;
-      v19 = llvm::IRBuilderBase::CreateGEP(a1, a3, a2, &v28, 3, v26);
+      v26 = 257;
+      v19 = llvm::IRBuilderBase::CreateGEP(a1, a3, a2, &v27, 3, v25);
       v20 = *(v19 + 72);
-      v27 = 257;
-      AlignedLoad = llvm::IRBuilderBase::CreateAlignedLoad(a1, v20, v19, v18, 0, v26);
+      v26 = 257;
+      AlignedLoad = llvm::IRBuilderBase::CreateAlignedLoad(a1, v20, v19, v18, 0, v25);
       v22 = llvm::ConstantInt::get();
-      v27 = 257;
-      InsertElement = llvm::IRBuilderBase::CreateInsertElement(a1, InsertElement, AlignedLoad, v22, v26, v23);
+      v26 = 257;
+      InsertElement = llvm::IRBuilderBase::CreateInsertElement(a1, InsertElement, AlignedLoad, v22, v25, v23);
       ++v14;
     }
 
     while (v15 != v14);
   }
 
-  v24 = *MEMORY[0x277D85DE8];
   return InsertElement;
 }
 
@@ -6938,7 +6258,7 @@ uint64_t updateMTLGLFragmentInputList(int a1, uint64_t a2)
 uint64_t MTLAddVertexFetchingToModulePass::expandVertexOutputWithFragmentInput(uint64_t a1, llvm::Type *a2, uint64_t a3, uint64_t a4, uint64_t *a5, void *a6, unsigned __int16 *a7, uint64_t *a8, unsigned __int8 a9)
 {
   v9 = a7;
-  v86 = *MEMORY[0x277D85DE8];
+  v84 = *MEMORY[0x277D85DE8];
   if (a7)
   {
     LODWORD(v13) = *a7;
@@ -6952,14 +6272,14 @@ uint64_t MTLAddVertexFetchingToModulePass::expandVertexOutputWithFragmentInput(u
   v14 = v13;
   if (!v13)
   {
-    goto LABEL_135;
+    return a3;
   }
 
   v15 = 0;
-  v73 = a7 + 1;
-  v81 = 0u;
-  v82 = 0u;
-  v83 = 1065353216;
+  v71 = a7 + 1;
+  v79 = 0u;
+  v80 = 0u;
+  v81 = 1065353216;
   do
   {
     while (!v9)
@@ -6974,11 +6294,10 @@ uint64_t MTLAddVertexFetchingToModulePass::expandVertexOutputWithFragmentInput(u
       v21 = *(v19 + 8);
       if (v20 >= 0x17)
       {
-        __src = *(v19 + 8);
         operator new();
       }
 
-      BYTE7(v85) = *(v19 + 16);
+      BYTE7(v83) = *(v19 + 16);
       if (v20)
       {
         memmove(&__dst, v21, v20);
@@ -6987,9 +6306,9 @@ uint64_t MTLAddVertexFetchingToModulePass::expandVertexOutputWithFragmentInput(u
       v9 = a7;
       *(&__dst + v20) = 0;
       v22 = *(v19 + 24);
-      v79[0] = &__dst;
-      *(std::__hash_table<std::__hash_value_type<std::string,MTLCompilerDataType>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MTLCompilerDataType>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MTLCompilerDataType>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MTLCompilerDataType>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(&v81, &__dst) + 10) = v22;
-      if (SBYTE7(v85) < 0)
+      v77[0] = &__dst;
+      *(std::__hash_table<std::__hash_value_type<std::string,MTLCompilerDataType>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MTLCompilerDataType>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MTLCompilerDataType>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MTLCompilerDataType>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(&v79, &__dst, &std::piecewise_construct, v77, __p) + 10) = v22;
+      if (SBYTE7(v83) < 0)
       {
         operator delete(__dst);
       }
@@ -7001,7 +6320,7 @@ uint64_t MTLAddVertexFetchingToModulePass::expandVertexOutputWithFragmentInput(u
       }
     }
 
-    updated = updateMTLGLFragmentInputList(a9, v73[v15]);
+    updated = updateMTLGLFragmentInputList(a9, v71[v15]);
     v17 = updated >> 2;
     if ((updated & 3) != 0)
     {
@@ -7011,22 +6330,22 @@ uint64_t MTLAddVertexFetchingToModulePass::expandVertexOutputWithFragmentInput(u
       }
 
       __dst = 0uLL;
-      *&v85 = 0;
+      *&v83 = 0;
       v18 = (updated >> 8) & 0x1F;
       if (v18 == 3)
       {
-        std::string::basic_string[abi:ne200100]<0>(v79, "user(sec_front_color)");
-        if (SBYTE7(v85) < 0)
+        std::string::basic_string[abi:ne200100]<0>(v77, "user(sec_front_color)");
+        if (SBYTE7(v83) < 0)
         {
           operator delete(__dst);
         }
 
-        __dst = *v79;
-        *&v85 = v80;
-        v79[0] = &__dst;
-        *(std::__hash_table<std::__hash_value_type<std::string,MTLCompilerDataType>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MTLCompilerDataType>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MTLCompilerDataType>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MTLCompilerDataType>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(&v81, &__dst) + 10) = v17;
-        std::string::basic_string[abi:ne200100]<0>(v79, "user(sec_back_color)");
-        if (SBYTE7(v85) < 0)
+        __dst = *v77;
+        *&v83 = v78;
+        v77[0] = &__dst;
+        *(std::__hash_table<std::__hash_value_type<std::string,MTLCompilerDataType>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MTLCompilerDataType>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MTLCompilerDataType>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MTLCompilerDataType>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(&v79, &__dst, &std::piecewise_construct, v77, __p) + 10) = v17;
+        std::string::basic_string[abi:ne200100]<0>(v77, "user(sec_back_color)");
+        if (SBYTE7(v83) < 0)
         {
           operator delete(__dst);
         }
@@ -7037,7 +6356,7 @@ uint64_t MTLAddVertexFetchingToModulePass::expandVertexOutputWithFragmentInput(u
         if (v18 != 2)
         {
 LABEL_36:
-          if ((SBYTE7(v85) & 0x80000000) == 0)
+          if ((SBYTE7(v83) & 0x80000000) == 0)
           {
             goto LABEL_39;
           }
@@ -7046,32 +6365,32 @@ LABEL_36:
           goto LABEL_38;
         }
 
-        std::string::basic_string[abi:ne200100]<0>(v79, "user(front_color)");
-        if (SBYTE7(v85) < 0)
+        std::string::basic_string[abi:ne200100]<0>(v77, "user(front_color)");
+        if (SBYTE7(v83) < 0)
         {
           operator delete(__dst);
         }
 
-        __dst = *v79;
-        *&v85 = v80;
-        v79[0] = &__dst;
-        *(std::__hash_table<std::__hash_value_type<std::string,MTLCompilerDataType>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MTLCompilerDataType>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MTLCompilerDataType>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MTLCompilerDataType>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(&v81, &__dst) + 10) = v17;
-        std::string::basic_string[abi:ne200100]<0>(v79, "user(back_color)");
-        if (SBYTE7(v85) < 0)
+        __dst = *v77;
+        *&v83 = v78;
+        v77[0] = &__dst;
+        *(std::__hash_table<std::__hash_value_type<std::string,MTLCompilerDataType>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MTLCompilerDataType>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MTLCompilerDataType>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MTLCompilerDataType>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(&v79, &__dst, &std::piecewise_construct, v77, __p) + 10) = v17;
+        std::string::basic_string[abi:ne200100]<0>(v77, "user(back_color)");
+        if (SBYTE7(v83) < 0)
         {
           operator delete(__dst);
         }
       }
 
-      __dst = *v79;
-      *&v85 = v80;
-      v79[0] = &__dst;
-      *(std::__hash_table<std::__hash_value_type<std::string,MTLCompilerDataType>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MTLCompilerDataType>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MTLCompilerDataType>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MTLCompilerDataType>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(&v81, &__dst) + 10) = v17;
+      __dst = *v77;
+      *&v83 = v78;
+      v77[0] = &__dst;
+      *(std::__hash_table<std::__hash_value_type<std::string,MTLCompilerDataType>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MTLCompilerDataType>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MTLCompilerDataType>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MTLCompilerDataType>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(&v79, &__dst, &std::piecewise_construct, v77, __p) + 10) = v17;
       goto LABEL_36;
     }
 
     __dst = 0u;
-    v85 = 0u;
+    v83 = 0u;
     if ((updated & 0xB800) == 0x800)
     {
       snprintf(&__dst, 0x1FuLL, "user(tex_coord%u)");
@@ -7082,12 +6401,12 @@ LABEL_36:
       snprintf(&__dst, 0x1FuLL, "user(slot%u)");
     }
 
-    std::string::basic_string[abi:ne200100]<0>(v79, &__dst);
-    __p[0] = v79;
-    *(std::__hash_table<std::__hash_value_type<std::string,MTLCompilerDataType>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MTLCompilerDataType>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MTLCompilerDataType>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MTLCompilerDataType>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(&v81, v79) + 10) = v17;
-    if (SHIBYTE(v80) < 0)
+    std::string::basic_string[abi:ne200100]<0>(v77, &__dst);
+    __p[0] = v77;
+    *(std::__hash_table<std::__hash_value_type<std::string,MTLCompilerDataType>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MTLCompilerDataType>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MTLCompilerDataType>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MTLCompilerDataType>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(&v79, v77, &std::piecewise_construct, __p, &v75) + 10) = v17;
+    if (SHIBYTE(v78) < 0)
     {
-      v23 = v79[0];
+      v23 = v77[0];
 LABEL_38:
       operator delete(v23);
     }
@@ -7100,12 +6419,12 @@ LABEL_39:
   v24 = *(a4 + 8);
   std::vector<MTLAddVertexFetchingToModulePass::ModifiedOutput>::resize(a8, v24);
 LABEL_41:
-  std::vector<llvm::Type *>::vector[abi:ne200100](v79, v24);
+  std::vector<llvm::Type *>::vector[abi:ne200100](v77, v24);
   v25 = a2;
   if (!v24)
   {
-    v44 = v82;
-    if (!v82)
+    v44 = v80;
+    if (!v80)
     {
       goto LABEL_132;
     }
@@ -7114,7 +6433,7 @@ LABEL_41:
   }
 
   v26 = 0;
-  v74 = 0;
+  v72 = 0;
   while (2)
   {
     v27 = *a8;
@@ -7145,7 +6464,7 @@ LABEL_41:
             operator new();
           }
 
-          BYTE7(v85) = v34;
+          BYTE7(v83) = v34;
           if (v34)
           {
             memmove(&__dst, v35, v34);
@@ -7158,13 +6477,13 @@ LABEL_41:
         else
         {
           __dst = 0uLL;
-          *&v85 = 0;
+          *&v83 = 0;
           v25 = a2;
         }
 
-        v37 = std::__hash_table<std::__hash_value_type<std::string,MTLCompilerDataType>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MTLCompilerDataType>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MTLCompilerDataType>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MTLCompilerDataType>>>::find<std::string>(&v81, &__dst);
+        v37 = std::__hash_table<std::__hash_value_type<std::string,MTLCompilerDataType>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MTLCompilerDataType>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MTLCompilerDataType>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MTLCompilerDataType>>>::find<std::string>(&v79, &__dst);
         v38 = v37;
-        if (SBYTE7(v85) < 0)
+        if (SBYTE7(v83) < 0)
         {
           operator delete(__dst);
           if (!v38)
@@ -7188,18 +6507,18 @@ LABEL_41:
           if (LLVMVectorType != v31)
           {
             *(v27 + 2 * v26) = *(v27 + 2 * v26) & 0xFC00 | (2 * (ComponentType & 0x3F)) & 0x7F | ((v42 & 7) << 7) | 1;
-            v74 = 1;
+            v72 = 1;
             v31 = LLVMVectorType;
           }
         }
 
-        std::__hash_table<std::__hash_value_type<std::string,MTLCompilerDataType>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MTLCompilerDataType>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MTLCompilerDataType>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MTLCompilerDataType>>>::erase(&v81, v38);
+        std::__hash_table<std::__hash_value_type<std::string,MTLCompilerDataType>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MTLCompilerDataType>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MTLCompilerDataType>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MTLCompilerDataType>>>::erase(&v79, v38);
         v25 = a2;
       }
     }
 
 LABEL_71:
-    *(v79[0] + v26++) = v31;
+    *(v77[0] + v26++) = v31;
     if (v24 != v26)
     {
       continue;
@@ -7208,10 +6527,10 @@ LABEL_71:
     break;
   }
 
-  v44 = v82;
-  if (!v82)
+  v44 = v80;
+  if (!v80)
   {
-    if ((v74 & 1) == 0)
+    if ((v72 & 1) == 0)
     {
       goto LABEL_132;
     }
@@ -7230,16 +6549,16 @@ LABEL_76:
     else
     {
       __dst = *(v44 + 1);
-      *&v85 = v44[4];
+      *&v83 = v44[4];
     }
 
     v45 = *(v44 + 10);
-    DWORD2(v85) = v45;
+    DWORD2(v83) = v45;
     v46 = MTLDataTypeGetComponentType(v45);
     v47 = MTLDataTypeGetComponentCount(v45);
     __p[0] = MTLFrameworkPass::getLLVMVectorType(v25, v46, v47);
-    std::vector<llvm::CallGraphNode *>::push_back[abi:ne200100](v79, __p);
-    if (SBYTE7(v85) < 0)
+    std::vector<llvm::CallGraphNode *>::push_back[abi:ne200100](v77, __p);
+    if (SBYTE7(v83) < 0)
     {
       operator delete(__dst);
     }
@@ -7249,8 +6568,8 @@ LABEL_76:
 
   while (v44);
 LABEL_82:
-  v75 = v79[1] - v79[0];
-  std::vector<llvm::Metadata *>::vector[abi:ne200100](__p, (v79[1] - v79[0]) >> 3);
+  v73 = v77[1] - v77[0];
+  std::vector<llvm::Metadata *>::vector[abi:ne200100](__p, (v77[1] - v77[0]) >> 3);
   if (v24)
   {
     for (i = 0; i != v24; ++i)
@@ -7310,7 +6629,7 @@ LABEL_82:
     }
   }
 
-  for (k = v82; k; LODWORD(v24) = v24 + 1)
+  for (k = v80; k; LODWORD(v24) = v24 + 1)
   {
     if (*(k + 39) < 0)
     {
@@ -7320,20 +6639,20 @@ LABEL_82:
     else
     {
       __dst = *(k + 1);
-      *&v85 = k[4];
+      *&v83 = k[4];
     }
 
     v60 = *(k + 10);
-    DWORD2(v85) = v60;
-    if (SBYTE7(v85) < 0)
+    DWORD2(v83) = v60;
+    if (SBYTE7(v83) < 0)
     {
-      std::string::__init_copy_ctor_external(&v77, __dst, *(&__dst + 1));
+      std::string::__init_copy_ctor_external(&v75, __dst, *(&__dst + 1));
     }
 
     else
     {
-      *&v77.__r_.__value_.__l.__data_ = __dst;
-      v77.__r_.__value_.__r.__words[2] = v85;
+      *&v75.__r_.__value_.__l.__data_ = __dst;
+      v75.__r_.__value_.__r.__words[2] = v83;
     }
 
     v61 = MTLDataTypeGetComponentType(v60);
@@ -7348,24 +6667,24 @@ LABEL_82:
       v64 = 2;
     }
 
-    if ((v77.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    if ((v75.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      v65 = &v77;
+      v65 = &v75;
     }
 
     else
     {
-      v65 = v77.__r_.__value_.__r.__words[0];
+      v65 = v75.__r_.__value_.__r.__words[0];
     }
 
-    VertexOutputMetadata = MTLFrameworkPass::createVertexOutputMetadata(v25, v65, v61, v62, 1, v64, 0xFFFFFFFFLL, 0);
+    VertexOutputMetadata = MTLFrameworkPass::createVertexOutputMetadata(v25, v65, v61, v62, 1, v64, -1, 0);
     *(__p[0] + v24) = VertexOutputMetadata;
-    if (SHIBYTE(v77.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v75.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v77.__r_.__value_.__l.__data_);
+      operator delete(v75.__r_.__value_.__l.__data_);
     }
 
-    if (SBYTE7(v85) < 0)
+    if (SBYTE7(v83) < 0)
     {
       operator delete(__dst);
     }
@@ -7374,9 +6693,9 @@ LABEL_82:
   }
 
   *a5 = llvm::MDTuple::getImpl();
-  if (v75 == 8)
+  if (v73 == 8)
   {
-    a3 = *v79[0];
+    a3 = *v77[0];
   }
 
   else
@@ -7391,41 +6710,40 @@ LABEL_82:
   }
 
 LABEL_132:
-  if (v79[0])
+  if (v77[0])
   {
-    v79[1] = v79[0];
-    operator delete(v79[0]);
+    v77[1] = v77[0];
+    operator delete(v77[0]);
   }
 
-  std::__hash_table<std::__hash_value_type<std::string,MTLCompilerDataType>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MTLCompilerDataType>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MTLCompilerDataType>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MTLCompilerDataType>>>::~__hash_table(&v81);
-LABEL_135:
-  v67 = *MEMORY[0x277D85DE8];
+  std::__hash_table<std::__hash_value_type<std::string,MTLCompilerDataType>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MTLCompilerDataType>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MTLCompilerDataType>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MTLCompilerDataType>>>::~__hash_table(&v79);
   return a3;
 }
 
-void std::vector<MTLAddVertexFetchingToModulePass::ModifiedOutput>::resize(void *a1, unint64_t a2)
+void std::vector<MTLAddVertexFetchingToModulePass::ModifiedOutput>::resize(void *result, unint64_t a2)
 {
-  v2 = (a1[1] - *a1) >> 1;
+  v2 = (result[1] - *result) >> 1;
   if (a2 <= v2)
   {
     if (a2 < v2)
     {
-      a1[1] = *a1 + 2 * a2;
+      result[1] = *result + 2 * a2;
     }
   }
 
   else
   {
-    std::vector<MTLAddVertexFetchingToModulePass::ModifiedOutput>::__append(a1, a2 - v2);
+    std::vector<MTLAddVertexFetchingToModulePass::ModifiedOutput>::__append(result, a2 - v2);
   }
 }
 
-llvm::Value *MTLAddVertexFetchingToModulePass::convertVertexShaderOutput(int a1, llvm::Type *a2, unsigned __int8 *a3, llvm::Constant *this, int a5, uint64_t *a6)
+llvm::Value *MTLAddVertexFetchingToModulePass::convertVertexShaderOutput(int a1, llvm::Type **a2, llvm::Value *a3, llvm::Constant *this, llvm::Instruction *a5, uint64_t *a6)
 {
+  v7 = a5;
   if (*(this + 8) == 16)
   {
     NullValue = llvm::Constant::getNullValue(this, a2);
-    if (a5)
+    if (v7)
     {
 LABEL_3:
       v12 = 0;
@@ -7441,7 +6759,7 @@ LABEL_3:
         }
 
         v15 = *a6;
-        if (a5 != (a6[1] - *a6) >> 1)
+        if (v7 != (a6[1] - *a6) >> 1)
         {
           goto LABEL_36;
         }
@@ -7459,7 +6777,7 @@ LABEL_3:
           v18 = *(v17 + 32);
         }
 
-        v19 = *(a2 + 8);
+        v19 = a2[8];
         v20 = (v16 >> 7) & 7;
         if (v18 <= v20)
         {
@@ -7504,7 +6822,7 @@ LABEL_16:
               break;
             case 0x1Du:
               v27 = 257;
-              FPExt = llvm::IRBuilderBase::CreateSExtOrBitCast(a2, Value, v22, v26);
+              FPExt = llvm::IRBuilderBase::CreateSExtOrBitCast(a2, Value, v22, v26, a5);
               break;
             default:
               goto LABEL_43;
@@ -7532,7 +6850,7 @@ LABEL_43:
           if (v23 == 33)
           {
             v27 = 257;
-            FPExt = llvm::IRBuilderBase::CreateZExtOrBitCast(a2, Value, v22, v26);
+            FPExt = llvm::IRBuilderBase::CreateZExtOrBitCast(a2, Value, v22, v26, a5);
             goto LABEL_35;
           }
 
@@ -7556,7 +6874,7 @@ LABEL_36:
 
         ++v12;
         NullValue = Value;
-        if (a5 == v12)
+        if (v7 == v12)
         {
           return Value;
         }
@@ -7576,7 +6894,7 @@ LABEL_36:
   return NullValue;
 }
 
-llvm::Type **llvm::IRBuilderBase::CreateSExtOrBitCast(unsigned int **this, llvm::Type **a2, llvm::Type *a3, const llvm::Twine *a4)
+llvm::Type **llvm::IRBuilderBase::CreateSExtOrBitCast(unsigned int **this, llvm::Type **a2, llvm::Type *a3, const llvm::Twine *a4, llvm::Instruction *a5)
 {
   if (*a2 == a3)
   {
@@ -7592,15 +6910,15 @@ llvm::Type **llvm::IRBuilderBase::CreateSExtOrBitCast(unsigned int **this, llvm:
   a2 = (*(*this[9] + 296))(this[9]);
   if (a2)
   {
-    v6 = *(a2 + 16) >= 0x1Cu;
+    v7 = *(a2 + 16) >= 0x1Cu;
   }
 
   else
   {
-    v6 = 0;
+    v7 = 0;
   }
 
-  if (!v6)
+  if (!v7)
   {
     return a2;
   }
@@ -7608,7 +6926,7 @@ llvm::Type **llvm::IRBuilderBase::CreateSExtOrBitCast(unsigned int **this, llvm:
   return llvm::IRBuilderBase::Insert<llvm::CastInst>(this, a2, a4);
 }
 
-llvm::Type **llvm::IRBuilderBase::CreateZExtOrBitCast(unsigned int **this, llvm::Type **a2, llvm::Type *a3, const llvm::Twine *a4)
+llvm::Type **llvm::IRBuilderBase::CreateZExtOrBitCast(unsigned int **this, llvm::Type **a2, llvm::Type *a3, const llvm::Twine *a4, llvm::Instruction *a5)
 {
   if (*a2 == a3)
   {
@@ -7624,15 +6942,15 @@ llvm::Type **llvm::IRBuilderBase::CreateZExtOrBitCast(unsigned int **this, llvm:
   a2 = (*(*this[9] + 288))(this[9]);
   if (a2)
   {
-    v6 = *(a2 + 16) >= 0x1Cu;
+    v7 = *(a2 + 16) >= 0x1Cu;
   }
 
   else
   {
-    v6 = 0;
+    v7 = 0;
   }
 
-  if (!v6)
+  if (!v7)
   {
     return a2;
   }
@@ -7640,31 +6958,31 @@ llvm::Type **llvm::IRBuilderBase::CreateZExtOrBitCast(unsigned int **this, llvm:
   return llvm::IRBuilderBase::Insert<llvm::CastInst>(this, a2, a4);
 }
 
-uint64_t callTypedFunction(uint64_t a1, uint64_t a2)
+uint64_t callTypedFunction(uint64_t a1, uint64_t a2, llvm::FunctionType *a3)
 {
   Function = llvm::Module::getFunction();
   if (Function)
   {
-    v5 = Function;
+    v6 = Function;
   }
 
   else
   {
-    v6 = llvm::FunctionType::get();
-    v9[0] = "air.get_num_patch_control_points";
-    v10 = 259;
-    v5 = llvm::Function::Create(v6, 0, v9, a1);
-    if (!v5)
+    v7 = llvm::FunctionType::get();
+    v10[0] = "air.get_num_patch_control_points";
+    v11 = 259;
+    v6 = llvm::Function::Create(v7, 0, v10, a1);
+    if (!v6)
     {
-      v7 = 0;
+      v8 = 0;
       goto LABEL_5;
     }
   }
 
-  v7 = *(v5 + 24);
+  v8 = *(v6 + 24);
 LABEL_5:
-  v10 = 257;
-  return llvm::IRBuilderBase::CreateCall(a2, v7, v5, 0, 0, v9, 0);
+  v11 = 257;
+  return llvm::IRBuilderBase::CreateCall(a2, v8, v6, 0, 0, v10, 0);
 }
 
 uint64_t llvm::IRBuilderBase::foldConstant(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
@@ -7695,7 +7013,7 @@ uint64_t llvm::IRBuilderBase::foldConstant(uint64_t a1, uint64_t a2, uint64_t a3
     return v5;
   }
 
-  v5 = (*(**(a1 + 72) + 184))(*(a1 + 72));
+  v5 = (*(**(a1 + 72) + 184))(*(a1 + 72), a2);
   if (!v5 || *(v5 + 16) < 0x1Cu)
   {
     return v5;
@@ -7744,9 +7062,9 @@ uint64_t llvm::IRBuilderBase::CreateUDiv(unsigned int **this, llvm::Value *a2, l
   return llvm::IRBuilderBase::Insert<llvm::CastInst>(this, v7, a4);
 }
 
-uint64_t std::__hash_table<std::__hash_value_type<std::string,MTLCompilerDataType>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MTLCompilerDataType>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MTLCompilerDataType>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MTLCompilerDataType>>>::~__hash_table(uint64_t a1)
+void **std::__hash_table<std::__hash_value_type<std::string,MTLCompilerDataType>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MTLCompilerDataType>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MTLCompilerDataType>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MTLCompilerDataType>>>::~__hash_table(void **a1)
 {
-  std::__hash_table<std::__hash_value_type<std::string,MTLCompilerDataType>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MTLCompilerDataType>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MTLCompilerDataType>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MTLCompilerDataType>>>::__deallocate_node(a1, *(a1 + 16));
+  std::__hash_table<std::__hash_value_type<std::string,MTLCompilerDataType>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MTLCompilerDataType>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MTLCompilerDataType>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MTLCompilerDataType>>>::__deallocate_node(a1, a1[2]);
   v2 = *a1;
   *a1 = 0;
   if (v2)
@@ -7778,35 +7096,35 @@ void std::__hash_table<std::__hash_value_type<std::string,MTLCompilerDataType>,s
   }
 }
 
-const void **std::__hash_table<std::__hash_value_type<std::string,MTLCompilerDataType>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MTLCompilerDataType>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MTLCompilerDataType>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MTLCompilerDataType>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(void *a1, const void **a2)
+const void **std::__hash_table<std::__hash_value_type<std::string,MTLCompilerDataType>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MTLCompilerDataType>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MTLCompilerDataType>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MTLCompilerDataType>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(void *a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v4 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
+  v7 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
+  v8 = v7;
+  v9 = a1[1];
+  if (!*&v9)
   {
     goto LABEL_18;
   }
 
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
+  v10 = vcnt_s8(v9);
+  v10.i16[0] = vaddlv_u8(v10);
+  v11 = v10.u32[0];
+  if (v10.u32[0] > 1uLL)
   {
-    v9 = v4;
-    if (v4 >= *&v6)
+    v12 = v7;
+    if (v7 >= *&v9)
     {
-      v9 = v4 % *&v6;
+      v12 = v7 % *&v9;
     }
   }
 
   else
   {
-    v9 = (*&v6 - 1) & v4;
+    v12 = (*&v9 - 1) & v7;
   }
 
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
+  v13 = *(*a1 + 8 * v12);
+  if (!v13 || (v14 = *v13) == 0)
   {
 LABEL_18:
     std::__hash_table<std::__hash_value_type<std::string,MTLCompilerDataType>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MTLCompilerDataType>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MTLCompilerDataType>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MTLCompilerDataType>>>::__construct_node_hash<std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>();
@@ -7814,44 +7132,44 @@ LABEL_18:
 
   while (1)
   {
-    v12 = v11[1];
-    if (v12 == v5)
+    v15 = v14[1];
+    if (v15 == v8)
     {
       break;
     }
 
-    if (v8 > 1)
+    if (v11 > 1)
     {
-      if (v12 >= *&v6)
+      if (v15 >= *&v9)
       {
-        v12 %= *&v6;
+        v15 %= *&v9;
       }
     }
 
     else
     {
-      v12 &= *&v6 - 1;
+      v15 &= *&v9 - 1;
     }
 
-    if (v12 != v9)
+    if (v15 != v12)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v11 = *v11;
-    if (!v11)
+    v14 = *v14;
+    if (!v14)
     {
       goto LABEL_18;
     }
   }
 
-  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v11 + 2, a2))
+  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v14 + 2, a2))
   {
     goto LABEL_17;
   }
 
-  return v11;
+  return v14;
 }
 
 void sub_213C501CC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void **__p, uint64_t a11)
@@ -7871,9 +7189,9 @@ void sub_213C50294(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-unint64_t std::__string_hash<char>::operator()[abi:ne200100](uint64_t a1, uint64_t a2)
+unint64_t std::__string_hash<char>::operator()[abi:ne200100](uint64_t a1, uint64_t *a2)
 {
-  v2 = *(a2 + 8);
+  v2 = a2[1];
   if (*(a2 + 23) >= 0)
   {
     v3 = *(a2 + 23);
@@ -8165,7 +7483,7 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<MTLAddVertexFetchingT
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-const void **std::__hash_table<std::__hash_value_type<std::string,MTLCompilerDataType>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MTLCompilerDataType>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MTLCompilerDataType>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MTLCompilerDataType>>>::find<std::string>(void *a1, const void **a2)
+const void **std::__hash_table<std::__hash_value_type<std::string,MTLCompilerDataType>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MTLCompilerDataType>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MTLCompilerDataType>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MTLCompilerDataType>>>::find<std::string>(void *a1, uint64_t *a2)
 {
   v4 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
   v5 = a1[1];
@@ -8358,33 +7676,33 @@ LABEL_19:
   return result;
 }
 
-void *std::__hash_table<std::__hash_value_type<unsigned long,unsigned long>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,unsigned long>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,unsigned long>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,unsigned long>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long &&>,std::tuple<>>(void *a1, unint64_t *a2)
+void *std::__hash_table<std::__hash_value_type<unsigned long,unsigned long>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,unsigned long>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,unsigned long>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,unsigned long>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long &&>,std::tuple<>>(void *a1, unint64_t *a2, uint64_t a3, void **a4)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v4 = *a2;
+  v5 = a1[1];
+  if (!*&v5)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v6 = vcnt_s8(v5);
+  v6.i16[0] = vaddlv_u8(v6);
+  if (v6.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (v2 >= *&v3)
+    v7 = *a2;
+    if (v4 >= *&v5)
     {
-      v5 = v2 % *&v3;
+      v7 = v4 % *&v5;
     }
   }
 
   else
   {
-    v5 = (*&v3 - 1) & v2;
+    v7 = (*&v5 - 1) & v4;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v8 = *(*a1 + 8 * v7);
+  if (!v8 || (v9 = *v8) == 0)
   {
 LABEL_18:
     operator new();
@@ -8392,44 +7710,44 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v10 = v9[1];
+    if (v10 == v4)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v6.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v10 >= *&v5)
       {
-        v8 %= *&v3;
+        v10 %= *&v5;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v10 &= *&v5 - 1;
     }
 
-    if (v8 != v5)
+    if (v10 != v7)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v9 = *v9;
+    if (!v9)
     {
       goto LABEL_18;
     }
   }
 
-  if (v7[2] != v2)
+  if (v9[2] != v4)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v9;
 }
 
 uint64_t *std::__hash_table<unsigned int,std::hash<unsigned int>,std::equal_to<unsigned int>,std::allocator<unsigned int>>::find<unsigned int>(void *a1, unsigned int *a2)
@@ -8509,7 +7827,7 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<SmallVertexPartialLoa
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-uint64_t MTLVertexOutputLinkingPass::vertexOutputLinking(MTLCompilerErrorObject **a1, llvm::Module *a2, void *a3, uint64_t a4, unsigned int a5, uint64_t a6, unsigned int a7, unsigned int a8, unsigned int a9, unsigned int a10, int a11, int a12)
+uint64_t MTLVertexOutputLinkingPass::vertexOutputLinking(char ***a1, llvm::Module *a2, void *a3, uint64_t a4, unsigned int a5, uint64_t a6, unsigned int a7, unsigned int a8, unsigned int a9, unsigned int a10, int a11, int a12)
 {
   if (!MTLFrameworkPass::checkFragmentRenderTargetArrayIndex(a1, a11, a12))
   {
@@ -8526,9 +7844,10 @@ uint64_t MTLVertexOutputLinkingPass::vertexOutputLinking(MTLCompilerErrorObject 
     v18 = a5;
   }
 
-  std::vector<BOOL>::vector(&v50, v18);
+  __p.__r_.__value_.__s.__data_[0] = 0;
+  std::vector<BOOL>::vector(&v51, v18, &__p);
   __p.__r_.__value_.__r.__words[0] = "air.vertex";
-  v49 = 259;
+  v50 = 259;
   NamedMetadata = llvm::Module::getNamedMetadata(a2, &__p);
   Operand = llvm::NamedMDNode::getOperand(NamedMetadata);
   v21 = (Operand - 8 * *(Operand + 8));
@@ -8537,7 +7856,7 @@ uint64_t MTLVertexOutputLinkingPass::vertexOutputLinking(MTLCompilerErrorObject 
   if (v23)
   {
     v24 = 0;
-    v44 = *a2;
+    v45 = *a2;
     v25 = **(*(*(*v21 + 128) + 24) + 16);
     do
     {
@@ -8561,15 +7880,21 @@ uint64_t MTLVertexOutputLinkingPass::vertexOutputLinking(MTLCompilerErrorObject 
             MatchingFragmentInput = MTLFrameworkPass::findMatchingFragmentInput(a1, &__p, v25, v24, v26, a3, a4);
             if (MatchingFragmentInput == 1)
             {
-              *(v50 + ((LODWORD(__p.__r_.__value_.__l.__data_) >> 3) & 0x1FFFFFF8)) |= 1 << __p.__r_.__value_.__s.__data_[0];
+              data = __p.__r_.__value_.__l.__data_;
+              *(v51 + ((LODWORD(__p.__r_.__value_.__l.__data_) >> 3) & 0x1FFFFFF8)) |= 1 << __p.__r_.__value_.__s.__data_[0];
             }
 
-            else if (MatchingFragmentInput == 2)
+            else
             {
-              goto LABEL_64;
+              if (MatchingFragmentInput == 2)
+              {
+                goto LABEL_64;
+              }
+
+              data = -1;
             }
 
-            MTLFrameworkPass::addLocationToMetadata(v44, v22, v24);
+            MTLFrameworkPass::addLocationToMetadata(v45, v22, v24, data);
           }
 
           else if (!memcmp(String, "air.clip_distance", 0x11uLL))
@@ -8615,50 +7940,50 @@ uint64_t MTLVertexOutputLinkingPass::vertexOutputLinking(MTLCompilerErrorObject 
 
   if (a5)
   {
-    v35 = 0;
-    v36 = 8;
-    while (((*(v50 + ((v35 >> 3) & 0x1FFFFFFFFFFFFFF8)) >> v35) & 1) != 0)
+    v36 = 0;
+    v37 = 8;
+    while (((*(v51 + ((v36 >> 3) & 0x1FFFFFFFFFFFFFF8)) >> v36) & 1) != 0)
     {
-      ++v35;
-      v36 += 32;
-      if (a5 == v35)
+      ++v36;
+      v37 += 32;
+      if (a5 == v36)
       {
         goto LABEL_42;
       }
     }
 
-    v40 = *(*a3 + v36);
-    if (v40)
+    v41 = *(*a3 + v37);
+    if (v41)
     {
-      v41 = *(*a3 + v36 + 8);
-      if (v41 >= 0x7FFFFFFFFFFFFFF8)
+      v42 = *(*a3 + v37 + 8);
+      if (v42 >= 0x7FFFFFFFFFFFFFF8)
       {
         std::string::__throw_length_error[abi:ne200100]();
       }
 
-      if (v41 >= 0x17)
+      if (v42 >= 0x17)
       {
         operator new();
       }
 
-      HIBYTE(v47) = *(*a3 + v36 + 8);
-      if (v41)
+      HIBYTE(v48) = *(*a3 + v37 + 8);
+      if (v42)
       {
-        memmove(__dst, v40, v41);
+        memmove(__dst, v41, v42);
       }
 
-      *(__dst + v41) = 0;
+      *(__dst + v42) = 0;
     }
 
     else
     {
       __dst[0] = 0;
       __dst[1] = 0;
-      v47 = 0;
+      v48 = 0;
     }
 
     MTLFrameworkPass::attribute_name(__dst, &__p);
-    if (SHIBYTE(v47) < 0)
+    if (SHIBYTE(v48) < 0)
     {
       operator delete(__dst[0]);
     }
@@ -8679,37 +8004,37 @@ uint64_t MTLVertexOutputLinkingPass::vertexOutputLinking(MTLCompilerErrorObject 
   else
   {
 LABEL_42:
-    v37 = a9;
+    v38 = a9;
     if (a7 <= a9)
     {
-      v37 = a10;
+      v38 = a10;
       if (a8 <= a10)
       {
-        v39 = 1;
+        v40 = 1;
         goto LABEL_65;
       }
 
-      v38 = "varying components";
+      v39 = "varying components";
       a7 = a8;
     }
 
     else
     {
-      v38 = "varyings";
+      v39 = "varyings";
     }
 
-    MTLCompilerErrorObject::setFormattedErrorMessage(*a1, "Link failed: number of shader %s (%u) exceeds limit (%u). Note that on macOS the following attributes count towards the limit: [[position]], [[clip_distance]], [[point_size]], [[point_coord]], and, when read in the fragment shader, [[viewport_array_index]] & [[render_target_array_index]].", v38, a7, v37);
+    MTLCompilerErrorObject::setFormattedErrorMessage(*a1, "Link failed: number of shader %s (%u) exceeds limit (%u). Note that on macOS the following attributes count towards the limit: [[position]], [[clip_distance]], [[point_size]], [[point_coord]], and, when read in the fragment shader, [[viewport_array_index]] & [[render_target_array_index]].", v39, a7, v38);
   }
 
 LABEL_64:
-  v39 = 0;
+  v40 = 0;
 LABEL_65:
-  if (v50)
+  if (v51)
   {
-    operator delete(v50);
+    operator delete(v51);
   }
 
-  return v39;
+  return v40;
 }
 
 void sub_213C51360(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, int a16, __int16 a17, char a18, char a19, void *a20, uint64_t a21, int a22, __int16 a23, char a24, char a25, uint64_t a26, uint64_t a27, void *__p)
@@ -8810,24 +8135,24 @@ uint64_t MTLCheckPixelFormatValidPass::formatIsValid(uint64_t a1, uint64_t a2, u
   return 0;
 }
 
-uint64_t MTLCheckPixelFormatValidPass::checkPixelFormatValid(char ***a1, llvm::Module *this, uint64_t a3, uint64_t a4, uint64_t a5, char a6)
+uint64_t MTLCheckPixelFormatValidPass::checkPixelFormatValid(char ***a1, llvm::Module *this, unsigned __int8 *a3, uint64_t a4, uint64_t a5, char a6)
 {
-  v50 = *MEMORY[0x277D85DE8];
-  *&v47[0] = "air.fragment";
-  LOWORD(v48) = 259;
-  NamedMetadata = llvm::Module::getNamedMetadata(this, v47);
+  v49 = *MEMORY[0x277D85DE8];
+  *&v46[0] = "air.fragment";
+  LOWORD(v47) = 259;
+  NamedMetadata = llvm::Module::getNamedMetadata(this, v46);
   Operand = llvm::NamedMDNode::getOperand(NamedMetadata);
   v12 = (Operand - 8 * *(Operand + 8));
   v13 = v12[1];
-  v43 = *(*v12 + 128);
-  v14 = **(*(v43 + 3) + 16);
+  v42 = *(*v12 + 128);
+  v14 = **(*(v42 + 3) + 16);
   v15 = *(v13 + 8);
-  v45 = 0;
+  v44 = 0;
+  v47 = 0u;
   v48 = 0u;
-  v49 = 0u;
-  memset(v47, 0, sizeof(v47));
-  v16 = *(a3 + 8);
-  if (*(a3 + 8))
+  memset(v46, 0, sizeof(v46));
+  v16 = a3[8];
+  if (a3[8])
   {
     v17 = 0;
     do
@@ -8837,7 +8162,7 @@ uint64_t MTLCheckPixelFormatValidPass::checkPixelFormatValid(char ***a1, llvm::M
         MTLCompiler_InvalidSerializedFragmentData(a3, v17);
       }
 
-      *(v47 + (v18 & 0xF)) = v18 >> 4;
+      *(v46 + (v18 & 0xF)) = v18 >> 4;
       ++v17;
     }
 
@@ -8846,7 +8171,7 @@ uint64_t MTLCheckPixelFormatValidPass::checkPixelFormatValid(char ***a1, llvm::M
 
   if (v15)
   {
-    v42 = Operand;
+    v41 = Operand;
     v19 = 0;
     v20 = 0;
     v21 = 0;
@@ -8858,16 +8183,16 @@ uint64_t MTLCheckPixelFormatValidPass::checkPixelFormatValid(char ***a1, llvm::M
         v22 = *(*(v14 + 16) + 8 * v19);
       }
 
-      result = MTLCheckPixelFormatValidPass::formatIsValid(a1, v13, v19, v22, v47, a3, &v46, 1, 0, a6);
+      result = MTLCheckPixelFormatValidPass::formatIsValid(a1, v13, v19, v22, v46, a3, &v45, 1, 0, a6);
       if (!result)
       {
         break;
       }
 
-      if (v46 == 1)
+      if (v45 == 1)
       {
-        v24 = 1 << SBYTE2(v46);
-        if (WORD2(v46))
+        v24 = 1 << SBYTE2(v45);
+        if (WORD2(v45))
         {
           v20 |= v24;
         }
@@ -8880,8 +8205,8 @@ uint64_t MTLCheckPixelFormatValidPass::checkPixelFormatValid(char ***a1, llvm::M
 
       if (v15 == ++v19)
       {
-        v45 = v20;
-        Operand = v42;
+        v44 = v20;
+        Operand = v41;
         goto LABEL_18;
       }
     }
@@ -8892,15 +8217,15 @@ uint64_t MTLCheckPixelFormatValidPass::checkPixelFormatValid(char ***a1, llvm::M
     v21 = 0;
 LABEL_18:
     v25 = 0;
-    v46 = v21;
-    v26 = *(a3 + 8);
+    v45 = v21;
+    v26 = *(a3 + 2);
     v27 = BYTE2(v26);
     v28 = BYTE1(v26);
     while (2)
     {
       v29 = 0;
       v30 = 1;
-      v31 = &v46;
+      v31 = &v45;
       do
       {
         v32 = v30;
@@ -8917,13 +8242,12 @@ LABEL_18:
         if (((1 << v25) & v33) != 0 && (*v31 & (1 << v25)) == 0)
         {
           MTLCompilerErrorObject::setFormattedErrorMessage(*a1, "Fragment shader does not write to render target color(0), index(%u) that is required for blending", v29);
-          result = 0;
-          goto LABEL_39;
+          return 0;
         }
 
         v30 = 0;
         v29 = 1;
-        v31 = &v45;
+        v31 = &v44;
       }
 
       while ((v32 & 1) != 0);
@@ -8936,21 +8260,21 @@ LABEL_18:
     }
 
     v34 = *(Operand - 8 * *(Operand + 8) + 16);
-    if (*(v43 + 9))
+    if (*(v42 + 9))
     {
-      llvm::Function::BuildLazyArguments(v43);
+      llvm::Function::BuildLazyArguments(v42);
     }
 
     if (v34 && (v35 = *(v34 + 8)) != 0)
     {
       v36 = 0;
-      v37 = *(v43 + 11);
+      v37 = *(v42 + 11);
       v38 = v35 - 1;
       do
       {
         v39 = *v37;
         v37 += 5;
-        result = MTLCheckPixelFormatValidPass::formatIsValid(a1, v34, v36, v39, v47, a3, v44, 0, 0, a6);
+        result = MTLCheckPixelFormatValidPass::formatIsValid(a1, v34, v36, v39, v46, a3, v43, 0, 0, a6);
         if (result)
         {
           v40 = v38 == v36;
@@ -8969,12 +8293,10 @@ LABEL_18:
 
     else
     {
-      result = 1;
+      return 1;
     }
   }
 
-LABEL_39:
-  v41 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -9052,81 +8374,81 @@ void sub_213C51A14(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void MTLFrameworkPass::addLocationToMetadata(llvm::Type *a1, uint64_t a2, unsigned int a3)
+void MTLFrameworkPass::addLocationToMetadata(llvm::Type *a1, uint64_t a2, uint64_t a3, int a4)
 {
-  v4 = *(a2 - 8 * *(a2 + 8) + 8 * a3);
-  v5 = *(v4 + 8);
-  std::vector<llvm::Metadata *>::vector[abi:ne200100](__p, v5 + 2);
-  if (v5 < 1)
+  v5 = *(a2 - 8 * *(a2 + 8) + 8 * a3);
+  v6 = *(v5 + 8);
+  std::vector<llvm::Metadata *>::vector[abi:ne200100](__p, v6 + 2);
+  if (v6 < 1)
   {
     goto LABEL_32;
   }
 
-  v6 = 0;
   v7 = 0;
-  LODWORD(v8) = 0;
+  v8 = 0;
+  LODWORD(v9) = 0;
   do
   {
     while (1)
     {
-      v9 = v4 - 8 * *(v4 + 8);
-      v10 = v8;
-      *(__p[0] + v8) = *(v9 + 8 * v6);
-      v8 = v8 + 1;
-      if (!v6 || (v7 & 1) != 0)
+      v10 = v5 - 8 * *(v5 + 8);
+      v11 = v9;
+      *(__p[0] + v9) = *(v10 + 8 * v7);
+      v9 = v9 + 1;
+      if (!v7 || (v8 & 1) != 0)
       {
         break;
       }
 
-      v11 = *(v9 + 8 * (v6 - 1));
-      if (*v11)
+      v12 = *(v10 + 8 * (v7 - 1));
+      if (*v12)
       {
         goto LABEL_6;
       }
 
-      String = llvm::MDString::getString(v11);
-      if (v13 == 17)
+      String = llvm::MDString::getString(v12);
+      if (v14 == 17)
       {
         if (*String != 0x747265762E726961 || *(String + 8) != 0x757074756F5F7865 || *(String + 16) != 116)
         {
 LABEL_6:
-          v7 = 0;
+          v8 = 0;
           break;
         }
       }
 
       else
       {
-        if (v13 != 18)
+        if (v14 != 18)
         {
           goto LABEL_6;
         }
 
-        v14 = *String == 0x676172662E726961 && *(String + 8) == 0x706E695F746E656DLL;
-        if (!v14 || *(String + 16) != 29813)
+        v15 = *String == 0x676172662E726961 && *(String + 8) == 0x706E695F746E656DLL;
+        if (!v15 || *(String + 16) != 29813)
         {
           goto LABEL_6;
         }
       }
 
-      *(__p[0] + v8) = llvm::MDString::get();
-      llvm::Type::getInt32Ty(a1, v18);
+      *(__p[0] + v9) = llvm::MDString::get();
+      llvm::Type::getInt32Ty(a1, v19);
       llvm::ConstantInt::get();
-      LODWORD(v8) = v10 + 3;
-      *(__p[0] + v10 + 2) = llvm::ValueAsMetadata::get();
-      ++v6;
-      v7 = 1;
-      if (v6 == v5)
+      LODWORD(v9) = v11 + 3;
+      *(__p[0] + v11 + 2) = llvm::ValueAsMetadata::get();
+      ++v7;
+      v8 = 1;
+      if (v7 == v6)
       {
         goto LABEL_31;
       }
     }
 
-    ++v6;
+    ++v7;
   }
 
-  while (v6 != v5);
-  if ((v7 & 1) == 0)
+  while (v7 != v6);
+  if ((v8 & 1) == 0)
   {
     goto LABEL_32;
   }
@@ -9152,25 +8474,25 @@ void sub_213C51C30(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t MTLFrameworkPass::createVertexOutputMetadata(llvm::Type *a1, const char *a2, int a3, int a4, int a5, int a6, uint64_t a7, int a8)
+uint64_t MTLFrameworkPass::createVertexOutputMetadata(llvm::Type *a1, const char *a2, int a3, int a4, int a5, int a6, int a7, int a8)
 {
-  v27 = *MEMORY[0x277D85DE8];
-  v23[0] = llvm::MDString::get();
+  v26 = *MEMORY[0x277D85DE8];
+  v22[0] = llvm::MDString::get();
   if (a2)
   {
     strlen(a2);
   }
 
-  v25 = 0u;
-  v26 = 0u;
   v24 = 0u;
-  v23[1] = llvm::MDString::get();
+  v25 = 0u;
+  v23 = 0u;
+  v22[1] = llvm::MDString::get();
   if (a8)
   {
-    *&v24 = llvm::MDString::get();
+    *&v23 = llvm::MDString::get();
     llvm::Type::getInt32Ty(a1, v15);
     llvm::ConstantInt::get();
-    *(&v24 + 1) = llvm::ValueAsMetadata::get();
+    *(&v23 + 1) = llvm::ValueAsMetadata::get();
     v16 = 4;
     if (!a3)
     {
@@ -9189,14 +8511,14 @@ uint64_t MTLFrameworkPass::createVertexOutputMetadata(llvm::Type *a1, const char
 
   ShaderTypeName = MTLDataTypeGetShaderTypeName(a3, a4);
   v18 = v16 | 1;
-  v23[v16] = llvm::MDString::get();
+  v22[v16] = llvm::MDString::get();
   if (ShaderTypeName)
   {
     strlen(ShaderTypeName);
   }
 
   v16 += 2;
-  v23[v18] = llvm::MDString::get();
+  v22[v18] = llvm::MDString::get();
 LABEL_10:
   if ((a5 - 1) > 3)
   {
@@ -9209,7 +8531,7 @@ LABEL_10:
   }
 
   strlen(v19);
-  v23[v16] = llvm::MDString::get();
+  v22[v16] = llvm::MDString::get();
   if ((a6 - 1) > 2)
   {
     v20 = &unk_213C7E907;
@@ -9221,10 +8543,8 @@ LABEL_10:
   }
 
   strlen(v20);
-  v23[v16 + 1] = llvm::MDString::get();
-  result = llvm::MDTuple::getImpl();
-  v22 = *MEMORY[0x277D85DE8];
-  return result;
+  v22[v16 + 1] = llvm::MDString::get();
+  return llvm::MDTuple::getImpl();
 }
 
 char *MTLFrameworkPass::samplingStringFromQualifier(MTLFrameworkPass *this)
@@ -9696,4 +9016,782 @@ uint64_t MTLFrameworkPass::callFunction(uint64_t a1, uint64_t a2, char *__s, uin
   v25 = *(Function + 24);
   v29 = 257;
   return llvm::IRBuilderBase::CreateCall(a2, v25, Function, a5, a6, v28, 0);
+}
+
+void sub_213C52720(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, void *__p, uint64_t a19)
+{
+  if (__p)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void std::vector<PackedInput>::reserve(void *a1, unint64_t a2)
+{
+  if (0xAAAAAAAAAAAAAAABLL * ((a1[2] - *a1) >> 3) < a2)
+  {
+    if (a2 < 0xAAAAAAAAAAAAAABLL)
+    {
+      std::__allocate_at_least[abi:ne200100]<std::allocator<PackedInput>>(a1, a2);
+    }
+
+    std::vector<std::pair<std::string,MTLCompilerSharedMemoryInterface::RuntimeLibraryEntry>>::__throw_length_error[abi:ne200100]();
+  }
+}
+
+void std::vector<VaryingInfo>::push_back[abi:ne200100](uint64_t a1, _OWORD *a2)
+{
+  v4 = *(a1 + 8);
+  v5 = *(a1 + 16);
+  if (v4 >= v5)
+  {
+    v8 = (v4 - *a1) >> 5;
+    v9 = v8 + 1;
+    if ((v8 + 1) >> 59)
+    {
+      std::vector<std::pair<std::string,MTLCompilerSharedMemoryInterface::RuntimeLibraryEntry>>::__throw_length_error[abi:ne200100]();
+    }
+
+    v10 = v5 - *a1;
+    if (v10 >> 4 > v9)
+    {
+      v9 = v10 >> 4;
+    }
+
+    if (v10 >= 0x7FFFFFFFFFFFFFE0)
+    {
+      v11 = 0x7FFFFFFFFFFFFFFLL;
+    }
+
+    else
+    {
+      v11 = v9;
+    }
+
+    if (v11)
+    {
+      std::__allocate_at_least[abi:ne200100]<std::allocator<VaryingInfo>>(a1, v11);
+    }
+
+    v12 = (32 * v8);
+    v13 = a2[1];
+    *v12 = *a2;
+    v12[1] = v13;
+    v7 = 32 * v8 + 32;
+    v14 = *(a1 + 8) - *a1;
+    v15 = v12 - v14;
+    memcpy(v12 - v14, *a1, v14);
+    v16 = *a1;
+    *a1 = v15;
+    *(a1 + 8) = v7;
+    *(a1 + 16) = 0;
+    if (v16)
+    {
+      operator delete(v16);
+    }
+  }
+
+  else
+  {
+    v6 = a2[1];
+    *v4 = *a2;
+    v4[1] = v6;
+    v7 = (v4 + 2);
+  }
+
+  *(a1 + 8) = v7;
+}
+
+void deserializeFragmentInput(DeserialContext *a1@<X0>, int a2@<W1>, uint64_t **a3@<X2>, uint64_t a4@<X8>)
+{
+  v6 = *(a1 + 1);
+  v5 = *(a1 + 2);
+  if (v5 >= v6 || (v7 = *a1, v8 = *(*a1 + v5), *(a1 + 2) = v5 + 1, v5 + 1 >= v6))
+  {
+    abort();
+  }
+
+  v11 = *(v7 + v5 + 1);
+  *(a1 + 2) = v5 + 2;
+  __len = 0;
+  v12 = DeserialContext::deserializeCStringNoCopy(a1, &__len);
+  v13 = __len;
+  if (__len >= 0x7FFFFFFFFFFFFFF8)
+  {
+    std::string::__throw_length_error[abi:ne200100]();
+  }
+
+  v14 = v12;
+  if (__len >= 0x17)
+  {
+    operator new();
+  }
+
+  v17 = __len;
+  if (__len)
+  {
+    memmove(&__p, v12, __len);
+  }
+
+  *(&__p + v13) = 0;
+  p_p = &__p;
+  *(std::__tree<std::__value_type<std::string,unsigned int>,std::__map_value_compare<std::string,std::__value_type<std::string,unsigned int>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,unsigned int>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a3, &__p, &std::piecewise_construct, &p_p, &v19) + 14) = a2;
+  v15 = __len;
+  *(a4 + 8) = v14;
+  *(a4 + 16) = v15;
+  *(a4 + 24) = v8;
+  *(a4 + 28) = (v11 >> 1) & 0x38 | (2 * (v11 & 3));
+  *a4 = a2;
+  if (v17 < 0)
+  {
+    operator delete(__p);
+  }
+}
+
+void sub_213C52A4C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14)
+{
+  if (a14 < 0)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void std::vector<VaryingInfo>::reserve(void *a1, unint64_t a2)
+{
+  if (a2 > (a1[2] - *a1) >> 5)
+  {
+    if (!(a2 >> 59))
+    {
+      std::__allocate_at_least[abi:ne200100]<std::allocator<VaryingInfo>>(a1, a2);
+    }
+
+    std::vector<std::pair<std::string,MTLCompilerSharedMemoryInterface::RuntimeLibraryEntry>>::__throw_length_error[abi:ne200100]();
+  }
+}
+
+uint64_t DeserialContext::deserializeCStringNoCopy(DeserialContext *this, unint64_t *a2)
+{
+  v2 = *(this + 1);
+  v3 = *(this + 2);
+  v4 = v2 - v3;
+  if (v2 <= v3 || (v7 = *this, v8 = strnlen((*this + v3), v2 - v3), v8 == v4))
+  {
+    abort();
+  }
+
+  if (a2)
+  {
+    *a2 = v8;
+    v9 = *(this + 2);
+  }
+
+  else
+  {
+    v9 = v3;
+  }
+
+  *(this + 2) = v8 + v9 + 1;
+  return v7 + v3;
+}
+
+void *std::__tree<std::__value_type<std::string,unsigned int>,std::__map_value_compare<std::string,std::__value_type<std::string,unsigned int>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,unsigned int>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(uint64_t **a1, const void **a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  result = *std::__tree<std::__value_type<std::string,unsigned int>,std::__map_value_compare<std::string,std::__value_type<std::string,unsigned int>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,unsigned int>>>::__find_equal<std::string>(a1, &v6, a2);
+  if (!result)
+  {
+    std::__tree<std::__value_type<std::string,unsigned int>,std::__map_value_compare<std::string,std::__value_type<std::string,unsigned int>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,unsigned int>>>::__construct_node<std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>();
+  }
+
+  return result;
+}
+
+void sub_213C52CBC(_Unwind_Exception *a1)
+{
+  *v1 = 0;
+  std::__tree_node_destructor<std::allocator<std::__tree_node<std::__value_type<std::string,TextureTokenData>,void *>>>::operator()[abi:ne200100](v3, v2);
+  _Unwind_Resume(a1);
+}
+
+uint64_t MTLIRBuilder::initTypeCache(MTLIRBuilder *this, llvm::LLVMContext *a2)
+{
+  *(this + 17) = llvm::Type::getInt64Ty(a2, a2);
+  *(this + 18) = llvm::Type::getInt32Ty(a2, v4);
+  *(this + 19) = llvm::Type::getInt16Ty(a2, v5);
+  *(this + 20) = llvm::Type::getInt8Ty(a2, v6);
+  *(this + 21) = llvm::Type::getInt1Ty(a2, v7);
+  result = llvm::Type::getInt8PtrTy(a2, 0);
+  *(this + 22) = result;
+  return result;
+}
+
+llvm::Instruction *MTLIRBuilder::CreateNSWFoldMul(MTLIRBuilder *this, llvm::Value *a2, llvm::Value *a3, const llvm::Twine *a4)
+{
+  v4 = *(a2 + 16);
+  v5 = v4 == 16;
+  if (v4 == 16)
+  {
+    v6 = a2;
+  }
+
+  else
+  {
+    v6 = 0;
+  }
+
+  if (v5)
+  {
+    v7 = 0;
+  }
+
+  else
+  {
+    v7 = a2;
+  }
+
+  if (a3)
+  {
+    v8 = *(a3 + 16) == 16;
+  }
+
+  else
+  {
+    v8 = 0;
+  }
+
+  if (v8)
+  {
+    v9 = a3;
+  }
+
+  else
+  {
+    v9 = v6;
+  }
+
+  if (v8)
+  {
+    v10 = v7;
+  }
+
+  else
+  {
+    v10 = a3;
+  }
+
+  if (v10)
+  {
+    v11 = v9 == 0;
+  }
+
+  else
+  {
+    v11 = 1;
+  }
+
+  if (v11)
+  {
+    return llvm::IRBuilderBase::CreateMul(this, a2, a3, a4, 0, 1);
+  }
+
+  if (*(v9 + 8) > 0x40u)
+  {
+    v12 = **(v9 + 3);
+    if (v12)
+    {
+LABEL_22:
+      if (v12 == 1)
+      {
+        return v10;
+      }
+
+      return llvm::IRBuilderBase::CreateMul(this, a2, a3, a4, 0, 1);
+    }
+  }
+
+  else
+  {
+    v12 = *(v9 + 3);
+    if (v12)
+    {
+      goto LABEL_22;
+    }
+  }
+
+  return llvm::ConstantInt::get();
+}
+
+llvm::Value *MTLIRBuilder::CreateNSWFoldAdd(MTLIRBuilder *this, llvm::Value *a2, llvm::Value *a3, const llvm::Twine *a4)
+{
+  v4 = *(a2 + 16);
+  v5 = v4 == 16;
+  if (v4 == 16)
+  {
+    v6 = a2;
+  }
+
+  else
+  {
+    v6 = 0;
+  }
+
+  if (v5)
+  {
+    v7 = 0;
+  }
+
+  else
+  {
+    v7 = a2;
+  }
+
+  if (a3)
+  {
+    v8 = *(a3 + 16) == 16;
+  }
+
+  else
+  {
+    v8 = 0;
+  }
+
+  if (v8)
+  {
+    v9 = a3;
+  }
+
+  else
+  {
+    v9 = v6;
+  }
+
+  if (v8)
+  {
+    v10 = v7;
+  }
+
+  else
+  {
+    v10 = a3;
+  }
+
+  if (v10)
+  {
+    v11 = v9 == 0;
+  }
+
+  else
+  {
+    v11 = 1;
+  }
+
+  if (v11)
+  {
+    return llvm::IRBuilderBase::CreateAdd(this, a2, a3, a4, 0, 1);
+  }
+
+  v12 = (v9 + 24);
+  if (*(v9 + 8) >= 0x41u)
+  {
+    v12 = *v12;
+  }
+
+  if (*v12)
+  {
+    return llvm::IRBuilderBase::CreateAdd(this, a2, a3, a4, 0, 1);
+  }
+
+  else
+  {
+    return v10;
+  }
+}
+
+uint64_t MTLIRBuilder::CreateAtomicFetchAdd(MTLIRBuilder *this, llvm::Type **PointerCast, llvm::Value *a3)
+{
+  v19 = *MEMORY[0x277D85DE8];
+  v6 = *(*(*(this + 6) + 56) + 40);
+  v7 = (this + 144);
+  v17[0] = llvm::PointerType::get();
+  v8 = getOrInsertFunction<char const(&)[28],llvm::Type *&,llvm::PointerType *,llvm::Type *&,llvm::Type *&,llvm::Type *&,llvm::Type *&>(v6, "air.atomic.global.add.u.i32", v7, v17, v7, v7, v7, v7 + 3);
+  v9 = *PointerCast;
+  if (v9 != llvm::PointerType::get())
+  {
+    v10 = llvm::PointerType::get();
+    LOWORD(v18) = 257;
+    PointerCast = llvm::IRBuilderBase::CreatePointerCast(this, PointerCast, v10, v17, v11);
+  }
+
+  if (v8)
+  {
+    v12 = *(v8 + 24);
+  }
+
+  else
+  {
+    v12 = 0;
+  }
+
+  v17[0] = PointerCast;
+  v17[1] = a3;
+  v17[2] = llvm::ConstantInt::get();
+  v17[3] = llvm::ConstantInt::get();
+  v18 = llvm::ConstantInt::get();
+  v16 = 257;
+  v13 = llvm::IRBuilderBase::CreateCall(this, v12, v8, v17, 5, v15, 0);
+  *(v13 + 18) = *(v13 + 18) & 0xFFFC | 1;
+  llvm::Value::getContext(v13);
+  *(v13 + 64) = llvm::AttributeList::addAttributeAtIndex();
+  llvm::Value::getContext(v13);
+  *(v13 + 64) = llvm::AttributeList::addAttributeAtIndex();
+  return v13;
+}
+
+uint64_t getOrInsertFunction<char const(&)[28],llvm::Type *&,llvm::PointerType *,llvm::Type *&,llvm::Type *&,llvm::Type *&,llvm::Type *&>(uint64_t a1, char *__s, uint64_t *a3, uint64_t *a4, uint64_t *a5, uint64_t *a6, uint64_t *a7, uint64_t *a8)
+{
+  v16 = strlen(__s);
+  llvm::Module::getOrInsertFunction<llvm::PointerType *,llvm::Type *,llvm::Type *,llvm::Type *,llvm::Type *>(a1, __s, v16, 0, *a3, *a4, *a5, *a6, *a7, *a8);
+  result = v17;
+  if (*(v17 + 16) == 5)
+  {
+    return *(v17 - 32 * (*(v17 + 20) & 0x7FFFFFF));
+  }
+
+  return result;
+}
+
+llvm::Type **llvm::IRBuilderBase::CreatePointerCast(unsigned int **this, llvm::Type **a2, llvm::Type *a3, const llvm::Twine *a4, llvm::Instruction *a5)
+{
+  if (*a2 == a3)
+  {
+    return a2;
+  }
+
+  if (*(a2 + 16) > 0x14u)
+  {
+    PointerCast = llvm::CastInst::CreatePointerCast();
+    return llvm::IRBuilderBase::Insert<llvm::CastInst>(this, PointerCast, a4);
+  }
+
+  a2 = (*(*this[9] + 232))(this[9]);
+  if (a2)
+  {
+    v7 = *(a2 + 16) >= 0x1Cu;
+  }
+
+  else
+  {
+    v7 = 0;
+  }
+
+  if (!v7)
+  {
+    return a2;
+  }
+
+  return llvm::IRBuilderBase::Insert<llvm::CastInst>(this, a2, a4);
+}
+
+uint64_t MTLIRBuilder::CreateAtomicFetchOr(MTLIRBuilder *this, llvm::Value *a2, llvm::Value *a3)
+{
+  v15[5] = *MEMORY[0x277D85DE8];
+  v6 = *(*(*(this + 6) + 56) + 40);
+  v7 = (this + 144);
+  v15[0] = llvm::PointerType::get();
+  v8 = getOrInsertFunction<char const(&)[28],llvm::Type *&,llvm::PointerType *,llvm::Type *&,llvm::Type *&,llvm::Type *&,llvm::Type *&>(v6, "air.atomic.global.or.s.i32", v7, v15, v7, v7, v7, v7 + 3);
+  v9 = v8;
+  if (v8)
+  {
+    v10 = *(v8 + 24);
+  }
+
+  else
+  {
+    v10 = 0;
+  }
+
+  v15[0] = a2;
+  v15[1] = a3;
+  v15[2] = llvm::ConstantInt::get();
+  v15[3] = llvm::ConstantInt::get();
+  v15[4] = llvm::ConstantInt::get();
+  v14 = 257;
+  v11 = llvm::IRBuilderBase::CreateCall(this, v10, v9, v15, 5, v13, 0);
+  *(v11 + 18) = *(v11 + 18) & 0xFFFC | 1;
+  llvm::Value::getContext(v11);
+  *(v11 + 64) = llvm::AttributeList::addAttributeAtIndex();
+  llvm::Value::getContext(v11);
+  *(v11 + 64) = llvm::AttributeList::addAttributeAtIndex();
+  return v11;
+}
+
+uint64_t MTLIRBuilder::CreateClamp(MTLIRBuilder *this, llvm::Value *a2, llvm::Value *a3, llvm::Value *a4)
+{
+  v14[3] = *MEMORY[0x277D85DE8];
+  v8 = getOrInsertFunction<char const(&)[16],llvm::Type *&,llvm::Type *&,llvm::Type *&,llvm::Type *&>(*(*(*(this + 6) + 56) + 40), "air.clamp.u.i64", this + 17, this + 17, this + 17, this + 17);
+  if (v8)
+  {
+    v9 = *(v8 + 24);
+  }
+
+  else
+  {
+    v9 = 0;
+  }
+
+  v14[0] = a2;
+  v14[1] = a3;
+  v14[2] = a4;
+  v13 = 257;
+  v10 = llvm::IRBuilderBase::CreateCall(this, v9, v8, v14, 3, v12, 0);
+  *(v10 + 18) = *(v10 + 18) & 0xFFFC | 1;
+  llvm::Value::getContext(v10);
+  *(v10 + 64) = llvm::AttributeList::addAttributeAtIndex();
+  llvm::Value::getContext(v10);
+  *(v10 + 64) = llvm::AttributeList::addAttributeAtIndex();
+  return v10;
+}
+
+uint64_t getOrInsertFunction<char const(&)[16],llvm::Type *&,llvm::Type *&,llvm::Type *&,llvm::Type *&>(uint64_t a1, char *__s, uint64_t *a3, uint64_t *a4, uint64_t *a5, uint64_t *a6)
+{
+  v12 = strlen(__s);
+  llvm::Module::getOrInsertFunction<llvm::Type *,llvm::Type *,llvm::Type *>(a1, __s, v12, 0, *a3, *a4, *a5, *a6);
+  result = v13;
+  if (*(v13 + 16) == 5)
+  {
+    return *(v13 - 32 * (*(v13 + 20) & 0x7FFFFFF));
+  }
+
+  return result;
+}
+
+llvm::Value *MTLIRBuilder::CreateAddSat(MTLIRBuilder *this, llvm::Value *a2, llvm::Value *a3)
+{
+  v4 = a2;
+  v32 = *MEMORY[0x277D85DE8];
+  v6 = *(*(*(this + 6) + 56) + 40);
+  llvm::Type::getInt32Ty(*v6, a2);
+  Function = llvm::Module::getFunction();
+  if (!Function)
+  {
+    v8 = llvm::FunctionType::get();
+    v31 = 261;
+    v30[0] = "air.add_sat.u.i32";
+    v30[1] = 17;
+    Function = llvm::Function::Create(v8, 0, v30, v6);
+    llvm::Function::addFnAttr();
+    llvm::Function::addFnAttr();
+    llvm::Function::addFnAttr();
+    llvm::Function::addFnAttr();
+  }
+
+  llvm::Module::getDataLayout(v6);
+  v9 = *(v4 + 16);
+  v10 = *(a3 + 16);
+  if (!v4 || (v11 = v4, v9 != 16))
+  {
+    if (v9 >= 0x1C && (v12 = llvm::ConstantFoldInstruction()) != 0)
+    {
+      if (*(v12 + 16) == 16)
+      {
+        v11 = v12;
+      }
+
+      else
+      {
+        v11 = 0;
+      }
+    }
+
+    else
+    {
+      v11 = 0;
+    }
+  }
+
+  v13 = a3;
+  if (v10 == 16)
+  {
+    goto LABEL_17;
+  }
+
+  if (*(a3 + 16) >= 0x1Cu)
+  {
+    v14 = llvm::ConstantFoldInstruction();
+    if (v14)
+    {
+      if (*(v14 + 16) == 16)
+      {
+        v13 = v14;
+      }
+
+      else
+      {
+        v13 = 0;
+      }
+
+LABEL_17:
+      if (v11 && v13)
+      {
+        return llvm::ConstantInt::get();
+      }
+
+      if (v11)
+      {
+        goto LABEL_23;
+      }
+
+      if (v13)
+      {
+        if (llvm::Constant::isZeroValue(v13))
+        {
+          return v4;
+        }
+
+        if (v4 && *(v4 + 16) == 84)
+        {
+          v21 = *(v4 - 4);
+          if (!v21 || *(v21 + 16) || *(v21 + 24) != *(v4 + 9))
+          {
+            v21 = 0;
+          }
+
+          if (v21 == Function)
+          {
+            v22 = (v4 - 32 * (*(v4 + 5) & 0x7FFFFFF));
+            v23 = *v22;
+            v24 = v22[4];
+            if (*(*v22 + 16) == 16)
+            {
+              v25 = *v22;
+            }
+
+            else
+            {
+              v25 = 0;
+            }
+
+            if (*(v24 + 16) == 16)
+            {
+              v26 = v22[4];
+            }
+
+            else
+            {
+              v26 = 0;
+            }
+
+            if (v25)
+            {
+              v26 = v25;
+            }
+
+            if (v26)
+            {
+              a3 = llvm::ConstantInt::get();
+              if (v25)
+              {
+                v4 = v24;
+              }
+
+              else
+              {
+                v4 = v23;
+              }
+            }
+          }
+        }
+      }
+
+      goto LABEL_64;
+    }
+  }
+
+  if (v11)
+  {
+LABEL_23:
+    if (llvm::Constant::isZeroValue(v11))
+    {
+      return a3;
+    }
+
+    if (*(a3 + 16) == 84)
+    {
+      v15 = *(a3 - 4);
+      if (!v15 || *(v15 + 16) || *(v15 + 24) != *(a3 + 9))
+      {
+        v15 = 0;
+      }
+
+      if (v15 == Function)
+      {
+        v16 = (a3 - 32 * (*(a3 + 5) & 0x7FFFFFF));
+        v17 = *v16;
+        v18 = v16[4];
+        if (*(*v16 + 16) == 16)
+        {
+          v19 = *v16;
+        }
+
+        else
+        {
+          v19 = 0;
+        }
+
+        if (*(v18 + 16) == 16)
+        {
+          v20 = v16[4];
+        }
+
+        else
+        {
+          v20 = 0;
+        }
+
+        if (v19)
+        {
+          v20 = v19;
+        }
+
+        if (v20)
+        {
+          v4 = llvm::ConstantInt::get();
+          if (v19)
+          {
+            a3 = v18;
+          }
+
+          else
+          {
+            a3 = v17;
+          }
+        }
+      }
+    }
+  }
+
+LABEL_64:
+  if (Function)
+  {
+    v27 = *(Function + 24);
+  }
+
+  else
+  {
+    v27 = 0;
+  }
+
+  v29[0] = v4;
+  v29[1] = a3;
+  v31 = 257;
+  v4 = llvm::IRBuilderBase::CreateCall(this, v27, Function, v29, 2, v30, 0);
+  *(v4 + 9) = *(v4 + 9) & 0xFFFC | 1;
+  llvm::Value::getContext(v4);
+  *(v4 + 8) = llvm::AttributeList::addAttributeAtIndex();
+  llvm::Value::getContext(v4);
+  *(v4 + 8) = llvm::AttributeList::addAttributeAtIndex();
+  return v4;
 }

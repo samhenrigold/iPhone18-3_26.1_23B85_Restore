@@ -1,12 +1,12 @@
 @interface NSString(CRKAdditions)
 + (uint64_t)crk_stringWithIPAddress:()CRKAdditions;
 - (BOOL)crk_hasCaseInsensitivePrefix:()CRKAdditions;
+- (BOOL)crk_isFourDigitPasscode;
 - (id)crk_sha1Hash;
 - (id)crk_stringByRemovingPrefix:()CRKAdditions;
 - (id)crk_stringByRemovingSuffix:()CRKAdditions;
 - (id)crk_stringBySanitizingFileName;
 - (id)crk_substringAfterString:()CRKAdditions;
-- (uint64_t)crk_isFourDigitPasscode;
 @end
 
 @implementation NSString(CRKAdditions)
@@ -76,7 +76,7 @@
   return v6;
 }
 
-- (uint64_t)crk_isFourDigitPasscode
+- (BOOL)crk_isFourDigitPasscode
 {
   if ([self length] != 4)
   {

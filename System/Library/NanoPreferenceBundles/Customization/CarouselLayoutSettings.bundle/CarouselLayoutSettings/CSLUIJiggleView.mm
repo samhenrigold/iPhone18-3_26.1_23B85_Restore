@@ -68,7 +68,7 @@
   v18 = 0u;
   v19 = 0u;
   v17 = 0u;
-  [(CSLUIJiggleView *)self transform];
+  objc_msgSend_transform(self, a2);
   v16[0] = _NSConcreteStackBlock;
   v16[1] = 3221225472;
   v16[2] = sub_1FDE4;

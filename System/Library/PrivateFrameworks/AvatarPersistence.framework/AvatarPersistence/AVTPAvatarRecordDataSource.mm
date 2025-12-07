@@ -30,29 +30,29 @@
 
 + (id)sortedRecordsEditableFirstReverseOrder:(id)order
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   orderCopy = order;
   array = [MEMORY[0x277CBEB18] array];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v5 = orderCopy;
-  v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v15;
+    v8 = *v14;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v15 != v8)
+        if (*v14 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v14 + 1) + 8 * i);
+        v10 = *(*(&v13 + 1) + 8 * i);
         if ([v10 isEditable])
         {
           [array insertObject:v10 atIndex:0];
@@ -64,14 +64,13 @@
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v7);
   }
 
   v11 = [array copy];
-  v12 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
@@ -376,29 +375,27 @@ void __45__AVTPAvatarRecordDataSource_removeObserver___block_invoke(uint64_t a1,
 
 void __79__AVTPAvatarRecordDataSource_enumerateObserversRespondingToSelector_withBlock___block_invoke(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
+  v8 = 0u;
+  v9 = 0u;
+  v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
-  v13 = 0u;
-  v14 = 0u;
   v3 = [a2 allObjects];
-  v4 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v12;
+    v6 = *v9;
     do
     {
       v7 = 0;
       do
       {
-        if (*v12 != v6)
+        if (*v9 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v11 + 1) + 8 * v7);
-        v9 = *(a1 + 40);
         if (objc_opt_respondsToSelector())
         {
           (*(*(a1 + 32) + 16))();
@@ -408,13 +405,11 @@ void __79__AVTPAvatarRecordDataSource_enumerateObserversRespondingToSelector_wit
       }
 
       while (v5 != v7);
-      v5 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v5);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 + (id)loadRecordsWithStore:(id)store request:(id)request logger:(id)logger
@@ -479,7 +474,7 @@ void __79__AVTPAvatarRecordDataSource_enumerateObserversRespondingToSelector_wit
   return v2;
 }
 
-uint64_t __45__AVTPAvatarRecordDataSource_numberOfRecords__block_invoke(uint64_t a1, void *a2)
+void *__45__AVTPAvatarRecordDataSource_numberOfRecords__block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 count];
   *(*(*(a1 + 32) + 8) + 24) = result;
@@ -551,10 +546,7 @@ void __44__AVTPAvatarRecordDataSource_recordAtIndex___block_invoke(void *a1, voi
 
 uint64_t __58__AVTPAvatarRecordDataSource_indexesOfRecordsPassingTest___block_invoke(uint64_t a1, void *a2)
 {
-  v3 = [a2 indexesOfObjectsPassingTest:*(a1 + 32)];
-  v4 = *(*(a1 + 40) + 8);
-  v5 = *(v4 + 40);
-  *(v4 + 40) = v3;
+  *(*(*(a1 + 40) + 8) + 40) = [a2 indexesOfObjectsPassingTest:*(a1 + 32)];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -580,7 +572,7 @@ uint64_t __58__AVTPAvatarRecordDataSource_indexesOfRecordsPassingTest___block_in
   return v6;
 }
 
-uint64_t __55__AVTPAvatarRecordDataSource_indexOfRecordPassingTest___block_invoke(uint64_t a1, void *a2)
+void *__55__AVTPAvatarRecordDataSource_indexOfRecordPassingTest___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 indexOfObjectPassingTest:*(a1 + 32)];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -607,37 +599,36 @@ uint64_t __55__AVTPAvatarRecordDataSource_indexOfRecordPassingTest___block_invok
 void __72__AVTPAvatarRecordDataSource_store_didSaveAvatar_postCompletionHandler___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __72__AVTPAvatarRecordDataSource_store_didSaveAvatar_postCompletionHandler___block_invoke_2;
-  v15[3] = &unk_278CFA208;
-  v16 = *(a1 + 32);
-  v4 = [v3 indexOfObjectPassingTest:v15];
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __72__AVTPAvatarRecordDataSource_store_didSaveAvatar_postCompletionHandler___block_invoke_2;
+  v14[3] = &unk_278CFA208;
+  v15 = *(a1 + 32);
+  v4 = [v3 indexOfObjectPassingTest:v14];
   if (v4 == 0x7FFFFFFFFFFFFFFFLL)
   {
-    v5 = *(a1 + 40);
-    v6 = [objc_opt_class() indexForInsertingRecord:*(a1 + 32) inRecords:v3];
-    [v3 insertObject:*(a1 + 32) atIndex:v6];
+    v5 = [objc_opt_class() indexForInsertingRecord:*(a1 + 32) inRecords:v3];
+    [v3 insertObject:*(a1 + 32) atIndex:v5];
   }
 
   else
   {
     [v3 replaceObjectAtIndex:v4 withObject:*(a1 + 32)];
-    v6 = v4;
+    v5 = v4;
   }
 
-  v7 = v4 == 0x7FFFFFFFFFFFFFFFLL;
-  v8 = *(a1 + 48);
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __72__AVTPAvatarRecordDataSource_store_didSaveAvatar_postCompletionHandler___block_invoke_3;
-  v11[3] = &unk_278CFA258;
-  v14 = v7;
-  v10 = *(a1 + 32);
-  v9 = v10.i64[0];
-  v12 = vextq_s8(v10, v10, 8uLL);
+  v6 = v4 == 0x7FFFFFFFFFFFFFFFLL;
+  v7 = *(a1 + 48);
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __72__AVTPAvatarRecordDataSource_store_didSaveAvatar_postCompletionHandler___block_invoke_3;
+  v10[3] = &unk_278CFA258;
   v13 = v6;
-  (*(v8 + 16))(v8, v11);
+  v9 = *(a1 + 32);
+  v8 = v9.i64[0];
+  v11 = vextq_s8(v9, v9, 8uLL);
+  v12 = v5;
+  (*(v7 + 16))(v7, v10);
 }
 
 uint64_t __72__AVTPAvatarRecordDataSource_store_didSaveAvatar_postCompletionHandler___block_invoke_2(uint64_t a1, void *a2)
@@ -778,21 +769,20 @@ void __88__AVTPAvatarRecordDataSource_store_didDeleteAvatarWithIdentifier_postCo
 
 void __95__AVTPAvatarRecordDataSource_store_didCreateDuplicateAvatar_forOriginal_postCompletionHandler___block_invoke(void *a1, void *a2)
 {
-  v3 = a1[4];
-  v4 = a2;
-  v5 = [objc_opt_class() indexForInsertingDuplicateRecord:a1[5] original:a1[6] inRecords:v4];
-  [v4 insertObject:a1[5] atIndex:v5];
+  v3 = a2;
+  v4 = [objc_opt_class() indexForInsertingDuplicateRecord:a1[5] original:a1[6] inRecords:v3];
+  [v3 insertObject:a1[5] atIndex:v4];
 
-  v6 = a1[7];
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __95__AVTPAvatarRecordDataSource_store_didCreateDuplicateAvatar_forOriginal_postCompletionHandler___block_invoke_2;
-  v8[3] = &unk_278CFA2D0;
-  v7 = a1[5];
-  v8[4] = a1[4];
-  v9 = v7;
-  v10 = v5;
-  (*(v6 + 16))(v6, v8);
+  v5 = a1[7];
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = __95__AVTPAvatarRecordDataSource_store_didCreateDuplicateAvatar_forOriginal_postCompletionHandler___block_invoke_2;
+  v7[3] = &unk_278CFA2D0;
+  v6 = a1[5];
+  v7[4] = a1[4];
+  v8 = v6;
+  v9 = v4;
+  (*(v5 + 16))(v5, v7);
 }
 
 void __95__AVTPAvatarRecordDataSource_store_didCreateDuplicateAvatar_forOriginal_postCompletionHandler___block_invoke_2(uint64_t a1)

@@ -19,7 +19,7 @@
   {
     if (input)
     {
-      [(AVCaption *)input timeRange];
+      objc_msgSend_timeRange(input, a2);
     }
 
     else
@@ -137,11 +137,11 @@ __n128 __57__AVCaptionGrouper_flushAddedCaptionsIntoGroupsUpToTime___block_invok
 {
   if (a2)
   {
-    [a2 timeRange];
+    objc_msgSend_timeRange(a2);
     *&v23.value = v20;
     v23.epoch = v21;
     memset(&v19, 0, sizeof(v19));
-    [a2 timeRange];
+    objc_msgSend_timeRange(a2);
   }
 
   else
@@ -203,7 +203,7 @@ uint64_t __57__AVCaptionGrouper_flushAddedCaptionsIntoGroupsUpToTime___block_inv
   memset(&v8, 0, sizeof(v8));
   if (a2)
   {
-    [a2 timeRange];
+    objc_msgSend_timeRange(a2);
   }
 
   else
@@ -253,7 +253,7 @@ uint64_t __57__AVCaptionGrouper_flushAddedCaptionsIntoGroupsUpToTime___block_inv
   memset(&v8, 0, sizeof(v8));
   if (a2)
   {
-    [a2 timeRange];
+    objc_msgSend_timeRange(a2);
   }
 
   else

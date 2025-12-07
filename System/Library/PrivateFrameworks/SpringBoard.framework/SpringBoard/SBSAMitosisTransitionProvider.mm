@@ -117,7 +117,7 @@ LABEL_14:
   preferencesCopy = preferences;
   contextCopy = context;
   activePhase = [(SBSASequencedBehaviorProvider *)self activePhase];
-  v12 = SBLogSystemAperturePreferencesStackMitosis();
+  v12 = SBLogSystemAperturePreferencesStackMitosis(activePhase);
   v13 = os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG);
   switch(activePhase)
   {
@@ -631,28 +631,28 @@ void __114__SBSAMitosisTransitionProvider__updatedBabyHeadstartPreferencesFromPr
 {
   [a1 queryIteration];
   OUTLINED_FUNCTION_1_1();
-  OUTLINED_FUNCTION_0_13(&dword_21ED4E000, v1, v2, "[%{public}lu] Mitosis Provider: Primary Layout", v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_0_13(&dword_21ED4E000, v1, v2, "[%{public}lu] Mitosis Provider: Primary Layout", v3, v4, v5, v6);
 }
 
 - (void)updatedPreferencesFromPreferences:(void *)a1 context:relevantPropertyIdentity:.cold.2(void *a1)
 {
   [a1 queryIteration];
   OUTLINED_FUNCTION_1_1();
-  OUTLINED_FUNCTION_0_13(&dword_21ED4E000, v1, v2, "[%{public}lu] Mitosis Provider: Baby Headstart", v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_0_13(&dword_21ED4E000, v1, v2, "[%{public}lu] Mitosis Provider: Baby Headstart", v3, v4, v5, v6);
 }
 
 - (void)updatedPreferencesFromPreferences:(void *)a1 context:relevantPropertyIdentity:.cold.3(void *a1)
 {
   [a1 queryIteration];
   OUTLINED_FUNCTION_1_1();
-  OUTLINED_FUNCTION_0_13(&dword_21ED4E000, v1, v2, "[%{public}lu] Mitosis Provider: Unanimated layout", v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_0_13(&dword_21ED4E000, v1, v2, "[%{public}lu] Mitosis Provider: Unanimated layout", v3, v4, v5, v6);
 }
 
 - (void)updatedPreferencesFromPreferences:(void *)a1 context:relevantPropertyIdentity:.cold.4(void *a1)
 {
   [a1 queryIteration];
   OUTLINED_FUNCTION_1_1();
-  OUTLINED_FUNCTION_0_13(&dword_21ED4E000, v1, v2, "[%{public}lu] Mitosis Provider: Default Case", v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_0_13(&dword_21ED4E000, v1, v2, "[%{public}lu] Mitosis Provider: Default Case", v3, v4, v5, v6);
 }
 
 void __100__SBSAMitosisTransitionProvider_updatedPreferencesFromPreferences_context_relevantPropertyIdentity___block_invoke_cold_1()

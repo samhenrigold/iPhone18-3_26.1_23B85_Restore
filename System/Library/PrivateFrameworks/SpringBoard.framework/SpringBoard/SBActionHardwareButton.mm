@@ -3,10 +3,10 @@
 - (SBActionHardwareButton)init;
 - (id)_dateFromMachAbsoluteTimestamp:(uint64_t)timestamp;
 - (uint64_t)_sendActionButtonDownToSceneOverride;
-- (uint64_t)handleRingerButtonEvent:(uint64_t)result;
 - (void)_configureButtonArbiter;
-- (void)_performActionForEvent:(uint64_t)event interactionTime:(uint64_t)time;
+- (void)_performActionForEvent:(uint64_t)event interactionTime:;
 - (void)cancelHardwareButtonPress;
+- (void)handleRingerButtonEvent:(void *)result;
 - (void)initWithSystemActionControl:(void *)control suppressionManager:;
 - (void)performActionsForButtonDown:(id)down;
 - (void)performActionsForButtonLongPress:(id)press;
@@ -139,7 +139,7 @@
   return self;
 }
 
-- (uint64_t)handleRingerButtonEvent:(uint64_t)result
+- (void)handleRingerButtonEvent:(void *)result
 {
   if (result)
   {
@@ -159,7 +159,7 @@
       [SBActionHardwareButton handleRingerButtonEvent:?];
     }
 
-    v4 = *(v3 + 88);
+    v4 = v3[11];
 
     return [v4 processEvent:a2];
   }
@@ -167,71 +167,71 @@
   return result;
 }
 
-- (void)_performActionForEvent:(uint64_t)event interactionTime:(uint64_t)time
+- (void)_performActionForEvent:(uint64_t)event interactionTime:
 {
-  if (!event)
+  if (!self)
   {
     return;
   }
 
-  v21 = *(event + 24);
-  suppressionStatus = [(SBSystemActionSuppressionManager *)*(event + 32) suppressionStatus];
-  if (time <= 1)
+  v24 = *(self + 24);
+  suppressionStatus = [(SBSystemActionSuppressionManager *)*(self + 32) suppressionStatus];
+  if (a2 <= 1)
   {
-    if (time)
+    if (a2)
     {
-      if (time != 1)
+      if (a2 != 1)
       {
         goto LABEL_11;
       }
 
-      v11 = [SBActionHardwareButton _dateFromMachAbsoluteTimestamp:event];
-      v18 = [[SBSystemActionInteractionContext alloc] initWithPreciseTimestamp:v11 type:1 suppressionStatus:suppressionStatus];
-      v19 = [(SBSystemActionControl *)v21 performSelectedActionFromSource:v18 withContext:?];
-      v20 = *(event + 72);
-      *(event + 72) = v19;
+      v14 = [(SBActionHardwareButton *)self _dateFromMachAbsoluteTimestamp:event];
+      v21 = [[SBSystemActionInteractionContext alloc] initWithPreciseTimestamp:v14 type:1 suppressionStatus:suppressionStatus];
+      v22 = [(SBSystemActionControl *)v24 performSelectedActionFromSource:v21 withContext:?];
+      v23 = *(self + 72);
+      *(self + 72) = v22;
     }
 
     else
     {
-      v6 = +[SBSystemActionAnalyticsTracker sharedTracker];
+      v8 = +[SBSystemActionAnalyticsTracker sharedTracker];
       BSMonotonicReferencedTimeFromMachTime();
-      [(SBSystemActionAnalyticsTracker *)v6 trackPressDownForLatencyMeasurement:v7];
+      [(SBSystemActionAnalyticsTracker *)v8 trackPressDownForLatencyMeasurement:v9, v10];
 
-      v8 = *(event + 32);
-      [*(event + 88) longPressTimeout];
-      [(SBSystemActionSuppressionManager *)v8 systemActionInteractionDidStartWithLongPressTimeout:v9];
-      v10 = [(SBSystemActionControl *)v21 previewSelectedActionFromSource:suppressionStatus withSuppressionStatus:?];
-      v11 = *(event + 64);
-      *(event + 64) = v10;
+      v11 = *(self + 32);
+      [*(self + 88) longPressTimeout];
+      [(SBSystemActionSuppressionManager *)v11 systemActionInteractionDidStartWithLongPressTimeout:v12];
+      v13 = [(SBSystemActionControl *)v24 previewSelectedActionFromSource:suppressionStatus withSuppressionStatus:?];
+      v14 = *(self + 64);
+      *(self + 64) = v13;
     }
 
     goto LABEL_10;
   }
 
-  if (time == 2)
+  if (a2 == 2)
   {
-    v5 = 0;
+    v7 = 0;
     goto LABEL_9;
   }
 
-  if (time == 3)
+  if (a2 == 3)
   {
-    v5 = 1;
+    v7 = 1;
 LABEL_9:
-    v12 = +[SBSystemActionAnalyticsTracker sharedTracker];
-    v13 = *(event + 72) != 0;
-    selectedActionAnalyticsData = [(SBSystemActionControl *)*(event + 24) selectedActionAnalyticsData];
-    v16 = v15;
-    [(SBSystemActionAnalyticsTracker *)v12 trackPressUpForLatencyMeasurement:suppressionStatus cancelled:v5 longPressTriggered:v13 selectedActionIdentifier:selectedActionAnalyticsData];
+    v15 = +[SBSystemActionAnalyticsTracker sharedTracker];
+    v16 = *(self + 72) != 0;
+    selectedActionAnalyticsData = [(SBSystemActionControl *)*(self + 24) selectedActionAnalyticsData];
+    v19 = v18;
+    [(SBSystemActionAnalyticsTracker *)v15 trackPressUpForLatencyMeasurement:suppressionStatus cancelled:v7 longPressTriggered:v16 selectedActionIdentifier:selectedActionAnalyticsData];
 
-    [*(event + 64) invalidate];
-    v17 = *(event + 64);
-    *(event + 64) = 0;
+    [*(self + 64) invalidate];
+    v20 = *(self + 64);
+    *(self + 64) = 0;
 
-    [*(event + 72) invalidate];
-    v11 = *(event + 72);
-    *(event + 72) = 0;
+    [*(self + 72) invalidate];
+    v14 = *(self + 72);
+    *(self + 72) = 0;
 LABEL_10:
   }
 
@@ -293,8 +293,7 @@ LABEL_11:
         _os_log_impl(&dword_21ED4E000, v13, OS_LOG_TYPE_DEFAULT, "button down (sq%d): performing action", &v17, 8u);
       }
 
-      [downCopy downTime];
-      [SBActionHardwareButton _performActionForEvent:0 interactionTime:?];
+      -[SBActionHardwareButton _performActionForEvent:interactionTime:](self, 0, [downCopy downTime]);
     }
 
     defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
@@ -354,8 +353,7 @@ LABEL_9:
       _os_log_impl(&dword_21ED4E000, v5, OS_LOG_TYPE_DEFAULT, "long press (sq%d): performing action", &v12, 8u);
     }
 
-    [pressCopy downTime];
-    [SBActionHardwareButton _performActionForEvent:1 interactionTime:?];
+    -[SBActionHardwareButton _performActionForEvent:interactionTime:](self, 1, [pressCopy downTime]);
   }
 
 LABEL_10:
@@ -399,8 +397,7 @@ LABEL_10:
         _os_log_impl(&dword_21ED4E000, v7, OS_LOG_TYPE_DEFAULT, "button up (sq%d): performing action", &v12, 8u);
       }
 
-      [upCopy downTime];
-      [SBActionHardwareButton _performActionForEvent:2 interactionTime:?];
+      -[SBActionHardwareButton _performActionForEvent:interactionTime:](self, 2, [upCopy downTime]);
     }
   }
 }
@@ -446,8 +443,7 @@ LABEL_10:
       _os_log_impl(&dword_21ED4E000, v4, OS_LOG_TYPE_DEFAULT, "button cancelled (sq%d): performing action", &v9, 8u);
     }
 
-    [(SBHIDButtonStateArbiter *)self->_buttonArbiter downTime];
-    [SBActionHardwareButton _performActionForEvent:3 interactionTime:?];
+    [(SBActionHardwareButton *)self _performActionForEvent:[(SBHIDButtonStateArbiter *)self->_buttonArbiter downTime] interactionTime:?];
   }
 }
 
@@ -470,15 +466,15 @@ LABEL_10:
     date = [MEMORY[0x277CBEAA8] date];
     mach_absolute_time();
     BSTimeDifferenceFromMachTimeToMachTime();
-    v2 = [date dateByAddingTimeInterval:?];
+    v3 = [date dateByAddingTimeInterval:?];
   }
 
   else
   {
-    v2 = 0;
+    v3 = 0;
   }
 
-  return v2;
+  return v3;
 }
 
 - (uint64_t)_sendActionButtonDownToSceneOverride
@@ -558,7 +554,7 @@ LABEL_10:
 
 - (void)initWithSystemActionControl:(char *)a1 suppressionManager:.cold.2(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"systemActionControl != ((void *)0)"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -566,7 +562,7 @@ LABEL_10:
     v3 = OUTLINED_FUNCTION_5_0();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_3(&dword_21ED4E000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"systemActionControl != ((void *)0)", v10, v11);
+    OUTLINED_FUNCTION_3(&dword_21ED4E000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -608,7 +604,7 @@ LABEL_10:
 
 - (void)handleRingerButtonEvent:(char *)a1 .cold.1(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"IOHIDEventGetType(event) == kIOHIDEventTypeKeyboard"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -616,7 +612,7 @@ LABEL_10:
     v3 = OUTLINED_FUNCTION_5_0();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_3(&dword_21ED4E000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"IOHIDEventGetType(event) == kIOHIDEventTypeKeyboard", v10, v11);
+    OUTLINED_FUNCTION_3(&dword_21ED4E000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -626,7 +622,7 @@ LABEL_10:
 
 - (void)handleRingerButtonEvent:(char *)a1 .cold.2(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"IOHIDEventGetIntegerValue(event, kIOHIDEventFieldKeyboardUsagePage) == kHIDPage_Telephony"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -634,7 +630,7 @@ LABEL_10:
     v3 = OUTLINED_FUNCTION_5_0();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_3(&dword_21ED4E000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"IOHIDEventGetIntegerValue(event, kIOHIDEventFieldKeyboardUsagePage) == kHIDPage_Telephony", v10, v11);
+    OUTLINED_FUNCTION_3(&dword_21ED4E000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -644,7 +640,7 @@ LABEL_10:
 
 - (void)handleRingerButtonEvent:(char *)a1 .cold.3(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"IOHIDEventGetIntegerValue(event, kIOHIDEventFieldKeyboardUsage) == kHIDUsage_Tfon_RingEnable"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -652,7 +648,7 @@ LABEL_10:
     v3 = OUTLINED_FUNCTION_5_0();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_3(&dword_21ED4E000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"IOHIDEventGetIntegerValue(event, kIOHIDEventFieldKeyboardUsage) == kHIDUsage_Tfon_RingEnable", v10, v11);
+    OUTLINED_FUNCTION_3(&dword_21ED4E000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];

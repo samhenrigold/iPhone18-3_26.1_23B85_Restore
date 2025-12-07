@@ -28,10 +28,10 @@
   {
     v20 = *(v18 + 1);
     selfCopy = self;
-    sub_2517A9F58(v19);
+    sub_2517A9F58(v19, v20);
     v19(v10, v12, v13, v14, v16, options, sub_2517AA9B8, v17);
 
-    sub_2517A9F88(v19);
+    sub_2517A9F88(v19, v20);
   }
 
   else
@@ -55,10 +55,10 @@
   {
     v12 = *(v10 + 1);
     selfCopy = self;
-    sub_2517A9F58(v11);
+    sub_2517A9F58(v11, v12);
     v11(v7, v9, options);
 
-    sub_2517A9F88(v11);
+    sub_2517A9F88(v11, v12);
   }
 
   else

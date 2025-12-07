@@ -11,9 +11,9 @@
     +[NSBundle(DoNotDisturbKit) dndk_localizationBundle];
   }
 
-  v1 = dndk_localizationBundle_bundle;
+  v2 = dndk_localizationBundle_bundle;
 
-  return v1;
+  return v2;
 }
 
 @end

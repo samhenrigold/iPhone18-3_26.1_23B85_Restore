@@ -18,7 +18,11 @@
 - (void)setCaptureDate:(unint64_t)date;
 - (void)setModificationDate:(unint64_t)date;
 - (void)setName:(id)name;
+- (void)setObjHandle:(unsigned int)handle;
+- (void)setParentObject:(unsigned int)object;
+- (void)setProtectionStatus:(BOOL)status;
 - (void)setSize:(unint64_t)size;
+- (void)setStorageID:(unsigned int)d;
 @end
 
 @implementation PTPCameraItem
@@ -108,6 +112,13 @@ LABEL_9:
   return objectHandle;
 }
 
+- (void)setObjHandle:(unsigned int)handle
+{
+  v3 = *&handle;
+  cameraItemProxy = [(PTPCameraItem *)self cameraItemProxy];
+  [cameraItemProxy setObjectHandle:v3];
+}
+
 - (unsigned)parentObject
 {
   cameraItemProxy = [(PTPCameraItem *)self cameraItemProxy];
@@ -116,12 +127,33 @@ LABEL_9:
   return parentObjectHandle;
 }
 
+- (void)setParentObject:(unsigned int)object
+{
+  v3 = *&object;
+  cameraItemProxy = [(PTPCameraItem *)self cameraItemProxy];
+  [cameraItemProxy setParentObjectHandle:v3];
+}
+
 - (unsigned)storageID
 {
   cameraItemProxy = [(PTPCameraItem *)self cameraItemProxy];
   storageID = [cameraItemProxy storageID];
 
   return storageID;
+}
+
+- (void)setStorageID:(unsigned int)d
+{
+  v3 = *&d;
+  cameraItemProxy = [(PTPCameraItem *)self cameraItemProxy];
+  [cameraItemProxy setStorageID:v3];
+}
+
+- (void)setProtectionStatus:(BOOL)status
+{
+  statusCopy = status;
+  cameraItemProxy = [(PTPCameraItem *)self cameraItemProxy];
+  [cameraItemProxy setReadOnly:statusCopy];
 }
 
 - (BOOL)protectionStatus

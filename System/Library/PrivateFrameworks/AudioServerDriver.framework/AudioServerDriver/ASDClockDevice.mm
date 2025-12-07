@@ -2,13 +2,16 @@
 - (ASDClockDevice)initWithDeviceUID:(id)d withPlugin:(id)plugin;
 - (ASDClockDevice)initWithPlugin:(id)plugin;
 - (ASDDeviceConfigurationChangeDelegate)configurationChangeDelegate;
+- (BOOL)getProperty:(const AudioObjectPropertyAddress *)property withQualifierSize:(unsigned int)size qualifierData:(const void *)data dataSize:(unsigned int *)dataSize andData:(void *)andData forClient:(int)client;
 - (BOOL)hasProperty:(const AudioObjectPropertyAddress *)property;
 - (BOOL)isPropertySettable:(const AudioObjectPropertyAddress *)settable;
+- (BOOL)setProperty:(const AudioObjectPropertyAddress *)property withQualifierSize:(unsigned int)size qualifierData:(const void *)data dataSize:(unsigned int)dataSize andData:(const void *)andData forClient:(int)client;
 - (BOOL)supportsSamplingRate:(double)rate;
 - (NSArray)samplingRateRanges;
 - (NSArray)samplingRates;
 - (double)samplingRate;
 - (id)controls;
+- (id)diagnosticDescriptionWithIndent:(id)indent walkTree:(BOOL)tree;
 - (int)performStartIO;
 - (int)performStopIO;
 - (int)startIOForClient:(unsigned int)client;
@@ -406,29 +409,29 @@ LABEL_39:
 
 void __73__ASDClockDevice_dataSizeForProperty_withQualifierSize_andQualifierData___block_invoke(void *a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   v3 = *(a1[4] + 64);
-  v4 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v10;
+    v6 = *v9;
     do
     {
       v7 = 0;
       do
       {
-        if (*v10 != v6)
+        if (*v9 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        if (*(a1[6] + 4) == 1735159650 || [*(*(&v9 + 1) + 8 * v7) controlScope] == *(a1[6] + 4))
+        if (*(a1[6] + 4) == 1735159650 || [*(*(&v8 + 1) + 8 * v7) controlScope] == *(a1[6] + 4))
         {
           ++*(*(a1[5] + 8) + 24);
         }
@@ -437,36 +440,35 @@ void __73__ASDClockDevice_dataSizeForProperty_withQualifierSize_andQualifierData
       }
 
       while (v5 != v7);
-      v5 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v5);
   }
 
   objc_autoreleasePoolPop(v2);
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __73__ASDClockDevice_dataSizeForProperty_withQualifierSize_andQualifierData___block_invoke_2(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   v3 = *(*(a1 + 32) + 64);
-  v4 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v12;
+    v6 = *v11;
     do
     {
       v7 = 0;
       do
       {
-        if (*v12 != v6)
+        if (*v11 != v6)
         {
           objc_enumerationMutation(v3);
         }
@@ -474,7 +476,7 @@ void __73__ASDClockDevice_dataSizeForProperty_withQualifierSize_andQualifierData
         if (*(a1 + 64))
         {
           v8 = 0;
-          v9 = *(*(&v11 + 1) + 8 * v7);
+          v9 = *(*(&v10 + 1) + 8 * v7);
           do
           {
             if ([v9 objectClass] == *(*(a1 + 48) + 4 * v8) && (*(*(a1 + 56) + 4) == 1735159650 || objc_msgSend(v9, "controlScope") == *(*(a1 + 56) + 4)))
@@ -492,41 +494,40 @@ void __73__ASDClockDevice_dataSizeForProperty_withQualifierSize_andQualifierData
       }
 
       while (v7 != v5);
-      v5 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v5);
   }
 
   objc_autoreleasePoolPop(v2);
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __73__ASDClockDevice_dataSizeForProperty_withQualifierSize_andQualifierData___block_invoke_3(void *a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   v3 = *(a1[4] + 64);
-  v4 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v10;
+    v6 = *v9;
     do
     {
       v7 = 0;
       do
       {
-        if (*v10 != v6)
+        if (*v9 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        if (*(a1[6] + 4) == 1735159650 || [*(*(&v9 + 1) + 8 * v7) controlScope] == *(a1[6] + 4))
+        if (*(a1[6] + 4) == 1735159650 || [*(*(&v8 + 1) + 8 * v7) controlScope] == *(a1[6] + 4))
         {
           ++*(*(a1[5] + 8) + 24);
         }
@@ -535,19 +536,481 @@ void __73__ASDClockDevice_dataSizeForProperty_withQualifierSize_andQualifierData
       }
 
       while (v5 != v7);
-      v5 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v5);
   }
 
   objc_autoreleasePoolPop(v2);
-  v8 = *MEMORY[0x277D85DE8];
+}
+
+- (BOOL)getProperty:(const AudioObjectPropertyAddress *)property withQualifierSize:(unsigned int)size qualifierData:(const void *)data dataSize:(unsigned int *)dataSize andData:(void *)andData forClient:(int)client
+{
+  v8 = 0;
+  v67 = *MEMORY[0x277D85DE8];
+  if (!property || !dataSize || !andData)
+  {
+    return v8;
+  }
+
+  v11 = *&client;
+  v13 = *&size;
+  mSelector = property->mSelector;
+  if (property->mSelector > 1819173228)
+  {
+    if (mSelector <= 1870098019)
+    {
+      if (mSelector <= 1836411235)
+      {
+        if (mSelector != 1819173229)
+        {
+          if (mSelector != 1819569763)
+          {
+            goto LABEL_84;
+          }
+
+          if (*dataSize < 4)
+          {
+            return 0;
+          }
+
+          mScope = property->mScope;
+          if (mScope != 1869968496)
+          {
+            if (mScope == 1768845428)
+            {
+              goto LABEL_41;
+            }
+
+            if (mScope != 1735159650)
+            {
+              goto LABEL_93;
+            }
+
+            inputLatency = [(ASDClockDevice *)self inputLatency];
+            if (inputLatency > [(ASDClockDevice *)self outputLatency])
+            {
+LABEL_41:
+              inputLatency2 = [(ASDClockDevice *)self inputLatency];
+              goto LABEL_92;
+            }
+          }
+
+          inputLatency2 = [(ASDClockDevice *)self outputLatency];
+          goto LABEL_92;
+        }
+
+        if (*dataSize < 8)
+        {
+          return 0;
+        }
+
+        deviceName = [(ASDClockDevice *)self deviceName];
+      }
+
+      else
+      {
+        if (mSelector != 1836411236)
+        {
+          if (mSelector == 1853059619)
+          {
+            v26 = *dataSize;
+            [(ASDClockDevice *)self samplingRateRanges];
+            v58 = 0u;
+            v59 = 0u;
+            v56 = 0u;
+            v27 = v57 = 0u;
+            v28 = [v27 countByEnumeratingWithState:&v56 objects:v66 count:16];
+            if (v28)
+            {
+              v29 = 0;
+              v30 = *v57;
+              v31 = andData + 8;
+              v32 = -(v26 >> 4);
+              v50 = andData + 8;
+              v51 = v26 >> 4;
+LABEL_54:
+              v33 = 0;
+              v34 = v29;
+              v35 = &v31[16 * v29];
+              v36 = v32 + v29;
+              while (1)
+              {
+                if (*v57 != v30)
+                {
+                  objc_enumerationMutation(v27);
+                }
+
+                if (!(v36 + v33))
+                {
+                  break;
+                }
+
+                v37 = *(*(&v56 + 1) + 8 * v33);
+                [v37 maximum];
+                *v35 = v38;
+                [v37 minimum];
+                *(v35 - 1) = v39;
+                ++v33;
+                v35 += 16;
+                if (v28 == v33)
+                {
+                  v28 = [v27 countByEnumeratingWithState:&v56 objects:v66 count:16];
+                  v29 = v34 + v33;
+                  v32 = -(v26 >> 4);
+                  v31 = v50;
+                  if (v28)
+                  {
+                    goto LABEL_54;
+                  }
+
+                  LODWORD(v51) = v34 + v33;
+                  break;
+                }
+              }
+            }
+
+            else
+            {
+              LODWORD(v51) = 0;
+            }
+
+            *dataSize = 16 * v51;
+            return 1;
+          }
+
+          if (mSelector != 1853059700)
+          {
+            goto LABEL_84;
+          }
+
+          if (*dataSize < 8)
+          {
+            return 0;
+          }
+
+          [(ASDClockDevice *)self samplingRate];
+          *andData = v19;
+LABEL_80:
+          v41 = 8;
+LABEL_94:
+          *dataSize = v41;
+          return 1;
+        }
+
+        if (*dataSize < 8)
+        {
+          return 0;
+        }
+
+        deviceName = [(ASDClockDevice *)self modelUID];
+      }
+
+LABEL_78:
+      *andData = deviceName;
+
+      if (*andData)
+      {
+        CFRetain(*andData);
+      }
+
+      goto LABEL_80;
+    }
+
+    if (mSelector > 1935763059)
+    {
+      if (mSelector != 1935763060)
+      {
+        if (mSelector == 1953653102)
+        {
+          if (*dataSize >= 4)
+          {
+            inputLatency2 = [(ASDClockDevice *)self transportType];
+            goto LABEL_92;
+          }
+
+          return 0;
+        }
+
+        if (mSelector == 1937007734)
+        {
+          if (*dataSize >= 4)
+          {
+            *dataSize = 4;
+            owner = [(ASDObject *)self owner];
+            v21Owner = [owner owner];
+            *andData = [v21Owner objectID];
+
+            return 1;
+          }
+
+          return 0;
+        }
+
+        goto LABEL_84;
+      }
+
+      if (*dataSize < 4)
+      {
+        return 0;
+      }
+
+      *andData = 0;
+      goto LABEL_93;
+    }
+
+    if (mSelector != 1870098020)
+    {
+      if (mSelector == 1919512167)
+      {
+        if (*dataSize >= 4)
+        {
+          inputLatency2 = [(ASDClockDevice *)self timestampPeriod];
+          goto LABEL_92;
+        }
+
+        return 0;
+      }
+
+      goto LABEL_84;
+    }
+
+    if (size)
+    {
+      if ((size & 3) != 0)
+      {
+        return 0;
+      }
+
+      v61 = 0;
+      v62 = &v61;
+      v63 = 0x2020000000;
+      v64 = 0;
+      v44 = *dataSize;
+      if (v44 >= [(ASDClockDevice *)self dataSizeForProperty:property withQualifierSize:*&size andQualifierData:data])
+      {
+        v45 = [(ASDClockDevice *)self dataSizeForProperty:property withQualifierSize:v13 andQualifierData:data];
+      }
+
+      else
+      {
+        v45 = *dataSize;
+      }
+
+      v47 = v45 >> 2;
+      if (v62[3] == v47)
+      {
+LABEL_104:
+        v18 = 4 * v47;
+        goto LABEL_105;
+      }
+
+      controlQueue = self->_controlQueue;
+      v54[0] = MEMORY[0x277D85DD0];
+      v54[1] = 3221225472;
+      v54[2] = __89__ASDClockDevice_getProperty_withQualifierSize_qualifierData_dataSize_andData_forClient___block_invoke_2;
+      v54[3] = &unk_278CE40A8;
+      v55 = v13 >> 2;
+      v54[6] = data;
+      v54[7] = property;
+      v54[4] = self;
+      v54[5] = &v61;
+      v54[8] = v47;
+      v54[9] = andData;
+      v49 = v54;
+    }
+
+    else
+    {
+      v61 = 0;
+      v62 = &v61;
+      v63 = 0x2020000000;
+      v64 = 0;
+      v42 = *dataSize;
+      if (v42 >= [(ASDClockDevice *)self dataSizeForProperty:property withQualifierSize:0 andQualifierData:data])
+      {
+        v43 = [(ASDClockDevice *)self dataSizeForProperty:property withQualifierSize:0 andQualifierData:data];
+      }
+
+      else
+      {
+        v43 = *dataSize;
+      }
+
+      v47 = v43 >> 2;
+      if (v62[3] == v47)
+      {
+        goto LABEL_104;
+      }
+
+      controlQueue = self->_controlQueue;
+      v53[0] = MEMORY[0x277D85DD0];
+      v53[1] = 3221225472;
+      v53[2] = __89__ASDClockDevice_getProperty_withQualifierSize_qualifierData_dataSize_andData_forClient___block_invoke_3;
+      v53[3] = &unk_278CE4080;
+      v53[4] = self;
+      v53[5] = &v61;
+      v53[6] = property;
+      v53[7] = v47;
+      v53[8] = andData;
+      v49 = v53;
+    }
+
+    dispatch_sync(controlQueue, v49);
+    LODWORD(v47) = *(v62 + 6);
+    goto LABEL_104;
+  }
+
+  if (mSelector > 1668639075)
+  {
+    if (mSelector <= 1751737453)
+    {
+      if (mSelector != 1668639076)
+      {
+        if (mSelector == 1735354734)
+        {
+          if (*dataSize >= 4)
+          {
+            inputLatency2 = [(ASDClockDevice *)self isRunning];
+            goto LABEL_92;
+          }
+
+          return 0;
+        }
+
+LABEL_84:
+        v52.receiver = self;
+        v52.super_class = ASDClockDevice;
+        return [(ASDObject *)&v52 getProperty:property withQualifierSize:*&size qualifierData:data dataSize:dataSize andData:andData forClient:*&client];
+      }
+
+      if (*dataSize < 8)
+      {
+        return 0;
+      }
+
+      deviceName = [(ASDClockDevice *)self deviceUID];
+      goto LABEL_78;
+    }
+
+    if (mSelector == 1751737454)
+    {
+      if (*dataSize >= 4)
+      {
+        inputLatency2 = [(ASDClockDevice *)self isHidden];
+        goto LABEL_92;
+      }
+
+      return 0;
+    }
+
+    if (mSelector != 1818850926)
+    {
+      if (mSelector != 1819107691)
+      {
+        goto LABEL_84;
+      }
+
+      if (*dataSize < 8)
+      {
+        return 0;
+      }
+
+      deviceName = [(ASDClockDevice *)self manufacturerName];
+      goto LABEL_78;
+    }
+
+    if (*dataSize < 4)
+    {
+      return 0;
+    }
+
+    *andData = self->_isAlive;
+LABEL_93:
+    v41 = 4;
+    goto LABEL_94;
+  }
+
+  if (mSelector > 1668050794)
+  {
+    switch(mSelector)
+    {
+      case 1668050795:
+        if (*dataSize >= 4)
+        {
+          inputLatency2 = [(ASDClockDevice *)self clockAlgorithm];
+          goto LABEL_92;
+        }
+
+        break;
+      case 1668510818:
+        if (*dataSize >= 4)
+        {
+          inputLatency2 = [(ASDClockDevice *)self clockIsStable];
+          goto LABEL_92;
+        }
+
+        break;
+      case 1668575852:
+        v61 = 0;
+        v62 = &v61;
+        v63 = 0x2020000000;
+        v64 = 0;
+        v17 = self->_controlQueue;
+        block[0] = MEMORY[0x277D85DD0];
+        block[1] = 3221225472;
+        block[2] = __89__ASDClockDevice_getProperty_withQualifierSize_qualifierData_dataSize_andData_forClient___block_invoke;
+        block[3] = &unk_278CE4080;
+        block[6] = dataSize;
+        block[7] = property;
+        block[4] = self;
+        block[5] = &v61;
+        block[8] = andData;
+        dispatch_sync(v17, block);
+        v18 = 4 * *(v62 + 6);
+LABEL_105:
+        *dataSize = v18;
+        _Block_object_dispose(&v61, 8);
+        return 1;
+      default:
+        goto LABEL_84;
+    }
+
+    return 0;
+  }
+
+  if (mSelector != 1634429294)
+  {
+    if (mSelector == 1668049764)
+    {
+      if (*dataSize >= 4)
+      {
+        inputLatency2 = [(ASDClockDevice *)self clockDomain];
+LABEL_92:
+        *andData = inputLatency2;
+        goto LABEL_93;
+      }
+
+      return 0;
+    }
+
+    goto LABEL_84;
+  }
+
+  v65 = 1633969526;
+  v61 = *&property->mSelector;
+  LODWORD(v62) = property->mElement;
+  LODWORD(v61) = 1870098020;
+  owner2 = [(ASDObject *)self owner];
+  v8 = [owner2 getProperty:&v61 withQualifierSize:4 qualifierData:&v65 dataSize:dataSize andData:andData forClient:v11];
+
+  return v8;
 }
 
 void __89__ASDClockDevice_getProperty_withQualifierSize_qualifierData_dataSize_andData_forClient___block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = **(a1 + 48);
   if ([*(*(a1 + 32) + 64) count] <= v3 >> 2)
@@ -560,28 +1023,28 @@ void __89__ASDClockDevice_getProperty_withQualifierSize_qualifierData_dataSize_a
     v4 = **(a1 + 48) >> 2;
   }
 
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   v5 = *(*(a1 + 32) + 64);
-  v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v13;
+    v8 = *v12;
     do
     {
       v9 = 0;
       do
       {
-        if (*v13 != v8)
+        if (*v12 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v12 + 1) + 8 * v9);
-        if (*(*(a1 + 56) + 4) == 1735159650 || [*(*(&v12 + 1) + 8 * v9) controlScope] == *(*(a1 + 56) + 4))
+        v10 = *(*(&v11 + 1) + 8 * v9);
+        if (*(*(a1 + 56) + 4) == 1735159650 || [*(*(&v11 + 1) + 8 * v9) controlScope] == *(*(a1 + 56) + 4))
         {
           if (*(*(*(a1 + 40) + 8) + 24) == v4)
           {
@@ -595,7 +1058,7 @@ void __89__ASDClockDevice_getProperty_withQualifierSize_qualifierData_dataSize_a
       }
 
       while (v7 != v9);
-      v7 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v7);
@@ -604,29 +1067,28 @@ void __89__ASDClockDevice_getProperty_withQualifierSize_qualifierData_dataSize_a
 LABEL_15:
 
   objc_autoreleasePoolPop(v2);
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __89__ASDClockDevice_getProperty_withQualifierSize_qualifierData_dataSize_andData_forClient___block_invoke_2(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   v3 = *(*(a1 + 32) + 64);
-  v4 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v12;
+    v6 = *v11;
     do
     {
       v7 = 0;
       do
       {
-        if (*v12 != v6)
+        if (*v11 != v6)
         {
           objc_enumerationMutation(v3);
         }
@@ -634,7 +1096,7 @@ void __89__ASDClockDevice_getProperty_withQualifierSize_qualifierData_dataSize_a
         if (*(a1 + 80))
         {
           v8 = 0;
-          v9 = *(*(&v11 + 1) + 8 * v7);
+          v9 = *(*(&v10 + 1) + 8 * v7);
           do
           {
             if ([v9 objectClass] == *(*(a1 + 48) + 4 * v8) && (*(*(a1 + 56) + 4) == 1735159650 || objc_msgSend(v9, "controlScope") == *(*(a1 + 56) + 4)))
@@ -657,42 +1119,41 @@ void __89__ASDClockDevice_getProperty_withQualifierSize_qualifierData_dataSize_a
       }
 
       while (v7 != v5);
-      v5 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v5);
   }
 
   objc_autoreleasePoolPop(v2);
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __89__ASDClockDevice_getProperty_withQualifierSize_qualifierData_dataSize_andData_forClient___block_invoke_3(void *a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   v3 = *(a1[4] + 64);
-  v4 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v11;
+    v6 = *v10;
     do
     {
       v7 = 0;
       do
       {
-        if (*v11 != v6)
+        if (*v10 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v10 + 1) + 8 * v7);
-        if (*(a1[6] + 4) == 1735159650 || [*(*(&v10 + 1) + 8 * v7) controlScope] == *(a1[6] + 4))
+        v8 = *(*(&v9 + 1) + 8 * v7);
+        if (*(a1[6] + 4) == 1735159650 || [*(*(&v9 + 1) + 8 * v7) controlScope] == *(a1[6] + 4))
         {
           if (*(*(a1[5] + 8) + 24) == a1[7])
           {
@@ -706,7 +1167,7 @@ void __89__ASDClockDevice_getProperty_withQualifierSize_qualifierData_dataSize_a
       }
 
       while (v5 != v7);
-      v5 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v5);
@@ -715,7 +1176,6 @@ void __89__ASDClockDevice_getProperty_withQualifierSize_qualifierData_dataSize_a
 LABEL_12:
 
   objc_autoreleasePoolPop(v2);
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isPropertySettable:(const AudioObjectPropertyAddress *)settable
@@ -744,6 +1204,80 @@ LABEL_12:
     v6.super_class = ASDClockDevice;
     return [(ASDObject *)&v6 isPropertySettable:?];
   }
+}
+
+- (BOOL)setProperty:(const AudioObjectPropertyAddress *)property withQualifierSize:(unsigned int)size qualifierData:(const void *)data dataSize:(unsigned int)dataSize andData:(const void *)andData forClient:(int)client
+{
+  if (!property)
+  {
+    goto LABEL_18;
+  }
+
+  v8 = *&client;
+  v10 = *&dataSize;
+  v12 = *&size;
+  v15 = [(ASDClockDevice *)self hasProperty:?];
+  if (!v15)
+  {
+    return v15;
+  }
+
+  v15 = [(ASDClockDevice *)self isPropertySettable:property];
+  if (!v15)
+  {
+    return v15;
+  }
+
+  mSelector = property->mSelector;
+  if (property->mSelector == 1818850926)
+  {
+    if (v10 == 4)
+    {
+      self->_isAlive = *andData != 0;
+      LOBYTE(v15) = 1;
+      return v15;
+    }
+
+    goto LABEL_18;
+  }
+
+  if (mSelector != 1853059700)
+  {
+    if (mSelector != 1819173229)
+    {
+      v20.receiver = self;
+      v20.super_class = ASDClockDevice;
+      LOBYTE(v15) = [(ASDObject *)&v20 setProperty:property withQualifierSize:v12 qualifierData:data dataSize:v10 andData:andData forClient:v8];
+      return v15;
+    }
+
+    if (v10 == 8)
+    {
+      v17 = *andData;
+
+      LOBYTE(v15) = [(ASDClockDevice *)self changeDeviceName:*&v17];
+      return v15;
+    }
+
+LABEL_18:
+    LOBYTE(v15) = 0;
+    return v15;
+  }
+
+  if (v10 != 8)
+  {
+    goto LABEL_18;
+  }
+
+  v18 = *andData;
+  v15 = [(ASDClockDevice *)self supportsSamplingRate:*andData];
+  if (v15)
+  {
+
+    LOBYTE(v15) = [(ASDClockDevice *)self changeSamplingRate:v18];
+  }
+
+  return v15;
 }
 
 - (void)addControl:(id)control
@@ -818,10 +1352,7 @@ LABEL_12:
 
 uint64_t __26__ASDClockDevice_controls__block_invoke(uint64_t a1)
 {
-  v2 = [MEMORY[0x277CBEA60] arrayWithArray:*(*(a1 + 32) + 64)];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [MEMORY[0x277CBEA60] arrayWithArray:*(*(a1 + 32) + 64)];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -1007,30 +1538,30 @@ double __30__ASDClockDevice_samplingRate__block_invoke(uint64_t a1)
 
 - (void)setSamplingRates:(id)rates
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   ratesCopy = rates;
   v5 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
   v6 = ratesCopy;
-  v7 = [v6 countByEnumeratingWithState:&v24 objects:v28 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v23 objects:v27 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v25;
+    v9 = *v24;
     do
     {
       v10 = 0;
       do
       {
-        if (*v25 != v9)
+        if (*v24 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        [*(*(&v24 + 1) + 8 * v10) doubleValue];
+        [*(*(&v23 + 1) + 8 * v10) doubleValue];
         v11 = [ASDSampleRateRange rangeWithSingleRate:?];
         [v5 addObject:v11];
 
@@ -1038,7 +1569,7 @@ double __30__ASDClockDevice_samplingRate__block_invoke(uint64_t a1)
       }
 
       while (v8 != v10);
-      v8 = [v6 countByEnumeratingWithState:&v24 objects:v28 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v23 objects:v27 count:16];
     }
 
     while (v8);
@@ -1046,18 +1577,16 @@ double __30__ASDClockDevice_samplingRate__block_invoke(uint64_t a1)
 
   sampleRateQueue = self->_sampleRateQueue;
   block = MEMORY[0x277D85DD0];
-  v19 = 3221225472;
-  v20 = __35__ASDClockDevice_setSamplingRates___block_invoke;
-  v21 = &unk_278CE3E78;
+  v18 = 3221225472;
+  v19 = __35__ASDClockDevice_setSamplingRates___block_invoke;
+  v20 = &unk_278CE3E78;
   selfCopy = self;
-  v23 = v5;
+  v22 = v5;
   v13 = v5;
   dispatch_sync(sampleRateQueue, &block);
-  LODWORD(v17) = 0;
+  LODWORD(v16) = 0;
   v14 = [(ASDObject *)self propertyChangedDelegate:0x676C6F626E737223];
-  [v14 changedProperty:&v16 forObject:self];
-
-  v15 = *MEMORY[0x277D85DE8];
+  [v14 changedProperty:&v15 forObject:self];
 }
 
 void __35__ASDClockDevice_setSamplingRates___block_invoke(uint64_t a1)
@@ -1098,41 +1627,41 @@ void __40__ASDClockDevice_setSamplingRateRanges___block_invoke(uint64_t a1)
 
 - (NSArray)samplingRates
 {
-  v28 = *MEMORY[0x277D85DE8];
-  v21 = 0;
-  v22 = &v21;
-  v23 = 0x3032000000;
-  v24 = __Block_byref_object_copy__7;
-  v25 = __Block_byref_object_dispose__7;
-  v26 = 0;
+  v27 = *MEMORY[0x277D85DE8];
+  v20 = 0;
+  v21 = &v20;
+  v22 = 0x3032000000;
+  v23 = __Block_byref_object_copy__7;
+  v24 = __Block_byref_object_dispose__7;
+  v25 = 0;
   sampleRateQueue = self->_sampleRateQueue;
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __31__ASDClockDevice_samplingRates__block_invoke;
   block[3] = &unk_278CE3E28;
   block[4] = self;
-  block[5] = &v21;
+  block[5] = &v20;
   dispatch_sync(sampleRateQueue, block);
   v3 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
-  v4 = v22[5];
-  v5 = [v4 countByEnumeratingWithState:&v16 objects:v27 count:16];
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
+  v4 = v21[5];
+  v5 = [v4 countByEnumeratingWithState:&v15 objects:v26 count:16];
   if (v5)
   {
-    v6 = *v17;
+    v6 = *v16;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v17 != v6)
+        if (*v16 != v6)
         {
           objc_enumerationMutation(v4);
         }
 
-        v8 = *(*(&v16 + 1) + 8 * i);
+        v8 = *(*(&v15 + 1) + 8 * i);
         [v8 minimum];
         v10 = v9;
         [v8 maximum];
@@ -1145,46 +1674,42 @@ void __40__ASDClockDevice_setSamplingRateRanges___block_invoke(uint64_t a1)
         }
       }
 
-      v5 = [v4 countByEnumeratingWithState:&v16 objects:v27 count:16];
+      v5 = [v4 countByEnumeratingWithState:&v15 objects:v26 count:16];
     }
 
     while (v5);
   }
 
-  _Block_object_dispose(&v21, 8);
-  v14 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v20, 8);
 
   return v3;
 }
 
 uint64_t __31__ASDClockDevice_samplingRates__block_invoke(uint64_t a1)
 {
-  v2 = [*(*(a1 + 32) + 88) copy];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(*(a1 + 32) + 88) copy];
 
   return MEMORY[0x2821F96F8]();
 }
 
 - (NSArray)samplingRateRanges
 {
-  v35 = *MEMORY[0x277D85DE8];
-  v24 = 0;
-  v25 = &v24;
-  v26 = 0x3032000000;
-  v27 = __Block_byref_object_copy__7;
-  v28 = __Block_byref_object_dispose__7;
-  v29 = 0;
+  v34 = *MEMORY[0x277D85DE8];
+  v23 = 0;
+  v24 = &v23;
+  v25 = 0x3032000000;
+  v26 = __Block_byref_object_copy__7;
+  v27 = __Block_byref_object_dispose__7;
+  v28 = 0;
   sampleRateQueue = self->_sampleRateQueue;
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __36__ASDClockDevice_samplingRateRanges__block_invoke;
   block[3] = &unk_278CE3E28;
   block[4] = self;
-  block[5] = &v24;
+  block[5] = &v23;
   dispatch_sync(sampleRateQueue, block);
-  if (![v25[5] count])
+  if (![v24[5] count])
   {
     samplingRates = [(ASDClockDevice *)self samplingRates];
     if ([samplingRates count])
@@ -1196,61 +1721,56 @@ uint64_t __31__ASDClockDevice_samplingRates__block_invoke(uint64_t a1)
         deviceName = [(ASDClockDevice *)self deviceName];
         v8 = [samplingRates count];
         *buf = 138412546;
-        v32 = deviceName;
-        v33 = 2048;
-        v34 = v8;
+        v31 = deviceName;
+        v32 = 2048;
+        v33 = v8;
         _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%@: building samplingRateRanges from %lu rates", buf, 0x16u);
       }
 
       v9 = objc_alloc_init(MEMORY[0x277CBEB18]);
-      v21 = 0u;
-      v22 = 0u;
-      v19 = 0u;
       v20 = 0u;
+      v21 = 0u;
+      v18 = 0u;
+      v19 = 0u;
       v10 = samplingRates;
-      v11 = [v10 countByEnumeratingWithState:&v19 objects:v30 count:16];
+      v11 = [v10 countByEnumeratingWithState:&v18 objects:v29 count:16];
       if (v11)
       {
-        v12 = *v20;
+        v12 = *v19;
         do
         {
           for (i = 0; i != v11; ++i)
           {
-            if (*v20 != v12)
+            if (*v19 != v12)
             {
               objc_enumerationMutation(v10);
             }
 
-            [*(*(&v19 + 1) + 8 * i) doubleValue];
+            [*(*(&v18 + 1) + 8 * i) doubleValue];
             v14 = [ASDSampleRateRange rangeWithSingleRate:?];
             [v9 addObject:v14];
           }
 
-          v11 = [v10 countByEnumeratingWithState:&v19 objects:v30 count:16];
+          v11 = [v10 countByEnumeratingWithState:&v18 objects:v29 count:16];
         }
 
         while (v11);
       }
 
-      v15 = v25[5];
-      v25[5] = v9;
+      v15 = v24[5];
+      v24[5] = v9;
     }
   }
 
-  v16 = v25[5];
-  _Block_object_dispose(&v24, 8);
-
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = v24[5];
+  _Block_object_dispose(&v23, 8);
 
   return v16;
 }
 
 uint64_t __36__ASDClockDevice_samplingRateRanges__block_invoke(uint64_t a1)
 {
-  v2 = [*(*(a1 + 32) + 88) copy];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(*(a1 + 32) + 88) copy];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -1340,42 +1860,42 @@ void __39__ASDClockDevice_updateTimestampPeriod__block_invoke(uint64_t a1)
 
 - (BOOL)supportsSamplingRate:(double)rate
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   [(ASDClockDevice *)self samplingRateRanges];
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
-  v5 = v27 = 0u;
-  v6 = [v5 countByEnumeratingWithState:&v24 objects:v34 count:16];
+  v5 = v26 = 0u;
+  v6 = [v5 countByEnumeratingWithState:&v23 objects:v33 count:16];
   if (v6)
   {
     v8 = v6;
     v9 = MEMORY[0x277D86220];
-    v10 = *v25;
+    v10 = *v24;
     *&v7 = 138412802;
-    v23 = v7;
+    v22 = v7;
     while (2)
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v25 != v10)
+        if (*v24 != v10)
         {
           objc_enumerationMutation(v5);
         }
 
-        v12 = *(*(&v24 + 1) + 8 * i);
+        v12 = *(*(&v23 + 1) + 8 * i);
         if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
         {
           deviceName = [(ASDClockDevice *)self deviceName];
           [v12 minimum];
           v15 = v14;
           [v12 maximum];
-          *buf = v23;
-          v29 = deviceName;
-          v30 = 2048;
-          v31 = v15;
-          v32 = 2048;
-          v33 = v16;
+          *buf = v22;
+          v28 = deviceName;
+          v29 = 2048;
+          v30 = v15;
+          v31 = 2048;
+          v32 = v16;
           _os_log_impl(&dword_2415D8000, v9, OS_LOG_TYPE_DEFAULT, "%@: supportsSamplingRate checking min(%f) max (%f)", buf, 0x20u);
         }
 
@@ -1391,7 +1911,7 @@ void __39__ASDClockDevice_updateTimestampPeriod__block_invoke(uint64_t a1)
         }
       }
 
-      v8 = [v5 countByEnumeratingWithState:&v24 objects:v34 count:16];
+      v8 = [v5 countByEnumeratingWithState:&v23 objects:v33 count:16];
       if (v8)
       {
         continue;
@@ -1408,13 +1928,12 @@ LABEL_14:
   {
     deviceName2 = [(ASDClockDevice *)self deviceName];
     *buf = 138412546;
-    v29 = deviceName2;
-    v30 = 1024;
-    LODWORD(v31) = v19;
+    v28 = deviceName2;
+    v29 = 1024;
+    LODWORD(v30) = v19;
     _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%@: supportsSamplingRate returning (%d)", buf, 0x12u);
   }
 
-  v21 = *MEMORY[0x277D85DE8];
   return v19;
 }
 
@@ -1523,6 +2042,234 @@ intptr_t __33__ASDClockDevice_systemWillSleep__block_invoke(uint64_t a1)
   v5.receiver = self;
   v5.super_class = ASDClockDevice;
   [(ASDObject *)&v5 dealloc];
+}
+
+- (id)diagnosticDescriptionWithIndent:(id)indent walkTree:(BOOL)tree
+{
+  treeCopy = tree;
+  v59 = *MEMORY[0x277D85DE8];
+  indentCopy = indent;
+  v56.receiver = self;
+  v56.super_class = ASDClockDevice;
+  v7 = [(ASDObject *)&v56 diagnosticDescriptionWithIndent:indentCopy walkTree:treeCopy];
+  v8 = [indentCopy stringByAppendingString:@"|        "];
+  deviceName = [(ASDClockDevice *)self deviceName];
+  [v7 appendFormat:@"%@|    Name: %s\n", indentCopy, objc_msgSend(deviceName, "UTF8String")];
+
+  manufacturerName = [(ASDClockDevice *)self manufacturerName];
+  [v7 appendFormat:@"%@|    Manufacturer: %s\n", indentCopy, objc_msgSend(manufacturerName, "UTF8String")];
+
+  modelName = [(ASDClockDevice *)self modelName];
+  [v7 appendFormat:@"%@|    Model Name: %s\n", indentCopy, objc_msgSend(modelName, "UTF8String")];
+
+  deviceUID = [(ASDClockDevice *)self deviceUID];
+  [v7 appendFormat:@"%@|    Device UID: %s\n", indentCopy, objc_msgSend(deviceUID, "UTF8String")];
+
+  modelUID = [(ASDClockDevice *)self modelUID];
+  [v7 appendFormat:@"%@|    Model UID: %s\n", indentCopy, objc_msgSend(modelUID, "UTF8String")];
+
+  transportType = [(ASDClockDevice *)self transportType];
+  LODWORD(v15) = transportType >> 24;
+  if (((transportType >> 24) - 32) >= 0x5F)
+  {
+    v15 = 32;
+  }
+
+  else
+  {
+    v15 = v15;
+  }
+
+  LODWORD(v16) = transportType << 8 >> 24;
+  if ((v16 - 32) >= 0x5F)
+  {
+    v16 = 32;
+  }
+
+  else
+  {
+    v16 = v16;
+  }
+
+  LODWORD(v17) = transportType >> 8;
+  if ((v17 - 32) >= 0x5F)
+  {
+    v17 = 32;
+  }
+
+  else
+  {
+    v17 = v17;
+  }
+
+  if ((transportType - 32) >= 0x5F)
+  {
+    v18 = 32;
+  }
+
+  else
+  {
+    v18 = transportType;
+  }
+
+  [v7 appendFormat:@"%@|    Transport Type: %c%c%c%c\n", indentCopy, v15, v16, v17, v18];
+  [v7 appendFormat:@"%@|    Clock Domain: 0x%08x\n", indentCopy, -[ASDClockDevice clockDomain](self, "clockDomain")];
+  clockAlgorithm = [(ASDClockDevice *)self clockAlgorithm];
+  v20 = @"12Pt Moving Window Average";
+  if (clockAlgorithm == 1768518246)
+  {
+    v21 = @"Simple IIR";
+  }
+
+  else
+  {
+    v21 = @"Unknown";
+  }
+
+  if (clockAlgorithm != 1835103847)
+  {
+    v20 = v21;
+  }
+
+  if (clockAlgorithm == 1918990199)
+  {
+    v22 = @"Raw";
+  }
+
+  else
+  {
+    v22 = v20;
+  }
+
+  [v7 appendFormat:@"%@|    Clock Algorithm: %s\n", indentCopy, -[__CFString UTF8String](v22, "UTF8String")];
+  if ([(ASDClockDevice *)self clockIsStable])
+  {
+    v23 = @"YES";
+  }
+
+  else
+  {
+    v23 = @"NO";
+  }
+
+  [v7 appendFormat:@"%@|    Clock Is Stable: %@\n", indentCopy, v23];
+  if (self->_isAlive)
+  {
+    v24 = @"YES";
+  }
+
+  else
+  {
+    v24 = @"NO";
+  }
+
+  [v7 appendFormat:@"%@|    Is Active: %@\n", indentCopy, v24];
+  if ([(ASDClockDevice *)self isRunning])
+  {
+    v25 = @"YES";
+  }
+
+  else
+  {
+    v25 = @"NO";
+  }
+
+  [v7 appendFormat:@"%@|    Is Running: %@\n", indentCopy, v25];
+  [(ASDClockDevice *)self samplingRate];
+  [v7 appendFormat:@"%@|    Nominal Sample Rate: %f\n", indentCopy, v26];
+  v47 = indentCopy;
+  [v7 appendFormat:@"%@|    Available Nominal Sample Rates:\n", indentCopy];
+  v54 = 0u;
+  v55 = 0u;
+  v52 = 0u;
+  v53 = 0u;
+  samplingRates = [(ASDClockDevice *)self samplingRates];
+  v28 = [samplingRates countByEnumeratingWithState:&v52 objects:v58 count:16];
+  if (v28)
+  {
+    v29 = v28;
+    v30 = 0;
+    v31 = *v53;
+    do
+    {
+      for (i = 0; i != v29; ++i)
+      {
+        if (*v53 != v31)
+        {
+          objc_enumerationMutation(samplingRates);
+        }
+
+        [*(*(&v52 + 1) + 8 * i) doubleValue];
+        [v7 appendFormat:@"%@Rate[%u]: %f\n", v8, v30, v33];
+        v30 = (v30 + 1);
+      }
+
+      v29 = [samplingRates countByEnumeratingWithState:&v52 objects:v58 count:16];
+    }
+
+    while (v29);
+  }
+
+  isHidden = [(ASDClockDevice *)self isHidden];
+  v35 = @"NO";
+  if (isHidden)
+  {
+    v35 = @"YES";
+  }
+
+  [v7 appendFormat:@"%@|    Is Hidden: %@\n", v47, v35];
+  [v7 appendFormat:@"%@|    Input Latency: %u\n", v47, -[ASDClockDevice inputLatency](self, "inputLatency")];
+  [v7 appendFormat:@"%@|    Output Latency: %u\n", v47, -[ASDClockDevice outputLatency](self, "outputLatency")];
+  [v7 appendFormat:@"%@|    Zero Timestamp Period: %u\n", v47, -[ASDClockDevice timestampPeriod](self, "timestampPeriod")];
+  [v7 appendFormat:@"%@|    Controls:\n", v47];
+  controls = [(ASDClockDevice *)self controls];
+  v37 = [controls count];
+
+  if (v37)
+  {
+    v50 = 0u;
+    v51 = 0u;
+    v48 = 0u;
+    v49 = 0u;
+    controls2 = [(ASDClockDevice *)self controls];
+    v39 = [controls2 countByEnumeratingWithState:&v48 objects:v57 count:16];
+    if (v39)
+    {
+      v40 = v39;
+      v41 = 0;
+      v42 = *v49;
+      do
+      {
+        for (j = 0; j != v40; ++j)
+        {
+          if (*v49 != v42)
+          {
+            objc_enumerationMutation(controls2);
+          }
+
+          v44 = *(*(&v48 + 1) + 8 * j);
+          if (treeCopy)
+          {
+            v45 = [v44 diagnosticDescriptionWithIndent:v8 walkTree:1];
+            [v7 appendString:v45];
+          }
+
+          else
+          {
+            [v7 appendFormat:@"%@|        %u: %u\n", v47, v41, objc_msgSend(v44, "objectID")];
+          }
+
+          v41 = (v41 + 1);
+        }
+
+        v40 = [controls2 countByEnumeratingWithState:&v48 objects:v57 count:16];
+      }
+
+      while (v40);
+    }
+  }
+
+  return v7;
 }
 
 - (ASDDeviceConfigurationChangeDelegate)configurationChangeDelegate

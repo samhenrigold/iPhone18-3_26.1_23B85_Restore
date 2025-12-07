@@ -4,6 +4,7 @@
 - (DNDSModeAssertionManager)initWithBackingStoreURL:(id)l clientDetailsProvider:(id)provider;
 - (id)modeAssertionInvalidationsMatchingPredicate:(id)predicate;
 - (id)modeAssertionsMatchingPredicate:(id)predicate;
+- (id)sysdiagnoseDataForDate:(id)date redacted:(BOOL)redacted;
 - (id)updateModeAssertionsWithContextHandler:(id)handler error:(id *)error;
 - (void)_loadDataFromBackingStore;
 - (void)_resolveTransactionForModeAssertionStore;
@@ -147,7 +148,7 @@ uint64_t __72__DNDSModeAssertionManager_modeAssertionInvalidationsMatchingPredic
 
 - (id)updateModeAssertionsWithContextHandler:(id)handler error:(id *)error
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   state.opaque[0] = 0;
   state.opaque[1] = 0;
@@ -161,7 +162,7 @@ uint64_t __72__DNDSModeAssertionManager_modeAssertionInvalidationsMatchingPredic
   if (os_log_type_enabled(DNDSLogAssertionManager, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109120;
-    v23 = v10;
+    v22 = v10;
     _os_log_impl(&dword_24912E000, v11, OS_LOG_TYPE_DEFAULT, "Executed handler; return=%{BOOL}d", buf, 8u);
   }
 
@@ -179,9 +180,9 @@ uint64_t __72__DNDSModeAssertionManager_modeAssertionInvalidationsMatchingPredic
       store = self->_store;
       self->_store = v15;
 
-      v20 = 0;
-      [(DNDSModeAssertionManager *)self _saveDataToBackingStoreWithError:&v20];
-      v13 = v20;
+      v19 = 0;
+      [(DNDSModeAssertionManager *)self _saveDataToBackingStoreWithError:&v19];
+      v13 = v19;
       [(DNDSModeAssertionManager *)self _resolveTransactionForModeAssertionStore];
     }
 
@@ -204,17 +205,103 @@ uint64_t __72__DNDSModeAssertionManager_modeAssertionInvalidationsMatchingPredic
 
   os_activity_scope_leave(&state);
 
-  v18 = *MEMORY[0x277D85DE8];
-
   return updateResult;
+}
+
+- (id)sysdiagnoseDataForDate:(id)date redacted:(BOOL)redacted
+{
+  redactedCopy = redacted;
+  os_unfair_lock_lock(&self->_storeLock);
+  v6 = [(DNDSModeAssertionStore *)self->_store sysdiagnoseDictionaryRepresentation:redactedCopy];
+  os_unfair_lock_unlock(&self->_storeLock);
+
+  return v6;
 }
 
 - (void)_loadDataFromBackingStore
 {
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_0(&dword_24912E000, v0, v1, "Failed to load assertion database, will request a radar; error=%{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
+  backingStore = self->_backingStore;
+  v29 = 0;
+  v4 = [(DNDSBackingStore *)backingStore readRecordWithError:&v29];
+  v5 = v29;
+  store = self->_store;
+  self->_store = v4;
+
+  v7 = self->_store;
+  if (v7)
+  {
+    v8 = [(DNDSModeAssertionStore *)v7 mutableCopy];
+    date = [MEMORY[0x277CBEAA8] date];
+    invalidations = [(DNDSModeAssertionStore *)v8 invalidations];
+    v27[0] = MEMORY[0x277D85DD0];
+    v27[1] = 3221225472;
+    v27[2] = __53__DNDSModeAssertionManager__loadDataFromBackingStore__block_invoke;
+    v27[3] = &unk_278F8A950;
+    v11 = date;
+    v28 = v11;
+    v12 = [invalidations bs_filter:v27];
+
+    if ([v12 count])
+    {
+      v13 = DNDSLogAssertionManager;
+      if (os_log_type_enabled(DNDSLogAssertionManager, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 138412290;
+        v31 = v12;
+        _os_log_impl(&dword_24912E000, v13, OS_LOG_TYPE_DEFAULT, "Removing stale invalidations from store. %@", buf, 0xCu);
+      }
+
+      invalidations2 = [(DNDSModeAssertionStore *)v8 invalidations];
+      v15 = [invalidations2 bs_differenceWithArray:v12];
+      [(DNDSModeAssertionStore *)v8 setInvalidations:v15];
+    }
+
+    invalidationRequests = [(DNDSModeAssertionStore *)self->_store invalidationRequests];
+    v25[0] = MEMORY[0x277D85DD0];
+    v25[1] = 3221225472;
+    v25[2] = __53__DNDSModeAssertionManager__loadDataFromBackingStore__block_invoke_15;
+    v25[3] = &unk_278F8A9B8;
+    v17 = v11;
+    v26 = v17;
+    v18 = [invalidationRequests bs_filter:v25];
+
+    if ([v18 count])
+    {
+      v19 = DNDSLogAssertionManager;
+      if (os_log_type_enabled(DNDSLogAssertionManager, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 138412290;
+        v31 = v18;
+        _os_log_impl(&dword_24912E000, v19, OS_LOG_TYPE_DEFAULT, "Removing stale invalidation requests from store. %@", buf, 0xCu);
+      }
+
+      invalidationRequests2 = [(DNDSModeAssertionStore *)v8 invalidationRequests];
+      v21 = [invalidationRequests2 bs_differenceWithArray:v18];
+      [(DNDSModeAssertionStore *)v8 setInvalidationRequests:v21];
+    }
+
+    v22 = [(DNDSModeAssertionStore *)v8 copy];
+    v23 = self->_store;
+    self->_store = v22;
+  }
+
+  else
+  {
+    if (v5)
+    {
+      if (os_log_type_enabled(DNDSLogAssertionManager, OS_LOG_TYPE_ERROR))
+      {
+        [DNDSModeAssertionManager _loadDataFromBackingStore];
+      }
+
+      _DNDSRequestRadar(@"Failed to load assertion database", v5, 0, @"/Library/Caches/com.apple.xbs/Sources/DoNotDisturbServer/DoNotDisturbServer/DNDSModeAssertionManager.m", 193);
+    }
+
+    v24 = objc_alloc_init(DNDSModeAssertionStore);
+    v8 = self->_store;
+    self->_store = v24;
+  }
 }
 
 BOOL __53__DNDSModeAssertionManager__loadDataFromBackingStore__block_invoke(uint64_t a1, void *a2)
@@ -322,39 +409,39 @@ uint64_t __68__DNDSModeAssertionManager__resolveTransactionForModeAssertionStore
 
 - (BOOL)_saveDataToBackingStoreWithError:(id *)error
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v5 = [(DNDSModeAssertionStore *)self->_store mutableCopy];
   assertions = [v5 assertions];
-  v26[0] = MEMORY[0x277D85DD0];
-  v26[1] = 3221225472;
-  v26[2] = __61__DNDSModeAssertionManager__saveDataToBackingStoreWithError___block_invoke;
-  v26[3] = &unk_278F8A0B0;
-  v26[4] = self;
-  v7 = [assertions bs_filter:v26];
+  v25[0] = MEMORY[0x277D85DD0];
+  v25[1] = 3221225472;
+  v25[2] = __61__DNDSModeAssertionManager__saveDataToBackingStoreWithError___block_invoke;
+  v25[3] = &unk_278F8A0B0;
+  v25[4] = self;
+  v7 = [assertions bs_filter:v25];
 
   [v5 setAssertions:v7];
   invalidations = [v5 invalidations];
-  v25[0] = MEMORY[0x277D85DD0];
-  v25[1] = 3221225472;
-  v25[2] = __61__DNDSModeAssertionManager__saveDataToBackingStoreWithError___block_invoke_2;
-  v25[3] = &unk_278F8A950;
-  v25[4] = self;
-  v9 = [invalidations bs_filter:v25];
+  v24[0] = MEMORY[0x277D85DD0];
+  v24[1] = 3221225472;
+  v24[2] = __61__DNDSModeAssertionManager__saveDataToBackingStoreWithError___block_invoke_2;
+  v24[3] = &unk_278F8A950;
+  v24[4] = self;
+  v9 = [invalidations bs_filter:v24];
 
   [v5 setInvalidations:v9];
   invalidationRequests = [v5 invalidationRequests];
-  v24[0] = MEMORY[0x277D85DD0];
-  v24[1] = 3221225472;
-  v24[2] = __61__DNDSModeAssertionManager__saveDataToBackingStoreWithError___block_invoke_3;
-  v24[3] = &unk_278F8A9B8;
-  v24[4] = self;
-  v11 = [invalidationRequests bs_filter:v24];
+  v23[0] = MEMORY[0x277D85DD0];
+  v23[1] = 3221225472;
+  v23[2] = __61__DNDSModeAssertionManager__saveDataToBackingStoreWithError___block_invoke_3;
+  v23[3] = &unk_278F8A9B8;
+  v23[4] = self;
+  v11 = [invalidationRequests bs_filter:v23];
 
   [v5 setInvalidationRequests:v11];
   backingStore = self->_backingStore;
-  v23 = 0;
-  v13 = [(DNDSBackingStore *)backingStore writeRecord:v5 error:&v23];
-  v14 = v23;
+  v22 = 0;
+  v13 = [(DNDSBackingStore *)backingStore writeRecord:v5 error:&v22];
+  v14 = v22;
   if (v13)
   {
     if (v13 == 1)
@@ -366,7 +453,7 @@ uint64_t __68__DNDSModeAssertionManager__resolveTransactionForModeAssertionStore
       }
 
       *buf = 138543362;
-      v28 = v14;
+      v27 = v14;
       v16 = "Failed to write store, but error can be ignored; error=%{public}@";
       v17 = v19;
       v18 = 12;
@@ -413,7 +500,6 @@ LABEL_10:
 
 LABEL_12:
 
-  v21 = *MEMORY[0x277D85DE8];
   return v13 == 2;
 }
 
@@ -459,30 +545,6 @@ uint64_t __61__DNDSModeAssertionManager__saveDataToBackingStoreWithError___block
   v8 = [v7 isPersistentAssertionClient];
 
   return v8;
-}
-
-- (void)modeAssertionsMatchingPredicate:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_0(&dword_24912E000, v0, v1, "Unable to find assertions, will return default: error=%{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)modeAssertionInvalidationsMatchingPredicate:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_0(&dword_24912E000, v0, v1, "Unable to find assertion invalidations, will return default: error=%{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_saveDataToBackingStoreWithError:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_0(&dword_24912E000, v0, v1, "Failed to write store, will request radar; error=%{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

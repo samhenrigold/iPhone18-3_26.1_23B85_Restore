@@ -26,34 +26,34 @@
 - (void)_updateSpinner:(BOOL)spinner
 {
   spinnerCopy = spinner;
-  v53 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((&self->super.super.isa + *MEMORY[0x277D03810]));
   spinnerIdentifiers = [WeakRetained spinnerIdentifiers];
 
   v7 = objc_opt_new();
-  v33 = spinnerCopy;
+  v32 = spinnerCopy;
   if (spinnerCopy)
   {
-    v44 = 0uLL;
-    v45 = 0uLL;
-    v42 = 0uLL;
     v43 = 0uLL;
+    v44 = 0uLL;
+    v41 = 0uLL;
+    v42 = 0uLL;
     v8 = spinnerIdentifiers;
-    v9 = [v8 countByEnumeratingWithState:&v42 objects:v52 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v41 objects:v51 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v43;
+      v11 = *v42;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v43 != v11)
+          if (*v42 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          v13 = *(*(&v42 + 1) + 8 * i);
+          v13 = *(*(&v41 + 1) + 8 * i);
           if (([(NSMutableSet *)self->_applicationsShowingActivity containsObject:v13]& 1) == 0)
           {
             [(NSMutableSet *)self->_applicationsShowingActivity addObject:v13];
@@ -61,7 +61,7 @@
           }
         }
 
-        v10 = [v8 countByEnumeratingWithState:&v42 objects:v52 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v41 objects:v51 count:16];
       }
 
       while (v10);
@@ -70,26 +70,26 @@
 
   else
   {
-    v40 = 0uLL;
-    v41 = 0uLL;
-    v38 = 0uLL;
     v39 = 0uLL;
+    v40 = 0uLL;
+    v37 = 0uLL;
+    v38 = 0uLL;
     v14 = spinnerIdentifiers;
-    v15 = [v14 countByEnumeratingWithState:&v38 objects:v51 count:16];
+    v15 = [v14 countByEnumeratingWithState:&v37 objects:v50 count:16];
     if (v15)
     {
       v16 = v15;
-      v17 = *v39;
+      v17 = *v38;
       do
       {
         for (j = 0; j != v16; ++j)
         {
-          if (*v39 != v17)
+          if (*v38 != v17)
           {
             objc_enumerationMutation(v14);
           }
 
-          v19 = *(*(&v38 + 1) + 8 * j);
+          v19 = *(*(&v37 + 1) + 8 * j);
           if ([(NSMutableSet *)self->_applicationsShowingActivity containsObject:v19])
           {
             [(NSMutableSet *)self->_applicationsShowingActivity removeObject:v19];
@@ -97,7 +97,7 @@
           }
         }
 
-        v16 = [v14 countByEnumeratingWithState:&v38 objects:v51 count:16];
+        v16 = [v14 countByEnumeratingWithState:&v37 objects:v50 count:16];
       }
 
       while (v16);
@@ -106,19 +106,19 @@
 
   if ([v7 count])
   {
-    v31 = spinnerIdentifiers;
-    v36 = 0u;
-    v37 = 0u;
-    v34 = 0u;
+    v30 = spinnerIdentifiers;
     v35 = 0u;
+    v36 = 0u;
+    v33 = 0u;
+    v34 = 0u;
     obj = v7;
-    v20 = [obj countByEnumeratingWithState:&v34 objects:v50 count:16];
+    v20 = [obj countByEnumeratingWithState:&v33 objects:v49 count:16];
     if (v20)
     {
       v21 = v20;
-      v22 = *v35;
+      v22 = *v34;
       v23 = *(MEMORY[0x277D03988] + 6);
-      if (v33)
+      if (v32)
       {
         v24 = @"ON";
       }
@@ -133,19 +133,19 @@
       {
         for (k = 0; k != v21; ++k)
         {
-          if (*v35 != v22)
+          if (*v34 != v22)
           {
             objc_enumerationMutation(obj);
           }
 
-          v27 = *(*(&v34 + 1) + 8 * k);
+          v27 = *(*(&v33 + 1) + 8 * k);
           v28 = DALoggingwithCategory();
           if (os_log_type_enabled(v28, v23))
           {
             *buf = 138412546;
-            v47 = v24;
-            v48 = 2112;
-            v49 = v27;
+            v46 = v24;
+            v47 = 2112;
+            v48 = v27;
             _os_log_impl(&dword_248521000, v28, v23, "Telling springboard to set the spinner to %@ for identifier %@", buf, 0x16u);
           }
 
@@ -154,55 +154,53 @@
           if (os_log_type_enabled(v29, v25))
           {
             *buf = 138412546;
-            v47 = v24;
-            v48 = 2112;
-            v49 = v27;
+            v46 = v24;
+            v47 = 2112;
+            v48 = v27;
             _os_log_impl(&dword_248521000, v29, v25, "Finished telling springboard to set the spinner to %@ for identifier %@", buf, 0x16u);
           }
         }
 
-        v21 = [obj countByEnumeratingWithState:&v34 objects:v50 count:16];
+        v21 = [obj countByEnumeratingWithState:&v33 objects:v49 count:16];
       }
 
       while (v21);
     }
 
-    spinnerIdentifiers = v31;
+    spinnerIdentifiers = v30;
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dealloc
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v2 = self->_applicationsShowingActivity;
-  v3 = [(NSMutableSet *)v2 countByEnumeratingWithState:&v15 objects:v21 count:16];
+  v3 = [(NSMutableSet *)v2 countByEnumeratingWithState:&v14 objects:v20 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v16;
+    v5 = *v15;
     v6 = *(MEMORY[0x277D03988] + 6);
     v7 = *(MEMORY[0x277D03988] + 7);
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v16 != v5)
+        if (*v15 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v9 = *(*(&v15 + 1) + 8 * i);
+        v9 = *(*(&v14 + 1) + 8 * i);
         v10 = DALoggingwithCategory();
         if (os_log_type_enabled(v10, v6))
         {
           *buf = 138412290;
-          v20 = v9;
+          v19 = v9;
           _os_log_impl(&dword_248521000, v10, v6, "Telling springboard to set the spinner to OFF for identifier %@", buf, 0xCu);
         }
 
@@ -211,21 +209,20 @@
         if (os_log_type_enabled(v11, v7))
         {
           *buf = 138412290;
-          v20 = v9;
+          v19 = v9;
           _os_log_impl(&dword_248521000, v11, v7, "Finished telling springboard to set the spinner to OFF for identifier %@", buf, 0xCu);
         }
       }
 
-      v4 = [(NSMutableSet *)v2 countByEnumeratingWithState:&v15 objects:v21 count:16];
+      v4 = [(NSMutableSet *)v2 countByEnumeratingWithState:&v14 objects:v20 count:16];
     }
 
     while (v4);
   }
 
-  v14.receiver = self;
-  v14.super_class = DACoreDAVTaskManager;
-  [(DATaskManager *)&v14 dealloc];
-  v12 = *MEMORY[0x277D85DE8];
+  v13.receiver = self;
+  v13.super_class = DACoreDAVTaskManager;
+  [(DATaskManager *)&v13 dealloc];
 }
 
 - (void)taskManagerDidAddTask:(id)task

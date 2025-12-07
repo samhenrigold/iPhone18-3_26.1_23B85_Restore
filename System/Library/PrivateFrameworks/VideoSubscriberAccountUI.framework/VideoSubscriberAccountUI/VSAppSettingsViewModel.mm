@@ -509,9 +509,11 @@ void __36__VSAppSettingsViewModel_installApp__block_invoke(uint64_t a1)
 
 uint64_t __65__VSAppSettingsViewModel_keyPathsForValuesAffectingAccessGranted__block_invoke()
 {
-  keyPathsForValuesAffectingAccessGranted___vs_lazy_init_variable = __65__VSAppSettingsViewModel_keyPathsForValuesAffectingAccessGranted__block_invoke_2();
+  v0 = __65__VSAppSettingsViewModel_keyPathsForValuesAffectingAccessGranted__block_invoke_2();
+  v1 = keyPathsForValuesAffectingAccessGranted___vs_lazy_init_variable;
+  keyPathsForValuesAffectingAccessGranted___vs_lazy_init_variable = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 id __65__VSAppSettingsViewModel_keyPathsForValuesAffectingAccessGranted__block_invoke_2()
@@ -610,27 +612,27 @@ id __65__VSAppSettingsViewModel_keyPathsForValuesAffectingAccessGranted__block_i
 
 - (void)applicationsWillInstall:(id)install
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   installCopy = install;
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
-  v5 = [installCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v5 = [installCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v14;
+    v7 = *v13;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v14 != v7)
+        if (*v13 != v7)
         {
           objc_enumerationMutation(installCopy);
         }
 
-        bundleIdentifier = [*(*(&v13 + 1) + 8 * i) bundleIdentifier];
+        bundleIdentifier = [*(*(&v12 + 1) + 8 * i) bundleIdentifier];
         bundleID = [(VSAppSettingsViewModel *)self bundleID];
         v11 = [bundleIdentifier isEqual:bundleID];
 
@@ -640,49 +642,47 @@ id __65__VSAppSettingsViewModel_keyPathsForValuesAffectingAccessGranted__block_i
         }
       }
 
-      v6 = [installCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v6 = [installCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v6);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)applicationsDidInstall:(id)install
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   installCopy = install;
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
-  v5 = [installCopy countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v5 = [installCopy countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v19;
+    v7 = *v18;
     do
     {
       v8 = 0;
       do
       {
-        if (*v19 != v7)
+        if (*v18 != v7)
         {
           objc_enumerationMutation(installCopy);
         }
 
-        bundleIdentifier = [*(*(&v18 + 1) + 8 * v8) bundleIdentifier];
+        bundleIdentifier = [*(*(&v17 + 1) + 8 * v8) bundleIdentifier];
         bundleID = [(VSAppSettingsViewModel *)self bundleID];
         v11 = [bundleIdentifier isEqual:bundleID];
 
         if (v11)
         {
-          v13 = MEMORY[0x277D85DD0];
-          v14 = 3221225472;
-          v15 = __49__VSAppSettingsViewModel_applicationsDidInstall___block_invoke;
-          v16 = &unk_279E19848;
-          v17 = bundleIdentifier;
+          v12 = MEMORY[0x277D85DD0];
+          v13 = 3221225472;
+          v14 = __49__VSAppSettingsViewModel_applicationsDidInstall___block_invoke;
+          v15 = &unk_279E19848;
+          v16 = bundleIdentifier;
           VSPerformBlockOnMainThread();
         }
 
@@ -690,49 +690,46 @@ id __65__VSAppSettingsViewModel_keyPathsForValuesAffectingAccessGranted__block_i
       }
 
       while (v6 != v8);
-      v6 = [installCopy countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v6 = [installCopy countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v6);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __49__VSAppSettingsViewModel_applicationsDidInstall___block_invoke(uint64_t a1)
 {
-  v4 = [MEMORY[0x277CCA8D8] bundleWithIdentifier:*(a1 + 32)];
-  [*(a1 + 40) setBundle:v4];
+  v3 = [MEMORY[0x277CCA8D8] bundleWithIdentifier:*(a1 + 32)];
+  [*(a1 + 40) setBundle:v3];
   v2 = VSIconForBundleWithIdentifier(*(a1 + 32));
   [*(a1 + 40) setIcon:v2];
-  v3 = *(a1 + 32);
-  setDisplayNameIfAvailable(*(a1 + 40));
+  setDisplayNameIfAvailable(*(a1 + 40), *(a1 + 32));
   [*(a1 + 40) setInstallState:4];
 }
 
 - (void)applicationsDidFailToInstall:(id)install
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   installCopy = install;
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
-  v5 = [installCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v5 = [installCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v14;
+    v7 = *v13;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v14 != v7)
+        if (*v13 != v7)
         {
           objc_enumerationMutation(installCopy);
         }
 
-        bundleIdentifier = [*(*(&v13 + 1) + 8 * i) bundleIdentifier];
+        bundleIdentifier = [*(*(&v12 + 1) + 8 * i) bundleIdentifier];
         bundleID = [(VSAppSettingsViewModel *)self bundleID];
         v11 = [bundleIdentifier isEqual:bundleID];
 
@@ -742,38 +739,36 @@ void __49__VSAppSettingsViewModel_applicationsDidInstall___block_invoke(uint64_t
         }
       }
 
-      v6 = [installCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v6 = [installCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v6);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)applicationsWillUninstall:(id)uninstall
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   uninstallCopy = uninstall;
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
-  v5 = [uninstallCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v5 = [uninstallCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v14;
+    v7 = *v13;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v14 != v7)
+        if (*v13 != v7)
         {
           objc_enumerationMutation(uninstallCopy);
         }
 
-        bundleIdentifier = [*(*(&v13 + 1) + 8 * i) bundleIdentifier];
+        bundleIdentifier = [*(*(&v12 + 1) + 8 * i) bundleIdentifier];
         bundleID = [(VSAppSettingsViewModel *)self bundleID];
         v11 = [bundleIdentifier isEqual:bundleID];
 
@@ -783,38 +778,36 @@ void __49__VSAppSettingsViewModel_applicationsDidInstall___block_invoke(uint64_t
         }
       }
 
-      v6 = [uninstallCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v6 = [uninstallCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v6);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)applicationsDidUninstall:(id)uninstall
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   uninstallCopy = uninstall;
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
-  v5 = [uninstallCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v5 = [uninstallCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v14;
+    v7 = *v13;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v14 != v7)
+        if (*v13 != v7)
         {
           objc_enumerationMutation(uninstallCopy);
         }
 
-        bundleIdentifier = [*(*(&v13 + 1) + 8 * i) bundleIdentifier];
+        bundleIdentifier = [*(*(&v12 + 1) + 8 * i) bundleIdentifier];
         bundleID = [(VSAppSettingsViewModel *)self bundleID];
         v11 = [bundleIdentifier isEqual:bundleID];
 
@@ -824,13 +817,11 @@ void __49__VSAppSettingsViewModel_applicationsDidInstall___block_invoke(uint64_t
         }
       }
 
-      v6 = [uninstallCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v6 = [uninstallCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v6);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __51__VSAppSettingsViewModel_applicationsDidUninstall___block_invoke(uint64_t a1)
@@ -843,27 +834,27 @@ uint64_t __51__VSAppSettingsViewModel_applicationsDidUninstall___block_invoke(ui
 
 - (void)applicationsDidFailToUninstall:(id)uninstall
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   uninstallCopy = uninstall;
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
-  v5 = [uninstallCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v5 = [uninstallCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v14;
+    v7 = *v13;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v14 != v7)
+        if (*v13 != v7)
         {
           objc_enumerationMutation(uninstallCopy);
         }
 
-        bundleIdentifier = [*(*(&v13 + 1) + 8 * i) bundleIdentifier];
+        bundleIdentifier = [*(*(&v12 + 1) + 8 * i) bundleIdentifier];
         bundleID = [(VSAppSettingsViewModel *)self bundleID];
         v11 = [bundleIdentifier isEqual:bundleID];
 
@@ -873,13 +864,11 @@ uint64_t __51__VSAppSettingsViewModel_applicationsDidUninstall___block_invoke(ui
         }
       }
 
-      v6 = [uninstallCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v6 = [uninstallCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v6);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (NSString)description
@@ -917,24 +906,20 @@ uint64_t __51__VSAppSettingsViewModel_applicationsDidUninstall___block_invoke(ui
 
 - (id)appBundleIDs
 {
-  v6[1] = *MEMORY[0x277D85DE8];
+  v5[1] = *MEMORY[0x277D85DE8];
   bundleID = [(VSAppSettingsViewModel *)self bundleID];
-  v6[0] = bundleID;
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:1];
-
-  v4 = *MEMORY[0x277D85DE8];
+  v5[0] = bundleID;
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:1];
 
   return v3;
 }
 
 - (id)appAdamIDs
 {
-  v6[1] = *MEMORY[0x277D85DE8];
+  v5[1] = *MEMORY[0x277D85DE8];
   adamID = [(VSAppSettingsViewModel *)self adamID];
-  v6[0] = adamID;
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:1];
-
-  v4 = *MEMORY[0x277D85DE8];
+  v5[0] = adamID;
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:1];
 
   return v3;
 }

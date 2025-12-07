@@ -53,20 +53,20 @@
 
 + (id)indexToKey
 {
-  v0 = objc_opt_self();
+  v1 = objc_opt_self();
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __47___DKMetadataPersistenceLookupTable_indexToKey__block_invoke;
   block[3] = &__block_descriptor_40_e5_v8__0l;
-  block[4] = v0;
+  block[4] = v1;
   if (indexToKey_onceToken != -1)
   {
     dispatch_once(&indexToKey_onceToken, block);
   }
 
-  v1 = indexToKey_dict;
+  v2 = indexToKey_dict;
 
-  return v1;
+  return v2;
 }
 
 @end

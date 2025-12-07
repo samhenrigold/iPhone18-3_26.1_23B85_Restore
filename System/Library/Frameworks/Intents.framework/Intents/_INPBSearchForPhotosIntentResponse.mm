@@ -176,7 +176,6 @@ LABEL_13:
 
   if (albumName)
   {
-    albumName = self->_albumName;
     PBDataWriterWriteStringField();
   }
 
@@ -190,7 +189,6 @@ LABEL_13:
 
   if ([(_INPBSearchForPhotosIntentResponse *)self hasSearchResultsCount])
   {
-    searchResultsCount = self->_searchResultsCount;
     PBDataWriterWriteInt32Field();
   }
 }

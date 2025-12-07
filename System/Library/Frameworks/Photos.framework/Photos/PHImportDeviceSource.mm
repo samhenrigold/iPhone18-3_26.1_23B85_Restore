@@ -52,7 +52,7 @@
   dispatch_async(deleteEjectQueue, block);
 }
 
-uint64_t __43__PHImportDeviceSource__removeCameraFiles___block_invoke(id *a1)
+void *__43__PHImportDeviceSource__removeCameraFiles___block_invoke(id *a1)
 {
   v19 = *MEMORY[0x1E69E9840];
   v2 = a1[4];

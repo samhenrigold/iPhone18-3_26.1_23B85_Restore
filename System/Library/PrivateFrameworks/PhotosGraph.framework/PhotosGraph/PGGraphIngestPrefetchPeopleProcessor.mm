@@ -7,7 +7,7 @@
 
 - (void)runWithGraphUpdate:(id)update progressBlock:(id)block
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v5 = _Block_copy(block);
   v6 = 0.0;
   if (!v5 || (Current = CFAbsoluteTimeGetCurrent(), Current < 0.01))
@@ -54,9 +54,9 @@ LABEL_4:
     if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
     {
       *buf = 136315394;
-      *v25 = "PGGraphIngestPrefetchPeopleProcessor";
-      *&v25[8] = 2048;
-      *&v25[10] = ((((v17 - v13) * v18.numer) / v18.denom) / 1000000.0);
+      *v24 = "PGGraphIngestPrefetchPeopleProcessor";
+      *&v24[8] = 2048;
+      *&v24[10] = ((((v17 - v13) * v18.numer) / v18.denom) / 1000000.0);
       _os_log_impl(&dword_22F0FC000, v20, OS_LOG_TYPE_INFO, "[Performance] %s: %f ms", buf, 0x16u);
     }
 
@@ -64,16 +64,16 @@ LABEL_4:
     {
       if (CFAbsoluteTimeGetCurrent() - v6 >= 0.01)
       {
-        v22 = 0;
-        v5[2](v5, &v22, 1.0);
-        if (numer_low | v22)
+        v21 = 0;
+        v5[2](v5, &v21, 1.0);
+        if (numer_low | v21)
         {
           if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
           {
             *buf = 67109378;
-            *v25 = 54;
-            *&v25[4] = 2080;
-            *&v25[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Ingest/Ingest Processing/PGGraphIngestPrefetchPeopleProcessor.m";
+            *v24 = 54;
+            *&v24[4] = 2080;
+            *&v24[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Ingest/Ingest Processing/PGGraphIngestPrefetchPeopleProcessor.m";
             _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
           }
         }
@@ -86,15 +86,13 @@ LABEL_4:
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
     *buf = 67109378;
-    *v25 = 46;
-    *&v25[4] = 2080;
-    *&v25[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Ingest/Ingest Processing/PGGraphIngestPrefetchPeopleProcessor.m";
+    *v24 = 46;
+    *&v24[4] = 2080;
+    *&v24[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Ingest/Ingest Processing/PGGraphIngestPrefetchPeopleProcessor.m";
     _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
   }
 
 LABEL_18:
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (PGGraphIngestPrefetchPeopleProcessor)initWithGraphBuilder:(id)builder

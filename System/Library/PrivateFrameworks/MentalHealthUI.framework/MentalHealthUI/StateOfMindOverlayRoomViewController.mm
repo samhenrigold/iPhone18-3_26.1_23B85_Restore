@@ -18,20 +18,19 @@
 {
   typesCopy = types;
   sub_258AA98A8(0, &qword_27F96EBF0, MEMORY[0x277CC9578]);
-  v18 = *(*(v17 - 8) + 64);
   MEMORY[0x28223BE20](v17 - 8);
-  v20 = &v29 - v19;
+  v19 = &v28 - v18;
   if (date)
   {
     sub_258B00034();
-    v21 = sub_258B00084();
-    (*(*(v21 - 8) + 56))(v20, 0, 1, v21);
+    v20 = sub_258B00084();
+    (*(*(v20 - 8) + 56))(v19, 0, 1, v20);
   }
 
   else
   {
-    v22 = sub_258B00084();
-    (*(*(v22 - 8) + 56))(v20, 1, 1, v22);
+    v21 = sub_258B00084();
+    (*(*(v21 - 8) + 56))(v19, 1, 1, v21);
   }
 
   if (types)
@@ -45,30 +44,29 @@
   itemsCopy = items;
   activityCopy = activity;
   modelCopy = model;
-  v27 = sub_258AA938C(factoryCopy, itemsCopy, v20, overlay, activity, typesCopy, options);
+  v26 = sub_258AA938C(factoryCopy, itemsCopy, v19, overlay, activity, typesCopy, options);
 
-  sub_258A2A66C(v20);
+  sub_258A2A66C(v19);
 
-  return v27;
+  return v26;
 }
 
 - (_TtC14MentalHealthUI36StateOfMindOverlayRoomViewController)initWithDisplayDate:(id)date applicationItems:(id)items factorDisplayTypes:(id)types sleepChartFormatter:(id)formatter addDataViewControllerProvider:(id)provider preferredOverlay:(int64_t)overlay
 {
   sub_258AA98A8(0, &qword_27F96EBF0, MEMORY[0x277CC9578]);
-  v15 = *(*(v14 - 8) + 64);
   MEMORY[0x28223BE20](v14 - 8);
-  v17 = &v23 - v16;
+  v16 = &v22 - v15;
   if (date)
   {
     sub_258B00034();
-    v18 = sub_258B00084();
-    (*(*(v18 - 8) + 56))(v17, 0, 1, v18);
+    v17 = sub_258B00084();
+    (*(*(v17 - 8) + 56))(v16, 0, 1, v17);
   }
 
   else
   {
-    v19 = sub_258B00084();
-    (*(*(v19 - 8) + 56))(v17, 1, 1, v19);
+    v18 = sub_258B00084();
+    (*(*(v18 - 8) + 56))(v16, 1, 1, v18);
   }
 
   if (types)
@@ -80,7 +78,7 @@
   itemsCopy = items;
   formatterCopy = formatter;
   swift_unknownObjectRetain();
-  return StateOfMindOverlayRoomViewController.init(displayDate:applicationItems:factorDisplayTypes:sleepChartFormatter:addDataViewControllerProvider:preferredOverlay:)(v17, itemsCopy, types, formatterCopy, provider, overlay);
+  return StateOfMindOverlayRoomViewController.init(displayDate:applicationItems:factorDisplayTypes:sleepChartFormatter:addDataViewControllerProvider:preferredOverlay:)(v16, itemsCopy, types, formatterCopy, provider, overlay);
 }
 
 - (void)viewDidLoad
@@ -134,23 +132,22 @@
 - (id)createViewControllerForMode:(int64_t)mode displayDate:(id)date applicationItems:(id)items
 {
   sub_258AA98A8(0, &qword_27F96EBF0, MEMORY[0x277CC9578]);
-  v7 = *(*(v6 - 8) + 64);
   MEMORY[0x28223BE20](v6 - 8);
-  v9 = &v13 - v8;
+  v8 = &v12 - v7;
   if (date)
   {
     sub_258B00034();
-    v10 = sub_258B00084();
-    (*(*(v10 - 8) + 56))(v9, 0, 1, v10);
+    v9 = sub_258B00084();
+    (*(*(v9 - 8) + 56))(v8, 0, 1, v9);
   }
 
   else
   {
-    v11 = sub_258B00084();
-    (*(*(v11 - 8) + 56))(v9, 1, 1, v11);
+    v10 = sub_258B00084();
+    (*(*(v10 - 8) + 56))(v8, 1, 1, v10);
   }
 
-  sub_258A2A66C(v9);
+  sub_258A2A66C(v8);
 
   return 0;
 }
@@ -186,25 +183,24 @@
 - (_TtC14MentalHealthUI36StateOfMindOverlayRoomViewController)initWithDisplayDate:(id)date applicationItems:(id)items factorDisplayTypes:(id)types mode:(int64_t)mode
 {
   sub_258AA98A8(0, &qword_27F96EBF0, MEMORY[0x277CC9578]);
-  v8 = *(*(v7 - 8) + 64);
   MEMORY[0x28223BE20](v7 - 8);
-  v10 = &v15 - v9;
+  v9 = &v14 - v8;
   if (date)
   {
     sub_258B00034();
-    v11 = sub_258B00084();
-    v13 = 0;
-    v12 = (*(v11 - 8) + 56);
+    v10 = sub_258B00084();
+    v12 = 0;
+    v11 = (*(v10 - 8) + 56);
   }
 
   else
   {
-    v11 = sub_258B00084();
-    v12 = (*(v11 - 8) + 56);
-    v13 = 1;
+    v10 = sub_258B00084();
+    v11 = (*(v10 - 8) + 56);
+    v12 = 1;
   }
 
-  (*v12)(v10, v13, 1, v11);
+  (*v11)(v9, v12, 1, v10);
   result = _swift_stdlib_reportUnimplementedInitializer();
   __break(1u);
   return result;

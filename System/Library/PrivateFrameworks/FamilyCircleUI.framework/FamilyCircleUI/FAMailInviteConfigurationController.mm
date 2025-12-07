@@ -77,13 +77,13 @@ void __70__FAMailInviteConfigurationController_presentWhenReadyWithCompletion___
 
 - (void)_presentInviteControllerWithCompletion:(id)completion
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
-  v5 = _FALogSystem();
+  v5 = _FALogSystem(completionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109120;
-    v16 = +[FAMailInviteConfigurationController isAvailable];
+    v15 = +[FAMailInviteConfigurationController isAvailable];
     _os_log_impl(&dword_21BB35000, v5, OS_LOG_TYPE_DEFAULT, "_presentMailViewController - can send Mail: %d", buf, 8u);
   }
 
@@ -92,17 +92,17 @@ void __70__FAMailInviteConfigurationController_presentWhenReadyWithCompletion___
   {
     presentationContext = self->_presentationContext;
     _mailComposeViewController2 = [(FAMailInviteConfigurationController *)self _mailComposeViewController];
-    v13[0] = MEMORY[0x277D85DD0];
-    v13[1] = 3221225472;
-    v13[2] = __78__FAMailInviteConfigurationController__presentInviteControllerWithCompletion___block_invoke;
-    v13[3] = &unk_2782F2ED8;
-    v14 = completionCopy;
-    [(UIViewController *)presentationContext presentViewController:_mailComposeViewController2 animated:1 completion:v13];
+    v12[0] = MEMORY[0x277D85DD0];
+    v12[1] = 3221225472;
+    v12[2] = __78__FAMailInviteConfigurationController__presentInviteControllerWithCompletion___block_invoke;
+    v12[3] = &unk_2782F2ED8;
+    v13 = completionCopy;
+    [(UIViewController *)presentationContext presentViewController:_mailComposeViewController2 animated:1 completion:v12];
   }
 
   else
   {
-    v11 = _FALogSystem();
+    v11 = _FALogSystem(_mailComposeViewController);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
@@ -114,8 +114,6 @@ void __70__FAMailInviteConfigurationController_presentWhenReadyWithCompletion___
       (*(completionCopy + 2))(completionCopy, 0, 0);
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __78__FAMailInviteConfigurationController__presentInviteControllerWithCompletion___block_invoke(uint64_t a1)
@@ -131,7 +129,7 @@ uint64_t __78__FAMailInviteConfigurationController__presentInviteControllerWithC
 
 - (id)_mailComposeViewController
 {
-  v21[1] = *MEMORY[0x277D85DE8];
+  v20[1] = *MEMORY[0x277D85DE8];
   mailComposeViewController = self->_mailComposeViewController;
   if (!mailComposeViewController)
   {
@@ -164,28 +162,26 @@ uint64_t __78__FAMailInviteConfigurationController__presentInviteControllerWithC
     [(MFMailComposeViewController *)v15 setSubject:mailMessageSubject];
 
     v17 = self->_mailComposeViewController;
-    v21[0] = self->_familySuggestionEmailAddress;
-    v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:1];
+    v20[0] = self->_familySuggestionEmailAddress;
+    v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:1];
     [(MFMailComposeViewController *)v17 setToRecipients:v18];
 
     mailComposeViewController = self->_mailComposeViewController;
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return mailComposeViewController;
 }
 
 - (void)mailComposeController:(id)controller shouldSendMail:(id)mail toRecipients:(id)recipients completion:(id)completion
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   recipientsCopy = recipients;
-  v10 = _FALogSystem();
+  v10 = _FALogSystem(recipientsCopy);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v19 = @"FAMailInviteConfigurationController.m";
+    v18 = @"FAMailInviteConfigurationController.m";
     _os_log_impl(&dword_21BB35000, v10, OS_LOG_TYPE_DEFAULT, "%@ MFMessageComposeVC delegate callback - shouldSendMail", buf, 0xCu);
   }
 
@@ -197,21 +193,19 @@ uint64_t __78__FAMailInviteConfigurationController__presentInviteControllerWithC
   if (v13)
   {
     v14 = objc_alloc_init(MEMORY[0x277D08280]);
-    v16[0] = MEMORY[0x277D85DD0];
-    v16[1] = 3221225472;
-    v16[2] = __100__FAMailInviteConfigurationController_mailComposeController_shouldSendMail_toRecipients_completion___block_invoke;
-    v16[3] = &unk_2782F3308;
-    v16[4] = self;
-    v17 = completionCopy;
-    [v14 startRequestWithCompletionHandler:v16];
+    v15[0] = MEMORY[0x277D85DD0];
+    v15[1] = 3221225472;
+    v15[2] = __100__FAMailInviteConfigurationController_mailComposeController_shouldSendMail_toRecipients_completion___block_invoke;
+    v15[3] = &unk_2782F3308;
+    v15[4] = self;
+    v16 = completionCopy;
+    [v14 startRequestWithCompletionHandler:v15];
   }
 
   else
   {
     (*(completionCopy + 2))(completionCopy, 0);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __100__FAMailInviteConfigurationController_mailComposeController_shouldSendMail_toRecipients_completion___block_invoke(uint64_t a1, uint64_t a2)
@@ -236,14 +230,14 @@ void __100__FAMailInviteConfigurationController_mailComposeController_shouldSend
 
 - (void)mailComposeController:(id)controller didFinishWithResult:(int64_t)result error:(id)error
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   controllerCopy = controller;
-  v8 = _FALogSystem();
+  v8 = _FALogSystem(controllerCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v22 = @"FAMailInviteConfigurationController.m";
-    v23 = 2048;
+    v21 = @"FAMailInviteConfigurationController.m";
+    v22 = 2048;
     resultCopy = result;
     _os_log_impl(&dword_21BB35000, v8, OS_LOG_TYPE_DEFAULT, "%@ MFMailComposeVC delegate callback - didFinishWithResult:%ld", buf, 0x16u);
   }
@@ -254,18 +248,18 @@ void __100__FAMailInviteConfigurationController_mailComposeController_shouldSend
   if (v10)
   {
     v11 = 2 * (result != 0);
-    v15 = MEMORY[0x277D85DD0];
-    v16 = 3221225472;
-    v17 = __87__FAMailInviteConfigurationController_mailComposeController_didFinishWithResult_error___block_invoke;
-    v18 = &unk_2782F3330;
+    v14 = MEMORY[0x277D85DD0];
+    v15 = 3221225472;
+    v16 = __87__FAMailInviteConfigurationController_mailComposeController_didFinishWithResult_error___block_invoke;
+    v17 = &unk_2782F3330;
     if (result == 2)
     {
       v11 = 1;
     }
 
     selfCopy = self;
-    v20 = v11;
-    v12 = &v15;
+    v19 = v11;
+    v12 = &v14;
     v13 = controllerCopy;
   }
 
@@ -275,9 +269,7 @@ void __100__FAMailInviteConfigurationController_mailComposeController_shouldSend
     v12 = 0;
   }
 
-  [v13 dismissViewControllerAnimated:1 completion:{v12, v15, v16, v17, v18, selfCopy, v20}];
-
-  v14 = *MEMORY[0x277D85DE8];
+  [v13 dismissViewControllerAnimated:1 completion:{v12, v14, v15, v16, v17, selfCopy, v19}];
 }
 
 void __87__FAMailInviteConfigurationController_mailComposeController_didFinishWithResult_error___block_invoke(uint64_t a1)

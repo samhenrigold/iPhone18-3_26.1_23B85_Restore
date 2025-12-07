@@ -9,6 +9,7 @@
 - (id)numberForKey:(id)key;
 - (id)objectForKey:(id)key havingClass:(Class)class;
 - (id)stringForKey:(id)key;
+- (void)setBool:(BOOL)bool forKey:(id)key;
 @end
 
 @implementation _DKKeyValueStore
@@ -61,6 +62,15 @@
   return bOOLValue;
 }
 
+- (void)setBool:(BOOL)bool forKey:(id)key
+{
+  boolCopy = bool;
+  v6 = MEMORY[0x1E696AD98];
+  keyCopy = key;
+  v8 = [v6 numberWithBool:boolCopy];
+  [(_DKKeyValueStore *)self setNumber:v8 forKey:keyCopy];
+}
+
 - (id)dataForKey:(id)key
 {
   keyCopy = key;
@@ -103,7 +113,7 @@
 
 - (id)objectForKey:(id)key havingClass:(Class)class
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   keyCopy = key;
   v7 = [(_DKSimpleKeyValueStore *)self->_store objectForKey:keyCopy];
   if (v7 && (objc_opt_isKindOfClass() & 1) == 0)
@@ -120,21 +130,19 @@
 
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v11 = 138413058;
-      v12 = objc_opt_class();
-      v13 = 2112;
-      v14 = keyCopy;
-      v15 = 2112;
-      v16 = v8;
-      v17 = 2112;
+      v10 = 138413058;
+      v11 = objc_opt_class();
+      v12 = 2112;
+      v13 = keyCopy;
+      v14 = 2112;
+      v15 = v8;
+      v16 = 2112;
       classCopy = class;
-      _os_log_error_impl(&dword_191750000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%@: Object %@ of wrong class, found %@ instead of %@", &v11, 0x2Au);
+      _os_log_error_impl(&dword_191750000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%@: Object %@ of wrong class, found %@ instead of %@", &v10, 0x2Au);
     }
 
     v7 = 0;
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return v7;
 }

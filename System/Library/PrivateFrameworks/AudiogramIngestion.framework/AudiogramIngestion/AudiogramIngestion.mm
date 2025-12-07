@@ -173,9 +173,9 @@ id snapToValidFrequency(void *a1)
   return v2;
 }
 
-void sub_24179D4E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_24179D4E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -300,73 +300,73 @@ id unfilledImageForSymbolType(uint64_t a1)
   return v4;
 }
 
-id metadataForHKAudiogramSample()
+id metadataForHKAudiogramSample(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v16[2] = *MEMORY[0x277D85DE8];
-  v10 = 0;
-  v11 = &v10;
-  v12 = 0x2020000000;
-  v0 = getHKMetadataKeyWasUserEnteredSymbolLoc_ptr;
-  v13 = getHKMetadataKeyWasUserEnteredSymbolLoc_ptr;
+  v20[2] = *MEMORY[0x277D85DE8];
+  v14 = 0;
+  v15 = &v14;
+  v16 = 0x2020000000;
+  v4 = getHKMetadataKeyWasUserEnteredSymbolLoc_ptr;
+  v17 = getHKMetadataKeyWasUserEnteredSymbolLoc_ptr;
   if (!getHKMetadataKeyWasUserEnteredSymbolLoc_ptr)
   {
-    v1 = HealthKitLibrary();
-    v11[3] = dlsym(v1, "HKMetadataKeyWasUserEntered");
-    getHKMetadataKeyWasUserEnteredSymbolLoc_ptr = v11[3];
-    v0 = v11[3];
+    v5 = HealthKitLibrary();
+    v15[3] = dlsym(v5, "HKMetadataKeyWasUserEntered");
+    getHKMetadataKeyWasUserEnteredSymbolLoc_ptr = v15[3];
+    v4 = v15[3];
   }
 
-  _Block_object_dispose(&v10, 8);
-  if (!v0)
+  _Block_object_dispose(&v14, 8);
+  if (!v4)
   {
     goto LABEL_10;
   }
 
-  v2 = *v0;
-  v14 = v2;
-  v3 = MEMORY[0x277CBEC38];
-  v16[0] = MEMORY[0x277CBEC38];
-  v10 = 0;
-  v11 = &v10;
-  v12 = 0x2020000000;
-  v4 = get_HKPrivateMetadataKeyAudiogramManualIngestionFromFirstPartySymbolLoc_ptr;
-  v13 = get_HKPrivateMetadataKeyAudiogramManualIngestionFromFirstPartySymbolLoc_ptr;
+  v6 = *v4;
+  v18 = v6;
+  v7 = MEMORY[0x277CBEC38];
+  v20[0] = MEMORY[0x277CBEC38];
+  v14 = 0;
+  v15 = &v14;
+  v16 = 0x2020000000;
+  v8 = get_HKPrivateMetadataKeyAudiogramManualIngestionFromFirstPartySymbolLoc_ptr;
+  v17 = get_HKPrivateMetadataKeyAudiogramManualIngestionFromFirstPartySymbolLoc_ptr;
   if (!get_HKPrivateMetadataKeyAudiogramManualIngestionFromFirstPartySymbolLoc_ptr)
   {
-    v5 = HealthKitLibrary();
-    v11[3] = dlsym(v5, "_HKPrivateMetadataKeyAudiogramManualIngestionFromFirstParty");
-    get_HKPrivateMetadataKeyAudiogramManualIngestionFromFirstPartySymbolLoc_ptr = v11[3];
-    v4 = v11[3];
+    v9 = HealthKitLibrary();
+    v15[3] = dlsym(v9, "_HKPrivateMetadataKeyAudiogramManualIngestionFromFirstParty");
+    get_HKPrivateMetadataKeyAudiogramManualIngestionFromFirstPartySymbolLoc_ptr = v15[3];
+    v8 = v15[3];
   }
 
-  _Block_object_dispose(&v10, 8);
-  if (!v4)
+  _Block_object_dispose(&v14, 8);
+  if (!v8)
   {
 LABEL_10:
     metadataForHKAudiogramSample_cold_1();
     __break(1u);
   }
 
-  v15 = *v4;
-  v16[1] = v3;
-  v6 = MEMORY[0x277CBEAC0];
-  v7 = v15;
-  v8 = [v6 dictionaryWithObjects:v16 forKeys:&v14 count:2];
+  v19 = *v8;
+  v20[1] = v7;
+  v10 = MEMORY[0x277CBEAC0];
+  v11 = v19;
+  v12 = [v10 dictionaryWithObjects:v20 forKeys:&v18 count:2];
 
-  return v8;
+  return v12;
 }
 
-void sub_24179D9F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_24179D9F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void *__getHKMetadataKeyWasUserEnteredSymbolLoc_block_invoke(uint64_t a1)
+void *__getHKMetadataKeyWasUserEnteredSymbolLoc_block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v2 = HealthKitLibrary();
-  result = dlsym(v2, "HKMetadataKeyWasUserEntered");
+  v5 = HealthKitLibrary();
+  result = dlsym(v5, "HKMetadataKeyWasUserEntered");
   *(*(*(a1 + 32) + 8) + 24) = result;
   getHKMetadataKeyWasUserEnteredSymbolLoc_ptr = *(*(*(a1 + 32) + 8) + 24);
   return result;
@@ -392,7 +392,7 @@ uint64_t HealthKitLibrary()
   v1 = v3[0];
   if (!HealthKitLibraryCore_frameworkLibrary)
   {
-    v1 = abort_report_np();
+    v1 = abort_report_np("%s", v3[0]);
     goto LABEL_7;
   }
 
@@ -405,35 +405,35 @@ LABEL_7:
   return v0;
 }
 
-uint64_t __HealthKitLibraryCore_block_invoke()
+uint64_t __HealthKitLibraryCore_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   HealthKitLibraryCore_frameworkLibrary = result;
   return result;
 }
 
-void sub_24179E448(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_24179E448(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_24179FDCC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_24179FDCC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_2417A0408(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_2417A0408(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v10 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v17 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -470,23 +470,23 @@ id getHKUnitClass()
   return v1;
 }
 
-void sub_2417A071C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2417A071C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_2417A0BB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2417A0BB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_2417A0CFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_2417A0CFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -515,9 +515,9 @@ id getHKQuantityClass()
   return v1;
 }
 
-void sub_2417A12E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2417A12E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -546,9 +546,9 @@ id getHKAudiogramSensitivityTestClass()
   return v1;
 }
 
-void sub_2417A13C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2417A13C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -588,7 +588,7 @@ void HealthKitLibrary_0()
   v0 = v1[0];
   if (!HealthKitLibraryCore_frameworkLibrary_0)
   {
-    v0 = abort_report_np();
+    v0 = abort_report_np("%s", v1[0]);
     goto LABEL_7;
   }
 
@@ -599,7 +599,7 @@ LABEL_7:
   }
 }
 
-uint64_t __HealthKitLibraryCore_block_invoke_0()
+uint64_t __HealthKitLibraryCore_block_invoke_0(uint64_t a1)
 {
   result = _sl_dlopen();
   HealthKitLibraryCore_frameworkLibrary_0 = result;
@@ -645,7 +645,7 @@ uint64_t HealthUILibrary()
   v1 = v3[0];
   if (!HealthUILibraryCore_frameworkLibrary)
   {
-    v1 = abort_report_np();
+    v1 = abort_report_np("%s", v3[0]);
     goto LABEL_7;
   }
 
@@ -658,7 +658,7 @@ LABEL_7:
   return v0;
 }
 
-uint64_t __HealthUILibraryCore_block_invoke()
+uint64_t __HealthUILibraryCore_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   HealthUILibraryCore_frameworkLibrary = result;
@@ -761,20 +761,21 @@ void __getHKAudiogramSensitivityPointClass_block_invoke(uint64_t a1, uint64_t a2
 
   else
   {
-    v10 = __getHKAudiogramSensitivityPointClass_block_invoke_cold_1();
+    __getHKAudiogramSensitivityPointClass_block_invoke_cold_1();
     OUTLINED_FUNCTION_0(v10, v11, v12, v13, v14, v15, v16, v17, a9);
   }
 }
 
-void OUTLINED_FUNCTION_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 2u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 2u);
 }
 
-void sub_2417A2604(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_2417A2604(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -803,17 +804,18 @@ id getHKUnitClass_0()
   return v1;
 }
 
-void sub_2417A4120(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2417A4120(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_2417A44DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27)
+void sub_2417A44DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
 {
-  _Block_object_dispose(&a27, 8);
-  _Block_object_dispose((v27 - 128), 8);
+  va_start(va, a26);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v26 - 128), 8);
   _Unwind_Resume(a1);
 }
 
@@ -859,7 +861,7 @@ void HealthKitLibrary_1()
   v0 = v1[0];
   if (!HealthKitLibraryCore_frameworkLibrary_1)
   {
-    v0 = abort_report_np();
+    v0 = abort_report_np("%s", v1[0]);
     goto LABEL_7;
   }
 
@@ -870,7 +872,7 @@ LABEL_7:
   }
 }
 
-uint64_t __HealthKitLibraryCore_block_invoke_1()
+uint64_t __HealthKitLibraryCore_block_invoke_1(uint64_t a1)
 {
   result = _sl_dlopen();
   HealthKitLibraryCore_frameworkLibrary_1 = result;
@@ -902,7 +904,7 @@ Class __getHKSingleAudiogramChartViewControllerClass_block_invoke_0(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -920,7 +922,7 @@ LABEL_4:
   return result;
 }
 
-uint64_t __HealthUILibraryCore_block_invoke_0()
+uint64_t __HealthUILibraryCore_block_invoke_0(uint64_t a1)
 {
   result = _sl_dlopen();
   HealthUILibraryCore_frameworkLibrary_0 = result;
@@ -946,36 +948,38 @@ Class __getHKUnitClass_block_invoke_0(uint64_t a1)
   return result;
 }
 
-void sub_2417A7F6C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, char a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29)
+void sub_2417A7F6C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
 {
+  va_start(va, a28);
   _Block_object_dispose(&a17, 8);
   _Block_object_dispose(&a21, 8);
   _Block_object_dispose(&a25, 8);
-  _Block_object_dispose(&a29, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 uint64_t soft_AX_CGRectGetCenter(double a1, double a2, double a3, double a4)
 {
-  v12 = 0;
-  v13 = &v12;
-  v14 = 0x2020000000;
+  v13 = 0;
+  v14 = &v13;
+  v15 = 0x2020000000;
   v8 = getAX_CGRectGetCenterSymbolLoc_ptr;
-  v15 = getAX_CGRectGetCenterSymbolLoc_ptr;
+  v16 = getAX_CGRectGetCenterSymbolLoc_ptr;
   if (!getAX_CGRectGetCenterSymbolLoc_ptr)
   {
     v9 = AccessibilityUtilitiesLibrary();
-    v13[3] = dlsym(v9, "AX_CGRectGetCenter");
-    getAX_CGRectGetCenterSymbolLoc_ptr = v13[3];
-    v8 = v13[3];
+    v14[3] = dlsym(v9, "AX_CGRectGetCenter");
+    getAX_CGRectGetCenterSymbolLoc_ptr = v14[3];
+    v8 = v14[3];
   }
 
-  _Block_object_dispose(&v12, 8);
+  _Block_object_dispose(&v13, 8);
   if (!v8)
   {
-    v11 = metadataForHKAudiogramSample_cold_1();
-    _Block_object_dispose(&v12, 8);
-    _Unwind_Resume(v11);
+    metadataForHKAudiogramSample_cold_1();
+    v12 = v11;
+    _Block_object_dispose(&v13, 8);
+    _Unwind_Resume(v12);
   }
 
   return v8(a1, a2, a3, a4);
@@ -983,35 +987,36 @@ uint64_t soft_AX_CGRectGetCenter(double a1, double a2, double a3, double a4)
 
 uint64_t soft_AX_CGPointGetDistanceToPoint(double a1, double a2, double a3, double a4)
 {
-  v12 = 0;
-  v13 = &v12;
-  v14 = 0x2020000000;
+  v13 = 0;
+  v14 = &v13;
+  v15 = 0x2020000000;
   v8 = getAX_CGPointGetDistanceToPointSymbolLoc_ptr;
-  v15 = getAX_CGPointGetDistanceToPointSymbolLoc_ptr;
+  v16 = getAX_CGPointGetDistanceToPointSymbolLoc_ptr;
   if (!getAX_CGPointGetDistanceToPointSymbolLoc_ptr)
   {
     v9 = AccessibilityUtilitiesLibrary();
-    v13[3] = dlsym(v9, "AX_CGPointGetDistanceToPoint");
-    getAX_CGPointGetDistanceToPointSymbolLoc_ptr = v13[3];
-    v8 = v13[3];
+    v14[3] = dlsym(v9, "AX_CGPointGetDistanceToPoint");
+    getAX_CGPointGetDistanceToPointSymbolLoc_ptr = v14[3];
+    v8 = v14[3];
   }
 
-  _Block_object_dispose(&v12, 8);
+  _Block_object_dispose(&v13, 8);
   if (!v8)
   {
-    v11 = metadataForHKAudiogramSample_cold_1();
-    _Block_object_dispose(&v12, 8);
-    _Unwind_Resume(v11);
+    metadataForHKAudiogramSample_cold_1();
+    v12 = v11;
+    _Block_object_dispose(&v13, 8);
+    _Unwind_Resume(v12);
   }
 
   return v8(a1, a2, a3, a4);
 }
 
-void sub_2417A8CD0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_2417A8CD0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v13 - 112), 8);
+  _Block_object_dispose((v20 - 112), 8);
   _Unwind_Resume(a1);
 }
 
@@ -1022,54 +1027,55 @@ uint64_t __Block_byref_object_copy__2(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_2417A9434(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2417A9434(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va1, a7);
-  va_start(va, a7);
-  v8 = va_arg(va1, void);
-  v10 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
+  va_start(va1, a13);
+  va_start(va, a13);
   v14 = va_arg(va1, void);
+  v16 = va_arg(va1, void);
+  v17 = va_arg(va1, void);
+  v18 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_2417A9D44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, char a24, uint64_t a25, uint64_t a26, uint64_t a27, char a28, uint64_t a29, uint64_t a30, uint64_t a31, char a32)
+void sub_2417A9D44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, ...)
 {
+  va_start(va, a31);
   _Block_object_dispose(&a24, 8);
   _Block_object_dispose(&a28, 8);
-  _Block_object_dispose(&a32, 8);
-  _Block_object_dispose((v32 - 200), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v31 - 200), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_2417AA31C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_2417AA31C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_2417AA620(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_2417AA620(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_2417AA884(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_2417AA884(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_2417AA9A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2417AA9A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1098,9 +1104,9 @@ id getHKUnitClass_1()
   return v1;
 }
 
-void sub_2417ABAB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2417ABAB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1129,9 +1135,9 @@ id getHKQuantityClass_0()
   return v1;
 }
 
-void sub_2417AC348(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2417AC348(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1160,9 +1166,9 @@ id getHKAudiogramSensitivityPointClass()
   return v1;
 }
 
-void sub_2417AC554(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2417AC554(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1191,9 +1197,16 @@ id getHKAudiogramSampleClass()
   return v1;
 }
 
-void sub_2417AC634(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2417AC634(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_2417AD98C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, ...)
+{
+  va_start(va, a30);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1222,9 +1235,16 @@ id getHKAudiogramSensitivityTestClass_0()
   return v1;
 }
 
-void sub_2417AF32C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2417AF32C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_2417AFCC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
+{
+  va_start(va, a26);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1249,7 +1269,7 @@ uint64_t AccessibilityUtilitiesLibrary()
   v1 = v3[0];
   if (!AccessibilityUtilitiesLibraryCore_frameworkLibrary)
   {
-    v1 = abort_report_np();
+    v1 = abort_report_np("%s", v3[0]);
     goto LABEL_7;
   }
 
@@ -1262,7 +1282,7 @@ LABEL_7:
   return v0;
 }
 
-uint64_t __AccessibilityUtilitiesLibraryCore_block_invoke()
+uint64_t __AccessibilityUtilitiesLibraryCore_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   AccessibilityUtilitiesLibraryCore_frameworkLibrary = result;
@@ -1304,7 +1324,7 @@ void HealthKitLibrary_2()
   v0 = v1[0];
   if (!HealthKitLibraryCore_frameworkLibrary_2)
   {
-    v0 = abort_report_np();
+    v0 = abort_report_np("%s", v1[0]);
     goto LABEL_7;
   }
 
@@ -1315,7 +1335,7 @@ LABEL_7:
   }
 }
 
-uint64_t __HealthKitLibraryCore_block_invoke_2()
+uint64_t __HealthKitLibraryCore_block_invoke_2(uint64_t a1)
 {
   result = _sl_dlopen();
   HealthKitLibraryCore_frameworkLibrary_2 = result;
@@ -1353,7 +1373,7 @@ Class __getHKAudiogramSensitivityPointClass_block_invoke_0(uint64_t a1)
 
   else
   {
-    v3 = __getHKAudiogramSensitivityPointClass_block_invoke_cold_1();
+    __getHKAudiogramSensitivityPointClass_block_invoke_cold_1();
     return __getHKAudiogramSampleClass_block_invoke_0(v3);
   }
 
@@ -1395,10 +1415,11 @@ void __getHKAudiogramSensitivityTestClass_block_invoke_0(uint64_t a1)
   }
 }
 
-void OUTLINED_FUNCTION_2(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_2(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 0xCu);
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 0xCu);
 }
 
 void sub_2417B3B40(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, id location)
@@ -1433,7 +1454,7 @@ Class __getHKHealthStoreClass_block_invoke_1(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -1451,7 +1472,7 @@ LABEL_4:
   return result;
 }
 
-uint64_t __HealthKitLibraryCore_block_invoke_3()
+uint64_t __HealthKitLibraryCore_block_invoke_3(uint64_t a1)
 {
   result = _sl_dlopen();
   HealthKitLibraryCore_frameworkLibrary_3 = result;
@@ -1493,7 +1514,7 @@ void HealthUILibrary_0()
   v0 = v1[0];
   if (!HealthUILibraryCore_frameworkLibrary_1)
   {
-    v0 = abort_report_np();
+    v0 = abort_report_np("%s", v1[0]);
     goto LABEL_7;
   }
 
@@ -1504,7 +1525,7 @@ LABEL_7:
   }
 }
 
-uint64_t __HealthUILibraryCore_block_invoke_1()
+uint64_t __HealthUILibraryCore_block_invoke_1(uint64_t a1)
 {
   result = _sl_dlopen();
   HealthUILibraryCore_frameworkLibrary_1 = result;
@@ -1542,7 +1563,7 @@ AIAudiogramLoadingViewController *__getHKAudiogramChartViewControllerClass_block
 
   else
   {
-    v3 = __getHKAudiogramChartViewControllerClass_block_invoke_cold_1();
+    __getHKAudiogramChartViewControllerClass_block_invoke_cold_1();
     return [(AIAudiogramLoadingViewController *)v3 initWithTitle:v4 style:v5, v6];
   }
 
@@ -1588,51 +1609,52 @@ id getHKUnitClass_2()
   return v1;
 }
 
-void sub_2417B59EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
-{
-  va_start(va, a7);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_2417B6688(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_2417B59EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
   va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_2417B821C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_2417B6688(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_2417B821C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
+{
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 id Soft_HKAudiogramEarLocalizedDisplayNameForEar(uint64_t a1)
 {
-  v7 = 0;
-  v8 = &v7;
-  v9 = 0x2020000000;
+  v8 = 0;
+  v9 = &v8;
+  v10 = 0x2020000000;
   v2 = getHKAudiogramEarLocalizedDisplayNameForEarSymbolLoc_ptr_0;
-  v10 = getHKAudiogramEarLocalizedDisplayNameForEarSymbolLoc_ptr_0;
+  v11 = getHKAudiogramEarLocalizedDisplayNameForEarSymbolLoc_ptr_0;
   if (!getHKAudiogramEarLocalizedDisplayNameForEarSymbolLoc_ptr_0)
   {
-    v6[0] = MEMORY[0x277D85DD0];
-    v6[1] = 3221225472;
-    v6[2] = __getHKAudiogramEarLocalizedDisplayNameForEarSymbolLoc_block_invoke_0;
-    v6[3] = &unk_278CEC150;
-    v6[4] = &v7;
-    __getHKAudiogramEarLocalizedDisplayNameForEarSymbolLoc_block_invoke_0(v6);
-    v2 = v8[3];
+    v7[0] = MEMORY[0x277D85DD0];
+    v7[1] = 3221225472;
+    v7[2] = __getHKAudiogramEarLocalizedDisplayNameForEarSymbolLoc_block_invoke_0;
+    v7[3] = &unk_278CEC150;
+    v7[4] = &v8;
+    __getHKAudiogramEarLocalizedDisplayNameForEarSymbolLoc_block_invoke_0(v7);
+    v2 = v9[3];
   }
 
-  _Block_object_dispose(&v7, 8);
+  _Block_object_dispose(&v8, 8);
   if (!v2)
   {
-    v5 = metadataForHKAudiogramSample_cold_1();
-    _Block_object_dispose(&v7, 8);
-    _Unwind_Resume(v5);
+    metadataForHKAudiogramSample_cold_1();
+    v6 = v5;
+    _Block_object_dispose(&v8, 8);
+    _Unwind_Resume(v6);
   }
 
   v3 = v2(a1, 0);
@@ -1640,10 +1662,11 @@ id Soft_HKAudiogramEarLocalizedDisplayNameForEar(uint64_t a1)
   return v3;
 }
 
-void sub_2417B9280(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, char a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, char a33)
+void sub_2417B9280(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, ...)
 {
+  va_start(va, a32);
   _Block_object_dispose(&a25, 8);
-  _Block_object_dispose(&a33, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -1671,9 +1694,9 @@ id getHKQuantityClass_1()
   return v1;
 }
 
-void sub_2417B9444(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2417B9444(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1713,7 +1736,7 @@ void HealthKitLibrary_3()
   v0 = v1[0];
   if (!HealthKitLibraryCore_frameworkLibrary_4)
   {
-    v0 = abort_report_np();
+    v0 = abort_report_np("%s", v1[0]);
     goto LABEL_7;
   }
 
@@ -1724,7 +1747,7 @@ LABEL_7:
   }
 }
 
-uint64_t __HealthKitLibraryCore_block_invoke_4()
+uint64_t __HealthKitLibraryCore_block_invoke_4(uint64_t a1)
 {
   result = _sl_dlopen();
   HealthKitLibraryCore_frameworkLibrary_4 = result;
@@ -1776,7 +1799,7 @@ void *__getHKAudiogramEarLocalizedDisplayNameForEarSymbolLoc_block_invoke_0(uint
 
     else
     {
-      v3 = abort_report_np();
+      v3 = abort_report_np("%s", v5[0]);
     }
 
     free(v3);
@@ -1791,7 +1814,7 @@ LABEL_5:
   return result;
 }
 
-uint64_t __HealthUILibraryCore_block_invoke_2()
+uint64_t __HealthUILibraryCore_block_invoke_2(uint64_t a1)
 {
   result = _sl_dlopen();
   HealthUILibraryCore_frameworkLibrary_2 = result;
@@ -1829,21 +1852,21 @@ AIAudiogramAxis *__getHKAudiogramSensitivityPointClass_block_invoke_1(uint64_t a
 
   else
   {
-    v3 = __getHKAudiogramSensitivityPointClass_block_invoke_cold_1();
+    __getHKAudiogramSensitivityPointClass_block_invoke_cold_1();
     return [(AIAudiogramAxis *)v3 initWithAxis:v4 values:v5, v6];
   }
 
   return result;
 }
 
-void sub_2417BA20C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2417BA20C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va1, a7);
-  va_start(va, a7);
-  v8 = va_arg(va1, void);
-  v10 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
+  va_start(va1, a13);
+  va_start(va, a13);
+  v14 = va_arg(va1, void);
+  v16 = va_arg(va1, void);
+  v17 = va_arg(va1, void);
+  v18 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -1856,9 +1879,9 @@ uint64_t __Block_byref_object_copy__4(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_2417BABC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_2417BABC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1870,9 +1893,9 @@ void sub_2417BF2A0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_2417BFD70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_2417BFD70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1909,7 +1932,7 @@ Class __getHKHealthStoreClass_block_invoke_2(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -1927,7 +1950,7 @@ LABEL_4:
   return result;
 }
 
-uint64_t __HealthKitLibraryCore_block_invoke_5()
+uint64_t __HealthKitLibraryCore_block_invoke_5(uint64_t a1)
 {
   result = _sl_dlopen();
   HealthKitLibraryCore_frameworkLibrary_5 = result;
@@ -1969,7 +1992,7 @@ void HealthUILibrary_1()
   v0 = v1[0];
   if (!HealthUILibraryCore_frameworkLibrary_3)
   {
-    v0 = abort_report_np();
+    v0 = abort_report_np("%s", v1[0]);
     goto LABEL_7;
   }
 
@@ -1980,7 +2003,7 @@ LABEL_7:
   }
 }
 
-uint64_t __HealthUILibraryCore_block_invoke_3()
+uint64_t __HealthUILibraryCore_block_invoke_3(uint64_t a1)
 {
   result = _sl_dlopen();
   HealthUILibraryCore_frameworkLibrary_3 = result;
@@ -2018,7 +2041,7 @@ Class __getHKAudiogramChartViewControllerClass_block_invoke_0(uint64_t a1)
 
   else
   {
-    v3 = __getHKAudiogramChartViewControllerClass_block_invoke_cold_1();
+    __getHKAudiogramChartViewControllerClass_block_invoke_cold_1();
     return __getAXPerformSafeBlockSymbolLoc_block_invoke(v3);
   }
 
@@ -2051,7 +2074,7 @@ void *__getAXPerformSafeBlockSymbolLoc_block_invoke(uint64_t a1)
 
     else
     {
-      v3 = abort_report_np();
+      v3 = abort_report_np("%s", v5[0]);
     }
 
     free(v3);
@@ -2066,16 +2089,16 @@ LABEL_5:
   return result;
 }
 
-uint64_t __AccessibilityUtilitiesLibraryCore_block_invoke_0()
+uint64_t __AccessibilityUtilitiesLibraryCore_block_invoke_0(uint64_t a1)
 {
   result = _sl_dlopen();
   AccessibilityUtilitiesLibraryCore_frameworkLibrary_0 = result;
   return result;
 }
 
-void sub_2417C32E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_2417C32E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2087,9 +2110,9 @@ uint64_t __Block_byref_object_copy__6(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_2417C396C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_2417C396C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2133,23 +2156,23 @@ id getHKUnitClass_3()
   return v1;
 }
 
-void sub_2417C6E34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2417C6E34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_2417C7AF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
+void sub_2417C7AF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, ...)
 {
-  va_start(va, a14);
+  va_start(va, a21);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_2417C89D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2417C89D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2178,9 +2201,9 @@ id getHKAudiogramSampleClass_0()
   return v1;
 }
 
-void sub_2417CAFD0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2417CAFD0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2209,9 +2232,9 @@ id getHKQuantityClass_2()
   return v1;
 }
 
-void sub_2417CBC1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2417CBC1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2240,9 +2263,9 @@ id getHKAudiogramSensitivityTestClass_1()
   return v1;
 }
 
-void sub_2417CBD74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2417CBD74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2282,7 +2305,7 @@ void HealthKitLibrary_4()
   v0 = v1[0];
   if (!HealthKitLibraryCore_frameworkLibrary_6)
   {
-    v0 = abort_report_np();
+    v0 = abort_report_np("%s", v1[0]);
     goto LABEL_7;
   }
 
@@ -2293,7 +2316,7 @@ LABEL_7:
   }
 }
 
-uint64_t __HealthKitLibraryCore_block_invoke_6()
+uint64_t __HealthKitLibraryCore_block_invoke_6(uint64_t a1)
 {
   result = _sl_dlopen();
   HealthKitLibraryCore_frameworkLibrary_6 = result;
@@ -2335,7 +2358,7 @@ void PhotosUILibrary()
   v0 = v1[0];
   if (!PhotosUILibraryCore_frameworkLibrary)
   {
-    v0 = abort_report_np();
+    v0 = abort_report_np("%s", v1[0]);
     goto LABEL_7;
   }
 
@@ -2346,7 +2369,7 @@ LABEL_7:
   }
 }
 
-uint64_t __PhotosUILibraryCore_block_invoke()
+uint64_t __PhotosUILibraryCore_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   PhotosUILibraryCore_frameworkLibrary = result;
@@ -2384,7 +2407,7 @@ Class __getPHPickerViewControllerClass_block_invoke(uint64_t a1)
 
   else
   {
-    v3 = __getPHPickerViewControllerClass_block_invoke_cold_1();
+    __getPHPickerViewControllerClass_block_invoke_cold_1();
     return __getHKAudiogramSampleClass_block_invoke_2(v3);
   }
 
@@ -2460,7 +2483,7 @@ AIAudiogramAssetManager *__getHKAudiogramSensitivityPointClass_block_invoke_2(ui
 
   else
   {
-    v3 = __getHKAudiogramSensitivityPointClass_block_invoke_cold_1();
+    __getHKAudiogramSensitivityPointClass_block_invoke_cold_1();
     return [(AIAudiogramAssetManager *)v3 initWithDelegate:v4, v5];
   }
 
@@ -2492,7 +2515,7 @@ Class __getAXSettingsClass_block_invoke(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -2510,7 +2533,7 @@ LABEL_4:
   return result;
 }
 
-uint64_t __AccessibilityUtilitiesLibraryCore_block_invoke_1()
+uint64_t __AccessibilityUtilitiesLibraryCore_block_invoke_1(uint64_t a1)
 {
   result = _sl_dlopen();
   AccessibilityUtilitiesLibraryCore_frameworkLibrary_1 = result;
@@ -2841,44 +2864,44 @@ uint64_t sub_2417CE2B4()
   return v1;
 }
 
-uint64_t sub_2417CE2F0()
+uint64_t sub_2417CE2F0(uint64_t a1)
 {
   sub_2417E419C();
   sub_2417E41CC();
 }
 
-uint64_t sub_2417CE344()
+uint64_t sub_2417CE344(uint64_t a1)
 {
   sub_2417E419C();
   sub_2417E452C();
   sub_2417E41CC();
-  v0 = sub_2417E454C();
+  v1 = sub_2417E454C();
 
-  return v0;
+  return v1;
 }
 
-uint64_t sub_2417CE3B8()
+uint64_t sub_2417CE3B8(void *a1, uint64_t *a2)
 {
-  v0 = sub_2417E419C();
-  v2 = v1;
-  if (v0 == sub_2417E419C() && v2 == v3)
+  v2 = sub_2417E419C();
+  v4 = v3;
+  if (v2 == sub_2417E419C() && v4 == v5)
   {
-    v5 = 1;
+    v7 = 1;
   }
 
   else
   {
-    v5 = sub_2417E450C();
+    v7 = sub_2417E450C();
   }
 
-  return v5 & 1;
+  return v7 & 1;
 }
 
-uint64_t sub_2417CE440@<X0>(uint64_t *a1@<X8>)
+uint64_t sub_2417CE440@<X0>(uint64_t *a2@<X8>)
 {
-  v2 = sub_2417E416C();
+  v3 = sub_2417E416C();
 
-  *a1 = v2;
+  *a2 = v3;
   return result;
 }
 
@@ -2892,8 +2915,8 @@ uint64_t sub_2417CE488@<X0>(uint64_t *a1@<X8>)
 
 uint64_t sub_2417CE4B4(uint64_t a1)
 {
-  v2 = sub_2417CE6A8(&qword_27E54B3D0);
-  v3 = sub_2417CE6A8(&qword_27E54B3D8);
+  v2 = sub_2417CE6A8(&qword_27E54B3D0, &unk_2417E8628);
+  v3 = sub_2417CE6A8(&qword_27E54B3D8, &unk_2417E857C);
   v4 = MEMORY[0x277D837E0];
 
   return MEMORY[0x2821FD8C8](a1, v2, v3, v4);
@@ -2912,19 +2935,19 @@ unint64_t sub_2417CE54C()
   return result;
 }
 
-void sub_2417CE5F4(uint64_t a1, unint64_t *a2)
+void sub_2417CE5F4(uint64_t a1, unint64_t *a2, uint64_t a3)
 {
   if (!*a2)
   {
     ForeignTypeMetadata = swift_getForeignTypeMetadata();
-    if (!v4)
+    if (!v5)
     {
       atomic_store(ForeignTypeMetadata, a2);
     }
   }
 }
 
-uint64_t sub_2417CE6A8(unint64_t *a1)
+uint64_t sub_2417CE6A8(unint64_t *a1, uint64_t a2)
 {
   result = *a1;
   if (!result)
@@ -2970,7 +2993,7 @@ void sub_2417CE728()
       goto LABEL_12;
     }
 
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E54B3F0);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E54B3F0, &qword_2417E86D0);
     v13 = swift_allocObject();
     *(v13 + 16) = xmmword_2417E8670;
     [v36 doubleValue];
@@ -3033,7 +3056,7 @@ LABEL_12:
     v32 = aiLocString(v31);
 
     sub_2417E419C();
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E54B3F0);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E54B3F0, &qword_2417E86D0);
     v33 = swift_allocObject();
     *(v33 + 16) = xmmword_2417E8680;
     *(v33 + 56) = sub_2417CE54C();
@@ -3057,14 +3080,14 @@ LABEL_12:
 LABEL_19:
 }
 
-id sub_2417CED84()
+id sub_2417CED84(uint64_t a1)
 {
-  v2.receiver = v0;
-  v2.super_class = type metadata accessor for AudiogramFrequencySelectionCell();
-  return objc_msgSendSuper2(&v2, sel_dealloc);
+  v3.receiver = v1;
+  v3.super_class = type metadata accessor for AudiogramFrequencySelectionCell();
+  return objc_msgSendSuper2(&v3, sel_dealloc);
 }
 
-uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1)
+uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1, uint64_t *a2)
 {
   result = *a1;
   if (!result)
@@ -3099,6 +3122,13 @@ unint64_t sub_2417CEE88()
   }
 
   return result;
+}
+
+char *AudiogramFrequencySelectionViewController.__allocating_init(title:detailText:selectedFrequencies:delegate:isModal:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
+{
+  v8 = a7;
+  v15 = objc_allocWithZone(v7);
+  return AudiogramFrequencySelectionViewController.init(title:detailText:selectedFrequencies:delegate:isModal:)(a1, a2, a3, a4, a5, a6, v8);
 }
 
 char *AudiogramFrequencySelectionViewController.init(title:detailText:selectedFrequencies:delegate:isModal:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, char a7)
@@ -3497,7 +3527,7 @@ void sub_2417CFFD0(void *a1)
             v19 = aiLocString(v18);
 
             sub_2417E419C();
-            __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E54B3F0);
+            __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E54B3F0, &qword_2417E86D0);
             v20 = swift_allocObject();
             *(v20 + 16) = xmmword_2417E8670;
             *(v20 + 56) = sub_2417CE54C();
@@ -3691,7 +3721,7 @@ void sub_2417D084C(uint64_t a1, void *a2)
   v3();
 }
 
-uint64_t sub_2417D08B4(uint64_t a1, uint64_t a2, unint64_t a3, void *a4)
+void *sub_2417D08B4(uint64_t a1, uint64_t a2, unint64_t a3, void *a4)
 {
   swift_beginAccess();
   v6 = sub_2417D09AC(a3);
@@ -3715,7 +3745,7 @@ uint64_t sub_2417D08B4(uint64_t a1, uint64_t a2, unint64_t a3, void *a4)
   return result;
 }
 
-uint64_t sub_2417D09AC(unint64_t a1)
+unint64_t sub_2417D09AC(unint64_t a1)
 {
   v3 = *v1;
   result = swift_isUniquelyReferenced_nonNull_bridgeObject();
@@ -4011,9 +4041,9 @@ uint64_t block_copy_helper(uint64_t a1, uint64_t a2)
   *(a1 + 40) = v2;
 }
 
-uint64_t __swift_destroy_boxed_opaque_existential_0(uint64_t a1)
+uint64_t __swift_destroy_boxed_opaque_existential_0(void *a1)
 {
-  v1 = *(*(a1 + 24) - 8);
+  v1 = *(a1[3] - 8);
   if ((*(v1 + 82) & 2) != 0)
   {
   }
@@ -4134,11 +4164,11 @@ uint64_t sub_2417D1FC8()
   return sub_2417E454C();
 }
 
-uint64_t sub_2417D203C()
+uint64_t sub_2417D203C(uint64_t a1)
 {
-  v1 = *v0;
+  v2 = *v1;
   sub_2417E452C();
-  MEMORY[0x245CEFAB0](v1);
+  MEMORY[0x245CEFAB0](v2);
   return sub_2417E454C();
 }
 
@@ -4161,10 +4191,10 @@ uint64_t sub_2417D2080()
   }
 }
 
-uint64_t sub_2417D20DC@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
+uint64_t sub_2417D20DC@<X0>(_BYTE *a1@<X8>, uint64_t a2@<X0>, uint64_t a3@<X1>)
 {
-  result = sub_2417D51F8(a1, a2);
-  *a3 = result;
+  result = sub_2417D51F8(a2, a3);
+  *a1 = result;
   return result;
 }
 
@@ -4185,7 +4215,7 @@ uint64_t sub_2417D2158(uint64_t a1)
 uint64_t sub_2417D21C0(void *a1)
 {
   v3 = v1;
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E54B610);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E54B610, &qword_2417E8730);
   v6 = *(v5 - 8);
   MEMORY[0x28223BE20](v5);
   v8 = &v11[-v7];
@@ -4197,7 +4227,7 @@ uint64_t sub_2417D21C0(void *a1)
   v13 = v9;
   v11[15] = 0;
   type metadata accessor for CGRect(0);
-  sub_2417D4A80(&qword_27E54B620);
+  sub_2417D4A80(&qword_27E54B620, MEMORY[0x277CBF268]);
   sub_2417E44CC();
   if (v2)
   {
@@ -4211,10 +4241,10 @@ uint64_t sub_2417D21C0(void *a1)
   return (*(v6 + 8))(v8, v5);
 }
 
-id AudiogramSymbolDetectorResult.init(from:)(void *a1)
+char *AudiogramSymbolDetectorResult.init(from:)(void *a1)
 {
   v3 = v1;
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E54B628);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E54B628, &qword_2417E8738);
   v6 = *(v5 - 8);
   MEMORY[0x28223BE20](v5);
   v8 = &v17 - v7;
@@ -4232,20 +4262,20 @@ id AudiogramSymbolDetectorResult.init(from:)(void *a1)
   {
     type metadata accessor for CGRect(0);
     v20 = 0;
-    sub_2417D4A80(&qword_27E54B630);
+    sub_2417D4A80(&qword_27E54B630, MEMORY[0x277CBF280]);
     sub_2417E448C();
-    v9 = &v1[OBJC_IVAR____TtC18AudiogramIngestion29AudiogramSymbolDetectorResult_box];
+    v9 = (v1 + OBJC_IVAR____TtC18AudiogramIngestion29AudiogramSymbolDetectorResult_box);
     v10 = v19;
     *v9 = v18;
-    *(v9 + 1) = v10;
+    v9[1] = v10;
     LOBYTE(v18) = 1;
     v11 = sub_2417E445C();
-    v13 = &v1[OBJC_IVAR____TtC18AudiogramIngestion29AudiogramSymbolDetectorResult_labelName];
+    v13 = (v1 + OBJC_IVAR____TtC18AudiogramIngestion29AudiogramSymbolDetectorResult_labelName);
     *v13 = v11;
     v13[1] = v14;
     LOBYTE(v18) = 2;
     sub_2417E446C();
-    *&v1[OBJC_IVAR____TtC18AudiogramIngestion29AudiogramSymbolDetectorResult_confidence] = v15;
+    *(v1 + OBJC_IVAR____TtC18AudiogramIngestion29AudiogramSymbolDetectorResult_confidence) = v15;
     v16 = type metadata accessor for AudiogramSymbolDetectorResult();
     v17.receiver = v1;
     v17.super_class = v16;
@@ -4257,11 +4287,11 @@ id AudiogramSymbolDetectorResult.init(from:)(void *a1)
   return v3;
 }
 
-uint64_t sub_2417D2694@<X0>(uint64_t *a1@<X8>)
+uint64_t sub_2417D2694@<X0>(uint64_t *a3@<X8>)
 {
   type metadata accessor for AudiogramSymbolDetectorResult();
   result = sub_2417E437C();
-  *a1 = result;
+  *a3 = result;
   return result;
 }
 
@@ -4272,7 +4302,7 @@ double sub_2417D2784()
   return *v1;
 }
 
-id sub_2417D2854(void *a1, uint64_t a2, void (*a3)(void))
+id sub_2417D2854(void *a1, uint64_t a2, uint64_t (*a3)(void))
 {
   v4 = a1;
   a3();
@@ -4354,7 +4384,7 @@ void sub_2417D2CEC()
   MEMORY[0x28223BE20](v0);
   v3 = &v25 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_2417E408C();
-  v4 = type metadata accessor for MindNetModelBoundingBox();
+  v4 = type metadata accessor for MindNetModelBoundingBox(0);
   v5 = objc_allocWithZone(v4);
   v6 = OBJC_IVAR____TtC18AudiogramIngestion23MindNetModelBoundingBox_id;
   sub_2417E408C();
@@ -4480,7 +4510,7 @@ id sub_2417D3228(uint64_t (*a1)(void))
 uint64_t sub_2417D3264(void *a1)
 {
   v3 = v1;
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E54B648);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E54B648, &qword_2417E8740);
   v6 = *(v5 - 8);
   MEMORY[0x28223BE20](v5);
   v8 = &v12[-v7];
@@ -4494,7 +4524,7 @@ uint64_t sub_2417D3264(void *a1)
   v14 = v10;
   v12[15] = 0;
   type metadata accessor for CGRect(0);
-  sub_2417D4A80(&qword_27E54B620);
+  sub_2417D4A80(&qword_27E54B620, MEMORY[0x277CBF268]);
   sub_2417E44CC();
   if (!v2)
   {
@@ -4508,7 +4538,7 @@ uint64_t sub_2417D3264(void *a1)
 void *AudiogramGraphDetectorResult.init(from:)(void *a1)
 {
   v3 = v1;
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E54B658);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E54B658, &qword_2417E8748);
   v6 = *(v5 - 8);
   MEMORY[0x28223BE20](v5);
   v8 = &v15 - v7;
@@ -4526,7 +4556,7 @@ void *AudiogramGraphDetectorResult.init(from:)(void *a1)
   {
     type metadata accessor for CGRect(0);
     v18 = 0;
-    sub_2417D4A80(&qword_27E54B630);
+    sub_2417D4A80(&qword_27E54B630, MEMORY[0x277CBF280]);
     sub_2417E448C();
     v10 = &v3[OBJC_IVAR____TtC18AudiogramIngestion28AudiogramGraphDetectorResult_box];
     v11 = v17;
@@ -4546,11 +4576,11 @@ void *AudiogramGraphDetectorResult.init(from:)(void *a1)
   return v9;
 }
 
-uint64_t sub_2417D36C0@<X0>(uint64_t *a1@<X8>)
+uint64_t sub_2417D36C0@<X0>(uint64_t *a3@<X8>)
 {
   type metadata accessor for AudiogramGraphDetectorResult();
   result = sub_2417E437C();
-  *a1 = result;
+  *a3 = result;
   return result;
 }
 
@@ -4607,7 +4637,7 @@ char *sub_2417D37C4(char *result, int64_t a2, char a3, char *a4)
 
   if (v9)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E54B6A8);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E54B6A8, &unk_2417E8B30);
     v10 = swift_allocObject();
     v11 = _swift_stdlib_malloc_size(v10);
     v12 = v11 - 32;
@@ -4686,7 +4716,7 @@ char *sub_2417D38C8(char *result, int64_t a2, char a3, char *a4)
 
   if (v9)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E54B6B8);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E54B6B8, &unk_2417E8B40);
     v10 = swift_allocObject();
     v11 = _swift_stdlib_malloc_size(v10);
     v12 = v11 - 32;
@@ -4765,7 +4795,7 @@ char *sub_2417D39CC(char *result, int64_t a2, char a3, char *a4)
 
   if (v9)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E54B6B0);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E54B6B0, &qword_2417E8FE0);
     v10 = swift_allocObject();
     v11 = _swift_stdlib_malloc_size(v10);
     v12 = v11 - 32;
@@ -4820,7 +4850,7 @@ void *sub_2417D3AD0(uint64_t a1, uint64_t a2)
     return MEMORY[0x277D84F90];
   }
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E54B6A0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E54B6A0, &unk_2417E8DA0);
   v4 = swift_allocObject();
   v5 = _swift_stdlib_malloc_size(v4);
   result = v4;
@@ -4855,7 +4885,7 @@ uint64_t sub_2417D3B58(uint64_t *a1)
   return sub_2417E43CC();
 }
 
-uint64_t sub_2417D3BD4(uint64_t *a1)
+char *sub_2417D3BD4(uint64_t *a1)
 {
   v2 = a1[1];
   result = sub_2417E44EC();
@@ -5636,11 +5666,11 @@ LABEL_5:
   return result;
 }
 
-uint64_t sub_2417D4624(unint64_t a1)
+void *sub_2417D4624(unint64_t a1)
 {
   if (!(a1 >> 62))
   {
-    return a1 & 0xFFFFFFFFFFFFFF8;
+    return (a1 & 0xFFFFFFFFFFFFFF8);
   }
 
   v3 = sub_2417E442C();
@@ -5704,7 +5734,7 @@ uint64_t sub_2417D46B8(uint64_t result, uint64_t a2, unint64_t a3)
           sub_2417D57F0();
           for (i = 0; i != v6; ++i)
           {
-            __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E54B690);
+            __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E54B690, &unk_2417E8B20);
             v9 = sub_2417D459C(v13, i, a3);
             v11 = *v10;
             (v9)(v13, 0);
@@ -5843,7 +5873,7 @@ unint64_t sub_2417D4A2C()
   return result;
 }
 
-uint64_t sub_2417D4A80(unint64_t *a1)
+uint64_t sub_2417D4A80(unint64_t *a1, uint64_t a2)
 {
   result = *a1;
   if (!result)
@@ -6329,7 +6359,7 @@ uint64_t sub_2417D5320(unint64_t a1, double a2)
     while (1)
     {
 LABEL_6:
-      v4 = sub_2417D1684(0);
+      v4 = sub_2417D1684();
       MEMORY[0x245CEF790]();
       if (*((v48 & 0xFFFFFFFFFFFFFF8) + 0x10) >= *((v48 & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
       {
@@ -6552,7 +6582,7 @@ unint64_t sub_2417D57F0()
   result = qword_27E54B698;
   if (!qword_27E54B698)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27E54B690);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27E54B690, &unk_2417E8B20);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_27E54B698);
   }
@@ -6560,7 +6590,7 @@ unint64_t sub_2417D57F0()
   return result;
 }
 
-uint64_t __swift_instantiateConcreteTypeFromMangledNameAbstractV2(uint64_t *a1)
+uint64_t __swift_instantiateConcreteTypeFromMangledNameAbstractV2(uint64_t *a1, uint64_t *a2)
 {
   result = *a1;
   if (!result)
@@ -6580,11 +6610,11 @@ uint64_t sub_2417D58E8()
   return sub_2417E454C();
 }
 
-uint64_t sub_2417D595C()
+uint64_t sub_2417D595C(uint64_t a1)
 {
-  v1 = *v0;
+  v2 = *v1;
   sub_2417E452C();
-  MEMORY[0x245CEFAB0](v1);
+  MEMORY[0x245CEFAB0](v2);
   return sub_2417E454C();
 }
 
@@ -6623,7 +6653,7 @@ unint64_t sub_2417D5A5C()
   result = qword_27E54B6C8;
   if (!qword_27E54B6C8)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27E54B6D0);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27E54B6D0, &qword_2417E8BB8);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_27E54B6C8);
   }
@@ -6649,7 +6679,7 @@ id AudiogramDetectorModel.init(modelUrl:modelInputSize:confidenceThreshold:)(uin
   v9 = sub_2417E410C();
   v10 = *(v9 - 8);
   MEMORY[0x28223BE20](v9);
-  v12 = &v20 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = &v21 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
   *&v4[OBJC_IVAR____TtC18AudiogramIngestion22AudiogramDetectorModel_model] = 0;
   v13 = OBJC_IVAR____TtC18AudiogramIngestion22AudiogramDetectorModel_url;
   v14 = sub_2417E407C();
@@ -6662,55 +6692,55 @@ id AudiogramDetectorModel.init(modelUrl:modelInputSize:confidenceThreshold:)(uin
   v16[1] = a3;
   *&v4[OBJC_IVAR____TtC18AudiogramIngestion22AudiogramDetectorModel_confidenceThreshold] = a4;
   v17 = type metadata accessor for AudiogramDetectorModel(0);
-  v20.receiver = v4;
-  v20.super_class = v17;
-  v18 = objc_msgSendSuper2(&v20, sel_init);
-  sub_2417D5FF8();
+  v21.receiver = v4;
+  v21.super_class = v17;
+  v18 = objc_msgSendSuper2(&v21, sel_init);
+  sub_2417D5FF8(v18, v19);
 
   (*(v15 + 8))(a1, v14);
   return v18;
 }
 
-void sub_2417D5FF8()
+void sub_2417D5FF8(uint64_t a1, uint64_t a2)
 {
-  v1 = v0;
-  v2 = sub_2417E407C();
-  v3 = *(v2 - 8);
-  MEMORY[0x28223BE20](v2);
-  v5 = v18 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v6 = [objc_allocWithZone(MEMORY[0x277CBFF38]) init];
-  sub_2417D9544(0, &qword_27E54B760);
-  (*(v3 + 16))(v5, &v1[OBJC_IVAR____TtC18AudiogramIngestion22AudiogramDetectorModel_url], v2);
-  v7 = sub_2417D8D78(v5, v6);
-  if (v7)
+  v3 = v2;
+  v4 = sub_2417E407C();
+  v5 = *(v4 - 8);
+  MEMORY[0x28223BE20](v4);
+  v7 = v21 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = [objc_allocWithZone(MEMORY[0x277CBFF38]) init];
+  sub_2417D9544(0, &qword_27E54B760, 0x277CBFF20);
+  (*(v5 + 16))(v7, &v3[OBJC_IVAR____TtC18AudiogramIngestion22AudiogramDetectorModel_url], v4);
+  v9 = sub_2417D8D78(v7, v8);
+  if (v9)
   {
-    v16 = v7;
+    v19 = v9;
 
-    v17 = *&v1[OBJC_IVAR____TtC18AudiogramIngestion22AudiogramDetectorModel_model];
-    *&v1[OBJC_IVAR____TtC18AudiogramIngestion22AudiogramDetectorModel_model] = v16;
+    v20 = *&v3[OBJC_IVAR____TtC18AudiogramIngestion22AudiogramDetectorModel_model];
+    *&v3[OBJC_IVAR____TtC18AudiogramIngestion22AudiogramDetectorModel_model] = v19;
   }
 
   else
   {
-    v8 = sub_2417E430C();
-    v9 = v1;
-    v10 = sub_2417E40EC();
+    v10 = sub_2417E430C();
+    v11 = v3;
+    v12 = sub_2417E40EC();
 
-    if (os_log_type_enabled(v10, v8))
+    if (os_log_type_enabled(v12, v10))
     {
-      v11 = swift_slowAlloc();
-      v12 = swift_slowAlloc();
-      v18[0] = v12;
-      *v11 = 136315138;
-      sub_2417D958C();
-      v13 = sub_2417E44FC();
-      v15 = sub_2417D84B4(v13, v14, v18);
+      v13 = swift_slowAlloc();
+      v14 = swift_slowAlloc();
+      v21[0] = v14;
+      *v13 = 136315138;
+      sub_2417D958C(v14, v15);
+      v16 = sub_2417E44FC();
+      v18 = sub_2417D84B4(v16, v17, v21);
 
-      *(v11 + 4) = v15;
-      _os_log_impl(&dword_24179B000, v10, v8, "Failed to load model from url %s", v11, 0xCu);
-      __swift_destroy_boxed_opaque_existential_0(v12);
-      MEMORY[0x245CF05F0](v12, -1, -1);
-      MEMORY[0x245CF05F0](v11, -1, -1);
+      *(v13 + 4) = v18;
+      _os_log_impl(&dword_24179B000, v12, v10, "Failed to load model from url %s", v13, 0xCu);
+      __swift_destroy_boxed_opaque_existential_0(v14);
+      MEMORY[0x245CF05F0](v14, -1, -1);
+      MEMORY[0x245CF05F0](v13, -1, -1);
     }
   }
 }
@@ -6754,23 +6784,23 @@ id AudiogramSymbolDetectorModel.init(modelUrl:modelInputSize:confidenceThreshold
 uint64_t sub_2417D67D8(CGImage *a1, uint64_t a2, uint64_t a3)
 {
   v4 = v3;
-  v93[4] = *MEMORY[0x277D85DE8];
+  v101 = *MEMORY[0x277D85DE8];
   v8 = OBJC_IVAR____TtC18AudiogramIngestion22AudiogramDetectorModel_model;
   v9 = *&v3[OBJC_IVAR____TtC18AudiogramIngestion22AudiogramDetectorModel_model];
   if (!v9)
   {
-    sub_2417D5FF8();
+    sub_2417D5FF8(a1, a2);
     v9 = *&v3[v8];
     if (!v9)
     {
-      v48 = sub_2417E430C();
+      v49 = sub_2417E430C();
       v10 = sub_2417E40EC();
-      if (os_log_type_enabled(v10, v48))
+      if (os_log_type_enabled(v10, v49))
       {
-        v49 = swift_slowAlloc();
-        *v49 = 0;
-        _os_log_impl(&dword_24179B000, v10, v48, "Failed to find symbols, model is nil", v49, 2u);
-        MEMORY[0x245CF05F0](v49, -1, -1);
+        v50 = swift_slowAlloc();
+        *v50 = 0;
+        _os_log_impl(&dword_24179B000, v10, v49, "Failed to find symbols, model is nil", v50, 2u);
+        MEMORY[0x245CF05F0](v50, -1, -1);
       }
 
       goto LABEL_21;
@@ -6781,7 +6811,7 @@ uint64_t sub_2417D67D8(CGImage *a1, uint64_t a2, uint64_t a3)
   v11 = [v10 modelDescription];
   v12 = [v11 inputDescriptionsByName];
 
-  sub_2417D9544(0, &qword_27E54B6F0);
+  sub_2417D9544(0, &qword_27E54B6F0, 0x277CBFEE0);
   v13 = sub_2417E415C();
 
   v14 = sub_2417D5AD0(v13);
@@ -6789,15 +6819,15 @@ uint64_t sub_2417D67D8(CGImage *a1, uint64_t a2, uint64_t a3)
 
   if (!v16)
   {
-    v40 = sub_2417E430C();
-    v41 = sub_2417E40EC();
-    if (os_log_type_enabled(v41, v40))
+    v41 = sub_2417E430C();
+    v42 = sub_2417E40EC();
+    if (os_log_type_enabled(v42, v41))
     {
-      v42 = swift_slowAlloc();
-      *v42 = 0;
-      _os_log_impl(&dword_24179B000, v41, v40, "Failed to find symbols, no input key names found", v42, 2u);
+      v43 = swift_slowAlloc();
+      *v43 = 0;
+      _os_log_impl(&dword_24179B000, v42, v41, "Failed to find symbols, no input key names found", v43, 2u);
 LABEL_19:
-      MEMORY[0x245CF05F0](v42, -1, -1);
+      MEMORY[0x245CF05F0](v43, -1, -1);
     }
 
 LABEL_20:
@@ -6815,25 +6845,25 @@ LABEL_21:
   Width = CGImageGetWidth(a1);
   Height = CGImageGetHeight(a1);
   sub_2417CDCF0(a2, Width, Height, v18, v19, v20, v21);
-  v24 = CGImageCreateWithImageInRect(a1, v94);
+  v24 = CGImageCreateWithImageInRect(a1, v102);
   if (!v24)
   {
 
-    v43 = sub_2417E430C();
-    v41 = sub_2417E40EC();
-    if (os_log_type_enabled(v41, v43))
+    v44 = sub_2417E430C();
+    v42 = sub_2417E40EC();
+    if (os_log_type_enabled(v42, v44))
     {
-      v42 = swift_slowAlloc();
-      v44 = swift_slowAlloc();
-      v93[0] = v44;
-      *v42 = 136315138;
-      v45 = sub_2417E431C();
-      v47 = sub_2417D84B4(v45, v46, v93);
+      v43 = swift_slowAlloc();
+      v45 = swift_slowAlloc();
+      v100 = v45;
+      *v43 = 136315138;
+      v46 = sub_2417E431C();
+      v48 = sub_2417D84B4(v46, v47, &v100);
 
-      *(v42 + 4) = v47;
-      _os_log_impl(&dword_24179B000, v41, v43, "Failed to find symbols, unable to crop image to graph rect %s", v42, 0xCu);
-      __swift_destroy_boxed_opaque_existential_0(v44);
-      MEMORY[0x245CF05F0](v44, -1, -1);
+      *(v43 + 4) = v48;
+      _os_log_impl(&dword_24179B000, v42, v44, "Failed to find symbols, unable to crop image to graph rect %s", v43, 0xCu);
+      __swift_destroy_boxed_opaque_existential_0(v45);
+      MEMORY[0x245CF05F0](v45, -1, -1);
       goto LABEL_19;
     }
 
@@ -6847,14 +6877,14 @@ LABEL_21:
   if (!v28)
   {
 
-    v50 = sub_2417E430C();
-    v51 = sub_2417E40EC();
-    if (os_log_type_enabled(v51, v50))
+    v51 = sub_2417E430C();
+    v52 = sub_2417E40EC();
+    if (os_log_type_enabled(v52, v51))
     {
-      v52 = swift_slowAlloc();
-      *v52 = 0;
-      _os_log_impl(&dword_24179B000, v51, v50, "Failed to find symbols, unable to resize image", v52, 2u);
-      MEMORY[0x245CF05F0](v52, -1, -1);
+      v53 = swift_slowAlloc();
+      *v53 = 0;
+      _os_log_impl(&dword_24179B000, v52, v51, "Failed to find symbols, unable to resize image", v53, 2u);
+      MEMORY[0x245CF05F0](v53, -1, -1);
     }
 
     goto LABEL_34;
@@ -6889,7 +6919,7 @@ LABEL_66:
     __break(1u);
   }
 
-  v92 = v10;
+  v99 = v10;
   if (v26 >= 9.22337204e18)
   {
     goto LABEL_66;
@@ -6897,39 +6927,39 @@ LABEL_66:
 
   v29 = v28;
   v30 = objc_opt_self();
-  v93[0] = 0;
+  v100 = 0;
   v10 = v29;
-  v31 = [v30 featureValueWithCGImage:v10 orientation:a2 pixelsWide:v27 pixelsHigh:v26 pixelFormatType:32 options:0 error:v93];
-  v91 = v25;
+  v31 = [v30 featureValueWithCGImage:v10 orientation:a2 pixelsWide:v27 pixelsHigh:v26 pixelFormatType:32 options:0 error:&v100];
+  v98 = v25;
   if (!v31)
   {
-    v53 = v93[0];
-    v54 = sub_2417E404C();
+    v54 = v100;
+    v55 = sub_2417E404C();
 
     swift_willThrow();
-    v55 = v10;
+    v56 = v10;
     v10 = 0;
-    v25 = v55;
+    v25 = v56;
 LABEL_28:
 
 LABEL_30:
-    v56 = sub_2417E430C();
+    v57 = sub_2417E430C();
 
-    v57 = sub_2417E40EC();
+    v58 = sub_2417E40EC();
 
-    if (os_log_type_enabled(v57, v56))
+    if (os_log_type_enabled(v58, v57))
     {
-      v58 = swift_slowAlloc();
       v59 = swift_slowAlloc();
-      v93[0] = v59;
-      *v58 = 136315138;
-      v60 = sub_2417D84B4(v14, v16, v93);
+      v60 = swift_slowAlloc();
+      v100 = v60;
+      *v59 = 136315138;
+      v61 = sub_2417D84B4(v14, v16, &v100);
 
-      *(v58 + 4) = v60;
-      _os_log_impl(&dword_24179B000, v57, v56, "Failed to find symbols, unable to create model input with input name %s", v58, 0xCu);
-      __swift_destroy_boxed_opaque_existential_0(v59);
+      *(v59 + 4) = v61;
+      _os_log_impl(&dword_24179B000, v58, v57, "Failed to find symbols, unable to create model input with input name %s", v59, 0xCu);
+      __swift_destroy_boxed_opaque_existential_0(v60);
+      MEMORY[0x245CF05F0](v60, -1, -1);
       MEMORY[0x245CF05F0](v59, -1, -1);
-      MEMORY[0x245CF05F0](v58, -1, -1);
     }
 
     else
@@ -6941,7 +6971,7 @@ LABEL_34:
   }
 
   v32 = v31;
-  v33 = v93[0];
+  v33 = v100;
 
   v34 = [v32 imageBufferValue];
   if (!v34)
@@ -6951,7 +6981,7 @@ LABEL_34:
     goto LABEL_30;
   }
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E54B6F8);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E54B6F8, &qword_2417E8C60);
   inited = swift_initStackObject();
   *(inited + 16) = xmmword_2417E8670;
   *(inited + 32) = v14;
@@ -6959,80 +6989,86 @@ LABEL_34:
   v36 = v34;
 
   v37 = [v30 featureValueWithPixelBuffer_];
-  *(inited + 72) = sub_2417D9544(0, &qword_27E54B700);
+  *(inited + 72) = sub_2417D9544(0, &qword_27E54B700, 0x277CBFEF8);
   *(inited + 48) = v37;
-  sub_2417D8ED8(inited);
+  v38 = sub_2417D8ED8(inited);
   swift_setDeallocating();
   sub_2417D9008(inited + 32);
-  v38 = objc_allocWithZone(MEMORY[0x277CBFED0]);
-  v39 = sub_2417D83CC();
-  v62 = v39;
-  v90 = v36;
-  if (!v39)
+  v39 = objc_allocWithZone(MEMORY[0x277CBFED0]);
+  v40 = sub_2417D83CC(v38);
+  v63 = v40;
+  v97 = v36;
+  if (!v40)
   {
     v25 = v10;
-    v55 = v36;
+    v56 = v36;
     v10 = v36;
     goto LABEL_28;
   }
 
-  v93[0] = 0;
-  v89 = [v92 predictionFromFeatures:v62 error:v93];
-  if (!v89)
+  v100 = 0;
+  v96 = [v99 predictionFromFeatures:v63 error:&v100];
+  if (!v96)
   {
-    v81 = v93[0];
-    v82 = sub_2417E404C();
+    v87 = v100;
+    v88 = sub_2417E404C();
 
     swift_willThrow();
-    v83 = sub_2417E430C();
-    v84 = sub_2417E40EC();
-    if (os_log_type_enabled(v84, v83))
+    v89 = sub_2417E430C();
+    v90 = sub_2417E40EC();
+    if (os_log_type_enabled(v90, v89))
     {
-      v85 = swift_slowAlloc();
-      *v85 = 0;
-      _os_log_impl(&dword_24179B000, v84, v83, "Failed to find symbols, model output is nil", v85, 2u);
-      MEMORY[0x245CF05F0](v85, -1, -1);
+      v91 = swift_slowAlloc();
+      *v91 = 0;
+      _os_log_impl(&dword_24179B000, v90, v89, "Failed to find symbols, model output is nil", v91, 2u);
+      MEMORY[0x245CF05F0](v91, -1, -1);
     }
 
     goto LABEL_21;
   }
 
-  v88 = v62;
-  v63 = v93[0];
-  v64 = [v89 featureNames];
-  v65 = sub_2417E429C();
+  v94 = v63;
+  v95 = v10;
+  v64 = v100;
+  v65 = [v96 featureNames];
+  v66 = sub_2417E429C();
 
-  v66 = 0;
   v67 = 0;
-  v68 = v65 + 56;
-  v69 = 1 << *(v65 + 32);
-  v70 = -1;
-  if (v69 < 64)
+  v68 = 0;
+  v69 = v66 + 56;
+  v70 = v66;
+  v71 = 1 << *(v66 + 32);
+  v72 = -1;
+  if (v71 < 64)
   {
-    v70 = ~(-1 << v69);
+    v72 = ~(-1 << v71);
   }
 
-  v71 = v70 & *(v65 + 56);
-  v72 = (v69 + 63) >> 6;
-  while (v71)
+  v73 = v72 & *(v66 + 56);
+  v74 = (v71 + 63) >> 6;
+  while (v73)
   {
 LABEL_47:
-    v71 &= v71 - 1;
+    v76 = __clz(__rbit64(v73));
+    v73 &= v73 - 1;
+    v77 = (*(v70 + 48) + ((v68 << 10) | (16 * v76)));
+    v79 = *v77;
+    v78 = v77[1];
 
-    if (sub_2417D7338())
+    if (sub_2417D7338(0x6465646F636564, 0xE700000000000000, v79, v78))
     {
-      v74 = sub_2417E416C();
+      v80 = sub_2417E416C();
 
-      v75 = [v89 featureValueForName_];
+      v81 = [v96 featureValueForName_];
 
-      if (v75)
+      if (v81)
       {
-        v76 = [v75 multiArrayValue];
+        v82 = [v81 multiArrayValue];
 
-        if (v76)
+        if (v82)
         {
 
-          v66 = v76;
+          v67 = v82;
         }
       }
     }
@@ -7044,105 +7080,105 @@ LABEL_47:
 
   while (1)
   {
-    v73 = v67 + 1;
-    if (__OFADD__(v67, 1))
+    v75 = v68 + 1;
+    if (__OFADD__(v68, 1))
     {
       __break(1u);
       goto LABEL_62;
     }
 
-    if (v73 >= v72)
+    if (v75 >= v74)
     {
       break;
     }
 
-    v71 = *(v68 + 8 * v73);
-    ++v67;
-    if (v71)
+    v73 = *(v69 + 8 * v75);
+    ++v68;
+    if (v73)
     {
-      v67 = v73;
+      v68 = v75;
       goto LABEL_47;
     }
   }
 
-  if (!v66)
+  if (!v67)
   {
     swift_unknownObjectRelease();
 
     return 0;
   }
 
-  v77 = sub_2417E42FC();
-  v78 = v4;
-  v79 = sub_2417E40EC();
-  if (os_log_type_enabled(v79, v77))
+  v83 = sub_2417E42FC();
+  v84 = v4;
+  v85 = sub_2417E40EC();
+  if (os_log_type_enabled(v85, v83))
   {
-    v80 = swift_slowAlloc();
-    *v80 = 134218240;
-    *(v80 + 4) = (*(&v78->isa + OBJC_IVAR____TtC18AudiogramIngestion28AudiogramSymbolDetectorModel_classNames))[2];
-    *(v80 + 12) = 2048;
-    *(v80 + 14) = (*(&v78->isa + OBJC_IVAR____TtC18AudiogramIngestion28AudiogramSymbolDetectorModel_collisionMitigationClassNames))[2];
+    v86 = swift_slowAlloc();
+    *v86 = 134218240;
+    *(v86 + 4) = (*(&v84->isa + OBJC_IVAR____TtC18AudiogramIngestion28AudiogramSymbolDetectorModel_classNames))[2];
+    *(v86 + 12) = 2048;
+    *(v86 + 14) = (*(&v84->isa + OBJC_IVAR____TtC18AudiogramIngestion28AudiogramSymbolDetectorModel_collisionMitigationClassNames))[2];
 
-    _os_log_impl(&dword_24179B000, v79, v77, "Got symbol prediction matrix, processing predictions for %ld classes, %ld collision mitigation classes", v80, 0x16u);
-    MEMORY[0x245CF05F0](v80, -1, -1);
+    _os_log_impl(&dword_24179B000, v85, v83, "Got symbol prediction matrix, processing predictions for %ld classes, %ld collision mitigation classes", v86, 0x16u);
+    MEMORY[0x245CF05F0](v86, -1, -1);
   }
 
   else
   {
 
-    v79 = v78;
+    v85 = v84;
   }
 
-  sub_2417E1EA4(v66, *(&v78->isa + OBJC_IVAR____TtC18AudiogramIngestion28AudiogramSymbolDetectorModel_classNames), *(&v78->isa + OBJC_IVAR____TtC18AudiogramIngestion28AudiogramSymbolDetectorModel_collisionMitigationClassNames), *(&v78->isa + OBJC_IVAR____TtC18AudiogramIngestion22AudiogramDetectorModel_confidenceThreshold));
-  v87 = v86;
+  sub_2417E1EA4(v67, *(&v84->isa + OBJC_IVAR____TtC18AudiogramIngestion28AudiogramSymbolDetectorModel_classNames), *(&v84->isa + OBJC_IVAR____TtC18AudiogramIngestion28AudiogramSymbolDetectorModel_collisionMitigationClassNames), *(&v84->isa + OBJC_IVAR____TtC18AudiogramIngestion22AudiogramDetectorModel_confidenceThreshold));
+  v93 = v92;
   swift_unknownObjectRelease();
 
-  return v87;
+  return v93;
 }
 
-uint64_t sub_2417D7338()
+uint64_t sub_2417D7338(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
 
-  v0 = sub_2417E41EC();
-  if (v1)
+  v4 = sub_2417E41EC();
+  if (v5)
   {
-    v2 = v0;
-    v3 = v1;
+    v6 = v4;
+    v7 = v5;
     do
     {
-      v6 = sub_2417E41EC();
-      if (!v7)
+      v10 = sub_2417E41EC();
+      if (!v11)
       {
 
         return 1;
       }
 
-      if (v2 == v6 && v3 == v7)
+      if (v6 == v10 && v7 == v11)
       {
       }
 
       else
       {
-        v4 = sub_2417E450C();
+        v8 = sub_2417E450C();
 
-        if ((v4 & 1) == 0)
+        if ((v8 & 1) == 0)
         {
 
           goto LABEL_14;
         }
       }
 
-      v2 = sub_2417E41EC();
-      v3 = v5;
+      v6 = sub_2417E41EC();
+      v7 = v9;
     }
 
-    while (v5);
+    while (v9);
   }
 
   sub_2417E41EC();
-  v9 = v8;
+  v13 = v12;
 
-  if (!v9)
+  if (!v13)
   {
     return 1;
   }
@@ -7166,23 +7202,23 @@ id sub_2417D7654(uint64_t (*a1)(void))
 uint64_t sub_2417D76E0(uint64_t a1, uint64_t a2)
 {
   v3 = v2;
-  v68[1] = *MEMORY[0x277D85DE8];
+  v74[1] = *MEMORY[0x277D85DE8];
   v5 = OBJC_IVAR____TtC18AudiogramIngestion22AudiogramDetectorModel_model;
   v6 = *(v2 + OBJC_IVAR____TtC18AudiogramIngestion22AudiogramDetectorModel_model);
   if (!v6)
   {
-    sub_2417D5FF8();
+    sub_2417D5FF8(a1, a2);
     v6 = *(v2 + v5);
     if (!v6)
     {
-      v33 = sub_2417E430C();
+      v34 = sub_2417E430C();
       v7 = sub_2417E40EC();
-      if (os_log_type_enabled(v7, v33))
+      if (os_log_type_enabled(v7, v34))
       {
-        v34 = swift_slowAlloc();
-        *v34 = 0;
-        _os_log_impl(&dword_24179B000, v7, v33, "Failed to find graphs, model is nil", v34, 2u);
-        MEMORY[0x245CF05F0](v34, -1, -1);
+        v35 = swift_slowAlloc();
+        *v35 = 0;
+        _os_log_impl(&dword_24179B000, v7, v34, "Failed to find graphs, model is nil", v35, 2u);
+        MEMORY[0x245CF05F0](v35, -1, -1);
       }
 
       goto LABEL_20;
@@ -7193,7 +7229,7 @@ uint64_t sub_2417D76E0(uint64_t a1, uint64_t a2)
   v8 = [v7 modelDescription];
   v9 = [v8 inputDescriptionsByName];
 
-  sub_2417D9544(0, &qword_27E54B6F0);
+  sub_2417D9544(0, &qword_27E54B6F0, 0x277CBFEE0);
   v10 = sub_2417E415C();
 
   v11 = sub_2417D5AD0(v10);
@@ -7201,16 +7237,16 @@ uint64_t sub_2417D76E0(uint64_t a1, uint64_t a2)
 
   if (!v13)
   {
-    v29 = sub_2417E430C();
-    v30 = sub_2417E40EC();
-    if (os_log_type_enabled(v30, v29))
+    v30 = sub_2417E430C();
+    v31 = sub_2417E40EC();
+    if (os_log_type_enabled(v31, v30))
     {
-      v31 = swift_slowAlloc();
-      *v31 = 0;
-      v32 = "Failed to find graphs, no input key names found";
+      v32 = swift_slowAlloc();
+      *v32 = 0;
+      v33 = "Failed to find graphs, no input key names found";
 LABEL_18:
-      _os_log_impl(&dword_24179B000, v30, v29, v32, v31, 2u);
-      MEMORY[0x245CF05F0](v31, -1, -1);
+      _os_log_impl(&dword_24179B000, v31, v30, v33, v32, 2u);
+      MEMORY[0x245CF05F0](v32, -1, -1);
     }
 
 LABEL_19:
@@ -7225,13 +7261,13 @@ LABEL_20:
   if (!v16)
   {
 
-    v29 = sub_2417E430C();
-    v30 = sub_2417E40EC();
-    if (os_log_type_enabled(v30, v29))
+    v30 = sub_2417E430C();
+    v31 = sub_2417E40EC();
+    if (os_log_type_enabled(v31, v30))
     {
-      v31 = swift_slowAlloc();
-      *v31 = 0;
-      v32 = "Failed to find graphs, unable to resize image";
+      v32 = swift_slowAlloc();
+      *v32 = 0;
+      v33 = "Failed to find graphs, unable to resize image";
       goto LABEL_18;
     }
 
@@ -7274,37 +7310,37 @@ LABEL_59:
 
   v17 = v16;
   v18 = objc_opt_self();
-  v68[0] = 0;
+  v74[0] = 0;
   v19 = v17;
-  v20 = [v18 featureValueWithCGImage:v19 orientation:a2 pixelsWide:v15 pixelsHigh:v14 pixelFormatType:32 options:0 error:v68];
+  v20 = [v18 featureValueWithCGImage:v19 orientation:a2 pixelsWide:v15 pixelsHigh:v14 pixelFormatType:32 options:0 error:v74];
   if (!v20)
   {
-    v35 = v68[0];
-    v36 = sub_2417E404C();
+    v36 = v74[0];
+    v37 = sub_2417E404C();
 
     swift_willThrow();
-    v37 = 0;
+    v38 = 0;
     v25 = v19;
 LABEL_24:
 
 LABEL_26:
-    v38 = sub_2417E430C();
+    v39 = sub_2417E430C();
 
-    v39 = sub_2417E40EC();
+    v40 = sub_2417E40EC();
 
-    if (os_log_type_enabled(v39, v38))
+    if (os_log_type_enabled(v40, v39))
     {
-      v40 = swift_slowAlloc();
       v41 = swift_slowAlloc();
-      v68[0] = v41;
-      *v40 = 136315138;
-      v42 = sub_2417D84B4(v11, v13, v68);
+      v42 = swift_slowAlloc();
+      v74[0] = v42;
+      *v41 = 136315138;
+      v43 = sub_2417D84B4(v11, v13, v74);
 
-      *(v40 + 4) = v42;
-      _os_log_impl(&dword_24179B000, v39, v38, "Failed to find graphs, unable to create model input with input name %s", v40, 0xCu);
-      __swift_destroy_boxed_opaque_existential_0(v41);
+      *(v41 + 4) = v43;
+      _os_log_impl(&dword_24179B000, v40, v39, "Failed to find graphs, unable to create model input with input name %s", v41, 0xCu);
+      __swift_destroy_boxed_opaque_existential_0(v42);
+      MEMORY[0x245CF05F0](v42, -1, -1);
       MEMORY[0x245CF05F0](v41, -1, -1);
-      MEMORY[0x245CF05F0](v40, -1, -1);
     }
 
     else
@@ -7315,16 +7351,16 @@ LABEL_26:
   }
 
   v21 = v20;
-  v22 = v68[0];
+  v22 = v74[0];
 
   v23 = [v21 imageBufferValue];
   if (!v23)
   {
-    v37 = 0;
+    v38 = 0;
     goto LABEL_26;
   }
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E54B6F8);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E54B6F8, &qword_2417E8C60);
   inited = swift_initStackObject();
   *(inited + 16) = xmmword_2417E8670;
   *(inited + 32) = v11;
@@ -7332,78 +7368,83 @@ LABEL_26:
   v25 = v23;
 
   v26 = [v18 featureValueWithPixelBuffer_];
-  *(inited + 72) = sub_2417D9544(0, &qword_27E54B700);
+  *(inited + 72) = sub_2417D9544(0, &qword_27E54B700, 0x277CBFEF8);
   *(inited + 48) = v26;
-  sub_2417D8ED8(inited);
+  v27 = sub_2417D8ED8(inited);
   swift_setDeallocating();
   sub_2417D9008(inited + 32);
-  v27 = objc_allocWithZone(MEMORY[0x277CBFED0]);
-  v28 = sub_2417D83CC();
-  v44 = v28;
-  if (!v28)
+  v28 = objc_allocWithZone(MEMORY[0x277CBFED0]);
+  v29 = sub_2417D83CC(v27);
+  v45 = v29;
+  if (!v29)
   {
-    v37 = v25;
+    v38 = v25;
     goto LABEL_24;
   }
 
-  v68[0] = 0;
-  v67 = [v7 predictionFromFeatures:v44 error:v68];
-  if (!v67)
+  v74[0] = 0;
+  v72 = [v7 predictionFromFeatures:v45 error:v74];
+  if (!v72)
   {
-    v59 = v68[0];
-    v60 = sub_2417E404C();
+    v64 = v74[0];
+    v65 = sub_2417E404C();
 
     swift_willThrow();
-    v61 = sub_2417E430C();
-    v62 = sub_2417E40EC();
-    if (os_log_type_enabled(v62, v61))
+    v66 = sub_2417E430C();
+    v67 = sub_2417E40EC();
+    if (os_log_type_enabled(v67, v66))
     {
-      v63 = swift_slowAlloc();
-      *v63 = 0;
-      _os_log_impl(&dword_24179B000, v62, v61, "Failed to find graphs, model output is nil", v63, 2u);
-      MEMORY[0x245CF05F0](v63, -1, -1);
+      v68 = swift_slowAlloc();
+      *v68 = 0;
+      _os_log_impl(&dword_24179B000, v67, v66, "Failed to find graphs, model output is nil", v68, 2u);
+      MEMORY[0x245CF05F0](v68, -1, -1);
     }
 
     goto LABEL_30;
   }
 
-  v64 = v44;
-  v65 = v25;
-  v45 = v68[0];
-  v46 = [v67 featureNames];
-  v47 = sub_2417E429C();
+  v69 = v45;
+  v70 = v25;
+  v46 = v74[0];
+  v47 = [v72 featureNames];
+  v48 = sub_2417E429C();
 
-  v66 = 0;
-  v48 = 0;
-  v49 = v47 + 56;
-  v50 = 1 << *(v47 + 32);
-  v51 = -1;
-  if (v50 < 64)
+  v71 = 0;
+  v49 = 0;
+  v50 = v48 + 56;
+  v73 = v48;
+  v51 = 1 << *(v48 + 32);
+  v52 = -1;
+  if (v51 < 64)
   {
-    v51 = ~(-1 << v50);
+    v52 = ~(-1 << v51);
   }
 
-  v52 = v51 & *(v47 + 56);
-  v53 = (v50 + 63) >> 6;
-  while (v52)
+  v53 = v52 & *(v48 + 56);
+  v54 = (v51 + 63) >> 6;
+  while (v53)
   {
 LABEL_43:
-    v52 &= v52 - 1;
+    v56 = __clz(__rbit64(v53));
+    v53 &= v53 - 1;
+    v57 = (*(v73 + 48) + ((v49 << 10) | (16 * v56)));
+    v58 = *v57;
+    v59 = v57[1];
 
-    if (sub_2417D7338())
+    if (sub_2417D7338(0x6465646F636564, 0xE700000000000000, v58, v59))
     {
-      v55 = sub_2417E416C();
+      v60 = sub_2417E416C();
 
-      v56 = [v67 featureValueForName_];
+      v61 = [v72 featureValueForName_];
 
-      if (v56)
+      if (v61)
       {
-        v57 = [v56 multiArrayValue];
+        v62 = [v61 multiArrayValue];
 
-        if (v57)
+        if (v62)
         {
 
-          v66 = v57;
+          v71 = v62;
         }
       }
     }
@@ -7415,28 +7456,28 @@ LABEL_43:
 
   while (1)
   {
-    v54 = v48 + 1;
-    if (__OFADD__(v48, 1))
+    v55 = v49 + 1;
+    if (__OFADD__(v49, 1))
     {
       __break(1u);
       goto LABEL_55;
     }
 
-    if (v54 >= v53)
+    if (v55 >= v54)
     {
       break;
     }
 
-    v52 = *(v49 + 8 * v54);
-    ++v48;
-    if (v52)
+    v53 = *(v50 + 8 * v55);
+    ++v49;
+    if (v53)
     {
-      v48 = v54;
+      v49 = v55;
       goto LABEL_43;
     }
   }
 
-  if (!v66)
+  if (!v71)
   {
     swift_unknownObjectRelease();
 
@@ -7444,59 +7485,59 @@ LABEL_30:
     return 0;
   }
 
-  v58 = sub_2417E21FC(v66, *(v3 + OBJC_IVAR____TtC18AudiogramIngestion22AudiogramDetectorModel_confidenceThreshold));
+  v63 = sub_2417E21FC(v71, *(v3 + OBJC_IVAR____TtC18AudiogramIngestion22AudiogramDetectorModel_confidenceThreshold));
   swift_unknownObjectRelease();
 
-  return v58;
+  return v63;
 }
 
-id AudiogramGraphDetectorModel.__allocating_init(modelUrl:modelInputSize:confidenceThreshold:)(uint64_t a1, double a2, double a3, float a4)
+id AudiogramGraphDetectorModel.__allocating_init(modelUrl:modelInputSize:confidenceThreshold:)(uint64_t a1, uint64_t a2, double a3, double a4, float a5)
+{
+  v10 = sub_2417E407C();
+  v11 = *(v10 - 8);
+  MEMORY[0x28223BE20](v10);
+  v13 = &v17 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v14 = objc_allocWithZone(v5);
+  (*(v11 + 16))(v13, a1, v10);
+  v15 = AudiogramDetectorModel.init(modelUrl:modelInputSize:confidenceThreshold:)(v13, a3, a4, a5);
+  (*(v11 + 8))(a1, v10);
+  return v15;
+}
+
+id AudiogramGraphDetectorModel.init(modelUrl:modelInputSize:confidenceThreshold:)(uint64_t a1, uint64_t a2, double a3, double a4, float a5)
 {
   v9 = sub_2417E407C();
   v10 = *(v9 - 8);
   MEMORY[0x28223BE20](v9);
-  v12 = &v16 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v13 = objc_allocWithZone(v4);
+  v12 = &v15 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
   (*(v10 + 16))(v12, a1, v9);
-  v14 = AudiogramDetectorModel.init(modelUrl:modelInputSize:confidenceThreshold:)(v12, a2, a3, a4);
+  v13 = AudiogramDetectorModel.init(modelUrl:modelInputSize:confidenceThreshold:)(v12, a3, a4, a5);
   (*(v10 + 8))(a1, v9);
-  return v14;
+  return v13;
 }
 
-id AudiogramGraphDetectorModel.init(modelUrl:modelInputSize:confidenceThreshold:)(uint64_t a1, double a2, double a3, float a4)
+id sub_2417D83CC(uint64_t a1)
 {
-  v8 = sub_2417E407C();
-  v9 = *(v8 - 8);
-  MEMORY[0x28223BE20](v8);
-  v11 = &v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  (*(v9 + 16))(v11, a1, v8);
-  v12 = AudiogramDetectorModel.init(modelUrl:modelInputSize:confidenceThreshold:)(v11, a2, a3, a4);
-  (*(v9 + 8))(a1, v8);
-  return v12;
-}
+  v7[1] = *MEMORY[0x277D85DE8];
+  v2 = sub_2417E414C();
 
-id sub_2417D83CC()
-{
-  v6[1] = *MEMORY[0x277D85DE8];
-  v1 = sub_2417E414C();
+  v7[0] = 0;
+  v3 = [v1 initWithDictionary:v2 error:v7];
 
-  v6[0] = 0;
-  v2 = [v0 initWithDictionary:v1 error:v6];
-
-  if (v2)
+  if (v3)
   {
-    v3 = v6[0];
+    v4 = v7[0];
   }
 
   else
   {
-    v4 = v6[0];
+    v5 = v7[0];
     sub_2417E404C();
 
     swift_willThrow();
   }
 
-  return v2;
+  return v3;
 }
 
 unint64_t sub_2417D84B4(uint64_t a1, unint64_t a2, uint64_t *a3)
@@ -7597,14 +7638,14 @@ LABEL_8:
   }
 }
 
-uint64_t sub_2417D868C(uint64_t a1, unint64_t a2)
+void *sub_2417D868C(uint64_t a1, unint64_t a2)
 {
   v3 = sub_2417D86D8(a1, a2);
   sub_2417D8808(&unk_28535EA88);
   return v3;
 }
 
-uint64_t sub_2417D86D8(uint64_t a1, unint64_t a2)
+void *sub_2417D86D8(uint64_t a1, unint64_t a2)
 {
   if ((a2 & 0x1000000000000000) != 0)
   {
@@ -7785,7 +7826,7 @@ void *sub_2417D88F4(uint64_t a1, uint64_t a2)
     return MEMORY[0x277D84F90];
   }
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E54B758);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E54B758, &qword_2417E8D48);
   v4 = swift_allocObject();
   v5 = _swift_stdlib_malloc_size(v4);
   result = v4;
@@ -7835,7 +7876,7 @@ char *sub_2417D8968(char *result, int64_t a2, char a3, char *a4)
 
   if (v9)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E54B758);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E54B758, &qword_2417E8D48);
     v10 = swift_allocObject();
     v11 = _swift_stdlib_malloc_size(v10);
     *(v10 + 2) = v8;
@@ -8008,13 +8049,13 @@ unint64_t sub_2417D8ED8(uint64_t a1)
   v1 = *(a1 + 16);
   if (v1)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E54B750);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E54B750, &qword_2417E8D40);
     v3 = sub_2417E443C();
     v4 = a1 + 32;
 
     while (1)
     {
-      sub_2417D9480(v4, &v13, &qword_27E54B708);
+      sub_2417D9480(v4, &v13, &qword_27E54B708, &qword_2417E8C68);
       v5 = v13;
       v6 = v14;
       result = sub_2417D8A5C(v13, v14);
@@ -8060,7 +8101,7 @@ LABEL_10:
 
 uint64_t sub_2417D9008(uint64_t a1)
 {
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E54B708);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E54B708, &qword_2417E8C68);
   (*(*(v2 - 8) + 8))(a1, v2);
   return a1;
 }
@@ -8070,13 +8111,13 @@ unint64_t sub_2417D9090(uint64_t a1)
   v1 = *(a1 + 16);
   if (v1)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E54B740);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E54B740, &qword_2417E8D30);
     v3 = sub_2417E443C();
     v4 = a1 + 32;
 
     while (1)
     {
-      sub_2417D9480(v4, &v11, &qword_27E54B748);
+      sub_2417D9480(v4, &v11, &qword_27E54B748, &qword_2417E8D38);
       v5 = v11;
       result = sub_2417D8AD4(v11);
       if (v7)
@@ -8117,7 +8158,7 @@ LABEL_10:
   return result;
 }
 
-uint64_t sub_2417D91D8(uint64_t a1, uint64_t *a2)
+uint64_t sub_2417D91D8(uint64_t a1, uint64_t *a2, uint64_t a3)
 {
   result = *a2;
   if (!*a2)
@@ -8128,13 +8169,13 @@ uint64_t sub_2417D91D8(uint64_t a1, uint64_t *a2)
   return result;
 }
 
-uint64_t sub_2417D9218()
+uint64_t sub_2417D9218(uint64_t a1, uint64_t a2)
 {
   result = sub_2417E407C();
-  if (v1 <= 0x3F)
+  if (v3 <= 0x3F)
   {
     result = sub_2417E410C();
-    if (v2 <= 0x3F)
+    if (v4 <= 0x3F)
     {
       result = swift_updateClassMetadata2();
       if (!result)
@@ -8155,10 +8196,10 @@ _OWORD *sub_2417D9470(_OWORD *a1, _OWORD *a2)
   return a2;
 }
 
-uint64_t sub_2417D9480(uint64_t a1, uint64_t a2, uint64_t *a3)
+uint64_t sub_2417D9480(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t *a4)
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(a3);
-  (*(*(v5 - 8) + 16))(a2, a1, v5);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(a3, a4);
+  (*(*(v6 - 8) + 16))(a2, a1, v6);
   return a2;
 }
 
@@ -8170,7 +8211,7 @@ uint64_t sub_2417D94E8(uint64_t a1, uint64_t a2)
   return a2;
 }
 
-uint64_t sub_2417D9544(uint64_t a1, unint64_t *a2)
+uint64_t sub_2417D9544(uint64_t a1, unint64_t *a2, void *a3)
 {
   result = *a2;
   if (!*a2)
@@ -8183,7 +8224,7 @@ uint64_t sub_2417D9544(uint64_t a1, unint64_t *a2)
   return result;
 }
 
-unint64_t sub_2417D958C()
+unint64_t sub_2417D958C(uint64_t a1, uint64_t a2)
 {
   result = qword_27E54B768;
   if (!qword_27E54B768)
@@ -8196,7 +8237,7 @@ unint64_t sub_2417D958C()
   return result;
 }
 
-id sub_2417D95F4(uint64_t a1, unint64_t a2)
+char *sub_2417D95F4(uint64_t a1, unint64_t a2)
 {
   *&v2[OBJC_IVAR____TtC18AudiogramIngestion29AIAudiogramSymbolChoiceButton_percentageOfSymbolSize] = 0x3FC999999999999ALL;
   v5 = OBJC_IVAR____TtC18AudiogramIngestion29AIAudiogramSymbolChoiceButton_labelForSymbol;
@@ -8246,7 +8287,7 @@ void sub_2417D9880()
 
   v4 = [objc_opt_self() deviceIsPad];
   v5 = objc_opt_self();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E54B6A0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E54B6A0, &unk_2417E8DA0);
   v6 = swift_allocObject();
   *(v6 + 16) = xmmword_2417E8D60;
   if (v4)
@@ -8325,7 +8366,7 @@ void sub_2417D9B7C()
   [v1 addSubview_];
   [v1 addSubview_];
   v43 = objc_opt_self();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E54B6A0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E54B6A0, &unk_2417E8DA0);
   v15 = swift_allocObject();
   *(v15 + 16) = xmmword_2417E8D70;
   v16 = [v2 widthAnchor];
@@ -9012,7 +9053,7 @@ LABEL_110:
 
   v108 = v3;
   [v22 addTarget:v0 action:sel_sliderValueChanged_ forControlEvents:4096];
-  v110 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E54B6A0);
+  v110 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E54B6A0, &unk_2417E8DA0);
   inited = swift_initStackObject();
   *(inited + 16) = xmmword_2417E8DB0;
   *(inited + 32) = v6;
@@ -9516,7 +9557,7 @@ LABEL_115:
 
     v101 = [v96 constraintEqualToAnchor_];
     *(v84 + 48) = v101;
-    sub_2417D9544(0, &qword_27E54B7E0);
+    sub_2417D9544(0, &qword_27E54B7E0, 0x277CCAAD0);
     v102 = sub_2417E422C();
 
     [v99 activateConstraints_];
@@ -9543,7 +9584,7 @@ LABEL_52:
   }
 
   v4 = v2;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E54B3F0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E54B3F0, &qword_2417E86D0);
   v5 = swift_allocObject();
   v6 = MEMORY[0x277D83A90];
   *(v5 + 16) = xmmword_2417E8670;
@@ -9567,7 +9608,7 @@ LABEL_53:
   }
 
   v11 = [v10 subviews];
-  sub_2417D9544(0, &unk_27E54B7D0);
+  sub_2417D9544(0, &unk_27E54B7D0, 0x277D75D18);
   v12 = sub_2417E424C();
 
   v96 = v1;

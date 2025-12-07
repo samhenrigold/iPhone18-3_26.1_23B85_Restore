@@ -12,27 +12,27 @@
 - (id)pageLayout
 {
   objc_opt_class();
-  v8 = objc_msgSend_layout(self, v3, v4, v5, v6, v7);
-  v14 = objc_msgSend_pageLayout(v8, v9, v10, v11, v12, v13);
-  v15 = TSUDynamicCast();
+  v12 = objc_msgSend_layout(self, v3, v8, v9, v10, v11, v4, v5, v6, v7);
+  v22 = objc_msgSend_pageLayout(v12, v13, v18, v19, v20, v21, v14, v15, v16, v17);
+  v23 = TSUDynamicCast();
 
-  return v15;
+  return v23;
 }
 
 - (TPPaginatedPageInfo)pageInfo
 {
   objc_opt_class();
-  v8 = objc_msgSend_pageLayout(self, v3, v4, v5, v6, v7);
-  v14 = objc_msgSend_info(v8, v9, v10, v11, v12, v13);
-  v15 = TSUCheckedDynamicCast();
+  v12 = objc_msgSend_pageLayout(self, v3, v8, v9, v10, v11, v4, v5, v6, v7);
+  v22 = objc_msgSend_info(v12, v13, v18, v19, v20, v21, v14, v15, v16, v17);
+  v23 = TSUCheckedDynamicCast();
 
-  return v15;
+  return v23;
 }
 
 - (BOOL)p_isInDocumentSetup
 {
-  v6 = objc_msgSend_pageInfo(self, a2, v2, v3, v4, v5);
-  isDocumentSetupPage = objc_msgSend_isDocumentSetupPage(v6, v7, v8, v9, v10, v11);
+  v10 = objc_msgSend_pageInfo(self, a2, v6, v7, v8, v9, v2, v3, v4, v5);
+  isDocumentSetupPage = objc_msgSend_isDocumentSetupPage(v10, v11, v16, v17, v18, v19, v12, v13, v14, v15);
 
   return isDocumentSetupPage;
 }
@@ -41,39 +41,39 @@
 {
   if (self->_hideKnobs)
   {
-    LOBYTE(v6) = 0;
+    LOBYTE(v10) = 0;
   }
 
   else
   {
-    v6 = objc_msgSend_p_isInDocumentSetup(self, a2, v2, v3, v4, v5);
-    if (v6)
+    v10 = objc_msgSend_p_isInDocumentSetup(self, a2, v6, v7, v8, v9, v2, v3, v4, v5);
+    if (v10)
     {
-      if (objc_msgSend_p_isMiddleHeaderRep(self, v8, v9, v10, v11, v12))
+      if (objc_msgSend_p_isMiddleHeaderRep(self, v12, v17, v18, v19, v20, v13, v14, v15, v16))
       {
-        LOBYTE(v6) = 1;
+        LOBYTE(v10) = 1;
       }
 
       else
       {
 
-        LOBYTE(v6) = MEMORY[0x2821F9670](self, sel_p_isMiddleFooterRep, v13, v14, v15, v16);
+        LOBYTE(v10) = MEMORY[0x2821F9670](self, sel_p_isMiddleFooterRep, v21, v22, v23, v24);
       }
     }
   }
 
-  return v6;
+  return v10;
 }
 
 - (BOOL)p_isMiddleHeaderRep
 {
   selfCopy = self;
-  v7 = objc_msgSend_pageLayout(self, a2, v2, v3, v4, v5);
-  v13 = objc_msgSend_headerFooterProvider(v7, v8, v9, v10, v11, v12);
-  v19 = objc_msgSend_headerFooter_fragmentAtIndex_(v13, v14, v15, v16, v17, v18, 0, 1);
+  v11 = objc_msgSend_pageLayout(self, a2, v6, v7, v8, v9, v2, v3, v4, v5);
+  v21 = objc_msgSend_headerFooterProvider(v11, v12, v17, v18, v19, v20, v13, v14, v15, v16);
+  v29 = objc_msgSend_headerFooter_fragmentAtIndex_(v21, v22, v25, v26, v27, v28, 0, 1, v23, v24);
 
-  v25 = objc_msgSend_storage(selfCopy, v20, v21, v22, v23, v24);
-  LOBYTE(selfCopy) = v25 == v19;
+  v39 = objc_msgSend_storage(selfCopy, v30, v35, v36, v37, v38, v31, v32, v33, v34);
+  LOBYTE(selfCopy) = v39 == v29;
 
   return selfCopy;
 }
@@ -81,12 +81,12 @@
 - (BOOL)p_isMiddleFooterRep
 {
   selfCopy = self;
-  v7 = objc_msgSend_pageLayout(self, a2, v2, v3, v4, v5);
-  v13 = objc_msgSend_headerFooterProvider(v7, v8, v9, v10, v11, v12);
-  v19 = objc_msgSend_headerFooter_fragmentAtIndex_(v13, v14, v15, v16, v17, v18, 1, 1);
+  v11 = objc_msgSend_pageLayout(self, a2, v6, v7, v8, v9, v2, v3, v4, v5);
+  v21 = objc_msgSend_headerFooterProvider(v11, v12, v17, v18, v19, v20, v13, v14, v15, v16);
+  v29 = objc_msgSend_headerFooter_fragmentAtIndex_(v21, v22, v25, v26, v27, v28, 1, 1, v23, v24);
 
-  v25 = objc_msgSend_storage(selfCopy, v20, v21, v22, v23, v24);
-  LOBYTE(selfCopy) = v25 == v19;
+  v39 = objc_msgSend_storage(selfCopy, v30, v35, v36, v37, v38, v31, v32, v33, v34);
+  LOBYTE(selfCopy) = v39 == v29;
 
   return selfCopy;
 }

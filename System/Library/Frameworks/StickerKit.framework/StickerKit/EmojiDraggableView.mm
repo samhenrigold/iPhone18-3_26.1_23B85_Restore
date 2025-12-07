@@ -62,13 +62,13 @@
 - (void)dragInteraction:(id)interaction sessionDidTransferItems:(id)items
 {
   selfCopy = self;
-  sub_19A611E54();
+  sub_19A611E54(0x6B63697453, 0xE500000000000000);
 }
 
 - (void)dragInteraction:(id)interaction willAnimateLiftWithAnimator:(id)animator session:(id)session
 {
   selfCopy = self;
-  sub_19A611E54();
+  sub_19A611E54(1818584400, 0xE400000000000000);
 }
 
 - (void)dragInteraction:(id)interaction item:(id)item willAnimateCancelWithAnimator:(id)animator
@@ -77,7 +77,7 @@
   itemCopy = item;
   swift_unknownObjectRetain();
   selfCopy = self;
-  sub_19A611E54();
+  sub_19A611E54(0x636E61436C656550, 0xEA00000000006C65);
   v11 = swift_allocObject();
   swift_unknownObjectWeakInit();
   v13[4] = sub_19A6124F0;
@@ -102,7 +102,7 @@
   sub_19A61260C();
 
   swift_unknownObjectRelease();
-  sub_19A5F5028(0, &qword_1EAFCE4F0);
+  sub_19A5F5028(0, &qword_1EAFCE4F0, 0x1E69DC990);
   v7 = sub_19A7AB234();
 
   return v7;

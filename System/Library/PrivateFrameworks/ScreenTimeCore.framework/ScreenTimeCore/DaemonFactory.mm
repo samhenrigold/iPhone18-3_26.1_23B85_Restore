@@ -7,15 +7,13 @@
 
 + (id)makeDaemon
 {
-  v2 = type metadata accessor for ConcreteDependencyFactory();
-  v3 = *(v2 + 48);
-  v4 = *(v2 + 52);
+  type metadata accessor for ConcreteDependencyFactory(0);
   swift_allocObject();
-  v5 = sub_1000FC3D8();
-  v6 = objc_allocWithZone(type metadata accessor for Daemon());
-  v7 = sub_1000DB2A0(v5, v6);
+  v2 = sub_1000FC3D8();
+  v3 = objc_allocWithZone(type metadata accessor for Daemon(0));
+  v4 = sub_1000DB2A0(v2, v3);
 
-  return v7;
+  return v4;
 }
 
 - (_TtC15ScreenTimeAgent13DaemonFactory)init

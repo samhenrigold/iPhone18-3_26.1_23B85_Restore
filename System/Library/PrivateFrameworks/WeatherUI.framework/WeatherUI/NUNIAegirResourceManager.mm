@@ -95,10 +95,10 @@
     self->_device = v4;
 
     v6 = self->_device;
-    v7 = NUNIBundle();
-    v8 = [(MTLDevice *)v6 newDefaultLibraryWithBundle:v7 error:0];
+    v8 = NUNIBundle(v7);
+    v9 = [(MTLDevice *)v6 newDefaultLibraryWithBundle:v8 error:0];
     library = self->_library;
-    self->_library = v8;
+    self->_library = v9;
 
     [(NUNIAegirResourceManager *)self _loadGeometry];
   }
@@ -683,7 +683,7 @@ uint64_t __59__NUNIAegirResourceManager__handleCloudCoverTextureExpired__block_i
 {
   v14 = *MEMORY[0x1E69E9840];
   backingCopy = backing;
-  v4 = NUNIBundle();
+  v4 = NUNIBundle(backingCopy);
   v5 = [v4 pathForResource:backingCopy ofType:@"art"];
 
   v6 = NUNILoggingObjectForDomain(0);

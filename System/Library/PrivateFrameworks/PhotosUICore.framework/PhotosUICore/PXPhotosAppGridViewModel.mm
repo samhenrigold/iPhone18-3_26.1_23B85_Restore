@@ -43,7 +43,7 @@
 {
   swift_unknownObjectRetain();
   self;
-  sub_1A46515D4();
+  sub_1A46515D4(change);
 }
 
 - (void)swift_reverseSortOrderDidChange

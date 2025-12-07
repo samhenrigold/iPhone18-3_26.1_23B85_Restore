@@ -31,8 +31,8 @@
 
 - (void)providerBeginService
 {
-  sub_10001A3E8();
-  if ((sub_100023B30() & 0x1000000000) != 0)
+  v3 = sub_10001A3E8(self, a2);
+  if ((sub_100023B30(v3, v4) & 0x1000000000) != 0)
   {
     *&self->_isConnectedToStationaryWifi = [[DSMotionProvider alloc] initWithDelegate:self queue:0];
     [(CLDistributedSensingService *)self toggleVehicleStateProvider:1];
@@ -62,21 +62,23 @@
 
 + (BOOL)isSupported
 {
-  sub_10001A3E8();
-  if (sub_10001CF04())
+  v2 = sub_10001A3E8(self, a2);
+  v4 = sub_10001CF04(v2, v3);
+  if (v4)
   {
     return 1;
   }
 
-  sub_10001A3E8();
-  if (sub_10003FFF8())
+  v6 = sub_10001A3E8(v4, v5);
+  v8 = sub_10003FFF8(v6, v7);
+  if (v8)
   {
     return 1;
   }
 
-  sub_10001A3E8();
+  v11 = sub_10001A3E8(v8, v9);
 
-  return sub_1000F42C0();
+  return sub_1000F42C0(v11, v12);
 }
 
 - (CLDistributedSensingService)init
@@ -127,69 +129,69 @@
     if (detection)
     {
       Current = CFAbsoluteTimeGetCurrent();
-      v18 = Current;
-      v17 = 1.79769313e308;
-      v5 = sub_1000206B4();
-      sub_100023B78(v5, @"DistributedSensingProactiveVehicleStateSubscriptionTimestamp", &v17);
-      if (vabdd_f64(Current, v17) <= *&self->_vehicleStateClient.__ptr_)
+      v24 = Current;
+      v23 = 1.79769313e308;
+      v7 = sub_1000206B4(v5, v6);
+      v8 = sub_100023B78(v7, @"DistributedSensingProactiveVehicleStateSubscriptionTimestamp", &v23);
+      if (vabdd_f64(Current, v23) <= *&self->_vehicleStateClient.__ptr_)
       {
         if (qword_1025D4470 != -1)
         {
           sub_1018ADD48();
         }
 
-        v15 = qword_1025D4478;
+        v21 = qword_1025D4478;
         if (os_log_type_enabled(qword_1025D4478, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 134283777;
-          *v20 = Current;
-          *&v20[8] = 2049;
-          *&v20[10] = v17;
-          _os_log_impl(dword_100000000, v15, OS_LOG_TYPE_DEFAULT, "Provider, Too frequent proactive vehicle detection request, declined, %{private}.3f, %{private}.3f", buf, 0x16u);
+          *v26 = Current;
+          *&v26[8] = 2049;
+          *&v26[10] = v23;
+          _os_log_impl(dword_100000000, v21, OS_LOG_TYPE_DEFAULT, "Provider, Too frequent proactive vehicle detection request, declined, %{private}.3f, %{private}.3f", buf, 0x16u);
         }
 
         if (sub_10000A100(121, 2))
         {
-          sub_1018ADD70(&v17, Current);
+          sub_1018ADD70(&v23, Current);
         }
       }
 
       else
       {
-        v6 = sub_1000206B4();
-        sub_100116DD4(v6, @"DistributedSensingProactiveVehicleStateSubscriptionTimestamp", &v18);
-        v7 = *sub_1000206B4();
-        (*(v7 + 944))();
+        v10 = sub_1000206B4(v8, v9);
+        v11 = sub_100116DD4(v10, @"DistributedSensingProactiveVehicleStateSubscriptionTimestamp", &v24);
+        v13 = *sub_1000206B4(v11, v12);
+        (*(v13 + 944))();
         timeBetweenProactiveVehicleDetection = self->_timeBetweenProactiveVehicleDetection;
         if (timeBetweenProactiveVehicleDetection == 0.0)
         {
-          v9 = [-[CLDistributedSensingService silo](self "silo")];
-          *&self->_timeBetweenProactiveVehicleDetection = v9;
-          v16[0] = _NSConcreteStackBlock;
-          v16[1] = 3221225472;
-          v16[2] = sub_100507B8C;
-          v16[3] = &unk_102447418;
-          v16[4] = self;
-          [v9 setHandler:v16];
+          v15 = [-[CLDistributedSensingService silo](self "silo")];
+          *&self->_timeBetweenProactiveVehicleDetection = v15;
+          v22[0] = _NSConcreteStackBlock;
+          v22[1] = 3221225472;
+          v22[2] = sub_100507B8C;
+          v22[3] = &unk_102447418;
+          v22[4] = self;
+          [v15 setHandler:v22];
           timeBetweenProactiveVehicleDetection = self->_timeBetweenProactiveVehicleDetection;
         }
 
         [*&timeBetweenProactiveVehicleDetection nextFireDelay];
-        if (v10 == 1.79769313e308)
+        if (v16 == 1.79769313e308)
         {
           sub_10183A3AC(buf, "ProactiveVehicleDetectionDurationSeconds", &qword_101C7C578, 0);
-          [*&self->_timeBetweenProactiveVehicleDetection setNextFireDelay:*&v20[4]];
+          [*&self->_timeBetweenProactiveVehicleDetection setNextFireDelay:*&v26[4]];
           [*(self->_vehicleStateProvider + 2) register:*(self->_vehicleStateProvider + 1) forNotification:0 registrationInfo:0];
           if (qword_1025D4470 != -1)
           {
             sub_1018ADD48();
           }
 
-          v11 = qword_1025D4478;
+          v17 = qword_1025D4478;
           if (os_log_type_enabled(qword_1025D4478, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 0;
-            _os_log_impl(dword_100000000, v11, OS_LOG_TYPE_DEFAULT, "Provider, Starting proactive vehicle detection", buf, 2u);
+            _os_log_impl(dword_100000000, v17, OS_LOG_TYPE_DEFAULT, "Provider, Starting proactive vehicle detection", buf, 2u);
           }
 
           if (sub_10000A100(121, 2))
@@ -203,10 +205,10 @@
     else
     {
       [*(self->_vehicleStateProvider + 2) unregister:*(self->_vehicleStateProvider + 1) forNotification:0];
-      v13 = self->_timeBetweenProactiveVehicleDetection;
-      if (v13 != 0.0)
+      v19 = self->_timeBetweenProactiveVehicleDetection;
+      if (v19 != 0.0)
       {
-        [*&v13 setNextFireDelay:1.79769313e308];
+        [*&v19 setNextFireDelay:1.79769313e308];
       }
 
       if (qword_1025D4470 != -1)
@@ -214,11 +216,11 @@
         sub_1018ADB7C();
       }
 
-      v14 = qword_1025D4478;
+      v20 = qword_1025D4478;
       if (os_log_type_enabled(qword_1025D4478, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(dword_100000000, v14, OS_LOG_TYPE_DEFAULT, "Provider, Stopping proactive vehicle detection", buf, 2u);
+        _os_log_impl(dword_100000000, v20, OS_LOG_TYPE_DEFAULT, "Provider, Stopping proactive vehicle detection", buf, 2u);
       }
 
       if (sub_10000A100(121, 2))
@@ -235,11 +237,11 @@
       sub_1018ADB7C();
     }
 
-    v12 = qword_1025D4478;
+    v18 = qword_1025D4478;
     if (os_log_type_enabled(qword_1025D4478, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(dword_100000000, v12, OS_LOG_TYPE_INFO, "Proactive vehicle detection is DISABLED", buf, 2u);
+      _os_log_impl(dword_100000000, v18, OS_LOG_TYPE_INFO, "Proactive vehicle detection is DISABLED", buf, 2u);
     }
 
     if (sub_10000A100(121, 2))

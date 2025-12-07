@@ -78,7 +78,7 @@
 
 - (BOOL)isEqual:(id)equal
 {
-  v55 = *MEMORY[0x1E69E9840];
+  v54 = *MEMORY[0x1E69E9840];
   equalCopy = equal;
   v5 = equalCopy;
   if (equalCopy != self)
@@ -184,20 +184,20 @@
 
       if (!self->_resolutionTokenMap || v6->_resolutionTokenMap)
       {
-        v40 = +[REMLogStore read];
-        if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
+        v39 = +[REMLogStore read];
+        if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
         {
-          v45 = objc_opt_class();
-          v46 = NSStringFromClass(v45);
+          v44 = objc_opt_class();
+          v45 = NSStringFromClass(v44);
           resolutionTokenMap = self->_resolutionTokenMap;
-          v48 = v6->_resolutionTokenMap;
-          v49 = 138543874;
-          v50 = v46;
-          v51 = 2112;
-          v52 = resolutionTokenMap;
-          v53 = 2112;
-          v54 = v48;
-          _os_log_error_impl(&dword_19A0DB000, v40, OS_LOG_TYPE_ERROR, "You are about to trigger decoding the resolution token map from JSON data. This is probably not what you want for performance to trigger it from -isEqual:, unless you are running Tests then it's fine {class: %{public}@, self-map: %@, other-map: %@}", &v49, 0x20u);
+          v47 = v6->_resolutionTokenMap;
+          v48 = 138543874;
+          v49 = v45;
+          v50 = 2112;
+          v51 = resolutionTokenMap;
+          v52 = 2112;
+          v53 = v47;
+          _os_log_error_impl(&dword_19A0DB000, v39, OS_LOG_TYPE_ERROR, "You are about to trigger decoding the resolution token map from JSON data. This is probably not what you want for performance to trigger it from -isEqual:, unless you are running Tests then it's fine {class: %{public}@, self-map: %@, other-map: %@}", &v48, 0x20u);
         }
       }
 
@@ -228,7 +228,6 @@ LABEL_23:
   v13 = 1;
 LABEL_24:
 
-  v38 = *MEMORY[0x1E69E9840];
   return v13 & 1;
 }
 
@@ -271,7 +270,7 @@ LABEL_24:
 
 - (REMBaseSectionStorage)initWithCoder:(id)coder
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"objectID"];
   v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"accountID"];
@@ -293,15 +292,15 @@ LABEL_24:
     v12 = +[REMLogStore read];
     if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
     {
-      v24 = 138544131;
-      v25 = v5;
-      v26 = 2114;
-      v27 = v6;
-      v28 = 2114;
-      v29 = v7;
-      v30 = 2117;
-      v31 = v9;
-      _os_log_fault_impl(&dword_19A0DB000, v12, OS_LOG_TYPE_FAULT, "Attempted to decode REMBaseSectionStorage missing objectID, accountID, displayName {objectID: %{public}@, accountID:%{public}@ parentID:%{public}@ displayName: %{sensitive}@}", &v24, 0x2Au);
+      v23 = 138544131;
+      v24 = v5;
+      v25 = 2114;
+      v26 = v6;
+      v27 = 2114;
+      v28 = v7;
+      v29 = 2117;
+      v30 = v9;
+      _os_log_fault_impl(&dword_19A0DB000, v12, OS_LOG_TYPE_FAULT, "Attempted to decode REMBaseSectionStorage missing objectID, accountID, displayName {objectID: %{public}@, accountID:%{public}@ parentID:%{public}@ displayName: %{sensitive}@}", &v23, 0x2Au);
     }
 
     selfCopy = 0;
@@ -337,7 +336,6 @@ LABEL_24:
     selfCopy = self;
   }
 
-  v22 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
@@ -462,37 +460,34 @@ LABEL_24:
 
 + (void)cdEntityName
 {
-  v9 = *MEMORY[0x1E69E9840];
   v0 = +[REMLogStore read];
   if (os_log_type_enabled(v0, OS_LOG_TYPE_FAULT))
   {
     callStackSymbols = [MEMORY[0x1E696AF00] callStackSymbols];
-    OUTLINED_FUNCTION_0_8(&dword_19A0DB000, v3, v4, "rem_log_fault_if (![NSStringFromClass([REMBaseSectionStorage class]) isEqualToString:NSStringFromClass(self)]) -- A subclass of REMBaseSectionStorage called '- [REMBaseSectionStorage cdEntityName]'. The subclass should override this method. {callstack: %@}", v5, v6, v7, v8, 2u);
+    LODWORD(v8) = 138412290;
+    *(&v8 + 4) = callStackSymbols;
+    OUTLINED_FUNCTION_0_8(&dword_19A0DB000, v2, v3, "rem_log_fault_if (![NSStringFromClass([REMBaseSectionStorage class]) isEqualToString:NSStringFromClass(self)]) -- A subclass of REMBaseSectionStorage called '- [REMBaseSectionStorage cdEntityName]'. The subclass should override this method. {callstack: %@}", v4, v5, v6, v7, v8, DWORD2(v8));
   }
-
-  v1 = *MEMORY[0x1E69E9840];
 }
 
 - (void)cdKeyToStorageKeyMap
 {
-  v9 = *MEMORY[0x1E69E9840];
   v0 = +[REMLogStore read];
   if (os_log_type_enabled(v0, OS_LOG_TYPE_FAULT))
   {
     callStackSymbols = [MEMORY[0x1E696AF00] callStackSymbols];
-    OUTLINED_FUNCTION_0_8(&dword_19A0DB000, v3, v4, "rem_log_fault_if (![NSStringFromClass([REMBaseSectionStorage class]) isEqualToString:NSStringFromClass([self class])]) -- A subclass of REMBaseSectionStorage called '- [REMBaseSectionStorage cdKeyToStorageKeyMap]'. The subclass should override this method. {callstack: %@}", v5, v6, v7, v8, 2u);
+    LODWORD(v8) = 138412290;
+    *(&v8 + 4) = callStackSymbols;
+    OUTLINED_FUNCTION_0_8(&dword_19A0DB000, v2, v3, "rem_log_fault_if (![NSStringFromClass([REMBaseSectionStorage class]) isEqualToString:NSStringFromClass([self class])]) -- A subclass of REMBaseSectionStorage called '- [REMBaseSectionStorage cdKeyToStorageKeyMap]'. The subclass should override this method. {callstack: %@}", v4, v5, v6, v7, v8, DWORD2(v8));
   }
-
-  v1 = *MEMORY[0x1E69E9840];
 }
 
 - (void)resolutionTokenMap
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
   selfCopy = self;
-  _os_log_error_impl(&dword_19A0DB000, a2, OS_LOG_TYPE_ERROR, "Nil resolutionTokenMapData when reading resolutionTokenMap from account storage. Initialize an empty map {list: %@}", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_19A0DB000, a2, OS_LOG_TYPE_ERROR, "Nil resolutionTokenMapData when reading resolutionTokenMap from account storage. Initialize an empty map {list: %@}", &v2, 0xCu);
 }
 
 @end

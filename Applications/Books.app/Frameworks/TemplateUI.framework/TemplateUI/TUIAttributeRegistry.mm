@@ -10,14 +10,15 @@
 + (unsigned)registerCustomAttributeWithName:(id)name
 {
   nameCopy = name;
+  v5 = nameCopy;
   if (nameCopy)
   {
-    v5 = sub_83BE0();
-    v6 = [v5 objectForKeyedSubscript:nameCopy];
-    v7 = v6;
-    if (v6)
+    v6 = sub_83BE0(nameCopy);
+    v7 = [v6 objectForKeyedSubscript:v5];
+    v8 = v7;
+    if (v7)
     {
-      integerValue = [v6 integerValue];
+      integerValue = [v7 integerValue];
     }
 
     else
@@ -27,15 +28,15 @@
         sub_19A034();
       }
 
-      v9 = qword_2E6308;
-      v13 = [v5 count];
-      v10 = [NSNumber numberWithUnsignedShort:v13];
-      [v5 setObject:v10 forKeyedSubscript:nameCopy];
+      v10 = qword_2E6308;
+      v14 = [v6 count];
+      v11 = [NSNumber numberWithUnsignedShort:v14];
+      [v6 setObject:v11 forKeyedSubscript:v5];
 
-      v14 = &v13;
-      v11 = sub_11CD4(v9, &v13);
-      objc_storeStrong(v11 + 3, name);
-      integerValue = v13;
+      v15 = &v14;
+      v12 = sub_11CD4(v10, &v14, &std::piecewise_construct, &v15);
+      objc_storeStrong(v12 + 3, name);
+      integerValue = v14;
     }
   }
 
@@ -92,14 +93,15 @@
 + (unsigned)lookupAttributeWithName:(id)name
 {
   nameCopy = name;
+  v4 = nameCopy;
   if (nameCopy)
   {
-    v4 = sub_83BE0();
-    v5 = [v4 objectForKeyedSubscript:nameCopy];
-    v6 = v5;
-    if (v5)
+    v5 = sub_83BE0(nameCopy);
+    v6 = [v5 objectForKeyedSubscript:v4];
+    v7 = v6;
+    if (v6)
     {
-      integerValue = [v5 integerValue];
+      integerValue = [v6 integerValue];
     }
 
     else

@@ -19,27 +19,27 @@
 
 - (void)voiceRecognitionPSRAnalyzerFinishedProcessing:(id)processing withVoiceRecognitionInfo:(id)info
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   infoCopy = info;
   v6 = [infoCopy objectForKeyedSubscript:@"sessionId"];
   if (v6 && ![(NSString *)self->_sessionId isEqualToString:v6])
   {
-    v24 = *MEMORY[0x277D015C8];
+    v23 = *MEMORY[0x277D015C8];
     if (!os_log_type_enabled(*MEMORY[0x277D015C8], OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_5;
     }
 
     spIdCtx = self->_spIdCtx;
-    v8 = v24;
+    v8 = v23;
     sessionId = [(SSRSpeakerRecognitionContext *)spIdCtx sessionId];
-    v27 = 136315650;
-    v28 = "[SSRSpeakerRecognizerPSR voiceRecognitionPSRAnalyzerFinishedProcessing:withVoiceRecognitionInfo:]";
-    v29 = 2114;
-    v30 = sessionId;
-    v31 = 2114;
-    v32 = v6;
-    _os_log_impl(&dword_225E12000, v8, OS_LOG_TYPE_DEFAULT, "%s Discarded ScoreCard for mismatch session - {%{public}@, %{public}@}", &v27, 0x20u);
+    v26 = 136315650;
+    v27 = "[SSRSpeakerRecognizerPSR voiceRecognitionPSRAnalyzerFinishedProcessing:withVoiceRecognitionInfo:]";
+    v28 = 2114;
+    v29 = sessionId;
+    v30 = 2114;
+    v31 = v6;
+    _os_log_impl(&dword_225E12000, v8, OS_LOG_TYPE_DEFAULT, "%s Discarded ScoreCard for mismatch session - {%{public}@, %{public}@}", &v26, 0x20u);
   }
 
   else
@@ -72,32 +72,31 @@
   }
 
 LABEL_5:
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)voiceRecognitionPSRAnalyzer:(id)analyzer hasVoiceRecognitionInfo:(id)info
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   infoCopy = info;
   v6 = [infoCopy objectForKeyedSubscript:@"sessionId"];
   if (v6 && ![(NSString *)self->_sessionId isEqualToString:v6])
   {
-    v24 = *MEMORY[0x277D015C8];
+    v23 = *MEMORY[0x277D015C8];
     if (!os_log_type_enabled(*MEMORY[0x277D015C8], OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_5;
     }
 
     spIdCtx = self->_spIdCtx;
-    v8 = v24;
+    v8 = v23;
     sessionId = [(SSRSpeakerRecognitionContext *)spIdCtx sessionId];
-    v27 = 136315650;
-    v28 = "[SSRSpeakerRecognizerPSR voiceRecognitionPSRAnalyzer:hasVoiceRecognitionInfo:]";
-    v29 = 2114;
-    v30 = sessionId;
-    v31 = 2114;
-    v32 = v6;
-    _os_log_impl(&dword_225E12000, v8, OS_LOG_TYPE_DEFAULT, "%s Discarded ScoreCard for mismatch session - {%{public}@, %{public}@}", &v27, 0x20u);
+    v26 = 136315650;
+    v27 = "[SSRSpeakerRecognizerPSR voiceRecognitionPSRAnalyzer:hasVoiceRecognitionInfo:]";
+    v28 = 2114;
+    v29 = sessionId;
+    v30 = 2114;
+    v31 = v6;
+    _os_log_impl(&dword_225E12000, v8, OS_LOG_TYPE_DEFAULT, "%s Discarded ScoreCard for mismatch session - {%{public}@, %{public}@}", &v26, 0x20u);
   }
 
   else
@@ -130,7 +129,6 @@ LABEL_5:
   }
 
 LABEL_5:
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (NSDictionary)lastScoreCard
@@ -146,19 +144,18 @@ LABEL_5:
 
 - (void)dealloc
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = *MEMORY[0x277D015C8];
   if (os_log_type_enabled(*MEMORY[0x277D015C8], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v7 = "[SSRSpeakerRecognizerPSR dealloc]";
+    v6 = "[SSRSpeakerRecognizerPSR dealloc]";
     _os_log_impl(&dword_225E12000, v3, OS_LOG_TYPE_DEFAULT, "%s CSSpIdVTSpeakerRecognizer dealloc", buf, 0xCu);
   }
 
-  v5.receiver = self;
-  v5.super_class = SSRSpeakerRecognizerPSR;
-  [(SSRSpeakerRecognizerPSR *)&v5 dealloc];
-  v4 = *MEMORY[0x277D85DE8];
+  v4.receiver = self;
+  v4.super_class = SSRSpeakerRecognizerPSR;
+  [(SSRSpeakerRecognizerPSR *)&v4 dealloc];
 }
 
 - (void)_initializeWithContext:(id)context
@@ -195,12 +192,12 @@ LABEL_5:
 
 - (SSRSpeakerRecognizerPSR)initWithContext:(id)context delegate:(id)delegate
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   delegateCopy = delegate;
-  v25.receiver = self;
-  v25.super_class = SSRSpeakerRecognizerPSR;
-  v9 = [(SSRSpeakerRecognizerPSR *)&v25 init];
+  v24.receiver = self;
+  v24.super_class = SSRSpeakerRecognizerPSR;
+  v9 = [(SSRSpeakerRecognizerPSR *)&v24 init];
   if (!v9)
   {
 LABEL_9:
@@ -234,17 +231,17 @@ LABEL_9:
       vtEndInSampleCount = v9->_vtEndInSampleCount;
       [MEMORY[0x277D016E0] inputRecordingSampleRate];
       *buf = 136316418;
-      v27 = "[SSRSpeakerRecognizerPSR initWithContext:delegate:]";
-      v28 = 2112;
-      v29 = v16;
-      v30 = 2112;
-      v31 = sessionId;
-      v32 = 2048;
-      v33 = extraSamplesAtStart;
-      v34 = 2048;
-      v35 = vtEndInSampleCount;
-      v36 = 2048;
-      v37 = ((vtEndInSampleCount / v20) * 1000.0);
+      v26 = "[SSRSpeakerRecognizerPSR initWithContext:delegate:]";
+      v27 = 2112;
+      v28 = v16;
+      v29 = 2112;
+      v30 = sessionId;
+      v31 = 2048;
+      v32 = extraSamplesAtStart;
+      v33 = 2048;
+      v34 = vtEndInSampleCount;
+      v35 = 2048;
+      v36 = ((vtEndInSampleCount / v20) * 1000.0);
       _os_log_impl(&dword_225E12000, v15, OS_LOG_TYPE_DEFAULT, "%s %@::uniqueUttTag: %@, extraSamplesAtStart: %lu, _tdEndInSampleCount: %lu(%f ms)", buf, 0x3Eu);
     }
 
@@ -254,14 +251,13 @@ LABEL_9:
   if (v14)
   {
     *buf = 136315138;
-    v27 = "[SSRSpeakerRecognizerPSR initWithContext:delegate:]";
+    v26 = "[SSRSpeakerRecognizerPSR initWithContext:delegate:]";
     _os_log_impl(&dword_225E12000, v13, OS_LOG_TYPE_DEFAULT, "%s Failed to create SSRSpeakerRecognizerPSR", buf, 0xCu);
   }
 
   v21 = 0;
 LABEL_13:
 
-  v22 = *MEMORY[0x277D85DE8];
   return v21;
 }
 

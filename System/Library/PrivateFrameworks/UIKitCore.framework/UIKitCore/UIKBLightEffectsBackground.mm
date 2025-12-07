@@ -167,7 +167,7 @@ void __49___UIKBLightEffectsBackground_showShadowEffects___block_invoke(uint64_t
   v27 = [(UIView *)v20 layer];
   [v27 setShadowPathIsBounds:1];
 
-  v28 = +[UIColor blackColor];
+  v28 = objc_msgSend_blackColor(UIColor);
   v29 = [v28 colorWithAlphaComponent:0.5];
   v30 = [v29 CGColor];
   v31 = [(UIView *)v20 layer];

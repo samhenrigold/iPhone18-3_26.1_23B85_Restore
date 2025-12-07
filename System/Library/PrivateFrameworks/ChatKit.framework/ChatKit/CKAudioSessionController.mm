@@ -114,64 +114,64 @@ void __33__CKAudioSessionController_queue__block_invoke()
   dispatch_async(v11, v13);
 }
 
-void __57__CKAudioSessionController_setActive_options_completion___block_invoke(uint64_t a1)
+void __57__CKAudioSessionController_setActive_options_completion___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   if (IMOSLoggingEnabled())
   {
-    v2 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+    v3 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
-      v3 = *(a1 + 56);
-      v4 = *(a1 + 57);
-      v5 = _Block_copy(*(a1 + 40));
+      v4 = *(a1 + 56);
+      v5 = *(a1 + 57);
+      v6 = _Block_copy(*(a1 + 40));
       *buf = 67109632;
-      *v22 = v3;
-      *&v22[4] = 1024;
-      *&v22[6] = v4;
-      v23 = 2048;
-      v24 = v5;
-      _os_log_impl(&dword_19020E000, v2, OS_LOG_TYPE_INFO, "dispatching setActive:%d shouldUseSpeaker:%d completion:%p", buf, 0x18u);
+      *v23 = v4;
+      *&v23[4] = 1024;
+      *&v23[6] = v5;
+      v24 = 2048;
+      v25 = v6;
+      _os_log_impl(&dword_19020E000, v3, OS_LOG_TYPE_INFO, "dispatching setActive:%d shouldUseSpeaker:%d completion:%p", buf, 0x18u);
     }
   }
 
-  v6 = *(a1 + 56);
-  if (v6 != [*(a1 + 32) isActive] || *(a1 + 56) == 1 && (v7 = *(a1 + 48), v7 != objc_msgSend(*(a1 + 32), "options")) || objc_msgSend(*(a1 + 32), "isDirty"))
+  v7 = *(a1 + 56);
+  if (v7 != [*(a1 + 32) isActive] || *(a1 + 56) == 1 && (v8 = *(a1 + 48), v8 != objc_msgSend(*(a1 + 32), "options")) || objc_msgSend(*(a1 + 32), "isDirty"))
   {
-    v8 = [MEMORY[0x1E6958460] sharedInstance];
-    v9 = v8;
+    v9 = [MEMORY[0x1E6958460] sharedInstance];
+    v10 = v9;
     if (*(a1 + 56) == 1)
     {
       [*(a1 + 32) configureAudioSessionWithOptions:*(a1 + 48)];
-      v10 = *(a1 + 56);
-      v20 = 0;
-      v11 = [v9 setActive:v10 error:&v20];
-      v12 = v20;
-      if ((v11 & 1) == 0 && IMOSLoggingEnabled())
+      v11 = *(a1 + 56);
+      v21 = 0;
+      v12 = [v10 setActive:v11 error:&v21];
+      v13 = v21;
+      if ((v12 & 1) == 0 && IMOSLoggingEnabled())
       {
-        v13 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+        v14 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
         {
           *buf = 138412290;
-          *v22 = v12;
-          _os_log_impl(&dword_19020E000, v13, OS_LOG_TYPE_INFO, "AudioSessionController: Failed to activate audio session: %@", buf, 0xCu);
+          *v23 = v13;
+          _os_log_impl(&dword_19020E000, v14, OS_LOG_TYPE_INFO, "AudioSessionController: Failed to activate audio session: %@", buf, 0xCu);
         }
       }
     }
 
     else
     {
-      v19 = 0;
-      v14 = [v8 setActive:0 withOptions:1 error:&v19];
-      v15 = v19;
-      if ((v14 & 1) == 0 && IMOSLoggingEnabled())
+      v20 = 0;
+      v15 = [v9 setActive:0 withOptions:1 error:&v20];
+      v16 = v20;
+      if ((v15 & 1) == 0 && IMOSLoggingEnabled())
       {
-        v16 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
+        v17 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
         {
           *buf = 138412290;
-          *v22 = v15;
-          _os_log_impl(&dword_19020E000, v16, OS_LOG_TYPE_INFO, "AudioSessionController: Failed to deactivate audio session: %@", buf, 0xCu);
+          *v23 = v16;
+          _os_log_impl(&dword_19020E000, v17, OS_LOG_TYPE_INFO, "AudioSessionController: Failed to deactivate audio session: %@", buf, 0xCu);
         }
       }
     }
@@ -187,7 +187,7 @@ void __57__CKAudioSessionController_setActive_options_completion___block_invoke(
     block[1] = 3221225472;
     block[2] = __57__CKAudioSessionController_setActive_options_completion___block_invoke_25;
     block[3] = &unk_1E72EBDB8;
-    v18 = *(a1 + 40);
+    v19 = *(a1 + 40);
     dispatch_async(MEMORY[0x1E69E96A0], block);
   }
 }

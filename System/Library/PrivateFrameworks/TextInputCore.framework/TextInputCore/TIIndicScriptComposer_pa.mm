@@ -33,46 +33,44 @@
 
 - (id)contextualDisplayKeys
 {
-  v22 = *MEMORY[0x277D85DE8];
-  v20.receiver = self;
-  v20.super_class = TIIndicScriptComposer_pa;
-  contextualDisplayKeys = [(TIIndicScriptComposer *)&v20 contextualDisplayKeys];
+  v21 = *MEMORY[0x277D85DE8];
+  v19.receiver = self;
+  v19.super_class = TIIndicScriptComposer_pa;
+  contextualDisplayKeys = [(TIIndicScriptComposer *)&v19 contextualDisplayKeys];
   v4 = [contextualDisplayKeys mutableCopy];
 
   context = [(TIIndicScriptComposer *)self context];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   _modifiersToAllowedPrefixes = [(TIIndicScriptComposer_pa *)self _modifiersToAllowedPrefixes];
   allKeys = [_modifiersToAllowedPrefixes allKeys];
 
-  v8 = [allKeys countByEnumeratingWithState:&v16 objects:v21 count:16];
+  v8 = [allKeys countByEnumeratingWithState:&v15 objects:v20 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v17;
+    v10 = *v16;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v17 != v10)
+        if (*v16 != v10)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v12 = *(*(&v16 + 1) + 8 * i);
+        v12 = *(*(&v15 + 1) + 8 * i);
         v13 = [(TIIndicScriptComposer_pa *)self _displayStringForModifier:v12 withPrefix:context];
         [v4 setObject:v13 forKeyedSubscript:v12];
       }
 
-      v9 = [allKeys countByEnumeratingWithState:&v16 objects:v21 count:16];
+      v9 = [allKeys countByEnumeratingWithState:&v15 objects:v20 count:16];
     }
 
     while (v9);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v4;
 }

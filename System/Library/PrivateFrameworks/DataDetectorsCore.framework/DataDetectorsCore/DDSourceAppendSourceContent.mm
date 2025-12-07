@@ -30,8 +30,8 @@ void ___DDSourceAppendSourceContent_block_invoke_2(uint64_t a1, CFStringRef theS
   {
     v7 = malloc_type_calloc(1uLL, 0x38uLL, 0x1022040E9E2EC27uLL);
     *v7 |= 0x1000u;
-    v7[2] = 0;
-    v7[4] = 0;
+    *(v7 + 2) = 0;
+    *(v7 + 4) = 0;
     *(v6 + 64) = v7;
   }
 

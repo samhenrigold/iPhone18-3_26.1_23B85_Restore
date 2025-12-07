@@ -926,7 +926,7 @@ LABEL_8:
       }
 
 LABEL_9:
-      [(NSFileAccessClaim *)self givePriorityToClaim:claim, *v20, *&v20[16], v21];
+      [(NSFileAccessClaim *)self givePriorityToClaim:claim, *v20, *&v20[8], v21];
       return;
     }
   }
@@ -1225,12 +1225,12 @@ uint64_t __93__NSFileAccessClaim_makeProviderOfItemAtLocation_provideIfNecessary
 
 - (void)_checkIfMovingRequiresProvidingAmongWritingLocations:(id)locations options:(unint64_t *)options thenContinue:(id)continue
 {
-  v64 = *MEMORY[0x1E69E9840];
+  v65 = *MEMORY[0x1E69E9840];
   if ([locations count] < 2)
   {
-    v37 = *(continue + 2);
+    v38 = *(continue + 2);
 
-    v37(continue, 0);
+    v38(continue, 0);
   }
 
   else
@@ -1239,36 +1239,36 @@ uint64_t __93__NSFileAccessClaim_makeProviderOfItemAtLocation_provideIfNecessary
     v9 = objc_opt_new();
     v10 = objc_opt_new();
     v11 = objc_opt_new();
-    v48[0] = MEMORY[0x1E69E9820];
-    v48[1] = 3221225472;
-    v48[2] = __95__NSFileAccessClaim__checkIfMovingRequiresProvidingAmongWritingLocations_options_thenContinue___block_invoke;
-    v48[3] = &unk_1E69F8080;
-    v48[4] = v10;
-    v48[5] = v11;
-    v48[6] = v9;
-    v48[7] = options;
-    [locations enumerateObjectsUsingBlock:v48];
+    v49[0] = MEMORY[0x1E69E9820];
+    v49[1] = 3221225472;
+    v49[2] = __95__NSFileAccessClaim__checkIfMovingRequiresProvidingAmongWritingLocations_options_thenContinue___block_invoke;
+    v49[3] = &unk_1E69F8080;
+    v49[4] = v10;
+    v49[5] = v11;
+    v49[6] = v9;
+    v49[7] = options;
+    [locations enumerateObjectsUsingBlock:v49];
 
-    v42 = [MEMORY[0x1E695DFA8] set];
+    v43 = [MEMORY[0x1E695DFA8] set];
     obj = objc_opt_new();
-    v62 = 0u;
     v63 = 0u;
-    v60 = 0u;
+    v64 = 0u;
     v61 = 0u;
-    v12 = [v11 countByEnumeratingWithState:&v60 objects:v59 count:16];
+    v62 = 0u;
+    v12 = [v11 countByEnumeratingWithState:&v61 objects:v60 count:16];
     if (v12)
     {
-      v13 = *v61;
+      v13 = *v62;
       do
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v61 != v13)
+          if (*v62 != v13)
           {
             objc_enumerationMutation(v11);
           }
 
-          v15 = *(*(&v60 + 1) + 8 * i);
+          v15 = *(*(&v61 + 1) + 8 * i);
           v16 = [v15 objectAtIndexedSubscript:0];
           v17 = [v15 objectAtIndexedSubscript:1];
           v18 = [(NSFileAccessClaim *)self shouldMakeProviderProvideItemAtLocation:v16 withOptions:0];
@@ -1276,19 +1276,19 @@ uint64_t __93__NSFileAccessClaim_makeProviderOfItemAtLocation_provideIfNecessary
           {
             itemProvider = [v16 itemProvider];
             itemProvider2 = [v17 itemProvider];
-            if (itemProvider == itemProvider2 || [objc_msgSend(itemProvider "reactorID")])
+            if (itemProvider == itemProvider2 || (v22 = [itemProvider reactorID], objc_msgSend(itemProvider2, "reactorID"), objc_msgSend_isEqualToString_(v22)))
             {
               [obj addObject:v15];
             }
 
             else
             {
-              [v42 addObject:v16];
+              [v43 addObject:v16];
             }
           }
         }
 
-        v12 = [v11 countByEnumeratingWithState:&v60 objects:v59 count:16];
+        v12 = [v11 countByEnumeratingWithState:&v61 objects:v60 count:16];
       }
 
       while (v12);
@@ -1296,84 +1296,84 @@ uint64_t __93__NSFileAccessClaim_makeProviderOfItemAtLocation_provideIfNecessary
 
     if ([obj count])
     {
-      v22 = +[NSString stringWithFormat:](NSString, "stringWithFormat:", @"Checking with provider about %ld moving items", [obj count]);
-      [(NSFileAccessClaim *)self blockClaimerForReason:v22];
-      v38 = v22;
-      v46[0] = 0;
-      v46[1] = v46;
-      v46[2] = 0x2810000000;
-      v46[3] = &unk_181543D8B;
-      v47 = 0;
-      v23 = dispatch_group_create();
-      v43 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(obj, "count")}];
-      v57 = 0u;
+      v23 = +[NSString stringWithFormat:](NSString, "stringWithFormat:", @"Checking with provider about %ld moving items", [obj count]);
+      [(NSFileAccessClaim *)self blockClaimerForReason:v23];
+      v39 = v23;
+      v47[0] = 0;
+      v47[1] = v47;
+      v47[2] = 0x2810000000;
+      v47[3] = &unk_181543D8B;
+      v48 = 0;
+      v24 = dispatch_group_create();
+      v44 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(obj, "count")}];
       v58 = 0u;
-      v55 = 0u;
+      v59 = 0u;
       v56 = 0u;
-      v24 = [obj countByEnumeratingWithState:&v55 objects:v54 count:16];
-      if (v24)
+      v57 = 0u;
+      v25 = [obj countByEnumeratingWithState:&v56 objects:v55 count:16];
+      if (v25)
       {
-        v40 = *v56;
+        v41 = *v57;
         do
         {
-          for (j = 0; j != v24; ++j)
+          for (j = 0; j != v25; ++j)
           {
-            if (*v56 != v40)
+            if (*v57 != v41)
             {
               objc_enumerationMutation(obj);
             }
 
-            v26 = *(*(&v55 + 1) + 8 * j);
-            v27 = [v26 objectAtIndexedSubscript:0];
-            v28 = [v26 objectAtIndexedSubscript:1];
-            dispatch_group_enter(v23);
-            itemProvider3 = [v27 itemProvider];
-            [v43 addObject:{objc_msgSend(itemProvider3, "reactorID")}];
-            standardizedURL = [v27 standardizedURL];
-            v31 = [objc_msgSend(v28 "parent")];
-            name = [v28 name];
-            v45[0] = MEMORY[0x1E69E9820];
-            v45[1] = 3221225472;
-            v45[2] = __95__NSFileAccessClaim__checkIfMovingRequiresProvidingAmongWritingLocations_options_thenContinue___block_invoke_2;
-            v45[3] = &unk_1E69F80A8;
-            v45[7] = v23;
-            v45[8] = v46;
-            v45[4] = v42;
-            v45[5] = v27;
-            v45[6] = self;
-            [itemProvider3 movingItemAtURL:standardizedURL requiresProvidingWithDestinationDirectoryURL:v31 newFileName:name completionHandler:v45];
+            v27 = *(*(&v56 + 1) + 8 * j);
+            v28 = [v27 objectAtIndexedSubscript:0];
+            v29 = [v27 objectAtIndexedSubscript:1];
+            dispatch_group_enter(v24);
+            itemProvider3 = [v28 itemProvider];
+            [v44 addObject:{objc_msgSend(itemProvider3, "reactorID")}];
+            standardizedURL = [v28 standardizedURL];
+            v32 = [objc_msgSend(v29 "parent")];
+            name = [v29 name];
+            v46[0] = MEMORY[0x1E69E9820];
+            v46[1] = 3221225472;
+            v46[2] = __95__NSFileAccessClaim__checkIfMovingRequiresProvidingAmongWritingLocations_options_thenContinue___block_invoke_2;
+            v46[3] = &unk_1E69F80A8;
+            v46[7] = v24;
+            v46[8] = v47;
+            v46[4] = v43;
+            v46[5] = v28;
+            v46[6] = self;
+            [itemProvider3 movingItemAtURL:standardizedURL requiresProvidingWithDestinationDirectoryURL:v32 newFileName:name completionHandler:v46];
           }
 
-          v24 = [obj countByEnumeratingWithState:&v55 objects:v54 count:16];
+          v25 = [obj countByEnumeratingWithState:&v56 objects:v55 count:16];
         }
 
-        while (v24);
+        while (v25);
       }
 
-      v52 = 0u;
       v53 = 0u;
-      v50 = 0u;
+      v54 = 0u;
       v51 = 0u;
-      v33 = [v43 countByEnumeratingWithState:&v50 objects:v49 count:16];
-      if (v33)
+      v52 = 0u;
+      v34 = [v44 countByEnumeratingWithState:&v51 objects:v50 count:16];
+      if (v34)
       {
-        v34 = *v51;
+        v35 = *v52;
         do
         {
-          for (k = 0; k != v33; ++k)
+          for (k = 0; k != v34; ++k)
           {
-            if (*v51 != v34)
+            if (*v52 != v35)
             {
-              objc_enumerationMutation(v43);
+              objc_enumerationMutation(v44);
             }
 
-            [(NSFileAccessClaim *)self addBlockingReactorID:*(*(&v50 + 1) + 8 * k)];
+            [(NSFileAccessClaim *)self addBlockingReactorID:*(*(&v51 + 1) + 8 * k)];
           }
 
-          v33 = [v43 countByEnumeratingWithState:&v50 objects:v49 count:16];
+          v34 = [v44 countByEnumeratingWithState:&v51 objects:v50 count:16];
         }
 
-        while (v33);
+        while (v34);
       }
 
       arbiterQueue = self->_arbiterQueue;
@@ -1381,19 +1381,19 @@ uint64_t __93__NSFileAccessClaim_makeProviderOfItemAtLocation_provideIfNecessary
       block[1] = 3221225472;
       block[2] = __95__NSFileAccessClaim__checkIfMovingRequiresProvidingAmongWritingLocations_options_thenContinue___block_invoke_3;
       block[3] = &unk_1E69F80D0;
-      block[4] = v42;
+      block[4] = v43;
       block[5] = self;
-      block[6] = v38;
-      block[7] = v43;
+      block[6] = v39;
+      block[7] = v44;
       block[8] = continueCopy;
-      dispatch_group_notify(v23, arbiterQueue, block);
-      dispatch_release(v23);
-      _Block_object_dispose(v46, 8);
+      dispatch_group_notify(v24, arbiterQueue, block);
+      dispatch_release(v24);
+      _Block_object_dispose(v47, 8);
     }
 
     else
     {
-      continueCopy[2](continueCopy, v42);
+      continueCopy[2](continueCopy, v43);
     }
   }
 }
@@ -1863,25 +1863,25 @@ uint64_t __81__NSFileAccessClaim_makeProviderOfItemAtLocation_providePhysicalURL
 - (void)makeProviderOfItemAtLocation:(id)location provideOrAttachPhysicalURLIfNecessaryForPurposeID:(id)d readingOptions:(unint64_t)options thenContinue:(id)continue
 {
   optionsCopy = options;
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   itemProvider = [location itemProvider];
-  if (itemProvider && (v12 = [objc_msgSend(itemProvider "reactorID")], (optionsCopy & 4) != 0) && (v12 & 1) == 0)
+  if (itemProvider && (isEqualToString = objc_msgSend_isEqualToString_([itemProvider reactorID]), (optionsCopy & 4) != 0) && (isEqualToString & 1) == 0)
   {
-    v14[0] = MEMORY[0x1E69E9820];
-    v14[1] = 3221225472;
-    v14[2] = __128__NSFileAccessClaim_makeProviderOfItemAtLocation_provideOrAttachPhysicalURLIfNecessaryForPurposeID_readingOptions_thenContinue___block_invoke;
-    v14[3] = &unk_1E69F81E8;
-    v15 = 1;
-    v14[4] = location;
-    v14[5] = continue;
-    [(NSFileAccessClaim *)self makeProviderOfItemAtLocation:location providePhysicalURLThenContinue:v14];
+    v13[0] = MEMORY[0x1E69E9820];
+    v13[1] = 3221225472;
+    v13[2] = __128__NSFileAccessClaim_makeProviderOfItemAtLocation_provideOrAttachPhysicalURLIfNecessaryForPurposeID_readingOptions_thenContinue___block_invoke;
+    v13[3] = &unk_1E69F81E8;
+    v14 = 1;
+    v13[4] = location;
+    v13[5] = continue;
+    [(NSFileAccessClaim *)self makeProviderOfItemAtLocation:location providePhysicalURLThenContinue:v13];
   }
 
   else
   {
-    v13 = *(continue + 2);
+    v12 = *(continue + 2);
 
-    v13(continue, 0);
+    v12(continue, 0);
   }
 }
 
@@ -1901,25 +1901,25 @@ uint64_t __128__NSFileAccessClaim_makeProviderOfItemAtLocation_provideOrAttachPh
 - (void)makeProviderOfItemAtLocation:(id)location provideOrAttachPhysicalURLIfNecessaryForPurposeID:(id)d writingOptions:(unint64_t)options thenContinue:(id)continue
 {
   optionsCopy = options;
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   itemProvider = [location itemProvider];
-  if (itemProvider && (v12 = [objc_msgSend(itemProvider "reactorID")], (optionsCopy & 0x13) != 0) && (v12 & 1) == 0)
+  if (itemProvider && (isEqualToString = objc_msgSend_isEqualToString_([itemProvider reactorID]), (optionsCopy & 0x13) != 0) && (isEqualToString & 1) == 0)
   {
-    v14[0] = MEMORY[0x1E69E9820];
-    v14[1] = 3221225472;
-    v14[2] = __128__NSFileAccessClaim_makeProviderOfItemAtLocation_provideOrAttachPhysicalURLIfNecessaryForPurposeID_writingOptions_thenContinue___block_invoke;
-    v14[3] = &unk_1E69F81E8;
-    v15 = (optionsCopy & 0x11) == 0;
-    v14[4] = location;
-    v14[5] = continue;
-    [(NSFileAccessClaim *)self makeProviderOfItemAtLocation:location providePhysicalURLThenContinue:v14];
+    v13[0] = MEMORY[0x1E69E9820];
+    v13[1] = 3221225472;
+    v13[2] = __128__NSFileAccessClaim_makeProviderOfItemAtLocation_provideOrAttachPhysicalURLIfNecessaryForPurposeID_writingOptions_thenContinue___block_invoke;
+    v13[3] = &unk_1E69F81E8;
+    v14 = (optionsCopy & 0x11) == 0;
+    v13[4] = location;
+    v13[5] = continue;
+    [(NSFileAccessClaim *)self makeProviderOfItemAtLocation:location providePhysicalURLThenContinue:v13];
   }
 
   else
   {
-    v13 = *(continue + 2);
+    v12 = *(continue + 2);
 
-    v13(continue, 0);
+    v12(continue, 0);
   }
 }
 
@@ -2112,15 +2112,15 @@ void __133__NSFileAccessClaim_prepareAndBlockOnClaimRelinquishmentForPresentersO
   _Block_object_dispose(&v13, 8);
 }
 
-uint64_t __133__NSFileAccessClaim_prepareAndBlockOnClaimRelinquishmentForPresentersOfItemAtLocation_orContainedItem_withRelinquishProcedureGetter___block_invoke_2(uint64_t result, void *a2)
+void *__133__NSFileAccessClaim_prepareAndBlockOnClaimRelinquishmentForPresentersOfItemAtLocation_orContainedItem_withRelinquishProcedureGetter___block_invoke_2(void *result, void *a2)
 {
-  if (*(result + 32) != a2)
+  if (result[4] != a2)
   {
     v2 = result;
-    result = [a2 claimerInvokingIsBlockedByReactorWithID:*(result + 40)];
+    result = [a2 claimerInvokingIsBlockedByReactorWithID:result[5]];
     if (result)
     {
-      *(*(*(v2 + 48) + 8) + 24) = 0;
+      *(*(v2[6] + 8) + 24) = 0;
     }
   }
 
@@ -2235,16 +2235,16 @@ LABEL_15:
   return v14;
 }
 
-uint64_t __57__NSFileAccessClaim_canAccessLocations_forReading_error___block_invoke(uint64_t result, void *a2)
+void *__57__NSFileAccessClaim_canAccessLocations_forReading_error___block_invoke(void *result, void *a2)
 {
-  if (*(*(*(result + 40) + 8) + 24) == 1)
+  if (*(*(result[5] + 8) + 24) == 1)
   {
     v3 = result;
     result = [objc_msgSend(a2 "reactorID")];
     if (result)
     {
       result = [a2 disconnected];
-      *(*(*(v3 + 40) + 8) + 24) = result ^ 1;
+      *(*(v3[5] + 8) + 24) = result ^ 1;
     }
   }
 
@@ -2674,18 +2674,18 @@ uint64_t __65__NSFileAccessClaim_prepareItemForUploadingFromURL_thenContinue___b
   return [*(a1 + 40) unblockClaimerForReason:@"Zipping"];
 }
 
-void __65__NSFileAccessClaim_prepareItemForUploadingFromURL_thenContinue___block_invoke_101(uint64_t a1)
+void __65__NSFileAccessClaim_prepareItemForUploadingFromURL_thenContinue___block_invoke_101(uint64_t a1, uint64_t a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v2 = 0;
-  if (([objc_opt_new() removeItemAtPath:*(a1 + 32) error:&v2] & 1) == 0 && objc_msgSend(v2, "code") != 4)
+  v6 = *MEMORY[0x1E69E9840];
+  v3 = 0;
+  if (([objc_opt_new() removeItemAtPath:*(a1 + 32) error:&v3] & 1) == 0 && objc_msgSend(v3, "code") != 4)
   {
-    v1 = _NSFCClaimsLog();
-    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
+    v2 = _NSFCClaimsLog();
+    if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v4 = v2;
-      _os_log_error_impl(&dword_18075C000, v1, OS_LOG_TYPE_ERROR, "Failed to remove file created for uploading: %{public}@", buf, 0xCu);
+      v5 = v3;
+      _os_log_error_impl(&dword_18075C000, v2, OS_LOG_TYPE_ERROR, "Failed to remove file created for uploading: %{public}@", buf, 0xCu);
     }
   }
 }
@@ -2973,11 +2973,11 @@ uint64_t __28__NSFileAccessClaim_revoked__block_invoke(uint64_t a1, uint64_t a2,
   return (*(a3 + 16))(a3, v4);
 }
 
-uint64_t __28__NSFileAccessClaim_revoked__block_invoke_2(uint64_t result)
+id *__28__NSFileAccessClaim_revoked__block_invoke_2(id *result)
 {
-  if (!--*(*(*(result + 40) + 8) + 24))
+  if (!--*(*(result[5] + 1) + 24))
   {
-    return [*(result + 32) devalueSelf];
+    return [result[4] devalueSelf];
   }
 
   return result;
@@ -3200,19 +3200,19 @@ uint64_t __28__NSFileAccessClaim_revoked__block_invoke_2(uint64_t result)
   return v7;
 }
 
-uint64_t __76__NSFileAccessClaim_purposeIDOfClaimOnItemAtLocation_forMessagingPresenter___block_invoke(uint64_t result, id *a2)
+id **__76__NSFileAccessClaim_purposeIDOfClaimOnItemAtLocation_forMessagingPresenter___block_invoke(id **result, id *a2)
 {
-  if (*(result + 32) != a2)
+  if (result[4] != a2)
   {
     v3 = result;
     v4 = [a2 purposeID];
-    result = [v4 isEqual:{objc_msgSend(*(v3 + 40), "reactorID")}];
+    result = [v4 isEqual:{objc_msgSend(v3[5], "reactorID")}];
     if (result)
     {
-      result = [a2[11] containsObject:*(*(*(v3 + 48) + 8) + 40)];
+      result = [a2[11] containsObject:*(v3[6][1] + 5)];
       if (result)
       {
-        *(*(*(v3 + 48) + 8) + 40) = v4;
+        *(v3[6][1] + 5) = v4;
       }
     }
   }

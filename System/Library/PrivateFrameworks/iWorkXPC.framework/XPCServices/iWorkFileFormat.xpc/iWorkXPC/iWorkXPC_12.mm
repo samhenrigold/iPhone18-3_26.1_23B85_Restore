@@ -1,806 +1,3 @@
-char *google::protobuf::internal::ExtensionSet::Erase(google::protobuf::internal::ExtensionSet *this, int a2)
-{
-  v12 = a2;
-  v3 = *(this + 4);
-  result = *(this + 2);
-  if (v3 >= 0x101)
-  {
-    return sub_1000FD578(result, &v12);
-  }
-
-  v5 = *(this + 5);
-  v6 = &result[32 * v5];
-  if (*(this + 5))
-  {
-    v7 = *(this + 5);
-    do
-    {
-      v8 = v7 >> 1;
-      v9 = &result[32 * (v7 >> 1)];
-      v11 = *v9;
-      v10 = (v9 + 8);
-      v7 += ~(v7 >> 1);
-      if (v11 < a2)
-      {
-        result = v10;
-      }
-
-      else
-      {
-        v7 = v8;
-      }
-    }
-
-    while (v7);
-  }
-
-  if (result != v6 && *result == a2)
-  {
-    if (v6 != result + 32)
-    {
-      result = memmove(result, result + 32, v6 - (result + 32));
-      LOWORD(v5) = *(this + 5);
-    }
-
-    *(this + 5) = v5 - 1;
-  }
-
-  return result;
-}
-
-uint64_t google::protobuf::internal::ExtensionSet::GetRepeatedMessage(google::protobuf::internal::ExtensionSet *this, int a2, int a3)
-{
-  v4 = google::protobuf::internal::ExtensionSet::FindOrNull(this, a2);
-  if (!v4)
-  {
-    google::protobuf::internal::LogMessage::LogMessage(v9, 3, "/Library/Caches/com.apple.xbs/Sources/iWorkXPC/shared/persistence/google/protobuf/extension_set.cc", 744);
-    v5 = google::protobuf::internal::LogMessage::operator<<(v9, "CHECK failed: extension != NULL: ");
-    v6 = google::protobuf::internal::LogMessage::operator<<(v5, "Index out-of-bounds (field is empty).");
-    google::protobuf::internal::LogFinisher::operator=(&v8, &v6->__r_.__value_.__l.__data_);
-    google::protobuf::internal::LogMessage::~LogMessage(&v9[0].__r_.__value_.__l.__data_);
-  }
-
-  return *(*(*v4 + 16) + 8 * a3 + 8);
-}
-
-void sub_1000F78E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
-{
-  va_start(va, a3);
-  google::protobuf::internal::LogMessage::~LogMessage(va);
-  _Unwind_Resume(a1);
-}
-
-uint64_t google::protobuf::internal::ExtensionSet::MutableRepeatedMessage(google::protobuf::internal::ExtensionSet *this, int a2, int a3)
-{
-  v4 = google::protobuf::internal::ExtensionSet::FindOrNull(this, a2);
-  if (!v4)
-  {
-    google::protobuf::internal::LogMessage::LogMessage(v9, 3, "/Library/Caches/com.apple.xbs/Sources/iWorkXPC/shared/persistence/google/protobuf/extension_set.cc", 751);
-    v5 = google::protobuf::internal::LogMessage::operator<<(v9, "CHECK failed: extension != NULL: ");
-    v6 = google::protobuf::internal::LogMessage::operator<<(v5, "Index out-of-bounds (field is empty).");
-    google::protobuf::internal::LogFinisher::operator=(&v8, &v6->__r_.__value_.__l.__data_);
-    google::protobuf::internal::LogMessage::~LogMessage(&v9[0].__r_.__value_.__l.__data_);
-  }
-
-  return *(*(*v4 + 16) + 8 * a3 + 8);
-}
-
-void sub_1000F7988(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
-{
-  va_start(va, a3);
-  google::protobuf::internal::LogMessage::~LogMessage(va);
-  _Unwind_Resume(a1);
-}
-
-uint64_t google::protobuf::internal::ExtensionSet::AddMessage(google::protobuf::internal::ExtensionSet *this, int a2, char a3, const google::protobuf::MessageLite *a4, const google::protobuf::FieldDescriptor *a5)
-{
-  v9 = google::protobuf::internal::ExtensionSet::Insert(this, a2);
-  v10 = v9;
-  v9[2] = a5;
-  if (v11)
-  {
-    *(v9 + 8) = a3;
-    *(v9 + 9) = 1;
-    v12 = sub_1000FCBC0(*this);
-    *v10 = v12;
-  }
-
-  else
-  {
-    v12 = *v9;
-  }
-
-  v13 = *(v12 + 2);
-  if (!v13 || (v14 = v12[2], v14 >= *v13) || (v12[2] = v14 + 1, (v15 = *&v13[2 * v14 + 2]) == 0))
-  {
-    v15 = (*(*a4 + 32))(a4, *this);
-    sub_1000FCCA8(*v10, v15);
-  }
-
-  return v15;
-}
-
-unsigned __int8 *google::protobuf::internal::ExtensionSet::Clear(unsigned __int8 *this)
-{
-  v2 = *(this + 2);
-  if (*(this + 4) >= 0x101u)
-  {
-    v7 = *v2;
-    v6 = (v2 + 1);
-    v5 = v7;
-
-    return sub_1000FCDDC(v5, v6);
-  }
-
-  else if (*(this + 5))
-  {
-    v3 = 32 * *(this + 5);
-    v4 = (v2 + 1);
-    do
-    {
-      this = google::protobuf::internal::ExtensionSet::Extension::Clear(v4);
-      v4 += 32;
-      v3 -= 32;
-    }
-
-    while (v3);
-  }
-
-  return this;
-}
-
-unsigned __int16 *google::protobuf::internal::ExtensionSet::GrowCapacity(unsigned __int16 *this, unint64_t a2)
-{
-  v2 = this[4];
-  if (v2 <= 0x100 && v2 < a2)
-  {
-    v4 = this;
-    do
-    {
-      if (v2)
-      {
-        LOWORD(v2) = 4 * v2;
-      }
-
-      else
-      {
-        LOWORD(v2) = 1;
-      }
-    }
-
-    while (v2 < a2);
-    v5 = *(this + 2);
-    v6 = this[5];
-    v7 = *this;
-    if (v2 < 0x101u)
-    {
-      this = sub_1000F5CB0(v7, v2);
-      v8 = this;
-      if (v6)
-      {
-        this = memmove(this, v5, 32 * v6);
-      }
-    }
-
-    else
-    {
-      this = sub_1000FD25C(v7);
-      v8 = this;
-      if (v6)
-      {
-        v9 = &v5[32 * v6];
-        v10 = *this;
-        v11 = v5;
-        do
-        {
-          v14 = *v11;
-          v12 = *(v11 + 3);
-          v15 = *(v11 + 8);
-          v16 = v12;
-          this = sub_1000FD338(v8, v10, &v14);
-          v10 = this;
-          v11 += 32;
-        }
-
-        while (v11 != v9);
-      }
-    }
-
-    if (*v4)
-    {
-      v13 = 1;
-    }
-
-    else
-    {
-      v13 = v5 == 0;
-    }
-
-    if (!v13)
-    {
-      operator delete[]();
-    }
-
-    v4[4] = v2;
-    *(v4 + 2) = v8;
-    if (v2 >= 0x101u)
-    {
-      v4[5] = 0;
-    }
-  }
-
-  return this;
-}
-
-uint64_t sub_1000F7C18(char *a1, char *a2, void *a3, void *a4)
-{
-  v4 = 0;
-  if (a1 != a2 && a3 != a4)
-  {
-    v4 = 0;
-    do
-    {
-      v5 = *(a3 + 8);
-      if (*a1 >= v5)
-      {
-        if (*a1 == v5)
-        {
-          a1 += 32;
-          v6 = a3[1];
-          if (v6)
-          {
-            do
-            {
-              a3 = v6;
-              v6 = *v6;
-            }
-
-            while (v6);
-          }
-
-          else
-          {
-            do
-            {
-              v7 = a3;
-              a3 = a3[2];
-            }
-
-            while (*a3 != v7);
-          }
-        }
-
-        else
-        {
-          v8 = a3[1];
-          if (v8)
-          {
-            do
-            {
-              a3 = v8;
-              v8 = *v8;
-            }
-
-            while (v8);
-          }
-
-          else
-          {
-            do
-            {
-              v9 = a3;
-              a3 = a3[2];
-            }
-
-            while (*a3 != v9);
-          }
-        }
-      }
-
-      else
-      {
-        a1 += 32;
-      }
-
-      ++v4;
-    }
-
-    while (a1 != a2 && a3 != a4);
-  }
-
-  if (a3 == a4)
-  {
-    v10 = 0;
-  }
-
-  else
-  {
-    v10 = 0;
-    do
-    {
-      v11 = a3[1];
-      if (v11)
-      {
-        do
-        {
-          v12 = v11;
-          v11 = *v11;
-        }
-
-        while (v11);
-      }
-
-      else
-      {
-        do
-        {
-          v12 = a3[2];
-          v13 = *v12 == a3;
-          a3 = v12;
-        }
-
-        while (!v13);
-      }
-
-      ++v10;
-      a3 = v12;
-    }
-
-    while (v12 != a4);
-  }
-
-  return v4 + ((a2 - a1) >> 5) + v10;
-}
-
-void google::protobuf::internal::ExtensionSet::InternalExtensionMergeFrom(google::protobuf::internal::ExtensionSet *this, int a2, int **a3)
-{
-  if (*(a3 + 9) != 1)
-  {
-    if (*(a3 + 10))
-    {
-      return;
-    }
-
-    v16 = *(a3 + 8);
-    v17 = google::protobuf::internal::WireFormatLite::kFieldTypeToCppTypeMap[v16];
-    if (v17 <= 5)
-    {
-      if (v17 <= 2)
-      {
-        if (v17 != 1)
-        {
-          if (v17 != 2)
-          {
-            return;
-          }
-
-LABEL_58:
-          v48 = *a3;
-          v49 = a3[2];
-          v50 = google::protobuf::internal::ExtensionSet::Insert(this, a2);
-          v50[2] = v49;
-          if (v51)
-          {
-            *(v50 + 8) = v16;
-            *(v50 + 9) = 0;
-          }
-
-          *(v50 + 10) &= 0xF0u;
-          *v50 = v48;
-          return;
-        }
-      }
-
-      else if (v17 != 3)
-      {
-        if (v17 != 4)
-        {
-          v18 = *a3;
-          v19 = a3[2];
-          v20 = google::protobuf::internal::ExtensionSet::Insert(this, a2);
-          v20[2] = v19;
-          if (v21)
-          {
-            *(v20 + 8) = v16;
-            *(v20 + 9) = 0;
-          }
-
-          *(v20 + 10) &= 0xF0u;
-          *v20 = v18;
-          return;
-        }
-
-        goto LABEL_58;
-      }
-
-LABEL_61:
-      v52 = *a3;
-      v53 = a3[2];
-      v54 = google::protobuf::internal::ExtensionSet::Insert(this, a2);
-      v54[2] = v53;
-      if (v55)
-      {
-        *(v54 + 8) = v16;
-        *(v54 + 9) = 0;
-      }
-
-      *(v54 + 10) &= 0xF0u;
-      *v54 = v52;
-      return;
-    }
-
-    if (v17 <= 7)
-    {
-      if (v17 == 6)
-      {
-        v72 = *a3;
-        v73 = a3[2];
-        v74 = google::protobuf::internal::ExtensionSet::Insert(this, a2);
-        v74[2] = v73;
-        if (v75)
-        {
-          *(v74 + 8) = v16;
-          *(v74 + 9) = 0;
-        }
-
-        *(v74 + 10) &= 0xF0u;
-        *v74 = v72;
-      }
-
-      else
-      {
-        v56 = *a3;
-        v57 = a3[2];
-        v58 = google::protobuf::internal::ExtensionSet::Insert(this, a2);
-        v58[2] = v57;
-        if (v59)
-        {
-          *(v58 + 8) = v16;
-          *(v58 + 9) = 0;
-        }
-
-        *(v58 + 10) &= 0xF0u;
-        *v58 = v56;
-      }
-
-      return;
-    }
-
-    if (v17 == 8)
-    {
-      goto LABEL_61;
-    }
-
-    if (v17 == 9)
-    {
-      v76 = *a3;
-      if (*(*a3 + 23) < 0)
-      {
-        sub_1000B32D8(&v86, *v76, *(v76 + 1));
-      }
-
-      else
-      {
-        v77 = *v76;
-        v87 = *(v76 + 2);
-        v86 = v77;
-      }
-
-      v82 = google::protobuf::internal::ExtensionSet::MutableString(this, a2, v16, a3[2]);
-      v83 = v82;
-      if (*(v82 + 23) < 0)
-      {
-        operator delete(*v82);
-      }
-
-      v84 = v86;
-      v83[2] = v87;
-      *v83 = v84;
-      return;
-    }
-
-    if (v17 != 10)
-    {
-      return;
-    }
-
-    v29 = a3[2];
-    v30 = google::protobuf::internal::ExtensionSet::Insert(this, a2);
-    v31 = v30;
-    v30[2] = v29;
-    if (v32)
-    {
-      *(v30 + 8) = *(a3 + 8);
-      *(v30 + 11) = *(a3 + 11);
-      *(v30 + 9) = 0;
-      v33 = *(v30 + 10) & 0xF;
-      if ((*(a3 + 10) & 0x10) != 0)
-      {
-        *(v30 + 10) = v33 | 0x10;
-        v85 = (*(**a3 + 16))(*a3, *this);
-        *v31 = v85;
-        (*(*v85 + 104))(v85, *a3);
-        goto LABEL_108;
-      }
-
-      *(v30 + 10) = v33;
-      v34 = (*(**a3 + 32))(*a3, *this);
-      *v31 = v34;
-LABEL_98:
-      (*(*v34 + 64))(v34, *a3);
-LABEL_108:
-      *(v31 + 10) &= 0xF0u;
-      return;
-    }
-
-    v78 = *(v30 + 10);
-    v79 = *v30;
-    v80 = *a3;
-    if ((*(a3 + 10) & 0x10) != 0)
-    {
-      if ((*(v30 + 10) & 0x10) != 0)
-      {
-        (*(*v79 + 104))(*v30, v80);
-        goto LABEL_108;
-      }
-
-      v80 = (*(*v80 + 24))(*a3, *v30);
-      v81 = *v79;
-    }
-
-    else
-    {
-      v81 = *v79;
-      if ((*(v30 + 10) & 0x10) != 0)
-      {
-        v34 = (*(v81 + 32))(*v30, v80);
-        goto LABEL_98;
-      }
-    }
-
-    (*(v81 + 64))(v79, v80);
-    goto LABEL_108;
-  }
-
-  v6 = a3[2];
-  v7 = google::protobuf::internal::ExtensionSet::Insert(this, a2);
-  v9 = v7;
-  v7[2] = v6;
-  v10 = *(a3 + 8);
-  if (v8)
-  {
-    *(v7 + 8) = v10;
-    *(v7 + 11) = *(a3 + 11);
-    *(v7 + 9) = 1;
-  }
-
-  v11 = google::protobuf::internal::WireFormatLite::kFieldTypeToCppTypeMap[v10];
-  if (v11 > 5)
-  {
-    if (v11 <= 7)
-    {
-      if (v11 != 6)
-      {
-        if (v8)
-        {
-          *v7 = sub_1000FC9C8(*this);
-        }
-
-        v36 = *a3;
-        v37 = **a3;
-        if (!v37)
-        {
-          return;
-        }
-
-        v38 = *v9;
-        v39 = **v9;
-        google::protobuf::RepeatedField<BOOL>::Reserve(v38, v39 + v37);
-        v40 = *(v38 + 1);
-        *v38 += *v36;
-        v41 = *(v36 + 1);
-        v42 = *v36;
-        v43 = (v40 + v39);
-LABEL_82:
-
-        memcpy(v43, v41, v42);
-        return;
-      }
-
-      if (v8)
-      {
-        *v7 = sub_1000FC7D8(*this);
-      }
-
-      v44 = *a3;
-      v60 = **a3;
-      if (!v60)
-      {
-        return;
-      }
-
-      v46 = *v9;
-      v47 = **v9;
-      google::protobuf::RepeatedField<float>::Reserve(v46, v47 + v60);
-LABEL_76:
-      v62 = *(v46 + 1);
-      *v46 += *v44;
-      v43 = (v62 + 4 * v47);
-      v41 = *(v44 + 1);
-      v42 = 4 * *v44;
-      goto LABEL_82;
-    }
-
-    if (v11 != 8)
-    {
-      if (v11 == 9)
-      {
-        if (v8)
-        {
-          *v7 = sub_1000FCAC0(*this);
-        }
-
-        v65 = *a3;
-        v66 = (*a3)[2];
-        if (v66)
-        {
-          v67 = *v9;
-          v68 = *(v65 + 2);
-          v69 = google::protobuf::internal::RepeatedPtrFieldBase::InternalExtend(v67, v66);
-          sub_1000ED8E8(v67, v69, (v68 + 8), v66, **(v67 + 2) - v67[2]);
-          v70 = v67[2] + v66;
-          v67[2] = v70;
-          v71 = *(v67 + 2);
-          if (*v71 < v70)
-          {
-            *v71 = v70;
-          }
-        }
-      }
-
-      else if (v11 == 10)
-      {
-        if (v8)
-        {
-          *v7 = sub_1000FCBC0(*this);
-        }
-
-        v22 = *a3;
-        if ((*a3)[2] >= 1)
-        {
-          v23 = 0;
-          do
-          {
-            v24 = *(*(v22 + 2) + 8 * v23 + 8);
-            v25 = *v9;
-            v26 = *(*v9 + 2);
-            if (!v26 || (v27 = v25[2], v27 >= *v26) || (v25[2] = v27 + 1, (v28 = *&v26[2 * v27 + 2]) == 0))
-            {
-              v28 = (*(*v24 + 32))(v24, *this);
-              sub_1000FCCA8(*v9, v28);
-            }
-
-            (*(*v28 + 64))(v28, v24);
-            ++v23;
-          }
-
-          while (v23 < v22[2]);
-        }
-      }
-
-      return;
-    }
-
-LABEL_52:
-    if (v8)
-    {
-      *v7 = sub_1000FC3F8(*this);
-    }
-
-    v44 = *a3;
-    v45 = **a3;
-    if (!v45)
-    {
-      return;
-    }
-
-    v46 = *v9;
-    v47 = **v9;
-    google::protobuf::RepeatedField<int>::Reserve(v46, v47 + v45);
-    goto LABEL_76;
-  }
-
-  if (v11 > 2)
-  {
-    if (v11 != 3)
-    {
-      if (v11 == 4)
-      {
-        if (v8)
-        {
-          *v7 = sub_1000FC6E0(*this);
-        }
-
-        v12 = *a3;
-        v63 = **a3;
-        if (v63)
-        {
-          v14 = *v9;
-          v15 = **v9;
-          google::protobuf::RepeatedField<unsigned long long>::Reserve(v14, v15 + v63);
-          goto LABEL_81;
-        }
-      }
-
-      else
-      {
-        if (v8)
-        {
-          *v7 = sub_1000FC8D0(*this);
-        }
-
-        v12 = *a3;
-        v13 = **a3;
-        if (v13)
-        {
-          v14 = *v9;
-          v15 = **v9;
-          google::protobuf::RepeatedField<double>::Reserve(v14, v15 + v13);
-LABEL_81:
-          v64 = *(v14 + 1);
-          *v14 += *v12;
-          v43 = (v64 + 8 * v15);
-          v41 = *(v12 + 1);
-          v42 = 8 * *v12;
-          goto LABEL_82;
-        }
-      }
-
-      return;
-    }
-
-    if (v8)
-    {
-      *v7 = sub_1000FC5E8(*this);
-    }
-
-    v44 = *a3;
-    v61 = **a3;
-    if (!v61)
-    {
-      return;
-    }
-
-    v46 = *v9;
-    v47 = **v9;
-    google::protobuf::RepeatedField<unsigned int>::Reserve(v46, v47 + v61);
-    goto LABEL_76;
-  }
-
-  if (v11 == 1)
-  {
-    goto LABEL_52;
-  }
-
-  if (v11 == 2)
-  {
-    if (v8)
-    {
-      *v7 = sub_1000FC4F0(*this);
-    }
-
-    v12 = *a3;
-    v35 = **a3;
-    if (v35)
-    {
-      v14 = *v9;
-      v15 = **v9;
-      google::protobuf::RepeatedField<long long>::Reserve(v14, v15 + v35);
-      goto LABEL_81;
-    }
-  }
-}
-
 void sub_1000F8530(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14)
 {
   if (a14 < 0)
@@ -840,24 +37,24 @@ void google::protobuf::internal::ExtensionSet::Swap(google::protobuf::internal::
   }
 }
 
-void sub_1000F8604(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1000F8604(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   google::protobuf::internal::ExtensionSet::~ExtensionSet(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t *google::protobuf::internal::ExtensionSet::Insert(google::protobuf::internal::ExtensionSet *this, int a2)
+char *google::protobuf::internal::ExtensionSet::Insert(google::protobuf::internal::ExtensionSet *this, int a2)
 {
   v3 = *(this + 4);
   v4 = *(this + 2);
   if (v3 >= 0x101)
   {
+    *(&v14 + 1) = 0;
     v15 = 0;
     v16 = 0;
-    v17 = 0;
-    v14 = a2;
-    return sub_1000FD190(v4, &v14) + 5;
+    LODWORD(v14) = a2;
+    return (sub_1000FD190(v4, &v14, &v14) + 5);
   }
 
   else
@@ -896,7 +93,7 @@ LABEL_15:
         *(this + 5) = v6 + 1;
         *v4 = a2;
         *(v4 + 1) = 0;
-        result = (v4 + 8);
+        result = v4 + 8;
         *(v4 + 2) = 0;
         *(v4 + 3) = 0;
         return result;
@@ -907,7 +104,7 @@ LABEL_15:
     {
       if (*v4 == a2)
       {
-        return (v4 + 8);
+        return v4 + 8;
       }
 
       if (v6 < v3)
@@ -1011,7 +208,7 @@ uint64_t google::protobuf::internal::ExtensionSet::Extension::IsInitialized(uint
       v3 = 0;
       while (1)
       {
-        v4 = *(v2[2] + 8 * v3 + 8);
+        v4 = *(*(v2 + 2) + 8 * v3 + 8);
         if (((*(*v4 + 48))(v4) & 1) == 0)
         {
           break;
@@ -1031,20 +228,18 @@ uint64_t google::protobuf::internal::ExtensionSet::Extension::IsInitialized(uint
     return 1;
   }
 
-  v5 = *(this + 10);
-  if (v5)
+  if (*(this + 10))
   {
     return 1;
   }
 
-  v7 = *this;
-  v8 = **this;
-  if ((v5 & 0x10) != 0)
+  v6 = **this;
+  if ((*(this + 10) & 0x10) != 0)
   {
-    return ((*(v8 + 72))() & 1) != 0;
+    return ((*(v6 + 72))() & 1) != 0;
   }
 
-  result = (*(v8 + 48))();
+  result = (*(v6 + 48))();
   if (result)
   {
     return 1;
@@ -1087,9 +282,9 @@ uint64_t google::protobuf::internal::ExtensionSet::FindExtensionInfoFromFieldNum
   return result;
 }
 
-void sub_1000F89FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1000F89FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -1117,106 +312,113 @@ LABEL_6:
   return TagFallback;
 }
 
-unsigned __int8 *google::protobuf::internal::ExtensionSet::_InternalSerialize(google::protobuf::internal::ExtensionSet *this, int a2, signed int a3, unsigned __int8 *a4, google::protobuf::io::EpsCopyOutputStream *a5)
+unsigned __int8 *google::protobuf::internal::ExtensionSet::_InternalSerialize(google::protobuf::internal::ExtensionSet *this, int a2, int a3, unsigned __int8 *a4, google::protobuf::io::EpsCopyOutputStream *a5, __n128 a6)
 {
-  v7 = *(this + 2);
+  v8 = *(this + 2);
   if (*(this + 4) >= 0x101u)
   {
-    v17 = *(v7 + 1);
-    v16 = v7 + 2;
-    v15 = v17;
-    if (v17)
+    v19 = *(v8 + 1);
+    v18 = v8 + 2;
+    v17 = v19;
+    if (v19)
     {
-      v18 = v16;
+      v20 = v18;
       do
       {
-        if (*(v15 + 32) >= a2)
+        if (*(v17 + 32) >= a2)
         {
-          v18 = v15;
+          v20 = v17;
         }
 
-        v15 = *(v15 + 8 * (*(v15 + 32) < a2));
+        v17 = *(v17 + 8 * (*(v17 + 32) < a2));
       }
 
-      while (v15);
-      if (v18 != v16)
+      while (v17);
+      if (v20 != v18)
       {
         do
         {
-          v19 = *(v18 + 8);
-          if (v19 >= a3)
+          v21 = *(v20 + 8);
+          if (v21 >= a3)
           {
             break;
           }
 
-          a4 = google::protobuf::internal::ExtensionSet::Extension::InternalSerializeFieldWithCachedSizesToArray(v18 + 5, v19, a4, a5);
-          v20 = v18[1];
-          if (v20)
+          a4 = google::protobuf::internal::ExtensionSet::Extension::InternalSerializeFieldWithCachedSizesToArray(v20 + 5, v21, a4, a5, a6);
+          v22 = v20[1];
+          if (v22)
           {
             do
             {
-              v21 = v20;
-              v20 = *v20;
+              v23 = v22;
+              v22 = *v22;
             }
 
-            while (v20);
+            while (v22);
           }
 
           else
           {
             do
             {
-              v21 = v18[2];
-              v22 = *v21 == v18;
-              v18 = v21;
+              v23 = v20[2];
+              v24 = *v23 == v20;
+              v20 = v23;
             }
 
-            while (!v22);
+            while (!v24);
           }
 
-          v18 = v21;
+          v20 = v23;
         }
 
-        while (v21 != v16);
+        while (v23 != v18);
       }
     }
   }
 
   else
   {
-    v8 = *(this + 5);
-    v9 = &v7[8 * v8];
-    while (v8)
+    v9 = *(this + 5);
+    v10 = &v8[8 * v9];
+    while (v9)
     {
-      v10 = v8 >> 1;
-      v11 = &v7[8 * (v8 >> 1)];
-      v13 = *v11;
-      v12 = v11 + 8;
-      v8 += ~(v8 >> 1);
-      if (v13 < a2)
+      v11 = v9 >> 1;
+      v12 = &v8[8 * (v9 >> 1)];
+      v14 = *v12;
+      v13 = (v12 + 8);
+      v9 += ~(v9 >> 1);
+      if (v14 < a2)
       {
-        v7 = v12;
+        v8 = v13;
       }
 
       else
       {
-        v8 = v10;
+        v9 = v11;
       }
     }
 
-    while (v7 != v9 && *v7 < a3)
+    while (v8 != v10)
     {
-      a4 = google::protobuf::internal::ExtensionSet::Extension::InternalSerializeFieldWithCachedSizesToArray(v7 + 1, *v7, a4, a5);
-      v7 += 8;
+      v15 = *v8;
+      if (v15 >= a3)
+      {
+        break;
+      }
+
+      a4 = google::protobuf::internal::ExtensionSet::Extension::InternalSerializeFieldWithCachedSizesToArray(v8 + 1, v15, a4, a5, a6);
+      v8 += 8;
     }
   }
 
   return a4;
 }
 
-unsigned __int8 *google::protobuf::internal::ExtensionSet::Extension::InternalSerializeFieldWithCachedSizesToArray(int **this, unsigned int a2, unsigned __int8 *a3, google::protobuf::io::EpsCopyOutputStream *a4)
+unsigned __int8 *google::protobuf::internal::ExtensionSet::Extension::InternalSerializeFieldWithCachedSizesToArray(int **this, uint64_t a2, unsigned __int8 *a3, google::protobuf::io::EpsCopyOutputStream *a4, __n128 a5)
 {
-  v5 = a3;
+  v6 = a3;
+  v7 = a2;
   if (*(this + 9) == 1)
   {
     if (*(this + 11) == 1)
@@ -1225,351 +427,351 @@ unsigned __int8 *google::protobuf::internal::ExtensionSet::Extension::InternalSe
       {
         if (*a4 <= a3)
         {
-          v5 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a4, a3);
+          v6 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a4, a3);
         }
 
-        v8 = 8 * a2;
-        if (8 * a2 > 0x7F)
+        v9 = 8 * v7;
+        if ((8 * v7) > 0x7F)
         {
-          *v5 = v8 | 0x82;
-          v24 = v8 >> 7;
-          if (v8 >> 14)
+          *v6 = v9 | 0x82;
+          v25 = v9 >> 7;
+          if (v9 >> 14)
           {
-            v9 = v5 + 2;
+            v10 = v6 + 2;
             do
             {
-              *(v9 - 1) = v24 | 0x80;
-              v25 = v24 >> 7;
-              ++v9;
-              v26 = v24 >> 14;
-              v24 >>= 7;
+              *(v10 - 1) = v25 | 0x80;
+              v26 = v25 >> 7;
+              ++v10;
+              v27 = v25 >> 14;
+              v25 >>= 7;
             }
 
-            while (v26);
-            *(v9 - 1) = v25;
+            while (v27);
+            *(v10 - 1) = v26;
           }
 
           else
           {
-            v5[1] = v24;
-            v9 = v5 + 2;
+            v6[1] = v25;
+            v10 = v6 + 2;
           }
         }
 
         else
         {
-          *v5 = v8 | 2;
-          v9 = v5 + 1;
+          *v6 = v9 | 2;
+          v10 = v6 + 1;
         }
 
-        v27 = *(this + 3);
-        if (v27 > 0x7F)
+        v28 = *(this + 3);
+        if (v28 > 0x7F)
         {
-          *v9 = v27 | 0x80;
-          v28 = v27 >> 7;
-          if (v27 >> 14)
+          *v10 = v28 | 0x80;
+          v29 = v28 >> 7;
+          if (v28 >> 14)
           {
-            v5 = v9 + 2;
+            v6 = v10 + 2;
             do
             {
-              *(v5 - 1) = v28 | 0x80;
-              v29 = v28 >> 7;
-              ++v5;
-              v30 = v28 >> 14;
-              v28 >>= 7;
+              *(v6 - 1) = v29 | 0x80;
+              v30 = v29 >> 7;
+              ++v6;
+              v31 = v29 >> 14;
+              v29 >>= 7;
             }
 
-            while (v30);
-            *(v5 - 1) = v29;
+            while (v31);
+            *(v6 - 1) = v30;
           }
 
           else
           {
-            v9[1] = v28;
-            v5 = v9 + 2;
+            v10[1] = v29;
+            v6 = v10 + 2;
           }
         }
 
         else
         {
-          *v9 = v27;
-          v5 = v9 + 1;
+          *v10 = v28;
+          v6 = v10 + 1;
         }
 
         switch(*(this + 8))
         {
           case 1:
-            v290 = *this;
+            v291 = *this;
             if (**this >= 1)
             {
-              v291 = 0;
+              v292 = 0;
               do
               {
-                if (*a4 <= v5)
+                if (*a4 <= v6)
                 {
-                  v5 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a4, v5);
-                  v290 = *this;
+                  v6 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a4, v6);
+                  v291 = *this;
                 }
 
-                *v5 = *(*(v290 + 1) + 8 * v291);
-                v5 += 8;
-                ++v291;
-                v290 = *this;
+                *v6 = *(*(v291 + 8) + 8 * v292);
+                v6 += 8;
+                ++v292;
+                v291 = *this;
               }
 
-              while (v291 < **this);
+              while (v292 < **this);
             }
 
             break;
           case 2:
-            v292 = *this;
+            v293 = *this;
             if (**this >= 1)
             {
-              v293 = 0;
+              v294 = 0;
               do
               {
-                if (*a4 <= v5)
+                if (*a4 <= v6)
                 {
-                  v5 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a4, v5);
-                  v292 = *this;
+                  v6 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a4, v6);
+                  v293 = *this;
                 }
 
-                *v5 = *(*(v292 + 1) + 4 * v293);
-                v5 += 4;
-                ++v293;
-                v292 = *this;
+                *v6 = *(*(v293 + 8) + 4 * v294);
+                v6 += 4;
+                ++v294;
+                v293 = *this;
               }
 
-              while (v293 < **this);
+              while (v294 < **this);
             }
 
             break;
           case 3:
-            v274 = *this;
+            v275 = *this;
             if (**this >= 1)
             {
-              v275 = 0;
+              v276 = 0;
               do
               {
-                if (*a4 <= v5)
+                if (*a4 <= v6)
                 {
-                  v5 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a4, v5);
-                  v274 = *this;
+                  v6 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a4, v6);
+                  v275 = *this;
                 }
 
-                v276 = *(*(v274 + 1) + 8 * v275);
-                if (v276 > 0x7F)
+                v277 = *(*(v275 + 8) + 8 * v276);
+                if (v277 > 0x7F)
                 {
-                  *v5 = v276 | 0x80;
-                  v277 = v276 >> 7;
-                  if (v276 >> 14)
+                  *v6 = v277 | 0x80;
+                  v278 = v277 >> 7;
+                  if (v277 >> 14)
                   {
-                    v5 += 2;
+                    v6 += 2;
                     do
                     {
-                      *(v5 - 1) = v277 | 0x80;
-                      v278 = v277 >> 7;
-                      ++v5;
-                      v279 = v277 >> 14;
-                      v277 >>= 7;
+                      *(v6 - 1) = v278 | 0x80;
+                      v279 = v278 >> 7;
+                      ++v6;
+                      v280 = v278 >> 14;
+                      v278 >>= 7;
                     }
 
-                    while (v279);
-                    *(v5 - 1) = v278;
+                    while (v280);
+                    *(v6 - 1) = v279;
                   }
 
                   else
                   {
-                    v5[1] = v277;
-                    v5 += 2;
+                    v6[1] = v278;
+                    v6 += 2;
                   }
                 }
 
                 else
                 {
-                  *v5++ = v276;
+                  *v6++ = v277;
                 }
 
-                ++v275;
-                v274 = *this;
+                ++v276;
+                v275 = *this;
               }
 
-              while (v275 < **this);
+              while (v276 < **this);
             }
 
             break;
           case 4:
-            v282 = *this;
+            v283 = *this;
             if (**this >= 1)
             {
-              v283 = 0;
+              v284 = 0;
               do
               {
-                if (*a4 <= v5)
+                if (*a4 <= v6)
                 {
-                  v5 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a4, v5);
-                  v282 = *this;
+                  v6 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a4, v6);
+                  v283 = *this;
                 }
 
-                v284 = *(*(v282 + 1) + 8 * v283);
-                if (v284 > 0x7F)
+                v285 = *(*(v283 + 8) + 8 * v284);
+                if (v285 > 0x7F)
                 {
-                  *v5 = v284 | 0x80;
-                  v285 = v284 >> 7;
-                  if (v284 >> 14)
+                  *v6 = v285 | 0x80;
+                  v286 = v285 >> 7;
+                  if (v285 >> 14)
                   {
-                    v5 += 2;
+                    v6 += 2;
                     do
                     {
-                      *(v5 - 1) = v285 | 0x80;
-                      v286 = v285 >> 7;
-                      ++v5;
-                      v287 = v285 >> 14;
-                      v285 >>= 7;
+                      *(v6 - 1) = v286 | 0x80;
+                      v287 = v286 >> 7;
+                      ++v6;
+                      v288 = v286 >> 14;
+                      v286 >>= 7;
                     }
 
-                    while (v287);
-                    *(v5 - 1) = v286;
+                    while (v288);
+                    *(v6 - 1) = v287;
                   }
 
                   else
                   {
-                    v5[1] = v285;
-                    v5 += 2;
+                    v6[1] = v286;
+                    v6 += 2;
                   }
                 }
 
                 else
                 {
-                  *v5++ = v284;
+                  *v6++ = v285;
                 }
 
-                ++v283;
-                v282 = *this;
+                ++v284;
+                v283 = *this;
               }
 
-              while (v283 < **this);
+              while (v284 < **this);
             }
 
             break;
           case 5:
-            v262 = *this;
+            v263 = *this;
             if (**this >= 1)
             {
-              v263 = 0;
+              v264 = 0;
               do
               {
-                if (*a4 <= v5)
+                if (*a4 <= v6)
                 {
-                  v5 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a4, v5);
-                  v262 = *this;
+                  v6 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a4, v6);
+                  v263 = *this;
                 }
 
-                v264 = *(*(v262 + 1) + 4 * v263);
-                if (v264 > 0x7F)
+                v265 = *(*(v263 + 8) + 4 * v264);
+                if (v265 > 0x7F)
                 {
-                  *v5 = v264 | 0x80;
-                  v265 = v264 >> 7;
-                  if (v264 >> 14)
+                  *v6 = v265 | 0x80;
+                  v266 = v265 >> 7;
+                  if (v265 >> 14)
                   {
-                    v5 += 2;
+                    v6 += 2;
                     do
                     {
-                      *(v5 - 1) = v265 | 0x80;
-                      v266 = v265 >> 7;
-                      ++v5;
-                      v267 = v265 >> 14;
-                      v265 >>= 7;
+                      *(v6 - 1) = v266 | 0x80;
+                      v267 = v266 >> 7;
+                      ++v6;
+                      v268 = v266 >> 14;
+                      v266 >>= 7;
                     }
 
-                    while (v267);
-                    *(v5 - 1) = v266;
+                    while (v268);
+                    *(v6 - 1) = v267;
                   }
 
                   else
                   {
-                    v5[1] = v265;
-                    v5 += 2;
+                    v6[1] = v266;
+                    v6 += 2;
                   }
                 }
 
                 else
                 {
-                  *v5++ = v264;
+                  *v6++ = v265;
                 }
 
-                ++v263;
-                v262 = *this;
+                ++v264;
+                v263 = *this;
               }
 
-              while (v263 < **this);
+              while (v264 < **this);
             }
 
             break;
           case 6:
-            v307 = *this;
+            v308 = *this;
             if (**this >= 1)
             {
-              v308 = 0;
+              v309 = 0;
               do
               {
-                if (*a4 <= v5)
+                if (*a4 <= v6)
                 {
-                  v5 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a4, v5);
-                  v307 = *this;
+                  v6 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a4, v6);
+                  v308 = *this;
                 }
 
-                *v5 = *(*(v307 + 1) + 8 * v308);
-                v5 += 8;
-                ++v308;
-                v307 = *this;
+                *v6 = *(*(v308 + 8) + 8 * v309);
+                v6 += 8;
+                ++v309;
+                v308 = *this;
               }
 
-              while (v308 < **this);
+              while (v309 < **this);
             }
 
             break;
           case 7:
-            v309 = *this;
+            v310 = *this;
             if (**this >= 1)
             {
-              v310 = 0;
+              v311 = 0;
               do
               {
-                if (*a4 <= v5)
+                if (*a4 <= v6)
                 {
-                  v5 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a4, v5);
-                  v309 = *this;
+                  v6 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a4, v6);
+                  v310 = *this;
                 }
 
-                *v5 = *(*(v309 + 1) + 4 * v310);
-                v5 += 4;
-                ++v310;
-                v309 = *this;
+                *v6 = *(*(v310 + 8) + 4 * v311);
+                v6 += 4;
+                ++v311;
+                v310 = *this;
               }
 
-              while (v310 < **this);
+              while (v311 < **this);
             }
 
             break;
           case 8:
-            v288 = *this;
+            v289 = *this;
             if (**this >= 1)
             {
-              v289 = 0;
+              v290 = 0;
               do
               {
-                if (*a4 <= v5)
+                if (*a4 <= v6)
                 {
-                  v5 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a4, v5);
-                  v288 = *this;
+                  v6 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a4, v6);
+                  v289 = *this;
                 }
 
-                *v5++ = *(*(v288 + 1) + v289++);
-                v288 = *this;
+                *v6++ = *(*(v289 + 8) + v290++);
+                v289 = *this;
               }
 
-              while (v289 < **this);
+              while (v290 < **this);
             }
 
             break;
@@ -1578,276 +780,276 @@ unsigned __int8 *google::protobuf::internal::ExtensionSet::Extension::InternalSe
           case 0xB:
           case 0xC:
             google::protobuf::internal::LogMessage::LogMessage(v315, 3, "/Library/Caches/com.apple.xbs/Sources/iWorkXPC/shared/persistence/google/protobuf/extension_set.cc", 1966);
-            v31 = google::protobuf::internal::LogMessage::operator<<(v315, "Non-primitive types can't be packed.");
-            google::protobuf::internal::LogFinisher::operator=(&v314, &v31->__r_.__value_.__l.__data_);
+            v32 = google::protobuf::internal::LogMessage::operator<<(v315, "Non-primitive types can't be packed.");
+            google::protobuf::internal::LogFinisher::operator=(&v314, &v32->__r_.__value_.__l.__data_);
             google::protobuf::internal::LogMessage::~LogMessage(&v315[0].__r_.__value_.__l.__data_);
             break;
           case 0xD:
-            v268 = *this;
+            v269 = *this;
             if (**this >= 1)
             {
-              v269 = 0;
+              v270 = 0;
               do
               {
-                if (*a4 <= v5)
+                if (*a4 <= v6)
                 {
-                  v5 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a4, v5);
-                  v268 = *this;
+                  v6 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a4, v6);
+                  v269 = *this;
                 }
 
-                v270 = *(*(v268 + 1) + 4 * v269);
-                if (v270 > 0x7F)
+                v271 = *(*(v269 + 8) + 4 * v270);
+                if (v271 > 0x7F)
                 {
-                  *v5 = v270 | 0x80;
-                  v271 = v270 >> 7;
-                  if (v270 >> 14)
+                  *v6 = v271 | 0x80;
+                  v272 = v271 >> 7;
+                  if (v271 >> 14)
                   {
-                    v5 += 2;
+                    v6 += 2;
                     do
                     {
-                      *(v5 - 1) = v271 | 0x80;
-                      v272 = v271 >> 7;
-                      ++v5;
-                      v273 = v271 >> 14;
-                      v271 >>= 7;
+                      *(v6 - 1) = v272 | 0x80;
+                      v273 = v272 >> 7;
+                      ++v6;
+                      v274 = v272 >> 14;
+                      v272 >>= 7;
                     }
 
-                    while (v273);
-                    *(v5 - 1) = v272;
+                    while (v274);
+                    *(v6 - 1) = v273;
                   }
 
                   else
                   {
-                    v5[1] = v271;
-                    v5 += 2;
+                    v6[1] = v272;
+                    v6 += 2;
                   }
                 }
 
                 else
                 {
-                  *v5++ = v270;
+                  *v6++ = v271;
                 }
 
-                ++v269;
-                v268 = *this;
+                ++v270;
+                v269 = *this;
               }
 
-              while (v269 < **this);
+              while (v270 < **this);
             }
 
             break;
           case 0xE:
-            v301 = *this;
+            v302 = *this;
             if (**this >= 1)
             {
-              v302 = 0;
+              v303 = 0;
               do
               {
-                if (*a4 <= v5)
+                if (*a4 <= v6)
                 {
-                  v5 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a4, v5);
-                  v301 = *this;
+                  v6 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a4, v6);
+                  v302 = *this;
                 }
 
-                v303 = *(*(v301 + 1) + 4 * v302);
-                if (v303 > 0x7F)
+                v304 = *(*(v302 + 8) + 4 * v303);
+                if (v304 > 0x7F)
                 {
-                  *v5 = v303 | 0x80;
-                  v304 = v303 >> 7;
-                  if (v303 >> 14)
+                  *v6 = v304 | 0x80;
+                  v305 = v304 >> 7;
+                  if (v304 >> 14)
                   {
-                    v5 += 2;
+                    v6 += 2;
                     do
                     {
-                      *(v5 - 1) = v304 | 0x80;
-                      v305 = v304 >> 7;
-                      ++v5;
-                      v306 = v304 >> 14;
-                      v304 >>= 7;
+                      *(v6 - 1) = v305 | 0x80;
+                      v306 = v305 >> 7;
+                      ++v6;
+                      v307 = v305 >> 14;
+                      v305 >>= 7;
                     }
 
-                    while (v306);
-                    *(v5 - 1) = v305;
+                    while (v307);
+                    *(v6 - 1) = v306;
                   }
 
                   else
                   {
-                    v5[1] = v304;
-                    v5 += 2;
+                    v6[1] = v305;
+                    v6 += 2;
                   }
                 }
 
                 else
                 {
-                  *v5++ = v303;
+                  *v6++ = v304;
                 }
 
-                ++v302;
-                v301 = *this;
+                ++v303;
+                v302 = *this;
               }
 
-              while (v302 < **this);
+              while (v303 < **this);
             }
 
             break;
           case 0xF:
-            v260 = *this;
+            v261 = *this;
             if (**this >= 1)
             {
-              v261 = 0;
+              v262 = 0;
               do
               {
-                if (*a4 <= v5)
+                if (*a4 <= v6)
                 {
-                  v5 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a4, v5);
-                  v260 = *this;
+                  v6 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a4, v6);
+                  v261 = *this;
                 }
 
-                *v5 = *(*(v260 + 1) + 4 * v261);
-                v5 += 4;
-                ++v261;
-                v260 = *this;
+                *v6 = *(*(v261 + 8) + 4 * v262);
+                v6 += 4;
+                ++v262;
+                v261 = *this;
               }
 
-              while (v261 < **this);
+              while (v262 < **this);
             }
 
             break;
           case 0x10:
-            v280 = *this;
+            v281 = *this;
             if (**this >= 1)
             {
-              v281 = 0;
+              v282 = 0;
               do
               {
-                if (*a4 <= v5)
+                if (*a4 <= v6)
                 {
-                  v5 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a4, v5);
-                  v280 = *this;
+                  v6 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a4, v6);
+                  v281 = *this;
                 }
 
-                *v5 = *(*(v280 + 1) + 8 * v281);
-                v5 += 8;
-                ++v281;
-                v280 = *this;
+                *v6 = *(*(v281 + 8) + 8 * v282);
+                v6 += 8;
+                ++v282;
+                v281 = *this;
               }
 
-              while (v281 < **this);
+              while (v282 < **this);
             }
 
             break;
           case 0x11:
-            v253 = *this;
+            v254 = *this;
             if (**this >= 1)
             {
-              v254 = 0;
+              v255 = 0;
               do
               {
-                if (*a4 <= v5)
+                if (*a4 <= v6)
                 {
-                  v5 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a4, v5);
-                  v253 = *this;
+                  v6 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a4, v6);
+                  v254 = *this;
                 }
 
-                v255 = *(*(v253 + 1) + 4 * v254);
-                v256 = (2 * v255) ^ (v255 >> 31);
-                if (v256 > 0x7F)
+                v256 = *(*(v254 + 8) + 4 * v255);
+                v257 = (2 * v256) ^ (v256 >> 31);
+                if (v257 > 0x7F)
                 {
-                  *v5 = v256 | 0x80;
-                  v257 = v256 >> 7;
-                  if (v256 >> 14)
+                  *v6 = v257 | 0x80;
+                  v258 = v257 >> 7;
+                  if (v257 >> 14)
                   {
-                    v5 += 2;
+                    v6 += 2;
                     do
                     {
-                      *(v5 - 1) = v257 | 0x80;
-                      v258 = v257 >> 7;
-                      ++v5;
-                      v259 = v257 >> 14;
-                      v257 >>= 7;
+                      *(v6 - 1) = v258 | 0x80;
+                      v259 = v258 >> 7;
+                      ++v6;
+                      v260 = v258 >> 14;
+                      v258 >>= 7;
                     }
 
-                    while (v259);
-                    *(v5 - 1) = v258;
+                    while (v260);
+                    *(v6 - 1) = v259;
                   }
 
                   else
                   {
-                    v5[1] = v257;
-                    v5 += 2;
+                    v6[1] = v258;
+                    v6 += 2;
                   }
                 }
 
                 else
                 {
-                  *v5++ = v256;
+                  *v6++ = v257;
                 }
 
-                ++v254;
-                v253 = *this;
+                ++v255;
+                v254 = *this;
               }
 
-              while (v254 < **this);
+              while (v255 < **this);
             }
 
             break;
           case 0x12:
-            v294 = *this;
+            v295 = *this;
             if (**this >= 1)
             {
-              v295 = 0;
+              v296 = 0;
               do
               {
-                if (*a4 <= v5)
+                if (*a4 <= v6)
                 {
-                  v5 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a4, v5);
-                  v294 = *this;
+                  v6 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a4, v6);
+                  v295 = *this;
                 }
 
-                v296 = *(*(v294 + 1) + 8 * v295);
-                v297 = (2 * v296) ^ (v296 >> 63);
-                if (v297 > 0x7F)
+                v297 = *(*(v295 + 8) + 8 * v296);
+                v298 = (2 * v297) ^ (v297 >> 63);
+                if (v298 > 0x7F)
                 {
-                  *v5 = v297 | 0x80;
-                  v298 = v297 >> 7;
-                  if (v297 >> 14)
+                  *v6 = v298 | 0x80;
+                  v299 = v298 >> 7;
+                  if (v298 >> 14)
                   {
-                    v5 += 2;
+                    v6 += 2;
                     do
                     {
-                      *(v5 - 1) = v298 | 0x80;
-                      v299 = v298 >> 7;
-                      ++v5;
-                      v300 = v298 >> 14;
-                      v298 >>= 7;
+                      *(v6 - 1) = v299 | 0x80;
+                      v300 = v299 >> 7;
+                      ++v6;
+                      v301 = v299 >> 14;
+                      v299 >>= 7;
                     }
 
-                    while (v300);
-                    *(v5 - 1) = v299;
+                    while (v301);
+                    *(v6 - 1) = v300;
                   }
 
                   else
                   {
-                    v5[1] = v298;
-                    v5 += 2;
+                    v6[1] = v299;
+                    v6 += 2;
                   }
                 }
 
                 else
                 {
-                  *v5++ = v297;
+                  *v6++ = v298;
                 }
 
-                ++v295;
-                v294 = *this;
+                ++v296;
+                v295 = *this;
               }
 
-              while (v295 < **this);
+              while (v296 < **this);
             }
 
             break;
           default:
-            return v5;
+            return v6;
         }
       }
     }
@@ -1857,1325 +1059,1325 @@ unsigned __int8 *google::protobuf::internal::ExtensionSet::Extension::InternalSe
       switch(*(this + 8))
       {
         case 1:
-          v11 = *this;
+          v12 = *this;
           if (**this >= 1)
           {
-            v12 = 0;
-            v13 = 8 * a2;
-            v14 = (8 * a2) | 0x81;
-            v15 = (a2 >> 4) & 0x1FFFFFF;
-            v16 = (8 * a2) | 1;
-            v17 = (8 * a2) >> 7;
+            v13 = 0;
+            v14 = 8 * a2;
+            v15 = (8 * a2) | 0x81;
+            v16 = (a2 >> 4) & 0x1FFFFFF;
+            v17 = (8 * a2) | 1;
+            v18 = (8 * a2) >> 7;
             do
             {
-              if (*a4 <= v5)
+              if (*a4 <= v6)
               {
-                v5 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a4, v5);
-                v11 = *this;
+                v6 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a4, v6);
+                v12 = *this;
               }
 
-              v18 = *(*(v11 + 1) + 8 * v12);
-              if (v13 > 0x7F)
+              v19 = *(*(v12 + 8) + 8 * v13);
+              if (v14 > 0x7F)
               {
-                *v5 = v14;
-                if (v13 >= 0x4000)
+                *v6 = v15;
+                if (v14 >= 0x4000)
                 {
-                  v19 = v5 + 2;
-                  v20 = v15;
+                  v20 = v6 + 2;
+                  v21 = v16;
                   do
                   {
-                    *(v19 - 1) = v20 | 0x80;
-                    v21 = v20 >> 7;
-                    v19 = (v19 + 1);
-                    v22 = v20 >> 14;
-                    v20 >>= 7;
+                    *(v20 - 1) = v21 | 0x80;
+                    v22 = v21 >> 7;
+                    v20 = (v20 + 1);
+                    v23 = v21 >> 14;
+                    v21 >>= 7;
                   }
 
-                  while (v22);
-                  *(v19 - 1) = v21;
+                  while (v23);
+                  *(v20 - 1) = v22;
                 }
 
                 else
                 {
-                  v5[1] = v17;
-                  v19 = v5 + 2;
+                  v6[1] = v18;
+                  v20 = v6 + 2;
                 }
               }
 
               else
               {
-                *v5 = v16;
-                v19 = v5 + 1;
+                *v6 = v17;
+                v20 = v6 + 1;
               }
 
-              *v19 = v18;
-              v5 = (v19 + 1);
-              ++v12;
-              v11 = *this;
+              *v20 = v19;
+              v6 = (v20 + 1);
+              ++v13;
+              v12 = *this;
             }
 
-            while (v12 < **this);
+            while (v13 < **this);
           }
 
           break;
         case 2:
-          v167 = *this;
+          v168 = *this;
           if (**this >= 1)
           {
-            v168 = 0;
-            v169 = 8 * a2;
-            v170 = (a2 >> 4) & 0x1FFFFFF;
-            v171 = (8 * a2) | 5;
-            v172 = (8 * a2) >> 7;
-            v173 = (8 * a2) | 0x85;
+            v169 = 0;
+            v170 = 8 * a2;
+            v171 = (a2 >> 4) & 0x1FFFFFF;
+            v172 = (8 * a2) | 5;
+            v173 = (8 * a2) >> 7;
+            v174 = (8 * a2) | 0x85;
             do
             {
-              if (*a4 <= v5)
+              if (*a4 <= v6)
               {
-                v5 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a4, v5);
-                v167 = *this;
+                v6 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a4, v6);
+                v168 = *this;
               }
 
-              v174 = *(*(v167 + 1) + 4 * v168);
-              if (v169 > 0x7F)
+              v175 = *(*(v168 + 8) + 4 * v169);
+              if (v170 > 0x7F)
               {
-                *v5 = v173;
-                if (v169 >= 0x4000)
+                *v6 = v174;
+                if (v170 >= 0x4000)
                 {
-                  v175 = v5 + 2;
-                  v176 = v170;
+                  v176 = v6 + 2;
+                  v177 = v171;
                   do
                   {
-                    *(v175 - 1) = v176 | 0x80;
-                    v177 = v176 >> 7;
-                    v175 = (v175 + 1);
-                    v178 = v176 >> 14;
-                    v176 >>= 7;
+                    *(v176 - 1) = v177 | 0x80;
+                    v178 = v177 >> 7;
+                    v176 = (v176 + 1);
+                    v179 = v177 >> 14;
+                    v177 >>= 7;
                   }
 
-                  while (v178);
-                  *(v175 - 1) = v177;
+                  while (v179);
+                  *(v176 - 1) = v178;
                 }
 
                 else
                 {
-                  v5[1] = v172;
-                  v175 = v5 + 2;
+                  v6[1] = v173;
+                  v176 = v6 + 2;
                 }
               }
 
               else
               {
-                *v5 = v171;
-                v175 = v5 + 1;
+                *v6 = v172;
+                v176 = v6 + 1;
               }
 
-              *v175 = v174;
-              v5 = (v175 + 1);
-              ++v168;
-              v167 = *this;
+              *v176 = v175;
+              v6 = (v176 + 1);
+              ++v169;
+              v168 = *this;
             }
 
-            while (v168 < **this);
+            while (v169 < **this);
           }
 
           break;
         case 3:
-          v112 = *this;
+          v113 = *this;
           if (**this >= 1)
           {
-            v113 = 0;
-            v114 = 8 * a2;
-            v115 = (8 * a2) | 0x80;
-            v116 = (a2 >> 4) & 0x1FFFFFF;
+            v114 = 0;
+            v115 = 8 * a2;
+            v116 = (8 * a2) | 0x80;
+            v117 = (a2 >> 4) & 0x1FFFFFF;
             do
             {
-              if (*a4 <= v5)
+              if (*a4 <= v6)
               {
-                v5 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a4, v5);
-                v112 = *this;
+                v6 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a4, v6);
+                v113 = *this;
               }
 
-              v117 = *(*(v112 + 1) + 8 * v113);
-              if (v114 > 0x7F)
+              v118 = *(*(v113 + 8) + 8 * v114);
+              if (v115 > 0x7F)
               {
-                *v5 = v115;
-                if (v114 >= 0x4000)
+                *v6 = v116;
+                if (v115 >= 0x4000)
                 {
-                  v118 = v5 + 2;
-                  v119 = v116;
+                  v119 = v6 + 2;
+                  v120 = v117;
                   do
                   {
-                    *(v118 - 1) = v119 | 0x80;
-                    v120 = v119 >> 7;
-                    ++v118;
-                    v121 = v119 >> 14;
-                    v119 >>= 7;
+                    *(v119 - 1) = v120 | 0x80;
+                    v121 = v120 >> 7;
+                    ++v119;
+                    v122 = v120 >> 14;
+                    v120 >>= 7;
                   }
 
-                  while (v121);
-                  *(v118 - 1) = v120;
+                  while (v122);
+                  *(v119 - 1) = v121;
                 }
 
                 else
                 {
-                  v5[1] = v114 >> 7;
-                  v118 = v5 + 2;
+                  v6[1] = v115 >> 7;
+                  v119 = v6 + 2;
                 }
               }
 
               else
               {
-                v118 = v5 + 1;
-                *v5 = v114;
+                v119 = v6 + 1;
+                *v6 = v115;
               }
 
-              if (v117 > 0x7F)
+              if (v118 > 0x7F)
               {
-                *v118 = v117 | 0x80;
-                v122 = v117 >> 7;
-                if (v117 >> 14)
+                *v119 = v118 | 0x80;
+                v123 = v118 >> 7;
+                if (v118 >> 14)
                 {
-                  v5 = v118 + 2;
+                  v6 = v119 + 2;
                   do
                   {
-                    *(v5 - 1) = v122 | 0x80;
-                    v123 = v122 >> 7;
-                    ++v5;
-                    v124 = v122 >> 14;
-                    v122 >>= 7;
+                    *(v6 - 1) = v123 | 0x80;
+                    v124 = v123 >> 7;
+                    ++v6;
+                    v125 = v123 >> 14;
+                    v123 >>= 7;
                   }
 
-                  while (v124);
-                  *(v5 - 1) = v123;
+                  while (v125);
+                  *(v6 - 1) = v124;
                 }
 
                 else
                 {
-                  v118[1] = v122;
-                  v5 = v118 + 2;
+                  v119[1] = v123;
+                  v6 = v119 + 2;
                 }
               }
 
               else
               {
-                *v118 = v117;
-                v5 = v118 + 1;
+                *v119 = v118;
+                v6 = v119 + 1;
               }
 
-              ++v113;
-              v112 = *this;
+              ++v114;
+              v113 = *this;
             }
 
-            while (v113 < **this);
+            while (v114 < **this);
           }
 
           break;
         case 4:
-          v143 = *this;
+          v144 = *this;
           if (**this >= 1)
           {
-            v144 = 0;
-            v145 = 8 * a2;
-            v146 = (8 * a2) | 0x80;
-            v147 = (a2 >> 4) & 0x1FFFFFF;
+            v145 = 0;
+            v146 = 8 * a2;
+            v147 = (8 * a2) | 0x80;
+            v148 = (a2 >> 4) & 0x1FFFFFF;
             do
             {
-              if (*a4 <= v5)
+              if (*a4 <= v6)
               {
-                v5 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a4, v5);
-                v143 = *this;
+                v6 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a4, v6);
+                v144 = *this;
               }
 
-              v148 = *(*(v143 + 1) + 8 * v144);
-              if (v145 > 0x7F)
+              v149 = *(*(v144 + 8) + 8 * v145);
+              if (v146 > 0x7F)
               {
-                *v5 = v146;
-                if (v145 >= 0x4000)
+                *v6 = v147;
+                if (v146 >= 0x4000)
                 {
-                  v149 = v5 + 2;
-                  v150 = v147;
+                  v150 = v6 + 2;
+                  v151 = v148;
                   do
                   {
-                    *(v149 - 1) = v150 | 0x80;
-                    v151 = v150 >> 7;
-                    ++v149;
-                    v152 = v150 >> 14;
-                    v150 >>= 7;
+                    *(v150 - 1) = v151 | 0x80;
+                    v152 = v151 >> 7;
+                    ++v150;
+                    v153 = v151 >> 14;
+                    v151 >>= 7;
                   }
 
-                  while (v152);
-                  *(v149 - 1) = v151;
+                  while (v153);
+                  *(v150 - 1) = v152;
                 }
 
                 else
                 {
-                  v5[1] = v145 >> 7;
-                  v149 = v5 + 2;
+                  v6[1] = v146 >> 7;
+                  v150 = v6 + 2;
                 }
               }
 
               else
               {
-                v149 = v5 + 1;
-                *v5 = v145;
+                v150 = v6 + 1;
+                *v6 = v146;
               }
 
-              if (v148 > 0x7F)
+              if (v149 > 0x7F)
               {
-                *v149 = v148 | 0x80;
-                v153 = v148 >> 7;
-                if (v148 >> 14)
+                *v150 = v149 | 0x80;
+                v154 = v149 >> 7;
+                if (v149 >> 14)
                 {
-                  v5 = v149 + 2;
+                  v6 = v150 + 2;
                   do
                   {
-                    *(v5 - 1) = v153 | 0x80;
-                    v154 = v153 >> 7;
-                    ++v5;
-                    v155 = v153 >> 14;
-                    v153 >>= 7;
+                    *(v6 - 1) = v154 | 0x80;
+                    v155 = v154 >> 7;
+                    ++v6;
+                    v156 = v154 >> 14;
+                    v154 >>= 7;
                   }
 
-                  while (v155);
-                  *(v5 - 1) = v154;
+                  while (v156);
+                  *(v6 - 1) = v155;
                 }
 
                 else
                 {
-                  v149[1] = v153;
-                  v5 = v149 + 2;
+                  v150[1] = v154;
+                  v6 = v150 + 2;
                 }
               }
 
               else
               {
-                *v149 = v148;
-                v5 = v149 + 1;
+                *v150 = v149;
+                v6 = v150 + 1;
               }
 
-              ++v144;
-              v143 = *this;
+              ++v145;
+              v144 = *this;
             }
 
-            while (v144 < **this);
+            while (v145 < **this);
           }
 
           break;
         case 5:
-          v65 = *this;
+          v66 = *this;
           if (**this >= 1)
           {
-            v66 = 0;
-            v67 = 8 * a2;
-            v68 = (8 * a2) | 0x80;
-            v69 = (a2 >> 4) & 0x1FFFFFF;
+            v67 = 0;
+            v68 = 8 * a2;
+            v69 = (8 * a2) | 0x80;
+            v70 = (a2 >> 4) & 0x1FFFFFF;
             do
             {
-              if (*a4 <= v5)
+              if (*a4 <= v6)
               {
-                v5 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a4, v5);
-                v65 = *this;
+                v6 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a4, v6);
+                v66 = *this;
               }
 
-              v70 = *(*(v65 + 1) + 4 * v66);
-              if (v67 > 0x7F)
+              v71 = *(*(v66 + 8) + 4 * v67);
+              if (v68 > 0x7F)
               {
-                *v5 = v68;
-                if (v67 >= 0x4000)
+                *v6 = v69;
+                if (v68 >= 0x4000)
                 {
-                  v71 = v5 + 2;
-                  v72 = v69;
+                  v72 = v6 + 2;
+                  v73 = v70;
                   do
                   {
-                    *(v71 - 1) = v72 | 0x80;
-                    v73 = v72 >> 7;
-                    ++v71;
-                    v74 = v72 >> 14;
-                    v72 >>= 7;
+                    *(v72 - 1) = v73 | 0x80;
+                    v74 = v73 >> 7;
+                    ++v72;
+                    v75 = v73 >> 14;
+                    v73 >>= 7;
                   }
 
-                  while (v74);
-                  *(v71 - 1) = v73;
+                  while (v75);
+                  *(v72 - 1) = v74;
                 }
 
                 else
                 {
-                  v5[1] = v67 >> 7;
-                  v71 = v5 + 2;
+                  v6[1] = v68 >> 7;
+                  v72 = v6 + 2;
                 }
               }
 
               else
               {
-                v71 = v5 + 1;
-                *v5 = v67;
+                v72 = v6 + 1;
+                *v6 = v68;
               }
 
-              if (v70 > 0x7F)
+              if (v71 > 0x7F)
               {
-                *v71 = v70 | 0x80;
-                v75 = v70 >> 7;
-                if (v70 >> 14)
+                *v72 = v71 | 0x80;
+                v76 = v71 >> 7;
+                if (v71 >> 14)
                 {
-                  v5 = v71 + 2;
+                  v6 = v72 + 2;
                   do
                   {
-                    *(v5 - 1) = v75 | 0x80;
-                    v76 = v75 >> 7;
-                    ++v5;
-                    v77 = v75 >> 14;
-                    v75 >>= 7;
+                    *(v6 - 1) = v76 | 0x80;
+                    v77 = v76 >> 7;
+                    ++v6;
+                    v78 = v76 >> 14;
+                    v76 >>= 7;
                   }
 
-                  while (v77);
-                  *(v5 - 1) = v76;
+                  while (v78);
+                  *(v6 - 1) = v77;
                 }
 
                 else
                 {
-                  v71[1] = v75;
-                  v5 = v71 + 2;
+                  v72[1] = v76;
+                  v6 = v72 + 2;
                 }
               }
 
               else
               {
-                *v71 = v70;
-                v5 = v71 + 1;
+                *v72 = v71;
+                v6 = v72 + 1;
               }
 
-              ++v66;
-              v65 = *this;
+              ++v67;
+              v66 = *this;
             }
 
-            while (v66 < **this);
+            while (v67 < **this);
           }
 
           break;
         case 6:
-          v197 = *this;
+          v198 = *this;
           if (**this >= 1)
           {
-            v198 = 0;
-            v199 = 8 * a2;
-            v200 = (8 * a2) | 0x81;
-            v201 = (a2 >> 4) & 0x1FFFFFF;
-            v202 = (8 * a2) | 1;
-            v203 = (8 * a2) >> 7;
+            v199 = 0;
+            v200 = 8 * a2;
+            v201 = (8 * a2) | 0x81;
+            v202 = (a2 >> 4) & 0x1FFFFFF;
+            v203 = (8 * a2) | 1;
+            v204 = (8 * a2) >> 7;
             do
             {
-              if (*a4 <= v5)
+              if (*a4 <= v6)
               {
-                v5 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a4, v5);
-                v197 = *this;
+                v6 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a4, v6);
+                v198 = *this;
               }
 
-              v204 = *(*(v197 + 1) + 8 * v198);
-              if (v199 > 0x7F)
+              v205 = *(*(v198 + 8) + 8 * v199);
+              if (v200 > 0x7F)
               {
-                *v5 = v200;
-                if (v199 >= 0x4000)
+                *v6 = v201;
+                if (v200 >= 0x4000)
                 {
-                  v205 = v5 + 2;
-                  v206 = v201;
+                  v206 = v6 + 2;
+                  v207 = v202;
                   do
                   {
-                    *(v205 - 1) = v206 | 0x80;
-                    v207 = v206 >> 7;
-                    v205 = (v205 + 1);
-                    v208 = v206 >> 14;
-                    v206 >>= 7;
+                    *(v206 - 1) = v207 | 0x80;
+                    v208 = v207 >> 7;
+                    v206 = (v206 + 1);
+                    v209 = v207 >> 14;
+                    v207 >>= 7;
                   }
 
-                  while (v208);
-                  *(v205 - 1) = v207;
+                  while (v209);
+                  *(v206 - 1) = v208;
                 }
 
                 else
                 {
-                  v5[1] = v203;
-                  v205 = v5 + 2;
+                  v6[1] = v204;
+                  v206 = v6 + 2;
                 }
               }
 
               else
               {
-                *v5 = v202;
-                v205 = v5 + 1;
+                *v6 = v203;
+                v206 = v6 + 1;
               }
 
-              *v205 = v204;
-              v5 = (v205 + 1);
-              ++v198;
-              v197 = *this;
+              *v206 = v205;
+              v6 = (v206 + 1);
+              ++v199;
+              v198 = *this;
             }
 
-            while (v198 < **this);
+            while (v199 < **this);
           }
 
           break;
         case 7:
-          v222 = *this;
+          v223 = *this;
           if (**this >= 1)
           {
-            v223 = 0;
-            v224 = 8 * a2;
-            v225 = (a2 >> 4) & 0x1FFFFFF;
-            v226 = (8 * a2) | 5;
-            v227 = (8 * a2) >> 7;
-            v228 = (8 * a2) | 0x85;
+            v224 = 0;
+            v225 = 8 * a2;
+            v226 = (a2 >> 4) & 0x1FFFFFF;
+            v227 = (8 * a2) | 5;
+            v228 = (8 * a2) >> 7;
+            v229 = (8 * a2) | 0x85;
             do
             {
-              if (*a4 <= v5)
+              if (*a4 <= v6)
               {
-                v5 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a4, v5);
-                v222 = *this;
+                v6 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a4, v6);
+                v223 = *this;
               }
 
-              v229 = *(*(v222 + 1) + 4 * v223);
-              if (v224 > 0x7F)
+              v230 = *(*(v223 + 8) + 4 * v224);
+              if (v225 > 0x7F)
               {
-                *v5 = v228;
-                if (v224 >= 0x4000)
+                *v6 = v229;
+                if (v225 >= 0x4000)
                 {
-                  v230 = v5 + 2;
-                  v231 = v225;
+                  v231 = v6 + 2;
+                  v232 = v226;
                   do
                   {
-                    *(v230 - 1) = v231 | 0x80;
-                    v232 = v231 >> 7;
-                    v230 = (v230 + 1);
-                    v233 = v231 >> 14;
-                    v231 >>= 7;
+                    *(v231 - 1) = v232 | 0x80;
+                    v233 = v232 >> 7;
+                    v231 = (v231 + 1);
+                    v234 = v232 >> 14;
+                    v232 >>= 7;
                   }
 
-                  while (v233);
-                  *(v230 - 1) = v232;
+                  while (v234);
+                  *(v231 - 1) = v233;
                 }
 
                 else
                 {
-                  v5[1] = v227;
-                  v230 = v5 + 2;
+                  v6[1] = v228;
+                  v231 = v6 + 2;
                 }
               }
 
               else
               {
-                *v5 = v226;
-                v230 = v5 + 1;
+                *v6 = v227;
+                v231 = v6 + 1;
               }
 
-              *v230 = v229;
-              v5 = (v230 + 1);
-              ++v223;
-              v222 = *this;
+              *v231 = v230;
+              v6 = (v231 + 1);
+              ++v224;
+              v223 = *this;
             }
 
-            while (v223 < **this);
+            while (v224 < **this);
           }
 
           break;
         case 8:
-          v156 = *this;
+          v157 = *this;
           if (**this >= 1)
           {
-            v157 = 0;
-            v158 = 8 * a2;
-            v159 = (8 * a2) | 0x80;
-            v160 = (a2 >> 4) & 0x1FFFFFF;
-            v161 = (8 * a2) >> 7;
+            v158 = 0;
+            v159 = 8 * a2;
+            v160 = (8 * a2) | 0x80;
+            v161 = (a2 >> 4) & 0x1FFFFFF;
+            v162 = (8 * a2) >> 7;
             do
             {
-              if (*a4 <= v5)
+              if (*a4 <= v6)
               {
-                v5 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a4, v5);
-                v156 = *this;
+                v6 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a4, v6);
+                v157 = *this;
               }
 
-              v162 = *(*(v156 + 1) + v157);
-              if (v158 > 0x7F)
+              v163 = *(*(v157 + 8) + v158);
+              if (v159 > 0x7F)
               {
-                *v5 = v159;
-                if (v158 >= 0x4000)
+                *v6 = v160;
+                if (v159 >= 0x4000)
                 {
-                  v163 = v5 + 2;
-                  v164 = v160;
+                  v164 = v6 + 2;
+                  v165 = v161;
                   do
                   {
-                    *(v163 - 1) = v164 | 0x80;
-                    v165 = v164 >> 7;
-                    ++v163;
-                    v166 = v164 >> 14;
-                    v164 >>= 7;
+                    *(v164 - 1) = v165 | 0x80;
+                    v166 = v165 >> 7;
+                    ++v164;
+                    v167 = v165 >> 14;
+                    v165 >>= 7;
                   }
 
-                  while (v166);
-                  *(v163 - 1) = v165;
+                  while (v167);
+                  *(v164 - 1) = v166;
                 }
 
                 else
                 {
-                  v5[1] = v161;
-                  v163 = v5 + 2;
+                  v6[1] = v162;
+                  v164 = v6 + 2;
                 }
               }
 
               else
               {
-                *v5 = v158;
-                v163 = v5 + 1;
+                *v6 = v159;
+                v164 = v6 + 1;
               }
 
-              *v163 = v162;
-              v5 = v163 + 1;
-              ++v157;
-              v156 = *this;
+              *v164 = v163;
+              v6 = v164 + 1;
+              ++v158;
+              v157 = *this;
             }
 
-            while (v157 < **this);
+            while (v158 < **this);
           }
 
           break;
         case 9:
-          v251 = *this;
+          v252 = *this;
           if ((*this)[2] >= 1)
           {
-            v252 = 0;
+            v253 = 0;
             do
             {
-              if (*a4 <= v5)
+              if (*a4 <= v6)
               {
-                v5 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a4, v5);
-                v251 = *this;
+                v6 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a4, v6);
+                v252 = *this;
               }
 
-              v5 = sub_1000D92B8(a4, a2, *(*(v251 + 2) + 8 * v252++ + 8), v5);
-              v251 = *this;
+              v6 = sub_1000D92B8(a4, v7, *(*(v252 + 16) + 8 * v253++ + 8), v6);
+              v252 = *this;
             }
 
-            while (v252 < (*this)[2]);
+            while (v253 < (*this)[2]);
           }
 
           break;
         case 0xA:
-          v95 = *this;
+          v96 = *this;
           if ((*this)[2] >= 1)
           {
-            v96 = 0;
-            v97 = 8 * a2;
+            v97 = 0;
+            v98 = 8 * a2;
             v313 = (8 * a2) | 0x83;
-            v98 = (a2 >> 4) & 0x1FFFFFF;
-            v99 = (8 * a2) | 3;
-            v100 = (8 * a2) | 4;
-            v101 = (8 * a2) >> 7;
-            v102 = (8 * a2) | 0x84;
+            v99 = (a2 >> 4) & 0x1FFFFFF;
+            v100 = (8 * a2) | 3;
+            v101 = (8 * a2) | 4;
+            v102 = (8 * a2) >> 7;
+            v103 = (8 * a2) | 0x84;
             do
             {
-              if (*a4 <= v5)
+              if (*a4 <= v6)
               {
-                v5 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a4, v5);
-                v95 = *this;
+                v6 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a4, v6);
+                v96 = *this;
               }
 
-              v103 = *(*(v95 + 2) + 8 * v96 + 8);
-              if (v97 > 0x7F)
+              v104 = *(*(v96 + 16) + 8 * v97 + 8);
+              if (v98 > 0x7F)
               {
-                *v5 = v313;
-                if (v97 >= 0x4000)
+                *v6 = v313;
+                if (v98 >= 0x4000)
                 {
-                  v104 = v5 + 2;
-                  v105 = v98;
+                  v105 = v6 + 2;
+                  v106 = v99;
                   do
                   {
-                    *(v104 - 1) = v105 | 0x80;
-                    v106 = v105 >> 7;
-                    ++v104;
-                    v107 = v105 >> 14;
-                    v105 >>= 7;
+                    *(v105 - 1) = v106 | 0x80;
+                    v107 = v106 >> 7;
+                    ++v105;
+                    v108 = v106 >> 14;
+                    v106 >>= 7;
                   }
 
-                  while (v107);
-                  *(v104 - 1) = v106;
+                  while (v108);
+                  *(v105 - 1) = v107;
                 }
 
                 else
                 {
-                  v5[1] = v101;
-                  v104 = v5 + 2;
+                  v6[1] = v102;
+                  v105 = v6 + 2;
                 }
               }
 
               else
               {
-                v104 = v5 + 1;
-                *v5 = v99;
+                v105 = v6 + 1;
+                *v6 = v100;
               }
 
-              v108 = (*(*v103 + 96))(v103, v104, a4);
-              if (*a4 <= v108)
+              v109 = (*(*v104 + 96))(v104, v105, a4);
+              if (*a4 <= v109)
               {
-                v108 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a4, v108);
+                v109 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a4, v109);
               }
 
-              if (v97 > 0x7F)
+              if (v98 > 0x7F)
               {
-                *v108 = v102;
-                if (v97 >= 0x4000)
+                *v109 = v103;
+                if (v98 >= 0x4000)
                 {
-                  v5 = v108 + 2;
-                  v109 = v98;
+                  v6 = v109 + 2;
+                  v110 = v99;
                   do
                   {
-                    *(v5 - 1) = v109 | 0x80;
-                    v110 = v109 >> 7;
-                    ++v5;
-                    v111 = v109 >> 14;
-                    v109 >>= 7;
+                    *(v6 - 1) = v110 | 0x80;
+                    v111 = v110 >> 7;
+                    ++v6;
+                    v112 = v110 >> 14;
+                    v110 >>= 7;
                   }
 
-                  while (v111);
-                  *(v5 - 1) = v110;
+                  while (v112);
+                  *(v6 - 1) = v111;
                 }
 
                 else
                 {
-                  v108[1] = v101;
-                  v5 = v108 + 2;
+                  v109[1] = v102;
+                  v6 = v109 + 2;
                 }
               }
 
               else
               {
-                v5 = v108 + 1;
-                *v108 = v100;
+                v6 = v109 + 1;
+                *v109 = v101;
               }
 
-              ++v96;
-              v95 = *this;
+              ++v97;
+              v96 = *this;
             }
 
-            while (v96 < (*this)[2]);
+            while (v97 < (*this)[2]);
           }
 
           break;
         case 0xB:
-          v234 = *this;
+          v235 = *this;
           if ((*this)[2] >= 1)
           {
-            v235 = 0;
-            v236 = 8 * a2;
-            v237 = (a2 >> 4) & 0x1FFFFFF;
-            v238 = (8 * a2) | 2;
-            v239 = (8 * a2) | 0x82;
+            v236 = 0;
+            v237 = 8 * a2;
+            v238 = (a2 >> 4) & 0x1FFFFFF;
+            v239 = (8 * a2) | 2;
+            v240 = (8 * a2) | 0x82;
             do
             {
-              if (*a4 <= v5)
+              if (*a4 <= v6)
               {
-                v5 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a4, v5);
-                v234 = *this;
+                v6 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a4, v6);
+                v235 = *this;
               }
 
-              v240 = *(*(v234 + 2) + 8 * v235 + 8);
-              if (v236 > 0x7F)
+              v241 = *(*(v235 + 16) + 8 * v236 + 8);
+              if (v237 > 0x7F)
               {
-                *v5 = v239;
-                if (v236 >= 0x4000)
+                *v6 = v240;
+                if (v237 >= 0x4000)
                 {
-                  v241 = v5 + 2;
-                  v242 = v237;
+                  v242 = v6 + 2;
+                  v243 = v238;
                   do
                   {
-                    *(v241 - 1) = v242 | 0x80;
-                    v243 = v242 >> 7;
-                    ++v241;
-                    v244 = v242 >> 14;
-                    v242 >>= 7;
+                    *(v242 - 1) = v243 | 0x80;
+                    v244 = v243 >> 7;
+                    ++v242;
+                    v245 = v243 >> 14;
+                    v243 >>= 7;
                   }
 
-                  while (v244);
-                  *(v241 - 1) = v243;
+                  while (v245);
+                  *(v242 - 1) = v244;
                 }
 
                 else
                 {
-                  v5[1] = v236 >> 7;
-                  v241 = v5 + 2;
+                  v6[1] = v237 >> 7;
+                  v242 = v6 + 2;
                 }
               }
 
               else
               {
-                v241 = v5 + 1;
-                *v5 = v238;
+                v242 = v6 + 1;
+                *v6 = v239;
               }
 
-              v245 = (*(*v240 + 80))(v240);
-              if (v245 > 0x7F)
+              v246 = (*(*v241 + 80))(v241);
+              if (v246 > 0x7F)
               {
-                *v241 = v245 | 0x80;
-                v247 = v245 >> 7;
-                if (v245 >> 14)
+                *v242 = v246 | 0x80;
+                v248 = v246 >> 7;
+                if (v246 >> 14)
                 {
-                  v246 = v241 + 2;
+                  v247 = v242 + 2;
                   do
                   {
-                    *(v246 - 1) = v247 | 0x80;
-                    v248 = v247 >> 7;
-                    ++v246;
-                    v249 = v247 >> 14;
-                    v247 >>= 7;
+                    *(v247 - 1) = v248 | 0x80;
+                    v249 = v248 >> 7;
+                    ++v247;
+                    v250 = v248 >> 14;
+                    v248 >>= 7;
                   }
 
-                  while (v249);
-                  *(v246 - 1) = v248;
+                  while (v250);
+                  *(v247 - 1) = v249;
                 }
 
                 else
                 {
-                  v241[1] = v247;
-                  v246 = v241 + 2;
+                  v242[1] = v248;
+                  v247 = v242 + 2;
                 }
               }
 
               else
               {
-                *v241 = v245;
-                v246 = v241 + 1;
+                *v242 = v246;
+                v247 = v242 + 1;
               }
 
-              v5 = (*(*v240 + 96))(v240, v246, a4);
-              ++v235;
-              v234 = *this;
+              v6 = (*(*v241 + 96))(v241, v247, a4);
+              ++v236;
+              v235 = *this;
             }
 
-            while (v235 < (*this)[2]);
+            while (v236 < (*this)[2]);
           }
 
           break;
         case 0xC:
-          v62 = *this;
+          v63 = *this;
           if ((*this)[2] >= 1)
           {
-            v63 = 0;
+            v64 = 0;
             do
             {
-              if (*a4 <= v5)
+              if (*a4 <= v6)
               {
-                v5 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a4, v5);
-                v62 = *this;
+                v6 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a4, v6);
+                v63 = *this;
               }
 
-              v5 = sub_1000D92B8(a4, a2, *(*(v62 + 2) + 8 * v63++ + 8), v5);
-              v62 = *this;
+              v6 = sub_1000D92B8(a4, v7, *(*(v63 + 16) + 8 * v64++ + 8), v6);
+              v63 = *this;
             }
 
-            while (v63 < (*this)[2]);
+            while (v64 < (*this)[2]);
           }
 
           break;
         case 0xD:
-          v78 = *this;
+          v79 = *this;
           if (**this >= 1)
           {
-            v79 = 0;
-            v80 = 8 * a2;
-            v81 = (8 * a2) | 0x80;
-            v82 = (a2 >> 4) & 0x1FFFFFF;
+            v80 = 0;
+            v81 = 8 * a2;
+            v82 = (8 * a2) | 0x80;
+            v83 = (a2 >> 4) & 0x1FFFFFF;
             do
             {
-              if (*a4 <= v5)
+              if (*a4 <= v6)
               {
-                v5 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a4, v5);
-                v78 = *this;
+                v6 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a4, v6);
+                v79 = *this;
               }
 
-              v83 = *(*(v78 + 1) + 4 * v79);
-              if (v80 > 0x7F)
+              v84 = *(*(v79 + 8) + 4 * v80);
+              if (v81 > 0x7F)
               {
-                *v5 = v81;
-                if (v80 >= 0x4000)
+                *v6 = v82;
+                if (v81 >= 0x4000)
                 {
-                  v84 = v5 + 2;
-                  v85 = v82;
+                  v85 = v6 + 2;
+                  v86 = v83;
                   do
                   {
-                    *(v84 - 1) = v85 | 0x80;
-                    v86 = v85 >> 7;
-                    ++v84;
-                    v87 = v85 >> 14;
-                    v85 >>= 7;
+                    *(v85 - 1) = v86 | 0x80;
+                    v87 = v86 >> 7;
+                    ++v85;
+                    v88 = v86 >> 14;
+                    v86 >>= 7;
                   }
 
-                  while (v87);
-                  *(v84 - 1) = v86;
+                  while (v88);
+                  *(v85 - 1) = v87;
                 }
 
                 else
                 {
-                  v5[1] = v80 >> 7;
-                  v84 = v5 + 2;
+                  v6[1] = v81 >> 7;
+                  v85 = v6 + 2;
                 }
               }
 
               else
               {
-                v84 = v5 + 1;
-                *v5 = v80;
+                v85 = v6 + 1;
+                *v6 = v81;
               }
 
-              if (v83 > 0x7F)
+              if (v84 > 0x7F)
               {
-                *v84 = v83 | 0x80;
-                v88 = v83 >> 7;
-                if (v83 >> 14)
+                *v85 = v84 | 0x80;
+                v89 = v84 >> 7;
+                if (v84 >> 14)
                 {
-                  v5 = v84 + 2;
+                  v6 = v85 + 2;
                   do
                   {
-                    *(v5 - 1) = v88 | 0x80;
-                    v89 = v88 >> 7;
-                    ++v5;
-                    v90 = v88 >> 14;
-                    v88 >>= 7;
+                    *(v6 - 1) = v89 | 0x80;
+                    v90 = v89 >> 7;
+                    ++v6;
+                    v91 = v89 >> 14;
+                    v89 >>= 7;
                   }
 
-                  while (v90);
-                  *(v5 - 1) = v89;
+                  while (v91);
+                  *(v6 - 1) = v90;
                 }
 
                 else
                 {
-                  v84[1] = v88;
-                  v5 = v84 + 2;
+                  v85[1] = v89;
+                  v6 = v85 + 2;
                 }
               }
 
               else
               {
-                *v84 = v83;
-                v5 = v84 + 1;
+                *v85 = v84;
+                v6 = v85 + 1;
               }
 
-              ++v79;
-              v78 = *this;
+              ++v80;
+              v79 = *this;
             }
 
-            while (v79 < **this);
+            while (v80 < **this);
           }
 
           break;
         case 0xE:
-          v209 = *this;
+          v210 = *this;
           if (**this >= 1)
           {
-            v210 = 0;
-            v211 = 8 * a2;
-            v212 = (8 * a2) | 0x80;
-            v213 = (a2 >> 4) & 0x1FFFFFF;
+            v211 = 0;
+            v212 = 8 * a2;
+            v213 = (8 * a2) | 0x80;
+            v214 = (a2 >> 4) & 0x1FFFFFF;
             do
             {
-              if (*a4 <= v5)
+              if (*a4 <= v6)
               {
-                v5 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a4, v5);
-                v209 = *this;
+                v6 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a4, v6);
+                v210 = *this;
               }
 
-              v214 = *(*(v209 + 1) + 4 * v210);
-              if (v211 > 0x7F)
+              v215 = *(*(v210 + 8) + 4 * v211);
+              if (v212 > 0x7F)
               {
-                *v5 = v212;
-                if (v211 >= 0x4000)
+                *v6 = v213;
+                if (v212 >= 0x4000)
                 {
-                  v215 = v5 + 2;
-                  v216 = v213;
+                  v216 = v6 + 2;
+                  v217 = v214;
                   do
                   {
-                    *(v215 - 1) = v216 | 0x80;
-                    v217 = v216 >> 7;
-                    ++v215;
-                    v218 = v216 >> 14;
-                    v216 >>= 7;
+                    *(v216 - 1) = v217 | 0x80;
+                    v218 = v217 >> 7;
+                    ++v216;
+                    v219 = v217 >> 14;
+                    v217 >>= 7;
                   }
 
-                  while (v218);
-                  *(v215 - 1) = v217;
+                  while (v219);
+                  *(v216 - 1) = v218;
                 }
 
                 else
                 {
-                  v5[1] = v211 >> 7;
-                  v215 = v5 + 2;
+                  v6[1] = v212 >> 7;
+                  v216 = v6 + 2;
                 }
               }
 
               else
               {
-                v215 = v5 + 1;
-                *v5 = v211;
+                v216 = v6 + 1;
+                *v6 = v212;
               }
 
-              if (v214 > 0x7F)
+              if (v215 > 0x7F)
               {
-                *v215 = v214 | 0x80;
-                v219 = v214 >> 7;
-                if (v214 >> 14)
+                *v216 = v215 | 0x80;
+                v220 = v215 >> 7;
+                if (v215 >> 14)
                 {
-                  v5 = v215 + 2;
+                  v6 = v216 + 2;
                   do
                   {
-                    *(v5 - 1) = v219 | 0x80;
-                    v220 = v219 >> 7;
-                    ++v5;
-                    v221 = v219 >> 14;
-                    v219 >>= 7;
+                    *(v6 - 1) = v220 | 0x80;
+                    v221 = v220 >> 7;
+                    ++v6;
+                    v222 = v220 >> 14;
+                    v220 >>= 7;
                   }
 
-                  while (v221);
-                  *(v5 - 1) = v220;
+                  while (v222);
+                  *(v6 - 1) = v221;
                 }
 
                 else
                 {
-                  v215[1] = v219;
-                  v5 = v215 + 2;
+                  v216[1] = v220;
+                  v6 = v216 + 2;
                 }
               }
 
               else
               {
-                *v215 = v214;
-                v5 = v215 + 1;
+                *v216 = v215;
+                v6 = v216 + 1;
               }
 
-              ++v210;
-              v209 = *this;
+              ++v211;
+              v210 = *this;
             }
 
-            while (v210 < **this);
+            while (v211 < **this);
           }
 
           break;
         case 0xF:
-          v47 = *this;
+          v48 = *this;
           if (**this >= 1)
           {
-            v48 = 0;
-            v49 = 8 * a2;
-            v50 = (a2 >> 4) & 0x1FFFFFF;
-            v51 = (8 * a2) | 5;
-            v52 = (8 * a2) >> 7;
-            v53 = (8 * a2) | 0x85;
+            v49 = 0;
+            v50 = 8 * a2;
+            v51 = (a2 >> 4) & 0x1FFFFFF;
+            v52 = (8 * a2) | 5;
+            v53 = (8 * a2) >> 7;
+            v54 = (8 * a2) | 0x85;
             do
             {
-              if (*a4 <= v5)
+              if (*a4 <= v6)
               {
-                v5 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a4, v5);
-                v47 = *this;
+                v6 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a4, v6);
+                v48 = *this;
               }
 
-              v54 = *(*(v47 + 1) + 4 * v48);
-              if (v49 > 0x7F)
+              v55 = *(*(v48 + 8) + 4 * v49);
+              if (v50 > 0x7F)
               {
-                *v5 = v53;
-                if (v49 >= 0x4000)
+                *v6 = v54;
+                if (v50 >= 0x4000)
                 {
-                  v55 = v5 + 2;
-                  v56 = v50;
+                  v56 = v6 + 2;
+                  v57 = v51;
                   do
                   {
-                    *(v55 - 1) = v56 | 0x80;
-                    v57 = v56 >> 7;
-                    v55 = (v55 + 1);
-                    v58 = v56 >> 14;
-                    v56 >>= 7;
+                    *(v56 - 1) = v57 | 0x80;
+                    v58 = v57 >> 7;
+                    v56 = (v56 + 1);
+                    v59 = v57 >> 14;
+                    v57 >>= 7;
                   }
 
-                  while (v58);
-                  *(v55 - 1) = v57;
+                  while (v59);
+                  *(v56 - 1) = v58;
                 }
 
                 else
                 {
-                  v5[1] = v52;
-                  v55 = v5 + 2;
+                  v6[1] = v53;
+                  v56 = v6 + 2;
                 }
               }
 
               else
               {
-                *v5 = v51;
-                v55 = v5 + 1;
+                *v6 = v52;
+                v56 = v6 + 1;
               }
 
-              *v55 = v54;
-              v5 = (v55 + 1);
-              ++v48;
-              v47 = *this;
+              *v56 = v55;
+              v6 = (v56 + 1);
+              ++v49;
+              v48 = *this;
             }
 
-            while (v48 < **this);
+            while (v49 < **this);
           }
 
           break;
         case 0x10:
-          v128 = *this;
+          v129 = *this;
           if (**this >= 1)
           {
-            v129 = 0;
-            v130 = 8 * a2;
-            v131 = (8 * a2) | 0x81;
-            v132 = (a2 >> 4) & 0x1FFFFFF;
-            v133 = (8 * a2) | 1;
-            v134 = (8 * a2) >> 7;
+            v130 = 0;
+            v131 = 8 * a2;
+            v132 = (8 * a2) | 0x81;
+            v133 = (a2 >> 4) & 0x1FFFFFF;
+            v134 = (8 * a2) | 1;
+            v135 = (8 * a2) >> 7;
             do
             {
-              if (*a4 <= v5)
+              if (*a4 <= v6)
               {
-                v5 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a4, v5);
-                v128 = *this;
+                v6 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a4, v6);
+                v129 = *this;
               }
 
-              v135 = *(*(v128 + 1) + 8 * v129);
-              if (v130 > 0x7F)
+              v136 = *(*(v129 + 8) + 8 * v130);
+              if (v131 > 0x7F)
               {
-                *v5 = v131;
-                if (v130 >= 0x4000)
+                *v6 = v132;
+                if (v131 >= 0x4000)
                 {
-                  v136 = v5 + 2;
-                  v137 = v132;
+                  v137 = v6 + 2;
+                  v138 = v133;
                   do
                   {
-                    *(v136 - 1) = v137 | 0x80;
-                    v138 = v137 >> 7;
-                    v136 = (v136 + 1);
-                    v139 = v137 >> 14;
-                    v137 >>= 7;
+                    *(v137 - 1) = v138 | 0x80;
+                    v139 = v138 >> 7;
+                    v137 = (v137 + 1);
+                    v140 = v138 >> 14;
+                    v138 >>= 7;
                   }
 
-                  while (v139);
-                  *(v136 - 1) = v138;
+                  while (v140);
+                  *(v137 - 1) = v139;
                 }
 
                 else
                 {
-                  v5[1] = v134;
-                  v136 = v5 + 2;
+                  v6[1] = v135;
+                  v137 = v6 + 2;
                 }
               }
 
               else
               {
-                *v5 = v133;
-                v136 = v5 + 1;
+                *v6 = v134;
+                v137 = v6 + 1;
               }
 
-              *v136 = v135;
-              v5 = (v136 + 1);
-              ++v129;
-              v128 = *this;
+              *v137 = v136;
+              v6 = (v137 + 1);
+              ++v130;
+              v129 = *this;
             }
 
-            while (v129 < **this);
+            while (v130 < **this);
           }
 
           break;
         case 0x11:
-          v32 = *this;
+          v33 = *this;
           if (**this >= 1)
           {
-            v33 = 0;
-            v34 = 8 * a2;
-            v35 = (8 * a2) | 0x80;
-            v36 = (a2 >> 4) & 0x1FFFFFF;
+            v34 = 0;
+            v35 = 8 * a2;
+            v36 = (8 * a2) | 0x80;
+            v37 = (a2 >> 4) & 0x1FFFFFF;
             do
             {
-              if (*a4 <= v5)
+              if (*a4 <= v6)
               {
-                v5 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a4, v5);
-                v32 = *this;
+                v6 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a4, v6);
+                v33 = *this;
               }
 
-              v37 = *(*(v32 + 1) + 4 * v33);
-              if (v34 > 0x7F)
+              v38 = *(*(v33 + 8) + 4 * v34);
+              if (v35 > 0x7F)
               {
-                *v5 = v35;
-                if (v34 >= 0x4000)
+                *v6 = v36;
+                if (v35 >= 0x4000)
                 {
-                  v38 = v5 + 2;
-                  v39 = v36;
+                  v39 = v6 + 2;
+                  v40 = v37;
                   do
                   {
-                    *(v38 - 1) = v39 | 0x80;
-                    v40 = v39 >> 7;
-                    ++v38;
-                    v41 = v39 >> 14;
-                    v39 >>= 7;
+                    *(v39 - 1) = v40 | 0x80;
+                    v41 = v40 >> 7;
+                    ++v39;
+                    v42 = v40 >> 14;
+                    v40 >>= 7;
                   }
 
-                  while (v41);
-                  *(v38 - 1) = v40;
+                  while (v42);
+                  *(v39 - 1) = v41;
                 }
 
                 else
                 {
-                  v5[1] = v34 >> 7;
-                  v38 = v5 + 2;
+                  v6[1] = v35 >> 7;
+                  v39 = v6 + 2;
                 }
               }
 
               else
               {
-                v38 = v5 + 1;
-                *v5 = v34;
+                v39 = v6 + 1;
+                *v6 = v35;
               }
 
-              v42 = (2 * v37) ^ (v37 >> 31);
-              if (v42 > 0x7F)
+              v43 = (2 * v38) ^ (v38 >> 31);
+              if (v43 > 0x7F)
               {
-                *v38 = v42 | 0x80;
-                v43 = v42 >> 7;
-                if (v42 >> 14)
+                *v39 = v43 | 0x80;
+                v44 = v43 >> 7;
+                if (v43 >> 14)
                 {
-                  v5 = v38 + 2;
+                  v6 = v39 + 2;
                   do
                   {
-                    *(v5 - 1) = v43 | 0x80;
-                    v44 = v43 >> 7;
-                    ++v5;
-                    v45 = v43 >> 14;
-                    v43 >>= 7;
+                    *(v6 - 1) = v44 | 0x80;
+                    v45 = v44 >> 7;
+                    ++v6;
+                    v46 = v44 >> 14;
+                    v44 >>= 7;
                   }
 
-                  while (v45);
-                  *(v5 - 1) = v44;
+                  while (v46);
+                  *(v6 - 1) = v45;
                 }
 
                 else
                 {
-                  v38[1] = v43;
-                  v5 = v38 + 2;
+                  v39[1] = v44;
+                  v6 = v39 + 2;
                 }
               }
 
               else
               {
-                *v38 = v42;
-                v5 = v38 + 1;
+                *v39 = v43;
+                v6 = v39 + 1;
               }
 
-              ++v33;
-              v32 = *this;
+              ++v34;
+              v33 = *this;
             }
 
-            while (v33 < **this);
+            while (v34 < **this);
           }
 
           break;
         case 0x12:
-          v182 = *this;
+          v183 = *this;
           if (**this >= 1)
           {
-            v183 = 0;
-            v184 = 8 * a2;
-            v185 = (8 * a2) | 0x80;
-            v186 = (a2 >> 4) & 0x1FFFFFF;
+            v184 = 0;
+            v185 = 8 * a2;
+            v186 = (8 * a2) | 0x80;
+            v187 = (a2 >> 4) & 0x1FFFFFF;
             do
             {
-              if (*a4 <= v5)
+              if (*a4 <= v6)
               {
-                v5 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a4, v5);
-                v182 = *this;
+                v6 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a4, v6);
+                v183 = *this;
               }
 
-              v187 = *(*(v182 + 1) + 8 * v183);
-              if (v184 > 0x7F)
+              v188 = *(*(v183 + 8) + 8 * v184);
+              if (v185 > 0x7F)
               {
-                *v5 = v185;
-                if (v184 >= 0x4000)
+                *v6 = v186;
+                if (v185 >= 0x4000)
                 {
-                  v188 = v5 + 2;
-                  v189 = v186;
+                  v189 = v6 + 2;
+                  v190 = v187;
                   do
                   {
-                    *(v188 - 1) = v189 | 0x80;
-                    v190 = v189 >> 7;
-                    ++v188;
-                    v191 = v189 >> 14;
-                    v189 >>= 7;
+                    *(v189 - 1) = v190 | 0x80;
+                    v191 = v190 >> 7;
+                    ++v189;
+                    v192 = v190 >> 14;
+                    v190 >>= 7;
                   }
 
-                  while (v191);
-                  *(v188 - 1) = v190;
+                  while (v192);
+                  *(v189 - 1) = v191;
                 }
 
                 else
                 {
-                  v5[1] = v184 >> 7;
-                  v188 = v5 + 2;
+                  v6[1] = v185 >> 7;
+                  v189 = v6 + 2;
                 }
               }
 
               else
               {
-                v188 = v5 + 1;
-                *v5 = v184;
+                v189 = v6 + 1;
+                *v6 = v185;
               }
 
-              v192 = (2 * v187) ^ (v187 >> 63);
-              if (v192 > 0x7F)
+              v193 = (2 * v188) ^ (v188 >> 63);
+              if (v193 > 0x7F)
               {
-                *v188 = v192 | 0x80;
-                v193 = v192 >> 7;
-                if (v192 >> 14)
+                *v189 = v193 | 0x80;
+                v194 = v193 >> 7;
+                if (v193 >> 14)
                 {
-                  v5 = v188 + 2;
+                  v6 = v189 + 2;
                   do
                   {
-                    *(v5 - 1) = v193 | 0x80;
-                    v194 = v193 >> 7;
-                    ++v5;
-                    v195 = v193 >> 14;
-                    v193 >>= 7;
+                    *(v6 - 1) = v194 | 0x80;
+                    v195 = v194 >> 7;
+                    ++v6;
+                    v196 = v194 >> 14;
+                    v194 >>= 7;
                   }
 
-                  while (v195);
-                  *(v5 - 1) = v194;
+                  while (v196);
+                  *(v6 - 1) = v195;
                 }
 
                 else
                 {
-                  v188[1] = v193;
-                  v5 = v188 + 2;
+                  v189[1] = v194;
+                  v6 = v189 + 2;
                 }
               }
 
               else
               {
-                *v188 = v192;
-                v5 = v188 + 1;
+                *v189 = v193;
+                v6 = v189 + 1;
               }
 
-              ++v183;
-              v182 = *this;
+              ++v184;
+              v183 = *this;
             }
 
-            while (v183 < **this);
+            while (v184 < **this);
           }
 
           break;
         default:
-          return v5;
+          return v6;
       }
     }
 
-    return v5;
+    return v6;
   }
 
   if (*(this + 10))
   {
-    return v5;
+    return v6;
   }
 
   switch(*(this + 8))
@@ -3183,203 +2385,202 @@ unsigned __int8 *google::protobuf::internal::ExtensionSet::Extension::InternalSe
     case 1:
       if (*a4 <= a3)
       {
-        v5 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a4, a3);
-      }
-
-      v180 = *this;
-
-      return sub_1000FBF00(a2, v5, v180);
-    case 2:
-      if (*a4 <= a3)
-      {
-        v5 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a4, a3);
+        v6 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a4, a3);
       }
 
       v181 = *this;
 
-      return sub_1000FBE90(a2, v5, v181);
+      return sub_1000FBF00(v7, v6, v181);
+    case 2:
+      if (*a4 <= a3)
+      {
+        v6 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a4, a3);
+      }
+
+      v182 = *this;
+
+      return sub_1000FBE90(v7, v6, v182);
     case 3:
       if (*a4 <= a3)
       {
-        v5 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a4, a3);
+        v6 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a4, a3);
       }
 
-      v125 = *this;
-      v126 = a2;
-      v127 = v5;
+      v126 = *this;
+      v127 = v7;
+      v128 = v6;
 
-      return sub_1000FBAD8(v126, v125, v127);
+      return sub_1000FBAD8(v127, v126, v128);
     case 4:
       if (*a4 <= a3)
       {
-        v5 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a4, a3);
+        v6 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a4, a3);
       }
 
-      v125 = *this;
-      v126 = a2;
-      v127 = v5;
+      v126 = *this;
+      v127 = v7;
+      v128 = v6;
 
-      return sub_1000FBAD8(v126, v125, v127);
+      return sub_1000FBAD8(v127, v126, v128);
     case 5:
       if (*a4 <= a3)
       {
-        v5 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a4, a3);
+        v6 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a4, a3);
       }
 
-      v92 = *this;
-      v93 = a2;
-      v94 = v5;
+      v93 = *this;
+      v94 = v7;
+      v95 = v6;
 
       goto LABEL_148;
     case 6:
       if (*a4 <= a3)
       {
-        v5 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a4, a3);
+        v6 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a4, a3);
       }
 
-      v140 = *this;
-      v141 = a2;
-      v142 = v5;
+      v141 = *this;
+      v142 = v7;
+      v143 = v6;
 
       goto LABEL_213;
     case 7:
       if (*a4 <= a3)
       {
-        v5 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a4, a3);
+        v6 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a4, a3);
       }
 
-      v59 = *this;
-      v60 = a2;
-      v61 = v5;
+      v60 = *this;
+      v61 = v7;
+      v62 = v6;
 
       goto LABEL_86;
     case 8:
       if (*a4 <= a3)
       {
-        v5 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a4, a3);
+        v6 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a4, a3);
       }
 
-      v179 = *this;
+      v180 = *this;
 
-      return sub_1000FBF68(a2, v179, v5);
+      return sub_1000FBF68(v7, v180, v6);
     case 9:
     case 0xC:
       if (*a4 <= a3)
       {
-        v5 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a4, a3);
+        v6 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a4, a3);
       }
 
-      v23 = *this;
+      v24 = *this;
 
-      return sub_1000D92B8(a4, a2, v23, v5);
+      return sub_1000D92B8(a4, v7, v24, v6);
     case 0xA:
       if (*a4 <= a3)
       {
-        v5 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a4, a3);
+        v6 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a4, a3);
       }
 
-      v250 = *this;
+      v251 = *this;
 
-      return sub_1000FBFCC(a2, v250, v5, a4);
+      return sub_1000FBFCC(v7, v251, v6, a4);
     case 0xB:
       if ((*(this + 10) & 0x10) != 0)
       {
-        v311 = *this;
         v312 = *(**this + 136);
 
-        return v312();
+        return v312(a5);
       }
 
       else
       {
         if (*a4 <= a3)
         {
-          v5 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a4, a3);
+          v6 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a4, a3);
         }
 
-        v64 = *this;
+        v65 = *this;
 
-        return sub_1000FC0FC(a2, v64, v5, a4);
+        return sub_1000FC0FC(v7, v65, v6, a4);
       }
 
     case 0xD:
       if (*a4 <= a3)
       {
-        v5 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a4, a3);
-      }
-
-      v91 = *this;
-
-      return sub_1000FBB8C(a2, v91, v5);
-    case 0xE:
-      if (*a4 <= a3)
-      {
-        v5 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a4, a3);
+        v6 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a4, a3);
       }
 
       v92 = *this;
-      v93 = a2;
-      v94 = v5;
+
+      return sub_1000FBB8C(v7, v92, v6);
+    case 0xE:
+      if (*a4 <= a3)
+      {
+        v6 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a4, a3);
+      }
+
+      v93 = *this;
+      v94 = v7;
+      v95 = v6;
 
 LABEL_148:
-      result = sub_1000FBA20(v93, v92, v94);
+      result = sub_1000FBA20(v94, v93, v95);
       break;
     case 0xF:
       if (*a4 <= a3)
       {
-        v5 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a4, a3);
+        v6 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a4, a3);
       }
 
-      v59 = *this;
-      v60 = a2;
-      v61 = v5;
+      v60 = *this;
+      v61 = v7;
+      v62 = v6;
 
 LABEL_86:
-      result = sub_1000FBDB8(v60, v59, v61);
+      result = sub_1000FBDB8(v61, v60, v62);
       break;
     case 0x10:
       if (*a4 <= a3)
       {
-        v5 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a4, a3);
+        v6 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a4, a3);
       }
 
-      v140 = *this;
-      v141 = a2;
-      v142 = v5;
+      v141 = *this;
+      v142 = v7;
+      v143 = v6;
 
 LABEL_213:
-      result = sub_1000FBE28(v141, v140, v142);
+      result = sub_1000FBE28(v142, v141, v143);
       break;
     case 0x11:
       if (*a4 <= a3)
       {
-        v5 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a4, a3);
+        v6 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a4, a3);
       }
 
-      v46 = *this;
+      v47 = *this;
 
-      result = sub_1000FBC40(a2, v46, v5);
+      result = sub_1000FBC40(v7, v47, v6);
       break;
     case 0x12:
       if (*a4 <= a3)
       {
-        v5 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a4, a3);
+        v6 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a4, a3);
       }
 
-      v196 = *this;
+      v197 = *this;
 
-      result = sub_1000FBCFC(a2, v196, v5);
+      result = sub_1000FBCFC(v7, v197, v6);
       break;
     default:
-      return v5;
+      return v6;
   }
 
   return result;
 }
 
-void sub_1000FAC70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1000FAC70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -3429,178 +2630,178 @@ unint64_t google::protobuf::internal::ExtensionSet::Extension::ByteSize(uint64_t
         case 1:
         case 6:
         case 0x10:
-          v8 = 8 * **this;
+          v7 = 8 * **this;
           goto LABEL_110;
         case 2:
         case 7:
         case 0xF:
-          v8 = 4 * **this;
+          v7 = 4 * **this;
           goto LABEL_110;
         case 3:
+          v68 = **this;
+          if (v68 < 1)
+          {
+            goto LABEL_5;
+          }
+
+          v7 = 0;
+          v69 = (*this)[1];
+          do
+          {
+            v70 = *v69++;
+            v7 += (9 * (__clz(v70 | 1) ^ 0x3F) + 73) >> 6;
+            --v68;
+          }
+
+          while (v68);
+          goto LABEL_110;
+        case 4:
           v71 = **this;
           if (v71 < 1)
           {
             goto LABEL_5;
           }
 
-          v8 = 0;
+          v7 = 0;
           v72 = (*this)[1];
           do
           {
             v73 = *v72++;
-            v8 += (9 * (__clz(v73 | 1) ^ 0x3F) + 73) >> 6;
+            v7 += (9 * (__clz(v73 | 1) ^ 0x3F) + 73) >> 6;
             --v71;
           }
 
           while (v71);
           goto LABEL_110;
-        case 4:
-          v74 = **this;
-          if (v74 < 1)
-          {
-            goto LABEL_5;
-          }
-
-          v8 = 0;
-          v75 = (*this)[1];
-          do
-          {
-            v76 = *v75++;
-            v8 += (9 * (__clz(v76 | 1) ^ 0x3F) + 73) >> 6;
-            --v74;
-          }
-
-          while (v74);
-          goto LABEL_110;
         case 5:
-          v54 = **this;
-          if (v54 < 1)
+          v51 = **this;
+          if (v51 < 1)
           {
             goto LABEL_5;
           }
 
-          v8 = 0;
-          v55 = (*this)[1];
+          v7 = 0;
+          v52 = (*this)[1];
           do
           {
-            v57 = *v55++;
-            v56 = v57;
-            if (v57 < 0)
+            v54 = *v52++;
+            v53 = v54;
+            if (v54 < 0)
             {
-              v58 = 10;
+              v55 = 10;
             }
 
             else
             {
-              v58 = (9 * (__clz(v56 | 1) ^ 0x1F) + 73) >> 6;
+              v55 = (9 * (__clz(v53 | 1) ^ 0x1F) + 73) >> 6;
             }
 
-            v8 += v58;
-            --v54;
+            v7 += v55;
+            --v51;
           }
 
-          while (v54);
+          while (v51);
           goto LABEL_110;
         case 8:
-          v8 = **this;
+          v7 = **this;
           goto LABEL_110;
         case 9:
         case 0xA:
         case 0xB:
         case 0xC:
-          google::protobuf::internal::LogMessage::LogMessage(v90, 3, "/Library/Caches/com.apple.xbs/Sources/iWorkXPC/shared/persistence/google/protobuf/extension_set.cc", 1599);
-          v3 = google::protobuf::internal::LogMessage::operator<<(v90, "Non-primitive types can't be packed.");
-          google::protobuf::internal::LogFinisher::operator=(&v89, &v3->__r_.__value_.__l.__data_);
-          google::protobuf::internal::LogMessage::~LogMessage(&v90[0].__r_.__value_.__l.__data_);
+          google::protobuf::internal::LogMessage::LogMessage(v87, 3, "/Library/Caches/com.apple.xbs/Sources/iWorkXPC/shared/persistence/google/protobuf/extension_set.cc", 1599);
+          v3 = google::protobuf::internal::LogMessage::operator<<(v87, "Non-primitive types can't be packed.");
+          google::protobuf::internal::LogFinisher::operator=(&v86, &v3->__r_.__value_.__l.__data_);
+          google::protobuf::internal::LogMessage::~LogMessage(&v87[0].__r_.__value_.__l.__data_);
           goto LABEL_5;
         case 0xD:
-          v20 = **this;
-          if (v20 < 1)
+          v19 = **this;
+          if (v19 < 1)
           {
             goto LABEL_5;
           }
 
-          v8 = 0;
-          v21 = (*this)[1];
+          v7 = 0;
+          v20 = (*this)[1];
           do
           {
-            v22 = *v21++;
-            v8 += (9 * (__clz(v22 | 1) ^ 0x1F) + 73) >> 6;
-            --v20;
+            v21 = *v20++;
+            v7 += (9 * (__clz(v21 | 1) ^ 0x1F) + 73) >> 6;
+            --v19;
           }
 
-          while (v20);
+          while (v19);
           goto LABEL_110;
         case 0xE:
-          v39 = **this;
-          if (v39 < 1)
+          v36 = **this;
+          if (v36 < 1)
           {
             goto LABEL_5;
           }
 
-          v8 = 0;
-          v40 = (*this)[1];
+          v7 = 0;
+          v37 = (*this)[1];
           do
           {
-            v42 = *v40++;
-            v41 = v42;
-            if (v42 < 0)
+            v39 = *v37++;
+            v38 = v39;
+            if (v39 < 0)
             {
-              v43 = 10;
+              v40 = 10;
             }
 
             else
             {
-              v43 = (9 * (__clz(v41 | 1) ^ 0x1F) + 73) >> 6;
+              v40 = (9 * (__clz(v38 | 1) ^ 0x1F) + 73) >> 6;
             }
 
-            v8 += v43;
-            --v39;
+            v7 += v40;
+            --v36;
           }
 
-          while (v39);
+          while (v36);
           goto LABEL_110;
         case 0x11:
-          v13 = **this;
-          if (v13 < 1)
+          v12 = **this;
+          if (v12 < 1)
           {
             goto LABEL_5;
           }
 
-          v8 = 0;
-          v14 = (*this)[1];
+          v7 = 0;
+          v13 = (*this)[1];
           do
           {
-            v15 = *v14++;
-            v8 += (9 * (__clz((2 * v15) ^ (v15 >> 31) | 1) ^ 0x1F) + 73) >> 6;
-            --v13;
+            v14 = *v13++;
+            v7 += (9 * (__clz((2 * v14) ^ (v14 >> 31) | 1) ^ 0x1F) + 73) >> 6;
+            --v12;
           }
 
-          while (v13);
+          while (v12);
           goto LABEL_110;
         case 0x12:
-          v59 = **this;
-          if (v59 < 1)
+          v56 = **this;
+          if (v56 < 1)
           {
             goto LABEL_5;
           }
 
-          v8 = 0;
-          v60 = (*this)[1];
+          v7 = 0;
+          v57 = (*this)[1];
           do
           {
-            v61 = *v60++;
-            v8 += (9 * (__clz((2 * v61) ^ (v61 >> 63) | 1) ^ 0x3F) + 73) >> 6;
-            --v59;
+            v58 = *v57++;
+            v7 += (9 * (__clz((2 * v58) ^ (v58 >> 63) | 1) ^ 0x3F) + 73) >> 6;
+            --v56;
           }
 
-          while (v59);
+          while (v56);
 LABEL_110:
-          *(this + 3) = v8;
-          v77 = v8 + ((9 * (__clz((8 * a2) | 3) ^ 0x1F) + 73) >> 6) + ((9 * (__clz(v8 | 1) ^ 0x1F) + 73) >> 6);
-          if (v8)
+          *(this + 3) = v7;
+          v74 = v7 + ((9 * (__clz((8 * a2) | 3) ^ 0x1F) + 73) >> 6) + ((9 * (__clz(v7 | 1) ^ 0x1F) + 73) >> 6);
+          if (v7)
           {
-            v4 = v77;
+            v4 = v74;
           }
 
           else
@@ -3619,24 +2820,41 @@ LABEL_5:
 
     else
     {
-      v6 = ((9 * (__clz((8 * a2) | 1) ^ 0x1F) + 73) >> 6) << (*(this + 8) == 10);
+      v5 = ((9 * (__clz((8 * a2) | 1) ^ 0x1F) + 73) >> 6) << (*(this + 8) == 10);
       switch(*(this + 8))
       {
         case 1:
         case 6:
         case 0x10:
-          v7 = v6 + 8;
+          v6 = v5 + 8;
           goto LABEL_13;
         case 2:
         case 7:
         case 0xF:
-          v7 = v6 + 4;
+          v6 = v5 + 4;
 LABEL_13:
-          v4 = v7 * **this;
+          v4 = v6 * **this;
           break;
         case 3:
+          v62 = **this;
+          v4 = v5 * v62;
+          if (v62 >= 1)
+          {
+            v63 = (*this)[1];
+            do
+            {
+              v64 = *v63++;
+              v4 += (9 * (__clz(v64 | 1) ^ 0x3F) + 73) >> 6;
+              --v62;
+            }
+
+            while (v62);
+          }
+
+          break;
+        case 4:
           v65 = **this;
-          v4 = v6 * v65;
+          v4 = v5 * v65;
           if (v65 >= 1)
           {
             v66 = (*this)[1];
@@ -3651,217 +2869,200 @@ LABEL_13:
           }
 
           break;
-        case 4:
-          v68 = **this;
-          v4 = v6 * v68;
-          if (v68 >= 1)
-          {
-            v69 = (*this)[1];
-            do
-            {
-              v70 = *v69++;
-              v4 += (9 * (__clz(v70 | 1) ^ 0x3F) + 73) >> 6;
-              --v68;
-            }
-
-            while (v68);
-          }
-
-          break;
         case 5:
-          v49 = **this;
-          v4 = v6 * v49;
-          if (v49 >= 1)
+          v46 = **this;
+          v4 = v5 * v46;
+          if (v46 >= 1)
           {
-            v50 = (*this)[1];
+            v47 = (*this)[1];
             do
             {
-              v52 = *v50++;
-              v51 = v52;
-              if (v52 < 0)
+              v49 = *v47++;
+              v48 = v49;
+              if (v49 < 0)
               {
-                v53 = 10;
+                v50 = 10;
               }
 
               else
               {
-                v53 = (9 * (__clz(v51 | 1) ^ 0x1F) + 73) >> 6;
+                v50 = (9 * (__clz(v48 | 1) ^ 0x1F) + 73) >> 6;
               }
 
-              v4 += v53;
-              --v49;
+              v4 += v50;
+              --v46;
             }
 
-            while (v49);
+            while (v46);
           }
 
           break;
         case 8:
-          v4 = **this + **this * v6;
+          v4 = **this + **this * v5;
           break;
         case 9:
-          v84 = *(*this + 2);
-          v4 = v6 * v84;
-          if (v84 >= 1)
+          v81 = *(*this + 2);
+          v4 = v5 * v81;
+          if (v81 >= 1)
           {
-            v85 = ((*this)[2] + 8);
+            v82 = ((*this)[2] + 8);
             do
             {
-              v86 = *v85++;
-              v87 = *(v86 + 23);
-              v88 = *(v86 + 8);
-              if ((v87 & 0x80u) == 0)
+              v83 = *v82++;
+              v84 = *(v83 + 23);
+              v85 = *(v83 + 8);
+              if ((v84 & 0x80u) == 0)
               {
-                v88 = v87;
+                v85 = v84;
               }
 
-              v4 += v88 + ((9 * (__clz(v88 | 1) ^ 0x1F) + 73) >> 6);
-              --v84;
+              v4 += v85 + ((9 * (__clz(v85 | 1) ^ 0x1F) + 73) >> 6);
+              --v81;
             }
 
-            while (v84);
+            while (v81);
           }
 
           break;
         case 0xA:
-          v27 = *this;
-          v28 = *(*this + 2);
-          v4 = v6 * v28;
-          if (v28 >= 1)
+          v25 = *this;
+          v26 = *(*this + 2);
+          v4 = v5 * v26;
+          if (v26 >= 1)
           {
-            v29 = 0;
+            v27 = 0;
             do
             {
-              v30 = *(*(v27 + 2) + 8 * v29 + 8);
-              v4 += (*(*v30 + 72))(v30);
-              ++v29;
-              v27 = *this;
+              v28 = *(*(v25 + 2) + 8 * v27 + 8);
+              v4 += (*(*v28 + 72))(v28);
+              ++v27;
+              v25 = *this;
             }
 
-            while (v29 < *(*this + 2));
+            while (v27 < *(*this + 2));
           }
 
           break;
         case 0xB:
-          v34 = *this;
-          v35 = *(*this + 2);
-          v4 = v6 * v35;
-          if (v35 >= 1)
+          v31 = *this;
+          v32 = *(*this + 2);
+          v4 = v5 * v32;
+          if (v32 >= 1)
           {
-            v36 = 0;
+            v33 = 0;
             do
             {
-              v37 = *(*(v34 + 2) + 8 * v36 + 8);
-              v38 = (*(*v37 + 72))(v37);
-              v4 += v38 + ((9 * (__clz(v38 | 1) ^ 0x1F) + 73) >> 6);
-              ++v36;
-              v34 = *this;
+              v34 = *(*(v31 + 2) + 8 * v33 + 8);
+              v35 = (*(*v34 + 72))(v34);
+              v4 += v35 + ((9 * (__clz(v35 | 1) ^ 0x1F) + 73) >> 6);
+              ++v33;
+              v31 = *this;
             }
 
-            while (v36 < *(*this + 2));
+            while (v33 < *(*this + 2));
           }
 
           break;
         case 0xC:
-          v79 = *(*this + 2);
-          v4 = v6 * v79;
-          if (v79 >= 1)
+          v76 = *(*this + 2);
+          v4 = v5 * v76;
+          if (v76 >= 1)
           {
-            v80 = ((*this)[2] + 8);
+            v77 = ((*this)[2] + 8);
             do
             {
-              v81 = *v80++;
-              v82 = *(v81 + 23);
-              v83 = *(v81 + 8);
-              if ((v82 & 0x80u) == 0)
+              v78 = *v77++;
+              v79 = *(v78 + 23);
+              v80 = *(v78 + 8);
+              if ((v79 & 0x80u) == 0)
               {
-                v83 = v82;
+                v80 = v79;
               }
 
-              v4 += v83 + ((9 * (__clz(v83 | 1) ^ 0x1F) + 73) >> 6);
-              --v79;
+              v4 += v80 + ((9 * (__clz(v80 | 1) ^ 0x1F) + 73) >> 6);
+              --v76;
             }
 
-            while (v79);
+            while (v76);
           }
 
           break;
         case 0xD:
-          v23 = **this;
-          v4 = v6 * v23;
-          if (v23 >= 1)
+          v22 = **this;
+          v4 = v5 * v22;
+          if (v22 >= 1)
           {
-            v24 = (*this)[1];
+            v23 = (*this)[1];
             do
             {
-              v25 = *v24++;
-              v4 += (9 * (__clz(v25 | 1) ^ 0x1F) + 73) >> 6;
-              --v23;
+              v24 = *v23++;
+              v4 += (9 * (__clz(v24 | 1) ^ 0x1F) + 73) >> 6;
+              --v22;
             }
 
-            while (v23);
+            while (v22);
           }
 
           break;
         case 0xE:
-          v44 = **this;
-          v4 = v6 * v44;
-          if (v44 >= 1)
+          v41 = **this;
+          v4 = v5 * v41;
+          if (v41 >= 1)
           {
-            v45 = (*this)[1];
+            v42 = (*this)[1];
             do
             {
-              v47 = *v45++;
-              v46 = v47;
-              if (v47 < 0)
+              v44 = *v42++;
+              v43 = v44;
+              if (v44 < 0)
               {
-                v48 = 10;
+                v45 = 10;
               }
 
               else
               {
-                v48 = (9 * (__clz(v46 | 1) ^ 0x1F) + 73) >> 6;
+                v45 = (9 * (__clz(v43 | 1) ^ 0x1F) + 73) >> 6;
               }
 
-              v4 += v48;
-              --v44;
+              v4 += v45;
+              --v41;
             }
 
-            while (v44);
+            while (v41);
           }
 
           break;
         case 0x11:
-          v16 = **this;
-          v4 = v6 * v16;
-          if (v16 >= 1)
+          v15 = **this;
+          v4 = v5 * v15;
+          if (v15 >= 1)
           {
-            v17 = (*this)[1];
+            v16 = (*this)[1];
             do
             {
-              v18 = *v17++;
-              v4 += (9 * (__clz((2 * v18) ^ (v18 >> 31) | 1) ^ 0x1F) + 73) >> 6;
-              --v16;
+              v17 = *v16++;
+              v4 += (9 * (__clz((2 * v17) ^ (v17 >> 31) | 1) ^ 0x1F) + 73) >> 6;
+              --v15;
             }
 
-            while (v16);
+            while (v15);
           }
 
           break;
         case 0x12:
-          v62 = **this;
-          v4 = v6 * v62;
-          if (v62 >= 1)
+          v59 = **this;
+          v4 = v5 * v59;
+          if (v59 >= 1)
           {
-            v63 = (*this)[1];
+            v60 = (*this)[1];
             do
             {
-              v64 = *v63++;
-              v4 += (9 * (__clz((2 * v64) ^ (v64 >> 63) | 1) ^ 0x3F) + 73) >> 6;
-              --v62;
+              v61 = *v60++;
+              v4 += (9 * (__clz((2 * v61) ^ (v61 >> 63) | 1) ^ 0x3F) + 73) >> 6;
+              --v59;
             }
 
-            while (v62);
+            while (v59);
           }
 
           break;
@@ -3871,112 +3072,106 @@ LABEL_13:
     }
   }
 
+  else if (*(this + 10))
+  {
+    return 0;
+  }
+
   else
   {
-    v5 = *(this + 10);
-    if (v5)
+    v4 = ((9 * (__clz((8 * a2) | 1) ^ 0x1F) + 73) >> 6) << (*(this + 8) == 10);
+    switch(*(this + 8))
     {
-      return 0;
-    }
+      case 1:
+      case 6:
+      case 0x10:
+        v4 += 8;
+        return v4;
+      case 2:
+      case 7:
+      case 0xF:
+        v4 += 4;
+        return v4;
+      case 3:
+      case 4:
+        v8 = *this;
+        goto LABEL_94;
+      case 5:
+      case 0xE:
+        v9 = (9 * (__clz(*this | 1) ^ 0x1F) + 73) >> 6;
+        if (*this >= 0)
+        {
+          v10 = v9;
+        }
 
-    else
-    {
-      v4 = ((9 * (__clz((8 * a2) | 1) ^ 0x1F) + 73) >> 6) << (*(this + 8) == 10);
-      switch(*(this + 8))
-      {
-        case 1:
-        case 6:
-        case 0x10:
-          v4 += 8;
-          return v4;
-        case 2:
-        case 7:
-        case 0xF:
-          v4 += 4;
-          return v4;
-        case 3:
-        case 4:
-          v9 = *this;
-          goto LABEL_94;
-        case 5:
-        case 0xE:
-          v10 = (9 * (__clz(*this | 1) ^ 0x1F) + 73) >> 6;
-          if (*this >= 0)
-          {
-            v11 = v10;
-          }
+        else
+        {
+          v10 = 10;
+        }
 
-          else
-          {
-            v11 = 10;
-          }
+        v4 += v10;
+        return v4;
+      case 8:
+        return ++v4;
+      case 9:
+      case 0xC:
+        v11 = (*this)[1];
+        if (*(*this + 23) >= 0)
+        {
+          v11 = *(*this + 23);
+        }
 
-          v4 += v11;
-          return v4;
-        case 8:
-          return ++v4;
-        case 9:
-        case 0xC:
-          v12 = (*this)[1];
-          if (*(*this + 23) >= 0)
-          {
-            v12 = *(*this + 23);
-          }
+        v4 += v11 + ((9 * (__clz(v11 | 1) ^ 0x1F) + 73) >> 6);
+        return v4;
+      case 0xA:
+        v4 += (*(**this + 72))();
+        return v4;
+      case 0xB:
+        v29 = **this;
+        if ((*(this + 10) & 0x10) != 0)
+        {
+          v30 = (*(v29 + 88))();
+        }
 
-          v4 += v12 + ((9 * (__clz(v12 | 1) ^ 0x1F) + 73) >> 6);
-          return v4;
-        case 0xA:
-          v26 = *this;
-          v4 += (*(**this + 72))();
-          return v4;
-        case 0xB:
-          v31 = *this;
-          v32 = **this;
-          if ((v5 & 0x10) != 0)
-          {
-            v33 = (*(v32 + 88))();
-          }
+        else
+        {
+          v30 = (*(v29 + 72))();
+        }
 
-          else
-          {
-            v33 = (*(v32 + 72))();
-          }
-
-          v4 += v33 + ((9 * (__clz(v33 | 1) ^ 0x1F) + 73) >> 6);
-          return v4;
-        case 0xD:
-          v19 = *this;
-          goto LABEL_70;
-        case 0x11:
-          v19 = (2 * *this) ^ (*this >> 31);
+        v4 += v30 + ((9 * (__clz(v30 | 1) ^ 0x1F) + 73) >> 6);
+        return v4;
+      case 0xD:
+        v18 = *this;
+        goto LABEL_70;
+      case 0x11:
+        v18 = (2 * *this) ^ (*this >> 31);
 LABEL_70:
-          v4 += (9 * (__clz(v19 | 1) ^ 0x1F) + 73) >> 6;
-          break;
-        case 0x12:
-          v9 = (2 * *this) ^ (*this >> 63);
+        v4 += (9 * (__clz(v18 | 1) ^ 0x1F) + 73) >> 6;
+        break;
+      case 0x12:
+        v8 = (2 * *this) ^ (*this >> 63);
 LABEL_94:
-          v4 += (9 * (__clz(v9 | 1) ^ 0x3F) + 73) >> 6;
-          break;
-        default:
-          return v4;
-      }
+        v4 += (9 * (__clz(v8 | 1) ^ 0x3F) + 73) >> 6;
+        break;
+      default:
+        return v4;
     }
   }
 
   return v4;
 }
 
-void sub_1000FB730(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1000FB730(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
 
-_BYTE *google::protobuf::internal::ExtensionSet::Extension::Free(_BYTE *this)
+uint64_t *google::protobuf::internal::ExtensionSet::Extension::Free(uint64_t *this)
 {
-  v1 = google::protobuf::internal::WireFormatLite::kFieldTypeToCppTypeMap[this[8]];
-  if (this[9] == 1)
+  v1 = google::protobuf::internal::WireFormatLite::kFieldTypeToCppTypeMap[*(this + 8)];
+  if (*(this + 9) == 1)
   {
     if (v1 > 5)
     {
@@ -4009,9 +3204,9 @@ _BYTE *google::protobuf::internal::ExtensionSet::Extension::Free(_BYTE *this)
     v5 = *this;
     if (*this)
     {
-      if (*(v5 + 4) >= 1)
+      if (v5[1] >= 1)
       {
-        v6 = *(v5 + 8);
+        v6 = *(v5 + 1);
         v8 = *(v6 - 8);
         v7 = (v6 - 8);
         if (!v8)
@@ -4028,7 +3223,7 @@ _BYTE *google::protobuf::internal::ExtensionSet::Extension::Free(_BYTE *this)
   {
     if (v1 == 10)
     {
-      v3 = this[10];
+      v3 = *(this + 10);
       this = *this;
       if ((v3 & 0x10) != 0)
       {
@@ -4449,7 +3644,7 @@ _DWORD *sub_1000FBDB8(int a1, int a2, _BYTE *a3)
       {
         *(v4 - 1) = v5 | 0x80;
         v6 = v5 >> 7;
-        v4 = (v4 + 1);
+        ++v4;
         v7 = v5 >> 14;
         v5 >>= 7;
       }
@@ -4472,7 +3667,7 @@ _DWORD *sub_1000FBDB8(int a1, int a2, _BYTE *a3)
   }
 
   *v4 = a2;
-  return v4 + 1;
+  return v4 + 4;
 }
 
 void *sub_1000FBE28(int a1, uint64_t a2, _BYTE *a3)
@@ -4489,7 +3684,7 @@ void *sub_1000FBE28(int a1, uint64_t a2, _BYTE *a3)
       {
         *(v4 - 1) = v5 | 0x80;
         v6 = v5 >> 7;
-        v4 = (v4 + 1);
+        ++v4;
         v7 = v5 >> 14;
         v5 >>= 7;
       }
@@ -4512,7 +3707,7 @@ void *sub_1000FBE28(int a1, uint64_t a2, _BYTE *a3)
   }
 
   *v4 = a2;
-  return v4 + 1;
+  return v4 + 8;
 }
 
 float *sub_1000FBE90(int a1, _BYTE *a2, float a3)
@@ -4840,22 +4035,22 @@ uint64_t sub_1000FC2CC(google::protobuf::Arena *this, unint64_t a2)
   return google::protobuf::Arena::AllocateAlignedNoHook(this, v6);
 }
 
-void sub_1000FC370(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1000FC370(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
 
-_BYTE *sub_1000FC388(_BYTE *result, void *a2)
+uint64_t *sub_1000FC388(uint64_t *result, uint64_t *a2)
 {
   if (result != a2)
   {
     v3 = result;
     do
     {
-      result = google::protobuf::internal::ExtensionSet::Extension::Free(v3 + 40);
-      v4 = *(v3 + 1);
+      result = google::protobuf::internal::ExtensionSet::Extension::Free(v3 + 5);
+      v4 = v3[1];
       if (v4)
       {
         do
@@ -4871,7 +4066,7 @@ _BYTE *sub_1000FC388(_BYTE *result, void *a2)
       {
         do
         {
-          v5 = *(v3 + 2);
+          v5 = v3[2];
           v6 = *v5 == v3;
           v3 = v5;
         }
@@ -5224,7 +4419,7 @@ void sub_1000FCAA0(uint64_t a1)
   }
 }
 
-void *sub_1000FCAC0(google::protobuf::Arena *a1)
+google::protobuf::Arena **sub_1000FCAC0(google::protobuf::Arena *a1)
 {
   if (!a1)
   {
@@ -5259,7 +4454,7 @@ LABEL_3:
   return google::protobuf::internal::ArenaImpl::AllocateAlignedAndAddCleanup(this, 0x18uLL, sub_1000FCBA4);
 }
 
-void *sub_1000FCBC0(google::protobuf::Arena *a1)
+google::protobuf::Arena **sub_1000FCBC0(google::protobuf::Arena *a1)
 {
   if (!a1)
   {
@@ -5294,45 +4489,45 @@ LABEL_3:
   return google::protobuf::internal::ArenaImpl::AllocateAlignedAndAddCleanup(this, 0x18uLL, sub_1000FCCA4);
 }
 
-unsigned int *sub_1000FCCA8(unsigned int *this, uint64_t a2)
+google::protobuf::internal::RepeatedPtrFieldBase *sub_1000FCCA8(google::protobuf::internal::RepeatedPtrFieldBase *result, uint64_t a2)
 {
-  v2 = *(this + 2);
+  v2 = *(result + 2);
   if (!v2)
   {
-    return sub_1000FCCFC(this, a2);
+    return sub_1000FCCFC(result, a2);
   }
 
   v3 = *v2;
-  if (v3 >= this[3])
+  if (v3 >= *(result + 3))
   {
-    return sub_1000FCCFC(this, a2);
+    return sub_1000FCCFC(result, a2);
   }
 
   v4 = v2 + 2;
-  v5 = this[2];
+  v5 = *(result + 2);
   if (v5 < v3)
   {
     *&v4[2 * v3] = *&v4[2 * v5];
   }
 
   *&v4[2 * v5] = a2;
-  this[2] = v5 + 1;
-  ++**(this + 2);
-  return this;
+  *(result + 2) = v5 + 1;
+  ++**(result + 2);
+  return result;
 }
 
-unsigned int *sub_1000FCCFC(unsigned int *this, uint64_t a2)
+google::protobuf::internal::RepeatedPtrFieldBase *sub_1000FCCFC(google::protobuf::internal::RepeatedPtrFieldBase *this, uint64_t a2)
 {
   v3 = this;
   v4 = *(this + 2);
   if (!v4)
   {
-    v5 = this[3];
+    v5 = *(this + 3);
     goto LABEL_11;
   }
 
-  v5 = this[2];
-  v6 = this[3];
+  v5 = *(this + 2);
+  v6 = *(this + 3);
   if (v5 == v6)
   {
 LABEL_11:
@@ -5376,8 +4571,8 @@ LABEL_13:
   }
 
 LABEL_14:
-  v10 = v3[2];
-  v3[2] = v10 + 1;
+  v10 = *(v3 + 2);
+  *(v3 + 2) = v10 + 1;
   *&v4[2 * v10 + 2] = a2;
   return this;
 }
@@ -5464,7 +4659,7 @@ google::protobuf::internal::ExtensionSet *sub_1000FCE4C(void *a1, void *a2, goog
   return this;
 }
 
-google::protobuf::internal::EpsCopyInputStream *sub_1000FCED0(uint64_t a1, std::string::value_type *__s, int a3, std::string *this)
+std::string::value_type *sub_1000FCED0(uint64_t a1, std::string::value_type *__s, int a3, std::string *this)
 {
   if (*(a1 + 8) - __s + 16 >= a3)
   {
@@ -5596,41 +4791,41 @@ void *sub_1000FD104(void *a1, void *a2, void *a3)
   return a3;
 }
 
-uint64_t *sub_1000FD190(uint64_t a1, int *a2)
+uint64_t *sub_1000FD190(uint64_t a1, int *a2, _OWORD *a3)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v3 = *(a1 + 8);
+  if (!v3)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v4 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = *(v2 + 32);
-      if (v3 >= v5)
+      v5 = v3;
+      v6 = *(v3 + 32);
+      if (v4 >= v6)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v3 = *v5;
+      if (!*v5)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v6 >= v4)
     {
-      return v4;
+      return v5;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v3 = v5[1];
+    if (!v3)
     {
       goto LABEL_8;
     }
@@ -5672,20 +4867,20 @@ LABEL_3:
   return google::protobuf::internal::ArenaImpl::AllocateAlignedAndAddCleanup(this, 0x18uLL, sub_1000FD330);
 }
 
-uint64_t sub_1000FD338(void *a1, uint64_t *a2, int *a3)
+uint64_t sub_1000FD338(uint64_t **a1, uint64_t *a2, int *a3, _OWORD *a4)
 {
-  v3 = *sub_1000FD3D0(a1, a2, &v6, &v5, a3);
-  if (!v3)
+  v4 = *sub_1000FD3D0(a1, a2, &v7, &v6, a3);
+  if (!v4)
   {
     operator new();
   }
 
-  return v3;
+  return v4;
 }
 
-uint64_t *sub_1000FD3D0(void *a1, uint64_t *a2, uint64_t **a3, uint64_t *a4, int *a5)
+uint64_t *sub_1000FD3D0(uint64_t **a1, uint64_t *a2, uint64_t **a3, uint64_t *a4, int *a5)
 {
-  v5 = a1 + 1;
+  v5 = (a1 + 1);
   if (a1 + 1 == a2 || (v6 = *a5, v7 = *(a2 + 8), *a5 < v7))
   {
     v8 = *a2;
@@ -5712,7 +4907,7 @@ LABEL_17:
       do
       {
         v10 = v9;
-        v9 = v9[1];
+        v9 = *(v9 + 8);
       }
 
       while (v9);
@@ -5773,7 +4968,7 @@ LABEL_17:
 
     else
     {
-      v17 = a1 + 1;
+      v17 = (a1 + 1);
     }
 
 LABEL_29:
@@ -5852,7 +5047,7 @@ LABEL_29:
 
     else
     {
-      v21 = a1 + 1;
+      v21 = (a1 + 1);
     }
 
 LABEL_48:
@@ -5874,28 +5069,28 @@ LABEL_48:
   return a4;
 }
 
-uint64_t sub_1000FD578(uint64_t a1, int *a2)
+uint64_t sub_1000FD578(uint64_t **a1, int *a2)
 {
-  v2 = *(a1 + 8);
+  v2 = a1[1];
   if (!v2)
   {
     return 0;
   }
 
   v3 = *a2;
-  v4 = a1 + 8;
+  v4 = a1 + 1;
   do
   {
-    if (*(v2 + 32) >= v3)
+    if (*(v2 + 8) >= v3)
     {
       v4 = v2;
     }
 
-    v2 = *(v2 + 8 * (*(v2 + 32) < v3));
+    v2 = v2[*(v2 + 8) < v3];
   }
 
   while (v2);
-  if (v4 == a1 + 8 || v3 < *(v4 + 32))
+  if (v4 == a1 + 1 || v3 < *(v4 + 8))
   {
     return 0;
   }
@@ -6100,7 +5295,7 @@ LABEL_17:
   return result;
 }
 
-const google::protobuf::UnknownFieldSet *google::protobuf::Api::_InternalSerialize(google::protobuf::Api *this, google::protobuf::UnknownFieldSet *a2, google::protobuf::io::EpsCopyOutputStream *a3, google::protobuf::io::EpsCopyOutputStream *a4)
+google::protobuf::UnknownFieldSet *google::protobuf::Api::_InternalSerialize(google::protobuf::Api *this, google::protobuf::UnknownFieldSet *a2, google::protobuf::io::EpsCopyOutputStream *a3, google::protobuf::io::EpsCopyOutputStream *a4)
 {
   v7 = *(this + 11) & 0xFFFFFFFFFFFFFFFELL;
   v8 = *(v7 + 23);
@@ -6574,19 +5769,18 @@ LABEL_31:
   }
 }
 
-void google::protobuf::Api::MergeFrom(std::string *this, char **lpsrc)
+void google::protobuf::Api::MergeFrom(std::string *this, const google::protobuf::Message *lpsrc)
 {
-  v4 = **lpsrc;
-  if (v5)
+  if (v4)
   {
 
-    google::protobuf::Api::MergeFrom(this, v5, v6);
+    google::protobuf::Api::MergeFrom(this, v4, v5);
   }
 
   else
   {
 
-    google::protobuf::internal::ReflectionOps::Merge(lpsrc, this, v6);
+    google::protobuf::internal::ReflectionOps::Merge(lpsrc, this, v5);
   }
 }
 
@@ -6604,7 +5798,7 @@ std::string *google::protobuf::Api::MergeFrom(std::string *this, const google::p
   {
     v7 = *(a2 + 4);
     v8 = google::protobuf::internal::RepeatedPtrFieldBase::InternalExtend(&v4->__r_.__value_.__r.__words[2], *(a2 + 6));
-    this = sub_1000FF840(&v4->__r_.__value_.__r.__words[2], v8, v7 + 8, v6, *v4[1].__r_.__value_.__l.__size_ - LODWORD(v4[1].__r_.__value_.__l.__data_));
+    this = sub_1000FF840(&v4->__r_.__value_.__r.__words[2], v8, (v7 + 8), v6, *v4[1].__r_.__value_.__l.__size_ - LODWORD(v4[1].__r_.__value_.__l.__data_));
     v9 = LODWORD(v4[1].__r_.__value_.__l.__data_) + v6;
     LODWORD(v4[1].__r_.__value_.__l.__data_) = v9;
     size = v4[1].__r_.__value_.__l.__size_;
@@ -6619,7 +5813,7 @@ std::string *google::protobuf::Api::MergeFrom(std::string *this, const google::p
   {
     v12 = *(a2 + 7);
     v13 = google::protobuf::internal::RepeatedPtrFieldBase::InternalExtend(&v4[1].__r_.__value_.__r.__words[2], *(a2 + 12));
-    this = sub_1000FF900((v4 + 40), v13, v12 + 8, v11, *v4[2].__r_.__value_.__l.__size_ - LODWORD(v4[2].__r_.__value_.__l.__data_));
+    this = sub_1000FF900((v4 + 40), v13, (v12 + 8), v11, *v4[2].__r_.__value_.__l.__size_ - LODWORD(v4[2].__r_.__value_.__l.__data_));
     v14 = LODWORD(v4[2].__r_.__value_.__l.__data_) + v11;
     LODWORD(v4[2].__r_.__value_.__l.__data_) = v14;
     v15 = v4[2].__r_.__value_.__l.__size_;
@@ -6634,7 +5828,7 @@ std::string *google::protobuf::Api::MergeFrom(std::string *this, const google::p
   {
     v17 = *(a2 + 10);
     v18 = google::protobuf::internal::RepeatedPtrFieldBase::InternalExtend(&v4[2].__r_.__value_.__r.__words[2], *(a2 + 18));
-    this = sub_1000FF9C0((v4 + 64), v18, v17 + 8, v16, *v4[3].__r_.__value_.__l.__size_ - LODWORD(v4[3].__r_.__value_.__l.__data_));
+    this = sub_1000FF9C0(&v4[2].__r_.__value_.__r.__words[2], v18, (v17 + 8), v16, *v4[3].__r_.__value_.__l.__size_ - LODWORD(v4[3].__r_.__value_.__l.__data_));
     v19 = LODWORD(v4[3].__r_.__value_.__l.__data_) + v16;
     LODWORD(v4[3].__r_.__value_.__l.__data_) = v19;
     v20 = v4[3].__r_.__value_.__l.__size_;
@@ -6722,7 +5916,7 @@ std::string *google::protobuf::Api::MergeFrom(std::string *this, const google::p
   return this;
 }
 
-void google::protobuf::Api::CopyFrom(char **this, char **a2)
+void google::protobuf::Api::CopyFrom(google::protobuf::Api *this, const google::protobuf::Message *a2)
 {
   if (a2 != this)
   {
@@ -6730,14 +5924,6 @@ void google::protobuf::Api::CopyFrom(char **this, char **a2)
 
     google::protobuf::Api::MergeFrom(this, a2);
   }
-}
-
-uint64_t google::protobuf::Api::GetMetadata(google::protobuf::Api *this)
-{
-  google::protobuf::internal::AssignDescriptors(&descriptor_table_google_2fprotobuf_2fapi_2eproto, 0);
-  result = *off_1001EA278;
-  v2 = off_1001EA278[1];
-  return result;
 }
 
 uint64_t google::protobuf::Method::Method(uint64_t a1, uint64_t a2)
@@ -6826,8 +6012,8 @@ google::protobuf::UnknownFieldSet *google::protobuf::Method::Clear(google::proto
   google::protobuf::internal::ArenaStringPtr::ClearToEmpty(this + 6);
   result = google::protobuf::internal::ArenaStringPtr::ClearToEmpty(this + 7);
   v9 = *(this + 8);
-  v8 = this + 8;
-  *(v8 + 7) = 0;
+  v8 = (this + 8);
+  v8[7] = 0;
   if (v9)
   {
 
@@ -6837,7 +6023,7 @@ google::protobuf::UnknownFieldSet *google::protobuf::Method::Clear(google::proto
   return result;
 }
 
-const google::protobuf::UnknownFieldSet *google::protobuf::Method::_InternalSerialize(google::protobuf::Method *this, google::protobuf::UnknownFieldSet *a2, google::protobuf::io::EpsCopyOutputStream *a3, google::protobuf::io::EpsCopyOutputStream *a4)
+google::protobuf::UnknownFieldSet *google::protobuf::Method::_InternalSerialize(google::protobuf::Method *this, google::protobuf::UnknownFieldSet *a2, google::protobuf::io::EpsCopyOutputStream *a3, google::protobuf::io::EpsCopyOutputStream *a4)
 {
   v7 = *(this + 5) & 0xFFFFFFFFFFFFFFFELL;
   v8 = *(v7 + 23);
@@ -7188,19 +6374,18 @@ LABEL_24:
   }
 }
 
-void google::protobuf::Method::MergeFrom(std::string *this, char **lpsrc)
+void google::protobuf::Method::MergeFrom(std::string *this, const google::protobuf::Message *lpsrc)
 {
-  v4 = **lpsrc;
-  if (v5)
+  if (v4)
   {
 
-    google::protobuf::Method::MergeFrom(this, v5, v6);
+    google::protobuf::Method::MergeFrom(this, v4, v5);
   }
 
   else
   {
 
-    google::protobuf::internal::ReflectionOps::Merge(lpsrc, this, v6);
+    google::protobuf::internal::ReflectionOps::Merge(lpsrc, this, v5);
   }
 }
 
@@ -7218,7 +6403,7 @@ std::string *google::protobuf::Method::MergeFrom(std::string *this, const google
   {
     v7 = *(a2 + 4);
     v8 = google::protobuf::internal::RepeatedPtrFieldBase::InternalExtend(&v4->__r_.__value_.__r.__words[2], *(a2 + 6));
-    this = sub_1000FF900(&v4->__r_.__value_.__r.__words[2], v8, v7 + 8, v6, *v4[1].__r_.__value_.__l.__size_ - LODWORD(v4[1].__r_.__value_.__l.__data_));
+    this = sub_1000FF900(&v4->__r_.__value_.__r.__words[2], v8, (v7 + 8), v6, *v4[1].__r_.__value_.__l.__size_ - LODWORD(v4[1].__r_.__value_.__l.__data_));
     v9 = LODWORD(v4[1].__r_.__value_.__l.__data_) + v6;
     LODWORD(v4[1].__r_.__value_.__l.__data_) = v9;
     size = v4[1].__r_.__value_.__l.__size_;
@@ -7301,7 +6486,7 @@ std::string *google::protobuf::Method::MergeFrom(std::string *this, const google
   return this;
 }
 
-void google::protobuf::Method::CopyFrom(char **this, char **a2)
+void google::protobuf::Method::CopyFrom(google::protobuf::Method *this, const google::protobuf::Message *a2)
 {
   if (a2 != this)
   {
@@ -7309,14 +6494,6 @@ void google::protobuf::Method::CopyFrom(char **this, char **a2)
 
     google::protobuf::Method::MergeFrom(this, a2);
   }
-}
-
-uint64_t google::protobuf::Method::GetMetadata(google::protobuf::Method *this)
-{
-  google::protobuf::internal::AssignDescriptors(&descriptor_table_google_2fprotobuf_2fapi_2eproto, 0);
-  result = off_1001EA278[2];
-  v2 = off_1001EA278[3];
-  return result;
 }
 
 void google::protobuf::Mixin::~Mixin(google::protobuf::Mixin *this)
@@ -7367,7 +6544,7 @@ google::protobuf::UnknownFieldSet *google::protobuf::Mixin::Clear(google::protob
   return result;
 }
 
-const google::protobuf::UnknownFieldSet *google::protobuf::Mixin::_InternalSerialize(google::protobuf::Mixin *this, google::protobuf::UnknownFieldSet *a2, google::protobuf::io::EpsCopyOutputStream *a3, google::protobuf::io::EpsCopyOutputStream *a4)
+google::protobuf::UnknownFieldSet *google::protobuf::Mixin::_InternalSerialize(google::protobuf::Mixin *this, google::protobuf::UnknownFieldSet *a2, google::protobuf::io::EpsCopyOutputStream *a3, google::protobuf::io::EpsCopyOutputStream *a4)
 {
   v7 = *(this + 2) & 0xFFFFFFFFFFFFFFFELL;
   v8 = *(v7 + 23);
@@ -7484,19 +6661,18 @@ LABEL_13:
   return v4;
 }
 
-void google::protobuf::Mixin::MergeFrom(std::string *this, char **lpsrc)
+void google::protobuf::Mixin::MergeFrom(std::string *this, const google::protobuf::Message *lpsrc)
 {
-  v4 = **lpsrc;
-  if (v5)
+  if (v4)
   {
 
-    google::protobuf::Mixin::MergeFrom(this, v5, v6);
+    google::protobuf::Mixin::MergeFrom(this, v4, v5);
   }
 
   else
   {
 
-    google::protobuf::internal::ReflectionOps::Merge(lpsrc, this, v6);
+    google::protobuf::internal::ReflectionOps::Merge(lpsrc, this, v5);
   }
 }
 
@@ -7550,7 +6726,7 @@ std::string *google::protobuf::Mixin::MergeFrom(std::string *this, const google:
   return google::protobuf::internal::ArenaStringPtr::Set(&v4[1], v9, v10);
 }
 
-void google::protobuf::Mixin::CopyFrom(char **this, char **a2)
+void google::protobuf::Mixin::CopyFrom(google::protobuf::Mixin *this, const google::protobuf::Message *a2)
 {
   if (a2 != this)
   {
@@ -7558,14 +6734,6 @@ void google::protobuf::Mixin::CopyFrom(char **this, char **a2)
 
     google::protobuf::Mixin::MergeFrom(this, a2);
   }
-}
-
-uint64_t google::protobuf::Mixin::GetMetadata(google::protobuf::Mixin *this)
-{
-  google::protobuf::internal::AssignDescriptors(&descriptor_table_google_2fprotobuf_2fapi_2eproto, 0);
-  result = off_1001EA278[4];
-  v2 = off_1001EA278[5];
-  return result;
 }
 
 void *sub_1000FF484(google::protobuf::Arena *a1)
@@ -7695,48 +6863,46 @@ void sub_1000FF7BC(void *a1)
   a1[2] = 0;
 }
 
-std::string *sub_1000FF840(std::string *result, std::string **a2, uint64_t a3, unsigned int a4, unsigned int a5)
+std::string *sub_1000FF840(uint64_t a1, std::string **a2, google::protobuf::Method **a3, int a4, int a5)
 {
-  v9 = result;
   if (a5 >= a4)
   {
-    v10 = a4;
+    v9 = a4;
   }
 
   else
   {
-    v10 = a5;
+    v9 = a5;
   }
 
-  if (v10 >= 1)
+  if (v9 >= 1)
   {
-    v11 = a3;
-    v12 = a2;
+    v10 = a3;
+    v11 = a2;
     do
     {
+      v13 = *v10++;
+      v12 = v13;
       v14 = *v11++;
-      v13 = v14;
-      v15 = *v12++;
-      result = sub_1000FF8F0(v13, v15, a3);
-      --v10;
+      result = sub_1000FF8F0(v12, v14, a3);
+      --v9;
     }
 
-    while (v10);
+    while (v9);
   }
 
   v16 = __OFSUB__(a4, a5);
   v17 = a4 - a5;
   if (!((v17 < 0) ^ v16 | (v17 == 0)))
   {
-    v18 = v9->__words[0];
-    v19 = (a3 + 8 * a5);
-    v20 = &a2[a5];
+    v18 = &a3[a5];
+    v19 = &a2[a5];
     do
     {
-      v21 = *v19++;
-      v22 = google::protobuf::Arena::CreateMaybeMessage<google::protobuf::Method>(v18);
-      result = sub_1000FF8F0(v21, v22, v23);
-      *v20++ = v22;
+      v20 = *v18++;
+      v21 = google::protobuf::Arena::CreateMaybeMessage<google::protobuf::Method>();
+      result = sub_1000FF8F0(v20, v21, v22);
+      *v19++ = v21;
       --v17;
     }
 
@@ -7746,7 +6912,7 @@ std::string *sub_1000FF840(std::string *result, std::string **a2, uint64_t a3, u
   return result;
 }
 
-std::string *sub_1000FF900(std::string *result, std::string **a2, uint64_t a3, unsigned int a4, unsigned int a5)
+std::string *sub_1000FF900(std::string *result, std::string **a2, uint64_t *a3, int a4, int a5)
 {
   v9 = result;
   if (a5 >= a4)
@@ -7779,8 +6945,8 @@ std::string *sub_1000FF900(std::string *result, std::string **a2, uint64_t a3, u
   v17 = a4 - a5;
   if (!((v17 < 0) ^ v16 | (v17 == 0)))
   {
-    v18 = v9->__words[0];
-    v19 = (a3 + 8 * a5);
+    v18 = *v9;
+    v19 = &a3[a5];
     v20 = &a2[a5];
     do
     {
@@ -7797,48 +6963,46 @@ std::string *sub_1000FF900(std::string *result, std::string **a2, uint64_t a3, u
   return result;
 }
 
-std::string *sub_1000FF9C0(std::string *result, std::string **a2, uint64_t a3, unsigned int a4, unsigned int a5)
+std::string *sub_1000FF9C0(uint64_t a1, std::string **a2, google::protobuf::Mixin **a3, int a4, int a5)
 {
-  v9 = result;
   if (a5 >= a4)
   {
-    v10 = a4;
+    v9 = a4;
   }
 
   else
   {
-    v10 = a5;
+    v9 = a5;
   }
 
-  if (v10 >= 1)
+  if (v9 >= 1)
   {
-    v11 = a3;
-    v12 = a2;
+    v10 = a3;
+    v11 = a2;
     do
     {
+      v13 = *v10++;
+      v12 = v13;
       v14 = *v11++;
-      v13 = v14;
-      v15 = *v12++;
-      result = sub_1000FFA70(v13, v15, a3);
-      --v10;
+      result = sub_1000FFA70(v12, v14, a3);
+      --v9;
     }
 
-    while (v10);
+    while (v9);
   }
 
   v16 = __OFSUB__(a4, a5);
   v17 = a4 - a5;
   if (!((v17 < 0) ^ v16 | (v17 == 0)))
   {
-    v18 = v9->__words[0];
-    v19 = (a3 + 8 * a5);
-    v20 = &a2[a5];
+    v18 = &a3[a5];
+    v19 = &a2[a5];
     do
     {
-      v21 = *v19++;
-      v22 = google::protobuf::Arena::CreateMaybeMessage<google::protobuf::Mixin>(v18);
-      result = sub_1000FFA70(v21, v22, v23);
-      *v20++ = v22;
+      v20 = *v18++;
+      v21 = google::protobuf::Arena::CreateMaybeMessage<google::protobuf::Mixin>();
+      result = sub_1000FFA70(v20, v21, v22);
+      *v19++ = v21;
       --v17;
     }
 
@@ -7936,21 +7100,21 @@ uint64_t sub_1000FFCB8(uint64_t result)
   return result;
 }
 
-char *sub_1000FFCF4(std::string *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::string::value_type *a10)
+std::string::value_type *sub_1000FFCF4(std::string *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::string::value_type *a10)
 {
 
   return google::protobuf::internal::InlineGreedyStringParser(a1, a10, v10);
 }
 
-uint64_t sub_1000FFD20(uint64_t a1, ...)
+uint64_t sub_1000FFD20(uint64_t a1, uint64_t a2, ...)
 {
-  va_start(va, a1);
-  v3 = *(v1 + 92);
+  va_start(va, a2);
+  v4 = *(v2 + 92);
 
-  return sub_1000313B0(v1, va, v3);
+  return sub_1000313B0(v2, va, v4);
 }
 
-char *sub_1000FFD3C(std::string *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::string::value_type *a10)
+std::string::value_type *sub_1000FFD3C(std::string *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::string::value_type *a10)
 {
 
   return google::protobuf::internal::InlineGreedyStringParser(a1, a10, v10);
@@ -7977,7 +7141,7 @@ void google::protobuf::Empty::~Empty(google::protobuf::Empty *this)
   operator delete();
 }
 
-google::protobuf::Arena **google::protobuf::Empty::Clear(google::protobuf::Empty *this, uint64_t a2, uint64_t a3)
+unint64_t *google::protobuf::Empty::Clear(google::protobuf::Empty *this, uint64_t a2, uint64_t a3)
 {
   v4 = *(this + 8);
   result = (this + 8);
@@ -8016,32 +7180,31 @@ char *google::protobuf::Empty::ByteSizeLong(google::protobuf::Empty *this)
   return 0;
 }
 
-void google::protobuf::Empty::MergeFrom(google::protobuf::Arena **this, char **lpsrc)
+void google::protobuf::Empty::MergeFrom(google::protobuf::Empty *this, const google::protobuf::Message *lpsrc)
 {
-  v4 = **lpsrc;
-  if (v5)
+  if (v4)
   {
-    v7 = v5[1];
-    if (v7)
+    v6 = v4[1];
+    if (v6)
     {
 
-      sub_1000315A0(this + 1, ((v7 & 0xFFFFFFFFFFFFFFFELL) + 8), v6);
+      sub_1000315A0(this + 1, ((v6 & 0xFFFFFFFFFFFFFFFELL) + 8), v5);
     }
   }
 
   else
   {
 
-    google::protobuf::internal::ReflectionOps::Merge(lpsrc, this, v6);
+    google::protobuf::internal::ReflectionOps::Merge(lpsrc, this, v5);
   }
 }
 
-void google::protobuf::Empty::CopyFrom(char **this, char **lpsrc, uint64_t a3)
+void google::protobuf::Empty::CopyFrom(const google::protobuf::Message *this, const google::protobuf::Message *lpsrc, uint64_t a3)
 {
   if (lpsrc != this)
   {
     v7 = *(this + 8);
-    v6 = (this + 1);
+    v6 = (this + 8);
     if (v7)
     {
       sub_1000315EC(v6, lpsrc, a3);
@@ -8049,14 +7212,6 @@ void google::protobuf::Empty::CopyFrom(char **this, char **lpsrc, uint64_t a3)
 
     google::protobuf::Empty::MergeFrom(this, lpsrc);
   }
-}
-
-uint64_t google::protobuf::Empty::GetMetadata(google::protobuf::Empty *this)
-{
-  google::protobuf::internal::AssignDescriptors(&descriptor_table_google_2fprotobuf_2fempty_2eproto, 0);
-  result = *off_1001EA308;
-  v2 = off_1001EA308[1];
-  return result;
 }
 
 void *sub_10010007C(google::protobuf::Arena *this)
@@ -8106,14 +7261,14 @@ void google::protobuf::internal::MapFieldBase::~MapFieldBase(google::protobuf::i
   std::mutex::~mutex((this + 24));
 }
 
-void google::protobuf::internal::MapFieldBase::SyncRepeatedFieldWithMap(google::protobuf::internal::MapFieldBase *this)
+void google::protobuf::internal::MapFieldBase::SyncRepeatedFieldWithMap(atomic_uint *this)
 {
   explicit = atomic_load_explicit(this + 22, memory_order_acquire);
   if (explicit == 2)
   {
-    v3 = (this + 24);
-    std::mutex::lock((this + 24));
-    if (*(this + 22) == 2)
+    v3 = (this + 6);
+    std::mutex::lock((this + 6));
+    if (this[22] == 2)
     {
       if (!*(this + 2))
       {
@@ -8137,9 +7292,9 @@ void google::protobuf::internal::MapFieldBase::SyncRepeatedFieldWithMap(google::
       return;
     }
 
-    v3 = (this + 24);
-    std::mutex::lock((this + 24));
-    if (!*(this + 22))
+    v3 = (this + 6);
+    std::mutex::lock((this + 6));
+    if (!this[22])
     {
       (*(*this + 112))(this);
 LABEL_11:
@@ -8150,10 +7305,10 @@ LABEL_11:
   std::mutex::unlock(v3);
 }
 
-uint64_t google::protobuf::internal::MapFieldBase::MutableRepeatedField(google::protobuf::internal::MapFieldBase *this)
+uint64_t google::protobuf::internal::MapFieldBase::MutableRepeatedField(atomic_uint *this)
 {
   google::protobuf::internal::MapFieldBase::SyncRepeatedFieldWithMap(this);
-  *(this + 22) = 1;
+  this[22] = 1;
   return *(this + 2);
 }
 
@@ -8196,7 +7351,7 @@ uint64_t google::protobuf::internal::MapFieldBase::SpaceUsedExcludingSelfNoLock(
   return v2;
 }
 
-void *google::protobuf::internal::MapFieldBase::SyncRepeatedFieldWithMapNoLock(void *this)
+google::protobuf::Arena **google::protobuf::internal::MapFieldBase::SyncRepeatedFieldWithMapNoLock(google::protobuf::Arena **this)
 {
   if (!this[2])
   {
@@ -8258,7 +7413,7 @@ double google::protobuf::internal::DynamicMapField::DynamicMapField(google::prot
 void google::protobuf::internal::DynamicMapField::~DynamicMapField(google::protobuf::internal::DynamicMapField *this)
 {
   *this = off_1001D10F0;
-  v2 = this + 96;
+  v2 = (this + 96);
   v3 = *(this + 15);
   v4 = *(this + 13);
   if (v4 > v3)
@@ -8415,9 +7570,9 @@ LABEL_15:
   return result;
 }
 
-uint64_t google::protobuf::internal::DynamicMapField::Clear(google::protobuf::internal::DynamicMapField *this)
+void *google::protobuf::internal::DynamicMapField::Clear(google::protobuf::internal::DynamicMapField *this)
 {
-  v2 = this + 96;
+  v2 = (this + 96);
   if (!*(this + 1))
   {
     v3 = *(this + 15);
@@ -8622,9 +7777,9 @@ LABEL_29:
   *a2 = v9;
 }
 
-BOOL google::protobuf::internal::DynamicMapField::InsertOrLookupMapValue(uint64_t *a1, unsigned int *a2, uint64_t a3)
+BOOL google::protobuf::internal::DynamicMapField::InsertOrLookupMapValue(__n128 *a1, unsigned int *a2, uint64_t a3)
 {
-  v6 = (*(*a1 + 168))(a1);
+  v6 = (*(a1->n128_u64[0] + 168))(a1);
   sub_100104ACC(v6, a2, 0, v10);
   v7 = v10[0];
   if (v10[0])
@@ -8634,7 +7789,7 @@ BOOL google::protobuf::internal::DynamicMapField::InsertOrLookupMapValue(uint64_
 
   else
   {
-    sub_100105784(a1 + 12, a2, v10);
+    sub_100105784(a1 + 6, a2, v10);
     v8 = v10[0];
     google::protobuf::internal::DynamicMapField::AllocateMapValue(a1, v10[0] + 32);
   }
@@ -8765,16 +7920,16 @@ LABEL_14:
   std::string::operator=(a1, a2);
 }
 
-void sub_100101064(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_100101064(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
 
-void *google::protobuf::internal::DynamicMapField::MergeFrom(google::protobuf::internal::DynamicMapField *this, const google::protobuf::internal::MapFieldBase *a2)
+unsigned int **google::protobuf::internal::DynamicMapField::MergeFrom(__n128 *this, const google::protobuf::internal::MapFieldBase *a2)
 {
-  result = (*(*this + 168))(this);
+  result = (*(this->n128_u64[0] + 168))(this);
   v5 = *(a2 + 15);
   v6 = *(a2 + 13);
   if (v6 > v5)
@@ -8824,12 +7979,12 @@ void *google::protobuf::internal::DynamicMapField::MergeFrom(google::protobuf::i
 
       else
       {
-        sub_100105784(this + 12, v26, v29);
+        sub_100105784(this + 6, v26, v29);
         v10 = (v29[0] + 32);
         google::protobuf::internal::DynamicMapField::AllocateMapValue(this, v29[0] + 32);
       }
 
-      v11 = (*(**(this + 18) + 152))(*(this + 18));
+      v11 = (*(*this[9].n128_u64[0] + 152))(this[9].n128_u64[0]);
       v12 = google::protobuf::Descriptor::map_value(v11);
       v13 = *(v12 + 48);
       if (v13)
@@ -8948,9 +8103,9 @@ void sub_1001013CC(_DWORD **a1, int a2)
   **a1 = a2;
 }
 
-void sub_1001014B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1001014B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -8976,9 +8131,9 @@ uint64_t sub_1001014CC(unsigned int **a1)
   return **a1;
 }
 
-void sub_1001015B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1001015B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -9004,9 +8159,9 @@ void sub_1001015C8(void **a1, uint64_t a2)
   **a1 = a2;
 }
 
-void sub_1001016B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1001016B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -9032,9 +8187,9 @@ uint64_t sub_1001016C8(uint64_t a1)
   return **a1;
 }
 
-void sub_1001017AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1001017AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -9060,9 +8215,9 @@ void sub_1001017C4(_DWORD **a1, int a2)
   **a1 = a2;
 }
 
-void sub_1001018AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1001018AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -9088,9 +8243,9 @@ uint64_t sub_1001018C4(unsigned int **a1)
   return **a1;
 }
 
-void sub_1001019A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1001019A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -9116,9 +8271,9 @@ void sub_1001019C0(void **a1, uint64_t a2)
   **a1 = a2;
 }
 
-void sub_100101AA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_100101AA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -9144,9 +8299,9 @@ uint64_t sub_100101AC0(uint64_t a1)
   return **a1;
 }
 
-void sub_100101BA4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_100101BA4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -9172,9 +8327,9 @@ void sub_100101BBC(float **a1, float a2)
   **a1 = a2;
 }
 
-void sub_100101CAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_100101CAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -9200,9 +8355,9 @@ float sub_100101CC4(uint64_t a1)
   return **a1;
 }
 
-void sub_100101DA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_100101DA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -9228,9 +8383,9 @@ void sub_100101DC0(double **a1, double a2)
   **a1 = a2;
 }
 
-void sub_100101EB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_100101EB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -9256,9 +8411,9 @@ double sub_100101EC8(uint64_t a1)
   return **a1;
 }
 
-void sub_100101FAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_100101FAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -9284,9 +8439,9 @@ void sub_100101FC4(_BYTE **a1, char a2)
   **a1 = a2;
 }
 
-void sub_1001020AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1001020AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -9312,9 +8467,9 @@ uint64_t sub_1001020C4(unsigned __int8 **a1)
   return **a1;
 }
 
-void sub_1001021A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1001021A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -9340,9 +8495,9 @@ std::string *sub_1001021C0(std::string **a1, const std::string *a2)
   return std::string::operator=(*a1, a2);
 }
 
-void sub_1001022AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1001022AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -9368,9 +8523,9 @@ uint64_t sub_1001022C4(uint64_t a1)
   return *a1;
 }
 
-void sub_1001023A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1001023A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -9396,9 +8551,9 @@ void sub_1001023BC(_DWORD **a1, int a2)
   **a1 = a2;
 }
 
-void sub_1001024A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1001024A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -9424,9 +8579,9 @@ uint64_t sub_1001024BC(unsigned int **a1)
   return **a1;
 }
 
-void sub_1001025A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1001025A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -9452,9 +8607,9 @@ uint64_t sub_1001025B8(uint64_t a1)
   return *a1;
 }
 
-void sub_100102698(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_100102698(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -9480,9 +8635,9 @@ uint64_t sub_1001026B0(uint64_t a1)
   return *a1;
 }
 
-void sub_100102790(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_100102790(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -9516,7 +8671,7 @@ uint64_t *sub_1001027F8(uint64_t *a1, uint64_t *a2)
   }
 }
 
-void *google::protobuf::internal::DynamicMapField::SyncRepeatedFieldWithMapNoLock(google::protobuf::internal::DynamicMapField *this)
+const google::protobuf::FieldDescriptor *google::protobuf::internal::DynamicMapField::SyncRepeatedFieldWithMapNoLock(google::protobuf::internal::DynamicMapField *this)
 {
   (*(**(this + 18) + 152))(*(this + 18));
   v3 = v2;
@@ -9539,10 +8694,10 @@ void *google::protobuf::internal::DynamicMapField::SyncRepeatedFieldWithMapNoLoc
     *(this + 2) = result;
   }
 
-  v11 = *(v9 + 8);
+  v11 = *(v9 + 2);
   if (v11 >= 1)
   {
-    v12 = (*(v9 + 16) + 8);
+    v12 = (*(v9 + 2) + 8);
     do
     {
       v13 = *v12++;
@@ -9551,7 +8706,7 @@ void *google::protobuf::internal::DynamicMapField::SyncRepeatedFieldWithMapNoLoc
     }
 
     while (v11);
-    *(v9 + 8) = 0;
+    *(v9 + 2) = 0;
   }
 
   v14 = *(this + 15);
@@ -9668,7 +8823,7 @@ LABEL_17:
 
 LABEL_40:
         v30 = v50;
-        v31 = *(v8 + 48);
+        v31 = *(v8 + 6);
         if (v31)
         {
           v53 = v8;
@@ -9682,7 +8837,7 @@ LABEL_40:
           }
         }
 
-        v32 = google::protobuf::FieldDescriptor::kTypeToCppTypeMap[*(v8 + 56)];
+        v32 = google::protobuf::FieldDescriptor::kTypeToCppTypeMap[*(v8 + 14)];
         if (v32 > 5)
         {
           if (v32 <= 7)
@@ -9797,4 +8952,866 @@ LABEL_40:
   }
 
   return result;
+}
+
+void sub_100102EE8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, char a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, void *__p, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+{
+  if (a27 < 0)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+uint64_t sub_100102F2C(uint64_t a1)
+{
+  if (sub_100103FB4(a1) != 9)
+  {
+    google::protobuf::internal::LogMessage::LogMessage(v13, 3, "/Library/Caches/com.apple.xbs/Binaries/iWorkXPC/install/Root/include/google/protobuf/map_field.h", 144);
+    v2 = google::protobuf::internal::LogMessage::operator<<(v13, "Protocol Buffer map usage error:\n");
+    v3 = google::protobuf::internal::LogMessage::operator<<(v2, "MapKey::GetStringValue");
+    v4 = google::protobuf::internal::LogMessage::operator<<(v3, " type does not match\n");
+    v5 = google::protobuf::internal::LogMessage::operator<<(v4, "  Expected : ");
+    v6 = google::protobuf::internal::LogMessage::operator<<(v5, "string");
+    v7 = google::protobuf::internal::LogMessage::operator<<(v6, "\n");
+    v8 = google::protobuf::internal::LogMessage::operator<<(v7, "  Actual   : ");
+    v9 = sub_100103FB4(a1);
+    v10 = google::protobuf::internal::LogMessage::operator<<(v8, google::protobuf::FieldDescriptor::kCppTypeToName[v9]);
+    google::protobuf::internal::LogFinisher::operator=(&v12, &v10->__r_.__value_.__l.__data_);
+    google::protobuf::internal::LogMessage::~LogMessage(&v13[0].__r_.__value_.__l.__data_);
+  }
+
+  return a1;
+}
+
+void sub_10010300C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+{
+  va_start(va, a5);
+  google::protobuf::internal::LogMessage::~LogMessage(va);
+  _Unwind_Resume(a1);
+}
+
+uint64_t sub_100103024(uint64_t a1)
+{
+  if (sub_100103FB4(a1) != 2)
+  {
+    google::protobuf::internal::LogMessage::LogMessage(v13, 3, "/Library/Caches/com.apple.xbs/Binaries/iWorkXPC/install/Root/include/google/protobuf/map_field.h", 124);
+    v2 = google::protobuf::internal::LogMessage::operator<<(v13, "Protocol Buffer map usage error:\n");
+    v3 = google::protobuf::internal::LogMessage::operator<<(v2, "MapKey::GetInt64Value");
+    v4 = google::protobuf::internal::LogMessage::operator<<(v3, " type does not match\n");
+    v5 = google::protobuf::internal::LogMessage::operator<<(v4, "  Expected : ");
+    v6 = google::protobuf::internal::LogMessage::operator<<(v5, "int64");
+    v7 = google::protobuf::internal::LogMessage::operator<<(v6, "\n");
+    v8 = google::protobuf::internal::LogMessage::operator<<(v7, "  Actual   : ");
+    v9 = sub_100103FB4(a1);
+    v10 = google::protobuf::internal::LogMessage::operator<<(v8, google::protobuf::FieldDescriptor::kCppTypeToName[v9]);
+    google::protobuf::internal::LogFinisher::operator=(&v12, &v10->__r_.__value_.__l.__data_);
+    google::protobuf::internal::LogMessage::~LogMessage(&v13[0].__r_.__value_.__l.__data_);
+  }
+
+  return *a1;
+}
+
+void sub_100103104(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+{
+  va_start(va, a5);
+  google::protobuf::internal::LogMessage::~LogMessage(va);
+  _Unwind_Resume(a1);
+}
+
+uint64_t sub_10010311C(unsigned int *a1)
+{
+  if (sub_100103FB4(a1) != 1)
+  {
+    google::protobuf::internal::LogMessage::LogMessage(v13, 3, "/Library/Caches/com.apple.xbs/Binaries/iWorkXPC/install/Root/include/google/protobuf/map_field.h", 132);
+    v2 = google::protobuf::internal::LogMessage::operator<<(v13, "Protocol Buffer map usage error:\n");
+    v3 = google::protobuf::internal::LogMessage::operator<<(v2, "MapKey::GetInt32Value");
+    v4 = google::protobuf::internal::LogMessage::operator<<(v3, " type does not match\n");
+    v5 = google::protobuf::internal::LogMessage::operator<<(v4, "  Expected : ");
+    v6 = google::protobuf::internal::LogMessage::operator<<(v5, "int32");
+    v7 = google::protobuf::internal::LogMessage::operator<<(v6, "\n");
+    v8 = google::protobuf::internal::LogMessage::operator<<(v7, "  Actual   : ");
+    v9 = sub_100103FB4(a1);
+    v10 = google::protobuf::internal::LogMessage::operator<<(v8, google::protobuf::FieldDescriptor::kCppTypeToName[v9]);
+    google::protobuf::internal::LogFinisher::operator=(&v12, &v10->__r_.__value_.__l.__data_);
+    google::protobuf::internal::LogMessage::~LogMessage(&v13[0].__r_.__value_.__l.__data_);
+  }
+
+  return *a1;
+}
+
+void sub_1001031FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+{
+  va_start(va, a5);
+  google::protobuf::internal::LogMessage::~LogMessage(va);
+  _Unwind_Resume(a1);
+}
+
+uint64_t sub_100103214(uint64_t a1)
+{
+  if (sub_100103FB4(a1) != 4)
+  {
+    google::protobuf::internal::LogMessage::LogMessage(v13, 3, "/Library/Caches/com.apple.xbs/Binaries/iWorkXPC/install/Root/include/google/protobuf/map_field.h", 128);
+    v2 = google::protobuf::internal::LogMessage::operator<<(v13, "Protocol Buffer map usage error:\n");
+    v3 = google::protobuf::internal::LogMessage::operator<<(v2, "MapKey::GetUInt64Value");
+    v4 = google::protobuf::internal::LogMessage::operator<<(v3, " type does not match\n");
+    v5 = google::protobuf::internal::LogMessage::operator<<(v4, "  Expected : ");
+    v6 = google::protobuf::internal::LogMessage::operator<<(v5, "uint64");
+    v7 = google::protobuf::internal::LogMessage::operator<<(v6, "\n");
+    v8 = google::protobuf::internal::LogMessage::operator<<(v7, "  Actual   : ");
+    v9 = sub_100103FB4(a1);
+    v10 = google::protobuf::internal::LogMessage::operator<<(v8, google::protobuf::FieldDescriptor::kCppTypeToName[v9]);
+    google::protobuf::internal::LogFinisher::operator=(&v12, &v10->__r_.__value_.__l.__data_);
+    google::protobuf::internal::LogMessage::~LogMessage(&v13[0].__r_.__value_.__l.__data_);
+  }
+
+  return *a1;
+}
+
+void sub_1001032F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+{
+  va_start(va, a5);
+  google::protobuf::internal::LogMessage::~LogMessage(va);
+  _Unwind_Resume(a1);
+}
+
+uint64_t sub_10010330C(unsigned int *a1)
+{
+  if (sub_100103FB4(a1) != 3)
+  {
+    google::protobuf::internal::LogMessage::LogMessage(v13, 3, "/Library/Caches/com.apple.xbs/Binaries/iWorkXPC/install/Root/include/google/protobuf/map_field.h", 136);
+    v2 = google::protobuf::internal::LogMessage::operator<<(v13, "Protocol Buffer map usage error:\n");
+    v3 = google::protobuf::internal::LogMessage::operator<<(v2, "MapKey::GetUInt32Value");
+    v4 = google::protobuf::internal::LogMessage::operator<<(v3, " type does not match\n");
+    v5 = google::protobuf::internal::LogMessage::operator<<(v4, "  Expected : ");
+    v6 = google::protobuf::internal::LogMessage::operator<<(v5, "uint32");
+    v7 = google::protobuf::internal::LogMessage::operator<<(v6, "\n");
+    v8 = google::protobuf::internal::LogMessage::operator<<(v7, "  Actual   : ");
+    v9 = sub_100103FB4(a1);
+    v10 = google::protobuf::internal::LogMessage::operator<<(v8, google::protobuf::FieldDescriptor::kCppTypeToName[v9]);
+    google::protobuf::internal::LogFinisher::operator=(&v12, &v10->__r_.__value_.__l.__data_);
+    google::protobuf::internal::LogMessage::~LogMessage(&v13[0].__r_.__value_.__l.__data_);
+  }
+
+  return *a1;
+}
+
+void sub_1001033EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+{
+  va_start(va, a5);
+  google::protobuf::internal::LogMessage::~LogMessage(va);
+  _Unwind_Resume(a1);
+}
+
+uint64_t sub_100103404(unsigned __int8 *a1)
+{
+  if (sub_100103FB4(a1) != 7)
+  {
+    google::protobuf::internal::LogMessage::LogMessage(v13, 3, "/Library/Caches/com.apple.xbs/Binaries/iWorkXPC/install/Root/include/google/protobuf/map_field.h", 140);
+    v2 = google::protobuf::internal::LogMessage::operator<<(v13, "Protocol Buffer map usage error:\n");
+    v3 = google::protobuf::internal::LogMessage::operator<<(v2, "MapKey::GetBoolValue");
+    v4 = google::protobuf::internal::LogMessage::operator<<(v3, " type does not match\n");
+    v5 = google::protobuf::internal::LogMessage::operator<<(v4, "  Expected : ");
+    v6 = google::protobuf::internal::LogMessage::operator<<(v5, "BOOL");
+    v7 = google::protobuf::internal::LogMessage::operator<<(v6, "\n");
+    v8 = google::protobuf::internal::LogMessage::operator<<(v7, "  Actual   : ");
+    v9 = sub_100103FB4(a1);
+    v10 = google::protobuf::internal::LogMessage::operator<<(v8, google::protobuf::FieldDescriptor::kCppTypeToName[v9]);
+    google::protobuf::internal::LogFinisher::operator=(&v12, &v10->__r_.__value_.__l.__data_);
+    google::protobuf::internal::LogMessage::~LogMessage(&v13[0].__r_.__value_.__l.__data_);
+  }
+
+  return *a1;
+}
+
+void sub_1001034E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+{
+  va_start(va, a5);
+  google::protobuf::internal::LogMessage::~LogMessage(va);
+  _Unwind_Resume(a1);
+}
+
+void google::protobuf::internal::DynamicMapField::SyncMapWithRepeatedFieldNoLock(google::protobuf::internal::DynamicMapField *this)
+{
+  v2 = (this + 96);
+  (*(**(this + 18) + 152))(*(this + 18));
+  v4 = v3;
+  v5 = (*(**(this + 18) + 152))(*(this + 18));
+  v6 = google::protobuf::Descriptor::map_key(v5);
+  v7 = (*(**(this + 18) + 152))(*(this + 18));
+  v8 = google::protobuf::Descriptor::map_value(v7);
+  if (!*(this + 1))
+  {
+    v9 = *(this + 15);
+    v10 = *(this + 13);
+    if (v10 > v9)
+    {
+      v11 = *(this + 16);
+      while (1)
+      {
+        v12 = *(v11 + 8 * v9);
+        if (v12)
+        {
+          break;
+        }
+
+        if (v10 == ++v9)
+        {
+          goto LABEL_11;
+        }
+      }
+
+      if (v12 == *(v11 + 8 * (v9 ^ 1)))
+      {
+        v12 = *(*v12 + 40);
+        v36[0].__r_.__value_.__r.__words[0] = v12;
+        v36[0].__r_.__value_.__l.__size_ = v2;
+        v36[0].__r_.__value_.__r.__words[2] = v9;
+        if (!v12)
+        {
+          goto LABEL_11;
+        }
+      }
+
+      else
+      {
+        v36[0].__r_.__value_.__r.__words[0] = *(v11 + 8 * v9);
+        v36[0].__r_.__value_.__l.__size_ = v2;
+        v36[0].__r_.__value_.__r.__words[2] = v9;
+      }
+
+      do
+      {
+        sub_10010071C(v12 + 8);
+        sub_100104958(v36);
+        v12 = v36[0].__r_.__value_.__r.__words[0];
+      }
+
+      while (v36[0].__r_.__value_.__r.__words[0]);
+    }
+  }
+
+LABEL_11:
+  sub_100104550(v2);
+  v13 = *(this + 2);
+  if (*(v13 + 8))
+  {
+    v14 = *(v13 + 16);
+    if (v14)
+    {
+      v15 = (v14 + 8);
+    }
+
+    else
+    {
+      v15 = 0;
+    }
+
+    do
+    {
+      v43 = 0;
+      v16 = *(v6 + 48);
+      if (v16)
+      {
+        v39 = v6;
+        v40 = google::protobuf::FieldDescriptor::TypeOnceInit;
+        if (atomic_load_explicit(v16, memory_order_acquire) != -1)
+        {
+          v36[0].__r_.__value_.__r.__words[0] = &v40;
+          v36[0].__r_.__value_.__l.__size_ = &v39;
+          v41 = v36;
+          std::__call_once(v16, &v41, sub_1000B32C4);
+        }
+      }
+
+      v17 = google::protobuf::FieldDescriptor::kTypeToCppTypeMap[*(v6 + 56)];
+      if (v17 <= 3)
+      {
+        switch(v17)
+        {
+          case 1:
+            Int32 = google::protobuf::Reflection::GetInt32(v4, *v15, v6);
+            if (v43 != 1)
+            {
+              if (v43 == 9 && SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
+              {
+                operator delete(__p.__r_.__value_.__l.__data_);
+              }
+
+              v20 = 1;
+LABEL_45:
+              v43 = v20;
+            }
+
+LABEL_46:
+            LODWORD(__p.__r_.__value_.__l.__data_) = Int32;
+            break;
+          case 2:
+            Int64 = google::protobuf::Reflection::GetInt64(v4, *v15, v6);
+            if (v43 != 2)
+            {
+              if (v43 == 9 && SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
+              {
+                operator delete(__p.__r_.__value_.__l.__data_);
+              }
+
+              v22 = 2;
+LABEL_52:
+              v43 = v22;
+            }
+
+LABEL_53:
+            __p.__r_.__value_.__r.__words[0] = Int64;
+            break;
+          case 3:
+            Int32 = google::protobuf::Reflection::GetUInt32(v4, *v15, v6);
+            if (v43 != 3)
+            {
+              if (v43 == 9 && SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
+              {
+                operator delete(__p.__r_.__value_.__l.__data_);
+              }
+
+              v20 = 3;
+              goto LABEL_45;
+            }
+
+            goto LABEL_46;
+        }
+      }
+
+      else
+      {
+        if (v17 <= 0xA)
+        {
+          if (((1 << v17) & 0x560) != 0)
+          {
+            google::protobuf::internal::LogMessage::LogMessage(v36, 3, "/Library/Caches/com.apple.xbs/Sources/iWorkXPC/shared/persistence/google/protobuf/map_field.cc", 513);
+            v18 = google::protobuf::internal::LogMessage::operator<<(v36, "Can't get here.");
+            google::protobuf::internal::LogFinisher::operator=(&v41, &v18->__r_.__value_.__l.__data_);
+            google::protobuf::internal::LogMessage::~LogMessage(&v36[0].__r_.__value_.__l.__data_);
+            goto LABEL_60;
+          }
+
+          if (v17 == 7)
+          {
+            Bool = google::protobuf::Reflection::GetBool(v4, *v15, v6);
+            if (v43 != 7)
+            {
+              if (v43 == 9 && SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
+              {
+                operator delete(__p.__r_.__value_.__l.__data_);
+              }
+
+              v43 = 7;
+            }
+
+            __p.__r_.__value_.__s.__data_[0] = Bool;
+            goto LABEL_60;
+          }
+
+          if (v17 == 9)
+          {
+            google::protobuf::Reflection::GetString(&v37, v4, *v15, v6);
+            sub_100103D3C(&__p, &v37);
+            if (v38 < 0)
+            {
+              operator delete(v37.n128_u64[0]);
+            }
+
+            goto LABEL_60;
+          }
+        }
+
+        if (v17 == 4)
+        {
+          Int64 = google::protobuf::Reflection::GetUInt64(v4, *v15, v6);
+          if (v43 != 4)
+          {
+            if (v43 == 9 && SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
+            {
+              operator delete(__p.__r_.__value_.__l.__data_);
+            }
+
+            v22 = 4;
+            goto LABEL_52;
+          }
+
+          goto LABEL_53;
+        }
+      }
+
+LABEL_60:
+      if (!*(this + 1))
+      {
+        sub_100104ACC(v2, &__p, 0, v36);
+        if (v36[0].__r_.__value_.__r.__words[0])
+        {
+          sub_10010071C((v36[0].__r_.__value_.__r.__words[0] + 32));
+        }
+      }
+
+      sub_100105784(v2, &__p, v36);
+      v24 = v36[0].__r_.__value_.__r.__words[0];
+      v25 = *(v8 + 48);
+      if (v25)
+      {
+        v39 = v8;
+        v40 = google::protobuf::FieldDescriptor::TypeOnceInit;
+        if (atomic_load_explicit(v25, memory_order_acquire) != -1)
+        {
+          v36[0].__r_.__value_.__r.__words[0] = &v40;
+          v36[0].__r_.__value_.__l.__size_ = &v39;
+          v41 = v36;
+          std::__call_once(v25, &v41, sub_1000B32C4);
+        }
+
+        v26 = *(v8 + 48);
+        v27 = google::protobuf::FieldDescriptor::kTypeToCppTypeMap[*(v8 + 56)];
+        *(v24 + 40) = v27;
+        if (v26)
+        {
+          v39 = v8;
+          v40 = google::protobuf::FieldDescriptor::TypeOnceInit;
+          if (atomic_load_explicit(v26, memory_order_acquire) != -1)
+          {
+            v36[0].__r_.__value_.__r.__words[0] = &v40;
+            v36[0].__r_.__value_.__l.__size_ = &v39;
+            v41 = v36;
+            std::__call_once(v26, &v41, sub_1000B32C4);
+          }
+
+          v27 = google::protobuf::FieldDescriptor::kTypeToCppTypeMap[*(v8 + 56)];
+        }
+      }
+
+      else
+      {
+        v27 = google::protobuf::FieldDescriptor::kTypeToCppTypeMap[*(v8 + 56)];
+        *(v36[0].__r_.__value_.__r.__words[0] + 40) = v27;
+      }
+
+      if (v27 > 5)
+      {
+        if (v27 <= 7)
+        {
+          if (v27 == 6)
+          {
+            v28 = sub_1001055EC(*(this + 1));
+            *v28 = google::protobuf::Reflection::GetFloat(v4, *v15, v8);
+          }
+
+          else
+          {
+            v28 = sub_1001056B8(*(this + 1));
+            *v28 = google::protobuf::Reflection::GetBool(v4, *v15, v8);
+          }
+
+          goto LABEL_96;
+        }
+
+        if (v27 != 8)
+        {
+          if (v27 == 9)
+          {
+            v28 = sub_1000B3534(*(this + 1));
+            google::protobuf::Reflection::GetString(v36, v4, *v15, v8);
+            if (*(v28 + 23) < 0)
+            {
+              operator delete(*v28);
+            }
+
+            v32 = *&v36[0].__r_.__value_.__l.__data_;
+            v28[2] = v36[0].__r_.__value_.__r.__words[2];
+            *v28 = v32;
+          }
+
+          else
+          {
+            if (v27 != 10)
+            {
+              goto LABEL_97;
+            }
+
+            Message = google::protobuf::Reflection::GetMessage(v4, *v15, v8, 0);
+            v28 = (*(*Message + 32))(Message, *(this + 1));
+            (*(*v28 + 14))(v28, Message);
+          }
+
+          goto LABEL_96;
+        }
+
+        v28 = sub_1001051F0(*(this + 1));
+        EnumValue = google::protobuf::Reflection::GetEnumValue(v4, *v15, v8);
+        goto LABEL_90;
+      }
+
+      if (v27 <= 2)
+      {
+        if (v27 != 1)
+        {
+          if (v27 != 2)
+          {
+            goto LABEL_97;
+          }
+
+          v28 = sub_1001052BC(*(this + 1));
+          UInt64 = google::protobuf::Reflection::GetInt64(v4, *v15, v8);
+          goto LABEL_92;
+        }
+
+        v28 = sub_1001051F0(*(this + 1));
+        EnumValue = google::protobuf::Reflection::GetInt32(v4, *v15, v8);
+        goto LABEL_90;
+      }
+
+      if (v27 == 3)
+      {
+        v28 = sub_100105388(*(this + 1));
+        EnumValue = google::protobuf::Reflection::GetUInt32(v4, *v15, v8);
+LABEL_90:
+        *v28 = EnumValue;
+        goto LABEL_96;
+      }
+
+      if (v27 == 4)
+      {
+        v28 = sub_100105454(*(this + 1));
+        UInt64 = google::protobuf::Reflection::GetUInt64(v4, *v15, v8);
+LABEL_92:
+        *v28 = UInt64;
+        goto LABEL_96;
+      }
+
+      v28 = sub_100105520(*(this + 1));
+      *v28 = google::protobuf::Reflection::GetDouble(v4, *v15, v8);
+LABEL_96:
+      *(v24 + 32) = v28;
+LABEL_97:
+      if (v43 == 9 && SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
+      {
+        operator delete(__p.__r_.__value_.__l.__data_);
+      }
+
+      ++v15;
+      v33 = *(this + 2);
+      v34 = *(v33 + 16);
+      if (v34)
+      {
+        v35 = v34 + 8;
+      }
+
+      else
+      {
+        v35 = 0;
+      }
+    }
+
+    while (v15 != (v35 + 8 * *(v33 + 8)));
+  }
+}
+
+void sub_100103CA4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, void *a25, uint64_t a26, int a27, __int16 a28, char a29, char a30, int a31)
+{
+  if (a21 < 0)
+  {
+    operator delete(__p);
+  }
+
+  if (a31 == 9 && a30 < 0)
+  {
+    operator delete(a25);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+__n128 sub_100103D3C(uint64_t a1, __n128 *a2)
+{
+  sub_1001043A0(a1, 9);
+  if (*(a1 + 23) < 0)
+  {
+    operator delete(*a1);
+  }
+
+  result = *a2;
+  *(a1 + 16) = a2[1].n128_u64[0];
+  *a1 = result;
+  a2[1].n128_u8[7] = 0;
+  a2->n128_u8[0] = 0;
+  return result;
+}
+
+uint64_t google::protobuf::internal::DynamicMapField::SpaceUsedExcludingSelfNoLock(google::protobuf::internal::DynamicMapField *this)
+{
+  v2 = *(this + 2);
+  if (v2)
+  {
+    v3 = 8 * *(v2 + 12);
+    v4 = *(v2 + 16);
+    if (v4)
+    {
+      if (*v4 >= 1)
+      {
+        v5 = 0;
+        do
+        {
+          v3 += (*(**&v4[2 * v5 + 2] + 136))(*&v4[2 * v5 + 2]);
+          ++v5;
+          v4 = *(v2 + 16);
+        }
+
+        while (v5 < *v4);
+      }
+
+      v3 += 8;
+    }
+
+    v6 = v3 + 48;
+  }
+
+  else
+  {
+    v6 = 48;
+  }
+
+  v7 = (this + 96);
+  v8 = *(this + 12);
+  if (v8)
+  {
+    v9 = *(this + 15);
+    v10 = *(this + 13);
+    if (v10 <= v9)
+    {
+      v12 = 0;
+    }
+
+    else
+    {
+      v11 = *(this + 16);
+      while (1)
+      {
+        v12 = *(v11 + 8 * v9);
+        if (v12)
+        {
+          break;
+        }
+
+        v9 = (v9 + 1);
+        if (v10 == v9)
+        {
+          v12 = 0;
+          v9 = v10;
+          goto LABEL_18;
+        }
+      }
+
+      if (v12 == *(v11 + 8 * (v9 ^ 1)))
+      {
+        v12 = *(*v12 + 40);
+      }
+    }
+
+LABEL_18:
+    v22[0] = v12;
+    v22[1] = v7;
+    v22[2] = v9;
+    if (sub_100103FB4(v12) == 9)
+    {
+      v13 = 24 * v8;
+    }
+
+    else
+    {
+      v13 = 0;
+    }
+
+    v6 += 48 * v8 + v13;
+    v14 = sub_100104054((v12 + 8));
+    if (v14 > 5)
+    {
+      if (v14 <= 7)
+      {
+        v20 = v6 + v8;
+        if (v14 != 7)
+        {
+          v20 = v6;
+        }
+
+        if (v14 == 6)
+        {
+          v6 += 4 * v8;
+        }
+
+        else
+        {
+          return v20;
+        }
+      }
+
+      else
+      {
+        switch(v14)
+        {
+          case 8:
+            v6 += 4 * v8;
+            break;
+          case 9:
+            v6 += 24 * v8;
+            break;
+          case 10:
+            while (v12)
+            {
+              v18 = sub_1001026B0((v12 + 8));
+              (*(*v18 + 152))(v18);
+              v6 += google::protobuf::Reflection::SpaceUsedLong(v19, v18);
+              sub_100104958(v22);
+              v12 = v22[0];
+            }
+
+            break;
+        }
+      }
+    }
+
+    else
+    {
+      v15 = v6 + 4 * v8;
+      v16 = v6 + 8 * v8;
+      if (v14 == 5)
+      {
+        v17 = v6 + 8 * v8;
+      }
+
+      else
+      {
+        v17 = v6;
+      }
+
+      if (v14 == 4)
+      {
+        v17 = v6 + 8 * v8;
+      }
+
+      if (v14 == 3)
+      {
+        v17 = v6 + 4 * v8;
+      }
+
+      if (v14 != 2)
+      {
+        v16 = v6;
+      }
+
+      if (v14 != 1)
+      {
+        v15 = v16;
+      }
+
+      if (v14 <= 2)
+      {
+        return v15;
+      }
+
+      else
+      {
+        return v17;
+      }
+    }
+  }
+
+  return v6;
+}
+
+uint64_t sub_100103FB4(uint64_t a1)
+{
+  result = *(a1 + 24);
+  if (!result)
+  {
+    google::protobuf::internal::LogMessage::LogMessage(v7, 3, "/Library/Caches/com.apple.xbs/Binaries/iWorkXPC/install/Root/include/google/protobuf/map_field.h", 91);
+    v3 = google::protobuf::internal::LogMessage::operator<<(v7, "Protocol Buffer map usage error:\n");
+    v4 = google::protobuf::internal::LogMessage::operator<<(v3, "MapKey::type MapKey is not initialized. ");
+    v5 = google::protobuf::internal::LogMessage::operator<<(v4, "Call set methods to initialize MapKey.");
+    google::protobuf::internal::LogFinisher::operator=(&v6, &v5->__r_.__value_.__l.__data_);
+    google::protobuf::internal::LogMessage::~LogMessage(&v7[0].__r_.__value_.__l.__data_);
+    return *(a1 + 24);
+  }
+
+  return result;
+}
+
+void sub_10010403C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+{
+  va_start(va, a5);
+  google::protobuf::internal::LogMessage::~LogMessage(va);
+  _Unwind_Resume(a1);
+}
+
+uint64_t sub_100104054(uint64_t a1)
+{
+  result = *(a1 + 8);
+  if (!result || !*a1)
+  {
+    google::protobuf::internal::LogMessage::LogMessage(v6, 3, "/Library/Caches/com.apple.xbs/Binaries/iWorkXPC/install/Root/include/google/protobuf/map_field.h", 742);
+    v3 = google::protobuf::internal::LogMessage::operator<<(v6, "Protocol Buffer map usage error:\n");
+    v4 = google::protobuf::internal::LogMessage::operator<<(v3, "MapValueConstRef::type MapValueConstRef is not initialized.");
+    google::protobuf::internal::LogFinisher::operator=(&v5, &v4->__r_.__value_.__l.__data_);
+    google::protobuf::internal::LogMessage::~LogMessage(&v6[0].__r_.__value_.__l.__data_);
+    return *(a1 + 8);
+  }
+
+  return result;
+}
+
+void sub_1001040D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+{
+  va_start(va, a5);
+  google::protobuf::internal::LogMessage::~LogMessage(va);
+  _Unwind_Resume(a1);
+}
+
+uint64_t sub_10010410C(uint64_t a1, void **a2)
+{
+  v4 = (*(*a1 + 160))(a1);
+  v5 = v4[3];
+  v6 = v4[1];
+  if (v6 <= v5)
+  {
+    v8 = 0;
+  }
+
+  else
+  {
+    v7 = v4[4];
+    while (1)
+    {
+      v8 = *(v7 + 8 * v5);
+      if (v8)
+      {
+        break;
+      }
+
+      if (v6 == ++v5)
+      {
+        v8 = 0;
+        v5 = v4[1];
+        goto LABEL_9;
+      }
+    }
+
+    if (v8 == *(v7 + 8 * (v5 ^ 1)))
+    {
+      v8 = *(*v8 + 40);
+    }
+  }
+
+LABEL_9:
+  v9 = *a2;
+  *v9 = v8;
+  v9[1] = v4;
+  v9[2] = v5;
+  v10 = *(*a1 + 176);
+
+  return v10(a1, a2);
 }

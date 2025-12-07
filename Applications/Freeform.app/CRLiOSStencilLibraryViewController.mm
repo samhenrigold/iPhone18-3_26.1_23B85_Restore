@@ -12,7 +12,7 @@
 - (_TtC8Freeform34CRLiOSStencilLibraryViewController)initWithEditingCoordinator:(id)coordinator interactiveCanvasController:(id)controller boardItemsToSave:(id)save
 {
   type metadata accessor for CRLBoardItem(0);
-  sub_100C90F74(&qword_1019FCB80, type metadata accessor for CRLBoardItem);
+  sub_100C90F74(&qword_1019FCB80, type metadata accessor for CRLBoardItem, &protocol conformance descriptor for NSObject);
   v7 = static Set._unconditionallyBridgeFromObjectiveC(_:)();
   sub_100C8E408(coordinator, controller, v7);
   return result;
@@ -21,7 +21,7 @@
 - (void)viewDidLoad
 {
   v5.receiver = self;
-  v5.super_class = type metadata accessor for CRLiOSStencilLibraryViewController();
+  v5.super_class = type metadata accessor for CRLiOSStencilLibraryViewController(0);
   v2 = v5.receiver;
   [(CRLiOSStencilLibraryViewController *)&v5 viewDidLoad];
   view = [v2 view];
@@ -62,7 +62,7 @@
   }
 
   type metadata accessor for CRLBoardItem(0);
-  sub_100C90F74(&qword_1019FCB80, type metadata accessor for CRLBoardItem);
+  sub_100C90F74(&qword_1019FCB80, type metadata accessor for CRLBoardItem, &protocol conformance descriptor for NSObject);
   v2.super.isa = Set._bridgeToObjectiveC()().super.isa;
 
   return v2.super.isa;

@@ -22,9 +22,11 @@
 
 uint64_t __50__PXUserDefaultsStandardDataSource_sharedInstance__block_invoke()
 {
-  sharedInstance_sharedInstance = [[PXUserDefaultsStandardDataSource alloc] _initAsSharedInstance];
+  v0 = [[PXUserDefaultsStandardDataSource alloc] _initAsSharedInstance];
+  v1 = sharedInstance_sharedInstance;
+  sharedInstance_sharedInstance = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (id)_initAsSharedInstance

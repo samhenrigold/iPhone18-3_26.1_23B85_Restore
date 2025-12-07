@@ -123,33 +123,33 @@
 
 - (NSString)rowSubtitleText
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   rowSubtitleText = self->_rowSubtitleText;
   if (!rowSubtitleText)
   {
     if (self->_orderDetails)
     {
       array = [MEMORY[0x277CBEB18] array];
+      v23 = 0u;
       v24 = 0u;
       v25 = 0u;
       v26 = 0u;
-      v27 = 0u;
       v5 = self->_orderDetails;
-      v6 = [(NSSet *)v5 countByEnumeratingWithState:&v24 objects:v28 count:16];
+      v6 = [(NSSet *)v5 countByEnumeratingWithState:&v23 objects:v27 count:16];
       if (v6)
       {
         v7 = v6;
-        v8 = *v25;
+        v8 = *v24;
         do
         {
           for (i = 0; i != v7; ++i)
           {
-            if (*v25 != v8)
+            if (*v24 != v8)
             {
               objc_enumerationMutation(v5);
             }
 
-            v10 = *(*(&v24 + 1) + 8 * i);
+            v10 = *(*(&v23 + 1) + 8 * i);
             orderNumber = [v10 orderNumber];
 
             if (orderNumber)
@@ -159,7 +159,7 @@
             }
           }
 
-          v7 = [(NSSet *)v5 countByEnumeratingWithState:&v24 objects:v28 count:16];
+          v7 = [(NSSet *)v5 countByEnumeratingWithState:&v23 objects:v27 count:16];
         }
 
         while (v7);
@@ -182,8 +182,6 @@
       rowSubtitleText = 0;
     }
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 
   return rowSubtitleText;
 }

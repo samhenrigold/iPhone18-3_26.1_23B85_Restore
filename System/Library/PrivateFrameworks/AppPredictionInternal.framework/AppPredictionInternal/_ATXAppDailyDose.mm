@@ -176,23 +176,23 @@
   onCopy = on;
   zoneCopy = zone;
   completionCopy = completion;
-  v11 = __atxlog_handle_default();
+  v11 = __atxlog_handle_default(completionCopy);
   v12 = os_signpost_id_generate(v11);
 
-  v13 = __atxlog_handle_default();
-  v14 = v13;
-  if (v12 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v13))
+  v14 = __atxlog_handle_default(v13);
+  v15 = v14;
+  if (v12 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v14))
   {
     *buf = 136446210;
     v31 = "_ATXAppDailyDose";
-    _os_signpost_emit_with_name_impl(&dword_2263AA000, v14, OS_SIGNPOST_INTERVAL_BEGIN, v12, "Train", "Component=%{public,signpost.telemetry:string1}s  enableTelemetry=YES ", buf, 0xCu);
+    _os_signpost_emit_with_name_impl(&dword_2263AA000, v15, OS_SIGNPOST_INTERVAL_BEGIN, v12, "Train", "Component=%{public,signpost.telemetry:string1}s  enableTelemetry=YES ", buf, 0xCu);
   }
 
-  v15 = os_transaction_create();
-  v16 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
-  v17 = dispatch_queue_attr_make_with_qos_class(v16, QOS_CLASS_BACKGROUND, 0);
+  v16 = os_transaction_create();
+  v17 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
+  v18 = dispatch_queue_attr_make_with_qos_class(v17, QOS_CLASS_BACKGROUND, 0);
 
-  v18 = dispatch_queue_create("ATXAppDailyDose-train", v17);
+  v19 = dispatch_queue_create("ATXAppDailyDose-train", v18);
   v24[0] = MEMORY[0x277D85DD0];
   v24[1] = 3221225472;
   v24[2] = __54___ATXAppDailyDose__doTrainingOn_timeZone_completion___block_invoke;
@@ -202,14 +202,12 @@
   v28 = completionCopy;
   v29 = v12;
   v26 = zoneCopy;
-  v27 = v15;
-  v19 = v15;
-  v20 = completionCopy;
-  v21 = zoneCopy;
-  v22 = onCopy;
-  dispatch_async(v18, v24);
-
-  v23 = *MEMORY[0x277D85DE8];
+  v27 = v16;
+  v20 = v16;
+  v21 = completionCopy;
+  v22 = zoneCopy;
+  v23 = onCopy;
+  dispatch_async(v19, v24);
 }
 
 - (void)addLaunchForBundleId:(id)id date:(id)date completion:(id)completion
@@ -312,21 +310,21 @@ LABEL_3:
 
 - (void)_writeHistoricalDoseWithCompletion:(id)completion
 {
-  v22[3] = *MEMORY[0x277D85DE8];
+  v21[3] = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   dispatch_assert_queue_V2(self->_queue);
   v6 = objc_autoreleasePoolPush();
-  v21[0] = @"appAverageDurationMapKey";
-  v21[1] = @"duetHistoryTimestamp";
+  v20[0] = @"appAverageDurationMapKey";
+  v20[1] = @"duetHistoryTimestamp";
   duetHistoryTimestamp = self->_duetHistoryTimestamp;
-  v22[0] = self->_appHistoricalDoseMap;
-  v22[1] = duetHistoryTimestamp;
-  v21[2] = @"modelVersion";
-  v22[2] = &unk_283A55910;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:v21 count:3];
-  v20 = 0;
-  v9 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v8 requiringSecureCoding:1 error:&v20];
-  v10 = v20;
+  v21[0] = self->_appHistoricalDoseMap;
+  v21[1] = duetHistoryTimestamp;
+  v20[2] = @"modelVersion";
+  v21[2] = &unk_283A55910;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:v20 count:3];
+  v19 = 0;
+  v9 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v8 requiringSecureCoding:1 error:&v19];
+  v10 = v19;
   if (!v9)
   {
     [(_ATXAppDailyDose *)a2 _writeHistoricalDoseWithCompletion:v10];
@@ -336,18 +334,17 @@ LABEL_3:
   v12 = dispatch_queue_attr_make_with_qos_class(v11, QOS_CLASS_BACKGROUND, 0);
   v13 = dispatch_queue_create("daily-dose-write", v12);
 
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __55___ATXAppDailyDose__writeHistoricalDoseWithCompletion___block_invoke;
-  v17[3] = &unk_2785968C8;
-  v18 = v9;
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __55___ATXAppDailyDose__writeHistoricalDoseWithCompletion___block_invoke;
+  v16[3] = &unk_2785968C8;
+  v17 = v9;
   v14 = completionCopy;
-  v19 = v14;
+  v18 = v14;
   v15 = v9;
-  dispatch_async(v13, v17);
+  dispatch_async(v13, v16);
 
   objc_autoreleasePoolPop(v6);
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_loadHistoricalDoseFrom:(id)from
@@ -360,9 +357,9 @@ LABEL_3:
 
   dispatch_assert_queue_V2(self->_queue);
   v5 = objc_autoreleasePoolPush();
-  v28 = 0;
-  v6 = [objc_alloc(MEMORY[0x277CBEA90]) initWithContentsOfFile:fromCopy options:0 error:&v28];
-  v7 = v28;
+  v30 = 0;
+  v6 = [objc_alloc(MEMORY[0x277CBEA90]) initWithContentsOfFile:fromCopy options:0 error:&v30];
+  v7 = v30;
   v8 = v7;
   if (v6)
   {
@@ -373,47 +370,47 @@ LABEL_3:
     v13 = objc_opt_class();
     v14 = [v9 setWithObjects:{v10, v11, v12, v13, objc_opt_class(), 0}];
     v15 = objc_autoreleasePoolPush();
-    v27 = v8;
-    v16 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClasses:v14 fromData:v6 error:&v27];
-    v17 = v27;
+    v29 = v8;
+    v16 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClasses:v14 fromData:v6 error:&v29];
+    v17 = v29;
 
     objc_autoreleasePoolPop(v15);
     if (v16)
     {
-      v18 = [v16 objectForKeyedSubscript:@"modelVersion"];
-      integerValue = [v18 integerValue];
+      v19 = [v16 objectForKeyedSubscript:@"modelVersion"];
+      integerValue = [v19 integerValue];
 
       if (integerValue < 1)
       {
-        v23 = 0;
+        v24 = 0;
         goto LABEL_18;
       }
 
-      v20 = [v16 objectForKeyedSubscript:@"duetHistoryTimestamp"];
-      v21 = [(_ATXAppDailyDose *)self now];
-      v22 = [v20 compare:v21];
+      v21 = [v16 objectForKeyedSubscript:@"duetHistoryTimestamp"];
+      v22 = [(_ATXAppDailyDose *)self now];
+      v23 = [v21 compare:v22];
 
-      v23 = v22 != 1;
-      if (v22 != 1)
+      v24 = v23 != 1;
+      if (v23 != 1)
       {
-        v24 = [v16 objectForKeyedSubscript:@"appAverageDurationMapKey"];
+        v25 = [v16 objectForKeyedSubscript:@"appAverageDurationMapKey"];
         appHistoricalDoseMap = self->_appHistoricalDoseMap;
-        self->_appHistoricalDoseMap = v24;
+        self->_appHistoricalDoseMap = v25;
 
-        objc_storeStrong(&self->_duetHistoryTimestamp, v20);
-        v23 = 1;
+        objc_storeStrong(&self->_duetHistoryTimestamp, v21);
+        v24 = 1;
       }
     }
 
     else
     {
-      v20 = __atxlog_handle_default();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_FAULT))
+      v21 = __atxlog_handle_default(v18);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_FAULT))
       {
         [_ATXAppDailyDose _loadHistoricalDoseFrom:];
       }
 
-      v23 = 0;
+      v24 = 0;
     }
 
 LABEL_18:
@@ -423,24 +420,25 @@ LABEL_19:
     goto LABEL_20;
   }
 
-  if ([v7 code] != 260)
+  code = [v7 code];
+  if (code != 260)
   {
-    v14 = __atxlog_handle_default();
+    v14 = __atxlog_handle_default(code);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
     {
       [_ATXAppDailyDose _loadHistoricalDoseFrom:];
     }
 
-    v23 = 0;
+    v24 = 0;
     v17 = v8;
     goto LABEL_19;
   }
 
-  v23 = 0;
+  v24 = 0;
 LABEL_20:
 
   objc_autoreleasePoolPop(v5);
-  return v23;
+  return v24;
 }
 
 - (void)_backfillAppDurationMapDBForToday
@@ -539,14 +537,6 @@ LABEL_20:
 {
   v6 = [MEMORY[0x277CCA890] currentHandler];
   [v6 handleFailureInMethod:a1 object:a2 file:@"_ATXAppDailyDose.m" lineNumber:399 description:{@"Archiver error: %@", a3}];
-}
-
-- (void)_loadHistoricalDoseFrom:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_8(&dword_2263AA000, v0, v1, "Failed to load historical usage: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

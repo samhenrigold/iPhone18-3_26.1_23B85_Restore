@@ -138,7 +138,7 @@ void __49__PKInsitutionTableCell_setConnectedInstitution___block_invoke_2(uint64
 
 void __49__PKInsitutionTableCell_bankConnectImageProvider__block_invoke()
 {
-  v0 = objc_alloc_init(getFKBankConnectImageProviderClass[0]());
+  v0 = objc_alloc_init(getFKBankConnectImageProviderClass());
   v1 = _MergedGlobals_1_3;
   _MergedGlobals_1_3 = v0;
 }
@@ -238,25 +238,25 @@ void __49__PKInsitutionTableCell_bankConnectImageProvider__block_invoke()
 
 - (void)layoutSubviews
 {
-  v26.receiver = self;
-  v26.super_class = PKInsitutionTableCell;
-  [(PSTableCell *)&v26 layoutSubviews];
+  v40.receiver = self;
+  v40.super_class = PKInsitutionTableCell;
+  [(PSTableCell *)&v40 layoutSubviews];
   if ([(PKInsitutionTableCell *)self _shouldReverseLayoutDirection])
   {
-    v3 = CGRectMaxXEdge;
+    v3 = 2;
   }
 
   else
   {
-    v3 = CGRectMinXEdge;
+    v3 = 0;
   }
 
   contentView = [(PKInsitutionTableCell *)self contentView];
   [contentView bounds];
   memset(&slice, 0, sizeof(slice));
   memset(&rect, 0, sizeof(rect));
-  remainder = v27;
-  CGRectDivide(v27, &slice, &remainder, 16.0, v3);
+  remainder = v41;
+  CGRectDivide(v41, &slice, &remainder, 16.0, v3);
   CGRectDivide(remainder, &rect, &remainder, 29.0, v3);
   CGRectDivide(remainder, &slice, &remainder, 16.0, v3);
   width = remainder.size.width;
@@ -264,34 +264,40 @@ void __49__PKInsitutionTableCell_bankConnectImageProvider__block_invoke()
   v7 = v6;
   [(UILabel *)self->_subTitleLabel sizeThatFits:width, 1.79769313e308];
   v9 = v8;
-  v10 = v7 + 8.0 + 2.0 + v8 + 8.0;
-  PKSizeAlignedInRect();
-  x = v28.origin.x;
-  v13 = v12;
-  v14 = v28.size.width;
-  v28.origin.y = v12 + 8.0;
-  y = v28.origin.y;
-  v28.size.height = v7;
-  [(UILabel *)self->_subTitleLabel setFrame:v28.origin.x, CGRectGetMaxY(v28) + 2.0, v28.size.width, v9];
-  [(UILabel *)self->_titleLabel setFrame:x, y, v14, v7];
-  v16 = 60.0;
+  v12.n128_u64[0] = *&remainder.origin.y;
+  v11.n128_u64[0] = *&remainder.origin.x;
+  v14.n128_u64[0] = *&remainder.size.height;
+  v13.n128_u64[0] = *&remainder.size.width;
+  v15.n128_f64[0] = v7 + 8.0 + 2.0 + v8 + 8.0;
+  v10 = v15.n128_f64[0];
+  v16.n128_u64[0] = *&remainder.size.width;
+  PKSizeAlignedInRect(*MEMORY[0x1E69BB7F8], v13, v15, v11, v12, v16, v14, v17);
+  x = v42.origin.x;
+  v20 = v19;
+  v21 = v42.size.width;
+  v42.origin.y = v19 + 8.0;
+  y = v42.origin.y;
+  v42.size.height = v7;
+  [(UILabel *)self->_subTitleLabel setFrame:v42.origin.x, CGRectGetMaxY(v42) + 2.0, v42.size.width, v9];
+  [(UILabel *)self->_titleLabel setFrame:x, y, v21, v7];
+  v23 = 60.0;
   if (v10 >= 60.0)
   {
-    v16 = v10;
+    v23 = v10;
   }
 
-  v17 = [MEMORY[0x1E696AD98] numberWithDouble:{v16, *&rect.origin.x, *&rect.origin.y}];
+  v24 = [MEMORY[0x1E696AD98] numberWithDouble:{v23, *&rect.origin.x, *&rect.origin.y}];
   WeakRetained = objc_loadWeakRetained((&self->super.super.super.super.super.isa + *MEMORY[0x1E69C57F8]));
-  [WeakRetained setObject:v17 forKeyedSubscript:*MEMORY[0x1E69C5988]];
+  [WeakRetained setObject:v24 forKeyedSubscript:*MEMORY[0x1E69C5988]];
 
   rect.size.height = v10;
-  rect.origin.y = v13;
+  rect.origin.y = v20;
   snapshotSpinner = self->_snapshotSpinner;
-  v29.origin.x = rect.origin.x;
-  v29.size.width = rect.size.width;
-  v29.origin.y = v13;
-  v29.size.height = v10;
-  MidX = CGRectGetMidX(v29);
+  v43.origin.x = rect.origin.x;
+  v43.size.width = rect.size.width;
+  v43.origin.y = v20;
+  v43.size.height = v10;
+  MidX = CGRectGetMidX(v43);
   [(UIActivityIndicatorView *)snapshotSpinner setCenter:MidX, CGRectGetMidY(rect)];
   iconImageView = self->_iconImageView;
   if (iconImageView)
@@ -300,7 +306,13 @@ void __49__PKInsitutionTableCell_bankConnectImageProvider__block_invoke()
 
     if (image)
     {
-      PKSizeAlignedInRect();
+      v32.n128_u64[0] = *&rect.origin.x;
+      v33.n128_u64[0] = *&rect.origin.y;
+      v34.n128_u64[0] = *&rect.size.width;
+      v35.n128_u64[0] = *&rect.size.height;
+      v30.n128_u64[0] = 29.0;
+      v31.n128_u64[0] = 29.0;
+      PKSizeAlignedInRect(v3 | 0x100000000, v30, v31, v32, v33, v34, v35, v36);
       [(UIImageView *)self->_iconImageView setFrame:?];
     }
   }

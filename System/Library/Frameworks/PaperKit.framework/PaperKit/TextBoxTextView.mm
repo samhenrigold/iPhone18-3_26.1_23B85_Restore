@@ -26,7 +26,7 @@
 {
   selfCopy = self;
   nextResponder = [(TextBoxTextView *)selfCopy nextResponder];
-  if (nextResponder && (v4 = nextResponder, type metadata accessor for PKMathRecognitionItemAttributes(0, &lazy cache variable for type metadata for UIResponder), nextResponder2 = selfCopy, v6 = static NSObject.== infix(_:_:)(), v4, nextResponder2, (v6 & 1) != 0))
+  if (nextResponder && (v4 = nextResponder, type metadata accessor for PKMathRecognitionItemAttributes(0, &lazy cache variable for type metadata for UIResponder, 0x1E69DCE60), nextResponder2 = selfCopy, v6 = static NSObject.== infix(_:_:)(), v4, nextResponder2, (v6 & 1) != 0))
   {
     undoManager = 0;
   }
@@ -70,7 +70,7 @@
 
   if (v3)
   {
-    type metadata accessor for PKMathRecognitionItemAttributes(0, &lazy cache variable for type metadata for UIKeyCommand);
+    type metadata accessor for PKMathRecognitionItemAttributes(0, &lazy cache variable for type metadata for UIKeyCommand, 0x1E69DCBA0);
     v4.super.isa = Array._bridgeToObjectiveC()().super.isa;
   }
 

@@ -56,50 +56,51 @@
 {
   timeCopy = time;
   endTimeCopy = endTime;
-  v19[0] = 0;
-  v19[1] = v19;
-  v19[2] = 0x3032000000;
-  v19[3] = __Block_byref_object_copy__36;
-  v19[4] = __Block_byref_object_dispose__36;
-  v20 = 0;
-  v17[0] = 0;
-  v17[1] = v17;
-  v17[2] = 0x3032000000;
-  v17[3] = __Block_byref_object_copy__36;
-  v17[4] = __Block_byref_object_dispose__36;
-  v18 = 0;
+  v20[0] = 0;
+  v20[1] = v20;
+  v20[2] = 0x3032000000;
+  v20[3] = __Block_byref_object_copy__36;
+  v20[4] = __Block_byref_object_dispose__36;
+  v21 = 0;
+  v18[0] = 0;
+  v18[1] = v18;
+  v18[2] = 0x3032000000;
+  v18[3] = __Block_byref_object_copy__36;
+  v18[4] = __Block_byref_object_dispose__36;
+  v19 = 0;
   v8 = [(BPSPublisher *)self->_computedModePublisher orderedMergeWithOther:self->_inferredModePublisher comparator:&__block_literal_global_73];
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __91__ATXUnifiedComputedAndInferredModeStream_computeUnifiedModeEventsFromStartTime_toEndTime___block_invoke_2;
+  v14[3] = &unk_27859AB00;
+  v16 = v20;
+  v14[4] = self;
+  v9 = endTimeCopy;
+  v15 = v9;
+  v17 = v18;
   v13[0] = MEMORY[0x277D85DD0];
   v13[1] = 3221225472;
-  v13[2] = __91__ATXUnifiedComputedAndInferredModeStream_computeUnifiedModeEventsFromStartTime_toEndTime___block_invoke_2;
-  v13[3] = &unk_27859AB00;
-  v15 = v19;
+  v13[2] = __91__ATXUnifiedComputedAndInferredModeStream_computeUnifiedModeEventsFromStartTime_toEndTime___block_invoke_40;
+  v13[3] = &unk_27859AB28;
   v13[4] = self;
-  v9 = endTimeCopy;
-  v14 = v9;
-  v16 = v17;
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __91__ATXUnifiedComputedAndInferredModeStream_computeUnifiedModeEventsFromStartTime_toEndTime___block_invoke_40;
-  v12[3] = &unk_27859AB28;
-  v12[4] = self;
-  v12[5] = v17;
-  v12[6] = v19;
-  v10 = [v8 sinkWithCompletion:v13 receiveInput:v12];
+  v13[5] = v18;
+  v13[6] = v20;
+  v10 = [v8 sinkWithCompletion:v14 receiveInput:v13];
   [(NSMutableArray *)self->_modeEvents sortUsingComparator:&__block_literal_global_47];
-  if ([(ATXUnifiedComputedAndInferredModeStream *)self checkForOverlappingTimeRanges:self->_modeEvents])
+  v11 = [(ATXUnifiedComputedAndInferredModeStream *)self checkForOverlappingTimeRanges:self->_modeEvents];
+  if (v11)
   {
-    v11 = __atxlog_handle_notification_categorization();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
+    v12 = __atxlog_handle_notification_categorization(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
     {
-      [ATXUnifiedComputedAndInferredModeStream computeUnifiedModeEventsFromStartTime:v11 toEndTime:?];
+      [ATXUnifiedComputedAndInferredModeStream computeUnifiedModeEventsFromStartTime:v12 toEndTime:?];
     }
   }
 
   objc_storeStrong(&self->_unifiedModeEventsInTimeRange, self->_modeEvents);
 
-  _Block_object_dispose(v17, 8);
-  _Block_object_dispose(v19, 8);
+  _Block_object_dispose(v18, 8);
+  _Block_object_dispose(v20, 8);
 }
 
 uint64_t __91__ATXUnifiedComputedAndInferredModeStream_computeUnifiedModeEventsFromStartTime_toEndTime___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -125,53 +126,53 @@ void __91__ATXUnifiedComputedAndInferredModeStream_computeUnifiedModeEventsFromS
 
   if (v4)
   {
-    v5 = __atxlog_handle_notification_categorization();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = __atxlog_handle_notification_categorization(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      __91__ATXUnifiedComputedAndInferredModeStream_computeUnifiedModeEventsFromStartTime_toEndTime___block_invoke_2_cold_1(v3, v5);
-    }
-  }
-
-  v6 = [v3 error];
-  if (v6 || !*(*(*(a1 + 48) + 8) + 40))
-  {
-  }
-
-  else
-  {
-    v8 = [*(*(*(a1 + 48) + 8) + 40) eventBody];
-    v9 = [v8 starting];
-
-    if (v9)
-    {
-      v10 = *(a1 + 32);
-      v11 = *(*(*(a1 + 48) + 8) + 40);
-      [v11 timestamp];
-      v13 = v12;
-      [*(a1 + 40) timeIntervalSinceReferenceDate];
-      [v10 addComputedModeEventToArrayStream:v11 withStartTime:v13 endTime:v14];
-      goto LABEL_9;
+      __91__ATXUnifiedComputedAndInferredModeStream_computeUnifiedModeEventsFromStartTime_toEndTime___block_invoke_2_cold_1(v3, v6);
     }
   }
 
   v7 = [v3 error];
-  if (v7 || !*(*(*(a1 + 56) + 8) + 40))
+  if (v7 || !*(*(*(a1 + 48) + 8) + 40))
   {
   }
 
   else
   {
-    v15 = [*(*(*(a1 + 56) + 8) + 40) eventBody];
-    v16 = [v15 isStart];
+    v9 = [*(*(*(a1 + 48) + 8) + 40) eventBody];
+    v10 = [v9 starting];
 
-    if (v16)
+    if (v10)
     {
-      v17 = *(a1 + 32);
-      v18 = *(*(*(a1 + 56) + 8) + 40);
-      [v18 timestamp];
-      v20 = v19;
+      v11 = *(a1 + 32);
+      v12 = *(*(*(a1 + 48) + 8) + 40);
+      [v12 timestamp];
+      v14 = v13;
       [*(a1 + 40) timeIntervalSinceReferenceDate];
-      [v17 addInferredModeEventToArrayStream:v18 withStartTime:v20 endTime:v21];
+      [v11 addComputedModeEventToArrayStream:v12 withStartTime:v14 endTime:v15];
+      goto LABEL_9;
+    }
+  }
+
+  v8 = [v3 error];
+  if (v8 || !*(*(*(a1 + 56) + 8) + 40))
+  {
+  }
+
+  else
+  {
+    v16 = [*(*(*(a1 + 56) + 8) + 40) eventBody];
+    v17 = [v16 isStart];
+
+    if (v17)
+    {
+      v18 = *(a1 + 32);
+      v19 = *(*(*(a1 + 56) + 8) + 40);
+      [v19 timestamp];
+      v21 = v20;
+      [*(a1 + 40) timeIntervalSinceReferenceDate];
+      [v18 addInferredModeEventToArrayStream:v19 withStartTime:v21 endTime:v22];
     }
   }
 
@@ -357,30 +358,30 @@ uint64_t __91__ATXUnifiedComputedAndInferredModeStream_computeUnifiedModeEventsF
 
 - (BOOL)checkForOverlappingTimeRanges:(id)ranges
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   rangesCopy = ranges;
   distantPast = [MEMORY[0x277CBEAA8] distantPast];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v5 = rangesCopy;
-  v6 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v6)
   {
-    v7 = *v17;
+    v7 = *v16;
     do
     {
       v8 = 0;
       v9 = distantPast;
       do
       {
-        if (*v17 != v7)
+        if (*v16 != v7)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v16 + 1) + 8 * v8);
+        v10 = *(*(&v15 + 1) + 8 * v8);
         startTime = [v10 startTime];
         if ([v9 compare:startTime] == -1)
         {
@@ -406,7 +407,7 @@ uint64_t __91__ATXUnifiedComputedAndInferredModeStream_computeUnifiedModeEventsF
       }
 
       while (v6 != v8);
-      v6 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v6);
@@ -414,7 +415,6 @@ uint64_t __91__ATXUnifiedComputedAndInferredModeStream_computeUnifiedModeEventsF
 
 LABEL_12:
 
-  v14 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -454,13 +454,11 @@ LABEL_12:
 
 void __91__ATXUnifiedComputedAndInferredModeStream_computeUnifiedModeEventsFromStartTime_toEndTime___block_invoke_2_cold_1(void *a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = [a1 error];
-  v5 = 138412290;
-  v6 = v3;
-  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "ATXUnifiedComputedAndInferredModeStream: Error fetching mode streams: %@", &v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138412290;
+  v5 = v3;
+  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "ATXUnifiedComputedAndInferredModeStream: Error fetching mode streams: %@", &v4, 0xCu);
 }
 
 @end

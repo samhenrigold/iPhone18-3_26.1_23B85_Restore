@@ -10,37 +10,37 @@
 
 - (id)dictionaryRepresentation
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   v4 = objc_msgSend_array(MEMORY[0x277CBEB18], a2, v2);
-  v29 = 0u;
-  v30 = 0u;
-  v27 = 0u;
   v28 = 0u;
+  v29 = 0u;
+  v26 = 0u;
+  v27 = 0u;
   v5 = self->_mirrorPoints;
-  v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(v5, v6, &v27, v33, 16);
+  v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(v5, v6, &v26, v32, 16);
   if (v9)
   {
-    v10 = *v28;
+    v10 = *v27;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v28 != v10)
+        if (*v27 != v10)
         {
           objc_enumerationMutation(v5);
         }
 
-        v12 = objc_msgSend_dictionaryRepresentation(*(*(&v27 + 1) + 8 * i), v7, v8, v27);
+        v12 = objc_msgSend_dictionaryRepresentation(*(*(&v26 + 1) + 8 * i), v7, v8, v26);
         objc_msgSend_addObject_(v4, v13, v12);
       }
 
-      v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(v5, v7, &v27, v33, 16);
+      v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(v5, v7, &v26, v32, 16);
     }
 
     while (v9);
   }
 
-  v31[0] = @"floorPlan";
+  v30[0] = @"floorPlan";
   floorPlan = self->_floorPlan;
   if (floorPlan)
   {
@@ -52,8 +52,8 @@
     v17 = MEMORY[0x277CBEC10];
   }
 
-  v32[0] = v17;
-  v31[1] = @"rawFloorPlan";
+  v31[0] = v17;
+  v30[1] = @"rawFloorPlan";
   rawFloorPlan = self->_rawFloorPlan;
   if (rawFloorPlan)
   {
@@ -65,16 +65,16 @@
     v19 = MEMORY[0x277CBEC10];
   }
 
-  v32[1] = v19;
-  v31[2] = @"version";
-  v20 = objc_msgSend_numberWithInteger_(MEMORY[0x277CCABB0], v14, self->_version, v27);
-  v32[2] = v20;
-  v31[3] = @"isCaptured";
+  v31[1] = v19;
+  v30[2] = @"version";
+  v20 = objc_msgSend_numberWithInteger_(MEMORY[0x277CCABB0], v14, self->_version, v26);
+  v31[2] = v20;
+  v30[3] = @"isCaptured";
   v22 = objc_msgSend_numberWithBool_(MEMORY[0x277CCABB0], v21, self->_isCaptured);
-  v31[4] = @"mirrorPoints";
-  v32[3] = v22;
-  v32[4] = v4;
-  v24 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v23, v32, v31, 5);
+  v30[4] = @"mirrorPoints";
+  v31[3] = v22;
+  v31[4] = v4;
+  v24 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v23, v31, v30, 5);
 
   if (rawFloorPlan)
   {
@@ -83,8 +83,6 @@
   if (floorPlan)
   {
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 
   return v24;
 }

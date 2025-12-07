@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)typeAsString:(int)string;
 - (int)StringAsType:(id)type;
 - (unint64_t)hash;
 - (void)copyTo:(id)to;
@@ -13,6 +14,21 @@
 @end
 
 @implementation SYLogEngineState
+
+- (id)typeAsString:(int)string
+{
+  if ((string - 1) >= 3)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E86CA368[string - 1];
+  }
+
+  return v4;
+}
 
 - (int)StringAsType:(id)type
 {
@@ -201,27 +217,24 @@ LABEL_10:
   return dictionary;
 }
 
-uint64_t __44__SYLogEngineState_dictionaryRepresentation__block_invoke()
+uint64_t __44__SYLogEngineState_dictionaryRepresentation__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_new();
-  v1 = dictionaryRepresentation___formatter;
-  dictionaryRepresentation___formatter = v0;
+  v2 = objc_opt_new();
+  v3 = dictionaryRepresentation___formatter;
+  dictionaryRepresentation___formatter = v2;
 
-  v2 = dictionaryRepresentation___formatter;
+  v4 = dictionaryRepresentation___formatter;
 
-  return [v2 setDateFormat:@"yyyy-MM-dd HH:mm:ss.SSS ZZZZZ"];
+  return [v4 setDateFormat:@"yyyy-MM-dd HH:mm:ss.SSS ZZZZZ"];
 }
 
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  type = self->_type;
-  v10 = toCopy;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 4) != 0)
   {
-    suspended = self->_suspended;
     PBDataWriterWriteBOOLField();
     has = self->_has;
     if ((has & 2) == 0)
@@ -241,12 +254,10 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  inSession = self->_inSession;
   PBDataWriterWriteBOOLField();
   if (*&self->_has)
   {
 LABEL_4:
-    buffersSessions = self->_buffersSessions;
     PBDataWriterWriteBOOLField();
   }
 
@@ -420,7 +431,6 @@ LABEL_5:
       goto LABEL_42;
     }
 
-    v15 = *(equalCopy + 14);
     if (self->_suspended)
     {
       if ((equalCopy[7] & 1) == 0)
@@ -447,7 +457,6 @@ LABEL_5:
       goto LABEL_42;
     }
 
-    v16 = *(equalCopy + 13);
     if (self->_inSession)
     {
       if ((*(equalCopy + 13) & 1) == 0)

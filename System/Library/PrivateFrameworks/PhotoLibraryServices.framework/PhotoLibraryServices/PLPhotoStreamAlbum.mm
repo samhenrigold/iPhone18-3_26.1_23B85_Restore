@@ -11,7 +11,7 @@
   takenCopy = taken;
   mutableAssets = [(PLManagedAlbum *)self mutableAssets];
   dateCreated = [takenCopy dateCreated];
-  v6 = [mutableAssets count];
+  v6 = objc_msgSend_count(mutableAssets);
   if (!v6 || !dateCreated)
   {
     [mutableAssets addObject:takenCopy];
@@ -113,9 +113,9 @@ LABEL_19:
     goto LABEL_30;
   }
 
-  if ([v14 count] < 2)
+  if (objc_msgSend_count(v14) < 2)
   {
-    if ([v14 count] == 1)
+    if (objc_msgSend_count(v14) == 1)
     {
       lastObject = [v14 lastObject];
       goto LABEL_26;
@@ -189,7 +189,7 @@ LABEL_30:
         }
 
         NSLog(&cfstr_FoundAlbumWith.isa, personID);
-        if ([personID isEqualToString:dCopy])
+        if (objc_msgSend_isEqualToString_(personID))
         {
           v24 = v22;
 
@@ -222,9 +222,9 @@ LABEL_27:
     }
 
     personID2 = [v19 personID];
-    v29 = [personID2 isEqualToString:dCopy];
+    isEqualToString = objc_msgSend_isEqualToString_(personID2);
 
-    if (v29)
+    if (isEqualToString)
     {
       goto LABEL_31;
     }

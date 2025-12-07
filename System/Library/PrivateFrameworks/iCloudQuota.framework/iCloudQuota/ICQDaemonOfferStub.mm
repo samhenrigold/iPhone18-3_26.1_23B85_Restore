@@ -30,7 +30,7 @@
 
 - (NSString)offerId
 {
-  v2 = [(NSDictionary *)self->_serverDict objectForKeyedSubscript:@"offerId"];
+  v2 = objc_msgSend_objectForKeyedSubscript_(self->_serverDict, a2, @"offerId");
   v3 = v2;
   if (v2)
   {
@@ -50,7 +50,7 @@
 - (ICQDaemonOfferCriteria)criteria
 {
   serverDictionary = [(ICQDaemonOfferStub *)self serverDictionary];
-  v3 = [serverDictionary objectForKeyedSubscript:@"criteria"];
+  v3 = objc_msgSend_objectForKeyedSubscript_(serverDictionary);
 
   v4 = [[ICQDaemonOfferCriteria alloc] initWithServerDictionary:v3];
 
@@ -59,35 +59,14 @@
 
 - (Class)offerClass
 {
-  if ([(ICQDaemonOfferStub *)self isBuddyOffer])
+  if (![(ICQDaemonOfferStub *)self isBuddyOffer]&& ![(ICQDaemonOfferStub *)self isPremiumOffer]&& ![(ICQDaemonOfferStub *)self isDefaultOffer])
   {
-    v3 = off_27A650D70;
+    [(ICQDaemonOfferStub *)self isEventOffer];
   }
 
-  else if ([(ICQDaemonOfferStub *)self isPremiumOffer])
-  {
-    v3 = off_27A650DC0;
-  }
+  v3 = objc_opt_class();
 
-  else if ([(ICQDaemonOfferStub *)self isDefaultOffer])
-  {
-    v3 = off_27A650D78;
-  }
-
-  else
-  {
-    isEventOffer = [(ICQDaemonOfferStub *)self isEventOffer];
-    v3 = off_27A650D88;
-    if (isEventOffer)
-    {
-      v3 = off_27A650D80;
-    }
-  }
-
-  v5 = *v3;
-  v6 = objc_opt_class();
-
-  return v6;
+  return v3;
 }
 
 - (id)persistedOffer
@@ -124,13 +103,13 @@
 
 - (NSString)offerResetURL
 {
-  v2 = [(NSDictionary *)self->_serverDict objectForKeyedSubscript:@"offerResetURL"];
+  v2 = objc_msgSend_objectForKeyedSubscript_(self->_serverDict, a2, @"offerResetURL");
   if (v2 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
   {
     v4 = _ICQGetLogSystem();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      [ICQDaemonOfferStub offerResetURL];
+      [(ICQDaemonOfferStub *)v2 offerResetURL];
     }
 
     v3 = 0;
@@ -146,13 +125,13 @@
 
 - (NSDictionary)offerResetPayload
 {
-  v2 = [(NSDictionary *)self->_serverDict objectForKeyedSubscript:@"offerResetPayload"];
+  v2 = objc_msgSend_objectForKeyedSubscript_(self->_serverDict, a2, @"offerResetPayload");
   if (v2 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
   {
     v4 = _ICQGetLogSystem();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      [ICQDaemonOfferStub offerResetURL];
+      [(ICQDaemonOfferStub *)v2 offerResetURL];
     }
 
     v3 = 0;
@@ -168,11 +147,10 @@
 
 - (void)offerResetURL
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = objc_opt_class();
-  OUTLINED_FUNCTION_0_2(&dword_275572000, v1, v2, "Expected String for offerResetURL got %@", v3, v4, v5, v6, 2u);
-
-  v7 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = objc_opt_class();
+  v1 = *(&v8 + 4);
+  OUTLINED_FUNCTION_0_2(&dword_275572000, v2, v3, "Expected String for offerResetURL got %@", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 @end

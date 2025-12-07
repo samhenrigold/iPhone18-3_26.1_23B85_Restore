@@ -20,6 +20,8 @@
 - (void)remote_sendCompetitionRequestToFriendWithUUID:(id)d completion:(id)completion;
 - (void)remote_sendInviteRequestToDestination:(id)destination callerID:(id)d serviceIdentifier:(id)identifier completion:(id)completion;
 - (void)remote_sendWithdrawInviteRequestToFriendWithUUID:(id)d completion:(id)completion;
+- (void)remote_setActivityDataVisible:(BOOL)visible toFriendWithUUID:(id)d completion:(id)completion;
+- (void)remote_setMuteEnabled:(BOOL)enabled forFriendWithUUID:(id)d completion:(id)completion;
 @end
 
 @implementation ASServer
@@ -98,6 +100,24 @@ void __33__ASServer_connectionInvalidated__block_invoke(uint64_t a1)
   dCopy = d;
   v7 = _SanitizedSuccessCompletion(completion);
   [(ASActivitySharingManager *)activitySharingManager ignoreInviteRequestFromFriendWithUUID:dCopy completion:v7];
+}
+
+- (void)remote_setActivityDataVisible:(BOOL)visible toFriendWithUUID:(id)d completion:(id)completion
+{
+  visibleCopy = visible;
+  activitySharingManager = self->_activitySharingManager;
+  dCopy = d;
+  v9 = _SanitizedSuccessCompletion(completion);
+  [(ASActivitySharingManager *)activitySharingManager setActivityDataVisible:visibleCopy toFriendWithUUID:dCopy completion:v9];
+}
+
+- (void)remote_setMuteEnabled:(BOOL)enabled forFriendWithUUID:(id)d completion:(id)completion
+{
+  enabledCopy = enabled;
+  activitySharingManager = self->_activitySharingManager;
+  dCopy = d;
+  v9 = _SanitizedSuccessCompletion(completion);
+  [(ASActivitySharingManager *)activitySharingManager setMuteEnabled:enabledCopy forFriendWithUUID:dCopy completion:v9];
 }
 
 - (void)remote_removeFriendWithUUID:(id)d completion:(id)completion

@@ -40,25 +40,24 @@
 - (void)coalesceAddress:(__DDResult *)address orAppendMatch:(id)match
 {
   matchCopy = match;
-  v6 = *MEMORY[0x277D040E0];
   if (DDResultHasType())
   {
     Range = DDResultGetRange();
-    v9 = Range + v8;
-    v10 = [(NSMutableArray *)self->_matches count];
-    v11 = v10;
+    v8 = Range + v7;
+    v9 = objc_msgSend_count(self->_matches);
+    v10 = v9;
     lastAddressIndex = self->_lastAddressIndex;
-    v13 = lastAddressIndex != -1 && v10 == lastAddressIndex + 1;
-    if (v13 && Range - self->_lastAddressEndPos <= 19 && (lastResult = self->_lastResult, DDAddressResultCanBeMergedWith()))
+    v12 = lastAddressIndex != -1 && v9 == lastAddressIndex + 1;
+    if (v12 && Range - self->_lastAddressEndPos <= 19 && DDAddressResultCanBeMergedWith())
     {
-      v15 = [(NSMutableArray *)self->_matches objectAtIndexedSubscript:self->_lastAddressIndex];
-      range = [v15 range];
-      v17 = v9 - [v15 range];
-      v18 = [SGDataDetectorMatch alloc];
-      matchType = [v15 matchType];
-      labelRange = [v15 labelRange];
-      v22 = [(SGDataDetectorMatch *)v18 initWithMatchType:matchType range:range labelRange:v17 labelString:labelRange valueRange:v21 valueString:0, range, v17, 0];
-      [(NSMutableArray *)self->_matches setObject:v22 atIndexedSubscript:self->_lastAddressIndex];
+      v13 = [(NSMutableArray *)self->_matches objectAtIndexedSubscript:self->_lastAddressIndex];
+      range = [v13 range];
+      v15 = v8 - [v13 range];
+      v16 = [SGDataDetectorMatch alloc];
+      matchType = [v13 matchType];
+      labelRange = [v13 labelRange];
+      v20 = [(SGDataDetectorMatch *)v16 initWithMatchType:matchType range:range labelRange:v15 labelString:labelRange valueRange:v19 valueString:0, range, v15, 0];
+      [(NSMutableArray *)self->_matches setObject:v20 atIndexedSubscript:self->_lastAddressIndex];
     }
 
     else
@@ -66,12 +65,12 @@
       [(NSMutableArray *)self->_matches addObject:matchCopy];
     }
 
-    self->_lastAddressIndex = v11;
-    self->_lastAddressEndPos = v9;
-    v23 = self->_lastResult;
-    if (v23)
+    self->_lastAddressIndex = v10;
+    self->_lastAddressEndPos = v8;
+    lastResult = self->_lastResult;
+    if (lastResult)
     {
-      CFRelease(v23);
+      CFRelease(lastResult);
     }
 
     self->_lastResult = CFRetain(address);

@@ -17,7 +17,7 @@
 - (MRIRRouteRecommendationContext)initWithCandidateResults:(id)results contextIdentifier:(id)identifier
 {
   type metadata accessor for RouteRecommendationCandidateResult();
-  sub_100390C08(&qword_100528D40, type metadata accessor for RouteRecommendationCandidateResult);
+  sub_100390C08(&qword_100528D40, type metadata accessor for RouteRecommendationCandidateResult, &protocol conformance descriptor for NSObject);
   v5 = static Set._unconditionallyBridgeFromObjectiveC(_:)();
   v6 = static String._unconditionallyBridgeFromObjectiveC(_:)();
   *(self + OBJC_IVAR___MRIRRouteRecommendationContext_candidateResults) = v5;

@@ -38,7 +38,7 @@
     _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Canceling all system applications for: %{public}@", buf, 0xCu);
   }
 
-  v6 = sub_1003C27BC();
+  v6 = sub_1003C27BC(AppInstallsDatabaseStore);
   v8[0] = _NSConcreteStackBlock;
   v8[1] = 3221225472;
   v8[2] = sub_1003EDA4C;

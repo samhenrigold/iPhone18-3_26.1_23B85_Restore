@@ -53,7 +53,7 @@
 
 + (id)submittedLogInfosFromPaths:(id)paths sandboxExtensions:(id)extensions transferOwnerships:(id)ownerships successOut:(BOOL *)out
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   pathsCopy = paths;
   extensionsCopy = extensions;
   ownershipsCopy = ownerships;
@@ -67,7 +67,7 @@
       goto LABEL_31;
     }
 
-    v15 = DPLogHandle_RequestError();
+    v15 = DPLogHandle_RequestError(ownershipsCopy);
     if (!os_signpost_enabled(v15))
     {
       goto LABEL_30;
@@ -94,24 +94,24 @@
       v21 = @"Missing";
     }
 
-    v38 = 138543874;
-    v39 = v20;
-    v40 = 2114;
-    v41 = v21;
+    v39 = 138543874;
+    v40 = v20;
+    v41 = 2114;
+    v42 = v21;
     if (!v12)
     {
       v19 = @"Missing";
     }
 
-    v42 = 2114;
-    v43 = v19;
+    v43 = 2114;
+    v44 = v19;
     v16 = "SubmittedLogInfoFailure";
     v17 = "Could not generate submitted log info array due to missing input.\nPaths: %{public}@\nSandboxExtensions:%{public}@\nTransferBools:%{public}@";
 LABEL_21:
     v22 = v15;
     v23 = 32;
 LABEL_29:
-    _os_signpost_emit_with_name_impl(&dword_232906000, v22, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, v16, v17, &v38, v23);
+    _os_signpost_emit_with_name_impl(&dword_232906000, v22, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, v16, v17, &v39, v23);
     goto LABEL_30;
   }
 
@@ -119,10 +119,10 @@ LABEL_29:
   v14 = MEMORY[0x277D86440];
   if (v13 != MEMORY[0x277D86440])
   {
-    v15 = DPLogHandle_RequestError();
+    v15 = DPLogHandle_RequestError(v13);
     if (os_signpost_enabled(v15))
     {
-      LOWORD(v38) = 0;
+      LOWORD(v39) = 0;
       v16 = "SubmittedLogInfoFailureUnexpected xpcPathArray type";
       v17 = &unk_232980861;
 LABEL_28:
@@ -134,12 +134,13 @@ LABEL_28:
     goto LABEL_30;
   }
 
-  if (MEMORY[0x23838A140](extensionsCopy) != v14)
+  v24 = MEMORY[0x23838A140](extensionsCopy);
+  if (v24 != v14)
   {
-    v15 = DPLogHandle_RequestError();
+    v15 = DPLogHandle_RequestError(v24);
     if (os_signpost_enabled(v15))
     {
-      LOWORD(v38) = 0;
+      LOWORD(v39) = 0;
       v16 = "SubmittedLogInfoFailureUnexpected xpcSandboxExtensionsArray type";
       v17 = &unk_232980861;
       goto LABEL_28;
@@ -152,12 +153,13 @@ LABEL_30:
     goto LABEL_31;
   }
 
-  if (MEMORY[0x23838A140](v12) != v14)
+  v25 = MEMORY[0x23838A140](v12);
+  if (v25 != v14)
   {
-    v15 = DPLogHandle_RequestError();
+    v15 = DPLogHandle_RequestError(v25);
     if (os_signpost_enabled(v15))
     {
-      LOWORD(v38) = 0;
+      LOWORD(v39) = 0;
       v16 = "SubmittedLogInfoFailureUnexpected xpcTransferBoolArray type";
       v17 = &unk_232980861;
       goto LABEL_28;
@@ -167,23 +169,23 @@ LABEL_30:
   }
 
   count = xpc_array_get_count(pathsCopy);
-  v27 = xpc_array_get_count(extensionsCopy);
-  v28 = xpc_array_get_count(v12);
-  v29 = v28;
-  if (count != v27 || count != v28)
+  v28 = xpc_array_get_count(extensionsCopy);
+  v29 = xpc_array_get_count(v12);
+  v30 = v29;
+  if (count != v28 || count != v29)
   {
-    v15 = DPLogHandle_RequestError();
+    v15 = DPLogHandle_RequestError(v29);
     if (!os_signpost_enabled(v15))
     {
       goto LABEL_30;
     }
 
-    v38 = 134349568;
-    v39 = count;
-    v40 = 2050;
-    v41 = v27;
-    v42 = 2050;
-    v43 = v29;
+    v39 = 134349568;
+    v40 = count;
+    v41 = 2050;
+    v42 = v28;
+    v43 = 2050;
+    v44 = v30;
     v16 = "SubmittedLogInfoFailure";
     v17 = "Inconsisted info counts:\nPaths: %{public}zu\nSandbox extensions: %{public}zu\nTransfer BOOLs: %{public}zu\n";
     goto LABEL_21;
@@ -192,32 +194,32 @@ LABEL_30:
   array = [MEMORY[0x277CBEB18] array];
   if (count)
   {
-    v31 = 0;
+    v32 = 0;
     while (1)
     {
-      v32 = [DRSSubmittedLogInfo alloc];
-      string = xpc_array_get_string(pathsCopy, v31);
-      v34 = xpc_array_get_string(extensionsCopy, v31);
-      v35 = [(DRSSubmittedLogInfo *)v32 initWithPath:string sandboxExtension:v34 transferOwnership:xpc_array_get_BOOL(v12, v31)];
-      if (!v35)
+      v33 = [DRSSubmittedLogInfo alloc];
+      string = xpc_array_get_string(pathsCopy, v32);
+      v35 = xpc_array_get_string(extensionsCopy, v32);
+      v36 = [(DRSSubmittedLogInfo *)v33 initWithPath:string sandboxExtension:v35 transferOwnership:xpc_array_get_BOOL(v12, v32)];
+      if (!v36)
       {
         break;
       }
 
-      v36 = v35;
-      [array addObject:v35];
+      v37 = v36;
+      [array addObject:v36];
 
-      if (count == ++v31)
+      if (count == ++v32)
       {
         goto LABEL_40;
       }
     }
 
-    v37 = DPLogHandle_RequestError();
-    if (os_signpost_enabled(v37))
+    v38 = DPLogHandle_RequestError(0);
+    if (os_signpost_enabled(v38))
     {
-      LOWORD(v38) = 0;
-      _os_signpost_emit_with_name_impl(&dword_232906000, v37, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "SubmittedLogInfoFailure", "Could not create new submitted log info\n", &v38, 2u);
+      LOWORD(v39) = 0;
+      _os_signpost_emit_with_name_impl(&dword_232906000, v38, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "SubmittedLogInfoFailure", "Could not create new submitted log info\n", &v39, 2u);
     }
 
     goto LABEL_47;
@@ -236,7 +238,6 @@ LABEL_47:
 LABEL_48:
 
 LABEL_31:
-  v24 = *MEMORY[0x277D85DE8];
 
   return v18;
 }

@@ -8,16 +8,16 @@
 
 - (BOOL)listener:(id)listener shouldAcceptNewConnection:(id)connection
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   listenerCopy = listener;
   connectionCopy = connection;
   v8 = MEMORY[0x277D01970];
   v9 = *MEMORY[0x277D01970];
   if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_DEFAULT))
   {
-    v17 = 136315138;
-    v18 = "[SSRVoiceProfileManagerXPCListener listener:shouldAcceptNewConnection:]";
-    _os_log_impl(&dword_225E12000, v9, OS_LOG_TYPE_DEFAULT, "%s SSRVoiceProfileManagerXPCListener: New connection request", &v17, 0xCu);
+    v16 = 136315138;
+    v17 = "[SSRVoiceProfileManagerXPCListener listener:shouldAcceptNewConnection:]";
+    _os_log_impl(&dword_225E12000, v9, OS_LOG_TYPE_DEFAULT, "%s SSRVoiceProfileManagerXPCListener: New connection request", &v16, 0xCu);
   }
 
   xpcListener = self->_xpcListener;
@@ -33,9 +33,9 @@
     v14 = *v8;
     if (os_log_type_enabled(*v8, OS_LOG_TYPE_DEFAULT))
     {
-      v17 = 136315138;
-      v18 = "[SSRVoiceProfileManagerXPCListener listener:shouldAcceptNewConnection:]";
-      _os_log_impl(&dword_225E12000, v14, OS_LOG_TYPE_DEFAULT, "%s SSRVoiceProfileManagerXPCListener: Connection accepted and resumed", &v17, 0xCu);
+      v16 = 136315138;
+      v17 = "[SSRVoiceProfileManagerXPCListener listener:shouldAcceptNewConnection:]";
+      _os_log_impl(&dword_225E12000, v14, OS_LOG_TYPE_DEFAULT, "%s SSRVoiceProfileManagerXPCListener: Connection accepted and resumed", &v16, 0xCu);
     }
   }
 
@@ -44,31 +44,29 @@
     v11 = *v8;
     if (os_log_type_enabled(*v8, OS_LOG_TYPE_ERROR))
     {
-      v17 = 136315394;
-      v18 = "[SSRVoiceProfileManagerXPCListener listener:shouldAcceptNewConnection:]";
-      v19 = 2114;
-      v20 = listenerCopy;
-      _os_log_error_impl(&dword_225E12000, v11, OS_LOG_TYPE_ERROR, "%s Invalid listener - %{public}@", &v17, 0x16u);
+      v16 = 136315394;
+      v17 = "[SSRVoiceProfileManagerXPCListener listener:shouldAcceptNewConnection:]";
+      v18 = 2114;
+      v19 = listenerCopy;
+      _os_log_error_impl(&dword_225E12000, v11, OS_LOG_TYPE_ERROR, "%s Invalid listener - %{public}@", &v16, 0x16u);
     }
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return xpcListener == listenerCopy;
 }
 
 - (void)listen
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = *MEMORY[0x277D01970];
   if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 136315138;
-    v6 = "[SSRVoiceProfileManagerXPCListener listen]";
-    _os_log_impl(&dword_225E12000, v3, OS_LOG_TYPE_DEFAULT, "%s SSRVoiceProfileManagerXPCListener: Starting to listen", &v5, 0xCu);
+    v4 = 136315138;
+    v5 = "[SSRVoiceProfileManagerXPCListener listen]";
+    _os_log_impl(&dword_225E12000, v3, OS_LOG_TYPE_DEFAULT, "%s SSRVoiceProfileManagerXPCListener: Starting to listen", &v4, 0xCu);
   }
 
   [(NSXPCListener *)self->_xpcListener resume];
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (SSRVoiceProfileManagerXPCListener)init

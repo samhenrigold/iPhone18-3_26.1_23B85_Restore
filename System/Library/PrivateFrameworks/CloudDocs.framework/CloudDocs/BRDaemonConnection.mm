@@ -306,10 +306,7 @@ void __50__BRDaemonConnection__setupAndResumeForPersonaID___block_invoke_3(uint6
 
 uint64_t __60__BRDaemonConnection_defaultConnectionIfExistsForPersonaID___block_invoke(uint64_t a1)
 {
-  v2 = [gDaemonDefaultConnectionsByPersonaID objectForKeyedSubscript:*(a1 + 32)];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [gDaemonDefaultConnectionsByPersonaID objectForKeyedSubscript:*(a1 + 32)];
 
   return MEMORY[0x1EEE66BB8]();
 }
@@ -391,10 +388,7 @@ void __52__BRDaemonConnection_defaultConnectionForPersonaID___block_invoke(uint6
 
 uint64_t __62__BRDaemonConnection_secondaryConnectionIfExistsForPersonaID___block_invoke(uint64_t a1)
 {
-  v2 = [gDaemonSecondaryConnectionsByPersonaID objectForKeyedSubscript:*(a1 + 32)];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [gDaemonSecondaryConnectionsByPersonaID objectForKeyedSubscript:*(a1 + 32)];
 
   return MEMORY[0x1EEE66BB8]();
 }
@@ -738,47 +732,44 @@ void __54__BRDaemonConnection_secondaryConnectionForPersonaID___block_invoke(uin
 
 - (void)newSyncProxy
 {
-  v11 = *MEMORY[0x1E69E9840];
   brc_bread_crumbs("[BRDaemonConnection newSyncProxy]", 285);
   objc_claimAutoreleasedReturnValue();
   v1 = OUTLINED_FUNCTION_6_0();
   v3 = brc_default_log(v1, v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
   {
-    OUTLINED_FUNCTION_10(&dword_1AE2A9000, v4, v5, "[CRIT] Assertion failed: _isUsingTokenService == NO%@", v6, v7, v8, v9, 2u);
+    LODWORD(v10) = 138412290;
+    *(&v10 + 4) = v0;
+    OUTLINED_FUNCTION_10(&dword_1AE2A9000, v4, v5, "[CRIT] Assertion failed: _isUsingTokenService == NO%@", v6, v7, v8, v9, v10, DWORD2(v10));
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)newFPFSSyncProxy
 {
-  v11 = *MEMORY[0x1E69E9840];
   brc_bread_crumbs("[BRDaemonConnection newFPFSSyncProxy]", 291);
   objc_claimAutoreleasedReturnValue();
   v1 = OUTLINED_FUNCTION_6_0();
   v3 = brc_default_log(v1, v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
   {
-    OUTLINED_FUNCTION_10(&dword_1AE2A9000, v4, v5, "[CRIT] Assertion failed: _isUsingTokenService == NO%@", v6, v7, v8, v9, 2u);
+    LODWORD(v10) = 138412290;
+    *(&v10 + 4) = v0;
+    OUTLINED_FUNCTION_10(&dword_1AE2A9000, v4, v5, "[CRIT] Assertion failed: _isUsingTokenService == NO%@", v6, v7, v8, v9, v10, DWORD2(v10));
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)newSyncTokenProxy
 {
-  v11 = *MEMORY[0x1E69E9840];
   brc_bread_crumbs("[BRDaemonConnection newSyncTokenProxy]", 298);
   objc_claimAutoreleasedReturnValue();
   v1 = OUTLINED_FUNCTION_6_0();
   v3 = brc_default_log(v1, v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
   {
-    OUTLINED_FUNCTION_10(&dword_1AE2A9000, v4, v5, "[CRIT] Assertion failed: _isUsingTokenService%@", v6, v7, v8, v9, 2u);
+    LODWORD(v10) = 138412290;
+    *(&v10 + 4) = v0;
+    OUTLINED_FUNCTION_10(&dword_1AE2A9000, v4, v5, "[CRIT] Assertion failed: _isUsingTokenService%@", v6, v7, v8, v9, v10, DWORD2(v10));
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 @end

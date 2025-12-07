@@ -199,7 +199,7 @@ LABEL_14:
 
 void __57__MTScheduledList__sortAndFilter_objectsToScheduleAhead___block_invoke_2(uint64_t a1, void *a2)
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [*(a1 + 32) scheduleable];
   v5 = [v4 overridesScheduledObject:v3 calendar:*(a1 + 40)];
@@ -243,20 +243,18 @@ void __57__MTScheduledList__sortAndFilter_objectsToScheduleAhead___block_invoke_
     v9 = MTLogForCategory(0);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      v23 = *(a1 + 64);
-      v24 = [*(a1 + 32) debugDescription];
-      v25 = [v3 debugDescription];
-      v26 = 138543874;
-      v27 = v23;
-      v28 = 2114;
-      v29 = v24;
-      v30 = 2114;
-      v31 = v25;
-      _os_log_error_impl(&dword_1B1F9F000, v9, OS_LOG_TYPE_ERROR, "%{public}@ event %{public}@ failed to override event %{public}@ keeping original wake event schedule", &v26, 0x20u);
+      v22 = *(a1 + 64);
+      v23 = [*(a1 + 32) debugDescription];
+      v24 = [v3 debugDescription];
+      v25 = 138543874;
+      v26 = v22;
+      v27 = 2114;
+      v28 = v23;
+      v29 = 2114;
+      v30 = v24;
+      _os_log_error_impl(&dword_1B1F9F000, v9, OS_LOG_TYPE_ERROR, "%{public}@ event %{public}@ failed to override event %{public}@ keeping original wake event schedule", &v25, 0x20u);
     }
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __45__MTScheduledList__scheduledObjectComparator__block_invoke(uint64_t a1, void *a2, void *a3)
@@ -380,82 +378,66 @@ BOOL __39__MTScheduledList__dateIntervalFilter___block_invoke(uint64_t a1, void 
 
 - (id)nextScheduledAlertOrNotification
 {
-  v9[2] = *MEMORY[0x1E69E9840];
+  v8[2] = *MEMORY[0x1E69E9840];
   v3 = objc_opt_class();
   orderedScheduledAlerts = self->_orderedScheduledAlerts;
-  v9[0] = self->_orderedScheduledNotifications;
-  v9[1] = orderedScheduledAlerts;
-  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:2];
+  v8[0] = self->_orderedScheduledNotifications;
+  v8[1] = orderedScheduledAlerts;
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:2];
   v6 = [v3 _nextScheduledObjectInSets:v5];
-
-  v7 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
 
 - (id)nextScheduledObject
 {
-  v10[3] = *MEMORY[0x1E69E9840];
+  v9[3] = *MEMORY[0x1E69E9840];
   v3 = objc_opt_class();
   orderedScheduledNotifications = self->_orderedScheduledNotifications;
   orderedScheduledAlerts = self->_orderedScheduledAlerts;
-  v10[0] = self->_orderedScheduledEvents;
-  v10[1] = orderedScheduledNotifications;
-  v10[2] = orderedScheduledAlerts;
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:3];
+  v9[0] = self->_orderedScheduledEvents;
+  v9[1] = orderedScheduledNotifications;
+  v9[2] = orderedScheduledAlerts;
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:3];
   v7 = [v3 _nextScheduledObjectInSets:v6];
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
 
 + (id)_nextScheduledObjectInSets:(id)sets
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   obj = sets;
-  v3 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v3 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v3)
   {
     v4 = v3;
     v5 = 0;
-    v6 = *v20;
+    v6 = *v19;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v20 != v6)
+        if (*v19 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        firstObject = [*(*(&v19 + 1) + 8 * i) firstObject];
+        firstObject = [*(*(&v18 + 1) + 8 * i) firstObject];
         v9 = firstObject;
-        if (!v5)
+        if (!v5 || ([firstObject trigger], v10 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v10, "triggerDate"), v11 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v5, "trigger"), v12 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v12, "triggerDate"), v13 = objc_claimAutoreleasedReturnValue(), v14 = objc_msgSend(v11, "mtIsBeforeDate:", v13), v13, v12, v11, v10, v14))
         {
-          goto LABEL_8;
-        }
-
-        trigger = [firstObject trigger];
-        triggerDate = [trigger triggerDate];
-        trigger2 = [v5 trigger];
-        triggerDate2 = [trigger2 triggerDate];
-        v14 = [triggerDate mtIsBeforeDate:triggerDate2];
-
-        if (v14)
-        {
-LABEL_8:
           v15 = v9;
 
           v5 = v15;
         }
       }
 
-      v4 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v4 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v4);
@@ -465,8 +447,6 @@ LABEL_8:
   {
     v5 = 0;
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
@@ -534,78 +514,74 @@ BOOL __54__MTScheduledList_nextScheduledObjectWithTriggerType___block_invoke(uin
 
 void __30__MTScheduledList_unschedule___block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
+  v7 = 0u;
   v8 = 0u;
   v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
   v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v9;
+    v5 = *v8;
     do
     {
       v6 = 0;
       do
       {
-        if (*v9 != v5)
+        if (*v8 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        [*(a1 + 40) _unschedule:{*(*(&v8 + 1) + 8 * v6++), v8}];
+        [*(a1 + 40) _unschedule:{*(*(&v7 + 1) + 8 * v6++), v7}];
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
     }
 
     while (v4);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_unschedule:(id)_unschedule
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   scheduledAlertMap = self->_scheduledAlertMap;
   identifier = [_unschedule identifier];
   v6 = [(NSMutableDictionary *)scheduledAlertMap objectForKeyedSubscript:identifier];
 
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
   v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   allValues = [v6 allValues];
-  v8 = [allValues countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v8 = [allValues countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v14;
+    v10 = *v13;
     do
     {
       v11 = 0;
       do
       {
-        if (*v14 != v10)
+        if (*v13 != v10)
         {
           objc_enumerationMutation(allValues);
         }
 
-        [(MTScheduledList *)self _unscheduleObject:*(*(&v13 + 1) + 8 * v11++)];
+        [(MTScheduledList *)self _unscheduleObject:*(*(&v12 + 1) + 8 * v11++)];
       }
 
       while (v9 != v11);
-      v9 = [allValues countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v9 = [allValues countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v9);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)schedule:(id)schedule afterDate:(id)date withCompletion:(id)completion
@@ -626,53 +602,51 @@ void __30__MTScheduledList_unschedule___block_invoke(uint64_t a1)
 
 void __53__MTScheduledList_schedule_afterDate_withCompletion___block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v14;
+    v5 = *v13;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v14 != v5)
+        if (*v13 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v13 + 1) + 8 * i);
+        v7 = *(*(&v12 + 1) + 8 * i);
         [*(a1 + 40) _unschedule:v7];
         if ([v7 shouldBeScheduled])
         {
           v8 = [v7 upcomingTriggersAfterDate:*(a1 + 48)];
-          v12[0] = MEMORY[0x1E69E9820];
-          v12[1] = 3221225472;
-          v12[2] = __53__MTScheduledList_schedule_afterDate_withCompletion___block_invoke_2;
-          v12[3] = &unk_1E7B0C950;
-          v12[4] = v7;
-          v9 = [v8 na_map:v12];
           v11[0] = MEMORY[0x1E69E9820];
           v11[1] = 3221225472;
-          v11[2] = __53__MTScheduledList_schedule_afterDate_withCompletion___block_invoke_3;
-          v11[3] = &unk_1E7B0C978;
-          v11[4] = *(a1 + 40);
-          [v9 na_each:v11];
+          v11[2] = __53__MTScheduledList_schedule_afterDate_withCompletion___block_invoke_2;
+          v11[3] = &unk_1E7B0C950;
+          v11[4] = v7;
+          v9 = [v8 na_map:v11];
+          v10[0] = MEMORY[0x1E69E9820];
+          v10[1] = 3221225472;
+          v10[2] = __53__MTScheduledList_schedule_afterDate_withCompletion___block_invoke_3;
+          v10[3] = &unk_1E7B0C978;
+          v10[4] = *(a1 + 40);
+          [v9 na_each:v10];
         }
       }
 
-      v4 = [v2 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v4);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_scheduleObject:(id)object

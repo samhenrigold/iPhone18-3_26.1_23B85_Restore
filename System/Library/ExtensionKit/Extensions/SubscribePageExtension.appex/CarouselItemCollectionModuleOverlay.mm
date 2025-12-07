@@ -24,9 +24,9 @@
 - (CGSize)sizeThatFits:(CGSize)fits
 {
   height = fits.height;
-  width = fits.width;
   selfCopy = self;
-  v6 = sub_10016D1E8(width, height);
+  sub_10016D1E8();
+  v6 = v5;
   sub_1007327DC(v12);
   v7 = sub_100731FE8(v12, sub_10016D1E8, v6, height);
   v9 = v8;
@@ -44,11 +44,12 @@
   v3 = *(&self->super.super.super.isa + OBJC_IVAR____TtC22SubscribePageExtension35CarouselItemCollectionModuleOverlay_selectionHandler);
   if (v3)
   {
+    v4 = *&self->headerView[OBJC_IVAR____TtC22SubscribePageExtension35CarouselItemCollectionModuleOverlay_selectionHandler];
     selfCopy = self;
-    v5 = sub_10001B5AC(v3);
-    v3(v5);
+    v6 = sub_10001B5AC(v3, v4);
+    v3(v6);
 
-    sub_1000164A8(v3);
+    sub_1000164A8(v3, v4);
   }
 }
 

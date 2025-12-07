@@ -8,6 +8,7 @@
 - (id)requestForSubscribedContentItemIdentifier:(id)identifier;
 - (void)_removeRequestID:(uint64_t)d;
 - (void)addRequest:(id)request;
+- (void)augmentCommandOptions:(id)options forCommand:(unsigned int)command;
 - (void)encodeWithCoder:(id)coder;
 - (void)enumerateFilteredContentItemsBySubscriptionsForContentItems:(id)items block:(id)block;
 - (void)invalidate;
@@ -52,7 +53,7 @@
 
 - (MRPlaybackQueueSubscriptionController)initWithCoder:(id)coder
 {
-  v27[5] = *MEMORY[0x1E69E9840];
+  v26[5] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"playerPath"];
   if (v5)
@@ -61,31 +62,31 @@
     if (v6)
     {
       v7 = MEMORY[0x1E695DFD8];
-      v27[0] = objc_opt_class();
-      v27[1] = objc_opt_class();
-      v27[2] = objc_opt_class();
-      v27[3] = objc_opt_class();
-      v27[4] = objc_opt_class();
-      v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v27 count:5];
+      v26[0] = objc_opt_class();
+      v26[1] = objc_opt_class();
+      v26[2] = objc_opt_class();
+      v26[3] = objc_opt_class();
+      v26[4] = objc_opt_class();
+      v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v26 count:5];
       v9 = [v7 setWithArray:v8];
       v10 = [coderCopy decodeObjectOfClasses:v9 forKey:@"requestFilters"];
       requestFilters = v6->_requestFilters;
       v6->_requestFilters = v10;
 
       v12 = MEMORY[0x1E695DFD8];
-      v26[0] = objc_opt_class();
-      v26[1] = objc_opt_class();
-      v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v26 count:2];
+      v25[0] = objc_opt_class();
+      v25[1] = objc_opt_class();
+      v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v25 count:2];
       v14 = [v12 setWithArray:v13];
       v15 = [coderCopy decodeObjectOfClasses:v14 forKey:@"requests"];
       requests = v6->_requests;
       v6->_requests = v15;
 
       v17 = MEMORY[0x1E695DFD8];
-      v25[0] = objc_opt_class();
-      v25[1] = objc_opt_class();
-      v25[2] = objc_opt_class();
-      v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:v25 count:3];
+      v24[0] = objc_opt_class();
+      v24[1] = objc_opt_class();
+      v24[2] = objc_opt_class();
+      v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:v24 count:3];
       v19 = [v17 setWithArray:v18];
       v20 = [coderCopy decodeObjectOfClasses:v19 forKey:@"offsets"];
       offsets = v6->_offsets;
@@ -101,7 +102,6 @@
     selfCopy = 0;
   }
 
-  v23 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
@@ -250,7 +250,7 @@ void __52__MRPlaybackQueueSubscriptionController_addRequest___block_invoke_2(uin
   return queue;
 }
 
-uint64_t __52__MRPlaybackQueueSubscriptionController_hasRequest___block_invoke(void *a1)
+void *__52__MRPlaybackQueueSubscriptionController_hasRequest___block_invoke(void *a1)
 {
   result = [*(a1[4] + 16) containsObject:a1[5]];
   *(*(a1[6] + 8) + 24) = result;
@@ -330,9 +330,153 @@ void __61__MRPlaybackQueueSubscriptionController_offsetForIdentifier___block_inv
   *(v3 + 40) = v2;
 }
 
+- (void)augmentCommandOptions:(id)options forCommand:(unsigned int)command
+{
+  v4 = *&command;
+  optionsCopy = options;
+  v7 = MRMediaRemoteCopyCommandDescription(v4);
+  if (MRMediaRemoteCommandRequiresSourcePositionOption(v4))
+  {
+    v8 = [optionsCopy objectForKeyedSubscript:@"kMRMediaRemoteOptionPlaybackQueueOffset"];
+    v9 = [optionsCopy objectForKeyedSubscript:@"kMRMediaRemoteOptionContentItemID"];
+    v10 = v9;
+    if (v8)
+    {
+      v11 = v9 == 0;
+    }
+
+    else
+    {
+      v11 = 0;
+    }
+
+    if (v11)
+    {
+      queue = self->_queue;
+      block[0] = MEMORY[0x1E69E9820];
+      block[1] = 3221225472;
+      block[2] = __74__MRPlaybackQueueSubscriptionController_augmentCommandOptions_forCommand___block_invoke;
+      block[3] = &unk_1E769FC08;
+      block[4] = self;
+      v14 = &v41;
+      v41 = v8;
+      v15 = &v42;
+      v42 = optionsCopy;
+      v16 = &v43;
+      v43 = v7;
+      v17 = block;
+    }
+
+    else
+    {
+      if (v9)
+      {
+        v12 = v8 == 0;
+      }
+
+      else
+      {
+        v12 = 0;
+      }
+
+      if (!v12)
+      {
+        goto LABEL_14;
+      }
+
+      queue = self->_queue;
+      v36[0] = MEMORY[0x1E69E9820];
+      v36[1] = 3221225472;
+      v36[2] = __74__MRPlaybackQueueSubscriptionController_augmentCommandOptions_forCommand___block_invoke_35;
+      v36[3] = &unk_1E769FC08;
+      v36[4] = self;
+      v14 = &v37;
+      v37 = v9;
+      v15 = &v38;
+      v38 = optionsCopy;
+      v16 = &v39;
+      v39 = v7;
+      v17 = v36;
+    }
+
+    dispatch_sync(queue, v17);
+
+LABEL_14:
+  }
+
+  if (MRMediaRemoteCommandRequiresDestinationPositionOption(v4))
+  {
+    v18 = [optionsCopy objectForKeyedSubscript:@"kMRMediaRemoteOptionPlaybackQueueDestinationOffset"];
+    v19 = [optionsCopy objectForKeyedSubscript:@"kMRMediaRemoteOptionInsertAfterContentItemID"];
+    v20 = v19;
+    if (v18)
+    {
+      v21 = v19 == 0;
+    }
+
+    else
+    {
+      v21 = 0;
+    }
+
+    if (v21)
+    {
+      v23 = self->_queue;
+      v32[0] = MEMORY[0x1E69E9820];
+      v32[1] = 3221225472;
+      v32[2] = __74__MRPlaybackQueueSubscriptionController_augmentCommandOptions_forCommand___block_invoke_36;
+      v32[3] = &unk_1E769FC08;
+      v32[4] = self;
+      v24 = &v33;
+      v33 = v18;
+      v25 = &v34;
+      v34 = optionsCopy;
+      v26 = &v35;
+      v35 = v7;
+      v27 = v32;
+    }
+
+    else
+    {
+      if (v19)
+      {
+        v22 = v18 == 0;
+      }
+
+      else
+      {
+        v22 = 0;
+      }
+
+      if (!v22)
+      {
+        goto LABEL_28;
+      }
+
+      v23 = self->_queue;
+      v28[0] = MEMORY[0x1E69E9820];
+      v28[1] = 3221225472;
+      v28[2] = __74__MRPlaybackQueueSubscriptionController_augmentCommandOptions_forCommand___block_invoke_37;
+      v28[3] = &unk_1E769FC08;
+      v28[4] = self;
+      v24 = &v29;
+      v29 = v19;
+      v25 = &v30;
+      v30 = optionsCopy;
+      v26 = &v31;
+      v31 = v7;
+      v27 = v28;
+    }
+
+    dispatch_sync(v23, v27);
+
+LABEL_28:
+  }
+}
+
 void __74__MRPlaybackQueueSubscriptionController_augmentCommandOptions_forCommand___block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v2 = [*(*(a1 + 32) + 24) objectForKey:*(a1 + 40)];
   if (v2)
   {
@@ -346,22 +490,20 @@ void __74__MRPlaybackQueueSubscriptionController_augmentCommandOptions_forComman
     {
       v4 = *(a1 + 40);
       v5 = *(a1 + 56);
-      v7 = 138412802;
-      v8 = @"kMRMediaRemoteOptionPlaybackQueueOffset";
-      v9 = 2112;
-      v10 = v4;
-      v11 = 2112;
-      v12 = v5;
-      _os_log_impl(&dword_1A2860000, v3, OS_LOG_TYPE_DEFAULT, "[MRPlaybackQueueClient] No ContentItem in playback queue with provided '%@':%@ for command <%@>", &v7, 0x20u);
+      v6 = 138412802;
+      v7 = @"kMRMediaRemoteOptionPlaybackQueueOffset";
+      v8 = 2112;
+      v9 = v4;
+      v10 = 2112;
+      v11 = v5;
+      _os_log_impl(&dword_1A2860000, v3, OS_LOG_TYPE_DEFAULT, "[MRPlaybackQueueClient] No ContentItem in playback queue with provided '%@':%@ for command <%@>", &v6, 0x20u);
     }
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __74__MRPlaybackQueueSubscriptionController_augmentCommandOptions_forCommand___block_invoke_35(uint64_t a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v2 = [*(*(a1 + 32) + 24) keyForObject:*(a1 + 40)];
   if (v2)
   {
@@ -375,22 +517,20 @@ void __74__MRPlaybackQueueSubscriptionController_augmentCommandOptions_forComman
     {
       v4 = *(a1 + 40);
       v5 = *(a1 + 56);
-      v7 = 138412802;
-      v8 = @"kMRMediaRemoteOptionContentItemID";
-      v9 = 2112;
-      v10 = v4;
-      v11 = 2112;
-      v12 = v5;
-      _os_log_impl(&dword_1A2860000, v3, OS_LOG_TYPE_DEFAULT, "[MRPlaybackQueueClient] No ContentItem in playback queue with provided '%@':%@ for command <%@>", &v7, 0x20u);
+      v6 = 138412802;
+      v7 = @"kMRMediaRemoteOptionContentItemID";
+      v8 = 2112;
+      v9 = v4;
+      v10 = 2112;
+      v11 = v5;
+      _os_log_impl(&dword_1A2860000, v3, OS_LOG_TYPE_DEFAULT, "[MRPlaybackQueueClient] No ContentItem in playback queue with provided '%@':%@ for command <%@>", &v6, 0x20u);
     }
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __74__MRPlaybackQueueSubscriptionController_augmentCommandOptions_forCommand___block_invoke_36(uint64_t a1)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v2 = *(*(a1 + 32) + 24);
   v3 = [MEMORY[0x1E696AD98] numberWithLong:{objc_msgSend(*(a1 + 40), "longValue") - 1}];
   v4 = [v2 objectForKey:v3];
@@ -407,22 +547,20 @@ void __74__MRPlaybackQueueSubscriptionController_augmentCommandOptions_forComman
     {
       v6 = *(a1 + 40);
       v7 = *(a1 + 56);
-      v9 = 138412802;
-      v10 = @"kMRMediaRemoteOptionPlaybackQueueDestinationOffset";
-      v11 = 2112;
-      v12 = v6;
-      v13 = 2112;
-      v14 = v7;
-      _os_log_impl(&dword_1A2860000, v5, OS_LOG_TYPE_DEFAULT, "[MRPlaybackQueueClient] No ContentItem in playback queue with provided '%@':%@ for command <%@>", &v9, 0x20u);
+      v8 = 138412802;
+      v9 = @"kMRMediaRemoteOptionPlaybackQueueDestinationOffset";
+      v10 = 2112;
+      v11 = v6;
+      v12 = 2112;
+      v13 = v7;
+      _os_log_impl(&dword_1A2860000, v5, OS_LOG_TYPE_DEFAULT, "[MRPlaybackQueueClient] No ContentItem in playback queue with provided '%@':%@ for command <%@>", &v8, 0x20u);
     }
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __74__MRPlaybackQueueSubscriptionController_augmentCommandOptions_forCommand___block_invoke_37(uint64_t a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v2 = [*(*(a1 + 32) + 24) keyForObject:*(a1 + 40)];
   v3 = v2;
   if (v2)
@@ -438,17 +576,15 @@ void __74__MRPlaybackQueueSubscriptionController_augmentCommandOptions_forComman
     {
       v5 = *(a1 + 40);
       v6 = *(a1 + 56);
-      v8 = 138412802;
-      v9 = @"kMRMediaRemoteOptionInsertAfterContentItemID";
-      v10 = 2112;
-      v11 = v5;
-      v12 = 2112;
-      v13 = v6;
-      _os_log_impl(&dword_1A2860000, v4, OS_LOG_TYPE_DEFAULT, "[MRPlaybackQueueClient] No ContentItem in playback queue with provided '%@':%@ for command <%@>", &v8, 0x20u);
+      v7 = 138412802;
+      v8 = @"kMRMediaRemoteOptionInsertAfterContentItemID";
+      v9 = 2112;
+      v10 = v5;
+      v11 = 2112;
+      v12 = v6;
+      _os_log_impl(&dword_1A2860000, v4, OS_LOG_TYPE_DEFAULT, "[MRPlaybackQueueClient] No ContentItem in playback queue with provided '%@':%@ for command <%@>", &v7, 0x20u);
     }
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)subscribeToPlaybackQueue:(id)queue forRequest:(id)request
@@ -472,7 +608,7 @@ void __74__MRPlaybackQueueSubscriptionController_augmentCommandOptions_forComman
 
 void __77__MRPlaybackQueueSubscriptionController_subscribeToPlaybackQueue_forRequest___block_invoke(uint64_t a1)
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) requestIdentifier];
 
   if (v2)
@@ -504,26 +640,26 @@ void __77__MRPlaybackQueueSubscriptionController_subscribeToPlaybackQueue_forReq
     }
   }
 
-  v34 = 0u;
-  v35 = 0u;
-  v32 = 0u;
   v33 = 0u;
+  v34 = 0u;
+  v31 = 0u;
+  v32 = 0u;
   v11 = *(*(a1 + 40) + 8);
-  v12 = [v11 countByEnumeratingWithState:&v32 objects:v36 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v31 objects:v35 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v33;
+    v14 = *v32;
 LABEL_9:
     v15 = 0;
     while (1)
     {
-      if (*v33 != v14)
+      if (*v32 != v14)
       {
         objc_enumerationMutation(v11);
       }
 
-      v16 = *(*(&v32 + 1) + 8 * v15);
+      v16 = *(*(&v31 + 1) + 8 * v15);
       v17 = [v16 first];
       v18 = [v17 exactMatch:*(a1 + 32)];
 
@@ -534,7 +670,7 @@ LABEL_9:
 
       if (v13 == ++v15)
       {
-        v13 = [v11 countByEnumeratingWithState:&v32 objects:v36 count:16];
+        v13 = [v11 countByEnumeratingWithState:&v31 objects:v35 count:16];
         if (v13)
         {
           goto LABEL_9;
@@ -565,19 +701,17 @@ LABEL_15:
 
 LABEL_18:
   v23 = [*(a1 + 48) contentItems];
-  v28[0] = MEMORY[0x1E69E9820];
-  v28[1] = 3221225472;
-  v28[2] = __77__MRPlaybackQueueSubscriptionController_subscribeToPlaybackQueue_forRequest___block_invoke_2;
-  v28[3] = &unk_1E76A30E0;
+  v27[0] = MEMORY[0x1E69E9820];
+  v27[1] = 3221225472;
+  v27[2] = __77__MRPlaybackQueueSubscriptionController_subscribeToPlaybackQueue_forRequest___block_invoke_2;
+  v27[3] = &unk_1E76A30E0;
   v24 = *(a1 + 48);
   v25 = *(a1 + 40);
-  v29 = v24;
-  v30 = v25;
-  v31 = v19;
+  v28 = v24;
+  v29 = v25;
+  v30 = v19;
   v26 = v19;
-  [v23 enumerateObjectsUsingBlock:v28];
-
-  v27 = *MEMORY[0x1E69E9840];
+  [v23 enumerateObjectsUsingBlock:v27];
 }
 
 void __77__MRPlaybackQueueSubscriptionController_subscribeToPlaybackQueue_forRequest___block_invoke_2(uint64_t a1, void *a2, uint64_t a3)
@@ -623,27 +757,27 @@ void __77__MRPlaybackQueueSubscriptionController_subscribeToPlaybackQueue_forReq
 
 void __83__MRPlaybackQueueSubscriptionController_requestForSubscribedContentItemIdentifier___block_invoke(void *a1)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v2 = *(a1[4] + 8);
-  v3 = [v2 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v17;
+    v5 = *v16;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v17 != v5)
+        if (*v16 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v16 + 1) + 8 * i);
+        v7 = *(*(&v15 + 1) + 8 * i);
         v8 = [v7 second];
         v9 = [v8 containsObject:a1[5]];
 
@@ -666,40 +800,38 @@ void __83__MRPlaybackQueueSubscriptionController_requestForSubscribedContentItem
         }
       }
 
-      v4 = [v2 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v4);
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)enumerateFilteredContentItemsBySubscriptionsForContentItems:(id)items block:(id)block
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   itemsCopy = items;
   blockCopy = block;
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   v8 = itemsCopy;
-  v9 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v20;
+    v11 = *v19;
     while (2)
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v20 != v11)
+        if (*v19 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v19 + 1) + 8 * i);
+        v13 = *(*(&v18 + 1) + 8 * i);
         identifier = [v13 identifier];
         v15 = [(MRPlaybackQueueSubscriptionController *)self requestForSubscribedContentItemIdentifier:identifier];
 
@@ -708,9 +840,9 @@ void __83__MRPlaybackQueueSubscriptionController_requestForSubscribedContentItem
           v16 = MRContentItemCreateFromRequest(v13, v15);
           if (v16)
           {
-            v18 = 0;
-            blockCopy[2](blockCopy, v16, v15, &v18);
-            if (v18)
+            v17 = 0;
+            blockCopy[2](blockCopy, v16, v15, &v17);
+            if (v17)
             {
 
               goto LABEL_14;
@@ -719,7 +851,7 @@ void __83__MRPlaybackQueueSubscriptionController_requestForSubscribedContentItem
         }
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
       if (v10)
       {
         continue;
@@ -730,8 +862,6 @@ void __83__MRPlaybackQueueSubscriptionController_requestForSubscribedContentItem
   }
 
 LABEL_14:
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (id)filteredContentItemsBySubscriptionsForContentItems:(id)items

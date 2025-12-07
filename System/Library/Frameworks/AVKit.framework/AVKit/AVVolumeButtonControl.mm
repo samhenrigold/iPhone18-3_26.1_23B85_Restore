@@ -608,7 +608,7 @@ void __58__AVVolumeButtonControl_beginTrackingWithTouch_withEvent___block_invoke
   v4 = micaPackageContainerView;
   if (micaPackageContainerView)
   {
-    [micaPackageContainerView transform];
+    objc_msgSend_transform(micaPackageContainerView);
   }
 
   else

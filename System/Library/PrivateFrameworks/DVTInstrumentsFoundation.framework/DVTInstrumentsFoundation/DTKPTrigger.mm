@@ -122,56 +122,58 @@ LABEL_6:
 
 - (int)_setSamplers:(unsigned int)samplers forAction:(unsigned int)action
 {
-  v20 = *MEMORY[0x277D85DE8];
-  if (action && (!byte_27EE84518 ? (v4 = 0) : (v4 = 32), v4 >= action))
+  v19 = *MEMORY[0x277D85DE8];
+  if (!action)
   {
-    v7 = kperf_action_samplers_set();
-    standardUserDefaults = [MEMORY[0x277CBEBD0] standardUserDefaults];
-    v9 = [standardUserDefaults objectForKey:@"XRKPerfMaxFrames"];
+    return -4;
+  }
 
-    if (v9)
-    {
-      intValue = [v9 intValue];
-    }
+  v4 = byte_27EE84518 ? 32 : 0;
+  if (v4 < action)
+  {
+    return -4;
+  }
 
-    else
-    {
-      intValue = 128;
-    }
+  v7 = kperf_action_samplers_set();
+  standardUserDefaults = [MEMORY[0x277CBEBD0] standardUserDefaults];
+  v9 = [standardUserDefaults objectForKey:@"XRKPerfMaxFrames"];
 
-    v11 = kperf_action_ucallstack_depth_set();
-    if (v11)
-    {
-      v12 = v11;
-      if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-      {
-        v15[0] = 67109634;
-        v15[1] = intValue;
-        v16 = 2112;
-        selfCopy = self;
-        v18 = 1024;
-        v19 = v12;
-        _os_log_impl(&dword_247F67000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "failed to set the maximum user callstack depth to %u on trigger: %@ - error %d", v15, 0x18u);
-      }
-    }
-
-    if (v7)
-    {
-      v5 = -1;
-    }
-
-    else
-    {
-      v5 = 0;
-    }
+  if (v9)
+  {
+    intValue = [v9 intValue];
   }
 
   else
   {
-    v5 = -4;
+    intValue = 128;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
+  v11 = kperf_action_ucallstack_depth_set();
+  if (v11)
+  {
+    v12 = v11;
+    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+    {
+      v14[0] = 67109634;
+      v14[1] = intValue;
+      v15 = 2112;
+      selfCopy = self;
+      v17 = 1024;
+      v18 = v12;
+      _os_log_impl(&dword_247F67000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "failed to set the maximum user callstack depth to %u on trigger: %@ - error %d", v14, 0x18u);
+    }
+  }
+
+  if (v7)
+  {
+    v5 = -1;
+  }
+
+  else
+  {
+    v5 = 0;
+  }
+
   return v5;
 }
 

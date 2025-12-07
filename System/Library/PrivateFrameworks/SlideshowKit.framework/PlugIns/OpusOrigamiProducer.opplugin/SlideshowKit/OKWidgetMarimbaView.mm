@@ -705,7 +705,7 @@
 
   v9 = *&self->OKWidgetView_opaque[*v7];
   v10 = [-[OKWidgetMarimbaView presentationViewController](self "presentationViewController")];
-  [v9 duration];
+  objc_msgSend_duration(v9);
   v12 = v11;
   if ((v10 & 1) == 0)
   {
@@ -1323,7 +1323,7 @@ LABEL_10:
   v4 = v3;
   v5 = +[NSMutableDictionary dictionary];
   metadata = [v4 metadata];
-  [metadata duration];
+  objc_msgSend_duration(metadata);
   if (v7 < 3.0 && v7 > 0.0)
   {
     v7 = 3.0;

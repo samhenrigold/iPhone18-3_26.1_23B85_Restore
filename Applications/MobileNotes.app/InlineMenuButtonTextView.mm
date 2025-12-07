@@ -70,9 +70,10 @@
 - (NSAttributedString)accessibilityAttributedValue
 {
   selfCopy = self;
-  v3 = sub_1004AF270();
+  sub_1004AF270();
+  v4 = v3;
 
-  return v3;
+  return v4;
 }
 
 - (NSString)accessibilityHint
@@ -98,7 +99,7 @@
 {
   ObjectType = swift_getObjectType();
   selfCopy = self;
-  if (UIAccessibilityIsVoiceOverRunning() && (v5 = sub_1004AF7D0()) != 0)
+  if (UIAccessibilityIsVoiceOverRunning() && (sub_1004AF7D0(), v5))
   {
 
     accessibilityTraits = UIAccessibilityTraitButton;
@@ -133,7 +134,7 @@
 {
   ObjectType = swift_getObjectType();
   selfCopy = self;
-  v5 = sub_1004AF7D0();
+  sub_1004AF7D0();
   if (v5)
   {
     v6 = v5;
@@ -161,9 +162,10 @@
 - (UIButton)filterButton
 {
   selfCopy = self;
-  v3 = sub_1004AF7D0();
+  sub_1004AF7D0();
+  v4 = v3;
 
-  return v3;
+  return v4;
 }
 
 - (_TtC11MobileNotes24InlineMenuButtonTextView)initWithFrame:(CGRect)frame textContainer:(id)container

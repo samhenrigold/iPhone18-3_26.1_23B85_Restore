@@ -863,7 +863,7 @@ uint64_t __63__NTKFaceViewController__updateWidgetComplicationSnapshotState__blo
 
 - (id)_overrideDateForWake:(BOOL)wake
 {
-  v5 = NTKNilOrDateOverrideInDemoMode();
+  v5 = NTKNilOrDateOverrideInDemoMode(self);
   dataMode = self->_dataMode;
   if (dataMode == 3)
   {
@@ -925,37 +925,37 @@ LABEL_6:
 
 - (void)_applyConfigurationWithDuration:(double)duration
 {
-  v107 = *MEMORY[0x277D85DE8];
+  v109 = *MEMORY[0x277D85DE8];
   if (!self->_readyToApplyConfiguration)
   {
     return;
   }
 
   kdebug_trace();
+  v93[0] = 0;
+  v93[1] = v93;
+  v93[2] = 0x2020000000;
+  v94 = 0;
   v91[0] = 0;
   v91[1] = v91;
-  v91[2] = 0x2020000000;
+  v91[2] = 0x3032000000;
+  v91[3] = __Block_byref_object_copy__4;
+  v91[4] = __Block_byref_object_dispose__4;
   v92 = 0;
+  v88 = 0;
   v89[0] = 0;
   v89[1] = v89;
-  v89[2] = 0x3032000000;
-  v89[3] = __Block_byref_object_copy__4;
-  v89[4] = __Block_byref_object_dispose__4;
+  v89[2] = 0x2020000000;
   v90 = 0;
-  v86 = 0;
   v87[0] = 0;
   v87[1] = v87;
-  v87[2] = 0x2020000000;
-  v88 = 0;
-  v85[0] = 0;
-  v85[1] = v85;
-  v85[2] = 0x3032000000;
-  v85[3] = __Block_byref_object_copy__4;
-  v85[4] = __Block_byref_object_dispose__4;
+  v87[2] = 0x3032000000;
+  v87[3] = __Block_byref_object_copy__4;
+  v87[4] = __Block_byref_object_dispose__4;
   if (self->_ignoreSnapshotImages)
   {
-    v66 = &__block_literal_global_62;
-    v67 = &__block_literal_global_60;
+    v68 = &__block_literal_global_62;
+    v69 = &__block_literal_global_60;
   }
 
   else
@@ -964,18 +964,18 @@ LABEL_6:
     aBlock[1] = 3221225472;
     aBlock[2] = __57__NTKFaceViewController__applyConfigurationWithDuration___block_invoke_3;
     aBlock[3] = &unk_27877F3A8;
-    aBlock[5] = v89;
-    aBlock[6] = v91;
+    aBlock[5] = v91;
+    aBlock[6] = v93;
     aBlock[4] = self;
-    v67 = _Block_copy(aBlock);
-    v83[0] = MEMORY[0x277D85DD0];
-    v83[1] = 3221225472;
-    v83[2] = __57__NTKFaceViewController__applyConfigurationWithDuration___block_invoke_4;
-    v83[3] = &unk_27877F3A8;
-    v83[5] = v85;
-    v83[6] = v87;
-    v83[4] = self;
-    v66 = _Block_copy(v83);
+    v69 = _Block_copy(aBlock);
+    v85[0] = MEMORY[0x277D85DD0];
+    v85[1] = 3221225472;
+    v85[2] = __57__NTKFaceViewController__applyConfigurationWithDuration___block_invoke_4;
+    v85[3] = &unk_27877F3A8;
+    v85[5] = v87;
+    v85[6] = v89;
+    v85[4] = self;
+    v68 = _Block_copy(v85);
   }
 
   if (self->_hasGoneLive)
@@ -985,7 +985,7 @@ LABEL_6:
 
   else
   {
-    v6 = v67[2]();
+    v6 = v69[2]();
     v5 = v6 != 0;
   }
 
@@ -994,9 +994,9 @@ LABEL_6:
   {
     hasGoneLive = self->_hasGoneLive;
     *buf = 134218240;
-    v96 = v5;
-    v97 = 2048;
-    v98 = hasGoneLive;
+    v98 = v5;
+    v99 = 2048;
+    v100 = hasGoneLive;
     _os_log_impl(&dword_22D9C5000, v7, OS_LOG_TYPE_DEFAULT, "Applying usingSwitcherSnapshot:%lu _hasGoneLive:%lu", buf, 0x16u);
   }
 
@@ -1009,13 +1009,13 @@ LABEL_6:
     if (v11)
     {
       v12 = objc_alloc_init(MEMORY[0x277D755E8]);
-      if (NTKDebugShowVisualIndicatorOnSnapshot())
+      if (NTKDebugShowVisualIndicatorOnSnapshot(v12, v13))
       {
         layer = [v12 layer];
         [layer setBorderWidth:3.0];
 
         yellowColor = [MEMORY[0x277D75348] yellowColor];
-        v15 = yellowColor;
+        v16 = yellowColor;
         cGColor = [yellowColor CGColor];
         layer2 = [v12 layer];
         [layer2 setBorderColor:cGColor];
@@ -1025,10 +1025,10 @@ LABEL_6:
     }
 
     switcherSnapshotView2 = [(NTKFaceView *)self->_faceView switcherSnapshotView];
-    v19 = v67[2]();
-    [switcherSnapshotView2 setImage:v19];
+    v20 = v69[2]();
+    [switcherSnapshotView2 setImage:v20];
 
-    v20 = 0;
+    v21 = 0;
   }
 
   else
@@ -1036,88 +1036,88 @@ LABEL_6:
     [(NTKFaceView *)faceView setSwitcherSnapshotView:0];
     if (![(NTKFaceView *)self->_faceView supportsUnadornedSnapshot]|| self->_hasRemovedUnadornedSnapshot || self->_wantsRemoveUnadorned)
     {
-      v20 = 0;
+      v21 = 0;
       goto LABEL_21;
     }
 
-    switcherSnapshotView2 = v66[2]();
-    v20 = switcherSnapshotView2 != 0;
+    switcherSnapshotView2 = v68[2]();
+    v21 = switcherSnapshotView2 != 0;
   }
 
 LABEL_21:
-  v21 = _NTKLoggingObjectForDomain(23, "NTKLoggingDomainFace");
-  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+  v22 = _NTKLoggingObjectForDomain(23, "NTKLoggingDomainFace");
+  if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
   {
-    v22 = objc_opt_class();
-    v23 = self->_faceView;
-    supportsUnadornedSnapshot = [(NTKFaceView *)v23 supportsUnadornedSnapshot];
+    v23 = objc_opt_class();
+    v24 = self->_faceView;
+    supportsUnadornedSnapshot = [(NTKFaceView *)v24 supportsUnadornedSnapshot];
     hasRemovedUnadornedSnapshot = self->_hasRemovedUnadornedSnapshot;
     wantsRemoveUnadorned = self->_wantsRemoveUnadorned;
     *buf = 138413570;
-    v96 = v22;
-    v97 = 2048;
     v98 = v23;
     v99 = 2048;
-    v100 = v5;
+    v100 = v24;
     v101 = 2048;
-    v102 = supportsUnadornedSnapshot;
+    v102 = v5;
     v103 = 2048;
-    v104 = hasRemovedUnadornedSnapshot;
+    v104 = supportsUnadornedSnapshot;
     v105 = 2048;
-    v106 = wantsRemoveUnadorned;
-    _os_log_impl(&dword_22D9C5000, v21, OS_LOG_TYPE_DEFAULT, "[%@-%p] Applying usingSwitcherSnapshot:%lu supportsUnadornedSnapshot:%lu _hasRemovedUnadornedSnapshot:%lu _wantsRemoveUnadorned:%lu", buf, 0x3Eu);
+    v106 = hasRemovedUnadornedSnapshot;
+    v107 = 2048;
+    v108 = wantsRemoveUnadorned;
+    _os_log_impl(&dword_22D9C5000, v22, OS_LOG_TYPE_DEFAULT, "[%@-%p] Applying usingSwitcherSnapshot:%lu supportsUnadornedSnapshot:%lu _hasRemovedUnadornedSnapshot:%lu _wantsRemoveUnadorned:%lu", buf, 0x3Eu);
   }
 
-  if (v20)
+  if (v21)
   {
     if (!self->_hasUsedUnadornedSnapshot)
     {
       unadornedSnapshotView = [(NTKFaceView *)self->_faceView unadornedSnapshotView];
-      v28 = unadornedSnapshotView == 0;
+      v29 = unadornedSnapshotView == 0;
 
-      if (v28)
+      if (v29)
       {
-        v29 = objc_alloc_init(MEMORY[0x277D755E8]);
-        if (NTKDebugShowVisualIndicatorOnSnapshot())
+        v30 = objc_alloc_init(MEMORY[0x277D755E8]);
+        if (NTKDebugShowVisualIndicatorOnSnapshot(v30, v31))
         {
-          layer3 = [v29 layer];
+          layer3 = [v30 layer];
           [layer3 setBorderWidth:3.0];
 
           redColor = [MEMORY[0x277D75348] redColor];
-          v32 = redColor;
+          v34 = redColor;
           cGColor2 = [redColor CGColor];
-          layer4 = [v29 layer];
+          layer4 = [v30 layer];
           [layer4 setBorderColor:cGColor2];
         }
 
-        [(NTKFaceView *)self->_faceView setUnadornedSnapshotView:v29];
-        [(NTKFaceView *)self->_faceView addSubview:v29];
-        [(NTKFaceView *)self->_faceView sendSubviewToBack:v29];
+        [(NTKFaceView *)self->_faceView setUnadornedSnapshotView:v30];
+        [(NTKFaceView *)self->_faceView addSubview:v30];
+        [(NTKFaceView *)self->_faceView sendSubviewToBack:v30];
         self->_hasUsedUnadornedSnapshot = 1;
       }
     }
 
     unadornedSnapshotView2 = [(NTKFaceView *)self->_faceView unadornedSnapshotView];
-    v36 = v66[2]();
-    [unadornedSnapshotView2 setImage:v36];
+    v38 = v68[2]();
+    [unadornedSnapshotView2 setImage:v38];
   }
 
   else
   {
-    v37 = self->_hasUsedUnadornedSnapshot && !self->_hasRemovedUnadornedSnapshot;
-    v38 = self->_wantsRemoveUnadorned;
+    v39 = self->_hasUsedUnadornedSnapshot && !self->_hasRemovedUnadornedSnapshot;
+    v40 = self->_wantsRemoveUnadorned;
     if ([(NTKFaceView *)self->_faceView supportsUnadornedSnapshot])
     {
-      v39 = v66[2]();
-      v40 = v39 == 0;
+      v41 = v68[2]();
+      v42 = v41 == 0;
     }
 
     else
     {
-      v40 = 1;
+      v42 = 1;
     }
 
-    if (v37 || v38 || !v5 && v40)
+    if (v39 || v40 || !v5 && v42)
     {
       unadornedSnapshotView3 = [(NTKFaceView *)self->_faceView unadornedSnapshotView];
       [unadornedSnapshotView3 removeFromSuperview];
@@ -1132,11 +1132,11 @@ LABEL_21:
 
   if (self->_supressesNonSnapshotUI)
   {
-    v42 = _NTKLoggingObjectForDomain(23, "NTKLoggingDomainFace");
-    if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
+    v44 = _NTKLoggingObjectForDomain(23, "NTKLoggingDomainFace");
+    if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_22D9C5000, v42, OS_LOG_TYPE_DEFAULT, "Applying _supressesNonSnapshotUI", buf, 2u);
+      _os_log_impl(&dword_22D9C5000, v44, OS_LOG_TYPE_DEFAULT, "Applying _supressesNonSnapshotUI", buf, 2u);
     }
 
     [(NTKFaceView *)self->_faceView loadContentToReplaceUnadornedSnapshot];
@@ -1146,9 +1146,9 @@ LABEL_21:
   [(NTKFaceView *)self->_faceView setShouldShowUnsnapshotableContent:!v5];
   if (!v5 && NTKSnapshotSwitchingEnabled() && [(NTKFaceView *)self->_faceView dataMode]== 3)
   {
-    v43 = self->_faceView;
-    v44 = NTKIdealizedDate();
-    [(NTKFaceView *)v43 setOverrideDate:v44 duration:0.0];
+    v45 = self->_faceView;
+    v46 = NTKIdealizedDate();
+    [(NTKFaceView *)v45 setOverrideDate:v46 duration:0.0];
   }
 
   [(NTKFaceView *)self->_faceView setDataMode:self->_dataMode];
@@ -1158,119 +1158,119 @@ LABEL_21:
     [(NTKClockStatusBarViewController *)self->_statusBarViewController hideAnimated:0];
   }
 
-  v45 = [(NTKFaceViewController *)self _overrideDateForWake:0];
-  [(NTKFaceView *)self->_faceView setOverrideDate:v45 duration:duration];
-  v65 = v45;
-  v46 = self->_showsLockedUI || self->_deviceLocked;
-  v47 = v46;
-  [(NTKFaceView *)self->_faceView setShowsLockedUI:v46];
+  v47 = [(NTKFaceViewController *)self _overrideDateForWake:0];
+  [(NTKFaceView *)self->_faceView setOverrideDate:v47 duration:duration];
+  v67 = v47;
+  v48 = self->_showsLockedUI || self->_deviceLocked;
+  v49 = v48;
+  [(NTKFaceView *)self->_faceView setShowsLockedUI:v48];
+  v83[0] = MEMORY[0x277D85DD0];
+  v83[1] = 3221225472;
+  v83[2] = __57__NTKFaceViewController__applyConfigurationWithDuration___block_invoke_64;
+  v83[3] = &unk_27877F3D0;
+  v83[4] = self;
+  v84 = v5;
+  v50 = _Block_copy(v83);
+  face = self->_face;
   v81[0] = MEMORY[0x277D85DD0];
   v81[1] = 3221225472;
-  v81[2] = __57__NTKFaceViewController__applyConfigurationWithDuration___block_invoke_64;
-  v81[3] = &unk_27877F3D0;
+  v81[2] = __57__NTKFaceViewController__applyConfigurationWithDuration___block_invoke_2_66;
+  v81[3] = &unk_27877F3F8;
   v81[4] = self;
-  v82 = v5;
-  v48 = _Block_copy(v81);
-  face = self->_face;
-  v79[0] = MEMORY[0x277D85DD0];
-  v79[1] = 3221225472;
-  v79[2] = __57__NTKFaceViewController__applyConfigurationWithDuration___block_invoke_2_66;
-  v79[3] = &unk_27877F3F8;
-  v79[4] = self;
-  v64 = v48;
-  v80 = v64;
-  [(NTKFace *)face enumerateComplicationSlotsWithBlock:v79];
+  v66 = v50;
+  v82 = v66;
+  [(NTKFace *)face enumerateComplicationSlotsWithBlock:v81];
   _detachedComplicationDisplays = [(NTKFaceView *)self->_faceView _detachedComplicationDisplays];
-  v51 = objc_opt_new();
+  v53 = objc_opt_new();
+  v79 = 0u;
+  v80 = 0u;
   v77 = 0u;
   v78 = 0u;
-  v75 = 0u;
-  v76 = 0u;
-  v52 = _detachedComplicationDisplays;
-  v53 = [v52 countByEnumeratingWithState:&v75 objects:v94 count:16];
-  if (v53)
+  v54 = _detachedComplicationDisplays;
+  v55 = [v54 countByEnumeratingWithState:&v77 objects:v96 count:16];
+  if (v55)
   {
-    v54 = *v76;
+    v56 = *v78;
     do
     {
-      for (i = 0; i != v53; ++i)
+      for (i = 0; i != v55; ++i)
       {
-        if (*v76 != v54)
+        if (*v78 != v56)
         {
-          objc_enumerationMutation(v52);
+          objc_enumerationMutation(v54);
         }
 
-        identifier = [*(*(&v75 + 1) + 8 * i) identifier];
-        [v51 addObject:identifier];
+        identifier = [*(*(&v77 + 1) + 8 * i) identifier];
+        [v53 addObject:identifier];
       }
 
-      v53 = [v52 countByEnumeratingWithState:&v75 objects:v94 count:16];
+      v55 = [v54 countByEnumeratingWithState:&v77 objects:v96 count:16];
     }
 
-    while (v53);
+    while (v55);
   }
 
   os_unfair_lock_lock(&self->_detachedComplicationControllersLock);
   allKeys = [(NSMutableDictionary *)self->_detachedComplicationControllers allKeys];
-  v58 = [allKeys copy];
+  v60 = [allKeys copy];
 
   os_unfair_lock_unlock(&self->_detachedComplicationControllersLock);
+  v76 = 0u;
   v74 = 0u;
-  v72 = 0u;
+  v75 = 0u;
   v73 = 0u;
-  v71 = 0u;
-  v59 = v58;
-  v60 = [v59 countByEnumeratingWithState:&v71 objects:v93 count:16];
-  if (v60)
+  v61 = v60;
+  v62 = [v61 countByEnumeratingWithState:&v73 objects:v95 count:16];
+  if (v62)
   {
-    v61 = *v72;
+    v63 = *v74;
     do
     {
-      for (j = 0; j != v60; ++j)
+      for (j = 0; j != v62; ++j)
       {
-        if (*v72 != v61)
+        if (*v74 != v63)
         {
-          objc_enumerationMutation(v59);
+          objc_enumerationMutation(v61);
         }
 
-        v63 = *(*(&v71 + 1) + 8 * j);
-        if (([v51 containsObject:v63] & 1) == 0)
+        v65 = *(*(&v73 + 1) + 8 * j);
+        if (([v53 containsObject:v65] & 1) == 0)
         {
-          [(NTKFaceViewController *)self _removeDetachedComplicationForSlot:v63 andDisconnectDisplay:1];
+          [(NTKFaceViewController *)self _removeDetachedComplicationForSlot:v65 andDisconnectDisplay:1];
         }
       }
 
-      v60 = [v59 countByEnumeratingWithState:&v71 objects:v93 count:16];
+      v62 = [v61 countByEnumeratingWithState:&v73 objects:v95 count:16];
     }
 
-    while (v60);
+    while (v62);
   }
 
+  v72[0] = MEMORY[0x277D85DD0];
+  v72[1] = 3221225472;
+  v72[2] = __57__NTKFaceViewController__applyConfigurationWithDuration___block_invoke_3_69;
+  v72[3] = &unk_27877F420;
+  v72[4] = self;
+  [v54 enumerateObjectsUsingBlock:v72];
+  kdebug_trace();
   v70[0] = MEMORY[0x277D85DD0];
   v70[1] = 3221225472;
-  v70[2] = __57__NTKFaceViewController__applyConfigurationWithDuration___block_invoke_3_69;
-  v70[3] = &unk_27877F420;
+  v70[2] = __57__NTKFaceViewController__applyConfigurationWithDuration___block_invoke_4_71;
+  v70[3] = &unk_27877F470;
   v70[4] = self;
-  [v52 enumerateObjectsUsingBlock:v70];
-  kdebug_trace();
-  v68[0] = MEMORY[0x277D85DD0];
-  v68[1] = 3221225472;
-  v68[2] = __57__NTKFaceViewController__applyConfigurationWithDuration___block_invoke_4_71;
-  v68[3] = &unk_27877F470;
-  v68[4] = self;
-  v69 = v47;
-  [(NTKFaceViewController *)self enumerateComplicationControllersAndDisplaysWithBlock:v68];
+  v71 = v49;
+  [(NTKFaceViewController *)self enumerateComplicationControllersAndDisplaysWithBlock:v70];
   [(NTKFaceViewController *)self _updateInteractivityOfComplicationDisplays];
   [(NTKFaceViewController *)self _updateWidgetVisibilityOfComplicationDisplays];
   kdebug_trace();
   [(NTKFaceView *)self->_faceView setNeedsLayout];
   kdebug_trace();
 
-  _Block_object_dispose(v85, 8);
   _Block_object_dispose(v87, 8);
   _Block_object_dispose(v89, 8);
-
   _Block_object_dispose(v91, 8);
+
+  _Block_object_dispose(v93, 8);
 }
 
 id __57__NTKFaceViewController__applyConfigurationWithDuration___block_invoke_3(uint64_t a1)
@@ -2866,7 +2866,7 @@ void __72__NTKFaceViewController_launchRectForComplicationApplicationIdentifier_
 {
   if (self->_shouldShowSnapshot)
   {
-    if (NTKDebugNoSnapshotsInSwitcher())
+    if (NTKDebugNoSnapshotsInSwitcher(self, a2))
     {
       v4 = 0;
     }
@@ -2926,6 +2926,27 @@ void __70__NTKFaceViewController_acquireComplicationTouchCancellationAssertion__
   WeakRetained = objc_loadWeakRetained(&self->_statusBarDelegate);
 
   return WeakRetained;
+}
+
+- (void)finalizeForSnapshottingWithMetrics:(uint64_t)a3 completion:(uint64_t)a4 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_1(&dword_22D9C5000, a2, a3, "Add widgets child task failed: %@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void __71__NTKFaceViewController_finalizeForSnapshottingWithMetrics_completion___block_invoke_44_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_1(&dword_22D9C5000, a2, a3, "Finish widgets child task failed: %@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void __71__NTKFaceViewController_finalizeForSnapshottingWithMetrics_completion___block_invoke_44_cold_2(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_1(&dword_22D9C5000, a2, a3, "Widgets encountered error: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

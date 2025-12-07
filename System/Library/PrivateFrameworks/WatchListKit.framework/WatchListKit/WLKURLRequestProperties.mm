@@ -110,7 +110,7 @@
 
 - (id)URLRequestWithConfiguration:(id)configuration
 {
-  v27[1] = *MEMORY[0x277D85DE8];
+  v26[1] = *MEMORY[0x277D85DE8];
   configurationCopy = configuration;
   endpoint = self->_endpoint;
   routeName = self->_routeName;
@@ -181,8 +181,8 @@ LABEL_21:
 
   v13 = (options >> 1) & 1;
   v14 = [MEMORY[0x277CCACA8] stringWithFormat:@"/uts/v%@/", self->_apiVersion];
-  v27[0] = self->_endpoint;
-  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:1];
+  v26[0] = self->_endpoint;
+  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:1];
   v16 = [v14 wlk_stringByAppendingPathComponents:v15];
 
   v17 = [MEMORY[0x277CBEBC0] wlk_URLWithServerConfig:configurationCopy endpoint:v16 relativeToBaseURL:1 queryParameters:dictionary suppressParameterEncoding:v13 ignoreUserLocation:{-[WLKURLRequestProperties ignoreUserLocation](self, "ignoreUserLocation")}];
@@ -204,8 +204,6 @@ LABEL_23:
   v17 = 0;
   v22 = 0;
 LABEL_28:
-
-  v23 = *MEMORY[0x277D85DE8];
 
   return v22;
 }

@@ -330,7 +330,7 @@
     v6 = HKLogAuthorization();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
-      [HKHealthConceptPickerViewController cancelButtonTapped:];
+      [HKHealthConceptPickerViewController cancelButtonTapped:?];
     }
   }
 
@@ -348,7 +348,7 @@
     v6 = HKLogAuthorization();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
-      [HKHealthConceptPickerViewController disallowButtonTapped:];
+      [HKHealthConceptPickerViewController disallowButtonTapped:?];
     }
   }
 
@@ -396,7 +396,7 @@ void __60__HKHealthConceptPickerViewController_disallowButtonTapped___block_invo
     v6 = HKLogAuthorization();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
-      [HKHealthConceptPickerViewController allowButtonTapped:];
+      [HKHealthConceptPickerViewController allowButtonTapped:?];
     }
   }
 
@@ -483,7 +483,7 @@ void __57__HKHealthConceptPickerViewController_allowButtonTapped___block_invoke_
     v7 = HKLogAuthorization();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
-      [HKHealthConceptPickerViewController _finishWithError:];
+      [HKHealthConceptPickerViewController _finishWithError:?];
     }
   }
 
@@ -1009,32 +1009,32 @@ void __96__HKHealthConceptPickerViewController__numberOfUpdatedStatusEnabledForU
   return WeakRetained;
 }
 
-- (void)cancelButtonTapped:.cold.1()
+- (void)cancelButtonTapped:(uint64_t)a1 .cold.1(uint64_t a1)
 {
-  v0 = objc_opt_class();
-  v1 = OUTLINED_FUNCTION_1(v0);
-  OUTLINED_FUNCTION_0_7(&dword_1C3942000, v2, v3, "%{public}@: Cancelled health concept authorization", v4, v5, v6, v7, v8);
+  v1 = objc_opt_class();
+  v2 = OUTLINED_FUNCTION_1(v1);
+  OUTLINED_FUNCTION_0_7(&dword_1C3942000, v3, v4, "%{public}@: Cancelled health concept authorization", v5, v6, v7, v8);
 }
 
-- (void)disallowButtonTapped:.cold.1()
+- (void)disallowButtonTapped:(uint64_t)a1 .cold.1(uint64_t a1)
 {
-  v0 = objc_opt_class();
-  v1 = OUTLINED_FUNCTION_1(v0);
-  OUTLINED_FUNCTION_0_7(&dword_1C3942000, v2, v3, "%{public}@: Disallowed health concept authorization", v4, v5, v6, v7, v8);
+  v1 = objc_opt_class();
+  v2 = OUTLINED_FUNCTION_1(v1);
+  OUTLINED_FUNCTION_0_7(&dword_1C3942000, v3, v4, "%{public}@: Disallowed health concept authorization", v5, v6, v7, v8);
 }
 
-- (void)allowButtonTapped:.cold.1()
+- (void)allowButtonTapped:(uint64_t)a1 .cold.1(uint64_t a1)
 {
-  v0 = objc_opt_class();
-  v1 = OUTLINED_FUNCTION_1(v0);
-  OUTLINED_FUNCTION_0_7(&dword_1C3942000, v2, v3, "%{public}@: Saving health concept authorization", v4, v5, v6, v7, v8);
+  v1 = objc_opt_class();
+  v2 = OUTLINED_FUNCTION_1(v1);
+  OUTLINED_FUNCTION_0_7(&dword_1C3942000, v3, v4, "%{public}@: Saving health concept authorization", v5, v6, v7, v8);
 }
 
-- (void)_finishWithError:.cold.1()
+- (void)_finishWithError:(uint64_t)a1 .cold.1(uint64_t a1)
 {
-  v0 = objc_opt_class();
-  v1 = OUTLINED_FUNCTION_1(v0);
-  OUTLINED_FUNCTION_0_7(&dword_1C3942000, v2, v3, "%@: dismissing", v4, v5, v6, v7, v8);
+  v1 = objc_opt_class();
+  v2 = OUTLINED_FUNCTION_1(v1);
+  OUTLINED_FUNCTION_0_7(&dword_1C3942000, v3, v4, "%@: dismissing", v5, v6, v7, v8);
 }
 
 @end

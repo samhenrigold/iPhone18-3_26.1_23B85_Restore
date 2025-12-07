@@ -1,8 +1,8 @@
 @interface LSApplicationRecord(Workflow)
 + (id)wf_bundleAllowList;
+- (BOOL)wf_isLinkEnabled;
 - (uint64_t)wf_iconIsDefaultVisible;
 - (uint64_t)wf_isAvailableInContext:()Workflow;
-- (uint64_t)wf_isLinkEnabled;
 @end
 
 @implementation LSApplicationRecord(Workflow)
@@ -37,7 +37,7 @@
   return v1;
 }
 
-- (uint64_t)wf_isLinkEnabled
+- (BOOL)wf_isLinkEnabled
 {
   if (objc_opt_respondsToSelector() & 1) == 0 || ([self isLinkEnabled])
   {

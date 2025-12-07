@@ -67,16 +67,7 @@
   if (v8 && fieldsCopy)
   {
     v9 = [recordCopy objectForKeyedSubscript:@"server_wascurrent"];
-    if (!v9 && ![(CKKSMirrorEntry *)self wasCurrent])
-    {
-      goto LABEL_6;
-    }
-
-    v10 = [recordCopy objectForKeyedSubscript:@"server_wascurrent"];
-    v11 = [NSNumber numberWithUnsignedLongLong:[(CKKSMirrorEntry *)self wasCurrent]];
-    v12 = [v10 isEqual:v11];
-
-    if ((v12 & 1) == 0)
+    if ((v9 || -[CKKSMirrorEntry wasCurrent](self, "wasCurrent")) && ([recordCopy objectForKeyedSubscript:@"server_wascurrent"], v10 = objc_claimAutoreleasedReturnValue(), +[NSNumber numberWithUnsignedLongLong:](NSNumber, "numberWithUnsignedLongLong:", -[CKKSMirrorEntry wasCurrent](self, "wasCurrent")), v11 = objc_claimAutoreleasedReturnValue(), v12 = objc_msgSend(v10, "isEqual:", v11), v11, v10, v9, (v12 & 1) == 0))
     {
       v13 = sub_100019104(@"ckksitem", 0);
       if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
@@ -90,7 +81,6 @@
 
     else
     {
-LABEL_6:
       LOBYTE(v8) = 1;
     }
   }

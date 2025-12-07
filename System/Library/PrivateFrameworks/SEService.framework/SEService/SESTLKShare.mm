@@ -38,7 +38,7 @@
 
 + (id)withCKKSExternalShare:(id)share
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   shareCopy = share;
   tlkUUID = [shareCopy tlkUUID];
   v5 = [SESTLKRecord _uuidFromStringPermissive:tlkUUID];
@@ -61,17 +61,15 @@
       tlkUUID2 = [shareCopy tlkUUID];
       wrappedTLK2 = [shareCopy wrappedTLK];
       base64 = [wrappedTLK2 base64];
-      v18 = 138412546;
-      v19 = tlkUUID2;
-      v20 = 2112;
-      v21 = base64;
-      _os_log_impl(&dword_1C7B9A000, v12, OS_LOG_TYPE_ERROR, "Share without a TLK String %@ - %@", &v18, 0x16u);
+      v17 = 138412546;
+      v18 = tlkUUID2;
+      v19 = 2112;
+      v20 = base64;
+      _os_log_impl(&dword_1C7B9A000, v12, OS_LOG_TYPE_ERROR, "Share without a TLK String %@ - %@", &v17, 0x16u);
     }
 
     v11 = 0;
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return v11;
 }

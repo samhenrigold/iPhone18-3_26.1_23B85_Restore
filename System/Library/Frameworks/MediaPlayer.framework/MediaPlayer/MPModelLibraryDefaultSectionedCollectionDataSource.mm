@@ -340,20 +340,20 @@ LABEL_22:
 - (id)_libraryPinAtIndexPath:(id)path withEntity:(shared_ptr<mlcore::Entity>)entity
 {
   var0 = entity.var0;
-  v122[1] = *MEMORY[0x1E69E9840];
+  v121[1] = *MEMORY[0x1E69E9840];
   pathCopy = path;
   filteringOptions = [(MPModelLibraryRequest *)self->_request filteringOptions];
   v7 = +[MPRestrictionsMonitor sharedRestrictionsMonitor];
   allowsExplicitContent = [v7 allowsExplicitContent];
-  v75 = *&filteringOptions & 0x10000;
+  v74 = *&filteringOptions & 0x10000;
   v9 = (*&filteringOptions & 0x10000) != 0;
 
-  v96 = 0;
   v95 = 0;
-  MEMORY[0x1A58DF930](v97, 0, &v95);
-  if (v96)
+  v94 = 0;
+  MEMORY[0x1A58DF930](v96, 0, &v94);
+  if (v95)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v96);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v95);
   }
 
   mlcore::Entity::propertyCache(*var0);
@@ -375,15 +375,15 @@ LABEL_22:
 
   v17 = mlcore::PropertyCacheBase<long long,int,double,std::string,mediaplatform::Data>::valueForProperty(v15 + 8, v16);
   v18 = v17;
-  v78 = 0;
+  v77 = 0;
   v19 = 0;
   if (!v10)
   {
-    v79 = 0;
+    v78 = 0;
     goto LABEL_17;
   }
 
-  v79 = 0;
+  v78 = 0;
   if (!v17)
   {
     goto LABEL_17;
@@ -393,7 +393,7 @@ LABEL_22:
   {
     if (v14 == 4)
     {
-      v78 = MPModelRelationshipLibraryPinAlbum;
+      v77 = MPModelRelationshipLibraryPinAlbum;
       v20 = +[MPModelAlbumKind identityKind];
       v21 = objc_opt_class();
     }
@@ -401,14 +401,14 @@ LABEL_22:
     else
     {
       v19 = 0;
+      v77 = 0;
       v78 = 0;
-      v79 = 0;
       if (v14 != 7)
       {
         goto LABEL_17;
       }
 
-      v78 = MPModelRelationshipLibraryPinArtist;
+      v77 = MPModelRelationshipLibraryPinArtist;
       v20 = +[MPModelArtistKind identityKind];
       v21 = objc_opt_class();
     }
@@ -417,70 +417,70 @@ LABEL_22:
   else if (v14)
   {
     v19 = 0;
+    v77 = 0;
     v78 = 0;
-    v79 = 0;
     if (v14 != 1)
     {
       goto LABEL_17;
     }
 
-    v78 = MPModelRelationshipLibraryPinPlaylist;
+    v77 = MPModelRelationshipLibraryPinPlaylist;
     v20 = +[MPModelPlaylistKind identityKind];
     v21 = objc_opt_class();
   }
 
   else
   {
-    v78 = MPModelRelationshipLibraryPinSong;
+    v77 = MPModelRelationshipLibraryPinSong;
     v20 = +[MPModelSongKind identityKind];
     v21 = objc_opt_class();
   }
 
   v19 = v21;
-  v79 = v20;
+  v78 = v20;
 LABEL_17:
-  v74 = v9 | allowsExplicitContent;
+  v73 = v9 | allowsExplicitContent;
   v22 = os_log_create("com.apple.amp.mediaplayer", "Default");
-  v23 = v79;
+  v23 = v78;
   if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138545410;
     *&buf[4] = pathCopy;
-    v103 = 2048;
-    v104 = v10;
-    v105 = 2048;
-    v106 = v18;
-    v107 = 1024;
-    v108 = v14;
-    v109 = 2114;
-    v110 = v79;
-    v111 = 2114;
-    v112 = v19;
-    v113 = 1024;
-    v114 = v75 >> 16;
-    v115 = 1024;
-    v116 = allowsExplicitContent;
-    v117 = 1024;
-    v118 = v74 & 1;
+    v102 = 2048;
+    v103 = v10;
+    v104 = 2048;
+    v105 = v18;
+    v106 = 1024;
+    v107 = v14;
+    v108 = 2114;
+    v109 = v78;
+    v110 = 2114;
+    v111 = v19;
+    v112 = 1024;
+    v113 = v74 >> 16;
+    v114 = 1024;
+    v115 = allowsExplicitContent;
+    v116 = 1024;
+    v117 = v73 & 1;
     _os_log_impl(&dword_1A238D000, v22, OS_LOG_TYPE_DEFAULT, "Starting to build out pin at indexPath=%{public}@, pinPID=%lld, entityPID=%lld, entityType=%d, relationshipModelKind=%{public}@, relationshipModelClass=%{public}@, requestIgnoresRestrictedContent=%{BOOL}u, allowsExplicitContent=%{BOOL}u, returnOriginalPin=%{BOOL}u", buf, 0x4Cu);
   }
 
-  if (!v10 || !v18 || !v79 || !v19)
+  if (!v10 || !v18 || !v78 || !v19)
   {
     v32 = MEMORY[0x1E69B13D8];
-    v120[0] = @"Pin PersistentID";
+    v119[0] = @"Pin PersistentID";
     v33 = [MEMORY[0x1E696AD98] numberWithLongLong:v10];
-    v121[0] = v33;
-    v120[1] = @"Entity PersistentID";
+    v120[0] = v33;
+    v119[1] = @"Entity PersistentID";
     v34 = [MEMORY[0x1E696AD98] numberWithLongLong:v18];
-    v121[1] = v34;
-    v120[2] = @"PinnedEntityType";
-    v23 = v79;
+    v120[1] = v34;
+    v119[2] = @"PinnedEntityType";
+    v23 = v78;
     v35 = [MEMORY[0x1E696AD98] numberWithInt:v14];
-    v121[2] = v35;
-    v36 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v121 forKeys:v120 count:3];
-    v122[0] = v36;
-    v37 = [MEMORY[0x1E695DEC8] arrayWithObjects:v122 count:1];
+    v120[2] = v35;
+    v36 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v120 forKeys:v119 count:3];
+    v121[0] = v36;
+    v37 = [MEMORY[0x1E695DEC8] arrayWithObjects:v121 count:1];
     [v32 snapshotWithDomain:*MEMORY[0x1E69B1340] type:@"Bug" subType:@"RequestBuiltInvalidPin" context:@"Invalid Library Pin" triggerThresholdValues:0 events:v37 completion:0];
 
 LABEL_50:
@@ -499,93 +499,89 @@ LABEL_50:
   }
 
   v24 = [MPIdentifierSet alloc];
-  v92[0] = MEMORY[0x1E69E9820];
-  v92[1] = 3221225472;
-  v92[2] = __88__MPModelLibraryDefaultSectionedCollectionDataSource__libraryPinAtIndexPath_withEntity___block_invoke;
-  v92[3] = &unk_1E767CDA0;
-  v92[4] = self;
-  v92[5] = v18;
-  v73 = [(MPIdentifierSet *)v24 initWithSource:@"MPModelLibraryDefaultSectionedCollectionDataSource" modelKind:v79 block:v92];
+  v91[0] = MEMORY[0x1E69E9820];
+  v91[1] = 3221225472;
+  v91[2] = __88__MPModelLibraryDefaultSectionedCollectionDataSource__libraryPinAtIndexPath_withEntity___block_invoke;
+  v91[3] = &unk_1E767CDA0;
+  v91[4] = self;
+  v91[5] = v18;
+  v72 = [(MPIdentifierSet *)v24 initWithSource:@"MPModelLibraryDefaultSectionedCollectionDataSource" modelKind:v78 block:v91];
   filteringOptions2 = [(MPModelLibraryRequest *)self->_request filteringOptions];
   v26 = [MPMediaLibraryView alloc];
   mediaLibrary = [(MPModelLibraryRequest *)self->_request mediaLibrary];
-  0x10000 = [(MPMediaLibraryView *)v26 initWithLibrary:mediaLibrary filteringOptions:filteringOptions2 | v75 ^ 0x10000];
+  0x10000 = [(MPMediaLibraryView *)v26 initWithLibrary:mediaLibrary filteringOptions:filteringOptions2 | v74 ^ 0x10000];
 
-  v72 = [MPMediaLibraryEntityTranslator translatorForMPModelClass:v19];
+  v71 = [MPMediaLibraryEntityTranslator translatorForMPModelClass:v19];
   itemProperties = [(MPModelRequest *)self->_request itemProperties];
   relationships = [itemProperties relationships];
-  v30 = [relationships objectForKey:v78];
-  v119 = v73;
-  v31 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v119 count:1];
-  if (v72)
+  v30 = [relationships objectForKey:v77];
+  v118 = v72;
+  v31 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v118 count:1];
+  if (v71)
   {
-    [v72 propertiesQueryForPropertySet:v30 scopedContainers:0 allowedItemIdentifiers:v31 view:0x10000];
+    objc_msgSend_propertiesQueryForPropertySet_scopedContainers_allowedItemIdentifiers_view_(v71);
   }
 
   else
   {
+    v89 = 0;
     v90 = 0;
-    v91 = 0;
   }
 
+  v85 = v89;
   v86 = v90;
-  v87 = v91;
-  if (v91)
+  if (v90)
   {
-    atomic_fetch_add_explicit(&v91->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v90->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  v85 = 0;
+  v84 = 0;
   if (0x10000)
   {
-    [(MPMediaLibraryView *)0x10000 resultsForCoreQuery:&v86 error:&v85];
-    v71 = v85;
+    objc_msgSend_resultsForCoreQuery_error_(0x10000);
+    v70 = v84;
   }
 
   else
   {
-    v71 = 0;
+    v70 = 0;
+    v87 = 0;
     v88 = 0;
-    v89 = 0;
   }
 
-  if (v87)
+  if (v86)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v87);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v86);
   }
 
-  if (!v71)
+  if (!v70 && v87)
   {
     v62 = v88;
     if (v88)
     {
-      v63 = v89;
-      if (v89)
-      {
-        atomic_fetch_add_explicit(&v89->__shared_owners_, 1uLL, memory_order_relaxed);
-      }
+      atomic_fetch_add_explicit(&v88->__shared_owners_, 1uLL, memory_order_relaxed);
+    }
 
-      v64 = mlcore::PropertiesQueryResult::allResults(v62);
-      v82 = 0;
-      v83 = 0;
-      v84 = 0;
-      std::vector<mlcore::PropertyCache>::__init_with_size[abi:ne200100]<mlcore::PropertyCache*,mlcore::PropertyCache*>(&v82, *v64, v64[1], 0x84BDA12F684BDA13 * ((v64[1] - *v64) >> 3));
-      if (v83 != v82)
-      {
-        mlcore::PropertyCache::PropertyCache();
-        v101[0] = &unk_1F14959F0;
-        v101[3] = v101;
-        mlcore::PropertyCache::mergePropertiesFromCache();
-        std::__function::__value_func<BOOL ()(mlcore::ModelPropertyBase *)>::~__value_func[abi:ne200100](v101);
-        mlcore::PropertyCacheBase<long long,int,double,std::string,mediaplatform::Data>::~PropertyCacheBase(buf);
-      }
+    v63 = mlcore::PropertiesQueryResult::allResults(v87);
+    v81 = 0;
+    v82 = 0;
+    v83 = 0;
+    std::vector<mlcore::PropertyCache>::__init_with_size[abi:ne200100]<mlcore::PropertyCache*,mlcore::PropertyCache*>(&v81, *v63, v63[1], 0x84BDA12F684BDA13 * ((v63[1] - *v63) >> 3));
+    if (v82 != v81)
+    {
+      mlcore::PropertyCache::PropertyCache();
+      v100[0] = &unk_1F14959F0;
+      v100[3] = v100;
+      mlcore::PropertyCache::mergePropertiesFromCache();
+      std::__function::__value_func<BOOL ()(mlcore::ModelPropertyBase *)>::~__value_func[abi:ne200100](v100);
+      mlcore::PropertyCacheBase<long long,int,double,std::string,mediaplatform::Data>::~PropertyCacheBase(buf);
+    }
 
-      *buf = &v82;
-      std::vector<mlcore::PropertyCache>::__destroy_vector::operator()[abi:ne200100](buf);
-      if (v63)
-      {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v63);
-      }
+    *buf = &v81;
+    std::vector<mlcore::PropertyCache>::__destroy_vector::operator()[abi:ne200100](buf);
+    if (v62)
+    {
+      std::__shared_weak_count::__release_shared[abi:ne200100](v62);
     }
   }
 
@@ -593,7 +589,7 @@ LABEL_50:
   v39 = +[MPMediaLibraryEntityTranslator translatorForMPModelClass:](MPMediaLibraryEntityTranslator, "translatorForMPModelClass:", [itemKind modelClass]);
 
   itemProperties2 = [(MPModelRequest *)self->_request itemProperties];
-  v41 = [v39 objectForPropertySet:itemProperties2 entityClass:(*(**var0 + 48))() propertyCache:v94 context:self->_entityTranslationContext];
+  v41 = [v39 objectForPropertySet:itemProperties2 entityClass:(*(**var0 + 48))() propertyCache:v93 context:self->_entityTranslationContext];
 
   if (self->_indexPathToContainerUniqueIDMap)
   {
@@ -601,26 +597,26 @@ LABEL_50:
     mediaLibrary2 = [(MPMediaLibraryEntityTranslationContext *)self->_entityTranslationContext mediaLibrary];
     uniqueIdentifier = [mediaLibrary2 uniqueIdentifier];
     v45 = [@"Library-DefaultSectionedCollection-" stringByAppendingString:uniqueIdentifier];
-    v80[0] = MEMORY[0x1E69E9820];
-    v80[1] = 3221225472;
-    v80[2] = __88__MPModelLibraryDefaultSectionedCollectionDataSource__libraryPinAtIndexPath_withEntity___block_invoke_3;
-    v80[3] = &unk_1E767EE00;
-    v80[4] = self;
-    v81 = pathCopy;
-    v46 = [identifiers copyWithSource:v45 block:v80];
+    v79[0] = MEMORY[0x1E69E9820];
+    v79[1] = 3221225472;
+    v79[2] = __88__MPModelLibraryDefaultSectionedCollectionDataSource__libraryPinAtIndexPath_withEntity___block_invoke_3;
+    v79[3] = &unk_1E767EE00;
+    v79[4] = self;
+    v80 = pathCopy;
+    v46 = [identifiers copyWithSource:v45 block:v79];
     v47 = [v41 copyWithIdentifiers:v46 block:&__block_literal_global_97];
 
     v41 = v47;
   }
 
-  if (v89)
+  if (v88)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v89);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v88);
   }
 
-  if (v91)
+  if (v90)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v91);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v90);
   }
 
   if (!v41)
@@ -632,19 +628,19 @@ LABEL_50:
   if (![v48 persistentID]|| ![v48 pinnedEntityPersistentID]|| [v48 pinnedEntityType]!= 1 && [v48 pinnedEntityType]!= 4 && [v48 pinnedEntityType]!= 3 && [v48 pinnedEntityType]!= 2)
   {
     v52 = MEMORY[0x1E69B13D8];
-    v98[0] = @"Pin PersistentID";
+    v97[0] = @"Pin PersistentID";
     v53 = [MEMORY[0x1E696AD98] numberWithLongLong:{-[NSObject persistentID](v48, "persistentID")}];
-    v99[0] = v53;
-    v98[1] = @"Entity PersistentID";
+    v98[0] = v53;
+    v97[1] = @"Entity PersistentID";
     v54 = [MEMORY[0x1E696AD98] numberWithLongLong:{-[NSObject pinnedEntityPersistentID](v48, "pinnedEntityPersistentID")}];
-    v99[1] = v54;
-    v98[2] = @"PinnedEntityType";
+    v98[1] = v54;
+    v97[2] = @"PinnedEntityType";
     v55 = [MEMORY[0x1E696AD98] numberWithInteger:{-[NSObject pinnedEntityType](v48, "pinnedEntityType")}];
-    v99[2] = v55;
-    v23 = v79;
-    v56 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v99 forKeys:v98 count:3];
-    v100 = v56;
-    v57 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v100 count:1];
+    v98[2] = v55;
+    v23 = v78;
+    v56 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v98 forKeys:v97 count:3];
+    v99 = v56;
+    v57 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v99 count:1];
     [v52 snapshotWithDomain:*MEMORY[0x1E69B1340] type:@"Bug" subType:@"QueryProducedInvalidPin" context:@"Invalid Library Pin" triggerThresholdValues:0 events:v57 completion:0];
 
     anyObject = [(MPModelLibraryDefaultSectionedCollectionDataSource *)self identifiersForItemAtIndexPath:pathCopy];
@@ -653,8 +649,8 @@ LABEL_50:
     {
       *buf = 138543618;
       *&buf[4] = v48;
-      v103 = 2114;
-      v104 = anyObject;
+      v102 = 2114;
+      v103 = anyObject;
       _os_log_impl(&dword_1A238D000, v58, OS_LOG_TYPE_ERROR, "request produced an invalid pin=%{public}@ - creating empty pin with identifiers=%{public}@", buf, 0x16u);
     }
 
@@ -663,17 +659,17 @@ LABEL_50:
     goto LABEL_56;
   }
 
-  if (v74)
+  if (v73)
   {
     v49 = v48;
-    v23 = v79;
+    v23 = v78;
     goto LABEL_58;
   }
 
   pinnedEntityType = [v48 pinnedEntityType];
   if (pinnedEntityType <= 2)
   {
-    v23 = v79;
+    v23 = v78;
     if (pinnedEntityType == 1)
     {
       anyObject = [v48 anyObject];
@@ -686,7 +682,7 @@ LABEL_50:
         {
           *buf = 138543362;
           *&buf[4] = anyObject;
-          v67 = "pinned song=%{public}@ is explicit and restrictions are enforced";
+          v66 = "pinned song=%{public}@ is explicit and restrictions are enforced";
           goto LABEL_91;
         }
 
@@ -709,10 +705,10 @@ LABEL_50:
         {
           *buf = 138543362;
           *&buf[4] = anyObject;
-          v67 = "pinned playlist=%{public}@ has no clean tracks and restrictions are enforced";
+          v66 = "pinned playlist=%{public}@ has no clean tracks and restrictions are enforced";
 LABEL_91:
-          v68 = v51;
-          v69 = 12;
+          v67 = v51;
+          v68 = 12;
           goto LABEL_92;
         }
 
@@ -733,22 +729,22 @@ LABEL_81:
     {
       *buf = 138543874;
       *&buf[4] = v48;
-      v103 = 2114;
-      v104 = v49;
-      v105 = 2114;
-      v106 = anyObject;
-      v67 = "pin=%{public}@ has incorrect type, returning %{public}@ with identifiers=%{public}@";
-      v68 = v51;
-      v69 = 32;
+      v102 = 2114;
+      v103 = v49;
+      v104 = 2114;
+      v105 = anyObject;
+      v66 = "pin=%{public}@ has incorrect type, returning %{public}@ with identifiers=%{public}@";
+      v67 = v51;
+      v68 = 32;
 LABEL_92:
-      _os_log_impl(&dword_1A238D000, v68, OS_LOG_TYPE_DEFAULT, v67, buf, v69);
+      _os_log_impl(&dword_1A238D000, v67, OS_LOG_TYPE_DEFAULT, v66, buf, v68);
       goto LABEL_56;
     }
 
     goto LABEL_56;
   }
 
-  v23 = v79;
+  v23 = v78;
   if (pinnedEntityType == 3)
   {
     anyObject = [v48 anyObject];
@@ -761,7 +757,7 @@ LABEL_92:
       {
         *buf = 138543362;
         *&buf[4] = anyObject;
-        v67 = "pinned artist=%{public}@ has no clean tracks and restrictions are enforced";
+        v66 = "pinned artist=%{public}@ has no clean tracks and restrictions are enforced";
         goto LABEL_91;
       }
 
@@ -789,7 +785,7 @@ LABEL_92:
   {
     *buf = 138543362;
     *&buf[4] = anyObject;
-    v67 = "pinned album=%{public}@ has no clean tracks and restrictions are enforced";
+    v66 = "pinned album=%{public}@ has no clean tracks and restrictions are enforced";
     goto LABEL_91;
   }
 
@@ -802,16 +798,16 @@ LABEL_58:
   {
     *buf = 138543618;
     *&buf[4] = v48;
-    v103 = 2114;
-    v104 = v49;
+    v102 = 2114;
+    v103 = v49;
     _os_log_impl(&dword_1A238D000, v59, OS_LOG_TYPE_DEFAULT, "pin=%{public}@, returning object=%{public}@", buf, 0x16u);
   }
 
   v60 = v49;
+  mlcore::PropertyCacheBase<long long,int,double,std::string,mediaplatform::Data>::~PropertyCacheBase(v92);
   mlcore::PropertyCacheBase<long long,int,double,std::string,mediaplatform::Data>::~PropertyCacheBase(v93);
-  mlcore::PropertyCacheBase<long long,int,double,std::string,mediaplatform::Data>::~PropertyCacheBase(v94);
 
-  mlcore::EntityQuery::~EntityQuery(v97);
+  mlcore::EntityQuery::~EntityQuery(v96);
 
   return v60;
 }
@@ -955,7 +951,7 @@ LABEL_13:
     v15 = v21.__r_.__value_.__r.__words[0];
 LABEL_17:
     v24 = &v21;
-    item = std::__tree<std::__value_type<long long,unsigned long>,std::__map_value_compare<long long,std::__value_type<long long,unsigned long>,std::less<long long>,true>,std::allocator<std::__value_type<long long,unsigned long>>>::__emplace_unique_key_args<long long,std::piecewise_construct_t const&,std::tuple<long long const&>,std::tuple<>>(&self->_allowedItemPersistentIDToItemQueryResultsIndexMap, v15)[5];
+    item = std::__tree<std::__value_type<long long,unsigned long>,std::__map_value_compare<long long,std::__value_type<long long,unsigned long>,std::less<long long>,true>,std::allocator<std::__value_type<long long,unsigned long>>>::__emplace_unique_key_args<long long,std::piecewise_construct_t const&,std::tuple<long long const&>,std::tuple<>>(&self->_allowedItemPersistentIDToItemQueryResultsIndexMap, v15, &v24)[5];
   }
 
   return item;
@@ -969,7 +965,7 @@ LABEL_17:
   {
     v26 = mlcore::EntityQueryResult::persistentIDAtIndex(self->_itemQueryResults.__ptr_);
     v31 = &v26;
-    std::__tree<std::__value_type<long long,unsigned long>,std::__map_value_compare<long long,std::__value_type<long long,unsigned long>,std::less<long long>,true>,std::allocator<std::__value_type<long long,unsigned long>>>::__emplace_unique_key_args<long long,std::piecewise_construct_t const&,std::tuple<long long const&>,std::tuple<>>(&self->_allowedItemPersistentIDToItemQueryResultsIndexMap, v26)[5] = v3++;
+    std::__tree<std::__value_type<long long,unsigned long>,std::__map_value_compare<long long,std::__value_type<long long,unsigned long>,std::less<long long>,true>,std::allocator<std::__value_type<long long,unsigned long>>>::__emplace_unique_key_args<long long,std::piecewise_construct_t const&,std::tuple<long long const&>,std::tuple<>>(&self->_allowedItemPersistentIDToItemQueryResultsIndexMap, v26, &v31)[5] = v3++;
   }
 
   allowedEntityIdentifiers = [(MPMediaLibraryEntityTranslationContext *)self->_entityTranslationContext allowedEntityIdentifiers];
@@ -1493,7 +1489,7 @@ void __84__MPModelLibraryDefaultSectionedCollectionDataSource_identifiersForItem
     [currentHandler handleFailureInMethod:a2 object:self file:@"MPModelLibraryDefaultSectionedCollectionDataSource.mm" lineNumber:166 description:{@"Adjusted global index out of bounds: %ld (indexPath = %@ / entityCount = %ld)", v6, pathCopy, v7}];
   }
 
-  mlcore::EntityQueryResult::entityAtIndex(self->_itemQueryResults.__ptr_);
+  mlcore::EntityQueryResult::entityAtIndex(&v28, self->_itemQueryResults.__ptr_);
   +[MPMediaLibrary logDatabaseAccess];
   request = self->_request;
   if (v28)
@@ -1523,7 +1519,7 @@ void __84__MPModelLibraryDefaultSectionedCollectionDataSource_identifiersForItem
       v17 = +[MPMediaLibraryEntityTranslator translatorForMPModelClass:](MPMediaLibraryEntityTranslator, "translatorForMPModelClass:", [itemKind2 modelClass]);
 
       itemProperties = [(MPModelRequest *)self->_request itemProperties];
-      v19 = (*(*v28 + 48))();
+      v19 = (*(*v28 + 48))(v28);
       v11 = [v17 objectForPropertySet:itemProperties entityClass:v19 propertyCache:mlcore::Entity::propertyCache(v28) context:self->_entityTranslationContext];
 
       if (self->_indexPathToContainerUniqueIDMap)

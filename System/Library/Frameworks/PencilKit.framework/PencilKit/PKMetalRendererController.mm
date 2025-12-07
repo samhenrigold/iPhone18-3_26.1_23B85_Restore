@@ -8,7 +8,7 @@
 - (uint64_t)_renderAheadWithTransform:(uint64_t)transform at:(_OWORD *)at;
 - (uint64_t)drawStrokes:(void *)strokes intoTile:(uint64_t)tile renderCount:(char)count offscreen:;
 - (uint64_t)prerenderWithTransform:(double)transform inputScale:(double)scale at:;
-- (uint64_t)renderStrokesSync:(_OWORD *)sync clippedToStrokeSpaceRect:(CGFloat)rect strokeTransform:(CGFloat)transform imageClipRect:(CGFloat)clipRect;
+- (unsigned)renderStrokesSync:(_OWORD *)sync clippedToStrokeSpaceRect:(CGFloat)rect strokeTransform:(CGFloat)transform imageClipRect:(CGFloat)clipRect;
 - (void)_drawStrokesAfterClear:(__int128 *)clear clippedToStrokeSpaceRect:(char)rect strokeTransform:(void *)transform useLayerContext:(double)context renderCompletion:(double)completion;
 - (void)_logStrokeDuration;
 - (void)_recordStrokeStatistics;
@@ -161,7 +161,7 @@
         v33 = [PKMetalRenderer alloc];
         device = [(PKMetalConfig *)formatCopy device];
         resourceHandler2 = [(PKMetalConfig *)formatCopy resourceHandler];
-        v36 = [PKMetalRenderer initWithDrawingPixelSize:device actualSize:resourceHandler2 device:*(v18 + 77) resourceHandler:v32 sixChannelBlendingMode:v18[524] pixelFormat:? wantsExtendedDynamicRangeContent:?];
+        v36 = [(PKMetalRenderer *)&v33->super.isa initWithDrawingPixelSize:device actualSize:resourceHandler2 device:*(v18 + 77) resourceHandler:v32 sixChannelBlendingMode:v18[524] pixelFormat:v20 wantsExtendedDynamicRangeContent:v22, config, a9];
         v37 = *(v18 + 80);
         *(v18 + 80) = v36;
 
@@ -392,7 +392,7 @@ void __138__PKMetalRendererController_initWithPixelSize_actualSize_pixelFormat_s
   if (self)
   {
     v2 = *(self + 640);
-    v22 = v2;
+    v26 = v2;
     if (v2)
     {
       v3 = v2[130];
@@ -414,7 +414,7 @@ void __138__PKMetalRendererController_initWithPixelSize_actualSize_pixelFormat_s
       v7 = v7[24];
     }
 
-    v23 = v7;
+    v27 = v7;
     v8 = 536;
     if (*(self + 524))
     {
@@ -423,49 +423,53 @@ void __138__PKMetalRendererController_initWithPixelSize_actualSize_pixelFormat_s
 
     v9 = *(self + v8);
     v10 = [PKMetalRenderer alloc];
-    if (v23)
+    v11 = *(self + 104);
+    v12 = *(self + 112);
+    v13 = *(self + 120);
+    v14 = *(self + 128);
+    if (v27)
     {
-      v11 = v23[53];
+      v15 = v27[53];
     }
 
     else
     {
-      v11 = 0;
+      v15 = 0;
     }
 
-    v12 = v11;
-    v13 = [PKMetalRenderer initWithDrawingPixelSize:v12 actualSize:v23 device:*(self + 616) resourceHandler:v9 sixChannelBlendingMode:*(self + 524) pixelFormat:? wantsExtendedDynamicRangeContent:?];
-    objc_storeStrong((self + 640), v13);
+    v16 = v15;
+    v17 = [(PKMetalRenderer *)&v10->super.isa initWithDrawingPixelSize:v16 actualSize:v27 device:*(self + 616) resourceHandler:v9 sixChannelBlendingMode:*(self + 524) pixelFormat:v11 wantsExtendedDynamicRangeContent:v12, v13, v14];
+    objc_storeStrong((self + 640), v17);
 
     if (*v6)
     {
       *(*v6 + 1040) = v3;
-      v14 = *v6;
+      v18 = *v6;
     }
 
     else
     {
-      v14 = 0;
+      v18 = 0;
     }
 
-    [(PKMetalRenderer *)v14 setBackgroundColor:v5];
+    [(PKMetalRenderer *)v18 setBackgroundColor:v5];
     [(PKMetalRenderer *)*(self + 640) setLinedPaper:?];
-    v15 = *(self + 640);
-    if (v15 && ((v16 = *(self + 521), *(v15 + 1003) == v16) || (*(v15 + 1003) = v16, (v15 = *v6) != 0)) && (*(v15 + 1088) = *(self + 656), (v17 = *(self + 640)) != 0) && (*(v17 + 1002) = *(self + 522), (v18 = *(self + 640)) != 0) && (*(v18 + 1005) = *(self + 523), (v19 = *(self + 640)) != 0))
+    v19 = *(self + 640);
+    if (v19 && ((v20 = *(self + 521), *(v19 + 1003) == v20) || (*(v19 + 1003) = v20, (v19 = *v6) != 0)) && (*(v19 + 1088) = *(self + 656), (v21 = *(self + 640)) != 0) && (*(v21 + 1002) = *(self + 522), (v22 = *(self + 640)) != 0) && (*(v22 + 1005) = *(self + 523), (v23 = *(self + 640)) != 0))
     {
-      *(v19 + 1006) = *(self + 525);
-      v20 = *v6;
+      *(v23 + 1006) = *(self + 525);
+      v24 = *v6;
     }
 
     else
     {
-      v20 = 0;
+      v24 = 0;
     }
 
-    v21 = *(self + 352);
-    if (v21)
+    v25 = *(self + 352);
+    if (v25)
     {
-      [(PKMetalRenderer *)v20 setPaperTextureImage:v21];
+      [(PKMetalRenderer *)v24 setPaperTextureImage:v25];
     }
 
     CGColorRelease(v5);
@@ -506,9 +510,9 @@ void __138__PKMetalRendererController_initWithPixelSize_actualSize_pixelFormat_s
   }
 }
 
-void __53__PKMetalRendererController_setPixelSize_actualSize___block_invoke(uint64_t a1)
+void __53__PKMetalRendererController_setPixelSize_actualSize___block_invoke(uint64_t result)
 {
-  v2 = *(a1 + 32);
+  v2 = *(result + 32);
   if (!v2 || (v3 = atomic_load((v2 + 36))) == 0)
   {
     v4 = os_log_create("com.apple.pencilkit", "Sketching");
@@ -518,17 +522,17 @@ void __53__PKMetalRendererController_setPixelSize_actualSize___block_invoke(uint
       _os_log_debug_impl(&dword_1C7CCA000, v4, OS_LOG_TYPE_DEBUG, "Drawing setPixelSize:actualSize:", v10, 2u);
     }
 
-    v5 = *(a1 + 32);
-    if (*(v5 + 104) == *(a1 + 40) && *(v5 + 112) == *(a1 + 48))
+    v5 = *(result + 32);
+    if (*(v5 + 104) == *(result + 40) && *(v5 + 112) == *(result + 48))
     {
-      *(v5 + 120) = *(a1 + 56);
-      v7 = *(a1 + 32);
+      *(v5 + 120) = *(result + 56);
+      v7 = *(result + 32);
       if (v7)
       {
         v8 = *(v7 + 640);
         if (v8)
         {
-          v9 = *(a1 + 56);
+          v9 = *(result + 56);
           *(v8 + 248) = v9;
           *(v8 + 264) = *(v8 + 224) / *&v9;
         }
@@ -537,12 +541,12 @@ void __53__PKMetalRendererController_setPixelSize_actualSize___block_invoke(uint
 
     else
     {
-      *(v5 + 104) = *(a1 + 40);
-      *(*(a1 + 32) + 120) = *(a1 + 56);
-      [(PKMetalRenderer *)*(*(a1 + 32) + 640) updateActualSize:*(a1 + 64) pixelSize:*(a1 + 40), *(a1 + 48)];
+      *(v5 + 104) = *(result + 40);
+      *(*(result + 32) + 120) = *(result + 56);
+      [(PKMetalRenderer *)*(*(result + 32) + 640) updateActualSize:*(result + 64) pixelSize:*(result + 40), *(result + 48)];
     }
 
-    [(PKMetalRendererController *)*(a1 + 32) resumeLongRunningRenders];
+    [(PKMetalRendererController *)*(result + 32) resumeLongRunningRenders];
   }
 }
 
@@ -802,7 +806,7 @@ void __58__PKMetalRendererController_setMultiplyPresentationLayer___block_invoke
   }
 }
 
-- (uint64_t)renderStrokesSync:(_OWORD *)sync clippedToStrokeSpaceRect:(CGFloat)rect strokeTransform:(CGFloat)transform imageClipRect:(CGFloat)clipRect
+- (unsigned)renderStrokesSync:(_OWORD *)sync clippedToStrokeSpaceRect:(CGFloat)rect strokeTransform:(CGFloat)transform imageClipRect:(CGFloat)clipRect
 {
   v21 = a2;
   if (self)
@@ -1554,7 +1558,7 @@ LABEL_39:
       v47 = 0;
     }
 
-    [PKMetalRenderer generateLiveStrokeCachesForStrokes:v47 destinationLocations:*(a1 + 32) startTime:? duration:?];
+    [(PKMetalRenderer *)v47 generateLiveStrokeCachesForStrokes:&v55 destinationLocations:*(a1 + 80) startTime:*(a1 + 88) duration:?];
     v62 = &v55;
     std::vector<std::vector<ClipperLib::IntPoint>>::__destroy_vector::operator()[abi:ne200100](&v62);
   }
@@ -1815,15 +1819,15 @@ void __59__PKMetalRendererController_setLiveRenderingOverrideColor___block_invok
   return result;
 }
 
-double __48__PKMetalRendererController_setStrokeTransform___block_invoke(uint64_t a1)
+double __48__PKMetalRendererController_setStrokeTransform___block_invoke(uint64_t result)
 {
-  v3 = (*(a1 + 32) + 376);
-  v4 = *(a1 + 40);
-  v5 = *(a1 + 72);
-  v3[1] = *(a1 + 56);
+  v3 = (*(result + 32) + 376);
+  v4 = *(result + 40);
+  v5 = *(result + 72);
+  v3[1] = *(result + 56);
   v3[2] = v5;
   *v3 = v4;
-  v6 = *(a1 + 32);
+  v6 = *(result + 32);
   if (!v6)
   {
     goto LABEL_4;
@@ -1831,14 +1835,14 @@ double __48__PKMetalRendererController_setStrokeTransform___block_invoke(uint64_
 
   if (!atomic_load((v6 + 36)))
   {
-    v6 = *(a1 + 32);
+    v6 = *(result + 32);
 LABEL_4:
     v13 = v1;
     v14 = v2;
-    v8 = *(a1 + 56);
-    v11[0] = *(a1 + 40);
+    v8 = *(result + 56);
+    v11[0] = *(result + 40);
     v11[1] = v8;
-    v12 = *(a1 + 72);
+    v12 = *(result + 72);
     v9.n128_u64[1] = *(&v12 + 1);
     v9.n128_u64[0] = *(v6 + 360);
     *&v4 = [(PKMetalRendererController *)v6 _updateRendererStrokeTransformWithTransform:v11 offset:v9, *(v6 + 368)].n128_u64[0];
@@ -2013,32 +2017,32 @@ __n128 __47__PKMetalRendererController_setPaperTransform___block_invoke(uint64_t
   }
 }
 
-BOOL __44__PKMetalRendererController_setViewScissor___block_invoke(_BOOL8 result)
+CGFloat *__44__PKMetalRendererController_setViewScissor___block_invoke(CGFloat *result, __n128 a2, __n128 a3, __n128 a4, __n128 a5)
 {
-  v1 = *(result + 32);
-  if (!v1)
+  v5 = *(result + 4);
+  if (!v5)
   {
-    return [(PKMetalRenderer *)0 setViewScissor:*(result + 48), *(result + 56), *(result + 64)];
+    return [(PKMetalRenderer *)0 setViewScissor:result[6], result[7], result[8]];
   }
 
-  if (!atomic_load((v1 + 36)))
+  if (!atomic_load((v5 + 36)))
   {
-    v3 = *(result + 32);
-    v4 = *(result + 40);
-    v5 = *(result + 48);
-    v6 = *(result + 56);
-    v7 = *(result + 64);
-    if (v3)
+    v7 = *(result + 4);
+    v8 = result[5];
+    v9 = result[6];
+    v10 = result[7];
+    v11 = result[8];
+    if (v7)
     {
-      v8 = *(v3 + 640);
+      v12 = *(v7 + 640);
     }
 
     else
     {
-      v8 = 0;
+      v12 = 0;
     }
 
-    return [(PKMetalRenderer *)v8 setViewScissor:v4, v5, v6, v7];
+    return [(PKMetalRenderer *)v12 setViewScissor:v8, v9, v10, v11];
   }
 
   return result;
@@ -2393,9 +2397,9 @@ void __72__PKMetalRendererController_updateTiles_withNewStrokes_completionBlock_
   }
 }
 
-void __94__PKMetalRendererController_renderImageTexture_imageTextureTransform_withTiles_tileTransform___block_invoke(uint64_t a1)
+void __94__PKMetalRendererController_renderImageTexture_imageTextureTransform_withTiles_tileTransform___block_invoke(uint64_t result)
 {
-  v2 = *(a1 + 32);
+  v2 = *(result + 32);
   if (!v2 || (v3 = atomic_load((v2 + 36))) == 0)
   {
     v4 = os_log_create("com.apple.pencilkit", "Sketching");
@@ -2405,7 +2409,7 @@ void __94__PKMetalRendererController_renderImageTexture_imageTextureTransform_wi
       _os_log_debug_impl(&dword_1C7CCA000, v4, OS_LOG_TYPE_DEBUG, "Render tiles.", buf, 2u);
     }
 
-    v5 = *(a1 + 32);
+    v5 = *(result + 32);
     if (v5)
     {
       v6 = *(v5 + 640);
@@ -2416,16 +2420,16 @@ void __94__PKMetalRendererController_renderImageTexture_imageTextureTransform_wi
       v6 = 0;
     }
 
-    v7 = *(a1 + 72);
-    *buf = *(a1 + 56);
+    v7 = *(result + 72);
+    *buf = *(result + 56);
     v13 = v7;
-    v14 = *(a1 + 88);
-    v8 = *(a1 + 40);
-    v9 = *(a1 + 48);
-    v10 = *(a1 + 120);
-    v11[0] = *(a1 + 104);
+    v14 = *(result + 88);
+    v8 = *(result + 40);
+    v9 = *(result + 48);
+    v10 = *(result + 120);
+    v11[0] = *(result + 104);
     v11[1] = v10;
-    v11[2] = *(a1 + 136);
+    v11[2] = *(result + 136);
     [(PKMetalRenderer *)v6 renderImageTexture:v8 imageTextureTransform:buf withTiles:v9 tileTransform:v11 waitUntilCompleted:1];
   }
 }
@@ -2501,9 +2505,9 @@ void __50__PKMetalRendererController_renderTilesIntoTiles___block_invoke(uint64_
   }
 }
 
-void __41__PKMetalRendererController_drawTexture___block_invoke(uint64_t a1)
+void __41__PKMetalRendererController_drawTexture___block_invoke(uint64_t result)
 {
-  v2 = *(a1 + 32);
+  v2 = *(result + 32);
   if (!v2 || (v3 = atomic_load((v2 + 36))) == 0)
   {
     v4 = os_log_create("com.apple.pencilkit", "Sketching");
@@ -2513,7 +2517,7 @@ void __41__PKMetalRendererController_drawTexture___block_invoke(uint64_t a1)
       _os_log_debug_impl(&dword_1C7CCA000, v4, OS_LOG_TYPE_DEBUG, "Draw texture.", v7, 2u);
     }
 
-    v5 = *(a1 + 32);
+    v5 = *(result + 32);
     if (v5)
     {
       v6 = *(v5 + 640);
@@ -2542,9 +2546,9 @@ void __41__PKMetalRendererController_drawTexture___block_invoke(uint64_t a1)
   }
 }
 
-void __50__PKMetalRendererController_flushMemoryIfPossible__block_invoke(uint64_t a1)
+void __50__PKMetalRendererController_flushMemoryIfPossible__block_invoke(uint64_t result)
 {
-  v1 = *(a1 + 32);
+  v1 = *(result + 32);
   if (!v1)
   {
     goto LABEL_5;
@@ -2555,7 +2559,7 @@ void __50__PKMetalRendererController_flushMemoryIfPossible__block_invoke(uint64_
     return;
   }
 
-  v3 = *(a1 + 32);
+  v3 = *(result + 32);
   if (v3)
   {
     [(PKMetalRenderer *)*(v3 + 640) flushMemoryIfPossible];
@@ -2582,9 +2586,9 @@ LABEL_5:
   }
 }
 
-void __57__PKMetalRendererController_purgeOriginalBackFramebuffer__block_invoke(uint64_t a1)
+void __57__PKMetalRendererController_purgeOriginalBackFramebuffer__block_invoke(uint64_t result)
 {
-  v1 = *(a1 + 32);
+  v1 = *(result + 32);
   if (!v1)
   {
     goto LABEL_5;
@@ -2595,7 +2599,7 @@ void __57__PKMetalRendererController_purgeOriginalBackFramebuffer__block_invoke(
     return;
   }
 
-  v3 = *(a1 + 32);
+  v3 = *(result + 32);
   if (v3)
   {
     [(PKMetalRenderer *)*(v3 + 640) purgeOriginalBackFramebuffer];
@@ -2746,97 +2750,119 @@ LABEL_8:
   }
 
   v13 = *(a1 + 40);
+  v14 = (*(a1 + 48) | byte_1EC291591) & 1;
 
-  [PKMetalRenderer drawingBeganWithStroke:v12 forPreview:v13];
+  [(PKMetalRenderer *)v12 drawingBeganWithStroke:v13 forPreview:v14];
 }
 
 - (void)_recordStrokeStatistics
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   if (self)
   {
+    v2 = *(self + 504);
     os_unfair_lock_lock((self + 224));
-    v2 = *(self + 152);
+    v3 = *(self + 152);
     os_unfair_lock_unlock((self + 224));
-    if (v2)
+    if (v3)
     {
-      v3 = PKRunningStat::min((self + 144));
-      v4 = PKRunningStat::mean((self + 144)) * 1000.0;
-      v5 = PKRunningStat::max((self + 144)) * 1000.0;
-      v6 = PKRunningStat::variance((self + 144));
+      v4 = PKRunningStat::min((self + 144));
+      v5 = PKRunningStat::mean((self + 144)) * 1000.0;
+      v6 = PKRunningStat::max((self + 144)) * 1000.0;
+      v7 = PKRunningStat::variance((self + 144));
       os_unfair_lock_lock((self + 224));
-      v7 = *(self + 160);
+      v8 = *(self + 160);
       os_unfair_lock_unlock((self + 224));
       os_unfair_lock_lock((self + 224));
-      v8 = *(self + 152);
+      v9 = *(self + 152);
       os_unfair_lock_unlock((self + 224));
-      v9 = v7 / v8;
-      v10 = os_log_create("com.apple.pencilkit", "Latency");
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      v10 = v8 / v9;
+      v11 = os_log_create("com.apple.pencilkit", "Latency");
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
-        v23 = 134219008;
-        v24 = v3 * 1000.0;
-        v25 = 2048;
-        v26 = v4;
-        v27 = 2048;
-        v28 = sqrt(v6) * 1000.0;
-        v29 = 2048;
-        v30 = v5;
-        v31 = 2048;
-        v32 = v9;
-        _os_log_impl(&dword_1C7CCA000, v10, OS_LOG_TYPE_DEFAULT, "Stroke latency min: %g, mean: %g, std deviation: %g, max: %g, percentage high: %g", &v23, 0x34u);
+        v34 = 134219008;
+        v35 = v4 * 1000.0;
+        v36 = 2048;
+        v37 = v5;
+        v38 = 2048;
+        v39 = sqrt(v7) * 1000.0;
+        v40 = 2048;
+        v41 = v6;
+        v42 = 2048;
+        v43 = v10;
+        _os_log_impl(&dword_1C7CCA000, v11, OS_LOG_TYPE_DEFAULT, "Stroke latency min: %g, mean: %g, std deviation: %g, max: %g, percentage high: %g", &v34, 0x34u);
       }
 
-      *(self + 592) = v4;
-      v11 = *(self + 473);
-      v12 = +[PKStatisticsManager sharedStatisticsManager];
-      v13 = v12;
-      if (v11)
+      *(self + 592) = v5;
+      v12 = *&_MergedGlobals_115 < 0.01;
+      v13 = *(self + 473);
+      v14 = +[PKStatisticsManager sharedStatisticsManager];
+      v15 = v14;
+      v16 = 60.0;
+      if (v12)
       {
-        [PKStatisticsManager recordHoverLatency:v12 mean:? max:? shadowEnabled:? isInPDF:?];
+        v16 = 120.0;
+      }
+
+      v17 = v5;
+      v18 = v6;
+      if (v13)
+      {
+        [(PKStatisticsManager *)v14 recordHoverLatency:v2 mean:v16 max:v17 shadowEnabled:v18 isInPDF:?];
       }
 
       else
       {
-        [PKStatisticsManager recordLatency:v12 mean:? max:? percentageOverLatencyThreshold:? isInPDF:?];
+        v19 = v10;
+        [(PKStatisticsManager *)v14 recordLatency:v2 mean:v16 max:v17 percentageOverLatencyThreshold:v18 isInPDF:v19];
       }
     }
 
     os_unfair_lock_lock((self + 312));
-    v14 = *(self + 240);
+    v20 = *(self + 240);
     os_unfair_lock_unlock((self + 312));
-    if (v14)
+    if (v20)
     {
-      v15 = PKRunningStat::min((self + 232));
-      v16 = PKRunningStat::mean((self + 232)) * 1000.0;
-      v17 = PKRunningStat::max((self + 232)) * 1000.0;
-      v18 = PKRunningStat::variance((self + 232));
+      v21 = PKRunningStat::min((self + 232));
+      v22 = PKRunningStat::mean((self + 232)) * 1000.0;
+      v23 = PKRunningStat::max((self + 232)) * 1000.0;
+      v24 = PKRunningStat::variance((self + 232));
       os_unfair_lock_lock((self + 312));
-      v19 = *(self + 248);
+      v25 = *(self + 248);
       os_unfair_lock_unlock((self + 312));
       os_unfair_lock_lock((self + 312));
-      v20 = *(self + 240);
+      v26 = *(self + 240);
       os_unfair_lock_unlock((self + 312));
-      v21 = os_log_create("com.apple.pencilkit", "Latency");
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+      v27 = os_log_create("com.apple.pencilkit", "Latency");
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
       {
-        v23 = 134219008;
-        v24 = v15 * 1000.0;
-        v25 = 2048;
-        v26 = v16;
-        v27 = 2048;
-        v28 = sqrt(v18) * 1000.0;
-        v29 = 2048;
-        v30 = v17;
-        v31 = 2048;
-        v32 = v19 / v20;
-        _os_log_impl(&dword_1C7CCA000, v21, OS_LOG_TYPE_DEFAULT, "Stroke latency with prediction min: %g, mean: %g, std deviation: %g, max: %g, percentage high: %g", &v23, 0x34u);
+        v34 = 134219008;
+        v35 = v21 * 1000.0;
+        v36 = 2048;
+        v37 = v22;
+        v38 = 2048;
+        v39 = sqrt(v24) * 1000.0;
+        v40 = 2048;
+        v41 = v23;
+        v42 = 2048;
+        v43 = v25 / v26;
+        _os_log_impl(&dword_1C7CCA000, v27, OS_LOG_TYPE_DEFAULT, "Stroke latency with prediction min: %g, mean: %g, std deviation: %g, max: %g, percentage high: %g", &v34, 0x34u);
       }
 
       if ((*(self + 473) & 1) == 0)
       {
-        v22 = +[PKStatisticsManager sharedStatisticsManager];
-        [PKStatisticsManager recordPerceivedLatency:v22 mean:? max:? isInPDF:?];
+        v28 = *&_MergedGlobals_115 < 0.01;
+        v29 = +[PKStatisticsManager sharedStatisticsManager];
+        v30 = v29;
+        v31 = 60.0;
+        if (v28)
+        {
+          v31 = 120.0;
+        }
+
+        v32 = v22;
+        v33 = v23;
+        [(PKStatisticsManager *)v29 recordPerceivedLatency:v2 mean:v31 max:v32 isInPDF:v33];
       }
     }
   }
@@ -2950,20 +2976,20 @@ uint64_t __60__PKMetalRendererController_drawingEnded_finishStrokeBlock___block_
   }
 }
 
-void __56__PKMetalRendererController_drawingCancelledForPreview___block_invoke(uint64_t a1)
+void __56__PKMetalRendererController_drawingCancelledForPreview___block_invoke(uint64_t result)
 {
-  if (!atomic_load((*(a1 + 32) + 36)))
+  if (!atomic_load((*(result + 32) + 36)))
   {
-    v3 = *(a1 + 32);
+    v3 = *(result + 32);
     if (*(v3 + 473) == 1)
     {
       [(PKMetalRendererController *)v3 _logStrokeDuration];
-      [(PKMetalRendererController *)*(a1 + 32) _recordStrokeStatistics];
-      v3 = *(a1 + 32);
+      [(PKMetalRendererController *)*(result + 32) _recordStrokeStatistics];
+      v3 = *(result + 32);
     }
 
     [(PKMetalRenderer *)*(v3 + 640) drawingCancelledForPreview:?];
-    *(*(a1 + 32) + 472) = 1;
+    *(*(result + 32) + 472) = 1;
   }
 }
 
@@ -3016,28 +3042,26 @@ void __45__PKMetalRendererController_changeRenderSize__block_invoke(uint64_t a1)
   }
 }
 
-uint64_t __51__PKMetalRendererController__present_setDirtyRect___block_invoke(uint64_t a1, void *a2)
+void __51__PKMetalRendererController__present_setDirtyRect___block_invoke(uint64_t a1, void *a2)
 {
-  result = [a2 presentedTime];
-  v5 = v4 - *(a1 + 40);
-  if (v5 > 0.0)
+  [a2 presentedTime];
+  v4 = v3 - *(a1 + 40);
+  if (v4 > 0.0)
   {
-    v6 = v5 + *&qword_1ED6A4EB8;
-    v7 = v4 + *&qword_1ED6A4EB8 - *(a1 + 48);
-    v8 = *(a1 + 32);
-    os_unfair_lock_lock((v8 + 224));
-    v9 = *(v8 + 152);
-    os_unfair_lock_unlock((v8 + 224));
-    if (v9 < 10 || (v10 = PKRunningStat::mean((*(a1 + 32) + 144)), v6 < v10 + v10))
+    v5 = v4 + *&qword_1ED6A4EB8;
+    v6 = v3 + *&qword_1ED6A4EB8 - *(a1 + 48);
+    v7 = *(a1 + 32);
+    os_unfair_lock_lock((v7 + 224));
+    v8 = *(v7 + 152);
+    os_unfair_lock_unlock((v7 + 224));
+    if (v8 < 10 || (v9 = PKRunningStat::mean((*(a1 + 32) + 144)), v5 < v9 + v9))
     {
-      PKRunningStat::push((*(a1 + 32) + 144), v6);
-      PKRunningStat::push((*(a1 + 32) + 232), v7);
+      PKRunningStat::push((*(a1 + 32) + 144), v5);
+      PKRunningStat::push((*(a1 + 32) + 232), v6);
     }
 
-    return kdebug_trace();
+    kdebug_trace();
   }
-
-  return result;
 }
 
 uint64_t __51__PKMetalRendererController__present_setDirtyRect___block_invoke_2(uint64_t a1)
@@ -3257,9 +3281,9 @@ uint64_t __51__PKMetalRendererController__present_setDirtyRect___block_invoke_2(
 {
   if (self && (_UIUpdateCycleEnabled() & 1) == 0)
   {
-    v1 = MEMORY[0x1E69E96A0];
+    v2 = MEMORY[0x1E69E96A0];
 
-    dispatch_async(v1, &__block_literal_global_54);
+    dispatch_async(v2, &__block_literal_global_54);
   }
 }
 
@@ -3710,11 +3734,11 @@ LABEL_23:
   return v9;
 }
 
-uint64_t __66__PKMetalRendererController_prerenderWithTransform_inputScale_at___block_invoke(uint64_t a1)
+void __66__PKMetalRendererController_prerenderWithTransform_inputScale_at___block_invoke(uint64_t a1, uint64_t a2)
 {
   atomic_fetch_add((*(a1 + 32) + 84), 0xFFFFFFFF);
-  v2 = *(a1 + 32);
-  if (v2 && (v3 = atomic_load((v2 + 36))) != 0 || *(a1 + 96) && (v5 = atomic_load((*(a1 + 32) + 84)), v5 >= 1))
+  v3 = *(a1 + 32);
+  if (v3 && (v4 = atomic_load((v3 + 36))) != 0 || *(a1 + 96) && (v5 = atomic_load((*(a1 + 32) + 84)), v5 >= 1))
   {
     _UIMachTimeForMediaTime();
   }
@@ -3724,9 +3748,9 @@ uint64_t __66__PKMetalRendererController_prerenderWithTransform_inputScale_at___
     if (HIBYTE(_MergedGlobals_158) == 1 && (*(*(a1 + 32) + 136) | 2) == 3)
     {
       _UIMachTimeForMediaTime();
-      result = kdebug_trace();
+      kdebug_trace();
       ++*(*(a1 + 32) + 136);
-      return result;
+      return;
     }
 
     if (_UIUpdateCycleEnabled())
@@ -3838,7 +3862,7 @@ LABEL_37:
       }
 
       v33 = [*(v29 + 560) inputType];
-      v34 = v33;
+      v35 = v33;
       if (v31 && v33 == 1)
       {
         v27 = *&qword_1ED6A4EC8;
@@ -3850,118 +3874,118 @@ LABEL_37:
       }
 
       [(PKMetalRendererController *)*(a1 + 32) pokeEventDispatcher];
-      v35 = *(a1 + 32);
-      v36 = *(v35 + 392);
-      v65 = *(v35 + 376);
-      v66 = v36;
-      v67 = *(v35 + 408);
-      v37.n128_u64[1] = *(&v67 + 1);
-      v37.n128_u64[0] = *(v35 + 360);
-      *&v38 = [(PKMetalRendererController *)v35 _updateRendererStrokeTransformWithTransform:v37 offset:*(v35 + 368)].n128_u64[0];
-      v39 = *(a1 + 32);
-      if (v39 && *(v39 + 521) == 1)
+      v36 = *(a1 + 32);
+      v37 = *(v36 + 392);
+      v68 = *(v36 + 376);
+      v69 = v37;
+      v70 = *(v36 + 408);
+      v38.n128_u64[1] = *(&v70 + 1);
+      v38.n128_u64[0] = *(v36 + 360);
+      *&v39 = [(PKMetalRendererController *)v36 _updateRendererStrokeTransformWithTransform:v38 offset:*(v36 + 368)].n128_u64[0];
+      v40 = *(a1 + 32);
+      if (v40 && *(v40 + 521) == 1)
       {
-        v40 = *(v39 + 640);
-        if (v40)
-        {
-          [(PKMetalRenderer *)*(v39 + 640) finishRendering];
-          *(v40 + 72) = 1;
-          v39 = *(a1 + 32);
-        }
-
-        v41 = [*(v39 + 432) count];
-        v39 = *(a1 + 32);
+        v41 = *(v40 + 640);
         if (v41)
         {
-          if (v39)
+          [(PKMetalRenderer *)*(v40 + 640) finishRendering];
+          *(v41 + 72) = 1;
+          v40 = *(a1 + 32);
+        }
+
+        v42 = [*(v40 + 432) count];
+        v40 = *(a1 + 32);
+        if (v42)
+        {
+          if (v40)
           {
-            v42 = *(v39 + 640);
+            v43 = *(v40 + 640);
           }
 
           else
           {
-            v42 = 0;
+            v43 = 0;
           }
 
-          [(PKMetalRenderer *)v42 renderStrokes:0 stopBlock:?];
-          v43 = *(a1 + 32);
-          if (v43)
+          [(PKMetalRenderer *)v43 renderStrokes:0 stopBlock:?];
+          v44 = *(a1 + 32);
+          if (v44)
           {
-            v44 = *(v43 + 640);
+            v45 = *(v44 + 640);
           }
 
           else
           {
-            v44 = 0;
+            v45 = 0;
           }
 
-          [(PKMetalRenderer *)v44 addStrokeSpaceDrawableDirtyRect:*(v43 + 448), *(v43 + 456), *(v43 + 464)];
-          v39 = *(a1 + 32);
+          [(PKMetalRenderer *)v45 addStrokeSpaceDrawableDirtyRect:*(v44 + 448), *(v44 + 456), *(v44 + 464)];
+          v40 = *(a1 + 32);
         }
       }
 
-      v45 = *(a1 + 64);
-      v65 = *(a1 + 48);
-      v66 = v45;
-      v67 = *(a1 + 80);
-      if (([PKMetalRendererController _renderAheadWithTransform:v39 at:&v65]& 1) != 0)
+      v46 = *(a1 + 64);
+      v68 = *(a1 + 48);
+      v69 = v46;
+      v70 = *(a1 + 80);
+      if (([PKMetalRendererController _renderAheadWithTransform:v40 at:&v68]& 1) != 0)
       {
-        v46 = unk_1EC291598 * (v27 * 1000000000.0) / dword_1EC291594 + v25;
-        v47 = mach_absolute_time();
-        v48 = 0.0;
-        if (v46 > v47)
+        v47 = unk_1EC291598 * (v27 * 1000000000.0) / dword_1EC291594 + v25;
+        v48 = mach_absolute_time();
+        v50 = 0.0;
+        if (v47 > v48)
         {
-          v48 = ((v46 - v47) * dword_1EC291594 / unk_1EC291598) / 1000000000.0;
+          v50 = ((v47 - v48) * dword_1EC291594 / unk_1EC291598) / 1000000000.0;
         }
 
         if (v6)
         {
-          v49 = *(*(a1 + 32) + 496);
-          v50 = dispatch_time(0, (v48 * 1000000000.0));
-          if (dispatch_semaphore_wait(v49, v50))
+          v51 = *(*(a1 + 32) + 496);
+          v52 = dispatch_time(0, (v50 * 1000000000.0));
+          if (dispatch_semaphore_wait(v51, v52))
           {
             kdebug_trace();
           }
         }
 
-        else if (v48 > 0.001 && v34 == 1)
+        else if (v50 > 0.001 && v35 == 1)
         {
           mach_wait_until(unk_1EC291598 * (*&qword_1ED6A4ED8 * 1000000000.0) / dword_1EC291594 + v25);
           kdebug_trace();
           [*(*(a1 + 32) + 560) latestNonPredictedTimestamp];
-          v52 = _MergedGlobals_158;
-          if (v51 != v20)
+          v54 = _MergedGlobals_158;
+          if (v53 != v20)
           {
-            v52 = 0;
+            v54 = 0;
           }
 
-          if ((v52 & (v23 - v51 > 0.01)) != 0)
+          if ((v54 & (v23 - v53 > 0.01)) != 0)
           {
-            v53 = v23 + 0.006;
+            v55 = v23 + 0.006;
           }
 
           else
           {
-            v53 = v51 + dbl_1C801D0E0[*&_MergedGlobals_115 < 0.01];
+            v55 = v53 + dbl_1C801D0E0[*&_MergedGlobals_115 < 0.01];
           }
 
-          v54 = 330000 * unk_1EC291598 / dword_1EC291594;
-          v55 = v25 - v54 + (*&qword_1ED6A4ED0 * 1000000000.0) * unk_1EC291598 / dword_1EC291594;
+          v56 = 330000 * unk_1EC291598 / dword_1EC291594;
+          v57 = v25 - v56 + (*&qword_1ED6A4ED0 * 1000000000.0) * unk_1EC291598 / dword_1EC291594;
           while (1)
           {
-            v56 = v46 >= v55 + v54 ? v55 + v54 : v46;
-            mach_wait_until(v56);
+            v58 = v47 >= v57 + v56 ? v57 + v56 : v47;
+            mach_wait_until(v58);
             [(PKMetalRendererController *)*(a1 + 32) pokeEventDispatcher];
-            v57 = mach_absolute_time();
-            mach_wait_until(100000 * unk_1EC291598 / dword_1EC291594 + v57);
+            v60 = mach_absolute_time();
+            mach_wait_until(100000 * unk_1EC291598 / dword_1EC291594 + v60);
             [*(*(a1 + 32) + 560) latestNonPredictedTimestamp];
-            if (v58 > v53)
+            if (v61 > v55)
             {
               break;
             }
 
-            v55 = mach_absolute_time();
-            if (v55 >= v46)
+            v57 = mach_absolute_time();
+            if (v57 >= v47)
             {
               goto LABEL_78;
             }
@@ -3972,32 +3996,32 @@ LABEL_37:
         {
           if (v27 > 0.0)
           {
-            mach_wait_until(v46);
+            mach_wait_until(v47);
           }
 
 LABEL_78:
           [(PKMetalRendererController *)*(a1 + 32) pokeEventDispatcher];
-          v59 = mach_absolute_time();
-          mach_wait_until(100000 * unk_1EC291598 / dword_1EC291594 + v59);
+          v62 = mach_absolute_time();
+          mach_wait_until(100000 * unk_1EC291598 / dword_1EC291594 + v62);
         }
 
         [(PKMetalRenderer *)*(*(a1 + 32) + 640) getAndRenderNewPoints:?];
-        v60 = *(a1 + 32);
-        v61 = *(v60 + 472);
-        *(v60 + 472) = 0;
-        v62 = *(a1 + 32);
-        v63 = *(a1 + 64);
-        v65 = *(a1 + 48);
-        v66 = v63;
-        v67 = *(a1 + 80);
-        [PKMetalRendererController _renderLiveStrokeAndPresentWithTransform:v62 at:&v65 setDirtyRect:(v61 & 1) == 0];
+        v63 = *(a1 + 32);
+        v64 = *(v63 + 472);
+        *(v63 + 472) = 0;
+        v65 = *(a1 + 32);
+        v66 = *(a1 + 64);
+        v68 = *(a1 + 48);
+        v69 = v66;
+        v70 = *(a1 + 80);
+        [PKMetalRendererController _renderLiveStrokeAndPresentWithTransform:v65 at:&v68 setDirtyRect:(v64 & 1) == 0];
         ++*(*(a1 + 32) + 136);
         if (v6)
         {
-          v64 = *(a1 + 40) + *&_MergedGlobals_115 * 2.0 + -0.001;
-          if (CACurrentMediaTime() < v64)
+          v67 = *(a1 + 40) + *&_MergedGlobals_115 * 2.0 + -0.001;
+          if (CACurrentMediaTime() < v67)
           {
-            atomic_store(*&v64, (*(a1 + 32) + 72));
+            atomic_store(*&v67, (*(a1 + 32) + 72));
           }
         }
       }
@@ -4010,7 +4034,7 @@ LABEL_78:
     }
   }
 
-  return kdebug_trace();
+  kdebug_trace();
 }
 
 - (void)updateCyclePreCACommit:(uint64_t)commit isDrawing:(char)drawing
@@ -4072,20 +4096,20 @@ LABEL_78:
   }
 }
 
-intptr_t __62__PKMetalRendererController_updateCyclePreCACommit_isDrawing___block_invoke(uint64_t a1)
+void __62__PKMetalRendererController_updateCyclePreCACommit_isDrawing___block_invoke(uint64_t a1)
 {
   kdebug_trace();
   if (dispatch_semaphore_signal(*(*(a1 + 32) + 496)))
   {
 
-    return kdebug_trace();
+    kdebug_trace();
   }
 
   else
   {
-    v3 = *(*(a1 + 32) + 496);
+    v2 = *(*(a1 + 32) + 496);
 
-    return dispatch_semaphore_wait(v3, 0);
+    dispatch_semaphore_wait(v2, 0);
   }
 }
 

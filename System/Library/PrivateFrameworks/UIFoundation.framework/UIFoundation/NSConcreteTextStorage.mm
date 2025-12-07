@@ -546,7 +546,7 @@ void __71__NSConcreteTextStorage_replaceCharactersInRange_withAttributedString__
   __NSConcreteTextStorageLockedForwarding(&self->super.super.super.super.isa, v5);
 }
 
-uint64_t __50__NSConcreteTextStorage_addAttribute_value_range___block_invoke(uint64_t a1)
+void *__50__NSConcreteTextStorage_addAttribute_value_range___block_invoke(uint64_t a1)
 {
   v2 = *(a1 + 32);
   v3 = [*(a1 + 40) _attributeFixingInProgress];
@@ -658,7 +658,7 @@ LABEL_9:
   return [*(*(a1 + 32) + 104) addAttributes:v7 range:{*(a1 + 48), *(a1 + 56)}];
 }
 
-uint64_t __45__NSConcreteTextStorage_addAttributes_range___block_invoke_2(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
+void *__45__NSConcreteTextStorage_addAttributes_range___block_invoke_2(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
 {
   v8 = [a2 objectForKey:@"NSFont"];
   v10 = 1;

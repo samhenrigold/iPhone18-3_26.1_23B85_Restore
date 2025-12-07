@@ -1,3 +1,77 @@
+void sub_10004AD9C()
+{
+  sub_100009E08();
+  sub_100011890();
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
+}
+
+void sub_10004AE84()
+{
+  sub_100004470();
+  sub_100004464();
+  _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
+}
+
+void sub_10004AED4()
+{
+  sub_100004470();
+  sub_100004464();
+  _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
+}
+
+void sub_10004AF60()
+{
+  sub_100009E08();
+  sub_100011890();
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
+}
+
+void sub_10004B15C(CFErrorRef *a1)
+{
+  CFErrorGetCode(*a1);
+  sub_100009E08();
+  sub_100011874();
+  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
+}
+
+void sub_10004B390()
+{
+  sub_100004470();
+  sub_100004464();
+  _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
+}
+
+void sub_10004B3F4()
+{
+  sub_100011884();
+  sub_100004464();
+  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
+}
+
+void sub_10004B490()
+{
+  sub_100004470();
+  sub_100004464();
+  _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
+}
+
+void sub_10004B5C0(uint8_t *buf, char a2, const char **a3, os_log_t log)
+{
+  if (a2 == 5)
+  {
+    v4 = "Wrong MSF version";
+  }
+
+  else
+  {
+    v4 = &unk_1004CFB46;
+  }
+
+  *buf = 136315138;
+  *a3 = v4;
+  _os_log_error_impl(&_mh_execute_header, log, OS_LOG_TYPE_ERROR, "CRC error in Cal data %s", buf, 0xCu);
+}
+
 void sub_10004B650()
 {
   sub_100004470();
@@ -63,10 +137,10 @@ void sub_10004B968()
 
 void sub_10004B9B8()
 {
-  v0 = *__error();
+  __error();
   sub_100011884();
   sub_100011874();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
 void sub_10004BA50()
@@ -228,14 +302,14 @@ void sub_10004EB54()
 
 void sub_10004EC08()
 {
-  v5 = *__error();
+  __error();
   sub_100011874();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x18u);
 }
 
 void sub_10004ECDC()
 {
-  v5 = *__error();
+  __error();
   sub_100011874();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
@@ -245,7 +319,7 @@ void sub_10004EFC4()
   sub_10001DE40();
   sub_10001CF94(v0);
   sub_10001DE08();
-  sub_10001DE20(&_mh_execute_header, v1, v2, "applebt_hci_open: IOConnectCallMethod returned (0x%08X, %s)\n", v3, v4, v5, v6, v7);
+  sub_10001DE20(&_mh_execute_header, v1, v2, "applebt_hci_open: IOConnectCallMethod returned (0x%08X, %s)\n", v3, v4, v5, v6);
 }
 
 void sub_10004F078()
@@ -260,7 +334,7 @@ void sub_10004F0C8()
   sub_10001DE40();
   sub_10001CF94(v0);
   sub_10001DE08();
-  sub_10001DE20(&_mh_execute_header, v1, v2, "applebt_hci_close: IOConnectCallMethod returned (0x%08X, %s), closing connection\n", v3, v4, v5, v6, v7);
+  sub_10001DE20(&_mh_execute_header, v1, v2, "applebt_hci_close: IOConnectCallMethod returned (0x%08X, %s), closing connection\n", v3, v4, v5, v6);
 }
 
 void sub_10004F17C()
@@ -275,7 +349,7 @@ void sub_10004F1CC()
   sub_10001DE40();
   sub_10001CF94(v0);
   sub_10001DE08();
-  sub_10001DE20(&_mh_execute_header, v1, v2, "applebt_hci_transport_reset: IOConnectCallMethod returned (0x%08X, %s)\n", v3, v4, v5, v6, v7);
+  sub_10001DE20(&_mh_execute_header, v1, v2, "applebt_hci_transport_reset: IOConnectCallMethod returned (0x%08X, %s)\n", v3, v4, v5, v6);
 }
 
 void sub_10004F280()
@@ -290,7 +364,7 @@ void sub_10004F2E4()
   sub_10001DE40();
   sub_10001CF94(v0);
   sub_10001DE08();
-  sub_10001DE20(&_mh_execute_header, v1, v2, "applebt_hci_write: IOConnectCallMethod returned (0x%08X, %s)\n", v3, v4, v5, v6, v7);
+  sub_10001DE20(&_mh_execute_header, v1, v2, "applebt_hci_write: IOConnectCallMethod returned (0x%08X, %s)\n", v3, v4, v5, v6);
 }
 
 void sub_10004F3E8()
@@ -305,7 +379,7 @@ void sub_10004F474()
   sub_10001DE40();
   sub_10001CF94(v0);
   sub_10001DE08();
-  sub_10001DE20(&_mh_execute_header, v1, v2, "applebt_hci_read: IOConnectCallMethod returned (0x%08X, %s)\n", v3, v4, v5, v6, v7);
+  sub_10001DE20(&_mh_execute_header, v1, v2, "applebt_hci_read: IOConnectCallMethod returned (0x%08X, %s)\n", v3, v4, v5, v6);
 }
 
 void sub_10004F500()
@@ -328,6 +402,27 @@ void sub_10004F658(uint64_t a1, NSObject *a2)
   v2 = 134217984;
   v3 = a1;
   _os_log_debug_impl(&_mh_execute_header, a2, OS_LOG_TYPE_DEBUG, "transport override from boot-arg is invalid: %llu", &v2, 0xCu);
+}
+
+void sub_10004F8F0()
+{
+  LODWORD(v6) = 67109120;
+  HIDWORD(v6) = *__error();
+  sub_100043F84(&_mh_execute_header, v0, v1, "bluetool: wake failed: error %d", v2, v3, v4, v5, v6);
+}
+
+void sub_10004FA7C()
+{
+  LODWORD(v6) = 67109120;
+  HIDWORD(v6) = *__error();
+  sub_100043F84(&_mh_execute_header, v0, v1, "bluetool: reset failed: error %d", v2, v3, v4, v5, v6);
+}
+
+void sub_10004FBAC()
+{
+  LODWORD(v6) = 67109120;
+  HIDWORD(v6) = *__error();
+  sub_100043F84(&_mh_execute_header, v0, v1, "bluetool: reg on failed: error %d", v2, v3, v4, v5, v6);
 }
 
 void sub_10004FFE4(uint64_t *a1, uint64_t a2, os_log_t log)

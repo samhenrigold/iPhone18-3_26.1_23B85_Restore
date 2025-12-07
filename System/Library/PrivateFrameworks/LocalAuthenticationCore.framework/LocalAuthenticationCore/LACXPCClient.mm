@@ -34,7 +34,7 @@
     v8 = [LACAuditToken alloc];
     if (connectionCopy)
     {
-      [connectionCopy auditToken];
+      objc_msgSend_auditToken(connectionCopy);
     }
 
     else
@@ -90,7 +90,7 @@
   result = self->_auditToken;
   if (result)
   {
-    return [($115C4C562B26FF47E01F9F4EA65B5887 *)result rawValue];
+    return objc_msgSend_rawValue(result, a3);
   }
 
   *retstr->var0 = 0u;

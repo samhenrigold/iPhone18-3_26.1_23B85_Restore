@@ -42,7 +42,7 @@
 
 - (void)importRecordData:(id)data summary:(id)summary account:(id)account completion:(id)completion
 {
-  v27[1] = *MEMORY[0x277D85DE8];
+  v26[1] = *MEMORY[0x277D85DE8];
   dataCopy = data;
   summaryCopy = summary;
   accountCopy = account;
@@ -71,14 +71,14 @@
       _WLLog();
       if (completionCopy)
       {
-        v20 = MEMORY[0x277CCA9B8];
-        v21 = *MEMORY[0x277D7B8F8];
-        v24 = *MEMORY[0x277CCA450];
-        v25 = @"did fail to convert json";
-        v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v25 forKeys:&v24 count:1];
-        v23 = [v20 errorWithDomain:v21 code:1 userInfo:v22];
+        v19 = MEMORY[0x277CCA9B8];
+        v20 = *MEMORY[0x277D7B8F8];
+        v23 = *MEMORY[0x277CCA450];
+        v24 = @"did fail to convert json";
+        v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v24 forKeys:&v23 count:1];
+        v22 = [v19 errorWithDomain:v20 code:1 userInfo:v21];
 
-        (completionCopy)[2](completionCopy, 0, v23);
+        (completionCopy)[2](completionCopy, 0, v22);
       }
     }
 
@@ -90,16 +90,14 @@
   {
     v16 = MEMORY[0x277CCA9B8];
     v17 = *MEMORY[0x277D7B8F8];
-    v26 = *MEMORY[0x277CCA450];
-    v27[0] = @"could not import anything from nil data";
-    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:&v26 count:1];
+    v25 = *MEMORY[0x277CCA450];
+    v26[0] = @"could not import anything from nil data";
+    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:&v25 count:1];
     v14 = [v16 errorWithDomain:v17 code:1 userInfo:v18];
 
     (completionCopy)[2](completionCopy, 0, v14);
 LABEL_10:
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (WLFeaturePayload)featurePayload

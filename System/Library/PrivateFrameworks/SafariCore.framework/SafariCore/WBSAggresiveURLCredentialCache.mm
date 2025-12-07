@@ -24,8 +24,8 @@
 
 - (void)invalidate
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v3 = WBS_LOG_CHANNEL_PREFIXKeychain();
+  v8 = *MEMORY[0x1E69E9840];
+  v3 = WBS_LOG_CHANNEL_PREFIXKeychain(self, a2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     *buf = 134217984;
@@ -40,7 +40,6 @@
   block[3] = &unk_1E7CF16E0;
   block[4] = self;
   dispatch_async(internalQueue, block);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __44__WBSAggresiveURLCredentialCache_invalidate__block_invoke(uint64_t a1)
@@ -73,28 +72,26 @@ void __44__WBSAggresiveURLCredentialCache_invalidate__block_invoke(uint64_t a1)
   return v3;
 }
 
-void __45__WBSAggresiveURLCredentialCache_credentials__block_invoke(uint64_t a1)
+void __45__WBSAggresiveURLCredentialCache_credentials__block_invoke(uint64_t a1, uint64_t a2)
 {
   v14 = *MEMORY[0x1E69E9840];
-  v2 = WBS_LOG_CHANNEL_PREFIXKeychain();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+  v3 = WBS_LOG_CHANNEL_PREFIXKeychain(a1, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
-    v3 = *(a1 + 32);
-    v4 = *(v3 + 16);
-    v5 = v2;
+    v4 = *(a1 + 32);
+    v5 = *(v4 + 16);
+    v6 = v3;
     v10 = 134218240;
-    v11 = v3;
+    v11 = v4;
     v12 = 2048;
-    v13 = [v4 count];
-    _os_log_impl(&dword_1B8447000, v5, OS_LOG_TYPE_INFO, "Returning credentials from aggressive cache <%p>, which contain %lu items", &v10, 0x16u);
+    v13 = [v5 count];
+    _os_log_impl(&dword_1B8447000, v6, OS_LOG_TYPE_INFO, "Returning credentials from aggressive cache <%p>, which contain %lu items", &v10, 0x16u);
   }
 
-  v6 = [*(*(a1 + 32) + 16) copy];
-  v7 = *(*(a1 + 40) + 8);
-  v8 = *(v7 + 40);
-  *(v7 + 40) = v6;
-
-  v9 = *MEMORY[0x1E69E9840];
+  v7 = [*(*(a1 + 32) + 16) copy];
+  v8 = *(*(a1 + 40) + 8);
+  v9 = *(v8 + 40);
+  *(v8 + 40) = v7;
 }
 
 - (void)getCredentialsWithCompletionHandler:(id)handler
@@ -111,27 +108,25 @@ void __45__WBSAggresiveURLCredentialCache_credentials__block_invoke(uint64_t a1)
   dispatch_async(internalQueue, v7);
 }
 
-void __70__WBSAggresiveURLCredentialCache_getCredentialsWithCompletionHandler___block_invoke(uint64_t a1)
+void __70__WBSAggresiveURLCredentialCache_getCredentialsWithCompletionHandler___block_invoke(uint64_t a1, uint64_t a2)
 {
   v13 = *MEMORY[0x1E69E9840];
-  v2 = WBS_LOG_CHANNEL_PREFIXKeychain();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+  v3 = WBS_LOG_CHANNEL_PREFIXKeychain(a1, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
-    v3 = *(a1 + 32);
-    v4 = *(v3 + 16);
-    v5 = v2;
+    v4 = *(a1 + 32);
+    v5 = *(v4 + 16);
+    v6 = v3;
     v9 = 134218240;
-    v10 = v3;
+    v10 = v4;
     v11 = 2048;
-    v12 = [v4 count];
-    _os_log_impl(&dword_1B8447000, v5, OS_LOG_TYPE_INFO, "Getting credentials from aggressive cache <%p>, which contain %lu items", &v9, 0x16u);
+    v12 = [v5 count];
+    _os_log_impl(&dword_1B8447000, v6, OS_LOG_TYPE_INFO, "Getting credentials from aggressive cache <%p>, which contain %lu items", &v9, 0x16u);
   }
 
-  v6 = *(a1 + 40);
-  v7 = [*(*(a1 + 32) + 16) copy];
-  (*(v6 + 16))(v6, v7);
-
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *(a1 + 40);
+  v8 = [*(*(a1 + 32) + 16) copy];
+  (*(v7 + 16))(v7, v8);
 }
 
 @end

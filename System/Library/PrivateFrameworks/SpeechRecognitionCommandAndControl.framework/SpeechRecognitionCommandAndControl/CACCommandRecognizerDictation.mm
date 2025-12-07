@@ -149,182 +149,182 @@ uint64_t __63__CACCommandRecognizerDictation_speechRecognizer_didRecognize___blo
 
 - (void)handleDictation:(id)dictation
 {
-  v105 = *MEMORY[0x277D85DE8];
+  v107 = *MEMORY[0x277D85DE8];
   dictationCopy = dictation;
   v4 = +[CACSystemStatusManager sharedManager];
   isSystemDictationRunning = [v4 isSystemDictationRunning];
 
   if (isSystemDictationRunning)
   {
-    v6 = CACLogDictationCommands();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+    v7 = CACLogDictationCommands(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
-      [CACCommandRecognizerDictation handleDictation:v6];
+      [CACCommandRecognizerDictation handleDictation:v7];
     }
 
     goto LABEL_50;
   }
 
-  v7 = objc_alloc(MEMORY[0x277CCAB48]);
-  v72 = dictationCopy;
+  v8 = objc_alloc(MEMORY[0x277CCAB48]);
+  v74 = dictationCopy;
   recognizedParameters = [dictationCopy recognizedParameters];
-  v9 = [recognizedParameters objectForKey:*MEMORY[0x277D655C8]];
-  v10 = [v9 objectForKey:kCACCommandParameterAttributedText];
-  v6 = [v7 initWithAttributedString:v10];
+  v10 = [recognizedParameters objectForKey:*MEMORY[0x277D655C8]];
+  v11 = [v10 objectForKey:kCACCommandParameterAttributedText];
+  v7 = [v8 initWithAttributedString:v11];
 
-  v11 = +[VCVocabularyObjC visibleVocabularyEntriesForActiveLocale];
-  v12 = objc_opt_new();
-  v97 = 0u;
-  v98 = 0u;
+  v12 = +[VCVocabularyObjC visibleVocabularyEntriesForActiveLocale];
+  v13 = objc_opt_new();
   v99 = 0u;
   v100 = 0u;
-  obj = v11;
-  v13 = [obj countByEnumeratingWithState:&v97 objects:v104 count:16];
-  if (v13)
+  v101 = 0u;
+  v102 = 0u;
+  obj = v12;
+  v14 = [obj countByEnumeratingWithState:&v99 objects:v106 count:16];
+  if (v14)
   {
-    v14 = v13;
-    v15 = *v98;
+    v15 = v14;
+    v16 = *v100;
     do
     {
-      for (i = 0; i != v14; ++i)
+      for (i = 0; i != v15; ++i)
       {
-        if (*v98 != v15)
+        if (*v100 != v16)
         {
           objc_enumerationMutation(obj);
         }
 
-        v17 = *(*(&v97 + 1) + 8 * i);
-        v18 = +[VCVocabularyObjC textKey];
-        v19 = [v17 objectForKey:v18];
-        [v12 addObject:v19];
+        v18 = *(*(&v99 + 1) + 8 * i);
+        v19 = +[VCVocabularyObjC textKey];
+        v20 = [v18 objectForKey:v19];
+        [v13 addObject:v20];
       }
 
-      v14 = [obj countByEnumeratingWithState:&v97 objects:v104 count:16];
+      v15 = [obj countByEnumeratingWithState:&v99 objects:v106 count:16];
     }
 
-    while (v14);
+    while (v15);
   }
 
-  dictationCopy = v72;
-  recognizedParameters2 = [v72 recognizedParameters];
-  v21 = [recognizedParameters2 objectForKey:kCACCommandParameterTextSequence];
-  firstObject = [v21 firstObject];
-  v23 = [firstObject objectForKey:kCACCommandParameterTextVariants];
+  dictationCopy = v74;
+  recognizedParameters2 = [v74 recognizedParameters];
+  v22 = [recognizedParameters2 objectForKey:kCACCommandParameterTextSequence];
+  firstObject = [v22 firstObject];
+  v24 = [firstObject objectForKey:kCACCommandParameterTextVariants];
 
-  v24 = CACLogDictationCommands();
-  if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
+  v26 = CACLogDictationCommands(v25);
+  if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
   {
-    [(CACCommandRecognizerDictation *)v23 handleDictation:v24];
+    [(CACCommandRecognizerDictation *)v24 handleDictation:v26];
   }
 
+  v97 = 0u;
+  v98 = 0u;
   v95 = 0u;
   v96 = 0u;
-  v93 = 0u;
-  v94 = 0u;
-  v25 = v23;
-  v77 = v25;
-  v81 = [v25 countByEnumeratingWithState:&v93 objects:v103 count:16];
-  if (!v81)
+  v27 = v24;
+  v79 = v27;
+  v83 = [v27 countByEnumeratingWithState:&v95 objects:v105 count:16];
+  if (!v83)
   {
-    v78 = 0;
-    v42 = v25;
+    v80 = 0;
+    v44 = v27;
 LABEL_35:
 
     goto LABEL_37;
   }
 
-  v78 = 0;
-  v79 = 0;
-  v80 = *v94;
-  v74 = v6;
-  v75 = v12;
+  v80 = 0;
+  v81 = 0;
+  v82 = *v96;
+  v76 = v7;
+  v77 = v13;
   do
   {
-    for (j = 0; j != v81; ++j)
+    for (j = 0; j != v83; ++j)
     {
-      if (*v94 != v80)
+      if (*v96 != v82)
       {
-        objc_enumerationMutation(v25);
+        objc_enumerationMutation(v27);
       }
 
-      v27 = *(*(&v93 + 1) + 8 * j);
-      v89 = 0u;
-      v90 = 0u;
+      v29 = *(*(&v95 + 1) + 8 * j);
       v91 = 0u;
       v92 = 0u;
-      v83 = v12;
-      v28 = [v83 countByEnumeratingWithState:&v89 objects:v102 count:16];
-      if (!v28)
+      v93 = 0u;
+      v94 = 0u;
+      v85 = v13;
+      v30 = [v85 countByEnumeratingWithState:&v91 objects:v104 count:16];
+      if (!v30)
       {
-        v40 = v83;
+        v42 = v85;
         goto LABEL_28;
       }
 
-      v29 = v28;
-      v82 = j;
-      v30 = 0;
-      v31 = *v90;
+      v31 = v30;
+      v84 = j;
+      v32 = 0;
+      v33 = *v92;
       do
       {
-        for (k = 0; k != v29; ++k)
+        for (k = 0; k != v31; ++k)
         {
-          if (*v90 != v31)
+          if (*v92 != v33)
           {
-            objc_enumerationMutation(v83);
+            objc_enumerationMutation(v85);
           }
 
-          v33 = [MEMORY[0x277CCAC68] escapedPatternForString:*(*(&v89 + 1) + 8 * k)];
-          v34 = MEMORY[0x277CCAC68];
-          v35 = [MEMORY[0x277CCACA8] stringWithFormat:@"\\b%@\\b", v33];
-          v88 = 0;
-          v36 = [v34 regularExpressionWithPattern:v35 options:64 error:&v88];
-          v37 = v88;
+          v35 = [MEMORY[0x277CCAC68] escapedPatternForString:*(*(&v91 + 1) + 8 * k)];
+          v36 = MEMORY[0x277CCAC68];
+          v37 = [MEMORY[0x277CCACA8] stringWithFormat:@"\\b%@\\b", v35];
+          v90 = 0;
+          v38 = [v36 regularExpressionWithPattern:v37 options:64 error:&v90];
+          v39 = v90;
 
-          v38 = [v36 numberOfMatchesInString:v27 options:0 range:{0, objc_msgSend(v27, "length")}];
-          v30 += v38;
+          v40 = [v38 numberOfMatchesInString:v29 options:0 range:{0, objc_msgSend(v29, "length")}];
+          v32 += v40;
         }
 
-        v29 = [v83 countByEnumeratingWithState:&v89 objects:v102 count:16];
+        v31 = [v85 countByEnumeratingWithState:&v91 objects:v104 count:16];
       }
 
-      while (v29);
+      while (v31);
 
-      if (v30 > v79)
+      if (v32 > v81)
       {
-        v39 = v27;
-        v25 = v77;
-        v40 = v78;
-        v78 = v39;
-        v79 = v30;
-        v6 = v74;
-        v12 = v75;
-        j = v82;
+        v41 = v29;
+        v27 = v79;
+        v42 = v80;
+        v80 = v41;
+        v81 = v32;
+        v7 = v76;
+        v13 = v77;
+        j = v84;
 LABEL_28:
 
         continue;
       }
 
-      v6 = v74;
-      v12 = v75;
-      v25 = v77;
-      j = v82;
+      v7 = v76;
+      v13 = v77;
+      v27 = v79;
+      j = v84;
     }
 
-    v81 = [v25 countByEnumeratingWithState:&v93 objects:v103 count:16];
+    v83 = [v27 countByEnumeratingWithState:&v95 objects:v105 count:16];
   }
 
-  while (v81);
+  while (v83);
 
-  dictationCopy = v72;
-  if (v78)
+  dictationCopy = v74;
+  if (v80)
   {
-    v41 = [objc_alloc(MEMORY[0x277CCAB48]) initWithString:v78];
-    v42 = v6;
-    v6 = v41;
+    v43 = [objc_alloc(MEMORY[0x277CCAB48]) initWithString:v80];
+    v44 = v7;
+    v7 = v43;
     goto LABEL_35;
   }
 
-  v78 = 0;
+  v80 = 0;
 LABEL_37:
   languageObject = [dictationCopy languageObject];
   transcriptionResult = [languageObject transcriptionResult];
@@ -332,24 +332,24 @@ LABEL_37:
 
   if ((isPartialResult & 1) == 0)
   {
-    v46 = +[CACSpokenCommandManager sharedCACSpokenCommandManager];
-    stagedTextInsertionSpecifier = [v46 stagedTextInsertionSpecifier];
+    v48 = +[CACSpokenCommandManager sharedCACSpokenCommandManager];
+    stagedTextInsertionSpecifier = [v48 stagedTextInsertionSpecifier];
     [stagedTextInsertionSpecifier setInsertedCategoryID:*MEMORY[0x277D655C8]];
   }
 
-  v48 = +[CACSpokenCommandManager sharedCACSpokenCommandManager];
-  dictationRecognizerMode = [v48 dictationRecognizerMode];
+  v50 = +[CACSpokenCommandManager sharedCACSpokenCommandManager];
+  dictationRecognizerMode = [v50 dictationRecognizerMode];
 
   if ((dictationRecognizerMode - 4) <= 0xFFFFFFFD)
   {
-    v50 = +[CACSpokenCommandManager sharedCACSpokenCommandManager];
-    doesCurrentLanguageSupportInterWordSpaces = [v50 doesCurrentLanguageSupportInterWordSpaces];
+    v52 = +[CACSpokenCommandManager sharedCACSpokenCommandManager];
+    doesCurrentLanguageSupportInterWordSpaces = [v52 doesCurrentLanguageSupportInterWordSpaces];
 
     if (doesCurrentLanguageSupportInterWordSpaces)
     {
-      v76 = v12;
-      v52 = +[CACSpokenCommandManager sharedCACSpokenCommandManager];
-      leadingTextForCurrentSelection = [v52 leadingTextForCurrentSelection];
+      v78 = v13;
+      v54 = +[CACSpokenCommandManager sharedCACSpokenCommandManager];
+      leadingTextForCurrentSelection = [v54 leadingTextForCurrentSelection];
 
       languageObject2 = [dictationCopy languageObject];
       transcriptionResult2 = [languageObject2 transcriptionResult];
@@ -357,51 +357,51 @@ LABEL_37:
       firstObject2 = [preITN_nBestResults firstObject];
 
       array = [MEMORY[0x277CBEB18] array];
-      v84 = 0u;
-      v85 = 0u;
       v86 = 0u;
       v87 = 0u;
-      v59 = firstObject2;
-      v60 = [v59 countByEnumeratingWithState:&v84 objects:v101 count:16];
-      if (v60)
+      v88 = 0u;
+      v89 = 0u;
+      v61 = firstObject2;
+      v62 = [v61 countByEnumeratingWithState:&v86 objects:v103 count:16];
+      if (v62)
       {
-        v61 = v60;
-        v62 = *v85;
+        v63 = v62;
+        v64 = *v87;
         do
         {
-          for (m = 0; m != v61; ++m)
+          for (m = 0; m != v63; ++m)
           {
-            if (*v85 != v62)
+            if (*v87 != v64)
             {
-              objc_enumerationMutation(v59);
+              objc_enumerationMutation(v61);
             }
 
-            tokenName = [*(*(&v84 + 1) + 8 * m) tokenName];
+            tokenName = [*(*(&v86 + 1) + 8 * m) tokenName];
             [array addObject:tokenName];
           }
 
-          v61 = [v59 countByEnumeratingWithState:&v84 objects:v101 count:16];
+          v63 = [v61 countByEnumeratingWithState:&v86 objects:v103 count:16];
         }
 
-        while (v61);
+        while (v63);
       }
 
-      v65 = [v76 copy];
-      v66 = +[CACSpeechSystem speechSystem];
-      recognitionLocaleIdentifier = [v66 recognitionLocaleIdentifier];
-      [v6 adjustCapsAndSpacingUsingLeadingText:leadingTextForCurrentSelection preITNTokens:array customVocabularies:v65 localeIdentifier:recognitionLocaleIdentifier];
+      v67 = [v78 copy];
+      v68 = +[CACSpeechSystem speechSystem];
+      recognitionLocaleIdentifier = [v68 recognitionLocaleIdentifier];
+      [v7 adjustCapsAndSpacingUsingLeadingText:leadingTextForCurrentSelection preITNTokens:array customVocabularies:v67 localeIdentifier:recognitionLocaleIdentifier];
 
-      v12 = v76;
-      dictationCopy = v72;
-      v25 = v77;
+      v13 = v78;
+      dictationCopy = v74;
+      v27 = v79;
     }
   }
 
-  v68 = +[CACSpokenCommandManager sharedCACSpokenCommandManager];
-  string = [v6 string];
+  v70 = +[CACSpokenCommandManager sharedCACSpokenCommandManager];
+  string = [v7 string];
   languageObject3 = [dictationCopy languageObject];
   transcriptionResult3 = [languageObject3 transcriptionResult];
-  [v68 insertDictatedString:string provisionally:{objc_msgSend(transcriptionResult3, "isPartialResult")}];
+  [v70 insertDictatedString:string provisionally:{objc_msgSend(transcriptionResult3, "isPartialResult")}];
 
 LABEL_50:
 }

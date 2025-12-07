@@ -310,7 +310,7 @@ void __56__CKTextMessagePartChatItem_loadAlternateTranscriptText__block_invoke_2
 {
   colorCopy = color;
   v5 = objc_alloc(MEMORY[0x1E696AD40]);
-  v6 = CKFrameworkBundle();
+  v6 = CKFrameworkBundle(v5);
   v7 = [v6 localizedStringForKey:@"CORRUPT_MESSAGE_FALLBACK_TEXT" value:&stru_1F04268F8 table:@"ChatKit"];
   v8 = [v5 initWithString:v7 attributes:0];
 
@@ -982,11 +982,11 @@ void __58__CKTextMessagePartChatItem__attributedTextWithTextColor___block_invoke
   }
 }
 
-uint64_t __58__CKTextMessagePartChatItem__attributedTextWithTextColor___block_invoke_257(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
+id *__58__CKTextMessagePartChatItem__attributedTextWithTextColor___block_invoke_257(id *result, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (a2)
   {
-    return [*(result + 32) addAttribute:*MEMORY[0x1E69DB670] value:a2 range:{a3, a4}];
+    return [result[4] addAttribute:*MEMORY[0x1E69DB670] value:a2 range:{a3, a4}];
   }
 
   return result;
@@ -1058,11 +1058,11 @@ LABEL_12:
 LABEL_17:
 }
 
-uint64_t __58__CKTextMessagePartChatItem__attributedTextWithTextColor___block_invoke_270(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
+id *__58__CKTextMessagePartChatItem__attributedTextWithTextColor___block_invoke_270(id *result, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (a2)
   {
-    return [*(result + 32) addAttribute:*MEMORY[0x1E69A70F8] value:a2 range:{a3, a4}];
+    return [result[4] addAttribute:*MEMORY[0x1E69A70F8] value:a2 range:{a3, a4}];
   }
 
   return result;
@@ -1588,7 +1588,7 @@ void __58__CKTextMessagePartChatItem__attributedTextWithTextColor___block_invoke
   return dragItemProvider;
 }
 
-uint64_t __45__CKTextMessagePartChatItem_dragItemProvider__block_invoke(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, _BYTE *a5)
+void *__45__CKTextMessagePartChatItem_dragItemProvider__block_invoke(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, _BYTE *a5)
 {
   result = [a2 count];
   *(*(*(a1 + 32) + 8) + 24) = result != 0;
@@ -1596,7 +1596,7 @@ uint64_t __45__CKTextMessagePartChatItem_dragItemProvider__block_invoke(uint64_t
   return result;
 }
 
-uint64_t __45__CKTextMessagePartChatItem_dragItemProvider__block_invoke_2(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, _BYTE *a5)
+void *__45__CKTextMessagePartChatItem_dragItemProvider__block_invoke_2(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, _BYTE *a5)
 {
   result = [a2 count];
   *(*(*(a1 + 32) + 8) + 24) = result != 0;

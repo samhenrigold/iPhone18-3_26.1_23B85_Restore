@@ -26,22 +26,34 @@
 - (void)handleLeConn:(id)conn;
 - (void)handleLeDiscoveryScanStateChange:(id)change;
 - (void)handleMessage:(id)message;
+- (void)handlePowerState:(BOOL)state;
 - (void)handleRawRSSI:(id)i;
 - (void)printAFHMap:(char *)map;
 - (void)printBLEAFHMap:(char *)map;
 - (void)printHFBTChannelMap:(char *)map;
 - (void)resetBtMetrics;
+- (void)updateAccessoryCoex:(unsigned __int8)coex CellRAT:(unsigned __int8)t CellBand:(unsigned __int16)band;
 - (void)updateAntennaRSSIOffset;
 - (void)updateBLEActiveScanPwrLmtAssertionInterval:(unint64_t)interval;
 - (void)updateBTRCU2TimingArray:(id)array;
+- (void)updateCarplayBTScanParams:(BOOL)params reason:(int)reason;
+- (void)updateClockAlignmentEnable:(BOOL)enable BTPowerOnEvent:(BOOL)event;
 - (void)updateCoexRxGainMode:(id)mode;
+- (void)updateDefaultBTAntenna:(int)antenna;
+- (void)updateHFBtAntennaRequestWithDuration:(unint64_t)duration unii1Enabled:(BOOL)enabled unii3Enabled:(BOOL)unii3Enabled unii5aEnabled:(BOOL)unii5aEnabled unii5bEnabled:(BOOL)unii5bEnabled unii5cEnabled:(BOOL)unii5cEnabled unii5dEnabled:(BOOL)unii5dEnabled;
+- (void)updateHFBtAntennaRequestWithDuration:(unint64_t)duration unii1Enabled:(BOOL)enabled unii3Enabled:(BOOL)unii3Enabled unii5aEnabled:(BOOL)unii5aEnabled unii5bEnabled:(BOOL)unii5bEnabled unii5cEnabled:(BOOL)unii5cEnabled unii5dEnabled:(BOOL)unii5dEnabled unii1ConditionId:(unint64_t)self0 unii3ConditionId:(unint64_t)self1 unii5aConditionId:(unint64_t)self2 unii5bConditionId:(unint64_t)self3 unii5cConditionId:(unint64_t)self4 unii5dConditionId:(unint64_t)self5;
+- (void)updateHFBtTxIndication:(BOOL)indication;
 - (void)updateHPCellularCoexMode:(BOOL)mode;
+- (void)updateHPCellularSessionStatus:(BOOL)status;
 - (void)updateMWSChannelParameters:(id)parameters;
 - (void)updateMWSFrameConfig:(id)config;
 - (void)updateMWSScanFrequencyTable:(id)table;
 - (void)updateMWSSignalingConfig;
+- (void)updatePencilCoexAntennaSelectionPolicy:(BOOL)policy param1:(int)param1 param2:(int)param2;
 - (void)updatePreferredAFHMap:(id)map;
+- (void)updatePreferredAFHMapRCU2:(int)u2;
 - (void)updatePreferredHFBTChannelMap:(id)map;
+- (void)updatePreferredRole:(int)role;
 - (void)updateWCI2Mode:(BOOL)mode;
 - (void)updateWiFiCatsState:(unsigned __int8)state bitmap:(unint64_t)bitmap band:(int)band desiredBtDc:(int)dc;
 - (void)updateWiFiCriticalEnabled:(BOOL)enabled;
@@ -176,6 +188,74 @@
   v4.receiver = self;
   v4.super_class = WCM_BTControllerIOS;
   [(WCM_BTController *)&v4 dealloc];
+}
+
+- (void)handlePowerState:(BOOL)state
+{
+  stateCopy = state;
+  if (state)
+  {
+    [(WCM_Controller *)self sendMessage:1400 withArgs:0];
+    [(WCM_Controller *)self sendMessage:1401 withArgs:0];
+  }
+
+  else
+  {
+    HIDWORD(self->super._AoSDeviceID) = 0;
+    LOBYTE(self->mKeepWake) = 0;
+    *&self->mWCI2State = 4;
+    self->mAntennaConfig = 4;
+    *&self->mDefaultAntenna = 0;
+    *(&self->mMWSUlCenterFreq + 4) = 0.0;
+    *(&self->mMWSDlCenterFreq + 4) = 0.0;
+    *(&self->mMWSUlBandwidth + 4) = 0.0;
+    BYTE2(self->mRoleRequested) = 0;
+    v5 = *(&self->mMWSDlBandwidth + 4);
+    if (v5)
+    {
+      xpc_release(v5);
+      *(&self->mMWSDlBandwidth + 4) = 0.0;
+    }
+
+    HIDWORD(self->mMWSFrameConfig) = 3;
+    self->mRoleCurrent = 255;
+    LOBYTE(self->mRoleRequested) = 0;
+    BYTE1(self->mRoleRequested) = 0;
+    self->mCurrentHFBTChannelMap[92] = 0;
+    *(&self->mRoleRequested + 3) = -1;
+    *&self->mCurrentAFHMap[4] = -1;
+    *&self->mCurrentAFHMap[6] = -1;
+    self->mCurrentBLEAFHMap[0] = -1;
+    *&v6 = -1;
+    *(&v6 + 1) = -1;
+    *&self->mCurrentBLEAFHMap[1] = v6;
+    *&self->mCurrentHFBTChannelMap[12] = v6;
+    *&self->mCurrentHFBTChannelMap[28] = v6;
+    *&self->mCurrentHFBTChannelMap[44] = v6;
+    *&self->mCurrentHFBTChannelMap[60] = v6;
+    *&self->mCurrentHFBTChannelMap[76] = v6;
+    *&self->mCurrentHFBTChannelMap[93] = -1;
+    *&self->mDiversityAFHMapForC0B0[4] = -1;
+    *&self->mDiversityAFHMapForC0B0[6] = -1;
+    *&self->mDiversityAFHMapForC0B1[4] = -1;
+    *&self->mDiversityAFHMapForC0B1[6] = -1;
+    *&self->mDiversityAFHMapForC1B0[4] = -1;
+    *&self->mDiversityAFHMapForC1B0[6] = -1;
+    *&self->mDiversityAFHMapForC1B1[4] = -1;
+    *&self->mDiversityAFHMapForC1B1[11] = 0;
+    *(&self->mLeConnDutyCycle + 4) = 0;
+    *(&self->mLeConnReason + 4) = 0;
+    *(&self->mLeConnBand + 4) = 0;
+    *(&self->mLeConnDuration + 4) = -1;
+    *(&self->mLeDiscoveryScanState + 4) = -1;
+    [(WCM_BTControllerIOS *)self resetBtMetrics];
+    [+[WCM_PolicyManager singleton](WCM_PolicyManager "singleton")];
+  }
+
+  [+[WCM_PolicyManager singleton](WCM_PolicyManager "singleton")];
+  v7.receiver = self;
+  v7.super_class = WCM_BTControllerIOS;
+  [(WCM_BTController *)&v7 handlePowerState:stateCopy];
 }
 
 - (void)handleDisconnection:(id)disconnection
@@ -461,6 +541,29 @@ LABEL_6:
   [WCM_Logging logLevel:4 message:@"MWS already disabled"];
 }
 
+- (void)updateClockAlignmentEnable:(BOOL)enable BTPowerOnEvent:(BOOL)event
+{
+  enableCopy = enable;
+  if (byte_1002B7EB0 == enable && !event)
+  {
+    [WCM_Logging logLevel:3 message:@"updateClockAlignmentEnable: already in state (enable=%d), skip BT update", enable];
+  }
+
+  else
+  {
+    byte_1002B7EB0 = enable;
+    v7 = xpc_dictionary_create(0, 0, 0);
+    [WCM_Logging logLevel:3 message:@"updateClockAlignmentEnable: enable=%d", enableCopy];
+    if (v7)
+    {
+      xpc_dictionary_set_uint64(v7, "WCMBTSetMWSClockAlignment_Enable", enableCopy);
+      [(WCM_Controller *)self sendMessage:1446 withArgs:v7];
+    }
+
+    xpc_release(v7);
+  }
+}
+
 - (void)updateMWSFrameConfig:(id)config
 {
   if (!config)
@@ -498,6 +601,16 @@ LABEL_6:
   v5 = xpc_uint64_create(interval);
   [WCM_Logging logLevel:4 message:@"DLDebug_ Configuring BLE Active Scan Power Limiting (Type6 MSG) Assertion Interval as %llu", interval];
   [(WCM_Controller *)self sendMessage:1427 withArgs:v5];
+
+  xpc_release(v5);
+}
+
+- (void)updateHPCellularSessionStatus:(BOOL)status
+{
+  statusCopy = status;
+  v5 = xpc_BOOL_create(status);
+  [WCM_Logging logLevel:4 message:@"HPCellular_ Configuring HPCellular Session Status to BT as %d", statusCopy];
+  [(WCM_Controller *)self sendMessage:1430 withArgs:v5];
 
   xpc_release(v5);
 }
@@ -690,6 +803,242 @@ LABEL_6:
   }
 }
 
+- (void)updatePreferredAFHMapRCU2:(int)u2
+{
+  v5 = WRM_IPTelephonyController;
+  [WCM_Logging logLevel:2 message:@"updatePreferredAFHMapRCU2...Entry channel no %d", *&u2];
+  v33 = -1;
+  bytes = -1;
+  if ((u2 - 1) <= 0x19)
+  {
+    v6 = &unk_100198610 + (10 * u2);
+    bytes = *(v6 - 110);
+    v33 = *(v6 - 51);
+  }
+
+  [(WCM_BTControllerIOS *)self printAFHMap:&self->mRoleRequested + 3];
+  [(WCM_BTControllerIOS *)self printAFHMap:&bytes];
+  *(&self->mRoleRequested + 3) = bytes;
+  *&self->mCurrentAFHMap[4] = v33;
+  v7 = xpc_data_create(&bytes, 0xAuLL);
+  [(WCM_Controller *)self sendMessage:1408 withArgs:v7];
+  xpc_release(v7);
+  if ([objc_msgSend(+[WCM_PolicyManager singleton](WCM_PolicyManager "singleton")])
+  {
+    selfCopy = self;
+    for (i = 0; i != 10; ++i)
+    {
+      v9 = 0;
+      v10 = 0;
+      do
+      {
+        if ((*(&bytes + i) >> v9))
+        {
+          v10 |= 0x80u >> v9;
+        }
+
+        else
+        {
+          v10 &= ~(0x80u >> v9);
+        }
+
+        ++v9;
+      }
+
+      while (v9 != 8);
+      v31[i] = v10;
+      [WCM_Logging logLevel:4 message:@"DLDebugBLE_ coexBTAFHMap_BitAscend[%ld] = %d", i, v10];
+    }
+
+    v11 = CFBitVectorCreate(kCFAllocatorDefault, v31, 80);
+    Mutable = CFBitVectorCreateMutable(kCFAllocatorDefault, 40);
+    CFBitVectorSetCount(Mutable, 40);
+    v13 = 1;
+    CFBitVectorSetAllBits(Mutable, 1u);
+    MutableCopy = CFBitVectorCreateMutableCopy(kCFAllocatorDefault, 40, Mutable);
+    v15 = 3;
+    do
+    {
+      v16 = CFBitVectorGetBitAtIndex(v11, v15 - 2) && CFBitVectorGetBitAtIndex(v11, v15 - 1) && CFBitVectorGetBitAtIndex(v11, v15) != 0;
+      CFBitVectorSetBitAtIndex(Mutable, v13++, v16);
+      v15 += 2;
+    }
+
+    while (v13 != 40);
+    for (j = 0; j != 11; ++j)
+    {
+      BitAtIndex = CFBitVectorGetBitAtIndex(Mutable, j + 1);
+      CFBitVectorSetBitAtIndex(MutableCopy, j, BitAtIndex);
+    }
+
+    for (k = 13; k != 39; ++k)
+    {
+      v20 = CFBitVectorGetBitAtIndex(Mutable, k);
+      CFBitVectorSetBitAtIndex(MutableCopy, k - 2, v20);
+    }
+
+    for (m = 37; m != 40; ++m)
+    {
+      CFBitVectorSetBitAtIndex(MutableCopy, m, 1u);
+    }
+
+    v34.location = 0;
+    v34.length = 40;
+    CFBitVectorGetBits(MutableCopy, v34, v29);
+    for (n = 0; n != 5; ++n)
+    {
+      v23 = v5;
+      v24 = v29[n];
+      v25 = v23;
+      [&v23[98] logLevel:4 message:{@"DLDebugBLE_ coexBTAFHMap[%ld] = %d", n, v29[n]}];
+      for (ii = 0; ii != 8; ++ii)
+      {
+        if ((v24 >> ii))
+        {
+          v10 |= 0x80u >> ii;
+        }
+
+        else
+        {
+          v10 &= ~(0x80u >> ii);
+        }
+      }
+
+      v30[n] = v10;
+      v5 = v25;
+      [&v25[98] logLevel:4 message:{@"DLDebugBLE_ coexBTAFHMap_BitAscend[%ld] = %d", n, v10}];
+    }
+
+    [&v25[98] logLevel:2 message:{@"DLDebug_ BLE AFH newBLEMap_BitVector needs update to %@", +[NSData dataWithBytes:length:](NSData, "dataWithBytes:length:", v30, 5)}];
+    [(WCM_BTControllerIOS *)selfCopy printBLEAFHMap:v30];
+    v27 = xpc_data_create(v30, 5uLL);
+    [&v5[98] logLevel:2 message:@"DLDebug_ Sending XPC Message for coexBLEAFHMap"];
+    [(WCM_Controller *)selfCopy sendMessage:1425 withArgs:v27];
+    xpc_release(v27);
+    CFRelease(v11);
+    CFRelease(Mutable);
+    CFRelease(MutableCopy);
+  }
+}
+
+- (void)updatePreferredRole:(int)role
+{
+  v3 = *&role;
+  getBTRole = [(WCM_BTControllerIOS *)self getBTRole];
+  HIDWORD(self->mMWSFrameConfig) = getBTRole;
+  mRoleCurrent = self->mRoleCurrent;
+  if (getBTRole > 1 || getBTRole == v3 || (v7 = mRoleCurrent == v3, mRoleCurrent = v3, v7))
+  {
+    [WCM_Logging logLevel:2 message:@"Not request for BT role switch current(%d) prefered(%d) requested(%d)", getBTRole, v3, mRoleCurrent];
+  }
+
+  else if ([(NSMutableArray *)[(WCM_BTController *)self btConnections] count])
+  {
+    [WCM_Logging logLevel:2 message:@"Request for BT role switch(%d -> %d)", HIDWORD(self->mMWSFrameConfig), v3];
+    v8 = xpc_uint64_create(v3);
+    [(WCM_Controller *)self sendMessage:1407 withArgs:v8];
+    self->mRoleCurrent = v3;
+
+    xpc_release(v8);
+  }
+
+  else
+  {
+    [WCM_Logging logLevel:2 message:@"Not request for BT role switch (%d -> %d) becasue there is no connection", HIDWORD(self->mMWSFrameConfig), v3, v9];
+  }
+}
+
+- (void)updatePencilCoexAntennaSelectionPolicy:(BOOL)policy param1:(int)param1 param2:(int)param2
+{
+  v5 = *&param2;
+  v6 = *&param1;
+  policyCopy = policy;
+  if ([(WCM_BTController *)self powerState])
+  {
+    [WCM_Logging logLevel:2 message:@"YYDebug_ Setting BT Antenna Policy for pencil coex BT blocking bitmap: %d Thread blocking bitmap: %d", v6, v5];
+    v9 = xpc_dictionary_create(0, 0, 0);
+    xpc_dictionary_set_uint64(v9, "kWCMBTAntennaAction", 0xAuLL);
+    if (policyCopy)
+    {
+      v10 = 5;
+    }
+
+    else
+    {
+      v10 = 0;
+    }
+
+    xpc_dictionary_set_uint64(v9, "kWCMBTAntennaConfiguration", v10);
+    xpc_dictionary_set_uint64(v9, "kWCMBTAntennaParam1", v6);
+    xpc_dictionary_set_uint64(v9, "kWCMBTAntennaParam2", v5);
+    [(WCM_Controller *)self sendMessage:1421 withArgs:v9];
+
+    xpc_release(v9);
+  }
+
+  else
+  {
+
+    [WCM_Logging logLevel:0 message:@"YYDebug_ BT OFF not setting antenna selection policy for pencil coex"];
+  }
+}
+
+- (void)updateAccessoryCoex:(unsigned __int8)coex CellRAT:(unsigned __int8)t CellBand:(unsigned __int16)band
+{
+  bandCopy = band;
+  tCopy = t;
+  coexCopy = coex;
+  if ([(WCM_BTController *)self powerState])
+  {
+    [WCM_Logging logLevel:2 message:@" Setting BT acessory Coex: accType(%u), cellRat(%u), CellBand(%u)", coexCopy, tCopy, bandCopy];
+    v9 = xpc_dictionary_create(0, 0, 0);
+    xpc_dictionary_set_uint64(v9, "kWCMBTAccessoryCoex_AccessoryType", coexCopy);
+    xpc_dictionary_set_uint64(v9, "kWCMBTAccessoryCoex_Cell_RAT", tCopy);
+    xpc_dictionary_set_uint64(v9, "kWCMBTAccessoryCoex_Cell_Band", bandCopy);
+    [(WCM_Controller *)self sendMessage:1443 withArgs:v9];
+
+    xpc_release(v9);
+  }
+
+  else
+  {
+
+    [WCM_Logging logLevel:0 message:@" updateAccessoryCoex: BT OFF, not setting BT"];
+  }
+}
+
+- (void)updateDefaultBTAntenna:(int)antenna
+{
+  v3 = *&antenna;
+  if ([(WCM_BTController *)self powerState])
+  {
+    if (self->mAntennaConfig != v3)
+    {
+      if (v3 < 2)
+      {
+        [WCM_Logging logLevel:2 message:@"Setting Default BT Antenna :%d", v3];
+        self->mAntennaConfig = v3;
+        v5 = xpc_dictionary_create(0, 0, 0);
+        xpc_dictionary_set_uint64(v5, "kWCMBTAntennaAction", 2uLL);
+        xpc_dictionary_set_uint64(v5, "kWCMBTAntennaConfiguration", v3);
+        [(WCM_Controller *)self sendMessage:1421 withArgs:v5];
+
+        xpc_release(v5);
+      }
+
+      else
+      {
+        [WCM_Logging logLevel:0 message:@"Trying to set default BT antenna to invalid antennaConfig(%d)", v3];
+      }
+    }
+  }
+
+  else
+  {
+    [WCM_Logging logLevel:0 message:@"BT OFF not setting default antenna antennaConfig(%d)", v3];
+  }
+}
+
 - (void)updateAntennaRSSIOffset
 {
   if ([(WCM_BTController *)self powerState]&& (self->mRoleRequested & 1) == 0)
@@ -704,6 +1053,66 @@ LABEL_6:
 
     xpc_release(v3);
   }
+}
+
+- (void)updateHFBtTxIndication:(BOOL)indication
+{
+  [WCM_Logging logLevel:2 message:@"Setting 5G BT config to %d", indication];
+  v5 = xpc_BOOL_create(indication);
+  [WCM_Logging logLevel:2 message:@"WCMBTSetMWSTxInd5GEnable: %@", v5];
+  [(WCM_Controller *)self sendMessage:1433 withArgs:v5];
+
+  xpc_release(v5);
+}
+
+- (void)updateHFBtAntennaRequestWithDuration:(unint64_t)duration unii1Enabled:(BOOL)enabled unii3Enabled:(BOOL)unii3Enabled unii5aEnabled:(BOOL)unii5aEnabled unii5bEnabled:(BOOL)unii5bEnabled unii5cEnabled:(BOOL)unii5cEnabled unii5dEnabled:(BOOL)unii5dEnabled
+{
+  [WCM_Logging logLevel:2 message:@"HFBTAntBlkDebug_ Setting antenna request configs: [duration = %llu, unii1Enable = %d, unii3Enabled = %d, unii5aEnabled = %d, unii5bEnabled = %d, unii5cEnabled = %d, unii5dEnabled = %d]", duration, enabled, unii3Enabled, unii5aEnabled, unii5bEnabled, unii5cEnabled, unii5dEnabled];
+  [WCM_Logging logLevel:2 message:@"HFBTAntBlkDebug_ Setting config: enable condition ID"];
+  v16 = xpc_BOOL_create(0);
+  [(WCM_Controller *)self sendMessage:1435 withArgs:v16];
+  xpc_release(v16);
+  v17 = xpc_dictionary_create(0, 0, 0);
+  xpc_dictionary_set_uint64(v17, "kWCMAntennaRequestInterval", duration);
+  xpc_dictionary_set_BOOL(v17, "kWCMAntennaRequestUnii1Enabled", enabled);
+  xpc_dictionary_set_BOOL(v17, "kWCMAntennaRequestUnii3Enabled", unii3Enabled);
+  xpc_dictionary_set_BOOL(v17, "kWCMAntennaRequestUnii5aEnabled", unii5aEnabled);
+  xpc_dictionary_set_BOOL(v17, "kWCMAntennaRequestUnii5bEnabled", unii5bEnabled);
+  xpc_dictionary_set_BOOL(v17, "kWCMAntennaRequestUnii5cEnabled", unii5cEnabled);
+  xpc_dictionary_set_BOOL(v17, "kWCMAntennaRequestUnii5dEnabled", unii5dEnabled);
+  xpc_dictionary_set_BOOL(v17, "kWCMBTSetConditionIdEnable", 0);
+  [WCM_Logging logLevel:2 message:@"HFBTAntBlkDebug_ Setting config: full antenna request config %@", v17];
+  [(WCM_Controller *)self sendMessage:1434 withArgs:v17];
+
+  xpc_release(v17);
+}
+
+- (void)updateHFBtAntennaRequestWithDuration:(unint64_t)duration unii1Enabled:(BOOL)enabled unii3Enabled:(BOOL)unii3Enabled unii5aEnabled:(BOOL)unii5aEnabled unii5bEnabled:(BOOL)unii5bEnabled unii5cEnabled:(BOOL)unii5cEnabled unii5dEnabled:(BOOL)unii5dEnabled unii1ConditionId:(unint64_t)self0 unii3ConditionId:(unint64_t)self1 unii5aConditionId:(unint64_t)self2 unii5bConditionId:(unint64_t)self3 unii5cConditionId:(unint64_t)self4 unii5dConditionId:(unint64_t)self5
+{
+  [WCM_Logging logLevel:2 message:@"HFBTAntBlkDebug_ Setting antenna request configs: [duration = %llu, unii1Enable = %d, unii3Enabled = %d, unii5aEnabled = %d, unii5bEnabled = %d, unii5cEnabled = %d, unii5dEnabled = %d, unii1conditionId = %llu, unii3conditionId = %llu, unii5aconditionId = %llu, unii5bconditionId = %llu, unii5cconditionId = %llu, unii5dconditionId = %llu]", duration, enabled, unii3Enabled, unii5aEnabled, unii5bEnabled, unii5cEnabled, unii5dEnabled, id, conditionId, unii5aConditionId, unii5bConditionId, unii5cConditionId, unii5dConditionId];
+  [WCM_Logging logLevel:2 message:@"HFBTAntBlkDebug_ enable condition ID"];
+  v22 = xpc_BOOL_create(1);
+  [(WCM_Controller *)self sendMessage:1435 withArgs:v22];
+  xpc_release(v22);
+  v23 = xpc_dictionary_create(0, 0, 0);
+  xpc_dictionary_set_uint64(v23, "kWCMAntennaRequestInterval", duration);
+  xpc_dictionary_set_BOOL(v23, "kWCMAntennaRequestUnii1Enabled", enabled);
+  xpc_dictionary_set_BOOL(v23, "kWCMAntennaRequestUnii3Enabled", unii3Enabled);
+  xpc_dictionary_set_BOOL(v23, "kWCMAntennaRequestUnii5aEnabled", unii5aEnabled);
+  xpc_dictionary_set_BOOL(v23, "kWCMAntennaRequestUnii5bEnabled", unii5bEnabled);
+  xpc_dictionary_set_BOOL(v23, "kWCMAntennaRequestUnii5cEnabled", unii5cEnabled);
+  xpc_dictionary_set_BOOL(v23, "kWCMAntennaRequestUnii5dEnabled", unii5dEnabled);
+  xpc_dictionary_set_BOOL(v23, "kWCMBTSetConditionIdEnable", 1);
+  xpc_dictionary_set_uint64(v23, "kWCMBTConditionIdUnii1", id);
+  xpc_dictionary_set_uint64(v23, "kWCMBTConditionIdUnii3", conditionId);
+  xpc_dictionary_set_uint64(v23, "kWCMBTConditionIdUnii5a", unii5aConditionId);
+  xpc_dictionary_set_uint64(v23, "kWCMBTConditionIdUnii5b", unii5bConditionId);
+  xpc_dictionary_set_uint64(v23, "kWCMBTConditionIdUnii5c", unii5cConditionId);
+  xpc_dictionary_set_uint64(v23, "kWCMBTConditionIdUnii5d", unii5dConditionId);
+  [WCM_Logging logLevel:2 message:@"HFBTAntBlkDebug_ Setting config: full antenna request config %@", v23];
+  [(WCM_Controller *)self sendMessage:1434 withArgs:v23];
+
+  xpc_release(v23);
 }
 
 - (void)updateMWSScanFrequencyTable:(id)table
@@ -771,6 +1180,38 @@ LABEL_6:
     [(WCM_Controller *)self sendMessage:1424 withArgs:v6];
 
     xpc_release(v6);
+  }
+}
+
+- (void)updateCarplayBTScanParams:(BOOL)params reason:(int)reason
+{
+  v4 = *&reason;
+  paramsCopy = params;
+  v7 = xpc_dictionary_create(0, 0, 0);
+  [WCM_Logging logLevel:2 message:@"Sending messgae to BT about CarPlay status updateCarplayBTScanParams state : %d, %d", paramsCopy, v4];
+  if (v7)
+  {
+    if (v4 >= 4)
+    {
+      v8 = 4;
+    }
+
+    else
+    {
+      v8 = v4;
+    }
+
+    xpc_dictionary_set_uint64(v7, "kWCMBTCoexScanIntervalState", paramsCopy);
+    xpc_dictionary_set_uint64(v7, "kWCMBTCoexScanIntervalReason", v8);
+    [(WCM_Controller *)self sendMessage:1426 withArgs:v7];
+    [WCM_Logging logLevel:2 message:@"Sent messgae to BT about CarPlay status (state): %d, (reason): %d", paramsCopy, v4];
+
+    xpc_release(v7);
+  }
+
+  else
+  {
+    [WCM_Logging logLevel:2 message:@"Failed to send messgae to BT about CarPlay status XPC failed (state): %d, (reason): %d", paramsCopy, v4];
   }
 }
 

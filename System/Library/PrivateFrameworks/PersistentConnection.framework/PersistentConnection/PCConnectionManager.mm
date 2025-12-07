@@ -3,7 +3,6 @@
 + (id)_keepAliveCachePath;
 + (id)intervalCacheDictionaries;
 + (id)stringForAddressFamily:(int)family;
-+ (void)_keepAliveCachePath;
 - (BOOL)_hasBudgetRemaining;
 - (BOOL)_isPushConnected;
 - (BOOL)disableEarlyFire;
@@ -23,6 +22,7 @@
 - (double)serverStatsMaxKeepAliveInterval;
 - (double)serverStatsMinKeepAliveInterval;
 - (id)_currentGrowthAlgorithm;
+- (id)_getCachedWWANKeepAliveIntervalForAddressFamily:(int)family;
 - (id)_growthAlgorithmOnInterface:(int64_t)interface;
 - (id)_initWithConnectionClass:(int)class interfaceIdentifier:(int64_t)identifier guidancePriority:(unint64_t)priority delegate:(id)delegate delegateQueue:(id)queue serviceIdentifier:(id)serviceIdentifier;
 - (id)_stringForAction:(int)action;
@@ -37,6 +37,7 @@
 - (void)_adjustMinimumIntervalFallback;
 - (void)_adjustPollTimerIfNecessary;
 - (void)_callDelegateWithEventAndContext:(id)context;
+- (void)_calloutWithEvent:(int)event context:(id)context;
 - (void)_clearTimersReleasingPowerAssertion:(BOOL)assertion;
 - (void)_delayTimerFired;
 - (void)_deregisterForDeviceConditionsNotifications;
@@ -58,13 +59,17 @@
 - (void)_setupTimerForPollForAdjustment:(BOOL)adjustment;
 - (void)_setupTimerForPushWithKeepAliveInterval:(double)interval;
 - (void)_takePowerAssertionWithTimeout:(double)timeout;
+- (void)_validateActionForCurrentStyle:(int)style;
 - (void)cancelPollingIntervalOverride;
 - (void)carrierBundleDidChange;
 - (void)dealloc;
+- (void)interfaceLinkQualityChanged:(id)changed previousLinkQuality:(int)quality;
 - (void)interfaceManagerInHomeCountryStatusChanged:(id)changed;
 - (void)interfaceManagerInternetReachabilityChanged:(id)changed;
 - (void)interfaceManagerWWANInterfaceStatusChanged:(id)changed;
 - (void)resetKeepAliveStateMachineIfNecessary;
+- (void)resumeManagerWithAction:(int)action forceGrow:(BOOL)grow;
+- (void)saveKeepAliveInterval:(double)interval isInitialGrowth:(BOOL)growth;
 - (void)setCurrentAddressFamily:(int)family;
 - (void)setDelegate:(id)delegate;
 - (void)setDisableEarlyFire:(BOOL)fire;
@@ -82,6 +87,7 @@
 - (void)setServerStatsExpectedKeepAliveInterval:(double)interval;
 - (void)setServerStatsMaxKeepAliveInterval:(double)interval;
 - (void)setServerStatsMinKeepAliveInterval:(double)interval;
+- (void)setUsingServerStatsAggressively:(BOOL)aggressively;
 - (void)startManager;
 - (void)stopAndResetManager;
 - (void)stopManager;
@@ -226,7 +232,7 @@ LABEL_10:
 
 - (void)_adjustPollTimerIfNecessary
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   currentStyle = [(PCConnectionManager *)self currentStyle];
   firingIsImminent = [(PCPersistentTimer *)self->_intervalTimer firingIsImminent];
   v5 = firingIsImminent;
@@ -257,7 +263,7 @@ LABEL_10:
       v12 = @"NO";
     }
 
-    v17 = 138413826;
+    v16 = 138413826;
     if (isInReconnectMode)
     {
       v13 = @"YES";
@@ -279,24 +285,24 @@ LABEL_10:
       v14 = @"NO";
     }
 
-    v20 = v10;
-    v19 = 2112;
+    v19 = v10;
+    v18 = 2112;
     if (v6)
     {
       v8 = @"YES";
     }
 
-    v21 = 2112;
-    v22 = v12;
-    v23 = 2112;
-    v24 = v13;
-    v25 = 2112;
-    v26 = intervalTimer;
-    v27 = 2112;
-    v28 = v14;
-    v29 = 2112;
-    v30 = v8;
-    _os_log_impl(&dword_25E3EF000, logObject, OS_LOG_TYPE_DEFAULT, "%@ _adjustPollTimerIfNecessary  rightStyle %@  isRunning %@  isInReconnectMode %@   intervalTimer %@  firingIsImminent %@ - should Adjust? %@", &v17, 0x48u);
+    v20 = 2112;
+    v21 = v12;
+    v22 = 2112;
+    v23 = v13;
+    v24 = 2112;
+    v25 = intervalTimer;
+    v26 = 2112;
+    v27 = v14;
+    v28 = 2112;
+    v29 = v8;
+    _os_log_impl(&dword_25E3EF000, logObject, OS_LOG_TYPE_DEFAULT, "%@ _adjustPollTimerIfNecessary  rightStyle %@  isRunning %@  isInReconnectMode %@   intervalTimer %@  firingIsImminent %@ - should Adjust? %@", &v16, 0x48u);
   }
 
   if (v6)
@@ -307,8 +313,6 @@ LABEL_10:
 
     [(PCConnectionManager *)self _setupTimerForPollForAdjustment:1];
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (int)currentStyle
@@ -365,9 +369,27 @@ LABEL_15:
 - (void)_releasePowerAssertion
 {
   v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  _os_log_fault_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x277D85DE8];
+  if (self->_powerAssertionID)
+  {
+    logObject = self->_logObject;
+    if (os_log_type_enabled(logObject, OS_LOG_TYPE_DEFAULT))
+    {
+      powerAssertionID = self->_powerAssertionID;
+      v5[0] = 67109120;
+      v5[1] = powerAssertionID;
+      _os_log_impl(&dword_25E3EF000, logObject, OS_LOG_TYPE_DEFAULT, "Releasing power assertion %i", v5, 8u);
+    }
+
+    if (IOPMAssertionRelease(self->_powerAssertionID))
+    {
+      if (os_log_type_enabled(self->_logObject, OS_LOG_TYPE_FAULT))
+      {
+        [PCConnectionManager _releasePowerAssertion];
+      }
+    }
+
+    self->_powerAssertionID = 0;
+  }
 }
 
 - (void)stopAndResetManager
@@ -407,28 +429,21 @@ LABEL_15:
 
 + (Class)growthAlgorithmClass
 {
-  v2 = _os_feature_enabled_impl();
-  v3 = off_279A19AF0;
-  if (!v2)
-  {
-    v3 = off_279A19AD0;
-  }
+  _os_feature_enabled_impl();
+  v2 = objc_opt_class();
 
-  v4 = *v3;
-  v5 = objc_opt_class();
-
-  return v5;
+  return v2;
 }
 
 - (id)_initWithConnectionClass:(int)class interfaceIdentifier:(int64_t)identifier guidancePriority:(unint64_t)priority delegate:(id)delegate delegateQueue:(id)queue serviceIdentifier:(id)serviceIdentifier
 {
-  v78 = *MEMORY[0x277D85DE8];
+  v77 = *MEMORY[0x277D85DE8];
   delegateCopy = delegate;
   queueCopy = queue;
   serviceIdentifierCopy = serviceIdentifier;
-  v71.receiver = self;
-  v71.super_class = PCConnectionManager;
-  v17 = [(PCConnectionManager *)&v71 init];
+  v70.receiver = self;
+  v70.super_class = PCConnectionManager;
+  v17 = [(PCConnectionManager *)&v70 init];
   if (!v17)
   {
     goto LABEL_16;
@@ -488,15 +503,15 @@ LABEL_4:
     v26 = *(v17 + 3);
     v27 = *(v17 + 7);
     *buf = 138412802;
-    v73 = v17;
-    v74 = 2112;
-    v75 = v26;
-    v76 = 2048;
-    v77 = v27;
+    v72 = v17;
+    v73 = 2112;
+    v74 = v26;
+    v75 = 2048;
+    v76 = v27;
     _os_log_impl(&dword_25E3EF000, v25, OS_LOG_TYPE_DEFAULT, "Creating PCManager %@ with identifier %@ and interfaceIdentifier %ld", buf, 0x20u);
   }
 
-  v66 = queueCopy;
+  v65 = queueCopy;
   notify_register_check("PCPushIsConnectedToken", v17 + 63);
   if (!*(v17 + 7))
   {
@@ -572,27 +587,26 @@ LABEL_13:
   handler[2] = __126__PCConnectionManager__initWithConnectionClass_interfaceIdentifier_guidancePriority_delegate_delegateQueue_serviceIdentifier___block_invoke;
   handler[3] = &unk_279A19EE0;
   v59 = v58;
-  v70 = v59;
+  v69 = v59;
   notify_register_dispatch("PCPersistentTimerGuidanceNotification", v17 + 62, v55, handler);
   persistentInterfaceManager = [v17 persistentInterfaceManager];
   [persistentInterfaceManager addDelegate:v17 queue:v55];
 
   v61 = [(__CFString *)@"PCPreferencesDidChangeNotification" cStringUsingEncoding:4];
-  v67[0] = MEMORY[0x277D85DD0];
-  v67[1] = 3221225472;
-  v67[2] = __126__PCConnectionManager__initWithConnectionClass_interfaceIdentifier_guidancePriority_delegate_delegateQueue_serviceIdentifier___block_invoke_2;
-  v67[3] = &unk_279A19EE0;
-  v68 = v59;
+  v66[0] = MEMORY[0x277D85DD0];
+  v66[1] = 3221225472;
+  v66[2] = __126__PCConnectionManager__initWithConnectionClass_interfaceIdentifier_guidancePriority_delegate_delegateQueue_serviceIdentifier___block_invoke_2;
+  v66[3] = &unk_279A19EE0;
+  v67 = v59;
   v62 = v59;
-  notify_register_dispatch(v61, v17 + 64, v55, v67);
+  notify_register_dispatch(v61, v17 + 64, v55, v66);
   [v17 _loadPreferencesGeneratingEvent:0];
   v63 = +[PCCarrierBundleHelper helper];
   [v63 addDelegate:v17];
 
-  queueCopy = v66;
+  queueCopy = v65;
 LABEL_16:
 
-  v64 = *MEMORY[0x277D85DE8];
   return v17;
 }
 
@@ -620,9 +634,9 @@ void __126__PCConnectionManager__initWithConnectionClass_interfaceIdentifier_gui
   dispatch_async(MEMORY[0x277D85CD0], block);
 }
 
-uint64_t __45__PCConnectionManager_carrierBundleDidChange__block_invoke(uint64_t a1)
+void *__45__PCConnectionManager_carrierBundleDidChange__block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   result = [*(a1 + 32) interfaceIdentifier];
   if (result)
   {
@@ -630,15 +644,14 @@ uint64_t __45__PCConnectionManager_carrierBundleDidChange__block_invoke(uint64_t
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       v4 = *(a1 + 32);
-      v6 = 138412290;
-      v7 = v4;
-      _os_log_impl(&dword_25E3EF000, v3, OS_LOG_TYPE_DEFAULT, "%@ carrier bundle changed", &v6, 0xCu);
+      v5 = 138412290;
+      v6 = v4;
+      _os_log_impl(&dword_25E3EF000, v3, OS_LOG_TYPE_DEFAULT, "%@ carrier bundle changed", &v5, 0xCu);
     }
 
-    result = [*(a1 + 32) _preferencesChanged];
+    return [*(a1 + 32) _preferencesChanged];
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -664,7 +677,7 @@ uint64_t __45__PCConnectionManager_carrierBundleDidChange__block_invoke(uint64_t
 
 - (void)setDuetIdentifier:(id)identifier
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   selfCopy = self;
   objc_sync_enter(selfCopy);
@@ -674,13 +687,13 @@ uint64_t __45__PCConnectionManager_carrierBundleDidChange__block_invoke(uint64_t
     if (os_log_type_enabled(logObject, OS_LOG_TYPE_DEFAULT))
     {
       duetIdentifier = selfCopy->_duetIdentifier;
-      v11 = 138412802;
-      v12 = selfCopy;
-      v13 = 2112;
-      v14 = duetIdentifier;
-      v15 = 2112;
-      v16 = identifierCopy;
-      _os_log_impl(&dword_25E3EF000, logObject, OS_LOG_TYPE_DEFAULT, "%@ Changing duetIdentifier from %@ to %@", &v11, 0x20u);
+      v10 = 138412802;
+      v11 = selfCopy;
+      v12 = 2112;
+      v13 = duetIdentifier;
+      v14 = 2112;
+      v15 = identifierCopy;
+      _os_log_impl(&dword_25E3EF000, logObject, OS_LOG_TYPE_DEFAULT, "%@ Changing duetIdentifier from %@ to %@", &v10, 0x20u);
     }
 
     v8 = [(NSString *)identifierCopy copy];
@@ -689,8 +702,6 @@ uint64_t __45__PCConnectionManager_carrierBundleDidChange__block_invoke(uint64_t
   }
 
   objc_sync_exit(selfCopy);
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (NSString)duetIdentifier
@@ -742,7 +753,7 @@ uint64_t __45__PCConnectionManager_carrierBundleDidChange__block_invoke(uint64_t
 - (void)_loadPreferencesGeneratingEvent:(BOOL)event
 {
   eventCopy = event;
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   logObject = selfCopy->_logObject;
@@ -775,16 +786,16 @@ uint64_t __45__PCConnectionManager_carrierBundleDidChange__block_invoke(uint64_t
       }
 
       *buf = 138412802;
-      v44 = selfCopy;
-      v46 = *&v12;
-      v45 = 2112;
+      v43 = selfCopy;
+      v45 = *&v12;
+      v44 = 2112;
       if (GlobalMCCForceManualWhenRoaming)
       {
         v11 = @"YES";
       }
 
-      v47 = 2112;
-      v48 = v11;
+      v46 = 2112;
+      v47 = v11;
       _os_log_impl(&dword_25E3EF000, v10, OS_LOG_TYPE_DEFAULT, "%@ Loading forceManualWhenRoaming: accountSetting %@  globalSetting %@", buf, 0x20u);
     }
 
@@ -802,9 +813,9 @@ uint64_t __45__PCConnectionManager_carrierBundleDidChange__block_invoke(uint64_t
   {
     v15 = selfCopy->_defaultPollingInterval / 60.0;
     *buf = 138412546;
-    v44 = v13;
-    v45 = 2048;
-    v46 = v15;
+    v43 = v13;
+    v44 = 2048;
+    v45 = v15;
     _os_log_impl(&dword_25E3EF000, v14, OS_LOG_TYPE_DEFAULT, "Loaded preferences. Style is %@ and default poll interval is %g minutes.", buf, 0x16u);
   }
 
@@ -829,7 +840,7 @@ uint64_t __45__PCConnectionManager_carrierBundleDidChange__block_invoke(uint64_t
     if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
-      v44 = *&v20;
+      v43 = *&v20;
       _os_log_impl(&dword_25E3EF000, v21, OS_LOG_TYPE_DEFAULT, "Carrier bundle override for minimum HBI set. Setting minimum keep alive interval to %g seconds.", buf, 0xCu);
     }
 
@@ -847,7 +858,7 @@ uint64_t __45__PCConnectionManager_carrierBundleDidChange__block_invoke(uint64_t
     if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
-      v44 = *&v25;
+      v43 = *&v25;
       _os_log_impl(&dword_25E3EF000, v26, OS_LOG_TYPE_DEFAULT, "Carrier bundle override for maximum HBI set. Setting maximum keep alive interval to %g seconds.", buf, 0xCu);
     }
 
@@ -871,7 +882,7 @@ uint64_t __45__PCConnectionManager_carrierBundleDidChange__block_invoke(uint64_t
       }
 
       *buf = 138412290;
-      v44 = v32;
+      v43 = v32;
       _os_log_impl(&dword_25E3EF000, v31, OS_LOG_TYPE_DEFAULT, "Operator bundle set PCAllowMinimumIntervalFallback to %@", buf, 0xCu);
     }
 
@@ -887,9 +898,9 @@ uint64_t __45__PCConnectionManager_carrierBundleDidChange__block_invoke(uint64_t
     if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v44 = @"PCForceDemoMaxHBI";
-      v45 = 2048;
-      v46 = v34;
+      v43 = @"PCForceDemoMaxHBI";
+      v44 = 2048;
+      v45 = v34;
       _os_log_impl(&dword_25E3EF000, v35, OS_LOG_TYPE_DEFAULT, "%@ set. Setting maximum keep alive interval to %g seconds for demo mode.", buf, 0x16u);
     }
 
@@ -904,9 +915,9 @@ uint64_t __45__PCConnectionManager_carrierBundleDidChange__block_invoke(uint64_t
     if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v44 = @"PCForceMinHBI";
-      v45 = 2048;
-      v46 = v37;
+      v43 = @"PCForceMinHBI";
+      v44 = 2048;
+      v45 = v37;
       _os_log_impl(&dword_25E3EF000, v38, OS_LOG_TYPE_DEFAULT, "%@ set. Setting minimum keep alive interval to %g seconds for demo mode.", buf, 0x16u);
     }
 
@@ -944,12 +955,11 @@ LABEL_60:
   }
 
   objc_sync_exit(selfCopy);
-  v41 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_registerForDeviceConditionsNotifications
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   if (self->_duetContextRegistration)
   {
     logObject = self->_logObject;
@@ -958,8 +968,8 @@ LABEL_60:
       duetContextRegistration = self->_duetContextRegistration;
       *buf = 138412547;
       selfCopy = self;
-      v26 = 2113;
-      v27 = duetContextRegistration;
+      v25 = 2113;
+      v26 = duetContextRegistration;
       _os_log_impl(&dword_25E3EF000, logObject, OS_LOG_TYPE_DEFAULT, "%@ is already registered for contextual change notifications, {Registration: %{private}@}", buf, 0x16u);
     }
   }
@@ -1006,56 +1016,51 @@ LABEL_60:
   }
 
   v19 = [v7 predicateForChangeAtKeyPaths:array];
-  v23[0] = MEMORY[0x277D85DD0];
-  v23[1] = 3221225472;
-  v23[2] = __64__PCConnectionManager__registerForDeviceConditionsNotifications__block_invoke;
-  v23[3] = &unk_279A19F08;
-  v23[4] = self;
-  v20 = [v8 localNonWakingRegistrationWithIdentifier:@"com.apple.pc.automatictimer.goodconditions" contextualPredicate:v19 callback:v23];
+  v22[0] = MEMORY[0x277D85DD0];
+  v22[1] = 3221225472;
+  v22[2] = __64__PCConnectionManager__registerForDeviceConditionsNotifications__block_invoke;
+  v22[3] = &unk_279A19F08;
+  v22[4] = self;
+  v20 = [v8 localNonWakingRegistrationWithIdentifier:@"com.apple.pc.automatictimer.goodconditions" contextualPredicate:v19 callback:v22];
   v21 = self->_duetContextRegistration;
   self->_duetContextRegistration = v20;
 
   [userContext registerCallback:self->_duetContextRegistration];
   [(PCConnectionManager *)self _handleDeviceConditionChangeCallback];
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_deregisterForDeviceConditionsNotifications
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if (self->_duetContextRegistration)
   {
     logObject = self->_logObject;
     if (os_log_type_enabled(logObject, OS_LOG_TYPE_DEFAULT))
     {
       duetContextRegistration = self->_duetContextRegistration;
-      v10 = 138412547;
+      v8 = 138412547;
       selfCopy = self;
-      v12 = 2113;
-      v13 = duetContextRegistration;
-      _os_log_impl(&dword_25E3EF000, logObject, OS_LOG_TYPE_DEFAULT, "%@ request to deregister contextual change notifications {Registration: %{private}@}", &v10, 0x16u);
+      v10 = 2113;
+      v11 = duetContextRegistration;
+      _os_log_impl(&dword_25E3EF000, logObject, OS_LOG_TYPE_DEFAULT, "%@ request to deregister contextual change notifications {Registration: %{private}@}", &v8, 0x16u);
     }
 
     v5 = CUTWeakLinkClass();
     CUTWeakLinkClass();
     userContext = [v5 userContext];
-    v7 = self->_duetContextRegistration;
     if (objc_opt_isKindOfClass())
     {
       [userContext deregisterCallback:self->_duetContextRegistration];
     }
 
-    v8 = self->_duetContextRegistration;
+    v7 = self->_duetContextRegistration;
     self->_duetContextRegistration = 0;
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleDeviceConditionChangeCallback
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   v3 = CUTWeakLinkClass();
   v4 = CUTWeakLinkClass();
   userContext = [v3 userContext];
@@ -1095,23 +1100,21 @@ LABEL_60:
       v21 = [userContext objectForKeyedSubscript:keyPathForWiFiConnectionQuality2];
       keyPathForPluginStatus2 = [v4 keyPathForPluginStatus];
       v23 = [userContext objectForKeyedSubscript:keyPathForPluginStatus2];
-      v25 = 138413314;
+      v24 = 138413314;
       selfCopy = self;
-      v27 = 2114;
-      v28 = v16;
-      v29 = 2114;
-      v30 = v19;
-      v31 = 2114;
-      v32 = v21;
-      v33 = 2114;
-      v34 = v23;
-      _os_log_impl(&dword_25E3EF000, v17, OS_LOG_TYPE_DEFAULT, "%@ Query duet context for device condition, {GoodCondition:%{public}@, thermalPressureLevel:%{public}@, wifiConnectionQuality:%{public}@, pluggedIn:%{public}@}", &v25, 0x34u);
+      v26 = 2114;
+      v27 = v16;
+      v28 = 2114;
+      v29 = v19;
+      v30 = 2114;
+      v31 = v21;
+      v32 = 2114;
+      v33 = v23;
+      _os_log_impl(&dword_25E3EF000, v17, OS_LOG_TYPE_DEFAULT, "%@ Query duet context for device condition, {GoodCondition:%{public}@, thermalPressureLevel:%{public}@, wifiConnectionQuality:%{public}@, pluggedIn:%{public}@}", &v24, 0x34u);
     }
 
     [(PCConnectionManager *)self _processDeviceConditionChanges];
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_processDeviceConditionChanges
@@ -1156,7 +1159,7 @@ LABEL_60:
 
 - (id)_growthAlgorithmOnInterface:(int64_t)interface
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   if (!interface)
   {
     v5 = self->_wifiGrowthAlgorithm[self->_currentAddressFamily];
@@ -1174,16 +1177,15 @@ LABEL_5:
   logObject = self->_logObject;
   if (os_log_type_enabled(logObject, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 138412546;
+    v9 = 138412546;
     selfCopy = self;
-    v12 = 2048;
+    v11 = 2048;
     interfaceCopy = interface;
-    _os_log_impl(&dword_25E3EF000, logObject, OS_LOG_TYPE_DEFAULT, "%@ Asked to get growth algorithm with invalid interface %ld", &v10, 0x16u);
+    _os_log_impl(&dword_25E3EF000, logObject, OS_LOG_TYPE_DEFAULT, "%@ Asked to get growth algorithm with invalid interface %ld", &v9, 0x16u);
   }
 
   v6 = 0;
 LABEL_9:
-  v8 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -1206,11 +1208,403 @@ LABEL_9:
   objc_sync_exit(obj);
 }
 
+- (void)resumeManagerWithAction:(int)action forceGrow:(BOOL)grow
+{
+  growCopy = grow;
+  v5 = *&action;
+  v74 = *MEMORY[0x277D85DE8];
+  selfCopy = self;
+  objc_sync_enter(selfCopy);
+  [(PCConnectionManager *)selfCopy _clearTimers];
+  [(PCConnectionManager *)selfCopy _validateActionForCurrentStyle:v5];
+  *&selfCopy->_hasStarted = 257;
+  selfCopy->_lastResumeTime = CFAbsoluteTimeGetCurrent();
+  selfCopy->_lastElapsedInterval = 0.0;
+  currentStyle = [(PCConnectionManager *)selfCopy currentStyle];
+  [(PCConnectionManager *)selfCopy _resolveStateWithAction:v5];
+  if (!selfCopy->_isInReconnectMode)
+  {
+    if (currentStyle)
+    {
+      if (currentStyle != 1)
+      {
+        if (currentStyle != 2)
+        {
+          goto LABEL_63;
+        }
+
+        v10 = selfCopy->_logObject;
+        if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+        {
+          v12 = [(PCConnectionManager *)selfCopy _stringForAction:v5];
+          *buf = 138412290;
+          v65 = v12;
+          _os_log_impl(&dword_25E3EF000, v10, OS_LOG_TYPE_DEFAULT, "Resuming manual keep alive timer in normal mode with action %@", buf, 0xCu);
+        }
+
+        goto LABEL_16;
+      }
+
+      v16 = selfCopy->_logObject;
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+      {
+        v17 = [(PCConnectionManager *)selfCopy _stringForAction:v5];
+        *buf = 138412290;
+        v65 = v17;
+        _os_log_impl(&dword_25E3EF000, v16, OS_LOG_TYPE_DEFAULT, "Resuming poll keep alive timer in normal mode with action %@", buf, 0xCu);
+      }
+
+      [(PCConnectionManager *)selfCopy _setupTimerForPollForAdjustment:0];
+      goto LABEL_63;
+    }
+
+    v18 = selfCopy->_logObject;
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+    {
+      v19 = [(PCConnectionManager *)selfCopy _stringForAction:v5];
+      *buf = 138412290;
+      v65 = v19;
+      _os_log_impl(&dword_25E3EF000, v18, OS_LOG_TYPE_DEFAULT, "Resuming push keep alive timer in normal mode with action %@", buf, 0xCu);
+    }
+
+    onTimeKeepAliveTime = selfCopy->_onTimeKeepAliveTime;
+    if (selfCopy->_keepAliveGracePeriod <= 2.22044605e-16)
+    {
+      v23 = onTimeKeepAliveTime + PCScheduledWakeRTCPrecision(v20, v21) * -2.0;
+      onTimeKeepAliveTime = selfCopy->_onTimeKeepAliveTime;
+    }
+
+    else
+    {
+      v23 = onTimeKeepAliveTime + -5.0;
+    }
+
+    v24 = onTimeKeepAliveTime == 0.0 || selfCopy->_lastStopTime < v23;
+    v25 = selfCopy->_logObject;
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+    {
+      v61 = v24;
+      if (v24)
+      {
+        v26 = "early";
+      }
+
+      else
+      {
+        v26 = "on time";
+      }
+
+      v27 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceReferenceDate:selfCopy->_lastStopTime];
+      PCStringFromDate(v27);
+      v28 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
+      v29 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceReferenceDate:selfCopy->_onTimeKeepAliveTime];
+      PCStringFromDate(v29);
+      *&v30 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
+      v31 = v30;
+      v32 = @"NO";
+      *buf = 136315906;
+      v65 = v26;
+      v66 = 2112;
+      if (onTimeKeepAliveTime == 0.0)
+      {
+        v32 = @"YES";
+      }
+
+      v67 = v28;
+      v68 = 2112;
+      v69 = *&v30;
+      v70 = 2112;
+      v71 = v32;
+      _os_log_impl(&dword_25E3EF000, v25, OS_LOG_TYPE_DEFAULT, "Last timer interruption was %s: [%@]. Expected fire time was [%@]. {lastKeepAliveWasUntracked: %@}", buf, 0x2Au);
+
+      v24 = v61;
+    }
+
+    _currentGrowthAlgorithm = [(PCConnectionManager *)selfCopy _currentGrowthAlgorithm];
+    v34 = _currentGrowthAlgorithm;
+    if (v5)
+    {
+LABEL_59:
+      selfCopy->_lastProcessedAction = v5;
+      [(PCGrowthAlgorithm *)v34 processNextAction:v5];
+      [(PCConnectionManager *)selfCopy currentKeepAliveInterval];
+      [(PCConnectionManager *)selfCopy _setupTimerForPushWithKeepAliveInterval:?];
+      if ((v5 - 5) >= 2 && v34 == selfCopy->_wwanGrowthAlgorithm[selfCopy->_currentAddressFamily])
+      {
+        [(PCConnectionManager *)selfCopy _saveWWANKeepAliveInterval];
+      }
+
+      goto LABEL_63;
+    }
+
+    v35 = !growCopy;
+    if (onTimeKeepAliveTime != 0.0)
+    {
+      v35 = 0;
+    }
+
+    if (v35 || !v24)
+    {
+      if (!v35)
+      {
+LABEL_58:
+        [(PCGrowthAlgorithm *)v34 currentKeepAliveInterval];
+        [(PCGrowthAlgorithm *)v34 setLastSuccessfulKeepAliveInterval:?];
+        v5 = 0;
+        goto LABEL_59;
+      }
+    }
+
+    else
+    {
+      v36 = selfCopy->_onTimeKeepAliveTime;
+      [(PCGrowthAlgorithm *)_currentGrowthAlgorithm currentKeepAliveInterval];
+      v38 = v36 - v37;
+      lastStopTime = selfCopy->_lastStopTime;
+      lastScheduledGrowthAlgorithm = selfCopy->_lastScheduledGrowthAlgorithm;
+      logObject = selfCopy->_logObject;
+      if (os_log_type_enabled(logObject, OS_LOG_TYPE_DEFAULT))
+      {
+        v42 = selfCopy->_onTimeKeepAliveTime;
+        *&v43 = COERCE_DOUBLE(@"NO");
+        v44 = selfCopy->_lastStopTime;
+        if (lastScheduledGrowthAlgorithm == v34)
+        {
+          *&v43 = COERCE_DOUBLE(@"YES");
+        }
+
+        *buf = 138413314;
+        v65 = selfCopy;
+        v66 = 2112;
+        v67 = *&v43;
+        v68 = 2048;
+        v69 = v38;
+        v70 = 2048;
+        v71 = *&v42;
+        v72 = 2048;
+        v73 = v44;
+        _os_log_impl(&dword_25E3EF000, logObject, OS_LOG_TYPE_DEFAULT, "%@: lastKeepAliveWasEarly - Examining sameAlgorithm %@ timeKeepAliveWasScheduled %f, onTimeKeepAliveTime: %f, lastStopTime %f", buf, 0x34u);
+      }
+
+      if (lastScheduledGrowthAlgorithm == v34)
+      {
+        v45 = lastStopTime - v38;
+        if ([(PCGrowthAlgorithm *)v34 useIntervalIfImprovement:v45])
+        {
+          v46 = selfCopy->_logObject;
+          if (os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT))
+          {
+            *buf = 138412546;
+            v65 = selfCopy;
+            v66 = 2048;
+            v67 = v45;
+            _os_log_impl(&dword_25E3EF000, v46, OS_LOG_TYPE_DEFAULT, "%@: This grow action is early but we're past the interval our previous growth was based on. Regrowing based on this interval %f.", buf, 0x16u);
+          }
+
+          goto LABEL_58;
+        }
+      }
+
+      v47 = selfCopy->_logObject;
+      if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
+      {
+        [(PCConnectionManager *)selfCopy _stringForAction:0];
+        *&v48 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
+        v49 = v48;
+        *&v50 = COERCE_DOUBLE("NO");
+        *buf = 138412802;
+        v65 = selfCopy;
+        if (growCopy)
+        {
+          *&v50 = COERCE_DOUBLE("YES");
+        }
+
+        v66 = 2080;
+        v67 = *&v50;
+        v68 = 2112;
+        v69 = *&v48;
+        _os_log_impl(&dword_25E3EF000, v47, OS_LOG_TYPE_DEFAULT, "%@ Last keep alive was early {forceGrow: %s, action: %@}", buf, 0x20u);
+      }
+
+      if (growCopy)
+      {
+        goto LABEL_58;
+      }
+    }
+
+    v5 = 2;
+    goto LABEL_59;
+  }
+
+  persistentInterfaceManager = [(PCConnectionManager *)selfCopy persistentInterfaceManager];
+  areAllNetworkInterfacesDisabled = [persistentInterfaceManager areAllNetworkInterfacesDisabled];
+
+  if (areAllNetworkInterfacesDisabled)
+  {
+    v10 = selfCopy->_logObject;
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    {
+      v11 = [(PCConnectionManager *)selfCopy _stringForAction:v5];
+      *buf = 138412290;
+      v65 = v11;
+      _os_log_impl(&dword_25E3EF000, v10, OS_LOG_TYPE_DEFAULT, "Choosing not to resume keep alive in reconnect mode since all interfaces are disabled. Action %@", buf, 0xCu);
+    }
+
+LABEL_16:
+
+    goto LABEL_63;
+  }
+
+  if (!selfCopy->_powerOptimizationsForExpensiveNetworkingDisabled && +[PCInterfaceMonitor isNetworkingPowerExpensiveToUse])
+  {
+    v10 = selfCopy->_logObject;
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    {
+      v13 = [(PCConnectionManager *)selfCopy _stringForAction:v5];
+      *buf = 138412290;
+      v65 = v13;
+      _os_log_impl(&dword_25E3EF000, v10, OS_LOG_TYPE_DEFAULT, "Choosing not to resume keep alive in reconnect mode since interface is networking power expensive to use. Action %@", buf, 0xCu);
+    }
+
+    goto LABEL_16;
+  }
+
+  v14 = selfCopy->_logObject;
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+  {
+    v15 = [(PCConnectionManager *)selfCopy _stringForAction:v5];
+    *buf = 138412290;
+    v65 = v15;
+    _os_log_impl(&dword_25E3EF000, v14, OS_LOG_TYPE_DEFAULT, "Resuming keep alive in reconnect mode with action %@", buf, 0xCu);
+  }
+
+  [(PCConnectionManager *)selfCopy _setupKeepAliveForReconnect];
+  selfCopy->_lastReconnectTime = CFAbsoluteTimeGetCurrent();
+LABEL_63:
+  [(PCConnectionManager *)selfCopy _adjustInterfaceAssertions];
+  if (!currentStyle)
+  {
+    v51 = selfCopy->_logObject;
+    if (os_log_type_enabled(v51, OS_LOG_TYPE_INFO))
+    {
+      serviceIdentifier = selfCopy->_serviceIdentifier;
+      date = [MEMORY[0x277CBEAA8] date];
+      PCStringFromDate(date);
+      v54 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
+      [(PCConnectionManager *)selfCopy currentKeepAliveInterval];
+      *buf = 138412802;
+      v65 = serviceIdentifier;
+      v66 = 2112;
+      v67 = v54;
+      v68 = 1024;
+      LODWORD(v69) = v55;
+      _os_log_impl(&dword_25E3EF000, v51, OS_LOG_TYPE_INFO, "logKeepAlive {identifier: %@, currentDate: %@, keepAliveInterval: %i}", buf, 0x1Cu);
+    }
+
+    if (resumeManagerWithAction_forceGrow___pred_PLLogRegisteredEventPowerLog != -1)
+    {
+      [PCConnectionManager resumeManagerWithAction:forceGrow:];
+    }
+
+    v62[0] = @"KeepAliveInterval";
+    v56 = MEMORY[0x277CCABB0];
+    [(PCConnectionManager *)selfCopy currentKeepAliveInterval];
+    v57 = [v56 numberWithDouble:?];
+    v63[0] = v57;
+    v62[1] = @"ServiceIdentifier";
+    v58 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@", selfCopy->_serviceIdentifier];
+    v63[1] = v58;
+    v62[2] = @"IsInReconnectMode";
+    v59 = [MEMORY[0x277CCABB0] numberWithBool:selfCopy->_isInReconnectMode];
+    v63[2] = v59;
+    v60 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v63 forKeys:v62 count:3];
+
+    if (resumeManagerWithAction_forceGrow___PLLogRegisteredEvent)
+    {
+      resumeManagerWithAction_forceGrow___PLLogRegisteredEvent(3, @"PC APSD Resume PCConnectionManager", v60, 0);
+    }
+  }
+
+  objc_sync_exit(selfCopy);
+}
+
 uint64_t (*__57__PCConnectionManager_resumeManagerWithAction_forceGrow___block_invoke())(void, void, void, void)
 {
   result = CUTWeakLinkSymbol();
   resumeManagerWithAction_forceGrow___PLLogRegisteredEvent = result;
   return result;
+}
+
+- (void)_validateActionForCurrentStyle:(int)style
+{
+  v3 = *&style;
+  if (style < 7)
+  {
+    currentStyle = [(PCConnectionManager *)self currentStyle];
+    if ((currentStyle - 1) >= 2)
+    {
+      if (currentStyle || v3 != 4)
+      {
+        return;
+      }
+
+      v14 = MEMORY[0x277CCACA8];
+      v15 = [(PCConnectionManager *)self _stringForAction:4];
+      v5 = [v14 stringWithFormat:@"Action %@ not appropriate for push style.", v15];
+    }
+
+    else
+    {
+      if (v3 > 3)
+      {
+        return;
+      }
+
+      v7 = MEMORY[0x277CCACA8];
+      v8 = [(PCConnectionManager *)self _stringForAction:v3];
+      v9 = [(PCConnectionManager *)self _stringForStyle:[(PCConnectionManager *)self currentStyle]];
+      v10 = [(PCConnectionManager *)self _stringForStyle:self->_prefsStyle];
+      if (self->_forceManualWhenRoaming)
+      {
+        v11 = @"YES";
+      }
+
+      else
+      {
+        v11 = @"NO";
+      }
+
+      if (self->_onlyAllowedStyleSet)
+      {
+        v12 = @"YES";
+      }
+
+      else
+      {
+        v12 = @"NO";
+      }
+
+      v13 = [(PCConnectionManager *)self _stringForStyle:self->_onlyAllowedStyle];
+      v5 = [v7 stringWithFormat:@"Action %@ not appropriate for %@. PrefsStyle=%@. _forceManualWhenRoaming = %@  onlyAllowedStyleSet=%@ onlyAllowedStyle=%@", v8, v9, v10, v11, v12, v13];
+    }
+  }
+
+  else
+  {
+    v5 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid action type: %i", *&style];
+  }
+
+  if (v5)
+  {
+    logObject = self->_logObject;
+    if (os_log_type_enabled(logObject, OS_LOG_TYPE_ERROR))
+    {
+      [(PCConnectionManager *)v5 _validateActionForCurrentStyle:?];
+    }
+
+    v17 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:v5 userInfo:0];
+    objc_exception_throw(v17);
+  }
 }
 
 - (void)_resolveStateWithAction:(int)action
@@ -1239,7 +1633,7 @@ uint64_t (*__57__PCConnectionManager_resumeManagerWithAction_forceGrow___block_i
 
 - (void)resetKeepAliveStateMachineIfNecessary
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   if (selfCopy->_interfaceIdentifier)
@@ -1264,9 +1658,9 @@ uint64_t (*__57__PCConnectionManager_resumeManagerWithAction_forceGrow___block_i
       if (os_log_type_enabled(logObject, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412546;
-        v20 = v14;
-        v21 = 2112;
-        v22 = v7;
+        v19 = v14;
+        v20 = 2112;
+        v21 = v7;
         _os_log_impl(&dword_25E3EF000, logObject, OS_LOG_TYPE_DEFAULT, "Re-creating state machine %@ with info %@", buf, 0x16u);
       }
 
@@ -1283,8 +1677,18 @@ uint64_t (*__57__PCConnectionManager_resumeManagerWithAction_forceGrow___block_i
   }
 
   objc_sync_exit(selfCopy);
+}
 
-  v18 = *MEMORY[0x277D85DE8];
+- (void)saveKeepAliveInterval:(double)interval isInitialGrowth:(BOOL)growth
+{
+  growthCopy = growth;
+  v7 = objc_alloc(MEMORY[0x277CBEAC0]);
+  v8 = [MEMORY[0x277CCABB0] numberWithDouble:interval];
+  v9 = [MEMORY[0x277CCABB0] numberWithBool:growthCopy];
+  date = [MEMORY[0x277CBEAA8] date];
+  v11 = [v7 initWithObjectsAndKeys:{v8, @"keepAliveInterval", v9, @"inInitialGrowth", date, @"cacheDate", 0}];
+
+  [(PCConnectionManager *)self _saveWWANKeepAliveIntervalWithInfo:v11 resetStateMachine:1];
 }
 
 - (double)minimumKeepAliveInterval
@@ -1301,15 +1705,15 @@ uint64_t (*__57__PCConnectionManager_resumeManagerWithAction_forceGrow___block_i
 
 - (void)setMinimumKeepAliveInterval:(double)interval
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   logObject = selfCopy->_logObject;
   if (os_log_type_enabled(logObject, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 134217984;
+    v9 = 134217984;
     intervalCopy = interval;
-    _os_log_impl(&dword_25E3EF000, logObject, OS_LOG_TYPE_DEFAULT, "Setting minimum keep alive interval to %g", &v10, 0xCu);
+    _os_log_impl(&dword_25E3EF000, logObject, OS_LOG_TYPE_DEFAULT, "Setting minimum keep alive interval to %g", &v9, 0xCu);
   }
 
   v6 = 0;
@@ -1325,33 +1729,30 @@ uint64_t (*__57__PCConnectionManager_resumeManagerWithAction_forceGrow___block_i
 
   while ((v8 & 1) != 0);
   objc_sync_exit(selfCopy);
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_setMinimumKeepAliveInterval:(double)interval onInterface:(int64_t)interface
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   v7 = selfCopy->_logObject;
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = [(PCConnectionManager *)selfCopy _growthAlgorithmOnInterface:interface];
-    v11 = 138412802;
-    v12 = selfCopy;
-    v13 = 2112;
-    v14 = v8;
-    v15 = 2048;
+    v10 = 138412802;
+    v11 = selfCopy;
+    v12 = 2112;
+    v13 = v8;
+    v14 = 2048;
     intervalCopy = interval;
-    _os_log_impl(&dword_25E3EF000, v7, OS_LOG_TYPE_DEFAULT, "%@ Setting minimum keep alive interval for %@ to %g", &v11, 0x20u);
+    _os_log_impl(&dword_25E3EF000, v7, OS_LOG_TYPE_DEFAULT, "%@ Setting minimum keep alive interval for %@ to %g", &v10, 0x20u);
   }
 
   v9 = [(PCConnectionManager *)selfCopy _growthAlgorithmOnInterface:interface];
   [v9 setMinimumKeepAliveInterval:interval];
 
   objc_sync_exit(selfCopy);
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (double)maximumKeepAliveInterval
@@ -1368,15 +1769,15 @@ uint64_t (*__57__PCConnectionManager_resumeManagerWithAction_forceGrow___block_i
 
 - (void)setMaximumKeepAliveInterval:(double)interval
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   logObject = selfCopy->_logObject;
   if (os_log_type_enabled(logObject, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 134217984;
+    v9 = 134217984;
     intervalCopy = interval;
-    _os_log_impl(&dword_25E3EF000, logObject, OS_LOG_TYPE_DEFAULT, "Setting maximum keep alive interval to %g", &v10, 0xCu);
+    _os_log_impl(&dword_25E3EF000, logObject, OS_LOG_TYPE_DEFAULT, "Setting maximum keep alive interval to %g", &v9, 0xCu);
   }
 
   v6 = 0;
@@ -1392,13 +1793,11 @@ uint64_t (*__57__PCConnectionManager_resumeManagerWithAction_forceGrow___block_i
 
   while ((v8 & 1) != 0);
   objc_sync_exit(selfCopy);
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_setMaximumKeepAliveInterval:(double)interval onInterface:(int64_t)interface
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   logObject = selfCopy->_logObject;
@@ -1407,13 +1806,13 @@ uint64_t (*__57__PCConnectionManager_resumeManagerWithAction_forceGrow___block_i
   {
     if (v8)
     {
-      v15 = 138412802;
-      v16 = selfCopy;
-      v17 = 2048;
+      v14 = 138412802;
+      v15 = selfCopy;
+      v16 = 2048;
       interfaceCopy2 = interface;
-      v19 = 2048;
+      v18 = 2048;
       intervalCopy = interval;
-      _os_log_impl(&dword_25E3EF000, logObject, OS_LOG_TYPE_DEFAULT, "%@ Setting maximum keep alive interval for %lu to %g", &v15, 0x20u);
+      _os_log_impl(&dword_25E3EF000, logObject, OS_LOG_TYPE_DEFAULT, "%@ Setting maximum keep alive interval for %lu to %g", &v14, 0x20u);
     }
 
     v9 = 0;
@@ -1438,16 +1837,14 @@ uint64_t (*__57__PCConnectionManager_resumeManagerWithAction_forceGrow___block_i
 
   else if (v8)
   {
-    v15 = 138412546;
-    v16 = selfCopy;
-    v17 = 2048;
+    v14 = 138412546;
+    v15 = selfCopy;
+    v16 = 2048;
     interfaceCopy2 = interface;
-    _os_log_impl(&dword_25E3EF000, logObject, OS_LOG_TYPE_DEFAULT, "%@ Asked to set maximum keep alive interval on invalid interface %ld", &v15, 0x16u);
+    _os_log_impl(&dword_25E3EF000, logObject, OS_LOG_TYPE_DEFAULT, "%@ Asked to set maximum keep alive interval on invalid interface %ld", &v14, 0x16u);
   }
 
   objc_sync_exit(selfCopy);
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (double)serverStatsMaxKeepAliveInterval
@@ -1499,104 +1896,101 @@ uint64_t (*__57__PCConnectionManager_resumeManagerWithAction_forceGrow___block_i
 
 - (void)setServerStatsMaxKeepAliveInterval:(double)interval
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   v5 = selfCopy->_logObject;
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = [(PCConnectionManager *)selfCopy _growthAlgorithmOnInterface:1];
-    v9 = 138412802;
-    v10 = selfCopy;
-    v11 = 2112;
-    v12 = v6;
-    v13 = 2048;
+    v8 = 138412802;
+    v9 = selfCopy;
+    v10 = 2112;
+    v11 = v6;
+    v12 = 2048;
     intervalCopy = interval;
-    _os_log_impl(&dword_25E3EF000, v5, OS_LOG_TYPE_DEFAULT, "%@ Setting server stats max keep alive interval for %@ to %g", &v9, 0x20u);
+    _os_log_impl(&dword_25E3EF000, v5, OS_LOG_TYPE_DEFAULT, "%@ Setting server stats max keep alive interval for %@ to %g", &v8, 0x20u);
   }
 
   v7 = [(PCConnectionManager *)selfCopy _growthAlgorithmOnInterface:1];
   [v7 setServerStatsMaxKeepAliveInterval:interval];
 
   objc_sync_exit(selfCopy);
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setServerStatsMinKeepAliveInterval:(double)interval
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   v5 = selfCopy->_logObject;
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = [(PCConnectionManager *)selfCopy _growthAlgorithmOnInterface:1];
-    v9 = 138412802;
-    v10 = selfCopy;
-    v11 = 2112;
-    v12 = v6;
-    v13 = 2048;
+    v8 = 138412802;
+    v9 = selfCopy;
+    v10 = 2112;
+    v11 = v6;
+    v12 = 2048;
     intervalCopy = interval;
-    _os_log_impl(&dword_25E3EF000, v5, OS_LOG_TYPE_DEFAULT, "%@ Setting server stats min keep alive interval for %@ to %g", &v9, 0x20u);
+    _os_log_impl(&dword_25E3EF000, v5, OS_LOG_TYPE_DEFAULT, "%@ Setting server stats min keep alive interval for %@ to %g", &v8, 0x20u);
   }
 
   v7 = [(PCConnectionManager *)selfCopy _growthAlgorithmOnInterface:1];
   [v7 setServerStatsMinKeepAliveInterval:interval];
 
   objc_sync_exit(selfCopy);
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setServerStatsExpectedKeepAliveInterval:(double)interval
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   v5 = selfCopy->_logObject;
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = [(PCConnectionManager *)selfCopy _growthAlgorithmOnInterface:1];
-    v9 = 138412802;
-    v10 = selfCopy;
-    v11 = 2112;
-    v12 = v6;
-    v13 = 2048;
+    v8 = 138412802;
+    v9 = selfCopy;
+    v10 = 2112;
+    v11 = v6;
+    v12 = 2048;
     intervalCopy = interval;
-    _os_log_impl(&dword_25E3EF000, v5, OS_LOG_TYPE_DEFAULT, "%@ Setting server stats expected keep alive interval for %@ to %g", &v9, 0x20u);
+    _os_log_impl(&dword_25E3EF000, v5, OS_LOG_TYPE_DEFAULT, "%@ Setting server stats expected keep alive interval for %@ to %g", &v8, 0x20u);
   }
 
   v7 = [(PCConnectionManager *)selfCopy _growthAlgorithmOnInterface:1];
   [v7 setServerStatsExpectedKeepAliveInterval:interval];
 
   objc_sync_exit(selfCopy);
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setKeepAliveGracePeriod:(double)period
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   selfCopy = self;
-  objc_sync_enter(selfCopy);
+  v5 = objc_sync_enter(selfCopy);
   if (period > 2.22044605e-16)
   {
-    v5 = PCScheduledWakeRTCPrecision() * 2.0 + 5.0;
-    if (period + 5.0 >= v5)
+    v7 = PCScheduledWakeRTCPrecision(v5, v6) * 2.0 + 5.0;
+    if (period + 5.0 >= v7)
     {
       period = period + 5.0;
     }
 
     else
     {
-      period = v5;
+      period = v7;
     }
   }
 
   logObject = selfCopy->_logObject;
   if (os_log_type_enabled(logObject, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 134217984;
+    v10 = 134217984;
     periodCopy = period;
-    _os_log_impl(&dword_25E3EF000, logObject, OS_LOG_TYPE_DEFAULT, "Setting keep alive grace period to %g", &v9, 0xCu);
+    _os_log_impl(&dword_25E3EF000, logObject, OS_LOG_TYPE_DEFAULT, "Setting keep alive grace period to %g", &v10, 0xCu);
   }
 
   selfCopy->_keepAliveGracePeriod = period;
@@ -1604,12 +1998,43 @@ uint64_t (*__57__PCConnectionManager_resumeManagerWithAction_forceGrow___block_i
   [_currentGrowthAlgorithm setIsServerOriginatedKeepAlive:period > 2.22044605e-16];
 
   objc_sync_exit(selfCopy);
-  v8 = *MEMORY[0x277D85DE8];
+}
+
+- (void)setUsingServerStatsAggressively:(BOOL)aggressively
+{
+  aggressivelyCopy = aggressively;
+  v16 = *MEMORY[0x277D85DE8];
+  selfCopy = self;
+  objc_sync_enter(selfCopy);
+  v5 = selfCopy->_logObject;
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    v6 = [(PCConnectionManager *)selfCopy _growthAlgorithmOnInterface:1];
+    v7 = v6;
+    v8 = @"NO";
+    v10 = 138412802;
+    v11 = selfCopy;
+    v12 = 2112;
+    if (aggressivelyCopy)
+    {
+      v8 = @"YES";
+    }
+
+    v13 = v6;
+    v14 = 2112;
+    v15 = v8;
+    _os_log_impl(&dword_25E3EF000, v5, OS_LOG_TYPE_DEFAULT, "%@ Setting usingServerStatsAggressively for %@ to %@", &v10, 0x20u);
+  }
+
+  v9 = [(PCConnectionManager *)selfCopy _growthAlgorithmOnInterface:1];
+  [v9 setUsingServerStatsAggressively:aggressivelyCopy];
+
+  objc_sync_exit(selfCopy);
 }
 
 - (void)setKeepAliveOverrideOnInterface:(int64_t)interface interval:(double)interval timeout:(double)timeout
 {
-  v21[1] = *MEMORY[0x277D85DE8];
+  v20[1] = *MEMORY[0x277D85DE8];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   if (selfCopy->_interfaceIdentifier == interface)
@@ -1618,8 +2043,8 @@ uint64_t (*__57__PCConnectionManager_resumeManagerWithAction_forceGrow___block_i
     [v9 minimumKeepAliveInterval];
     v11 = v10;
 
-    v20 = 0;
-    v21[0] = 0;
+    v19 = 0;
+    v20[0] = 0;
     v12 = 112;
     if (interface == 1)
     {
@@ -1632,9 +2057,9 @@ uint64_t (*__57__PCConnectionManager_resumeManagerWithAction_forceGrow___block_i
       v13 = 120;
     }
 
-    v20 = *(&selfCopy->super.isa + v12);
-    v21[0] = *(&selfCopy->super.isa + v13);
-    v14 = &v20;
+    v19 = *(&selfCopy->super.isa + v12);
+    v20[0] = *(&selfCopy->super.isa + v13);
+    v14 = &v19;
     v15 = 1;
     do
     {
@@ -1646,7 +2071,7 @@ uint64_t (*__57__PCConnectionManager_resumeManagerWithAction_forceGrow___block_i
       [v17 setMinimumIntervalFallbackStateTimeout:timeout];
       [v17 setMinimumIntervalFallbackEnabled:1];
       v15 = 0;
-      v14 = v21;
+      v14 = v20;
     }
 
     while ((v16 & 1) != 0);
@@ -1659,27 +2084,23 @@ uint64_t (*__57__PCConnectionManager_resumeManagerWithAction_forceGrow___block_i
   }
 
   objc_sync_exit(selfCopy);
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setNonCellularEarlyFireConstantInterval:(double)interval
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   logObject = selfCopy->_logObject;
   if (os_log_type_enabled(logObject, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 134217984;
+    v6 = 134217984;
     intervalCopy = interval;
-    _os_log_impl(&dword_25E3EF000, logObject, OS_LOG_TYPE_DEFAULT, "Setting NonCellular early fire constant interval to %g", &v7, 0xCu);
+    _os_log_impl(&dword_25E3EF000, logObject, OS_LOG_TYPE_DEFAULT, "Setting NonCellular early fire constant interval to %g", &v6, 0xCu);
   }
 
   selfCopy->_nonCellularEarlyFireConstantInterval = interval;
   objc_sync_exit(selfCopy);
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_isPushConnected
@@ -1691,7 +2112,7 @@ uint64_t (*__57__PCConnectionManager_resumeManagerWithAction_forceGrow___block_i
 
 - (double)pollingInterval
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   defaultPollingInterval = selfCopy->_defaultPollingInterval;
@@ -1772,7 +2193,7 @@ LABEL_13:
       {
         _isPushConnected = [(PCConnectionManager *)selfCopy _isPushConnected];
         v14 = @"NO";
-        v19 = 138413314;
+        v18 = 138413314;
         if (_isPushConnected)
         {
           v15 = @"YES";
@@ -1783,8 +2204,8 @@ LABEL_13:
           v15 = @"NO";
         }
 
-        v20 = v15;
-        v21 = 2112;
+        v19 = v15;
+        v20 = 2112;
         if (isInterfaceHistoricallyUsable)
         {
           v16 = @"YES";
@@ -1795,32 +2216,31 @@ LABEL_13:
           v16 = @"NO";
         }
 
-        v22 = v16;
-        v23 = 2112;
+        v21 = v16;
+        v22 = 2112;
         if (isBadLinkQuality)
         {
           v14 = @"YES";
         }
 
-        v24 = v14;
-        v25 = 2048;
-        v26 = defaultPollingInterval;
-        v27 = 2048;
-        v28 = v11;
-        _os_log_impl(&dword_25E3EF000, v12, OS_LOG_TYPE_DEFAULT, "Push is connected? %@  networkIsHistoricallyUsable? %@  isBadLQ? %@ -- choosing pollInterval = MAX(%g, %g)", &v19, 0x34u);
+        v23 = v14;
+        v24 = 2048;
+        v25 = defaultPollingInterval;
+        v26 = 2048;
+        v27 = v11;
+        _os_log_impl(&dword_25E3EF000, v12, OS_LOG_TYPE_DEFAULT, "Push is connected? %@  networkIsHistoricallyUsable? %@  isBadLQ? %@ -- choosing pollInterval = MAX(%g, %g)", &v18, 0x34u);
       }
     }
   }
 
   objc_sync_exit(selfCopy);
 
-  v17 = *MEMORY[0x277D85DE8];
   return pollingIntervalOverride;
 }
 
 - (void)setPollingIntervalOverride:(double)override
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   if (!selfCopy->_pollingIntervalOverrideSet || selfCopy->_pollingIntervalOverride != override)
@@ -1828,9 +2248,9 @@ LABEL_13:
     logObject = selfCopy->_logObject;
     if (os_log_type_enabled(logObject, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = 134217984;
+      v6 = 134217984;
       overrideCopy = override;
-      _os_log_impl(&dword_25E3EF000, logObject, OS_LOG_TYPE_DEFAULT, "Setting polling interval override to %g", &v7, 0xCu);
+      _os_log_impl(&dword_25E3EF000, logObject, OS_LOG_TYPE_DEFAULT, "Setting polling interval override to %g", &v6, 0xCu);
     }
 
     selfCopy->_pollingIntervalOverride = override;
@@ -1838,8 +2258,6 @@ LABEL_13:
   }
 
   objc_sync_exit(selfCopy);
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cancelPollingIntervalOverride
@@ -1863,7 +2281,7 @@ LABEL_13:
 
 - (BOOL)shouldClientScheduleReconnectDueToFailure
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   Current = CFAbsoluteTimeGetCurrent();
@@ -1887,8 +2305,8 @@ LABEL_8:
       logObject = selfCopy->_logObject;
       if (os_log_type_enabled(logObject, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v22) = 0;
-        _os_log_impl(&dword_25E3EF000, logObject, OS_LOG_TYPE_DEFAULT, "Advising client to enter reconnect mode in response to a connection failure since currently in reconnect mode", &v22, 2u);
+        LOWORD(v21) = 0;
+        _os_log_impl(&dword_25E3EF000, logObject, OS_LOG_TYPE_DEFAULT, "Advising client to enter reconnect mode in response to a connection failure since currently in reconnect mode", &v21, 2u);
       }
 
       LOBYTE(v6) = 1;
@@ -1933,11 +2351,11 @@ LABEL_8:
           v19 = "enter reconnect mode";
         }
 
-        v22 = 136315394;
-        v23 = v19;
-        v24 = 2048;
-        v25 = v15;
-        _os_log_impl(&dword_25E3EF000, v18, OS_LOG_TYPE_DEFAULT, "Advising client to %s in response to a connection failure after elapsed time from start %g seconds", &v22, 0x16u);
+        v21 = 136315394;
+        v22 = v19;
+        v23 = 2048;
+        v24 = v15;
+        _os_log_impl(&dword_25E3EF000, v18, OS_LOG_TYPE_DEFAULT, "Advising client to %s in response to a connection failure after elapsed time from start %g seconds", &v21, 0x16u);
       }
     }
   }
@@ -1949,9 +2367,9 @@ LABEL_8:
     {
       v7 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceReferenceDate:selfCopy->_lastReachableTime];
       v8 = PCStringFromDate(v7);
-      v22 = 138412290;
-      v23 = v8;
-      _os_log_impl(&dword_25E3EF000, v6, OS_LOG_TYPE_DEFAULT, "Advising client to not enter reconnect mode since the network just became reachable at %@", &v22, 0xCu);
+      v21 = 138412290;
+      v22 = v8;
+      _os_log_impl(&dword_25E3EF000, v6, OS_LOG_TYPE_DEFAULT, "Advising client to not enter reconnect mode since the network just became reachable at %@", &v21, 0xCu);
     }
 
     LOBYTE(v6) = 0;
@@ -1960,14 +2378,13 @@ LABEL_8:
 
   objc_sync_exit(selfCopy);
 
-  v20 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
 - (void)setEnableNonCellularConnections:(BOOL)connections
 {
   connectionsCopy = connections;
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   if (selfCopy->_enableNonCellularConnections != connectionsCopy)
@@ -1981,11 +2398,11 @@ LABEL_8:
         v6 = @"YES";
       }
 
-      v8 = 138412546;
-      v9 = selfCopy;
-      v10 = 2112;
-      v11 = v6;
-      _os_log_impl(&dword_25E3EF000, logObject, OS_LOG_TYPE_DEFAULT, "%@: enableNonCellularConnections changed to %@", &v8, 0x16u);
+      v7 = 138412546;
+      v8 = selfCopy;
+      v9 = 2112;
+      v10 = v6;
+      _os_log_impl(&dword_25E3EF000, logObject, OS_LOG_TYPE_DEFAULT, "%@: enableNonCellularConnections changed to %@", &v7, 0x16u);
     }
 
     selfCopy->_enableNonCellularConnections = connectionsCopy;
@@ -1993,8 +2410,6 @@ LABEL_8:
   }
 
   objc_sync_exit(selfCopy);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)disableEarlyFire
@@ -2092,7 +2507,7 @@ LABEL_8:
 
 - (void)_setupTimerForPushWithKeepAliveInterval:(double)interval
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   if (*&self->_intervalTimer != 0 || self->_delayTimer)
   {
     [PCConnectionManager _setupTimerForPushWithKeepAliveInterval:];
@@ -2112,9 +2527,9 @@ LABEL_8:
     logObject = self->_logObject;
     if (os_log_type_enabled(logObject, OS_LOG_TYPE_DEFAULT))
     {
-      v19 = 138412290;
+      v18 = 138412290;
       selfCopy2 = self;
-      _os_log_impl(&dword_25E3EF000, logObject, OS_LOG_TYPE_DEFAULT, "%@ - early fire has been manually disabled for this timer!", &v19, 0xCu);
+      _os_log_impl(&dword_25E3EF000, logObject, OS_LOG_TYPE_DEFAULT, "%@ - early fire has been manually disabled for this timer!", &v18, 0xCu);
     }
 
     [(PCPersistentTimer *)self->_intervalTimer setMinimumEarlyFireProportion:1.0];
@@ -2126,11 +2541,11 @@ LABEL_8:
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       nonCellularEarlyFireConstantInterval = self->_nonCellularEarlyFireConstantInterval;
-      v19 = 138412546;
+      v18 = 138412546;
       selfCopy2 = self;
-      v21 = 2048;
-      v22 = nonCellularEarlyFireConstantInterval;
-      _os_log_impl(&dword_25E3EF000, v10, OS_LOG_TYPE_DEFAULT, "%@ - setting early fire constant interval to %f!", &v19, 0x16u);
+      v20 = 2048;
+      v21 = nonCellularEarlyFireConstantInterval;
+      _os_log_impl(&dword_25E3EF000, v10, OS_LOG_TYPE_DEFAULT, "%@ - setting early fire constant interval to %f!", &v18, 0x16u);
     }
 
     [(PCPersistentTimer *)self->_intervalTimer setEarlyFireConstantInterval:self->_nonCellularEarlyFireConstantInterval];
@@ -2145,8 +2560,8 @@ LABEL_8:
       v14 = self->_logObject;
       if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v19) = 0;
-        _os_log_impl(&dword_25E3EF000, v14, OS_LOG_TYPE_DEFAULT, "Trying to push no persistent interface exists and the poll interval is 'manual', so disabling waking to conserve power", &v19, 2u);
+        LOWORD(v18) = 0;
+        _os_log_impl(&dword_25E3EF000, v14, OS_LOG_TYPE_DEFAULT, "Trying to push no persistent interface exists and the poll interval is 'manual', so disabling waking to conserve power", &v18, 2u);
       }
 
       [(PCPersistentTimer *)self->_intervalTimer setDisableSystemWaking:1];
@@ -2158,14 +2573,12 @@ LABEL_8:
   v16 = self->_intervalTimer;
   mainRunLoop = [MEMORY[0x277CBEB88] mainRunLoop];
   [(PCPersistentTimer *)v16 scheduleInRunLoop:mainRunLoop];
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_setupTimerForPollForAdjustment:(BOOL)adjustment
 {
   adjustmentCopy = adjustment;
-  v101 = *MEMORY[0x277D85DE8];
+  v100 = *MEMORY[0x277D85DE8];
   if (self->_intervalTimer || self->_reconnectWakeTimer || self->_delayTimer)
   {
     [PCConnectionManager _setupTimerForPollForAdjustment:];
@@ -2180,12 +2593,12 @@ LABEL_8:
     {
       *buf = 138412546;
       selfCopy9 = self;
-      v83 = 2050;
-      v84 = v6;
+      v82 = 2050;
+      v83 = v6;
       _os_log_impl(&dword_25E3EF000, logObject, OS_LOG_TYPE_DEFAULT, "%@ Unable to setup a poll timer with {pollingInterval: %{public}f}, start when on power", buf, 0x16u);
     }
 
-    goto LABEL_82;
+    return;
   }
 
   lastElapsedInterval = self->_lastElapsedInterval;
@@ -2201,12 +2614,12 @@ LABEL_8:
       v12 = self->_lastElapsedInterval;
       *buf = 138413058;
       selfCopy9 = self;
-      v83 = 2048;
-      v84 = v13;
-      v85 = 2048;
-      v86 = v6;
-      v87 = 2048;
-      v88 = v12;
+      v82 = 2048;
+      v83 = v13;
+      v84 = 2048;
+      v85 = v6;
+      v86 = 2048;
+      v87 = v12;
       _os_log_impl(&dword_25E3EF000, v11, OS_LOG_TYPE_DEFAULT, "%@ adjust polling interval {pollingInterval: %f, adjustedPollingInterval: %f, lastElapsedInterval: %f}.", buf, 0x2Au);
     }
   }
@@ -2270,7 +2683,7 @@ LABEL_8:
       {
         log = v40;
         PCStringFromDate(v25);
-        v80 = v20;
+        v79 = v20;
         v41 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
         if (adjustmentCopy)
         {
@@ -2292,8 +2705,8 @@ LABEL_8:
           v43 = @"NO";
         }
 
-        v78 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceReferenceDate:{self->_lastResumeTime, v43, v42}];
-        v44 = PCStringFromDate(v78);
+        v77 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceReferenceDate:{self->_lastResumeTime, v43, v42}];
+        v44 = PCStringFromDate(v77);
         v45 = CFAbsoluteTimeGetCurrent() - self->_lastResumeTime;
         v46 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceReferenceDate:self->_lastScheduledIntervalTime];
         PCStringFromDate(v46);
@@ -2309,28 +2722,28 @@ LABEL_8:
 
         *buf = 138414594;
         selfCopy9 = self;
-        v83 = 2112;
-        v84 = v41;
-        v85 = 2112;
-        v86 = v77;
-        v87 = 2112;
-        v88 = v76;
-        v89 = 2112;
-        v90 = v44;
-        v91 = 2048;
-        v92 = v45;
-        v93 = 2112;
-        v94 = *&v47;
-        v95 = 2048;
-        v96 = lastScheduledIntervalTime;
-        v97 = 2048;
-        v98 = v22;
-        v99 = 2112;
-        v100 = v50;
+        v82 = 2112;
+        v83 = v41;
+        v84 = 2112;
+        v85 = v76;
+        v86 = 2112;
+        v87 = v75;
+        v88 = 2112;
+        v89 = v44;
+        v90 = 2048;
+        v91 = v45;
+        v92 = 2112;
+        v93 = *&v47;
+        v94 = 2048;
+        v95 = lastScheduledIntervalTime;
+        v96 = 2048;
+        v97 = v22;
+        v98 = 2112;
+        v99 = v50;
         _os_log_impl(&dword_25E3EF000, log, OS_LOG_TYPE_DEFAULT, "%@ scheduling the next poll to align with the next push keepAlive date (%@). isAdjustment %@  isLastTimeIntervalValid? %@, lastResumeTime %@ (%f), lastScheduledIntervalTime (%@) %f, timeDiff %f. Should fire immediately? %@", buf, 0x66u);
 
         LOBYTE(v29) = v48;
-        v20 = v80;
+        v20 = v79;
       }
 
       if (v29)
@@ -2351,12 +2764,12 @@ LABEL_8:
           v56 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
           *buf = 138413058;
           selfCopy9 = self;
-          v83 = 2048;
-          v84 = v54;
-          v85 = 2048;
-          v86 = v6;
-          v87 = 2112;
-          v88 = v56;
+          v82 = 2048;
+          v83 = v54;
+          v84 = 2048;
+          v85 = v6;
+          v86 = 2112;
+          v87 = v56;
           _os_log_impl(&dword_25E3EF000, v52, OS_LOG_TYPE_DEFAULT, "%@ nextPollDate timeIntervalSinceNow %f  pollingInterval %f  earliestAllowableFire %@", buf, 0x2Au);
         }
 
@@ -2382,10 +2795,10 @@ LABEL_8:
               [v59 timeIntervalSinceNow];
               *buf = 138412802;
               selfCopy9 = self;
-              v83 = 2112;
-              v84 = v62;
-              v85 = 2048;
-              v86 = v63;
+              v82 = 2112;
+              v83 = v62;
+              v84 = 2048;
+              v85 = v63;
               _os_log_impl(&dword_25E3EF000, v61, OS_LOG_TYPE_DEFAULT, "%@ nextPollDate whittled down by a polling interval to %@, %f", buf, 0x20u);
             }
 
@@ -2410,8 +2823,8 @@ LABEL_73:
       {
         *buf = 138412546;
         selfCopy9 = self;
-        v83 = 2048;
-        v84 = v6;
+        v82 = 2048;
+        v83 = v6;
         _os_log_impl(&dword_25E3EF000, v66, OS_LOG_TYPE_DEFAULT, "%@ using nextPollInterval = %f.", buf, 0x16u);
       }
 
@@ -2439,18 +2852,18 @@ LABEL_73:
       v37 = PCStringFromDate(v20);
       *buf = 138413826;
       selfCopy9 = self;
-      v83 = 2112;
-      v84 = *&v32;
-      v85 = 2112;
-      v86 = v34;
-      v87 = 2048;
-      v88 = v36;
-      v89 = 2112;
-      v90 = v37;
-      v91 = 2048;
-      v92 = v22;
-      v93 = 2048;
-      v94 = v6;
+      v82 = 2112;
+      v83 = *&v32;
+      v84 = 2112;
+      v85 = v34;
+      v86 = 2048;
+      v87 = v36;
+      v88 = 2112;
+      v89 = v37;
+      v90 = 2048;
+      v91 = v22;
+      v92 = 2048;
+      v93 = v6;
       _os_log_impl(&dword_25E3EF000, v33, OS_LOG_TYPE_DEFAULT, "%@ scheduling next poll - isAdjustment %@. PushDate %@ is not valid - timeIntervalSinceNow %f. Last scheduled fire date %@. TimeDiff = %f, pollingInterval %f", buf, 0x48u);
     }
 
@@ -2472,8 +2885,8 @@ LABEL_73:
     {
       *buf = 138412546;
       selfCopy9 = self;
-      v83 = 2048;
-      v84 = v6;
+      v82 = 2048;
+      v83 = v6;
       v24 = "%@ using nextPollInterval = %f.";
       goto LABEL_49;
     }
@@ -2486,8 +2899,8 @@ LABEL_73:
     {
       *buf = 138412546;
       selfCopy9 = self;
-      v83 = 2048;
-      v84 = v6;
+      v82 = 2048;
+      v83 = v6;
       v24 = "%@ firing immediately {nextPollInterval:%f}.";
 LABEL_49:
       _os_log_impl(&dword_25E3EF000, v23, OS_LOG_TYPE_DEFAULT, v24, buf, 0x16u);
@@ -2521,8 +2934,6 @@ LABEL_77:
   [(PCPersistentTimer *)v73 scheduleInRunLoop:mainRunLoop];
 
   self->_lastStartTime = CFAbsoluteTimeGetCurrent();
-LABEL_82:
-  v75 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_setupKeepAliveForReconnect
@@ -2535,7 +2946,7 @@ LABEL_82:
 
 - (BOOL)_hasBudgetRemaining
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   if (self->_duetIdentifier)
   {
     cUTWeakLinkClass() = [CUTWeakLinkClass() sharedInstance];
@@ -2543,11 +2954,11 @@ LABEL_82:
     if ((v4 & 1) == 0 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
       duetIdentifier = self->_duetIdentifier;
-      v10 = 138412546;
+      v9 = 138412546;
       selfCopy2 = self;
-      v12 = 2112;
-      v13 = duetIdentifier;
-      _os_log_impl(&dword_25E3EF000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%@ DASSystemContext denied discretionary work for %@.", &v10, 0x16u);
+      v11 = 2112;
+      v12 = duetIdentifier;
+      _os_log_impl(&dword_25E3EF000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%@ DASSystemContext denied discretionary work for %@.", &v9, 0x16u);
     }
 
     logObject = self->_logObject;
@@ -2559,11 +2970,11 @@ LABEL_82:
         v7 = @"YES";
       }
 
-      v10 = 138412546;
+      v9 = 138412546;
       selfCopy2 = self;
-      v12 = 2112;
-      v13 = v7;
-      _os_log_impl(&dword_25E3EF000, logObject, OS_LOG_TYPE_DEFAULT, "%@ got response from DASSystemContext: hasBudget: %@.", &v10, 0x16u);
+      v11 = 2112;
+      v12 = v7;
+      _os_log_impl(&dword_25E3EF000, logObject, OS_LOG_TYPE_DEFAULT, "%@ got response from DASSystemContext: hasBudget: %@.", &v9, 0x16u);
     }
   }
 
@@ -2572,13 +2983,12 @@ LABEL_82:
     LOBYTE(v4) = 1;
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
 - (void)_intervalTimerFired
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   if (selfCopy->_intervalTimer)
@@ -2624,11 +3034,11 @@ LABEL_82:
             v24 = @"YES";
           }
 
-          v30 = 138412546;
-          v31 = *&v25;
-          v32 = 2112;
-          v33 = v24;
-          _os_log_impl(&dword_25E3EF000, v21, OS_LOG_TYPE_DEFAULT, "Timer fired. Delay is 0 so scheduling notification immediately. isWWANInterfaceUp %@, isWoWSupported %@", &v30, 0x16u);
+          v29 = 138412546;
+          v30 = *&v25;
+          v31 = 2112;
+          v32 = v24;
+          _os_log_impl(&dword_25E3EF000, v21, OS_LOG_TYPE_DEFAULT, "Timer fired. Delay is 0 so scheduling notification immediately. isWWANInterfaceUp %@, isWoWSupported %@", &v29, 0x16u);
         }
 
         mainRunLoop = [MEMORY[0x277CBEB88] mainRunLoop];
@@ -2661,11 +3071,11 @@ LABEL_82:
         if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
         {
           v13 = PCStringFromDate(mainRunLoop2);
-          v30 = 134218242;
-          v31 = v11;
-          v32 = 2112;
-          v33 = v13;
-          _os_log_impl(&dword_25E3EF000, v12, OS_LOG_TYPE_DEFAULT, "Timer fired. Delaying notification %g seconds. Last system wake: %@", &v30, 0x16u);
+          v29 = 134218242;
+          v30 = v11;
+          v31 = 2112;
+          v32 = v13;
+          _os_log_impl(&dword_25E3EF000, v12, OS_LOG_TYPE_DEFAULT, "Timer fired. Delaying notification %g seconds. Last system wake: %@", &v29, 0x16u);
         }
 
         v14 = [[PCPersistentTimer alloc] initWithTimeInterval:selfCopy->_serviceIdentifier serviceIdentifier:selfCopy target:sel__delayTimerFired selector:0 userInfo:v11];
@@ -2686,11 +3096,11 @@ LABEL_82:
       if (os_log_type_enabled(logObject, OS_LOG_TYPE_DEFAULT))
       {
         serviceIdentifier = selfCopy->_serviceIdentifier;
-        v30 = 138412546;
-        v31 = *&selfCopy;
-        v32 = 2112;
-        v33 = serviceIdentifier;
-        _os_log_impl(&dword_25E3EF000, logObject, OS_LOG_TYPE_DEFAULT, "%@ (%@) does not have budget to perform callout, bailing and starting next timer interval.", &v30, 0x16u);
+        v29 = 138412546;
+        v30 = *&selfCopy;
+        v31 = 2112;
+        v32 = serviceIdentifier;
+        _os_log_impl(&dword_25E3EF000, logObject, OS_LOG_TYPE_DEFAULT, "%@ (%@) does not have budget to perform callout, bailing and starting next timer interval.", &v29, 0x16u);
       }
 
       [(PCConnectionManager *)selfCopy _releasePowerAssertion];
@@ -2703,14 +3113,12 @@ LABEL_82:
     v18 = selfCopy->_logObject;
     if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v30) = 0;
-      _os_log_impl(&dword_25E3EF000, v18, OS_LOG_TYPE_DEFAULT, "_intervalTimer was already invalidated, no need to perform callback", &v30, 2u);
+      LOWORD(v29) = 0;
+      _os_log_impl(&dword_25E3EF000, v18, OS_LOG_TYPE_DEFAULT, "_intervalTimer was already invalidated, no need to perform callback", &v29, 2u);
     }
   }
 
   objc_sync_exit(selfCopy);
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_delayTimerFired
@@ -2720,7 +3128,7 @@ LABEL_82:
   [(PCConnectionManager *)obj _clearTimersReleasingPowerAssertion:0];
   if (obj->_isInReconnectMode)
   {
-    v2 = 4;
+    v3 = 4;
   }
 
   else
@@ -2728,12 +3136,12 @@ LABEL_82:
     currentStyle = [(PCConnectionManager *)obj currentStyle];
     if (currentStyle >= 3)
     {
-      v2 = 0xFFFFFFFFLL;
+      v3 = 0xFFFFFFFFLL;
     }
 
     else
     {
-      v2 = dword_25E416320[currentStyle];
+      v3 = dword_25E416320[currentStyle];
     }
   }
 
@@ -2741,19 +3149,19 @@ LABEL_82:
   onTimeKeepAliveTime = obj->_onTimeKeepAliveTime;
   if (keepAliveGracePeriod <= 2.22044605e-16)
   {
-    v6 = onTimeKeepAliveTime + PCScheduledWakeRTCPrecision() * -2.0;
+    v7 = onTimeKeepAliveTime + PCScheduledWakeRTCPrecision(obj, v2) * -2.0;
   }
 
   else
   {
-    v6 = keepAliveGracePeriod + onTimeKeepAliveTime + -5.0;
+    v7 = keepAliveGracePeriod + onTimeKeepAliveTime + -5.0;
   }
 
-  v7 = MEMORY[0x277CBEAC0];
-  v8 = [MEMORY[0x277CCABB0] numberWithBool:obj->_lastStopTime < v6];
-  v9 = [v7 dictionaryWithObjectsAndKeys:{v8, @"PCTimerFireEarlyToCoalesce", 0}];
+  v8 = MEMORY[0x277CBEAC0];
+  v9 = [MEMORY[0x277CCABB0] numberWithBool:obj->_lastStopTime < v7];
+  v10 = [v8 dictionaryWithObjectsAndKeys:{v9, @"PCTimerFireEarlyToCoalesce", 0}];
 
-  [(PCConnectionManager *)obj _calloutWithEvent:v2 context:v9];
+  [(PCConnectionManager *)obj _calloutWithEvent:v3 context:v10];
   objc_sync_exit(obj);
 }
 
@@ -2792,6 +3200,52 @@ LABEL_82:
   [(PCConnectionManager *)v10 _adjustInterfaceAssertions];
   [(PCConnectionManager *)v10 _releasePowerAssertion];
   objc_sync_exit(v10);
+}
+
+- (void)_calloutWithEvent:(int)event context:(id)context
+{
+  v4 = *&event;
+  v23 = *MEMORY[0x277D85DE8];
+  contextCopy = context;
+  [(PCConnectionManager *)self _takePowerAssertionWithTimeout:30.0];
+  logObject = self->_logObject;
+  if (os_log_type_enabled(logObject, OS_LOG_TYPE_DEFAULT))
+  {
+    v8 = logObject;
+    v9 = [(PCConnectionManager *)self _stringForEvent:v4];
+    WeakRetained = objc_loadWeakRetained(&self->_delegate);
+    *buf = 138412546;
+    v20 = v9;
+    v21 = 2112;
+    v22 = WeakRetained;
+    _os_log_impl(&dword_25E3EF000, v8, OS_LOG_TYPE_DEFAULT, "Calling out with reason %@ to delegate %@", buf, 0x16u);
+  }
+
+  self->_inCallback = 1;
+  v11 = MEMORY[0x277CBEAC0];
+  v12 = [MEMORY[0x277CCABB0] numberWithInt:v4];
+  v13 = [v11 dictionaryWithObjectsAndKeys:{v12, @"PCEvent", contextCopy, @"PCEventContext", 0}];
+
+  delegateQueue = self->_delegateQueue;
+  if (delegateQueue)
+  {
+    block[0] = MEMORY[0x277D85DD0];
+    block[1] = 3221225472;
+    block[2] = __49__PCConnectionManager__calloutWithEvent_context___block_invoke;
+    block[3] = &unk_279A19D48;
+    block[4] = self;
+    v18 = v13;
+    dispatch_async(delegateQueue, block);
+  }
+
+  else
+  {
+    delegateRunLoop = self->_delegateRunLoop;
+    v16 = [MEMORY[0x277CBEA60] arrayWithObject:*MEMORY[0x277CBE738]];
+    [(NSRunLoop *)delegateRunLoop performSelector:sel__callDelegateWithEventAndContext_ target:self argument:v13 order:0 modes:v16];
+
+    CFRunLoopWakeUp([(NSRunLoop *)self->_delegateRunLoop getCFRunLoop]);
+  }
 }
 
 - (void)_clearTimersReleasingPowerAssertion:(BOOL)assertion
@@ -2859,6 +3313,59 @@ LABEL_82:
   objc_sync_exit(obj);
 }
 
+- (void)interfaceLinkQualityChanged:(id)changed previousLinkQuality:(int)quality
+{
+  v4 = *&quality;
+  v16 = *MEMORY[0x277D85DE8];
+  changedCopy = changed;
+  selfCopy = self;
+  objc_sync_enter(selfCopy);
+  [(PCConnectionManager *)selfCopy _adjustPollTimerIfNecessary];
+  if ([changedCopy linkQuality] > v4 && +[PCInterfaceUsabilityMonitor isBadLinkQuality:](PCInterfaceUsabilityMonitor, "isBadLinkQuality:", v4))
+  {
+    [(PCPersistentTimer *)selfCopy->_intervalTimer startTime];
+    v9 = CFAbsoluteTimeGetCurrent() - v8 > 60.0 && selfCopy->_isRunning && !selfCopy->_delayTimer && selfCopy->_isInReconnectMode;
+    logObject = selfCopy->_logObject;
+    if (os_log_type_enabled(logObject, OS_LOG_TYPE_DEFAULT))
+    {
+      v11 = @"NO";
+      if (v9)
+      {
+        v11 = @"YES";
+      }
+
+      v14 = 138412290;
+      v15 = v11;
+      _os_log_impl(&dword_25E3EF000, logObject, OS_LOG_TYPE_DEFAULT, "Persistent interface link quality changed, firing interval timer: %@", &v14, 0xCu);
+    }
+
+    if (v9)
+    {
+      [(PCConnectionManager *)selfCopy _intervalTimerFired];
+    }
+
+    else if (![(PCConnectionManager *)selfCopy currentStyle])
+    {
+      v12 = [PCInterfaceMonitor sharedInstanceForIdentifier:1];
+      if (v12 == changedCopy)
+      {
+        v13 = selfCopy->_interfaceIdentifier == 1;
+
+        if (v13)
+        {
+          [(PCConnectionManager *)selfCopy _calloutWithEvent:7 context:0];
+        }
+      }
+
+      else
+      {
+      }
+    }
+  }
+
+  objc_sync_exit(selfCopy);
+}
+
 - (void)interfaceManagerWWANInterfaceStatusChanged:(id)changed
 {
   changedCopy = changed;
@@ -2914,7 +3421,7 @@ LABEL_82:
 
 - (void)interfaceManagerInternetReachabilityChanged:(id)changed
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   changedCopy = changed;
   selfCopy = self;
   objc_sync_enter(selfCopy);
@@ -2935,8 +3442,8 @@ LABEL_82:
     v11 = selfCopy->_isReachable;
     currentStyle = [(PCConnectionManager *)selfCopy currentStyle];
     v13 = @"NO";
-    *v20 = 138413826;
-    *&v20[4] = selfCopy;
+    *v19 = 138413826;
+    *&v19[4] = selfCopy;
     if (v11)
     {
       v14 = @"YES";
@@ -2967,31 +3474,31 @@ LABEL_82:
       v16 = @"NO";
     }
 
-    *&v20[12] = 2112;
-    *&v20[14] = changedCopy;
-    *&v20[22] = 2112;
-    v21 = v16;
+    *&v19[12] = 2112;
+    *&v19[14] = changedCopy;
+    *&v19[22] = 2112;
+    v20 = v16;
     if (!currentStyle)
     {
       v13 = @"YES";
     }
 
-    v22 = 2112;
-    v23 = delayTimer;
-    v24 = 2112;
-    v25 = v15;
-    v26 = 2112;
-    v27 = v14;
-    v28 = 2112;
-    v29 = v13;
-    _os_log_impl(&dword_25E3EF000, v8, OS_LOG_TYPE_DEFAULT, "%@ interfaceManagerInternetReachabilityChanged: %@ isRunning %@ delayTimer %@ wasReachable %@ isReachable %@ currentStyleIsPush? %@", v20, 0x48u);
+    v21 = 2112;
+    v22 = delayTimer;
+    v23 = 2112;
+    v24 = v15;
+    v25 = 2112;
+    v26 = v14;
+    v27 = 2112;
+    v28 = v13;
+    _os_log_impl(&dword_25E3EF000, v8, OS_LOG_TYPE_DEFAULT, "%@ interfaceManagerInternetReachabilityChanged: %@ isRunning %@ delayTimer %@ wasReachable %@ isReachable %@ currentStyleIsPush? %@", v19, 0x48u);
   }
 
   if (selfCopy->_alwaysWantsInterfaceChangeCallbacks || selfCopy->_isRunning && !selfCopy->_delayTimer)
   {
     if (!selfCopy->_isInReconnectMode || !selfCopy->_intervalTimer || ((isInternetReachable ^ 1) & 1) != 0 || isReachable)
     {
-      if (![(PCConnectionManager *)selfCopy currentStyle:*v20]&& (isInternetReachable & isReachable & 1) == 0)
+      if (![(PCConnectionManager *)selfCopy currentStyle:*v19]&& (isInternetReachable & isReachable & 1) == 0)
       {
         if (isInternetReachable)
         {
@@ -3012,22 +3519,20 @@ LABEL_82:
       logObject = selfCopy->_logObject;
       if (os_log_type_enabled(logObject, OS_LOG_TYPE_DEFAULT))
       {
-        *v20 = 0;
-        _os_log_impl(&dword_25E3EF000, logObject, OS_LOG_TYPE_DEFAULT, "Network went reachable while in reconnect mode. Firing reconnect timer.", v20, 2u);
+        *v19 = 0;
+        _os_log_impl(&dword_25E3EF000, logObject, OS_LOG_TYPE_DEFAULT, "Network went reachable while in reconnect mode. Firing reconnect timer.", v19, 2u);
       }
 
-      [(PCConnectionManager *)selfCopy _intervalTimerFired:*v20];
+      [(PCConnectionManager *)selfCopy _intervalTimerFired:*v19];
     }
   }
 
   objc_sync_exit(selfCopy);
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_takePowerAssertionWithTimeout:(double)timeout
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   p_powerAssertionID = &self->_powerAssertionID;
   if (!self->_powerAssertionID)
   {
@@ -3039,7 +3544,7 @@ LABEL_82:
 
     else
     {
-      [MEMORY[0x277CCACA8] stringWithFormat:@"connectionmanager(%p)", self, v13];
+      [MEMORY[0x277CCACA8] stringWithFormat:@"connectionmanager(%p)", self, v12];
     }
     v7 = ;
     v8 = [PCPersistentIdentifiers processNamePidAndStringIdentifier:v7];
@@ -3058,14 +3563,12 @@ LABEL_82:
     {
       v11 = *p_powerAssertionID;
       *buf = 67109378;
-      v15 = v11;
-      v16 = 2112;
-      v17 = v8;
+      v14 = v11;
+      v15 = 2112;
+      v16 = v8;
       _os_log_impl(&dword_25E3EF000, logObject, OS_LOG_TYPE_DEFAULT, "Preventing sleep with power assertion with identifier %i assertionIdentifier: %@", buf, 0x12u);
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_saveWWANKeepAliveInterval
@@ -3178,9 +3681,20 @@ void __76__PCConnectionManager__saveWWANKeepAliveIntervalWithInfo_resetStateMach
   }
 }
 
+- (id)_getCachedWWANKeepAliveIntervalForAddressFamily:(int)family
+{
+  v3 = *&family;
+  v5 = +[PCConnectionManager intervalCacheDictionaries];
+  v6 = [v5 objectForKey:self->_serviceIdentifier];
+  v7 = [PCConnectionManager stringForAddressFamily:v3];
+  v8 = [v6 objectForKey:v7];
+
+  return v8;
+}
+
 + (id)intervalCacheDictionaries
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277CBEAC0]);
   selfCopy = self;
   _keepAliveCachePath = [self _keepAliveCachePath];
@@ -3188,58 +3702,58 @@ void __76__PCConnectionManager__saveWWANKeepAliveIntervalWithInfo_resetStateMach
 
   v6 = 0x277CBE000uLL;
   dictionary = [MEMORY[0x277CBEB38] dictionary];
+  v37 = 0u;
   v38 = 0u;
   v39 = 0u;
   v40 = 0u;
-  v41 = 0u;
   v7 = v5;
-  v8 = [v7 countByEnumeratingWithState:&v38 objects:v43 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v37 objects:v42 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v39;
-    v25 = *v39;
-    v26 = v7;
+    v10 = *v38;
+    v24 = *v38;
+    v25 = v7;
     do
     {
       v11 = 0;
-      v27 = v9;
+      v26 = v9;
       do
       {
-        if (*v39 != v10)
+        if (*v38 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v38 + 1) + 8 * v11);
+        v12 = *(*(&v37 + 1) + 8 * v11);
         v13 = [v7 objectForKey:v12];
         dictionary2 = [*(v6 + 2872) dictionary];
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v28 = v12;
-          v29 = v13;
-          v30 = v11;
-          v36 = 0u;
-          v37 = 0u;
-          v34 = 0u;
+          v27 = v12;
+          v28 = v13;
+          v29 = v11;
           v35 = 0u;
+          v36 = 0u;
+          v33 = 0u;
+          v34 = 0u;
           v14 = v13;
-          v15 = [v14 countByEnumeratingWithState:&v34 objects:v42 count:16];
+          v15 = [v14 countByEnumeratingWithState:&v33 objects:v41 count:16];
           if (v15)
           {
             v16 = v15;
-            v17 = *v35;
+            v17 = *v34;
             do
             {
               for (i = 0; i != v16; ++i)
               {
-                if (*v35 != v17)
+                if (*v34 != v17)
                 {
                   objc_enumerationMutation(v14);
                 }
 
-                v19 = *(*(&v34 + 1) + 8 * i);
+                v19 = *(*(&v33 + 1) + 8 * i);
                 v20 = [v14 objectForKey:v19];
                 objc_opt_class();
                 if (objc_opt_isKindOfClass())
@@ -3262,19 +3776,19 @@ void __76__PCConnectionManager__saveWWANKeepAliveIntervalWithInfo_resetStateMach
                 }
               }
 
-              v16 = [v14 countByEnumeratingWithState:&v34 objects:v42 count:16];
+              v16 = [v14 countByEnumeratingWithState:&v33 objects:v41 count:16];
             }
 
             while (v16);
           }
 
           v6 = 0x277CBE000;
-          v10 = v25;
-          v7 = v26;
-          v9 = v27;
-          v12 = v28;
-          v13 = v29;
-          v11 = v30;
+          v10 = v24;
+          v7 = v25;
+          v9 = v26;
+          v12 = v27;
+          v13 = v28;
+          v11 = v29;
         }
 
         [dictionary setObject:dictionary2 forKey:v12];
@@ -3283,13 +3797,11 @@ void __76__PCConnectionManager__saveWWANKeepAliveIntervalWithInfo_resetStateMach
       }
 
       while (v11 != v9);
-      v9 = [v7 countByEnumeratingWithState:&v38 objects:v43 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v37 objects:v42 count:16];
     }
 
     while (v9);
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 
   return dictionary;
 }
@@ -3406,11 +3918,10 @@ void __76__PCConnectionManager__saveWWANKeepAliveIntervalWithInfo_resetStateMach
 
 - (void)_validateActionForCurrentStyle:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_25E3EF000, a2, OS_LOG_TYPE_ERROR, "%@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_25E3EF000, a2, OS_LOG_TYPE_ERROR, "%@", &v2, 0xCu);
 }
 
 - (void)_setupTimerForPushWithKeepAliveInterval:.cold.1()
@@ -3427,30 +3938,6 @@ void __76__PCConnectionManager__saveWWANKeepAliveIntervalWithInfo_resetStateMach
   v1 = [MEMORY[0x277CCA890] currentHandler];
   OUTLINED_FUNCTION_0();
   [v0 handleFailureInMethod:? object:? file:? lineNumber:? description:?];
-}
-
-- (void)_takePowerAssertionWithTimeout:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  _os_log_fault_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __76__PCConnectionManager__saveWWANKeepAliveIntervalWithInfo_resetStateMachine___block_invoke_2_cold_1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  _os_log_fault_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-+ (void)_keepAliveCachePath
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  _os_log_fault_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

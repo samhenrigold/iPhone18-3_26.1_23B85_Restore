@@ -66,7 +66,7 @@ LABEL_12:
 
 - (CPAnalyticsEventCounter)initWithName:(id)name matcher:(id)matcher
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   matcherCopy = matcher;
   v9 = [(CPAnalyticsEventCounter *)self init];
@@ -84,24 +84,23 @@ LABEL_12:
       v11 = CPAnalyticsLog();
       if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
-        v14 = 138412546;
-        v15 = nameCopy;
-        v16 = 2112;
-        v17 = matcherCopy;
-        _os_log_error_impl(&dword_24260A000, v11, OS_LOG_TYPE_ERROR, "Error creating event counter, name: %@, matcher: %@", &v14, 0x16u);
+        v13 = 138412546;
+        v14 = nameCopy;
+        v15 = 2112;
+        v16 = matcherCopy;
+        _os_log_error_impl(&dword_24260A000, v11, OS_LOG_TYPE_ERROR, "Error creating event counter, name: %@, matcher: %@", &v13, 0x16u);
       }
 
       v9 = 0;
     }
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
 - (CPAnalyticsEventCounter)initWithEventName:(id)name
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   v6 = [(CPAnalyticsEventCounter *)self init];
   if (v6)
@@ -118,28 +117,27 @@ LABEL_12:
       v8 = CPAnalyticsLog();
       if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
-        v11 = 138412546;
-        v12 = nameCopy;
-        v13 = 2112;
-        v14 = v7;
-        _os_log_error_impl(&dword_24260A000, v8, OS_LOG_TYPE_ERROR, "Error creating event counter, eventName: %@, matcher: %@", &v11, 0x16u);
+        v10 = 138412546;
+        v11 = nameCopy;
+        v12 = 2112;
+        v13 = v7;
+        _os_log_error_impl(&dword_24260A000, v8, OS_LOG_TYPE_ERROR, "Error creating event counter, eventName: %@, matcher: %@", &v10, 0x16u);
       }
 
       v6 = 0;
     }
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
 - (CPAnalyticsEventCounter)initWithConfig:(id)config
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   configCopy = config;
-  v15.receiver = self;
-  v15.super_class = CPAnalyticsEventCounter;
-  v5 = [(CPAnalyticsEventCounter *)&v15 init];
+  v14.receiver = self;
+  v14.super_class = CPAnalyticsEventCounter;
+  v5 = [(CPAnalyticsEventCounter *)&v14 init];
   if (v5)
   {
     v6 = [configCopy objectForKey:@"matchCriteria"];
@@ -177,11 +175,11 @@ LABEL_12:
       if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412802;
-        v17 = configCopy;
-        v18 = 2112;
-        v19 = v9;
-        v20 = 2112;
-        v21 = v7;
+        v16 = configCopy;
+        v17 = 2112;
+        v18 = v9;
+        v19 = 2112;
+        v20 = v7;
         _os_log_error_impl(&dword_24260A000, v12, OS_LOG_TYPE_ERROR, "Error creating event counter from config: %@, name: %@, matcher: %@", buf, 0x20u);
       }
 
@@ -190,7 +188,6 @@ LABEL_12:
     }
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

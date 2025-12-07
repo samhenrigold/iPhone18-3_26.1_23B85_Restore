@@ -1,10 +1,11 @@
 @interface _MTLBinaryArchive
 + (BOOL)deserializeBinaryArchiveDescriptorMachO:(DeserializedBinaryArchiveLayout *)o fileData:(id)data;
 + (BOOL)deserializeBinaryArchiveHeader:(DeserializedBinaryArchiveLayout *)header fileData:(id)data device:(id)device;
++ (MTLLoaderSliceIdentifier)sliceIDForSpecializedFunctionsForLLVMVersion:(int)version;
 + (id)descriptorDataForArchive:(id)archive;
 + (unsigned)archiveTypeAtURL:(id)l device:(id)device error:(id *)error;
 + (unsigned)archiveVersionCompatible:(MachOToolsVersion *)compatible isMatchingSlice:(BOOL)slice device:(id)device;
-+ (void)deserializeBinaryArchiveHeader:(void *)header fileData:(unint64_t *)data device:;
++ (void)deserializeBinaryArchiveHeader:(float *)header fileData:(unint64_t *)data device:;
 - ($2772B1D07D29A72E8557B2574C0AE5C1)reflectionHashWithFunctionId:(SEL)id binaryPos:(const void *)pos;
 - (BOOL)addComputePipelineFunctionsWithDescriptor:(id)descriptor error:(id *)error;
 - (BOOL)addComputePipelineFunctionsWithDescriptor:(id)descriptor options:(unint64_t)options error:(id *)error;
@@ -52,6 +53,7 @@
 - (id)localStitchedFunctionLookupWithDescriptor:(const stitchedAirDescriptor *)descriptor;
 - (id)materializeAIRNTBlockForKey:(id)key reflectionType:(char)type;
 - (id)materializeAirScript:(void *)script;
+- (id)materializeBitCode:(void *)code atIndex:(unsigned int)index;
 - (id)materializeEntryForKey:(id *)key fileIndex:(void *)index containsEntry:(id)entry addEntry:(id)addEntry;
 - (id)materializeFromFileOffset:(unint64_t)offset hash:(id *)hash;
 - (id)materializeFromHash:(id *)hash fileIndex:(void *)index;
@@ -565,7 +567,7 @@ LABEL_7:
         v18 = v35;
         cpuType = [v17 cpuType];
         v22 = [v17 cpuSubtype] | (cpuType << 32);
-        *&header->var2 = *std::unordered_map<unsigned long long,+[_MTLBinaryArchive deserializeBinaryArchiveHeader:fileData:device:]::archSliceId>::operator[](v18 + 6, &v22);
+        *&header->var2 = *std::unordered_map<unsigned long long,+[_MTLBinaryArchive deserializeBinaryArchiveHeader:fileData:device:]::archSliceId>::operator[](v18 + 12, &v22);
       }
     }
   }
@@ -581,10 +583,10 @@ LABEL_7:
   return v16;
 }
 
-+ (void)deserializeBinaryArchiveHeader:(void *)header fileData:(unint64_t *)data device:
++ (void)deserializeBinaryArchiveHeader:(float *)header fileData:(unint64_t *)data device:
 {
   v2 = *data;
-  v3 = header[1];
+  v3 = *(header + 2);
   if (!*&v3)
   {
     goto LABEL_18;
@@ -690,7 +692,7 @@ LABEL_17:
   processInfo = [MEMORY[0x1E696AE30] processInfo];
   if (processInfo)
   {
-    [processInfo operatingSystemVersion];
+    objc_msgSend_operatingSystemVersion(processInfo);
   }
 
   if (active_platform != compatible->var1)
@@ -703,17 +705,12 @@ LABEL_17:
     return 6;
   }
 
-  var2 = compatible->var2;
-  var4 = compatible->var4;
   if (([device isVendorSliceCompatibleWithDeploymentTarget:? platform:? sdkVersion:? compilerPluginVersion:?] & sliceCopy) != 0)
   {
     return 2;
   }
 
-  else
-  {
-    return 3;
-  }
+  return 3;
 }
 
 + (unsigned)archiveTypeAtURL:(id)l device:(id)device error:(id *)error
@@ -812,7 +809,7 @@ LABEL_21:
 
 - (BOOL)loadAirSliceAtOffset:(unint64_t)offset sliceLength:(unint64_t)length
 {
-  v44[16] = *MEMORY[0x1E69E9840];
+  v43[16] = *MEMORY[0x1E69E9840];
   offsetCopy = offset;
   subrange = dispatch_data_create_subrange([(MTLLoadedFileContentsWrapper *)self->_fileData dispatchData], offset, length);
   v12 = MTLLibraryBuilder::newLibraryWithData(*(self->_device + 55), self->_device, subrange, 0, v8, v9, v10, v11);
@@ -825,76 +822,76 @@ LABEL_21:
     if ((self->_options & 0x10) != 0 || (!v15 ? (v17 = v14 == 1) : (v17 = 0), !v17 ? (v18 = v15 == 1) : (v18 = 1), !v18 ? (v19 = v16 >= 0xA) : (v19 = 0), v19))
     {
       v20 = v13;
-      v44[0] = &offsetCopy;
-      std::__hash_table<std::__hash_value_type<unsigned long long,objc_object  {objcproto13MTLLibrarySPI}*>,std::__unordered_map_hasher<unsigned long long,objc_object  {objcproto13MTLLibrarySPI}*,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,objc_object  {objcproto13MTLLibrarySPI}*,std::equal_to,std::hash,true>,std::allocator<objc_object  {objcproto13MTLLibrarySPI}*>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::piecewise_construct_t const&<>>(&self->_libCache.__table_.__bucket_list_.__ptr_, &offsetCopy)[3] = v20;
+      v43[0] = &offsetCopy;
+      std::__hash_table<std::__hash_value_type<unsigned long long,objc_object  {objcproto13MTLLibrarySPI}*>,std::__unordered_map_hasher<unsigned long long,objc_object  {objcproto13MTLLibrarySPI}*,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,objc_object  {objcproto13MTLLibrarySPI}*,std::equal_to,std::hash,true>,std::allocator<objc_object  {objcproto13MTLLibrarySPI}*>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::piecewise_construct_t const&<>>(&self->_libCache.__table_.__bucket_list_.__ptr_, &offsetCopy, &std::piecewise_construct, v43)[3] = v20;
     }
 
-    v36 = v13;
+    v35 = v13;
     specializedFunctionHashes = [(_MTLLibrary *)v13 specializedFunctionHashes];
+    v37 = 0u;
     v38 = 0u;
     v39 = 0u;
     v40 = 0u;
-    v41 = 0u;
-    v22 = [(NSArray *)specializedFunctionHashes countByEnumeratingWithState:&v38 objects:v44 count:16];
+    v22 = [(NSArray *)specializedFunctionHashes countByEnumeratingWithState:&v37 objects:v43 count:16];
     if (v22)
     {
       v23 = v22;
-      v24 = *v39;
+      v24 = *v38;
       do
       {
         for (i = 0; i != v23; ++i)
         {
-          if (*v39 != v24)
+          if (*v38 != v24)
           {
             objc_enumerationMutation(specializedFunctionHashes);
           }
 
-          [*(*(&v38 + 1) + 8 * i) getValue:v43];
-          v42 = v43;
-          v26 = std::__hash_table<std::__hash_value_type<MTLUINT256_t,_NSRange>,std::__unordered_map_hasher<MTLUINT256_t,std::__hash_value_type<MTLUINT256_t,_NSRange>,UnorderedContainerHash,UnorderedContainerHash,true>,std::__unordered_map_equal<MTLUINT256_t,std::__hash_value_type<MTLUINT256_t,_NSRange>,UnorderedContainerHash,UnorderedContainerHash,true>,std::allocator<std::__hash_value_type<MTLUINT256_t,_NSRange>>>::__emplace_unique_key_args<MTLUINT256_t,std::piecewise_construct_t const&,std::tuple<MTLUINT256_t const&>,std::tuple<>>(&self->_specializedLibraryCache.__table_.__bucket_list_.__ptr_, v43);
+          [*(*(&v37 + 1) + 8 * i) getValue:v42];
+          v41 = v42;
+          v26 = std::__hash_table<std::__hash_value_type<MTLUINT256_t,_NSRange>,std::__unordered_map_hasher<MTLUINT256_t,std::__hash_value_type<MTLUINT256_t,_NSRange>,UnorderedContainerHash,UnorderedContainerHash,true>,std::__unordered_map_equal<MTLUINT256_t,std::__hash_value_type<MTLUINT256_t,_NSRange>,UnorderedContainerHash,UnorderedContainerHash,true>,std::allocator<std::__hash_value_type<MTLUINT256_t,_NSRange>>>::__emplace_unique_key_args<MTLUINT256_t,std::piecewise_construct_t const&,std::tuple<MTLUINT256_t const&>,std::tuple<>>(&self->_specializedLibraryCache.__table_.__bucket_list_.__ptr_, v42, &std::piecewise_construct, &v41);
           v26[6] = offset;
           v26[7] = length;
         }
 
-        v23 = [(NSArray *)specializedFunctionHashes countByEnumeratingWithState:&v38 objects:v44 count:16];
+        v23 = [(NSArray *)specializedFunctionHashes countByEnumeratingWithState:&v37 objects:v43 count:16];
       }
 
       while (v23);
     }
 
-    stitchingFunctionHashes = [(_MTLLibrary *)v36 stitchingFunctionHashes];
+    stitchingFunctionHashes = [(_MTLLibrary *)v35 stitchingFunctionHashes];
+    v37 = 0u;
     v38 = 0u;
     v39 = 0u;
     v40 = 0u;
-    v41 = 0u;
-    v28 = [(NSArray *)stitchingFunctionHashes countByEnumeratingWithState:&v38 objects:v44 count:16];
+    v28 = [(NSArray *)stitchingFunctionHashes countByEnumeratingWithState:&v37 objects:v43 count:16];
     if (v28)
     {
       v29 = v28;
-      v30 = *v39;
+      v30 = *v38;
       do
       {
         for (j = 0; j != v29; ++j)
         {
-          if (*v39 != v30)
+          if (*v38 != v30)
           {
             objc_enumerationMutation(stitchingFunctionHashes);
           }
 
-          [*(*(&v38 + 1) + 8 * j) getValue:v43];
-          v42 = v43;
-          v32 = std::__hash_table<std::__hash_value_type<MTLUINT256_t,_NSRange>,std::__unordered_map_hasher<MTLUINT256_t,std::__hash_value_type<MTLUINT256_t,_NSRange>,UnorderedContainerHash,UnorderedContainerHash,true>,std::__unordered_map_equal<MTLUINT256_t,std::__hash_value_type<MTLUINT256_t,_NSRange>,UnorderedContainerHash,UnorderedContainerHash,true>,std::allocator<std::__hash_value_type<MTLUINT256_t,_NSRange>>>::__emplace_unique_key_args<MTLUINT256_t,std::piecewise_construct_t const&,std::tuple<MTLUINT256_t const&>,std::tuple<>>(&self->_stitchedLibraryCache.__table_.__bucket_list_.__ptr_, v43);
+          [*(*(&v37 + 1) + 8 * j) getValue:v42];
+          v41 = v42;
+          v32 = std::__hash_table<std::__hash_value_type<MTLUINT256_t,_NSRange>,std::__unordered_map_hasher<MTLUINT256_t,std::__hash_value_type<MTLUINT256_t,_NSRange>,UnorderedContainerHash,UnorderedContainerHash,true>,std::__unordered_map_equal<MTLUINT256_t,std::__hash_value_type<MTLUINT256_t,_NSRange>,UnorderedContainerHash,UnorderedContainerHash,true>,std::allocator<std::__hash_value_type<MTLUINT256_t,_NSRange>>>::__emplace_unique_key_args<MTLUINT256_t,std::piecewise_construct_t const&,std::tuple<MTLUINT256_t const&>,std::tuple<>>(&self->_stitchedLibraryCache.__table_.__bucket_list_.__ptr_, v42, &std::piecewise_construct, &v41);
           v32[6] = offset;
           v32[7] = length;
         }
 
-        v29 = [(NSArray *)stitchingFunctionHashes countByEnumeratingWithState:&v38 objects:v44 count:16];
+        v29 = [(NSArray *)stitchingFunctionHashes countByEnumeratingWithState:&v37 objects:v43 count:16];
       }
 
       while (v29);
     }
 
-    v13 = v36;
+    v13 = v35;
 
     v33 = subrange;
   }
@@ -905,14 +902,12 @@ LABEL_21:
   }
 
   dispatch_release(v33);
-  result = v13 != 0;
-  v35 = *MEMORY[0x1E69E9840];
-  return result;
+  return v13 != 0;
 }
 
 - (BOOL)loadFromURL:(id)l error:(id *)error
 {
-  v68 = *MEMORY[0x1E69E9840];
+  v67 = *MEMORY[0x1E69E9840];
   v7 = objc_autoreleasePoolPush();
   if (!l || ![l isFileURL] || (objc_msgSend(l, "checkResourceIsReachableAndReturnError:", error) & 1) == 0)
   {
@@ -947,47 +942,47 @@ LABEL_21:
     v10 = 1;
   }
 
-  v17 = [(MTLLoader *)*(self->_device + 61) loadFileWithURL:l error:error errorDomain:&cfstr_Mtlbinaryarchi.isa invalidFileErrorCode:1];
-  self->_fileMapping = v17;
-  if (v17)
+  v16 = [(MTLLoader *)*(self->_device + 61) loadFileWithURL:l error:error errorDomain:&cfstr_Mtlbinaryarchi.isa invalidFileErrorCode:1];
+  self->_fileMapping = v16;
+  if (v16)
   {
-    v18 = [[MTLLoadedFileContentsWrapper alloc] initWithData:[(MTLLoadedFile *)self->_fileMapping contents]];
-    self->_fileData = v18;
+    v17 = [[MTLLoadedFileContentsWrapper alloc] initWithData:[(MTLLoadedFile *)self->_fileMapping contents]];
+    self->_fileData = v17;
     self->_internalArchiverId = 0;
-    if (v18)
+    if (v17)
     {
       errorCopy = error;
-      v51 = v7;
-      v64 = 0;
+      v50 = v7;
       v63 = 0;
-      *&v62.var0 = 0;
-      v62.var14 = 0;
-      v62.var13.var1 = 0;
-      v62.var13.var0 = 0;
-      memset(&v62.var2, 0, 17);
-      memset(&v62.var5, 0, 33);
-      memset(&v62.var10, 0, 17);
-      LOBYTE(v14) = [_MTLBinaryArchive deserializeBinaryArchiveHeader:&v62 fileData:self->_fileData device:self->_device];
-      v61 = 0;
-      v61 = [MTLLoader sliceIDForDevice:&v64 legacyDriverVersion:&v63 airntDriverVersion:?];
-      v19 = ~v62.var12;
-      self->_isLegacy = !v62.var12;
-      if (v19)
+      v62 = 0;
+      *&v61.var0 = 0;
+      v61.var14 = 0;
+      v61.var13.var1 = 0;
+      v61.var13.var0 = 0;
+      memset(&v61.var2, 0, 17);
+      memset(&v61.var5, 0, 33);
+      memset(&v61.var10, 0, 17);
+      LOBYTE(v14) = [_MTLBinaryArchive deserializeBinaryArchiveHeader:&v61 fileData:self->_fileData device:self->_device];
+      v60 = 0;
+      v60 = [MTLLoader sliceIDForDevice:&v63 legacyDriverVersion:&v62 airntDriverVersion:?];
+      v18 = ~v61.var12;
+      self->_isLegacy = !v61.var12;
+      if (v18)
       {
         options = self->_options;
-        LOBYTE(v23) = options & 0xCF;
+        LOBYTE(v22) = options & 0xCF;
         self->_options = options & 0xFFFFFFFFFFFFFFCFLL;
-        if (!v62.var1 && !v62.var4)
+        if (!v61.var1 && !v61.var4)
         {
-          LOBYTE(v14) = v62.var9 & v14;
+          LOBYTE(v14) = v61.var9 & v14;
         }
 
-        if ((options & 2) != 0 && v62.var0)
+        if ((options & 2) != 0 && v61.var0)
         {
           if (v14)
           {
-            LOBYTE(v14) = [(_MTLBinaryArchive *)self loadFileIndex:&self->_legacyPipelineFileIndex expectedSliceId:&v61 expectedVersion:v64 sliceOffset:v62.var2];
-            v23 = self->_options;
+            LOBYTE(v14) = [(_MTLBinaryArchive *)self loadFileIndex:&self->_legacyPipelineFileIndex expectedSliceId:&v60 expectedVersion:v63 sliceOffset:v61.var2];
+            v22 = self->_options;
           }
 
           else
@@ -995,32 +990,32 @@ LABEL_21:
             LOBYTE(v14) = 0;
           }
 
-          v62.var0 = v14;
+          v61.var0 = v14;
         }
 
-        if (v23)
+        if (v22)
         {
-          if (v62.var4)
+          if (v61.var4)
           {
-            v31 = (v14 & 1) != 0 && [_MTLBinaryArchive deserializeBinaryArchiveDescriptorMachO:&v62 fileData:self->_fileData];
-            v62.var4 = v31;
+            v30 = (v14 & 1) != 0 && [_MTLBinaryArchive deserializeBinaryArchiveDescriptorMachO:&v61 fileData:self->_fileData];
+            v61.var4 = v30;
           }
 
-          if (v62.var7)
+          if (v61.var7)
           {
             [(MTLLoadedFileContentsWrapper *)self->_fileData bytes];
           }
         }
 
-        if ((self->_options & 4) != 0 && v62.var9)
+        if ((self->_options & 4) != 0 && v61.var9)
         {
-          var11 = v62.var11;
-          self->_specializedFunctionArchiveOffset = v62.var10;
+          var11 = v61.var11;
+          self->_specializedFunctionArchiveOffset = v61.var10;
           self->_specializedFunctionArchiveBytes = var11;
           if (v14)
           {
-            v65.__r_.__value_.__r.__words[0] = [_MTLBinaryArchive sliceIDForSpecializedFunctionsForLLVMVersion:_MTLGetMTLCompilerLLVMVersionForDevice(self->_device)];
-            LOBYTE(v14) = [(_MTLBinaryArchive *)self loadFileIndex:&self->_legacySpecializedFunctionArchiveFileIndex expectedSliceId:&v65 expectedVersion:1 sliceOffset:self->_specializedFunctionArchiveOffset];
+            v64.__r_.__value_.__r.__words[0] = [_MTLBinaryArchive sliceIDForSpecializedFunctionsForLLVMVersion:_MTLGetMTLCompilerLLVMVersionForDevice(self->_device)];
+            LOBYTE(v14) = [(_MTLBinaryArchive *)self loadFileIndex:&self->_legacySpecializedFunctionArchiveFileIndex expectedSliceId:&v64 expectedVersion:1 sliceOffset:self->_specializedFunctionArchiveOffset];
           }
 
           else
@@ -1033,126 +1028,126 @@ LABEL_21:
       }
 
       archiveSkipsAIRValidation = [(_MTLBinaryArchive *)self archiveSkipsAIRValidation];
-      if (!v62.var0 && !v62.var13.var0)
+      if (!v61.var0 && !v61.var13.var0)
       {
-        v21 = 1;
+        v20 = 1;
         LOBYTE(v14) = 1;
 LABEL_68:
-        if (v21 && (v14 & 1) != 0)
+        if (v20 && (v14 & 1) != 0)
         {
           memset(__p, 0, sizeof(__p));
+          v54 = 0u;
           v55 = 0u;
           v56 = 0u;
           v57 = 0u;
-          v58 = 0u;
-          var14 = v62.var14;
-          v35 = [v62.var14 countByEnumeratingWithState:&v55 objects:v67 count:16];
-          if (v35)
+          var14 = v61.var14;
+          v34 = [v61.var14 countByEnumeratingWithState:&v54 objects:v66 count:16];
+          if (v34)
           {
-            v36 = *v56;
+            v35 = *v55;
             do
             {
-              for (i = 0; i != v35; ++i)
+              for (i = 0; i != v34; ++i)
               {
-                if (*v56 != v36)
+                if (*v55 != v35)
                 {
                   objc_enumerationMutation(var14);
                 }
 
-                std::string::basic_string[abi:ne200100]<0>(&v54, [objc_msgSend(*(*(&v55 + 1) + 8 * i) "name")]);
+                std::string::basic_string[abi:ne200100]<0>(&v53, [objc_msgSend(*(*(&v54 + 1) + 8 * i) "name")]);
                 if (SHIBYTE(__p[2]) >= 0)
                 {
-                  v38 = __p;
+                  v37 = __p;
                 }
 
                 else
                 {
-                  v38 = __p[0];
+                  v37 = __p[0];
                 }
 
                 if (SHIBYTE(__p[2]) >= 0)
                 {
-                  v39 = HIBYTE(__p[2]);
+                  v38 = HIBYTE(__p[2]);
                 }
 
                 else
                 {
-                  v39 = __p[1];
+                  v38 = __p[1];
                 }
 
-                v40 = std::string::insert(&v54, 0, v38, v39);
-                v41 = *&v40->__r_.__value_.__l.__data_;
-                v65.__r_.__value_.__r.__words[2] = v40->__r_.__value_.__r.__words[2];
-                *&v65.__r_.__value_.__l.__data_ = v41;
-                v40->__r_.__value_.__l.__size_ = 0;
-                v40->__r_.__value_.__r.__words[2] = 0;
-                v40->__r_.__value_.__r.__words[0] = 0;
-                std::string::basic_string[abi:ne200100]<0>(v52, ", ");
-                if ((v53 & 0x80u) == 0)
+                v39 = std::string::insert(&v53, 0, v37, v38);
+                v40 = *&v39->__r_.__value_.__l.__data_;
+                v64.__r_.__value_.__r.__words[2] = v39->__r_.__value_.__r.__words[2];
+                *&v64.__r_.__value_.__l.__data_ = v40;
+                v39->__r_.__value_.__l.__size_ = 0;
+                v39->__r_.__value_.__r.__words[2] = 0;
+                v39->__r_.__value_.__r.__words[0] = 0;
+                std::string::basic_string[abi:ne200100]<0>(v51, ", ");
+                if ((v52 & 0x80u) == 0)
+                {
+                  v41 = v51;
+                }
+
+                else
+                {
+                  v41 = v51[0];
+                }
+
+                if ((v52 & 0x80u) == 0)
                 {
                   v42 = v52;
                 }
 
                 else
                 {
-                  v42 = v52[0];
+                  v42 = v51[1];
                 }
 
-                if ((v53 & 0x80u) == 0)
-                {
-                  v43 = v53;
-                }
-
-                else
-                {
-                  v43 = v52[1];
-                }
-
-                v44 = std::string::append(&v65, v42, v43);
-                v45 = v44->__r_.__value_.__r.__words[0];
-                v66[0] = v44->__r_.__value_.__l.__size_;
-                *(v66 + 7) = *(&v44->__r_.__value_.__r.__words[1] + 7);
-                v46 = HIBYTE(v44->__r_.__value_.__r.__words[2]);
-                v44->__r_.__value_.__l.__size_ = 0;
-                v44->__r_.__value_.__r.__words[2] = 0;
-                v44->__r_.__value_.__r.__words[0] = 0;
+                v43 = std::string::append(&v64, v41, v42);
+                v44 = v43->__r_.__value_.__r.__words[0];
+                v65[0] = v43->__r_.__value_.__l.__size_;
+                *(v65 + 7) = *(&v43->__r_.__value_.__r.__words[1] + 7);
+                v45 = HIBYTE(v43->__r_.__value_.__r.__words[2]);
+                v43->__r_.__value_.__l.__size_ = 0;
+                v43->__r_.__value_.__r.__words[2] = 0;
+                v43->__r_.__value_.__r.__words[0] = 0;
                 if (SHIBYTE(__p[2]) < 0)
                 {
                   operator delete(__p[0]);
                 }
 
-                __p[0] = v45;
-                __p[1] = v66[0];
-                *(&__p[1] + 7) = *(v66 + 7);
-                HIBYTE(__p[2]) = v46;
-                if (v53 < 0)
+                __p[0] = v44;
+                __p[1] = v65[0];
+                *(&__p[1] + 7) = *(v65 + 7);
+                HIBYTE(__p[2]) = v45;
+                if (v52 < 0)
                 {
-                  operator delete(v52[0]);
+                  operator delete(v51[0]);
                 }
 
-                if (SHIBYTE(v65.__r_.__value_.__r.__words[2]) < 0)
+                if (SHIBYTE(v64.__r_.__value_.__r.__words[2]) < 0)
                 {
-                  operator delete(v65.__r_.__value_.__l.__data_);
+                  operator delete(v64.__r_.__value_.__l.__data_);
                 }
 
-                if (SHIBYTE(v54.__r_.__value_.__r.__words[2]) < 0)
+                if (SHIBYTE(v53.__r_.__value_.__r.__words[2]) < 0)
                 {
-                  operator delete(v54.__r_.__value_.__l.__data_);
+                  operator delete(v53.__r_.__value_.__l.__data_);
                 }
               }
 
-              v35 = [var14 countByEnumeratingWithState:&v55 objects:v67 count:16];
+              v34 = [var14 countByEnumeratingWithState:&v54 objects:v66 count:16];
             }
 
-            while (v35);
+            while (v34);
           }
 
           error = errorCopy;
-          v7 = v51;
+          v7 = v50;
           if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
           {
-            public_arch_name_from_id = air_macho_get_public_arch_name_from_id(v61, SHIDWORD(v61));
-            -[_MTLBinaryArchive loadFromURL:error:].cold.1([objc_msgSend(l "absoluteString")], __p, &v65, public_arch_name_from_id);
+            public_arch_name_from_id = air_macho_get_public_arch_name_from_id(v60, SHIDWORD(v60));
+            -[_MTLBinaryArchive loadFromURL:error:].cold.1([objc_msgSend(l "absoluteString")], __p, &v64, public_arch_name_from_id);
           }
 
           if (SHIBYTE(__p[2]) < 0)
@@ -1164,48 +1159,48 @@ LABEL_68:
         }
 
 LABEL_102:
-        DeserializedBinaryArchiveLayout::~DeserializedBinaryArchiveLayout(&v62);
+        DeserializedBinaryArchiveLayout::~DeserializedBinaryArchiveLayout(&v61);
         goto LABEL_103;
       }
 
-      memset(&v65, 0, 20);
-      v60[0] = MEMORY[0x1E69E9820];
-      v60[1] = 3221225472;
-      v60[2] = __39___MTLBinaryArchive_loadFromURL_error___block_invoke;
-      v60[3] = &unk_1E6EEA9B8;
-      v60[4] = self;
-      v60[5] = v62.var2;
-      v24 = [MTLLoader deserializeAIRNTToolsVersionForSlice:v62.var2 sliceOffset:&v65 version:v60 reader:?];
+      memset(&v64, 0, 20);
+      v59[0] = MEMORY[0x1E69E9820];
+      v59[1] = 3221225472;
+      v59[2] = __39___MTLBinaryArchive_loadFromURL_error___block_invoke;
+      v59[3] = &unk_1E6EEA9B8;
+      v59[4] = self;
+      v59[5] = v61.var2;
+      v23 = [MTLLoader deserializeAIRNTToolsVersionForSlice:v61.var2 sliceOffset:&v64 version:v59 reader:?];
 
-      if (v24)
+      if (v23)
       {
-        *__p = *&v65.__r_.__value_.__l.__data_;
-        LODWORD(__p[2]) = v65.__r_.__value_.__r.__words[2];
-        v25 = [_MTLBinaryArchive archiveVersionCompatible:__p isMatchingSlice:v62.var0 device:self->_device];
-        if (v25 == 2)
+        *__p = *&v64.__r_.__value_.__l.__data_;
+        LODWORD(__p[2]) = v64.__r_.__value_.__r.__words[2];
+        v24 = [_MTLBinaryArchive archiveVersionCompatible:__p isMatchingSlice:v61.var0 device:self->_device];
+        if (v24 == 2)
         {
-          p_var13 = &v61;
-          v27 = archiveSkipsAIRValidation;
+          p_var13 = &v60;
+          v26 = archiveSkipsAIRValidation;
           goto LABEL_43;
         }
       }
 
       else
       {
-        v25 = 0;
+        v24 = 0;
       }
 
-      v29 = (self->_options & 0x10) == 0 || v62.var13.var0 == 0 || v25 == 0;
-      v21 = v29;
-      if (v29)
+      v28 = (self->_options & 0x10) == 0 || v61.var13.var0 == 0 || v24 == 0;
+      v20 = v28;
+      if (v28)
       {
-        v30 = v21;
+        v29 = v20;
 LABEL_61:
-        v33 = !v62.var9;
-        v14 = v33 && v30;
-        if (!v33 && v30)
+        v32 = !v61.var9;
+        v14 = v32 && v29;
+        if (!v32 && v29)
         {
-          v14 = [(_MTLBinaryArchive *)self loadAirSliceAtOffset:v62.var10 sliceLength:v62.var11];
+          v14 = [(_MTLBinaryArchive *)self loadAirSliceAtOffset:v61.var10 sliceLength:v61.var11];
         }
 
         if (!(v10 | archiveSkipsAIRValidation) && !self->_hasBuiltins && ((v14 ^ 1) & 1) == 0)
@@ -1216,17 +1211,17 @@ LABEL_61:
         goto LABEL_68;
       }
 
-      v30 = v21;
-      if ((v24 ^ 1))
+      v29 = v20;
+      if ((v23 ^ 1))
       {
         goto LABEL_61;
       }
 
-      v27 = 0;
-      p_var13 = &v62.var13;
+      v26 = 0;
+      p_var13 = &v61.var13;
 LABEL_43:
-      v30 = [(_MTLBinaryArchive *)self loadAirntBlocksForSlice:p_var13 sliceOffset:v62.var2 skipAIRValidation:v27];
-      v21 = 0;
+      v29 = [(_MTLBinaryArchive *)self loadAirntBlocksForSlice:p_var13 sliceOffset:v61.var2 skipAIRValidation:v26];
+      v20 = 0;
       goto LABEL_61;
     }
 
@@ -1244,16 +1239,15 @@ LABEL_103:
   v11 = v14;
   if (error && (v14 & 1) == 0)
   {
-    v48 = newErrorWithMessage([MEMORY[0x1E696AEC0] stringWithFormat:@"The file %@ has an invalid format.", l], MTLBinaryArchiveErrorInvalidFile);
-    *error = v48;
-    v49 = v48;
+    v47 = newErrorWithMessage([MEMORY[0x1E696AEC0] stringWithFormat:@"The file %@ has an invalid format.", l], MTLBinaryArchiveErrorInvalidFile);
+    *error = v47;
+    v48 = v47;
     LOBYTE(v14) = 0;
     v11 = 0;
   }
 
 LABEL_10:
   objc_autoreleasePoolPop(v7);
-  v15 = *MEMORY[0x1E69E9840];
   return v14 & v11 & 1;
 }
 
@@ -1317,28 +1311,26 @@ LABEL_10:
 
 - (void)materializeAllAIRNTLegacy
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   for (i = self->_executableFileIndex.__table_.__first_node_.__next_; i; i = *i)
   {
-    MTLHashKey::MTLHashKey(&v7, (i + 16));
+    MTLHashKey::MTLHashKey(&v6, (i + 16));
     v4 = *(i + 7);
-    v8 = *(i + 6);
-    v9 = v4;
-    v5 = [[MTLBinaryKey alloc] initWithHash:&v7];
+    v7 = *(i + 6);
+    v8 = v4;
+    v5 = [[MTLBinaryKey alloc] initWithHash:&v6];
     if (![(NSMutableDictionary *)self->_entries objectForKey:v5])
     {
       [(_MTLBinaryArchive *)self materializeAIRNTBlockForKey:v5 reflectionType:0];
     }
 
-    MTLHashKey::~MTLHashKey(&v7);
+    MTLHashKey::~MTLHashKey(&v6);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)materializeAll
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   p_legacyPipelineFileIndex = &self->_legacyPipelineFileIndex;
   p_end_node = &self->_legacyPipelineFileIndex.__tree_.__end_node_;
   begin_node = self->_legacyPipelineFileIndex.__tree_.__begin_node_;
@@ -1346,17 +1338,17 @@ LABEL_10:
   {
     do
     {
-      v6 = [(_MTLBinaryArchive *)self materializeFromFileOffset:begin_node[9].__left_ hash:v13];
+      v6 = [(_MTLBinaryArchive *)self materializeFromFileOffset:begin_node[9].__left_ hash:v12];
       if (v6)
       {
-        MTLHashKey::MTLHashKey(&v12, v13);
-        v7 = [[MTLBinaryKey alloc] initWithHash:&v12];
+        MTLHashKey::MTLHashKey(&v11, v12);
+        v7 = [[MTLBinaryKey alloc] initWithHash:&v11];
         if (![(NSMutableDictionary *)self->_entries objectForKey:v7])
         {
           [(NSMutableDictionary *)self->_entries setObject:v6 forKey:v7];
         }
 
-        MTLHashKey::~MTLHashKey(&v12);
+        MTLHashKey::~MTLHashKey(&v11);
       }
 
       left = begin_node[1].__left_;
@@ -1393,7 +1385,6 @@ LABEL_10:
   p_legacyPipelineFileIndex->__tree_.__end_node_.__left_ = 0;
   p_legacyPipelineFileIndex->__tree_.__size_ = 0;
   p_legacyPipelineFileIndex->__tree_.__begin_node_ = p_end_node;
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (id)materializeFromHash:(id *)hash fileIndex:(void *)index
@@ -1449,36 +1440,36 @@ LABEL_10:
 
 - (BOOL)storeComputePipelineDescriptor:(id)descriptor
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   if (self->_isLegacy || descriptor && (self->_options & 0xC0) == 0 && (MTLMetalScriptBuilder::addComputePipelineWithDescriptor(self->_mtlScriptBuilder.__ptr_, descriptor), self->_isLegacy))
   {
     if (self->_options)
     {
-      v15 = 0u;
-      v16 = 0u;
-      v13 = 0u;
       v14 = 0u;
+      v15 = 0u;
+      v12 = 0u;
+      v13 = 0u;
       preloadedLibraries = [descriptor preloadedLibraries];
-      v6 = [preloadedLibraries countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v6 = [preloadedLibraries countByEnumeratingWithState:&v12 objects:v16 count:16];
       if (v6)
       {
         v7 = v6;
-        v8 = *v14;
+        v8 = *v13;
         do
         {
           v9 = 0;
           do
           {
-            if (*v14 != v8)
+            if (*v13 != v8)
             {
               objc_enumerationMutation(preloadedLibraries);
             }
 
-            MTLPipelineCollection::addDynamicLibraryData(self->_pipelineCollection.__ptr_, self->_collectArchives, !self->_collectArchives, *(*(&v13 + 1) + 8 * v9++));
+            MTLPipelineCollection::addDynamicLibraryData(self->_pipelineCollection.__ptr_, self->_collectArchives, !self->_collectArchives, *(*(&v12 + 1) + 8 * v9++));
           }
 
           while (v7 != v9);
-          v7 = [preloadedLibraries countByEnumeratingWithState:&v13 objects:v17 count:16];
+          v7 = [preloadedLibraries countByEnumeratingWithState:&v12 objects:v16 count:16];
         }
 
         while (v7);
@@ -1491,132 +1482,131 @@ LABEL_10:
     }
   }
 
-  v11 = *MEMORY[0x1E69E9840];
   return 1;
 }
 
 - (BOOL)storeRenderPipelineDescriptor:(id)descriptor
 {
-  v51 = *MEMORY[0x1E69E9840];
+  v50 = *MEMORY[0x1E69E9840];
   if (self->_isLegacy || descriptor && (self->_options & 0xC0) == 0 && (MTLMetalScriptBuilder::addRenderPipelineWithDescriptor(self->_mtlScriptBuilder.__ptr_, descriptor), self->_isLegacy))
   {
     if (self->_options)
     {
-      v45 = 0u;
-      v46 = 0u;
-      v43 = 0u;
       v44 = 0u;
+      v45 = 0u;
+      v42 = 0u;
+      v43 = 0u;
       vertexPreloadedLibraries = [descriptor vertexPreloadedLibraries];
-      v6 = [vertexPreloadedLibraries countByEnumeratingWithState:&v43 objects:v50 count:16];
+      v6 = [vertexPreloadedLibraries countByEnumeratingWithState:&v42 objects:v49 count:16];
       if (v6)
       {
         v7 = v6;
-        v8 = *v44;
+        v8 = *v43;
         do
         {
           v9 = 0;
           do
           {
-            if (*v44 != v8)
+            if (*v43 != v8)
             {
               objc_enumerationMutation(vertexPreloadedLibraries);
             }
 
-            MTLPipelineCollection::addDynamicLibraryData(self->_pipelineCollection.__ptr_, self->_collectArchives, !self->_collectArchives, *(*(&v43 + 1) + 8 * v9++));
+            MTLPipelineCollection::addDynamicLibraryData(self->_pipelineCollection.__ptr_, self->_collectArchives, !self->_collectArchives, *(*(&v42 + 1) + 8 * v9++));
           }
 
           while (v7 != v9);
-          v7 = [vertexPreloadedLibraries countByEnumeratingWithState:&v43 objects:v50 count:16];
+          v7 = [vertexPreloadedLibraries countByEnumeratingWithState:&v42 objects:v49 count:16];
         }
 
         while (v7);
       }
 
-      v41 = 0u;
-      v42 = 0u;
-      v39 = 0u;
       v40 = 0u;
+      v41 = 0u;
+      v38 = 0u;
+      v39 = 0u;
       fragmentPreloadedLibraries = [descriptor fragmentPreloadedLibraries];
-      v11 = [fragmentPreloadedLibraries countByEnumeratingWithState:&v39 objects:v49 count:16];
+      v11 = [fragmentPreloadedLibraries countByEnumeratingWithState:&v38 objects:v48 count:16];
       if (v11)
       {
         v12 = v11;
-        v13 = *v40;
+        v13 = *v39;
         do
         {
           v14 = 0;
           do
           {
-            if (*v40 != v13)
+            if (*v39 != v13)
             {
               objc_enumerationMutation(fragmentPreloadedLibraries);
             }
 
-            MTLPipelineCollection::addDynamicLibraryData(self->_pipelineCollection.__ptr_, self->_collectArchives, !self->_collectArchives, *(*(&v39 + 1) + 8 * v14++));
+            MTLPipelineCollection::addDynamicLibraryData(self->_pipelineCollection.__ptr_, self->_collectArchives, !self->_collectArchives, *(*(&v38 + 1) + 8 * v14++));
           }
 
           while (v12 != v14);
-          v12 = [fragmentPreloadedLibraries countByEnumeratingWithState:&v39 objects:v49 count:16];
+          v12 = [fragmentPreloadedLibraries countByEnumeratingWithState:&v38 objects:v48 count:16];
         }
 
         while (v12);
       }
 
-      v37 = 0u;
-      v38 = 0u;
-      v35 = 0u;
       v36 = 0u;
+      v37 = 0u;
+      v34 = 0u;
+      v35 = 0u;
       objectPreloadedLibraries = [descriptor objectPreloadedLibraries];
-      v16 = [objectPreloadedLibraries countByEnumeratingWithState:&v35 objects:v48 count:16];
+      v16 = [objectPreloadedLibraries countByEnumeratingWithState:&v34 objects:v47 count:16];
       if (v16)
       {
         v17 = v16;
-        v18 = *v36;
+        v18 = *v35;
         do
         {
           v19 = 0;
           do
           {
-            if (*v36 != v18)
+            if (*v35 != v18)
             {
               objc_enumerationMutation(objectPreloadedLibraries);
             }
 
-            MTLPipelineCollection::addDynamicLibraryData(self->_pipelineCollection.__ptr_, self->_collectArchives, !self->_collectArchives, *(*(&v35 + 1) + 8 * v19++));
+            MTLPipelineCollection::addDynamicLibraryData(self->_pipelineCollection.__ptr_, self->_collectArchives, !self->_collectArchives, *(*(&v34 + 1) + 8 * v19++));
           }
 
           while (v17 != v19);
-          v17 = [objectPreloadedLibraries countByEnumeratingWithState:&v35 objects:v48 count:16];
+          v17 = [objectPreloadedLibraries countByEnumeratingWithState:&v34 objects:v47 count:16];
         }
 
         while (v17);
       }
 
-      v33 = 0u;
-      v34 = 0u;
-      v31 = 0u;
       v32 = 0u;
+      v33 = 0u;
+      v30 = 0u;
+      v31 = 0u;
       meshPreloadedLibraries = [descriptor meshPreloadedLibraries];
-      v21 = [meshPreloadedLibraries countByEnumeratingWithState:&v31 objects:v47 count:16];
+      v21 = [meshPreloadedLibraries countByEnumeratingWithState:&v30 objects:v46 count:16];
       if (v21)
       {
         v22 = v21;
-        v23 = *v32;
+        v23 = *v31;
         do
         {
           v24 = 0;
           do
           {
-            if (*v32 != v23)
+            if (*v31 != v23)
             {
               objc_enumerationMutation(meshPreloadedLibraries);
             }
 
-            MTLPipelineCollection::addDynamicLibraryData(self->_pipelineCollection.__ptr_, self->_collectArchives, !self->_collectArchives, *(*(&v31 + 1) + 8 * v24++));
+            MTLPipelineCollection::addDynamicLibraryData(self->_pipelineCollection.__ptr_, self->_collectArchives, !self->_collectArchives, *(*(&v30 + 1) + 8 * v24++));
           }
 
           while (v22 != v24);
-          v22 = [meshPreloadedLibraries countByEnumeratingWithState:&v31 objects:v47 count:16];
+          v22 = [meshPreloadedLibraries countByEnumeratingWithState:&v30 objects:v46 count:16];
         }
 
         while (v22);
@@ -1638,42 +1628,41 @@ LABEL_10:
     }
   }
 
-  v29 = *MEMORY[0x1E69E9840];
   return 1;
 }
 
 - (BOOL)storeTileRenderPipelineDescriptor:(id)descriptor
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   if (self->_isLegacy || descriptor && (self->_options & 0xC0) == 0 && (MTLMetalScriptBuilder::addTileRenderPipelineWithDescriptor(self->_mtlScriptBuilder.__ptr_, descriptor), self->_isLegacy))
   {
     if (self->_options)
     {
-      v15 = 0u;
-      v16 = 0u;
-      v13 = 0u;
       v14 = 0u;
+      v15 = 0u;
+      v12 = 0u;
+      v13 = 0u;
       preloadedLibraries = [descriptor preloadedLibraries];
-      v6 = [preloadedLibraries countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v6 = [preloadedLibraries countByEnumeratingWithState:&v12 objects:v16 count:16];
       if (v6)
       {
         v7 = v6;
-        v8 = *v14;
+        v8 = *v13;
         do
         {
           v9 = 0;
           do
           {
-            if (*v14 != v8)
+            if (*v13 != v8)
             {
               objc_enumerationMutation(preloadedLibraries);
             }
 
-            MTLPipelineCollection::addDynamicLibraryData(self->_pipelineCollection.__ptr_, self->_collectArchives, !self->_collectArchives, *(*(&v13 + 1) + 8 * v9++));
+            MTLPipelineCollection::addDynamicLibraryData(self->_pipelineCollection.__ptr_, self->_collectArchives, !self->_collectArchives, *(*(&v12 + 1) + 8 * v9++));
           }
 
           while (v7 != v9);
-          v7 = [preloadedLibraries countByEnumeratingWithState:&v13 objects:v17 count:16];
+          v7 = [preloadedLibraries countByEnumeratingWithState:&v12 objects:v16 count:16];
         }
 
         while (v7);
@@ -1686,102 +1675,101 @@ LABEL_10:
     }
   }
 
-  v11 = *MEMORY[0x1E69E9840];
   return 1;
 }
 
 - (BOOL)storeMeshRenderPipelineDescriptor:(id)descriptor
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   if (self->_isLegacy || descriptor && (self->_options & 0xC0) == 0 && (MTLMetalScriptBuilder::addMeshRenderPipelineWithDescriptor(self->_mtlScriptBuilder.__ptr_, descriptor), self->_isLegacy))
   {
     if (self->_options)
     {
-      v35 = 0u;
-      v36 = 0u;
-      v33 = 0u;
       v34 = 0u;
+      v35 = 0u;
+      v32 = 0u;
+      v33 = 0u;
       objectPreloadedLibraries = [descriptor objectPreloadedLibraries];
-      v6 = [objectPreloadedLibraries countByEnumeratingWithState:&v33 objects:v39 count:16];
+      v6 = [objectPreloadedLibraries countByEnumeratingWithState:&v32 objects:v38 count:16];
       if (v6)
       {
         v7 = v6;
-        v8 = *v34;
+        v8 = *v33;
         do
         {
           v9 = 0;
           do
           {
-            if (*v34 != v8)
+            if (*v33 != v8)
             {
               objc_enumerationMutation(objectPreloadedLibraries);
             }
 
-            MTLPipelineCollection::addDynamicLibraryData(self->_pipelineCollection.__ptr_, self->_collectArchives, !self->_collectArchives, *(*(&v33 + 1) + 8 * v9++));
+            MTLPipelineCollection::addDynamicLibraryData(self->_pipelineCollection.__ptr_, self->_collectArchives, !self->_collectArchives, *(*(&v32 + 1) + 8 * v9++));
           }
 
           while (v7 != v9);
-          v7 = [objectPreloadedLibraries countByEnumeratingWithState:&v33 objects:v39 count:16];
+          v7 = [objectPreloadedLibraries countByEnumeratingWithState:&v32 objects:v38 count:16];
         }
 
         while (v7);
       }
 
-      v31 = 0u;
-      v32 = 0u;
-      v29 = 0u;
       v30 = 0u;
+      v31 = 0u;
+      v28 = 0u;
+      v29 = 0u;
       meshPreloadedLibraries = [descriptor meshPreloadedLibraries];
-      v11 = [meshPreloadedLibraries countByEnumeratingWithState:&v29 objects:v38 count:16];
+      v11 = [meshPreloadedLibraries countByEnumeratingWithState:&v28 objects:v37 count:16];
       if (v11)
       {
         v12 = v11;
-        v13 = *v30;
+        v13 = *v29;
         do
         {
           v14 = 0;
           do
           {
-            if (*v30 != v13)
+            if (*v29 != v13)
             {
               objc_enumerationMutation(meshPreloadedLibraries);
             }
 
-            MTLPipelineCollection::addDynamicLibraryData(self->_pipelineCollection.__ptr_, self->_collectArchives, !self->_collectArchives, *(*(&v29 + 1) + 8 * v14++));
+            MTLPipelineCollection::addDynamicLibraryData(self->_pipelineCollection.__ptr_, self->_collectArchives, !self->_collectArchives, *(*(&v28 + 1) + 8 * v14++));
           }
 
           while (v12 != v14);
-          v12 = [meshPreloadedLibraries countByEnumeratingWithState:&v29 objects:v38 count:16];
+          v12 = [meshPreloadedLibraries countByEnumeratingWithState:&v28 objects:v37 count:16];
         }
 
         while (v12);
       }
 
-      v27 = 0u;
-      v28 = 0u;
-      v25 = 0u;
       v26 = 0u;
+      v27 = 0u;
+      v24 = 0u;
+      v25 = 0u;
       fragmentPreloadedLibraries = [descriptor fragmentPreloadedLibraries];
-      v16 = [fragmentPreloadedLibraries countByEnumeratingWithState:&v25 objects:v37 count:16];
+      v16 = [fragmentPreloadedLibraries countByEnumeratingWithState:&v24 objects:v36 count:16];
       if (v16)
       {
         v17 = v16;
-        v18 = *v26;
+        v18 = *v25;
         do
         {
           v19 = 0;
           do
           {
-            if (*v26 != v18)
+            if (*v25 != v18)
             {
               objc_enumerationMutation(fragmentPreloadedLibraries);
             }
 
-            MTLPipelineCollection::addDynamicLibraryData(self->_pipelineCollection.__ptr_, self->_collectArchives, !self->_collectArchives, *(*(&v25 + 1) + 8 * v19++));
+            MTLPipelineCollection::addDynamicLibraryData(self->_pipelineCollection.__ptr_, self->_collectArchives, !self->_collectArchives, *(*(&v24 + 1) + 8 * v19++));
           }
 
           while (v17 != v19);
-          v17 = [fragmentPreloadedLibraries countByEnumeratingWithState:&v25 objects:v37 count:16];
+          v17 = [fragmentPreloadedLibraries countByEnumeratingWithState:&v24 objects:v36 count:16];
         }
 
         while (v17);
@@ -1800,7 +1788,6 @@ LABEL_10:
     }
   }
 
-  v23 = *MEMORY[0x1E69E9840];
   return 1;
 }
 
@@ -2011,54 +1998,45 @@ LABEL_10:
 
 - (BOOL)getSpecializedFunctionArchivesToSerialize:(void *)serialize
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   next = self->_legacySpecializedFunctions.__table_.__first_node_.__next_;
-  if (!next)
+  if (next)
   {
-    goto LABEL_9;
-  }
-
-  v6 = 1;
-  do
-  {
-    v7 = *(next + 2);
-    v13[0] = *(next + 1);
-    v13[1] = v7;
-    object = *(next + 6);
-    if (object)
+    v6 = 1;
+    do
     {
-      std::__hash_table<std::__hash_value_type<MTLUINT256_t,NSObject  {objcproto16OS_dispatch_data}*>,std::__unordered_map_hasher<MTLUINT256_t,std::__hash_value_type<MTLUINT256_t,NSObject  {objcproto16OS_dispatch_data}*>,UnorderedContainerHash,UnorderedContainerHash,true>,std::__unordered_map_equal<MTLUINT256_t,std::__hash_value_type<MTLUINT256_t,NSObject  {objcproto16OS_dispatch_data}*>,UnorderedContainerHash,UnorderedContainerHash,true>,std::allocator<std::__hash_value_type<MTLUINT256_t,NSObject  {objcproto16OS_dispatch_data}*>>>::__emplace_unique_key_args<MTLUINT256_t,std::pair<MTLUINT256_t const,NSObject  {objcproto16OS_dispatch_data}*> const&>(serialize, v13);
-      v9 = v8;
-      if (v8)
+      v7 = *(next + 2);
+      v12[0] = *(next + 1);
+      v12[1] = v7;
+      object = *(next + 6);
+      if (object)
       {
-        dispatch_retain(object);
+        std::__hash_table<std::__hash_value_type<MTLUINT256_t,NSObject  {objcproto16OS_dispatch_data}*>,std::__unordered_map_hasher<MTLUINT256_t,std::__hash_value_type<MTLUINT256_t,NSObject  {objcproto16OS_dispatch_data}*>,UnorderedContainerHash,UnorderedContainerHash,true>,std::__unordered_map_equal<MTLUINT256_t,std::__hash_value_type<MTLUINT256_t,NSObject  {objcproto16OS_dispatch_data}*>,UnorderedContainerHash,UnorderedContainerHash,true>,std::allocator<std::__hash_value_type<MTLUINT256_t,NSObject  {objcproto16OS_dispatch_data}*>>>::__emplace_unique_key_args<MTLUINT256_t,std::pair<MTLUINT256_t const,NSObject  {objcproto16OS_dispatch_data}*> const&>(serialize, v12, v12);
+        v9 = v8;
+        if (v8)
+        {
+          dispatch_retain(object);
+        }
+
+        v6 &= v9;
       }
 
-      v6 &= v9;
+      next = *next;
     }
 
-    next = *next;
+    while (next);
+    if ((v6 & 1) == 0)
+    {
+      return 0;
+    }
   }
 
-  while (next);
-  if ((v6 & 1) == 0)
-  {
-    result = 0;
-  }
-
-  else
-  {
-LABEL_9:
-    v12[0] = MEMORY[0x1E69E9820];
-    v12[1] = 3221225472;
-    v12[2] = __63___MTLBinaryArchive_getSpecializedFunctionArchivesToSerialize___block_invoke;
-    v12[3] = &__block_descriptor_40_e49_B24__0r_____32C__8__NSObject_OS_dispatch_data__16l;
-    v12[4] = serialize;
-    result = [(_MTLBinaryArchive *)self enumerateSpecializedFunctionArchivesFromBackingFile:v12];
-  }
-
-  v11 = *MEMORY[0x1E69E9840];
-  return result;
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __63___MTLBinaryArchive_getSpecializedFunctionArchivesToSerialize___block_invoke;
+  v11[3] = &__block_descriptor_40_e49_B24__0r_____32C__8__NSObject_OS_dispatch_data__16l;
+  v11[4] = serialize;
+  return [(_MTLBinaryArchive *)self enumerateSpecializedFunctionArchivesFromBackingFile:v11];
 }
 
 - (id)flatBufferFromJSON:(id)n schema:(const char *)schema schemaSize:(unint64_t)size
@@ -2167,7 +2145,7 @@ LABEL_14:
 
 - (id)newLibraryInArchiveAtPos:(void *)pos atIndex:(unsigned int)index error:(id *)error
 {
-  v56 = *MEMORY[0x1E69E9840];
+  v55 = *MEMORY[0x1E69E9840];
   v9 = *(*pos + 8 * index);
   if (!*(v9 + 8))
   {
@@ -2175,7 +2153,7 @@ LABEL_14:
     v11 = std::__hash_table<std::__hash_value_type<std::string,DataBlock>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,DataBlock>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,DataBlock>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,DataBlock>>>::find<std::string>(&self->_extLibCache.__table_.__bucket_list_.__ptr_, __p);
     if (v11)
     {
-      v46 = v11[5];
+      v45 = v11[5];
     }
 
     else
@@ -2186,44 +2164,43 @@ LABEL_14:
         if (!error || (self->_options & 0x20) != 0)
         {
           v42 = 0;
-          v46 = 0;
+          v45 = 0;
         }
 
         else
         {
           v42 = 0;
-          v46 = 0;
+          v45 = 0;
           *error = newErrorWithMessage([MEMORY[0x1E696AEC0] stringWithFormat:@"Failed to map library at path: %s", *(*(*pos + 8 * index) + 16)], MTLBinaryArchiveErrorInvalidFile);
         }
 
 LABEL_41:
-        if (v55 < 0)
+        if (v54 < 0)
         {
           operator delete(__p[0]);
           if (v42)
           {
-            goto LABEL_44;
+            return v45;
           }
         }
 
         else if (v42)
         {
-          goto LABEL_44;
+          return v45;
         }
 
-        v46 = 0;
-        goto LABEL_44;
+        return 0;
       }
 
-      v46 = MTLLibraryBuilder::newLibraryWithData(*(self->_device + 55), self->_device, v40, error, v36, v37, v38, v39);
-      if ([(_MTLLibrary *)v46 isStub])
+      v45 = MTLLibraryBuilder::newLibraryWithData(*(self->_device + 55), self->_device, v40, error, v36, v37, v38, v39);
+      if ([(_MTLLibrary *)v45 isStub])
       {
         self->_bitcodeStripped = 1;
       }
 
-      v41 = v46;
-      *&v48 = __p;
-      std::__hash_table<std::__hash_value_type<std::string,objc_object  {objcproto13MTLLibrarySPI}*>,std::__unordered_map_hasher<std::string,objc_object  {objcproto13MTLLibrarySPI}*,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,objc_object  {objcproto13MTLLibrarySPI}*,std::equal_to,std::hash,true>,std::allocator<objc_object  {objcproto13MTLLibrarySPI}*>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::piecewise_construct_t const&<>>(&self->_extLibCache.__table_.__bucket_list_.__ptr_, __p)[5] = v41;
+      v41 = v45;
+      *&v47 = __p;
+      std::__hash_table<std::__hash_value_type<std::string,objc_object  {objcproto13MTLLibrarySPI}*>,std::__unordered_map_hasher<std::string,objc_object  {objcproto13MTLLibrarySPI}*,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,objc_object  {objcproto13MTLLibrarySPI}*,std::equal_to,std::hash,true>,std::allocator<objc_object  {objcproto13MTLLibrarySPI}*>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::piecewise_construct_t const&<>>(&self->_extLibCache.__table_.__bucket_list_.__ptr_, __p, &std::piecewise_construct, &v47, v52)[5] = v41;
       dispatch_release(v40);
     }
 
@@ -2231,103 +2208,97 @@ LABEL_41:
     goto LABEL_41;
   }
 
-  v47 = *(pos + 7) + *v9;
-  v10 = std::__hash_table<std::__hash_value_type<unsigned long,MTLStructTypeInternal *>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,MTLStructTypeInternal *>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,MTLStructTypeInternal *>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,MTLStructTypeInternal *>>>::find<unsigned long>(&self->_libCache.__table_.__bucket_list_.__ptr_, &v47);
+  v46 = *(pos + 7) + *v9;
+  v10 = std::__hash_table<std::__hash_value_type<unsigned long,MTLStructTypeInternal *>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,MTLStructTypeInternal *>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,MTLStructTypeInternal *>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,MTLStructTypeInternal *>>>::find<unsigned long>(&self->_libCache.__table_.__bucket_list_.__ptr_, &v46);
   if (v10)
   {
-    v46 = v10[3];
+    return v10[3];
   }
 
-  else
+  v12 = *(*pos + 8 * index);
+  v13 = v46;
+  v14 = *(v12 + 8);
+  object = dispatch_data_create_subrange([(MTLLoadedFileContentsWrapper *)self->_fileData dispatchData], v46, v14);
+  v45 = MTLLibraryBuilder::newLibraryWithData(*(self->_device + 55), self->_device, object, error, v15, v16, v17, v18);
+  if ([(_MTLLibrary *)v45 isStub])
   {
-    v12 = *(*pos + 8 * index);
-    v13 = v47;
-    v14 = *(v12 + 8);
-    object = dispatch_data_create_subrange([(MTLLoadedFileContentsWrapper *)self->_fileData dispatchData], v47, v14);
-    v46 = MTLLibraryBuilder::newLibraryWithData(*(self->_device + 55), self->_device, object, error, v15, v16, v17, v18);
-    if ([(_MTLLibrary *)v46 isStub])
-    {
-      self->_bitcodeStripped = 1;
-    }
-
-    v19 = [(NSArray *)[(_MTLLibrary *)v46 specializedFunctionHashes] count];
-    v20 = [(NSArray *)[(_MTLLibrary *)v46 stitchingFunctionHashes] count];
-    v21 = [(NSArray *)[(_MTLLibrary *)v46 functionHashes] count];
-    if ((self->_options & 0x10) != 0 || (!v20 ? (v22 = v19 == 1) : (v22 = 0), !v22 ? (v23 = v20 == 1) : (v23 = 1), !v23 ? (v24 = v21 >= 0xA) : (v24 = 0), v24))
-    {
-      v25 = v46;
-      __p[0] = &v47;
-      std::__hash_table<std::__hash_value_type<unsigned long long,objc_object  {objcproto13MTLLibrarySPI}*>,std::__unordered_map_hasher<unsigned long long,objc_object  {objcproto13MTLLibrarySPI}*,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,objc_object  {objcproto13MTLLibrarySPI}*,std::equal_to,std::hash,true>,std::allocator<objc_object  {objcproto13MTLLibrarySPI}*>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::piecewise_construct_t const&<>>(&self->_libCache.__table_.__bucket_list_.__ptr_, &v47)[3] = v25;
-    }
-
-    specializedFunctionHashes = [(_MTLLibrary *)v46 specializedFunctionHashes];
-    v48 = 0u;
-    v49 = 0u;
-    v50 = 0u;
-    v51 = 0u;
-    v27 = [(NSArray *)specializedFunctionHashes countByEnumeratingWithState:&v48 objects:__p count:16];
-    if (v27)
-    {
-      v28 = *v49;
-      do
-      {
-        for (i = 0; i != v27; ++i)
-        {
-          if (*v49 != v28)
-          {
-            objc_enumerationMutation(specializedFunctionHashes);
-          }
-
-          [*(*(&v48 + 1) + 8 * i) getValue:v53];
-          v52 = v53;
-          v30 = std::__hash_table<std::__hash_value_type<MTLUINT256_t,_NSRange>,std::__unordered_map_hasher<MTLUINT256_t,std::__hash_value_type<MTLUINT256_t,_NSRange>,UnorderedContainerHash,UnorderedContainerHash,true>,std::__unordered_map_equal<MTLUINT256_t,std::__hash_value_type<MTLUINT256_t,_NSRange>,UnorderedContainerHash,UnorderedContainerHash,true>,std::allocator<std::__hash_value_type<MTLUINT256_t,_NSRange>>>::__emplace_unique_key_args<MTLUINT256_t,std::piecewise_construct_t const&,std::tuple<MTLUINT256_t const&>,std::tuple<>>(&self->_specializedLibraryCache.__table_.__bucket_list_.__ptr_, v53);
-          v30[6] = v13;
-          v30[7] = v14;
-        }
-
-        v27 = [(NSArray *)specializedFunctionHashes countByEnumeratingWithState:&v48 objects:__p count:16];
-      }
-
-      while (v27);
-    }
-
-    stitchingFunctionHashes = [(_MTLLibrary *)v46 stitchingFunctionHashes];
-    v48 = 0u;
-    v49 = 0u;
-    v50 = 0u;
-    v51 = 0u;
-    v32 = [(NSArray *)stitchingFunctionHashes countByEnumeratingWithState:&v48 objects:__p count:16];
-    if (v32)
-    {
-      v33 = *v49;
-      do
-      {
-        for (j = 0; j != v32; ++j)
-        {
-          if (*v49 != v33)
-          {
-            objc_enumerationMutation(stitchingFunctionHashes);
-          }
-
-          [*(*(&v48 + 1) + 8 * j) getValue:v53];
-          v52 = v53;
-          v35 = std::__hash_table<std::__hash_value_type<MTLUINT256_t,_NSRange>,std::__unordered_map_hasher<MTLUINT256_t,std::__hash_value_type<MTLUINT256_t,_NSRange>,UnorderedContainerHash,UnorderedContainerHash,true>,std::__unordered_map_equal<MTLUINT256_t,std::__hash_value_type<MTLUINT256_t,_NSRange>,UnorderedContainerHash,UnorderedContainerHash,true>,std::allocator<std::__hash_value_type<MTLUINT256_t,_NSRange>>>::__emplace_unique_key_args<MTLUINT256_t,std::piecewise_construct_t const&,std::tuple<MTLUINT256_t const&>,std::tuple<>>(&self->_stitchedLibraryCache.__table_.__bucket_list_.__ptr_, v53);
-          v35[6] = v13;
-          v35[7] = v14;
-        }
-
-        v32 = [(NSArray *)stitchingFunctionHashes countByEnumeratingWithState:&v48 objects:__p count:16];
-      }
-
-      while (v32);
-    }
-
-    dispatch_release(object);
+    self->_bitcodeStripped = 1;
   }
 
-LABEL_44:
-  v43 = *MEMORY[0x1E69E9840];
-  return v46;
+  v19 = [(NSArray *)[(_MTLLibrary *)v45 specializedFunctionHashes] count];
+  v20 = [(NSArray *)[(_MTLLibrary *)v45 stitchingFunctionHashes] count];
+  v21 = [(NSArray *)[(_MTLLibrary *)v45 functionHashes] count];
+  if ((self->_options & 0x10) != 0 || (!v20 ? (v22 = v19 == 1) : (v22 = 0), !v22 ? (v23 = v20 == 1) : (v23 = 1), !v23 ? (v24 = v21 >= 0xA) : (v24 = 0), v24))
+  {
+    v25 = v45;
+    __p[0] = &v46;
+    std::__hash_table<std::__hash_value_type<unsigned long long,objc_object  {objcproto13MTLLibrarySPI}*>,std::__unordered_map_hasher<unsigned long long,objc_object  {objcproto13MTLLibrarySPI}*,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,objc_object  {objcproto13MTLLibrarySPI}*,std::equal_to,std::hash,true>,std::allocator<objc_object  {objcproto13MTLLibrarySPI}*>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::piecewise_construct_t const&<>>(&self->_libCache.__table_.__bucket_list_.__ptr_, &v46, &std::piecewise_construct, __p)[3] = v25;
+  }
+
+  specializedFunctionHashes = [(_MTLLibrary *)v45 specializedFunctionHashes];
+  v47 = 0u;
+  v48 = 0u;
+  v49 = 0u;
+  v50 = 0u;
+  v27 = [(NSArray *)specializedFunctionHashes countByEnumeratingWithState:&v47 objects:__p count:16];
+  if (v27)
+  {
+    v28 = *v48;
+    do
+    {
+      for (i = 0; i != v27; ++i)
+      {
+        if (*v48 != v28)
+        {
+          objc_enumerationMutation(specializedFunctionHashes);
+        }
+
+        [*(*(&v47 + 1) + 8 * i) getValue:v52];
+        v51 = v52;
+        v30 = std::__hash_table<std::__hash_value_type<MTLUINT256_t,_NSRange>,std::__unordered_map_hasher<MTLUINT256_t,std::__hash_value_type<MTLUINT256_t,_NSRange>,UnorderedContainerHash,UnorderedContainerHash,true>,std::__unordered_map_equal<MTLUINT256_t,std::__hash_value_type<MTLUINT256_t,_NSRange>,UnorderedContainerHash,UnorderedContainerHash,true>,std::allocator<std::__hash_value_type<MTLUINT256_t,_NSRange>>>::__emplace_unique_key_args<MTLUINT256_t,std::piecewise_construct_t const&,std::tuple<MTLUINT256_t const&>,std::tuple<>>(&self->_specializedLibraryCache.__table_.__bucket_list_.__ptr_, v52, &std::piecewise_construct, &v51);
+        v30[6] = v13;
+        v30[7] = v14;
+      }
+
+      v27 = [(NSArray *)specializedFunctionHashes countByEnumeratingWithState:&v47 objects:__p count:16];
+    }
+
+    while (v27);
+  }
+
+  stitchingFunctionHashes = [(_MTLLibrary *)v45 stitchingFunctionHashes];
+  v47 = 0u;
+  v48 = 0u;
+  v49 = 0u;
+  v50 = 0u;
+  v32 = [(NSArray *)stitchingFunctionHashes countByEnumeratingWithState:&v47 objects:__p count:16];
+  if (v32)
+  {
+    v33 = *v48;
+    do
+    {
+      for (j = 0; j != v32; ++j)
+      {
+        if (*v48 != v33)
+        {
+          objc_enumerationMutation(stitchingFunctionHashes);
+        }
+
+        [*(*(&v47 + 1) + 8 * j) getValue:v52];
+        v51 = v52;
+        v35 = std::__hash_table<std::__hash_value_type<MTLUINT256_t,_NSRange>,std::__unordered_map_hasher<MTLUINT256_t,std::__hash_value_type<MTLUINT256_t,_NSRange>,UnorderedContainerHash,UnorderedContainerHash,true>,std::__unordered_map_equal<MTLUINT256_t,std::__hash_value_type<MTLUINT256_t,_NSRange>,UnorderedContainerHash,UnorderedContainerHash,true>,std::allocator<std::__hash_value_type<MTLUINT256_t,_NSRange>>>::__emplace_unique_key_args<MTLUINT256_t,std::piecewise_construct_t const&,std::tuple<MTLUINT256_t const&>,std::tuple<>>(&self->_stitchedLibraryCache.__table_.__bucket_list_.__ptr_, v52, &std::piecewise_construct, &v51);
+        v35[6] = v13;
+        v35[7] = v14;
+      }
+
+      v32 = [(NSArray *)stitchingFunctionHashes countByEnumeratingWithState:&v47 objects:__p count:16];
+    }
+
+    while (v32);
+  }
+
+  dispatch_release(object);
+  return v45;
 }
 
 - (void)preloadLibrariesInAirntObject:(void *)object error:(id *)error
@@ -2354,6 +2325,21 @@ LABEL_44:
 
     while (v13 < (*(object + 1) - *object) >> 3);
   }
+}
+
+- (id)materializeBitCode:(void *)code atIndex:(unsigned int)index
+{
+  v10 = 0;
+  v6 = [(_MTLBinaryArchive *)self newLibraryInArchiveAtPos:code atIndex:*&index error:&v10];
+  v7 = v10;
+  if (v10 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+  {
+    [_MTLBinaryArchive materializeBitCode:v7 atIndex:?];
+  }
+
+  v8 = [v6 bitCodeWithHash:*(*(*code + 8 * index) + 24)];
+
+  return v8;
 }
 
 - (id)materializeReflectionBlock:(void *)block
@@ -2399,32 +2385,32 @@ LABEL_44:
 - (void)materializeAirNTFromOnlineForSlice:(const MTLLoaderSliceIdentifier *)slice entryList:(shared_ptr<std::vector<machOEntry>>)list
 {
   var0 = list.var0;
-  v90 = *MEMORY[0x1E69E9840];
+  v89 = *MEMORY[0x1E69E9840];
   p_airntExtraBinaryEntries = &self->_airntExtraBinaryEntries;
-  v85 = 0;
-  v86 = 0;
   v84 = 0;
-  std::vector<functionIdExtended>::__init_with_size[abi:ne200100]<functionIdExtended*,functionIdExtended*>(&v84, self->_airntExtraBinaryEntries.__begin_, self->_airntExtraBinaryEntries.__end_, (self->_airntExtraBinaryEntries.__end_ - self->_airntExtraBinaryEntries.__begin_) >> 4);
-  std::unordered_map<MTLUINT256_t,MTLAirEntry *,UnorderedContainerHash,UnorderedContainerHash,std::allocator<std::pair<MTLUINT256_t const,MTLAirEntry *>>>::unordered_map(v82, &self->_specializedFunctionByHash);
-  std::unordered_map<MTLUINT256_t,MTLAirEntry *,UnorderedContainerHash,UnorderedContainerHash,std::allocator<std::pair<MTLUINT256_t const,MTLAirEntry *>>>::unordered_map(v80, &self->_stitchedFunctionByHash);
+  v85 = 0;
+  v83 = 0;
+  std::vector<functionIdExtended>::__init_with_size[abi:ne200100]<functionIdExtended*,functionIdExtended*>(&v83, self->_airntExtraBinaryEntries.__begin_, self->_airntExtraBinaryEntries.__end_, (self->_airntExtraBinaryEntries.__end_ - self->_airntExtraBinaryEntries.__begin_) >> 4);
+  std::unordered_map<MTLUINT256_t,MTLAirEntry *,UnorderedContainerHash,UnorderedContainerHash,std::allocator<std::pair<MTLUINT256_t const,MTLAirEntry *>>>::unordered_map(v81, &self->_specializedFunctionByHash);
+  std::unordered_map<MTLUINT256_t,MTLAirEntry *,UnorderedContainerHash,UnorderedContainerHash,std::allocator<std::pair<MTLUINT256_t const,MTLAirEntry *>>>::unordered_map(v79, &self->_stitchedFunctionByHash);
   p_airntExtraBinaryEntries->__end_ = p_airntExtraBinaryEntries->__begin_;
   std::__hash_table<std::__hash_value_type<unsigned long,MTLStructTypeInternal *>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,MTLStructTypeInternal *>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,MTLStructTypeInternal *>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,MTLStructTypeInternal *>>>::clear(&self->_specializedFunctionByHash.__table_.__bucket_list_.__ptr_);
   std::__hash_table<std::__hash_value_type<unsigned long,MTLStructTypeInternal *>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,MTLStructTypeInternal *>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,MTLStructTypeInternal *>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,MTLStructTypeInternal *>>>::clear(&self->_stitchedFunctionByHash.__table_.__bucket_list_.__ptr_);
   selfCopy = self;
-  if (v85 != v84)
+  if (v84 != v83)
   {
     v6 = 0;
     v7 = 0;
     do
     {
       v8 = [MTLBinaryKey alloc];
-      v9 = [(MTLBinaryKey *)v8 initWithHash:*(v84 + 2 * v6)];
+      v9 = [(MTLBinaryKey *)v8 initWithHash:*(v83 + 2 * v6)];
       v10 = [(NSMutableDictionary *)self->_entries objectForKey:v9];
       if (v10)
       {
         v11 = *var0;
-        v12 = *(*var0 + 8);
-        if (v12 >= *(*var0 + 16))
+        v12 = (*var0)[1];
+        if (v12 >= (*var0)[2])
         {
           v13 = std::vector<machOEntry>::__emplace_back_slow_path<>(*var0);
         }
@@ -2439,7 +2425,7 @@ LABEL_44:
           *(v12 + 16) = 0u;
         }
 
-        *(v11 + 8) = v13;
+        v11[1] = v13;
         *(v13 - 72) = slice->var1 | (slice->var0 << 32);
         data = [v10 data];
         *(v13 - 40) = data;
@@ -2450,19 +2436,19 @@ LABEL_44:
       v6 = ++v7;
     }
 
-    while (v7 < ((v85 - v84) >> 4));
+    while (v7 < ((v84 - v83) >> 4));
   }
 
-  for (i = v83; i; i = *i)
+  for (i = v82; i; i = *i)
   {
     v16 = *(i + 1);
     v17 = *(i + 2);
-    v89 = i[6];
-    v88[0] = v16;
-    v88[1] = v17;
+    v88 = i[6];
+    v87[0] = v16;
+    v87[1] = v17;
     v18 = *var0;
-    v19 = *(*var0 + 8);
-    if (v19 >= *(*var0 + 16))
+    v19 = (*var0)[1];
+    if (v19 >= (*var0)[2])
     {
       v20 = std::vector<machOEntry>::__emplace_back_slow_path<>(*var0);
     }
@@ -2477,14 +2463,14 @@ LABEL_44:
       *(v19 + 16) = 0u;
     }
 
-    *(v18 + 8) = v20;
+    v18[1] = v20;
     *(v20 - 72) = slice->var1 | (slice->var0 << 32);
-    v21 = v89;
+    v21 = v88;
     device = selfCopy->_device;
     libraryBuilder = device->_libraryBuilder;
-    data2 = [v89 data];
+    data2 = [v88 data];
     v29 = MTLLibraryBuilder::newLibraryWithData(libraryBuilder, device, data2, 0, v25, v26, v27, v28);
-    v30 = [(_MTLLibrary *)v29 newSpecializedFunctionWithHash:v88];
+    v30 = [(_MTLLibrary *)v29 newSpecializedFunctionWithHash:v87];
     if (!v30)
     {
       v30 = [(_MTLLibrary *)v29 newFunctionWithName:[(NSArray *)[(_MTLLibrary *)v29 functionNames] objectAtIndex:0]];
@@ -2498,11 +2484,11 @@ LABEL_44:
     dispatch_retain(*(v20 - 48));
   }
 
-  for (j = v81; j; j = *j)
+  for (j = v80; j; j = *j)
   {
     v33 = *var0;
-    v34 = *(*var0 + 8);
-    if (v34 >= *(*var0 + 16))
+    v34 = (*var0)[1];
+    if (v34 >= (*var0)[2])
     {
       v35 = std::vector<machOEntry>::__emplace_back_slow_path<>(*var0);
     }
@@ -2517,7 +2503,7 @@ LABEL_44:
       *(v34 + 16) = 0u;
     }
 
-    *(v33 + 8) = v35;
+    v33[1] = v35;
     *(v35 - 72) = 0;
     v36 = j[6];
     airScript2 = [v36 airScript];
@@ -2564,9 +2550,9 @@ LABEL_44:
       v56 = 0;
     }
 
-    flatbuffers::String::str(v56, __p);
+    flatbuffers::String::str(__p, v56);
     v57 = objc_alloc(MEMORY[0x1E696AEC0]);
-    if (v77 >= 0)
+    if (v76 >= 0)
     {
       v58 = __p;
     }
@@ -2581,66 +2567,64 @@ LABEL_44:
     v61 = [(_MTLLibrary *)v45 newFunctionWithName:v59];
     *(v35 - 40) = [v61 bitcodeDataInternal];
     dispatch_release(v46);
-    v74 = 0u;
-    v75 = 0u;
-    v72 = 0u;
     v73 = 0u;
+    v74 = 0u;
+    v71 = 0u;
+    v72 = 0u;
     linkedBitcodes = [v36 linkedBitcodes];
-    v63 = [linkedBitcodes countByEnumeratingWithState:&v72 objects:v87 count:16];
+    v63 = [linkedBitcodes countByEnumeratingWithState:&v71 objects:v86 count:16];
     if (v63)
     {
-      v64 = *v73;
+      v64 = *v72;
       v65 = v35 - 24;
       do
       {
         for (k = 0; k != v63; ++k)
         {
-          if (*v73 != v64)
+          if (*v72 != v64)
           {
             objc_enumerationMutation(linkedBitcodes);
           }
 
-          [*(*(&v72 + 1) + 8 * k) getValue:v88];
-          std::vector<MTLUINT256_t>::push_back[abi:ne200100](v65, v88);
+          [*(*(&v71 + 1) + 8 * k) getValue:v87];
+          std::vector<MTLUINT256_t>::push_back[abi:ne200100](v65, v87);
         }
 
-        v63 = [linkedBitcodes countByEnumeratingWithState:&v72 objects:v87 count:16];
+        v63 = [linkedBitcodes countByEnumeratingWithState:&v71 objects:v86 count:16];
       }
 
       while (v63);
     }
 
-    if (v77 < 0)
+    if (v76 < 0)
     {
       operator delete(__p[0]);
     }
   }
 
-  std::__hash_table<std::__hash_value_type<unsigned long,MTLStructTypeInternal *>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,MTLStructTypeInternal *>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,MTLStructTypeInternal *>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,MTLStructTypeInternal *>>>::~__hash_table(v80);
-  std::__hash_table<std::__hash_value_type<unsigned long,MTLStructTypeInternal *>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,MTLStructTypeInternal *>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,MTLStructTypeInternal *>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,MTLStructTypeInternal *>>>::~__hash_table(v82);
-  if (v84)
+  std::__hash_table<std::__hash_value_type<unsigned long,MTLStructTypeInternal *>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,MTLStructTypeInternal *>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,MTLStructTypeInternal *>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,MTLStructTypeInternal *>>>::~__hash_table(v79);
+  std::__hash_table<std::__hash_value_type<unsigned long,MTLStructTypeInternal *>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,MTLStructTypeInternal *>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,MTLStructTypeInternal *>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,MTLStructTypeInternal *>>>::~__hash_table(v81);
+  if (v83)
   {
-    v85 = v84;
-    operator delete(v84);
+    v84 = v83;
+    operator delete(v83);
   }
-
-  v67 = *MEMORY[0x1E69E9840];
 }
 
 - (void)materializeAirNTStitchedFunctions:(shared_ptr<std::vector<machOEntry>>)functions
 {
   var0 = functions.var0;
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   for (i = self->_stitchedLibraryCache.__table_.__first_node_.__next_; i; i = *i)
   {
     v5 = i[1];
     v6 = i[3];
-    v24[1] = i[2];
-    v25 = v6;
-    v24[0] = v5;
+    v23[1] = i[2];
+    v24 = v6;
+    v23[0] = v5;
     v7 = *var0;
-    v8 = *(*var0 + 8);
-    if (v8 >= *(*var0 + 16))
+    v8 = (*var0)[1];
+    if (v8 >= (*var0)[2])
     {
       v9 = std::vector<machOEntry>::__emplace_back_slow_path<>(*var0);
     }
@@ -2655,34 +2639,34 @@ LABEL_44:
       *(v8 + 16) = 0u;
     }
 
-    *(v7 + 8) = v9;
+    v7[1] = v9;
     *(v9 - 72) = 0;
-    var0 = [(_MTLBinaryArchive *)self newLibraryInArchiveWithRange:v25 error:0, var0];
-    v11 = [var0 newStitchedFunctionWithHash:v24];
+    var0 = [(_MTLBinaryArchive *)self newLibraryInArchiveWithRange:v24 error:0, var0];
+    v11 = [var0 newStitchedFunctionWithHash:v23];
     *(v9 - 40) = [v11 bitcodeDataInternal];
     (*(*[v11 libraryData] + 320))(&__p);
     *(v9 - 56) = [v11 stitchingAirScript];
     if ((v9 - 24) != &__p)
     {
-      std::vector<MTLUINT256_t>::__assign_with_size[abi:ne200100]<MTLUINT256_t*,MTLUINT256_t*>((v9 - 24), __p, v21, (v21 - __p) >> 5);
+      std::vector<MTLUINT256_t>::__assign_with_size[abi:ne200100]<MTLUINT256_t*,MTLUINT256_t*>((v9 - 24), __p, v20, (v20 - __p) >> 5);
     }
 
     v13 = __p;
-    v12 = v21;
-    if (__p != v21)
+    v12 = v20;
+    if (__p != v20)
     {
       do
       {
         v14 = *(v13 + 1);
-        v23[0] = *v13;
-        v23[1] = v14;
-        if (!std::__hash_table<std::__hash_value_type<MTLUINT256_t,NSObject  {objcproto16OS_dispatch_data}*>,std::__unordered_map_hasher<MTLUINT256_t,std::__hash_value_type<MTLUINT256_t,NSObject  {objcproto16OS_dispatch_data}*>,UnorderedContainerHash,UnorderedContainerHash,true>,std::__unordered_map_equal<MTLUINT256_t,std::__hash_value_type<MTLUINT256_t,NSObject  {objcproto16OS_dispatch_data}*>,UnorderedContainerHash,UnorderedContainerHash,true>,std::allocator<std::__hash_value_type<MTLUINT256_t,NSObject  {objcproto16OS_dispatch_data}*>>>::find<MTLUINT256_t>(self->_uniqueBitcodeList.__ptr_, v23))
+        v22[0] = *v13;
+        v22[1] = v14;
+        if (!std::__hash_table<std::__hash_value_type<MTLUINT256_t,NSObject  {objcproto16OS_dispatch_data}*>,std::__unordered_map_hasher<MTLUINT256_t,std::__hash_value_type<MTLUINT256_t,NSObject  {objcproto16OS_dispatch_data}*>,UnorderedContainerHash,UnorderedContainerHash,true>,std::__unordered_map_equal<MTLUINT256_t,std::__hash_value_type<MTLUINT256_t,NSObject  {objcproto16OS_dispatch_data}*>,UnorderedContainerHash,UnorderedContainerHash,true>,std::allocator<std::__hash_value_type<MTLUINT256_t,NSObject  {objcproto16OS_dispatch_data}*>>>::find<MTLUINT256_t>(self->_uniqueBitcodeList.__ptr_, v22))
         {
-          v15 = [var0 newFunctionWithHash:v23];
+          v15 = [var0 newFunctionWithHash:v22];
           bitcodeDataInternal = [v15 bitcodeDataInternal];
           ptr = self->_uniqueBitcodeList.__ptr_;
-          v22 = v23;
-          std::__hash_table<std::__hash_value_type<MTLUINT256_t,NSObject  {objcproto16OS_dispatch_data}*>,std::__unordered_map_hasher<MTLUINT256_t,std::__hash_value_type<MTLUINT256_t,NSObject  {objcproto16OS_dispatch_data}*>,UnorderedContainerHash,UnorderedContainerHash,true>,std::__unordered_map_equal<MTLUINT256_t,std::__hash_value_type<MTLUINT256_t,NSObject  {objcproto16OS_dispatch_data}*>,UnorderedContainerHash,UnorderedContainerHash,true>,std::allocator<std::__hash_value_type<MTLUINT256_t,NSObject  {objcproto16OS_dispatch_data}*>>>::__emplace_unique_key_args<MTLUINT256_t,std::piecewise_construct_t const&,std::tuple<MTLUINT256_t const&>,std::tuple<>>(ptr, v23)[6] = bitcodeDataInternal;
+          v21 = v22;
+          std::__hash_table<std::__hash_value_type<MTLUINT256_t,NSObject  {objcproto16OS_dispatch_data}*>,std::__unordered_map_hasher<MTLUINT256_t,std::__hash_value_type<MTLUINT256_t,NSObject  {objcproto16OS_dispatch_data}*>,UnorderedContainerHash,UnorderedContainerHash,true>,std::__unordered_map_equal<MTLUINT256_t,std::__hash_value_type<MTLUINT256_t,NSObject  {objcproto16OS_dispatch_data}*>,UnorderedContainerHash,UnorderedContainerHash,true>,std::allocator<std::__hash_value_type<MTLUINT256_t,NSObject  {objcproto16OS_dispatch_data}*>>>::__emplace_unique_key_args<MTLUINT256_t,std::piecewise_construct_t const&,std::tuple<MTLUINT256_t const&>,std::tuple<>>(ptr, v22, &std::piecewise_construct, &v21)[6] = bitcodeDataInternal;
         }
 
         v13 += 32;
@@ -2693,17 +2677,15 @@ LABEL_44:
 
     if (__p)
     {
-      v21 = __p;
+      v20 = __p;
       operator delete(__p);
     }
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (void)materializeAirNTSpecializedFunctions:(shared_ptr<std::vector<machOEntry>>)functions
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   next = self->_specializedLibraryCache.__table_.__first_node_.__next_;
   if (next)
   {
@@ -2712,12 +2694,12 @@ LABEL_44:
     {
       v6 = next[1];
       v7 = next[3];
-      v20 = next[2];
-      v21 = v7;
-      v19 = v6;
+      v19 = next[2];
+      v20 = v7;
+      v18 = v6;
       v8 = *var0;
-      v9 = *(*var0 + 8);
-      if (v9 >= *(*var0 + 16))
+      v9 = (*var0)[1];
+      if (v9 >= (*var0)[2])
       {
         v10 = std::vector<machOEntry>::__emplace_back_slow_path<>(*var0);
       }
@@ -2732,19 +2714,19 @@ LABEL_44:
         *(v9 + 16) = 0u;
       }
 
-      *(v8 + 8) = v10;
+      v8[1] = v10;
       *(v10 - 72) = 0;
-      v11 = [(_MTLBinaryArchive *)self newLibraryInArchiveWithRange:v21 error:0, v17, v18];
-      v12 = [v11 newSpecializedFunctionWithHash:&v19];
+      v11 = [(_MTLBinaryArchive *)self newLibraryInArchiveWithRange:v20 error:0, v16, v17];
+      v12 = [v11 newSpecializedFunctionWithHash:&v18];
       v13 = v12;
+      v16 = 0u;
       v17 = 0u;
-      v18 = 0u;
       if (v12)
       {
-        [v12 baseFunctionHash];
+        objc_msgSend_baseFunctionHash(v12, v16, v17, v18, v19);
       }
 
-      v14 = [v11 newFunctionWithHash:&v17];
+      v14 = [v11 newFunctionWithHash:&v16];
       *(v10 - 48) = [v14 bitcodeDataInternal];
       *(v10 - 40) = [v13 bitcodeDataInternal];
       specializationAirScript = [v13 specializationAirScript];
@@ -2756,37 +2738,39 @@ LABEL_44:
 
     while (next);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)materializeLinkedBitcodes:(void *)bitcodes hashList:(void *)list
 {
-  v4 = *bitcodes;
+  v6 = *bitcodes;
   if (*(bitcodes + 1) - *bitcodes >= 9uLL)
   {
-    v8 = 1;
+    v15[11] = v4;
+    v15[12] = v5;
+    v10 = 1;
     do
     {
-      v9 = *(v4 + 8 * v8);
-      if (*(v9 + 32))
+      v11 = *(v6 + 8 * v10);
+      if (*(v11 + 32))
       {
         break;
       }
 
-      v10 = *(v9 + 24);
-      std::vector<MTLUINT256_t>::push_back[abi:ne200100](list, v10);
-      if (!std::__hash_table<std::__hash_value_type<MTLUINT256_t,NSObject  {objcproto16OS_dispatch_data}*>,std::__unordered_map_hasher<MTLUINT256_t,std::__hash_value_type<MTLUINT256_t,NSObject  {objcproto16OS_dispatch_data}*>,UnorderedContainerHash,UnorderedContainerHash,true>,std::__unordered_map_equal<MTLUINT256_t,std::__hash_value_type<MTLUINT256_t,NSObject  {objcproto16OS_dispatch_data}*>,UnorderedContainerHash,UnorderedContainerHash,true>,std::allocator<std::__hash_value_type<MTLUINT256_t,NSObject  {objcproto16OS_dispatch_data}*>>>::find<MTLUINT256_t>(self->_uniqueBitcodeList.__ptr_, v10))
+      v12 = *(v11 + 24);
+      std::vector<MTLUINT256_t>::push_back[abi:ne200100](list, v12);
+      if (!std::__hash_table<std::__hash_value_type<MTLUINT256_t,NSObject  {objcproto16OS_dispatch_data}*>,std::__unordered_map_hasher<MTLUINT256_t,std::__hash_value_type<MTLUINT256_t,NSObject  {objcproto16OS_dispatch_data}*>,UnorderedContainerHash,UnorderedContainerHash,true>,std::__unordered_map_equal<MTLUINT256_t,std::__hash_value_type<MTLUINT256_t,NSObject  {objcproto16OS_dispatch_data}*>,UnorderedContainerHash,UnorderedContainerHash,true>,std::allocator<std::__hash_value_type<MTLUINT256_t,NSObject  {objcproto16OS_dispatch_data}*>>>::find<MTLUINT256_t>(self->_uniqueBitcodeList.__ptr_, v12))
       {
-        v11 = [(_MTLBinaryArchive *)self materializeBitCode:bitcodes atIndex:v8];
-        std::__hash_table<std::__hash_value_type<MTLUINT256_t,NSObject  {objcproto16OS_dispatch_data}*>,std::__unordered_map_hasher<MTLUINT256_t,std::__hash_value_type<MTLUINT256_t,NSObject  {objcproto16OS_dispatch_data}*>,UnorderedContainerHash,UnorderedContainerHash,true>,std::__unordered_map_equal<MTLUINT256_t,std::__hash_value_type<MTLUINT256_t,NSObject  {objcproto16OS_dispatch_data}*>,UnorderedContainerHash,UnorderedContainerHash,true>,std::allocator<std::__hash_value_type<MTLUINT256_t,NSObject  {objcproto16OS_dispatch_data}*>>>::__emplace_unique_key_args<MTLUINT256_t,std::piecewise_construct_t const&,std::tuple<MTLUINT256_t const&>,std::tuple<>>(self->_uniqueBitcodeList.__ptr_, v10)[6] = v11;
+        v13 = [(_MTLBinaryArchive *)self materializeBitCode:bitcodes atIndex:v10];
+        ptr = self->_uniqueBitcodeList.__ptr_;
+        v15[0] = v12;
+        std::__hash_table<std::__hash_value_type<MTLUINT256_t,NSObject  {objcproto16OS_dispatch_data}*>,std::__unordered_map_hasher<MTLUINT256_t,std::__hash_value_type<MTLUINT256_t,NSObject  {objcproto16OS_dispatch_data}*>,UnorderedContainerHash,UnorderedContainerHash,true>,std::__unordered_map_equal<MTLUINT256_t,std::__hash_value_type<MTLUINT256_t,NSObject  {objcproto16OS_dispatch_data}*>,UnorderedContainerHash,UnorderedContainerHash,true>,std::allocator<std::__hash_value_type<MTLUINT256_t,NSObject  {objcproto16OS_dispatch_data}*>>>::__emplace_unique_key_args<MTLUINT256_t,std::piecewise_construct_t const&,std::tuple<MTLUINT256_t const&>,std::tuple<>>(ptr, v12, &std::piecewise_construct, v15)[6] = v13;
       }
 
-      v8 = (v8 + 1);
-      v4 = *bitcodes;
+      v10 = (v10 + 1);
+      v6 = *bitcodes;
     }
 
-    while (v8 < (*(bitcodes + 1) - *bitcodes) >> 3);
+    while (v10 < (*(bitcodes + 1) - *bitcodes) >> 3);
   }
 }
 
@@ -2829,8 +2813,8 @@ LABEL_44:
     do
     {
       v11 = *v31;
-      v12 = *(*v31 + 8);
-      if (v12 >= *(*v31 + 16))
+      v12 = (*v31)[1];
+      if (v12 >= (*v31)[2])
       {
         v13 = std::vector<machOEntry>::__emplace_back_slow_path<>(*v31);
       }
@@ -2845,7 +2829,7 @@ LABEL_44:
         *(v12 + 16) = 0u;
       }
 
-      *(v11 + 8) = v13;
+      v11[1] = v13;
       *(v13 - 72) = slice->var1 | (slice->var0 << 32);
       *(v13 - 56) = [(_MTLBinaryArchive *)self materializeAirScript:p_airntObjectList->__begin_[v10]];
       *(v13 - 48) = [(_MTLBinaryArchive *)self materializeBitCode:p_airntObjectList->__begin_[v10] atIndex:0];
@@ -2909,14 +2893,14 @@ LABEL_44:
             v34 = 0;
             __p = 0;
             std::vector<MTLUINT256_t>::__init_with_size[abi:ne200100]<MTLUINT256_t*,MTLUINT256_t*>(&__p, v25, v26, (v26 - v25) >> 5);
-            v28 = MTLHashKey::areBitcodesEqual(&v42, v27, &__p);
+            v29 = MTLHashKey::areBitcodesEqual(&v42, v27, &__p, v28);
             if (__p)
             {
               v33 = __p;
               operator delete(__p);
             }
 
-            if (v28)
+            if (v29)
             {
               operator new();
             }
@@ -2940,10 +2924,10 @@ LABEL_44:
       }
 
       begin = p_airntObjectList->__begin_;
-      v29 = p_airntObjectList->__begin_[v10];
-      if (v29)
+      v30 = p_airntObjectList->__begin_[v10];
+      if (v30)
       {
-        MTLAirNTObject::~MTLAirNTObject(v29);
+        MTLAirNTObject::~MTLAirNTObject(v30);
         MEMORY[0x1865FF210]();
         begin = p_airntObjectList->__begin_;
       }
@@ -2956,7 +2940,6 @@ LABEL_44:
 
   self->_airntObjectList.__end_ = begin;
   self->_airntFromDescriptorFunctionList.__end_ = self->_airntFromDescriptorFunctionList.__begin_;
-  v30 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)airntSerializeToURL:(id)l options:(unint64_t)options error:(id *)error
@@ -3102,7 +3085,7 @@ LABEL_24:
           {
             v13 = *v11[4].var0;
             v11 += 4;
-            flatbuffers::String::str(v11[v13].var0, &__p);
+            flatbuffers::String::str(&__p, &v11[v13]);
             v14 = v100;
             v15 = __p;
             if (v100 >= 0)
@@ -3187,7 +3170,7 @@ LABEL_24:
               while (v18 - v20 >= 18);
             }
 
-            std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string const&>(v105, &__p);
+            std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string const&>(v105, &__p, &__p);
             if (v100 < 0)
             {
               operator delete(__p);
@@ -3216,7 +3199,7 @@ LABEL_24:
           {
             v33 = *v31[4].var0;
             v31 += 4;
-            flatbuffers::String::str(v31[v33].var0, &__p);
+            flatbuffers::String::str(&__p, &v31[v33]);
             v34 = v100;
             v35 = __p;
             if (v100 >= 0)
@@ -3301,7 +3284,7 @@ LABEL_24:
               while (v38 - v40 >= 18);
             }
 
-            std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string const&>(v103, &__p);
+            std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string const&>(v103, &__p, &__p);
             if (v100 < 0)
             {
               operator delete(__p);
@@ -3341,7 +3324,7 @@ LABEL_24:
                 v58 = &v54[v57 + *v54[v57].var0];
                 if (*v58->var0)
                 {
-                  flatbuffers::String::str(v58[*v58[4].var0 + 4].var0, &__p);
+                  flatbuffers::String::str(&__p, &v58[*v58[4].var0 + 4]);
                   v59 = v100;
                   v60 = __p;
                   if (v100 >= 0)
@@ -3433,7 +3416,7 @@ LABEL_111:
                   }
 
 LABEL_112:
-                  std::__hash_table<std::__hash_value_type<std::string,std::string_view>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string_view>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string_view>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string_view>>>::__emplace_multi<std::string&,std::string_view&>();
+                  std::__hash_table<std::__hash_value_type<std::string,std::string_view>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string_view>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string_view>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string_view>>>::__emplace_multi<std::string&,std::string_view&>(v101);
                 }
               }
             }
@@ -4807,7 +4790,6 @@ LABEL_24:
   }
 
   v15 = v11;
-  v16 = v13[2];
   if (v14 < 7)
   {
     if (!v13[2])
@@ -4816,411 +4798,411 @@ LABEL_24:
     }
 
     errorCopy2 = error;
-    v18 = 0;
-    v17 = 1;
-    v254 = 1;
+    v17 = 0;
+    v16 = 1;
+    v253 = 1;
 LABEL_15:
-    v19 = (v18 - *v18);
-    if (*v19 >= 7u && (v20 = v19[3]) != 0)
+    v18 = (v17 - *v17);
+    if (*v18 >= 7u && (v19 = v18[3]) != 0)
     {
-      v21 = *(v18 + v20);
+      v20 = *(v17 + v19);
     }
 
     else
     {
-      v21 = 0;
+      v20 = 0;
     }
 
-    [v10 setMaxTotalThreadsPerObjectThreadgroup:{v21, errorCopy2}];
-    v22 = (v18 - *v18);
-    if (*v22 >= 0x1Fu)
+    [v10 setMaxTotalThreadsPerObjectThreadgroup:{v20, errorCopy2}];
+    v21 = (v17 - *v17);
+    if (*v21 >= 0x1Fu)
     {
-      v23 = v22[15];
-      if (!v23)
+      v22 = v21[15];
+      if (!v22)
       {
 LABEL_25:
+        v25 = 0;
         v26 = 0;
-        v27 = 0;
         goto LABEL_26;
       }
 
-      v24 = v18 + v23 + *(v18 + v23);
-      v25 = *v24;
-      if (*v24)
+      v23 = v17 + v22 + *(v17 + v22);
+      v24 = *v23;
+      if (*v23)
       {
-        v23 = *(v24 + 4);
-        if (v25 == 1)
+        v22 = *(v23 + 4);
+        if (v24 == 1)
         {
-          v26 = 1;
+          v25 = 1;
         }
 
         else
         {
-          v26 = *(v24 + 12);
-          if (v25 >= 3)
+          v25 = *(v23 + 12);
+          if (v24 >= 3)
           {
-            v27 = *(v24 + 20);
+            v26 = *(v23 + 20);
             goto LABEL_26;
           }
         }
 
-        v27 = 1;
+        v26 = 1;
 LABEL_26:
-        v257 = v23;
+        v256 = v22;
+        v257 = v25;
         v258 = v26;
-        v259 = v27;
-        [v10 setRequiredThreadsPerObjectThreadgroup:&v257];
-        v28 = (v18 - *v18);
-        if (*v28 >= 0xDu && (v29 = v28[6]) != 0)
+        [v10 setRequiredThreadsPerObjectThreadgroup:&v256];
+        v27 = (v17 - *v17);
+        if (*v27 >= 0xDu && (v28 = v27[6]) != 0)
         {
-          v30 = *(v18 + v29);
+          v29 = *(v17 + v28);
         }
 
         else
         {
-          v30 = 1;
+          v29 = 1;
         }
 
-        [v10 setMaxObjectCallStackDepth:v30];
-        v31 = (v18 - *v18);
-        if (*v31 >= 0xBu && (v32 = v31[5]) != 0)
+        [v10 setMaxObjectCallStackDepth:v29];
+        v30 = (v17 - *v17);
+        if (*v30 >= 0xBu && (v31 = v30[5]) != 0)
         {
-          v33 = *(v18 + v32);
-        }
-
-        else
-        {
-          v33 = 0;
-        }
-
-        [v10 setMaxTotalThreadgroupsPerMeshGrid:v33];
-        v34 = (v18 - *v18);
-        if (*v34 >= 0xFu && (v35 = v34[7]) != 0)
-        {
-          v36 = *(v18 + v35);
+          v32 = *(v17 + v31);
         }
 
         else
         {
-          v36 = 1;
+          v32 = 0;
         }
 
-        [v10 setMaxVertexAmplificationCount:v36];
-        v37 = (v18 - *v18);
-        v39 = *v37 >= 0x1Bu && (v38 = v37[13]) != 0 && *(v18 + v38) != 0;
-        [v10 setNeedsCustomBorderColorSamplers:v39];
-        v40 = (v18 - *v18);
-        if (*v40 >= 9u && (v41 = v40[4]) != 0)
+        [v10 setMaxTotalThreadgroupsPerMeshGrid:v32];
+        v33 = (v17 - *v17);
+        if (*v33 >= 0xFu && (v34 = v33[7]) != 0)
         {
-          v42 = *(v18 + v41);
+          v35 = *(v17 + v34);
         }
 
         else
         {
-          v42 = 0;
+          v35 = 1;
         }
 
-        [v10 setPayloadMemoryLength:v42];
-        v43 = (v18 - *v18);
-        v45 = *v43 >= 0x17u && (v44 = v43[11]) != 0 && *(v18 + v44) != 0;
-        [v10 setSupportAddingObjectBinaryFunctions:v45];
-        v46 = (v18 - *v18);
-        v48 = *v46 >= 0x15u && (v47 = v46[10]) != 0 && *(v18 + v47) != 0;
-        [v10 setSupportIndirectCommandBuffers:v48];
-        v49 = (v18 - *v18);
-        if (*v49 >= 0x19u && (v50 = v49[12]) != 0)
+        [v10 setMaxVertexAmplificationCount:v35];
+        v36 = (v17 - *v17);
+        v38 = *v36 >= 0x1Bu && (v37 = v36[13]) != 0 && *(v17 + v37) != 0;
+        [v10 setNeedsCustomBorderColorSamplers:v38];
+        v39 = (v17 - *v17);
+        if (*v39 >= 9u && (v40 = v39[4]) != 0)
         {
-          v51 = *(v18 + v50);
+          v41 = *(v17 + v40);
         }
 
         else
         {
-          v51 = 0;
+          v41 = 0;
         }
 
-        [v10 setTextureWriteRoundingMode:v51];
-        v52 = (v18 - *v18);
-        v54 = *v52 >= 5u && (v53 = v52[2]) != 0 && *(v18 + v53) != 0;
-        [v10 setObjectThreadgroupSizeIsMultipleOfThreadExecutionWidth:v54];
-        v55 = (v18 - *v18);
-        if (*v55 >= 0x11u && (v56 = v55[8]) != 0)
+        [v10 setPayloadMemoryLength:v41];
+        v42 = (v17 - *v17);
+        v44 = *v42 >= 0x17u && (v43 = v42[11]) != 0 && *(v17 + v43) != 0;
+        [v10 setSupportAddingObjectBinaryFunctions:v44];
+        v45 = (v17 - *v17);
+        v47 = *v45 >= 0x15u && (v46 = v45[10]) != 0 && *(v17 + v46) != 0;
+        [v10 setSupportIndirectCommandBuffers:v47];
+        v48 = (v17 - *v17);
+        if (*v48 >= 0x19u && (v49 = v48[12]) != 0)
         {
-          v57 = *(v18 + v56);
+          v50 = *(v17 + v49);
         }
 
         else
         {
-          v57 = 0;
+          v50 = 0;
         }
 
-        [v10 setVertexAmplificationMode:v57];
-        v58 = (v18 - *v18);
-        if (*v58 >= 0x13u)
+        [v10 setTextureWriteRoundingMode:v50];
+        v51 = (v17 - *v17);
+        v53 = *v51 >= 5u && (v52 = v51[2]) != 0 && *(v17 + v52) != 0;
+        [v10 setObjectThreadgroupSizeIsMultipleOfThreadExecutionWidth:v53];
+        v54 = (v17 - *v17);
+        if (*v54 >= 0x11u && (v55 = v54[8]) != 0)
         {
-          v59 = v58[9];
-          if (v59)
+          v56 = *(v17 + v55);
+        }
+
+        else
+        {
+          v56 = 0;
+        }
+
+        [v10 setVertexAmplificationMode:v56];
+        v57 = (v17 - *v17);
+        if (*v57 >= 0x13u)
+        {
+          v58 = v57[9];
+          if (v58)
           {
-            v60 = (v18 + v59 + *(v18 + v59));
-            v61 = v60 + 1;
-            if (*v60)
+            v59 = (v17 + v58 + *(v17 + v58));
+            v60 = v59 + 1;
+            if (*v59)
             {
-              v62 = 0;
+              v61 = 0;
               do
               {
-                v63 = *v61;
-                v64 = v63 - *(v61 + v63);
-                if (*(v61 + v64) >= 5u && (v65 = *(v61 + v64 + 4)) != 0)
+                v62 = *v60;
+                v63 = v62 - *(v60 + v62);
+                if (*(v60 + v63) >= 5u && (v64 = *(v60 + v63 + 4)) != 0)
                 {
-                  v66 = *(v61 + v63 + v65);
+                  v65 = *(v60 + v62 + v64);
                 }
 
                 else
                 {
-                  v66 = 0;
+                  v65 = 0;
                 }
 
                 [objc_msgSend(objc_msgSend(v10 "objectBuffers")];
-                ++v61;
+                ++v60;
               }
 
-              while (v62 < *v60);
+              while (v61 < *v59);
             }
           }
         }
 
         objectLinkedFunctions = [v10 objectLinkedFunctions];
-        v68 = (v18 - *v18);
-        if (*v68 >= 0x1Du && (v69 = v68[14]) != 0)
+        v67 = (v17 - *v17);
+        if (*v67 >= 0x1Du && (v68 = v67[14]) != 0)
         {
-          v70 = v18 + v69 + *(v18 + v69);
+          v69 = v17 + v68 + *(v17 + v68);
         }
 
         else
         {
-          v70 = 0;
+          v69 = 0;
         }
 
-        error = v253;
-        [(_MTLBinaryArchive *)self setMTLLinkedFunctions:objectLinkedFunctions LFS:v70 obj:obj destinationArchive:archive error:v253];
-        if (v17)
+        error = v252;
+        [(_MTLBinaryArchive *)self setMTLLinkedFunctions:objectLinkedFunctions LFS:v69 obj:obj destinationArchive:archive error:v252];
+        if (v16)
         {
           goto LABEL_154;
         }
 
         v12 = *v15;
 LABEL_81:
-        v71 = (v15 - v12);
-        if (*v71 >= 0xDu && (v72 = v71[6]) != 0)
+        v70 = (v15 - v12);
+        if (*v70 >= 0xDu && (v71 = v70[6]) != 0)
         {
-          v73 = (v15 + v72 + *(v15 + v72));
+          v72 = (v15 + v71 + *(v15 + v71));
         }
 
         else
         {
-          v73 = 0;
+          v72 = 0;
         }
 
-        v74 = (v73 - *v73);
-        if (*v74 >= 7u && (v75 = v74[3]) != 0)
+        v73 = (v72 - *v72);
+        if (*v73 >= 7u && (v74 = v73[3]) != 0)
         {
-          v76 = *(v73 + v75);
+          v75 = *(v72 + v74);
         }
 
         else
         {
-          v76 = 0;
+          v75 = 0;
         }
 
-        [v10 setMaxTotalThreadgroupsPerMeshGrid:v76];
-        v77 = (v73 - *v73);
-        if (*v77 >= 0x21u)
+        [v10 setMaxTotalThreadgroupsPerMeshGrid:v75];
+        v76 = (v72 - *v72);
+        if (*v76 >= 0x21u)
         {
-          v78 = v77[16];
-          if (!v78)
+          v77 = v76[16];
+          if (!v77)
           {
 LABEL_95:
+            v80 = 0;
             v81 = 0;
-            v82 = 0;
             goto LABEL_96;
           }
 
-          v79 = v73 + v78 + *(v73 + v78);
-          v80 = *v79;
-          if (*v79)
+          v78 = v72 + v77 + *(v72 + v77);
+          v79 = *v78;
+          if (*v78)
           {
-            v78 = *(v79 + 4);
-            if (v80 == 1)
+            v77 = *(v78 + 4);
+            if (v79 == 1)
             {
-              v81 = 1;
+              v80 = 1;
             }
 
             else
             {
-              v81 = *(v79 + 12);
-              if (v80 >= 3)
+              v80 = *(v78 + 12);
+              if (v79 >= 3)
               {
-                v82 = *(v79 + 20);
+                v81 = *(v78 + 20);
                 goto LABEL_96;
               }
             }
 
-            v82 = 1;
+            v81 = 1;
 LABEL_96:
-            v257 = v78;
+            v256 = v77;
+            v257 = v80;
             v258 = v81;
-            v259 = v82;
-            [v10 setRequiredThreadsPerMeshThreadgroup:&v257];
-            v83 = (v73 - *v73);
-            if (*v83 >= 0x1Bu && (v84 = v83[13]) != 0)
+            [v10 setRequiredThreadsPerMeshThreadgroup:&v256];
+            v82 = (v72 - *v72);
+            if (*v82 >= 0x1Bu && (v83 = v82[13]) != 0)
             {
-              v85 = *(v73 + v84);
+              v84 = *(v72 + v83);
             }
 
             else
             {
-              v85 = 255;
+              v84 = 255;
             }
 
-            [v10 setClipDistanceEnableMask:v85];
-            v86 = (v73 - *v73);
-            if (*v86 >= 0xBu && (v87 = v86[5]) != 0)
+            [v10 setClipDistanceEnableMask:v84];
+            v85 = (v72 - *v72);
+            if (*v85 >= 0xBu && (v86 = v85[5]) != 0)
             {
-              v88 = *(v73 + v87);
-            }
-
-            else
-            {
-              v88 = 1;
-            }
-
-            [v10 setMaxMeshCallStackDepth:v88];
-            v89 = (v73 - *v73);
-            if (*v89 >= 0xFu && (v90 = v89[7]) != 0)
-            {
-              v91 = *(v73 + v90);
+              v87 = *(v72 + v86);
             }
 
             else
             {
-              v91 = 1;
+              v87 = 1;
             }
 
-            [v10 setMaxVertexAmplificationCount:v91];
-            v92 = (v73 - *v73);
-            v94 = *v92 >= 0x1Du && (v93 = v92[14]) != 0 && *(v73 + v93) != 0;
-            [v10 setNeedsCustomBorderColorSamplers:v94];
-            v95 = (v73 - *v73);
-            if (*v95 >= 9u && (v96 = v95[4]) != 0)
+            [v10 setMaxMeshCallStackDepth:v87];
+            v88 = (v72 - *v72);
+            if (*v88 >= 0xFu && (v89 = v88[7]) != 0)
             {
-              v97 = *(v73 + v96);
+              v90 = *(v72 + v89);
             }
 
             else
             {
-              v97 = 0;
+              v90 = 1;
             }
 
-            [v10 setPayloadMemoryLength:v97];
-            v98 = (v73 - *v73);
-            v100 = *v98 < 0xDu || (v99 = v98[6]) == 0 || *(v73 + v99) != 0;
-            [v10 setRasterizationEnabled:v100];
-            v101 = (v73 - *v73);
-            v103 = *v101 >= 0x17u && (v102 = v101[11]) != 0 && *(v73 + v102) != 0;
-            [v10 setSupportAddingMeshBinaryFunctions:v103];
-            v104 = (v73 - *v73);
-            v106 = *v104 >= 0x15u && (v105 = v104[10]) != 0 && *(v73 + v105) != 0;
-            [v10 setSupportIndirectCommandBuffers:v106];
-            v107 = (v73 - *v73);
-            if (*v107 >= 0x19u && (v108 = v107[12]) != 0)
+            [v10 setMaxVertexAmplificationCount:v90];
+            v91 = (v72 - *v72);
+            v93 = *v91 >= 0x1Du && (v92 = v91[14]) != 0 && *(v72 + v92) != 0;
+            [v10 setNeedsCustomBorderColorSamplers:v93];
+            v94 = (v72 - *v72);
+            if (*v94 >= 9u && (v95 = v94[4]) != 0)
             {
-              v109 = *(v73 + v108);
+              v96 = *(v72 + v95);
             }
 
             else
             {
-              v109 = 0;
+              v96 = 0;
             }
 
-            [v10 setTextureWriteRoundingMode:v109];
-            v110 = (v73 - *v73);
-            v112 = *v110 >= 5u && (v111 = v110[2]) != 0 && *(v73 + v111) != 0;
-            [v10 setMeshThreadgroupSizeIsMultipleOfThreadExecutionWidth:v112];
-            v113 = (v73 - *v73);
-            if (*v113 >= 0x11u && (v114 = v113[8]) != 0)
+            [v10 setPayloadMemoryLength:v96];
+            v97 = (v72 - *v72);
+            v99 = *v97 < 0xDu || (v98 = v97[6]) == 0 || *(v72 + v98) != 0;
+            [v10 setRasterizationEnabled:v99];
+            v100 = (v72 - *v72);
+            v102 = *v100 >= 0x17u && (v101 = v100[11]) != 0 && *(v72 + v101) != 0;
+            [v10 setSupportAddingMeshBinaryFunctions:v102];
+            v103 = (v72 - *v72);
+            v105 = *v103 >= 0x15u && (v104 = v103[10]) != 0 && *(v72 + v104) != 0;
+            [v10 setSupportIndirectCommandBuffers:v105];
+            v106 = (v72 - *v72);
+            if (*v106 >= 0x19u && (v107 = v106[12]) != 0)
             {
-              v115 = *(v73 + v114);
+              v108 = *(v72 + v107);
             }
 
             else
             {
-              v115 = 0;
+              v108 = 0;
             }
 
-            [v10 setVertexAmplificationMode:v115];
-            v116 = (v73 - *v73);
-            if (*v116 >= 0x13u)
+            [v10 setTextureWriteRoundingMode:v108];
+            v109 = (v72 - *v72);
+            v111 = *v109 >= 5u && (v110 = v109[2]) != 0 && *(v72 + v110) != 0;
+            [v10 setMeshThreadgroupSizeIsMultipleOfThreadExecutionWidth:v111];
+            v112 = (v72 - *v72);
+            if (*v112 >= 0x11u && (v113 = v112[8]) != 0)
             {
-              v117 = v116[9];
-              if (v117)
+              v114 = *(v72 + v113);
+            }
+
+            else
+            {
+              v114 = 0;
+            }
+
+            [v10 setVertexAmplificationMode:v114];
+            v115 = (v72 - *v72);
+            if (*v115 >= 0x13u)
+            {
+              v116 = v115[9];
+              if (v116)
               {
-                v118 = (v73 + v117 + *(v73 + v117));
-                v119 = v118 + 1;
-                if (*v118)
+                v117 = (v72 + v116 + *(v72 + v116));
+                v118 = v117 + 1;
+                if (*v117)
                 {
-                  v120 = 0;
+                  v119 = 0;
                   do
                   {
-                    v121 = *v119;
-                    v122 = v121 - *(v119 + v121);
-                    if (*(v119 + v122) >= 5u && (v123 = *(v119 + v122 + 4)) != 0)
+                    v120 = *v118;
+                    v121 = v120 - *(v118 + v120);
+                    if (*(v118 + v121) >= 5u && (v122 = *(v118 + v121 + 4)) != 0)
                     {
-                      v124 = *(v119 + v121 + v123);
+                      v123 = *(v118 + v120 + v122);
                     }
 
                     else
                     {
-                      v124 = 0;
+                      v123 = 0;
                     }
 
                     [objc_msgSend(objc_msgSend(v10 "meshBuffers")];
-                    ++v119;
+                    ++v118;
                   }
 
-                  while (v120 < *v118);
+                  while (v119 < *v117);
                 }
               }
             }
 
             meshLinkedFunctions = [v10 meshLinkedFunctions];
-            v126 = (v73 - *v73);
-            if (*v126 >= 0x1Fu && (v127 = v126[15]) != 0)
+            v125 = (v72 - *v72);
+            if (*v125 >= 0x1Fu && (v126 = v125[15]) != 0)
             {
-              v128 = v73 + v127 + *(v73 + v127);
+              v127 = v72 + v126 + *(v72 + v126);
             }
 
             else
             {
-              v128 = 0;
+              v127 = 0;
             }
 
-            [(_MTLBinaryArchive *)self setMTLLinkedFunctions:meshLinkedFunctions LFS:v128 obj:obj destinationArchive:archive error:error];
+            [(_MTLBinaryArchive *)self setMTLLinkedFunctions:meshLinkedFunctions LFS:v127 obj:obj destinationArchive:archive error:error];
             goto LABEL_154;
           }
         }
 
-        v78 = 0;
+        v77 = 0;
         goto LABEL_95;
       }
     }
 
-    v23 = 0;
+    v22 = 0;
     goto LABEL_25;
   }
 
-  v17 = v13[3] == 0;
+  v16 = v13[3] == 0;
   if (v14 > 8 && v13[4])
   {
-    v254 = 0;
+    v253 = 0;
     if (!v13[2])
     {
       goto LABEL_6;
@@ -5229,19 +5211,19 @@ LABEL_96:
     goto LABEL_11;
   }
 
-  v254 = 1;
+  v253 = 1;
   if (v13[2])
   {
 LABEL_11:
     errorCopy2 = error;
     if (v14 >= 0xB && v13[5])
     {
-      v18 = (v11 + v13[5] + *(v11 + v13[5]));
+      v17 = (v11 + v13[5] + *(v11 + v13[5]));
     }
 
     else
     {
-      v18 = 0;
+      v17 = 0;
     }
 
     goto LABEL_15;
@@ -5254,404 +5236,404 @@ LABEL_6:
   }
 
 LABEL_154:
-  if ((v254 & 1) == 0)
+  if ((v253 & 1) == 0)
   {
-    v129 = (v15 - *v15);
-    if (*v129 >= 0xFu && (v130 = v129[7]) != 0)
+    v128 = (v15 - *v15);
+    if (*v128 >= 0xFu && (v129 = v128[7]) != 0)
     {
-      v131 = (v15 + v130 + *(v15 + v130));
+      v130 = (v15 + v129 + *(v15 + v129));
     }
 
     else
     {
-      v131 = 0;
+      v130 = 0;
     }
 
-    v132 = (v131 - *v131);
-    v134 = *v132 >= 0x29u && (v133 = v132[20]) != 0 && *(v131 + v133) != 0;
-    [v10 setAlphaTestEnabled:v134];
-    v135 = (v131 - *v131);
-    if (*v135 >= 0x2Bu && (v136 = v135[21]) != 0)
+    v131 = (v130 - *v130);
+    v133 = *v131 >= 0x29u && (v132 = v131[20]) != 0 && *(v130 + v132) != 0;
+    [v10 setAlphaTestEnabled:v133];
+    v134 = (v130 - *v130);
+    if (*v134 >= 0x2Bu && (v135 = v134[21]) != 0)
     {
-      v137 = *(v131 + v136);
-    }
-
-    else
-    {
-      v137 = 0;
-    }
-
-    [v10 setAlphaTestFunction:v137];
-    v138 = (v131 - *v131);
-    if (*v138 >= 9u && (v139 = v138[4]) != 0)
-    {
-      v140 = *(v131 + v139);
+      v136 = *(v130 + v135);
     }
 
     else
     {
-      v140 = 0;
+      v136 = 0;
     }
 
-    [v10 setAlphaToCoverageStateSPI:v140];
-    v141 = (v131 - *v131);
-    if (*v141 >= 0xBu && (v142 = v141[5]) != 0)
+    [v10 setAlphaTestFunction:v136];
+    v137 = (v130 - *v130);
+    if (*v137 >= 9u && (v138 = v137[4]) != 0)
     {
-      v143 = *(v131 + v142);
-    }
-
-    else
-    {
-      v143 = 0;
-    }
-
-    [v10 setAlphaToOneStateSPI:v143];
-    v144 = (v131 - *v131);
-    if (*v144 >= 0x39u && (v145 = v144[28]) != 0)
-    {
-      v146 = *(v131 + v145);
+      v139 = *(v130 + v138);
     }
 
     else
     {
-      v146 = 0;
+      v139 = 0;
     }
 
-    [v10 setColorAttachmentMappingState:v146];
-    v147 = (v131 - *v131);
-    if (*v147 >= 0xFu && (v148 = v147[7]) != 0)
+    [v10 setAlphaToCoverageStateSPI:v139];
+    v140 = (v130 - *v130);
+    if (*v140 >= 0xBu && (v141 = v140[5]) != 0)
     {
-      v149 = *(v131 + v148);
-    }
-
-    else
-    {
-      v149 = 0;
-    }
-
-    [v10 setColorSampleCount:v149];
-    v150 = (v131 - *v131);
-    if (*v150 >= 0x19u && (v151 = v150[12]) != 0)
-    {
-      v152 = *(v131 + v151);
+      v142 = *(v130 + v141);
     }
 
     else
     {
-      v152 = 0;
+      v142 = 0;
     }
 
-    [v10 setDepthAttachmentPixelFormat:v152];
-    v153 = (v131 - *v131);
-    if (*v153 >= 0x35u && (v154 = v153[26]) != 0)
+    [v10 setAlphaToOneStateSPI:v142];
+    v143 = (v130 - *v130);
+    if (*v143 >= 0x39u && (v144 = v143[28]) != 0)
     {
-      v155 = *(v131 + v154);
-    }
-
-    else
-    {
-      v155 = 0;
-    }
-
-    [v10 setFragmentDepthCompareClampMask:v155];
-    v156 = (v131 - *v131);
-    v158 = *v156 >= 0x2Fu && (v157 = v156[23]) != 0 && *(v131 + v157) != 0;
-    [v10 setDepthStencilWriteDisabled:v158];
-    v159 = (v131 - *v131);
-    if (*v159 >= 0x27u && (v160 = v159[19]) != 0)
-    {
-      v161 = *(v131 + v160);
+      v145 = *(v130 + v144);
     }
 
     else
     {
-      v161 = 0;
+      v145 = 0;
     }
 
-    [v10 setLogicOperation:v161];
-    v162 = (v131 - *v131);
-    v164 = *v162 >= 0x25u && (v163 = v162[18]) != 0 && *(v131 + v163) != 0;
-    [v10 setLogicOperationEnabled:v164];
-    v165 = (v131 - *v131);
-    if (*v165 >= 5u && (v166 = v165[2]) != 0)
+    [v10 setColorAttachmentMappingState:v145];
+    v146 = (v130 - *v130);
+    if (*v146 >= 0xFu && (v147 = v146[7]) != 0)
     {
-      v167 = *(v131 + v166);
+      v148 = *(v130 + v147);
     }
 
     else
     {
-      v167 = 1;
+      v148 = 0;
     }
 
-    [v10 setMaxFragmentCallStackDepth:v167];
-    v168 = (v131 - *v131);
-    v170 = *v168 >= 0x33u && (v169 = v168[25]) != 0 && *(v131 + v169) != 0;
-    [v10 setNeedsCustomBorderColorSamplers:v170];
-    v171 = (v131 - *v131);
-    v173 = *v171 >= 0x31u && (v172 = v171[24]) != 0 && *(v131 + v172) != 0;
-    [v10 setOpenGLModeEnabled:v173];
-    v174 = (v131 - *v131);
-    v176 = *v174 >= 0x2Du && (v175 = v174[22]) != 0 && *(v131 + v175) != 0;
-    [v10 setPointSmoothEnabled:v176];
-    v177 = (v131 - *v131);
-    if (*v177 >= 0xDu && (v178 = v177[6]) != 0)
+    [v10 setColorSampleCount:v148];
+    v149 = (v130 - *v130);
+    if (*v149 >= 0x19u && (v150 = v149[12]) != 0)
     {
-      v179 = *(v131 + v178);
+      v151 = *(v130 + v150);
     }
 
     else
     {
-      v179 = 1;
+      v151 = 0;
     }
 
-    [v10 setRasterSampleCount:v179];
-    v180 = (v131 - *v131);
-    LODWORD(v181) = 1.0;
-    if (*v180 >= 0x13u)
+    [v10 setDepthAttachmentPixelFormat:v151];
+    v152 = (v130 - *v130);
+    if (*v152 >= 0x35u && (v153 = v152[26]) != 0)
     {
-      v182 = v180[9];
-      if (v182)
+      v154 = *(v130 + v153);
+    }
+
+    else
+    {
+      v154 = 0;
+    }
+
+    [v10 setFragmentDepthCompareClampMask:v154];
+    v155 = (v130 - *v130);
+    v157 = *v155 >= 0x2Fu && (v156 = v155[23]) != 0 && *(v130 + v156) != 0;
+    [v10 setDepthStencilWriteDisabled:v157];
+    v158 = (v130 - *v130);
+    if (*v158 >= 0x27u && (v159 = v158[19]) != 0)
+    {
+      v160 = *(v130 + v159);
+    }
+
+    else
+    {
+      v160 = 0;
+    }
+
+    [v10 setLogicOperation:v160];
+    v161 = (v130 - *v130);
+    v163 = *v161 >= 0x25u && (v162 = v161[18]) != 0 && *(v130 + v162) != 0;
+    [v10 setLogicOperationEnabled:v163];
+    v164 = (v130 - *v130);
+    if (*v164 >= 5u && (v165 = v164[2]) != 0)
+    {
+      v166 = *(v130 + v165);
+    }
+
+    else
+    {
+      v166 = 1;
+    }
+
+    [v10 setMaxFragmentCallStackDepth:v166];
+    v167 = (v130 - *v130);
+    v169 = *v167 >= 0x33u && (v168 = v167[25]) != 0 && *(v130 + v168) != 0;
+    [v10 setNeedsCustomBorderColorSamplers:v169];
+    v170 = (v130 - *v130);
+    v172 = *v170 >= 0x31u && (v171 = v170[24]) != 0 && *(v130 + v171) != 0;
+    [v10 setOpenGLModeEnabled:v172];
+    v173 = (v130 - *v130);
+    v175 = *v173 >= 0x2Du && (v174 = v173[22]) != 0 && *(v130 + v174) != 0;
+    [v10 setPointSmoothEnabled:v175];
+    v176 = (v130 - *v130);
+    if (*v176 >= 0xDu && (v177 = v176[6]) != 0)
+    {
+      v178 = *(v130 + v177);
+    }
+
+    else
+    {
+      v178 = 1;
+    }
+
+    [v10 setRasterSampleCount:v178];
+    v179 = (v130 - *v130);
+    LODWORD(v180) = 1.0;
+    if (*v179 >= 0x13u)
+    {
+      v181 = v179[9];
+      if (v181)
       {
-        LODWORD(v181) = *(v131 + v182);
+        LODWORD(v180) = *(v130 + v181);
       }
     }
 
-    [v10 setSampleCoverage:v181];
-    v183 = (v131 - *v131);
-    v185 = *v183 >= 0x15u && (v184 = v183[10]) != 0 && *(v131 + v184) != 0;
-    [v10 setSampleCoverageInvert:v185];
-    v186 = (v131 - *v131);
-    if (*v186 >= 0x11u && (v187 = v186[8]) != 0)
+    [v10 setSampleCoverage:v180];
+    v182 = (v130 - *v130);
+    v184 = *v182 >= 0x15u && (v183 = v182[10]) != 0 && *(v130 + v183) != 0;
+    [v10 setSampleCoverageInvert:v184];
+    v185 = (v130 - *v130);
+    if (*v185 >= 0x11u && (v186 = v185[8]) != 0)
     {
-      v188 = *(v131 + v187);
+      v187 = *(v130 + v186);
     }
 
     else
     {
-      v188 = -1;
+      v187 = -1;
     }
 
-    [v10 setSampleMask:v188];
-    v189 = (v131 - *v131);
-    if (*v189 >= 0x1Bu && (v190 = v189[13]) != 0)
+    [v10 setSampleMask:v187];
+    v188 = (v130 - *v130);
+    if (*v188 >= 0x1Bu && (v189 = v188[13]) != 0)
     {
-      v191 = *(v131 + v190);
+      v190 = *(v130 + v189);
     }
 
     else
     {
-      v191 = 0;
+      v190 = 0;
     }
 
     objCopy = obj;
-    [v10 setStencilAttachmentPixelFormat:v191];
-    v192 = (v131 - *v131);
+    [v10 setStencilAttachmentPixelFormat:v190];
+    v191 = (v130 - *v130);
     archiveCopy = archive;
-    if (*v192 >= 0x21u && (v194 = v192[16]) != 0)
+    if (*v191 >= 0x21u && (v193 = v191[16]) != 0)
     {
       errorCopy4 = error;
-      v196 = *(v131 + v194) != 0;
+      v195 = *(v130 + v193) != 0;
     }
 
     else
     {
       errorCopy4 = error;
-      v196 = 0;
+      v195 = 0;
     }
 
-    [v10 setSupportAddingFragmentBinaryFunctions:v196];
-    v197 = (v131 - *v131);
-    v198 = *v197;
-    if (v198 >= 0x17)
+    [v10 setSupportAddingFragmentBinaryFunctions:v195];
+    v196 = (v130 - *v130);
+    v197 = *v196;
+    if (v197 >= 0x17)
     {
-      if (v197[11])
+      if (v196[11])
       {
-        v199 = (v131 + v197[11] + *(v131 + v197[11]));
+        v198 = (v130 + v196[11] + *(v130 + v196[11]));
       }
 
       else
       {
-        v199 = 0;
+        v198 = 0;
       }
 
-      if (v198 >= 0x1D)
+      if (v197 >= 0x1D)
       {
-        v200 = v197[14];
-        if (v200)
+        v199 = v196[14];
+        if (v199)
         {
-          v201 = (v131 + v200 + *(v131 + v200));
-          v202 = v201 + 1;
-          if (*v201)
+          v200 = (v130 + v199 + *(v130 + v199));
+          v201 = v200 + 1;
+          if (*v200)
           {
-            v203 = 0;
+            v202 = 0;
             do
             {
-              v204 = *v202;
-              v205 = v204 - *(v202 + v204);
-              if (*(v202 + v205) >= 5u && (v206 = *(v202 + v205 + 4)) != 0)
+              v203 = *v201;
+              v204 = v203 - *(v201 + v203);
+              if (*(v201 + v204) >= 5u && (v205 = *(v201 + v204 + 4)) != 0)
               {
-                v207 = *(v202 + v204 + v206);
+                v206 = *(v201 + v203 + v205);
               }
 
               else
               {
-                v207 = 0;
+                v206 = 0;
               }
 
               [objc_msgSend(objc_msgSend(v10 "fragmentBuffers")];
-              ++v202;
+              ++v201;
             }
 
-            while (v203 < *v201);
+            while (v202 < *v200);
           }
         }
       }
 
-      if (v199 && *v199)
+      if (v198 && *v198)
       {
+        v207 = 0;
         v208 = 0;
-        v209 = 0;
         do
         {
-          v210 = &v199[v208];
-          v211 = v199[v208 + 1];
-          v212 = &v199[v208] + v211 - *(&v199[v208 + 1] + v211);
-          if (*(v212 + 2) >= 0xBu && (v213 = *(v212 + 7)) != 0)
+          v209 = &v198[v207];
+          v210 = v198[v207 + 1];
+          v211 = &v198[v207] + v210 - *(&v198[v207 + 1] + v210);
+          if (*(v211 + 2) >= 0xBu && (v212 = *(v211 + 7)) != 0)
           {
-            v214 = *(&v199[v208 + 1] + v211 + v213);
+            v213 = *(&v198[v207 + 1] + v210 + v212);
           }
 
           else
           {
-            v214 = 0;
+            v213 = 0;
           }
 
           [objc_msgSend(objc_msgSend(v10 "colorAttachments")];
-          v215 = v210[1];
-          v216 = v215 - *(v210 + v215 + 4);
-          if (*(v210 + v216 + 4) >= 9u && (v217 = *(&v199[v208 + 3] + v216)) != 0)
+          v214 = v209[1];
+          v215 = v214 - *(v209 + v214 + 4);
+          if (*(v209 + v215 + 4) >= 9u && (v216 = *(&v198[v207 + 3] + v215)) != 0)
           {
-            v218 = *(&v199[v208 + 1] + v215 + v217);
+            v217 = *(&v198[v207 + 1] + v214 + v216);
           }
 
           else
           {
-            v218 = 0;
+            v217 = 0;
           }
 
           [objc_msgSend(objc_msgSend(v10 "colorAttachments")];
-          v219 = v210[1];
-          v220 = &v199[v208];
-          v221 = &v199[v208] + v219 - *(&v199[v208 + 1] + v219);
-          if (*(v221 + 2) >= 0xFu && (v222 = *(v221 + 9)) != 0)
+          v218 = v209[1];
+          v219 = &v198[v207];
+          v220 = &v198[v207] + v218 - *(&v198[v207 + 1] + v218);
+          if (*(v220 + 2) >= 0xFu && (v221 = *(v220 + 9)) != 0)
           {
-            v223 = *(&v199[v208 + 1] + v219 + v222);
+            v222 = *(&v198[v207 + 1] + v218 + v221);
           }
 
           else
           {
-            v223 = 0;
+            v222 = 0;
           }
 
           [objc_msgSend(objc_msgSend(v10 "colorAttachments")];
-          v224 = v210[1];
-          v225 = v224 - *(v220 + v224 + 4);
-          if (*(v220 + v225 + 4) >= 0x11u && (v226 = *(&v199[v208 + 5] + v225)) != 0)
+          v223 = v209[1];
+          v224 = v223 - *(v219 + v223 + 4);
+          if (*(v219 + v224 + 4) >= 0x11u && (v225 = *(&v198[v207 + 5] + v224)) != 0)
           {
-            v227 = *(&v199[v208 + 1] + v224 + v226);
+            v226 = *(&v198[v207 + 1] + v223 + v225);
           }
 
           else
           {
-            v227 = 0;
+            v226 = 0;
           }
 
           [objc_msgSend(objc_msgSend(v10 "colorAttachments")];
-          v228 = v210[1];
-          v229 = &v199[v208];
-          v230 = &v199[v208] + v228 - *(&v199[v208 + 1] + v228);
-          if (*(v230 + 2) >= 5u && (v231 = *(v230 + 4)) != 0)
+          v227 = v209[1];
+          v228 = &v198[v207];
+          v229 = &v198[v207] + v227 - *(&v198[v207 + 1] + v227);
+          if (*(v229 + 2) >= 5u && (v230 = *(v229 + 4)) != 0)
           {
-            v232 = *(&v199[v208 + 1] + v228 + v231);
+            v231 = *(&v198[v207 + 1] + v227 + v230);
           }
 
           else
           {
-            v232 = 0;
+            v231 = 0;
           }
 
           [objc_msgSend(objc_msgSend(v10 "colorAttachments")];
-          v233 = v210[1];
-          v234 = v233 - *(v229 + v233 + 4);
-          if (*(v229 + v234 + 4) >= 0x15u && (v235 = *(&v199[v208 + 6] + v234)) != 0)
+          v232 = v209[1];
+          v233 = v232 - *(v228 + v232 + 4);
+          if (*(v228 + v233 + 4) >= 0x15u && (v234 = *(&v198[v207 + 6] + v233)) != 0)
           {
-            v236 = *(&v199[v208 + 1] + v233 + v235);
+            v235 = *(&v198[v207 + 1] + v232 + v234);
           }
 
           else
           {
-            v236 = 1;
+            v235 = 1;
           }
 
           [objc_msgSend(objc_msgSend(v10 "colorAttachments")];
-          v237 = v210[1];
-          v238 = &v199[v208];
-          v239 = &v199[v208] + v237 - *(&v199[v208 + 1] + v237);
-          if (*(v239 + 2) >= 0x13u && (v240 = *(v239 + 11)) != 0)
+          v236 = v209[1];
+          v237 = &v198[v207];
+          v238 = &v198[v207] + v236 - *(&v198[v207 + 1] + v236);
+          if (*(v238 + 2) >= 0x13u && (v239 = *(v238 + 11)) != 0)
           {
-            v241 = *(&v199[v208 + 1] + v237 + v240);
+            v240 = *(&v198[v207 + 1] + v236 + v239);
           }
 
           else
           {
-            v241 = 1;
+            v240 = 1;
           }
 
           [objc_msgSend(objc_msgSend(v10 "colorAttachments")];
-          v242 = v210[1];
-          v243 = v242 - *(v238 + v242 + 4);
-          if (*(v238 + v243 + 4) >= 7u && (v244 = *(&v199[v208 + 2] + v243 + 2)) != 0)
+          v241 = v209[1];
+          v242 = v241 - *(v237 + v241 + 4);
+          if (*(v237 + v242 + 4) >= 7u && (v243 = *(&v198[v207 + 2] + v242 + 2)) != 0)
           {
-            v245 = *(&v199[v208 + 1] + v242 + v244);
+            v244 = *(&v198[v207 + 1] + v241 + v243);
           }
 
           else
           {
-            v245 = 15;
+            v244 = 15;
           }
 
           [objc_msgSend(objc_msgSend(v10 "colorAttachments")];
-          ++v208;
+          ++v207;
         }
 
-        while (v209 < *v199);
+        while (v208 < *v198);
       }
     }
 
     fragmentLinkedFunctions = [v10 fragmentLinkedFunctions];
-    v247 = (v131 - *v131);
-    if (*v247 < 0x37u)
+    v246 = (v130 - *v130);
+    if (*v246 < 0x37u)
     {
-      v250 = 0;
-      v249 = errorCopy4;
+      v249 = 0;
+      v248 = errorCopy4;
     }
 
     else
     {
-      v248 = v247[27];
-      v249 = errorCopy4;
-      if (v248)
+      v247 = v246[27];
+      v248 = errorCopy4;
+      if (v247)
       {
-        v250 = v131 + v248 + *(v131 + v248);
+        v249 = v130 + v247 + *(v130 + v247);
       }
 
       else
       {
-        v250 = 0;
+        v249 = 0;
       }
     }
 
-    [(_MTLBinaryArchive *)self setMTLLinkedFunctions:fragmentLinkedFunctions LFS:v250 obj:objCopy destinationArchive:archiveCopy error:v249];
+    [(_MTLBinaryArchive *)self setMTLLinkedFunctions:fragmentLinkedFunctions LFS:v249 obj:objCopy destinationArchive:archiveCopy error:v248];
   }
 
   return v10;
@@ -5660,12 +5642,12 @@ LABEL_154:
 - (id)archiveFunctionIds
 {
   array = [MEMORY[0x1E695DF70] array];
-  for (i = self->_airntBinaryList.__table_.__first_node_.__next_; i; i = *i)
+  for (i = self->_airntBinaryList.__table_.__first_node_.__next_; i; i = i->var0.var0)
   {
     v9 = 0;
     v10 = 0;
     v11 = 0;
-    std::vector<std::pair<MTLHashKey,unsigned int>>::__init_with_size[abi:ne200100]<std::pair<MTLHashKey,unsigned int>*,std::pair<MTLHashKey,unsigned int>*>(&v9, i[3], i[4], 0x2E8BA2E8BA2E8BA3 * ((i[4] - i[3]) >> 3));
+    std::vector<std::pair<MTLHashKey,unsigned int>>::__init_with_size[abi:ne200100]<std::pair<MTLHashKey,unsigned int>*,std::pair<MTLHashKey,unsigned int>*>(&v9, *i->var1.var0, *&i->var1.var0[8], 0x2E8BA2E8BA2E8BA3 * ((*&i->var1.var0[8] - *i->var1.var0) >> 3));
     v5 = v9;
     if (v10 != v9)
     {
@@ -5948,7 +5930,7 @@ LABEL_68:
 
 - (id)getLibraryDescriptorWithAirScrpt:(const StitchingScript *)scrpt
 {
-  v136[1] = *MEMORY[0x1E69E9840];
+  v135[1] = *MEMORY[0x1E69E9840];
   v4 = objc_opt_new();
   v5 = &scrpt[-*scrpt->var0];
   if (*v5->var0 < 9u)
@@ -5989,8 +5971,8 @@ LABEL_68:
     v14 = 0;
   }
 
-  flatbuffers::String::str(v14, &__p);
-  if (v135 >= 0)
+  flatbuffers::String::str(&__p, v14);
+  if (v134 >= 0)
   {
     p_p = &__p;
   }
@@ -6001,15 +5983,15 @@ LABEL_68:
   }
 
   [v10 setFunctionName:{objc_msgSend(v11, "initWithUTF8String:", p_p)}];
-  if (SHIBYTE(v135) < 0)
+  if (SHIBYTE(v134) < 0)
   {
     operator delete(__p);
   }
 
-  v121 = v4;
+  v120 = v4;
   __p = 0;
+  v133 = 0;
   v134 = 0;
-  v135 = 0;
   v16 = (v9 - *v9);
   if (*v16 >= 0xBu)
   {
@@ -6033,14 +6015,14 @@ LABEL_68:
               v24 = *(v20 + v21 + v23);
               if (v24 == 2)
               {
-                v130 = [MTLFunctionStitchingAttributeKernel alloc];
-                std::vector<MTLPipelineLibrarySerializer::SerializedObject>::push_back[abi:ne200100](&__p, &v130);
+                v129 = [MTLFunctionStitchingAttributeKernel alloc];
+                std::vector<MTLPipelineLibrarySerializer::SerializedObject>::push_back[abi:ne200100](&__p, &v129);
               }
 
               else if (v24 == 1)
               {
-                v130 = [MTLFunctionStitchingAttributeAlwaysInline alloc];
-                std::vector<MTLPipelineLibrarySerializer::SerializedObject>::push_back[abi:ne200100](&__p, &v130);
+                v129 = [MTLFunctionStitchingAttributeAlwaysInline alloc];
+                std::vector<MTLPipelineLibrarySerializer::SerializedObject>::push_back[abi:ne200100](&__p, &v129);
               }
             }
           }
@@ -6059,11 +6041,11 @@ LABEL_68:
     }
   }
 
-  v120 = v10;
+  v119 = v10;
   v26 = 0;
+  v129 = 0;
   v130 = 0;
   v131 = 0;
-  v132 = 0;
   v27 = (v9 + *(v9 - *v9 + 6));
   v28 = (v27 + *v27);
   do
@@ -6102,8 +6084,8 @@ LABEL_68:
             v78 = 0;
           }
 
-          v127 = [(MTLFunctionStitchingInputBuffer *)v74 initWithBindIndex:v78];
-          std::vector<MTLPipelineLibrarySerializer::SerializedObject>::push_back[abi:ne200100](&v130, &v127);
+          v126 = [(MTLFunctionStitchingInputBuffer *)v74 initWithBindIndex:v78];
+          std::vector<MTLPipelineLibrarySerializer::SerializedObject>::push_back[abi:ne200100](&v129, &v126);
         }
 
         else if (v33 == 4)
@@ -6147,8 +6129,8 @@ LABEL_68:
             v90 = 0;
           }
 
-          v127 = [(MTLFunctionStitchingInputBufferAddress *)v63 initWithBindIndex:v88 byteOffset:v90 dereference:0];
-          std::vector<MTLPipelineLibrarySerializer::SerializedObject>::push_back[abi:ne200100](&v130, &v127);
+          v126 = [(MTLFunctionStitchingInputBufferAddress *)v63 initWithBindIndex:v88 byteOffset:v90 dereference:0];
+          std::vector<MTLPipelineLibrarySerializer::SerializedObject>::push_back[abi:ne200100](&v129, &v126);
         }
 
         else
@@ -6192,8 +6174,8 @@ LABEL_68:
             v95 = 0;
           }
 
-          v127 = [(MTLFunctionStitchingInputBufferAddress *)v40 initWithBindIndex:v93 byteOffset:v95 dereference:1];
-          std::vector<MTLPipelineLibrarySerializer::SerializedObject>::push_back[abi:ne200100](&v130, &v127);
+          v126 = [(MTLFunctionStitchingInputBufferAddress *)v40 initWithBindIndex:v93 byteOffset:v95 dereference:1];
+          std::vector<MTLPipelineLibrarySerializer::SerializedObject>::push_back[abi:ne200100](&v129, &v126);
         }
 
         goto LABEL_152;
@@ -6214,8 +6196,8 @@ LABEL_68:
           v61 = 0;
         }
 
-        v127 = [(MTLFunctionStitchingInputNode *)v57 initWithArgumentIndex:v61];
-        std::vector<MTLPipelineLibrarySerializer::SerializedObject>::push_back[abi:ne200100](&v130, &v127);
+        v126 = [(MTLFunctionStitchingInputNode *)v57 initWithArgumentIndex:v61];
+        std::vector<MTLPipelineLibrarySerializer::SerializedObject>::push_back[abi:ne200100](&v129, &v126);
         goto LABEL_152;
       }
 
@@ -6232,12 +6214,12 @@ LABEL_68:
       {
         if (v55 <= 6)
         {
+          v126 = 0;
           v127 = 0;
           v128 = 0;
-          v129 = 0;
+          v123 = 0;
           v124 = 0;
           v125 = 0;
-          v126 = 0;
 LABEL_139:
           v106 = [objc_alloc(MEMORY[0x1E695DEC8]) initWithObjects:? count:?];
           v107 = [objc_alloc(MEMORY[0x1E695DEC8]) initWithObjects:? count:?];
@@ -6253,36 +6235,36 @@ LABEL_139:
             v111 = 0;
           }
 
-          flatbuffers::String::str(v111, v122);
-          if (v123 >= 0)
+          flatbuffers::String::str(v121, v111);
+          if (v122 >= 0)
           {
-            v112 = v122;
+            v112 = v121;
           }
 
           else
           {
-            v112 = v122[0];
+            v112 = v121[0];
           }
 
           v113 = [v108 initWithUTF8String:v112];
-          if (v123 < 0)
+          if (v122 < 0)
           {
-            operator delete(v122[0]);
+            operator delete(v121[0]);
           }
 
-          v122[0] = [[MTLFunctionStitchingFunctionNode alloc] initWithName:v113 arguments:v107 controlDependencies:v106];
-          std::vector<MTLPipelineLibrarySerializer::SerializedObject>::push_back[abi:ne200100](&v130, v122);
-          if (v124)
+          v121[0] = [[MTLFunctionStitchingFunctionNode alloc] initWithName:v113 arguments:v107 controlDependencies:v106];
+          std::vector<MTLPipelineLibrarySerializer::SerializedObject>::push_back[abi:ne200100](&v129, v121);
+          if (v123)
           {
-            v125 = v124;
-            operator delete(v124);
+            v124 = v123;
+            operator delete(v123);
           }
 
 LABEL_150:
-          if (v127)
+          if (v126)
           {
-            v128 = v127;
-            operator delete(v127);
+            v127 = v126;
+            operator delete(v126);
           }
 
           goto LABEL_152;
@@ -6304,19 +6286,19 @@ LABEL_94:
           v85 = 0;
         }
 
+        v126 = 0;
         v127 = 0;
         v128 = 0;
-        v129 = 0;
+        v123 = 0;
         v124 = 0;
         v125 = 0;
-        v126 = 0;
         if (v56 && *v56)
         {
           v96 = 1;
           do
           {
-            v122[0] = *(v130 + v56[v96]);
-            std::vector<MTLPipelineLibrarySerializer::SerializedObject>::push_back[abi:ne200100](&v127, v122);
+            v121[0] = *(v129 + v56[v96]);
+            std::vector<MTLPipelineLibrarySerializer::SerializedObject>::push_back[abi:ne200100](&v126, v121);
             ++v96;
           }
 
@@ -6325,26 +6307,26 @@ LABEL_94:
 
         if (v85 && *v85)
         {
-          v97 = v125;
+          v97 = v124;
           v98 = 1;
           do
           {
             v99 = v85[v98];
-            if (v97 >= v126)
+            if (v97 >= v125)
             {
-              v100 = (v97 - v124) >> 3;
+              v100 = (v97 - v123) >> 3;
               if ((v100 + 1) >> 61)
               {
                 std::vector<std::pair<std::tuple<std::string,unsigned int,unsigned int>,unsigned int>>::__throw_length_error[abi:ne200100]();
               }
 
-              v101 = (v126 - v124) >> 2;
+              v101 = (v125 - v123) >> 2;
               if (v101 <= v100 + 1)
               {
                 v101 = v100 + 1;
               }
 
-              if (v126 - v124 >= 0x7FFFFFFFFFFFFFF8)
+              if (v125 - v123 >= 0x7FFFFFFFFFFFFFF8)
               {
                 v102 = 0x1FFFFFFFFFFFFFFFLL;
               }
@@ -6356,18 +6338,18 @@ LABEL_94:
 
               if (v102)
               {
-                std::__allocate_at_least[abi:ne200100]<std::allocator<objc_object  {objcproto18MTLIOScratchBuffer}*>>(&v124, v102);
+                std::__allocate_at_least[abi:ne200100]<std::allocator<objc_object  {objcproto18MTLIOScratchBuffer}*>>(&v123, v102);
               }
 
               v103 = (8 * v100);
-              *v103 = *(v130 + v99);
+              *v103 = *(v129 + v99);
               v97 = (8 * v100 + 8);
-              v104 = v103 - (v125 - v124);
-              memcpy(v104, v124, v125 - v124);
-              v105 = v124;
-              v124 = v104;
-              v125 = v97;
-              v126 = 0;
+              v104 = v103 - (v124 - v123);
+              memcpy(v104, v123, v124 - v123);
+              v105 = v123;
+              v123 = v104;
+              v124 = v97;
+              v125 = 0;
               if (v105)
               {
                 operator delete(v105);
@@ -6376,12 +6358,12 @@ LABEL_94:
 
             else
             {
-              *v97 = *(v130 + v99);
+              *v97 = *(v129 + v99);
               v97 += 8;
             }
 
             ++v98;
-            v125 = v97;
+            v124 = v97;
           }
 
           while (v98 - 1 < *v85);
@@ -6444,15 +6426,15 @@ LABEL_94:
         }
       }
 
-      v127 = [(MTLFunctionStitchingInputTexture *)v35 initWithBindIndex:v38];
-      std::vector<MTLPipelineLibrarySerializer::SerializedObject>::push_back[abi:ne200100](&v130, &v127);
+      v126 = [(MTLFunctionStitchingInputTexture *)v35 initWithBindIndex:v38];
+      std::vector<MTLPipelineLibrarySerializer::SerializedObject>::push_back[abi:ne200100](&v129, &v126);
       goto LABEL_152;
     }
 
     if (v33 == 9)
     {
-      v127 = [[MTLFunctionStitchingInputImageblock alloc] initWithBindIndex:0];
-      std::vector<MTLPipelineLibrarySerializer::SerializedObject>::push_back[abi:ne200100](&v130, &v127);
+      v126 = [[MTLFunctionStitchingInputImageblock alloc] initWithBindIndex:0];
+      std::vector<MTLPipelineLibrarySerializer::SerializedObject>::push_back[abi:ne200100](&v129, &v126);
       goto LABEL_152;
     }
 
@@ -6470,17 +6452,17 @@ LABEL_94:
       {
         v48 = v44 + v47;
         v49 = *(v44 + v47);
+        v126 = 0;
         v127 = 0;
         v128 = 0;
-        v129 = 0;
         if (*(v44 + v47 + v49))
         {
           v50 = 0;
           v51 = v44 + v47 + v49 + 4;
           do
           {
-            v124 = *(v130 + *(v51 + 4 * v50));
-            std::vector<MTLPipelineLibrarySerializer::SerializedObject>::push_back[abi:ne200100](&v127, &v124);
+            v123 = *(v129 + *(v51 + 4 * v50));
+            std::vector<MTLPipelineLibrarySerializer::SerializedObject>::push_back[abi:ne200100](&v126, &v123);
             ++v50;
           }
 
@@ -6490,15 +6472,15 @@ LABEL_94:
 
       else
       {
+        v126 = 0;
         v127 = 0;
         v128 = 0;
-        v129 = 0;
       }
 
       v82 = [objc_alloc(MEMORY[0x1E695DEC8]) initWithObjects:? count:?];
       v83 = [MTLFunctionStitchingEarlyReturnNode alloc];
-      v124 = [(MTLFunctionStitchingEarlyReturnNode *)v83 initWithCondition:*(v130 + *(v45 + *(v45 - *v45 + 4))) controlDependencies:v82];
-      std::vector<MTLPipelineLibrarySerializer::SerializedObject>::push_back[abi:ne200100](&v130, &v124);
+      v123 = [(MTLFunctionStitchingEarlyReturnNode *)v83 initWithCondition:*(v129 + *(v45 + *(v45 - *v45 + 4))) controlDependencies:v82];
+      std::vector<MTLPipelineLibrarySerializer::SerializedObject>::push_back[abi:ne200100](&v129, &v123);
       goto LABEL_150;
     }
 
@@ -6524,22 +6506,22 @@ LABEL_94:
       }
 
 LABEL_74:
-      v127 = objc_alloc_init(MTLFunctionStitchingBuiltinThreadPositionInGrid);
-      std::vector<MTLPipelineLibrarySerializer::SerializedObject>::push_back[abi:ne200100](&v130, &v127);
+      v126 = objc_alloc_init(MTLFunctionStitchingBuiltinThreadPositionInGrid);
+      std::vector<MTLPipelineLibrarySerializer::SerializedObject>::push_back[abi:ne200100](&v129, &v126);
       goto LABEL_152;
     }
 
-    v127 = objc_alloc_init(MTLFunctionStitchingBuiltinThreadPositionInThreadgroup);
-    std::vector<MTLPipelineLibrarySerializer::SerializedObject>::push_back[abi:ne200100](&v130, &v127);
+    v126 = objc_alloc_init(MTLFunctionStitchingBuiltinThreadPositionInThreadgroup);
+    std::vector<MTLPipelineLibrarySerializer::SerializedObject>::push_back[abi:ne200100](&v129, &v126);
 LABEL_152:
     ++v26;
   }
 
   while (v26 < *v28);
-  [v120 setOutputNode:*(v130 + *(v9 + *(v9 - *v9 + 8)))];
+  [v119 setOutputNode:*(v129 + *(v9 + *(v9 - *v9 + 8)))];
   v114 = objc_opt_new();
-  v115 = v130;
-  v116 = v131;
+  v115 = v129;
+  v116 = v130;
   while (v115 != v116)
   {
     v117 = *v115;
@@ -6552,29 +6534,28 @@ LABEL_152:
     ++v115;
   }
 
-  [v120 setNodes:v114];
-  v136[0] = v120;
-  [v121 setFunctionGraphs:{objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v136, 1)}];
-  if (v130)
+  [v119 setNodes:v114];
+  v135[0] = v119;
+  [v120 setFunctionGraphs:{objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v135, 1)}];
+  if (v129)
   {
-    v131 = v130;
-    operator delete(v130);
+    v130 = v129;
+    operator delete(v129);
   }
 
   if (__p)
   {
-    v134 = __p;
+    v133 = __p;
     operator delete(__p);
   }
 
-  v118 = *MEMORY[0x1E69E9840];
-  return v121;
+  return v120;
 }
 
 - (id)recompileFunction:(id)function inLibrary:(id)library toArchive:(id)archive toBinary:(BOOL)binary error:(id *)error
 {
   binaryCopy = binary;
-  v64 = *MEMORY[0x1E69E9840];
+  v62 = *MEMORY[0x1E69E9840];
   airScript = [function airScript];
   if (airScript || binaryCopy)
   {
@@ -6582,49 +6563,49 @@ LABEL_152:
     {
       buffer_ptr = 0;
       size_ptr = 0;
-      v18 = dispatch_data_create_map(airScript, &buffer_ptr, &size_ptr);
-      v19 = buffer_ptr;
+      v17 = dispatch_data_create_map(airScript, &buffer_ptr, &size_ptr);
+      v18 = buffer_ptr;
       if (!strncmp(buffer_ptr + 4, "AIRC", 4uLL))
       {
-        v38 = [(_MTLBinaryArchive *)self newFunctionDescriptorWithAirScript:v19 + *v19];
-        v39 = v38;
+        v37 = [(_MTLBinaryArchive *)self newFunctionDescriptorWithAirScript:v18 + *v18];
+        v38 = v37;
         if (binaryCopy)
         {
-          [v38 setOptions:{objc_msgSend(v38, "options") | 1}];
+          [v37 setOptions:{objc_msgSend(v37, "options") | 1}];
         }
 
-        dispatch_release(v18);
-        v62 = 0u;
-        v63 = 0u;
+        dispatch_release(v17);
+        v60 = 0u;
+        v61 = 0u;
         if (function)
         {
-          [function baseFunctionHash];
+          objc_msgSend_baseFunctionHash(function);
         }
 
-        v40 = [library newFunctionWithHash:&v62];
-        v41 = [(_MTLBinaryArchive *)self recompileFunction:v40 inLibrary:library toArchive:archive toBinary:0 error:error];
-        v42 = v41;
-        if (v41)
+        v39 = [library newFunctionWithHash:&v60];
+        v40 = [(_MTLBinaryArchive *)self recompileFunction:v39 inLibrary:library toArchive:archive toBinary:0 error:error];
+        v41 = v40;
+        if (v40)
         {
-          if (v41 == v40)
+          if (v40 == v39)
           {
-            v58 = 0;
+            v56 = 0;
             __p = 0;
-            [library getFunctionAliasAndNameForHash:&v62 functionName:&v58 alias:&__p];
+            [library getFunctionAliasAndNameForHash:&v60 functionName:&v56 alias:&__p];
             if (__p)
             {
-              v51 = __p;
+              v50 = __p;
             }
 
             else
             {
-              v51 = v58;
+              v50 = v56;
             }
 
-            [v39 setName:v51];
-            v17 = [library newFunctionWithDescriptor:v39 destinationArchive:archive error:error];
+            [v38 setName:v50];
+            v16 = [library newFunctionWithDescriptor:v38 destinationArchive:archive error:error];
 
-            if (v58)
+            if (v56)
             {
             }
 
@@ -6636,175 +6617,173 @@ LABEL_152:
           else
           {
 
-            libraryData = [v42 libraryData];
-            v44 = (*(*libraryData + 128))(libraryData);
-            v49 = MTLLibraryBuilder::newLibraryWithData(*(self->_device + 55), self->_device, v44, 0, v45, v46, v47, v48);
-            [v39 setName:{objc_msgSend(v42, "name")}];
-            v17 = [(_MTLLibrary *)v49 newFunctionWithDescriptor:v39 destinationArchive:archive error:error];
+            libraryData = [v41 libraryData];
+            v43 = (*(*libraryData + 128))(libraryData);
+            v48 = MTLLibraryBuilder::newLibraryWithData(*(self->_device + 55), self->_device, v43, 0, v44, v45, v46, v47);
+            [v38 setName:{objc_msgSend(v41, "name")}];
+            v16 = [(_MTLLibrary *)v48 newFunctionWithDescriptor:v38 destinationArchive:archive error:error];
           }
         }
 
         else
         {
 
-          v17 = 0;
+          return 0;
         }
       }
 
       else
       {
         [function bitCodeHash];
-        (*(*[function libraryData] + 320))(&v58);
-        v54 = v18;
+        (*(*[function libraryData] + 320))(&v56);
+        v52 = v17;
         __p = 0;
-        v56 = 0;
-        v57 = 0;
-        v20 = v58;
-        v21 = v59;
-        if (v58 == v59)
+        v54 = 0;
+        v55 = 0;
+        v19 = v56;
+        v20 = v57;
+        if (v56 == v57)
         {
 LABEL_28:
-          v33 = buffer_ptr;
-          v34 = *buffer_ptr;
-          v35 = objc_autoreleasePoolPush();
-          v36 = [(_MTLBinaryArchive *)self getLibraryDescriptorWithAirScrpt:&v33[v34]];
-          dispatch_release(v54);
-          [v36 setFunctions:{objc_msgSend(objc_alloc(MEMORY[0x1E695DEC8]), "initWithObjects:count:")}];
-          v17 = [(MTLDevice *)self->_device newLibraryWithStitchedDescriptor:v36 destinationBinaryArchive:archive error:error];
-          for (i = __p; i != v56; ++i)
+          v32 = buffer_ptr;
+          v33 = *buffer_ptr;
+          v34 = objc_autoreleasePoolPush();
+          v35 = [(_MTLBinaryArchive *)self getLibraryDescriptorWithAirScrpt:&v32[v33]];
+          dispatch_release(v52);
+          [v35 setFunctions:{objc_msgSend(objc_alloc(MEMORY[0x1E695DEC8]), "initWithObjects:count:")}];
+          v16 = [(MTLDevice *)self->_device newLibraryWithStitchedDescriptor:v35 destinationBinaryArchive:archive error:error];
+          for (i = __p; i != v54; ++i)
           {
           }
 
-          if (v17)
+          if (v16)
           {
-            v17 = [v17 newFunctionWithName:{objc_msgSend(objc_msgSend(objc_msgSend(v36, "functionGraphs"), "objectAtIndexedSubscript:", 0), "functionName")}];
+            v16 = [v16 newFunctionWithName:{objc_msgSend(objc_msgSend(objc_msgSend(v35, "functionGraphs"), "objectAtIndexedSubscript:", 0), "functionName")}];
           }
 
-          objc_autoreleasePoolPop(v35);
+          objc_autoreleasePoolPop(v34);
         }
 
         else
         {
           while (1)
           {
-            v22 = v20[1];
-            v62 = *v20;
-            v63 = v22;
-            v23 = [library newFunctionWithHash:&v62];
-            v24 = [(_MTLBinaryArchive *)self recompileFunction:v23 inLibrary:library toArchive:archive toBinary:0 error:error];
-            if (!v24)
+            v21 = v19[1];
+            v60 = *v19;
+            v61 = v21;
+            v22 = [library newFunctionWithHash:&v60];
+            v23 = [(_MTLBinaryArchive *)self recompileFunction:v22 inLibrary:library toArchive:archive toBinary:0 error:error];
+            if (!v23)
             {
               break;
             }
 
-            v25 = v56;
-            if (v56 >= v57)
+            v24 = v54;
+            if (v54 >= v55)
             {
-              v27 = (v56 - __p) >> 3;
-              if ((v27 + 1) >> 61)
+              v26 = (v54 - __p) >> 3;
+              if ((v26 + 1) >> 61)
               {
                 std::vector<std::pair<std::tuple<std::string,unsigned int,unsigned int>,unsigned int>>::__throw_length_error[abi:ne200100]();
               }
 
-              v28 = (v57 - __p) >> 2;
-              if (v28 <= v27 + 1)
+              v27 = (v55 - __p) >> 2;
+              if (v27 <= v26 + 1)
               {
-                v28 = v27 + 1;
+                v27 = v26 + 1;
               }
 
-              if (v57 - __p >= 0x7FFFFFFFFFFFFFF8)
+              if (v55 - __p >= 0x7FFFFFFFFFFFFFF8)
               {
-                v29 = 0x1FFFFFFFFFFFFFFFLL;
+                v28 = 0x1FFFFFFFFFFFFFFFLL;
               }
 
               else
               {
-                v29 = v28;
+                v28 = v27;
               }
 
-              if (v29)
+              if (v28)
               {
-                std::__allocate_at_least[abi:ne200100]<std::allocator<objc_object  {objcproto18MTLIOScratchBuffer}*>>(&__p, v29);
+                std::__allocate_at_least[abi:ne200100]<std::allocator<objc_object  {objcproto18MTLIOScratchBuffer}*>>(&__p, v28);
               }
 
-              v30 = (8 * v27);
-              *v30 = v24;
-              v26 = 8 * v27 + 8;
-              v31 = v30 - (v56 - __p);
-              memcpy(v31, __p, v56 - __p);
-              v32 = __p;
-              __p = v31;
-              v56 = v26;
-              v57 = 0;
-              if (v32)
+              v29 = (8 * v26);
+              *v29 = v23;
+              v25 = 8 * v26 + 8;
+              v30 = v29 - (v54 - __p);
+              memcpy(v30, __p, v54 - __p);
+              v31 = __p;
+              __p = v30;
+              v54 = v25;
+              v55 = 0;
+              if (v31)
               {
-                operator delete(v32);
+                operator delete(v31);
               }
             }
 
             else
             {
-              *v56 = v24;
-              v26 = (v25 + 8);
+              *v54 = v23;
+              v25 = (v24 + 8);
             }
 
-            v56 = v26;
-            v20 += 2;
-            if (v20 == v21)
+            v54 = v25;
+            v19 += 2;
+            if (v19 == v20)
             {
               goto LABEL_28;
             }
           }
 
-          for (j = __p; j != v56; ++j)
+          for (j = __p; j != v54; ++j)
           {
           }
 
-          v17 = 0;
+          v16 = 0;
         }
 
         if (__p)
         {
-          v56 = __p;
+          v54 = __p;
           operator delete(__p);
         }
 
-        if (v58)
+        if (v56)
         {
-          v59 = v58;
-          operator delete(v58);
+          v57 = v56;
+          operator delete(v56);
         }
       }
     }
 
     else
     {
-      *&v62 = 0;
-      v58 = 0;
-      [library getFunctionAliasAndNameForHash:objc_msgSend(function functionName:"bitCodeHash") alias:{&v62, &v58}];
-      if (v58)
+      *&v60 = 0;
+      v56 = 0;
+      [library getFunctionAliasAndNameForHash:objc_msgSend(function functionName:"bitCodeHash") alias:{&v60, &v56}];
+      if (v56)
       {
-        v15 = v58;
+        v14 = v56;
       }
 
       else
       {
-        v15 = v62;
+        v14 = v60;
       }
 
-      v16 = objc_alloc_init(MTLFunctionDescriptor);
-      [(MTLFunctionDescriptor *)v16 setName:v15];
-      [(MTLFunctionDescriptor *)v16 setOptions:[(MTLFunctionDescriptor *)v16 options]| 1];
-      v17 = [library newFunctionWithDescriptor:v16 destinationArchive:archive error:error];
+      v15 = objc_alloc_init(MTLFunctionDescriptor);
+      [(MTLFunctionDescriptor *)v15 setName:v14];
+      [(MTLFunctionDescriptor *)v15 setOptions:[(MTLFunctionDescriptor *)v15 options]| 1];
+      v16 = [library newFunctionWithDescriptor:v15 destinationArchive:archive error:error];
     }
 
-    v52 = *MEMORY[0x1E69E9840];
-    return v17;
+    return v16;
   }
 
   else
   {
-    v13 = *MEMORY[0x1E69E9840];
 
     return function;
   }
@@ -7210,7 +7189,7 @@ LABEL_10:
 
 - (BOOL)legacySerializeToURL:(id)l options:(unint64_t)options error:(id *)error
 {
-  v81[3] = *MEMORY[0x1E69E9840];
+  v80[3] = *MEMORY[0x1E69E9840];
   if (error)
   {
     *error = 0;
@@ -7232,7 +7211,7 @@ LABEL_10:
     {
       objc_autoreleasePoolPop(v9);
       LOBYTE(v15) = 0;
-      goto LABEL_134;
+      return v15;
     }
 
     v16 = newErrorWithMessage(&cfstr_OutputUrlIsInv.isa, MTLBinaryArchiveErrorInvalidFile);
@@ -7287,7 +7266,7 @@ LABEL_10:
 
   v18 = 1;
 LABEL_18:
-  v60 = v11;
+  v59 = v11;
   if ((options & 0x30) != 0)
   {
     if (self->_options)
@@ -7348,11 +7327,11 @@ LABEL_34:
   }
 
 LABEL_36:
-  v76 = 0;
-  v77 = 0;
-  v74 = 0;
   v75 = 0;
-  v61 = v9;
+  v76 = 0;
+  v73 = 0;
+  v74 = 0;
+  v60 = v9;
   if (self->_legacyPipelineFileIndex.__tree_.__size_)
   {
     v21 = 1;
@@ -7366,14 +7345,14 @@ LABEL_36:
   v22 = v21 & v17;
   if (v22)
   {
-    *v78 = [MTLLoader sliceIDForDevice:&v77 andDriverVersion:?];
-    std::vector<MTLLoaderSliceIdentifier>::push_back[abi:ne200100](&v74, v78);
+    *v77 = [MTLLoader sliceIDForDevice:&v76 andDriverVersion:?];
+    std::vector<MTLLoaderSliceIdentifier>::push_back[abi:ne200100](&v73, v77);
   }
 
   if (v19)
   {
-    *v78 = +[MTLLoader sliceIDForDescriptors];
-    std::vector<MTLLoaderSliceIdentifier>::push_back[abi:ne200100](&v74, v78);
+    *v77 = +[MTLLoader sliceIDForDescriptors];
+    std::vector<MTLLoaderSliceIdentifier>::push_back[abi:ne200100](&v73, v77);
   }
 
   if (self->_legacySpecializedFunctions.__table_.__size_)
@@ -7386,40 +7365,40 @@ LABEL_36:
     v23 = self->_legacySpecializedFunctionArchiveFileIndex.__tree_.__size_ != 0;
   }
 
-  v59 = v23 & v20;
+  v58 = v23 & v20;
   if ((v23 & v20) != 0)
   {
-    *v78 = [_MTLBinaryArchive sliceIDForSpecializedFunctionsForLLVMVersion:_MTLGetMTLCompilerLLVMVersionForDevice(self->_device)];
-    std::vector<MTLLoaderSliceIdentifier>::push_back[abi:ne200100](&v74, v78);
+    *v77 = [_MTLBinaryArchive sliceIDForSpecializedFunctionsForLLVMVersion:_MTLGetMTLCompilerLLVMVersionForDevice(self->_device)];
+    std::vector<MTLLoaderSliceIdentifier>::push_back[abi:ne200100](&v73, v77);
   }
 
-  v24 = v74 != v75 && v18;
-  if (v74 == v75 && error)
+  v24 = v73 != v74 && v18;
+  if (v73 == v74 && error)
   {
     v25 = newErrorWithMessage(&cfstr_TheBinaryArchi.isa, MTLBinaryArchiveErrorInvalidFile);
     v24 = 0;
     *error = v25;
   }
 
-  memset(v81, 0, 24);
-  memset(v80, 0, sizeof(v80));
-  v70 = 0;
-  v71 = &v70;
-  v72 = 0x2020000000;
-  v73 = 0;
-  v69[0] = MEMORY[0x1E69E9820];
-  v69[1] = 3221225472;
-  v69[2] = __56___MTLBinaryArchive_legacySerializeToURL_options_error___block_invoke;
-  v69[3] = &unk_1E6EEAB90;
-  v69[4] = v15;
-  v69[5] = &v70;
-  v69[6] = error;
+  memset(v80, 0, 24);
+  memset(v79, 0, sizeof(v79));
+  v69 = 0;
+  v70 = &v69;
+  v71 = 0x2020000000;
+  v72 = 0;
+  v68[0] = MEMORY[0x1E69E9820];
+  v68[1] = 3221225472;
+  v68[2] = __56___MTLBinaryArchive_legacySerializeToURL_options_error___block_invoke;
+  v68[3] = &unk_1E6EEAB90;
+  v68[4] = v15;
+  v68[5] = &v69;
+  v68[6] = error;
   if (!v24)
   {
     goto LABEL_116;
   }
 
-  v26 = [MTLLoader serializeUniversalBinaryHeaderWithSlice:v74 offset:0 length:0 count:(v75 - v74) >> 3 writer:v69];
+  v26 = [MTLLoader serializeUniversalBinaryHeaderWithSlice:v73 offset:0 length:0 count:(v74 - v73) >> 3 writer:v68];
   v27 = v26 ^ 1;
   if (!v22)
   {
@@ -7428,17 +7407,17 @@ LABEL_36:
 
   if (v27)
   {
-    v57 = 0;
+    v56 = 0;
   }
 
   else
   {
-    *v78 = 0;
-    *&v78[8] = v78;
-    *&v78[16] = 0x4812000000;
-    *&v78[24] = __Block_byref_object_copy__283;
-    *&v78[32] = __Block_byref_object_dispose__284;
-    *&v78[40] = &unk_185DF1D43;
+    *v77 = 0;
+    *&v77[8] = v77;
+    *&v77[16] = 0x4812000000;
+    *&v77[24] = __Block_byref_object_copy__283;
+    *&v77[32] = __Block_byref_object_dispose__284;
+    *&v77[40] = &unk_185DF1D43;
     queue = self->_queue;
     memset(__p, 0, 24);
     block[0] = MEMORY[0x1E69E9820];
@@ -7446,18 +7425,18 @@ LABEL_36:
     block[2] = __56___MTLBinaryArchive_legacySerializeToURL_options_error___block_invoke_286;
     block[3] = &unk_1E6EEABE0;
     block[4] = self;
-    block[5] = v78;
-    block[6] = v77;
+    block[5] = v77;
+    block[6] = v76;
     block[7] = options;
     dispatch_sync(queue, block);
-    v81[0] = v71[3];
-    v29 = v81[0];
-    v26 = [MTLLoader serializeMachOContainerWithSlice:*v74 payload:*(*&v78[8] + 48) count:-1227133513 * ((*(*&v78[8] + 56) - *(*&v78[8] + 48)) >> 4) writer:?];
-    v30 = v71[3];
-    v80[0] = v30 - v29;
-    if ((v75 - v74) >= 9)
+    v80[0] = v70[3];
+    v29 = v80[0];
+    v26 = [MTLLoader serializeMachOContainerWithSlice:*(*&v77[8] + 48) payload:-1227133513 * ((*(*&v77[8] + 56) - *(*&v77[8] + 48)) >> 4) count:v68 writer:?];
+    v30 = v70[3];
+    v79[0] = v30 - v29;
+    if ((v74 - v73) >= 9)
     {
-      [MTLLoader serializePaddingForOffset:v30 writer:v69];
+      [MTLLoader serializePaddingForOffset:v30 writer:v68];
     }
 
     if (error && v26 != 1)
@@ -7465,19 +7444,19 @@ LABEL_36:
       *error = newErrorWithMessage(&cfstr_SerializationO_0.isa, MTLBinaryArchiveErrorInvalidFile);
     }
 
-    _Block_object_dispose(v78, 8);
+    _Block_object_dispose(v77, 8);
     if (__p[0])
     {
       __p[1] = __p[0];
       operator delete(__p[0]);
     }
 
-    v57 = 1;
+    v56 = 1;
   }
 
   if ((v19 & v26) != 1)
   {
-    if (v59)
+    if (v58)
     {
       goto LABEL_94;
     }
@@ -7503,49 +7482,49 @@ LABEL_107:
     v33 = 0;
   }
 
+  v64 = 0u;
   v65 = 0u;
-  v66 = 0u;
-  v67 = 1065353216;
+  v66 = 1065353216;
+  v61 = 0;
   v62 = 0;
   v63 = 0;
-  v64 = 0;
-  std::vector<MTLLoaderMachOPayload>::reserve(&v62, v33 != 0);
+  std::vector<MTLLoaderMachOPayload>::reserve(&v61, v33 != 0);
   if (v33)
   {
     memset(&__p[1], 0, 56);
-    *v78 = v33;
+    *v77 = v33;
     __p[0] = 1;
-    memset(&v78[8], 0, 32);
-    *&v78[40] = (options & 2) != 0;
-    std::vector<MTLLoaderMachOPayload>::push_back[abi:ne200100](&v62, v78);
+    memset(&v77[8], 0, 32);
+    *&v77[40] = (options & 2) != 0;
+    std::vector<MTLLoaderMachOPayload>::push_back[abi:ne200100](&v61, v77);
   }
 
-  for (i = v66; i; i = *i)
+  for (i = v65; i; i = *i)
   {
     if (i[6])
     {
       memset(__p, 0, sizeof(__p));
-      memset(&v78[16], 0, 32);
-      *v78 = 0u;
-      *v78 = i[6];
+      memset(&v77[16], 0, 32);
+      *v77 = 0u;
+      *v77 = i[6];
       __p[0] = 1;
       v35 = *(i + 2);
-      *&v78[8] = *(i + 1);
-      *&v78[24] = v35;
-      v78[40] = (options & 2) != 0;
-      std::vector<MTLLoaderMachOPayload>::push_back[abi:ne200100](&v62, v78);
+      *&v77[8] = *(i + 1);
+      *&v77[24] = v35;
+      v77[40] = (options & 2) != 0;
+      std::vector<MTLLoaderMachOPayload>::push_back[abi:ne200100](&v61, v77);
     }
   }
 
-  std::__hash_table<std::__hash_value_type<unsigned long,MTLStructTypeInternal *>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,MTLStructTypeInternal *>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,MTLStructTypeInternal *>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,MTLStructTypeInternal *>>>::clear(&v65);
-  v36 = v62;
-  LODWORD(v37) = -1227133513 * ((v63 - v62) >> 4);
+  std::__hash_table<std::__hash_value_type<unsigned long,MTLStructTypeInternal *>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,MTLStructTypeInternal *>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,MTLStructTypeInternal *>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,MTLStructTypeInternal *>>>::clear(&v64);
+  v36 = v61;
+  LODWORD(v37) = -1227133513 * ((v62 - v61) >> 4);
   if (v37)
   {
-    v38 = v71[3];
-    v81[v57] = v38;
-    v26 = [MTLLoader serializeMachOContainerWithSlice:*(v74 + v57) payload:v36 count:v37 writer:?];
-    v80[v57] = v71[3] - v38;
+    v38 = v70[3];
+    v80[v56] = v38;
+    v26 = [MTLLoader serializeMachOContainerWithSlice:v36 payload:v37 count:v68 writer:?];
+    v79[v56] = v70[3] - v38;
     v37 = v37;
     do
     {
@@ -7556,10 +7535,10 @@ LABEL_107:
     }
 
     while (v37);
-    v57 = (v57 + 1);
-    if (v57 < (v75 - v74) >> 3)
+    v56 = (v56 + 1);
+    if (v56 < (v74 - v73) >> 3)
     {
-      [MTLLoader serializePaddingForOffset:v69 writer:?];
+      [MTLLoader serializePaddingForOffset:v68 writer:?];
     }
 
     if (error && v26 != 1)
@@ -7573,14 +7552,14 @@ LABEL_107:
     v26 = 1;
   }
 
-  if (v62)
+  if (v61)
   {
-    v63 = v62;
-    operator delete(v62);
+    v62 = v61;
+    operator delete(v61);
   }
 
-  std::__hash_table<std::__hash_value_type<unsigned long,MTLStructTypeInternal *>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,MTLStructTypeInternal *>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,MTLStructTypeInternal *>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,MTLStructTypeInternal *>>>::~__hash_table(&v65);
-  if (!v59)
+  std::__hash_table<std::__hash_value_type<unsigned long,MTLStructTypeInternal *>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,MTLStructTypeInternal *>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,MTLStructTypeInternal *>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,MTLStructTypeInternal *>>>::~__hash_table(&v64);
+  if (!v58)
   {
     goto LABEL_107;
   }
@@ -7591,40 +7570,40 @@ LABEL_94:
     goto LABEL_107;
   }
 
+  v64 = 0u;
   v65 = 0u;
-  v66 = 0u;
-  v67 = 1065353216;
-  [(_MTLBinaryArchive *)self getSpecializedFunctionArchivesToSerialize:&v65];
+  v66 = 1065353216;
+  [(_MTLBinaryArchive *)self getSpecializedFunctionArchivesToSerialize:&v64];
+  v61 = 0;
   v62 = 0;
   v63 = 0;
-  v64 = 0;
-  std::vector<MTLLoaderMachOPayload>::reserve(&v62, *(&v66 + 1));
-  for (j = v66; j; j = *j)
+  std::vector<MTLLoaderMachOPayload>::reserve(&v61, *(&v65 + 1));
+  for (j = v65; j; j = *j)
   {
     if (j[6])
     {
       memset(__p, 0, sizeof(__p));
-      memset(&v78[16], 0, 32);
-      *v78 = 0u;
-      *v78 = j[6];
+      memset(&v77[16], 0, 32);
+      *v77 = 0u;
+      *v77 = j[6];
       __p[0] = 1;
       v41 = *(j + 2);
-      *&v78[8] = *(j + 1);
-      *&v78[24] = v41;
-      v78[40] = (options & 2) != 0;
-      std::vector<MTLLoaderMachOPayload>::push_back[abi:ne200100](&v62, v78);
+      *&v77[8] = *(j + 1);
+      *&v77[24] = v41;
+      v77[40] = (options & 2) != 0;
+      std::vector<MTLLoaderMachOPayload>::push_back[abi:ne200100](&v61, v77);
     }
   }
 
-  std::__hash_table<std::__hash_value_type<unsigned long,MTLStructTypeInternal *>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,MTLStructTypeInternal *>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,MTLStructTypeInternal *>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,MTLStructTypeInternal *>>>::clear(&v65);
-  v42 = v62;
-  LODWORD(v43) = -1227133513 * ((v63 - v62) >> 4);
+  std::__hash_table<std::__hash_value_type<unsigned long,MTLStructTypeInternal *>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,MTLStructTypeInternal *>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,MTLStructTypeInternal *>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,MTLStructTypeInternal *>>>::clear(&v64);
+  v42 = v61;
+  LODWORD(v43) = -1227133513 * ((v62 - v61) >> 4);
   if (v43)
   {
-    v44 = v71[3];
-    v81[v57] = v44;
-    v45 = [MTLLoader serializeMachOContainerWithSlice:*(v74 + v57) payload:v42 count:v43 writer:?];
-    v80[v57] = v71[3] - v44;
+    v44 = v70[3];
+    v80[v56] = v44;
+    v45 = [MTLLoader serializeMachOContainerWithSlice:v42 payload:v43 count:v68 writer:?];
+    v79[v56] = v70[3] - v44;
     v43 = v43;
     do
     {
@@ -7635,9 +7614,9 @@ LABEL_94:
     }
 
     while (v43);
-    if ((v57 + 1) < ((v75 - v74) >> 3))
+    if ((v56 + 1) < ((v74 - v73) >> 3))
     {
-      [MTLLoader serializePaddingForOffset:v69 writer:?];
+      [MTLLoader serializePaddingForOffset:v68 writer:?];
     }
 
     if (error && v45 != 1)
@@ -7651,22 +7630,22 @@ LABEL_94:
     LOBYTE(v45) = 1;
   }
 
-  if (v62)
+  if (v61)
   {
-    v63 = v62;
-    operator delete(v62);
+    v62 = v61;
+    operator delete(v61);
   }
 
-  std::__hash_table<std::__hash_value_type<unsigned long,MTLStructTypeInternal *>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,MTLStructTypeInternal *>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,MTLStructTypeInternal *>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,MTLStructTypeInternal *>>>::~__hash_table(&v65);
+  std::__hash_table<std::__hash_value_type<unsigned long,MTLStructTypeInternal *>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,MTLStructTypeInternal *>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,MTLStructTypeInternal *>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,MTLStructTypeInternal *>>>::~__hash_table(&v64);
   if ((v45 & 1) == 0)
   {
     goto LABEL_116;
   }
 
 LABEL_113:
-  if ([v15 seekToOffset:0 error:{error, v57}] && +[MTLLoader serializeUniversalBinaryHeaderWithSlice:offset:length:count:writer:](MTLLoader, v74, v81, v80, (v75 - v74) >> 3, v69))
+  if ([v15 seekToOffset:0 error:{error, v56}] && +[MTLLoader serializeUniversalBinaryHeaderWithSlice:offset:length:count:writer:](MTLLoader, v73, v80, v79, (v74 - v73) >> 3, v68))
   {
-    v47 = v71[3];
+    v47 = v70[3];
     v48 = 1;
     errorCopy = error;
     goto LABEL_117;
@@ -7677,7 +7656,7 @@ LABEL_116:
   errorCopy = 0;
   v47 = 0;
 LABEL_117:
-  v50 = v48 & [v15 truncateAtOffset:v47 error:{errorCopy, v57}];
+  v50 = v48 & [v15 truncateAtOffset:v47 error:{errorCopy, v56}];
   if (v50)
   {
     errorCopy2 = error;
@@ -7689,21 +7668,21 @@ LABEL_117:
   }
 
   v52 = [v15 closeAndReturnError:errorCopy2];
-  _Block_object_dispose(&v70, 8);
-  if (v74)
+  _Block_object_dispose(&v69, 8);
+  if (v73)
   {
-    v75 = v74;
-    operator delete(v74);
+    v74 = v73;
+    operator delete(v73);
   }
 
   LODWORD(v15) = v50 & v52;
-  v11 = v60;
-  v9 = v61;
+  v11 = v59;
+  v9 = v60;
   if (options)
   {
     if (v15)
     {
-      LODWORD(v15) = [v60 replaceItemAtURL:lCopy2 withItemAtURL:lCopy backupItemName:0 options:0 resultingItemURL:0 error:error];
+      LODWORD(v15) = [v59 replaceItemAtURL:lCopy2 withItemAtURL:lCopy backupItemName:0 options:0 resultingItemURL:0 error:error];
     }
 
 LABEL_125:
@@ -7716,7 +7695,7 @@ LABEL_126:
     objc_autoreleasePoolPop(v9);
     if (!error)
     {
-      goto LABEL_134;
+      return v15;
     }
 
     goto LABEL_132;
@@ -7737,8 +7716,6 @@ LABEL_132:
     v54 = *error;
   }
 
-LABEL_134:
-  v55 = *MEMORY[0x1E69E9840];
   return v15;
 }
 
@@ -7919,27 +7896,27 @@ LABEL_134:
 
 - (id)materializeEntryForKey:(id *)key fileIndex:(void *)index containsEntry:(id)entry addEntry:(id)addEntry
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v9 = *&key->var0[16];
-  v23 = *key->var0;
-  v24 = v9;
-  v10 = [(_MTLBinaryArchive *)self materializeFromHash:&v23 fileIndex:index];
+  v22 = *key->var0;
+  v23 = v9;
+  v10 = [(_MTLBinaryArchive *)self materializeFromHash:&v22 fileIndex:index];
   if (v10)
   {
     v11 = v10;
     v12 = *&key->var0[16];
-    v21 = *key->var0;
-    v22 = v12;
-    if (v23 == *key->var0 && *(&v23 + 1) == *&key->var0[8] && v24 == *&key->var0[16] && *(&v24 + 1) == *&key->var0[24])
+    v20 = *key->var0;
+    v21 = v12;
+    if (v22 == *key->var0 && *(&v22 + 1) == *&key->var0[8] && v23 == *&key->var0[16] && *(&v23 + 1) == *&key->var0[24])
     {
       v17 = v10;
     }
 
     else
     {
+      v20 = v22;
       v21 = v23;
-      v22 = v24;
-      v16 = (*(entry + 2))(entry, &v21);
+      v16 = (*(entry + 2))(entry, &v20);
       v17 = 0;
       v18 = 0;
       if (v16)
@@ -7948,18 +7925,15 @@ LABEL_134:
       }
     }
 
-    (*(addEntry + 2))(addEntry, v11, &v21);
+    (*(addEntry + 2))(addEntry, v11, &v20);
 
     v18 = v17;
 LABEL_17:
 
-    goto LABEL_18;
+    return v18;
   }
 
-  v18 = 0;
-LABEL_18:
-  v19 = *MEMORY[0x1E69E9840];
-  return v18;
+  return 0;
 }
 
 - ($2772B1D07D29A72E8557B2574C0AE5C1)reflectionHashWithFunctionId:(SEL)id binaryPos:(const void *)pos
@@ -7976,136 +7950,133 @@ LABEL_18:
 - (id)materializeAIRNTBlockForKey:(id)key reflectionType:(char)type
 {
   typeCopy = type;
-  v31[4] = *MEMORY[0x1E69E9840];
+  v29[4] = *MEMORY[0x1E69E9840];
   alwaysReturnDriverReflection = self->_alwaysReturnDriverReflection;
-  getFunctionId = [key getFunctionId];
-  v9 = std::__hash_table<std::__hash_value_type<MTLHashKey,std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long>>,std::__unordered_map_hasher<MTLHashKey,std::__hash_value_type<MTLHashKey,std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long>>,CompareFunctionIdHash,CompareFunctionIdHash,true>,std::__unordered_map_equal<MTLHashKey,std::__hash_value_type<MTLHashKey,std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long>>,CompareFunctionIdHash,CompareFunctionIdHash,true>,std::allocator<std::__hash_value_type<MTLHashKey,std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long>>>>::find<MTLHashKey>(&self->_executableFileIndex.__table_.__bucket_list_.__ptr_, getFunctionId);
-  if (!v9)
+  v8 = std::__hash_table<std::__hash_value_type<MTLHashKey,std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long>>,std::__unordered_map_hasher<MTLHashKey,std::__hash_value_type<MTLHashKey,std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long>>,CompareFunctionIdHash,CompareFunctionIdHash,true>,std::__unordered_map_equal<MTLHashKey,std::__hash_value_type<MTLHashKey,std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long>>,CompareFunctionIdHash,CompareFunctionIdHash,true>,std::allocator<std::__hash_value_type<MTLHashKey,std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long>>>>::find<MTLHashKey>(&self->_executableFileIndex.__table_.__bucket_list_.__ptr_, [key getFunctionId]);
+  if (!v8)
   {
-    goto LABEL_29;
+    return 0;
   }
 
-  v10 = v9;
-  v11 = typeCopy | 2;
+  v9 = v8;
+  v10 = typeCopy | 2;
   if (!alwaysReturnDriverReflection)
   {
-    v11 = typeCopy;
+    v10 = typeCopy;
   }
 
   if (typeCopy)
   {
-    v12 = v11;
+    v11 = v10;
   }
 
   else
   {
-    v12 = 0;
+    v11 = 0;
   }
 
-  v13 = v9[12];
-  v14 = v9[14];
-  offset = v9[15];
-  v30 = v9[13];
-  subrange = dispatch_data_create_subrange([(MTLLoadedFileContentsWrapper *)self->_fileData dispatchData], v30, v13);
-  if ((v12 & 4) == 0)
+  v12 = v8[12];
+  v13 = v8[14];
+  offset = v8[15];
+  v28 = v8[13];
+  subrange = dispatch_data_create_subrange([(MTLLoadedFileContentsWrapper *)self->_fileData dispatchData], v28, v12);
+  if ((v11 & 4) == 0)
   {
-    v16 = 0;
+    v15 = 0;
 LABEL_9:
-    v17 = 0;
+    v16 = 0;
     goto LABEL_13;
   }
 
-  [(_MTLBinaryArchive *)self reflectionHashWithFunctionId:getFunctionId binaryPos:v30];
-  v18 = std::__hash_table<HashKey,KeyHashFunction,std::equal_to<HashKey>,std::allocator<HashKey>>::find<HashKey>(&self->_reflectionsIndex.__table_.__bucket_list_.__ptr_, v31);
-  if (!v18)
+  objc_msgSend_reflectionHashWithFunctionId_binaryPos_(self);
+  v17 = std::__hash_table<HashKey,KeyHashFunction,std::equal_to<HashKey>,std::allocator<HashKey>>::find<HashKey>(&self->_reflectionsIndex.__table_.__bucket_list_.__ptr_, v29);
+  if (!v17)
   {
 LABEL_27:
-    v16 = subrange;
+    v15 = subrange;
     if (!subrange)
     {
-LABEL_29:
-      v23 = 0;
-      goto LABEL_35;
+      return 0;
     }
 
 LABEL_28:
-    dispatch_release(v16);
-    goto LABEL_29;
+    dispatch_release(v15);
+    return 0;
   }
 
-  v19 = v18[8];
-  if (v18[6] != v19)
+  v18 = v17[8];
+  if (v17[6] != v18)
   {
-    v26 = v18[9];
-    if (v26)
+    v25 = v17[9];
+    if (v25)
     {
-      v16 = dispatch_data_create_subrange([(MTLLoadedFileContentsWrapper *)self->_fileData dispatchData], v19, v26);
+      v15 = dispatch_data_create_subrange([(MTLLoadedFileContentsWrapper *)self->_fileData dispatchData], v18, v25);
       goto LABEL_9;
     }
 
     goto LABEL_27;
   }
 
-  v16 = 0;
-  v17 = 1;
+  v15 = 0;
+  v16 = 1;
 LABEL_13:
-  if ((v12 & 2) == 0)
+  if ((v11 & 2) == 0)
   {
-    v20 = 0;
+    v19 = 0;
     goto LABEL_18;
   }
 
-  if (!v14)
+  if (!v13)
   {
     if (subrange)
     {
       dispatch_release(subrange);
     }
 
-    if (!v16)
+    if (!v15)
     {
-      goto LABEL_29;
+      return 0;
     }
 
     goto LABEL_28;
   }
 
-  v21 = dispatch_data_create_subrange([(MTLLoadedFileContentsWrapper *)self->_fileData dispatchData], offset, v14);
-  v20 = v21;
-  if (v17)
+  v20 = dispatch_data_create_subrange([(MTLLoadedFileContentsWrapper *)self->_fileData dispatchData], offset, v13);
+  v19 = v20;
+  if (v16)
   {
-    dispatch_retain(v21);
-    v16 = v20;
+    dispatch_retain(v20);
+    v15 = v19;
   }
 
 LABEL_18:
   if (subrange)
   {
-    v22 = MTLNewReflectionBlock(0, v20, v16);
-    v23 = [[MTLBinaryEntry alloc] initWithData:subrange reflectionBlock:v22 binaryPosition:v30];
+    v21 = MTLNewReflectionBlock(0, v19, v15);
+    v22 = [[MTLBinaryEntry alloc] initWithData:subrange reflectionBlock:v21 binaryPosition:v28];
     dispatch_release(subrange);
-    if (v22)
+    if (v21)
     {
-      dispatch_release(v22);
+      dispatch_release(v21);
     }
 
-    v24 = std::__hash_table<std::__hash_value_type<unsigned long,MTLStructTypeInternal *>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,MTLStructTypeInternal *>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,MTLStructTypeInternal *>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,MTLStructTypeInternal *>>>::find<unsigned long>(&self->_airntOffsetToIndexMap.__table_.__bucket_list_.__ptr_, &v30);
-    if (v24)
+    v23 = std::__hash_table<std::__hash_value_type<unsigned long,MTLStructTypeInternal *>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,MTLStructTypeInternal *>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,MTLStructTypeInternal *>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,MTLStructTypeInternal *>>>::find<unsigned long>(&self->_airntOffsetToIndexMap.__table_.__bucket_list_.__ptr_, &v28);
+    if (v23)
     {
-      v25 = v24[3];
+      v24 = v23[3];
     }
 
     else
     {
-      v25 = -1;
+      v24 = -1;
     }
 
-    [(MTLBinaryEntry *)v23 setIndex:v25];
-    [(NSMutableDictionary *)self->_entries setObject:v23 forKey:key];
+    [(MTLBinaryEntry *)v22 setIndex:v24];
+    [(NSMutableDictionary *)self->_entries setObject:v22 forKey:key];
 
-    std::__hash_table<std::__hash_value_type<MTLHashKey,std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long>>,std::__unordered_map_hasher<MTLHashKey,std::__hash_value_type<MTLHashKey,std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long>>,CompareFunctionIdHash,CompareFunctionIdHash,true>,std::__unordered_map_equal<MTLHashKey,std::__hash_value_type<MTLHashKey,std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long>>,CompareFunctionIdHash,CompareFunctionIdHash,true>,std::allocator<std::__hash_value_type<MTLHashKey,std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long>>>>::remove(&self->_executableFileIndex.__table_.__bucket_list_.__ptr_, v10, v31);
-    std::unique_ptr<std::__hash_node<std::__hash_value_type<MTLHashKey,std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<MTLHashKey,std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long>>,void *>>>>::~unique_ptr[abi:ne200100](v31);
-    if (!v20)
+    std::__hash_table<std::__hash_value_type<MTLHashKey,std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long>>,std::__unordered_map_hasher<MTLHashKey,std::__hash_value_type<MTLHashKey,std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long>>,CompareFunctionIdHash,CompareFunctionIdHash,true>,std::__unordered_map_equal<MTLHashKey,std::__hash_value_type<MTLHashKey,std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long>>,CompareFunctionIdHash,CompareFunctionIdHash,true>,std::allocator<std::__hash_value_type<MTLHashKey,std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long>>>>::remove(&self->_executableFileIndex.__table_.__bucket_list_.__ptr_, v9, v29);
+    std::unique_ptr<std::__hash_node<std::__hash_value_type<MTLHashKey,std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<MTLHashKey,std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long>>,void *>>>>::~unique_ptr[abi:ne200100](v29);
+    if (!v19)
     {
       goto LABEL_33;
     }
@@ -8113,22 +8084,20 @@ LABEL_18:
     goto LABEL_32;
   }
 
-  v23 = 0;
-  if (v20)
+  v22 = 0;
+  if (v19)
   {
 LABEL_32:
-    dispatch_release(v20);
+    dispatch_release(v19);
   }
 
 LABEL_33:
-  if (v16)
+  if (v15)
   {
-    dispatch_release(v16);
+    dispatch_release(v15);
   }
 
-LABEL_35:
-  v27 = *MEMORY[0x1E69E9840];
-  return v23;
+  return v22;
 }
 
 - (NSArray)keys
@@ -8329,7 +8298,7 @@ LABEL_35:
 
 - (BOOL)updateReflectionForEntry:(id)entry binaryKey:(id)key requiredReflection:(char)reflection
 {
-  v17[4] = *MEMORY[0x1E69E9840];
+  v15[4] = *MEMORY[0x1E69E9840];
   if (!reflection || (~[entry reflectionFlags] & 6) == 0)
   {
     goto LABEL_14;
@@ -8345,39 +8314,39 @@ LABEL_35:
     reflectionCopy = reflection;
   }
 
-  getFunctionId = [key getFunctionId];
+  [key getFunctionId];
   if (([entry reflectionFlags] & 2) == 0 && (reflectionCopy & 2) != 0)
   {
-    -[_MTLBinaryArchive reflectionHashWithFunctionId:binaryPos:](self, "reflectionHashWithFunctionId:binaryPos:", getFunctionId, [entry binaryPosition]);
-    v11 = std::__hash_table<HashKey,KeyHashFunction,std::equal_to<HashKey>,std::allocator<HashKey>>::find<HashKey>(&self->_reflectionsIndex.__table_.__bucket_list_.__ptr_, v17);
-    if (!v11)
+    [entry binaryPosition];
+    objc_msgSend_reflectionHashWithFunctionId_binaryPos_(self);
+    v10 = std::__hash_table<HashKey,KeyHashFunction,std::equal_to<HashKey>,std::allocator<HashKey>>::find<HashKey>(&self->_reflectionsIndex.__table_.__bucket_list_.__ptr_, v15);
+    if (!v10)
     {
-      goto LABEL_15;
+      return v10;
     }
 
-    subrange = dispatch_data_create_subrange([(MTLLoadedFileContentsWrapper *)self->_fileData dispatchData], v11[6], v11[7]);
+    subrange = dispatch_data_create_subrange([(MTLLoadedFileContentsWrapper *)self->_fileData dispatchData], v10[6], v10[7]);
     [entry addReflectionWithData:subrange flag:2];
   }
 
   reflectionFlags = [entry reflectionFlags];
-  LOBYTE(v11) = 1;
+  LOBYTE(v10) = 1;
   if ((reflectionFlags & 4) == 0 && (reflectionCopy & 4) != 0)
   {
-    -[_MTLBinaryArchive reflectionHashWithFunctionId:binaryPos:](self, "reflectionHashWithFunctionId:binaryPos:", getFunctionId, [entry binaryPosition]);
-    v11 = std::__hash_table<HashKey,KeyHashFunction,std::equal_to<HashKey>,std::allocator<HashKey>>::find<HashKey>(&self->_reflectionsIndex.__table_.__bucket_list_.__ptr_, v17);
-    if (v11)
+    [entry binaryPosition];
+    objc_msgSend_reflectionHashWithFunctionId_binaryPos_(self);
+    v10 = std::__hash_table<HashKey,KeyHashFunction,std::equal_to<HashKey>,std::allocator<HashKey>>::find<HashKey>(&self->_reflectionsIndex.__table_.__bucket_list_.__ptr_, v15);
+    if (v10)
     {
-      v14 = dispatch_data_create_subrange([(MTLLoadedFileContentsWrapper *)self->_fileData dispatchData], v11[8], v11[9]);
-      [entry addReflectionWithData:v14 flag:4];
+      v13 = dispatch_data_create_subrange([(MTLLoadedFileContentsWrapper *)self->_fileData dispatchData], v10[8], v10[9]);
+      [entry addReflectionWithData:v13 flag:4];
 
 LABEL_14:
-      LOBYTE(v11) = 1;
+      LOBYTE(v10) = 1;
     }
   }
 
-LABEL_15:
-  v15 = *MEMORY[0x1E69E9840];
-  return v11;
+  return v10;
 }
 
 - (id)getBinaryDataForKey:(id)key reflectionType:(char)type
@@ -8421,49 +8390,47 @@ LABEL_15:
 
 - (void)findProgramObjectForFunction:(id *)function
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v3 = *&function->var0[16];
-  v13 = *function->var0;
-  v14 = v3;
-  v8 = 0;
-  v9 = &v8;
-  v10 = 0x2020000000;
+  v12 = *function->var0;
+  v13 = v3;
+  v7 = 0;
+  v8 = &v7;
+  v9 = 0x2020000000;
   queue = self->_queue;
-  v11 = 0;
+  v10 = 0;
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __76___MTLBinaryArchive_MTLBinaryArchiveInternal__findProgramObjectForFunction___block_invoke;
   block[3] = &unk_1E6EEAE58;
   block[4] = self;
-  block[5] = &v8;
+  block[5] = &v7;
   dispatch_sync(queue, block);
-  v5 = v9[3];
-  _Block_object_dispose(&v8, 8);
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = v8[3];
+  _Block_object_dispose(&v7, 8);
   return v5;
 }
 
 - (void)programObjectForFunction:(id *)function
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v3 = *&function->var0[16];
-  v13 = *function->var0;
-  v14 = v3;
-  v8 = 0;
-  v9 = &v8;
-  v10 = 0x2020000000;
+  v12 = *function->var0;
+  v13 = v3;
+  v7 = 0;
+  v8 = &v7;
+  v9 = 0x2020000000;
   queue = self->_queue;
-  v11 = 0;
+  v10 = 0;
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __72___MTLBinaryArchive_MTLBinaryArchiveInternal__programObjectForFunction___block_invoke;
   block[3] = &unk_1E6EEAE58;
   block[4] = self;
-  block[5] = &v8;
+  block[5] = &v7;
   dispatch_sync(queue, block);
-  v5 = v9[3];
-  _Block_object_dispose(&v8, 8);
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = v8[3];
+  _Block_object_dispose(&v7, 8);
   return v5;
 }
 
@@ -8506,7 +8473,7 @@ LABEL_15:
     v13 = 0;
   }
 
-  flatbuffers::String::str(v13, __p);
+  flatbuffers::String::str(__p, v13);
   v14 = objc_alloc(MEMORY[0x1E696AEC0]);
   if (v19 >= 0)
   {
@@ -8549,59 +8516,59 @@ LABEL_15:
 
 - (void)addStitchingInputsFunction:(id)function toEntry:(id)entry
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   if (function)
   {
     functionCopy = function;
     __p = 0;
+    v31 = 0;
     v32 = 0;
-    v33 = 0;
     std::vector<NSValue *>::reserve(&__p, [function count]);
     entryCopy = entry;
-    v29 = 0u;
-    v30 = 0u;
-    v27 = 0u;
     v28 = 0u;
-    v7 = [functionCopy countByEnumeratingWithState:&v27 objects:v35 count:16];
+    v29 = 0u;
+    v26 = 0u;
+    v27 = 0u;
+    v7 = [functionCopy countByEnumeratingWithState:&v26 objects:v34 count:16];
     if (v7)
     {
-      v8 = *v28;
+      v8 = *v27;
       do
       {
         v9 = functionCopy;
         for (i = 0; i != v7; ++i)
         {
-          if (*v28 != v8)
+          if (*v27 != v8)
           {
             objc_enumerationMutation(v9);
           }
 
-          v11 = *(*(&v27 + 1) + 8 * i);
+          v11 = *(*(&v26 + 1) + 8 * i);
           if (!std::__hash_table<std::__hash_value_type<MTLUINT256_t,NSObject  {objcproto16OS_dispatch_data}*>,std::__unordered_map_hasher<MTLUINT256_t,std::__hash_value_type<MTLUINT256_t,NSObject  {objcproto16OS_dispatch_data}*>,UnorderedContainerHash,UnorderedContainerHash,true>,std::__unordered_map_equal<MTLUINT256_t,std::__hash_value_type<MTLUINT256_t,NSObject  {objcproto16OS_dispatch_data}*>,UnorderedContainerHash,UnorderedContainerHash,true>,std::allocator<std::__hash_value_type<MTLUINT256_t,NSObject  {objcproto16OS_dispatch_data}*>>>::find<MTLUINT256_t>(self->_uniqueBitcodeList.__ptr_, [v11 bitCodeHash]))
           {
             bitcodeDataInternal = [v11 bitcodeDataInternal];
             ptr = self->_uniqueBitcodeList.__ptr_;
             bitCodeHash = [v11 bitCodeHash];
-            std::__hash_table<std::__hash_value_type<MTLUINT256_t,NSObject  {objcproto16OS_dispatch_data}*>,std::__unordered_map_hasher<MTLUINT256_t,std::__hash_value_type<MTLUINT256_t,NSObject  {objcproto16OS_dispatch_data}*>,UnorderedContainerHash,UnorderedContainerHash,true>,std::__unordered_map_equal<MTLUINT256_t,std::__hash_value_type<MTLUINT256_t,NSObject  {objcproto16OS_dispatch_data}*>,UnorderedContainerHash,UnorderedContainerHash,true>,std::allocator<std::__hash_value_type<MTLUINT256_t,NSObject  {objcproto16OS_dispatch_data}*>>>::__emplace_unique_key_args<MTLUINT256_t,std::piecewise_construct_t const&,std::tuple<MTLUINT256_t const&>,std::tuple<>>(ptr, bitCodeHash)[6] = bitcodeDataInternal;
+            std::__hash_table<std::__hash_value_type<MTLUINT256_t,NSObject  {objcproto16OS_dispatch_data}*>,std::__unordered_map_hasher<MTLUINT256_t,std::__hash_value_type<MTLUINT256_t,NSObject  {objcproto16OS_dispatch_data}*>,UnorderedContainerHash,UnorderedContainerHash,true>,std::__unordered_map_equal<MTLUINT256_t,std::__hash_value_type<MTLUINT256_t,NSObject  {objcproto16OS_dispatch_data}*>,UnorderedContainerHash,UnorderedContainerHash,true>,std::allocator<std::__hash_value_type<MTLUINT256_t,NSObject  {objcproto16OS_dispatch_data}*>>>::__emplace_unique_key_args<MTLUINT256_t,std::piecewise_construct_t const&,std::tuple<MTLUINT256_t const&>,std::tuple<>>(ptr, bitCodeHash, &std::piecewise_construct, &bitCodeHash)[6] = bitcodeDataInternal;
           }
 
           v14 = [objc_alloc(MEMORY[0x1E696B098]) initWithBytes:objc_msgSend(v11 objCType:{"bitCodeHash"), "{?=[32C]}"}];
-          v15 = v32;
-          if (v32 >= v33)
+          v15 = v31;
+          if (v31 >= v32)
           {
-            v17 = (v32 - __p) >> 3;
+            v17 = (v31 - __p) >> 3;
             if ((v17 + 1) >> 61)
             {
               std::vector<std::pair<std::tuple<std::string,unsigned int,unsigned int>,unsigned int>>::__throw_length_error[abi:ne200100]();
             }
 
-            v18 = (v33 - __p) >> 2;
+            v18 = (v32 - __p) >> 2;
             if (v18 <= v17 + 1)
             {
               v18 = v17 + 1;
             }
 
-            if (v33 - __p >= 0x7FFFFFFFFFFFFFF8)
+            if (v32 - __p >= 0x7FFFFFFFFFFFFFF8)
             {
               v19 = 0x1FFFFFFFFFFFFFFFLL;
             }
@@ -8619,12 +8586,12 @@ LABEL_15:
             v20 = (8 * v17);
             *v20 = v14;
             v16 = 8 * v17 + 8;
-            v21 = v20 - (v32 - __p);
-            memcpy(v21, __p, v32 - __p);
+            v21 = v20 - (v31 - __p);
+            memcpy(v21, __p, v31 - __p);
             v22 = __p;
             __p = v21;
-            v32 = v16;
-            v33 = 0;
+            v31 = v16;
+            v32 = 0;
             if (v22)
             {
               operator delete(v22);
@@ -8633,15 +8600,15 @@ LABEL_15:
 
           else
           {
-            *v32 = v14;
+            *v31 = v14;
             v16 = (v15 + 8);
           }
 
-          v32 = v16;
+          v31 = v16;
         }
 
         functionCopy = v9;
-        v7 = [v9 countByEnumeratingWithState:&v27 objects:v35 count:16];
+        v7 = [v9 countByEnumeratingWithState:&v26 objects:v34 count:16];
       }
 
       while (v7);
@@ -8650,8 +8617,8 @@ LABEL_15:
     [entryCopy setLinkedBitcodes:{objc_msgSend(objc_alloc(MEMORY[0x1E695DEC8]), "initWithObjects:count:")}];
 
     v23 = __p;
-    v24 = v32;
-    if (__p != v32)
+    v24 = v31;
+    if (__p != v31)
     {
       do
       {
@@ -8663,28 +8630,26 @@ LABEL_15:
 
     if (v23)
     {
-      v32 = v23;
+      v31 = v23;
       operator delete(v23);
     }
   }
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 - (id)newStitchedLibraryWithKey:(id *)key descriptors:(const void *)descriptors
 {
   if (!self->_isLegacy)
   {
-    v35 = 0;
-    v36 = &v35;
-    v37 = 0x2020000000;
-    v38 = 1;
-    v28 = 0;
-    v29 = &v28;
-    v30 = 0x4812000000;
-    v31 = __Block_byref_object_copy__584;
-    v32 = __Block_byref_object_dispose__585;
-    v33 = &unk_185DF1D43;
+    v33 = 0;
+    v34 = &v33;
+    v35 = 0x2020000000;
+    v36 = 1;
+    v26 = 0;
+    v27 = &v26;
+    v28 = 0x4812000000;
+    v29 = __Block_byref_object_copy__584;
+    v30 = __Block_byref_object_dispose__585;
+    v31 = &unk_185DF1D43;
     std::vector<objc_object  {objcproto11MTLFunction}*>::vector[abi:ne200100](__p, 0xCCCCCCCCCCCCCCCDLL * ((*(descriptors + 1) - *descriptors) >> 3));
     queue = self->_queue;
     block[0] = MEMORY[0x1E69E9820];
@@ -8692,39 +8657,36 @@ LABEL_15:
     block[2] = __85___MTLBinaryArchive_MTLBinaryArchiveInternal__newStitchedLibraryWithKey_descriptors___block_invoke;
     block[3] = &unk_1E6EEAE80;
     block[4] = self;
-    block[5] = &v28;
-    block[6] = &v35;
+    block[5] = &v26;
+    block[6] = &v33;
     block[7] = descriptors;
     dispatch_sync(queue, block);
-    if (v36[3])
+    if (v34[3])
     {
-      v26 = 0;
-      v16 = objc_alloc(MEMORY[0x1E695DEC8]);
-      v17 = v29[7] - v29[6];
-      v22 = [v16 initWithObjects:0 count:?];
-      v23 = v29[6];
-      v24 = v29[7];
-      while (v23 != v24)
+      v20 = [objc_alloc(MEMORY[0x1E695DEC8]) initWithObjects:0 count:?];
+      v21 = v27[6];
+      v22 = v27[7];
+      while (v21 != v22)
       {
       }
 
-      v25 = MTLLibraryBuilder::newLibraryWithFunctionArray(*(self->_device + 55), self->_device, v22, &v26, v18, v19, v20, v21);
+      v23 = MTLLibraryBuilder::newLibraryWithFunctionArray(*(self->_device + 55), self->_device, v20, &v24, v16, v17, v18, v19);
     }
 
     else
     {
-      v25 = 0;
+      v23 = 0;
     }
 
-    _Block_object_dispose(&v28, 8);
+    _Block_object_dispose(&v26, 8);
     if (__p[0])
     {
       __p[1] = __p[0];
       operator delete(__p[0]);
     }
 
-    _Block_object_dispose(&v35, 8);
-    return v25;
+    _Block_object_dispose(&v33, 8);
+    return v23;
   }
 
   descriptors = [(_MTLBinaryArchive *)self newArchiveDataForKeyInternal:key, descriptors];
@@ -8867,6 +8829,14 @@ LABEL_10:
   dispatch_sync(queue, v6);
 }
 
++ (MTLLoaderSliceIdentifier)sliceIDForSpecializedFunctionsForLLVMVersion:(int)version
+{
+  v5 = 0;
+  v4 = 0;
+  _MTLGetMaxAIRAndLanguageVersions(*&version, &v5, &v4);
+  return [MTLLoader sliceIDForAIRVersion:v5];
+}
+
 - (BOOL)remoteInsertionBegin
 {
   dispatch_suspend(self->_serializeQueue);
@@ -8891,10 +8861,9 @@ LABEL_10:
 
 - (void)initWithOptions:(void *)a1 device:url:error:.cold.2(void *a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
-  [objc_msgSend(a1 "absoluteString")];
-  OUTLINED_FUNCTION_0_4(&dword_185B8E000, MEMORY[0x1E69E9C10], v1, "MTLBinaryArchive - load from URL: '%s'", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x1E69E9840];
+  LODWORD(v6) = 136315138;
+  *(&v6 + 4) = [objc_msgSend(a1 "absoluteString")];
+  OUTLINED_FUNCTION_0_4(&dword_185B8E000, MEMORY[0x1E69E9C10], v1, "MTLBinaryArchive - load from URL: '%s'", v2, v3, v4, v5, v6, DWORD2(v6));
 }
 
 - (void)loadFromURL:(uint8_t *)buf error:(uint64_t)a4 .cold.1(uint64_t a1, uint64_t *a2, uint8_t *buf, uint64_t a4)
@@ -8918,26 +8887,27 @@ LABEL_10:
   _os_log_error_impl(&dword_185B8E000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "unable to find %s slice or a compatible one in binary archive '%s' \n available slices: %s \n", buf, 0x20u);
 }
 
-- (void)flatBufferFromJSON:(uint64_t)a1 schema:schemaSize:.cold.1(uint64_t a1)
+- (void)flatBufferFromJSON:schema:schemaSize:.cold.1()
 {
-  OUTLINED_FUNCTION_1_2(a1, *MEMORY[0x1E69E9840]);
-  OUTLINED_FUNCTION_0_4(&dword_185B8E000, MEMORY[0x1E69E9C10], v1, "cannot load schema with error %s", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_2(*MEMORY[0x1E69E9840]);
+  LODWORD(v6) = 136315138;
+  *(&v6 + 4) = v0;
+  OUTLINED_FUNCTION_0_4(&dword_185B8E000, MEMORY[0x1E69E9C10], v1, "cannot load schema with error %s", v2, v3, v4, v5, v6, DWORD2(v6));
 }
 
-- (void)flatBufferFromJSON:(uint64_t)a1 schema:schemaSize:.cold.2(uint64_t a1)
+- (void)flatBufferFromJSON:schema:schemaSize:.cold.2()
 {
-  OUTLINED_FUNCTION_1_2(a1, *MEMORY[0x1E69E9840]);
-  OUTLINED_FUNCTION_0_4(&dword_185B8E000, MEMORY[0x1E69E9C10], v1, "cannot decode flatbuffert with error %s", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_2(*MEMORY[0x1E69E9840]);
+  LODWORD(v6) = 136315138;
+  *(&v6 + 4) = v0;
+  OUTLINED_FUNCTION_0_4(&dword_185B8E000, MEMORY[0x1E69E9C10], v1, "cannot decode flatbuffert with error %s", v2, v3, v4, v5, v6, DWORD2(v6));
 }
 
 - (void)materializeBitCode:(void *)a1 atIndex:.cold.1(void *a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
-  [objc_msgSend(a1 "localizedDescription")];
-  OUTLINED_FUNCTION_0_4(&dword_185B8E000, MEMORY[0x1E69E9C10], v1, "Error loading machO library: %s", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x1E69E9840];
+  LODWORD(v6) = 136315138;
+  *(&v6 + 4) = [objc_msgSend(a1 "localizedDescription")];
+  OUTLINED_FUNCTION_0_4(&dword_185B8E000, MEMORY[0x1E69E9C10], v1, "Error loading machO library: %s", v2, v3, v4, v5, v6, DWORD2(v6));
 }
 
 @end

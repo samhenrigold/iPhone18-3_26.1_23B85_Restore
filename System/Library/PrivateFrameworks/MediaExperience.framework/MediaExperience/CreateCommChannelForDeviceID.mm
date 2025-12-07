@@ -8,16 +8,13 @@ uint64_t __routingContextResilientRemote_CreateCommChannelForDeviceID_block_invo
   v3 = a1[4];
   v4 = a1[5];
   v5 = a1[6];
-  VTable = CMBaseObjectGetVTable();
-  v7 = *(*(VTable + 16) + 152);
-  if (!v7)
+  v6 = *(*(CMBaseObjectGetVTable() + 16) + 152);
+  if (!v6)
   {
     return 4294954514;
   }
 
-  v8 = *(VTable + 16) + 152;
-
-  return v7(a2, v3, v4, v5);
+  return v6(a2, v3, v4, v5);
 }
 
 uint64_t __routingContext_CreateCommChannelForDeviceID_block_invoke(void *a1)

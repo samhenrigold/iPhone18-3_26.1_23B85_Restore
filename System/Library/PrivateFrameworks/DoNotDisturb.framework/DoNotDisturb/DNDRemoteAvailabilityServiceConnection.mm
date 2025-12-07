@@ -60,7 +60,6 @@ uint64_t __56__DNDRemoteAvailabilityServiceConnection_sharedInstance__block_invo
 
 - (id)_queue_remoteTarget
 {
-  queue = self->_queue;
   BSDispatchQueueAssert();
   remoteTarget = [(BSServiceConnection *)self->_queue_connection remoteTarget];
   if (!remoteTarget)
@@ -75,9 +74,8 @@ uint64_t __56__DNDRemoteAvailabilityServiceConnection_sharedInstance__block_invo
 
 - (void)_queue_createConnection
 {
-  queue = self->_queue;
-  BSDispatchQueueAssert();
-  v4 = DNDRemoteAvailabilityServiceServerInterface();
+  v3 = BSDispatchQueueAssert();
+  v4 = DNDRemoteAvailabilityServiceServerInterface(v3);
   v5 = MEMORY[0x277CF3288];
   identifier = [v4 identifier];
   v7 = [v5 endpointForMachName:@"com.apple.donotdisturb.availability.service" service:identifier instance:0];
@@ -115,58 +113,51 @@ void __65__DNDRemoteAvailabilityServiceConnection__queue_createConnection__block
 
 void __65__DNDRemoteAvailabilityServiceConnection__queue_createConnection__block_invoke_2(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = DNDLogRemoteConnection;
   if (os_log_type_enabled(DNDLogRemoteConnection, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 134217984;
-    v6 = v2;
-    _os_log_impl(&dword_22002F000, v3, OS_LOG_TYPE_DEFAULT, "XPC request connection was activated: connection=%p", &v5, 0xCu);
+    v4 = 134217984;
+    v5 = v2;
+    _os_log_impl(&dword_22002F000, v3, OS_LOG_TYPE_DEFAULT, "XPC request connection was activated: connection=%p", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void __65__DNDRemoteAvailabilityServiceConnection__queue_createConnection__block_invoke_58(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = DNDLogRemoteConnection;
   if (os_log_type_enabled(DNDLogRemoteConnection, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 134217984;
-    v6 = v2;
-    _os_log_impl(&dword_22002F000, v3, OS_LOG_TYPE_DEFAULT, "XPC request connection was interrupted: connection=%p", &v5, 0xCu);
+    v4 = 134217984;
+    v5 = v2;
+    _os_log_impl(&dword_22002F000, v3, OS_LOG_TYPE_DEFAULT, "XPC request connection was interrupted: connection=%p", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void __65__DNDRemoteAvailabilityServiceConnection__queue_createConnection__block_invoke_61(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = DNDLogRemoteConnection;
   if (os_log_type_enabled(DNDLogRemoteConnection, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 134217984;
-    v6 = v2;
-    _os_log_impl(&dword_22002F000, v3, OS_LOG_TYPE_DEFAULT, "XPC request connection was invalidated, cannot recover: connection=%p", &v5, 0xCu);
+    v4 = 134217984;
+    v5 = v2;
+    _os_log_impl(&dword_22002F000, v3, OS_LOG_TYPE_DEFAULT, "XPC request connection was invalidated, cannot recover: connection=%p", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_queue_invalidateConnection
 {
-  queue = self->_queue;
   BSDispatchQueueAssert();
   queue_connection = self->_queue_connection;
   if (queue_connection)
   {
     [(BSServiceConnection *)queue_connection invalidate];
-    v5 = self->_queue_connection;
+    v4 = self->_queue_connection;
     self->_queue_connection = 0;
   }
 }

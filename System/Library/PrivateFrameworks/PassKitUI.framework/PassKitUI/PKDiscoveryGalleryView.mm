@@ -238,9 +238,9 @@ void __47__PKDiscoveryGalleryView_initWithCardSizeType___block_invoke(uint64_t a
 {
   if (![(PKDiscoveryGalleryView *)self isAnimatingCard])
   {
-    v33.receiver = self;
-    v33.super_class = PKDiscoveryGalleryView;
-    [(PKDiscoveryGalleryView *)&v33 layoutSubviews];
+    v36.receiver = self;
+    v36.super_class = PKDiscoveryGalleryView;
+    [(PKDiscoveryGalleryView *)&v36 layoutSubviews];
     [(PKDiscoveryGalleryView *)self bounds];
     v4 = v3;
     v6 = v5;
@@ -285,33 +285,35 @@ void __47__PKDiscoveryGalleryView_initWithCardSizeType___block_invoke(uint64_t a
 
     v26 = fmax(v14, v23);
     [(UIScrollView *)self->_horizontalScrollView frame];
-    v35.origin.x = v4;
-    v35.origin.y = v6;
-    v35.size.width = v8;
-    v35.size.height = v26;
-    if (!CGRectEqualToRect(v34, v35))
+    v38.origin.x = v4;
+    v38.origin.y = v6;
+    v38.size.width = v8;
+    v38.size.height = v26;
+    if (!CGRectEqualToRect(v37, v38))
     {
       [(UIScrollView *)self->_horizontalScrollView setFrame:v4, v6, v8, v26];
     }
 
-    if (v17 != v31 || v19 != v23)
+    if (v17 != v34 || v19 != v23)
     {
       [(UIScrollView *)self->_horizontalScrollView setContentSize:?];
     }
 
     [(PKDiscoveryGalleryView *)self _cardSize];
-    PKFloatRoundToPixel();
+    v29.n128_u64[0] = 0.5;
+    v30.n128_f64[0] = (v8 - v28) * 0.5;
+    PKFloatRoundToPixel(v30, v29);
     displayedCardViews = self->_displayedCardViews;
-    v32[0] = MEMORY[0x1E69E9820];
-    v32[1] = 3221225472;
-    v32[2] = __40__PKDiscoveryGalleryView_layoutSubviews__block_invoke;
-    v32[3] = &__block_descriptor_72_e36_v32__0__PKDiscoveryCardView_8Q16_B24l;
-    *&v32[4] = v4;
-    *&v32[5] = v6;
-    *&v32[6] = v8;
-    *&v32[7] = v14;
-    v32[8] = v29;
-    [(NSArray *)displayedCardViews enumerateObjectsUsingBlock:v32];
+    v35[0] = MEMORY[0x1E69E9820];
+    v35[1] = 3221225472;
+    v35[2] = __40__PKDiscoveryGalleryView_layoutSubviews__block_invoke;
+    v35[3] = &__block_descriptor_72_e36_v32__0__PKDiscoveryCardView_8Q16_B24l;
+    *&v35[4] = v4;
+    *&v35[5] = v6;
+    *&v35[6] = v8;
+    *&v35[7] = v14;
+    v35[8] = v32;
+    [(NSArray *)displayedCardViews enumerateObjectsUsingBlock:v35];
     [(PKDiscoveryGalleryView *)self _updatePageControlVisibilityWithDelay:0.0];
     if (!v13)
     {
@@ -1481,15 +1483,26 @@ uint64_t __51__PKDiscoveryGalleryView__removeCardView_animated___block_invoke_6(
   v6 = v5;
   v8 = v7;
   v10 = v9;
-  [(PKDiscoveryGalleryView *)self _cardSize:*&v3];
+  memset(&slice, 0, sizeof(slice));
+  v21.origin.x = v3;
+  v21.origin.y = v5;
+  v21.size.width = v7;
+  v21.size.height = v9;
+  [(PKDiscoveryGalleryView *)self _cardSize];
   v12 = v11 + -5.0;
-  v15.origin.x = v4;
-  v15.origin.y = v6;
-  v15.size.width = v8;
-  v15.size.height = v10;
-  CGRectDivide(v15, &slice, &v13, v12, CGRectMinYEdge);
-  PKContentAlignmentMake();
-  PKSizeAlignedInRect();
+  v23.origin.x = v4;
+  v23.origin.y = v6;
+  v23.size.width = v8;
+  v23.size.height = v10;
+  CGRectDivide(v23, &slice, &v21, v12, CGRectMinYEdge);
+  v13 = PKContentAlignmentMake();
+  v14.n128_u64[0] = *&v21.origin.x;
+  v15.n128_u64[0] = *&v21.origin.y;
+  v16.n128_u64[0] = *&v21.size.width;
+  v17.n128_u64[0] = *&v21.size.height;
+  v18.n128_u64[0] = 0x4046000000000000;
+  v19.n128_f64[0] = v8;
+  PKSizeAlignedInRect(v13, v19, v18, v14, v15, v16, v17, v20);
   [(UIPageControl *)self->_pageControl setFrame:?];
 }
 

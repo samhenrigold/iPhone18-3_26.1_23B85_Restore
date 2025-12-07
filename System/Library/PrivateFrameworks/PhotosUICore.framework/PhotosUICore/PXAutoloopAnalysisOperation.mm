@@ -51,7 +51,7 @@
 
   if (v13)
   {
-    [v13 duration];
+    objc_msgSend_duration(v13);
   }
 
   else

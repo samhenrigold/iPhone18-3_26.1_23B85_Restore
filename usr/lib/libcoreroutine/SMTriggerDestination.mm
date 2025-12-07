@@ -3847,7 +3847,7 @@ void __77__SMTriggerDestination__updateInitiatorStatusDestinationBoundWithComple
   dispatch_group_leave(*(a1 + 32));
 }
 
-uint64_t __77__SMTriggerDestination__updateInitiatorStatusDestinationBoundWithCompletion___block_invoke_3(uint64_t a1)
+uint64_t __77__SMTriggerDestination__updateInitiatorStatusDestinationBoundWithCompletion___block_invoke_3(uint64_t a1, uint64_t a2)
 {
   if (*(*(*(a1 + 56) + 8) + 24) == 1)
   {
@@ -3856,42 +3856,42 @@ uint64_t __77__SMTriggerDestination__updateInitiatorStatusDestinationBoundWithCo
       [*(a1 + 32) _declareAnomalyForTriggerCategory:0];
     }
 
-    v2 = *(a1 + 96);
-    v3 = [*(a1 + 32) triggerState];
-    [v3 setPredominantModeOfTransport:v2];
+    v3 = *(a1 + 96);
+    v4 = [*(a1 + 32) triggerState];
+    [v4 setPredominantModeOfTransport:v3];
 
     *(*(*(a1 + 72) + 8) + 24) = 1;
   }
 
   if (*(*(*(a1 + 72) + 8) + 24) == 1)
   {
-    v4 = objc_opt_class();
-    v5 = *(a1 + 40);
-    v6 = [*(a1 + 32) defaultsManager];
-    v7 = *(*(*(a1 + 80) + 8) + 24);
-    v8 = *(*(*(a1 + 88) + 8) + 24);
+    v5 = objc_opt_class();
+    v6 = *(a1 + 40);
+    v7 = [*(a1 + 32) defaultsManager];
+    v8 = *(*(*(a1 + 80) + 8) + 24);
+    v9 = *(*(*(a1 + 88) + 8) + 24);
     [*(a1 + 32) etaScaleFactor];
-    v10 = [v4 upperBoundEtaForDepartureDate:v5 defaultsManager:v6 mapsExpectedTravelTime:v7 crowFliesExpectedTravelTime:v8 etaScaleFactor:v9];
+    v11 = [v5 upperBoundEtaForDepartureDate:v6 defaultsManager:v7 mapsExpectedTravelTime:v8 crowFliesExpectedTravelTime:v9 etaScaleFactor:v10];
 
-    v11 = [*(a1 + 32) triggerState];
-    [v11 setUpperBoundEta:v10];
+    v12 = [*(a1 + 32) triggerState];
+    [v12 setUpperBoundEta:v11];
 
-    v12 = *(*(*(a1 + 80) + 8) + 24);
-    v13 = [*(a1 + 32) triggerState];
-    [v13 setMapsExpectedTravelTime:v12];
+    v13 = *(*(*(a1 + 80) + 8) + 24);
+    v14 = [*(a1 + 32) triggerState];
+    [v14 setMapsExpectedTravelTime:v13];
 
-    v14 = *(a1 + 104);
-    v15 = [*(a1 + 32) triggerState];
-    [v15 setRemainingDistance:v14];
+    v15 = *(a1 + 104);
+    v16 = [*(a1 + 32) triggerState];
+    [v16 setRemainingDistance:v15];
 
     [*(a1 + 32) _initializeETATimer];
   }
 
   [*(a1 + 32) _updateCoarseEtaWithMapsExpectedTravelTime:*(*(*(a1 + 80) + 8) + 24) crowFliesExpectedTravelTime:*(*(*(a1 + 88) + 8) + 24)];
   [*(a1 + 32) _persistState];
-  v16 = *(*(a1 + 48) + 16);
+  v17 = *(*(a1 + 48) + 16);
 
-  return v16();
+  return v17();
 }
 
 - (void)_persistState

@@ -89,7 +89,7 @@
 - (id)valueDescriptionForFlag:(int64_t)flag object:(id)object ofSetting:(unint64_t)setting
 {
   objectCopy = object;
-  v9 = SBSUIStarkNotificationsSceneClientSettingValueDescription(setting);
+  v9 = SBSUIStarkNotificationsSceneClientSettingValueDescription(setting, flag);
   v10 = v9;
   if (v9)
   {

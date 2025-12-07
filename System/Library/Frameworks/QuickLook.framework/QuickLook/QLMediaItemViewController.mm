@@ -20,14 +20,20 @@
 - (void)loadPreviewControllerWithContents:(id)contents context:(id)context completionHandler:(id)handler;
 - (void)observePlayingTime:(id *)time;
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context;
+- (void)previewBecameFullScreen:(BOOL)screen animated:(BOOL)animated;
+- (void)previewDidAppear:(BOOL)appear;
+- (void)previewDidDisappear:(BOOL)disappear;
 - (void)previewIsAppearingWithProgress:(double)progress;
+- (void)previewWillDisappear:(BOOL)disappear;
 - (void)removeTimeLabel;
 - (void)scrubber:(id)scrubber didChangeValue:(float)value;
+- (void)setAppearance:(id)appearance animated:(BOOL)animated;
 - (void)setTimeLabelNeedsUpdate;
 - (void)setUpTimeLabelIfNeeded;
 - (void)showTimeLabel;
 - (void)showTimeLabelIfNeeded;
 - (void)tapToPlayGestureChanged:(id)changed;
+- (void)transitionDidFinish:(BOOL)finish didComplete:(BOOL)complete;
 @end
 
 @implementation QLMediaItemViewController
@@ -52,7 +58,6 @@ uint64_t __89__QLMediaItemViewController_loadPreviewControllerWithContents_conte
   result = (*(*(a1 + 40) + 16))();
   if (!a2)
   {
-    v5 = *(a1 + 32);
     return QLRunInMainThread();
   }
 
@@ -93,6 +98,77 @@ void __89__QLMediaItemViewController_loadPreviewControllerWithContents_context_c
   [(QLMediaItemBaseViewController *)&v6 previewIsAppearingWithProgress:?];
   accessoryView = [(QLItemViewController *)self accessoryView];
   [accessoryView setAlpha:progress];
+}
+
+- (void)previewDidAppear:(BOOL)appear
+{
+  v5.receiver = self;
+  v5.super_class = QLMediaItemViewController;
+  [(QLMediaItemBaseViewController *)&v5 previewDidAppear:appear];
+  [(QLMediaItemViewController *)self showTimeLabelIfNeeded];
+  accessoryView = [(QLItemViewController *)self accessoryView];
+  [accessoryView setAlpha:1.0];
+
+  [(UIView *)self->_timeLabelBackground setHidden:0];
+  if ([(QLMediaItemViewController *)self shouldHandleRegisteringForCommandCenterHandlers])
+  {
+    [(QLMediaItemViewController *)self _registerForCommandCenterHandlers];
+    [(QLMediaItemViewController *)self _updateCommandCenterPlayingInfoWithCurrentPlaybackTimeInformation];
+  }
+}
+
+- (void)previewWillDisappear:(BOOL)disappear
+{
+  v4.receiver = self;
+  v4.super_class = QLMediaItemViewController;
+  [(QLItemViewController *)&v4 previewWillDisappear:disappear];
+  [(UIView *)self->_timeLabelBackground setHidden:1];
+}
+
+- (void)previewDidDisappear:(BOOL)disappear
+{
+  v6.receiver = self;
+  v6.super_class = QLMediaItemViewController;
+  [(QLMediaItemBaseViewController *)&v6 previewDidDisappear:disappear];
+  [(QLMediaItemViewController *)self removeTimeLabel];
+  if ([(QLMediaItemViewController *)self shouldHandleRegisteringForCommandCenterHandlers])
+  {
+    defaultCenter = [MEMORY[0x277CD5FE8] defaultCenter];
+    [defaultCenter setNowPlayingInfo:0];
+
+    defaultCenter2 = [MEMORY[0x277CD5FE8] defaultCenter];
+    [defaultCenter2 setRepresentedApplicationBundleIdentifier:0];
+
+    [(QLMediaItemViewController *)self _unregisterForCommandCenterHandlers];
+  }
+}
+
+- (void)previewBecameFullScreen:(BOOL)screen animated:(BOOL)animated
+{
+  screenCopy = screen;
+  v6.receiver = self;
+  v6.super_class = QLMediaItemViewController;
+  [(QLMediaItemBaseViewController *)&v6 previewBecameFullScreen:screen animated:animated];
+  if (screenCopy)
+  {
+    [(QLMediaItemViewController *)self hideTimeLabelAnimated:0];
+  }
+
+  else
+  {
+    [(QLMediaItemViewController *)self showTimeLabelIfNeeded];
+  }
+}
+
+- (void)transitionDidFinish:(BOOL)finish didComplete:(BOOL)complete
+{
+  v6.receiver = self;
+  v6.super_class = QLMediaItemViewController;
+  [(QLItemViewController *)&v6 transitionDidFinish:finish didComplete:?];
+  if (!complete)
+  {
+    [(UIView *)self->_timeLabelBackground setHidden:0];
+  }
 }
 
 - (void)dealloc
@@ -140,9 +216,48 @@ void __89__QLMediaItemViewController_loadPreviewControllerWithContents_context_c
   [(QLMediaItemViewController *)self setTimeLabelNeedsUpdate];
 }
 
+- (void)setAppearance:(id)appearance animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  appearanceCopy = appearance;
+  appearance = [(QLItemViewController *)self appearance];
+  v17.receiver = self;
+  v17.super_class = QLMediaItemViewController;
+  [(QLMediaItemBaseViewController *)&v17 setAppearance:appearanceCopy animated:animatedCopy];
+  [(QLMediaItemViewController *)self setTimeLabelNeedsUpdate];
+  -[QLMediaScrubberGesture setEnabled:](self->_scrubGesture, "setEnabled:", [appearanceCopy presentationMode] == 5);
+  -[UITapGestureRecognizer setEnabled:](self->_tapToPlayGesture, "setEnabled:", [appearanceCopy presentationMode] == 5);
+  presentationMode = [appearanceCopy presentationMode];
+
+  v9 = presentationMode != 5;
+  scrollView = [(QLScrollableContentItemViewController *)self scrollView];
+  pinchGestureRecognizer = [scrollView pinchGestureRecognizer];
+  [pinchGestureRecognizer setEnabled:v9];
+
+  presentationMode2 = [appearance presentationMode];
+  appearance2 = [(QLItemViewController *)self appearance];
+  presentationMode3 = [appearance2 presentationMode];
+
+  if (presentationMode2 != presentationMode3)
+  {
+    appearance3 = [(QLItemViewController *)self appearance];
+    presentationMode4 = [appearance3 presentationMode];
+
+    if (presentationMode4 == 4)
+    {
+      [(QLMediaItemViewController *)self hideTimeLabelAnimated:0];
+    }
+
+    else
+    {
+      [(QLMediaItemViewController *)self showTimeLabelIfNeeded];
+    }
+  }
+}
+
 - (void)setUpTimeLabelIfNeeded
 {
-  v60[1] = *MEMORY[0x277D85DE8];
+  v59[1] = *MEMORY[0x277D85DE8];
   if (!self->_timeLabelBackground)
   {
     timeLabelScrollView = [(QLMediaItemViewController *)self timeLabelScrollView];
@@ -184,17 +299,17 @@ void __89__QLMediaItemViewController_loadPreviewControllerWithContents_context_c
 
     v23 = [MEMORY[0x277D74300] defaultFontForTextStyle:*MEMORY[0x277D76940]];
     fontDescriptor = [v23 fontDescriptor];
-    v59 = *MEMORY[0x277D74338];
+    v58 = *MEMORY[0x277D74338];
     v25 = *MEMORY[0x277D74388];
-    v56[0] = *MEMORY[0x277D74398];
-    v56[1] = v25;
-    v57[0] = &unk_284D730F0;
-    v57[1] = &unk_284D73108;
-    v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v57 forKeys:v56 count:2];
-    v58 = v26;
-    v27 = [MEMORY[0x277CBEA60] arrayWithObjects:&v58 count:1];
-    v60[0] = v27;
-    v28 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v60 forKeys:&v59 count:1];
+    v55[0] = *MEMORY[0x277D74398];
+    v55[1] = v25;
+    v56[0] = &unk_284D730F0;
+    v56[1] = &unk_284D73108;
+    v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v56 forKeys:v55 count:2];
+    v57 = v26;
+    v27 = [MEMORY[0x277CBEA60] arrayWithObjects:&v57 count:1];
+    v59[0] = v27;
+    v28 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v59 forKeys:&v58 count:1];
     v29 = [fontDescriptor fontDescriptorByAddingAttributes:v28];
 
     v30 = MEMORY[0x277D74300];
@@ -221,24 +336,27 @@ void __89__QLMediaItemViewController_loadPreviewControllerWithContents_context_c
     v38 = self->_timeLabelBackground;
     v39 = MEMORY[0x277CCAAD0];
     v40 = self->_timeLabel;
-    v54 = @"label";
-    v55 = v40;
-    v41 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v55 forKeys:&v54 count:1];
+    v53 = @"label";
+    v54 = v40;
+    v41 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v54 forKeys:&v53 count:1];
     v42 = [v39 constraintsWithVisualFormat:@"V:|-(2)-[label]-(2)-|" options:0 metrics:0 views:v41];
     [(UIView *)v38 addConstraints:v42];
 
     v43 = self->_timeLabelBackground;
     v44 = MEMORY[0x277CCAAD0];
-    v52 = @"label";
-    v53 = self->_timeLabel;
-    v45 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v53 forKeys:&v52 count:1];
+    v51 = @"label";
+    v52 = self->_timeLabel;
+    v45 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v52 forKeys:&v51 count:1];
     v46 = [v44 constraintsWithVisualFormat:@"H:|-(8)-[label]-(8)-|" options:0 metrics:0 views:v45];
     [(UIView *)v43 addConstraints:v46];
 
     scrubberScrollView = self->_scrubberScrollView;
-    if (scrubberScrollView && scrubberScrollView != timeLabelScrollView)
+    if (scrubberScrollView)
     {
-      [(UIScrollView *)scrubberScrollView removeObserver:self forKeyPath:@"contentOffset"];
+      if (scrubberScrollView != timeLabelScrollView)
+      {
+        [(UIScrollView *)scrubberScrollView removeObserver:self forKeyPath:@"contentOffset"];
+      }
     }
 
     v48 = self->_scrubberScrollView;
@@ -248,8 +366,6 @@ void __89__QLMediaItemViewController_loadPreviewControllerWithContents_context_c
     [(UIScrollView *)self->_scrubberScrollView addObserver:self forKeyPath:@"contentOffset" options:1 context:self->_scrubberScrollView];
     [(QLMediaItemViewController *)self setTimeLabelNeedsUpdate];
   }
-
-  v50 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeTimeLabel
@@ -617,7 +733,7 @@ uint64_t __52__QLMediaItemViewController_stringFromTimeInterval___block_invoke()
   v7 = player;
   if (player)
   {
-    [player currentTime];
+    objc_msgSend_currentTime(player);
     LODWORD(player) = v12;
   }
 
@@ -693,21 +809,19 @@ uint64_t __52__QLMediaItemViewController_stringFromTimeInterval___block_invoke()
 
 - (id)registeredKeyCommands
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277D75650] keyCommandWithInput:@" " modifierFlags:0 action:sel_togglePlayback];
   v4 = QLLocalizedString();
   [v3 setDiscoverabilityTitle:v4];
 
   v5 = [MEMORY[0x277D43F80] keyCommandWithKeyCommand:v3 identifier:4];
-  v12[0] = v5;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
+  v11[0] = v5;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
 
-  v11.receiver = self;
-  v11.super_class = QLMediaItemViewController;
-  registeredKeyCommands = [(QLItemViewController *)&v11 registeredKeyCommands];
+  v10.receiver = self;
+  v10.super_class = QLMediaItemViewController;
+  registeredKeyCommands = [(QLItemViewController *)&v10 registeredKeyCommands];
   v8 = [registeredKeyCommands arrayByAddingObjectsFromArray:v6];
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -746,7 +860,7 @@ uint64_t __52__QLMediaItemViewController_stringFromTimeInterval___block_invoke()
     v12 = asset;
     if (asset)
     {
-      [asset duration];
+      objc_msgSend_duration(asset);
     }
 
     else

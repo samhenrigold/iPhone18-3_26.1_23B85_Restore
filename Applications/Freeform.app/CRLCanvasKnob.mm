@@ -402,7 +402,7 @@ LABEL_14:
   v6 = layout;
   if (layout)
   {
-    [layout transformInRoot];
+    objc_msgSend_transformInRoot(layout);
   }
 
   else
@@ -717,15 +717,15 @@ LABEL_28:
   v22 = sub_10011F31C(v9, v11, v21);
   v24 = v23;
   canvas = [interactiveCanvasController canvas];
-  [canvas contentsScale];
-  v27 = sub_10012218C(v22, v24, v26);
-  v29 = sub_10011F334(v27, v28, v21);
-  v31 = v30;
+  contentsScale = [canvas contentsScale];
+  v28 = sub_10012218C(contentsScale, v22, v24, v27);
+  v30 = sub_10011F334(v28, v29, v21);
+  v32 = v31;
 
-  v32 = v29;
-  v33 = v31;
-  result.y = v33;
-  result.x = v32;
+  v33 = v30;
+  v34 = v32;
+  result.y = v34;
+  result.x = v33;
   return result;
 }
 

@@ -348,7 +348,7 @@
 
 - (void)_displayNextUserNotificationForIdentifier:(id)identifier
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   v6 = objc_msgSend__frontUserNotificationForIdentifier_(self, v5, identifierCopy);
   v9 = v6;
@@ -371,14 +371,14 @@
     v29 = objc_msgSend_registration(IMRGLog, v27, v28);
     if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
     {
-      v41 = 138412290;
-      v42 = v20;
-      _os_log_impl(&dword_195988000, v29, OS_LOG_TYPE_DEFAULT, "Creating CFUserNotification with display information: %@", &v41, 0xCu);
+      v40 = 138412290;
+      v41 = v20;
+      _os_log_impl(&dword_195988000, v29, OS_LOG_TYPE_DEFAULT, "Creating CFUserNotification with display information: %@", &v40, 0xCu);
     }
 
-    v41 = -1431655766;
+    v40 = -1431655766;
     v30 = *MEMORY[0x1E695E480];
-    v32 = CFUserNotificationCreate(*MEMORY[0x1E695E480], v11, v14, &v41, v20);
+    v32 = CFUserNotificationCreate(*MEMORY[0x1E695E480], v11, v14, &v40, v20);
     if (!self->_identifierToCFUserNotificationMap)
     {
       Mutable = CFDictionaryCreateMutable(0, 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
@@ -408,8 +408,6 @@
       CFRelease(v32);
     }
   }
-
-  v40 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_handleUserNotification:(__CFUserNotification *)notification responseFlags:(unint64_t)flags
@@ -500,7 +498,7 @@
 
 - (void)removeListener:(id)listener
 {
-  v70 = *MEMORY[0x1E69E9840];
+  v69 = *MEMORY[0x1E69E9840];
   listenerCopy = listener;
   if (listenerCopy)
   {
@@ -509,26 +507,26 @@
     if (v7 != listenerCopy)
     {
       v8 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+      v62 = 0u;
       v63 = 0u;
       v64 = 0u;
       v65 = 0u;
-      v66 = 0u;
       v11 = objc_msgSend_allKeys(self->_identifierToListenerQueueMap, v9, v10);
-      v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(v11, v12, &v63, v69, 16);
+      v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(v11, v12, &v62, v68, 16);
       if (v13)
       {
         v15 = v13;
-        v16 = *v64;
+        v16 = *v63;
         do
         {
           for (i = 0; i != v15; ++i)
           {
-            if (*v64 != v16)
+            if (*v63 != v16)
             {
               objc_enumerationMutation(v11);
             }
 
-            v18 = *(*(&v63 + 1) + 8 * i);
+            v18 = *(*(&v62 + 1) + 8 * i);
             v19 = objc_msgSend__frontListenerForIdentifier_(self, v14, v18);
 
             if (v19 == listenerCopy)
@@ -538,35 +536,35 @@
             }
           }
 
-          v15 = objc_msgSend_countByEnumeratingWithState_objects_count_(v11, v14, &v63, v69, 16);
+          v15 = objc_msgSend_countByEnumeratingWithState_objects_count_(v11, v14, &v62, v68, 16);
         }
 
         while (v15);
       }
 
-      v53 = v8;
+      v52 = v8;
 
-      v61 = 0u;
-      v62 = 0u;
-      v59 = 0u;
       v60 = 0u;
+      v61 = 0u;
+      v58 = 0u;
+      v59 = 0u;
       obj = objc_msgSend_allKeys(self->_identifierToIMUserNotificationQueueMap, v21, v22);
-      v24 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v23, &v59, v68, 16);
+      v24 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v23, &v58, v67, 16);
       if (v24)
       {
         v26 = v24;
-        v27 = *v60;
+        v27 = *v59;
         do
         {
           for (j = 0; j != v26; ++j)
           {
-            if (*v60 != v27)
+            if (*v59 != v27)
             {
               objc_enumerationMutation(obj);
             }
 
-            v29 = *(*(&v59 + 1) + 8 * j);
-            v30 = objc_msgSend_objectForKey_(self->_identifierToIMUserNotificationQueueMap, v25, v29, v53);
+            v29 = *(*(&v58 + 1) + 8 * j);
+            v30 = objc_msgSend_objectForKey_(self->_identifierToIMUserNotificationQueueMap, v25, v29, v52);
             v32 = objc_msgSend_objectForKey_(self->_identifierToListenerQueueMap, v31, v29);
             v34 = objc_msgSend_objectForKey_(self->_identifierToBlockQueueMap, v33, v29);
             if (objc_msgSend_count(v30, v35, v36))
@@ -592,73 +590,71 @@
             }
           }
 
-          v26 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v25, &v59, v68, 16);
+          v26 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v25, &v58, v67, 16);
         }
 
         while (v26);
       }
 
-      v57 = 0u;
-      v58 = 0u;
-      v55 = 0u;
       v56 = 0u;
-      v45 = v53;
-      v47 = objc_msgSend_countByEnumeratingWithState_objects_count_(v45, v46, &v55, v67, 16);
+      v57 = 0u;
+      v54 = 0u;
+      v55 = 0u;
+      v45 = v52;
+      v47 = objc_msgSend_countByEnumeratingWithState_objects_count_(v45, v46, &v54, v66, 16);
       if (v47)
       {
         v49 = v47;
-        v50 = *v56;
+        v50 = *v55;
         do
         {
           for (k = 0; k != v49; ++k)
           {
-            if (*v56 != v50)
+            if (*v55 != v50)
             {
               objc_enumerationMutation(v45);
             }
 
-            objc_msgSend__displayNextUserNotificationForIdentifier_(self, v48, *(*(&v55 + 1) + 8 * k), v53);
+            objc_msgSend__displayNextUserNotificationForIdentifier_(self, v48, *(*(&v54 + 1) + 8 * k), v52);
           }
 
-          v49 = objc_msgSend_countByEnumeratingWithState_objects_count_(v45, v48, &v55, v67, 16);
+          v49 = objc_msgSend_countByEnumeratingWithState_objects_count_(v45, v48, &v54, v66, 16);
         }
 
         while (v49);
       }
     }
   }
-
-  v52 = *MEMORY[0x1E69E9840];
 }
 
 - (void)removeAllListeners
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
+  v26 = 0u;
   v27 = 0u;
   v28 = 0u;
   v29 = 0u;
-  v30 = 0u;
   v4 = objc_msgSend_allKeys(self->_identifierToIMUserNotificationQueueMap, a2, v2, 0);
-  v6 = objc_msgSend_countByEnumeratingWithState_objects_count_(v4, v5, &v27, v31, 16);
+  v6 = objc_msgSend_countByEnumeratingWithState_objects_count_(v4, v5, &v26, v30, 16);
   if (v6)
   {
     v8 = v6;
-    v9 = *v28;
+    v9 = *v27;
     do
     {
       v10 = 0;
       do
       {
-        if (*v28 != v9)
+        if (*v27 != v9)
         {
           objc_enumerationMutation(v4);
         }
 
-        objc_msgSend__cancelActiveUserNotificationForIdentifier_(self, v7, *(*(&v27 + 1) + 8 * v10++));
+        objc_msgSend__cancelActiveUserNotificationForIdentifier_(self, v7, *(*(&v26 + 1) + 8 * v10++));
       }
 
       while (v8 != v10);
-      v8 = objc_msgSend_countByEnumeratingWithState_objects_count_(v4, v7, &v27, v31, 16);
+      v8 = objc_msgSend_countByEnumeratingWithState_objects_count_(v4, v7, &v26, v30, 16);
     }
 
     while (v8);
@@ -684,8 +680,6 @@
     identifierToBlockQueueMap = self->_identifierToBlockQueueMap;
     self->_identifierToBlockQueueMap = 0;
   }
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 @end

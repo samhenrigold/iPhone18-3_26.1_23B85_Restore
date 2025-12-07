@@ -8,6 +8,7 @@
 - (HSPCChimeViewController)initWithCoordinator:(id)coordinator config:(id)config;
 - (id)commitConfiguration;
 - (id)setHomePodChime:(BOOL)chime;
+- (void)setTraditionalDoorbellChime:(BOOL)chime;
 - (void)viewDidLoad;
 @end
 
@@ -124,6 +125,15 @@
     tableView2 = [(HSPCChimeViewController *)self tableView];
     [tableView2 setTableFooterView:tableView];
   }
+}
+
+- (void)setTraditionalDoorbellChime:(BOOL)chime
+{
+  chimeCopy = chime;
+  config = [(HSPCChimeViewController *)self config];
+  cameraProfile = [config cameraProfile];
+
+  [cameraProfile hf_updateDoorbellChime:chimeCopy];
 }
 
 - (id)setHomePodChime:(BOOL)chime

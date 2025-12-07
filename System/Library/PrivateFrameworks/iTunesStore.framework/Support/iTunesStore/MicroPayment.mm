@@ -320,8 +320,8 @@ LABEL_7:
 
   else
   {
-    v7 = sub_1000D2580(error);
-    [(MicroPayment *)self setErrorData:sub_1001FA200(v7)];
+    sub_1000D2580(error);
+    [(MicroPayment *)self setErrorData:sub_1001FA200()];
     v6 = &off_10034BD30;
   }
 

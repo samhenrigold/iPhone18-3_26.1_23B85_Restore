@@ -113,12 +113,12 @@
 
 - (id)databaseFilePath
 {
-  v48 = *MEMORY[0x1E69E9840];
+  v47 = *MEMORY[0x1E69E9840];
   v5 = objc_msgSend_defaultManager(MEMORY[0x1E696AC08], a2, v2, v3);
   v9 = objc_msgSend_databaseDirectory(self, v6, v7, v8);
-  v41 = 0;
-  v11 = objc_msgSend_createDirectoryAtPath_withIntermediateDirectories_attributes_error_(v5, v10, v9, 1, 0, &v41);
-  v12 = v41;
+  v40 = 0;
+  v11 = objc_msgSend_createDirectoryAtPath_withIntermediateDirectories_attributes_error_(v5, v10, v9, 1, 0, &v40);
+  v12 = v40;
   if (v11)
   {
     v13 = objc_alloc(MEMORY[0x1E696AEC0]);
@@ -137,18 +137,16 @@
       v34 = objc_msgSend_debugDescription(v12, v31, v32, v33);
       v38 = objc_msgSend_userInfo(v12, v35, v36, v37);
       *buf = 138543874;
-      v43 = v30;
-      v44 = 2114;
-      v45 = v34;
-      v46 = 2114;
-      v47 = v38;
+      v42 = v30;
+      v43 = 2114;
+      v44 = v34;
+      v45 = 2114;
+      v46 = v38;
       _os_log_impl(&dword_1BADC1000, v17, OS_LOG_TYPE_ERROR, "Failed to create Database subdirectories for %{public}@, error: %{public}@, userInfo: %{public}@", buf, 0x20u);
     }
 
     v26 = 0;
   }
-
-  v39 = *MEMORY[0x1E69E9840];
 
   return v26;
 }

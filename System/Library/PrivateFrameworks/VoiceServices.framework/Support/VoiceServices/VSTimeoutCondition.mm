@@ -51,13 +51,13 @@
   [refreshTimeoutCondition lock];
 
   refreshTimeoutCondition2 = [(VSTimeoutCondition *)self refreshTimeoutCondition];
-  v7 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceNow:interval];
-  v8 = [refreshTimeoutCondition2 waitUntilDate:v7];
+  v6 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceNow:?];
+  v7 = [refreshTimeoutCondition2 waitUntilDate:?];
 
   refreshTimeoutCondition3 = [(VSTimeoutCondition *)self refreshTimeoutCondition];
   [refreshTimeoutCondition3 unlock];
 
-  return v8;
+  return v7;
 }
 
 - (VSTimeoutCondition)initWithTimeoutValue:(double)value

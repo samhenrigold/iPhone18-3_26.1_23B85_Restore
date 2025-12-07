@@ -126,11 +126,13 @@
 - (void)_didRequestSceneActivationForPhotoGalleryViewController:(id)controller;
 - (void)_didResolveAttribution:(id)attribution;
 - (void)_didSelectAddOrEditNote;
+- (void)_didSelectAddOrRemoveFromLibraryWithAddSelection:(BOOL)selection environment:(id)environment;
 - (void)_didSelectCreateCustomRouteWithOriginMapItem:(id)item;
 - (void)_didSelectDirectionsWithAddress:(id)address forContact:(id)contact;
 - (void)_didSelectEditPlaceDetailsOfType:(int64_t)type;
 - (void)_didSelectPhotoCategoryAtIndex:(unint64_t)index;
 - (void)_didSelectRemoveMarkedLocation;
+- (void)_didSelectReportSomethingMissingViaQuickAction:(BOOL)action;
 - (void)_didSelectSimulateLocation;
 - (void)_didSelectViewContactButton;
 - (void)_didTapOnSearchCategory:(id)category;
@@ -201,6 +203,7 @@
 - (void)didSelectSharePublisherGuideWithActionDispatcher:(id)dispatcher publisherGuide:(id)guide;
 - (void)didSelectShowPublisherWithActionDispatcher:(id)dispatcher publisherGuide:(id)guide;
 - (void)didSelectTransitIncidentsWithActionDispatcher:(id)dispatcher incidents:(id)incidents;
+- (void)didTapAddOrRemoveFromLibraryWithActionDispatcher:(id)dispatcher savedState:(BOOL)state showAddToLibraryModal:(BOOL)modal;
 - (void)didTapAddPhotoWithActionDispatcher:(id)dispatcher entryPoint:(int64_t)point environment:(id)environment;
 - (void)didTapCloseWithActionDispatcher:(id)dispatcher;
 - (void)didTapCreateCustomRouteWithActionDispatcher:(id)dispatcher;
@@ -215,6 +218,7 @@
 - (void)handleWebLink:(id)link options:(id)options;
 - (void)hideContentIfLoading;
 - (void)hideTitle:(BOOL)title;
+- (void)libraryAccessProvider:(id)provider savedStateOfPlaceDidChange:(BOOL)change;
 - (void)openAppClipWithActionDispatcher:(id)dispatcher quickLink:(id)link completion:(id)completion;
 - (void)openDirectionsWithActionDispatcher:(id)dispatcher contactIdentifier:(id)identifier;
 - (void)openExtensionWithActionDispatcher:(id)dispatcher vendorId:(id)id source:(int64_t)source completion:(id)completion;
@@ -231,11 +235,13 @@
 - (void)placeCardActionControllerDidSelectAddPhoto:(id)photo presentingViewController:(id)controller sourceView:(id)view;
 - (void)placeCardActionControllerDidSelectAddToMapsHome:(id)home;
 - (void)placeCardActionControllerDidSelectChangeAddress:(id)address;
+- (void)placeCardActionControllerDidSelectDownloadOffline:(id)offline isQuickAction:(BOOL)action;
 - (void)placeCardActionControllerDidSelectOfflineManagement:(id)management;
 - (void)placeCardActionControllerDidSelectPauseOfflineDownload:(id)download;
 - (void)placeCardActionControllerDidSelectPlaceEnrichementReportAProblem;
 - (void)placeCardActionControllerDidSelectRefineLocation:(id)location;
 - (void)placeCardActionControllerDidSelectRemoveFromMapsHome:(id)home;
+- (void)placeCardActionControllerDidSelectReportAProblem:(id)problem fromView:(id)view isQuickAction:(BOOL)action;
 - (void)placeCardActionControllerDidSelectReportAProblemViewReport:(id)report;
 - (void)placeDescriptionSectionControllerDidTapAttribution:(id)attribution;
 - (void)placeHeaderSectionController:(id)controller didSelectShareWithPresentationOptions:(id)options;
@@ -251,10 +257,13 @@
 - (void)placePhotoSectionControllerDidOpenFullscreenPhotos:(id)photos;
 - (void)placeSectionControllerDidUpdateContent:(id)content;
 - (void)placeSectionControllerRequestsLayoutChange:(id)change;
+- (void)placeViewController:(id)controller shouldLogFeedbackOfType:(int)type;
 - (void)presentAddPhotosWithPresentationOptions:(id)options entryPoint:(int64_t)point originTarget:(id)target;
 - (void)presentPOIEnrichmentWithPresentationOptions:(id)options;
 - (void)ratingsAndReviewsSectionControllerDidSelectViewAllReviews:(id)reviews;
+- (void)removeLoadingViewAnimated:(BOOL)animated;
 - (void)requestHikingToolTipRegionIDForLocationCoordinate:(CLLocationCoordinate2D)coordinate;
+- (void)requestHostToLogFeedbackTypeIfNeeded:(int)needed;
 - (void)resetAnalyticsState;
 - (void)resignActive;
 - (void)ribbonSectionControllerDidTapAddRatings:(id)ratings initialRatingState:(int64_t)state withPresentationOptions:(id)options;
@@ -267,6 +276,7 @@
 - (void)scrollViewWillEndDragging:(id)dragging withVelocity:(CGPoint)velocity targetContentOffset:(CGPoint *)offset;
 - (void)sectionController:(id)controller didScroll:(id)scroll;
 - (void)sectionController:(id)controller didSelectSendToDevice:(id)device;
+- (void)sectionController:(id)controller updateFixedHeaderWithShouldShow:(BOOL)show;
 - (void)sectionController:(id)controller updateInsetsForHeaderWithTopInset:(double)inset bottom:(double)bottom;
 - (void)sectionControllerWebContentLoadCompleted:(id)completed;
 - (void)setAutomobileOptions:(id)options;
@@ -287,6 +297,7 @@
 - (void)setVerifiedHeaderExpansionProgress:(double)progress;
 - (void)setWalkingOptions:(id)options;
 - (void)set_mapkit_contentVisibility:(int64_t)visibility;
+- (void)shareSheetPresenter:(id)presenter preCompletedActivityOfType:(id)type completed:(BOOL)completed;
 - (void)showAllCollections:(id)collections usingTitle:(id)title usingCollectionIds:(id)ids;
 - (void)showContentIfLoaded;
 - (void)showSeeAllRelatedPlacesWithActionDispatcher:(id)dispatcher title:(id)title relatedMapItemIdentifiers:(id)identifiers originalMapItemIdentifier:(id)identifier;
@@ -296,16 +307,22 @@
 - (void)updateActionRowView;
 - (void)updateAddNoteActionState;
 - (void)updateAddToLibraryActionState;
+- (void)updateCollectionViewsAnimated:(BOOL)animated;
 - (void)updateCuratedCollectionsView;
 - (void)updateHeaderTitle;
 - (void)updateHeaderTrailingConstant;
+- (void)updateHeaderViewForContaineeLayoutChangeCollapsed:(BOOL)collapsed;
 - (void)updatePlaceEnrichment;
 - (void)updatePlaceInfo;
 - (void)updateSuggestionView;
 - (void)updateUserSubmissionWithPhotoURL:(id)l photoID:(id)d numberOfPhotos:(int64_t)photos;
 - (void)updateViewsWithSubmissionStatus:(id)status userRatings:(id)ratings animated:(BOOL)animated;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewDidLayoutSubviews;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
+- (void)viewWillDisappear:(BOOL)disappear;
 - (void)viewWillLayoutSubviews;
 @end
 
@@ -400,6 +417,17 @@
   }
 }
 
+- (void)libraryAccessProvider:(id)provider savedStateOfPlaceDidChange:(BOOL)change
+{
+  [(MUPlaceViewController *)self updateAddToLibraryActionState:provider];
+  [(MUPlaceViewController *)self updateAddNoteActionState];
+  if (![(MUPlaceViewController *)self isFlexiblePlaceCardEnabled])
+  {
+
+    [(MUPlaceViewController *)self _updateActionBarDataSources];
+  }
+}
+
 - (void)placeNotesSectionController:(id)controller didRequestEditingNoteWithInitialText:(id)text completion:(id)completion
 {
   textCopy = text;
@@ -462,32 +490,32 @@ void __47__MUPlaceViewController_contactStoreDidChange___block_invoke(uint64_t a
 
 - (id)visibleImpressionElements
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v3 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{-[NSArray count](self->_sectionControllers, "count")}];
   placeEnrichmentSectionController = [(MUPlaceViewController *)self placeEnrichmentSectionController];
   hasContent = [placeEnrichmentSectionController hasContent];
 
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   v6 = self->_sectionControllers;
-  v7 = [(NSArray *)v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v7 = [(NSArray *)v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v7)
   {
     v8 = v7;
     v9 = 0;
-    v10 = *v19;
+    v10 = *v18;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v19 != v10)
+        if (*v18 != v10)
         {
           objc_enumerationMutation(v6);
         }
 
-        v12 = *(*(&v18 + 1) + 8 * i);
+        v12 = *(*(&v17 + 1) + 8 * i);
         if ([v12 hasContent] && objc_msgSend(v12, "isImpressionable"))
         {
           impressionElement = [v12 impressionElement];
@@ -502,21 +530,20 @@ void __47__MUPlaceViewController_contactStoreDidChange___block_invoke(uint64_t a
         }
       }
 
-      v8 = [(NSArray *)v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v8 = [(NSArray *)v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v8);
   }
 
   v15 = [v3 copy];
-  v16 = *MEMORY[0x1E69E9840];
 
   return v15;
 }
 
 - (void)_handleMapsExtension:(id)extension usingAppStoreApp:(id)app parameters:(id)parameters
 {
-  v18[1] = *MEMORY[0x1E69E9840];
+  v17[1] = *MEMORY[0x1E69E9840];
   extensionCopy = extension;
   appCopy = app;
   parametersCopy = parameters;
@@ -532,18 +559,16 @@ void __47__MUPlaceViewController_contactStoreDidChange___block_invoke(uint64_t a
   else
   {
     mapItem = [(MUPlaceViewController *)self mapItem];
-    v17 = *MEMORY[0x1E696F098];
-    v18[0] = MEMORY[0x1E695E118];
-    v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:&v17 count:1];
+    v16 = *MEMORY[0x1E696F098];
+    v17[0] = MEMORY[0x1E695E118];
+    v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:&v16 count:1];
     [mapItem openInMapsWithLaunchOptions:v15 completionHandler:&__block_literal_global_624];
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 void __74__MUPlaceViewController__handleMapsExtension_usingAppStoreApp_parameters___block_invoke(uint64_t a1, char a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   if ((a2 & 1) == 0)
   {
     v2 = MUGetPlaceCardLog();
@@ -551,13 +576,11 @@ void __74__MUPlaceViewController__handleMapsExtension_usingAppStoreApp_parameter
     {
       v3 = [MEMORY[0x1E696AAE8] mainBundle];
       v4 = [v3 bundleIdentifier];
-      v6 = 138412290;
-      v7 = v4;
-      _os_log_impl(&dword_1C5620000, v2, OS_LOG_TYPE_INFO, "Couldn't launch Maps from Reservation button in %@", &v6, 0xCu);
+      v5 = 138412290;
+      v6 = v4;
+      _os_log_impl(&dword_1C5620000, v2, OS_LOG_TYPE_INFO, "Couldn't launch Maps from Reservation button in %@", &v5, 0xCu);
     }
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_openWebURL:(id)l forcePunchout:(BOOL)punchout
@@ -606,7 +629,7 @@ void __74__MUPlaceViewController__handleMapsExtension_usingAppStoreApp_parameter
 
 - (void)handleQuickLink:(id)link options:(id)options
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   linkCopy = link;
   optionsCopy = options;
   uRLString = [linkCopy URLString];
@@ -628,14 +651,12 @@ void __74__MUPlaceViewController__handleMapsExtension_usingAppStoreApp_parameter
       v13 = MUGetPlaceCardLog();
       if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
-        v15 = 138412290;
-        v16 = linkCopy;
-        _os_log_impl(&dword_1C5620000, v13, OS_LOG_TYPE_ERROR, "The URL associated with quicklink %@ is nil", &v15, 0xCu);
+        v14 = 138412290;
+        v15 = linkCopy;
+        _os_log_impl(&dword_1C5620000, v13, OS_LOG_TYPE_ERROR, "The URL associated with quicklink %@ is nil", &v14, 0xCu);
       }
     }
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_openAppClip:(id)clip
@@ -659,7 +680,7 @@ void __74__MUPlaceViewController__handleMapsExtension_usingAppStoreApp_parameter
 
 void __38__MUPlaceViewController__openAppClip___block_invoke(uint64_t a1, char a2, void *a3)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v5 = a3;
   if (a2)
   {
@@ -674,20 +695,20 @@ void __38__MUPlaceViewController__openAppClip___block_invoke(uint64_t a1, char a
     {
       v8 = *(a1 + 32);
       v9 = [v5 description];
-      v16 = 138412546;
-      v17 = v8;
-      v18 = 2112;
-      v19 = v9;
-      _os_log_impl(&dword_1C5620000, v6, OS_LOG_TYPE_ERROR, "AppClip request for URL: %@ failed with error: %@", &v16, 0x16u);
+      v15 = 138412546;
+      v16 = v8;
+      v17 = 2112;
+      v18 = v9;
+      _os_log_impl(&dword_1C5620000, v6, OS_LOG_TYPE_ERROR, "AppClip request for URL: %@ failed with error: %@", &v15, 0x16u);
     }
   }
 
   else if (v7)
   {
     v10 = *(a1 + 32);
-    v16 = 138412290;
-    v17 = v10;
-    _os_log_impl(&dword_1C5620000, v6, OS_LOG_TYPE_ERROR, "AppClip request for URL: %@ failed", &v16, 0xCu);
+    v15 = 138412290;
+    v16 = v10;
+    _os_log_impl(&dword_1C5620000, v6, OS_LOG_TYPE_ERROR, "AppClip request for URL: %@ failed", &v15, 0xCu);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 40));
@@ -701,13 +722,11 @@ LABEL_9:
     if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
     {
       v14 = *(a1 + 32);
-      v16 = 138412290;
-      v17 = v14;
-      _os_log_impl(&dword_1C5620000, v13, OS_LOG_TYPE_INFO, "AppClip of url %@ is available", &v16, 0xCu);
+      v15 = 138412290;
+      v16 = v14;
+      _os_log_impl(&dword_1C5620000, v13, OS_LOG_TYPE_INFO, "AppClip of url %@ is available", &v15, 0xCu);
     }
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)handleAppClip:(id)clip options:(id)options
@@ -825,7 +844,7 @@ LABEL_9:
   return result;
 }
 
-uint64_t __108__MUPlaceViewController__systemLayoutSizeFittingSize_withHorizontalFittingPriority_verticalFittingPriority___block_invoke(uint64_t a1, double a2, double a3, double a4, double a5)
+void *__108__MUPlaceViewController__systemLayoutSizeFittingSize_withHorizontalFittingPriority_verticalFittingPriority___block_invoke(uint64_t a1, double a2, double a3, double a4, double a5)
 {
   LODWORD(a4) = *(a1 + 64);
   LODWORD(a5) = *(a1 + 68);
@@ -889,7 +908,7 @@ void __52__MUPlaceViewController__updatePreferredContentSize__block_invoke(uint6
   *(v7 + 40) = v9;
 }
 
-uint64_t __52__MUPlaceViewController__updatePreferredContentSize__block_invoke_2(uint64_t a1)
+void *__52__MUPlaceViewController__updatePreferredContentSize__block_invoke_2(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 1000) preferredContentSize];
   v3 = *(*(a1 + 40) + 8);
@@ -927,7 +946,7 @@ uint64_t __52__MUPlaceViewController__updatePreferredContentSize__block_invoke_2
 
 void __73__MUPlaceViewController_didSelectCopyLinkWithActionDispatcher_urlString___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -936,36 +955,32 @@ void __73__MUPlaceViewController_didSelectCopyLinkWithActionDispatcher_urlString
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       v8 = [v6 description];
-      v16 = 138412290;
-      v17 = v8;
-      _os_log_impl(&dword_1C5620000, v7, OS_LOG_TYPE_ERROR, "Failed to get short URL: %@", &v16, 0xCu);
+      v13 = 138412290;
+      v14 = v8;
+      _os_log_impl(&dword_1C5620000, v7, OS_LOG_TYPE_ERROR, "Failed to get short URL: %@", &v13, 0xCu);
     }
 
-    v9 = *(a1 + 32);
-    v10 = objc_opt_class();
-    v11 = *(a1 + 40);
+    v9 = objc_opt_class();
+    v10 = *(a1 + 40);
   }
 
   else
   {
-    v12 = *(a1 + 32);
-    v10 = objc_opt_class();
-    v13 = v10;
+    v9 = objc_opt_class();
+    v11 = v9;
     if (v5)
     {
-      v14 = [v5 absoluteString];
-      [v13 _copyStringToPasteboard:v14];
+      v12 = [v5 absoluteString];
+      [v11 _copyStringToPasteboard:v12];
 
       goto LABEL_8;
     }
 
-    v11 = *(a1 + 40);
+    v10 = *(a1 + 40);
   }
 
-  [v10 _copyStringToPasteboard:v11];
+  [v9 _copyStringToPasteboard:v10];
 LABEL_8:
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)didSelectCopyCoordinatesWithActionDispatcher:(id)dispatcher coordinatesString:(id)string
@@ -1082,7 +1097,7 @@ LABEL_8:
 
 - (void)openExtensionWithActionDispatcher:(id)dispatcher vendorId:(id)id source:(int64_t)source completion:(id)completion
 {
-  v36[1] = *MEMORY[0x1E69E9840];
+  v35[1] = *MEMORY[0x1E69E9840];
   dispatcherCopy = dispatcher;
   idCopy = id;
   completionCopy = completion;
@@ -1094,8 +1109,8 @@ LABEL_8:
   {
     v15 = [[MUPlaceActionLinkExtensionParams alloc] initWithVendorId:idCopy bundleId:v14];
     v16 = [MUPlaceExtensionDiscoveryManager alloc];
-    v36[0] = v15;
-    v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:v36 count:1];
+    v35[0] = v15;
+    v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:v35 count:1];
     v18 = [(MUPlaceExtensionDiscoveryManager *)v16 initWithExtensionDataItems:v17 amsResultProvider:self->_amsResultProvider];
     extensionDiscoveryManager = self->_extensionDiscoveryManager;
     self->_extensionDiscoveryManager = v18;
@@ -1121,15 +1136,15 @@ LABEL_8:
       objc_initWeak(buf, self);
       v28 = self->_extensionDiscoveryManager;
       v29 = MEMORY[0x1E69E96A0];
-      v32[0] = MEMORY[0x1E69E9820];
-      v32[1] = 3221225472;
-      v32[2] = __86__MUPlaceViewController_openExtensionWithActionDispatcher_vendorId_source_completion___block_invoke;
-      v32[3] = &unk_1E8218CD0;
-      v33 = completionCopy;
-      objc_copyWeak(&v34, buf);
-      [(MUPlaceExtensionDiscoveryManager *)v28 performExtensionDiscoveryWithOptions:v27 callbackQueue:MEMORY[0x1E69E96A0] completion:v32];
+      v31[0] = MEMORY[0x1E69E9820];
+      v31[1] = 3221225472;
+      v31[2] = __86__MUPlaceViewController_openExtensionWithActionDispatcher_vendorId_source_completion___block_invoke;
+      v31[3] = &unk_1E8218CD0;
+      v32 = completionCopy;
+      objc_copyWeak(&v33, buf);
+      [(MUPlaceExtensionDiscoveryManager *)v28 performExtensionDiscoveryWithOptions:v27 callbackQueue:MEMORY[0x1E69E96A0] completion:v31];
 
-      objc_destroyWeak(&v34);
+      objc_destroyWeak(&v33);
       objc_destroyWeak(buf);
     }
   }
@@ -1145,22 +1160,20 @@ LABEL_8:
 
     completionCopy[2](completionCopy, 0);
   }
-
-  v30 = *MEMORY[0x1E69E9840];
 }
 
 void __86__MUPlaceViewController_openExtensionWithActionDispatcher_vendorId_source_completion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v5 = a3;
   if (v5)
   {
     v6 = MUGetPlaceCardLog();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v12 = 138412290;
-      v13 = v5;
-      _os_log_impl(&dword_1C5620000, v6, OS_LOG_TYPE_ERROR, "error performing extension discovery: %@", &v12, 0xCu);
+      v11 = 138412290;
+      v12 = v5;
+      _os_log_impl(&dword_1C5620000, v6, OS_LOG_TYPE_ERROR, "error performing extension discovery: %@", &v11, 0xCu);
     }
 
     (*(*(a1 + 32) + 16))();
@@ -1179,8 +1192,6 @@ void __86__MUPlaceViewController_openExtensionWithActionDispatcher_vendorId_sour
       (*(*(a1 + 32) + 16))();
     }
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)openAppClipWithActionDispatcher:(id)dispatcher quickLink:(id)link completion:(id)completion
@@ -1207,7 +1218,7 @@ void __86__MUPlaceViewController_openExtensionWithActionDispatcher_vendorId_sour
 
 void __78__MUPlaceViewController_openAppClipWithActionDispatcher_quickLink_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   if (WeakRetained)
@@ -1220,11 +1231,11 @@ void __78__MUPlaceViewController_openAppClipWithActionDispatcher_quickLink_compl
       {
         v7 = [*(a1 + 32) URLString];
         v8 = [*(a1 + 32) bundleID];
-        v14 = 138412546;
-        v15 = v7;
-        v16 = 2112;
-        v17 = v8;
-        _os_log_impl(&dword_1C5620000, v6, OS_LOG_TYPE_INFO, "Opening app clip with url %@ bundle identifier %@", &v14, 0x16u);
+        v13 = 138412546;
+        v14 = v7;
+        v15 = 2112;
+        v16 = v8;
+        _os_log_impl(&dword_1C5620000, v6, OS_LOG_TYPE_INFO, "Opening app clip with url %@ bundle identifier %@", &v13, 0x16u);
       }
 
       [WeakRetained _openAppClip:v3];
@@ -1236,11 +1247,11 @@ void __78__MUPlaceViewController_openAppClipWithActionDispatcher_quickLink_compl
     {
       v10 = [*(a1 + 32) URLString];
       v11 = [*(a1 + 32) bundleID];
-      v14 = 138412546;
-      v15 = v10;
-      v16 = 2112;
-      v17 = v11;
-      _os_log_impl(&dword_1C5620000, v6, OS_LOG_TYPE_ERROR, "Failed to open app clip with url %@ bundle identifier %@", &v14, 0x16u);
+      v13 = 138412546;
+      v14 = v10;
+      v15 = 2112;
+      v16 = v11;
+      _os_log_impl(&dword_1C5620000, v6, OS_LOG_TYPE_ERROR, "Failed to open app clip with url %@ bundle identifier %@", &v13, 0x16u);
     }
 
     v12 = *(a1 + 40);
@@ -1251,8 +1262,6 @@ LABEL_10:
       v9();
     }
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)didTapCreateCustomRouteWithActionDispatcher:(id)dispatcher
@@ -1320,6 +1329,31 @@ LABEL_10:
   }
 }
 
+- (void)didTapAddOrRemoveFromLibraryWithActionDispatcher:(id)dispatcher savedState:(BOOL)state showAddToLibraryModal:(BOOL)modal
+{
+  if (modal)
+  {
+    v6 = [(MUPlaceViewController *)self mapsAppDelegate:dispatcher];
+    v7 = objc_opt_respondsToSelector();
+
+    if ((v7 & 1) == 0)
+    {
+      return;
+    }
+
+    mapsAppDelegate = [(MUPlaceViewController *)self mapsAppDelegate];
+    v8 = objc_opt_new();
+    [mapsAppDelegate placeViewController:self didSelectAddToCollectionWithPlaceActionEnvironment:v8 showsAddToLibrarySection:1];
+  }
+
+  else
+  {
+    stateCopy = state;
+    mapsAppDelegate = objc_opt_new();
+    [(MUPlaceViewController *)self _didSelectAddOrRemoveFromLibraryWithAddSelection:stateCopy environment:?];
+  }
+}
+
 - (void)didTapShareWithActionDispatcher:(id)dispatcher environment:(id)environment
 {
   presentationOptions = [environment presentationOptions];
@@ -1340,39 +1374,39 @@ LABEL_10:
 
 - (void)openDirectionsWithActionDispatcher:(id)dispatcher contactIdentifier:(id)identifier
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   v6 = MUGetPlaceCardLog();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     *buf = 138477827;
-    v23 = identifierCopy;
+    v22 = identifierCopy;
     _os_log_impl(&dword_1C5620000, v6, OS_LOG_TYPE_INFO, "Opening directions with contact identifier: %{private}@", buf, 0xCu);
   }
 
   if ([identifierCopy length])
   {
-    v19 = 0u;
-    v20 = 0u;
-    v17 = 0u;
     v18 = 0u;
+    v19 = 0u;
+    v16 = 0u;
+    v17 = 0u;
     contact = [(_MKPlaceItem *)self->_placeItem contact];
     postalAddresses = [contact postalAddresses];
 
-    v9 = [postalAddresses countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v9 = [postalAddresses countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v9)
     {
-      v10 = *v18;
+      v10 = *v17;
       while (2)
       {
         for (i = 0; i != v9; i = i + 1)
         {
-          if (*v18 != v10)
+          if (*v17 != v10)
           {
             objc_enumerationMutation(postalAddresses);
           }
 
-          v12 = *(*(&v17 + 1) + 8 * i);
+          v12 = *(*(&v16 + 1) + 8 * i);
           identifier = [v12 identifier];
           v14 = [identifier isEqualToString:identifierCopy];
 
@@ -1383,7 +1417,7 @@ LABEL_10:
           }
         }
 
-        v9 = [postalAddresses countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v9 = [postalAddresses countByEnumeratingWithState:&v16 objects:v20 count:16];
         if (v9)
         {
           continue;
@@ -1403,8 +1437,6 @@ LABEL_14:
   {
     [(MUPlaceViewController *)self _openDirections];
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)didSelectFeaturedGuideWithActionDispatcher:(id)dispatcher mapItemIdentifier:(id)identifier
@@ -1559,7 +1591,7 @@ void __73__MUPlaceViewController_didTapOpenPhotoViewerWithActionDispatcher_index
 
 - (void)showSeeAllRelatedPlacesWithActionDispatcher:(id)dispatcher title:(id)title relatedMapItemIdentifiers:(id)identifiers originalMapItemIdentifier:(id)identifier
 {
-  v54 = *MEMORY[0x1E69E9840];
+  v53 = *MEMORY[0x1E69E9840];
   dispatcherCopy = dispatcher;
   titleCopy = title;
   identifiersCopy = identifiers;
@@ -1572,15 +1604,15 @@ void __73__MUPlaceViewController_didTapOpenPhotoViewerWithActionDispatcher_index
   aBlock[1] = 3221225472;
   aBlock[2] = __127__MUPlaceViewController_showSeeAllRelatedPlacesWithActionDispatcher_title_relatedMapItemIdentifiers_originalMapItemIdentifier___block_invoke;
   aBlock[3] = &unk_1E8218770;
-  objc_copyWeak(&v51, &location);
+  objc_copyWeak(&v50, &location);
   v15 = identifiersCopy;
-  v47 = v15;
+  v46 = v15;
   v16 = relatedPlacesCache;
-  v48 = v16;
+  v47 = v16;
   v17 = identifierCopy;
-  v49 = v17;
-  v32 = titleCopy;
-  v50 = v32;
+  v48 = v17;
+  v31 = titleCopy;
+  v49 = v31;
   v18 = _Block_copy(aBlock);
   v19 = objc_alloc_init(MEMORY[0x1E695DF70]);
   v20 = [v16 objectForKey:v17];
@@ -1588,29 +1620,29 @@ void __73__MUPlaceViewController_didTapOpenPhotoViewerWithActionDispatcher_index
 
   if (v21)
   {
-    [v19 addObject:{v17, v32, dispatcherCopy}];
+    [v19 addObject:{v17, v31, dispatcherCopy}];
   }
 
-  v44 = 0u;
-  v45 = 0u;
-  v42 = 0u;
   v43 = 0u;
+  v44 = 0u;
+  v41 = 0u;
+  v42 = 0u;
   v22 = v15;
-  v23 = [v22 countByEnumeratingWithState:&v42 objects:v53 count:16];
+  v23 = [v22 countByEnumeratingWithState:&v41 objects:v52 count:16];
   if (v23)
   {
-    v24 = *v43;
+    v24 = *v42;
     do
     {
       for (i = 0; i != v23; ++i)
       {
-        if (*v43 != v24)
+        if (*v42 != v24)
         {
           objc_enumerationMutation(v22);
         }
 
-        v26 = *(*(&v42 + 1) + 8 * i);
-        v27 = [v16 objectForKey:{v26, v32}];
+        v26 = *(*(&v41 + 1) + 8 * i);
+        v27 = [v16 objectForKey:{v26, v31}];
         v28 = v27 == 0;
 
         if (v28)
@@ -1619,7 +1651,7 @@ void __73__MUPlaceViewController_didTapOpenPhotoViewerWithActionDispatcher_index
         }
       }
 
-      v23 = [v22 countByEnumeratingWithState:&v42 objects:v53 count:16];
+      v23 = [v22 countByEnumeratingWithState:&v41 objects:v52 count:16];
     }
 
     while (v23);
@@ -1630,17 +1662,17 @@ void __73__MUPlaceViewController_didTapOpenPhotoViewerWithActionDispatcher_index
     mEMORY[0x1E696F298] = [MEMORY[0x1E696F298] sharedService];
     v30 = [mEMORY[0x1E696F298] ticketForIdentifiers:v19 traits:0];
 
-    v37[0] = MEMORY[0x1E69E9820];
-    v37[1] = 3221225472;
-    v37[2] = __127__MUPlaceViewController_showSeeAllRelatedPlacesWithActionDispatcher_title_relatedMapItemIdentifiers_originalMapItemIdentifier___block_invoke_2;
-    v37[3] = &unk_1E821A7D0;
-    objc_copyWeak(&v41, &location);
-    v38 = v16;
-    v40 = v18;
-    v39 = v22;
-    [v30 submitWithHandler:v37 networkActivity:0];
+    v36[0] = MEMORY[0x1E69E9820];
+    v36[1] = 3221225472;
+    v36[2] = __127__MUPlaceViewController_showSeeAllRelatedPlacesWithActionDispatcher_title_relatedMapItemIdentifiers_originalMapItemIdentifier___block_invoke_2;
+    v36[3] = &unk_1E821A7D0;
+    objc_copyWeak(&v40, &location);
+    v37 = v16;
+    v39 = v18;
+    v38 = v22;
+    [v30 submitWithHandler:v36 networkActivity:0];
 
-    objc_destroyWeak(&v41);
+    objc_destroyWeak(&v40);
   }
 
   else
@@ -1649,47 +1681,45 @@ void __73__MUPlaceViewController_didTapOpenPhotoViewerWithActionDispatcher_index
     block[1] = 3221225472;
     block[2] = __127__MUPlaceViewController_showSeeAllRelatedPlacesWithActionDispatcher_title_relatedMapItemIdentifiers_originalMapItemIdentifier___block_invoke_4;
     block[3] = &unk_1E821A618;
-    v36 = v18;
-    v35 = v22;
+    v35 = v18;
+    v34 = v22;
     dispatch_async(MEMORY[0x1E69E96A0], block);
 
-    v30 = v36;
+    v30 = v35;
   }
 
-  objc_destroyWeak(&v51);
+  objc_destroyWeak(&v50);
   objc_destroyWeak(&location);
-
-  v31 = *MEMORY[0x1E69E9840];
 }
 
 void __127__MUPlaceViewController_showSeeAllRelatedPlacesWithActionDispatcher_title_relatedMapItemIdentifiers_originalMapItemIdentifier___block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 64));
   if (WeakRetained)
   {
     v3 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v11 = 0u;
     v12 = 0u;
     v13 = 0u;
     v14 = 0u;
-    v15 = 0u;
     v4 = *(a1 + 32);
-    v5 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+    v5 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v13;
+      v7 = *v12;
       do
       {
         v8 = 0;
         do
         {
-          if (*v13 != v7)
+          if (*v12 != v7)
           {
             objc_enumerationMutation(v4);
           }
 
-          v9 = [*(a1 + 40) objectForKey:{*(*(&v12 + 1) + 8 * v8), v12}];
+          v9 = [*(a1 + 40) objectForKey:{*(*(&v11 + 1) + 8 * v8), v11}];
           if (v9)
           {
             [v3 addObject:v9];
@@ -1699,7 +1729,7 @@ void __127__MUPlaceViewController_showSeeAllRelatedPlacesWithActionDispatcher_ti
         }
 
         while (v6 != v8);
-        v6 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+        v6 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
       }
 
       while (v6);
@@ -1708,8 +1738,6 @@ void __127__MUPlaceViewController_showSeeAllRelatedPlacesWithActionDispatcher_ti
     v10 = [*(a1 + 40) objectForKey:*(a1 + 48)];
     [WeakRetained _relatedPlacesShowSeeAllWithTitle:*(a1 + 56) relatedMapItems:v3 originalMapItem:v10];
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void __127__MUPlaceViewController_showSeeAllRelatedPlacesWithActionDispatcher_title_relatedMapItemIdentifiers_originalMapItemIdentifier___block_invoke_2(id *a1, void *a2)
@@ -1732,65 +1760,61 @@ void __127__MUPlaceViewController_showSeeAllRelatedPlacesWithActionDispatcher_ti
 
 uint64_t __127__MUPlaceViewController_showSeeAllRelatedPlacesWithActionDispatcher_title_relatedMapItemIdentifiers_originalMapItemIdentifier___block_invoke_3(uint64_t a1)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
+  v11 = 0u;
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
-  v16 = 0u;
   v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v14;
+    v5 = *v12;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v14 != v5)
+        if (*v12 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v13 + 1) + 8 * i);
+        v7 = *(*(&v11 + 1) + 8 * i);
         v8 = *(a1 + 40);
         v9 = [v7 identifier];
         [v8 setObject:v7 forKey:v9];
       }
 
-      v4 = [v2 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v4);
   }
 
-  v10 = *(a1 + 48);
-  result = (*(*(a1 + 56) + 16))();
-  v12 = *MEMORY[0x1E69E9840];
-  return result;
+  return (*(*(a1 + 56) + 16))();
 }
 
 - (void)openPlaceWithActionDispatcher:(id)dispatcher mapItemIdentifier:(id)identifier
 {
-  v15[1] = *MEMORY[0x1E69E9840];
+  v14[1] = *MEMORY[0x1E69E9840];
   dispatcherCopy = dispatcher;
   identifierCopy = identifier;
   objc_initWeak(&location, self);
   mEMORY[0x1E696F298] = [MEMORY[0x1E696F298] sharedService];
-  v15[0] = identifierCopy;
-  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:1];
+  v14[0] = identifierCopy;
+  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:1];
   v10 = [mEMORY[0x1E696F298] ticketForIdentifiers:v9 traits:0];
 
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = __73__MUPlaceViewController_openPlaceWithActionDispatcher_mapItemIdentifier___block_invoke;
-  v12[3] = &unk_1E8219220;
-  objc_copyWeak(&v13, &location);
-  [v10 submitWithHandler:v12 networkActivity:0];
-  objc_destroyWeak(&v13);
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __73__MUPlaceViewController_openPlaceWithActionDispatcher_mapItemIdentifier___block_invoke;
+  v11[3] = &unk_1E8219220;
+  objc_copyWeak(&v12, &location);
+  [v10 submitWithHandler:v11 networkActivity:0];
+  objc_destroyWeak(&v12);
 
   objc_destroyWeak(&location);
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void __73__MUPlaceViewController_openPlaceWithActionDispatcher_mapItemIdentifier___block_invoke(uint64_t a1, void *a2)
@@ -1823,7 +1847,7 @@ void __73__MUPlaceViewController_openPlaceWithActionDispatcher_mapItemIdentifier
 
     if (v6)
     {
-      [v6 _cartographicConfiguration];
+      objc_msgSend__cartographicConfiguration(v6);
       v7 = v15;
     }
 
@@ -1877,31 +1901,31 @@ LABEL_9:
 
 - (void)_updateActionBarDataSources
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   array = [MEMORY[0x1E695DF70] array];
   [MEMORY[0x1E695DF70] array];
-  v16 = v15 = self;
+  v15 = v14 = self;
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   obj = self->_sectionControllers;
-  v3 = [(NSArray *)obj countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v3 = [(NSArray *)obj countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v3)
   {
     v4 = v3;
     v5 = 0;
-    v6 = *v20;
+    v6 = *v19;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v20 != v6)
+        if (*v19 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v19 + 1) + 8 * i);
+        v8 = *(*(&v18 + 1) + 8 * i);
         if (objc_opt_respondsToSelector())
         {
           leadingActionBarItem = [v8 leadingActionBarItem];
@@ -1928,12 +1952,12 @@ LABEL_9:
           menuActionBarItems = [v8 menuActionBarItems];
           if ([menuActionBarItems count])
           {
-            [v16 addObjectsFromArray:menuActionBarItems];
+            [v15 addObjectsFromArray:menuActionBarItems];
           }
         }
       }
 
-      v4 = [(NSArray *)obj countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v4 = [(NSArray *)obj countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v4);
@@ -1944,13 +1968,12 @@ LABEL_9:
     v5 = 0;
   }
 
-  [(MUPlaceActionBarController *)v15->_actionBarController updateWithLeadingItem:v5 trailingItems:array menuItems:v16];
-  v14 = *MEMORY[0x1E69E9840];
+  [(MUPlaceActionBarController *)v14->_actionBarController updateWithLeadingItem:v5 trailingItems:array menuItems:v15];
 }
 
 - (void)_addActionBarWithConfiguration:(id)configuration
 {
-  v31[3] = *MEMORY[0x1E69E9840];
+  v30[3] = *MEMORY[0x1E69E9840];
   configurationCopy = configuration;
   v5 = configurationCopy;
   if (configurationCopy && ([configurationCopy hasContent] & 1) != 0)
@@ -1975,24 +1998,24 @@ LABEL_9:
       view = [(MUPlaceViewController *)self view];
       [view addSubview:self->_actionBar];
 
-      v26 = MEMORY[0x1E696ACD8];
+      v25 = MEMORY[0x1E696ACD8];
       leadingAnchor = [(MUPlaceActionBarView *)self->_actionBar leadingAnchor];
       view2 = [(MUPlaceViewController *)self view];
       leadingAnchor2 = [view2 leadingAnchor];
-      v27 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
-      v31[0] = v27;
+      v26 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
+      v30[0] = v26;
       trailingAnchor = [(MUPlaceActionBarView *)self->_actionBar trailingAnchor];
       view3 = [(MUPlaceViewController *)self view];
       trailingAnchor2 = [view3 trailingAnchor];
       v14 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
-      v31[1] = v14;
+      v30[1] = v14;
       bottomAnchor = [(MUPlaceActionBarView *)self->_actionBar bottomAnchor];
       view4 = [(MUPlaceViewController *)self view];
       bottomAnchor2 = [view4 bottomAnchor];
       v18 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
-      v31[2] = v18;
-      v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:v31 count:3];
-      [v26 activateConstraints:v19];
+      v30[2] = v18;
+      v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:v30 count:3];
+      [v25 activateConstraints:v19];
 
       v20 = objc_alloc_init(MEMORY[0x1E69DCEE0]);
       scrollView3 = [(MUPlaceViewController *)self scrollView];
@@ -2015,8 +2038,6 @@ LABEL_9:
   }
 
   [(MUPlaceViewController *)self _updateBottomInset];
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 - (void)sectionController:(id)controller didSelectSendToDevice:(id)device
@@ -2097,9 +2118,22 @@ LABEL_9:
   [defaultCenter postNotificationName:*MEMORY[0x1E696F120] object:self];
 }
 
+- (void)sectionController:(id)controller updateFixedHeaderWithShouldShow:(BOOL)show
+{
+  showCopy = show;
+  mapsAppDelegate = [(MUPlaceViewController *)self mapsAppDelegate];
+  v7 = objc_opt_respondsToSelector();
+
+  if (v7)
+  {
+    mapsAppDelegate2 = [(MUPlaceViewController *)self mapsAppDelegate];
+    [mapsAppDelegate2 placeViewController:self updateFixedHeaderWithIsVisible:showCopy];
+  }
+}
+
 - (void)showContentIfLoaded
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   isLoading = [(MUPlaceViewController *)self isLoading];
   v4 = MUGetPlaceCardLog();
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG);
@@ -2108,9 +2142,9 @@ LABEL_9:
     if (v5)
     {
       contentStackView = self->_contentStackView;
-      v10 = 138412290;
-      v11 = contentStackView;
-      _os_log_impl(&dword_1C5620000, v4, OS_LOG_TYPE_DEBUG, "MUPlaceViewController: showContentIfLoaded - still loading, early return %@", &v10, 0xCu);
+      v9 = 138412290;
+      v10 = contentStackView;
+      _os_log_impl(&dword_1C5620000, v4, OS_LOG_TYPE_DEBUG, "MUPlaceViewController: showContentIfLoaded - still loading, early return %@", &v9, 0xCu);
     }
   }
 
@@ -2119,9 +2153,9 @@ LABEL_9:
     if (v5)
     {
       v7 = self->_contentStackView;
-      v10 = 138412290;
-      v11 = v7;
-      _os_log_impl(&dword_1C5620000, v4, OS_LOG_TYPE_DEBUG, "MUPlaceViewController: showContentIfLoaded %@", &v10, 0xCu);
+      v9 = 138412290;
+      v10 = v7;
+      _os_log_impl(&dword_1C5620000, v4, OS_LOG_TYPE_DEBUG, "MUPlaceViewController: showContentIfLoaded %@", &v9, 0xCu);
     }
 
     [(MUPlaceViewController *)self removeLoadingViewAnimated:1];
@@ -2140,13 +2174,11 @@ LABEL_9:
 
     [(MUPlaceViewController *)self updatePreferredContentSize];
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)hideContentIfLoading
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   isLoading = [(MUPlaceViewController *)self isLoading];
   v4 = MUGetPlaceCardLog();
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG);
@@ -2155,9 +2187,9 @@ LABEL_9:
     if (v5)
     {
       contentStackView = self->_contentStackView;
-      v9 = 138412290;
-      v10 = contentStackView;
-      _os_log_impl(&dword_1C5620000, v4, OS_LOG_TYPE_DEBUG, "MUPlaceViewController: hideContentIfLoading %@", &v9, 0xCu);
+      v8 = 138412290;
+      v9 = contentStackView;
+      _os_log_impl(&dword_1C5620000, v4, OS_LOG_TYPE_DEBUG, "MUPlaceViewController: hideContentIfLoading %@", &v8, 0xCu);
     }
 
     [(MUPlaceViewController *)self addLoadingView];
@@ -2168,13 +2200,26 @@ LABEL_9:
     if (v5)
     {
       v7 = self->_contentStackView;
-      v9 = 138412290;
-      v10 = v7;
-      _os_log_impl(&dword_1C5620000, v4, OS_LOG_TYPE_DEBUG, "MUPlaceViewController: hideContentIfLoading - not loading, early return %@", &v9, 0xCu);
+      v8 = 138412290;
+      v9 = v7;
+      _os_log_impl(&dword_1C5620000, v4, OS_LOG_TYPE_DEBUG, "MUPlaceViewController: hideContentIfLoading - not loading, early return %@", &v8, 0xCu);
     }
   }
+}
 
-  v8 = *MEMORY[0x1E69E9840];
+- (void)removeLoadingViewAnimated:(BOOL)animated
+{
+  animatedCopy = animated;
+  objc_initWeak(&location, self);
+  loadingOverlayController = self->_loadingOverlayController;
+  v6[0] = MEMORY[0x1E69E9820];
+  v6[1] = 3221225472;
+  v6[2] = __51__MUPlaceViewController_removeLoadingViewAnimated___block_invoke;
+  v6[3] = &unk_1E821BAC8;
+  objc_copyWeak(&v7, &location);
+  [(MULoadingOverlayController *)loadingOverlayController removeLoadingOverlayAnimated:animatedCopy completion:v6];
+  objc_destroyWeak(&v7);
+  objc_destroyWeak(&location);
 }
 
 void __51__MUPlaceViewController_removeLoadingViewAnimated___block_invoke(uint64_t a1)
@@ -2213,6 +2258,19 @@ void __51__MUPlaceViewController_removeLoadingViewAnimated___block_invoke(uint64
   return isIntermediateMapItem;
 }
 
+- (void)placeViewController:(id)controller shouldLogFeedbackOfType:(int)type
+{
+  v4 = *&type;
+  placeViewFeedbackDelegate = [(MUPlaceViewController *)self placeViewFeedbackDelegate];
+  v7 = objc_opt_respondsToSelector();
+
+  if (v7)
+  {
+    placeViewFeedbackDelegate2 = [(MUPlaceViewController *)self placeViewFeedbackDelegate];
+    [placeViewFeedbackDelegate2 placeViewController:self shouldLogFeedbackOfType:v4];
+  }
+}
+
 - (BOOL)shouldBlurChromeHeaderButtons
 {
   headerSectionController = [(MUPlaceViewController *)self headerSectionController];
@@ -2249,6 +2307,20 @@ void __51__MUPlaceViewController_removeLoadingViewAnimated___block_invoke(uint64
   }
 
   return v7;
+}
+
+- (void)shareSheetPresenter:(id)presenter preCompletedActivityOfType:(id)type completed:(BOOL)completed
+{
+  completedCopy = completed;
+  typeCopy = type;
+  mapsAppDelegate = [(MUPlaceViewController *)self mapsAppDelegate];
+  v8 = objc_opt_respondsToSelector();
+
+  if (v8)
+  {
+    mapsAppDelegate2 = [(MUPlaceViewController *)self mapsAppDelegate];
+    [mapsAppDelegate2 placeViewController:self didSelectActivityOfType:typeCopy completed:completedCopy];
+  }
 }
 
 - (void)_launchAttributionURLs:(id)ls withAttribution:(id)attribution completionHandler:(id)handler
@@ -2709,7 +2781,7 @@ void __124__MUPlaceViewController_createHeaderButtonsMenuWithPromotedSystemActio
 
 void __124__MUPlaceViewController_createHeaderButtonsMenuWithPromotedSystemActionTypes_excludedSystemActionTypes_presentationOptions___block_invoke_4(uint64_t a1)
 {
-  v13[5] = *MEMORY[0x1E69E9840];
+  v12[5] = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   if (WeakRetained)
   {
@@ -2724,32 +2796,30 @@ void __124__MUPlaceViewController_createHeaderButtonsMenuWithPromotedSystemActio
     }
 
     v4 = [MEMORY[0x1E69A1B10] moduleFromModuleType:v3];
-    v12[0] = *MEMORY[0x1E696F118];
+    v11[0] = *MEMORY[0x1E696F118];
     v5 = [*(a1 + 32) sourceView];
     v6 = *MEMORY[0x1E696F100];
-    v13[0] = v5;
-    v13[1] = MEMORY[0x1E695E118];
+    v12[0] = v5;
+    v12[1] = MEMORY[0x1E695E118];
     v7 = *MEMORY[0x1E696F108];
-    v12[1] = v6;
-    v12[2] = v7;
-    v13[2] = v4;
-    v12[3] = *MEMORY[0x1E696F0F0];
+    v11[1] = v6;
+    v11[2] = v7;
+    v12[2] = v4;
+    v11[3] = *MEMORY[0x1E696F0F0];
     v8 = [MEMORY[0x1E696AD98] numberWithBool:{objc_msgSend(*(a1 + 32), "isForActionBar")}];
-    v13[3] = v8;
-    v12[4] = *MEMORY[0x1E696F0F8];
+    v12[3] = v8;
+    v11[4] = *MEMORY[0x1E696F0F8];
     v9 = [MEMORY[0x1E696AD98] numberWithBool:{objc_msgSend(*(a1 + 32), "isForActionBarMoreMenu")}];
-    v13[4] = v9;
-    v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:v12 count:5];
+    v12[4] = v9;
+    v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:5];
 
     [WeakRetained performAction:*(a1 + 40) options:v10 completion:&__block_literal_global_529];
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (id)createHeaderMenuSortOrderWithPromotedActionTypes:(id)types excludedActionTypes:(id)actionTypes
 {
-  v27[12] = *MEMORY[0x1E69E9840];
+  v26[12] = *MEMORY[0x1E69E9840];
   typesCopy = types;
   actionTypesCopy = actionTypes;
   if (([(MUPlaceViewController *)self options]& 0x20000000) != 0)
@@ -2770,60 +2840,60 @@ void __124__MUPlaceViewController_createHeaderButtonsMenuWithPromotedSystemActio
 
     if (!actionRowSectionController)
     {
-      v27[0] = &unk_1F450D9D0;
-      v27[1] = &unk_1F450D9E8;
-      v27[2] = &unk_1F450DA00;
-      v27[3] = &unk_1F450DA18;
-      v27[4] = &unk_1F450DA30;
-      v27[5] = &unk_1F450DA48;
-      v27[6] = &unk_1F450DA60;
-      v27[7] = &unk_1F450DA78;
-      v27[8] = &unk_1F450DA90;
-      v27[9] = &unk_1F450DAA8;
-      v27[10] = &unk_1F450DAC0;
-      v27[11] = v9;
-      v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v27 count:12];
+      v26[0] = &unk_1F450D9D0;
+      v26[1] = &unk_1F450D9E8;
+      v26[2] = &unk_1F450DA00;
+      v26[3] = &unk_1F450DA18;
+      v26[4] = &unk_1F450DA30;
+      v26[5] = &unk_1F450DA48;
+      v26[6] = &unk_1F450DA60;
+      v26[7] = &unk_1F450DA78;
+      v26[8] = &unk_1F450DA90;
+      v26[9] = &unk_1F450DAA8;
+      v26[10] = &unk_1F450DAC0;
+      v26[11] = v9;
+      v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v26 count:12];
       [v11 addObjectsFromArray:v12];
     }
 
-    v26[0] = &unk_1F450DAD8;
-    v26[1] = &unk_1F450DAF0;
-    v26[2] = v9;
-    v26[3] = &unk_1F450DB08;
-    v26[4] = v9;
-    v26[5] = &unk_1F450DB20;
-    v26[6] = &unk_1F450DB38;
-    v26[7] = &unk_1F450DB50;
-    v26[8] = &unk_1F450DAD8;
-    v26[9] = &unk_1F450DAF0;
-    v26[10] = v9;
-    v26[11] = &unk_1F450DB68;
-    v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v26 count:12];
+    v25[0] = &unk_1F450DAD8;
+    v25[1] = &unk_1F450DAF0;
+    v25[2] = v9;
+    v25[3] = &unk_1F450DB08;
+    v25[4] = v9;
+    v25[5] = &unk_1F450DB20;
+    v25[6] = &unk_1F450DB38;
+    v25[7] = &unk_1F450DB50;
+    v25[8] = &unk_1F450DAD8;
+    v25[9] = &unk_1F450DAF0;
+    v25[10] = v9;
+    v25[11] = &unk_1F450DB68;
+    v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v25 count:12];
     [v11 addObjectsFromArray:v13];
 
-    v23 = 0u;
-    v24 = 0u;
-    v21 = 0u;
     v22 = 0u;
+    v23 = 0u;
+    v20 = 0u;
+    v21 = 0u;
     v14 = actionTypesCopy;
-    v15 = [v14 countByEnumeratingWithState:&v21 objects:v25 count:16];
+    v15 = [v14 countByEnumeratingWithState:&v20 objects:v24 count:16];
     if (v15)
     {
       v16 = v15;
-      v17 = *v22;
+      v17 = *v21;
       do
       {
         for (i = 0; i != v16; ++i)
         {
-          if (*v22 != v17)
+          if (*v21 != v17)
           {
             objc_enumerationMutation(v14);
           }
 
-          [v11 removeObject:{*(*(&v21 + 1) + 8 * i), v21}];
+          [v11 removeObject:{*(*(&v20 + 1) + 8 * i), v20}];
         }
 
-        v16 = [v14 countByEnumeratingWithState:&v21 objects:v25 count:16];
+        v16 = [v14 countByEnumeratingWithState:&v20 objects:v24 count:16];
       }
 
       while (v16);
@@ -2836,8 +2906,6 @@ void __124__MUPlaceViewController_createHeaderButtonsMenuWithPromotedSystemActio
   {
     v8 = typesCopy;
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 
   return v8;
 }
@@ -3335,13 +3403,17 @@ void __70__MUPlaceViewController_contactViewController_didCompleteWithContact___
 - (void)transitDeparturesSectionController:(id)controller didSelectAttribution:(id)attribution
 {
   v5 = [attribution url];
+  v6 = v5;
   if (v5)
   {
-    v6 = [MEMORY[0x1E695DFF8] URLWithString:v5];
-    [(MUPlaceViewController *)self _openWebURL:v6 forcePunchout:0];
+    v8 = v5;
+    v7 = [MEMORY[0x1E695DFF8] URLWithString:v5];
+    [(MUPlaceViewController *)self _openWebURL:v7 forcePunchout:0];
+
+    v6 = v8;
   }
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v5, v6);
 }
 
 - (void)transitDeparturesSectionController:(id)controller showIncidents:(id)incidents
@@ -3582,7 +3654,7 @@ void __100__MUPlaceViewController__transitDeparturesDidSelectTransitLine_usingPr
 
 - (void)_openThumbnailGalleryWithStartingIndex:(unint64_t)index
 {
-  v16[1] = *MEMORY[0x1E69E9840];
+  v14[1] = *MEMORY[0x1E69E9840];
   mapsAppDelegate = [(MUPlaceViewController *)self mapsAppDelegate];
   v6 = objc_opt_respondsToSelector();
 
@@ -3590,21 +3662,18 @@ void __100__MUPlaceViewController__transitDeparturesDidSelectTransitLine_usingPr
   {
     mapsAppDelegate2 = [(MUPlaceViewController *)self mapsAppDelegate];
     [mapsAppDelegate2 placeViewControllerDidSelectSeeMorePhotos:self withStartingIndex:index];
-    v7 = *MEMORY[0x1E69E9840];
   }
 
   else
   {
-    v8 = MEMORY[0x1E696F270];
+    v7 = MEMORY[0x1E696F270];
     mapItem = [(MUPlaceViewController *)self mapItem];
-    v16[0] = mapItem;
-    v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:1];
-    v14 = *MEMORY[0x1E696F088];
-    v15 = MEMORY[0x1E695E118];
-    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v15 forKeys:&v14 count:1];
-    [v8 openMapsWithItems:v10 launchOptions:v11 completionHandler:0];
-
-    v12 = *MEMORY[0x1E69E9840];
+    v14[0] = mapItem;
+    v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:1];
+    v12 = *MEMORY[0x1E696F088];
+    v13 = MEMORY[0x1E695E118];
+    v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v13 forKeys:&v12 count:1];
+    [v7 openMapsWithItems:v9 launchOptions:v10 completionHandler:0];
   }
 }
 
@@ -3738,6 +3807,21 @@ void __100__MUPlaceViewController__transitDeparturesDidSelectTransitLine_usingPr
   }
 }
 
+- (void)placeCardActionControllerDidSelectDownloadOffline:(id)offline isQuickAction:(BOOL)action
+{
+  actionCopy = action;
+  mapsAppDelegate = [(MUPlaceViewController *)self mapsAppDelegate];
+  v7 = objc_opt_respondsToSelector();
+
+  if (v7)
+  {
+    v9 = objc_opt_new();
+    [v9 setIsQuickAction:actionCopy];
+    mapsAppDelegate2 = [(MUPlaceViewController *)self mapsAppDelegate];
+    [mapsAppDelegate2 placeViewControllerDidSelectDownloadOffline:self environment:v9];
+  }
+}
+
 - (void)placeCardActionControllerDidSelectReportAProblemViewReport:(id)report
 {
   mapsAppDelegate = [(MUPlaceViewController *)self mapsAppDelegate];
@@ -3747,6 +3831,21 @@ void __100__MUPlaceViewController__transitDeparturesDidSelectTransitLine_usingPr
   {
     mapsAppDelegate2 = [(MUPlaceViewController *)self mapsAppDelegate];
     [mapsAppDelegate2 placeViewControllerDidSelectRAPViewReport:self];
+  }
+}
+
+- (void)_didSelectReportSomethingMissingViaQuickAction:(BOOL)action
+{
+  actionCopy = action;
+  mapsAppDelegate = [(MUPlaceViewController *)self mapsAppDelegate];
+  v6 = objc_opt_respondsToSelector();
+
+  if (v6)
+  {
+    v8 = objc_opt_new();
+    [v8 setIsQuickAction:actionCopy];
+    mapsAppDelegate2 = [(MUPlaceViewController *)self mapsAppDelegate];
+    [mapsAppDelegate2 placeViewControllerDidSelectAddAPlace:self environment:v8];
   }
 }
 
@@ -3798,10 +3897,10 @@ void __89__MUPlaceViewController_placeActionManager_didSelectAddToExistingContac
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   if (WeakRetained)
   {
-    v14 = WeakRetained;
+    v11 = WeakRetained;
     v3 = objc_alloc_init(MEMORY[0x1E695D120]);
-    [v3 setDelegate:v14];
-    v4 = [v14 contactStore];
+    [v3 setDelegate:v11];
+    v4 = [v11 contactStore];
     if ([v4 hasContactAccess])
     {
       v5 = 2;
@@ -3825,11 +3924,8 @@ void __89__MUPlaceViewController_placeActionManager_didSelectAddToExistingContac
     {
       [v3 setModalPresentationStyle:7];
       v9 = [v3 popoverPresentationController];
-      v10 = *(a1 + 32);
       objc_opt_class();
-      isKindOfClass = objc_opt_isKindOfClass();
-      v12 = *(a1 + 32);
-      if (isKindOfClass)
+      if (objc_opt_isKindOfClass())
       {
         [v9 setSourceItem:*(a1 + 32)];
       }
@@ -3849,11 +3945,11 @@ void __89__MUPlaceViewController_placeActionManager_didSelectAddToExistingContac
     }
 
     [v3 setAutocloses:0];
-    [v14 _presentModalViewController:v3 withEnvironment:*(a1 + 40)];
-    v13 = [v14 contact];
-    [v3 scrollToClosestContactMatching:v13];
+    [v11 _presentModalViewController:v3 withEnvironment:*(a1 + 40)];
+    v10 = [v11 contact];
+    [v3 scrollToClosestContactMatching:v10];
 
-    WeakRetained = v14;
+    WeakRetained = v11;
   }
 }
 
@@ -4198,6 +4294,41 @@ void __83__MUPlaceViewController_placeActionManager_didSelectAddToContactsUsingE
   }
 }
 
+- (void)_didSelectAddOrRemoveFromLibraryWithAddSelection:(BOOL)selection environment:(id)environment
+{
+  selectionCopy = selection;
+  environmentCopy = environment;
+  v13 = environmentCopy;
+  if (selectionCopy || ![environmentCopy isActionBar] || (objc_msgSend(v13, "isQuickAction") & 1) != 0)
+  {
+    mapsAppDelegate = [(MUPlaceViewController *)self mapsAppDelegate];
+    v8 = objc_opt_respondsToSelector();
+
+    if ((v8 & 1) == 0)
+    {
+      goto LABEL_7;
+    }
+
+    mapsAppDelegate2 = [(MUPlaceViewController *)self mapsAppDelegate];
+    [mapsAppDelegate2 placeViewController:self didRequestAddOrRemovePlaceFromLibrary:selectionCopy environment:v13];
+    goto LABEL_6;
+  }
+
+  mapsAppDelegate3 = [(MUPlaceViewController *)self mapsAppDelegate];
+  v11 = objc_opt_respondsToSelector();
+
+  if (v11)
+  {
+    mapsAppDelegate2 = [(MUPlaceViewController *)self mapsAppDelegate];
+    v12 = objc_opt_new();
+    [mapsAppDelegate2 placeViewController:self didSelectAddToCollectionWithPlaceActionEnvironment:v12 showsAddToLibrarySection:1];
+
+LABEL_6:
+  }
+
+LABEL_7:
+}
+
 - (void)placeActionManager:(id)manager didSelectAddToGuidesWithEnvironment:(id)environment
 {
   environmentCopy = environment;
@@ -4237,6 +4368,36 @@ void __83__MUPlaceViewController_placeActionManager_didSelectAddToContactsUsingE
   {
     mapsAppDelegate2 = [(MUPlaceViewController *)self mapsAppDelegate];
     [mapsAppDelegate2 placeViewControllerDidSelectPlaceEnrichmentRAP:self];
+  }
+}
+
+- (void)placeCardActionControllerDidSelectReportAProblem:(id)problem fromView:(id)view isQuickAction:(BOOL)action
+{
+  actionCopy = action;
+  v18[1] = *MEMORY[0x1E69E9840];
+  viewCopy = view;
+  mapsAppDelegate = [(MUPlaceViewController *)self mapsAppDelegate];
+  v9 = objc_opt_respondsToSelector();
+
+  if (v9)
+  {
+    v10 = objc_opt_new();
+    [v10 setIsQuickAction:actionCopy];
+    mapsAppDelegate2 = [(MUPlaceViewController *)self mapsAppDelegate];
+    [mapsAppDelegate2 placeViewControllerDidSelectReportAProblem:self fromView:viewCopy environment:v10];
+  }
+
+  else
+  {
+    v12 = MEMORY[0x1E696F270];
+    mapItem = [(MUPlaceViewController *)self mapItem];
+    v17 = *MEMORY[0x1E696F090];
+    v18[0] = MEMORY[0x1E695E118];
+    v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:&v17 count:1];
+    v15 = [v12 urlForMapItem:mapItem options:v14];
+
+    mEMORY[0x1E696F3B8] = [MEMORY[0x1E696F3B8] sharedInstance];
+    [mEMORY[0x1E696F3B8] openURL:v15 completionHandler:0];
   }
 }
 
@@ -4291,7 +4452,7 @@ void __56__MUPlaceViewController__showShareSheetWithEnvironment___block_invoke(u
 
 - (void)_openDirections
 {
-  v27[1] = *MEMORY[0x1E69E9840];
+  v26[1] = *MEMORY[0x1E69E9840];
   v3 = MUGetPlaceCardLog();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
@@ -4315,34 +4476,30 @@ LABEL_15:
   placeViewControllerDelegate = [(MUPlaceViewController *)self placeViewControllerDelegate];
   v9 = objc_opt_respondsToSelector();
 
-  if (v9)
+  if ((v9 & 1) == 0)
   {
-    mapsAppDelegate2 = [(MUPlaceViewController *)self placeViewControllerDelegate];
-    [mapsAppDelegate2 placeViewControllerDidSelectDirectionsToAddress:self];
-LABEL_16:
+    mapItem = [(MUPlaceViewController *)self mapItem];
 
-    goto LABEL_17;
-  }
+    if (!mapItem)
+    {
+      return;
+    }
 
-  mapItem = [(MUPlaceViewController *)self mapItem];
-
-  if (mapItem)
-  {
     IsEnabled_DefaultNavigation1PEnabled = MapsFeature_IsEnabled_DefaultNavigation1PEnabled();
     options = self->_options;
     v13 = IsEnabled_DefaultNavigation1PEnabled & ((options & 0x2000000000000) != 0);
     if ((options & 0x100000000) != 0)
     {
       mapItem2 = [(MUPlaceViewController *)self mapItem];
-      v27[0] = mapItem2;
-      mapsAppDelegate2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v27 count:1];
+      v26[0] = mapItem2;
+      mapsAppDelegate2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v26 count:1];
 
       v18 = *MEMORY[0x1E696F0C0];
-      v25[0] = *MEMORY[0x1E696F4C8];
-      v25[1] = v18;
-      v26[0] = MEMORY[0x1E695E118];
-      v26[1] = &unk_1F450D9A0;
-      transportTypePreferenceNumber = [MEMORY[0x1E695DF20] dictionaryWithObjects:v26 forKeys:v25 count:2];
+      v24[0] = *MEMORY[0x1E696F4C8];
+      v24[1] = v18;
+      v25[0] = MEMORY[0x1E695E118];
+      v25[1] = &unk_1F450D9A0;
+      transportTypePreferenceNumber = [MEMORY[0x1E695DF20] dictionaryWithObjects:v25 forKeys:v24 count:2];
       aBlock[0] = MEMORY[0x1E69E9820];
       aBlock[1] = 3221225472;
       aBlock[2] = __40__MUPlaceViewController__openDirections__block_invoke;
@@ -4354,14 +4511,14 @@ LABEL_16:
     else
     {
       mapItemForCurrentLocation = [MEMORY[0x1E696F270] mapItemForCurrentLocation];
-      v24[0] = mapItemForCurrentLocation;
+      v23[0] = mapItemForCurrentLocation;
       mapItem3 = [(MUPlaceViewController *)self mapItem];
-      v24[1] = mapItem3;
-      mapsAppDelegate2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v24 count:2];
+      v23[1] = mapItem3;
+      mapsAppDelegate2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:2];
 
-      v22 = *MEMORY[0x1E696F080];
-      v23 = *MEMORY[0x1E696F078];
-      transportTypePreferenceNumber = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v23 forKeys:&v22 count:1];
+      v21 = *MEMORY[0x1E696F080];
+      v22 = *MEMORY[0x1E696F078];
+      transportTypePreferenceNumber = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v22 forKeys:&v21 count:1];
       v16 = &__block_literal_global_369;
     }
 
@@ -4378,13 +4535,14 @@ LABEL_16:
     goto LABEL_15;
   }
 
-LABEL_17:
-  v19 = *MEMORY[0x1E69E9840];
+  mapsAppDelegate2 = [(MUPlaceViewController *)self placeViewControllerDelegate];
+  [mapsAppDelegate2 placeViewControllerDidSelectDirectionsToAddress:self];
+LABEL_16:
 }
 
 void __40__MUPlaceViewController__openDirections__block_invoke(uint64_t a1, int a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v4 = MUGetPlaceCardLog();
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG);
   if (a2)
@@ -4393,11 +4551,11 @@ void __40__MUPlaceViewController__openDirections__block_invoke(uint64_t a1, int 
     {
       v6 = [*(a1 + 32) mapItem];
       v7 = [v6 name];
-      v10 = 138412290;
-      v11 = v7;
+      v9 = 138412290;
+      v10 = v7;
       v8 = "Successfully launched Maps in SAR mode for mapItem: %@";
 LABEL_6:
-      _os_log_impl(&dword_1C5620000, v4, OS_LOG_TYPE_DEBUG, v8, &v10, 0xCu);
+      _os_log_impl(&dword_1C5620000, v4, OS_LOG_TYPE_DEBUG, v8, &v9, 0xCu);
     }
   }
 
@@ -4405,13 +4563,11 @@ LABEL_6:
   {
     v6 = [*(a1 + 32) mapItem];
     v7 = [v6 name];
-    v10 = 138412290;
-    v11 = v7;
+    v9 = 138412290;
+    v10 = v7;
     v8 = "Failed to launched Maps in SAR mode for mapItem: %@";
     goto LABEL_6;
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_placeSectionController:(id)controller didSelectPrimaryType:(unint64_t)type withPresentationOptions:(id)options
@@ -4735,29 +4891,29 @@ LABEL_6:
 
 - (id)generateUnactionableUIElementsForAnalytics
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   array = [MEMORY[0x1E695DF70] array];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v4 = self->_sectionControllers;
-  v5 = [(NSArray *)v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v5 = [(NSArray *)v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v14;
+    v7 = *v13;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v14 != v7)
+        if (*v13 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v13 + 1) + 8 * i);
-        if ([v9 conformsToProtocol:{&unk_1F4522210, v13}])
+        v9 = *(*(&v12 + 1) + 8 * i);
+        if ([v9 conformsToProtocol:{&unk_1F4522210, v12}])
         {
           infoCardChildUnactionableUIElements = [v9 infoCardChildUnactionableUIElements];
           if ([infoCardChildUnactionableUIElements count])
@@ -4767,42 +4923,40 @@ LABEL_6:
         }
       }
 
-      v6 = [(NSArray *)v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v6 = [(NSArray *)v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v6);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return array;
 }
 
 - (id)generateAvailableActionForAnalytics
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   array = [MEMORY[0x1E695DF70] array];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v4 = self->_sectionControllers;
-  v5 = [(NSArray *)v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v5 = [(NSArray *)v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v14;
+    v7 = *v13;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v14 != v7)
+        if (*v13 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v13 + 1) + 8 * i);
-        if ([v9 conformsToProtocol:{&unk_1F4522210, v13}])
+        v9 = *(*(&v12 + 1) + 8 * i);
+        if ([v9 conformsToProtocol:{&unk_1F4522210, v12}])
         {
           infoCardChildPossibleActions = [v9 infoCardChildPossibleActions];
           if ([infoCardChildPossibleActions count])
@@ -4812,13 +4966,11 @@ LABEL_6:
         }
       }
 
-      v6 = [(NSArray *)v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v6 = [(NSArray *)v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v6);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return array;
 }
@@ -4968,7 +5120,7 @@ LABEL_6:
 
 - (void)placeSectionControllerDidUpdateContent:(id)content
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   contentCopy = content;
   dispatch_assert_queue_V2(MEMORY[0x1E69E96A0]);
   v5 = MUGetPlaceCardLog();
@@ -4986,35 +5138,35 @@ LABEL_6:
     v9 = objc_opt_class();
     v10 = NSStringFromClass(v9);
     *buf = 138412546;
-    v34 = contentCopy;
-    v35 = 2112;
-    v36 = v10;
+    v33 = contentCopy;
+    v34 = 2112;
+    v35 = v10;
     _os_log_impl(&dword_1C5620000, v8, OS_LOG_TYPE_INFO, "%@ of type %@ requests update", buf, 0x16u);
   }
 
-  v27 = contentCopy;
+  v26 = contentCopy;
 
   v11 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v27 = 0u;
   v28 = 0u;
   v29 = 0u;
   v30 = 0u;
-  v31 = 0u;
   v12 = self->_sectionControllers;
-  v13 = [(NSArray *)v12 countByEnumeratingWithState:&v28 objects:v32 count:16];
+  v13 = [(NSArray *)v12 countByEnumeratingWithState:&v27 objects:v31 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v29;
+    v15 = *v28;
     do
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v29 != v15)
+        if (*v28 != v15)
         {
           objc_enumerationMutation(v12);
         }
 
-        v17 = *(*(&v28 + 1) + 8 * i);
+        v17 = *(*(&v27 + 1) + 8 * i);
         if ([v17 hasContent])
         {
           sectionViews = [v17 sectionViews];
@@ -5028,7 +5180,7 @@ LABEL_6:
         }
       }
 
-      v14 = [(NSArray *)v12 countByEnumeratingWithState:&v28 objects:v32 count:16];
+      v14 = [(NSArray *)v12 countByEnumeratingWithState:&v27 objects:v31 count:16];
     }
 
     while (v14);
@@ -5048,8 +5200,6 @@ LABEL_6:
     *buf = 0;
     _os_signpost_emit_with_name_impl(&dword_1C5620000, v24, OS_SIGNPOST_INTERVAL_END, v25, "PlacecardUpdateContent", "", buf, 2u);
   }
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_launchAttribution:(id)attribution withMapItem:(id)item
@@ -5298,7 +5448,6 @@ void __50__MUPlaceViewController_routeToCuratedCollection___block_invoke(uint64_
     [frameCopy impressionsFrame];
     v10 = v9;
     v12 = v11;
-    contentStackView = self->_contentStackView;
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
@@ -5345,7 +5494,7 @@ void __50__MUPlaceViewController_routeToCuratedCollection___block_invoke(uint64_
 
 - (void)_didSelectPhotoCategoryAtIndex:(unint64_t)index
 {
-  v18[1] = *MEMORY[0x1E69E9840];
+  v16[1] = *MEMORY[0x1E69E9840];
   mapsAppDelegate = [(MUPlaceViewController *)self mapsAppDelegate];
   v6 = objc_opt_respondsToSelector();
 
@@ -5353,25 +5502,22 @@ void __50__MUPlaceViewController_routeToCuratedCollection___block_invoke(uint64_
   {
     mapsAppDelegate2 = [(MUPlaceViewController *)self mapsAppDelegate];
     [mapsAppDelegate2 placeViewController:self didSelectPhotoCategoryAtIndex:index];
-    v7 = *MEMORY[0x1E69E9840];
   }
 
   else
   {
-    v8 = MEMORY[0x1E696F270];
+    v7 = MEMORY[0x1E696F270];
     mapItem = [(MUPlaceViewController *)self mapItem];
-    v18[0] = mapItem;
-    v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:1];
-    v11 = *MEMORY[0x1E696F0B0];
-    v16[0] = *MEMORY[0x1E696F088];
-    v16[1] = v11;
-    v17[0] = MEMORY[0x1E695E118];
-    v12 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:index];
-    v17[1] = v12;
-    v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:v16 count:2];
-    [v8 openMapsWithItems:v10 launchOptions:v13 completionHandler:0];
-
-    v14 = *MEMORY[0x1E69E9840];
+    v16[0] = mapItem;
+    v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:1];
+    v10 = *MEMORY[0x1E696F0B0];
+    v14[0] = *MEMORY[0x1E696F088];
+    v14[1] = v10;
+    v15[0] = MEMORY[0x1E695E118];
+    v11 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:index];
+    v15[1] = v11;
+    v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:v14 count:2];
+    [v7 openMapsWithItems:v9 launchOptions:v12 completionHandler:0];
   }
 }
 
@@ -5471,57 +5617,57 @@ void __50__MUPlaceViewController_routeToCuratedCollection___block_invoke(uint64_
 
 - (void)_updateContentAlpha
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   v3 = self->_sectionControllers;
-  v4 = [(NSArray *)v3 countByEnumeratingWithState:&v20 objects:v25 count:16];
+  v4 = [(NSArray *)v3 countByEnumeratingWithState:&v19 objects:v24 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v21;
+    v6 = *v20;
     do
     {
       v7 = 0;
       do
       {
-        if (*v21 != v6)
+        if (*v20 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v20 + 1) + 8 * v7);
+        v8 = *(*(&v19 + 1) + 8 * v7);
         headerSectionController = [(MUPlaceViewController *)self headerSectionController];
 
         if (v8 != headerSectionController)
         {
-          v18 = 0u;
-          v19 = 0u;
-          v16 = 0u;
           v17 = 0u;
+          v18 = 0u;
+          v15 = 0u;
+          v16 = 0u;
           sectionViews = [v8 sectionViews];
-          v11 = [sectionViews countByEnumeratingWithState:&v16 objects:v24 count:16];
+          v11 = [sectionViews countByEnumeratingWithState:&v15 objects:v23 count:16];
           if (v11)
           {
             v12 = v11;
-            v13 = *v17;
+            v13 = *v16;
             do
             {
               v14 = 0;
               do
               {
-                if (*v17 != v13)
+                if (*v16 != v13)
                 {
                   objc_enumerationMutation(sectionViews);
                 }
 
-                [*(*(&v16 + 1) + 8 * v14++) setAlpha:self->_contentAlpha];
+                [*(*(&v15 + 1) + 8 * v14++) setAlpha:self->_contentAlpha];
               }
 
               while (v12 != v14);
-              v12 = [sectionViews countByEnumeratingWithState:&v16 objects:v24 count:16];
+              v12 = [sectionViews countByEnumeratingWithState:&v15 objects:v23 count:16];
             }
 
             while (v12);
@@ -5532,13 +5678,11 @@ void __50__MUPlaceViewController_routeToCuratedCollection___block_invoke(uint64_
       }
 
       while (v7 != v5);
-      v5 = [(NSArray *)v3 countByEnumeratingWithState:&v20 objects:v25 count:16];
+      v5 = [(NSArray *)v3 countByEnumeratingWithState:&v19 objects:v24 count:16];
     }
 
     while (v5);
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setContentAlpha:(double)alpha
@@ -5589,7 +5733,7 @@ double __37__MUPlaceViewController_contentAlpha__block_invoke(uint64_t a1)
   return result;
 }
 
-uint64_t __37__MUPlaceViewController_contentAlpha__block_invoke_2(uint64_t a1)
+void *__37__MUPlaceViewController_contentAlpha__block_invoke_2(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 1000) contentAlpha];
   *(*(*(a1 + 40) + 8) + 24) = v3;
@@ -5639,7 +5783,7 @@ LABEL_6:
   return v2;
 }
 
-uint64_t __56__MUPlaceViewController_headerSecondaryNameLabelPadding__block_invoke(uint64_t a1)
+void *__56__MUPlaceViewController_headerSecondaryNameLabelPadding__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 1000) headerSecondaryNameLabelPadding];
   *(*(*(a1 + 40) + 8) + 24) = v3;
@@ -5663,9 +5807,8 @@ uint64_t __56__MUPlaceViewController_headerSecondaryNameLabelPadding__block_invo
   [(MUPlaceViewController *)self _performWithNewUIBlock:v5 oldUIBlock:v3];
 }
 
-uint64_t __45__MUPlaceViewController_scrollToTopAnimated___block_invoke(uint64_t a1)
+uint64_t __45__MUPlaceViewController_scrollToTopAnimated___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = *(*(a1 + 32) + 1008);
   objc_opt_class();
   result = objc_opt_isKindOfClass();
   if (result)
@@ -5713,9 +5856,8 @@ uint64_t __45__MUPlaceViewController_scrollToTopAnimated___block_invoke(uint64_t
   return v2;
 }
 
-void __38__MUPlaceViewController_currentHeight__block_invoke(uint64_t a1)
+void __38__MUPlaceViewController_currentHeight__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = *(*(a1 + 32) + 1008);
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
@@ -5725,7 +5867,7 @@ void __38__MUPlaceViewController_currentHeight__block_invoke(uint64_t a1)
   }
 }
 
-uint64_t __38__MUPlaceViewController_currentHeight__block_invoke_2(uint64_t a1)
+void *__38__MUPlaceViewController_currentHeight__block_invoke_2(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 1000) currentHeight];
   *(*(*(a1 + 40) + 8) + 24) = v3;
@@ -5802,7 +5944,6 @@ void __35__MUPlaceViewController_hideTitle___block_invoke(uint64_t a1)
 
   else
   {
-    contentStackView = self->_contentStackView;
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
@@ -5831,6 +5972,13 @@ void __35__MUPlaceViewController_hideTitle___block_invoke(uint64_t a1)
   [(MUPlaceViewController *)self _performShareActionWithPresentationOptions:options];
   webPlacecardSectionController = [(MUPlaceViewController *)self webPlacecardSectionController];
   [webPlacecardSectionController handleNativeUITapFor:1];
+}
+
+- (void)updateHeaderViewForContaineeLayoutChangeCollapsed:(BOOL)collapsed
+{
+  collapsedCopy = collapsed;
+  headerSectionController = [(MUPlaceViewController *)self headerSectionController];
+  [headerSectionController hideThirdTitle:collapsedCopy];
 }
 
 - (void)setVerifiedHeaderExpansionProgress:(double)progress
@@ -5871,28 +6019,28 @@ void __35__MUPlaceViewController_hideTitle___block_invoke(uint64_t a1)
 
 - (id)draggableContent
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v3 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v4 = self->_sectionControllers;
-  v5 = [(NSArray *)v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v5 = [(NSArray *)v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v15;
+    v7 = *v14;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v14 + 1) + 8 * i);
+        v9 = *(*(&v13 + 1) + 8 * i);
         if (objc_opt_respondsToSelector())
         {
           draggableContent = [v9 draggableContent];
@@ -5903,14 +6051,13 @@ void __35__MUPlaceViewController_hideTitle___block_invoke(uint64_t a1)
         }
       }
 
-      v6 = [(NSArray *)v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [(NSArray *)v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v6);
   }
 
   v11 = [v3 copy];
-  v12 = *MEMORY[0x1E69E9840];
 
   return v11;
 }
@@ -5975,6 +6122,13 @@ void __35__MUPlaceViewController_hideTitle___block_invoke(uint64_t a1)
 {
   placeInfoSectionController = [(MUPlaceViewController *)self placeInfoSectionController];
   [placeInfoSectionController refreshContents];
+}
+
+- (void)updateCollectionViewsAnimated:(BOOL)animated
+{
+  animatedCopy = animated;
+  personalGuidesSectionController = [(MUPlaceViewController *)self personalGuidesSectionController];
+  [personalGuidesSectionController reloadCollectionsAnimated:animatedCopy];
 }
 
 - (void)updateSuggestionView
@@ -6202,7 +6356,7 @@ LABEL_13:
 
 - (void)_updateSectionsForSubmissionStatusChange
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v3 = [MUPlaceDataAvailability alloc];
   mapItem = [(MUPlaceViewController *)self mapItem];
   v5 = [(MUPlaceDataAvailability *)v3 initWithMapItem:mapItem options:self->_options];
@@ -6218,31 +6372,31 @@ LABEL_13:
       _os_signpost_emit_with_name_impl(&dword_1C5620000, v8, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "UpdateSectionsForSubmissionStatus", "", buf, 2u);
     }
 
-    v17 = 0u;
-    v18 = 0u;
-    v15 = 0u;
     v16 = 0u;
+    v17 = 0u;
+    v14 = 0u;
+    v15 = 0u;
     v9 = self->_sectionControllers;
-    v10 = [(NSArray *)v9 countByEnumeratingWithState:&v15 objects:v20 count:16];
+    v10 = [(NSArray *)v9 countByEnumeratingWithState:&v14 objects:v19 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v16;
+      v12 = *v15;
       do
       {
         v13 = 0;
         do
         {
-          if (*v16 != v12)
+          if (*v15 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          [*(*(&v15 + 1) + 8 * v13++) setSubmissionStatus:{self->_submissionStatus, v15}];
+          [*(*(&v14 + 1) + 8 * v13++) setSubmissionStatus:{self->_submissionStatus, v14}];
         }
 
         while (v11 != v13);
-        v11 = [(NSArray *)v9 countByEnumeratingWithState:&v15 objects:v20 count:16];
+        v11 = [(NSArray *)v9 countByEnumeratingWithState:&v14 objects:v19 count:16];
       }
 
       while (v11);
@@ -6261,34 +6415,32 @@ LABEL_13:
     *buf = 0;
     _os_log_impl(&dword_1C5620000, v8, OS_LOG_TYPE_INFO, "Do not support ARP call to action so not updating sections", buf, 2u);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_updateSectionsForActionRowInfoChange
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   v2 = self->_sectionControllers;
-  v3 = [(NSArray *)v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v3 = [(NSArray *)v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v10;
+    v5 = *v9;
     do
     {
       v6 = 0;
       do
       {
-        if (*v10 != v5)
+        if (*v9 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v9 + 1) + 8 * v6);
+        v7 = *(*(&v8 + 1) + 8 * v6);
         if (objc_opt_respondsToSelector())
         {
           [v7 updateForActionRowInfoChange];
@@ -6298,39 +6450,37 @@ LABEL_13:
       }
 
       while (v4 != v6);
-      v4 = [(NSArray *)v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v4 = [(NSArray *)v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v4);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_updateSectionsForAttributionChange
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   v2 = self->_sectionControllers;
-  v3 = [(NSArray *)v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v3 = [(NSArray *)v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v10;
+    v5 = *v9;
     do
     {
       v6 = 0;
       do
       {
-        if (*v10 != v5)
+        if (*v9 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v9 + 1) + 8 * v6);
+        v7 = *(*(&v8 + 1) + 8 * v6);
         if (objc_opt_respondsToSelector())
         {
           [v7 updateForAttributionChange];
@@ -6340,18 +6490,16 @@ LABEL_13:
       }
 
       while (v4 != v6);
-      v4 = [(NSArray *)v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v4 = [(NSArray *)v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v4);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_deactivateSections
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v3 = MUGetPlaceCardLog();
   if (os_signpost_enabled(v3))
   {
@@ -6359,31 +6507,31 @@ LABEL_13:
     _os_signpost_emit_with_name_impl(&dword_1C5620000, v3, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "DeactivateSections", "", buf, 2u);
   }
 
-  v13 = 0u;
-  v14 = 0u;
-  v11 = 0u;
   v12 = 0u;
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
   v4 = self->_sectionControllers;
-  v5 = [(NSArray *)v4 countByEnumeratingWithState:&v11 objects:v16 count:16];
+  v5 = [(NSArray *)v4 countByEnumeratingWithState:&v10 objects:v15 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v12;
+    v7 = *v11;
     do
     {
       v8 = 0;
       do
       {
-        if (*v12 != v7)
+        if (*v11 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        [*(*(&v11 + 1) + 8 * v8++) setActive:{0, v11}];
+        [*(*(&v10 + 1) + 8 * v8++) setActive:{0, v10}];
       }
 
       while (v6 != v8);
-      v6 = [(NSArray *)v4 countByEnumeratingWithState:&v11 objects:v16 count:16];
+      v6 = [(NSArray *)v4 countByEnumeratingWithState:&v10 objects:v15 count:16];
     }
 
     while (v6);
@@ -6396,13 +6544,11 @@ LABEL_13:
     *buf = 0;
     _os_signpost_emit_with_name_impl(&dword_1C5620000, v9, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "DeactivateSections", "", buf, 2u);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_activateSections
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v3 = MUGetPlaceCardLog();
   if (os_signpost_enabled(v3))
   {
@@ -6410,31 +6556,31 @@ LABEL_13:
     _os_signpost_emit_with_name_impl(&dword_1C5620000, v3, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "ActivateSections", "", buf, 2u);
   }
 
-  v13 = 0u;
-  v14 = 0u;
-  v11 = 0u;
   v12 = 0u;
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
   v4 = self->_sectionControllers;
-  v5 = [(NSArray *)v4 countByEnumeratingWithState:&v11 objects:v16 count:16];
+  v5 = [(NSArray *)v4 countByEnumeratingWithState:&v10 objects:v15 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v12;
+    v7 = *v11;
     do
     {
       v8 = 0;
       do
       {
-        if (*v12 != v7)
+        if (*v11 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        [*(*(&v11 + 1) + 8 * v8++) setActive:{1, v11}];
+        [*(*(&v10 + 1) + 8 * v8++) setActive:{1, v10}];
       }
 
       while (v6 != v8);
-      v6 = [(NSArray *)v4 countByEnumeratingWithState:&v11 objects:v16 count:16];
+      v6 = [(NSArray *)v4 countByEnumeratingWithState:&v10 objects:v15 count:16];
     }
 
     while (v6);
@@ -6448,8 +6594,6 @@ LABEL_13:
     *buf = 0;
     _os_signpost_emit_with_name_impl(&dword_1C5620000, v9, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "ActivateSections", "", buf, 2u);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_updateSections
@@ -6475,7 +6619,7 @@ LABEL_13:
 
 - (id)_actionBarSectionControllerForAvailability:(id)availability moduleConfiguration:(id)configuration
 {
-  v29[2] = *MEMORY[0x1E69E9840];
+  v28[2] = *MEMORY[0x1E69E9840];
   availabilityCopy = availability;
   configurationCopy = configuration;
   if ([availabilityCopy supportsActionBar])
@@ -6511,9 +6655,9 @@ LABEL_13:
       v17 = objc_opt_new();
       [v17 setButtonType:17];
       v18 = MEMORY[0x1E69A1BB0];
-      v29[0] = v16;
-      v29[1] = v17;
-      v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:v29 count:2];
+      v28[0] = v16;
+      v28[1] = v17;
+      v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:v28 count:2];
       v20 = [v18 buttonItemsFromPDButtonItems:v19];
 
       v13 = [[MUPlaceActionBarButtonModuleConfiguration alloc] initWithButtonItems:v20];
@@ -6549,8 +6693,6 @@ LABEL_13:
   {
     v15 = 0;
   }
-
-  v27 = *MEMORY[0x1E69E9840];
 
   return v15;
 }
@@ -6709,7 +6851,7 @@ LABEL_13:
 
       if (v29)
       {
-        [v29 _cartographicConfiguration];
+        objc_msgSend__cartographicConfiguration(v29);
         v30 = v58;
       }
 
@@ -7590,7 +7732,7 @@ LABEL_19:
 {
   if ([(MUPlaceViewController *)self isFlexiblePlaceCardEnabled]|| (self->_options & 0x80000000000) != 0)
   {
-    v9 = 0;
+    v7 = 0;
     goto LABEL_14;
   }
 
@@ -7599,8 +7741,6 @@ LABEL_19:
   options = self->_options;
   if ([(MUPlaceViewController *)self supportsDynamicLayout])
   {
-    v6 = *MEMORY[0x1E696F170];
-    v7 = *(MEMORY[0x1E696F170] + 8);
     BOOL = GEOConfigGetBOOL();
   }
 
@@ -7624,34 +7764,32 @@ LABEL_19:
 
   if (userInterfaceIdiom == 2)
   {
-    v13 = 0;
-    v14 = 1;
+    v11 = 0;
+    v12 = 1;
     goto LABEL_12;
   }
 
   if (userInterfaceIdiom == 3)
   {
 LABEL_10:
-    v13 = (options & 0x8020000000) == 0;
-    v14 = (options & 0x8020000000) != 0x20000000;
+    v11 = (options & 0x8020000000) == 0;
+    v12 = (options & 0x8020000000) != 0x20000000;
 LABEL_12:
-    [(MUPlaceHeaderSectionControllerConfiguration *)v4 setAlwaysShowExpandedVerifiedBusinessHeader:v14];
-    [(MUPlaceHeaderSectionControllerConfiguration *)v4 setShouldInsetRoundCoverPhoto:v13];
+    [(MUPlaceHeaderSectionControllerConfiguration *)v4 setAlwaysShowExpandedVerifiedBusinessHeader:v12];
+    [(MUPlaceHeaderSectionControllerConfiguration *)v4 setShouldInsetRoundCoverPhoto:v11];
   }
 
-  v9 = [[MUPlaceHeaderSectionController alloc] initWithPlaceItem:self->_placeItem configuration:v4];
-  [(MUPlaceHeaderSectionController *)v9 setHeaderDelegate:self];
-  [(MUPlaceHeaderSectionController *)v9 setCardExpansionProgress:self->_verifiedHeaderExpansionProgress];
+  v7 = [[MUPlaceHeaderSectionController alloc] initWithPlaceItem:self->_placeItem configuration:v4];
+  [(MUPlaceHeaderSectionController *)v7 setHeaderDelegate:self];
+  [(MUPlaceHeaderSectionController *)v7 setCardExpansionProgress:self->_verifiedHeaderExpansionProgress];
 
 LABEL_14:
 
-  return v9;
+  return v7;
 }
 
 - (BOOL)supportsDynamicLayout
 {
-  v3 = *MEMORY[0x1E69A19F0];
-  v4 = *(MEMORY[0x1E69A19F0] + 8);
   if (!GEOConfigGetBOOL())
   {
     return 0;
@@ -7659,9 +7797,9 @@ LABEL_14:
 
   mapItem = [(MUPlaceViewController *)self mapItem];
   _placecardLayout = [mapItem _placecardLayout];
-  v7 = _placecardLayout != 0;
+  v5 = _placecardLayout != 0;
 
-  return v7;
+  return v5;
 }
 
 - (void)setLocation:(id)location
@@ -7681,7 +7819,7 @@ LABEL_14:
 
 - (void)_buildSections
 {
-  v161 = *MEMORY[0x1E69E9840];
+  v160 = *MEMORY[0x1E69E9840];
   v3 = MUGetPlaceCardLog();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
@@ -7719,47 +7857,47 @@ LABEL_14:
 
   [(MUPlaceActionBarView *)self->_actionBar setHidden:1];
   [(MUPlaceViewController *)self _updateBottomInset];
-  v153 = 0u;
-  v154 = 0u;
-  v151 = 0u;
   v152 = 0u;
+  v153 = 0u;
+  v150 = 0u;
+  v151 = 0u;
   obj = self->_sectionControllers;
-  v8 = [(NSArray *)obj countByEnumeratingWithState:&v151 objects:v158 count:16];
+  v8 = [(NSArray *)obj countByEnumeratingWithState:&v150 objects:v157 count:16];
   if (v8)
   {
-    v132 = *v152;
+    v131 = *v151;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v152 != v132)
+        if (*v151 != v131)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v151 + 1) + 8 * i);
+        v10 = *(*(&v150 + 1) + 8 * i);
+        v146 = 0u;
         v147 = 0u;
         v148 = 0u;
         v149 = 0u;
-        v150 = 0u;
         sectionViews = [v10 sectionViews];
-        v12 = [sectionViews countByEnumeratingWithState:&v147 objects:v157 count:16];
+        v12 = [sectionViews countByEnumeratingWithState:&v146 objects:v156 count:16];
         if (v12)
         {
-          v13 = *v148;
+          v13 = *v147;
           do
           {
             for (j = 0; j != v12; ++j)
             {
-              if (*v148 != v13)
+              if (*v147 != v13)
               {
                 objc_enumerationMutation(sectionViews);
               }
 
-              [(MUContentStackViewProtocol *)self->_contentStackView removeArrangedSubview:*(*(&v147 + 1) + 8 * j)];
+              [(MUContentStackViewProtocol *)self->_contentStackView removeArrangedSubview:*(*(&v146 + 1) + 8 * j)];
             }
 
-            v12 = [sectionViews countByEnumeratingWithState:&v147 objects:v157 count:16];
+            v12 = [sectionViews countByEnumeratingWithState:&v146 objects:v156 count:16];
           }
 
           while (v12);
@@ -7772,7 +7910,7 @@ LABEL_14:
         }
       }
 
-      v8 = [(NSArray *)obj countByEnumeratingWithState:&v151 objects:v158 count:16];
+      v8 = [(NSArray *)obj countByEnumeratingWithState:&v150 objects:v157 count:16];
     }
 
     while (v8);
@@ -7791,10 +7929,10 @@ LABEL_14:
   }
 
   [(MUPlaceActionManager *)*p_actionManager setIsCurrentLocation:v17];
-  v129 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v128 = objc_alloc_init(MEMORY[0x1E695DF70]);
   v18 = [MUPlaceDataAvailability alloc];
   mapItem = [(MUPlaceViewController *)self mapItem];
-  v127 = [(MUPlaceDataAvailability *)v18 initWithMapItem:mapItem options:self->_options];
+  v126 = [(MUPlaceDataAvailability *)v18 initWithMapItem:mapItem options:self->_options];
 
   v20 = [MUPlaceViewControllerSectionController alloc];
   mapItem2 = [(MUPlaceViewController *)self mapItem];
@@ -7802,13 +7940,13 @@ LABEL_14:
   v23 = [(MUPlaceViewControllerSectionController *)v20 initWithMapItem:mapItem2 viewController:headerViewController];
   if (v23)
   {
-    [v129 addObject:v23];
+    [v128 addObject:v23];
   }
 
-  v24 = [(MUPlaceViewController *)self _headerSectionControllerWithAvailability:v127];
+  v24 = [(MUPlaceViewController *)self _headerSectionControllerWithAvailability:v126];
   if (v24)
   {
-    [v129 addObject:v24];
+    [v128 addObject:v24];
   }
 
   placeItem = [(MUPlaceViewController *)self placeItem];
@@ -7821,17 +7959,17 @@ LABEL_14:
     {
       if ((self->_options & 0x8000000000) != 0)
       {
-        v28 = [(MUPlaceViewController *)self _buildDeveloperPlaceCardSectionsWithAvailability:v127];
+        v28 = [(MUPlaceViewController *)self _buildDeveloperPlaceCardSectionsWithAvailability:v126];
       }
 
       else if ([(MUPlaceViewController *)self supportsDynamicLayout])
       {
-        v28 = [(MUPlaceViewController *)self _buildForLayoutWithAvailability:v127];
+        v28 = [(MUPlaceViewController *)self _buildForLayoutWithAvailability:v126];
       }
 
       else if ([obja _isMapItemTypeBrand])
       {
-        v28 = [(MUPlaceViewController *)self _buildBrandCardSectionsWithAvailability:v127];
+        v28 = [(MUPlaceViewController *)self _buildBrandCardSectionsWithAvailability:v126];
       }
 
       else
@@ -7843,17 +7981,17 @@ LABEL_14:
 
         else
         {
-          [(MUPlaceViewController *)self _buildStaticSectionsWithAvailability:v127];
+          [(MUPlaceViewController *)self _buildStaticSectionsWithAvailability:v126];
         }
         v28 = ;
       }
 
       v29 = v28;
-      [v129 addObjectsFromArray:{v28, v127}];
+      [v128 addObjectsFromArray:{v28, v126}];
     }
   }
 
-  v30 = [v129 copy];
+  v30 = [v128 copy];
   sectionControllers = self->_sectionControllers;
   self->_sectionControllers = v30;
 
@@ -7870,7 +8008,7 @@ LABEL_14:
   }
 
   options = self->_options;
-  v133 = (options >> 35) & 1;
+  v132 = (options >> 35) & 1;
   if (([(_MKPlaceItem *)self->_placeItem options]& 1) != 0)
   {
     [(MUPlaceActionManager *)self->_actionManager setIsCurrentLocation:1];
@@ -7934,7 +8072,7 @@ LABEL_14:
 
     webPlacecardSectionController5 = [(MUPlaceViewController *)self webPlacecardSectionController];
     configuration5 = [webPlacecardSectionController5 configuration];
-    [configuration5 setIsSearchAlongRoute:v133];
+    [configuration5 setIsSearchAlongRoute:v132];
 
     mapItem5 = [(_MKPlaceItem *)self->_placeItem mapItem];
     _detourInfo2 = [mapItem5 _detourInfo];
@@ -7976,7 +8114,7 @@ LABEL_14:
 
 LABEL_58:
   _isMapItemTypeBrand = [obja _isMapItemTypeBrand];
-  if (v133)
+  if (v132)
   {
     _detourInfo6 = [obja _detourInfo];
     v80 = _detourInfo6 == 0;
@@ -8009,29 +8147,29 @@ LABEL_64:
   inlineMapSectionController = [(MUPlaceViewController *)self inlineMapSectionController];
   [inlineMapSectionController setLocation:location];
 
-  v134 = objc_alloc_init(MEMORY[0x1E695DF70]);
-  v145 = 0u;
-  v146 = 0u;
-  v143 = 0u;
+  v133 = objc_alloc_init(MEMORY[0x1E695DF70]);
   v144 = 0u;
+  v145 = 0u;
+  v142 = 0u;
+  v143 = 0u;
   v87 = self->_sectionControllers;
-  v88 = [(NSArray *)v87 countByEnumeratingWithState:&v143 objects:v156 count:16];
+  v88 = [(NSArray *)v87 countByEnumeratingWithState:&v142 objects:v155 count:16];
   if (!v88)
   {
     goto LABEL_79;
   }
 
-  v89 = *v144;
+  v89 = *v143;
   do
   {
     for (k = 0; k != v88; ++k)
     {
-      if (*v144 != v89)
+      if (*v143 != v89)
       {
         objc_enumerationMutation(v87);
       }
 
-      v91 = *(*(&v143 + 1) + 8 * k);
+      v91 = *(*(&v142 + 1) + 8 * k);
       [v91 setDelegate:self];
       [v91 setAnalyticsDelegate:self->_analyticsController];
       personalizedSuggestionSectionArbiter = [(MUPlaceViewController *)self personalizedSuggestionSectionArbiter];
@@ -8048,7 +8186,7 @@ LABEL_64:
         }
 
         sectionViews2 = [v91 sectionViews];
-        [v134 addObjectsFromArray:sectionViews2];
+        [v133 addObjectsFromArray:sectionViews2];
       }
 
 LABEL_73:
@@ -8063,7 +8201,7 @@ LABEL_73:
       }
     }
 
-    v88 = [(NSArray *)v87 countByEnumeratingWithState:&v143 objects:v156 count:16];
+    v88 = [(NSArray *)v87 countByEnumeratingWithState:&v142 objects:v155 count:16];
   }
 
   while (v88);
@@ -8071,25 +8209,25 @@ LABEL_79:
 
   if ([(_MKPlaceItem *)self->_placeItem isIntermediateMapItem])
   {
-    v141 = 0u;
-    v142 = 0u;
-    v139 = 0u;
     v140 = 0u;
+    v141 = 0u;
+    v138 = 0u;
+    v139 = 0u;
     v96 = self->_sectionControllers;
-    v97 = [(NSArray *)v96 countByEnumeratingWithState:&v139 objects:v155 count:16];
+    v97 = [(NSArray *)v96 countByEnumeratingWithState:&v138 objects:v154 count:16];
     if (v97)
     {
-      v98 = *v140;
+      v98 = *v139;
       do
       {
         for (m = 0; m != v97; ++m)
         {
-          if (*v140 != v98)
+          if (*v139 != v98)
           {
             objc_enumerationMutation(v96);
           }
 
-          v100 = *(*(&v139 + 1) + 8 * m);
+          v100 = *(*(&v138 + 1) + 8 * m);
           headerSectionController = [(MUPlaceViewController *)self headerSectionController];
           v102 = v100 == headerSectionController;
 
@@ -8100,7 +8238,7 @@ LABEL_79:
           }
         }
 
-        v97 = [(NSArray *)v96 countByEnumeratingWithState:&v139 objects:v155 count:16];
+        v97 = [(NSArray *)v96 countByEnumeratingWithState:&v138 objects:v154 count:16];
       }
 
       while (v97);
@@ -8108,7 +8246,7 @@ LABEL_79:
   }
 
   v104 = self->_contentStackView;
-  v105 = [v134 copy];
+  v105 = [v133 copy];
   [(MUContentStackViewProtocol *)v104 setArrangedSubviews:v105];
 
   [(MUPlaceViewController *)self _applyCustomSpacings];
@@ -8126,13 +8264,13 @@ LABEL_79:
       inlineMapSectionController3 = [mEMORY[0x1E696F298] ticketForForwardGeocodeString:_addressFormattedAsSinglelineAddress traits:0];
 
       objc_initWeak(buf, self);
-      v137[0] = MEMORY[0x1E69E9820];
-      v137[1] = 3221225472;
-      v137[2] = __39__MUPlaceViewController__buildSections__block_invoke;
-      v137[3] = &unk_1E8219220;
-      objc_copyWeak(&v138, buf);
-      [inlineMapSectionController3 submitWithHandler:v137 networkActivity:0];
-      objc_destroyWeak(&v138);
+      v136[0] = MEMORY[0x1E69E9820];
+      v136[1] = 3221225472;
+      v136[2] = __39__MUPlaceViewController__buildSections__block_invoke;
+      v136[3] = &unk_1E8219220;
+      objc_copyWeak(&v137, buf);
+      [inlineMapSectionController3 submitWithHandler:v136 networkActivity:0];
+      objc_destroyWeak(&v137);
       objc_destroyWeak(buf);
       goto LABEL_101;
     }
@@ -8182,13 +8320,13 @@ LABEL_79:
         _identifier = [mEMORY[0x1E696F298]2 ticketForNonExpiredIdentifier:mapItem12 resultProviderID:0 contentProvider:contentProviderID traits:0];
 
         objc_initWeak(buf, self);
-        v135[0] = MEMORY[0x1E69E9820];
-        v135[1] = 3221225472;
-        v135[2] = __39__MUPlaceViewController__buildSections__block_invoke_2;
-        v135[3] = &unk_1E8219220;
-        objc_copyWeak(&v136, buf);
-        [_identifier submitWithHandler:v135 networkActivity:0];
-        objc_destroyWeak(&v136);
+        v134[0] = MEMORY[0x1E69E9820];
+        v134[1] = 3221225472;
+        v134[2] = __39__MUPlaceViewController__buildSections__block_invoke_2;
+        v134[3] = &unk_1E8219220;
+        objc_copyWeak(&v135, buf);
+        [_identifier submitWithHandler:v134 networkActivity:0];
+        objc_destroyWeak(&v135);
         objc_destroyWeak(buf);
 LABEL_99:
       }
@@ -8199,8 +8337,6 @@ LABEL_101:
 
   v7 = obja;
 LABEL_103:
-
-  v126 = *MEMORY[0x1E69E9840];
 }
 
 void __39__MUPlaceViewController__buildSections__block_invoke(uint64_t a1, void *a2, uint64_t a3)
@@ -8264,7 +8400,7 @@ void __39__MUPlaceViewController__buildSections__block_invoke_2(uint64_t a1, voi
 
 - (id)_buildForLayoutWithAvailability:(id)availability
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   availabilityCopy = availability;
   v5 = objc_alloc_init(MEMORY[0x1E695DF70]);
   if ([(MUPlaceViewController *)self isFlexiblePlaceCardEnabled])
@@ -8295,27 +8431,27 @@ void __39__MUPlaceViewController__buildSections__block_invoke_2(uint64_t a1, voi
       _os_log_impl(&dword_1C5620000, v10, OS_LOG_TYPE_INFO, "Building placecard from dynamic layout", buf, 2u);
     }
 
-    v33 = 0u;
-    v34 = 0u;
-    v31 = 0u;
     v32 = 0u;
-    v30 = _placecardLayout;
+    v33 = 0u;
+    v30 = 0u;
+    v31 = 0u;
+    v29 = _placecardLayout;
     modules = [_placecardLayout modules];
-    v12 = [modules countByEnumeratingWithState:&v31 objects:v37 count:16];
+    v12 = [modules countByEnumeratingWithState:&v30 objects:v36 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v32;
+      v14 = *v31;
       do
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v32 != v14)
+          if (*v31 != v14)
           {
             objc_enumerationMutation(modules);
           }
 
-          v16 = *(*(&v31 + 1) + 8 * i);
+          v16 = *(*(&v30 + 1) + 8 * i);
           v17 = MUGetPlaceCardLog();
           if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
           {
@@ -8327,7 +8463,7 @@ void __39__MUPlaceViewController__buildSections__block_invoke_2(uint64_t a1, voi
             }
 
             *buf = 138412290;
-            v36 = v19;
+            v35 = v19;
             _os_log_impl(&dword_1C5620000, v17, OS_LOG_TYPE_INFO, "Building module %@", buf, 0xCu);
           }
 
@@ -8471,7 +8607,7 @@ LABEL_51:
           }
         }
 
-        v13 = [modules countByEnumeratingWithState:&v31 objects:v37 count:16];
+        v13 = [modules countByEnumeratingWithState:&v30 objects:v36 count:16];
       }
 
       while (v13);
@@ -8484,11 +8620,10 @@ LABEL_51:
       _os_log_impl(&dword_1C5620000, v7, OS_LOG_TYPE_INFO, "End building placecard from dynamic layout", buf, 2u);
     }
 
-    v6 = v30;
+    v6 = v29;
   }
 
   v27 = [v5 copy];
-  v28 = *MEMORY[0x1E69E9840];
 
   return v27;
 }
@@ -8602,7 +8737,7 @@ LABEL_51:
 
 - (id)_buildStaticSectionsWithAvailability:(id)availability
 {
-  v48 = *MEMORY[0x1E69E9840];
+  v47 = *MEMORY[0x1E69E9840];
   availabilityCopy = availability;
   v5 = objc_alloc_init(MEMORY[0x1E695DF70]);
   if ([(MUPlaceViewController *)self isFlexiblePlaceCardEnabled])
@@ -8739,35 +8874,35 @@ LABEL_51:
       [v5 addObject:v27];
     }
 
-    v44 = 0u;
-    v45 = 0u;
-    v42 = 0u;
     v43 = 0u;
+    v44 = 0u;
+    v41 = 0u;
+    v42 = 0u;
     mapItem = [(MUPlaceViewController *)self mapItem];
     _relatedPlaceLists = [mapItem _relatedPlaceLists];
 
-    v30 = [_relatedPlaceLists countByEnumeratingWithState:&v42 objects:v47 count:16];
+    v30 = [_relatedPlaceLists countByEnumeratingWithState:&v41 objects:v46 count:16];
     if (v30)
     {
       v31 = v30;
-      v32 = *v43;
+      v32 = *v42;
       do
       {
         for (i = 0; i != v31; ++i)
         {
-          if (*v43 != v32)
+          if (*v42 != v32)
           {
             objc_enumerationMutation(_relatedPlaceLists);
           }
 
-          v34 = [(MUPlaceViewController *)self _relatedPlaceSectionControllerForAvailability:availabilityCopy relatedPlaceList:*(*(&v42 + 1) + 8 * i)];
+          v34 = [(MUPlaceViewController *)self _relatedPlaceSectionControllerForAvailability:availabilityCopy relatedPlaceList:*(*(&v41 + 1) + 8 * i)];
           if (v34)
           {
             [v5 addObject:v34];
           }
         }
 
-        v31 = [_relatedPlaceLists countByEnumeratingWithState:&v42 objects:v47 count:16];
+        v31 = [_relatedPlaceLists countByEnumeratingWithState:&v41 objects:v46 count:16];
       }
 
       while (v31);
@@ -8806,8 +8941,6 @@ LABEL_51:
     v8 = [v5 copy];
   }
 
-  v40 = *MEMORY[0x1E69E9840];
-
   return v8;
 }
 
@@ -8835,7 +8968,7 @@ LABEL_51:
   return options;
 }
 
-uint64_t __32__MUPlaceViewController_options__block_invoke_2(uint64_t a1)
+void *__32__MUPlaceViewController_options__block_invoke_2(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 1000) options];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -9056,25 +9189,24 @@ LABEL_12:
 
 - (void)_didResolveAttribution:(id)attribution
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v4 = MUGetPlaceCardLog();
   if (os_signpost_enabled(v4))
   {
-    LOWORD(v8) = 0;
-    _os_signpost_emit_with_name_impl(&dword_1C5620000, v4, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "MUPlaceAttributionFinishedResolving", "", &v8, 2u);
+    LOWORD(v7) = 0;
+    _os_signpost_emit_with_name_impl(&dword_1C5620000, v4, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "MUPlaceAttributionFinishedResolving", "", &v7, 2u);
   }
 
   v5 = MUGetPlaceCardLog();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     mapItem = [(MUPlaceViewController *)self mapItem];
-    v8 = 138412290;
-    v9 = mapItem;
-    _os_log_impl(&dword_1C5620000, v5, OS_LOG_TYPE_DEBUG, "Attribution for mapItem %@ finished resolving", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = mapItem;
+    _os_log_impl(&dword_1C5620000, v5, OS_LOG_TYPE_DEBUG, "Attribution for mapItem %@ finished resolving", &v7, 0xCu);
   }
 
   [(MUPlaceViewController *)self _updateSections];
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)ETAProviderLocationUpdated:(id)updated
@@ -9121,7 +9253,7 @@ LABEL_12:
 - (void)_setPlaceItem:(id)item updateOriginalContact:(BOOL)contact
 {
   contactCopy = contact;
-  v94 = *MEMORY[0x1E69E9840];
+  v91 = *MEMORY[0x1E69E9840];
   itemCopy = item;
   mapItem = [itemCopy mapItem];
   mapItem2 = [(_MKPlaceItem *)self->_placeItem mapItem];
@@ -9145,7 +9277,7 @@ LABEL_2:
   }
 
   isIntermediateMapItem = [itemCopy isIntermediateMapItem];
-  v65 = isIntermediateMapItem ^ [(_MKPlaceItem *)self->_placeItem isIntermediateMapItem];
+  v63 = isIntermediateMapItem ^ [(_MKPlaceItem *)self->_placeItem isIntermediateMapItem];
   if (mapItem3)
   {
   }
@@ -9154,9 +9286,9 @@ LABEL_2:
   {
   }
 
-  if ((v65 & 1) == 0)
+  if ((v63 & 1) == 0)
   {
-    LOBYTE(v73) = 0;
+    LOBYTE(v71) = 0;
     goto LABEL_59;
   }
 
@@ -9167,10 +9299,10 @@ LABEL_3:
     mapItem4 = [itemCopy mapItem];
     contact3 = [itemCopy contact];
     *buf = 138412802;
-    v89 = mapItem4;
-    v90 = 2112;
-    v91 = contact3;
-    v92 = 1024;
+    v86 = mapItem4;
+    v87 = 2112;
+    v88 = contact3;
+    v89 = 1024;
     isIntermediateMapItem2 = [itemCopy isIntermediateMapItem];
     _os_log_impl(&dword_1C5620000, v11, OS_LOG_TYPE_DEBUG, "Setting placeItem with mapItem %@, contact %@, isIntermediateMapItem %d", buf, 0x1Cu);
   }
@@ -9188,7 +9320,7 @@ LABEL_3:
     {
       contact4 = [itemCopy contact];
       *buf = 138412290;
-      v89 = contact4;
+      v86 = contact4;
       _os_log_impl(&dword_1C5620000, v15, OS_LOG_TYPE_DEBUG, "Updating original contact with contact %@", buf, 0xCu);
     }
 
@@ -9248,21 +9380,19 @@ LABEL_15:
   offlineFeatureDiscoveryView = self->_offlineFeatureDiscoveryView;
   self->_offlineFeatureDiscoveryView = 0;
 
-  v36 = *MEMORY[0x1E696F158];
-  v37 = *(MEMORY[0x1E696F158] + 8);
   if (GEOConfigGetBOOL() && [(MUPlaceViewController *)self _hasSerializedMapItemFile])
   {
     mapItemFromSerialized = [(MUPlaceViewController *)self mapItemFromSerialized];
-    v39 = [MEMORY[0x1E696F488] placeItemWithMapItem:mapItemFromSerialized options:0];
+    v37 = [MEMORY[0x1E696F488] placeItemWithMapItem:mapItemFromSerialized options:0];
     placeItem = self->_placeItem;
-    self->_placeItem = v39;
+    self->_placeItem = v37;
   }
 
   else
   {
-    v41 = itemCopy;
+    v39 = itemCopy;
     mapItemFromSerialized = self->_placeItem;
-    self->_placeItem = v41;
+    self->_placeItem = v39;
   }
 
   [(MUPlaceViewController *)self setPlaceInCollections:0];
@@ -9277,17 +9407,17 @@ LABEL_15:
   }
 
   objc_initWeak(buf, self);
-  v86[0] = MEMORY[0x1E69E9820];
-  v86[1] = 3221225472;
-  v86[2] = __61__MUPlaceViewController__setPlaceItem_updateOriginalContact___block_invoke;
-  v86[3] = &unk_1E8219D10;
-  objc_copyWeak(&v87, buf);
-  [(MUPlaceViewController *)self _calculateShowingContactActionsWithCompletion:v86];
+  v83[0] = MEMORY[0x1E69E9820];
+  v83[1] = 3221225472;
+  v83[2] = __61__MUPlaceViewController__setPlaceItem_updateOriginalContact___block_invoke;
+  v83[3] = &unk_1E8219D10;
+  objc_copyWeak(&v84, buf);
+  [(MUPlaceViewController *)self _calculateShowingContactActionsWithCompletion:v83];
   [(MKPlaceItemActionDataProvider *)self->_actionDataProvider updateWithPlaceItem:self->_placeItem options:self->_options];
   [(MKETAProvider *)self->_etaProvider cancel];
-  v42 = [objc_alloc(MEMORY[0x1E696F1D0]) initWithPlaceItem:self->_placeItem];
+  v40 = [objc_alloc(MEMORY[0x1E696F1D0]) initWithPlaceItem:self->_placeItem];
   etaProvider = self->_etaProvider;
-  self->_etaProvider = v42;
+  self->_etaProvider = v40;
 
   [(MKETAProvider *)self->_etaProvider setDelegate:self];
   [(MKETAProvider *)self->_etaProvider addObserver:self];
@@ -9296,9 +9426,9 @@ LABEL_15:
   self->_location = currentLocation;
 
   mapItem8 = [(_MKPlaceItem *)self->_placeItem mapItem];
-  v47 = mapItem8 == 0;
+  v45 = mapItem8 == 0;
 
-  if (!v47)
+  if (!v45)
   {
     defaultCenter3 = [MEMORY[0x1E696AD88] defaultCenter];
     mapItem9 = [(_MKPlaceItem *)self->_placeItem mapItem];
@@ -9306,40 +9436,40 @@ LABEL_15:
   }
 
   mapsAppDelegate = [(MUPlaceViewController *)self mapsAppDelegate];
-  v51 = objc_opt_respondsToSelector();
+  v49 = objc_opt_respondsToSelector();
 
-  if (v51)
+  if (v49)
   {
     mapsAppDelegate2 = [(MUPlaceViewController *)self mapsAppDelegate];
-    v53 = [mapsAppDelegate2 secondaryButtonControllerForPlaceViewController:self];
-    v54 = self->_headerSecondaryButtonController;
-    self->_headerSecondaryButtonController = v53;
+    v51 = [mapsAppDelegate2 secondaryButtonControllerForPlaceViewController:self];
+    v52 = self->_headerSecondaryButtonController;
+    self->_headerSecondaryButtonController = v51;
   }
 
   mapsAppDelegate3 = [(MUPlaceViewController *)self mapsAppDelegate];
-  v56 = objc_opt_respondsToSelector();
+  v54 = objc_opt_respondsToSelector();
 
-  if (v56)
+  if (v54)
   {
     mapsAppDelegate4 = [(MUPlaceViewController *)self mapsAppDelegate];
-    v58 = [mapsAppDelegate4 alternatePrimaryButtonControllerForPlaceViewController:self];
-    v59 = self->_headerAlternatePrimaryButtonController;
-    self->_headerAlternatePrimaryButtonController = v58;
+    v56 = [mapsAppDelegate4 alternatePrimaryButtonControllerForPlaceViewController:self];
+    v57 = self->_headerAlternatePrimaryButtonController;
+    self->_headerAlternatePrimaryButtonController = v56;
   }
 
   mapItem10 = [(MUPlaceViewController *)self mapItem];
   if (mapItem10 && (p_actionManager = &self->_actionManager, [(MUPlaceActionManager *)self->_actionManager setIsCurrentLocation:0], ([(_MKPlaceItem *)self->_placeItem options]& 1) != 0))
   {
-    v62 = 1;
+    v60 = 1;
   }
 
   else
   {
-    v62 = 0;
+    v60 = 0;
     p_actionManager = &self->_actionManager;
   }
 
-  [(MUPlaceActionManager *)*p_actionManager setIsCurrentLocation:v62];
+  [(MUPlaceActionManager *)*p_actionManager setIsCurrentLocation:v60];
   mapItem11 = [(MUPlaceViewController *)self mapItem];
   _enrichmentInfo = [mapItem11 _enrichmentInfo];
   showcaseId = [_enrichmentInfo showcaseId];
@@ -9347,12 +9477,12 @@ LABEL_15:
   [mEMORY[0x1E69A15A0] setPlaceCardPlaceActionDetailsShowcaseId:showcaseId];
 
   [(MUEVChargerAvailabilityProvider *)self->_evChargerAvailabilityProvider setIsActive:0];
-  v70 = +[MapsUIUtilities isMapsProcess];
+  v68 = +[MapsUIUtilities isMapsProcess];
   if (self->_placeItem)
   {
-    v71 = [[_TtC6MapsUI31MUEVChargerAvailabilityProvider alloc] initWithPlaceItem:self->_placeItem canAccessVirtualGarage:v70];
+    v69 = [[_TtC6MapsUI31MUEVChargerAvailabilityProvider alloc] initWithPlaceItem:self->_placeItem canAccessVirtualGarage:v68];
     evChargerAvailabilityProvider = self->_evChargerAvailabilityProvider;
-    self->_evChargerAvailabilityProvider = v71;
+    self->_evChargerAvailabilityProvider = v69;
   }
 
   [(MUPlaceViewController *)self scrollToTopAnimated:0];
@@ -9360,12 +9490,12 @@ LABEL_15:
   [(MUPlaceViewController *)self _updatePocketInsets];
   if ([(_MKPlaceItem *)v31 isIntermediateMapItem])
   {
-    v73 = [(_MKPlaceItem *)self->_placeItem isIntermediateMapItem]^ 1;
+    v71 = [(_MKPlaceItem *)self->_placeItem isIntermediateMapItem]^ 1;
   }
 
   else
   {
-    LOBYTE(v73) = 0;
+    LOBYTE(v71) = 0;
   }
 
   if (([(_MKPlaceItem *)self->_placeItem isIntermediateMapItem]& 1) != 0)
@@ -9392,16 +9522,16 @@ LABEL_15:
     {
       [MEMORY[0x1E69DC888] blueColor];
     }
-    v76 = ;
-    v77 = v76;
-    -[CALayer setBackgroundColor:](self->_debugWebPlacecardIndicatorLayer, "setBackgroundColor:", [v76 CGColor]);
+    v74 = ;
+    v75 = v74;
+    -[CALayer setBackgroundColor:](self->_debugWebPlacecardIndicatorLayer, "setBackgroundColor:", [v74 CGColor]);
 
     mEMORY[0x1E69A2398] = [MEMORY[0x1E6979318] animationWithKeyPath:@"opacity"];
     [mEMORY[0x1E69A2398] setFromValue:&unk_1F450E1F8];
     [mEMORY[0x1E69A2398] setToValue:&unk_1F450E208];
     [mEMORY[0x1E69A2398] setDuration:0.25];
-    LODWORD(v79) = 1.0;
-    [mEMORY[0x1E69A2398] setRepeatCount:v79];
+    LODWORD(v77) = 1.0;
+    [mEMORY[0x1E69A2398] setRepeatCount:v77];
     [mEMORY[0x1E69A2398] setAutoreverses:1];
     [mEMORY[0x1E69A2398] setRemovedOnCompletion:1];
     [mEMORY[0x1E69A2398] setFillMode:*MEMORY[0x1E69797E8]];
@@ -9411,7 +9541,7 @@ LABEL_57:
 
 LABEL_58:
 
-  objc_destroyWeak(&v87);
+  objc_destroyWeak(&v84);
   objc_destroyWeak(buf);
 
 LABEL_59:
@@ -9429,15 +9559,15 @@ LABEL_59:
   mapItemIdentifierIntrumentedForReveal2 = [(MUPlaceViewController *)self mapItemIdentifierIntrumentedForReveal];
   mapItem12 = [(_MKPlaceItem *)self->_placeItem mapItem];
   _identifier = [mapItem12 _identifier];
-  if (!(v73 & 1 | (([mapItemIdentifierIntrumentedForReveal2 isEqual:_identifier] & 1) == 0)))
+  if (!(v71 & 1 | (([mapItemIdentifierIntrumentedForReveal2 isEqual:_identifier] & 1) == 0)))
   {
 
     goto LABEL_66;
   }
 
-  v84 = +[MapsUIUtilities isMapsProcess];
+  v82 = +[MapsUIUtilities isMapsProcess];
 
-  if (v84)
+  if (v82)
   {
 LABEL_64:
     [(MUImpressionsCalculator *)self->_impressionsCalculator setActive:0];
@@ -9450,8 +9580,6 @@ LABEL_66:
   {
     [(MUPlaceViewController *)self _updateActionBarDataSources];
   }
-
-  v85 = *MEMORY[0x1E69E9840];
 }
 
 void __61__MUPlaceViewController__setPlaceItem_updateOriginalContact___block_invoke(uint64_t a1, uint64_t a2)
@@ -9710,69 +9838,68 @@ void __36__MUPlaceViewController_setMapItem___block_invoke(uint64_t a1)
 
 - (id)_sectionControllersForClass:(Class)class
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v4 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v5 = self->_sectionControllers;
-  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v15;
+    v8 = *v14;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v15 != v8)
+        if (*v14 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v14 + 1) + 8 * i);
+        v10 = *(*(&v13 + 1) + 8 * i);
         if (objc_opt_isKindOfClass())
         {
-          [v4 addObject:{v10, v14}];
+          [v4 addObject:{v10, v13}];
         }
       }
 
-      v7 = [(NSArray *)v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v7 = [(NSArray *)v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v7);
   }
 
   v11 = [v4 copy];
-  v12 = *MEMORY[0x1E69E9840];
 
   return v11;
 }
 
 - (id)_firstSectionControllerOfClass:(Class)class
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v3 = self->_sectionControllers;
-  v4 = [(NSArray *)v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v4 = [(NSArray *)v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v13;
+    v6 = *v12;
     while (2)
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v13 != v6)
+        if (*v12 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v12 + 1) + 8 * i);
+        v8 = *(*(&v11 + 1) + 8 * i);
         if (objc_opt_isKindOfClass())
         {
           v9 = v8;
@@ -9780,7 +9907,7 @@ void __36__MUPlaceViewController_setMapItem___block_invoke(uint64_t a1)
         }
       }
 
-      v5 = [(NSArray *)v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v5 = [(NSArray *)v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
       if (v5)
       {
         continue;
@@ -9792,8 +9919,6 @@ void __36__MUPlaceViewController_setMapItem___block_invoke(uint64_t a1)
 
   v9 = 0;
 LABEL_11:
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
@@ -9878,6 +10003,39 @@ LABEL_11:
   }
 }
 
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v4.receiver = self;
+  v4.super_class = MUPlaceViewController;
+  [(MUPlaceViewController *)&v4 viewDidDisappear:disappear];
+  [(MUPlaceViewController *)self resignActive];
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  v11.receiver = self;
+  v11.super_class = MUPlaceViewController;
+  [(MUPlaceViewController *)&v11 viewWillDisappear:disappear];
+  if ((-[MUPlaceViewController isMovingFromParentViewController](self, "isMovingFromParentViewController") & 1) != 0 || ([MEMORY[0x1E696F3B8] sharedInstance], v4 = objc_claimAutoreleasedReturnValue(), v5 = objc_msgSend(v4, "userInterfaceIdiom"), v4, v5))
+  {
+    placeViewControllerDelegate = [(MUPlaceViewController *)self placeViewControllerDelegate];
+    v7 = objc_opt_respondsToSelector();
+
+    if (v7)
+    {
+      placeViewControllerDelegate2 = [(MUPlaceViewController *)self placeViewControllerDelegate];
+      [placeViewControllerDelegate2 placeViewControllerDidDismiss:self];
+    }
+  }
+
+  webPlacecardSectionController = [(MUPlaceViewController *)self webPlacecardSectionController];
+  [webPlacecardSectionController handleNativeUITapFor:0];
+
+  defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
+  [defaultCenter removeObserver:self name:*MEMORY[0x1E69DDBC0] object:0];
+  [defaultCenter removeObserver:self name:*MEMORY[0x1E69DDAC8] object:0];
+}
+
 - (void)viewDidLoad
 {
   v12.receiver = self;
@@ -9930,6 +10088,77 @@ LABEL_11:
   [(MUPlaceViewController *)&v3 set_mapkit_contentVisibility:visibility];
 }
 
+- (void)viewDidAppear:(BOOL)appear
+{
+  v11.receiver = self;
+  v11.super_class = MUPlaceViewController;
+  [(MUPlaceViewController *)&v11 viewDidAppear:appear];
+  if (+[MapsUIUtilities isSiriProcess])
+  {
+    v4 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
+    mEMORY[0x1E696F268] = [MEMORY[0x1E696F268] sharedLocationManager];
+    [mEMORY[0x1E696F268] setEffectiveBundle:v4];
+  }
+
+  [(MUPlaceViewController *)self becomeActive];
+  if (self->_initialAppearanceSignpostID != -1)
+  {
+    v6 = MUGetPlaceCardLog();
+    v7 = v6;
+    initialAppearanceSignpostID = self->_initialAppearanceSignpostID;
+    if (initialAppearanceSignpostID - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v6))
+    {
+      *v10 = 0;
+      _os_signpost_emit_with_name_impl(&dword_1C5620000, v7, OS_SIGNPOST_INTERVAL_END, initialAppearanceSignpostID, "PlacecardInitialAppearance", "", v10, 2u);
+    }
+
+    self->_initialAppearanceSignpostID = -1;
+  }
+
+  if (![(MUPlaceViewController *)self isFlexiblePlaceCardEnabled])
+  {
+    defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
+    [defaultCenter postNotificationName:*MEMORY[0x1E696F120] object:self];
+  }
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v20.receiver = self;
+  v20.super_class = MUPlaceViewController;
+  [(MUPlaceViewController *)&v20 viewWillAppear:appear];
+  options = self->_options;
+  if ((options & 0x10) != 0)
+  {
+    v12 = [objc_alloc(MEMORY[0x1E69DC708]) initWithBarButtonSystemItem:2 target:self action:sel__showEditSheet_];
+    navigationItem = [(MUPlaceViewController *)self navigationItem];
+    [navigationItem setRightBarButtonItem:v12];
+  }
+
+  else if ((options & 0x8020000000) == 0)
+  {
+    objc_initWeak(&location, self);
+    v5 = objc_alloc(MEMORY[0x1E69DC708]);
+    v6 = MEMORY[0x1E69DC628];
+    v7 = _MULocalizedStringFromThisBundle(@"Share [Placecard]");
+    v8 = [MEMORY[0x1E69DCAB8] _mapsui_systemImageNamed:@"square.and.arrow.up"];
+    v14 = MEMORY[0x1E69E9820];
+    v15 = 3221225472;
+    v16 = __40__MUPlaceViewController_viewWillAppear___block_invoke;
+    v17 = &unk_1E82196D0;
+    objc_copyWeak(&v18, &location);
+    v9 = [v6 actionWithTitle:v7 image:v8 identifier:0 handler:&v14];
+    v10 = [v5 initWithPrimaryAction:{v9, v14, v15, v16, v17}];
+    navigationItem2 = [(MUPlaceViewController *)self navigationItem];
+    [navigationItem2 setRightBarButtonItem:v10];
+
+    objc_destroyWeak(&v18);
+    objc_destroyWeak(&location);
+  }
+
+  [(MUPlaceViewController *)self _activateSections];
+}
+
 void __40__MUPlaceViewController_viewWillAppear___block_invoke(uint64_t a1)
 {
   v3 = objc_alloc_init(MUPresentationOptions);
@@ -9963,32 +10192,29 @@ void __40__MUPlaceViewController_viewWillAppear___block_invoke(uint64_t a1)
 
 void __38__MUPlaceViewController_scrollEnabled__block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) isFlexiblePlaceCardEnabled];
-  v3 = *(a1 + 32);
-  if (v2)
+  if ([*(a1 + 32) isFlexiblePlaceCardEnabled])
   {
-    v8 = [v3 webPlacecardSectionController];
-    v4 = [v8 webContentViewController];
-    v5 = [v4 webView];
-    v6 = [v5 scrollView];
-    *(*(*(a1 + 40) + 8) + 24) = [v6 isScrollEnabled];
+    v5 = [*(a1 + 32) webPlacecardSectionController];
+    v2 = [v5 webContentViewController];
+    v3 = [v2 webView];
+    v4 = [v3 scrollView];
+    *(*(*(a1 + 40) + 8) + 24) = [v4 isScrollEnabled];
   }
 
   else
   {
-    v7 = v3[126];
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
       return;
     }
 
-    v8 = *(*(a1 + 32) + 1008);
-    *(*(*(a1 + 40) + 8) + 24) = [v8 isScrollEnabled];
+    v5 = *(*(a1 + 32) + 1008);
+    *(*(*(a1 + 40) + 8) + 24) = [v5 isScrollEnabled];
   }
 }
 
-uint64_t __38__MUPlaceViewController_scrollEnabled__block_invoke_2(uint64_t a1)
+void *__38__MUPlaceViewController_scrollEnabled__block_invoke_2(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 1000) isScrollEnabled];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -10017,8 +10243,8 @@ void __42__MUPlaceViewController_setScrollEnabled___block_invoke(uint64_t a1)
   if ([*(a1 + 32) isFlexiblePlaceCardEnabled])
   {
     v2 = *(a1 + 40);
-    v9 = [*(a1 + 32) webPlacecardSectionController];
-    v3 = [v9 webContentViewController];
+    v8 = [*(a1 + 32) webPlacecardSectionController];
+    v3 = [v8 webContentViewController];
     v4 = [v3 webView];
     v5 = [v4 scrollView];
     [v5 setScrollEnabled:v2];
@@ -10026,14 +10252,13 @@ void __42__MUPlaceViewController_setScrollEnabled___block_invoke(uint64_t a1)
 
   else
   {
-    v6 = *(*(a1 + 32) + 1008);
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v7 = *(*(a1 + 32) + 1008);
-      v8 = *(a1 + 40);
+      v6 = *(*(a1 + 32) + 1008);
+      v7 = *(a1 + 40);
 
-      [v7 setScrollEnabled:v8];
+      [v6 setScrollEnabled:v7];
     }
   }
 }
@@ -10100,7 +10325,7 @@ void __42__MUPlaceViewController_setScrollEnabled___block_invoke(uint64_t a1)
 
 void __36__MUPlaceViewController__setupViews__block_invoke(uint64_t a1)
 {
-  v46[4] = *MEMORY[0x1E69E9840];
+  v43[4] = *MEMORY[0x1E69E9840];
   if ([*(a1 + 32) isFlexiblePlaceCardEnabled])
   {
     v2 = [[MUStackView alloc] initWithFrame:*MEMORY[0x1E695F058], *(MEMORY[0x1E695F058] + 8), *(MEMORY[0x1E695F058] + 16), *(MEMORY[0x1E695F058] + 24)];
@@ -10140,26 +10365,25 @@ void __36__MUPlaceViewController__setupViews__block_invoke(uint64_t a1)
     {
       if (+[MapsUIUtilities isMapsProcess])
       {
-        v10 = *(*(a1 + 32) + 1008);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v11 = objc_alloc_init(MUPlaceCardImpressionsLogger);
+          v10 = objc_alloc_init(MUPlaceCardImpressionsLogger);
           objc_initWeak(&location, *(a1 + 32));
-          v12 = [MUImpressionsCalculatorConfiguration alloc];
-          v13 = *(*(a1 + 32) + 1008);
-          v43[0] = MEMORY[0x1E69E9820];
-          v43[1] = 3221225472;
-          v43[2] = __36__MUPlaceViewController__setupViews__block_invoke_2;
-          v43[3] = &unk_1E82184A8;
-          objc_copyWeak(&v44, &location);
-          v14 = [(MUImpressionsCalculatorConfiguration *)v12 initWithLogger:v11 contentScrollView:v13 containerViewProvider:v43];
-          v15 = [[MUScrollViewImpressionsCalculator alloc] initWithConfiguration:v14 visibleItemsProvider:*(a1 + 32)];
-          v16 = *(a1 + 32);
-          v17 = *(v16 + 1320);
-          *(v16 + 1320) = v15;
+          v11 = [MUImpressionsCalculatorConfiguration alloc];
+          v12 = *(*(a1 + 32) + 1008);
+          v40[0] = MEMORY[0x1E69E9820];
+          v40[1] = 3221225472;
+          v40[2] = __36__MUPlaceViewController__setupViews__block_invoke_2;
+          v40[3] = &unk_1E82184A8;
+          objc_copyWeak(&v41, &location);
+          v13 = [(MUImpressionsCalculatorConfiguration *)v11 initWithLogger:v10 contentScrollView:v12 containerViewProvider:v40];
+          v14 = [[MUScrollViewImpressionsCalculator alloc] initWithConfiguration:v13 visibleItemsProvider:*(a1 + 32)];
+          v15 = *(a1 + 32);
+          v16 = *(v15 + 1320);
+          *(v15 + 1320) = v14;
 
-          objc_destroyWeak(&v44);
+          objc_destroyWeak(&v41);
           objc_destroyWeak(&location);
         }
       }
@@ -10167,51 +10391,48 @@ void __36__MUPlaceViewController__setupViews__block_invoke(uint64_t a1)
   }
 
   [*(a1 + 32) _updateBottomInset];
-  v18 = *(*(a1 + 32) + 1008);
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v19 = *(a1 + 32);
-    v20 = *(v19 + 1008);
-    [v20 setDelegate:v19];
-    [v20 setAlwaysBounceVertical:1];
+    v17 = *(a1 + 32);
+    v18 = *(v17 + 1008);
+    [v18 setDelegate:v17];
+    [v18 setAlwaysBounceVertical:1];
   }
 
-  v22 = *(a1 + 32);
-  v21 = (a1 + 32);
-  v23 = [v22 view];
-  [v23 addSubview:*(*v21 + 126)];
+  v20 = *(a1 + 32);
+  v19 = (a1 + 32);
+  v21 = [v20 view];
+  [v21 addSubview:*(*v19 + 126)];
 
-  v35 = MEMORY[0x1E696ACD8];
-  v41 = [*(*v21 + 126) leadingAnchor];
-  v42 = [*v21 view];
-  v40 = [v42 leadingAnchor];
-  v39 = [v41 constraintEqualToAnchor:v40];
-  v46[0] = v39;
-  v37 = [*(*v21 + 126) trailingAnchor];
-  v38 = [*v21 view];
-  v36 = [v38 trailingAnchor];
-  v24 = [v37 constraintEqualToAnchor:v36];
-  v46[1] = v24;
-  v25 = [*(*v21 + 126) topAnchor];
-  v26 = [*v21 view];
-  v27 = [v26 topAnchor];
-  v28 = [v25 constraintEqualToAnchor:v27];
-  v46[2] = v28;
-  v29 = [*(*v21 + 126) bottomAnchor];
-  v30 = [*v21 view];
-  v31 = [v30 bottomAnchor];
-  v32 = [v29 constraintEqualToAnchor:v31];
-  v46[3] = v32;
-  v33 = [MEMORY[0x1E695DEC8] arrayWithObjects:v46 count:4];
-  [v35 activateConstraints:v33];
-
-  v34 = *MEMORY[0x1E69E9840];
+  v32 = MEMORY[0x1E696ACD8];
+  v38 = [*(*v19 + 126) leadingAnchor];
+  v39 = [*v19 view];
+  v37 = [v39 leadingAnchor];
+  v36 = [v38 constraintEqualToAnchor:v37];
+  v43[0] = v36;
+  v34 = [*(*v19 + 126) trailingAnchor];
+  v35 = [*v19 view];
+  v33 = [v35 trailingAnchor];
+  v22 = [v34 constraintEqualToAnchor:v33];
+  v43[1] = v22;
+  v23 = [*(*v19 + 126) topAnchor];
+  v24 = [*v19 view];
+  v25 = [v24 topAnchor];
+  v26 = [v23 constraintEqualToAnchor:v25];
+  v43[2] = v26;
+  v27 = [*(*v19 + 126) bottomAnchor];
+  v28 = [*v19 view];
+  v29 = [v28 bottomAnchor];
+  v30 = [v27 constraintEqualToAnchor:v29];
+  v43[3] = v30;
+  v31 = [MEMORY[0x1E695DEC8] arrayWithObjects:v43 count:4];
+  [v32 activateConstraints:v31];
 }
 
 void __36__MUPlaceViewController__setupViews__block_invoke_3(uint64_t a1)
 {
-  v38[4] = *MEMORY[0x1E69E9840];
+  v37[4] = *MEMORY[0x1E69E9840];
   v2 = objc_alloc(MEMORY[0x1E696F498]);
   v3 = [*(a1 + 32) mapItem];
   v4 = [v2 initWithMapItem:v3 options:*(*(a1 + 32) + 1424)];
@@ -10242,35 +10463,33 @@ void __36__MUPlaceViewController__setupViews__block_invoke_3(uint64_t a1)
     [v13 addAdditionalViewController:v14 atPosition:0];
   }
 
-  v29 = MEMORY[0x1E696ACD8];
-  v37 = [*(*(a1 + 32) + 1000) view];
-  v35 = [v37 leadingAnchor];
-  v36 = [*(a1 + 32) view];
+  v28 = MEMORY[0x1E696ACD8];
+  v36 = [*(*(a1 + 32) + 1000) view];
   v34 = [v36 leadingAnchor];
-  v33 = [v35 constraintEqualToAnchor:v34];
-  v38[0] = v33;
-  v32 = [*(*(a1 + 32) + 1000) view];
-  v30 = [v32 trailingAnchor];
-  v31 = [*(a1 + 32) view];
-  v28 = [v31 trailingAnchor];
-  v27 = [v30 constraintEqualToAnchor:v28];
-  v38[1] = v27;
-  v26 = [*(*(a1 + 32) + 1000) view];
-  v15 = [v26 topAnchor];
+  v35 = [*(a1 + 32) view];
+  v33 = [v35 leadingAnchor];
+  v32 = [v34 constraintEqualToAnchor:v33];
+  v37[0] = v32;
+  v31 = [*(*(a1 + 32) + 1000) view];
+  v29 = [v31 trailingAnchor];
+  v30 = [*(a1 + 32) view];
+  v27 = [v30 trailingAnchor];
+  v26 = [v29 constraintEqualToAnchor:v27];
+  v37[1] = v26;
+  v25 = [*(*(a1 + 32) + 1000) view];
+  v15 = [v25 topAnchor];
   v16 = [*(a1 + 32) view];
   v17 = [v16 topAnchor];
   v18 = [v15 constraintEqualToAnchor:v17];
-  v38[2] = v18;
+  v37[2] = v18;
   v19 = [*(*(a1 + 32) + 1000) view];
   v20 = [v19 bottomAnchor];
   v21 = [*(a1 + 32) view];
   v22 = [v21 bottomAnchor];
   v23 = [v20 constraintEqualToAnchor:v22];
-  v38[3] = v23;
-  v24 = [MEMORY[0x1E695DEC8] arrayWithObjects:v38 count:4];
-  [v29 activateConstraints:v24];
-
-  v25 = *MEMORY[0x1E69E9840];
+  v37[3] = v23;
+  v24 = [MEMORY[0x1E695DEC8] arrayWithObjects:v37 count:4];
+  [v28 activateConstraints:v24];
 }
 
 id __36__MUPlaceViewController__setupViews__block_invoke_2(uint64_t a1)
@@ -10396,6 +10615,19 @@ void __54__MUPlaceViewController__commonInitWithConfiguration___block_invoke(uin
   }
 }
 
+- (void)requestHostToLogFeedbackTypeIfNeeded:(int)needed
+{
+  v3 = *&needed;
+  placeViewFeedbackDelegate = [(MUPlaceViewController *)self placeViewFeedbackDelegate];
+  v6 = objc_opt_respondsToSelector();
+
+  if (v6)
+  {
+    placeViewFeedbackDelegate2 = [(MUPlaceViewController *)self placeViewFeedbackDelegate];
+    [placeViewFeedbackDelegate2 placeViewController:self shouldLogFeedbackOfType:v3];
+  }
+}
+
 id __40__MUPlaceViewController_revealedModules__block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
@@ -10414,39 +10646,38 @@ id __40__MUPlaceViewController_revealedModules__block_invoke(uint64_t a1, void *
 
 - (NSArray)analyticModules
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v3 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{-[NSArray count](self->_sectionControllers, "count")}];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v4 = self->_sectionControllers;
-  v5 = [(NSArray *)v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v5 = [(NSArray *)v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v14;
+    v7 = *v13;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v14 != v7)
+        if (*v13 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = [*(*(&v13 + 1) + 8 * i) analyticsModuleForAction:0 presentationOptions:{0, v13}];
+        v9 = [*(*(&v12 + 1) + 8 * i) analyticsModuleForAction:0 presentationOptions:{0, v12}];
         [v3 addObject:v9];
       }
 
-      v6 = [(NSArray *)v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v6 = [(NSArray *)v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v6);
   }
 
   v10 = [v3 copy];
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
@@ -10454,34 +10685,32 @@ id __40__MUPlaceViewController_revealedModules__block_invoke(uint64_t a1, void *
 - (MUPlaceViewController)initWithMapItem:(id)item
 {
   itemCopy = item;
-  v21.receiver = self;
-  v21.super_class = MUPlaceViewController;
-  v5 = [(MUPlaceViewController *)&v21 initWithNibName:0 bundle:0];
+  v19.receiver = self;
+  v19.super_class = MUPlaceViewController;
+  v5 = [(MUPlaceViewController *)&v19 initWithNibName:0 bundle:0];
   if (v5)
   {
     v6 = objc_opt_new();
     [(MUPlaceViewController *)v5 _commonInitWithConfiguration:v6];
 
-    v7 = *MEMORY[0x1E696F158];
-    v8 = *(MEMORY[0x1E696F158] + 8);
     if (GEOConfigGetBOOL())
     {
-      v9 = NSTemporaryDirectory();
-      v10 = [v9 stringByAppendingPathComponent:@"SavedMapItem.json"];
+      v7 = NSTemporaryDirectory();
+      v8 = [v7 stringByAppendingPathComponent:@"SavedMapItem.json"];
 
       defaultManager = [MEMORY[0x1E696AC08] defaultManager];
-      if ([defaultManager fileExistsAtPath:v10])
+      if ([defaultManager fileExistsAtPath:v8])
       {
-        v20 = 0;
-        v12 = [MEMORY[0x1E695DEF0] dataWithContentsOfFile:v10 options:4 error:&v20];
-        v13 = v20;
-        v19 = v13;
-        v14 = [MEMORY[0x1E696ACB0] JSONObjectWithData:v12 options:0 error:&v19];
-        v15 = v19;
+        v18 = 0;
+        v10 = [MEMORY[0x1E695DEF0] dataWithContentsOfFile:v8 options:4 error:&v18];
+        v11 = v18;
+        v17 = v11;
+        v12 = [MEMORY[0x1E696ACB0] JSONObjectWithData:v10 options:0 error:&v17];
+        v13 = v17;
 
-        v16 = [objc_alloc(MEMORY[0x1E69A21E0]) initWithJSON:v14];
-        v17 = [objc_alloc(MEMORY[0x1E696F270]) initWithGeoMapItem:v16 isPlaceHolderPlace:0];
-        [(MUPlaceViewController *)v5 setMapItem:v17];
+        v14 = [objc_alloc(MEMORY[0x1E69A21E0]) initWithJSON:v12];
+        v15 = [objc_alloc(MEMORY[0x1E696F270]) initWithGeoMapItem:v14 isPlaceHolderPlace:0];
+        [(MUPlaceViewController *)v5 setMapItem:v15];
       }
 
       else

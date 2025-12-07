@@ -120,7 +120,7 @@
   v3 = *&self->_selectionGeometry.m_quad.m_p3.m_x;
   v8[0] = *&p_selectionGeometry->m_quad.m_p1.m_x;
   v8[1] = v3;
-  [(WKTextSelectionRect *)self _convertQuadToSelectionContainer:v8];
+  objc_msgSend__convertQuadToSelectionContainer_(self, a2, v8);
   v4 = [[WKTextSelectionRectCustomHandleInfo alloc] initWithFloatQuad:v9 isHorizontal:p_selectionGeometry->m_isHorizontal];
   v5 = v4;
   if (v4)

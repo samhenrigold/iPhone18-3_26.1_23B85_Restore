@@ -146,30 +146,30 @@
 - (void)transferFacesToSampleBuffer:(opaqueCMSampleBuffer *)buffer transformToBufferSpace:(BOOL)space sourceCropRect:(CGRect)rect
 {
   OUTLINED_FUNCTION_9_7();
-  HIDWORD(v59) = v5;
+  HIDWORD(v60) = v5;
   v7 = v6;
   v9 = v8;
   FigSimpleMutexLock();
   v10 = *(v9 + 8);
-  memset(&v64, 0, sizeof(v64));
-  CMSampleBufferGetPresentationTimeStamp(&v64, v7);
-  value = v64.value;
-  timescale = v64.timescale;
-  v60 = *&v64.flags;
-  epoch_high = HIDWORD(v64.epoch);
+  memset(&v65, 0, sizeof(v65));
+  CMSampleBufferGetPresentationTimeStamp(&v65, v7);
+  value = v65.value;
+  timescale = v65.timescale;
+  v61 = *&v65.flags;
+  epoch_high = HIDWORD(v65.epoch);
   v13 = [v10 count];
-  memset(&v70, 0, sizeof(v70));
-  CMTimeMake(&v70, 1, 1000);
+  memset(&v71, 0, sizeof(v71));
+  CMTimeMake(&v71, 1, 1000);
   OUTLINED_FUNCTION_9_33();
-  *&lhs.flags = v60;
+  *&lhs.flags = v61;
   lhs.timescale = timescale;
   HIDWORD(lhs.epoch) = epoch_high;
-  rhs = v70;
+  rhs = v71;
   lhs.value = value;
   CMTimeSubtract(&start.start, &lhs, &rhs);
-  rhs = v70;
+  rhs = v71;
   CMTimeMultiply(&lhs, &rhs, 2);
-  CMTimeRangeMake(&v69, &start.start, &lhs);
+  CMTimeRangeMake(&v70, &start.start, &lhs);
   if (v13 < 1)
   {
     v17 = -1;
@@ -177,8 +177,8 @@
     goto LABEL_16;
   }
 
-  v56 = v7;
-  v57 = v9;
+  v57 = v7;
+  v58 = v9;
   v14 = 0;
   v15 = *off_1E798B780;
   v16 = v13 & 0x7FFFFFFF;
@@ -197,7 +197,7 @@ LABEL_9:
 LABEL_10:
       LODWORD(v14) = -1;
 LABEL_11:
-      v7 = v56;
+      v7 = v57;
       goto LABEL_12;
     }
   }
@@ -208,9 +208,9 @@ LABEL_11:
   v20 = FigHostTimeToNanoseconds();
   CMTimeMake(&start.start, v20, 1000000000);
   v21 = CMTimeConvertScale(&lhs, &start.start, timescale, kCMTimeRoundingMethod_RoundHalfAwayFromZero);
-  OUTLINED_FUNCTION_6_43(v21, v22, v23, v24, v25, v26, v27, v28, v48, v50, v52, v54, v56, v57, v59, v60, epoch_high);
-  v66 = lhs;
-  CMTimeSubtract(&start.start, &rhs, &v66);
+  OUTLINED_FUNCTION_6_43(v21, v22, v23, v24, v25, v26, v27, v28, v49, v51, v53, v55, v57, v58, v60, v61, epoch_high);
+  v67 = lhs;
+  CMTimeSubtract(&start.start, &rhs, &v67);
   Seconds = CMTimeGetSeconds(&start.start);
   if (fabsf(Seconds) > 0.5)
   {
@@ -223,7 +223,7 @@ LABEL_11:
   if (!v30)
   {
     start.start = lhs;
-    OUTLINED_FUNCTION_6_43(v30, v31, v32, v33, v34, v35, v36, v37, v49, v51, v53, v55, v56, v58, v59, v61, v63);
+    OUTLINED_FUNCTION_6_43(v30, v31, v32, v33, v34, v35, v36, v37, v50, v52, v54, v56, v57, v59, v60, v62, v64);
     v38 = CMTimeCompare(&start.start, &rhs);
     if (v38)
     {
@@ -237,7 +237,7 @@ LABEL_11:
     }
   }
 
-  v7 = v56;
+  v7 = v57;
   if (v18)
   {
     goto LABEL_25;
@@ -274,58 +274,70 @@ LABEL_25:
   if ([v18 count])
   {
     v40 = CMGetAttachment(v7, *off_1E798A3C8, 0);
-    if (v40 && (v41 = v40, v42 = [objc_msgSend(v40 objectForKeyedSubscript:{*off_1E798B5A8), "intValue"}], (v43 = objc_msgSend(objc_msgSend(v41, "objectForKeyedSubscript:", *off_1E798B5A0), "intValue")) != 0) && v42)
+    if (v40)
     {
-      if (!HIDWORD(v59))
+      v41 = v40;
+      v42 = [objc_msgSend(v40 objectForKeyedSubscript:{*off_1E798B5A8), "intValue"}];
+      v43 = [objc_msgSend(v41 objectForKeyedSubscript:{*off_1E798B5A0), "intValue"}];
+      if (v43 && v42)
       {
-        goto LABEL_34;
-      }
-
-      v44 = v43;
-      v45 = [v41 objectForKeyedSubscript:*off_1E798B540];
-      if (BWDeviceModelHasCharleston() && [v45 isEqualToString:*off_1E798A0F8])
-      {
-        OUTLINED_FUNCTION_9_33();
-        mscsnu_getTransformFromSensorSpaceToSampleBufferWithNondisruptiveSwitching(v7, v41, &v69);
-        OUTLINED_FUNCTION_4_50();
-        if (!CGAffineTransformIsIdentity(&start))
+        if (!HIDWORD(v60))
         {
-          OUTLINED_FUNCTION_4_50();
-          v18 = FigCaptureMetadataUtilitiesApplyAffineTransformToFacesArray(v18, &start);
+          goto LABEL_34;
         }
 
+        v44 = v43;
+        v45 = [v41 objectForKeyedSubscript:*off_1E798B540];
+        if (BWDeviceModelHasCharleston(v45, v46) && objc_msgSend_isEqualToString_(v45))
+        {
+          OUTLINED_FUNCTION_9_33();
+          mscsnu_getTransformFromSensorSpaceToSampleBufferWithNondisruptiveSwitching(v7, v41, &v70);
+          OUTLINED_FUNCTION_4_50();
+          if (!CGAffineTransformIsIdentity(&start))
+          {
+            OUTLINED_FUNCTION_4_50();
+            v18 = FigCaptureMetadataUtilitiesApplyAffineTransformToFacesArray(v18, &start);
+          }
+
 LABEL_34:
-        [v41 setObject:v18 forKeyedSubscript:*off_1E798B218];
+          [v41 setObject:v18 forKeyedSubscript:*off_1E798B218];
+        }
+
+        else
+        {
+          v72.origin.x = OUTLINED_FUNCTION_3_1();
+          if (CGRectIsEmpty(v72))
+          {
+            goto LABEL_34;
+          }
+
+          v73.origin.x = OUTLINED_FUNCTION_3_1();
+          v76.size.width = v42;
+          v76.size.height = v44;
+          if (CGRectEqualToRect(v73, v76))
+          {
+            goto LABEL_34;
+          }
+
+          CGAffineTransformMakeScale(&v70, 1.0 / v42, 1.0 / v44);
+          v74.origin.x = OUTLINED_FUNCTION_3_1();
+          v75 = CGRectApplyAffineTransform(v74, v47);
+          FacesArrayForCropRect = FigCaptureMetadataUtilitiesCreateFacesArrayForCropRect(v18, v75.origin.x, v75.origin.y, v75.size.width, v75.size.height);
+          [v41 setObject:FacesArrayForCropRect forKeyedSubscript:*off_1E798B218];
+        }
       }
 
       else
       {
-        v71.origin.x = OUTLINED_FUNCTION_3_1();
-        if (CGRectIsEmpty(v71))
-        {
-          goto LABEL_34;
-        }
-
-        v72.origin.x = OUTLINED_FUNCTION_3_1();
-        v75.size.width = v42;
-        v75.size.height = v44;
-        if (CGRectEqualToRect(v72, v75))
-        {
-          goto LABEL_34;
-        }
-
-        CGAffineTransformMakeScale(&v69, 1.0 / v42, 1.0 / v44);
-        v73.origin.x = OUTLINED_FUNCTION_3_1();
-        v74 = CGRectApplyAffineTransform(v73, v46);
-        FacesArrayForCropRect = FigCaptureMetadataUtilitiesCreateFacesArrayForCropRect(v18, v74.origin.x, v74.origin.y, v74.size.width);
-        [v41 setObject:FacesArrayForCropRect forKeyedSubscript:*off_1E798B218];
+        OUTLINED_FUNCTION_0();
+        FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
       }
     }
 
     else
     {
       OUTLINED_FUNCTION_0();
-      FigDebugAssert3();
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
     }
   }
 

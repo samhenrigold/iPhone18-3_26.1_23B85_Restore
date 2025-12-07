@@ -50,44 +50,44 @@
 
 - (void)_initWithClass:(void *)class name:(int)name relativePriority:(char)priority singleton:(char)singleton main:
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   classCopy = class;
   if (self)
   {
     v12 = objc_opt_class();
     if (v12 != objc_opt_class())
     {
-      v18 = [MEMORY[0x1E696AEC0] stringWithFormat:@"BSServiceQuality is not intended to be subclassed"];
+      v17 = [MEMORY[0x1E696AEC0] stringWithFormat:@"BSServiceQuality is not intended to be subclassed"];
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
-        v19 = NSStringFromSelector(sel__initWithClass_name_relativePriority_singleton_main_);
-        v20 = objc_opt_class();
-        v21 = NSStringFromClass(v20);
+        v18 = NSStringFromSelector(sel__initWithClass_name_relativePriority_singleton_main_);
+        v19 = objc_opt_class();
+        v20 = NSStringFromClass(v19);
         *buf = 138544642;
-        v25 = v19;
-        v26 = 2114;
-        v27 = v21;
-        v28 = 2048;
+        v24 = v18;
+        v25 = 2114;
+        v26 = v20;
+        v27 = 2048;
         selfCopy = self;
-        v30 = 2114;
-        v31 = @"BSServiceQuality.m";
-        v32 = 1024;
-        v33 = 32;
-        v34 = 2114;
-        v35 = v18;
+        v29 = 2114;
+        v30 = @"BSServiceQuality.m";
+        v31 = 1024;
+        v32 = 32;
+        v33 = 2114;
+        v34 = v17;
         _os_log_error_impl(&dword_19A821000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
       }
 
-      v22 = v18;
-      [v18 UTF8String];
+      v21 = v17;
+      [v17 UTF8String];
       _bs_set_crash_log_message();
       __break(0);
       JUMPOUT(0x19A86A894);
     }
 
-    v23.receiver = self;
-    v23.super_class = BSServiceQuality;
-    v13 = objc_msgSendSuper2(&v23, sel_init);
+    v22.receiver = self;
+    v22.super_class = BSServiceQuality;
+    v13 = objc_msgSendSuper2(&v22, sel_init);
     if (v13)
     {
       v14 = [classCopy copy];
@@ -106,42 +106,41 @@
     v13 = 0;
   }
 
-  v16 = *MEMORY[0x1E69E9840];
   return v13;
 }
 
 + (void)_serviceWithClass:(uint64_t)class relativePriority:(uint64_t)priority main:
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   v7 = objc_opt_self();
   HIDWORD(v9) = a2 - 9;
   LODWORD(v9) = a2 - 9;
   v8 = v9 >> 2;
   if (v8 >= 7 || ((0x5Du >> v8) & 1) == 0)
   {
-    v19 = [MEMORY[0x1E696AEC0] stringWithFormat:@"unknown qos=%u", a2];
+    v18 = [MEMORY[0x1E696AEC0] stringWithFormat:@"unknown qos=%u", a2];
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v20 = NSStringFromSelector(sel__serviceWithClass_relativePriority_main_);
-      v21 = objc_opt_class();
-      v22 = NSStringFromClass(v21);
+      v19 = NSStringFromSelector(sel__serviceWithClass_relativePriority_main_);
+      v20 = objc_opt_class();
+      v21 = NSStringFromClass(v20);
       *buf = 138544642;
-      v35 = v20;
-      v36 = 2114;
-      v37 = v22;
-      v38 = 2048;
-      v39 = v7;
-      v40 = 2114;
-      v41 = @"BSServiceQuality.m";
-      v42 = 1024;
-      v43 = 58;
-      v44 = 2114;
-      v45 = v19;
+      v34 = v19;
+      v35 = 2114;
+      v36 = v21;
+      v37 = 2048;
+      v38 = v7;
+      v39 = 2114;
+      v40 = @"BSServiceQuality.m";
+      v41 = 1024;
+      v42 = 58;
+      v43 = 2114;
+      v44 = v18;
       _os_log_error_impl(&dword_19A821000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
     }
 
-    v23 = v19;
-    [v19 UTF8String];
+    v22 = v18;
+    [v18 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x19A86ABE8);
@@ -152,29 +151,29 @@
   {
     if (priority)
     {
-      v29 = [MEMORY[0x1E696AEC0] stringWithFormat:@"cannot ask for main with relative priority : qos=%u rp=%i", a2, class];
+      v28 = [MEMORY[0x1E696AEC0] stringWithFormat:@"cannot ask for main with relative priority : qos=%u rp=%i", a2, class];
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
-        v30 = NSStringFromSelector(sel__serviceWithClass_relativePriority_main_);
-        v31 = objc_opt_class();
-        v32 = NSStringFromClass(v31);
+        v29 = NSStringFromSelector(sel__serviceWithClass_relativePriority_main_);
+        v30 = objc_opt_class();
+        v31 = NSStringFromClass(v30);
         *buf = 138544642;
-        v35 = v30;
-        v36 = 2114;
-        v37 = v32;
-        v38 = 2048;
-        v39 = v7;
-        v40 = 2114;
-        v41 = @"BSServiceQuality.m";
-        v42 = 1024;
-        v43 = 89;
-        v44 = 2114;
-        v45 = v29;
+        v34 = v29;
+        v35 = 2114;
+        v36 = v31;
+        v37 = 2048;
+        v38 = v7;
+        v39 = 2114;
+        v40 = @"BSServiceQuality.m";
+        v41 = 1024;
+        v42 = 89;
+        v43 = 2114;
+        v44 = v28;
         _os_log_error_impl(&dword_19A821000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
       }
 
-      v33 = v29;
-      [v29 UTF8String];
+      v32 = v28;
+      [v28 UTF8String];
       _bs_set_crash_log_message();
       __break(0);
       JUMPOUT(0x19A86ADE4);
@@ -222,77 +221,74 @@
     os_unfair_lock_unlock(&_MergedGlobals_15);
     if (*(v11 + 5) != a2 || *(v11 + 6) || *(v11 + 16) != 1 || *(v11 + 17) != priority)
     {
-      v24 = [MEMORY[0x1E696AEC0] stringWithFormat:@"cached properties aren't consistent : qos=%u main=%i cached=%@", a2, priority, v11];
+      v23 = [MEMORY[0x1E696AEC0] stringWithFormat:@"cached properties aren't consistent : qos=%u main=%i cached=%@", a2, priority, v11];
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
-        v25 = NSStringFromSelector(sel__serviceWithClass_relativePriority_main_);
-        v26 = objc_opt_class();
-        v27 = NSStringFromClass(v26);
+        v24 = NSStringFromSelector(sel__serviceWithClass_relativePriority_main_);
+        v25 = objc_opt_class();
+        v26 = NSStringFromClass(v25);
         *buf = 138544642;
-        v35 = v25;
-        v36 = 2114;
-        v37 = v27;
-        v38 = 2048;
-        v39 = v7;
-        v40 = 2114;
-        v41 = @"BSServiceQuality.m";
-        v42 = 1024;
-        v43 = 85;
-        v44 = 2114;
-        v45 = v24;
+        v34 = v24;
+        v35 = 2114;
+        v36 = v26;
+        v37 = 2048;
+        v38 = v7;
+        v39 = 2114;
+        v40 = @"BSServiceQuality.m";
+        v41 = 1024;
+        v42 = 85;
+        v43 = 2114;
+        v44 = v23;
         _os_log_error_impl(&dword_19A821000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
       }
 
-      v28 = v24;
-      [v24 UTF8String];
+      v27 = v23;
+      [v23 UTF8String];
       _bs_set_crash_log_message();
       __break(0);
       JUMPOUT(0x19A86ACE8);
     }
   }
 
-  v17 = *MEMORY[0x1E69E9840];
-
   return v11;
 }
 
 - (void)dealloc
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   if (self->_singleton)
   {
-    v5 = [MEMORY[0x1E696AEC0] stringWithFormat:@"can not deallocate a singleton BSServiceQuality : %@", self];
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"can not deallocate a singleton BSServiceQuality : %@", self];
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v6 = NSStringFromSelector(a2);
-      v7 = objc_opt_class();
-      v8 = NSStringFromClass(v7);
+      v5 = NSStringFromSelector(a2);
+      v6 = objc_opt_class();
+      v7 = NSStringFromClass(v6);
       *buf = 138544642;
-      v12 = v6;
-      v13 = 2114;
-      v14 = v8;
-      v15 = 2048;
+      v11 = v5;
+      v12 = 2114;
+      v13 = v7;
+      v14 = 2048;
       selfCopy = self;
-      v17 = 2114;
-      v18 = @"BSServiceQuality.m";
-      v19 = 1024;
-      v20 = 95;
-      v21 = 2114;
-      v22 = v5;
+      v16 = 2114;
+      v17 = @"BSServiceQuality.m";
+      v18 = 1024;
+      v19 = 95;
+      v20 = 2114;
+      v21 = v4;
       _os_log_error_impl(&dword_19A821000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
     }
 
-    v9 = v5;
-    [v5 UTF8String];
+    v8 = v4;
+    [v4 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x19A86AFC8);
   }
 
-  v10.receiver = self;
-  v10.super_class = BSServiceQuality;
-  [(BSServiceQuality *)&v10 dealloc];
-  v3 = *MEMORY[0x1E69E9840];
+  v9.receiver = self;
+  v9.super_class = BSServiceQuality;
+  [(BSServiceQuality *)&v9 dealloc];
 }
 
 - (BOOL)isEqual:(id)equal

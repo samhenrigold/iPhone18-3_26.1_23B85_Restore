@@ -6,6 +6,7 @@
 - (GEODefaultsServer)initWithDaemon:(id)daemon;
 - (void)_configKeysChanged:(id)changed;
 - (void)_expiringKeysChanged:(id)changed;
+- (void)_notifyChangedKeys:(id)keys options:(unint64_t)options postInternalNotification:(BOOL)notification triggerWatchSync:(BOOL)sync;
 - (void)_notifyListenersOfKeysChange:(id)change options:(unint64_t)options postInternalNotification:(BOOL)notification;
 - (void)addChangeListenerForWithRequest:(id)request;
 - (void)clearExpiredKeyWithRequest:(id)request;
@@ -472,36 +473,28 @@ LABEL_20:
 - (void)removeChangeListenerForWithRequest:(id)request
 {
   requestCopy = request;
-  peersIsolater = self->_peersIsolater;
-  v7 = requestCopy;
-  v6 = requestCopy;
+  v3 = requestCopy;
   geo_isolate_sync();
 }
 
 - (void)addChangeListenerForWithRequest:(id)request
 {
   requestCopy = request;
-  peersIsolater = self->_peersIsolater;
-  v7 = requestCopy;
-  v6 = requestCopy;
+  v3 = requestCopy;
   geo_isolate_sync();
 }
 
 - (void)peerDidDisconnect:(id)disconnect
 {
   disconnectCopy = disconnect;
-  peersIsolater = self->_peersIsolater;
-  v7 = disconnectCopy;
-  v6 = disconnectCopy;
+  v3 = disconnectCopy;
   geo_isolate_sync();
 }
 
 - (void)peerDidConnect:(id)connect
 {
   connectCopy = connect;
-  peersIsolater = self->_peersIsolater;
-  v7 = connectCopy;
-  v6 = connectCopy;
+  v3 = connectCopy;
   geo_isolate_sync();
 }
 
@@ -671,47 +664,46 @@ LABEL_20:
       _GEOConfigPostKeysChangedNotification();
     }
 
-    v28 = 0;
-    v29 = &v28;
-    v30 = 0x3032000000;
-    v31 = sub_1000304A0;
-    v32 = sub_1000304B0;
-    v33 = 0;
-    peersIsolater = self->_peersIsolater;
-    v22 = _NSConcreteStackBlock;
-    v23 = 3221225472;
-    v24 = sub_1000312C4;
-    v25 = &unk_100082ED0;
+    v27 = 0;
+    v28 = &v27;
+    v29 = 0x3032000000;
+    v30 = sub_1000304A0;
+    v31 = sub_1000304B0;
+    v32 = 0;
+    v21 = _NSConcreteStackBlock;
+    v22 = 3221225472;
+    v23 = sub_1000312C4;
+    v24 = &unk_100082ED0;
     selfCopy = self;
-    v27 = &v28;
+    v26 = &v27;
     geo_isolate_sync();
-    v20 = 0u;
-    v21 = 0u;
-    v18 = 0u;
     v19 = 0u;
-    v10 = v29[5];
-    v11 = [v10 countByEnumeratingWithState:&v18 objects:v35 count:16];
-    if (v11)
+    v20 = 0u;
+    v17 = 0u;
+    v18 = 0u;
+    v9 = v28[5];
+    v10 = [v9 countByEnumeratingWithState:&v17 objects:v34 count:16];
+    if (v10)
     {
-      v12 = *v19;
-      v13 = *&optionsCopy & 0xFFF000;
+      v11 = *v18;
+      v12 = *&optionsCopy & 0xFFF000;
       do
       {
-        v14 = 0;
+        v13 = 0;
         do
         {
-          if (*v19 != v12)
+          if (*v18 != v11)
           {
-            objc_enumerationMutation(v10);
+            objc_enumerationMutation(v9);
           }
 
-          v15 = *(*(&v18 + 1) + 8 * v14);
-          v16 = changeCopy;
-          if (v15)
+          v14 = *(*(&v17 + 1) + 8 * v13);
+          v15 = changeCopy;
+          if (v14)
           {
-            if (v13)
+            if (v12)
             {
-              [v15 _notifyPeerOfChangedKeys:v16 options:{v13, v18}];
+              [v14 _notifyPeerOfChangedKeys:v15 options:{v12, v17}];
             }
 
             else if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_FAULT))
@@ -721,19 +713,38 @@ LABEL_20:
             }
           }
 
-          v14 = v14 + 1;
+          v13 = v13 + 1;
         }
 
-        while (v11 != v14);
-        v17 = [v10 countByEnumeratingWithState:&v18 objects:v35 count:16];
-        v11 = v17;
+        while (v10 != v13);
+        v16 = [v9 countByEnumeratingWithState:&v17 objects:v34 count:16];
+        v10 = v16;
       }
 
-      while (v17);
+      while (v16);
     }
 
-    _Block_object_dispose(&v28, 8);
+    _Block_object_dispose(&v27, 8);
   }
+}
+
+- (void)_notifyChangedKeys:(id)keys options:(unint64_t)options postInternalNotification:(BOOL)notification triggerWatchSync:(BOOL)sync
+{
+  notificationCopy = notification;
+  keysCopy = keys;
+  userInfo = [keysCopy userInfo];
+  v17 = [userInfo objectForKeyedSubscript:NSKeyValueChangeOldKey];
+
+  userInfo2 = [keysCopy userInfo];
+
+  v12 = [userInfo2 objectForKeyedSubscript:NSKeyValueChangeNewKey];
+
+  v13 = +[GEOCountryConfiguration sharedConfiguration];
+  countryCode = [v13 countryCode];
+  v15 = GEOCalculateChangedKeys();
+
+  allObjects = [v15 allObjects];
+  [(GEODefaultsServer *)self _notifyListenersOfKeysChange:allObjects options:options postInternalNotification:notificationCopy];
 }
 
 - (void)_expiringKeysChanged:(id)changed
@@ -749,10 +760,10 @@ LABEL_20:
       goto LABEL_17;
     }
 
-    *v30 = 0;
-    v19 = "Assertion failed: keys.count > 0";
+    *v29 = 0;
+    v18 = "Assertion failed: keys.count > 0";
 LABEL_22:
-    _os_log_fault_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_FAULT, v19, v30, 2u);
+    _os_log_fault_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_FAULT, v18, v29, 2u);
     goto LABEL_17;
   }
 
@@ -767,52 +778,51 @@ LABEL_22:
       goto LABEL_17;
     }
 
-    *v30 = 0;
-    v19 = "Assertion failed: options != GEOConfigOption_None";
+    *v29 = 0;
+    v18 = "Assertion failed: options != GEOConfigOption_None";
     goto LABEL_22;
   }
 
-  *v30 = 0;
-  v31 = v30;
-  v32 = 0x3032000000;
-  v33 = sub_1000304A0;
-  v34 = sub_1000304B0;
-  v35 = 0;
-  peersIsolater = self->_peersIsolater;
-  v24 = _NSConcreteStackBlock;
-  v25 = 3221225472;
-  v26 = sub_1000317A0;
-  v27 = &unk_100082ED0;
+  *v29 = 0;
+  v30 = v29;
+  v31 = 0x3032000000;
+  v32 = sub_1000304A0;
+  v33 = sub_1000304B0;
+  v34 = 0;
+  v23 = _NSConcreteStackBlock;
+  v24 = 3221225472;
+  v25 = sub_1000317A0;
+  v26 = &unk_100082ED0;
   selfCopy = self;
-  v29 = v30;
+  v28 = v29;
   geo_isolate_sync();
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
   v21 = 0u;
-  v11 = *(v31 + 5);
-  v12 = [v11 countByEnumeratingWithState:&v20 objects:v37 count:16];
-  if (v12)
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
+  v10 = *(v30 + 5);
+  v11 = [v10 countByEnumeratingWithState:&v19 objects:v36 count:16];
+  if (v11)
   {
-    v13 = *v21;
-    v14 = unsignedIntegerValue & 0xFFF000;
+    v12 = *v20;
+    v13 = unsignedIntegerValue & 0xFFF000;
     do
     {
-      v15 = 0;
+      v14 = 0;
       do
       {
-        if (*v21 != v13)
+        if (*v20 != v12)
         {
-          objc_enumerationMutation(v11);
+          objc_enumerationMutation(v10);
         }
 
-        v16 = *(*(&v20 + 1) + 8 * v15);
-        v17 = v6;
-        if (v16)
+        v15 = *(*(&v19 + 1) + 8 * v14);
+        v16 = v6;
+        if (v15)
         {
-          if (v14)
+          if (v13)
           {
-            [v16 _notifyPeerOfChangedKeys:v17 options:{v14 | 0x10000000, v20}];
+            [v15 _notifyPeerOfChangedKeys:v16 options:{v13 | 0x10000000, v19}];
           }
 
           else if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_FAULT))
@@ -822,18 +832,18 @@ LABEL_22:
           }
         }
 
-        v15 = v15 + 1;
+        v14 = v14 + 1;
       }
 
-      while (v12 != v15);
-      v18 = [v11 countByEnumeratingWithState:&v20 objects:v37 count:16];
-      v12 = v18;
+      while (v11 != v14);
+      v17 = [v10 countByEnumeratingWithState:&v19 objects:v36 count:16];
+      v11 = v17;
     }
 
-    while (v18);
+    while (v17);
   }
 
-  _Block_object_dispose(v30, 8);
+  _Block_object_dispose(v29, 8);
 LABEL_17:
 }
 
@@ -991,7 +1001,7 @@ LABEL_9:
 
 + (void)submitBackgroundTasksNeededDuringDaemonStart
 {
-  if (sub_10001FD1C())
+  if (sub_10001FD1C(0))
   {
     sharedScheduler = [sub_10001FF30() sharedScheduler];
     v3 = GEOUpdateNetworkDefaultsTaskIdentifier;

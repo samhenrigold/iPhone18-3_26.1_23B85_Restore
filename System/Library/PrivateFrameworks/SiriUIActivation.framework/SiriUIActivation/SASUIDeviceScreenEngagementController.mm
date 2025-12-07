@@ -11,6 +11,7 @@
 - (SASUIDeviceScreenEngagementControllerDelegate)delegate;
 - (void)_handleButtonPressAttentionEvent:(id)event;
 - (void)_handleTouchAttentionEvent:(id)event;
+- (void)_setDetectionStarted:(BOOL)started forType:(unint64_t)type;
 - (void)dealloc;
 - (void)startIfNeededForTypes:(unint64_t)types completionQueue:(id)queue completion:(id)completion;
 @end
@@ -52,13 +53,35 @@
 
 - (void)dealloc
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v3 = 136315394;
-  v4 = "[SASUIDeviceScreenEngagementController dealloc]";
-  v5 = 2112;
+  v6 = *MEMORY[0x277D85DE8];
+  v2 = 136315394;
+  v3 = "[SASUIDeviceScreenEngagementController dealloc]";
+  v4 = 2112;
   selfCopy = self;
-  _os_log_error_impl(&dword_21FEE5000, a2, OS_LOG_TYPE_ERROR, "%s Failed to stop user attention: %@", &v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_21FEE5000, a2, OS_LOG_TYPE_ERROR, "%s Failed to stop user attention: %@", &v2, 0x16u);
+}
+
+- (void)_setDetectionStarted:(BOOL)started forType:(unint64_t)type
+{
+  startedCopy = started;
+  attentionDetectionStatuses = self->_attentionDetectionStatuses;
+  if (attentionDetectionStatuses)
+  {
+    dictionary = attentionDetectionStatuses;
+  }
+
+  else
+  {
+    dictionary = [MEMORY[0x277CBEB38] dictionary];
+  }
+
+  v9 = self->_attentionDetectionStatuses;
+  self->_attentionDetectionStatuses = dictionary;
+
+  v12 = [MEMORY[0x277CCABB0] numberWithBool:startedCopy];
+  v10 = self->_attentionDetectionStatuses;
+  v11 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:type];
+  [(NSMutableDictionary *)v10 setObject:v12 forKeyedSubscript:v11];
 }
 
 - (BOOL)_detectionStartedForType:(unint64_t)type

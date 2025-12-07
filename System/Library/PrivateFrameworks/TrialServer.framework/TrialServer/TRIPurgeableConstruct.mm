@@ -105,81 +105,8 @@ LABEL_3:
 {
   constructCopy = construct;
   v5 = constructCopy;
-  if (!constructCopy)
+  if (!constructCopy || (v6 = self->_factorPackId == 0, [constructCopy factorPackId], v7 = objc_claimAutoreleasedReturnValue(), v8 = v7 != 0, v7, v6 == v8) || (factorPackId = self->_factorPackId) != 0 && (objc_msgSend(v5, "factorPackId"), v10 = objc_claimAutoreleasedReturnValue(), v11 = -[TRIFactorPackId isEqual:](factorPackId, "isEqual:", v10), v10, !v11) || (v12 = self->_treatmentId == 0, objc_msgSend(v5, "treatmentId"), v13 = objc_claimAutoreleasedReturnValue(), v14 = v13 != 0, v13, v12 == v14) || (treatmentId = self->_treatmentId) != 0 && (objc_msgSend(v5, "treatmentId"), v16 = objc_claimAutoreleasedReturnValue(), v17 = -[NSString isEqual:](treatmentId, "isEqual:", v16), v16, !v17) || (v18 = self->_namespaceName == 0, objc_msgSend(v5, "namespaceName"), v19 = objc_claimAutoreleasedReturnValue(), v20 = v19 != 0, v19, v18 == v20) || (namespaceName = self->_namespaceName) != 0 && (objc_msgSend(v5, "namespaceName"), v22 = objc_claimAutoreleasedReturnValue(), v23 = -[NSString isEqual:](namespaceName, "isEqual:", v22), v22, !v23) || (v24 = self->_purgeableAssetFactorNames == 0, objc_msgSend(v5, "purgeableAssetFactorNames"), v25 = objc_claimAutoreleasedReturnValue(), v26 = v25 != 0, v25, v24 == v26))
   {
-    goto LABEL_14;
-  }
-
-  v6 = self->_factorPackId == 0;
-  factorPackId = [constructCopy factorPackId];
-  v8 = factorPackId != 0;
-
-  if (v6 == v8)
-  {
-    goto LABEL_14;
-  }
-
-  factorPackId = self->_factorPackId;
-  if (factorPackId)
-  {
-    factorPackId2 = [v5 factorPackId];
-    v11 = [(TRIFactorPackId *)factorPackId isEqual:factorPackId2];
-
-    if (!v11)
-    {
-      goto LABEL_14;
-    }
-  }
-
-  v12 = self->_treatmentId == 0;
-  treatmentId = [v5 treatmentId];
-  v14 = treatmentId != 0;
-
-  if (v12 == v14)
-  {
-    goto LABEL_14;
-  }
-
-  treatmentId = self->_treatmentId;
-  if (treatmentId)
-  {
-    treatmentId2 = [v5 treatmentId];
-    v17 = [(NSString *)treatmentId isEqual:treatmentId2];
-
-    if (!v17)
-    {
-      goto LABEL_14;
-    }
-  }
-
-  v18 = self->_namespaceName == 0;
-  namespaceName = [v5 namespaceName];
-  v20 = namespaceName != 0;
-
-  if (v18 == v20)
-  {
-    goto LABEL_14;
-  }
-
-  namespaceName = self->_namespaceName;
-  if (namespaceName)
-  {
-    namespaceName2 = [v5 namespaceName];
-    v23 = [(NSString *)namespaceName isEqual:namespaceName2];
-
-    if (!v23)
-    {
-      goto LABEL_14;
-    }
-  }
-
-  v24 = self->_purgeableAssetFactorNames == 0;
-  purgeableAssetFactorNames = [v5 purgeableAssetFactorNames];
-  v26 = purgeableAssetFactorNames != 0;
-
-  if (v24 == v26)
-  {
-LABEL_14:
     v29 = 0;
   }
 
@@ -188,8 +115,8 @@ LABEL_14:
     purgeableAssetFactorNames = self->_purgeableAssetFactorNames;
     if (purgeableAssetFactorNames)
     {
-      purgeableAssetFactorNames2 = [v5 purgeableAssetFactorNames];
-      v29 = [(NSSet *)purgeableAssetFactorNames isEqual:purgeableAssetFactorNames2];
+      purgeableAssetFactorNames = [v5 purgeableAssetFactorNames];
+      v29 = [(NSSet *)purgeableAssetFactorNames isEqual:purgeableAssetFactorNames];
     }
 
     else

@@ -992,7 +992,7 @@ LABEL_38:
     v13[i] = v11;
   }
 
-  vcp_matrix_invert(__B);
+  vcp_matrix_invert(__B, 3);
 }
 
 - (int)analyzePixelBuffer:(__CVBuffer *)buffer flags:(unint64_t *)flags withPreAnalysisScore:(float)score results:(id *)results cancel:(id)cancel

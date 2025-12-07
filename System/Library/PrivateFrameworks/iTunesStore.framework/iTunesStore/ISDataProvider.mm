@@ -19,7 +19,7 @@
 
 - (ISDataProvider)init
 {
-  __ISRecordSPIClassUsage(self);
+  __ISRecordSPIClassUsage(self, "/Library/Caches/com.apple.xbs/Sources/iTunesStore/src/ISDataProvider.m", 42, a2);
   v4.receiver = self;
   v4.super_class = ISDataProvider;
   return [(ISDataProvider *)&v4 init];
@@ -99,7 +99,7 @@
 
 - (BOOL)runAuthorizationDialog:(id)dialog error:(id *)error
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   dialogCopy = dialog;
   v7 = objc_alloc_init(ISServerAuthenticationOperation);
   [(ISServerAuthenticationOperation *)v7 setDialog:dialogCopy];
@@ -150,23 +150,28 @@
   {
     v16 = objc_opt_class();
     v28 = v16;
+    errorCopy = error;
     v17 = AMSSetLogKeyIfNeeded();
     accountName = [v9 accountName];
     SSHashIfNeeded();
-    v30 = 138544130;
-    v31 = v16;
-    v32 = 2114;
-    v33 = v17;
-    v34 = 2112;
-    v35 = v9;
-    v37 = v36 = 2114;
-    LODWORD(v27) = 42;
-    v19 = _os_log_send_and_compose_impl();
+    v20 = v19 = self;
+    v31 = 138544130;
+    v32 = v16;
+    v33 = 2114;
+    v34 = v17;
+    v35 = 2112;
+    v36 = v9;
+    v37 = 2114;
+    v38 = v20;
+    v21 = _os_log_send_and_compose_impl(v15, 0, 0, 0, &dword_275BC3000, oSLogObject, 0, "%{public}@: [%{public}@] Running ISServerAuthenticationOperation. authenticationContext = %@ | authenticationContext.accountName = %{public}@", &v31, 42);
 
-    if (v19)
+    self = v19;
+    error = errorCopy;
+
+    if (v21)
     {
-      v20 = [MEMORY[0x277CCACA8] stringWithCString:v19 encoding:{4, &v30, v27}];
-      free(v19);
+      v22 = [MEMORY[0x277CCACA8] stringWithCString:v21 encoding:4];
+      free(v21);
       SSFileLog();
     }
   }
@@ -175,18 +180,17 @@
   {
   }
 
-  v29 = 0;
-  v21 = [(ISDataProvider *)self _runServerAuthenticationOperation:v7 error:&v29];
-  v22 = v29;
-  v23 = v22;
-  if (error && !v21)
+  v30 = 0;
+  v23 = [(ISDataProvider *)self _runServerAuthenticationOperation:v7 error:&v30];
+  v24 = v30;
+  v25 = v24;
+  if (error && !v23)
   {
-    v24 = v22;
-    *error = v23;
+    v26 = v24;
+    *error = v25;
   }
 
-  v25 = *MEMORY[0x277D85DE8];
-  return v21;
+  return v23;
 }
 
 - (BOOL)runSubOperation:(id)operation error:(id *)error
@@ -240,31 +244,50 @@
     shouldLog = [(ISBiometricAuthorizationDialogOperation *)mEMORY[0x277D69B38] shouldLog];
     if ([(ISBiometricAuthorizationDialogOperation *)mEMORY[0x277D69B38] shouldLogToDisk])
     {
-      v25 = shouldLog | 2;
+      v27 = shouldLog | 2;
     }
 
     else
     {
-      v25 = shouldLog;
+      v27 = shouldLog;
     }
 
     oSLogObject = [(ISBiometricAuthorizationDialogOperation *)mEMORY[0x277D69B38] OSLogObject];
     if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
     {
-      v26 = v25;
+      v28 = v27;
     }
 
     else
     {
-      v26 = v25 & 2;
+      v28 = v27 & 2;
     }
 
-    if (v26)
+    if (v28)
     {
-      goto LABEL_24;
+      v64 = 138543362;
+      v65 = objc_opt_class();
+      v24 = v65;
+      v25 = _os_log_send_and_compose_impl(v28, 0, 0, 0, &dword_275BC3000, oSLogObject, 16, "%{public}@: Skipping TouchID signature for no server challenge", &v64, 12);
+LABEL_25:
+      v29 = v25;
+
+      if (v29)
+      {
+        v30 = [MEMORY[0x277CCACA8] stringWithCString:v29 encoding:4];
+        free(v29);
+        SSFileLog();
+      }
+
+      goto LABEL_43;
     }
 
-    goto LABEL_41;
+LABEL_42:
+
+LABEL_43:
+    v48 = 0;
+    LOBYTE(v49) = 0;
+    goto LABEL_48;
   }
 
   authenticationContext = [(ISDataProvider *)self authenticationContext];
@@ -302,51 +325,36 @@
 
     if (v23)
     {
-LABEL_24:
       v64 = 138543362;
       v65 = objc_opt_class();
-      v27 = v65;
-      LODWORD(v57) = 12;
-      v28 = _os_log_send_and_compose_impl();
-
-      if (v28)
-      {
-        v29 = [MEMORY[0x277CCACA8] stringWithCString:v28 encoding:{4, &v64, v57}];
-        free(v28);
-        SSFileLog();
-      }
-
-      goto LABEL_42;
+      v24 = v65;
+      v25 = _os_log_send_and_compose_impl(v23, 0, 0, 0, &dword_275BC3000, oSLogObject, 16, "%{public}@: Skipping TouchID signature because auth context tells us to suppress dialogs", &v64, 12);
+      goto LABEL_25;
     }
 
-LABEL_41:
-
-LABEL_42:
-    v46 = 0;
-    LOBYTE(v47) = 0;
-    goto LABEL_47;
+    goto LABEL_42;
   }
 
   mEMORY[0x277D69B38] = [[ISBiometricAuthorizationDialogOperation alloc] initWithTouchIDDialog:dialogCopy fallbackDialog:fallbackDialogCopy];
   [(ISBiometricAuthorizationDialogOperation *)mEMORY[0x277D69B38] setBiometricAuthenticationContext:self->_biometricAuthenticationContext];
   [(ISBiometricAuthorizationDialogOperation *)mEMORY[0x277D69B38] setMetricsDictionary:dictionaryCopy];
   signupRequestParameters = [(SSAuthenticationContext *)self->_authenticationContext signupRequestParameters];
-  v31 = [signupRequestParameters objectForKey:@"product"];
+  v32 = [signupRequestParameters objectForKey:@"product"];
 
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v32 = [MEMORY[0x277CBEBC0] copyDictionaryForQueryString:v31 unescapedValues:1];
-    [(ISBiometricAuthorizationDialogOperation *)mEMORY[0x277D69B38] setBuyParams:v32];
+    v33 = [MEMORY[0x277CBEBC0] copyDictionaryForQueryString:v32 unescapedValues:1];
+    [(ISBiometricAuthorizationDialogOperation *)mEMORY[0x277D69B38] setBuyParams:v33];
   }
 
   hTTPHeaders = [(SSAuthenticationContext *)self->_authenticationContext HTTPHeaders];
-  v34 = [hTTPHeaders objectForKey:*MEMORY[0x277D6A130]];
+  v35 = [hTTPHeaders objectForKey:*MEMORY[0x277D6A130]];
 
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    [(ISBiometricAuthorizationDialogOperation *)mEMORY[0x277D69B38] setUserAgent:v34];
+    [(ISBiometricAuthorizationDialogOperation *)mEMORY[0x277D69B38] setUserAgent:v35];
   }
 
   mEMORY[0x277D69B38]2 = [MEMORY[0x277D69B38] sharedAccountsAuthenticationConfig];
@@ -358,52 +366,52 @@ LABEL_42:
   shouldLog3 = [mEMORY[0x277D69B38]2 shouldLog];
   if ([mEMORY[0x277D69B38]2 shouldLogToDisk])
   {
-    v37 = shouldLog3 | 2;
+    v38 = shouldLog3 | 2;
   }
 
   else
   {
-    v37 = shouldLog3;
+    v38 = shouldLog3;
   }
 
   oSLogObject2 = [mEMORY[0x277D69B38]2 OSLogObject];
   if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEFAULT))
   {
-    v39 = v37;
+    v40 = v38;
   }
 
   else
   {
-    v39 = v37 & 2;
+    v40 = v38 & 2;
   }
 
-  if (v39)
+  if (v40)
   {
     v60 = dictionaryCopy;
     errorCopy = error;
-    v40 = fallbackDialogCopy;
-    v41 = objc_opt_class();
-    v42 = self->_biometricAuthenticationContext;
-    v58 = v41;
-    [(SSBiometricAuthenticationContext *)v42 accountName];
-    v43 = v59 = v34;
-    SSHashIfNeeded();
+    v41 = fallbackDialogCopy;
+    v42 = objc_opt_class();
+    v43 = self->_biometricAuthenticationContext;
+    v58 = v42;
+    [(SSBiometricAuthenticationContext *)v43 accountName];
+    v44 = v59 = v35;
+    v45 = SSHashIfNeeded();
     v64 = 138543874;
-    v65 = v41;
-    fallbackDialogCopy = v40;
+    v65 = v42;
+    fallbackDialogCopy = v41;
     v66 = 2112;
-    v67 = v42;
+    v67 = v43;
     dictionaryCopy = v60;
     error = errorCopy;
-    v69 = v68 = 2114;
-    LODWORD(v57) = 32;
-    v44 = _os_log_send_and_compose_impl();
+    v68 = 2114;
+    v69 = v45;
+    v46 = _os_log_send_and_compose_impl(v40, 0, 0, 0, &dword_275BC3000, oSLogObject2, 0, "%{public}@: Running ISBiometricAuthorizationDialogOperation. authenticationContext = %@ | authenticationContext.accountName = %{public}@", &v64, 32);
 
-    v34 = v59;
-    if (v44)
+    v35 = v59;
+    if (v46)
     {
-      v45 = [MEMORY[0x277CCACA8] stringWithCString:v44 encoding:{4, &v64, v57}];
-      free(v44);
+      v47 = [MEMORY[0x277CCACA8] stringWithCString:v46 encoding:4];
+      free(v46);
       SSFileLog();
     }
   }
@@ -413,33 +421,32 @@ LABEL_42:
   }
 
   v63 = 0;
-  v47 = [(ISDataProvider *)self runSubOperation:mEMORY[0x277D69B38] error:&v63];
-  v46 = v63;
-  if (v47)
+  v49 = [(ISDataProvider *)self runSubOperation:mEMORY[0x277D69B38] error:&v63];
+  v48 = v63;
+  if (v49)
   {
     selectedButton = [(ISBiometricAuthorizationDialogOperation *)mEMORY[0x277D69B38] selectedButton];
     [(ISBiometricAuthorizationDialogOperation *)mEMORY[0x277D69B38] dialog];
-    v50 = v49 = error;
-    [(ISDataProvider *)self _performActionsForButton:selectedButton withDialog:v50];
+    v52 = v51 = error;
+    [(ISDataProvider *)self _performActionsForButton:selectedButton withDialog:v52];
 
     biometricAuthenticationContext = [(ISBiometricAuthorizationDialogOperation *)mEMORY[0x277D69B38] biometricAuthenticationContext];
     accountIdentifier = [biometricAuthenticationContext accountIdentifier];
     [(ISDataProvider *)self setAuthenticatedAccountDSID:accountIdentifier];
 
-    error = v49;
+    error = v51;
     redirectURL = [(ISBiometricAuthorizationDialogOperation *)mEMORY[0x277D69B38] redirectURL];
     [(ISDataProvider *)self setRedirectURL:redirectURL];
   }
 
-LABEL_47:
-  if (error && !v47)
+LABEL_48:
+  if (error && !v49)
   {
-    v54 = v46;
-    *error = v46;
+    v56 = v48;
+    *error = v48;
   }
 
-  v55 = *MEMORY[0x277D85DE8];
-  return v47;
+  return v49;
 }
 
 - (void)_performActionsForButton:(id)button withDialog:(id)dialog
@@ -454,11 +461,11 @@ LABEL_47:
 
 - (BOOL)_runServerAuthenticationOperation:(id)operation error:(id *)error
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   operationCopy = operation;
-  v22 = 0;
-  v7 = [(ISDataProvider *)self runSubOperation:operationCopy error:&v22];
-  v8 = v22;
+  v20 = 0;
+  v7 = [(ISDataProvider *)self runSubOperation:operationCopy error:&v20];
+  v8 = v20;
   if (v7)
   {
     -[ISDataProvider setAuthenticatedAccountCredentialSource:](self, "setAuthenticatedAccountCredentialSource:", [operationCopy authenticatedAccountCredentialSource]);
@@ -468,7 +475,7 @@ LABEL_47:
     redirectURL = [operationCopy redirectURL];
     [(ISDataProvider *)self setRedirectURL:redirectURL];
 
-    goto LABEL_16;
+    goto LABEL_17;
   }
 
   mEMORY[0x277D69B38] = [MEMORY[0x277D69B38] sharedAccountsAuthenticationConfig];
@@ -480,16 +487,21 @@ LABEL_47:
   shouldLog = [mEMORY[0x277D69B38] shouldLog];
   if ([mEMORY[0x277D69B38] shouldLogToDisk])
   {
-    v13 = shouldLog | 2;
+    LODWORD(v13) = shouldLog | 2;
   }
 
   else
   {
-    v13 = shouldLog;
+    LODWORD(v13) = shouldLog;
   }
 
   oSLogObject = [mEMORY[0x277D69B38] OSLogObject];
-  if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+  {
+    v13 = v13;
+  }
+
+  else
   {
     v13 &= 2u;
   }
@@ -497,34 +509,32 @@ LABEL_47:
   if (v13)
   {
     v15 = objc_opt_class();
-    v23 = 138543618;
-    v24 = v15;
-    v25 = 2112;
-    v26 = v8;
+    v21 = 138543618;
+    v22 = v15;
+    v23 = 2112;
+    v24 = v8;
     v16 = v15;
-    LODWORD(v21) = 22;
-    v17 = _os_log_send_and_compose_impl();
+    v17 = _os_log_send_and_compose_impl(v13, 0, 0, 0, &dword_275BC3000, oSLogObject, 16, "%{public}@: Server-driven authentication failed. error = %@", &v21, 22);
 
     if (!v17)
     {
-      goto LABEL_14;
+      goto LABEL_15;
     }
 
-    oSLogObject = [MEMORY[0x277CCACA8] stringWithCString:v17 encoding:{4, &v23, v21}];
+    oSLogObject = [MEMORY[0x277CCACA8] stringWithCString:v17 encoding:4];
     free(v17);
     SSFileLog();
   }
 
-LABEL_14:
+LABEL_15:
   if (error)
   {
     v18 = v8;
     *error = v8;
   }
 
-LABEL_16:
+LABEL_17:
 
-  v19 = *MEMORY[0x277D85DE8];
   return v7;
 }
 

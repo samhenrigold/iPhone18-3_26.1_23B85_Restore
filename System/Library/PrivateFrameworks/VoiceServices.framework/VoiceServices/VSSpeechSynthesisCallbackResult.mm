@@ -88,7 +88,7 @@
       else if (!v10)
       {
         v6 = objc_alloc_init(VSSpeechWordTimingInfo);
-        [(VSSpeechSynthesisCallbackResult *)self asbd];
+        objc_msgSend_asbd(self);
         [(VSSpeechWordTimingInfo *)v6 setStartTime:*(&v11 + 1) / v9];
         v7 = [(VSSpeechSynthesisCallbackResult *)self utf16OffsetFromUTF8:*(&v10 + 1)];
         [(VSSpeechWordTimingInfo *)v6 setTextRange:v7, [(VSSpeechSynthesisCallbackResult *)self utf16OffsetFromUTF8:v11 + *(&v10 + 1)]- v7];
@@ -194,9 +194,9 @@
         begin = self->_markers.__begin_;
         for (i = self->_markers.__end_; begin != i; begin = (begin + 56))
         {
-          v13 = *&begin->markerName[10];
-          v38 = *&begin->id;
-          v39 = v13;
+          v11 = *&begin->markerName[10];
+          v36 = *&begin->id;
+          v37 = v11;
           if (begin->markerName[49] < 0)
           {
             std::string::__init_copy_ctor_external(&__p, *&begin->markerName[26], *&begin->markerName[34]);
@@ -204,32 +204,32 @@
 
           else
           {
-            v14 = *&begin->markerName[26];
+            v12 = *&begin->markerName[26];
             __p.__r_.__value_.__r.__words[2] = *&begin->markerName[42];
-            *&__p.__r_.__value_.__l.__data_ = v14;
+            *&__p.__r_.__value_.__l.__data_ = v12;
           }
 
-          if (!v38)
+          if (!v36)
           {
-            v15 = *(&v39 + 1);
-            [(VSSpeechSynthesisCallbackResult *)self asbd];
-            v16 = v15 * v37;
-            v18 = self->_samples.__begin_;
+            v13 = *(&v37 + 1);
+            objc_msgSend_asbd(self, a2);
+            v14 = v13 * v35;
+            v16 = self->_samples.__begin_;
             end = self->_samples.__end_;
-            v19 = (v16 - (end - v18));
-            if (v16 <= end - v18)
+            v17 = (v14 - (end - v16));
+            if (v14 <= end - v16)
             {
-              if (v16 < end - v18)
+              if (v14 < end - v16)
               {
-                self->_samples.__end_ = &v18[v16];
+                self->_samples.__end_ = &v16[v14];
               }
             }
 
             else
             {
-              if ((self->_samples.__cap_ - end) < v19)
+              if ((self->_samples.__cap_ - end) < v17)
               {
-                if ((v16 & 0x8000000000000000) == 0)
+                if ((v14 & 0x8000000000000000) == 0)
                 {
                   operator new();
                 }
@@ -237,42 +237,42 @@
                 std::vector<unsigned char>::__throw_length_error[abi:ne200100]();
               }
 
-              v20 = &v18[v16];
-              bzero(end, v19);
-              self->_samples.__end_ = v20;
+              v18 = &v16[v14];
+              bzero(end, v17);
+              self->_samples.__end_ = v18;
             }
 
-            v21 = self->_markers.__begin_;
-            v22 = self->_markers.__end_;
-            v23 = 0x6DB6DB6DB6DB6DB7 * ((&v38 - v21) >> 3) + 1;
-            v24 = 0x6DB6DB6DB6DB6DB7 * ((v22 - v21) >> 3);
-            v25 = v23 >= v24;
-            v26 = v23 - v24;
-            if (v26 != 0 && v25)
+            v19 = self->_markers.__begin_;
+            v20 = self->_markers.__end_;
+            v21 = 0x6DB6DB6DB6DB6DB7 * ((&v36 - v19) >> 3) + 1;
+            v22 = 0x6DB6DB6DB6DB6DB7 * ((v20 - v19) >> 3);
+            v23 = v21 >= v22;
+            v24 = v21 - v22;
+            if (v24 != 0 && v23)
             {
               cap = self->_markers.__cap_;
-              if (0x6DB6DB6DB6DB6DB7 * ((cap - v22) >> 3) < v26)
+              if (0x6DB6DB6DB6DB6DB7 * ((cap - v20) >> 3) < v24)
               {
-                if (v23 <= 0x492492492492492)
+                if (v21 <= 0x492492492492492)
                 {
-                  v28 = 0x6DB6DB6DB6DB6DB7 * ((cap - v21) >> 3);
-                  v29 = 2 * v28;
-                  if (2 * v28 <= v23)
+                  v26 = 0x6DB6DB6DB6DB6DB7 * ((cap - v19) >> 3);
+                  v27 = 2 * v26;
+                  if (2 * v26 <= v21)
                   {
-                    v29 = v23;
+                    v27 = v21;
                   }
 
-                  if (v28 >= 0x249249249249249)
+                  if (v26 >= 0x249249249249249)
                   {
-                    v30 = 0x492492492492492;
+                    v28 = 0x492492492492492;
                   }
 
                   else
                   {
-                    v30 = v29;
+                    v28 = v27;
                   }
 
-                  if (v30 <= 0x492492492492492)
+                  if (v28 <= 0x492492492492492)
                   {
                     operator new();
                   }
@@ -283,35 +283,35 @@
                 std::vector<unsigned char>::__throw_length_error[abi:ne200100]();
               }
 
-              v32 = (v22 + 56 * v26);
+              v30 = (v20 + 56 * v24);
               do
               {
-                *&v22->markerName[42] = 0;
-                *&v22->markerName[10] = 0uLL;
-                *&v22->markerName[26] = 0uLL;
-                *&v22->id = 0uLL;
-                v22->markerName[49] = 1;
-                v22 = (v22 + 56);
+                *&v20->markerName[42] = 0;
+                *&v20->markerName[10] = 0uLL;
+                *&v20->markerName[26] = 0uLL;
+                *&v20->id = 0uLL;
+                v20->markerName[49] = 1;
+                v20 = (v20 + 56);
               }
 
-              while (v22 != v32);
-              self->_markers.__end_ = v32;
+              while (v20 != v30);
+              self->_markers.__end_ = v30;
             }
 
-            else if (!v25)
+            else if (!v23)
             {
-              v31 = (v21 + 56 * v23);
-              while (v22 != v31)
+              v29 = (v19 + 56 * v21);
+              while (v20 != v29)
               {
-                if (v22[-1].markerName[255] < 0)
+                if (v20[-1].markerName[255] < 0)
                 {
-                  operator delete(*&v22[-1].markerName[232]);
+                  operator delete(*&v20[-1].markerName[232]);
                 }
 
-                v22 = (v22 - 56);
+                v20 = (v20 - 56);
               }
 
-              self->_markers.__end_ = v31;
+              self->_markers.__end_ = v29;
             }
           }
 
@@ -322,13 +322,13 @@
         }
       }
 
-      v33 = (*(self->_callback + 2))();
+      v31 = (*(self->_callback + 2))();
       error = self->_error;
-      self->_error = v33;
+      self->_error = v31;
 
-      v35 = self->_samples.__end_ - self->_samples.__begin_;
-      [(VSSpeechSynthesisCallbackResult *)self asbd];
-      self->_samplesProcessed += v35 / DWORD2(v39);
+      v33 = self->_samples.__end_ - self->_samples.__begin_;
+      objc_msgSend_asbd(self);
+      self->_samplesProcessed += v33 / DWORD2(v37);
       self->_samples.__end_ = self->_samples.__begin_;
     }
 
@@ -344,12 +344,11 @@
     if (callback == 1)
     {
       self->_state = 3;
-      callback = self->_callback;
-      v5 = (*(self->_callback + 2))();
-      v6 = self->_error;
-      self->_error = v5;
+      v4 = (*(self->_callback + 2))();
+      v5 = self->_error;
+      self->_error = v4;
 
-      v7 = self->_callback;
+      callback = self->_callback;
       self->_callback = 0;
     }
   }
@@ -360,10 +359,9 @@
     self->_lastUTF8Offset = 0;
     self->_lastUTF16Offset = 0;
     self->_samplesProcessed = 0;
-    v8 = self->_callback;
-    v9 = (*(self->_callback + 2))();
-    v10 = self->_error;
-    self->_error = v9;
+    v7 = (*(self->_callback + 2))();
+    v8 = self->_error;
+    self->_error = v7;
 
     [(NSMutableArray *)self->_wordTimings removeAllObjects];
   }

@@ -11,9 +11,9 @@
     +[AMSLogConfig(AppStoreKit) ask_generalLogConfig];
   }
 
-  v1 = ask_generalLogConfig_logConfig;
+  v2 = ask_generalLogConfig_logConfig;
 
-  return v1;
+  return v2;
 }
 
 @end

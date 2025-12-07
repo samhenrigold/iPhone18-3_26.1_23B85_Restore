@@ -10,6 +10,7 @@
 - (double)secondaryLetterFontSizeForScreenSizeCategory:(unint64_t)category;
 - (void)doLayoutNow;
 - (void)setDigit:(id)digit primaryLetters:(id)letters secondaryLetters:(id)secondaryLetters;
+- (void)setFontStylesForHighlightState:(BOOL)state language:(unint64_t)language showLocalizedLetters:(BOOL)letters shouldCenterDigit:(BOOL)digit fontColor:(BOOL)color circleDiameter:(double)diameter isCarPlay:(BOOL)play screenSizeCategory:(unint64_t)self0;
 - (void)updateBaselineConstraintConstantsFor:(unint64_t)for language:(unint64_t)language showLocalizedLetters:(BOOL)letters;
 @end
 
@@ -407,6 +408,185 @@ LABEL_16:
 
   letterBaseline2 = [(TPNumberPadKey *)self letterBaseline];
   [letterBaseline2 setConstant:v16];
+}
+
+- (void)setFontStylesForHighlightState:(BOOL)state language:(unint64_t)language showLocalizedLetters:(BOOL)letters shouldCenterDigit:(BOOL)digit fontColor:(BOOL)color circleDiameter:(double)diameter isCarPlay:(BOOL)play screenSizeCategory:(unint64_t)self0
+{
+  playCopy = play;
+  colorCopy = color;
+  digitCopy = digit;
+  lettersCopy = letters;
+  [TPNumberPadKey digitFontSizeForScreenSizeCategory:"digitFontSizeForScreenSizeCategory:language:showLocalizedLetters:" language:category showLocalizedLetters:?];
+  v18 = v17;
+  [(TPNumberPadKey *)self letterFontSizeForScreenSizeCategory:category language:language showLocalizedLetters:lettersCopy];
+  v20 = v19;
+  [(TPNumberPadKey *)self secondaryLetterFontSizeForScreenSizeCategory:category];
+  v22 = v21;
+  if (isBold)
+  {
+    v23 = &semiBoldFont;
+  }
+
+  else
+  {
+    v23 = &regularFont;
+  }
+
+  v90 = *v23;
+  v24 = boldFont;
+  v25 = &blackColor;
+  if (colorCopy)
+  {
+    v25 = &whiteColor;
+  }
+
+  v92 = *v25;
+  letters = [(TPNumberPadKey *)self letters];
+  [letters setHidden:0];
+
+  secondaryLetters = [(TPNumberPadKey *)self secondaryLetters];
+  [secondaryLetters setHidden:0];
+
+  [(TPNumberPadKey *)self updateBaselineConstraintConstantsFor:category language:language showLocalizedLetters:lettersCopy];
+  if (lettersCopy)
+  {
+    v28 = 38.0;
+  }
+
+  else
+  {
+    secondaryLetters2 = [(TPNumberPadKey *)self secondaryLetters];
+    [secondaryLetters2 setHidden:1];
+
+    letters2 = [(TPNumberPadKey *)self letters];
+    text = [letters2 text];
+    v32 = [text isEqualToString:@"+"];
+
+    if (v32)
+    {
+      v20 = v20 + 5.0;
+    }
+
+    [(TPNumberPadKey *)self digitBaselineForDiameter:diameter, v90];
+    v28 = v33;
+  }
+
+  digitBaseline = [(TPNumberPadKey *)self digitBaseline];
+  [digitBaseline setConstant:v28];
+
+  digitBaseline2 = [(TPNumberPadKey *)self digitBaseline];
+  [digitBaseline2 setActive:!digitCopy];
+
+  if (playCopy)
+  {
+    v18 = v18 * 0.5;
+    v20 = v20 * 0.5;
+    v22 = v22 * 0.5;
+    secondaryLetterBaseline = [(TPNumberPadKey *)self secondaryLetterBaseline];
+    [secondaryLetterBaseline constant];
+    [secondaryLetterBaseline setConstant:v37 * 0.5];
+
+    letterBaseline = [(TPNumberPadKey *)self letterBaseline];
+    [letterBaseline constant];
+    [letterBaseline setConstant:v39 * 0.5];
+
+    if (!lettersCopy)
+    {
+      digitBaseline3 = [(TPNumberPadKey *)self digitBaseline];
+      [digitBaseline3 constant];
+      [digitBaseline3 setConstant:v41 + -3.0];
+    }
+  }
+
+  v42 = [MEMORY[0x1E69DB878] fontWithDescriptor:v24 size:v20];
+  v43 = [MEMORY[0x1E69DB878] fontWithDescriptor:v24 size:v22];
+  letters3 = [(TPNumberPadKey *)self letters];
+  text2 = [letters3 text];
+  *&v47 = CTFontGetUnitsPerEm(v42);
+  v46 = v20;
+  *&v48 = v46;
+  [TPNumberPadKey absoluteTrackingValueForString:text2 pointSize:v48 unitsPerEm:v47];
+  v50 = v49;
+
+  secondaryLetters3 = [(TPNumberPadKey *)self secondaryLetters];
+  text3 = [secondaryLetters3 text];
+
+  if (text3)
+  {
+    secondaryLetters4 = [(TPNumberPadKey *)self secondaryLetters];
+    text4 = [secondaryLetters4 text];
+    *&v56 = CTFontGetUnitsPerEm(v42);
+    v55 = v22;
+    *&v57 = v55;
+    [TPNumberPadKey absoluteTrackingValueForString:text4 pointSize:v57 unitsPerEm:v56];
+    v59 = v58;
+  }
+
+  else
+  {
+    v59 = 0.0;
+  }
+
+  v60 = objc_alloc(MEMORY[0x1E696AD40]);
+  letters4 = [(TPNumberPadKey *)self letters];
+  text5 = [letters4 text];
+  v63 = [v60 initWithString:text5];
+
+  v64 = *MEMORY[0x1E69DB660];
+  v65 = [MEMORY[0x1E696AD98] numberWithDouble:v50];
+  letters5 = [(TPNumberPadKey *)self letters];
+  text6 = [letters5 text];
+  [v63 addAttribute:v64 value:v65 range:{0, objc_msgSend(text6, "length")}];
+
+  letters6 = [(TPNumberPadKey *)self letters];
+  [letters6 setAttributedText:v63];
+
+  secondaryLetters5 = [(TPNumberPadKey *)self secondaryLetters];
+  text7 = [secondaryLetters5 text];
+
+  if (text7)
+  {
+    v71 = objc_alloc(MEMORY[0x1E696AD40]);
+    secondaryLetters6 = [(TPNumberPadKey *)self secondaryLetters];
+    text8 = [secondaryLetters6 text];
+    v74 = [v71 initWithString:text8];
+
+    v75 = [MEMORY[0x1E696AD98] numberWithDouble:v59];
+    secondaryLetters7 = [(TPNumberPadKey *)self secondaryLetters];
+    text9 = [secondaryLetters7 text];
+    [v74 addAttribute:v64 value:v75 range:{0, objc_msgSend(text9, "length")}];
+
+    secondaryLetters8 = [(TPNumberPadKey *)self secondaryLetters];
+    [secondaryLetters8 setAttributedText:v74];
+  }
+
+  v79 = [MEMORY[0x1E69DB878] fontWithDescriptor:v91 size:v18];
+  digit = [(TPNumberPadKey *)self digit];
+  [digit setFont:v79];
+
+  if ([(TPNumberPadKey *)self isAsterisk]|| [(TPNumberPadKey *)self isPound])
+  {
+    digit2 = [(TPNumberPadKey *)self digit];
+    font = [digit2 font];
+    withCaseSensitiveAttribute = [font withCaseSensitiveAttribute];
+    digit3 = [(TPNumberPadKey *)self digit];
+    [digit3 setFont:withCaseSensitiveAttribute];
+  }
+
+  letters7 = [(TPNumberPadKey *)self letters];
+  [letters7 setFont:v42];
+
+  secondaryLetters9 = [(TPNumberPadKey *)self secondaryLetters];
+  [secondaryLetters9 setFont:v43];
+
+  digit4 = [(TPNumberPadKey *)self digit];
+  [digit4 setTextColor:v92];
+
+  letters8 = [(TPNumberPadKey *)self letters];
+  [letters8 setTextColor:v92];
+
+  secondaryLetters10 = [(TPNumberPadKey *)self secondaryLetters];
+  [secondaryLetters10 setTextColor:v92];
 }
 
 - (void)setDigit:(id)digit primaryLetters:(id)letters secondaryLetters:(id)secondaryLetters

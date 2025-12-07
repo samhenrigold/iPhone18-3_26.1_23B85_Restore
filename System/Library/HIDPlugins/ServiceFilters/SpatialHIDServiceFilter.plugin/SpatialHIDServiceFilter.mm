@@ -1,4 +1,4 @@
-uint64_t sub_E60()
+uint64_t sub_E60(uint64_t a1, uint64_t a2)
 {
   if (qword_1ADF0 != -1)
   {
@@ -8,16 +8,16 @@ uint64_t sub_E60()
   return byte_1ADE8;
 }
 
-id sub_EC0()
+id sub_EC0(uint64_t a1)
 {
   if (qword_1AE00 != -1)
   {
     sub_8140();
   }
 
-  v1 = qword_1ADF8;
+  v2 = qword_1ADF8;
 
-  return v1;
+  return v2;
 }
 
 void sub_F04(id a1)
@@ -27,16 +27,16 @@ void sub_F04(id a1)
   qword_1ADF8 = v1;
 }
 
-id sub_F48()
+id sub_F48(uint64_t a1)
 {
   if (qword_1AE10 != -1)
   {
     sub_8154();
   }
 
-  v1 = qword_1AE08;
+  v2 = qword_1AE08;
 
-  return v1;
+  return v2;
 }
 
 void sub_F8C(id a1)
@@ -46,16 +46,16 @@ void sub_F8C(id a1)
   qword_1AE08 = v1;
 }
 
-id sub_FD0()
+id sub_FD0(uint64_t a1)
 {
   if (qword_1AE20 != -1)
   {
     sub_8168();
   }
 
-  v1 = qword_1AE18;
+  v2 = qword_1AE18;
 
-  return v1;
+  return v2;
 }
 
 void sub_1014(id a1)
@@ -65,16 +65,16 @@ void sub_1014(id a1)
   qword_1AE18 = v1;
 }
 
-id sub_1058()
+id sub_1058(uint64_t a1)
 {
   if (qword_1AE30 != -1)
   {
     sub_817C();
   }
 
-  v1 = qword_1AE28;
+  v2 = qword_1AE28;
 
-  return v1;
+  return v2;
 }
 
 void sub_109C(id a1)
@@ -91,16 +91,16 @@ void sub_10E0(char *category)
   qword_1AE38 = v1;
 }
 
-id sub_1120()
+id sub_1120(uint64_t a1)
 {
   if (qword_1AE40 != -1)
   {
     sub_8190();
   }
 
-  v1 = qword_1AE38;
+  v2 = qword_1AE38;
 
-  return v1;
+  return v2;
 }
 
 void sub_1164(id a1)
@@ -111,16 +111,16 @@ void sub_1164(id a1)
   }
 }
 
-id sub_1188()
+id sub_1188(uint64_t a1)
 {
   if (qword_1AE50 != -1)
   {
     sub_81A4();
   }
 
-  v1 = qword_1AE48;
+  v2 = qword_1AE48;
 
-  return v1;
+  return v2;
 }
 
 void sub_11CC(id a1)
@@ -130,16 +130,16 @@ void sub_11CC(id a1)
   qword_1AE48 = v1;
 }
 
-id sub_1210()
+id sub_1210(uint64_t a1)
 {
   if (qword_1AE60 != -1)
   {
     sub_81B8();
   }
 
-  v1 = qword_1AE58;
+  v2 = qword_1AE58;
 
-  return v1;
+  return v2;
 }
 
 void sub_1254(id a1)
@@ -149,16 +149,16 @@ void sub_1254(id a1)
   qword_1AE58 = v1;
 }
 
-id sub_1298()
+id sub_1298(uint64_t a1)
 {
   if (qword_1AE70 != -1)
   {
     sub_81CC();
   }
 
-  v1 = qword_1AE68;
+  v2 = qword_1AE68;
 
-  return v1;
+  return v2;
 }
 
 void sub_12DC(id a1)
@@ -194,7 +194,7 @@ void sub_15C8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int
 void sub_15F8(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v2 = sub_1120();
+  v2 = sub_1120(WeakRetained);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v3 = 0;
@@ -209,7 +209,7 @@ void sub_15F8(uint64_t a1)
 void sub_1690(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v2 = sub_1120();
+  v2 = sub_1120(WeakRetained);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -220,9 +220,9 @@ void sub_1690(uint64_t a1)
   [v3 driverCheckIn];
 }
 
-void sub_1E04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1E04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -237,7 +237,7 @@ uint64_t sub_1E24(uint64_t result, uint64_t a2)
 void sub_1E3C(uint64_t a1)
 {
   v2 = [NSString stringWithCString:dispatch_queue_get_label(*(a1 + 32)) encoding:4];
-  v3 = sub_1120();
+  v3 = sub_1120(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v6 = 138412290;
@@ -279,18 +279,19 @@ void sub_27E4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int
 void sub_2808(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
+  v2 = WeakRetained;
   if (WeakRetained)
   {
-    v2 = sub_1120();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    v3 = sub_1120(WeakRetained);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      *v4 = 0;
-      _os_log_impl(&dword_0, v2, OS_LOG_TYPE_DEFAULT, "calling cancel handler", v4, 2u);
+      *v5 = 0;
+      _os_log_impl(&dword_0, v3, OS_LOG_TYPE_DEFAULT, "calling cancel handler", v5, 2u);
     }
 
-    (*(WeakRetained[1] + 16))();
-    v3 = WeakRetained[1];
-    WeakRetained[1] = 0;
+    (*(v2[1] + 16))();
+    v4 = v2[1];
+    v2[1] = 0;
   }
 }
 
@@ -366,19 +367,20 @@ void sub_4988(uint64_t a1)
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained)
   {
-    v5 = 0uLL;
-    clock_gettime(_CLOCK_MONOTONIC_RAW, &v5);
-    if ((*(&v5 + 1) + v5 * 1000000000.0 - (*(WeakRetained + 64) + *(WeakRetained + 63) * 1000000000.0)) * 0.000000001 >= *(WeakRetained + 122))
+    v6 = 0uLL;
+    clock_gettime(_CLOCK_MONOTONIC_RAW, &v6);
+    if ((*(&v6 + 1) + v6 * 1000000000.0 - (*(WeakRetained + 64) + *(WeakRetained + 63) * 1000000000.0)) * 0.000000001 >= *(WeakRetained + 122))
     {
-      *(WeakRetained + 504) = v5;
+      *(WeakRetained + 504) = v6;
       v2 = [WeakRetained isAnyHapticMotorEnabled];
-      v3 = sub_1120();
-      v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG);
-      if (v2)
+      v3 = v2;
+      v4 = sub_1120(v2);
+      v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG);
+      if (v3)
       {
-        if (v4)
+        if (v5)
         {
-          sub_8608(v3);
+          sub_8608(v4);
         }
 
         *(WeakRetained + 121) = 0;
@@ -387,9 +389,9 @@ void sub_4988(uint64_t a1)
 
       else
       {
-        if (v4)
+        if (v5)
         {
-          sub_85C4(v3);
+          sub_85C4(v4);
         }
 
         [WeakRetained stopHaptics];
@@ -398,7 +400,7 @@ void sub_4988(uint64_t a1)
   }
 }
 
-uint64_t sub_5068()
+uint64_t sub_5068(unsigned int a1)
 {
 
   return kdebug_trace();
@@ -406,7 +408,6 @@ uint64_t sub_5068()
 
 id sub_5090(uint64_t a1, void *a2)
 {
-  v3 = *(a1 + 656);
 
   return [a2 timestamp];
 }
@@ -476,7 +477,7 @@ void sub_6378(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int
 void sub_6BEC(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v2 = sub_1120();
+  v2 = sub_1120(WeakRetained);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v3 = 0;
@@ -491,7 +492,7 @@ void sub_6BEC(uint64_t a1)
 void sub_6C84(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 40));
-  v3 = sub_1120();
+  v3 = sub_1120(WeakRetained);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -525,22 +526,16 @@ void sub_6E18(uint64_t a1)
   [v1 driverCheckIn];
 }
 
-void sub_6F04(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_6F04(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
-uint64_t *sub_6F2C@<X0>(uint64_t *result@<X0>, uint64_t a2@<X8>)
+id hexStringFromByteArray(uint64_t a1, unsigned int a2)
 {
-  *(v2 - 8) = a2;
-  v3 = *result;
-  return result;
-}
-
-id hexStringFromByteArray(uint64_t a1, int a2)
-{
-  v4 = [NSMutableString stringWithCapacity:2 * a2];
+  v4 = [NSMutableString stringWithCapacity:(2 * a2)];
   if (a2 >= 1)
   {
     v5 = a2 - 1;
@@ -571,7 +566,7 @@ id hexStringFromByteArray(uint64_t a1, int a2)
   return v10;
 }
 
-uint64_t isPartnerSupportEnabled()
+uint64_t isPartnerSupportEnabled(uint64_t a1, uint64_t a2)
 {
   if (qword_1AE88 != -1)
   {
@@ -584,13 +579,14 @@ uint64_t isPartnerSupportEnabled()
 void sub_7C44(id a1)
 {
   v1 = [[NSUserDefaults alloc] initWithSuiteName:@"com.apple.GameController"];
-  byte_1AE90 = [v1 BOOLForKey:@"GCPartnersEnable"];
-  v2 = sub_1120();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v2 = [v1 BOOLForKey:@"GCPartnersEnable"];
+  byte_1AE90 = v2;
+  v3 = sub_1120(v2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3[0] = 67109120;
-    v3[1] = byte_1AE90;
-    _os_log_impl(&dword_0, v2, OS_LOG_TYPE_DEFAULT, "Partners mode enabled? %d", v3, 8u);
+    v4[0] = 67109120;
+    v4[1] = byte_1AE90;
+    _os_log_impl(&dword_0, v3, OS_LOG_TYPE_DEFAULT, "Partners mode enabled? %d", v4, 8u);
   }
 }
 
@@ -653,20 +649,19 @@ void sub_81E0(uint64_t a1, void *a2, int a3)
   v5 = a2;
   if (a1)
   {
-    v8 = v5;
+    v7 = v5;
     if (a3)
     {
       *(a1 + 664) = [v5 timestamp];
     }
 
-    v6 = *(a1 + 656);
-    [v8 timestamp];
-    [v8 type];
+    [v7 timestamp];
+    [v7 type];
     kdebug_trace();
     WeakRetained = objc_loadWeakRetained((a1 + 624));
-    [WeakRetained dispatchEvent:v8];
+    [WeakRetained dispatchEvent:v7];
 
-    v5 = v8;
+    v5 = v7;
   }
 }
 
@@ -682,7 +677,7 @@ uint64_t sub_8290(uint64_t result)
 
 void sub_8344(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v6 = sub_1120();
+  v6 = sub_1120(a1);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     v7 = *(a1 + 656);
@@ -699,8 +694,7 @@ void sub_8344(uint64_t a1, uint64_t a2, uint64_t a3)
 void sub_8428(uint64_t a1, void *a2)
 {
   sub_5090(a1, a2);
-  [v3 type];
-  sub_5068();
+  sub_5068([v3 type]);
   dispatch_time(0, (*v4 * 1000000000.0));
   [v5 dispatchQueue];
   objc_claimAutoreleasedReturnValue();
@@ -715,8 +709,7 @@ void sub_8428(uint64_t a1, void *a2)
 void sub_84D8(uint64_t a1, void *a2)
 {
   sub_5090(a1, a2);
-  [v3 type];
-  sub_5068();
+  sub_5068([v3 type]);
   dispatch_time(0, (*v4 * 1000000000.0));
   [v5 dispatchQueue];
   objc_claimAutoreleasedReturnValue();
@@ -728,175 +721,165 @@ void sub_84D8(uint64_t a1, void *a2)
   sub_50B8(v3);
 }
 
-uint64_t sub_8588(uint64_t a1)
+void sub_8734()
 {
-  if (a1)
-  {
-    v1 = *(a1 + 656);
-  }
-
-  return kdebug_trace();
-}
-
-void sub_8734(uint64_t *a1)
-{
-  sub_6F2C(a1, __stack_chk_guard);
+  sub_6F2C(__stack_chk_guard);
   sub_6EDC();
   sub_6EF4();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x12u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
 }
 
-void sub_87A4(uint64_t *a1)
+void sub_87A4()
 {
-  sub_6F2C(a1, __stack_chk_guard);
+  sub_6F2C(__stack_chk_guard);
   sub_6EDC();
   sub_6EF4();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x12u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
 }
 
-void sub_8814(uint64_t *a1)
+void sub_8814()
 {
-  sub_6F2C(a1, __stack_chk_guard);
+  sub_6F2C(__stack_chk_guard);
   sub_6EDC();
   sub_6EF4();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x12u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
 }
 
-void sub_8884(uint64_t *a1)
+void sub_8884()
 {
-  sub_6F2C(a1, __stack_chk_guard);
+  sub_6F2C(__stack_chk_guard);
   sub_6EDC();
   sub_6EF4();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x12u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
 }
 
-void sub_88F4(uint64_t *a1)
+void sub_88F4()
 {
-  sub_6F2C(a1, __stack_chk_guard);
+  sub_6F2C(__stack_chk_guard);
   sub_6F20();
-  sub_6F04(&dword_0, v1, v2, "[%#llx] Mismatch between waveform & duration elements.", v3, v4, v5, v6, v7);
+  sub_6F04(&dword_0, v0, v1, "[%#llx] Mismatch between waveform & duration elements.", v2, v3, v4, v5);
 }
 
-void sub_895C(uint64_t *a1)
+void sub_895C()
 {
-  sub_6F2C(a1, __stack_chk_guard);
+  sub_6F2C(__stack_chk_guard);
   sub_6F20();
   sub_6EF4();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void sub_89D8(uint64_t *a1)
+void sub_89D8()
 {
-  sub_6F2C(a1, __stack_chk_guard);
+  sub_6F2C(__stack_chk_guard);
   sub_6F20();
-  sub_6F04(&dword_0, v1, v2, "[%#llx] Does not support rumble.", v3, v4, v5, v6, v7);
+  sub_6F04(&dword_0, v0, v1, "[%#llx] Does not support rumble.", v2, v3, v4, v5);
 }
 
-void sub_8A40(uint64_t *a1)
+void sub_8A40()
 {
-  sub_6F2C(a1, __stack_chk_guard);
+  sub_6F2C(__stack_chk_guard);
   sub_6F20();
-  sub_6F04(&dword_0, v1, v2, "[%#llx] Multiple intensity elements found.  This is not supported.", v3, v4, v5, v6, v7);
+  sub_6F04(&dword_0, v0, v1, "[%#llx] Multiple intensity elements found.  This is not supported.", v2, v3, v4, v5);
 }
 
-void sub_8AA8(uint64_t *a1)
+void sub_8AA8()
 {
-  sub_6F2C(a1, __stack_chk_guard);
+  sub_6F2C(__stack_chk_guard);
   sub_6F20();
-  sub_6F04(&dword_0, v1, v2, "[%#llx] Missing intensity.", v3, v4, v5, v6, v7);
+  sub_6F04(&dword_0, v0, v1, "[%#llx] Missing intensity.", v2, v3, v4, v5);
 }
 
-void sub_8B10(uint64_t *a1)
+void sub_8B10()
 {
-  sub_6F2C(a1, __stack_chk_guard);
+  sub_6F2C(__stack_chk_guard);
   sub_6F20();
-  sub_6F04(&dword_0, v1, v2, "[%#llx] Multiple manual trigger elements found.  This is not supported.", v3, v4, v5, v6, v7);
+  sub_6F04(&dword_0, v0, v1, "[%#llx] Multiple manual trigger elements found.  This is not supported.", v2, v3, v4, v5);
 }
 
-void sub_8B78(uint64_t *a1)
+void sub_8B78()
 {
-  sub_6F2C(a1, __stack_chk_guard);
+  sub_6F2C(__stack_chk_guard);
   sub_6F20();
-  sub_6F04(&dword_0, v1, v2, "[%#llx] Missing manual trigger.", v3, v4, v5, v6, v7);
+  sub_6F04(&dword_0, v0, v1, "[%#llx] Missing manual trigger.", v2, v3, v4, v5);
 }
 
-void sub_8BE0(uint64_t *a1)
+void sub_8BE0()
 {
-  sub_6F2C(a1, __stack_chk_guard);
+  sub_6F2C(__stack_chk_guard);
   sub_6F20();
-  sub_6F04(&dword_0, v1, v2, "[%#llx] Multiple waveform cutoff time elements found.  This is not supported.", v3, v4, v5, v6, v7);
+  sub_6F04(&dword_0, v0, v1, "[%#llx] Multiple waveform cutoff time elements found.  This is not supported.", v2, v3, v4, v5);
 }
 
-void sub_8C48(uint64_t *a1)
+void sub_8C48()
 {
-  sub_6F2C(a1, __stack_chk_guard);
+  sub_6F2C(__stack_chk_guard);
   sub_6F20();
-  sub_6F04(&dword_0, v1, v2, "[%#llx] Missing waveform cutoff time.", v3, v4, v5, v6, v7);
+  sub_6F04(&dword_0, v0, v1, "[%#llx] Missing waveform cutoff time.", v2, v3, v4, v5);
 }
 
-void sub_8CB0(uint64_t *a1)
+void sub_8CB0()
 {
-  sub_6F2C(a1, __stack_chk_guard);
+  sub_6F2C(__stack_chk_guard);
   sub_6F20();
-  sub_6F04(&dword_0, v1, v2, "[%#llx] Multiple duration list collections found.  This is not supported.", v3, v4, v5, v6, v7);
+  sub_6F04(&dword_0, v0, v1, "[%#llx] Multiple duration list collections found.  This is not supported.", v2, v3, v4, v5);
 }
 
-void sub_8D18(uint64_t *a1)
+void sub_8D18()
 {
-  sub_6F2C(a1, __stack_chk_guard);
+  sub_6F2C(__stack_chk_guard);
   sub_6F20();
-  sub_6F04(&dword_0, v1, v2, "[%#llx] Missing duration list", v3, v4, v5, v6, v7);
+  sub_6F04(&dword_0, v0, v1, "[%#llx] Missing duration list", v2, v3, v4, v5);
 }
 
-void sub_8D80(uint64_t *a1)
+void sub_8D80()
 {
-  sub_6F2C(a1, __stack_chk_guard);
+  sub_6F2C(__stack_chk_guard);
   sub_6F20();
-  sub_6F04(&dword_0, v1, v2, "[%#llx] Multiple waveform list collections found.  This is not supported.", v3, v4, v5, v6, v7);
+  sub_6F04(&dword_0, v0, v1, "[%#llx] Multiple waveform list collections found.  This is not supported.", v2, v3, v4, v5);
 }
 
-void sub_8DE8(uint64_t *a1)
+void sub_8DE8()
 {
-  sub_6F2C(a1, __stack_chk_guard);
+  sub_6F2C(__stack_chk_guard);
   sub_6F20();
-  sub_6F04(&dword_0, v1, v2, "[%#llx] Missing waveform list", v3, v4, v5, v6, v7);
+  sub_6F04(&dword_0, v0, v1, "[%#llx] Missing waveform list", v2, v3, v4, v5);
 }
 
-void sub_8E50(uint64_t *a1)
+void sub_8E50()
 {
-  sub_6F2C(a1, __stack_chk_guard);
+  sub_6F2C(__stack_chk_guard);
   sub_6F20();
   sub_6F38();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void sub_8EC0(uint64_t *a1)
+void sub_8EC0()
 {
-  sub_6F2C(a1, __stack_chk_guard);
+  sub_6F2C(__stack_chk_guard);
   sub_6F20();
   sub_6F38();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void sub_8F30(uint64_t *a1)
+void sub_8F30()
 {
-  sub_6F2C(a1, __stack_chk_guard);
+  sub_6F2C(__stack_chk_guard);
   sub_6F20();
-  sub_6F04(&dword_0, v1, v2, "Failed to create HIDDevice for <Kernel/IOHIDDevice serviceID='%#010llx'>.", v3, v4, v5, v6, v7);
+  sub_6F04(&dword_0, v0, v1, "Failed to create HIDDevice for <Kernel/IOHIDDevice serviceID='%#010llx'>.", v2, v3, v4, v5);
 }
 
-void sub_8F98(uint64_t *a1)
+void sub_8F98()
 {
-  sub_6F2C(a1, __stack_chk_guard);
+  sub_6F2C(__stack_chk_guard);
   sub_6F20();
-  sub_6F04(&dword_0, v1, v2, "Did not find Kernel/IOHIDDevice with serviceID (%#llx).", v3, v4, v5, v6, v7);
+  sub_6F04(&dword_0, v0, v1, "Did not find Kernel/IOHIDDevice with serviceID (%#llx).", v2, v3, v4, v5);
 }
 
-void sub_9000(uint64_t *a1)
+void sub_9000()
 {
-  sub_6F2C(a1, __stack_chk_guard);
+  sub_6F2C(__stack_chk_guard);
   sub_6F20();
-  sub_6F04(&dword_0, v1, v2, "No Kernel/IOHIDDevice ancestor of <Kernel/IOHIDComplexEventDriver serviceID='%#010llx'>.", v3, v4, v5, v6, v7);
+  sub_6F04(&dword_0, v0, v1, "No Kernel/IOHIDDevice ancestor of <Kernel/IOHIDComplexEventDriver serviceID='%#010llx'>.", v2, v3, v4, v5);
 }
 
 void sub_9068()
@@ -911,4 +894,11 @@ void sub_90D8()
   sub_6F44();
   sub_6EF4();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
+}
+
+void sub_9148(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  sub_6F04(&dword_0, a2, a3, "HIDEventService does not have an associated serviceID: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }

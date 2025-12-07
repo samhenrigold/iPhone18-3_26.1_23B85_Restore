@@ -124,13 +124,13 @@
 
 - (id)dictionaryRepresentation
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   has = self->_has;
   if ((has & 2) != 0)
   {
-    v17 = [MEMORY[0x277CCABB0] numberWithLongLong:self->_sessionState];
-    [dictionary setObject:v17 forKey:@"sessionState"];
+    v16 = [MEMORY[0x277CCABB0] numberWithLongLong:self->_sessionState];
+    [dictionary setObject:v16 forKey:@"sessionState"];
 
     has = self->_has;
     if ((has & 4) == 0)
@@ -150,8 +150,8 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  v18 = [MEMORY[0x277CCABB0] numberWithDouble:self->_sessionStateChangeDate];
-  [dictionary setObject:v18 forKey:@"sessionStateChangeDate"];
+  v17 = [MEMORY[0x277CCABB0] numberWithDouble:self->_sessionStateChangeDate];
+  [dictionary setObject:v17 forKey:@"sessionStateChangeDate"];
 
   has = self->_has;
   if ((has & 8) == 0)
@@ -166,8 +166,8 @@ LABEL_4:
   }
 
 LABEL_24:
-  v19 = [MEMORY[0x277CCABB0] numberWithLongLong:self->_sessionStateEvent];
-  [dictionary setObject:v19 forKey:@"sessionStateEvent"];
+  v18 = [MEMORY[0x277CCABB0] numberWithLongLong:self->_sessionStateEvent];
+  [dictionary setObject:v18 forKey:@"sessionStateEvent"];
 
   has = self->_has;
   if ((has & 0x10) == 0)
@@ -182,8 +182,8 @@ LABEL_5:
   }
 
 LABEL_25:
-  v20 = [MEMORY[0x277CCABB0] numberWithDouble:self->_sessionStateEventDate];
-  [dictionary setObject:v20 forKey:@"sessionStateEventDate"];
+  v19 = [MEMORY[0x277CCABB0] numberWithDouble:self->_sessionStateEventDate];
+  [dictionary setObject:v19 forKey:@"sessionStateEventDate"];
 
   has = self->_has;
   if ((has & 0x20) == 0)
@@ -198,8 +198,8 @@ LABEL_6:
   }
 
 LABEL_26:
-  v21 = [MEMORY[0x277CCABB0] numberWithDouble:self->_startDate];
-  [dictionary setObject:v21 forKey:@"startDate"];
+  v20 = [MEMORY[0x277CCABB0] numberWithDouble:self->_startDate];
+  [dictionary setObject:v20 forKey:@"startDate"];
 
   if (*&self->_has)
   {
@@ -219,30 +219,30 @@ LABEL_8:
   if ([(NSMutableArray *)self->_events count])
   {
     v8 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{-[NSMutableArray count](self->_events, "count")}];
+    v21 = 0u;
     v22 = 0u;
     v23 = 0u;
     v24 = 0u;
-    v25 = 0u;
     v9 = self->_events;
-    v10 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v22 objects:v26 count:16];
+    v10 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v21 objects:v25 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v23;
+      v12 = *v22;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v23 != v12)
+          if (*v22 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          dictionaryRepresentation2 = [*(*(&v22 + 1) + 8 * i) dictionaryRepresentation];
+          dictionaryRepresentation2 = [*(*(&v21 + 1) + 8 * i) dictionaryRepresentation];
           [v8 addObject:dictionaryRepresentation2];
         }
 
-        v11 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v22 objects:v26 count:16];
+        v11 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v21 objects:v25 count:16];
       }
 
       while (v11);
@@ -251,19 +251,16 @@ LABEL_8:
     [dictionary setObject:v8 forKey:@"events"];
   }
 
-  v15 = *MEMORY[0x277D85DE8];
-
   return dictionary;
 }
 
 - (void)writeTo:(id)to
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   toCopy = to;
   has = self->_has;
   if ((has & 2) != 0)
   {
-    sessionState = self->_sessionState;
     PBDataWriterWriteInt64Field();
     has = self->_has;
     if ((has & 4) == 0)
@@ -283,7 +280,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  sessionStateChangeDate = self->_sessionStateChangeDate;
   PBDataWriterWriteDoubleField();
   has = self->_has;
   if ((has & 8) == 0)
@@ -298,7 +294,6 @@ LABEL_4:
   }
 
 LABEL_20:
-  sessionStateEvent = self->_sessionStateEvent;
   PBDataWriterWriteInt64Field();
   has = self->_has;
   if ((has & 0x10) == 0)
@@ -313,7 +308,6 @@ LABEL_5:
   }
 
 LABEL_21:
-  sessionStateEventDate = self->_sessionStateEventDate;
   PBDataWriterWriteDoubleField();
   has = self->_has;
   if ((has & 0x20) == 0)
@@ -328,12 +322,10 @@ LABEL_6:
   }
 
 LABEL_22:
-  startDate = self->_startDate;
   PBDataWriterWriteDoubleField();
   if (*&self->_has)
   {
 LABEL_7:
-    endDate = self->_endDate;
     PBDataWriterWriteDoubleField();
   }
 
@@ -343,36 +335,33 @@ LABEL_8:
     PBDataWriterWriteSubmessage();
   }
 
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
-  v20 = 0u;
-  v7 = self->_events;
-  v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
-  if (v8)
+  v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
+  v6 = self->_events;
+  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  if (v7)
   {
-    v9 = v8;
-    v10 = *v20;
+    v8 = v7;
+    v9 = *v12;
     do
     {
-      for (i = 0; i != v9; ++i)
+      for (i = 0; i != v8; ++i)
       {
-        if (*v20 != v10)
+        if (*v12 != v9)
         {
-          objc_enumerationMutation(v7);
+          objc_enumerationMutation(v6);
         }
 
-        v12 = *(*(&v19 + 1) + 8 * i);
         PBDataWriterWriteSubmessage();
       }
 
-      v9 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
-    while (v9);
+    while (v8);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)copyTo:(id)to
@@ -480,7 +469,7 @@ LABEL_8:
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v5 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
   v6 = v5;
   has = self->_has;
@@ -565,36 +554,35 @@ LABEL_8:
   v9 = v6[7];
   v6[7] = v8;
 
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   v10 = self->_events;
-  v11 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v11 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v19;
+    v13 = *v18;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v19 != v13)
+        if (*v18 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        v15 = [*(*(&v18 + 1) + 8 * i) copyWithZone:{zone, v18}];
+        v15 = [*(*(&v17 + 1) + 8 * i) copyWithZone:{zone, v17}];
         [v6 addEvents:v15];
       }
 
-      v12 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v12 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v12);
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -606,7 +594,6 @@ LABEL_8:
     goto LABEL_36;
   }
 
-  v5 = *(equalCopy + 72);
   if ((*&self->_has & 2) != 0)
   {
     if ((*(equalCopy + 72) & 2) == 0 || self->_sessionState != *(equalCopy + 2))
@@ -618,7 +605,7 @@ LABEL_8:
   else if ((*(equalCopy + 72) & 2) != 0)
   {
 LABEL_36:
-    v8 = 0;
+    v7 = 0;
     goto LABEL_37;
   }
 
@@ -696,17 +683,17 @@ LABEL_36:
   events = self->_events;
   if (events | *(equalCopy + 8))
   {
-    v8 = [(NSMutableArray *)events isEqual:?];
+    v7 = [(NSMutableArray *)events isEqual:?];
   }
 
   else
   {
-    v8 = 1;
+    v7 = 1;
   }
 
 LABEL_37:
 
-  return v8;
+  return v7;
 }
 
 - (unint64_t)hash
@@ -878,7 +865,7 @@ LABEL_17:
 
 - (void)mergeFrom:(id)from
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   fromCopy = from;
   v5 = fromCopy;
   v6 = *(fromCopy + 72);
@@ -974,35 +961,33 @@ LABEL_8:
     [(HDCodableWorkoutSessionGlobalState *)self setCurrentActivity:?];
   }
 
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   v9 = *(v5 + 8);
-  v10 = [v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v16;
+    v12 = *v15;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v16 != v12)
+        if (*v15 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        [(HDCodableWorkoutSessionGlobalState *)self addEvents:*(*(&v15 + 1) + 8 * i), v15];
+        [(HDCodableWorkoutSessionGlobalState *)self addEvents:*(*(&v14 + 1) + 8 * i), v14];
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v11);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 @end

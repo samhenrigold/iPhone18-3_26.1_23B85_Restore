@@ -8,27 +8,29 @@
 
 + (int64_t)torchState
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v2 = [MEMORY[0x1E69870A0] defaultDeviceWithMediaType:*MEMORY[0x1E6987608]];
-  if ([v2 hasTorch])
+  hasTorch = [v2 hasTorch];
+  if (hasTorch)
   {
-    isTorchAvailable = [v2 isTorchAvailable];
+    hasTorch = [v2 isTorchAvailable];
+    v4 = hasTorch;
   }
 
   else
   {
-    isTorchAvailable = -1;
+    v4 = -1;
   }
 
-  v4 = _PSLoggingFacility();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v5 = _PSLoggingFacility(hasTorch);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v6[0] = 67109120;
-    v6[1] = isTorchAvailable;
-    _os_log_impl(&dword_18B008000, v4, OS_LOG_TYPE_DEFAULT, "########### Torch state (%d)", v6, 8u);
+    v7[0] = 67109120;
+    v7[1] = v4;
+    _os_log_impl(&dword_18B008000, v5, OS_LOG_TYPE_DEFAULT, "########### Torch state (%d)", v7, 8u);
   }
 
-  return isTorchAvailable;
+  return v4;
 }
 
 + (void)setEnabled:(BOOL)enabled
@@ -40,14 +42,14 @@
   {
     v13 = 0;
     v5 = [v4 lockForConfiguration:&v13];
-    v6 = v13;
-    v8 = v6;
+    unlockForConfiguration = v13;
+    v8 = unlockForConfiguration;
     if (v5)
     {
       if (enabledCopy)
       {
         LODWORD(v7) = *MEMORY[0x1E69869A0];
-        v12 = v6;
+        v12 = unlockForConfiguration;
         [v4 setTorchModeOnWithLevel:&v12 error:v7];
         v9 = v12;
 
@@ -59,10 +61,10 @@
         [v4 setTorchMode:0];
       }
 
-      [v4 unlockForConfiguration];
+      unlockForConfiguration = [v4 unlockForConfiguration];
     }
 
-    v10 = _PSLoggingFacility();
+    v10 = _PSLoggingFacility(unlockForConfiguration);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       v11 = @"OFF";
@@ -82,33 +84,35 @@
 
 + (BOOL)isEnabled
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v2 = [MEMORY[0x1E69870A0] defaultDeviceWithMediaType:*MEMORY[0x1E6987608]];
-  if ([v2 isTorchAvailable])
+  isTorchAvailable = [v2 isTorchAvailable];
+  if (isTorchAvailable)
   {
-    v3 = [v2 torchMode] == 1;
+    isTorchAvailable = [v2 torchMode];
+    v4 = isTorchAvailable == 1;
   }
 
   else
   {
-    v3 = 0;
+    v4 = 0;
   }
 
-  v4 = _PSLoggingFacility();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v5 = _PSLoggingFacility(isTorchAvailable);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = @"OFF";
-    if (v3)
+    v6 = @"OFF";
+    if (v4)
     {
-      v5 = @"ON";
+      v6 = @"ON";
     }
 
-    v7 = 138412290;
-    v8 = v5;
-    _os_log_impl(&dword_18B008000, v4, OS_LOG_TYPE_DEFAULT, "########### Torch enabled (%@)", &v7, 0xCu);
+    v8 = 138412290;
+    v9 = v6;
+    _os_log_impl(&dword_18B008000, v5, OS_LOG_TYPE_DEFAULT, "########### Torch enabled (%@)", &v8, 0xCu);
   }
 
-  return v3;
+  return v4;
 }
 
 @end

@@ -1,13 +1,13 @@
 @interface SBSystemActionInteractionContext
 - (BOOL)isEqual:(id)equal;
-- (uint64_t)initWithPreciseTimestamp:(uint64_t)timestamp type:(void *)type suppressionStatus:;
+- (id)initWithPreciseTimestamp:(void *)timestamp type:(void *)type suppressionStatus:;
 - (unint64_t)hash;
 - (void)appendDescriptionToFormatter:(id)formatter;
 @end
 
 @implementation SBSystemActionInteractionContext
 
-- (uint64_t)initWithPreciseTimestamp:(uint64_t)timestamp type:(void *)type suppressionStatus:
+- (id)initWithPreciseTimestamp:(void *)timestamp type:(void *)type suppressionStatus:
 {
   v8 = a2;
   typeCopy = type;
@@ -25,8 +25,8 @@
     if (v10)
     {
       objc_storeStrong(v10 + 1, a2);
-      *(self + 16) = timestamp;
-      objc_storeStrong((self + 24), type);
+      self[2] = timestamp;
+      objc_storeStrong(self + 3, type);
     }
   }
 

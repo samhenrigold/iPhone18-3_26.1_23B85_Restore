@@ -65,8 +65,8 @@
   if (v7)
   {
     v7->_timestamp = timestamp;
-    timestamp = [locationCopy timestamp];
-    [timestamp timeIntervalSince1970];
+    v9 = objc_msgSend_timestamp(locationCopy);
+    [v9 timeIntervalSince1970];
     v8->_timestampSince1970 = v10;
 
     [locationCopy coordinate];
@@ -90,36 +90,34 @@
 
 - (id)dictionary
 {
-  v16[9] = *MEMORY[0x277D85DE8];
+  v15[9] = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CCABB0] numberWithDouble:{self->_timestamp, @"t"}];
-  v16[0] = v3;
-  v15[1] = @"ts";
+  v15[0] = v3;
+  v14[1] = @"ts";
   v4 = [MEMORY[0x277CCABB0] numberWithDouble:self->_timestampSince1970];
-  v16[1] = v4;
-  v15[2] = @"lat";
+  v15[1] = v4;
+  v14[2] = @"lat";
   v5 = [MEMORY[0x277CCABB0] numberWithDouble:self->_latitude];
-  v16[2] = v5;
-  v15[3] = @"long";
+  v15[2] = v5;
+  v14[3] = @"long";
   v6 = [MEMORY[0x277CCABB0] numberWithDouble:self->_longitude];
-  v16[3] = v6;
-  v15[4] = @"alt";
+  v15[3] = v6;
+  v14[4] = @"alt";
   v7 = [MEMORY[0x277CCABB0] numberWithDouble:self->_altitude];
-  v16[4] = v7;
-  v15[5] = @"h_acc";
+  v15[4] = v7;
+  v14[5] = @"h_acc";
   v8 = [MEMORY[0x277CCABB0] numberWithDouble:self->_horizontalAccuracy];
-  v16[5] = v8;
-  v15[6] = @"v_acc";
+  v15[5] = v8;
+  v14[6] = @"v_acc";
   v9 = [MEMORY[0x277CCABB0] numberWithDouble:self->_verticalAccuracy];
-  v16[6] = v9;
-  v15[7] = @"speed";
+  v15[6] = v9;
+  v14[7] = @"speed";
   v10 = [MEMORY[0x277CCABB0] numberWithDouble:self->_speed];
-  v16[7] = v10;
-  v15[8] = @"course";
+  v15[7] = v10;
+  v14[8] = @"course";
   v11 = [MEMORY[0x277CCABB0] numberWithDouble:self->_course];
-  v16[8] = v11;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:9];
-
-  v13 = *MEMORY[0x277D85DE8];
+  v15[8] = v11;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:9];
 
   return v12;
 }

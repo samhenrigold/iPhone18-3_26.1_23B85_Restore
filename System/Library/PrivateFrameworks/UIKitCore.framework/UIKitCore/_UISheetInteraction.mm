@@ -453,16 +453,16 @@
 - (BOOL)gestureRecognizer:(id)recognizer shouldBeRequiredToFailByGestureRecognizer:(id)gestureRecognizer
 {
   name = [gestureRecognizer name];
-  v5 = [name isEqualToString:@"com.apple.UIKit.UIWindowDraggingPan"];
+  isEqualToString = objc_msgSend_isEqualToString_(name);
 
-  return v5;
+  return isEqualToString;
 }
 
 - (BOOL)gestureRecognizer:(id)recognizer shouldRequireFailureOfGestureRecognizer:(id)gestureRecognizer
 {
   gestureRecognizerCopy = gestureRecognizer;
   NSClassFromString(&cfstr_Pkdrawinggestu.isa);
-  if ((objc_opt_isKindOfClass() & 1) == 0 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0) || (v5 = 1, (_UIInternalPreferenceUsesDefault(&_UIInternalPreference_ForceCardDismissGestureDoesNotRequireFailure, @"ForceCardDismissGestureDoesNotRequireFailure", _UIInternalPreferenceUpdateBool) & 1) == 0) && byte_1EA95E114)
+  if ((objc_opt_isKindOfClass() & 1) == 0 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0) || (v5 = 1, !_UIInternalPreferenceUsesDefault(&_UIInternalPreference_ForceCardDismissGestureDoesNotRequireFailure, @"ForceCardDismissGestureDoesNotRequireFailure", _UIInternalPreferenceUpdateBool)) && byte_1EA95E114)
   {
     v5 = 0;
   }
@@ -869,7 +869,7 @@ LABEL_15:
   if (![(_UISheetInteraction *)self isDragging])
   {
     kdebug_trace();
-    _UIUpdateRequestRegistryAddRecord(&mainRegistry, updateRequest, 0x100024u);
+    _UIUpdateRequestRegistryAddRecord(&mainRegistry, updateRequest, 1048612);
     _UIQOSManagedCommitsBegin(self, @"Dragging");
     [(_UISheetInteraction *)self setDragSource:sourceCopy];
     interactor = [(_UISheetInteraction *)self interactor];
@@ -926,7 +926,7 @@ LABEL_15:
     if (dragSource == sourceCopy)
     {
       kdebug_trace();
-      _UIUpdateRequestRegistryRemoveRecord(&mainRegistry, updateRequest, 0x100024u);
+      _UIUpdateRequestRegistryRemoveRecord(&mainRegistry, updateRequest, 1048612);
       _UIQOSManagedCommitsEnd(self, @"Dragging");
       [(_UISheetInteraction *)self setGeneratingAnimations:1];
       interactor = [(_UISheetInteraction *)self interactor];

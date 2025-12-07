@@ -1,5963 +1,121 @@
-uint64_t RequestPaymentConfirmIntentStrategy.init<A>(globals:catFamily:commonLabelsProvider:contactResolver:errorProvider:)(uint64_t *a1, uint64_t a2, uint64_t *a3, uint64_t *a4, uint64_t a5, uint64_t a6, uint64_t a7)
-{
-  v27 = a1;
-  v26 = a2;
-  v25 = a3;
-  v24 = a4;
-  v20 = a5;
-  v23 = a6;
-  v18 = a7;
-  v37 = 0;
-  v36 = 0;
-  v35 = 0;
-  v34 = 0;
-  v33 = 0;
-  v32 = 0;
-  v38 = a6;
-  v21 = *(a6 - 8);
-  v22 = a6 - 8;
-  v14 = (*(v21 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  v17 = &v13 - v14;
-  v36 = MEMORY[0x28223BE20](a1);
-  v35 = v8;
-  v34 = v9;
-  v33 = v10;
-  v32 = v11;
-  v37 = v7;
-  v19 = v31;
-  outlined init with copy of GlobalsProviding(v36, v31);
-
-  v15 = v30;
-  outlined init with copy of GlobalsProviding(v25, v30);
-  v16 = v29;
-  outlined init with copy of GlobalsProviding(v24, v29);
-  (*(v21 + 16))(v17, v20, v23);
-  v28 = BaseStrategy.init<A>(globals:catFamily:commonLabelsProvider:contactResolver:errorProvider:)(v19, v26, v15, v16, v17, v23, v18);
-
-  v37 = v28;
-  (*(v21 + 8))(v20, v23);
-  __swift_destroy_boxed_opaque_existential_0(v24);
-  __swift_destroy_boxed_opaque_existential_0(v25);
-
-  __swift_destroy_boxed_opaque_existential_0(v27);
-
-  return v28;
-}
-
-uint64_t protocol witness for ConfirmIntentFlowStrategyAsync.parseConfirmationResponse(input:confirmParameters:) in conformance RequestPaymentConfirmIntentStrategy(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v8 = v4;
-  *(v4 + 16) = v4;
-  v5 = *v3;
-  v6 = swift_task_alloc();
-  *(v8 + 24) = v6;
-  *v6 = *(v8 + 16);
-  v6[1] = protocol witness for ContinueInAppDialogFlowStrategyAsync.makeContinueInAppResponse(intentResolutionRecord:) in conformance SearchForAccountsContinueInAppStrategy;
-
-  return RequestPaymentConfirmIntentStrategy.parseConfirmationResponse(input:confirmParameters:)(a1, a2, a3);
-}
-
-uint64_t protocol witness for ConfirmIntentFlowStrategyAsync.makePromptForConfirmation(confirmParameters:) in conformance RequestPaymentConfirmIntentStrategy(uint64_t a1, uint64_t a2)
-{
-  v7 = v3;
-  *(v3 + 16) = v3;
-  v4 = *v2;
-  v5 = swift_task_alloc();
-  *(v7 + 24) = v5;
-  *v5 = *(v7 + 16);
-  v5[1] = protocol witness for ContinueInAppDialogFlowStrategyAsync.makeContinueInAppResponse(intentResolutionRecord:) in conformance SearchForAccountsContinueInAppStrategy;
-
-  return RequestPaymentConfirmIntentStrategy.makePromptForConfirmation(confirmParameters:)(a1, a2);
-}
-
-uint64_t protocol witness for ConfirmIntentFlowStrategyAsync.makeRepromptOnEmptyParse(confirmParameters:) in conformance RequestPaymentConfirmIntentStrategy(uint64_t a1, uint64_t a2)
-{
-  v7 = v3;
-  *(v3 + 16) = v3;
-  v4 = *v2;
-  v5 = swift_task_alloc();
-  *(v7 + 24) = v5;
-  *v5 = *(v7 + 16);
-  v5[1] = protocol witness for ContinueInAppDialogFlowStrategyAsync.makeContinueInAppResponse(intentResolutionRecord:) in conformance SearchForAccountsContinueInAppStrategy;
-
-  return RequestPaymentConfirmIntentStrategy.makeRepromptOnEmptyParse(confirmParameters:)(a1, a2);
-}
-
-uint64_t protocol witness for ConfirmIntentFlowStrategyAsync.makeRepromptOnLowConfidence(confirmParameters:) in conformance RequestPaymentConfirmIntentStrategy(uint64_t a1, uint64_t a2)
-{
-  v7 = v3;
-  *(v3 + 16) = v3;
-  v4 = *v2;
-  v5 = swift_task_alloc();
-  *(v7 + 24) = v5;
-  *v5 = *(v7 + 16);
-  v5[1] = protocol witness for ContinueInAppDialogFlowStrategyAsync.makeContinueInAppResponse(intentResolutionRecord:) in conformance SearchForAccountsContinueInAppStrategy;
-
-  return RequestPaymentConfirmIntentStrategy.makeRepromptOnLowConfidence(confirmParameters:)(a1, a2);
-}
-
-uint64_t protocol witness for ConfirmIntentFlowStrategyAsync.makeConfirmationRejectedResponse(confirmParameters:) in conformance RequestPaymentConfirmIntentStrategy(uint64_t a1, uint64_t a2)
-{
-  v7 = v3;
-  *(v3 + 16) = v3;
-  v4 = *v2;
-  v5 = swift_task_alloc();
-  *(v7 + 24) = v5;
-  *v5 = *(v7 + 16);
-  v5[1] = protocol witness for ContinueInAppDialogFlowStrategyAsync.makeContinueInAppResponse(intentResolutionRecord:) in conformance SearchForAccountsContinueInAppStrategy;
-
-  return RequestPaymentConfirmIntentStrategy.makeConfirmationRejectedResponse(confirmParameters:)(a1, a2);
-}
-
-uint64_t protocol witness for ConfirmIntentFlowStrategyAsync.makeFlowCancelledResponse(confirmParameters:) in conformance RequestPaymentConfirmIntentStrategy(uint64_t a1, uint64_t a2)
-{
-  v7 = v3;
-  *(v3 + 16) = v3;
-  v4 = *v2;
-  v5 = swift_task_alloc();
-  *(v7 + 24) = v5;
-  *v5 = *(v7 + 16);
-  v5[1] = protocol witness for ContinueInAppDialogFlowStrategyAsync.makeContinueInAppResponse(intentResolutionRecord:) in conformance SearchForAccountsContinueInAppStrategy;
-
-  return RequestPaymentConfirmIntentStrategy.makeFlowCancelledResponse(confirmParameters:)(a1, a2);
-}
-
-uint64_t protocol witness for ConfirmIntentFlowStrategyAsync.makeErrorResponse(error:confirmParameters:) in conformance RequestPaymentConfirmIntentStrategy(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v8 = v4;
-  *(v4 + 16) = v4;
-  v5 = *v3;
-  v6 = swift_task_alloc();
-  *(v8 + 24) = v6;
-  *v6 = *(v8 + 16);
-  v6[1] = protocol witness for ContinueInAppDialogFlowStrategyAsync.makeContinueInAppResponse(intentResolutionRecord:) in conformance SearchForAccountsContinueInAppStrategy;
-
-  return RequestPaymentConfirmIntentStrategy.makeErrorResponse(error:confirmParameters:)(a1, a2, a3);
-}
-
-id @nonobjc INRequestPaymentIntentResponse.init(code:userActivity:)(uint64_t a1, uint64_t a2)
-{
-  v5 = [v2 initWithCode:a1 userActivity:?];
-  MEMORY[0x277D82BD8](a2);
-  return v5;
-}
-
-id @nonobjc INPaymentRecord.init(payee:payer:currencyAmount:paymentMethod:note:status:feeAmount:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
-{
-  if (a6)
-  {
-    v10 = MEMORY[0x26D620690](a5);
-
-    v11 = v10;
-  }
-
-  else
-  {
-    v11 = 0;
-  }
-
-  v9 = [v17 initWithPayee:a1 payer:a2 currencyAmount:a3 paymentMethod:a4 note:a8 status:? feeAmount:?];
-  MEMORY[0x277D82BD8](a8);
-  MEMORY[0x277D82BD8](v11);
-  MEMORY[0x277D82BD8](a4);
-  MEMORY[0x277D82BD8](a3);
-  MEMORY[0x277D82BD8](a2);
-  MEMORY[0x277D82BD8](a1);
-  return v9;
-}
-
-uint64_t sub_26881E7B0()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_26881E7F0()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_26881E830()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_26881E8C8()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_26881E908()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t type metadata accessor for RequestPaymentConfirmIntentStrategy()
-{
-  v1 = type metadata singleton initialization cache for RequestPaymentConfirmIntentStrategy;
-  if (!type metadata singleton initialization cache for RequestPaymentConfirmIntentStrategy)
-  {
-    return swift_getSingletonMetadata();
-  }
-
-  return v1;
-}
-
-uint64_t PaymentsHandleIntentStrategy.makeIntentExecutionBehavior(app:intent:completion:)(uint64_t a1, uint64_t a2, void (*a3)(uint64_t), uint64_t a4)
-{
-  v32 = a4;
-  v31 = a3;
-  v34 = a2;
-  v33 = a1;
-  v45 = 0;
-  v58 = 0;
-  v57 = 0;
-  v55 = 0;
-  v54 = 0;
-  v53 = 0;
-  v30 = 0;
-  v40 = *v4;
-  v42 = type metadata accessor for Logger();
-  v35 = v42;
-  v36 = *(v42 - 8);
-  v41 = v36;
-  v37 = v36;
-  v38 = *(v36 + 64);
-  v5 = &v14 - ((v38 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v39 = v5;
-  v58 = MEMORY[0x28223BE20](v33);
-  v57 = v6;
-  v56 = *(v40 + 80);
-  v54 = v7;
-  v55 = v8;
-  v53 = v9;
-  v52[1] = *(v40 + 88);
-  v10 = Logger.payments.unsafeMutableAddressor();
-  (*(v41 + 16))(v5, v10, v42);
-  v47 = Logger.logObject.getter();
-  v43 = v47;
-  v46 = static os_log_type_t.debug.getter();
-  v44 = v46;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMd, &_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMR);
-  v48 = _allocateUninitializedArray<A>(_:)();
-  if (os_log_type_enabled(v47, v46))
-  {
-    v11 = v30;
-    v21 = static UnsafeMutablePointer.allocate(capacity:)();
-    v17 = v21;
-    v18 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
-    v19 = 0;
-    v22 = createStorage<A>(capacity:type:)(0);
-    v20 = v22;
-    v23 = createStorage<A>(capacity:type:)(v19);
-    v52[0] = v21;
-    v51 = v22;
-    v50 = v23;
-    v24 = 0;
-    v25 = v52;
-    serialize(_:at:)(0, v52);
-    serialize(_:at:)(v24, v25);
-    v49 = v48;
-    v26 = &v14;
-    MEMORY[0x28223BE20](&v14);
-    v27 = &v14 - 6;
-    *(&v14 - 4) = v12;
-    *(&v14 - 3) = &v51;
-    *(&v14 - 2) = &v50;
-    v28 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSayySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcGMd, &_sSayySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcGMR);
-    lazy protocol witness table accessor for type [(_:_:_:)] and conformance [A]();
-    Sequence.forEach(_:)();
-    v29 = v11;
-    if (v11)
-    {
-      __break(1u);
-    }
-
-    else
-    {
-      _os_log_impl(&dword_2686B1000, v43, v44, "#PaymentsHandleIntentStrategy makeIntentExecutionBehavior", v17, 2u);
-      v15 = 0;
-      destroyStorage<A>(_:count:)(v20, 0, v18);
-      destroyStorage<A>(_:count:)(v23, v15, MEMORY[0x277D84F70] + 8);
-      MEMORY[0x26D620BD0](v17, MEMORY[0x277D84B78]);
-
-      v16 = v29;
-    }
-  }
-
-  else
-  {
-
-    v16 = v30;
-  }
-
-  (*(v37 + 8))(v39, v35);
-
-  type metadata accessor for SiriKitIntentExecutionBehavior();
-  v14 = static SiriKitIntentExecutionBehavior.standard()();
-  v31(v14);
-}
-
-uint64_t protocol witness for HandleIntentFlowStrategyAsync.makePromptForDeviceUnlock(rchRecord:) in conformance PaymentsHandleIntentStrategy<A, B>(uint64_t a1, uint64_t a2, void *a3, uint64_t a4)
-{
-  v13 = v4;
-  *(v4 + 16) = v4;
-  v5 = *(MEMORY[0x277D5B3C8] + 4);
-  v6 = swift_task_alloc();
-  *(v13 + 24) = v6;
-  v7 = a3[10];
-  v8 = a3[11];
-  v9 = a3[12];
-  v10 = type metadata accessor for PaymentsHandleIntentStrategy();
-  *v6 = *(v13 + 16);
-  v6[1] = protocol witness for ContinueInAppDialogFlowStrategyAsync.makeContinueInAppResponse(intentResolutionRecord:) in conformance SearchForAccountsContinueInAppStrategy;
-
-  return MEMORY[0x2821B9C68](a1, a2, v10, a4);
-}
-
-uint64_t protocol witness for HandleIntentFlowStrategyAsync.makeHandoffForAuthenticationResponse(rchRecord:) in conformance PaymentsHandleIntentStrategy<A, B>(uint64_t a1, uint64_t a2, void *a3, uint64_t a4)
-{
-  v13 = v4;
-  *(v4 + 16) = v4;
-  v5 = *(MEMORY[0x277D5B3D0] + 4);
-  v6 = swift_task_alloc();
-  *(v13 + 24) = v6;
-  v7 = a3[10];
-  v8 = a3[11];
-  v9 = a3[12];
-  v10 = type metadata accessor for PaymentsHandleIntentStrategy();
-  *v6 = *(v13 + 16);
-  v6[1] = protocol witness for ContinueInAppDialogFlowStrategyAsync.makeContinueInAppResponse(intentResolutionRecord:) in conformance SearchForAccountsContinueInAppStrategy;
-
-  return MEMORY[0x2821B9C70](a1, a2, v10, a4);
-}
-
-uint64_t protocol witness for HandleIntentFlowStrategyAsync.makePreHandleIntentOutput(rchRecord:) in conformance PaymentsHandleIntentStrategy<A, B>(uint64_t a1, uint64_t a2, void *a3, uint64_t a4)
-{
-  v13 = v4;
-  *(v4 + 16) = v4;
-  v5 = *(MEMORY[0x277D5B3B0] + 4);
-  v6 = swift_task_alloc();
-  *(v13 + 24) = v6;
-  v7 = a3[10];
-  v8 = a3[11];
-  v9 = a3[12];
-  v10 = type metadata accessor for PaymentsHandleIntentStrategy();
-  *v6 = *(v13 + 16);
-  v6[1] = protocol witness for ContinueInAppDialogFlowStrategyAsync.makeContinueInAppResponse(intentResolutionRecord:) in conformance SearchForAccountsContinueInAppStrategy;
-
-  return MEMORY[0x2821B9C48](a1, a2, v10, a4);
-}
-
-uint64_t protocol witness for HandleIntentFlowStrategyAsync.makeIntentHandledResponse(rchRecord:) in conformance PaymentsHandleIntentStrategy<A, B>(uint64_t a1, uint64_t a2, void *a3, uint64_t a4)
-{
-  v13 = v4;
-  *(v4 + 16) = v4;
-  v5 = *(MEMORY[0x277D5B3A8] + 4);
-  v6 = swift_task_alloc();
-  *(v13 + 24) = v6;
-  v7 = a3[10];
-  v8 = a3[11];
-  v9 = a3[12];
-  v10 = type metadata accessor for PaymentsHandleIntentStrategy();
-  *v6 = *(v13 + 16);
-  v6[1] = protocol witness for ContinueInAppDialogFlowStrategyAsync.makeContinueInAppResponse(intentResolutionRecord:) in conformance SearchForAccountsContinueInAppStrategy;
-
-  return MEMORY[0x2821B9C40](a1, a2, v10, a4);
-}
-
-uint64_t protocol witness for HandleIntentFlowStrategyAsync.makeContinueInAppResponse(rchRecord:) in conformance PaymentsHandleIntentStrategy<A, B>(uint64_t a1, uint64_t a2, void *a3, uint64_t a4)
-{
-  v13 = v4;
-  *(v4 + 16) = v4;
-  v5 = *(MEMORY[0x277D5B3C0] + 4);
-  v6 = swift_task_alloc();
-  *(v13 + 24) = v6;
-  v7 = a3[10];
-  v8 = a3[11];
-  v9 = a3[12];
-  v10 = type metadata accessor for PaymentsHandleIntentStrategy();
-  *v6 = *(v13 + 16);
-  v6[1] = protocol witness for ContinueInAppDialogFlowStrategyAsync.makeContinueInAppResponse(intentResolutionRecord:) in conformance SearchForAccountsContinueInAppStrategy;
-
-  return MEMORY[0x2821B9C60](a1, a2, v10, a4);
-}
-
-uint64_t protocol witness for HandleIntentFlowStrategyAsync.makeInProgressResponse(rchRecord:) in conformance PaymentsHandleIntentStrategy<A, B>(uint64_t a1, uint64_t a2, void *a3, uint64_t a4)
-{
-  v13 = v4;
-  *(v4 + 16) = v4;
-  v5 = *(MEMORY[0x277D5B3B8] + 4);
-  v6 = swift_task_alloc();
-  *(v13 + 24) = v6;
-  v7 = a3[10];
-  v8 = a3[11];
-  v9 = a3[12];
-  v10 = type metadata accessor for PaymentsHandleIntentStrategy();
-  *v6 = *(v13 + 16);
-  v6[1] = protocol witness for ContinueInAppDialogFlowStrategyAsync.makeContinueInAppResponse(intentResolutionRecord:) in conformance SearchForAccountsContinueInAppStrategy;
-
-  return MEMORY[0x2821B9C58](a1, a2, v10, a4);
-}
-
-uint64_t protocol witness for HandleIntentFlowStrategyAsync.makeFailureHandlingIntentResponse(rchRecord:) in conformance PaymentsHandleIntentStrategy<A, B>(uint64_t a1, uint64_t a2, void *a3, uint64_t a4)
-{
-  v13 = v4;
-  *(v4 + 16) = v4;
-  v5 = *(MEMORY[0x277D5B3A0] + 4);
-  v6 = swift_task_alloc();
-  *(v13 + 24) = v6;
-  v7 = a3[10];
-  v8 = a3[11];
-  v9 = a3[12];
-  v10 = type metadata accessor for PaymentsHandleIntentStrategy();
-  *v6 = *(v13 + 16);
-  v6[1] = protocol witness for ContinueInAppDialogFlowStrategyAsync.makeContinueInAppResponse(intentResolutionRecord:) in conformance SearchForAccountsContinueInAppStrategy;
-
-  return MEMORY[0x2821B9C38](a1, a2, v10, a4);
-}
-
-uint64_t protocol witness for IntentExtensionCommunicatingAsync.makeIntentExecutionBehavior(app:intent:) in conformance PaymentsHandleIntentStrategy<A, B>(uint64_t a1, uint64_t a2, void *a3, uint64_t a4)
-{
-  v13 = v4;
-  *(v4 + 16) = v4;
-  v5 = *(MEMORY[0x277D5C0D0] + 4);
-  v6 = swift_task_alloc();
-  *(v13 + 24) = v6;
-  v7 = a3[10];
-  v8 = a3[11];
-  v9 = a3[12];
-  v10 = type metadata accessor for PaymentsHandleIntentStrategy();
-  *v6 = *(v13 + 16);
-  v6[1] = protocol witness for IntentExtensionCommunicatingAsync.makeIntentExecutionBehavior(app:intent:) in conformance PaymentsRCHFlowStrategy<A, B>;
-
-  return MEMORY[0x2821BBB48](a1, a2, v10, a4);
-}
-
-uint64_t ReferenceResolutionClient.resolveAppDisambiguationReference(from:)(uint64_t a1)
-{
-  v57 = a1;
-  v44 = partial apply for implicit closure #1 in ReferenceResolutionClient.resolveAppDisambiguationReference(from:);
-  v45 = partial apply for implicit closure #1 in OSLogInterpolation.appendInterpolation(_:align:privacy:);
-  v46 = partial apply for closure #1 in OSLogArguments.append(_:);
-  v47 = partial apply for closure #1 in OSLogArguments.append(_:);
-  v48 = partial apply for closure #1 in OSLogArguments.append(_:);
-  v73 = 0;
-  v72 = 0;
-  v71 = 0;
-  v69 = 0;
-  v49 = 0;
-  v55 = 0;
-  v50 = type metadata accessor for Logger();
-  v51 = *(v50 - 8);
-  v52 = v50 - 8;
-  v53 = (*(v51 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20](v50);
-  v54 = v20 - v53;
-  v56 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s32SiriReferenceResolutionDataModel8RREntityVSgMd, &_s32SiriReferenceResolutionDataModel8RREntityVSgMR) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20](v55);
-  v62 = v20 - v56;
-  v63 = type metadata accessor for RREntity();
-  v60 = *(v63 - 8);
-  v61 = v63 - 8;
-  v58 = (*(v60 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  v2 = MEMORY[0x28223BE20](v57);
-  v59 = v20 - v58;
-  v73 = v20 - v58;
-  v72 = v2;
-  v71 = v1;
-  ReferenceResolutionClient.resolvePositionEntity(from:useCase:)(v2, 0, v3);
-  if ((*(v60 + 48))(v62, 1, v63) == 1)
-  {
-    outlined destroy of RREntity?(v62);
-    v20[0] = 0;
-  }
-
-  else
-  {
-    (*(v60 + 32))(v59, v62, v63);
-    v4 = RREntity.usoEntity.getter();
-    v5 = v54;
-    v29 = v4;
-    type metadata accessor for UsoEntity_common_App();
-    static UsoEntity_CodeGenConverter.convertAs<A>(entity:asType:)();
-
-    v30 = v70;
-    v69 = v70;
-    v6 = Logger.payments.unsafeMutableAddressor();
-    (*(v51 + 16))(v5, v6, v50);
-
-    v33 = 7;
-    v34 = swift_allocObject();
-    *(v34 + 16) = v30;
-    v42 = Logger.logObject.getter();
-    v43 = static os_log_type_t.debug.getter();
-    v31 = 17;
-    v36 = swift_allocObject();
-    *(v36 + 16) = 32;
-    v37 = swift_allocObject();
-    *(v37 + 16) = 8;
-    v32 = 32;
-    v7 = swift_allocObject();
-    v8 = v34;
-    v35 = v7;
-    *(v7 + 16) = v44;
-    *(v7 + 24) = v8;
-    v9 = swift_allocObject();
-    v10 = v35;
-    v39 = v9;
-    *(v9 + 16) = v45;
-    *(v9 + 24) = v10;
-    v41 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMd, &_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMR);
-    v38 = _allocateUninitializedArray<A>(_:)();
-    v40 = v11;
-
-    v12 = v36;
-    v13 = v40;
-    *v40 = v46;
-    v13[1] = v12;
-
-    v14 = v37;
-    v15 = v40;
-    v40[2] = v47;
-    v15[3] = v14;
-
-    v16 = v39;
-    v17 = v40;
-    v40[4] = v48;
-    v17[5] = v16;
-    _finalizeUninitializedArray<A>(_:)();
-
-    if (os_log_type_enabled(v42, v43))
-    {
-      v18 = v49;
-      v22 = static UnsafeMutablePointer.allocate(capacity:)();
-      v21 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
-      v23 = createStorage<A>(capacity:type:)(0);
-      v24 = createStorage<A>(capacity:type:)(1);
-      v25 = &v68;
-      v68 = v22;
-      v26 = &v67;
-      v67 = v23;
-      v27 = &v66;
-      v66 = v24;
-      serialize(_:at:)(2, &v68);
-      serialize(_:at:)(1, v25);
-      v64 = v46;
-      v65 = v36;
-      closure #1 in osLogInternal(_:log:type:)(&v64, v25, v26, v27);
-      v28 = v18;
-      if (v18)
-      {
-
-        __break(1u);
-      }
-
-      else
-      {
-        v64 = v47;
-        v65 = v37;
-        closure #1 in osLogInternal(_:log:type:)(&v64, &v68, &v67, &v66);
-        v20[1] = 0;
-        v64 = v48;
-        v65 = v39;
-        closure #1 in osLogInternal(_:log:type:)(&v64, &v68, &v67, &v66);
-        _os_log_impl(&dword_2686B1000, v42, v43, "#ReferenceResolution Converted positional reference entity to UsoEntity_common_App: %s", v22, 0xCu);
-        destroyStorage<A>(_:count:)(v23, 0, v21);
-        destroyStorage<A>(_:count:)(v24, 1, MEMORY[0x277D84F70] + 8);
-        MEMORY[0x26D620BD0](v22, MEMORY[0x277D84B78]);
-      }
-    }
-
-    else
-    {
-    }
-
-    MEMORY[0x277D82BD8](v42);
-    (*(v51 + 8))(v54, v50);
-    (*(v60 + 8))(v59, v63);
-    v20[0] = v30;
-  }
-
-  return v20[0];
-}
-
-uint64_t ReferenceResolutionClient.resolvePersonDisambiguationReference(from:)(uint64_t a1)
-{
-  v59 = a1;
-  v46 = partial apply for implicit closure #1 in ReferenceResolutionClient.resolvePersonDisambiguationReference(from:);
-  v47 = partial apply for implicit closure #1 in OSLogInterpolation.appendInterpolation(_:align:privacy:);
-  v48 = partial apply for closure #1 in OSLogArguments.append(_:);
-  v49 = partial apply for closure #1 in OSLogArguments.append(_:);
-  v50 = partial apply for closure #1 in OSLogArguments.append(_:);
-  v76 = 0;
-  v75 = 0;
-  v74 = 0;
-  v72 = 0;
-  v51 = 0;
-  v57 = 0;
-  v52 = type metadata accessor for Logger();
-  v53 = *(v52 - 8);
-  v54 = v52 - 8;
-  v55 = (*(v53 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20](v52);
-  v56 = &v20 - v55;
-  v58 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s32SiriReferenceResolutionDataModel8RREntityVSgMd, &_s32SiriReferenceResolutionDataModel8RREntityVSgMR) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20](v57);
-  v64 = &v20 - v58;
-  v66 = type metadata accessor for RREntity();
-  v62 = *(v66 - 8);
-  v63 = v66 - 8;
-  v60 = (*(v62 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  v2 = MEMORY[0x28223BE20](v59);
-  v61 = &v20 - v60;
-  v76 = &v20 - v60;
-  v75 = v2;
-  v74 = v1;
-  v65 = 1;
-  ReferenceResolutionClient.resolvePositionEntity(from:useCase:)(v2, 1, v3);
-  if ((*(v62 + 48))(v64, v65, v66) == 1)
-  {
-    outlined destroy of RREntity?(v64);
-    return 0;
-  }
-
-  else
-  {
-    (*(v62 + 32))(v61, v64, v66);
-    v4 = RREntity.usoEntity.getter();
-    v5 = v56;
-    v31 = v4;
-    type metadata accessor for UsoEntity_common_Person();
-    static UsoEntity_CodeGenConverter.convertAs<A>(entity:asType:)();
-
-    v32 = v73;
-    v72 = v73;
-    v6 = Logger.payments.unsafeMutableAddressor();
-    (*(v53 + 16))(v5, v6, v52);
-
-    v35 = 7;
-    v36 = swift_allocObject();
-    *(v36 + 16) = v32;
-    v44 = Logger.logObject.getter();
-    v45 = static os_log_type_t.debug.getter();
-    v33 = 17;
-    v38 = swift_allocObject();
-    *(v38 + 16) = 32;
-    v39 = swift_allocObject();
-    *(v39 + 16) = 8;
-    v34 = 32;
-    v7 = swift_allocObject();
-    v8 = v36;
-    v37 = v7;
-    *(v7 + 16) = v46;
-    *(v7 + 24) = v8;
-    v9 = swift_allocObject();
-    v10 = v37;
-    v41 = v9;
-    *(v9 + 16) = v47;
-    *(v9 + 24) = v10;
-    v43 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMd, &_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMR);
-    v40 = _allocateUninitializedArray<A>(_:)();
-    v42 = v11;
-
-    v12 = v38;
-    v13 = v42;
-    *v42 = v48;
-    v13[1] = v12;
-
-    v14 = v39;
-    v15 = v42;
-    v42[2] = v49;
-    v15[3] = v14;
-
-    v16 = v41;
-    v17 = v42;
-    v42[4] = v50;
-    v17[5] = v16;
-    _finalizeUninitializedArray<A>(_:)();
-
-    if (os_log_type_enabled(v44, v45))
-    {
-      v18 = v51;
-      v24 = static UnsafeMutablePointer.allocate(capacity:)();
-      v23 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
-      v25 = createStorage<A>(capacity:type:)(0);
-      v26 = createStorage<A>(capacity:type:)(1);
-      v27 = &v71;
-      v71 = v24;
-      v28 = &v70;
-      v70 = v25;
-      v29 = &v69;
-      v69 = v26;
-      serialize(_:at:)(2, &v71);
-      serialize(_:at:)(1, v27);
-      v67 = v48;
-      v68 = v38;
-      closure #1 in osLogInternal(_:log:type:)(&v67, v27, v28, v29);
-      v30 = v18;
-      if (v18)
-      {
-
-        __break(1u);
-      }
-
-      else
-      {
-        v67 = v49;
-        v68 = v39;
-        closure #1 in osLogInternal(_:log:type:)(&v67, &v71, &v70, &v69);
-        v22 = 0;
-        v67 = v50;
-        v68 = v41;
-        closure #1 in osLogInternal(_:log:type:)(&v67, &v71, &v70, &v69);
-        _os_log_impl(&dword_2686B1000, v44, v45, "#ReferenceResolution Converted positional reference entity to UsoEntity_common_Person: %s", v24, 0xCu);
-        destroyStorage<A>(_:count:)(v25, 0, v23);
-        destroyStorage<A>(_:count:)(v26, 1, MEMORY[0x277D84F70] + 8);
-        MEMORY[0x26D620BD0](v24, MEMORY[0x277D84B78]);
-      }
-    }
-
-    else
-    {
-    }
-
-    MEMORY[0x277D82BD8](v44);
-    (*(v53 + 8))(v56, v52);
-    (*(v62 + 8))(v61, v66);
-    return v32;
-  }
-}
-
-uint64_t static ReferenceResolutionClient.PaymentsReferenceResolutionUseCase.allCases.getter()
-{
-  result = _allocateUninitializedArray<A>(_:)();
-  *v1 = 0;
-  v1[1] = 1;
-  _finalizeUninitializedArray<A>(_:)();
-  return result;
-}
-
-uint64_t protocol witness for static CaseIterable.allCases.getter in conformance ReferenceResolutionClient.PaymentsReferenceResolutionUseCase@<X0>(uint64_t *a1@<X8>)
-{
-  result = static ReferenceResolutionClient.PaymentsReferenceResolutionUseCase.allCases.getter();
-  *a1 = result;
-  return result;
-}
-
-uint64_t ReferenceResolutionClient.resolveCommonPerson()@<X0>(void *a1@<X8>)
-{
-  type metadata accessor for UsoEntityBuilder_common_Person();
-  UsoEntityBuilder_common_Person.__allocating_init()();
-  v4 = MEMORY[0x26D61F7C0]();
-
-  if (v4)
-  {
-    ReferenceResolutionClient.resolveEntity(referenceEntity:)(v4, a1);
-  }
-
-  else
-  {
-    v2 = type metadata accessor for RREntity();
-    return (*(*(v2 - 8) + 56))(a1, 1);
-  }
-}
-
-uint64_t ReferenceResolutionClient.resolveEntity(referenceEntity:)@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
-{
-  v396 = a1;
-  v343 = a2;
-  v397 = 0;
-  v447 = 0;
-  v446 = 0;
-  v445 = 0;
-  v444 = 0;
-  v443 = 0;
-  v344 = 0;
-  v448 = 0;
-  v428 = 0;
-  v421 = 0;
-  v416 = 0;
-  v449 = 0;
-  v346 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s32SiriReferenceResolutionDataModel11RRCandidateVSgMd, &_s32SiriReferenceResolutionDataModel11RRCandidateVSgMR) - 8) + 64);
-  v3 = MEMORY[0x28223BE20](0);
-  v348 = (v346 + 15) & 0xFFFFFFFFFFFFFFF0;
-  v345 = &v107 - v348;
-  v4 = MEMORY[0x28223BE20](v3);
-  v347 = &v107 - v348;
-  MEMORY[0x28223BE20](v4);
-  v349 = &v107 - v348;
-  v350 = type metadata accessor for Logger();
-  v351 = *(v350 - 8);
-  v352 = v351;
-  v358 = *(v351 + 64);
-  v5 = MEMORY[0x28223BE20](v397);
-  v360 = (v358 + 15) & 0xFFFFFFFFFFFFFFF0;
-  v353 = &v107 - v360;
-  v6 = MEMORY[0x28223BE20](v5);
-  v354 = &v107 - v360;
-  v7 = MEMORY[0x28223BE20](v6);
-  v355 = &v107 - v360;
-  v8 = MEMORY[0x28223BE20](v7);
-  v356 = &v107 - v360;
-  v9 = MEMORY[0x28223BE20](v8);
-  v357 = &v107 - v360;
-  v10 = MEMORY[0x28223BE20](v9);
-  v359 = &v107 - v360;
-  MEMORY[0x28223BE20](v10);
-  v361 = &v107 - v360;
-  v362 = type metadata accessor for RRCandidate();
-  v363 = *(v362 - 8);
-  v364 = v363;
-  v366 = *(v363 + 64);
-  v365 = v366;
-  v11 = MEMORY[0x28223BE20](v397);
-  v368 = (v366 + 15) & 0xFFFFFFFFFFFFFFF0;
-  v367 = &v107 - v368;
-  MEMORY[0x28223BE20](v11);
-  v369 = &v107 - v368;
-  v449 = &v107 - v368;
-  v370 = type metadata accessor for RRResult();
-  v371 = *(v370 - 8);
-  v372 = v371;
-  v375 = *(v371 + 64);
-  v373 = v375;
-  MEMORY[0x28223BE20](v370 - 8);
-  v377 = (v375 + 15) & 0xFFFFFFFFFFFFFFF0;
-  v374 = (&v107 - v377);
-  v12 = MEMORY[0x28223BE20](&v107 - v377);
-  v376 = (&v107 - v377);
-  MEMORY[0x28223BE20](v12);
-  v378 = &v107 - v377;
-  v448 = &v107 - v377;
-  v379 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s32SiriReferenceResolutionDataModel8RRFilterVSgMd, &_s32SiriReferenceResolutionDataModel8RRFilterVSgMR) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20](v397);
-  v399 = &v107 - v379;
-  v401 = type metadata accessor for RRQuery();
-  v380 = *(v401 - 8);
-  v400 = v380;
-  v13 = *(v380 + 64);
-  MEMORY[0x28223BE20](v401 - 8);
-  v402 = (&v107 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v404 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss6ResultOy32SiriReferenceResolutionDataModel8RRResultOs5Error_pGMd, &_ss6ResultOy32SiriReferenceResolutionDataModel8RRResultOs5Error_pGMR);
-  v381 = *(*(v404 - 8) + 64);
-  v15 = MEMORY[0x28223BE20](v404 - 8);
-  v383 = (v381 + 15) & 0xFFFFFFFFFFFFFFF0;
-  v405 = (&v107 - v383);
-  v382 = (&v107 - v383);
-  MEMORY[0x28223BE20](v15);
-  v403 = (&v107 - v383);
-  v384 = (&v107 - v383);
-  v447 = &v107 - v383;
-  v388 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s32SiriReferenceResolutionDataModel8RREntityVSgMd, &_s32SiriReferenceResolutionDataModel8RREntityVSgMR) - 8) + 64);
-  v16 = MEMORY[0x28223BE20](v397);
-  v390 = (v388 + 15) & 0xFFFFFFFFFFFFFFF0;
-  v385 = &v107 - v390;
-  v17 = MEMORY[0x28223BE20](v16);
-  v386 = &v107 - v390;
-  v18 = MEMORY[0x28223BE20](v17);
-  v387 = &v107 - v390;
-  v19 = MEMORY[0x28223BE20](v18);
-  v389 = &v107 - v390;
-  MEMORY[0x28223BE20](v19);
-  v392 = &v107 - v390;
-  v391 = &v107 - v390;
-  v446 = &v107 - v390;
-  v445 = v20;
-  v444 = v2;
-  v393 = type metadata accessor for RREntity();
-  v21 = *(v393 - 8);
-  v394 = *(v21 + 56);
-  v395 = (v21 + 56) & 0xFFFFFFFFFFFFLL | 0xA0D1000000000000;
-  v398 = 1;
-  v394(v392, 1);
-
-  v22 = v400;
-  *v402 = v396;
-  v23 = *MEMORY[0x277D5FEA8];
-  (*(v22 + 104))();
-  v24 = type metadata accessor for RRFilter();
-  (*(*(v24 - 8) + 56))(v399, v398);
-  dispatch thunk of ReferenceResolutionClient.resolve(reference:filter:)();
-  outlined destroy of RRFilter?(v399);
-  (*(v400 + 8))(v402, v401);
-  outlined init with copy of Result<RRResult, Error>(v403, v405);
-  if (swift_getEnumCaseMultiPayload() != 1)
-  {
-    v338 = *(v372 + 32);
-    v339 = (v372 + 32) & 0xFFFFFFFFFFFFLL | 0x48D8000000000000;
-    v338(v378, v382, v370);
-    v448 = v378;
-    v340 = *(v372 + 16);
-    v341 = (v372 + 16) & 0xFFFFFFFFFFFFLL | 0xE3BA000000000000;
-    (v340)(v376);
-    v342 = (*(v372 + 88))(v376, v370);
-    if (v342 == *MEMORY[0x277D5FEC0])
-    {
-      v25 = v361;
-      (*(v372 + 96))(v376, v370);
-      v317 = *(v364 + 32);
-      v316 = v364 + 32;
-      v317(v369, v376, v362);
-      v449 = v369;
-      v26 = Logger.payments.unsafeMutableAddressor();
-      (*(v352 + 16))(v25, v26, v350);
-      v27 = *(v364 + 16);
-      v314 = v364 + 16;
-      v27(v367, v369, v362);
-      v315 = (*(v314 + 64) + 16) & ~*(v314 + 64);
-      v318 = swift_allocObject();
-      v317((v318 + v315), v367, v362);
-
-      v321 = 32;
-      v325 = 32;
-      v326 = 7;
-      v28 = swift_allocObject();
-      v29 = v318;
-      v327 = v28;
-      *(v28 + 16) = partial apply for implicit closure #1 in ReferenceResolutionClient.resolveEntity(referenceEntity:);
-      *(v28 + 24) = v29;
-
-      v337 = Logger.logObject.getter();
-      v319 = v337;
-      v336 = static os_log_type_t.debug.getter();
-      v320 = v336;
-      v322 = 17;
-      v330 = swift_allocObject();
-      v323 = v330;
-      *(v330 + 16) = v321;
-      v331 = swift_allocObject();
-      v324 = v331;
-      *(v331 + 16) = 8;
-      v30 = swift_allocObject();
-      v31 = v327;
-      v328 = v30;
-      *(v30 + 16) = implicit closure #1 in OSLogInterpolation.appendInterpolation<A>(_:align:privacy:)partial apply;
-      *(v30 + 24) = v31;
-      v32 = swift_allocObject();
-      v33 = v328;
-      v334 = v32;
-      v329 = v32;
-      *(v32 + 16) = partial apply for implicit closure #1 in OSLogInterpolation.appendInterpolation(_:align:privacy:);
-      *(v32 + 24) = v33;
-      v335 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMd, &_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMR);
-      v332 = _allocateUninitializedArray<A>(_:)();
-      v333 = v34;
-
-      v35 = v330;
-      v36 = v333;
-      *v333 = partial apply for closure #1 in OSLogArguments.append(_:);
-      v36[1] = v35;
-
-      v37 = v331;
-      v38 = v333;
-      v333[2] = partial apply for closure #1 in OSLogArguments.append(_:);
-      v38[3] = v37;
-
-      v39 = v333;
-      v40 = v334;
-      v333[4] = partial apply for closure #1 in OSLogArguments.append(_:);
-      v39[5] = v40;
-      _finalizeUninitializedArray<A>(_:)();
-
-      if (os_log_type_enabled(v337, v336))
-      {
-        v41 = v344;
-        v307 = static UnsafeMutablePointer.allocate(capacity:)();
-        v304 = v307;
-        v305 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
-        v308 = createStorage<A>(capacity:type:)(0);
-        v306 = v308;
-        v310 = 1;
-        v309 = createStorage<A>(capacity:type:)(1);
-        v410 = v307;
-        v409 = v308;
-        v408 = v309;
-        v311 = &v410;
-        serialize(_:at:)(2, &v410);
-        serialize(_:at:)(v310, v311);
-        v406 = partial apply for closure #1 in OSLogArguments.append(_:);
-        v407 = v323;
-        closure #1 in osLogInternal(_:log:type:)(&v406, v311, &v409, &v408);
-        v312 = v41;
-        v313 = v41;
-        if (v41)
-        {
-          v302 = 0;
-
-          __break(1u);
-        }
-
-        else
-        {
-          v406 = partial apply for closure #1 in OSLogArguments.append(_:);
-          v407 = v324;
-          closure #1 in osLogInternal(_:log:type:)(&v406, &v410, &v409, &v408);
-          v300 = 0;
-          v301 = 0;
-          v406 = partial apply for closure #1 in OSLogArguments.append(_:);
-          v407 = v329;
-          closure #1 in osLogInternal(_:log:type:)(&v406, &v410, &v409, &v408);
-          v298 = 0;
-          v299 = 0;
-          _os_log_impl(&dword_2686B1000, v319, v320, "#ReferenceResolution Found a candidate %s", v304, 0xCu);
-          destroyStorage<A>(_:count:)(v306, 0, v305);
-          destroyStorage<A>(_:count:)(v309, 1, MEMORY[0x277D84F70] + 8);
-          MEMORY[0x26D620BD0](v304, MEMORY[0x277D84B78]);
-
-          v303 = v298;
-        }
-      }
-
-      else
-      {
-        v42 = v344;
-
-        v303 = v42;
-      }
-
-      v296 = v303;
-
-      (*(v352 + 8))(v361, v350);
-      RRCandidate.entity.getter();
-      (v394)(v389, 0, 1, v393);
-      outlined assign with take of RREntity?(v389, v391);
-      (*(v364 + 8))(v369, v362);
-      v297 = v296;
-      goto LABEL_57;
-    }
-
-    if (v342 == *MEMORY[0x277D5FED0])
-    {
-      v58 = v357;
-      (*(v372 + 96))(v376, v370);
-      v251 = *v376;
-      v421 = v251;
-      v59 = Logger.payments.unsafeMutableAddressor();
-      (*(v352 + 16))(v58, v59, v350);
-      v255 = Logger.logObject.getter();
-      v252 = v255;
-      v254 = static os_log_type_t.debug.getter();
-      v253 = v254;
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMd, &_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMR);
-      v256 = _allocateUninitializedArray<A>(_:)();
-      if (os_log_type_enabled(v255, v254))
-      {
-        v60 = v344;
-        v242 = static UnsafeMutablePointer.allocate(capacity:)();
-        v238 = v242;
-        v239 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
-        v240 = 0;
-        v243 = createStorage<A>(capacity:type:)(0);
-        v241 = v243;
-        v244 = createStorage<A>(capacity:type:)(v240);
-        v420[0] = v242;
-        v419 = v243;
-        v418 = v244;
-        v245 = 0;
-        v246 = v420;
-        serialize(_:at:)(0, v420);
-        serialize(_:at:)(v245, v246);
-        v417 = v256;
-        v247 = &v107;
-        MEMORY[0x28223BE20](&v107);
-        v248 = &v107 - 6;
-        *(&v107 - 4) = v61;
-        *(&v107 - 3) = &v419;
-        *(&v107 - 2) = &v418;
-        v249 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSayySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcGMd, &_sSayySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcGMR);
-        lazy protocol witness table accessor for type [(_:_:_:)] and conformance [A]();
-        Sequence.forEach(_:)();
-        v250 = v60;
-        if (v60)
-        {
-          __break(1u);
-        }
-
-        else
-        {
-          _os_log_impl(&dword_2686B1000, v252, v253, "#ReferenceResolution Found ambiguous entities -> returning the first one", v238, 2u);
-          v236 = 0;
-          destroyStorage<A>(_:count:)(v241, 0, v239);
-          destroyStorage<A>(_:count:)(v244, v236, MEMORY[0x277D84F70] + 8);
-          MEMORY[0x26D620BD0](v238, MEMORY[0x277D84B78]);
-
-          v237 = v250;
-        }
-      }
-
-      else
-      {
-
-        v237 = v344;
-      }
-
-      v234 = v237;
-
-      (*(v352 + 8))(v357, v350);
-      v420[1] = v251;
-      v235 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay32SiriReferenceResolutionDataModel11RRCandidateVGMd, &_sSay32SiriReferenceResolutionDataModel11RRCandidateVGMR);
-      lazy protocol witness table accessor for type [RRCandidate] and conformance [A]();
-      Collection.first.getter();
-      if ((*(v364 + 48))(v347, 1, v362) == 1)
-      {
-        outlined destroy of RRCandidate?(v347);
-        (v394)(v386, 1, 1, v393);
-      }
-
-      else
-      {
-        RRCandidate.entity.getter();
-        (*(v364 + 8))(v347, v362);
-        (v394)(v386, 0, 1, v393);
-      }
-
-      outlined assign with take of RREntity?(v386, v391);
-
-      v297 = v234;
-      goto LABEL_57;
-    }
-
-    if (v342 == *MEMORY[0x277D5FEC8])
-    {
-      v43 = v359;
-      (*(v372 + 96))(v376, v370);
-      v277 = *v376;
-      v276 = v277;
-      v416 = v277;
-      v44 = Logger.payments.unsafeMutableAddressor();
-      (*(v352 + 16))(v43, v44, v350);
-
-      v284 = 7;
-      v285 = swift_allocObject();
-      *(v285 + 16) = v277;
-      v295 = Logger.logObject.getter();
-      v278 = v295;
-      v294 = static os_log_type_t.debug.getter();
-      v279 = v294;
-      v280 = 17;
-      v288 = swift_allocObject();
-      v281 = v288;
-      *(v288 + 16) = 0;
-      v289 = swift_allocObject();
-      v282 = v289;
-      *(v289 + 16) = 8;
-      v283 = 32;
-      v45 = swift_allocObject();
-      v46 = v285;
-      v286 = v45;
-      *(v45 + 16) = partial apply for implicit closure #2 in ReferenceResolutionClient.resolveEntity(referenceEntity:);
-      *(v45 + 24) = v46;
-      v47 = swift_allocObject();
-      v48 = v286;
-      v292 = v47;
-      v287 = v47;
-      *(v47 + 16) = partial apply for thunk for @escaping @callee_guaranteed () -> (@unowned Int);
-      *(v47 + 24) = v48;
-      v293 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMd, &_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMR);
-      v290 = _allocateUninitializedArray<A>(_:)();
-      v291 = v49;
-
-      v50 = v288;
-      v51 = v291;
-      *v291 = partial apply for closure #1 in OSLogArguments.append(_:);
-      v51[1] = v50;
-
-      v52 = v289;
-      v53 = v291;
-      v291[2] = partial apply for closure #1 in OSLogArguments.append(_:);
-      v53[3] = v52;
-
-      v54 = v291;
-      v55 = v292;
-      v291[4] = partial apply for closure #1 in OSLogArguments.append<A>(_:);
-      v54[5] = v55;
-      _finalizeUninitializedArray<A>(_:)();
-
-      if (os_log_type_enabled(v295, v294))
-      {
-        v56 = v344;
-        v270 = static UnsafeMutablePointer.allocate(capacity:)();
-        v266 = v270;
-        v267 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
-        v268 = 0;
-        v271 = createStorage<A>(capacity:type:)(0);
-        v269 = v271;
-        v272 = createStorage<A>(capacity:type:)(v268);
-        v415[0] = v270;
-        v414 = v271;
-        v413 = v272;
-        v273 = v415;
-        serialize(_:at:)(0, v415);
-        serialize(_:at:)(1, v273);
-        v411 = partial apply for closure #1 in OSLogArguments.append(_:);
-        v412 = v281;
-        closure #1 in osLogInternal(_:log:type:)(&v411, v273, &v414, &v413);
-        v274 = v56;
-        v275 = v56;
-        if (v56)
-        {
-          v264 = 0;
-
-          __break(1u);
-        }
-
-        else
-        {
-          v411 = partial apply for closure #1 in OSLogArguments.append(_:);
-          v412 = v282;
-          closure #1 in osLogInternal(_:log:type:)(&v411, v415, &v414, &v413);
-          v262 = 0;
-          v263 = 0;
-          v411 = partial apply for closure #1 in OSLogArguments.append<A>(_:);
-          v412 = v287;
-          closure #1 in osLogInternal(_:log:type:)(&v411, v415, &v414, &v413);
-          v260 = 0;
-          v261 = 0;
-          _os_log_impl(&dword_2686B1000, v278, v279, "#ReferenceResolution Found %ld candidates. Using the first one", v266, 0xCu);
-          v259 = 0;
-          destroyStorage<A>(_:count:)(v269, 0, v267);
-          destroyStorage<A>(_:count:)(v272, v259, MEMORY[0x277D84F70] + 8);
-          MEMORY[0x26D620BD0](v266, MEMORY[0x277D84B78]);
-
-          v265 = v260;
-        }
-      }
-
-      else
-      {
-        v57 = v344;
-
-        v265 = v57;
-      }
-
-      v257 = v265;
-
-      (*(v352 + 8))(v359, v350);
-      v415[1] = v276;
-      v258 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay32SiriReferenceResolutionDataModel11RRCandidateVGMd, &_sSay32SiriReferenceResolutionDataModel11RRCandidateVGMR);
-      lazy protocol witness table accessor for type [RRCandidate] and conformance [A]();
-      Collection.first.getter();
-      if ((*(v364 + 48))(v349, 1, v362) == 1)
-      {
-        outlined destroy of RRCandidate?(v349);
-        (v394)(v387, 1, 1, v393);
-      }
-
-      else
-      {
-        RRCandidate.entity.getter();
-        (*(v364 + 8))(v349, v362);
-        (v394)(v387, 0, 1, v393);
-      }
-
-      outlined assign with take of RREntity?(v387, v391);
-
-      v297 = v257;
-      goto LABEL_57;
-    }
-
-    if (v342 != *MEMORY[0x277D5FED8])
-    {
-      if (v342 == *MEMORY[0x277D5FEE0])
-      {
-        v67 = v355;
-        v68 = Logger.payments.unsafeMutableAddressor();
-        (*(v352 + 16))(v67, v68, v350);
-        v205 = Logger.logObject.getter();
-        v202 = v205;
-        v204 = static os_log_type_t.debug.getter();
-        v203 = v204;
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMd, &_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMR);
-        v206 = _allocateUninitializedArray<A>(_:)();
-        if (os_log_type_enabled(v205, v204))
-        {
-          v69 = v344;
-          v193 = static UnsafeMutablePointer.allocate(capacity:)();
-          v189 = v193;
-          v190 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
-          v191 = 0;
-          v194 = createStorage<A>(capacity:type:)(0);
-          v192 = v194;
-          v195 = createStorage<A>(capacity:type:)(v191);
-          v432 = v193;
-          v431 = v194;
-          v430 = v195;
-          v196 = 0;
-          v197 = &v432;
-          serialize(_:at:)(0, &v432);
-          serialize(_:at:)(v196, v197);
-          v429 = v206;
-          v198 = &v107;
-          MEMORY[0x28223BE20](&v107);
-          v199 = &v107 - 6;
-          *(&v107 - 4) = v70;
-          *(&v107 - 3) = &v431;
-          *(&v107 - 2) = &v430;
-          v200 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSayySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcGMd, &_sSayySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcGMR);
-          lazy protocol witness table accessor for type [(_:_:_:)] and conformance [A]();
-          Sequence.forEach(_:)();
-          v201 = v69;
-          if (v69)
-          {
-            __break(1u);
-          }
-
-          else
-          {
-            _os_log_impl(&dword_2686B1000, v202, v203, "#ReferenceResolution No matches found", v189, 2u);
-            v187 = 0;
-            destroyStorage<A>(_:count:)(v192, 0, v190);
-            destroyStorage<A>(_:count:)(v195, v187, MEMORY[0x277D84F70] + 8);
-            MEMORY[0x26D620BD0](v189, MEMORY[0x277D84B78]);
-
-            v188 = v201;
-          }
-        }
-
-        else
-        {
-
-          v188 = v344;
-        }
-
-        v186 = v188;
-
-        (*(v352 + 8))(v355, v350);
-        v297 = v186;
-      }
-
-      else
-      {
-        v71 = v354;
-        v72 = Logger.payments.unsafeMutableAddressor();
-        (*(v352 + 16))(v71, v72, v350);
-        v340(v374, v378, v370);
-        v165 = (*(v372 + 80) + 16) & ~*(v372 + 80);
-        v166 = swift_allocObject();
-        v338((v166 + v165), v374, v370);
-
-        v169 = 32;
-        v173 = 32;
-        v174 = 7;
-        v73 = swift_allocObject();
-        v74 = v166;
-        v175 = v73;
-        *(v73 + 16) = partial apply for implicit closure #3 in ReferenceResolutionClient.resolveEntity(referenceEntity:);
-        *(v73 + 24) = v74;
-
-        v185 = Logger.logObject.getter();
-        v167 = v185;
-        v184 = static os_log_type_t.error.getter();
-        v168 = v184;
-        v170 = 17;
-        v178 = swift_allocObject();
-        v171 = v178;
-        *(v178 + 16) = v169;
-        v179 = swift_allocObject();
-        v172 = v179;
-        *(v179 + 16) = 8;
-        v75 = swift_allocObject();
-        v76 = v175;
-        v176 = v75;
-        *(v75 + 16) = _s2os18OSLogInterpolationV06appendC0_5align7privacyyxyXA_AA0B15StringAlignmentVAA0B7PrivacyVts06CustomG11ConvertibleRzlFSSycfu_TA_4;
-        *(v75 + 24) = v76;
-        v77 = swift_allocObject();
-        v78 = v176;
-        v182 = v77;
-        v177 = v77;
-        *(v77 + 16) = partial apply for implicit closure #1 in OSLogInterpolation.appendInterpolation(_:align:privacy:);
-        *(v77 + 24) = v78;
-        v183 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMd, &_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMR);
-        v180 = _allocateUninitializedArray<A>(_:)();
-        v181 = v79;
-
-        v80 = v178;
-        v81 = v181;
-        *v181 = partial apply for closure #1 in OSLogArguments.append(_:);
-        v81[1] = v80;
-
-        v82 = v179;
-        v83 = v181;
-        v181[2] = partial apply for closure #1 in OSLogArguments.append(_:);
-        v83[3] = v82;
-
-        v84 = v181;
-        v85 = v182;
-        v181[4] = partial apply for closure #1 in OSLogArguments.append(_:);
-        v84[5] = v85;
-        _finalizeUninitializedArray<A>(_:)();
-
-        if (os_log_type_enabled(v185, v184))
-        {
-          v87 = v344;
-          v158 = static UnsafeMutablePointer.allocate(capacity:)();
-          v155 = v158;
-          v156 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
-          v159 = createStorage<A>(capacity:type:)(0);
-          v157 = v159;
-          v161 = 1;
-          v160 = createStorage<A>(capacity:type:)(1);
-          v437[0] = v158;
-          v436 = v159;
-          v435 = v160;
-          v162 = v437;
-          serialize(_:at:)(2, v437);
-          serialize(_:at:)(v161, v162);
-          v433 = partial apply for closure #1 in OSLogArguments.append(_:);
-          v434 = v171;
-          closure #1 in osLogInternal(_:log:type:)(&v433, v162, &v436, &v435);
-          v163 = v87;
-          v164 = v87;
-          if (v87)
-          {
-            v153 = 0;
-
-            __break(1u);
-          }
-
-          else
-          {
-            v433 = partial apply for closure #1 in OSLogArguments.append(_:);
-            v434 = v172;
-            closure #1 in osLogInternal(_:log:type:)(&v433, v437, &v436, &v435);
-            v151 = 0;
-            v152 = 0;
-            v433 = partial apply for closure #1 in OSLogArguments.append(_:);
-            v434 = v177;
-            closure #1 in osLogInternal(_:log:type:)(&v433, v437, &v436, &v435);
-            v149 = 0;
-            v150 = 0;
-            _os_log_impl(&dword_2686B1000, v167, v168, "#ReferenceResolution Received unknown result type %s", v155, 0xCu);
-            destroyStorage<A>(_:count:)(v157, 0, v156);
-            destroyStorage<A>(_:count:)(v160, 1, MEMORY[0x277D84F70] + 8);
-            MEMORY[0x26D620BD0](v155, MEMORY[0x277D84B78]);
-
-            v154 = v149;
-          }
-        }
-
-        else
-        {
-          v88 = v344;
-
-          v154 = v88;
-        }
-
-        v148 = v154;
-
-        (*(v352 + 8))(v354, v350);
-        (*(v372 + 8))(v376, v370);
-        v297 = v148;
-      }
-
-      goto LABEL_57;
-    }
-
-    v62 = v356;
-    (*(v372 + 96))(v376, v370);
-    v228 = *v376;
-    v428 = v228;
-    v63 = Logger.payments.unsafeMutableAddressor();
-    (*(v352 + 16))(v62, v63, v350);
-    v232 = Logger.logObject.getter();
-    v229 = v232;
-    v231 = static os_log_type_t.debug.getter();
-    v230 = v231;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMd, &_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMR);
-    v233 = _allocateUninitializedArray<A>(_:)();
-    if (os_log_type_enabled(v232, v231))
-    {
-      v64 = v344;
-      v219 = static UnsafeMutablePointer.allocate(capacity:)();
-      v215 = v219;
-      v216 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
-      v217 = 0;
-      v220 = createStorage<A>(capacity:type:)(0);
-      v218 = v220;
-      v221 = createStorage<A>(capacity:type:)(v217);
-      v425[0] = v219;
-      v424 = v220;
-      v423 = v221;
-      v222 = 0;
-      v223 = v425;
-      serialize(_:at:)(0, v425);
-      serialize(_:at:)(v222, v223);
-      v422 = v233;
-      v224 = &v107;
-      MEMORY[0x28223BE20](&v107);
-      v225 = &v107 - 6;
-      *(&v107 - 4) = v65;
-      *(&v107 - 3) = &v424;
-      *(&v107 - 2) = &v423;
-      v226 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSayySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcGMd, &_sSayySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcGMR);
-      lazy protocol witness table accessor for type [(_:_:_:)] and conformance [A]();
-      Sequence.forEach(_:)();
-      v227 = v64;
-      if (v64)
-      {
-        __break(1u);
-      }
-
-      else
-      {
-        _os_log_impl(&dword_2686B1000, v229, v230, "#ReferenceResolution Found ambiguous entities -> returning the first one", v215, 2u);
-        v213 = 0;
-        destroyStorage<A>(_:count:)(v218, 0, v216);
-        destroyStorage<A>(_:count:)(v221, v213, MEMORY[0x277D84F70] + 8);
-        MEMORY[0x26D620BD0](v215, MEMORY[0x277D84B78]);
-
-        v214 = v227;
-      }
-    }
-
-    else
-    {
-
-      v214 = v344;
-    }
-
-    v210 = v214;
-
-    (*(v352 + 8))(v356, v350);
-    v427 = v228;
-    v211 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySay32SiriReferenceResolutionDataModel11RRCandidateVGGMd, &_sSaySay32SiriReferenceResolutionDataModel11RRCandidateVGGMR);
-    lazy protocol witness table accessor for type [[RRCandidate]] and conformance [A]();
-    Collection.first.getter();
-    v212 = v426;
-    if (v426)
-    {
-      v209 = v212;
-      v208 = v212;
-      v425[1] = v212;
-      v207 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay32SiriReferenceResolutionDataModel11RRCandidateVGMd, &_sSay32SiriReferenceResolutionDataModel11RRCandidateVGMR);
-      lazy protocol witness table accessor for type [RRCandidate] and conformance [A]();
-      Collection.first.getter();
-
-      v66 = (*(v364 + 48))(v345, 1, v362);
-      if (v66 != 1)
-      {
-        RRCandidate.entity.getter();
-        (*(v364 + 8))(v345, v362);
-        (v394)(v385, 0, 1, v393);
-LABEL_43:
-        outlined assign with take of RREntity?(v385, v391);
-
-        v297 = v210;
-LABEL_57:
-        v146 = v297;
-        (*(v372 + 8))(v378, v370);
-        v147 = v146;
-        goto LABEL_64;
-      }
-
-      outlined destroy of RRCandidate?(v345);
-    }
-
-    (v394)(v385, 1, 1, v393);
-    goto LABEL_43;
-  }
-
-  v89 = v353;
-  v126 = *v382;
-  v125 = v126;
-  v443 = v126;
-  v90 = Logger.payments.unsafeMutableAddressor();
-  (*(v352 + 16))(v89, v90, v350);
-  MEMORY[0x26D621420](v126);
-  v134 = 7;
-  v135 = swift_allocObject();
-  *(v135 + 16) = v126;
-  v145 = Logger.logObject.getter();
-  v127 = v145;
-  v144 = static os_log_type_t.error.getter();
-  v128 = v144;
-  v129 = 17;
-  v138 = swift_allocObject();
-  v130 = v138;
-  v131 = 32;
-  *(v138 + 16) = 32;
-  v91 = swift_allocObject();
-  v92 = v131;
-  v139 = v91;
-  v132 = v91;
-  *(v91 + 16) = 8;
-  v133 = v92;
-  v93 = swift_allocObject();
-  v94 = v135;
-  v136 = v93;
-  *(v93 + 16) = partial apply for implicit closure #3 in LSApplicationIntentSupportResolver.doesAppSupportIntent(appBundleId:intentName:);
-  *(v93 + 24) = v94;
-  v95 = swift_allocObject();
-  v96 = v136;
-  v142 = v95;
-  v137 = v95;
-  *(v95 + 16) = partial apply for implicit closure #1 in OSLogInterpolation.appendInterpolation(_:align:privacy:);
-  *(v95 + 24) = v96;
-  v143 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMd, &_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMR);
-  v140 = _allocateUninitializedArray<A>(_:)();
-  v141 = v97;
-
-  v98 = v138;
-  v99 = v141;
-  *v141 = partial apply for closure #1 in OSLogArguments.append(_:);
-  v99[1] = v98;
-
-  v100 = v139;
-  v101 = v141;
-  v141[2] = partial apply for closure #1 in OSLogArguments.append(_:);
-  v101[3] = v100;
-
-  v102 = v141;
-  v103 = v142;
-  v141[4] = partial apply for closure #1 in OSLogArguments.append(_:);
-  v102[5] = v103;
-  _finalizeUninitializedArray<A>(_:)();
-
-  if (os_log_type_enabled(v145, v144))
-  {
-    v104 = v344;
-    v118 = static UnsafeMutablePointer.allocate(capacity:)();
-    v115 = v118;
-    v116 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
-    v119 = createStorage<A>(capacity:type:)(0);
-    v117 = v119;
-    v121 = 1;
-    v120 = createStorage<A>(capacity:type:)(1);
-    v442 = v118;
-    v441 = v119;
-    v440 = v120;
-    v122 = &v442;
-    serialize(_:at:)(2, &v442);
-    serialize(_:at:)(v121, v122);
-    v438 = partial apply for closure #1 in OSLogArguments.append(_:);
-    v439 = v130;
-    closure #1 in osLogInternal(_:log:type:)(&v438, v122, &v441, &v440);
-    v123 = v104;
-    v124 = v104;
-    if (v104)
-    {
-      v113 = 0;
-
-      __break(1u);
-    }
-
-    else
-    {
-      v438 = partial apply for closure #1 in OSLogArguments.append(_:);
-      v439 = v132;
-      closure #1 in osLogInternal(_:log:type:)(&v438, &v442, &v441, &v440);
-      v111 = 0;
-      v112 = 0;
-      v438 = partial apply for closure #1 in OSLogArguments.append(_:);
-      v439 = v137;
-      closure #1 in osLogInternal(_:log:type:)(&v438, &v442, &v441, &v440);
-      v109 = 0;
-      v110 = 0;
-      _os_log_impl(&dword_2686B1000, v127, v128, "#ReferenceResolution Received a failure: %s -> nil", v115, 0xCu);
-      destroyStorage<A>(_:count:)(v117, 0, v116);
-      destroyStorage<A>(_:count:)(v120, 1, MEMORY[0x277D84F70] + 8);
-      MEMORY[0x26D620BD0](v115, MEMORY[0x277D84B78]);
-
-      v114 = v109;
-    }
-  }
-
-  else
-  {
-    v105 = v344;
-
-    v114 = v105;
-  }
-
-  v108 = v114;
-
-  (*(v352 + 8))(v353, v350);
-  v147 = v108;
-LABEL_64:
-  outlined init with copy of RREntity?(v391, v343);
-  outlined destroy of Result<RRResult, Error>(v384);
-  return outlined destroy of RREntity?(v391);
-}
-
-uint64_t ReferenceResolutionClient.resolvePositionEntity(from:useCase:)@<X0>(uint64_t a1@<X0>, int a2@<W1>, uint64_t a3@<X8>)
-{
-  v63 = a2;
-  v49 = a3;
-  v72 = 0;
-  v85 = 0;
-  v84 = 0;
-  v83 = 0;
-  v82 = 0;
-  v50 = 0;
-  v77 = 0;
-  v76 = 0;
-  v51 = a2;
-  v52 = type metadata accessor for Logger();
-  v53 = *(v52 - 8);
-  v54 = v53;
-  v4 = *(v53 + 64);
-  MEMORY[0x28223BE20](v52 - 8);
-  v55 = &v19 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v56 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s32SiriReferenceResolutionDataModel8RREntityVSgMd, &_s32SiriReferenceResolutionDataModel8RREntityVSgMR) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20](v72);
-  v57 = &v19 - v56;
-  v58 = type metadata accessor for RREntity();
-  v59 = *(v58 - 8);
-  v60 = v59;
-  v6 = *(v59 + 64);
-  MEMORY[0x28223BE20](v72);
-  v61 = &v19 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v85 = v61;
-  v68 = type metadata accessor for Siri_Nlu_External_UserParse();
-  v62 = *(v68 - 8);
-  v67 = v62;
-  v8 = *(v62 + 64);
-  MEMORY[0x28223BE20](v68 - 8);
-  v69 = &v19 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s12SiriNLUTypes0A27_Nlu_External_UserDialogActVSgMd, &_s12SiriNLUTypes0A27_Nlu_External_UserDialogActVSgMR);
-  v64 = (*(*(v10 - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20](v10 - 8);
-  v73 = &v19 - v64;
-  v66 = &v19 - v64;
-  v84 = a1;
-  v83 = v11 & 1;
-  v82 = v65;
-  v12 = USOParse.userParse.getter();
-  v71 = MEMORY[0x26D61F2D0](v12);
-  (*(v67 + 8))(v69, v68);
-  v81[1] = v71;
-  v70 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay12SiriNLUTypes0A27_Nlu_External_UserDialogActVGMd, &_sSay12SiriNLUTypes0A27_Nlu_External_UserDialogActVGMR);
-  lazy protocol witness table accessor for type [Siri_Nlu_External_UserDialogAct] and conformance [A]();
-  Collection.first.getter();
-
-  v74 = type metadata accessor for Siri_Nlu_External_UserDialogAct();
-  v75 = *(v74 - 8);
-  if ((*(v75 + 48))(v73, 1) == 1)
-  {
-    outlined destroy of Siri_Nlu_External_UserDialogAct?(v66);
-    v48 = 0;
-  }
-
-  else
-  {
-    v47 = Siri_Nlu_External_UserDialogAct.usoTask.getter();
-    (*(v75 + 8))(v66, v74);
-    v48 = v47;
-  }
-
-  v46 = v48;
-  if (v48)
-  {
-    v45 = v46;
-    v43 = v46;
-    v77 = v46;
-    v13 = ReferenceResolutionClient.extractPositionEntity(task:useCase:)(v46, v51 & 1);
-    v44 = v13;
-    if (v13)
-    {
-      v42 = v44;
-      v41 = v44;
-      v76 = v44;
-      ReferenceResolutionClient.resolveEntity(referenceEntity:)(v44, v57);
-      if ((*(v60 + 48))(v57, 1, v58) != 1)
-      {
-        (*(v60 + 32))(v61, v57, v58);
-        (*(v60 + 16))(v49, v61, v58);
-        (*(v60 + 56))(v49, 0, 1, v58);
-        (*(v60 + 8))(v61, v58);
-
-        return v50;
-      }
-
-      outlined destroy of RREntity?(v57);
-    }
-
-    else
-    {
-    }
-  }
-
-  v14 = v55;
-  v15 = Logger.payments.unsafeMutableAddressor();
-  (*(v54 + 16))(v14, v15, v52);
-  v38 = Logger.logObject.getter();
-  v35 = v38;
-  v37 = static os_log_type_t.debug.getter();
-  v36 = v37;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMd, &_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMR);
-  v39 = _allocateUninitializedArray<A>(_:)();
-  if (os_log_type_enabled(v38, v37))
-  {
-    v16 = v50;
-    v26 = static UnsafeMutablePointer.allocate(capacity:)();
-    v22 = v26;
-    v23 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
-    v24 = 0;
-    v27 = createStorage<A>(capacity:type:)(0);
-    v25 = v27;
-    v28 = createStorage<A>(capacity:type:)(v24);
-    v81[0] = v26;
-    v80 = v27;
-    v79 = v28;
-    v29 = 0;
-    v30 = v81;
-    serialize(_:at:)(0, v81);
-    serialize(_:at:)(v29, v30);
-    v78 = v39;
-    v31 = &v19;
-    MEMORY[0x28223BE20](&v19);
-    v32 = &v19 - 6;
-    *(&v19 - 4) = v17;
-    *(&v19 - 3) = &v80;
-    *(&v19 - 2) = &v79;
-    v33 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSayySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcGMd, &_sSayySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcGMR);
-    lazy protocol witness table accessor for type [(_:_:_:)] and conformance [A]();
-    Sequence.forEach(_:)();
-    v34 = v16;
-    if (v16)
-    {
-      __break(1u);
-    }
-
-    else
-    {
-      _os_log_impl(&dword_2686B1000, v35, v36, "#ReferenceResolution Did not resolve RREntity from UsoParse, returning nil", v22, 2u);
-      v20 = 0;
-      destroyStorage<A>(_:count:)(v25, 0, v23);
-      destroyStorage<A>(_:count:)(v28, v20, MEMORY[0x277D84F70] + 8);
-      MEMORY[0x26D620BD0](v22, MEMORY[0x277D84B78]);
-
-      v21 = v34;
-    }
-  }
-
-  else
-  {
-
-    v21 = v50;
-  }
-
-  v19 = v21;
-
-  (*(v54 + 8))(v55, v52);
-  (*(v60 + 56))(v49, 1, 1, v58);
-  return v19;
-}
-
-uint64_t sub_2688240D4()
-{
-  v1 = *(v0 + 16);
-
-  return swift_deallocObject();
-}
-
-uint64_t ReferenceResolutionClient.extractPositionEntity(task:useCase:)(uint64_t a1, int a2)
-{
-  v148 = a2;
-  v145 = 0;
-  v181 = 0;
-  v180 = 0;
-  v179 = 0;
-  v146 = 0;
-  v170 = 0;
-  v167 = 0;
-  v164 = 0;
-  v162 = 0;
-  v147 = a2;
-  v149 = type metadata accessor for Logger();
-  v150 = *(v149 - 8);
-  v151 = v150;
-  v152 = *(v150 + 64);
-  MEMORY[0x28223BE20](v149 - 8);
-  v154 = (v152 + 15) & 0xFFFFFFFFFFFFFFF0;
-  v153 = &v27 - v154;
-  MEMORY[0x28223BE20](&v27 - v154);
-  v155 = &v27 - v154;
-  v181 = a1;
-  v180 = v3 & 1;
-  v179 = v4;
-  UsoTask.eraseToAny.getter();
-  if (!v178[3])
-  {
-    goto LABEL_45;
-  }
-
-  v144 = v174;
-  outlined init with copy of Any?(v178, v174);
-  v143 = 0;
-  type metadata accessor for UsoTask_noVerb_uso_NoEntity();
-  if (swift_dynamicCast())
-  {
-    v141 = v173;
-    v164 = v173;
-
-    dispatch thunk of Uso_VerbTemplate_NoVerb.entity.getter();
-    v142 = v163;
-    if (v163)
-    {
-      v140 = v142;
-      v138 = v142;
-      v162 = v142;
-
-      v139 = dispatch thunk of CodeGenGlobalArgs.usoListPosition.getter();
-
-      v161 = v139;
-      v137 = v139 != 0;
-      v136 = v137;
-      outlined destroy of ContiguousArray<A1>(&v161);
-      if (v136)
-      {
-        v5 = v155;
-        v6 = Logger.payments.unsafeMutableAddressor();
-        (*(v151 + 16))(v5, v6, v149);
-
-        v135 = Logger.logObject.getter();
-        v118 = v135;
-        v134 = static os_log_type_t.debug.getter();
-        v119 = v134;
-        v120 = 17;
-        v125 = 7;
-        v128 = swift_allocObject();
-        v121 = v128;
-        v122 = 32;
-        *(v128 + 16) = 32;
-        v7 = swift_allocObject();
-        v8 = v122;
-        v129 = v7;
-        v123 = v7;
-        *(v7 + 16) = 8;
-        v124 = v8;
-        v9 = swift_allocObject();
-        v10 = v138;
-        v126 = v9;
-        *(v9 + 16) = partial apply for implicit closure #1 in ReferenceResolutionClient.extractPositionEntity(task:useCase:);
-        *(v9 + 24) = v10;
-        v11 = swift_allocObject();
-        v12 = v126;
-        v132 = v11;
-        v127 = v11;
-        *(v11 + 16) = partial apply for implicit closure #1 in OSLogInterpolation.appendInterpolation(_:align:privacy:);
-        *(v11 + 24) = v12;
-        v133 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMd, &_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMR);
-        v130 = _allocateUninitializedArray<A>(_:)();
-        v131 = v13;
-
-        v14 = v128;
-        v15 = v131;
-        *v131 = partial apply for closure #1 in OSLogArguments.append(_:);
-        v15[1] = v14;
-
-        v16 = v129;
-        v17 = v131;
-        v131[2] = partial apply for closure #1 in OSLogArguments.append(_:);
-        v17[3] = v16;
-
-        v18 = v131;
-        v19 = v132;
-        v131[4] = partial apply for closure #1 in OSLogArguments.append(_:);
-        v18[5] = v19;
-        _finalizeUninitializedArray<A>(_:)();
-
-        if (os_log_type_enabled(v135, v134))
-        {
-          v20 = v146;
-          v111 = static UnsafeMutablePointer.allocate(capacity:)();
-          v108 = v111;
-          v109 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
-          v112 = createStorage<A>(capacity:type:)(0);
-          v110 = v112;
-          v114 = 1;
-          v113 = createStorage<A>(capacity:type:)(1);
-          v160 = v111;
-          v159 = v112;
-          v158 = v113;
-          v115 = &v160;
-          serialize(_:at:)(2, &v160);
-          serialize(_:at:)(v114, v115);
-          v156 = partial apply for closure #1 in OSLogArguments.append(_:);
-          v157 = v121;
-          closure #1 in osLogInternal(_:log:type:)(&v156, v115, &v159, &v158);
-          v116 = v20;
-          v117 = v20;
-          if (v20)
-          {
-            v106 = 0;
-
-            __break(1u);
-          }
-
-          else
-          {
-            v156 = partial apply for closure #1 in OSLogArguments.append(_:);
-            v157 = v123;
-            closure #1 in osLogInternal(_:log:type:)(&v156, &v160, &v159, &v158);
-            v104 = 0;
-            v105 = 0;
-            v156 = partial apply for closure #1 in OSLogArguments.append(_:);
-            v157 = v127;
-            closure #1 in osLogInternal(_:log:type:)(&v156, &v160, &v159, &v158);
-            v102 = 0;
-            v103 = 0;
-            _os_log_impl(&dword_2686B1000, v118, v119, "#ReferenceResolution Found positional reference, returning: %s", v108, 0xCu);
-            destroyStorage<A>(_:count:)(v110, 0, v109);
-            destroyStorage<A>(_:count:)(v113, 1, MEMORY[0x277D84F70] + 8);
-            MEMORY[0x26D620BD0](v108, MEMORY[0x277D84B78]);
-
-            v107 = v102;
-          }
-        }
-
-        else
-        {
-          v21 = v146;
-
-          v107 = v21;
-        }
-
-        v99 = v107;
-
-        (*(v151 + 8))(v155, v149);
-
-        v97 = CodeGenBase.entity.getter();
-
-        v98 = v97;
-
-        __swift_destroy_boxed_opaque_existential_0(v174);
-        outlined destroy of FlowActivity?(v178);
-        v100 = v98;
-        v101 = v99;
-        return v100;
-      }
-    }
-
-    __swift_destroy_boxed_opaque_existential_0(v174);
-    outlined destroy of FlowActivity?(v178);
-    goto LABEL_46;
-  }
-
-  v96 = 0;
-  type metadata accessor for UsoTask_pay_common_Payment();
-  if (swift_dynamicCast())
-  {
-    v95 = v172;
-    v167 = v172;
-    if (static ReferenceResolutionClient.PaymentsReferenceResolutionUseCase.__derived_enum_equals(_:_:)(v147 & 1, 0))
-    {
-
-      dispatch thunk of Uso_VerbTemplate_Target.target.getter();
-      v94 = v165;
-      v93 = v165;
-
-      if (v94)
-      {
-        v92 = v93;
-        v89 = v93;
-        v90 = dispatch thunk of CodeGenGlobalArgs.usoAssociatedApp.getter();
-
-        v91 = v90;
-      }
-
-      else
-      {
-        v91 = 0;
-      }
-
-      v86 = v91;
-      v87 = ReferenceResolutionClient.helper(app:)(v91);
-
-      v88 = v87;
-    }
-
-    else
-    {
-
-      dispatch thunk of Uso_VerbTemplate_Target.target.getter();
-      v85 = v166;
-      v84 = v166;
-
-      if (v85 && (v83 = v84, v80 = v84, v82 = dispatch thunk of UsoEntity_common_Payment.payee.getter(), v81 = v82, , v82))
-      {
-        v79 = v81;
-        v76 = v81;
-        v77 = dispatch thunk of UsoEntity_common_PaymentAccount.holder.getter();
-
-        v78 = v77;
-      }
-
-      else
-      {
-        v78 = 0;
-      }
-
-      v74 = v78;
-      v75 = ReferenceResolutionClient.helper(person:)(v78);
-
-      v88 = v75;
-    }
-
-    v73 = v88;
-
-    __swift_destroy_boxed_opaque_existential_0(v174);
-    outlined destroy of FlowActivity?(v178);
-    v100 = v73;
-    v101 = v146;
-    return v100;
-  }
-
-  v72 = 0;
-  type metadata accessor for UsoTask_requestMoney_common_Payment();
-  if (!swift_dynamicCast())
-  {
-    __swift_destroy_boxed_opaque_existential_0(v174);
-LABEL_45:
-    outlined destroy of FlowActivity?(v178);
-LABEL_46:
-    v22 = v153;
-    v23 = Logger.payments.unsafeMutableAddressor();
-    (*(v151 + 16))(v22, v23, v149);
-    v47 = Logger.logObject.getter();
-    v44 = v47;
-    v46 = static os_log_type_t.debug.getter();
-    v45 = v46;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMd, &_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMR);
-    v48 = _allocateUninitializedArray<A>(_:)();
-    if (os_log_type_enabled(v47, v46))
-    {
-      v24 = v146;
-      v35 = static UnsafeMutablePointer.allocate(capacity:)();
-      v31 = v35;
-      v32 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
-      v33 = 0;
-      v36 = createStorage<A>(capacity:type:)(0);
-      v34 = v36;
-      v37 = createStorage<A>(capacity:type:)(v33);
-      v177 = v35;
-      v176 = v36;
-      v175 = v37;
-      v38 = 0;
-      v39 = &v177;
-      serialize(_:at:)(0, &v177);
-      serialize(_:at:)(v38, v39);
-      v174[5] = v48;
-      v40 = &v27;
-      MEMORY[0x28223BE20](&v27);
-      v41 = &v27 - 6;
-      *(&v27 - 4) = v25;
-      *(&v27 - 3) = &v176;
-      *(&v27 - 2) = &v175;
-      v42 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSayySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcGMd, &_sSayySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcGMR);
-      lazy protocol witness table accessor for type [(_:_:_:)] and conformance [A]();
-      Sequence.forEach(_:)();
-      v43 = v24;
-      if (v24)
-      {
-        __break(1u);
-      }
-
-      else
-      {
-        _os_log_impl(&dword_2686B1000, v44, v45, "#ReferenceResolution Found no positional reference, returning nil", v31, 2u);
-        v29 = 0;
-        destroyStorage<A>(_:count:)(v34, 0, v32);
-        destroyStorage<A>(_:count:)(v37, v29, MEMORY[0x277D84F70] + 8);
-        MEMORY[0x26D620BD0](v31, MEMORY[0x277D84B78]);
-
-        v30 = v43;
-      }
-    }
-
-    else
-    {
-
-      v30 = v146;
-    }
-
-    v28 = v30;
-
-    (*(v151 + 8))(v153, v149);
-    v100 = 0;
-    v101 = v28;
-    return v100;
-  }
-
-  v71 = v171;
-  v170 = v171;
-  if (static ReferenceResolutionClient.PaymentsReferenceResolutionUseCase.__derived_enum_equals(_:_:)(v147 & 1, 0))
-  {
-
-    dispatch thunk of Uso_VerbTemplate_Target.target.getter();
-    v70 = v168;
-    v69 = v168;
-
-    if (v70)
-    {
-      v68 = v69;
-      v65 = v69;
-      v66 = dispatch thunk of CodeGenGlobalArgs.usoAssociatedApp.getter();
-
-      v67 = v66;
-    }
-
-    else
-    {
-      v67 = 0;
-    }
-
-    v62 = v67;
-    v63 = ReferenceResolutionClient.helper(app:)(v67);
-
-    v64 = v63;
-  }
-
-  else
-  {
-
-    dispatch thunk of Uso_VerbTemplate_Target.target.getter();
-    v61 = v169;
-    v60 = v169;
-
-    if (v61 && (v59 = v60, v56 = v60, v58 = dispatch thunk of UsoEntity_common_Payment.payer.getter(), v57 = v58, , v58))
-    {
-      v55 = v57;
-      v52 = v57;
-      v53 = dispatch thunk of UsoEntity_common_PaymentAccount.holder.getter();
-
-      v54 = v53;
-    }
-
-    else
-    {
-      v54 = 0;
-    }
-
-    v50 = v54;
-    v51 = ReferenceResolutionClient.helper(person:)(v54);
-
-    v64 = v51;
-  }
-
-  v49 = v64;
-
-  __swift_destroy_boxed_opaque_existential_0(v174);
-  outlined destroy of FlowActivity?(v178);
-  v100 = v49;
-  v101 = v146;
-  return v100;
-}
-
-uint64_t implicit closure #1 in ReferenceResolutionClient.extractPositionEntity(task:useCase:)()
-{
-
-  CodeGenBase.entity.getter();
-
-  v1 = UsoEntity.debugString.getter();
-
-  return v1;
-}
-
-uint64_t ReferenceResolutionClient.helper(app:)(uint64_t a1)
-{
-  v99 = a1;
-  v112 = 0;
-  v111 = 0;
-  v91 = 0;
-  v106 = 0;
-  v92 = type metadata accessor for Logger();
-  v93 = *(v92 - 8);
-  v94 = v93;
-  v95 = *(v93 + 64);
-  v2 = MEMORY[0x28223BE20](v99);
-  v97 = (v95 + 15) & 0xFFFFFFFFFFFFFFF0;
-  v96 = &v26 - v97;
-  v3 = MEMORY[0x28223BE20](v2);
-  v98 = &v26 - v97;
-  v112 = v3;
-  v111 = v1;
-
-  if (v99)
-  {
-    v90 = v99;
-    v88 = v99;
-    v106 = v99;
-
-    v89 = dispatch thunk of CodeGenGlobalArgs.usoListPosition.getter();
-
-    v105 = v89;
-    v87 = v89 != 0;
-    v86 = v87;
-    outlined destroy of ContiguousArray<A1>(&v105);
-    if (v86)
-    {
-      v4 = v98;
-      v5 = Logger.payments.unsafeMutableAddressor();
-      (*(v94 + 16))(v4, v5, v92);
-
-      v85 = Logger.logObject.getter();
-      v68 = v85;
-      v84 = static os_log_type_t.debug.getter();
-      v69 = v84;
-      v70 = 17;
-      v75 = 7;
-      v78 = swift_allocObject();
-      v71 = v78;
-      v72 = 32;
-      *(v78 + 16) = 32;
-      v6 = swift_allocObject();
-      v7 = v72;
-      v79 = v6;
-      v73 = v6;
-      *(v6 + 16) = 8;
-      v74 = v7;
-      v8 = swift_allocObject();
-      v9 = v88;
-      v76 = v8;
-      *(v8 + 16) = partial apply for implicit closure #1 in ReferenceResolutionClient.extractPositionEntity(task:useCase:);
-      *(v8 + 24) = v9;
-      v10 = swift_allocObject();
-      v11 = v76;
-      v82 = v10;
-      v77 = v10;
-      *(v10 + 16) = partial apply for implicit closure #1 in OSLogInterpolation.appendInterpolation(_:align:privacy:);
-      *(v10 + 24) = v11;
-      v83 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMd, &_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMR);
-      v80 = _allocateUninitializedArray<A>(_:)();
-      v81 = v12;
-
-      v13 = v78;
-      v14 = v81;
-      *v81 = partial apply for closure #1 in OSLogArguments.append(_:);
-      v14[1] = v13;
-
-      v15 = v79;
-      v16 = v81;
-      v81[2] = partial apply for closure #1 in OSLogArguments.append(_:);
-      v16[3] = v15;
-
-      v17 = v81;
-      v18 = v82;
-      v81[4] = partial apply for closure #1 in OSLogArguments.append(_:);
-      v17[5] = v18;
-      _finalizeUninitializedArray<A>(_:)();
-
-      if (os_log_type_enabled(v85, v84))
-      {
-        v19 = v91;
-        v61 = static UnsafeMutablePointer.allocate(capacity:)();
-        v58 = v61;
-        v59 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
-        v62 = createStorage<A>(capacity:type:)(0);
-        v60 = v62;
-        v64 = 1;
-        v63 = createStorage<A>(capacity:type:)(1);
-        v104 = v61;
-        v103 = v62;
-        v102 = v63;
-        v65 = &v104;
-        serialize(_:at:)(2, &v104);
-        serialize(_:at:)(v64, v65);
-        v100 = partial apply for closure #1 in OSLogArguments.append(_:);
-        v101 = v71;
-        closure #1 in osLogInternal(_:log:type:)(&v100, v65, &v103, &v102);
-        v66 = v19;
-        v67 = v19;
-        if (v19)
-        {
-          v56 = 0;
-
-          __break(1u);
-        }
-
-        else
-        {
-          v100 = partial apply for closure #1 in OSLogArguments.append(_:);
-          v101 = v73;
-          closure #1 in osLogInternal(_:log:type:)(&v100, &v104, &v103, &v102);
-          v54 = 0;
-          v55 = 0;
-          v100 = partial apply for closure #1 in OSLogArguments.append(_:);
-          v101 = v77;
-          closure #1 in osLogInternal(_:log:type:)(&v100, &v104, &v103, &v102);
-          v52 = 0;
-          v53 = 0;
-          _os_log_impl(&dword_2686B1000, v68, v69, "#ReferenceResolution Found positional reference, returning: %s", v58, 0xCu);
-          destroyStorage<A>(_:count:)(v60, 0, v59);
-          destroyStorage<A>(_:count:)(v63, 1, MEMORY[0x277D84F70] + 8);
-          MEMORY[0x26D620BD0](v58, MEMORY[0x277D84B78]);
-
-          v57 = v52;
-        }
-      }
-
-      else
-      {
-        v20 = v91;
-
-        v57 = v20;
-      }
-
-      v49 = v57;
-
-      (*(v94 + 8))(v98, v92);
-
-      v47 = CodeGenBase.entity.getter();
-
-      v48 = v47;
-
-      v50 = v48;
-      v51 = v49;
-      return v50;
-    }
-  }
-
-  v21 = v96;
-  v22 = Logger.payments.unsafeMutableAddressor();
-  (*(v94 + 16))(v21, v22, v92);
-  v45 = Logger.logObject.getter();
-  v42 = v45;
-  v44 = static os_log_type_t.debug.getter();
-  v43 = v44;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMd, &_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMR);
-  v46 = _allocateUninitializedArray<A>(_:)();
-  if (os_log_type_enabled(v45, v44))
-  {
-    v23 = v91;
-    v33 = static UnsafeMutablePointer.allocate(capacity:)();
-    v29 = v33;
-    v30 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
-    v31 = 0;
-    v34 = createStorage<A>(capacity:type:)(0);
-    v32 = v34;
-    v35 = createStorage<A>(capacity:type:)(v31);
-    v110 = v33;
-    v109 = v34;
-    v108 = v35;
-    v36 = 0;
-    v37 = &v110;
-    serialize(_:at:)(0, &v110);
-    serialize(_:at:)(v36, v37);
-    v107 = v46;
-    v38 = &v26;
-    MEMORY[0x28223BE20](&v26);
-    v39 = &v26 - 6;
-    *(&v26 - 4) = v24;
-    *(&v26 - 3) = &v109;
-    *(&v26 - 2) = &v108;
-    v40 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSayySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcGMd, &_sSayySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcGMR);
-    lazy protocol witness table accessor for type [(_:_:_:)] and conformance [A]();
-    Sequence.forEach(_:)();
-    v41 = v23;
-    if (v23)
-    {
-      __break(1u);
-    }
-
-    else
-    {
-      _os_log_impl(&dword_2686B1000, v42, v43, "#ReferenceResolution Found no positional reference, returning nil", v29, 2u);
-      v27 = 0;
-      destroyStorage<A>(_:count:)(v32, 0, v30);
-      destroyStorage<A>(_:count:)(v35, v27, MEMORY[0x277D84F70] + 8);
-      MEMORY[0x26D620BD0](v29, MEMORY[0x277D84B78]);
-
-      v28 = v41;
-    }
-  }
-
-  else
-  {
-
-    v28 = v91;
-  }
-
-  v26 = v28;
-
-  (*(v94 + 8))(v96, v92);
-  v50 = 0;
-  v51 = v26;
-  return v50;
-}
-
-uint64_t ReferenceResolutionClient.helper(person:)(uint64_t a1)
-{
-  v99 = a1;
-  v112 = 0;
-  v111 = 0;
-  v91 = 0;
-  v106 = 0;
-  v92 = type metadata accessor for Logger();
-  v93 = *(v92 - 8);
-  v94 = v93;
-  v95 = *(v93 + 64);
-  v2 = MEMORY[0x28223BE20](v99);
-  v97 = (v95 + 15) & 0xFFFFFFFFFFFFFFF0;
-  v96 = &v26 - v97;
-  v3 = MEMORY[0x28223BE20](v2);
-  v98 = &v26 - v97;
-  v112 = v3;
-  v111 = v1;
-
-  if (v99)
-  {
-    v90 = v99;
-    v88 = v99;
-    v106 = v99;
-
-    v89 = dispatch thunk of CodeGenGlobalArgs.usoListPosition.getter();
-
-    v105 = v89;
-    v87 = v89 != 0;
-    v86 = v87;
-    outlined destroy of ContiguousArray<A1>(&v105);
-    if (v86)
-    {
-      v4 = v98;
-      v5 = Logger.payments.unsafeMutableAddressor();
-      (*(v94 + 16))(v4, v5, v92);
-
-      v85 = Logger.logObject.getter();
-      v68 = v85;
-      v84 = static os_log_type_t.debug.getter();
-      v69 = v84;
-      v70 = 17;
-      v75 = 7;
-      v78 = swift_allocObject();
-      v71 = v78;
-      v72 = 32;
-      *(v78 + 16) = 32;
-      v6 = swift_allocObject();
-      v7 = v72;
-      v79 = v6;
-      v73 = v6;
-      *(v6 + 16) = 8;
-      v74 = v7;
-      v8 = swift_allocObject();
-      v9 = v88;
-      v76 = v8;
-      *(v8 + 16) = partial apply for implicit closure #1 in ReferenceResolutionClient.extractPositionEntity(task:useCase:);
-      *(v8 + 24) = v9;
-      v10 = swift_allocObject();
-      v11 = v76;
-      v82 = v10;
-      v77 = v10;
-      *(v10 + 16) = partial apply for implicit closure #1 in OSLogInterpolation.appendInterpolation(_:align:privacy:);
-      *(v10 + 24) = v11;
-      v83 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMd, &_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMR);
-      v80 = _allocateUninitializedArray<A>(_:)();
-      v81 = v12;
-
-      v13 = v78;
-      v14 = v81;
-      *v81 = partial apply for closure #1 in OSLogArguments.append(_:);
-      v14[1] = v13;
-
-      v15 = v79;
-      v16 = v81;
-      v81[2] = partial apply for closure #1 in OSLogArguments.append(_:);
-      v16[3] = v15;
-
-      v17 = v81;
-      v18 = v82;
-      v81[4] = partial apply for closure #1 in OSLogArguments.append(_:);
-      v17[5] = v18;
-      _finalizeUninitializedArray<A>(_:)();
-
-      if (os_log_type_enabled(v85, v84))
-      {
-        v19 = v91;
-        v61 = static UnsafeMutablePointer.allocate(capacity:)();
-        v58 = v61;
-        v59 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
-        v62 = createStorage<A>(capacity:type:)(0);
-        v60 = v62;
-        v64 = 1;
-        v63 = createStorage<A>(capacity:type:)(1);
-        v104 = v61;
-        v103 = v62;
-        v102 = v63;
-        v65 = &v104;
-        serialize(_:at:)(2, &v104);
-        serialize(_:at:)(v64, v65);
-        v100 = partial apply for closure #1 in OSLogArguments.append(_:);
-        v101 = v71;
-        closure #1 in osLogInternal(_:log:type:)(&v100, v65, &v103, &v102);
-        v66 = v19;
-        v67 = v19;
-        if (v19)
-        {
-          v56 = 0;
-
-          __break(1u);
-        }
-
-        else
-        {
-          v100 = partial apply for closure #1 in OSLogArguments.append(_:);
-          v101 = v73;
-          closure #1 in osLogInternal(_:log:type:)(&v100, &v104, &v103, &v102);
-          v54 = 0;
-          v55 = 0;
-          v100 = partial apply for closure #1 in OSLogArguments.append(_:);
-          v101 = v77;
-          closure #1 in osLogInternal(_:log:type:)(&v100, &v104, &v103, &v102);
-          v52 = 0;
-          v53 = 0;
-          _os_log_impl(&dword_2686B1000, v68, v69, "#ReferenceResolution Found positional reference, returning: %s", v58, 0xCu);
-          destroyStorage<A>(_:count:)(v60, 0, v59);
-          destroyStorage<A>(_:count:)(v63, 1, MEMORY[0x277D84F70] + 8);
-          MEMORY[0x26D620BD0](v58, MEMORY[0x277D84B78]);
-
-          v57 = v52;
-        }
-      }
-
-      else
-      {
-        v20 = v91;
-
-        v57 = v20;
-      }
-
-      v49 = v57;
-
-      (*(v94 + 8))(v98, v92);
-
-      v47 = CodeGenBase.entity.getter();
-
-      v48 = v47;
-
-      v50 = v48;
-      v51 = v49;
-      return v50;
-    }
-  }
-
-  v21 = v96;
-  v22 = Logger.payments.unsafeMutableAddressor();
-  (*(v94 + 16))(v21, v22, v92);
-  v45 = Logger.logObject.getter();
-  v42 = v45;
-  v44 = static os_log_type_t.debug.getter();
-  v43 = v44;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMd, &_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMR);
-  v46 = _allocateUninitializedArray<A>(_:)();
-  if (os_log_type_enabled(v45, v44))
-  {
-    v23 = v91;
-    v33 = static UnsafeMutablePointer.allocate(capacity:)();
-    v29 = v33;
-    v30 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
-    v31 = 0;
-    v34 = createStorage<A>(capacity:type:)(0);
-    v32 = v34;
-    v35 = createStorage<A>(capacity:type:)(v31);
-    v110 = v33;
-    v109 = v34;
-    v108 = v35;
-    v36 = 0;
-    v37 = &v110;
-    serialize(_:at:)(0, &v110);
-    serialize(_:at:)(v36, v37);
-    v107 = v46;
-    v38 = &v26;
-    MEMORY[0x28223BE20](&v26);
-    v39 = &v26 - 6;
-    *(&v26 - 4) = v24;
-    *(&v26 - 3) = &v109;
-    *(&v26 - 2) = &v108;
-    v40 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSayySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcGMd, &_sSayySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcGMR);
-    lazy protocol witness table accessor for type [(_:_:_:)] and conformance [A]();
-    Sequence.forEach(_:)();
-    v41 = v23;
-    if (v23)
-    {
-      __break(1u);
-    }
-
-    else
-    {
-      _os_log_impl(&dword_2686B1000, v42, v43, "#ReferenceResolution Found no positional reference, returning nil", v29, 2u);
-      v27 = 0;
-      destroyStorage<A>(_:count:)(v32, 0, v30);
-      destroyStorage<A>(_:count:)(v35, v27, MEMORY[0x277D84F70] + 8);
-      MEMORY[0x26D620BD0](v29, MEMORY[0x277D84B78]);
-
-      v28 = v41;
-    }
-  }
-
-  else
-  {
-
-    v28 = v91;
-  }
-
-  v26 = v28;
-
-  (*(v94 + 8))(v96, v92);
-  v50 = 0;
-  v51 = v26;
-  return v50;
-}
-
-uint64_t sub_2688267D0()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_268826810()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_268826850()
-{
-  v1 = *(v0 + 16);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2688268F0()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_268826930()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-unint64_t lazy protocol witness table accessor for type ReferenceResolutionClient.PaymentsReferenceResolutionUseCase and conformance ReferenceResolutionClient.PaymentsReferenceResolutionUseCase()
-{
-  v2 = lazy protocol witness table cache variable for type ReferenceResolutionClient.PaymentsReferenceResolutionUseCase and conformance ReferenceResolutionClient.PaymentsReferenceResolutionUseCase;
-  if (!lazy protocol witness table cache variable for type ReferenceResolutionClient.PaymentsReferenceResolutionUseCase and conformance ReferenceResolutionClient.PaymentsReferenceResolutionUseCase)
-  {
-    WitnessTable = swift_getWitnessTable();
-    atomic_store(WitnessTable, &lazy protocol witness table cache variable for type ReferenceResolutionClient.PaymentsReferenceResolutionUseCase and conformance ReferenceResolutionClient.PaymentsReferenceResolutionUseCase);
-    return WitnessTable;
-  }
-
-  return v2;
-}
-
-{
-  v2 = lazy protocol witness table cache variable for type ReferenceResolutionClient.PaymentsReferenceResolutionUseCase and conformance ReferenceResolutionClient.PaymentsReferenceResolutionUseCase;
-  if (!lazy protocol witness table cache variable for type ReferenceResolutionClient.PaymentsReferenceResolutionUseCase and conformance ReferenceResolutionClient.PaymentsReferenceResolutionUseCase)
-  {
-    WitnessTable = swift_getWitnessTable();
-    atomic_store(WitnessTable, &lazy protocol witness table cache variable for type ReferenceResolutionClient.PaymentsReferenceResolutionUseCase and conformance ReferenceResolutionClient.PaymentsReferenceResolutionUseCase);
-    return WitnessTable;
-  }
-
-  return v2;
-}
-
-uint64_t outlined destroy of RRFilter?(uint64_t a1)
-{
-  v3 = type metadata accessor for RRFilter();
-  v4 = *(v3 - 8);
-  if (!(*(v4 + 48))(a1, 1))
-  {
-    (*(v4 + 8))(a1, v3);
-  }
-
-  return a1;
-}
-
-void *outlined init with copy of Result<RRResult, Error>(uint64_t *a1, void *a2)
-{
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss6ResultOy32SiriReferenceResolutionDataModel8RRResultOs5Error_pGMd, &_ss6ResultOy32SiriReferenceResolutionDataModel8RRResultOs5Error_pGMR);
-  if (swift_getEnumCaseMultiPayload() == 1)
-  {
-    v4 = *a1;
-    MEMORY[0x26D621420]();
-    *a2 = v4;
-  }
-
-  else
-  {
-    v2 = type metadata accessor for RRResult();
-    (*(*(v2 - 8) + 16))(a2, a1);
-  }
-
-  swift_storeEnumTagMultiPayload();
-  return a2;
-}
-
-uint64_t sub_268826C00()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_268826C40()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-void *outlined init with copy of RREntity?(const void *a1, void *a2)
-{
-  v6 = type metadata accessor for RREntity();
-  v7 = *(v6 - 8);
-  if ((*(v7 + 48))(a1, 1))
-  {
-    v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s32SiriReferenceResolutionDataModel8RREntityVSgMd, &_s32SiriReferenceResolutionDataModel8RREntityVSgMR);
-    memcpy(a2, a1, *(*(v2 - 8) + 64));
-  }
-
-  else
-  {
-    (*(v7 + 16))(a2, a1, v6);
-    (*(v7 + 56))(a2, 0, 1, v6);
-  }
-
-  return a2;
-}
-
-id *outlined destroy of Result<RRResult, Error>(id *a1)
-{
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss6ResultOy32SiriReferenceResolutionDataModel8RRResultOs5Error_pGMd, &_ss6ResultOy32SiriReferenceResolutionDataModel8RRResultOs5Error_pGMR);
-  if (swift_getEnumCaseMultiPayload() == 1)
-  {
-  }
-
-  else
-  {
-    v1 = type metadata accessor for RRResult();
-    (*(*(v1 - 8) + 8))(a1);
-  }
-
-  return a1;
-}
-
-uint64_t sub_268826E44()
-{
-  v3 = *(type metadata accessor for RRResult() - 8);
-  v1 = (*(v3 + 80) + 16) & ~*(v3 + 80);
-  v4 = v1 + *(v3 + 64);
-  (*(v3 + 8))(v0 + v1);
-  return swift_deallocObject();
-}
-
-uint64_t partial apply for implicit closure #3 in ReferenceResolutionClient.resolveEntity(referenceEntity:)@<X0>(uint64_t a1@<X8>)
-{
-  v2 = type metadata accessor for RRResult();
-  v3 = v1 + ((*(*(v2 - 8) + 80) + 16) & ~*(*(v2 - 8) + 80));
-
-  return implicit closure #3 in ReferenceResolutionClient.resolveEntity(referenceEntity:)(v3, a1);
-}
-
-uint64_t sub_268826F84()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t _s2os18OSLogInterpolationV06appendC0_5align7privacyyxyXA_AA0B15StringAlignmentVAA0B7PrivacyVts06CustomG11ConvertibleRzlFSSycfu_TA_4()
-{
-  v5 = *(v0 + 16);
-  v3 = *(v0 + 24);
-  v4 = type metadata accessor for RRResult();
-  v1 = lazy protocol witness table accessor for type RRResult and conformance RRResult();
-
-  return implicit closure #1 in OSLogInterpolation.appendInterpolation<A>(_:align:privacy:)(v5, v3, v4, v1);
-}
-
-unint64_t lazy protocol witness table accessor for type RRResult and conformance RRResult()
-{
-  v2 = lazy protocol witness table cache variable for type RRResult and conformance RRResult;
-  if (!lazy protocol witness table cache variable for type RRResult and conformance RRResult)
-  {
-    type metadata accessor for RRResult();
-    WitnessTable = swift_getWitnessTable();
-    atomic_store(WitnessTable, &lazy protocol witness table cache variable for type RRResult and conformance RRResult);
-    return WitnessTable;
-  }
-
-  return v2;
-}
-
-uint64_t sub_2688270F8()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_268827138()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-unint64_t lazy protocol witness table accessor for type [[RRCandidate]] and conformance [A]()
-{
-  v2 = lazy protocol witness table cache variable for type [[RRCandidate]] and conformance [A];
-  if (!lazy protocol witness table cache variable for type [[RRCandidate]] and conformance [A])
-  {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSaySay32SiriReferenceResolutionDataModel11RRCandidateVGGMd, &_sSaySay32SiriReferenceResolutionDataModel11RRCandidateVGGMR);
-    WitnessTable = swift_getWitnessTable();
-    atomic_store(WitnessTable, &lazy protocol witness table cache variable for type [[RRCandidate]] and conformance [A]);
-    return WitnessTable;
-  }
-
-  return v2;
-}
-
-void *outlined assign with take of RREntity?(const void *a1, void *a2)
-{
-  v7 = type metadata accessor for RREntity();
-  v8 = *(v7 - 8);
-  v9 = *(v8 + 48);
-  if ((v9)(a2, 1))
-  {
-    if (v9(a1, 1, v7))
-    {
-      v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s32SiriReferenceResolutionDataModel8RREntityVSgMd, &_s32SiriReferenceResolutionDataModel8RREntityVSgMR);
-      memcpy(a2, a1, *(*(v3 - 8) + 64));
-    }
-
-    else
-    {
-      (*(v8 + 32))(a2, a1, v7);
-      (*(v8 + 56))(a2, 0, 1, v7);
-    }
-  }
-
-  else if (v9(a1, 1, v7))
-  {
-    (*(v8 + 8))(a2, v7);
-    v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s32SiriReferenceResolutionDataModel8RREntityVSgMd, &_s32SiriReferenceResolutionDataModel8RREntityVSgMR);
-    memcpy(a2, a1, *(*(v2 - 8) + 64));
-  }
-
-  else
-  {
-    (*(v8 + 40))(a2, a1, v7);
-  }
-
-  return a2;
-}
-
-unint64_t lazy protocol witness table accessor for type [RRCandidate] and conformance [A]()
-{
-  v2 = lazy protocol witness table cache variable for type [RRCandidate] and conformance [A];
-  if (!lazy protocol witness table cache variable for type [RRCandidate] and conformance [A])
-  {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSay32SiriReferenceResolutionDataModel11RRCandidateVGMd, &_sSay32SiriReferenceResolutionDataModel11RRCandidateVGMR);
-    WitnessTable = swift_getWitnessTable();
-    atomic_store(WitnessTable, &lazy protocol witness table cache variable for type [RRCandidate] and conformance [A]);
-    return WitnessTable;
-  }
-
-  return v2;
-}
-
-uint64_t outlined destroy of RRCandidate?(uint64_t a1)
-{
-  v3 = type metadata accessor for RRCandidate();
-  v4 = *(v3 - 8);
-  if (!(*(v4 + 48))(a1, 1))
-  {
-    (*(v4 + 8))(a1, v3);
-  }
-
-  return a1;
-}
-
-uint64_t sub_268827558()
-{
-  v1 = *(v0 + 16);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2688275F8()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_268827638()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_268827678()
-{
-  v3 = *(type metadata accessor for RRCandidate() - 8);
-  v1 = (*(v3 + 80) + 16) & ~*(v3 + 80);
-  v4 = v1 + *(v3 + 64);
-  (*(v3 + 8))(v0 + v1);
-  return swift_deallocObject();
-}
-
-uint64_t partial apply for implicit closure #1 in ReferenceResolutionClient.resolveEntity(referenceEntity:)@<X0>(uint64_t a1@<X8>)
-{
-  v2 = type metadata accessor for RRCandidate();
-  v3 = v1 + ((*(*(v2 - 8) + 80) + 16) & ~*(*(v2 - 8) + 80));
-
-  return implicit closure #1 in ReferenceResolutionClient.resolveEntity(referenceEntity:)(v3, a1);
-}
-
-uint64_t sub_2688277B8()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-unint64_t lazy protocol witness table accessor for type RRCandidate and conformance RRCandidate()
-{
-  v2 = lazy protocol witness table cache variable for type RRCandidate and conformance RRCandidate;
-  if (!lazy protocol witness table cache variable for type RRCandidate and conformance RRCandidate)
-  {
-    type metadata accessor for RRCandidate();
-    WitnessTable = swift_getWitnessTable();
-    atomic_store(WitnessTable, &lazy protocol witness table cache variable for type RRCandidate and conformance RRCandidate);
-    return WitnessTable;
-  }
-
-  return v2;
-}
-
-uint64_t sub_26882792C()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_26882796C()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_268827A0C()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_268827A4C()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_268827AE4()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_268827B24()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_268827BBC()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_268827BFC()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-unint64_t lazy protocol witness table accessor for type [ReferenceResolutionClient.PaymentsReferenceResolutionUseCase] and conformance [A]()
-{
-  v2 = lazy protocol witness table cache variable for type [ReferenceResolutionClient.PaymentsReferenceResolutionUseCase] and conformance [A];
-  if (!lazy protocol witness table cache variable for type [ReferenceResolutionClient.PaymentsReferenceResolutionUseCase] and conformance [A])
-  {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSay23SiriReferenceResolution0bC6ClientC0A15PaymentsIntentsE0ebC7UseCaseOGMd, &_sSay23SiriReferenceResolution0bC6ClientC0A15PaymentsIntentsE0ebC7UseCaseOGMR);
-    WitnessTable = swift_getWitnessTable();
-    atomic_store(WitnessTable, &lazy protocol witness table cache variable for type [ReferenceResolutionClient.PaymentsReferenceResolutionUseCase] and conformance [A]);
-    return WitnessTable;
-  }
-
-  return v2;
-}
-
-uint64_t SendPaymentConfirmIntentStrategy.__allocating_init()()
-{
-  v31 = 0;
-  v17 = 0;
-  v7 = (*(*(type metadata accessor for CATOption() - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20](0);
-  v16 = &v6 - v7;
-  v12 = type metadata accessor for Globals();
-  v8 = v36;
-  default argument 0 of Globals.init(contactResolver:deviceState:aceServiceInvoker:outputPublisher:)(v36);
-  v9 = &v35;
-  default argument 1 of Globals.init(contactResolver:deviceState:aceServiceInvoker:outputPublisher:)();
-  v10 = &v34;
-  default argument 2 of Globals.init(contactResolver:deviceState:aceServiceInvoker:outputPublisher:)();
-  v11 = &v33;
-  default argument 3 of Globals.init(contactResolver:deviceState:aceServiceInvoker:outputPublisher:)();
-  v0 = Globals.__allocating_init(contactResolver:deviceState:aceServiceInvoker:outputPublisher:)(v8, v9, v10, v11);
-  v25 = v37;
-  v37[3] = v12;
-  v37[4] = &protocol witness table for Globals;
-  v37[0] = v0;
-  v22 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s19SiriPaymentsIntents0B21ErrorTemplateProviderCySo19INSendPaymentIntentCSo0ghI8ResponseCGMd, &_s19SiriPaymentsIntents0B21ErrorTemplateProviderCySo19INSendPaymentIntentCSo0ghI8ResponseCGMR);
-  v15 = v32;
-  outlined init with copy of GlobalsProviding(v25, v32);
-  type metadata accessor for PaymentsBaseCATs();
-  default argument 0 of CATWrapper.init(options:globals:)();
-  v14 = CATWrapper.__allocating_init(options:globals:)();
-  v13 = type metadata accessor for INSendPaymentIntent();
-  v1 = type metadata accessor for INSendPaymentIntentResponse();
-  v2 = default argument 2 of PaymentsErrorTemplateProvider.init(globals:catFamily:searchForAccountsCATs:)(v13, v1);
-  v24 = PaymentsErrorTemplateProvider.__allocating_init(globals:catFamily:searchForAccountsCATs:)(v15, v14, v2);
-  v31 = v24;
-  v23 = v30;
-  outlined init with copy of GlobalsProviding(v25, v30);
-  type metadata accessor for SendPaymentCATs();
-  default argument 0 of CATWrapper.init(options:globals:)();
-  v18 = CATWrapper.__allocating_init(options:globals:)();
-  NSJSONWritingOptions.init(rawValue:)(v18);
-  v19 = v29;
-  v29[3] = &type metadata for CommonLabelsProvider;
-  v29[4] = &protocol witness table for CommonLabelsProvider;
-  v3 = type metadata accessor for SiriKitContactResolver();
-  v20 = v28;
-  v28[3] = v3;
-  v28[4] = &protocol witness table for SiriKitContactResolver;
-  __swift_allocate_boxed_opaque_existential_1(v28);
-  SiriKitContactResolver.init()();
-
-  v21 = &v27;
-  v27 = v24;
-  v4 = lazy protocol witness table accessor for type PaymentsErrorTemplateProvider<INSendPaymentIntent, INSendPaymentIntentResponse> and conformance PaymentsErrorTemplateProvider<A, B>();
-  v26 = SendPaymentConfirmIntentStrategy.__allocating_init<A>(globals:catFamily:commonLabelsProvider:contactResolver:errorProvider:)(v23, v18, v19, v20, v21, v22, v4);
-
-  v37[5] = v26;
-
-  __swift_destroy_boxed_opaque_existential_0(v25);
-
-  return v26;
-}
-
-uint64_t SendPaymentConfirmIntentStrategy.parseConfirmationResponse(input:confirmParameters:)(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v4[12] = a3;
-  v4[11] = a2;
-  v4[10] = a1;
-  v4[2] = v4;
-  v4[3] = 0;
-  v4[4] = 0;
-  v4[5] = 0;
-  v5 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s11SiriKitFlow20ConfirmationResponseOSgMd, &_s11SiriKitFlow20ConfirmationResponseOSgMR) - 8) + 64) + 15;
-  v4[13] = swift_task_alloc();
-  v6 = type metadata accessor for Parse();
-  v4[14] = v6;
-  v12 = *(v6 - 8);
-  v4[15] = v12;
-  v7 = *(v12 + 64) + 15;
-  v4[16] = swift_task_alloc();
-  v8 = type metadata accessor for Logger();
-  v4[17] = v8;
-  v13 = *(v8 - 8);
-  v4[18] = v13;
-  v9 = *(v13 + 64) + 15;
-  v4[19] = swift_task_alloc();
-  v4[3] = a2;
-  v4[4] = a3;
-  v4[5] = v3;
-  v10 = v4[2];
-
-  return MEMORY[0x2822009F8](SendPaymentConfirmIntentStrategy.parseConfirmationResponse(input:confirmParameters:), 0);
-}
-
-uint64_t SendPaymentConfirmIntentStrategy.parseConfirmationResponse(input:confirmParameters:)()
-{
-  v1 = v0[19];
-  v22 = v0[18];
-  v23 = v0[17];
-  v0[2] = v0;
-  v2 = Logger.payments.unsafeMutableAddressor();
-  (*(v22 + 16))(v1, v2, v23);
-  v25 = Logger.logObject.getter();
-  v24 = static os_log_type_t.debug.getter();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMd, &_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMR);
-  v26 = _allocateUninitializedArray<A>(_:)();
-  if (os_log_type_enabled(v25, v24))
-  {
-    buf = static UnsafeMutablePointer.allocate(capacity:)();
-    v16 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
-    v18 = createStorage<A>(capacity:type:)(0);
-    v19 = createStorage<A>(capacity:type:)(0);
-    *(v21 + 48) = buf;
-    *(v21 + 56) = v18;
-    *(v21 + 64) = v19;
-    serialize(_:at:)(0, (v21 + 48));
-    serialize(_:at:)(0, (v21 + 48));
-    *(v21 + 72) = v26;
-    v20 = swift_task_alloc();
-    v20[2] = v21 + 48;
-    v20[3] = v21 + 56;
-    v20[4] = v21 + 64;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSayySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcGMd, &_sSayySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcGMR);
-    lazy protocol witness table accessor for type [(_:_:_:)] and conformance [A]();
-    Sequence.forEach(_:)();
-
-    _os_log_impl(&dword_2686B1000, v25, v24, "#SendPaymentConfirmIntentStrategy parseConfirmationResponse", buf, 2u);
-    destroyStorage<A>(_:count:)(v18, 0, v16);
-    destroyStorage<A>(_:count:)(v19, 0, MEMORY[0x277D84F70] + 8);
-    MEMORY[0x26D620BD0](buf, MEMORY[0x277D84B78]);
-  }
-
-  v13 = *(v21 + 152);
-  v8 = *(v21 + 136);
-  v14 = *(v21 + 128);
-  v11 = *(v21 + 112);
-  v15 = *(v21 + 104);
-  v9 = *(v21 + 96);
-  v3 = *(v21 + 88);
-  v12 = *(v21 + 80);
-  v7 = *(v21 + 144);
-  v10 = *(v21 + 120);
-  MEMORY[0x277D82BD8](v25);
-  (*(v7 + 8))(v13, v8);
-  Input.parse.getter();
-  Parse.confirmationResponse.getter(v15);
-  (*(v10 + 8))(v14, v11);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s11SiriKitFlow22IntentResolutionRecordVySo013INSendPaymentD0CSo0ghD8ResponseCGMd, &_s11SiriKitFlow22IntentResolutionRecordVySo013INSendPaymentD0CSo0ghD8ResponseCGMR);
-  IntentResolutionRecord.intent.getter();
-  type metadata accessor for INSendPaymentIntent();
-  ConfirmIntentAnswer.init(confirmationResponse:intent:)();
-
-  v4 = *(*(v21 + 16) + 8);
-  v5 = *(v21 + 16);
-
-  return v4();
-}
-
-uint64_t SendPaymentConfirmIntentStrategy.makePromptForConfirmation(confirmParameters:)(uint64_t a1, uint64_t a2)
-{
-  v3[106] = v2;
-  v3[105] = a2;
-  v3[104] = a1;
-  v3[77] = v3;
-  v3[78] = 0;
-  v3[79] = 0;
-  v3[84] = 0;
-  v3[89] = 0;
-  v3[94] = 0;
-  v3[75] = 0;
-  v3[76] = 0;
-  v3[95] = 0;
-  v3[96] = 0;
-  v3[97] = 0;
-  v3[98] = 0;
-  v3[99] = 0;
-  v4 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s11SiriKitFlow15NLContextUpdateVSgMd, &_s11SiriKitFlow15NLContextUpdateVSgMR) - 8) + 64) + 15;
-  v3[107] = swift_task_alloc();
-  v5 = type metadata accessor for NLContextUpdate();
-  v3[108] = v5;
-  v14 = *(v5 - 8);
-  v3[109] = v14;
-  v6 = *(v14 + 64) + 15;
-  v3[110] = swift_task_alloc();
-  v7 = type metadata accessor for TemplatingResult();
-  v3[111] = v7;
-  v15 = *(v7 - 8);
-  v3[112] = v15;
-  v8 = *(v15 + 64) + 15;
-  v3[113] = swift_task_alloc();
-  v16 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s16SiriDialogEngine15SpeakableStringVSgMd, &_s16SiriDialogEngine15SpeakableStringVSgMR) - 8) + 64);
-  v3[114] = swift_task_alloc();
-  v3[115] = swift_task_alloc();
-  v3[116] = swift_task_alloc();
-  v3[117] = swift_task_alloc();
-  v3[118] = swift_task_alloc();
-  v9 = *(*(type metadata accessor for Locale() - 8) + 64) + 15;
-  v3[119] = swift_task_alloc();
-  v10 = type metadata accessor for Logger();
-  v3[120] = v10;
-  v17 = *(v10 - 8);
-  v3[121] = v17;
-  v18 = *(v17 + 64);
-  v3[122] = swift_task_alloc();
-  v3[123] = swift_task_alloc();
-  v3[124] = swift_task_alloc();
-  v3[125] = swift_task_alloc();
-  v3[126] = swift_task_alloc();
-  v11 = *(*(type metadata accessor for Signpost.OpenSignpost() - 8) + 64) + 15;
-  v3[127] = swift_task_alloc();
-  v3[78] = a2;
-  v3[79] = v2;
-  v12 = v3[77];
-
-  return MEMORY[0x2822009F8](SendPaymentConfirmIntentStrategy.makePromptForConfirmation(confirmParameters:), 0);
-}
-
-uint64_t SendPaymentConfirmIntentStrategy.makePromptForConfirmation(confirmParameters:)()
-{
-  v194 = v0;
-  v182 = v0[127];
-  v1 = v0[126];
-  v183 = v0[121];
-  v184 = v0[120];
-  v0[77] = v0;
-  v2 = SignpostName.makeSendPaymentPromptForConfirm.unsafeMutableAddressor();
-  static Signpost.begin(_:)(*v2, v2[1], *(v2 + 16), v182);
-  v3 = Logger.payments.unsafeMutableAddressor();
-  v185 = *(v183 + 16);
-  v185(v1, v3, v184);
-  v187 = Logger.logObject.getter();
-  v186 = static os_log_type_t.debug.getter();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMd, &_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMR);
-  v188 = _allocateUninitializedArray<A>(_:)();
-  if (os_log_type_enabled(v187, v186))
-  {
-    buf = static UnsafeMutablePointer.allocate(capacity:)();
-    v176 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
-    v178 = createStorage<A>(capacity:type:)(0);
-    v179 = createStorage<A>(capacity:type:)(0);
-    *(v181 + 800) = buf;
-    *(v181 + 808) = v178;
-    *(v181 + 816) = v179;
-    serialize(_:at:)(0, (v181 + 800));
-    serialize(_:at:)(0, (v181 + 800));
-    *(v181 + 824) = v188;
-    v180 = swift_task_alloc();
-    v180[2] = v181 + 800;
-    v180[3] = v181 + 808;
-    v180[4] = v181 + 816;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSayySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcGMd, &_sSayySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcGMR);
-    lazy protocol witness table accessor for type [(_:_:_:)] and conformance [A]();
-    Sequence.forEach(_:)();
-
-    _os_log_impl(&dword_2686B1000, v187, v186, "#SendPaymentConfirmIntentStrategy makePromptForConfirmation", buf, 2u);
-    destroyStorage<A>(_:count:)(v178, 0, v176);
-    destroyStorage<A>(_:count:)(v179, 0, MEMORY[0x277D84F70] + 8);
-    MEMORY[0x26D620BD0](buf, MEMORY[0x277D84B78]);
-  }
-
-  v171 = *(v181 + 1008);
-  v172 = *(v181 + 960);
-  v4 = *(v181 + 840);
-  v170 = *(v181 + 968);
-  MEMORY[0x277D82BD8](v187);
-  v173 = *(v170 + 8);
-  v173(v171, v172);
-  *(v181 + 1024) = __swift_instantiateConcreteTypeFromMangledNameV2(&_s11SiriKitFlow22IntentResolutionRecordVySo013INSendPaymentD0CSo0ghD8ResponseCGMd, &_s11SiriKitFlow22IntentResolutionRecordVySo013INSendPaymentD0CSo0ghD8ResponseCGMR);
-  v174 = IntentResolutionRecord.intentResponse.getter();
-  v175 = [v174 paymentRecord];
-  *(v181 + 1032) = v175;
-  if (v175)
-  {
-    v5 = *(v181 + 1000);
-    v161 = *(v181 + 960);
-    *(v181 + 672) = v175;
-    MEMORY[0x277D82BD8](v174);
-    v6 = Logger.payments.unsafeMutableAddressor();
-    v185(v5, v6, v161);
-    MEMORY[0x277D82BE0](v175);
-    v162 = swift_allocObject();
-    *(v162 + 16) = v175;
-    oslog = Logger.logObject.getter();
-    v169 = static os_log_type_t.debug.getter();
-    v164 = swift_allocObject();
-    *(v164 + 16) = 64;
-    v165 = swift_allocObject();
-    *(v165 + 16) = 8;
-    v163 = swift_allocObject();
-    *(v163 + 16) = partial apply for implicit closure #4 in SearchForAccountsNeedsValueStrategy.parseValueResponse(input:resolveRecord:);
-    *(v163 + 24) = v162;
-    v166 = swift_allocObject();
-    *(v166 + 16) = partial apply for implicit closure #1 in OSLogInterpolation.appendInterpolation(_:privacy:);
-    *(v166 + 24) = v163;
-    _allocateUninitializedArray<A>(_:)();
-    v167 = v7;
-
-    *v167 = partial apply for closure #1 in OSLogArguments.append(_:);
-    v167[1] = v164;
-
-    v167[2] = partial apply for closure #1 in OSLogArguments.append(_:);
-    v167[3] = v165;
-
-    v167[4] = partial apply for closure #1 in OSLogArguments.append(_:);
-    v167[5] = v166;
-    _finalizeUninitializedArray<A>(_:)();
-
-    if (os_log_type_enabled(oslog, v169))
-    {
-      v158 = static UnsafeMutablePointer.allocate(capacity:)();
-      v157 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
-      v159 = createStorage<A>(capacity:type:)(1);
-      v160 = createStorage<A>(capacity:type:)(0);
-      v189 = v158;
-      v190 = v159;
-      v191 = v160;
-      serialize(_:at:)(2, &v189);
-      serialize(_:at:)(1, &v189);
-      v192 = partial apply for closure #1 in OSLogArguments.append(_:);
-      v193 = v164;
-      closure #1 in osLogInternal(_:log:type:)(&v192, &v189, &v190, &v191);
-      v192 = partial apply for closure #1 in OSLogArguments.append(_:);
-      v193 = v165;
-      closure #1 in osLogInternal(_:log:type:)(&v192, &v189, &v190, &v191);
-      v192 = partial apply for closure #1 in OSLogArguments.append(_:);
-      v193 = v166;
-      closure #1 in osLogInternal(_:log:type:)(&v192, &v189, &v190, &v191);
-      _os_log_impl(&dword_2686B1000, oslog, v169, "#SendPaymentConfirmIntentStrategy intent contained paymentRecord: %@", v158, 0xCu);
-      destroyStorage<A>(_:count:)(v159, 1, v157);
-      destroyStorage<A>(_:count:)(v160, 0, MEMORY[0x277D84F70] + 8);
-      MEMORY[0x26D620BD0](v158, MEMORY[0x277D84B78]);
-    }
-
-    else
-    {
-    }
-
-    v154 = *(v181 + 1000);
-    v155 = *(v181 + 960);
-    MEMORY[0x277D82BD8](oslog);
-    v173(v154, v155);
-    v156 = [v175 payee];
-    *(v181 + 1040) = v156;
-    if (v156)
-    {
-      *(v181 + 712) = v156;
-      v8 = [v175 currencyAmount];
-      v153 = v8;
-      *(v181 + 1048) = v8;
-      if (v8)
-      {
-        *(v181 + 752) = v8;
-        v152 = [v175 note];
-        if (v152)
-        {
-          v148 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-          v149 = v9;
-          MEMORY[0x277D82BD8](v152);
-          v150 = v148;
-          v151 = v149;
-        }
-
-        else
-        {
-          v150 = 0;
-          v151 = 0;
-        }
-
-        *(v181 + 1056) = v151;
-        v143 = *(v181 + 952);
-        v139 = *(v181 + 848);
-        *(v181 + 600) = v150;
-        *(v181 + 608) = v151;
-        v138 = [v175 feeAmount];
-        *(v181 + 1064) = v138;
-        *(v181 + 760) = v138;
-        type metadata accessor for PaymentsDialogConcept.Builder();
-        v144 = PaymentsDialogConcept.Builder.__allocating_init()();
-        *(v181 + 1072) = v144;
-        *(v181 + 768) = v144;
-        type metadata accessor for DialogPerson();
-        MEMORY[0x277D82BE0](v156);
-
-        outlined init with copy of GlobalsProviding(v139 + 104, v181 + 136);
-
-        v141 = *(v181 + 160);
-        v140 = *(v181 + 168);
-        __swift_project_boxed_opaque_existential_1((v181 + 136), v141);
-        (*(v140 + 16))(v141);
-        v142 = *(v181 + 208);
-        __swift_project_boxed_opaque_existential_1((v181 + 176), *(v181 + 200));
-        dispatch thunk of DeviceState.siriLocale.getter();
-        v146 = DialogPerson.__allocating_init(namedPerson:locale:useConversationalName:)();
-        __swift_destroy_boxed_opaque_existential_0((v181 + 176));
-        __swift_destroy_boxed_opaque_existential_0((v181 + 136));
-
-        v145 = (v144 + OBJC_IVAR____TtCC19SiriPaymentsIntents21PaymentsDialogConcept7Builder_payeeName);
-        swift_beginAccess();
-        v10 = *v145;
-        *v145 = v146;
-
-        swift_endAccess();
-
-        type metadata accessor for DialogCurrency.Builder();
-        DialogCurrency.Builder.__allocating_init()();
-        v11 = [v153 amount];
-        v147 = v11;
-        if (v11)
-        {
-          [v11 doubleValue];
-          MEMORY[0x277D82BD8](v147);
-        }
-
-        dispatch thunk of DialogAbstractMeasurement.Builder.withValue(_:)();
-
-        v137 = [v153 currencyCode];
-        if (v137)
-        {
-          static String._unconditionallyBridgeFromObjectiveC(_:)();
-          v135 = v12;
-          MEMORY[0x277D82BD8](v137);
-          v136 = v135;
-        }
-
-        else
-        {
-          v136 = 0;
-        }
-
-        if (v136)
-        {
-          v134 = *(v181 + 944);
-          String.toSpeakableString.getter();
-
-          v13 = type metadata accessor for SpeakableString();
-          (*(*(v13 - 8) + 56))(v134, 0, 1);
-        }
-
-        else
-        {
-          v110 = *(v181 + 944);
-          v33 = type metadata accessor for SpeakableString();
-          (*(*(v33 - 8) + 56))(v110, 1);
-        }
-
-        v132 = *(v181 + 944);
-        dispatch thunk of DialogAbstractMeasurement.Builder.withUnits(_:)();
-        outlined destroy of SpeakableString?(v132);
-
-        v133 = dispatch thunk of DialogAbstractMeasurement.Builder.build()();
-
-        swift_beginAccess();
-        v14 = v144[2];
-        v144[2] = v133;
-
-        swift_endAccess();
-
-        if (v151)
-        {
-          v131 = *(v181 + 936);
-          String.toSpeakableString.getter();
-
-          v15 = type metadata accessor for SpeakableString();
-          (*(*(v15 - 8) + 56))(v131, 0, 1);
-        }
-
-        else
-        {
-          v111 = *(v181 + 936);
-          v32 = type metadata accessor for SpeakableString();
-          (*(*(v32 - 8) + 56))(v111, 1);
-        }
-
-        v130 = *(v181 + 936);
-        v128 = *(v181 + 928);
-        outlined init with copy of SpeakableString?(v130, v128);
-        v129 = v144 + OBJC_IVAR____TtCC19SiriPaymentsIntents21PaymentsDialogConcept7Builder_memo;
-        swift_beginAccess();
-        outlined assign with take of SpeakableString?(v128, v129);
-        swift_endAccess();
-        outlined destroy of SpeakableString?(v130);
-        MEMORY[0x277D82BE0](v138);
-        if (v138)
-        {
-          *(v181 + 792) = v138;
-          DialogCurrency.Builder.__allocating_init()();
-          v16 = [v138 amount];
-          v127 = v16;
-          if (v16)
-          {
-            [v16 doubleValue];
-            MEMORY[0x277D82BD8](v127);
-          }
-
-          dispatch thunk of DialogAbstractMeasurement.Builder.withValue(_:)();
-
-          v126 = [v138 currencyCode];
-          if (v126)
-          {
-            static String._unconditionallyBridgeFromObjectiveC(_:)();
-            v124 = v17;
-            MEMORY[0x277D82BD8](v126);
-            v125 = v124;
-          }
-
-          else
-          {
-            v125 = 0;
-          }
-
-          if (v125)
-          {
-            v123 = *(v181 + 920);
-            String.toSpeakableString.getter();
-
-            v18 = type metadata accessor for SpeakableString();
-            (*(*(v18 - 8) + 56))(v123, 0, 1);
-          }
-
-          else
-          {
-            v120 = *(v181 + 920);
-            v20 = type metadata accessor for SpeakableString();
-            (*(*(v20 - 8) + 56))(v120, 1);
-          }
-
-          v121 = *(v181 + 920);
-          dispatch thunk of DialogAbstractMeasurement.Builder.withUnits(_:)();
-          outlined destroy of SpeakableString?(v121);
-
-          v122 = dispatch thunk of DialogAbstractMeasurement.Builder.build()();
-
-          swift_beginAccess();
-          v19 = v144[4];
-          v144[4] = v122;
-
-          swift_endAccess();
-
-          MEMORY[0x277D82BD8](v138);
-        }
-
-        if (v151)
-        {
-          v119 = *(v181 + 912);
-          String.toSpeakableString.getter();
-
-          v21 = type metadata accessor for SpeakableString();
-          (*(*(v21 - 8) + 56))(v119, 0, 1);
-        }
-
-        else
-        {
-          v112 = *(v181 + 912);
-          v31 = type metadata accessor for SpeakableString();
-          (*(*(v31 - 8) + 56))(v112, 1);
-        }
-
-        v114 = *(v181 + 928);
-        v116 = *(v181 + 912);
-        v22 = *(v181 + 840);
-        outlined init with copy of SpeakableString?(v116, v114);
-        v115 = v144 + OBJC_IVAR____TtCC19SiriPaymentsIntents21PaymentsDialogConcept7Builder_memo;
-        swift_beginAccess();
-        outlined assign with take of SpeakableString?(v114, v115);
-        swift_endAccess();
-        outlined destroy of SpeakableString?(v116);
-        IntentResolutionRecord.app.getter();
-        v117 = App.sirikitApp.getter();
-
-        swift_beginAccess();
-        v23 = v144[3];
-        v144[3] = v117;
-
-        swift_endAccess();
-
-        v118 = PaymentsDialogConcept.Builder.build()();
-        *(v181 + 1080) = v118;
-        *(v181 + 776) = v118;
-        if (static RFFeatureFlags.ResponseFramework.SMART.getter())
-        {
-          v24 = swift_task_alloc();
-          *(v181 + 1088) = v24;
-          *v24 = *(v181 + 616);
-          v24[1] = SendPaymentConfirmIntentStrategy.makePromptForConfirmation(confirmParameters:);
-          v25 = *(v181 + 848);
-          v26 = *(v181 + 840);
-          v27 = *(v181 + 832);
-
-          return SendPaymentConfirmIntentStrategy.makeModernizedPaymentConfirmationView(confirmParameters:paymentsConcept:)(v27, v26, v118);
-        }
-
-        else
-        {
-          v113 = *(v181 + 848);
-
-          *(v181 + 1104) = *(v113 + 16);
-
-          v29 = swift_task_alloc();
-          *(v181 + 1112) = v29;
-          *v29 = *(v181 + 616);
-          v29[1] = SendPaymentConfirmIntentStrategy.makePromptForConfirmation(confirmParameters:);
-          v30 = *(v181 + 904);
-
-          return SendPaymentCATs.intentConfirmationPrompt(paymentsConcept:)(v30, v118);
-        }
-      }
-
-      v34 = *(v181 + 992);
-      v106 = *(v181 + 960);
-      v35 = Logger.payments.unsafeMutableAddressor();
-      v185(v34, v35, v106);
-      log = Logger.logObject.getter();
-      v107 = static os_log_type_t.error.getter();
-      v109 = _allocateUninitializedArray<A>(_:)();
-      if (os_log_type_enabled(log, v107))
-      {
-        v102 = static UnsafeMutablePointer.allocate(capacity:)();
-        v101 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
-        v103 = createStorage<A>(capacity:type:)(0);
-        v104 = createStorage<A>(capacity:type:)(0);
-        *(v181 + 720) = v102;
-        *(v181 + 728) = v103;
-        *(v181 + 736) = v104;
-        serialize(_:at:)(0, (v181 + 720));
-        serialize(_:at:)(0, (v181 + 720));
-        *(v181 + 744) = v109;
-        v105 = swift_task_alloc();
-        v105[2] = v181 + 720;
-        v105[3] = v181 + 728;
-        v105[4] = v181 + 736;
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_sSayySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcGMd, &_sSayySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcGMR);
-        lazy protocol witness table accessor for type [(_:_:_:)] and conformance [A]();
-        Sequence.forEach(_:)();
-
-        _os_log_impl(&dword_2686B1000, log, v107, "#SendPaymentConfirmIntentStrategy found no currencyAmount in paymentRecord, throwing exception", v102, 2u);
-        destroyStorage<A>(_:count:)(v103, 0, v101);
-        destroyStorage<A>(_:count:)(v104, 0, MEMORY[0x277D84F70] + 8);
-        MEMORY[0x26D620BD0](v102, MEMORY[0x277D84B78]);
-      }
-
-      v100 = *(v181 + 1016);
-      v95 = *(v181 + 992);
-      v96 = *(v181 + 960);
-      MEMORY[0x277D82BD8](log);
-      v173(v95, v96);
-      v36 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("currencyAmount", 0xEuLL, 1);
-      type metadata accessor for INSendPaymentIntent();
-      v99 = [swift_getObjCClassFromMetadata() description];
-      v98 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-      v97 = v37;
-      lazy protocol witness table accessor for type PaymentsError and conformance PaymentsError();
-      swift_allocError();
-      *v38 = v36;
-      *(v38 + 16) = v98;
-      *(v38 + 24) = v97;
-      *(v38 + 32) = 0;
-      *(v38 + 40) = 0;
-      *(v38 + 48) = 8;
-      swift_willThrow();
-      MEMORY[0x277D82BD8](v99);
-      MEMORY[0x277D82BD8](v156);
-      MEMORY[0x277D82BD8](v175);
-      $defer #1 <A, B>() in PaymentsRCHFlowStrategy.makeIntentFromParse(parse:currentIntent:)();
-      outlined destroy of Signpost.OpenSignpost(v100);
-    }
-
-    else
-    {
-      v39 = *(v181 + 984);
-      v91 = *(v181 + 960);
-      v40 = Logger.payments.unsafeMutableAddressor();
-      v185(v39, v40, v91);
-      v93 = Logger.logObject.getter();
-      v92 = static os_log_type_t.error.getter();
-      v94 = _allocateUninitializedArray<A>(_:)();
-      if (os_log_type_enabled(v93, v92))
-      {
-        v87 = static UnsafeMutablePointer.allocate(capacity:)();
-        v86 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
-        v88 = createStorage<A>(capacity:type:)(0);
-        v89 = createStorage<A>(capacity:type:)(0);
-        *(v181 + 680) = v87;
-        *(v181 + 688) = v88;
-        *(v181 + 696) = v89;
-        serialize(_:at:)(0, (v181 + 680));
-        serialize(_:at:)(0, (v181 + 680));
-        *(v181 + 704) = v94;
-        v90 = swift_task_alloc();
-        v90[2] = v181 + 680;
-        v90[3] = v181 + 688;
-        v90[4] = v181 + 696;
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_sSayySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcGMd, &_sSayySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcGMR);
-        lazy protocol witness table accessor for type [(_:_:_:)] and conformance [A]();
-        Sequence.forEach(_:)();
-
-        _os_log_impl(&dword_2686B1000, v93, v92, "#SendPaymentConfirmIntentStrategy found no payee in paymentRecord, throwing exception", v87, 2u);
-        destroyStorage<A>(_:count:)(v88, 0, v86);
-        destroyStorage<A>(_:count:)(v89, 0, MEMORY[0x277D84F70] + 8);
-        MEMORY[0x26D620BD0](v87, MEMORY[0x277D84B78]);
-      }
-
-      v85 = *(v181 + 1016);
-      v80 = *(v181 + 984);
-      v81 = *(v181 + 960);
-      MEMORY[0x277D82BD8](v93);
-      v173(v80, v81);
-      v41 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("payee", 5uLL, 1);
-      type metadata accessor for INSendPaymentIntent();
-      v84 = [swift_getObjCClassFromMetadata() description];
-      v83 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-      v82 = v42;
-      lazy protocol witness table accessor for type PaymentsError and conformance PaymentsError();
-      swift_allocError();
-      *v43 = v41;
-      *(v43 + 16) = v83;
-      *(v43 + 24) = v82;
-      *(v43 + 32) = 0;
-      *(v43 + 40) = 0;
-      *(v43 + 48) = 8;
-      swift_willThrow();
-      MEMORY[0x277D82BD8](v84);
-      MEMORY[0x277D82BD8](v175);
-      $defer #1 <A, B>() in PaymentsRCHFlowStrategy.makeIntentFromParse(parse:currentIntent:)();
-      outlined destroy of Signpost.OpenSignpost(v85);
-    }
-  }
-
-  else
-  {
-    v44 = *(v181 + 976);
-    v76 = *(v181 + 960);
-    MEMORY[0x277D82BD8](v174);
-    v45 = Logger.payments.unsafeMutableAddressor();
-    v185(v44, v45, v76);
-    v78 = Logger.logObject.getter();
-    v77 = static os_log_type_t.error.getter();
-    v79 = _allocateUninitializedArray<A>(_:)();
-    if (os_log_type_enabled(v78, v77))
-    {
-      v72 = static UnsafeMutablePointer.allocate(capacity:)();
-      v71 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
-      v73 = createStorage<A>(capacity:type:)(0);
-      v74 = createStorage<A>(capacity:type:)(0);
-      *(v181 + 640) = v72;
-      *(v181 + 648) = v73;
-      *(v181 + 656) = v74;
-      serialize(_:at:)(0, (v181 + 640));
-      serialize(_:at:)(0, (v181 + 640));
-      *(v181 + 664) = v79;
-      v75 = swift_task_alloc();
-      v75[2] = v181 + 640;
-      v75[3] = v181 + 648;
-      v75[4] = v181 + 656;
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_sSayySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcGMd, &_sSayySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcGMR);
-      lazy protocol witness table accessor for type [(_:_:_:)] and conformance [A]();
-      Sequence.forEach(_:)();
-
-      _os_log_impl(&dword_2686B1000, v78, v77, "#SendPaymentHandleIntentStrategy found no paymentRecord in intent response, throwing exception", v72, 2u);
-      destroyStorage<A>(_:count:)(v73, 0, v71);
-      destroyStorage<A>(_:count:)(v74, 0, MEMORY[0x277D84F70] + 8);
-      MEMORY[0x26D620BD0](v72, MEMORY[0x277D84B78]);
-    }
-
-    v70 = *(v181 + 1016);
-    v65 = *(v181 + 976);
-    v66 = *(v181 + 960);
-    MEMORY[0x277D82BD8](v78);
-    v173(v65, v66);
-    type metadata accessor for INSendPaymentIntent();
-    v69 = [swift_getObjCClassFromMetadata() description];
-    v68 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-    v67 = v46;
-    lazy protocol witness table accessor for type PaymentsError and conformance PaymentsError();
-    swift_allocError();
-    *v47 = v68;
-    *(v47 + 8) = v67;
-    *(v47 + 16) = 0;
-    *(v47 + 24) = 0;
-    *(v47 + 32) = 0;
-    *(v47 + 40) = 0;
-    *(v47 + 48) = 12;
-    swift_willThrow();
-    MEMORY[0x277D82BD8](v69);
-    $defer #1 <A, B>() in PaymentsRCHFlowStrategy.makeIntentFromParse(parse:currentIntent:)();
-    outlined destroy of Signpost.OpenSignpost(v70);
-  }
-
-  v48 = *(v181 + 1016);
-  v51 = *(v181 + 1008);
-  v52 = *(v181 + 1000);
-  v53 = *(v181 + 992);
-  v54 = *(v181 + 984);
-  v55 = *(v181 + 976);
-  v56 = *(v181 + 952);
-  v57 = *(v181 + 944);
-  v58 = *(v181 + 936);
-  v59 = *(v181 + 928);
-  v60 = *(v181 + 920);
-  v61 = *(v181 + 912);
-  v62 = *(v181 + 904);
-  v63 = *(v181 + 880);
-  v64 = *(v181 + 856);
-
-  v49 = *(*(v181 + 616) + 8);
-  v50 = *(v181 + 616);
-
-  return v49();
-}
-
-{
-  v8 = *v1;
-  v7 = (v8 + 616);
-  v2 = *(*v1 + 1088);
-  *(v8 + 616) = *v1;
-  *(v8 + 1096) = v0;
-
-  if (v0)
-  {
-    v5 = *v7;
-    v4 = SendPaymentConfirmIntentStrategy.makePromptForConfirmation(confirmParameters:);
-  }
-
-  else
-  {
-    v3 = *v7;
-    v4 = SendPaymentConfirmIntentStrategy.makePromptForConfirmation(confirmParameters:);
-  }
-
-  return MEMORY[0x2822009F8](v4, 0);
-}
-
-{
-  v1 = v0[135];
-  v6 = v0[134];
-  v7 = v0[133];
-  v8 = v0[132];
-  v9 = v0[131];
-  v10 = v0[130];
-  v11 = v0[129];
-  v12 = v0[127];
-  v0[77] = v0;
-
-  MEMORY[0x277D82BD8](v7);
-
-  MEMORY[0x277D82BD8](v9);
-  MEMORY[0x277D82BD8](v10);
-  MEMORY[0x277D82BD8](v11);
-  $defer #1 <A, B>() in PaymentsRCHFlowStrategy.makeIntentFromParse(parse:currentIntent:)();
-  outlined destroy of Signpost.OpenSignpost(v12);
-  v2 = v0[127];
-  v13 = v0[126];
-  v14 = v0[125];
-  v15 = v0[124];
-  v16 = v0[123];
-  v17 = v0[122];
-  v18 = v0[119];
-  v19 = v0[118];
-  v20 = v0[117];
-  v21 = v0[116];
-  v22 = v0[115];
-  v23 = v0[114];
-  v24 = v0[113];
-  v25 = v0[110];
-  v26 = v0[107];
-
-  v3 = *(v0[77] + 8);
-  v4 = v0[77];
-
-  return v3();
-}
-
-{
-  v11 = *v1;
-  v9 = *v1 + 16;
-  v10 = (v11 + 616);
-  v2 = *(*v1 + 1112);
-  *(v11 + 616) = *v1;
-  *(v11 + 1120) = v0;
-
-  if (v0)
-  {
-    v6 = *v10;
-    v5 = SendPaymentConfirmIntentStrategy.makePromptForConfirmation(confirmParameters:);
-  }
-
-  else
-  {
-    v8 = *(v9 + 1088);
-    v3 = *(v9 + 1064);
-
-    v4 = *v10;
-    v5 = SendPaymentConfirmIntentStrategy.makePromptForConfirmation(confirmParameters:);
-  }
-
-  return MEMORY[0x2822009F8](v5, 0);
-}
-
-{
-  v22 = v0;
-  v10 = v0[128];
-  v5 = v0[110];
-  v11 = v0[106];
-  v9 = v0[105];
-  v0[77] = v0;
-  has_malloc_size = _swift_stdlib_has_malloc_size();
-  static PaymentsContextProvider.confirmationContextUpdate(isSend:)(has_malloc_size & 1, v5);
-
-  outlined init with copy of GlobalsProviding(v11 + 24, (v0 + 27));
-
-  outlined init with copy of GlobalsProviding(v11 + 104, (v0 + 32));
-
-  v7 = v0[35];
-  v6 = v0[36];
-  __swift_project_boxed_opaque_existential_1(v0 + 32, v7);
-  (*(v6 + 16))(v7);
-
-  v8 = *(v11 + 16);
-
-  v12 = type metadata accessor for SendPaymentCATs();
-  v21[3] = v12;
-  v21[4] = &protocol witness table for SendPaymentCATs;
-  v21[0] = v8;
-  ConfirmationViewBuilder.init(commonLabelsProvider:deviceState:slotDisplayValueProvider:)(v0 + 27, v20, v21, v0 + 2);
-  __swift_destroy_boxed_opaque_existential_0(v0 + 32);
-  v19 = IntentResolutionRecord.app.getter();
-  v0[141] = v19;
-  v18 = IntentResolutionRecord.intent.getter();
-  v0[142] = v18;
-  v15 = IntentResolutionRecord.intentResponse.getter();
-  v0[143] = v15;
-
-  v13 = *(v11 + 16);
-
-  v0[40] = v12;
-  v0[41] = &protocol witness table for SendPaymentCATs;
-  v16 = (v0 + 37);
-  v0[37] = v13;
-  v2 = swift_task_alloc();
-  *(v14 + 1152) = v2;
-  v17 = type metadata accessor for INSendPaymentIntent();
-  v3 = type metadata accessor for INSendPaymentIntentResponse();
-  *v2 = *(v14 + 616);
-  v2[1] = SendPaymentConfirmIntentStrategy.makePromptForConfirmation(confirmParameters:);
-
-  return ConfirmationViewBuilder.makePaymentConfirmationView<A, B>(app:intent:response:confirmLabelProvider:)(v19, v18, v15, v16, v17, v3, &protocol witness table for INSendPaymentIntent, &protocol witness table for INSendPaymentIntentResponse);
-}
-
-{
-  v1 = v0[145];
-  v17 = v0[135];
-  v18 = v0[134];
-  v19 = v0[133];
-  v20 = v0[132];
-  v21 = v0[131];
-  v22 = v0[130];
-  v23 = v0[129];
-  v24 = v0[127];
-  v15 = v0[113];
-  v14 = v0[112];
-  v16 = v0[111];
-  v12 = v0[110];
-  v11 = v0[109];
-  v13 = v0[108];
-  v10 = v0[107];
-  v8 = v0[106];
-  v9 = v0[104];
-  v0[77] = v0;
-  v0[98] = v1;
-
-  outlined init with copy of GlobalsProviding(v8 + 104, (v0 + 42));
-
-  v7 = v0[45];
-  v6 = v0[46];
-  __swift_project_boxed_opaque_existential_1(v0 + 42, v7);
-  (*(v6 + 16))(v7);
-
-  BaseStrategy.ttsEnabled.getter();
-
-  (*(v11 + 16))(v10, v12, v13);
-  (*(v11 + 56))(v10, 0, 1, v13);
-  v0[52] = 0;
-  v0[53] = 0;
-  v0[54] = 0;
-  v0[55] = 0;
-  v0[56] = 0;
-  _swift_stdlib_has_malloc_size();
-  _swift_stdlib_has_malloc_size();
-  default argument 7 of static AceOutputHelper.makeErrorOutput(templateResult:deviceState:ttsEnabled:snippetAceViews:listenAfterSpeaking:canUseServerTTS:nlContextUpdate:additionalCommands:flowActivity:)();
-  v9[3] = type metadata accessor for AceOutput();
-  v9[4] = MEMORY[0x277D5C1D8];
-  __swift_allocate_boxed_opaque_existential_1(v9);
-  static AceOutputHelper.makeConfirmationViewOutput(templateResult:deviceState:ttsEnabled:snippetAceViews:listenAfterSpeaking:canUseServerTTS:nlContextUpdate:additionalCommands:flowActivity:)();
-
-  outlined destroy of FlowActivity?(v0 + 52);
-  outlined destroy of NLContextUpdate?(v10);
-  __swift_destroy_boxed_opaque_existential_0(v0 + 47);
-  __swift_destroy_boxed_opaque_existential_0(v0 + 42);
-
-  (*(v11 + 8))(v12, v13);
-  (*(v14 + 8))(v15, v16);
-
-  MEMORY[0x277D82BD8](v19);
-
-  MEMORY[0x277D82BD8](v21);
-  MEMORY[0x277D82BD8](v22);
-  MEMORY[0x277D82BD8](v23);
-  $defer #1 <A, B>() in PaymentsRCHFlowStrategy.makeIntentFromParse(parse:currentIntent:)();
-  outlined destroy of Signpost.OpenSignpost(v24);
-  v2 = v0[127];
-  v25 = v0[126];
-  v26 = v0[125];
-  v27 = v0[124];
-  v28 = v0[123];
-  v29 = v0[122];
-  v30 = v0[119];
-  v31 = v0[118];
-  v32 = v0[117];
-  v33 = v0[116];
-  v34 = v0[115];
-  v35 = v0[114];
-  v36 = v0[113];
-  v37 = v0[110];
-  v38 = v0[107];
-
-  v3 = *(v0[77] + 8);
-  v4 = v0[77];
-
-  return v3();
-}
-
-{
-  v1 = v0[135];
-  v7 = v0[134];
-  v8 = v0[133];
-  v9 = v0[132];
-  v10 = v0[131];
-  v11 = v0[130];
-  v12 = v0[129];
-  v13 = v0[127];
-  v0[77] = v0;
-
-  MEMORY[0x277D82BD8](v8);
-
-  MEMORY[0x277D82BD8](v10);
-  MEMORY[0x277D82BD8](v11);
-  MEMORY[0x277D82BD8](v12);
-  $defer #1 <A, B>() in PaymentsRCHFlowStrategy.makeIntentFromParse(parse:currentIntent:)();
-  outlined destroy of Signpost.OpenSignpost(v13);
-  v2 = v0[137];
-  v3 = v0[127];
-  v14 = v0[126];
-  v15 = v0[125];
-  v16 = v0[124];
-  v17 = v0[123];
-  v18 = v0[122];
-  v19 = v0[119];
-  v20 = v0[118];
-  v21 = v0[117];
-  v22 = v0[116];
-  v23 = v0[115];
-  v24 = v0[114];
-  v25 = v0[113];
-  v26 = v0[110];
-  v27 = v0[107];
-
-  v4 = *(v0[77] + 8);
-  v5 = v0[77];
-
-  return v4();
-}
-
-{
-  v6 = v0[138];
-  v7 = v0[135];
-  v8 = v0[134];
-  v9 = v0[133];
-  v10 = v0[132];
-  v11 = v0[131];
-  v12 = v0[130];
-  v13 = v0[129];
-  v14 = v0[127];
-  v0[77] = v0;
-
-  MEMORY[0x277D82BD8](v9);
-
-  MEMORY[0x277D82BD8](v11);
-  MEMORY[0x277D82BD8](v12);
-  MEMORY[0x277D82BD8](v13);
-  $defer #1 <A, B>() in PaymentsRCHFlowStrategy.makeIntentFromParse(parse:currentIntent:)();
-  outlined destroy of Signpost.OpenSignpost(v14);
-  v1 = v0[140];
-  v2 = v0[127];
-  v15 = v0[126];
-  v16 = v0[125];
-  v17 = v0[124];
-  v18 = v0[123];
-  v19 = v0[122];
-  v20 = v0[119];
-  v21 = v0[118];
-  v22 = v0[117];
-  v23 = v0[116];
-  v24 = v0[115];
-  v25 = v0[114];
-  v26 = v0[113];
-  v27 = v0[110];
-  v28 = v0[107];
-
-  v3 = *(v0[77] + 8);
-  v4 = v0[77];
-
-  return v3();
-}
-
-{
-  v6 = v0[143];
-  v7 = v0[142];
-  v8 = v0[141];
-  v15 = v0[135];
-  v16 = v0[134];
-  v17 = v0[133];
-  v18 = v0[132];
-  v19 = v0[131];
-  v20 = v0[130];
-  v21 = v0[129];
-  v22 = v0[127];
-  v13 = v0[113];
-  v12 = v0[112];
-  v14 = v0[111];
-  v11 = v0[110];
-  v9 = v0[109];
-  v10 = v0[108];
-  v0[77] = v0;
-  __swift_destroy_boxed_opaque_existential_0(v0 + 37);
-  MEMORY[0x277D82BD8](v6);
-  MEMORY[0x277D82BD8](v7);
-
-  outlined destroy of ConfirmationViewBuilder(v0 + 2);
-  (*(v9 + 8))(v11, v10);
-  (*(v12 + 8))(v13, v14);
-
-  MEMORY[0x277D82BD8](v17);
-
-  MEMORY[0x277D82BD8](v19);
-  MEMORY[0x277D82BD8](v20);
-  MEMORY[0x277D82BD8](v21);
-  $defer #1 <A, B>() in PaymentsRCHFlowStrategy.makeIntentFromParse(parse:currentIntent:)();
-  outlined destroy of Signpost.OpenSignpost(v22);
-  v1 = v0[146];
-  v2 = v0[127];
-  v23 = v0[126];
-  v24 = v0[125];
-  v25 = v0[124];
-  v26 = v0[123];
-  v27 = v0[122];
-  v28 = v0[119];
-  v29 = v0[118];
-  v30 = v0[117];
-  v31 = v0[116];
-  v32 = v0[115];
-  v33 = v0[114];
-  v34 = v0[113];
-  v35 = v0[110];
-  v36 = v0[107];
-
-  v3 = *(v0[77] + 8);
-  v4 = v0[77];
-
-  return v3();
-}
-
-uint64_t SendPaymentConfirmIntentStrategy.makePromptForConfirmation(confirmParameters:)(uint64_t a1)
-{
-  v15 = *v2;
-  v12 = (*v2 + 16);
-  v13 = (*v2 + 616);
-  v14 = (*v2 + 296);
-  v4 = *(*v2 + 1152);
-  v15[77] = *v2;
-  v15[145] = a1;
-  v15[146] = v1;
-
-  if (v1)
-  {
-    v7 = *v13;
-    v6 = SendPaymentConfirmIntentStrategy.makePromptForConfirmation(confirmParameters:);
-  }
-
-  else
-  {
-    v9 = v12[141];
-    v10 = v12[140];
-    v11 = v12[139];
-    __swift_destroy_boxed_opaque_existential_0(v14);
-
-    outlined destroy of ConfirmationViewBuilder(v12);
-    v5 = *v13;
-    v6 = SendPaymentConfirmIntentStrategy.makePromptForConfirmation(confirmParameters:);
-  }
-
-  return MEMORY[0x2822009F8](v6, 0);
-}
-
-uint64_t SendPaymentConfirmIntentStrategy.makeModernizedPaymentConfirmationView(confirmParameters:paymentsConcept:)(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v4[45] = v3;
-  v4[44] = a3;
-  v4[43] = a2;
-  v4[42] = a1;
-  v4[37] = v4;
-  v4[38] = 0;
-  v4[39] = 0;
-  v4[40] = 0;
-  v4[41] = 0;
-  v5 = *(*(type metadata accessor for CATOption() - 8) + 64) + 15;
-  v4[46] = swift_task_alloc();
-  v4[38] = a2;
-  v4[39] = a3;
-  v4[40] = v3;
-  v6 = v4[37];
-
-  return MEMORY[0x2822009F8](SendPaymentConfirmIntentStrategy.makeModernizedPaymentConfirmationView(confirmParameters:paymentsConcept:), 0);
-}
-
-uint64_t SendPaymentConfirmIntentStrategy.makeModernizedPaymentConfirmationView(confirmParameters:paymentsConcept:)()
-{
-  v3 = v0[46];
-  v5 = v0[44];
-  v0[37] = v0;
-  type metadata accessor for SendPaymentCATsModern();
-  default argument 0 of CATWrapper.init(options:globals:)();
-  v0[47] = CATWrapperSimple.__allocating_init(options:globals:)();
-
-  v1 = swift_task_alloc();
-  *(v4 + 384) = v1;
-  *v1 = *(v4 + 296);
-  v1[1] = SendPaymentConfirmIntentStrategy.makeModernizedPaymentConfirmationView(confirmParameters:paymentsConcept:);
-
-  return SendPaymentCATsModern.intentConfirmationPrompt(paymentsConcept:)(v5);
-}
-
-{
-  v24 = v0;
-  v1 = v0[49];
-  v12 = v0[45];
-  v10 = v0[43];
-  v0[37] = v0;
-  v0[41] = v1;
-
-  outlined init with copy of GlobalsProviding(v12 + 24, (v0 + 17));
-
-  outlined init with copy of GlobalsProviding(v12 + 104, (v0 + 22));
-
-  v8 = v0[25];
-  v7 = v0[26];
-  __swift_project_boxed_opaque_existential_1(v0 + 22, v8);
-  (*(v7 + 16))(v8);
-
-  v9 = *(v12 + 16);
-
-  v13 = type metadata accessor for SendPaymentCATs();
-  v23[3] = v13;
-  v23[4] = &protocol witness table for SendPaymentCATs;
-  v23[0] = v9;
-  ConfirmationViewBuilder.init(commonLabelsProvider:deviceState:slotDisplayValueProvider:)(v0 + 17, v22, v23, v0 + 2);
-  __swift_destroy_boxed_opaque_existential_0(v0 + 22);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s11SiriKitFlow22IntentResolutionRecordVySo013INSendPaymentD0CSo0ghD8ResponseCGMd, &_s11SiriKitFlow22IntentResolutionRecordVySo013INSendPaymentD0CSo0ghD8ResponseCGMR);
-  v21 = IntentResolutionRecord.app.getter();
-  v0[51] = v21;
-  v16 = IntentResolutionRecord.intent.getter();
-  v0[52] = v16;
-  v17 = IntentResolutionRecord.intentResponse.getter();
-  v0[53] = v17;
-
-  v11 = *(v12 + 16);
-
-  v0[30] = v13;
-  v0[31] = &protocol witness table for SendPaymentCATs;
-  v18 = (v0 + 27);
-  v0[27] = v11;
-
-  v14 = *(v12 + 16);
-
-  v0[35] = v13;
-  v0[36] = &protocol witness table for SendPaymentCATs;
-  v19 = (v0 + 32);
-  v0[32] = v14;
-  v2 = swift_task_alloc();
-  v15[54] = v2;
-  v20 = type metadata accessor for INSendPaymentIntent();
-  v3 = type metadata accessor for INSendPaymentIntentResponse();
-  *v2 = v15[37];
-  v2[1] = SendPaymentConfirmIntentStrategy.makeModernizedPaymentConfirmationView(confirmParameters:paymentsConcept:);
-  v4 = v15[49];
-  v5 = v15[42];
-  v26 = v3;
-  v27 = &protocol witness table for INSendPaymentIntent;
-  v28 = &protocol witness table for INSendPaymentIntentResponse;
-
-  return ConfirmationViewBuilder.makeModernizedPaymentConfirmationView<A, B>(app:intent:response:dialog:confirmLabelProvider:slotFieldLabelProvider:)(v5, v21, v16, v17, v4, v18, v19, v20);
-}
-
-{
-  v14 = *v1;
-  v10 = (*v1 + 16);
-  v11 = (*v1 + 296);
-  v12 = (*v1 + 216);
-  v13 = (*v1 + 256);
-  v2 = *(*v1 + 432);
-  *(v14 + 296) = *v1;
-  *(v14 + 440) = v0;
-
-  if (v0)
-  {
-    v5 = *v11;
-    v4 = SendPaymentConfirmIntentStrategy.makeModernizedPaymentConfirmationView(confirmParameters:paymentsConcept:);
-  }
-
-  else
-  {
-    v7 = v10[51];
-    v8 = v10[50];
-    v9 = v10[49];
-    __swift_destroy_boxed_opaque_existential_0(v13);
-    __swift_destroy_boxed_opaque_existential_0(v12);
-
-    outlined destroy of ConfirmationViewBuilder(v10);
-    v3 = *v11;
-    v4 = SendPaymentConfirmIntentStrategy.makeModernizedPaymentConfirmationView(confirmParameters:paymentsConcept:);
-  }
-
-  return MEMORY[0x2822009F8](v4, 0);
-}
-
-{
-  v1 = v0[49];
-  v5 = v0[46];
-  v0[37] = v0;
-  MEMORY[0x277D82BD8](v1);
-
-  v2 = *(v0[37] + 8);
-  v3 = v0[37];
-
-  return v2();
-}
-
-{
-  v7 = v0[47];
-  v1 = v0[44];
-  v0[37] = v0;
-
-  v2 = v0[50];
-  v3 = v0[46];
-
-  v4 = *(v0[37] + 8);
-  v5 = v0[37];
-
-  return v4();
-}
-
-{
-  v6 = v0[53];
-  v7 = v0[52];
-  v8 = v0[51];
-  v9 = v0[49];
-  v0[37] = v0;
-  __swift_destroy_boxed_opaque_existential_0(v0 + 32);
-  __swift_destroy_boxed_opaque_existential_0(v0 + 27);
-  MEMORY[0x277D82BD8](v6);
-  MEMORY[0x277D82BD8](v7);
-
-  outlined destroy of ConfirmationViewBuilder(v0 + 2);
-  MEMORY[0x277D82BD8](v9);
-  v1 = v0[55];
-  v2 = v0[46];
-
-  v3 = *(v0[37] + 8);
-  v4 = v0[37];
-
-  return v3();
-}
-
-uint64_t SendPaymentConfirmIntentStrategy.makeModernizedPaymentConfirmationView(confirmParameters:paymentsConcept:)(uint64_t a1)
-{
-  v13 = *v2;
-  v11 = *v2 + 16;
-  v12 = v13 + 37;
-  v4 = *(*v2 + 384);
-  v13[37] = *v2;
-  v13[49] = a1;
-  v13[50] = v1;
-
-  if (v1)
-  {
-    v8 = *v12;
-    v7 = SendPaymentConfirmIntentStrategy.makeModernizedPaymentConfirmationView(confirmParameters:paymentsConcept:);
-  }
-
-  else
-  {
-    v10 = *(v11 + 360);
-    v5 = *(v11 + 336);
-
-    v6 = *v12;
-    v7 = SendPaymentConfirmIntentStrategy.makeModernizedPaymentConfirmationView(confirmParameters:paymentsConcept:);
-  }
-
-  return MEMORY[0x2822009F8](v7, 0);
-}
-
-uint64_t SendPaymentConfirmIntentStrategy.makeErrorResponse(error:confirmParameters:)(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v4[32] = v3;
-  v4[31] = a3;
-  v4[30] = a1;
-  v4[26] = v4;
-  v4[27] = 0;
-  v4[28] = 0;
-  v4[29] = 0;
-  v4[22] = 0;
-  v4[23] = 0;
-  v5 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s11SiriKitFlow15NLContextUpdateVSgMd, &_s11SiriKitFlow15NLContextUpdateVSgMR) - 8) + 64) + 15;
-  v4[33] = swift_task_alloc();
-  v6 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s11SiriKitFlow16TemplatingResultVSgMd, &_s11SiriKitFlow16TemplatingResultVSgMR) - 8) + 64) + 15;
-  v4[34] = swift_task_alloc();
-  v7 = type metadata accessor for TemplatingResult();
-  v4[35] = v7;
-  v14 = *(v7 - 8);
-  v4[36] = v14;
-  v8 = *(v14 + 64) + 15;
-  v4[37] = swift_task_alloc();
-  v9 = type metadata accessor for Logger();
-  v4[38] = v9;
-  v15 = *(v9 - 8);
-  v4[39] = v15;
-  v10 = *(v15 + 64) + 15;
-  v4[40] = swift_task_alloc();
-  v11 = *(*(type metadata accessor for Signpost.OpenSignpost() - 8) + 64) + 15;
-  v4[41] = swift_task_alloc();
-  v4[27] = a2;
-  v4[28] = a3;
-  v4[29] = v3;
-  v12 = v4[26];
-
-  return MEMORY[0x2822009F8](SendPaymentConfirmIntentStrategy.makeErrorResponse(error:confirmParameters:), 0);
-}
-
-uint64_t SendPaymentConfirmIntentStrategy.makeErrorResponse(error:confirmParameters:)()
-{
-  v44 = v0;
-  v23 = v0[41];
-  v24 = v0[40];
-  v27 = v0[39];
-  v28 = v0[38];
-  v1 = v0[31];
-  v0[26] = v0;
-  v2 = SignpostName.makeSendPaymentErrorResponse.unsafeMutableAddressor();
-  static Signpost.begin(_:)(*v2, v2[1], *(v2 + 16), v23);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s11SiriKitFlow22IntentResolutionRecordVySo013INSendPaymentD0CSo0ghD8ResponseCGMd, &_s11SiriKitFlow22IntentResolutionRecordVySo013INSendPaymentD0CSo0ghD8ResponseCGMR);
-  v25 = IntentResolutionRecord.intentResponse.getter();
-  v26 = [v25 code];
-  MEMORY[0x277D82BD8](v25);
-  v29 = static PaymentIntentCATResponseCode.from(_:)(v26);
-  v30 = v3;
-  v0[42] = v3;
-  v0[22] = v29;
-  v0[23] = v3;
-  v4 = Logger.payments.unsafeMutableAddressor();
-  (*(v27 + 16))(v24, v4, v28);
-
-  v31 = swift_allocObject();
-  *(v31 + 16) = v29;
-  *(v31 + 24) = v30;
-  v37 = Logger.logObject.getter();
-  v38 = static os_log_type_t.debug.getter();
-  v33 = swift_allocObject();
-  *(v33 + 16) = 32;
-  v34 = swift_allocObject();
-  *(v34 + 16) = 8;
-  v32 = swift_allocObject();
-  *(v32 + 16) = partial apply for implicit closure #1 in static Logger.logForCrash(_:);
-  *(v32 + 24) = v31;
-  v35 = swift_allocObject();
-  *(v35 + 16) = partial apply for implicit closure #1 in OSLogInterpolation.appendInterpolation(_:align:privacy:);
-  *(v35 + 24) = v32;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMd, &_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMR);
-  _allocateUninitializedArray<A>(_:)();
-  v36 = v5;
-
-  *v36 = partial apply for closure #1 in OSLogArguments.append(_:);
-  v36[1] = v33;
-
-  v36[2] = partial apply for closure #1 in OSLogArguments.append(_:);
-  v36[3] = v34;
-
-  v36[4] = partial apply for closure #1 in OSLogArguments.append(_:);
-  v36[5] = v35;
-  _finalizeUninitializedArray<A>(_:)();
-
-  if (os_log_type_enabled(v37, v38))
-  {
-    buf = static UnsafeMutablePointer.allocate(capacity:)();
-    v18 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
-    v20 = createStorage<A>(capacity:type:)(0);
-    v21 = createStorage<A>(capacity:type:)(1);
-    v39 = buf;
-    v40 = v20;
-    v41 = v21;
-    serialize(_:at:)(2, &v39);
-    serialize(_:at:)(1, &v39);
-    v42 = partial apply for closure #1 in OSLogArguments.append(_:);
-    v43 = v33;
-    closure #1 in osLogInternal(_:log:type:)(&v42, &v39, &v40, &v41);
-    v42 = partial apply for closure #1 in OSLogArguments.append(_:);
-    v43 = v34;
-    closure #1 in osLogInternal(_:log:type:)(&v42, &v39, &v40, &v41);
-    v42 = partial apply for closure #1 in OSLogArguments.append(_:);
-    v43 = v35;
-    closure #1 in osLogInternal(_:log:type:)(&v42, &v39, &v40, &v41);
-    _os_log_impl(&dword_2686B1000, v37, v38, "#SendPaymentConfirmIntentStrategy makeErrorResponse, response had %s", buf, 0xCu);
-    destroyStorage<A>(_:count:)(v20, 0, v18);
-    destroyStorage<A>(_:count:)(v21, 1, MEMORY[0x277D84F70] + 8);
-    MEMORY[0x26D620BD0](buf, MEMORY[0x277D84B78]);
-  }
-
-  else
-  {
-  }
-
-  v12 = v22[40];
-  v13 = v22[38];
-  v14 = v22[32];
-  v11 = v22[39];
-  MEMORY[0x277D82BD8](v37);
-  (*(v11 + 8))(v12, v13);
-
-  outlined init with copy of GlobalsProviding(v14 + 144, (v22 + 2));
-
-  v15 = v22[5];
-  v16 = v22[6];
-  __swift_project_boxed_opaque_existential_1(v22 + 2, v15);
-  v17 = (*(v16 + 48) + **(v16 + 48));
-  v6 = *(*(v16 + 48) + 4);
-  v7 = swift_task_alloc();
-  v22[43] = v7;
-  *v7 = v22[26];
-  v7[1] = SendPaymentConfirmIntentStrategy.makeErrorResponse(error:confirmParameters:);
-  v8 = v22[34];
-  v9 = v22[31];
-
-  return v17(v8, v9, v15, v16);
-}
-
-{
-  v7 = *v1;
-  v2 = *(*v1 + 344);
-  *(v7 + 208) = *v1;
-  v8 = (v7 + 208);
-  *(v7 + 352) = v0;
-
-  if (v0)
-  {
-    v5 = *v8;
-    v4 = RequestPaymentConfirmIntentStrategy.makeErrorResponse(error:confirmParameters:);
-  }
-
-  else
-  {
-    v3 = *v8;
-    v4 = SendPaymentConfirmIntentStrategy.makeErrorResponse(error:confirmParameters:);
-  }
-
-  return MEMORY[0x2822009F8](v4, 0);
-}
-
-{
-  v1 = v0[36];
-  v2 = v0[35];
-  v3 = v0[34];
-  v0[26] = v0;
-  if ((*(v1 + 48))(v3, 1, v2) == 1)
-  {
-    v19 = v37[42];
-    v20 = v37[41];
-    outlined destroy of TemplatingResult?(v37[34]);
-    __swift_destroy_boxed_opaque_existential_0(v37 + 2);
-    v37[24] = DefaultStringInterpolation.init(literalCapacity:interpolationCount:)();
-    v37[25] = v7;
-    countAndFlagsBits = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("", 0, 1)._countAndFlagsBits;
-    MEMORY[0x26D620F90](countAndFlagsBits);
-
-    type metadata accessor for INSendPaymentIntent();
-    DefaultStringInterpolation.appendInterpolation(_:)();
-    v9 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("", 0, 1)._countAndFlagsBits;
-    MEMORY[0x26D620F90](v9);
-
-    v16 = v37[24];
-    v15 = v37[25];
-
-    outlined destroy of String.UTF8View((v37 + 24));
-    v18 = MEMORY[0x26D620710](v16, v15);
-    v17 = v10;
-    lazy protocol witness table accessor for type PaymentsError and conformance PaymentsError();
-    swift_allocError();
-    *v11 = v18;
-    *(v11 + 8) = v17;
-    *(v11 + 16) = 0;
-    *(v11 + 24) = 0;
-    *(v11 + 32) = 0;
-    *(v11 + 40) = 0;
-    *(v11 + 48) = 16;
-    swift_willThrow();
-
-    $defer #1 <A, B>() in PaymentsRCHFlowStrategy.makeIntentFromParse(parse:currentIntent:)();
-    outlined destroy of Signpost.OpenSignpost(v20);
-    v12 = v37[41];
-    v21 = v37[40];
-    v22 = v37[37];
-    v23 = v37[34];
-    v24 = v37[33];
-
-    v5 = *(v37[26] + 8);
-    v13 = v37[26];
-  }
-
-  else
-  {
-    v31 = v37[42];
-    v32 = v37[41];
-    v33 = v37[40];
-    v34 = v37[37];
-    v30 = v37[35];
-    v35 = v37[34];
-    v36 = v37[33];
-    v27 = v37[32];
-    v28 = v37[30];
-    v29 = v37[36];
-    (*(v29 + 32))();
-    __swift_destroy_boxed_opaque_existential_0(v37 + 2);
-
-    outlined init with copy of GlobalsProviding(v27 + 104, (v37 + 7));
-
-    v26 = v37[10];
-    v25 = v37[11];
-    __swift_project_boxed_opaque_existential_1(v37 + 7, v26);
-    (*(v25 + 16))(v26);
-
-    BaseStrategy.ttsEnabled.getter();
-
-    v4 = type metadata accessor for NLContextUpdate();
-    (*(*(v4 - 8) + 56))(v36, 1);
-    v37[17] = 0;
-    v37[18] = 0;
-    v37[19] = 0;
-    v37[20] = 0;
-    v37[21] = 0;
-    default argument 3 of static AceOutputHelper.makeErrorOutput(templateResult:deviceState:ttsEnabled:snippetAceViews:listenAfterSpeaking:canUseServerTTS:nlContextUpdate:additionalCommands:flowActivity:)();
-    default argument 4 of static AceOutputHelper.makeErrorOutput(templateResult:deviceState:ttsEnabled:snippetAceViews:listenAfterSpeaking:canUseServerTTS:nlContextUpdate:additionalCommands:flowActivity:)();
-    _swift_stdlib_has_malloc_size();
-    default argument 7 of static AceOutputHelper.makeErrorOutput(templateResult:deviceState:ttsEnabled:snippetAceViews:listenAfterSpeaking:canUseServerTTS:nlContextUpdate:additionalCommands:flowActivity:)();
-    v28[3] = type metadata accessor for AceOutput();
-    v28[4] = MEMORY[0x277D5C1D8];
-    __swift_allocate_boxed_opaque_existential_1(v28);
-    static AceOutputHelper.makeErrorOutput(templateResult:deviceState:ttsEnabled:snippetAceViews:listenAfterSpeaking:canUseServerTTS:nlContextUpdate:additionalCommands:flowActivity:)();
-
-    outlined destroy of FlowActivity?(v37 + 17);
-    outlined destroy of NLContextUpdate?(v36);
-    __swift_destroy_boxed_opaque_existential_0(v37 + 12);
-    __swift_destroy_boxed_opaque_existential_0(v37 + 7);
-    (*(v29 + 8))(v34, v30);
-
-    $defer #1 <A, B>() in PaymentsRCHFlowStrategy.makeIntentFromParse(parse:currentIntent:)();
-    outlined destroy of Signpost.OpenSignpost(v32);
-
-    v5 = *(v37[26] + 8);
-    v6 = v37[26];
-  }
-
-  return v5();
-}
-
-uint64_t SendPaymentConfirmIntentStrategy.makeConfirmationRejectedResponse(confirmParameters:)(uint64_t a1, uint64_t a2)
-{
-  v3[25] = v2;
-  v3[24] = a1;
-  v3[17] = v3;
-  v3[18] = 0;
-  v3[19] = 0;
-  v4 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s11SiriKitFlow15NLContextUpdateVSgMd, &_s11SiriKitFlow15NLContextUpdateVSgMR) - 8) + 64) + 15;
-  v3[26] = swift_task_alloc();
-  v5 = type metadata accessor for NLContextUpdate();
-  v3[27] = v5;
-  v14 = *(v5 - 8);
-  v3[28] = v14;
-  v6 = *(v14 + 64) + 15;
-  v3[29] = swift_task_alloc();
-  v7 = type metadata accessor for TemplatingResult();
-  v3[30] = v7;
-  v15 = *(v7 - 8);
-  v3[31] = v15;
-  v8 = *(v15 + 64) + 15;
-  v3[32] = swift_task_alloc();
-  v9 = type metadata accessor for Logger();
-  v3[33] = v9;
-  v16 = *(v9 - 8);
-  v3[34] = v16;
-  v10 = *(v16 + 64) + 15;
-  v3[35] = swift_task_alloc();
-  v11 = *(*(type metadata accessor for Signpost.OpenSignpost() - 8) + 64) + 15;
-  v3[36] = swift_task_alloc();
-  v3[18] = a2;
-  v3[19] = v2;
-  v12 = v3[17];
-
-  return MEMORY[0x2822009F8](SendPaymentConfirmIntentStrategy.makeConfirmationRejectedResponse(confirmParameters:), 0);
-}
-
-uint64_t SendPaymentConfirmIntentStrategy.makeConfirmationRejectedResponse(confirmParameters:)()
-{
-  v17 = v0[36];
-  v1 = v0[35];
-  v18 = v0[34];
-  v19 = v0[33];
-  v0[17] = v0;
-  v2 = SignpostName.makeConfirmationRejectedResponse.unsafeMutableAddressor();
-  static Signpost.begin(_:)(*v2, v2[1], *(v2 + 16), v17);
-  v3 = Logger.payments.unsafeMutableAddressor();
-  (*(v18 + 16))(v1, v3, v19);
-  v21 = Logger.logObject.getter();
-  v20 = static os_log_type_t.debug.getter();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMd, &_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMR);
-  v22 = _allocateUninitializedArray<A>(_:)();
-  if (os_log_type_enabled(v21, v20))
-  {
-    buf = static UnsafeMutablePointer.allocate(capacity:)();
-    v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
-    v13 = createStorage<A>(capacity:type:)(0);
-    v14 = createStorage<A>(capacity:type:)(0);
-    *(v16 + 160) = buf;
-    *(v16 + 168) = v13;
-    *(v16 + 176) = v14;
-    serialize(_:at:)(0, (v16 + 160));
-    serialize(_:at:)(0, (v16 + 160));
-    *(v16 + 184) = v22;
-    v15 = swift_task_alloc();
-    v15[2] = v16 + 160;
-    v15[3] = v16 + 168;
-    v15[4] = v16 + 176;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSayySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcGMd, &_sSayySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcGMR);
-    lazy protocol witness table accessor for type [(_:_:_:)] and conformance [A]();
-    Sequence.forEach(_:)();
-
-    _os_log_impl(&dword_2686B1000, v21, v20, "#SendPaymentConfirmIntentStrategy makeConfirmationRejectedResponse", buf, 2u);
-    destroyStorage<A>(_:count:)(v13, 0, v11);
-    destroyStorage<A>(_:count:)(v14, 0, MEMORY[0x277D84F70] + 8);
-    MEMORY[0x26D620BD0](buf, MEMORY[0x277D84B78]);
-  }
-
-  v8 = *(v16 + 280);
-  v9 = *(v16 + 264);
-  v10 = *(v16 + 200);
-  v7 = *(v16 + 272);
-  MEMORY[0x277D82BD8](v21);
-  (*(v7 + 8))(v8, v9);
-
-  *(v16 + 296) = *(v10 + 16);
-
-  v4 = swift_task_alloc();
-  *(v16 + 304) = v4;
-  *v4 = *(v16 + 136);
-  v4[1] = SendPaymentConfirmIntentStrategy.makeConfirmationRejectedResponse(confirmParameters:);
-  v5 = *(v16 + 256);
-
-  return SendPaymentCATs.promptCancelled()(v5);
-}
-
-{
-  v8 = *v1;
-  v2 = *(*v1 + 304);
-  v8[17] = *v1;
-  v9 = v8 + 17;
-  v8[39] = v0;
-
-  if (v0)
-  {
-    v6 = *v9;
-    v5 = RequestPaymentConfirmIntentStrategy.makeConfirmationRejectedResponse(confirmParameters:);
-  }
-
-  else
-  {
-    v3 = v8[37];
-
-    v4 = *v9;
-    v5 = SendPaymentConfirmIntentStrategy.makeConfirmationRejectedResponse(confirmParameters:);
-  }
-
-  return MEMORY[0x2822009F8](v5, 0);
-}
-
-{
-  v13 = v0[36];
-  v14 = v0[35];
-  v15 = v0[32];
-  v11 = v0[31];
-  v12 = v0[30];
-  v16 = v0[29];
-  v9 = v0[28];
-  v10 = v0[27];
-  v17 = v0[26];
-  v7 = v0[25];
-  v8 = v0[24];
-  v0[17] = v0;
-  has_malloc_size = _swift_stdlib_has_malloc_size();
-  static PaymentsContextProvider.confirmationContextUpdate(isSend:)(has_malloc_size & 1, v16);
-
-  outlined init with copy of GlobalsProviding(v7 + 104, (v0 + 2));
-
-  v6 = v0[5];
-  v5 = v0[6];
-  __swift_project_boxed_opaque_existential_1(v0 + 2, v6);
-  (*(v5 + 16))(v6);
-
-  BaseStrategy.ttsEnabled.getter();
-
-  (*(v9 + 16))(v17, v16, v10);
-  (*(v9 + 56))(v17, 0, 1, v10);
-  v0[12] = 0;
-  v0[13] = 0;
-  v0[14] = 0;
-  v0[15] = 0;
-  v0[16] = 0;
-  default argument 3 of static AceOutputHelper.makeErrorOutput(templateResult:deviceState:ttsEnabled:snippetAceViews:listenAfterSpeaking:canUseServerTTS:nlContextUpdate:additionalCommands:flowActivity:)();
-  default argument 4 of static AceOutputHelper.makeErrorOutput(templateResult:deviceState:ttsEnabled:snippetAceViews:listenAfterSpeaking:canUseServerTTS:nlContextUpdate:additionalCommands:flowActivity:)();
-  _swift_stdlib_has_malloc_size();
-  default argument 7 of static AceOutputHelper.makeErrorOutput(templateResult:deviceState:ttsEnabled:snippetAceViews:listenAfterSpeaking:canUseServerTTS:nlContextUpdate:additionalCommands:flowActivity:)();
-  v8[3] = type metadata accessor for AceOutput();
-  v8[4] = MEMORY[0x277D5C1D8];
-  __swift_allocate_boxed_opaque_existential_1(v8);
-  static AceOutputHelper.makeCompletionViewOutput(templateResult:deviceState:ttsEnabled:snippetAceViews:listenAfterSpeaking:canUseServerTTS:nlContextUpdate:additionalCommands:flowActivity:)();
-
-  outlined destroy of FlowActivity?(v0 + 12);
-  outlined destroy of NLContextUpdate?(v17);
-  __swift_destroy_boxed_opaque_existential_0(v0 + 7);
-  __swift_destroy_boxed_opaque_existential_0(v0 + 2);
-  (*(v9 + 8))(v16, v10);
-  (*(v11 + 8))(v15, v12);
-  $defer #1 <A, B>() in PaymentsRCHFlowStrategy.makeIntentFromParse(parse:currentIntent:)();
-  outlined destroy of Signpost.OpenSignpost(v13);
-
-  v2 = *(v0[17] + 8);
-  v3 = v0[17];
-
-  return v2();
-}
-
-uint64_t SendPaymentConfirmIntentStrategy.makeRepromptOnEmptyParse(confirmParameters:)(uint64_t a1, uint64_t a2)
-{
-  v3[9] = a1;
-  v3[2] = v3;
-  v3[3] = 0;
-  v3[4] = 0;
-  v4 = type metadata accessor for Logger();
-  v3[10] = v4;
-  v8 = *(v4 - 8);
-  v3[11] = v8;
-  v5 = *(v8 + 64) + 15;
-  v3[12] = swift_task_alloc();
-  v3[3] = a2;
-  v3[4] = v2;
-  v6 = v3[2];
-
-  return MEMORY[0x2822009F8](SendPaymentConfirmIntentStrategy.makeRepromptOnEmptyParse(confirmParameters:), 0);
-}
-
-uint64_t SendPaymentConfirmIntentStrategy.makeRepromptOnEmptyParse(confirmParameters:)()
-{
-  v1 = v0[12];
-  v16 = v0[11];
-  v17 = v0[10];
-  v0[2] = v0;
-  v2 = Logger.payments.unsafeMutableAddressor();
-  (*(v16 + 16))(v1, v2, v17);
-  v19 = Logger.logObject.getter();
-  v18 = static os_log_type_t.debug.getter();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMd, &_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMR);
-  v20 = _allocateUninitializedArray<A>(_:)();
-  if (os_log_type_enabled(v19, v18))
-  {
-    buf = static UnsafeMutablePointer.allocate(capacity:)();
-    v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
-    v12 = createStorage<A>(capacity:type:)(0);
-    v13 = createStorage<A>(capacity:type:)(0);
-    *(v15 + 40) = buf;
-    *(v15 + 48) = v12;
-    *(v15 + 56) = v13;
-    serialize(_:at:)(0, (v15 + 40));
-    serialize(_:at:)(0, (v15 + 40));
-    *(v15 + 64) = v20;
-    v14 = swift_task_alloc();
-    v14[2] = v15 + 40;
-    v14[3] = v15 + 48;
-    v14[4] = v15 + 56;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSayySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcGMd, &_sSayySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcGMR);
-    lazy protocol witness table accessor for type [(_:_:_:)] and conformance [A]();
-    Sequence.forEach(_:)();
-
-    _os_log_impl(&dword_2686B1000, v19, v18, "#SendPaymentConfirmIntentStrategy makeRepromptOnEmptyParse", buf, 2u);
-    destroyStorage<A>(_:count:)(v12, 0, v10);
-    destroyStorage<A>(_:count:)(v13, 0, MEMORY[0x277D84F70] + 8);
-    MEMORY[0x26D620BD0](buf, MEMORY[0x277D84B78]);
-  }
-
-  v9 = *(v15 + 96);
-  v7 = *(v15 + 80);
-  v8 = *(v15 + 72);
-  v6 = *(v15 + 88);
-  MEMORY[0x277D82BD8](v19);
-  (*(v6 + 8))(v9, v7);
-  type metadata accessor for SABaseCommand();
-  _allocateUninitializedArray<A>(_:)();
-  v8[3] = type metadata accessor for AceOutput();
-  v8[4] = MEMORY[0x277D5C1D8];
-  __swift_allocate_boxed_opaque_existential_1(v8);
-  AceOutput.init(commands:flowActivity:)();
-
-  v3 = *(*(v15 + 16) + 8);
-  v4 = *(v15 + 16);
-
-  return v3();
-}
-
-uint64_t SendPaymentConfirmIntentStrategy.makeRepromptOnLowConfidence(confirmParameters:)(uint64_t a1, uint64_t a2)
-{
-  v3[9] = a1;
-  v3[2] = v3;
-  v3[3] = 0;
-  v3[4] = 0;
-  v4 = type metadata accessor for Logger();
-  v3[10] = v4;
-  v8 = *(v4 - 8);
-  v3[11] = v8;
-  v5 = *(v8 + 64) + 15;
-  v3[12] = swift_task_alloc();
-  v3[3] = a2;
-  v3[4] = v2;
-  v6 = v3[2];
-
-  return MEMORY[0x2822009F8](SendPaymentConfirmIntentStrategy.makeRepromptOnLowConfidence(confirmParameters:), 0);
-}
-
-uint64_t SendPaymentConfirmIntentStrategy.makeRepromptOnLowConfidence(confirmParameters:)()
-{
-  v1 = v0[12];
-  v16 = v0[11];
-  v17 = v0[10];
-  v0[2] = v0;
-  v2 = Logger.payments.unsafeMutableAddressor();
-  (*(v16 + 16))(v1, v2, v17);
-  v19 = Logger.logObject.getter();
-  v18 = static os_log_type_t.debug.getter();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMd, &_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMR);
-  v20 = _allocateUninitializedArray<A>(_:)();
-  if (os_log_type_enabled(v19, v18))
-  {
-    buf = static UnsafeMutablePointer.allocate(capacity:)();
-    v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
-    v12 = createStorage<A>(capacity:type:)(0);
-    v13 = createStorage<A>(capacity:type:)(0);
-    *(v15 + 40) = buf;
-    *(v15 + 48) = v12;
-    *(v15 + 56) = v13;
-    serialize(_:at:)(0, (v15 + 40));
-    serialize(_:at:)(0, (v15 + 40));
-    *(v15 + 64) = v20;
-    v14 = swift_task_alloc();
-    v14[2] = v15 + 40;
-    v14[3] = v15 + 48;
-    v14[4] = v15 + 56;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSayySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcGMd, &_sSayySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcGMR);
-    lazy protocol witness table accessor for type [(_:_:_:)] and conformance [A]();
-    Sequence.forEach(_:)();
-
-    _os_log_impl(&dword_2686B1000, v19, v18, "#SendPaymentConfirmIntentStrategy makeRepromptOnLowConfidence", buf, 2u);
-    destroyStorage<A>(_:count:)(v12, 0, v10);
-    destroyStorage<A>(_:count:)(v13, 0, MEMORY[0x277D84F70] + 8);
-    MEMORY[0x26D620BD0](buf, MEMORY[0x277D84B78]);
-  }
-
-  v9 = *(v15 + 96);
-  v7 = *(v15 + 80);
-  v8 = *(v15 + 72);
-  v6 = *(v15 + 88);
-  MEMORY[0x277D82BD8](v19);
-  (*(v6 + 8))(v9, v7);
-  type metadata accessor for SABaseCommand();
-  _allocateUninitializedArray<A>(_:)();
-  v8[3] = type metadata accessor for AceOutput();
-  v8[4] = MEMORY[0x277D5C1D8];
-  __swift_allocate_boxed_opaque_existential_1(v8);
-  AceOutput.init(commands:flowActivity:)();
-
-  v3 = *(*(v15 + 16) + 8);
-  v4 = *(v15 + 16);
-
-  return v3();
-}
-
-uint64_t SendPaymentConfirmIntentStrategy.makeFlowCancelledResponse(confirmParameters:)(uint64_t a1, uint64_t a2)
-{
-  v3[25] = v2;
-  v3[24] = a1;
-  v3[17] = v3;
-  v3[18] = 0;
-  v3[19] = 0;
-  v4 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s11SiriKitFlow15NLContextUpdateVSgMd, &_s11SiriKitFlow15NLContextUpdateVSgMR) - 8) + 64) + 15;
-  v3[26] = swift_task_alloc();
-  v5 = type metadata accessor for TemplatingResult();
-  v3[27] = v5;
-  v11 = *(v5 - 8);
-  v3[28] = v11;
-  v6 = *(v11 + 64) + 15;
-  v3[29] = swift_task_alloc();
-  v7 = type metadata accessor for Logger();
-  v3[30] = v7;
-  v12 = *(v7 - 8);
-  v3[31] = v12;
-  v8 = *(v12 + 64) + 15;
-  v3[32] = swift_task_alloc();
-  v3[18] = a2;
-  v3[19] = v2;
-  v9 = v3[17];
-
-  return MEMORY[0x2822009F8](SendPaymentConfirmIntentStrategy.makeFlowCancelledResponse(confirmParameters:), 0);
-}
-
-uint64_t SendPaymentConfirmIntentStrategy.makeFlowCancelledResponse(confirmParameters:)()
-{
-  v1 = v0[32];
-  v16 = v0[31];
-  v17 = v0[30];
-  v0[17] = v0;
-  v2 = Logger.payments.unsafeMutableAddressor();
-  (*(v16 + 16))(v1, v2, v17);
-  v19 = Logger.logObject.getter();
-  v18 = static os_log_type_t.debug.getter();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMd, &_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMR);
-  v20 = _allocateUninitializedArray<A>(_:)();
-  if (os_log_type_enabled(v19, v18))
-  {
-    buf = static UnsafeMutablePointer.allocate(capacity:)();
-    v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
-    v12 = createStorage<A>(capacity:type:)(0);
-    v13 = createStorage<A>(capacity:type:)(0);
-    *(v15 + 160) = buf;
-    *(v15 + 168) = v12;
-    *(v15 + 176) = v13;
-    serialize(_:at:)(0, (v15 + 160));
-    serialize(_:at:)(0, (v15 + 160));
-    *(v15 + 184) = v20;
-    v14 = swift_task_alloc();
-    v14[2] = v15 + 160;
-    v14[3] = v15 + 168;
-    v14[4] = v15 + 176;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSayySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcGMd, &_sSayySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcGMR);
-    lazy protocol witness table accessor for type [(_:_:_:)] and conformance [A]();
-    Sequence.forEach(_:)();
-
-    _os_log_impl(&dword_2686B1000, v19, v18, "#SendPaymentConfirmIntentStrategy makeFlowCancelledResponse", buf, 2u);
-    destroyStorage<A>(_:count:)(v12, 0, v10);
-    destroyStorage<A>(_:count:)(v13, 0, MEMORY[0x277D84F70] + 8);
-    MEMORY[0x26D620BD0](buf, MEMORY[0x277D84B78]);
-  }
-
-  v7 = *(v15 + 256);
-  v8 = *(v15 + 240);
-  v9 = *(v15 + 200);
-  v6 = *(v15 + 248);
-  MEMORY[0x277D82BD8](v19);
-  (*(v6 + 8))(v7, v8);
-
-  *(v15 + 264) = *(v9 + 16);
-
-  v3 = swift_task_alloc();
-  *(v15 + 272) = v3;
-  *v3 = *(v15 + 136);
-  v3[1] = RequestPaymentConfirmIntentStrategy.makeFlowCancelledResponse(confirmParameters:);
-  v4 = *(v15 + 232);
-
-  return SendPaymentCATs.promptCancelled()(v4);
-}
-
-uint64_t SendPaymentConfirmIntentStrategy.init<A>(globals:catFamily:commonLabelsProvider:contactResolver:errorProvider:)(uint64_t *a1, uint64_t a2, uint64_t *a3, uint64_t *a4, uint64_t a5, uint64_t a6, uint64_t a7)
-{
-  v27 = a1;
-  v26 = a2;
-  v25 = a3;
-  v24 = a4;
-  v20 = a5;
-  v23 = a6;
-  v18 = a7;
-  v37 = 0;
-  v36 = 0;
-  v35 = 0;
-  v34 = 0;
-  v33 = 0;
-  v32 = 0;
-  v38 = a6;
-  v21 = *(a6 - 8);
-  v22 = a6 - 8;
-  v14 = (*(v21 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  v17 = &v13 - v14;
-  v36 = MEMORY[0x28223BE20](a1);
-  v35 = v8;
-  v34 = v9;
-  v33 = v10;
-  v32 = v11;
-  v37 = v7;
-  v19 = v31;
-  outlined init with copy of GlobalsProviding(v36, v31);
-
-  v15 = v30;
-  outlined init with copy of GlobalsProviding(v25, v30);
-  v16 = v29;
-  outlined init with copy of GlobalsProviding(v24, v29);
-  (*(v21 + 16))(v17, v20, v23);
-  v28 = BaseStrategy.init<A>(globals:catFamily:commonLabelsProvider:contactResolver:errorProvider:)(v19, v26, v15, v16, v17, v23, v18);
-
-  v37 = v28;
-  (*(v21 + 8))(v20, v23);
-  __swift_destroy_boxed_opaque_existential_0(v24);
-  __swift_destroy_boxed_opaque_existential_0(v25);
-
-  __swift_destroy_boxed_opaque_existential_0(v27);
-
-  return v28;
-}
-
-uint64_t protocol witness for ConfirmIntentFlowStrategyAsync.parseConfirmationResponse(input:confirmParameters:) in conformance SendPaymentConfirmIntentStrategy(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v8 = v4;
-  *(v4 + 16) = v4;
-  v5 = *v3;
-  v6 = swift_task_alloc();
-  *(v8 + 24) = v6;
-  *v6 = *(v8 + 16);
-  v6[1] = protocol witness for ContinueInAppDialogFlowStrategyAsync.makeContinueInAppResponse(intentResolutionRecord:) in conformance SearchForAccountsContinueInAppStrategy;
-
-  return SendPaymentConfirmIntentStrategy.parseConfirmationResponse(input:confirmParameters:)(a1, a2, a3);
-}
-
-uint64_t protocol witness for ConfirmIntentFlowStrategyAsync.makePromptForConfirmation(confirmParameters:) in conformance SendPaymentConfirmIntentStrategy(uint64_t a1, uint64_t a2)
-{
-  v7 = v3;
-  *(v3 + 16) = v3;
-  v4 = *v2;
-  v5 = swift_task_alloc();
-  *(v7 + 24) = v5;
-  *v5 = *(v7 + 16);
-  v5[1] = protocol witness for ContinueInAppDialogFlowStrategyAsync.makeContinueInAppResponse(intentResolutionRecord:) in conformance SearchForAccountsContinueInAppStrategy;
-
-  return SendPaymentConfirmIntentStrategy.makePromptForConfirmation(confirmParameters:)(a1, a2);
-}
-
-uint64_t protocol witness for ConfirmIntentFlowStrategyAsync.makeRepromptOnEmptyParse(confirmParameters:) in conformance SendPaymentConfirmIntentStrategy(uint64_t a1, uint64_t a2)
-{
-  v7 = v3;
-  *(v3 + 16) = v3;
-  v4 = *v2;
-  v5 = swift_task_alloc();
-  *(v7 + 24) = v5;
-  *v5 = *(v7 + 16);
-  v5[1] = protocol witness for ContinueInAppDialogFlowStrategyAsync.makeContinueInAppResponse(intentResolutionRecord:) in conformance SearchForAccountsContinueInAppStrategy;
-
-  return SendPaymentConfirmIntentStrategy.makeRepromptOnEmptyParse(confirmParameters:)(a1, a2);
-}
-
-uint64_t protocol witness for ConfirmIntentFlowStrategyAsync.makeRepromptOnLowConfidence(confirmParameters:) in conformance SendPaymentConfirmIntentStrategy(uint64_t a1, uint64_t a2)
-{
-  v7 = v3;
-  *(v3 + 16) = v3;
-  v4 = *v2;
-  v5 = swift_task_alloc();
-  *(v7 + 24) = v5;
-  *v5 = *(v7 + 16);
-  v5[1] = protocol witness for ContinueInAppDialogFlowStrategyAsync.makeContinueInAppResponse(intentResolutionRecord:) in conformance SearchForAccountsContinueInAppStrategy;
-
-  return SendPaymentConfirmIntentStrategy.makeRepromptOnLowConfidence(confirmParameters:)(a1, a2);
-}
-
-uint64_t protocol witness for ConfirmIntentFlowStrategyAsync.makeConfirmationRejectedResponse(confirmParameters:) in conformance SendPaymentConfirmIntentStrategy(uint64_t a1, uint64_t a2)
-{
-  v7 = v3;
-  *(v3 + 16) = v3;
-  v4 = *v2;
-  v5 = swift_task_alloc();
-  *(v7 + 24) = v5;
-  *v5 = *(v7 + 16);
-  v5[1] = protocol witness for ContinueInAppDialogFlowStrategyAsync.makeContinueInAppResponse(intentResolutionRecord:) in conformance SearchForAccountsContinueInAppStrategy;
-
-  return SendPaymentConfirmIntentStrategy.makeConfirmationRejectedResponse(confirmParameters:)(a1, a2);
-}
-
-uint64_t protocol witness for ConfirmIntentFlowStrategyAsync.makeFlowCancelledResponse(confirmParameters:) in conformance SendPaymentConfirmIntentStrategy(uint64_t a1, uint64_t a2)
-{
-  v7 = v3;
-  *(v3 + 16) = v3;
-  v4 = *v2;
-  v5 = swift_task_alloc();
-  *(v7 + 24) = v5;
-  *v5 = *(v7 + 16);
-  v5[1] = protocol witness for ContinueInAppDialogFlowStrategyAsync.makeContinueInAppResponse(intentResolutionRecord:) in conformance SearchForAccountsContinueInAppStrategy;
-
-  return SendPaymentConfirmIntentStrategy.makeFlowCancelledResponse(confirmParameters:)(a1, a2);
-}
-
-uint64_t protocol witness for ConfirmIntentFlowStrategyAsync.makeErrorResponse(error:confirmParameters:) in conformance SendPaymentConfirmIntentStrategy(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v8 = v4;
-  *(v4 + 16) = v4;
-  v5 = *v3;
-  v6 = swift_task_alloc();
-  *(v8 + 24) = v6;
-  *v6 = *(v8 + 16);
-  v6[1] = protocol witness for ContinueInAppDialogFlowStrategyAsync.makeContinueInAppResponse(intentResolutionRecord:) in conformance SearchForAccountsContinueInAppStrategy;
-
-  return SendPaymentConfirmIntentStrategy.makeErrorResponse(error:confirmParameters:)(a1, a2, a3);
-}
-
-uint64_t sub_268830738()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_268830778()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2688307B8()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_268830850()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_268830890()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t type metadata accessor for SendPaymentConfirmIntentStrategy()
-{
-  v1 = type metadata singleton initialization cache for SendPaymentConfirmIntentStrategy;
-  if (!type metadata singleton initialization cache for SendPaymentConfirmIntentStrategy)
-  {
-    return swift_getSingletonMetadata();
-  }
-
-  return v1;
-}
-
-uint64_t SAClientBoundCommand.data.getter()
-{
-  v19 = *MEMORY[0x277D85DE8];
-  v17 = 0;
-  v18 = 0;
-  v14 = 0;
-  v15 = v0;
-  v12 = [v0 dictionary];
-  if (v12)
-  {
-    v14 = v12;
-    v16 = 0;
-    v9 = objc_opt_self();
-    MEMORY[0x277D82BE0](v12);
-    v13 = 0;
-    v11 = [v9 dataWithPropertyList:v12 format:200 options:0 error:&v13];
-    v10 = v13;
-    MEMORY[0x277D82BE0](v13);
-    v1 = v16;
-    v16 = v10;
-    MEMORY[0x277D82BD8](v1);
-    swift_unknownObjectRelease();
-    if (v11)
-    {
-      v17 = static Data._unconditionallyBridgeFromObjectiveC(_:)();
-      v18 = v2;
-      MEMORY[0x277D82BD8](v11);
-      MEMORY[0x277D82BD8](v12);
-      v7 = v17;
-      outlined copy of Data._Representation(v17, v18);
-      outlined destroy of Data(&v17);
-      v8 = v7;
-    }
-
-    else
-    {
-      v4 = v16;
-      v5 = _convertNSErrorToError(_:)();
-      MEMORY[0x277D82BD8](v4);
-      swift_willThrow();
-      MEMORY[0x277D82BD8](v12);
-      MEMORY[0x26D621420](v5);
-      v6 = Data.init()();
-
-      v8 = v6;
-    }
-  }
-
-  else
-  {
-    v8 = Data.init()();
-  }
-
-  *MEMORY[0x277D85DE8];
-  return v8;
-}
-
-void *SiriPaymentsSnippetModel.PaymentConfirmationModel.init(confirmLabel:cancelLabel:noteLabel:feeLabel:confirmDI:cancelDI:appId:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X6>, uint64_t a8@<X7>, void *a9@<X8>, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15)
-{
-  __src[0] = a1;
-  __src[1] = a2;
-  __src[2] = a3;
-  __src[3] = a4;
-  __src[4] = a5;
-  __src[5] = a6;
-  __src[6] = a7;
-  __src[7] = a8;
-  __src[8] = a10;
-  __src[9] = a11;
-  __src[10] = a12;
-  __src[11] = a13;
-  __src[12] = a14;
-  __src[13] = a15;
-  return memcpy(a9, __src, 0x70uLL);
-}
-
-void *SiriPaymentsSnippetModel.RequestPaymentConfirmationModel.init(intent:response:confirmation:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, const void *a3@<X2>, uint64_t a4@<X8>)
-{
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit13CodableIntentVySo016INRequestPaymentD0CGMd, &_s10SnippetKit13CodableIntentVySo016INRequestPaymentD0CGMR);
-  (*(*(v4 - 8) + 32))(a4, a1);
-  v12 = type metadata accessor for SiriPaymentsSnippetModel.RequestPaymentConfirmationModel();
-  v8 = *(v12 + 20);
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit21CodableIntentResponseVySo016INRequestPaymentdE0CGMd, &_s10SnippetKit21CodableIntentResponseVySo016INRequestPaymentdE0CGMR);
-  (*(*(v5 - 8) + 32))(a4 + v8, a2);
-  return memcpy((a4 + *(v12 + 24)), a3, 0x70uLL);
-}
-
-void *SiriPaymentsSnippetModel.SendPaymentConfirmationModel.init(intent:response:confirmation:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, const void *a3@<X2>, uint64_t a4@<X8>)
-{
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit13CodableIntentVySo013INSendPaymentD0CGMd, &_s10SnippetKit13CodableIntentVySo013INSendPaymentD0CGMR);
-  (*(*(v4 - 8) + 32))(a4, a1);
-  v12 = type metadata accessor for SiriPaymentsSnippetModel.SendPaymentConfirmationModel();
-  v8 = *(v12 + 20);
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit21CodableIntentResponseVySo013INSendPaymentdE0CGMd, &_s10SnippetKit21CodableIntentResponseVySo013INSendPaymentdE0CGMR);
-  (*(*(v5 - 8) + 32))(a4 + v8, a2);
-  return memcpy((a4 + *(v12 + 24)), a3, 0x70uLL);
-}
-
-void *SiriPaymentsSnippetModel.BinaryConfirmationModel.init(primaryButtonDI:primaryButtonLabel:secondaryButtonDI:secondaryButtonLabel:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X6>, uint64_t a8@<X7>, void *a9@<X8>)
-{
-  __src[0] = a1;
-  __src[1] = a2;
-  __src[2] = a3;
-  __src[3] = a4;
-  __src[4] = a5;
-  __src[5] = a6;
-  __src[6] = a7;
-  __src[7] = a8;
-  return memcpy(a9, __src, 0x40uLL);
-}
-
-uint64_t one-time initialization function for bundleName()
-{
-  v1 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("SiriPaymentsUIPlugin", 0x14uLL, 1);
-  result = v1._countAndFlagsBits;
-  static SiriPaymentsSnippetModel.bundleName = v1;
-  return result;
-}
-
-__int128 *SiriPaymentsSnippetModel.bundleName.unsafeMutableAddressor()
-{
-  if (one-time initialization token for bundleName != -1)
-  {
-    swift_once();
-  }
-
-  return &static SiriPaymentsSnippetModel.bundleName;
-}
-
-uint64_t static SiriPaymentsSnippetModel.bundleName.getter()
-{
-  v0 = SiriPaymentsSnippetModel.bundleName.unsafeMutableAddressor();
-  v2 = *v0;
-  v3 = *(v0 + 1);
-
-  return v2;
-}
-
-uint64_t SiriPaymentsSnippetModel.RequestPaymentConfirmationModel.intent.setter(uint64_t a1)
-{
-  v9 = a1;
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit13CodableIntentVySo016INRequestPaymentD0CGMd, &_s10SnippetKit13CodableIntentVySo016INRequestPaymentD0CGMR);
-  v6 = *(v8 - 8);
-  v7 = v8 - 8;
-  v3 = (*(v6 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20](v8);
-  v4 = &v2 - v3;
-  (*(v6 + 16))();
-  (*(v6 + 40))(v5, v4, v8);
-  return (*(v6 + 8))(v9, v8);
-}
-
-uint64_t SiriPaymentsSnippetModel.RequestPaymentConfirmationModel.response.getter@<X0>(uint64_t a1@<X8>)
-{
-  v4 = *(type metadata accessor for SiriPaymentsSnippetModel.RequestPaymentConfirmationModel() + 20);
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit21CodableIntentResponseVySo016INRequestPaymentdE0CGMd, &_s10SnippetKit21CodableIntentResponseVySo016INRequestPaymentdE0CGMR);
-  return (*(*(v2 - 8) + 16))(a1, v1 + v4);
-}
-
-uint64_t type metadata accessor for SiriPaymentsSnippetModel.RequestPaymentConfirmationModel()
-{
-  v1 = type metadata singleton initialization cache for SiriPaymentsSnippetModel.RequestPaymentConfirmationModel;
-  if (!type metadata singleton initialization cache for SiriPaymentsSnippetModel.RequestPaymentConfirmationModel)
-  {
-    return swift_getSingletonMetadata();
-  }
-
-  return v1;
-}
-
-uint64_t SiriPaymentsSnippetModel.RequestPaymentConfirmationModel.response.setter(uint64_t a1)
-{
-  v9 = a1;
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit21CodableIntentResponseVySo016INRequestPaymentdE0CGMd, &_s10SnippetKit21CodableIntentResponseVySo016INRequestPaymentdE0CGMR);
-  v6 = *(v8 - 8);
-  v7 = v8 - 8;
-  v4 = (*(v6 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20](v8);
-  v5 = &v4 - v4;
-  (*(v6 + 16))();
-  v2 = type metadata accessor for SiriPaymentsSnippetModel.RequestPaymentConfirmationModel();
-  (*(v6 + 40))(v1 + *(v2 + 20), v5, v8);
-  return (*(v6 + 8))(v9, v8);
-}
-
-void *SiriPaymentsSnippetModel.RequestPaymentConfirmationModel.confirmation.setter(void *a1)
-{
-  outlined init with copy of SiriPaymentsSnippetModel.PaymentConfirmationModel(a1, v5);
-  v2 = type metadata accessor for SiriPaymentsSnippetModel.RequestPaymentConfirmationModel();
-  outlined assign with take of SiriPaymentsSnippetModel.PaymentConfirmationModel(a1, (v1 + *(v2 + 24)));
-  return outlined destroy of SiriPaymentsSnippetModel.PaymentConfirmationModel(a1);
-}
-
-void *outlined assign with take of SiriPaymentsSnippetModel.PaymentConfirmationModel(void *a1, void *a2)
-{
-  *a2 = *a1;
-  v2 = a1[1];
-  v3 = a2[1];
-  a2[1] = v2;
-
-  a2[2] = a1[2];
-  v4 = a2[3];
-  a2[3] = a1[3];
-
-  a2[4] = a1[4];
-  v5 = a2[5];
-  a2[5] = a1[5];
-
-  a2[6] = a1[6];
-  v6 = a2[7];
-  a2[7] = a1[7];
-
-  v7 = a1[9];
-  v8 = a2[8];
-  v9 = a2[9];
-  a2[8] = a1[8];
-  a2[9] = v7;
-  outlined consume of Data._Representation(v8, v9);
-  v10 = a1[11];
-  v11 = a2[10];
-  v12 = a2[11];
-  a2[10] = a1[10];
-  a2[11] = v10;
-  outlined consume of Data._Representation(v11, v12);
-  a2[12] = a1[12];
-  v13 = a2[13];
-  a2[13] = a1[13];
-
-  return a2;
-}
-
-uint64_t SiriPaymentsSnippetModel.RequestPaymentConfirmationModel.CodingKeys.init(stringValue:)(uint64_t a1, uint64_t a2)
-{
-  v17 = a1;
-  v18 = a2;
-
-  v16 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("intent", 6uLL, 1);
-  v14 = a1;
-  v15 = a2;
-  v9 = MEMORY[0x26D620740](v16._countAndFlagsBits, v16._object, a1, a2);
-  outlined destroy of String.UTF8View(&v16);
-  if (v9)
-  {
-
-    v19 = 0;
-    v6 = 0;
-LABEL_8:
-
-    return v6;
-  }
-
-  v13 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("response", 8uLL, 1);
-  v11 = a1;
-  v12 = a2;
-  v5 = MEMORY[0x26D620740](v13._countAndFlagsBits, v13._object, a1, a2);
-  outlined destroy of String.UTF8View(&v13);
-  if (v5)
-  {
-
-    v19 = 1;
-    v6 = 1;
-    goto LABEL_8;
-  }
-
-  v10 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("confirmation", 0xCuLL, 1);
-  v4 = MEMORY[0x26D620740](v10._countAndFlagsBits, v10._object, a1, a2);
-  outlined destroy of String.UTF8View(&v10);
-  if (v4)
-  {
-
-    v19 = 2;
-    v6 = 2;
-    goto LABEL_8;
-  }
-
-  return 3;
-}
-
-unint64_t lazy protocol witness table accessor for type SiriPaymentsSnippetModel.RequestPaymentConfirmationModel.CodingKeys and conformance SiriPaymentsSnippetModel.RequestPaymentConfirmationModel.CodingKeys()
-{
-  v2 = lazy protocol witness table cache variable for type SiriPaymentsSnippetModel.RequestPaymentConfirmationModel.CodingKeys and conformance SiriPaymentsSnippetModel.RequestPaymentConfirmationModel.CodingKeys;
-  if (!lazy protocol witness table cache variable for type SiriPaymentsSnippetModel.RequestPaymentConfirmationModel.CodingKeys and conformance SiriPaymentsSnippetModel.RequestPaymentConfirmationModel.CodingKeys)
-  {
-    WitnessTable = swift_getWitnessTable();
-    atomic_store(WitnessTable, &lazy protocol witness table cache variable for type SiriPaymentsSnippetModel.RequestPaymentConfirmationModel.CodingKeys and conformance SiriPaymentsSnippetModel.RequestPaymentConfirmationModel.CodingKeys);
-    return WitnessTable;
-  }
-
-  return v2;
-}
-
-{
-  v2 = lazy protocol witness table cache variable for type SiriPaymentsSnippetModel.RequestPaymentConfirmationModel.CodingKeys and conformance SiriPaymentsSnippetModel.RequestPaymentConfirmationModel.CodingKeys;
-  if (!lazy protocol witness table cache variable for type SiriPaymentsSnippetModel.RequestPaymentConfirmationModel.CodingKeys and conformance SiriPaymentsSnippetModel.RequestPaymentConfirmationModel.CodingKeys)
-  {
-    WitnessTable = swift_getWitnessTable();
-    atomic_store(WitnessTable, &lazy protocol witness table cache variable for type SiriPaymentsSnippetModel.RequestPaymentConfirmationModel.CodingKeys and conformance SiriPaymentsSnippetModel.RequestPaymentConfirmationModel.CodingKeys);
-    return WitnessTable;
-  }
-
-  return v2;
-}
-
-{
-  v2 = lazy protocol witness table cache variable for type SiriPaymentsSnippetModel.RequestPaymentConfirmationModel.CodingKeys and conformance SiriPaymentsSnippetModel.RequestPaymentConfirmationModel.CodingKeys;
-  if (!lazy protocol witness table cache variable for type SiriPaymentsSnippetModel.RequestPaymentConfirmationModel.CodingKeys and conformance SiriPaymentsSnippetModel.RequestPaymentConfirmationModel.CodingKeys)
-  {
-    WitnessTable = swift_getWitnessTable();
-    atomic_store(WitnessTable, &lazy protocol witness table cache variable for type SiriPaymentsSnippetModel.RequestPaymentConfirmationModel.CodingKeys and conformance SiriPaymentsSnippetModel.RequestPaymentConfirmationModel.CodingKeys);
-    return WitnessTable;
-  }
-
-  return v2;
-}
-
-{
-  v2 = lazy protocol witness table cache variable for type SiriPaymentsSnippetModel.RequestPaymentConfirmationModel.CodingKeys and conformance SiriPaymentsSnippetModel.RequestPaymentConfirmationModel.CodingKeys;
-  if (!lazy protocol witness table cache variable for type SiriPaymentsSnippetModel.RequestPaymentConfirmationModel.CodingKeys and conformance SiriPaymentsSnippetModel.RequestPaymentConfirmationModel.CodingKeys)
-  {
-    WitnessTable = swift_getWitnessTable();
-    atomic_store(WitnessTable, &lazy protocol witness table cache variable for type SiriPaymentsSnippetModel.RequestPaymentConfirmationModel.CodingKeys and conformance SiriPaymentsSnippetModel.RequestPaymentConfirmationModel.CodingKeys);
-    return WitnessTable;
-  }
-
-  return v2;
-}
-
-{
-  v2 = lazy protocol witness table cache variable for type SiriPaymentsSnippetModel.RequestPaymentConfirmationModel.CodingKeys and conformance SiriPaymentsSnippetModel.RequestPaymentConfirmationModel.CodingKeys;
-  if (!lazy protocol witness table cache variable for type SiriPaymentsSnippetModel.RequestPaymentConfirmationModel.CodingKeys and conformance SiriPaymentsSnippetModel.RequestPaymentConfirmationModel.CodingKeys)
-  {
-    WitnessTable = swift_getWitnessTable();
-    atomic_store(WitnessTable, &lazy protocol witness table cache variable for type SiriPaymentsSnippetModel.RequestPaymentConfirmationModel.CodingKeys and conformance SiriPaymentsSnippetModel.RequestPaymentConfirmationModel.CodingKeys);
-    return WitnessTable;
-  }
-
-  return v2;
-}
-
-uint64_t SiriPaymentsSnippetModel.RequestPaymentConfirmationModel.CodingKeys.stringValue.getter(char a1)
-{
-  if (!a1)
-  {
-    return String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("intent", 6uLL, 1)._countAndFlagsBits;
-  }
-
-  if (a1 == 1)
-  {
-    return String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("response", 8uLL, 1)._countAndFlagsBits;
-  }
-
-  else
-  {
-    return String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("confirmation", 0xCuLL, 1)._countAndFlagsBits;
-  }
-}
-
-uint64_t SiriPaymentsSnippetModel.RequestPaymentConfirmationModel.encode(to:)(uint64_t a1)
-{
-  v28 = v52;
-  v29 = a1;
-  v52[1] = 0;
-  v52[0] = 0;
-  v22 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit21CodableIntentResponseVySo016INRequestPaymentdE0CGMd, &_s10SnippetKit21CodableIntentResponseVySo016INRequestPaymentdE0CGMR);
-  v23 = *(v22 - 8);
-  v24 = v22 - 8;
-  v25 = (*(v23 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20](v22);
-  v26 = v9 - v25;
-  v41 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit13CodableIntentVySo016INRequestPaymentD0CGMd, &_s10SnippetKit13CodableIntentVySo016INRequestPaymentD0CGMR);
-  v36 = *(v41 - 8);
-  v37 = v41 - 8;
-  v27 = (*(v36 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20](v41);
-  v43 = v9 - v27;
-  v40 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy19SiriPaymentsIntents0dE12SnippetModelO026RequestPaymentConfirmationH0V10CodingKeys33_2A5FE8696FF126B7EA6A6F4EA8B5BF5FLLOGMd, &_ss22KeyedEncodingContainerVy19SiriPaymentsIntents0dE12SnippetModelO026RequestPaymentConfirmationH0V10CodingKeys33_2A5FE8696FF126B7EA6A6F4EA8B5BF5FLLOGMR);
-  v30 = *(v40 - 8);
-  v31 = v40 - 8;
-  v32 = (*(v30 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  v2 = MEMORY[0x28223BE20](v29);
-  v35 = v9 - v32;
-  v3[1] = v2;
-  *v3 = v1;
-  v33 = v2[3];
-  v34 = v2[4];
-  __swift_project_boxed_opaque_existential_1(v2, v33);
+uint64_t SiriPaymentsSnippetModel.RequestPaymentConfirmationModel.init(from:)@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
+{
+  v30 = a2;
+  v45 = a1;
+  v60 = 0;
+  v31 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit21CodableIntentResponseVySo016INRequestPaymentdE0CGMd, &_s10SnippetKit21CodableIntentResponseVySo016INRequestPaymentdE0CGMR);
+  v32 = *(v31 - 8);
+  v33 = v31 - 8;
+  v34 = (*(v32 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  MEMORY[0x28223BE20](v31, v2);
+  v35 = &v12 - v34;
+  v36 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit13CodableIntentVySo016INRequestPaymentD0CGMd, &_s10SnippetKit13CodableIntentVySo016INRequestPaymentD0CGMR);
+  v37 = *(v36 - 8);
+  v38 = v36 - 8;
+  v39 = (*(v37 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  MEMORY[0x28223BE20](v36, v3);
+  v40 = &v12 - v39;
+  v41 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy19SiriPaymentsIntents0dE12SnippetModelO026RequestPaymentConfirmationH0V10CodingKeys33_2A5FE8696FF126B7EA6A6F4EA8B5BF5FLLOGMd, &_ss22KeyedDecodingContainerVy19SiriPaymentsIntents0dE12SnippetModelO026RequestPaymentConfirmationH0V10CodingKeys33_2A5FE8696FF126B7EA6A6F4EA8B5BF5FLLOGMR);
+  v42 = *(v41 - 8);
+  v43 = v41 - 8;
+  v44 = (*(v42 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  MEMORY[0x28223BE20](v41, v4);
+  v49 = &v12 - v44;
+  v46 = type metadata accessor for SiriPaymentsSnippetModel.RequestPaymentConfirmationModel(0);
+  v47 = (*(*(v46 - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  v6 = MEMORY[0x28223BE20](v45, v5);
+  v48 = &v12 - v47;
+  v60 = v6;
+  v51 = v6[3];
+  v52 = v6[4];
+  __swift_project_boxed_opaque_existential_1(v6, v51);
   lazy protocol witness table accessor for type SiriPaymentsSnippetModel.RequestPaymentConfirmationModel.CodingKeys and conformance SiriPaymentsSnippetModel.RequestPaymentConfirmationModel.CodingKeys();
-  dispatch thunk of Encoder.container<A>(keyedBy:)();
-  (*(v36 + 16))(v43, v38, v41);
-  v39 = &v51;
-  v51 = 0;
-  lazy protocol witness table accessor for type CodableIntent<INRequestPaymentIntent> and conformance CodableIntent<A>();
-  v4 = v42;
-  KeyedEncodingContainer.encode<A>(_:forKey:)();
-  v44 = v4;
-  v45 = v4;
-  if (v4)
-  {
-    v10 = v45;
-    (*(v36 + 8))(v43, v41);
-    result = (*(v30 + 8))(v35, v40);
-    v11 = v10;
-  }
-
-  else
-  {
-    (*(v36 + 8))(v43, v41);
-    v18 = type metadata accessor for SiriPaymentsSnippetModel.RequestPaymentConfirmationModel();
-    (*(v23 + 16))(v26, v38 + *(v18 + 20), v22);
-    v19 = &v50;
-    v50 = 1;
-    lazy protocol witness table accessor for type CodableIntentResponse<INRequestPaymentIntentResponse> and conformance CodableIntentResponse<A>();
-    v5 = v44;
-    KeyedEncodingContainer.encode<A>(_:forKey:)();
-    v20 = v5;
-    v21 = v5;
-    if (v5)
-    {
-      v9[1] = v21;
-      (*(v23 + 8))(v26, v22);
-      return (*(v30 + 8))(v35, v40);
-    }
-
-    else
-    {
-      (*(v23 + 8))(v26, v22);
-      v6 = (v38 + *(v18 + 24));
-      v12 = __dst;
-      v13 = 112;
-      memcpy(__dst, v6, sizeof(__dst));
-      outlined init with copy of SiriPaymentsSnippetModel.PaymentConfirmationModel(__dst, v48);
-      v15 = v47;
-      memcpy(v47, v12, v13);
-      v14 = &v46;
-      v46 = 2;
-      lazy protocol witness table accessor for type SiriPaymentsSnippetModel.PaymentConfirmationModel and conformance SiriPaymentsSnippetModel.PaymentConfirmationModel();
-      v7 = v20;
-      KeyedEncodingContainer.encode<A>(_:forKey:)();
-      v16 = v7;
-      v17 = v7;
-      if (v7)
-      {
-        v9[0] = v17;
-      }
-
-      outlined destroy of SiriPaymentsSnippetModel.PaymentConfirmationModel(v47);
-      return (*(v30 + 8))(v35, v40);
-    }
-  }
-
-  return result;
-}
-
-uint64_t SiriPaymentsSnippetModel.RequestPaymentConfirmationModel.init(from:)@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X8>)
-{
-  v26 = a2;
-  v41 = a1;
-  v56 = 0;
-  v27 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit21CodableIntentResponseVySo016INRequestPaymentdE0CGMd, &_s10SnippetKit21CodableIntentResponseVySo016INRequestPaymentdE0CGMR);
-  v28 = *(v27 - 8);
-  v29 = v27 - 8;
-  v30 = (*(v28 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20](v27);
-  v31 = &v8 - v30;
-  v32 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit13CodableIntentVySo016INRequestPaymentD0CGMd, &_s10SnippetKit13CodableIntentVySo016INRequestPaymentD0CGMR);
-  v33 = *(v32 - 8);
-  v34 = v32 - 8;
-  v35 = (*(v33 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20](v32);
-  v36 = &v8 - v35;
-  v37 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy19SiriPaymentsIntents0dE12SnippetModelO026RequestPaymentConfirmationH0V10CodingKeys33_2A5FE8696FF126B7EA6A6F4EA8B5BF5FLLOGMd, &_ss22KeyedDecodingContainerVy19SiriPaymentsIntents0dE12SnippetModelO026RequestPaymentConfirmationH0V10CodingKeys33_2A5FE8696FF126B7EA6A6F4EA8B5BF5FLLOGMR);
-  v38 = *(v37 - 8);
-  v39 = v37 - 8;
-  v40 = (*(v38 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20](v37);
-  v45 = &v8 - v40;
-  v42 = type metadata accessor for SiriPaymentsSnippetModel.RequestPaymentConfirmationModel();
-  v43 = (*(*(v42 - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  v2 = MEMORY[0x28223BE20](v41);
-  v44 = &v8 - v43;
-  v56 = v2;
-  v47 = v2[3];
-  v48 = v2[4];
-  __swift_project_boxed_opaque_existential_1(v2, v47);
-  lazy protocol witness table accessor for type SiriPaymentsSnippetModel.RequestPaymentConfirmationModel.CodingKeys and conformance SiriPaymentsSnippetModel.RequestPaymentConfirmationModel.CodingKeys();
-  v3 = v46;
+  v7 = v50;
   dispatch thunk of Decoder.container<A>(keyedBy:)();
-  v49 = v3;
-  v50 = v3;
-  if (v3)
+  v53 = v7;
+  v54 = v7;
+  if (v7)
   {
-    v13 = v50;
-    v14 = 0;
+    v17 = v54;
+    v18 = 0;
   }
 
   else
   {
-    v23 = &v55;
-    v55 = 0;
+    v27 = &v59;
+    v59 = 0;
     lazy protocol witness table accessor for type CodableIntent<INRequestPaymentIntent> and conformance CodableIntent<A>();
-    v4 = v49;
+    v8 = v53;
     KeyedDecodingContainer.decode<A>(_:forKey:)();
-    v24 = v4;
-    v25 = v4;
-    if (v4)
+    v28 = v8;
+    v29 = v8;
+    if (v8)
     {
-      v12 = v25;
-      (*(v38 + 8))(v45, v37);
-      v13 = v12;
-      v14 = 0;
+      v16 = v29;
+      (*(v42 + 8))(v49, v41);
+      v17 = v16;
+      v18 = 0;
     }
 
     else
     {
-      (*(v33 + 32))(v44, v36, v32);
-      v20 = &v54;
-      v54 = 1;
+      (*(v37 + 32))(v48, v40, v36);
+      v24 = &v58;
+      v58 = 1;
       lazy protocol witness table accessor for type CodableIntentResponse<INRequestPaymentIntentResponse> and conformance CodableIntentResponse<A>();
-      v5 = v24;
+      v9 = v28;
       KeyedDecodingContainer.decode<A>(_:forKey:)();
-      v21 = v5;
-      v22 = v5;
-      if (v5)
+      v25 = v9;
+      v26 = v9;
+      if (v9)
       {
-        v11 = v22;
-        (*(v38 + 8))(v45, v37);
-        v13 = v11;
-        v14 = 1;
+        v15 = v26;
+        (*(v42 + 8))(v49, v41);
+        v17 = v15;
+        v18 = 1;
       }
 
       else
       {
-        (*(v28 + 32))(v44 + *(v42 + 20), v31, v27);
-        v17 = &v52;
-        v52 = 2;
+        (*(v32 + 32))(v48 + *(v46 + 20), v35, v31);
+        v21 = &v56;
+        v56 = 2;
         lazy protocol witness table accessor for type SiriPaymentsSnippetModel.PaymentConfirmationModel and conformance SiriPaymentsSnippetModel.PaymentConfirmationModel();
-        v6 = v21;
+        v10 = v25;
         KeyedDecodingContainer.decode<A>(_:forKey:)();
-        v18 = v6;
-        v19 = v6;
-        if (!v6)
+        v22 = v10;
+        v23 = v10;
+        if (!v10)
         {
-          v15 = __dst;
-          v16 = 112;
+          v19 = __dst;
+          v20 = 112;
           memcpy(__dst, __src, sizeof(__dst));
-          memcpy((v44 + *(v42 + 24)), __dst, 0x70uLL);
-          (*(v38 + 8))(v45, v37);
-          outlined init with copy of SiriPaymentsSnippetModel.RequestPaymentConfirmationModel(v44, v26);
-          __swift_destroy_boxed_opaque_existential_0(v41);
-          return outlined destroy of SiriPaymentsSnippetModel.RequestPaymentConfirmationModel(v44);
+          memcpy((v48 + *(v46 + 24)), __dst, 0x70uLL);
+          (*(v42 + 8))(v49, v41);
+          outlined init with copy of SiriPaymentsSnippetModel.RequestPaymentConfirmationModel(v48, v30);
+          __swift_destroy_boxed_opaque_existential_0(v45);
+          return outlined destroy of SiriPaymentsSnippetModel.RequestPaymentConfirmationModel(v48);
         }
 
-        v10 = v19;
-        (*(v38 + 8))(v45, v37);
-        v13 = v10;
-        v14 = 3;
+        v14 = v23;
+        (*(v42 + 8))(v49, v41);
+        v17 = v14;
+        v18 = 3;
       }
     }
   }
 
-  v9 = v14;
-  v8 = v13;
-  result = __swift_destroy_boxed_opaque_existential_0(v41);
-  if (v9)
+  v13 = v18;
+  v12 = v17;
+  result = __swift_destroy_boxed_opaque_existential_0(v45);
+  if (v13)
   {
-    result = (*(v33 + 8))(v44, v32);
+    result = (*(v37 + 8))(v48, v36);
   }
 
-  if ((v9 & 2) != 0)
+  if ((v13 & 2) != 0)
   {
-    return (*(v28 + 8))(v44 + *(v42 + 20), v27);
+    return (*(v32 + 8))(v48 + *(v46 + 20), v31);
   }
 
   return result;
@@ -5984,7 +142,7 @@ uint64_t SiriPaymentsSnippetModel.SendPaymentConfirmationModel.intent.setter(uin
   v6 = *(v8 - 8);
   v7 = v8 - 8;
   v3 = (*(v6 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20](v8);
+  MEMORY[0x28223BE20](v8, v9);
   v4 = &v2 - v3;
   (*(v6 + 16))();
   (*(v6 + 40))(v5, v4, v8);
@@ -5993,20 +151,20 @@ uint64_t SiriPaymentsSnippetModel.SendPaymentConfirmationModel.intent.setter(uin
 
 uint64_t SiriPaymentsSnippetModel.SendPaymentConfirmationModel.response.getter@<X0>(uint64_t a1@<X8>)
 {
-  v4 = *(type metadata accessor for SiriPaymentsSnippetModel.SendPaymentConfirmationModel() + 20);
+  v4 = *(type metadata accessor for SiriPaymentsSnippetModel.SendPaymentConfirmationModel(0) + 20);
   v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit21CodableIntentResponseVySo013INSendPaymentdE0CGMd, &_s10SnippetKit21CodableIntentResponseVySo013INSendPaymentdE0CGMR);
   return (*(*(v2 - 8) + 16))(a1, v1 + v4);
 }
 
-uint64_t type metadata accessor for SiriPaymentsSnippetModel.SendPaymentConfirmationModel()
+uint64_t type metadata accessor for SiriPaymentsSnippetModel.SendPaymentConfirmationModel(uint64_t a1)
 {
-  v1 = type metadata singleton initialization cache for SiriPaymentsSnippetModel.SendPaymentConfirmationModel;
+  v2 = type metadata singleton initialization cache for SiriPaymentsSnippetModel.SendPaymentConfirmationModel;
   if (!type metadata singleton initialization cache for SiriPaymentsSnippetModel.SendPaymentConfirmationModel)
   {
     return swift_getSingletonMetadata();
   }
 
-  return v1;
+  return v2;
 }
 
 uint64_t SiriPaymentsSnippetModel.SendPaymentConfirmationModel.response.setter(uint64_t a1)
@@ -6016,10 +174,10 @@ uint64_t SiriPaymentsSnippetModel.SendPaymentConfirmationModel.response.setter(u
   v6 = *(v8 - 8);
   v7 = v8 - 8;
   v4 = (*(v6 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20](v8);
+  MEMORY[0x28223BE20](v8, v9);
   v5 = &v4 - v4;
   (*(v6 + 16))();
-  v2 = type metadata accessor for SiriPaymentsSnippetModel.SendPaymentConfirmationModel();
+  v2 = type metadata accessor for SiriPaymentsSnippetModel.SendPaymentConfirmationModel(0);
   (*(v6 + 40))(v1 + *(v2 + 20), v5, v8);
   return (*(v6 + 8))(v9, v8);
 }
@@ -6027,7 +185,7 @@ uint64_t SiriPaymentsSnippetModel.SendPaymentConfirmationModel.response.setter(u
 void *SiriPaymentsSnippetModel.SendPaymentConfirmationModel.confirmation.setter(void *a1)
 {
   outlined init with copy of SiriPaymentsSnippetModel.PaymentConfirmationModel(a1, v5);
-  v2 = type metadata accessor for SiriPaymentsSnippetModel.SendPaymentConfirmationModel();
+  v2 = type metadata accessor for SiriPaymentsSnippetModel.SendPaymentConfirmationModel(0);
   outlined assign with take of SiriPaymentsSnippetModel.PaymentConfirmationModel(a1, (v1 + *(v2 + 24)));
   return outlined destroy of SiriPaymentsSnippetModel.PaymentConfirmationModel(a1);
 }
@@ -6095,218 +253,218 @@ unint64_t lazy protocol witness table accessor for type SiriPaymentsSnippetModel
 
 uint64_t SiriPaymentsSnippetModel.SendPaymentConfirmationModel.encode(to:)(uint64_t a1)
 {
-  v28 = v52;
-  v29 = a1;
-  v52[1] = 0;
-  v52[0] = 0;
-  v22 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit21CodableIntentResponseVySo013INSendPaymentdE0CGMd, &_s10SnippetKit21CodableIntentResponseVySo013INSendPaymentdE0CGMR);
-  v23 = *(v22 - 8);
-  v24 = v22 - 8;
-  v25 = (*(v23 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20](v22);
-  v26 = v9 - v25;
-  v41 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit13CodableIntentVySo013INSendPaymentD0CGMd, &_s10SnippetKit13CodableIntentVySo013INSendPaymentD0CGMR);
-  v36 = *(v41 - 8);
-  v37 = v41 - 8;
-  v27 = (*(v36 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20](v41);
-  v43 = v9 - v27;
-  v40 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy19SiriPaymentsIntents0dE12SnippetModelO023SendPaymentConfirmationH0V10CodingKeys33_2A5FE8696FF126B7EA6A6F4EA8B5BF5FLLOGMd, &_ss22KeyedEncodingContainerVy19SiriPaymentsIntents0dE12SnippetModelO023SendPaymentConfirmationH0V10CodingKeys33_2A5FE8696FF126B7EA6A6F4EA8B5BF5FLLOGMR);
-  v30 = *(v40 - 8);
-  v31 = v40 - 8;
-  v32 = (*(v30 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  v2 = MEMORY[0x28223BE20](v29);
-  v35 = v9 - v32;
-  v3[1] = v2;
-  *v3 = v1;
-  v33 = v2[3];
-  v34 = v2[4];
-  __swift_project_boxed_opaque_existential_1(v2, v33);
+  v31 = v55;
+  v32 = a1;
+  v55[1] = 0;
+  v55[0] = 0;
+  v25 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit21CodableIntentResponseVySo013INSendPaymentdE0CGMd, &_s10SnippetKit21CodableIntentResponseVySo013INSendPaymentdE0CGMR);
+  v26 = *(v25 - 8);
+  v27 = v25 - 8;
+  v28 = (*(v26 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  MEMORY[0x28223BE20](v25, v2);
+  v29 = v12 - v28;
+  v44 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit13CodableIntentVySo013INSendPaymentD0CGMd, &_s10SnippetKit13CodableIntentVySo013INSendPaymentD0CGMR);
+  v39 = *(v44 - 8);
+  v40 = v44 - 8;
+  v30 = (*(v39 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  MEMORY[0x28223BE20](v44, v3);
+  v46 = v12 - v30;
+  v43 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy19SiriPaymentsIntents0dE12SnippetModelO023SendPaymentConfirmationH0V10CodingKeys33_2A5FE8696FF126B7EA6A6F4EA8B5BF5FLLOGMd, &_ss22KeyedEncodingContainerVy19SiriPaymentsIntents0dE12SnippetModelO023SendPaymentConfirmationH0V10CodingKeys33_2A5FE8696FF126B7EA6A6F4EA8B5BF5FLLOGMR);
+  v33 = *(v43 - 8);
+  v34 = v43 - 8;
+  v35 = (*(v33 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  v5 = MEMORY[0x28223BE20](v32, v4);
+  v38 = v12 - v35;
+  v6[1] = v5;
+  *v6 = v1;
+  v36 = v5[3];
+  v37 = v5[4];
+  __swift_project_boxed_opaque_existential_1(v5, v36);
   lazy protocol witness table accessor for type SiriPaymentsSnippetModel.SendPaymentConfirmationModel.CodingKeys and conformance SiriPaymentsSnippetModel.SendPaymentConfirmationModel.CodingKeys();
   dispatch thunk of Encoder.container<A>(keyedBy:)();
-  (*(v36 + 16))(v43, v38, v41);
-  v39 = &v51;
-  v51 = 0;
+  (*(v39 + 16))(v46, v41, v44);
+  v42 = &v54;
+  v54 = 0;
   lazy protocol witness table accessor for type CodableIntent<INSendPaymentIntent> and conformance CodableIntent<A>();
-  v4 = v42;
+  v7 = v45;
   KeyedEncodingContainer.encode<A>(_:forKey:)();
-  v44 = v4;
-  v45 = v4;
-  if (v4)
+  v47 = v7;
+  v48 = v7;
+  if (v7)
   {
-    v10 = v45;
-    (*(v36 + 8))(v43, v41);
-    result = (*(v30 + 8))(v35, v40);
-    v11 = v10;
+    v13 = v48;
+    (*(v39 + 8))(v46, v44);
+    result = (*(v33 + 8))(v38, v43);
+    v14 = v13;
   }
 
   else
   {
-    (*(v36 + 8))(v43, v41);
-    v18 = type metadata accessor for SiriPaymentsSnippetModel.SendPaymentConfirmationModel();
-    (*(v23 + 16))(v26, v38 + *(v18 + 20), v22);
-    v19 = &v50;
-    v50 = 1;
+    (*(v39 + 8))(v46, v44);
+    v21 = type metadata accessor for SiriPaymentsSnippetModel.SendPaymentConfirmationModel(0);
+    (*(v26 + 16))(v29, v41 + *(v21 + 20), v25);
+    v22 = &v53;
+    v53 = 1;
     lazy protocol witness table accessor for type CodableIntentResponse<INSendPaymentIntentResponse> and conformance CodableIntentResponse<A>();
-    v5 = v44;
+    v8 = v47;
     KeyedEncodingContainer.encode<A>(_:forKey:)();
-    v20 = v5;
-    v21 = v5;
-    if (v5)
+    v23 = v8;
+    v24 = v8;
+    if (v8)
     {
-      v9[1] = v21;
-      (*(v23 + 8))(v26, v22);
-      return (*(v30 + 8))(v35, v40);
+      v12[1] = v24;
+      (*(v26 + 8))(v29, v25);
+      return (*(v33 + 8))(v38, v43);
     }
 
     else
     {
-      (*(v23 + 8))(v26, v22);
-      v6 = (v38 + *(v18 + 24));
-      v12 = __dst;
-      v13 = 112;
-      memcpy(__dst, v6, sizeof(__dst));
-      outlined init with copy of SiriPaymentsSnippetModel.PaymentConfirmationModel(__dst, v48);
-      v15 = v47;
-      memcpy(v47, v12, v13);
-      v14 = &v46;
-      v46 = 2;
+      (*(v26 + 8))(v29, v25);
+      v9 = (v41 + *(v21 + 24));
+      v15 = __dst;
+      v16 = 112;
+      memcpy(__dst, v9, sizeof(__dst));
+      outlined init with copy of SiriPaymentsSnippetModel.PaymentConfirmationModel(__dst, v51);
+      v18 = v50;
+      memcpy(v50, v15, v16);
+      v17 = &v49;
+      v49 = 2;
       lazy protocol witness table accessor for type SiriPaymentsSnippetModel.PaymentConfirmationModel and conformance SiriPaymentsSnippetModel.PaymentConfirmationModel();
-      v7 = v20;
+      v10 = v23;
       KeyedEncodingContainer.encode<A>(_:forKey:)();
-      v16 = v7;
-      v17 = v7;
-      if (v7)
+      v19 = v10;
+      v20 = v10;
+      if (v10)
       {
-        v9[0] = v17;
+        v12[0] = v20;
       }
 
-      outlined destroy of SiriPaymentsSnippetModel.PaymentConfirmationModel(v47);
-      return (*(v30 + 8))(v35, v40);
+      outlined destroy of SiriPaymentsSnippetModel.PaymentConfirmationModel(v50);
+      return (*(v33 + 8))(v38, v43);
     }
   }
 
   return result;
 }
 
-uint64_t SiriPaymentsSnippetModel.SendPaymentConfirmationModel.init(from:)@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X8>)
+uint64_t SiriPaymentsSnippetModel.SendPaymentConfirmationModel.init(from:)@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
 {
-  v26 = a2;
-  v41 = a1;
-  v56 = 0;
-  v27 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit21CodableIntentResponseVySo013INSendPaymentdE0CGMd, &_s10SnippetKit21CodableIntentResponseVySo013INSendPaymentdE0CGMR);
-  v28 = *(v27 - 8);
-  v29 = v27 - 8;
-  v30 = (*(v28 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20](v27);
-  v31 = &v8 - v30;
-  v32 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit13CodableIntentVySo013INSendPaymentD0CGMd, &_s10SnippetKit13CodableIntentVySo013INSendPaymentD0CGMR);
-  v33 = *(v32 - 8);
-  v34 = v32 - 8;
-  v35 = (*(v33 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20](v32);
-  v36 = &v8 - v35;
-  v37 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy19SiriPaymentsIntents0dE12SnippetModelO023SendPaymentConfirmationH0V10CodingKeys33_2A5FE8696FF126B7EA6A6F4EA8B5BF5FLLOGMd, &_ss22KeyedDecodingContainerVy19SiriPaymentsIntents0dE12SnippetModelO023SendPaymentConfirmationH0V10CodingKeys33_2A5FE8696FF126B7EA6A6F4EA8B5BF5FLLOGMR);
-  v38 = *(v37 - 8);
-  v39 = v37 - 8;
-  v40 = (*(v38 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20](v37);
-  v45 = &v8 - v40;
-  v42 = type metadata accessor for SiriPaymentsSnippetModel.SendPaymentConfirmationModel();
-  v43 = (*(*(v42 - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  v2 = MEMORY[0x28223BE20](v41);
-  v44 = &v8 - v43;
-  v56 = v2;
-  v47 = v2[3];
-  v48 = v2[4];
-  __swift_project_boxed_opaque_existential_1(v2, v47);
+  v30 = a2;
+  v45 = a1;
+  v60 = 0;
+  v31 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit21CodableIntentResponseVySo013INSendPaymentdE0CGMd, &_s10SnippetKit21CodableIntentResponseVySo013INSendPaymentdE0CGMR);
+  v32 = *(v31 - 8);
+  v33 = v31 - 8;
+  v34 = (*(v32 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  MEMORY[0x28223BE20](v31, v2);
+  v35 = &v12 - v34;
+  v36 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit13CodableIntentVySo013INSendPaymentD0CGMd, &_s10SnippetKit13CodableIntentVySo013INSendPaymentD0CGMR);
+  v37 = *(v36 - 8);
+  v38 = v36 - 8;
+  v39 = (*(v37 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  MEMORY[0x28223BE20](v36, v3);
+  v40 = &v12 - v39;
+  v41 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy19SiriPaymentsIntents0dE12SnippetModelO023SendPaymentConfirmationH0V10CodingKeys33_2A5FE8696FF126B7EA6A6F4EA8B5BF5FLLOGMd, &_ss22KeyedDecodingContainerVy19SiriPaymentsIntents0dE12SnippetModelO023SendPaymentConfirmationH0V10CodingKeys33_2A5FE8696FF126B7EA6A6F4EA8B5BF5FLLOGMR);
+  v42 = *(v41 - 8);
+  v43 = v41 - 8;
+  v44 = (*(v42 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  MEMORY[0x28223BE20](v41, v4);
+  v49 = &v12 - v44;
+  v46 = type metadata accessor for SiriPaymentsSnippetModel.SendPaymentConfirmationModel(0);
+  v47 = (*(*(v46 - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  v6 = MEMORY[0x28223BE20](v45, v5);
+  v48 = &v12 - v47;
+  v60 = v6;
+  v51 = v6[3];
+  v52 = v6[4];
+  __swift_project_boxed_opaque_existential_1(v6, v51);
   lazy protocol witness table accessor for type SiriPaymentsSnippetModel.SendPaymentConfirmationModel.CodingKeys and conformance SiriPaymentsSnippetModel.SendPaymentConfirmationModel.CodingKeys();
-  v3 = v46;
+  v7 = v50;
   dispatch thunk of Decoder.container<A>(keyedBy:)();
-  v49 = v3;
-  v50 = v3;
-  if (v3)
+  v53 = v7;
+  v54 = v7;
+  if (v7)
   {
-    v13 = v50;
-    v14 = 0;
+    v17 = v54;
+    v18 = 0;
   }
 
   else
   {
-    v23 = &v55;
-    v55 = 0;
+    v27 = &v59;
+    v59 = 0;
     lazy protocol witness table accessor for type CodableIntent<INSendPaymentIntent> and conformance CodableIntent<A>();
-    v4 = v49;
+    v8 = v53;
     KeyedDecodingContainer.decode<A>(_:forKey:)();
-    v24 = v4;
-    v25 = v4;
-    if (v4)
+    v28 = v8;
+    v29 = v8;
+    if (v8)
     {
-      v12 = v25;
-      (*(v38 + 8))(v45, v37);
-      v13 = v12;
-      v14 = 0;
+      v16 = v29;
+      (*(v42 + 8))(v49, v41);
+      v17 = v16;
+      v18 = 0;
     }
 
     else
     {
-      (*(v33 + 32))(v44, v36, v32);
-      v20 = &v54;
-      v54 = 1;
+      (*(v37 + 32))(v48, v40, v36);
+      v24 = &v58;
+      v58 = 1;
       lazy protocol witness table accessor for type CodableIntentResponse<INSendPaymentIntentResponse> and conformance CodableIntentResponse<A>();
-      v5 = v24;
+      v9 = v28;
       KeyedDecodingContainer.decode<A>(_:forKey:)();
-      v21 = v5;
-      v22 = v5;
-      if (v5)
+      v25 = v9;
+      v26 = v9;
+      if (v9)
       {
-        v11 = v22;
-        (*(v38 + 8))(v45, v37);
-        v13 = v11;
-        v14 = 1;
+        v15 = v26;
+        (*(v42 + 8))(v49, v41);
+        v17 = v15;
+        v18 = 1;
       }
 
       else
       {
-        (*(v28 + 32))(v44 + *(v42 + 20), v31, v27);
-        v17 = &v52;
-        v52 = 2;
+        (*(v32 + 32))(v48 + *(v46 + 20), v35, v31);
+        v21 = &v56;
+        v56 = 2;
         lazy protocol witness table accessor for type SiriPaymentsSnippetModel.PaymentConfirmationModel and conformance SiriPaymentsSnippetModel.PaymentConfirmationModel();
-        v6 = v21;
+        v10 = v25;
         KeyedDecodingContainer.decode<A>(_:forKey:)();
-        v18 = v6;
-        v19 = v6;
-        if (!v6)
+        v22 = v10;
+        v23 = v10;
+        if (!v10)
         {
-          v15 = __dst;
-          v16 = 112;
+          v19 = __dst;
+          v20 = 112;
           memcpy(__dst, __src, sizeof(__dst));
-          memcpy((v44 + *(v42 + 24)), __dst, 0x70uLL);
-          (*(v38 + 8))(v45, v37);
-          outlined init with copy of SiriPaymentsSnippetModel.SendPaymentConfirmationModel(v44, v26);
-          __swift_destroy_boxed_opaque_existential_0(v41);
-          return outlined destroy of SiriPaymentsSnippetModel.SendPaymentConfirmationModel(v44);
+          memcpy((v48 + *(v46 + 24)), __dst, 0x70uLL);
+          (*(v42 + 8))(v49, v41);
+          outlined init with copy of SiriPaymentsSnippetModel.SendPaymentConfirmationModel(v48, v30);
+          __swift_destroy_boxed_opaque_existential_0(v45);
+          return outlined destroy of SiriPaymentsSnippetModel.SendPaymentConfirmationModel(v48);
         }
 
-        v10 = v19;
-        (*(v38 + 8))(v45, v37);
-        v13 = v10;
-        v14 = 3;
+        v14 = v23;
+        (*(v42 + 8))(v49, v41);
+        v17 = v14;
+        v18 = 3;
       }
     }
   }
 
-  v9 = v14;
-  v8 = v13;
-  result = __swift_destroy_boxed_opaque_existential_0(v41);
-  if (v9)
+  v13 = v18;
+  v12 = v17;
+  result = __swift_destroy_boxed_opaque_existential_0(v45);
+  if (v13)
   {
-    result = (*(v33 + 8))(v44, v32);
+    result = (*(v37 + 8))(v48, v36);
   }
 
-  if ((v9 & 2) != 0)
+  if ((v13 & 2) != 0)
   {
-    return (*(v28 + 8))(v44 + *(v42 + 20), v27);
+    return (*(v32 + 8))(v48 + *(v46 + 20), v31);
   }
 
   return result;
@@ -6315,7 +473,6 @@ uint64_t SiriPaymentsSnippetModel.SendPaymentConfirmationModel.init(from:)@<X0>(
 uint64_t SiriPaymentsSnippetModel.PaymentConfirmationModel.confirmLabel.getter()
 {
   v2 = *v0;
-  v3 = v0[1];
 
   return v2;
 }
@@ -6323,7 +480,6 @@ uint64_t SiriPaymentsSnippetModel.PaymentConfirmationModel.confirmLabel.getter()
 uint64_t SiriPaymentsSnippetModel.PaymentConfirmationModel.cancelLabel.getter()
 {
   v2 = *(v0 + 16);
-  v3 = *(v0 + 24);
 
   return v2;
 }
@@ -6331,7 +487,6 @@ uint64_t SiriPaymentsSnippetModel.PaymentConfirmationModel.cancelLabel.getter()
 uint64_t SiriPaymentsSnippetModel.PaymentConfirmationModel.noteLabel.getter()
 {
   v2 = *(v0 + 32);
-  v3 = *(v0 + 40);
 
   return v2;
 }
@@ -6339,7 +494,6 @@ uint64_t SiriPaymentsSnippetModel.PaymentConfirmationModel.noteLabel.getter()
 uint64_t SiriPaymentsSnippetModel.PaymentConfirmationModel.feeLabel.getter()
 {
   v2 = *(v0 + 48);
-  v3 = *(v0 + 56);
 
   return v2;
 }
@@ -6361,7 +515,6 @@ uint64_t SiriPaymentsSnippetModel.PaymentConfirmationModel.cancelDI.getter()
 uint64_t SiriPaymentsSnippetModel.PaymentConfirmationModel.appId.getter()
 {
   v2 = *(v0 + 96);
-  v3 = *(v0 + 104);
 
   return v2;
 }
@@ -6614,154 +767,154 @@ uint64_t SiriPaymentsSnippetModel.PaymentConfirmationModel.CodingKeys.stringValu
 
 uint64_t SiriPaymentsSnippetModel.PaymentConfirmationModel.encode(to:)(uint64_t a1)
 {
-  v42 = &v71;
-  v43 = a1;
+  v43 = &v72;
+  v44 = a1;
+  v70 = 0;
   v69 = 0;
-  v68 = 0;
-  v54 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy19SiriPaymentsIntents0dE12SnippetModelO019PaymentConfirmationH0V10CodingKeys33_2A5FE8696FF126B7EA6A6F4EA8B5BF5FLLOGMd, &_ss22KeyedEncodingContainerVy19SiriPaymentsIntents0dE12SnippetModelO019PaymentConfirmationH0V10CodingKeys33_2A5FE8696FF126B7EA6A6F4EA8B5BF5FLLOGMR);
-  v44 = *(v54 - 8);
-  v45 = v54 - 8;
-  v46 = (*(v44 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  v49 = v12 - v46;
-  v69 = MEMORY[0x28223BE20](v43);
-  v68 = v1;
-  v47 = v69[3];
-  v48 = v69[4];
-  __swift_project_boxed_opaque_existential_1(v69, v47);
+  v55 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy19SiriPaymentsIntents0dE12SnippetModelO019PaymentConfirmationH0V10CodingKeys33_2A5FE8696FF126B7EA6A6F4EA8B5BF5FLLOGMd, &_ss22KeyedEncodingContainerVy19SiriPaymentsIntents0dE12SnippetModelO019PaymentConfirmationH0V10CodingKeys33_2A5FE8696FF126B7EA6A6F4EA8B5BF5FLLOGMR);
+  v45 = *(v55 - 8);
+  v46 = v55 - 8;
+  v47 = (*(v45 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  v50 = v13 - v47;
+  v70 = MEMORY[0x28223BE20](v44, v2);
+  v69 = v1;
+  v48 = v70[3];
+  v49 = v70[4];
+  __swift_project_boxed_opaque_existential_1(v70, v48);
   lazy protocol witness table accessor for type SiriPaymentsSnippetModel.PaymentConfirmationModel.CodingKeys and conformance SiriPaymentsSnippetModel.PaymentConfirmationModel.CodingKeys();
   dispatch thunk of Encoder.container<A>(keyedBy:)();
-  v2 = v51;
-  v52 = *v50;
-  v53 = v50[1];
+  v3 = v52;
+  v53 = *v51;
+  v54 = v51[1];
 
-  v67 = 0;
+  v68 = 0;
   KeyedEncodingContainer.encode(_:forKey:)();
-  v55 = v2;
-  v56 = v2;
-  if (v2)
+  v56 = v3;
+  v57 = v3;
+  if (v3)
   {
-    v17 = v56;
+    v18 = v57;
 
-    result = (*(v44 + 8))(v49, v54);
-    v18 = v17;
+    result = (*(v45 + 8))(v50, v55);
+    v19 = v18;
   }
 
   else
   {
 
-    v3 = v55;
-    v38 = v50[2];
-    v39 = v50[3];
+    v4 = v56;
+    v39 = v51[2];
+    v40 = v51[3];
 
-    v66 = 1;
+    v67 = 1;
     KeyedEncodingContainer.encode(_:forKey:)();
-    v40 = v3;
-    v41 = v3;
-    if (v3)
+    v41 = v4;
+    v42 = v4;
+    if (v4)
     {
-      v16 = v41;
+      v17 = v42;
 
-      result = (*(v44 + 8))(v49, v54);
-      v18 = v16;
+      result = (*(v45 + 8))(v50, v55);
+      v19 = v17;
     }
 
     else
     {
 
-      v4 = v40;
-      v34 = v50[4];
-      v35 = v50[5];
+      v5 = v41;
+      v35 = v51[4];
+      v36 = v51[5];
 
-      v65 = 2;
+      v66 = 2;
       KeyedEncodingContainer.encode(_:forKey:)();
-      v36 = v4;
-      v37 = v4;
-      if (v4)
+      v37 = v5;
+      v38 = v5;
+      if (v5)
       {
-        v15 = v37;
+        v16 = v38;
 
-        result = (*(v44 + 8))(v49, v54);
-        v18 = v15;
+        result = (*(v45 + 8))(v50, v55);
+        v19 = v16;
       }
 
       else
       {
 
-        v5 = v36;
-        v30 = v50[6];
-        v31 = v50[7];
+        v6 = v37;
+        v31 = v51[6];
+        v32 = v51[7];
 
-        v64 = 3;
+        v65 = 3;
         KeyedEncodingContainer.encode(_:forKey:)();
-        v32 = v5;
-        v33 = v5;
-        if (v5)
+        v33 = v6;
+        v34 = v6;
+        if (v6)
         {
-          v14 = v33;
+          v15 = v34;
 
-          result = (*(v44 + 8))(v49, v54);
-          v18 = v14;
+          result = (*(v45 + 8))(v50, v55);
+          v19 = v15;
         }
 
         else
         {
 
-          *v42 = *(v50 + 4);
-          outlined init with copy of Data(&v71, &v63);
-          v6 = *v42;
+          *v43 = *(v51 + 4);
+          outlined init with copy of Data(&v72, &v64);
+          v7 = *v43;
+          v27 = &v63;
+          v63 = v7;
           v26 = &v62;
-          v62 = v6;
-          v25 = &v61;
-          v61 = 4;
-          v7 = lazy protocol witness table accessor for type Data and conformance Data();
-          v8 = v32;
-          v27 = v7;
-          KeyedEncodingContainer.encode<A>(_:forKey:)();
+          v62 = 4;
+          v8 = lazy protocol witness table accessor for type Data and conformance Data();
+          v9 = v33;
           v28 = v8;
-          v29 = v8;
-          if (v8)
+          KeyedEncodingContainer.encode<A>(_:forKey:)();
+          v29 = v9;
+          v30 = v9;
+          if (v9)
           {
-            v13 = v29;
-            outlined destroy of Data(&v62);
-            result = (*(v44 + 8))(v49, v54);
-            v18 = v13;
+            v14 = v30;
+            outlined destroy of Data(&v63);
+            result = (*(v45 + 8))(v50, v55);
+            v19 = v14;
           }
 
           else
           {
-            outlined destroy of Data(&v62);
-            v70 = *(v50 + 5);
-            outlined init with copy of Data(&v70, &v60);
-            v9 = v28;
-            v59 = v70;
-            v58 = 5;
+            outlined destroy of Data(&v63);
+            v71 = *(v51 + 5);
+            outlined init with copy of Data(&v71, &v61);
+            v10 = v29;
+            v60 = v71;
+            v59 = 5;
             KeyedEncodingContainer.encode<A>(_:forKey:)();
-            v23 = v9;
-            v24 = v9;
-            if (v9)
+            v24 = v10;
+            v25 = v10;
+            if (v10)
             {
-              v12[2] = v24;
-              outlined destroy of Data(&v59);
-              return (*(v44 + 8))(v49, v54);
+              v13[2] = v25;
+              outlined destroy of Data(&v60);
+              return (*(v45 + 8))(v50, v55);
             }
 
             else
             {
-              outlined destroy of Data(&v59);
-              v10 = v23;
-              v19 = v50[12];
-              v20 = v50[13];
+              outlined destroy of Data(&v60);
+              v11 = v24;
+              v20 = v51[12];
+              v21 = v51[13];
 
-              v57 = 6;
+              v58 = 6;
               KeyedEncodingContainer.encode(_:forKey:)();
-              v21 = v10;
-              v22 = v10;
-              if (v10)
+              v22 = v11;
+              v23 = v11;
+              if (v11)
               {
-                v12[1] = v22;
+                v13[1] = v23;
               }
 
-              return (*(v44 + 8))(v49, v54);
+              return (*(v45 + 8))(v50, v55);
             }
           }
         }
@@ -6772,7 +925,7 @@ uint64_t SiriPaymentsSnippetModel.PaymentConfirmationModel.encode(to:)(uint64_t 
   return result;
 }
 
-void *SiriPaymentsSnippetModel.PaymentConfirmationModel.init(from:)@<X0>(uint64_t *a1@<X0>, void *a2@<X8>)
+void SiriPaymentsSnippetModel.PaymentConfirmationModel.init(from:)(void *a1@<X0>, void *a2@<X8>)
 {
   v50 = a2;
   v51 = a1;
@@ -6782,16 +935,16 @@ void *SiriPaymentsSnippetModel.PaymentConfirmationModel.init(from:)@<X0>(uint64_
   v54 = v52 - 8;
   v55 = (*(v53 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
   v56 = &v16 - v55;
-  v75 = MEMORY[0x28223BE20](v51);
+  v75 = MEMORY[0x28223BE20](v51, v2);
   v58 = v75[3];
   v59 = v75[4];
   __swift_project_boxed_opaque_existential_1(v75, v58);
   lazy protocol witness table accessor for type SiriPaymentsSnippetModel.PaymentConfirmationModel.CodingKeys and conformance SiriPaymentsSnippetModel.PaymentConfirmationModel.CodingKeys();
-  v2 = v57;
+  v3 = v57;
   dispatch thunk of Decoder.container<A>(keyedBy:)();
-  v60 = v2;
-  v61 = v2;
-  if (v2)
+  v60 = v3;
+  v61 = v3;
+  if (v3)
   {
     v19 = v61;
     v20 = 0;
@@ -6800,46 +953,46 @@ void *SiriPaymentsSnippetModel.PaymentConfirmationModel.init(from:)@<X0>(uint64_
   else
   {
     v74 = 0;
-    v3 = KeyedDecodingContainer.decode(_:forKey:)();
+    v4 = KeyedDecodingContainer.decode(_:forKey:)();
     v46 = 0;
-    v47 = v3;
-    v48 = v4;
+    v47 = v4;
+    v48 = v5;
     v49 = 0;
-    v76[0] = v3;
-    v76[1] = v4;
+    v76[0] = v4;
+    v76[1] = v5;
     v73 = 1;
-    v5 = KeyedDecodingContainer.decode(_:forKey:)();
+    v6 = KeyedDecodingContainer.decode(_:forKey:)();
     v42 = 0;
-    v43 = v5;
-    v44 = v6;
+    v43 = v6;
+    v44 = v7;
     v45 = 0;
-    v77[0] = v5;
-    v77[1] = v6;
+    v77[0] = v6;
+    v77[1] = v7;
     v72 = 2;
-    v7 = KeyedDecodingContainer.decode(_:forKey:)();
+    v8 = KeyedDecodingContainer.decode(_:forKey:)();
     v38 = 0;
-    v39 = v7;
-    v40 = v8;
+    v39 = v8;
+    v40 = v9;
     v41 = 0;
-    v78[0] = v7;
-    v78[1] = v8;
+    v78[0] = v8;
+    v78[1] = v9;
     v71 = 3;
-    v9 = KeyedDecodingContainer.decode(_:forKey:)();
+    v10 = KeyedDecodingContainer.decode(_:forKey:)();
     v34 = 0;
-    v35 = v9;
-    v36 = v10;
+    v35 = v10;
+    v36 = v11;
     v37 = 0;
-    v79[0] = v9;
-    v79[1] = v10;
+    v79[0] = v10;
+    v79[1] = v11;
     v30 = &v68;
     v68 = 4;
-    v11 = lazy protocol witness table accessor for type Data and conformance Data();
-    v12 = v34;
-    v31 = v11;
+    v12 = lazy protocol witness table accessor for type Data and conformance Data();
+    v13 = v34;
+    v31 = v12;
     KeyedDecodingContainer.decode<A>(_:forKey:)();
-    v32 = v12;
-    v33 = v12;
-    if (!v12)
+    v32 = v13;
+    v33 = v13;
+    if (!v13)
     {
       v80[0] = v69;
       v80[1] = v70;
@@ -6850,14 +1003,14 @@ void *SiriPaymentsSnippetModel.PaymentConfirmationModel.init(from:)@<X0>(uint64_
       v81[0] = v66;
       v81[1] = v67;
       v64 = 6;
-      v13 = KeyedDecodingContainer.decode(_:forKey:)();
+      v14 = KeyedDecodingContainer.decode(_:forKey:)();
       v24 = 0;
-      v25 = v13;
-      v26 = v14;
+      v25 = v14;
+      v26 = v15;
       v27 = 0;
       v21 = v76;
-      v81[2] = v13;
-      v81[3] = v14;
+      v81[2] = v14;
+      v81[3] = v15;
       (*(v53 + 8))(v56, v52);
       v22 = v63;
       v23 = 112;
@@ -6865,7 +1018,8 @@ void *SiriPaymentsSnippetModel.PaymentConfirmationModel.init(from:)@<X0>(uint64_
       outlined init with copy of SiriPaymentsSnippetModel.PaymentConfirmationModel(v63, v62);
       __swift_destroy_boxed_opaque_existential_0(v51);
       outlined destroy of SiriPaymentsSnippetModel.PaymentConfirmationModel(v21);
-      return memcpy(v50, v22, v23);
+      memcpy(v50, v22, v23);
+      return;
     }
 
     v18 = v33;
@@ -6876,40 +1030,36 @@ void *SiriPaymentsSnippetModel.PaymentConfirmationModel.init(from:)@<X0>(uint64_
 
   v17 = v20;
   v16 = v19;
-  result = __swift_destroy_boxed_opaque_existential_0(v51);
+  __swift_destroy_boxed_opaque_existential_0(v51);
   if (v17)
   {
-    result = outlined destroy of String.UTF8View(v76);
+    outlined destroy of String.UTF8View(v76);
   }
 
   if ((v17 & 2) != 0)
   {
-    result = outlined destroy of String.UTF8View(v77);
+    outlined destroy of String.UTF8View(v77);
   }
 
   if ((v17 & 4) != 0)
   {
-    result = outlined destroy of String.UTF8View(v78);
+    outlined destroy of String.UTF8View(v78);
   }
 
   if ((v17 & 8) != 0)
   {
-    result = outlined destroy of String.UTF8View(v79);
+    outlined destroy of String.UTF8View(v79);
   }
 
   if ((v17 & 0x10) != 0)
   {
-    result = v80;
     outlined destroy of Data(v80);
   }
 
   if ((v17 & 0x20) != 0)
   {
-    result = v81;
     outlined destroy of Data(v81);
   }
-
-  return result;
 }
 
 uint64_t protocol witness for CodingKey.init(stringValue:) in conformance SiriPaymentsSnippetModel.PaymentConfirmationModel.CodingKeys@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
@@ -6926,15 +1076,13 @@ uint64_t protocol witness for CodingKey.init(intValue:) in conformance SiriPayme
   return result;
 }
 
-void *protocol witness for Decodable.init(from:) in conformance SiriPaymentsSnippetModel.PaymentConfirmationModel@<X0>(uint64_t *a1@<X0>, void *a2@<X8>)
+void protocol witness for Decodable.init(from:) in conformance SiriPaymentsSnippetModel.PaymentConfirmationModel(void *a1@<X0>, void *a2@<X8>)
 {
-  result = SiriPaymentsSnippetModel.PaymentConfirmationModel.init(from:)(a1, __src);
+  SiriPaymentsSnippetModel.PaymentConfirmationModel.init(from:)(a1, __src);
   if (!v2)
   {
-    return memcpy(a2, __src, 0x70uLL);
+    memcpy(a2, __src, 0x70uLL);
   }
-
-  return result;
 }
 
 uint64_t SiriPaymentsSnippetModel.AppDisambiguationModel.CodingKeys.init(stringValue:)(uint64_t a1, uint64_t a2)
@@ -7060,7 +1208,7 @@ uint64_t SiriPaymentsSnippetModel.AppDisambiguationModel.encode(to:)(uint64_t a1
   v16 = v23 - 8;
   v17 = (*(v15 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
   v20 = v10 - v17;
-  v35 = MEMORY[0x28223BE20](v14);
+  v35 = MEMORY[0x28223BE20](v14, v21);
   v32 = v4;
   v33 = v5;
   v34 = v6;
@@ -7105,78 +1253,78 @@ uint64_t SiriPaymentsSnippetModel.AppDisambiguationModel.encode(to:)(uint64_t a1
   }
 }
 
-uint64_t SiriPaymentsSnippetModel.AppDisambiguationModel.init(from:)(uint64_t *a1)
+uint64_t SiriPaymentsSnippetModel.AppDisambiguationModel.init(from:)(void *a1)
 {
-  v23 = a1;
-  v37 = 0;
-  v24 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy19SiriPaymentsIntents0dE12SnippetModelO017AppDisambiguationH0V10CodingKeys33_2A5FE8696FF126B7EA6A6F4EA8B5BF5FLLOGMd, &_ss22KeyedDecodingContainerVy19SiriPaymentsIntents0dE12SnippetModelO017AppDisambiguationH0V10CodingKeys33_2A5FE8696FF126B7EA6A6F4EA8B5BF5FLLOGMR);
-  v25 = *(v24 - 8);
-  v26 = v24 - 8;
-  v27 = (*(v25 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  v28 = v6 - v27;
-  v37 = MEMORY[0x28223BE20](v23);
-  v30 = v37[3];
-  v31 = v37[4];
-  __swift_project_boxed_opaque_existential_1(v37, v30);
+  v24 = a1;
+  v38 = 0;
+  v25 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy19SiriPaymentsIntents0dE12SnippetModelO017AppDisambiguationH0V10CodingKeys33_2A5FE8696FF126B7EA6A6F4EA8B5BF5FLLOGMd, &_ss22KeyedDecodingContainerVy19SiriPaymentsIntents0dE12SnippetModelO017AppDisambiguationH0V10CodingKeys33_2A5FE8696FF126B7EA6A6F4EA8B5BF5FLLOGMR);
+  v26 = *(v25 - 8);
+  v27 = v25 - 8;
+  v28 = (*(v26 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  v29 = v7 - v28;
+  v38 = MEMORY[0x28223BE20](v24, v1);
+  v31 = v38[3];
+  v32 = v38[4];
+  __swift_project_boxed_opaque_existential_1(v38, v31);
   lazy protocol witness table accessor for type SiriPaymentsSnippetModel.AppDisambiguationModel.CodingKeys and conformance SiriPaymentsSnippetModel.AppDisambiguationModel.CodingKeys();
-  v1 = v29;
+  v2 = v30;
   dispatch thunk of Decoder.container<A>(keyedBy:)();
-  v32 = v1;
-  v33 = v1;
-  if (v1)
+  v33 = v2;
+  v34 = v2;
+  if (v2)
   {
-    v9 = v33;
-    v10 = 0;
+    v10 = v34;
+    v11 = 0;
   }
 
   else
   {
-    v20 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay19SiriPaymentsIntents14AppDescriptionVGMd, &_sSay19SiriPaymentsIntents14AppDescriptionVGMR);
-    v19 = &v35;
-    v35 = 0;
+    v21 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay19SiriPaymentsIntents14AppDescriptionVGMd, &_sSay19SiriPaymentsIntents14AppDescriptionVGMR);
+    v20 = &v36;
+    v36 = 0;
     lazy protocol witness table accessor for type [AppDescription] and conformance <A> [A]();
-    v2 = v32;
+    v3 = v33;
     KeyedDecodingContainer.decode<A>(_:forKey:)();
-    v21 = v2;
-    v22 = v2;
-    if (!v2)
+    v22 = v3;
+    v23 = v3;
+    if (!v3)
     {
-      v38[0] = v36;
-      v34 = 1;
-      v3 = KeyedDecodingContainer.decode(_:forKey:)();
-      v15 = 0;
-      v16 = v3;
+      v39[0] = v37;
+      v35 = 1;
+      v4 = KeyedDecodingContainer.decode(_:forKey:)();
+      v16 = 0;
       v17 = v4;
-      v18 = 0;
+      v18 = v5;
+      v19 = 0;
+      v14 = v5;
       v13 = v4;
-      v12 = v3;
-      v11 = v38;
+      v12 = v39;
 
-      v38[1] = v12;
-      v38[2] = v13;
-      (*(v25 + 8))(v28, v24);
-      v14 = v38[0];
+      v39[1] = v13;
+      v39[2] = v14;
+      (*(v26 + 8))(v29, v25);
+      v15 = v39[0];
 
-      __swift_destroy_boxed_opaque_existential_0(v23);
-      outlined destroy of SiriPaymentsSnippetModel.AppDisambiguationModel(v11);
-      return v14;
+      __swift_destroy_boxed_opaque_existential_0(v24);
+      outlined destroy of SiriPaymentsSnippetModel.AppDisambiguationModel(v12);
+      return v15;
     }
 
-    v8 = v22;
-    (*(v25 + 8))(v28, v24);
-    v9 = v8;
-    v10 = 0;
+    v9 = v23;
+    (*(v26 + 8))(v29, v25);
+    v10 = v9;
+    v11 = 0;
   }
 
-  v7 = v10;
-  v6[3] = v9;
-  __swift_destroy_boxed_opaque_existential_0(v23);
-  if (v7)
+  v8 = v11;
+  v7[3] = v10;
+  __swift_destroy_boxed_opaque_existential_0(v24);
+  if (v8)
   {
-    outlined destroy of [SFCardSection](v38);
+    outlined destroy of [SFCardSection](v39);
   }
 
-  return v6[2];
+  return v7[2];
 }
 
 uint64_t protocol witness for CodingKey.init(stringValue:) in conformance SiriPaymentsSnippetModel.AppDisambiguationModel.CodingKeys@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
@@ -7193,7 +1341,7 @@ uint64_t protocol witness for CodingKey.init(intValue:) in conformance SiriPayme
   return result;
 }
 
-uint64_t protocol witness for Decodable.init(from:) in conformance SiriPaymentsSnippetModel.AppDisambiguationModel@<X0>(uint64_t *a1@<X0>, uint64_t *a2@<X8>)
+uint64_t protocol witness for Decodable.init(from:) in conformance SiriPaymentsSnippetModel.AppDisambiguationModel@<X0>(void *a1@<X0>, uint64_t *a2@<X8>)
 {
   result = SiriPaymentsSnippetModel.AppDisambiguationModel.init(from:)(a1);
   if (!v2)
@@ -7409,95 +1557,95 @@ uint64_t SiriPaymentsSnippetModel.BinaryConfirmationModel.CodingKeys.stringValue
 
 uint64_t SiriPaymentsSnippetModel.BinaryConfirmationModel.encode(to:)(uint64_t a1)
 {
-  v22 = a1;
+  v23 = a1;
+  v47 = 0;
   v46 = 0;
-  v45 = 0;
-  v31 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy19SiriPaymentsIntents0dE12SnippetModelO018BinaryConfirmationH0V10CodingKeys33_2A5FE8696FF126B7EA6A6F4EA8B5BF5FLLOGMd, _ss22KeyedEncodingContainerVy19SiriPaymentsIntents0dE12SnippetModelO018BinaryConfirmationH0V10CodingKeys33_2A5FE8696FF126B7EA6A6F4EA8B5BF5FLLOGMR);
-  v23 = *(v31 - 8);
-  v24 = v31 - 8;
-  v25 = (*(v23 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  v28 = v8 - v25;
-  v46 = MEMORY[0x28223BE20](v22);
-  v45 = v1;
-  v26 = v46[3];
-  v27 = v46[4];
-  __swift_project_boxed_opaque_existential_1(v46, v26);
+  v32 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy19SiriPaymentsIntents0dE12SnippetModelO018BinaryConfirmationH0V10CodingKeys33_2A5FE8696FF126B7EA6A6F4EA8B5BF5FLLOGMd, _ss22KeyedEncodingContainerVy19SiriPaymentsIntents0dE12SnippetModelO018BinaryConfirmationH0V10CodingKeys33_2A5FE8696FF126B7EA6A6F4EA8B5BF5FLLOGMR);
+  v24 = *(v32 - 8);
+  v25 = v32 - 8;
+  v26 = (*(v24 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  v29 = v9 - v26;
+  v47 = MEMORY[0x28223BE20](v23, v2);
+  v46 = v1;
+  v27 = v47[3];
+  v28 = v47[4];
+  __swift_project_boxed_opaque_existential_1(v47, v27);
   lazy protocol witness table accessor for type SiriPaymentsSnippetModel.BinaryConfirmationModel.CodingKeys and conformance SiriPaymentsSnippetModel.BinaryConfirmationModel.CodingKeys();
   dispatch thunk of Encoder.container<A>(keyedBy:)();
-  v48 = *v29;
-  outlined init with copy of Data(&v48, &v44);
-  v33 = &v43;
-  v43 = v48;
-  v30 = &v42;
-  v42 = 0;
-  v2 = lazy protocol witness table accessor for type Data and conformance Data();
-  v3 = v32;
-  v34 = v2;
-  KeyedEncodingContainer.encode<A>(_:forKey:)();
+  v49 = *v30;
+  outlined init with copy of Data(&v49, &v45);
+  v34 = &v44;
+  v44 = v49;
+  v31 = &v43;
+  v43 = 0;
+  v3 = lazy protocol witness table accessor for type Data and conformance Data();
+  v4 = v33;
   v35 = v3;
-  v36 = v3;
-  if (v3)
+  KeyedEncodingContainer.encode<A>(_:forKey:)();
+  v36 = v4;
+  v37 = v4;
+  if (v4)
   {
-    v10 = v36;
-    outlined destroy of Data(&v43);
-    result = (*(v23 + 8))(v28, v31);
-    v11 = v10;
+    v11 = v37;
+    outlined destroy of Data(&v44);
+    result = (*(v24 + 8))(v29, v32);
+    v12 = v11;
   }
 
   else
   {
-    outlined destroy of Data(&v43);
-    v4 = v35;
-    v18 = *(v29 + 2);
-    v19 = *(v29 + 3);
+    outlined destroy of Data(&v44);
+    v5 = v36;
+    v19 = *(v30 + 2);
+    v20 = *(v30 + 3);
 
-    v41 = 1;
+    v42 = 1;
     KeyedEncodingContainer.encode(_:forKey:)();
-    v20 = v4;
-    v21 = v4;
-    if (v4)
+    v21 = v5;
+    v22 = v5;
+    if (v5)
     {
-      v9 = v21;
+      v10 = v22;
 
-      result = (*(v23 + 8))(v28, v31);
-      v11 = v9;
+      result = (*(v24 + 8))(v29, v32);
+      v12 = v10;
     }
 
     else
     {
 
-      v47 = v29[2];
-      outlined init with copy of Data(&v47, &v40);
-      v5 = v20;
-      v39 = v47;
-      v38 = 2;
+      v48 = v30[2];
+      outlined init with copy of Data(&v48, &v41);
+      v6 = v21;
+      v40 = v48;
+      v39 = 2;
       KeyedEncodingContainer.encode<A>(_:forKey:)();
-      v16 = v5;
-      v17 = v5;
-      if (v5)
+      v17 = v6;
+      v18 = v6;
+      if (v6)
       {
-        v8[2] = v17;
-        outlined destroy of Data(&v39);
-        return (*(v23 + 8))(v28, v31);
+        v9[2] = v18;
+        outlined destroy of Data(&v40);
+        return (*(v24 + 8))(v29, v32);
       }
 
       else
       {
-        outlined destroy of Data(&v39);
-        v6 = v16;
-        v12 = *(v29 + 6);
-        v13 = *(v29 + 7);
+        outlined destroy of Data(&v40);
+        v7 = v17;
+        v13 = *(v30 + 6);
+        v14 = *(v30 + 7);
 
-        v37 = 3;
+        v38 = 3;
         KeyedEncodingContainer.encode(_:forKey:)();
-        v14 = v6;
-        v15 = v6;
-        if (v6)
+        v15 = v7;
+        v16 = v7;
+        if (v7)
         {
-          v8[1] = v15;
+          v9[1] = v16;
         }
 
-        return (*(v23 + 8))(v28, v31);
+        return (*(v24 + 8))(v29, v32);
       }
     }
   }
@@ -7505,7 +1653,7 @@ uint64_t SiriPaymentsSnippetModel.BinaryConfirmationModel.encode(to:)(uint64_t a
   return result;
 }
 
-void *SiriPaymentsSnippetModel.BinaryConfirmationModel.init(from:)@<X0>(uint64_t *a1@<X0>, void *a2@<X8>)
+void SiriPaymentsSnippetModel.BinaryConfirmationModel.init(from:)(void *a1@<X0>, void *a2@<X8>)
 {
   v32 = a2;
   v33 = a1;
@@ -7515,16 +1663,16 @@ void *SiriPaymentsSnippetModel.BinaryConfirmationModel.init(from:)@<X0>(uint64_t
   v36 = v34 - 8;
   v37 = (*(v35 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
   v38 = &v10 - v37;
-  v54 = MEMORY[0x28223BE20](v33);
+  v54 = MEMORY[0x28223BE20](v33, v2);
   v40 = v54[3];
   v41 = v54[4];
   __swift_project_boxed_opaque_existential_1(v54, v40);
   lazy protocol witness table accessor for type SiriPaymentsSnippetModel.BinaryConfirmationModel.CodingKeys and conformance SiriPaymentsSnippetModel.BinaryConfirmationModel.CodingKeys();
-  v2 = v39;
+  v3 = v39;
   dispatch thunk of Decoder.container<A>(keyedBy:)();
-  v42 = v2;
-  v43 = v2;
-  if (v2)
+  v42 = v3;
+  v43 = v3;
+  if (v3)
   {
     v13 = v43;
     v14 = 0;
@@ -7534,24 +1682,24 @@ void *SiriPaymentsSnippetModel.BinaryConfirmationModel.init(from:)@<X0>(uint64_t
   {
     v28 = &v51;
     v51 = 0;
-    v3 = lazy protocol witness table accessor for type Data and conformance Data();
-    v4 = v42;
-    v29 = v3;
+    v4 = lazy protocol witness table accessor for type Data and conformance Data();
+    v5 = v42;
+    v29 = v4;
     KeyedDecodingContainer.decode<A>(_:forKey:)();
-    v30 = v4;
-    v31 = v4;
-    if (!v4)
+    v30 = v5;
+    v31 = v5;
+    if (!v5)
     {
       v55[0] = v52;
       v55[1] = v53;
       v50 = 1;
-      v5 = KeyedDecodingContainer.decode(_:forKey:)();
+      v6 = KeyedDecodingContainer.decode(_:forKey:)();
       v24 = 0;
-      v25 = v5;
-      v26 = v6;
+      v25 = v6;
+      v26 = v7;
       v27 = 0;
-      v56[0] = v5;
-      v56[1] = v6;
+      v56[0] = v6;
+      v56[1] = v7;
       v47 = 2;
       KeyedDecodingContainer.decode<A>(_:forKey:)();
       v22 = 0;
@@ -7559,14 +1707,14 @@ void *SiriPaymentsSnippetModel.BinaryConfirmationModel.init(from:)@<X0>(uint64_t
       v57[0] = v48;
       v57[1] = v49;
       v46 = 3;
-      v7 = KeyedDecodingContainer.decode(_:forKey:)();
+      v8 = KeyedDecodingContainer.decode(_:forKey:)();
       v18 = 0;
-      v19 = v7;
-      v20 = v8;
+      v19 = v8;
+      v20 = v9;
       v21 = 0;
       v15 = v55;
-      v57[2] = v7;
-      v57[3] = v8;
+      v57[2] = v8;
+      v57[3] = v9;
       (*(v35 + 8))(v38, v34);
       v16 = __dst;
       v17 = 64;
@@ -7574,7 +1722,8 @@ void *SiriPaymentsSnippetModel.BinaryConfirmationModel.init(from:)@<X0>(uint64_t
       outlined init with copy of SiriPaymentsSnippetModel.BinaryConfirmationModel(__dst, &v44);
       __swift_destroy_boxed_opaque_existential_0(v33);
       outlined destroy of SiriPaymentsSnippetModel.BinaryConfirmationModel(v15);
-      return memcpy(v32, v16, v17);
+      memcpy(v32, v16, v17);
+      return;
     }
 
     v12 = v31;
@@ -7585,25 +1734,21 @@ void *SiriPaymentsSnippetModel.BinaryConfirmationModel.init(from:)@<X0>(uint64_t
 
   v11 = v14;
   v10 = v13;
-  result = __swift_destroy_boxed_opaque_existential_0(v33);
+  __swift_destroy_boxed_opaque_existential_0(v33);
   if (v11)
   {
-    result = v55;
     outlined destroy of Data(v55);
   }
 
   if ((v11 & 2) != 0)
   {
-    result = outlined destroy of String.UTF8View(v56);
+    outlined destroy of String.UTF8View(v56);
   }
 
   if ((v11 & 4) != 0)
   {
-    result = v57;
     outlined destroy of Data(v57);
   }
-
-  return result;
 }
 
 BOOL SiriPaymentsSnippetModel.AppDisambiguationCodingKeys.init(stringValue:)(uint64_t a1, uint64_t a2)
@@ -7632,15 +1777,13 @@ uint64_t protocol witness for CodingKey.init(intValue:) in conformance SiriPayme
   return result;
 }
 
-void *protocol witness for Decodable.init(from:) in conformance SiriPaymentsSnippetModel.BinaryConfirmationModel@<X0>(uint64_t *a1@<X0>, void *a2@<X8>)
+void protocol witness for Decodable.init(from:) in conformance SiriPaymentsSnippetModel.BinaryConfirmationModel(void *a1@<X0>, void *a2@<X8>)
 {
-  result = SiriPaymentsSnippetModel.BinaryConfirmationModel.init(from:)(a1, __src);
+  SiriPaymentsSnippetModel.BinaryConfirmationModel.init(from:)(a1, __src);
   if (!v2)
   {
-    return memcpy(a2, __src, 0x40uLL);
+    memcpy(a2, __src, 0x40uLL);
   }
-
-  return result;
 }
 
 unint64_t lazy protocol witness table accessor for type SiriPaymentsSnippetModel.AppDisambiguationCodingKeys and conformance SiriPaymentsSnippetModel.AppDisambiguationCodingKeys()
@@ -8046,482 +2189,459 @@ unint64_t lazy protocol witness table accessor for type SiriPaymentsSnippetModel
 
 uint64_t SiriPaymentsSnippetModel.encode(to:)(uint64_t a1)
 {
-  v64 = v84;
-  v65 = a1;
-  v84[1] = 0;
-  v84[0] = 0;
-  v36 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy19SiriPaymentsIntents0dE12SnippetModelO28BinaryConfirmationCodingKeys33_2A5FE8696FF126B7EA6A6F4EA8B5BF5FLLOGMd, &_ss22KeyedEncodingContainerVy19SiriPaymentsIntents0dE12SnippetModelO28BinaryConfirmationCodingKeys33_2A5FE8696FF126B7EA6A6F4EA8B5BF5FLLOGMR);
-  v37 = *(v36 - 8);
-  v38 = v36 - 8;
-  v39 = (*(v37 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20](v36);
-  v40 = &v9 - v39;
-  v41 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy19SiriPaymentsIntents0dE12SnippetModelO27AppDisambiguationCodingKeys33_2A5FE8696FF126B7EA6A6F4EA8B5BF5FLLOGMd, &_ss22KeyedEncodingContainerVy19SiriPaymentsIntents0dE12SnippetModelO27AppDisambiguationCodingKeys33_2A5FE8696FF126B7EA6A6F4EA8B5BF5FLLOGMR);
-  v42 = *(v41 - 8);
-  v43 = v41 - 8;
-  v44 = (*(v42 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20](v41);
-  v45 = &v9 - v44;
-  v46 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy19SiriPaymentsIntents0dE12SnippetModelO33SendPaymentConfirmationCodingKeys33_2A5FE8696FF126B7EA6A6F4EA8B5BF5FLLOGMd, &_ss22KeyedEncodingContainerVy19SiriPaymentsIntents0dE12SnippetModelO33SendPaymentConfirmationCodingKeys33_2A5FE8696FF126B7EA6A6F4EA8B5BF5FLLOGMR);
+  v74 = v94;
+  v75 = a1;
+  v94[1] = 0;
+  v94[0] = 0;
+  v46 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy19SiriPaymentsIntents0dE12SnippetModelO28BinaryConfirmationCodingKeys33_2A5FE8696FF126B7EA6A6F4EA8B5BF5FLLOGMd, &_ss22KeyedEncodingContainerVy19SiriPaymentsIntents0dE12SnippetModelO28BinaryConfirmationCodingKeys33_2A5FE8696FF126B7EA6A6F4EA8B5BF5FLLOGMR);
   v47 = *(v46 - 8);
   v48 = v46 - 8;
   v49 = (*(v47 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20](v46);
-  v50 = &v9 - v49;
-  v59 = 0;
-  v51 = type metadata accessor for SiriPaymentsSnippetModel.SendPaymentConfirmationModel();
-  v52 = (*(*(v51 - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20](v51);
-  v53 = &v9 - v52;
-  v54 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy19SiriPaymentsIntents0dE12SnippetModelO36RequestPaymentConfirmationCodingKeys33_2A5FE8696FF126B7EA6A6F4EA8B5BF5FLLOGMd, &_ss22KeyedEncodingContainerVy19SiriPaymentsIntents0dE12SnippetModelO36RequestPaymentConfirmationCodingKeys33_2A5FE8696FF126B7EA6A6F4EA8B5BF5FLLOGMR);
-  v55 = *(v54 - 8);
-  v56 = v54 - 8;
-  v57 = (*(v55 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20](v59);
-  v58 = &v9 - v57;
-  v60 = type metadata accessor for SiriPaymentsSnippetModel.RequestPaymentConfirmationModel();
-  v61 = (*(*(v60 - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20](v59);
-  v62 = &v9 - v61;
-  v74 = type metadata accessor for SiriPaymentsSnippetModel();
-  v63 = (*(*(v74 - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20](v74);
-  v75 = (&v9 - v63);
-  v66 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy19SiriPaymentsIntents0dE12SnippetModelO10CodingKeys33_2A5FE8696FF126B7EA6A6F4EA8B5BF5FLLOGMd, &_ss22KeyedEncodingContainerVy19SiriPaymentsIntents0dE12SnippetModelO10CodingKeys33_2A5FE8696FF126B7EA6A6F4EA8B5BF5FLLOGMR);
-  v67 = *(v66 - 8);
-  v68 = v66 - 8;
-  v69 = (*(v67 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  v2 = MEMORY[0x28223BE20](v65);
-  v70 = &v9 - v69;
-  v3[1] = v2;
-  *v3 = v1;
-  v71 = v2[3];
-  v72 = v2[4];
-  __swift_project_boxed_opaque_existential_1(v2, v71);
+  MEMORY[0x28223BE20](v46, v2);
+  v50 = &v19 - v49;
+  v51 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy19SiriPaymentsIntents0dE12SnippetModelO27AppDisambiguationCodingKeys33_2A5FE8696FF126B7EA6A6F4EA8B5BF5FLLOGMd, &_ss22KeyedEncodingContainerVy19SiriPaymentsIntents0dE12SnippetModelO27AppDisambiguationCodingKeys33_2A5FE8696FF126B7EA6A6F4EA8B5BF5FLLOGMR);
+  v52 = *(v51 - 8);
+  v53 = v51 - 8;
+  v54 = (*(v52 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  MEMORY[0x28223BE20](v51, v3);
+  v55 = &v19 - v54;
+  v56 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy19SiriPaymentsIntents0dE12SnippetModelO33SendPaymentConfirmationCodingKeys33_2A5FE8696FF126B7EA6A6F4EA8B5BF5FLLOGMd, &_ss22KeyedEncodingContainerVy19SiriPaymentsIntents0dE12SnippetModelO33SendPaymentConfirmationCodingKeys33_2A5FE8696FF126B7EA6A6F4EA8B5BF5FLLOGMR);
+  v57 = *(v56 - 8);
+  v58 = v56 - 8;
+  v59 = (*(v57 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  MEMORY[0x28223BE20](v56, v4);
+  v60 = &v19 - v59;
+  v69 = 0;
+  v61 = type metadata accessor for SiriPaymentsSnippetModel.SendPaymentConfirmationModel(0);
+  v62 = (*(*(v61 - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  MEMORY[0x28223BE20](v61, v5);
+  v63 = &v19 - v62;
+  v64 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy19SiriPaymentsIntents0dE12SnippetModelO36RequestPaymentConfirmationCodingKeys33_2A5FE8696FF126B7EA6A6F4EA8B5BF5FLLOGMd, &_ss22KeyedEncodingContainerVy19SiriPaymentsIntents0dE12SnippetModelO36RequestPaymentConfirmationCodingKeys33_2A5FE8696FF126B7EA6A6F4EA8B5BF5FLLOGMR);
+  v65 = *(v64 - 8);
+  v66 = v64 - 8;
+  v67 = (*(v65 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  v7 = MEMORY[0x28223BE20](v69, v6);
+  v68 = &v19 - v67;
+  v70 = type metadata accessor for SiriPaymentsSnippetModel.RequestPaymentConfirmationModel(v7);
+  v71 = (*(*(v70 - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  v9 = MEMORY[0x28223BE20](v69, v8);
+  v72 = &v19 - v71;
+  v84 = type metadata accessor for SiriPaymentsSnippetModel(v9);
+  v73 = (*(*(v84 - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  MEMORY[0x28223BE20](v84, v10);
+  v85 = (&v19 - v73);
+  v76 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy19SiriPaymentsIntents0dE12SnippetModelO10CodingKeys33_2A5FE8696FF126B7EA6A6F4EA8B5BF5FLLOGMd, &_ss22KeyedEncodingContainerVy19SiriPaymentsIntents0dE12SnippetModelO10CodingKeys33_2A5FE8696FF126B7EA6A6F4EA8B5BF5FLLOGMR);
+  v77 = *(v76 - 8);
+  v78 = v76 - 8;
+  v79 = (*(v77 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  v12 = MEMORY[0x28223BE20](v75, v11);
+  v80 = &v19 - v79;
+  v13[1] = v12;
+  *v13 = v1;
+  v81 = v12[3];
+  v82 = v12[4];
+  __swift_project_boxed_opaque_existential_1(v12, v81);
   lazy protocol witness table accessor for type SiriPaymentsSnippetModel.CodingKeys and conformance SiriPaymentsSnippetModel.CodingKeys();
   dispatch thunk of Encoder.container<A>(keyedBy:)();
-  outlined init with copy of SiriPaymentsSnippetModel(v73, v75);
+  outlined init with copy of SiriPaymentsSnippetModel(v83, v85);
   EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
   switch(EnumCaseMultiPayload)
   {
     case 0:
-      outlined init with take of SiriPaymentsSnippetModel.RequestPaymentConfirmationModel(v75, v62);
-      v32 = &v77;
-      v77 = 0;
+      outlined init with take of SiriPaymentsSnippetModel.RequestPaymentConfirmationModel(v85, v72);
+      v42 = &v87;
+      v87 = 0;
       lazy protocol witness table accessor for type SiriPaymentsSnippetModel.RequestPaymentConfirmationCodingKeys and conformance SiriPaymentsSnippetModel.RequestPaymentConfirmationCodingKeys();
       KeyedEncodingContainer.nestedContainer<A>(keyedBy:forKey:)();
       lazy protocol witness table accessor for type SiriPaymentsSnippetModel.RequestPaymentConfirmationModel and conformance SiriPaymentsSnippetModel.RequestPaymentConfirmationModel();
-      v4 = v35;
+      v14 = v45;
       KeyedEncodingContainer.encode<A>(_:forKey:)();
-      v33 = v4;
-      v34 = v4;
-      if (v4)
+      v43 = v14;
+      v44 = v14;
+      if (v14)
       {
-        v12 = v34;
-        (*(v55 + 8))(v58, v54);
-        outlined destroy of SiriPaymentsSnippetModel.RequestPaymentConfirmationModel(v62);
-        result = (*(v67 + 8))(v70, v66);
-        v13 = v12;
+        v22 = v44;
+        (*(v65 + 8))(v68, v64);
+        outlined destroy of SiriPaymentsSnippetModel.RequestPaymentConfirmationModel(v72);
+        result = (*(v77 + 8))(v80, v76);
+        v23 = v22;
         return result;
       }
 
-      (*(v55 + 8))(v58, v54);
-      outlined destroy of SiriPaymentsSnippetModel.RequestPaymentConfirmationModel(v62);
-      v31 = v33;
+      (*(v65 + 8))(v68, v64);
+      outlined destroy of SiriPaymentsSnippetModel.RequestPaymentConfirmationModel(v72);
+      v41 = v43;
       goto LABEL_13;
     case 1:
-      outlined init with take of SiriPaymentsSnippetModel.SendPaymentConfirmationModel(v75, v53);
-      v28 = &v78;
-      v78 = 1;
+      outlined init with take of SiriPaymentsSnippetModel.SendPaymentConfirmationModel(v85, v63);
+      v38 = &v88;
+      v88 = 1;
       lazy protocol witness table accessor for type SiriPaymentsSnippetModel.SendPaymentConfirmationCodingKeys and conformance SiriPaymentsSnippetModel.SendPaymentConfirmationCodingKeys();
       KeyedEncodingContainer.nestedContainer<A>(keyedBy:forKey:)();
       lazy protocol witness table accessor for type SiriPaymentsSnippetModel.SendPaymentConfirmationModel and conformance SiriPaymentsSnippetModel.SendPaymentConfirmationModel();
-      v5 = v35;
+      v15 = v45;
       KeyedEncodingContainer.encode<A>(_:forKey:)();
-      v29 = v5;
-      v30 = v5;
-      if (v5)
+      v39 = v15;
+      v40 = v15;
+      if (v15)
       {
-        v11 = v30;
-        (*(v47 + 8))(v50, v46);
-        outlined destroy of SiriPaymentsSnippetModel.SendPaymentConfirmationModel(v53);
-        result = (*(v67 + 8))(v70, v66);
-        v13 = v11;
+        v21 = v40;
+        (*(v57 + 8))(v60, v56);
+        outlined destroy of SiriPaymentsSnippetModel.SendPaymentConfirmationModel(v63);
+        result = (*(v77 + 8))(v80, v76);
+        v23 = v21;
         return result;
       }
 
-      (*(v47 + 8))(v50, v46);
-      outlined destroy of SiriPaymentsSnippetModel.SendPaymentConfirmationModel(v53);
-      v31 = v29;
+      (*(v57 + 8))(v60, v56);
+      outlined destroy of SiriPaymentsSnippetModel.SendPaymentConfirmationModel(v63);
+      v41 = v39;
       goto LABEL_13;
     case 2:
-      v22 = *v75;
-      v23 = v75[1];
-      v24 = v75[2];
-      v21 = &v80;
-      v80 = 2;
+      v32 = *v85;
+      v33 = v85[1];
+      v34 = v85[2];
+      v31 = &v90;
+      v90 = 2;
       lazy protocol witness table accessor for type SiriPaymentsSnippetModel.AppDisambiguationCodingKeys and conformance SiriPaymentsSnippetModel.AppDisambiguationCodingKeys();
       KeyedEncodingContainer.nestedContainer<A>(keyedBy:forKey:)();
-      v25 = v79;
-      v79[0] = v22;
-      v79[1] = v23;
-      v79[2] = v24;
+      v35 = v89;
+      v89[0] = v32;
+      v89[1] = v33;
+      v89[2] = v34;
       lazy protocol witness table accessor for type SiriPaymentsSnippetModel.AppDisambiguationModel and conformance SiriPaymentsSnippetModel.AppDisambiguationModel();
-      v6 = v35;
+      v16 = v45;
       KeyedEncodingContainer.encode<A>(_:forKey:)();
-      v26 = v6;
-      v27 = v6;
-      if (v6)
+      v36 = v16;
+      v37 = v16;
+      if (v16)
       {
-        v10 = v27;
-        (*(v42 + 8))(v45, v41);
+        v20 = v37;
+        (*(v52 + 8))(v55, v51);
 
-        result = (*(v67 + 8))(v70, v66);
-        v13 = v10;
+        result = (*(v77 + 8))(v80, v76);
+        v23 = v20;
         return result;
       }
 
-      (*(v42 + 8))(v45, v41);
+      (*(v52 + 8))(v55, v51);
 
-      v31 = v26;
+      v41 = v36;
 LABEL_13:
-      v14 = v31;
-      return (*(v67 + 8))(v70, v66);
+      v24 = v41;
+      return (*(v77 + 8))(v80, v76);
   }
 
-  v16 = __dst;
-  v17 = 64;
-  memcpy(__dst, v75, sizeof(__dst));
-  v15 = &v82;
-  v82 = 3;
+  v26 = __dst;
+  v27 = 64;
+  memcpy(__dst, v85, sizeof(__dst));
+  v25 = &v92;
+  v92 = 3;
   lazy protocol witness table accessor for type SiriPaymentsSnippetModel.BinaryConfirmationCodingKeys and conformance SiriPaymentsSnippetModel.BinaryConfirmationCodingKeys();
   KeyedEncodingContainer.nestedContainer<A>(keyedBy:forKey:)();
-  v18 = v81;
-  memcpy(v81, v16, v17);
+  v28 = v91;
+  memcpy(v91, v26, v27);
   lazy protocol witness table accessor for type SiriPaymentsSnippetModel.BinaryConfirmationModel and conformance SiriPaymentsSnippetModel.BinaryConfirmationModel();
-  v7 = v35;
+  v17 = v45;
   KeyedEncodingContainer.encode<A>(_:forKey:)();
-  v19 = v7;
-  v20 = v7;
-  if (!v7)
+  v29 = v17;
+  v30 = v17;
+  if (!v17)
   {
-    (*(v37 + 8))(v40, v36);
+    (*(v47 + 8))(v50, v46);
     outlined destroy of SiriPaymentsSnippetModel.BinaryConfirmationModel(__dst);
-    v31 = v19;
+    v41 = v29;
     goto LABEL_13;
   }
 
-  v9 = v20;
-  (*(v37 + 8))(v40, v36);
+  v19 = v30;
+  (*(v47 + 8))(v50, v46);
   outlined destroy of SiriPaymentsSnippetModel.BinaryConfirmationModel(__dst);
-  return (*(v67 + 8))(v70, v66);
+  return (*(v77 + 8))(v80, v76);
 }
 
-uint64_t *SiriPaymentsSnippetModel.init(from:)@<X0>(uint64_t *a1@<X0>, uint64_t *a2@<X8>)
+uint64_t *SiriPaymentsSnippetModel.init(from:)@<X0>(void *a1@<X0>, uint64_t *a2@<X8>)
 {
-  v128 = &v145;
-  v92 = a2;
-  v117 = a1;
-  v148[4] = 0;
-  v93 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy19SiriPaymentsIntents0dE12SnippetModelO28BinaryConfirmationCodingKeys33_2A5FE8696FF126B7EA6A6F4EA8B5BF5FLLOGMd, &_ss22KeyedDecodingContainerVy19SiriPaymentsIntents0dE12SnippetModelO28BinaryConfirmationCodingKeys33_2A5FE8696FF126B7EA6A6F4EA8B5BF5FLLOGMR);
-  v94 = *(v93 - 8);
-  v95 = v93 - 8;
-  v96 = (*(v94 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20](v93);
-  v97 = v36 - v96;
-  v98 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy19SiriPaymentsIntents0dE12SnippetModelO27AppDisambiguationCodingKeys33_2A5FE8696FF126B7EA6A6F4EA8B5BF5FLLOGMd, &_ss22KeyedDecodingContainerVy19SiriPaymentsIntents0dE12SnippetModelO27AppDisambiguationCodingKeys33_2A5FE8696FF126B7EA6A6F4EA8B5BF5FLLOGMR);
-  v99 = *(v98 - 8);
-  v100 = v98 - 8;
-  v101 = (*(v99 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20](v98);
-  v102 = v36 - v101;
-  v103 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy19SiriPaymentsIntents0dE12SnippetModelO33SendPaymentConfirmationCodingKeys33_2A5FE8696FF126B7EA6A6F4EA8B5BF5FLLOGMd, &_ss22KeyedDecodingContainerVy19SiriPaymentsIntents0dE12SnippetModelO33SendPaymentConfirmationCodingKeys33_2A5FE8696FF126B7EA6A6F4EA8B5BF5FLLOGMR);
-  v104 = *(v103 - 8);
-  v105 = v103 - 8;
-  v106 = (*(v104 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20](v103);
-  v107 = v36 - v106;
-  v108 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy19SiriPaymentsIntents0dE12SnippetModelO36RequestPaymentConfirmationCodingKeys33_2A5FE8696FF126B7EA6A6F4EA8B5BF5FLLOGMd, &_ss22KeyedDecodingContainerVy19SiriPaymentsIntents0dE12SnippetModelO36RequestPaymentConfirmationCodingKeys33_2A5FE8696FF126B7EA6A6F4EA8B5BF5FLLOGMR);
-  v109 = *(v108 - 8);
-  v110 = v108 - 8;
-  v111 = (*(v109 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20](v108);
-  v112 = v36 - v111;
-  v113 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy19SiriPaymentsIntents0dE12SnippetModelO10CodingKeys33_2A5FE8696FF126B7EA6A6F4EA8B5BF5FLLOGMd, &_ss22KeyedDecodingContainerVy19SiriPaymentsIntents0dE12SnippetModelO10CodingKeys33_2A5FE8696FF126B7EA6A6F4EA8B5BF5FLLOGMR);
-  v114 = *(v113 - 8);
-  v115 = v113 - 8;
-  v116 = (*(v114 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20](v113);
-  v130 = v36 - v116;
-  v118 = type metadata accessor for SiriPaymentsSnippetModel();
-  v119 = (*(*(v118 - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  v2 = MEMORY[0x28223BE20](v117);
-  v120 = v36 - v119;
-  v121 = (v3 + 15) & 0xFFFFFFFFFFFFFFF0;
-  v4 = MEMORY[0x28223BE20](v2);
-  v122 = v36 - v121;
-  v123 = (v5 + 15) & 0xFFFFFFFFFFFFFFF0;
-  v6 = MEMORY[0x28223BE20](v4);
-  v124 = v36 - v123;
-  v125 = (v7 + 15) & 0xFFFFFFFFFFFFFFF0;
-  v8 = MEMORY[0x28223BE20](v6);
-  v126 = v36 - v125;
-  v127 = (v9 + 15) & 0xFFFFFFFFFFFFFFF0;
-  v10 = MEMORY[0x28223BE20](v8);
-  v129 = v36 - v127;
-  *(v128 + 10) = v10;
-  v132 = v10[3];
-  v133 = v10[4];
-  __swift_project_boxed_opaque_existential_1(v10, v132);
+  v135 = &v152;
+  v99 = a2;
+  v124 = a1;
+  v155 = 0;
+  v100 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy19SiriPaymentsIntents0dE12SnippetModelO28BinaryConfirmationCodingKeys33_2A5FE8696FF126B7EA6A6F4EA8B5BF5FLLOGMd, &_ss22KeyedDecodingContainerVy19SiriPaymentsIntents0dE12SnippetModelO28BinaryConfirmationCodingKeys33_2A5FE8696FF126B7EA6A6F4EA8B5BF5FLLOGMR);
+  v101 = *(v100 - 8);
+  v102 = v100 - 8;
+  v103 = (*(v101 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  MEMORY[0x28223BE20](v100, v2);
+  v104 = v43 - v103;
+  v105 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy19SiriPaymentsIntents0dE12SnippetModelO27AppDisambiguationCodingKeys33_2A5FE8696FF126B7EA6A6F4EA8B5BF5FLLOGMd, &_ss22KeyedDecodingContainerVy19SiriPaymentsIntents0dE12SnippetModelO27AppDisambiguationCodingKeys33_2A5FE8696FF126B7EA6A6F4EA8B5BF5FLLOGMR);
+  v106 = *(v105 - 8);
+  v107 = v105 - 8;
+  v108 = (*(v106 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  MEMORY[0x28223BE20](v105, v3);
+  v109 = v43 - v108;
+  v110 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy19SiriPaymentsIntents0dE12SnippetModelO33SendPaymentConfirmationCodingKeys33_2A5FE8696FF126B7EA6A6F4EA8B5BF5FLLOGMd, &_ss22KeyedDecodingContainerVy19SiriPaymentsIntents0dE12SnippetModelO33SendPaymentConfirmationCodingKeys33_2A5FE8696FF126B7EA6A6F4EA8B5BF5FLLOGMR);
+  v111 = *(v110 - 8);
+  v112 = v110 - 8;
+  v113 = (*(v111 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  MEMORY[0x28223BE20](v110, v4);
+  v114 = v43 - v113;
+  v115 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy19SiriPaymentsIntents0dE12SnippetModelO36RequestPaymentConfirmationCodingKeys33_2A5FE8696FF126B7EA6A6F4EA8B5BF5FLLOGMd, &_ss22KeyedDecodingContainerVy19SiriPaymentsIntents0dE12SnippetModelO36RequestPaymentConfirmationCodingKeys33_2A5FE8696FF126B7EA6A6F4EA8B5BF5FLLOGMR);
+  v116 = *(v115 - 8);
+  v117 = v115 - 8;
+  v118 = (*(v116 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  MEMORY[0x28223BE20](v115, v5);
+  v119 = v43 - v118;
+  v120 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy19SiriPaymentsIntents0dE12SnippetModelO10CodingKeys33_2A5FE8696FF126B7EA6A6F4EA8B5BF5FLLOGMd, &_ss22KeyedDecodingContainerVy19SiriPaymentsIntents0dE12SnippetModelO10CodingKeys33_2A5FE8696FF126B7EA6A6F4EA8B5BF5FLLOGMR);
+  v121 = *(v120 - 8);
+  v122 = v120 - 8;
+  v123 = (*(v121 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  MEMORY[0x28223BE20](v120, v6);
+  v137 = v43 - v123;
+  v125 = type metadata accessor for SiriPaymentsSnippetModel(0);
+  v126 = (*(*(v125 - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  v8 = MEMORY[0x28223BE20](v124, v7);
+  v127 = v43 - v126;
+  v128 = (v9 + 15) & 0xFFFFFFFFFFFFFFF0;
+  v10 = MEMORY[0x28223BE20](v8, v43 - v126);
+  v129 = v43 - v128;
+  v130 = (v11 + 15) & 0xFFFFFFFFFFFFFFF0;
+  v13 = MEMORY[0x28223BE20](v10, v12);
+  v131 = v43 - v130;
+  v132 = (v14 + 15) & 0xFFFFFFFFFFFFFFF0;
+  v15 = MEMORY[0x28223BE20](v13, v43 - v130);
+  v133 = v43 - v132;
+  v134 = (v16 + 15) & 0xFFFFFFFFFFFFFFF0;
+  v17 = MEMORY[0x28223BE20](v15, v43 - v132);
+  v136 = v43 - v134;
+  *(v135 + 10) = v17;
+  v139 = v17[3];
+  v140 = v17[4];
+  __swift_project_boxed_opaque_existential_1(v17, v139);
   lazy protocol witness table accessor for type SiriPaymentsSnippetModel.CodingKeys and conformance SiriPaymentsSnippetModel.CodingKeys();
-  v11 = v131;
+  v18 = v138;
   dispatch thunk of Decoder.container<A>(keyedBy:)();
-  v134 = v11;
-  v135 = v11;
-  if (v11)
+  v141 = v18;
+  v142 = v18;
+  if (v18)
   {
-    v53 = v135;
+    v60 = v142;
     goto LABEL_33;
   }
 
-  v12 = KeyedDecodingContainer.allKeys.getter();
-  v88 = &v147;
-  *(v128 + 5) = v12;
-  v87 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay19SiriPaymentsIntents0aB12SnippetModelO10CodingKeys33_2A5FE8696FF126B7EA6A6F4EA8B5BF5FLLOGMd, &_sSay19SiriPaymentsIntents0aB12SnippetModelO10CodingKeys33_2A5FE8696FF126B7EA6A6F4EA8B5BF5FLLOGMR);
+  v19 = KeyedDecodingContainer.allKeys.getter();
+  v95 = &v154;
+  *(v135 + 5) = v19;
+  v94 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay19SiriPaymentsIntents0aB12SnippetModelO10CodingKeys33_2A5FE8696FF126B7EA6A6F4EA8B5BF5FLLOGMd, &_sSay19SiriPaymentsIntents0aB12SnippetModelO10CodingKeys33_2A5FE8696FF126B7EA6A6F4EA8B5BF5FLLOGMR);
   lazy protocol witness table accessor for type [SiriPaymentsSnippetModel.CodingKeys] and conformance [A]();
-  v13 = ArraySlice.init<A>(_:)();
-  v14 = v128;
-  *(v128 + 6) = v13;
-  *(v14 + 7) = v15;
-  *(v14 + 8) = v16;
-  *(v14 + 9) = v17;
-  v89 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss10ArraySliceVy19SiriPaymentsIntents0cD12SnippetModelO10CodingKeys33_2A5FE8696FF126B7EA6A6F4EA8B5BF5FLLOGMd, &_ss10ArraySliceVy19SiriPaymentsIntents0cD12SnippetModelO10CodingKeys33_2A5FE8696FF126B7EA6A6F4EA8B5BF5FLLOGMR);
-  v90 = lazy protocol witness table accessor for type ArraySlice<SiriPaymentsSnippetModel.CodingKeys> and conformance ArraySlice<A>();
+  v20 = ArraySlice.init<A>(_:)();
+  v21 = v135;
+  *(v135 + 6) = v20;
+  *(v21 + 7) = v22;
+  *(v21 + 8) = v23;
+  *(v21 + 9) = v24;
+  v96 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss10ArraySliceVy19SiriPaymentsIntents0cD12SnippetModelO10CodingKeys33_2A5FE8696FF126B7EA6A6F4EA8B5BF5FLLOGMd, &_ss10ArraySliceVy19SiriPaymentsIntents0cD12SnippetModelO10CodingKeys33_2A5FE8696FF126B7EA6A6F4EA8B5BF5FLLOGMR);
+  v97 = lazy protocol witness table accessor for type ArraySlice<SiriPaymentsSnippetModel.CodingKeys> and conformance ArraySlice<A>();
   Collection<>.popFirst()();
-  v91 = v146;
-  if (v146 == 4)
+  v98 = v153;
+  if (v153 == 4 || (v93 = v98, v87 = v98, v91 = *(v135 + 6), v88 = *(v135 + 7), v89 = *(v135 + 8), v90 = *(v135 + 9), swift_unknownObjectRetain(), v25 = v88, v26 = v89, v27 = v135, v28 = v90, *v135 = v91, *(v27 + 1) = v25, *(v27 + 2) = v26, *(v27 + 3) = v28, v92 = Collection.isEmpty.getter(), swift_unknownObjectRelease(), (v92 & 1) == 0))
   {
-    goto LABEL_23;
-  }
-
-  v86 = v91;
-  v80 = v91;
-  v84 = *(v128 + 6);
-  v81 = *(v128 + 7);
-  v82 = *(v128 + 8);
-  v83 = *(v128 + 9);
-  swift_unknownObjectRetain();
-  v18 = v81;
-  v19 = v82;
-  v20 = v128;
-  v21 = v83;
-  *v128 = v84;
-  *(v20 + 1) = v18;
-  *(v20 + 2) = v19;
-  *(v20 + 3) = v21;
-  v85 = Collection.isEmpty.getter();
-  swift_unknownObjectRelease();
-  if ((v85 & 1) == 0)
-  {
-LABEL_23:
-    v47 = 0;
-    v51 = type metadata accessor for DecodingError();
-    v45 = 1;
-    v52 = swift_allocError();
-    v50 = v34;
-    v35 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sypXmT_s13DecodingErrorO7ContextVtMd, &_sypXmT_s13DecodingErrorO7ContextVtMR);
-    v46 = v50 + *(v35 + 48);
-    *v50 = v118;
-    v48 = KeyedDecodingContainer.codingPath.getter();
-    countAndFlagsBits = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("Invalid number of keys found, expected one.", 0x2BuLL, v45 & 1)._countAndFlagsBits;
+    v54 = 0;
+    v58 = type metadata accessor for DecodingError();
+    v52 = 1;
+    v59 = swift_allocError();
+    v57 = v41;
+    v42 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sypXmT_s13DecodingErrorO7ContextVtMd, &_sypXmT_s13DecodingErrorO7ContextVtMR);
+    v53 = v57 + *(v42 + 48);
+    *v57 = v125;
+    v55 = KeyedDecodingContainer.codingPath.getter();
+    countAndFlagsBits = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("Invalid number of keys found, expected one.", 0x2BuLL, v52 & 1)._countAndFlagsBits;
     DecodingError.Context.init(codingPath:debugDescription:underlyingError:)();
-    (*(*(v51 - 8) + 104))(v50, *MEMORY[0x277D84160]);
+    (*(*(v58 - 8) + 104))(v57, *MEMORY[0x277D84160]);
     swift_willThrow();
-    outlined destroy of ArraySlice<SiriPaymentsSnippetModel.CodingKeys>(v148);
-    (*(v114 + 8))(v130, v113);
-    v53 = v52;
+    outlined destroy of ArraySlice<SiriPaymentsSnippetModel.CodingKeys>();
+    (*(v121 + 8))(v137, v120);
+    v60 = v59;
     goto LABEL_33;
   }
 
-  if (!v80)
+  if (!v87)
   {
-    v77 = &v136;
-    v136 = 0;
+    v84 = &v143;
+    v143 = 0;
     lazy protocol witness table accessor for type SiriPaymentsSnippetModel.RequestPaymentConfirmationCodingKeys and conformance SiriPaymentsSnippetModel.RequestPaymentConfirmationCodingKeys();
-    v22 = v134;
+    v29 = v141;
     KeyedDecodingContainer.nestedContainer<A>(keyedBy:forKey:)();
-    v78 = v22;
-    v79 = v22;
-    if (v22)
+    v85 = v29;
+    v86 = v29;
+    if (v29)
     {
-      v44 = v79;
-      outlined destroy of ArraySlice<SiriPaymentsSnippetModel.CodingKeys>(v148);
-      (*(v114 + 8))(v130, v113);
-      v53 = v44;
+      v51 = v86;
+      outlined destroy of ArraySlice<SiriPaymentsSnippetModel.CodingKeys>();
+      (*(v121 + 8))(v137, v120);
+      v60 = v51;
       goto LABEL_33;
     }
 
-    v74 = type metadata accessor for SiriPaymentsSnippetModel.RequestPaymentConfirmationModel();
+    v81 = type metadata accessor for SiriPaymentsSnippetModel.RequestPaymentConfirmationModel(0);
     lazy protocol witness table accessor for type SiriPaymentsSnippetModel.RequestPaymentConfirmationModel and conformance SiriPaymentsSnippetModel.RequestPaymentConfirmationModel();
-    v23 = v78;
+    v30 = v85;
     KeyedDecodingContainer.decode<A>(_:forKey:)();
-    v75 = v23;
-    v76 = v23;
-    if (v23)
+    v82 = v30;
+    v83 = v30;
+    if (v30)
     {
-      v43 = v76;
-      (*(v109 + 8))(v112, v108);
-      outlined destroy of ArraySlice<SiriPaymentsSnippetModel.CodingKeys>(v148);
-      (*(v114 + 8))(v130, v113);
-      v53 = v43;
+      v50 = v83;
+      (*(v116 + 8))(v119, v115);
+      outlined destroy of ArraySlice<SiriPaymentsSnippetModel.CodingKeys>();
+      (*(v121 + 8))(v137, v120);
+      v60 = v50;
       goto LABEL_33;
     }
 
     swift_storeEnumTagMultiPayload();
-    outlined init with take of SiriPaymentsSnippetModel(v126, v129);
-    (*(v109 + 8))(v112, v108);
-    v73 = v75;
+    outlined init with take of SiriPaymentsSnippetModel(v133, v136);
+    (*(v116 + 8))(v119, v115);
+    v80 = v82;
 LABEL_22:
-    v54 = v73;
-    outlined destroy of ArraySlice<SiriPaymentsSnippetModel.CodingKeys>(v148);
-    (*(v114 + 8))(v130, v113);
-    outlined init with copy of SiriPaymentsSnippetModel(v129, v92);
-    __swift_destroy_boxed_opaque_existential_0(v117);
-    return outlined destroy of SiriPaymentsSnippetModel(v129);
+    v61 = v80;
+    outlined destroy of ArraySlice<SiriPaymentsSnippetModel.CodingKeys>();
+    (*(v121 + 8))(v137, v120);
+    outlined init with copy of SiriPaymentsSnippetModel(v136, v99);
+    __swift_destroy_boxed_opaque_existential_0(v124);
+    return outlined destroy of SiriPaymentsSnippetModel(v136);
   }
 
-  if (v80 == 1)
+  if (v87 == 1)
   {
-    v70 = &v137;
-    v137 = v80;
+    v77 = &v144;
+    v144 = v87;
     lazy protocol witness table accessor for type SiriPaymentsSnippetModel.SendPaymentConfirmationCodingKeys and conformance SiriPaymentsSnippetModel.SendPaymentConfirmationCodingKeys();
-    v24 = v134;
+    v31 = v141;
     KeyedDecodingContainer.nestedContainer<A>(keyedBy:forKey:)();
-    v71 = v24;
-    v72 = v24;
-    if (v24)
+    v78 = v31;
+    v79 = v31;
+    if (v31)
     {
-      v42 = v72;
-      outlined destroy of ArraySlice<SiriPaymentsSnippetModel.CodingKeys>(v148);
-      (*(v114 + 8))(v130, v113);
-      v53 = v42;
+      v49 = v79;
+      outlined destroy of ArraySlice<SiriPaymentsSnippetModel.CodingKeys>();
+      (*(v121 + 8))(v137, v120);
+      v60 = v49;
       goto LABEL_33;
     }
 
-    v67 = type metadata accessor for SiriPaymentsSnippetModel.SendPaymentConfirmationModel();
+    v74 = type metadata accessor for SiriPaymentsSnippetModel.SendPaymentConfirmationModel(0);
     lazy protocol witness table accessor for type SiriPaymentsSnippetModel.SendPaymentConfirmationModel and conformance SiriPaymentsSnippetModel.SendPaymentConfirmationModel();
-    v25 = v71;
+    v32 = v78;
     KeyedDecodingContainer.decode<A>(_:forKey:)();
-    v68 = v25;
-    v69 = v25;
-    if (v25)
+    v75 = v32;
+    v76 = v32;
+    if (v32)
     {
-      v41 = v69;
-      (*(v104 + 8))(v107, v103);
-      outlined destroy of ArraySlice<SiriPaymentsSnippetModel.CodingKeys>(v148);
-      (*(v114 + 8))(v130, v113);
-      v53 = v41;
+      v48 = v76;
+      (*(v111 + 8))(v114, v110);
+      outlined destroy of ArraySlice<SiriPaymentsSnippetModel.CodingKeys>();
+      (*(v121 + 8))(v137, v120);
+      v60 = v48;
       goto LABEL_33;
     }
 
     swift_storeEnumTagMultiPayload();
-    outlined init with take of SiriPaymentsSnippetModel(v124, v129);
-    (*(v104 + 8))(v107, v103);
-    v73 = v68;
+    outlined init with take of SiriPaymentsSnippetModel(v131, v136);
+    (*(v111 + 8))(v114, v110);
+    v80 = v75;
     goto LABEL_22;
   }
 
-  if (v80 == 2)
+  if (v87 == 2)
   {
-    v64 = &v141;
-    v141 = v80;
+    v71 = &v148;
+    v148 = v87;
     lazy protocol witness table accessor for type SiriPaymentsSnippetModel.AppDisambiguationCodingKeys and conformance SiriPaymentsSnippetModel.AppDisambiguationCodingKeys();
-    v26 = v134;
+    v33 = v141;
     KeyedDecodingContainer.nestedContainer<A>(keyedBy:forKey:)();
-    v65 = v26;
-    v66 = v26;
-    if (v26)
+    v72 = v33;
+    v73 = v33;
+    if (v33)
     {
-      v40 = v66;
-      outlined destroy of ArraySlice<SiriPaymentsSnippetModel.CodingKeys>(v148);
-      (*(v114 + 8))(v130, v113);
-      v53 = v40;
+      v47 = v73;
+      outlined destroy of ArraySlice<SiriPaymentsSnippetModel.CodingKeys>();
+      (*(v121 + 8))(v137, v120);
+      v60 = v47;
       goto LABEL_33;
     }
 
     lazy protocol witness table accessor for type SiriPaymentsSnippetModel.AppDisambiguationModel and conformance SiriPaymentsSnippetModel.AppDisambiguationModel();
-    v27 = v65;
+    v34 = v72;
     KeyedDecodingContainer.decode<A>(_:forKey:)();
-    v62 = v27;
-    v63 = v27;
-    if (v27)
+    v69 = v34;
+    v70 = v34;
+    if (v34)
     {
-      v39 = v63;
-      (*(v99 + 8))(v102, v98);
-      outlined destroy of ArraySlice<SiriPaymentsSnippetModel.CodingKeys>(v148);
-      (*(v114 + 8))(v130, v113);
-      v53 = v39;
+      v46 = v70;
+      (*(v106 + 8))(v109, v105);
+      outlined destroy of ArraySlice<SiriPaymentsSnippetModel.CodingKeys>();
+      (*(v121 + 8))(v137, v120);
+      v60 = v46;
       goto LABEL_33;
     }
 
-    v28 = v122;
-    v29 = v139;
-    v30 = v140;
-    *v122 = v138;
-    *(v28 + 1) = v29;
-    *(v28 + 2) = v30;
+    v35 = v129;
+    v36 = v146;
+    v37 = v147;
+    *v129 = v145;
+    *(v35 + 1) = v36;
+    *(v35 + 2) = v37;
     swift_storeEnumTagMultiPayload();
-    outlined init with take of SiriPaymentsSnippetModel(v122, v129);
-    (*(v99 + 8))(v102, v98);
-    v73 = v62;
+    outlined init with take of SiriPaymentsSnippetModel(v129, v136);
+    (*(v106 + 8))(v109, v105);
+    v80 = v69;
     goto LABEL_22;
   }
 
-  v59 = &v144;
-  v144 = v80;
+  v66 = &v151;
+  v151 = v87;
   lazy protocol witness table accessor for type SiriPaymentsSnippetModel.BinaryConfirmationCodingKeys and conformance SiriPaymentsSnippetModel.BinaryConfirmationCodingKeys();
-  v31 = v134;
+  v38 = v141;
   KeyedDecodingContainer.nestedContainer<A>(keyedBy:forKey:)();
-  v60 = v31;
-  v61 = v31;
-  if (v31)
+  v67 = v38;
+  v68 = v38;
+  if (v38)
   {
-    v38 = v61;
-    outlined destroy of ArraySlice<SiriPaymentsSnippetModel.CodingKeys>(v148);
-    (*(v114 + 8))(v130, v113);
-    v53 = v38;
+    v45 = v68;
+    outlined destroy of ArraySlice<SiriPaymentsSnippetModel.CodingKeys>();
+    (*(v121 + 8))(v137, v120);
+    v60 = v45;
   }
 
   else
   {
     lazy protocol witness table accessor for type SiriPaymentsSnippetModel.BinaryConfirmationModel and conformance SiriPaymentsSnippetModel.BinaryConfirmationModel();
-    v32 = v60;
+    v39 = v67;
     KeyedDecodingContainer.decode<A>(_:forKey:)();
-    v57 = v32;
-    v58 = v32;
-    if (!v32)
+    v64 = v39;
+    v65 = v39;
+    if (!v39)
     {
-      v55 = __dst;
-      v56 = 64;
+      v62 = __dst;
+      v63 = 64;
       memcpy(__dst, __src, sizeof(__dst));
-      memcpy(v120, __dst, 0x40uLL);
+      memcpy(v127, __dst, 0x40uLL);
       swift_storeEnumTagMultiPayload();
-      outlined init with take of SiriPaymentsSnippetModel(v120, v129);
-      (*(v94 + 8))(v97, v93);
-      v73 = v57;
+      outlined init with take of SiriPaymentsSnippetModel(v127, v136);
+      (*(v101 + 8))(v104, v100);
+      v80 = v64;
       goto LABEL_22;
     }
 
-    v37 = v58;
-    (*(v94 + 8))(v97, v93);
-    outlined destroy of ArraySlice<SiriPaymentsSnippetModel.CodingKeys>(v148);
-    (*(v114 + 8))(v130, v113);
-    v53 = v37;
+    v44 = v65;
+    (*(v101 + 8))(v104, v100);
+    outlined destroy of ArraySlice<SiriPaymentsSnippetModel.CodingKeys>();
+    (*(v121 + 8))(v137, v120);
+    v60 = v44;
   }
 
 LABEL_33:
-  v36[1] = v53;
-  return __swift_destroy_boxed_opaque_existential_0(v117);
+  v43[1] = v60;
+  return __swift_destroy_boxed_opaque_existential_0(v124);
 }
 
 uint64_t AppDescription.CodingKeys.init(stringValue:)(uint64_t a1, uint64_t a2)
@@ -8654,7 +2774,7 @@ uint64_t AppDescription.encode(to:)(uint64_t a1, uint64_t a2, uint64_t a3, uint6
   v18 = v26 - 8;
   v19 = (*(v17 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
   v22 = v12 - v19;
-  v33 = MEMORY[0x28223BE20](v16);
+  v33 = MEMORY[0x28223BE20](v16, v24);
   *&v31 = v5;
   *(&v31 + 1) = v6;
   *&v32 = v7;
@@ -8695,72 +2815,72 @@ uint64_t AppDescription.encode(to:)(uint64_t a1, uint64_t a2, uint64_t a3, uint6
   }
 }
 
-uint64_t AppDescription.init(from:)(uint64_t *a1)
+uint64_t AppDescription.init(from:)(void *a1)
 {
-  v24 = a1;
-  v37 = 0;
-  v25 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy19SiriPaymentsIntents14AppDescriptionV10CodingKeys33_2A5FE8696FF126B7EA6A6F4EA8B5BF5FLLOGMd, &_ss22KeyedDecodingContainerVy19SiriPaymentsIntents14AppDescriptionV10CodingKeys33_2A5FE8696FF126B7EA6A6F4EA8B5BF5FLLOGMR);
-  v26 = *(v25 - 8);
-  v27 = v25 - 8;
-  v28 = (*(v26 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  v29 = v7 - v28;
-  v37 = MEMORY[0x28223BE20](v24);
-  v31 = v37[3];
-  v32 = v37[4];
-  __swift_project_boxed_opaque_existential_1(v37, v31);
+  v25 = a1;
+  v38 = 0;
+  v26 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy19SiriPaymentsIntents14AppDescriptionV10CodingKeys33_2A5FE8696FF126B7EA6A6F4EA8B5BF5FLLOGMd, &_ss22KeyedDecodingContainerVy19SiriPaymentsIntents14AppDescriptionV10CodingKeys33_2A5FE8696FF126B7EA6A6F4EA8B5BF5FLLOGMR);
+  v27 = *(v26 - 8);
+  v28 = v26 - 8;
+  v29 = (*(v27 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  v30 = v8 - v29;
+  v38 = MEMORY[0x28223BE20](v25, v1);
+  v32 = v38[3];
+  v33 = v38[4];
+  __swift_project_boxed_opaque_existential_1(v38, v32);
   lazy protocol witness table accessor for type AppDescription.CodingKeys and conformance AppDescription.CodingKeys();
-  v1 = v30;
+  v2 = v31;
   dispatch thunk of Decoder.container<A>(keyedBy:)();
-  v33 = v1;
-  v34 = v1;
-  if (v1)
+  v34 = v2;
+  v35 = v2;
+  if (v2)
   {
-    v9 = v34;
-    v10 = 0;
-    v8 = 0;
-    v7[2] = v34;
-    __swift_destroy_boxed_opaque_existential_0(v24);
-    if (v8)
+    v10 = v35;
+    v11 = 0;
+    v9 = 0;
+    v8[2] = v35;
+    __swift_destroy_boxed_opaque_existential_0(v25);
+    if (v9)
     {
-      outlined destroy of String.UTF8View(&v38);
+      outlined destroy of String.UTF8View(&v39);
     }
 
-    return v7[0];
+    return v8[0];
   }
 
   else
   {
-    v36 = 0;
-    v2 = KeyedDecodingContainer.decode(_:forKey:)();
-    v20 = 0;
-    v21 = v2;
+    v37 = 0;
+    v3 = KeyedDecodingContainer.decode(_:forKey:)();
+    v21 = 0;
     v22 = v3;
-    v23 = 0;
-    v38 = v2;
+    v23 = v4;
+    v24 = 0;
     v39 = v3;
-    v35 = 1;
-    v4 = KeyedDecodingContainer.decode(_:forKey:)();
-    v16 = 0;
-    v17 = v4;
+    v40 = v4;
+    v36 = 1;
+    v5 = KeyedDecodingContainer.decode(_:forKey:)();
+    v17 = 0;
     v18 = v5;
-    v19 = 0;
+    v19 = v6;
+    v20 = 0;
+    v15 = v6;
     v14 = v5;
-    v13 = v4;
-    v11 = &v38;
+    v12 = &v39;
 
-    v40 = v13;
     v41 = v14;
-    (*(v26 + 8))(v29, v25);
-    v15 = v38;
-    v12 = v39;
+    v42 = v15;
+    (*(v27 + 8))(v30, v26);
+    v16 = v39;
+    v13 = v40;
 
-    __swift_destroy_boxed_opaque_existential_0(v24);
-    outlined destroy of DIIdentifier(v11);
-    return v15;
+    __swift_destroy_boxed_opaque_existential_0(v25);
+    outlined destroy of DIIdentifier(v12);
+    return v16;
   }
 }
 
-uint64_t protocol witness for Decodable.init(from:) in conformance AppDescription@<X0>(uint64_t *a1@<X0>, uint64_t *a2@<X8>)
+uint64_t protocol witness for Decodable.init(from:) in conformance AppDescription@<X0>(void *a1@<X0>, uint64_t *a2@<X8>)
 {
   result = AppDescription.init(from:)(a1);
   if (!v2)
@@ -8785,7 +2905,7 @@ uint64_t static SABaseCommand.from(data:)(uint64_t a1, unint64_t a2)
   outlined copy of Data._Representation(a1, a2);
   isa = Data._bridgeToObjectiveC()().super.isa;
   outlined consume of Data._Representation(a1, a2);
-  type metadata accessor for NSPropertyListMutabilityOptions();
+  type metadata accessor for NSPropertyListMutabilityOptions(0);
   _allocateUninitializedArray<A>(_:)();
   lazy protocol witness table accessor for type NSPropertyListMutabilityOptions and conformance NSPropertyListMutabilityOptions();
   SetAlgebra<>.init(arrayLiteral:)();
@@ -8845,19 +2965,19 @@ uint64_t static SABaseCommand.from(data:)(uint64_t a1, unint64_t a2)
 
       if (v7)
       {
-        v6 = v7;
+        return v7;
       }
 
       else
       {
-        v6 = 0;
+        return 0;
       }
     }
 
     else
     {
       swift_unknownObjectRelease();
-      v6 = 0;
+      return 0;
     }
   }
 
@@ -8869,38 +2989,35 @@ uint64_t static SABaseCommand.from(data:)(uint64_t a1, unint64_t a2)
     swift_willThrow();
     MEMORY[0x26D621420](v5);
 
-    v6 = 0;
+    return 0;
   }
-
-  *MEMORY[0x277D85DE8];
-  return v6;
 }
 
-uint64_t type metadata accessor for SiriPaymentsSnippetModel()
+uint64_t type metadata accessor for SiriPaymentsSnippetModel(uint64_t a1)
 {
-  v1 = type metadata singleton initialization cache for SiriPaymentsSnippetModel;
+  v2 = type metadata singleton initialization cache for SiriPaymentsSnippetModel;
   if (!type metadata singleton initialization cache for SiriPaymentsSnippetModel)
   {
     return swift_getSingletonMetadata();
   }
 
-  return v1;
+  return v2;
 }
 
-uint64_t type metadata completion function for SiriPaymentsSnippetModel()
+uint64_t type metadata completion function for SiriPaymentsSnippetModel(uint64_t a1)
 {
-  v3 = type metadata accessor for SiriPaymentsSnippetModel.RequestPaymentConfirmationModel();
-  if (v0 <= 0x3F)
+  v4 = type metadata accessor for SiriPaymentsSnippetModel.RequestPaymentConfirmationModel(319);
+  if (v1 <= 0x3F)
   {
-    v3 = type metadata accessor for SiriPaymentsSnippetModel.SendPaymentConfirmationModel();
-    if (v1 <= 0x3F)
+    v4 = type metadata accessor for SiriPaymentsSnippetModel.SendPaymentConfirmationModel(319);
+    if (v2 <= 0x3F)
     {
       swift_cvw_initEnumMetadataMultiPayloadWithLayoutString();
       return 0;
     }
   }
 
-  return v3;
+  return v4;
 }
 
 uint64_t sub_26883B618(uint64_t a1, unsigned int a2, uint64_t a3)
@@ -8966,58 +3083,58 @@ uint64_t sub_26883B80C(uint64_t a1, unsigned int a2, int a3, uint64_t a4)
   return result;
 }
 
-uint64_t type metadata completion function for SiriPaymentsSnippetModel.RequestPaymentConfirmationModel()
+unint64_t type metadata completion function for SiriPaymentsSnippetModel.RequestPaymentConfirmationModel(uint64_t a1)
 {
-  v3 = type metadata accessor for CodableIntent<INRequestPaymentIntent>();
-  if (v0 <= 0x3F)
+  v4 = type metadata accessor for CodableIntent<INRequestPaymentIntent>(319);
+  if (v1 <= 0x3F)
   {
-    v3 = type metadata accessor for CodableIntentResponse<INRequestPaymentIntentResponse>();
-    if (v1 <= 0x3F)
+    v4 = type metadata accessor for CodableIntentResponse<INRequestPaymentIntentResponse>(319);
+    if (v2 <= 0x3F)
     {
       swift_cvw_initStructMetadataWithLayoutString();
       return 0;
     }
   }
 
-  return v3;
+  return v4;
 }
 
-uint64_t type metadata accessor for CodableIntent<INRequestPaymentIntent>()
+unint64_t type metadata accessor for CodableIntent<INRequestPaymentIntent>(uint64_t a1)
 {
-  v4 = lazy cache variable for type metadata for CodableIntent<INRequestPaymentIntent>;
+  v5 = lazy cache variable for type metadata for CodableIntent<INRequestPaymentIntent>;
   if (!lazy cache variable for type metadata for CodableIntent<INRequestPaymentIntent>)
   {
     type metadata accessor for INRequestPaymentIntent();
-    v3 = type metadata accessor for CodableIntent();
-    v4 = v3;
-    if (!v0)
+    v4 = type metadata accessor for CodableIntent();
+    v5 = v4;
+    if (!v1)
     {
-      v1 = v3;
-      atomic_store(v3, &lazy cache variable for type metadata for CodableIntent<INRequestPaymentIntent>);
-      return v1;
+      v2 = v4;
+      atomic_store(v4, &lazy cache variable for type metadata for CodableIntent<INRequestPaymentIntent>);
+      return v2;
     }
   }
 
-  return v4;
+  return v5;
 }
 
-uint64_t type metadata accessor for CodableIntentResponse<INRequestPaymentIntentResponse>()
+unint64_t type metadata accessor for CodableIntentResponse<INRequestPaymentIntentResponse>(uint64_t a1)
 {
-  v4 = lazy cache variable for type metadata for CodableIntentResponse<INRequestPaymentIntentResponse>;
+  v5 = lazy cache variable for type metadata for CodableIntentResponse<INRequestPaymentIntentResponse>;
   if (!lazy cache variable for type metadata for CodableIntentResponse<INRequestPaymentIntentResponse>)
   {
     type metadata accessor for INRequestPaymentIntentResponse();
-    v3 = type metadata accessor for CodableIntentResponse();
-    v4 = v3;
-    if (!v0)
+    v4 = type metadata accessor for CodableIntentResponse();
+    v5 = v4;
+    if (!v1)
     {
-      v1 = v3;
-      atomic_store(v3, &lazy cache variable for type metadata for CodableIntentResponse<INRequestPaymentIntentResponse>);
-      return v1;
+      v2 = v4;
+      atomic_store(v4, &lazy cache variable for type metadata for CodableIntentResponse<INRequestPaymentIntentResponse>);
+      return v2;
     }
   }
 
-  return v4;
+  return v5;
 }
 
 uint64_t sub_26883BC04(uint64_t a1, unsigned int a2, uint64_t a3)
@@ -9083,58 +3200,58 @@ uint64_t sub_26883BDF8(uint64_t a1, unsigned int a2, int a3, uint64_t a4)
   return result;
 }
 
-uint64_t type metadata completion function for SiriPaymentsSnippetModel.SendPaymentConfirmationModel()
+unint64_t type metadata completion function for SiriPaymentsSnippetModel.SendPaymentConfirmationModel(uint64_t a1)
 {
-  v3 = type metadata accessor for CodableIntent<INSendPaymentIntent>();
-  if (v0 <= 0x3F)
+  v4 = type metadata accessor for CodableIntent<INSendPaymentIntent>(319);
+  if (v1 <= 0x3F)
   {
-    v3 = type metadata accessor for CodableIntentResponse<INSendPaymentIntentResponse>();
-    if (v1 <= 0x3F)
+    v4 = type metadata accessor for CodableIntentResponse<INSendPaymentIntentResponse>(319);
+    if (v2 <= 0x3F)
     {
       swift_cvw_initStructMetadataWithLayoutString();
       return 0;
     }
   }
 
-  return v3;
+  return v4;
 }
 
-uint64_t type metadata accessor for CodableIntent<INSendPaymentIntent>()
+unint64_t type metadata accessor for CodableIntent<INSendPaymentIntent>(uint64_t a1)
 {
-  v4 = lazy cache variable for type metadata for CodableIntent<INSendPaymentIntent>;
+  v5 = lazy cache variable for type metadata for CodableIntent<INSendPaymentIntent>;
   if (!lazy cache variable for type metadata for CodableIntent<INSendPaymentIntent>)
   {
     type metadata accessor for INSendPaymentIntent();
-    v3 = type metadata accessor for CodableIntent();
-    v4 = v3;
-    if (!v0)
+    v4 = type metadata accessor for CodableIntent();
+    v5 = v4;
+    if (!v1)
     {
-      v1 = v3;
-      atomic_store(v3, &lazy cache variable for type metadata for CodableIntent<INSendPaymentIntent>);
-      return v1;
+      v2 = v4;
+      atomic_store(v4, &lazy cache variable for type metadata for CodableIntent<INSendPaymentIntent>);
+      return v2;
     }
   }
 
-  return v4;
+  return v5;
 }
 
-uint64_t type metadata accessor for CodableIntentResponse<INSendPaymentIntentResponse>()
+unint64_t type metadata accessor for CodableIntentResponse<INSendPaymentIntentResponse>(uint64_t a1)
 {
-  v4 = lazy cache variable for type metadata for CodableIntentResponse<INSendPaymentIntentResponse>;
+  v5 = lazy cache variable for type metadata for CodableIntentResponse<INSendPaymentIntentResponse>;
   if (!lazy cache variable for type metadata for CodableIntentResponse<INSendPaymentIntentResponse>)
   {
     type metadata accessor for INSendPaymentIntentResponse();
-    v3 = type metadata accessor for CodableIntentResponse();
-    v4 = v3;
-    if (!v0)
+    v4 = type metadata accessor for CodableIntentResponse();
+    v5 = v4;
+    if (!v1)
     {
-      v1 = v3;
-      atomic_store(v3, &lazy cache variable for type metadata for CodableIntentResponse<INSendPaymentIntentResponse>);
-      return v1;
+      v2 = v4;
+      atomic_store(v4, &lazy cache variable for type metadata for CodableIntentResponse<INSendPaymentIntentResponse>);
+      return v2;
     }
   }
 
-  return v4;
+  return v5;
 }
 
 uint64_t get_enum_tag_for_layout_string_10Foundation4DataV15_RepresentationO(void *a1)
@@ -9662,7 +3779,7 @@ unint64_t lazy protocol witness table accessor for type SiriPaymentsSnippetModel
   v2 = lazy protocol witness table cache variable for type SiriPaymentsSnippetModel.SendPaymentConfirmationModel and conformance SiriPaymentsSnippetModel.SendPaymentConfirmationModel;
   if (!lazy protocol witness table cache variable for type SiriPaymentsSnippetModel.SendPaymentConfirmationModel and conformance SiriPaymentsSnippetModel.SendPaymentConfirmationModel)
   {
-    type metadata accessor for SiriPaymentsSnippetModel.SendPaymentConfirmationModel();
+    type metadata accessor for SiriPaymentsSnippetModel.SendPaymentConfirmationModel(255);
     WitnessTable = swift_getWitnessTable();
     atomic_store(WitnessTable, &lazy protocol witness table cache variable for type SiriPaymentsSnippetModel.SendPaymentConfirmationModel and conformance SiriPaymentsSnippetModel.SendPaymentConfirmationModel);
     return WitnessTable;
@@ -9675,7 +3792,7 @@ unint64_t lazy protocol witness table accessor for type SiriPaymentsSnippetModel
   v2 = lazy protocol witness table cache variable for type SiriPaymentsSnippetModel.SendPaymentConfirmationModel and conformance SiriPaymentsSnippetModel.SendPaymentConfirmationModel;
   if (!lazy protocol witness table cache variable for type SiriPaymentsSnippetModel.SendPaymentConfirmationModel and conformance SiriPaymentsSnippetModel.SendPaymentConfirmationModel)
   {
-    type metadata accessor for SiriPaymentsSnippetModel.SendPaymentConfirmationModel();
+    type metadata accessor for SiriPaymentsSnippetModel.SendPaymentConfirmationModel(255);
     WitnessTable = swift_getWitnessTable();
     atomic_store(WitnessTable, &lazy protocol witness table cache variable for type SiriPaymentsSnippetModel.SendPaymentConfirmationModel and conformance SiriPaymentsSnippetModel.SendPaymentConfirmationModel);
     return WitnessTable;
@@ -9689,7 +3806,7 @@ unint64_t lazy protocol witness table accessor for type SiriPaymentsSnippetModel
   v2 = lazy protocol witness table cache variable for type SiriPaymentsSnippetModel.RequestPaymentConfirmationModel and conformance SiriPaymentsSnippetModel.RequestPaymentConfirmationModel;
   if (!lazy protocol witness table cache variable for type SiriPaymentsSnippetModel.RequestPaymentConfirmationModel and conformance SiriPaymentsSnippetModel.RequestPaymentConfirmationModel)
   {
-    type metadata accessor for SiriPaymentsSnippetModel.RequestPaymentConfirmationModel();
+    type metadata accessor for SiriPaymentsSnippetModel.RequestPaymentConfirmationModel(255);
     WitnessTable = swift_getWitnessTable();
     atomic_store(WitnessTable, &lazy protocol witness table cache variable for type SiriPaymentsSnippetModel.RequestPaymentConfirmationModel and conformance SiriPaymentsSnippetModel.RequestPaymentConfirmationModel);
     return WitnessTable;
@@ -9702,7 +3819,7 @@ unint64_t lazy protocol witness table accessor for type SiriPaymentsSnippetModel
   v2 = lazy protocol witness table cache variable for type SiriPaymentsSnippetModel.RequestPaymentConfirmationModel and conformance SiriPaymentsSnippetModel.RequestPaymentConfirmationModel;
   if (!lazy protocol witness table cache variable for type SiriPaymentsSnippetModel.RequestPaymentConfirmationModel and conformance SiriPaymentsSnippetModel.RequestPaymentConfirmationModel)
   {
-    type metadata accessor for SiriPaymentsSnippetModel.RequestPaymentConfirmationModel();
+    type metadata accessor for SiriPaymentsSnippetModel.RequestPaymentConfirmationModel(255);
     WitnessTable = swift_getWitnessTable();
     atomic_store(WitnessTable, &lazy protocol witness table cache variable for type SiriPaymentsSnippetModel.RequestPaymentConfirmationModel and conformance SiriPaymentsSnippetModel.RequestPaymentConfirmationModel);
     return WitnessTable;
@@ -9739,18 +3856,11 @@ unint64_t lazy protocol witness table accessor for type ArraySlice<SiriPaymentsS
   return v2;
 }
 
-uint64_t *outlined destroy of ArraySlice<SiriPaymentsSnippetModel.CodingKeys>(uint64_t *a1)
-{
-  v1 = *a1;
-  swift_unknownObjectRelease();
-  return a1;
-}
-
 uint64_t outlined init with take of SiriPaymentsSnippetModel.SendPaymentConfirmationModel(uint64_t a1, uint64_t a2)
 {
   v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit13CodableIntentVySo013INSendPaymentD0CGMd, &_s10SnippetKit13CodableIntentVySo013INSendPaymentD0CGMR);
   (*(*(v2 - 8) + 32))(a2, a1);
-  v6 = type metadata accessor for SiriPaymentsSnippetModel.SendPaymentConfirmationModel();
+  v6 = type metadata accessor for SiriPaymentsSnippetModel.SendPaymentConfirmationModel(0);
   v5 = *(v6 + 20);
   v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit21CodableIntentResponseVySo013INSendPaymentdE0CGMd, &_s10SnippetKit21CodableIntentResponseVySo013INSendPaymentdE0CGMR);
   (*(*(v3 - 8) + 32))(a2 + v5, a1 + v5);
@@ -9762,7 +3872,7 @@ uint64_t outlined init with take of SiriPaymentsSnippetModel.RequestPaymentConfi
 {
   v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit13CodableIntentVySo016INRequestPaymentD0CGMd, &_s10SnippetKit13CodableIntentVySo016INRequestPaymentD0CGMR);
   (*(*(v2 - 8) + 32))(a2, a1);
-  v6 = type metadata accessor for SiriPaymentsSnippetModel.RequestPaymentConfirmationModel();
+  v6 = type metadata accessor for SiriPaymentsSnippetModel.RequestPaymentConfirmationModel(0);
   v5 = *(v6 + 20);
   v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit21CodableIntentResponseVySo016INRequestPaymentdE0CGMd, &_s10SnippetKit21CodableIntentResponseVySo016INRequestPaymentdE0CGMR);
   (*(*(v3 - 8) + 32))(a2 + v5, a1 + v5);
@@ -9901,4 +4011,5936 @@ unint64_t lazy protocol witness table accessor for type CodableIntentResponse<IN
   }
 
   return v2;
+}
+
+unint64_t lazy protocol witness table accessor for type Data and conformance Data()
+{
+  v2 = lazy protocol witness table cache variable for type Data and conformance Data;
+  if (!lazy protocol witness table cache variable for type Data and conformance Data)
+  {
+    WitnessTable = swift_getWitnessTable();
+    atomic_store(WitnessTable, &lazy protocol witness table cache variable for type Data and conformance Data);
+    return WitnessTable;
+  }
+
+  return v2;
+}
+
+{
+  v2 = lazy protocol witness table cache variable for type Data and conformance Data;
+  if (!lazy protocol witness table cache variable for type Data and conformance Data)
+  {
+    WitnessTable = swift_getWitnessTable();
+    atomic_store(WitnessTable, &lazy protocol witness table cache variable for type Data and conformance Data);
+    return WitnessTable;
+  }
+
+  return v2;
+}
+
+uint64_t *outlined init with copy of Data(uint64_t *a1, uint64_t *a2)
+{
+  v3 = *a1;
+  v4 = a1[1];
+  outlined copy of Data._Representation(*a1, v4);
+  result = a2;
+  *a2 = v3;
+  a2[1] = v4;
+  return result;
+}
+
+unint64_t lazy protocol witness table accessor for type [AppDescription] and conformance <A> [A]()
+{
+  v2 = lazy protocol witness table cache variable for type [AppDescription] and conformance <A> [A];
+  if (!lazy protocol witness table cache variable for type [AppDescription] and conformance <A> [A])
+  {
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSay19SiriPaymentsIntents14AppDescriptionVGMd, &_sSay19SiriPaymentsIntents14AppDescriptionVGMR);
+    lazy protocol witness table accessor for type AppDescription and conformance AppDescription();
+    WitnessTable = swift_getWitnessTable();
+    atomic_store(WitnessTable, &lazy protocol witness table cache variable for type [AppDescription] and conformance <A> [A]);
+    return WitnessTable;
+  }
+
+  return v2;
+}
+
+{
+  v2 = lazy protocol witness table cache variable for type [AppDescription] and conformance <A> [A];
+  if (!lazy protocol witness table cache variable for type [AppDescription] and conformance <A> [A])
+  {
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSay19SiriPaymentsIntents14AppDescriptionVGMd, &_sSay19SiriPaymentsIntents14AppDescriptionVGMR);
+    lazy protocol witness table accessor for type AppDescription and conformance AppDescription();
+    WitnessTable = swift_getWitnessTable();
+    atomic_store(WitnessTable, &lazy protocol witness table cache variable for type [AppDescription] and conformance <A> [A]);
+    return WitnessTable;
+  }
+
+  return v2;
+}
+
+unint64_t lazy protocol witness table accessor for type AppDescription and conformance AppDescription()
+{
+  v2 = lazy protocol witness table cache variable for type AppDescription and conformance AppDescription;
+  if (!lazy protocol witness table cache variable for type AppDescription and conformance AppDescription)
+  {
+    WitnessTable = swift_getWitnessTable();
+    atomic_store(WitnessTable, &lazy protocol witness table cache variable for type AppDescription and conformance AppDescription);
+    return WitnessTable;
+  }
+
+  return v2;
+}
+
+{
+  v2 = lazy protocol witness table cache variable for type AppDescription and conformance AppDescription;
+  if (!lazy protocol witness table cache variable for type AppDescription and conformance AppDescription)
+  {
+    WitnessTable = swift_getWitnessTable();
+    atomic_store(WitnessTable, &lazy protocol witness table cache variable for type AppDescription and conformance AppDescription);
+    return WitnessTable;
+  }
+
+  return v2;
+}
+
+uint64_t PaymentsError.errorDescription.getter()
+{
+  v279 = 0;
+  v280 = 0;
+  v273 = 0;
+  v274 = 0;
+  v267 = 0;
+  v268 = 0;
+  v261 = 0;
+  v262 = 0;
+  v256 = 0;
+  v257 = 0;
+  v250 = 0;
+  v251 = 0;
+  v244 = 0;
+  v245 = 0;
+  v238 = 0;
+  v239 = 0;
+  v236 = 0;
+  v237 = 0;
+  v234 = 0;
+  v235 = 0;
+  v224 = 0;
+  v225 = 0;
+  v222 = 0;
+  v223 = 0;
+  v214 = 0;
+  v215 = 0;
+  v208 = 0;
+  v209 = 0;
+  v202 = 0;
+  v203 = 0;
+  v200 = 0;
+  v201 = 0;
+  v192 = 0;
+  v193 = 0;
+  v186 = 0;
+  v187 = 0;
+  v184 = 0;
+  v185 = 0;
+  v176 = 0;
+  v177 = 0;
+  v174 = 0;
+  v175 = 0;
+  v166 = 0;
+  v167 = 0;
+  v160 = 0;
+  v161 = 0;
+  v281 = v0;
+  memcpy(__dst, v0, 0x31uLL);
+  switch(LOBYTE(__dst[6]))
+  {
+    case 1:
+      v147 = __dst[0];
+      v150 = __dst[1];
+
+      v166 = v147;
+      v167 = v150;
+      v164 = DefaultStringInterpolation.init(literalCapacity:interpolationCount:)();
+      v165 = v4;
+      countAndFlagsBits = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("Unable to extract ", 0x12uLL, 1)._countAndFlagsBits;
+      MEMORY[0x26D620F90](countAndFlagsBits);
+
+      v162 = v147;
+      v163 = v150;
+      DefaultStringInterpolation.appendInterpolation<A>(_:)();
+      v6 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)(" from provided userData", 0x17uLL, 1)._countAndFlagsBits;
+      MEMORY[0x26D620F90](v6);
+
+      v149 = v164;
+      v148 = v165;
+
+      outlined destroy of String.UTF8View(&v164);
+      v151 = MEMORY[0x26D620710](v149, v148);
+
+      v157 = v151;
+      break;
+    case 2:
+      v140 = __dst[0];
+      v145 = __dst[1];
+      v141 = __dst[2];
+      v144 = __dst[3];
+
+      v176 = v140;
+      v177 = v145;
+      v174 = v141;
+      v175 = v144;
+      v172 = DefaultStringInterpolation.init(literalCapacity:interpolationCount:)();
+      v173 = v7;
+      v8 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("Encountered invalid parameter: ", 0x1FuLL, 1)._countAndFlagsBits;
+      MEMORY[0x26D620F90](v8);
+
+      v170 = v140;
+      v171 = v145;
+      DefaultStringInterpolation.appendInterpolation<A>(_:)();
+      v9 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)(" for intent: ", 0xDuLL, 1)._countAndFlagsBits;
+      MEMORY[0x26D620F90](v9);
+
+      v168 = v141;
+      v169 = v144;
+      DefaultStringInterpolation.appendInterpolation<A>(_:)();
+      v10 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)(".", 1uLL, 1)._countAndFlagsBits;
+      MEMORY[0x26D620F90](v10);
+
+      v143 = v172;
+      v142 = v173;
+
+      outlined destroy of String.UTF8View(&v172);
+      v146 = MEMORY[0x26D620710](v143, v142);
+
+      v157 = v146;
+      break;
+    case 3:
+      v133 = __dst[0];
+      v138 = __dst[1];
+      v134 = __dst[2];
+      v137 = __dst[3];
+
+      v186 = v133;
+      v187 = v138;
+      v184 = v134;
+      v185 = v137;
+      v182 = DefaultStringInterpolation.init(literalCapacity:interpolationCount:)();
+      v183 = v11;
+      v12 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("Encountered invalid unsupported reason: ", 0x28uLL, 1)._countAndFlagsBits;
+      MEMORY[0x26D620F90](v12);
+
+      v180 = v133;
+      v181 = v138;
+      DefaultStringInterpolation.appendInterpolation<A>(_:)();
+      v13 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)(" for intent: ", 0xDuLL, 1)._countAndFlagsBits;
+      MEMORY[0x26D620F90](v13);
+
+      v178 = v134;
+      v179 = v137;
+      DefaultStringInterpolation.appendInterpolation<A>(_:)();
+      v14 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)(".", 1uLL, 1)._countAndFlagsBits;
+      MEMORY[0x26D620F90](v14);
+
+      v136 = v182;
+      v135 = v183;
+
+      outlined destroy of String.UTF8View(&v182);
+      v139 = MEMORY[0x26D620710](v136, v135);
+
+      v157 = v139;
+      break;
+    case 4:
+      v128 = __dst[0];
+      v131 = __dst[1];
+
+      v192 = v128;
+      v193 = v131;
+      v190 = DefaultStringInterpolation.init(literalCapacity:interpolationCount:)();
+      v191 = v15;
+      v16 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("IntentHandler encountered invalid intent type: ", 0x2FuLL, 1)._countAndFlagsBits;
+      MEMORY[0x26D620F90](v16);
+
+      v188 = v128;
+      v189 = v131;
+      DefaultStringInterpolation.appendInterpolation<A>(_:)();
+      v17 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)(".", 1uLL, 1)._countAndFlagsBits;
+      MEMORY[0x26D620F90](v17);
+
+      v130 = v190;
+      v129 = v191;
+
+      outlined destroy of String.UTF8View(&v190);
+      v132 = MEMORY[0x26D620710](v130, v129);
+
+      v157 = v132;
+      break;
+    case 5:
+      v121 = __dst[0];
+      v126 = __dst[1];
+      v122 = __dst[2];
+      v125 = __dst[3];
+
+      v202 = v121;
+      v203 = v126;
+      v200 = v122;
+      v201 = v125;
+      v198 = DefaultStringInterpolation.init(literalCapacity:interpolationCount:)();
+      v199 = v18;
+      v19 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("Encountered error when transforming from ", 0x29uLL, 1)._countAndFlagsBits;
+      MEMORY[0x26D620F90](v19);
+
+      v196 = v121;
+      v197 = v126;
+      DefaultStringInterpolation.appendInterpolation<A>(_:)();
+      v20 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)(" to ", 4uLL, 1)._countAndFlagsBits;
+      MEMORY[0x26D620F90](v20);
+
+      v194 = v122;
+      v195 = v125;
+      DefaultStringInterpolation.appendInterpolation<A>(_:)();
+      v21 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)(".", 1uLL, 1)._countAndFlagsBits;
+      MEMORY[0x26D620F90](v21);
+
+      v124 = v198;
+      v123 = v199;
+
+      outlined destroy of String.UTF8View(&v198);
+      v127 = MEMORY[0x26D620710](v124, v123);
+
+      v157 = v127;
+      break;
+    case 6:
+      v116 = __dst[0];
+      v119 = __dst[1];
+
+      v208 = v116;
+      v209 = v119;
+      v206 = DefaultStringInterpolation.init(literalCapacity:interpolationCount:)();
+      v207 = v22;
+      v23 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("Error occurred when executing CAT: ", 0x23uLL, 1)._countAndFlagsBits;
+      MEMORY[0x26D620F90](v23);
+
+      v204 = v116;
+      v205 = v119;
+      DefaultStringInterpolation.appendInterpolation<A>(_:)();
+      v24 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)(".", 1uLL, 1)._countAndFlagsBits;
+      MEMORY[0x26D620F90](v24);
+
+      v118 = v206;
+      v117 = v207;
+
+      outlined destroy of String.UTF8View(&v206);
+      v120 = MEMORY[0x26D620710](v118, v117);
+
+      v157 = v120;
+      break;
+    case 7:
+      v111 = __dst[0];
+      v114 = __dst[1];
+
+      v214 = v111;
+      v215 = v114;
+      v212 = DefaultStringInterpolation.init(literalCapacity:interpolationCount:)();
+      v213 = v25;
+      v26 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("Encountered unexpected parse type: ", 0x23uLL, 1)._countAndFlagsBits;
+      MEMORY[0x26D620F90](v26);
+
+      v210 = v111;
+      v211 = v114;
+      DefaultStringInterpolation.appendInterpolation<A>(_:)();
+      v27 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("", 0, 1)._countAndFlagsBits;
+      MEMORY[0x26D620F90](v27);
+
+      v113 = v212;
+      v112 = v213;
+
+      outlined destroy of String.UTF8View(&v212);
+      v115 = MEMORY[0x26D620710](v113, v112);
+
+      v157 = v115;
+      break;
+    case 8:
+      v104 = __dst[0];
+      v109 = __dst[1];
+      v105 = __dst[2];
+      v108 = __dst[3];
+
+      v224 = v104;
+      v225 = v109;
+      v222 = v105;
+      v223 = v108;
+      v220 = DefaultStringInterpolation.init(literalCapacity:interpolationCount:)();
+      v221 = v28;
+      v29 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("Encountered invalid slot ", 0x19uLL, 1)._countAndFlagsBits;
+      MEMORY[0x26D620F90](v29);
+
+      v218 = v104;
+      v219 = v109;
+      DefaultStringInterpolation.appendInterpolation<A>(_:)();
+      v30 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)(" for intent ", 0xCuLL, 1)._countAndFlagsBits;
+      MEMORY[0x26D620F90](v30);
+
+      v216 = v105;
+      v217 = v108;
+      DefaultStringInterpolation.appendInterpolation<A>(_:)();
+      v31 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("", 0, 1)._countAndFlagsBits;
+      MEMORY[0x26D620F90](v31);
+
+      v107 = v220;
+      v106 = v221;
+
+      outlined destroy of String.UTF8View(&v220);
+      v110 = MEMORY[0x26D620710](v107, v106);
+
+      v157 = v110;
+      break;
+    case 9:
+      v96 = __dst[0];
+      v102 = __dst[1];
+      v95 = __dst[2];
+      v101 = __dst[3];
+      v97 = __dst[4];
+      v100 = __dst[5];
+
+      v238 = v96;
+      v239 = v102;
+      v236 = v95;
+      v237 = v101;
+      v234 = v97;
+      v235 = v100;
+      v232 = DefaultStringInterpolation.init(literalCapacity:interpolationCount:)();
+      v233 = v32;
+      v33 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("Encountered invalid value ", 0x1AuLL, 1)._countAndFlagsBits;
+      MEMORY[0x26D620F90](v33);
+
+      v230 = v95;
+      v231 = v101;
+      DefaultStringInterpolation.appendInterpolation<A>(_:)();
+      v34 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)(" for slot ", 0xAuLL, 1)._countAndFlagsBits;
+      MEMORY[0x26D620F90](v34);
+
+      v228 = v96;
+      v229 = v102;
+      DefaultStringInterpolation.appendInterpolation<A>(_:)();
+      v35 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)(" in intent ", 0xBuLL, 1)._countAndFlagsBits;
+      MEMORY[0x26D620F90](v35);
+
+      v226 = v97;
+      v227 = v100;
+      DefaultStringInterpolation.appendInterpolation<A>(_:)();
+      v36 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("", 0, 1)._countAndFlagsBits;
+      MEMORY[0x26D620F90](v36);
+
+      v99 = v232;
+      v98 = v233;
+
+      outlined destroy of String.UTF8View(&v232);
+      v103 = MEMORY[0x26D620710](v99, v98);
+
+      v157 = v103;
+      break;
+    case 0xA:
+      v90 = __dst[0];
+      v93 = __dst[1];
+
+      v244 = v90;
+      v245 = v93;
+      v242 = DefaultStringInterpolation.init(literalCapacity:interpolationCount:)();
+      v243 = v37;
+      v38 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("Failed to convert PaymentsNLIntent to ", 0x26uLL, 1)._countAndFlagsBits;
+      MEMORY[0x26D620F90](v38);
+
+      v240 = v90;
+      v241 = v93;
+      DefaultStringInterpolation.appendInterpolation<A>(_:)();
+      v39 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)(".", 1uLL, 1)._countAndFlagsBits;
+      MEMORY[0x26D620F90](v39);
+
+      v92 = v242;
+      v91 = v243;
+
+      outlined destroy of String.UTF8View(&v242);
+      v94 = MEMORY[0x26D620710](v92, v91);
+
+      v157 = v94;
+      break;
+    case 0xB:
+      v85 = __dst[0];
+      v88 = __dst[1];
+
+      v250 = v85;
+      v251 = v88;
+      v248 = DefaultStringInterpolation.init(literalCapacity:interpolationCount:)();
+      v249 = v40;
+      v41 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("Failed to get slot description for ", 0x23uLL, 1)._countAndFlagsBits;
+      MEMORY[0x26D620F90](v41);
+
+      v246 = v85;
+      v247 = v88;
+      DefaultStringInterpolation.appendInterpolation<A>(_:)();
+      v42 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)(".", 1uLL, 1)._countAndFlagsBits;
+      MEMORY[0x26D620F90](v42);
+
+      v87 = v248;
+      v86 = v249;
+
+      outlined destroy of String.UTF8View(&v248);
+      v89 = MEMORY[0x26D620710](v87, v86);
+
+      v157 = v89;
+      break;
+    case 0xC:
+      v80 = __dst[0];
+      v83 = __dst[1];
+
+      v256 = v80;
+      v257 = v83;
+      v254 = DefaultStringInterpolation.init(literalCapacity:interpolationCount:)();
+      v255 = v43;
+      v44 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("Failed to get paymentRecord for ", 0x20uLL, 1)._countAndFlagsBits;
+      MEMORY[0x26D620F90](v44);
+
+      v252 = v80;
+      v253 = v83;
+      DefaultStringInterpolation.appendInterpolation<A>(_:)();
+      v45 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)(".", 1uLL, 1)._countAndFlagsBits;
+      MEMORY[0x26D620F90](v45);
+
+      v82 = v254;
+      v81 = v255;
+
+      outlined destroy of String.UTF8View(&v254);
+      v84 = MEMORY[0x26D620710](v82, v81);
+
+      v157 = v84;
+      break;
+    case 0xD:
+      v75 = __dst[0];
+      v78 = __dst[1];
+
+      v261 = v75;
+      v262 = v78;
+      v259 = DefaultStringInterpolation.init(literalCapacity:interpolationCount:)();
+      v260 = v46;
+      v47 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("Failed to resolve disambiguation selection from personID: ", 0x3AuLL, 1)._countAndFlagsBits;
+      MEMORY[0x26D620F90](v47);
+
+      v258[2] = v75;
+      v258[3] = v78;
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_sSSSgMd, &_sSSSgMR);
+      v258[0] = String.init<A>(describing:)();
+      v258[1] = v48;
+      DefaultStringInterpolation.appendInterpolation<A>(_:)();
+      outlined destroy of String.UTF8View(v258);
+      v49 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("", 0, 1)._countAndFlagsBits;
+      MEMORY[0x26D620F90](v49);
+
+      v77 = v259;
+      v76 = v260;
+
+      outlined destroy of String.UTF8View(&v259);
+      v79 = MEMORY[0x26D620710](v77, v76);
+
+      v157 = v79;
+      break;
+    case 0xE:
+      v70 = __dst[0];
+      v73 = __dst[1];
+
+      v267 = v70;
+      v268 = v73;
+      v265 = DefaultStringInterpolation.init(literalCapacity:interpolationCount:)();
+      v266 = v50;
+      v51 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("Encountered unknown parameter: ", 0x1FuLL, 1)._countAndFlagsBits;
+      MEMORY[0x26D620F90](v51);
+
+      v263 = v70;
+      v264 = v73;
+      DefaultStringInterpolation.appendInterpolation<A>(_:)();
+      v52 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)(".", 1uLL, 1)._countAndFlagsBits;
+      MEMORY[0x26D620F90](v52);
+
+      v72 = v265;
+      v71 = v266;
+
+      outlined destroy of String.UTF8View(&v265);
+      v74 = MEMORY[0x26D620710](v72, v71);
+
+      v157 = v74;
+      break;
+    case 0xF:
+      v65 = __dst[0];
+      v68 = __dst[1];
+
+      v273 = v65;
+      v274 = v68;
+      v271 = DefaultStringInterpolation.init(literalCapacity:interpolationCount:)();
+      v272 = v53;
+      v54 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("Failed to obtain TCC confirmation response from user input for intent ", 0x46uLL, 1)._countAndFlagsBits;
+      MEMORY[0x26D620F90](v54);
+
+      v269 = v65;
+      v270 = v68;
+      DefaultStringInterpolation.appendInterpolation<A>(_:)();
+      v55 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("", 0, 1)._countAndFlagsBits;
+      MEMORY[0x26D620F90](v55);
+
+      v67 = v271;
+      v66 = v272;
+
+      outlined destroy of String.UTF8View(&v271);
+      v69 = MEMORY[0x26D620710](v67, v66);
+
+      v157 = v69;
+      break;
+    case 0x10:
+      v60 = __dst[0];
+      v63 = __dst[1];
+
+      v279 = v60;
+      v280 = v63;
+      v277 = DefaultStringInterpolation.init(literalCapacity:interpolationCount:)();
+      v278 = v56;
+      v57 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("Encountered invalid intent type while trying to create error template: ", 0x47uLL, 1)._countAndFlagsBits;
+      MEMORY[0x26D620F90](v57);
+
+      v275 = v60;
+      v276 = v63;
+      DefaultStringInterpolation.appendInterpolation<A>(_:)();
+      v58 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("", 0, 1)._countAndFlagsBits;
+      MEMORY[0x26D620F90](v58);
+
+      v62 = v277;
+      v61 = v278;
+
+      outlined destroy of String.UTF8View(&v277);
+      v64 = MEMORY[0x26D620710](v62, v61);
+
+      v157 = v64;
+      break;
+    case 0x11:
+      if (__dst[0] || __dst[1] || __dst[2] || __dst[3] || __dst[4] || __dst[5])
+      {
+        if (__dst[0] != 1 || __dst[1] || __dst[2] || __dst[3] || __dst[4] || __dst[5])
+        {
+          if (__dst[0] != 2 || __dst[1] || __dst[2] || __dst[3] || __dst[4] || __dst[5])
+          {
+            if (__dst[0] != 3 || __dst[1] || __dst[2] || __dst[3] || __dst[4] || __dst[5])
+            {
+              if (__dst[0] != 4 || __dst[1] || __dst[2] || __dst[3] || __dst[4] || __dst[5])
+              {
+                if (__dst[0] != 5 || __dst[1] || __dst[2] || __dst[3] || __dst[4] || __dst[5])
+                {
+                  if (__dst[0] != 6 || __dst[1] || __dst[2] || __dst[3] || __dst[4] || __dst[5])
+                  {
+                    if (__dst[0] != 7 || __dst[1] || __dst[2] || __dst[3] || __dst[4] || __dst[5])
+                    {
+                      if (__dst[0] != 8 || __dst[1] || __dst[2] || __dst[3] || __dst[4] || __dst[5])
+                      {
+                        if (__dst[0] != 9 || __dst[1] || __dst[2] || __dst[3] || __dst[4] || __dst[5])
+                        {
+                          if (__dst[0] != 10 || __dst[1] || __dst[2] || __dst[3] || __dst[4] || __dst[5])
+                          {
+                            if (__dst[0] != 11 || __dst[1] || __dst[2] || __dst[3] || __dst[4] || __dst[5])
+                            {
+                              __break(1u);
+                              goto LABEL_75;
+                            }
+
+                            v157 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("The child override should have been invoked", 0x2BuLL, 1)._countAndFlagsBits;
+                          }
+
+                          else
+                          {
+                            v157 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("Failed to obtain an app identifier during app resolution", 0x38uLL, 1)._countAndFlagsBits;
+                          }
+                        }
+
+                        else
+                        {
+                          v157 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("Encountered an unspecified error", 0x20uLL, 1)._countAndFlagsBits;
+                        }
+                      }
+
+                      else
+                      {
+                        v157 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("Failed to convert disambiguation item to INObject", 0x31uLL, 1)._countAndFlagsBits;
+                      }
+                    }
+
+                    else
+                    {
+                      v157 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("Received unexpected disambiguation item type", 0x2CuLL, 1)._countAndFlagsBits;
+                    }
+                  }
+
+                  else
+                  {
+                    v157 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("Failed to get contactID from USO Identifiers", 0x2CuLL, 1)._countAndFlagsBits;
+                  }
+                }
+
+                else
+                {
+                  v157 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("Failed to get NLUUserDialogAct from parse", 0x29uLL, 1)._countAndFlagsBits;
+                }
+              }
+
+              else
+              {
+                v157 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("Failed to convert Parse to PaymentsNLIntent.", 0x2CuLL, 1)._countAndFlagsBits;
+              }
+            }
+
+            else
+            {
+              v157 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("Failed to cast Any itemToConfirm to [INPerson]", 0x2EuLL, 1)._countAndFlagsBits;
+            }
+          }
+
+          else
+          {
+            v157 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("Failed to cast Any disambiguation items to [INPerson]", 0x35uLL, 1)._countAndFlagsBits;
+          }
+        }
+
+        else
+        {
+          v157 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("Encountered invalid SiriKit intent", 0x22uLL, 1)._countAndFlagsBits;
+        }
+      }
+
+      else
+      {
+        v157 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("Failed to convert direct invocation", 0x23uLL, 1)._countAndFlagsBits;
+      }
+
+      break;
+    default:
+LABEL_75:
+      v152 = __dst[0];
+      v155 = __dst[1];
+
+      v160 = v152;
+      v161 = v155;
+      v158 = DefaultStringInterpolation.init(literalCapacity:interpolationCount:)();
+      v159 = v1;
+      v2 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("Received direct invocation we cannot handle: ", 0x2DuLL, 1)._countAndFlagsBits;
+      MEMORY[0x26D620F90](v2);
+
+      DefaultStringInterpolation.appendInterpolation<A>(_:)();
+      v3 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("", 0, 1)._countAndFlagsBits;
+      MEMORY[0x26D620F90](v3);
+
+      v154 = v158;
+      v153 = v159;
+
+      outlined destroy of String.UTF8View(&v158);
+      v156 = MEMORY[0x26D620710](v154, v153);
+
+      v157 = v156;
+      break;
+  }
+
+  return v157;
+}
+
+uint64_t get_enum_tag_for_layout_string_19SiriPaymentsIntents0B5ErrorO(uint64_t a1)
+{
+  if ((*(a1 + 48) & 0x1Fu) < 0x11)
+  {
+    return *(a1 + 48) & 0x1F;
+  }
+
+  else
+  {
+    return *a1 + 17;
+  }
+}
+
+uint64_t getEnumTagSinglePayload for PaymentsError(uint64_t a1, unsigned int a2)
+{
+  if (a2)
+  {
+    if (a2 >= 0xEF && *(a1 + 49))
+    {
+      v4 = *a1 + 238;
+    }
+
+    else
+    {
+      v2 = *(a1 + 48) ^ 0xFF;
+      if (v2 >= 0xEE)
+      {
+        v2 = -1;
+      }
+
+      v4 = v2;
+    }
+  }
+
+  else
+  {
+    v4 = -1;
+  }
+
+  return (v4 + 1);
+}
+
+uint64_t storeEnumTagSinglePayload for PaymentsError(uint64_t result, unsigned int a2, unsigned int a3)
+{
+  v3 = (result + 49);
+  if (a2 > 0xEE)
+  {
+    *(result + 40) = 0;
+    *(result + 32) = 0;
+    *(result + 24) = 0;
+    *(result + 16) = 0;
+    *(result + 8) = 0;
+    *result = a2 - 239;
+    *(result + 48) = 0;
+    if (a3 >= 0xEF)
+    {
+      *v3 = 1;
+    }
+  }
+
+  else
+  {
+    if (a3 >= 0xEF)
+    {
+      *v3 = 0;
+    }
+
+    if (a2)
+    {
+      *(result + 48) = -a2;
+    }
+  }
+
+  return result;
+}
+
+uint64_t destructiveInjectEnumTag for PaymentsError(uint64_t result, unsigned int a2)
+{
+  if (a2 < 0x11)
+  {
+    *(result + 48) = a2;
+  }
+
+  else
+  {
+    *result = a2 - 17;
+    *(result + 8) = 0;
+    *(result + 16) = 0;
+    *(result + 24) = 0;
+    *(result + 32) = 0;
+    *(result + 40) = 0;
+    *(result + 48) = 17;
+  }
+
+  return result;
+}
+
+uint64_t PaymentsAppLister.listApps(intentID:siriAuthorizationRestriction:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v4[9] = a4;
+  v4[8] = a3;
+  v4[6] = v4;
+  v4[2] = 0;
+  v4[3] = 0;
+  v4[7] = 0;
+  v4[2] = a1;
+  v4[3] = a2;
+  v4[7] = a3;
+  return MEMORY[0x2822009F8](PaymentsAppLister.listApps(intentID:siriAuthorizationRestriction:), 0);
+}
+
+uint64_t PaymentsAppLister.listApps(intentID:siriAuthorizationRestriction:)()
+{
+  v8 = v0[9];
+  v0[6] = v0;
+  v0[4] = DefaultStringInterpolation.init(literalCapacity:interpolationCount:)();
+  v0[5] = v1;
+  countAndFlagsBits = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("", 0, 1)._countAndFlagsBits;
+  MEMORY[0x26D620F90](countAndFlagsBits);
+
+  DefaultStringInterpolation.appendInterpolation(_:)(v8);
+  v3 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("", 0, 1)._countAndFlagsBits;
+  MEMORY[0x26D620F90](v3);
+
+  v10 = v0[4];
+  v9 = v0[5];
+
+  outlined destroy of String.UTF8View((v0 + 4));
+  v13 = MEMORY[0x26D620710](v10, v9);
+  v12 = v4;
+  v0[10] = v4;
+  v5 = swift_task_alloc();
+  v11[11] = v5;
+  *v5 = v11[6];
+  v5[1] = PaymentsAppLister.listApps(intentID:siriAuthorizationRestriction:);
+  v6 = v11[8];
+
+  return MEMORY[0x2821B6980](v13, v12, v6);
+}
+
+uint64_t PaymentsAppLister.listApps(intentID:siriAuthorizationRestriction:)(uint64_t a1)
+{
+  v4 = *v1;
+  *(v4 + 48) = *v1;
+
+  v2 = *(*(v4 + 48) + 8);
+
+  return v2(a1);
+}
+
+uint64_t protocol witness for PaymentsAppListing.listApps(intentID:siriAuthorizationRestriction:) in conformance PaymentsAppLister<A>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v9 = v4;
+  *(v4 + 16) = v4;
+  v5 = swift_task_alloc();
+  *(v9 + 24) = v5;
+  v6 = *(a4 + 16);
+  *v5 = *(v9 + 16);
+  v5[1] = protocol witness for IntentExtensionCommunicatingAsync.makeIntentExecutionBehavior(app:intent:) in conformance PaymentsRCHFlowStrategy<A, B>;
+
+  return PaymentsAppLister.listApps(intentID:siriAuthorizationRestriction:)(a1, a2, a3, v6);
+}
+
+uint64_t UsoTask.eraseToAny.getter()
+{
+
+  static UsoTask_CodegenConverter.convert(task:)();
+}
+
+unint64_t UsoTask.siriKitIntentType.getter()
+{
+  v148 = 0;
+  v123 = 0;
+  v124 = type metadata accessor for Logger();
+  v125 = *(v124 - 8);
+  v126 = v125;
+  v129 = *(v125 + 64);
+  MEMORY[0x28223BE20](v124 - 8, v124);
+  v131 = (v129 + 15) & 0xFFFFFFFFFFFFFFF0;
+  v127 = &v25 - v131;
+  MEMORY[0x28223BE20](&v25 - v131, v1);
+  v128 = &v25 - v131;
+  MEMORY[0x28223BE20](&v25 - v131, v2);
+  v130 = &v25 - v131;
+  MEMORY[0x28223BE20](&v25 - v131, v3);
+  v132 = &v25 - v131;
+  v148 = v0;
+  UsoTask.eraseToAny.getter();
+  if (v147[3])
+  {
+    v122 = v143;
+    outlined init with copy of Any?(v147, v143);
+    v121 = 0;
+    type metadata accessor for UsoTask_requestMoney_common_Payment();
+    if (swift_dynamicCast())
+    {
+      v4 = v132;
+      v115 = v142[6];
+      v5 = Logger.payments.unsafeMutableAddressor();
+      (*(v126 + 16))(v4, v5, v124);
+      v119 = Logger.logObject.getter();
+      v116 = v119;
+      v118 = static os_log_type_t.debug.getter();
+      v117 = v118;
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMd, &_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMR);
+      v120 = _allocateUninitializedArray<A>(_:)();
+      if (os_log_type_enabled(v119, v118))
+      {
+        v6 = v123;
+        v106 = static UnsafeMutablePointer.allocate(capacity:)();
+        v102 = v106;
+        v103 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
+        v104 = 0;
+        v107 = createStorage<A>(capacity:type:)(0, v103, v103);
+        v105 = v107;
+        v108 = createStorage<A>(capacity:type:)(v104, MEMORY[0x277D84F70] + 8, MEMORY[0x277D84F70] + 8);
+        v136[0] = v106;
+        v135 = v107;
+        v134 = v108;
+        v109 = 0;
+        v110 = v136;
+        serialize(_:at:)(0, v136);
+        serialize(_:at:)(v109, v110);
+        v133 = v120;
+        v111 = &v25;
+        MEMORY[0x28223BE20](&v25, v7);
+        v112 = &v25 - 6;
+        *(&v25 - 4) = v8;
+        *(&v25 - 3) = &v135;
+        *(&v25 - 2) = &v134;
+        v113 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSayySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcGMd, &_sSayySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcGMR);
+        lazy protocol witness table accessor for type [(_:_:_:)] and conformance [A]();
+        Sequence.forEach(_:)();
+        v114 = v6;
+        if (v6)
+        {
+          __break(1u);
+        }
+
+        else
+        {
+          _os_log_impl(&dword_2686B1000, v116, v117, "#UsoTask siriKitIntentType returning Request intent", v102, 2u);
+          v100 = 0;
+          destroyStorage<A>(_:count:)(v105, 0, v103);
+          destroyStorage<A>(_:count:)(v108, v100, MEMORY[0x277D84F70] + 8);
+          MEMORY[0x26D620BD0](v102, MEMORY[0x277D84B78]);
+
+          v101 = v114;
+        }
+      }
+
+      else
+      {
+
+        v101 = v123;
+      }
+
+      v96 = v101;
+
+      (*(v126 + 8))(v132, v124);
+      v94 = type metadata accessor for INRequestPaymentIntent();
+      v95 = v94;
+
+      __swift_destroy_boxed_opaque_existential_0(v143);
+      outlined destroy of FlowActivity?(v147);
+      v97 = v95;
+      v98 = &protocol witness table for INRequestPaymentIntent;
+      v99 = v96;
+      return v97;
+    }
+
+    v93 = 0;
+    type metadata accessor for UsoTask_pay_common_Payment();
+    if (swift_dynamicCast() || (v92 = 0, type metadata accessor for UsoTask_noVerb_common_Payment(), swift_dynamicCast()))
+    {
+
+      __swift_destroy_boxed_opaque_existential_0(v143);
+      outlined destroy of FlowActivity?(v147);
+      v9 = v130;
+      v10 = Logger.payments.unsafeMutableAddressor();
+      (*(v126 + 16))(v9, v10, v124);
+      v90 = Logger.logObject.getter();
+      v87 = v90;
+      v89 = static os_log_type_t.debug.getter();
+      v88 = v89;
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMd, &_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMR);
+      v91 = _allocateUninitializedArray<A>(_:)();
+      if (os_log_type_enabled(v90, v89))
+      {
+        v11 = v123;
+        v78 = static UnsafeMutablePointer.allocate(capacity:)();
+        v74 = v78;
+        v75 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
+        v76 = 0;
+        v79 = createStorage<A>(capacity:type:)(0, v75, v75);
+        v77 = v79;
+        v80 = createStorage<A>(capacity:type:)(v76, MEMORY[0x277D84F70] + 8, MEMORY[0x277D84F70] + 8);
+        v139[0] = v78;
+        v138 = v79;
+        v137 = v80;
+        v81 = 0;
+        v82 = v139;
+        serialize(_:at:)(0, v139);
+        serialize(_:at:)(v81, v82);
+        v136[1] = v91;
+        v83 = &v25;
+        MEMORY[0x28223BE20](&v25, v12);
+        v84 = &v25 - 6;
+        *(&v25 - 4) = v13;
+        *(&v25 - 3) = &v138;
+        *(&v25 - 2) = &v137;
+        v85 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSayySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcGMd, &_sSayySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcGMR);
+        lazy protocol witness table accessor for type [(_:_:_:)] and conformance [A]();
+        Sequence.forEach(_:)();
+        v86 = v11;
+        if (v11)
+        {
+          __break(1u);
+        }
+
+        else
+        {
+          _os_log_impl(&dword_2686B1000, v87, v88, "#UsoTask siriKitIntentType returning Send intent", v74, 2u);
+          v72 = 0;
+          destroyStorage<A>(_:count:)(v77, 0, v75);
+          destroyStorage<A>(_:count:)(v80, v72, MEMORY[0x277D84F70] + 8);
+          MEMORY[0x26D620BD0](v74, MEMORY[0x277D84B78]);
+
+          v73 = v86;
+        }
+      }
+
+      else
+      {
+
+        v73 = v123;
+      }
+
+      v71 = v73;
+
+      (*(v126 + 8))(v130, v124);
+      v97 = type metadata accessor for INSendPaymentIntent();
+      v98 = &protocol witness table for INSendPaymentIntent;
+      v99 = v71;
+      return v97;
+    }
+
+    v70 = 0;
+    type metadata accessor for UsoTask_noVerb_common_PaymentAccount();
+    if (swift_dynamicCast() || (v69 = 0, type metadata accessor for UsoTask_request_common_PaymentAccount(), swift_dynamicCast()) || (v68 = 0, type metadata accessor for UsoTask_summarise_common_PaymentAccount(), swift_dynamicCast()))
+    {
+
+      __swift_destroy_boxed_opaque_existential_0(v143);
+      outlined destroy of FlowActivity?(v147);
+      v14 = v128;
+      v15 = Logger.payments.unsafeMutableAddressor();
+      (*(v126 + 16))(v14, v15, v124);
+      v66 = Logger.logObject.getter();
+      v63 = v66;
+      v65 = static os_log_type_t.debug.getter();
+      v64 = v65;
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMd, &_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMR);
+      v67 = _allocateUninitializedArray<A>(_:)();
+      if (os_log_type_enabled(v66, v65))
+      {
+        v16 = v123;
+        v54 = static UnsafeMutablePointer.allocate(capacity:)();
+        v50 = v54;
+        v51 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
+        v52 = 0;
+        v55 = createStorage<A>(capacity:type:)(0, v51, v51);
+        v53 = v55;
+        v56 = createStorage<A>(capacity:type:)(v52, MEMORY[0x277D84F70] + 8, MEMORY[0x277D84F70] + 8);
+        v142[0] = v54;
+        v141 = v55;
+        v140 = v56;
+        v57 = 0;
+        v58 = v142;
+        serialize(_:at:)(0, v142);
+        serialize(_:at:)(v57, v58);
+        v139[1] = v67;
+        v59 = &v25;
+        MEMORY[0x28223BE20](&v25, v17);
+        v60 = &v25 - 6;
+        *(&v25 - 4) = v18;
+        *(&v25 - 3) = &v141;
+        *(&v25 - 2) = &v140;
+        v61 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSayySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcGMd, &_sSayySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcGMR);
+        lazy protocol witness table accessor for type [(_:_:_:)] and conformance [A]();
+        Sequence.forEach(_:)();
+        v62 = v16;
+        if (v16)
+        {
+          __break(1u);
+        }
+
+        else
+        {
+          _os_log_impl(&dword_2686B1000, v63, v64, "#UsoTask siriKitIntentType returning SearchForAccounts intent", v50, 2u);
+          v48 = 0;
+          destroyStorage<A>(_:count:)(v53, 0, v51);
+          destroyStorage<A>(_:count:)(v56, v48, MEMORY[0x277D84F70] + 8);
+          MEMORY[0x26D620BD0](v50, MEMORY[0x277D84B78]);
+
+          v49 = v62;
+        }
+      }
+
+      else
+      {
+
+        v49 = v123;
+      }
+
+      v47 = v49;
+
+      (*(v126 + 8))(v128, v124);
+      v97 = type metadata accessor for INSearchForAccountsIntent();
+      v98 = &protocol witness table for INSearchForAccountsIntent;
+      v99 = v47;
+      return v97;
+    }
+
+    __swift_destroy_boxed_opaque_existential_0(v143);
+  }
+
+  v19 = v127;
+  v20 = Logger.payments.unsafeMutableAddressor();
+  (*(v126 + 16))(v19, v20, v124);
+  v45 = Logger.logObject.getter();
+  v42 = v45;
+  v44 = static os_log_type_t.debug.getter();
+  v43 = v44;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMd, &_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMR);
+  v46 = _allocateUninitializedArray<A>(_:)();
+  if (os_log_type_enabled(v45, v44))
+  {
+    v21 = v123;
+    v33 = static UnsafeMutablePointer.allocate(capacity:)();
+    v29 = v33;
+    v30 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
+    v31 = 0;
+    v34 = createStorage<A>(capacity:type:)(0, v30, v30);
+    v32 = v34;
+    v35 = createStorage<A>(capacity:type:)(v31, MEMORY[0x277D84F70] + 8, MEMORY[0x277D84F70] + 8);
+    v146 = v33;
+    v145 = v34;
+    v144 = v35;
+    v36 = 0;
+    v37 = &v146;
+    serialize(_:at:)(0, &v146);
+    serialize(_:at:)(v36, v37);
+    v143[5] = v46;
+    v38 = &v25;
+    MEMORY[0x28223BE20](&v25, v22);
+    v39 = &v25 - 6;
+    *(&v25 - 4) = v23;
+    *(&v25 - 3) = &v145;
+    *(&v25 - 2) = &v144;
+    v40 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSayySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcGMd, &_sSayySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcGMR);
+    lazy protocol witness table accessor for type [(_:_:_:)] and conformance [A]();
+    Sequence.forEach(_:)();
+    v41 = v21;
+    if (v21)
+    {
+      __break(1u);
+    }
+
+    else
+    {
+      _os_log_impl(&dword_2686B1000, v42, v43, "#UsoTask siriKitIntentType no known supported task type found, returning nil", v29, 2u);
+      v27 = 0;
+      destroyStorage<A>(_:count:)(v32, 0, v30);
+      destroyStorage<A>(_:count:)(v35, v27, MEMORY[0x277D84F70] + 8);
+      MEMORY[0x26D620BD0](v29, MEMORY[0x277D84B78]);
+
+      v28 = v41;
+    }
+  }
+
+  else
+  {
+
+    v28 = v123;
+  }
+
+  v26 = v28;
+
+  (*(v126 + 8))(v127, v124);
+  outlined destroy of FlowActivity?(v147);
+  v97 = 0;
+  v98 = 0;
+  v99 = v26;
+  return v97;
+}
+
+__int128 *String.APPLE_CARD_APPLY_LAUNCH_URL.unsafeMutableAddressor()
+{
+  if (one-time initialization token for APPLE_CARD_APPLY_LAUNCH_URL != -1)
+  {
+    swift_once();
+  }
+
+  return &static String.APPLE_CARD_APPLY_LAUNCH_URL;
+}
+
+__int128 *String.APPLE_CARD_INFO_LAUNCH_URL.unsafeMutableAddressor()
+{
+  if (one-time initialization token for APPLE_CARD_INFO_LAUNCH_URL != -1)
+  {
+    swift_once();
+  }
+
+  return &static String.APPLE_CARD_INFO_LAUNCH_URL;
+}
+
+uint64_t Constants.DirectInvocationPayloadKeys.rawValue.getter(char a1)
+{
+  if (a1)
+  {
+    return String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("itemIdentifier", 0xEuLL, 1)._countAndFlagsBits;
+  }
+
+  else
+  {
+    return String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("buttonPressed", 0xDuLL, 1)._countAndFlagsBits;
+  }
+}
+
+uint64_t Constants.DirectInvocationButtonType.rawValue.getter(char a1)
+{
+  if (a1)
+  {
+    return String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("reject", 6uLL, 1)._countAndFlagsBits;
+  }
+
+  else
+  {
+    return String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("confirm", 7uLL, 1)._countAndFlagsBits;
+  }
+}
+
+__int128 *Constants.intentAppIDAssociatedKey.unsafeMutableAddressor()
+{
+  if (one-time initialization token for intentAppIDAssociatedKey != -1)
+  {
+    swift_once();
+  }
+
+  return &static Constants.intentAppIDAssociatedKey;
+}
+
+uint64_t UsoIdentifierNamespace.rawValue.getter(char a1)
+{
+  switch(a1)
+  {
+    case 0:
+      return String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("item_id", 7uLL, 1)._countAndFlagsBits;
+    case 1:
+      return String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("personRelationship", 0x12uLL, 1)._countAndFlagsBits;
+    case 2:
+      return String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("phoneType", 9uLL, 1)._countAndFlagsBits;
+    case 3:
+      return String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("emailType", 9uLL, 1)._countAndFlagsBits;
+    case 4:
+      return String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("contactAttributes", 0x11uLL, 1)._countAndFlagsBits;
+    case 5:
+      return String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("contactType", 0xBuLL, 1)._countAndFlagsBits;
+    default:
+      return String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("name", 4uLL, 1)._countAndFlagsBits;
+  }
+}
+
+__int128 *String.NOT_YET_IMPLEMENTED.unsafeMutableAddressor()
+{
+  if (one-time initialization token for NOT_YET_IMPLEMENTED != -1)
+  {
+    swift_once();
+  }
+
+  return &static String.NOT_YET_IMPLEMENTED;
+}
+
+__int128 *String.APPLE_CARD_WEB_PAGE_LINK.unsafeMutableAddressor()
+{
+  if (one-time initialization token for APPLE_CARD_WEB_PAGE_LINK != -1)
+  {
+    swift_once();
+  }
+
+  return &static String.APPLE_CARD_WEB_PAGE_LINK;
+}
+
+uint64_t Constants.IntentTypeCATCode.rawValue.getter(char a1)
+{
+  if (!a1)
+  {
+    return String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("request", 7uLL, 1)._countAndFlagsBits;
+  }
+
+  if (a1 == 1)
+  {
+    return String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("send", 4uLL, 1)._countAndFlagsBits;
+  }
+
+  else
+  {
+    return String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("search", 6uLL, 1)._countAndFlagsBits;
+  }
+}
+
+uint64_t Constants.DirectInvocationPayloadIdentifiers.rawValue.getter(char a1)
+{
+  if (a1)
+  {
+    return String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("com.apple.siri.DirectInvocation.Payments.ItemSelection", 0x36uLL, 1)._countAndFlagsBits;
+  }
+
+  else
+  {
+    return String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("com.apple.siri.DirectInvocation.Payments.buttonPress", 0x34uLL, 1)._countAndFlagsBits;
+  }
+}
+
+uint64_t static Constants.PaymentAccountBalanceType.fromINBalanceType(_:)(uint64_t a1, char a2)
+{
+  if ((a2 & 1) != 0 || !a1)
+  {
+    return 3;
+  }
+
+  else
+  {
+    switch(a1)
+    {
+      case 1:
+        return 1;
+      case 2:
+        return 2;
+      case 3:
+        return 0;
+      default:
+        return 3;
+    }
+  }
+}
+
+uint64_t Constants.PaymentAccountBalanceType.rawValue.getter(char a1)
+{
+  switch(a1)
+  {
+    case 0:
+      return String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("miles", 5uLL, 1)._countAndFlagsBits;
+    case 1:
+      return String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("money", 5uLL, 1)._countAndFlagsBits;
+    case 2:
+      return String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("points", 6uLL, 1)._countAndFlagsBits;
+    default:
+      return String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("unknown", 7uLL, 1)._countAndFlagsBits;
+  }
+}
+
+uint64_t static Constants.PaymentAccountType.fromINAccountType(_:)(uint64_t a1)
+{
+  if (a1)
+  {
+    switch(a1)
+    {
+      case 1:
+        return 1;
+      case 2:
+        return 2;
+      case 3:
+        return 3;
+      case 4:
+        return 4;
+      case 5:
+        return 5;
+      case 6:
+        return 6;
+      case 7:
+        return 7;
+      default:
+        return 0;
+    }
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+uint64_t Constants.PaymentAccountType.rawValue.getter(char a1)
+{
+  switch(a1)
+  {
+    case 0:
+      return String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("unknown", 7uLL, 1)._countAndFlagsBits;
+    case 1:
+      return String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("checking", 8uLL, 1)._countAndFlagsBits;
+    case 2:
+      return String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("credit", 6uLL, 1)._countAndFlagsBits;
+    case 3:
+      return String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("debit", 5uLL, 1)._countAndFlagsBits;
+    case 4:
+      return String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("investment", 0xAuLL, 1)._countAndFlagsBits;
+    case 5:
+      return String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("mortgage", 8uLL, 1)._countAndFlagsBits;
+    case 6:
+      return String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("prepaid", 7uLL, 1)._countAndFlagsBits;
+    case 7:
+      return String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("saving", 6uLL, 1)._countAndFlagsBits;
+    default:
+      return String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("savings", 7uLL, 1)._countAndFlagsBits;
+  }
+}
+
+uint64_t Constants.PaymentAccountType.asCATIDForLoc.getter(char a1)
+{
+  switch(a1)
+  {
+    case 0:
+      return 0;
+    case 1:
+      return String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("ACCOUNT_TYPE_CHECKING", 0x15uLL, 1)._countAndFlagsBits;
+    case 2:
+      return String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("ACCOUNT_TYPE_CREDIT", 0x13uLL, 1)._countAndFlagsBits;
+    case 3:
+      return String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("ACCOUNT_TYPE_DEBIT", 0x12uLL, 1)._countAndFlagsBits;
+    case 4:
+      return String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("ACCOUNT_TYPE_INVESTMENT", 0x17uLL, 1)._countAndFlagsBits;
+    case 5:
+      return String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("ACCOUNT_TYPE_MORTGAGE", 0x15uLL, 1)._countAndFlagsBits;
+    case 6:
+      return String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("ACCOUNT_TYPE_PREPAID", 0x14uLL, 1)._countAndFlagsBits;
+  }
+
+  return String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("ACCOUNT_TYPE_SAVING", 0x13uLL, 1)._countAndFlagsBits;
+}
+
+uint64_t Constants.PaymentAccountBalanceType.asCATIDForLoc.getter(char a1)
+{
+  switch(a1)
+  {
+    case 0:
+      return String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("BALANCE_TYPE_MILES", 0x12uLL, 1)._countAndFlagsBits;
+    case 1:
+      return String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("BALANCE_TYPE_MONEY", 0x12uLL, 1)._countAndFlagsBits;
+    case 2:
+      return String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("BALANCE_TYPE_POINTS", 0x13uLL, 1)._countAndFlagsBits;
+    default:
+      return String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("BALANCE_TYPE_UNKNOWN", 0x14uLL, 1)._countAndFlagsBits;
+  }
+}
+
+__int128 *String.EMPTY.unsafeMutableAddressor()
+{
+  if (one-time initialization token for EMPTY != -1)
+  {
+    swift_once();
+  }
+
+  return &static String.EMPTY;
+}
+
+SiriPaymentsIntents::Constants::DirectInvocationButtonType_optional __swiftcall Constants.DirectInvocationButtonType.init(rawValue:)(Swift::String rawValue)
+{
+  _allocateUninitializedArray<A>(_:)();
+  *v1 = "confirm";
+  *(v1 + 8) = 7;
+  *(v1 + 16) = 2;
+  *(v1 + 24) = "reject";
+  *(v1 + 32) = 6;
+  *(v1 + 40) = 2;
+  _finalizeUninitializedArray<A>(_:)();
+  v7 = _findStringSwitchCase(cases:string:)(v2, rawValue);
+
+  if (!v7)
+  {
+    v5.value = SiriPaymentsIntents_Constants_DirectInvocationButtonType_confirm;
+LABEL_6:
+
+    return v5;
+  }
+
+  if (v7 == 1)
+  {
+    v5.value = SiriPaymentsIntents_Constants_DirectInvocationButtonType_reject;
+    goto LABEL_6;
+  }
+
+  return 2;
+}
+
+uint64_t Constants.DirectInvocationButtonType.confirmationResponse.getter@<X0>(char a1@<W0>, uint64_t a2@<X8>)
+{
+  if (a1)
+  {
+    v5 = *MEMORY[0x277D5BED0];
+    v4 = type metadata accessor for ConfirmationResponse();
+    return (*(*(v4 - 8) + 104))(a2, v5);
+  }
+
+  else
+  {
+    v6 = *MEMORY[0x277D5BED8];
+    v2 = type metadata accessor for ConfirmationResponse();
+    return (*(*(v2 - 8) + 104))(a2, v6);
+  }
+}
+
+uint64_t Constants.NLConstants.rawValue.getter(char a1)
+{
+  if (a1)
+  {
+    return String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("paymentsConfirmation", 0x14uLL, 1)._countAndFlagsBits;
+  }
+
+  else
+  {
+    return String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("payments", 8uLL, 1)._countAndFlagsBits;
+  }
+}
+
+uint64_t Constants.NLConstants.canonicalName.getter(char a1)
+{
+  v12 = a1 & 1;
+  v10 = DefaultStringInterpolation.init(literalCapacity:interpolationCount:)();
+  v11 = v1;
+  countAndFlagsBits = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("com.apple.siri.nl.", 0x12uLL, 1)._countAndFlagsBits;
+  MEMORY[0x26D620F90](countAndFlagsBits);
+
+  Constants.NLConstants.rawValue.getter(a1 & 1);
+  v3 = String.firstLetterCapitalized()();
+
+  v9 = v3;
+  DefaultStringInterpolation.appendInterpolation<A>(_:)();
+  outlined destroy of String.UTF8View(&v9);
+  v4 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("", 0, 1)._countAndFlagsBits;
+  MEMORY[0x26D620F90](v4);
+
+  v8 = v10;
+  v7 = v11;
+
+  outlined destroy of String.UTF8View(&v10);
+  return MEMORY[0x26D620710](v8, v7);
+}
+
+uint64_t Constants.NLPaymentConfirmationValue.canonicalName.getter(char a1)
+{
+  v10 = a1;
+  Constants.NLPaymentConfirmationValue.associatedSemantic.getter();
+  Constants.NLPaymentConfirmationValue.rawValue.getter(a1);
+  v1 = String.uppercased()();
+
+  v9 = v1;
+  v8 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)(" ", 1uLL, 1);
+  v7 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("_", 1uLL, 1);
+  lazy protocol witness table accessor for type String and conformance String();
+  default argument 2 of StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)();
+  v5._countAndFlagsBits = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)();
+  v5._object = v2;
+  outlined destroy of String.UTF8View(&v7);
+  outlined destroy of String.UTF8View(&v8);
+  outlined destroy of String.UTF8View(&v9);
+  countAndFlagsBits = Constants.NLConstants.boundValue(_:)(v5)._countAndFlagsBits;
+
+  return countAndFlagsBits;
+}
+
+uint64_t one-time initialization function for EMPTY()
+{
+  v1 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("", 0, 1);
+  result = v1._countAndFlagsBits;
+  static String.EMPTY = v1;
+  return result;
+}
+
+uint64_t static String.EMPTY.getter()
+{
+  v1 = *String.EMPTY.unsafeMutableAddressor();
+
+  return v1;
+}
+
+uint64_t one-time initialization function for NOT_YET_IMPLEMENTED()
+{
+  v1 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("Not yet implemented", 0x13uLL, 1);
+  result = v1._countAndFlagsBits;
+  static String.NOT_YET_IMPLEMENTED = v1;
+  return result;
+}
+
+uint64_t static String.NOT_YET_IMPLEMENTED.getter()
+{
+  v1 = *String.NOT_YET_IMPLEMENTED.unsafeMutableAddressor();
+
+  return v1;
+}
+
+uint64_t one-time initialization function for WATCH_APP_BUNDLE_ID()
+{
+  v1 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("com.apple.NanoPassbook", 0x16uLL, 1);
+  result = v1._countAndFlagsBits;
+  static String.WATCH_APP_BUNDLE_ID = v1;
+  return result;
+}
+
+__int128 *String.WATCH_APP_BUNDLE_ID.unsafeMutableAddressor()
+{
+  if (one-time initialization token for WATCH_APP_BUNDLE_ID != -1)
+  {
+    swift_once();
+  }
+
+  return &static String.WATCH_APP_BUNDLE_ID;
+}
+
+uint64_t static String.WATCH_APP_BUNDLE_ID.getter()
+{
+  v1 = *String.WATCH_APP_BUNDLE_ID.unsafeMutableAddressor();
+
+  return v1;
+}
+
+uint64_t one-time initialization function for APP_BUNDLE_ID()
+{
+  v1 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("com.apple.Passbook", 0x12uLL, 1);
+  result = v1._countAndFlagsBits;
+  static String.APP_BUNDLE_ID = v1;
+  return result;
+}
+
+__int128 *String.APP_BUNDLE_ID.unsafeMutableAddressor()
+{
+  if (one-time initialization token for APP_BUNDLE_ID != -1)
+  {
+    swift_once();
+  }
+
+  return &static String.APP_BUNDLE_ID;
+}
+
+uint64_t static String.APP_BUNDLE_ID.getter()
+{
+  v1 = *String.APP_BUNDLE_ID.unsafeMutableAddressor();
+
+  return v1;
+}
+
+uint64_t one-time initialization function for APP_NAME_EN()
+{
+  v1 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("passbook", 8uLL, 1);
+  result = v1._countAndFlagsBits;
+  static String.APP_NAME_EN = v1;
+  return result;
+}
+
+__int128 *String.APP_NAME_EN.unsafeMutableAddressor()
+{
+  if (one-time initialization token for APP_NAME_EN != -1)
+  {
+    swift_once();
+  }
+
+  return &static String.APP_NAME_EN;
+}
+
+uint64_t static String.APP_NAME_EN.getter()
+{
+  v1 = *String.APP_NAME_EN.unsafeMutableAddressor();
+
+  return v1;
+}
+
+uint64_t one-time initialization function for PASSKIT_EXTENSION_BUNDLE_ID()
+{
+  v1 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("com.apple.PassKit.PassKitIntentsExtension", 0x29uLL, 1);
+  result = v1._countAndFlagsBits;
+  static String.PASSKIT_EXTENSION_BUNDLE_ID = v1;
+  return result;
+}
+
+__int128 *String.PASSKIT_EXTENSION_BUNDLE_ID.unsafeMutableAddressor()
+{
+  if (one-time initialization token for PASSKIT_EXTENSION_BUNDLE_ID != -1)
+  {
+    swift_once();
+  }
+
+  return &static String.PASSKIT_EXTENSION_BUNDLE_ID;
+}
+
+uint64_t static String.PASSKIT_EXTENSION_BUNDLE_ID.getter()
+{
+  v1 = *String.PASSKIT_EXTENSION_BUNDLE_ID.unsafeMutableAddressor();
+
+  return v1;
+}
+
+uint64_t one-time initialization function for PASSKIT_UI_EXTENSION_BUNDLE_ID()
+{
+  v1 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("com.apple.PassKit.PassKitIntentsUIExtension", 0x2BuLL, 1);
+  result = v1._countAndFlagsBits;
+  static String.PASSKIT_UI_EXTENSION_BUNDLE_ID = v1;
+  return result;
+}
+
+__int128 *String.PASSKIT_UI_EXTENSION_BUNDLE_ID.unsafeMutableAddressor()
+{
+  if (one-time initialization token for PASSKIT_UI_EXTENSION_BUNDLE_ID != -1)
+  {
+    swift_once();
+  }
+
+  return &static String.PASSKIT_UI_EXTENSION_BUNDLE_ID;
+}
+
+uint64_t static String.PASSKIT_UI_EXTENSION_BUNDLE_ID.getter()
+{
+  v1 = *String.PASSKIT_UI_EXTENSION_BUNDLE_ID.unsafeMutableAddressor();
+
+  return v1;
+}
+
+uint64_t one-time initialization function for APPLE_CARD_INFO_LAUNCH_URL()
+{
+  v1 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("wallet://discovery/card/40cc8cf6-f7d2-407b-9426-0986d1f39178?referrer=cid%3Dapy-410-100001", 0x5AuLL, 1);
+  result = v1._countAndFlagsBits;
+  static String.APPLE_CARD_INFO_LAUNCH_URL = v1;
+  return result;
+}
+
+uint64_t static String.APPLE_CARD_INFO_LAUNCH_URL.getter()
+{
+  v1 = *String.APPLE_CARD_INFO_LAUNCH_URL.unsafeMutableAddressor();
+
+  return v1;
+}
+
+uint64_t one-time initialization function for APPLE_CARD_APPLY_LAUNCH_URL()
+{
+  v1 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("wallet://setup/feature/ccs?referrer=cid%3Dapy-410-100002", 0x38uLL, 1);
+  result = v1._countAndFlagsBits;
+  static String.APPLE_CARD_APPLY_LAUNCH_URL = v1;
+  return result;
+}
+
+uint64_t static String.APPLE_CARD_APPLY_LAUNCH_URL.getter()
+{
+  v1 = *String.APPLE_CARD_APPLY_LAUNCH_URL.unsafeMutableAddressor();
+
+  return v1;
+}
+
+uint64_t one-time initialization function for APPLE_CARD_WEB_PAGE_LINK()
+{
+  v1 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("https://www.apple.com/apple-card/", 0x21uLL, 1);
+  result = v1._countAndFlagsBits;
+  static String.APPLE_CARD_WEB_PAGE_LINK = v1;
+  return result;
+}
+
+uint64_t static String.APPLE_CARD_WEB_PAGE_LINK.getter()
+{
+  v1 = *String.APPLE_CARD_WEB_PAGE_LINK.unsafeMutableAddressor();
+
+  return v1;
+}
+
+uint64_t one-time initialization function for intentAppIDAssociatedKey()
+{
+  v1 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("intentAppIDAssociatedKey", 0x18uLL, 1);
+  result = v1._countAndFlagsBits;
+  static Constants.intentAppIDAssociatedKey = v1;
+  return result;
+}
+
+uint64_t static Constants.intentAppIDAssociatedKey.getter()
+{
+  v1 = Constants.intentAppIDAssociatedKey.unsafeMutableAddressor();
+  swift_beginAccess();
+  v2 = *v1;
+
+  swift_endAccess();
+  return v2;
+}
+
+uint64_t static Constants.intentAppIDAssociatedKey.setter(uint64_t a1, uint64_t a2)
+{
+  v4 = Constants.intentAppIDAssociatedKey.unsafeMutableAddressor();
+
+  swift_beginAccess();
+  *v4 = a1;
+  *(v4 + 1) = a2;
+
+  swift_endAccess();
+}
+
+uint64_t static Constants.defaultPaymentsApp.getter()
+{
+  type metadata accessor for App();
+  String.APP_BUNDLE_ID.unsafeMutableAddressor();
+
+  String.PASSKIT_EXTENSION_BUNDLE_ID.unsafeMutableAddressor();
+
+  String.PASSKIT_UI_EXTENSION_BUNDLE_ID.unsafeMutableAddressor();
+
+  return App.__allocating_init(appIdentifier:systemExtensionBundleId:systemUIExtensionBundleId:pluginIdentifier:)();
+}
+
+Swift::String __swiftcall Constants.NLConstants.boundValue(_:)(Swift::String a1)
+{
+  v10 = v1;
+  v18 = a1;
+  v17 = v1 & 1;
+  v15 = DefaultStringInterpolation.init(literalCapacity:interpolationCount:)();
+  v16 = v2;
+  countAndFlagsBits = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("", 0, 1)._countAndFlagsBits;
+  MEMORY[0x26D620F90](countAndFlagsBits);
+
+  v14[0] = Constants.NLConstants.canonicalName.getter(v10 & 1);
+  v14[1] = v4;
+  DefaultStringInterpolation.appendInterpolation<A>(_:)();
+  outlined destroy of String.UTF8View(v14);
+  v5 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)(".Value.", 7uLL, 1)._countAndFlagsBits;
+  MEMORY[0x26D620F90](v5);
+
+  v13 = String.uppercased()();
+  DefaultStringInterpolation.appendInterpolation<A>(_:)();
+  outlined destroy of String.UTF8View(&v13);
+  v6 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("", 0, 1)._countAndFlagsBits;
+  MEMORY[0x26D620F90](v6);
+
+  v12 = v15;
+  v11 = v16;
+
+  outlined destroy of String.UTF8View(&v15);
+  v7 = MEMORY[0x26D620710](v12, v11);
+  result._object = v8;
+  result._countAndFlagsBits = v7;
+  return result;
+}
+
+SiriPaymentsIntents::Constants::NLConstants_optional __swiftcall Constants.NLConstants.init(rawValue:)(Swift::String rawValue)
+{
+  _allocateUninitializedArray<A>(_:)();
+  *v1 = "payments";
+  *(v1 + 8) = 8;
+  *(v1 + 16) = 2;
+  *(v1 + 24) = "paymentsConfirmation";
+  *(v1 + 32) = 20;
+  *(v1 + 40) = 2;
+  _finalizeUninitializedArray<A>(_:)();
+  v7 = _findStringSwitchCase(cases:string:)(v2, rawValue);
+
+  if (!v7)
+  {
+    v5.value = SiriPaymentsIntents_Constants_NLConstants_payments;
+LABEL_6:
+
+    return v5;
+  }
+
+  if (v7 == 1)
+  {
+    v5.value = SiriPaymentsIntents_Constants_NLConstants_paymentsConfirmation;
+    goto LABEL_6;
+  }
+
+  return 2;
+}
+
+SiriPaymentsIntents::Constants::NLConstants_optional protocol witness for RawRepresentable.init(rawValue:) in conformance Constants.NLConstants@<W0>(Swift::String *a1@<X0>, SiriPaymentsIntents::Constants::NLConstants_optional *a2@<X8>)
+{
+  result.value = Constants.NLConstants.init(rawValue:)(*a1).value;
+  a2->value = result.value;
+  return result;
+}
+
+uint64_t protocol witness for RawRepresentable.rawValue.getter in conformance Constants.NLConstants@<X0>(uint64_t *a1@<X8>)
+{
+  result = Constants.NLConstants.rawValue.getter(*v1 & 1);
+  *a1 = result;
+  a1[1] = v3;
+  return result;
+}
+
+uint64_t Constants.NLPaymentConfirmationValue.rawValue.getter(char a1)
+{
+  if (!a1)
+  {
+    return String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("yes", 3uLL, 1)._countAndFlagsBits;
+  }
+
+  if (a1 == 1)
+  {
+    return String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("no", 2uLL, 1)._countAndFlagsBits;
+  }
+
+  else
+  {
+    return String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("cancel", 6uLL, 1)._countAndFlagsBits;
+  }
+}
+
+unint64_t lazy protocol witness table accessor for type Constants.NLConstants and conformance Constants.NLConstants()
+{
+  v2 = lazy protocol witness table cache variable for type Constants.NLConstants and conformance Constants.NLConstants;
+  if (!lazy protocol witness table cache variable for type Constants.NLConstants and conformance Constants.NLConstants)
+  {
+    WitnessTable = swift_getWitnessTable();
+    atomic_store(WitnessTable, &lazy protocol witness table cache variable for type Constants.NLConstants and conformance Constants.NLConstants);
+    return WitnessTable;
+  }
+
+  return v2;
+}
+
+{
+  v2 = lazy protocol witness table cache variable for type Constants.NLConstants and conformance Constants.NLConstants;
+  if (!lazy protocol witness table cache variable for type Constants.NLConstants and conformance Constants.NLConstants)
+  {
+    WitnessTable = swift_getWitnessTable();
+    atomic_store(WitnessTable, &lazy protocol witness table cache variable for type Constants.NLConstants and conformance Constants.NLConstants);
+    return WitnessTable;
+  }
+
+  return v2;
+}
+
+SiriPaymentsIntents::Constants::NLPaymentConfirmationValue_optional __swiftcall Constants.NLPaymentConfirmationValue.init(rawValue:)(Swift::String rawValue)
+{
+  _allocateUninitializedArray<A>(_:)();
+  *v1 = "yes";
+  *(v1 + 8) = 3;
+  *(v1 + 16) = 2;
+  *(v1 + 24) = "no";
+  *(v1 + 32) = 2;
+  *(v1 + 40) = 2;
+  *(v1 + 48) = "cancel";
+  *(v1 + 56) = 6;
+  *(v1 + 64) = 2;
+  _finalizeUninitializedArray<A>(_:)();
+  v7 = _findStringSwitchCase(cases:string:)(v2, rawValue);
+
+  switch(v7)
+  {
+    case 0:
+      v5.value = SiriPaymentsIntents_Constants_NLPaymentConfirmationValue_yes;
+LABEL_8:
+
+      return v5;
+    case 1:
+      v5.value = SiriPaymentsIntents_Constants_NLPaymentConfirmationValue_no;
+      goto LABEL_8;
+    case 2:
+      v5.value = SiriPaymentsIntents_Constants_NLPaymentConfirmationValue_cancel;
+      goto LABEL_8;
+  }
+
+  return 3;
+}
+
+void static Constants.NLPaymentConfirmationValue.allCases.getter()
+{
+  _allocateUninitializedArray<A>(_:)();
+  *v0 = 0;
+  v0[1] = 1;
+  v0[2] = 2;
+  _finalizeUninitializedArray<A>(_:)();
+}
+
+unint64_t lazy protocol witness table accessor for type Constants.NLPaymentConfirmationValue and conformance Constants.NLPaymentConfirmationValue()
+{
+  v2 = lazy protocol witness table cache variable for type Constants.NLPaymentConfirmationValue and conformance Constants.NLPaymentConfirmationValue;
+  if (!lazy protocol witness table cache variable for type Constants.NLPaymentConfirmationValue and conformance Constants.NLPaymentConfirmationValue)
+  {
+    WitnessTable = swift_getWitnessTable();
+    atomic_store(WitnessTable, &lazy protocol witness table cache variable for type Constants.NLPaymentConfirmationValue and conformance Constants.NLPaymentConfirmationValue);
+    return WitnessTable;
+  }
+
+  return v2;
+}
+
+{
+  v2 = lazy protocol witness table cache variable for type Constants.NLPaymentConfirmationValue and conformance Constants.NLPaymentConfirmationValue;
+  if (!lazy protocol witness table cache variable for type Constants.NLPaymentConfirmationValue and conformance Constants.NLPaymentConfirmationValue)
+  {
+    WitnessTable = swift_getWitnessTable();
+    atomic_store(WitnessTable, &lazy protocol witness table cache variable for type Constants.NLPaymentConfirmationValue and conformance Constants.NLPaymentConfirmationValue);
+    return WitnessTable;
+  }
+
+  return v2;
+}
+
+{
+  v2 = lazy protocol witness table cache variable for type Constants.NLPaymentConfirmationValue and conformance Constants.NLPaymentConfirmationValue;
+  if (!lazy protocol witness table cache variable for type Constants.NLPaymentConfirmationValue and conformance Constants.NLPaymentConfirmationValue)
+  {
+    WitnessTable = swift_getWitnessTable();
+    atomic_store(WitnessTable, &lazy protocol witness table cache variable for type Constants.NLPaymentConfirmationValue and conformance Constants.NLPaymentConfirmationValue);
+    return WitnessTable;
+  }
+
+  return v2;
+}
+
+{
+  v2 = lazy protocol witness table cache variable for type Constants.NLPaymentConfirmationValue and conformance Constants.NLPaymentConfirmationValue;
+  if (!lazy protocol witness table cache variable for type Constants.NLPaymentConfirmationValue and conformance Constants.NLPaymentConfirmationValue)
+  {
+    WitnessTable = swift_getWitnessTable();
+    atomic_store(WitnessTable, &lazy protocol witness table cache variable for type Constants.NLPaymentConfirmationValue and conformance Constants.NLPaymentConfirmationValue);
+    return WitnessTable;
+  }
+
+  return v2;
+}
+
+{
+  v2 = lazy protocol witness table cache variable for type Constants.NLPaymentConfirmationValue and conformance Constants.NLPaymentConfirmationValue;
+  if (!lazy protocol witness table cache variable for type Constants.NLPaymentConfirmationValue and conformance Constants.NLPaymentConfirmationValue)
+  {
+    WitnessTable = swift_getWitnessTable();
+    atomic_store(WitnessTable, &lazy protocol witness table cache variable for type Constants.NLPaymentConfirmationValue and conformance Constants.NLPaymentConfirmationValue);
+    return WitnessTable;
+  }
+
+  return v2;
+}
+
+{
+  v2 = lazy protocol witness table cache variable for type Constants.NLPaymentConfirmationValue and conformance Constants.NLPaymentConfirmationValue;
+  if (!lazy protocol witness table cache variable for type Constants.NLPaymentConfirmationValue and conformance Constants.NLPaymentConfirmationValue)
+  {
+    WitnessTable = swift_getWitnessTable();
+    atomic_store(WitnessTable, &lazy protocol witness table cache variable for type Constants.NLPaymentConfirmationValue and conformance Constants.NLPaymentConfirmationValue);
+    return WitnessTable;
+  }
+
+  return v2;
+}
+
+SiriPaymentsIntents::Constants::NLPaymentConfirmationValue_optional protocol witness for RawRepresentable.init(rawValue:) in conformance Constants.NLPaymentConfirmationValue@<W0>(Swift::String *a1@<X0>, SiriPaymentsIntents::Constants::NLPaymentConfirmationValue_optional *a2@<X8>)
+{
+  result.value = Constants.NLPaymentConfirmationValue.init(rawValue:)(*a1).value;
+  a2->value = result.value;
+  return result;
+}
+
+uint64_t protocol witness for RawRepresentable.rawValue.getter in conformance Constants.NLPaymentConfirmationValue@<X0>(uint64_t *a1@<X8>)
+{
+  result = Constants.NLPaymentConfirmationValue.rawValue.getter(*v1);
+  *a1 = result;
+  a1[1] = v3;
+  return result;
+}
+
+uint64_t protocol witness for static TerminalNodeValueType.fromIntentNodeValue(_:) in conformance Constants.NLPaymentConfirmationValue(uint64_t a1, uint64_t a2)
+{
+  lazy protocol witness table accessor for type Constants.NLPaymentConfirmationValue and conformance Constants.NLPaymentConfirmationValue();
+  lazy protocol witness table accessor for type Constants.NLPaymentConfirmationValue and conformance Constants.NLPaymentConfirmationValue();
+  lazy protocol witness table accessor for type Constants.NLPaymentConfirmationValue and conformance Constants.NLPaymentConfirmationValue();
+  return static TerminalNodeBoundedSemanticValue<>.fromIntentNodeValue(_:)();
+}
+
+SiriPaymentsIntents::Constants::PaymentAccountType_optional __swiftcall Constants.PaymentAccountType.init(from:)(Swift::String_optional from)
+{
+  countAndFlagsBits = from.value._countAndFlagsBits;
+  object = from.value._object;
+  v70 = partial apply for specialized implicit closure #8 in closure #1 in static Transformer<>.transformer(previousIntent:contactResolver:);
+  v71 = partial apply for implicit closure #1 in OSLogInterpolation.appendInterpolation(_:align:privacy:);
+  v72 = partial apply for closure #1 in OSLogArguments.append(_:);
+  v73 = partial apply for closure #1 in OSLogArguments.append(_:);
+  v74 = partial apply for closure #1 in OSLogArguments.append(_:);
+  v100 = 0;
+  v101 = 0;
+  v99._countAndFlagsBits = 0;
+  v99._object = 0;
+  v75 = 0;
+  v76 = 0;
+  v77 = type metadata accessor for Logger();
+  v78 = *(v77 - 8);
+  v79 = v77 - 8;
+  v80 = (*(v78 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  MEMORY[0x28223BE20](0, v1);
+  v81 = &v28[-v80];
+  v83 = type metadata accessor for CharacterSet();
+  v84 = *(v83 - 8);
+  v85 = v83 - 8;
+  v86 = (*(v84 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  v3 = MEMORY[0x28223BE20](object, v2);
+  v87 = &v28[-v86];
+  v100 = v4;
+  v101 = v3;
+
+  if (!object)
+  {
+    goto LABEL_12;
+  }
+
+  v68 = countAndFlagsBits;
+  v69 = object;
+  v41._object = object;
+  v41._countAndFlagsBits = countAndFlagsBits;
+
+  v99 = v41;
+  v46 = &v98;
+  v98 = v41;
+  v57 = 7;
+  v43 = 1;
+  v5 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("account", 7uLL, 1);
+  v45 = &v97;
+  v97 = v5;
+  v42 = 0;
+  v6 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("", 0, v43 & 1);
+  v44 = &v96;
+  v96 = v6;
+  v50 = lazy protocol witness table accessor for type String and conformance String();
+  v49 = MEMORY[0x277D837D0];
+  default argument 2 of StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)();
+  v48 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)();
+  v47 = v7;
+  outlined destroy of String.UTF8View(v44);
+  outlined destroy of String.UTF8View(v45);
+  outlined destroy of String.UTF8View(v46);
+  v51 = v95;
+  v95[0] = v48;
+  v95[1] = v47;
+  static CharacterSet.whitespacesAndNewlines.getter();
+  v8 = StringProtocol.trimmingCharacters(in:)();
+  v9 = v81;
+  v52 = v8;
+  v53 = v10;
+  (*(v84 + 8))(v87, v83);
+  outlined destroy of String.UTF8View(v51);
+  v54 = String.lowercased()();
+
+  v99 = v54;
+
+  v11 = Logger.payments.unsafeMutableAddressor();
+  (*(v78 + 16))(v9, v11, v77);
+
+  v56 = 32;
+  v12 = swift_allocObject();
+  v13 = v54._object;
+  v58 = v12;
+  *(v12 + 16) = v54._countAndFlagsBits;
+  *(v12 + 24) = v13;
+  v66 = Logger.logObject.getter();
+  v67 = static os_log_type_t.debug.getter();
+  v55 = 17;
+  v60 = swift_allocObject();
+  *(v60 + 16) = 32;
+  v61 = swift_allocObject();
+  *(v61 + 16) = 8;
+  v14 = swift_allocObject();
+  v15 = v58;
+  v59 = v14;
+  *(v14 + 16) = v70;
+  *(v14 + 24) = v15;
+  v16 = swift_allocObject();
+  v17 = v59;
+  v63 = v16;
+  *(v16 + 16) = v71;
+  *(v16 + 24) = v17;
+  v65 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMd, &_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMR);
+  v62 = _allocateUninitializedArray<A>(_:)();
+  v64 = v18;
+
+  v19 = v60;
+  v20 = v64;
+  *v64 = v72;
+  v20[1] = v19;
+
+  v21 = v61;
+  v22 = v64;
+  v64[2] = v73;
+  v22[3] = v21;
+
+  v23 = v63;
+  v24 = v64;
+  v64[4] = v74;
+  v24[5] = v23;
+  _finalizeUninitializedArray<A>(_:)();
+
+  if (os_log_type_enabled(v66, v67))
+  {
+    v25 = v75;
+    v34 = static UnsafeMutablePointer.allocate(capacity:)();
+    v33 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
+    v35 = createStorage<A>(capacity:type:)(0, v33, v33);
+    v36 = createStorage<A>(capacity:type:)(1, MEMORY[0x277D84F70] + 8, MEMORY[0x277D84F70] + 8);
+    v37 = &v93;
+    v93 = v34;
+    v38 = &v92;
+    v92 = v35;
+    v39 = &v91;
+    v91 = v36;
+    serialize(_:at:)(2, &v93);
+    serialize(_:at:)(1, v37);
+    v89 = v72;
+    v90 = v60;
+    closure #1 in osLogInternal(_:log:type:)(&v89, v37, v38, v39);
+    v40 = v25;
+    if (v25)
+    {
+
+      __break(1u);
+    }
+
+    else
+    {
+      v89 = v73;
+      v90 = v61;
+      closure #1 in osLogInternal(_:log:type:)(&v89, &v93, &v92, &v91);
+      v32 = 0;
+      v89 = v74;
+      v90 = v63;
+      closure #1 in osLogInternal(_:log:type:)(&v89, &v93, &v92, &v91);
+      _os_log_impl(&dword_2686B1000, v66, v67, "#PaymentAccountType initializing against cleaned candidate %s", v34, 0xCu);
+      destroyStorage<A>(_:count:)(v35, 0, v33);
+      destroyStorage<A>(_:count:)(v36, 1, MEMORY[0x277D84F70] + 8);
+      MEMORY[0x26D620BD0](v34, MEMORY[0x277D84B78]);
+    }
+  }
+
+  else
+  {
+  }
+
+  MEMORY[0x277D82BD8](v66);
+  (*(v78 + 8))(v81, v77);
+  v30 = &v94;
+  swift_beginAccess();
+  swift_endAccess();
+  LOBYTE(v26) = Constants.PaymentAccountType.init(rawValue:)(v54);
+  v31 = v26;
+  if (v26 == 9)
+  {
+    outlined destroy of String.UTF8View(&v99);
+LABEL_12:
+
+    return 9;
+  }
+
+  v102 = v31;
+  outlined destroy of String.UTF8View(&v99);
+
+  return v31;
+}
+
+SiriPaymentsIntents::Constants::PaymentAccountType_optional __swiftcall Constants.PaymentAccountType.init(rawValue:)(Swift::String rawValue)
+{
+  _allocateUninitializedArray<A>(_:)();
+  *v1 = "unknown";
+  *(v1 + 8) = 7;
+  *(v1 + 16) = 2;
+  *(v1 + 24) = "checking";
+  *(v1 + 32) = 8;
+  *(v1 + 40) = 2;
+  *(v1 + 48) = "credit";
+  *(v1 + 56) = 6;
+  *(v1 + 64) = 2;
+  *(v1 + 72) = "debit";
+  *(v1 + 80) = 5;
+  *(v1 + 88) = 2;
+  *(v1 + 96) = "investment";
+  *(v1 + 104) = 10;
+  *(v1 + 112) = 2;
+  *(v1 + 120) = "mortgage";
+  *(v1 + 128) = 8;
+  *(v1 + 136) = 2;
+  *(v1 + 144) = "prepaid";
+  *(v1 + 152) = 7;
+  *(v1 + 160) = 2;
+  *(v1 + 168) = "saving";
+  *(v1 + 176) = 6;
+  *(v1 + 184) = 2;
+  *(v1 + 192) = "savings";
+  *(v1 + 200) = 7;
+  *(v1 + 208) = 2;
+  _finalizeUninitializedArray<A>(_:)();
+  v7 = _findStringSwitchCase(cases:string:)(v2, rawValue);
+
+  switch(v7)
+  {
+    case 0:
+      v5.value = SiriPaymentsIntents_Constants_PaymentAccountType_unknown;
+LABEL_20:
+
+      return v5;
+    case 1:
+      v5.value = SiriPaymentsIntents_Constants_PaymentAccountType_checking;
+      goto LABEL_20;
+    case 2:
+      v5.value = SiriPaymentsIntents_Constants_PaymentAccountType_credit;
+      goto LABEL_20;
+    case 3:
+      v5.value = SiriPaymentsIntents_Constants_PaymentAccountType_debit;
+      goto LABEL_20;
+    case 4:
+      v5.value = SiriPaymentsIntents_Constants_PaymentAccountType_investment;
+      goto LABEL_20;
+    case 5:
+      v5.value = SiriPaymentsIntents_Constants_PaymentAccountType_mortgage;
+      goto LABEL_20;
+    case 6:
+      v5.value = SiriPaymentsIntents_Constants_PaymentAccountType_prepaid;
+      goto LABEL_20;
+    case 7:
+      v5.value = SiriPaymentsIntents_Constants_PaymentAccountType_saving;
+      goto LABEL_20;
+    case 8:
+      v5.value = SiriPaymentsIntents_Constants_PaymentAccountType_savings;
+      goto LABEL_20;
+  }
+
+  return 9;
+}
+
+uint64_t Constants.PaymentAccountType.asINAccountType.getter(char a1)
+{
+  switch(a1)
+  {
+    case 0:
+      return 0;
+    case 1:
+      return 1;
+    case 2:
+      return 2;
+    case 3:
+      return 3;
+    case 4:
+      return 4;
+    case 5:
+      return 5;
+    case 6:
+      return 6;
+  }
+
+  return 7;
+}
+
+void static Constants.PaymentAccountType.allCases.getter()
+{
+  _allocateUninitializedArray<A>(_:)();
+  *v0 = 0;
+  v0[1] = 1;
+  v0[2] = 2;
+  v0[3] = 3;
+  v0[4] = 4;
+  v0[5] = 5;
+  v0[6] = 6;
+  v0[7] = 7;
+  v0[8] = 8;
+  _finalizeUninitializedArray<A>(_:)();
+}
+
+SiriPaymentsIntents::Constants::DirectInvocationPayloadKeys_optional __swiftcall Constants.DirectInvocationPayloadKeys.init(rawValue:)(Swift::String rawValue)
+{
+  _allocateUninitializedArray<A>(_:)();
+  *v1 = "buttonPressed";
+  *(v1 + 8) = 13;
+  *(v1 + 16) = 2;
+  *(v1 + 24) = "itemIdentifier";
+  *(v1 + 32) = 14;
+  *(v1 + 40) = 2;
+  _finalizeUninitializedArray<A>(_:)();
+  v7 = _findStringSwitchCase(cases:string:)(v2, rawValue);
+
+  if (!v7)
+  {
+    v5.value = SiriPaymentsIntents_Constants_DirectInvocationPayloadKeys_buttonPressed;
+LABEL_6:
+
+    return v5;
+  }
+
+  if (v7 == 1)
+  {
+    v5.value = SiriPaymentsIntents_Constants_DirectInvocationPayloadKeys_itemIdentifier;
+    goto LABEL_6;
+  }
+
+  return 2;
+}
+
+void static Constants.DirectInvocationPayloadKeys.allCases.getter()
+{
+  _allocateUninitializedArray<A>(_:)();
+  *v0 = 0;
+  v0[1] = 1;
+  _finalizeUninitializedArray<A>(_:)();
+}
+
+SiriPaymentsIntents::Constants::DirectInvocationPayloadIdentifiers_optional __swiftcall Constants.DirectInvocationPayloadIdentifiers.init(rawValue:)(Swift::String rawValue)
+{
+  _allocateUninitializedArray<A>(_:)();
+  *v1 = "com.apple.siri.DirectInvocation.Payments.buttonPress";
+  *(v1 + 8) = 52;
+  *(v1 + 16) = 2;
+  *(v1 + 24) = "com.apple.siri.DirectInvocation.Payments.ItemSelection";
+  *(v1 + 32) = 54;
+  *(v1 + 40) = 2;
+  _finalizeUninitializedArray<A>(_:)();
+  v7 = _findStringSwitchCase(cases:string:)(v2, rawValue);
+
+  if (!v7)
+  {
+    v5.value = SiriPaymentsIntents_Constants_DirectInvocationPayloadIdentifiers_buttonPress;
+LABEL_6:
+
+    return v5;
+  }
+
+  if (v7 == 1)
+  {
+    v5.value = SiriPaymentsIntents_Constants_DirectInvocationPayloadIdentifiers_itemSelection;
+    goto LABEL_6;
+  }
+
+  return 2;
+}
+
+void static Constants.DirectInvocationPayloadIdentifiers.allCases.getter()
+{
+  _allocateUninitializedArray<A>(_:)();
+  *v0 = 0;
+  v0[1] = 1;
+  _finalizeUninitializedArray<A>(_:)();
+}
+
+void static Constants.DirectInvocationButtonType.allCases.getter()
+{
+  _allocateUninitializedArray<A>(_:)();
+  *v0 = 0;
+  v0[1] = 1;
+  _finalizeUninitializedArray<A>(_:)();
+}
+
+SiriPaymentsIntents::Constants::PaymentAccountType_optional protocol witness for RawRepresentable.init(rawValue:) in conformance Constants.PaymentAccountType@<W0>(Swift::String *a1@<X0>, SiriPaymentsIntents::Constants::PaymentAccountType_optional *a2@<X8>)
+{
+  result.value = Constants.PaymentAccountType.init(rawValue:)(*a1).value;
+  a2->value = result.value;
+  return result;
+}
+
+uint64_t protocol witness for RawRepresentable.rawValue.getter in conformance Constants.PaymentAccountType@<X0>(uint64_t *a1@<X8>)
+{
+  result = Constants.PaymentAccountType.rawValue.getter(*v1);
+  *a1 = result;
+  a1[1] = v3;
+  return result;
+}
+
+SiriPaymentsIntents::Constants::DirectInvocationPayloadKeys_optional protocol witness for RawRepresentable.init(rawValue:) in conformance Constants.DirectInvocationPayloadKeys@<W0>(Swift::String *a1@<X0>, SiriPaymentsIntents::Constants::DirectInvocationPayloadKeys_optional *a2@<X8>)
+{
+  result.value = Constants.DirectInvocationPayloadKeys.init(rawValue:)(*a1).value;
+  a2->value = result.value;
+  return result;
+}
+
+uint64_t protocol witness for RawRepresentable.rawValue.getter in conformance Constants.DirectInvocationPayloadKeys@<X0>(uint64_t *a1@<X8>)
+{
+  result = Constants.DirectInvocationPayloadKeys.rawValue.getter(*v1 & 1);
+  *a1 = result;
+  a1[1] = v3;
+  return result;
+}
+
+SiriPaymentsIntents::Constants::DirectInvocationPayloadIdentifiers_optional protocol witness for RawRepresentable.init(rawValue:) in conformance Constants.DirectInvocationPayloadIdentifiers@<W0>(Swift::String *a1@<X0>, SiriPaymentsIntents::Constants::DirectInvocationPayloadIdentifiers_optional *a2@<X8>)
+{
+  result.value = Constants.DirectInvocationPayloadIdentifiers.init(rawValue:)(*a1).value;
+  a2->value = result.value;
+  return result;
+}
+
+uint64_t protocol witness for RawRepresentable.rawValue.getter in conformance Constants.DirectInvocationPayloadIdentifiers@<X0>(uint64_t *a1@<X8>)
+{
+  result = Constants.DirectInvocationPayloadIdentifiers.rawValue.getter(*v1 & 1);
+  *a1 = result;
+  a1[1] = v3;
+  return result;
+}
+
+SiriPaymentsIntents::Constants::DirectInvocationButtonType_optional protocol witness for RawRepresentable.init(rawValue:) in conformance Constants.DirectInvocationButtonType@<W0>(Swift::String *a1@<X0>, SiriPaymentsIntents::Constants::DirectInvocationButtonType_optional *a2@<X8>)
+{
+  result.value = Constants.DirectInvocationButtonType.init(rawValue:)(*a1).value;
+  a2->value = result.value;
+  return result;
+}
+
+uint64_t protocol witness for RawRepresentable.rawValue.getter in conformance Constants.DirectInvocationButtonType@<X0>(uint64_t *a1@<X8>)
+{
+  result = Constants.DirectInvocationButtonType.rawValue.getter(*v1 & 1);
+  *a1 = result;
+  a1[1] = v3;
+  return result;
+}
+
+uint64_t Constants.PaymentAccountBalanceType.asINBalanceType.getter(char a1)
+{
+  switch(a1)
+  {
+    case 0:
+      return 3;
+    case 1:
+      return 1;
+    case 2:
+      return 2;
+  }
+
+  return 0;
+}
+
+SiriPaymentsIntents::Constants::PaymentAccountBalanceType_optional __swiftcall Constants.PaymentAccountBalanceType.init(rawValue:)(Swift::String rawValue)
+{
+  _allocateUninitializedArray<A>(_:)();
+  *v1 = "miles";
+  *(v1 + 8) = 5;
+  *(v1 + 16) = 2;
+  *(v1 + 24) = "money";
+  *(v1 + 32) = 5;
+  *(v1 + 40) = 2;
+  *(v1 + 48) = "points";
+  *(v1 + 56) = 6;
+  *(v1 + 64) = 2;
+  *(v1 + 72) = "unknown";
+  *(v1 + 80) = 7;
+  *(v1 + 88) = 2;
+  _finalizeUninitializedArray<A>(_:)();
+  v7 = _findStringSwitchCase(cases:string:)(v2, rawValue);
+
+  switch(v7)
+  {
+    case 0:
+      v5.value = SiriPaymentsIntents_Constants_PaymentAccountBalanceType_miles;
+LABEL_10:
+
+      return v5;
+    case 1:
+      v5.value = SiriPaymentsIntents_Constants_PaymentAccountBalanceType_money;
+      goto LABEL_10;
+    case 2:
+      v5.value = SiriPaymentsIntents_Constants_PaymentAccountBalanceType_points;
+      goto LABEL_10;
+    case 3:
+      v5.value = SiriPaymentsIntents_Constants_PaymentAccountBalanceType_unknown;
+      goto LABEL_10;
+  }
+
+  return 4;
+}
+
+void static Constants.PaymentAccountBalanceType.allCases.getter()
+{
+  _allocateUninitializedArray<A>(_:)();
+  *v0 = 0;
+  v0[1] = 1;
+  v0[2] = 2;
+  v0[3] = 3;
+  _finalizeUninitializedArray<A>(_:)();
+}
+
+SiriPaymentsIntents::Constants::PaymentAccountBalanceType_optional protocol witness for RawRepresentable.init(rawValue:) in conformance Constants.PaymentAccountBalanceType@<W0>(Swift::String *a1@<X0>, SiriPaymentsIntents::Constants::PaymentAccountBalanceType_optional *a2@<X8>)
+{
+  result.value = Constants.PaymentAccountBalanceType.init(rawValue:)(*a1).value;
+  a2->value = result.value;
+  return result;
+}
+
+uint64_t protocol witness for RawRepresentable.rawValue.getter in conformance Constants.PaymentAccountBalanceType@<X0>(uint64_t *a1@<X8>)
+{
+  result = Constants.PaymentAccountBalanceType.rawValue.getter(*v1);
+  *a1 = result;
+  a1[1] = v3;
+  return result;
+}
+
+uint64_t static Constants.IntentTypeCATCode.from(_:)(uint64_t a1)
+{
+  type metadata accessor for INRequestPaymentIntent();
+  if (swift_dynamicCastMetatype())
+  {
+    return 0;
+  }
+
+  else
+  {
+    type metadata accessor for INSendPaymentIntent();
+    if (swift_dynamicCastMetatype())
+    {
+      return 1;
+    }
+
+    else
+    {
+      type metadata accessor for INSearchForAccountsIntent();
+      if (swift_dynamicCastMetatype())
+      {
+        return 2;
+      }
+
+      else
+      {
+        return 3;
+      }
+    }
+  }
+}
+
+SiriPaymentsIntents::Constants::IntentTypeCATCode_optional __swiftcall Constants.IntentTypeCATCode.init(rawValue:)(Swift::String rawValue)
+{
+  _allocateUninitializedArray<A>(_:)();
+  *v1 = "request";
+  *(v1 + 8) = 7;
+  *(v1 + 16) = 2;
+  *(v1 + 24) = "send";
+  *(v1 + 32) = 4;
+  *(v1 + 40) = 2;
+  *(v1 + 48) = "search";
+  *(v1 + 56) = 6;
+  *(v1 + 64) = 2;
+  _finalizeUninitializedArray<A>(_:)();
+  v7 = _findStringSwitchCase(cases:string:)(v2, rawValue);
+
+  switch(v7)
+  {
+    case 0:
+      v5.value = SiriPaymentsIntents_Constants_IntentTypeCATCode_request;
+LABEL_8:
+
+      return v5;
+    case 1:
+      v5.value = SiriPaymentsIntents_Constants_IntentTypeCATCode_send;
+      goto LABEL_8;
+    case 2:
+      v5.value = SiriPaymentsIntents_Constants_IntentTypeCATCode_search;
+      goto LABEL_8;
+  }
+
+  return 3;
+}
+
+void static Constants.IntentTypeCATCode.allCases.getter()
+{
+  _allocateUninitializedArray<A>(_:)();
+  *v0 = 0;
+  v0[1] = 1;
+  v0[2] = 2;
+  _finalizeUninitializedArray<A>(_:)();
+}
+
+SiriPaymentsIntents::UsoIdentifierNamespace_optional __swiftcall UsoIdentifierNamespace.init(rawValue:)(Swift::String rawValue)
+{
+  _allocateUninitializedArray<A>(_:)();
+  *v1 = "item_id";
+  *(v1 + 8) = 7;
+  *(v1 + 16) = 2;
+  *(v1 + 24) = "personRelationship";
+  *(v1 + 32) = 18;
+  *(v1 + 40) = 2;
+  *(v1 + 48) = "phoneType";
+  *(v1 + 56) = 9;
+  *(v1 + 64) = 2;
+  *(v1 + 72) = "emailType";
+  *(v1 + 80) = 9;
+  *(v1 + 88) = 2;
+  *(v1 + 96) = "contactAttributes";
+  *(v1 + 104) = 17;
+  *(v1 + 112) = 2;
+  *(v1 + 120) = "contactType";
+  *(v1 + 128) = 11;
+  *(v1 + 136) = 2;
+  *(v1 + 144) = "name";
+  *(v1 + 152) = 4;
+  *(v1 + 160) = 2;
+  _finalizeUninitializedArray<A>(_:)();
+  v7 = _findStringSwitchCase(cases:string:)(v2, rawValue);
+
+  switch(v7)
+  {
+    case 0:
+      v5.value = SiriPaymentsIntents_UsoIdentifierNamespace_itemId;
+LABEL_16:
+
+      return v5;
+    case 1:
+      v5.value = SiriPaymentsIntents_UsoIdentifierNamespace_personRelationship;
+      goto LABEL_16;
+    case 2:
+      v5.value = SiriPaymentsIntents_UsoIdentifierNamespace_phoneType;
+      goto LABEL_16;
+    case 3:
+      v5.value = SiriPaymentsIntents_UsoIdentifierNamespace_emailType;
+      goto LABEL_16;
+    case 4:
+      v5.value = SiriPaymentsIntents_UsoIdentifierNamespace_contactAttributes;
+      goto LABEL_16;
+    case 5:
+      v5.value = SiriPaymentsIntents_UsoIdentifierNamespace_contactType;
+      goto LABEL_16;
+    case 6:
+      v5.value = SiriPaymentsIntents_UsoIdentifierNamespace_name;
+      goto LABEL_16;
+  }
+
+  return 7;
+}
+
+SiriPaymentsIntents::Constants::IntentTypeCATCode_optional protocol witness for RawRepresentable.init(rawValue:) in conformance Constants.IntentTypeCATCode@<W0>(Swift::String *a1@<X0>, SiriPaymentsIntents::Constants::IntentTypeCATCode_optional *a2@<X8>)
+{
+  result.value = Constants.IntentTypeCATCode.init(rawValue:)(*a1).value;
+  a2->value = result.value;
+  return result;
+}
+
+uint64_t protocol witness for RawRepresentable.rawValue.getter in conformance Constants.IntentTypeCATCode@<X0>(uint64_t *a1@<X8>)
+{
+  result = Constants.IntentTypeCATCode.rawValue.getter(*v1);
+  *a1 = result;
+  a1[1] = v3;
+  return result;
+}
+
+SiriPaymentsIntents::UsoIdentifierNamespace_optional protocol witness for RawRepresentable.init(rawValue:) in conformance UsoIdentifierNamespace@<W0>(Swift::String *a1@<X0>, SiriPaymentsIntents::UsoIdentifierNamespace_optional *a2@<X8>)
+{
+  result.value = UsoIdentifierNamespace.init(rawValue:)(*a1).value;
+  a2->value = result.value;
+  return result;
+}
+
+uint64_t protocol witness for RawRepresentable.rawValue.getter in conformance UsoIdentifierNamespace@<X0>(uint64_t *a1@<X8>)
+{
+  result = UsoIdentifierNamespace.rawValue.getter(*v1);
+  *a1 = result;
+  a1[1] = v3;
+  return result;
+}
+
+unint64_t lazy protocol witness table accessor for type Constants.DirectInvocationPayloadKeys and conformance Constants.DirectInvocationPayloadKeys()
+{
+  v2 = lazy protocol witness table cache variable for type Constants.DirectInvocationPayloadKeys and conformance Constants.DirectInvocationPayloadKeys;
+  if (!lazy protocol witness table cache variable for type Constants.DirectInvocationPayloadKeys and conformance Constants.DirectInvocationPayloadKeys)
+  {
+    WitnessTable = swift_getWitnessTable();
+    atomic_store(WitnessTable, &lazy protocol witness table cache variable for type Constants.DirectInvocationPayloadKeys and conformance Constants.DirectInvocationPayloadKeys);
+    return WitnessTable;
+  }
+
+  return v2;
+}
+
+{
+  v2 = lazy protocol witness table cache variable for type Constants.DirectInvocationPayloadKeys and conformance Constants.DirectInvocationPayloadKeys;
+  if (!lazy protocol witness table cache variable for type Constants.DirectInvocationPayloadKeys and conformance Constants.DirectInvocationPayloadKeys)
+  {
+    WitnessTable = swift_getWitnessTable();
+    atomic_store(WitnessTable, &lazy protocol witness table cache variable for type Constants.DirectInvocationPayloadKeys and conformance Constants.DirectInvocationPayloadKeys);
+    return WitnessTable;
+  }
+
+  return v2;
+}
+
+unint64_t lazy protocol witness table accessor for type Constants.DirectInvocationPayloadIdentifiers and conformance Constants.DirectInvocationPayloadIdentifiers()
+{
+  v2 = lazy protocol witness table cache variable for type Constants.DirectInvocationPayloadIdentifiers and conformance Constants.DirectInvocationPayloadIdentifiers;
+  if (!lazy protocol witness table cache variable for type Constants.DirectInvocationPayloadIdentifiers and conformance Constants.DirectInvocationPayloadIdentifiers)
+  {
+    WitnessTable = swift_getWitnessTable();
+    atomic_store(WitnessTable, &lazy protocol witness table cache variable for type Constants.DirectInvocationPayloadIdentifiers and conformance Constants.DirectInvocationPayloadIdentifiers);
+    return WitnessTable;
+  }
+
+  return v2;
+}
+
+{
+  v2 = lazy protocol witness table cache variable for type Constants.DirectInvocationPayloadIdentifiers and conformance Constants.DirectInvocationPayloadIdentifiers;
+  if (!lazy protocol witness table cache variable for type Constants.DirectInvocationPayloadIdentifiers and conformance Constants.DirectInvocationPayloadIdentifiers)
+  {
+    WitnessTable = swift_getWitnessTable();
+    atomic_store(WitnessTable, &lazy protocol witness table cache variable for type Constants.DirectInvocationPayloadIdentifiers and conformance Constants.DirectInvocationPayloadIdentifiers);
+    return WitnessTable;
+  }
+
+  return v2;
+}
+
+unint64_t lazy protocol witness table accessor for type Constants.DirectInvocationButtonType and conformance Constants.DirectInvocationButtonType()
+{
+  v2 = lazy protocol witness table cache variable for type Constants.DirectInvocationButtonType and conformance Constants.DirectInvocationButtonType;
+  if (!lazy protocol witness table cache variable for type Constants.DirectInvocationButtonType and conformance Constants.DirectInvocationButtonType)
+  {
+    WitnessTable = swift_getWitnessTable();
+    atomic_store(WitnessTable, &lazy protocol witness table cache variable for type Constants.DirectInvocationButtonType and conformance Constants.DirectInvocationButtonType);
+    return WitnessTable;
+  }
+
+  return v2;
+}
+
+{
+  v2 = lazy protocol witness table cache variable for type Constants.DirectInvocationButtonType and conformance Constants.DirectInvocationButtonType;
+  if (!lazy protocol witness table cache variable for type Constants.DirectInvocationButtonType and conformance Constants.DirectInvocationButtonType)
+  {
+    WitnessTable = swift_getWitnessTable();
+    atomic_store(WitnessTable, &lazy protocol witness table cache variable for type Constants.DirectInvocationButtonType and conformance Constants.DirectInvocationButtonType);
+    return WitnessTable;
+  }
+
+  return v2;
+}
+
+unint64_t lazy protocol witness table accessor for type Constants.PaymentAccountBalanceType and conformance Constants.PaymentAccountBalanceType()
+{
+  v2 = lazy protocol witness table cache variable for type Constants.PaymentAccountBalanceType and conformance Constants.PaymentAccountBalanceType;
+  if (!lazy protocol witness table cache variable for type Constants.PaymentAccountBalanceType and conformance Constants.PaymentAccountBalanceType)
+  {
+    WitnessTable = swift_getWitnessTable();
+    atomic_store(WitnessTable, &lazy protocol witness table cache variable for type Constants.PaymentAccountBalanceType and conformance Constants.PaymentAccountBalanceType);
+    return WitnessTable;
+  }
+
+  return v2;
+}
+
+{
+  v2 = lazy protocol witness table cache variable for type Constants.PaymentAccountBalanceType and conformance Constants.PaymentAccountBalanceType;
+  if (!lazy protocol witness table cache variable for type Constants.PaymentAccountBalanceType and conformance Constants.PaymentAccountBalanceType)
+  {
+    WitnessTable = swift_getWitnessTable();
+    atomic_store(WitnessTable, &lazy protocol witness table cache variable for type Constants.PaymentAccountBalanceType and conformance Constants.PaymentAccountBalanceType);
+    return WitnessTable;
+  }
+
+  return v2;
+}
+
+unint64_t lazy protocol witness table accessor for type UsoIdentifierNamespace and conformance UsoIdentifierNamespace()
+{
+  v2 = lazy protocol witness table cache variable for type UsoIdentifierNamespace and conformance UsoIdentifierNamespace;
+  if (!lazy protocol witness table cache variable for type UsoIdentifierNamespace and conformance UsoIdentifierNamespace)
+  {
+    WitnessTable = swift_getWitnessTable();
+    atomic_store(WitnessTable, &lazy protocol witness table cache variable for type UsoIdentifierNamespace and conformance UsoIdentifierNamespace);
+    return WitnessTable;
+  }
+
+  return v2;
+}
+
+{
+  v2 = lazy protocol witness table cache variable for type UsoIdentifierNamespace and conformance UsoIdentifierNamespace;
+  if (!lazy protocol witness table cache variable for type UsoIdentifierNamespace and conformance UsoIdentifierNamespace)
+  {
+    WitnessTable = swift_getWitnessTable();
+    atomic_store(WitnessTable, &lazy protocol witness table cache variable for type UsoIdentifierNamespace and conformance UsoIdentifierNamespace);
+    return WitnessTable;
+  }
+
+  return v2;
+}
+
+uint64_t getEnumTagSinglePayload for Constants.PaymentAccountType(unsigned __int8 *a1, unsigned int a2)
+{
+  if (a2)
+  {
+    if (a2 <= 0xF7)
+    {
+      goto LABEL_15;
+    }
+
+    v7 = ((a2 + 8) >> 8) + 1;
+    v8 = 1;
+    if (v7 >= 0x100)
+    {
+      if (v7 >= 0x10000)
+      {
+        v2 = 4;
+      }
+
+      else
+      {
+        v2 = 2;
+      }
+
+      v8 = v2;
+    }
+
+    if (v8 == 1)
+    {
+      v6 = a1[1];
+    }
+
+    else
+    {
+      v6 = v8 == 2 ? *(a1 + 1) : *(a1 + 1);
+    }
+
+    if (v6)
+    {
+      v5 = (*a1 | ((v6 - 1) << 8)) + 247;
+    }
+
+    else
+    {
+LABEL_15:
+      v3 = *a1 - 9;
+      if (v3 < 0)
+      {
+        v3 = -1;
+      }
+
+      v5 = v3;
+    }
+  }
+
+  else
+  {
+    v5 = -1;
+  }
+
+  return (v5 + 1);
+}
+
+_BYTE *storeEnumTagSinglePayload for Constants.PaymentAccountType(_BYTE *result, unsigned int a2, unsigned int a3)
+{
+  v7 = 0;
+  if (a3 > 0xF7)
+  {
+    v5 = ((a3 + 8) >> 8) + 1;
+    v6 = 1;
+    if (v5 >= 0x100)
+    {
+      if (v5 >= 0x10000)
+      {
+        v3 = 4;
+      }
+
+      else
+      {
+        v3 = 2;
+      }
+
+      v6 = v3;
+    }
+
+    v7 = v6;
+  }
+
+  if (a2 > 0xF7)
+  {
+    v4 = ((a2 - 248) >> 8) + 1;
+    *result = a2 + 8;
+    if (v7)
+    {
+      if (v7 == 1)
+      {
+        result[1] = v4;
+      }
+
+      else if (v7 == 2)
+      {
+        *(result + 1) = v4;
+      }
+
+      else
+      {
+        *(result + 1) = v4;
+      }
+    }
+  }
+
+  else
+  {
+    if (v7)
+    {
+      if (v7 == 1)
+      {
+        result[1] = 0;
+      }
+
+      else if (v7 == 2)
+      {
+        *(result + 1) = 0;
+      }
+
+      else
+      {
+        *(result + 1) = 0;
+      }
+    }
+
+    if (a2)
+    {
+      *result = a2 + 8;
+    }
+  }
+
+  return result;
+}
+
+unint64_t lazy protocol witness table accessor for type [Constants.IntentTypeCATCode] and conformance [A]()
+{
+  v2 = lazy protocol witness table cache variable for type [Constants.IntentTypeCATCode] and conformance [A];
+  if (!lazy protocol witness table cache variable for type [Constants.IntentTypeCATCode] and conformance [A])
+  {
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSay19SiriPaymentsIntents9ConstantsO17IntentTypeCATCodeOGMd, &_sSay19SiriPaymentsIntents9ConstantsO17IntentTypeCATCodeOGMR);
+    WitnessTable = swift_getWitnessTable();
+    atomic_store(WitnessTable, &lazy protocol witness table cache variable for type [Constants.IntentTypeCATCode] and conformance [A]);
+    return WitnessTable;
+  }
+
+  return v2;
+}
+
+unint64_t lazy protocol witness table accessor for type [Constants.PaymentAccountBalanceType] and conformance [A]()
+{
+  v2 = lazy protocol witness table cache variable for type [Constants.PaymentAccountBalanceType] and conformance [A];
+  if (!lazy protocol witness table cache variable for type [Constants.PaymentAccountBalanceType] and conformance [A])
+  {
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSay19SiriPaymentsIntents9ConstantsO25PaymentAccountBalanceTypeOGMd, &_sSay19SiriPaymentsIntents9ConstantsO25PaymentAccountBalanceTypeOGMR);
+    WitnessTable = swift_getWitnessTable();
+    atomic_store(WitnessTable, &lazy protocol witness table cache variable for type [Constants.PaymentAccountBalanceType] and conformance [A]);
+    return WitnessTable;
+  }
+
+  return v2;
+}
+
+unint64_t lazy protocol witness table accessor for type [Constants.DirectInvocationButtonType] and conformance [A]()
+{
+  v2 = lazy protocol witness table cache variable for type [Constants.DirectInvocationButtonType] and conformance [A];
+  if (!lazy protocol witness table cache variable for type [Constants.DirectInvocationButtonType] and conformance [A])
+  {
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSay19SiriPaymentsIntents9ConstantsO26DirectInvocationButtonTypeOGMd, &_sSay19SiriPaymentsIntents9ConstantsO26DirectInvocationButtonTypeOGMR);
+    WitnessTable = swift_getWitnessTable();
+    atomic_store(WitnessTable, &lazy protocol witness table cache variable for type [Constants.DirectInvocationButtonType] and conformance [A]);
+    return WitnessTable;
+  }
+
+  return v2;
+}
+
+unint64_t lazy protocol witness table accessor for type [Constants.DirectInvocationPayloadIdentifiers] and conformance [A]()
+{
+  v2 = lazy protocol witness table cache variable for type [Constants.DirectInvocationPayloadIdentifiers] and conformance [A];
+  if (!lazy protocol witness table cache variable for type [Constants.DirectInvocationPayloadIdentifiers] and conformance [A])
+  {
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSay19SiriPaymentsIntents9ConstantsO34DirectInvocationPayloadIdentifiersOGMd, &_sSay19SiriPaymentsIntents9ConstantsO34DirectInvocationPayloadIdentifiersOGMR);
+    WitnessTable = swift_getWitnessTable();
+    atomic_store(WitnessTable, &lazy protocol witness table cache variable for type [Constants.DirectInvocationPayloadIdentifiers] and conformance [A]);
+    return WitnessTable;
+  }
+
+  return v2;
+}
+
+unint64_t lazy protocol witness table accessor for type [Constants.DirectInvocationPayloadKeys] and conformance [A]()
+{
+  v2 = lazy protocol witness table cache variable for type [Constants.DirectInvocationPayloadKeys] and conformance [A];
+  if (!lazy protocol witness table cache variable for type [Constants.DirectInvocationPayloadKeys] and conformance [A])
+  {
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSay19SiriPaymentsIntents9ConstantsO27DirectInvocationPayloadKeysOGMd, &_sSay19SiriPaymentsIntents9ConstantsO27DirectInvocationPayloadKeysOGMR);
+    WitnessTable = swift_getWitnessTable();
+    atomic_store(WitnessTable, &lazy protocol witness table cache variable for type [Constants.DirectInvocationPayloadKeys] and conformance [A]);
+    return WitnessTable;
+  }
+
+  return v2;
+}
+
+unint64_t lazy protocol witness table accessor for type [Constants.PaymentAccountType] and conformance [A]()
+{
+  v2 = lazy protocol witness table cache variable for type [Constants.PaymentAccountType] and conformance [A];
+  if (!lazy protocol witness table cache variable for type [Constants.PaymentAccountType] and conformance [A])
+  {
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSay19SiriPaymentsIntents9ConstantsO18PaymentAccountTypeOGMd, &_sSay19SiriPaymentsIntents9ConstantsO18PaymentAccountTypeOGMR);
+    WitnessTable = swift_getWitnessTable();
+    atomic_store(WitnessTable, &lazy protocol witness table cache variable for type [Constants.PaymentAccountType] and conformance [A]);
+    return WitnessTable;
+  }
+
+  return v2;
+}
+
+unint64_t lazy protocol witness table accessor for type [Constants.NLPaymentConfirmationValue] and conformance [A]()
+{
+  v2 = lazy protocol witness table cache variable for type [Constants.NLPaymentConfirmationValue] and conformance [A];
+  if (!lazy protocol witness table cache variable for type [Constants.NLPaymentConfirmationValue] and conformance [A])
+  {
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSay19SiriPaymentsIntents9ConstantsO26NLPaymentConfirmationValueOGMd, &_sSay19SiriPaymentsIntents9ConstantsO26NLPaymentConfirmationValueOGMR);
+    WitnessTable = swift_getWitnessTable();
+    atomic_store(WitnessTable, &lazy protocol witness table cache variable for type [Constants.NLPaymentConfirmationValue] and conformance [A]);
+    return WitnessTable;
+  }
+
+  return v2;
+}
+
+uint64_t SearchForAccountsHandleIntentStrategy.__allocating_init()()
+{
+  v39 = 0;
+  v37 = 0;
+  v17 = 0;
+  v8 = (*(*(type metadata accessor for CATOption() - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  MEMORY[0x28223BE20](0, v0);
+  v14 = &v7 - v8;
+  v13 = type metadata accessor for Globals();
+  v9 = v43;
+  default argument 0 of Globals.init(contactResolver:deviceState:aceServiceInvoker:outputPublisher:)(v43);
+  v10 = &v42;
+  default argument 1 of Globals.init(contactResolver:deviceState:aceServiceInvoker:outputPublisher:)();
+  v11 = &v41;
+  default argument 2 of Globals.init(contactResolver:deviceState:aceServiceInvoker:outputPublisher:)();
+  v12 = &v40;
+  default argument 3 of Globals.init(contactResolver:deviceState:aceServiceInvoker:outputPublisher:)();
+  v1 = Globals.__allocating_init(contactResolver:deviceState:aceServiceInvoker:outputPublisher:)(v9, v10, v11, v12);
+  v29 = &v44;
+  v45 = v13;
+  v46 = &protocol witness table for Globals;
+  v44 = v1;
+  type metadata accessor for SearchForAccountsCATs(v17);
+  default argument 0 of CATWrapper.init(options:globals:)();
+  v28 = CATWrapper.__allocating_init(options:globals:)();
+  v39 = v28;
+  v25 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s19SiriPaymentsIntents0B21ErrorTemplateProviderCySo25INSearchForAccountsIntentCSo0ghiJ8ResponseCGMd, &_s19SiriPaymentsIntents0B21ErrorTemplateProviderCySo25INSearchForAccountsIntentCSo0ghiJ8ResponseCGMR);
+  v15 = v38;
+  outlined init with copy of GlobalsProviding(v29, v38);
+  type metadata accessor for PaymentsBaseCATs(v17);
+  default argument 0 of CATWrapper.init(options:globals:)();
+  v16 = CATWrapper.__allocating_init(options:globals:)();
+
+  v27 = PaymentsErrorTemplateProvider.__allocating_init(globals:catFamily:searchForAccountsCATs:)(v15, v16, v28);
+  v37 = v27;
+  v26 = v36;
+  outlined init with copy of GlobalsProviding(v29, v36);
+
+  NSJSONWritingOptions.init(rawValue:)(v2);
+  v21 = v35;
+  v35[3] = &type metadata for CommonLabelsProvider;
+  v35[4] = &protocol witness table for CommonLabelsProvider;
+  v3 = type metadata accessor for SiriKitContactResolver();
+  v22 = v34;
+  v34[3] = v3;
+  v34[4] = &protocol witness table for SiriKitContactResolver;
+  __swift_allocate_boxed_opaque_existential_1(v34);
+  SiriKitContactResolver.init()();
+
+  v23 = &v33;
+  v33 = v27;
+
+  v19 = v45;
+  v18 = v46;
+  __swift_project_boxed_opaque_existential_1(v29, v45);
+  v4 = v18[2];
+  v20 = &v31;
+  v4(v19);
+  v24 = v32;
+  v32[3] = &type metadata for SearchForAccountsViewBuilder;
+  v32[4] = &protocol witness table for SearchForAccountsViewBuilder;
+  v32[0] = swift_allocObject();
+  SearchForAccountsViewBuilder.init(catFamily:deviceState:)(v28, v20, (v32[0] + 16));
+  v5 = lazy protocol witness table accessor for type PaymentsErrorTemplateProvider<INSearchForAccountsIntent, INSearchForAccountsIntentResponse> and conformance PaymentsErrorTemplateProvider<A, B>();
+  v30 = SearchForAccountsHandleIntentStrategy.__allocating_init<A>(globals:catFamily:commonLabelsProvider:contactResolver:errorProvider:viewBuilder:)(v26, v28, v21, v22, v23, v24, v25, v5);
+
+  v47 = v30;
+
+  __swift_destroy_boxed_opaque_existential_0(v29);
+
+  return v30;
+}
+
+uint64_t SearchForAccountsHandleIntentStrategy.init<A>(globals:catFamily:commonLabelsProvider:contactResolver:errorProvider:viewBuilder:)(void *a1, uint64_t a2, void *a3, void *a4, uint64_t a5, void *a6, uint64_t a7, uint64_t a8)
+{
+  v32 = a1;
+  v31 = a2;
+  v30 = a3;
+  v29 = a4;
+  v27 = a5;
+  v24 = a6;
+  v28 = a7;
+  v22 = a8;
+  v44 = 0;
+  v43 = 0;
+  v42 = 0;
+  v41 = 0;
+  v40 = 0;
+  v39 = 0;
+  v38 = 0;
+  v45 = a7;
+  v25 = *(a7 - 8);
+  v26 = a7 - 8;
+  v16 = (*(v25 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  v9 = MEMORY[0x28223BE20](a6, a2);
+  v21 = &v16 - v16;
+  v43 = v10;
+  v42 = v11;
+  v41 = v12;
+  v40 = v13;
+  v39 = v14;
+  v38 = v9;
+  v44 = v8;
+  v17 = v8;
+  v18 = v37;
+  outlined init with copy of GlobalsProviding(v9, v37);
+  outlined init with take of CommonLabelsProviding(v18, (v17 + 184));
+  v23 = v36;
+  outlined init with copy of GlobalsProviding(v32, v36);
+
+  v19 = v35;
+  outlined init with copy of GlobalsProviding(v30, v35);
+  v20 = v34;
+  outlined init with copy of GlobalsProviding(v29, v34);
+  (*(v25 + 16))(v21, v27, v28);
+  v33 = BaseStrategy.init<A>(globals:catFamily:commonLabelsProvider:contactResolver:errorProvider:)(v23, v31, v19, v20, v21, v28, v22);
+
+  v44 = v33;
+  __swift_destroy_boxed_opaque_existential_0(v24);
+  (*(v25 + 8))(v27, v28);
+  __swift_destroy_boxed_opaque_existential_0(v29);
+  __swift_destroy_boxed_opaque_existential_0(v30);
+
+  __swift_destroy_boxed_opaque_existential_0(v32);
+
+  return v33;
+}
+
+uint64_t SearchForAccountsHandleIntentStrategy.makeIntentExecutionBehavior(app:intent:)(uint64_t a1, uint64_t a2)
+{
+  v3[7] = a2;
+  v3[6] = a1;
+  v3[2] = v3;
+  v3[3] = 0;
+  v3[4] = 0;
+  v3[5] = 0;
+  v4 = type metadata accessor for Logger();
+  v3[8] = v4;
+  v3[9] = *(v4 - 8);
+  v3[10] = swift_task_alloc();
+  v3[3] = a1;
+  v3[4] = a2;
+  v3[5] = v2;
+
+  return MEMORY[0x2822009F8](SearchForAccountsHandleIntentStrategy.makeIntentExecutionBehavior(app:intent:), 0);
+}
+
+uint64_t SearchForAccountsHandleIntentStrategy.makeIntentExecutionBehavior(app:intent:)()
+{
+  v36 = v0;
+  v1 = v0[10];
+  v15 = v0[9];
+  v16 = v0[8];
+  v17 = v0[7];
+  v18 = v0[6];
+  v0[2] = v0;
+  v2 = Logger.payments.unsafeMutableAddressor();
+  (*(v15 + 16))(v1, v2, v16);
+
+  MEMORY[0x277D82BE0](v17);
+  v20 = swift_allocObject();
+  *(v20 + 16) = v17;
+  v29 = Logger.logObject.getter();
+  v30 = static os_log_type_t.debug.getter();
+  v22 = swift_allocObject();
+  *(v22 + 16) = 32;
+  v23 = swift_allocObject();
+  *(v23 + 16) = 8;
+  v19 = swift_allocObject();
+  *(v19 + 16) = partial apply for implicit closure #8 in PaymentsAppResolutionFlowStrategy.resolveApp(input:);
+  *(v19 + 24) = v18;
+  v24 = swift_allocObject();
+  *(v24 + 16) = partial apply for implicit closure #1 in OSLogInterpolation.appendInterpolation(_:align:privacy:);
+  *(v24 + 24) = v19;
+  v25 = swift_allocObject();
+  *(v25 + 16) = 32;
+  v26 = swift_allocObject();
+  *(v26 + 16) = 8;
+  v21 = swift_allocObject();
+  *(v21 + 16) = partial apply for implicit closure #5 in closure #1 in static Transformer<>.transformer(previousIntent:);
+  *(v21 + 24) = v20;
+  v27 = swift_allocObject();
+  *(v27 + 16) = partial apply for implicit closure #1 in OSLogInterpolation.appendInterpolation(_:align:privacy:);
+  *(v27 + 24) = v21;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMd, &_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMR);
+  _allocateUninitializedArray<A>(_:)();
+  v28 = v3;
+
+  *v28 = partial apply for closure #1 in OSLogArguments.append(_:);
+  v28[1] = v22;
+
+  v28[2] = partial apply for closure #1 in OSLogArguments.append(_:);
+  v28[3] = v23;
+
+  v28[4] = partial apply for closure #1 in OSLogArguments.append(_:);
+  v28[5] = v24;
+
+  v28[6] = partial apply for closure #1 in OSLogArguments.append(_:);
+  v28[7] = v25;
+
+  v28[8] = partial apply for closure #1 in OSLogArguments.append(_:);
+  v28[9] = v26;
+
+  v28[10] = partial apply for closure #1 in OSLogArguments.append(_:);
+  v28[11] = v27;
+  _finalizeUninitializedArray<A>(_:)();
+
+  if (os_log_type_enabled(v29, v30))
+  {
+    buf = static UnsafeMutablePointer.allocate(capacity:)();
+    v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
+    v12 = createStorage<A>(capacity:type:)(0, v10, v10);
+    v13 = createStorage<A>(capacity:type:)(2, MEMORY[0x277D84F70] + 8, MEMORY[0x277D84F70] + 8);
+    v31 = buf;
+    v32 = v12;
+    v33 = v13;
+    serialize(_:at:)(2, &v31);
+    serialize(_:at:)(2, &v31);
+    v34 = partial apply for closure #1 in OSLogArguments.append(_:);
+    v35 = v22;
+    closure #1 in osLogInternal(_:log:type:)(&v34, &v31, &v32, &v33);
+    v34 = partial apply for closure #1 in OSLogArguments.append(_:);
+    v35 = v23;
+    closure #1 in osLogInternal(_:log:type:)(&v34, &v31, &v32, &v33);
+    v34 = partial apply for closure #1 in OSLogArguments.append(_:);
+    v35 = v24;
+    closure #1 in osLogInternal(_:log:type:)(&v34, &v31, &v32, &v33);
+    v34 = partial apply for closure #1 in OSLogArguments.append(_:);
+    v35 = v25;
+    closure #1 in osLogInternal(_:log:type:)(&v34, &v31, &v32, &v33);
+    v34 = partial apply for closure #1 in OSLogArguments.append(_:);
+    v35 = v26;
+    closure #1 in osLogInternal(_:log:type:)(&v34, &v31, &v32, &v33);
+    v34 = partial apply for closure #1 in OSLogArguments.append(_:);
+    v35 = v27;
+    closure #1 in osLogInternal(_:log:type:)(&v34, &v31, &v32, &v33);
+    _os_log_impl(&dword_2686B1000, v29, v30, "#SearchForAccountsHandleIntentStrategy makeIntentExecutionBehavior app: %s, intent: %s", buf, 0x16u);
+    destroyStorage<A>(_:count:)(v12, 0, v10);
+    destroyStorage<A>(_:count:)(v13, 2, MEMORY[0x277D84F70] + 8);
+    MEMORY[0x26D620BD0](buf, MEMORY[0x277D84B78]);
+  }
+
+  else
+  {
+  }
+
+  v8 = v14[10];
+  v7 = v14[8];
+  v6 = v14[9];
+  MEMORY[0x277D82BD8](v29);
+  (*(v6 + 8))(v8, v7);
+  type metadata accessor for SiriKitIntentExecutionBehavior();
+  v9 = static SiriKitIntentExecutionBehavior.standard()();
+
+  v4 = *(v14[2] + 8);
+
+  return v4(v9);
+}
+
+uint64_t SearchForAccountsHandleIntentStrategy.makeIntentHandledResponse(rchRecord:)(uint64_t a1, uint64_t a2)
+{
+  v3[72] = v2;
+  v3[71] = a2;
+  v3[70] = a1;
+  v3[59] = v3;
+  v3[60] = 0;
+  v3[61] = 0;
+  v3[62] = 0;
+  v3[67] = 0;
+  v3[68] = 0;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s11SiriKitFlow16TemplatingResultVSgMd, &_s11SiriKitFlow16TemplatingResultVSgMR);
+  v3[73] = swift_task_alloc();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s11SiriKitFlow15NLContextUpdateVSgMd, &_s11SiriKitFlow15NLContextUpdateVSgMR);
+  v3[74] = swift_task_alloc();
+  v4 = type metadata accessor for TemplatingResult();
+  v3[75] = v4;
+  v3[76] = *(v4 - 8);
+  v3[77] = swift_task_alloc();
+  v3[78] = swift_task_alloc();
+  v3[79] = swift_task_alloc();
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s11SiriKitFlow22IntentResolutionRecordVySo019INSearchForAccountsD0CSo0ghiD8ResponseCGMd, &_s11SiriKitFlow22IntentResolutionRecordVySo019INSearchForAccountsD0CSo0ghiD8ResponseCGMR);
+  v3[80] = v5;
+  v8 = *(v5 - 8);
+  v3[81] = v8;
+  v3[82] = *(v8 + 64);
+  v3[83] = swift_task_alloc();
+  v6 = type metadata accessor for Logger();
+  v3[84] = v6;
+  v3[85] = *(v6 - 8);
+  v3[86] = swift_task_alloc();
+  v3[87] = swift_task_alloc();
+  v3[88] = swift_task_alloc();
+  type metadata accessor for Signpost.OpenSignpost(0);
+  v3[89] = swift_task_alloc();
+  v3[60] = a2;
+  v3[61] = v2;
+
+  return MEMORY[0x2822009F8](SearchForAccountsHandleIntentStrategy.makeIntentHandledResponse(rchRecord:), 0);
+}
+
+uint64_t SearchForAccountsHandleIntentStrategy.makeIntentHandledResponse(rchRecord:)()
+{
+  v97 = v0;
+  v70 = v0[89];
+  v1 = v0[88];
+  v71 = v0[85];
+  v72 = v0[84];
+  v77 = v0[83];
+  v75 = v0[81];
+  v78 = v0[80];
+  v74 = v0[71];
+  v0[59] = v0;
+  v2 = SignpostName.searchForAccountHandleIntent.unsafeMutableAddressor();
+  static Signpost.begin(_:)(*v2, v2[1], *(v2 + 16), v70);
+  v3 = Logger.payments.unsafeMutableAddressor();
+  v73 = *(v71 + 16);
+  v73(v1, v3, v72);
+  (*(v75 + 16))(v77, v74, v78);
+  v76 = (*(v75 + 80) + 16) & ~*(v75 + 80);
+  v79 = swift_allocObject();
+  (*(v75 + 32))(v79 + v76, v77, v78);
+  v85 = Logger.logObject.getter();
+  v86 = static os_log_type_t.debug.getter();
+  v81 = swift_allocObject();
+  *(v81 + 16) = 32;
+  v82 = swift_allocObject();
+  *(v82 + 16) = 8;
+  v80 = swift_allocObject();
+  *(v80 + 16) = partial apply for implicit closure #1 in SearchForAccountsHandleIntentStrategy.makeIntentHandledResponse(rchRecord:);
+  *(v80 + 24) = v79;
+  v83 = swift_allocObject();
+  *(v83 + 16) = partial apply for implicit closure #1 in OSLogInterpolation.appendInterpolation(_:align:privacy:);
+  *(v83 + 24) = v80;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMd, &_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMR);
+  _allocateUninitializedArray<A>(_:)();
+  v84 = v4;
+
+  *v84 = partial apply for closure #1 in OSLogArguments.append(_:);
+  v84[1] = v81;
+
+  v84[2] = partial apply for closure #1 in OSLogArguments.append(_:);
+  v84[3] = v82;
+
+  v84[4] = partial apply for closure #1 in OSLogArguments.append(_:);
+  v84[5] = v83;
+  _finalizeUninitializedArray<A>(_:)();
+
+  if (os_log_type_enabled(v85, v86))
+  {
+    buf = static UnsafeMutablePointer.allocate(capacity:)();
+    v65 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
+    v67 = createStorage<A>(capacity:type:)(0, v65, v65);
+    v68 = createStorage<A>(capacity:type:)(1, MEMORY[0x277D84F70] + 8, MEMORY[0x277D84F70] + 8);
+    v92 = buf;
+    v93 = v67;
+    v94 = v68;
+    serialize(_:at:)(2, &v92);
+    serialize(_:at:)(1, &v92);
+    v95 = partial apply for closure #1 in OSLogArguments.append(_:);
+    v96 = v81;
+    closure #1 in osLogInternal(_:log:type:)(&v95, &v92, &v93, &v94);
+    v95 = partial apply for closure #1 in OSLogArguments.append(_:);
+    v96 = v82;
+    closure #1 in osLogInternal(_:log:type:)(&v95, &v92, &v93, &v94);
+    v95 = partial apply for closure #1 in OSLogArguments.append(_:);
+    v96 = v83;
+    closure #1 in osLogInternal(_:log:type:)(&v95, &v92, &v93, &v94);
+    _os_log_impl(&dword_2686B1000, v85, v86, "#SearchForAccountsHandleIntentStrategy makeIntentHandledResponse response: %s", buf, 0xCu);
+    destroyStorage<A>(_:count:)(v67, 0, v65);
+    destroyStorage<A>(_:count:)(v68, 1, MEMORY[0x277D84F70] + 8);
+    MEMORY[0x26D620BD0](buf, MEMORY[0x277D84B78]);
+  }
+
+  else
+  {
+  }
+
+  v60 = *(v69 + 704);
+  v61 = *(v69 + 672);
+  v59 = *(v69 + 680);
+  MEMORY[0x277D82BD8](v85);
+  v62 = *(v59 + 8);
+  v62(v60, v61);
+  v63 = IntentResolutionRecord.intentResponse.getter();
+  v64 = [v63 code];
+  *(v69 + 496) = v64;
+  MEMORY[0x277D82BD8](v63);
+  if (v64 == 3)
+  {
+    v57 = IntentResolutionRecord.intentResponse.getter();
+    v58 = [v57 accounts];
+    if (v58)
+    {
+      type metadata accessor for INPaymentAccount();
+      v55 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
+      MEMORY[0x277D82BD8](v58);
+      v56 = v55;
+    }
+
+    else
+    {
+      v56 = 0;
+    }
+
+    MEMORY[0x277D82BD8](v57);
+    v54 = Optional<A>.emptyToNil.getter(v56);
+    *(v69 + 720) = v54;
+    if (v54)
+    {
+      v5 = *(v69 + 696);
+      v44 = *(v69 + 672);
+      *(v69 + 536) = v54;
+
+      v6 = Logger.payments.unsafeMutableAddressor();
+      v73(v5, v6, v44);
+
+      v45 = swift_allocObject();
+      *(v45 + 16) = v54;
+
+      v46 = swift_allocObject();
+      *(v46 + 16) = partial apply for implicit closure #1 in SearchForAccountsViewBuilder.buildWatchSnippets(for:app:intent:);
+      *(v46 + 24) = v45;
+
+      oslog = Logger.logObject.getter();
+      v53 = static os_log_type_t.debug.getter();
+      v48 = swift_allocObject();
+      *(v48 + 16) = 32;
+      v49 = swift_allocObject();
+      *(v49 + 16) = 8;
+      v47 = swift_allocObject();
+      *(v47 + 16) = _s2os18OSLogInterpolationV06appendC0_5align7privacyyxyXA_AA0B15StringAlignmentVAA0B7PrivacyVts06CustomG11ConvertibleRzlFSSycfu_TA_1;
+      *(v47 + 24) = v46;
+      v50 = swift_allocObject();
+      *(v50 + 16) = partial apply for implicit closure #1 in OSLogInterpolation.appendInterpolation(_:align:privacy:);
+      *(v50 + 24) = v47;
+      _allocateUninitializedArray<A>(_:)();
+      v51 = v7;
+
+      *v51 = partial apply for closure #1 in OSLogArguments.append(_:);
+      v51[1] = v48;
+
+      v51[2] = partial apply for closure #1 in OSLogArguments.append(_:);
+      v51[3] = v49;
+
+      v51[4] = partial apply for closure #1 in OSLogArguments.append(_:);
+      v51[5] = v50;
+      _finalizeUninitializedArray<A>(_:)();
+
+      if (os_log_type_enabled(oslog, v53))
+      {
+        v41 = static UnsafeMutablePointer.allocate(capacity:)();
+        v40 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
+        v42 = createStorage<A>(capacity:type:)(0, v40, v40);
+        v43 = createStorage<A>(capacity:type:)(1, MEMORY[0x277D84F70] + 8, MEMORY[0x277D84F70] + 8);
+        v87 = v41;
+        v88 = v42;
+        v89 = v43;
+        serialize(_:at:)(2, &v87);
+        serialize(_:at:)(1, &v87);
+        v90 = partial apply for closure #1 in OSLogArguments.append(_:);
+        v91 = v48;
+        closure #1 in osLogInternal(_:log:type:)(&v90, &v87, &v88, &v89);
+        v90 = partial apply for closure #1 in OSLogArguments.append(_:);
+        v91 = v49;
+        closure #1 in osLogInternal(_:log:type:)(&v90, &v87, &v88, &v89);
+        v90 = partial apply for closure #1 in OSLogArguments.append(_:);
+        v91 = v50;
+        closure #1 in osLogInternal(_:log:type:)(&v90, &v87, &v88, &v89);
+        _os_log_impl(&dword_2686B1000, oslog, v53, "#SearchForAccountsHandleIntentStrategy intent contained accounts: %s", v41, 0xCu);
+        destroyStorage<A>(_:count:)(v42, 0, v40);
+        destroyStorage<A>(_:count:)(v43, 1, MEMORY[0x277D84F70] + 8);
+        MEMORY[0x26D620BD0](v41, MEMORY[0x277D84B78]);
+      }
+
+      else
+      {
+      }
+
+      v35 = *(v69 + 696);
+      v36 = *(v69 + 672);
+      v37 = *(v69 + 576);
+      MEMORY[0x277D82BD8](oslog);
+      v62(v35, v36);
+
+      *(v69 + 728) = *(v37 + 16);
+
+      IntentResolutionRecord.app.getter();
+      v38 = App.sirikitApp.getter();
+      *(v69 + 736) = v38;
+
+      *(v69 + 744) = type metadata accessor for INPaymentAccount();
+      v39 = MEMORY[0x26D620910](v54);
+      v8 = swift_task_alloc();
+      *(v69 + 752) = v8;
+      *v8 = *(v69 + 472);
+      v8[1] = SearchForAccountsHandleIntentStrategy.makeIntentHandledResponse(rchRecord:);
+      v9 = *(v69 + 632);
+
+      return SearchForAccountsCATs.intentHandledResponse(app:bankAccounts:)(v9, v38, *&v39, 0);
+    }
+
+    else
+    {
+      v11 = *(v69 + 688);
+      v31 = *(v69 + 672);
+
+      v12 = Logger.payments.unsafeMutableAddressor();
+      v73(v11, v12, v31);
+      log = Logger.logObject.getter();
+      v32 = static os_log_type_t.debug.getter();
+      v34 = _allocateUninitializedArray<A>(_:)();
+      if (os_log_type_enabled(log, v32))
+      {
+        v27 = static UnsafeMutablePointer.allocate(capacity:)();
+        v26 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
+        v28 = createStorage<A>(capacity:type:)(0, v26, v26);
+        v29 = createStorage<A>(capacity:type:)(0, MEMORY[0x277D84F70] + 8, MEMORY[0x277D84F70] + 8);
+        *(v69 + 504) = v27;
+        *(v69 + 512) = v28;
+        *(v69 + 520) = v29;
+        serialize(_:at:)(0, (v69 + 504));
+        serialize(_:at:)(0, (v69 + 504));
+        *(v69 + 528) = v34;
+        v30 = swift_task_alloc();
+        v30[2] = v69 + 504;
+        v30[3] = v69 + 512;
+        v30[4] = v69 + 520;
+        __swift_instantiateConcreteTypeFromMangledNameV2(&_sSayySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcGMd, &_sSayySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcGMR);
+        lazy protocol witness table accessor for type [(_:_:_:)] and conformance [A]();
+        Sequence.forEach(_:)();
+
+        _os_log_impl(&dword_2686B1000, log, v32, "#SearchForAccountsHandleIntentStrategy could not find accounts in the intent", v27, 2u);
+        destroyStorage<A>(_:count:)(v28, 0, v26);
+        destroyStorage<A>(_:count:)(v29, 0, MEMORY[0x277D84F70] + 8);
+        MEMORY[0x26D620BD0](v27, MEMORY[0x277D84B78]);
+      }
+
+      v22 = *(v69 + 688);
+      v23 = *(v69 + 672);
+      v24 = *(v69 + 576);
+      MEMORY[0x277D82BD8](log);
+      v62(v22, v23);
+
+      *(v69 + 808) = *(v24 + 16);
+
+      IntentResolutionRecord.app.getter();
+      v25 = App.sirikitApp.getter();
+      *(v69 + 816) = v25;
+
+      v13 = swift_task_alloc();
+      *(v69 + 824) = v13;
+      *v13 = *(v69 + 472);
+      v13[1] = SearchForAccountsHandleIntentStrategy.makeIntentHandledResponse(rchRecord:);
+      v14 = *(v69 + 624);
+
+      return SearchForAccountsCATs.noResultsResponse(app:)(v14, v25);
+    }
+  }
+
+  else
+  {
+    v18 = *(v69 + 576);
+
+    outlined init with copy of GlobalsProviding(v18 + 144, v69 + 16);
+
+    v19 = *(v69 + 40);
+    v20 = *(v69 + 48);
+    __swift_project_boxed_opaque_existential_1((v69 + 16), v19);
+    v21 = (*(v20 + 48) + **(v20 + 48));
+    v15 = swift_task_alloc();
+    *(v69 + 840) = v15;
+    *v15 = *(v69 + 472);
+    v15[1] = SearchForAccountsHandleIntentStrategy.makeIntentHandledResponse(rchRecord:);
+    v16 = *(v69 + 584);
+    v17 = *(v69 + 568);
+
+    return v21(v16, v17, v19, v20);
+  }
+}
+
+{
+  v4 = *v1;
+  *(v4 + 472) = *v1;
+  *(v4 + 760) = v0;
+
+  if (v0)
+  {
+    v2 = SearchForAccountsHandleIntentStrategy.makeIntentHandledResponse(rchRecord:);
+  }
+
+  else
+  {
+
+    v2 = SearchForAccountsHandleIntentStrategy.makeIntentHandledResponse(rchRecord:);
+  }
+
+  return MEMORY[0x2822009F8](v2, 0);
+}
+
+{
+  v10 = v0[90];
+  v1 = v0[72];
+  v0[59] = v0;
+  outlined init with copy of GlobalsProviding(v1 + 184, (v0 + 37));
+  v7 = v0[40];
+  v8 = v0[41];
+  __swift_project_boxed_opaque_existential_1(v0 + 37, v7);
+  v5 = IntentResolutionRecord.app.getter();
+  v0[96] = v5;
+  v6 = IntentResolutionRecord.intent.getter();
+  v0[97] = v6;
+  v9 = (*(v8 + 8) + **(v8 + 8));
+  v2 = swift_task_alloc();
+  *(v4 + 784) = v2;
+  *v2 = *(v4 + 472);
+  v2[1] = SearchForAccountsHandleIntentStrategy.makeIntentHandledResponse(rchRecord:);
+
+  return v9(v10, v5, v6, v7, v8);
+}
+
+{
+  v1 = v0[99];
+  v15 = v0[89];
+  v13 = v0[79];
+  v12 = v0[76];
+  v14 = v0[75];
+  v11 = v0[74];
+  v7 = v0[72];
+  v10 = v0[70];
+  v0[59] = v0;
+  v0[68] = v1;
+  __swift_destroy_boxed_opaque_existential_0(v0 + 37);
+
+  outlined init with copy of GlobalsProviding(v7 + 104, (v0 + 42));
+
+  v6 = v0[45];
+  v5 = v0[46];
+  __swift_project_boxed_opaque_existential_1(v0 + 42, v6);
+  (*(v5 + 16))(v6);
+
+  BaseStrategy.ttsEnabled.getter();
+
+  Array.subscript.getter();
+  v9 = v0[69];
+
+  v8 = BaseStrategy.ttsEnabled.getter();
+
+  static PaymentsContextProvider.handleSearchForAccounts(account:needsSDA:)(v9, v8 & 1, v11);
+  MEMORY[0x277D82BD8](v9);
+  v2 = type metadata accessor for NLContextUpdate();
+  (*(*(v2 - 8) + 56))(v11, 0, 1);
+  v0[52] = 0;
+  v0[53] = 0;
+  v0[54] = 0;
+  v0[55] = 0;
+  v0[56] = 0;
+  default argument 4 of static AceOutputHelper.makeErrorOutput(templateResult:deviceState:ttsEnabled:snippetAceViews:listenAfterSpeaking:canUseServerTTS:nlContextUpdate:additionalCommands:flowActivity:)();
+  _swift_stdlib_has_malloc_size();
+  default argument 7 of static AceOutputHelper.makeErrorOutput(templateResult:deviceState:ttsEnabled:snippetAceViews:listenAfterSpeaking:canUseServerTTS:nlContextUpdate:additionalCommands:flowActivity:)();
+  v10[3] = type metadata accessor for AceOutput();
+  v10[4] = MEMORY[0x277D5C1D8];
+  __swift_allocate_boxed_opaque_existential_1(v10);
+  static AceOutputHelper.makeCompletionViewOutput(templateResult:deviceState:ttsEnabled:snippetAceViews:listenAfterSpeaking:canUseServerTTS:nlContextUpdate:additionalCommands:flowActivity:)();
+
+  outlined destroy of FlowActivity?(v0 + 52);
+  outlined destroy of NLContextUpdate?(v11);
+  __swift_destroy_boxed_opaque_existential_0(v0 + 47);
+  __swift_destroy_boxed_opaque_existential_0(v0 + 42);
+
+  (*(v12 + 8))(v13, v14);
+
+  $defer #1 <A, B>() in PaymentsRCHFlowStrategy.makeIntentFromParse(parse:currentIntent:)();
+  outlined destroy of Signpost.OpenSignpost(v15);
+
+  v3 = *(v0[59] + 8);
+
+  return v3();
+}
+
+{
+  v4 = *v1;
+  *(v4 + 472) = *v1;
+  *(v4 + 832) = v0;
+
+  if (v0)
+  {
+    v2 = SearchForAccountsHandleIntentStrategy.makeIntentHandledResponse(rchRecord:);
+  }
+
+  else
+  {
+
+    v2 = SearchForAccountsHandleIntentStrategy.makeIntentHandledResponse(rchRecord:);
+  }
+
+  return MEMORY[0x2822009F8](v2, 0);
+}
+
+{
+  v12 = v0[89];
+  v10 = v0[78];
+  v9 = v0[76];
+  v11 = v0[75];
+  v8 = v0[74];
+  v6 = v0[72];
+  v7 = v0[70];
+  v0[59] = v0;
+
+  outlined init with copy of GlobalsProviding(v6 + 104, (v0 + 22));
+
+  v5 = v0[25];
+  v4 = v0[26];
+  __swift_project_boxed_opaque_existential_1(v0 + 22, v5);
+  (*(v4 + 16))(v5);
+
+  BaseStrategy.ttsEnabled.getter();
+
+  v1 = type metadata accessor for NLContextUpdate();
+  (*(*(v1 - 8) + 56))(v8, 1);
+  v0[32] = 0;
+  v0[33] = 0;
+  v0[34] = 0;
+  v0[35] = 0;
+  v0[36] = 0;
+  default argument 3 of static AceOutputHelper.makeErrorOutput(templateResult:deviceState:ttsEnabled:snippetAceViews:listenAfterSpeaking:canUseServerTTS:nlContextUpdate:additionalCommands:flowActivity:)();
+  default argument 4 of static AceOutputHelper.makeErrorOutput(templateResult:deviceState:ttsEnabled:snippetAceViews:listenAfterSpeaking:canUseServerTTS:nlContextUpdate:additionalCommands:flowActivity:)();
+  _swift_stdlib_has_malloc_size();
+  default argument 7 of static AceOutputHelper.makeErrorOutput(templateResult:deviceState:ttsEnabled:snippetAceViews:listenAfterSpeaking:canUseServerTTS:nlContextUpdate:additionalCommands:flowActivity:)();
+  v7[3] = type metadata accessor for AceOutput();
+  v7[4] = MEMORY[0x277D5C1D8];
+  __swift_allocate_boxed_opaque_existential_1(v7);
+  static AceOutputHelper.makeCompletionViewOutput(templateResult:deviceState:ttsEnabled:snippetAceViews:listenAfterSpeaking:canUseServerTTS:nlContextUpdate:additionalCommands:flowActivity:)();
+
+  outlined destroy of FlowActivity?(v0 + 32);
+  outlined destroy of NLContextUpdate?(v8);
+  __swift_destroy_boxed_opaque_existential_0(v0 + 27);
+  __swift_destroy_boxed_opaque_existential_0(v0 + 22);
+  (*(v9 + 8))(v10, v11);
+  $defer #1 <A, B>() in PaymentsRCHFlowStrategy.makeIntentFromParse(parse:currentIntent:)();
+  outlined destroy of Signpost.OpenSignpost(v12);
+
+  v2 = *(v0[59] + 8);
+
+  return v2();
+}
+
+{
+  v4 = *v1;
+  *(v4 + 472) = *v1;
+  *(v4 + 848) = v0;
+
+  if (v0)
+  {
+    v2 = SearchForAccountsHandleIntentStrategy.makeIntentHandledResponse(rchRecord:);
+  }
+
+  else
+  {
+    v2 = SearchForAccountsHandleIntentStrategy.makeIntentHandledResponse(rchRecord:);
+  }
+
+  return MEMORY[0x2822009F8](v2, 0);
+}
+
+{
+  v1 = v0[76];
+  v2 = v0[75];
+  v3 = v0[73];
+  v0[59] = v0;
+  if ((*(v1 + 48))(v3, 1, v2) == 1)
+  {
+    v17 = v27[89];
+    outlined destroy of TemplatingResult?(v27[73]);
+    __swift_destroy_boxed_opaque_existential_0(v27 + 2);
+    v27[57] = DefaultStringInterpolation.init(literalCapacity:interpolationCount:)();
+    v27[58] = v6;
+    countAndFlagsBits = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("", 0, 1)._countAndFlagsBits;
+    MEMORY[0x26D620F90](countAndFlagsBits);
+
+    v8 = type metadata accessor for INSearchForAccountsIntent();
+    DefaultStringInterpolation.appendInterpolation(_:)(v8);
+    v9 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("", 0, 1)._countAndFlagsBits;
+    MEMORY[0x26D620F90](v9);
+
+    v14 = v27[57];
+    v13 = v27[58];
+
+    outlined destroy of String.UTF8View((v27 + 57));
+    v16 = MEMORY[0x26D620710](v14, v13);
+    v15 = v10;
+    lazy protocol witness table accessor for type PaymentsError and conformance PaymentsError();
+    swift_allocError();
+    *v11 = v16;
+    *(v11 + 8) = v15;
+    *(v11 + 16) = 0;
+    *(v11 + 24) = 0;
+    *(v11 + 32) = 0;
+    *(v11 + 40) = 0;
+    *(v11 + 48) = 16;
+    swift_willThrow();
+    $defer #1 <A, B>() in PaymentsRCHFlowStrategy.makeIntentFromParse(parse:currentIntent:)();
+    outlined destroy of Signpost.OpenSignpost(v17);
+
+    v5 = *(v27[59] + 8);
+  }
+
+  else
+  {
+    v26 = v27[89];
+    v24 = v27[77];
+    v25 = v27[75];
+    v22 = v27[74];
+    v20 = v27[72];
+    v21 = v27[70];
+    v23 = v27[76];
+    (*(v23 + 32))();
+    __swift_destroy_boxed_opaque_existential_0(v27 + 2);
+
+    outlined init with copy of GlobalsProviding(v20 + 104, (v27 + 7));
+
+    v19 = v27[10];
+    v18 = v27[11];
+    __swift_project_boxed_opaque_existential_1(v27 + 7, v19);
+    (*(v18 + 16))(v19);
+
+    BaseStrategy.ttsEnabled.getter();
+
+    v4 = type metadata accessor for NLContextUpdate();
+    (*(*(v4 - 8) + 56))(v22, 1);
+    v27[17] = 0;
+    v27[18] = 0;
+    v27[19] = 0;
+    v27[20] = 0;
+    v27[21] = 0;
+    default argument 3 of static AceOutputHelper.makeErrorOutput(templateResult:deviceState:ttsEnabled:snippetAceViews:listenAfterSpeaking:canUseServerTTS:nlContextUpdate:additionalCommands:flowActivity:)();
+    default argument 4 of static AceOutputHelper.makeErrorOutput(templateResult:deviceState:ttsEnabled:snippetAceViews:listenAfterSpeaking:canUseServerTTS:nlContextUpdate:additionalCommands:flowActivity:)();
+    _swift_stdlib_has_malloc_size();
+    default argument 7 of static AceOutputHelper.makeErrorOutput(templateResult:deviceState:ttsEnabled:snippetAceViews:listenAfterSpeaking:canUseServerTTS:nlContextUpdate:additionalCommands:flowActivity:)();
+    v21[3] = type metadata accessor for AceOutput();
+    v21[4] = MEMORY[0x277D5C1D8];
+    __swift_allocate_boxed_opaque_existential_1(v21);
+    static AceOutputHelper.makeCompletionViewOutput(templateResult:deviceState:ttsEnabled:snippetAceViews:listenAfterSpeaking:canUseServerTTS:nlContextUpdate:additionalCommands:flowActivity:)();
+
+    outlined destroy of FlowActivity?(v27 + 17);
+    outlined destroy of NLContextUpdate?(v22);
+    __swift_destroy_boxed_opaque_existential_0(v27 + 12);
+    __swift_destroy_boxed_opaque_existential_0(v27 + 7);
+    (*(v23 + 8))(v24, v25);
+    $defer #1 <A, B>() in PaymentsRCHFlowStrategy.makeIntentFromParse(parse:currentIntent:)();
+    outlined destroy of Signpost.OpenSignpost(v26);
+
+    v5 = *(v27[59] + 8);
+  }
+
+  return v5();
+}
+
+{
+  v3 = *(v0 + 712);
+  *(v0 + 472) = v0;
+
+  $defer #1 <A, B>() in PaymentsRCHFlowStrategy.makeIntentFromParse(parse:currentIntent:)();
+  outlined destroy of Signpost.OpenSignpost(v3);
+
+  v1 = *(*(v0 + 472) + 8);
+
+  return v1();
+}
+
+{
+  v3 = *(v0 + 712);
+  *(v0 + 472) = v0;
+
+  $defer #1 <A, B>() in PaymentsRCHFlowStrategy.makeIntentFromParse(parse:currentIntent:)();
+  outlined destroy of Signpost.OpenSignpost(v3);
+
+  v1 = *(*(v0 + 472) + 8);
+
+  return v1();
+}
+
+{
+  v1 = v0[97];
+  v7 = v0[89];
+  v5 = v0[79];
+  v4 = v0[76];
+  v6 = v0[75];
+  v0[59] = v0;
+  MEMORY[0x277D82BD8](v1);
+
+  __swift_destroy_boxed_opaque_existential_0(v0 + 37);
+  (*(v4 + 8))(v5, v6);
+
+  $defer #1 <A, B>() in PaymentsRCHFlowStrategy.makeIntentFromParse(parse:currentIntent:)();
+  outlined destroy of Signpost.OpenSignpost(v7);
+
+  v2 = *(v0[59] + 8);
+
+  return v2();
+}
+
+{
+  v3 = v0[89];
+  v0[59] = v0;
+  __swift_destroy_boxed_opaque_existential_0(v0 + 2);
+  $defer #1 <A, B>() in PaymentsRCHFlowStrategy.makeIntentFromParse(parse:currentIntent:)();
+  outlined destroy of Signpost.OpenSignpost(v3);
+
+  v1 = *(v0[59] + 8);
+
+  return v1();
+}
+
+uint64_t SearchForAccountsHandleIntentStrategy.makeIntentHandledResponse(rchRecord:)(uint64_t a1)
+{
+  v6 = *v2;
+  v5 = *v2 + 16;
+  v6[59] = *v2;
+  v6[99] = a1;
+  v6[100] = v1;
+
+  if (v1)
+  {
+    v3 = SearchForAccountsHandleIntentStrategy.makeIntentHandledResponse(rchRecord:);
+  }
+
+  else
+  {
+
+    v3 = SearchForAccountsHandleIntentStrategy.makeIntentHandledResponse(rchRecord:);
+  }
+
+  return MEMORY[0x2822009F8](v3, 0);
+}
+
+uint64_t implicit closure #1 in SearchForAccountsHandleIntentStrategy.makeIntentHandledResponse(rchRecord:)()
+{
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s11SiriKitFlow22IntentResolutionRecordVySo019INSearchForAccountsD0CSo0ghiD8ResponseCGMd, &_s11SiriKitFlow22IntentResolutionRecordVySo019INSearchForAccountsD0CSo0ghiD8ResponseCGMR);
+  IntentResolutionRecord.intentResponse.getter();
+  type metadata accessor for INSearchForAccountsIntentResponse();
+  lazy protocol witness table accessor for type INSearchForAccountsIntentResponse and conformance NSObject();
+  return String.init<A>(describing:)();
+}
+
+uint64_t SearchForAccountsHandleIntentStrategy.makeFailureHandlingIntentResponse(rchRecord:)(uint64_t a1, uint64_t a2)
+{
+  v3[7] = v2;
+  v3[6] = a2;
+  v3[5] = a1;
+  v3[2] = v3;
+  v3[3] = 0;
+  v3[4] = 0;
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s11SiriKitFlow22IntentResolutionRecordVySo019INSearchForAccountsD0CSo0ghiD8ResponseCGMd, &_s11SiriKitFlow22IntentResolutionRecordVySo019INSearchForAccountsD0CSo0ghiD8ResponseCGMR);
+  v3[8] = v4;
+  v7 = *(v4 - 8);
+  v3[9] = v7;
+  v3[10] = *(v7 + 64);
+  v3[11] = swift_task_alloc();
+  v5 = type metadata accessor for Logger();
+  v3[12] = v5;
+  v3[13] = *(v5 - 8);
+  v3[14] = swift_task_alloc();
+  v3[3] = a2;
+  v3[4] = v2;
+
+  return MEMORY[0x2822009F8](SearchForAccountsHandleIntentStrategy.makeFailureHandlingIntentResponse(rchRecord:), 0);
+}
+
+uint64_t SearchForAccountsHandleIntentStrategy.makeFailureHandlingIntentResponse(rchRecord:)()
+{
+  v36 = v0;
+  v1 = v0[14];
+  v16 = v0[13];
+  v17 = v0[12];
+  v21 = v0[11];
+  v19 = v0[9];
+  v22 = v0[8];
+  v18 = v0[6];
+  v0[2] = v0;
+  v2 = Logger.payments.unsafeMutableAddressor();
+  (*(v16 + 16))(v1, v2, v17);
+  (*(v19 + 16))(v21, v18, v22);
+  v20 = (*(v19 + 80) + 16) & ~*(v19 + 80);
+  v23 = swift_allocObject();
+  (*(v19 + 32))(v23 + v20, v21, v22);
+  v29 = Logger.logObject.getter();
+  v30 = static os_log_type_t.debug.getter();
+  v25 = swift_allocObject();
+  *(v25 + 16) = 64;
+  v26 = swift_allocObject();
+  *(v26 + 16) = 8;
+  v24 = swift_allocObject();
+  *(v24 + 16) = partial apply for implicit closure #1 in SearchForAccountsHandleIntentStrategy.makeFailureHandlingIntentResponse(rchRecord:);
+  *(v24 + 24) = v23;
+  v27 = swift_allocObject();
+  *(v27 + 16) = partial apply for implicit closure #1 in OSLogInterpolation.appendInterpolation(_:privacy:);
+  *(v27 + 24) = v24;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMd, &_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMR);
+  _allocateUninitializedArray<A>(_:)();
+  v28 = v3;
+
+  *v28 = partial apply for closure #1 in OSLogArguments.append(_:);
+  v28[1] = v25;
+
+  v28[2] = partial apply for closure #1 in OSLogArguments.append(_:);
+  v28[3] = v26;
+
+  v28[4] = partial apply for closure #1 in OSLogArguments.append(_:);
+  v28[5] = v27;
+  _finalizeUninitializedArray<A>(_:)();
+
+  if (os_log_type_enabled(v29, v30))
+  {
+    buf = static UnsafeMutablePointer.allocate(capacity:)();
+    v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
+    v13 = createStorage<A>(capacity:type:)(1, v11, v11);
+    v14 = createStorage<A>(capacity:type:)(0, MEMORY[0x277D84F70] + 8, MEMORY[0x277D84F70] + 8);
+    v31 = buf;
+    v32 = v13;
+    v33 = v14;
+    serialize(_:at:)(2, &v31);
+    serialize(_:at:)(1, &v31);
+    v34 = partial apply for closure #1 in OSLogArguments.append(_:);
+    v35 = v25;
+    closure #1 in osLogInternal(_:log:type:)(&v34, &v31, &v32, &v33);
+    v34 = partial apply for closure #1 in OSLogArguments.append(_:);
+    v35 = v26;
+    closure #1 in osLogInternal(_:log:type:)(&v34, &v31, &v32, &v33);
+    v34 = partial apply for closure #1 in OSLogArguments.append(_:);
+    v35 = v27;
+    closure #1 in osLogInternal(_:log:type:)(&v34, &v31, &v32, &v33);
+    _os_log_impl(&dword_2686B1000, v29, v30, "#SearchForAccountsHandleIntentStrategy makeFailureHandlingIntentResponse response: %@", buf, 0xCu);
+    destroyStorage<A>(_:count:)(v13, 1, v11);
+    destroyStorage<A>(_:count:)(v14, 0, MEMORY[0x277D84F70] + 8);
+    MEMORY[0x26D620BD0](buf, MEMORY[0x277D84B78]);
+  }
+
+  else
+  {
+  }
+
+  v9 = v15[14];
+  v10 = v15[12];
+  v8 = v15[13];
+  MEMORY[0x277D82BD8](v29);
+  (*(v8 + 8))(v9, v10);
+  v4 = swift_task_alloc();
+  v15[15] = v4;
+  *v4 = v15[2];
+  v4[1] = SearchForAccountsHandleIntentStrategy.makeFailureHandlingIntentResponse(rchRecord:);
+  v5 = v15[6];
+  v6 = v15[5];
+
+  return SearchForAccountsHandleIntentStrategy.makeIntentHandledResponse(rchRecord:)(v6, v5);
+}
+
+{
+  v4 = *v1;
+  *(v4 + 16) = *v1;
+  v5 = v4 + 16;
+
+  if (v0)
+  {
+
+    v2 = *(*v5 + 8);
+  }
+
+  else
+  {
+
+    v2 = *(*v5 + 8);
+  }
+
+  return v2();
+}
+
+uint64_t SearchForAccountsHandleIntentStrategy.deinit()
+{
+  v1 = BaseStrategy.deinit();
+  __swift_destroy_boxed_opaque_existential_0((v1 + 184));
+  return v1;
+}
+
+uint64_t sub_26884DF24()
+{
+
+  __swift_destroy_boxed_opaque_existential_0((v0 + 24));
+  return swift_deallocObject();
+}
+
+uint64_t specialized Unicode.Scalar.withUTF8CodeUnits<A>(_:)(uint64_t (*a1)(uint64_t *, uint64_t), uint64_t a2, unsigned int a3)
+{
+  if (a3 < 0x80uLL)
+  {
+    if (a3 > 0xFF)
+    {
+      goto LABEL_12;
+    }
+
+    v5 = (a3 + 1);
+  }
+
+  else
+  {
+    v7 = (a3 & 0x3F) << 8;
+    if (a3 >> 6 < 0x20uLL)
+    {
+      v5 = (v7 | (a3 >> 6)) + 33217;
+    }
+
+    else
+    {
+      v6 = (v7 | (a3 >> 6) & 0x3F) << 8;
+      if (a3 >> 12 < 0x10uLL)
+      {
+        v5 = (v6 | (a3 >> 12)) + 8487393;
+      }
+
+      else
+      {
+        v5 = ((a3 >> 18) | ((v6 | (a3 >> 12) & 0x3F) << 8)) - 2122219023;
+      }
+    }
+  }
+
+  v4 = 4 - (__clz(v5) >> 3);
+  v9 = (v5 - 0x101010101010101) & ((1 << ((8 * v4) & 0x3F)) - 1);
+  Int.init(bitPattern:)(&v9);
+  if ((v4 & 0x8000000000000000) == 0)
+  {
+    return a1(&v9, v4);
+  }
+
+  _fatalErrorMessage(_:_:file:line:flags:)();
+  __break(1u);
+LABEL_12:
+  result = _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, "Not enough bits to represent the passed value", 45, 2, "Swift/Integers.swift", 20, 2, 3053, 0);
+  __break(1u);
+  return result;
+}
+
+uint64_t closure #1 in closure #1 in _unimplementedInitializer(className:initName:file:line:column:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, unint64_t a3@<X2>, uint64_t a4@<X3>, char a5@<W4>, uint64_t a6@<X5>, uint64_t a7@<X6>, unint64_t a8@<X7>, uint64_t a9@<X8>, unint64_t a10)
+{
+  v27 = a8;
+  v28 = a7;
+  v29 = a6;
+  v30 = a4;
+  v31 = a3;
+  v32 = a2;
+  v33 = a1;
+  v34 = a9;
+  v35 = a10;
+  v36 = 0;
+  v38 = a6;
+  v39 = a7;
+  v40 = a1;
+  v41 = a2;
+  v42 = a8;
+  v43 = a10;
+  if (a5)
+  {
+    if (!HIDWORD(v31))
+    {
+      v26 = v31;
+      if ((v31 >> 11 < 0x1B || v26 >> 13 > 6) && HIWORD(v26) <= 0x10u)
+      {
+        v10 = v36;
+        v24 = v17;
+        MEMORY[0x28223BE20](v17, a2);
+        v15 = partial apply for closure #1 in closure #1 in closure #1 in _unimplementedInitializer(className:initName:file:line:column:);
+        v16 = &v37;
+        specialized Unicode.Scalar.withUTF8CodeUnits<A>(_:)(partial apply for specialized closure #1 in StaticString.withUTF8Buffer<A>(_:), &v13, v11);
+        return v10;
+      }
+
+      _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, "Unexpectedly found nil while unwrapping an Optional value", 57, 2, "Swift/StaticString.swift", 24, 2, 148, 0);
+      __break(1u);
+    }
+
+    _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, "Not enough bits to represent the passed value", 45, 2, "Swift/Integers.swift", 20, 2, 3053, 0);
+    __break(1u);
+  }
+
+  if (v31)
+  {
+    v23 = v31;
+    if ((v30 & 0x8000000000000000) == 0)
+    {
+      if (v29)
+      {
+        v22 = v29;
+      }
+
+      else
+      {
+        _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, "Unexpectedly found nil while unwrapping an Optional value", 57, 2, "Swift/AssertCommon.swift", 24, 2, 268, 0);
+        __break(1u);
+      }
+
+      v21 = v22;
+      if (v28 >= 0xFFFFFFFF80000000)
+      {
+        if (v28 <= 0x7FFFFFFF)
+        {
+          v20 = v28;
+          if (v33)
+          {
+            v19 = v33;
+          }
+
+          else
+          {
+            _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, "Unexpectedly found nil while unwrapping an Optional value", 57, 2, "Swift/AssertCommon.swift", 24, 2, 269, 0);
+            __break(1u);
+          }
+
+          v18 = v19;
+          if (v32 >= 0xFFFFFFFF80000000)
+          {
+            if (v32 <= 0x7FFFFFFF)
+            {
+              v17[5] = v32;
+              if (v30 >= 0xFFFFFFFF80000000)
+              {
+                if (v30 <= 0x7FFFFFFF)
+                {
+                  v17[4] = v30;
+                  if (!HIDWORD(v27))
+                  {
+                    v17[3] = v27;
+                    if (!HIDWORD(v35))
+                    {
+                      LODWORD(v15) = 0;
+                      _swift_stdlib_reportUnimplementedInitializerInFile();
+                      return v36;
+                    }
+
+                    _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, "Not enough bits to represent the passed value", 45, 2, "Swift/Integers.swift", 20, 2, 3053, 0);
+                    __break(1u);
+                  }
+
+                  _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, "Not enough bits to represent the passed value", 45, 2, "Swift/Integers.swift", 20, 2, 3053, 0);
+                  __break(1u);
+                }
+
+                _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, "Not enough bits to represent the passed value", 45, 2, "Swift/Integers.swift", 20, 2, 3268, 0);
+                __break(1u);
+              }
+
+              _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, "Not enough bits to represent a signed value", 43, 2, "Swift/Integers.swift", 20, 2, 3262, 0);
+              __break(1u);
+            }
+
+            _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, "Not enough bits to represent the passed value", 45, 2, "Swift/Integers.swift", 20, 2, 3268, 0);
+            __break(1u);
+          }
+
+          _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, "Not enough bits to represent a signed value", 43, 2, "Swift/Integers.swift", 20, 2, 3262, 0);
+          __break(1u);
+        }
+
+        _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, "Not enough bits to represent the passed value", 45, 2, "Swift/Integers.swift", 20, 2, 3268, 0);
+        __break(1u);
+      }
+
+      _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, "Not enough bits to represent a signed value", 43, 2, "Swift/Integers.swift", 20, 2, 3262, 0);
+      __break(1u);
+    }
+
+    LODWORD(v15) = 0;
+    v14 = 1410;
+    LOBYTE(v13) = 2;
+    _fatalErrorMessage(_:_:file:line:flags:)();
+    __break(1u);
+  }
+
+  result = _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, "Unexpectedly found nil while unwrapping an Optional value", 57, 2, "Swift/StaticString.swift", 24, 2, 136, 0);
+  __break(1u);
+  return result;
+}
+
+uint64_t closure #1 in closure #1 in closure #1 in _unimplementedInitializer(className:initName:file:line:column:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, unint64_t a7, unint64_t a8)
+{
+  if (!a3)
+  {
+    _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, "Unexpectedly found nil while unwrapping an Optional value", 57, 2, "Swift/AssertCommon.swift", 24, 2, 268, 0);
+    __break(1u);
+  }
+
+  if (a4 >= 0xFFFFFFFF80000000)
+  {
+    if (a4 <= 0x7FFFFFFF)
+    {
+      if (!a5)
+      {
+        _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, "Unexpectedly found nil while unwrapping an Optional value", 57, 2, "Swift/AssertCommon.swift", 24, 2, 269, 0);
+        __break(1u);
+      }
+
+      if (a6 >= 0xFFFFFFFF80000000)
+      {
+        if (a6 <= 0x7FFFFFFF)
+        {
+          if (!a1)
+          {
+            _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, "Unexpectedly found nil while unwrapping an Optional value", 57, 2, "Swift/AssertCommon.swift", 24, 2, 270, 0);
+            __break(1u);
+          }
+
+          if (a2 >= 0xFFFFFFFF80000000)
+          {
+            if (a2 <= 0x7FFFFFFF)
+            {
+              if (a7 <= 0xFFFFFFFF)
+              {
+                if (a8 <= 0xFFFFFFFF)
+                {
+                  return _swift_stdlib_reportUnimplementedInitializerInFile();
+                }
+
+                _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, "Not enough bits to represent the passed value", 45, 2, "Swift/Integers.swift", 20, 2, 3053, 0);
+                __break(1u);
+              }
+
+              _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, "Not enough bits to represent the passed value", 45, 2, "Swift/Integers.swift", 20, 2, 3053, 0);
+              __break(1u);
+            }
+
+            _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, "Not enough bits to represent the passed value", 45, 2, "Swift/Integers.swift", 20, 2, 3268, 0);
+            __break(1u);
+          }
+
+          _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, "Not enough bits to represent a signed value", 43, 2, "Swift/Integers.swift", 20, 2, 3262, 0);
+          __break(1u);
+        }
+
+        _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, "Not enough bits to represent the passed value", 45, 2, "Swift/Integers.swift", 20, 2, 3268, 0);
+        __break(1u);
+      }
+
+      _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, "Not enough bits to represent a signed value", 43, 2, "Swift/Integers.swift", 20, 2, 3262, 0);
+      __break(1u);
+    }
+
+    _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, "Not enough bits to represent the passed value", 45, 2, "Swift/Integers.swift", 20, 2, 3268, 0);
+    __break(1u);
+  }
+
+  result = _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, "Not enough bits to represent a signed value", 43, 2, "Swift/Integers.swift", 20, 2, 3262, 0);
+  __break(1u);
+  return result;
+}
+
+uint64_t sub_26884F20C()
+{
+  v2 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s11SiriKitFlow22IntentResolutionRecordVySo019INSearchForAccountsD0CSo0ghiD8ResponseCGMd, &_s11SiriKitFlow22IntentResolutionRecordVySo019INSearchForAccountsD0CSo0ghiD8ResponseCGMR) - 8);
+  (*(v2 + 8))(v0 + ((*(v2 + 80) + 16) & ~*(v2 + 80)));
+  return swift_deallocObject();
+}
+
+uint64_t partial apply for implicit closure #1 in SearchForAccountsHandleIntentStrategy.makeIntentHandledResponse(rchRecord:)()
+{
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s11SiriKitFlow22IntentResolutionRecordVySo019INSearchForAccountsD0CSo0ghiD8ResponseCGMd, &_s11SiriKitFlow22IntentResolutionRecordVySo019INSearchForAccountsD0CSo0ghiD8ResponseCGMR);
+
+  return implicit closure #1 in SearchForAccountsHandleIntentStrategy.makeIntentHandledResponse(rchRecord:)();
+}
+
+uint64_t sub_26884F584()
+{
+  v2 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s11SiriKitFlow22IntentResolutionRecordVySo019INSearchForAccountsD0CSo0ghiD8ResponseCGMd, &_s11SiriKitFlow22IntentResolutionRecordVySo019INSearchForAccountsD0CSo0ghiD8ResponseCGMR) - 8);
+  (*(v2 + 8))(v0 + ((*(v2 + 80) + 16) & ~*(v2 + 80)));
+  return swift_deallocObject();
+}
+
+uint64_t partial apply for implicit closure #1 in SearchForAccountsHandleIntentStrategy.makeFailureHandlingIntentResponse(rchRecord:)()
+{
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s11SiriKitFlow22IntentResolutionRecordVySo019INSearchForAccountsD0CSo0ghiD8ResponseCGMd, &_s11SiriKitFlow22IntentResolutionRecordVySo019INSearchForAccountsD0CSo0ghiD8ResponseCGMR);
+
+  return implicit closure #1 in SearchForAccountsHandleIntentStrategy.makeFailureHandlingIntentResponse(rchRecord:)();
+}
+
+uint64_t type metadata accessor for SearchForAccountsHandleIntentStrategy(uint64_t a1)
+{
+  v2 = type metadata singleton initialization cache for SearchForAccountsHandleIntentStrategy;
+  if (!type metadata singleton initialization cache for SearchForAccountsHandleIntentStrategy)
+  {
+    return swift_getSingletonMetadata();
+  }
+
+  return v2;
+}
+
+uint64_t type metadata completion function for SearchForAccountsHandleIntentStrategy(uint64_t a1)
+{
+  inited = swift_initClassMetadata2();
+  if (!inited)
+  {
+    return 0;
+  }
+
+  return inited;
+}
+
+uint64_t RequestPaymentUnsupportedValueStrategy.__allocating_init()()
+{
+  v32 = 0;
+  v18 = 0;
+  v8 = (*(*(type metadata accessor for CATOption() - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  MEMORY[0x28223BE20](0, v0);
+  v17 = &v7 - v8;
+  v13 = type metadata accessor for Globals();
+  v9 = v37;
+  default argument 0 of Globals.init(contactResolver:deviceState:aceServiceInvoker:outputPublisher:)(v37);
+  v10 = &v36;
+  default argument 1 of Globals.init(contactResolver:deviceState:aceServiceInvoker:outputPublisher:)();
+  v11 = &v35;
+  default argument 2 of Globals.init(contactResolver:deviceState:aceServiceInvoker:outputPublisher:)();
+  v12 = &v34;
+  default argument 3 of Globals.init(contactResolver:deviceState:aceServiceInvoker:outputPublisher:)();
+  v1 = Globals.__allocating_init(contactResolver:deviceState:aceServiceInvoker:outputPublisher:)(v9, v10, v11, v12);
+  v26 = v38;
+  v38[3] = v13;
+  v38[4] = &protocol witness table for Globals;
+  v38[0] = v1;
+  v23 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s19SiriPaymentsIntents0B21ErrorTemplateProviderCySo22INRequestPaymentIntentCSo0ghI8ResponseCGMd, &_s19SiriPaymentsIntents0B21ErrorTemplateProviderCySo22INRequestPaymentIntentCSo0ghI8ResponseCGMR);
+  v16 = v33;
+  outlined init with copy of GlobalsProviding(v26, v33);
+  type metadata accessor for PaymentsBaseCATs(v18);
+  default argument 0 of CATWrapper.init(options:globals:)();
+  v15 = CATWrapper.__allocating_init(options:globals:)();
+  v14 = type metadata accessor for INRequestPaymentIntent();
+  v2 = type metadata accessor for INRequestPaymentIntentResponse();
+  v3 = default argument 2 of PaymentsErrorTemplateProvider.init(globals:catFamily:searchForAccountsCATs:)(v14, v2);
+  v25 = PaymentsErrorTemplateProvider.__allocating_init(globals:catFamily:searchForAccountsCATs:)(v16, v15, v3);
+  v32 = v25;
+  v24 = v31;
+  outlined init with copy of GlobalsProviding(v26, v31);
+  type metadata accessor for RequestPaymentCATs(v18);
+  default argument 0 of CATWrapper.init(options:globals:)();
+  v19 = CATWrapper.__allocating_init(options:globals:)();
+  NSJSONWritingOptions.init(rawValue:)(v19);
+  v20 = v30;
+  v30[3] = &type metadata for CommonLabelsProvider;
+  v30[4] = &protocol witness table for CommonLabelsProvider;
+  v4 = type metadata accessor for SiriKitContactResolver();
+  v21 = v29;
+  v29[3] = v4;
+  v29[4] = &protocol witness table for SiriKitContactResolver;
+  __swift_allocate_boxed_opaque_existential_1(v29);
+  SiriKitContactResolver.init()();
+
+  v22 = &v28;
+  v28 = v25;
+  v5 = lazy protocol witness table accessor for type PaymentsErrorTemplateProvider<INRequestPaymentIntent, INRequestPaymentIntentResponse> and conformance PaymentsErrorTemplateProvider<A, B>();
+  v27 = RequestPaymentUnsupportedValueStrategy.__allocating_init<A>(globals:catFamily:commonLabelsProvider:contactResolver:errorProvider:)(v24, v19, v20, v21, v22, v23, v5);
+
+  v38[5] = v27;
+
+  __swift_destroy_boxed_opaque_existential_0(v26);
+
+  return v27;
+}
+
+uint64_t RequestPaymentUnsupportedValueStrategy.makeUnsupportedValueOutput(resolveRecord:)(uint64_t a1, uint64_t a2)
+{
+  *(v3 + 608) = v2;
+  *(v3 + 600) = a2;
+  *(v3 + 592) = a1;
+  *(v3 + 488) = v3;
+  *(v3 + 496) = 0;
+  *(v3 + 504) = 0;
+  *(v3 + 864) = 0;
+  *(v3 + 512) = 0;
+  *(v3 + 520) = 0;
+  *(v3 + 472) = 0;
+  *(v3 + 480) = 0;
+  *(v3 + 528) = 0;
+  *(v3 + 536) = 0;
+  *(v3 + 544) = 0;
+  *(v3 + 552) = 0;
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s11SiriKitFlow25ParameterResolutionRecordVySo22INRequestPaymentIntentCGMd, &_s11SiriKitFlow25ParameterResolutionRecordVySo22INRequestPaymentIntentCGMR);
+  *(v3 + 616) = v4;
+  v9 = *(v4 - 8);
+  *(v3 + 624) = v9;
+  *(v3 + 632) = *(v9 + 64);
+  *(v3 + 640) = swift_task_alloc();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s16SiriDialogEngine15SpeakableStringVSgMd, &_s16SiriDialogEngine15SpeakableStringVSgMR);
+  *(v3 + 648) = swift_task_alloc();
+  *(v3 + 656) = swift_task_alloc();
+  *(v3 + 664) = swift_task_alloc();
+  type metadata accessor for Locale();
+  *(v3 + 672) = swift_task_alloc();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s11SiriKitFlow15NLContextUpdateVSgMd, &_s11SiriKitFlow15NLContextUpdateVSgMR);
+  *(v3 + 680) = swift_task_alloc();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s11SiriKitFlow16TemplatingResultVSgMd, &_s11SiriKitFlow16TemplatingResultVSgMR);
+  *(v3 + 688) = swift_task_alloc();
+  v5 = type metadata accessor for TemplatingResult();
+  *(v3 + 696) = v5;
+  *(v3 + 704) = *(v5 - 8);
+  *(v3 + 712) = swift_task_alloc();
+  *(v3 + 720) = swift_task_alloc();
+  v6 = type metadata accessor for ParameterIdentifier();
+  *(v3 + 728) = v6;
+  *(v3 + 736) = *(v6 - 8);
+  *(v3 + 744) = swift_task_alloc();
+  v7 = type metadata accessor for Logger();
+  *(v3 + 752) = v7;
+  *(v3 + 760) = *(v7 - 8);
+  *(v3 + 768) = swift_task_alloc();
+  *(v3 + 776) = swift_task_alloc();
+  *(v3 + 496) = a2;
+  *(v3 + 504) = v2;
+
+  return MEMORY[0x2822009F8](RequestPaymentUnsupportedValueStrategy.makeUnsupportedValueOutput(resolveRecord:), 0);
+}
+
+uint64_t RequestPaymentUnsupportedValueStrategy.makeUnsupportedValueOutput(resolveRecord:)()
+{
+  v69 = v0;
+  v1 = v0[97];
+  v58 = v0[95];
+  v59 = v0[94];
+  v0[61] = v0;
+  v2 = Logger.payments.unsafeMutableAddressor();
+  v60 = *(v58 + 16);
+  v60(v1, v2, v59);
+  v62 = Logger.logObject.getter();
+  v61 = static os_log_type_t.debug.getter();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMd, &_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMR);
+  v63 = _allocateUninitializedArray<A>(_:)();
+  if (os_log_type_enabled(v62, v61))
+  {
+    buf = static UnsafeMutablePointer.allocate(capacity:)();
+    v52 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
+    v54 = createStorage<A>(capacity:type:)(0, v52, v52);
+    v55 = createStorage<A>(capacity:type:)(0, MEMORY[0x277D84F70] + 8, MEMORY[0x277D84F70] + 8);
+    *(v57 + 560) = buf;
+    *(v57 + 568) = v54;
+    *(v57 + 576) = v55;
+    serialize(_:at:)(0, (v57 + 560));
+    serialize(_:at:)(0, (v57 + 560));
+    *(v57 + 584) = v63;
+    v56 = swift_task_alloc();
+    v56[2] = v57 + 560;
+    v56[3] = v57 + 568;
+    v56[4] = v57 + 576;
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSayySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcGMd, &_sSayySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcGMR);
+    lazy protocol witness table accessor for type [(_:_:_:)] and conformance [A]();
+    Sequence.forEach(_:)();
+
+    _os_log_impl(&dword_2686B1000, v62, v61, "RequestPaymentUnsupportedValueStrategy makeUnsupportedValueOutput", buf, 2u);
+    destroyStorage<A>(_:count:)(v54, 0, v52);
+    destroyStorage<A>(_:count:)(v55, 0, MEMORY[0x277D84F70] + 8);
+    MEMORY[0x26D620BD0](buf, MEMORY[0x277D84B78]);
+  }
+
+  v44 = *(v57 + 776);
+  v45 = *(v57 + 752);
+  v48 = *(v57 + 744);
+  v49 = *(v57 + 728);
+  v43 = *(v57 + 760);
+  v47 = *(v57 + 736);
+  MEMORY[0x277D82BD8](v62);
+  v46 = *(v43 + 8);
+  v46(v44, v45);
+  ParameterResolutionRecord.parameter.getter();
+  rawValue._countAndFlagsBits = ParameterIdentifier.name.getter();
+  rawValue._object = v3;
+  v50 = *(v47 + 8);
+  v50(v48, v49);
+  v4.value = RequestPaymentSlots.init(rawValue:)(rawValue).value;
+  *(v57 + 865) = v4;
+  if (v4.value == SiriPaymentsIntents_RequestPaymentSlots_unknownDefault)
+  {
+    v9 = *(v57 + 768);
+    v25 = *(v57 + 752);
+    v29 = *(v57 + 640);
+    v30 = *(v57 + 616);
+    v27 = *(v57 + 600);
+    v26 = *(v57 + 624);
+    v10 = Logger.payments.unsafeMutableAddressor();
+    v60(v9, v10, v25);
+    (*(v26 + 16))(v29, v27, v30);
+    v28 = (*(v26 + 80) + 16) & ~*(v26 + 80);
+    v31 = swift_allocObject();
+    (*(v26 + 32))(v31 + v28, v29, v30);
+    oslog = Logger.logObject.getter();
+    v38 = static os_log_type_t.error.getter();
+    v33 = swift_allocObject();
+    *(v33 + 16) = 32;
+    v34 = swift_allocObject();
+    *(v34 + 16) = 8;
+    v32 = swift_allocObject();
+    *(v32 + 16) = partial apply for implicit closure #1 in RequestPaymentUnsupportedValueStrategy.makeUnsupportedValueOutput(resolveRecord:);
+    *(v32 + 24) = v31;
+    v35 = swift_allocObject();
+    *(v35 + 16) = partial apply for implicit closure #1 in OSLogInterpolation.appendInterpolation(_:align:privacy:);
+    *(v35 + 24) = v32;
+    _allocateUninitializedArray<A>(_:)();
+    v36 = v11;
+
+    *v36 = partial apply for closure #1 in OSLogArguments.append(_:);
+    v36[1] = v33;
+
+    v36[2] = partial apply for closure #1 in OSLogArguments.append(_:);
+    v36[3] = v34;
+
+    v36[4] = partial apply for closure #1 in OSLogArguments.append(_:);
+    v36[5] = v35;
+    _finalizeUninitializedArray<A>(_:)();
+
+    if (os_log_type_enabled(oslog, v38))
+    {
+      v22 = static UnsafeMutablePointer.allocate(capacity:)();
+      v21 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
+      v23 = createStorage<A>(capacity:type:)(0, v21, v21);
+      v24 = createStorage<A>(capacity:type:)(1, MEMORY[0x277D84F70] + 8, MEMORY[0x277D84F70] + 8);
+      v64 = v22;
+      v65 = v23;
+      v66 = v24;
+      serialize(_:at:)(2, &v64);
+      serialize(_:at:)(1, &v64);
+      v67 = partial apply for closure #1 in OSLogArguments.append(_:);
+      v68 = v33;
+      closure #1 in osLogInternal(_:log:type:)(&v67, &v64, &v65, &v66);
+      v67 = partial apply for closure #1 in OSLogArguments.append(_:);
+      v68 = v34;
+      closure #1 in osLogInternal(_:log:type:)(&v67, &v64, &v65, &v66);
+      v67 = partial apply for closure #1 in OSLogArguments.append(_:);
+      v68 = v35;
+      closure #1 in osLogInternal(_:log:type:)(&v67, &v64, &v65, &v66);
+      _os_log_impl(&dword_2686B1000, oslog, v38, "#RequestPaymentUnsupportedValueStrategy unknown parameter: %s", v22, 0xCu);
+      destroyStorage<A>(_:count:)(v23, 0, v21);
+      destroyStorage<A>(_:count:)(v24, 1, MEMORY[0x277D84F70] + 8);
+      MEMORY[0x26D620BD0](v22, MEMORY[0x277D84B78]);
+    }
+
+    else
+    {
+    }
+
+    v15 = *(v57 + 768);
+    v16 = *(v57 + 752);
+    v17 = *(v57 + 744);
+    v18 = *(v57 + 728);
+    MEMORY[0x277D82BD8](oslog);
+    v46(v15, v16);
+    ParameterResolutionRecord.parameter.getter();
+    v20 = ParameterIdentifier.name.getter();
+    v19 = v12;
+    v50(v17, v18);
+    lazy protocol witness table accessor for type PaymentsError and conformance PaymentsError();
+    swift_allocError();
+    *v13 = v20;
+    *(v13 + 8) = v19;
+    *(v13 + 16) = 0;
+    *(v13 + 24) = 0;
+    *(v13 + 32) = 0;
+    *(v13 + 40) = 0;
+    *(v13 + 48) = 14;
+    swift_willThrow();
+
+    v14 = *(*(v57 + 488) + 8);
+
+    return v14();
+  }
+
+  else
+  {
+    v39 = *(v57 + 608);
+    *(v57 + 864) = v4;
+
+    outlined init with copy of GlobalsProviding(v39 + 144, v57 + 16);
+
+    v40 = *(v57 + 40);
+    v41 = *(v57 + 48);
+    __swift_project_boxed_opaque_existential_1((v57 + 16), v40);
+    v42 = (*(v41 + 56) + **(v41 + 56));
+    v5 = swift_task_alloc();
+    *(v57 + 784) = v5;
+    *v5 = *(v57 + 488);
+    v5[1] = RequestPaymentUnsupportedValueStrategy.makeUnsupportedValueOutput(resolveRecord:);
+    v6 = *(v57 + 688);
+    v7 = *(v57 + 600);
+
+    return v42(v6, v7, v40, v41);
+  }
+}
+
+{
+  v4 = *v1;
+  *(v4 + 488) = *v1;
+  *(v4 + 792) = v0;
+
+  if (v0)
+  {
+    v2 = SendPaymentUnsupportedValueStrategy.makeUnsupportedValueOutput(resolveRecord:);
+  }
+
+  else
+  {
+    v2 = RequestPaymentUnsupportedValueStrategy.makeUnsupportedValueOutput(resolveRecord:);
+  }
+
+  return MEMORY[0x2822009F8](v2, 0);
+}
+
+{
+  v1 = v0[88];
+  v2 = v0[87];
+  v3 = v0[86];
+  v0[61] = v0;
+  if ((*(v1 + 48))(v3, 1, v2) == 1)
+  {
+    outlined destroy of TemplatingResult?(*(v48 + 688));
+    __swift_destroy_boxed_opaque_existential_0((v48 + 16));
+    ParameterResolutionRecord.app.getter();
+    v37 = App.sirikitApp.getter();
+    *(v48 + 800) = v37;
+    *(v48 + 512) = v37;
+
+    v38 = ParameterResolutionRecord.intent.getter();
+    *(v48 + 808) = v38;
+    *(v48 + 520) = v38;
+    v39 = [v38 note];
+    if (v39)
+    {
+      v33 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+      v34 = v7;
+      MEMORY[0x277D82BD8](v39);
+      v35 = v33;
+      v36 = v34;
+    }
+
+    else
+    {
+      v35 = 0;
+      v36 = 0;
+    }
+
+    *(v48 + 816) = v36;
+    *(v48 + 472) = v35;
+    *(v48 + 480) = v36;
+    type metadata accessor for PaymentsDialogConcept.Builder(0);
+    v31 = PaymentsDialogConcept.Builder.__allocating_init()();
+    *(v48 + 824) = v31;
+    *(v48 + 528) = v31;
+    v32 = [v38 payer];
+    if (v32)
+    {
+      v26 = *(v48 + 608);
+      *(v48 + 552) = v32;
+      type metadata accessor for DialogPerson();
+      MEMORY[0x277D82BE0](v32);
+
+      outlined init with copy of GlobalsProviding(v26 + 104, v48 + 176);
+
+      v28 = *(v48 + 200);
+      v27 = *(v48 + 208);
+      __swift_project_boxed_opaque_existential_1((v48 + 176), v28);
+      (*(v27 + 16))(v28);
+      __swift_project_boxed_opaque_existential_1((v48 + 216), *(v48 + 240));
+      dispatch thunk of DeviceState.siriLocale.getter();
+      v30 = DialogPerson.__allocating_init(namedPerson:locale:useConversationalName:)();
+      __swift_destroy_boxed_opaque_existential_0((v48 + 216));
+      __swift_destroy_boxed_opaque_existential_0((v48 + 176));
+
+      v29 = (v31 + OBJC_IVAR____TtCC19SiriPaymentsIntents21PaymentsDialogConcept7Builder_payerName);
+      swift_beginAccess();
+      *v29 = v30;
+
+      swift_endAccess();
+
+      MEMORY[0x277D82BD8](v32);
+    }
+
+    v25 = [v38 currencyAmount];
+    if (v25)
+    {
+      *(v48 + 544) = v25;
+      type metadata accessor for DialogCurrency.Builder();
+      DialogCurrency.Builder.__allocating_init()();
+      v24 = [v25 amount];
+      if (v24)
+      {
+        [v24 doubleValue];
+        MEMORY[0x277D82BD8](v24);
+      }
+
+      dispatch thunk of DialogAbstractMeasurement.Builder.withValue(_:)();
+
+      v23 = dispatch thunk of DialogAbstractMeasurement.Builder.build()();
+
+      swift_beginAccess();
+      *(v31 + 16) = v23;
+
+      swift_endAccess();
+
+      MEMORY[0x277D82BD8](v25);
+    }
+
+    if (v36)
+    {
+      v22 = *(v48 + 664);
+      String.toSpeakableString.getter();
+
+      v8 = type metadata accessor for SpeakableString();
+      (*(*(v8 - 8) + 56))(v22, 0, 1);
+    }
+
+    else
+    {
+      v14 = *(v48 + 664);
+      v13 = type metadata accessor for SpeakableString();
+      (*(*(v13 - 8) + 56))(v14, 1);
+    }
+
+    v19 = *(v48 + 865);
+    v17 = *(v48 + 664);
+    v15 = *(v48 + 656);
+    v20 = *(v48 + 648);
+    v18 = *(v48 + 608);
+    outlined init with copy of SpeakableString?(v17, v15);
+    v16 = (v31 + OBJC_IVAR____TtCC19SiriPaymentsIntents21PaymentsDialogConcept7Builder_memo);
+    swift_beginAccess();
+    outlined assign with take of SpeakableString?(v15, v16);
+    swift_endAccess();
+    outlined destroy of SpeakableString?(v17);
+
+    swift_beginAccess();
+    *(v31 + 24) = v37;
+
+    swift_endAccess();
+
+    v21 = PaymentsDialogConcept.Builder.build()();
+    *(v48 + 832) = v21;
+    *(v48 + 536) = v21;
+
+    *(v48 + 840) = *(v18 + 16);
+
+    RequestPaymentSlots.rawValue.getter(v19);
+    String.toSpeakableString.getter();
+
+    v9 = type metadata accessor for SpeakableString();
+    (*(*(v9 - 8) + 56))(v20, 0, 1);
+
+    v10 = swift_task_alloc();
+    *(v48 + 848) = v10;
+    *v10 = *(v48 + 488);
+    v10[1] = SendPaymentUnsupportedValueStrategy.makeUnsupportedValueOutput(resolveRecord:);
+    v11 = *(v48 + 712);
+    v12 = *(v48 + 648);
+
+    return RequestPaymentCATs.unsupportedSlotValue(slot:paymentsConcept:)(v11, v12, v21);
+  }
+
+  else
+  {
+    v46 = *(v48 + 720);
+    v47 = *(v48 + 696);
+    v44 = *(v48 + 680);
+    v42 = *(v48 + 608);
+    v43 = *(v48 + 592);
+    v45 = *(v48 + 704);
+    (*(v45 + 32))();
+    __swift_destroy_boxed_opaque_existential_0((v48 + 16));
+
+    outlined init with copy of GlobalsProviding(v42 + 104, v48 + 256);
+
+    v41 = *(v48 + 280);
+    v40 = *(v48 + 288);
+    __swift_project_boxed_opaque_existential_1((v48 + 256), v41);
+    (*(v40 + 16))(v41);
+
+    BaseStrategy.ttsEnabled.getter();
+
+    v4 = type metadata accessor for NLContextUpdate();
+    (*(*(v4 - 8) + 56))(v44, 1);
+    *(v48 + 336) = 0;
+    *(v48 + 344) = 0;
+    *(v48 + 352) = 0;
+    *(v48 + 360) = 0;
+    *(v48 + 368) = 0;
+    default argument 3 of static AceOutputHelper.makeErrorOutput(templateResult:deviceState:ttsEnabled:snippetAceViews:listenAfterSpeaking:canUseServerTTS:nlContextUpdate:additionalCommands:flowActivity:)();
+    default argument 4 of static AceOutputHelper.makeErrorOutput(templateResult:deviceState:ttsEnabled:snippetAceViews:listenAfterSpeaking:canUseServerTTS:nlContextUpdate:additionalCommands:flowActivity:)();
+    default argument 7 of static AceOutputHelper.makeErrorOutput(templateResult:deviceState:ttsEnabled:snippetAceViews:listenAfterSpeaking:canUseServerTTS:nlContextUpdate:additionalCommands:flowActivity:)();
+    v43[3] = type metadata accessor for AceOutput();
+    v43[4] = MEMORY[0x277D5C1D8];
+    __swift_allocate_boxed_opaque_existential_1(v43);
+    static AceOutputHelper.makeCompletionViewOutput(templateResult:deviceState:ttsEnabled:snippetAceViews:listenAfterSpeaking:canUseServerTTS:nlContextUpdate:additionalCommands:flowActivity:)();
+
+    outlined destroy of FlowActivity?((v48 + 336));
+    outlined destroy of NLContextUpdate?(v44);
+    __swift_destroy_boxed_opaque_existential_0((v48 + 296));
+    __swift_destroy_boxed_opaque_existential_0((v48 + 256));
+    (*(v45 + 8))(v46, v47);
+
+    v5 = *(*(v48 + 488) + 8);
+
+    return v5();
+  }
+}
+
+uint64_t implicit closure #1 in RequestPaymentUnsupportedValueStrategy.makeUnsupportedValueOutput(resolveRecord:)()
+{
+  v8 = type metadata accessor for ParameterIdentifier();
+  v5 = *(v8 - 8);
+  v6 = v8 - 8;
+  v4 = (*(v5 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  MEMORY[0x28223BE20](v8, v0);
+  v7 = &v3 - v4;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s11SiriKitFlow25ParameterResolutionRecordVySo22INRequestPaymentIntentCGMd, &_s11SiriKitFlow25ParameterResolutionRecordVySo22INRequestPaymentIntentCGMR);
+  ParameterResolutionRecord.parameter.getter();
+  v9 = ParameterIdentifier.name.getter();
+  v10 = v1;
+  (*(v5 + 8))(v7, v8);
+  return v9;
+}
+
+uint64_t RequestPaymentUnsupportedValueStrategy.makeUpdatedIntentForUnsupportedValue(resolveRecord:)(uint64_t a1)
+{
+  *(v2 + 144) = a1;
+  *(v2 + 112) = v2;
+  *(v2 + 120) = 0;
+  *(v2 + 128) = 0;
+  *(v2 + 136) = 0;
+  *(v2 + 232) = 0;
+  v3 = type metadata accessor for ParameterIdentifier();
+  *(v2 + 152) = v3;
+  *(v2 + 160) = *(v3 - 8);
+  *(v2 + 168) = swift_task_alloc();
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s11SiriKitFlow25ParameterResolutionRecordVySo22INRequestPaymentIntentCGMd, &_s11SiriKitFlow25ParameterResolutionRecordVySo22INRequestPaymentIntentCGMR);
+  *(v2 + 176) = v4;
+  v7 = *(v4 - 8);
+  *(v2 + 184) = v7;
+  *(v2 + 192) = *(v7 + 64);
+  *(v2 + 200) = swift_task_alloc();
+  v5 = type metadata accessor for Logger();
+  *(v2 + 208) = v5;
+  *(v2 + 216) = *(v5 - 8);
+  *(v2 + 224) = swift_task_alloc();
+  *(v2 + 120) = a1;
+  *(v2 + 128) = v1;
+
+  return MEMORY[0x2822009F8](RequestPaymentUnsupportedValueStrategy.makeUpdatedIntentForUnsupportedValue(resolveRecord:), 0);
+}
+
+uint64_t RequestPaymentUnsupportedValueStrategy.makeUpdatedIntentForUnsupportedValue(resolveRecord:)()
+{
+  v88 = v0;
+  v58 = v0[28];
+  v61 = v0[27];
+  v62 = v0[26];
+  v67 = v0[25];
+  v63 = v0[23];
+  v68 = v0[22];
+  v64 = v0[18];
+  v0[14] = v0;
+  v59 = ParameterResolutionRecord.intent.getter();
+  v57 = type metadata accessor for INRequestPaymentIntent();
+  v60 = SiriKitPaymentsIntent.clone()(v57);
+  MEMORY[0x277D82BD8](v59);
+  v0[17] = v60;
+  v1 = Logger.payments.unsafeMutableAddressor();
+  (*(v61 + 16))(v58, v1, v62);
+  v65 = *(v63 + 16);
+  v65(v67, v64, v68);
+  v66 = *(v63 + 80);
+  v70 = swift_allocObject();
+  v69 = *(v63 + 32);
+  v69(v70 + ((v66 + 16) & ~v66), v67, v68);
+  v65(v67, v64, v68);
+  v72 = swift_allocObject();
+  v69(v72 + ((v66 + 16) & ~v66), v67, v68);
+  v81 = Logger.logObject.getter();
+  v82 = static os_log_type_t.debug.getter();
+  v74 = swift_allocObject();
+  *(v74 + 16) = 32;
+  v75 = swift_allocObject();
+  *(v75 + 16) = 8;
+  v71 = swift_allocObject();
+  *(v71 + 16) = partial apply for implicit closure #1 in RequestPaymentUnsupportedValueStrategy.makeUnsupportedValueOutput(resolveRecord:);
+  *(v71 + 24) = v70;
+  v76 = swift_allocObject();
+  *(v76 + 16) = partial apply for implicit closure #1 in OSLogInterpolation.appendInterpolation(_:align:privacy:);
+  *(v76 + 24) = v71;
+  v77 = swift_allocObject();
+  *(v77 + 16) = 32;
+  v78 = swift_allocObject();
+  *(v78 + 16) = 8;
+  v73 = swift_allocObject();
+  *(v73 + 16) = partial apply for implicit closure #2 in RequestPaymentUnsupportedValueStrategy.makeUpdatedIntentForUnsupportedValue(resolveRecord:);
+  *(v73 + 24) = v72;
+  v79 = swift_allocObject();
+  *(v79 + 16) = partial apply for implicit closure #1 in OSLogInterpolation.appendInterpolation(_:align:privacy:);
+  *(v79 + 24) = v73;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMd, &_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMR);
+  _allocateUninitializedArray<A>(_:)();
+  v80 = v2;
+
+  *v80 = partial apply for closure #1 in OSLogArguments.append(_:);
+  v80[1] = v74;
+
+  v80[2] = partial apply for closure #1 in OSLogArguments.append(_:);
+  v80[3] = v75;
+
+  v80[4] = partial apply for closure #1 in OSLogArguments.append(_:);
+  v80[5] = v76;
+
+  v80[6] = partial apply for closure #1 in OSLogArguments.append(_:);
+  v80[7] = v77;
+
+  v80[8] = partial apply for closure #1 in OSLogArguments.append(_:);
+  v80[9] = v78;
+
+  v80[10] = partial apply for closure #1 in OSLogArguments.append(_:);
+  v80[11] = v79;
+  _finalizeUninitializedArray<A>(_:)();
+
+  if (os_log_type_enabled(v81, v82))
+  {
+    buf = static UnsafeMutablePointer.allocate(capacity:)();
+    v52 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
+    v54 = createStorage<A>(capacity:type:)(0, v52, v52);
+    v55 = createStorage<A>(capacity:type:)(2, MEMORY[0x277D84F70] + 8, MEMORY[0x277D84F70] + 8);
+    v83 = buf;
+    v84 = v54;
+    v85 = v55;
+    serialize(_:at:)(2, &v83);
+    serialize(_:at:)(2, &v83);
+    v86 = partial apply for closure #1 in OSLogArguments.append(_:);
+    v87 = v74;
+    closure #1 in osLogInternal(_:log:type:)(&v86, &v83, &v84, &v85);
+    v86 = partial apply for closure #1 in OSLogArguments.append(_:);
+    v87 = v75;
+    closure #1 in osLogInternal(_:log:type:)(&v86, &v83, &v84, &v85);
+    v86 = partial apply for closure #1 in OSLogArguments.append(_:);
+    v87 = v76;
+    closure #1 in osLogInternal(_:log:type:)(&v86, &v83, &v84, &v85);
+    v86 = partial apply for closure #1 in OSLogArguments.append(_:);
+    v87 = v77;
+    closure #1 in osLogInternal(_:log:type:)(&v86, &v83, &v84, &v85);
+    v86 = partial apply for closure #1 in OSLogArguments.append(_:);
+    v87 = v78;
+    closure #1 in osLogInternal(_:log:type:)(&v86, &v83, &v84, &v85);
+    v86 = partial apply for closure #1 in OSLogArguments.append(_:);
+    v87 = v79;
+    closure #1 in osLogInternal(_:log:type:)(&v86, &v83, &v84, &v85);
+    _os_log_impl(&dword_2686B1000, v81, v82, "#RequestPaymentUnsupportedValueStrategy updating intent for slot '%s' with index '%s'", buf, 0x16u);
+    destroyStorage<A>(_:count:)(v54, 0, v52);
+    destroyStorage<A>(_:count:)(v55, 2, MEMORY[0x277D84F70] + 8);
+    MEMORY[0x26D620BD0](buf, MEMORY[0x277D84B78]);
+  }
+
+  else
+  {
+  }
+
+  v43 = *(v56 + 224);
+  v44 = *(v56 + 208);
+  v46 = *(v56 + 168);
+  v47 = *(v56 + 152);
+  v42 = *(v56 + 216);
+  v45 = *(v56 + 160);
+  MEMORY[0x277D82BD8](v81);
+  (*(v42 + 8))(v43, v44);
+  ParameterResolutionRecord.parameter.getter();
+  rawValue._countAndFlagsBits = ParameterIdentifier.name.getter();
+  rawValue._object = v3;
+  v48 = *(v45 + 8);
+  v48(v46, v47);
+  v4.value = RequestPaymentSlots.init(rawValue:)(rawValue).value;
+  value = v4.value;
+  if (v4.value == SiriPaymentsIntents_RequestPaymentSlots_unknownDefault)
+  {
+    v20 = *(v56 + 168);
+    v14 = *(v56 + 152);
+    ParameterResolutionRecord.parameter.getter();
+    v15 = ParameterIdentifier.name.getter();
+    v16 = v10;
+    v48(v20, v14);
+    v19 = [swift_getObjCClassFromMetadata() description];
+    v18 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+    v17 = v11;
+    lazy protocol witness table accessor for type PaymentsError and conformance PaymentsError();
+    swift_allocError();
+    *v12 = v15;
+    *(v12 + 8) = v16;
+    *(v12 + 16) = v18;
+    *(v12 + 24) = v17;
+    *(v12 + 32) = 0;
+    *(v12 + 40) = 0;
+    *(v12 + 48) = 2;
+    swift_willThrow();
+    MEMORY[0x277D82BD8](v19);
+    MEMORY[0x277D82BD8](v60);
+
+    v8 = v51;
+    v9 = *(*(v56 + 112) + 8);
+  }
+
+  else
+  {
+    *(v56 + 232) = v4;
+    if (v4.value)
+    {
+      if (v4.value == SiriPaymentsIntents_RequestPaymentSlots_currencyAmount)
+      {
+        *(v56 + 48) = 0;
+        *(v56 + 56) = 0;
+        *(v56 + 64) = 0;
+        *(v56 + 72) = 0;
+        if (*(v56 + 72))
+        {
+          v31 = *(v56 + 72);
+          v29 = __swift_project_boxed_opaque_existential_1((v56 + 48), v31);
+          v30 = *(v31 - 8);
+          v32 = swift_task_alloc();
+          (*(v30 + 16))(v32, v29, v31);
+          v33 = _bridgeAnythingToObjectiveC<A>(_:)();
+          (*(v30 + 8))(v32, v31);
+
+          __swift_destroy_boxed_opaque_existential_0((v56 + 48));
+          v34 = v33;
+        }
+
+        else
+        {
+          v34 = 0;
+        }
+
+        *(v56 + 234) = value;
+        lazy protocol witness table accessor for type RequestPaymentSlots and conformance RequestPaymentSlots();
+        lazy protocol witness table accessor for type RequestPaymentSlots and conformance RequestPaymentSlots();
+        v6 = Slot<>.propertyName.getter(&type metadata for RequestPaymentSlots, &protocol witness table for RequestPaymentSlots);
+        v28 = MEMORY[0x26D620690](v6);
+
+        [v60 setValue:v34 forKey:v28];
+        MEMORY[0x277D82BD8](v28);
+        swift_unknownObjectRelease();
+      }
+
+      else
+      {
+        *(v56 + 16) = 0;
+        *(v56 + 24) = 0;
+        *(v56 + 32) = 0;
+        *(v56 + 40) = 0;
+        if (*(v56 + 40))
+        {
+          v24 = *(v56 + 40);
+          v22 = __swift_project_boxed_opaque_existential_1((v56 + 16), v24);
+          v23 = *(v24 - 8);
+          v25 = swift_task_alloc();
+          (*(v23 + 16))(v25, v22, v24);
+          v26 = _bridgeAnythingToObjectiveC<A>(_:)();
+          (*(v23 + 8))(v25, v24);
+
+          __swift_destroy_boxed_opaque_existential_0((v56 + 16));
+          v27 = v26;
+        }
+
+        else
+        {
+          v27 = 0;
+        }
+
+        *(v56 + 233) = value;
+        lazy protocol witness table accessor for type RequestPaymentSlots and conformance RequestPaymentSlots();
+        lazy protocol witness table accessor for type RequestPaymentSlots and conformance RequestPaymentSlots();
+        v7 = Slot<>.propertyName.getter(&type metadata for RequestPaymentSlots, &protocol witness table for RequestPaymentSlots);
+        v21 = MEMORY[0x26D620690](v7);
+
+        [v60 setValue:v27 forKey:v21];
+        MEMORY[0x277D82BD8](v21);
+        swift_unknownObjectRelease();
+      }
+    }
+
+    else
+    {
+      *(v56 + 80) = 0;
+      *(v56 + 88) = 0;
+      *(v56 + 96) = 0;
+      *(v56 + 104) = 0;
+      if (*(v56 + 104))
+      {
+        v38 = *(v56 + 104);
+        v36 = __swift_project_boxed_opaque_existential_1((v56 + 80), v38);
+        v37 = *(v38 - 8);
+        v39 = swift_task_alloc();
+        (*(v37 + 16))(v39, v36, v38);
+        v40 = _bridgeAnythingToObjectiveC<A>(_:)();
+        (*(v37 + 8))(v39, v38);
+
+        __swift_destroy_boxed_opaque_existential_0((v56 + 80));
+        v41 = v40;
+      }
+
+      else
+      {
+        v41 = 0;
+      }
+
+      *(v56 + 235) = 0;
+      lazy protocol witness table accessor for type RequestPaymentSlots and conformance RequestPaymentSlots();
+      lazy protocol witness table accessor for type RequestPaymentSlots and conformance RequestPaymentSlots();
+      v5 = Slot<>.propertyName.getter(&type metadata for RequestPaymentSlots, &protocol witness table for RequestPaymentSlots);
+      v35 = MEMORY[0x26D620690](v5);
+
+      [v60 setValue:v41 forKey:v35];
+      MEMORY[0x277D82BD8](v35);
+      swift_unknownObjectRelease();
+    }
+
+    v8 = v60;
+    v9 = *(*(v56 + 112) + 8);
+  }
+
+  return v9(v8);
+}
+
+uint64_t implicit closure #2 in RequestPaymentUnsupportedValueStrategy.makeUpdatedIntentForUnsupportedValue(resolveRecord:)()
+{
+  v8 = type metadata accessor for ParameterIdentifier();
+  v5 = *(v8 - 8);
+  v6 = v8 - 8;
+  v4 = (*(v5 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  MEMORY[0x28223BE20](v8, v0);
+  v7 = &v3 - v4;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s11SiriKitFlow25ParameterResolutionRecordVySo22INRequestPaymentIntentCGMd, &_s11SiriKitFlow25ParameterResolutionRecordVySo22INRequestPaymentIntentCGMR);
+  ParameterResolutionRecord.parameter.getter();
+  v9 = ParameterIdentifier.multicardinalIndex.getter();
+  v10 = v1;
+  (*(v5 + 8))(v7, v8);
+  v11 = v9;
+  v12 = v10 & 1;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSiSgMd, &_sSiSgMR);
+  return Optional.debugDescription.getter();
+}
+
+uint64_t sub_2688531C0()
+{
+  v2 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s11SiriKitFlow25ParameterResolutionRecordVySo22INRequestPaymentIntentCGMd, &_s11SiriKitFlow25ParameterResolutionRecordVySo22INRequestPaymentIntentCGMR) - 8);
+  (*(v2 + 8))(v0 + ((*(v2 + 80) + 16) & ~*(v2 + 80)));
+  return swift_deallocObject();
+}
+
+uint64_t partial apply for implicit closure #1 in RequestPaymentUnsupportedValueStrategy.makeUnsupportedValueOutput(resolveRecord:)()
+{
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s11SiriKitFlow25ParameterResolutionRecordVySo22INRequestPaymentIntentCGMd, &_s11SiriKitFlow25ParameterResolutionRecordVySo22INRequestPaymentIntentCGMR);
+
+  return implicit closure #1 in RequestPaymentUnsupportedValueStrategy.makeUnsupportedValueOutput(resolveRecord:)();
+}
+
+uint64_t RequestPaymentUnsupportedValueStrategy.init<A>(globals:catFamily:commonLabelsProvider:contactResolver:errorProvider:)(void *a1, uint64_t a2, void *a3, void *a4, uint64_t a5, uint64_t a6, uint64_t a7)
+{
+  v27 = a1;
+  v26 = a2;
+  v25 = a3;
+  v24 = a4;
+  v20 = a5;
+  v23 = a6;
+  v18 = a7;
+  v37 = 0;
+  v36 = 0;
+  v35 = 0;
+  v34 = 0;
+  v33 = 0;
+  v32 = 0;
+  v38 = a6;
+  v21 = *(a6 - 8);
+  v22 = a6 - 8;
+  v14 = (*(v21 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  v17 = &v13 - v14;
+  v36 = MEMORY[0x28223BE20](a1, a2);
+  v35 = v8;
+  v34 = v9;
+  v33 = v10;
+  v32 = v11;
+  v37 = v7;
+  v19 = v31;
+  outlined init with copy of GlobalsProviding(v36, v31);
+
+  v15 = v30;
+  outlined init with copy of GlobalsProviding(v25, v30);
+  v16 = v29;
+  outlined init with copy of GlobalsProviding(v24, v29);
+  (*(v21 + 16))(v17, v20, v23);
+  v28 = BaseStrategy.init<A>(globals:catFamily:commonLabelsProvider:contactResolver:errorProvider:)(v19, v26, v15, v16, v17, v23, v18);
+
+  v37 = v28;
+  (*(v21 + 8))(v20, v23);
+  __swift_destroy_boxed_opaque_existential_0(v24);
+  __swift_destroy_boxed_opaque_existential_0(v25);
+
+  __swift_destroy_boxed_opaque_existential_0(v27);
+
+  return v28;
+}
+
+uint64_t protocol witness for UnsupportedValueFlowStrategyAsync.makeUnsupportedValueOutput(resolveRecord:) in conformance RequestPaymentUnsupportedValueStrategy(uint64_t a1, uint64_t a2)
+{
+  v5 = v2;
+  *(v2 + 16) = v2;
+  v3 = swift_task_alloc();
+  *(v5 + 24) = v3;
+  *v3 = *(v5 + 16);
+  v3[1] = protocol witness for ContinueInAppDialogFlowStrategyAsync.makeContinueInAppResponse(intentResolutionRecord:) in conformance SearchForAccountsContinueInAppStrategy;
+
+  return RequestPaymentUnsupportedValueStrategy.makeUnsupportedValueOutput(resolveRecord:)(a1, a2);
+}
+
+uint64_t protocol witness for UnsupportedValueFlowStrategyAsync.makeUpdatedIntentForUnsupportedValue(resolveRecord:) in conformance RequestPaymentUnsupportedValueStrategy(uint64_t a1)
+{
+  v4 = v1;
+  *(v1 + 16) = v1;
+  v2 = swift_task_alloc();
+  *(v4 + 24) = v2;
+  *v2 = *(v4 + 16);
+  v2[1] = protocol witness for TCCResponseProviding.promptToEnableApp(appDisplayInfo:deviceState:catOverrides:) in conformance TCCResponses;
+
+  return RequestPaymentUnsupportedValueStrategy.makeUpdatedIntentForUnsupportedValue(resolveRecord:)(a1);
+}
+
+uint64_t protocol witness for UnsupportedValueFlowStrategyAsync.makeLaunchAppWithIntentOutput(resolveRecord:) in conformance RequestPaymentUnsupportedValueStrategy(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v8 = v4;
+  *(v4 + 16) = v4;
+  v5 = swift_task_alloc();
+  *(v8 + 24) = v5;
+  v6 = type metadata accessor for RequestPaymentUnsupportedValueStrategy(0);
+  *v5 = *(v8 + 16);
+  v5[1] = protocol witness for ContinueInAppDialogFlowStrategyAsync.makeContinueInAppResponse(intentResolutionRecord:) in conformance SearchForAccountsContinueInAppStrategy;
+
+  return MEMORY[0x2821B9E00](a1, a2, v6, a4);
+}
+
+uint64_t sub_268853834()
+{
+  v2 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s11SiriKitFlow25ParameterResolutionRecordVySo22INRequestPaymentIntentCGMd, &_s11SiriKitFlow25ParameterResolutionRecordVySo22INRequestPaymentIntentCGMR) - 8);
+  (*(v2 + 8))(v0 + ((*(v2 + 80) + 16) & ~*(v2 + 80)));
+  return swift_deallocObject();
+}
+
+uint64_t sub_26885390C()
+{
+  v2 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s11SiriKitFlow25ParameterResolutionRecordVySo22INRequestPaymentIntentCGMd, &_s11SiriKitFlow25ParameterResolutionRecordVySo22INRequestPaymentIntentCGMR) - 8);
+  (*(v2 + 8))(v0 + ((*(v2 + 80) + 16) & ~*(v2 + 80)));
+  return swift_deallocObject();
+}
+
+uint64_t partial apply for implicit closure #2 in RequestPaymentUnsupportedValueStrategy.makeUpdatedIntentForUnsupportedValue(resolveRecord:)()
+{
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s11SiriKitFlow25ParameterResolutionRecordVySo22INRequestPaymentIntentCGMd, &_s11SiriKitFlow25ParameterResolutionRecordVySo22INRequestPaymentIntentCGMR);
+
+  return implicit closure #2 in RequestPaymentUnsupportedValueStrategy.makeUpdatedIntentForUnsupportedValue(resolveRecord:)();
+}
+
+uint64_t type metadata accessor for RequestPaymentUnsupportedValueStrategy(uint64_t a1)
+{
+  v2 = type metadata singleton initialization cache for RequestPaymentUnsupportedValueStrategy;
+  if (!type metadata singleton initialization cache for RequestPaymentUnsupportedValueStrategy)
+  {
+    return swift_getSingletonMetadata();
+  }
+
+  return v2;
+}
+
+uint64_t SearchForAccountsUnsupportedValueStrategy.__allocating_init()()
+{
+  v32 = 0;
+  v18 = 0;
+  v8 = (*(*(type metadata accessor for CATOption() - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  MEMORY[0x28223BE20](0, v0);
+  v17 = &v7 - v8;
+  v13 = type metadata accessor for Globals();
+  v9 = v37;
+  default argument 0 of Globals.init(contactResolver:deviceState:aceServiceInvoker:outputPublisher:)(v37);
+  v10 = &v36;
+  default argument 1 of Globals.init(contactResolver:deviceState:aceServiceInvoker:outputPublisher:)();
+  v11 = &v35;
+  default argument 2 of Globals.init(contactResolver:deviceState:aceServiceInvoker:outputPublisher:)();
+  v12 = &v34;
+  default argument 3 of Globals.init(contactResolver:deviceState:aceServiceInvoker:outputPublisher:)();
+  v1 = Globals.__allocating_init(contactResolver:deviceState:aceServiceInvoker:outputPublisher:)(v9, v10, v11, v12);
+  v26 = v38;
+  v38[3] = v13;
+  v38[4] = &protocol witness table for Globals;
+  v38[0] = v1;
+  v23 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s19SiriPaymentsIntents0B21ErrorTemplateProviderCySo25INSearchForAccountsIntentCSo0ghiJ8ResponseCGMd, &_s19SiriPaymentsIntents0B21ErrorTemplateProviderCySo25INSearchForAccountsIntentCSo0ghiJ8ResponseCGMR);
+  v16 = v33;
+  outlined init with copy of GlobalsProviding(v26, v33);
+  type metadata accessor for PaymentsBaseCATs(v18);
+  default argument 0 of CATWrapper.init(options:globals:)();
+  v15 = CATWrapper.__allocating_init(options:globals:)();
+  v14 = type metadata accessor for INSearchForAccountsIntent();
+  v2 = type metadata accessor for INSearchForAccountsIntentResponse();
+  v3 = default argument 2 of PaymentsErrorTemplateProvider.init(globals:catFamily:searchForAccountsCATs:)(v14, v2);
+  v25 = PaymentsErrorTemplateProvider.__allocating_init(globals:catFamily:searchForAccountsCATs:)(v16, v15, v3);
+  v32 = v25;
+  v24 = v31;
+  outlined init with copy of GlobalsProviding(v26, v31);
+  type metadata accessor for SearchForAccountsCATs(v18);
+  default argument 0 of CATWrapper.init(options:globals:)();
+  v19 = CATWrapper.__allocating_init(options:globals:)();
+  NSJSONWritingOptions.init(rawValue:)(v19);
+  v20 = v30;
+  v30[3] = &type metadata for CommonLabelsProvider;
+  v30[4] = &protocol witness table for CommonLabelsProvider;
+  v4 = type metadata accessor for SiriKitContactResolver();
+  v21 = v29;
+  v29[3] = v4;
+  v29[4] = &protocol witness table for SiriKitContactResolver;
+  __swift_allocate_boxed_opaque_existential_1(v29);
+  SiriKitContactResolver.init()();
+
+  v22 = &v28;
+  v28 = v25;
+  v5 = lazy protocol witness table accessor for type PaymentsErrorTemplateProvider<INSearchForAccountsIntent, INSearchForAccountsIntentResponse> and conformance PaymentsErrorTemplateProvider<A, B>();
+  v27 = SearchForAccountsUnsupportedValueStrategy.__allocating_init<A>(globals:catFamily:commonLabelsProvider:contactResolver:errorProvider:)(v24, v19, v20, v21, v22, v23, v5);
+
+  v38[5] = v27;
+
+  __swift_destroy_boxed_opaque_existential_0(v26);
+
+  return v27;
+}
+
+uint64_t SearchForAccountsUnsupportedValueStrategy.makeUnsupportedValueOutput(resolveRecord:)(uint64_t a1, uint64_t a2)
+{
+  *(v3 + 240) = v2;
+  *(v3 + 232) = a2;
+  *(v3 + 224) = a1;
+  *(v3 + 168) = v3;
+  *(v3 + 176) = 0;
+  *(v3 + 184) = 0;
+  *(v3 + 136) = 0;
+  *(v3 + 144) = 0;
+  *(v3 + 392) = 0;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s11SiriKitFlow15NLContextUpdateVSgMd, &_s11SiriKitFlow15NLContextUpdateVSgMR);
+  *(v3 + 248) = swift_task_alloc();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s16SiriDialogEngine15SpeakableStringVSgMd, &_s16SiriDialogEngine15SpeakableStringVSgMR);
+  *(v3 + 256) = swift_task_alloc();
+  v4 = type metadata accessor for TemplatingResult();
+  *(v3 + 264) = v4;
+  *(v3 + 272) = *(v4 - 8);
+  *(v3 + 280) = swift_task_alloc();
+  v5 = type metadata accessor for ParameterIdentifier();
+  *(v3 + 288) = v5;
+  *(v3 + 296) = *(v5 - 8);
+  *(v3 + 304) = swift_task_alloc();
+  v6 = type metadata accessor for Logger();
+  *(v3 + 312) = v6;
+  *(v3 + 320) = *(v6 - 8);
+  *(v3 + 328) = swift_task_alloc();
+  *(v3 + 336) = swift_task_alloc();
+  *(v3 + 344) = swift_task_alloc();
+  *(v3 + 176) = a2;
+  *(v3 + 184) = v2;
+
+  return MEMORY[0x2822009F8](SearchForAccountsUnsupportedValueStrategy.makeUnsupportedValueOutput(resolveRecord:), 0);
+}
+
+uint64_t SearchForAccountsUnsupportedValueStrategy.makeUnsupportedValueOutput(resolveRecord:)()
+{
+  v91 = v0;
+  v1 = v0[43];
+  v75 = v0[40];
+  v76 = v0[39];
+  v0[21] = v0;
+  v2 = Logger.payments.unsafeMutableAddressor();
+  v77 = *(v75 + 16);
+  v77(v1, v2, v76);
+  v79 = Logger.logObject.getter();
+  v78 = static os_log_type_t.debug.getter();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMd, &_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMR);
+  v80 = _allocateUninitializedArray<A>(_:)();
+  if (os_log_type_enabled(v79, v78))
+  {
+    buf = static UnsafeMutablePointer.allocate(capacity:)();
+    v69 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
+    v71 = createStorage<A>(capacity:type:)(0, v69, v69);
+    v72 = createStorage<A>(capacity:type:)(0, MEMORY[0x277D84F70] + 8, MEMORY[0x277D84F70] + 8);
+    *(v74 + 192) = buf;
+    *(v74 + 200) = v71;
+    *(v74 + 208) = v72;
+    serialize(_:at:)(0, (v74 + 192));
+    serialize(_:at:)(0, (v74 + 192));
+    *(v74 + 216) = v80;
+    v73 = swift_task_alloc();
+    v73[2] = v74 + 192;
+    v73[3] = v74 + 200;
+    v73[4] = v74 + 208;
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSayySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcGMd, &_sSayySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcGMR);
+    lazy protocol witness table accessor for type [(_:_:_:)] and conformance [A]();
+    Sequence.forEach(_:)();
+
+    _os_log_impl(&dword_2686B1000, v79, v78, "#SearchForAccountsUnsupportedValueStrategy makeUnsupportedValueOutput", buf, 2u);
+    destroyStorage<A>(_:count:)(v71, 0, v69);
+    destroyStorage<A>(_:count:)(v72, 0, MEMORY[0x277D84F70] + 8);
+    MEMORY[0x26D620BD0](buf, MEMORY[0x277D84B78]);
+  }
+
+  v61 = *(v74 + 344);
+  v62 = *(v74 + 312);
+  v65 = *(v74 + 304);
+  v66 = *(v74 + 288);
+  v60 = *(v74 + 320);
+  v64 = *(v74 + 296);
+  MEMORY[0x277D82BD8](v79);
+  v63 = *(v60 + 8);
+  v63(v61, v62);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s11SiriKitFlow25ParameterResolutionRecordVySo25INSearchForAccountsIntentCGMd, &_s11SiriKitFlow25ParameterResolutionRecordVySo25INSearchForAccountsIntentCGMR);
+  ParameterResolutionRecord.parameter.getter();
+  rawValue._countAndFlagsBits = ParameterIdentifier.name.getter();
+  rawValue._object = v3;
+  *(v74 + 352) = v3;
+  *(v74 + 136) = rawValue._countAndFlagsBits;
+  *(v74 + 144) = v3;
+  (*(v64 + 8))(v65, v66);
+
+  v4.value = SearchForAccountsSlots.init(rawValue:)(rawValue).value;
+  value = v4.value;
+  if (v4.value == SiriPaymentsIntents_SearchForAccountsSlots_unknownDefault)
+  {
+    v13 = *(v74 + 328);
+    v33 = *(v74 + 312);
+    v14 = Logger.payments.unsafeMutableAddressor();
+    v77(v13, v14, v33);
+
+    v34 = swift_allocObject();
+    *(v34 + 16) = rawValue;
+    log = Logger.logObject.getter();
+    v41 = static os_log_type_t.error.getter();
+    v36 = swift_allocObject();
+    *(v36 + 16) = 32;
+    v37 = swift_allocObject();
+    *(v37 + 16) = 8;
+    v35 = swift_allocObject();
+    *(v35 + 16) = partial apply for implicit closure #1 in static Logger.logForCrash(_:);
+    *(v35 + 24) = v34;
+    v38 = swift_allocObject();
+    *(v38 + 16) = partial apply for implicit closure #1 in OSLogInterpolation.appendInterpolation(_:align:privacy:);
+    *(v38 + 24) = v35;
+    _allocateUninitializedArray<A>(_:)();
+    v39 = v15;
+
+    *v39 = partial apply for closure #1 in OSLogArguments.append(_:);
+    v39[1] = v36;
+
+    v39[2] = partial apply for closure #1 in OSLogArguments.append(_:);
+    v39[3] = v37;
+
+    v39[4] = partial apply for closure #1 in OSLogArguments.append(_:);
+    v39[5] = v38;
+    _finalizeUninitializedArray<A>(_:)();
+
+    if (os_log_type_enabled(log, v41))
+    {
+      v30 = static UnsafeMutablePointer.allocate(capacity:)();
+      v29 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
+      v31 = createStorage<A>(capacity:type:)(0, v29, v29);
+      v32 = createStorage<A>(capacity:type:)(1, MEMORY[0x277D84F70] + 8, MEMORY[0x277D84F70] + 8);
+      v81 = v30;
+      v82 = v31;
+      v83 = v32;
+      serialize(_:at:)(2, &v81);
+      serialize(_:at:)(1, &v81);
+      v84 = partial apply for closure #1 in OSLogArguments.append(_:);
+      v85 = v36;
+      closure #1 in osLogInternal(_:log:type:)(&v84, &v81, &v82, &v83);
+      v84 = partial apply for closure #1 in OSLogArguments.append(_:);
+      v85 = v37;
+      closure #1 in osLogInternal(_:log:type:)(&v84, &v81, &v82, &v83);
+      v84 = partial apply for closure #1 in OSLogArguments.append(_:);
+      v85 = v38;
+      closure #1 in osLogInternal(_:log:type:)(&v84, &v81, &v82, &v83);
+      _os_log_impl(&dword_2686B1000, log, v41, "#SearchForAccountsUnsupportedValueStrategy makeUnsupportedValueOutput parameter name %s was not a known slot", v30, 0xCu);
+      destroyStorage<A>(_:count:)(v31, 0, v29);
+      destroyStorage<A>(_:count:)(v32, 1, MEMORY[0x277D84F70] + 8);
+      MEMORY[0x26D620BD0](v30, MEMORY[0x277D84B78]);
+    }
+
+    else
+    {
+    }
+
+    v23 = *(v74 + 328);
+    v24 = *(v74 + 312);
+    MEMORY[0x277D82BD8](log);
+    v63(v23, v24);
+
+    *(v74 + 152) = DefaultStringInterpolation.init(literalCapacity:interpolationCount:)();
+    *(v74 + 160) = v16;
+    countAndFlagsBits = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("", 0, 1)._countAndFlagsBits;
+    MEMORY[0x26D620F90](countAndFlagsBits);
+
+    v18 = type metadata accessor for INSearchForAccountsIntent();
+    DefaultStringInterpolation.appendInterpolation(_:)(v18);
+    v19 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("", 0, 1)._countAndFlagsBits;
+    MEMORY[0x26D620F90](v19);
+
+    v26 = *(v74 + 152);
+    v25 = *(v74 + 160);
+
+    outlined destroy of String.UTF8View(v74 + 152);
+    v28 = MEMORY[0x26D620710](v26, v25);
+    v27 = v20;
+    lazy protocol witness table accessor for type PaymentsError and conformance PaymentsError();
+    swift_allocError();
+    *v21 = rawValue;
+    *(v21 + 16) = v28;
+    *(v21 + 24) = v27;
+    *(v21 + 32) = 0;
+    *(v21 + 40) = 0;
+    *(v21 + 48) = 2;
+    swift_willThrow();
+
+    v22 = *(*(v74 + 168) + 8);
+
+    return v22();
+  }
+
+  else
+  {
+    v5 = *(v74 + 336);
+    v51 = *(v74 + 312);
+    *(v74 + 392) = v4;
+    v6 = Logger.payments.unsafeMutableAddressor();
+    v77(v5, v6, v51);
+    v52 = swift_allocObject();
+    *(v52 + 16) = value;
+    oslog = Logger.logObject.getter();
+    v59 = static os_log_type_t.debug.getter();
+    v54 = swift_allocObject();
+    *(v54 + 16) = 32;
+    v55 = swift_allocObject();
+    *(v55 + 16) = 8;
+    v53 = swift_allocObject();
+    *(v53 + 16) = partial apply for implicit closure #2 in SearchForAccountsNeedsValueStrategy.parseValueResponse(input:resolveRecord:);
+    *(v53 + 24) = v52;
+    v56 = swift_allocObject();
+    *(v56 + 16) = partial apply for implicit closure #1 in OSLogInterpolation.appendInterpolation(_:align:privacy:);
+    *(v56 + 24) = v53;
+    _allocateUninitializedArray<A>(_:)();
+    v57 = v7;
+
+    *v57 = partial apply for closure #1 in OSLogArguments.append(_:);
+    v57[1] = v54;
+
+    v57[2] = partial apply for closure #1 in OSLogArguments.append(_:);
+    v57[3] = v55;
+
+    v57[4] = partial apply for closure #1 in OSLogArguments.append(_:);
+    v57[5] = v56;
+    _finalizeUninitializedArray<A>(_:)();
+
+    if (os_log_type_enabled(oslog, v59))
+    {
+      v48 = static UnsafeMutablePointer.allocate(capacity:)();
+      v47 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
+      v49 = createStorage<A>(capacity:type:)(0, v47, v47);
+      v50 = createStorage<A>(capacity:type:)(1, MEMORY[0x277D84F70] + 8, MEMORY[0x277D84F70] + 8);
+      v86 = v48;
+      v87 = v49;
+      v88 = v50;
+      serialize(_:at:)(2, &v86);
+      serialize(_:at:)(1, &v86);
+      v89 = partial apply for closure #1 in OSLogArguments.append(_:);
+      v90 = v54;
+      closure #1 in osLogInternal(_:log:type:)(&v89, &v86, &v87, &v88);
+      v89 = partial apply for closure #1 in OSLogArguments.append(_:);
+      v90 = v55;
+      closure #1 in osLogInternal(_:log:type:)(&v89, &v86, &v87, &v88);
+      v89 = partial apply for closure #1 in OSLogArguments.append(_:);
+      v90 = v56;
+      closure #1 in osLogInternal(_:log:type:)(&v89, &v86, &v87, &v88);
+      _os_log_impl(&dword_2686B1000, oslog, v59, "#SearchForAccountsUnsupportedValueStrategy Slot: %s", v48, 0xCu);
+      destroyStorage<A>(_:count:)(v49, 0, v47);
+      destroyStorage<A>(_:count:)(v50, 1, MEMORY[0x277D84F70] + 8);
+      MEMORY[0x26D620BD0](v48, MEMORY[0x277D84B78]);
+    }
+
+    else
+    {
+    }
+
+    v42 = *(v74 + 336);
+    v43 = *(v74 + 312);
+    v45 = *(v74 + 256);
+    v44 = *(v74 + 240);
+    MEMORY[0x277D82BD8](oslog);
+    v63(v42, v43);
+
+    *(v74 + 360) = *(v44 + 16);
+
+    ParameterResolutionRecord.app.getter();
+    v46 = App.sirikitApp.getter();
+    *(v74 + 368) = v46;
+
+    SearchForAccountsSlots.rawValue.getter(value);
+    SpeakableString.init(print:speak:)();
+    v8 = type metadata accessor for SpeakableString();
+    (*(*(v8 - 8) + 56))(v45, 0, 1);
+    v9 = swift_task_alloc();
+    *(v74 + 376) = v9;
+    *v9 = *(v74 + 168);
+    v9[1] = SearchForAccountsUnsupportedValueStrategy.makeUnsupportedValueOutput(resolveRecord:);
+    v10 = *(v74 + 280);
+    v11 = *(v74 + 256);
+
+    return SearchForAccountsCATs.unsupportedSlotValue(app:slot:)(v10, v46, v11);
+  }
+}
+
+{
+  v4 = *v1;
+  v4[21] = *v1;
+  v4[48] = v0;
+
+  if (v0)
+  {
+    v2 = SearchForAccountsUnsupportedValueStrategy.makeUnsupportedValueOutput(resolveRecord:);
+  }
+
+  else
+  {
+    outlined destroy of SpeakableString?(v4[32]);
+
+    v2 = SearchForAccountsUnsupportedValueStrategy.makeUnsupportedValueOutput(resolveRecord:);
+  }
+
+  return MEMORY[0x2822009F8](v2, 0);
+}
+
+{
+  v10 = v0[35];
+  v8 = v0[34];
+  v9 = v0[33];
+  v11 = v0[31];
+  v6 = v0[30];
+  v7 = v0[28];
+  v0[21] = v0;
+
+  outlined init with copy of GlobalsProviding(v6 + 104, (v0 + 2));
+
+  v5 = v0[5];
+  v4 = v0[6];
+  __swift_project_boxed_opaque_existential_1(v0 + 2, v5);
+  (*(v4 + 16))(v5);
+
+  BaseStrategy.ttsEnabled.getter();
+
+  v1 = type metadata accessor for NLContextUpdate();
+  (*(*(v1 - 8) + 56))(v11, 1);
+  v0[12] = 0;
+  v0[13] = 0;
+  v0[14] = 0;
+  v0[15] = 0;
+  v0[16] = 0;
+  default argument 3 of static AceOutputHelper.makeErrorOutput(templateResult:deviceState:ttsEnabled:snippetAceViews:listenAfterSpeaking:canUseServerTTS:nlContextUpdate:additionalCommands:flowActivity:)();
+  default argument 4 of static AceOutputHelper.makeErrorOutput(templateResult:deviceState:ttsEnabled:snippetAceViews:listenAfterSpeaking:canUseServerTTS:nlContextUpdate:additionalCommands:flowActivity:)();
+  _swift_stdlib_has_malloc_size();
+  default argument 7 of static AceOutputHelper.makeErrorOutput(templateResult:deviceState:ttsEnabled:snippetAceViews:listenAfterSpeaking:canUseServerTTS:nlContextUpdate:additionalCommands:flowActivity:)();
+  v7[3] = type metadata accessor for AceOutput();
+  v7[4] = MEMORY[0x277D5C1D8];
+  __swift_allocate_boxed_opaque_existential_1(v7);
+  static AceOutputHelper.makeCompletionViewOutput(templateResult:deviceState:ttsEnabled:snippetAceViews:listenAfterSpeaking:canUseServerTTS:nlContextUpdate:additionalCommands:flowActivity:)();
+
+  outlined destroy of FlowActivity?(v0 + 12);
+  outlined destroy of NLContextUpdate?(v11);
+  __swift_destroy_boxed_opaque_existential_0(v0 + 7);
+  __swift_destroy_boxed_opaque_existential_0(v0 + 2);
+  (*(v8 + 8))(v10, v9);
+
+  v2 = *(v0[21] + 8);
+
+  return v2();
+}
+
+{
+  v1 = *(v0 + 256);
+  *(v0 + 168) = v0;
+  outlined destroy of SpeakableString?(v1);
+
+  v2 = *(*(v0 + 168) + 8);
+
+  return v2();
 }

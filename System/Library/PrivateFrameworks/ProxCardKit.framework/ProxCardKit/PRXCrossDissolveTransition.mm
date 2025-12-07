@@ -7,10 +7,10 @@
 
 - (void)animateTransition:(id)transition
 {
-  v72 = *MEMORY[0x277D85DE8];
+  v73 = *MEMORY[0x277D85DE8];
   transitionCopy = transition;
   containerView = [transitionCopy containerView];
-  v6 = PRXDefaultLog();
+  v6 = PRXDefaultLog(containerView);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     [PRXCrossDissolveTransition animateTransition:v6];
@@ -19,19 +19,19 @@
   v7 = [transitionCopy viewControllerForKey:*MEMORY[0x277D77240]];
   v8 = (objc_opt_respondsToSelector() & 1);
   v9 = [transitionCopy viewForKey:*MEMORY[0x277D77248]];
-  v50 = [transitionCopy viewForKey:*MEMORY[0x277D77238]];
-  v10 = [v50 snapshotViewAfterScreenUpdates:0];
+  v51 = [transitionCopy viewForKey:*MEMORY[0x277D77238]];
+  v10 = [v51 snapshotViewAfterScreenUpdates:0];
   [containerView addSubview:v10];
   [v9 setAlpha:0.0];
   [containerView addSubview:v9];
   v11 = MEMORY[0x277D75D18];
-  v67[0] = MEMORY[0x277D85DD0];
-  v67[1] = 3221225472;
-  v67[2] = __48__PRXCrossDissolveTransition_animateTransition___block_invoke;
-  v67[3] = &unk_279ACC188;
+  v68[0] = MEMORY[0x277D85DD0];
+  v68[1] = 3221225472;
+  v68[2] = __48__PRXCrossDissolveTransition_animateTransition___block_invoke;
+  v68[3] = &unk_279ACC188;
   v12 = v9;
-  v68 = v12;
-  [v11 performWithoutAnimation:v67];
+  v69 = v12;
+  [v11 performWithoutAnimation:v68];
   cardStyle = [(PRXCrossDissolveTransition *)self cardStyle];
   traitCollection = [v7 traitCollection];
   v15 = PRXCardPreferredSize(cardStyle, [traitCollection prx_cardSizeClass]);
@@ -61,101 +61,101 @@
     v23 = v22;
   }
 
-  [(PRXCrossDissolveTransition *)self maxSize];
-  if (v24 < v19)
+  maxSize = [(PRXCrossDissolveTransition *)self maxSize];
+  if (v25 < v19)
   {
-    v19 = v24;
+    v19 = v25;
   }
 
-  v25 = PRXDefaultLog();
-  if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
+  v26 = PRXDefaultLog(maxSize);
+  if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
   {
-    v73.origin.x = v20;
-    v73.origin.y = v21;
-    v73.size.width = v23;
-    v73.size.height = v19;
-    v46 = NSStringFromCGRect(v73);
+    v74.origin.x = v20;
+    v74.origin.y = v21;
+    v74.size.width = v23;
+    v74.size.height = v19;
+    v47 = NSStringFromCGRect(v74);
     *buf = 138412290;
-    v71 = v46;
-    _os_log_debug_impl(&dword_260F65000, v25, OS_LOG_TYPE_DEBUG, "Animating to %@", buf, 0xCu);
+    v72 = v47;
+    _os_log_debug_impl(&dword_260F65000, v26, OS_LOG_TYPE_DEBUG, "Animating to %@", buf, 0xCu);
   }
 
   [v12 setFrame:{v20, v21, v23, v19}];
   [v12 intrinsicContentSize];
-  if (v26 == *MEMORY[0x277D77260])
+  if (v27 == *MEMORY[0x277D77260])
   {
     [v12 setTranslatesAutoresizingMaskIntoConstraints:0];
-    v27 = MEMORY[0x277CCAAD0];
+    v28 = MEMORY[0x277CCAAD0];
     widthAnchor = [v12 widthAnchor];
     [widthAnchor constraintEqualToConstant:v15];
-    v48 = v7;
-    v49 = transitionCopy;
+    v49 = v7;
+    v50 = transitionCopy;
     selfCopy = self;
-    v8 = v29 = v8;
-    v69[0] = v8;
+    v8 = v30 = v8;
+    v70[0] = v8;
     [v12 heightAnchor];
-    v31 = v30 = containerView;
-    [v31 constraintGreaterThanOrEqualToConstant:v17];
-    v33 = v32 = v10;
-    v69[1] = v33;
-    v34 = [MEMORY[0x277CBEA60] arrayWithObjects:v69 count:2];
-    [v27 activateConstraints:v34];
+    v32 = v31 = containerView;
+    [v32 constraintGreaterThanOrEqualToConstant:v17];
+    v34 = v33 = v10;
+    v70[1] = v34;
+    v35 = [MEMORY[0x277CBEA60] arrayWithObjects:v70 count:2];
+    [v28 activateConstraints:v35];
 
-    v10 = v32;
-    containerView = v30;
+    v10 = v33;
+    containerView = v31;
 
-    LODWORD(v8) = v29;
+    LODWORD(v8) = v30;
     self = selfCopy;
-    v7 = v48;
-    transitionCopy = v49;
+    v7 = v49;
+    transitionCopy = v50;
   }
 
-  v35 = MEMORY[0x277D75D18];
-  v65[0] = MEMORY[0x277D85DD0];
-  v65[1] = 3221225472;
-  v65[2] = __48__PRXCrossDissolveTransition_animateTransition___block_invoke_3;
-  v65[3] = &unk_279ACC188;
-  v36 = v12;
-  v66 = v36;
-  [v35 performWithoutAnimation:v65];
+  v36 = MEMORY[0x277D75D18];
+  v66[0] = MEMORY[0x277D85DD0];
+  v66[1] = 3221225472;
+  v66[2] = __48__PRXCrossDissolveTransition_animateTransition___block_invoke_3;
+  v66[3] = &unk_279ACC188;
+  v37 = v12;
+  v67 = v37;
+  [v36 performWithoutAnimation:v66];
   [(PRXCrossDissolveTransition *)self transitionDuration:transitionCopy];
-  v38 = v37;
+  v39 = v38;
   if (v8)
   {
     [v7 setTransitioningSize:1];
   }
 
-  v39 = MEMORY[0x277D75D18];
-  v58[0] = MEMORY[0x277D85DD0];
-  v58[1] = 3221225472;
-  v58[2] = __48__PRXCrossDissolveTransition_animateTransition___block_invoke_2;
-  v58[3] = &unk_279ACC1D8;
-  v59 = v36;
-  v40 = containerView;
-  v60 = v40;
-  v61 = v20;
-  v62 = v21;
-  v63 = v23;
-  v64 = v19;
-  v51[0] = MEMORY[0x277D85DD0];
-  v51[1] = 3221225472;
-  v51[2] = __48__PRXCrossDissolveTransition_animateTransition___block_invoke_3;
-  v51[3] = &unk_279ACC200;
-  v41 = v10;
-  v52 = v41;
-  v42 = v50;
+  v40 = MEMORY[0x277D75D18];
+  v59[0] = MEMORY[0x277D85DD0];
+  v59[1] = 3221225472;
+  v59[2] = __48__PRXCrossDissolveTransition_animateTransition___block_invoke_2;
+  v59[3] = &unk_279ACC1D8;
+  v60 = v37;
+  v41 = containerView;
+  v61 = v41;
+  v62 = v20;
+  v63 = v21;
+  v64 = v23;
+  v65 = v19;
+  v52[0] = MEMORY[0x277D85DD0];
+  v52[1] = 3221225472;
+  v52[2] = __48__PRXCrossDissolveTransition_animateTransition___block_invoke_3;
+  v52[3] = &unk_279ACC200;
+  v42 = v10;
   v53 = v42;
-  v43 = v59;
+  v43 = v51;
   v54 = v43;
-  v57 = v8;
-  v44 = v7;
+  v44 = v60;
   v55 = v44;
-  v45 = transitionCopy;
+  v58 = v8;
+  v45 = v7;
   v56 = v45;
-  [v39 transitionWithView:v40 duration:0 options:v58 animations:v51 completion:v38];
+  v46 = transitionCopy;
+  v57 = v46;
+  [v40 transitionWithView:v41 duration:0 options:v59 animations:v52 completion:v39];
   if (self->_additionalAnimations)
   {
-    [MEMORY[0x277D75D18] animateWithDuration:v38 animations:?];
+    [MEMORY[0x277D75D18] animateWithDuration:v39 animations:?];
   }
 }
 

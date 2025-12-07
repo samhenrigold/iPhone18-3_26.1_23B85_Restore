@@ -90,7 +90,7 @@ void __79__PUCameraTransientAssetsMediaProvider__videoCompositionForAVAsset_filt
     v24 = 0;
     if (v4)
     {
-      [v4 duration];
+      objc_msgSend_duration(v4);
     }
 
     v21 = 0u;
@@ -98,7 +98,7 @@ void __79__PUCameraTransientAssetsMediaProvider__videoCompositionForAVAsset_filt
     v20 = 0u;
     v17 = v23;
     *&v18 = v24;
-    [MEMORY[0x1E69C0910] defaultSlowMotionTimeRangeForDuration:&v17];
+    objc_msgSend_defaultSlowMotionTimeRangeForDuration_(MEMORY[0x1E69C0910]);
     v9 = objc_alloc(MEMORY[0x1E69C0910]);
     v17 = v20;
     v18 = v21;
@@ -137,24 +137,22 @@ void __79__PUCameraTransientAssetsMediaProvider__videoCompositionForAVAsset_filt
 
   else
   {
-    v21 = 0uLL;
-    v22 = 0;
+    v19 = 0uLL;
+    v20 = 0;
     if (v7)
     {
-      [v7 duration];
+      objc_msgSend_duration(v7);
     }
 
-    v19 = 0u;
-    v20 = 0u;
+    v17 = 0u;
     v18 = 0u;
-    v15 = v21;
-    *&v16 = v22;
-    [MEMORY[0x1E69C0910] defaultSlowMotionTimeRangeForDuration:&v15];
+    v16 = 0u;
+    objc_msgSend_defaultSlowMotionTimeRangeForDuration_(MEMORY[0x1E69C0910], v19, v20);
     v12 = objc_alloc(MEMORY[0x1E69C0910]);
-    v15 = v18;
-    v16 = v19;
-    v17 = v20;
-    v13 = [v12 initWithSlowMotionTimeRange:&v15 rate:{COERCE_DOUBLE(__PAIR64__(DWORD1(v20), LODWORD(v11)))}];
+    v15[0] = v16;
+    v15[1] = v17;
+    v15[2] = v18;
+    v13 = [v12 initWithSlowMotionTimeRange:v15 rate:{COERCE_DOUBLE(__PAIR64__(DWORD1(v18), LODWORD(v11)))}];
   }
 
   v14 = [objc_alloc(MEMORY[0x1E69C08F8]) initWithVideoAsset:v7 videoAdjustments:v13];
@@ -267,7 +265,7 @@ void __64__PUCameraTransientAssetsMediaProvider__livePhotoRequestWithID___block_
           v16 = stillDisplayTime2;
           if (stillDisplayTime2)
           {
-            [stillDisplayTime2 CMTimeValue];
+            objc_msgSend_CMTimeValue(stillDisplayTime2);
           }
 
           else
@@ -460,7 +458,7 @@ void __120__PUCameraTransientAssetsMediaProvider__requestLivePhotoForTransientAs
   v8 = v7;
   if (v7)
   {
-    [v7 CMTimeValue];
+    objc_msgSend_CMTimeValue(v7);
   }
 
   else
@@ -610,7 +608,7 @@ void __150__PUCameraTransientAssetsMediaProvider__requestLivePhotoWithSupplement
   v6 = v5;
   if (v5)
   {
-    [v5 CMTimeValue];
+    objc_msgSend_CMTimeValue(v5);
   }
 
   else
@@ -749,7 +747,7 @@ void __85__PUCameraTransientAssetsMediaProvider_requestAVAssetForVideo_options_r
   v8 = v7;
   if (v7)
   {
-    [v7 CMTimeValue];
+    objc_msgSend_CMTimeValue(v7);
   }
 
   else
@@ -880,7 +878,7 @@ void __88__PUCameraTransientAssetsMediaProvider_requestPlayerItemForVideo_option
   v8 = v7;
   if (v7)
   {
-    [v7 CMTimeValue];
+    objc_msgSend_CMTimeValue(v7);
   }
 
   else

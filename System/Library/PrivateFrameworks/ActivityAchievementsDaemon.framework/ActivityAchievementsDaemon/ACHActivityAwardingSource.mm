@@ -479,32 +479,32 @@ LABEL_23:
 
 void __72__ACHActivityAwardingSource_earnedInstancesForHistoricalInterval_error___block_invoke(uint64_t a1)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) watchCountryCode];
   v3 = ACHLogAwardEngine();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = *(a1 + 40);
     *buf = 138412290;
-    v28 = v4;
+    v27 = v4;
     _os_log_impl(&dword_221DDC000, v3, OS_LOG_TYPE_DEFAULT, "[ACHActivityAwardingSource] running historical for interval: %@", buf, 0xCu);
   }
 
   v5 = *(a1 + 32);
   v6 = [v5 dataProvider];
-  v24[0] = MEMORY[0x277D85DD0];
-  v24[1] = 3221225472;
-  v24[2] = __72__ACHActivityAwardingSource_earnedInstancesForHistoricalInterval_error___block_invoke_313;
-  v24[3] = &unk_278492A10;
+  v23[0] = MEMORY[0x277D85DD0];
+  v23[1] = 3221225472;
+  v23[2] = __72__ACHActivityAwardingSource_earnedInstancesForHistoricalInterval_error___block_invoke_313;
+  v23[3] = &unk_278492A10;
   v7 = *(a1 + 40);
-  v24[4] = *(a1 + 32);
+  v23[4] = *(a1 + 32);
   v8 = v2;
   v9 = *(a1 + 48);
-  v25 = v8;
-  v26 = v9;
-  v23 = 0;
-  [v5 _queue_updateDataProvider:v6 forDateInterval:v7 awardingBlock:v24 error:&v23];
-  v10 = v23;
+  v24 = v8;
+  v25 = v9;
+  v22 = 0;
+  [v5 _queue_updateDataProvider:v6 forDateInterval:v7 awardingBlock:v23 error:&v22];
+  v10 = v22;
 
   v11 = ACHLogAwardEngine();
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
@@ -513,7 +513,7 @@ void __72__ACHActivityAwardingSource_earnedInstancesForHistoricalInterval_error_
     v13 = [v12 properties];
     v14 = [v13 dictionaryRepresentation];
     *buf = 138412290;
-    v28 = v14;
+    v27 = v14;
     _os_log_impl(&dword_221DDC000, v11, OS_LOG_TYPE_DEFAULT, "[ACHActivityAwardingSource] dataprovider properties: %@", buf, 0xCu);
   }
 
@@ -545,7 +545,7 @@ void __72__ACHActivityAwardingSource_earnedInstancesForHistoricalInterval_error_
     {
       v19 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(*(*(*(a1 + 48) + 8) + 40), "count")}];
       *buf = 138543362;
-      v28 = v19;
+      v27 = v19;
       _os_log_impl(&dword_221DDC000, v18, OS_LOG_TYPE_DEFAULT, "Activity source awarded %{public}@ earned instances.", buf, 0xCu);
     }
 
@@ -556,7 +556,7 @@ void __72__ACHActivityAwardingSource_earnedInstancesForHistoricalInterval_error_
       if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v28 = v20;
+        v27 = v20;
         _os_log_impl(&dword_221DDC000, v21, OS_LOG_TYPE_DEFAULT, "Activity source awarded earned instances with unique names: %@.", buf, 0xCu);
       }
     }
@@ -566,8 +566,6 @@ void __72__ACHActivityAwardingSource_earnedInstancesForHistoricalInterval_error_
   {
     [*(a1 + 32) _queue_startCurrentSummaryQuery];
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 void __72__ACHActivityAwardingSource_earnedInstancesForHistoricalInterval_error___block_invoke_313(uint64_t a1, uint64_t a2, void *a3)
@@ -609,75 +607,73 @@ void __72__ACHActivityAwardingSource_earnedInstancesForHistoricalInterval_error_
   dispatch_async(internalQueue, v7);
 }
 
-void __75__ACHActivityAwardingSource_requestAchievementProgressUpdatesForTemplates___block_invoke(uint64_t a1)
+void __75__ACHActivityAwardingSource_requestAchievementProgressUpdatesForTemplates___block_invoke(uint64_t a1, uint64_t a2)
 {
   v21 = *MEMORY[0x277D85DE8];
-  v2 = *(*(a1 + 32) + 184);
-  v3 = ACHLogAwardEngine();
-  v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
-  if (v2)
+  v3 = *(*(a1 + 32) + 184);
+  v4 = ACHLogAwardEngine();
+  v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
+  if (v3)
   {
-    if (v4)
+    if (v5)
     {
       *buf = 0;
-      _os_log_impl(&dword_221DDC000, v3, OS_LOG_TYPE_DEFAULT, "[ACHActivityAwardingSource] received request for progress update.", buf, 2u);
+      _os_log_impl(&dword_221DDC000, v4, OS_LOG_TYPE_DEFAULT, "[ACHActivityAwardingSource] received request for progress update.", buf, 2u);
     }
 
-    v3 = objc_alloc_init(MEMORY[0x277CBEB18]);
-    v5 = *(*(a1 + 32) + 112);
+    v4 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v6 = *(*(a1 + 32) + 112);
     v15 = 0u;
     v16 = 0u;
     v17 = 0u;
     v18 = 0u;
-    v6 = *(a1 + 40);
-    v7 = [v6 countByEnumeratingWithState:&v15 objects:v20 count:16];
-    if (v7)
+    v7 = *(a1 + 40);
+    v8 = [v7 countByEnumeratingWithState:&v15 objects:v20 count:16];
+    if (v8)
     {
-      v8 = v7;
-      v9 = *v16;
+      v9 = v8;
+      v10 = *v16;
       do
       {
-        v10 = 0;
+        v11 = 0;
         do
         {
-          if (*v16 != v9)
+          if (*v16 != v10)
           {
-            objc_enumerationMutation(v6);
+            objc_enumerationMutation(v7);
           }
 
-          v11 = [*(a1 + 32) _progressUpdateForTemplate:*(*(&v15 + 1) + 8 * v10) environment:{v5, v15}];
-          if (v11)
+          v12 = [*(a1 + 32) _progressUpdateForTemplate:*(*(&v15 + 1) + 8 * v11) environment:{v6, v15}];
+          if (v12)
           {
-            [v3 addObject:v11];
+            [v4 addObject:v12];
           }
 
-          ++v10;
+          ++v11;
         }
 
-        while (v8 != v10);
-        v8 = [v6 countByEnumeratingWithState:&v15 objects:v20 count:16];
+        while (v9 != v11);
+        v9 = [v7 countByEnumeratingWithState:&v15 objects:v20 count:16];
       }
 
-      while (v8);
+      while (v9);
     }
 
-    v12 = [*(a1 + 32) progressEngine];
-    v13 = [v3 copy];
-    [v12 processAchievementProgressUpdates:v13];
+    v13 = [*(a1 + 32) progressEngine];
+    v14 = [v4 copy];
+    [v13 processAchievementProgressUpdates:v14];
   }
 
-  else if (v4)
+  else if (v5)
   {
     *buf = 0;
-    _os_log_impl(&dword_221DDC000, v3, OS_LOG_TYPE_DEFAULT, "[ACHActivityAwardingSource] received request for progress update but progressDataProvider isn't ready, skipping...", buf, 2u);
+    _os_log_impl(&dword_221DDC000, v4, OS_LOG_TYPE_DEFAULT, "[ACHActivityAwardingSource] received request for progress update but progressDataProvider isn't ready, skipping...", buf, 2u);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_progressUpdateForTemplate:(id)template environment:(id)environment
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   templateCopy = template;
   environmentCopy = environment;
   v8 = objc_alloc_init(MEMORY[0x277CE8D40]);
@@ -692,13 +688,13 @@ void __75__ACHActivityAwardingSource_requestAchievementProgressUpdatesForTemplat
       if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
         uniqueName = [templateCopy uniqueName];
-        v23 = 138412802;
-        v24 = uniqueName;
-        v25 = 2112;
-        v26 = v11;
-        v27 = 2112;
-        v28 = v10;
-        _os_log_impl(&dword_221DDC000, v12, OS_LOG_TYPE_DEFAULT, "[ACHActivityAwardingSource] cannot earn %@ anymore, setting progress and goal to 0 (was: %@/%@)", &v23, 0x20u);
+        v22 = 138412802;
+        v23 = uniqueName;
+        v24 = 2112;
+        v25 = v11;
+        v26 = 2112;
+        v27 = v10;
+        _os_log_impl(&dword_221DDC000, v12, OS_LOG_TYPE_DEFAULT, "[ACHActivityAwardingSource] cannot earn %@ anymore, setting progress and goal to 0 (was: %@/%@)", &v22, 0x20u);
       }
 
       canonicalUnit = [templateCopy canonicalUnit];
@@ -720,8 +716,6 @@ void __75__ACHActivityAwardingSource_requestAchievementProgressUpdatesForTemplat
   {
     v20 = 0;
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 
   return v20;
 }
@@ -820,12 +814,12 @@ void __75__ACHActivityAwardingSource_requestAchievementProgressUpdatesForTemplat
 
       v16 = progressExpression;
 
-      v30 = v16;
-      v29 = [MEMORY[0x277CCA9C0] expressionWithFormat:v16];
-      v17 = [v29 expressionValueWithObject:environmentCopy context:0];
+      v29 = v16;
+      v28 = [MEMORY[0x277CCA9C0] expressionWithFormat:v16];
+      v17 = [v28 expressionValueWithObject:environmentCopy context:0];
       currentDate = [(ACHActivityAwardingSource *)self currentDate];
       intValue = [v17 intValue];
-      v31 = uniqueName;
+      v30 = uniqueName;
       if (([uniqueName isEqualToString:@"PerfectWeekMove"] & 1) != 0 || (objc_msgSend(uniqueName, "isEqualToString:", @"PerfectWeekExercise") & 1) != 0 || (objc_msgSend(uniqueName, "isEqualToString:", @"PerfectWeekStand") & 1) != 0 || objc_msgSend(uniqueName, "isEqualToString:", @"PerfectWeekAll"))
       {
         if ([(ACHActivityAwardingSource *)self _hasMetGoalForTemplate:templateCopy andActivitySummary:todayActivitySummary])
@@ -838,16 +832,15 @@ void __75__ACHActivityAwardingSource_requestAchievementProgressUpdatesForTemplat
           v20 = -intValue;
         }
 
-        gregorianUTCCalendar = self->_gregorianUTCCalendar;
         p_gregorianUTCCalendar = &self->_gregorianUTCCalendar;
-        v23 = ACHStartOfFitnessWeekBeforeDateInCalendar();
+        v22 = ACHStartOfFitnessWeekBeforeDateInCalendar();
       }
 
       else
       {
-        v27 = [uniqueName hasPrefix:@"PerfectMonth_"];
+        v26 = [uniqueName hasPrefix:@"PerfectMonth_"];
         v15 = 1;
-        if (!v27)
+        if (!v26)
         {
           goto LABEL_17;
         }
@@ -862,14 +855,14 @@ void __75__ACHActivityAwardingSource_requestAchievementProgressUpdatesForTemplat
           v20 = -intValue;
         }
 
-        v28 = self->_gregorianUTCCalendar;
+        gregorianUTCCalendar = self->_gregorianUTCCalendar;
         p_gregorianUTCCalendar = &self->_gregorianUTCCalendar;
-        v23 = [(NSCalendar *)v28 hk_startOfMonthForDate:currentDate];
+        v22 = [(NSCalendar *)gregorianUTCCalendar hk_startOfMonthForDate:currentDate];
       }
 
-      v24 = v23;
-      v25 = [(NSCalendar *)*p_gregorianUTCCalendar dateByAddingUnit:16 value:v20 toDate:currentDate options:0];
-      v15 = [(NSCalendar *)*p_gregorianUTCCalendar isDate:v24 inSameDayAsDate:v25];
+      v23 = v22;
+      v24 = [(NSCalendar *)*p_gregorianUTCCalendar dateByAddingUnit:16 value:v20 toDate:currentDate options:0];
+      v15 = [(NSCalendar *)*p_gregorianUTCCalendar isDate:v23 inSameDayAsDate:v24];
 
 LABEL_17:
       goto LABEL_18;
@@ -967,11 +960,10 @@ LABEL_18:
 
 - (void)_queue_updateProgressDataProviderIfNeeded
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138543362;
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
   selfCopy = self;
-  _os_log_error_impl(&dword_221DDC000, a2, OS_LOG_TYPE_ERROR, "[ACHActivityAwardingSource] Error updating progress data provider: %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_221DDC000, a2, OS_LOG_TYPE_ERROR, "[ACHActivityAwardingSource] Error updating progress data provider: %{public}@", &v2, 0xCu);
 }
 
 - (void)_runIncrementallyForChangedSummaryFields:(unint64_t)fields
@@ -1137,7 +1129,7 @@ LABEL_16:
 - (id)_queue_evaluateTriggers:(unint64_t)triggers activitySummary:(id)summary templates:(id)templates shouldLog:(BOOL)log
 {
   logCopy = log;
-  v93 = *MEMORY[0x277D85DE8];
+  v92 = *MEMORY[0x277D85DE8];
   summaryCopy = summary;
   templatesCopy = templates;
   internalQueue = [(ACHActivityAwardingSource *)self internalQueue];
@@ -1150,19 +1142,19 @@ LABEL_16:
     [environment setCurrentDateComponents:_gregorianDateComponents];
 
     gregorianUTCCalendar = [(ACHActivityAwardingSource *)self gregorianUTCCalendar];
-    v72 = _gregorianDateComponents;
+    v71 = _gregorianDateComponents;
     v15 = [gregorianUTCCalendar dateFromComponents:_gregorianDateComponents];
 
     healthStore = [(ACHActivityAwardingSource *)self healthStore];
     gregorianUTCCalendar2 = [(ACHActivityAwardingSource *)self gregorianUTCCalendar];
-    v83 = 0;
-    v65 = v15;
-    v18 = ACHExperienceTypeForDateWithHealthStore(healthStore, gregorianUTCCalendar2, v15, &v83);
-    v19 = v83;
+    v82 = 0;
+    v64 = v15;
+    v18 = ACHExperienceTypeForDateWithHealthStore(healthStore, gregorianUTCCalendar2, v15, &v82);
+    v19 = v82;
     environment2 = [(ACHActivityAwardingSource *)self environment];
     [environment2 setExperienceType:v18];
 
-    v68 = v19;
+    v67 = v19;
     if (v19)
     {
       environment3 = [(ACHActivityAwardingSource *)self environment];
@@ -1172,21 +1164,21 @@ LABEL_16:
       if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v86 = v19;
+        v85 = v19;
         _os_log_impl(&dword_221DDC000, v22, OS_LOG_TYPE_DEFAULT, "ActivityAwardingSource failed to get date of birth with error %@, defaulting to FIExperienceTypeSimplified", buf, 0xCu);
       }
     }
 
     v23 = 0x277CCA000uLL;
-    v82[0] = MEMORY[0x277D85DD0];
-    v82[1] = 3221225472;
-    v82[2] = __89__ACHActivityAwardingSource__queue_evaluateTriggers_activitySummary_templates_shouldLog___block_invoke;
-    v82[3] = &__block_descriptor_40_e38_B24__0__ACHTemplate_8__NSDictionary_16l;
-    v82[4] = triggers;
-    v24 = [MEMORY[0x277CCAC30] predicateWithBlock:{v82, v65}];
+    v81[0] = MEMORY[0x277D85DD0];
+    v81[1] = 3221225472;
+    v81[2] = __89__ACHActivityAwardingSource__queue_evaluateTriggers_activitySummary_templates_shouldLog___block_invoke;
+    v81[3] = &__block_descriptor_40_e38_B24__0__ACHTemplate_8__NSDictionary_16l;
+    v81[4] = triggers;
+    v24 = [MEMORY[0x277CCAC30] predicateWithBlock:{v81, v64}];
     v25 = [templatesCopy filteredArrayUsingPredicate:v24];
 
-    v71 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v70 = objc_alloc_init(MEMORY[0x277CBEB18]);
     if (logCopy)
     {
       v26 = ACHLogAwardEngine();
@@ -1195,43 +1187,43 @@ LABEL_16:
         v27 = ACHTriggerOptionsToString();
         v28 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v25, "count")}];
         *buf = 138413058;
-        v86 = v27;
-        v87 = 2114;
-        v88 = v28;
-        v89 = 2114;
-        v90 = v72;
-        v91 = 2112;
-        v92 = summaryCopy;
+        v85 = v27;
+        v86 = 2114;
+        v87 = v28;
+        v88 = 2114;
+        v89 = v71;
+        v90 = 2112;
+        v91 = summaryCopy;
         _os_log_impl(&dword_221DDC000, v26, OS_LOG_TYPE_DEFAULT, "Activity source is evaluating triggers %@ for %{public}@ templates using activity summary with date %{public}@, values: %@", buf, 0x2Au);
       }
     }
 
-    v67 = summaryCopy;
+    v66 = summaryCopy;
     v29 = objc_alloc_init(MEMORY[0x277CE8D40]);
+    v77 = 0u;
     v78 = 0u;
     v79 = 0u;
     v80 = 0u;
-    v81 = 0u;
     obj = v25;
-    v77 = [obj countByEnumeratingWithState:&v78 objects:v84 count:16];
-    if (v77)
+    v76 = [obj countByEnumeratingWithState:&v77 objects:v83 count:16];
+    if (v76)
     {
-      v30 = *v79;
-      v70 = logCopy;
+      v30 = *v78;
+      v69 = logCopy;
       selfCopy = self;
-      v74 = *v79;
-      v75 = v29;
+      v73 = *v78;
+      v74 = v29;
       do
       {
         v31 = 0;
         do
         {
-          if (*v79 != v30)
+          if (*v78 != v30)
           {
             objc_enumerationMutation(obj);
           }
 
-          v32 = *(*(&v78 + 1) + 8 * v31);
+          v32 = *(*(&v77 + 1) + 8 * v31);
           v33 = [v29 validateTemplate:v32];
           if ([v33 isValid])
           {
@@ -1263,9 +1255,9 @@ LABEL_16:
                 {
                   uniqueName = [v32 uniqueName];
                   *buf = 138412546;
-                  v86 = uniqueName;
-                  v87 = 2112;
-                  v88 = v37;
+                  v85 = uniqueName;
+                  v86 = 2112;
+                  v87 = v37;
                   _os_log_impl(&dword_221DDC000, v42, OS_LOG_TYPE_DEFAULT, "Template predicate is true, creating earned instance. Template: %@, predicate: %@", buf, 0x16u);
                 }
 
@@ -1290,9 +1282,9 @@ LABEL_16:
               uniqueName2 = [v32 uniqueName];
               [v48 setTemplateUniqueName:uniqueName2];
 
-              [v72 year];
-              [v72 month];
-              [v72 day];
+              [v71 year];
+              [v71 month];
+              [v71 day];
               v50 = ACHDateComponentsForYearMonthDay();
               [v48 setEarnedDateComponents:v50];
 
@@ -1325,7 +1317,7 @@ LABEL_31:
                   }
                 }
 
-                logCopy = v70;
+                logCopy = v69;
               }
 
               self = selfCopy;
@@ -1335,18 +1327,18 @@ LABEL_31:
                 if (os_log_type_enabled(v60, OS_LOG_TYPE_DEFAULT))
                 {
                   *buf = 138412290;
-                  v86 = v48;
+                  v85 = v48;
                   _os_log_impl(&dword_221DDC000, v60, OS_LOG_TYPE_DEFAULT, "Created earned instance: %@", buf, 0xCu);
                 }
               }
 
-              [v71 addObject:v48];
+              [v70 addObject:v48];
 
               v23 = 0x277CCA000;
             }
 
-            v30 = v74;
-            v29 = v75;
+            v30 = v73;
+            v29 = v74;
             goto LABEL_42;
           }
 
@@ -1355,7 +1347,7 @@ LABEL_31:
           {
             uniqueName3 = [v32 uniqueName];
             *buf = 138412290;
-            v86 = uniqueName3;
+            v85 = uniqueName3;
             _os_log_impl(&dword_221DDC000, v37, OS_LOG_TYPE_DEFAULT, "Template has invalid predicates, skipping: %@", buf, 0xCu);
           }
 
@@ -1364,24 +1356,22 @@ LABEL_42:
           ++v31;
         }
 
-        while (v77 != v31);
-        v61 = [obj countByEnumeratingWithState:&v78 objects:v84 count:16];
-        v77 = v61;
+        while (v76 != v31);
+        v61 = [obj countByEnumeratingWithState:&v77 objects:v83 count:16];
+        v76 = v61;
       }
 
       while (v61);
     }
 
-    v62 = [v71 copy];
-    summaryCopy = v67;
+    v62 = [v70 copy];
+    summaryCopy = v66;
   }
 
   else
   {
     v62 = objc_alloc_init(MEMORY[0x277CBEA60]);
   }
-
-  v63 = *MEMORY[0x277D85DE8];
 
   return v62;
 }
@@ -1665,31 +1655,28 @@ uint64_t __71__ACHActivityAwardingSource_dataStoreDidClearAllProperties_completi
 
 void __72__ACHActivityAwardingSource_earnedInstancesForHistoricalInterval_error___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_221DDC000, a2, OS_LOG_TYPE_ERROR, "Error updating activity data provider: %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_221DDC000, a2, OS_LOG_TYPE_ERROR, "Error updating activity data provider: %{public}@", &v2, 0xCu);
 }
 
 void __100__ACHActivityAwardingSource_currentActivitySummaryQueryDidUpdateTodayActivitySummary_changedFields___block_invoke_cold_1(uint64_t *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v2 = *a1;
-  v4 = 138412290;
-  v5 = v2;
-  _os_log_debug_impl(&dword_221DDC000, a2, OS_LOG_TYPE_DEBUG, "Today summary changed: %@", &v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  v3 = 138412290;
+  v4 = v2;
+  _os_log_debug_impl(&dword_221DDC000, a2, OS_LOG_TYPE_DEBUG, "Today summary changed: %@", &v3, 0xCu);
 }
 
 void __104__ACHActivityAwardingSource_currentActivitySummaryQueryDidUpdateYesterdayActivitySummary_changedFields___block_invoke_cold_1(uint64_t *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v2 = *a1;
-  v4 = 138412290;
-  v5 = v2;
-  _os_log_debug_impl(&dword_221DDC000, a2, OS_LOG_TYPE_DEBUG, "Yesterday summary changed: %@", &v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  v3 = 138412290;
+  v4 = v2;
+  _os_log_debug_impl(&dword_221DDC000, a2, OS_LOG_TYPE_DEBUG, "Yesterday summary changed: %@", &v3, 0xCu);
 }
 
 @end

@@ -183,7 +183,7 @@ LABEL_6:
               v49 = v48;
               v50 = v38;
               orientation = [v38 orientation];
-              [v50 duration];
+              objc_msgSend_duration(v50);
               v84 = [(_NUMediaGeometry *)v44 initWithSize:v45 orientation:v49 duration:orientation, buf];
               v85 = v43;
               v83 = [[_NUVideoAssetMedia alloc] initWithVideoAsset:selfCopy track:v92 format:v43 geometry:v84];
@@ -243,7 +243,7 @@ LABEL_6:
                     v67 = [_NUMediaGeometry alloc];
                     if (v63)
                     {
-                      [v63 timeRange];
+                      objc_msgSend_timeRange(v63);
                     }
 
                     else
@@ -274,7 +274,7 @@ LABEL_6:
                     v70 = [_NUMediaGeometry alloc];
                     if (v63)
                     {
-                      [v63 timeRange];
+                      objc_msgSend_timeRange(v63);
                     }
 
                     else

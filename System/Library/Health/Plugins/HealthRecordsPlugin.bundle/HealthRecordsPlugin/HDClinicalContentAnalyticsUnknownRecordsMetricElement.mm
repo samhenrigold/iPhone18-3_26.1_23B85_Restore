@@ -79,8 +79,8 @@ LABEL_3:
     v11 = &off_110378;
   }
 
-  v32[0] = v11;
-  v31[1] = @"countPairediPhone";
+  v31[0] = v11;
+  v30[1] = @"countPairediPhone";
   v12 = [contextCopy objectForKeyedSubscript:?];
   v13 = v12;
   if (v12)
@@ -93,8 +93,8 @@ LABEL_3:
     v14 = &off_110378;
   }
 
-  v32[1] = v14;
-  v31[2] = @"countPairedWatch";
+  v31[1] = v14;
+  v30[2] = @"countPairedWatch";
   v15 = [contextCopy objectForKeyedSubscript:?];
   v16 = v15;
   if (v15)
@@ -107,8 +107,8 @@ LABEL_3:
     v17 = &off_110378;
   }
 
-  v32[2] = v17;
-  v31[3] = @"countPairedVisionPro";
+  v31[2] = v17;
+  v30[3] = @"countPairedVisionPro";
   v18 = [contextCopy objectForKeyedSubscript:?];
 
   if (v18)
@@ -121,40 +121,39 @@ LABEL_3:
     v19 = &off_110378;
   }
 
-  v32[3] = v19;
-  v32[4] = countCopy;
-  v31[4] = @"extractionFailureEventCount";
-  v31[5] = @"extractionRulesVersion";
+  v31[3] = v19;
+  v31[4] = countCopy;
+  v30[4] = @"extractionFailureEventCount";
+  v30[5] = @"extractionRulesVersion";
   v20 = [NSNumber numberWithInteger:self->_extractionRulesVersion];
-  v32[5] = v20;
-  v31[6] = @"failureCode";
-  failureCode = self->_failureCode;
-  v22 = NSStringFromHDClinicalAnalyticsExtractionFailureCode();
+  v31[5] = v20;
+  v30[6] = @"failureCode";
+  v21 = NSStringFromHDClinicalAnalyticsExtractionFailureCode();
   reportedHost = self->_reportedHost;
   resourceType = self->_resourceType;
-  v32[6] = v22;
-  v32[7] = reportedHost;
-  v31[7] = @"host";
-  v31[8] = @"resourceType";
-  v32[8] = resourceType;
-  v25 = [NSDictionary dictionaryWithObjects:v32 forKeys:v31 count:9];
-  v26 = [v8 initWithDictionary:v25];
+  v31[6] = v21;
+  v31[7] = reportedHost;
+  v30[7] = @"host";
+  v30[8] = @"resourceType";
+  v31[8] = resourceType;
+  v24 = [NSDictionary dictionaryWithObjects:v31 forKeys:v30 count:9];
+  v25 = [v8 initWithDictionary:v24];
 
   propertyName = self->_propertyName;
   if (propertyName)
   {
-    [v26 setObject:propertyName forKeyedSubscript:@"propertyName"];
+    [v25 setObject:propertyName forKeyedSubscript:@"propertyName"];
   }
 
   keyPath = self->_keyPath;
   if (keyPath)
   {
-    [v26 setObject:keyPath forKeyedSubscript:@"resourceKeyPath"];
+    [v25 setObject:keyPath forKeyedSubscript:@"resourceKeyPath"];
   }
 
-  v29 = [v26 copy];
+  v28 = [v25 copy];
 
-  return v29;
+  return v28;
 }
 
 - (unint64_t)hash
@@ -180,28 +179,7 @@ LABEL_3:
     if (objc_opt_isKindOfClass())
     {
       v5 = equalCopy;
-      if (self->_extractionRulesVersion != v5->_extractionRulesVersion)
-      {
-        goto LABEL_19;
-      }
-
-      reportedHost = self->_reportedHost;
-      v7 = v5->_reportedHost;
-      if (reportedHost != v7 && (!v7 || ![(NSString *)reportedHost isEqual:?]))
-      {
-        goto LABEL_19;
-      }
-
-      if (((resourceType = self->_resourceType, v9 = v5->_resourceType, resourceType == v9) || v9 && [(NSString *)resourceType isEqualToString:?]) && ((keyPath = self->_keyPath, v11 = v5->_keyPath, keyPath == v11) || v11 && [(NSString *)keyPath isEqualToString:?]) && ((propertyName = self->_propertyName, v13 = v5->_propertyName, propertyName == v13) || v13 && [(NSString *)propertyName isEqualToString:?]))
-      {
-        v14 = self->_failureCode == v5->_failureCode;
-      }
-
-      else
-      {
-LABEL_19:
-        v14 = 0;
-      }
+      v14 = self->_extractionRulesVersion == v5->_extractionRulesVersion && ((reportedHost = self->_reportedHost, v7 = v5->_reportedHost, reportedHost == v7) || v7 && [(NSString *)reportedHost isEqual:?]) && ((resourceType = self->_resourceType, v9 = v5->_resourceType, resourceType == v9) || v9 && [(NSString *)resourceType isEqualToString:?]) && ((keyPath = self->_keyPath, v11 = v5->_keyPath, keyPath == v11) || v11 && [(NSString *)keyPath isEqualToString:?]) && ((propertyName = self->_propertyName, v13 = v5->_propertyName, propertyName == v13) || v13 && [(NSString *)propertyName isEqualToString:?]) && self->_failureCode == v5->_failureCode;
     }
 
     else

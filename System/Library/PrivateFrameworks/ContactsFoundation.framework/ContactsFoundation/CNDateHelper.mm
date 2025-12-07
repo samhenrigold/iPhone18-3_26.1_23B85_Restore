@@ -213,26 +213,15 @@ void __38__CNDateHelper_gregorianCalendarInGMT__block_invoke()
 {
   componentsCopy = components;
   calendar = [componentsCopy calendar];
-  if (!calendar)
+  if (!calendar || (v6 = calendar, [componentsCopy calendar], v7 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v7, "calendarIdentifier"), v8 = objc_claimAutoreleasedReturnValue(), v9 = objc_msgSend(v8, "isEqualToString:", *MEMORY[0x1E695D850]), v8, v7, v6, v9))
   {
-    goto LABEL_3;
-  }
-
-  v6 = calendar;
-  calendar2 = [componentsCopy calendar];
-  calendarIdentifier = [calendar2 calendarIdentifier];
-  v9 = [calendarIdentifier isEqualToString:*MEMORY[0x1E695D850]];
-
-  if (v9)
-  {
-LABEL_3:
     v10 = componentsCopy;
     goto LABEL_17;
   }
 
   v11 = [componentsCopy copy];
-  calendar3 = [v11 calendar];
-  v13 = [calendar3 copy];
+  calendar2 = [v11 calendar];
+  v13 = [calendar2 copy];
   [v11 setCalendar:v13];
 
   timeZone = [componentsCopy timeZone];
@@ -243,8 +232,8 @@ LABEL_3:
 
   else
   {
-    calendar4 = [componentsCopy calendar];
-    timeZone2 = [calendar4 timeZone];
+    calendar3 = [componentsCopy calendar];
+    timeZone2 = [calendar3 timeZone];
   }
 
   if (!timeZone2)
@@ -256,8 +245,8 @@ LABEL_3:
   if ([componentsCopy year] != 0x7FFFFFFFFFFFFFFFLL && objc_msgSend(componentsCopy, "era") != 0x7FFFFFFFFFFFFFFFLL)
   {
     gregorianCalendarInGMT2 = [self gregorianCalendarInGMT];
-    calendar5 = [v11 calendar];
-    v29 = [calendar5 dateFromComponents:v11];
+    calendar4 = [v11 calendar];
+    v29 = [calendar4 dateFromComponents:v11];
     v19 = [gregorianCalendarInGMT2 componentsInTimeZone:timeZone2 fromDate:v29];
 
     v20 = [CNDateHelper dateComponentsFromDateComponents:v19 preservingUnits:1048606];
@@ -276,12 +265,12 @@ LABEL_15:
   }
 
   v21 = getIntlUtilityClass[0]();
-  calendar6 = [v11 calendar];
-  [(objc_class *)v21 setYearlessYear:v11 forCalendar:calendar6];
+  calendar5 = [v11 calendar];
+  [(objc_class *)v21 setYearlessYear:v11 forCalendar:calendar5];
 
   gregorianCalendarInGMT3 = [self gregorianCalendarInGMT];
-  calendar7 = [v11 calendar];
-  v25 = [calendar7 dateFromComponents:v11];
+  calendar6 = [v11 calendar];
+  v25 = [calendar6 dateFromComponents:v11];
   v26 = [gregorianCalendarInGMT3 componentsInTimeZone:timeZone2 fromDate:v25];
 
   v10 = [CNDateHelper dateComponentsFromDateComponents:v26 preservingUnits:1048606];

@@ -12,19 +12,19 @@
 - (void)update
 {
   selfCopy = self;
-  sub_10010DBD0();
+  sub_10010DBD0(selfCopy);
 }
 
 - (void)pillTapped
 {
   selfCopy = self;
-  sub_10010DD74();
+  sub_10010DD74(selfCopy);
 }
 
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_10010E060();
+  sub_10010E060(selfCopy);
 }
 
 - (void)presentableWillAppearAsBanner:(id)banner

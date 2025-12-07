@@ -100,19 +100,19 @@
 
 - (void)_continueRegisteringAuthenticatedAccount:(id)account
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   accountCopy = account;
   v5 = OSLogHandleForIDSCategory();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v28 = accountCopy;
+    v27 = accountCopy;
     _os_log_impl(&dword_243BE5000, v5, OS_LOG_TYPE_DEFAULT, "Continuing registration for authenticated account: %@", buf, 0xCu);
   }
 
   if (os_log_shim_legacy_logging_enabled() && IMShouldLog())
   {
-    v22 = accountCopy;
+    v21 = accountCopy;
     IMLogString();
   }
 
@@ -123,7 +123,7 @@
     {
       profileValidationStatus = [accountCopy profileValidationStatus];
       *buf = 134217984;
-      v28 = profileValidationStatus;
+      v27 = profileValidationStatus;
       _os_log_impl(&dword_243BE5000, v7, OS_LOG_TYPE_DEFAULT, "Profile is not validated. Current status: %ld", buf, 0xCu);
     }
 
@@ -138,13 +138,13 @@
     v10 = [CNFRegController controllerForServiceType:[(CNFAccountRegistrar *)self serviceType]];
     v11 = [(CNFRegFirstRunController *)v9 initWithRegController:v10 account:accountCopy];
 
-    v24[0] = MEMORY[0x277D85DD0];
-    v24[1] = 3221225472;
-    v24[2] = __64__CNFAccountRegistrar__continueRegisteringAuthenticatedAccount___block_invoke;
-    v24[3] = &unk_278DE8640;
-    v24[4] = self;
-    v25 = accountCopy;
-    [(CNFRegLocaleController *)v11 setCompletionBlock:v24];
+    v23[0] = MEMORY[0x277D85DD0];
+    v23[1] = 3221225472;
+    v23[2] = __64__CNFAccountRegistrar__continueRegisteringAuthenticatedAccount___block_invoke;
+    v23[3] = &unk_278DE8640;
+    v23[4] = self;
+    v24 = accountCopy;
+    [(CNFRegLocaleController *)v11 setCompletionBlock:v23];
     v12 = OSLogHandleForIDSCategory();
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
@@ -164,8 +164,8 @@
     [(CNFRegFirstRunController *)v11 setCustomLeftButton:v14];
     v15 = [objc_alloc(MEMORY[0x277D751E0]) initWithBarButtonSystemItem:3 target:0 action:0];
     [(CNFRegFirstRunController *)v11 setCustomRightButton:v15];
-    v26 = v11;
-    v16 = [MEMORY[0x277CBEA60] arrayWithObjects:&v26 count:1];
+    v25 = v11;
+    v16 = [MEMORY[0x277CBEA60] arrayWithObjects:&v25 count:1];
     [v13 setViewControllers:v16];
 
     presentationViewController = [(CNFAccountRegistrar *)self presentationViewController];
@@ -210,8 +210,6 @@ LABEL_28:
   [(CNFAccountRegistrar *)self _configureAliasesForAccount:accountCopy];
   [accountCopy registerAccount];
 LABEL_29:
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 void __64__CNFAccountRegistrar__continueRegisteringAuthenticatedAccount___block_invoke(uint64_t a1, int a2)
@@ -277,24 +275,24 @@ void __64__CNFAccountRegistrar__continueRegisteringAuthenticatedAccount___block_
 
 - (void)continueRegistrationForAccount:(id)account completionBlock:(id)block
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   accountCopy = account;
   blockCopy = block;
   v8 = OSLogHandleForIDSCategory();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v14 = accountCopy;
+    v13 = accountCopy;
     _os_log_impl(&dword_243BE5000, v8, OS_LOG_TYPE_DEFAULT, "Continuing registration for account: %@", buf, 0xCu);
   }
 
   if (os_log_shim_legacy_logging_enabled() && IMShouldLog())
   {
-    v12 = accountCopy;
+    v11 = accountCopy;
     IMLogString();
   }
 
-  [(CNFAccountRegistrar *)self setAccount:accountCopy, v12];
+  [(CNFAccountRegistrar *)self setAccount:accountCopy, v11];
   [(CNFAccountRegistrar *)self setCompletionBlock:blockCopy];
   defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
   [defaultCenter removeObserver:self];
@@ -316,13 +314,11 @@ void __64__CNFAccountRegistrar__continueRegisteringAuthenticatedAccount___block_
   }
 
   [(CNFAccountRegistrar *)self _startTimer];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)registerAccountWithUsername:(id)username password:(id)password service:(id)service completionBlock:(id)block
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   usernameCopy = username;
   passwordCopy = password;
   serviceCopy = service;
@@ -333,31 +329,31 @@ void __64__CNFAccountRegistrar__continueRegisteringAuthenticatedAccount___block_
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v28 = usernameCopy;
-      v29 = 2112;
-      v30 = serviceCopy;
+      v27 = usernameCopy;
+      v28 = 2112;
+      v29 = serviceCopy;
       _os_log_impl(&dword_243BE5000, v14, OS_LOG_TYPE_DEFAULT, "Registering account: %@ (service: %@)", buf, 0x16u);
     }
 
     if (os_log_shim_legacy_logging_enabled() && IMShouldLog())
     {
-      v18 = usernameCopy;
-      v19 = serviceCopy;
+      v17 = usernameCopy;
+      v18 = serviceCopy;
       IMLogString();
     }
 
-    [(CNFAccountRegistrar *)self setCompletionBlock:blockCopy, v18, v19];
+    [(CNFAccountRegistrar *)self setCompletionBlock:blockCopy, v17, v18];
     defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
     [defaultCenter addObserver:self selector:sel__accountRegistrationStatusChanged_ name:*MEMORY[0x277D18CA8] object:0];
-    v22[0] = MEMORY[0x277D85DD0];
-    v22[1] = 3221225472;
-    v22[2] = __84__CNFAccountRegistrar_registerAccountWithUsername_password_service_completionBlock___block_invoke;
-    v22[3] = &unk_278DE8668;
-    v23 = serviceCopy;
-    v24 = usernameCopy;
-    v25 = passwordCopy;
+    v21[0] = MEMORY[0x277D85DD0];
+    v21[1] = 3221225472;
+    v21[2] = __84__CNFAccountRegistrar_registerAccountWithUsername_password_service_completionBlock___block_invoke;
+    v21[3] = &unk_278DE8668;
+    v22 = serviceCopy;
+    v23 = usernameCopy;
+    v24 = passwordCopy;
     selfCopy = self;
-    v16 = MEMORY[0x245D4D850](v22);
+    v16 = MEMORY[0x245D4D850](v21);
     if ([MEMORY[0x277CCACC8] isMainThread])
     {
       v16[2](v16);
@@ -369,14 +365,12 @@ void __64__CNFAccountRegistrar__continueRegisteringAuthenticatedAccount___block_
       block[1] = 3221225472;
       block[2] = __84__CNFAccountRegistrar_registerAccountWithUsername_password_service_completionBlock___block_invoke_2;
       block[3] = &unk_278DE8690;
-      v21 = v16;
+      v20 = v16;
       dispatch_sync(MEMORY[0x277D85CD0], block);
     }
 
     [(CNFAccountRegistrar *)self _startTimer];
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __84__CNFAccountRegistrar_registerAccountWithUsername_password_service_completionBlock___block_invoke(uint64_t a1)
@@ -480,7 +474,7 @@ void __47__CNFAccountRegistrar__registrationTimerFired___block_invoke_2()
 
 - (void)_accountRegistrationStatusChanged:(id)changed
 {
-  v105 = *MEMORY[0x277D85DE8];
+  v104 = *MEMORY[0x277D85DE8];
   changedCopy = changed;
   object = [changedCopy object];
   account = [(CNFAccountRegistrar *)self account];
@@ -500,11 +494,11 @@ void __47__CNFAccountRegistrar__registrationTimerFired___block_invoke_2()
       {
         if (registrationStatus == 1)
         {
-          v13 = OSLogHandleForIDSCategory();
-          if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+          v12 = OSLogHandleForIDSCategory();
+          if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 0;
-            _os_log_impl(&dword_243BE5000, v13, OS_LOG_TYPE_DEFAULT, "Account is unregistered.", buf, 2u);
+            _os_log_impl(&dword_243BE5000, v12, OS_LOG_TYPE_DEFAULT, "Account is unregistered.", buf, 2u);
           }
 
           v7 = 0x277CCA000;
@@ -520,11 +514,11 @@ void __47__CNFAccountRegistrar__registrationTimerFired___block_invoke_2()
 
       else
       {
-        v32 = OSLogHandleForIDSCategory();
-        if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
+        v31 = OSLogHandleForIDSCategory();
+        if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&dword_243BE5000, v32, OS_LOG_TYPE_DEFAULT, "Account is unknown.", buf, 2u);
+          _os_log_impl(&dword_243BE5000, v31, OS_LOG_TYPE_DEFAULT, "Account is unknown.", buf, 2u);
         }
 
         v7 = 0x277CCA000;
@@ -537,95 +531,95 @@ void __47__CNFAccountRegistrar__registrationTimerFired___block_invoke_2()
       goto LABEL_2;
     }
 
-    v17 = CommunicationsSetupUIBundle();
-    v18 = CNFRegStringTableNameForServiceType([(CNFAccountRegistrar *)self serviceType]);
-    v19 = [v17 localizedStringForKey:@"FACETIME_ACTIVATION_ERROR_TITLE" value:&stru_2856D3978 table:v18];
+    v16 = CommunicationsSetupUIBundle();
+    v17 = CNFRegStringTableNameForServiceType([(CNFAccountRegistrar *)self serviceType]);
+    v18 = [v16 localizedStringForKey:@"FACETIME_ACTIVATION_ERROR_TITLE" value:&stru_2856D3978 table:v17];
 
-    v20 = CommunicationsSetupUIBundle();
-    v21 = CNFRegStringTableNameForServiceType([(CNFAccountRegistrar *)self serviceType]);
-    v92 = [v20 localizedStringForKey:@"FACETIME_SIGNIN_ERROR_GENERIC" value:&stru_2856D3978 table:v21];
+    v19 = CommunicationsSetupUIBundle();
+    v20 = CNFRegStringTableNameForServiceType([(CNFAccountRegistrar *)self serviceType]);
+    v91 = [v19 localizedStringForKey:@"FACETIME_SIGNIN_ERROR_GENERIC" value:&stru_2856D3978 table:v20];
 
-    v22 = CommunicationsSetupUIBundle();
-    v23 = CNFRegStringTableNameForServiceType([(CNFAccountRegistrar *)self serviceType]);
-    v93 = [v22 localizedStringForKey:@"FACETIME_ALERT_OK" value:&stru_2856D3978 table:v23];
+    v21 = CommunicationsSetupUIBundle();
+    v22 = CNFRegStringTableNameForServiceType([(CNFAccountRegistrar *)self serviceType]);
+    v92 = [v21 localizedStringForKey:@"FACETIME_ALERT_OK" value:&stru_2856D3978 table:v22];
 
     registrationFailureReason = [object registrationFailureReason];
     registrationFailureAlertInfo = [object registrationFailureAlertInfo];
-    v25 = OSLogHandleForIDSCategory();
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+    v24 = OSLogHandleForIDSCategory();
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
     {
-      v26 = [MEMORY[0x277CCABB0] numberWithInteger:registrationFailureReason];
+      v25 = [MEMORY[0x277CCABB0] numberWithInteger:registrationFailureReason];
       *buf = 138412802;
-      v100 = object;
-      v101 = 2112;
-      v102 = v26;
-      v103 = 2112;
-      v104 = registrationFailureAlertInfo;
-      _os_log_impl(&dword_243BE5000, v25, OS_LOG_TYPE_DEFAULT, "Account (%@) failed with failure reason: %@ and alert info %@.", buf, 0x20u);
+      v99 = object;
+      v100 = 2112;
+      v101 = v25;
+      v102 = 2112;
+      v103 = registrationFailureAlertInfo;
+      _os_log_impl(&dword_243BE5000, v24, OS_LOG_TYPE_DEFAULT, "Account (%@) failed with failure reason: %@ and alert info %@.", buf, 0x20u);
     }
 
     if (os_log_shim_legacy_logging_enabled() && IMShouldLog())
     {
-      v88 = [MEMORY[0x277CCABB0] numberWithInteger:registrationFailureReason];
-      v89 = registrationFailureAlertInfo;
-      v87 = object;
+      v87 = [MEMORY[0x277CCABB0] numberWithInteger:registrationFailureReason];
+      v88 = registrationFailureAlertInfo;
+      v86 = object;
       IMLogString();
     }
 
-    v91 = registrationFailureAlertInfo == 0;
+    v90 = registrationFailureAlertInfo == 0;
     if (registrationFailureAlertInfo)
     {
-      v27 = [registrationFailureAlertInfo objectForKey:*MEMORY[0x277D18C98]];
-      v28 = v27;
-      if (v27)
+      v26 = [registrationFailureAlertInfo objectForKey:*MEMORY[0x277D18C98]];
+      v27 = v26;
+      if (v26)
       {
-        v29 = v27;
+        v28 = v26;
       }
 
       else
       {
-        v47 = CommunicationsSetupUIBundle();
-        v48 = CNFRegStringTableNameForServiceType([(CNFAccountRegistrar *)self serviceType]);
-        v29 = [v47 localizedStringForKey:@"FACETIME_ACTIVATION_ERROR_TITLE" value:&stru_2856D3978 table:v48];
+        v46 = CommunicationsSetupUIBundle();
+        v47 = CNFRegStringTableNameForServiceType([(CNFAccountRegistrar *)self serviceType]);
+        v28 = [v46 localizedStringForKey:@"FACETIME_ACTIVATION_ERROR_TITLE" value:&stru_2856D3978 table:v47];
 
-        v19 = v47;
+        v18 = v46;
       }
 
-      v49 = [registrationFailureAlertInfo objectForKey:*MEMORY[0x277D18C90]];
-      v50 = v49;
-      if (v49)
+      v48 = [registrationFailureAlertInfo objectForKey:*MEMORY[0x277D18C90]];
+      v49 = v48;
+      if (v48)
       {
-        v90 = v49;
-        v51 = v92;
+        v89 = v48;
+        v50 = v91;
       }
 
       else
       {
-        v51 = CommunicationsSetupUIBundle();
-        v52 = CNFRegStringTableNameForServiceType([(CNFAccountRegistrar *)self serviceType]);
-        v90 = [v51 localizedStringForKey:@"FACETIME_SIGNIN_ERROR_GENERIC" value:&stru_2856D3978 table:v52];
+        v50 = CommunicationsSetupUIBundle();
+        v51 = CNFRegStringTableNameForServiceType([(CNFAccountRegistrar *)self serviceType]);
+        v89 = [v50 localizedStringForKey:@"FACETIME_SIGNIN_ERROR_GENERIC" value:&stru_2856D3978 table:v51];
       }
 
-      v53 = [registrationFailureAlertInfo objectForKey:*MEMORY[0x277D18C88]];
-      v54 = v53;
-      if (v53)
+      v52 = [registrationFailureAlertInfo objectForKey:*MEMORY[0x277D18C88]];
+      v53 = v52;
+      if (v52)
       {
-        v39 = v53;
-        v55 = v93;
+        v38 = v52;
+        v54 = v92;
       }
 
       else
       {
-        v55 = CommunicationsSetupUIBundle();
-        v56 = CNFRegStringTableNameForServiceType([(CNFAccountRegistrar *)self serviceType]);
-        v39 = [v55 localizedStringForKey:@"FACETIME_ALERT_CANCEL" value:&stru_2856D3978 table:v56];
+        v54 = CommunicationsSetupUIBundle();
+        v55 = CNFRegStringTableNameForServiceType([(CNFAccountRegistrar *)self serviceType]);
+        v38 = [v54 localizedStringForKey:@"FACETIME_ALERT_CANCEL" value:&stru_2856D3978 table:v55];
       }
 
-      v40 = [registrationFailureAlertInfo objectForKey:*MEMORY[0x277D18C70]];
-      v45 = [v40 valueForKey:*MEMORY[0x277D18C68]];
-      v44 = [v40 valueForKey:*MEMORY[0x277D18C80]];
-      v41 = [v40 valueForKey:*MEMORY[0x277D18C78]];
-      v43 = [v41 integerValue] == 1;
+      v39 = [registrationFailureAlertInfo objectForKey:*MEMORY[0x277D18C70]];
+      v44 = [v39 valueForKey:*MEMORY[0x277D18C68]];
+      v43 = [v39 valueForKey:*MEMORY[0x277D18C80]];
+      v40 = [v39 valueForKey:*MEMORY[0x277D18C78]];
+      v42 = [v40 integerValue] == 1;
       goto LABEL_66;
     }
 
@@ -633,90 +627,90 @@ void __47__CNFAccountRegistrar__registrationTimerFired___block_invoke_2()
     {
       if (registrationFailureReason == 28)
       {
-        v81 = CommunicationsSetupUIBundle();
-        v82 = CNFRegStringTableNameForServiceType([(CNFAccountRegistrar *)self serviceType]);
-        v29 = [v81 localizedStringForKey:@"MESSAGES_ACTIVATION_ERROR_TITLE_VERBOSE" value:&stru_2856D3978 table:v82];
+        v80 = CommunicationsSetupUIBundle();
+        v81 = CNFRegStringTableNameForServiceType([(CNFAccountRegistrar *)self serviceType]);
+        v28 = [v80 localizedStringForKey:@"MESSAGES_ACTIVATION_ERROR_TITLE_VERBOSE" value:&stru_2856D3978 table:v81];
 
-        v83 = CommunicationsSetupUIBundle();
-        v84 = CNFRegStringTableNameForServiceType([(CNFAccountRegistrar *)self serviceType]);
-        v90 = [v83 localizedStringForKey:@"UPDATE_APPLEID_ERROR_MESSAGE" value:&stru_2856D3978 table:v84];
+        v82 = CommunicationsSetupUIBundle();
+        v83 = CNFRegStringTableNameForServiceType([(CNFAccountRegistrar *)self serviceType]);
+        v89 = [v82 localizedStringForKey:@"UPDATE_APPLEID_ERROR_MESSAGE" value:&stru_2856D3978 table:v83];
 
-        v85 = CommunicationsSetupUIBundle();
-        v86 = CNFRegStringTableNameForServiceType([(CNFAccountRegistrar *)self serviceType]);
-        v39 = [v85 localizedStringForKey:@"FACETIME_ALERT_CANCEL" value:&stru_2856D3978 table:v86];
+        v84 = CommunicationsSetupUIBundle();
+        v85 = CNFRegStringTableNameForServiceType([(CNFAccountRegistrar *)self serviceType]);
+        v38 = [v84 localizedStringForKey:@"FACETIME_ALERT_CANCEL" value:&stru_2856D3978 table:v85];
 
-        v40 = CommunicationsSetupUIBundle();
-        v41 = CNFRegStringTableName();
-        v42 = [v40 localizedStringForKey:@"UPDATE_APPLEID_ERROR_ACTION" value:&stru_2856D3978 table:v41];
+        v39 = CommunicationsSetupUIBundle();
+        v40 = CNFRegStringTableName();
+        v41 = [v39 localizedStringForKey:@"UPDATE_APPLEID_ERROR_ACTION" value:&stru_2856D3978 table:v40];
         goto LABEL_80;
       }
 
       if (registrationFailureReason == 29)
       {
-        v33 = CommunicationsSetupUIBundle();
-        v34 = CNFRegStringTableNameForServiceType([(CNFAccountRegistrar *)self serviceType]);
-        v29 = [v33 localizedStringForKey:@"MESSAGES_ACTIVATION_ERROR_TITLE_VERBOSE" value:&stru_2856D3978 table:v34];
+        v32 = CommunicationsSetupUIBundle();
+        v33 = CNFRegStringTableNameForServiceType([(CNFAccountRegistrar *)self serviceType]);
+        v28 = [v32 localizedStringForKey:@"MESSAGES_ACTIVATION_ERROR_TITLE_VERBOSE" value:&stru_2856D3978 table:v33];
 
-        v35 = CommunicationsSetupUIBundle();
-        v36 = CNFRegStringTableNameForServiceType([(CNFAccountRegistrar *)self serviceType]);
-        v90 = [v35 localizedStringForKey:@"WAITING_FOR_ICLOUD_ERROR_MESSAGE" value:&stru_2856D3978 table:v36];
+        v34 = CommunicationsSetupUIBundle();
+        v35 = CNFRegStringTableNameForServiceType([(CNFAccountRegistrar *)self serviceType]);
+        v89 = [v34 localizedStringForKey:@"WAITING_FOR_ICLOUD_ERROR_MESSAGE" value:&stru_2856D3978 table:v35];
 
-        v37 = CommunicationsSetupUIBundle();
-        v38 = CNFRegStringTableNameForServiceType([(CNFAccountRegistrar *)self serviceType]);
-        v39 = [v37 localizedStringForKey:@"FACETIME_ALERT_CANCEL" value:&stru_2856D3978 table:v38];
+        v36 = CommunicationsSetupUIBundle();
+        v37 = CNFRegStringTableNameForServiceType([(CNFAccountRegistrar *)self serviceType]);
+        v38 = [v36 localizedStringForKey:@"FACETIME_ALERT_CANCEL" value:&stru_2856D3978 table:v37];
 
-        v40 = CommunicationsSetupUIBundle();
-        v41 = CNFRegStringTableNameForServiceType([(CNFAccountRegistrar *)self serviceType]);
-        v42 = [v40 localizedStringForKey:@"WAITING_FOR_ICLOUD_ERROR_ACTION" value:&stru_2856D3978 table:v41];
+        v39 = CommunicationsSetupUIBundle();
+        v40 = CNFRegStringTableNameForServiceType([(CNFAccountRegistrar *)self serviceType]);
+        v41 = [v39 localizedStringForKey:@"WAITING_FOR_ICLOUD_ERROR_ACTION" value:&stru_2856D3978 table:v40];
 LABEL_80:
-        v45 = v42;
-        v44 = @"settings-navigation://com.apple.Settings.AppleAccount/TRANSPARENCY";
-        v43 = 1;
+        v44 = v41;
+        v43 = @"settings-navigation://com.apple.Settings.AppleAccount/TRANSPARENCY";
+        v42 = 1;
 LABEL_66:
 
-        v93 = v39;
-        v46 = v90;
-        v19 = v29;
+        v92 = v38;
+        v45 = v89;
+        v18 = v28;
         goto LABEL_67;
       }
     }
 
-    v91 = 0;
+    v90 = 0;
+    v42 = 0;
     v43 = 0;
     v44 = 0;
-    v45 = 0;
-    v46 = v92;
+    v45 = v91;
 LABEL_67:
-    v57 = v46;
-    v15 = [MEMORY[0x277D75110] alertControllerWithTitle:v19 message:v87 preferredStyle:{v88, v89}];
-    if (v44)
+    v56 = v45;
+    v14 = [MEMORY[0x277D75110] alertControllerWithTitle:v18 message:v86 preferredStyle:{v87, v88}];
+    if (v43)
     {
-      v58 = v43;
+      v57 = v42;
     }
 
     else
     {
-      v58 = 0;
+      v57 = 0;
     }
 
-    if (v58)
+    if (v57)
     {
-      v59 = MEMORY[0x277D750F8];
-      v96[0] = MEMORY[0x277D85DD0];
-      v96[1] = 3221225472;
-      v96[2] = __57__CNFAccountRegistrar__accountRegistrationStatusChanged___block_invoke_186;
-      v96[3] = &unk_278DE86B8;
-      v97 = v44;
-      v98 = v91;
-      v60 = [v59 actionWithTitle:v45 style:0 handler:v96];
-      [v15 addAction:v60];
+      v58 = MEMORY[0x277D750F8];
+      v95[0] = MEMORY[0x277D85DD0];
+      v95[1] = 3221225472;
+      v95[2] = __57__CNFAccountRegistrar__accountRegistrationStatusChanged___block_invoke_186;
+      v95[3] = &unk_278DE86B8;
+      v96 = v43;
+      v97 = v90;
+      v59 = [v58 actionWithTitle:v44 style:0 handler:v95];
+      [v14 addAction:v59];
     }
 
-    v61 = [MEMORY[0x277D750F8] actionWithTitle:v93 style:1 handler:0];
-    [v15 addAction:v61];
+    v60 = [MEMORY[0x277D750F8] actionWithTitle:v92 style:1 handler:0];
+    [v14 addAction:v60];
 
 LABEL_73:
-    v16 = 0;
+    v15 = 0;
 LABEL_74:
     registrationTimer = [(CNFAccountRegistrar *)self registrationTimer];
     [registrationTimer invalidate];
@@ -727,7 +721,7 @@ LABEL_74:
     if (completionBlock)
     {
       completionBlock2 = [(CNFAccountRegistrar *)self completionBlock];
-      (completionBlock2)[2](completionBlock2, v16, v15);
+      (completionBlock2)[2](completionBlock2, v15, v14);
     }
 
     [(CNFAccountRegistrar *)self setAccount:0];
@@ -746,11 +740,11 @@ LABEL_74:
         goto LABEL_2;
       }
 
-      v14 = OSLogHandleForIDSCategory();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+      v13 = OSLogHandleForIDSCategory();
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_243BE5000, v14, OS_LOG_TYPE_DEFAULT, "Account is registered.", buf, 2u);
+        _os_log_impl(&dword_243BE5000, v13, OS_LOG_TYPE_DEFAULT, "Account is registered.", buf, 2u);
       }
 
       if (os_log_shim_legacy_logging_enabled() && IMShouldLog())
@@ -758,16 +752,16 @@ LABEL_74:
         IMLogString();
       }
 
-      v15 = 0;
-      v16 = 1;
+      v14 = 0;
+      v15 = 1;
       goto LABEL_74;
     }
 
-    v31 = OSLogHandleForIDSCategory();
-    if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+    v30 = OSLogHandleForIDSCategory();
+    if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_243BE5000, v31, OS_LOG_TYPE_DEFAULT, "Account is registering.", buf, 2u);
+      _os_log_impl(&dword_243BE5000, v30, OS_LOG_TYPE_DEFAULT, "Account is registering.", buf, 2u);
     }
 
     v7 = 0x277CCA000;
@@ -781,11 +775,11 @@ LABEL_74:
   {
     if (registrationStatus != 2)
     {
-      v11 = OSLogHandleForIDSCategory();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      v10 = OSLogHandleForIDSCategory();
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_243BE5000, v11, OS_LOG_TYPE_DEFAULT, "Account is authenticated.", buf, 2u);
+        _os_log_impl(&dword_243BE5000, v10, OS_LOG_TYPE_DEFAULT, "Account is authenticated.", buf, 2u);
       }
 
       if (os_log_shim_legacy_logging_enabled() && IMShouldLog())
@@ -803,28 +797,28 @@ LABEL_77:
         goto LABEL_2;
       }
 
-      v66 = CommunicationsSetupUIBundle();
-      v67 = CNFRegStringTableName();
-      v95 = [v66 localizedStringForKey:@"FACETIME_SIGNIN_ERROR_NO_VALID_ALIASES_TITLE" value:&stru_2856D3978 table:v67];
+      v65 = CommunicationsSetupUIBundle();
+      v66 = CNFRegStringTableName();
+      v94 = [v65 localizedStringForKey:@"FACETIME_SIGNIN_ERROR_NO_VALID_ALIASES_TITLE" value:&stru_2856D3978 table:v66];
 
-      v68 = CommunicationsSetupUIBundle();
-      v69 = CNFRegStringTableName();
-      v70 = [v68 localizedStringForKey:@"FACETIME_SIGNIN_ERROR_NO_VALID_ALIASES_MESSAGE" value:&stru_2856D3978 table:v69];
+      v67 = CommunicationsSetupUIBundle();
+      v68 = CNFRegStringTableName();
+      v69 = [v67 localizedStringForKey:@"FACETIME_SIGNIN_ERROR_NO_VALID_ALIASES_MESSAGE" value:&stru_2856D3978 table:v68];
 
-      v71 = CommunicationsSetupUIBundle();
-      v72 = CNFRegStringTableName();
-      v73 = [v71 localizedStringForKey:@"FACETIME_SIGNIN_ERROR_NO_VALID_ALIASES_ACTION_TITLE" value:&stru_2856D3978 table:v72];
+      v70 = CommunicationsSetupUIBundle();
+      v71 = CNFRegStringTableName();
+      v72 = [v70 localizedStringForKey:@"FACETIME_SIGNIN_ERROR_NO_VALID_ALIASES_ACTION_TITLE" value:&stru_2856D3978 table:v71];
 
-      v74 = CommunicationsSetupUIBundle();
-      v75 = CNFRegStringTableName();
-      v76 = [v74 localizedStringForKey:@"FACETIME_ALERT_CANCEL" value:&stru_2856D3978 table:v75];
+      v73 = CommunicationsSetupUIBundle();
+      v74 = CNFRegStringTableName();
+      v75 = [v73 localizedStringForKey:@"FACETIME_ALERT_CANCEL" value:&stru_2856D3978 table:v74];
 
-      v15 = [MEMORY[0x277D75110] alertControllerWithTitle:v95 message:v70 preferredStyle:1];
-      v77 = [MEMORY[0x277D750F8] actionWithTitle:v73 style:0 handler:&__block_literal_global_150];
-      [v15 addAction:v77];
+      v14 = [MEMORY[0x277D75110] alertControllerWithTitle:v94 message:v69 preferredStyle:1];
+      v76 = [MEMORY[0x277D750F8] actionWithTitle:v72 style:0 handler:&__block_literal_global_150];
+      [v14 addAction:v76];
 
-      v78 = [MEMORY[0x277D750F8] actionWithTitle:v76 style:1 handler:0];
-      [v15 addAction:v78];
+      v77 = [MEMORY[0x277D750F8] actionWithTitle:v75 style:1 handler:0];
+      [v14 addAction:v77];
 
       [(CNFAccountRegistrar *)self setAccount:0];
       mEMORY[0x277D18D28] = [MEMORY[0x277D18D28] sharedInstance];
@@ -836,11 +830,11 @@ LABEL_77:
       goto LABEL_73;
     }
 
-    v30 = OSLogHandleForIDSCategory();
-    if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+    v29 = OSLogHandleForIDSCategory();
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_243BE5000, v30, OS_LOG_TYPE_DEFAULT, "Account is authenticating.", buf, 2u);
+      _os_log_impl(&dword_243BE5000, v29, OS_LOG_TYPE_DEFAULT, "Account is authenticating.", buf, 2u);
     }
 
     v7 = 0x277CCA000;
@@ -854,8 +848,6 @@ LABEL_52:
 LABEL_2:
   defaultCenter2 = [*(v7 + 2968) defaultCenter];
   [defaultCenter2 postNotificationName:@"CNFAccountRegistarStateChangedNotification" object:0];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __57__CNFAccountRegistrar__accountRegistrationStatusChanged___block_invoke()
@@ -867,7 +859,7 @@ void __57__CNFAccountRegistrar__accountRegistrationStatusChanged___block_invoke(
 
 void __57__CNFAccountRegistrar__accountRegistrationStatusChanged___block_invoke_186(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [MEMORY[0x277CBEBC0] URLWithString:*(a1 + 32)];
   if (v4)
@@ -892,18 +884,15 @@ void __57__CNFAccountRegistrar__accountRegistrationStatusChanged___block_invoke_
     {
       v7 = *(a1 + 32);
       *buf = 138412290;
-      v11 = v7;
+      v9 = v7;
       _os_log_impl(&dword_243BE5000, v6, OS_LOG_TYPE_DEFAULT, "Invalid action URL %@.", buf, 0xCu);
     }
 
     if (os_log_shim_legacy_logging_enabled() && IMShouldLog())
     {
-      v9 = *(a1 + 32);
       IMLogString();
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 @end

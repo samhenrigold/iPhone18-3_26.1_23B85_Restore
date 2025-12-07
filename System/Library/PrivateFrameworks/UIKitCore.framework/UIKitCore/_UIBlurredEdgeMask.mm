@@ -15,9 +15,10 @@
   defaultCenter = [v3 defaultCenter];
   [defaultCenter removeObserver_];
 
-  v6.receiver = selfCopy;
-  v6.super_class = type metadata accessor for _UIBlurredEdgeMask();
-  [(UIView *)&v6 dealloc];
+  v6 = type metadata accessor for _UIBlurredEdgeMask();
+  v8.receiver = selfCopy;
+  v8.super_class = v7;
+  [(UIView *)&v8 dealloc];
 }
 
 - (void)_contentViewDidUpdate

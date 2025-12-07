@@ -86,22 +86,22 @@
       v9 = [v5 objectForKeyedSubscript:@"Y2"];
       -[MTCrownFilterManager setTouchFilterY2:](self, "setTouchFilterY2:", ([v9 intValue] / 100.0));
 
-      v10 = MTLoggingCrownFilterManager();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      v11 = MTLoggingCrownFilterManager(v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
         touchFilterX1 = self->_touchFilterX1;
         touchFilterY1 = self->_touchFilterY1;
         touchFilterX2 = self->_touchFilterX2;
         touchFilterY2 = self->_touchFilterY2;
-        v15 = 134218752;
-        v16 = touchFilterX1;
-        v17 = 2048;
-        v18 = touchFilterY1;
-        v19 = 2048;
-        v20 = touchFilterX2;
-        v21 = 2048;
-        v22 = touchFilterY2;
-        _os_log_impl(&dword_0, v10, OS_LOG_TYPE_DEFAULT, "MTCrownFilterManager: Filter Rect X1=%f Y1=%f X2=%f Y2=%f", &v15, 0x2Au);
+        v16 = 134218752;
+        v17 = touchFilterX1;
+        v18 = 2048;
+        v19 = touchFilterY1;
+        v20 = 2048;
+        v21 = touchFilterX2;
+        v22 = 2048;
+        v23 = touchFilterY2;
+        _os_log_impl(&dword_0, v11, OS_LOG_TYPE_DEFAULT, "MTCrownFilterManager: Filter Rect X1=%f Y1=%f X2=%f Y2=%f", &v16, 0x2Au);
       }
     }
   }
@@ -266,38 +266,38 @@ LABEL_11:
 {
   eventCopy = event;
   children = [eventCopy children];
-  v71 = +[NSMutableArray arrayWithCapacity:](NSMutableArray, "arrayWithCapacity:", [children count]);
-  v77 = 0u;
-  v78 = 0u;
-  v79 = 0u;
-  v80 = 0u;
+  v75 = +[NSMutableArray arrayWithCapacity:](NSMutableArray, "arrayWithCapacity:", [children count]);
+  v81 = 0u;
+  v82 = 0u;
+  v83 = 0u;
+  v84 = 0u;
   obj = children;
-  v5 = [obj countByEnumeratingWithState:&v77 objects:v88 count:16];
+  v5 = [obj countByEnumeratingWithState:&v81 objects:v92 count:16];
   if (!v5)
   {
-    v67 = 0;
-    v72 = 0;
+    v71 = 0;
+    v76 = 0;
     goto LABEL_49;
   }
 
   v7 = v5;
-  v67 = 0;
-  v72 = 0;
-  v8 = *v78;
+  v71 = 0;
+  v76 = 0;
+  v8 = *v82;
   *&v6 = 134217984;
-  v61 = v6;
+  v65 = v6;
   do
   {
     v9 = 0;
-    v69 = v7;
+    v73 = v7;
     do
     {
-      if (*v78 != v8)
+      if (*v82 != v8)
       {
         objc_enumerationMutation(obj);
       }
 
-      v10 = *(*(&v77 + 1) + 8 * v9);
+      v10 = *(*(&v81 + 1) + 8 * v9);
       if ([v10 type] == 11)
       {
         v11 = +[NSNumber numberWithInteger:](NSNumber, "numberWithInteger:", [v10 integerValueForField:720901]);
@@ -308,7 +308,7 @@ LABEL_11:
 
         if (v15)
         {
-          [v71 addObject:v10];
+          [v75 addObject:v10];
         }
 
         if (v13 == &dword_0 + 1)
@@ -357,11 +357,11 @@ LABEL_14:
         v25 = !v24;
         if (!v24)
         {
-          v26 = MTLoggingCrownFilterManager();
+          v26 = MTLoggingCrownFilterManager(buttonDownMachTime);
           if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
           {
-            *buf = v61;
-            v83 = v22;
+            *buf = v65;
+            v87 = v22;
             _os_log_debug_impl(&dword_0, v26, OS_LOG_TYPE_DEBUG, "MTCrownFilterManager: Cancel touch button timeout = %f s", buf, 0xCu);
           }
         }
@@ -381,62 +381,62 @@ LABEL_35:
 
             if (!v27 || (v28 & 1) != 0)
             {
-              v32 = [v71 containsObject:v10];
+              v33 = [v75 containsObject:v10];
               [v10 setIntegerValue:0 forField:720905];
               [v10 setIntegerValue:0 forField:720904];
               [v10 setIntegerValue:v12 | 0x83 forField:720903];
               cancelPathIDs2 = [(MTCrownFilterManager *)self cancelPathIDs];
               [cancelPathIDs2 removeObject:v11];
 
-              [v10 position];
-              v35 = v34;
+              position = [v10 position];
               v37 = v36;
-              v38 = MTLoggingCrownFilterManager();
-              if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
+              v39 = v38;
+              v40 = MTLoggingCrownFilterManager(position);
+              if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
               {
                 unsignedIntegerValue = [v11 unsignedIntegerValue];
                 *buf = 134218496;
-                v83 = *&unsignedIntegerValue;
-                v84 = 2048;
-                v85 = v35;
-                v86 = 2048;
-                v87 = v37;
-                _os_log_impl(&dword_0, v38, OS_LOG_TYPE_DEFAULT, "MTCrownFilterManager: Cancelling path id %lu at (%f, %f)", buf, 0x20u);
+                v87 = *&unsignedIntegerValue;
+                v88 = 2048;
+                v89 = v37;
+                v90 = 2048;
+                v91 = v39;
+                _os_log_impl(&dword_0, v40, OS_LOG_TYPE_DEFAULT, "MTCrownFilterManager: Cancelling path id %lu at (%f, %f)", buf, 0x20u);
               }
 
-              v67 += v32 ^ 1;
+              v71 += v33 ^ 1;
             }
 
             else
             {
-              [v71 addObject:v10];
+              v30 = [v75 addObject:v10];
             }
 
 LABEL_42:
-            v40 = MTLoggingCrownFilterManager();
-            if (os_log_type_enabled(v40, OS_LOG_TYPE_DEBUG))
+            v42 = MTLoggingCrownFilterManager(v30);
+            if (os_log_type_enabled(v42, OS_LOG_TYPE_DEBUG))
             {
               activePathIDs3 = [(MTCrownFilterManager *)self activePathIDs];
               allObjects = [activePathIDs3 allObjects];
-              v63 = [allObjects componentsJoinedByString:{@", "}];
+              v67 = [allObjects componentsJoinedByString:{@", "}];
               cancelPathIDs3 = [(MTCrownFilterManager *)self cancelPathIDs];
               allObjects2 = [cancelPathIDs3 allObjects];
-              v41 = [allObjects2 componentsJoinedByString:{@", "}];
+              v43 = [allObjects2 componentsJoinedByString:{@", "}];
               consumePathIDs4 = [(MTCrownFilterManager *)self consumePathIDs];
               allObjects3 = [consumePathIDs4 allObjects];
-              v44 = [allObjects3 componentsJoinedByString:{@", "}];
+              v46 = [allObjects3 componentsJoinedByString:{@", "}];
               *buf = 138412802;
-              v83 = *&v63;
-              v84 = 2112;
-              v85 = v41;
-              v86 = 2112;
-              v87 = v44;
-              _os_log_debug_impl(&dword_0, v40, OS_LOG_TYPE_DEBUG, "MTCrownFilterManager: Active = [%@], Cancel = [%@], Consume = [%@]", buf, 0x20u);
+              v87 = *&v67;
+              v88 = 2112;
+              v89 = v43;
+              v90 = 2112;
+              v91 = v46;
+              _os_log_debug_impl(&dword_0, v42, OS_LOG_TYPE_DEBUG, "MTCrownFilterManager: Active = [%@], Cancel = [%@], Consume = [%@]", buf, 0x20u);
             }
 
-            ++v72;
+            ++v76;
 
-            v7 = v69;
+            v7 = v73;
             goto LABEL_45;
           }
         }
@@ -462,79 +462,80 @@ LABEL_45:
     }
 
     while (v7 != v9);
-    v7 = [obj countByEnumeratingWithState:&v77 objects:v88 count:16];
+    v7 = [obj countByEnumeratingWithState:&v81 objects:v92 count:16];
   }
 
   while (v7);
 LABEL_49:
 
-  v45 = v71;
-  if (v67 == v72 - [v71 count])
+  v47 = v75;
+  if (v71 == v76 - [v75 count])
   {
-    v46 = [eventCopy integerValueForField:720903];
+    v48 = [eventCopy integerValueForField:720903];
     [eventCopy setIntegerValue:0 forField:720905];
     [eventCopy setIntegerValue:0 forField:720904];
-    [eventCopy setIntegerValue:v46 | 0x83 forField:720903];
+    [eventCopy setIntegerValue:v48 | 0x83 forField:720903];
   }
 
-  if ([v71 count] == v72)
+  v49 = [v75 count];
+  if (v49 == v76)
   {
-    v47 = MTLoggingCrownFilterManager();
-    if (os_log_type_enabled(v47, OS_LOG_TYPE_DEBUG))
+    v50 = MTLoggingCrownFilterManager(v49);
+    if (os_log_type_enabled(v50, OS_LOG_TYPE_DEBUG))
     {
-      [MTCrownFilterManager filterDigitizerEvent:v47];
+      [MTCrownFilterManager filterDigitizerEvent:v50];
     }
 
-    v48 = eventCopy;
+    v51 = eventCopy;
     eventCopy = 0;
   }
 
   else
   {
-    v75 = 0u;
-    v76 = 0u;
-    v73 = 0u;
-    v74 = 0u;
-    v48 = v71;
-    v49 = [v48 countByEnumeratingWithState:&v73 objects:v81 count:16];
-    if (v49)
+    v79 = 0u;
+    v80 = 0u;
+    v77 = 0u;
+    v78 = 0u;
+    v51 = v75;
+    v52 = [v51 countByEnumeratingWithState:&v77 objects:v85 count:16];
+    if (v52)
     {
-      v50 = v49;
-      v51 = *v74;
+      v53 = v52;
+      v54 = *v78;
       do
       {
-        for (i = 0; i != v50; i = i + 1)
+        for (i = 0; i != v53; i = i + 1)
         {
-          if (*v74 != v51)
+          if (*v78 != v54)
           {
-            objc_enumerationMutation(v48);
+            objc_enumerationMutation(v51);
           }
 
-          v53 = *(*(&v73 + 1) + 8 * i);
-          v54 = [v53 integerValueForField:720901];
-          [v53 position];
-          v56 = v55;
-          v58 = v57;
-          v59 = MTLoggingCrownFilterManager();
-          if (os_log_type_enabled(v59, OS_LOG_TYPE_DEBUG))
+          v56 = *(*(&v77 + 1) + 8 * i);
+          v57 = [v56 integerValueForField:720901];
+          position2 = [v56 position];
+          v60 = v59;
+          v62 = v61;
+          v63 = MTLoggingCrownFilterManager(position2);
+          if (os_log_type_enabled(v63, OS_LOG_TYPE_DEBUG))
           {
             *buf = 134218496;
-            v83 = *&v54;
-            v84 = 2048;
-            v85 = v56;
-            v86 = 2048;
-            v87 = v58;
-            _os_log_debug_impl(&dword_0, v59, OS_LOG_TYPE_DEBUG, "MTCrownFilterManager: Consuming path id %ld at (%f, %f)", buf, 0x20u);
+            v87 = *&v57;
+            v88 = 2048;
+            v89 = v60;
+            v90 = 2048;
+            v91 = v62;
+            _os_log_debug_impl(&dword_0, v63, OS_LOG_TYPE_DEBUG, "MTCrownFilterManager: Consuming path id %ld at (%f, %f)", buf, 0x20u);
           }
 
-          [eventCopy removeEvent:v53];
+          [eventCopy removeEvent:v56];
         }
 
-        v50 = [v48 countByEnumeratingWithState:&v73 objects:v81 count:16];
+        v53 = [v51 countByEnumeratingWithState:&v77 objects:v85 count:16];
       }
 
-      while (v50);
-      v45 = v71;
+      while (v53);
+      v47 = v75;
     }
   }
 
@@ -582,15 +583,20 @@ LABEL_49:
         }
       }
 
-      if (![(MTCrownFilterManager *)self menuButtonPressed]&& ![(MTCrownFilterManager *)self helpButtonPressed])
+      menuButtonPressed = [(MTCrownFilterManager *)self menuButtonPressed];
+      if ((menuButtonPressed & 1) == 0)
       {
-        [(MTCrownFilterManager *)self setButtonDownMachTime:0];
+        menuButtonPressed = [(MTCrownFilterManager *)self helpButtonPressed];
+        if ((menuButtonPressed & 1) == 0)
+        {
+          menuButtonPressed = [(MTCrownFilterManager *)self setButtonDownMachTime:0];
+        }
       }
 
-      v12 = MTLoggingCrownFilterManager();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+      v13 = MTLoggingCrownFilterManager(menuButtonPressed);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
       {
-        [(MTCrownFilterManager *)self filterButtonEvent:v12];
+        [(MTCrownFilterManager *)self filterButtonEvent:v13];
       }
     }
   }

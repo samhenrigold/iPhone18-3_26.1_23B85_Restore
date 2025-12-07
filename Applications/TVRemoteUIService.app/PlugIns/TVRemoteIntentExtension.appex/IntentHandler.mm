@@ -62,7 +62,7 @@
 - (id)handlerForIntent:(id)intent
 {
   intentCopy = intent;
-  v5 = _TVRIntentExtensionLog();
+  v5 = _TVRIntentExtensionLog(intentCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v7 = 136315394;
@@ -79,7 +79,7 @@
 {
   vCopy = v;
   completionCopy = completion;
-  v7 = _TVRIntentExtensionLog();
+  v7 = _TVRIntentExtensionLog(completionCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
@@ -107,18 +107,18 @@ void __46__IntentHandler_handleWakeAppleTV_completion___block_invoke(uint64_t a1
 {
   v5 = a2;
   v6 = a3;
-  v7 = _TVRIntentExtensionLog();
+  v7 = _TVRIntentExtensionLog(v6);
   v8 = v7;
   if (v5)
   {
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       v9 = *(a1 + 32);
-      v17 = 138543618;
-      v18 = v9;
-      v19 = 2114;
-      v20 = v5;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Resolved device for intent=%{public}@, device=%{public}@", &v17, 0x16u);
+      v18 = 138543618;
+      v19 = v9;
+      v20 = 2114;
+      v21 = v5;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Resolved device for intent=%{public}@, device=%{public}@", &v18, 0x16u);
     }
 
     v10 = [[TVRCButton alloc] _initWithButtonType:21];
@@ -134,27 +134,28 @@ void __46__IntentHandler_handleWakeAppleTV_completion___block_invoke(uint64_t a1
   {
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      __46__IntentHandler_handleWakeAppleTV_completion___block_invoke_cold_1(a1);
+      __46__IntentHandler_handleWakeAppleTV_completion___block_invoke_cold_1();
     }
 
-    v12 = [[WakeAppleTVIntentResponse alloc] initWithCode:5 userActivity:0];
+    v14 = [[WakeAppleTVIntentResponse alloc] initWithCode:5 userActivity:0];
+    v12 = v14;
   }
 
-  v14 = _TVRIntentExtensionLog();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+  v15 = _TVRIntentExtensionLog(v14);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
-    v15 = *(a1 + 32);
-    v17 = 138543618;
-    v18 = v15;
-    v19 = 2114;
-    v20 = v12;
-    _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Calling completion for intent=%{public}@, response=%{public}@", &v17, 0x16u);
+    v16 = *(a1 + 32);
+    v18 = 138543618;
+    v19 = v16;
+    v20 = 2114;
+    v21 = v12;
+    _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Calling completion for intent=%{public}@, response=%{public}@", &v18, 0x16u);
   }
 
-  v16 = *(a1 + 40);
-  if (v16)
+  v17 = *(a1 + 40);
+  if (v17)
   {
-    (*(v16 + 16))(v16, v12);
+    (*(v17 + 16))(v17, v12);
   }
 }
 
@@ -162,7 +163,7 @@ void __46__IntentHandler_handleWakeAppleTV_completion___block_invoke(uint64_t a1
 {
   vCopy = v;
   completionCopy = completion;
-  v7 = _TVRIntentExtensionLog();
+  v7 = _TVRIntentExtensionLog(completionCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v9 = 136315394;
@@ -188,7 +189,7 @@ void __46__IntentHandler_handleWakeAppleTV_completion___block_invoke(uint64_t a1
 {
   vCopy = v;
   completionCopy = completion;
-  v7 = _TVRIntentExtensionLog();
+  v7 = _TVRIntentExtensionLog(completionCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
@@ -216,18 +217,18 @@ void __47__IntentHandler_handleSleepAppleTV_completion___block_invoke(uint64_t a
 {
   v5 = a2;
   v6 = a3;
-  v7 = _TVRIntentExtensionLog();
+  v7 = _TVRIntentExtensionLog(v6);
   v8 = v7;
   if (v5)
   {
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       v9 = *(a1 + 32);
-      v17 = 138543618;
-      v18 = v9;
-      v19 = 2114;
-      v20 = v5;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Resolved device for intent=%{public}@, device=%{public}@", &v17, 0x16u);
+      v18 = 138543618;
+      v19 = v9;
+      v20 = 2114;
+      v21 = v5;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Resolved device for intent=%{public}@, device=%{public}@", &v18, 0x16u);
     }
 
     v10 = [[TVRCButton alloc] _initWithButtonType:22];
@@ -243,27 +244,28 @@ void __47__IntentHandler_handleSleepAppleTV_completion___block_invoke(uint64_t a
   {
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      __46__IntentHandler_handleWakeAppleTV_completion___block_invoke_cold_1(a1);
+      __46__IntentHandler_handleWakeAppleTV_completion___block_invoke_cold_1();
     }
 
-    v12 = [[SleepAppleTVIntentResponse alloc] initWithCode:5 userActivity:0];
+    v14 = [[SleepAppleTVIntentResponse alloc] initWithCode:5 userActivity:0];
+    v12 = v14;
   }
 
-  v14 = _TVRIntentExtensionLog();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+  v15 = _TVRIntentExtensionLog(v14);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
-    v15 = *(a1 + 32);
-    v17 = 138543618;
-    v18 = v15;
-    v19 = 2114;
-    v20 = v12;
-    _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Calling completion for intent=%{public}@, response=%{public}@", &v17, 0x16u);
+    v16 = *(a1 + 32);
+    v18 = 138543618;
+    v19 = v16;
+    v20 = 2114;
+    v21 = v12;
+    _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Calling completion for intent=%{public}@, response=%{public}@", &v18, 0x16u);
   }
 
-  v16 = *(a1 + 40);
-  if (v16)
+  v17 = *(a1 + 40);
+  if (v17)
   {
-    (*(v16 + 16))(v16, v12);
+    (*(v17 + 16))(v17, v12);
   }
 }
 
@@ -271,7 +273,7 @@ void __47__IntentHandler_handleSleepAppleTV_completion___block_invoke(uint64_t a
 {
   vCopy = v;
   completionCopy = completion;
-  v7 = _TVRIntentExtensionLog();
+  v7 = _TVRIntentExtensionLog(completionCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v9 = 136315394;
@@ -297,13 +299,13 @@ void __47__IntentHandler_handleSleepAppleTV_completion___block_invoke(uint64_t a
 {
   remoteCopy = remote;
   completionCopy = completion;
-  v7 = _TVRIntentExtensionLog();
+  v7 = _TVRIntentExtensionLog(completionCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v26 = "[IntentHandler handleLaunchRemote:completion:]";
-    v27 = 2114;
-    v28 = remoteCopy;
+    v27 = "[IntentHandler handleLaunchRemote:completion:]";
+    v28 = 2114;
+    v29 = remoteCopy;
     _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "%s, intent=%{public}@", buf, 0x16u);
   }
 
@@ -331,39 +333,39 @@ LABEL_6:
 
   identifier = 0;
 LABEL_8:
-  v19 = _NSConcreteStackBlock;
-  v20 = 3221225472;
-  v21 = __47__IntentHandler_handleLaunchRemote_completion___block_invoke;
-  v22 = &unk_1000103A0;
+  v20 = _NSConcreteStackBlock;
+  v21 = 3221225472;
+  v22 = __47__IntentHandler_handleLaunchRemote_completion___block_invoke;
+  v23 = &unk_1000103A0;
   v14 = identifier;
-  v23 = v14;
-  v24 = v8;
-  dispatch_async(&_dispatch_main_q, &v19);
-  v15 = _TVRIntentExtensionLog();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+  v24 = v14;
+  v25 = v8;
+  dispatch_async(&_dispatch_main_q, &v20);
+  v16 = _TVRIntentExtensionLog(v15);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v26 = v14;
-    _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Lauching the TVRemote with deviceIdentifier=%{public}@", buf, 0xCu);
+    v27 = v14;
+    _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Lauching the TVRemote with deviceIdentifier=%{public}@", buf, 0xCu);
   }
 
-  v16 = [TVRCAnalytics sharedInstance:v19];
-  [v16 logShortcutActionRunWithType:@"LaunchRemote_AppleTV"];
+  v17 = [TVRCAnalytics sharedInstance:v20];
+  [v17 logShortcutActionRunWithType:@"LaunchRemote_AppleTV"];
 
   if (completionCopy)
   {
-    v17 = [[LaunchRemoteIntentResponse alloc] initWithCode:4 userActivity:0];
-    v18 = _TVRIntentExtensionLog();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+    v18 = [[LaunchRemoteIntentResponse alloc] initWithCode:4 userActivity:0];
+    v19 = _TVRIntentExtensionLog(v18);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543618;
-      v26 = remoteCopy;
-      v27 = 2114;
-      v28 = v17;
-      _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "Calling completion for intent=%{public}@, response=%{public}@", buf, 0x16u);
+      v27 = remoteCopy;
+      v28 = 2114;
+      v29 = v18;
+      _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "Calling completion for intent=%{public}@, response=%{public}@", buf, 0x16u);
     }
 
-    completionCopy[2](completionCopy, v17);
+    completionCopy[2](completionCopy, v18);
   }
 }
 
@@ -378,7 +380,7 @@ void __47__IntentHandler_handleLaunchRemote_completion___block_invoke(uint64_t a
 {
   remoteCopy = remote;
   completionCopy = completion;
-  v7 = _TVRIntentExtensionLog();
+  v7 = _TVRIntentExtensionLog(completionCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v9 = 136315394;
@@ -404,7 +406,7 @@ void __47__IntentHandler_handleLaunchRemote_completion___block_invoke(uint64_t a
 {
   contentCopy = content;
   completionCopy = completion;
-  v7 = _TVRIntentExtensionLog();
+  v7 = _TVRIntentExtensionLog(completionCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
@@ -439,7 +441,7 @@ void __47__IntentHandler_handlePauseContent_completion___block_invoke(uint64_t a
     goto LABEL_15;
   }
 
-  v6 = _TVRIntentExtensionLog();
+  v6 = _TVRIntentExtensionLog(v4);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = *(a1 + 32);
@@ -489,7 +491,7 @@ LABEL_13:
   v14 = 4;
 LABEL_15:
   v18 = [v13 initWithCode:v14 userActivity:0];
-  v19 = _TVRIntentExtensionLog();
+  v19 = _TVRIntentExtensionLog(v18);
   if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
   {
     v20 = *(a1 + 32);
@@ -511,7 +513,7 @@ LABEL_15:
 {
   contentCopy = content;
   completionCopy = completion;
-  v7 = _TVRIntentExtensionLog();
+  v7 = _TVRIntentExtensionLog(completionCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v9 = 136315394;
@@ -544,7 +546,7 @@ LABEL_15:
 {
   appCopy = app;
   completionCopy = completion;
-  v7 = _TVRIntentExtensionLog();
+  v7 = _TVRIntentExtensionLog(completionCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
@@ -572,7 +574,7 @@ void __46__IntentHandler_handleLaunchTVApp_completion___block_invoke(uint64_t a1
 {
   v5 = a2;
   v6 = a3;
-  v7 = _TVRIntentExtensionLog();
+  v7 = _TVRIntentExtensionLog(v6);
   v8 = v7;
   if (v5)
   {
@@ -580,9 +582,9 @@ void __46__IntentHandler_handleLaunchTVApp_completion___block_invoke(uint64_t a1
     {
       v9 = *(a1 + 32);
       *buf = 138543618;
-      v24 = v9;
-      v25 = 2114;
-      v26 = v5;
+      v25 = v9;
+      v26 = 2114;
+      v27 = v5;
       _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Resolved device for intent=%{public}@, device=%{public}@", buf, 0x16u);
     }
 
@@ -591,9 +593,9 @@ void __46__IntentHandler_handleLaunchTVApp_completion___block_invoke(uint64_t a1
     [v5 sendButtonEvent:v11];
 
     v12 = [TVRCButton alloc];
-    v21 = TVRCButtonApplicationBundleIDKey;
-    v22 = @"com.apple.TVWatchList";
-    v13 = [NSDictionary dictionaryWithObjects:&v22 forKeys:&v21 count:1];
+    v22 = TVRCButtonApplicationBundleIDKey;
+    v23 = @"com.apple.TVWatchList";
+    v13 = [NSDictionary dictionaryWithObjects:&v23 forKeys:&v22 count:1];
     v14 = [v12 _initWithButtonType:20 hasTapAction:1 properties:v13];
 
     v15 = [TVRCButtonEvent buttonEventForButton:v14 eventType:0];
@@ -608,27 +610,28 @@ void __46__IntentHandler_handleLaunchTVApp_completion___block_invoke(uint64_t a1
   {
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      __46__IntentHandler_handleWakeAppleTV_completion___block_invoke_cold_1(a1);
+      __46__IntentHandler_handleWakeAppleTV_completion___block_invoke_cold_1();
     }
 
-    v16 = [[LaunchTVAppIntentResponse alloc] initWithCode:5 userActivity:0];
+    v18 = [[LaunchTVAppIntentResponse alloc] initWithCode:5 userActivity:0];
+    v16 = v18;
   }
 
-  v18 = _TVRIntentExtensionLog();
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+  v19 = _TVRIntentExtensionLog(v18);
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
   {
-    v19 = *(a1 + 32);
+    v20 = *(a1 + 32);
     *buf = 138543618;
-    v24 = v19;
-    v25 = 2114;
-    v26 = v16;
-    _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "Calling completion for intent=%{public}@, response=%{public}@", buf, 0x16u);
+    v25 = v20;
+    v26 = 2114;
+    v27 = v16;
+    _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "Calling completion for intent=%{public}@, response=%{public}@", buf, 0x16u);
   }
 
-  v20 = *(a1 + 40);
-  if (v20)
+  v21 = *(a1 + 40);
+  if (v21)
   {
-    (*(v20 + 16))(v20, v16);
+    (*(v21 + 16))(v21, v16);
   }
 }
 
@@ -636,7 +639,7 @@ void __46__IntentHandler_handleLaunchTVApp_completion___block_invoke(uint64_t a1
 {
   appCopy = app;
   completionCopy = completion;
-  v7 = _TVRIntentExtensionLog();
+  v7 = _TVRIntentExtensionLog(completionCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v15 = 136315394;
@@ -650,7 +653,7 @@ void __46__IntentHandler_handleLaunchTVApp_completion___block_invoke(uint64_t a1
   v9 = device;
   if (device && ([device identifier], v10 = objc_claimAutoreleasedReturnValue(), v10, v10))
   {
-    v11 = _TVRIntentExtensionLog();
+    v11 = _TVRIntentExtensionLog(device);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       v15 = 138543618;
@@ -665,7 +668,7 @@ void __46__IntentHandler_handleLaunchTVApp_completion___block_invoke(uint64_t a1
 
   else
   {
-    v11 = _TVRIntentExtensionLog();
+    v11 = _TVRIntentExtensionLog(device);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       [IntentHandler confirmLaunchTVApp:v9 completion:v11];
@@ -675,7 +678,7 @@ void __46__IntentHandler_handleLaunchTVApp_completion___block_invoke(uint64_t a1
   }
 
   v13 = [[LaunchTVAppIntentResponse alloc] initWithCode:v12 userActivity:0];
-  v14 = _TVRIntentExtensionLog();
+  v14 = _TVRIntentExtensionLog(v13);
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
     v15 = 138543618;
@@ -695,7 +698,7 @@ void __46__IntentHandler_handleLaunchTVApp_completion___block_invoke(uint64_t a1
 {
   applicationCopy = application;
   completionCopy = completion;
-  v7 = _TVRIntentExtensionLog();
+  v7 = _TVRIntentExtensionLog(completionCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
@@ -727,73 +730,74 @@ void __52__IntentHandler_handleLaunchApplication_completion___block_invoke(uint6
   v8 = [*(a1 + 32) application];
   v9 = [v8 identifier];
 
-  v10 = _TVRIntentExtensionLog();
-  v11 = v10;
+  v11 = _TVRIntentExtensionLog(v10);
+  v12 = v11;
   if (v5 && v9)
   {
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = *v7;
+      v13 = *v7;
       *buf = 138543618;
-      v28 = v12;
-      v29 = 2114;
-      v30 = v5;
-      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Resolved device for intent=%{public}@, device=%{public}@", buf, 0x16u);
+      v31 = v13;
+      v32 = 2114;
+      v33 = v5;
+      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Resolved device for intent=%{public}@, device=%{public}@", buf, 0x16u);
     }
 
-    v13 = _TVRIntentExtensionLog();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v15 = _TVRIntentExtensionLog(v14);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v28 = "[IntentHandler handleLaunchApplication:completion:]_block_invoke";
-      v29 = 2112;
-      v30 = v9;
-      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "%s with bundleID %@", buf, 0x16u);
+      v31 = "[IntentHandler handleLaunchApplication:completion:]_block_invoke";
+      v32 = 2112;
+      v33 = v9;
+      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "%s with bundleID %@", buf, 0x16u);
     }
 
-    v14 = [[TVRCButton alloc] _initWithButtonType:21];
-    v15 = [TVRCButtonEvent buttonEventForButton:v14 eventType:2];
-    [v5 sendButtonEvent:v15];
+    v16 = [[TVRCButton alloc] _initWithButtonType:21];
+    v17 = [TVRCButtonEvent buttonEventForButton:v16 eventType:2];
+    [v5 sendButtonEvent:v17];
 
-    v16 = [TVRCButton alloc];
-    v25 = TVRCButtonApplicationBundleIDKey;
-    v26 = v9;
-    v17 = [NSDictionary dictionaryWithObjects:&v26 forKeys:&v25 count:1];
-    v18 = [v16 _initWithButtonType:20 hasTapAction:1 properties:v17];
+    v18 = [TVRCButton alloc];
+    v28 = TVRCButtonApplicationBundleIDKey;
+    v29 = v9;
+    v19 = [NSDictionary dictionaryWithObjects:&v29 forKeys:&v28 count:1];
+    v20 = [v18 _initWithButtonType:20 hasTapAction:1 properties:v19];
 
-    v19 = [TVRCButtonEvent buttonEventForButton:v18 eventType:0];
-    [v5 sendButtonEvent:v19];
+    v21 = [TVRCButtonEvent buttonEventForButton:v20 eventType:0];
+    [v5 sendButtonEvent:v21];
 
-    v20 = [[LaunchApplicationIntentResponse alloc] initWithCode:4 userActivity:0];
-    v21 = +[TVRCAnalytics sharedInstance];
-    [v21 logShortcutActionRunWithType:@"LaunchApp_AppleTV"];
+    v22 = [[LaunchApplicationIntentResponse alloc] initWithCode:4 userActivity:0];
+    v23 = +[TVRCAnalytics sharedInstance];
+    [v23 logShortcutActionRunWithType:@"LaunchApp_AppleTV"];
   }
 
   else
   {
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      __52__IntentHandler_handleLaunchApplication_completion___block_invoke_cold_1((a1 + 32));
+      __52__IntentHandler_handleLaunchApplication_completion___block_invoke_cold_1();
     }
 
-    v20 = [[LaunchApplicationIntentResponse alloc] initWithCode:5 userActivity:0];
+    v24 = [[LaunchApplicationIntentResponse alloc] initWithCode:5 userActivity:0];
+    v22 = v24;
   }
 
-  v22 = _TVRIntentExtensionLog();
-  if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+  v25 = _TVRIntentExtensionLog(v24);
+  if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
   {
-    v23 = *v7;
+    v26 = *v7;
     *buf = 138543618;
-    v28 = v23;
-    v29 = 2114;
-    v30 = v20;
-    _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "Calling completion for intent=%{public}@, response=%{public}@", buf, 0x16u);
+    v31 = v26;
+    v32 = 2114;
+    v33 = v22;
+    _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "Calling completion for intent=%{public}@, response=%{public}@", buf, 0x16u);
   }
 
-  v24 = *(a1 + 40);
-  if (v24)
+  v27 = *(a1 + 40);
+  if (v27)
   {
-    (*(v24 + 16))(v24, v20);
+    (*(v27 + 16))(v27, v22);
   }
 }
 
@@ -808,13 +812,13 @@ void __52__IntentHandler_handleLaunchApplication_completion___block_invoke(uint6
 {
   applicationCopy = application;
   completionCopy = completion;
-  v8 = _TVRIntentExtensionLog();
+  v8 = _TVRIntentExtensionLog(completionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v29 = "[IntentHandler provideApplicationOptionsCollectionForLaunchApplication:withCompletion:]";
-    v30 = 2114;
-    v31 = applicationCopy;
+    v30 = "[IntentHandler provideApplicationOptionsCollectionForLaunchApplication:withCompletion:]";
+    v31 = 2114;
+    v32 = applicationCopy;
     _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "%s, intent=%{public}@", buf, 0x16u);
   }
 
@@ -829,31 +833,31 @@ void __52__IntentHandler_handleLaunchApplication_completion___block_invoke(uint6
     objc_initWeak(buf, self);
     v14 = +[TVRIntentExtensionDeviceManager sharedInstance];
     identifier = [device identifier];
-    v21[0] = _NSConcreteStackBlock;
-    v21[1] = 3221225472;
-    v21[2] = __88__IntentHandler_provideApplicationOptionsCollectionForLaunchApplication_withCompletion___block_invoke;
-    v21[3] = &unk_1000103F0;
-    objc_copyWeak(&v25, buf);
-    v22 = applicationCopy;
-    v23 = v13;
-    v24 = completionCopy;
-    [v14 resolveDeviceWithIdentifier:identifier handler:v21];
+    v22[0] = _NSConcreteStackBlock;
+    v22[1] = 3221225472;
+    v22[2] = __88__IntentHandler_provideApplicationOptionsCollectionForLaunchApplication_withCompletion___block_invoke;
+    v22[3] = &unk_1000103F0;
+    objc_copyWeak(&v26, buf);
+    v23 = applicationCopy;
+    v24 = v13;
+    v25 = completionCopy;
+    [v14 resolveDeviceWithIdentifier:identifier handler:v22];
 
-    objc_destroyWeak(&v25);
+    objc_destroyWeak(&v26);
     objc_destroyWeak(buf);
   }
 
   else
   {
-    v26 = NSLocalizedDescriptionKey;
+    v27 = NSLocalizedDescriptionKey;
     v16 = +[NSBundle mainBundle];
     v17 = [v16 localizedStringForKey:@"TVRI_APPLICATION_FETCH_ERROR_TV_NOT_FOUND" value:&stru_100010700 table:0];
-    v27 = v17;
-    v18 = [NSDictionary dictionaryWithObjects:&v27 forKeys:&v26 count:1];
+    v28 = v17;
+    v18 = [NSDictionary dictionaryWithObjects:&v28 forKeys:&v27 count:1];
     v19 = TVRCMakeError();
 
-    v20 = _TVRIntentExtensionLog();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    v21 = _TVRIntentExtensionLog(v20);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
       [IntentHandler provideApplicationOptionsCollectionForLaunchApplication:withCompletion:];
     }
@@ -866,52 +870,53 @@ void __88__IntentHandler_provideApplicationOptionsCollectionForLaunchApplication
 {
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 56));
+  v5 = WeakRetained;
   if (WeakRetained)
   {
     if (v3)
     {
-      v5 = _TVRIntentExtensionLog();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+      v6 = _TVRIntentExtensionLog(WeakRetained);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
-        v6 = *(a1 + 32);
+        v7 = *(a1 + 32);
         *buf = 138543618;
-        v28 = v6;
-        v29 = 2114;
-        v30 = v3;
-        _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Resolved device for intent=%{public}@, device=%{public}@", buf, 0x16u);
+        v30 = v7;
+        v31 = 2114;
+        v32 = v3;
+        _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Resolved device for intent=%{public}@, device=%{public}@", buf, 0x16u);
       }
 
-      v7 = [TVRCDeviceEventManager alloc];
-      v17 = _NSConcreteStackBlock;
-      v18 = 3221225472;
-      v19 = __88__IntentHandler_provideApplicationOptionsCollectionForLaunchApplication_withCompletion___block_invoke_44;
-      v20 = &unk_1000103C8;
-      v21 = *(a1 + 40);
-      v22 = *(a1 + 48);
-      v8 = [v7 initWithDevice:v3 responseHandler:&v17];
-      [WeakRetained setEventManager:{v8, v17, v18, v19, v20}];
+      v8 = [TVRCDeviceEventManager alloc];
+      v19 = _NSConcreteStackBlock;
+      v20 = 3221225472;
+      v21 = __88__IntentHandler_provideApplicationOptionsCollectionForLaunchApplication_withCompletion___block_invoke_44;
+      v22 = &unk_1000103C8;
+      v23 = *(a1 + 40);
+      v24 = *(a1 + 48);
+      v9 = [v8 initWithDevice:v3 responseHandler:&v19];
+      [v5 setEventManager:{v9, v19, v20, v21, v22}];
 
-      v9 = [WeakRetained eventManager];
-      v10 = TVRCFetchLaunchableApplicationsEvent;
-      v11 = *(a1 + 40);
-      v25 = NSLocalizedDescriptionKey;
-      v26 = v11;
-      v12 = [NSDictionary dictionaryWithObjects:&v26 forKeys:&v25 count:1];
-      [v9 sendEvent:v10 options:v12];
+      v10 = [v5 eventManager];
+      v11 = TVRCFetchLaunchableApplicationsEvent;
+      v12 = *(a1 + 40);
+      v27 = NSLocalizedDescriptionKey;
+      v28 = v12;
+      v13 = [NSDictionary dictionaryWithObjects:&v28 forKeys:&v27 count:1];
+      [v10 sendEvent:v11 options:v13];
 
-      v13 = v21;
+      v14 = v23;
     }
 
     else
     {
-      v14 = *(a1 + 40);
-      v23 = NSLocalizedDescriptionKey;
-      v24 = v14;
-      v15 = [NSDictionary dictionaryWithObjects:&v24 forKeys:&v23 count:1];
-      v13 = TVRCMakeError();
+      v15 = *(a1 + 40);
+      v25 = NSLocalizedDescriptionKey;
+      v26 = v15;
+      v16 = [NSDictionary dictionaryWithObjects:&v26 forKeys:&v25 count:1];
+      v14 = TVRCMakeError();
 
-      v16 = _TVRIntentExtensionLog();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+      v18 = _TVRIntentExtensionLog(v17);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
         [IntentHandler provideApplicationOptionsCollectionForLaunchApplication:withCompletion:];
       }
@@ -927,13 +932,13 @@ void __88__IntentHandler_provideApplicationOptionsCollectionForLaunchApplication
   if (a5)
   {
     v9 = *(a1 + 32);
-    v32 = NSLocalizedDescriptionKey;
-    v33 = v9;
-    v10 = [NSDictionary dictionaryWithObjects:&v33 forKeys:&v32 count:1];
+    v33 = NSLocalizedDescriptionKey;
+    v34 = v9;
+    v10 = [NSDictionary dictionaryWithObjects:&v34 forKeys:&v33 count:1];
     v11 = TVRCMakeError();
 
-    v12 = _TVRIntentExtensionLog();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v13 = _TVRIntentExtensionLog(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       __88__IntentHandler_provideApplicationOptionsCollectionForLaunchApplication_withCompletion___block_invoke_44_cold_1();
     }
@@ -947,59 +952,59 @@ LABEL_19:
   if ([a2 isEqualToString:TVRCFetchLaunchableApplicationsEvent])
   {
     v11 = objc_alloc_init(NSMutableArray);
-    v26 = 0u;
     v27 = 0u;
     v28 = 0u;
     v29 = 0u;
-    v13 = [v8 allKeys];
-    v14 = [v13 countByEnumeratingWithState:&v26 objects:v31 count:16];
-    if (v14)
+    v30 = 0u;
+    v14 = [v8 allKeys];
+    v15 = [v14 countByEnumeratingWithState:&v27 objects:v32 count:16];
+    if (v15)
     {
-      v15 = v14;
-      v16 = *v27;
+      v16 = v15;
+      v17 = *v28;
       do
       {
-        for (i = 0; i != v15; i = i + 1)
+        for (i = 0; i != v16; i = i + 1)
         {
-          if (*v27 != v16)
+          if (*v28 != v17)
           {
-            objc_enumerationMutation(v13);
+            objc_enumerationMutation(v14);
           }
 
-          v18 = *(*(&v26 + 1) + 8 * i);
-          v19 = [v8 objectForKey:v18];
-          v20 = [[TVRApplication alloc] initWithIdentifier:v18 displayString:v19 pronunciationHint:v19];
-          [v11 addObject:v20];
+          v19 = *(*(&v27 + 1) + 8 * i);
+          v20 = [v8 objectForKey:v19];
+          v21 = [[TVRApplication alloc] initWithIdentifier:v19 displayString:v20 pronunciationHint:v20];
+          [v11 addObject:v21];
         }
 
-        v15 = [v13 countByEnumeratingWithState:&v26 objects:v31 count:16];
+        v16 = [v14 countByEnumeratingWithState:&v27 objects:v32 count:16];
       }
 
-      while (v15);
+      while (v16);
     }
 
     if ([v11 count])
     {
-      v21 = [NSSortDescriptor sortDescriptorWithKey:@"displayString" ascending:1];
-      v30 = v21;
-      v22 = [NSArray arrayWithObjects:&v30 count:1];
-      [v11 sortUsingDescriptors:v22];
+      v22 = [NSSortDescriptor sortDescriptorWithKey:@"displayString" ascending:1];
+      v31 = v22;
+      v23 = [NSArray arrayWithObjects:&v31 count:1];
+      [v11 sortUsingDescriptors:v23];
 
-      v23 = *(a1 + 40);
-      v24 = [[INObjectCollection alloc] initWithItems:v11];
-      (*(v23 + 16))(v23, v24, 0);
+      v24 = *(a1 + 40);
+      v25 = [[INObjectCollection alloc] initWithItems:v11];
+      (*(v24 + 16))(v24, v25, 0);
     }
 
     else
     {
-      v24 = TVRCMakeError();
-      v25 = _TVRIntentExtensionLog();
-      if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+      v25 = TVRCMakeError();
+      v26 = _TVRIntentExtensionLog(v25);
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
       {
         [IntentHandler provideApplicationOptionsCollectionForLaunchApplication:withCompletion:];
       }
 
-      (*(*(a1 + 40) + 16))(*(a1 + 40), 0, v24);
+      (*(*(a1 + 40) + 16))(*(a1 + 40), 0, v25);
     }
 
     goto LABEL_19;
@@ -1012,7 +1017,7 @@ LABEL_20:
 {
   applicationCopy = application;
   completionCopy = completion;
-  v7 = _TVRIntentExtensionLog();
+  v7 = _TVRIntentExtensionLog(completionCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v9 = 136315394;
@@ -1046,7 +1051,7 @@ LABEL_20:
 {
   saverCopy = saver;
   completionCopy = completion;
-  v7 = _TVRIntentExtensionLog();
+  v7 = _TVRIntentExtensionLog(completionCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
@@ -1074,18 +1079,18 @@ void __52__IntentHandler_handleLaunchScreenSaver_completion___block_invoke(uint6
 {
   v5 = a2;
   v6 = a3;
-  v7 = _TVRIntentExtensionLog();
+  v7 = _TVRIntentExtensionLog(v6);
   v8 = v7;
   if (v5)
   {
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       v9 = *(a1 + 32);
-      v16 = 138543618;
-      v17 = v9;
-      v18 = 2114;
-      v19 = v5;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Resolved device for intent=%{public}@, device=%{public}@", &v16, 0x16u);
+      v17 = 138543618;
+      v18 = v9;
+      v19 = 2114;
+      v20 = v5;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Resolved device for intent=%{public}@, device=%{public}@", &v17, 0x16u);
     }
 
     v10 = [[TVRCButton alloc] _initWithButtonType:19];
@@ -1099,27 +1104,28 @@ void __52__IntentHandler_handleLaunchScreenSaver_completion___block_invoke(uint6
   {
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      __46__IntentHandler_handleWakeAppleTV_completion___block_invoke_cold_1(a1);
+      __46__IntentHandler_handleWakeAppleTV_completion___block_invoke_cold_1();
     }
 
-    v12 = [[LaunchScreenSaverIntentResponse alloc] initWithCode:5 userActivity:0];
+    v13 = [[LaunchScreenSaverIntentResponse alloc] initWithCode:5 userActivity:0];
+    v12 = v13;
   }
 
-  v13 = _TVRIntentExtensionLog();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  v14 = _TVRIntentExtensionLog(v13);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
-    v14 = *(a1 + 32);
-    v16 = 138543618;
-    v17 = v14;
-    v18 = 2114;
-    v19 = v12;
-    _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Calling completion for intent=%{public}@, response=%{public}@", &v16, 0x16u);
+    v15 = *(a1 + 32);
+    v17 = 138543618;
+    v18 = v15;
+    v19 = 2114;
+    v20 = v12;
+    _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Calling completion for intent=%{public}@, response=%{public}@", &v17, 0x16u);
   }
 
-  v15 = *(a1 + 40);
-  if (v15)
+  v16 = *(a1 + 40);
+  if (v16)
   {
-    (*(v15 + 16))(v15, v12);
+    (*(v16 + 16))(v16, v12);
   }
 }
 
@@ -1127,7 +1133,7 @@ void __52__IntentHandler_handleLaunchScreenSaver_completion___block_invoke(uint6
 {
   saverCopy = saver;
   completionCopy = completion;
-  v7 = _TVRIntentExtensionLog();
+  v7 = _TVRIntentExtensionLog(completionCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v9 = 136315394;
@@ -1153,7 +1159,7 @@ void __52__IntentHandler_handleLaunchScreenSaver_completion___block_invoke(uint6
 {
   captionsCopy = captions;
   completionCopy = completion;
-  v7 = _TVRIntentExtensionLog();
+  v7 = _TVRIntentExtensionLog(completionCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
@@ -1181,18 +1187,18 @@ void __49__IntentHandler_handleToggleCaptions_completion___block_invoke(uint64_t
 {
   v5 = a2;
   v6 = a3;
-  v7 = _TVRIntentExtensionLog();
+  v7 = _TVRIntentExtensionLog(v6);
   v8 = v7;
   if (v5)
   {
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       v9 = *(a1 + 32);
-      v17 = 138543618;
-      v18 = v9;
-      v19 = 2114;
-      v20 = v5;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Resolved device for intent=%{public}@, device=%{public}@", &v17, 0x16u);
+      v18 = 138543618;
+      v19 = v9;
+      v20 = 2114;
+      v21 = v5;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Resolved device for intent=%{public}@, device=%{public}@", &v18, 0x16u);
     }
 
     if ([*(a1 + 32) toggle] == 1)
@@ -1216,27 +1222,28 @@ void __49__IntentHandler_handleToggleCaptions_completion___block_invoke(uint64_t
   {
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      __46__IntentHandler_handleWakeAppleTV_completion___block_invoke_cold_1(a1);
+      __46__IntentHandler_handleWakeAppleTV_completion___block_invoke_cold_1();
     }
 
-    v13 = [[ToggleCaptionsIntentResponse alloc] initWithCode:5 userActivity:0];
+    v14 = [[ToggleCaptionsIntentResponse alloc] initWithCode:5 userActivity:0];
+    v13 = v14;
   }
 
-  v14 = _TVRIntentExtensionLog();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+  v15 = _TVRIntentExtensionLog(v14);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
-    v15 = *(a1 + 32);
-    v17 = 138543618;
-    v18 = v15;
-    v19 = 2114;
-    v20 = v13;
-    _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Calling completion for intent=%{public}@, response=%{public}@", &v17, 0x16u);
+    v16 = *(a1 + 32);
+    v18 = 138543618;
+    v19 = v16;
+    v20 = 2114;
+    v21 = v13;
+    _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Calling completion for intent=%{public}@, response=%{public}@", &v18, 0x16u);
   }
 
-  v16 = *(a1 + 40);
-  if (v16)
+  v17 = *(a1 + 40);
+  if (v17)
   {
-    (*(v16 + 16))(v16, v13);
+    (*(v17 + 16))(v17, v13);
   }
 }
 
@@ -1244,7 +1251,7 @@ void __49__IntentHandler_handleToggleCaptions_completion___block_invoke(uint64_t
 {
   captionsCopy = captions;
   completionCopy = completion;
-  v7 = _TVRIntentExtensionLog();
+  v7 = _TVRIntentExtensionLog(completionCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v9 = 136315394;
@@ -1277,7 +1284,7 @@ void __49__IntentHandler_handleToggleCaptions_completion___block_invoke(uint64_t
 {
   accountCopy = account;
   completionCopy = completion;
-  v8 = _TVRIntentExtensionLog();
+  v8 = _TVRIntentExtensionLog(completionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
@@ -1324,73 +1331,74 @@ void __52__IntentHandler_handleSwitchUserAccount_completion___block_invoke(uint6
   if (v5)
   {
     v7 = objc_loadWeakRetained(&location);
+    v8 = v7;
     if (v7)
     {
-      v8 = _TVRIntentExtensionLog();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      v9 = _TVRIntentExtensionLog(v7);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
-        v9 = *(a1 + 40);
+        v10 = *(a1 + 40);
         *buf = 138543362;
-        v28 = v9;
-        _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Sending switch account for accountID=%{public}@", buf, 0xCu);
+        v30 = v10;
+        _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Sending switch account for accountID=%{public}@", buf, 0xCu);
       }
 
-      v10 = [[TVRCDeviceEventManager alloc] initWithDevice:v5 responseHandler:&__block_literal_global];
-      [v7 setEventManager:v10];
+      v11 = [[TVRCDeviceEventManager alloc] initWithDevice:v5 responseHandler:&__block_literal_global];
+      [v8 setEventManager:v11];
 
-      v11 = [v7 eventManager];
-      v12 = *(a1 + 40);
-      v31 = TVRCSwitchAccountID;
-      v32 = v12;
-      v13 = [NSDictionary dictionaryWithObjects:&v32 forKeys:&v31 count:1];
-      [v11 sendEvent:TVRCSwitchUserAccountEvent options:v13];
+      v12 = [v8 eventManager];
+      v13 = *(a1 + 40);
+      v33 = TVRCSwitchAccountID;
+      v34 = v13;
+      v14 = [NSDictionary dictionaryWithObjects:&v34 forKeys:&v33 count:1];
+      [v12 sendEvent:TVRCSwitchUserAccountEvent options:v14];
 
-      v14 = [SwitchUserAccountIntentResponse alloc];
-      v15 = 4;
+      v15 = [SwitchUserAccountIntentResponse alloc];
+      v16 = 4;
     }
 
     else
     {
-      v18 = _TVRIntentExtensionLog();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+      v19 = _TVRIntentExtensionLog(0);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
       {
-        __52__IntentHandler_handleSwitchUserAccount_completion___block_invoke_cold_1(v18);
+        __52__IntentHandler_handleSwitchUserAccount_completion___block_invoke_cold_1(v19);
       }
 
-      v14 = [SwitchUserAccountIntentResponse alloc];
-      v15 = 5;
+      v15 = [SwitchUserAccountIntentResponse alloc];
+      v16 = 5;
     }
 
-    v19 = [v14 initWithCode:v15 userActivity:0];
-    v20 = *(*(a1 + 64) + 8);
-    v21 = *(v20 + 40);
-    *(v20 + 40) = v19;
+    v20 = [v15 initWithCode:v16 userActivity:0];
+    v21 = *(*(a1 + 64) + 8);
+    v22 = *(v21 + 40);
+    *(v21 + 40) = v20;
   }
 
   else
   {
-    v16 = [[SwitchUserAccountIntentResponse alloc] initWithCode:5 userActivity:0];
-    v17 = *(*(a1 + 64) + 8);
-    v7 = *(v17 + 40);
-    *(v17 + 40) = v16;
+    v17 = [[SwitchUserAccountIntentResponse alloc] initWithCode:5 userActivity:0];
+    v18 = *(*(a1 + 64) + 8);
+    v8 = *(v18 + 40);
+    *(v18 + 40) = v17;
   }
 
-  v22 = _TVRIntentExtensionLog();
-  if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+  v24 = _TVRIntentExtensionLog(v23);
+  if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
   {
-    v23 = *(a1 + 48);
-    v24 = *(*(*(a1 + 64) + 8) + 40);
+    v25 = *(a1 + 48);
+    v26 = *(*(*(a1 + 64) + 8) + 40);
     *buf = 138543618;
-    v28 = v23;
-    v29 = 2114;
-    v30 = v24;
-    _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "Calling completion for intent=%{public}@, response=%{public}@", buf, 0x16u);
+    v30 = v25;
+    v31 = 2114;
+    v32 = v26;
+    _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "Calling completion for intent=%{public}@, response=%{public}@", buf, 0x16u);
   }
 
-  v25 = *(a1 + 56);
-  if (v25)
+  v27 = *(a1 + 56);
+  if (v27)
   {
-    (*(v25 + 16))(v25, *(*(*(a1 + 64) + 8) + 40));
+    (*(v27 + 16))(v27, *(*(*(a1 + 64) + 8) + 40));
   }
 
   objc_destroyWeak(&location);
@@ -1400,7 +1408,7 @@ void __52__IntentHandler_handleSwitchUserAccount_completion___block_invoke(uint6
 {
   accountCopy = account;
   completionCopy = completion;
-  v7 = _TVRIntentExtensionLog();
+  v7 = _TVRIntentExtensionLog(completionCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v9 = 136315394;
@@ -1418,13 +1426,13 @@ void __52__IntentHandler_handleSwitchUserAccount_completion___block_invoke(uint6
 {
   accountCopy = account;
   completionCopy = completion;
-  v8 = _TVRIntentExtensionLog();
+  v8 = _TVRIntentExtensionLog(completionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v24 = "[IntentHandler provideAccountOptionsCollectionForSwitchUserAccount:withCompletion:]";
-    v25 = 2114;
-    v26 = accountCopy;
+    v25 = "[IntentHandler provideAccountOptionsCollectionForSwitchUserAccount:withCompletion:]";
+    v26 = 2114;
+    v27 = accountCopy;
     _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "%s, intent=%{public}@", buf, 0x16u);
   }
 
@@ -1434,30 +1442,30 @@ void __52__IntentHandler_handleSwitchUserAccount_completion___block_invoke(uint6
     objc_initWeak(buf, self);
     v10 = +[TVRIntentExtensionDeviceManager sharedInstance];
     identifier = [device identifier];
-    v17[0] = _NSConcreteStackBlock;
-    v17[1] = 3221225472;
-    v17[2] = __84__IntentHandler_provideAccountOptionsCollectionForSwitchUserAccount_withCompletion___block_invoke;
-    v17[3] = &unk_1000104A8;
-    objc_copyWeak(&v20, buf);
-    v18 = accountCopy;
-    v19 = completionCopy;
-    [v10 resolveDeviceWithIdentifier:identifier handler:v17];
+    v18[0] = _NSConcreteStackBlock;
+    v18[1] = 3221225472;
+    v18[2] = __84__IntentHandler_provideAccountOptionsCollectionForSwitchUserAccount_withCompletion___block_invoke;
+    v18[3] = &unk_1000104A8;
+    objc_copyWeak(&v21, buf);
+    v19 = accountCopy;
+    v20 = completionCopy;
+    [v10 resolveDeviceWithIdentifier:identifier handler:v18];
 
-    objc_destroyWeak(&v20);
+    objc_destroyWeak(&v21);
     objc_destroyWeak(buf);
   }
 
   else
   {
-    v21 = NSLocalizedDescriptionKey;
+    v22 = NSLocalizedDescriptionKey;
     v12 = +[NSBundle mainBundle];
     v13 = [v12 localizedStringForKey:@"TVRI_INVALID_APPLE_TV" value:&stru_100010700 table:0];
-    v22 = v13;
-    v14 = [NSDictionary dictionaryWithObjects:&v22 forKeys:&v21 count:1];
+    v23 = v13;
+    v14 = [NSDictionary dictionaryWithObjects:&v23 forKeys:&v22 count:1];
     v15 = TVRCMakeError();
 
-    v16 = _TVRIntentExtensionLog();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v17 = _TVRIntentExtensionLog(v16);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       [IntentHandler provideAccountOptionsCollectionForSwitchUserAccount:withCompletion:];
     }
@@ -1471,75 +1479,75 @@ void __84__IntentHandler_provideAccountOptionsCollectionForSwitchUserAccount_wit
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
+  v8 = WeakRetained;
   if (WeakRetained)
   {
-    v8 = _TVRIntentExtensionLog();
-    v9 = v8;
+    v9 = _TVRIntentExtensionLog(WeakRetained);
+    v10 = v9;
     if (v5)
     {
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
-        v10 = *(a1 + 32);
+        v11 = *(a1 + 32);
         *buf = 138543618;
-        v21 = v10;
-        v22 = 2114;
-        v23 = v5;
-        _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Resolved device for intent=%{public}@, device=%{public}@", buf, 0x16u);
+        v22 = v11;
+        v23 = 2114;
+        v24 = v5;
+        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Resolved device for intent=%{public}@, device=%{public}@", buf, 0x16u);
       }
 
-      v11 = [TVRCDeviceEventManager alloc];
-      v16[0] = _NSConcreteStackBlock;
-      v16[1] = 3221225472;
-      v16[2] = __84__IntentHandler_provideAccountOptionsCollectionForSwitchUserAccount_withCompletion___block_invoke_60;
-      v16[3] = &unk_100010480;
-      v17 = v5;
-      v19 = *(a1 + 40);
-      v18 = v6;
-      v12 = [v11 initWithDevice:v17 responseHandler:v16];
-      [WeakRetained setEventManager:v12];
+      v12 = [TVRCDeviceEventManager alloc];
+      v17[0] = _NSConcreteStackBlock;
+      v17[1] = 3221225472;
+      v17[2] = __84__IntentHandler_provideAccountOptionsCollectionForSwitchUserAccount_withCompletion___block_invoke_60;
+      v17[3] = &unk_100010480;
+      v18 = v5;
+      v20 = *(a1 + 40);
+      v19 = v6;
+      v13 = [v12 initWithDevice:v18 responseHandler:v17];
+      [v8 setEventManager:v13];
 
-      v13 = [WeakRetained eventManager];
-      [v13 sendEvent:TVRCFetchUserAccountsEvent options:0];
+      v14 = [v8 eventManager];
+      [v14 sendEvent:TVRCFetchUserAccountsEvent options:0];
 
-      v14 = v17;
+      v15 = v18;
     }
 
     else
     {
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
-        __46__IntentHandler_handleWakeAppleTV_completion___block_invoke_cold_1(a1);
+        __46__IntentHandler_handleWakeAppleTV_completion___block_invoke_cold_1();
       }
 
-      v15 = *(a1 + 40);
-      v14 = TVRCMakeError();
-      (*(v15 + 16))(v15, 0, v14);
+      v16 = *(a1 + 40);
+      v15 = TVRCMakeError();
+      (*(v16 + 16))(v16, 0, v15);
     }
   }
 }
 
-void __84__IntentHandler_provideAccountOptionsCollectionForSwitchUserAccount_withCompletion___block_invoke_60(void *a1, void *a2, void *a3, uint64_t a4, void *a5)
+void __84__IntentHandler_provideAccountOptionsCollectionForSwitchUserAccount_withCompletion___block_invoke_60(uint64_t a1, void *a2, void *a3, uint64_t a4, void *a5)
 {
   v8 = a3;
   v9 = a5;
   if (v9)
   {
     v10 = TVRCMakeError();
-    v11 = _TVRIntentExtensionLog();
+    v11 = _TVRIntentExtensionLog(v10);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      v26 = a1[4];
+      v25 = *(a1 + 32);
       *buf = 138543874;
-      v35 = v26;
-      v36 = 2114;
-      v37 = v9;
-      v38 = 2114;
-      v39 = v10;
+      v34 = v25;
+      v35 = 2114;
+      v36 = v9;
+      v37 = 2114;
+      v38 = v10;
       _os_log_error_impl(&_mh_execute_header, v11, OS_LOG_TYPE_ERROR, "Failed to create event manager with device=%{public}@, eventManagerError=%{public}@, error=%{public}@", buf, 0x20u);
     }
 
-    v12 = a1[5];
-    (*(a1[6] + 16))();
+    (*(*(a1 + 48) + 16))();
 LABEL_19:
 
     goto LABEL_20;
@@ -1547,61 +1555,61 @@ LABEL_19:
 
   if ([a2 isEqualToString:TVRCFetchUserAccountsEvent])
   {
-    v27 = a1;
+    v26 = a1;
     v10 = objc_alloc_init(NSMutableArray);
+    v27 = 0u;
     v28 = 0u;
     v29 = 0u;
     v30 = 0u;
-    v31 = 0u;
-    v13 = [v8 allKeys];
-    v14 = [v13 countByEnumeratingWithState:&v28 objects:v33 count:16];
-    if (v14)
+    v12 = [v8 allKeys];
+    v13 = [v12 countByEnumeratingWithState:&v27 objects:v32 count:16];
+    if (v13)
     {
-      v15 = v14;
-      v16 = *v29;
+      v14 = v13;
+      v15 = *v28;
       do
       {
-        for (i = 0; i != v15; i = i + 1)
+        for (i = 0; i != v14; i = i + 1)
         {
-          if (*v29 != v16)
+          if (*v28 != v15)
           {
-            objc_enumerationMutation(v13);
+            objc_enumerationMutation(v12);
           }
 
-          v18 = *(*(&v28 + 1) + 8 * i);
-          v19 = [v8 objectForKey:v18];
-          v20 = [[TVRUserAccount alloc] initWithIdentifier:v18 displayString:v19 pronunciationHint:v19];
-          [v10 addObject:v20];
+          v17 = *(*(&v27 + 1) + 8 * i);
+          v18 = [v8 objectForKey:v17];
+          v19 = [[TVRUserAccount alloc] initWithIdentifier:v17 displayString:v18 pronunciationHint:v18];
+          [v10 addObject:v19];
         }
 
-        v15 = [v13 countByEnumeratingWithState:&v28 objects:v33 count:16];
+        v14 = [v12 countByEnumeratingWithState:&v27 objects:v32 count:16];
       }
 
-      while (v15);
+      while (v14);
     }
 
     if ([v10 count])
     {
-      v21 = [NSSortDescriptor sortDescriptorWithKey:@"displayString" ascending:1];
-      v32 = v21;
-      v22 = [NSArray arrayWithObjects:&v32 count:1];
-      [v10 sortUsingDescriptors:v22];
+      v20 = [NSSortDescriptor sortDescriptorWithKey:@"displayString" ascending:1];
+      v31 = v20;
+      v21 = [NSArray arrayWithObjects:&v31 count:1];
+      [v10 sortUsingDescriptors:v21];
 
-      v23 = v27[6];
-      v24 = [[INObjectCollection alloc] initWithItems:v10];
-      (*(v23 + 16))(v23, v24, 0);
+      v22 = *(v26 + 48);
+      v23 = [[INObjectCollection alloc] initWithItems:v10];
+      (*(v22 + 16))(v22, v23, 0);
     }
 
     else
     {
-      v24 = TVRCMakeError();
-      v25 = _TVRIntentExtensionLog();
-      if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+      v23 = TVRCMakeError();
+      v24 = _TVRIntentExtensionLog(v23);
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
       {
         __84__IntentHandler_provideAccountOptionsCollectionForSwitchUserAccount_withCompletion___block_invoke_60_cold_1();
       }
 
-      (*(v27[6] + 16))(v27[6], 0, v24);
+      (*(*(v26 + 48) + 16))(*(v26 + 48), 0, v23);
     }
 
     goto LABEL_19;
@@ -1630,7 +1638,7 @@ LABEL_20:
 {
   contentCopy = content;
   completionCopy = completion;
-  v7 = _TVRIntentExtensionLog();
+  v7 = _TVRIntentExtensionLog(completionCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
@@ -1659,7 +1667,7 @@ void __46__IntentHandler_handleSkipContent_completion___block_invoke(uint64_t a1
   v5 = a2;
   v6 = a3;
   v7 = [[SkipContentIntentResponse alloc] initWithCode:4 userActivity:0];
-  v8 = _TVRIntentExtensionLog();
+  v8 = _TVRIntentExtensionLog(v7);
   v9 = v8;
   if (v5)
   {
@@ -1667,9 +1675,9 @@ void __46__IntentHandler_handleSkipContent_completion___block_invoke(uint64_t a1
     {
       v10 = *(a1 + 32);
       *buf = 138543618;
-      v28 = v10;
-      v29 = 2114;
-      v30 = v5;
+      v29 = v10;
+      v30 = 2114;
+      v31 = v5;
       _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Resolved device for intent=%{public}@, device=%{public}@", buf, 0x16u);
     }
 
@@ -1681,9 +1689,9 @@ void __46__IntentHandler_handleSkipContent_completion___block_invoke(uint64_t a1
       v13 = [TVRCButton alloc];
       if (v11 == 1)
       {
-        v25 = TVRCButtonSkipIntervalKey;
-        v26 = v9;
-        v14 = [NSDictionary dictionaryWithObjects:&v26 forKeys:&v25 count:1];
+        v26 = TVRCButtonSkipIntervalKey;
+        v27 = v9;
+        v14 = [NSDictionary dictionaryWithObjects:&v27 forKeys:&v26 count:1];
         v15 = [v13 _initWithButtonType:6 hasTapAction:1 properties:v14];
       }
 
@@ -1691,8 +1699,8 @@ void __46__IntentHandler_handleSkipContent_completion___block_invoke(uint64_t a1
       {
         [v9 doubleValue];
         v14 = [NSNumber numberWithDouble:-v16];
-        v24 = v14;
-        v17 = [NSDictionary dictionaryWithObjects:&v24 forKeys:&v23 count:1];
+        v25 = v14;
+        v17 = [NSDictionary dictionaryWithObjects:&v25 forKeys:&v24 count:1];
         v15 = [v13 _initWithButtonType:7 hasTapAction:1 properties:v17];
       }
 
@@ -1705,7 +1713,7 @@ void __46__IntentHandler_handleSkipContent_completion___block_invoke(uint64_t a1
 
     else
     {
-      v15 = _TVRIntentExtensionLog();
+      v15 = _TVRIntentExtensionLog(v12);
       if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
@@ -1716,24 +1724,24 @@ void __46__IntentHandler_handleSkipContent_completion___block_invoke(uint64_t a1
 
   else if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
   {
-    __46__IntentHandler_handleWakeAppleTV_completion___block_invoke_cold_1(a1);
+    __46__IntentHandler_handleWakeAppleTV_completion___block_invoke_cold_1();
   }
 
-  v20 = _TVRIntentExtensionLog();
-  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+  v21 = _TVRIntentExtensionLog(v20);
+  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
   {
-    v21 = *(a1 + 32);
+    v22 = *(a1 + 32);
     *buf = 138543618;
-    v28 = v21;
-    v29 = 2114;
-    v30 = v7;
-    _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "Calling completion for intent=%{public}@, response=%{public}@", buf, 0x16u);
+    v29 = v22;
+    v30 = 2114;
+    v31 = v7;
+    _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "Calling completion for intent=%{public}@, response=%{public}@", buf, 0x16u);
   }
 
-  v22 = *(a1 + 40);
-  if (v22)
+  v23 = *(a1 + 40);
+  if (v23)
   {
-    (*(v22 + 16))(v22, v7);
+    (*(v23 + 16))(v23, v7);
   }
 }
 
@@ -1741,7 +1749,7 @@ void __46__IntentHandler_handleSkipContent_completion___block_invoke(uint64_t a1
 {
   contentCopy = content;
   completionCopy = completion;
-  v7 = _TVRIntentExtensionLog();
+  v7 = _TVRIntentExtensionLog(completionCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v9 = 136315394;
@@ -1782,7 +1790,7 @@ void __46__IntentHandler_handleSkipContent_completion___block_invoke(uint64_t a1
 {
   soundsCopy = sounds;
   completionCopy = completion;
-  v8 = _TVRIntentExtensionLog();
+  v8 = _TVRIntentExtensionLog(completionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
@@ -1816,68 +1824,69 @@ void __51__IntentHandler_handleReduceLoudSounds_completion___block_invoke(uint64
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   v5 = [[ReduceLoudSoundsIntentResponse alloc] initWithCode:4 userActivity:0];
+  v6 = v5;
   if (v3)
   {
-    v6 = _TVRIntentExtensionLog();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = _TVRIntentExtensionLog(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = *(a1 + 32);
+      v8 = *(a1 + 32);
       *buf = 138543618;
-      v24 = v7;
-      v25 = 2114;
-      v26 = v3;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Resolved device for intent=%{public}@, device=%{public}@", buf, 0x16u);
+      v25 = v8;
+      v26 = 2114;
+      v27 = v3;
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Resolved device for intent=%{public}@, device=%{public}@", buf, 0x16u);
     }
 
     if (WeakRetained)
     {
-      v8 = [[TVRCDeviceEventManager alloc] initWithDevice:v3 responseHandler:&__block_literal_global_70];
-      [WeakRetained setEventManager:v8];
+      v9 = [[TVRCDeviceEventManager alloc] initWithDevice:v3 responseHandler:&__block_literal_global_70];
+      [WeakRetained setEventManager:v9];
 
-      v9 = [*(a1 + 32) toggle];
-      v10 = [v9 BOOLValue];
-      v11 = @"NO";
-      if (v10)
+      v10 = [*(a1 + 32) toggle];
+      v11 = [v10 BOOLValue];
+      v12 = @"NO";
+      if (v11)
       {
-        v11 = @"YES";
+        v12 = @"YES";
       }
 
-      v12 = v11;
-      v13 = _TVRIntentExtensionLog();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+      v13 = v12;
+      v14 = _TVRIntentExtensionLog(v13);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543362;
-        v24 = v12;
-        _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Sending TVRCToggleReduceLoudSounds with value=%{public}@", buf, 0xCu);
+        v25 = v13;
+        _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Sending TVRCToggleReduceLoudSounds with value=%{public}@", buf, 0xCu);
       }
 
-      v14 = [WeakRetained eventManager];
-      v15 = TVRCToggleReduceLoudSounds;
-      v21 = TVRCReduceLoundSoundsEnabled;
-      v22 = v12;
-      v16 = [NSDictionary dictionaryWithObjects:&v22 forKeys:&v21 count:1];
-      [v14 sendEvent:v15 options:v16];
+      v15 = [WeakRetained eventManager];
+      v16 = TVRCToggleReduceLoudSounds;
+      v22 = TVRCReduceLoundSoundsEnabled;
+      v23 = v13;
+      v17 = [NSDictionary dictionaryWithObjects:&v23 forKeys:&v22 count:1];
+      [v15 sendEvent:v16 options:v17];
 
-      v17 = [[ReduceLoudSoundsIntentResponse alloc] initWithCode:4 userActivity:0];
-      v5 = v17;
+      v18 = [[ReduceLoudSoundsIntentResponse alloc] initWithCode:4 userActivity:0];
+      v6 = v18;
     }
   }
 
-  v18 = _TVRIntentExtensionLog();
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+  v19 = _TVRIntentExtensionLog(v5);
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
   {
-    v19 = *(a1 + 32);
+    v20 = *(a1 + 32);
     *buf = 138543618;
-    v24 = v19;
-    v25 = 2114;
-    v26 = v5;
-    _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "Calling completion for intent=%{public}@, response=%{public}@", buf, 0x16u);
+    v25 = v20;
+    v26 = 2114;
+    v27 = v6;
+    _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "Calling completion for intent=%{public}@, response=%{public}@", buf, 0x16u);
   }
 
-  v20 = *(a1 + 40);
-  if (v20)
+  v21 = *(a1 + 40);
+  if (v21)
   {
-    (*(v20 + 16))(v20, v5);
+    (*(v21 + 16))(v21, v6);
   }
 }
 
@@ -1885,7 +1894,7 @@ void __51__IntentHandler_handleReduceLoudSounds_completion___block_invoke(uint64
 {
   soundsCopy = sounds;
   completionCopy = completion;
-  v7 = _TVRIntentExtensionLog();
+  v7 = _TVRIntentExtensionLog(completionCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v9 = 136315394;
@@ -1919,7 +1928,7 @@ void __51__IntentHandler_handleReduceLoudSounds_completion___block_invoke(uint64
 {
   appearanceCopy = appearance;
   completionCopy = completion;
-  v8 = _TVRIntentExtensionLog();
+  v8 = _TVRIntentExtensionLog(completionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
@@ -1952,28 +1961,28 @@ void __57__IntentHandler_handleToggleSystemAppearance_completion___block_invoke(
 {
   v5 = a2;
   v6 = a3;
-  v7 = _TVRIntentExtensionLog();
+  v7 = _TVRIntentExtensionLog(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = *(a1 + 32);
     *buf = 138412802;
-    v28 = v8;
-    v29 = 2112;
-    v30 = v5;
-    v31 = 2112;
-    v32 = v6;
+    v29 = v8;
+    v30 = 2112;
+    v31 = v5;
+    v32 = 2112;
+    v33 = v6;
     _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "TVRIntentExtension: Resolved device for intent %@. Device - %@. Error - %@", buf, 0x20u);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   v10 = [[ToggleSystemAppearanceIntentResponse alloc] initWithCode:4 userActivity:0];
-  v11 = _TVRIntentExtensionLog();
+  v11 = _TVRIntentExtensionLog(v10);
   v12 = v11;
   if (!v5)
   {
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      __46__IntentHandler_handleWakeAppleTV_completion___block_invoke_cold_1(a1);
+      __46__IntentHandler_handleWakeAppleTV_completion___block_invoke_cold_1();
     }
 
     goto LABEL_12;
@@ -1983,53 +1992,53 @@ void __57__IntentHandler_handleToggleSystemAppearance_completion___block_invoke(
   {
     v13 = *(a1 + 32);
     *buf = 138543618;
-    v28 = v13;
-    v29 = 2114;
-    v30 = v5;
+    v29 = v13;
+    v30 = 2114;
+    v31 = v5;
     _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Resolved device for intent=%{public}@, device=%{public}@", buf, 0x16u);
   }
 
   if (WeakRetained)
   {
-    v14 = [[TVRCDeviceEventManager alloc] initWithDevice:v5 responseHandler:&__block_literal_global_80];
-    [WeakRetained setEventManager:v14];
+    v15 = [[TVRCDeviceEventManager alloc] initWithDevice:v5 responseHandler:&__block_literal_global_80];
+    [WeakRetained setEventManager:v15];
 
-    v15 = [*(a1 + 32) appearanceToggle];
-    v16 = @"NO";
-    if (v15 == 1)
+    v16 = [*(a1 + 32) appearanceToggle];
+    v17 = @"NO";
+    if (v16 == 1)
     {
-      v16 = @"YES";
+      v17 = @"YES";
     }
 
-    v17 = v16;
-    v18 = [WeakRetained eventManager];
-    v19 = TVRCToggleSystemAppearance;
-    v25 = TVRCSystemAppearanceLight;
-    v26 = v17;
-    v20 = [NSDictionary dictionaryWithObjects:&v26 forKeys:&v25 count:1];
-    [v18 sendEvent:v19 options:v20];
+    v18 = v17;
+    v19 = [WeakRetained eventManager];
+    v20 = TVRCToggleSystemAppearance;
+    v26 = TVRCSystemAppearanceLight;
+    v27 = v18;
+    v21 = [NSDictionary dictionaryWithObjects:&v27 forKeys:&v26 count:1];
+    [v19 sendEvent:v20 options:v21];
 
-    v21 = [ToggleSystemAppearanceIntentResponse alloc];
+    v22 = [ToggleSystemAppearanceIntentResponse alloc];
     v12 = v10;
-    v10 = [v21 initWithCode:4 userActivity:0];
+    v10 = [v22 initWithCode:4 userActivity:0];
 LABEL_12:
   }
 
-  v22 = _TVRIntentExtensionLog();
-  if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+  v23 = _TVRIntentExtensionLog(v14);
+  if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
   {
-    v23 = *(a1 + 32);
+    v24 = *(a1 + 32);
     *buf = 138543618;
-    v28 = v23;
-    v29 = 2114;
-    v30 = v10;
-    _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "Calling completion for intent=%{public}@, response=%{public}@", buf, 0x16u);
+    v29 = v24;
+    v30 = 2114;
+    v31 = v10;
+    _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "Calling completion for intent=%{public}@, response=%{public}@", buf, 0x16u);
   }
 
-  v24 = *(a1 + 40);
-  if (v24)
+  v25 = *(a1 + 40);
+  if (v25)
   {
-    (*(v24 + 16))(v24, v10);
+    (*(v25 + 16))(v25, v10);
   }
 }
 
@@ -2037,7 +2046,7 @@ LABEL_12:
 {
   appearanceCopy = appearance;
   completionCopy = completion;
-  v7 = _TVRIntentExtensionLog();
+  v7 = _TVRIntentExtensionLog(completionCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v9 = 136315394;
@@ -2252,11 +2261,11 @@ LABEL_12:
   return v3;
 }
 
-void __46__IntentHandler_handleWakeAppleTV_completion___block_invoke_cold_1(uint64_t a1)
+void __46__IntentHandler_handleWakeAppleTV_completion___block_invoke_cold_1()
 {
-  OUTLINED_FUNCTION_3(a1, __stack_chk_guard);
+  OUTLINED_FUNCTION_3(__stack_chk_guard);
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&_mh_execute_header, v1, v2, "Error resolving device for intent=%{public}@, error=%{public}@");
+  OUTLINED_FUNCTION_1(&_mh_execute_header, v0, v1, "Error resolving device for intent=%{public}@, error=%{public}@");
 }
 
 - (void)confirmLaunchTVApp:(uint64_t)a1 completion:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
@@ -2266,13 +2275,6 @@ void __46__IntentHandler_handleWakeAppleTV_completion___block_invoke_cold_1(uint
   v4 = 2114;
   v5 = a1;
   _os_log_error_impl(&_mh_execute_header, a2, OS_LOG_TYPE_ERROR, "%s called with invalid device=%{public}@", &v2, 0x16u);
-}
-
-void __52__IntentHandler_handleLaunchApplication_completion___block_invoke_cold_1(uint64_t *a1)
-{
-  v1 = *a1;
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&_mh_execute_header, v2, v3, "Error resolving device for intent=%{public}@, error=%{public}@");
 }
 
 @end

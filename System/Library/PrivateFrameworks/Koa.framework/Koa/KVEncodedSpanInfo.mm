@@ -383,12 +383,12 @@ LABEL_10:
 - (KVEncodedSpanInfo)initWithBuffer:(id)buffer verify:(BOOL)verify value:(id)value error:(id *)error
 {
   verifyCopy = verify;
-  v90[1] = *MEMORY[0x277D85DE8];
+  v89[1] = *MEMORY[0x277D85DE8];
   bufferCopy = buffer;
   valueCopy = value;
-  v86.receiver = self;
-  v86.super_class = KVEncodedSpanInfo;
-  v13 = [(KVSpanInfo *)&v86 initWithSpanInfo:0];
+  v85.receiver = self;
+  v85.super_class = KVEncodedSpanInfo;
+  v13 = [(KVSpanInfo *)&v85 initWithSpanInfo:0];
   v14 = v13;
   if (v13)
   {
@@ -405,11 +405,11 @@ LABEL_10:
 
       v31 = objc_msgSend_bytes(v14->_buffer, v26, v27, v28, v29, v30);
       v37 = objc_msgSend_length(v14->_buffer, v32, v33, v34, v35, v36);
-      v81 = v31;
-      v82 = v37;
-      v83 = xmmword_2559D02B0;
-      v84 = 0;
-      v85 = 1;
+      v80 = v31;
+      v81 = v37;
+      v82 = xmmword_2559D02B0;
+      v83 = 0;
+      v84 = 1;
       if (v37 >= 0x7FFFFFFF)
       {
         __assert_rtn("Verifier", "flatbuffers.h", 2285, "size_ < FLATBUFFERS_MAX_BUFFER_SIZE");
@@ -421,7 +421,7 @@ LABEL_10:
         if (v43 >= 1 && v37 - 1 >= v43)
         {
           v44 = &v31[v43];
-          if (sub_2559A7668(&v81, v44))
+          if (sub_2559A7668(&v80, v44))
           {
             v45 = (v44 - *v44);
             v46 = *v45;
@@ -430,70 +430,70 @@ LABEL_10:
               goto LABEL_53;
             }
 
-            if (!v45[2] || v82 >= 3 && v82 - 2 >= v44 + v45[2] - v81)
+            if (!v45[2] || v81 >= 3 && v81 - 2 >= v44 + v45[2] - v80)
             {
               if (v46 < 7)
               {
                 goto LABEL_53;
               }
 
-              if (!v45[3] || v82 >= 3 && v82 - 2 >= v44 + v45[3] - v81)
+              if (!v45[3] || v81 >= 3 && v81 - 2 >= v44 + v45[3] - v80)
               {
                 if (v46 < 9)
                 {
                   goto LABEL_53;
                 }
 
-                if (!v45[4] || v82 >= 5 && v82 - 4 >= v44 + v45[4] - v81)
+                if (!v45[4] || v81 >= 5 && v81 - 4 >= v44 + v45[4] - v80)
                 {
                   if (v46 < 0xB)
                   {
                     goto LABEL_53;
                   }
 
-                  if (!v45[5] || v82 >= 3 && v82 - 2 >= v44 + v45[5] - v81)
+                  if (!v45[5] || v81 >= 3 && v81 - 2 >= v44 + v45[5] - v80)
                   {
                     if (v46 < 0xD)
                     {
                       goto LABEL_53;
                     }
 
-                    if (!v45[6] || v82 >= 3 && v82 - 2 >= v44 + v45[6] - v81)
+                    if (!v45[6] || v81 >= 3 && v81 - 2 >= v44 + v45[6] - v80)
                     {
                       if (v46 < 0xF)
                       {
                         goto LABEL_53;
                       }
 
-                      if (!v45[7] || v82 >= 3 && v82 - 2 >= v44 + v45[7] - v81)
+                      if (!v45[7] || v81 >= 3 && v81 - 2 >= v44 + v45[7] - v80)
                       {
                         if (v46 < 0x11)
                         {
                           goto LABEL_53;
                         }
 
-                        if (!v45[8] || v82 >= 3 && v82 - 2 >= v44 + v45[8] - v81)
+                        if (!v45[8] || v81 >= 3 && v81 - 2 >= v44 + v45[8] - v80)
                         {
                           if (v46 < 0x13)
                           {
                             goto LABEL_53;
                           }
 
-                          if (!v45[9] || v82 >= 3 && v82 - 2 >= v44 + v45[9] - v81)
+                          if (!v45[9] || v81 >= 3 && v81 - 2 >= v44 + v45[9] - v80)
                           {
                             if (v46 < 0x15)
                             {
                               goto LABEL_53;
                             }
 
-                            if (!v45[10] || v82 >= 3 && v82 - 2 >= v44 + v45[10] - v81)
+                            if (!v45[10] || v81 >= 3 && v81 - 2 >= v44 + v45[10] - v80)
                             {
                               if (v46 < 0x17)
                               {
                                 goto LABEL_53;
                               }
 
-                              if (!v45[11] || v82 >= 3 && v82 - 2 >= v44 + v45[11] - v81)
+                              if (!v45[11] || v81 >= 3 && v81 - 2 >= v44 + v45[11] - v80)
                               {
                                 if (v46 < 0x19)
                                 {
@@ -501,7 +501,7 @@ LABEL_10:
                                 }
 
                                 v47 = v45[12];
-                                if (!v47 || v82 >= 3 && v82 - 2 >= v44 + v47 - v81)
+                                if (!v47 || v81 >= 3 && v81 - 2 >= v44 + v47 - v80)
                                 {
                                   goto LABEL_53;
                                 }
@@ -520,13 +520,13 @@ LABEL_10:
       }
 
       v64 = MEMORY[0x277CCA9B8];
-      v87 = *MEMORY[0x277CCA450];
+      v86 = *MEMORY[0x277CCA450];
       v65 = MEMORY[0x277CCACA8];
       buffer = v14->_buffer;
       v67 = objc_msgSend_encodedString(v14, v38, v39, v40, v41, v42);
       v72 = objc_msgSend_stringWithFormat_(v65, v68, @"Failed to verify spanInfo buffer: %@ (encoded string: %@)", v69, v70, v71, buffer, v67);
-      v88 = v72;
-      v75 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v73, &v88, &v87, 1, v74);
+      v87 = v72;
+      v75 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v73, &v87, &v86, 1, v74);
       v78 = objc_msgSend_errorWithDomain_code_userInfo_(v64, v76, @"com.apple.koa.KVSpanInfo", -1, v75, v77);
       if (error && v78)
       {
@@ -538,13 +538,13 @@ LABEL_10:
     else
     {
       v49 = MEMORY[0x277CCA9B8];
-      v89 = *MEMORY[0x277CCA450];
+      v88 = *MEMORY[0x277CCA450];
       v50 = MEMORY[0x277CCACA8];
       v51 = v14->_buffer;
       v52 = objc_msgSend_encodedString(v14, v20, v21, v22, v23, v24);
       v57 = objc_msgSend_stringWithFormat_(v50, v53, @"Invalid spanInfo buffer: %@ (encoded string: %@)", v54, v55, v56, v51, v52);
-      v90[0] = v57;
-      v60 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v58, v90, &v89, 1, v59);
+      v89[0] = v57;
+      v60 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v58, v89, &v88, 1, v59);
       v63 = objc_msgSend_errorWithDomain_code_userInfo_(v49, v61, @"com.apple.koa.KVSpanInfo", -1, v60, v62);
       if (error && v63)
       {
@@ -561,7 +561,6 @@ LABEL_53:
   v48 = v14;
 LABEL_63:
 
-  v79 = *MEMORY[0x277D85DE8];
   return v48;
 }
 
@@ -571,7 +570,7 @@ LABEL_63:
   tokenCountCopy = tokenCount;
   countCopy = count;
   locationCopy = location;
-  v55 = *MEMORY[0x277D85DE8];
+  v54 = *MEMORY[0x277D85DE8];
   valueCopy = value;
   if (!objc_msgSend_length(valueCopy, v22, v23, v24, v25, v26))
   {
@@ -583,13 +582,13 @@ LABEL_12:
       goto LABEL_13;
     }
 
-    *v46 = 136315138;
-    *&v46[4] = "[KVEncodedSpanInfo initWithValue:location:length:matchScore:maxTokenCount:matchedTokenCount:maxStopWordCount:matchedStopWordCount:maxAliasCount:matchedAliasCount:editDistance:aliasMatchOptions:]";
+    *v45 = 136315138;
+    *&v45[4] = "[KVEncodedSpanInfo initWithValue:location:length:matchScore:maxTokenCount:matchedTokenCount:maxStopWordCount:matchedStopWordCount:maxAliasCount:matchedAliasCount:editDistance:aliasMatchOptions:]";
     v40 = "%s Cannot initialize span info with empty value";
     v41 = v39;
     v42 = 12;
 LABEL_15:
-    _os_log_error_impl(&dword_2559A5000, v41, OS_LOG_TYPE_ERROR, v40, v46, v42);
+    _os_log_error_impl(&dword_2559A5000, v41, OS_LOG_TYPE_ERROR, v40, v45, v42);
     goto LABEL_12;
   }
 
@@ -601,71 +600,70 @@ LABEL_15:
       goto LABEL_12;
     }
 
-    *v46 = 136315394;
-    *&v46[4] = "[KVEncodedSpanInfo initWithValue:location:length:matchScore:maxTokenCount:matchedTokenCount:maxStopWordCount:matchedStopWordCount:maxAliasCount:matchedAliasCount:editDistance:aliasMatchOptions:]";
-    v47 = 2112;
-    *v48 = valueCopy;
+    *v45 = 136315394;
+    *&v45[4] = "[KVEncodedSpanInfo initWithValue:location:length:matchScore:maxTokenCount:matchedTokenCount:maxStopWordCount:matchedStopWordCount:maxAliasCount:matchedAliasCount:editDistance:aliasMatchOptions:]";
+    v46 = 2112;
+    *v47 = valueCopy;
     v40 = "%s Cannot initialize span info with zero length. value: %@";
     v41 = v43;
     v42 = 22;
     goto LABEL_15;
   }
 
-  *v46 = 0;
-  v46[8] = 0;
-  *&v48[2] = xmmword_2559D02C0;
+  *v45 = 0;
+  v45[8] = 0;
+  *&v47[2] = xmmword_2559D02C0;
+  v48 = 0u;
   v49 = 0u;
-  v50 = 0u;
-  v51 = 0;
-  v52 = 1;
-  v53 = 256;
-  v54 = 0;
-  sub_2559A7BAC(v46);
-  BYTE6(v51) = 1;
-  sub_2559A7C64(v46, 4, locationCopy);
-  sub_2559A7C64(v46, 6, length);
-  if (score != 0.0 || v53 == 1)
+  v50 = 0;
+  v51 = 1;
+  v52 = 256;
+  v53 = 0;
+  sub_2559A7BAC(v45);
+  BYTE6(v50) = 1;
+  sub_2559A7C64(v45, 4, locationCopy);
+  sub_2559A7C64(v45, 6, length);
+  if (score != 0.0 || v52 == 1)
   {
-    sub_2559A86B4(v46, 4uLL);
-    sub_2559A8418(v46, 4uLL);
-    v27 = v50;
-    *(v50 - 4) = score;
+    sub_2559A86B4(v45, 4uLL);
+    sub_2559A8418(v45, 4uLL);
+    v27 = v49;
+    *(v49 - 4) = score;
     v27 -= 4;
-    *&v50 = v27;
-    v28 = v49;
-    sub_2559A8418(v46, 8uLL);
-    **(&v50 + 1) = (v28 - v27 + DWORD2(v28)) | 0x800000000;
-    *(&v50 + 1) += 8;
-    LODWORD(v51) = v51 + 1;
-    v29 = WORD2(v51);
-    if (WORD2(v51) <= 8u)
+    *&v49 = v27;
+    v28 = v48;
+    sub_2559A8418(v45, 8uLL);
+    **(&v49 + 1) = (v28 - v27 + DWORD2(v28)) | 0x800000000;
+    *(&v49 + 1) += 8;
+    LODWORD(v50) = v50 + 1;
+    v29 = WORD2(v50);
+    if (WORD2(v50) <= 8u)
     {
       v29 = 8;
     }
 
-    WORD2(v51) = v29;
+    WORD2(v50) = v29;
   }
 
-  sub_2559A7C64(v46, 10, countCopy);
-  sub_2559A7C64(v46, 12, tokenCountCopy);
-  sub_2559A7C64(v46, 14, wordCountCopy);
-  sub_2559A7C64(v46, 16, stopWordCount);
-  sub_2559A7C64(v46, 18, aliasCount);
-  sub_2559A7C64(v46, 20, matchedAliasCount);
-  sub_2559A7C64(v46, 22, distance);
-  sub_2559A7C64(v46, 24, options);
-  v30 = sub_2559A7D18(v46, 0);
-  sub_2559A7FB4(v46, v30, 0, 0);
+  sub_2559A7C64(v45, 10, countCopy);
+  sub_2559A7C64(v45, 12, tokenCountCopy);
+  sub_2559A7C64(v45, 14, wordCountCopy);
+  sub_2559A7C64(v45, 16, stopWordCount);
+  sub_2559A7C64(v45, 18, aliasCount);
+  sub_2559A7C64(v45, 20, matchedAliasCount);
+  sub_2559A7C64(v45, 22, distance);
+  sub_2559A7C64(v45, 24, options);
+  v30 = sub_2559A7D18(v45, 0);
+  sub_2559A7FB4(v45, v30, 0, 0);
   v31 = objc_alloc(MEMORY[0x277CBEA90]);
-  v32 = sub_2559A80B8(v46);
-  v36 = objc_msgSend_initWithBytes_length_(v31, v33, v32, (v49 - v50 + DWORD2(v49)), v34, v35);
+  v32 = sub_2559A80B8(v45);
+  v36 = objc_msgSend_initWithBytes_length_(v31, v33, v32, (v48 - v49 + DWORD2(v48)), v34, v35);
   self = objc_msgSend_initWithBuffer_verify_value_error_(self, v37, v36, 0, valueCopy, 0);
 
-  sub_2559A811C(v46);
+  sub_2559A811C(v45);
   selfCopy = self;
 LABEL_13:
 
-  v44 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 

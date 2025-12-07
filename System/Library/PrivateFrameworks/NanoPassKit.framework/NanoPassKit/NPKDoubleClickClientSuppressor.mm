@@ -260,31 +260,31 @@ void __65__NPKDoubleClickClientSuppressor_isSuppressingDoubleClickClients__block
   suppressorQueue = [(NPKDoubleClickClientSuppressor *)self suppressorQueue];
   dispatch_assert_queue_V2(suppressorQueue);
 
-  v6 = pk_General_log();
-  v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
+  v7 = pk_General_log(v6);
+  v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
 
-  if (v7)
+  if (v8)
   {
-    v8 = pk_General_log();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v10 = pk_General_log(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      *v15 = 0;
-      _os_log_impl(&dword_25B300000, v8, OS_LOG_TYPE_DEFAULT, "Notice: NPKDoubleClickClientSuppressor: Acquiring assertion", v15, 2u);
+      *v17 = 0;
+      _os_log_impl(&dword_25B300000, v10, OS_LOG_TYPE_DEFAULT, "Notice: NPKDoubleClickClientSuppressor: Acquiring assertion", v17, 2u);
     }
   }
 
-  v9 = [NPKDoublePressSuppressionAssertion alloc];
-  v10 = [(NPKDoublePressSuppressionAssertion *)v9 initWithQueue:MEMORY[0x277D85CD0]];
+  v11 = [NPKDoublePressSuppressionAssertion alloc];
+  v12 = [(NPKDoublePressSuppressionAssertion *)v11 initWithQueue:MEMORY[0x277D85CD0]];
   suppressionAssertion = [(NPKDoubleClickClientSuppressor *)self suppressionAssertion];
   [suppressionAssertion invalidate];
 
   suppressionRequestTokens = [(NPKDoubleClickClientSuppressor *)self suppressionRequestTokens];
-  v13 = [suppressionRequestTokens count];
+  v15 = [suppressionRequestTokens count];
 
-  if (!v13)
+  if (!v15)
   {
-    [(NPKDoublePressSuppressionAssertion *)v10 invalidate];
-    v14 = 1;
+    [(NPKDoublePressSuppressionAssertion *)v12 invalidate];
+    v16 = 1;
     if (!completionCopy)
     {
       goto LABEL_8;
@@ -293,12 +293,12 @@ void __65__NPKDoubleClickClientSuppressor_isSuppressingDoubleClickClients__block
     goto LABEL_7;
   }
 
-  [(NPKDoubleClickClientSuppressor *)self setSuppressionAssertion:v10];
-  v14 = 0;
+  [(NPKDoubleClickClientSuppressor *)self setSuppressionAssertion:v12];
+  v16 = 0;
   if (completionCopy)
   {
 LABEL_7:
-    completionCopy[2](completionCopy, v14);
+    completionCopy[2](completionCopy, v16);
   }
 
 LABEL_8:
@@ -309,16 +309,16 @@ LABEL_8:
   suppressorQueue = [(NPKDoubleClickClientSuppressor *)self suppressorQueue];
   dispatch_assert_queue_V2(suppressorQueue);
 
-  v4 = pk_General_log();
-  v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
+  v5 = pk_General_log(v4);
+  v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
 
-  if (v5)
+  if (v6)
   {
-    v6 = pk_General_log();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v8 = pk_General_log(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      *v8 = 0;
-      _os_log_impl(&dword_25B300000, v6, OS_LOG_TYPE_DEFAULT, "Notice: NPKDoubleClickClientSuppressor: Releasing assertion", v8, 2u);
+      *v10 = 0;
+      _os_log_impl(&dword_25B300000, v8, OS_LOG_TYPE_DEFAULT, "Notice: NPKDoubleClickClientSuppressor: Releasing assertion", v10, 2u);
     }
   }
 

@@ -31,7 +31,7 @@ uint64_t __28__PK_PHDevice_currentDevice__block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-uint64_t __19__PK_PHDevice_init__block_invoke(uint64_t a1)
+void *__19__PK_PHDevice_init__block_invoke(uint64_t a1)
 {
   v2 = objc_alloc(MEMORY[0x277CEC5D0]);
   v3 = [*(a1 + 32) dispatchQueue];
@@ -103,12 +103,11 @@ void __50__PK_PHDevice_registerForRingerStateNotifications__block_invoke(uint64_
 
 void __30__PK_PHDevice_isGeminiCapable__block_invoke_cold_1(int *a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
   v2 = *a1;
-  v4[0] = 67109120;
-  v4[1] = v2;
-  _os_log_error_impl(&dword_25E4EC000, a2, OS_LOG_TYPE_ERROR, "Could not retreive Dual SIM activation policy, mobileGestaltErrorCode: %d", v4, 8u);
-  v3 = *MEMORY[0x277D85DE8];
+  v3[0] = 67109120;
+  v3[1] = v2;
+  _os_log_error_impl(&dword_25E4EC000, a2, OS_LOG_TYPE_ERROR, "Could not retreive Dual SIM activation policy, mobileGestaltErrorCode: %d", v3, 8u);
 }
 
 @end

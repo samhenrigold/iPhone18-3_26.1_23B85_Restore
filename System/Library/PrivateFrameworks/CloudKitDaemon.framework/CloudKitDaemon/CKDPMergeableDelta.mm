@@ -332,7 +332,6 @@
     goto LABEL_17;
   }
 
-  v8 = *(equalCopy + 52);
   if (*&self->_has)
   {
     if ((*(equalCopy + 52) & 1) == 0 || self->_payload != *(equalCopy + 12))
@@ -349,47 +348,47 @@ LABEL_17:
   }
 
   metadata = self->_metadata;
-  v10 = equalCopy[5];
-  if (metadata | v10 && !objc_msgSend_isEqual_(metadata, v7, v10))
+  v9 = equalCopy[5];
+  if (metadata | v9 && !objc_msgSend_isEqual_(metadata, v7, v9))
   {
     goto LABEL_17;
   }
 
   data = self->_data;
-  v12 = equalCopy[2];
-  if (data | v12)
+  v11 = equalCopy[2];
+  if (data | v11)
   {
-    if (!objc_msgSend_isEqual_(data, v7, v12))
+    if (!objc_msgSend_isEqual_(data, v7, v11))
     {
       goto LABEL_17;
     }
   }
 
   encryptedData = self->_encryptedData;
-  v14 = equalCopy[4];
-  if (encryptedData | v14)
+  v13 = equalCopy[4];
+  if (encryptedData | v13)
   {
-    if (!objc_msgSend_isEqual_(encryptedData, v7, v14))
+    if (!objc_msgSend_isEqual_(encryptedData, v7, v13))
     {
       goto LABEL_17;
     }
   }
 
   asset = self->_asset;
-  v16 = equalCopy[1];
-  if (asset | v16)
+  v15 = equalCopy[1];
+  if (asset | v15)
   {
-    if (!objc_msgSend_isEqual_(asset, v7, v16))
+    if (!objc_msgSend_isEqual_(asset, v7, v15))
     {
       goto LABEL_17;
     }
   }
 
   encryptedAsset = self->_encryptedAsset;
-  v18 = equalCopy[3];
-  if (encryptedAsset | v18)
+  v17 = equalCopy[3];
+  if (encryptedAsset | v17)
   {
-    isEqual = objc_msgSend_isEqual_(encryptedAsset, v7, v18);
+    isEqual = objc_msgSend_isEqual_(encryptedAsset, v7, v17);
   }
 
   else

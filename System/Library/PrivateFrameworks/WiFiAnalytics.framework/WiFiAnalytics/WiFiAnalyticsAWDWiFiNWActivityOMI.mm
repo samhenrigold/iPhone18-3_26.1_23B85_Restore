@@ -519,7 +519,6 @@ LABEL_18:
   has = self->_has;
   if ((has & 0x400) != 0)
   {
-    scheduled = self->_scheduled;
     PBDataWriterWriteUint32Field();
     has = self->_has;
     if ((has & 0x800) == 0)
@@ -539,7 +538,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  success = self->_success;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x80) == 0)
@@ -554,7 +552,6 @@ LABEL_4:
   }
 
 LABEL_23:
-  retries = self->_retries;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 4) == 0)
@@ -569,7 +566,6 @@ LABEL_5:
   }
 
 LABEL_24:
-  completionDelay = self->_completionDelay;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x8000) == 0)
@@ -584,7 +580,6 @@ LABEL_6:
   }
 
 LABEL_25:
-  uLMUReq = self->_uLMUReq;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x4000) == 0)
@@ -599,7 +594,6 @@ LABEL_7:
   }
 
 LABEL_26:
-  uLMUAck = self->_uLMUAck;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x2000) == 0)
@@ -614,7 +608,6 @@ LABEL_8:
   }
 
 LABEL_27:
-  txNSTSReq = self->_txNSTSReq;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x1000) == 0)
@@ -629,7 +622,6 @@ LABEL_9:
   }
 
 LABEL_28:
-  txNSTSAck = self->_txNSTSAck;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x200) == 0)
@@ -644,7 +636,6 @@ LABEL_10:
   }
 
 LABEL_29:
-  rxNSSReq = self->_rxNSSReq;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x100) == 0)
@@ -659,7 +650,6 @@ LABEL_11:
   }
 
 LABEL_30:
-  rxNSSAck = self->_rxNSSAck;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 2) == 0)
@@ -674,7 +664,6 @@ LABEL_12:
   }
 
 LABEL_31:
-  chBWReq = self->_chBWReq;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 1) == 0)
@@ -689,7 +678,6 @@ LABEL_13:
   }
 
 LABEL_32:
-  chBWAck = self->_chBWAck;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x40) == 0)
@@ -704,7 +692,6 @@ LABEL_14:
   }
 
 LABEL_33:
-  eRSUReq = self->_eRSUReq;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x20) == 0)
@@ -719,7 +706,6 @@ LABEL_15:
   }
 
 LABEL_34:
-  eRSUAck = self->_eRSUAck;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x10) == 0)
@@ -734,12 +720,10 @@ LABEL_16:
   }
 
 LABEL_35:
-  dLResoundReq = self->_dLResoundReq;
   PBDataWriterWriteUint32Field();
   if ((*&self->_has & 8) != 0)
   {
 LABEL_17:
-    dLResoundAck = self->_dLResoundAck;
     PBDataWriterWriteUint32Field();
   }
 

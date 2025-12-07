@@ -18,7 +18,7 @@
   data = [v10 data];
   if (!data)
   {
-    v12 = blt_ids_log();
+    v12 = blt_ids_log(0);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       [(BLTPBProtobuf *)protobufCopy2 initWithProtobuf:v12 type:v13 isResponse:v14 sequenceNumberManager:v15, v16, v17, v18];
@@ -26,19 +26,19 @@
   }
 
   v19 = [BLTPBTransportData transportDataWithSequenceNumberManager:managerCopy];
-  if (BLTIsDebugOrInternalBuild())
+  if (BLTIsDebugOrInternalBuild(v19, v20))
   {
     [data MD5:buf];
-    v20 = [MEMORY[0x277CBEA90] dataWithBytes:buf length:16];
-    [v19 setMd5:v20];
+    v21 = [MEMORY[0x277CBEA90] dataWithBytes:buf length:16];
+    [v19 setMd5:v21];
   }
 
   data2 = [v19 data];
-  v22 = [data2 length];
+  v23 = [data2 length];
 
-  v47 = v22;
-  v23 = v22 >> 16;
-  if (v22 >> 16)
+  v47 = v23;
+  v24 = v23 >> 16;
+  if (v23 >> 16)
   {
     v47 = 0;
   }
@@ -49,14 +49,13 @@
     [data appendData:data3];
   }
 
-  [data appendBytes:&v47 length:2];
-  v25 = blt_ids_log();
-  if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
+  v26 = blt_ids_log([data appendBytes:&v47 length:2]);
+  if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
   {
     serviceName = [managerCopy serviceName];
-    if (v23)
+    if (v24)
     {
-      v32 = @"not added";
+      v33 = @"not added";
     }
 
     else
@@ -66,65 +65,65 @@
       sequenceNumber = [v19 sequenceNumber];
       currentSessionIdentifier = [managerCopy currentSessionIdentifier];
       [currentSessionIdentifier UUIDString];
-      v29 = v28 = protobufCopy2;
+      v30 = v29 = protobufCopy2;
       sessionState = [v19 sessionState];
-      v31 = "startAck";
+      v32 = "startAck";
       if (sessionState == 1)
       {
-        v31 = "start";
+        v32 = "start";
       }
 
       if (!sessionState)
       {
-        v31 = "normal";
+        v32 = "normal";
       }
 
-      v41 = v29;
+      v41 = v30;
       v37 = sequenceNumber;
-      v38 = v29;
-      protobufCopy2 = v28;
+      v38 = v30;
+      protobufCopy2 = v29;
       protobufCopy = v40;
-      v32 = [v39 stringWithFormat:@"%llu session: %@ state: %s", v37, v38, v31];
+      v33 = [v39 stringWithFormat:@"%llu session: %@ state: %s", v37, v38, v32];
     }
 
     *buf = 138412546;
     v49 = serviceName;
     v50 = 2112;
-    v51 = v32;
-    _os_log_impl(&dword_241FB3000, v25, OS_LOG_TYPE_INFO, "Sequence number attached to outgoing protobuf on service %@: %@", buf, 0x16u);
-    if (!v23)
+    v51 = v33;
+    _os_log_impl(&dword_241FB3000, v26, OS_LOG_TYPE_INFO, "Sequence number attached to outgoing protobuf on service %@: %@", buf, 0x16u);
+    if (!v24)
     {
     }
   }
 
   v46.receiver = self;
   v46.super_class = BLTPBProtobuf;
-  v33 = [(BLTPBProtobuf *)&v46 initWithProtobufData:data type:typeCopy isResponse:responseCopy];
-  v34 = v33;
-  if (v33)
+  v34 = [(BLTPBProtobuf *)&v46 initWithProtobufData:data type:typeCopy isResponse:responseCopy];
+  v35 = v34;
+  if (v34)
   {
-    objc_storeStrong(&v33->_protobuf, protobufCopy);
+    objc_storeStrong(&v34->_protobuf, protobufCopy);
   }
 
-  v35 = *MEMORY[0x277D85DE8];
-  return v34;
+  return v35;
 }
 
 - (BLTPBProtobuf)initWithIDSProtobuf:(id)protobuf sequenceNumberManager:(id)manager
 {
-  v61 = *MEMORY[0x277D85DE8];
+  v68 = *MEMORY[0x277D85DE8];
   protobufCopy = protobuf;
   managerCopy = manager;
+  v9 = managerCopy;
   if (!protobufCopy)
   {
-    v17 = blt_ids_log();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v20 = blt_ids_log(managerCopy);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      _os_log_impl(&dword_241FB3000, v17, OS_LOG_TYPE_ERROR, "IDSProtobuf is nil", buf, 2u);
+      _os_log_impl(&dword_241FB3000, v20, OS_LOG_TYPE_ERROR, "IDSProtobuf is nil", buf, 2u);
     }
 
-    v16 = @"BLTPBProtobufNilIDSProtobuf";
+    v19 = @"BLTPBProtobufNilIDSProtobuf";
     goto LABEL_13;
   }
 
@@ -132,102 +131,103 @@
 
   if (!data)
   {
-    v18 = blt_ids_log();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    v21 = blt_ids_log(v11);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
       extendedDescription = [protobufCopy extendedDescription];
       *buf = 138412290;
       *&buf[4] = extendedDescription;
-      _os_log_impl(&dword_241FB3000, v18, OS_LOG_TYPE_ERROR, "IDSProtobuf contains nil data: %@", buf, 0xCu);
+      _os_log_impl(&dword_241FB3000, v21, OS_LOG_TYPE_ERROR, "IDSProtobuf contains nil data: %@", buf, 0xCu);
     }
 
-    v16 = @"BLTPBProtobufNilIDSProtobufData";
+    v19 = @"BLTPBProtobufNilIDSProtobufData";
     goto LABEL_13;
   }
 
   data2 = [protobufCopy data];
-  v11 = [data2 length];
+  v13 = [data2 length];
 
-  if (v11 > 1)
+  if (v13 > 1)
   {
     data3 = [protobufCopy data];
-    v24 = [data3 length] - 2;
-    v25 = *([data3 bytes] + v24);
-    if (v24 < v25)
+    v26 = [data3 length] - 2;
+    bytes = [data3 bytes];
+    v28 = *(bytes + v26);
+    if (v26 < v28)
     {
-      v26 = blt_ids_log();
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+      v29 = blt_ids_log(bytes);
+      if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
       {
         extendedDescription2 = [protobufCopy extendedDescription];
         *buf = 134218498;
-        *&buf[4] = v24;
+        *&buf[4] = v26;
         *&buf[12] = 2048;
-        *&buf[14] = v25;
-        v55 = 2112;
-        v56 = extendedDescription2;
-        _os_log_impl(&dword_241FB3000, v26, OS_LOG_TYPE_ERROR, "IDSProtobuf transport data length is too big. Message data length: %lu transport data length: %lu protobof: %@", buf, 0x20u);
+        *&buf[14] = v28;
+        v62 = 2112;
+        v63 = extendedDescription2;
+        _os_log_impl(&dword_241FB3000, v29, OS_LOG_TYPE_ERROR, "IDSProtobuf transport data length is too big. Message data length: %lu transport data length: %lu protobof: %@", buf, 0x20u);
       }
 
       _BLTCaptureBug(@"BLTPBProtobufTransportDataLengthTooBig");
       goto LABEL_19;
     }
 
-    v28 = [MEMORY[0x277CBEA90] dataWithBytesNoCopy:objc_msgSend(data3 length:"bytes") freeWhenDone:{v24 - v25, 0}];
-    v53.receiver = self;
-    v53.super_class = BLTPBProtobuf;
-    v29 = -[BLTPBProtobuf initWithProtobufData:type:isResponse:](&v53, sel_initWithProtobufData_type_isResponse_, v28, [protobufCopy type], objc_msgSend(protobufCopy, "isResponse"));
+    v31 = [MEMORY[0x277CBEA90] dataWithBytesNoCopy:objc_msgSend(data3 length:"bytes") freeWhenDone:{v26 - v28, 0}];
+    v60.receiver = self;
+    v60.super_class = BLTPBProtobuf;
+    v32 = -[BLTPBProtobuf initWithProtobufData:type:isResponse:](&v60, sel_initWithProtobufData_type_isResponse_, v31, [protobufCopy type], objc_msgSend(protobufCopy, "isResponse"));
 
-    if (v29)
+    if (v32)
     {
       context = [protobufCopy context];
-      [(BLTPBProtobuf *)v29 setContext:context];
+      [(BLTPBProtobuf *)v32 setContext:context];
 
-      objc_storeStrong(&v29->_idsProtobuf, protobuf);
-      if (v25)
+      objc_storeStrong(&v32->_idsProtobuf, protobuf);
+      if (v28)
       {
         transportData = [protobufCopy transportData];
-        v32 = transportData;
+        v35 = transportData;
         if (!transportData)
         {
 
-          v49 = blt_ids_log();
-          if (os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
+          v56 = blt_ids_log(v55);
+          if (os_log_type_enabled(v56, OS_LOG_TYPE_ERROR))
           {
             extendedDescription3 = [protobufCopy extendedDescription];
             *buf = 138412290;
             *&buf[4] = extendedDescription3;
-            _os_log_impl(&dword_241FB3000, v49, OS_LOG_TYPE_ERROR, "No transport data.  Protobuf: %@", buf, 0xCu);
+            _os_log_impl(&dword_241FB3000, v56, OS_LOG_TYPE_ERROR, "No transport data.  Protobuf: %@", buf, 0xCu);
           }
 
-          v40 = @"BLTPBProtobufTransportDataDecodeFail";
+          v44 = @"BLTPBProtobufTransportDataDecodeFail";
           goto LABEL_46;
         }
 
         if ([transportData hasMd5])
         {
-          data4 = [(BLTPBProtobuf *)v29 data];
+          data4 = [(BLTPBProtobuf *)v32 data];
           [data4 MD5:buf];
 
-          v34 = [v32 md5];
-          bytes = [v34 bytes];
-          v36 = *buf == *bytes && *&buf[8] == bytes[1];
-          v37 = !v36;
+          v37 = [v35 md5];
+          bytes2 = [v37 bytes];
+          v39 = *buf == *bytes2 && *&buf[8] == bytes2[1];
+          v40 = !v39;
 
-          if (v37)
+          if (v40)
           {
 
-            v38 = blt_ids_log();
-            if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
+            v42 = blt_ids_log(v41);
+            if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
             {
               extendedDescription4 = [protobufCopy extendedDescription];
-              *v59 = 138412290;
-              v60 = extendedDescription4;
-              _os_log_impl(&dword_241FB3000, v38, OS_LOG_TYPE_ERROR, "IDSProtobuf contains bad data.  Protobuf: %@", v59, 0xCu);
+              *v66 = 138412290;
+              v67 = extendedDescription4;
+              _os_log_impl(&dword_241FB3000, v42, OS_LOG_TYPE_ERROR, "IDSProtobuf contains bad data.  Protobuf: %@", v66, 0xCu);
             }
 
-            v40 = @"BLTPBProtobufTransportDataBad";
+            v44 = @"BLTPBProtobufTransportDataBad";
 LABEL_46:
-            _BLTCaptureBug(v40);
+            _BLTCaptureBug(v44);
 
             self = 0;
 LABEL_19:
@@ -238,22 +238,24 @@ LABEL_52:
           }
         }
 
-        if ([v32 hasSequenceNumber])
+        hasSequenceNumber = [v35 hasSequenceNumber];
+        if (hasSequenceNumber)
         {
-          v29->_sessionState = [v32 backwardsCompatibleSessionState];
-          v41 = blt_ids_log();
-          if (os_log_type_enabled(v41, OS_LOG_TYPE_INFO))
+          backwardsCompatibleSessionState = [v35 backwardsCompatibleSessionState];
+          v32->_sessionState = backwardsCompatibleSessionState;
+          v47 = blt_ids_log(backwardsCompatibleSessionState);
+          if (os_log_type_enabled(v47, OS_LOG_TYPE_INFO))
           {
-            serviceName = [managerCopy serviceName];
-            sequenceNumber = [v32 sequenceNumber];
-            sessionUUID = [v32 sessionUUID];
+            serviceName = [v9 serviceName];
+            sequenceNumber = [v35 sequenceNumber];
+            sessionUUID = [v35 sessionUUID];
             uUIDString = [sessionUUID UUIDString];
-            v45 = uUIDString;
-            sessionState = v29->_sessionState;
-            v47 = "startAck";
+            v51 = uUIDString;
+            sessionState = v32->_sessionState;
+            v53 = "startAck";
             if (sessionState == 1)
             {
-              v47 = "start";
+              v53 = "start";
             }
 
             *buf = 138413058;
@@ -262,69 +264,68 @@ LABEL_52:
             *&buf[14] = sequenceNumber;
             if (sessionState)
             {
-              v48 = v47;
+              v54 = v53;
             }
 
             else
             {
-              v48 = "normal";
+              v54 = "normal";
             }
 
-            v55 = 2112;
-            v56 = uUIDString;
-            v57 = 2080;
-            v58 = v48;
-            _os_log_impl(&dword_241FB3000, v41, OS_LOG_TYPE_INFO, "Sequence number attached to incoming protobuf on service %@: %llu session: %@ state: %s", buf, 0x2Au);
+            v62 = 2112;
+            v63 = uUIDString;
+            v64 = 2080;
+            v65 = v54;
+            _os_log_impl(&dword_241FB3000, v47, OS_LOG_TYPE_INFO, "Sequence number attached to incoming protobuf on service %@: %llu session: %@ state: %s", buf, 0x2Au);
           }
 
-          v29->_sequenceNumberError = [v32 setSequenceNumberOnManager:managerCopy];
+          v32->_sequenceNumberError = [v35 setSequenceNumberOnManager:v9];
         }
 
         else
         {
-          v51 = blt_ids_log();
-          if (os_log_type_enabled(v51, OS_LOG_TYPE_INFO))
+          v58 = blt_ids_log(hasSequenceNumber);
+          if (os_log_type_enabled(v58, OS_LOG_TYPE_INFO))
           {
             *buf = 0;
-            _os_log_impl(&dword_241FB3000, v51, OS_LOG_TYPE_INFO, "Received message without sequence number", buf, 2u);
+            _os_log_impl(&dword_241FB3000, v58, OS_LOG_TYPE_INFO, "Received message without sequence number", buf, 2u);
           }
         }
       }
     }
 
-    self = v29;
+    self = v32;
     selfCopy = self;
     goto LABEL_52;
   }
 
-  v12 = blt_ids_log();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+  v15 = blt_ids_log(v14);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
   {
     data5 = [protobufCopy data];
-    v14 = [data5 length];
+    v17 = [data5 length];
     extendedDescription5 = [protobufCopy extendedDescription];
     *buf = 134218242;
-    *&buf[4] = v14;
+    *&buf[4] = v17;
     *&buf[12] = 2112;
     *&buf[14] = extendedDescription5;
-    _os_log_impl(&dword_241FB3000, v12, OS_LOG_TYPE_ERROR, "IDSProtobuf missing transport data. Protobuf length: %lu protobof: %@", buf, 0x16u);
+    _os_log_impl(&dword_241FB3000, v15, OS_LOG_TYPE_ERROR, "IDSProtobuf missing transport data. Protobuf length: %lu protobof: %@", buf, 0x16u);
   }
 
-  v16 = @"BLTPBProtobufMissingTransportData";
+  v19 = @"BLTPBProtobufMissingTransportData";
 LABEL_13:
-  _BLTCaptureBug(v16);
+  _BLTCaptureBug(v19);
   selfCopy = 0;
 LABEL_14:
 
-  v21 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 
 - (void)initWithProtobuf:(uint64_t)a3 type:(uint64_t)a4 isResponse:(uint64_t)a5 sequenceNumberManager:(uint64_t)a6 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_2(&dword_241FB3000, a2, a3, "PBDataWriter failed to create NSData object for protobuf %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_2(&dword_241FB3000, a2, a3, "PBDataWriter failed to create NSData object for protobuf %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

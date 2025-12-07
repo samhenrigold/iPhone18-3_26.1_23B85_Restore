@@ -97,37 +97,37 @@
 
 void __46__HDDateRangeQueryServer_samplesAdded_anchor___block_invoke(uint64_t a1)
 {
-  v62 = *MEMORY[0x277D85DE8];
+  v61 = *MEMORY[0x277D85DE8];
   v1 = *(a1 + 32);
   v2 = *(a1 + 40);
-  v46 = v1;
+  v45 = v1;
   if (!v1)
   {
     goto LABEL_36;
   }
 
   v3 = objc_alloc_init(MEMORY[0x277CBEB38]);
-  v51 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v50 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v55 = 0u;
   v56 = 0u;
   v57 = 0u;
   v58 = 0u;
-  v59 = 0u;
   v4 = v2;
-  v5 = [v4 countByEnumeratingWithState:&v56 objects:v61 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v55 objects:v60 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v57;
+    v7 = *v56;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v57 != v7)
+        if (*v56 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v56 + 1) + 8 * i);
+        v9 = *(*(&v55 + 1) + 8 * i);
         v10 = [v9 sampleType];
         v11 = [v3 objectForKeyedSubscript:v10];
         if (!v11 || ([v9 _startTimestamp], v13 = v12, objc_msgSend(v11, "_startTimestamp"), v13 < v14))
@@ -135,50 +135,50 @@ void __46__HDDateRangeQueryServer_samplesAdded_anchor___block_invoke(uint64_t a1
           [v3 setObject:v9 forKeyedSubscript:v10];
         }
 
-        v15 = [v51 objectForKeyedSubscript:v10];
+        v15 = [v50 objectForKeyedSubscript:v10];
         if (!v15 || ([v9 _endTimestamp], v17 = v16, objc_msgSend(v15, "_endTimestamp"), v17 > v18))
         {
-          [v51 setObject:v9 forKeyedSubscript:v10];
+          [v50 setObject:v9 forKeyedSubscript:v10];
         }
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v56 objects:v61 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v55 objects:v60 count:16];
     }
 
     while (v6);
   }
 
-  v54 = 0u;
-  v55 = 0u;
-  v52 = 0u;
   v53 = 0u;
+  v54 = 0u;
+  v51 = 0u;
+  v52 = 0u;
   v19 = [v3 keyEnumerator];
-  v50 = [v19 countByEnumeratingWithState:&v52 objects:v60 count:16];
-  if (!v50)
+  v49 = [v19 countByEnumeratingWithState:&v51 objects:v59 count:16];
+  if (!v49)
   {
 
     goto LABEL_35;
   }
 
-  v43 = v2;
+  v42 = v2;
   v20 = 0;
-  v48 = *v53;
-  v49 = v3;
+  v47 = *v52;
+  v48 = v3;
   v21 = &OBJC_IVAR____HDStatisticsSyntheticQuantityType__overriddenAggregationStyle;
-  v22 = v46;
+  v22 = v45;
   obj = v19;
   do
   {
-    for (j = 0; j != v50; ++j)
+    for (j = 0; j != v49; ++j)
     {
-      if (*v53 != v48)
+      if (*v52 != v47)
       {
         objc_enumerationMutation(obj);
       }
 
-      v24 = *(*(&v52 + 1) + 8 * j);
+      v24 = *(*(&v51 + 1) + 8 * j);
       v25 = [v3 objectForKeyedSubscript:v24];
-      v26 = [v51 objectForKeyedSubscript:v24];
+      v26 = [v50 objectForKeyedSubscript:v24];
       v27 = [*&v22[v21[108]] objectForKeyedSubscript:v24];
       if (!v27)
       {
@@ -193,7 +193,7 @@ void __46__HDDateRangeQueryServer_samplesAdded_anchor___block_invoke(uint64_t a1
       }
 
       v28 = v27;
-      v47 = v20;
+      v46 = v20;
       v29 = v21;
       v30 = [v27 startDate];
       v31 = [v25 startDate];
@@ -212,8 +212,8 @@ void __46__HDDateRangeQueryServer_samplesAdded_anchor___block_invoke(uint64_t a1
           objc_opt_class();
           isKindOfClass = objc_opt_isKindOfClass();
 
-          v22 = v46;
-          v20 = v47;
+          v22 = v45;
+          v20 = v46;
           if ((isKindOfClass & 1) == 0)
           {
             goto LABEL_29;
@@ -223,7 +223,7 @@ void __46__HDDateRangeQueryServer_samplesAdded_anchor___block_invoke(uint64_t a1
         }
       }
 
-      v22 = v46;
+      v22 = v45;
 LABEL_28:
       v41 = [objc_alloc(MEMORY[0x277CCA970]) initWithStartDate:v32 endDate:v35];
       [*&v22[v29[108]] setObject:v41 forKeyedSubscript:v24];
@@ -234,15 +234,15 @@ LABEL_29:
       v21 = v29;
 LABEL_30:
 
-      v3 = v49;
+      v3 = v48;
     }
 
-    v50 = [obj countByEnumeratingWithState:&v52 objects:v60 count:16];
+    v49 = [obj countByEnumeratingWithState:&v51 objects:v59 count:16];
   }
 
-  while (v50);
+  while (v49);
 
-  v2 = v43;
+  v2 = v42;
   if (v20)
   {
     [(HDDateRangeQueryServer *)v22 _queue_sendUpdatedResultsToClient];
@@ -251,7 +251,6 @@ LABEL_30:
 LABEL_35:
 
 LABEL_36:
-  v42 = *MEMORY[0x277D85DE8];
 }
 
 - (void)samplesOfTypesWereRemoved:(id)removed anchor:(id)anchor
@@ -291,7 +290,7 @@ void __59__HDDateRangeQueryServer_samplesOfTypesWereRemoved_anchor___block_invok
 
 - (void)_queue_updateTimePeriodsForSampleTypes:(id *)types
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   v3 = a2;
   _HKInitializeLogging();
   v4 = MEMORY[0x277CCC308];
@@ -303,74 +302,74 @@ void __59__HDDateRangeQueryServer_samplesOfTypesWereRemoved_anchor___block_invok
     _os_log_debug_impl(&dword_228986000, v5, OS_LOG_TYPE_DEBUG, "%{public}@: Updating periods for sample types", buf, 0xCu);
   }
 
-  v31 = 0u;
-  v32 = 0u;
-  v29 = 0u;
   v30 = 0u;
+  v31 = 0u;
+  v28 = 0u;
+  v29 = 0u;
   v6 = v3;
-  v7 = [v6 countByEnumeratingWithState:&v29 objects:v38 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v28 objects:v37 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v30;
+    v9 = *v29;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v30 != v9)
+        if (*v29 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        [types[27] removeObjectForKey:*(*(&v29 + 1) + 8 * i)];
+        [types[27] removeObjectForKey:*(*(&v28 + 1) + 8 * i)];
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v29 objects:v38 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v28 objects:v37 count:16];
     }
 
     while (v8);
   }
 
   profile = [types profile];
-  v28 = 0;
-  v12 = [HDSampleEntity dateIntervalsForSampleTypes:v6 profile:profile error:&v28];
-  v13 = v28;
+  v27 = 0;
+  v12 = [HDSampleEntity dateIntervalsForSampleTypes:v6 profile:profile error:&v27];
+  v13 = v27;
 
   if (v12)
   {
-    v23 = v13;
-    v26 = 0u;
-    v27 = 0u;
-    v24 = 0u;
+    v22 = v13;
     v25 = 0u;
+    v26 = 0u;
+    v23 = 0u;
+    v24 = 0u;
     allKeys = [v12 allKeys];
-    v15 = [allKeys countByEnumeratingWithState:&v24 objects:v33 count:16];
+    v15 = [allKeys countByEnumeratingWithState:&v23 objects:v32 count:16];
     if (v15)
     {
       v16 = v15;
-      v17 = *v25;
+      v17 = *v24;
       do
       {
         for (j = 0; j != v16; ++j)
         {
-          if (*v25 != v17)
+          if (*v24 != v17)
           {
             objc_enumerationMutation(allKeys);
           }
 
-          v19 = *(*(&v24 + 1) + 8 * j);
+          v19 = *(*(&v23 + 1) + 8 * j);
           v20 = [v12 objectForKeyedSubscript:v19];
           [types[27] setObject:v20 forKeyedSubscript:v19];
         }
 
-        v16 = [allKeys countByEnumeratingWithState:&v24 objects:v33 count:16];
+        v16 = [allKeys countByEnumeratingWithState:&v23 objects:v32 count:16];
       }
 
       while (v16);
     }
 
     [(HDDateRangeQueryServer *)types _queue_sendUpdatedResultsToClient];
-    v13 = v23;
+    v13 = v22;
   }
 
   else
@@ -381,8 +380,8 @@ void __59__HDDateRangeQueryServer_samplesOfTypesWereRemoved_anchor___block_invok
     {
       *buf = 138543618;
       typesCopy2 = types;
-      v36 = 2114;
-      v37 = v13;
+      v35 = 2114;
+      v36 = v13;
       _os_log_error_impl(&dword_228986000, v21, OS_LOG_TYPE_ERROR, "%{public}@: Error reading intervals from sample types: %{public}@", buf, 0x16u);
     }
 
@@ -396,27 +395,25 @@ void __59__HDDateRangeQueryServer_samplesOfTypesWereRemoved_anchor___block_invok
       [(HDDateRangeQueryServer *)types _deliverErrorToClient:v13];
     }
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 void __59__HDDateRangeQueryServer__queue_sendUpdatedResultsToClient__block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   if (*(*(a1 + 32) + 208) == 1)
   {
     _HKInitializeLogging();
     v2 = *MEMORY[0x277CCC308];
     if (os_log_type_enabled(*MEMORY[0x277CCC308], OS_LOG_TYPE_DEBUG))
     {
-      v8 = *(a1 + 32);
-      v9 = *(v8 + 216);
-      v10 = v2;
-      v11 = 138543618;
-      v12 = v8;
-      v13 = 2048;
-      v14 = [v9 count];
-      _os_log_debug_impl(&dword_228986000, v10, OS_LOG_TYPE_DEBUG, "%{public}@: Sending %lu updated results to client", &v11, 0x16u);
+      v7 = *(a1 + 32);
+      v8 = *(v7 + 216);
+      v9 = v2;
+      v10 = 138543618;
+      v11 = v7;
+      v12 = 2048;
+      v13 = [v8 count];
+      _os_log_debug_impl(&dword_228986000, v9, OS_LOG_TYPE_DEBUG, "%{public}@: Sending %lu updated results to client", &v10, 0x16u);
     }
 
     v3 = [*(a1 + 32) clientProxy];
@@ -427,8 +424,6 @@ void __59__HDDateRangeQueryServer__queue_sendUpdatedResultsToClient__block_invok
 
     *(*(a1 + 32) + 208) = 0;
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)database:(id)database protectedDataDidBecomeAvailable:(BOOL)available

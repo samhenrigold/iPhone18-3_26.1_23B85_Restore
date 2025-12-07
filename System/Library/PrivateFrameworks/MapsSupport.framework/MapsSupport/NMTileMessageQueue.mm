@@ -108,92 +108,15 @@
   [*(&self->_requestIdentifierToReply + 1) lock];
   v5 = [*(&self->super._paused + 1) objectForKey:identifierCopy];
   [*(&self->super._paused + 1) removeObjectForKey:identifierCopy];
-  [*(&self->_requestIdentifierToReply + 1) unlock];
+  unlock = [*(&self->_requestIdentifierToReply + 1) unlock];
   if (v5)
   {
-    v6 = sub_100001B24();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
-    {
-      *buf = 138477827;
-      v19 = identifierCopy;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEBUG, "Removing enqueued message for request identifier: %{private}@", buf, 0xCu);
-    }
-
-    v15 = 0u;
-    v16 = 0u;
-    v13 = 0u;
-    v14 = 0u;
-    v7 = v5;
-    v8 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
-    if (v8)
-    {
-      v9 = v8;
-      v10 = *v14;
-      do
-      {
-        v11 = 0;
-        do
-        {
-          if (*v14 != v10)
-          {
-            objc_enumerationMutation(v7);
-          }
-
-          [(NMMessageQueue *)self removeMessage:*(*(&v13 + 1) + 8 * v11), v13];
-          v11 = v11 + 1;
-        }
-
-        while (v9 != v11);
-        v9 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
-      }
-
-      while (v9);
-    }
-  }
-
-  return v5 != 0;
-}
-
-- (BOOL)removeReplyForRequestIdentifier:(id)identifier
-{
-  identifierCopy = identifier;
-  [*(&self->_requestIdentifierToReply + 1) lock];
-  v5 = [*(&self->_requestIdentifierToMessages + 1) objectForKey:identifierCopy];
-  [*(&self->_requestIdentifierToMessages + 1) removeObjectForKey:identifierCopy];
-  [*(&self->_requestIdentifierToReply + 1) unlock];
-  if (v5)
-  {
-    v6 = sub_100001B24();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
-    {
-      v8 = 138477827;
-      v9 = identifierCopy;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEBUG, "Removing enqueued reply for request identifier: %{private}@", &v8, 0xCu);
-    }
-
-    [(NMMessageQueue *)self removeReply:v5];
-  }
-
-  return v5 != 0;
-}
-
-- (BOOL)removeAllForRequestIdentifier:(id)identifier
-{
-  identifierCopy = identifier;
-  [*(&self->_requestIdentifierToReply + 1) lock];
-  v5 = [*(&self->super._paused + 1) objectForKey:identifierCopy];
-  v6 = [*(&self->_requestIdentifierToMessages + 1) objectForKey:identifierCopy];
-  [*(&self->super._paused + 1) removeObjectForKey:identifierCopy];
-  [*(&self->_requestIdentifierToMessages + 1) removeObjectForKey:identifierCopy];
-  [*(&self->_requestIdentifierToReply + 1) unlock];
-  if (v5 | v6)
-  {
-    v7 = sub_100001B24();
+    v7 = sub_100001B24(unlock);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138477827;
       v20 = identifierCopy;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEBUG, "Removing enqueued messages/reply for request identifier: %{private}@", buf, 0xCu);
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEBUG, "Removing enqueued message for request identifier: %{private}@", buf, 0xCu);
     }
 
     v16 = 0u;
@@ -225,6 +148,83 @@
       }
 
       while (v10);
+    }
+  }
+
+  return v5 != 0;
+}
+
+- (BOOL)removeReplyForRequestIdentifier:(id)identifier
+{
+  identifierCopy = identifier;
+  [*(&self->_requestIdentifierToReply + 1) lock];
+  v5 = [*(&self->_requestIdentifierToMessages + 1) objectForKey:identifierCopy];
+  [*(&self->_requestIdentifierToMessages + 1) removeObjectForKey:identifierCopy];
+  unlock = [*(&self->_requestIdentifierToReply + 1) unlock];
+  if (v5)
+  {
+    v7 = sub_100001B24(unlock);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+    {
+      v9 = 138477827;
+      v10 = identifierCopy;
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEBUG, "Removing enqueued reply for request identifier: %{private}@", &v9, 0xCu);
+    }
+
+    [(NMMessageQueue *)self removeReply:v5];
+  }
+
+  return v5 != 0;
+}
+
+- (BOOL)removeAllForRequestIdentifier:(id)identifier
+{
+  identifierCopy = identifier;
+  [*(&self->_requestIdentifierToReply + 1) lock];
+  v5 = [*(&self->super._paused + 1) objectForKey:identifierCopy];
+  v6 = [*(&self->_requestIdentifierToMessages + 1) objectForKey:identifierCopy];
+  [*(&self->super._paused + 1) removeObjectForKey:identifierCopy];
+  [*(&self->_requestIdentifierToMessages + 1) removeObjectForKey:identifierCopy];
+  unlock = [*(&self->_requestIdentifierToReply + 1) unlock];
+  if (v5 | v6)
+  {
+    v8 = sub_100001B24(unlock);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+    {
+      *buf = 138477827;
+      v21 = identifierCopy;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEBUG, "Removing enqueued messages/reply for request identifier: %{private}@", buf, 0xCu);
+    }
+
+    v17 = 0u;
+    v18 = 0u;
+    v15 = 0u;
+    v16 = 0u;
+    v9 = v5;
+    v10 = [v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    if (v10)
+    {
+      v11 = v10;
+      v12 = *v16;
+      do
+      {
+        v13 = 0;
+        do
+        {
+          if (*v16 != v12)
+          {
+            objc_enumerationMutation(v9);
+          }
+
+          [(NMMessageQueue *)self removeMessage:*(*(&v15 + 1) + 8 * v13), v15];
+          v13 = v13 + 1;
+        }
+
+        while (v11 != v13);
+        v11 = [v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      }
+
+      while (v11);
     }
 
     [(NMMessageQueue *)self removeReply:v6];

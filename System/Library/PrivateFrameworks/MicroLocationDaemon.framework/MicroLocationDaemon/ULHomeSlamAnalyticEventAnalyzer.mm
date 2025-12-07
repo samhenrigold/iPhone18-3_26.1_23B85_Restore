@@ -34,80 +34,80 @@
 
 - (id)_analyzeTriggersAndGetCA:(id)a fromDate:(id)date untilDate:(id)untilDate withDBStore:(ULDatabaseStoreInterface *)store
 {
-  v75 = *MEMORY[0x277D85DE8];
+  v74 = *MEMORY[0x277D85DE8];
   aCopy = a;
   dateCopy = date;
   untilDateCopy = untilDate;
   storeCopy = store;
-  v49 = dateCopy;
+  v48 = dateCopy;
   v11 = (*(store->var0 + 17))(store);
   [dateCopy timeIntervalSinceReferenceDate];
   v13 = v12;
   [untilDateCopy timeIntervalSinceReferenceDate];
   if (v11)
   {
-    [v11 fetchAnalyticEventsASCFromTime:v13 toTime:v14];
+    objc_msgSend_fetchAnalyticEventsASCFromTime_toTime_(v11, v13, v14);
   }
 
   else
   {
+    v68 = 0;
     v69 = 0;
     v70 = 0;
-    v71 = 0;
   }
 
-  v67 = 0u;
-  v68 = 0u;
-  v65 = 0u;
   v66 = 0u;
+  v67 = 0u;
+  v64 = 0u;
+  v65 = 0u;
   obj = aCopy;
-  v15 = [obj countByEnumeratingWithState:&v65 objects:v74 count:16];
+  v15 = [obj countByEnumeratingWithState:&v64 objects:v73 count:16];
   if (!v15)
   {
-    v55 = 0;
+    v54 = 0;
     v17 = 0;
-    v51 = 0;
-    v53 = 0;
+    v50 = 0;
+    v52 = 0;
     v18 = 0;
     goto LABEL_24;
   }
 
-  v55 = 0;
+  v54 = 0;
   v16 = 0;
   v17 = 0;
-  v51 = 0;
-  v53 = 0;
+  v50 = 0;
+  v52 = 0;
   v18 = 0;
-  v19 = *v66;
+  v19 = *v65;
   v20 = 1;
   do
   {
     for (i = 0; i != v15; ++i)
     {
-      if (*v66 != v19)
+      if (*v65 != v19)
       {
         objc_enumerationMutation(obj);
       }
 
-      v22 = *(*(&v65 + 1) + 8 * i);
+      v22 = *(*(&v64 + 1) + 8 * i);
       if ([v22 trigger] == 0 && (v16 & 1) != 0)
       {
         date = [v22 date];
         __p = 0;
+        v62 = 0;
         v63 = 0;
-        v64 = 0;
-        std::vector<ULHomeSlamAnalyticEventDO>::__init_with_size[abi:ne200100]<ULHomeSlamAnalyticEventDO*,ULHomeSlamAnalyticEventDO*>(&__p, v69, v70, (v70 - v69) >> 4);
-        v24 = [(ULHomeSlamAnalyticEventAnalyzer *)self _checkIfScreenTransitionedToOnBefore:date after:v55 withEvents:&__p];
+        std::vector<ULHomeSlamAnalyticEventDO>::__init_with_size[abi:ne200100]<ULHomeSlamAnalyticEventDO*,ULHomeSlamAnalyticEventDO*>(&__p, v68, v69, (v69 - v68) >> 4);
+        v24 = [(ULHomeSlamAnalyticEventAnalyzer *)self _checkIfScreenTransitionedToOnBefore:date after:v54 withEvents:&__p];
         if (__p)
         {
-          v63 = __p;
+          v62 = __p;
           operator delete(__p);
         }
 
         v16 = 0;
         if (!v24)
         {
-          ++v53;
+          ++v52;
           v20 = 1;
           continue;
         }
@@ -116,21 +116,21 @@
       }
 
       date2 = [v22 date];
+      v58 = 0;
       v59 = 0;
       v60 = 0;
-      v61 = 0;
-      std::vector<ULHomeSlamAnalyticEventDO>::__init_with_size[abi:ne200100]<ULHomeSlamAnalyticEventDO*,ULHomeSlamAnalyticEventDO*>(&v59, v69, v70, (v70 - v69) >> 4);
-      v26 = [(ULHomeSlamAnalyticEventAnalyzer *)self _wasLastScreenStateOnBefore:date2 withEvents:&v59];
-      if (v59)
+      std::vector<ULHomeSlamAnalyticEventDO>::__init_with_size[abi:ne200100]<ULHomeSlamAnalyticEventDO*,ULHomeSlamAnalyticEventDO*>(&v58, v68, v69, (v69 - v68) >> 4);
+      v26 = [(ULHomeSlamAnalyticEventAnalyzer *)self _wasLastScreenStateOnBefore:date2 withEvents:&v58];
+      if (v58)
       {
-        v60 = v59;
-        operator delete(v59);
+        v59 = v58;
+        operator delete(v58);
       }
 
       if (v26)
       {
         v16 = 0;
-        ++v51;
+        ++v50;
 LABEL_18:
         ++v18;
         v17 += (v20 & 1) == 0;
@@ -141,25 +141,25 @@ LABEL_18:
       date3 = [v22 date];
 
       v16 = 1;
-      v55 = date3;
+      v54 = date3;
     }
 
-    v15 = [obj countByEnumeratingWithState:&v65 objects:v74 count:16];
+    v15 = [obj countByEnumeratingWithState:&v64 objects:v73 count:16];
   }
 
   while (v15);
 LABEL_24:
 
+  v55 = 0;
   v56 = 0;
   v57 = 0;
-  v58 = 0;
-  std::vector<ULHomeSlamAnalyticEventDO>::__init_with_size[abi:ne200100]<ULHomeSlamAnalyticEventDO*,ULHomeSlamAnalyticEventDO*>(&v56, v69, v70, (v70 - v69) >> 4);
-  v28 = [(ULHomeSlamAnalyticEventAnalyzer *)self _daemonWasRestartedWithEvents:&v56];
-  v29 = v18 + v53;
-  if (v56)
+  std::vector<ULHomeSlamAnalyticEventDO>::__init_with_size[abi:ne200100]<ULHomeSlamAnalyticEventDO*,ULHomeSlamAnalyticEventDO*>(&v55, v68, v69, (v69 - v68) >> 4);
+  v28 = [(ULHomeSlamAnalyticEventAnalyzer *)self _daemonWasRestartedWithEvents:&v55];
+  v29 = v18 + v52;
+  if (v55)
   {
-    v57 = v56;
-    operator delete(v56);
+    v56 = v55;
+    operator delete(v55);
   }
 
   if (v29)
@@ -172,49 +172,47 @@ LABEL_24:
     v30 = 200;
   }
 
-  [ULHomeSlamAnalyticEventAnalyzer aggregateTimeBetweenEvent:5 andEvent:6 startDate:v49 endDate:untilDateCopy withDBStore:storeCopy];
+  [ULHomeSlamAnalyticEventAnalyzer aggregateTimeBetweenEvent:5 andEvent:6 startDate:v48 endDate:untilDateCopy withDBStore:storeCopy];
   v32 = v31;
-  [ULHomeSlamAnalyticEventAnalyzer aggregateTimeBetweenEvent:2 andEvent:3 startDate:v49 endDate:untilDateCopy withDBStore:storeCopy];
+  [ULHomeSlamAnalyticEventAnalyzer aggregateTimeBetweenEvent:2 andEvent:3 startDate:v48 endDate:untilDateCopy withDBStore:storeCopy];
   v34 = v33;
-  v72[0] = @"stop_triggers_total";
+  v71[0] = @"stop_triggers_total";
   v35 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v29];
-  v73[0] = v35;
-  v72[1] = @"stop_triggers_screen_on";
-  v52 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v51];
-  v73[1] = v52;
-  v72[2] = @"stop_triggers_not_supressed";
-  v46 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v18];
-  v73[2] = v46;
-  v72[3] = @"stop_triggers_supressed";
-  v36 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v53];
-  v73[3] = v36;
-  v72[4] = @"num_valid_segments";
+  v72[0] = v35;
+  v71[1] = @"stop_triggers_screen_on";
+  v51 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v50];
+  v72[1] = v51;
+  v71[2] = @"stop_triggers_not_supressed";
+  v45 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v18];
+  v72[2] = v45;
+  v71[3] = @"stop_triggers_supressed";
+  v36 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v52];
+  v72[3] = v36;
+  v71[4] = @"num_valid_segments";
   v37 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v17];
-  v73[4] = v37;
-  v72[5] = @"percent_valid_segments";
+  v72[4] = v37;
+  v71[5] = @"percent_valid_segments";
   v38 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v30];
-  v73[5] = v38;
-  v72[6] = @"time_spent_at_home";
+  v72[5] = v38;
+  v71[6] = @"time_spent_at_home";
   v39 = [MEMORY[0x277CCABB0] numberWithInteger:vcvtps_s32_f32(v32)];
-  v73[6] = v39;
-  v72[7] = @"time_spent_with_milo_enabled";
+  v72[6] = v39;
+  v71[7] = @"time_spent_with_milo_enabled";
   v40 = [MEMORY[0x277CCABB0] numberWithInteger:vcvtps_s32_f32(v34)];
-  v73[7] = v40;
-  v72[8] = @"daemon_restarted";
+  v72[7] = v40;
+  v71[8] = @"daemon_restarted";
   v41 = [MEMORY[0x277CCABB0] numberWithBool:v28];
-  v73[8] = v41;
-  v72[9] = @"hours_since_first_event";
+  v72[8] = v41;
+  v71[9] = @"hours_since_first_event";
   v42 = [MEMORY[0x277CCABB0] numberWithInteger:{-[ULHomeSlamAnalyticEventAnalyzer _hoursFromFirstEventToDate:withDBStore:](self, "_hoursFromFirstEventToDate:withDBStore:", untilDateCopy, storeCopy)}];
-  v73[9] = v42;
-  v43 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v73 forKeys:v72 count:10];
+  v72[9] = v42;
+  v43 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v72 forKeys:v71 count:10];
 
-  if (v69)
+  if (v68)
   {
-    v70 = v69;
-    operator delete(v69);
+    v69 = v68;
+    operator delete(v68);
   }
-
-  v44 = *MEMORY[0x277D85DE8];
 
   return v43;
 }
@@ -226,7 +224,7 @@ LABEL_24:
   v7 = v6;
   if (v6)
   {
-    [v6 fetchFirstEvent];
+    objc_msgSend_fetchFirstEvent(v6);
   }
 
   else
@@ -343,7 +341,7 @@ LABEL_9:
   [endDateCopy timeIntervalSinceReferenceDate];
   if (v13)
   {
-    [v13 fetchAnalyticEventsASCFromTime:v15 toTime:v16];
+    objc_msgSend_fetchAnalyticEventsASCFromTime_toTime_(v13, v15, v16);
   }
 
   else
@@ -412,7 +410,7 @@ LABEL_18:
   [dateCopy timeIntervalSinceReferenceDate];
   if (v29)
   {
-    [v29 fetchLatestAnalyticEventType:&__p beforeTime:?];
+    objc_msgSend_fetchLatestAnalyticEventType_beforeTime_(v29);
   }
 
   else
@@ -470,7 +468,7 @@ LABEL_18:
   v10 = v9;
   if (v9)
   {
-    [v9 fetchAnalyticEventsASCFromTime:date toTime:untilDate];
+    objc_msgSend_fetchAnalyticEventsASCFromTime_toTime_(v9, date, untilDate);
   }
 
   else

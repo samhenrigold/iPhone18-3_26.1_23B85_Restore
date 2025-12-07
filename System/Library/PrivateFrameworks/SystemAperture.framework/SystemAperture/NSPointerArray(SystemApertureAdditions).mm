@@ -1,6 +1,6 @@
 @interface NSPointerArray(SystemApertureAdditions)
+- (char)sa_lastPointer;
 - (uint64_t)sa_compact;
-- (uint64_t)sa_lastPointer;
 @end
 
 @implementation NSPointerArray(SystemApertureAdditions)
@@ -29,7 +29,7 @@
   return v3 & 1;
 }
 
-- (uint64_t)sa_lastPointer
+- (char)sa_lastPointer
 {
   [self sa_compact];
   result = [self count];

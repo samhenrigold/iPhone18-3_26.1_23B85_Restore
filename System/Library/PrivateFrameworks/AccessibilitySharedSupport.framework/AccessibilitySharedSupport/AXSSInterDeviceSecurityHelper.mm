@@ -7,7 +7,6 @@
 - (void)_appleIDsDidChange;
 - (void)_certificateChain;
 - (void)dealloc;
-- (void)securityIdentity;
 - (void)verifyCertificate:(id)certificate completion:(id)completion;
 @end
 
@@ -58,7 +57,6 @@
   result = self->_cachedAppleIDIdentity;
   if (!result)
   {
-    v12 = 0;
     v4 = _AppleIDAuthenticationCopyAppleIDs();
     v5 = AXSSLogForCategory(1);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
@@ -86,7 +84,7 @@
           v11 = AXSSLogForCategory(1);
           if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
           {
-            [(AXSSInterDeviceSecurityHelper *)v9 _appleIDIdentity];
+            [AXSSInterDeviceSecurityHelper _appleIDIdentity];
           }
         }
       }
@@ -96,7 +94,7 @@
         v9 = AXSSLogForCategory(1);
         if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
         {
-          [(AXSSInterDeviceSecurityHelper *)&v12 _appleIDIdentity];
+          [AXSSInterDeviceSecurityHelper _appleIDIdentity];
         }
       }
     }
@@ -106,7 +104,7 @@
       lastObject = AXSSLogForCategory(1);
       if (os_log_type_enabled(lastObject, OS_LOG_TYPE_ERROR))
       {
-        [(AXSSInterDeviceSecurityHelper *)&v12 _appleIDIdentity];
+        [AXSSInterDeviceSecurityHelper _appleIDIdentity];
       }
     }
 
@@ -118,7 +116,7 @@
 
 - (id)_certificateChain
 {
-  v28[1] = *MEMORY[0x1E69E9840];
+  v27[1] = *MEMORY[0x1E69E9840];
   cachedCertificateChain = self->_cachedCertificateChain;
   if (!cachedCertificateChain)
   {
@@ -141,8 +139,8 @@
       else
       {
         trust = 0;
-        v28[0] = certificateRef;
-        v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v28 count:1];
+        v27[0] = certificateRef;
+        v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v27 count:1];
         BasicX509 = SecPolicyCreateBasicX509();
         v10 = SecTrustCreateWithCertificates(v8, BasicX509, &trust);
         if (BasicX509)
@@ -168,7 +166,7 @@
             p_super = AXSSLogForCategory(1);
             if (os_log_type_enabled(p_super, OS_LOG_TYPE_ERROR))
             {
-              [(AXSSInterDeviceSecurityHelper *)&error _certificateChain];
+              [AXSSInterDeviceSecurityHelper _certificateChain];
             }
           }
 
@@ -237,14 +235,12 @@
     cachedCertificateChain = self->_cachedCertificateChain;
   }
 
-  v23 = *MEMORY[0x1E69E9840];
-
   return cachedCertificateChain;
 }
 
 - (id)securityIdentity
 {
-  v11[1] = *MEMORY[0x1E69E9840];
+  v10[1] = *MEMORY[0x1E69E9840];
   cachedSecurityIdentity = self->_cachedSecurityIdentity;
   if (!cachedSecurityIdentity)
   {
@@ -254,8 +250,8 @@
       _appleIDIdentity = [(AXSSInterDeviceSecurityHelper *)self _appleIDIdentity];
       if (_appleIDIdentity)
       {
-        v11[0] = _appleIDIdentity;
-        v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:1];
+        v10[0] = _appleIDIdentity;
+        v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:1];
         v7 = [v6 arrayByAddingObjectsFromArray:_certificateChain];
         v8 = self->_cachedSecurityIdentity;
         self->_cachedSecurityIdentity = v7;
@@ -273,8 +269,6 @@
 
     cachedSecurityIdentity = self->_cachedSecurityIdentity;
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return cachedSecurityIdentity;
 }
@@ -401,55 +395,37 @@ LABEL_29:
 
 - (void)_appleIDIdentity
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v7 = *self;
-  OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3();
+  OUTLINED_FUNCTION_0();
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 - (void)_certificateChain
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-- (void)securityIdentity
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __62__AXSSInterDeviceSecurityHelper_verifyCertificate_completion___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __62__AXSSInterDeviceSecurityHelper_verifyCertificate_completion___block_invoke_cold_2()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __62__AXSSInterDeviceSecurityHelper_verifyCertificate_completion___block_invoke_cold_3()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 @end

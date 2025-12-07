@@ -49,22 +49,20 @@
 
 void __76__DownloadStateIndicatorViewAccessibility__localizedStringForDownloadState___block_invoke()
 {
-  v4[5] = *MEMORY[0x29EDCA608];
-  v3[0] = &unk_2A23AB1E8;
-  v3[1] = &unk_2A23AB200;
-  v4[0] = @"download.button.connecting";
-  v4[1] = @"download.button.downloading";
-  v3[2] = &unk_2A23AB218;
-  v3[3] = &unk_2A23AB230;
-  v4[2] = @"download.button.downloaded";
-  v4[3] = @"download.button.paused";
-  v3[4] = &unk_2A23AB248;
-  v4[4] = @"download.button.enqueued";
-  v0 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v4 forKeys:v3 count:5];
+  v3[5] = *MEMORY[0x29EDCA608];
+  v2[0] = &unk_2A23AB1E8;
+  v2[1] = &unk_2A23AB200;
+  v3[0] = @"download.button.connecting";
+  v3[1] = @"download.button.downloading";
+  v2[2] = &unk_2A23AB218;
+  v2[3] = &unk_2A23AB230;
+  v3[2] = @"download.button.downloaded";
+  v3[3] = @"download.button.paused";
+  v2[4] = &unk_2A23AB248;
+  v3[4] = @"download.button.enqueued";
+  v0 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v3 forKeys:v2 count:5];
   v1 = _localizedStringForDownloadState__stateToKeyMap;
   _localizedStringForDownloadState__stateToKeyMap = v0;
-
-  v2 = *MEMORY[0x29EDCA608];
 }
 
 @end

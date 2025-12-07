@@ -6,41 +6,41 @@
 
 - (int64_t)performActionWithManagedObjectContext:(id)context error:(id *)error
 {
-  v104[2] = *MEMORY[0x1E69E9840];
+  v106[2] = *MEMORY[0x1E69E9840];
   contextCopy = context;
   v4 = MEMORY[0x1E696AB28];
-  v54 = [MEMORY[0x1E696AE18] predicateWithFormat:@"%K == nil", @"sourceNode"];
-  v103[0] = v54;
-  v53 = [MEMORY[0x1E696AE18] predicateWithFormat:@"%K == nil", @"sourceAsset"];
-  v103[1] = v53;
-  v52 = [MEMORY[0x1E696AE18] predicateWithFormat:@"%K == nil", @"sourceMoment"];
-  v103[2] = v52;
-  v51 = [MEMORY[0x1E696AE18] predicateWithFormat:@"%K == nil", @"sourcePerson"];
-  v103[3] = v51;
-  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v103 count:4];
+  v56 = [MEMORY[0x1E696AE18] predicateWithFormat:@"%K == nil", @"sourceNode"];
+  v105[0] = v56;
+  v55 = [MEMORY[0x1E696AE18] predicateWithFormat:@"%K == nil", @"sourceAsset"];
+  v105[1] = v55;
+  v54 = [MEMORY[0x1E696AE18] predicateWithFormat:@"%K == nil", @"sourceMoment"];
+  v105[2] = v54;
+  v53 = [MEMORY[0x1E696AE18] predicateWithFormat:@"%K == nil", @"sourcePerson"];
+  v105[3] = v53;
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v105 count:4];
   v6 = [v4 andPredicateWithSubpredicates:v5];
-  v104[0] = v6;
+  v106[0] = v6;
   v7 = MEMORY[0x1E696AB28];
   v8 = [MEMORY[0x1E696AE18] predicateWithFormat:@"%K == nil", @"targetNode"];
-  v102[0] = v8;
+  v104[0] = v8;
   v9 = [MEMORY[0x1E696AE18] predicateWithFormat:@"%K == nil", @"targetAsset"];
-  v102[1] = v9;
+  v104[1] = v9;
   v10 = [MEMORY[0x1E696AE18] predicateWithFormat:@"%K == nil", @"targetMoment"];
-  v102[2] = v10;
+  v104[2] = v10;
   v11 = [MEMORY[0x1E696AE18] predicateWithFormat:@"%K == nil", @"targetPerson"];
-  v102[3] = v11;
-  v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v102 count:4];
+  v104[3] = v11;
+  v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v104 count:4];
   v13 = [v7 andPredicateWithSubpredicates:v12];
-  v104[1] = v13;
-  v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v104 count:2];
+  v106[1] = v13;
+  v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v106 count:2];
   v15 = [v4 orPredicateWithSubpredicates:v14];
 
-  v61 = 0;
-  v62 = &v61;
-  v63 = 0x3032000000;
-  v64 = __Block_byref_object_copy__43771;
-  v65 = __Block_byref_object_dispose__43772;
-  v66 = 0;
+  v63 = 0;
+  v64 = &v63;
+  v65 = 0x3032000000;
+  v66 = __Block_byref_object_copy__43771;
+  v67 = __Block_byref_object_dispose__43772;
+  v68 = 0;
   v16 = MEMORY[0x1E695D5E0];
   v17 = +[PLGraphEdge entityName];
   v18 = [v16 fetchRequestWithEntityName:v17];
@@ -49,28 +49,28 @@
   v19 = [PLEnumerateAndSaveController alloc];
   v20 = objc_opt_class();
   v21 = NSStringFromClass(v20);
+  v61[0] = MEMORY[0x1E69E9820];
+  v61[1] = 3221225472;
+  v61[2] = __97__PLModelMigrationAction_DeleteDanglingPLGraphEdges_performActionWithManagedObjectContext_error___block_invoke;
+  v61[3] = &unk_1E7575B30;
+  v22 = contextCopy;
+  v62 = v22;
+  v60[0] = MEMORY[0x1E69E9820];
+  v60[1] = 3221225472;
+  v60[2] = __97__PLModelMigrationAction_DeleteDanglingPLGraphEdges_performActionWithManagedObjectContext_error___block_invoke_2;
+  v60[3] = &unk_1E7572E50;
+  v60[4] = self;
+  v60[5] = &v63;
   v59[0] = MEMORY[0x1E69E9820];
   v59[1] = 3221225472;
-  v59[2] = __97__PLModelMigrationAction_DeleteDanglingPLGraphEdges_performActionWithManagedObjectContext_error___block_invoke;
-  v59[3] = &unk_1E7575B30;
-  v22 = contextCopy;
-  v60 = v22;
-  v58[0] = MEMORY[0x1E69E9820];
-  v58[1] = 3221225472;
-  v58[2] = __97__PLModelMigrationAction_DeleteDanglingPLGraphEdges_performActionWithManagedObjectContext_error___block_invoke_2;
-  v58[3] = &unk_1E7572E50;
-  v58[4] = self;
-  v58[5] = &v61;
-  v57[0] = MEMORY[0x1E69E9820];
-  v57[1] = 3221225472;
-  v57[2] = __97__PLModelMigrationAction_DeleteDanglingPLGraphEdges_performActionWithManagedObjectContext_error___block_invoke_3;
-  v57[3] = &unk_1E756C6E8;
-  v57[4] = &v61;
-  v23 = [(PLEnumerateAndSaveController *)v19 initWithName:v21 fetchRequest:v18 context:v22 options:0 generateContextBlock:v59 didFetchObjectIDsBlock:v58 processResultBlock:v57];
+  v59[2] = __97__PLModelMigrationAction_DeleteDanglingPLGraphEdges_performActionWithManagedObjectContext_error___block_invoke_3;
+  v59[3] = &unk_1E756C6E8;
+  v59[4] = &v63;
+  v23 = [(PLEnumerateAndSaveController *)v19 initWithName:v21 fetchRequest:v18 context:v22 options:0 generateContextBlock:v61 didFetchObjectIDsBlock:v60 processResultBlock:v59];
 
-  v56 = 0;
-  LODWORD(v19) = [(PLEnumerateAndSaveController *)v23 processObjectsWithError:&v56];
-  v24 = v56;
+  v58 = 0;
+  LODWORD(v19) = [(PLEnumerateAndSaveController *)v23 processObjectsWithError:&v58];
+  v24 = v58;
   if (v19)
   {
     v25 = PLMigrationGetLog();
@@ -83,18 +83,20 @@
 
       if (v28)
       {
-        v42 = PLMigrationGetLog();
-        if (os_log_type_enabled(v42, OS_LOG_TYPE_INFO))
+        v45 = PLMigrationGetLog();
+        if (os_log_type_enabled(v45, OS_LOG_TYPE_INFO))
         {
-          completedUnitCount = [v62[5] completedUnitCount];
+          completedUnitCount = [v64[5] completedUnitCount];
           *buf = 134217984;
           *&buf[4] = completedUnitCount;
-          _os_log_impl(&dword_19BF1F000, v42, OS_LOG_TYPE_INFO, "Completed playback bit update on %lu assets", buf, 0xCu);
+          _os_log_impl(&dword_19BF1F000, v45, OS_LOG_TYPE_INFO, "Completed playback bit update on %lu assets", buf, 0xCu);
         }
       }
 
       else
       {
+        v102 = 0u;
+        v103 = 0u;
         v100 = 0u;
         v101 = 0u;
         v98 = 0u;
@@ -123,57 +125,66 @@
         v77 = 0u;
         v74 = 0u;
         v75 = 0u;
-        v72 = 0u;
-        v73 = 0u;
         memset(buf, 0, sizeof(buf));
         v29 = PLMigrationGetLog();
-        os_log_type_enabled(v29, OS_LOG_TYPE_INFO);
-        completedUnitCount2 = [v62[5] completedUnitCount];
-        v67 = 134217984;
-        v68 = completedUnitCount2;
-        LODWORD(v49) = 12;
-        v31 = _os_log_send_and_compose_impl();
-
-        v32 = [(PLModelMigrationActionCore *)self logger:&v67];
-        [v32 logWithMessage:v31 fromCodeLocation:"PLModelMigrationActions_18000.m" type:{809, 1}];
-
-        if (v31 != buf)
+        v30 = os_log_type_enabled(v29, OS_LOG_TYPE_INFO);
+        completedUnitCount2 = [v64[5] completedUnitCount];
+        if (v30)
         {
-          free(v31);
+          v32 = 3;
+        }
+
+        else
+        {
+          v32 = 2;
+        }
+
+        v69 = 134217984;
+        v70 = completedUnitCount2;
+        v33 = _os_log_send_and_compose_impl(v32, 0, buf, 512, &dword_19BF1F000, v29, 1, "Completed playback bit update on %lu assets", &v69);
+
+        logger2 = [(PLModelMigrationActionCore *)self logger];
+        [logger2 logWithMessage:v33 fromCodeLocation:"PLModelMigrationActions_18000.m" type:{809, 1}];
+
+        if (v33 != buf)
+        {
+          free(v33);
         }
       }
     }
 
-    v44 = 1;
+    v47 = 1;
   }
 
   else
   {
-    v33 = PLMigrationGetLog();
-    v34 = os_log_type_enabled(v33, OS_LOG_TYPE_ERROR);
+    v35 = PLMigrationGetLog();
+    v36 = os_log_type_enabled(v35, OS_LOG_TYPE_ERROR);
 
-    if (v34)
+    if (v36)
     {
-      logger2 = [(PLModelMigrationActionCore *)self logger];
-      v36 = logger2 == 0;
+      logger3 = [(PLModelMigrationActionCore *)self logger];
+      v38 = logger3 == 0;
 
-      if (v36)
+      if (v38)
       {
-        v45 = PLMigrationGetLog();
-        if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
+        v48 = PLMigrationGetLog();
+        if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
         {
-          v46 = objc_opt_class();
-          v47 = NSStringFromClass(v46);
+          v49 = objc_opt_class();
+          v50 = NSStringFromClass(v49);
           *buf = 138543618;
-          *&buf[4] = v47;
+          *&buf[4] = v50;
           *&buf[12] = 2112;
           *&buf[14] = v24;
-          _os_log_impl(&dword_19BF1F000, v45, OS_LOG_TYPE_ERROR, "Failed to process %{public}@. Error: %@", buf, 0x16u);
+          _os_log_impl(&dword_19BF1F000, v48, OS_LOG_TYPE_ERROR, "Failed to process %{public}@. Error: %@", buf, 0x16u);
         }
       }
 
       else
       {
+        v102 = 0u;
+        v103 = 0u;
         v100 = 0u;
         v101 = 0u;
         v98 = 0u;
@@ -202,35 +213,41 @@
         v77 = 0u;
         v74 = 0u;
         v75 = 0u;
-        v72 = 0u;
-        v73 = 0u;
         memset(buf, 0, sizeof(buf));
-        v37 = PLMigrationGetLog();
-        os_log_type_enabled(v37, OS_LOG_TYPE_ERROR);
-        v38 = objc_opt_class();
-        v39 = NSStringFromClass(v38);
-        v67 = 138543618;
-        v68 = v39;
-        v69 = 2112;
-        v70 = v24;
-        LODWORD(v49) = 22;
-        v40 = _os_log_send_and_compose_impl();
-
-        v41 = [(PLModelMigrationActionCore *)self logger:&v67];
-        [v41 logWithMessage:v40 fromCodeLocation:"PLModelMigrationActions_18000.m" type:{812, 16}];
-
-        if (v40 != buf)
+        v39 = PLMigrationGetLog();
+        if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
         {
-          free(v40);
+          v40 = 3;
+        }
+
+        else
+        {
+          v40 = 2;
+        }
+
+        v41 = objc_opt_class();
+        v42 = NSStringFromClass(v41);
+        v69 = 138543618;
+        v70 = v42;
+        v71 = 2112;
+        v72 = v24;
+        v43 = _os_log_send_and_compose_impl(v40, 0, buf, 512, &dword_19BF1F000, v39, 16, "Failed to process %{public}@. Error: %@", &v69, 22);
+
+        logger4 = [(PLModelMigrationActionCore *)self logger];
+        [logger4 logWithMessage:v43 fromCodeLocation:"PLModelMigrationActions_18000.m" type:{812, 16}];
+
+        if (v43 != buf)
+        {
+          free(v43);
         }
       }
     }
 
-    v44 = 3;
+    v47 = 3;
   }
 
-  _Block_object_dispose(&v61, 8);
-  return v44;
+  _Block_object_dispose(&v63, 8);
+  return v47;
 }
 
 @end

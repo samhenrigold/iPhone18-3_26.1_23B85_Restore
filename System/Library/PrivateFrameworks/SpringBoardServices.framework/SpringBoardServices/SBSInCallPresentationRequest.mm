@@ -32,7 +32,7 @@
   v34 = *MEMORY[0x1E69E9840];
   configurationCopy = configuration;
   completionCopy = completion;
-  v8 = SBLogInCallPresentation();
+  v8 = SBLogInCallPresentation(completionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
@@ -69,8 +69,7 @@
   v30 = v19;
   selfCopy = self;
   v20 = v19;
-  [v17 configureConnection:v29];
-  v21 = SBLogInCallPresentation();
+  v21 = SBLogInCallPresentation([v17 configureConnection:v29]);
   if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
@@ -112,7 +111,7 @@ void __80__SBSInCallPresentationRequest_performPresentationWithConfiguration_com
 {
   v6 = *MEMORY[0x1E69E9840];
   v2 = a2;
-  v3 = SBLogInCallPresentation();
+  v3 = SBLogInCallPresentation(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = 138543362;
@@ -124,7 +123,7 @@ void __80__SBSInCallPresentationRequest_performPresentationWithConfiguration_com
 void __80__SBSInCallPresentationRequest_performPresentationWithConfiguration_completion___block_invoke_6(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = SBLogInCallPresentation();
+  v3 = SBLogInCallPresentation(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __80__SBSInCallPresentationRequest_performPresentationWithConfiguration_completion___block_invoke_6_cold_1(v2, v3);
@@ -136,7 +135,7 @@ void __80__SBSInCallPresentationRequest_performPresentationWithConfiguration_com
 void __80__SBSInCallPresentationRequest_performPresentationWithConfiguration_completion___block_invoke_9(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = SBLogInCallPresentation();
+  v3 = SBLogInCallPresentation(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __76__SBSSystemNotesPresentationClientToServerProxy__setupAndActivateConnection__block_invoke_19_cold_1(v2, v3);

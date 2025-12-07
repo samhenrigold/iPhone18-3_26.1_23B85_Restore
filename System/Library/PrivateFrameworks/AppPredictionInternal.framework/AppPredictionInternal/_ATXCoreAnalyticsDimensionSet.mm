@@ -10,10 +10,9 @@
 
 - (id)powerset
 {
-  v5[1] = *MEMORY[0x277D85DE8];
-  v5[0] = self;
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:1];
-  v3 = *MEMORY[0x277D85DE8];
+  v4[1] = *MEMORY[0x277D85DE8];
+  v4[0] = self;
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:1];
 
   return v2;
 }
@@ -29,34 +28,34 @@
 
 - (unint64_t)hash
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   _dictionaryKeys = [(_ATXCoreAnalyticsDimensionSet *)self _dictionaryKeys];
   coreAnalyticsDictionary = [(_ATXCoreAnalyticsDimensionSet *)self coreAnalyticsDictionary];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v5 = _dictionaryKeys;
-  v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
     v7 = v6;
     v8 = 0;
-    v9 = *v15;
+    v9 = *v14;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v15 != v9)
+        if (*v14 != v9)
         {
           objc_enumerationMutation(v5);
         }
 
-        v11 = [coreAnalyticsDictionary objectForKeyedSubscript:{*(*(&v14 + 1) + 8 * i), v14}];
+        v11 = [coreAnalyticsDictionary objectForKeyedSubscript:{*(*(&v13 + 1) + 8 * i), v13}];
         v8 = [v11 hash] - v8 + 32 * v8;
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v7);
@@ -67,7 +66,6 @@
     v8 = 0;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v8;
 }
 

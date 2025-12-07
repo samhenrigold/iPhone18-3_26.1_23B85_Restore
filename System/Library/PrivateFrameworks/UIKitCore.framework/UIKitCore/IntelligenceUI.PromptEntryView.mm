@@ -41,7 +41,7 @@
   if (v9)
   {
     v10 = v9;
-    sub_188A34624(0, &qword_1ED48F680);
+    sub_188A34624(0, &qword_1ED48F680, off_1E70EAD78);
     v11 = v7;
     v12 = v10;
     LOBYTE(v10) = sub_18A4A7C88();
@@ -87,8 +87,8 @@
   height = fits.height;
   width = fits.width;
   selfCopy = self;
-  v6 = sub_18915AE10();
-  sub_1891591C8(v6, v8, v7 & 1, width, height);
+  sub_18915AE10();
+  sub_1891591C8(v7, v8, v6 & 1, width, height);
   v10 = v9;
   v12 = v11;
 
@@ -204,7 +204,7 @@
 
 - (void)canGenerateTargetedPreviewsWithCompletionHandler:(id)handler
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA934728);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA934728, &unk_18A64C610);
   MEMORY[0x1EEE9AC00](v5 - 8);
   v7 = &v14 - v6;
   v8 = _Block_copy(handler);
@@ -229,7 +229,7 @@
 
 - (void)canGenerateTargetedPreviewForChunk:(_TtC5UIKit21UITextEffectTextChunk *)chunk completionHandler:(id)handler
 {
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA934728);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA934728, &unk_18A64C610);
   MEMORY[0x1EEE9AC00](v7 - 8);
   v9 = &v17 - v8;
   v10 = _Block_copy(handler);
@@ -260,7 +260,7 @@
   width = previous.size.width;
   y = previous.origin.y;
   x = previous.origin.x;
-  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA934728);
+  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA934728, &unk_18A64C610);
   MEMORY[0x1EEE9AC00](v12 - 8);
   v14 = &v22 - v13;
   v15 = _Block_copy(handler);
@@ -291,7 +291,7 @@
 
 - (void)targetedPreviewFor:(_TtC5UIKit21UITextEffectTextChunk *)for completionHandler:(id)handler
 {
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA934728);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA934728, &unk_18A64C610);
   MEMORY[0x1EEE9AC00](v7 - 8);
   v9 = &v17 - v8;
   v10 = _Block_copy(handler);
@@ -318,7 +318,7 @@
 
 - (void)updateTextChunkVisibilityForAnimation:(_TtC5UIKit21UITextEffectTextChunk *)animation visible:(BOOL)visible completionHandler:(id)handler
 {
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA934728);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA934728, &unk_18A64C610);
   MEMORY[0x1EEE9AC00](v9 - 8);
   v11 = &v19 - v10;
   v12 = _Block_copy(handler);

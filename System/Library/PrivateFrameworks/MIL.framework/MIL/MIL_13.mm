@@ -226,32 +226,32 @@ uint64_t MIL::Text::Parser::Rule<MIL::Text::Parser::Type,MIL::IRValueType const*
 uint64_t MIL::Text::Parser::Rule<MIL::Text::Parser::Type,MIL::IRValueType const*>::Parse<MIL::Text::Parser::TypeList>@<X0>(__n128 *a1@<X0>, void *a2@<X8>)
 {
   v3 = a1->n128_u64[1];
-  v6[0] = &unk_2829E8850;
-  v6[1] = v3;
+  v6.n128_u64[0] = &unk_2829E8850;
+  v6.n128_u64[1] = v3;
   v7 = a1[1];
   v4 = (*(*v7.n128_u64[0] + 24))(v7.n128_u64[0], v7);
   v8 = *MIL::Scanner::Token::GetLocation(v4);
-  v6[0] = &unk_2829E6C90;
-  return MIL::Text::Parser::TypeList::Parse(v6, a2);
+  v6.n128_u64[0] = &unk_2829E6C90;
+  return MIL::Text::Parser::TypeList::Parse(&v6, a2);
 }
 
-uint64_t MIL::Text::Parser::TypeList::Parse@<X0>(MIL::Text::Parser::TypeList *this@<X0>, void *a2@<X8>)
+uint64_t MIL::Text::Parser::TypeList::Parse@<X0>(__n128 *this@<X0>, void *a2@<X8>)
 {
   *a2 = 0;
   a2[1] = 0;
   a2[2] = 0;
-  v7 = (MIL::Text::Parser::Rule<MIL::Text::Parser::Value,std::shared_ptr<MIL::IRValue const>>::Parse<MIL::Text::Parser::Type>)();
+  v7 = MIL::Text::Parser::Rule<MIL::Text::Parser::Value,std::shared_ptr<MIL::IRValue const>>::Parse<MIL::Text::Parser::Type>(this);
   std::vector<MIL::IRDimension const*>::push_back[abi:ne200100](a2, &v7);
   while (1)
   {
-    v4 = (*(**(this + 2) + 24))(*(this + 2));
+    v4 = (*(*this[1].n128_u64[0] + 24))(this[1].n128_u64[0]);
     result = MIL::Scanner::Token::GetType(v4);
     if (result != 9)
     {
       break;
     }
 
-    (*(**(this + 2) + 16))(v6);
+    (*(*this[1].n128_u64[0] + 16))(v6);
     UnknownLocationImpl::~UnknownLocationImpl(v6);
     v7 = MIL::Text::Parser::Rule<MIL::Text::Parser::Value,std::shared_ptr<MIL::IRValue const>>::Parse<MIL::Text::Parser::Type>(this);
     std::vector<MIL::IRDimension const*>::push_back[abi:ne200100](a2, &v7);
@@ -736,84 +736,84 @@ uint64_t MIL::Text::Parser::Rule<MIL::Text::Parser::PixelBufferNumSlicesVec,std:
 
 void MIL::Text::Parser::Argument::Parse(__n128 *this)
 {
-  MIL::Text::Parser::Rule<MIL::Text::Parser::Argument,std::shared_ptr<MIL::IRArgument>>::ParseOpt<MIL::Text::Parser::ID>(this, &v19);
-  if (SHIBYTE(v19.__r_.__value_.__r.__words[2]) < 0)
+  MIL::Text::Parser::Rule<MIL::Text::Parser::Argument,std::shared_ptr<MIL::IRArgument>>::ParseOpt<MIL::Text::Parser::ID>(this, &v20);
+  if (SHIBYTE(v20.__r_.__value_.__r.__words[2]) < 0)
   {
-    if (v19.__r_.__value_.__l.__size_)
+    if (v20.__r_.__value_.__l.__size_)
     {
-      v5 = this[1].n128_i64[1];
-      v2 = &this[1].n128_i64[1];
-      v3 = v5;
-      std::string::__init_copy_ctor_external(&v16, v19.__r_.__value_.__l.__data_, v19.__r_.__value_.__l.__size_);
+      v6 = this[1].n128_i64[1];
+      v3 = &this[1].n128_i64[1];
+      v4 = v6;
+      std::string::__init_copy_ctor_external(&v17, v20.__r_.__value_.__l.__data_, v20.__r_.__value_.__l.__size_);
 LABEL_6:
-      MIL::ParserContext::GetConstexprVariableValue(v3, &v16.__r_.__value_.__l.__data_, &v17);
-      if (SHIBYTE(v16.__r_.__value_.__r.__words[2]) < 0)
+      MIL::ParserContext::GetConstexprVariableValue(v4, &v17, &v18);
+      if (SHIBYTE(v17.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v16.__r_.__value_.__l.__data_);
+        operator delete(v17.__r_.__value_.__l.__data_);
       }
 
-      if (v17)
+      if (v18)
       {
-        MIL::ParserContext::GetCurrentOperator(*v2, &v14);
-        IsConstexprOpTakingInputs = MIL::Util::IsConstexprOpTakingInputs(v14, v6);
-        if (v15)
+        MIL::ParserContext::GetCurrentOperator(*v3, &v15);
+        IsConstexprOpTakingInputs = MIL::Util::IsConstexprOpTakingInputs(v15, v7);
+        if (v16)
         {
-          std::__shared_weak_count::__release_shared[abi:ne200100](v15);
+          std::__shared_weak_count::__release_shared[abi:ne200100](v16);
         }
 
         if (IsConstexprOpTakingInputs)
         {
-          v12 = v17;
           v13 = v18;
-          if (v18)
+          v14 = v19;
+          if (v19)
           {
-            atomic_fetch_add_explicit(&v18->__shared_owners_, 1uLL, memory_order_relaxed);
+            atomic_fetch_add_explicit(&v19->__shared_owners_, 1uLL, memory_order_relaxed);
           }
 
           MIL::IRArgument::Make();
         }
       }
 
-      if (v18)
+      if (v19)
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v18);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v19);
       }
 
-      if (SHIBYTE(v19.__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v20.__r_.__value_.__r.__words[2]) < 0)
       {
-        std::string::__init_copy_ctor_external(&v11, v19.__r_.__value_.__l.__data_, v19.__r_.__value_.__l.__size_);
+        std::string::__init_copy_ctor_external(&v12, v20.__r_.__value_.__l.__data_, v20.__r_.__value_.__l.__size_);
       }
 
       else
       {
-        v11 = v19;
+        v12 = v20;
       }
 
       MIL::IRArgument::Make();
     }
   }
 
-  else if (*(&v19.__r_.__value_.__s + 23))
+  else if (*(&v20.__r_.__value_.__s + 23))
   {
-    v4 = this[1].n128_i64[1];
-    v2 = &this[1].n128_i64[1];
-    v3 = v4;
-    v16 = v19;
+    v5 = this[1].n128_i64[1];
+    v3 = &this[1].n128_i64[1];
+    v4 = v5;
+    v17 = v20;
     goto LABEL_6;
   }
 
-  MIL::Text::Parser::Rule<MIL::Text::Parser::Argument,std::shared_ptr<MIL::IRArgument>>::ParseOpt<MIL::Text::Parser::Value>(this, &v17);
-  if (v17)
+  MIL::Text::Parser::Rule<MIL::Text::Parser::Argument,std::shared_ptr<MIL::IRArgument>>::ParseOpt<MIL::Text::Parser::Value>(this, &v18);
+  if (v18)
   {
-    v17 = 0;
     v18 = 0;
+    v19 = 0;
     MIL::IRArgument::Make();
   }
 
-  v8 = this[2].n128_i64[0];
+  v9 = this[2].n128_u64[0];
   Options = MIL::ParserContext::GetOptions(this[1].n128_u64[1]);
-  v10 = (*(*Options + 24))(Options);
-  MIL::TextLocationFromScannerLocation(v8, v10);
+  v11 = (*(*Options + 24))(Options);
+  MIL::TextLocationFromScannerLocation(v9, v11);
 }
 
 void sub_21807AF20(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, uint64_t a16, std::__shared_weak_count *a17, uint64_t a18, uint64_t a19, void *a20, uint64_t a21, int a22, __int16 a23, char a24, char a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, std::__shared_weak_count *a30)
@@ -899,28 +899,28 @@ void sub_21807B29C(_Unwind_Exception *a1)
 
 void MIL::Text::Parser::Rule<MIL::Text::Parser::ArgumentList,std::vector<std::shared_ptr<MIL::IRArgument>>>::Parse<MIL::Text::Parser::Argument>(__n128 *a1)
 {
-  v1 = a1->n128_u64[1];
-  v3.n128_u64[0] = &unk_2829E8A00;
-  v3.n128_u64[1] = v1;
-  v4 = a1[1];
-  v2 = (*(*v4.n128_u64[0] + 24))(v4.n128_u64[0], v4);
-  v5 = *MIL::Scanner::Token::GetLocation(v2);
-  v3.n128_u64[0] = &unk_2829E7160;
-  MIL::Text::Parser::Argument::Parse(&v3);
+  v2 = a1->n128_u64[1];
+  v4.n128_u64[0] = &unk_2829E8A00;
+  v4.n128_u64[1] = v2;
+  v5 = a1[1];
+  v3 = (*(*v5.n128_u64[0] + 24))(v5.n128_u64[0], v5);
+  v6 = *MIL::Scanner::Token::GetLocation(v3);
+  v4.n128_u64[0] = &unk_2829E7160;
+  MIL::Text::Parser::Argument::Parse(&v4);
 }
 
 void MIL::Text::Parser::IDArgumentBinding::Parse(__n128 *this)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  MIL::Text::Parser::Rule<MIL::Text::Parser::Function,std::pair<std::string const,std::shared_ptr<MIL::IRFunction>>>::Parse<MIL::Text::Parser::ID>(this, &v6);
+  v8 = *MEMORY[0x277D85DE8];
+  MIL::Text::Parser::Rule<MIL::Text::Parser::Function,std::pair<std::string const,std::shared_ptr<MIL::IRFunction>>>::Parse<MIL::Text::Parser::ID>(this, &v7);
   MIL::Text::Parser::Rule<MIL::Text::Parser::Program,std::unique_ptr<MIL::IRProgram>>::Expect(this, 0);
-  UnknownLocationImpl::~UnknownLocationImpl(v5);
-  v2 = (*(*this[1].n128_u64[0] + 24))(this[1].n128_u64[0]);
-  if (MIL::Scanner::Token::GetType(v2) == 5)
+  UnknownLocationImpl::~UnknownLocationImpl(v6);
+  v3 = (*(*this[1].n128_u64[0] + 24))(this[1].n128_u64[0]);
+  if (MIL::Scanner::Token::GetType(v3) == 5)
   {
-    (*(*this[1].n128_u64[0] + 16))(v4);
-    UnknownLocationImpl::~UnknownLocationImpl(v4);
-    MIL::Text::Parser::Rule<MIL::Text::Parser::IDArgumentBinding,std::pair<std::string const,std::vector<std::shared_ptr<MIL::IRArgument>>>>::Parse<MIL::Text::Parser::ArgumentList>(this, &v3);
+    (*(*this[1].n128_u64[0] + 16))(v5);
+    UnknownLocationImpl::~UnknownLocationImpl(v5);
+    MIL::Text::Parser::Rule<MIL::Text::Parser::IDArgumentBinding,std::pair<std::string const,std::vector<std::shared_ptr<MIL::IRArgument>>>>::Parse<MIL::Text::Parser::ArgumentList>(this, &v4);
   }
 
   MIL::Text::Parser::Rule<MIL::Text::Parser::ArgumentList,std::vector<std::shared_ptr<MIL::IRArgument>>>::Parse<MIL::Text::Parser::Argument>(this);
@@ -973,35 +973,34 @@ void sub_21807B884(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void MIL::Text::Parser::Rule<MIL::Text::Parser::IDArgumentBindingMap,std::map<std::string,std::vector<std::shared_ptr<MIL::IRArgument>>>>::Parse<MIL::Text::Parser::IDArgumentBinding>(__n128 *a1)
 {
-  v1 = a1->n128_u64[1];
-  v3.n128_u64[0] = &unk_2829E8A60;
-  v3.n128_u64[1] = v1;
-  v4 = a1[1];
-  v2 = (*(*v4.n128_u64[0] + 24))(v4.n128_u64[0], v4);
-  v5 = *MIL::Scanner::Token::GetLocation(v2);
-  v3.n128_u64[0] = &unk_2829E7210;
-  MIL::Text::Parser::IDArgumentBinding::Parse(&v3);
+  v2 = a1->n128_u64[1];
+  v4.n128_u64[0] = &unk_2829E8A60;
+  v4.n128_u64[1] = v2;
+  v5 = a1[1];
+  v3 = (*(*v5.n128_u64[0] + 24))(v5.n128_u64[0], v5);
+  v6 = *MIL::Scanner::Token::GetLocation(v3);
+  v4.n128_u64[0] = &unk_2829E7210;
+  MIL::Text::Parser::IDArgumentBinding::Parse(&v4);
 }
 
 void MIL::Text::Parser::IDValueBinding::Parse(__n128 *this@<X0>, uint64_t a2@<X8>)
 {
-  MIL::Text::Parser::Rule<MIL::Text::Parser::Function,std::pair<std::string const,std::shared_ptr<MIL::IRFunction>>>::Parse<MIL::Text::Parser::ID>(this, __p);
+  MIL::Text::Parser::Rule<MIL::Text::Parser::Function,std::pair<std::string const,std::shared_ptr<MIL::IRFunction>>>::Parse<MIL::Text::Parser::ID>(this, &__p);
   MIL::Text::Parser::Rule<MIL::Text::Parser::IDValueBinding,std::pair<std::string,std::shared_ptr<MIL::IRValue const>>>::Parse<MIL::Text::Parser::ValueAssign>(this, &v4);
-  if (SHIBYTE(v6) < 0)
+  if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
-    std::string::__init_copy_ctor_external(a2, __p[0], __p[1]);
+    std::string::__init_copy_ctor_external(a2, __p.__r_.__value_.__l.__data_, __p.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    *a2 = *__p;
-    *(a2 + 16) = v6;
+    *a2 = __p;
   }
 
   *(a2 + 24) = v4;
-  if (SHIBYTE(v6) < 0)
+  if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(__p[0]);
+    operator delete(__p.__r_.__value_.__l.__data_);
   }
 }
 
@@ -1020,7 +1019,7 @@ void sub_21807BA58(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t MIL::Text::Parser::Rule<MIL::Text::Parser::IDValueBinding,std::pair<std::string,std::shared_ptr<MIL::IRValue const>>>::Parse<MIL::Text::Parser::ValueAssign>@<X0>(__n128 *a1@<X0>, void *a2@<X8>)
+void *MIL::Text::Parser::Rule<MIL::Text::Parser::IDValueBinding,std::pair<std::string,std::shared_ptr<MIL::IRValue const>>>::Parse<MIL::Text::Parser::ValueAssign>@<X0>(__n128 *a1@<X0>, void *a2@<X8>)
 {
   v3 = a1->n128_u64[1];
   v6.n128_u64[0] = &unk_2829E8A90;
@@ -1038,7 +1037,7 @@ uint64_t MIL::Text::Parser::IDValueBindingMap::Parse@<X0>(MIL::Text::Parser::IDV
   *(a2 + 16) = 0u;
   *(a2 + 32) = 1065353216;
   MIL::Text::Parser::Rule<MIL::Text::Parser::IDValueBindingMap,std::unordered_map<std::string,std::shared_ptr<MIL::IRValue const>>>::Parse<MIL::Text::Parser::IDValueBinding>(this, &v12);
-  std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::__emplace_unique_key_args<std::string,std::pair<std::string,std::shared_ptr<MIL::IRValue const>>>(a2, &v12.__r_.__value_.__l.__data_);
+  std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::__emplace_unique_key_args<std::string,std::pair<std::string,std::shared_ptr<MIL::IRValue const>>>(a2, &v12, &v12);
   while (1)
   {
     if (v13)
@@ -1071,7 +1070,7 @@ uint64_t MIL::Text::Parser::IDValueBindingMap::Parse@<X0>(MIL::Text::Parser::IDV
       v10 = v12;
     }
 
-    std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::__emplace_unique_key_args<std::string,std::pair<std::string,std::shared_ptr<MIL::IRValue const>>>(a2, &v12.__r_.__value_.__l.__data_);
+    std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::__emplace_unique_key_args<std::string,std::pair<std::string,std::shared_ptr<MIL::IRValue const>>>(a2, &v12, &v12);
     if ((v6 & 1) == 0)
     {
       v7 = *(this + 4);
@@ -1120,15 +1119,15 @@ void MIL::Text::Parser::AttributesMap::Parse(__n128 *this@<X0>, uint64_t a2@<X8>
 void MIL::Text::Parser::IDTypeBinding::Parse(__n128 *this)
 {
   MIL::Text::Parser::Rule<MIL::Text::Parser::Value,std::shared_ptr<MIL::IRValue const>>::Parse<MIL::Text::Parser::Type>(this);
-  MIL::Text::Parser::Rule<MIL::Text::Parser::Function,std::pair<std::string const,std::shared_ptr<MIL::IRFunction>>>::Parse<MIL::Text::Parser::ID>(this, &v3);
-  if (SHIBYTE(v3.__r_.__value_.__r.__words[2]) < 0)
+  MIL::Text::Parser::Rule<MIL::Text::Parser::Function,std::pair<std::string const,std::shared_ptr<MIL::IRFunction>>>::Parse<MIL::Text::Parser::ID>(this, &v4);
+  if (SHIBYTE(v4.__r_.__value_.__r.__words[2]) < 0)
   {
-    std::string::__init_copy_ctor_external(&__p, v3.__r_.__value_.__l.__data_, v3.__r_.__value_.__l.__size_);
+    std::string::__init_copy_ctor_external(&__p, v4.__r_.__value_.__l.__data_, v4.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    __p = v3;
+    __p = v4;
   }
 
   MIL::IRNamedValueType::Make();
@@ -1181,14 +1180,14 @@ void sub_21807C1EC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void MIL::Text::Parser::Rule<MIL::Text::Parser::IDTypeBindingMap,std::map<std::string,MIL::IRValueType const*>>::Parse<MIL::Text::Parser::IDTypeBinding>(__n128 *a1)
 {
-  v1 = a1->n128_u64[1];
-  v3.n128_u64[0] = &unk_2829E8AF0;
-  v3.n128_u64[1] = v1;
-  v4 = a1[1];
-  v2 = (*(*v4.n128_u64[0] + 24))(v4.n128_u64[0], v4);
-  v5 = *MIL::Scanner::Token::GetLocation(v2);
-  v3.n128_u64[0] = &unk_2829E73C8;
-  MIL::Text::Parser::IDTypeBinding::Parse(&v3);
+  v2 = a1->n128_u64[1];
+  v4.n128_u64[0] = &unk_2829E8AF0;
+  v4.n128_u64[1] = v2;
+  v5 = a1[1];
+  v3 = (*(*v5.n128_u64[0] + 24))(v5.n128_u64[0], v5);
+  v6 = *MIL::Scanner::Token::GetLocation(v3);
+  v4.n128_u64[0] = &unk_2829E73C8;
+  MIL::Text::Parser::IDTypeBinding::Parse(&v4);
 }
 
 void MIL::Text::Parser::IDTypeBindingList::Parse(__n128 *this@<X0>, void *a2@<X8>)
@@ -1199,7 +1198,7 @@ void MIL::Text::Parser::IDTypeBindingList::Parse(__n128 *this@<X0>, void *a2@<X8
   MIL::Text::Parser::Rule<MIL::Text::Parser::IDTypeBindingMap,std::map<std::string,MIL::IRValueType const*>>::Parse<MIL::Text::Parser::IDTypeBinding>(this);
 }
 
-void sub_21807C650(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, void **a21, uint64_t a22, uint64_t a23)
+void sub_21807C650(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23)
 {
   std::unique_ptr<MIL::IRNamedValueType>::reset[abi:ne200100](&a21, 0);
   std::vector<std::shared_ptr<MIL::IRBlock>>::__destroy_vector::operator()[abi:ne200100](&a22);
@@ -1211,13 +1210,13 @@ uint64_t MIL::Text::Parser::IDList::Parse@<X0>(__n128 *this@<X0>, void *a2@<X8>)
   *a2 = 0;
   a2[1] = 0;
   a2[2] = 0;
-  MIL::Text::Parser::Rule<MIL::Text::Parser::Function,std::pair<std::string const,std::shared_ptr<MIL::IRFunction>>>::Parse<MIL::Text::Parser::ID>(this, __p);
-  std::vector<std::string>::push_back[abi:ne200100](a2, __p);
+  MIL::Text::Parser::Rule<MIL::Text::Parser::Function,std::pair<std::string const,std::shared_ptr<MIL::IRFunction>>>::Parse<MIL::Text::Parser::ID>(this, &__p);
+  std::vector<std::string>::push_back[abi:ne200100](a2, &__p);
   while (1)
   {
-    if (v8 < 0)
+    if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(__p[0]);
+      operator delete(__p.__r_.__value_.__l.__data_);
     }
 
     v4 = (*(*this[1].n128_u64[0] + 24))(this[1].n128_u64[0]);
@@ -1229,8 +1228,8 @@ uint64_t MIL::Text::Parser::IDList::Parse@<X0>(__n128 *this@<X0>, void *a2@<X8>)
 
     (*(*this[1].n128_u64[0] + 16))(v6);
     UnknownLocationImpl::~UnknownLocationImpl(v6);
-    MIL::Text::Parser::Rule<MIL::Text::Parser::Function,std::pair<std::string const,std::shared_ptr<MIL::IRFunction>>>::Parse<MIL::Text::Parser::ID>(this, __p);
-    std::vector<std::string>::push_back[abi:ne200100](a2, __p);
+    MIL::Text::Parser::Rule<MIL::Text::Parser::Function,std::pair<std::string const,std::shared_ptr<MIL::IRFunction>>>::Parse<MIL::Text::Parser::ID>(this, &__p);
+    std::vector<std::string>::push_back[abi:ne200100](a2, &__p);
   }
 
   return result;
@@ -1310,8 +1309,7 @@ void std::vector<std::string>::push_back[abi:ne200100](uint64_t a1, __int128 *a2
     v6 = *a2;
     *(v4 + 16) = *(a2 + 2);
     *v4 = v6;
-    *(a2 + 1) = 0;
-    *(a2 + 2) = 0;
+    *(a2 + 8) = 0uLL;
     *a2 = 0;
     v7 = v4 + 24;
   }
@@ -1723,7 +1721,7 @@ uint64_t MIL::Text::Parser::INT64::Parse(MIL::ParserContext **this)
   return v7;
 }
 
-unint64_t MIL::Text::Parser::UINT64::Parse(MIL::Text::Parser::UINT64 *this)
+unint64_t MIL::Text::Parser::UINT64::Parse(MIL::ParserContext **this)
 {
   MIL::Text::Parser::Rule<MIL::Text::Parser::Program,std::unique_ptr<MIL::IRProgram>>::Expect(this, 18);
   ProgramFirstSet = MIL::ParserContext::GetProgramFirstSet(v11);
@@ -1748,8 +1746,8 @@ unint64_t MIL::Text::Parser::UINT64::Parse(MIL::Text::Parser::UINT64 *this)
   __dst.__r_.__value_.__s.__data_[v3] = 0;
   UnknownLocationImpl::~UnknownLocationImpl(v11);
   BaseAndPrepIntStringForParse = MIL::Util::GetBaseAndPrepIntStringForParse(&__dst);
-  v6 = *(this + 4);
-  Options = MIL::ParserContext::GetOptions(*(this + 3));
+  v6 = this[4];
+  Options = MIL::ParserContext::GetOptions(this[3]);
   v8 = (*(*Options + 24))(Options);
   v9 = MIL::Util::stoull(&__dst, BaseAndPrepIntStringForParse, v6, v8);
   if (SHIBYTE(__dst.__r_.__value_.__r.__words[2]) < 0)
@@ -1806,7 +1804,7 @@ void sub_21807DCD8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void MIL::Text::Parser::STRING::Parse(MIL::Text::Parser::STRING *this@<X0>, _BYTE *a2@<X8>)
+void MIL::Text::Parser::STRING::Parse(MIL::Text::Parser::STRING *this@<X0>, void *a2@<X8>)
 {
   MIL::Text::Parser::Rule<MIL::Text::Parser::Program,std::unique_ptr<MIL::IRProgram>>::Expect(this, 20);
   ProgramFirstSet = MIL::ParserContext::GetProgramFirstSet(v6);
@@ -1822,13 +1820,13 @@ void MIL::Text::Parser::STRING::Parse(MIL::Text::Parser::STRING *this@<X0>, _BYT
     operator new();
   }
 
-  a2[23] = v4;
+  *(a2 + 23) = v4;
   if (v4)
   {
     memmove(a2, v5, v4);
   }
 
-  a2[v4] = 0;
+  *(a2 + v4) = 0;
   UnknownLocationImpl::~UnknownLocationImpl(v6);
 }
 
@@ -1899,7 +1897,7 @@ float MIL::Text::Parser::Rule<MIL::Text::Parser::SYNTAX_VERSION,MIL::SyntaxVersi
   return MIL::Text::Parser::FP32::Parse(v4);
 }
 
-void MIL::Text::Parser::ID::Parse(MIL::Text::Parser::ID *this@<X0>, uint64_t a2@<X8>)
+void MIL::Text::Parser::ID::Parse(MIL::Text::Parser::ID *this@<X0>, std::string *a2@<X8>)
 {
   v4 = (*(**(this + 2) + 24))(*(this + 2));
   MIL::Scanner::Token::Token(v19, v4);
@@ -1920,13 +1918,13 @@ void MIL::Text::Parser::ID::Parse(MIL::Text::Parser::ID *this@<X0>, uint64_t a2@
       operator new();
     }
 
-    *(a2 + 23) = v8;
+    *(&a2->__r_.__value_.__s + 23) = v8;
     if (v8)
     {
       memmove(a2, v9, v8);
     }
 
-    *(a2 + v8) = 0;
+    a2->__r_.__value_.__s.__data_[v8] = 0;
     UnknownLocationImpl::~UnknownLocationImpl(&v17);
   }
 
@@ -3303,8 +3301,7 @@ uint64_t std::pair<std::string const,std::shared_ptr<MIL::IRFunction>>::pair[abi
   v3 = *a2;
   *(a1 + 16) = *(a2 + 2);
   *a1 = v3;
-  *(a2 + 1) = 0;
-  *(a2 + 2) = 0;
+  *(a2 + 8) = 0uLL;
   *a2 = 0;
   std::shared_ptr<MIL::IRFunction>::shared_ptr[abi:ne200100]<MIL::IRFunction,std::default_delete<MIL::IRFunction>,0>((a1 + 24), a2 + 3);
   return a1;
@@ -3320,7 +3317,7 @@ void sub_2180823FC(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-std::string *std::pair<std::string const,std::vector<std::shared_ptr<MIL::IRArgument>>>::pair[abi:ne200100]<true,0>(std::string *this, __int128 *a2, uint64_t *a3)
+std::string *std::pair<std::string const,std::vector<std::shared_ptr<MIL::IRArgument>>>::pair[abi:ne200100]<true,0>(std::string *this, __int128 *a2, void **a3)
 {
   if (*(a2 + 23) < 0)
   {
@@ -3368,46 +3365,46 @@ void std::__shared_ptr_emplace<MIL::ParserContext>::~__shared_ptr_emplace(std::_
   JUMPOUT(0x21CEAFEA0);
 }
 
-uint64_t std::__tree<std::__value_type<std::string,std::unique_ptr<MIL::IRBlock>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::unique_ptr<MIL::IRBlock>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::unique_ptr<MIL::IRBlock>>>>::__emplace_unique_key_args<std::string,std::string&,std::unique_ptr<MIL::IRBlock>>(uint64_t a1, const void **a2)
+void *std::__tree<std::__value_type<std::string,std::unique_ptr<MIL::IRBlock>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::unique_ptr<MIL::IRBlock>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::unique_ptr<MIL::IRBlock>>>>::__emplace_unique_key_args<std::string,std::string&,std::unique_ptr<MIL::IRBlock>>(uint64_t **a1, const void **a2, uint64_t a3, uint64_t a4)
 {
-  v2 = *std::__tree<std::__value_type<std::string,std::unique_ptr<MIL::IRBlock>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::unique_ptr<MIL::IRBlock>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::unique_ptr<MIL::IRBlock>>>>::__find_equal<std::string>(a1, &v4, a2);
-  if (!v2)
+  v4 = *std::__tree<std::__value_type<std::string,std::unique_ptr<MIL::IRBlock>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::unique_ptr<MIL::IRBlock>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::unique_ptr<MIL::IRBlock>>>>::__find_equal<std::string>(a1, &v6, a2);
+  if (!v4)
   {
     std::__tree<std::__value_type<std::string,std::unique_ptr<MIL::IRBlock>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::unique_ptr<MIL::IRBlock>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::unique_ptr<MIL::IRBlock>>>>::__construct_node<std::string&,std::unique_ptr<MIL::IRBlock>>();
   }
 
-  return v2;
+  return v4;
 }
 
-const void **std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRFunction>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRFunction>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRFunction>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRFunction>>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,std::shared_ptr<MIL::IRFunction>>>(void *a1, const void **a2)
+const void **std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRFunction>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRFunction>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRFunction>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRFunction>>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,std::shared_ptr<MIL::IRFunction>>>(void *a1, uint64_t *a2, uint64_t a3)
 {
-  v4 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
+  v5 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
+  v6 = v5;
+  v7 = a1[1];
+  if (!*&v7)
   {
     goto LABEL_18;
   }
 
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
+  v8 = vcnt_s8(v7);
+  v8.i16[0] = vaddlv_u8(v8);
+  v9 = v8.u32[0];
+  if (v8.u32[0] > 1uLL)
   {
-    v9 = v4;
-    if (v4 >= *&v6)
+    v10 = v5;
+    if (v5 >= *&v7)
     {
-      v9 = v4 % *&v6;
+      v10 = v5 % *&v7;
     }
   }
 
   else
   {
-    v9 = (*&v6 - 1) & v4;
+    v10 = (*&v7 - 1) & v5;
   }
 
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
+  v11 = *(*a1 + 8 * v10);
+  if (!v11 || (v12 = *v11) == 0)
   {
 LABEL_18:
     std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRFunction>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRFunction>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRFunction>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRFunction>>>>::__construct_node_hash<std::pair<std::string const,std::shared_ptr<MIL::IRFunction>>>();
@@ -3415,76 +3412,76 @@ LABEL_18:
 
   while (1)
   {
-    v12 = v11[1];
-    if (v12 == v5)
+    v13 = v12[1];
+    if (v13 == v6)
     {
       break;
     }
 
-    if (v8 > 1)
+    if (v9 > 1)
     {
-      if (v12 >= *&v6)
+      if (v13 >= *&v7)
       {
-        v12 %= *&v6;
+        v13 %= *&v7;
       }
     }
 
     else
     {
-      v12 &= *&v6 - 1;
+      v13 &= *&v7 - 1;
     }
 
-    if (v12 != v9)
+    if (v13 != v10)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v11 = *v11;
-    if (!v11)
+    v12 = *v12;
+    if (!v12)
     {
       goto LABEL_18;
     }
   }
 
-  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v11 + 2, a2))
+  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v12 + 2, a2))
   {
     goto LABEL_17;
   }
 
-  return v11;
+  return v12;
 }
 
-void sub_218082984(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_218082984(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-uint64_t std::__tree<std::__value_type<std::string,std::unique_ptr<MIL::IRBlock>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::unique_ptr<MIL::IRBlock>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::unique_ptr<MIL::IRBlock>>>>::__emplace_unique_key_args<std::string,std::pair<std::string,std::unique_ptr<MIL::IRBlock>>>(uint64_t a1, const void **a2)
+uint64_t std::__tree<std::__value_type<std::string,std::unique_ptr<MIL::IRBlock>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::unique_ptr<MIL::IRBlock>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::unique_ptr<MIL::IRBlock>>>>::__emplace_unique_key_args<std::string,std::pair<std::string,std::unique_ptr<MIL::IRBlock>>>(uint64_t **a1, const void **a2, __int128 *a3)
 {
-  v2 = *std::__tree<std::__value_type<std::string,std::unique_ptr<MIL::IRBlock>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::unique_ptr<MIL::IRBlock>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::unique_ptr<MIL::IRBlock>>>>::__find_equal<std::string>(a1, &v4, a2);
-  if (!v2)
+  v3 = *std::__tree<std::__value_type<std::string,std::unique_ptr<MIL::IRBlock>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::unique_ptr<MIL::IRBlock>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::unique_ptr<MIL::IRBlock>>>>::__find_equal<std::string>(a1, &v5, a2);
+  if (!v3)
   {
     operator new();
   }
 
-  return v2;
+  return v3;
 }
 
-uint64_t *std::shared_ptr<MIL::IRValue const>::shared_ptr[abi:ne200100]<MIL::IRValue const,std::default_delete<MIL::IRValue const>,0>(uint64_t *result, uint64_t *a2)
+uint64_t *std::shared_ptr<MIL::IRValue const>::shared_ptr[abi:ne200100]<MIL::IRValue const,std::default_delete<MIL::IRValue const>,0>(uint64_t *a1, uint64_t *a2)
 {
   v2 = *a2;
-  *result = *a2;
+  *a1 = *a2;
   if (v2)
   {
     operator new();
   }
 
-  result[1] = 0;
+  a1[1] = 0;
   *a2 = 0;
-  return result;
+  return a1;
 }
 
 void std::vector<std::pair<std::unique_ptr<MIL::IRValue const>,std::unique_ptr<MIL::IRValue const>>>::__destroy_vector::operator()[abi:ne200100](void ***a1)
@@ -3576,46 +3573,46 @@ uint64_t std::__split_buffer<std::pair<std::unique_ptr<MIL::IRValue const>,std::
   return result;
 }
 
-uint64_t std::__tree<std::__value_type<std::string,std::vector<std::shared_ptr<MIL::IRArgument>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::vector<std::shared_ptr<MIL::IRArgument>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::vector<std::shared_ptr<MIL::IRArgument>>>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,std::vector<std::shared_ptr<MIL::IRArgument>>> &>(uint64_t a1, const void **a2)
+void *std::__tree<std::__value_type<std::string,std::vector<std::shared_ptr<MIL::IRArgument>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::vector<std::shared_ptr<MIL::IRArgument>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::vector<std::shared_ptr<MIL::IRArgument>>>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,std::vector<std::shared_ptr<MIL::IRArgument>>> &>(uint64_t **a1, const void **a2, uint64_t a3)
 {
-  v2 = *std::__tree<std::__value_type<std::string,std::unique_ptr<MIL::IRBlock>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::unique_ptr<MIL::IRBlock>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::unique_ptr<MIL::IRBlock>>>>::__find_equal<std::string>(a1, &v4, a2);
-  if (!v2)
+  v3 = *std::__tree<std::__value_type<std::string,std::unique_ptr<MIL::IRBlock>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::unique_ptr<MIL::IRBlock>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::unique_ptr<MIL::IRBlock>>>>::__find_equal<std::string>(a1, &v5, a2);
+  if (!v3)
   {
     std::__tree<std::__value_type<std::string,std::vector<std::shared_ptr<MIL::IRArgument>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::vector<std::shared_ptr<MIL::IRArgument>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::vector<std::shared_ptr<MIL::IRArgument>>>>>::__construct_node<std::pair<std::string const,std::vector<std::shared_ptr<MIL::IRArgument>>> &>();
   }
 
-  return v2;
+  return v3;
 }
 
-const void **std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::__emplace_unique_key_args<std::string,std::pair<std::string,std::shared_ptr<MIL::IRValue const>>>(void *a1, const void **a2)
+const void **std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::__emplace_unique_key_args<std::string,std::pair<std::string,std::shared_ptr<MIL::IRValue const>>>(void *a1, uint64_t *a2, uint64_t a3)
 {
-  v4 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
+  v5 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
+  v6 = v5;
+  v7 = a1[1];
+  if (!*&v7)
   {
     goto LABEL_18;
   }
 
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
+  v8 = vcnt_s8(v7);
+  v8.i16[0] = vaddlv_u8(v8);
+  v9 = v8.u32[0];
+  if (v8.u32[0] > 1uLL)
   {
-    v9 = v4;
-    if (v4 >= *&v6)
+    v10 = v5;
+    if (v5 >= *&v7)
     {
-      v9 = v4 % *&v6;
+      v10 = v5 % *&v7;
     }
   }
 
   else
   {
-    v9 = (*&v6 - 1) & v4;
+    v10 = (*&v7 - 1) & v5;
   }
 
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
+  v11 = *(*a1 + 8 * v10);
+  if (!v11 || (v12 = *v11) == 0)
   {
 LABEL_18:
     operator new();
@@ -3623,49 +3620,49 @@ LABEL_18:
 
   while (1)
   {
-    v12 = v11[1];
-    if (v12 == v5)
+    v13 = v12[1];
+    if (v13 == v6)
     {
       break;
     }
 
-    if (v8 > 1)
+    if (v9 > 1)
     {
-      if (v12 >= *&v6)
+      if (v13 >= *&v7)
       {
-        v12 %= *&v6;
+        v13 %= *&v7;
       }
     }
 
     else
     {
-      v12 &= *&v6 - 1;
+      v13 &= *&v7 - 1;
     }
 
-    if (v12 != v9)
+    if (v13 != v10)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v11 = *v11;
-    if (!v11)
+    v12 = *v12;
+    if (!v12)
     {
       goto LABEL_18;
     }
   }
 
-  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v11 + 2, a2))
+  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v12 + 2, a2))
   {
     goto LABEL_17;
   }
 
-  return v11;
+  return v12;
 }
 
-void sub_2180830B8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2180830B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -3684,9 +3681,9 @@ void **std::unique_ptr<MIL::IRNamedValueType>::reset[abi:ne200100](void ***a1, v
   return result;
 }
 
-uint64_t std::__tree<std::__value_type<std::string,MIL::IRValueType const*>,std::__map_value_compare<std::string,std::__value_type<std::string,MIL::IRValueType const*>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,MIL::IRValueType const*>>>::__emplace_unique_key_args<std::string,std::string const&,MIL::IRValueType const*>(uint64_t a1, const void **a2)
+void *std::__tree<std::__value_type<std::string,MIL::IRValueType const*>,std::__map_value_compare<std::string,std::__value_type<std::string,MIL::IRValueType const*>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,MIL::IRValueType const*>>>::__emplace_unique_key_args<std::string,std::string const&,MIL::IRValueType const*>(uint64_t **a1, const void **a2, uint64_t a3, uint64_t a4)
 {
-  result = *std::__tree<std::__value_type<std::string,std::unique_ptr<MIL::IRBlock>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::unique_ptr<MIL::IRBlock>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::unique_ptr<MIL::IRBlock>>>>::__find_equal<std::string>(a1, &v3, a2);
+  result = *std::__tree<std::__value_type<std::string,std::unique_ptr<MIL::IRBlock>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::unique_ptr<MIL::IRBlock>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::unique_ptr<MIL::IRBlock>>>>::__find_equal<std::string>(a1, &v5, a2);
   if (!result)
   {
     std::__tree<std::__value_type<std::string,MIL::IRValueType const*>,std::__map_value_compare<std::string,std::__value_type<std::string,MIL::IRValueType const*>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,MIL::IRValueType const*>>>::__construct_node<std::string const&,MIL::IRValueType const*>();
@@ -3702,7 +3699,7 @@ void sub_218083240(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-_BYTE *std::string::basic_string<std::string_view,0>(_BYTE *__dst, uint64_t a2)
+void *std::string::basic_string<std::string_view,0>(void *__dst, uint64_t a2)
 {
   v2 = *(a2 + 8);
   if (v2 >= 0x7FFFFFFFFFFFFFF8)
@@ -3716,43 +3713,43 @@ _BYTE *std::string::basic_string<std::string_view,0>(_BYTE *__dst, uint64_t a2)
     operator new();
   }
 
-  __dst[23] = v2;
+  *(__dst + 23) = v2;
   if (v2)
   {
     memmove(__dst, v4, v2);
   }
 
-  __dst[v2] = 0;
+  *(__dst + v2) = 0;
   return __dst;
 }
 
-void MIL::Text::BasicSerializer::~BasicSerializer(MIL::Text::BasicSerializer *this)
+void MIL::Text::BasicSerializer::~BasicSerializer(std::locale *this)
 {
-  std::__tree<std::__value_type<std::string,std::shared_ptr<MIL::Blob::StorageWriter>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<MIL::Blob::StorageWriter>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<MIL::Blob::StorageWriter>>>>::destroy(this + 368, *(this + 47));
-  std::__hash_table<std::__hash_value_type<std::string,std::unordered_map<unsigned long long,unsigned long long>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::unordered_map<unsigned long long,unsigned long long>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::unordered_map<unsigned long long,unsigned long long>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::unordered_map<unsigned long long,unsigned long long>>>>::~__hash_table(this + 328);
+  std::__tree<std::__value_type<std::string,std::shared_ptr<MIL::Blob::StorageWriter>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<MIL::Blob::StorageWriter>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<MIL::Blob::StorageWriter>>>>::destroy(&this[46], this[47].__locale_);
+  std::__hash_table<std::__hash_value_type<std::string,std::unordered_map<unsigned long long,unsigned long long>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::unordered_map<unsigned long long,unsigned long long>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::unordered_map<unsigned long long,unsigned long long>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::unordered_map<unsigned long long,unsigned long long>>>>::~__hash_table(&this[41]);
   v2 = MEMORY[0x277D82828];
   v3 = *MEMORY[0x277D82828];
-  *(this + 6) = *MEMORY[0x277D82828];
-  *(this + *(v3 - 24) + 48) = *(v2 + 24);
-  *(this + 7) = MEMORY[0x277D82878] + 16;
-  if (*(this + 143) < 0)
+  this[6].__locale_ = *MEMORY[0x277D82828];
+  *(this + *(v3 - 24) + 48) = v2[3];
+  this[7].__locale_ = (MEMORY[0x277D82878] + 16);
+  if (SHIBYTE(this[17].__locale_) < 0)
   {
-    operator delete(*(this + 15));
+    operator delete(this[15].__locale_);
   }
 
-  *(this + 7) = MEMORY[0x277D82868] + 16;
+  this[7].__locale_ = (MEMORY[0x277D82868] + 16);
   std::locale::~locale(this + 8);
   std::ostream::~ostream();
-  MEMORY[0x21CEAFDA0](this + 160);
-  if (*(this + 39) < 0)
+  MEMORY[0x21CEAFDA0](&this[20]);
+  if (SHIBYTE(this[4].__locale_) < 0)
   {
-    operator delete(*(this + 2));
+    operator delete(this[2].__locale_);
   }
 
-  v4 = *(this + 1);
-  if (v4)
+  locale = this[1].__locale_;
+  if (locale)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v4);
+    std::__shared_weak_count::__release_shared[abi:ne200100](locale);
   }
 }
 
@@ -3917,7 +3914,7 @@ MIL::Text::BasicSerializer *MIL::Text::BasicSerializer::Program(MIL::Text::Basic
   {
     if (!v10)
     {
-      std::ofstream::basic_ofstream(&v57);
+      std::ofstream::basic_ofstream(&v57, v6, 16);
       if (!std::filebuf::close())
       {
         std::ios_base::clear((&v57 + *(v57.__r_.__value_.__r.__words[0] - 24)), *(&v57 + *(v57.__r_.__value_.__r.__words[0] - 24) + 32) | 4);
@@ -3935,7 +3932,7 @@ MIL::Text::BasicSerializer *MIL::Text::BasicSerializer::Program(MIL::Text::Basic
 
   if (v10)
   {
-    MIL::Util::FindBlobFilePaths(a2, &v56);
+    MIL::Util::FindBlobFilePaths(&v56, a2);
     if (v56.__r_.__value_.__r.__words[0] != v56.__r_.__value_.__l.__size_)
     {
       if (*(v8 + 23) >= 0)
@@ -4003,7 +4000,7 @@ MIL::Text::BasicSerializer *MIL::Text::BasicSerializer::Program(MIL::Text::Basic
       }
 
       std::string::append(&__p, ".bin");
-      std::ofstream::basic_ofstream(&v57);
+      std::ofstream::basic_ofstream(&v57, &__p, 16);
       if (!std::filebuf::close())
       {
         std::ios_base::clear((&v57 + *(v57.__r_.__value_.__r.__words[0] - 24)), *(&v57 + *(v57.__r_.__value_.__r.__words[0] - 24) + 32) | 4);
@@ -4242,22 +4239,22 @@ LABEL_6:
   goto LABEL_6;
 }
 
-uint64_t *std::ofstream::basic_ofstream(uint64_t *a1)
+uint64_t *std::ofstream::basic_ofstream(uint64_t *a1, uint64_t *a2, int a3)
 {
   a1[58] = 0;
-  v2 = MEMORY[0x277D82860] + 64;
+  v4 = MEMORY[0x277D82860] + 64;
   a1[52] = MEMORY[0x277D82860] + 64;
-  v3 = *(MEMORY[0x277D82810] + 16);
-  v4 = *(MEMORY[0x277D82810] + 8);
-  *a1 = v4;
-  *(a1 + *(v4 - 24)) = v3;
-  v5 = (a1 + *(*a1 - 24));
-  std::ios_base::init(v5, a1 + 1);
-  v6 = MEMORY[0x277D82860] + 24;
-  v5[1].__vftable = 0;
-  v5[1].__fmtflags_ = -1;
+  v5 = *(MEMORY[0x277D82810] + 16);
+  v6 = *(MEMORY[0x277D82810] + 8);
   *a1 = v6;
-  a1[52] = v2;
+  *(a1 + *(v6 - 24)) = v5;
+  v7 = (a1 + *(*a1 - 24));
+  std::ios_base::init(v7, a1 + 1);
+  v8 = MEMORY[0x277D82860] + 24;
+  v7[1].__vftable = 0;
+  v7[1].__fmtflags_ = -1;
+  *a1 = v8;
+  a1[52] = v4;
   MEMORY[0x21CEAFA50](a1 + 1);
   if (!std::filebuf::open())
   {
@@ -4322,7 +4319,7 @@ uint64_t MIL::Text::BasicSerializer::FunctionMap(uint64_t a1, void *a2, MIL::IRO
     v8 = v7;
   }
 
-  std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,std::string *,false>(v19.__begin_, &v19.__end_->__r_.__value_.__l.__data_, &v20, v8, 1);
+  std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,std::string *,false>(&v19.__begin_->__r_.__value_.__l.__data_, &v19.__end_->__r_.__value_.__l.__data_, &v20, v8, 1);
   begin = v19.__begin_;
   end = v19.__end_;
   if (v19.__begin_ != v19.__end_)
@@ -4330,7 +4327,7 @@ uint64_t MIL::Text::BasicSerializer::FunctionMap(uint64_t a1, void *a2, MIL::IRO
     v11 = 1;
     do
     {
-      v12 = std::__hash_table<std::__hash_value_type<std::string,MIL::IRValueType const*>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MIL::IRValueType const*>>>::find<std::string>(a2, &begin->__r_.__value_.__l.__data_);
+      v12 = std::__hash_table<std::__hash_value_type<std::string,MIL::IRValueType const*>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MIL::IRValueType const*>>>::find<std::string>(a2, begin);
       v13 = v12;
       if (!v12)
       {
@@ -4389,7 +4386,7 @@ void sub_2180847FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-uint64_t MIL::Text::BasicSerializer::Function(uint64_t a1, uint64_t a2, MIL::IRObject *a3, MIL::IROpset *a4)
+uint64_t MIL::Text::BasicSerializer::Function(uint64_t a1, uint64_t **a2, MIL::IRObject *a3, MIL::IROpset *a4)
 {
   v8 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(a1 + 40), "func ", 5);
   v9 = *(a2 + 23);
@@ -4410,7 +4407,7 @@ uint64_t MIL::Text::BasicSerializer::Function(uint64_t a1, uint64_t a2, MIL::IRO
 
   else
   {
-    v11 = *(a2 + 8);
+    v11 = a2[1];
   }
 
   v12 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v8, v10, v11);
@@ -4440,7 +4437,7 @@ uint64_t MIL::Text::BasicSerializer::Function(uint64_t a1, uint64_t a2, MIL::IRO
   v18 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v13, v16, v17);
   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v18, ">(", 2);
   v19 = (*(*a3 + 128))(a3);
-  v20 = v19 + 1;
+  v20 = (v19 + 1);
   v21 = *v19;
   if (*v19 != v19 + 1)
   {
@@ -4449,7 +4446,7 @@ uint64_t MIL::Text::BasicSerializer::Function(uint64_t a1, uint64_t a2, MIL::IRO
     {
       v23 = strlen(v22);
       std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(a1 + 40), v22, v23);
-      MIL::Text::BasicSerializer::IDTypeBinding(a1, (v21 + 4), v21[7]);
+      MIL::Text::BasicSerializer::IDTypeBinding(a1, v21 + 4, v21[7]);
       v24 = v21[1];
       if (v24)
       {
@@ -4549,7 +4546,7 @@ void sub_218084BB0(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-MIL::Text::BasicSerializer *MIL::Text::BasicSerializer::IDTypeBinding(MIL::Text::BasicSerializer *a1, uint64_t a2, const MIL::IRValueType *a3)
+MIL::Text::BasicSerializer *MIL::Text::BasicSerializer::IDTypeBinding(MIL::Text::BasicSerializer *a1, uint64_t **a2, const MIL::IRValueType *a3)
 {
   MIL::Text::BasicSerializer::Type(a1, a3);
   v5 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(a1 + 5), " ", 1);
@@ -4571,7 +4568,7 @@ MIL::Text::BasicSerializer *MIL::Text::BasicSerializer::IDTypeBinding(MIL::Text:
 
   else
   {
-    v8 = *(a2 + 8);
+    v8 = a2[1];
   }
 
   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v5, v7, v8);
@@ -4669,7 +4666,7 @@ uint64_t MIL::Text::BasicSerializer::Block(uint64_t a1, MIL::IRObject *a2, void 
   return a1;
 }
 
-MIL::IROpset *anonymous namespace::TryGetOpsetNames@<X0>(MIL::IROpset *result@<X0>, void *a2@<X8>)
+MIL::IROpset *anonymous namespace::TryGetOpsetNames@<X0>(MIL::IROpset *result@<X0>, uint64_t *a2@<X8>)
 {
   if (result)
   {
@@ -4686,9 +4683,9 @@ MIL::IROpset *anonymous namespace::TryGetOpsetNames@<X0>(MIL::IROpset *result@<X
   return result;
 }
 
-void sub_218084F68(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_218084F68(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::~__hash_table(va);
   _Unwind_Resume(a1);
 }
@@ -4744,7 +4741,7 @@ uint64_t MIL::Text::BasicSerializer::OpsetBlockMap(uint64_t a1, __int128 **a2, c
     v13 = v12;
   }
 
-  std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,std::string *,false>(v36.__begin_, &v36.__end_->__r_.__value_.__l.__data_, &v32, v13, 1);
+  std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,std::string *,false>(&v36.__begin_->__r_.__value_.__l.__data_, &v36.__end_->__r_.__value_.__l.__data_, &v32, v13, 1);
   begin = v36.__begin_;
   end = v36.__end_;
   if (v36.__begin_ != v36.__end_)
@@ -4840,7 +4837,7 @@ void sub_2180851B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-uint64_t MIL::Text::BasicSerializer::OpsetBlock(uint64_t a1, uint64_t a2, MIL::IRObject *a3, void **a4)
+uint64_t MIL::Text::BasicSerializer::OpsetBlock(uint64_t a1, uint64_t **a2, MIL::IRObject *a3, void **a4)
 {
   v8 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(a1 + 40), "<", 1);
   v9 = *(a2 + 23);
@@ -4861,7 +4858,7 @@ uint64_t MIL::Text::BasicSerializer::OpsetBlock(uint64_t a1, uint64_t a2, MIL::I
 
   else
   {
-    v11 = *(a2 + 8);
+    v11 = a2[1];
   }
 
   v12 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v8, v10, v11);
@@ -4870,9 +4867,9 @@ uint64_t MIL::Text::BasicSerializer::OpsetBlock(uint64_t a1, uint64_t a2, MIL::I
   return MIL::Text::BasicSerializer::Block(a1, a3, a4);
 }
 
-MIL::Text::BasicSerializer *MIL::Text::BasicSerializer::BlockInputDecls(MIL::Text::BasicSerializer *a1, uint64_t a2)
+MIL::Text::BasicSerializer *MIL::Text::BasicSerializer::BlockInputDecls(MIL::Text::BasicSerializer *a1, MIL::IRNamedValueType ***a2)
 {
-  if (*a2 != *(a2 + 8))
+  if (*a2 != a2[1])
   {
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(a1 + 5), "(", 1);
     MIL::Text::BasicSerializer::IDTypeBindingList(a1, a2);
@@ -4899,7 +4896,7 @@ uint64_t MIL::Text::BasicSerializer::Op(uint64_t a1, MIL::IRObject *a2, void **a
 
   if (*a3)
   {
-    v8 = std::__hash_table<std::__hash_value_type<std::string,MIL::IRValueType const*>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MIL::IRValueType const*>>>::find<std::string>(*a3, &v38.__r_.__value_.__l.__data_);
+    v8 = std::__hash_table<std::__hash_value_type<std::string,MIL::IRValueType const*>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MIL::IRValueType const*>>>::find<std::string>(*a3, &v38);
     if (v8)
     {
       std::string::operator=(&v38, (v8 + 5));
@@ -4927,7 +4924,7 @@ uint64_t MIL::Text::BasicSerializer::Op(uint64_t a1, MIL::IRObject *a2, void **a
       }
 
       *(__dst + v31) = 0;
-      v32 = std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::find<std::string>(v34, &v38.__r_.__value_.__l.__data_);
+      v32 = std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::find<std::string>(v34, &v38);
       if (v32)
       {
         std::string::operator=(&v38, (v32 + 5));
@@ -5065,7 +5062,7 @@ uint64_t MIL::Text::BasicSerializer::Op(uint64_t a1, MIL::IRObject *a2, void **a
 
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(a1 + 40), v24, v25);
     v26 = (*(*a2 + 208))(a2);
-    MIL::Text::BasicSerializer::BlockList(a1, v26);
+    MIL::Text::BasicSerializer::BlockList(a1, v26, a3);
   }
 
   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(a1 + 40), ";", 1);
@@ -5093,7 +5090,7 @@ void sub_218085884(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t MIL::Text::BasicSerializer::IDList(uint64_t a1, uint64_t *a2)
+uint64_t MIL::Text::BasicSerializer::IDList(uint64_t a1, uint64_t **a2)
 {
   v3 = *a2;
   v4 = a2[1];
@@ -5136,47 +5133,47 @@ uint64_t MIL::Text::BasicSerializer::IDList(uint64_t a1, uint64_t *a2)
   return a1;
 }
 
-uint64_t MIL::Text::BasicSerializer::BlockList(uint64_t a1, void **a2)
+uint64_t MIL::Text::BasicSerializer::BlockList(uint64_t a1, MIL::IRObject ****a2, uint64_t a3)
 {
-  v3 = **a2;
-  if (v3 != (*a2)[1])
+  v4 = **a2;
+  if (v4 != (*a2)[1])
   {
-    MIL::Text::BasicSerializer::Block(a1, *v3);
-    if ((*a2)[1] - **a2 >= 0x11uLL)
+    MIL::Text::BasicSerializer::Block(a1, *v4, a3);
+    if (((*a2)[1] - **a2) >= 0x11)
     {
-      v5 = 1;
-      v6 = 16;
+      v7 = 1;
+      v8 = 2;
       do
       {
-        v7 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(a1 + 40), "\n", 1);
-        v8 = *(a1 + 39);
-        if (v8 >= 0)
+        v9 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(a1 + 40), "\n", 1);
+        v10 = *(a1 + 39);
+        if (v10 >= 0)
         {
-          v9 = a1 + 16;
+          v11 = a1 + 16;
         }
 
         else
         {
-          v9 = *(a1 + 16);
+          v11 = *(a1 + 16);
         }
 
-        if (v8 >= 0)
+        if (v10 >= 0)
         {
-          v10 = *(a1 + 39);
+          v12 = *(a1 + 39);
         }
 
         else
         {
-          v10 = *(a1 + 24);
+          v12 = *(a1 + 24);
         }
 
-        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v7, v9, v10);
-        MIL::Text::BasicSerializer::Block(a1, *(**a2 + v6));
-        ++v5;
-        v6 += 16;
+        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v9, v11, v12);
+        MIL::Text::BasicSerializer::Block(a1, (**a2)[v8], a3);
+        ++v7;
+        v8 += 2;
       }
 
-      while (v5 < ((*a2)[1] - **a2) >> 4);
+      while (v7 < ((*a2)[1] - **a2) >> 4);
     }
   }
 
@@ -5194,11 +5191,12 @@ MIL::Text::BasicSerializer *MIL::Text::BasicSerializer::IDTypeBindingList(MIL::T
     {
       v6 = strlen(v5);
       std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(a1 + 5), v5, v6);
-      Name = MIL::IRNamedValueType::GetName(*v3);
-      v8 = *v3;
+      MIL::IRNamedValueType::GetName(*v3);
+      v8 = v7;
+      v9 = *v3;
       v3 += 2;
-      Type = MIL::IRNamedValueType::GetType(v8);
-      MIL::Text::BasicSerializer::IDTypeBinding(a1, Name, Type);
+      Type = MIL::IRNamedValueType::GetType(v9);
+      MIL::Text::BasicSerializer::IDTypeBinding(a1, v8, Type);
       v5 = ", ";
     }
 
@@ -5210,7 +5208,7 @@ MIL::Text::BasicSerializer *MIL::Text::BasicSerializer::IDTypeBindingList(MIL::T
 
 MIL::Text::BasicSerializer *MIL::Text::BasicSerializer::IDArgumentBindingMap(MIL::Text::BasicSerializer *a1, void *a2)
 {
-  v3 = a2 + 1;
+  v3 = (a2 + 1);
   v4 = *a2;
   if (*a2 != a2 + 1)
   {
@@ -5219,7 +5217,7 @@ MIL::Text::BasicSerializer *MIL::Text::BasicSerializer::IDArgumentBindingMap(MIL
     {
       v6 = strlen(v5);
       std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(a1 + 5), v5, v6);
-      MIL::Text::BasicSerializer::IDArgumentBinding(a1, (v4 + 4), (v4 + 7));
+      MIL::Text::BasicSerializer::IDArgumentBinding(a1, v4 + 4, (v4 + 7));
       v7 = v4[1];
       if (v7)
       {
@@ -5358,9 +5356,9 @@ uint64_t MIL::Text::BasicSerializer::OpList(uint64_t a1, MIL::IRObject ****a2, v
 
 uint64_t MIL::Text::BasicSerializer::IDValueBindingMap(uint64_t a1, void *a2)
 {
-  memset(&v31, 0, sizeof(v31));
-  std::vector<std::string>::reserve(&v31, a2[3]);
-  for (i = (a2 + 2); ; std::vector<std::string>::push_back[abi:ne200100](&v31, i + 1))
+  memset(&v30, 0, sizeof(v30));
+  std::vector<std::string>::reserve(&v30, a2[3]);
+  for (i = (a2 + 2); ; std::vector<std::string>::push_back[abi:ne200100](&v30, i + 1))
   {
     i = *i;
     if (!i)
@@ -5369,8 +5367,8 @@ uint64_t MIL::Text::BasicSerializer::IDValueBindingMap(uint64_t a1, void *a2)
     }
   }
 
-  v5 = 126 - 2 * __clz(0xAAAAAAAAAAAAAAABLL * ((v31.__end_ - v31.__begin_) >> 3));
-  if (v31.__end_ == v31.__begin_)
+  v5 = 126 - 2 * __clz(0xAAAAAAAAAAAAAAABLL * ((v30.__end_ - v30.__begin_) >> 3));
+  if (v30.__end_ == v30.__begin_)
   {
     v6 = 0;
   }
@@ -5380,11 +5378,11 @@ uint64_t MIL::Text::BasicSerializer::IDValueBindingMap(uint64_t a1, void *a2)
     v6 = v5;
   }
 
-  std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,std::string *,false>(v31.__begin_, &v31.__end_->__r_.__value_.__l.__data_, v27, v6, 1);
-  std::string::basic_string[abi:ne200100]<0>(v29, "BlobFileMutabilityInfo");
-  begin = v31.__begin_;
-  end = v31.__end_;
-  if (v31.__begin_ != v31.__end_)
+  std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,std::string *,false>(&v30.__begin_->__r_.__value_.__l.__data_, &v30.__end_->__r_.__value_.__l.__data_, v26, v6, 1);
+  std::string::basic_string[abi:ne200100]<0>(v28, "BlobFileMutabilityInfo");
+  begin = v30.__begin_;
+  end = v30.__end_;
+  if (v30.__begin_ != v30.__end_)
   {
     while (1)
     {
@@ -5400,9 +5398,9 @@ uint64_t MIL::Text::BasicSerializer::IDValueBindingMap(uint64_t a1, void *a2)
         size = begin->__r_.__value_.__l.__size_;
       }
 
-      v11 = v26;
-      v12 = v26;
-      if ((v26 & 0x80u) != 0)
+      v11 = v25;
+      v12 = v25;
+      if ((v25 & 0x80u) != 0)
       {
         v11 = __p[1];
       }
@@ -5413,7 +5411,7 @@ uint64_t MIL::Text::BasicSerializer::IDValueBindingMap(uint64_t a1, void *a2)
       }
 
       v13 = v9 >= 0 ? begin : begin->__r_.__value_.__r.__words[0];
-      v14 = (v26 & 0x80u) == 0 ? __p : __p[0];
+      v14 = (v25 & 0x80u) == 0 ? __p : __p[0];
       if (memcmp(v13, v14, size))
       {
         break;
@@ -5421,7 +5419,7 @@ uint64_t MIL::Text::BasicSerializer::IDValueBindingMap(uint64_t a1, void *a2)
 
       v15 = (*(**(a1 + 320) + 160))(*(a1 + 320));
       v16 = v15;
-      if (v26 < 0)
+      if (v25 < 0)
       {
         operator delete(__p[0]);
         if (v16)
@@ -5459,34 +5457,34 @@ LABEL_27:
       v18 = begin->__r_.__value_.__l.__size_;
     }
 
-    v19 = v30;
-    if ((v30 & 0x80u) != 0)
+    v19 = v29;
+    if ((v29 & 0x80u) != 0)
     {
-      v19 = v29[1];
+      v19 = v28[1];
     }
 
-    if (v18 != v19 || (v17 >= 0 ? (v20 = begin) : (v20 = begin->__r_.__value_.__r.__words[0]), (v30 & 0x80u) == 0 ? (v21 = v29) : (v21 = v29[0]), memcmp(v20, v21, v18)))
+    if (v18 != v19 || (v17 >= 0 ? (v20 = begin) : (v20 = begin->__r_.__value_.__r.__words[0]), (v29 & 0x80u) == 0 ? (v21 = v28) : (v21 = v28[0]), memcmp(v20, v21, v18)))
     {
-      std::string::basic_string[abi:ne200100]<0>(&v28, "[A-Za-z_][A-Za-z0-9_@]*");
-      std::basic_regex<char,std::regex_traits<char>>::basic_regex[abi:ne200100]<std::char_traits<char>,std::allocator<char>>(v27, &v28, 0);
+      std::string::basic_string[abi:ne200100]<0>(&v27, "[A-Za-z_][A-Za-z0-9_@]*");
+      std::basic_regex<char,std::regex_traits<char>>::basic_regex[abi:ne200100]<std::char_traits<char>,std::allocator<char>>(v26, &v27, 0);
     }
 
     goto LABEL_41;
   }
 
 LABEL_42:
-  v22 = std::__hash_table<std::__hash_value_type<std::string,MIL::IRValueType const*>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MIL::IRValueType const*>>>::find<std::string>(a2, v29);
+  v22 = std::__hash_table<std::__hash_value_type<std::string,MIL::IRValueType const*>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MIL::IRValueType const*>>>::find<std::string>(a2, v28);
   if (v22)
   {
-    MIL::Attributes::BlobFileMutabilityInfo::Make(v22[5], v23);
+    MIL::Attributes::BlobFileMutabilityInfo::Make(v22[5]);
   }
 
-  if (v30 < 0)
+  if (v29 < 0)
   {
-    operator delete(v29[0]);
+    operator delete(v28[0]);
   }
 
-  __p[0] = &v31;
+  __p[0] = &v30;
   std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](__p);
   return a1;
 }
@@ -6014,7 +6012,7 @@ MIL::Text::BasicSerializer *MIL::Text::BasicSerializer::Val(MIL::Text::BasicSeri
     v34 = v33;
   }
 
-  std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,std::string *,false>(v49.__begin_, &v49.__end_->__r_.__value_.__l.__data_, &v50, v34, 1);
+  std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,std::string *,false>(&v49.__begin_->__r_.__value_.__l.__data_, &v49.__end_->__r_.__value_.__l.__data_, &v50, v34, 1);
   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(this + 5), "{", 1);
   v35 = v49.__begin_;
   v36 = v49.__end_;
@@ -6721,10 +6719,10 @@ MIL::Text::BasicSerializer *MIL::Text::BasicSerializer::ArgumentList(MIL::Text::
   return a1;
 }
 
-MIL::Text::BasicSerializer *MIL::Text::BasicSerializer::IDArgumentBinding(MIL::Text::BasicSerializer *a1, uint64_t a2, uint64_t a3)
+MIL::Text::BasicSerializer *MIL::Text::BasicSerializer::IDArgumentBinding(MIL::Text::BasicSerializer *a1, uint64_t **a2, uint64_t a3)
 {
   v5 = *(a1 + 5);
-  v6 = *(a2 + 8);
+  v6 = a2[1];
   if (*(a2 + 23) >= 0)
   {
     v7 = *(a2 + 23);
@@ -6783,10 +6781,10 @@ LABEL_6:
   goto LABEL_6;
 }
 
-uint64_t MIL::Text::BasicSerializer::IDValueBinding(MIL::Text::BasicSerializer *a1, uint64_t a2, const MIL::IRValue *a3)
+MIL::Text::BasicSerializer *MIL::Text::BasicSerializer::IDValueBinding(MIL::Text::BasicSerializer *a1, uint64_t ***a2, const MIL::IRValue *a3)
 {
   v5 = *(a1 + 5);
-  v6 = *(a2 + 8);
+  v6 = a2[1];
   if (*(a2 + 23) >= 0)
   {
     v7 = *(a2 + 23);
@@ -6829,7 +6827,7 @@ MIL::Text::BasicSerializer *MIL::Text::BasicSerializer::IDTypeBindingMap(MIL::Te
     v6 = v5;
   }
 
-  std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,std::string *,false>(v14.__begin_, &v14.__end_->__r_.__value_.__l.__data_, &v15, v6, 1);
+  std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,std::string *,false>(&v14.__begin_->__r_.__value_.__l.__data_, &v14.__end_->__r_.__value_.__l.__data_, &v15, v6, 1);
   begin = v14.__begin_;
   end = v14.__end_;
   if (v14.__begin_ != v14.__end_)
@@ -6837,7 +6835,7 @@ MIL::Text::BasicSerializer *MIL::Text::BasicSerializer::IDTypeBindingMap(MIL::Te
     v9 = "";
     do
     {
-      v10 = std::__hash_table<std::__hash_value_type<std::string,MIL::IRValueType const*>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MIL::IRValueType const*>>>::find<std::string>(a2, &begin->__r_.__value_.__l.__data_);
+      v10 = std::__hash_table<std::__hash_value_type<std::string,MIL::IRValueType const*>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MIL::IRValueType const*>>>::find<std::string>(a2, begin);
       if (!v10)
       {
         std::__throw_out_of_range[abi:ne200100]("unordered_map::at: key not found");
@@ -6889,43 +6887,43 @@ uint64_t MIL::Text::BasicSerializer::Val<BOOL>(uint64_t a1, MIL::IRTensorValue *
   {
     if (v8)
     {
-      memset(v71, 0, sizeof(v71));
-      v72 = 1065353216;
+      memset(v106, 0, sizeof(v106));
+      v107 = 1065353216;
       if (!v4)
       {
         FileProperties = MIL::IRTypedTensorValue<BOOL>::GetFileProperties(a2);
-        if (v71 != FileProperties)
+        if (v106 != FileProperties)
         {
-          v72 = *(FileProperties + 32);
-          std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::__assign_multi<std::__hash_const_iterator<std::__hash_node<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,void *> *>>(v71, *(FileProperties + 16), 0);
+          v107 = *(FileProperties + 32);
+          std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::__assign_multi<std::__hash_const_iterator<std::__hash_node<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,void *> *>>(v106, *(FileProperties + 16), 0);
         }
 
         std::string::basic_string[abi:ne200100]<0>(&__str, "type");
-        v56 = std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::find<std::string>(v71, &__str.__r_.__value_.__l.__data_);
-        if (v56)
+        v91 = std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::find<std::string>(v106, &__str);
+        if (v91)
         {
-          MIL::IRValue::GetScalar<std::string>(v56[5], &__p);
+          MIL::IRValue::GetScalar<std::string>(v91[5], &__p);
           if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
           {
             operator delete(__str.__r_.__value_.__l.__data_);
           }
 
           std::string::basic_string[abi:ne200100]<0>(&__str, "type");
-          std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::__erase_unique<std::string>(v71, &__str.__r_.__value_.__l.__data_);
+          std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::__erase_unique<std::string>(v106, &__str);
           if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
           {
             operator delete(__str.__r_.__value_.__l.__data_);
           }
 
           std::string::basic_string[abi:ne200100]<0>(&__str, "path");
-          v57 = std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::find<std::string>(v71, &__str.__r_.__value_.__l.__data_);
-          if (v57)
+          v92 = std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::find<std::string>(v106, &__str);
+          if (v92)
           {
-            v59 = v57[5];
-            v58 = v57[6];
-            if (v58)
+            v94 = v92[5];
+            v93 = v92[6];
+            if (v93)
             {
-              atomic_fetch_add_explicit(v58 + 1, 1uLL, memory_order_relaxed);
+              atomic_fetch_add_explicit(v93 + 1, 1uLL, memory_order_relaxed);
             }
 
             if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
@@ -6933,14 +6931,14 @@ uint64_t MIL::Text::BasicSerializer::Val<BOOL>(uint64_t a1, MIL::IRTensorValue *
               operator delete(__str.__r_.__value_.__l.__data_);
             }
 
-            MIL::IRValue::GetScalar<std::string>(v59, &__str);
-            v60 = (*(**(a1 + 320) + 32))(*(a1 + 320));
-            MIL::Util::ReplaceModelPaths(&__str, v60);
-            v61 = (*(*v59 + 32))(v59);
-            v62 = MIL::IRValueType::AsTensorType(v61);
-            v67 = __str;
+            MIL::IRValue::GetScalar<std::string>(v94, &__str);
+            v95 = (*(**(a1 + 320) + 32))(*(a1 + 320));
+            MIL::Util::ReplaceModelPaths(&__str, v95);
+            v96 = (*(*v94 + 32))(v94);
+            v97 = MIL::IRValueType::AsTensorType(v96);
+            v102 = __str;
             memset(&__str, 0, sizeof(__str));
-            MIL::IRTensorValueType::MakeStringValue(v62, &v67);
+            MIL::IRTensorValueType::MakeStringValue(v97, &v102);
           }
 
           std::__throw_out_of_range[abi:ne200100]("unordered_map::at: key not found");
@@ -6953,7 +6951,7 @@ uint64_t MIL::Text::BasicSerializer::Val<BOOL>(uint64_t a1, MIL::IRTensorValue *
       {
         v14 = MIL::IRTypedTensorValue<BOOL>::GetFileProperties(a2);
         std::string::basic_string[abi:ne200100]<0>(&__p, "path");
-        v15 = std::__hash_table<std::__hash_value_type<std::string,MIL::IRValueType const*>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MIL::IRValueType const*>>>::find<std::string>(v14, &__p.__r_.__value_.__l.__data_);
+        v15 = std::__hash_table<std::__hash_value_type<std::string,MIL::IRValueType const*>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MIL::IRValueType const*>>>::find<std::string>(v14, &__p);
         if (!v15)
         {
           std::__throw_out_of_range[abi:ne200100]("unordered_map::at: key not found");
@@ -6973,7 +6971,7 @@ uint64_t MIL::Text::BasicSerializer::Val<BOOL>(uint64_t a1, MIL::IRTensorValue *
 
         MIL::IRValue::GetScalar<std::string>(v16, &__p);
         __str.__r_.__value_.__r.__words[0] = &__p;
-        v18 = std::__tree<std::__value_type<std::string,std::shared_ptr<MIL::Blob::StorageWriter>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<MIL::Blob::StorageWriter>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<MIL::Blob::StorageWriter>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1 + 368, &__p.__r_.__value_.__l.__data_);
+        v18 = std::__tree<std::__value_type<std::string,std::shared_ptr<MIL::Blob::StorageWriter>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<MIL::Blob::StorageWriter>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<MIL::Blob::StorageWriter>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((a1 + 368), &__p.__r_.__value_.__l.__data_, &std::piecewise_construct, &__str);
         v20 = *(v18 + 56);
         v19 = *(v18 + 64);
         if (v19)
@@ -7004,7 +7002,7 @@ uint64_t MIL::Text::BasicSerializer::Val<BOOL>(uint64_t a1, MIL::IRTensorValue *
       }
 
       memset(&__p, 0, sizeof(__p));
-      v73 = 0;
+      v108 = 0;
       if (!MIL::IRTypedTensorValue<BOOL>::UsesFileStorage(a2))
       {
         goto LABEL_59;
@@ -7012,7 +7010,7 @@ uint64_t MIL::Text::BasicSerializer::Val<BOOL>(uint64_t a1, MIL::IRTensorValue *
 
       v24 = MIL::IRTypedTensorValue<BOOL>::GetFileProperties(a2);
       std::string::basic_string[abi:ne200100]<0>(&__str, "path");
-      v25 = std::__hash_table<std::__hash_value_type<std::string,MIL::IRValueType const*>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MIL::IRValueType const*>>>::find<std::string>(v24, &__str.__r_.__value_.__l.__data_);
+      v25 = std::__hash_table<std::__hash_value_type<std::string,MIL::IRValueType const*>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MIL::IRValueType const*>>>::find<std::string>(v24, &__str);
       if (!v25)
       {
         std::__throw_out_of_range[abi:ne200100]("unordered_map::at: key not found");
@@ -7038,7 +7036,7 @@ uint64_t MIL::Text::BasicSerializer::Val<BOOL>(uint64_t a1, MIL::IRTensorValue *
 
       __p = __str;
       std::string::basic_string[abi:ne200100]<0>(&__str, "offset");
-      v28 = std::__hash_table<std::__hash_value_type<std::string,MIL::IRValueType const*>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MIL::IRValueType const*>>>::find<std::string>(v24, &__str.__r_.__value_.__l.__data_);
+      v28 = std::__hash_table<std::__hash_value_type<std::string,MIL::IRValueType const*>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MIL::IRValueType const*>>>::find<std::string>(v24, &__str);
       v29 = v28;
       if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
       {
@@ -7047,7 +7045,7 @@ uint64_t MIL::Text::BasicSerializer::Val<BOOL>(uint64_t a1, MIL::IRTensorValue *
         {
 LABEL_39:
           std::string::basic_string[abi:ne200100]<0>(&__str, "offset");
-          v30 = std::__hash_table<std::__hash_value_type<std::string,MIL::IRValueType const*>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MIL::IRValueType const*>>>::find<std::string>(v24, &__str.__r_.__value_.__l.__data_);
+          v30 = std::__hash_table<std::__hash_value_type<std::string,MIL::IRValueType const*>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MIL::IRValueType const*>>>::find<std::string>(v24, &__str);
           if (!v30)
           {
             std::__throw_out_of_range[abi:ne200100]("unordered_map::at: key not found");
@@ -7065,21 +7063,23 @@ LABEL_39:
             operator delete(__str.__r_.__value_.__l.__data_);
           }
 
-          v73 = MIL::IRValue::GetScalar<unsigned long long>(v31);
-          if (std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::find<std::string>((a1 + 328), &__p.__r_.__value_.__l.__data_))
+          v108 = MIL::IRValue::GetScalar<unsigned long long>(v31);
+          if (std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::find<std::string>((a1 + 328), &__p))
           {
-            v33 = std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::find<std::string>((a1 + 328), &__p.__r_.__value_.__l.__data_);
+            v33 = std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::find<std::string>((a1 + 328), &__p);
             v34 = v33;
             if (!v33)
             {
               goto LABEL_94;
             }
 
-            if (std::__hash_table<std::__hash_value_type<unsigned long long,MIL::Blob::LegacyStorageReader::FileInfo>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,MIL::Blob::LegacyStorageReader::FileInfo>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,MIL::Blob::LegacyStorageReader::FileInfo>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,MIL::Blob::LegacyStorageReader::FileInfo>>>::find<unsigned long long>(v33 + 5, &v73))
+            if (std::__hash_table<std::__hash_value_type<unsigned long long,MIL::Blob::LegacyStorageReader::FileInfo>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,MIL::Blob::LegacyStorageReader::FileInfo>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,MIL::Blob::LegacyStorageReader::FileInfo>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,MIL::Blob::LegacyStorageReader::FileInfo>>>::find<unsigned long long>(v33 + 5, &v108))
             {
-              if (std::__hash_table<std::__hash_value_type<unsigned long long,MIL::Blob::LegacyStorageReader::FileInfo>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,MIL::Blob::LegacyStorageReader::FileInfo>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,MIL::Blob::LegacyStorageReader::FileInfo>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,MIL::Blob::LegacyStorageReader::FileInfo>>>::find<unsigned long long>(v34 + 5, &v73))
+              v35 = std::__hash_table<std::__hash_value_type<unsigned long long,MIL::Blob::LegacyStorageReader::FileInfo>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,MIL::Blob::LegacyStorageReader::FileInfo>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,MIL::Blob::LegacyStorageReader::FileInfo>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,MIL::Blob::LegacyStorageReader::FileInfo>>>::find<unsigned long long>(v34 + 5, &v108);
+              if (v35)
               {
-                v35 = 1;
+                v36 = v35[3];
+                v37 = 1;
                 goto LABEL_50;
               }
 
@@ -7088,7 +7088,8 @@ LABEL_94:
             }
           }
 
-          v35 = 0;
+          v37 = 0;
+          v36 = 0;
 LABEL_50:
           if (v32)
           {
@@ -7100,120 +7101,121 @@ LABEL_50:
             std::__shared_weak_count::__release_shared[abi:ne200100](v26);
           }
 
-          if (v35)
+          if (v37)
           {
 LABEL_78:
-            v55 = MIL::IRTypedTensorValue<BOOL>::GetType(a2);
-            (*(*v55 + 24))(v55);
+            v88 = MIL::IRTypedTensorValue<BOOL>::GetType(a2);
+            v89 = (*(*v88 + 24))(v88);
+            v90 = *a1;
             MIL::Blob::StorageWriter::GetFilePath(v20, &__str);
-            MIL::IRTensorValueType::MakeValueFromBlobFile();
+            MIL::IRTensorValueType::MakeValueFromBlobFile(v89, v90, &__str, v36);
           }
 
 LABEL_59:
           switch(v12)
           {
             case 4:
-              v36 = MIL::IRTensorValue::TryAsTensor(a2);
-              MIL::IRTensorValue::GetDataView<MIL::Fp16>(v36);
-              v37 = MIL::Blob::StorageWriter::WriteData<MIL::Fp16>(v20);
+              MIL::IRTensorValue::TryAsTensor(a2);
+              v39 = MIL::IRTensorValue::GetDataView<MIL::Fp16>(v38);
+              v41 = MIL::Blob::StorageWriter::WriteData<MIL::Fp16>(v20, v39, v40);
               break;
             case 5:
-              v51 = MIL::IRTensorValue::TryAsTensor(a2);
-              MIL::IRTensorValue::GetDataView<float>(v51);
-              v37 = MIL::Blob::StorageWriter::WriteData<float>(v20);
+              MIL::IRTensorValue::TryAsTensor(a2);
+              Data = MIL::IRTensorValue::GetDataView<float>(v81);
+              v41 = MIL::Blob::StorageWriter::WriteData<float>(v20, Data, v83);
               break;
             case 9:
-              v48 = MIL::IRTensorValue::TryAsTensor(a2);
-              MIL::IRTensorValue::GetDataView<signed char>(v48);
-              v37 = MIL::Blob::StorageWriter::WriteData<signed char>(v20);
+              MIL::IRTensorValue::TryAsTensor(a2);
+              v73 = MIL::IRTensorValue::GetDataView<signed char>(v72);
+              v41 = MIL::Blob::StorageWriter::WriteData<signed char>(v20, v73, v74);
               break;
             case 10:
-              v50 = MIL::IRTensorValue::TryAsTensor(a2);
-              MIL::IRTensorValue::GetDataView<short>(v50);
-              v37 = MIL::Blob::StorageWriter::WriteData<short>(v20);
+              MIL::IRTensorValue::TryAsTensor(a2);
+              v79 = MIL::IRTensorValue::GetDataView<short>(v78);
+              v41 = MIL::Blob::StorageWriter::WriteData<short>(v20, v79, v80);
               break;
             case 11:
-              v45 = MIL::IRTensorValue::TryAsTensor(a2);
-              MIL::IRTensorValue::GetDataView<int>(v45);
-              v37 = MIL::Blob::StorageWriter::WriteData<int>(v20);
+              MIL::IRTensorValue::TryAsTensor(a2);
+              v64 = MIL::IRTensorValue::GetDataView<int>(v63);
+              v41 = MIL::Blob::StorageWriter::WriteData<int>(v20, v64, v65);
               break;
             case 13:
-              v47 = MIL::IRTensorValue::TryAsTensor(a2);
-              MIL::IRTensorValue::GetDataView<MIL::Int4>(v47);
-              v37 = MIL::Blob::StorageWriter::WriteData<MIL::Int4>(v20);
+              MIL::IRTensorValue::TryAsTensor(a2);
+              v70 = MIL::IRTensorValue::GetDataView<MIL::Int4>(v69);
+              v41 = MIL::Blob::StorageWriter::WriteData<MIL::Int4>(v20, v70, v71);
               break;
             case 14:
-              v52 = MIL::IRTensorValue::TryAsTensor(a2);
-              MIL::IRTensorValue::GetDataView<unsigned char>(v52);
-              v37 = MIL::Blob::StorageWriter::WriteData<unsigned char>(v20);
+              MIL::IRTensorValue::TryAsTensor(a2);
+              v85 = MIL::IRTensorValue::GetDataView<unsigned char>(v84);
+              v41 = MIL::Blob::StorageWriter::WriteData<unsigned char>(v20, v85, v86);
               break;
             case 15:
-              v49 = MIL::IRTensorValue::TryAsTensor(a2);
-              MIL::IRTensorValue::GetDataView<unsigned short>(v49);
-              v37 = MIL::Blob::StorageWriter::WriteData<unsigned short>(v20);
+              MIL::IRTensorValue::TryAsTensor(a2);
+              v76 = MIL::IRTensorValue::GetDataView<unsigned short>(v75);
+              v41 = MIL::Blob::StorageWriter::WriteData<unsigned short>(v20, v76, v77);
               break;
             case 16:
-              v42 = MIL::IRTensorValue::TryAsTensor(a2);
-              MIL::IRTensorValue::GetDataView<unsigned int>(v42);
-              v37 = MIL::Blob::StorageWriter::WriteData<unsigned int>(v20);
+              MIL::IRTensorValue::TryAsTensor(a2);
+              v55 = MIL::IRTensorValue::GetDataView<unsigned int>(v54);
+              v41 = MIL::Blob::StorageWriter::WriteData<unsigned int>(v20, v55, v56);
               break;
             case 19:
-              v39 = MIL::IRTensorValue::TryAsTensor(a2);
-              MIL::IRTensorValue::GetDataView<MIL::UInt2>(v39);
-              v37 = MIL::Blob::StorageWriter::WriteData<MIL::UInt2>(v20);
+              MIL::IRTensorValue::TryAsTensor(a2);
+              v46 = MIL::IRTensorValue::GetDataView<MIL::UInt2>(v45);
+              v41 = MIL::Blob::StorageWriter::WriteData<MIL::UInt2>(v20, v46, v47);
               break;
             case 20:
-              v41 = MIL::IRTensorValue::TryAsTensor(a2);
-              MIL::IRTensorValue::GetDataView<MIL::UInt4>(v41);
-              v37 = MIL::Blob::StorageWriter::WriteData<MIL::UInt4>(v20);
+              MIL::IRTensorValue::TryAsTensor(a2);
+              v52 = MIL::IRTensorValue::GetDataView<MIL::UInt4>(v51);
+              v41 = MIL::Blob::StorageWriter::WriteData<MIL::UInt4>(v20, v52, v53);
               break;
             case 21:
-              v38 = MIL::IRTensorValue::TryAsTensor(a2);
-              MIL::IRTensorValue::GetDataView<MIL::UInt1>(v38);
-              v37 = MIL::Blob::StorageWriter::WriteData<MIL::UInt1>(v20);
+              MIL::IRTensorValue::TryAsTensor(a2);
+              v43 = MIL::IRTensorValue::GetDataView<MIL::UInt1>(v42);
+              v41 = MIL::Blob::StorageWriter::WriteData<MIL::UInt1>(v20, v43, v44);
               break;
             case 22:
-              v40 = MIL::IRTensorValue::TryAsTensor(a2);
-              MIL::IRTensorValue::GetDataView<MIL::UInt3>(v40);
-              v37 = MIL::Blob::StorageWriter::WriteData<MIL::UInt3>(v20);
+              MIL::IRTensorValue::TryAsTensor(a2);
+              v49 = MIL::IRTensorValue::GetDataView<MIL::UInt3>(v48);
+              v41 = MIL::Blob::StorageWriter::WriteData<MIL::UInt3>(v20, v49, v50);
               break;
             case 23:
-              v43 = MIL::IRTensorValue::TryAsTensor(a2);
-              MIL::IRTensorValue::GetDataView<MIL::UInt6>(v43);
-              v37 = MIL::Blob::StorageWriter::WriteData<MIL::UInt6>(v20);
+              MIL::IRTensorValue::TryAsTensor(a2);
+              v58 = MIL::IRTensorValue::GetDataView<MIL::UInt6>(v57);
+              v41 = MIL::Blob::StorageWriter::WriteData<MIL::UInt6>(v20, v58, v59);
               break;
             case 24:
-              v44 = MIL::IRTensorValue::TryAsTensor(a2);
-              MIL::IRTensorValue::GetDataView<MIL::Fp8E4M3FN>(v44);
-              v37 = MIL::Blob::StorageWriter::WriteData<MIL::Fp8E4M3FN>(v20);
+              MIL::IRTensorValue::TryAsTensor(a2);
+              v61 = MIL::IRTensorValue::GetDataView<MIL::Fp8E4M3FN>(v60);
+              v41 = MIL::Blob::StorageWriter::WriteData<MIL::Fp8E4M3FN>(v20, v61, v62);
               break;
             case 25:
-              v46 = MIL::IRTensorValue::TryAsTensor(a2);
-              MIL::IRTensorValue::GetDataView<MIL::Fp8E5M2>(v46);
-              v37 = MIL::Blob::StorageWriter::WriteData<MIL::Fp8E5M2>(v20);
+              MIL::IRTensorValue::TryAsTensor(a2);
+              v67 = MIL::IRTensorValue::GetDataView<MIL::Fp8E5M2>(v66);
+              v41 = MIL::Blob::StorageWriter::WriteData<MIL::Fp8E5M2>(v20, v67, v68);
               break;
             default:
               exception = __cxa_allocate_exception(0x10uLL);
-              MIL::IRDataTypeToString(v12, &v68);
-              v65 = std::string::insert(&v68, 0, "[MIL Serialization] Unsupported Data type ");
-              v66 = *&v65->__r_.__value_.__l.__data_;
-              __str.__r_.__value_.__r.__words[2] = v65->__r_.__value_.__r.__words[2];
-              *&__str.__r_.__value_.__l.__data_ = v66;
-              v65->__r_.__value_.__l.__size_ = 0;
-              v65->__r_.__value_.__r.__words[2] = 0;
-              v65->__r_.__value_.__r.__words[0] = 0;
+              MIL::IRDataTypeToString(v12, &v103);
+              v100 = std::string::insert(&v103, 0, "[MIL Serialization] Unsupported Data type ");
+              v101 = *&v100->__r_.__value_.__l.__data_;
+              __str.__r_.__value_.__r.__words[2] = v100->__r_.__value_.__r.__words[2];
+              *&__str.__r_.__value_.__l.__data_ = v101;
+              v100->__r_.__value_.__l.__size_ = 0;
+              v100->__r_.__value_.__r.__words[2] = 0;
+              v100->__r_.__value_.__r.__words[0] = 0;
               std::logic_error::logic_error(exception, &__str);
               exception->__vftable = (MEMORY[0x277D828F8] + 16);
               __cxa_throw(exception, off_278235F80, MEMORY[0x277D82610]);
           }
 
-          v53 = v37;
+          v36 = v41;
           if (MIL::IRTypedTensorValue<BOOL>::UsesFileStorage(a2))
           {
             __str.__r_.__value_.__r.__words[0] = &__p;
-            v54 = std::__hash_table<std::__hash_value_type<std::string,std::unordered_map<unsigned long long,unsigned long long>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::unordered_map<unsigned long long,unsigned long long>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::unordered_map<unsigned long long,unsigned long long>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::unordered_map<unsigned long long,unsigned long long>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((a1 + 328), &__p.__r_.__value_.__l.__data_);
-            __str.__r_.__value_.__r.__words[0] = &v73;
-            std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long long>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned long long>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(v54 + 5, &v73)[3] = v53;
+            v87 = std::__hash_table<std::__hash_value_type<std::string,std::unordered_map<unsigned long long,unsigned long long>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::unordered_map<unsigned long long,unsigned long long>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::unordered_map<unsigned long long,unsigned long long>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::unordered_map<unsigned long long,unsigned long long>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((a1 + 328), &__p, &std::piecewise_construct, &__str, &v103);
+            __str.__r_.__value_.__r.__words[0] = &v108;
+            std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long long>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned long long>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(v87 + 5, &v108, &std::piecewise_construct, &__str)[3] = v36;
           }
 
           goto LABEL_78;
@@ -7282,7 +7284,7 @@ void ValHelper<BOOL>(uint64_t a1, void *a2)
   v11 = 0;
   v12 = 0;
   __p = 0;
-  std::vector<MIL::IRDimension const*>::__init_with_size[abi:ne200100]<MIL::IRDimension const**,MIL::IRDimension const**>(&__p, *v5, v5[1], (v5[1] - *v5) >> 3);
+  std::vector<MIL::IRDimension const*>::__init_with_size[abi:ne200100]<MIL::IRDimension const**,MIL::IRDimension const**>(&__p, *v5, *(v5 + 8), (*(v5 + 8) - *v5) >> 3);
   if (__p == v11)
   {
     ScalarValue = MIL::IRTypedTensorValue<BOOL>::GetScalarValue(a1);
@@ -7351,43 +7353,43 @@ uint64_t MIL::Text::BasicSerializer::Val<std::string>(uint64_t a1, MIL::IRTensor
   {
     if (v8)
     {
-      memset(v71, 0, sizeof(v71));
-      v72 = 1065353216;
+      memset(v106, 0, sizeof(v106));
+      v107 = 1065353216;
       if (!v4)
       {
         FileProperties = MIL::IRTypedTensorValue<std::string>::GetFileProperties(a2);
-        if (v71 != FileProperties)
+        if (v106 != FileProperties)
         {
-          v72 = *(FileProperties + 32);
-          std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::__assign_multi<std::__hash_const_iterator<std::__hash_node<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,void *> *>>(v71, *(FileProperties + 16), 0);
+          v107 = *(FileProperties + 32);
+          std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::__assign_multi<std::__hash_const_iterator<std::__hash_node<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,void *> *>>(v106, *(FileProperties + 16), 0);
         }
 
         std::string::basic_string[abi:ne200100]<0>(&__str, "type");
-        v56 = std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::find<std::string>(v71, &__str.__r_.__value_.__l.__data_);
-        if (v56)
+        v91 = std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::find<std::string>(v106, &__str);
+        if (v91)
         {
-          MIL::IRValue::GetScalar<std::string>(v56[5], &__p);
+          MIL::IRValue::GetScalar<std::string>(v91[5], &__p);
           if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
           {
             operator delete(__str.__r_.__value_.__l.__data_);
           }
 
           std::string::basic_string[abi:ne200100]<0>(&__str, "type");
-          std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::__erase_unique<std::string>(v71, &__str.__r_.__value_.__l.__data_);
+          std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::__erase_unique<std::string>(v106, &__str);
           if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
           {
             operator delete(__str.__r_.__value_.__l.__data_);
           }
 
           std::string::basic_string[abi:ne200100]<0>(&__str, "path");
-          v57 = std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::find<std::string>(v71, &__str.__r_.__value_.__l.__data_);
-          if (v57)
+          v92 = std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::find<std::string>(v106, &__str);
+          if (v92)
           {
-            v59 = v57[5];
-            v58 = v57[6];
-            if (v58)
+            v94 = v92[5];
+            v93 = v92[6];
+            if (v93)
             {
-              atomic_fetch_add_explicit(v58 + 1, 1uLL, memory_order_relaxed);
+              atomic_fetch_add_explicit(v93 + 1, 1uLL, memory_order_relaxed);
             }
 
             if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
@@ -7395,14 +7397,14 @@ uint64_t MIL::Text::BasicSerializer::Val<std::string>(uint64_t a1, MIL::IRTensor
               operator delete(__str.__r_.__value_.__l.__data_);
             }
 
-            MIL::IRValue::GetScalar<std::string>(v59, &__str);
-            v60 = (*(**(a1 + 320) + 32))(*(a1 + 320));
-            MIL::Util::ReplaceModelPaths(&__str, v60);
-            v61 = (*(*v59 + 32))(v59);
-            v62 = MIL::IRValueType::AsTensorType(v61);
-            v67 = __str;
+            MIL::IRValue::GetScalar<std::string>(v94, &__str);
+            v95 = (*(**(a1 + 320) + 32))(*(a1 + 320));
+            MIL::Util::ReplaceModelPaths(&__str, v95);
+            v96 = (*(*v94 + 32))(v94);
+            v97 = MIL::IRValueType::AsTensorType(v96);
+            v102 = __str;
             memset(&__str, 0, sizeof(__str));
-            MIL::IRTensorValueType::MakeStringValue(v62, &v67);
+            MIL::IRTensorValueType::MakeStringValue(v97, &v102);
           }
 
           std::__throw_out_of_range[abi:ne200100]("unordered_map::at: key not found");
@@ -7415,7 +7417,7 @@ uint64_t MIL::Text::BasicSerializer::Val<std::string>(uint64_t a1, MIL::IRTensor
       {
         v14 = MIL::IRTypedTensorValue<std::string>::GetFileProperties(a2);
         std::string::basic_string[abi:ne200100]<0>(&__p, "path");
-        v15 = std::__hash_table<std::__hash_value_type<std::string,MIL::IRValueType const*>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MIL::IRValueType const*>>>::find<std::string>(v14, &__p.__r_.__value_.__l.__data_);
+        v15 = std::__hash_table<std::__hash_value_type<std::string,MIL::IRValueType const*>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MIL::IRValueType const*>>>::find<std::string>(v14, &__p);
         if (!v15)
         {
           std::__throw_out_of_range[abi:ne200100]("unordered_map::at: key not found");
@@ -7435,7 +7437,7 @@ uint64_t MIL::Text::BasicSerializer::Val<std::string>(uint64_t a1, MIL::IRTensor
 
         MIL::IRValue::GetScalar<std::string>(v16, &__p);
         __str.__r_.__value_.__r.__words[0] = &__p;
-        v18 = std::__tree<std::__value_type<std::string,std::shared_ptr<MIL::Blob::StorageWriter>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<MIL::Blob::StorageWriter>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<MIL::Blob::StorageWriter>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1 + 368, &__p.__r_.__value_.__l.__data_);
+        v18 = std::__tree<std::__value_type<std::string,std::shared_ptr<MIL::Blob::StorageWriter>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<MIL::Blob::StorageWriter>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<MIL::Blob::StorageWriter>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((a1 + 368), &__p.__r_.__value_.__l.__data_, &std::piecewise_construct, &__str);
         v20 = *(v18 + 56);
         v19 = *(v18 + 64);
         if (v19)
@@ -7466,7 +7468,7 @@ uint64_t MIL::Text::BasicSerializer::Val<std::string>(uint64_t a1, MIL::IRTensor
       }
 
       memset(&__p, 0, sizeof(__p));
-      v73 = 0;
+      v108 = 0;
       if (!MIL::IRTypedTensorValue<std::string>::UsesFileStorage(a2))
       {
         goto LABEL_59;
@@ -7474,7 +7476,7 @@ uint64_t MIL::Text::BasicSerializer::Val<std::string>(uint64_t a1, MIL::IRTensor
 
       v24 = MIL::IRTypedTensorValue<std::string>::GetFileProperties(a2);
       std::string::basic_string[abi:ne200100]<0>(&__str, "path");
-      v25 = std::__hash_table<std::__hash_value_type<std::string,MIL::IRValueType const*>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MIL::IRValueType const*>>>::find<std::string>(v24, &__str.__r_.__value_.__l.__data_);
+      v25 = std::__hash_table<std::__hash_value_type<std::string,MIL::IRValueType const*>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MIL::IRValueType const*>>>::find<std::string>(v24, &__str);
       if (!v25)
       {
         std::__throw_out_of_range[abi:ne200100]("unordered_map::at: key not found");
@@ -7500,7 +7502,7 @@ uint64_t MIL::Text::BasicSerializer::Val<std::string>(uint64_t a1, MIL::IRTensor
 
       __p = __str;
       std::string::basic_string[abi:ne200100]<0>(&__str, "offset");
-      v28 = std::__hash_table<std::__hash_value_type<std::string,MIL::IRValueType const*>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MIL::IRValueType const*>>>::find<std::string>(v24, &__str.__r_.__value_.__l.__data_);
+      v28 = std::__hash_table<std::__hash_value_type<std::string,MIL::IRValueType const*>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MIL::IRValueType const*>>>::find<std::string>(v24, &__str);
       v29 = v28;
       if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
       {
@@ -7509,7 +7511,7 @@ uint64_t MIL::Text::BasicSerializer::Val<std::string>(uint64_t a1, MIL::IRTensor
         {
 LABEL_39:
           std::string::basic_string[abi:ne200100]<0>(&__str, "offset");
-          v30 = std::__hash_table<std::__hash_value_type<std::string,MIL::IRValueType const*>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MIL::IRValueType const*>>>::find<std::string>(v24, &__str.__r_.__value_.__l.__data_);
+          v30 = std::__hash_table<std::__hash_value_type<std::string,MIL::IRValueType const*>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MIL::IRValueType const*>>>::find<std::string>(v24, &__str);
           if (!v30)
           {
             std::__throw_out_of_range[abi:ne200100]("unordered_map::at: key not found");
@@ -7527,21 +7529,23 @@ LABEL_39:
             operator delete(__str.__r_.__value_.__l.__data_);
           }
 
-          v73 = MIL::IRValue::GetScalar<unsigned long long>(v31);
-          if (std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::find<std::string>((a1 + 328), &__p.__r_.__value_.__l.__data_))
+          v108 = MIL::IRValue::GetScalar<unsigned long long>(v31);
+          if (std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::find<std::string>((a1 + 328), &__p))
           {
-            v33 = std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::find<std::string>((a1 + 328), &__p.__r_.__value_.__l.__data_);
+            v33 = std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::find<std::string>((a1 + 328), &__p);
             v34 = v33;
             if (!v33)
             {
               goto LABEL_94;
             }
 
-            if (std::__hash_table<std::__hash_value_type<unsigned long long,MIL::Blob::LegacyStorageReader::FileInfo>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,MIL::Blob::LegacyStorageReader::FileInfo>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,MIL::Blob::LegacyStorageReader::FileInfo>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,MIL::Blob::LegacyStorageReader::FileInfo>>>::find<unsigned long long>(v33 + 5, &v73))
+            if (std::__hash_table<std::__hash_value_type<unsigned long long,MIL::Blob::LegacyStorageReader::FileInfo>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,MIL::Blob::LegacyStorageReader::FileInfo>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,MIL::Blob::LegacyStorageReader::FileInfo>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,MIL::Blob::LegacyStorageReader::FileInfo>>>::find<unsigned long long>(v33 + 5, &v108))
             {
-              if (std::__hash_table<std::__hash_value_type<unsigned long long,MIL::Blob::LegacyStorageReader::FileInfo>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,MIL::Blob::LegacyStorageReader::FileInfo>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,MIL::Blob::LegacyStorageReader::FileInfo>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,MIL::Blob::LegacyStorageReader::FileInfo>>>::find<unsigned long long>(v34 + 5, &v73))
+              v35 = std::__hash_table<std::__hash_value_type<unsigned long long,MIL::Blob::LegacyStorageReader::FileInfo>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,MIL::Blob::LegacyStorageReader::FileInfo>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,MIL::Blob::LegacyStorageReader::FileInfo>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,MIL::Blob::LegacyStorageReader::FileInfo>>>::find<unsigned long long>(v34 + 5, &v108);
+              if (v35)
               {
-                v35 = 1;
+                v36 = v35[3];
+                v37 = 1;
                 goto LABEL_50;
               }
 
@@ -7550,7 +7554,8 @@ LABEL_94:
             }
           }
 
-          v35 = 0;
+          v37 = 0;
+          v36 = 0;
 LABEL_50:
           if (v32)
           {
@@ -7562,120 +7567,121 @@ LABEL_50:
             std::__shared_weak_count::__release_shared[abi:ne200100](v26);
           }
 
-          if (v35)
+          if (v37)
           {
 LABEL_78:
-            v55 = MIL::IRTypedTensorValue<std::string>::GetType(a2);
-            (*(*v55 + 24))(v55);
+            v88 = MIL::IRTypedTensorValue<std::string>::GetType(a2);
+            v89 = (*(*v88 + 24))(v88);
+            v90 = *a1;
             MIL::Blob::StorageWriter::GetFilePath(v20, &__str);
-            MIL::IRTensorValueType::MakeValueFromBlobFile();
+            MIL::IRTensorValueType::MakeValueFromBlobFile(v89, v90, &__str, v36);
           }
 
 LABEL_59:
           switch(v12)
           {
             case 4:
-              v36 = MIL::IRTensorValue::TryAsTensor(a2);
-              MIL::IRTensorValue::GetDataView<MIL::Fp16>(v36);
-              v37 = MIL::Blob::StorageWriter::WriteData<MIL::Fp16>(v20);
+              MIL::IRTensorValue::TryAsTensor(a2);
+              v39 = MIL::IRTensorValue::GetDataView<MIL::Fp16>(v38);
+              v41 = MIL::Blob::StorageWriter::WriteData<MIL::Fp16>(v20, v39, v40);
               break;
             case 5:
-              v51 = MIL::IRTensorValue::TryAsTensor(a2);
-              MIL::IRTensorValue::GetDataView<float>(v51);
-              v37 = MIL::Blob::StorageWriter::WriteData<float>(v20);
+              MIL::IRTensorValue::TryAsTensor(a2);
+              Data = MIL::IRTensorValue::GetDataView<float>(v81);
+              v41 = MIL::Blob::StorageWriter::WriteData<float>(v20, Data, v83);
               break;
             case 9:
-              v48 = MIL::IRTensorValue::TryAsTensor(a2);
-              MIL::IRTensorValue::GetDataView<signed char>(v48);
-              v37 = MIL::Blob::StorageWriter::WriteData<signed char>(v20);
+              MIL::IRTensorValue::TryAsTensor(a2);
+              v73 = MIL::IRTensorValue::GetDataView<signed char>(v72);
+              v41 = MIL::Blob::StorageWriter::WriteData<signed char>(v20, v73, v74);
               break;
             case 10:
-              v50 = MIL::IRTensorValue::TryAsTensor(a2);
-              MIL::IRTensorValue::GetDataView<short>(v50);
-              v37 = MIL::Blob::StorageWriter::WriteData<short>(v20);
+              MIL::IRTensorValue::TryAsTensor(a2);
+              v79 = MIL::IRTensorValue::GetDataView<short>(v78);
+              v41 = MIL::Blob::StorageWriter::WriteData<short>(v20, v79, v80);
               break;
             case 11:
-              v45 = MIL::IRTensorValue::TryAsTensor(a2);
-              MIL::IRTensorValue::GetDataView<int>(v45);
-              v37 = MIL::Blob::StorageWriter::WriteData<int>(v20);
+              MIL::IRTensorValue::TryAsTensor(a2);
+              v64 = MIL::IRTensorValue::GetDataView<int>(v63);
+              v41 = MIL::Blob::StorageWriter::WriteData<int>(v20, v64, v65);
               break;
             case 13:
-              v47 = MIL::IRTensorValue::TryAsTensor(a2);
-              MIL::IRTensorValue::GetDataView<MIL::Int4>(v47);
-              v37 = MIL::Blob::StorageWriter::WriteData<MIL::Int4>(v20);
+              MIL::IRTensorValue::TryAsTensor(a2);
+              v70 = MIL::IRTensorValue::GetDataView<MIL::Int4>(v69);
+              v41 = MIL::Blob::StorageWriter::WriteData<MIL::Int4>(v20, v70, v71);
               break;
             case 14:
-              v52 = MIL::IRTensorValue::TryAsTensor(a2);
-              MIL::IRTensorValue::GetDataView<unsigned char>(v52);
-              v37 = MIL::Blob::StorageWriter::WriteData<unsigned char>(v20);
+              MIL::IRTensorValue::TryAsTensor(a2);
+              v85 = MIL::IRTensorValue::GetDataView<unsigned char>(v84);
+              v41 = MIL::Blob::StorageWriter::WriteData<unsigned char>(v20, v85, v86);
               break;
             case 15:
-              v49 = MIL::IRTensorValue::TryAsTensor(a2);
-              MIL::IRTensorValue::GetDataView<unsigned short>(v49);
-              v37 = MIL::Blob::StorageWriter::WriteData<unsigned short>(v20);
+              MIL::IRTensorValue::TryAsTensor(a2);
+              v76 = MIL::IRTensorValue::GetDataView<unsigned short>(v75);
+              v41 = MIL::Blob::StorageWriter::WriteData<unsigned short>(v20, v76, v77);
               break;
             case 16:
-              v42 = MIL::IRTensorValue::TryAsTensor(a2);
-              MIL::IRTensorValue::GetDataView<unsigned int>(v42);
-              v37 = MIL::Blob::StorageWriter::WriteData<unsigned int>(v20);
+              MIL::IRTensorValue::TryAsTensor(a2);
+              v55 = MIL::IRTensorValue::GetDataView<unsigned int>(v54);
+              v41 = MIL::Blob::StorageWriter::WriteData<unsigned int>(v20, v55, v56);
               break;
             case 19:
-              v39 = MIL::IRTensorValue::TryAsTensor(a2);
-              MIL::IRTensorValue::GetDataView<MIL::UInt2>(v39);
-              v37 = MIL::Blob::StorageWriter::WriteData<MIL::UInt2>(v20);
+              MIL::IRTensorValue::TryAsTensor(a2);
+              v46 = MIL::IRTensorValue::GetDataView<MIL::UInt2>(v45);
+              v41 = MIL::Blob::StorageWriter::WriteData<MIL::UInt2>(v20, v46, v47);
               break;
             case 20:
-              v41 = MIL::IRTensorValue::TryAsTensor(a2);
-              MIL::IRTensorValue::GetDataView<MIL::UInt4>(v41);
-              v37 = MIL::Blob::StorageWriter::WriteData<MIL::UInt4>(v20);
+              MIL::IRTensorValue::TryAsTensor(a2);
+              v52 = MIL::IRTensorValue::GetDataView<MIL::UInt4>(v51);
+              v41 = MIL::Blob::StorageWriter::WriteData<MIL::UInt4>(v20, v52, v53);
               break;
             case 21:
-              v38 = MIL::IRTensorValue::TryAsTensor(a2);
-              MIL::IRTensorValue::GetDataView<MIL::UInt1>(v38);
-              v37 = MIL::Blob::StorageWriter::WriteData<MIL::UInt1>(v20);
+              MIL::IRTensorValue::TryAsTensor(a2);
+              v43 = MIL::IRTensorValue::GetDataView<MIL::UInt1>(v42);
+              v41 = MIL::Blob::StorageWriter::WriteData<MIL::UInt1>(v20, v43, v44);
               break;
             case 22:
-              v40 = MIL::IRTensorValue::TryAsTensor(a2);
-              MIL::IRTensorValue::GetDataView<MIL::UInt3>(v40);
-              v37 = MIL::Blob::StorageWriter::WriteData<MIL::UInt3>(v20);
+              MIL::IRTensorValue::TryAsTensor(a2);
+              v49 = MIL::IRTensorValue::GetDataView<MIL::UInt3>(v48);
+              v41 = MIL::Blob::StorageWriter::WriteData<MIL::UInt3>(v20, v49, v50);
               break;
             case 23:
-              v43 = MIL::IRTensorValue::TryAsTensor(a2);
-              MIL::IRTensorValue::GetDataView<MIL::UInt6>(v43);
-              v37 = MIL::Blob::StorageWriter::WriteData<MIL::UInt6>(v20);
+              MIL::IRTensorValue::TryAsTensor(a2);
+              v58 = MIL::IRTensorValue::GetDataView<MIL::UInt6>(v57);
+              v41 = MIL::Blob::StorageWriter::WriteData<MIL::UInt6>(v20, v58, v59);
               break;
             case 24:
-              v44 = MIL::IRTensorValue::TryAsTensor(a2);
-              MIL::IRTensorValue::GetDataView<MIL::Fp8E4M3FN>(v44);
-              v37 = MIL::Blob::StorageWriter::WriteData<MIL::Fp8E4M3FN>(v20);
+              MIL::IRTensorValue::TryAsTensor(a2);
+              v61 = MIL::IRTensorValue::GetDataView<MIL::Fp8E4M3FN>(v60);
+              v41 = MIL::Blob::StorageWriter::WriteData<MIL::Fp8E4M3FN>(v20, v61, v62);
               break;
             case 25:
-              v46 = MIL::IRTensorValue::TryAsTensor(a2);
-              MIL::IRTensorValue::GetDataView<MIL::Fp8E5M2>(v46);
-              v37 = MIL::Blob::StorageWriter::WriteData<MIL::Fp8E5M2>(v20);
+              MIL::IRTensorValue::TryAsTensor(a2);
+              v67 = MIL::IRTensorValue::GetDataView<MIL::Fp8E5M2>(v66);
+              v41 = MIL::Blob::StorageWriter::WriteData<MIL::Fp8E5M2>(v20, v67, v68);
               break;
             default:
               exception = __cxa_allocate_exception(0x10uLL);
-              MIL::IRDataTypeToString(v12, &v68);
-              v65 = std::string::insert(&v68, 0, "[MIL Serialization] Unsupported Data type ");
-              v66 = *&v65->__r_.__value_.__l.__data_;
-              __str.__r_.__value_.__r.__words[2] = v65->__r_.__value_.__r.__words[2];
-              *&__str.__r_.__value_.__l.__data_ = v66;
-              v65->__r_.__value_.__l.__size_ = 0;
-              v65->__r_.__value_.__r.__words[2] = 0;
-              v65->__r_.__value_.__r.__words[0] = 0;
+              MIL::IRDataTypeToString(v12, &v103);
+              v100 = std::string::insert(&v103, 0, "[MIL Serialization] Unsupported Data type ");
+              v101 = *&v100->__r_.__value_.__l.__data_;
+              __str.__r_.__value_.__r.__words[2] = v100->__r_.__value_.__r.__words[2];
+              *&__str.__r_.__value_.__l.__data_ = v101;
+              v100->__r_.__value_.__l.__size_ = 0;
+              v100->__r_.__value_.__r.__words[2] = 0;
+              v100->__r_.__value_.__r.__words[0] = 0;
               std::logic_error::logic_error(exception, &__str);
               exception->__vftable = (MEMORY[0x277D828F8] + 16);
               __cxa_throw(exception, off_278235F80, MEMORY[0x277D82610]);
           }
 
-          v53 = v37;
+          v36 = v41;
           if (MIL::IRTypedTensorValue<std::string>::UsesFileStorage(a2))
           {
             __str.__r_.__value_.__r.__words[0] = &__p;
-            v54 = std::__hash_table<std::__hash_value_type<std::string,std::unordered_map<unsigned long long,unsigned long long>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::unordered_map<unsigned long long,unsigned long long>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::unordered_map<unsigned long long,unsigned long long>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::unordered_map<unsigned long long,unsigned long long>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((a1 + 328), &__p.__r_.__value_.__l.__data_);
-            __str.__r_.__value_.__r.__words[0] = &v73;
-            std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long long>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned long long>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(v54 + 5, &v73)[3] = v53;
+            v87 = std::__hash_table<std::__hash_value_type<std::string,std::unordered_map<unsigned long long,unsigned long long>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::unordered_map<unsigned long long,unsigned long long>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::unordered_map<unsigned long long,unsigned long long>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::unordered_map<unsigned long long,unsigned long long>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((a1 + 328), &__p, &std::piecewise_construct, &__str, &v103);
+            __str.__r_.__value_.__r.__words[0] = &v108;
+            std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long long>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned long long>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(v87 + 5, &v108, &std::piecewise_construct, &__str)[3] = v36;
           }
 
           goto LABEL_78;
@@ -7744,7 +7750,7 @@ void ValHelper<std::string>(uint64_t a1, void *a2)
   v8 = 0;
   v9 = 0;
   v7 = 0;
-  std::vector<MIL::IRDimension const*>::__init_with_size[abi:ne200100]<MIL::IRDimension const**,MIL::IRDimension const**>(&v7, *v5, v5[1], (v5[1] - *v5) >> 3);
+  std::vector<MIL::IRDimension const*>::__init_with_size[abi:ne200100]<MIL::IRDimension const**,MIL::IRDimension const**>(&v7, *v5, *(v5 + 8), (*(v5 + 8) - *v5) >> 3);
   if (v7 == v8)
   {
     MIL::IRTypedTensorValue<std::string>::GetScalarValue(a1, &__p);
@@ -7801,43 +7807,43 @@ uint64_t MIL::Text::BasicSerializer::Val<MIL::Bf16>(uint64_t a1, MIL::IRTensorVa
   {
     if (v8)
     {
-      memset(v71, 0, sizeof(v71));
-      v72 = 1065353216;
+      memset(v106, 0, sizeof(v106));
+      v107 = 1065353216;
       if (!v4)
       {
         FileProperties = MIL::IRTypedTensorValue<MIL::Bf16>::GetFileProperties(a2);
-        if (v71 != FileProperties)
+        if (v106 != FileProperties)
         {
-          v72 = *(FileProperties + 32);
-          std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::__assign_multi<std::__hash_const_iterator<std::__hash_node<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,void *> *>>(v71, *(FileProperties + 16), 0);
+          v107 = *(FileProperties + 32);
+          std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::__assign_multi<std::__hash_const_iterator<std::__hash_node<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,void *> *>>(v106, *(FileProperties + 16), 0);
         }
 
         std::string::basic_string[abi:ne200100]<0>(&__str, "type");
-        v56 = std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::find<std::string>(v71, &__str.__r_.__value_.__l.__data_);
-        if (v56)
+        v91 = std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::find<std::string>(v106, &__str);
+        if (v91)
         {
-          MIL::IRValue::GetScalar<std::string>(v56[5], &__p);
+          MIL::IRValue::GetScalar<std::string>(v91[5], &__p);
           if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
           {
             operator delete(__str.__r_.__value_.__l.__data_);
           }
 
           std::string::basic_string[abi:ne200100]<0>(&__str, "type");
-          std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::__erase_unique<std::string>(v71, &__str.__r_.__value_.__l.__data_);
+          std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::__erase_unique<std::string>(v106, &__str);
           if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
           {
             operator delete(__str.__r_.__value_.__l.__data_);
           }
 
           std::string::basic_string[abi:ne200100]<0>(&__str, "path");
-          v57 = std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::find<std::string>(v71, &__str.__r_.__value_.__l.__data_);
-          if (v57)
+          v92 = std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::find<std::string>(v106, &__str);
+          if (v92)
           {
-            v59 = v57[5];
-            v58 = v57[6];
-            if (v58)
+            v94 = v92[5];
+            v93 = v92[6];
+            if (v93)
             {
-              atomic_fetch_add_explicit(v58 + 1, 1uLL, memory_order_relaxed);
+              atomic_fetch_add_explicit(v93 + 1, 1uLL, memory_order_relaxed);
             }
 
             if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
@@ -7845,14 +7851,14 @@ uint64_t MIL::Text::BasicSerializer::Val<MIL::Bf16>(uint64_t a1, MIL::IRTensorVa
               operator delete(__str.__r_.__value_.__l.__data_);
             }
 
-            MIL::IRValue::GetScalar<std::string>(v59, &__str);
-            v60 = (*(**(a1 + 320) + 32))(*(a1 + 320));
-            MIL::Util::ReplaceModelPaths(&__str, v60);
-            v61 = (*(*v59 + 32))(v59);
-            v62 = MIL::IRValueType::AsTensorType(v61);
-            v67 = __str;
+            MIL::IRValue::GetScalar<std::string>(v94, &__str);
+            v95 = (*(**(a1 + 320) + 32))(*(a1 + 320));
+            MIL::Util::ReplaceModelPaths(&__str, v95);
+            v96 = (*(*v94 + 32))(v94);
+            v97 = MIL::IRValueType::AsTensorType(v96);
+            v102 = __str;
             memset(&__str, 0, sizeof(__str));
-            MIL::IRTensorValueType::MakeStringValue(v62, &v67);
+            MIL::IRTensorValueType::MakeStringValue(v97, &v102);
           }
 
           std::__throw_out_of_range[abi:ne200100]("unordered_map::at: key not found");
@@ -7865,7 +7871,7 @@ uint64_t MIL::Text::BasicSerializer::Val<MIL::Bf16>(uint64_t a1, MIL::IRTensorVa
       {
         v14 = MIL::IRTypedTensorValue<MIL::Bf16>::GetFileProperties(a2);
         std::string::basic_string[abi:ne200100]<0>(&__p, "path");
-        v15 = std::__hash_table<std::__hash_value_type<std::string,MIL::IRValueType const*>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MIL::IRValueType const*>>>::find<std::string>(v14, &__p.__r_.__value_.__l.__data_);
+        v15 = std::__hash_table<std::__hash_value_type<std::string,MIL::IRValueType const*>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MIL::IRValueType const*>>>::find<std::string>(v14, &__p);
         if (!v15)
         {
           std::__throw_out_of_range[abi:ne200100]("unordered_map::at: key not found");
@@ -7885,7 +7891,7 @@ uint64_t MIL::Text::BasicSerializer::Val<MIL::Bf16>(uint64_t a1, MIL::IRTensorVa
 
         MIL::IRValue::GetScalar<std::string>(v16, &__p);
         __str.__r_.__value_.__r.__words[0] = &__p;
-        v18 = std::__tree<std::__value_type<std::string,std::shared_ptr<MIL::Blob::StorageWriter>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<MIL::Blob::StorageWriter>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<MIL::Blob::StorageWriter>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1 + 368, &__p.__r_.__value_.__l.__data_);
+        v18 = std::__tree<std::__value_type<std::string,std::shared_ptr<MIL::Blob::StorageWriter>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<MIL::Blob::StorageWriter>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<MIL::Blob::StorageWriter>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((a1 + 368), &__p.__r_.__value_.__l.__data_, &std::piecewise_construct, &__str);
         v20 = *(v18 + 56);
         v19 = *(v18 + 64);
         if (v19)
@@ -7916,7 +7922,7 @@ uint64_t MIL::Text::BasicSerializer::Val<MIL::Bf16>(uint64_t a1, MIL::IRTensorVa
       }
 
       memset(&__p, 0, sizeof(__p));
-      v73 = 0;
+      v108 = 0;
       if (!MIL::IRTypedTensorValue<MIL::Bf16>::UsesFileStorage(a2))
       {
         goto LABEL_59;
@@ -7924,7 +7930,7 @@ uint64_t MIL::Text::BasicSerializer::Val<MIL::Bf16>(uint64_t a1, MIL::IRTensorVa
 
       v24 = MIL::IRTypedTensorValue<MIL::Bf16>::GetFileProperties(a2);
       std::string::basic_string[abi:ne200100]<0>(&__str, "path");
-      v25 = std::__hash_table<std::__hash_value_type<std::string,MIL::IRValueType const*>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MIL::IRValueType const*>>>::find<std::string>(v24, &__str.__r_.__value_.__l.__data_);
+      v25 = std::__hash_table<std::__hash_value_type<std::string,MIL::IRValueType const*>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MIL::IRValueType const*>>>::find<std::string>(v24, &__str);
       if (!v25)
       {
         std::__throw_out_of_range[abi:ne200100]("unordered_map::at: key not found");
@@ -7950,7 +7956,7 @@ uint64_t MIL::Text::BasicSerializer::Val<MIL::Bf16>(uint64_t a1, MIL::IRTensorVa
 
       __p = __str;
       std::string::basic_string[abi:ne200100]<0>(&__str, "offset");
-      v28 = std::__hash_table<std::__hash_value_type<std::string,MIL::IRValueType const*>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MIL::IRValueType const*>>>::find<std::string>(v24, &__str.__r_.__value_.__l.__data_);
+      v28 = std::__hash_table<std::__hash_value_type<std::string,MIL::IRValueType const*>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MIL::IRValueType const*>>>::find<std::string>(v24, &__str);
       v29 = v28;
       if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
       {
@@ -7959,7 +7965,7 @@ uint64_t MIL::Text::BasicSerializer::Val<MIL::Bf16>(uint64_t a1, MIL::IRTensorVa
         {
 LABEL_39:
           std::string::basic_string[abi:ne200100]<0>(&__str, "offset");
-          v30 = std::__hash_table<std::__hash_value_type<std::string,MIL::IRValueType const*>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MIL::IRValueType const*>>>::find<std::string>(v24, &__str.__r_.__value_.__l.__data_);
+          v30 = std::__hash_table<std::__hash_value_type<std::string,MIL::IRValueType const*>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MIL::IRValueType const*>>>::find<std::string>(v24, &__str);
           if (!v30)
           {
             std::__throw_out_of_range[abi:ne200100]("unordered_map::at: key not found");
@@ -7977,21 +7983,23 @@ LABEL_39:
             operator delete(__str.__r_.__value_.__l.__data_);
           }
 
-          v73 = MIL::IRValue::GetScalar<unsigned long long>(v31);
-          if (std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::find<std::string>((a1 + 328), &__p.__r_.__value_.__l.__data_))
+          v108 = MIL::IRValue::GetScalar<unsigned long long>(v31);
+          if (std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::find<std::string>((a1 + 328), &__p))
           {
-            v33 = std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::find<std::string>((a1 + 328), &__p.__r_.__value_.__l.__data_);
+            v33 = std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::find<std::string>((a1 + 328), &__p);
             v34 = v33;
             if (!v33)
             {
               goto LABEL_94;
             }
 
-            if (std::__hash_table<std::__hash_value_type<unsigned long long,MIL::Blob::LegacyStorageReader::FileInfo>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,MIL::Blob::LegacyStorageReader::FileInfo>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,MIL::Blob::LegacyStorageReader::FileInfo>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,MIL::Blob::LegacyStorageReader::FileInfo>>>::find<unsigned long long>(v33 + 5, &v73))
+            if (std::__hash_table<std::__hash_value_type<unsigned long long,MIL::Blob::LegacyStorageReader::FileInfo>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,MIL::Blob::LegacyStorageReader::FileInfo>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,MIL::Blob::LegacyStorageReader::FileInfo>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,MIL::Blob::LegacyStorageReader::FileInfo>>>::find<unsigned long long>(v33 + 5, &v108))
             {
-              if (std::__hash_table<std::__hash_value_type<unsigned long long,MIL::Blob::LegacyStorageReader::FileInfo>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,MIL::Blob::LegacyStorageReader::FileInfo>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,MIL::Blob::LegacyStorageReader::FileInfo>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,MIL::Blob::LegacyStorageReader::FileInfo>>>::find<unsigned long long>(v34 + 5, &v73))
+              v35 = std::__hash_table<std::__hash_value_type<unsigned long long,MIL::Blob::LegacyStorageReader::FileInfo>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,MIL::Blob::LegacyStorageReader::FileInfo>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,MIL::Blob::LegacyStorageReader::FileInfo>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,MIL::Blob::LegacyStorageReader::FileInfo>>>::find<unsigned long long>(v34 + 5, &v108);
+              if (v35)
               {
-                v35 = 1;
+                v36 = v35[3];
+                v37 = 1;
                 goto LABEL_50;
               }
 
@@ -8000,7 +8008,8 @@ LABEL_94:
             }
           }
 
-          v35 = 0;
+          v37 = 0;
+          v36 = 0;
 LABEL_50:
           if (v32)
           {
@@ -8012,120 +8021,121 @@ LABEL_50:
             std::__shared_weak_count::__release_shared[abi:ne200100](v26);
           }
 
-          if (v35)
+          if (v37)
           {
 LABEL_78:
-            v55 = MIL::IRTypedTensorValue<MIL::Bf16>::GetType(a2);
-            (*(*v55 + 24))(v55);
+            v88 = MIL::IRTypedTensorValue<MIL::Bf16>::GetType(a2);
+            v89 = (*(*v88 + 24))(v88);
+            v90 = *a1;
             MIL::Blob::StorageWriter::GetFilePath(v20, &__str);
-            MIL::IRTensorValueType::MakeValueFromBlobFile();
+            MIL::IRTensorValueType::MakeValueFromBlobFile(v89, v90, &__str, v36);
           }
 
 LABEL_59:
           switch(v12)
           {
             case 4:
-              v36 = MIL::IRTensorValue::TryAsTensor(a2);
-              MIL::IRTensorValue::GetDataView<MIL::Fp16>(v36);
-              v37 = MIL::Blob::StorageWriter::WriteData<MIL::Fp16>(v20);
+              MIL::IRTensorValue::TryAsTensor(a2);
+              v39 = MIL::IRTensorValue::GetDataView<MIL::Fp16>(v38);
+              v41 = MIL::Blob::StorageWriter::WriteData<MIL::Fp16>(v20, v39, v40);
               break;
             case 5:
-              v51 = MIL::IRTensorValue::TryAsTensor(a2);
-              MIL::IRTensorValue::GetDataView<float>(v51);
-              v37 = MIL::Blob::StorageWriter::WriteData<float>(v20);
+              MIL::IRTensorValue::TryAsTensor(a2);
+              Data = MIL::IRTensorValue::GetDataView<float>(v81);
+              v41 = MIL::Blob::StorageWriter::WriteData<float>(v20, Data, v83);
               break;
             case 9:
-              v48 = MIL::IRTensorValue::TryAsTensor(a2);
-              MIL::IRTensorValue::GetDataView<signed char>(v48);
-              v37 = MIL::Blob::StorageWriter::WriteData<signed char>(v20);
+              MIL::IRTensorValue::TryAsTensor(a2);
+              v73 = MIL::IRTensorValue::GetDataView<signed char>(v72);
+              v41 = MIL::Blob::StorageWriter::WriteData<signed char>(v20, v73, v74);
               break;
             case 10:
-              v50 = MIL::IRTensorValue::TryAsTensor(a2);
-              MIL::IRTensorValue::GetDataView<short>(v50);
-              v37 = MIL::Blob::StorageWriter::WriteData<short>(v20);
+              MIL::IRTensorValue::TryAsTensor(a2);
+              v79 = MIL::IRTensorValue::GetDataView<short>(v78);
+              v41 = MIL::Blob::StorageWriter::WriteData<short>(v20, v79, v80);
               break;
             case 11:
-              v45 = MIL::IRTensorValue::TryAsTensor(a2);
-              MIL::IRTensorValue::GetDataView<int>(v45);
-              v37 = MIL::Blob::StorageWriter::WriteData<int>(v20);
+              MIL::IRTensorValue::TryAsTensor(a2);
+              v64 = MIL::IRTensorValue::GetDataView<int>(v63);
+              v41 = MIL::Blob::StorageWriter::WriteData<int>(v20, v64, v65);
               break;
             case 13:
-              v47 = MIL::IRTensorValue::TryAsTensor(a2);
-              MIL::IRTensorValue::GetDataView<MIL::Int4>(v47);
-              v37 = MIL::Blob::StorageWriter::WriteData<MIL::Int4>(v20);
+              MIL::IRTensorValue::TryAsTensor(a2);
+              v70 = MIL::IRTensorValue::GetDataView<MIL::Int4>(v69);
+              v41 = MIL::Blob::StorageWriter::WriteData<MIL::Int4>(v20, v70, v71);
               break;
             case 14:
-              v52 = MIL::IRTensorValue::TryAsTensor(a2);
-              MIL::IRTensorValue::GetDataView<unsigned char>(v52);
-              v37 = MIL::Blob::StorageWriter::WriteData<unsigned char>(v20);
+              MIL::IRTensorValue::TryAsTensor(a2);
+              v85 = MIL::IRTensorValue::GetDataView<unsigned char>(v84);
+              v41 = MIL::Blob::StorageWriter::WriteData<unsigned char>(v20, v85, v86);
               break;
             case 15:
-              v49 = MIL::IRTensorValue::TryAsTensor(a2);
-              MIL::IRTensorValue::GetDataView<unsigned short>(v49);
-              v37 = MIL::Blob::StorageWriter::WriteData<unsigned short>(v20);
+              MIL::IRTensorValue::TryAsTensor(a2);
+              v76 = MIL::IRTensorValue::GetDataView<unsigned short>(v75);
+              v41 = MIL::Blob::StorageWriter::WriteData<unsigned short>(v20, v76, v77);
               break;
             case 16:
-              v42 = MIL::IRTensorValue::TryAsTensor(a2);
-              MIL::IRTensorValue::GetDataView<unsigned int>(v42);
-              v37 = MIL::Blob::StorageWriter::WriteData<unsigned int>(v20);
+              MIL::IRTensorValue::TryAsTensor(a2);
+              v55 = MIL::IRTensorValue::GetDataView<unsigned int>(v54);
+              v41 = MIL::Blob::StorageWriter::WriteData<unsigned int>(v20, v55, v56);
               break;
             case 19:
-              v39 = MIL::IRTensorValue::TryAsTensor(a2);
-              MIL::IRTensorValue::GetDataView<MIL::UInt2>(v39);
-              v37 = MIL::Blob::StorageWriter::WriteData<MIL::UInt2>(v20);
+              MIL::IRTensorValue::TryAsTensor(a2);
+              v46 = MIL::IRTensorValue::GetDataView<MIL::UInt2>(v45);
+              v41 = MIL::Blob::StorageWriter::WriteData<MIL::UInt2>(v20, v46, v47);
               break;
             case 20:
-              v41 = MIL::IRTensorValue::TryAsTensor(a2);
-              MIL::IRTensorValue::GetDataView<MIL::UInt4>(v41);
-              v37 = MIL::Blob::StorageWriter::WriteData<MIL::UInt4>(v20);
+              MIL::IRTensorValue::TryAsTensor(a2);
+              v52 = MIL::IRTensorValue::GetDataView<MIL::UInt4>(v51);
+              v41 = MIL::Blob::StorageWriter::WriteData<MIL::UInt4>(v20, v52, v53);
               break;
             case 21:
-              v38 = MIL::IRTensorValue::TryAsTensor(a2);
-              MIL::IRTensorValue::GetDataView<MIL::UInt1>(v38);
-              v37 = MIL::Blob::StorageWriter::WriteData<MIL::UInt1>(v20);
+              MIL::IRTensorValue::TryAsTensor(a2);
+              v43 = MIL::IRTensorValue::GetDataView<MIL::UInt1>(v42);
+              v41 = MIL::Blob::StorageWriter::WriteData<MIL::UInt1>(v20, v43, v44);
               break;
             case 22:
-              v40 = MIL::IRTensorValue::TryAsTensor(a2);
-              MIL::IRTensorValue::GetDataView<MIL::UInt3>(v40);
-              v37 = MIL::Blob::StorageWriter::WriteData<MIL::UInt3>(v20);
+              MIL::IRTensorValue::TryAsTensor(a2);
+              v49 = MIL::IRTensorValue::GetDataView<MIL::UInt3>(v48);
+              v41 = MIL::Blob::StorageWriter::WriteData<MIL::UInt3>(v20, v49, v50);
               break;
             case 23:
-              v43 = MIL::IRTensorValue::TryAsTensor(a2);
-              MIL::IRTensorValue::GetDataView<MIL::UInt6>(v43);
-              v37 = MIL::Blob::StorageWriter::WriteData<MIL::UInt6>(v20);
+              MIL::IRTensorValue::TryAsTensor(a2);
+              v58 = MIL::IRTensorValue::GetDataView<MIL::UInt6>(v57);
+              v41 = MIL::Blob::StorageWriter::WriteData<MIL::UInt6>(v20, v58, v59);
               break;
             case 24:
-              v44 = MIL::IRTensorValue::TryAsTensor(a2);
-              MIL::IRTensorValue::GetDataView<MIL::Fp8E4M3FN>(v44);
-              v37 = MIL::Blob::StorageWriter::WriteData<MIL::Fp8E4M3FN>(v20);
+              MIL::IRTensorValue::TryAsTensor(a2);
+              v61 = MIL::IRTensorValue::GetDataView<MIL::Fp8E4M3FN>(v60);
+              v41 = MIL::Blob::StorageWriter::WriteData<MIL::Fp8E4M3FN>(v20, v61, v62);
               break;
             case 25:
-              v46 = MIL::IRTensorValue::TryAsTensor(a2);
-              MIL::IRTensorValue::GetDataView<MIL::Fp8E5M2>(v46);
-              v37 = MIL::Blob::StorageWriter::WriteData<MIL::Fp8E5M2>(v20);
+              MIL::IRTensorValue::TryAsTensor(a2);
+              v67 = MIL::IRTensorValue::GetDataView<MIL::Fp8E5M2>(v66);
+              v41 = MIL::Blob::StorageWriter::WriteData<MIL::Fp8E5M2>(v20, v67, v68);
               break;
             default:
               exception = __cxa_allocate_exception(0x10uLL);
-              MIL::IRDataTypeToString(v12, &v68);
-              v65 = std::string::insert(&v68, 0, "[MIL Serialization] Unsupported Data type ");
-              v66 = *&v65->__r_.__value_.__l.__data_;
-              __str.__r_.__value_.__r.__words[2] = v65->__r_.__value_.__r.__words[2];
-              *&__str.__r_.__value_.__l.__data_ = v66;
-              v65->__r_.__value_.__l.__size_ = 0;
-              v65->__r_.__value_.__r.__words[2] = 0;
-              v65->__r_.__value_.__r.__words[0] = 0;
+              MIL::IRDataTypeToString(v12, &v103);
+              v100 = std::string::insert(&v103, 0, "[MIL Serialization] Unsupported Data type ");
+              v101 = *&v100->__r_.__value_.__l.__data_;
+              __str.__r_.__value_.__r.__words[2] = v100->__r_.__value_.__r.__words[2];
+              *&__str.__r_.__value_.__l.__data_ = v101;
+              v100->__r_.__value_.__l.__size_ = 0;
+              v100->__r_.__value_.__r.__words[2] = 0;
+              v100->__r_.__value_.__r.__words[0] = 0;
               std::logic_error::logic_error(exception, &__str);
               exception->__vftable = (MEMORY[0x277D828F8] + 16);
               __cxa_throw(exception, off_278235F80, MEMORY[0x277D82610]);
           }
 
-          v53 = v37;
+          v36 = v41;
           if (MIL::IRTypedTensorValue<MIL::Bf16>::UsesFileStorage(a2))
           {
             __str.__r_.__value_.__r.__words[0] = &__p;
-            v54 = std::__hash_table<std::__hash_value_type<std::string,std::unordered_map<unsigned long long,unsigned long long>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::unordered_map<unsigned long long,unsigned long long>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::unordered_map<unsigned long long,unsigned long long>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::unordered_map<unsigned long long,unsigned long long>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((a1 + 328), &__p.__r_.__value_.__l.__data_);
-            __str.__r_.__value_.__r.__words[0] = &v73;
-            std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long long>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned long long>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(v54 + 5, &v73)[3] = v53;
+            v87 = std::__hash_table<std::__hash_value_type<std::string,std::unordered_map<unsigned long long,unsigned long long>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::unordered_map<unsigned long long,unsigned long long>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::unordered_map<unsigned long long,unsigned long long>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::unordered_map<unsigned long long,unsigned long long>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((a1 + 328), &__p, &std::piecewise_construct, &__str, &v103);
+            __str.__r_.__value_.__r.__words[0] = &v108;
+            std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long long>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned long long>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(v87 + 5, &v108, &std::piecewise_construct, &__str)[3] = v36;
           }
 
           goto LABEL_78;
@@ -8191,20 +8201,20 @@ void ValHelper<MIL::Bf16>(uint64_t a1, void *a2, uint64_t a3)
 {
   Type = MIL::IRTypedTensorValue<MIL::Bf16>::GetType(a1);
   v7 = (*(*Type + 96))(Type);
-  v10 = 0;
   v11 = 0;
+  v12 = 0;
   __p = 0;
-  std::vector<MIL::IRDimension const*>::__init_with_size[abi:ne200100]<MIL::IRDimension const**,MIL::IRDimension const**>(&__p, *v7, v7[1], (v7[1] - *v7) >> 3);
-  if (__p == v10)
+  std::vector<MIL::IRDimension const*>::__init_with_size[abi:ne200100]<MIL::IRDimension const**,MIL::IRDimension const**>(&__p, *v7, *(v7 + 8), (*(v7 + 8) - *v7) >> 3);
+  if (__p == v11)
   {
     LOWORD(Values) = MIL::IRTypedTensorValue<MIL::Bf16>::GetScalarValue(a1);
-    MIL::Bf16::GetFloat(&Values);
+    Float = MIL::Bf16::GetFloat(&Values);
   }
 
   Values = MIL::IRTypedTensorValue<MIL::Bf16>::GetValues(a1);
   if (__p)
   {
-    v10 = __p;
+    v11 = __p;
     operator delete(__p);
   }
 }
@@ -8243,43 +8253,43 @@ uint64_t MIL::Text::BasicSerializer::Val<MIL::Fp16>(uint64_t a1, MIL::IRTensorVa
   {
     if (v8)
     {
-      memset(v71, 0, sizeof(v71));
-      v72 = 1065353216;
+      memset(v106, 0, sizeof(v106));
+      v107 = 1065353216;
       if (!v4)
       {
         FileProperties = MIL::IRTypedTensorValue<MIL::Fp16>::GetFileProperties(a2);
-        if (v71 != FileProperties)
+        if (v106 != FileProperties)
         {
-          v72 = *(FileProperties + 32);
-          std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::__assign_multi<std::__hash_const_iterator<std::__hash_node<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,void *> *>>(v71, *(FileProperties + 16), 0);
+          v107 = *(FileProperties + 32);
+          std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::__assign_multi<std::__hash_const_iterator<std::__hash_node<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,void *> *>>(v106, *(FileProperties + 16), 0);
         }
 
         std::string::basic_string[abi:ne200100]<0>(&__str, "type");
-        v56 = std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::find<std::string>(v71, &__str.__r_.__value_.__l.__data_);
-        if (v56)
+        v91 = std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::find<std::string>(v106, &__str);
+        if (v91)
         {
-          MIL::IRValue::GetScalar<std::string>(v56[5], &__p);
+          MIL::IRValue::GetScalar<std::string>(v91[5], &__p);
           if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
           {
             operator delete(__str.__r_.__value_.__l.__data_);
           }
 
           std::string::basic_string[abi:ne200100]<0>(&__str, "type");
-          std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::__erase_unique<std::string>(v71, &__str.__r_.__value_.__l.__data_);
+          std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::__erase_unique<std::string>(v106, &__str);
           if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
           {
             operator delete(__str.__r_.__value_.__l.__data_);
           }
 
           std::string::basic_string[abi:ne200100]<0>(&__str, "path");
-          v57 = std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::find<std::string>(v71, &__str.__r_.__value_.__l.__data_);
-          if (v57)
+          v92 = std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::find<std::string>(v106, &__str);
+          if (v92)
           {
-            v59 = v57[5];
-            v58 = v57[6];
-            if (v58)
+            v94 = v92[5];
+            v93 = v92[6];
+            if (v93)
             {
-              atomic_fetch_add_explicit(v58 + 1, 1uLL, memory_order_relaxed);
+              atomic_fetch_add_explicit(v93 + 1, 1uLL, memory_order_relaxed);
             }
 
             if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
@@ -8287,14 +8297,14 @@ uint64_t MIL::Text::BasicSerializer::Val<MIL::Fp16>(uint64_t a1, MIL::IRTensorVa
               operator delete(__str.__r_.__value_.__l.__data_);
             }
 
-            MIL::IRValue::GetScalar<std::string>(v59, &__str);
-            v60 = (*(**(a1 + 320) + 32))(*(a1 + 320));
-            MIL::Util::ReplaceModelPaths(&__str, v60);
-            v61 = (*(*v59 + 32))(v59);
-            v62 = MIL::IRValueType::AsTensorType(v61);
-            v67 = __str;
+            MIL::IRValue::GetScalar<std::string>(v94, &__str);
+            v95 = (*(**(a1 + 320) + 32))(*(a1 + 320));
+            MIL::Util::ReplaceModelPaths(&__str, v95);
+            v96 = (*(*v94 + 32))(v94);
+            v97 = MIL::IRValueType::AsTensorType(v96);
+            v102 = __str;
             memset(&__str, 0, sizeof(__str));
-            MIL::IRTensorValueType::MakeStringValue(v62, &v67);
+            MIL::IRTensorValueType::MakeStringValue(v97, &v102);
           }
 
           std::__throw_out_of_range[abi:ne200100]("unordered_map::at: key not found");
@@ -8307,7 +8317,7 @@ uint64_t MIL::Text::BasicSerializer::Val<MIL::Fp16>(uint64_t a1, MIL::IRTensorVa
       {
         v14 = MIL::IRTypedTensorValue<MIL::Fp16>::GetFileProperties(a2);
         std::string::basic_string[abi:ne200100]<0>(&__p, "path");
-        v15 = std::__hash_table<std::__hash_value_type<std::string,MIL::IRValueType const*>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MIL::IRValueType const*>>>::find<std::string>(v14, &__p.__r_.__value_.__l.__data_);
+        v15 = std::__hash_table<std::__hash_value_type<std::string,MIL::IRValueType const*>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MIL::IRValueType const*>>>::find<std::string>(v14, &__p);
         if (!v15)
         {
           std::__throw_out_of_range[abi:ne200100]("unordered_map::at: key not found");
@@ -8327,7 +8337,7 @@ uint64_t MIL::Text::BasicSerializer::Val<MIL::Fp16>(uint64_t a1, MIL::IRTensorVa
 
         MIL::IRValue::GetScalar<std::string>(v16, &__p);
         __str.__r_.__value_.__r.__words[0] = &__p;
-        v18 = std::__tree<std::__value_type<std::string,std::shared_ptr<MIL::Blob::StorageWriter>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<MIL::Blob::StorageWriter>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<MIL::Blob::StorageWriter>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1 + 368, &__p.__r_.__value_.__l.__data_);
+        v18 = std::__tree<std::__value_type<std::string,std::shared_ptr<MIL::Blob::StorageWriter>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<MIL::Blob::StorageWriter>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<MIL::Blob::StorageWriter>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((a1 + 368), &__p.__r_.__value_.__l.__data_, &std::piecewise_construct, &__str);
         v20 = *(v18 + 56);
         v19 = *(v18 + 64);
         if (v19)
@@ -8358,7 +8368,7 @@ uint64_t MIL::Text::BasicSerializer::Val<MIL::Fp16>(uint64_t a1, MIL::IRTensorVa
       }
 
       memset(&__p, 0, sizeof(__p));
-      v73 = 0;
+      v108 = 0;
       if (!MIL::IRTypedTensorValue<MIL::Fp16>::UsesFileStorage(a2))
       {
         goto LABEL_59;
@@ -8366,7 +8376,7 @@ uint64_t MIL::Text::BasicSerializer::Val<MIL::Fp16>(uint64_t a1, MIL::IRTensorVa
 
       v24 = MIL::IRTypedTensorValue<MIL::Fp16>::GetFileProperties(a2);
       std::string::basic_string[abi:ne200100]<0>(&__str, "path");
-      v25 = std::__hash_table<std::__hash_value_type<std::string,MIL::IRValueType const*>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MIL::IRValueType const*>>>::find<std::string>(v24, &__str.__r_.__value_.__l.__data_);
+      v25 = std::__hash_table<std::__hash_value_type<std::string,MIL::IRValueType const*>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MIL::IRValueType const*>>>::find<std::string>(v24, &__str);
       if (!v25)
       {
         std::__throw_out_of_range[abi:ne200100]("unordered_map::at: key not found");
@@ -8392,7 +8402,7 @@ uint64_t MIL::Text::BasicSerializer::Val<MIL::Fp16>(uint64_t a1, MIL::IRTensorVa
 
       __p = __str;
       std::string::basic_string[abi:ne200100]<0>(&__str, "offset");
-      v28 = std::__hash_table<std::__hash_value_type<std::string,MIL::IRValueType const*>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MIL::IRValueType const*>>>::find<std::string>(v24, &__str.__r_.__value_.__l.__data_);
+      v28 = std::__hash_table<std::__hash_value_type<std::string,MIL::IRValueType const*>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MIL::IRValueType const*>>>::find<std::string>(v24, &__str);
       v29 = v28;
       if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
       {
@@ -8401,7 +8411,7 @@ uint64_t MIL::Text::BasicSerializer::Val<MIL::Fp16>(uint64_t a1, MIL::IRTensorVa
         {
 LABEL_39:
           std::string::basic_string[abi:ne200100]<0>(&__str, "offset");
-          v30 = std::__hash_table<std::__hash_value_type<std::string,MIL::IRValueType const*>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MIL::IRValueType const*>>>::find<std::string>(v24, &__str.__r_.__value_.__l.__data_);
+          v30 = std::__hash_table<std::__hash_value_type<std::string,MIL::IRValueType const*>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MIL::IRValueType const*>>>::find<std::string>(v24, &__str);
           if (!v30)
           {
             std::__throw_out_of_range[abi:ne200100]("unordered_map::at: key not found");
@@ -8419,21 +8429,23 @@ LABEL_39:
             operator delete(__str.__r_.__value_.__l.__data_);
           }
 
-          v73 = MIL::IRValue::GetScalar<unsigned long long>(v31);
-          if (std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::find<std::string>((a1 + 328), &__p.__r_.__value_.__l.__data_))
+          v108 = MIL::IRValue::GetScalar<unsigned long long>(v31);
+          if (std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::find<std::string>((a1 + 328), &__p))
           {
-            v33 = std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::find<std::string>((a1 + 328), &__p.__r_.__value_.__l.__data_);
+            v33 = std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::find<std::string>((a1 + 328), &__p);
             v34 = v33;
             if (!v33)
             {
               goto LABEL_94;
             }
 
-            if (std::__hash_table<std::__hash_value_type<unsigned long long,MIL::Blob::LegacyStorageReader::FileInfo>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,MIL::Blob::LegacyStorageReader::FileInfo>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,MIL::Blob::LegacyStorageReader::FileInfo>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,MIL::Blob::LegacyStorageReader::FileInfo>>>::find<unsigned long long>(v33 + 5, &v73))
+            if (std::__hash_table<std::__hash_value_type<unsigned long long,MIL::Blob::LegacyStorageReader::FileInfo>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,MIL::Blob::LegacyStorageReader::FileInfo>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,MIL::Blob::LegacyStorageReader::FileInfo>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,MIL::Blob::LegacyStorageReader::FileInfo>>>::find<unsigned long long>(v33 + 5, &v108))
             {
-              if (std::__hash_table<std::__hash_value_type<unsigned long long,MIL::Blob::LegacyStorageReader::FileInfo>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,MIL::Blob::LegacyStorageReader::FileInfo>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,MIL::Blob::LegacyStorageReader::FileInfo>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,MIL::Blob::LegacyStorageReader::FileInfo>>>::find<unsigned long long>(v34 + 5, &v73))
+              v35 = std::__hash_table<std::__hash_value_type<unsigned long long,MIL::Blob::LegacyStorageReader::FileInfo>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,MIL::Blob::LegacyStorageReader::FileInfo>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,MIL::Blob::LegacyStorageReader::FileInfo>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,MIL::Blob::LegacyStorageReader::FileInfo>>>::find<unsigned long long>(v34 + 5, &v108);
+              if (v35)
               {
-                v35 = 1;
+                v36 = v35[3];
+                v37 = 1;
                 goto LABEL_50;
               }
 
@@ -8442,7 +8454,8 @@ LABEL_94:
             }
           }
 
-          v35 = 0;
+          v37 = 0;
+          v36 = 0;
 LABEL_50:
           if (v32)
           {
@@ -8454,120 +8467,121 @@ LABEL_50:
             std::__shared_weak_count::__release_shared[abi:ne200100](v26);
           }
 
-          if (v35)
+          if (v37)
           {
 LABEL_78:
-            v55 = MIL::IRTypedTensorValue<MIL::Fp16>::GetType(a2);
-            (*(*v55 + 24))(v55);
+            v88 = MIL::IRTypedTensorValue<MIL::Fp16>::GetType(a2);
+            v89 = (*(*v88 + 24))(v88);
+            v90 = *a1;
             MIL::Blob::StorageWriter::GetFilePath(v20, &__str);
-            MIL::IRTensorValueType::MakeValueFromBlobFile();
+            MIL::IRTensorValueType::MakeValueFromBlobFile(v89, v90, &__str, v36);
           }
 
 LABEL_59:
           switch(v12)
           {
             case 4:
-              v36 = MIL::IRTensorValue::TryAsTensor(a2);
-              MIL::IRTensorValue::GetDataView<MIL::Fp16>(v36);
-              v37 = MIL::Blob::StorageWriter::WriteData<MIL::Fp16>(v20);
+              MIL::IRTensorValue::TryAsTensor(a2);
+              v39 = MIL::IRTensorValue::GetDataView<MIL::Fp16>(v38);
+              v41 = MIL::Blob::StorageWriter::WriteData<MIL::Fp16>(v20, v39, v40);
               break;
             case 5:
-              v51 = MIL::IRTensorValue::TryAsTensor(a2);
-              MIL::IRTensorValue::GetDataView<float>(v51);
-              v37 = MIL::Blob::StorageWriter::WriteData<float>(v20);
+              MIL::IRTensorValue::TryAsTensor(a2);
+              Data = MIL::IRTensorValue::GetDataView<float>(v81);
+              v41 = MIL::Blob::StorageWriter::WriteData<float>(v20, Data, v83);
               break;
             case 9:
-              v48 = MIL::IRTensorValue::TryAsTensor(a2);
-              MIL::IRTensorValue::GetDataView<signed char>(v48);
-              v37 = MIL::Blob::StorageWriter::WriteData<signed char>(v20);
+              MIL::IRTensorValue::TryAsTensor(a2);
+              v73 = MIL::IRTensorValue::GetDataView<signed char>(v72);
+              v41 = MIL::Blob::StorageWriter::WriteData<signed char>(v20, v73, v74);
               break;
             case 10:
-              v50 = MIL::IRTensorValue::TryAsTensor(a2);
-              MIL::IRTensorValue::GetDataView<short>(v50);
-              v37 = MIL::Blob::StorageWriter::WriteData<short>(v20);
+              MIL::IRTensorValue::TryAsTensor(a2);
+              v79 = MIL::IRTensorValue::GetDataView<short>(v78);
+              v41 = MIL::Blob::StorageWriter::WriteData<short>(v20, v79, v80);
               break;
             case 11:
-              v45 = MIL::IRTensorValue::TryAsTensor(a2);
-              MIL::IRTensorValue::GetDataView<int>(v45);
-              v37 = MIL::Blob::StorageWriter::WriteData<int>(v20);
+              MIL::IRTensorValue::TryAsTensor(a2);
+              v64 = MIL::IRTensorValue::GetDataView<int>(v63);
+              v41 = MIL::Blob::StorageWriter::WriteData<int>(v20, v64, v65);
               break;
             case 13:
-              v47 = MIL::IRTensorValue::TryAsTensor(a2);
-              MIL::IRTensorValue::GetDataView<MIL::Int4>(v47);
-              v37 = MIL::Blob::StorageWriter::WriteData<MIL::Int4>(v20);
+              MIL::IRTensorValue::TryAsTensor(a2);
+              v70 = MIL::IRTensorValue::GetDataView<MIL::Int4>(v69);
+              v41 = MIL::Blob::StorageWriter::WriteData<MIL::Int4>(v20, v70, v71);
               break;
             case 14:
-              v52 = MIL::IRTensorValue::TryAsTensor(a2);
-              MIL::IRTensorValue::GetDataView<unsigned char>(v52);
-              v37 = MIL::Blob::StorageWriter::WriteData<unsigned char>(v20);
+              MIL::IRTensorValue::TryAsTensor(a2);
+              v85 = MIL::IRTensorValue::GetDataView<unsigned char>(v84);
+              v41 = MIL::Blob::StorageWriter::WriteData<unsigned char>(v20, v85, v86);
               break;
             case 15:
-              v49 = MIL::IRTensorValue::TryAsTensor(a2);
-              MIL::IRTensorValue::GetDataView<unsigned short>(v49);
-              v37 = MIL::Blob::StorageWriter::WriteData<unsigned short>(v20);
+              MIL::IRTensorValue::TryAsTensor(a2);
+              v76 = MIL::IRTensorValue::GetDataView<unsigned short>(v75);
+              v41 = MIL::Blob::StorageWriter::WriteData<unsigned short>(v20, v76, v77);
               break;
             case 16:
-              v42 = MIL::IRTensorValue::TryAsTensor(a2);
-              MIL::IRTensorValue::GetDataView<unsigned int>(v42);
-              v37 = MIL::Blob::StorageWriter::WriteData<unsigned int>(v20);
+              MIL::IRTensorValue::TryAsTensor(a2);
+              v55 = MIL::IRTensorValue::GetDataView<unsigned int>(v54);
+              v41 = MIL::Blob::StorageWriter::WriteData<unsigned int>(v20, v55, v56);
               break;
             case 19:
-              v39 = MIL::IRTensorValue::TryAsTensor(a2);
-              MIL::IRTensorValue::GetDataView<MIL::UInt2>(v39);
-              v37 = MIL::Blob::StorageWriter::WriteData<MIL::UInt2>(v20);
+              MIL::IRTensorValue::TryAsTensor(a2);
+              v46 = MIL::IRTensorValue::GetDataView<MIL::UInt2>(v45);
+              v41 = MIL::Blob::StorageWriter::WriteData<MIL::UInt2>(v20, v46, v47);
               break;
             case 20:
-              v41 = MIL::IRTensorValue::TryAsTensor(a2);
-              MIL::IRTensorValue::GetDataView<MIL::UInt4>(v41);
-              v37 = MIL::Blob::StorageWriter::WriteData<MIL::UInt4>(v20);
+              MIL::IRTensorValue::TryAsTensor(a2);
+              v52 = MIL::IRTensorValue::GetDataView<MIL::UInt4>(v51);
+              v41 = MIL::Blob::StorageWriter::WriteData<MIL::UInt4>(v20, v52, v53);
               break;
             case 21:
-              v38 = MIL::IRTensorValue::TryAsTensor(a2);
-              MIL::IRTensorValue::GetDataView<MIL::UInt1>(v38);
-              v37 = MIL::Blob::StorageWriter::WriteData<MIL::UInt1>(v20);
+              MIL::IRTensorValue::TryAsTensor(a2);
+              v43 = MIL::IRTensorValue::GetDataView<MIL::UInt1>(v42);
+              v41 = MIL::Blob::StorageWriter::WriteData<MIL::UInt1>(v20, v43, v44);
               break;
             case 22:
-              v40 = MIL::IRTensorValue::TryAsTensor(a2);
-              MIL::IRTensorValue::GetDataView<MIL::UInt3>(v40);
-              v37 = MIL::Blob::StorageWriter::WriteData<MIL::UInt3>(v20);
+              MIL::IRTensorValue::TryAsTensor(a2);
+              v49 = MIL::IRTensorValue::GetDataView<MIL::UInt3>(v48);
+              v41 = MIL::Blob::StorageWriter::WriteData<MIL::UInt3>(v20, v49, v50);
               break;
             case 23:
-              v43 = MIL::IRTensorValue::TryAsTensor(a2);
-              MIL::IRTensorValue::GetDataView<MIL::UInt6>(v43);
-              v37 = MIL::Blob::StorageWriter::WriteData<MIL::UInt6>(v20);
+              MIL::IRTensorValue::TryAsTensor(a2);
+              v58 = MIL::IRTensorValue::GetDataView<MIL::UInt6>(v57);
+              v41 = MIL::Blob::StorageWriter::WriteData<MIL::UInt6>(v20, v58, v59);
               break;
             case 24:
-              v44 = MIL::IRTensorValue::TryAsTensor(a2);
-              MIL::IRTensorValue::GetDataView<MIL::Fp8E4M3FN>(v44);
-              v37 = MIL::Blob::StorageWriter::WriteData<MIL::Fp8E4M3FN>(v20);
+              MIL::IRTensorValue::TryAsTensor(a2);
+              v61 = MIL::IRTensorValue::GetDataView<MIL::Fp8E4M3FN>(v60);
+              v41 = MIL::Blob::StorageWriter::WriteData<MIL::Fp8E4M3FN>(v20, v61, v62);
               break;
             case 25:
-              v46 = MIL::IRTensorValue::TryAsTensor(a2);
-              MIL::IRTensorValue::GetDataView<MIL::Fp8E5M2>(v46);
-              v37 = MIL::Blob::StorageWriter::WriteData<MIL::Fp8E5M2>(v20);
+              MIL::IRTensorValue::TryAsTensor(a2);
+              v67 = MIL::IRTensorValue::GetDataView<MIL::Fp8E5M2>(v66);
+              v41 = MIL::Blob::StorageWriter::WriteData<MIL::Fp8E5M2>(v20, v67, v68);
               break;
             default:
               exception = __cxa_allocate_exception(0x10uLL);
-              MIL::IRDataTypeToString(v12, &v68);
-              v65 = std::string::insert(&v68, 0, "[MIL Serialization] Unsupported Data type ");
-              v66 = *&v65->__r_.__value_.__l.__data_;
-              __str.__r_.__value_.__r.__words[2] = v65->__r_.__value_.__r.__words[2];
-              *&__str.__r_.__value_.__l.__data_ = v66;
-              v65->__r_.__value_.__l.__size_ = 0;
-              v65->__r_.__value_.__r.__words[2] = 0;
-              v65->__r_.__value_.__r.__words[0] = 0;
+              MIL::IRDataTypeToString(v12, &v103);
+              v100 = std::string::insert(&v103, 0, "[MIL Serialization] Unsupported Data type ");
+              v101 = *&v100->__r_.__value_.__l.__data_;
+              __str.__r_.__value_.__r.__words[2] = v100->__r_.__value_.__r.__words[2];
+              *&__str.__r_.__value_.__l.__data_ = v101;
+              v100->__r_.__value_.__l.__size_ = 0;
+              v100->__r_.__value_.__r.__words[2] = 0;
+              v100->__r_.__value_.__r.__words[0] = 0;
               std::logic_error::logic_error(exception, &__str);
               exception->__vftable = (MEMORY[0x277D828F8] + 16);
               __cxa_throw(exception, off_278235F80, MEMORY[0x277D82610]);
           }
 
-          v53 = v37;
+          v36 = v41;
           if (MIL::IRTypedTensorValue<MIL::Fp16>::UsesFileStorage(a2))
           {
             __str.__r_.__value_.__r.__words[0] = &__p;
-            v54 = std::__hash_table<std::__hash_value_type<std::string,std::unordered_map<unsigned long long,unsigned long long>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::unordered_map<unsigned long long,unsigned long long>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::unordered_map<unsigned long long,unsigned long long>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::unordered_map<unsigned long long,unsigned long long>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((a1 + 328), &__p.__r_.__value_.__l.__data_);
-            __str.__r_.__value_.__r.__words[0] = &v73;
-            std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long long>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned long long>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(v54 + 5, &v73)[3] = v53;
+            v87 = std::__hash_table<std::__hash_value_type<std::string,std::unordered_map<unsigned long long,unsigned long long>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::unordered_map<unsigned long long,unsigned long long>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::unordered_map<unsigned long long,unsigned long long>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::unordered_map<unsigned long long,unsigned long long>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((a1 + 328), &__p, &std::piecewise_construct, &__str, &v103);
+            __str.__r_.__value_.__r.__words[0] = &v108;
+            std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long long>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned long long>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(v87 + 5, &v108, &std::piecewise_construct, &__str)[3] = v36;
           }
 
           goto LABEL_78;
@@ -8633,20 +8647,20 @@ void ValHelper<MIL::Fp16>(uint64_t a1, void *a2, uint64_t a3)
 {
   Type = MIL::IRTypedTensorValue<MIL::Fp16>::GetType(a1);
   v7 = (*(*Type + 96))(Type);
-  v10 = 0;
   v11 = 0;
+  v12 = 0;
   __p = 0;
-  std::vector<MIL::IRDimension const*>::__init_with_size[abi:ne200100]<MIL::IRDimension const**,MIL::IRDimension const**>(&__p, *v7, v7[1], (v7[1] - *v7) >> 3);
-  if (__p == v10)
+  std::vector<MIL::IRDimension const*>::__init_with_size[abi:ne200100]<MIL::IRDimension const**,MIL::IRDimension const**>(&__p, *v7, *(v7 + 8), (*(v7 + 8) - *v7) >> 3);
+  if (__p == v11)
   {
     LOWORD(Values) = MIL::IRTypedTensorValue<MIL::Fp16>::GetScalarValue(a1);
-    MIL::Fp16::GetFloat(&Values);
+    Float = MIL::Fp16::GetFloat(&Values);
   }
 
   Values = MIL::IRTypedTensorValue<MIL::Fp16>::GetValues(a1);
   if (__p)
   {
-    v10 = __p;
+    v11 = __p;
     operator delete(__p);
   }
 }
@@ -8685,43 +8699,43 @@ uint64_t MIL::Text::BasicSerializer::Val<MIL::Fp8E5M2>(uint64_t a1, MIL::IRTenso
   {
     if (v8)
     {
-      memset(v71, 0, sizeof(v71));
-      v72 = 1065353216;
+      memset(v106, 0, sizeof(v106));
+      v107 = 1065353216;
       if (!v4)
       {
         FileProperties = MIL::IRTypedTensorValue<MIL::Fp8E5M2>::GetFileProperties(a2);
-        if (v71 != FileProperties)
+        if (v106 != FileProperties)
         {
-          v72 = *(FileProperties + 32);
-          std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::__assign_multi<std::__hash_const_iterator<std::__hash_node<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,void *> *>>(v71, *(FileProperties + 16), 0);
+          v107 = *(FileProperties + 32);
+          std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::__assign_multi<std::__hash_const_iterator<std::__hash_node<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,void *> *>>(v106, *(FileProperties + 16), 0);
         }
 
         std::string::basic_string[abi:ne200100]<0>(&__str, "type");
-        v56 = std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::find<std::string>(v71, &__str.__r_.__value_.__l.__data_);
-        if (v56)
+        v91 = std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::find<std::string>(v106, &__str);
+        if (v91)
         {
-          MIL::IRValue::GetScalar<std::string>(v56[5], &__p);
+          MIL::IRValue::GetScalar<std::string>(v91[5], &__p);
           if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
           {
             operator delete(__str.__r_.__value_.__l.__data_);
           }
 
           std::string::basic_string[abi:ne200100]<0>(&__str, "type");
-          std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::__erase_unique<std::string>(v71, &__str.__r_.__value_.__l.__data_);
+          std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::__erase_unique<std::string>(v106, &__str);
           if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
           {
             operator delete(__str.__r_.__value_.__l.__data_);
           }
 
           std::string::basic_string[abi:ne200100]<0>(&__str, "path");
-          v57 = std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::find<std::string>(v71, &__str.__r_.__value_.__l.__data_);
-          if (v57)
+          v92 = std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::find<std::string>(v106, &__str);
+          if (v92)
           {
-            v59 = v57[5];
-            v58 = v57[6];
-            if (v58)
+            v94 = v92[5];
+            v93 = v92[6];
+            if (v93)
             {
-              atomic_fetch_add_explicit(v58 + 1, 1uLL, memory_order_relaxed);
+              atomic_fetch_add_explicit(v93 + 1, 1uLL, memory_order_relaxed);
             }
 
             if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
@@ -8729,14 +8743,14 @@ uint64_t MIL::Text::BasicSerializer::Val<MIL::Fp8E5M2>(uint64_t a1, MIL::IRTenso
               operator delete(__str.__r_.__value_.__l.__data_);
             }
 
-            MIL::IRValue::GetScalar<std::string>(v59, &__str);
-            v60 = (*(**(a1 + 320) + 32))(*(a1 + 320));
-            MIL::Util::ReplaceModelPaths(&__str, v60);
-            v61 = (*(*v59 + 32))(v59);
-            v62 = MIL::IRValueType::AsTensorType(v61);
-            v67 = __str;
+            MIL::IRValue::GetScalar<std::string>(v94, &__str);
+            v95 = (*(**(a1 + 320) + 32))(*(a1 + 320));
+            MIL::Util::ReplaceModelPaths(&__str, v95);
+            v96 = (*(*v94 + 32))(v94);
+            v97 = MIL::IRValueType::AsTensorType(v96);
+            v102 = __str;
             memset(&__str, 0, sizeof(__str));
-            MIL::IRTensorValueType::MakeStringValue(v62, &v67);
+            MIL::IRTensorValueType::MakeStringValue(v97, &v102);
           }
 
           std::__throw_out_of_range[abi:ne200100]("unordered_map::at: key not found");
@@ -8749,7 +8763,7 @@ uint64_t MIL::Text::BasicSerializer::Val<MIL::Fp8E5M2>(uint64_t a1, MIL::IRTenso
       {
         v14 = MIL::IRTypedTensorValue<MIL::Fp8E5M2>::GetFileProperties(a2);
         std::string::basic_string[abi:ne200100]<0>(&__p, "path");
-        v15 = std::__hash_table<std::__hash_value_type<std::string,MIL::IRValueType const*>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MIL::IRValueType const*>>>::find<std::string>(v14, &__p.__r_.__value_.__l.__data_);
+        v15 = std::__hash_table<std::__hash_value_type<std::string,MIL::IRValueType const*>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MIL::IRValueType const*>>>::find<std::string>(v14, &__p);
         if (!v15)
         {
           std::__throw_out_of_range[abi:ne200100]("unordered_map::at: key not found");
@@ -8769,7 +8783,7 @@ uint64_t MIL::Text::BasicSerializer::Val<MIL::Fp8E5M2>(uint64_t a1, MIL::IRTenso
 
         MIL::IRValue::GetScalar<std::string>(v16, &__p);
         __str.__r_.__value_.__r.__words[0] = &__p;
-        v18 = std::__tree<std::__value_type<std::string,std::shared_ptr<MIL::Blob::StorageWriter>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<MIL::Blob::StorageWriter>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<MIL::Blob::StorageWriter>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1 + 368, &__p.__r_.__value_.__l.__data_);
+        v18 = std::__tree<std::__value_type<std::string,std::shared_ptr<MIL::Blob::StorageWriter>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<MIL::Blob::StorageWriter>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<MIL::Blob::StorageWriter>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((a1 + 368), &__p.__r_.__value_.__l.__data_, &std::piecewise_construct, &__str);
         v20 = *(v18 + 56);
         v19 = *(v18 + 64);
         if (v19)
@@ -8800,7 +8814,7 @@ uint64_t MIL::Text::BasicSerializer::Val<MIL::Fp8E5M2>(uint64_t a1, MIL::IRTenso
       }
 
       memset(&__p, 0, sizeof(__p));
-      v73 = 0;
+      v108 = 0;
       if (!MIL::IRTypedTensorValue<MIL::Fp8E5M2>::UsesFileStorage(a2))
       {
         goto LABEL_59;
@@ -8808,7 +8822,7 @@ uint64_t MIL::Text::BasicSerializer::Val<MIL::Fp8E5M2>(uint64_t a1, MIL::IRTenso
 
       v24 = MIL::IRTypedTensorValue<MIL::Fp8E5M2>::GetFileProperties(a2);
       std::string::basic_string[abi:ne200100]<0>(&__str, "path");
-      v25 = std::__hash_table<std::__hash_value_type<std::string,MIL::IRValueType const*>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MIL::IRValueType const*>>>::find<std::string>(v24, &__str.__r_.__value_.__l.__data_);
+      v25 = std::__hash_table<std::__hash_value_type<std::string,MIL::IRValueType const*>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MIL::IRValueType const*>>>::find<std::string>(v24, &__str);
       if (!v25)
       {
         std::__throw_out_of_range[abi:ne200100]("unordered_map::at: key not found");
@@ -8834,7 +8848,7 @@ uint64_t MIL::Text::BasicSerializer::Val<MIL::Fp8E5M2>(uint64_t a1, MIL::IRTenso
 
       __p = __str;
       std::string::basic_string[abi:ne200100]<0>(&__str, "offset");
-      v28 = std::__hash_table<std::__hash_value_type<std::string,MIL::IRValueType const*>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MIL::IRValueType const*>>>::find<std::string>(v24, &__str.__r_.__value_.__l.__data_);
+      v28 = std::__hash_table<std::__hash_value_type<std::string,MIL::IRValueType const*>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MIL::IRValueType const*>>>::find<std::string>(v24, &__str);
       v29 = v28;
       if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
       {
@@ -8843,7 +8857,7 @@ uint64_t MIL::Text::BasicSerializer::Val<MIL::Fp8E5M2>(uint64_t a1, MIL::IRTenso
         {
 LABEL_39:
           std::string::basic_string[abi:ne200100]<0>(&__str, "offset");
-          v30 = std::__hash_table<std::__hash_value_type<std::string,MIL::IRValueType const*>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MIL::IRValueType const*>>>::find<std::string>(v24, &__str.__r_.__value_.__l.__data_);
+          v30 = std::__hash_table<std::__hash_value_type<std::string,MIL::IRValueType const*>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MIL::IRValueType const*>>>::find<std::string>(v24, &__str);
           if (!v30)
           {
             std::__throw_out_of_range[abi:ne200100]("unordered_map::at: key not found");
@@ -8861,21 +8875,23 @@ LABEL_39:
             operator delete(__str.__r_.__value_.__l.__data_);
           }
 
-          v73 = MIL::IRValue::GetScalar<unsigned long long>(v31);
-          if (std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::find<std::string>((a1 + 328), &__p.__r_.__value_.__l.__data_))
+          v108 = MIL::IRValue::GetScalar<unsigned long long>(v31);
+          if (std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::find<std::string>((a1 + 328), &__p))
           {
-            v33 = std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::find<std::string>((a1 + 328), &__p.__r_.__value_.__l.__data_);
+            v33 = std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::find<std::string>((a1 + 328), &__p);
             v34 = v33;
             if (!v33)
             {
               goto LABEL_94;
             }
 
-            if (std::__hash_table<std::__hash_value_type<unsigned long long,MIL::Blob::LegacyStorageReader::FileInfo>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,MIL::Blob::LegacyStorageReader::FileInfo>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,MIL::Blob::LegacyStorageReader::FileInfo>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,MIL::Blob::LegacyStorageReader::FileInfo>>>::find<unsigned long long>(v33 + 5, &v73))
+            if (std::__hash_table<std::__hash_value_type<unsigned long long,MIL::Blob::LegacyStorageReader::FileInfo>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,MIL::Blob::LegacyStorageReader::FileInfo>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,MIL::Blob::LegacyStorageReader::FileInfo>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,MIL::Blob::LegacyStorageReader::FileInfo>>>::find<unsigned long long>(v33 + 5, &v108))
             {
-              if (std::__hash_table<std::__hash_value_type<unsigned long long,MIL::Blob::LegacyStorageReader::FileInfo>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,MIL::Blob::LegacyStorageReader::FileInfo>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,MIL::Blob::LegacyStorageReader::FileInfo>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,MIL::Blob::LegacyStorageReader::FileInfo>>>::find<unsigned long long>(v34 + 5, &v73))
+              v35 = std::__hash_table<std::__hash_value_type<unsigned long long,MIL::Blob::LegacyStorageReader::FileInfo>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,MIL::Blob::LegacyStorageReader::FileInfo>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,MIL::Blob::LegacyStorageReader::FileInfo>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,MIL::Blob::LegacyStorageReader::FileInfo>>>::find<unsigned long long>(v34 + 5, &v108);
+              if (v35)
               {
-                v35 = 1;
+                v36 = v35[3];
+                v37 = 1;
                 goto LABEL_50;
               }
 
@@ -8884,7 +8900,8 @@ LABEL_94:
             }
           }
 
-          v35 = 0;
+          v37 = 0;
+          v36 = 0;
 LABEL_50:
           if (v32)
           {
@@ -8896,120 +8913,121 @@ LABEL_50:
             std::__shared_weak_count::__release_shared[abi:ne200100](v26);
           }
 
-          if (v35)
+          if (v37)
           {
 LABEL_78:
-            v55 = MIL::IRTypedTensorValue<MIL::Fp8E5M2>::GetType(a2);
-            (*(*v55 + 24))(v55);
+            v88 = MIL::IRTypedTensorValue<MIL::Fp8E5M2>::GetType(a2);
+            v89 = (*(*v88 + 24))(v88);
+            v90 = *a1;
             MIL::Blob::StorageWriter::GetFilePath(v20, &__str);
-            MIL::IRTensorValueType::MakeValueFromBlobFile();
+            MIL::IRTensorValueType::MakeValueFromBlobFile(v89, v90, &__str, v36);
           }
 
 LABEL_59:
           switch(v12)
           {
             case 4:
-              v36 = MIL::IRTensorValue::TryAsTensor(a2);
-              MIL::IRTensorValue::GetDataView<MIL::Fp16>(v36);
-              v37 = MIL::Blob::StorageWriter::WriteData<MIL::Fp16>(v20);
+              MIL::IRTensorValue::TryAsTensor(a2);
+              v39 = MIL::IRTensorValue::GetDataView<MIL::Fp16>(v38);
+              v41 = MIL::Blob::StorageWriter::WriteData<MIL::Fp16>(v20, v39, v40);
               break;
             case 5:
-              v51 = MIL::IRTensorValue::TryAsTensor(a2);
-              MIL::IRTensorValue::GetDataView<float>(v51);
-              v37 = MIL::Blob::StorageWriter::WriteData<float>(v20);
+              MIL::IRTensorValue::TryAsTensor(a2);
+              Data = MIL::IRTensorValue::GetDataView<float>(v81);
+              v41 = MIL::Blob::StorageWriter::WriteData<float>(v20, Data, v83);
               break;
             case 9:
-              v48 = MIL::IRTensorValue::TryAsTensor(a2);
-              MIL::IRTensorValue::GetDataView<signed char>(v48);
-              v37 = MIL::Blob::StorageWriter::WriteData<signed char>(v20);
+              MIL::IRTensorValue::TryAsTensor(a2);
+              v73 = MIL::IRTensorValue::GetDataView<signed char>(v72);
+              v41 = MIL::Blob::StorageWriter::WriteData<signed char>(v20, v73, v74);
               break;
             case 10:
-              v50 = MIL::IRTensorValue::TryAsTensor(a2);
-              MIL::IRTensorValue::GetDataView<short>(v50);
-              v37 = MIL::Blob::StorageWriter::WriteData<short>(v20);
+              MIL::IRTensorValue::TryAsTensor(a2);
+              v79 = MIL::IRTensorValue::GetDataView<short>(v78);
+              v41 = MIL::Blob::StorageWriter::WriteData<short>(v20, v79, v80);
               break;
             case 11:
-              v45 = MIL::IRTensorValue::TryAsTensor(a2);
-              MIL::IRTensorValue::GetDataView<int>(v45);
-              v37 = MIL::Blob::StorageWriter::WriteData<int>(v20);
+              MIL::IRTensorValue::TryAsTensor(a2);
+              v64 = MIL::IRTensorValue::GetDataView<int>(v63);
+              v41 = MIL::Blob::StorageWriter::WriteData<int>(v20, v64, v65);
               break;
             case 13:
-              v47 = MIL::IRTensorValue::TryAsTensor(a2);
-              MIL::IRTensorValue::GetDataView<MIL::Int4>(v47);
-              v37 = MIL::Blob::StorageWriter::WriteData<MIL::Int4>(v20);
+              MIL::IRTensorValue::TryAsTensor(a2);
+              v70 = MIL::IRTensorValue::GetDataView<MIL::Int4>(v69);
+              v41 = MIL::Blob::StorageWriter::WriteData<MIL::Int4>(v20, v70, v71);
               break;
             case 14:
-              v52 = MIL::IRTensorValue::TryAsTensor(a2);
-              MIL::IRTensorValue::GetDataView<unsigned char>(v52);
-              v37 = MIL::Blob::StorageWriter::WriteData<unsigned char>(v20);
+              MIL::IRTensorValue::TryAsTensor(a2);
+              v85 = MIL::IRTensorValue::GetDataView<unsigned char>(v84);
+              v41 = MIL::Blob::StorageWriter::WriteData<unsigned char>(v20, v85, v86);
               break;
             case 15:
-              v49 = MIL::IRTensorValue::TryAsTensor(a2);
-              MIL::IRTensorValue::GetDataView<unsigned short>(v49);
-              v37 = MIL::Blob::StorageWriter::WriteData<unsigned short>(v20);
+              MIL::IRTensorValue::TryAsTensor(a2);
+              v76 = MIL::IRTensorValue::GetDataView<unsigned short>(v75);
+              v41 = MIL::Blob::StorageWriter::WriteData<unsigned short>(v20, v76, v77);
               break;
             case 16:
-              v42 = MIL::IRTensorValue::TryAsTensor(a2);
-              MIL::IRTensorValue::GetDataView<unsigned int>(v42);
-              v37 = MIL::Blob::StorageWriter::WriteData<unsigned int>(v20);
+              MIL::IRTensorValue::TryAsTensor(a2);
+              v55 = MIL::IRTensorValue::GetDataView<unsigned int>(v54);
+              v41 = MIL::Blob::StorageWriter::WriteData<unsigned int>(v20, v55, v56);
               break;
             case 19:
-              v39 = MIL::IRTensorValue::TryAsTensor(a2);
-              MIL::IRTensorValue::GetDataView<MIL::UInt2>(v39);
-              v37 = MIL::Blob::StorageWriter::WriteData<MIL::UInt2>(v20);
+              MIL::IRTensorValue::TryAsTensor(a2);
+              v46 = MIL::IRTensorValue::GetDataView<MIL::UInt2>(v45);
+              v41 = MIL::Blob::StorageWriter::WriteData<MIL::UInt2>(v20, v46, v47);
               break;
             case 20:
-              v41 = MIL::IRTensorValue::TryAsTensor(a2);
-              MIL::IRTensorValue::GetDataView<MIL::UInt4>(v41);
-              v37 = MIL::Blob::StorageWriter::WriteData<MIL::UInt4>(v20);
+              MIL::IRTensorValue::TryAsTensor(a2);
+              v52 = MIL::IRTensorValue::GetDataView<MIL::UInt4>(v51);
+              v41 = MIL::Blob::StorageWriter::WriteData<MIL::UInt4>(v20, v52, v53);
               break;
             case 21:
-              v38 = MIL::IRTensorValue::TryAsTensor(a2);
-              MIL::IRTensorValue::GetDataView<MIL::UInt1>(v38);
-              v37 = MIL::Blob::StorageWriter::WriteData<MIL::UInt1>(v20);
+              MIL::IRTensorValue::TryAsTensor(a2);
+              v43 = MIL::IRTensorValue::GetDataView<MIL::UInt1>(v42);
+              v41 = MIL::Blob::StorageWriter::WriteData<MIL::UInt1>(v20, v43, v44);
               break;
             case 22:
-              v40 = MIL::IRTensorValue::TryAsTensor(a2);
-              MIL::IRTensorValue::GetDataView<MIL::UInt3>(v40);
-              v37 = MIL::Blob::StorageWriter::WriteData<MIL::UInt3>(v20);
+              MIL::IRTensorValue::TryAsTensor(a2);
+              v49 = MIL::IRTensorValue::GetDataView<MIL::UInt3>(v48);
+              v41 = MIL::Blob::StorageWriter::WriteData<MIL::UInt3>(v20, v49, v50);
               break;
             case 23:
-              v43 = MIL::IRTensorValue::TryAsTensor(a2);
-              MIL::IRTensorValue::GetDataView<MIL::UInt6>(v43);
-              v37 = MIL::Blob::StorageWriter::WriteData<MIL::UInt6>(v20);
+              MIL::IRTensorValue::TryAsTensor(a2);
+              v58 = MIL::IRTensorValue::GetDataView<MIL::UInt6>(v57);
+              v41 = MIL::Blob::StorageWriter::WriteData<MIL::UInt6>(v20, v58, v59);
               break;
             case 24:
-              v44 = MIL::IRTensorValue::TryAsTensor(a2);
-              MIL::IRTensorValue::GetDataView<MIL::Fp8E4M3FN>(v44);
-              v37 = MIL::Blob::StorageWriter::WriteData<MIL::Fp8E4M3FN>(v20);
+              MIL::IRTensorValue::TryAsTensor(a2);
+              v61 = MIL::IRTensorValue::GetDataView<MIL::Fp8E4M3FN>(v60);
+              v41 = MIL::Blob::StorageWriter::WriteData<MIL::Fp8E4M3FN>(v20, v61, v62);
               break;
             case 25:
-              v46 = MIL::IRTensorValue::TryAsTensor(a2);
-              MIL::IRTensorValue::GetDataView<MIL::Fp8E5M2>(v46);
-              v37 = MIL::Blob::StorageWriter::WriteData<MIL::Fp8E5M2>(v20);
+              MIL::IRTensorValue::TryAsTensor(a2);
+              v67 = MIL::IRTensorValue::GetDataView<MIL::Fp8E5M2>(v66);
+              v41 = MIL::Blob::StorageWriter::WriteData<MIL::Fp8E5M2>(v20, v67, v68);
               break;
             default:
               exception = __cxa_allocate_exception(0x10uLL);
-              MIL::IRDataTypeToString(v12, &v68);
-              v65 = std::string::insert(&v68, 0, "[MIL Serialization] Unsupported Data type ");
-              v66 = *&v65->__r_.__value_.__l.__data_;
-              __str.__r_.__value_.__r.__words[2] = v65->__r_.__value_.__r.__words[2];
-              *&__str.__r_.__value_.__l.__data_ = v66;
-              v65->__r_.__value_.__l.__size_ = 0;
-              v65->__r_.__value_.__r.__words[2] = 0;
-              v65->__r_.__value_.__r.__words[0] = 0;
+              MIL::IRDataTypeToString(v12, &v103);
+              v100 = std::string::insert(&v103, 0, "[MIL Serialization] Unsupported Data type ");
+              v101 = *&v100->__r_.__value_.__l.__data_;
+              __str.__r_.__value_.__r.__words[2] = v100->__r_.__value_.__r.__words[2];
+              *&__str.__r_.__value_.__l.__data_ = v101;
+              v100->__r_.__value_.__l.__size_ = 0;
+              v100->__r_.__value_.__r.__words[2] = 0;
+              v100->__r_.__value_.__r.__words[0] = 0;
               std::logic_error::logic_error(exception, &__str);
               exception->__vftable = (MEMORY[0x277D828F8] + 16);
               __cxa_throw(exception, off_278235F80, MEMORY[0x277D82610]);
           }
 
-          v53 = v37;
+          v36 = v41;
           if (MIL::IRTypedTensorValue<MIL::Fp8E5M2>::UsesFileStorage(a2))
           {
             __str.__r_.__value_.__r.__words[0] = &__p;
-            v54 = std::__hash_table<std::__hash_value_type<std::string,std::unordered_map<unsigned long long,unsigned long long>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::unordered_map<unsigned long long,unsigned long long>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::unordered_map<unsigned long long,unsigned long long>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::unordered_map<unsigned long long,unsigned long long>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((a1 + 328), &__p.__r_.__value_.__l.__data_);
-            __str.__r_.__value_.__r.__words[0] = &v73;
-            std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long long>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned long long>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(v54 + 5, &v73)[3] = v53;
+            v87 = std::__hash_table<std::__hash_value_type<std::string,std::unordered_map<unsigned long long,unsigned long long>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::unordered_map<unsigned long long,unsigned long long>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::unordered_map<unsigned long long,unsigned long long>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::unordered_map<unsigned long long,unsigned long long>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((a1 + 328), &__p, &std::piecewise_construct, &__str, &v103);
+            __str.__r_.__value_.__r.__words[0] = &v108;
+            std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long long>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned long long>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(v87 + 5, &v108, &std::piecewise_construct, &__str)[3] = v36;
           }
 
           goto LABEL_78;
@@ -9075,20 +9093,20 @@ void ValHelper<MIL::Fp8E5M2>(uint64_t a1, void *a2, uint64_t a3)
 {
   Type = MIL::IRTypedTensorValue<MIL::Fp8E5M2>::GetType(a1);
   v7 = (*(*Type + 96))(Type);
-  v10 = 0;
   v11 = 0;
+  v12 = 0;
   __p = 0;
-  std::vector<MIL::IRDimension const*>::__init_with_size[abi:ne200100]<MIL::IRDimension const**,MIL::IRDimension const**>(&__p, *v7, v7[1], (v7[1] - *v7) >> 3);
-  if (__p == v10)
+  std::vector<MIL::IRDimension const*>::__init_with_size[abi:ne200100]<MIL::IRDimension const**,MIL::IRDimension const**>(&__p, *v7, *(v7 + 8), (*(v7 + 8) - *v7) >> 3);
+  if (__p == v11)
   {
     LOBYTE(Values) = MIL::IRTypedTensorValue<MIL::Fp8E5M2>::GetScalarValue(a1);
-    MIL::Fp8E5M2::GetFloat(&Values);
+    Float = MIL::Fp8E5M2::GetFloat(&Values);
   }
 
   Values = MIL::IRTypedTensorValue<MIL::Fp8E5M2>::GetValues(a1);
   if (__p)
   {
-    v10 = __p;
+    v11 = __p;
     operator delete(__p);
   }
 }
@@ -9127,43 +9145,43 @@ uint64_t MIL::Text::BasicSerializer::Val<MIL::Fp8E4M3FN>(uint64_t a1, MIL::IRTen
   {
     if (v8)
     {
-      memset(v71, 0, sizeof(v71));
-      v72 = 1065353216;
+      memset(v106, 0, sizeof(v106));
+      v107 = 1065353216;
       if (!v4)
       {
         FileProperties = MIL::IRTypedTensorValue<MIL::Fp8E4M3FN>::GetFileProperties(a2);
-        if (v71 != FileProperties)
+        if (v106 != FileProperties)
         {
-          v72 = *(FileProperties + 32);
-          std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::__assign_multi<std::__hash_const_iterator<std::__hash_node<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,void *> *>>(v71, *(FileProperties + 16), 0);
+          v107 = *(FileProperties + 32);
+          std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::__assign_multi<std::__hash_const_iterator<std::__hash_node<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,void *> *>>(v106, *(FileProperties + 16), 0);
         }
 
         std::string::basic_string[abi:ne200100]<0>(&__str, "type");
-        v56 = std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::find<std::string>(v71, &__str.__r_.__value_.__l.__data_);
-        if (v56)
+        v91 = std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::find<std::string>(v106, &__str);
+        if (v91)
         {
-          MIL::IRValue::GetScalar<std::string>(v56[5], &__p);
+          MIL::IRValue::GetScalar<std::string>(v91[5], &__p);
           if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
           {
             operator delete(__str.__r_.__value_.__l.__data_);
           }
 
           std::string::basic_string[abi:ne200100]<0>(&__str, "type");
-          std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::__erase_unique<std::string>(v71, &__str.__r_.__value_.__l.__data_);
+          std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::__erase_unique<std::string>(v106, &__str);
           if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
           {
             operator delete(__str.__r_.__value_.__l.__data_);
           }
 
           std::string::basic_string[abi:ne200100]<0>(&__str, "path");
-          v57 = std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::find<std::string>(v71, &__str.__r_.__value_.__l.__data_);
-          if (v57)
+          v92 = std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::find<std::string>(v106, &__str);
+          if (v92)
           {
-            v59 = v57[5];
-            v58 = v57[6];
-            if (v58)
+            v94 = v92[5];
+            v93 = v92[6];
+            if (v93)
             {
-              atomic_fetch_add_explicit(v58 + 1, 1uLL, memory_order_relaxed);
+              atomic_fetch_add_explicit(v93 + 1, 1uLL, memory_order_relaxed);
             }
 
             if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
@@ -9171,14 +9189,14 @@ uint64_t MIL::Text::BasicSerializer::Val<MIL::Fp8E4M3FN>(uint64_t a1, MIL::IRTen
               operator delete(__str.__r_.__value_.__l.__data_);
             }
 
-            MIL::IRValue::GetScalar<std::string>(v59, &__str);
-            v60 = (*(**(a1 + 320) + 32))(*(a1 + 320));
-            MIL::Util::ReplaceModelPaths(&__str, v60);
-            v61 = (*(*v59 + 32))(v59);
-            v62 = MIL::IRValueType::AsTensorType(v61);
-            v67 = __str;
+            MIL::IRValue::GetScalar<std::string>(v94, &__str);
+            v95 = (*(**(a1 + 320) + 32))(*(a1 + 320));
+            MIL::Util::ReplaceModelPaths(&__str, v95);
+            v96 = (*(*v94 + 32))(v94);
+            v97 = MIL::IRValueType::AsTensorType(v96);
+            v102 = __str;
             memset(&__str, 0, sizeof(__str));
-            MIL::IRTensorValueType::MakeStringValue(v62, &v67);
+            MIL::IRTensorValueType::MakeStringValue(v97, &v102);
           }
 
           std::__throw_out_of_range[abi:ne200100]("unordered_map::at: key not found");
@@ -9191,7 +9209,7 @@ uint64_t MIL::Text::BasicSerializer::Val<MIL::Fp8E4M3FN>(uint64_t a1, MIL::IRTen
       {
         v14 = MIL::IRTypedTensorValue<MIL::Fp8E4M3FN>::GetFileProperties(a2);
         std::string::basic_string[abi:ne200100]<0>(&__p, "path");
-        v15 = std::__hash_table<std::__hash_value_type<std::string,MIL::IRValueType const*>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MIL::IRValueType const*>>>::find<std::string>(v14, &__p.__r_.__value_.__l.__data_);
+        v15 = std::__hash_table<std::__hash_value_type<std::string,MIL::IRValueType const*>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MIL::IRValueType const*>>>::find<std::string>(v14, &__p);
         if (!v15)
         {
           std::__throw_out_of_range[abi:ne200100]("unordered_map::at: key not found");
@@ -9211,7 +9229,7 @@ uint64_t MIL::Text::BasicSerializer::Val<MIL::Fp8E4M3FN>(uint64_t a1, MIL::IRTen
 
         MIL::IRValue::GetScalar<std::string>(v16, &__p);
         __str.__r_.__value_.__r.__words[0] = &__p;
-        v18 = std::__tree<std::__value_type<std::string,std::shared_ptr<MIL::Blob::StorageWriter>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<MIL::Blob::StorageWriter>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<MIL::Blob::StorageWriter>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1 + 368, &__p.__r_.__value_.__l.__data_);
+        v18 = std::__tree<std::__value_type<std::string,std::shared_ptr<MIL::Blob::StorageWriter>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<MIL::Blob::StorageWriter>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<MIL::Blob::StorageWriter>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((a1 + 368), &__p.__r_.__value_.__l.__data_, &std::piecewise_construct, &__str);
         v20 = *(v18 + 56);
         v19 = *(v18 + 64);
         if (v19)
@@ -9242,7 +9260,7 @@ uint64_t MIL::Text::BasicSerializer::Val<MIL::Fp8E4M3FN>(uint64_t a1, MIL::IRTen
       }
 
       memset(&__p, 0, sizeof(__p));
-      v73 = 0;
+      v108 = 0;
       if (!MIL::IRTypedTensorValue<MIL::Fp8E4M3FN>::UsesFileStorage(a2))
       {
         goto LABEL_59;
@@ -9250,7 +9268,7 @@ uint64_t MIL::Text::BasicSerializer::Val<MIL::Fp8E4M3FN>(uint64_t a1, MIL::IRTen
 
       v24 = MIL::IRTypedTensorValue<MIL::Fp8E4M3FN>::GetFileProperties(a2);
       std::string::basic_string[abi:ne200100]<0>(&__str, "path");
-      v25 = std::__hash_table<std::__hash_value_type<std::string,MIL::IRValueType const*>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MIL::IRValueType const*>>>::find<std::string>(v24, &__str.__r_.__value_.__l.__data_);
+      v25 = std::__hash_table<std::__hash_value_type<std::string,MIL::IRValueType const*>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MIL::IRValueType const*>>>::find<std::string>(v24, &__str);
       if (!v25)
       {
         std::__throw_out_of_range[abi:ne200100]("unordered_map::at: key not found");
@@ -9276,7 +9294,7 @@ uint64_t MIL::Text::BasicSerializer::Val<MIL::Fp8E4M3FN>(uint64_t a1, MIL::IRTen
 
       __p = __str;
       std::string::basic_string[abi:ne200100]<0>(&__str, "offset");
-      v28 = std::__hash_table<std::__hash_value_type<std::string,MIL::IRValueType const*>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MIL::IRValueType const*>>>::find<std::string>(v24, &__str.__r_.__value_.__l.__data_);
+      v28 = std::__hash_table<std::__hash_value_type<std::string,MIL::IRValueType const*>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MIL::IRValueType const*>>>::find<std::string>(v24, &__str);
       v29 = v28;
       if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
       {
@@ -9285,7 +9303,7 @@ uint64_t MIL::Text::BasicSerializer::Val<MIL::Fp8E4M3FN>(uint64_t a1, MIL::IRTen
         {
 LABEL_39:
           std::string::basic_string[abi:ne200100]<0>(&__str, "offset");
-          v30 = std::__hash_table<std::__hash_value_type<std::string,MIL::IRValueType const*>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MIL::IRValueType const*>>>::find<std::string>(v24, &__str.__r_.__value_.__l.__data_);
+          v30 = std::__hash_table<std::__hash_value_type<std::string,MIL::IRValueType const*>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MIL::IRValueType const*>>>::find<std::string>(v24, &__str);
           if (!v30)
           {
             std::__throw_out_of_range[abi:ne200100]("unordered_map::at: key not found");
@@ -9303,21 +9321,23 @@ LABEL_39:
             operator delete(__str.__r_.__value_.__l.__data_);
           }
 
-          v73 = MIL::IRValue::GetScalar<unsigned long long>(v31);
-          if (std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::find<std::string>((a1 + 328), &__p.__r_.__value_.__l.__data_))
+          v108 = MIL::IRValue::GetScalar<unsigned long long>(v31);
+          if (std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::find<std::string>((a1 + 328), &__p))
           {
-            v33 = std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::find<std::string>((a1 + 328), &__p.__r_.__value_.__l.__data_);
+            v33 = std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::find<std::string>((a1 + 328), &__p);
             v34 = v33;
             if (!v33)
             {
               goto LABEL_94;
             }
 
-            if (std::__hash_table<std::__hash_value_type<unsigned long long,MIL::Blob::LegacyStorageReader::FileInfo>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,MIL::Blob::LegacyStorageReader::FileInfo>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,MIL::Blob::LegacyStorageReader::FileInfo>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,MIL::Blob::LegacyStorageReader::FileInfo>>>::find<unsigned long long>(v33 + 5, &v73))
+            if (std::__hash_table<std::__hash_value_type<unsigned long long,MIL::Blob::LegacyStorageReader::FileInfo>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,MIL::Blob::LegacyStorageReader::FileInfo>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,MIL::Blob::LegacyStorageReader::FileInfo>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,MIL::Blob::LegacyStorageReader::FileInfo>>>::find<unsigned long long>(v33 + 5, &v108))
             {
-              if (std::__hash_table<std::__hash_value_type<unsigned long long,MIL::Blob::LegacyStorageReader::FileInfo>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,MIL::Blob::LegacyStorageReader::FileInfo>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,MIL::Blob::LegacyStorageReader::FileInfo>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,MIL::Blob::LegacyStorageReader::FileInfo>>>::find<unsigned long long>(v34 + 5, &v73))
+              v35 = std::__hash_table<std::__hash_value_type<unsigned long long,MIL::Blob::LegacyStorageReader::FileInfo>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,MIL::Blob::LegacyStorageReader::FileInfo>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,MIL::Blob::LegacyStorageReader::FileInfo>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,MIL::Blob::LegacyStorageReader::FileInfo>>>::find<unsigned long long>(v34 + 5, &v108);
+              if (v35)
               {
-                v35 = 1;
+                v36 = v35[3];
+                v37 = 1;
                 goto LABEL_50;
               }
 
@@ -9326,7 +9346,8 @@ LABEL_94:
             }
           }
 
-          v35 = 0;
+          v37 = 0;
+          v36 = 0;
 LABEL_50:
           if (v32)
           {
@@ -9338,120 +9359,121 @@ LABEL_50:
             std::__shared_weak_count::__release_shared[abi:ne200100](v26);
           }
 
-          if (v35)
+          if (v37)
           {
 LABEL_78:
-            v55 = MIL::IRTypedTensorValue<MIL::Fp8E4M3FN>::GetType(a2);
-            (*(*v55 + 24))(v55);
+            v88 = MIL::IRTypedTensorValue<MIL::Fp8E4M3FN>::GetType(a2);
+            v89 = (*(*v88 + 24))(v88);
+            v90 = *a1;
             MIL::Blob::StorageWriter::GetFilePath(v20, &__str);
-            MIL::IRTensorValueType::MakeValueFromBlobFile();
+            MIL::IRTensorValueType::MakeValueFromBlobFile(v89, v90, &__str, v36);
           }
 
 LABEL_59:
           switch(v12)
           {
             case 4:
-              v36 = MIL::IRTensorValue::TryAsTensor(a2);
-              MIL::IRTensorValue::GetDataView<MIL::Fp16>(v36);
-              v37 = MIL::Blob::StorageWriter::WriteData<MIL::Fp16>(v20);
+              MIL::IRTensorValue::TryAsTensor(a2);
+              v39 = MIL::IRTensorValue::GetDataView<MIL::Fp16>(v38);
+              v41 = MIL::Blob::StorageWriter::WriteData<MIL::Fp16>(v20, v39, v40);
               break;
             case 5:
-              v51 = MIL::IRTensorValue::TryAsTensor(a2);
-              MIL::IRTensorValue::GetDataView<float>(v51);
-              v37 = MIL::Blob::StorageWriter::WriteData<float>(v20);
+              MIL::IRTensorValue::TryAsTensor(a2);
+              Data = MIL::IRTensorValue::GetDataView<float>(v81);
+              v41 = MIL::Blob::StorageWriter::WriteData<float>(v20, Data, v83);
               break;
             case 9:
-              v48 = MIL::IRTensorValue::TryAsTensor(a2);
-              MIL::IRTensorValue::GetDataView<signed char>(v48);
-              v37 = MIL::Blob::StorageWriter::WriteData<signed char>(v20);
+              MIL::IRTensorValue::TryAsTensor(a2);
+              v73 = MIL::IRTensorValue::GetDataView<signed char>(v72);
+              v41 = MIL::Blob::StorageWriter::WriteData<signed char>(v20, v73, v74);
               break;
             case 10:
-              v50 = MIL::IRTensorValue::TryAsTensor(a2);
-              MIL::IRTensorValue::GetDataView<short>(v50);
-              v37 = MIL::Blob::StorageWriter::WriteData<short>(v20);
+              MIL::IRTensorValue::TryAsTensor(a2);
+              v79 = MIL::IRTensorValue::GetDataView<short>(v78);
+              v41 = MIL::Blob::StorageWriter::WriteData<short>(v20, v79, v80);
               break;
             case 11:
-              v45 = MIL::IRTensorValue::TryAsTensor(a2);
-              MIL::IRTensorValue::GetDataView<int>(v45);
-              v37 = MIL::Blob::StorageWriter::WriteData<int>(v20);
+              MIL::IRTensorValue::TryAsTensor(a2);
+              v64 = MIL::IRTensorValue::GetDataView<int>(v63);
+              v41 = MIL::Blob::StorageWriter::WriteData<int>(v20, v64, v65);
               break;
             case 13:
-              v47 = MIL::IRTensorValue::TryAsTensor(a2);
-              MIL::IRTensorValue::GetDataView<MIL::Int4>(v47);
-              v37 = MIL::Blob::StorageWriter::WriteData<MIL::Int4>(v20);
+              MIL::IRTensorValue::TryAsTensor(a2);
+              v70 = MIL::IRTensorValue::GetDataView<MIL::Int4>(v69);
+              v41 = MIL::Blob::StorageWriter::WriteData<MIL::Int4>(v20, v70, v71);
               break;
             case 14:
-              v52 = MIL::IRTensorValue::TryAsTensor(a2);
-              MIL::IRTensorValue::GetDataView<unsigned char>(v52);
-              v37 = MIL::Blob::StorageWriter::WriteData<unsigned char>(v20);
+              MIL::IRTensorValue::TryAsTensor(a2);
+              v85 = MIL::IRTensorValue::GetDataView<unsigned char>(v84);
+              v41 = MIL::Blob::StorageWriter::WriteData<unsigned char>(v20, v85, v86);
               break;
             case 15:
-              v49 = MIL::IRTensorValue::TryAsTensor(a2);
-              MIL::IRTensorValue::GetDataView<unsigned short>(v49);
-              v37 = MIL::Blob::StorageWriter::WriteData<unsigned short>(v20);
+              MIL::IRTensorValue::TryAsTensor(a2);
+              v76 = MIL::IRTensorValue::GetDataView<unsigned short>(v75);
+              v41 = MIL::Blob::StorageWriter::WriteData<unsigned short>(v20, v76, v77);
               break;
             case 16:
-              v42 = MIL::IRTensorValue::TryAsTensor(a2);
-              MIL::IRTensorValue::GetDataView<unsigned int>(v42);
-              v37 = MIL::Blob::StorageWriter::WriteData<unsigned int>(v20);
+              MIL::IRTensorValue::TryAsTensor(a2);
+              v55 = MIL::IRTensorValue::GetDataView<unsigned int>(v54);
+              v41 = MIL::Blob::StorageWriter::WriteData<unsigned int>(v20, v55, v56);
               break;
             case 19:
-              v39 = MIL::IRTensorValue::TryAsTensor(a2);
-              MIL::IRTensorValue::GetDataView<MIL::UInt2>(v39);
-              v37 = MIL::Blob::StorageWriter::WriteData<MIL::UInt2>(v20);
+              MIL::IRTensorValue::TryAsTensor(a2);
+              v46 = MIL::IRTensorValue::GetDataView<MIL::UInt2>(v45);
+              v41 = MIL::Blob::StorageWriter::WriteData<MIL::UInt2>(v20, v46, v47);
               break;
             case 20:
-              v41 = MIL::IRTensorValue::TryAsTensor(a2);
-              MIL::IRTensorValue::GetDataView<MIL::UInt4>(v41);
-              v37 = MIL::Blob::StorageWriter::WriteData<MIL::UInt4>(v20);
+              MIL::IRTensorValue::TryAsTensor(a2);
+              v52 = MIL::IRTensorValue::GetDataView<MIL::UInt4>(v51);
+              v41 = MIL::Blob::StorageWriter::WriteData<MIL::UInt4>(v20, v52, v53);
               break;
             case 21:
-              v38 = MIL::IRTensorValue::TryAsTensor(a2);
-              MIL::IRTensorValue::GetDataView<MIL::UInt1>(v38);
-              v37 = MIL::Blob::StorageWriter::WriteData<MIL::UInt1>(v20);
+              MIL::IRTensorValue::TryAsTensor(a2);
+              v43 = MIL::IRTensorValue::GetDataView<MIL::UInt1>(v42);
+              v41 = MIL::Blob::StorageWriter::WriteData<MIL::UInt1>(v20, v43, v44);
               break;
             case 22:
-              v40 = MIL::IRTensorValue::TryAsTensor(a2);
-              MIL::IRTensorValue::GetDataView<MIL::UInt3>(v40);
-              v37 = MIL::Blob::StorageWriter::WriteData<MIL::UInt3>(v20);
+              MIL::IRTensorValue::TryAsTensor(a2);
+              v49 = MIL::IRTensorValue::GetDataView<MIL::UInt3>(v48);
+              v41 = MIL::Blob::StorageWriter::WriteData<MIL::UInt3>(v20, v49, v50);
               break;
             case 23:
-              v43 = MIL::IRTensorValue::TryAsTensor(a2);
-              MIL::IRTensorValue::GetDataView<MIL::UInt6>(v43);
-              v37 = MIL::Blob::StorageWriter::WriteData<MIL::UInt6>(v20);
+              MIL::IRTensorValue::TryAsTensor(a2);
+              v58 = MIL::IRTensorValue::GetDataView<MIL::UInt6>(v57);
+              v41 = MIL::Blob::StorageWriter::WriteData<MIL::UInt6>(v20, v58, v59);
               break;
             case 24:
-              v44 = MIL::IRTensorValue::TryAsTensor(a2);
-              MIL::IRTensorValue::GetDataView<MIL::Fp8E4M3FN>(v44);
-              v37 = MIL::Blob::StorageWriter::WriteData<MIL::Fp8E4M3FN>(v20);
+              MIL::IRTensorValue::TryAsTensor(a2);
+              v61 = MIL::IRTensorValue::GetDataView<MIL::Fp8E4M3FN>(v60);
+              v41 = MIL::Blob::StorageWriter::WriteData<MIL::Fp8E4M3FN>(v20, v61, v62);
               break;
             case 25:
-              v46 = MIL::IRTensorValue::TryAsTensor(a2);
-              MIL::IRTensorValue::GetDataView<MIL::Fp8E5M2>(v46);
-              v37 = MIL::Blob::StorageWriter::WriteData<MIL::Fp8E5M2>(v20);
+              MIL::IRTensorValue::TryAsTensor(a2);
+              v67 = MIL::IRTensorValue::GetDataView<MIL::Fp8E5M2>(v66);
+              v41 = MIL::Blob::StorageWriter::WriteData<MIL::Fp8E5M2>(v20, v67, v68);
               break;
             default:
               exception = __cxa_allocate_exception(0x10uLL);
-              MIL::IRDataTypeToString(v12, &v68);
-              v65 = std::string::insert(&v68, 0, "[MIL Serialization] Unsupported Data type ");
-              v66 = *&v65->__r_.__value_.__l.__data_;
-              __str.__r_.__value_.__r.__words[2] = v65->__r_.__value_.__r.__words[2];
-              *&__str.__r_.__value_.__l.__data_ = v66;
-              v65->__r_.__value_.__l.__size_ = 0;
-              v65->__r_.__value_.__r.__words[2] = 0;
-              v65->__r_.__value_.__r.__words[0] = 0;
+              MIL::IRDataTypeToString(v12, &v103);
+              v100 = std::string::insert(&v103, 0, "[MIL Serialization] Unsupported Data type ");
+              v101 = *&v100->__r_.__value_.__l.__data_;
+              __str.__r_.__value_.__r.__words[2] = v100->__r_.__value_.__r.__words[2];
+              *&__str.__r_.__value_.__l.__data_ = v101;
+              v100->__r_.__value_.__l.__size_ = 0;
+              v100->__r_.__value_.__r.__words[2] = 0;
+              v100->__r_.__value_.__r.__words[0] = 0;
               std::logic_error::logic_error(exception, &__str);
               exception->__vftable = (MEMORY[0x277D828F8] + 16);
               __cxa_throw(exception, off_278235F80, MEMORY[0x277D82610]);
           }
 
-          v53 = v37;
+          v36 = v41;
           if (MIL::IRTypedTensorValue<MIL::Fp8E4M3FN>::UsesFileStorage(a2))
           {
             __str.__r_.__value_.__r.__words[0] = &__p;
-            v54 = std::__hash_table<std::__hash_value_type<std::string,std::unordered_map<unsigned long long,unsigned long long>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::unordered_map<unsigned long long,unsigned long long>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::unordered_map<unsigned long long,unsigned long long>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::unordered_map<unsigned long long,unsigned long long>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((a1 + 328), &__p.__r_.__value_.__l.__data_);
-            __str.__r_.__value_.__r.__words[0] = &v73;
-            std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long long>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned long long>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(v54 + 5, &v73)[3] = v53;
+            v87 = std::__hash_table<std::__hash_value_type<std::string,std::unordered_map<unsigned long long,unsigned long long>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::unordered_map<unsigned long long,unsigned long long>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::unordered_map<unsigned long long,unsigned long long>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::unordered_map<unsigned long long,unsigned long long>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((a1 + 328), &__p, &std::piecewise_construct, &__str, &v103);
+            __str.__r_.__value_.__r.__words[0] = &v108;
+            std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long long>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned long long>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(v87 + 5, &v108, &std::piecewise_construct, &__str)[3] = v36;
           }
 
           goto LABEL_78;
@@ -9517,20 +9539,20 @@ void ValHelper<MIL::Fp8E4M3FN>(uint64_t a1, void *a2, uint64_t a3)
 {
   Type = MIL::IRTypedTensorValue<MIL::Fp8E4M3FN>::GetType(a1);
   v7 = (*(*Type + 96))(Type);
-  v10 = 0;
   v11 = 0;
+  v12 = 0;
   __p = 0;
-  std::vector<MIL::IRDimension const*>::__init_with_size[abi:ne200100]<MIL::IRDimension const**,MIL::IRDimension const**>(&__p, *v7, v7[1], (v7[1] - *v7) >> 3);
-  if (__p == v10)
+  std::vector<MIL::IRDimension const*>::__init_with_size[abi:ne200100]<MIL::IRDimension const**,MIL::IRDimension const**>(&__p, *v7, *(v7 + 8), (*(v7 + 8) - *v7) >> 3);
+  if (__p == v11)
   {
     LOBYTE(Values) = MIL::IRTypedTensorValue<MIL::Fp8E4M3FN>::GetScalarValue(a1);
-    MIL::Fp8E4M3FN::GetFloat(&Values);
+    Float = MIL::Fp8E4M3FN::GetFloat(&Values);
   }
 
   Values = MIL::IRTypedTensorValue<MIL::Fp8E4M3FN>::GetValues(a1);
   if (__p)
   {
-    v10 = __p;
+    v11 = __p;
     operator delete(__p);
   }
 }
@@ -9569,43 +9591,43 @@ uint64_t MIL::Text::BasicSerializer::Val<float>(uint64_t a1, MIL::IRTensorValue 
   {
     if (v8)
     {
-      memset(v71, 0, sizeof(v71));
-      v72 = 1065353216;
+      memset(v106, 0, sizeof(v106));
+      v107 = 1065353216;
       if (!v4)
       {
         FileProperties = MIL::IRTypedTensorValue<float>::GetFileProperties(a2);
-        if (v71 != FileProperties)
+        if (v106 != FileProperties)
         {
-          v72 = *(FileProperties + 32);
-          std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::__assign_multi<std::__hash_const_iterator<std::__hash_node<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,void *> *>>(v71, *(FileProperties + 16), 0);
+          v107 = *(FileProperties + 32);
+          std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::__assign_multi<std::__hash_const_iterator<std::__hash_node<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,void *> *>>(v106, *(FileProperties + 16), 0);
         }
 
         std::string::basic_string[abi:ne200100]<0>(&__str, "type");
-        v56 = std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::find<std::string>(v71, &__str.__r_.__value_.__l.__data_);
-        if (v56)
+        v91 = std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::find<std::string>(v106, &__str);
+        if (v91)
         {
-          MIL::IRValue::GetScalar<std::string>(v56[5], &__p);
+          MIL::IRValue::GetScalar<std::string>(v91[5], &__p);
           if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
           {
             operator delete(__str.__r_.__value_.__l.__data_);
           }
 
           std::string::basic_string[abi:ne200100]<0>(&__str, "type");
-          std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::__erase_unique<std::string>(v71, &__str.__r_.__value_.__l.__data_);
+          std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::__erase_unique<std::string>(v106, &__str);
           if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
           {
             operator delete(__str.__r_.__value_.__l.__data_);
           }
 
           std::string::basic_string[abi:ne200100]<0>(&__str, "path");
-          v57 = std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::find<std::string>(v71, &__str.__r_.__value_.__l.__data_);
-          if (v57)
+          v92 = std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::find<std::string>(v106, &__str);
+          if (v92)
           {
-            v59 = v57[5];
-            v58 = v57[6];
-            if (v58)
+            v94 = v92[5];
+            v93 = v92[6];
+            if (v93)
             {
-              atomic_fetch_add_explicit(v58 + 1, 1uLL, memory_order_relaxed);
+              atomic_fetch_add_explicit(v93 + 1, 1uLL, memory_order_relaxed);
             }
 
             if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
@@ -9613,14 +9635,14 @@ uint64_t MIL::Text::BasicSerializer::Val<float>(uint64_t a1, MIL::IRTensorValue 
               operator delete(__str.__r_.__value_.__l.__data_);
             }
 
-            MIL::IRValue::GetScalar<std::string>(v59, &__str);
-            v60 = (*(**(a1 + 320) + 32))(*(a1 + 320));
-            MIL::Util::ReplaceModelPaths(&__str, v60);
-            v61 = (*(*v59 + 32))(v59);
-            v62 = MIL::IRValueType::AsTensorType(v61);
-            v67 = __str;
+            MIL::IRValue::GetScalar<std::string>(v94, &__str);
+            v95 = (*(**(a1 + 320) + 32))(*(a1 + 320));
+            MIL::Util::ReplaceModelPaths(&__str, v95);
+            v96 = (*(*v94 + 32))(v94);
+            v97 = MIL::IRValueType::AsTensorType(v96);
+            v102 = __str;
             memset(&__str, 0, sizeof(__str));
-            MIL::IRTensorValueType::MakeStringValue(v62, &v67);
+            MIL::IRTensorValueType::MakeStringValue(v97, &v102);
           }
 
           std::__throw_out_of_range[abi:ne200100]("unordered_map::at: key not found");
@@ -9633,7 +9655,7 @@ uint64_t MIL::Text::BasicSerializer::Val<float>(uint64_t a1, MIL::IRTensorValue 
       {
         v14 = MIL::IRTypedTensorValue<float>::GetFileProperties(a2);
         std::string::basic_string[abi:ne200100]<0>(&__p, "path");
-        v15 = std::__hash_table<std::__hash_value_type<std::string,MIL::IRValueType const*>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MIL::IRValueType const*>>>::find<std::string>(v14, &__p.__r_.__value_.__l.__data_);
+        v15 = std::__hash_table<std::__hash_value_type<std::string,MIL::IRValueType const*>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MIL::IRValueType const*>>>::find<std::string>(v14, &__p);
         if (!v15)
         {
           std::__throw_out_of_range[abi:ne200100]("unordered_map::at: key not found");
@@ -9653,7 +9675,7 @@ uint64_t MIL::Text::BasicSerializer::Val<float>(uint64_t a1, MIL::IRTensorValue 
 
         MIL::IRValue::GetScalar<std::string>(v16, &__p);
         __str.__r_.__value_.__r.__words[0] = &__p;
-        v18 = std::__tree<std::__value_type<std::string,std::shared_ptr<MIL::Blob::StorageWriter>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<MIL::Blob::StorageWriter>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<MIL::Blob::StorageWriter>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1 + 368, &__p.__r_.__value_.__l.__data_);
+        v18 = std::__tree<std::__value_type<std::string,std::shared_ptr<MIL::Blob::StorageWriter>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<MIL::Blob::StorageWriter>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<MIL::Blob::StorageWriter>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((a1 + 368), &__p.__r_.__value_.__l.__data_, &std::piecewise_construct, &__str);
         v20 = *(v18 + 56);
         v19 = *(v18 + 64);
         if (v19)
@@ -9684,7 +9706,7 @@ uint64_t MIL::Text::BasicSerializer::Val<float>(uint64_t a1, MIL::IRTensorValue 
       }
 
       memset(&__p, 0, sizeof(__p));
-      v73 = 0;
+      v108 = 0;
       if (!MIL::IRTypedTensorValue<float>::UsesFileStorage(a2))
       {
         goto LABEL_59;
@@ -9692,7 +9714,7 @@ uint64_t MIL::Text::BasicSerializer::Val<float>(uint64_t a1, MIL::IRTensorValue 
 
       v24 = MIL::IRTypedTensorValue<float>::GetFileProperties(a2);
       std::string::basic_string[abi:ne200100]<0>(&__str, "path");
-      v25 = std::__hash_table<std::__hash_value_type<std::string,MIL::IRValueType const*>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MIL::IRValueType const*>>>::find<std::string>(v24, &__str.__r_.__value_.__l.__data_);
+      v25 = std::__hash_table<std::__hash_value_type<std::string,MIL::IRValueType const*>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MIL::IRValueType const*>>>::find<std::string>(v24, &__str);
       if (!v25)
       {
         std::__throw_out_of_range[abi:ne200100]("unordered_map::at: key not found");
@@ -9718,7 +9740,7 @@ uint64_t MIL::Text::BasicSerializer::Val<float>(uint64_t a1, MIL::IRTensorValue 
 
       __p = __str;
       std::string::basic_string[abi:ne200100]<0>(&__str, "offset");
-      v28 = std::__hash_table<std::__hash_value_type<std::string,MIL::IRValueType const*>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MIL::IRValueType const*>>>::find<std::string>(v24, &__str.__r_.__value_.__l.__data_);
+      v28 = std::__hash_table<std::__hash_value_type<std::string,MIL::IRValueType const*>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MIL::IRValueType const*>>>::find<std::string>(v24, &__str);
       v29 = v28;
       if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
       {
@@ -9727,7 +9749,7 @@ uint64_t MIL::Text::BasicSerializer::Val<float>(uint64_t a1, MIL::IRTensorValue 
         {
 LABEL_39:
           std::string::basic_string[abi:ne200100]<0>(&__str, "offset");
-          v30 = std::__hash_table<std::__hash_value_type<std::string,MIL::IRValueType const*>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MIL::IRValueType const*>>>::find<std::string>(v24, &__str.__r_.__value_.__l.__data_);
+          v30 = std::__hash_table<std::__hash_value_type<std::string,MIL::IRValueType const*>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MIL::IRValueType const*>>>::find<std::string>(v24, &__str);
           if (!v30)
           {
             std::__throw_out_of_range[abi:ne200100]("unordered_map::at: key not found");
@@ -9745,21 +9767,23 @@ LABEL_39:
             operator delete(__str.__r_.__value_.__l.__data_);
           }
 
-          v73 = MIL::IRValue::GetScalar<unsigned long long>(v31);
-          if (std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::find<std::string>((a1 + 328), &__p.__r_.__value_.__l.__data_))
+          v108 = MIL::IRValue::GetScalar<unsigned long long>(v31);
+          if (std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::find<std::string>((a1 + 328), &__p))
           {
-            v33 = std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::find<std::string>((a1 + 328), &__p.__r_.__value_.__l.__data_);
+            v33 = std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::find<std::string>((a1 + 328), &__p);
             v34 = v33;
             if (!v33)
             {
               goto LABEL_94;
             }
 
-            if (std::__hash_table<std::__hash_value_type<unsigned long long,MIL::Blob::LegacyStorageReader::FileInfo>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,MIL::Blob::LegacyStorageReader::FileInfo>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,MIL::Blob::LegacyStorageReader::FileInfo>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,MIL::Blob::LegacyStorageReader::FileInfo>>>::find<unsigned long long>(v33 + 5, &v73))
+            if (std::__hash_table<std::__hash_value_type<unsigned long long,MIL::Blob::LegacyStorageReader::FileInfo>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,MIL::Blob::LegacyStorageReader::FileInfo>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,MIL::Blob::LegacyStorageReader::FileInfo>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,MIL::Blob::LegacyStorageReader::FileInfo>>>::find<unsigned long long>(v33 + 5, &v108))
             {
-              if (std::__hash_table<std::__hash_value_type<unsigned long long,MIL::Blob::LegacyStorageReader::FileInfo>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,MIL::Blob::LegacyStorageReader::FileInfo>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,MIL::Blob::LegacyStorageReader::FileInfo>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,MIL::Blob::LegacyStorageReader::FileInfo>>>::find<unsigned long long>(v34 + 5, &v73))
+              v35 = std::__hash_table<std::__hash_value_type<unsigned long long,MIL::Blob::LegacyStorageReader::FileInfo>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,MIL::Blob::LegacyStorageReader::FileInfo>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,MIL::Blob::LegacyStorageReader::FileInfo>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,MIL::Blob::LegacyStorageReader::FileInfo>>>::find<unsigned long long>(v34 + 5, &v108);
+              if (v35)
               {
-                v35 = 1;
+                v36 = v35[3];
+                v37 = 1;
                 goto LABEL_50;
               }
 
@@ -9768,7 +9792,8 @@ LABEL_94:
             }
           }
 
-          v35 = 0;
+          v37 = 0;
+          v36 = 0;
 LABEL_50:
           if (v32)
           {
@@ -9780,120 +9805,121 @@ LABEL_50:
             std::__shared_weak_count::__release_shared[abi:ne200100](v26);
           }
 
-          if (v35)
+          if (v37)
           {
 LABEL_78:
-            v55 = MIL::IRTypedTensorValue<float>::GetType(a2);
-            (*(*v55 + 24))(v55);
+            v88 = MIL::IRTypedTensorValue<float>::GetType(a2);
+            v89 = (*(*v88 + 24))(v88);
+            v90 = *a1;
             MIL::Blob::StorageWriter::GetFilePath(v20, &__str);
-            MIL::IRTensorValueType::MakeValueFromBlobFile();
+            MIL::IRTensorValueType::MakeValueFromBlobFile(v89, v90, &__str, v36);
           }
 
 LABEL_59:
           switch(v12)
           {
             case 4:
-              v36 = MIL::IRTensorValue::TryAsTensor(a2);
-              MIL::IRTensorValue::GetDataView<MIL::Fp16>(v36);
-              v37 = MIL::Blob::StorageWriter::WriteData<MIL::Fp16>(v20);
+              MIL::IRTensorValue::TryAsTensor(a2);
+              v39 = MIL::IRTensorValue::GetDataView<MIL::Fp16>(v38);
+              v41 = MIL::Blob::StorageWriter::WriteData<MIL::Fp16>(v20, v39, v40);
               break;
             case 5:
-              v51 = MIL::IRTensorValue::TryAsTensor(a2);
-              MIL::IRTensorValue::GetDataView<float>(v51);
-              v37 = MIL::Blob::StorageWriter::WriteData<float>(v20);
+              MIL::IRTensorValue::TryAsTensor(a2);
+              Data = MIL::IRTensorValue::GetDataView<float>(v81);
+              v41 = MIL::Blob::StorageWriter::WriteData<float>(v20, Data, v83);
               break;
             case 9:
-              v48 = MIL::IRTensorValue::TryAsTensor(a2);
-              MIL::IRTensorValue::GetDataView<signed char>(v48);
-              v37 = MIL::Blob::StorageWriter::WriteData<signed char>(v20);
+              MIL::IRTensorValue::TryAsTensor(a2);
+              v73 = MIL::IRTensorValue::GetDataView<signed char>(v72);
+              v41 = MIL::Blob::StorageWriter::WriteData<signed char>(v20, v73, v74);
               break;
             case 10:
-              v50 = MIL::IRTensorValue::TryAsTensor(a2);
-              MIL::IRTensorValue::GetDataView<short>(v50);
-              v37 = MIL::Blob::StorageWriter::WriteData<short>(v20);
+              MIL::IRTensorValue::TryAsTensor(a2);
+              v79 = MIL::IRTensorValue::GetDataView<short>(v78);
+              v41 = MIL::Blob::StorageWriter::WriteData<short>(v20, v79, v80);
               break;
             case 11:
-              v45 = MIL::IRTensorValue::TryAsTensor(a2);
-              MIL::IRTensorValue::GetDataView<int>(v45);
-              v37 = MIL::Blob::StorageWriter::WriteData<int>(v20);
+              MIL::IRTensorValue::TryAsTensor(a2);
+              v64 = MIL::IRTensorValue::GetDataView<int>(v63);
+              v41 = MIL::Blob::StorageWriter::WriteData<int>(v20, v64, v65);
               break;
             case 13:
-              v47 = MIL::IRTensorValue::TryAsTensor(a2);
-              MIL::IRTensorValue::GetDataView<MIL::Int4>(v47);
-              v37 = MIL::Blob::StorageWriter::WriteData<MIL::Int4>(v20);
+              MIL::IRTensorValue::TryAsTensor(a2);
+              v70 = MIL::IRTensorValue::GetDataView<MIL::Int4>(v69);
+              v41 = MIL::Blob::StorageWriter::WriteData<MIL::Int4>(v20, v70, v71);
               break;
             case 14:
-              v52 = MIL::IRTensorValue::TryAsTensor(a2);
-              MIL::IRTensorValue::GetDataView<unsigned char>(v52);
-              v37 = MIL::Blob::StorageWriter::WriteData<unsigned char>(v20);
+              MIL::IRTensorValue::TryAsTensor(a2);
+              v85 = MIL::IRTensorValue::GetDataView<unsigned char>(v84);
+              v41 = MIL::Blob::StorageWriter::WriteData<unsigned char>(v20, v85, v86);
               break;
             case 15:
-              v49 = MIL::IRTensorValue::TryAsTensor(a2);
-              MIL::IRTensorValue::GetDataView<unsigned short>(v49);
-              v37 = MIL::Blob::StorageWriter::WriteData<unsigned short>(v20);
+              MIL::IRTensorValue::TryAsTensor(a2);
+              v76 = MIL::IRTensorValue::GetDataView<unsigned short>(v75);
+              v41 = MIL::Blob::StorageWriter::WriteData<unsigned short>(v20, v76, v77);
               break;
             case 16:
-              v42 = MIL::IRTensorValue::TryAsTensor(a2);
-              MIL::IRTensorValue::GetDataView<unsigned int>(v42);
-              v37 = MIL::Blob::StorageWriter::WriteData<unsigned int>(v20);
+              MIL::IRTensorValue::TryAsTensor(a2);
+              v55 = MIL::IRTensorValue::GetDataView<unsigned int>(v54);
+              v41 = MIL::Blob::StorageWriter::WriteData<unsigned int>(v20, v55, v56);
               break;
             case 19:
-              v39 = MIL::IRTensorValue::TryAsTensor(a2);
-              MIL::IRTensorValue::GetDataView<MIL::UInt2>(v39);
-              v37 = MIL::Blob::StorageWriter::WriteData<MIL::UInt2>(v20);
+              MIL::IRTensorValue::TryAsTensor(a2);
+              v46 = MIL::IRTensorValue::GetDataView<MIL::UInt2>(v45);
+              v41 = MIL::Blob::StorageWriter::WriteData<MIL::UInt2>(v20, v46, v47);
               break;
             case 20:
-              v41 = MIL::IRTensorValue::TryAsTensor(a2);
-              MIL::IRTensorValue::GetDataView<MIL::UInt4>(v41);
-              v37 = MIL::Blob::StorageWriter::WriteData<MIL::UInt4>(v20);
+              MIL::IRTensorValue::TryAsTensor(a2);
+              v52 = MIL::IRTensorValue::GetDataView<MIL::UInt4>(v51);
+              v41 = MIL::Blob::StorageWriter::WriteData<MIL::UInt4>(v20, v52, v53);
               break;
             case 21:
-              v38 = MIL::IRTensorValue::TryAsTensor(a2);
-              MIL::IRTensorValue::GetDataView<MIL::UInt1>(v38);
-              v37 = MIL::Blob::StorageWriter::WriteData<MIL::UInt1>(v20);
+              MIL::IRTensorValue::TryAsTensor(a2);
+              v43 = MIL::IRTensorValue::GetDataView<MIL::UInt1>(v42);
+              v41 = MIL::Blob::StorageWriter::WriteData<MIL::UInt1>(v20, v43, v44);
               break;
             case 22:
-              v40 = MIL::IRTensorValue::TryAsTensor(a2);
-              MIL::IRTensorValue::GetDataView<MIL::UInt3>(v40);
-              v37 = MIL::Blob::StorageWriter::WriteData<MIL::UInt3>(v20);
+              MIL::IRTensorValue::TryAsTensor(a2);
+              v49 = MIL::IRTensorValue::GetDataView<MIL::UInt3>(v48);
+              v41 = MIL::Blob::StorageWriter::WriteData<MIL::UInt3>(v20, v49, v50);
               break;
             case 23:
-              v43 = MIL::IRTensorValue::TryAsTensor(a2);
-              MIL::IRTensorValue::GetDataView<MIL::UInt6>(v43);
-              v37 = MIL::Blob::StorageWriter::WriteData<MIL::UInt6>(v20);
+              MIL::IRTensorValue::TryAsTensor(a2);
+              v58 = MIL::IRTensorValue::GetDataView<MIL::UInt6>(v57);
+              v41 = MIL::Blob::StorageWriter::WriteData<MIL::UInt6>(v20, v58, v59);
               break;
             case 24:
-              v44 = MIL::IRTensorValue::TryAsTensor(a2);
-              MIL::IRTensorValue::GetDataView<MIL::Fp8E4M3FN>(v44);
-              v37 = MIL::Blob::StorageWriter::WriteData<MIL::Fp8E4M3FN>(v20);
+              MIL::IRTensorValue::TryAsTensor(a2);
+              v61 = MIL::IRTensorValue::GetDataView<MIL::Fp8E4M3FN>(v60);
+              v41 = MIL::Blob::StorageWriter::WriteData<MIL::Fp8E4M3FN>(v20, v61, v62);
               break;
             case 25:
-              v46 = MIL::IRTensorValue::TryAsTensor(a2);
-              MIL::IRTensorValue::GetDataView<MIL::Fp8E5M2>(v46);
-              v37 = MIL::Blob::StorageWriter::WriteData<MIL::Fp8E5M2>(v20);
+              MIL::IRTensorValue::TryAsTensor(a2);
+              v67 = MIL::IRTensorValue::GetDataView<MIL::Fp8E5M2>(v66);
+              v41 = MIL::Blob::StorageWriter::WriteData<MIL::Fp8E5M2>(v20, v67, v68);
               break;
             default:
               exception = __cxa_allocate_exception(0x10uLL);
-              MIL::IRDataTypeToString(v12, &v68);
-              v65 = std::string::insert(&v68, 0, "[MIL Serialization] Unsupported Data type ");
-              v66 = *&v65->__r_.__value_.__l.__data_;
-              __str.__r_.__value_.__r.__words[2] = v65->__r_.__value_.__r.__words[2];
-              *&__str.__r_.__value_.__l.__data_ = v66;
-              v65->__r_.__value_.__l.__size_ = 0;
-              v65->__r_.__value_.__r.__words[2] = 0;
-              v65->__r_.__value_.__r.__words[0] = 0;
+              MIL::IRDataTypeToString(v12, &v103);
+              v100 = std::string::insert(&v103, 0, "[MIL Serialization] Unsupported Data type ");
+              v101 = *&v100->__r_.__value_.__l.__data_;
+              __str.__r_.__value_.__r.__words[2] = v100->__r_.__value_.__r.__words[2];
+              *&__str.__r_.__value_.__l.__data_ = v101;
+              v100->__r_.__value_.__l.__size_ = 0;
+              v100->__r_.__value_.__r.__words[2] = 0;
+              v100->__r_.__value_.__r.__words[0] = 0;
               std::logic_error::logic_error(exception, &__str);
               exception->__vftable = (MEMORY[0x277D828F8] + 16);
               __cxa_throw(exception, off_278235F80, MEMORY[0x277D82610]);
           }
 
-          v53 = v37;
+          v36 = v41;
           if (MIL::IRTypedTensorValue<float>::UsesFileStorage(a2))
           {
             __str.__r_.__value_.__r.__words[0] = &__p;
-            v54 = std::__hash_table<std::__hash_value_type<std::string,std::unordered_map<unsigned long long,unsigned long long>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::unordered_map<unsigned long long,unsigned long long>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::unordered_map<unsigned long long,unsigned long long>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::unordered_map<unsigned long long,unsigned long long>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((a1 + 328), &__p.__r_.__value_.__l.__data_);
-            __str.__r_.__value_.__r.__words[0] = &v73;
-            std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long long>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned long long>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(v54 + 5, &v73)[3] = v53;
+            v87 = std::__hash_table<std::__hash_value_type<std::string,std::unordered_map<unsigned long long,unsigned long long>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::unordered_map<unsigned long long,unsigned long long>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::unordered_map<unsigned long long,unsigned long long>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::unordered_map<unsigned long long,unsigned long long>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((a1 + 328), &__p, &std::piecewise_construct, &__str, &v103);
+            __str.__r_.__value_.__r.__words[0] = &v108;
+            std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long long>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned long long>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(v87 + 5, &v108, &std::piecewise_construct, &__str)[3] = v36;
           }
 
           goto LABEL_78;

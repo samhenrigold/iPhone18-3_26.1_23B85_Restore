@@ -39,7 +39,6 @@
 {
   if (*&self->_has)
   {
-    pending = self->_pending;
     PBDataWriterWriteBOOLField();
   }
 }

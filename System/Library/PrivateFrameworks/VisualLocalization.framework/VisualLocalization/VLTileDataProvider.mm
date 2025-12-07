@@ -1169,12 +1169,12 @@ LABEL_23:
 LABEL_24:
 }
 
-void *__54__VLTileDataProvider__fetchTileDataForKey_completion___block_invoke_2(void *result)
+void *__54__VLTileDataProvider__fetchTileDataForKey_completion___block_invoke_2(void *a1)
 {
-  v1 = result[4];
+  v1 = a1[4];
   v2 = (v1 + 48);
   v3 = *(v1 + 56);
-  v4 = result[8];
+  v4 = a1[8];
   if (v3 == v2)
   {
 LABEL_7:
@@ -1193,8 +1193,8 @@ LABEL_7:
     }
   }
 
-  *(*(result[5] + 8) + 24) = v3 != v2;
-  v6 = result[4];
+  *(*(a1[5] + 8) + 24) = v3 != v2;
+  v6 = a1[4];
   v7 = (v6 + 72);
   v8 = *(v6 + 80);
   if (v8 == v7)
@@ -1215,8 +1215,8 @@ LABEL_14:
     }
   }
 
-  *(*(result[6] + 8) + 24) = v8 != v7;
-  v10 = result[4];
+  *(*(a1[6] + 8) + 24) = v8 != v7;
+  v10 = a1[4];
   v11 = (v10 + 96);
   v12 = *(v10 + 104);
   if (v12 == v11)
@@ -1237,13 +1237,21 @@ LABEL_21:
     }
   }
 
-  *(*(result[7] + 8) + 24) = v12 != v11;
-  if ((*(*(result[5] + 8) + 24) & 1) == 0 && (*(*(result[6] + 8) + 24) & 1) == 0 && (*(*(result[7] + 8) + 24) & 1) == 0)
+  *(*(a1[7] + 8) + 24) = v12 != v11;
+  if ((*(*(a1[5] + 8) + 24) & 1) == 0 && (*(*(a1[6] + 8) + 24) & 1) == 0 && (*(*(a1[7] + 8) + 24) & 1) == 0)
   {
     operator new();
   }
 
-  return result;
+  return a1;
+}
+
+void __54__VLTileDataProvider__fetchTileDataForKey_completion___block_invoke_2_19(uint64_t a1)
+{
+  v1 = *(a1 + 32);
+  v2 = *(a1 + 48);
+  std::__tree<std::__value_type<VLLocalizationDataKey,std::list<void({block_pointer} {__strong})(GEOTileData *,NSError *),std::allocator<void({block_pointer} {__strong})(GEOTileData *,NSError *)>>>,std::__map_value_compare<VLLocalizationDataKey,std::__value_type<VLLocalizationDataKey,std::list<void({block_pointer} {__strong})(GEOTileData *,NSError *),std::allocator<void({block_pointer} {__strong})(GEOTileData *,NSError *)>>>,std::less<VLLocalizationDataKey>,true>,std::allocator<std::__value_type<VLLocalizationDataKey,std::list<void({block_pointer} {__strong})(GEOTileData *,NSError *),std::allocator<void({block_pointer} {__strong})(GEOTileData *,NSError *)>>>>>::__emplace_unique_key_args<VLLocalizationDataKey,std::piecewise_construct_t const&,std::tuple<VLLocalizationDataKey const&>,std::tuple<>>((v1 + 120), v2, &v2);
+  operator new();
 }
 
 void __54__VLTileDataProvider__fetchTileDataForKey_completion___block_invoke_20(uint64_t a1, void *a2, void *a3)
@@ -1793,11 +1801,11 @@ LABEL_13:
 
 void __64__VLTileDataProvider__fetchDataTile_originalKey_additionalInfo___block_invoke_2(uint64_t a1)
 {
-  v2 = (a1 + 56);
+  v2 = a1 + 56;
   std::list<VLLocalizationDataKey>::remove((*(a1 + 32) + 48), (a1 + 56));
   v3 = *(a1 + 32);
   v27 = v2;
-  v4 = std::__tree<std::__value_type<VLLocalizationDataKey,std::list<void({block_pointer} {__strong})(GEOTileData *,NSError *),std::allocator<void({block_pointer} {__strong})(GEOTileData *,NSError *)>>>,std::__map_value_compare<VLLocalizationDataKey,std::__value_type<VLLocalizationDataKey,std::list<void({block_pointer} {__strong})(GEOTileData *,NSError *),std::allocator<void({block_pointer} {__strong})(GEOTileData *,NSError *)>>>,std::less<VLLocalizationDataKey>,true>,std::allocator<std::__value_type<VLLocalizationDataKey,std::list<void({block_pointer} {__strong})(GEOTileData *,NSError *),std::allocator<void({block_pointer} {__strong})(GEOTileData *,NSError *)>>>>>::__emplace_unique_key_args<VLLocalizationDataKey,std::piecewise_construct_t const&,std::tuple<VLLocalizationDataKey const&>,std::tuple<>>(v3 + 120, v2);
+  v4 = std::__tree<std::__value_type<VLLocalizationDataKey,std::list<void({block_pointer} {__strong})(GEOTileData *,NSError *),std::allocator<void({block_pointer} {__strong})(GEOTileData *,NSError *)>>>,std::__map_value_compare<VLLocalizationDataKey,std::__value_type<VLLocalizationDataKey,std::list<void({block_pointer} {__strong})(GEOTileData *,NSError *),std::allocator<void({block_pointer} {__strong})(GEOTileData *,NSError *)>>>,std::less<VLLocalizationDataKey>,true>,std::allocator<std::__value_type<VLLocalizationDataKey,std::list<void({block_pointer} {__strong})(GEOTileData *,NSError *),std::allocator<void({block_pointer} {__strong})(GEOTileData *,NSError *)>>>>>::__emplace_unique_key_args<VLLocalizationDataKey,std::piecewise_construct_t const&,std::tuple<VLLocalizationDataKey const&>,std::tuple<>>((v3 + 120), v2, &v27);
   v24 = &v24;
   v25 = &v24;
   v26 = 0;
@@ -1848,7 +1856,7 @@ LABEL_6:
 LABEL_15:
           if (v11 != v6)
           {
-            if ((v15 = bswap64(*v2), v16 = bswap64(v11[4]), v15 == v16) && (v15 = bswap64(v2[1]), v16 = bswap64(v11[5]), v15 == v16) || (v15 < v16 ? (v17 = -1) : (v17 = 1), (v17 & 0x80000000) == 0))
+            if ((v15 = bswap64(*v2), v16 = bswap64(v11[4]), v15 == v16) && (v15 = bswap64(*(v2 + 8)), v16 = bswap64(v11[5]), v15 == v16) || (v15 < v16 ? (v17 = -1) : (v17 = 1), (v17 & 0x80000000) == 0))
             {
               std::__tree<std::__value_type<VLLocalizationDataKey,std::list<void({block_pointer} {__strong})(GEOTileData *,NSError *),std::allocator<void({block_pointer} {__strong})(GEOTileData *,NSError *)>>>,std::__map_value_compare<VLLocalizationDataKey,std::__value_type<VLLocalizationDataKey,std::list<void({block_pointer} {__strong})(GEOTileData *,NSError *),std::allocator<void({block_pointer} {__strong})(GEOTileData *,NSError *)>>>,std::less<VLLocalizationDataKey>,true>,std::allocator<std::__value_type<VLLocalizationDataKey,std::list<void({block_pointer} {__strong})(GEOTileData *,NSError *),std::allocator<void({block_pointer} {__strong})(GEOTileData *,NSError *)>>>>>::erase(v9, v11);
             }
@@ -1859,7 +1867,7 @@ LABEL_15:
       }
 
       v14 = bswap64(v7[5]);
-      v12 = bswap64(v2[1]);
+      v12 = bswap64(*(v2 + 8));
       if (v14 != v12)
       {
         goto LABEL_6;

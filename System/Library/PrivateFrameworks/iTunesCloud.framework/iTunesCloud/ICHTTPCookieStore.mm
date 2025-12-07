@@ -407,7 +407,7 @@ void __49__ICHTTPCookieStore_removeCookiesWithProperties___block_invoke(void *a1
   return queue;
 }
 
-uint64_t __53__ICHTTPCookieStore_saveGlobalAccountCookies_forURL___block_invoke(uint64_t a1)
+void *__53__ICHTTPCookieStore_saveGlobalAccountCookies_forURL___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _saveCookies:*(a1 + 40) userIdentifier:&unk_1F2C92380];
   *(*(*(a1 + 48) + 8) + 24) = result;
@@ -440,7 +440,7 @@ uint64_t __53__ICHTTPCookieStore_saveGlobalAccountCookies_forURL___block_invoke(
   return queue;
 }
 
-uint64_t __55__ICHTTPCookieStore_saveCookies_forURL_userIdentifier___block_invoke(uint64_t a1)
+void *__55__ICHTTPCookieStore_saveCookies_forURL_userIdentifier___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _saveCookies:*(a1 + 40) userIdentifier:*(a1 + 48)];
   *(*(*(a1 + 56) + 8) + 24) = result;

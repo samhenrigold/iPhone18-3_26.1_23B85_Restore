@@ -226,15 +226,15 @@
   x = logicalBounds.origin.x;
   boundsCopy = bounds;
   orientedBoundsCopy = orientedBounds;
-  height = [CMShapeUtils transformFromBounds:orientedBoundsCopy toOrientedBounds:x, y, width, height];
+  v12 = objc_msgSend_transformFromBounds_toOrientedBounds_(CMShapeUtils, x, y, width, height);
   [boundsCopy bounds];
   MidX = CGRectGetMidX(v44);
   [boundsCopy bounds];
-  [height transformPoint:{MidX, CGRectGetMidY(v45)}];
+  [v12 transformPoint:{MidX, CGRectGetMidY(v45)}];
   v15 = v14;
   v17 = v16;
   [boundsCopy bounds];
-  [height transformSize:{v18, v19}];
+  [v12 transformSize:{v18, v19}];
   v21 = TSURectWithCenterAndSize(v15, v17, v20);
   v23 = v22;
   v25 = v24;
@@ -861,7 +861,7 @@ LABEL_16:
   v8 = geometryCopy;
   if (geometryCopy)
   {
-    [geometryCopy geometryCoordSpace];
+    objc_msgSend_geometryCoordSpace(geometryCopy);
     v9 = COERCE_DOUBLE(vcvt_f32_s32(vsub_s32(v14, v13)));
   }
 

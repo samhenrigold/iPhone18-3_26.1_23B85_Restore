@@ -9,6 +9,7 @@
 - (void)setShortNameEnabled:(id)enabled;
 - (void)setShortNameFormat:(id)format;
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation NCABSettingsPairedShortNameController
@@ -50,14 +51,39 @@
   return v2;
 }
 
+- (void)viewWillAppear:(BOOL)appear
+{
+  v17.receiver = self;
+  v17.super_class = NCABSettingsPairedShortNameController;
+  [(NCABSettingsPairedShortNameController *)&v17 viewWillAppear:appear];
+  v3 = [NSBundle bundleForClass:objc_opt_class()];
+  v4 = [_NSLocalizedStringResource alloc];
+  v5 = +[NSLocale currentLocale];
+  bundleURL = [v3 bundleURL];
+  v7 = [v4 initWithKey:@"Short Name" table:@"NanoContactsBridgeSettingsPaired" locale:v5 bundleURL:bundleURL];
+
+  v8 = [_NSLocalizedStringResource alloc];
+  v9 = +[NSLocale currentLocale];
+  bundleURL2 = [v3 bundleURL];
+  v11 = [v8 initWithKey:@"CONTACTS" table:@"NanoContactsBridgeSettingsPaired" locale:v9 bundleURL:bundleURL2];
+
+  bundleIdentifier = [v3 bundleIdentifier];
+  v18 = v11;
+  v13 = [NSArray arrayWithObjects:&v18 count:1];
+  bundleIdentifier2 = [v3 bundleIdentifier];
+  v15 = [NSString stringWithFormat:@"bridge:root=%@&path=PersonShortName", bundleIdentifier2];
+  v16 = [NSURL URLWithString:v15];
+  [BPSWatchSettingsNavigationDonation emitNavigationEventForApplicationSettingWithIconSpecifierIdentifier:bundleIdentifier title:v7 localizedNavigationComponents:v13 deepLink:v16];
+}
+
 - (id)specifiers
 {
   v3 = *&self->PSListController_opaque[OBJC_IVAR___PSListController__specifiers];
   if (!v3)
   {
-    v48 = OBJC_IVAR___PSListController__specifiers;
+    v50 = OBJC_IVAR___PSListController__specifiers;
     v4 = objc_alloc_init(NSMutableArray);
-    v5 = NanoContactsSettingsPairedBundle();
+    v5 = NanoContactsSettingsPairedBundle(v4);
     v6 = [v5 localizedStringForKey:@"Short Name" value:? table:?];
     v7 = [PSSpecifier preferenceSpecifierNamed:v6 target:self set:"setShortNameEnabled:" get:"shortNameEnabled" detail:0 cell:6 edit:0];
     shortNameEnabledSpecifier = self->_shortNameEnabledSpecifier;
@@ -65,10 +91,10 @@
 
     v9 = self->_shortNameEnabledSpecifier;
     v10 = [NSNumber numberWithBool:1];
-    v46 = PSDefaultValueKey;
+    v48 = PSDefaultValueKey;
     [(PSSpecifier *)v9 setProperty:v10 forKey:?];
 
-    v47 = v4;
+    v49 = v4;
     [v4 addObject:self->_shortNameEnabledSpecifier];
     shortNameFormat = [(NCABSettingsPairedShortNameController *)self shortNameFormat];
     integerValue = [shortNameFormat integerValue];
@@ -86,83 +112,78 @@
     [(PSSpecifier *)v17 setProperty:v18 forKey:PSIsRadioGroupKey];
 
     v19 = self->_shortNameFormatsGroup;
-    v20 = NanoContactsSettingsPairedBundle();
-    v21 = [v20 localizedStringForKey:@"SHORT_NAME_FORMAT_EXPLANATORY" value:&stru_8450 table:@"NanoContactsBridgeSettingsPaired"];
-    v45 = PSFooterTextGroupKey;
-    [(PSSpecifier *)v19 setProperty:v21 forKey:?];
+    v21 = NanoContactsSettingsPairedBundle(v20);
+    v22 = [v21 localizedStringForKey:@"SHORT_NAME_FORMAT_EXPLANATORY" value:&stru_8450 table:@"NanoContactsBridgeSettingsPaired"];
+    v47 = PSFooterTextGroupKey;
+    [(PSSpecifier *)v19 setProperty:v22 forKey:?];
 
-    [(NSMutableArray *)self->_shortNameFormatsSpecifiers addObject:self->_shortNameFormatsGroup];
-    v22 = NanoContactsSettingsPairedBundle();
-    v23 = [v22 localizedStringForKey:@"SHORT_NAME_FORMAT_INITIAL_LAST" value:&stru_8450 table:@"NanoContactsBridgeSettingsPaired"];
-    v24 = [PSSpecifier preferenceSpecifierNamed:v23 target:self set:0 get:0 detail:0 cell:3 edit:0];
+    v23 = NanoContactsSettingsPairedBundle([(NSMutableArray *)self->_shortNameFormatsSpecifiers addObject:self->_shortNameFormatsGroup]);
+    v24 = [v23 localizedStringForKey:@"SHORT_NAME_FORMAT_INITIAL_LAST" value:&stru_8450 table:@"NanoContactsBridgeSettingsPaired"];
+    v25 = [PSSpecifier preferenceSpecifierNamed:v24 target:self set:0 get:0 detail:0 cell:3 edit:0];
 
-    [v24 setUserInfo:&off_8678];
+    [v25 setUserInfo:&off_8678];
     if (integerValue == (&dword_0 + 1))
     {
-      [(PSSpecifier *)self->_shortNameFormatsGroup setProperty:v24 forKey:PSRadioGroupCheckedSpecifierKey];
+      [(PSSpecifier *)self->_shortNameFormatsGroup setProperty:v25 forKey:PSRadioGroupCheckedSpecifierKey];
     }
 
-    [(NSMutableArray *)self->_shortNameFormatsSpecifiers addObject:v24];
-    v25 = NanoContactsSettingsPairedBundle();
-    v26 = [v25 localizedStringForKey:@"SHORT_NAME_FORMAT_INITIAL_FIRST" value:&stru_8450 table:@"NanoContactsBridgeSettingsPaired"];
-    v27 = [PSSpecifier preferenceSpecifierNamed:v26 target:self set:0 get:0 detail:0 cell:3 edit:0];
+    v26 = NanoContactsSettingsPairedBundle([(NSMutableArray *)self->_shortNameFormatsSpecifiers addObject:v25]);
+    v27 = [v26 localizedStringForKey:@"SHORT_NAME_FORMAT_INITIAL_FIRST" value:&stru_8450 table:@"NanoContactsBridgeSettingsPaired"];
+    v28 = [PSSpecifier preferenceSpecifierNamed:v27 target:self set:0 get:0 detail:0 cell:3 edit:0];
 
-    [v27 setUserInfo:&off_8690];
+    [v28 setUserInfo:&off_8690];
     if (integerValue == (&dword_0 + 2))
     {
-      [(PSSpecifier *)self->_shortNameFormatsGroup setProperty:v27 forKey:PSRadioGroupCheckedSpecifierKey];
+      [(PSSpecifier *)self->_shortNameFormatsGroup setProperty:v28 forKey:PSRadioGroupCheckedSpecifierKey];
     }
 
-    [(NSMutableArray *)self->_shortNameFormatsSpecifiers addObject:v27];
-    v28 = NanoContactsSettingsPairedBundle();
-    v29 = [v28 localizedStringForKey:@"SHORT_NAME_FORMAT_FIRST_ONLY" value:&stru_8450 table:@"NanoContactsBridgeSettingsPaired"];
-    v30 = [PSSpecifier preferenceSpecifierNamed:v29 target:self set:0 get:0 detail:0 cell:3 edit:0];
+    v29 = NanoContactsSettingsPairedBundle([(NSMutableArray *)self->_shortNameFormatsSpecifiers addObject:v28]);
+    v30 = [v29 localizedStringForKey:@"SHORT_NAME_FORMAT_FIRST_ONLY" value:&stru_8450 table:@"NanoContactsBridgeSettingsPaired"];
+    v31 = [PSSpecifier preferenceSpecifierNamed:v30 target:self set:0 get:0 detail:0 cell:3 edit:0];
 
-    [v30 setUserInfo:&off_86A8];
+    [v31 setUserInfo:&off_86A8];
     if (integerValue == (&dword_0 + 3))
     {
-      [(PSSpecifier *)self->_shortNameFormatsGroup setProperty:v30 forKey:PSRadioGroupCheckedSpecifierKey];
+      [(PSSpecifier *)self->_shortNameFormatsGroup setProperty:v31 forKey:PSRadioGroupCheckedSpecifierKey];
     }
 
-    [(NSMutableArray *)self->_shortNameFormatsSpecifiers addObject:v30];
-    v31 = NanoContactsSettingsPairedBundle();
-    v32 = [v31 localizedStringForKey:@"SHORT_NAME_FORMAT_LAST_ONLY" value:&stru_8450 table:@"NanoContactsBridgeSettingsPaired"];
-    v33 = [PSSpecifier preferenceSpecifierNamed:v32 target:self set:0 get:0 detail:0 cell:3 edit:0];
+    v32 = NanoContactsSettingsPairedBundle([(NSMutableArray *)self->_shortNameFormatsSpecifiers addObject:v31]);
+    v33 = [v32 localizedStringForKey:@"SHORT_NAME_FORMAT_LAST_ONLY" value:&stru_8450 table:@"NanoContactsBridgeSettingsPaired"];
+    v34 = [PSSpecifier preferenceSpecifierNamed:v33 target:self set:0 get:0 detail:0 cell:3 edit:0];
 
-    [v33 setUserInfo:&off_86C0];
+    [v34 setUserInfo:&off_86C0];
     if (integerValue == &dword_4)
     {
-      [(PSSpecifier *)self->_shortNameFormatsGroup setProperty:v33 forKey:PSRadioGroupCheckedSpecifierKey];
+      [(PSSpecifier *)self->_shortNameFormatsGroup setProperty:v34 forKey:PSRadioGroupCheckedSpecifierKey];
     }
 
-    [(NSMutableArray *)self->_shortNameFormatsSpecifiers addObject:v33];
+    [(NSMutableArray *)self->_shortNameFormatsSpecifiers addObject:v34];
     shortNameEnabled = [(NCABSettingsPairedShortNameController *)self shortNameEnabled];
     bOOLValue = [shortNameEnabled BOOLValue];
 
     if (bOOLValue)
     {
-      [v47 addObjectsFromArray:self->_shortNameFormatsSpecifiers];
+      [v49 addObjectsFromArray:self->_shortNameFormatsSpecifiers];
     }
 
-    v36 = +[PSSpecifier emptyGroupSpecifier];
+    v37 = +[PSSpecifier emptyGroupSpecifier];
 
-    v37 = NanoContactsSettingsPairedBundle();
-    v38 = [v37 localizedStringForKey:@"PREFER_NICKNAMES_EXPLANTORY" value:&stru_8450 table:@"NanoContactsBridgeSettingsPaired"];
-    [v36 setProperty:v38 forKey:v45];
+    v39 = NanoContactsSettingsPairedBundle(v38);
+    v40 = [v39 localizedStringForKey:@"PREFER_NICKNAMES_EXPLANTORY" value:&stru_8450 table:@"NanoContactsBridgeSettingsPaired"];
+    [v37 setProperty:v40 forKey:v47];
 
-    [v47 addObject:v36];
-    v39 = NanoContactsSettingsPairedBundle();
-    v40 = [v39 localizedStringForKey:@"Prefer Nicknames" value:&stru_8450 table:@"NanoContactsBridgeSettingsPaired"];
-    v41 = [PSSpecifier preferenceSpecifierNamed:v40 target:self set:"setPreferNicknames:" get:"preferNicknames" detail:0 cell:6 edit:0];
+    v41 = NanoContactsSettingsPairedBundle([v49 addObject:v37]);
+    v42 = [v41 localizedStringForKey:@"Prefer Nicknames" value:&stru_8450 table:@"NanoContactsBridgeSettingsPaired"];
+    v43 = [PSSpecifier preferenceSpecifierNamed:v42 target:self set:"setPreferNicknames:" get:"preferNicknames" detail:0 cell:6 edit:0];
 
-    v42 = [NSNumber numberWithBool:1];
-    [v41 setProperty:v42 forKey:v46];
+    v44 = [NSNumber numberWithBool:1];
+    [v43 setProperty:v44 forKey:v48];
 
-    [v47 addObject:v41];
-    v43 = *&self->PSListController_opaque[v48];
-    *&self->PSListController_opaque[v48] = v47;
+    [v49 addObject:v43];
+    v45 = *&self->PSListController_opaque[v50];
+    *&self->PSListController_opaque[v50] = v49;
 
-    v3 = *&self->PSListController_opaque[v48];
+    v3 = *&self->PSListController_opaque[v50];
   }
 
   return v3;

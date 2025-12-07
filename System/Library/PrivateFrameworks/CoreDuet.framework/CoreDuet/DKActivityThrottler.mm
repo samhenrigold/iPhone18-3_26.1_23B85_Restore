@@ -66,19 +66,17 @@ uint64_t __78___DKActivityThrottler__performWithDelayInSecondsOf_name_queue_acti
 
 void __94___DKActivityThrottler__performOrScheduleWithTimeInterval_name_queue_activityBlock_callDepth___block_invoke_cold_1(uint64_t *a1, uint64_t a2)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v3 = *a1;
   v4 = [MEMORY[0x1E696AD98] numberWithDouble:?];
   v5 = [MEMORY[0x1E696AD98] numberWithDouble:*(a2 + 64)];
-  v7 = 138412802;
-  v8 = v3;
-  v9 = 2112;
-  v10 = v4;
-  v11 = 2112;
-  v12 = v5;
-  _os_log_debug_impl(&dword_191750000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG, "Delaying activity '%@' by %@ seconds due to minimum interval of %@ seconds", &v7, 0x20u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  v6 = 138412802;
+  v7 = v3;
+  v8 = 2112;
+  v9 = v4;
+  v10 = 2112;
+  v11 = v5;
+  _os_log_debug_impl(&dword_191750000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG, "Delaying activity '%@' by %@ seconds due to minimum interval of %@ seconds", &v6, 0x20u);
 }
 
 @end

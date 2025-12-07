@@ -16,38 +16,36 @@
 
 - (id)attributeDescriptions
 {
-  v27[7] = *MEMORY[0x1E69E9840];
+  v26[7] = *MEMORY[0x1E69E9840];
   v3 = objc_alloc(MEMORY[0x1E69A29C8]);
-  v26 = [MEMORY[0x1E696AD98] numberWithInteger:{-[HMSoftwareUpdateDescriptor status](self, "status")}];
-  v25 = [v3 initWithName:@"status" value:v26];
-  v27[0] = v25;
+  v25 = [MEMORY[0x1E696AD98] numberWithInteger:{-[HMSoftwareUpdateDescriptor status](self, "status")}];
+  v24 = [v3 initWithName:@"status" value:v25];
+  v26[0] = v24;
   v4 = objc_alloc(MEMORY[0x1E69A29C8]);
   error = [(HMSoftwareUpdateDescriptor *)self error];
-  v23 = [v4 initWithName:@"error" value:error];
-  v27[1] = v23;
+  v22 = [v4 initWithName:@"error" value:error];
+  v26[1] = v22;
   v5 = objc_alloc(MEMORY[0x1E69A29C8]);
   documentationMetadata = [(HMSoftwareUpdateDescriptor *)self documentationMetadata];
   v6 = [v5 initWithName:@"documentationMetadata" value:documentationMetadata];
-  v27[2] = v6;
+  v26[2] = v6;
   v7 = objc_alloc(MEMORY[0x1E69A29C8]);
   version = [(HMSoftwareUpdateDescriptor *)self version];
   v9 = [v7 initWithName:@"version" value:version];
-  v27[3] = v9;
+  v26[3] = v9;
   v10 = objc_alloc(MEMORY[0x1E69A29C8]);
   downloadSize = [(HMSoftwareUpdateDescriptor *)self downloadSize];
   v12 = [v10 initWithName:@"downloadSize" value:downloadSize];
-  v27[4] = v12;
+  v26[4] = v12;
   v13 = objc_alloc(MEMORY[0x1E69A29C8]);
   humanReadableUpdateName = [(HMSoftwareUpdateDescriptor *)self humanReadableUpdateName];
   v15 = [v13 initWithName:@"humanReadableUpdateName" value:humanReadableUpdateName];
-  v27[5] = v15;
+  v26[5] = v15;
   v16 = objc_alloc(MEMORY[0x1E69A29C8]);
   rampFeatureEnabledOnServer = [(HMSoftwareUpdateDescriptor *)self rampFeatureEnabledOnServer];
   v18 = [v16 initWithName:@"rampFeatureEnabledOnServer" value:rampFeatureEnabledOnServer];
-  v27[6] = v18;
-  v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:v27 count:7];
-
-  v20 = *MEMORY[0x1E69E9840];
+  v26[6] = v18;
+  v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:v26 count:7];
 
   return v19;
 }
@@ -94,58 +92,7 @@
   }
 
   v6 = v5;
-  if (!v6)
-  {
-    goto LABEL_12;
-  }
-
-  version = [(HMSoftwareUpdateDescriptor *)self version];
-  version2 = [v6 version];
-  v9 = HMFEqualObjects();
-
-  if (!v9)
-  {
-    goto LABEL_12;
-  }
-
-  status = [(HMSoftwareUpdateDescriptor *)self status];
-  if (status != [v6 status])
-  {
-    goto LABEL_12;
-  }
-
-  documentationMetadata = [(HMSoftwareUpdateDescriptor *)self documentationMetadata];
-  documentationMetadata2 = [v6 documentationMetadata];
-  v13 = HMFEqualObjects();
-
-  if (!v13)
-  {
-    goto LABEL_12;
-  }
-
-  downloadSize = [(HMSoftwareUpdateDescriptor *)self downloadSize];
-  downloadSize2 = [v6 downloadSize];
-  v16 = HMFEqualObjects();
-
-  if (!v16)
-  {
-    goto LABEL_12;
-  }
-
-  humanReadableUpdateName = [(HMSoftwareUpdateDescriptor *)self humanReadableUpdateName];
-  humanReadableUpdateName2 = [v6 humanReadableUpdateName];
-  v19 = HMFEqualObjects();
-
-  if (!v19)
-  {
-    goto LABEL_12;
-  }
-
-  rampFeatureEnabledOnServer = [(HMSoftwareUpdateDescriptor *)self rampFeatureEnabledOnServer];
-  rampFeatureEnabledOnServer2 = [v6 rampFeatureEnabledOnServer];
-  v22 = HMFEqualObjects();
-
-  if (v22)
+  if (v6 && (-[HMSoftwareUpdateDescriptor version](self, "version"), v7 = objc_claimAutoreleasedReturnValue(), [v6 version], v8 = objc_claimAutoreleasedReturnValue(), v9 = HMFEqualObjects(), v8, v7, v9) && (v10 = -[HMSoftwareUpdateDescriptor status](self, "status"), v10 == objc_msgSend(v6, "status")) && (-[HMSoftwareUpdateDescriptor documentationMetadata](self, "documentationMetadata"), v11 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v6, "documentationMetadata"), v12 = objc_claimAutoreleasedReturnValue(), v13 = HMFEqualObjects(), v12, v11, v13) && (-[HMSoftwareUpdateDescriptor downloadSize](self, "downloadSize"), v14 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v6, "downloadSize"), v15 = objc_claimAutoreleasedReturnValue(), v16 = HMFEqualObjects(), v15, v14, v16) && (-[HMSoftwareUpdateDescriptor humanReadableUpdateName](self, "humanReadableUpdateName"), v17 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v6, "humanReadableUpdateName"), v18 = objc_claimAutoreleasedReturnValue(), v19 = HMFEqualObjects(), v18, v17, v19) && (-[HMSoftwareUpdateDescriptor rampFeatureEnabledOnServer](self, "rampFeatureEnabledOnServer"), v20 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v6, "rampFeatureEnabledOnServer"), v21 = objc_claimAutoreleasedReturnValue(), v22 = HMFEqualObjects(), v21, v20, v22))
   {
     error = [(HMSoftwareUpdateDescriptor *)self error];
     error2 = [v6 error];
@@ -154,7 +101,6 @@
 
   else
   {
-LABEL_12:
     v25 = 0;
   }
 
@@ -163,7 +109,7 @@ LABEL_12:
 
 - (HMSoftwareUpdateDescriptor)initWithStatus:(int64_t)status downloadSize:(id)size humanReadableUpdateName:(id)name rampEnabled:(id)enabled errorCode:(id)code serverAssetURL:(id)l serverAssetAlgorithm:(id)algorithm serverAssetMeasurement:(id)self0 majorVersion:(id)self1 minorVersion:(id)self2 updateVersion:(id)self3 buildVersion:(id)self4 softwareVersionRequiresMetadata:(BOOL)self5
 {
-  v60 = *MEMORY[0x1E69E9840];
+  v59 = *MEMORY[0x1E69E9840];
   sizeCopy = size;
   nameCopy = name;
   enabledCopy = enabled;
@@ -176,9 +122,9 @@ LABEL_12:
   updateVersionCopy = updateVersion;
   buildVersionCopy = buildVersion;
   v27 = buildVersionCopy;
-  v53 = lCopy;
-  v54 = codeCopy;
-  v48 = measurementCopy;
+  v52 = lCopy;
+  v53 = codeCopy;
+  v47 = measurementCopy;
   if (buildVersionCopy && updateVersionCopy && minorVersionCopy && versionCopy && lCopy && algorithmCopy && measurementCopy)
   {
     v28 = HMFDigestAlgorithmFromString();
@@ -198,9 +144,9 @@ LABEL_12:
       {
         v41 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v57 = v41;
-        v58 = 2112;
-        v59 = algorithmCopy;
+        v56 = v41;
+        v57 = 2112;
+        v58 = algorithmCopy;
         _os_log_impl(&dword_19BB39000, v40, OS_LOG_TYPE_ERROR, "%{public}@Invalid algorithm string: %@", buf, 0x16u);
       }
 
@@ -210,7 +156,7 @@ LABEL_12:
     }
 
     v32 = sizeCopy;
-    codeCopy = v54;
+    codeCopy = v53;
   }
 
   else
@@ -229,7 +175,7 @@ LABEL_12:
           unsignedIntValue2 = [minorVersionCopy unsignedIntValue];
           unsignedIntValue3 = [updateVersionCopy unsignedIntValue];
           v37 = unsignedIntValue;
-          codeCopy = v54;
+          codeCopy = v53;
           v31 = [v33 initWithMajorVersion:v37 minorVersion:unsignedIntValue2 updateVersion:unsignedIntValue3 buildVersion:v27];
           v30 = 0;
         }
@@ -260,13 +206,12 @@ LABEL_12:
 
   v45 = [(HMSoftwareUpdateDescriptor *)self initWithStatus:status error:v44 documentationMetadata:v30 version:v31 downloadSize:v32 humanReadableUpdateName:nameCopy rampFeatureEnabledOnServer:enabledCopy];
 
-  v46 = *MEMORY[0x1E69E9840];
   return v45;
 }
 
 - (HMSoftwareUpdateDescriptor)initWithProtoPayload:(id)payload
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   payloadCopy = payload;
   if ([payloadCopy hasStatus])
   {
@@ -274,12 +219,12 @@ LABEL_12:
     hasDownloadSize = [payloadCopy hasDownloadSize];
     if (hasDownloadSize)
     {
-      v37 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(payloadCopy, "downloadSize")}];
+      v36 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(payloadCopy, "downloadSize")}];
     }
 
     else
     {
-      v37 = 0;
+      v36 = 0;
     }
 
     hasHumanReadableUpdateName = [payloadCopy hasHumanReadableUpdateName];
@@ -296,23 +241,23 @@ LABEL_12:
     hasRampEnabled = [payloadCopy hasRampEnabled];
     if (hasRampEnabled)
     {
-      v35 = [MEMORY[0x1E696AD98] numberWithBool:{objc_msgSend(payloadCopy, "rampEnabled")}];
-    }
-
-    else
-    {
-      v35 = 0;
-    }
-
-    hasErrorCode = [payloadCopy hasErrorCode];
-    if (hasErrorCode)
-    {
-      v34 = [MEMORY[0x1E696AD98] numberWithLongLong:{objc_msgSend(payloadCopy, "errorCode")}];
+      v34 = [MEMORY[0x1E696AD98] numberWithBool:{objc_msgSend(payloadCopy, "rampEnabled")}];
     }
 
     else
     {
       v34 = 0;
+    }
+
+    hasErrorCode = [payloadCopy hasErrorCode];
+    if (hasErrorCode)
+    {
+      v33 = [MEMORY[0x1E696AD98] numberWithLongLong:{objc_msgSend(payloadCopy, "errorCode")}];
+    }
+
+    else
+    {
+      v33 = 0;
     }
 
     hasServerAssetURL = [payloadCopy hasServerAssetURL];
@@ -387,8 +332,8 @@ LABEL_12:
     {
       [payloadCopy buildVersion];
       v19 = v18 = v11;
-      LOBYTE(v22) = 0;
-      selfCopy = [(HMSoftwareUpdateDescriptor *)self initWithStatus:status downloadSize:v37 humanReadableUpdateName:humanReadableUpdateName rampEnabled:v35 errorCode:v34 serverAssetURL:v18 serverAssetAlgorithm:serverAssetAlgorithm serverAssetMeasurement:serverAssetMeasurement majorVersion:v13 minorVersion:v15 updateVersion:v17 buildVersion:v19 softwareVersionRequiresMetadata:v22];
+      LOBYTE(v21) = 0;
+      selfCopy = [(HMSoftwareUpdateDescriptor *)self initWithStatus:status downloadSize:v36 humanReadableUpdateName:humanReadableUpdateName rampEnabled:v34 errorCode:v33 serverAssetURL:v18 serverAssetAlgorithm:serverAssetAlgorithm serverAssetMeasurement:serverAssetMeasurement majorVersion:v13 minorVersion:v15 updateVersion:v17 buildVersion:v19 softwareVersionRequiresMetadata:v21];
 
       v11 = v18;
       if (!hasUpdateVersion)
@@ -444,8 +389,8 @@ LABEL_43:
 
     else
     {
-      LOBYTE(v22) = 0;
-      selfCopy = [(HMSoftwareUpdateDescriptor *)self initWithStatus:status downloadSize:v37 humanReadableUpdateName:humanReadableUpdateName rampEnabled:v35 errorCode:v34 serverAssetURL:v11 serverAssetAlgorithm:serverAssetAlgorithm serverAssetMeasurement:serverAssetMeasurement majorVersion:v13 minorVersion:v15 updateVersion:v17 buildVersion:0 softwareVersionRequiresMetadata:v22];
+      LOBYTE(v21) = 0;
+      selfCopy = [(HMSoftwareUpdateDescriptor *)self initWithStatus:status downloadSize:v36 humanReadableUpdateName:humanReadableUpdateName rampEnabled:v34 errorCode:v33 serverAssetURL:v11 serverAssetAlgorithm:serverAssetAlgorithm serverAssetMeasurement:serverAssetMeasurement majorVersion:v13 minorVersion:v15 updateVersion:v17 buildVersion:0 softwareVersionRequiresMetadata:v21];
       if (!hasUpdateVersion)
       {
         goto LABEL_40;
@@ -462,9 +407,9 @@ LABEL_43:
   {
     v8 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v39 = v8;
-    v40 = 2112;
-    v41 = payloadCopy;
+    v38 = v8;
+    v39 = 2112;
+    v40 = payloadCopy;
     _os_log_impl(&dword_19BB39000, v7, OS_LOG_TYPE_ERROR, "%{public}@Proto payload HMSoftwareUpdateEventProtoSoftwareUpdateDescriptor is missing data: %@", buf, 0x16u);
   }
 
@@ -472,7 +417,6 @@ LABEL_43:
   v9 = 0;
 LABEL_58:
 
-  v20 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
@@ -592,7 +536,7 @@ LABEL_58:
 
 + (id)descriptorFromEvent:(id)event
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   eventCopy = event;
   v5 = [HMSoftwareUpdateEventProtoSoftwareUpdateDescriptor alloc];
   encodedData = [eventCopy encodedData];
@@ -611,18 +555,16 @@ LABEL_58:
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       v12 = HMFGetLogIdentifier();
-      v15 = 138543618;
-      v16 = v12;
-      v17 = 2112;
-      v18 = eventCopy;
-      _os_log_impl(&dword_19BB39000, v11, OS_LOG_TYPE_ERROR, "%{public}@Failed to create HMSoftwareUpdateEventProtoSoftwareUpdateDescriptor from event: %@", &v15, 0x16u);
+      v14 = 138543618;
+      v15 = v12;
+      v16 = 2112;
+      v17 = eventCopy;
+      _os_log_impl(&dword_19BB39000, v11, OS_LOG_TYPE_ERROR, "%{public}@Failed to create HMSoftwareUpdateEventProtoSoftwareUpdateDescriptor from event: %@", &v14, 0x16u);
     }
 
     objc_autoreleasePoolPop(v9);
     v8 = 0;
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return v8;
 }

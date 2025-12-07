@@ -17,7 +17,7 @@
 
 uint64_t __67__CSVoiceTriggerEnabledPolicyMac__addVoiceTriggerEnabledConditions__block_invoke_11()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v0 = [MEMORY[0x277D018E8] sharedInstance];
   v1 = [v0 isUserActive];
 
@@ -26,24 +26,23 @@ uint64_t __67__CSVoiceTriggerEnabledPolicyMac__addVoiceTriggerEnabledConditions_
     v2 = *MEMORY[0x277D015D8];
     if (os_log_type_enabled(*MEMORY[0x277D015D8], OS_LOG_TYPE_DEFAULT))
     {
-      v5 = 136315138;
-      v6 = "[CSVoiceTriggerEnabledPolicyMac _addVoiceTriggerEnabledConditions]_block_invoke";
-      _os_log_impl(&dword_222E4D000, v2, OS_LOG_TYPE_DEFAULT, "%s VoiceTrigger cannot be turned on since current user doesn't activated", &v5, 0xCu);
+      v4 = 136315138;
+      v5 = "[CSVoiceTriggerEnabledPolicyMac _addVoiceTriggerEnabledConditions]_block_invoke";
+      _os_log_impl(&dword_222E4D000, v2, OS_LOG_TYPE_DEFAULT, "%s VoiceTrigger cannot be turned on since current user doesn't activated", &v4, 0xCu);
     }
   }
 
-  v3 = *MEMORY[0x277D85DE8];
   return v1;
 }
 
 uint64_t __67__CSVoiceTriggerEnabledPolicyMac__addVoiceTriggerEnabledConditions__block_invoke_8()
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v0 = +[CSSRFUserSettingMonitor sharedInstance];
   if (([v0 isSiriRestrictedOnLockScreen] & 1) == 0)
   {
 
-    goto LABEL_6;
+    return 1;
   }
 
   v1 = [MEMORY[0x277D01870] sharedInstance];
@@ -51,9 +50,7 @@ uint64_t __67__CSVoiceTriggerEnabledPolicyMac__addVoiceTriggerEnabledConditions_
 
   if (!v2)
   {
-LABEL_6:
-    result = 1;
-    goto LABEL_7;
+    return 1;
   }
 
   v3 = *MEMORY[0x277D015D8];
@@ -61,20 +58,18 @@ LABEL_6:
   result = 0;
   if (v4)
   {
-    v7 = 136315138;
-    v8 = "[CSVoiceTriggerEnabledPolicyMac _addVoiceTriggerEnabledConditions]_block_invoke";
-    _os_log_impl(&dword_222E4D000, v3, OS_LOG_TYPE_DEFAULT, "%s VoiceTrigger cannot be turned on since Siri restricted on lock screen AND screen is locked", &v7, 0xCu);
-    result = 0;
+    v6 = 136315138;
+    v7 = "[CSVoiceTriggerEnabledPolicyMac _addVoiceTriggerEnabledConditions]_block_invoke";
+    _os_log_impl(&dword_222E4D000, v3, OS_LOG_TYPE_DEFAULT, "%s VoiceTrigger cannot be turned on since Siri restricted on lock screen AND screen is locked", &v6, 0xCu);
+    return 0;
   }
 
-LABEL_7:
-  v6 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t __67__CSVoiceTriggerEnabledPolicyMac__addVoiceTriggerEnabledConditions__block_invoke_5()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v0 = [MEMORY[0x277D01938] sharedInstance];
   v1 = [v0 isEnabled];
 
@@ -83,19 +78,18 @@ uint64_t __67__CSVoiceTriggerEnabledPolicyMac__addVoiceTriggerEnabledConditions_
     v2 = *MEMORY[0x277D015D8];
     if (os_log_type_enabled(*MEMORY[0x277D015D8], OS_LOG_TYPE_DEFAULT))
     {
-      v5 = 136315138;
-      v6 = "[CSVoiceTriggerEnabledPolicyMac _addVoiceTriggerEnabledConditions]_block_invoke";
-      _os_log_impl(&dword_222E4D000, v2, OS_LOG_TYPE_DEFAULT, "%s VoiceTrigger cannot be turned on since VoiceTrigger is disabled", &v5, 0xCu);
+      v4 = 136315138;
+      v5 = "[CSVoiceTriggerEnabledPolicyMac _addVoiceTriggerEnabledConditions]_block_invoke";
+      _os_log_impl(&dword_222E4D000, v2, OS_LOG_TYPE_DEFAULT, "%s VoiceTrigger cannot be turned on since VoiceTrigger is disabled", &v4, 0xCu);
     }
   }
 
-  v3 = *MEMORY[0x277D85DE8];
   return v1;
 }
 
 uint64_t __67__CSVoiceTriggerEnabledPolicyMac__addVoiceTriggerEnabledConditions__block_invoke()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v0 = +[CSClamshellStateMonitor sharedInstance];
   v1 = [v0 isClamshellClosed];
 
@@ -104,13 +98,12 @@ uint64_t __67__CSVoiceTriggerEnabledPolicyMac__addVoiceTriggerEnabledConditions_
     v2 = *MEMORY[0x277D015D8];
     if (os_log_type_enabled(*MEMORY[0x277D015D8], OS_LOG_TYPE_DEFAULT))
     {
-      v5 = 136315138;
-      v6 = "[CSVoiceTriggerEnabledPolicyMac _addVoiceTriggerEnabledConditions]_block_invoke";
-      _os_log_impl(&dword_222E4D000, v2, OS_LOG_TYPE_DEFAULT, "%s VoiceTrigger cannot be turned on since clamshell is closed", &v5, 0xCu);
+      v4 = 136315138;
+      v5 = "[CSVoiceTriggerEnabledPolicyMac _addVoiceTriggerEnabledConditions]_block_invoke";
+      _os_log_impl(&dword_222E4D000, v2, OS_LOG_TYPE_DEFAULT, "%s VoiceTrigger cannot be turned on since clamshell is closed", &v4, 0xCu);
     }
   }
 
-  v3 = *MEMORY[0x277D85DE8];
   return v1 ^ 1u;
 }
 

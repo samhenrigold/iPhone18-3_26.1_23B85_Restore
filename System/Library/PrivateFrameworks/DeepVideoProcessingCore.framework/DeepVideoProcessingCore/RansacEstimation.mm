@@ -570,7 +570,7 @@ LABEL_36:
 - (BOOL)ApplyRansacEstimation:desMatchInput:desMatchInput:desMatchInput:desMatchCountInput:xscaleFactorInput:yscaleFactorInput:imageDimInput:imageDimInput:homographyMatrixOutput:waitForComplete:.cold.2()
 {
   OUTLINED_FUNCTION_1_12();
-  OUTLINED_FUNCTION_0_11(&dword_24874B000, v0, v1, "Fatal error: scratch space memory is not provided", v2, v3, v4, v5, v7);
+  OUTLINED_FUNCTION_0_11(&dword_24874B000, v0, v1, "Fatal error: scratch space memory is not provided", v2, v3, v4, v5);
   return (global_logLevel & 0x10) == 0;
 }
 

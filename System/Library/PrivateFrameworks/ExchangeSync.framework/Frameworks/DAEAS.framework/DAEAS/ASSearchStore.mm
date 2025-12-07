@@ -108,15 +108,15 @@
 
 - (void)addResult:(id)result
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   resultCopy = result;
   v5 = DALoggingwithCategory();
   v6 = *(MEMORY[0x277D03988] + 7);
   if (os_log_type_enabled(v5, v6))
   {
-    v11 = 138412290;
-    v12 = resultCopy;
-    _os_log_impl(&dword_24A0AC000, v5, v6, "Adding search result: %@", &v11, 0xCu);
+    v10 = 138412290;
+    v11 = resultCopy;
+    _os_log_impl(&dword_24A0AC000, v5, v6, "Adding search result: %@", &v10, 0xCu);
   }
 
   mResults = [(ASSearchStore *)self mResults];
@@ -132,45 +132,31 @@
     mResults2 = [(ASSearchStore *)self mResults];
     [mResults2 addObject:resultCopy];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (id)asParseRules
 {
-  v3 = off_278FC6E08;
-  v4 = objc_opt_class();
+  v3 = objc_opt_class();
   WeakRetained = objc_loadWeakRetained(&self->super._root);
   expectedResultType = [WeakRetained expectedResultType];
 
-  if (expectedResultType)
+  if (!expectedResultType || (v6 = objc_loadWeakRetained(&self->super._root), v7 = [v6 expectedResultType], v6, v7 == 1))
   {
-    v7 = objc_loadWeakRetained(&self->super._root);
-    expectedResultType2 = [v7 expectedResultType];
-
-    if (expectedResultType2 != 1)
-    {
-      goto LABEL_5;
-    }
-
-    v3 = off_278FC6E90;
+    v3 = objc_opt_class();
   }
 
-  v9 = *v3;
-  v4 = objc_opt_class();
-LABEL_5:
-  v10 = MEMORY[0x277CBEAC0];
-  v11 = [[ASParseRule alloc] initWithMinimumNumber:0 maximumNumber:1209 codePage:15 token:14 objectClass:v4 setterMethod:sel_addResult_ dataclass:0 callbackDict:0 streamCallbackDict:0 subclassRuleSet:0];
-  v12 = [MEMORY[0x277CCABB0] numberWithInt:3854];
-  v13 = [[ASParseRule alloc] initWithMinimumNumber:0 maximumNumber:1 codePage:15 token:11 objectClass:objc_opt_class() setterMethod:sel_setRange_ dataclass:0 callbackDict:0 streamCallbackDict:0 subclassRuleSet:0];
-  v14 = [MEMORY[0x277CCABB0] numberWithInt:3851];
-  v15 = [[ASParseRule alloc] initWithMinimumNumber:0 maximumNumber:1 codePage:15 token:12 objectClass:objc_opt_class() setterMethod:sel_setStatus_ dataclass:0 callbackDict:0 streamCallbackDict:0 subclassRuleSet:0];
-  v16 = [MEMORY[0x277CCABB0] numberWithInt:3852];
-  v17 = [[ASParseRule alloc] initWithMinimumNumber:0 maximumNumber:1 codePage:15 token:16 objectClass:objc_opt_class() setterMethod:sel_setTotal_ dataclass:0 callbackDict:0 streamCallbackDict:0 subclassRuleSet:0];
-  v18 = [MEMORY[0x277CCABB0] numberWithInt:3856];
-  v19 = [v10 dictionaryWithObjectsAndKeys:{v11, v12, v13, v14, v15, v16, v17, v18, 0}];
+  v8 = MEMORY[0x277CBEAC0];
+  v9 = [[ASParseRule alloc] initWithMinimumNumber:0 maximumNumber:1209 codePage:15 token:14 objectClass:v3 setterMethod:sel_addResult_ dataclass:0 callbackDict:0 streamCallbackDict:0 subclassRuleSet:0];
+  v10 = [MEMORY[0x277CCABB0] numberWithInt:3854];
+  v11 = [[ASParseRule alloc] initWithMinimumNumber:0 maximumNumber:1 codePage:15 token:11 objectClass:objc_opt_class() setterMethod:sel_setRange_ dataclass:0 callbackDict:0 streamCallbackDict:0 subclassRuleSet:0];
+  v12 = [MEMORY[0x277CCABB0] numberWithInt:3851];
+  v13 = [[ASParseRule alloc] initWithMinimumNumber:0 maximumNumber:1 codePage:15 token:12 objectClass:objc_opt_class() setterMethod:sel_setStatus_ dataclass:0 callbackDict:0 streamCallbackDict:0 subclassRuleSet:0];
+  v14 = [MEMORY[0x277CCABB0] numberWithInt:3852];
+  v15 = [[ASParseRule alloc] initWithMinimumNumber:0 maximumNumber:1 codePage:15 token:16 objectClass:objc_opt_class() setterMethod:sel_setTotal_ dataclass:0 callbackDict:0 streamCallbackDict:0 subclassRuleSet:0];
+  v16 = [MEMORY[0x277CCABB0] numberWithInt:3856];
+  v17 = [v8 dictionaryWithObjectsAndKeys:{v9, v10, v11, v12, v13, v14, v15, v16, 0}];
 
-  return v19;
+  return v17;
 }
 
 @end

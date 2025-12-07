@@ -16,7 +16,7 @@
 
 - (void)fetchHardwareInfo
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   mEMORY[0x1E69AED10] = [MEMORY[0x1E69AED10] sharedAVSystemController];
   v4 = [mEMORY[0x1E69AED10] attributeForKey:*MEMORY[0x1E69AEB00]];
   v5 = [v4 objectForKeyedSubscript:*MEMORY[0x1E69AEB90]];
@@ -66,10 +66,10 @@
 
     self->_isAppleProduct = self->_vendorId == 76;
 LABEL_10:
-    v18 = 0.0;
-    if ([mEMORY[0x1E69AED10] getActiveCategoryVolume:&v18 andName:0])
+    v17 = 0.0;
+    if ([mEMORY[0x1E69AED10] getActiveCategoryVolume:&v17 andName:0])
     {
-      self->_volume = v18;
+      self->_volume = v17;
     }
 
     goto LABEL_15;
@@ -78,13 +78,12 @@ LABEL_10:
   v16 = TTSGetServiceLog();
   if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
   {
-    v18 = 5.7779e-34;
-    v19 = v8;
-    _os_log_error_impl(&dword_1B1A8A000, v16, OS_LOG_TYPE_ERROR, "Unexpected model ID pattern: %@", &v18, 0xCu);
+    v17 = 5.7779e-34;
+    v18 = v8;
+    _os_log_error_impl(&dword_1B1A8A000, v16, OS_LOG_TYPE_ERROR, "Unexpected model ID pattern: %@", &v17, 0xCu);
   }
 
 LABEL_15:
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setDuckOthers:(BOOL)others

@@ -1,8 +1,16 @@
 @interface NSError
++ (id)ds_errorWithPOSIXCode:(int)code itemURL:(id)l debugDescription:(id)description;
 + (id)ds_errorWithPOSIXCode:(int)code itemURL:(id)l debugDescription:(id)description message:(id)message;
 @end
 
 @implementation NSError
+
++ (id)ds_errorWithPOSIXCode:(int)code itemURL:(id)l debugDescription:(id)description
+{
+  v5 = [self ds_errorWithPOSIXCode:*&code itemURL:l debugDescription:description message:0];
+
+  return v5;
+}
 
 + (id)ds_errorWithPOSIXCode:(int)code itemURL:(id)l debugDescription:(id)description message:(id)message
 {

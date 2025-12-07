@@ -8,18 +8,16 @@
 
 - (void)contactPicker:(id)picker didSelectContact:(id)contact
 {
-  v7 = *(&self->super.isa + OBJC_IVAR____TtCV13AskToMessages36CNContactPickerViewControllerWrapper11Coordinator_onContactSelected);
-  v6 = *&self->onContactSelected[OBJC_IVAR____TtCV13AskToMessages36CNContactPickerViewControllerWrapper11Coordinator_onContactSelected];
+  v6 = *(&self->super.isa + OBJC_IVAR____TtCV13AskToMessages36CNContactPickerViewControllerWrapper11Coordinator_onContactSelected);
   contactCopy = contact;
   selfCopy = self;
 
-  v7(contact);
+  v6(contact);
 }
 
 - (void)contactPickerDidCancel:(id)cancel
 {
   v3 = *(&self->super.isa + OBJC_IVAR____TtCV13AskToMessages36CNContactPickerViewControllerWrapper11Coordinator_onContactSelected);
-  v4 = *&self->onContactSelected[OBJC_IVAR____TtCV13AskToMessages36CNContactPickerViewControllerWrapper11Coordinator_onContactSelected];
   selfCopy = self;
 
   v3(0);

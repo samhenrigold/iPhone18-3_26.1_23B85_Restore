@@ -25,38 +25,36 @@
 {
   v12 = *MEMORY[0x277D85DE8];
   dsCopy = ds;
-  v5 = pk_General_log();
+  v5 = pk_General_log(dsCopy);
   v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
 
   if (v6)
   {
-    v7 = pk_General_log();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = pk_General_log(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       v10 = 138412290;
       v11 = dsCopy;
-      _os_log_impl(&dword_25B300000, v7, OS_LOG_TYPE_DEFAULT, "Notice: Pass Selection Field Detector assertion: received enter field with Passes UniqueIDs:%@", &v10, 0xCu);
+      _os_log_impl(&dword_25B300000, v8, OS_LOG_TYPE_DEFAULT, "Notice: Pass Selection Field Detector assertion: received enter field with Passes UniqueIDs:%@", &v10, 0xCu);
     }
   }
 
   delegate = [(NPKPassSelectionFieldDetectorAssertion *)self delegate];
   [delegate passSelectionFieldDetectorAssertion:self didEnterFieldForPassesWithUniqueIDs:dsCopy];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_resyncState
 {
-  v3 = pk_General_log();
+  v3 = pk_General_log(self);
   v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
 
   if (v4)
   {
-    v5 = pk_General_log();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = pk_General_log(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      *v7 = 0;
-      _os_log_impl(&dword_25B300000, v5, OS_LOG_TYPE_DEFAULT, "Notice: Pass Selection Field Detector assertion: resyncing state", v7, 2u);
+      *v8 = 0;
+      _os_log_impl(&dword_25B300000, v6, OS_LOG_TYPE_DEFAULT, "Notice: Pass Selection Field Detector assertion: resyncing state", v8, 2u);
     }
   }
 

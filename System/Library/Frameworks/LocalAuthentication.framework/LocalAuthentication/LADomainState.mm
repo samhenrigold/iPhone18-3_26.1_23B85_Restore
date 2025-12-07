@@ -79,26 +79,24 @@ LABEL_13:
 
 - (id)description
 {
-  v19[3] = *MEMORY[0x1E69E9840];
-  v18 = MEMORY[0x1E696AEC0];
+  v18[3] = *MEMORY[0x1E69E9840];
+  v17 = MEMORY[0x1E696AEC0];
   v3 = objc_opt_class();
   v4 = MEMORY[0x1E696AEC0];
   biometry = [(LADomainState *)self biometry];
   v6 = [v4 stringWithFormat:@"biometry: %@", biometry];
-  v19[0] = v6;
+  v18[0] = v6;
   v7 = MEMORY[0x1E696AEC0];
   companion = [(LADomainState *)self companion];
   v9 = [v7 stringWithFormat:@"companion: %@", companion];
-  v19[1] = v9;
+  v18[1] = v9;
   v10 = MEMORY[0x1E696AEC0];
   stateHash = [(LADomainState *)self stateHash];
   v12 = [v10 stringWithFormat:@"stateHash: %@", stateHash];
-  v19[2] = v12;
-  v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:3];
+  v18[2] = v12;
+  v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:3];
   v14 = [v13 componentsJoinedByString:@" "];;
-  v15 = [v18 stringWithFormat:@"<%@ %p %@>", v3, self, v14];;
-
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = [v17 stringWithFormat:@"<%@ %p %@>", v3, self, v14];;
 
   return v15;
 }

@@ -34,10 +34,11 @@
 - (AXBaseSettings_Legacy)init
 {
   v3 = objc_opt_class();
-  if (objc_opt_class() == v3)
+  v4 = objc_opt_class();
+  if (v4 == v3)
   {
-    v12 = AXLogSettings();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
+    v13 = AXLogSettings(v4);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
     {
       [(AXBaseSettings_Legacy *)v3 init];
     }
@@ -47,27 +48,27 @@
 
   else
   {
-    v14.receiver = self;
-    v14.super_class = AXBaseSettings_Legacy;
-    v4 = [(AXBaseSettings_Legacy *)&v14 init];
-    if (v4)
+    v15.receiver = self;
+    v15.super_class = AXBaseSettings_Legacy;
+    v5 = [(AXBaseSettings_Legacy *)&v15 init];
+    if (v5)
     {
-      v5 = objc_alloc_init(MEMORY[0x1E695DFA8]);
-      registeredPreferenceKeys = v4->_registeredPreferenceKeys;
-      v4->_registeredPreferenceKeys = v5;
+      v6 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+      registeredPreferenceKeys = v5->_registeredPreferenceKeys;
+      v5->_registeredPreferenceKeys = v6;
 
-      v7 = objc_alloc_init(MEMORY[0x1E695DF90]);
-      preferenceKeysByDomainNameToSynchronize = v4->_preferenceKeysByDomainNameToSynchronize;
-      v4->_preferenceKeysByDomainNameToSynchronize = v7;
+      v8 = objc_alloc_init(MEMORY[0x1E695DF90]);
+      preferenceKeysByDomainNameToSynchronize = v5->_preferenceKeysByDomainNameToSynchronize;
+      v5->_preferenceKeysByDomainNameToSynchronize = v8;
 
-      v9 = objc_alloc_init(MEMORY[0x1E695DF90]);
-      updateBlocks = v4->_updateBlocks;
-      v4->_updateBlocks = v9;
+      v10 = objc_alloc_init(MEMORY[0x1E695DF90]);
+      updateBlocks = v5->_updateBlocks;
+      v5->_updateBlocks = v10;
 
-      v4->_domainNamesToSynchronizeLock._os_unfair_lock_opaque = 0;
+      v5->_domainNamesToSynchronizeLock._os_unfair_lock_opaque = 0;
     }
 
-    self = v4;
+    self = v5;
     selfCopy = self;
   }
 
@@ -76,56 +77,56 @@
 
 - (void)dealloc
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   obj = self->_registeredPreferenceKeys;
-  v3 = [(NSMutableSet *)obj countByEnumeratingWithState:&v21 objects:v26 count:16];
+  v3 = [(NSMutableSet *)obj countByEnumeratingWithState:&v20 objects:v25 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v22;
+    v5 = *v21;
     do
     {
       v6 = 0;
       do
       {
-        if (*v22 != v5)
+        if (*v21 != v5)
         {
           objc_enumerationMutation(obj);
         }
 
-        v7 = *(*(&v21 + 1) + 8 * v6);
+        v7 = *(*(&v20 + 1) + 8 * v6);
+        v16 = 0u;
         v17 = 0u;
         v18 = 0u;
         v19 = 0u;
-        v20 = 0u;
         v8 = [(AXBaseSettings_Legacy *)self allDomainNamesForPreferenceKey:v7];
-        v9 = [v8 countByEnumeratingWithState:&v17 objects:v25 count:16];
+        v9 = [v8 countByEnumeratingWithState:&v16 objects:v24 count:16];
         if (v9)
         {
           v10 = v9;
-          v11 = *v18;
+          v11 = *v17;
           do
           {
             v12 = 0;
             do
             {
-              if (*v18 != v11)
+              if (*v17 != v11)
               {
                 objc_enumerationMutation(v8);
               }
 
-              v13 = [(AXBaseSettings_Legacy *)self _userDefaultsStoreForDomainName:*(*(&v17 + 1) + 8 * v12)];
+              v13 = [(AXBaseSettings_Legacy *)self _userDefaultsStoreForDomainName:*(*(&v16 + 1) + 8 * v12)];
               [v13 removeObserver:self forKeyPath:v7];
 
               ++v12;
             }
 
             while (v10 != v12);
-            v10 = [v8 countByEnumeratingWithState:&v17 objects:v25 count:16];
+            v10 = [v8 countByEnumeratingWithState:&v16 objects:v24 count:16];
           }
 
           while (v10);
@@ -135,16 +136,15 @@
       }
 
       while (v6 != v4);
-      v4 = [(NSMutableSet *)obj countByEnumeratingWithState:&v21 objects:v26 count:16];
+      v4 = [(NSMutableSet *)obj countByEnumeratingWithState:&v20 objects:v25 count:16];
     }
 
     while (v4);
   }
 
-  v16.receiver = self;
-  v16.super_class = AXBaseSettings_Legacy;
-  [(AXBaseSettings_Legacy *)&v16 dealloc];
-  v14 = *MEMORY[0x1E69E9840];
+  v15.receiver = self;
+  v15.super_class = AXBaseSettings_Legacy;
+  [(AXBaseSettings_Legacy *)&v15 dealloc];
 }
 
 - (void)unregisterUpdateBlockForRetrieveSelector:(SEL)selector withListenerID:(id)d
@@ -159,7 +159,7 @@
 
   else
   {
-    v8 = AXLogSettings();
+    v8 = AXLogSettings(0);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       [AXBaseSettings_Legacy unregisterUpdateBlockForRetrieveSelector:selector withListenerID:?];
@@ -212,7 +212,7 @@
 
 - (void)_registerUpdateBlock:(id)block forPreferenceKey:(id)key withListener:(id)listener
 {
-  v22[2] = *MEMORY[0x1E69E9840];
+  v21[2] = *MEMORY[0x1E69E9840];
   blockCopy = block;
   keyCopy = key;
   listenerCopy = listener;
@@ -231,11 +231,11 @@
   {
     updateBlocks = [(AXBaseSettings_Legacy *)self updateBlocks];
     array = [updateBlocks objectForKey:keyCopy];
-    v22[0] = v11;
-    v20 = [blockCopy copy];
-    v14 = _Block_copy(v20);
-    v22[1] = v14;
-    v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v22 count:2];
+    v21[0] = v11;
+    v19 = [blockCopy copy];
+    v14 = _Block_copy(v19);
+    v21[1] = v14;
+    v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v21 count:2];
 
     if (!array)
     {
@@ -243,7 +243,7 @@
       [updateBlocks setObject:array forKey:keyCopy];
     }
 
-    v21 = updateBlocks;
+    v20 = updateBlocks;
     [array addObject:v15];
     dictionary = objc_getAssociatedObject(listenerCopy, &AXSettingsDestructionHelpersKey);
     if (!dictionary)
@@ -268,8 +268,6 @@
   {
     [(AXBaseSettings_Legacy *)self _unregisterUpdateBlockForPreferenceKey:keyCopy withListenerID:v11];
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (void)registerUpdateBlock:(id)block forRetrieveSelector:(SEL)selector withListener:(id)listener
@@ -285,7 +283,7 @@
 
   else
   {
-    v11 = AXLogSettings();
+    v11 = AXLogSettings(0);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       [AXBaseSettings_Legacy unregisterUpdateBlockForRetrieveSelector:selector withListenerID:?];
@@ -300,7 +298,7 @@
   v5 = [(AXBaseSettings_Legacy *)self preferenceKeyForSelector:?];
   if (!v5)
   {
-    v6 = AXLogSettings();
+    v6 = AXLogSettings(0);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
     {
       [AXBaseSettings_Legacy hasExistingValueForPreferenceWithSelector:selector];
@@ -318,7 +316,7 @@
   v5 = [(AXBaseSettings_Legacy *)self preferenceKeyForSelector:?];
   if (!v5)
   {
-    v6 = AXLogSettings();
+    v6 = AXLogSettings(0);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
     {
       [AXBaseSettings_Legacy hasExistingValueForPreferenceWithSelector:selector];
@@ -330,13 +328,13 @@
 
 - (id)allDomainNamesForPreferenceKey:(id)key
 {
-  v8[1] = *MEMORY[0x1E69E9840];
+  v7[1] = *MEMORY[0x1E69E9840];
   v3 = [(AXBaseSettings_Legacy *)self domainNameForPreferenceKey:key];
   v4 = v3;
   if (v3)
   {
-    v8[0] = v3;
-    v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:1];
+    v7[0] = v3;
+    v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:1];
   }
 
   else
@@ -344,38 +342,36 @@
     v5 = MEMORY[0x1E695E0F0];
   }
 
-  v6 = *MEMORY[0x1E69E9840];
-
   return v5;
 }
 
 - (id)valueForPreferenceKey:(id)key
 {
   keyCopy = key;
-  v13 = 0;
-  v14 = &v13;
-  v15 = 0x3032000000;
-  v16 = __Block_byref_object_copy__7;
-  v17 = __Block_byref_object_dispose__7;
-  v18 = 0;
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 3221225472;
-  v10[2] = __47__AXBaseSettings_Legacy_valueForPreferenceKey___block_invoke;
-  v10[3] = &unk_1E735B780;
-  v12 = &v13;
-  v10[4] = self;
+  v14 = 0;
+  v15 = &v14;
+  v16 = 0x3032000000;
+  v17 = __Block_byref_object_copy__7;
+  v18 = __Block_byref_object_dispose__7;
+  v19 = 0;
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __47__AXBaseSettings_Legacy_valueForPreferenceKey___block_invoke;
+  v11[3] = &unk_1E735B780;
+  v13 = &v14;
+  v11[4] = self;
   v5 = keyCopy;
-  v11 = v5;
-  if ([(AXBaseSettings_Legacy *)self _switchFromRootUserIfNecessary:v10])
+  v12 = v5;
+  if ([(AXBaseSettings_Legacy *)self _switchFromRootUserIfNecessary:v11])
   {
-    v6 = v14[5];
+    v6 = v15[5];
   }
 
   else
   {
 
     v7 = [(AXBaseSettings_Legacy *)self domainNameForPreferenceKey:v5];
-    [(AXBaseSettings_Legacy *)self _synchronizeIfNecessaryForPreferenceKey:v5 domainName:v7];
+    v8 = [(AXBaseSettings_Legacy *)self _synchronizeIfNecessaryForPreferenceKey:v5 domainName:v7];
     if (v7)
     {
       [(AXBaseSettings_Legacy *)self _registerForNotification:v5];
@@ -384,8 +380,8 @@
 
     else
     {
-      v8 = AXLogSettings();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
+      v9 = AXLogSettings(v8);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
       {
         [AXBaseSettings_Legacy valueForPreferenceKey:];
       }
@@ -394,7 +390,7 @@
     }
   }
 
-  _Block_object_dispose(&v13, 8);
+  _Block_object_dispose(&v14, 8);
 
   return v6;
 }
@@ -518,7 +514,7 @@
         goto LABEL_3;
       }
 
-      v8 = AXLogSettings();
+      v8 = AXLogSettings(pw_uid);
       if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
       {
         [AXBaseSettings_Legacy _switchFromRootUserIfNecessary:v8];
@@ -693,40 +689,30 @@ LABEL_6:
 
 - (void)init
 {
-  v10 = *MEMORY[0x1E69E9840];
   v1 = NSStringFromClass(self);
   OUTLINED_FUNCTION_1_1();
-  OUTLINED_FUNCTION_0_5(&dword_19159B000, v2, v3, "Attempted to create an instance of abstract class %@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0_5(&dword_19159B000, v2, v3, "Attempted to create an instance of abstract class %@", v4, v5, v6, v7);
 }
 
 - (void)unregisterUpdateBlockForRetrieveSelector:(const char *)a1 withListenerID:.cold.1(const char *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v1 = NSStringFromSelector(a1);
   OUTLINED_FUNCTION_1_1();
-  OUTLINED_FUNCTION_0_0(&dword_19159B000, v2, v3, "Cannot register update block for selector '%@'. No matching pref key was found.", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0_0(&dword_19159B000, v2, v3, "Cannot register update block for selector '%@'. No matching pref key was found.", v4, v5, v6, v7);
 }
 
 - (void)hasExistingValueForPreferenceWithSelector:(const char *)a1 .cold.1(const char *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v1 = NSStringFromSelector(a1);
   OUTLINED_FUNCTION_1_1();
-  OUTLINED_FUNCTION_0_5(&dword_19159B000, v2, v3, "Could not find preference key for %@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0_5(&dword_19159B000, v2, v3, "Could not find preference key for %@", v4, v5, v6, v7);
 }
 
 - (void)valueForPreferenceKey:.cold.1()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_1();
-  _os_log_fault_impl(&dword_19159B000, v0, OS_LOG_TYPE_FAULT, "Can not get value without domain name for preference key: %@", v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_fault_impl(&dword_19159B000, v0, OS_LOG_TYPE_FAULT, "Can not get value without domain name for preference key: %@", v1, 0xCu);
 }
 
 @end

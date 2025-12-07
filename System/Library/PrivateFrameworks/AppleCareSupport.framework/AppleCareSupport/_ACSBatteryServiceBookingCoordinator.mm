@@ -8,53 +8,51 @@
 - (void)prepareBatteryServiceBookingFlowWithCompletionHandler:(id)handler
 {
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E3C8DA8, &qword_2402A8DC8);
-  v6 = *(*(v5 - 8) + 64);
-  MEMORY[0x28223BE20](v5 - 8, v7);
-  v9 = &v15 - v8;
-  v10 = _Block_copy(handler);
-  v11 = swift_allocObject();
-  *(v11 + 16) = v10;
-  *(v11 + 24) = self;
-  v12 = sub_2402A74E8();
-  (*(*(v12 - 8) + 56))(v9, 1, 1, v12);
+  MEMORY[0x28223BE20](v5 - 8, v6);
+  v8 = &v14 - v7;
+  v9 = _Block_copy(handler);
+  v10 = swift_allocObject();
+  *(v10 + 16) = v9;
+  *(v10 + 24) = self;
+  v11 = sub_2402A74E8();
+  (*(*(v11 - 8) + 56))(v8, 1, 1, v11);
+  v12 = swift_allocObject();
+  v12[2] = 0;
+  v12[3] = 0;
+  v12[4] = &unk_2402A8E20;
+  v12[5] = v10;
   v13 = swift_allocObject();
   v13[2] = 0;
   v13[3] = 0;
-  v13[4] = &unk_2402A8E20;
-  v13[5] = v11;
-  v14 = swift_allocObject();
-  v14[2] = 0;
-  v14[3] = 0;
-  v14[4] = &unk_2402A8E28;
-  v14[5] = v13;
+  v13[4] = &unk_2402A8E28;
+  v13[5] = v12;
 
-  sub_240298CF4(0, 0, v9, &unk_2402A8E30, v14);
+  sub_240298CF4(0, 0, v8, &unk_2402A8E30, v13);
 }
 
 - (void)launchBatteryServiceBookingFlowWithCompletionHandler:(id)handler
 {
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E3C8DA8, &qword_2402A8DC8);
-  v6 = *(*(v5 - 8) + 64);
-  MEMORY[0x28223BE20](v5 - 8, v7);
-  v9 = &v15 - v8;
-  v10 = _Block_copy(handler);
-  v11 = swift_allocObject();
-  *(v11 + 16) = v10;
-  *(v11 + 24) = self;
-  v12 = sub_2402A74E8();
-  (*(*(v12 - 8) + 56))(v9, 1, 1, v12);
+  MEMORY[0x28223BE20](v5 - 8, v6);
+  v8 = &v14 - v7;
+  v9 = _Block_copy(handler);
+  v10 = swift_allocObject();
+  *(v10 + 16) = v9;
+  *(v10 + 24) = self;
+  v11 = sub_2402A74E8();
+  (*(*(v11 - 8) + 56))(v8, 1, 1, v11);
+  v12 = swift_allocObject();
+  v12[2] = 0;
+  v12[3] = 0;
+  v12[4] = &unk_2402A8DD8;
+  v12[5] = v10;
   v13 = swift_allocObject();
   v13[2] = 0;
   v13[3] = 0;
-  v13[4] = &unk_2402A8DD8;
-  v13[5] = v11;
-  v14 = swift_allocObject();
-  v14[2] = 0;
-  v14[3] = 0;
-  v14[4] = &unk_2402A8DE8;
-  v14[5] = v13;
+  v13[4] = &unk_2402A8DE8;
+  v13[5] = v12;
 
-  sub_240298CF4(0, 0, v9, &unk_2402A8DF8, v14);
+  sub_240298CF4(0, 0, v8, &unk_2402A8DF8, v13);
 }
 
 @end

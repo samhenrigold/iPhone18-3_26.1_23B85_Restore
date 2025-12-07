@@ -6,10 +6,10 @@
 
 + (uint64_t)vcp_sceneRequest
 {
-  v0 = MEMORY[0x1E6984598];
-  v1 = objc_opt_class();
+  v2 = MEMORY[0x1E6984598];
+  v3 = objc_opt_class();
 
-  return [v0 vcp_sceneRequestWithRequestClass:v1 andRevision:2];
+  return [v2 vcp_sceneRequestWithRequestClass:v3 andRevision:2];
 }
 
 @end

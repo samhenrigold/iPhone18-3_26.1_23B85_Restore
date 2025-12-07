@@ -5,29 +5,29 @@
 
 void __53___PFRequestExecutor_executeRequest_inContext_error___block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v2 = [objc_msgSend(*(a1 + 32) persistentStoreCoordinator];
-  v3 = [v2 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v3)
   {
     v4 = v3;
     v5 = 0;
-    v6 = *v16;
+    v6 = *v15;
     do
     {
       v7 = 0;
       do
       {
-        if (*v16 != v6)
+        if (*v15 != v6)
         {
           objc_enumerationMutation(v2);
         }
 
-        if ([*(*(&v15 + 1) + 8 * v7) isCloudKitEnabled])
+        if ([*(*(&v14 + 1) + 8 * v7) isCloudKitEnabled])
         {
           v8 = *(a1 + 40);
           if (v8)
@@ -48,7 +48,7 @@ void __53___PFRequestExecutor_executeRequest_inContext_error___block_invoke(uint
       }
 
       while (v4 != v7);
-      v10 = [v2 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v10 = [v2 countByEnumeratingWithState:&v14 objects:v18 count:16];
       v4 = v10;
     }
 
@@ -56,29 +56,27 @@ void __53___PFRequestExecutor_executeRequest_inContext_error___block_invoke(uint
     if (v5 && ![*(a1 + 32) executeRequest:*(a1 + 48) error:*(*(a1 + 56) + 8) + 40])
     {
       *(*(*(a1 + 64) + 8) + 24) = 0;
-      v12 = *(*(*(a1 + 56) + 8) + 40);
+      v11 = *(*(*(a1 + 56) + 8) + 40);
       do
       {
-        v13 = *(a1 + 40);
-        if (v13)
+        v12 = *(a1 + 40);
+        if (v12)
         {
-          v14 = *(v13 + 8);
+          v13 = *(v12 + 8);
         }
 
         else
         {
-          v14 = 0;
+          v13 = 0;
         }
 
-        dispatch_group_leave(v14);
+        dispatch_group_leave(v13);
         --v5;
       }
 
       while (v5);
     }
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 @end

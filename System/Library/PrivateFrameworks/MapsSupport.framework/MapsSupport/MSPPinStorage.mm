@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)typeAsString:(int)string;
 - (int)type;
 - (unint64_t)hash;
 - (void)copyTo:(id)to;
@@ -55,6 +56,21 @@
   }
 
   *&self->_has = *&self->_has & 0xFB | v3;
+}
+
+- (id)typeAsString:(int)string
+{
+  if (string == 1)
+  {
+    v4 = @"DROPPED_PIN";
+  }
+
+  else
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  return v4;
 }
 
 - (id)description
@@ -145,19 +161,18 @@ LABEL_13:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v9 = toCopy;
+  v6 = toCopy;
   if (self->_identifier)
   {
     PBDataWriterWriteStringField();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   has = self->_has;
   if (has)
   {
-    position = self->_position;
     PBDataWriterWriteDoubleField();
-    toCopy = v9;
+    toCopy = v6;
     has = self->_has;
     if ((has & 2) == 0)
     {
@@ -176,22 +191,20 @@ LABEL_5:
     goto LABEL_5;
   }
 
-  timestamp = self->_timestamp;
   PBDataWriterWriteDoubleField();
-  toCopy = v9;
+  toCopy = v6;
   if ((*&self->_has & 4) != 0)
   {
 LABEL_6:
-    type = self->_type;
     PBDataWriterWriteInt32Field();
-    toCopy = v9;
+    toCopy = v6;
   }
 
 LABEL_7:
   if (self->_droppedPin)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   [(PBUnknownFields *)self->_unknownFields writeTo:toCopy];
@@ -315,7 +328,6 @@ LABEL_5:
     }
   }
 
-  v6 = *(equalCopy + 52);
   if (*&self->_has)
   {
     if ((*(equalCopy + 52) & 1) == 0 || self->_position != *(equalCopy + 2))
@@ -327,7 +339,7 @@ LABEL_5:
   else if (*(equalCopy + 52))
   {
 LABEL_21:
-    v8 = 0;
+    v7 = 0;
     goto LABEL_22;
   }
 
@@ -360,17 +372,17 @@ LABEL_21:
   droppedPin = self->_droppedPin;
   if (droppedPin | *(equalCopy + 4))
   {
-    v8 = [(MSPDroppedPin *)droppedPin isEqual:?];
+    v7 = [(MSPDroppedPin *)droppedPin isEqual:?];
   }
 
   else
   {
-    v8 = 1;
+    v7 = 1;
   }
 
 LABEL_22:
 
-  return v8;
+  return v7;
 }
 
 - (unint64_t)hash

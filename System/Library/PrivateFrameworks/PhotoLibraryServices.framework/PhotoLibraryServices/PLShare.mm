@@ -429,7 +429,7 @@ LABEL_11:
   [v3 setPublicPermission:{-[PLShare publicPermission](self, "publicPermission")}];
   v5 = objc_alloc(MEMORY[0x1E695DF70]);
   participants = [(PLShare *)self participants];
-  v7 = [v5 initWithCapacity:{objc_msgSend(participants, "count")}];
+  v7 = [v5 initWithCapacity:objc_msgSend_count(participants)];
 
   v25 = 0u;
   v26 = 0u;
@@ -503,7 +503,7 @@ LABEL_11:
 
   v11 = objc_alloc(MEMORY[0x1E695DF70]);
   participants2 = [shareCopy participants];
-  v68 = [v11 initWithCapacity:{objc_msgSend(participants2, "count")}];
+  v68 = [v11 initWithCapacity:objc_msgSend_count(participants2)];
 
   v70 = objc_alloc_init(MEMORY[0x1E695DFA8]);
   v66 = objc_alloc_init(MEMORY[0x1E695DFA8]);
@@ -593,7 +593,7 @@ LABEL_11:
     while (v16);
   }
 
-  if ([v68 count] && -[PLShare isCurrentUserOwner](self, "isCurrentUserOwner"))
+  if (objc_msgSend_count(v68) && [(PLShare *)self isCurrentUserOwner])
   {
     v82 = 0u;
     v83 = 0u;
@@ -656,7 +656,7 @@ LABEL_33:
     }
   }
 
-  if ([v71 count])
+  if (objc_msgSend_count(v71))
   {
     v42 = PLBackendSharingGetLog();
     if (os_log_type_enabled(v42, OS_LOG_TYPE_INFO))
@@ -706,13 +706,13 @@ LABEL_33:
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    if ([v70 count])
+    if (objc_msgSend_count(v70))
     {
       allObjects2 = [v70 allObjects];
       [PLLibraryScope informRapportToAddShareParticipantUUIDs:allObjects2 photoLibrary:libraryCopy];
     }
 
-    if ([v66 count])
+    if (objc_msgSend_count(v66))
     {
       allObjects3 = [v66 allObjects];
       libraryBundle = [libraryCopy libraryBundle];
@@ -720,7 +720,7 @@ LABEL_33:
     }
   }
 
-  if ([v66 count])
+  if (objc_msgSend_count(v66))
   {
     v56 = v15[461];
     allObjects4 = [v66 allObjects];
@@ -1197,7 +1197,7 @@ LABEL_13:
   v14 = PLBackendGetLog();
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
   {
-    v15 = [v11 count];
+    v15 = objc_msgSend_count(v11);
     shortObjectIDURI = [shareCopy shortObjectIDURI];
     *buf = 134218242;
     v20 = v15;
@@ -1344,7 +1344,7 @@ LABEL_10:
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     *buf = 134218242;
-    v34 = [sharesCopy count];
+    v34 = objc_msgSend_count(sharesCopy);
     v35 = 2112;
     v36 = prefixCopy;
     _os_log_impl(&dword_19BF1F000, v8, OS_LOG_TYPE_INFO, "Deleting %lu (%@) shares...", buf, 0x16u);
@@ -1441,7 +1441,7 @@ LABEL_23:
   }
 
 LABEL_24:
-  v23 = v13 == [v9 count];
+  v23 = v13 == objc_msgSend_count(v9);
 
   return v23;
 }
@@ -1723,9 +1723,9 @@ LABEL_11:
   {
     scopeIdentifier = [identifierCopy scopeIdentifier];
     mainScopeIdentifier = [libraryCopy mainScopeIdentifier];
-    v18 = [scopeIdentifier isEqualToString:mainScopeIdentifier];
+    isEqualToString = objc_msgSend_isEqualToString_(scopeIdentifier);
 
-    if ((v18 & 1) == 0)
+    if ((isEqualToString & 1) == 0)
     {
       if ((*MEMORY[0x1E6994D48] & 1) == 0)
       {

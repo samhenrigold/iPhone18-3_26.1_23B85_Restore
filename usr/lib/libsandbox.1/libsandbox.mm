@@ -1,4 +1,4 @@
-uint64_t sb_inspect_subsystem(uint64_t a1, uint64_t a2, void *a3, void *a4)
+uint64_t sb_inspect_subsystem(unsigned int a1, uint64_t a2, void **a3, void *a4)
 {
   v6 = 0;
   v7 = 10;
@@ -157,13 +157,13 @@ void *sb_packbuff_init_with_buffer(void *a1, uint64_t a2, int a3, int a4)
   return result;
 }
 
-void sb_packbuff_free(uint64_t *a1)
+void sb_packbuff_free(char *a1)
 {
   if (a1)
   {
     if (*a1 == 2)
     {
-      if (MEMORY[0x29C2A2CB0](*MEMORY[0x29EDCA6B0], a1[5], a1[2]) && os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR))
+      if (MEMORY[0x29C2A2CB0](*MEMORY[0x29EDCA6B0], *(a1 + 5), *(a1 + 2)) && os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR))
       {
         sb_packbuff_free_cold_1(a1 + 5, a1 + 2);
       }
@@ -171,7 +171,7 @@ void sb_packbuff_free(uint64_t *a1)
 
     else if (*a1 == 1)
     {
-      free(a1[5]);
+      free(*(a1 + 5));
     }
 
     free(a1);
@@ -230,7 +230,7 @@ LABEL_5:
   return result;
 }
 
-uint64_t sb_packbuff_unpack_item(void *a1, int a2, _DWORD *a3, unsigned __int16 **a4, _DWORD *a5)
+uint64_t sb_packbuff_unpack_item(void *a1, uint64_t a2, _DWORD *a3, unsigned __int16 **a4, _DWORD *a5)
 {
   v5 = a1[5];
   v6 = a1[6];
@@ -695,7 +695,6 @@ uint64_t sandbox_apply_container(uint64_t *a1, char *__s)
 {
   if (*a1)
   {
-    v4 = *a1;
     if (!__s)
     {
       goto LABEL_5;
@@ -704,8 +703,6 @@ uint64_t sandbox_apply_container(uint64_t *a1, char *__s)
     goto LABEL_3;
   }
 
-  v5 = a1[1];
-  v6 = a1[2];
   if (__s)
   {
 LABEL_3:
@@ -734,7 +731,7 @@ uint64_t sandbox_user_state_item_buffer_send(uint64_t a1)
   return __sandbox_ms();
 }
 
-uint64_t sandbox_user_state_item_buffer_destroy(uint64_t *a1)
+uint64_t sandbox_user_state_item_buffer_destroy(char *a1)
 {
   if (!a1)
   {
@@ -745,7 +742,7 @@ uint64_t sandbox_user_state_item_buffer_destroy(uint64_t *a1)
   return 0;
 }
 
-uint64_t sandbox_set_user_state_item_with_persona(int a1, int a2, uint64_t a3, uint64_t a4, uint64_t *a5)
+uint64_t sandbox_set_user_state_item_with_persona(int a1, int a2, uint64_t a3, uint64_t a4, char *a5)
 {
   if (a5)
   {
@@ -978,7 +975,7 @@ LABEL_9:
   return v12;
 }
 
-uint64_t inspect_iterate_items(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t inspect_iterate_items(uint64_t a1, unsigned int a2, uint64_t a3)
 {
   v20 = 0;
   v19 = 0;
@@ -1196,7 +1193,7 @@ LABEL_44:
   return result;
 }
 
-uint64_t sandbox_register_sync_root()
+uint64_t sandbox_register_sync_root(int a1)
 {
   result = __sandbox_ms();
   if (result)
@@ -1209,13 +1206,12 @@ uint64_t sandbox_register_sync_root()
 
 void sb_packbuff_free_cold_1(uint64_t *a1, uint64_t *a2)
 {
-  v9 = *MEMORY[0x29EDCA608];
+  v8 = *MEMORY[0x29EDCA608];
   v2 = *a1;
   v3 = *a2;
-  v5 = 134218240;
-  v6 = v2;
-  v7 = 2048;
-  v8 = v3;
-  _os_log_error_impl(&dword_2998C1000, MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR, "failed: vm_deallocate(%p, %zu)", &v5, 0x16u);
-  v4 = *MEMORY[0x29EDCA608];
+  v4 = 134218240;
+  v5 = v2;
+  v6 = 2048;
+  v7 = v3;
+  _os_log_error_impl(&dword_2998C1000, MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR, "failed: vm_deallocate(%p, %zu)", &v4, 0x16u);
 }

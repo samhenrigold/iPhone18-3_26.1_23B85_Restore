@@ -28,11 +28,9 @@
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v4 = [GDRoadTypeValue allocWithZone:zone];
-  type = self->_type;
-  typeValue = self->_typeValue;
+  v3 = [GDRoadTypeValue allocWithZone:zone];
 
-  return MEMORY[0x1EEE66B58](v4, sel_initWithType_typeValue_);
+  return MEMORY[0x1EEE66B58](v3, sel_initWithType_typeValue_);
 }
 
 - (GDRoadTypeValue)initWithCoder:(id)coder

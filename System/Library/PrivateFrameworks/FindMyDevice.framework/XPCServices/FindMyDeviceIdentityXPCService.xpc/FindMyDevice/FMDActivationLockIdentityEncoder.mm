@@ -27,7 +27,7 @@
 {
   requestCopy = request;
   completionCopy = completion;
-  v8 = sub_100001AC8();
+  v8 = sub_100001AC8(completionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -50,7 +50,7 @@
 - (id)_compressData:(id)data
 {
   dataCopy = data;
-  v4 = sub_100001AC8();
+  v4 = sub_100001AC8(dataCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v12 = 134217984;
@@ -61,7 +61,7 @@
   v5 = 2 * [dataCopy length];
   v6 = [NSMutableData dataWithLength:v5];
   v7 = compression_encode_buffer([v6 mutableBytes], v5, objc_msgSend(dataCopy, "bytes"), objc_msgSend(dataCopy, "length"), 0, COMPRESSION_ZLIB);
-  v8 = sub_100001AC8();
+  v8 = sub_100001AC8(v7);
   v9 = v8;
   if (v7)
   {

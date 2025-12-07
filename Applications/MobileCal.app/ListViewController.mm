@@ -27,6 +27,7 @@
 - (int64_t)tableView:(id)view editingStyleForRowAtIndexPath:(id)path;
 - (int64_t)tableView:(id)view numberOfRowsInSection:(int64_t)section;
 - (void)_addAllObservers;
+- (void)_clearSwipedRow;
 - (void)_contentCategorySizeChangedNotification:(id)notification;
 - (void)_deleteEventAtIndexPath:(id)path withCompletionHandler:(id)handler;
 - (void)_deselectAllSelectedRowsAnimated:(BOOL)animated;
@@ -1115,15 +1116,19 @@ LABEL_12:
 - (void)_timeChangedSignificantly:(id)significantly
 {
   userInfo = [significantly userInfo];
-  v6 = [userInfo objectForKey:CUIKCalendarModelSignificantTimeChangeNotificationDayChangedKey];
+  v8 = [userInfo objectForKey:CUIKCalendarModelSignificantTimeChangeNotificationDayChangedKey];
 
-  if (([v6 BOOLValue] & 1) != 0 || !v6)
+  bOOLValue = [v8 BOOLValue];
+  v6 = v8;
+  if ((bOOLValue & 1) != 0 || !v8)
   {
     tableView = [(ListViewController *)self tableView];
     [tableView reloadData];
+
+    v6 = v8;
   }
 
-  _objc_release_x1();
+  _objc_release_x1(bOOLValue, v6);
 }
 
 - (void)_localeChanged:(id)changed
@@ -1811,6 +1816,13 @@ LABEL_10:
   }
 }
 
+- (void)_clearSwipedRow
+{
+  swipedRow = self->_swipedRow;
+  self->_swipedRow = 0;
+  _objc_release_x1(self, swipedRow);
+}
+
 - (void)_deleteEventAtIndexPath:(id)path withCompletionHandler:(id)handler
 {
   handlerCopy = handler;
@@ -1997,27 +2009,30 @@ LABEL_9:
 {
   [select locationInView:self->_tableView];
   v4 = [(ListTableView *)self->_tableView indexPathForRowAtPoint:?];
+  v5 = v4;
   if (v4)
   {
-    v8 = v4;
+    v9 = v4;
     indexPathsForSelectedRows = [(ListTableView *)self->_tableView indexPathsForSelectedRows];
     model = [(MainViewController *)self model];
-    v7 = [model cachedOccurrenceAtIndexPath:v8 usingFilter:{-[ListViewController showFilteredData](self, "showFilteredData")}];
+    v8 = [model cachedOccurrenceAtIndexPath:v9 usingFilter:{-[ListViewController showFilteredData](self, "showFilteredData")}];
 
-    if ([indexPathsForSelectedRows containsObject:v8])
+    if ([indexPathsForSelectedRows containsObject:v9])
     {
-      [(ListViewController *)self _deselectRowAtIndexPath:v8 animated:1];
-      [(CUIKCalendarModel *)self->super._model deselectOccurrence:v7];
+      [(ListViewController *)self _deselectRowAtIndexPath:v9 animated:1];
+      [(CUIKCalendarModel *)self->super._model deselectOccurrence:v8];
     }
 
     else
     {
-      [(ListViewController *)self _selectRowAtIndexPath:v8 animated:1 scrollPosition:0];
-      [(CUIKCalendarModel *)self->super._model selectOccurrence:v7];
+      [(ListViewController *)self _selectRowAtIndexPath:v9 animated:1 scrollPosition:0];
+      [(CUIKCalendarModel *)self->super._model selectOccurrence:v8];
     }
+
+    v5 = v9;
   }
 
-  _objc_release_x1();
+  _objc_release_x1(v4, v5);
 }
 
 - (void)_deselectAllSelectedRowsAnimated:(BOOL)animated

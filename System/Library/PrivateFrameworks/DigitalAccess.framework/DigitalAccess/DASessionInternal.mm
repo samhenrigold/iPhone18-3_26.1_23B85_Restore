@@ -37,14 +37,14 @@
 
 - (void)dealloc
 {
-  v12 = *MEMORY[0x277D85DE8];
-  v3 = KmlLogger();
+  v11 = *MEMORY[0x277D85DE8];
+  v3 = KmlLogger(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315394;
-    v9 = "[DASessionInternal dealloc]";
-    v10 = 1024;
-    v11 = 49;
+    v8 = "[DASessionInternal dealloc]";
+    v9 = 1024;
+    v10 = 49;
     _os_log_impl(&dword_248BF3000, v3, OS_LOG_TYPE_DEBUG, "%s : %i : Internal released", buf, 0x12u);
   }
 
@@ -55,15 +55,14 @@
   proxy = self->_proxy;
   self->_proxy = 0;
 
-  v7.receiver = self;
-  v7.super_class = DASessionInternal;
-  [(DASessionInternal *)&v7 dealloc];
-  v6 = *MEMORY[0x277D85DE8];
+  v6.receiver = self;
+  v6.super_class = DASessionInternal;
+  [(DASessionInternal *)&v6 dealloc];
 }
 
 - (void)dispatchBlockOnCallback:(id)callback
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   callbackCopy = callback;
   v5 = callbackCopy;
   callbackQueue = self->_callbackQueue;
@@ -73,44 +72,40 @@
     block[1] = 3221225472;
     block[2] = __45__DASessionInternal_dispatchBlockOnCallback___block_invoke;
     block[3] = &unk_278F70290;
-    v10 = callbackCopy;
+    v9 = callbackCopy;
     dispatch_async(callbackQueue, block);
-    v7 = v10;
+    v7 = v9;
   }
 
   else
   {
-    v7 = KmlLogger();
+    v7 = KmlLogger(callbackCopy);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v12 = "[DASessionInternal dispatchBlockOnCallback:]";
-      v13 = 1024;
-      v14 = 62;
+      v11 = "[DASessionInternal dispatchBlockOnCallback:]";
+      v12 = 1024;
+      v13 = 62;
       _os_log_impl(&dword_248BF3000, v7, OS_LOG_TYPE_ERROR, "%s : %i : Invalid callback queue", buf, 0x12u);
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)closeProxy
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v3 = KmlLogger();
+  v9 = *MEMORY[0x277D85DE8];
+  v3 = KmlLogger(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    v6 = 136315394;
-    v7 = "[DASessionInternal closeProxy]";
-    v8 = 1024;
-    v9 = 68;
-    _os_log_impl(&dword_248BF3000, v3, OS_LOG_TYPE_DEBUG, "%s : %i : ", &v6, 0x12u);
+    v5 = 136315394;
+    v6 = "[DASessionInternal closeProxy]";
+    v7 = 1024;
+    v8 = 68;
+    _os_log_impl(&dword_248BF3000, v3, OS_LOG_TYPE_DEBUG, "%s : %i : ", &v5, 0x12u);
   }
 
   proxy = self->_proxy;
   self->_proxy = 0;
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (id)proxy
@@ -156,26 +151,24 @@
 
   if (!v6)
   {
-    v7 = KmlLogger();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = KmlLogger(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
       v17 = "[DASessionInternal synchronousRemoteObjectProxyWithErrorHandler:]";
       v18 = 1024;
       v19 = 105;
-      _os_log_impl(&dword_248BF3000, v7, OS_LOG_TYPE_ERROR, "%s : %i : Failed to get remote proxy", buf, 0x12u);
+      _os_log_impl(&dword_248BF3000, v8, OS_LOG_TYPE_ERROR, "%s : %i : Failed to get remote proxy", buf, 0x12u);
     }
 
-    v8 = MEMORY[0x277CCA9B8];
+    v9 = MEMORY[0x277CCA9B8];
     v14 = *MEMORY[0x277CCA450];
-    v9 = [MEMORY[0x277CCACA8] stringWithUTF8String:{DAErrorString(216), v14}];
-    v15 = v9;
-    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v15 forKeys:&v14 count:1];
-    v11 = [v8 errorWithDomain:@"DigitalAccessError" code:216 userInfo:v10];
-    handlerCopy[2](handlerCopy, v11);
+    v10 = [MEMORY[0x277CCACA8] stringWithUTF8String:{DAErrorString(216), v14}];
+    v15 = v10;
+    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v15 forKeys:&v14 count:1];
+    v12 = [v9 errorWithDomain:@"DigitalAccessError" code:216 userInfo:v11];
+    handlerCopy[2](handlerCopy, v12);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v6;
 }

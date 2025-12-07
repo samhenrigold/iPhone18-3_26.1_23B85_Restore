@@ -14,7 +14,7 @@
 
 - (void)_findRouteToOffRouteLocation:(id)location stepFinishedHandler:(id)handler
 {
-  v36[2] = *MEMORY[0x1E69E9840];
+  v35[2] = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   v7 = MEMORY[0x1E69A1E70];
   locationCopy = location;
@@ -32,9 +32,9 @@
 
   [v15 setRequestType:1];
   [v15 setCurrentLocation:v12];
-  v36[0] = v13;
-  v36[1] = v14;
-  v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:v36 count:2];
+  v35[0] = v13;
+  v35[1] = v14;
+  v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:v35 count:2];
   [v15 setWaypoints:v17];
 
   data2 = [(_MNLocationSimulationState *)self data];
@@ -61,20 +61,18 @@
   [v15 setFeedback:v29];
 
   mEMORY[0x1E69A1D18] = [MEMORY[0x1E69A1D18] sharedService];
-  v34[0] = MEMORY[0x1E69E9820];
-  v34[1] = 3221225472;
-  v34[2] = __100___MNLocationSimulationState_SearchingForOffRoute__findRouteToOffRouteLocation_stepFinishedHandler___block_invoke;
-  v34[3] = &unk_1E842EF50;
-  v35 = handlerCopy;
+  v33[0] = MEMORY[0x1E69E9820];
+  v33[1] = 3221225472;
+  v33[2] = __100___MNLocationSimulationState_SearchingForOffRoute__findRouteToOffRouteLocation_stepFinishedHandler___block_invoke;
+  v33[3] = &unk_1E842EF50;
+  v34 = handlerCopy;
   v31 = handlerCopy;
-  v32 = [mEMORY[0x1E69A1D18] requestRoutes:v15 handler:v34];
-
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = [mEMORY[0x1E69A1D18] requestRoutes:v15 handler:v33];
 }
 
 - ($1AB5FA073B851C12C2339EC22442E995)_nextOffRouteTarget
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   lastObject = [(NSMutableArray *)self->_candidateRoads lastObject];
   [(NSMutableArray *)self->_candidateRoads removeLastObject];
   checkedRoads = self->_checkedRoads;
@@ -87,7 +85,7 @@
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412290;
-      v39 = lastObject;
+      v38 = lastObject;
       _os_log_impl(&dword_1D311E000, v6, OS_LOG_TYPE_DEBUG, "    Considering candidate road: %@", buf, 0xCu);
     }
 
@@ -108,20 +106,20 @@
       route2 = [routeInfo2 route];
       transportType = [route2 transportType];
 
-      v36[0] = MEMORY[0x1E69E9820];
-      v36[1] = 3221225472;
-      v36[2] = __70___MNLocationSimulationState_SearchingForOffRoute__nextOffRouteTarget__block_invoke;
-      v36[3] = &unk_1E842BCD8;
-      v36[4] = self;
-      v37 = transportType;
-      v25 = [v20 _geo_filtered:v36];
+      v35[0] = MEMORY[0x1E69E9820];
+      v35[1] = 3221225472;
+      v35[2] = __70___MNLocationSimulationState_SearchingForOffRoute__nextOffRouteTarget__block_invoke;
+      v35[3] = &unk_1E842BCD8;
+      v35[4] = self;
+      v36 = transportType;
+      v25 = [v20 _geo_filtered:v35];
 
-      v34[0] = MEMORY[0x1E69E9820];
-      v34[1] = 3221225472;
-      v34[2] = __70___MNLocationSimulationState_SearchingForOffRoute__nextOffRouteTarget__block_invoke_2;
-      v34[3] = &unk_1E842BD00;
-      v35 = v10;
-      v26 = [v25 sortedArrayUsingComparator:v34];
+      v33[0] = MEMORY[0x1E69E9820];
+      v33[1] = 3221225472;
+      v33[2] = __70___MNLocationSimulationState_SearchingForOffRoute__nextOffRouteTarget__block_invoke_2;
+      v33[3] = &unk_1E842BD00;
+      v34 = v10;
+      v26 = [v25 sortedArrayUsingComparator:v33];
 
       [(NSMutableArray *)self->_candidateRoads addObjectsFromArray:v26];
       *&v17 = -180.0;
@@ -158,19 +156,18 @@ LABEL_13:
     *&v15 = -180.0;
   }
 
-  v30 = *MEMORY[0x1E69E9840];
-  v31 = *&v15;
-  v32 = *&v17;
-  v33 = *&v19;
-  result.var2 = v33;
-  result.var1 = v32;
-  result.var0 = v31;
+  v30 = *&v15;
+  v31 = *&v17;
+  v32 = *&v19;
+  result.var2 = v32;
+  result.var1 = v31;
+  result.var0 = v30;
   return result;
 }
 
 - (void)_findOffRouteLocationWithMatchedSegments:(id)segments stepFinishedHandler:(id)handler
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   segmentsCopy = segments;
   handlerCopy = handler;
   v8 = MNGetMNNavigationSimulationLog();
@@ -209,12 +206,12 @@ LABEL_13:
   [route routeCoordinateForDistanceAfterStart:?];
   if ([segmentsCopy count])
   {
-    v34 = route;
-    v35 = handlerCopy;
+    v33 = route;
+    v34 = handlerCopy;
     v22 = 0;
     while (1)
     {
-      v23 = [segmentsCopy objectAtIndexedSubscript:{v22, v34, v35}];
+      v23 = [segmentsCopy objectAtIndexedSubscript:{v22, v33, v34}];
       [v23 endRouteCoordinate];
       if ((GEOPolylineCoordinateIsABeforeB() & 1) == 0)
       {
@@ -222,7 +219,7 @@ LABEL_13:
         if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412290;
-          v37 = v23;
+          v36 = v23;
           _os_log_impl(&dword_1D311E000, v24, OS_LOG_TYPE_DEBUG, "Checking divergence from matched segment: %@", buf, 0xCu);
         }
 
@@ -247,8 +244,8 @@ LABEL_13:
     v29 = [objc_alloc(MEMORY[0x1E69A1E70]) initWithGEOCoordinate:{v27, v28}];
 
 LABEL_15:
-    route = v34;
-    handlerCopy = v35;
+    route = v33;
+    handlerCopy = v34;
   }
 
   else
@@ -266,7 +263,6 @@ LABEL_15:
   self->_checkedRoads = 0;
 
   handlerCopy[2](handlerCopy, v29, v29 != 0);
-  v33 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_findFirstJunction:(id)junction

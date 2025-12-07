@@ -1,41 +1,3 @@
-void ___mdns_dns_service_decrement_use_count_block_invoke(uint64_t a1)
-{
-  v2 = *(a1 + 32);
-  if (*(v2 + 224))
-  {
-    _mdns_dns_service_clear_use_count(v2);
-    if (_mdns_dns_service_log_s_once != -1)
-    {
-      dispatch_once(&_mdns_dns_service_log_s_once, &__block_literal_global_66);
-    }
-
-    v3 = _mdns_dns_service_log_s_log;
-    if (os_log_type_enabled(_mdns_dns_service_log_s_log, OS_LOG_TYPE_INFO))
-    {
-      v4 = *(*(a1 + 32) + 24);
-      v6 = 134217984;
-      v7 = v4;
-      _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_INFO, "Deregistered orphaned DNS service due to timeout -- service id: %llu", &v6, 0xCu);
-    }
-
-    v5 = *(*(a1 + 40) + 96);
-    if (v5)
-    {
-      dispatch_source_merge_data(v5, 1uLL);
-    }
-  }
-}
-
-BOOL ___mdns_dns_service_manager_get_service_by_id_block_invoke(uint64_t a1, uint64_t a2)
-{
-  if (*(a2 + 24) == *(a1 + 40))
-  {
-    *(*(*(a1 + 32) + 8) + 24) = a2;
-  }
-
-  return *(*(*(a1 + 32) + 8) + 24) == 0;
-}
-
 void mdns_dns_service_manager_deregister_discovered_push_service(uint64_t a1, uint64_t a2)
 {
   if (a2)
@@ -476,19 +438,19 @@ uint64_t _mdns_append_dns_service_from_config_by_scope(const __CFArray *a1, unsi
   v3 = a3;
   if (a3 == 3)
   {
-    v5 = (a2 + 9);
+    v5 = a2 + 9;
     a2 += 8;
   }
 
   else if (a3 == 2)
   {
-    v5 = (a2 + 4);
+    v5 = a2 + 4;
     a2 += 3;
   }
 
   else
   {
-    v5 = (a2 + 1);
+    v5 = a2 + 1;
   }
 
   v6 = *a2;
@@ -944,7 +906,7 @@ void __mdns_dns_service_manager_register_path_resolver_block_invoke(uint64_t a1)
 
       else
       {
-        _mdns_dns_service_manager_cancel_resolver_config_updates();
+        _mdns_dns_service_manager_cancel_resolver_config_updates(v1, v4);
         if (_mdns_dns_service_log_s_once != -1)
         {
           dispatch_once(&_mdns_dns_service_log_s_once, &__block_literal_global_66);
@@ -1009,7 +971,6 @@ LABEL_2:
     return;
   }
 
-  v4 = *(a1 + 40);
   if (nw_resolver_config_get_protocol() != 3)
   {
     return;
@@ -1021,11 +982,11 @@ LABEL_2:
     return;
   }
 
-  v6 = path_service_by_config;
-  v7 = *(path_service_by_config + 160);
-  if (v7)
+  v5 = path_service_by_config;
+  v6 = *(path_service_by_config + 160);
+  if (v6)
   {
-    string_ptr = xpc_string_get_string_ptr(v7);
+    string_ptr = xpc_string_get_string_ptr(v6);
   }
 
   else
@@ -1033,7 +994,6 @@ LABEL_2:
     string_ptr = 0;
   }
 
-  v9 = v6[12];
   provider_name = nw_resolver_config_get_provider_name();
   if (string_ptr)
   {
@@ -1048,12 +1008,11 @@ LABEL_2:
     goto LABEL_2;
   }
 
-  v11 = v6[21];
-  v12 = v6[12];
+  v9 = v5[21];
   provider_path = nw_resolver_config_get_provider_path();
-  if (v11)
+  if (v9)
   {
-    if (!provider_path || strcmp(v11, provider_path))
+    if (!provider_path || strcmp(v9, provider_path))
     {
       goto LABEL_2;
     }
@@ -1064,22 +1023,20 @@ LABEL_2:
     goto LABEL_2;
   }
 
-  v14 = v6[12];
   odoh_config = nw_resolver_config_get_odoh_config();
-  v16 = v6[12];
-  v17 = nw_resolver_config_copy_proxy_config();
-  if (v17)
+  v12 = nw_resolver_config_copy_proxy_config();
+  if (v12)
   {
     nw_proxy_config_set_prohibit_direct();
   }
 
-  v18 = v6[8];
-  if (v18)
+  v13 = v5[8];
+  if (v13)
   {
-    v19 = *(*(v18 + 16) + 96);
-    if (v19)
+    v14 = *(*(v13 + 16) + 96);
+    if (v14)
     {
-      v19();
+      v14();
     }
 
     if (_mdns_dns_service_log_s_once != -1)
@@ -1087,31 +1044,31 @@ LABEL_2:
       dispatch_once(&_mdns_dns_service_log_s_once, &__block_literal_global_66);
     }
 
-    v20 = _mdns_dns_service_log_s_log;
+    v15 = _mdns_dns_service_log_s_log;
     if (os_log_type_enabled(_mdns_dns_service_log_s_log, OS_LOG_TYPE_DEFAULT))
     {
       LODWORD(buf) = 138412290;
-      *(&buf + 4) = v6;
-      _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "Updated ODoH config -- %@", &buf, 0xCu);
+      *(&buf + 4) = v5;
+      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Updated ODoH config -- %@", &buf, 0xCu);
     }
   }
 
   *&buf = _NSConcreteStackBlock;
   *(&buf + 1) = 0x40000000;
-  v23 = ___mdns_dns_service_manager_handle_resolver_config_update_block_invoke;
-  v24 = &__block_descriptor_tmp_77;
-  v25 = odoh_config;
-  v26 = 0;
-  v27 = v17;
-  v21 = v6[16];
-  if (v21)
+  v18 = ___mdns_dns_service_manager_handle_resolver_config_update_block_invoke;
+  v19 = &__block_descriptor_tmp_77;
+  v20 = odoh_config;
+  v21 = 0;
+  v22 = v12;
+  v16 = v5[16];
+  if (v16)
   {
-    mdns_cfarray_enumerate(v21, &buf);
+    mdns_cfarray_enumerate(v16, &buf);
   }
 
-  if (v17)
+  if (v12)
   {
-    nw_release(v17);
+    nw_release(v12);
   }
 }
 
@@ -1223,13 +1180,13 @@ uint64_t _mdns_dns_service_update_nw_config_data(uint64_t a1)
       {
         if (!provider_name)
         {
-          v11 = *(a1 + 160);
-          if (!v11)
+          v10 = *(a1 + 160);
+          if (!v10)
           {
             goto LABEL_15;
           }
 
-          xpc_release(v11);
+          xpc_release(v10);
           v7 = 0;
 LABEL_14:
           *(a1 + 160) = v7;
@@ -1258,11 +1215,10 @@ LABEL_14:
     else if (!provider_name)
     {
 LABEL_15:
-      v8 = *(a1 + 96);
       result = nw_resolver_config_get_provider_path();
-      v9 = result;
-      v10 = *(a1 + 168);
-      if (v10)
+      v8 = result;
+      v9 = *(a1 + 168);
+      if (v9)
       {
         if (!result)
         {
@@ -1275,7 +1231,7 @@ LABEL_15:
           return result;
         }
 
-        free(v10);
+        free(v9);
         *(a1 + 168) = 0;
       }
 
@@ -1284,7 +1240,7 @@ LABEL_15:
         return result;
       }
 
-      result = strdup(v9);
+      result = strdup(v8);
       if (result)
       {
 LABEL_23:
@@ -1294,7 +1250,7 @@ LABEL_23:
 
       __break(1u);
 LABEL_22:
-      free(v10);
+      free(v9);
       result = 0;
       goto LABEL_23;
     }
@@ -1346,18 +1302,15 @@ uint64_t _mdns_dns_service_manager_get_path_service_by_config(const __CFArray *a
   return v2;
 }
 
-uint64_t ___mdns_dns_service_manager_handle_resolver_config_update_block_invoke(void *a1, uint64_t a2)
+uint64_t ___mdns_dns_service_manager_handle_resolver_config_update_block_invoke(uint64_t a1, uint64_t a2)
 {
-  v3 = *(a2 + 64);
-  if (v3)
+  v2 = *(a2 + 64);
+  if (v2)
   {
-    v4 = *(*(v3 + 16) + 96);
-    if (v4)
+    v3 = *(*(v2 + 16) + 96);
+    if (v3)
     {
-      v5 = a1[5];
-      v6 = a1[6];
-      v7 = a1[4];
-      v4();
+      v3();
     }
   }
 
@@ -1384,7 +1337,7 @@ BOOL ___mdns_dns_service_manager_get_service_by_uuid_block_invoke(uint64_t a1, u
   return *(*(*(a1 + 32) + 8) + 24) == 0;
 }
 
-uint64_t _mdns_dns_service_scope_id_match(uint64_t a1, uint64_t a2)
+BOOL _mdns_dns_service_scope_id_match(uint64_t a1, uint64_t a2)
 {
   v3 = *(a1 + 280);
   if (v3 <= 2)
@@ -1651,7 +1604,7 @@ LABEL_30:
         return;
       }
 
-      v24 = v4;
+      v22 = v4;
       hostname = nw_endpoint_get_hostname(v2);
       url_path = nw_endpoint_get_url_path();
       if (hostname)
@@ -1671,9 +1624,7 @@ LABEL_30:
               {
                 if (nw_resolver_config_get_protocol() == 2)
                 {
-                  v16 = *(ValueAtIndex + 96);
                   provider_name = nw_resolver_config_get_provider_name();
-                  v18 = *(ValueAtIndex + 96);
                   provider_path = nw_resolver_config_get_provider_path();
                   if (!strcasecmp(hostname, provider_name) && !strcasecmp(v11, provider_path))
                   {
@@ -1689,24 +1640,24 @@ LABEL_30:
             }
 
 LABEL_24:
-            if (v24)
+            if (v22)
             {
               if (_mdns_dns_service_log_s_once != -1)
               {
                 dispatch_once(&_mdns_dns_service_log_s_once, &__block_literal_global_66);
               }
 
-              v23 = _mdns_dns_service_log_s_log;
+              v21 = _mdns_dns_service_log_s_log;
               if (os_log_type_enabled(_mdns_dns_service_log_s_log, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 136315394;
-                *&buf[4] = v24;
+                *&buf[4] = v22;
                 *&buf[12] = 2080;
                 *&buf[14] = v1;
-                _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "Adding domain %s to DoH resolver at %s", buf, 0x16u);
+                _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "Adding domain %s to DoH resolver at %s", buf, 0x16u);
               }
 
-              _mdns_dns_service_add_domain_by_string(ValueAtIndex, v24, 0);
+              _mdns_dns_service_add_domain_by_string(ValueAtIndex, v22, 0);
             }
 
             goto LABEL_30;
@@ -1718,15 +1669,15 @@ LABEL_18:
       if (_mdns_dns_service_log_s_once == -1)
       {
 LABEL_19:
-        v20 = _mdns_dns_service_log_s_log;
+        v18 = _mdns_dns_service_log_s_log;
         if (os_log_type_enabled(_mdns_dns_service_log_s_log, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136315138;
           *&buf[4] = v1;
-          _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "Registering discovered DoH resolver at %s", buf, 0xCu);
+          _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "Registering discovered DoH resolver at %s", buf, 0xCu);
         }
 
-        v21 = nw_resolver_config_create();
+        v19 = nw_resolver_config_create();
         nw_resolver_config_set_class();
         nw_resolver_config_set_protocol();
         nw_endpoint_get_hostname(v2);
@@ -1737,13 +1688,13 @@ LABEL_19:
         *&buf[8] = 0;
         uuid_generate(buf);
         nw_resolver_config_set_identifier();
-        v25 = 0;
-        ValueAtIndex = _mdns_dns_service_create(3, 4, 4, &v25);
-        if (v25)
+        v23 = 0;
+        ValueAtIndex = _mdns_dns_service_create(3, 4, 4, &v23);
+        if (v23)
         {
-          if (v21)
+          if (v19)
           {
-            nw_release(v21);
+            nw_release(v19);
           }
 
           if (!ValueAtIndex)
@@ -1756,14 +1707,14 @@ LABEL_19:
         {
           *(ValueAtIndex + 48) = nw_retain(v2);
           *(ValueAtIndex + 56) = 1;
-          *(ValueAtIndex + 96) = v21;
+          *(ValueAtIndex + 96) = v19;
           *(ValueAtIndex + 276) = 6;
           _mdns_dns_service_update_nw_config_data(ValueAtIndex);
         }
 
-        v22 = *(v3 + 48);
+        v20 = *(v3 + 48);
         _mdns_dns_service_increment_use_count(ValueAtIndex);
-        CFArrayAppendValue(v22, ValueAtIndex);
+        CFArrayAppendValue(v20, ValueAtIndex);
         _mdns_dns_service_manager_update_interface_properties_for_service(v3, ValueAtIndex);
         os_release(ValueAtIndex);
         _mdns_dns_service_manager_fetch_doh_pvd(ValueAtIndex);
@@ -2585,51 +2536,46 @@ LABEL_53:
             if (*(v2 + 96))
             {
               provider_name = nw_resolver_config_get_provider_name();
-              v38 = *(v2 + 96);
               provider_path = nw_resolver_config_get_provider_path();
               if ((*(v18 + 137) & 1) == 0)
               {
-                v40 = *(*(v18 + 16) + 56);
-                if (!v40 || (v40(v18, provider_name), (*(v18 + 137) & 1) == 0))
+                v39 = *(*(v18 + 16) + 56);
+                if (!v39 || (v39(v18, provider_name), (*(v18 + 137) & 1) == 0))
                 {
-                  v41 = *(*(v18 + 16) + 80);
-                  if (v41)
+                  v40 = *(*(v18 + 16) + 80);
+                  if (v40)
                   {
-                    v41(v18, provider_path);
+                    v40(v18, provider_path);
                   }
                 }
               }
 
-              v42 = *(v2 + 96);
               identity_reference = nw_resolver_config_get_identity_reference();
               if (identity_reference)
               {
-                if ((*(v18 + 137) & 1) != 0 || (v44 = *(*(v18 + 16) + 88)) != 0 && v44(v18, identity_reference, 0))
+                if ((*(v18 + 137) & 1) != 0 || (v42 = *(*(v18 + 16) + 88)) != 0 && v42(v18, identity_reference, 0))
                 {
                   if (_mdns_dns_service_log_s_once != -1)
                   {
                     dispatch_once(&_mdns_dns_service_log_s_once, &__block_literal_global_66);
                   }
 
-                  v45 = _mdns_dns_service_log_s_log;
+                  v43 = _mdns_dns_service_log_s_log;
                   if (os_log_type_enabled(_mdns_dns_service_log_s_log, OS_LOG_TYPE_ERROR))
                   {
-                    v90 = *(v2 + 24);
+                    v85 = *(v2 + 24);
                     *buf = 134217984;
-                    *&buf[4] = v90;
-                    _os_log_error_impl(&_mh_execute_header, v45, OS_LOG_TYPE_ERROR, "Failed to set identity reference for service -- service id: %llu", buf, 0xCu);
+                    *&buf[4] = v85;
+                    _os_log_error_impl(&_mh_execute_header, v43, OS_LOG_TYPE_ERROR, "Failed to set identity reference for service -- service id: %llu", buf, 0xCu);
                   }
                 }
               }
 
-              v46 = *(v2 + 96);
               if (nw_resolver_config_get_protocol() == 3)
               {
-                v47 = *(v2 + 96);
                 odoh_config = nw_resolver_config_get_odoh_config();
-                v49 = *(v2 + 96);
-                v50 = nw_resolver_config_copy_proxy_config();
-                if (v50)
+                v45 = nw_resolver_config_copy_proxy_config();
+                if (v45)
                 {
                   nw_proxy_config_set_prohibit_direct();
                 }
@@ -2639,23 +2585,23 @@ LABEL_53:
                   dispatch_once(&_mdns_dns_service_log_s_once, &__block_literal_global_66);
                 }
 
-                v51 = _mdns_dns_service_log_s_log;
+                v46 = _mdns_dns_service_log_s_log;
                 if (os_log_type_enabled(_mdns_dns_service_log_s_log, OS_LOG_TYPE_DEFAULT))
                 {
                   *buf = 138412290;
-                  *&buf[4] = v50;
-                  _os_log_impl(&_mh_execute_header, v51, OS_LOG_TYPE_DEFAULT, "Resolver proxy config: %@", buf, 0xCu);
+                  *&buf[4] = v45;
+                  _os_log_impl(&_mh_execute_header, v46, OS_LOG_TYPE_DEFAULT, "Resolver proxy config: %@", buf, 0xCu);
                 }
 
-                v52 = *(*(v18 + 16) + 96);
-                if (v52)
+                v47 = *(*(v18 + 16) + 96);
+                if (v47)
                 {
-                  v52(v18, provider_name, provider_path, odoh_config, 0, v50);
+                  v47(v18, provider_name, provider_path, odoh_config, 0, v45);
                 }
 
-                if (v50)
+                if (v45)
                 {
-                  nw_release(v50);
+                  nw_release(v45);
                 }
 
                 if (*(a1 + 129) == 1 && *(v2 + 282) != 4)
@@ -2673,10 +2619,10 @@ LABEL_53:
             {
               if ((*(v18 + 137) & 1) == 0)
               {
-                v53 = *(*(v18 + 16) + 64);
-                if (v53)
+                v48 = *(*(v18 + 16) + 64);
+                if (v48)
                 {
-                  v53(v18);
+                  v48(v18);
                 }
               }
             }
@@ -2685,79 +2631,79 @@ LABEL_53:
             {
               if ((*(v18 + 137) & 1) == 0)
               {
-                v54 = *(*(v18 + 16) + 72);
-                if (v54)
+                v49 = *(*(v18 + 16) + 72);
+                if (v49)
                 {
-                  v54(v18);
+                  v49(v18);
                 }
               }
             }
 
-            v55 = *(v18 + 137);
+            v50 = *(v18 + 137);
             if (*(v2 + 56) == 1)
             {
-              if ((v55 & 1) == 0)
+              if ((v50 & 1) == 0)
               {
-                v55 = 0;
+                v50 = 0;
                 *(v18 + 133) = 1;
                 goto LABEL_97;
               }
             }
 
-            else if ((v55 & 1) == 0)
+            else if ((v50 & 1) == 0)
             {
 LABEL_97:
               if ((*(v2 + 276) & 8) != 0)
               {
-                v56 = 2000;
+                v51 = 2000;
               }
 
               else
               {
-                v56 = 1000;
+                v51 = 1000;
               }
 
-              *(v18 + 124) = v56;
+              *(v18 + 124) = v51;
               *(v18 + 132) = *(a1 + 128);
-              if (((v24 | v55) & 1) == 0)
+              if (((v24 | v50) & 1) == 0)
               {
                 *(v18 + 138) = 1;
-                v57 = *(a1 + 120);
-                if (v57 >= 0x64)
+                v52 = *(a1 + 120);
+                if (v52 >= 0x64)
                 {
-                  v58 = 100;
+                  v53 = 100;
                 }
 
                 else
                 {
-                  v58 = *(a1 + 120);
+                  v53 = *(a1 + 120);
                 }
 
-                if (v57 <= 0)
+                if (v52 <= 0)
                 {
-                  v59 = 0;
+                  v54 = 0;
                 }
 
                 else
                 {
-                  v59 = v58;
+                  v54 = v53;
                 }
 
-                *(v18 + 128) = v59;
+                *(v18 + 128) = v54;
               }
             }
 
-            v60 = *(v2 + 80);
-            if (!v60)
+            v55 = *(v2 + 80);
+            if (!v55)
             {
               goto LABEL_136;
             }
 
-            Count = CFArrayGetCount(v60);
-            v62 = Count;
+            Count = CFArrayGetCount(v55);
+            v57 = Count;
             if (Count < 1)
             {
-              v73 = 1;
+              v68 = 1;
               if (!Count)
               {
                 goto LABEL_136;
@@ -2766,13 +2712,13 @@ LABEL_97:
               goto LABEL_135;
             }
 
-            v98 = a1;
-            v63 = 0;
-            v64 = 0;
+            v93 = a1;
+            v58 = 0;
+            v59 = 0;
             while (1)
             {
-              ValueAtIndex = CFArrayGetValueAtIndex(*(v2 + 80), v64);
-              v66 = ValueAtIndex;
+              ValueAtIndex = CFArrayGetValueAtIndex(*(v2 + 80), v59);
+              v61 = ValueAtIndex;
               if (*(v18 + 137))
               {
                 break;
@@ -2780,8 +2726,8 @@ LABEL_97:
 
               *&buf[24] = 0;
               *&buf[16] = 0;
-              v67 = ValueAtIndex[25];
-              if (v67 == 30)
+              v62 = ValueAtIndex[25];
+              if (v62 == 30)
               {
                 *buf = *(ValueAtIndex + 24);
                 *&buf[12] = *(ValueAtIndex + 36);
@@ -2789,26 +2735,26 @@ LABEL_97:
 
               else
               {
-                if (v67 != 2)
+                if (v62 != 2)
                 {
-                  v70 = -6756;
+                  v65 = -6756;
 LABEL_124:
                   if (_mdns_dns_service_log_s_once != -1)
                   {
                     dispatch_once(&_mdns_dns_service_log_s_once, &__block_literal_global_66);
                   }
 
-                  v71 = _mdns_dns_service_log_s_log;
+                  v66 = _mdns_dns_service_log_s_log;
                   if (os_log_type_enabled(_mdns_dns_service_log_s_log, OS_LOG_TYPE_ERROR))
                   {
-                    v72 = *(v2 + 24);
+                    v67 = *(v2 + 24);
                     *buf = 134218498;
-                    *&buf[4] = v72;
+                    *&buf[4] = v67;
                     *&buf[12] = 2112;
-                    *&buf[14] = v66;
+                    *&buf[14] = v61;
                     *&buf[22] = 2048;
-                    *&buf[24] = v70;
-                    _os_log_error_impl(&_mh_execute_header, v71, OS_LOG_TYPE_ERROR, "Failed to add address to resolver -- service id: %llu, address: %@, error: %{mdns:err}ld", buf, 0x20u);
+                    *&buf[24] = v65;
+                    _os_log_error_impl(&_mh_execute_header, v66, OS_LOG_TYPE_ERROR, "Failed to add address to resolver -- service id: %llu, address: %@, error: %{mdns:err}ld", buf, 0x20u);
                   }
 
                   goto LABEL_128;
@@ -2825,30 +2771,30 @@ LABEL_124:
               address = nw_endpoint_create_address(buf);
               if (!address)
               {
-                v70 = -6700;
+                v65 = -6700;
                 goto LABEL_124;
               }
 
-              v69 = address;
+              v64 = address;
               if (*(v18 + 48))
               {
                 nw_endpoint_set_interface();
               }
 
-              v70 = _mdns_resolver_add_server_by_endpoint(v18, v69);
-              nw_release(v69);
-              if (v70)
+              v65 = _mdns_resolver_add_server_by_endpoint(v18, v64);
+              nw_release(v64);
+              if (v65)
               {
                 goto LABEL_124;
               }
 
-              ++v63;
+              ++v58;
 LABEL_128:
-              if (v62 == ++v64)
+              if (v57 == ++v59)
               {
-                v73 = v63 < 1;
-                a1 = v98;
-                if (!v62)
+                v68 = v58 < 1;
+                a1 = v93;
+                if (!v57)
                 {
 LABEL_136:
                   if (_mdns_dns_service_queue_s_once != -1)
@@ -2858,15 +2804,15 @@ LABEL_136:
 
                   if ((*(v18 + 137) & 1) == 0)
                   {
-                    v74 = _mdns_dns_service_queue_s_queue;
+                    v69 = _mdns_dns_service_queue_s_queue;
                     dispatch_retain(_mdns_dns_service_queue_s_queue);
-                    v75 = *(v18 + 72);
-                    if (v75)
+                    v70 = *(v18 + 72);
+                    if (v70)
                     {
-                      dispatch_release(v75);
+                      dispatch_release(v70);
                     }
 
-                    *(v18 + 72) = v74;
+                    *(v18 + 72) = v69;
                   }
 
                   os_retain(a1);
@@ -2874,31 +2820,31 @@ LABEL_136:
                   os_retain(v2);
                   *&aBlock = _NSConcreteStackBlock;
                   *(&aBlock + 1) = 0x40000000;
-                  v100 = ___mdns_dns_service_manager_prepare_resolver_block_invoke;
-                  v101 = &__block_descriptor_tmp_204;
-                  v102 = a1;
-                  v103 = v2;
-                  v104 = v18;
+                  v95 = ___mdns_dns_service_manager_prepare_resolver_block_invoke;
+                  v96 = &__block_descriptor_tmp_204;
+                  v97 = a1;
+                  v98 = v2;
+                  v99 = v18;
                   if ((*(v18 + 137) & 1) == 0)
                   {
-                    v76 = _Block_copy(&aBlock);
-                    v77 = *(v18 + 80);
-                    if (v77)
+                    v71 = _Block_copy(&aBlock);
+                    v72 = *(v18 + 80);
+                    if (v72)
                     {
-                      _Block_release(v77);
+                      _Block_release(v72);
                     }
 
-                    *(v18 + 80) = v76;
+                    *(v18 + 80) = v71;
                   }
 
                   *(v2 + 64) = v18;
                   if (*(v2 + 283) == 1)
                   {
                     *(v2 + 283) = 0;
-                    v78 = *(a1 + 96);
-                    if (v78)
+                    v73 = *(a1 + 96);
+                    if (v73)
                     {
-                      dispatch_source_merge_data(v78, 1uLL);
+                      dispatch_source_merge_data(v73, 1uLL);
                       v18 = *(v2 + 64);
                     }
                   }
@@ -2916,7 +2862,7 @@ LABEL_136:
                     *&buf[8] = 0x40000000;
                     *&buf[16] = __mdns_resolver_activate_block_invoke;
                     *&buf[24] = &__block_descriptor_tmp_4761;
-                    v106 = v18;
+                    v101 = v18;
                     dispatch_async(_mdns_resolver_queue_s_queue, buf);
                   }
 
@@ -2927,44 +2873,44 @@ LABEL_136:
                       dispatch_once(&_mdns_dns_service_queue_s_once, &__block_literal_global_249);
                     }
 
-                    v79 = dispatch_source_create(&_dispatch_source_type_timer, 0, 0, _mdns_dns_service_queue_s_queue);
-                    *(v2 + 200) = v79;
-                    if (v79)
+                    v74 = dispatch_source_create(&_dispatch_source_type_timer, 0, 0, _mdns_dns_service_queue_s_queue);
+                    *(v2 + 200) = v74;
+                    if (v74)
                     {
                       if (_mdns_os_variant_has_internal_diagnostics_s_once != -1)
                       {
                         dispatch_once(&_mdns_os_variant_has_internal_diagnostics_s_once, &__block_literal_global_253);
                       }
 
-                      if (_mdns_os_variant_has_internal_diagnostics_s_result == 1 && (v80 = *(a1 + 124)) != 0)
+                      if (_mdns_os_variant_has_internal_diagnostics_s_result == 1 && (v75 = *(a1 + 124)) != 0)
                       {
-                        if (v80 <= 0xA)
+                        if (v75 <= 0xA)
                         {
-                          v81 = 10;
+                          v76 = 10;
                         }
 
                         else
                         {
-                          v81 = *(a1 + 124);
+                          v76 = *(a1 + 124);
                         }
                       }
 
                       else
                       {
-                        v81 = 1800;
+                        v76 = 1800;
                       }
 
-                      v82 = *(v2 + 200);
-                      v83 = dispatch_time(0x8000000000000000, 1000000000 * v81);
-                      dispatch_source_set_timer(v82, v83, 1000000000 * v81, 50000000 * v81);
-                      v84 = *(v2 + 200);
+                      v77 = *(v2 + 200);
+                      v78 = dispatch_time(0x8000000000000000, 1000000000 * v76);
+                      dispatch_source_set_timer(v77, v78, 1000000000 * v76, 50000000 * v76);
+                      v79 = *(v2 + 200);
                       *buf = _NSConcreteStackBlock;
                       *&buf[8] = 0x40000000;
                       *&buf[16] = ___mdns_dns_service_manager_schedule_ddr_probe_block_invoke;
                       *&buf[24] = &__block_descriptor_tmp_213;
-                      v106 = a1;
-                      v107 = v2;
-                      dispatch_source_set_event_handler(v84, buf);
+                      v101 = a1;
+                      v102 = v2;
+                      dispatch_source_set_event_handler(v79, buf);
                       dispatch_activate(*(v2 + 200));
                       _mdns_dns_service_forget_all_ddr_queriers(v2);
                       _mdns_dns_service_manager_start_ddr_querier_ex(a1, v2, 0);
@@ -2976,13 +2922,13 @@ LABEL_136:
                       dispatch_once(&_mdns_dns_service_log_s_once, &__block_literal_global_66);
                     }
 
-                    v97 = _mdns_dns_service_log_s_log;
+                    v92 = _mdns_dns_service_log_s_log;
                     if (os_log_type_enabled(_mdns_dns_service_log_s_log, OS_LOG_TYPE_ERROR))
                     {
                       *buf = 0;
-                      v93 = "Failed to create DDR timer";
-                      v94 = v97;
-                      v95 = 2;
+                      v88 = "Failed to create DDR timer";
+                      v89 = v92;
+                      v90 = 2;
                       goto LABEL_187;
                     }
                   }
@@ -2991,7 +2937,7 @@ LABEL_136:
                 }
 
 LABEL_135:
-                if (!v73)
+                if (!v68)
                 {
                   goto LABEL_136;
                 }
@@ -3001,7 +2947,7 @@ LABEL_135:
               }
             }
 
-            v70 = -6719;
+            v65 = -6719;
             goto LABEL_124;
           }
         }
@@ -3015,17 +2961,17 @@ LABEL_135:
       dispatch_once(&_mdns_dns_service_log_s_once, &__block_literal_global_66);
     }
 
-    v91 = _mdns_dns_service_log_s_log;
+    v86 = _mdns_dns_service_log_s_log;
     if (os_log_type_enabled(_mdns_dns_service_log_s_log, OS_LOG_TYPE_ERROR))
     {
-      v92 = *(v2 + 24);
+      v87 = *(v2 + 24);
       *buf = 134217984;
-      *&buf[4] = v92;
-      v93 = "Failed to create resolver for service -- service id: %llu";
-      v94 = v91;
-      v95 = 12;
+      *&buf[4] = v87;
+      v88 = "Failed to create resolver for service -- service id: %llu";
+      v89 = v86;
+      v90 = 12;
 LABEL_187:
-      _os_log_error_impl(&_mh_execute_header, v94, OS_LOG_TYPE_ERROR, v93, buf, v95);
+      _os_log_error_impl(&_mh_execute_header, v89, OS_LOG_TYPE_ERROR, v88, buf, v90);
     }
 
 LABEL_169:
@@ -3040,16 +2986,16 @@ LABEL_170:
       dispatch_once(&_mdns_dns_service_log_s_once, &__block_literal_global_66);
     }
 
-    v85 = _mdns_dns_service_log_s_log;
+    v80 = _mdns_dns_service_log_s_log;
     if (!os_log_type_enabled(_mdns_dns_service_log_s_log, OS_LOG_TYPE_ERROR))
     {
       return 0;
     }
 
-    v88 = *(v2 + 24);
+    v83 = *(v2 + 24);
     LODWORD(aBlock) = 134217984;
-    *(&aBlock + 4) = v88;
-    v89 = "Failed to prepare resolver -- service id: %llu";
+    *(&aBlock + 4) = v83;
+    v84 = "Failed to prepare resolver -- service id: %llu";
     goto LABEL_181;
   }
 
@@ -3065,18 +3011,18 @@ LABEL_188:
         dispatch_once(&_mdns_dns_service_log_s_once, &__block_literal_global_66);
       }
 
-      v85 = _mdns_dns_service_log_s_log;
+      v80 = _mdns_dns_service_log_s_log;
       if (!os_log_type_enabled(_mdns_dns_service_log_s_log, OS_LOG_TYPE_ERROR))
       {
         return 0;
       }
 
-      v96 = *(v2 + 24);
+      v91 = *(v2 + 24);
       LODWORD(aBlock) = 134217984;
-      *(&aBlock + 4) = v96;
-      v89 = "Failed to prepare push server -- service id: %llu";
+      *(&aBlock + 4) = v91;
+      v84 = "Failed to prepare push server -- service id: %llu";
 LABEL_181:
-      _os_log_error_impl(&_mh_execute_header, v85, OS_LOG_TYPE_ERROR, v89, &aBlock, 0xCu);
+      _os_log_error_impl(&_mh_execute_header, v80, OS_LOG_TYPE_ERROR, v84, &aBlock, 0xCu);
       return 0;
     }
 
@@ -3126,9 +3072,9 @@ LABEL_181:
       v14 = *(v2 + 80);
       *&aBlock = _NSConcreteStackBlock;
       *(&aBlock + 1) = 0x40000000;
-      v100 = ___mdns_dns_service_manager_prepare_push_service_block_invoke;
-      v101 = &__block_descriptor_tmp_243;
-      v102 = v2;
+      v95 = ___mdns_dns_service_manager_prepare_push_service_block_invoke;
+      v96 = &__block_descriptor_tmp_243;
+      v97 = v2;
       mdns_cfarray_enumerate(v14, &aBlock);
     }
 
@@ -3189,10 +3135,10 @@ LABEL_181:
     }
 
 LABEL_176:
-    v86 = *(v2 + 248);
-    if (v86)
+    v81 = *(v2 + 248);
+    if (v81)
     {
-      _Block_release(v86);
+      _Block_release(v81);
       *(v2 + 248) = 0;
     }
 
@@ -3225,11 +3171,11 @@ void ___mdns_dns_service_manager_prepare_resolver_block_invoke(void *a1, int a2,
       if (os_log_type_enabled(_mdns_dns_service_log_s_log, OS_LOG_TYPE_INFO))
       {
         v17 = *(v3 + 24);
-        v32 = 134218242;
-        v33 = v17;
-        v34 = 2112;
-        v35 = v5;
-        _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_INFO, "Resolver has been invalidated -- service id: %llu, resolver: %@", &v32, 0x16u);
+        v29 = 134218242;
+        v30 = v17;
+        v31 = 2112;
+        v32 = v5;
+        _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_INFO, "Resolver has been invalidated -- service id: %llu, resolver: %@", &v29, 0x16u);
       }
 
       os_release(v5);
@@ -3258,9 +3204,9 @@ void ___mdns_dns_service_manager_prepare_resolver_block_invoke(void *a1, int a2,
             return;
           }
 
-          v23 = *(v3 + 24);
-          v32 = 134217984;
-          v33 = v23;
+          v22 = *(v3 + 24);
+          v29 = 134217984;
+          v30 = v22;
           v15 = "Received unexpected error for discovered service id: %llu";
         }
 
@@ -3283,12 +3229,12 @@ void ___mdns_dns_service_manager_prepare_resolver_block_invoke(void *a1, int a2,
           }
 
           v14 = *(v3 + 24);
-          v32 = 134217984;
-          v33 = v14;
+          v29 = 134217984;
+          v30 = v14;
           v15 = "Received authentication error for discovered service id: %llu";
         }
 
-        _os_log_error_impl(&_mh_execute_header, v13, OS_LOG_TYPE_ERROR, v15, &v32, 0xCu);
+        _os_log_error_impl(&_mh_execute_header, v13, OS_LOG_TYPE_ERROR, v15, &v29, 0xCu);
         return;
       }
 
@@ -3306,16 +3252,14 @@ void ___mdns_dns_service_manager_prepare_resolver_block_invoke(void *a1, int a2,
             dispatch_once(&_mdns_dns_service_log_s_once, &__block_literal_global_66);
           }
 
-          v24 = _mdns_dns_service_log_s_log;
+          v23 = _mdns_dns_service_log_s_log;
           if (os_log_type_enabled(_mdns_dns_service_log_s_log, OS_LOG_TYPE_ERROR))
           {
-            v30 = *(v3 + 24);
-            v32 = 134217984;
-            v33 = v30;
-            _os_log_error_impl(&_mh_execute_header, v24, OS_LOG_TYPE_ERROR, "Reporting EBADMSG error for service id: %llu", &v32, 0xCu);
+            v27 = *(v3 + 24);
+            v29 = 134217984;
+            v30 = v27;
+            _os_log_error_impl(&_mh_execute_header, v23, OS_LOG_TYPE_ERROR, "Reporting EBADMSG error for service id: %llu", &v29, 0xCu);
           }
-
-          v25 = *(v3 + 96);
         }
 
         else
@@ -3333,13 +3277,11 @@ void ___mdns_dns_service_manager_prepare_resolver_block_invoke(void *a1, int a2,
           v19 = _mdns_dns_service_log_s_log;
           if (os_log_type_enabled(_mdns_dns_service_log_s_log, OS_LOG_TYPE_ERROR))
           {
-            v31 = *(v3 + 24);
-            v32 = 134217984;
-            v33 = v31;
-            _os_log_error_impl(&_mh_execute_header, v19, OS_LOG_TYPE_ERROR, "Reporting EAUTH error for service id: %llu", &v32, 0xCu);
+            v28 = *(v3 + 24);
+            v29 = 134217984;
+            v30 = v28;
+            _os_log_error_impl(&_mh_execute_header, v19, OS_LOG_TYPE_ERROR, "Reporting EAUTH error for service id: %llu", &v29, 0xCu);
           }
-
-          v20 = *(v3 + 96);
         }
       }
 
@@ -3350,16 +3292,14 @@ void ___mdns_dns_service_manager_prepare_resolver_block_invoke(void *a1, int a2,
           dispatch_once(&_mdns_dns_service_log_s_once, &__block_literal_global_66);
         }
 
-        v26 = _mdns_dns_service_log_s_log;
+        v24 = _mdns_dns_service_log_s_log;
         if (os_log_type_enabled(_mdns_dns_service_log_s_log, OS_LOG_TYPE_INFO))
         {
-          v27 = *(v3 + 24);
-          v32 = 134217984;
-          v33 = v27;
-          _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_INFO, "Reporting success for service id: %llu", &v32, 0xCu);
+          v25 = *(v3 + 24);
+          v29 = 134217984;
+          v30 = v25;
+          _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_INFO, "Reporting success for service id: %llu", &v29, 0xCu);
         }
-
-        v28 = *(v3 + 96);
       }
 
       nw_resolver_config_report_error();
@@ -3378,18 +3318,18 @@ void ___mdns_dns_service_manager_prepare_resolver_block_invoke(void *a1, int a2,
         {
           v10 = "";
           v11 = *(v3 + 24);
-          v32 = 136446722;
+          v29 = 136446722;
           if (v8)
           {
             v10 = "not";
           }
 
-          v33 = v10;
-          v34 = 2048;
-          v35 = v11;
-          v36 = 2112;
-          v37 = v5;
-          _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Resolver can%{public}s connect -- service id: %llu, resolver: %@", &v32, 0x20u);
+          v30 = v10;
+          v31 = 2048;
+          v32 = v11;
+          v33 = 2112;
+          v34 = v5;
+          _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Resolver can%{public}s connect -- service id: %llu, resolver: %@", &v29, 0x20u);
         }
 
         if (v8)
@@ -3412,10 +3352,10 @@ void ___mdns_dns_service_manager_prepare_resolver_block_invoke(void *a1, int a2,
           *(v3 + 283) = 0;
         }
 
-        v21 = v4[12];
-        if (v21)
+        v20 = v4[12];
+        if (v20)
         {
-          dispatch_source_merge_data(v21, 1uLL);
+          dispatch_source_merge_data(v20, 1uLL);
         }
       }
 
@@ -3442,22 +3382,22 @@ void ___mdns_dns_service_manager_prepare_resolver_block_invoke(void *a1, int a2,
           v18 = 0;
         }
 
-        v22 = _mdns_dns_service_log_s_log;
+        v21 = _mdns_dns_service_log_s_log;
         if (os_log_type_enabled(_mdns_dns_service_log_s_log, OS_LOG_TYPE_DEBUG))
         {
-          v29 = "<invalid event value>";
-          v32 = 138412802;
-          v33 = v3;
+          v26 = "<invalid event value>";
+          v29 = 138412802;
+          v30 = v3;
           if (!a2)
           {
-            v29 = "null";
+            v26 = "null";
           }
 
-          v34 = 2080;
-          v35 = v29;
-          v36 = 2082;
-          v37 = v18;
-          _os_log_debug_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEBUG, "DNS service (%@) got unhandled event: %s info: %{public}s", &v32, 0x20u);
+          v31 = 2080;
+          v32 = v26;
+          v33 = 2082;
+          v34 = v18;
+          _os_log_debug_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEBUG, "DNS service (%@) got unhandled event: %s info: %{public}s", &v29, 0x20u);
           if (!v18)
           {
             return;
@@ -3505,47 +3445,48 @@ void _mdns_dns_service_manager_start_ddr_querier_ex(void *a1, uint64_t a2, char 
     querier = mdns_resolver_create_querier(v4);
     if (querier)
     {
-      v15 = querier;
-      ++*(a2 + 268);
-      mdns_querier_set_log_label(querier, "S%llu.DDR%u", v9, v10, v11, v12, v13, v14, *(a2 + 24));
+      v9 = querier;
+      v10 = *(a2 + 268) + 1;
+      *(a2 + 268) = v10;
+      mdns_querier_set_log_label(querier, "S%llu.DDR%u", *(a2 + 24), v10);
       if (_mdns_dns_service_queue_s_once != -1)
       {
         dispatch_once(&_mdns_dns_service_queue_s_once, &__block_literal_global_249);
       }
 
-      mdns_client_set_queue(v15, _mdns_dns_service_queue_s_queue);
+      mdns_client_set_queue(v9, _mdns_dns_service_queue_s_queue);
       if (a3)
       {
-        v16 = a3;
+        v11 = a3;
       }
 
       else
       {
-        v16 = "\x04_dns\bresolver\x04arpa";
+        v11 = "\x04_dns\bresolver\x04arpa";
       }
 
-      mdns_querier_set_query(v15, v16, 64);
-      if ((*(v15 + 61) & 1) == 0)
+      mdns_querier_set_query(v9, v11, 64);
+      if ((*(v9 + 61) & 1) == 0)
       {
-        *(v15 + 236) = -1;
+        *(v9 + 236) = -1;
       }
 
       if (a3)
       {
-        CFArrayAppendValue(*(a2 + 192), v15);
+        CFArrayAppendValue(*(a2 + 192), v9);
       }
 
       else
       {
-        v17 = *(a2 + 184);
-        if (v17)
+        v12 = *(a2 + 184);
+        if (v12)
         {
-          mdns_client_invalidate(v17);
+          mdns_client_invalidate(v12);
           os_release(*(a2 + 184));
         }
 
-        *(a2 + 184) = v15;
-        os_retain(v15);
+        *(a2 + 184) = v9;
+        os_retain(v9);
       }
 
       os_retain(a1);
@@ -3555,12 +3496,12 @@ void _mdns_dns_service_manager_start_ddr_querier_ex(void *a1, uint64_t a2, char 
       aBlock[2] = ___mdns_dns_service_manager_start_ddr_querier_ex_block_invoke;
       aBlock[3] = &__block_descriptor_tmp_217;
       aBlock[4] = a2;
-      aBlock[5] = v15;
+      aBlock[5] = v9;
       aBlock[6] = a1;
       aBlock[7] = a3;
-      mdns_querier_set_result_handler(v15, aBlock);
-      mdns_client_set_time_limit_ms(v15, 15000);
-      mdns_client_activate(v15);
+      mdns_querier_set_result_handler(v9, aBlock);
+      mdns_client_set_time_limit_ms(v9, 15000);
+      mdns_client_activate(v9);
     }
 
     else
@@ -3570,18 +3511,18 @@ void _mdns_dns_service_manager_start_ddr_querier_ex(void *a1, uint64_t a2, char 
         dispatch_once(&_mdns_dns_service_log_s_once, &__block_literal_global_66);
       }
 
-      v18 = _mdns_dns_service_log_s_log;
+      v13 = _mdns_dns_service_log_s_log;
       if (os_log_type_enabled(_mdns_dns_service_log_s_log, OS_LOG_TYPE_ERROR))
       {
-        v19 = "alias ";
+        v14 = "alias ";
         if (!a3)
         {
-          v19 = "";
+          v14 = "";
         }
 
         *buf = 136446210;
-        v22 = v19;
-        _os_log_error_impl(&_mh_execute_header, v18, OS_LOG_TYPE_ERROR, "Failed to create DDR %{public}squerier", buf, 0xCu);
+        v17 = v14;
+        _os_log_error_impl(&_mh_execute_header, v13, OS_LOG_TYPE_ERROR, "Failed to create DDR %{public}squerier", buf, 0xCu);
       }
     }
   }
@@ -3620,9 +3561,9 @@ void ___mdns_dns_service_manager_start_ddr_querier_ex_block_invoke(uint64_t a1)
       goto LABEL_164;
     }
 
-    v144.length = CFArrayGetCount(v5);
-    v144.location = 0;
-    FirstIndexOfValue = CFArrayGetFirstIndexOfValue(*(v3 + 192), v144, v2);
+    v142.length = CFArrayGetCount(v5);
+    v142.location = 0;
+    FirstIndexOfValue = CFArrayGetFirstIndexOfValue(*(v3 + 192), v142, v2);
     if (FirstIndexOfValue < 0)
     {
       goto LABEL_164;
@@ -3649,19 +3590,19 @@ void ___mdns_dns_service_manager_start_ddr_querier_ex_block_invoke(uint64_t a1)
 
     if (*(a1 + 56))
     {
-      v79 = *(*(*(v7 + 96) + 56) + 24);
+      v77 = *(*(*(v7 + 96) + 56) + 24);
     }
 
     else
     {
-      v79 = 0;
+      v77 = 0;
     }
 
     v11 = *(a1 + 32);
     v12 = *(a1 + 48);
     AnswerSection = 0;
-    *v90 = 0;
-    v13 = DNSMessageCollapse(v9, v10, v90, &AnswerSection);
+    *v88 = 0;
+    v13 = DNSMessageCollapse(v9, v10, v88, &AnswerSection);
     if (!AnswerSection)
     {
       v14 = *(v11 + 152);
@@ -3672,62 +3613,62 @@ void ___mdns_dns_service_manager_start_ddr_querier_ex_block_invoke(uint64_t a1)
       }
 
       *(v11 + 287) = 0;
-      if (*v90 >= 0xCuLL)
+      if (*v88 >= 0xCuLL)
       {
         v15 = __rev16(v13[3]);
         if (v15)
         {
-          v89 = 0;
-          AnswerSection = DNSMessageGetAnswerSection(v13, *v90, &v89);
+          v87 = 0;
+          AnswerSection = DNSMessageGetAnswerSection(v13, *v88, &v87);
           if (!AnswerSection)
           {
             v16 = dispatch_group_create();
             v17 = 0;
-            v88 = v89;
+            v86 = v87;
             group = v16;
             while (1)
             {
-              v86 = 0;
-              v87 = 0;
-              AnswerSection = _DNSMessageExtractRecordEx(v13, *v90, v88, 0, 0, 0, 0, &v87, &v86, 0, 0, 0, 0, &v88);
+              v84 = 0;
+              v85 = 0;
+              AnswerSection = _DNSMessageExtractRecordEx(v13, *v88, v86, 0, 0, 0, 0, &v85, &v84, 0, 0, 0, 0, &v86);
               if (AnswerSection)
               {
                 goto LABEL_162;
               }
 
-              v18 = v87;
-              if (v87)
+              v18 = v85;
+              if (v85)
               {
-                v19 = v86;
-                if (v86 >= 2)
+                v19 = v84;
+                if (v84 >= 2)
                 {
-                  if (*v87)
+                  if (*v85)
                   {
                     *buf = 0;
                     *&buf[8] = buf;
                     *&buf[16] = 0x2000000000;
-                    LOBYTE(v117) = 0;
+                    LOBYTE(v115) = 0;
                     block = _NSConcreteStackBlock;
-                    v108 = 0x40000000;
-                    v109 = __dnssd_svcb_is_valid_block_invoke;
-                    v110 = &unk_100152DF0;
-                    v111 = buf;
-                    _dnssd_svcb_extract_values(v87, v86, 0, &block);
+                    v106 = 0x40000000;
+                    v107 = __dnssd_svcb_is_valid_block_invoke;
+                    v108 = &unk_100152DF0;
+                    v109 = buf;
+                    _dnssd_svcb_extract_values(v85, v84, 0, &block);
                     v20 = *(*&buf[8] + 24);
                     _Block_object_dispose(buf, 8);
                     if ((v20 & 1) == 0)
                     {
-                      v19 = v86;
-                      v18 = v87;
-                      if (v86 >= 2)
+                      v19 = v84;
+                      v18 = v85;
+                      if (v84 >= 2)
                       {
 LABEL_29:
                         if (!*v18)
                         {
-                          if (!v79)
+                          if (!v77)
                           {
-                            v21 = v18 + 1;
-                            if (v18 != -2 && (v18 + v19) > v21)
+                            v21 = (v18 + 1);
+                            if (v18 != -2 && v18 + v19 > v21)
                             {
                               v22 = v18 + 1;
                               while (*v22)
@@ -3751,7 +3692,7 @@ LABEL_29:
 
                               if ((v22 - v21 + 1) <= 0x100uLL)
                               {
-                                _mdns_dns_service_manager_start_ddr_querier_ex(v12, v11);
+                                _mdns_dns_service_manager_start_ddr_querier_ex(v12, v11, v21);
                               }
                             }
                           }
@@ -3760,45 +3701,45 @@ LABEL_29:
                         }
                       }
 
-                      v82 = 0;
-                      v83 = &v82;
-                      v84 = 0x2000000000;
-                      v85 = 0;
-                      v81[0] = _NSConcreteStackBlock;
-                      v81[1] = 0x40000000;
-                      v81[2] = ___mdns_dns_service_manager_process_ddr_response_block_invoke;
-                      v81[3] = &unk_10014F328;
-                      v81[4] = &v82;
+                      v80 = 0;
+                      v81 = &v80;
+                      v82 = 0x2000000000;
+                      v83 = 0;
+                      v79[0] = _NSConcreteStackBlock;
+                      v79[1] = 0x40000000;
+                      v79[2] = ___mdns_dns_service_manager_process_ddr_response_block_invoke;
+                      v79[3] = &unk_10014F328;
+                      v79[4] = &v80;
                       block = _NSConcreteStackBlock;
-                      v108 = 0x40000000;
-                      v109 = __dnssd_svcb_access_alpn_values_block_invoke;
-                      v110 = &unk_100152EB8;
-                      v111 = v81;
+                      v106 = 0x40000000;
+                      v107 = __dnssd_svcb_access_alpn_values_block_invoke;
+                      v108 = &unk_100152EB8;
+                      v109 = v79;
                       _dnssd_svcb_extract_values(v18, v19, 1, &block);
-                      if (!*(v83 + 24))
+                      if (!*(v81 + 24))
                       {
                         goto LABEL_32;
                       }
 
-                      if (v86 < 2)
+                      if (v84 < 2)
                       {
                         goto LABEL_32;
                       }
 
-                      v24 = v87;
-                      v25 = v87 + 1;
-                      if (v87 == -2 || (v87 + v86) <= v25)
+                      v24 = v85;
+                      v25 = v85 + 1;
+                      if (v85 == -2 || (v85 + v84) <= v25)
                       {
                         goto LABEL_32;
                       }
 
-                      v26 = v87 + 1;
+                      v26 = v85 + 1;
                       while (*v26)
                       {
                         v26 = (v26 + *v26 + 1);
                         if (v26)
                         {
-                          v27 = v26 >= (v87 + v86);
+                          v27 = v26 >= (v85 + v84);
                         }
 
                         else
@@ -3880,7 +3821,7 @@ LABEL_29:
 LABEL_148:
                         free(v28);
 LABEL_32:
-                        _Block_object_dispose(&v82, 8);
+                        _Block_object_dispose(&v80, 8);
                         goto LABEL_33;
                       }
 
@@ -3893,18 +3834,18 @@ LABEL_72:
 
                       __s = v28;
                       bzero(&block, 0x3F1uLL);
-                      is_empty = dnssd_svcb_service_name_is_empty(v87, v86);
+                      is_empty = dnssd_svcb_service_name_is_empty(v85, v84);
                       v39 = __s;
                       p_block = __s;
                       if (is_empty)
                       {
-                        if (!v79)
+                        if (!v77)
                         {
                           goto LABEL_147;
                         }
 
                         p_block = &block;
-                        v41 = DomainNameToString(v79, 0, &block, 0);
+                        v41 = DomainNameToString(v77, 0, &block, 0);
                         v39 = __s;
                         if (v41)
                         {
@@ -3921,26 +3862,26 @@ LABEL_72:
                       log = p_block;
                       *out = 0;
                       *&out[8] = out;
-                      v137 = 0x2000000000;
-                      LOWORD(v138) = 0;
+                      v135 = 0x2000000000;
+                      LOWORD(v136) = 0;
                       *buf = _NSConcreteStackBlock;
                       *&buf[8] = 0x40000000;
                       *&buf[16] = __dnssd_svcb_get_port_block_invoke;
-                      *&v117 = &unk_100152E18;
-                      *(&v117 + 1) = out;
-                      _dnssd_svcb_extract_values(v87, v86, 3, buf);
-                      v70 = *(*&out[8] + 24);
+                      *&v115 = &unk_100152E18;
+                      *(&v115 + 1) = out;
+                      _dnssd_svcb_extract_values(v85, v84, 3, buf);
+                      v68 = *(*&out[8] + 24);
                       _Block_object_dispose(out, 8);
                       *out = 0;
                       *&out[8] = out;
-                      v137 = 0x2000000000;
-                      v138 = 0;
+                      v135 = 0x2000000000;
+                      v136 = 0;
                       *buf = _NSConcreteStackBlock;
                       *&buf[8] = 0x40000000;
                       *&buf[16] = __dnssd_svcb_copy_doh_path_block_invoke;
-                      *&v117 = &unk_100152E68;
-                      *(&v117 + 1) = out;
-                      _dnssd_svcb_extract_values(v87, v86, 7, buf);
+                      *&v115 = &unk_100152E68;
+                      *(&v115 + 1) = out;
+                      _dnssd_svcb_extract_values(v85, v84, 7, buf);
                       v43 = *(*&out[8] + 24);
                       _Block_object_dispose(out, 8);
                       if (v43)
@@ -3952,41 +3893,41 @@ LABEL_72:
                         }
                       }
 
-                      v80 = 0;
+                      v78 = 0;
                       *out = 0;
                       *&out[8] = out;
-                      v137 = 0x2000000000;
-                      v138 = 0;
+                      v135 = 0x2000000000;
+                      v136 = 0;
                       *buf = _NSConcreteStackBlock;
                       *&buf[8] = 0x40000000;
                       *&buf[16] = __dnssd_svcb_copy_odoh_config_block_invoke;
-                      *&v117 = &unk_100152E90;
-                      *(&v117 + 1) = out;
-                      p_isa = &v80;
-                      _dnssd_svcb_extract_values(v87, v86, 32769, buf);
+                      *&v115 = &unk_100152E90;
+                      *(&v115 + 1) = out;
+                      p_isa = &v78;
+                      _dnssd_svcb_extract_values(v85, v84, 32769, buf);
                       v45 = *(*&out[8] + 24);
                       _Block_object_dispose(out, 8);
-                      v46 = *(v83 + 24);
-                      endpoint = v80;
-                      if (v46 == 3 && v45 && v80)
+                      v46 = *(v81 + 24);
+                      endpoint = v78;
+                      if (v46 == 3 && v45 && v78)
                       {
                         v46 = 4;
-                        *(v83 + 24) = 4;
+                        *(v81 + 24) = 4;
                       }
 
-                      v74 = v45;
+                      v72 = v45;
                       *out = 0;
                       *&out[8] = out;
-                      v137 = 0x2000000000;
-                      v138 = 0;
+                      v135 = 0x2000000000;
+                      v136 = 0;
                       *buf = _NSConcreteStackBlock;
                       *&buf[8] = 0x40000000;
                       *&buf[16] = ___mdns_dns_service_get_discovered_alt_block_invoke;
-                      *&v117 = &unk_10014F390;
-                      v73 = v46;
-                      LOBYTE(v119) = v46;
+                      *&v115 = &unk_10014F390;
+                      v71 = v46;
+                      LOBYTE(v117) = v46;
                       p_isa = &log->isa;
-                      *(&v117 + 1) = out;
+                      *(&v115 + 1) = out;
                       v47 = *(v11 + 144);
                       if (v47)
                       {
@@ -4012,12 +3953,12 @@ LABEL_143:
                         _Block_object_dispose(out, 8);
                       }
 
-                      if ((v73 - 2) > 2)
+                      if ((v71 - 2) > 2)
                       {
                         goto LABEL_107;
                       }
 
-                      v68 = v43;
+                      v66 = v43;
                       v49 = nw_resolver_config_create();
                       nw_resolver_config_set_class();
                       nw_resolver_config_set_protocol();
@@ -4028,7 +3969,7 @@ LABEL_143:
                       }
 
                       obj = v49;
-                      if (v74 != 0 && endpoint != 0)
+                      if (v72 != 0 && endpoint != 0)
                       {
                         nw_resolver_config_set_odoh_config();
                       }
@@ -4047,7 +3988,7 @@ LABEL_143:
                         if (nw_resolver_config_get_class() == 4)
                         {
                           *out = 0;
-                          discovered_alt = _mdns_dns_service_create_discovered_alt(v11, v49, v70, 0, 0, out);
+                          discovered_alt = _mdns_dns_service_create_discovered_alt(v11, v49, v68, 0, 0, out);
                           if (discovered_alt)
                           {
                             v51 = discovered_alt;
@@ -4063,12 +4004,12 @@ LABEL_143:
                               dispatch_once(&_mdns_dns_service_log_s_once, &__block_literal_global_66);
                             }
 
-                            v65 = _mdns_dns_service_log_s_log;
+                            v63 = _mdns_dns_service_log_s_log;
                             if (os_log_type_enabled(_mdns_dns_service_log_s_log, OS_LOG_TYPE_ERROR))
                             {
                               *buf = 134217984;
                               *&buf[4] = *out;
-                              _os_log_error_impl(&_mh_execute_header, v65, OS_LOG_TYPE_ERROR, "Failed to create discovered oblivious DNS service -- error: %{mdns:err}ld", buf, 0xCu);
+                              _os_log_error_impl(&_mh_execute_header, v63, OS_LOG_TYPE_ERROR, "Failed to create discovered oblivious DNS service -- error: %{mdns:err}ld", buf, 0xCu);
                             }
 
                             nw_release(obj);
@@ -4080,9 +4021,9 @@ LABEL_143:
                           }
 
 LABEL_144:
-                          if (v74)
+                          if (v72)
                           {
-                            free(v74);
+                            free(v72);
                           }
 
                           v39 = __s;
@@ -4106,13 +4047,13 @@ LABEL_147:
                             v55 = v43;
                           }
 
-                          *&buf[4] = v73;
+                          *&buf[4] = v71;
                           *&buf[8] = 2081;
                           *&buf[10] = log;
                           *&buf[18] = 1024;
-                          *&buf[20] = v70;
-                          LOWORD(v117) = 2081;
-                          *(&v117 + 2) = v55;
+                          *&buf[20] = v68;
+                          LOWORD(v115) = 2081;
+                          *(&v115 + 2) = v55;
                           _os_log_impl(&_mh_execute_header, v54, OS_LOG_TYPE_INFO, "Verifying discovered service -- type: %{mdns:dns_service_type}d, provider name: %{private}s, port: %d, path: %{private}s", buf, 0x22u);
                         }
 
@@ -4122,36 +4063,36 @@ LABEL_147:
                         aBlock[3] = &__block_descriptor_tmp_223;
                         aBlock[4] = v11;
                         aBlock[5] = obj;
-                        v93 = v70;
+                        v91 = v68;
                         aBlock[6] = v12;
-                        v106[0] = 0;
-                        v106[1] = v106;
-                        v106[2] = 0x2000000000;
-                        v106[3] = 0;
-                        v105[0] = 0;
-                        v105[1] = v105;
-                        v105[2] = 0x2000000000;
-                        v105[3] = 0;
+                        v104[0] = 0;
+                        v104[1] = v104;
+                        v104[2] = 0x2000000000;
+                        v104[3] = 0;
                         v103[0] = 0;
                         v103[1] = v103;
                         v103[2] = 0x2000000000;
-                        v104 = 0;
+                        v103[3] = 0;
+                        v101[0] = 0;
+                        v101[1] = v101;
+                        v101[2] = 0x2000000000;
+                        v102 = 0;
                         endpointa = nw_endpoint_create_host_with_numeric_port();
                         *out = _NSConcreteStackBlock;
                         *&out[8] = 0x40000000;
-                        v137 = ___mdns_dns_service_manager_probe_discovered_service_block_invoke;
-                        v138 = &unk_10014F408;
-                        v143 = v73;
+                        v135 = ___mdns_dns_service_manager_probe_discovered_service_block_invoke;
+                        v136 = &unk_10014F408;
+                        v141 = v71;
+                        v137 = v101;
+                        v138 = v104;
                         v139 = v103;
-                        v140 = v106;
-                        v141 = v105;
-                        v142 = log;
+                        v140 = log;
                         secure_tcp = nw_parameters_create_secure_tcp(out, _nw_parameters_configure_protocol_default_configuration);
-                        *v133 = 0;
-                        v134 = 0;
-                        v135 = 0;
+                        *v131 = 0;
+                        v132 = 0;
+                        v133 = 0;
                         v57 = *(v11 + 104);
-                        if (v57 || (v60 = *(v11 + 256)) != 0 && (v57 = if_indextoname(v60, v133)) != 0)
+                        if (v57 || (v60 = *(v11 + 256)) != 0 && (v57 = if_indextoname(v60, v131)) != 0)
                         {
                           if (_mdns_dns_service_log_s_once != -1)
                           {
@@ -4161,9 +4102,9 @@ LABEL_147:
                           loga = _mdns_dns_service_log_s_log;
                           if (os_log_type_enabled(_mdns_dns_service_log_s_log, OS_LOG_TYPE_INFO))
                           {
-                            LODWORD(v128) = 136446210;
-                            *(&v128 + 4) = v57;
-                            _os_log_impl(&_mh_execute_header, loga, OS_LOG_TYPE_INFO, "Scoping discovered service to %{public}s", &v128, 0xCu);
+                            LODWORD(v126) = 136446210;
+                            *(&v126 + 4) = v57;
+                            _os_log_impl(&_mh_execute_header, loga, OS_LOG_TYPE_INFO, "Scoping discovered service to %{public}s", &v126, 0xCu);
                           }
 
                           v58 = nw_interface_create_with_name();
@@ -4174,10 +4115,10 @@ LABEL_147:
                           }
                         }
 
-                        v99 = 0;
-                        v100 = &v99;
-                        v101 = 0x2000000000;
-                        v102 = nw_connection_create(endpointa, secure_tcp);
+                        v97 = 0;
+                        v98 = &v97;
+                        v99 = 0x2000000000;
+                        v100 = nw_connection_create(endpointa, secure_tcp);
                         if (endpointa)
                         {
                           nw_release(endpointa);
@@ -4188,7 +4129,7 @@ LABEL_147:
                           nw_release(secure_tcp);
                         }
 
-                        v61 = v100[3];
+                        v61 = v98[3];
                         if (_mdns_dns_service_queue_s_once != -1)
                         {
                           dispatch_once(&_mdns_dns_service_queue_s_once, &__block_literal_global_249);
@@ -4197,44 +4138,42 @@ LABEL_147:
                         nw_connection_set_queue(v61, _mdns_dns_service_queue_s_queue);
                         os_retain(v11);
                         dispatch_group_enter(group);
-                        v97[0] = 0;
-                        v97[1] = v97;
-                        v97[2] = 0x2000000000;
-                        v98 = 0;
                         v95[0] = 0;
                         v95[1] = v95;
                         v95[2] = 0x2000000000;
                         v96 = 0;
-                        v94[0] = 0;
-                        v94[1] = v94;
-                        v94[2] = 0x2000000000;
-                        v94[3] = 0;
-                        *&v128 = 0;
-                        *(&v128 + 1) = &v128;
-                        v129 = 0x3002000000;
-                        v130 = __Block_byref_object_copy__915;
-                        v131 = __Block_byref_object_dispose__916;
-                        v132 = _Block_copy(aBlock);
-                        v62 = v100[3];
+                        v93[0] = 0;
+                        v93[1] = v93;
+                        v93[2] = 0x2000000000;
+                        v94 = 0;
+                        v92[0] = 0;
+                        v92[1] = v92;
+                        v92[2] = 0x2000000000;
+                        v92[3] = 0;
+                        *&v126 = 0;
+                        *(&v126 + 1) = &v126;
+                        v127 = 0x3002000000;
+                        v128 = __Block_byref_object_copy__915;
+                        v129 = __Block_byref_object_dispose__916;
+                        v130 = _Block_copy(aBlock);
                         *buf = _NSConcreteStackBlock;
                         *&buf[8] = 0x40000000;
                         *&buf[16] = ___mdns_dns_service_manager_probe_discovered_service_block_invoke_231;
-                        *&v117 = &unk_10014F458;
-                        *(&v117 + 1) = &v99;
-                        p_isa = v97;
-                        v127 = v73;
-                        v119 = v106;
-                        v120 = v105;
-                        v121 = v95;
-                        v122 = v94;
-                        v125 = v11;
-                        v126 = group;
-                        v123 = &v128;
-                        v124 = v103;
+                        *&v115 = &unk_10014F458;
+                        *(&v115 + 1) = &v97;
+                        p_isa = v95;
+                        v125 = v71;
+                        v117 = v104;
+                        v118 = v103;
+                        v119 = v93;
+                        v120 = v92;
+                        v123 = v11;
+                        v124 = group;
+                        v121 = &v126;
+                        v122 = v101;
                         nw_connection_set_event_handler();
-                        nw_connection_start(v100[3]);
-                        v63 = v100[3];
-                        if (*(v11 + 208) || (v64 = nw_array_create(), (*(v11 + 208) = v64) != 0))
+                        nw_connection_start(v98[3]);
+                        if (*(v11 + 208) || (v62 = nw_array_create(), (*(v11 + 208) = v62) != 0))
                         {
                           nw_array_append();
                         }
@@ -4246,27 +4185,27 @@ LABEL_147:
                             dispatch_once(&_mdns_dns_service_log_s_once, &__block_literal_global_66);
                           }
 
-                          v66 = _mdns_dns_service_log_s_log;
+                          v64 = _mdns_dns_service_log_s_log;
                           if (os_log_type_enabled(_mdns_dns_service_log_s_log, OS_LOG_TYPE_ERROR))
                           {
-                            v67 = *(v11 + 24);
-                            *v114 = 134217984;
-                            v115 = v67;
-                            _os_log_error_impl(&_mh_execute_header, v66, OS_LOG_TYPE_ERROR, "Cancelling service's DDR verification connection because of lack of resources -- service id: %llu", v114, 0xCu);
+                            v65 = *(v11 + 24);
+                            *v112 = 134217984;
+                            v113 = v65;
+                            _os_log_error_impl(&_mh_execute_header, v64, OS_LOG_TYPE_ERROR, "Cancelling service's DDR verification connection because of lack of resources -- service id: %llu", v112, 0xCu);
                           }
 
-                          nw_connection_cancel(v100[3]);
+                          nw_connection_cancel(v98[3]);
                         }
 
-                        v43 = v68;
-                        _Block_object_dispose(&v128, 8);
-                        _Block_object_dispose(v94, 8);
+                        v43 = v66;
+                        _Block_object_dispose(&v126, 8);
+                        _Block_object_dispose(v92, 8);
+                        _Block_object_dispose(v93, 8);
                         _Block_object_dispose(v95, 8);
-                        _Block_object_dispose(v97, 8);
-                        _Block_object_dispose(&v99, 8);
+                        _Block_object_dispose(&v97, 8);
+                        _Block_object_dispose(v101, 8);
                         _Block_object_dispose(v103, 8);
-                        _Block_object_dispose(v105, 8);
-                        _Block_object_dispose(v106, 8);
+                        _Block_object_dispose(v104, 8);
                       }
 
                       else
@@ -4287,13 +4226,13 @@ LABEL_107:
                             v53 = v43;
                           }
 
-                          *&buf[4] = v73;
+                          *&buf[4] = v71;
                           *&buf[8] = 2081;
                           *&buf[10] = log;
                           *&buf[18] = 1024;
-                          *&buf[20] = v70;
-                          LOWORD(v117) = 2081;
-                          *(&v117 + 2) = v53;
+                          *&buf[20] = v68;
+                          LOWORD(v115) = 2081;
+                          *(&v115 + 2) = v53;
                           _os_log_error_impl(&_mh_execute_header, v52, OS_LOG_TYPE_ERROR, "Failed to create discovered DNS config -- type: %{mdns:dns_service_type}d, provider name: %{private}s, port: %d, path: %{private}s", buf, 0x22u);
                           if (v43)
                           {
@@ -4313,7 +4252,7 @@ LABEL_107:
                     }
                   }
 
-                  else if ((dnssd_svcb_service_name_is_empty(v87, v86) & 1) == 0)
+                  else if ((dnssd_svcb_service_name_is_empty(v85, v84) & 1) == 0)
                   {
                     goto LABEL_29;
                   }
@@ -4331,12 +4270,12 @@ LABEL_33:
                 }
 
                 block = _NSConcreteStackBlock;
-                v108 = 0x40000000;
-                v109 = ___mdns_dns_service_manager_process_ddr_response_block_invoke_2;
-                v110 = &__block_descriptor_tmp_221;
-                v111 = v11;
-                v112 = v12;
-                v113 = group;
+                v106 = 0x40000000;
+                v107 = ___mdns_dns_service_manager_process_ddr_response_block_invoke_2;
+                v108 = &__block_descriptor_tmp_221;
+                v109 = v11;
+                v110 = v12;
+                v111 = group;
                 dispatch_group_notify(group, _mdns_dns_service_queue_s_queue, &block);
                 goto LABEL_162;
               }
@@ -4428,7 +4367,7 @@ uint64_t _mdns_dns_service_manager_add_pending_alt(CFArrayRef *a1, uint64_t a2, 
   return result;
 }
 
-const char *_mdns_dns_service_create_discovered_alt(uint64_t a1, void *a2, unsigned int a3, int a4, uint64_t a5, _DWORD *a6)
+char *_mdns_dns_service_create_discovered_alt(uint64_t a1, void *a2, unsigned int a3, int a4, uint64_t a5, _DWORD *a6)
 {
   result = nw_resolver_config_get_provider_name();
   if (a5)
@@ -4696,89 +4635,82 @@ LABEL_7:
 
 void ___mdns_dns_service_manager_probe_discovered_service_block_invoke_231(uint64_t a1, int a2)
 {
-  if (*(*(a1 + 96) + 208))
+  if (*(*(a1 + 96) + 208) && nw_array_contains_object())
   {
-    v4 = *(*(*(a1 + 32) + 8) + 24);
-    if (nw_array_contains_object())
+    if (a2 <= 3)
     {
-      if (a2 <= 3)
+      if (a2 != 1)
       {
-        if (a2 != 1)
+        if (a2 == 3)
         {
-          if (a2 == 3)
+          v4 = *(*(*(a1 + 32) + 8) + 24);
+          if (_mdns_dns_service_queue_s_once != -1)
           {
-            v5 = *(*(*(a1 + 32) + 8) + 24);
-            if (_mdns_dns_service_queue_s_once != -1)
-            {
-              v16 = *(*(*(a1 + 32) + 8) + 24);
-              dispatch_once(&_mdns_dns_service_queue_s_once, &__block_literal_global_249);
-              v5 = v16;
-            }
-
-            v17[0] = _NSConcreteStackBlock;
-            v17[1] = 0x40000000;
-            v17[2] = ___mdns_dns_service_manager_probe_discovered_service_block_invoke_2_232;
-            v17[3] = &unk_10014F430;
-            v21 = *(a1 + 96);
-            v22 = *(a1 + 112);
-            v6 = *(a1 + 48);
-            v18 = *(a1 + 32);
-            v19 = v6;
-            v20 = *(a1 + 64);
-            nw_connection_access_establishment_report(v5, _mdns_dns_service_queue_s_queue, v17);
+            v12 = *(*(*(a1 + 32) + 8) + 24);
+            dispatch_once(&_mdns_dns_service_queue_s_once, &__block_literal_global_249);
+            v4 = v12;
           }
 
-          return;
+          v13[0] = _NSConcreteStackBlock;
+          v13[1] = 0x40000000;
+          v13[2] = ___mdns_dns_service_manager_probe_discovered_service_block_invoke_2_232;
+          v13[3] = &unk_10014F430;
+          v17 = *(a1 + 96);
+          v18 = *(a1 + 112);
+          v5 = *(a1 + 48);
+          v14 = *(a1 + 32);
+          v15 = v5;
+          v16 = *(a1 + 64);
+          nw_connection_access_establishment_report(v4, _mdns_dns_service_queue_s_queue, v13);
         }
 
-        goto LABEL_21;
-      }
-
-      if (a2 == 4)
-      {
-LABEL_21:
-        v14 = *(*(*(a1 + 32) + 8) + 24);
-        v15 = *(*(a1 + 96) + 208);
-
-        _mdns_dns_service_forget_ddr_connection(v15, v14);
         return;
       }
+
+      goto LABEL_21;
+    }
+
+    if (a2 == 4)
+    {
+LABEL_21:
+      v10 = *(*(*(a1 + 32) + 8) + 24);
+      v11 = *(*(a1 + 96) + 208);
+
+      _mdns_dns_service_forget_ddr_connection(v11, v10);
+      return;
     }
   }
 
   if (a2 == 5)
   {
-    v7 = *(*(*(a1 + 40) + 8) + 24);
-    v8 = *(*(*(a1 + 64) + 8) + 24);
-    v9 = *(*(*(a1 + 72) + 8) + 24);
     (*(*(*(*(a1 + 80) + 8) + 40) + 16))();
-    v10 = *(*(*(a1 + 80) + 8) + 40);
-    if (v10)
+    v6 = *(*(*(a1 + 80) + 8) + 40);
+    if (v6)
     {
-      _Block_release(v10);
+      _Block_release(v6);
       *(*(*(a1 + 80) + 8) + 40) = 0;
     }
 
     dispatch_group_leave(*(a1 + 104));
-    v11 = *(*(*(a1 + 32) + 8) + 24);
-    if (v11)
+    v7 = *(*(*(a1 + 32) + 8) + 24);
+    if (v7)
     {
-      nw_release(v11);
+      nw_release(v7);
       *(*(*(a1 + 32) + 8) + 24) = 0;
     }
 
     os_release(*(a1 + 96));
-    v12 = *(*(*(a1 + 48) + 8) + 24);
-    if (v12)
+    v8 = *(*(*(a1 + 48) + 8) + 24);
+    if (v8)
     {
-      CFRelease(v12);
+      CFRelease(v8);
       *(*(*(a1 + 48) + 8) + 24) = 0;
     }
 
-    v13 = *(*(*(a1 + 56) + 8) + 24);
-    if (v13)
+    v9 = *(*(*(a1 + 56) + 8) + 24);
+    if (v9)
     {
-      CFRelease(v13);
+      CFRelease(v9);
       *(*(*(a1 + 56) + 8) + 24) = 0;
     }
 
@@ -4817,249 +4749,33 @@ void ___mdns_dns_service_manager_process_ddr_response_block_invoke_2(uint64_t a1
 void ___mdns_dns_service_manager_probe_discovered_service_block_invoke_2_232(CFIndex a1, NSObject *a2)
 {
   v3 = a1;
-  if (*(*(a1 + 80) + 208))
+  if (*(*(a1 + 80) + 208) && nw_array_contains_object())
   {
-    v5 = *(*(*(a1 + 32) + 8) + 24);
-    if (nw_array_contains_object())
+    v40 = *(v3 + 80);
+    v5 = *(v40 + 136);
+    if (!v5 || !*(v5 + 96))
     {
-      v41 = *(v3 + 80);
-      v6 = *(v41 + 136);
-      if (!v6 || !*(v6 + 96))
-      {
-        v6 = *(v3 + 80);
-      }
+      v5 = *(v3 + 80);
+    }
 
-      v7 = *(*(v3 + 64) + 8);
-      v8 = *(v3 + 88);
-      v9 = *(*(*(v3 + 48) + 8) + 24);
-      v38 = *(*(v3 + 72) + 8);
-      v10 = *(v6 + 160);
-      if (!v10 || ((v11 = *(*(*(v3 + 56) + 8) + 24), string_ptr = xpc_string_get_string_ptr(v10), v11) ? (v13 = string_ptr == 0) : (v13 = 1), v13))
-      {
-        v39 = 0;
-      }
+    v6 = *(*(v3 + 64) + 8);
+    v7 = *(v3 + 88);
+    v8 = *(*(*(v3 + 48) + 8) + 24);
+    v37 = *(*(v3 + 72) + 8);
+    v9 = *(v5 + 160);
+    if (!v9 || ((v10 = *(*(*(v3 + 56) + 8) + 24), string_ptr = xpc_string_get_string_ptr(v9), v10) ? (v12 = string_ptr == 0) : (v12 = 1), v12))
+    {
+      v38 = 0;
+    }
 
-      else
-      {
-        v14 = CFStringCreateWithCString(kCFAllocatorDefault, string_ptr, 0x8000100u);
-        v54.length = CFArrayGetCount(v11);
-        v54.location = 0;
-        v15 = CFArrayContainsValue(v11, v54, v14);
-        v39 = v15 != 0;
-        if (v15)
-        {
-          if (_mdns_dns_service_log_s_once != -1)
-          {
-            dispatch_once(&_mdns_dns_service_log_s_once, &__block_literal_global_66);
-          }
-
-          MaximumSizeForEncoding = _mdns_dns_service_log_s_log;
-          if (os_log_type_enabled(_mdns_dns_service_log_s_log, OS_LOG_TYPE_INFO))
-          {
-            LODWORD(buf) = 138543362;
-            *(&buf + 4) = v14;
-            _os_log_impl(&_mh_execute_header, MaximumSizeForEncoding, OS_LOG_TYPE_INFO, "Discovered service verified, name %{public}@ in certificate", &buf, 0xCu);
-          }
-        }
-
-        if (v14)
-        {
-          CFRelease(v14);
-        }
-      }
-
-      v16 = *(v41 + 80);
-      if (v16)
-      {
-        Count = CFArrayGetCount(v16);
-        if (Count >= 1)
-        {
-          v35 = v7;
-          v36 = a2;
-          v37 = v3;
-          v3 = 0;
-          while (1)
-          {
-            ValueAtIndex = CFArrayGetValueAtIndex(*(v41 + 80), v3);
-            if (v9)
-            {
-              v18 = ValueAtIndex;
-              v19 = CFArrayGetCount(v9);
-              if (v19 >= 1)
-              {
-                break;
-              }
-            }
-
-            MaximumSizeForEncoding = 0;
-LABEL_64:
-            if (++v3 >= Count || (MaximumSizeForEncoding & 1) != 0)
-            {
-              a2 = v36;
-              v3 = v37;
-              v7 = v35;
-              goto LABEL_69;
-            }
-          }
-
-          v20 = v19;
-          v21 = 1;
-          while (1)
-          {
-            v22 = CFArrayGetValueAtIndex(v9, v21 - 1);
-            CStringPtr = CFStringGetCStringPtr(v22, 0x8000100u);
-            if (CStringPtr)
-            {
-              break;
-            }
-
-            Length = CFStringGetLength(v22);
-            MaximumSizeForEncoding = CFStringGetMaximumSizeForEncoding(Length, 0x8000100u);
-            if (MaximumSizeForEncoding == -1 || (v26 = malloc_type_malloc(MaximumSizeForEncoding + 1, 0x1E250E3AuLL)) == 0)
-            {
-LABEL_81:
-              __break(1u);
-              goto LABEL_82;
-            }
-
-            v24 = v26;
-            *&buf = 0;
-            v55.location = 0;
-            v55.length = Length;
-            if (CFStringGetBytes(v22, v55, 0x8000100u, 0, 0, v26, MaximumSizeForEncoding, &buf) == Length)
-            {
-              v24[buf] = 0;
-              goto LABEL_33;
-            }
-
-            free(v24);
-            MaximumSizeForEncoding = 0;
-LABEL_57:
-            if (v21++ >= v20)
-            {
-              goto LABEL_64;
-            }
-          }
-
-          v24 = strdup(CStringPtr);
-          if (!v24)
-          {
-            goto LABEL_81;
-          }
-
-LABEL_33:
-          host = nw_endpoint_create_host(v24, "0");
-          if (!host)
-          {
-            MaximumSizeForEncoding = 0;
-            goto LABEL_56;
-          }
-
-          v28 = host;
-          if (nw_endpoint_get_type(host) == nw_endpoint_type_address)
-          {
-            address = nw_endpoint_get_address(v28);
-            sa_family = address->sa_family;
-            if (sa_family == *(v18 + 25) && address->sa_len == *(v18 + 24))
-            {
-              if (sa_family == 30)
-              {
-                if (*&address->sa_data[6] == v18[4] && *&address[1].sa_len == v18[5])
-                {
-                  goto LABEL_40;
-                }
-              }
-
-              else if (sa_family == 2 && *&address->sa_data[2] == *(v18 + 7))
-              {
-LABEL_40:
-                if (_mdns_dns_service_log_s_once != -1)
-                {
-                  dispatch_once(&_mdns_dns_service_log_s_once, &__block_literal_global_66);
-                }
-
-                MaximumSizeForEncoding = _mdns_dns_service_log_s_log;
-                if (os_log_type_enabled(_mdns_dns_service_log_s_log, OS_LOG_TYPE_INFO))
-                {
-                  LODWORD(buf) = 138543362;
-                  *(&buf + 4) = v28;
-                  _os_log_impl(&_mh_execute_header, MaximumSizeForEncoding, OS_LOG_TYPE_INFO, "Discovered service verified, address %{public}@ in certificate", &buf, 0xCu);
-                }
-
-                if (!v39 && !*(v38 + 24))
-                {
-                  if ((v8 - 3) <= 1 && sa_family == 30)
-                  {
-                    asprintf((v38 + 24), "[%s]", v24);
-                  }
-
-                  else
-                  {
-                    v33 = strdup(v24);
-                    if (!v33)
-                    {
-                      goto LABEL_81;
-                    }
-
-                    *(v38 + 24) = v33;
-                  }
-                }
-
-                MaximumSizeForEncoding = 1;
-                goto LABEL_55;
-              }
-            }
-          }
-
-          MaximumSizeForEncoding = 0;
-LABEL_55:
-          nw_release(v28);
-LABEL_56:
-          free(v24);
-          if (MaximumSizeForEncoding)
-          {
-            goto LABEL_64;
-          }
-
-          goto LABEL_57;
-        }
-      }
-
-      else
-      {
-        Count = 0;
-      }
-
-      LODWORD(MaximumSizeForEncoding) = 0;
-LABEL_69:
-      v42 = 0;
-      v43 = &v42;
-      v44 = 0x2000000000;
-      v45 = 0;
-      if (a2)
-      {
-        *&buf = _NSConcreteStackBlock;
-        *(&buf + 1) = 0x40000000;
-        v49 = ___mdns_dns_server_validate_discovered_service_connection_block_invoke;
-        v50 = &unk_10014F4A8;
-        v51 = &v42;
-        v52 = Count;
-        v53 = v41;
-        nw_establishment_report_enumerate_resolution_reports(a2, &buf);
-      }
-
-      if ((v39 | MaximumSizeForEncoding))
-      {
-        v34 = 1;
-      }
-
-      else if (v43[3])
-      {
-        v34 = 1;
-        *(v7 + 24) = 1;
-      }
-
-      else
+    else
+    {
+      v13 = CFStringCreateWithCString(kCFAllocatorDefault, string_ptr, 0x8000100u);
+      v53.length = CFArrayGetCount(v10);
+      v53.location = 0;
+      v14 = CFArrayContainsValue(v10, v53, v13);
+      v38 = v14 != 0;
+      if (v14)
       {
         if (_mdns_dns_service_log_s_once != -1)
         {
@@ -5067,21 +4783,233 @@ LABEL_69:
         }
 
         MaximumSizeForEncoding = _mdns_dns_service_log_s_log;
-        if (os_log_type_enabled(_mdns_dns_service_log_s_log, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(_mdns_dns_service_log_s_log, OS_LOG_TYPE_INFO))
         {
-LABEL_82:
-          *v46 = 138412290;
-          v47 = v41;
-          _os_log_error_impl(&_mh_execute_header, MaximumSizeForEncoding, OS_LOG_TYPE_ERROR, "Discovered service could not be verified for %@", v46, 0xCu);
+          LODWORD(buf) = 138543362;
+          *(&buf + 4) = v13;
+          _os_log_impl(&_mh_execute_header, MaximumSizeForEncoding, OS_LOG_TYPE_INFO, "Discovered service verified, name %{public}@ in certificate", &buf, 0xCu);
         }
-
-        v34 = 0;
       }
 
-      _Block_object_dispose(&v42, 8);
-      *(*(*(v3 + 40) + 8) + 24) = v34;
-      _mdns_dns_service_forget_ddr_connection(*(*(v3 + 80) + 208), *(*(*(v3 + 32) + 8) + 24));
+      if (v13)
+      {
+        CFRelease(v13);
+      }
     }
+
+    v15 = *(v40 + 80);
+    if (v15)
+    {
+      Count = CFArrayGetCount(v15);
+      if (Count >= 1)
+      {
+        v34 = v6;
+        v35 = a2;
+        v36 = v3;
+        v3 = 0;
+        while (1)
+        {
+          ValueAtIndex = CFArrayGetValueAtIndex(*(v40 + 80), v3);
+          if (v8)
+          {
+            v17 = ValueAtIndex;
+            v18 = CFArrayGetCount(v8);
+            if (v18 >= 1)
+            {
+              break;
+            }
+          }
+
+          MaximumSizeForEncoding = 0;
+LABEL_64:
+          if (++v3 >= Count || (MaximumSizeForEncoding & 1) != 0)
+          {
+            a2 = v35;
+            v3 = v36;
+            v6 = v34;
+            goto LABEL_69;
+          }
+        }
+
+        v19 = v18;
+        v20 = 1;
+        while (1)
+        {
+          v21 = CFArrayGetValueAtIndex(v8, v20 - 1);
+          CStringPtr = CFStringGetCStringPtr(v21, 0x8000100u);
+          if (CStringPtr)
+          {
+            break;
+          }
+
+          Length = CFStringGetLength(v21);
+          MaximumSizeForEncoding = CFStringGetMaximumSizeForEncoding(Length, 0x8000100u);
+          if (MaximumSizeForEncoding == -1 || (v25 = malloc_type_malloc(MaximumSizeForEncoding + 1, 0x1E250E3AuLL)) == 0)
+          {
+LABEL_81:
+            __break(1u);
+            goto LABEL_82;
+          }
+
+          v23 = v25;
+          *&buf = 0;
+          v54.location = 0;
+          v54.length = Length;
+          if (CFStringGetBytes(v21, v54, 0x8000100u, 0, 0, v25, MaximumSizeForEncoding, &buf) == Length)
+          {
+            v23[buf] = 0;
+            goto LABEL_33;
+          }
+
+          free(v23);
+          MaximumSizeForEncoding = 0;
+LABEL_57:
+          if (v20++ >= v19)
+          {
+            goto LABEL_64;
+          }
+        }
+
+        v23 = strdup(CStringPtr);
+        if (!v23)
+        {
+          goto LABEL_81;
+        }
+
+LABEL_33:
+        host = nw_endpoint_create_host(v23, "0");
+        if (!host)
+        {
+          MaximumSizeForEncoding = 0;
+          goto LABEL_56;
+        }
+
+        v27 = host;
+        if (nw_endpoint_get_type(host) == nw_endpoint_type_address)
+        {
+          address = nw_endpoint_get_address(v27);
+          sa_family = address->sa_family;
+          if (sa_family == *(v17 + 25) && address->sa_len == *(v17 + 24))
+          {
+            if (sa_family == 30)
+            {
+              if (*&address->sa_data[6] == v17[4] && *&address[1].sa_len == v17[5])
+              {
+                goto LABEL_40;
+              }
+            }
+
+            else if (sa_family == 2 && *&address->sa_data[2] == *(v17 + 7))
+            {
+LABEL_40:
+              if (_mdns_dns_service_log_s_once != -1)
+              {
+                dispatch_once(&_mdns_dns_service_log_s_once, &__block_literal_global_66);
+              }
+
+              MaximumSizeForEncoding = _mdns_dns_service_log_s_log;
+              if (os_log_type_enabled(_mdns_dns_service_log_s_log, OS_LOG_TYPE_INFO))
+              {
+                LODWORD(buf) = 138543362;
+                *(&buf + 4) = v27;
+                _os_log_impl(&_mh_execute_header, MaximumSizeForEncoding, OS_LOG_TYPE_INFO, "Discovered service verified, address %{public}@ in certificate", &buf, 0xCu);
+              }
+
+              if (!v38 && !*(v37 + 24))
+              {
+                if ((v7 - 3) <= 1 && sa_family == 30)
+                {
+                  asprintf((v37 + 24), "[%s]", v23);
+                }
+
+                else
+                {
+                  v32 = strdup(v23);
+                  if (!v32)
+                  {
+                    goto LABEL_81;
+                  }
+
+                  *(v37 + 24) = v32;
+                }
+              }
+
+              MaximumSizeForEncoding = 1;
+              goto LABEL_55;
+            }
+          }
+        }
+
+        MaximumSizeForEncoding = 0;
+LABEL_55:
+        nw_release(v27);
+LABEL_56:
+        free(v23);
+        if (MaximumSizeForEncoding)
+        {
+          goto LABEL_64;
+        }
+
+        goto LABEL_57;
+      }
+    }
+
+    else
+    {
+      Count = 0;
+    }
+
+    LODWORD(MaximumSizeForEncoding) = 0;
+LABEL_69:
+    v41 = 0;
+    v42 = &v41;
+    v43 = 0x2000000000;
+    v44 = 0;
+    if (a2)
+    {
+      *&buf = _NSConcreteStackBlock;
+      *(&buf + 1) = 0x40000000;
+      v48 = ___mdns_dns_server_validate_discovered_service_connection_block_invoke;
+      v49 = &unk_10014F4A8;
+      v50 = &v41;
+      v51 = Count;
+      v52 = v40;
+      nw_establishment_report_enumerate_resolution_reports(a2, &buf);
+    }
+
+    if ((v38 | MaximumSizeForEncoding))
+    {
+      v33 = 1;
+    }
+
+    else if (v42[3])
+    {
+      v33 = 1;
+      *(v6 + 24) = 1;
+    }
+
+    else
+    {
+      if (_mdns_dns_service_log_s_once != -1)
+      {
+        dispatch_once(&_mdns_dns_service_log_s_once, &__block_literal_global_66);
+      }
+
+      MaximumSizeForEncoding = _mdns_dns_service_log_s_log;
+      if (os_log_type_enabled(_mdns_dns_service_log_s_log, OS_LOG_TYPE_ERROR))
+      {
+LABEL_82:
+        *v45 = 138412290;
+        v46 = v40;
+        _os_log_error_impl(&_mh_execute_header, MaximumSizeForEncoding, OS_LOG_TYPE_ERROR, "Discovered service could not be verified for %@", v45, 0xCu);
+      }
+
+      v33 = 0;
+    }
+
+    _Block_object_dispose(&v41, 8);
+    *(*(*(v3 + 40) + 8) + 24) = v33;
+    _mdns_dns_service_forget_ddr_connection(*(*(v3 + 80) + 208), *(*(*(v3 + 32) + 8) + 24));
   }
 }
 
@@ -5092,14 +5020,6 @@ void _mdns_dns_service_forget_ddr_connection(uint64_t a1, NSObject *a2)
 
     nw_connection_cancel(a2);
   }
-}
-
-BOOL ___mdns_dns_server_validate_discovered_service_connection_block_invoke(uint64_t a1)
-{
-  v3 = *(a1 + 32);
-  v4 = *(a1 + 48);
-  nw_resolution_report_enumerate_endpoints();
-  return (*(*(*(a1 + 32) + 8) + 24) & 1) == 0;
 }
 
 BOOL ___mdns_dns_server_validate_discovered_service_connection_block_invoke_2(void *a1, nw_endpoint_t endpoint)
@@ -5276,35 +5196,32 @@ void ___mdns_dns_service_manager_probe_discovered_service_block_invoke_3(void *a
   }
 }
 
-uint64_t ___mdns_dns_service_manager_get_service_block_invoke(uint64_t a1, uint64_t a2)
+uint64_t ___mdns_dns_service_manager_get_service_block_invoke(void *a1, uint64_t a2)
 {
-  v4 = *(a1 + 32);
-  if (!v4 || ((*(v4 + 16))(v4, a2) & 1) == 0)
+  v4 = a1[4];
+  if ((!v4 || ((*(v4 + 16))(v4, a2) & 1) == 0) && _mdns_dns_service_scope_id_match(a2, a1[8]))
   {
-    if (_mdns_dns_service_scope_id_match(a2, *(a1 + 64)))
+    v9 = 0;
+    v5 = _mdns_dns_service_handles_domain_name(a2, a1[9], &v9);
+    if ((v5 & 0x80000000) == 0)
     {
-      v9 = 0;
-      v5 = _mdns_dns_service_handles_domain_name(a2, *(a1 + 72), &v9);
-      if ((v5 & 0x80000000) == 0)
+      v6 = *(*(a1[5] + 8) + 24);
+      if (v5 > v6)
       {
-        v6 = *(*(*(a1 + 40) + 8) + 24);
-        if (v5 > v6)
-        {
-          v7 = v9;
+        v7 = v9;
 LABEL_7:
-          *(*(*(a1 + 56) + 8) + 24) = a2;
-          *(*(*(a1 + 40) + 8) + 24) = v5;
-          *(*(*(a1 + 48) + 8) + 24) = v7;
-          return 1;
-        }
+        *(*(a1[7] + 8) + 24) = a2;
+        *(*(a1[5] + 8) + 24) = v5;
+        *(*(a1[6] + 8) + 24) = v7;
+        return 1;
+      }
 
-        if (v5 == v6)
+      if (v5 == v6)
+      {
+        v7 = v9;
+        if (v9 < *(*(a1[6] + 8) + 24))
         {
-          v7 = v9;
-          if (v9 < *(*(*(a1 + 48) + 8) + 24))
-          {
-            goto LABEL_7;
-          }
+          goto LABEL_7;
         }
       }
     }
@@ -5737,9 +5654,9 @@ uint64_t mdns_dns_service_manager_get_custom_service(uint64_t a1, uint64_t a2)
   return v4;
 }
 
-uint64_t __mdns_dns_service_manager_get_custom_service_block_invoke(uint64_t a1)
+uint64_t __mdns_dns_service_manager_get_custom_service_block_invoke(void *a1)
 {
-  v2 = *(a1 + 40);
+  v2 = a1[5];
   if (*(v2 + 131))
   {
     result = 0;
@@ -5747,16 +5664,16 @@ uint64_t __mdns_dns_service_manager_get_custom_service_block_invoke(uint64_t a1)
 
   else
   {
-    service_by_id = _mdns_dns_service_manager_get_service_by_id(*(v2 + 56), *(a1 + 48));
+    service_by_id = _mdns_dns_service_manager_get_service_by_id(*(v2 + 56), a1[6]);
     if (service_by_id)
     {
-      service_by_id = _mdns_dns_service_manager_get_usable_service_instance(*(a1 + 40), service_by_id, 0);
+      service_by_id = _mdns_dns_service_manager_get_usable_service_instance(a1[5], service_by_id, 0);
     }
 
-    result = _mdns_dns_service_manager_prepare_service(*(a1 + 40), service_by_id);
+    result = _mdns_dns_service_manager_prepare_service(a1[5], service_by_id);
   }
 
-  *(*(*(a1 + 32) + 8) + 24) = result;
+  *(*(a1[4] + 8) + 24) = result;
   return result;
 }
 
@@ -6126,35 +6043,34 @@ uint64_t mdns_dns_service_manager_get_discovered_oblivious_service(uint64_t a1, 
     return 0;
   }
 
-  v6 = *(a2 + 96);
   proxy_agent = nw_resolver_config_get_proxy_agent();
   if (!proxy_agent)
   {
     return 0;
   }
 
-  v8 = proxy_agent;
-  v12 = 0;
-  v13 = &v12;
-  v14 = 0x2000000000;
-  v15 = 0;
+  v6 = proxy_agent;
+  v10 = 0;
+  v11 = &v10;
+  v12 = 0x2000000000;
+  v13 = 0;
   if (_mdns_dns_service_queue_s_once != -1)
   {
     dispatch_once(&_mdns_dns_service_queue_s_once, &__block_literal_global_249);
   }
 
-  v11[0] = _NSConcreteStackBlock;
-  v11[1] = 0x40000000;
-  v11[2] = __mdns_dns_service_manager_get_discovered_oblivious_service_block_invoke;
-  v11[3] = &unk_10014E828;
-  v11[4] = &v12;
-  v11[5] = a1;
-  v11[6] = a3;
-  v11[7] = v8;
-  dispatch_sync(_mdns_dns_service_queue_s_queue, v11);
-  v9 = v13[3];
-  _Block_object_dispose(&v12, 8);
-  return v9;
+  v9[0] = _NSConcreteStackBlock;
+  v9[1] = 0x40000000;
+  v9[2] = __mdns_dns_service_manager_get_discovered_oblivious_service_block_invoke;
+  v9[3] = &unk_10014E828;
+  v9[4] = &v10;
+  v9[5] = a1;
+  v9[6] = a3;
+  v9[7] = v6;
+  dispatch_sync(_mdns_dns_service_queue_s_queue, v9);
+  v7 = v11[3];
+  _Block_object_dispose(&v10, 8);
+  return v7;
 }
 
 uint64_t __mdns_dns_service_manager_get_discovered_oblivious_service_block_invoke(uint64_t a1)
@@ -6167,10 +6083,10 @@ uint64_t __mdns_dns_service_manager_get_discovered_oblivious_service_block_invok
 
   v3 = *(v2 + 32);
   v4 = *(a1 + 48);
-  v10[0] = 0;
-  v10[1] = 0;
-  v11 = 0;
-  result = _mdns_dns_service_manager_get_service(v3, v4, v10, 3, 0);
+  v8[0] = 0;
+  v8[1] = 0;
+  v9 = 0;
+  result = _mdns_dns_service_manager_get_service(v3, v4, v8, 3, 0);
   if (!result)
   {
     goto LABEL_7;
@@ -6194,8 +6110,6 @@ LABEL_8:
   if (result)
   {
     v7 = result;
-    v8 = *(result + 96);
-    v9 = *(a1 + 56);
     nw_resolver_config_set_proxy_agent();
     result = _mdns_dns_service_manager_prepare_service(*(a1 + 40), v7);
   }
@@ -6747,8 +6661,8 @@ void __dnssd_server_init_block_invoke_3(id a1)
     _os_log_debug_impl(&_mh_execute_header, v1, OS_LOG_TYPE_DEBUG, "periodic powerlog report timer fired", buf, 2u);
   }
 
-  v2 = pthread_mutex_lock((mDNSStorage[0] + 616));
-  *(mDNSStorage[0] + 680) = mDNSPlatformRawTime(v2, v3, v4, v5, v6, v7, v8, v9);
+  pthread_mutex_lock((mDNSStorage[0] + 616));
+  *(mDNSStorage[0] + 680) = mDNSPlatformRawTime();
   Mutable = CFDictionaryCreateMutable(0, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
   if (!Mutable)
   {
@@ -6757,67 +6671,67 @@ void __dnssd_server_init_block_invoke_3(id a1)
       dispatch_once(&_mdns_powerlog_log_s_once, &__block_literal_global_1431);
     }
 
-    v11 = _mdns_powerlog_log_s_log;
+    v3 = _mdns_powerlog_log_s_log;
     if (os_log_type_enabled(_mdns_powerlog_log_s_log, OS_LOG_TYPE_FAULT))
     {
       *buf = 0;
-      _os_log_fault_impl(&_mh_execute_header, v11, OS_LOG_TYPE_FAULT, "Failed to create top-level client summary dictionary", buf, 2u);
+      _os_log_fault_impl(&_mh_execute_header, v3, OS_LOG_TYPE_FAULT, "Failed to create top-level client summary dictionary", buf, 2u);
     }
   }
 
   monotonic_time_ns = _mdns_powerlog_get_monotonic_time_ns();
-  v20 = g_client_info_list;
-  v52 = g_client_info_list;
+  v5 = g_client_info_list;
+  v37 = g_client_info_list;
   if (g_client_info_list)
   {
-    v21 = monotonic_time_ns;
-    v22 = &g_client_info_list;
+    v6 = monotonic_time_ns;
+    v7 = &g_client_info_list;
     do
     {
-      if (*(v20 + 24))
+      if (*(v5 + 24))
       {
-        v23 = *(v20 + 8);
-        v24 = v21 - *v20;
-        v25 = __CFADD__(v23, v24);
-        v26 = v23 + v24;
-        if (v25)
+        v8 = *(v5 + 8);
+        v9 = v6 - *v5;
+        v10 = __CFADD__(v8, v9);
+        v11 = v8 + v9;
+        if (v10)
         {
-          v26 = -1;
+          v11 = -1;
         }
 
-        *(v20 + 8) = v26;
+        *(v5 + 8) = v11;
       }
 
-      *v20 = v21;
-      if (*(v20 + 56))
+      *v5 = v6;
+      if (*(v5 + 56))
       {
-        v27 = *(v20 + 40);
-        v28 = v21 - *(v20 + 32);
-        v25 = __CFADD__(v27, v28);
-        v29 = v27 + v28;
-        if (v25)
+        v12 = *(v5 + 40);
+        v13 = v6 - *(v5 + 32);
+        v10 = __CFADD__(v12, v13);
+        v14 = v12 + v13;
+        if (v10)
         {
-          v29 = -1;
+          v14 = -1;
         }
 
-        *(v20 + 40) = v29;
+        *(v5 + 40) = v14;
       }
 
-      *(v20 + 32) = v21;
+      *(v5 + 32) = v6;
       if (!Mutable)
       {
         goto LABEL_51;
       }
 
-      v30 = *(v20 + 72);
-      if (v30)
+      v15 = *(v5 + 72);
+      if (v15)
       {
-        v31 = CFStringCreateWithFormat(0, 0, @"%s/%s", v20 + 80, v30);
-        if (v31)
+        v16 = CFStringCreateWithFormat(0, 0, @"%s/%s", v5 + 80, v15);
+        if (v16)
         {
-          v32 = v31;
-          v33 = CFDictionaryCreateMutable(0, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
-          if (v33)
+          v17 = v16;
+          v18 = CFDictionaryCreateMutable(0, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
+          if (v18)
           {
             goto LABEL_32;
           }
@@ -6827,19 +6741,19 @@ void __dnssd_server_init_block_invoke_3(id a1)
             dispatch_once(&_mdns_powerlog_log_s_once, &__block_literal_global_1431);
           }
 
-          v34 = _mdns_powerlog_log_s_log;
+          v19 = _mdns_powerlog_log_s_log;
           if (!os_log_type_enabled(_mdns_powerlog_log_s_log, OS_LOG_TYPE_FAULT))
           {
             goto LABEL_49;
           }
 
           *buf = 136446467;
-          v54 = (v20 + 80);
-          v55 = 2081;
-          v56 = v30;
-          v35 = v34;
-          v36 = "Failed to create powerlog client dictionary -- client name: %{public}s, service type: %{private}s";
-          v37 = 22;
+          v39 = (v5 + 80);
+          v40 = 2081;
+          v41 = v15;
+          v20 = v19;
+          v21 = "Failed to create powerlog client dictionary -- client name: %{public}s, service type: %{private}s";
+          v22 = 22;
           goto LABEL_57;
         }
 
@@ -6848,52 +6762,52 @@ void __dnssd_server_init_block_invoke_3(id a1)
           dispatch_once(&_mdns_powerlog_log_s_once, &__block_literal_global_1431);
         }
 
-        v42 = _mdns_powerlog_log_s_log;
+        v27 = _mdns_powerlog_log_s_log;
         if (!os_log_type_enabled(_mdns_powerlog_log_s_log, OS_LOG_TYPE_FAULT))
         {
           goto LABEL_51;
         }
 
         *buf = 136446467;
-        v54 = (v20 + 80);
-        v55 = 2081;
-        v56 = v30;
-        v43 = v42;
-        v44 = "Failed to create powerlog client name/service type string for client dictionary -- client name: %{public}s, service type: %{private}s";
-        v45 = 22;
+        v39 = (v5 + 80);
+        v40 = 2081;
+        v41 = v15;
+        v28 = v27;
+        v29 = "Failed to create powerlog client name/service type string for client dictionary -- client name: %{public}s, service type: %{private}s";
+        v30 = 22;
       }
 
       else
       {
-        v38 = CFStringCreateWithCString(0, (v20 + 80), 0x8000100u);
-        if (v38)
+        v23 = CFStringCreateWithCString(0, (v5 + 80), 0x8000100u);
+        if (v23)
         {
-          v32 = v38;
-          v33 = CFDictionaryCreateMutable(0, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
-          if (v33)
+          v17 = v23;
+          v18 = CFDictionaryCreateMutable(0, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
+          if (v18)
           {
 LABEL_32:
-            v39 = v33;
-            _mdns_powerlog_set_client_stats(v33, v20, @"durationInfra", @"startCountInfra", @"stopCountInfra", @"carryoverCountInfra");
-            _mdns_powerlog_set_client_stats(v39, v20 + 32, @"durationAWDL", @"startCountAWDL", @"stopCountAWDL", @"carryoverCountAWDL");
-            CFDictionarySetValue(Mutable, v32, v39);
+            v24 = v18;
+            _mdns_powerlog_set_client_stats(v18, v5, @"durationInfra", @"startCountInfra", @"stopCountInfra", @"carryoverCountInfra");
+            _mdns_powerlog_set_client_stats(v24, v5 + 32, @"durationAWDL", @"startCountAWDL", @"stopCountAWDL", @"carryoverCountAWDL");
+            CFDictionarySetValue(Mutable, v17, v24);
             if (_mdns_powerlog_log_s_once != -1)
             {
               dispatch_once(&_mdns_powerlog_log_s_once, &__block_literal_global_1431);
             }
 
-            v40 = _mdns_powerlog_log_s_log;
+            v25 = _mdns_powerlog_log_s_log;
             if (os_log_type_enabled(_mdns_powerlog_log_s_log, OS_LOG_TYPE_DEBUG))
             {
               *buf = 138412546;
-              v54 = v32;
-              v55 = 2112;
-              v56 = v39;
-              _os_log_debug_impl(&_mh_execute_header, v40, OS_LOG_TYPE_DEBUG, "Will submit client dictionary -- client name: %@, dictionary: %@", buf, 0x16u);
+              v39 = v17;
+              v40 = 2112;
+              v41 = v24;
+              _os_log_debug_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEBUG, "Will submit client dictionary -- client name: %@, dictionary: %@", buf, 0x16u);
             }
 
-            CFRelease(v32);
-            v41 = v39;
+            CFRelease(v17);
+            v26 = v24;
             goto LABEL_50;
           }
 
@@ -6902,23 +6816,23 @@ LABEL_32:
             dispatch_once(&_mdns_powerlog_log_s_once, &__block_literal_global_1431);
           }
 
-          v47 = _mdns_powerlog_log_s_log;
+          v32 = _mdns_powerlog_log_s_log;
           if (!os_log_type_enabled(_mdns_powerlog_log_s_log, OS_LOG_TYPE_FAULT))
           {
 LABEL_49:
-            v41 = v32;
+            v26 = v17;
 LABEL_50:
-            CFRelease(v41);
+            CFRelease(v26);
             goto LABEL_51;
           }
 
           *buf = 136446210;
-          v54 = (v20 + 80);
-          v35 = v47;
-          v36 = "Failed to create powerlog client dictionary -- client name: %{public}s";
-          v37 = 12;
+          v39 = (v5 + 80);
+          v20 = v32;
+          v21 = "Failed to create powerlog client dictionary -- client name: %{public}s";
+          v22 = 12;
 LABEL_57:
-          _os_log_fault_impl(&_mh_execute_header, v35, OS_LOG_TYPE_FAULT, v36, buf, v37);
+          _os_log_fault_impl(&_mh_execute_header, v20, OS_LOG_TYPE_FAULT, v21, buf, v22);
           goto LABEL_49;
         }
 
@@ -6927,46 +6841,46 @@ LABEL_57:
           dispatch_once(&_mdns_powerlog_log_s_once, &__block_literal_global_1431);
         }
 
-        v46 = _mdns_powerlog_log_s_log;
+        v31 = _mdns_powerlog_log_s_log;
         if (!os_log_type_enabled(_mdns_powerlog_log_s_log, OS_LOG_TYPE_FAULT))
         {
           goto LABEL_51;
         }
 
         *buf = 136446210;
-        v54 = (v20 + 80);
-        v43 = v46;
-        v44 = "Failed to create powerlog client name string for client dictionary -- client name: %{public}s";
-        v45 = 12;
+        v39 = (v5 + 80);
+        v28 = v31;
+        v29 = "Failed to create powerlog client name string for client dictionary -- client name: %{public}s";
+        v30 = 12;
       }
 
-      _os_log_fault_impl(&_mh_execute_header, v43, OS_LOG_TYPE_FAULT, v44, buf, v45);
+      _os_log_fault_impl(&_mh_execute_header, v28, OS_LOG_TYPE_FAULT, v29, buf, v30);
 LABEL_51:
-      v48 = *(v20 + 24);
-      v49 = *(v20 + 56);
-      if (v48 | v49)
+      v33 = *(v5 + 24);
+      v34 = *(v5 + 56);
+      if (v33 | v34)
       {
-        *(v20 + 8) = 0;
-        *(v20 + 16) = 0;
-        *(v20 + 28) = v48;
-        *(v20 + 40) = 0;
-        *(v20 + 48) = 0;
-        *(v20 + 60) = v49;
-        v22 = v52 + 8;
+        *(v5 + 8) = 0;
+        *(v5 + 16) = 0;
+        *(v5 + 28) = v33;
+        *(v5 + 40) = 0;
+        *(v5 + 48) = 0;
+        *(v5 + 60) = v34;
+        v7 = v37 + 8;
       }
 
       else
       {
-        *v22 = *(v20 + 64);
-        v52[8] = 0;
-        _mdns_powerlog_client_info_forget(&v52);
+        *v7 = *(v5 + 64);
+        v37[8] = 0;
+        _mdns_powerlog_client_info_forget(&v37);
       }
 
-      v20 = *v22;
-      v52 = v20;
+      v5 = *v7;
+      v37 = v5;
     }
 
-    while (v20);
+    while (v5);
   }
 
   if (Mutable)
@@ -6976,15 +6890,15 @@ LABEL_51:
       dispatch_once(&_mdns_powerlog_log_s_once, &__block_literal_global_1431);
     }
 
-    v50 = _mdns_powerlog_log_s_log;
+    v35 = _mdns_powerlog_log_s_log;
     if (os_log_type_enabled(_mdns_powerlog_log_s_log, OS_LOG_TYPE_DEBUG))
     {
       Count = CFDictionaryGetCount(Mutable);
       *buf = 134218242;
-      v54 = Count;
-      v55 = 2112;
-      v56 = Mutable;
-      _os_log_debug_impl(&_mh_execute_header, v50, OS_LOG_TYPE_DEBUG, "Submitting client summary dictionary with %lld entries: %@", buf, 0x16u);
+      v39 = Count;
+      v40 = 2112;
+      v41 = Mutable;
+      _os_log_debug_impl(&_mh_execute_header, v35, OS_LOG_TYPE_DEBUG, "Submitting client summary dictionary with %lld entries: %@", buf, 0x16u);
     }
 
     if (&_PLLogRegisteredEvent)
@@ -6995,7 +6909,7 @@ LABEL_51:
     CFRelease(Mutable);
   }
 
-  KQueueUnlock("dnssd_server: submitting client summary to powerlog", v13, v14, v15, v16, v17, v18, v19);
+  KQueueUnlock("dnssd_server: submitting client summary to powerlog");
 }
 
 void __dnssd_server_init_block_invoke_2(id a1, void *a2)
@@ -7021,43 +6935,42 @@ LABEL_15:
   *(v5 + 32) = a2;
   xpc_retain(a2);
   memset(handler, 0, sizeof(handler));
-  v6 = *(v5 + 32);
   xpc_connection_get_audit_token();
-  v7 = mdns_audit_token_create(handler);
-  *(v5 + 64) = v7;
-  if (v7)
+  v6 = mdns_audit_token_create(handler);
+  *(v5 + 64) = v6;
+  if (v6)
   {
     *(v5 + 76) = xpc_connection_get_pid(*(v5 + 32));
     *(v5 + 72) = xpc_connection_get_euid(*(v5 + 32));
     mdns_system_pid_to_name(*(v5 + 76), v5 + 84);
     atomic_fetch_add((v5 + 8), 1u);
-    v8 = *(v5 + 32);
+    v7 = *(v5 + 32);
     if (_dx_server_queue_once != -1)
     {
       dispatch_once(&_dx_server_queue_once, &__block_literal_global_27);
     }
 
-    xpc_connection_set_target_queue(v8, _dx_server_queue_queue);
-    v9 = *(v5 + 32);
+    xpc_connection_set_target_queue(v7, _dx_server_queue_queue);
+    v8 = *(v5 + 32);
     *&handler[0] = _NSConcreteStackBlock;
     *(&handler[0] + 1) = 0x40000000;
     *&handler[1] = ___dx_session_activate_block_invoke;
     *(&handler[1] + 1) = &__block_descriptor_tmp_34;
-    v16 = v5;
-    xpc_connection_set_event_handler(v9, handler);
+    v15 = v5;
+    xpc_connection_set_event_handler(v8, handler);
     xpc_connection_activate(*(v5 + 32));
     _dx_session_reset_idle_timer(v5);
-    v10 = &g_session_list;
+    v9 = &g_session_list;
     do
     {
-      v11 = v10;
-      v12 = *v10;
-      v10 = (*v10 + 16);
+      v10 = v9;
+      v11 = *v9;
+      v9 = (*v9 + 16);
     }
 
-    while (v12);
+    while (v11);
     *(v5 + 16) = 0;
-    *v11 = v5;
+    *v10 = v5;
     atomic_fetch_add((v5 + 8), 1u);
     _dx_release(v5);
     return;
@@ -7065,23 +6978,23 @@ LABEL_15:
 
   _dx_release(v5);
   pid = xpc_connection_get_pid(a2);
-  v14[0] = 0;
-  v14[1] = 0;
-  mdns_system_pid_to_name(pid, v14);
+  v13[0] = 0;
+  v13[1] = 0;
+  mdns_system_pid_to_name(pid, v13);
   if (_mdns_server_log_s_once != -1)
   {
     goto LABEL_15;
   }
 
 LABEL_11:
-  v13 = _mdns_server_log_s_log;
+  v12 = _mdns_server_log_s_log;
   if (os_log_type_enabled(_mdns_server_log_s_log, OS_LOG_TYPE_FAULT))
   {
     LODWORD(handler[0]) = 67109378;
     DWORD1(handler[0]) = pid;
     WORD4(handler[0]) = 2082;
-    *(handler + 10) = v14;
-    _os_log_fault_impl(&_mh_execute_header, v13, OS_LOG_TYPE_FAULT, "Failed to create session for connection -- client pid: %d (%{public}s)", handler, 0x12u);
+    *(handler + 10) = v13;
+    _os_log_fault_impl(&_mh_execute_header, v12, OS_LOG_TYPE_FAULT, "Failed to create session for connection -- client pid: %d (%{public}s)", handler, 0x12u);
   }
 
   xpc_connection_cancel(a2);
@@ -7090,16 +7003,17 @@ LABEL_11:
 uint64_t _dx_recursive_init(uint64_t result, void *a2)
 {
   v3 = result;
-  if (*a2)
-  {
-    result = _dx_recursive_init(result);
-  }
-
-  v4 = a2[1];
+  v4 = *a2;
   if (v4)
   {
+    result = _dx_recursive_init(result, v4);
+  }
 
-    return v4(v3);
+  v5 = a2[1];
+  if (v5)
+  {
+
+    return v5(v3);
   }
 
   return result;
@@ -7188,27 +7102,27 @@ LABEL_15:
       goto LABEL_157;
     }
 
-    v148 = 0;
+    v151 = 0;
     v22 = xpc_dictionary_get_value(object, "id");
-    v23 = _mdns_xpc_object_get_uint64_limited(v22, 0xFFFFFFFFFFFFFFFFLL, &v148);
-    if (!v148 || (v24 = v23, (dictionary = xpc_dictionary_get_dictionary(object, "params")) == 0))
+    v23 = _mdns_xpc_object_get_uint64_limited(v22, 0xFFFFFFFFFFFFFFFFLL, &v151);
+    if (!v151 || (v24 = v23, (dictionary = xpc_dictionary_get_dictionary(object, "params")) == 0))
     {
       if (_mdns_server_log_s_once != -1)
       {
         dispatch_once(&_mdns_server_log_s_once, &__block_literal_global_22);
       }
 
-      v139 = _mdns_server_log_s_log;
+      v142 = _mdns_server_log_s_log;
       if (os_log_type_enabled(_mdns_server_log_s_log, OS_LOG_TYPE_ERROR))
       {
-        v146 = *(v6 + 76);
+        v149 = *(v6 + 76);
         *length = 134218498;
         *&length[4] = -65540;
         *&length[12] = 2048;
-        *&length[14] = v146;
+        *&length[14] = v149;
         *&length[22] = 2082;
         *&length[24] = v6 + 84;
-        _os_log_error_impl(&_mh_execute_header, v139, OS_LOG_TYPE_ERROR, "XPC session error -- error: %{mdns:err}ld, client pid: %lld (%{public}s)", length, 0x20u);
+        _os_log_error_impl(&_mh_execute_header, v142, OS_LOG_TYPE_ERROR, "XPC session error -- error: %{mdns:err}ld, client pid: %lld (%{public}s)", length, 0x20u);
       }
 
       v7 = -65540;
@@ -7233,21 +7147,21 @@ LABEL_15:
     if (!v28)
     {
 LABEL_102:
-      v66 = v7;
+      v69 = v7;
 LABEL_103:
-      _dx_gai_request_log_error(v9, v66);
+      _dx_gai_request_log_error(v9, v69);
 LABEL_156:
       _dx_release(v9);
-      v7 = v66;
+      v7 = v69;
 LABEL_157:
       _dx_session_reset_idle_timer(v6);
       reply = xpc_dictionary_create_reply(object);
       if (reply)
       {
-        v129 = reply;
+        v132 = reply;
         xpc_dictionary_set_int64(reply, "error", v7);
-        _dx_session_send_message(v6, v129);
-        xpc_release(v129);
+        _dx_session_send_message(v6, v132);
+        xpc_release(v132);
       }
 
       else
@@ -7265,38 +7179,38 @@ LABEL_157:
     }
 
     v9[13] = v29;
-    v150 = 0;
+    v153 = 0;
     v30 = xpc_dictionary_get_value(v26, "flags");
-    v9[27].i32[0] = _mdns_xpc_object_get_uint64_limited(v30, 0xFFFFFFFFuLL, &v150);
-    if (!v150)
+    v9[27].i32[0] = _mdns_xpc_object_get_uint64_limited(v30, 0xFFFFFFFFuLL, &v153);
+    if (!v153)
     {
       goto LABEL_102;
     }
 
     v31 = xpc_dictionary_get_value(v26, "interface_index");
-    v9[27].i32[1] = _mdns_xpc_object_get_uint64_limited(v31, 0xFFFFFFFFuLL, &v150);
-    if (!v150)
+    v9[27].i32[1] = _mdns_xpc_object_get_uint64_limited(v31, 0xFFFFFFFFuLL, &v153);
+    if (!v153)
     {
       goto LABEL_102;
     }
 
     v32 = xpc_dictionary_get_value(v26, "protocols");
-    v9[28].i32[0] = _mdns_xpc_object_get_uint64_limited(v32, 0xFFFFFFFFuLL, &v150);
-    if (!v150)
+    v9[28].i32[0] = _mdns_xpc_object_get_uint64_limited(v32, 0xFFFFFFFFuLL, &v153);
+    if (!v153)
     {
       goto LABEL_102;
     }
 
     v33 = v9[3];
-    v151 = 0u;
-    v152 = 0u;
+    v154 = 0u;
+    v155 = 0u;
     *length = 0;
     data = xpc_dictionary_get_data(v26, "delegate_id", length);
     if (data && *length == 32)
     {
-      v151 = *data;
-      v152 = data[1];
-      v35 = mdns_audit_token_create(&v151);
+      v154 = *data;
+      v155 = data[1];
+      v35 = mdns_audit_token_create(&v154);
       v9[21] = v35;
       v36 = v9 + 21;
       if (!v35)
@@ -7332,28 +7246,29 @@ LABEL_45:
           uuid_clear(&v9[29] + 2);
           v39 = 0;
 LABEL_55:
-          v45 = *(*&v33 + 76);
+          v46 = *(*&v33 + 76);
           goto LABEL_56;
         }
 
 LABEL_50:
+        v44 = *(*&v33 + 32);
         v7 = -65555;
-        if (!*(*&v33 + 32) || !mdns_xpc_connection_is_entitled())
+        if (!v44 || !mdns_xpc_connection_is_entitled(v44, "com.apple.private.network.socket-delegate"))
         {
           goto LABEL_102;
         }
 
-        v44 = &v9[29] + 2;
+        v45 = &v9[29] + 2;
         if (v40)
         {
-          uuid_copy(v44, v39);
-          v45 = 0;
+          uuid_copy(v45, v39);
+          v46 = 0;
         }
 
         else
         {
-          uuid_clear(v44);
-          v45 = int64_limited;
+          uuid_clear(v45);
+          v46 = int64_limited;
           if (!v42)
           {
             goto LABEL_55;
@@ -7361,44 +7276,44 @@ LABEL_50:
         }
 
 LABEL_56:
-        v9[28].i32[1] = v45;
-        v46 = xpc_dictionary_get_string(v26, "service_scheme");
-        if (v46)
+        v9[28].i32[1] = v46;
+        v47 = xpc_dictionary_get_string(v26, "service_scheme");
+        if (v47)
         {
-          v47 = v46;
-          if (!strcasecmp(v46, "_443._https"))
+          v48 = v47;
+          if (!strcasecmp(v47, "_443._https"))
           {
-            v48 = v9[13];
-            v49 = 65;
+            v49 = v9[13];
+            v50 = 65;
           }
 
           else
           {
-            asprintf(&v9[25], "%s.%s", v47, *&v9[13]);
-            v48 = v9[25];
-            if (!*&v48)
+            asprintf(&v9[25], "%s.%s", v48, *&v9[13]);
+            v49 = v9[25];
+            if (!*&v49)
             {
 LABEL_178:
               v7 = -65539;
               goto LABEL_102;
             }
 
-            v49 = 64;
+            v50 = 64;
           }
 
-          v9[17] = v48;
-          v9[29].i16[0] = v49;
+          v9[17] = v49;
+          v9[29].i16[0] = v50;
         }
 
-        v50 = xpc_dictionary_get_value(v26, "fallback_config");
-        v9[22] = v50;
-        if (v50)
+        v51 = xpc_dictionary_get_value(v26, "fallback_config");
+        v9[22] = v51;
+        if (v51)
         {
-          xpc_retain(v50);
+          xpc_retain(v51);
         }
 
-        v51 = xpc_dictionary_get_value(v26, "resolver_uuids");
-        if (!v51 || (v52 = v51, !xpc_array_get_count(v51)) || (v53 = xpc_array_get_uuid(v52, 0)) == 0)
+        v52 = xpc_dictionary_get_value(v26, "resolver_uuids");
+        if (!v52 || (v53 = v52, !xpc_array_get_count(v52)) || (v54 = xpc_array_get_uuid(v53, 0)) == 0)
         {
 LABEL_69:
           if (xpc_dictionary_get_BOOL(v26, "need_encryption"))
@@ -7408,7 +7323,8 @@ LABEL_69:
 
           if (xpc_dictionary_get_BOOL(v26, "use_cache_only"))
           {
-            if (!*(*&v33 + 32) || !mdns_xpc_connection_is_entitled())
+            v57 = *(*&v33 + 32);
+            if (!v57 || !mdns_xpc_connection_is_entitled(v57, "com.apple.private.dnssd.cache-only"))
             {
 LABEL_101:
               v7 = -65555;
@@ -7418,8 +7334,8 @@ LABEL_101:
             v9[31].i8[3] |= 0x20u;
           }
 
-          v56 = xpc_dictionary_get_string(v26, "account_id");
-          if (v56 && !strcmp(v56, "com.apple.WebKit.InAppBrowser"))
+          v58 = xpc_dictionary_get_string(v26, "account_id");
+          if (v58 && !strcmp(v58, "com.apple.WebKit.InAppBrowser"))
           {
             v9[31].i8[3] |= 4u;
           }
@@ -7433,109 +7349,109 @@ LABEL_101:
           {
 LABEL_84:
             length[0] = 0;
-            v59 = _mdns_xpc_dictionary_get_int64_limited(v26, "log_privacy_level", -128, 127, length);
-            if ((length[0] & (v59 < 2u)) != 0)
+            v61 = _mdns_xpc_dictionary_get_int64_limited(v26, "log_privacy_level", -128, 127, length);
+            if ((length[0] & (v61 < 2u)) != 0)
             {
-              v60 = v59;
+              v62 = v61;
             }
 
             else
             {
-              v60 = 0;
+              v62 = 0;
             }
 
-            v9[31].i8[4] = v60;
+            v9[31].i8[4] = v62;
             if (!xpc_dictionary_get_BOOL(v26, "prohibit_encrypted_dns"))
             {
 LABEL_91:
-              v149 = 0;
-              v61 = xpc_dictionary_get_data(v26, "validation_data", &v149);
-              if (!v61)
+              v152 = 0;
+              v64 = xpc_dictionary_get_data(v26, "validation_data", &v152);
+              if (!v64)
               {
 LABEL_100:
-                v63 = 0;
+                v66 = 0;
                 goto LABEL_108;
               }
 
-              LODWORD(v162[0]) = 0;
-              v62 = mdns_signed_resolve_result_create_from_data(v61, v149, v162);
-              v63 = v62;
-              if (v62)
+              LODWORD(v165[0]) = 0;
+              v65 = mdns_signed_resolve_result_create_from_data(v64, v152, v165);
+              v66 = v65;
+              if (v65)
               {
-                if (!mdns_signed_resolve_result_contains(v62, *&v9[13], v9[27].u32[1]))
+                if (!mdns_signed_resolve_result_contains(v65, *&v9[13], v9[27].u32[1]))
                 {
                   if (_mdns_server_log_s_once != -1)
                   {
                     dispatch_once(&_mdns_server_log_s_once, &__block_literal_global_22);
                   }
 
-                  v67 = _mdns_server_log_s_log;
+                  v70 = _mdns_server_log_s_log;
                   if (os_log_type_enabled(_mdns_server_log_s_log, OS_LOG_TYPE_ERROR))
                   {
-                    v135 = v9[6].i32[0];
-                    v136 = v9[13];
-                    v137 = v9[27].i32[1];
+                    v138 = v9[6].i32[0];
+                    v139 = v9[13];
+                    v140 = v9[27].i32[1];
                     *length = 67109891;
-                    *&length[4] = v135;
+                    *&length[4] = v138;
                     *&length[8] = 2160;
                     *&length[10] = 1752392040;
                     *&length[18] = 2081;
-                    *&length[20] = v136;
+                    *&length[20] = v139;
                     *&length[28] = 1024;
-                    *&length[30] = v137;
-                    _os_log_error_impl(&_mh_execute_header, v67, OS_LOG_TYPE_ERROR, "[R%u] Signed resolve result does not cover request -- hostname: %{private,mask.hash}s, ifindex: %u", length, 0x22u);
+                    *&length[30] = v140;
+                    _os_log_error_impl(&_mh_execute_header, v70, OS_LOG_TYPE_ERROR, "[R%u] Signed resolve result does not cover request -- hostname: %{private,mask.hash}s, ifindex: %u", length, 0x22u);
                   }
 
 LABEL_108:
-                  v68 = v9[3];
-                  v69 = v9[31].u8[4];
+                  v71 = v9[3];
+                  v72 = v9[31].u8[4];
                   if (v39)
                   {
-                    if (v69 == 1)
+                    if (v72 == 1)
                     {
                       if (_mdns_server_log_s_once != -1)
                       {
                         dispatch_once(&_mdns_server_log_s_once, &__block_literal_global_22);
                       }
 
-                      v70 = _mdns_server_log_s_log;
+                      v73 = _mdns_server_log_s_log;
                       if (os_log_type_enabled(_mdns_server_log_s_log, OS_LOG_TYPE_DEFAULT))
                       {
-                        v71 = v9[6].i32[0];
-                        v72 = v9[27].i32[0];
-                        v73 = v9[27].i32[1];
-                        v74 = v9[28].i32[0];
-                        v75 = v9[13];
-                        v76 = v9[31].u8[3];
-                        v77 = *(*&v68 + 76);
+                        v74 = v9[6].i32[0];
+                        v75 = v9[27].i32[0];
+                        v76 = v9[27].i32[1];
+                        v77 = v9[28].i32[0];
+                        v78 = v9[13];
+                        v79 = v9[31].u8[3];
+                        v80 = *(*&v71 + 76);
                         *length = 67111683;
-                        *&length[4] = v71;
+                        *&length[4] = v74;
                         *&length[8] = 1024;
-                        *&length[10] = v72;
+                        *&length[10] = v75;
                         *&length[14] = 1024;
-                        *&length[16] = v73;
+                        *&length[16] = v76;
                         *&length[20] = 1024;
-                        *&length[22] = v74;
+                        *&length[22] = v77;
                         *&length[26] = 2160;
                         *&length[28] = 1752392040;
                         *&length[36] = 2085;
-                        *&length[38] = v75;
-                        v154 = 1024;
-                        v155 = v76;
-                        v156 = 2048;
-                        v157 = v77;
-                        v158 = 2082;
-                        v159 = *&v68 + 84;
-                        v160 = 1042;
-                        LODWORD(v161[0]) = 16;
-                        WORD2(v161[0]) = 2098;
-                        *(v161 + 6) = v39;
-                        v78 = "[R%u] getaddrinfo start -- flags: 0x%X, ifindex: %d, protocols: %u, hostname: %{sensitive,mask.hash}s, options: %{mdns:gaiopts}X, client pid: %lld (%{public}s), delegator uuid: %{public,uuid_t}.16P";
+                        *&length[38] = v78;
+                        v157 = 1024;
+                        v158 = v79;
+                        v159 = 2048;
+                        v160 = v80;
+                        v161 = 2082;
+                        v162 = *&v71 + 84;
+                        v163 = 1042;
+                        LODWORD(v164[0]) = 16;
+                        WORD2(v164[0]) = 2098;
+                        *(v164 + 6) = v39;
+                        v81 = "[R%u] getaddrinfo start -- flags: 0x%X, ifindex: %d, protocols: %u, hostname: %{sensitive,mask.hash}s, options: %{mdns:gaiopts}X, client pid: %lld (%{public}s), delegator uuid: %{public,uuid_t}.16P";
 LABEL_124:
-                        v94 = v70;
-                        v95 = 88;
+                        v97 = v73;
+                        v98 = 88;
 LABEL_141:
-                        _os_log_impl(&_mh_execute_header, v94, OS_LOG_TYPE_DEFAULT, v78, length, v95);
+                        _os_log_impl(&_mh_execute_header, v97, OS_LOG_TYPE_DEFAULT, v81, length, v98);
                       }
                     }
 
@@ -7546,46 +7462,46 @@ LABEL_141:
                         dispatch_once(&_mdns_server_log_s_once, &__block_literal_global_22);
                       }
 
-                      v70 = _mdns_server_log_s_log;
+                      v73 = _mdns_server_log_s_log;
                       if (os_log_type_enabled(_mdns_server_log_s_log, OS_LOG_TYPE_DEFAULT))
                       {
-                        v87 = v9[6].i32[0];
-                        v88 = v9[27].i32[0];
-                        v89 = v9[27].i32[1];
-                        v90 = v9[28].i32[0];
-                        v91 = v9[13];
-                        v92 = v9[31].u8[3];
-                        v93 = *(*&v68 + 76);
+                        v90 = v9[6].i32[0];
+                        v91 = v9[27].i32[0];
+                        v92 = v9[27].i32[1];
+                        v93 = v9[28].i32[0];
+                        v94 = v9[13];
+                        v95 = v9[31].u8[3];
+                        v96 = *(*&v71 + 76);
                         *length = 67111683;
-                        *&length[4] = v87;
+                        *&length[4] = v90;
                         *&length[8] = 1024;
-                        *&length[10] = v88;
+                        *&length[10] = v91;
                         *&length[14] = 1024;
-                        *&length[16] = v89;
+                        *&length[16] = v92;
                         *&length[20] = 1024;
-                        *&length[22] = v90;
+                        *&length[22] = v93;
                         *&length[26] = 2160;
                         *&length[28] = 1752392040;
                         *&length[36] = 2081;
-                        *&length[38] = v91;
-                        v154 = 1024;
-                        v155 = v92;
-                        v156 = 2048;
-                        v157 = v93;
-                        v158 = 2082;
-                        v159 = *&v68 + 84;
-                        v160 = 1042;
-                        LODWORD(v161[0]) = 16;
-                        WORD2(v161[0]) = 2098;
-                        *(v161 + 6) = v39;
-                        v78 = "[R%u] getaddrinfo start -- flags: 0x%X, ifindex: %d, protocols: %u, hostname: %{private,mask.hash}s, options: %{mdns:gaiopts}X, client pid: %lld (%{public}s), delegator uuid: %{public,uuid_t}.16P";
+                        *&length[38] = v94;
+                        v157 = 1024;
+                        v158 = v95;
+                        v159 = 2048;
+                        v160 = v96;
+                        v161 = 2082;
+                        v162 = *&v71 + 84;
+                        v163 = 1042;
+                        LODWORD(v164[0]) = 16;
+                        WORD2(v164[0]) = 2098;
+                        *(v164 + 6) = v39;
+                        v81 = "[R%u] getaddrinfo start -- flags: 0x%X, ifindex: %d, protocols: %u, hostname: %{private,mask.hash}s, options: %{mdns:gaiopts}X, client pid: %lld (%{public}s), delegator uuid: %{public,uuid_t}.16P";
                         goto LABEL_124;
                       }
                     }
 
 LABEL_142:
-                    v66 = 0;
-                    if (!v63)
+                    v69 = 0;
+                    if (!v66)
                     {
                       goto LABEL_144;
                     }
@@ -7595,52 +7511,52 @@ LABEL_142:
 
                   if (int64_limited)
                   {
-                    v162[0] = 0;
-                    v162[1] = 0;
-                    mdns_system_pid_to_name(int64_limited, v162);
-                    if (v69 == 1)
+                    v165[0] = 0;
+                    v165[1] = 0;
+                    mdns_system_pid_to_name(int64_limited, v165);
+                    if (v72 == 1)
                     {
                       if (_mdns_server_log_s_once != -1)
                       {
                         dispatch_once(&_mdns_server_log_s_once, &__block_literal_global_22);
                       }
 
-                      v79 = _mdns_server_log_s_log;
+                      v82 = _mdns_server_log_s_log;
                       if (!os_log_type_enabled(_mdns_server_log_s_log, OS_LOG_TYPE_DEFAULT))
                       {
                         goto LABEL_142;
                       }
 
-                      v80 = v9[6].i32[0];
-                      v81 = v9[27].i32[0];
-                      v82 = v9[27].i32[1];
-                      v83 = v9[28].i32[0];
-                      v84 = v9[13];
-                      v85 = v9[31].u8[3];
-                      v86 = *(*&v68 + 76);
+                      v83 = v9[6].i32[0];
+                      v84 = v9[27].i32[0];
+                      v85 = v9[27].i32[1];
+                      v86 = v9[28].i32[0];
+                      v87 = v9[13];
+                      v88 = v9[31].u8[3];
+                      v89 = *(*&v71 + 76);
                       *length = 67111683;
-                      *&length[4] = v80;
+                      *&length[4] = v83;
                       *&length[8] = 1024;
-                      *&length[10] = v81;
+                      *&length[10] = v84;
                       *&length[14] = 1024;
-                      *&length[16] = v82;
+                      *&length[16] = v85;
                       *&length[20] = 1024;
-                      *&length[22] = v83;
+                      *&length[22] = v86;
                       *&length[26] = 2160;
                       *&length[28] = 1752392040;
                       *&length[36] = 2085;
-                      *&length[38] = v84;
-                      v154 = 1024;
-                      v155 = v85;
-                      v156 = 2048;
-                      v157 = v86;
-                      v158 = 2082;
-                      v159 = *&v68 + 84;
-                      v160 = 2048;
-                      v161[0] = int64_limited;
-                      LOWORD(v161[1]) = 2082;
-                      *(&v161[1] + 2) = v162;
-                      v78 = "[R%u] getaddrinfo start -- flags: 0x%X, ifindex: %d, protocols: %u, hostname: %{sensitive,mask.hash}s, options: %{mdns:gaiopts}X, client pid: %lld (%{public}s), delegator pid: %lld (%{public}s)";
+                      *&length[38] = v87;
+                      v157 = 1024;
+                      v158 = v88;
+                      v159 = 2048;
+                      v160 = v89;
+                      v161 = 2082;
+                      v162 = *&v71 + 84;
+                      v163 = 2048;
+                      v164[0] = int64_limited;
+                      LOWORD(v164[1]) = 2082;
+                      *(&v164[1] + 2) = v165;
+                      v81 = "[R%u] getaddrinfo start -- flags: 0x%X, ifindex: %d, protocols: %u, hostname: %{sensitive,mask.hash}s, options: %{mdns:gaiopts}X, client pid: %lld (%{public}s), delegator pid: %lld (%{public}s)";
                     }
 
                     else
@@ -7650,88 +7566,88 @@ LABEL_142:
                         dispatch_once(&_mdns_server_log_s_once, &__block_literal_global_22);
                       }
 
-                      v79 = _mdns_server_log_s_log;
+                      v82 = _mdns_server_log_s_log;
                       if (!os_log_type_enabled(_mdns_server_log_s_log, OS_LOG_TYPE_DEFAULT))
                       {
                         goto LABEL_142;
                       }
 
-                      v104 = v9[6].i32[0];
-                      v105 = v9[27].i32[0];
-                      v106 = v9[27].i32[1];
-                      v107 = v9[28].i32[0];
-                      v108 = v9[13];
-                      v109 = v9[31].u8[3];
-                      v110 = *(*&v68 + 76);
+                      v107 = v9[6].i32[0];
+                      v108 = v9[27].i32[0];
+                      v109 = v9[27].i32[1];
+                      v110 = v9[28].i32[0];
+                      v111 = v9[13];
+                      v112 = v9[31].u8[3];
+                      v113 = *(*&v71 + 76);
                       *length = 67111683;
-                      *&length[4] = v104;
+                      *&length[4] = v107;
                       *&length[8] = 1024;
-                      *&length[10] = v105;
+                      *&length[10] = v108;
                       *&length[14] = 1024;
-                      *&length[16] = v106;
+                      *&length[16] = v109;
                       *&length[20] = 1024;
-                      *&length[22] = v107;
+                      *&length[22] = v110;
                       *&length[26] = 2160;
                       *&length[28] = 1752392040;
                       *&length[36] = 2081;
-                      *&length[38] = v108;
-                      v154 = 1024;
-                      v155 = v109;
-                      v156 = 2048;
-                      v157 = v110;
-                      v158 = 2082;
-                      v159 = *&v68 + 84;
-                      v160 = 2048;
-                      v161[0] = int64_limited;
-                      LOWORD(v161[1]) = 2082;
-                      *(&v161[1] + 2) = v162;
-                      v78 = "[R%u] getaddrinfo start -- flags: 0x%X, ifindex: %d, protocols: %u, hostname: %{private,mask.hash}s, options: %{mdns:gaiopts}X, client pid: %lld (%{public}s), delegator pid: %lld (%{public}s)";
+                      *&length[38] = v111;
+                      v157 = 1024;
+                      v158 = v112;
+                      v159 = 2048;
+                      v160 = v113;
+                      v161 = 2082;
+                      v162 = *&v71 + 84;
+                      v163 = 2048;
+                      v164[0] = int64_limited;
+                      LOWORD(v164[1]) = 2082;
+                      *(&v164[1] + 2) = v165;
+                      v81 = "[R%u] getaddrinfo start -- flags: 0x%X, ifindex: %d, protocols: %u, hostname: %{private,mask.hash}s, options: %{mdns:gaiopts}X, client pid: %lld (%{public}s), delegator pid: %lld (%{public}s)";
                     }
 
-                    v94 = v79;
-                    v95 = 92;
+                    v97 = v82;
+                    v98 = 92;
                     goto LABEL_141;
                   }
 
-                  if (v69 == 1)
+                  if (v72 == 1)
                   {
                     if (_mdns_server_log_s_once != -1)
                     {
                       dispatch_once(&_mdns_server_log_s_once, &__block_literal_global_22);
                     }
 
-                    v96 = _mdns_server_log_s_log;
+                    v99 = _mdns_server_log_s_log;
                     if (!os_log_type_enabled(_mdns_server_log_s_log, OS_LOG_TYPE_DEFAULT))
                     {
                       goto LABEL_142;
                     }
 
-                    v97 = v9[6].i32[0];
-                    v98 = v9[27].i32[0];
-                    v99 = v9[27].i32[1];
-                    v100 = v9[28].i32[0];
-                    v101 = v9[13];
-                    v102 = v9[31].u8[3];
-                    v103 = *(*&v68 + 76);
+                    v100 = v9[6].i32[0];
+                    v101 = v9[27].i32[0];
+                    v102 = v9[27].i32[1];
+                    v103 = v9[28].i32[0];
+                    v104 = v9[13];
+                    v105 = v9[31].u8[3];
+                    v106 = *(*&v71 + 76);
                     *length = 67111171;
-                    *&length[4] = v97;
+                    *&length[4] = v100;
                     *&length[8] = 1024;
-                    *&length[10] = v98;
+                    *&length[10] = v101;
                     *&length[14] = 1024;
-                    *&length[16] = v99;
+                    *&length[16] = v102;
                     *&length[20] = 1024;
-                    *&length[22] = v100;
+                    *&length[22] = v103;
                     *&length[26] = 2160;
                     *&length[28] = 1752392040;
                     *&length[36] = 2085;
-                    *&length[38] = v101;
-                    v154 = 1024;
-                    v155 = v102;
-                    v156 = 2048;
-                    v157 = v103;
-                    v158 = 2082;
-                    v159 = *&v68 + 84;
-                    v78 = "[R%u] getaddrinfo start -- flags: 0x%X, ifindex: %d, protocols: %u, hostname: %{sensitive,mask.hash}s, options: %{mdns:gaiopts}X, client pid: %lld (%{public}s)";
+                    *&length[38] = v104;
+                    v157 = 1024;
+                    v158 = v105;
+                    v159 = 2048;
+                    v160 = v106;
+                    v161 = 2082;
+                    v162 = *&v71 + 84;
+                    v81 = "[R%u] getaddrinfo start -- flags: 0x%X, ifindex: %d, protocols: %u, hostname: %{sensitive,mask.hash}s, options: %{mdns:gaiopts}X, client pid: %lld (%{public}s)";
                   }
 
                   else
@@ -7741,63 +7657,63 @@ LABEL_142:
                       dispatch_once(&_mdns_server_log_s_once, &__block_literal_global_22);
                     }
 
-                    v96 = _mdns_server_log_s_log;
+                    v99 = _mdns_server_log_s_log;
                     if (!os_log_type_enabled(_mdns_server_log_s_log, OS_LOG_TYPE_DEFAULT))
                     {
                       goto LABEL_142;
                     }
 
-                    v111 = v9[6].i32[0];
-                    v112 = v9[27].i32[0];
-                    v113 = v9[27].i32[1];
-                    v114 = v9[28].i32[0];
-                    v115 = v9[13];
-                    v116 = v9[31].u8[3];
-                    v117 = *(*&v68 + 76);
+                    v114 = v9[6].i32[0];
+                    v115 = v9[27].i32[0];
+                    v116 = v9[27].i32[1];
+                    v117 = v9[28].i32[0];
+                    v118 = v9[13];
+                    v119 = v9[31].u8[3];
+                    v120 = *(*&v71 + 76);
                     *length = 67111171;
-                    *&length[4] = v111;
+                    *&length[4] = v114;
                     *&length[8] = 1024;
-                    *&length[10] = v112;
+                    *&length[10] = v115;
                     *&length[14] = 1024;
-                    *&length[16] = v113;
+                    *&length[16] = v116;
                     *&length[20] = 1024;
-                    *&length[22] = v114;
+                    *&length[22] = v117;
                     *&length[26] = 2160;
                     *&length[28] = 1752392040;
                     *&length[36] = 2081;
-                    *&length[38] = v115;
-                    v154 = 1024;
-                    v155 = v116;
-                    v156 = 2048;
-                    v157 = v117;
-                    v158 = 2082;
-                    v159 = *&v68 + 84;
-                    v78 = "[R%u] getaddrinfo start -- flags: 0x%X, ifindex: %d, protocols: %u, hostname: %{private,mask.hash}s, options: %{mdns:gaiopts}X, client pid: %lld (%{public}s)";
+                    *&length[38] = v118;
+                    v157 = 1024;
+                    v158 = v119;
+                    v159 = 2048;
+                    v160 = v120;
+                    v161 = 2082;
+                    v162 = *&v71 + 84;
+                    v81 = "[R%u] getaddrinfo start -- flags: 0x%X, ifindex: %d, protocols: %u, hostname: %{private,mask.hash}s, options: %{mdns:gaiopts}X, client pid: %lld (%{public}s)";
                   }
 
-                  v94 = v96;
-                  v95 = 72;
+                  v97 = v99;
+                  v98 = 72;
                   goto LABEL_141;
                 }
 
-                v64 = (*(v63[2] + 56))(v63);
-                if (mdns_system_is_signed_result_uuid_valid(v64))
+                v67 = (*(v66[2] + 56))(v66);
+                if (mdns_system_is_signed_result_uuid_valid(v67))
                 {
                   if (_mdns_server_log_s_once != -1)
                   {
                     dispatch_once(&_mdns_server_log_s_once, &__block_literal_global_22);
                   }
 
-                  v65 = _mdns_server_log_s_log;
+                  v68 = _mdns_server_log_s_log;
                   if (os_log_type_enabled(_mdns_server_log_s_log, OS_LOG_TYPE_DEBUG))
                   {
-                    v138 = v9[6].i32[0];
+                    v141 = v9[6].i32[0];
                     *length = 67109120;
-                    *&length[4] = v138;
-                    _os_log_debug_impl(&_mh_execute_header, v65, OS_LOG_TYPE_DEBUG, "[R%u] Allowing signed result", length, 8u);
+                    *&length[4] = v141;
+                    _os_log_debug_impl(&_mh_execute_header, v68, OS_LOG_TYPE_DEBUG, "[R%u] Allowing signed result", length, 8u);
                   }
 
-                  v9[24] = v63;
+                  v9[24] = v66;
                   goto LABEL_100;
                 }
 
@@ -7806,15 +7722,15 @@ LABEL_142:
                   dispatch_once(&_mdns_server_log_s_once, &__block_literal_global_22);
                 }
 
-                v145 = _mdns_server_log_s_log;
-                v66 = -65570;
+                v148 = _mdns_server_log_s_log;
+                v69 = -65570;
                 if (!os_log_type_enabled(_mdns_server_log_s_log, OS_LOG_TYPE_ERROR))
                 {
 LABEL_188:
-                  if (!v63)
+                  if (!v66)
                   {
 LABEL_144:
-                    if (v66)
+                    if (v69)
                     {
                       goto LABEL_103;
                     }
@@ -7824,119 +7740,119 @@ LABEL_144:
                       goto LABEL_152;
                     }
 
-                    v118 = *(*&v9[3] + 64);
-                    v119 = v9[13];
-                    v120 = *(v118 + 40);
-                    v151 = *(v118 + 24);
-                    v152 = v120;
-                    v121 = mdns_trust_checks_check(&v151, 2u, v119, 0, 0, 0);
-                    if (!v121)
+                    v121 = *(*&v9[3] + 64);
+                    v122 = v9[13];
+                    v123 = *(v121 + 40);
+                    v154 = *(v121 + 24);
+                    v155 = v123;
+                    v124 = mdns_trust_checks_check(&v154, 2u, v122, 0, 0, 0);
+                    if (!v124)
                     {
-                      v66 = -65539;
+                      v69 = -65539;
                       goto LABEL_103;
                     }
 
-                    v122 = v121;
-                    v123 = v121[9];
-                    if (v123 > 1)
+                    v125 = v124;
+                    v126 = v124[9];
+                    if (v126 > 1)
                     {
-                      if (v123 == 3)
+                      if (v126 == 3)
                       {
-                        v66 = -65555;
+                        v69 = -65555;
                         goto LABEL_170;
                       }
 
-                      if (v123 != 2)
+                      if (v126 != 2)
                       {
                         goto LABEL_168;
                       }
                     }
 
-                    else if (v123)
+                    else if (v126)
                     {
-                      if (v123 == 1)
+                      if (v126 == 1)
                       {
-                        os_release(v121);
+                        os_release(v124);
 LABEL_152:
                         started = _dx_gai_request_start_client_requests(v9, 1);
                         if (started)
                         {
-                          v66 = started;
+                          v69 = started;
                           goto LABEL_103;
                         }
 
 LABEL_153:
-                        v125 = (v6 + 24);
+                        v128 = (v6 + 24);
                         do
                         {
-                          v126 = v125;
-                          v127 = *v125;
-                          v125 = &(*v125)[2];
+                          v129 = v128;
+                          v130 = *v128;
+                          v128 = &(*v128)[2];
                         }
 
-                        while (v127);
-                        v66 = 0;
+                        while (v130);
+                        v69 = 0;
                         v9[2] = 0;
-                        *v126 = v9;
+                        *v129 = v9;
                         atomic_fetch_add(&v9[1], 1u);
                         goto LABEL_156;
                       }
 
 LABEL_168:
-                      v66 = -65537;
+                      v69 = -65537;
                       goto LABEL_170;
                     }
 
-                    v130 = *(v118 + 40);
-                    v151 = *(v118 + 24);
-                    v152 = v130;
-                    v131 = mdns_trust_create(&v151, 0, v121);
-                    v9[23] = v131;
-                    if (v131)
+                    v133 = *(v121 + 40);
+                    v154 = *(v121 + 24);
+                    v155 = v133;
+                    v134 = mdns_trust_create(&v154, 0, v124);
+                    v9[23] = v134;
+                    if (v134)
                     {
                       atomic_fetch_add(&v9[1], 1u);
-                      v132 = v9[23];
+                      v135 = v9[23];
                       if (_dx_server_queue_once != -1)
                       {
                         dispatch_once(&_dx_server_queue_once, &__block_literal_global_27);
                       }
 
-                      mdns_trust_set_queue(v132, _dx_server_queue_queue);
-                      v133 = v9[23];
+                      mdns_trust_set_queue(v135, _dx_server_queue_queue);
+                      v136 = v9[23];
                       *length = _NSConcreteStackBlock;
                       *&length[8] = 0x40000000;
                       *&length[16] = ___dx_gai_request_trust_check_block_invoke;
                       *&length[24] = &__block_descriptor_tmp_51_1030;
                       *&length[32] = v9;
-                      mdns_trust_set_event_handler(v133, length);
-                      v134 = v9[23];
-                      if ((*(*&v134 + 26) & 1) == 0)
+                      mdns_trust_set_event_handler(v136, length);
+                      v137 = v9[23];
+                      if ((*(*&v137 + 26) & 1) == 0)
                       {
-                        *(*&v134 + 26) = 1;
-                        _mdns_trust_activate_if_ready(*&v134);
+                        *(*&v137 + 26) = 1;
+                        _mdns_trust_activate_if_ready(*&v137);
                       }
 
-                      os_release(v122);
+                      os_release(v125);
                       goto LABEL_153;
                     }
 
-                    v66 = -65539;
+                    v69 = -65539;
 LABEL_170:
-                    os_release(v122);
+                    os_release(v125);
                     goto LABEL_103;
                   }
 
 LABEL_143:
-                  os_release(v63);
+                  os_release(v66);
                   goto LABEL_144;
                 }
 
-                v147 = v9[6].i32[0];
+                v150 = v9[6].i32[0];
                 *length = 67109120;
-                *&length[4] = v147;
-                v142 = "[R%u] Signed result UUID revoked.";
-                v143 = v145;
-                v144 = 8;
+                *&length[4] = v150;
+                v145 = "[R%u] Signed result UUID revoked.";
+                v146 = v148;
+                v147 = 8;
               }
 
               else
@@ -7946,28 +7862,29 @@ LABEL_143:
                   dispatch_once(&_mdns_server_log_s_once, &__block_literal_global_22);
                 }
 
-                v140 = _mdns_server_log_s_log;
-                v66 = -65549;
+                v143 = _mdns_server_log_s_log;
+                v69 = -65549;
                 if (!os_log_type_enabled(_mdns_server_log_s_log, OS_LOG_TYPE_ERROR))
                 {
                   goto LABEL_188;
                 }
 
-                v141 = v9[6].i32[0];
+                v144 = v9[6].i32[0];
                 *length = 67109376;
-                *&length[4] = v141;
+                *&length[4] = v144;
                 *&length[8] = 2048;
-                *&length[10] = SLODWORD(v162[0]);
-                v142 = "[R%u] Failed to create signed resolve result from data: %{mdns:err}ld";
-                v143 = v140;
-                v144 = 18;
+                *&length[10] = SLODWORD(v165[0]);
+                v145 = "[R%u] Failed to create signed resolve result from data: %{mdns:err}ld";
+                v146 = v143;
+                v147 = 18;
               }
 
-              _os_log_error_impl(&_mh_execute_header, v143, OS_LOG_TYPE_ERROR, v142, length, v144);
+              _os_log_error_impl(&_mh_execute_header, v146, OS_LOG_TYPE_ERROR, v145, length, v147);
               goto LABEL_188;
             }
 
-            if (*(*&v33 + 32) && mdns_xpc_connection_is_entitled())
+            v63 = *(*&v33 + 32);
+            if (v63 && mdns_xpc_connection_is_entitled(v63, "com.apple.private.dnssd.prohibit-encrypted-dns"))
             {
               v9[31].i8[3] |= 0x10u;
               goto LABEL_91;
@@ -7976,22 +7893,22 @@ LABEL_143:
             goto LABEL_101;
           }
 
-          v57 = v9[28].i32[0] & 3;
-          v58 = v9[31].i8[2];
-          if (v57 == 2 || (v58 |= 1u, v9[31].i8[2] = v58, v57 != 1))
+          v59 = v9[28].i32[0] & 3;
+          v60 = v9[31].i8[2];
+          if (v59 == 2 || (v60 |= 1u, v9[31].i8[2] = v60, v59 != 1))
           {
-            v9[31].i8[2] = v58 | 2;
+            v9[31].i8[2] = v60 | 2;
           }
 
           goto LABEL_84;
         }
 
-        v54 = v53;
-        v55 = malloc_type_malloc(0x10uLL, 0xFE29915uLL);
-        if (v55)
+        v55 = v54;
+        v56 = malloc_type_malloc(0x10uLL, 0xFE29915uLL);
+        if (v56)
         {
-          *v55 = *v54;
-          v9[18] = v55;
+          *v56 = *v55;
+          v9[18] = v56;
           goto LABEL_69;
         }
 
@@ -8337,8 +8254,9 @@ LABEL_9:
   _dx_release(v4);
 }
 
-uint64_t _dx_gai_request_start_client_requests(int32x2_t *a1, int a2)
+uint64_t _dx_gai_request_start_client_requests(int32x2_t *a1, uint64_t a2)
 {
+  v2 = a2;
   v4 = a1[3];
   v31 = 0u;
   v32 = 0u;
@@ -8435,7 +8353,7 @@ uint64_t _dx_gai_request_start_client_requests(int32x2_t *a1, int a2)
   v33[7] = v16;
   v33[4] = &v34;
   v33[5] = a1;
-  _dx_kqueue_locked("dx_gai_request: starting client requests", a2, v33);
+  _dx_kqueue_locked("dx_gai_request: starting client requests", v2, v33);
   if (*(v35 + 6))
   {
     v38[0] = _NSConcreteStackBlock;
@@ -8443,7 +8361,7 @@ uint64_t _dx_gai_request_start_client_requests(int32x2_t *a1, int a2)
     v38[2] = ___dx_gai_request_stop_client_requests_block_invoke;
     v38[3] = &__block_descriptor_tmp_38_1039;
     v38[4] = a1;
-    _dx_kqueue_locked("dx_gai_request: stopping client requests", a2, v38);
+    _dx_kqueue_locked("dx_gai_request: stopping client requests", v2, v38);
     v19 = *(v35 + 6);
   }
 
@@ -8688,16 +8606,16 @@ void ___dx_gai_request_start_client_requests_internal_block_invoke(void *a1)
         goto LABEL_40;
       }
 
-      v17 = v12;
-      RecordClientRequestStart = QueryRecordClientRequestStart(v12, v10, _dx_gai_request_query_result_handler, v9, v13, v14, v15, v16);
+      v13 = v12;
+      RecordClientRequestStart = QueryRecordClientRequestStart(v12, v10, _dx_gai_request_query_result_handler, v9);
       if (RecordClientRequestStart)
       {
-        free(v17);
-        v17 = 0;
+        free(v13);
+        v13 = 0;
       }
 
       *(v11 + 24) = RecordClientRequestStart;
-      *(a1[5] + 88) = v17;
+      *(a1[5] + 88) = v13;
       if (*(*(a1[4] + 8) + 24))
       {
         fprintf(__stderrp, "AssertMacros: %s, %s file: %s, line: %d, value: %lld\n", "err == 0", "", "/Library/Caches/com.apple.xbs/Sources/mDNSResponder/mDNSMacOSX/dnssd_server.c", 1796, *(*(a1[4] + 8) + 24));
@@ -8706,37 +8624,37 @@ void ___dx_gai_request_start_client_requests_internal_block_invoke(void *a1)
     }
   }
 
-  v19 = a1[6];
-  if (!v19)
+  v15 = a1[6];
+  if (!v15)
   {
     return;
   }
 
-  v20 = a1[5];
-  if (*(v20 + 80))
+  v16 = a1[5];
+  if (*(v16 + 80))
   {
     return;
   }
 
-  v21 = *(a1[4] + 8);
-  v22 = malloc_type_calloc(1uLL, 0x20uLL, 0xC75B2477uLL);
-  if (!v22)
+  v17 = *(a1[4] + 8);
+  v18 = malloc_type_calloc(1uLL, 0x20uLL, 0xC75B2477uLL);
+  if (!v18)
   {
 LABEL_40:
     __break(1u);
     return;
   }
 
-  v27 = v22;
-  AddrInfoClientRequestStart = GetAddrInfoClientRequestStart(v22, v19, _dx_gai_request_gai_result_handler, v20, v23, v24, v25, v26);
+  v19 = v18;
+  AddrInfoClientRequestStart = GetAddrInfoClientRequestStart(v18, v15, _dx_gai_request_gai_result_handler, v16);
   if (AddrInfoClientRequestStart)
   {
-    free(v27);
-    v27 = 0;
+    free(v19);
+    v19 = 0;
   }
 
-  *(v21 + 24) = AddrInfoClientRequestStart;
-  *(a1[5] + 80) = v27;
+  *(v17 + 24) = AddrInfoClientRequestStart;
+  *(a1[5] + 80) = v19;
   if (*(*(a1[4] + 8) + 24))
   {
     fprintf(__stderrp, "AssertMacros: %s, %s file: %s, line: %d, value: %lld\n", "err == 0", "", "/Library/Caches/com.apple.xbs/Sources/mDNSResponder/mDNSMacOSX/dnssd_server.c", 1801, *(*(a1[4] + 8) + 24));
@@ -8744,39 +8662,39 @@ LABEL_40:
 
   else
   {
-    v29 = a1[5];
-    v30 = *(v29 + 80);
-    if (v30 && *(v29 + 220) != -1)
+    v21 = a1[5];
+    v22 = *(v21 + 80);
+    if (v22 && *(v21 + 220) != -1)
     {
-      v31 = *(v30 + 16);
-      if (v31)
+      v23 = *(v22 + 16);
+      if (v23)
       {
-        v32 = (v31 + 376);
+        v24 = (v23 + 376);
       }
 
       else
       {
-        v33 = *(v30 + 24);
-        v32 = v33 ? (v33 + 376) : "";
+        v25 = *(v22 + 24);
+        v24 = v25 ? (v25 + 376) : "";
       }
 
-      if (IsLocalDomain(v32))
+      if (IsLocalDomain(v24))
       {
-        v34 = a1[5];
-        v35 = *(v34 + 24);
-        v36 = *(v34 + 220);
-        if (v36)
+        v26 = a1[5];
+        v27 = *(v26 + 24);
+        v28 = *(v26 + 220);
+        if (v28)
         {
-          v37 = AWDLInterfaceID == v36 || WiFiAwareInterfaceID == v36;
+          v29 = AWDLInterfaceID == v28 || WiFiAwareInterfaceID == v28;
         }
 
         else
         {
-          v37 = (*(v34 + 218) >> 4) & 1;
+          v29 = (*(v26 + 218) >> 4) & 1;
         }
 
         monotonic_time_ns = _mdns_powerlog_get_monotonic_time_ns();
-        _mdns_powerlog_bonjour_event(4u, v37, (v35 + 84), 0, monotonic_time_ns);
+        _mdns_powerlog_bonjour_event(4u, v29, (v27 + 84), 0, monotonic_time_ns);
         *(a1[5] + 72) = monotonic_time_ns;
       }
     }
@@ -8787,71 +8705,73 @@ void _dx_kqueue_locked(uint64_t a1, int a2, uint64_t a3)
 {
   if (a2)
   {
-    v5 = pthread_mutex_lock((mDNSStorage[0] + 616));
-    *(mDNSStorage[0] + 680) = mDNSPlatformRawTime(v5, v6, v7, v8, v9, v10, v11, v12);
+    pthread_mutex_lock((mDNSStorage[0] + 616));
+    *(mDNSStorage[0] + 680) = mDNSPlatformRawTime();
     (*(a3 + 16))(a3);
 
-    KQueueUnlock(a1, v13, v14, v15, v16, v17, v18, v19);
+    KQueueUnlock(a1);
   }
 
   else
   {
-    v20 = *(a3 + 16);
+    v5 = *(a3 + 16);
 
-    v20(a3);
+    v5(a3);
   }
 }
 
-void ___dx_gai_request_stop_client_requests_block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void ___dx_gai_request_stop_client_requests_block_invoke(uint64_t a1)
 {
-  v9 = *(a1 + 32);
-  v10 = *(v9 + 80);
-  if (v10)
+  v2 = *(a1 + 32);
+  v3 = *(v2 + 80);
+  if (v3)
   {
-    GetAddrInfoClientRequestStop(v10, a2, a3, a4, a5, a6, a7, a8);
-    v11 = *(v9 + 80);
-    if (v11)
+    GetAddrInfoClientRequestStop(v3);
+    v4 = *(v2 + 80);
+    if (v4)
     {
-      free(v11);
-      *(v9 + 80) = 0;
+      free(v4);
+      *(v2 + 80) = 0;
     }
   }
 
-  v12 = *(a1 + 32);
-  v13 = *(v12 + 72);
-  if (v13)
+  v5 = *(a1 + 32);
+  v6 = *(v5 + 72);
+  if (v6)
   {
-    v14 = *(v12 + 220);
-    if (v14)
+    v7 = *(v5 + 220);
+    if (v7)
     {
-      v15 = AWDLInterfaceID == v14 || WiFiAwareInterfaceID == v14;
+      v8 = AWDLInterfaceID == v7 || WiFiAwareInterfaceID == v7;
     }
 
     else
     {
-      v15 = (*(v12 + 218) >> 4) & 1;
+      v8 = (*(v5 + 218) >> 4) & 1;
     }
 
-    _mdns_powerlog_bonjour_event(6u, v15, (*(v12 + 24) + 84), 0, v13);
-    v12 = *(a1 + 32);
-    *(v12 + 72) = 0;
+    _mdns_powerlog_bonjour_event(6u, v8, (*(v5 + 24) + 84), 0, v6);
+    v5 = *(a1 + 32);
+    *(v5 + 72) = 0;
   }
 
-  v16 = *(v12 + 88);
-  if (v16)
+  v9 = *(v5 + 88);
+  if (v9)
   {
-    QueryRecordClientRequestStop(v16, a2, a3, a4, v13, a6, a7, a8, v18);
-    v17 = *(v12 + 88);
-    if (v17)
+    QueryRecordClientRequestStop(v9);
+    v10 = *(v5 + 88);
+    if (v10)
     {
-      free(v17);
-      *(v12 + 88) = 0;
+      free(v10);
+      *(v5 + 88) = 0;
     }
   }
 }
 
-void _dx_gai_request_gai_result_handler(uint64_t a1, uint64_t a2, uint64_t a3, int a4, int a5, int a6, uint64_t a7)
+void _dx_gai_request_gai_result_handler(uint64_t a1, uint64_t a2, uint64_t a3, int a4, uint64_t a5, uint64_t a6, uint64_t a7)
 {
+  v8 = a6;
+  v9 = a5;
   if (a6 && a6 != -65554)
   {
 
@@ -8905,7 +8825,7 @@ LABEL_21:
   v20 = *(a3 + 4);
   if (v20 == 5)
   {
-    if (a6)
+    if (v8)
     {
       return;
     }
@@ -8931,21 +8851,21 @@ LABEL_21:
 
     v28 = a7 + v24;
     v29 = a7 + v23;
-    bzero(v40, 0x3F1uLL);
-    if (!ConvertDomainNameToCString_withescape((v22 + 4), v40))
+    bzero(v33, 0x3F1uLL);
+    if (!ConvertDomainNameToCString_withescape((v22 + 4), v33))
     {
-      v40[0] = 0;
+      v33[0] = 0;
     }
 
-    v39[0] = _NSConcreteStackBlock;
-    v39[1] = 0x40000000;
-    v39[2] = ___dx_gai_request_append_cname_block_invoke;
-    v39[3] = &__block_descriptor_tmp_59;
-    v39[4] = v40;
-    v39[5] = v28;
-    v39[6] = v29;
+    v32[0] = _NSConcreteStackBlock;
+    v32[1] = 0x40000000;
+    v32[2] = ___dx_gai_request_append_cname_block_invoke;
+    v32[3] = &__block_descriptor_tmp_59;
+    v32[4] = v33;
+    v32[5] = v28;
+    v32[6] = v29;
     os_unfair_lock_lock((a7 + 56));
-    ___dx_gai_request_append_cname_block_invoke(v39);
+    ___dx_gai_request_append_cname_block_invoke(v32);
     os_unfair_lock_unlock((a7 + 56));
     if (v21 == 1 && !a4 && (*(a7 + 250) & 0x10) != 0)
     {
@@ -8979,12 +8899,12 @@ LABEL_47:
 LABEL_48:
     if (_dx_gai_request_check_for_failover_restart(a7, a3, a4 != 0, v25))
     {
-      _dx_gai_request_restart_client_requests_in_failover_mode(a7, v32, v33, v34, v35, v36, v37, v38);
+      _dx_gai_request_restart_client_requests_in_failover_mode(a7);
     }
 
     else
     {
-      _dx_gai_request_enqueue_result(a7, a5, a3, a4 != 0, v26, v27, a6, a2);
+      _dx_gai_request_enqueue_result(a7, v9, a3, a4 != 0, v26, v27, v8, a2);
     }
 
     return;
@@ -8992,7 +8912,7 @@ LABEL_48:
 
   if (v20 == 1 || v20 == 28)
   {
-    if (a6)
+    if (v8)
     {
       v25 = 0;
       v26 = 0;
@@ -9077,7 +8997,7 @@ uint64_t _dx_gai_request_check_for_failover_restart(uint64_t a1, uint64_t a2, ch
   return v7;
 }
 
-void _dx_gai_request_enqueue_result(uint64_t a1, int a2, uint64_t a3, int a4, _DWORD *a5, unsigned int a6, int a7, uint64_t a8)
+void _dx_gai_request_enqueue_result(uint64_t a1, int a2, uint64_t a3, int a4, _OWORD *a5, unsigned int a6, int a7, uint64_t a8)
 {
   if (a6 || (a4 & 1) == 0)
   {
@@ -9435,33 +9355,33 @@ uint64_t _dx_request_set_error(os_unfair_lock_s *a1, int a2)
   return v3;
 }
 
-uint64_t _dx_gai_request_restart_client_requests_in_failover_mode(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+int32x2_t *_dx_gai_request_restart_client_requests_in_failover_mode(int32x2_t *result)
 {
-  if ((*(result + 250) & 8) == 0)
+  if ((result[31].i8[2] & 8) == 0)
   {
-    v8 = result;
-    v11[0] = _NSConcreteStackBlock;
-    v11[1] = 0x40000000;
-    v11[2] = ___dx_gai_request_stop_client_requests_block_invoke;
-    v11[3] = &__block_descriptor_tmp_38_1039;
-    v11[4] = result;
-    ___dx_gai_request_stop_client_requests_block_invoke(v11, a2, a3, a4, a5, a6, a7, a8);
+    v1 = result;
+    v4[0] = _NSConcreteStackBlock;
+    v4[1] = 0x40000000;
+    v4[2] = ___dx_gai_request_stop_client_requests_block_invoke;
+    v4[3] = &__block_descriptor_tmp_38_1039;
+    v4[4] = result;
+    ___dx_gai_request_stop_client_requests_block_invoke(v4);
     if (_mdns_server_log_s_once != -1)
     {
       dispatch_once(&_mdns_server_log_s_once, &__block_literal_global_22);
     }
 
-    v9 = _mdns_server_log_s_log;
+    v2 = _mdns_server_log_s_log;
     if (os_log_type_enabled(_mdns_server_log_s_log, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = *(v8 + 48);
-      LODWORD(v11[0]) = 67109120;
-      HIDWORD(v11[0]) = v10;
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "[R%u] getaddrinfo failover restart", v11, 8u);
+      v3 = v1[6].i32[0];
+      LODWORD(v4[0]) = 67109120;
+      HIDWORD(v4[0]) = v3;
+      _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "[R%u] getaddrinfo failover restart", v4, 8u);
     }
 
-    *(v8 + 250) |= 8u;
-    return _dx_gai_request_start_client_requests(v8, 0);
+    v1[31].i8[2] |= 8u;
+    return _dx_gai_request_start_client_requests(v1, 0);
   }
 
   return result;
@@ -9679,24 +9599,24 @@ void _dx_gai_request_query_result_handler(uint64_t a1, uint64_t a2, uint64_t a3,
       v14 = *(a3 + 12);
       block = 0;
       p_block = &block;
-      v29 = 0x2000000000;
-      v30 = 0;
-      v34[0] = _NSConcreteStackBlock;
-      v34[1] = 0x40000000;
-      v34[2] = __dnssd_svcb_copy_doh_uri_block_invoke;
-      v34[3] = &unk_100152E40;
-      v34[4] = &block;
-      _dnssd_svcb_extract_values(v13, v14, 0x8000, v34);
+      v22 = 0x2000000000;
+      v23 = 0;
+      v27[0] = _NSConcreteStackBlock;
+      v27[1] = 0x40000000;
+      v27[2] = __dnssd_svcb_copy_doh_uri_block_invoke;
+      v27[3] = &unk_100152E40;
+      v27[4] = &block;
+      _dnssd_svcb_extract_values(v13, v14, 0x8000, v27);
       v15 = *(p_block + 24);
       _Block_object_dispose(&block, 8);
       if (v15)
       {
-        bzero(v34, 0x3F1uLL);
+        bzero(v27, 0x3F1uLL);
         v16 = *(a3 + 56);
         if (v16 && dnssec_obj_resource_record_member_get_validation_result(v16) == 1)
         {
-          v17 = v34;
-          if (!ConvertDomainNameToCString_withescape(*(a3 + 32), v34))
+          v17 = v27;
+          if (!ConvertDomainNameToCString_withescape(*(a3 + 32), v27))
           {
             v17 = 0;
           }
@@ -9712,18 +9632,18 @@ void _dx_gai_request_query_result_handler(uint64_t a1, uint64_t a2, uint64_t a3,
         {
           if (_mdns_dns_service_queue_s_once != -1)
           {
-            v26 = DNSServiceManager;
+            v19 = DNSServiceManager;
             dispatch_once(&_mdns_dns_service_queue_s_once, &__block_literal_global_249);
-            DNSServiceManager = v26;
+            DNSServiceManager = v19;
           }
 
           block = _NSConcreteStackBlock;
           p_block = 0x40000000;
-          v29 = __mdns_dns_service_manager_register_doh_uri_block_invoke;
-          v30 = &__block_descriptor_tmp_16;
-          v31 = DNSServiceManager;
-          v32 = v15;
-          v33 = v17;
+          v22 = __mdns_dns_service_manager_register_doh_uri_block_invoke;
+          v23 = &__block_descriptor_tmp_16;
+          v24 = DNSServiceManager;
+          v25 = v15;
+          v26 = v17;
           dispatch_sync(_mdns_dns_service_queue_s_queue, &block);
         }
 
@@ -9733,7 +9653,7 @@ void _dx_gai_request_query_result_handler(uint64_t a1, uint64_t a2, uint64_t a3,
 
     if (_dx_gai_request_check_for_failover_restart(a7, a3, a4 != 0, v14 != 0))
     {
-      _dx_gai_request_restart_client_requests_in_failover_mode(a7, v19, v20, v21, v22, v23, v24, v25);
+      _dx_gai_request_restart_client_requests_in_failover_mode(a7);
     }
 
     else
@@ -9741,4 +9661,401 @@ void _dx_gai_request_query_result_handler(uint64_t a1, uint64_t a2, uint64_t a3,
       _dx_gai_request_enqueue_result(a7, a5, a3, a4 != 0, v13, v14, a6, a2);
     }
   }
+}
+
+uint64_t _dx_request_send_pending_error(uint64_t a1)
+{
+  v6 = 0;
+  v7 = &v6;
+  v8 = 0x2000000000;
+  v9 = 0;
+  v5[0] = _NSConcreteStackBlock;
+  v5[1] = 0x40000000;
+  v5[2] = ___dx_request_get_error_block_invoke;
+  v5[3] = &unk_10014F8E8;
+  v5[4] = &v6;
+  v5[5] = a1;
+  os_unfair_lock_lock((a1 + 56));
+  ___dx_request_get_error_block_invoke(v5);
+  os_unfair_lock_unlock((a1 + 56));
+  v2 = *(v7 + 6);
+  _Block_object_dispose(&v6, 8);
+  if (!v2 || (*(a1 + 60) & 1) != 0)
+  {
+    return 1;
+  }
+
+  result = xpc_dictionary_create(0, 0, 0);
+  if (result)
+  {
+    v4 = result;
+    xpc_dictionary_set_uint64(result, "id", *(a1 + 40));
+    xpc_dictionary_set_int64(v4, "error", v2);
+    _dx_session_send_message(*(a1 + 24), v4);
+    xpc_release(v4);
+    result = 1;
+    *(a1 + 60) = 1;
+  }
+
+  return result;
+}
+
+xpc_object_t _dx_gai_request_take_results(os_unfair_lock_s *a1)
+{
+  v57 = 0;
+  v58 = &v57;
+  v59 = 0x2000000000;
+  v60 = 0;
+  v56[0] = _NSConcreteStackBlock;
+  v56[1] = 0x40000000;
+  v56[2] = ___dx_gai_request_take_results_block_invoke;
+  v56[3] = &unk_10014F878;
+  v56[4] = &v57;
+  v56[5] = a1;
+  os_unfair_lock_lock(a1 + 14);
+  ___dx_gai_request_take_results_block_invoke(v56);
+  os_unfair_lock_unlock(a1 + 14);
+  v2 = v58;
+  if (!v58[3])
+  {
+    xarray = 0;
+    goto LABEL_61;
+  }
+
+  v3 = -65539;
+  v4 = xpc_array_create(0, 0);
+  v2 = v58;
+  xarray = v4;
+  if (v4)
+  {
+    v5 = v58[3];
+    if (v5)
+    {
+      while (1)
+      {
+        v6 = xpc_dictionary_create(0, 0, 0);
+        if (!v6)
+        {
+          fprintf(__stderrp, "AssertMacros: %s, %s file: %s, line: %d, value: %lld\n", "result", "", "/Library/Caches/com.apple.xbs/Sources/mDNSResponder/mDNSMacOSX/dnssd_server.c", 2570, 0);
+          v51 = 0;
+          v2 = v58;
+          v3 = -65539;
+          goto LABEL_62;
+        }
+
+        v7 = v6;
+        xpc_dictionary_set_int64(v6, "error", *(v5 + 88));
+        xpc_dictionary_set_uint64(v7, "flags", *(v5 + 80));
+        xpc_dictionary_set_uint64(v7, "interface_index", *(v5 + 92));
+        xpc_dictionary_set_string(v7, "rname", *(*(*(v5 + 24) + 24) + 40));
+        xpc_dictionary_set_uint64(v7, "rtype", *(*(v5 + 24) + 52));
+        xpc_dictionary_set_uint64(v7, "rprotocol", *(v5 + 96));
+        xpc_dictionary_set_uint64(v7, "rclass", *(*(v5 + 24) + 54));
+        v8 = *(v5 + 24);
+        v9 = *(v8 + 32);
+        v10 = *(v8 + 56);
+        if (v9)
+        {
+          v11 = 1;
+        }
+
+        else
+        {
+          v11 = v10 == 0;
+        }
+
+        if (v11)
+        {
+          if (v9)
+          {
+            v12 = *(v8 + 32);
+          }
+
+          else
+          {
+            v12 = "";
+          }
+
+          xpc_dictionary_set_data(v7, "rdata", v12, v10);
+        }
+
+        v13 = *(v5 + 84);
+        if (v13)
+        {
+          xpc_dictionary_set_int64(v7, "negative_reason", v13);
+        }
+
+        v14 = *(v5 + 32);
+        if (v14)
+        {
+          xpc_dictionary_set_value(v7, "provider_name", v14);
+        }
+
+        v15 = *(v5 + 40);
+        if (v15)
+        {
+          xpc_dictionary_set_value(v7, "cname_update", v15);
+        }
+
+        v16 = *(v5 + 48);
+        if (v16)
+        {
+          xpc_dictionary_set_value(v7, "tracker_hostname", v16);
+          v17 = *(v5 + 56);
+          if (v17)
+          {
+            xpc_dictionary_set_value(v7, "tracker_owner", v17);
+          }
+
+          xpc_dictionary_set_BOOL(v7, "tracker_approved", *(v5 + 102) & 1);
+          xpc_dictionary_set_BOOL(v7, "tracker_can_block_request", (*(v5 + 102) & 4) != 0);
+        }
+
+        v18 = *(v5 + 64);
+        if (v18)
+        {
+          *buf = 0;
+          data = mdns_signed_result_get_data(v18, buf);
+          if (data)
+          {
+            xpc_dictionary_set_data(v7, "validation_data", data, *buf);
+          }
+        }
+
+        v20 = *(v5 + 72);
+        if (v20)
+        {
+          v21 = *(v20 + 32);
+          v22 = *(v20 + 24);
+          empty = xpc_dictionary_create_empty();
+          if (empty)
+          {
+            v24 = empty;
+            xpc_dictionary_set_uint64(empty, "code", v21);
+            if (v22 && xpc_string_get_length(v22))
+            {
+              xpc_dictionary_set_value(v24, "text", v22);
+            }
+
+            xpc_dictionary_set_value(v7, "extended_dns_error", v24);
+            xpc_release(v24);
+          }
+
+          else
+          {
+            xpc_dictionary_set_value(v7, "extended_dns_error", 0);
+          }
+        }
+
+        os_unfair_lock_opaque = a1[12]._os_unfair_lock_opaque;
+        v26 = *(v5 + 80);
+        v27 = v26 & 2;
+        v28 = *(v5 + 24);
+        if (!v28)
+        {
+          break;
+        }
+
+        v29 = *(v28 + 24);
+        v30 = *(v28 + 52);
+        v31 = *(v5 + 102);
+        if (!*(v28 + 56))
+        {
+          goto LABEL_42;
+        }
+
+        if ((*(v5 + 102) & 2) != 0)
+        {
+          if (_mdns_server_log_s_once != -1)
+          {
+            dispatch_once(&_mdns_server_log_s_once, &__block_literal_global_22);
+          }
+
+          v47 = _mdns_server_log_s_log;
+          if (!os_log_type_enabled(_mdns_server_log_s_log, OS_LOG_TYPE_DEFAULT))
+          {
+            goto LABEL_58;
+          }
+
+          v48 = *(v5 + 100);
+          v49 = *(v5 + 92);
+          v50 = *(v5 + 24);
+          *buf = 67110915;
+          *&buf[4] = os_unfair_lock_opaque;
+          v62 = 1024;
+          v63 = v48;
+          v64 = 1024;
+          v65 = v27 >> 1;
+          v66 = 1024;
+          v67 = v49;
+          v68 = 2117;
+          v69 = v29;
+          v70 = 1024;
+          v71 = v30;
+          v72 = 2117;
+          v73 = v50;
+          v74 = 1024;
+          v75 = v26 >> 31;
+          v36 = v47;
+          v37 = "[R%u->Q%u] getaddrinfo result -- event: %{mdns:addrmv}d, ifindex: %d, name: %{sensitive}@, type: %{mdns:rrtype}d, rdata: %{sensitive}@, expired: %{mdns:yesno}d";
+        }
+
+        else
+        {
+          if (_mdns_server_log_s_once != -1)
+          {
+            dispatch_once(&_mdns_server_log_s_once, &__block_literal_global_22);
+          }
+
+          v32 = _mdns_server_log_s_log;
+          if (!os_log_type_enabled(_mdns_server_log_s_log, OS_LOG_TYPE_DEFAULT))
+          {
+            goto LABEL_58;
+          }
+
+          v33 = *(v5 + 100);
+          v34 = *(v5 + 92);
+          v35 = *(v5 + 24);
+          *buf = 67110914;
+          *&buf[4] = os_unfair_lock_opaque;
+          v62 = 1024;
+          v63 = v33;
+          v64 = 1024;
+          v65 = v27 >> 1;
+          v66 = 1024;
+          v67 = v34;
+          v68 = 2112;
+          v69 = v29;
+          v70 = 1024;
+          v71 = v30;
+          v72 = 2112;
+          v73 = v35;
+          v74 = 1024;
+          v75 = v26 >> 31;
+          v36 = v32;
+          v37 = "[R%u->Q%u] getaddrinfo result -- event: %{mdns:addrmv}d, ifindex: %d, name: %@, type: %{mdns:rrtype}d, rdata: %@, expired: %{mdns:yesno}d";
+        }
+
+        v46 = 58;
+LABEL_57:
+        _os_log_impl(&_mh_execute_header, v36, OS_LOG_TYPE_DEFAULT, v37, buf, v46);
+LABEL_58:
+        v58[3] = *(v5 + 16);
+        _dx_release(v5);
+        xpc_array_append_value(xarray, v7);
+        xpc_release(v7);
+        v2 = v58;
+        v5 = v58[3];
+        if (!v5)
+        {
+          goto LABEL_61;
+        }
+      }
+
+      v29 = 0;
+      v30 = 0;
+      v31 = *(v5 + 102);
+LABEL_42:
+      if ((v31 & 2) != 0)
+      {
+        if (_mdns_server_log_s_once != -1)
+        {
+          dispatch_once(&_mdns_server_log_s_once, &__block_literal_global_22);
+        }
+
+        v42 = _mdns_server_log_s_log;
+        if (!os_log_type_enabled(_mdns_server_log_s_log, OS_LOG_TYPE_DEFAULT))
+        {
+          goto LABEL_58;
+        }
+
+        v43 = *(v5 + 100);
+        v44 = *(v5 + 92);
+        v45 = *(v5 + 84);
+        *buf = 67110659;
+        *&buf[4] = os_unfair_lock_opaque;
+        v62 = 1024;
+        v63 = v43;
+        v64 = 1024;
+        v65 = v27 >> 1;
+        v66 = 1024;
+        v67 = v44;
+        v68 = 2117;
+        v69 = v29;
+        v70 = 1024;
+        v71 = v30;
+        v72 = 1024;
+        LODWORD(v73) = v45;
+        v36 = v42;
+        v37 = "[R%u->Q%u] getaddrinfo result -- event: %{mdns:addrmv}d, ifindex: %d, name: %{sensitive}@, type: %{mdns:rrtype}d, rdata: <none>, reason: %{mdns:nreason}d";
+      }
+
+      else
+      {
+        if (_mdns_server_log_s_once != -1)
+        {
+          dispatch_once(&_mdns_server_log_s_once, &__block_literal_global_22);
+        }
+
+        v38 = _mdns_server_log_s_log;
+        if (!os_log_type_enabled(_mdns_server_log_s_log, OS_LOG_TYPE_DEFAULT))
+        {
+          goto LABEL_58;
+        }
+
+        v39 = *(v5 + 100);
+        v40 = *(v5 + 92);
+        v41 = *(v5 + 84);
+        *buf = 67110658;
+        *&buf[4] = os_unfair_lock_opaque;
+        v62 = 1024;
+        v63 = v39;
+        v64 = 1024;
+        v65 = v27 >> 1;
+        v66 = 1024;
+        v67 = v40;
+        v68 = 2112;
+        v69 = v29;
+        v70 = 1024;
+        v71 = v30;
+        v72 = 1024;
+        LODWORD(v73) = v41;
+        v36 = v38;
+        v37 = "[R%u->Q%u] getaddrinfo result -- event: %{mdns:addrmv}d, ifindex: %d, name: %@, type: %{mdns:rrtype}d, rdata: <none>, reason: %{mdns:nreason}d";
+      }
+
+      v46 = 48;
+      goto LABEL_57;
+    }
+
+LABEL_61:
+    v3 = 0;
+    v51 = 1;
+    goto LABEL_62;
+  }
+
+  xarray = 0;
+  v51 = 0;
+LABEL_62:
+  v52 = v2[3];
+  if (v52)
+  {
+    v2[3] = 0;
+    do
+    {
+      v53 = *(v52 + 16);
+      _dx_release(v52);
+      v52 = v53;
+    }
+
+    while (v53);
+  }
+
+  if ((v51 & 1) == 0)
+  {
+    _dx_request_set_error(a1, v3);
+  }
+
+  _Block_object_dispose(&v57, 8);
+  return xarray;
 }

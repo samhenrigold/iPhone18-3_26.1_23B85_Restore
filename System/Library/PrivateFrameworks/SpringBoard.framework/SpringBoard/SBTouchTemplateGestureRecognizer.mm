@@ -101,7 +101,7 @@
 - (void)log:(id)log
 {
   logCopy = log;
-  v5 = SBLogSystemGesture();
+  v5 = SBLogSystemGesture(logCopy);
   v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG);
 
   if (v6)
@@ -150,18 +150,19 @@
 - (BOOL)hasSignificantMotionToBegin
 {
   v3 = [(SBTouchTemplateGestureRecognizer *)self _directionallyAcceptMotion:self->_cumulativeMotion];
-  if (!v3)
+  v4 = v3;
+  if ((v3 & 1) == 0)
   {
-    v4 = SBLogSystemGesture();
-    v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG);
+    v5 = SBLogSystemGesture(v3);
+    v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG);
 
-    if (v5)
+    if (v6)
     {
       [(SBTouchTemplateGestureRecognizer *)self log:@"hasSignificantMotionToBegin is NO because it hasn't been directionally accepted for required direction: %d cumulativeMotion: %f", [(SBTouchTemplateGestureRecognizer *)self requiredDirectionality], *&self->_cumulativeMotion];
     }
   }
 
-  return v3;
+  return v4;
 }
 
 - (double)incrementalGestureMotionForCandidate:(id)candidate withTransformAnalyzerInfo:(id)info
@@ -184,13 +185,14 @@
     goto LABEL_4;
   }
 
-  if ([(SBTouchTemplateGestureRecognizer *)self _shouldAddNewTouchesAfterGestureRecognition])
+  _shouldAddNewTouchesAfterGestureRecognition = [(SBTouchTemplateGestureRecognizer *)self _shouldAddNewTouchesAfterGestureRecognition];
+  if (_shouldAddNewTouchesAfterGestureRecognition)
   {
-    v9 = [eventCopy touchesForGestureRecognizer:self];
-    v10 = [v9 mutableCopy];
+    v10 = [eventCopy touchesForGestureRecognizer:self];
+    v11 = [v10 mutableCopy];
 
-    [v10 unionSet:beganCopy];
-    [(SBTouchTemplateGestureRecognizer *)self _updateMatchedTemplateForTouchesBeganOrEnded:v10];
+    [v11 unionSet:beganCopy];
+    [(SBTouchTemplateGestureRecognizer *)self _updateMatchedTemplateForTouchesBeganOrEnded:v11];
 
 LABEL_4:
     anyObject = [beganCopy anyObject];
@@ -201,27 +203,27 @@ LABEL_4:
       [(SBTouchTemplateGestureRecognizer *)self _pingNoChangeCancellationTimer];
     }
 
-    v13 = [eventCopy touchesForGestureRecognizer:self];
-    [(SBTouchTemplateGestureRecognizer *)self _updateForTouchesBeganOrMoved:v13];
+    v14 = [eventCopy touchesForGestureRecognizer:self];
+    [(SBTouchTemplateGestureRecognizer *)self _updateForTouchesBeganOrMoved:v14];
 
     goto LABEL_10;
   }
 
-  v14 = SBLogSystemGesture();
-  v15 = os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG);
+  v15 = SBLogSystemGesture(_shouldAddNewTouchesAfterGestureRecognition);
+  v16 = os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG);
 
-  if (v15)
+  if (v16)
   {
     [(SBTouchTemplateGestureRecognizer *)self log:@"%s - Got another touch but we're already matching, so ignore this one", "[SBTouchTemplateGestureRecognizer touchesBegan:withEvent:]"];
   }
 
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = __59__SBTouchTemplateGestureRecognizer_touchesBegan_withEvent___block_invoke;
-  v16[3] = &unk_2783BC088;
-  v16[4] = self;
-  v17 = eventCopy;
-  [beganCopy enumerateObjectsUsingBlock:v16];
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __59__SBTouchTemplateGestureRecognizer_touchesBegan_withEvent___block_invoke;
+  v17[3] = &unk_2783BC088;
+  v17[4] = self;
+  v18 = eventCopy;
+  [beganCopy enumerateObjectsUsingBlock:v17];
 
 LABEL_10:
 }
@@ -274,33 +276,34 @@ LABEL_10:
 
 - (void)setState:(int64_t)state
 {
-  if ([(SBTouchTemplateGestureRecognizer *)self state]!= state)
+  state = [(SBTouchTemplateGestureRecognizer *)self state];
+  if (state != state)
   {
-    v5 = SBLogSystemGesture();
-    v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG);
+    v6 = SBLogSystemGesture(state);
+    v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG);
 
-    if (v6)
+    if (v7)
     {
-      v7 = SBSystemGestureRecognizerStateDescription(state);
-      [(SBTouchTemplateGestureRecognizer *)self log:@"Recognizer changing state to %@", v7];
+      v9 = SBSystemGestureRecognizerStateDescription(state);
+      [(SBTouchTemplateGestureRecognizer *)self log:@"Recognizer changing state to %@", v9];
     }
 
     if (state == 1)
     {
       self->_recognitionBegan = 1;
-      v8 = SBLogSystemGesture();
-      v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG);
+      v10 = SBLogSystemGesture(v8);
+      v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG);
 
-      if (v9)
+      if (v11)
       {
         [(SBTouchTemplateGestureRecognizer *)self log:@"Beginning gesture recognition sequence number %lu", self->_sequenceNumber];
       }
     }
   }
 
-  v10.receiver = self;
-  v10.super_class = SBTouchTemplateGestureRecognizer;
-  [(SBTouchTemplateGestureRecognizer *)&v10 setState:state];
+  v12.receiver = self;
+  v12.super_class = SBTouchTemplateGestureRecognizer;
+  [(SBTouchTemplateGestureRecognizer *)&v12 setState:state];
 }
 
 - (void)_pingNoChangeCancellationTimer
@@ -442,12 +445,12 @@ void __55__SBTouchTemplateGestureRecognizer__polygonForTouches___block_invoke(ui
 - (id)_matchedTemplateForTouches:(id)touches polygon:(id)polygon
 {
   touchesCopy = touches;
-  v36[0] = 0;
-  v36[1] = v36;
-  v36[2] = 0x2020000000;
-  v37 = 0;
+  v37[0] = 0;
+  v37[1] = v37;
+  v37[2] = 0x2020000000;
+  v38 = 0;
   polygonCopy = polygon;
-  v8 = SBLogSystemGesture();
+  v8 = SBLogSystemGesture(polygonCopy);
   v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG);
 
   if (v9)
@@ -455,12 +458,12 @@ void __55__SBTouchTemplateGestureRecognizer__polygonForTouches___block_invoke(ui
     [(SBTouchTemplateGestureRecognizer *)self log:@"%s - candidate: %@ from points: %@", "[SBTouchTemplateGestureRecognizer _matchedTemplateForTouches:polygon:]", polygonCopy, 0];
   }
 
-  v30 = 0;
-  v31 = &v30;
-  v32 = 0x3032000000;
-  v33 = __Block_byref_object_copy__88;
-  v34 = __Block_byref_object_dispose__88;
-  v35 = 0;
+  v31 = 0;
+  v32 = &v31;
+  v33 = 0x3032000000;
+  v34 = __Block_byref_object_copy__88;
+  v35 = __Block_byref_object_dispose__88;
+  v36 = 0;
   array = [MEMORY[0x277CBEB18] array];
   objc_initWeak(&location, array);
 
@@ -478,39 +481,39 @@ void __55__SBTouchTemplateGestureRecognizer__polygonForTouches___block_invoke(ui
     v14 = 1.0;
   }
 
-  v22[0] = MEMORY[0x277D85DD0];
-  v22[1] = 3221225472;
-  v22[2] = __71__SBTouchTemplateGestureRecognizer__matchedTemplateForTouches_polygon___block_invoke;
-  v22[3] = &unk_2783BC0D8;
+  v23[0] = MEMORY[0x277D85DD0];
+  v23[1] = 3221225472;
+  v23[2] = __71__SBTouchTemplateGestureRecognizer__matchedTemplateForTouches_polygon___block_invoke;
+  v23[3] = &unk_2783BC0D8;
   v15 = touchesCopy;
-  v23 = v15;
-  v26 = v36;
+  v24 = v15;
+  v27 = v37;
   v16 = polygonCopy;
-  v24 = v16;
-  v28[1] = *&v14;
-  objc_copyWeak(v28, &location);
+  v25 = v16;
+  v29[1] = *&v14;
+  objc_copyWeak(v29, &location);
   selfCopy = self;
-  v27 = &v30;
-  [v13 enumerateObjectsUsingBlock:v22];
+  v28 = &v31;
+  [v13 enumerateObjectsUsingBlock:v23];
 
-  v17 = SBLogSystemGesture();
-  v18 = os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG);
+  v18 = SBLogSystemGesture(v17);
+  v19 = os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG);
 
-  if (v18)
+  if (v19)
   {
-    v19 = NSStringFromBOOL();
-    [(SBTouchTemplateGestureRecognizer *)self log:@"%s - attemptedTemplateMatch: %@ # of attempts so far: %lu", "[SBTouchTemplateGestureRecognizer _matchedTemplateForTouches:polygon:]", v19, [(SBTouchTemplateGestureRecognizer *)self _failedRecognitionAttempts]];
+    v20 = NSStringFromBOOL();
+    [(SBTouchTemplateGestureRecognizer *)self log:@"%s - attemptedTemplateMatch: %@ # of attempts so far: %lu", "[SBTouchTemplateGestureRecognizer _matchedTemplateForTouches:polygon:]", v20, [(SBTouchTemplateGestureRecognizer *)self _failedRecognitionAttempts]];
   }
 
-  v20 = v31[5];
-  objc_destroyWeak(v28);
+  v21 = v32[5];
+  objc_destroyWeak(v29);
 
   objc_destroyWeak(&location);
-  _Block_object_dispose(&v30, 8);
+  _Block_object_dispose(&v31, 8);
 
-  _Block_object_dispose(v36, 8);
+  _Block_object_dispose(v37, 8);
 
-  return v20;
+  return v21;
 }
 
 void __71__SBTouchTemplateGestureRecognizer__matchedTemplateForTouches_polygon___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
@@ -522,21 +525,21 @@ void __71__SBTouchTemplateGestureRecognizer__matchedTemplateForTouches_polygon__
     *(*(*(a1 + 56) + 8) + 24) = 1;
     v9 = *(a1 + 40);
     v10 = *(a1 + 80);
-    v18 = 0;
-    v11 = [v7 matchesPolygon:v9 matchTransformsAllowed:15 acceptanceFactor:&v18 outMorphedCandidate:v10];
-    v12 = v18;
+    v19 = 0;
+    v11 = [v7 matchesPolygon:v9 matchTransformsAllowed:15 acceptanceFactor:&v19 outMorphedCandidate:v10];
+    v12 = v19;
     WeakRetained = objc_loadWeakRetained((a1 + 72));
     v14 = [[SBTemplateAndMorph alloc] initWithTemplate:v7 morph:v12];
     [WeakRetained addObject:v14];
 
-    v15 = SBLogSystemGesture();
-    LODWORD(v14) = os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG);
+    v16 = SBLogSystemGesture(v15);
+    LODWORD(v14) = os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG);
 
     if (v14)
     {
-      v16 = *(a1 + 48);
-      v17 = stringForSBTouchTemplateMatchResult(v11);
-      [v16 log:{@"%s - result: %@ template: %@", "-[SBTouchTemplateGestureRecognizer _matchedTemplateForTouches:polygon:]_block_invoke", v17, v7}];
+      v17 = *(a1 + 48);
+      v18 = stringForSBTouchTemplateMatchResult(v11);
+      [v17 log:{@"%s - result: %@ template: %@", "-[SBTouchTemplateGestureRecognizer _matchedTemplateForTouches:polygon:]_block_invoke", v18, v7}];
     }
 
     if (v11 == 1)
@@ -654,31 +657,32 @@ void __77__SBTouchTemplateGestureRecognizer__attemptTemplateMatchWithTouches_pol
 
     if (_matchedPolygon)
     {
-      v19 = fmin((20.0 / [v9 pointCount]), 10.0);
-      v24 = 0;
-      v25 = &v24;
-      v26 = 0x2020000000;
-      v27 = fabs(self->_cumulativeMotion) >= v19;
-      v20 = SBLogSystemGesture();
-      v21 = os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG);
+      pointCount = [v9 pointCount];
+      v20 = fmin((20.0 / pointCount), 10.0);
+      v25 = 0;
+      v26 = &v25;
+      v27 = 0x2020000000;
+      v28 = fabs(self->_cumulativeMotion) >= v20;
+      v21 = SBLogSystemGesture(pointCount);
+      v22 = os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG);
 
-      if (v21)
+      if (v22)
       {
-        v22 = NSStringFromBOOL();
-        [(SBTouchTemplateGestureRecognizer *)self log:@"motionAccepted: %@, _cumulativeMotion: %f commitDistance: %f", v22, *&self->_cumulativeMotion, *&v19];
+        v23 = NSStringFromBOOL();
+        [(SBTouchTemplateGestureRecognizer *)self log:@"motionAccepted: %@, _cumulativeMotion: %f commitDistance: %f", v23, *&self->_cumulativeMotion, *&v20];
       }
 
-      if (*(v25 + 24) == 1)
+      if (*(v26 + 24) == 1)
       {
-        v23[0] = MEMORY[0x277D85DD0];
-        v23[1] = 3221225472;
-        v23[2] = __77__SBTouchTemplateGestureRecognizer__computeGestureMotionWithTouches_polygon___block_invoke;
-        v23[3] = &unk_2783BC100;
-        *&v23[6] = v19;
-        v23[4] = self;
-        v23[5] = &v24;
-        [touchesCopy enumerateObjectsUsingBlock:v23];
-        if (*(v25 + 24) == 1)
+        v24[0] = MEMORY[0x277D85DD0];
+        v24[1] = 3221225472;
+        v24[2] = __77__SBTouchTemplateGestureRecognizer__computeGestureMotionWithTouches_polygon___block_invoke;
+        v24[3] = &unk_2783BC100;
+        *&v24[6] = v20;
+        v24[4] = self;
+        v24[5] = &v25;
+        [touchesCopy enumerateObjectsUsingBlock:v24];
+        if (*(v26 + 24) == 1)
         {
           if ([(SBTouchTemplateGestureRecognizer *)self hasSignificantMotionToBegin])
           {
@@ -698,7 +702,7 @@ void __77__SBTouchTemplateGestureRecognizer__attemptTemplateMatchWithTouches_pol
         }
       }
 
-      _Block_object_dispose(&v24, 8);
+      _Block_object_dispose(&v25, 8);
     }
   }
 }
@@ -726,7 +730,7 @@ void __77__SBTouchTemplateGestureRecognizer__computeGestureMotionWithTouches_pol
 - (void)_failMeForReason:(id)reason
 {
   reasonCopy = reason;
-  v4 = SBLogSystemGesture();
+  v4 = SBLogSystemGesture(reasonCopy);
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG);
 
   if (v5)
@@ -740,13 +744,13 @@ void __77__SBTouchTemplateGestureRecognizer__computeGestureMotionWithTouches_pol
 
 - (void)_reset
 {
-  [(SBTouchTemplateGestureRecognizer *)self _resetNoChangeCancellationTimer];
+  _resetNoChangeCancellationTimer = [(SBTouchTemplateGestureRecognizer *)self _resetNoChangeCancellationTimer];
   if (self->_recognitionBegan)
   {
-    v3 = SBLogSystemGesture();
-    v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG);
+    v4 = SBLogSystemGesture(_resetNoChangeCancellationTimer);
+    v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG);
 
-    if (v4)
+    if (v5)
     {
       [(SBTouchTemplateGestureRecognizer *)self log:@"Ending gesture recognition sequence %lu", self->_sequenceNumber];
     }

@@ -53,16 +53,16 @@
 
 void __67__FCFeedItemScoreCache_scoreProfilesForFeedItems_configurationSet___block_invoke(uint64_t a1, void *a2)
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = *(a1 + 32);
-  v33[0] = MEMORY[0x1E69E9820];
-  v33[1] = 3221225472;
-  v33[2] = __67__FCFeedItemScoreCache_scoreProfilesForFeedItems_configurationSet___block_invoke_2;
-  v33[3] = &unk_1E7C42320;
+  v32[0] = MEMORY[0x1E69E9820];
+  v32[1] = 3221225472;
+  v32[2] = __67__FCFeedItemScoreCache_scoreProfilesForFeedItems_configurationSet___block_invoke_2;
+  v32[3] = &unk_1E7C42320;
   v5 = v3;
-  v34 = v5;
-  v6 = [v4 fc_arrayOfObjectsPassingTest:v33];
+  v33 = v5;
+  v6 = [v4 fc_arrayOfObjectsPassingTest:v32];
   v7 = [v6 count];
   v8 = FCOperationLog;
   v9 = os_log_type_enabled(FCOperationLog, OS_LOG_TYPE_DEFAULT);
@@ -75,11 +75,11 @@ void __67__FCFeedItemScoreCache_scoreProfilesForFeedItems_configurationSet___blo
       v12 = [*(a1 + 32) count];
       v13 = FCStringFromFeedPersonalizationConfigurationSet(*(a1 + 56));
       *buf = 134218498;
-      v36 = v11;
-      v37 = 2048;
-      v38 = v12;
-      v39 = 2114;
-      v40 = v13;
+      v35 = v11;
+      v36 = 2048;
+      v37 = v12;
+      v38 = 2114;
+      v39 = v13;
       _os_log_impl(&dword_1B63EF000, v10, OS_LOG_TYPE_DEFAULT, "score cache is missing %lu of %lu requested feed item scores, context=%{public}@", buf, 0x20u);
     }
 
@@ -98,11 +98,11 @@ void __67__FCFeedItemScoreCache_scoreProfilesForFeedItems_configurationSet___blo
       v23 = [v6 count];
       v24 = FCStringFromFeedPersonalizationConfigurationSet(*(a1 + 56));
       *buf = 134218498;
-      v36 = v22;
-      v37 = 2048;
-      v38 = v23;
-      v39 = 2114;
-      v40 = v24;
+      v35 = v22;
+      v36 = 2048;
+      v37 = v23;
+      v38 = 2114;
+      v39 = v24;
       _os_log_impl(&dword_1B63EF000, v19, OS_LOG_TYPE_DEFAULT, "score cache took %llums to score %lu feed items, context=%{public}@", buf, 0x20u);
     }
 
@@ -119,9 +119,9 @@ void __67__FCFeedItemScoreCache_scoreProfilesForFeedItems_configurationSet___blo
     v27 = [v26 count];
     v28 = FCStringFromFeedPersonalizationConfigurationSet(*(a1 + 56));
     *buf = 134218242;
-    v36 = v27;
-    v37 = 2114;
-    v38 = v28;
+    v35 = v27;
+    v36 = 2114;
+    v37 = v28;
     _os_log_impl(&dword_1B63EF000, v14, OS_LOG_TYPE_DEFAULT, "score cache has all %lu requested feed item scores, context=%{public}@", buf, 0x16u);
 
 LABEL_9:
@@ -131,8 +131,6 @@ LABEL_9:
   v30 = *(*(a1 + 48) + 8);
   v31 = *(v30 + 40);
   *(v30 + 40) = v29;
-
-  v32 = *MEMORY[0x1E69E9840];
 }
 
 BOOL __67__FCFeedItemScoreCache_scoreProfilesForFeedItems_configurationSet___block_invoke_2(uint64_t a1, uint64_t a2)

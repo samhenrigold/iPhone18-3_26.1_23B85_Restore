@@ -98,19 +98,17 @@ LABEL_5:
     name = [domain name];
     relativePath = [fileCopy relativePath];
     *buf = 67109634;
-    v24 = v6;
+    v22 = v6;
+    v23 = 2112;
+    v24 = name;
     v25 = 2112;
-    v26 = name;
-    v27 = 2112;
-    v28 = relativePath;
+    v26 = relativePath;
     _os_log_impl(&_mh_execute_header, classBFilesMissingEncryptionKeys, OS_LOG_TYPE_FAULT, "=cloud-backup= =cloud-backup= Unexpected pc:%d for file missing encryption key:%@ %@", buf, 0x1Cu);
 
     domain2 = [fileCopy domain];
     name2 = [domain2 name];
-    [fileCopy relativePath];
-    v22 = v21 = name2;
-    v20 = v6;
-    _MBLog();
+    relativePath2 = [fileCopy relativePath];
+    _MBLog(@"F ", "=cloud-backup= =cloud-backup= Unexpected pc:%d for file missing encryption key:%@ %@", v6, name2, relativePath2);
   }
 
 LABEL_6:
@@ -212,14 +210,13 @@ LABEL_7:
       if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         *buf = 134217984;
-        v11 = 10;
+        v10 = 10;
         _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_ERROR, "=cloud-backup= Timed out after %ld seconds when cancelling WiFi quality measurements", buf, 0xCu);
-        v9 = 10;
-        _MBLog();
+        _MBLog(@"E ", "=cloud-backup= Timed out after %ld seconds when cancelling WiFi quality measurements", 10);
       }
     }
 
-    [(MBBackupTelemetry *)self setWifiQualityMeasurementTimer:0, v9];
+    [(MBBackupTelemetry *)self setWifiQualityMeasurementTimer:0];
   }
 }
 
@@ -245,10 +242,10 @@ LABEL_7:
     v18 = 2048;
     v19 = v10;
     _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_INFO, "=cloud-backup= WiFi quality RSSI:%ld SNR:%ld txRate:%.3f", buf, 0x20u);
-    _MBLog();
+    _MBLog(@"I ", "=cloud-backup= WiFi quality RSSI:%ld SNR:%ld txRate:%.3f", rSSI, v8, v10);
   }
 
-  v12 = [NSString stringWithFormat:@"%@|%ld|%ld|%.3f", v6, rSSI, v8, v10];
+  v12 = [NSString stringWithFormat:@"%@|%ld|%ld|%.3f", v6, rSSI, v8, *&v10];
 
   return v12;
 }

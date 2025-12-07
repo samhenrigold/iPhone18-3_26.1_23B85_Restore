@@ -208,10 +208,10 @@
           systemImageName2 = [(PXStoryChromeButtonConfiguration *)v5 systemImageName];
           if (systemImageName == systemImageName2 || [systemImageName isEqualToString:systemImageName2])
           {
-            v23 = systemImageName;
+            v25 = systemImageName;
             label = [(PXStoryChromeButtonConfiguration *)self label];
             label2 = [(PXStoryChromeButtonConfiguration *)v5 label];
-            v24 = label;
+            v26 = label;
             if (label == label2 || (v17 = label2, v18 = [label isEqualToString:label2], label2 = v17, v18))
             {
               v19 = label2;
@@ -225,8 +225,9 @@
                   if (preferredSystemImageWeight == [(PXStoryChromeButtonConfiguration *)v5 preferredSystemImageWeight])
                   {
                     [(PXStoryChromeButtonConfiguration *)self preferredSystemImagePointSize];
+                    v24 = v23;
                     [(PXStoryChromeButtonConfiguration *)v5 preferredSystemImagePointSize];
-                    PXFloatApproximatelyEqualToFloat();
+                    PXFloatApproximatelyEqualToFloat(v24);
                   }
                 }
               }
@@ -240,7 +241,7 @@
               v9 = 0;
             }
 
-            systemImageName = v23;
+            systemImageName = v25;
           }
 
           else

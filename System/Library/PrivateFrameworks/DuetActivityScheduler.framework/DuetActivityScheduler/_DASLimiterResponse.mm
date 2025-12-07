@@ -75,38 +75,38 @@
 
 + (BOOL)queryActivityDecision:(unint64_t)decision fromResponses:(id)responses
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   responsesCopy = responses;
   v6 = responsesCopy;
   if (responsesCopy)
   {
-    v17 = 0u;
-    v18 = 0u;
-    v15 = 0u;
     v16 = 0u;
+    v17 = 0u;
+    v14 = 0u;
+    v15 = 0u;
     v7 = responsesCopy;
-    v8 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v16;
+      v10 = *v15;
       while (2)
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v16 != v10)
+          if (*v15 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          if ([*(*(&v15 + 1) + 8 * i) decision] == decision)
+          if ([*(*(&v14 + 1) + 8 * i) decision] == decision)
           {
             v12 = 1;
             goto LABEL_12;
           }
         }
 
-        v9 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
         if (v9)
         {
           continue;
@@ -125,7 +125,6 @@ LABEL_12:
     v12 = 0;
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return v12;
 }
 
@@ -156,32 +155,32 @@ LABEL_12:
 
 + (unint64_t)bitmaskFromResponses:(id)responses
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   responsesCopy = responses;
   v4 = responsesCopy;
   if (responsesCopy && [responsesCopy count])
   {
-    v16 = 0u;
-    v17 = 0u;
-    v14 = 0u;
     v15 = 0u;
+    v16 = 0u;
+    v13 = 0u;
+    v14 = 0u;
     v5 = v4;
-    v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (v6)
     {
       v7 = 0;
-      v8 = *v15;
+      v8 = *v14;
       do
       {
         v9 = 0;
         do
         {
-          if (*v15 != v8)
+          if (*v14 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          limiterName = [*(*(&v14 + 1) + 8 * v9) limiterName];
+          limiterName = [*(*(&v13 + 1) + 8 * v9) limiterName];
           v11 = [_DASLimitsUtilities bitmaskForLimitationName:limiterName];
 
           v7 |= v11 & ~(v11 >> 63);
@@ -189,7 +188,7 @@ LABEL_12:
         }
 
         while (v6 != v9);
-        v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
       }
 
       while (v6);
@@ -202,7 +201,6 @@ LABEL_12:
     v6 = 0;
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return v6;
 }
 

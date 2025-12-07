@@ -10,7 +10,7 @@
 
 - (void)saveNewState:(id)state
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   stateCopy = state;
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
   _path = [(CorrectionsProfilesLastState *)self _path];
@@ -42,18 +42,18 @@
     v14 = v13;
     if (v13)
     {
-      v23 = 0;
-      v15 = [v13 writeToFile:_path options:1 error:&v23];
-      v16 = v23;
+      v22 = 0;
+      v15 = [v13 writeToFile:_path options:1 error:&v22];
+      v16 = v22;
       if ((v15 & 1) == 0)
       {
         v17 = *MEMORY[0x277CEF0D0];
         if (os_log_type_enabled(*MEMORY[0x277CEF0D0], OS_LOG_TYPE_ERROR))
         {
           *buf = 136315394;
-          v25 = "[CorrectionsProfilesLastState saveNewState:]";
-          v26 = 2112;
-          v27 = stateCopy;
+          v24 = "[CorrectionsProfilesLastState saveNewState:]";
+          v25 = 2112;
+          v26 = stateCopy;
           _os_log_error_impl(&dword_2334CB000, v17, OS_LOG_TYPE_ERROR, "%s Could not save state: %@", buf, 0x16u);
         }
       }
@@ -65,9 +65,9 @@
       if (os_log_type_enabled(*MEMORY[0x277CEF0D0], OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v25 = "[CorrectionsProfilesLastState saveNewState:]";
-        v26 = 2112;
-        v27 = stateCopy;
+        v24 = "[CorrectionsProfilesLastState saveNewState:]";
+        v25 = 2112;
+        v26 = stateCopy;
         _os_log_error_impl(&dword_2334CB000, v20, OS_LOG_TYPE_ERROR, "%s Could not archive state: %@", buf, 0x16u);
       }
 
@@ -78,18 +78,18 @@ LABEL_18:
     goto LABEL_19;
   }
 
-  v22 = 0;
-  v18 = [defaultManager removeItemAtPath:_path error:&v22];
-  v16 = v22;
+  v21 = 0;
+  v18 = [defaultManager removeItemAtPath:_path error:&v21];
+  v16 = v21;
   if (v16 || (v18 & 1) == 0)
   {
     v19 = *MEMORY[0x277CEF0D0];
     if (os_log_type_enabled(*MEMORY[0x277CEF0D0], OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v25 = "[CorrectionsProfilesLastState saveNewState:]";
-      v26 = 2112;
-      v27 = v16;
+      v24 = "[CorrectionsProfilesLastState saveNewState:]";
+      v25 = 2112;
+      v26 = v16;
       _os_log_error_impl(&dword_2334CB000, v19, OS_LOG_TYPE_ERROR, "%s Failed to remove previous state:%@", buf, 0x16u);
     }
 
@@ -97,8 +97,6 @@ LABEL_18:
   }
 
 LABEL_19:
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (id)profileDataForKey:(id)key
@@ -123,11 +121,11 @@ LABEL_19:
 
 - (BOOL)loadLastState
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   _path = [(CorrectionsProfilesLastState *)self _path];
-  v21 = 0;
-  v4 = [MEMORY[0x277CBEA90] dataWithContentsOfFile:_path options:2 error:&v21];
-  v5 = v21;
+  v20 = 0;
+  v4 = [MEMORY[0x277CBEA90] dataWithContentsOfFile:_path options:2 error:&v20];
+  v5 = v20;
   v6 = v5;
   if (v4)
   {
@@ -169,9 +167,9 @@ LABEL_17:
       }
 
       *buf = 136315394;
-      v23 = "[CorrectionsProfilesLastState loadLastState]";
-      v24 = 2112;
-      v25 = v14;
+      v22 = "[CorrectionsProfilesLastState loadLastState]";
+      v23 = 2112;
+      v24 = v14;
       v18 = "%s Last state data is of unexpected format: %@";
     }
 
@@ -184,9 +182,9 @@ LABEL_17:
       }
 
       *buf = 136315394;
-      v23 = "[CorrectionsProfilesLastState loadLastState]";
-      v24 = 2112;
-      v25 = v4;
+      v22 = "[CorrectionsProfilesLastState loadLastState]";
+      v23 = 2112;
+      v24 = v4;
       v18 = "%s Unable to decode data: %@";
     }
 
@@ -204,7 +202,7 @@ LABEL_17:
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v23 = "[CorrectionsProfilesLastState loadLastState]";
+      v22 = "[CorrectionsProfilesLastState loadLastState]";
       _os_log_error_impl(&dword_2334CB000, v10, OS_LOG_TYPE_ERROR, "%s Unable to read last persisted corrections state", buf, 0xCu);
     }
   }
@@ -212,14 +210,13 @@ LABEL_17:
   else if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v23 = "[CorrectionsProfilesLastState loadLastState]";
+    v22 = "[CorrectionsProfilesLastState loadLastState]";
     _os_log_impl(&dword_2334CB000, v10, OS_LOG_TYPE_INFO, "%s No corrections state has been persisted", buf, 0xCu);
   }
 
   v16 = 0;
 LABEL_19:
 
-  v19 = *MEMORY[0x277D85DE8];
   return v16;
 }
 

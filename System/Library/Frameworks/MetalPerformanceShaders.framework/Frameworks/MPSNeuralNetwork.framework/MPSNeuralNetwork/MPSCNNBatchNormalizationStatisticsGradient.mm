@@ -58,11 +58,11 @@
   if ((*(&batchNormalizationState->super.super.super.isa + *MEMORY[0x277CD7470]) & 1) != 0 && !*(&batchNormalizationState->super.super.super.isa + *MEMORY[0x277CD7478]) && MTLReportFailureTypeEnabled())
   {
     v30 = objc_opt_class();
-    v31 = NSStringFromClass(v30);
-    MTLReportFailure();
+    v35 = NSStringFromClass(v30);
+    MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNBatchNormalizationStatisticsGradient.mm", 0x187, @"[%@ encodeBatchToCommandBuffer:sourceGradients:sourceImages:batchNormalizationState:] Attempting to use statistics from a temporary MPSCNNBatchNormalizationState with readCount of 0.", v31, v32, v33, v34);
   }
 
-  v13 = objc_msgSend_count(sourceImages, a2, commandBuffer, sourceGradients, sourceImages, batchNormalizationState, v6, v7, v31);
+  v13 = objc_msgSend_count(sourceImages, a2, commandBuffer, sourceGradients, sourceImages, batchNormalizationState, v6, v7, v35);
   v16 = v13;
   if (!v13)
   {
@@ -129,14 +129,14 @@ LABEL_15:
     v11 = objc_opt_class();
     v12 = NSStringFromClass(v11);
     v13 = objc_opt_class();
-    v15 = v12;
-    v16 = NSStringFromClass(v13);
-    MTLReportFailure();
+    v19 = v12;
+    v20 = NSStringFromClass(v13);
+    MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNBatchNormalizationStatisticsGradient.mm", 0x19A, @"[%@ encodeBatchToCommandBuffer:sourceGradients:sourceImages:gradientStates:] Error: Unavailable.  Use [%@ encodeBatchToCommandBuffer:sourceGradients:sourceImages:batchNormalizationState]", v14, v15, v16, v17);
   }
 
-  v17.receiver = self;
-  v17.super_class = MPSCNNBatchNormalizationStatisticsGradient;
-  return [(MPSCNNGradientKernel *)&v17 encodeBatchToCommandBuffer:commandBuffer sourceGradients:sourceGradients sourceImages:sourceImages gradientStates:gradientStates, v15, v16];
+  v21.receiver = self;
+  v21.super_class = MPSCNNBatchNormalizationStatisticsGradient;
+  return [(MPSCNNGradientKernel *)&v21 encodeBatchToCommandBuffer:commandBuffer sourceGradients:sourceGradients sourceImages:sourceImages gradientStates:gradientStates, v19, v20];
 }
 
 - (void)encodeToCommandBuffer:(id)commandBuffer sourceGradient:(MPSImage *)sourceGradient sourceImage:(MPSImage *)sourceImage gradientState:(MPSState *)gradientState destinationGradient:(MPSImage *)destinationGradient
@@ -146,14 +146,14 @@ LABEL_15:
     v13 = objc_opt_class();
     v14 = NSStringFromClass(v13);
     v15 = objc_opt_class();
-    v16 = v14;
-    v17 = NSStringFromClass(v15);
-    MTLReportFailure();
+    v20 = v14;
+    v21 = NSStringFromClass(v15);
+    MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNBatchNormalizationStatisticsGradient.mm", 0x1AA, @"[%@ encodeToCommandBuffer:sourceGradient:sourceImage:gradientStates:destinationGradient:] Error: Unavailable.  Use [%@ encodeBatchToCommandBuffer:sourceGradients:sourceImages:batchNormalizationState]", v16, v17, v18, v19);
   }
 
-  v18.receiver = self;
-  v18.super_class = MPSCNNBatchNormalizationStatisticsGradient;
-  [(MPSCNNGradientKernel *)&v18 encodeToCommandBuffer:commandBuffer sourceGradient:sourceGradient sourceImage:sourceImage gradientState:gradientState destinationGradient:destinationGradient, v16, v17];
+  v22.receiver = self;
+  v22.super_class = MPSCNNBatchNormalizationStatisticsGradient;
+  [(MPSCNNGradientKernel *)&v22 encodeToCommandBuffer:commandBuffer sourceGradient:sourceGradient sourceImage:sourceImage gradientState:gradientState destinationGradient:destinationGradient, v20, v21];
 }
 
 - (MPSImage)encodeToCommandBuffer:(id)commandBuffer sourceGradient:(MPSImage *)sourceGradient sourceImage:(MPSImage *)sourceImage gradientState:(MPSState *)gradientState
@@ -163,14 +163,14 @@ LABEL_15:
     v11 = objc_opt_class();
     v12 = NSStringFromClass(v11);
     v13 = objc_opt_class();
-    v15 = v12;
-    v16 = NSStringFromClass(v13);
-    MTLReportFailure();
+    v19 = v12;
+    v20 = NSStringFromClass(v13);
+    MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNBatchNormalizationStatisticsGradient.mm", 0x1BA, @"[%@ encodeToCommandBuffer:sourceGradient:sourceImage:gradientState:] Error: Unavailable.  Use [%@ encodeBatchToCommandBuffer:sourceGradients:sourceImages:batchNormalizationState]", v14, v15, v16, v17);
   }
 
-  v17.receiver = self;
-  v17.super_class = MPSCNNBatchNormalizationStatisticsGradient;
-  return [(MPSCNNGradientKernel *)&v17 encodeToCommandBuffer:commandBuffer sourceGradient:sourceGradient sourceImage:sourceImage gradientState:gradientState, v15, v16];
+  v21.receiver = self;
+  v21.super_class = MPSCNNBatchNormalizationStatisticsGradient;
+  return [(MPSCNNGradientKernel *)&v21 encodeToCommandBuffer:commandBuffer sourceGradient:sourceGradient sourceImage:sourceImage gradientState:gradientState, v19, v20];
 }
 
 - (void)encodeBatchToCommandBuffer:(id)commandBuffer sourceGradients:(MPSImageBatch *)sourceGradients sourceImages:(MPSImageBatch *)sourceImages gradientStates:(MPSStateBatch *)gradientStates destinationGradients:(MPSImageBatch *)destinationGradients
@@ -180,14 +180,14 @@ LABEL_15:
     v13 = objc_opt_class();
     v14 = NSStringFromClass(v13);
     v15 = objc_opt_class();
-    v16 = v14;
-    v17 = NSStringFromClass(v15);
-    MTLReportFailure();
+    v20 = v14;
+    v21 = NSStringFromClass(v15);
+    MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNBatchNormalizationStatisticsGradient.mm", 0x1CA, @"[%@ encodeToCommandBuffer:sourceGradients:sourceImages:gradientStates:destinationGradients] Error: Unavailable.  Use [%@ encodeBatchToCommandBuffer:sourceGradients:sourceImages:batchNormalizationState]", v16, v17, v18, v19);
   }
 
-  v18.receiver = self;
-  v18.super_class = MPSCNNBatchNormalizationStatisticsGradient;
-  [(MPSCNNGradientKernel *)&v18 encodeBatchToCommandBuffer:commandBuffer sourceGradients:sourceGradients sourceImages:sourceImages gradientStates:gradientStates destinationGradients:destinationGradients, v16, v17];
+  v22.receiver = self;
+  v22.super_class = MPSCNNBatchNormalizationStatisticsGradient;
+  [(MPSCNNGradientKernel *)&v22 encodeBatchToCommandBuffer:commandBuffer sourceGradients:sourceGradients sourceImages:sourceImages gradientStates:gradientStates destinationGradients:destinationGradients, v20, v21];
 }
 
 - (MPSCNNBatchNormalizationStatisticsGradient)initWithCoder:(NSCoder *)aDecoder device:(id)device

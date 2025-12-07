@@ -1,13 +1,13 @@
-id ab_get_framework_log()
+id ab_get_framework_log(uint64_t a1)
 {
   if (ab_get_framework_log_onceToken != -1)
   {
     ab_get_framework_log_cold_1();
   }
 
-  v1 = ab_get_framework_log_log;
+  v2 = ab_get_framework_log_log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __ab_get_framework_log_block_invoke()
@@ -66,14 +66,12 @@ __n128 __Block_byref_object_copy_(uint64_t a1, uint64_t a2)
 
 __n128 __Block_byref_object_copy__317(__n128 *a1, __n128 *a2)
 {
-  a1[3].n128_u64[0] = 0;
-  a1[3].n128_u64[1] = 0;
+  a1[3] = 0uLL;
   a1[4].n128_u64[0] = 0;
   result = a2[3];
   a1[3] = result;
   a1[4].n128_u64[0] = a2[4].n128_u64[0];
-  a2[3].n128_u64[0] = 0;
-  a2[3].n128_u64[1] = 0;
+  a2[3] = 0uLL;
   a2[4].n128_u64[0] = 0;
   return result;
 }
@@ -88,7 +86,7 @@ void __Block_byref_object_dispose__318(uint64_t a1)
   }
 }
 
-uint64_t std::vector<std::vector<double>>::push_back[abi:ne200100](uint64_t a1, uint64_t *a2)
+void *std::vector<std::vector<double>>::push_back[abi:ne200100](uint64_t a1, const void **a2)
 {
   v3 = *(a1 + 8);
   if (v3 >= *(a1 + 16))
@@ -99,17 +97,17 @@ uint64_t std::vector<std::vector<double>>::push_back[abi:ne200100](uint64_t a1, 
   else
   {
     std::vector<std::vector<double>>::__construct_one_at_end[abi:ne200100]<std::vector<double> const&>(a1, a2);
-    result = v3 + 24;
+    result = (v3 + 24);
   }
 
   *(a1 + 8) = result;
   return result;
 }
 
-uint64_t std::vector<Tellurium::tellurium_input_t>::push_back[abi:ne200100](uint64_t a1, uint64_t a2)
+uint64_t std::vector<Tellurium::tellurium_input_t>::push_back[abi:ne200100](unint64_t *a1, uint64_t a2)
 {
-  v3 = *(a1 + 8);
-  if (v3 >= *(a1 + 16))
+  v3 = a1[1];
+  if (v3 >= a1[2])
   {
     result = std::vector<Tellurium::tellurium_input_t>::__emplace_back_slow_path<Tellurium::tellurium_input_t const&>(a1, a2);
   }
@@ -120,11 +118,11 @@ uint64_t std::vector<Tellurium::tellurium_input_t>::push_back[abi:ne200100](uint
     result = v3 + 48;
   }
 
-  *(a1 + 8) = result;
+  a1[1] = result;
   return result;
 }
 
-void sub_23E83FDF0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, char a19, uint64_t a20, char a21, uint64_t a22, void *__p, uint64_t a24, int a25, __int16 a26, char a27, char a28, void *a29, uint64_t a30, int a31, __int16 a32, char a33, char a34, uint64_t a35, uint64_t a36, uint64_t a37, void *a38, uint64_t a39, int a40, __int16 a41, char a42, char a43)
+void sub_23E83FDF0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, void *__p, uint64_t a24, int a25, __int16 a26, char a27, char a28, void *a29, uint64_t a30, int a31, __int16 a32, char a33, char a34, uint64_t a35, uint64_t a36, uint64_t a37, void *a38, uint64_t a39, int a40, __int16 a41, char a42, char a43)
 {
   nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::~basic_json(&a19);
   nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::~basic_json(&a21);
@@ -143,7 +141,7 @@ void sub_23E83FDF0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t *std::ofstream::basic_ofstream(uint64_t *a1, uint64_t *a2)
+uint64_t *std::ofstream::basic_ofstream(uint64_t *a1, uint64_t *a2, int a3)
 {
   a1[58] = 0;
   v4 = MEMORY[0x277D82860] + 64;
@@ -160,11 +158,6 @@ uint64_t *std::ofstream::basic_ofstream(uint64_t *a1, uint64_t *a2)
   *a1 = v8;
   a1[52] = v4;
   MEMORY[0x23EF15BF0](a1 + 1);
-  if (*(a2 + 23) < 0)
-  {
-    v9 = *a2;
-  }
-
   if (!std::filebuf::open())
   {
     std::ios_base::clear((a1 + *(*a1 - 24)), *(a1 + *(*a1 - 24) + 32) | 4);
@@ -268,21 +261,20 @@ void nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsign
 
   if (*a1 == 1)
   {
-    v2 = *(a1 + 8);
-    std::__tree<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::__map_value_compare<std::string,std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::less<void>,true>,std::allocator<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>>>::__emplace_unique_impl<char const(&)[5],char const*>();
+    std::__tree<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::__map_value_compare<std::string,std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::less<void>,true>,std::allocator<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>>>::__emplace_unique_impl<char const(&)[5],char const*>(*(a1 + 8));
   }
 
   exception = __cxa_allocate_exception(0x20uLL);
-  v4 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::type_name(a1);
-  std::string::basic_string[abi:ne200100]<0>(&v9, v4);
-  v5 = std::string::insert(&v9, 0, "cannot use emplace() with ");
-  v6 = *&v5->__r_.__value_.__l.__data_;
-  v8 = v5->__r_.__value_.__r.__words[2];
-  v7 = v6;
-  v5->__r_.__value_.__l.__size_ = 0;
-  v5->__r_.__value_.__r.__words[2] = 0;
-  v5->__r_.__value_.__r.__words[0] = 0;
-  nlohmann::detail::type_error::create(311, &v7, exception);
+  v6 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::type_name(a1);
+  std::string::basic_string[abi:ne200100]<0>(&v10, v6);
+  v7 = std::string::insert(&v10, 0, "cannot use emplace() with ");
+  v8 = *&v7->__r_.__value_.__l.__data_;
+  *&v9[16] = *(&v7->__r_.__value_.__l + 2);
+  *v9 = v8;
+  v7->__r_.__value_.__l.__size_ = 0;
+  v7->__r_.__value_.__r.__words[2] = 0;
+  v7->__r_.__value_.__r.__words[0] = 0;
+  nlohmann::detail::type_error::create(311, v9, exception);
 }
 
 void sub_23E840444(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, uint64_t a16, void *a17, uint64_t a18, int a19, __int16 a20, char a21, char a22)
@@ -321,21 +313,20 @@ void nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsign
 
   if (*a1 == 1)
   {
-    v2 = *(a1 + 8);
-    std::__tree<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::__map_value_compare<std::string,std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::less<void>,true>,std::allocator<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>>>::__emplace_unique_impl<char const(&)[10],double>();
+    std::__tree<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::__map_value_compare<std::string,std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::less<void>,true>,std::allocator<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>>>::__emplace_unique_impl<char const(&)[10],double>(*(a1 + 8));
   }
 
   exception = __cxa_allocate_exception(0x20uLL);
-  v4 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::type_name(a1);
-  std::string::basic_string[abi:ne200100]<0>(&v9, v4);
-  v5 = std::string::insert(&v9, 0, "cannot use emplace() with ");
-  v6 = *&v5->__r_.__value_.__l.__data_;
-  v8 = v5->__r_.__value_.__r.__words[2];
-  v7 = v6;
-  v5->__r_.__value_.__l.__size_ = 0;
-  v5->__r_.__value_.__r.__words[2] = 0;
-  v5->__r_.__value_.__r.__words[0] = 0;
-  nlohmann::detail::type_error::create(311, &v7, exception);
+  v6 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::type_name(a1);
+  std::string::basic_string[abi:ne200100]<0>(&v10, v6);
+  v7 = std::string::insert(&v10, 0, "cannot use emplace() with ");
+  v8 = *&v7->__r_.__value_.__l.__data_;
+  *&v9[16] = *(&v7->__r_.__value_.__l + 2);
+  *v9 = v8;
+  v7->__r_.__value_.__l.__size_ = 0;
+  v7->__r_.__value_.__r.__words[2] = 0;
+  v7->__r_.__value_.__r.__words[0] = 0;
+  nlohmann::detail::type_error::create(311, v9, exception);
 }
 
 void sub_23E840604(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, uint64_t a16, void *a17, uint64_t a18, int a19, __int16 a20, char a21, char a22)
@@ -374,21 +365,20 @@ void nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsign
 
   if (*a1 == 1)
   {
-    v2 = *(a1 + 8);
-    std::__tree<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::__map_value_compare<std::string,std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::less<void>,true>,std::allocator<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>>>::__emplace_unique_impl<char const(&)[13],BOOL>();
+    std::__tree<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::__map_value_compare<std::string,std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::less<void>,true>,std::allocator<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>>>::__emplace_unique_impl<char const(&)[13],BOOL>(*(a1 + 8));
   }
 
   exception = __cxa_allocate_exception(0x20uLL);
-  v4 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::type_name(a1);
-  std::string::basic_string[abi:ne200100]<0>(&v9, v4);
-  v5 = std::string::insert(&v9, 0, "cannot use emplace() with ");
-  v6 = *&v5->__r_.__value_.__l.__data_;
-  v8 = v5->__r_.__value_.__r.__words[2];
-  v7 = v6;
-  v5->__r_.__value_.__l.__size_ = 0;
-  v5->__r_.__value_.__r.__words[2] = 0;
-  v5->__r_.__value_.__r.__words[0] = 0;
-  nlohmann::detail::type_error::create(311, &v7, exception);
+  v6 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::type_name(a1);
+  std::string::basic_string[abi:ne200100]<0>(&v10, v6);
+  v7 = std::string::insert(&v10, 0, "cannot use emplace() with ");
+  v8 = *&v7->__r_.__value_.__l.__data_;
+  *&v9[16] = *(&v7->__r_.__value_.__l + 2);
+  *v9 = v8;
+  v7->__r_.__value_.__l.__size_ = 0;
+  v7->__r_.__value_.__r.__words[2] = 0;
+  v7->__r_.__value_.__r.__words[0] = 0;
+  nlohmann::detail::type_error::create(311, v9, exception);
 }
 
 void sub_23E8407C4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, uint64_t a16, void *a17, uint64_t a18, int a19, __int16 a20, char a21, char a22)
@@ -427,21 +417,20 @@ void nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsign
 
   if (*a1 == 1)
   {
-    v2 = *(a1 + 8);
-    std::__tree<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::__map_value_compare<std::string,std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::less<void>,true>,std::allocator<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>>>::__emplace_unique_impl<char const(&)[15],nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>();
+    std::__tree<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::__map_value_compare<std::string,std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::less<void>,true>,std::allocator<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>>>::__emplace_unique_impl<char const(&)[15],nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>(*(a1 + 8));
   }
 
   exception = __cxa_allocate_exception(0x20uLL);
-  v4 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::type_name(a1);
-  std::string::basic_string[abi:ne200100]<0>(&v9, v4);
-  v5 = std::string::insert(&v9, 0, "cannot use emplace() with ");
-  v6 = *&v5->__r_.__value_.__l.__data_;
-  v8 = v5->__r_.__value_.__r.__words[2];
-  v7 = v6;
-  v5->__r_.__value_.__l.__size_ = 0;
-  v5->__r_.__value_.__r.__words[2] = 0;
-  v5->__r_.__value_.__r.__words[0] = 0;
-  nlohmann::detail::type_error::create(311, &v7, exception);
+  v6 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::type_name(a1);
+  std::string::basic_string[abi:ne200100]<0>(&v10, v6);
+  v7 = std::string::insert(&v10, 0, "cannot use emplace() with ");
+  v8 = *&v7->__r_.__value_.__l.__data_;
+  *&v9[16] = *(&v7->__r_.__value_.__l + 2);
+  *v9 = v8;
+  v7->__r_.__value_.__l.__size_ = 0;
+  v7->__r_.__value_.__r.__words[2] = 0;
+  v7->__r_.__value_.__r.__words[0] = 0;
+  nlohmann::detail::type_error::create(311, v9, exception);
 }
 
 void sub_23E840984(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, uint64_t a16, void *a17, uint64_t a18, int a19, __int16 a20, char a21, char a22)
@@ -470,12 +459,10 @@ LABEL_8:
   goto LABEL_8;
 }
 
-void nlohmann::operator<<(void *a1)
+void nlohmann::operator<<(void *a1, uint64_t a2)
 {
-  v3 = *MEMORY[0x277D85DE8];
-  v1 = a1 + *(*a1 - 24);
-  v2 = *(v1 + 3);
-  *(v1 + 3) = 0;
+  v2 = *MEMORY[0x277D85DE8];
+  *(a1 + *(*a1 - 24) + 24) = 0;
   operator new();
 }
 
@@ -589,15 +576,15 @@ LABEL_15:
   return result;
 }
 
-void nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(uint64_t *a1, int a2)
+void nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(void ****a1, int a2)
 {
   v29 = 0;
   v30 = 0;
   v31 = 0;
   if (a2 == 1)
   {
-    std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::reserve(&v29, *(*a1 + 16));
-    v6 = *a1 + 8;
+    std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::reserve(&v29, (*a1)[2]);
+    v6 = (*a1 + 1);
     v7 = **a1;
     if (v7 != v6)
     {
@@ -606,7 +593,7 @@ void nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsign
       {
         if (v8 >= v31)
         {
-          v8 = std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::__emplace_back_slow_path<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>(&v29, v7 + 7);
+          v8 = std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::__emplace_back_slow_path<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>(&v29, (v7 + 7));
         }
 
         else
@@ -654,9 +641,9 @@ void nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsign
 
   else if (a2 == 2)
   {
-    std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::reserve(&v29, (*(*a1 + 8) - **a1) >> 4);
+    std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::reserve(&v29, ((*a1)[1] - **a1) >> 4);
     v4 = **a1;
-    v5 = *(*a1 + 8);
+    v5 = (*a1)[1];
     while (v4 != v5)
     {
       std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::push_back[abi:ne200100](&v29, v4);
@@ -678,31 +665,31 @@ void nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsign
     if (v27 == 1)
     {
       v18 = v28;
-      v19 = (v28 + 1);
+      v19 = v28 + 1;
       v20 = *v28;
-      if (*v28 != (v28 + 1))
+      if (*v28 != v28 + 1)
       {
         v21 = v30;
         do
         {
           if (v21 >= v31)
           {
-            v21 = std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::__emplace_back_slow_path<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>(&v29, v20 + 56);
+            v21 = std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::__emplace_back_slow_path<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>(&v29, (v20 + 7));
           }
 
           else
           {
-            *v21 = v20[56];
-            *(v21 + 8) = *(v20 + 8);
+            *v21 = *(v20 + 56);
+            *(v21 + 8) = v20[8];
             nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v20 + 56);
-            v20[56] = 0;
-            *(v20 + 8) = 0;
+            *(v20 + 56) = 0;
+            v20[8] = 0;
             nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v21);
             v21 += 16;
           }
 
           v30 = v21;
-          v22 = *(v20 + 1);
+          v22 = v20[1];
           if (v22)
           {
             do
@@ -718,7 +705,7 @@ void nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsign
           {
             do
             {
-              v23 = *(v20 + 2);
+              v23 = v20[2];
               v11 = *v23 == v20;
               v20 = v23;
             }
@@ -733,10 +720,10 @@ void nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsign
         v18 = v28;
       }
 
-      std::__tree<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::__map_value_compare<std::string,std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::less<void>,true>,std::allocator<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>>>::destroy(v18, *(v18 + 8));
-      *v18 = v18 + 8;
-      *(v18 + 16) = 0;
-      *(v18 + 8) = 0;
+      std::__tree<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::__map_value_compare<std::string,std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::less<void>,true>,std::allocator<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>>>::destroy(v18, v18[1]);
+      *v18 = v18 + 1;
+      v18[2] = 0;
+      v18[1] = 0;
     }
 
     else if (v27 == 2)
@@ -802,7 +789,7 @@ LABEL_51:
 
   if (a2 == 1)
   {
-    std::__tree<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::__map_value_compare<std::string,std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::less<void>,true>,std::allocator<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>>>::destroy(*a1, *(*a1 + 8));
+    std::__tree<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::__map_value_compare<std::string,std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::less<void>,true>,std::allocator<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>>>::destroy(*a1, (*a1)[1]);
     goto LABEL_50;
   }
 
@@ -820,14 +807,12 @@ LABEL_52:
   std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::__destroy_vector::operator()[abi:ne200100](&v27);
 }
 
-void *std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::reserve(void *result, unint64_t a2)
+uint64_t *std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::reserve(uint64_t *result, unint64_t a2)
 {
   if (a2 > (result[2] - *result) >> 4)
   {
     if (!(a2 >> 60))
     {
-      v2 = result[1] - *result;
-      v3 = result;
       std::__allocate_at_least[abi:ne200100]<std::allocator<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>>(result, a2);
     }
 
@@ -837,9 +822,9 @@ void *std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,lon
   return result;
 }
 
-void sub_23E841250(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23E841250(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -998,7 +983,7 @@ uint64_t std::__split_buffer<nlohmann::basic_json<std::map,std::vector,std::stri
   {
     *(a1 + 16) = i - 16;
     nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant((i - 16));
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(i - 8, *(i - 16));
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy((i - 8), *(i - 16));
   }
 
   if (*a1)
@@ -1067,9 +1052,9 @@ uint64_t std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,
   return v14;
 }
 
-void sub_23E841700(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_23E841700(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -1087,7 +1072,7 @@ uint64_t std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,
       nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v5);
       v7 = *v6;
       v6 -= 16;
-      result = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(v5 + 8, v7);
+      result = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(v5 + 1, v7);
       v8 = v5 == a2;
       v5 = v6;
     }
@@ -1099,14 +1084,14 @@ uint64_t std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,
   return result;
 }
 
-void std::__tree<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::__map_value_compare<std::string,std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::less<void>,true>,std::allocator<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>>>::destroy(uint64_t a1, char *a2)
+void std::__tree<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::__map_value_compare<std::string,std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::less<void>,true>,std::allocator<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>>>::destroy(uint64_t a1, unsigned __int8 *a2)
 {
   if (a2)
   {
     std::__tree<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::__map_value_compare<std::string,std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::less<void>,true>,std::allocator<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>>>::destroy(a1, *a2);
     std::__tree<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::__map_value_compare<std::string,std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::less<void>,true>,std::allocator<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>>>::destroy(a1, *(a2 + 1));
     nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(a2 + 56);
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(a2 + 64, a2[56]);
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(a2 + 8, a2[56]);
     if (a2[55] < 0)
     {
       operator delete(*(a2 + 4));
@@ -1116,7 +1101,7 @@ void std::__tree<std::__value_type<std::string,nlohmann::basic_json<std::map,std
   }
 }
 
-void std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::__destroy_vector::operator()[abi:ne200100](void ***a1)
+void std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::__destroy_vector::operator()[abi:ne200100](unsigned __int8 ***a1)
 {
   v2 = *a1;
   if (*v2)
@@ -1153,7 +1138,7 @@ void Tellurium::tellurium_classifier_t::~tellurium_classifier_t(id **this)
   }
 }
 
-void std::vector<Tellurium::tellurium_input_t>::__destroy_vector::operator()[abi:ne200100](void ***a1)
+void std::vector<Tellurium::tellurium_input_t>::__destroy_vector::operator()[abi:ne200100](void ****a1)
 {
   v1 = *a1;
   v2 = **a1;
@@ -1179,7 +1164,7 @@ void std::vector<Tellurium::tellurium_input_t>::__destroy_vector::operator()[abi
   }
 }
 
-uint64_t std::vector<std::vector<double>>::__construct_one_at_end[abi:ne200100]<std::vector<double> const&>(uint64_t a1, uint64_t *a2)
+uint64_t *std::vector<std::vector<double>>::__construct_one_at_end[abi:ne200100]<std::vector<double> const&>(uint64_t a1, const void **a2)
 {
   v3 = *(a1 + 8);
   *v3 = 0;
@@ -1190,21 +1175,21 @@ uint64_t std::vector<std::vector<double>>::__construct_one_at_end[abi:ne200100]<
   return result;
 }
 
-uint64_t std::vector<std::vector<double>>::__emplace_back_slow_path<std::vector<double> const&>(uint64_t a1, uint64_t *a2)
+void *std::vector<std::vector<double>>::__emplace_back_slow_path<std::vector<double> const&>(char **a1, const void **a2)
 {
-  v2 = 0xAAAAAAAAAAAAAAABLL * ((*(a1 + 8) - *a1) >> 3);
+  v2 = 0xAAAAAAAAAAAAAAABLL * ((a1[1] - *a1) >> 3);
   v3 = v2 + 1;
   if (v2 + 1 > 0xAAAAAAAAAAAAAAALL)
   {
     std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::__throw_length_error[abi:ne200100]();
   }
 
-  if (0x5555555555555556 * ((*(a1 + 16) - *a1) >> 3) > v3)
+  if (0x5555555555555556 * ((a1[2] - *a1) >> 3) > v3)
   {
-    v3 = 0x5555555555555556 * ((*(a1 + 16) - *a1) >> 3);
+    v3 = 0x5555555555555556 * ((a1[2] - *a1) >> 3);
   }
 
-  if (0xAAAAAAAAAAAAAAABLL * ((*(a1 + 16) - *a1) >> 3) >= 0x555555555555555)
+  if (0xAAAAAAAAAAAAAAABLL * ((a1[2] - *a1) >> 3) >= 0x555555555555555)
   {
     v6 = 0xAAAAAAAAAAAAAAALL;
   }
@@ -1228,16 +1213,16 @@ uint64_t std::vector<std::vector<double>>::__emplace_back_slow_path<std::vector<
   *v7 = 0;
   *(v7 + 8) = 0;
   *(v7 + 16) = 0;
-  std::vector<double>::__init_with_size[abi:ne200100]<double *,double *>(24 * v2, *a2, a2[1], (a2[1] - *a2) >> 3);
+  std::vector<double>::__init_with_size[abi:ne200100]<double *,double *>((24 * v2), *a2, a2[1], (a2[1] - *a2) >> 3);
   v8 = v16 + 24;
-  v9 = *(a1 + 8) - *a1;
+  v9 = a1[1] - *a1;
   v10 = &v15[-v9];
   memcpy(&v15[-v9], *a1, v9);
   v11 = *a1;
   *a1 = v10;
-  *(a1 + 8) = v8;
-  v12 = *(a1 + 16);
-  *(a1 + 16) = v17;
+  a1[1] = v8;
+  v12 = a1[2];
+  a1[2] = v17;
   v16 = v11;
   v17 = v12;
   v14 = v11;
@@ -1246,14 +1231,14 @@ uint64_t std::vector<std::vector<double>>::__emplace_back_slow_path<std::vector<
   return v8;
 }
 
-void sub_23E841AB0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23E841AB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<std::vector<double>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t std::vector<double>::__init_with_size[abi:ne200100]<double *,double *>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<double>::__init_with_size[abi:ne200100]<double *,double *>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -1275,7 +1260,7 @@ void sub_23E841B24(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<double>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<double>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 61))
   {
@@ -1360,21 +1345,21 @@ __n128 std::vector<Tellurium::tellurium_input_t>::__construct_one_at_end[abi:ne2
   return result;
 }
 
-uint64_t std::vector<Tellurium::tellurium_input_t>::__emplace_back_slow_path<Tellurium::tellurium_input_t const&>(uint64_t a1, uint64_t a2)
+uint64_t std::vector<Tellurium::tellurium_input_t>::__emplace_back_slow_path<Tellurium::tellurium_input_t const&>(unint64_t *a1, uint64_t a2)
 {
-  v2 = 0xAAAAAAAAAAAAAAABLL * ((*(a1 + 8) - *a1) >> 4);
+  v2 = 0xAAAAAAAAAAAAAAABLL * ((a1[1] - *a1) >> 4);
   v3 = v2 + 1;
   if (v2 + 1 > 0x555555555555555)
   {
     std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::__throw_length_error[abi:ne200100]();
   }
 
-  if (0x5555555555555556 * ((*(a1 + 16) - *a1) >> 4) > v3)
+  if (0x5555555555555556 * ((a1[2] - *a1) >> 4) > v3)
   {
-    v3 = 0x5555555555555556 * ((*(a1 + 16) - *a1) >> 4);
+    v3 = 0x5555555555555556 * ((a1[2] - *a1) >> 4);
   }
 
-  if (0xAAAAAAAAAAAAAAABLL * ((*(a1 + 16) - *a1) >> 4) >= 0x2AAAAAAAAAAAAAALL)
+  if (0xAAAAAAAAAAAAAAABLL * ((a1[2] - *a1) >> 4) >= 0x2AAAAAAAAAAAAAALL)
   {
     v6 = 0x555555555555555;
   }
@@ -1402,14 +1387,14 @@ uint64_t std::vector<Tellurium::tellurium_input_t>::__emplace_back_slow_path<Tel
   *(v7 + 40) = *(a2 + 40);
   *(v7 + 24) = v8;
   *&v17 = v17 + 48;
-  v9 = *(a1 + 8);
+  v9 = a1[1];
   v10 = v16 + *a1 - v9;
   std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<Tellurium::tellurium_input_t>,Tellurium::tellurium_input_t*>(a1, *a1, v9, v10);
   v11 = *a1;
   *a1 = v10;
-  v12 = *(a1 + 16);
+  v12 = a1[2];
   v14 = v17;
-  *(a1 + 8) = v17;
+  *(a1 + 1) = v17;
   *&v17 = v11;
   *(&v17 + 1) = v12;
   v15 = v11;
@@ -1418,14 +1403,14 @@ uint64_t std::vector<Tellurium::tellurium_input_t>::__emplace_back_slow_path<Tel
   return v14;
 }
 
-void sub_23E841E78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_23E841E78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<Tellurium::tellurium_input_t>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t std::vector<std::vector<double>>::__init_with_size[abi:ne200100]<std::vector<double>*,std::vector<double>*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<std::vector<double>>::__init_with_size[abi:ne200100]<std::vector<double>*,std::vector<double>*>(uint64_t *result, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -1442,7 +1427,7 @@ void sub_23E841EF4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void std::vector<std::vector<double>>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<std::vector<double>>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0xAAAAAAAAAAAAAABLL)
   {
@@ -1452,7 +1437,7 @@ void std::vector<std::vector<double>>::__vallocate[abi:ne200100](uint64_t a1, un
   std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::__throw_length_error[abi:ne200100]();
 }
 
-void *std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<std::vector<double>>,std::vector<double>*,std::vector<double>*,std::vector<double>*>(uint64_t a1, uint64_t *a2, uint64_t *a3, void *a4)
+uint64_t *std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<std::vector<double>>,std::vector<double>*,std::vector<double>*,std::vector<double>*>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
   v4 = a4;
   v10 = a4;
@@ -1469,8 +1454,8 @@ void *std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<std:
       *v4 = 0;
       v4[1] = 0;
       v4[2] = 0;
-      std::vector<double>::__init_with_size[abi:ne200100]<double *,double *>(v4, *v6, v6[1], (v6[1] - *v6) >> 3);
-      v6 += 3;
+      std::vector<double>::__init_with_size[abi:ne200100]<double *,double *>(v4, *v6, *(v6 + 8), (*(v6 + 8) - *v6) >> 3);
+      v6 += 24;
       v4 = v11 + 3;
       v11 += 3;
     }
@@ -1702,10 +1687,11 @@ LABEL_7:
   goto LABEL_9;
 }
 
-void nlohmann::detail::type_error::create(int a1@<W0>, uint64_t a2@<X1>, nlohmann::detail::exception *a3@<X8>)
+void nlohmann::detail::type_error::create(uint64_t a1@<X0>, uint64_t a2@<X1>, nlohmann::detail::exception *a3@<X8>)
 {
+  v4 = a1;
   std::string::basic_string[abi:ne200100]<0>(&__p, "type_error");
-  nlohmann::detail::exception::name(a1, &v14);
+  nlohmann::detail::exception::name(v4, &v14);
   v6 = *(a2 + 23);
   if (v6 >= 0)
   {
@@ -1754,7 +1740,7 @@ void nlohmann::detail::type_error::create(int a1@<W0>, uint64_t a2@<X1>, nlohman
     v11 = v15[0];
   }
 
-  nlohmann::detail::exception::exception(a3, a1, v11);
+  nlohmann::detail::exception::exception(a3, v4, v11);
   *a3 = &unk_2851187F8;
   if (SHIBYTE(v16) < 0)
   {
@@ -1772,7 +1758,7 @@ void sub_23E8425F4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::string::basic_string[abi:ne200100]<0>(_BYTE *a1, char *__s)
+void *std::string::basic_string[abi:ne200100]<0>(void *a1, char *__s)
 {
   v4 = strlen(__s);
   if (v4 >= 0x7FFFFFFFFFFFFFF8)
@@ -1786,13 +1772,13 @@ _BYTE *std::string::basic_string[abi:ne200100]<0>(_BYTE *a1, char *__s)
     operator new();
   }
 
-  a1[23] = v4;
+  *(a1 + 23) = v4;
   if (v4)
   {
     memmove(a1, __s, v4);
   }
 
-  a1[v5] = 0;
+  *(a1 + v5) = 0;
   return a1;
 }
 
@@ -1872,17 +1858,17 @@ const char *nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long
   }
 }
 
-void nlohmann::detail::exception::name(int a1@<W1>, std::string *a2@<X8>)
+void nlohmann::detail::exception::name(int a2@<W1>, std::string *a3@<X8>)
 {
   std::operator+<char>();
-  v4 = std::string::append(&v12, ".");
-  v5 = *&v4->__r_.__value_.__l.__data_;
-  v13.__r_.__value_.__r.__words[2] = v4->__r_.__value_.__r.__words[2];
-  *&v13.__r_.__value_.__l.__data_ = v5;
-  v4->__r_.__value_.__l.__size_ = 0;
-  v4->__r_.__value_.__r.__words[2] = 0;
-  v4->__r_.__value_.__r.__words[0] = 0;
-  std::to_string(&__p, a1);
+  v5 = std::string::append(&v13, ".");
+  v6 = *&v5->__r_.__value_.__l.__data_;
+  v14.__r_.__value_.__r.__words[2] = v5->__r_.__value_.__r.__words[2];
+  *&v14.__r_.__value_.__l.__data_ = v6;
+  v5->__r_.__value_.__l.__size_ = 0;
+  v5->__r_.__value_.__r.__words[2] = 0;
+  v5->__r_.__value_.__r.__words[0] = 0;
+  std::to_string(&__p, a2);
   if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
     p_p = &__p;
@@ -1903,21 +1889,21 @@ void nlohmann::detail::exception::name(int a1@<W1>, std::string *a2@<X8>)
     size = __p.__r_.__value_.__l.__size_;
   }
 
-  v8 = std::string::append(&v13, p_p, size);
-  v9 = *&v8->__r_.__value_.__l.__data_;
-  v14.__r_.__value_.__r.__words[2] = v8->__r_.__value_.__r.__words[2];
-  *&v14.__r_.__value_.__l.__data_ = v9;
-  v8->__r_.__value_.__l.__size_ = 0;
-  v8->__r_.__value_.__r.__words[2] = 0;
-  v8->__r_.__value_.__r.__words[0] = 0;
-  v10 = std::string::append(&v14, "] ");
-  *a2 = *v10;
-  v10->__r_.__value_.__l.__size_ = 0;
-  v10->__r_.__value_.__r.__words[2] = 0;
-  v10->__r_.__value_.__r.__words[0] = 0;
-  if (SHIBYTE(v14.__r_.__value_.__r.__words[2]) < 0)
+  v9 = std::string::append(&v14, p_p, size);
+  v10 = *&v9->__r_.__value_.__l.__data_;
+  v15.__r_.__value_.__r.__words[2] = v9->__r_.__value_.__r.__words[2];
+  *&v15.__r_.__value_.__l.__data_ = v10;
+  v9->__r_.__value_.__l.__size_ = 0;
+  v9->__r_.__value_.__r.__words[2] = 0;
+  v9->__r_.__value_.__r.__words[0] = 0;
+  v11 = std::string::append(&v15, "] ");
+  *a3 = *v11;
+  v11->__r_.__value_.__l.__size_ = 0;
+  v11->__r_.__value_.__r.__words[2] = 0;
+  v11->__r_.__value_.__r.__words[0] = 0;
+  if (SHIBYTE(v15.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v14.__r_.__value_.__l.__data_);
+    operator delete(v15.__r_.__value_.__l.__data_);
   }
 
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
@@ -1925,14 +1911,14 @@ void nlohmann::detail::exception::name(int a1@<W1>, std::string *a2@<X8>)
     operator delete(__p.__r_.__value_.__l.__data_);
   }
 
+  if (SHIBYTE(v14.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v14.__r_.__value_.__l.__data_);
+  }
+
   if (SHIBYTE(v13.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(v13.__r_.__value_.__l.__data_);
-  }
-
-  if (SHIBYTE(v12.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v12.__r_.__value_.__l.__data_);
   }
 }
 
@@ -2020,8 +2006,7 @@ unsigned __int8 *nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long
       {
         if (v4 == 8)
         {
-          v7 = *(a2 + 1);
-          nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::create<nlohmann::byte_container_with_subtype<std::vector<unsigned char>>,nlohmann::byte_container_with_subtype<std::vector<unsigned char>> const&>();
+          nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::create<nlohmann::byte_container_with_subtype<std::vector<unsigned char>>,nlohmann::byte_container_with_subtype<std::vector<unsigned char>> const&>(*(a2 + 1));
         }
 
         goto LABEL_20;
@@ -2033,7 +2018,7 @@ unsigned __int8 *nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long
       goto LABEL_20;
     }
 
-    v6 = *(a2 + 1);
+    v5 = *(a2 + 1);
     goto LABEL_19;
   }
 
@@ -2041,13 +2026,11 @@ unsigned __int8 *nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long
   {
     if (v4 == 1)
     {
-      v8 = *(a2 + 1);
-      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::create<std::map<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::map<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>> const&>();
+      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::create<std::map<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::map<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>> const&>(*(a2 + 1));
     }
 
     if (v4 == 2)
     {
-      v5 = *(a2 + 1);
       nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::create<std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>> const&>();
     }
 
@@ -2056,15 +2039,14 @@ unsigned __int8 *nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long
 
   if (v4 == 3)
   {
-    v9 = *(a2 + 1);
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::create<std::string,std::string const&>();
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::create<std::string,std::string const&>(*(a2 + 1));
   }
 
   if (v4 == 4)
   {
-    v6 = a2[8];
+    v5 = a2[8];
 LABEL_19:
-    *(a1 + 1) = v6;
+    *(a1 + 1) = v5;
   }
 
 LABEL_20:
@@ -2081,7 +2063,7 @@ void *std::map<std::string,nlohmann::basic_json<std::map,std::vector,std::string
   return a1;
 }
 
-uint64_t std::map<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::insert[abi:ne200100]<std::__map_const_iterator<std::__tree_const_iterator<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::__tree_node<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,void *> *,long>>>(uint64_t result, const void **a2, const void ***a3)
+void *std::map<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::insert[abi:ne200100]<std::__map_const_iterator<std::__tree_const_iterator<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::__tree_node<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,void *> *,long>>>(void *result, const void **a2, const void ***a3)
 {
   if (a2 != a3)
   {
@@ -2089,7 +2071,7 @@ uint64_t std::map<std::string,nlohmann::basic_json<std::map,std::vector,std::str
     v5 = result;
     do
     {
-      result = std::__tree<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::__map_value_compare<std::string,std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::less<void>,true>,std::allocator<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>>>::__emplace_hint_unique_key_args<std::string,std::pair<std::string const,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>> const&>(v5, (v5 + 1), v4 + 4);
+      result = std::__tree<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::__map_value_compare<std::string,std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::less<void>,true>,std::allocator<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>>>::__emplace_hint_unique_key_args<std::string,std::pair<std::string const,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>> const&>(v5, v5 + 1, v4 + 4, (v4 + 4));
       v6 = v4[1];
       if (v6)
       {
@@ -2123,9 +2105,9 @@ uint64_t std::map<std::string,nlohmann::basic_json<std::map,std::vector,std::str
   return result;
 }
 
-uint64_t std::__tree<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::__map_value_compare<std::string,std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::less<void>,true>,std::allocator<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>>>::__emplace_hint_unique_key_args<std::string,std::pair<std::string const,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>> const&>(void *a1, uint64_t a2, const void **a3)
+uint64_t std::__tree<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::__map_value_compare<std::string,std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::less<void>,true>,std::allocator<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>>>::__emplace_hint_unique_key_args<std::string,std::pair<std::string const,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>> const&>(void *a1, void *a2, const void **a3, uint64_t a4)
 {
-  result = *std::__tree<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::__map_value_compare<std::string,std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::less<void>,true>,std::allocator<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>>>::__find_equal<std::string>(a1, a2, &v5, &v4, a3);
+  result = *std::__tree<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::__map_value_compare<std::string,std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::less<void>,true>,std::allocator<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>>>::__find_equal<std::string>(a1, a2, &v6, &v5, a3);
   if (!result)
   {
     std::__tree<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::__map_value_compare<std::string,std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::less<void>,true>,std::allocator<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>>>::__construct_node<std::pair<std::string const,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>> const&>();
@@ -2134,23 +2116,23 @@ uint64_t std::__tree<std::__value_type<std::string,nlohmann::basic_json<std::map
   return result;
 }
 
-uint64_t std::__tree<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::__map_value_compare<std::string,std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::less<void>,true>,std::allocator<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>>>::__find_equal<std::string>(void *a1, uint64_t a2, uint64_t *a3, uint64_t *a4, const void **a5)
+uint64_t *std::__tree<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::__map_value_compare<std::string,std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::less<void>,true>,std::allocator<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>>>::__find_equal<std::string>(void *a1, void *a2, const void ***a3, uint64_t *a4, const void **a5)
 {
-  v9 = (a1 + 1);
-  if (a1 + 1 != a2 && !std::less<void>::operator()[abi:ne200100]<std::string const&,std::string const&>(a1, a5, (a2 + 32)))
+  v9 = a1 + 1;
+  if (a1 + 1 != a2 && !std::less<void>::operator()[abi:ne200100]<std::string const&,std::string const&>(a1, a5, a2 + 4))
   {
-    if (!std::less<void>::operator()[abi:ne200100]<std::string const&,std::string const&>(a1, (a2 + 32), a5))
+    if (!std::less<void>::operator()[abi:ne200100]<std::string const&,std::string const&>(a1, a2 + 4, a5))
     {
       *a3 = a2;
       *a4 = a2;
       return a4;
     }
 
-    a4 = (a2 + 8);
-    v13 = *(a2 + 8);
+    a4 = a2 + 1;
+    v13 = a2[1];
     if (v13)
     {
-      v14 = *(a2 + 8);
+      v14 = a2[1];
       do
       {
         v15 = v14;
@@ -2204,7 +2186,7 @@ LABEL_16:
     if (*a2)
     {
       *a3 = v12;
-      return v12 + 8;
+      return (v12 + 1);
     }
 
     else
@@ -2220,7 +2202,7 @@ LABEL_16:
     do
     {
       v12 = v11;
-      v11 = *(v11 + 8);
+      v11 = v11[1];
     }
 
     while (v11);
@@ -2231,7 +2213,7 @@ LABEL_16:
     v16 = a2;
     do
     {
-      v12 = *(v16 + 16);
+      v12 = v16[2];
       v17 = *v12 == v16;
       v16 = v12;
     }
@@ -2239,7 +2221,7 @@ LABEL_16:
     while (v17);
   }
 
-  if (std::less<void>::operator()[abi:ne200100]<std::string const&,std::string const&>(a1, (v12 + 32), a5))
+  if (std::less<void>::operator()[abi:ne200100]<std::string const&,std::string const&>(a1, v12 + 4, a5))
   {
     goto LABEL_16;
   }
@@ -2256,7 +2238,7 @@ void sub_23E843190(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t *std::__tree<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::__map_value_compare<std::string,std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::less<void>,true>,std::allocator<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>>>::__insert_node_at(uint64_t **a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
+uint64_t *std::__tree<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::__map_value_compare<std::string,std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::less<void>,true>,std::allocator<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>>>::__insert_node_at(uint64_t ***a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
 {
   *a4 = 0;
   a4[1] = 0;
@@ -2274,9 +2256,9 @@ uint64_t *std::__tree<std::__value_type<std::string,nlohmann::basic_json<std::ma
   return result;
 }
 
-uint64_t std::__tree<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::__map_value_compare<std::string,std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::less<void>,true>,std::allocator<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>>>::__find_equal<std::string>(uint64_t a1, uint64_t *a2, const void **a3)
+uint64_t *std::__tree<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::__map_value_compare<std::string,std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::less<void>,true>,std::allocator<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>>>::__find_equal<std::string>(uint64_t a1, const void ***a2, const void **a3)
 {
-  v5 = a1 + 8;
+  v5 = (a1 + 8);
   v4 = *(a1 + 8);
   if (v4)
   {
@@ -2285,7 +2267,7 @@ uint64_t std::__tree<std::__value_type<std::string,nlohmann::basic_json<std::map
       while (1)
       {
         v8 = v4;
-        if (!std::less<void>::operator()[abi:ne200100]<std::string const&,std::string const&>(a1, a3, (v4 + 32)))
+        if (!std::less<void>::operator()[abi:ne200100]<std::string const&,std::string const&>(a1, a3, v4 + 4))
         {
           break;
         }
@@ -2298,13 +2280,13 @@ uint64_t std::__tree<std::__value_type<std::string,nlohmann::basic_json<std::map
         }
       }
 
-      if (!std::less<void>::operator()[abi:ne200100]<std::string const&,std::string const&>(a1, (v8 + 32), a3))
+      if (!std::less<void>::operator()[abi:ne200100]<std::string const&,std::string const&>(a1, v8 + 4, a3))
       {
         break;
       }
 
-      v5 = v8 + 8;
-      v4 = *(v8 + 8);
+      v5 = v8 + 1;
+      v4 = v8[1];
     }
 
     while (v4);
@@ -2312,7 +2294,7 @@ uint64_t std::__tree<std::__value_type<std::string,nlohmann::basic_json<std::map
 
   else
   {
-    v8 = a1 + 8;
+    v8 = (a1 + 8);
   }
 
 LABEL_9:
@@ -2440,12 +2422,12 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
     do
     {
       v2 = a2[2];
-      if (v2[3])
+      if (*(v2 + 24))
       {
         break;
       }
 
-      v3 = v2[2];
+      v3 = *(v2 + 16);
       v4 = *v3;
       if (*v3 == v2)
       {
@@ -2459,22 +2441,22 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
 
           else
           {
-            v11 = v2[1];
+            v11 = *(v2 + 8);
             v12 = *v11;
-            v2[1] = *v11;
+            *(v2 + 8) = *v11;
             v13 = v2;
             if (v12)
             {
-              v12[2] = v2;
-              v3 = v2[2];
+              *(v12 + 16) = v2;
+              v3 = *(v2 + 16);
               v13 = *v3;
             }
 
-            v11[2] = v3;
+            *(v11 + 16) = v3;
             v3[v13 != v2] = v11;
             *v11 = v2;
-            v2[2] = v11;
-            v3 = v11[2];
+            *(v2 + 16) = v11;
+            v3 = *(v11 + 16);
             v4 = *v3;
           }
 
@@ -2508,13 +2490,13 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
             if (v14)
             {
               *(v14 + 16) = v2;
-              v3 = v2[2];
+              v3 = *(v2 + 16);
             }
 
             v10[2] = v3;
             v3[*v3 != v2] = v10;
             v10[1] = v2;
-            v2[2] = v10;
+            *(v2 + 16) = v10;
             v3 = v10[2];
           }
 
@@ -2576,7 +2558,7 @@ void std::__tree_node_destructor<std::allocator<std::__tree_node<std::__value_ty
   operator delete(a2);
 }
 
-uint64_t std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::__init_with_size[abi:ne200100]<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>*,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::__init_with_size[abi:ne200100]<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>*,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>*>(uint64_t *result, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -2593,7 +2575,7 @@ void sub_23E843710(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 60))
   {
@@ -2603,7 +2585,7 @@ void std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long
   std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::__throw_length_error[abi:ne200100]();
 }
 
-uint64_t std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>*,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>*,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>*>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+unsigned __int8 *std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>*,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>*,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>*>(uint64_t a1, unsigned __int8 *a2, unsigned __int8 *a3, unsigned __int8 *a4)
 {
   v4 = a4;
   v10 = a4;
@@ -2631,7 +2613,7 @@ uint64_t std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<n
   return v4;
 }
 
-uint64_t std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t *std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>(uint64_t *result, const void *a2, uint64_t a3, uint64_t a4)
 {
   if (a4)
   {
@@ -2653,7 +2635,7 @@ void sub_23E84395C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<unsigned char>::__vallocate[abi:ne200100](uint64_t a1, uint64_t a2)
+void std::vector<unsigned char>::__vallocate[abi:ne200100](uint64_t *a1, uint64_t a2)
 {
   if ((a2 & 0x8000000000000000) == 0)
   {
@@ -2663,9 +2645,9 @@ void std::vector<unsigned char>::__vallocate[abi:ne200100](uint64_t a1, uint64_t
   std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::__throw_length_error[abi:ne200100]();
 }
 
-uint64_t std::__tree<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::__map_value_compare<std::string,std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::less<void>,true>,std::allocator<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>>>::__emplace_unique_key_args<std::string,std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>(uint64_t a1, const void **a2)
+void *std::__tree<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::__map_value_compare<std::string,std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::less<void>,true>,std::allocator<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>>>::__emplace_unique_key_args<std::string,std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>(uint64_t **a1, const void **a2, uint64_t a3, uint64_t a4)
 {
-  result = *std::__tree<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::__map_value_compare<std::string,std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::less<void>,true>,std::allocator<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>>>::__find_equal<std::string>(a1, &v3, a2);
+  result = *std::__tree<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::__map_value_compare<std::string,std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::less<void>,true>,std::allocator<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>>>::__find_equal<std::string>(a1, &v5, a2);
   if (!result)
   {
     std::__tree<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::__map_value_compare<std::string,std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::less<void>,true>,std::allocator<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>>>::__construct_node<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>();
@@ -2674,7 +2656,7 @@ uint64_t std::__tree<std::__value_type<std::string,nlohmann::basic_json<std::map
   return result;
 }
 
-uint64_t std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::__init_with_size[abi:ne200100]<nlohmann::detail::json_ref<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>> const*,nlohmann::detail::json_ref<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>> const*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::__init_with_size[abi:ne200100]<nlohmann::detail::json_ref<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>> const*,nlohmann::detail::json_ref<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>> const*>(uint64_t *result, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -2733,15 +2715,7 @@ uint64_t nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,un
   return a1;
 }
 
-void nlohmann::detail::external_constructor<(nlohmann::detail::value_t)2>::construct<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,std::vector<double>,0>(_BYTE *a1, uint64_t *a2)
-{
-  *a1 = 2;
-  v2 = a2[1];
-  v3 = *a2;
-  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::create<std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::__wrap_iter<double const*>,std::__wrap_iter<double const*>>();
-}
-
-uint64_t std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::__init_with_size[abi:ne200100]<std::__wrap_iter<double const*>,std::__wrap_iter<double const*>>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::__init_with_size[abi:ne200100]<std::__wrap_iter<double const*>,std::__wrap_iter<double const*>>(uint64_t *result, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -2816,11 +2790,11 @@ void sub_23E844008(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<char const*,char const*,0>(uint64_t a1)
+void nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<char const*,char const*,0>(uint64_t a1, char **a2)
 {
   *(a1 + 8) = 0;
   *a1 = 3;
-  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::create<std::string,char const* const&>();
+  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::create<std::string,char const* const&>(a2);
 }
 
 unsigned __int8 **nlohmann::detail::iter_impl<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::set_begin(unsigned __int8 **result)
@@ -2924,480 +2898,466 @@ void sub_23E8445C0(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump(void (****a1)(void), uint64_t **a2, int a3, uint64_t a4, uint64_t a5, uint64_t a6)
+uint64_t nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump(void (****a1)(__n128), uint64_t ***a2, int a3, uint64_t a4, uint64_t a5, uint64_t a6, __n128 a7)
 {
-  v10 = *a2;
-  if (v10 <= 4)
+  v11 = *a2;
+  if (v11 <= 4)
   {
     if (*a2 > 1u)
     {
-      if (v10 != 2)
+      if (v11 != 2)
       {
-        if (v10 != 3)
+        if (v11 != 3)
         {
-          if (v10 == 4)
+          if (v11 == 4)
           {
-            v12 = *a1;
             v13 = (**a1)[1];
-            *(a2 + 8);
-            goto LABEL_71;
+LABEL_71:
+
+            return v13(a7);
           }
 
-LABEL_148:
-          nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump();
+          goto LABEL_144;
         }
 
-        v25 = *a1;
-        (***a1)();
+        (***a1)(a7);
         nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump_escaped(a1, a2[1], a4);
-        v13 = ***a1;
-LABEL_134:
-
-        return v13();
+        v22 = ***a1;
+        goto LABEL_130;
       }
 
-      v33 = *a1;
-      v34 = **a1;
+      v29 = **a1;
       if (*a2[1] != a2[1][1])
       {
         if (!a3)
         {
-          (*v34)();
-          v56 = a2[1];
-          v58 = *v56;
-          v57 = v56[1];
-          if (v58 != v57 - 16)
+          (*v29)(a7);
+          v52 = a2[1];
+          v54 = *v52;
+          v53 = v52[1];
+          if (v54 != v53 - 16)
           {
             do
             {
-              nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump(a1, v58, 0, a4, a5, a6);
+              nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump(a1, v54, 0, a4, a5, a6, v51);
               (***a1)();
-              v58 += 16;
-              v59 = a2[1];
-              v57 = v59[1];
+              v54 += 16;
+              v55 = a2[1];
+              v53 = v55[1];
             }
 
-            while (v58 != v57 - 16);
-            v58 = *v59;
+            while (v54 != v53 - 16);
+            v54 = *v55;
           }
 
-          if (v58 == v57)
+          if (v54 == v53)
           {
             nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump();
           }
 
-          nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump(a1, v57 - 16, 0, a4, a5, a6);
-          goto LABEL_117;
+          nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump(a1, v53 - 16, 0, a4, a5, a6, v51);
+          goto LABEL_115;
         }
 
-        v34[1]();
-        v35 = a6 + a5;
-        v36 = a1 + 76;
-        v37 = *(a1 + 631);
-        if ((v37 & 0x80000000) != 0)
+        v29[1](a7);
+        v30 = a6 + a5;
+        v31 = (a1 + 76);
+        v32 = *(a1 + 631);
+        if ((v32 & 0x80000000) != 0)
         {
-          v38 = a1[77];
-          if (v38 < v35)
+          v33 = a1[77];
+          if (v33 < v30)
           {
-            goto LABEL_144;
+            goto LABEL_140;
           }
         }
 
-        else if (v35 > v37)
+        else if (v30 > v32)
         {
-          v38 = *(a1 + 631);
-LABEL_144:
-          std::string::resize((a1 + 76), 2 * v38, 32);
+          v33 = *(a1 + 631);
+LABEL_140:
+          std::string::resize((a1 + 76), 2 * v33, 32);
         }
 
-        v78 = a2[1];
-        v80 = *v78;
-        v79 = v78[1];
-        if (v80 != v79 - 16)
+        v73 = a2[1];
+        v75 = *v73;
+        v74 = v73[1];
+        if (v75 != v74 - 16)
         {
           do
           {
-            v81 = a1 + 76;
+            v76 = (a1 + 76);
             if (*(a1 + 631) < 0)
             {
-              v81 = *v36;
+              v76 = *v31;
             }
 
-            ((**a1)[1])(*a1, v81, (a6 + a5));
-            nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump(a1, v80, 1, a4, a5, (a6 + a5));
+            v77.n128_f64[0] = ((**a1)[1])(*a1, v76, (a6 + a5));
+            nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump(a1, v75, 1, a4, a5, (a6 + a5), v77);
             ((**a1)[1])(*a1, ",\n", 2);
-            v80 += 16;
-            v82 = a2[1];
-            v79 = v82[1];
+            v75 += 16;
+            v78 = a2[1];
+            v74 = v78[1];
           }
 
-          while (v80 != v79 - 16);
-          v80 = *v82;
+          while (v75 != v74 - 16);
+          v75 = *v78;
         }
 
-        if (v80 == v79)
+        if (v75 == v74)
         {
           nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump();
         }
 
-        v83 = a1 + 76;
+        v79 = (a1 + 76);
         if (*(a1 + 631) < 0)
         {
-          v83 = *v36;
+          v79 = *v31;
         }
 
-        ((**a1)[1])(*a1, v83, (a6 + a5));
-        nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump(a1, a2[1][1] - 16, 1, a4, a5, (a6 + a5));
+        v80.n128_f64[0] = ((**a1)[1])(*a1, v79, (a6 + a5));
+        nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump(a1, a2[1][1] - 16, 1, a4, a5, (a6 + a5), v80);
         (***a1)();
         if (*(a1 + 631) < 0)
         {
-          v36 = *v36;
+          v31 = *v31;
         }
 
-        ((**a1)[1])(*a1, v36, a6);
-LABEL_117:
-        v13 = ***a1;
-        goto LABEL_134;
+        ((**a1)[1])(*a1, v31, a6);
+LABEL_115:
+        v22 = ***a1;
+LABEL_130:
+
+        return v22();
       }
 
-      v44 = v34[1];
+      v38 = v29[1];
       goto LABEL_45;
     }
 
-    if (*a2)
+    if (!*a2)
     {
-      v15 = *a1;
-      v16 = **a1;
-      if (!a2[1][2])
-      {
-        v44 = v16[1];
+      v13 = (**a1)[1];
+      goto LABEL_71;
+    }
+
+    v14 = **a1;
+    if (!a2[1][2])
+    {
+      v38 = v14[1];
 LABEL_45:
 
-        return v44();
-      }
+      return v38(a7);
+    }
 
-      if (!a3)
+    if (!a3)
+    {
+      (*v14)(a7);
+      v41 = a2[1];
+      v42 = *v41;
+      if (v41[2] != 1)
       {
-        (*v16)();
-        v47 = a2[1];
-        v48 = *v47;
-        if (v47[2] != 1)
-        {
-          v49 = 0;
-          do
-          {
-            (***a1)(*a1, 34);
-            nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump_escaped(a1, v48 + 4, a4);
-            ((**a1)[1])(*a1, ":", 2);
-            nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump(a1, v48 + 7, 0, a4, a5, a6);
-            (***a1)();
-            v50 = v48[1];
-            v51 = v48;
-            if (v50)
-            {
-              do
-              {
-                v48 = v50;
-                v50 = *v50;
-              }
-
-              while (v50);
-            }
-
-            else
-            {
-              do
-              {
-                v48 = v51[2];
-                v52 = *v48 == v51;
-                v51 = v48;
-              }
-
-              while (!v52);
-            }
-
-            ++v49;
-            v47 = a2[1];
-          }
-
-          while (v49 < v47[2] - 1);
-        }
-
-        v53 = v47 + 1;
-        if (v48 == v53)
-        {
-          nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump();
-        }
-
-        v54 = v48[1];
-        if (v54)
-        {
-          do
-          {
-            v55 = v54;
-            v54 = *v54;
-          }
-
-          while (v54);
-        }
-
-        else
-        {
-          v84 = v48;
-          do
-          {
-            v55 = v84[2];
-            v52 = *v55 == v84;
-            v84 = v55;
-          }
-
-          while (!v52);
-        }
-
-        if (v55 != v53)
-        {
-          nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump();
-        }
-
-        (***a1)(*a1, 34);
-        nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump_escaped(a1, v48 + 4, a4);
-        ((**a1)[1])(*a1, ":", 2);
-        nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump(a1, v48 + 7, 0, a4, a5, a6);
-        goto LABEL_133;
-      }
-
-      v16[1]();
-      v17 = a6 + a5;
-      v18 = a1 + 76;
-      v19 = *(a1 + 631);
-      if ((v19 & 0x80000000) != 0)
-      {
-        v20 = a1[77];
-        if (v20 < v17)
-        {
-          goto LABEL_142;
-        }
-      }
-
-      else if (v17 > v19)
-      {
-        v20 = *(a1 + 631);
-LABEL_142:
-        std::string::resize((a1 + 76), 2 * v20, 32);
-      }
-
-      v69 = a2[1];
-      v70 = *v69;
-      if (v69[2] == 1)
-      {
-        v71 = *v69;
-      }
-
-      else
-      {
-        v72 = 0;
+        v43 = 0;
         do
         {
-          v73 = a1 + 76;
-          if (*(a1 + 631) < 0)
-          {
-            v73 = *v18;
-          }
-
-          ((**a1)[1])(*a1, v73, (a6 + a5));
+          (***a1)(*a1, 34);
+          nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump_escaped(a1, v42 + 4, a4);
+          v44.n128_f64[0] = ((**a1)[1])(*a1, ":", 2);
+          nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump(a1, v42 + 56, 0, a4, a5, a6, v44);
           (***a1)();
-          nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump_escaped(a1, v70 + 4, a4);
-          ((**a1)[1])(*a1, ": ", 3);
-          nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump(a1, v70 + 7, 1, a4, a5, (a6 + a5));
-          ((**a1)[1])(*a1, ",\n", 2);
-          v74 = v70[1];
-          if (v74)
+          v45 = v42[1];
+          v46 = v42;
+          if (v45)
           {
             do
             {
-              v71 = v74;
-              v74 = *v74;
+              v42 = v45;
+              v45 = *v45;
             }
 
-            while (v74);
+            while (v45);
           }
 
           else
           {
             do
             {
-              v71 = v70[2];
-              v52 = *v71 == v70;
-              v70 = v71;
+              v42 = v46[2];
+              v47 = *v42 == v46;
+              v46 = v42;
             }
 
-            while (!v52);
+            while (!v47);
           }
 
-          ++v72;
-          v69 = a2[1];
-          v70 = v71;
+          ++v43;
+          v41 = a2[1];
         }
 
-        while (v72 < v69[2] - 1);
+        while (v43 < v41[2] - 1);
       }
 
-      v75 = v69 + 1;
-      if (v71 == v75)
+      v48 = (v41 + 1);
+      if (v42 == v48)
       {
         nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump();
       }
 
-      v76 = v71[1];
-      if (v76)
+      v49 = v42[1];
+      if (v49)
       {
         do
         {
-          v77 = v76;
-          v76 = *v76;
+          v50 = v49;
+          v49 = *v49;
         }
 
-        while (v76);
+        while (v49);
       }
 
       else
       {
-        v85 = v71;
+        v81 = v42;
         do
         {
-          v77 = v85[2];
-          v52 = *v77 == v85;
-          v85 = v77;
+          v50 = v81[2];
+          v47 = *v50 == v81;
+          v81 = v50;
         }
 
-        while (!v52);
+        while (!v47);
       }
 
-      if (v77 != v75)
+      if (v50 != v48)
       {
         nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump();
       }
 
-      v86 = a1 + 76;
-      if (*(a1 + 631) < 0)
-      {
-        v86 = *v18;
-      }
-
-      ((**a1)[1])(*a1, v86, (a6 + a5));
-      (***a1)();
-      nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump_escaped(a1, v71 + 4, a4);
-      ((**a1)[1])(*a1, ": ", 3);
-      nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump(a1, v71 + 7, 1, a4, a5, (a6 + a5));
-      (***a1)();
-      if (*(a1 + 631) < 0)
-      {
-        v87 = *v18;
-      }
-
-      v68 = (**a1)[1];
-LABEL_132:
-      v68();
-LABEL_133:
-      v13 = ***a1;
-      goto LABEL_134;
+      (***a1)(*a1, 34);
+      nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump_escaped(a1, v42 + 4, a4);
+      v82.n128_f64[0] = ((**a1)[1])(*a1, ":", 2);
+      nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump(a1, v42 + 56, 0, a4, a5, a6, v82);
+      goto LABEL_129;
     }
 
-    v23 = *a1;
-    v13 = (**a1)[1];
-LABEL_71:
-
-    return v13();
-  }
-
-  if (*a2 <= 6u)
-  {
-    if (v10 == 5)
+    v14[1](a7);
+    v15 = a6 + a5;
+    v16 = (a1 + 76);
+    v17 = *(a1 + 631);
+    if ((v17 & 0x80000000) != 0)
     {
-      v24 = a2[1];
+      v18 = a1[77];
+      if (v18 < v15)
+      {
+        goto LABEL_138;
+      }
+    }
 
-      return nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump_integer<long long,0>(a1, v24);
+    else if (v15 > v17)
+    {
+      v18 = *(a1 + 631);
+LABEL_138:
+      std::string::resize((a1 + 76), 2 * v18, 32);
+    }
+
+    v63 = a2[1];
+    v64 = *v63;
+    if (v63[2] == 1)
+    {
+      v65 = *v63;
     }
 
     else
     {
-      if (v10 != 6)
+      v66 = 0;
+      do
       {
-        goto LABEL_148;
+        v67 = (a1 + 76);
+        if (*(a1 + 631) < 0)
+        {
+          v67 = *v16;
+        }
+
+        ((**a1)[1])(*a1, v67, (a6 + a5));
+        (***a1)();
+        nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump_escaped(a1, v64 + 4, a4);
+        v68.n128_f64[0] = ((**a1)[1])(*a1, ": ", 3);
+        nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump(a1, v64 + 56, 1, a4, a5, (a6 + a5), v68);
+        ((**a1)[1])(*a1, ",\n", 2);
+        v69 = v64[1];
+        if (v69)
+        {
+          do
+          {
+            v65 = v69;
+            v69 = *v69;
+          }
+
+          while (v69);
+        }
+
+        else
+        {
+          do
+          {
+            v65 = v64[2];
+            v47 = *v65 == v64;
+            v64 = v65;
+          }
+
+          while (!v47);
+        }
+
+        ++v66;
+        v63 = a2[1];
+        v64 = v65;
       }
 
+      while (v66 < v63[2] - 1);
+    }
+
+    v70 = (v63 + 1);
+    if (v65 == v70)
+    {
+      nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump();
+    }
+
+    v71 = v65[1];
+    if (v71)
+    {
+      do
+      {
+        v72 = v71;
+        v71 = *v71;
+      }
+
+      while (v71);
+    }
+
+    else
+    {
+      v83 = v65;
+      do
+      {
+        v72 = v83[2];
+        v47 = *v72 == v83;
+        v83 = v72;
+      }
+
+      while (!v47);
+    }
+
+    if (v72 != v70)
+    {
+      nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump();
+    }
+
+    v84 = (a1 + 76);
+    if (*(a1 + 631) < 0)
+    {
+      v84 = *v16;
+    }
+
+    ((**a1)[1])(*a1, v84, (a6 + a5));
+    (***a1)();
+    nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump_escaped(a1, v65 + 4, a4);
+    v85.n128_f64[0] = ((**a1)[1])(*a1, ": ", 3);
+    nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump(a1, v65 + 56, 1, a4, a5, (a6 + a5), v85);
+    (***a1)();
+    v62 = (**a1)[1];
+LABEL_128:
+    v62();
+LABEL_129:
+    v22 = ***a1;
+    goto LABEL_130;
+  }
+
+  if (*a2 <= 6u)
+  {
+    if (v11 == 5)
+    {
       v21 = a2[1];
 
-      return nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump_integer<unsigned long long,0>(a1, v21);
+      return nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump_integer<long long,0>(a1, v21);
+    }
+
+    else
+    {
+      if (v11 != 6)
+      {
+        goto LABEL_144;
+      }
+
+      v19 = a2[1];
+
+      return nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump_integer<unsigned long long,0>(a1, v19);
     }
   }
 
   else
   {
-    switch(v10)
+    switch(v11)
     {
       case 7u:
-        v39 = *(a2 + 1);
+        v34 = *(a2 + 1);
 
-        return nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump_float(a1, v39);
+        return nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump_float(a1, v34);
       case 8u:
-        v26 = *a1;
-        v27 = (**a1)[1];
+        v23 = (**a1)[1];
         if (a3)
         {
-          v27();
-          v28 = (a6 + a5);
-          v29 = a1 + 76;
-          v30 = *(a1 + 631);
-          if ((v30 & 0x80000000) != 0)
+          v23(a7);
+          v24 = (a6 + a5);
+          v25 = (a1 + 76);
+          v26 = *(a1 + 631);
+          if ((v26 & 0x80000000) != 0)
           {
-            v60 = a1[77];
-            if (v60 >= v28)
+            v56 = a1[77];
+            if (v56 >= v24)
             {
-              v31 = *a1;
+              v27 = *a1;
 LABEL_76:
-              v32 = *v29;
+              v28 = *v25;
               goto LABEL_77;
             }
           }
 
           else
           {
-            if (v28 <= v30)
+            if (v24 <= v26)
             {
-              v31 = *a1;
-              v32 = a1 + 76;
+              v27 = *a1;
+              v28 = (a1 + 76);
 LABEL_77:
-              ((*v31)[1])(v31, v32, v28);
+              ((*v27)[1])(v27, v28, v24);
               ((**a1)[1])(*a1, "bytes: [", 10);
-              v61 = *a2[1];
-              v62 = a2[1][1];
-              v63 = *a2[1];
-              if (v63 != v62)
+              v57 = a2[1][1];
+              v58 = *a2[1];
+              if (v58 != v57)
               {
-                for (; v63 != v62 - 1; v62 = a2[1][1])
+                for (; v58 != v57 - 1; v57 = a2[1][1])
                 {
-                  v64 = *v63++;
-                  nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump_integer<unsigned char,0>(a1, v64);
+                  v59 = *v58++;
+                  nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump_integer<unsigned char,0>(a1, v59);
                   ((**a1)[1])(*a1, ", ", 2);
                 }
 
-                nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump_integer<unsigned char,0>(a1, *(v62 - 1));
+                nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump_integer<unsigned char,0>(a1, *(v57 - 1));
               }
 
               ((**a1)[1])(*a1, "],\n", 3);
-              v65 = a1 + 76;
+              v60 = (a1 + 76);
               if (*(a1 + 631) < 0)
               {
-                v65 = *v29;
+                v60 = *v25;
               }
 
-              ((**a1)[1])(*a1, v65, v28);
+              ((**a1)[1])(*a1, v60, v24);
               ((**a1)[1])(*a1, "subtype: ", 11);
-              v66 = a2[1];
-              if (*(v66 + 25) == 1)
+              v61 = a2[1];
+              if (*(v61 + 25) == 1)
               {
-                nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump_integer<unsigned char,0>(a1, *(v66 + 24));
+                nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump_integer<unsigned char,0>(a1, *(v61 + 24));
               }
 
               else
@@ -3406,21 +3366,16 @@ LABEL_77:
               }
 
               (***a1)(*a1, 10);
-              if (*(a1 + 631) < 0)
-              {
-                v67 = *v29;
-              }
-
-              v68 = (**a1)[1];
-              goto LABEL_132;
+              v62 = (**a1)[1];
+              goto LABEL_128;
             }
 
-            v60 = *(a1 + 631);
+            v56 = *(a1 + 631);
           }
 
-          std::string::resize((a1 + 76), 2 * v60, 32);
-          v31 = *a1;
-          v32 = a1 + 76;
+          std::string::resize((a1 + 76), 2 * v56, 32);
+          v27 = *a1;
+          v28 = (a1 + 76);
           if ((*(a1 + 631) & 0x80000000) == 0)
           {
             goto LABEL_77;
@@ -3429,41 +3384,40 @@ LABEL_77:
           goto LABEL_76;
         }
 
-        v27();
-        v40 = *a2[1];
-        v41 = a2[1][1];
-        v42 = *a2[1];
-        if (v42 != v41)
+        v23(a7);
+        v35 = a2[1][1];
+        v36 = *a2[1];
+        if (v36 != v35)
         {
-          while (v42 != v41 - 1)
+          while (v36 != v35 - 1)
           {
-            v43 = *v42++;
-            nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump_integer<unsigned char,0>(a1, v43);
+            v37 = *v36++;
+            nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump_integer<unsigned char,0>(a1, v37);
             (***a1)(*a1, 44);
-            v41 = a2[1][1];
+            v35 = a2[1][1];
           }
 
-          nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump_integer<unsigned char,0>(a1, *(v41 - 1));
+          nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump_integer<unsigned char,0>(a1, *(v35 - 1));
         }
 
         ((**a1)[1])(*a1, "],subtype:", 12);
-        v45 = a2[1];
-        if (*(v45 + 25) != 1)
+        v39 = a2[1];
+        if (*(v39 + 25) != 1)
         {
           v13 = (**a1)[1];
           goto LABEL_71;
         }
 
-        nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump_integer<unsigned char,0>(a1, *(v45 + 24));
-        v46 = ***a1;
+        nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump_integer<unsigned char,0>(a1, *(v39 + 24));
+        v40 = ***a1;
 
-        return v46();
+        return v40();
       case 9u:
-        v14 = *a1;
         v13 = (**a1)[1];
         goto LABEL_71;
       default:
-        goto LABEL_148;
+LABEL_144:
+        nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump();
     }
   }
 }
@@ -3486,7 +3440,7 @@ void std::__shared_weak_count::__release_shared[abi:ne200100](std::__shared_weak
   }
 }
 
-void nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::serializer(uint64_t a1, uint64_t a2, char a3)
+void nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::serializer(uint64_t a1, uint64_t a2, char a3, int a4)
 {
   *a1 = *a2;
   *a2 = 0;
@@ -3495,17 +3449,17 @@ void nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std:
   *(a1 + 64) = 0u;
   *(a1 + 16) = 0u;
   *(a1 + 32) = 0u;
-  v5 = localeconv();
-  *(a1 + 80) = v5;
-  thousands_sep = v5->thousands_sep;
+  v6 = localeconv();
+  *(a1 + 80) = v6;
+  thousands_sep = v6->thousands_sep;
   if (thousands_sep)
   {
     LOBYTE(thousands_sep) = *thousands_sep;
   }
 
   *(a1 + 88) = thousands_sep;
-  decimal_point = v5->decimal_point;
-  if (v5->decimal_point)
+  decimal_point = v6->decimal_point;
+  if (v6->decimal_point)
   {
     LOBYTE(decimal_point) = *decimal_point;
   }
@@ -3558,7 +3512,7 @@ void sub_23E8458CC(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::string::basic_string[abi:ne200100](_BYTE *__b, size_t __len, int __c)
+void *std::string::basic_string[abi:ne200100](void *__b, size_t __len, int __c)
 {
   if (__len >= 0x7FFFFFFFFFFFFFF8)
   {
@@ -3570,17 +3524,17 @@ _BYTE *std::string::basic_string[abi:ne200100](_BYTE *__b, size_t __len, int __c
     operator new();
   }
 
-  __b[23] = __len;
+  *(__b + 23) = __len;
   if (__len)
   {
     memset(__b, __c, __len);
   }
 
-  __b[__len] = 0;
+  *(__b + __len) = 0;
   return __b;
 }
 
-uint64_t nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump_escaped(uint64_t result, uint64_t *a2, int a3)
+uint64_t nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump_escaped(uint64_t result, uint64_t **a2, int a3)
 {
   v46 = 0;
   v3 = *(a2 + 23);
@@ -3711,13 +3665,13 @@ LABEL_52:
       {
         switch(v47[0])
         {
-          case 8u:
+          case 8:
             v16 = 25180;
             goto LABEL_48;
-          case 9u:
+          case 9:
             v16 = 29788;
             goto LABEL_48;
-          case 0xAu:
+          case 10:
             v16 = 28252;
             goto LABEL_48;
         }
@@ -3767,7 +3721,7 @@ LABEL_49:
         }
       }
 
-      if (v47[0] > 0x7E)
+      if (v47[0] > 0x7Eu)
       {
         v21 = a3;
       }
@@ -3777,7 +3731,7 @@ LABEL_49:
         v21 = 0;
       }
 
-      if (v47[0] < 0x20 || v21)
+      if (v47[0] < 0x20u || v21)
       {
         if (HIWORD(v47[0]))
         {
@@ -4049,7 +4003,7 @@ LABEL_27:
       nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump_integer<long long,0>();
     }
 
-    v4 = &v3[v8];
+    v4 = v3 + v8;
     if (v2 < 0x64)
     {
       v12 = v2;
@@ -4144,7 +4098,7 @@ LABEL_15:
         do
         {
           v9 = v2 / 0x64;
-          *(v3 - 2) = nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump_integer<unsigned long long,0>(unsigned long long)::digits_to_99[v2 % 0x64];
+          *(v3 - 1) = nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump_integer<unsigned long long,0>(unsigned long long)::digits_to_99[v2 % 0x64];
           v3 -= 2;
           v10 = v2 >> 4;
           v2 /= 0x64uLL;
@@ -4155,7 +4109,7 @@ LABEL_15:
 
       if (v9 >= 0xA)
       {
-        *(v3 - 2) = nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump_integer<unsigned long long,0>(unsigned long long)::digits_to_99[v9];
+        *(v3 - 1) = nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump_integer<unsigned long long,0>(unsigned long long)::digits_to_99[v9];
 LABEL_24:
         v11 = (**a1)[1];
 
@@ -4186,14 +4140,9 @@ uint64_t nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,
     nlohmann::detail::to_chars<double>(a1 + 16, (a1 + 80), a2);
   }
 
-  else
-  {
-    v3 = *a1;
-  }
+  v3 = *(**a1 + 8);
 
-  v4 = *(**a1 + 8);
-
-  return v4();
+  return v3();
 }
 
 uint64_t nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::decode(_BYTE *a1, unsigned int *a2, int a3)
@@ -4221,7 +4170,7 @@ uint64_t nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,
   return v6;
 }
 
-uint64_t nlohmann::detail::to_chars<double>(_BYTE *a1, uint64_t a2, double a3)
+_BYTE *nlohmann::detail::to_chars<double>(_BYTE *a1, uint64_t a2, double a3)
 {
   if ((*&a3 & 0x7FFFFFFFFFFFFFFFuLL) >= 0x7FF0000000000000)
   {
@@ -4274,7 +4223,7 @@ uint64_t nlohmann::detail::to_chars<double>(_BYTE *a1, uint64_t a2, double a3)
   return result;
 }
 
-uint64_t nlohmann::detail::dtoa_impl::grisu2<double>(uint64_t a1, unsigned int *a2, _DWORD *a3, double a4)
+uint64_t nlohmann::detail::dtoa_impl::grisu2<double>(nlohmann::detail::dtoa_impl *a1, unsigned int *a2, _DWORD *a3, double a4)
 {
   if ((*&a4 & 0x7FFFFFFFFFFFFFFFuLL) >= 0x7FF0000000000000)
   {
@@ -4460,7 +4409,7 @@ LABEL_10:
   return result;
 }
 
-uint64_t nlohmann::detail::dtoa_impl::grisu2(uint64_t a1, unsigned int *a2, _DWORD *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, nlohmann::detail::dtoa_impl *a10)
+uint64_t nlohmann::detail::dtoa_impl::grisu2(nlohmann::detail::dtoa_impl *a1, unsigned int *a2, _DWORD *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, nlohmann::detail::dtoa_impl *a10)
 {
   v31[0] = a4;
   v31[1] = a5;
@@ -4573,18 +4522,16 @@ uint64_t nlohmann::detail::dtoa_impl::get_cached_power_for_binary_exponent(nlohm
   return *v3;
 }
 
-unint64_t nlohmann::detail::dtoa_impl::diyfp::mul(uint64_t a1, uint64_t a2)
+unint64_t nlohmann::detail::dtoa_impl::diyfp::mul(void *a1, void *a2)
 {
   v2 = HIDWORD(*a1);
   v3 = HIDWORD(*a2);
   v4 = v3 * *a1;
   v5 = *a2 * v2;
-  v6 = ((*a2 * *a1) >> 32) + v4 + v5;
-  v7 = (*(a1 + 8) + *(a2 + 8) + 64);
-  return HIDWORD(v5) + v3 * v2 + HIDWORD(v4) + ((v6 + 0x80000000) >> 32);
+  return HIDWORD(v5) + v3 * v2 + HIDWORD(v4) + ((((*a2 * *a1) >> 32) + v4 + v5 + 0x80000000) >> 32);
 }
 
-uint64_t nlohmann::detail::dtoa_impl::grisu2_digit_gen(uint64_t a1, unsigned int *a2, _DWORD *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, unint64_t a9, uint64_t a10)
+uint64_t nlohmann::detail::dtoa_impl::grisu2_digit_gen(nlohmann::detail::dtoa_impl *a1, unsigned int *a2, _DWORD *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, unint64_t a9, uint64_t a10)
 {
   v47[0] = a4;
   v47[1] = a5;
@@ -4922,16 +4869,16 @@ void *std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v
   if (v13[0] == 1)
   {
     v6 = a1 + *(*a1 - 24);
-    v7 = *(v6 + 40);
-    v8 = *(v6 + 8);
-    v9 = *(v6 + 144);
+    v7 = *(v6 + 5);
+    v8 = *(v6 + 2);
+    v9 = *(v6 + 36);
     if (v9 == -1)
     {
       std::ios_base::getloc((a1 + *(*a1 - 24)));
       v10 = std::locale::use_facet(&v14, MEMORY[0x277D82680]);
       v9 = (v10->__vftable[2].~facet_0)(v10, 32);
       std::locale::~locale(&v14);
-      *(v6 + 144) = v9;
+      *(v6 + 36) = v9;
     }
 
     if ((v8 & 0xB0) == 0x20)
@@ -4954,9 +4901,9 @@ void *std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v
   return a1;
 }
 
-void sub_23E847250(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, std::locale a12)
+void sub_23E847250(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, std::locale a12)
 {
-  MEMORY[0x23EF15C40](&a10);
+  MEMORY[0x23EF15C40](&a10, a2, a3, a4, a5, a6, a7, a8);
   __cxa_begin_catch(a1);
   std::ios_base::__set_badbit_and_consider_rethrow((v12 + *(*v12 - 24)));
   __cxa_end_catch();
@@ -5032,9 +4979,8 @@ void sub_23E8485D0(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t std::vector<BOOL>::push_back(uint64_t result, _BYTE *a2)
+void std::vector<BOOL>::push_back(uint64_t result, _BYTE *a2)
 {
-  v3 = result;
   v4 = *(result + 8);
   v5 = *(result + 16);
   if (v4 == v5 << 6)
@@ -5060,78 +5006,28 @@ uint64_t std::vector<BOOL>::push_back(uint64_t result, _BYTE *a2)
       v7 = 0x7FFFFFFFFFFFFFFFLL;
     }
 
-    result = std::vector<BOOL>::reserve(result, v7);
-    v4 = v3[1];
+    std::vector<BOOL>::reserve(result, v7);
+    v4 = *(result + 8);
   }
 
-  v3[1] = v4 + 1;
-  v8 = *v3;
+  *(result + 8) = v4 + 1;
+  v8 = *result;
   v9 = v4 >> 6;
   v10 = 1 << v4;
   if (*a2 == 1)
   {
-    v11 = *(v8 + 8 * v9) | v10;
+    v11 = *&v8[8 * v9] | v10;
   }
 
   else
   {
-    v11 = *(v8 + 8 * v9) & ~v10;
+    v11 = *&v8[8 * v9] & ~v10;
   }
 
-  *(v8 + 8 * v9) = v11;
-  return result;
+  *&v8[8 * v9] = v11;
 }
 
-{
-  v3 = result;
-  v4 = *(result + 8);
-  v5 = *(result + 16);
-  if (v4 == v5 << 6)
-  {
-    if ((v4 + 1) < 0)
-    {
-      std::vector<double>::__throw_length_error[abi:ne200100]();
-    }
-
-    v6 = v5 << 7;
-    if (v6 <= (v4 & 0x3FFFFFFFFFFFFFC0) + 64)
-    {
-      v6 = (v4 & 0x3FFFFFFFFFFFFFC0) + 64;
-    }
-
-    if (v4 <= 0x3FFFFFFFFFFFFFFELL)
-    {
-      v7 = v6;
-    }
-
-    else
-    {
-      v7 = 0x7FFFFFFFFFFFFFFFLL;
-    }
-
-    result = std::vector<BOOL>::reserve(result, v7);
-    v4 = v3[1];
-  }
-
-  v3[1] = v4 + 1;
-  v8 = *v3;
-  v9 = v4 >> 6;
-  v10 = 1 << v4;
-  if (*a2 == 1)
-  {
-    v11 = *(v8 + 8 * v9) | v10;
-  }
-
-  else
-  {
-    v11 = *(v8 + 8 * v9) & ~v10;
-  }
-
-  *(v8 + 8 * v9) = v11;
-  return result;
-}
-
-void sub_23E848DC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, void *a11, void *a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, void *a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, char a43, uint64_t a44, uint64_t a45, char a46, uint64_t a47, void *__p, uint64_t a49, int a50, __int16 a51, char a52, char a53, void *a54, uint64_t a55, int a56, __int16 a57, char a58, char a59)
+void sub_23E848DC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, void *a11, void *a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, void *a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, void *__p, uint64_t a49, int a50, __int16 a51, char a52, char a53, void *a54, uint64_t a55, int a56, __int16 a57, char a58, char a59)
 {
   nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::~basic_json(&a43);
   nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::~basic_json(&a46);
@@ -5160,21 +5056,20 @@ void nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsign
 
   if (*a1 == 1)
   {
-    v2 = *(a1 + 8);
-    std::__tree<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::__map_value_compare<std::string,std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::less<void>,true>,std::allocator<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>>>::__emplace_unique_impl<char const(&)[12],int &>();
+    std::__tree<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::__map_value_compare<std::string,std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::less<void>,true>,std::allocator<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>>>::__emplace_unique_impl<char const(&)[12],int &>(*(a1 + 8));
   }
 
   exception = __cxa_allocate_exception(0x20uLL);
-  v4 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::type_name(a1);
-  std::string::basic_string[abi:ne200100]<0>(&v9, v4);
-  v5 = std::string::insert(&v9, 0, "cannot use emplace() with ");
-  v6 = *&v5->__r_.__value_.__l.__data_;
-  v8 = v5->__r_.__value_.__r.__words[2];
-  v7 = v6;
-  v5->__r_.__value_.__l.__size_ = 0;
-  v5->__r_.__value_.__r.__words[2] = 0;
-  v5->__r_.__value_.__r.__words[0] = 0;
-  nlohmann::detail::type_error::create(311, &v7, exception);
+  v6 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::type_name(a1);
+  std::string::basic_string[abi:ne200100]<0>(&v10, v6);
+  v7 = std::string::insert(&v10, 0, "cannot use emplace() with ");
+  v8 = *&v7->__r_.__value_.__l.__data_;
+  *&v9[16] = *(&v7->__r_.__value_.__l + 2);
+  *v9 = v8;
+  v7->__r_.__value_.__l.__size_ = 0;
+  v7->__r_.__value_.__r.__words[2] = 0;
+  v7->__r_.__value_.__r.__words[0] = 0;
+  nlohmann::detail::type_error::create(311, v9, exception);
 }
 
 void sub_23E8490EC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, uint64_t a16, void *a17, uint64_t a18, int a19, __int16 a20, char a21, char a22)
@@ -5213,21 +5108,20 @@ void nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsign
 
   if (*a1 == 1)
   {
-    v2 = *(a1 + 8);
-    std::__tree<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::__map_value_compare<std::string,std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::less<void>,true>,std::allocator<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>>>::__emplace_unique_impl<char const(&)[15],nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>();
+    std::__tree<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::__map_value_compare<std::string,std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::less<void>,true>,std::allocator<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>>>::__emplace_unique_impl<char const(&)[15],nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>(*(a1 + 8));
   }
 
   exception = __cxa_allocate_exception(0x20uLL);
   v4 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::type_name(a1);
-  std::string::basic_string[abi:ne200100]<0>(&v9, v4);
-  v5 = std::string::insert(&v9, 0, "cannot use emplace() with ");
+  std::string::basic_string[abi:ne200100]<0>(&v8, v4);
+  v5 = std::string::insert(&v8, 0, "cannot use emplace() with ");
   v6 = *&v5->__r_.__value_.__l.__data_;
-  v8 = v5->__r_.__value_.__r.__words[2];
-  v7 = v6;
+  *&v7[16] = *(&v5->__r_.__value_.__l + 2);
+  *v7 = v6;
   v5->__r_.__value_.__l.__size_ = 0;
   v5->__r_.__value_.__r.__words[2] = 0;
   v5->__r_.__value_.__r.__words[0] = 0;
-  nlohmann::detail::type_error::create(311, &v7, exception);
+  nlohmann::detail::type_error::create(311, v7, exception);
 }
 
 void sub_23E8492AC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, uint64_t a16, void *a17, uint64_t a18, int a19, __int16 a20, char a21, char a22)
@@ -5266,21 +5160,20 @@ void nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsign
 
   if (*a1 == 1)
   {
-    v2 = *(a1 + 8);
-    std::__tree<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::__map_value_compare<std::string,std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::less<void>,true>,std::allocator<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>>>::__emplace_unique_impl<char const(&)[20],float>();
+    std::__tree<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::__map_value_compare<std::string,std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::less<void>,true>,std::allocator<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>>>::__emplace_unique_impl<char const(&)[20],float>(*(a1 + 8));
   }
 
   exception = __cxa_allocate_exception(0x20uLL);
-  v4 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::type_name(a1);
-  std::string::basic_string[abi:ne200100]<0>(&v9, v4);
-  v5 = std::string::insert(&v9, 0, "cannot use emplace() with ");
-  v6 = *&v5->__r_.__value_.__l.__data_;
-  v8 = v5->__r_.__value_.__r.__words[2];
-  v7 = v6;
-  v5->__r_.__value_.__l.__size_ = 0;
-  v5->__r_.__value_.__r.__words[2] = 0;
-  v5->__r_.__value_.__r.__words[0] = 0;
-  nlohmann::detail::type_error::create(311, &v7, exception);
+  v6 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::type_name(a1);
+  std::string::basic_string[abi:ne200100]<0>(&v10, v6);
+  v7 = std::string::insert(&v10, 0, "cannot use emplace() with ");
+  v8 = *&v7->__r_.__value_.__l.__data_;
+  *&v9[16] = *(&v7->__r_.__value_.__l + 2);
+  *v9 = v8;
+  v7->__r_.__value_.__l.__size_ = 0;
+  v7->__r_.__value_.__r.__words[2] = 0;
+  v7->__r_.__value_.__r.__words[0] = 0;
+  nlohmann::detail::type_error::create(311, v9, exception);
 }
 
 void sub_23E84946C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, uint64_t a16, void *a17, uint64_t a18, int a19, __int16 a20, char a21, char a22)
@@ -5319,21 +5212,20 @@ void nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsign
 
   if (*a1 == 1)
   {
-    v2 = *(a1 + 8);
-    std::__tree<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::__map_value_compare<std::string,std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::less<void>,true>,std::allocator<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>>>::__emplace_unique_impl<char const(&)[20],float>();
+    std::__tree<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::__map_value_compare<std::string,std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::less<void>,true>,std::allocator<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>>>::__emplace_unique_impl<char const(&)[20],float>(*(a1 + 8));
   }
 
   exception = __cxa_allocate_exception(0x20uLL);
-  v4 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::type_name(a1);
-  std::string::basic_string[abi:ne200100]<0>(&v9, v4);
-  v5 = std::string::insert(&v9, 0, "cannot use emplace() with ");
-  v6 = *&v5->__r_.__value_.__l.__data_;
-  v8 = v5->__r_.__value_.__r.__words[2];
-  v7 = v6;
-  v5->__r_.__value_.__l.__size_ = 0;
-  v5->__r_.__value_.__r.__words[2] = 0;
-  v5->__r_.__value_.__r.__words[0] = 0;
-  nlohmann::detail::type_error::create(311, &v7, exception);
+  v6 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::type_name(a1);
+  std::string::basic_string[abi:ne200100]<0>(&v10, v6);
+  v7 = std::string::insert(&v10, 0, "cannot use emplace() with ");
+  v8 = *&v7->__r_.__value_.__l.__data_;
+  *&v9[16] = *(&v7->__r_.__value_.__l + 2);
+  *v9 = v8;
+  v7->__r_.__value_.__l.__size_ = 0;
+  v7->__r_.__value_.__r.__words[2] = 0;
+  v7->__r_.__value_.__r.__words[0] = 0;
+  nlohmann::detail::type_error::create(311, v9, exception);
 }
 
 void sub_23E84962C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, uint64_t a16, void *a17, uint64_t a18, int a19, __int16 a20, char a21, char a22)
@@ -5372,21 +5264,20 @@ void nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsign
 
   if (*a1 == 1)
   {
-    v2 = *(a1 + 8);
-    std::__tree<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::__map_value_compare<std::string,std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::less<void>,true>,std::allocator<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>>>::__emplace_unique_impl<char const(&)[21],ABUnavailabilityReason>();
+    std::__tree<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::__map_value_compare<std::string,std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::less<void>,true>,std::allocator<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>>>::__emplace_unique_impl<char const(&)[21],ABUnavailabilityReason>(*(a1 + 8));
   }
 
   exception = __cxa_allocate_exception(0x20uLL);
-  v4 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::type_name(a1);
-  std::string::basic_string[abi:ne200100]<0>(&v9, v4);
-  v5 = std::string::insert(&v9, 0, "cannot use emplace() with ");
-  v6 = *&v5->__r_.__value_.__l.__data_;
-  v8 = v5->__r_.__value_.__r.__words[2];
-  v7 = v6;
-  v5->__r_.__value_.__l.__size_ = 0;
-  v5->__r_.__value_.__r.__words[2] = 0;
-  v5->__r_.__value_.__r.__words[0] = 0;
-  nlohmann::detail::type_error::create(311, &v7, exception);
+  v6 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::type_name(a1);
+  std::string::basic_string[abi:ne200100]<0>(&v10, v6);
+  v7 = std::string::insert(&v10, 0, "cannot use emplace() with ");
+  v8 = *&v7->__r_.__value_.__l.__data_;
+  *&v9[16] = *(&v7->__r_.__value_.__l + 2);
+  *v9 = v8;
+  v7->__r_.__value_.__l.__size_ = 0;
+  v7->__r_.__value_.__r.__words[2] = 0;
+  v7->__r_.__value_.__r.__words[0] = 0;
+  nlohmann::detail::type_error::create(311, v9, exception);
 }
 
 void sub_23E8497EC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, uint64_t a16, void *a17, uint64_t a18, int a19, __int16 a20, char a21, char a22)
@@ -5456,7 +5347,7 @@ void std::__variant_detail::__visitation::__base::__dispatcher<1ul>::__dispatch[
         *(v6 + 8) = 0;
       }
 
-      v7 = ab_get_framework_log();
+      v7 = ab_get_framework_log(a1);
       if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
       {
         std::__variant_detail::__visitation::__base::__dispatcher<1ul>::__dispatch[abi:ne200100]<std::__variant_detail::__visitation::__variant::__value_visitor<beryllium::overloaded<-[ABAfibBurdenAnalyzer processResults:withAlgsAnalytics:]::$_0,-[ABAfibBurdenAnalyzer processResults:withAlgsAnalytics:]::$_1>> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)0,beryllium::output_t,beryllium::ReasonForNoOutput> &>(v7);
@@ -5544,9 +5435,9 @@ void std::vector<std::vector<BOOL>>::clear[abi:ne200100](uint64_t *a1)
   a1[1] = v2;
 }
 
-uint64_t std::vector<BOOL>::reserve(uint64_t result, unint64_t a2)
+void std::vector<BOOL>::reserve(char **a1, unint64_t a2)
 {
-  if (a2 > *(result + 16) << 6)
+  if (a2 > a1[2] << 6)
   {
     if ((a2 & 0x8000000000000000) == 0)
     {
@@ -5557,24 +5448,6 @@ uint64_t std::vector<BOOL>::reserve(uint64_t result, unint64_t a2)
 
     std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::__throw_length_error[abi:ne200100]();
   }
-
-  return result;
-}
-
-{
-  if (a2 > *(result + 16) << 6)
-  {
-    if ((a2 & 0x8000000000000000) == 0)
-    {
-      v2 = 0;
-      v3 = 0uLL;
-      std::vector<BOOL>::__vallocate[abi:ne200100](&v2, a2);
-    }
-
-    std::vector<double>::__throw_length_error[abi:ne200100]();
-  }
-
-  return result;
 }
 
 void sub_23E84A1E4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *__p)
@@ -5587,7 +5460,7 @@ void sub_23E84A1E4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<BOOL>::__vallocate[abi:ne200100](uint64_t a1, uint64_t a2)
+void std::vector<BOOL>::__vallocate[abi:ne200100](uint64_t *a1, uint64_t a2)
 {
   if ((a2 & 0x8000000000000000) == 0)
   {
@@ -5626,7 +5499,7 @@ void std::vector<BOOL>::__vallocate[abi:ne200100](uint64_t a1, uint64_t a2)
   std::vector<double>::__throw_length_error[abi:ne200100]();
 }
 
-void std::vector<BOOL>::__construct_at_end<std::__bit_iterator<std::vector<BOOL>,false,0ul>,std::__bit_iterator<std::vector<BOOL>,false,0ul>>(void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
+void std::vector<BOOL>::__construct_at_end<std::__bit_iterator<std::vector<BOOL>,false,0ul>,std::__bit_iterator<std::vector<BOOL>,false,0ul>>(void *a1, uint64_t *a2, uint64_t *a3, uint64_t a4)
 {
   v6 = a1[1];
   v7 = v6 + a4;
@@ -5648,9 +5521,9 @@ void std::vector<BOOL>::__construct_at_end<std::__bit_iterator<std::vector<BOOL>
 
   v20 = v4;
   v21 = v5;
-  v9 = *(a2 + 8);
+  v9 = *(a2 + 2);
   v10 = *a3;
-  v11 = *(a3 + 8);
+  v11 = *(a3 + 2);
   v12 = *a1 + 8 * (v6 >> 6);
   v18 = *a2;
   v19 = v9;
@@ -5658,7 +5531,7 @@ void std::vector<BOOL>::__construct_at_end<std::__bit_iterator<std::vector<BOOL>
   v17 = v11;
   v14 = v12;
   v15 = v6 & 0x3F;
-  std::__copy_move_unwrap_iters[abi:ne200100]<std::__copy_impl,std::__bit_iterator<std::vector<BOOL>,false,0ul>,std::__bit_iterator<std::vector<BOOL>,false,0ul>,std::__bit_iterator<std::vector<BOOL>,false,0ul>,0>(&v18, &v16, &v14, &v13);
+  std::__copy_move_unwrap_iters[abi:ne200100]<std::__copy_impl,std::__bit_iterator<std::vector<BOOL>,false,0ul>,std::__bit_iterator<std::vector<BOOL>,false,0ul>,std::__bit_iterator<std::vector<BOOL>,false,0ul>,0>(&v18, &v16, &v14, v13);
 }
 
 void std::__copy_move_unwrap_iters[abi:ne200100]<std::__copy_impl,std::__bit_iterator<std::vector<BOOL>,false,0ul>,std::__bit_iterator<std::vector<BOOL>,false,0ul>,std::__bit_iterator<std::vector<BOOL>,false,0ul>,0>(uint64_t *a1@<X0>, uint64_t *a2@<X1>, uint64_t *a3@<X2>, uint64_t a4@<X8>)
@@ -5743,21 +5616,21 @@ void std::__copy_impl::operator()[abi:ne200100]<std::__bit_iterator<std::vector<
   *(a4 + 24) = v6;
 }
 
-uint64_t std::vector<std::vector<BOOL>>::__emplace_back_slow_path<std::vector<BOOL> const&>(uint64_t a1, uint64_t a2)
+uint64_t std::vector<std::vector<BOOL>>::__emplace_back_slow_path<std::vector<BOOL> const&>(unint64_t *a1, void *a2)
 {
-  v2 = 0xAAAAAAAAAAAAAAABLL * ((*(a1 + 8) - *a1) >> 3);
+  v2 = 0xAAAAAAAAAAAAAAABLL * ((a1[1] - *a1) >> 3);
   v3 = v2 + 1;
   if (v2 + 1 > 0xAAAAAAAAAAAAAAALL)
   {
     std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::__throw_length_error[abi:ne200100]();
   }
 
-  if (0x5555555555555556 * ((*(a1 + 16) - *a1) >> 3) > v3)
+  if (0x5555555555555556 * ((a1[2] - *a1) >> 3) > v3)
   {
-    v3 = 0x5555555555555556 * ((*(a1 + 16) - *a1) >> 3);
+    v3 = 0x5555555555555556 * ((a1[2] - *a1) >> 3);
   }
 
-  if (0xAAAAAAAAAAAAAAABLL * ((*(a1 + 16) - *a1) >> 3) >= 0x555555555555555)
+  if (0xAAAAAAAAAAAAAAABLL * ((a1[2] - *a1) >> 3) >= 0x555555555555555)
   {
     v6 = 0xAAAAAAAAAAAAAAALL;
   }
@@ -5777,14 +5650,14 @@ uint64_t std::vector<std::vector<BOOL>>::__emplace_back_slow_path<std::vector<BO
   v14 = 24 * v2;
   std::vector<BOOL>::vector((24 * v2), a2);
   v15 = 24 * v2 + 24;
-  v7 = *(a1 + 8);
+  v7 = a1[1];
   v8 = 24 * v2 + *a1 - v7;
   std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<std::vector<BOOL>>,std::vector<BOOL>*>(a1, *a1, v7, v8);
   v9 = *a1;
   *a1 = v8;
-  v10 = *(a1 + 16);
+  v10 = a1[2];
   v12 = v15;
-  *(a1 + 8) = v15;
+  *(a1 + 1) = v15;
   *&v15 = v9;
   *(&v15 + 1) = v10;
   v13 = v9;
@@ -5793,38 +5666,25 @@ uint64_t std::vector<std::vector<BOOL>>::__emplace_back_slow_path<std::vector<BO
   return v12;
 }
 
-void sub_23E84A560(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_23E84A560(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<std::vector<BOOL>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
 
-void *std::vector<BOOL>::vector(void *result, uint64_t a2)
+uint64_t *std::vector<BOOL>::vector(uint64_t *a1, void *a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
-  v2 = *(a2 + 8);
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
+  v2 = a2[1];
   if (v2)
   {
-    std::vector<BOOL>::__vallocate[abi:ne200100](result, v2);
+    std::vector<BOOL>::__vallocate[abi:ne200100](a1, v2);
   }
 
-  return result;
-}
-
-{
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
-  v2 = *(a2 + 8);
-  if (v2)
-  {
-    std::vector<BOOL>::__vallocate[abi:ne200100](result, v2);
-  }
-
-  return result;
+  return a1;
 }
 
 void std::vector<BOOL>::__construct_at_end<std::__bit_iterator<std::vector<BOOL>,true,0ul>,std::__bit_iterator<std::vector<BOOL>,true,0ul>>(void *a1, void *a2, unsigned int a3, void *a4, int a5, uint64_t a6)
@@ -6070,23 +5930,23 @@ void sub_23E84AD0C(_Unwind_Exception *a1)
 
 uint64_t beryllium::process(beryllium *this, core_analytics_t *a2, core_analytics_t *a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  if (algs_get_log())
+  v12 = *MEMORY[0x277D85DE8];
+  log = algs_get_log(this, a2);
+  if (log)
   {
-    log = algs_get_log();
-    if (os_log_type_enabled(log, OS_LOG_TYPE_DEFAULT))
+    v7 = algs_get_log(log, v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = 136315138;
-      v10 = "1.0.8.4";
-      _os_log_impl(&dword_23E83E000, log, OS_LOG_TYPE_DEFAULT, "Beryllium Alg Version: %s", &v9, 0xCu);
+      v10 = 136315138;
+      v11 = "1.0.8.4";
+      _os_log_impl(&dword_23E83E000, v7, OS_LOG_TYPE_DEFAULT, "Beryllium Alg Version: %s", &v10, 0xCu);
     }
   }
 
-  beryllium::BerylliumProcessor::BerylliumProcessor(&v9);
-  v6 = beryllium::BerylliumProcessor::beryllium_process(&v9, this, a2);
-  beryllium::BerylliumProcessor::~BerylliumProcessor(&v9);
-  v7 = *MEMORY[0x277D85DE8];
-  return v6;
+  beryllium::BerylliumProcessor::BerylliumProcessor(&v10);
+  v8 = beryllium::BerylliumProcessor::beryllium_process(&v10, this, a2);
+  beryllium::BerylliumProcessor::~BerylliumProcessor(&v10);
+  return v8;
 }
 
 void beryllium::BerylliumProcessor::~BerylliumProcessor(beryllium::BerylliumProcessor *this)
@@ -6157,7 +6017,7 @@ void beryllium::BerylliumProcessor::~BerylliumProcessor(beryllium::BerylliumProc
   }
 }
 
-uint64_t algs_get_log()
+uint64_t algs_get_log(uint64_t a1, uint64_t a2)
 {
   if (algs_get_log_onceToken != -1)
   {
@@ -6386,13 +6246,13 @@ LABEL_31:
 
 uint64_t beryllium::BerylliumProcessor::interpolate_Tachograms_and_calc_AFibBurden(beryllium::BerylliumProcessor *this, const beryllium::input_t *a2, output_t *a3)
 {
-  v111 = *MEMORY[0x277D85DE8];
+  v117 = *MEMORY[0x277D85DE8];
   __p = 0;
-  v104 = 0;
-  v105 = 0;
+  v110 = 0;
+  v111 = 0;
   __src = 0;
-  v101 = 0;
-  v102 = 0;
+  v107 = 0;
+  v108 = 0;
   v6 = beryllium::BerylliumProcessor::check_min_tacho_condition(this, a2);
   if ((v6 & 0x100000000) != 0)
   {
@@ -6411,7 +6271,7 @@ uint64_t beryllium::BerylliumProcessor::interpolate_Tachograms_and_calc_AFibBurd
     {
       std::vector<double>::__insert_with_size[abi:ne200100]<std::__wrap_iter<double const*>,std::__wrap_iter<double const*>>(this + 21, *(this + 22), *(v7 + v8), *(v7 + v8 + 8), (*(v7 + v8 + 8) - *(v7 + v8)) >> 3);
       v10 = *(a2 + 3) + v8;
-      std::vector<BOOL>::__insert_with_size[abi:ne200100]<std::__bit_iterator<std::vector<BOOL>,true,0ul>,std::__bit_iterator<std::vector<BOOL>,true,0ul>>(this + 192, *(this + 24) + 8 * (*(this + 25) >> 6), *(this + 25) & 0x3F, *v10, 0, (*v10 + 8 * (*(v10 + 8) >> 6)), *(v10 + 8) & 0x3F, *(v10 + 8), buf);
+      std::vector<BOOL>::__insert_with_size[abi:ne200100]<std::__bit_iterator<std::vector<BOOL>,true,0ul>,std::__bit_iterator<std::vector<BOOL>,true,0ul>>(this + 24, *(this + 24) + 8 * (*(this + 25) >> 6), *(this + 25) & 0x3FLL, *v10, 0, (*v10 + 8 * (*(v10 + 8) >> 6)), *(v10 + 8) & 0x3F, *(v10 + 8), buf);
       ++v9;
       v7 = *a2;
       v8 += 24;
@@ -6429,10 +6289,10 @@ uint64_t beryllium::BerylliumProcessor::interpolate_Tachograms_and_calc_AFibBurd
   else
   {
     v12 = 0;
-    v13 = v101;
+    v13 = v107;
     do
     {
-      if (v13 >= v102)
+      if (v13 >= v108)
       {
         v14 = __src;
         v15 = v13 - __src;
@@ -6443,8 +6303,8 @@ uint64_t beryllium::BerylliumProcessor::interpolate_Tachograms_and_calc_AFibBurd
           std::vector<double>::__throw_length_error[abi:ne200100]();
         }
 
-        v18 = v102 - __src;
-        if ((v102 - __src) >> 2 > v17)
+        v18 = v108 - __src;
+        if ((v108 - __src) >> 2 > v17)
         {
           v17 = v18 >> 2;
         }
@@ -6472,8 +6332,8 @@ uint64_t beryllium::BerylliumProcessor::interpolate_Tachograms_and_calc_AFibBurd
         memcpy(v22, v14, v15);
         v23 = __src;
         __src = v22;
-        v101 = v13;
-        v102 = 0;
+        v107 = v13;
+        v108 = 0;
         if (v23)
         {
           operator delete(v23);
@@ -6486,7 +6346,7 @@ uint64_t beryllium::BerylliumProcessor::interpolate_Tachograms_and_calc_AFibBurd
         v13 += 8;
       }
 
-      v101 = v13;
+      v107 = v13;
       ++v12;
       v11 = *(this + 21);
       v24 = (*(this + 22) - v11) >> 3;
@@ -6503,7 +6363,7 @@ uint64_t beryllium::BerylliumProcessor::interpolate_Tachograms_and_calc_AFibBurd
     do
     {
       buf[0] = (*(*(this + 24) + ((*(__src + v28) >> 3) & 0x1FFFFFFFFFFFFFF8)) >> *(__src + v28)) & 1;
-      std::vector<BOOL>::push_back(this + 216, buf);
+      std::vector<BOOL>::push_back(this + 27, buf);
       ++v28;
     }
 
@@ -6543,7 +6403,7 @@ uint64_t beryllium::BerylliumProcessor::interpolate_Tachograms_and_calc_AFibBurd
     memmove(v32, v32 + 1, v38 - (v32 + 1));
   }
 
-  v98 = a3;
+  v104 = a3;
   *(this + 1) = v32 + v39;
   *buf = 0;
   std::vector<double>::push_back[abi:ne200100](&__p, buf);
@@ -6578,10 +6438,10 @@ uint64_t beryllium::BerylliumProcessor::interpolate_Tachograms_and_calc_AFibBurd
   }
 
   v44 = __p;
-  if (v104 != __p)
+  if (v110 != __p)
   {
     v45 = 0;
-    v46 = (v104 - __p) >> 3;
+    v46 = (v110 - __p) >> 3;
     do
     {
       *(this + 4) = *(this + 3);
@@ -6642,208 +6502,213 @@ LABEL_46:
       if ((v50 & 0x3F) != 0)
       {
         *&buf[8] = v50 & 0x3F;
-        v108 = v58;
-        v109 = v51 & 0x3F;
-        v106 = v59;
-        v107 = 0;
-        std::__copy_unaligned[abi:ne200100]<std::vector<BOOL>,false>(buf, &v108, &v106, v99);
+        v114 = v58;
+        v115 = v51 & 0x3F;
+        v112 = v59;
+        v113 = 0;
+        v60 = std::__copy_unaligned[abi:ne200100]<std::vector<BOOL>,false>(buf, &v114, &v112, v105);
       }
 
       else
       {
         *&buf[8] = 0;
-        v108 = v58;
-        v109 = v51 & 0x3F;
-        v106 = v59;
-        v107 = 0;
-        std::__copy_aligned[abi:ne200100]<std::vector<BOOL>,false>(buf, &v108, &v106, v99);
+        v114 = v58;
+        v115 = v51 & 0x3F;
+        v112 = v59;
+        v113 = 0;
+        v60 = std::__copy_aligned[abi:ne200100]<std::vector<BOOL>,false>(buf, &v114, &v112, v105);
       }
 
-      if (algs_get_log() && *(this + 4) != *(this + 3))
+      log = algs_get_log(v60, v61);
+      if (log && *(this + 4) != *(this + 3))
       {
-        v60 = 0;
+        v64 = 0;
         do
         {
-          log = algs_get_log();
-          if (os_log_type_enabled(log, OS_LOG_TYPE_DEBUG))
+          v65 = algs_get_log(log, v63);
+          log = os_log_type_enabled(v65, OS_LOG_TYPE_DEBUG);
+          if (log)
           {
-            v62 = *(*(this + 3) + 8 * v60);
+            v66 = *(*(this + 3) + 8 * v64);
             *buf = 134217984;
-            *&buf[4] = v62;
-            _os_log_debug_impl(&dword_23E83E000, log, OS_LOG_TYPE_DEBUG, "\nPre-Interpolation Trigger Time: %f", buf, 0xCu);
+            *&buf[4] = v66;
+            _os_log_debug_impl(&dword_23E83E000, v65, OS_LOG_TYPE_DEBUG, "\nPre-Interpolation Trigger Time: %f", buf, 0xCu);
           }
 
-          ++v60;
+          ++v64;
         }
 
-        while (v60 < (*(this + 4) - *(this + 3)) >> 3);
+        while (v64 < (*(this + 4) - *(this + 3)) >> 3);
       }
 
       if (*(this + 7) == 1)
       {
         std::vector<double>::__assign_with_size[abi:ne200100]<double *,double *>(this + 9, *(this + 3), *(this + 4), (*(this + 4) - *(this + 3)) >> 3);
-        std::vector<BOOL>::operator=(this + 96, this + 48);
+        std::vector<BOOL>::operator=(this + 12, this + 48);
       }
 
       else
       {
-        v63 = vcvtpd_s64_f64((*(*(this + 4) - 8) - **(this + 3)) / 600.0);
+        v67 = vcvtpd_s64_f64((*(*(this + 4) - 8) - **(this + 3)) / 600.0);
         *buf = 0x4082C00000000000;
-        v64 = v63;
-        v108 = 0;
-        std::vector<double>::assign(this + 9, v63, &v108);
-        vDSP_vrampD(*(this + 3), buf, *(this + 9), 1, v64);
-        LOBYTE(v108) = 0;
-        std::vector<BOOL>::assign(this + 12, v64, &v108);
-        v65 = *(this + 9);
-        v66 = *(this + 10);
-        v67 = v66 - v65;
-        if (v66 != v65)
+        v68 = v67;
+        v114 = 0;
+        std::vector<double>::assign(this + 9, v67, &v114);
+        vDSP_vrampD(*(this + 3), buf, *(this + 9), 1, v68);
+        LOBYTE(v114) = 0;
+        std::vector<BOOL>::assign(this + 12, v68, &v114);
+        v69 = *(this + 9);
+        v70 = *(this + 10);
+        v71 = v70 - v69;
+        if (v70 != v69)
         {
-          v68 = 0;
-          v69 = v67 >> 3;
-          v70 = *(this + 3);
-          v71 = (*(this + 4) - v70) >> 3;
-          if (v69 <= 1)
+          v72 = 0;
+          v73 = v71 >> 3;
+          v74 = *(this + 3);
+          v75 = (*(this + 4) - v74) >> 3;
+          if (v73 <= 1)
           {
-            v69 = 1;
+            v73 = 1;
           }
 
           do
           {
-            if (v71 >= 2)
+            if (v75 >= 2)
             {
-              v72 = 0;
-              v73 = *(v65 + 8 * v68);
+              v76 = 0;
+              v77 = *(v69 + 8 * v72);
               while (1)
               {
-                v74 = *(v70 + 8 + 8 * v72);
-                if (v74 > v73)
+                v78 = *(v74 + 8 + 8 * v76);
+                if (v78 > v77)
                 {
                   break;
                 }
 
-                if (v71 - 1 == ++v72)
+                if (v75 - 1 == ++v76)
                 {
                   goto LABEL_77;
                 }
               }
 
-              if (vabdd_f64(v73, v74) < vabdd_f64(v73, *(v70 + 8 * v72)))
+              if (vabdd_f64(v77, v78) < vabdd_f64(v77, *(v74 + 8 * v76)))
               {
-                LODWORD(v72) = v72 + 1;
+                LODWORD(v76) = v76 + 1;
               }
 
-              v75 = v72;
-              v76 = (v72 >> 3) & 0x1FFFFFFFFFFFFFF8;
-              v77 = *(this + 12);
-              v78 = v68 >> 6;
-              v79 = 1 << v68;
-              if ((*(*(this + 6) + v76) >> v75))
+              v79 = v76;
+              v80 = (v76 >> 3) & 0x1FFFFFFFFFFFFFF8;
+              v81 = *(this + 12);
+              v82 = v72 >> 6;
+              v83 = 1 << v72;
+              if ((*(*(this + 6) + v80) >> v79))
               {
-                v80 = *(v77 + 8 * v78) | v79;
+                v84 = *(v81 + 8 * v82) | v83;
               }
 
               else
               {
-                v80 = *(v77 + 8 * v78) & ~v79;
+                v84 = *(v81 + 8 * v82) & ~v83;
               }
 
-              *(v77 + 8 * v78) = v80;
+              *(v81 + 8 * v82) = v84;
             }
 
 LABEL_77:
-            ++v68;
+            ++v72;
           }
 
-          while (v68 != v69);
+          while (v72 != v73);
         }
       }
 
-      v81 = *(this + 16);
-      if (v81 == *(this + 15))
+      v85 = *(this + 16);
+      if (v85 == *(this + 15))
       {
         std::vector<double>::__assign_with_size[abi:ne200100]<double *,double *>(this + 15, *(this + 9), *(this + 10), (*(this + 10) - *(this + 9)) >> 3);
-        std::vector<BOOL>::operator=(this + 144, this + 96);
+        std::vector<BOOL>::operator=(this + 18, this + 96);
       }
 
       else
       {
-        std::vector<double>::__insert_with_size[abi:ne200100]<std::__wrap_iter<double *>,std::__wrap_iter<double *>>(this + 120, v81, *(this + 9), *(this + 10), (*(this + 10) - *(this + 9)) >> 3);
-        v82 = *(this + 18) + 8 * (*(this + 19) >> 6);
+        std::vector<double>::__insert_with_size[abi:ne200100]<std::__wrap_iter<double *>,std::__wrap_iter<double *>>(this + 15, v85, *(this + 9), *(this + 10), (*(this + 10) - *(this + 9)) >> 3);
+        v86 = *(this + 18) + 8 * (*(this + 19) >> 6);
         v39 = v39 & 0xFFFFFFFF00000000 | *(this + 19) & 0x3FLL;
-        v83 = *(this + 13);
-        v84 = *(this + 12) + 8 * (v83 >> 6);
+        v87 = *(this + 13);
+        v88 = *(this + 12) + 8 * (v87 >> 6);
         *buf = *(this + 12);
         *&buf[8] = 0;
-        v108 = v84;
-        v109 = v83 & 0x3F;
-        std::vector<BOOL>::__insert_with_size[abi:ne200100]<std::__bit_iterator<std::vector<BOOL>,false,0ul>,std::__bit_iterator<std::vector<BOOL>,false,0ul>>(this + 144, v82, v39, buf, &v108, v83, &v106);
+        v114 = v88;
+        v115 = v87 & 0x3F;
+        std::vector<BOOL>::__insert_with_size[abi:ne200100]<std::__bit_iterator<std::vector<BOOL>,false,0ul>,std::__bit_iterator<std::vector<BOOL>,false,0ul>>(this + 144, v86, v39, buf, &v114, v87, &v112);
       }
 
       ++v45;
       v44 = __p;
-      v46 = (v104 - __p) >> 3;
+      v46 = (v110 - __p) >> 3;
     }
 
     while (v46 > v45);
   }
 
-  v85 = *(this + 19);
+  v89 = *(this + 19);
   *buf = *(this + 18);
   *&buf[8] = 0;
-  v98->Afib_burden = (std::__count_BOOL[abi:ne200100]<true,std::vector<BOOL>,false>(buf, v85) / *(this + 19)) * 100.0;
-  v86 = *(this + 28);
+  v104->Afib_burden = (std::__count_BOOL[abi:ne200100]<true,std::vector<BOOL>,false>(buf, v89) / *(this + 19)) * 100.0;
+  v90 = *(this + 28);
   *buf = *(this + 27);
   *&buf[8] = 0;
-  v87 = std::__count_BOOL[abi:ne200100]<true,std::vector<BOOL>,false>(buf, v86);
-  v88 = *(this + 28);
-  if (algs_get_log())
+  v91 = std::__count_BOOL[abi:ne200100]<true,std::vector<BOOL>,false>(buf, v90);
+  v92 = *(this + 28);
+  v94 = algs_get_log(v91, v93);
+  if (v94)
   {
     if (*(this + 16) != *(this + 15))
     {
-      v89 = 0;
+      v96 = 0;
       do
       {
-        v90 = algs_get_log();
-        if (os_log_type_enabled(v90, OS_LOG_TYPE_DEBUG))
+        v97 = algs_get_log(v94, v95);
+        v94 = os_log_type_enabled(v97, OS_LOG_TYPE_DEBUG);
+        if (v94)
         {
-          v91 = *(*(this + 15) + 8 * v89);
+          v98 = *(*(this + 15) + 8 * v96);
           *buf = 134217984;
-          *&buf[4] = v91;
-          _os_log_debug_impl(&dword_23E83E000, v90, OS_LOG_TYPE_DEBUG, "\nInterpolated Trigger Time: %f", buf, 0xCu);
+          *&buf[4] = v98;
+          _os_log_debug_impl(&dword_23E83E000, v97, OS_LOG_TYPE_DEBUG, "\nInterpolated Trigger Time: %f", buf, 0xCu);
         }
 
-        ++v89;
+        ++v96;
       }
 
-      while (v89 < (*(this + 16) - *(this + 15)) >> 3);
+      while (v96 < (*(this + 16) - *(this + 15)) >> 3);
     }
 
     if (*(this + 19))
     {
-      v92 = 0;
+      v99 = 0;
       do
       {
-        v93 = algs_get_log();
-        if (os_log_type_enabled(v93, OS_LOG_TYPE_DEBUG))
+        v100 = algs_get_log(v94, v95);
+        v94 = os_log_type_enabled(v100, OS_LOG_TYPE_DEBUG);
+        if (v94)
         {
-          v94 = (*(*(this + 18) + ((v92 >> 3) & 0x1FFFFFFFFFFFFFF8)) >> v92) & 1;
+          v101 = (*(*(this + 18) + ((v99 >> 3) & 0x1FFFFFFFFFFFFFF8)) >> v99) & 1;
           *buf = 67109120;
-          *&buf[4] = v94;
-          _os_log_debug_impl(&dword_23E83E000, v93, OS_LOG_TYPE_DEBUG, "\nInterpolated Classification: %u", buf, 8u);
+          *&buf[4] = v101;
+          _os_log_debug_impl(&dword_23E83E000, v100, OS_LOG_TYPE_DEBUG, "\nInterpolated Classification: %u", buf, 8u);
         }
 
-        ++v92;
+        ++v99;
       }
 
-      while (*(this + 19) > v92);
+      while (*(this + 19) > v99);
     }
 
-    v95 = algs_get_log();
-    if (os_log_type_enabled(v95, OS_LOG_TYPE_DEBUG))
+    v102 = algs_get_log(v94, v95);
+    if (os_log_type_enabled(v102, OS_LOG_TYPE_DEBUG))
     {
-      beryllium::BerylliumProcessor::interpolate_Tachograms_and_calc_AFibBurden(v95, (v87 / v88) * 100.0);
+      beryllium::BerylliumProcessor::interpolate_Tachograms_and_calc_AFibBurden(v102, (v91 / v92) * 100.0);
     }
   }
 
@@ -6853,21 +6718,68 @@ LABEL_77:
 LABEL_96:
   if (__src)
   {
-    v101 = __src;
+    v107 = __src;
     operator delete(__src);
   }
 
   if (__p)
   {
-    v104 = __p;
+    v110 = __p;
     operator delete(__p);
   }
 
-  v96 = *MEMORY[0x277D85DE8];
   return v26 | v27 | v25;
 }
 
-void *std::vector<double>::assign(void *a1, unint64_t a2, uint64_t *a3)
+void std::vector<BOOL>::push_back(uint64_t *result, _BYTE *a2)
+{
+  v4 = result[1];
+  v5 = result[2];
+  if (v4 == v5 << 6)
+  {
+    if ((v4 + 1) < 0)
+    {
+      std::vector<double>::__throw_length_error[abi:ne200100]();
+    }
+
+    v6 = v5 << 7;
+    if (v6 <= (v4 & 0x3FFFFFFFFFFFFFC0) + 64)
+    {
+      v6 = (v4 & 0x3FFFFFFFFFFFFFC0) + 64;
+    }
+
+    if (v4 <= 0x3FFFFFFFFFFFFFFELL)
+    {
+      v7 = v6;
+    }
+
+    else
+    {
+      v7 = 0x7FFFFFFFFFFFFFFFLL;
+    }
+
+    std::vector<BOOL>::reserve(result, v7);
+    v4 = result[1];
+  }
+
+  result[1] = v4 + 1;
+  v8 = *result;
+  v9 = v4 >> 6;
+  v10 = 1 << v4;
+  if (*a2 == 1)
+  {
+    v11 = *(v8 + 8 * v9) | v10;
+  }
+
+  else
+  {
+    v11 = *(v8 + 8 * v9) & ~v10;
+  }
+
+  *(v8 + 8 * v9) = v11;
+}
+
+void *std::vector<double>::assign(uint64_t *a1, unint64_t a2, uint64_t *a3)
 {
   v5 = a1[2];
   result = *a1;
@@ -6985,7 +6897,7 @@ void *std::vector<double>::assign(void *a1, unint64_t a2, uint64_t *a3)
   return result;
 }
 
-void std::vector<double>::push_back[abi:ne200100](const void **a1, void *a2)
+void std::vector<double>::push_back[abi:ne200100](const void **a1, uint64_t *a2)
 {
   v5 = a1[1];
   v4 = a1[2];
@@ -7034,7 +6946,7 @@ void std::vector<double>::push_back[abi:ne200100](const void **a1, void *a2)
   else
   {
     *v5 = *a2;
-    v6 = v5 + 1;
+    v6 = v5 + 8;
   }
 
   a1[1] = v6;
@@ -7088,28 +7000,28 @@ void std::vector<double>::push_back[abi:ne200100](const void **a1, void *a2)
   else
   {
     *v5 = *a2;
-    v6 = v5 + 1;
+    v6 = v5 + 8;
   }
 
   a1[1] = v6;
 }
 
-void std::vector<BOOL>::assign(void *a1, unint64_t a2, _BYTE *a3)
+void std::vector<BOOL>::assign(uint64_t *result, unint64_t a2, _BYTE *a3)
 {
-  a1[1] = 0;
+  result[1] = 0;
   if (a2)
   {
-    v6 = a1[2];
+    v6 = result[2];
     v7 = v6 << 6;
     if (v6 << 6 >= a2)
     {
-      a1[1] = a2;
+      result[1] = a2;
     }
 
     else
     {
-      v15 = 0;
-      v16 = 0uLL;
+      v14 = 0;
+      v15 = 0uLL;
       if ((a2 & 0x8000000000000000) != 0)
       {
         std::vector<double>::__throw_length_error[abi:ne200100]();
@@ -7131,35 +7043,34 @@ void std::vector<BOOL>::assign(void *a1, unint64_t a2, _BYTE *a3)
         v9 = 0x7FFFFFFFFFFFFFFFLL;
       }
 
-      std::vector<BOOL>::reserve(&v15, v9);
-      v11 = v15;
-      v12 = *(&v16 + 1);
-      v15 = *a1;
-      v10 = v15;
-      v13 = *(a1 + 1);
-      *a1 = v11;
-      a1[1] = a2;
-      a1[2] = v12;
-      v16 = v13;
+      std::vector<BOOL>::reserve(&v14, v9);
+      v11 = v14;
+      v12 = *(&v15 + 1);
+      v14 = *result;
+      v10 = v14;
+      v13 = *(result + 1);
+      *result = v11;
+      result[1] = a2;
+      result[2] = v12;
+      v15 = v13;
       if (v10)
       {
         operator delete(v10);
       }
     }
 
-    v14 = *a1;
     if (*a3 == 1)
     {
-      v15 = *a1;
-      LODWORD(v16) = 0;
-      std::__fill_n_BOOL[abi:ne200100]<true,std::vector<BOOL>>(&v15, a2);
+      v14 = *result;
+      LODWORD(v15) = 0;
+      std::__fill_n_BOOL[abi:ne200100]<true,std::vector<BOOL>>(&v14, a2);
     }
 
     else
     {
-      v15 = *a1;
-      LODWORD(v16) = 0;
-      std::__fill_n_BOOL[abi:ne200100]<false,std::vector<BOOL>>(&v15, a2);
+      v14 = *result;
+      LODWORD(v15) = 0;
+      std::__fill_n_BOOL[abi:ne200100]<false,std::vector<BOOL>>(&v14, a2);
     }
   }
 }
@@ -7174,22 +7085,22 @@ void sub_23E84BFD8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<BOOL>::operator=(uint64_t a1, uint64_t a2)
+uint64_t *std::vector<BOOL>::operator=(uint64_t *a1, uint64_t a2)
 {
   if (a1 != a2)
   {
     v4 = *(a2 + 8);
     if (v4)
     {
-      if (v4 > *(a1 + 16) << 6)
+      if (v4 > a1[2] << 6)
       {
         v5 = *a1;
         if (*a1)
         {
           operator delete(v5);
           *a1 = 0;
-          *(a1 + 8) = 0;
-          *(a1 + 16) = 0;
+          a1[1] = 0;
+          a1[2] = 0;
           v4 = *(a2 + 8);
         }
 
@@ -7205,38 +7116,38 @@ uint64_t std::vector<BOOL>::operator=(uint64_t a1, uint64_t a2)
       v6 = 0;
     }
 
-    *(a1 + 8) = v6;
+    a1[1] = v6;
   }
 
   return a1;
 }
 
-void beryllium::BerylliumProcessor::calculateAFdensity(uint64_t a1, double **a2, void *a3)
+void beryllium::BerylliumProcessor::calculateAFdensity(uint64_t a1, const double **a2, void *a3)
 {
+  v51 = 0;
   v52 = 0;
   v53 = 0;
-  v54 = 0;
+  v48 = 0;
   v49 = 0;
   v50 = 0;
-  v51 = 0;
+  v45 = 0;
   v46 = 0;
   v47 = 0;
-  v48 = 0;
+  v42 = 0;
   v43 = 0;
   v44 = 0;
-  v45 = 0;
   __C = 0;
+  v40 = 0;
   v41 = 0;
-  v42 = 0;
+  v36 = 0;
   v37 = 0;
   v38 = 0;
-  v39 = 0;
+  v33 = 0;
   v34 = 0;
   v35 = 0;
-  v36 = 0;
   v6 = *(a1 + 224);
   __p = *(a1 + 216);
-  LODWORD(v29) = 0;
+  LODWORD(v28) = 0;
   v7 = std::__count_BOOL[abi:ne200100]<true,std::vector<BOOL>,false>(&__p, v6);
   v8 = *(a1 + 224);
   v9 = *(a2[1] - 1) - **a2;
@@ -7255,27 +7166,27 @@ void beryllium::BerylliumProcessor::calculateAFdensity(uint64_t a1, double **a2,
   __B = 600.0;
   v13 = v12;
   __p = 0;
-  std::vector<double>::assign(&v52, v13, &__p);
+  std::vector<double>::assign(&v51, v13, &__p);
   __p = 0;
-  std::vector<double>::assign(&v49, v13, &__p);
+  std::vector<double>::assign(&v48, v13, &__p);
   __p = 0;
-  std::vector<double>::assign(&v46, v13, &__p);
-  vDSP_vrampD(*a2, &__B, v52, 1, v13);
-  v32 = **a2;
-  vDSP_vsubD(&v32, 0, v52, 1, v49, 1, v53 - v52);
-  v31 = *(a2[1] - 1) - **a2;
-  vDSP_vsdivD(v49, 1, &v31, v46, 1, v50 - v49);
-  v50 = v49;
+  std::vector<double>::assign(&v45, v13, &__p);
+  vDSP_vrampD(*a2, &__B, v51, 1, v13);
+  v31 = **a2;
+  vDSP_vsubD(&v31, 0, v51, 1, v48, 1, v52 - v51);
+  v30 = *(a2[1] - 1) - **a2;
+  vDSP_vsdivD(v48, 1, &v30, v45, 1, v49 - v48);
+  v49 = v48;
   __p = 0;
-  std::vector<double>::push_back[abi:ne200100](&v43, &__p);
+  std::vector<double>::push_back[abi:ne200100](&v42, &__p);
   v14 = (v7 / v8);
-  if ((v53 - v52) >= 9)
+  if ((v52 - v51) >= 9)
   {
     v15 = 1;
     do
     {
-      v38 = v37;
-      v35 = 0;
+      v37 = v36;
+      v34 = 0;
       LODWORD(__p) = 0;
       v17 = *a2;
       v16 = a2[1];
@@ -7290,11 +7201,11 @@ void beryllium::BerylliumProcessor::calculateAFdensity(uint64_t a1, double **a2,
         v19 = 0;
         do
         {
-          if (v17[v19] < v52[v15])
+          if (v17[v19] < v51[v15])
           {
-            std::vector<int>::push_back[abi:ne200100](&v37, &__p);
-            LOBYTE(v30) = (*(*a3 + ((__p >> 3) & 0x1FFFFFFFFFFFFFF8)) >> __p) & 1;
-            std::vector<BOOL>::push_back(&v34, &v30);
+            std::vector<int>::push_back[abi:ne200100](&v36, &__p);
+            LOBYTE(v29) = (*(*a3 + ((__p >> 3) & 0x1FFFFFFFFFFFFFF8)) >> __p) & 1;
+            std::vector<BOOL>::push_back(&v33, &v29);
             v18 = __p;
             v17 = *a2;
             v16 = a2[1];
@@ -7305,25 +7216,25 @@ void beryllium::BerylliumProcessor::calculateAFdensity(uint64_t a1, double **a2,
         }
 
         while (v18 < (v16 - v17));
-        v20 = v35;
+        v20 = v34;
       }
 
-      __p = v34;
-      LODWORD(v29) = 0;
-      v30 = 1.0 / v14 * std::__count_BOOL[abi:ne200100]<true,std::vector<BOOL>,false>(&__p, v20) / a3[1];
-      std::vector<double>::push_back[abi:ne200100](&v43, &v30);
+      __p = v33;
+      LODWORD(v28) = 0;
+      v29 = 1.0 / v14 * std::__count_BOOL[abi:ne200100]<true,std::vector<BOOL>,false>(&__p, v20) / a3[1];
+      std::vector<double>::push_back[abi:ne200100](&v42, &v29);
       ++v15;
     }
 
-    while (v15 < v53 - v52);
+    while (v15 < v52 - v51);
   }
 
-  vDSP_vsubD(v43, 1, v46, 1, v43, 1, (v44 - v43) >> 3);
-  std::vector<double>::vector[abi:ne200100](&__p, (v44 - v43) >> 3);
-  v21 = v43;
-  v22 = v44;
+  vDSP_vsubD(v42, 1, v45, 1, v42, 1, (v43 - v42) >> 3);
+  std::vector<double>::vector[abi:ne200100](&__p, (v43 - v42) >> 3);
+  v21 = v42;
+  v22 = v43;
   v23 = __p;
-  if (v43 != v44)
+  if (v42 != v43)
   {
     v24 = __p;
     do
@@ -7335,56 +7246,55 @@ void beryllium::BerylliumProcessor::calculateAFdensity(uint64_t a1, double **a2,
     while (v21 != v22);
   }
 
-  v30 = v46[1] - *v46;
-  v27 = 0;
-  std::vector<double>::assign(&__C, (v29 - v23) >> 3, &v27);
-  vDSP_vtrapzD(__p, 1, &v30, __C, 1, (v29 - __p) >> 3);
-  v26 = *(v41 - 1);
+  v29 = v45[1] - *v45;
+  v26 = 0;
+  std::vector<double>::assign(&__C, (v28 - v23) >> 3, &v26);
+  vDSP_vtrapzD(__p, 1, &v29, __C, 1, (v28 - __p) >> 3);
   if (__p)
   {
-    v29 = __p;
+    v28 = __p;
     operator delete(__p);
   }
 
-  if (v34)
+  if (v33)
   {
-    operator delete(v34);
+    operator delete(v33);
   }
 
-  if (v37)
+  if (v36)
   {
-    v38 = v37;
-    operator delete(v37);
+    v37 = v36;
+    operator delete(v36);
   }
 
   if (__C)
   {
-    v41 = __C;
+    v40 = __C;
     operator delete(__C);
   }
 
-  if (v43)
+  if (v42)
   {
-    v44 = v43;
-    operator delete(v43);
+    v43 = v42;
+    operator delete(v42);
   }
 
-  if (v46)
+  if (v45)
   {
-    v47 = v46;
-    operator delete(v46);
+    v46 = v45;
+    operator delete(v45);
   }
 
-  if (v49)
+  if (v48)
   {
-    v50 = v49;
-    operator delete(v49);
+    v49 = v48;
+    operator delete(v48);
   }
 
-  if (v52)
+  if (v51)
   {
-    v53 = v52;
-    operator delete(v52);
+    v52 = v51;
+    operator delete(v51);
   }
 }
 
@@ -7439,7 +7349,7 @@ void sub_23E84C4A8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<int>::push_back[abi:ne200100](const void **a1, _DWORD *a2)
+void std::vector<int>::push_back[abi:ne200100](const void **a1, int *a2)
 {
   v5 = a1[1];
   v4 = a1[2];
@@ -7567,7 +7477,7 @@ LABEL_25:
             __C = 0;
             v37 = 0;
             v38 = 0;
-            std::vector<double>::__init_with_size[abi:ne200100]<std::__wrap_iter<double const*>,std::__wrap_iter<double const*>>(&__C, v31 + 8 * v28, v31 + v32, (v32 - 8 * v28) >> 3);
+            std::vector<double>::__init_with_size[abi:ne200100]<std::__wrap_iter<double const*>,std::__wrap_iter<double const*>>(&__C, (v31 + 8 * v28), (v31 + v32), (v32 - 8 * v28) >> 3);
             v35 = v29 + 600.0 - v30;
             std::vector<double>::assign(&v46, v37 - __C, &v35);
             vDSP_vaddD(__C, 1, v46, 1, __C, 1, v47 - v46);
@@ -7587,7 +7497,7 @@ LABEL_25:
 
         __C = *v43;
         vDSP_vsubD(&__C, 0, v43, 1, v43, 1, (__dst - v43) >> 3);
-        std::vector<BOOL>::vector(__p, (this + 27));
+        std::vector<BOOL>::vector(__p, this + 27);
         beryllium::BerylliumProcessor::calculateAFdensity(this, &v43, __p);
         v3 = v33;
         if (__p[0])
@@ -7694,7 +7604,7 @@ void sub_23E84C9B0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-float beryllium::BerylliumProcessor::median(beryllium::BerylliumProcessor *this, double *a2, int a3)
+float beryllium::BerylliumProcessor::median(beryllium::BerylliumProcessor *this, double *a2, unsigned int a3)
 {
   if (a3 <= 0)
   {
@@ -7777,35 +7687,29 @@ void sub_23E84CB58(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void *std::vector<double>::reserve(void *result, unint64_t a2)
+void std::vector<double>::reserve(void *a1, unint64_t a2)
 {
-  if (a2 > (result[2] - *result) >> 3)
+  if (a2 > (a1[2] - *a1) >> 3)
   {
     if (!(a2 >> 61))
     {
-      v2 = result[1] - *result;
-      std::__allocate_at_least[abi:ne200100]<std::allocator<double>>(result, a2);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<double>>(a1, a2);
     }
 
     std::vector<double>::__throw_length_error[abi:ne200100]();
   }
-
-  return result;
 }
 
 {
-  if (a2 > (result[2] - *result) >> 3)
+  if (a2 > (a1[2] - *a1) >> 3)
   {
     if (!(a2 >> 61))
     {
-      v2 = result[1] - *result;
-      std::__allocate_at_least[abi:ne200100]<std::allocator<double>>(result, a2);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<double>>(a1, a2);
     }
 
     std::vector<float>::__throw_length_error[abi:ne200100]();
   }
-
-  return result;
 }
 
 float beryllium::BerylliumProcessor::calc_tacho_times_diff_median(beryllium::BerylliumProcessor *this, const beryllium::input_t *a2)
@@ -8094,7 +7998,8 @@ char *std::vector<double>::__insert_with_size[abi:ne200100]<std::__wrap_iter<dou
     v35 = (8 * v16);
     do
     {
-      v36 = *v7++;
+      v36 = *v7;
+      v7 += 8;
       *v35++ = v36;
       v34 -= 8;
     }
@@ -8189,12 +8094,13 @@ LABEL_34:
   return v5;
 }
 
-void std::vector<BOOL>::__insert_with_size[abi:ne200100]<std::__bit_iterator<std::vector<BOOL>,true,0ul>,std::__bit_iterator<std::vector<BOOL>,true,0ul>>(uint64_t a1@<X0>, unint64_t a2@<X1>, unsigned int a3@<W2>, void *a4@<X3>, unsigned int a5@<W4>, void *a6@<X5>, int a7@<W6>, unint64_t a8@<X7>, uint64_t a9@<X8>)
+void std::vector<BOOL>::__insert_with_size[abi:ne200100]<std::__bit_iterator<std::vector<BOOL>,true,0ul>,std::__bit_iterator<std::vector<BOOL>,true,0ul>>(char **a1@<X0>, unint64_t a2@<X1>, uint64_t a3@<X2>, void *a4@<X3>, unsigned int a5@<W4>, void *a6@<X5>, int a7@<W6>, unint64_t a8@<X7>, uint64_t a9@<X8>)
 {
+  v14 = a3;
   *a9 = 0;
   *(a9 + 8) = 0;
-  v19 = *(a1 + 8);
-  v18 = *(a1 + 16);
+  v19 = a1[1];
+  v18 = a1[2];
   if (v18 << 6 < a8 || v19 > (v18 << 6) - a8)
   {
     v43 = 0;
@@ -8205,7 +8111,7 @@ void std::vector<BOOL>::__insert_with_size[abi:ne200100]<std::__bit_iterator<std
       std::vector<double>::__throw_length_error[abi:ne200100]();
     }
 
-    if ((v18 << 6) > 0x3FFFFFFFFFFFFFFELL)
+    if (v18 << 6 > 0x3FFFFFFFFFFFFFFEuLL)
     {
       v24 = 0x7FFFFFFFFFFFFFFFLL;
     }
@@ -8227,34 +8133,34 @@ void std::vector<BOOL>::__insert_with_size[abi:ne200100]<std::__bit_iterator<std
 
     std::vector<BOOL>::reserve(&v43, v24);
     v30 = *a1;
-    *&v44 = *(a1 + 8) + a8;
+    *&v44 = &a1[1][a8];
     v41 = v43;
     v42 = 0;
-    std::__copy_aligned[abi:ne200100]<std::vector<BOOL>,true>(v30, 0, a2, a3, &v41, &v39);
+    std::__copy_aligned[abi:ne200100]<std::vector<BOOL>,true>(&v39, v30, 0, a2, v14, &v41);
     v31 = v39;
     *a9 = v39;
     v32 = v40;
     *(a9 + 8) = v40;
-    v33 = *(a1 + 8);
-    v34 = (*a1 + 8 * (v33 >> 6));
+    v33 = a1[1];
+    v34 = &(*a1)[8 * (v33 >> 6)];
     v35 = v33 & 0x3F;
-    v41 = &v43[v44 >> 6];
+    v41 = &v43[8 * (v44 >> 6)];
     v42 = v44 & 0x3F;
     if (v42 == v35)
     {
-      std::__copy_backward_aligned[abi:ne200100]<std::vector<BOOL>,true>(a2, a3, v34, v35, &v41, &v39);
+      std::__copy_backward_aligned[abi:ne200100]<std::vector<BOOL>,true>(a2, v14, v34, v35, &v41, &v39);
     }
 
     else
     {
-      std::__copy_backward_unaligned[abi:ne200100]<std::vector<BOOL>,true>(a2, a3, v34, v35, &v41, &v39);
+      std::__copy_backward_unaligned[abi:ne200100]<std::vector<BOOL>,true>(a2, v14, v34, v35, &v41, &v39);
     }
 
     v36 = *a1;
     *a1 = v43;
     v43 = v36;
-    v37 = *(a1 + 8);
-    *(a1 + 8) = v44;
+    v37 = *(a1 + 1);
+    *(a1 + 1) = v44;
     v44 = v37;
     if (v36)
     {
@@ -8265,29 +8171,29 @@ void std::vector<BOOL>::__insert_with_size[abi:ne200100]<std::__bit_iterator<std
   else
   {
     v25 = *a1;
-    v26 = (*a1 + 8 * (v19 >> 6));
-    v27 = *(a1 + 8) & 0x3FLL;
-    *(a1 + 8) = v19 + a8;
+    v26 = &(*a1)[8 * (v19 >> 6)];
+    v27 = a1[1] & 0x3F;
+    a1[1] = (v19 + a8);
     v43 = &v25[(v19 + a8) >> 6];
     if (((v19 + a8) & 0x3F) == v27)
     {
       LODWORD(v44) = v27;
-      std::__copy_backward_aligned[abi:ne200100]<std::vector<BOOL>,true>(a2, a3, v26, v19 & 0x3F, &v43, &v41);
+      std::__copy_backward_aligned[abi:ne200100]<std::vector<BOOL>,true>(a2, v14, v26, v19 & 0x3F, &v43, &v41);
     }
 
     else
     {
       LODWORD(v44) = (v19 + a8) & 0x3F;
-      std::__copy_backward_unaligned[abi:ne200100]<std::vector<BOOL>,true>(a2, a3, v26, v19 & 0x3F, &v43, &v41);
+      std::__copy_backward_unaligned[abi:ne200100]<std::vector<BOOL>,true>(a2, v14, v26, v19 & 0x3F, &v43, &v41);
     }
 
-    v28 = 8 * (a2 - *a1) + a3;
+    v28 = 8 * (a2 - *a1) + v14;
     if (v28 < 0)
     {
       v38 = v28 - 63;
       if (v28 - 63 < 0)
       {
-        v38 = 8 * (a2 - *a1) + a3;
+        v38 = 8 * (a2 - *a1) + v14;
       }
 
       v29 = v38 >> 6;
@@ -8298,7 +8204,7 @@ void std::vector<BOOL>::__insert_with_size[abi:ne200100]<std::__bit_iterator<std
       v29 = v28 >> 6;
     }
 
-    v31 = *a1 + 8 * v29;
+    v31 = &(*a1)[8 * v29];
     v32 = v28 & 0x3F;
     *a9 = v31;
     *(a9 + 8) = v32;
@@ -8317,6 +8223,21 @@ void sub_23E84D55C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   }
 
   _Unwind_Resume(exception_object);
+}
+
+void std::vector<BOOL>::reserve(uint64_t *a1, unint64_t a2)
+{
+  if (a2 > a1[2] << 6)
+  {
+    if ((a2 & 0x8000000000000000) == 0)
+    {
+      v2 = 0;
+      v3 = 0uLL;
+      std::vector<BOOL>::__vallocate[abi:ne200100](&v2, a2);
+    }
+
+    std::vector<double>::__throw_length_error[abi:ne200100]();
+  }
 }
 
 void sub_23E84D620(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *__p)
@@ -8510,23 +8431,23 @@ unint64_t std::__copy_backward_unaligned[abi:ne200100]<std::vector<BOOL>,true>@<
   return result;
 }
 
-unint64_t *std::__copy_aligned[abi:ne200100]<std::vector<BOOL>,true>@<X0>(unint64_t *__src@<X0>, unsigned int a2@<W1>, uint64_t a3@<X2>, unsigned int a4@<W3>, uint64_t a5@<X4>, uint64_t a6@<X8>)
+unint64_t *std::__copy_aligned[abi:ne200100]<std::vector<BOOL>,true>@<X0>(unint64_t **__return_ptr a1@<X8>, unint64_t *__src@<X0>, unsigned int a3@<W1>, uint64_t a4@<X2>, unsigned int a5@<W3>, uint64_t a6@<X4>)
 {
-  v8 = a4 - a2 + 8 * (a3 - __src);
+  v8 = a5 - a3 + 8 * (a4 - __src);
   if (v8 <= 0)
   {
-    v16 = *a5;
+    v16 = *a6;
   }
 
   else
   {
     v9 = __src;
-    __src = *a5;
-    if (a2)
+    __src = *a6;
+    if (a3)
     {
-      if (v8 >= (64 - a2))
+      if (v8 >= (64 - a3))
       {
-        v10 = 64 - a2;
+        v10 = 64 - a3;
       }
 
       else
@@ -8536,11 +8457,11 @@ unint64_t *std::__copy_aligned[abi:ne200100]<std::vector<BOOL>,true>@<X0>(unint6
 
       v8 -= v10;
       v11 = *v9++;
-      *__src = *__src & ~((0xFFFFFFFFFFFFFFFFLL >> (64 - a2 - v10)) & (-1 << a2)) | v11 & (0xFFFFFFFFFFFFFFFFLL >> (64 - a2 - v10)) & (-1 << a2);
-      v12 = v10 + *(a5 + 8);
+      *__src = *__src & ~((0xFFFFFFFFFFFFFFFFLL >> (64 - a3 - v10)) & (-1 << a3)) | v11 & (0xFFFFFFFFFFFFFFFFLL >> (64 - a3 - v10)) & (-1 << a3);
+      v12 = v10 + *(a6 + 8);
       __src = (__src + ((v12 >> 3) & 0x3FFFFFF8));
-      *a5 = __src;
-      *(a5 + 8) = v12 & 0x3F;
+      *a6 = __src;
+      *(a6 + 8) = v12 & 0x3F;
     }
 
     if (v8 >= 0)
@@ -8557,21 +8478,21 @@ unint64_t *std::__copy_aligned[abi:ne200100]<std::vector<BOOL>,true>@<X0>(unint6
     if ((v8 + 63) >= 0x7F)
     {
       memmove(__src, v9, 8 * v14);
-      __src = *a5;
+      __src = *a6;
     }
 
     v15 = v8 - (v14 << 6);
     v16 = &__src[v14];
-    *a5 = v16;
+    *a6 = v16;
     if (v15 >= 1)
     {
       *v16 = *v16 & ~(0xFFFFFFFFFFFFFFFFLL >> ((v14 << 6) - v8)) | v9[v14] & (0xFFFFFFFFFFFFFFFFLL >> ((v14 << 6) - v8));
-      *(a5 + 8) = v15;
+      *(a6 + 8) = v15;
     }
   }
 
-  *a6 = v16;
-  *(a6 + 8) = *(a5 + 8);
+  *a1 = v16;
+  *(a1 + 2) = *(a6 + 8);
   return __src;
 }
 
@@ -8854,7 +8775,7 @@ unsigned int *std::__copy_unaligned[abi:ne200100]<std::vector<BOOL>,false>@<X0>(
   return result;
 }
 
-void *std::vector<double>::__assign_with_size[abi:ne200100]<double *,double *>(void *result, char *__src, char *a3, unint64_t a4)
+uint64_t *std::vector<double>::__assign_with_size[abi:ne200100]<double *,double *>(uint64_t *result, char *__src, char *a3, unint64_t a4)
 {
   v6 = result;
   v7 = result[2];
@@ -8929,7 +8850,7 @@ void *std::vector<double>::__assign_with_size[abi:ne200100]<double *,double *>(v
   return result;
 }
 
-char *std::vector<double>::__insert_with_size[abi:ne200100]<std::__wrap_iter<double *>,std::__wrap_iter<double *>>(uint64_t a1, char *__dst, char *__src, char *a4, uint64_t a5)
+char *std::vector<double>::__insert_with_size[abi:ne200100]<std::__wrap_iter<double *>,std::__wrap_iter<double *>>(void *a1, char *__dst, char *__src, char *a4, uint64_t a5)
 {
   v5 = __dst;
   if (a5 < 1)
@@ -8938,8 +8859,8 @@ char *std::vector<double>::__insert_with_size[abi:ne200100]<std::__wrap_iter<dou
   }
 
   v7 = __src;
-  v10 = *(a1 + 8);
-  v9 = *(a1 + 16);
+  v10 = a1[1];
+  v9 = a1[2];
   if (a5 > (v9 - v10) >> 3)
   {
     v11 = *a1;
@@ -8977,23 +8898,24 @@ char *std::vector<double>::__insert_with_size[abi:ne200100]<std::__wrap_iter<dou
     v35 = (8 * v16);
     do
     {
-      v36 = *v7++;
+      v36 = *v7;
+      v7 += 8;
       *v35++ = v36;
       v34 -= 8;
     }
 
     while (v34);
-    memcpy((v33 + 8 * a5), v5, *(a1 + 8) - v5);
+    memcpy((v33 + 8 * a5), v5, a1[1] - v5);
     v37 = *a1;
-    v38 = v33 + 8 * a5 + *(a1 + 8) - v5;
-    *(a1 + 8) = v5;
+    v38 = v33 + 8 * a5 + a1[1] - v5;
+    a1[1] = v5;
     v39 = v5 - v37;
     v40 = (v33 - (v5 - v37));
     memcpy(v40, v37, v39);
     v41 = *a1;
     *a1 = v40;
-    *(a1 + 8) = v38;
-    *(a1 + 16) = 0;
+    a1[1] = v38;
+    a1[2] = 0;
     if (v41)
     {
       operator delete(v41);
@@ -9008,14 +8930,14 @@ char *std::vector<double>::__insert_with_size[abi:ne200100]<std::__wrap_iter<dou
   {
     v29 = &__dst[8 * a5];
     v30 = (v10 - 8 * a5);
-    v31 = *(a1 + 8);
+    v31 = a1[1];
     while (v30 < v10)
     {
       v32 = *v30++;
       *v31++ = v32;
     }
 
-    *(a1 + 8) = v31;
+    a1[1] = v31;
     if (v10 != v29)
     {
       memmove(&__dst[8 * a5], __dst, v10 - v29);
@@ -9030,11 +8952,11 @@ char *std::vector<double>::__insert_with_size[abi:ne200100]<std::__wrap_iter<dou
   v20 = a4 - &__src[v17];
   if (a4 != &__src[v17])
   {
-    memmove(*(a1 + 8), &__src[v17], a4 - &__src[v17]);
+    memmove(a1[1], &__src[v17], a4 - &__src[v17]);
   }
 
   v21 = (v10 + v20);
-  *(a1 + 8) = v10 + v20;
+  a1[1] = v10 + v20;
   if (v18 >= 1)
   {
     v22 = &v5[8 * a5];
@@ -9054,7 +8976,7 @@ char *std::vector<double>::__insert_with_size[abi:ne200100]<std::__wrap_iter<dou
       v23 = v24 - v7;
     }
 
-    *(a1 + 8) = v23;
+    a1[1] = v23;
     if (v21 != v22)
     {
       memmove(&v5[8 * a5], v5, v21 - v22);
@@ -9114,7 +9036,7 @@ void std::vector<BOOL>::__insert_with_size[abi:ne200100]<std::__bit_iterator<std
     *&v39 = *(a1 + 8) + a6;
     v44 = v38;
     v45 = 0;
-    std::__copy_aligned[abi:ne200100]<std::vector<BOOL>,true>(v26, 0, a2, a3, &v44, &v42);
+    std::__copy_aligned[abi:ne200100]<std::vector<BOOL>,true>(&v42, v26, 0, a2, a3, &v44);
     v27 = v42;
     *a7 = v42;
     v28 = v43;
@@ -9122,7 +9044,7 @@ void std::vector<BOOL>::__insert_with_size[abi:ne200100]<std::__bit_iterator<std
     v29 = *(a1 + 8);
     v30 = (*a1 + 8 * (v29 >> 6));
     v31 = v29 & 0x3F;
-    v44 = v38 + 8 * (v39 >> 6);
+    v44 = &v38[v39 >> 6];
     v45 = v39 & 0x3F;
     if (v45 == v31)
     {
@@ -9182,7 +9104,7 @@ void std::vector<BOOL>::__insert_with_size[abi:ne200100]<std::__bit_iterator<std
       v25 = v24 >> 6;
     }
 
-    v27 = *a1 + 8 * v25;
+    v27 = (*a1 + 8 * v25);
     v28 = v24 & 0x3F;
     *a7 = v27;
     *(a7 + 8) = v28;
@@ -9273,17 +9195,17 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<int>>(uint64_t a1, un
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-void *std::vector<double>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<double>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<double>::__vallocate[abi:ne200100](result, a2);
+    std::vector<double>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_23E84E748(_Unwind_Exception *exception_object)
@@ -9298,7 +9220,7 @@ void sub_23E84E748(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<double>::__init_with_size[abi:ne200100]<std::__wrap_iter<double const*>,std::__wrap_iter<double const*>>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<double>::__init_with_size[abi:ne200100]<std::__wrap_iter<double const*>,std::__wrap_iter<double const*>>(uint64_t *result, uint64_t *a2, uint64_t *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -9320,11 +9242,25 @@ void sub_23E84E7BC(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::__nth_element[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::__wrap_iter<double *>>(double *a1, double *a2, double *a3, double a4)
+uint64_t *std::vector<BOOL>::vector(uint64_t *a1, uint64_t *a2)
+{
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
+  v2 = a2[1];
+  if (v2)
+  {
+    std::vector<BOOL>::__vallocate[abi:ne200100](a1, v2);
+  }
+
+  return a1;
+}
+
+void std::__nth_element[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::__wrap_iter<double *>>(double *result, double *a2, double *a3, double a4)
 {
   while (a3 != a2)
   {
-    v4 = a3 - a1;
+    v4 = a3 - result;
     if (v4 < 2)
     {
       break;
@@ -9332,11 +9268,11 @@ void std::__nth_element[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,vo
 
     if (v4 == 3)
     {
-      v37 = a1[1];
+      v37 = result[1];
       v38 = *(a3 - 1);
       if (v37 < v38)
       {
-        v39 = *(a1 + 1);
+        v39 = *(result + 1);
       }
 
       else
@@ -9350,46 +9286,46 @@ void std::__nth_element[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,vo
       }
 
       *(a3 - 1) = v37;
-      *(a1 + 1) = v39;
+      *(result + 1) = v39;
       v40 = *(a3 - 1);
-      if (v40 < *a1)
+      if (v40 < *result)
       {
         v41 = *(a3 - 1);
       }
 
       else
       {
-        v41 = *a1;
+        v41 = *result;
       }
 
-      if (v40 < *a1)
+      if (v40 < *result)
       {
-        v40 = *a1;
+        v40 = *result;
       }
 
       *(a3 - 1) = v40;
-      v42 = a1[1];
+      v42 = result[1];
       if (v41 < v42)
       {
-        v41 = a1[1];
+        v41 = result[1];
       }
 
       else
       {
-        *a1 = v42;
+        *result = v42;
       }
 
-      a1[1] = v41;
+      result[1] = v41;
       return;
     }
 
     if (v4 == 2)
     {
       v43 = *(a3 - 1);
-      v44 = *a1;
-      if (v43 < *a1)
+      v44 = *result;
+      if (v43 < *result)
       {
-        *a1 = v43;
+        *result = v43;
         *(a3 - 1) = v44;
       }
 
@@ -9398,11 +9334,11 @@ void std::__nth_element[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,vo
 
     if (v4 <= 7)
     {
-      std::__selection_sort[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::__wrap_iter<double *>>(a1, a3, a4);
+      std::__selection_sort[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::__wrap_iter<double *>>(result, a3, a4);
       return;
     }
 
-    v5 = &a1[(a3 - a1) >> 4];
+    v5 = &result[(a3 - result) >> 4];
     v6 = a3 - 1;
     v7 = *(a3 - 1);
     v8 = *v5;
@@ -9429,20 +9365,20 @@ void std::__nth_element[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,vo
     *v6 = v10;
     *v5 = v9;
     v11 = *v6;
-    v12 = *a1;
-    if (*v6 < *a1)
+    v12 = *result;
+    if (*v6 < *result)
     {
       v13 = *v6;
     }
 
     else
     {
-      v13 = *a1;
+      v13 = *result;
     }
 
-    if (*v6 < *a1)
+    if (*v6 < *result)
     {
-      v14 = *a1;
+      v14 = *result;
     }
 
     else
@@ -9455,7 +9391,7 @@ void std::__nth_element[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,vo
     v16 = *v5;
     if (v13 >= *v5)
     {
-      *a1 = v15;
+      *result = v15;
       v16 = v13;
     }
 
@@ -9471,15 +9407,15 @@ void std::__nth_element[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,vo
       v17 = 1;
     }
 
-    a4 = *a1;
-    if (*a1 >= v16)
+    a4 = *result;
+    if (*result >= v16)
     {
       v18 = a3 - 1;
-      while (--v18 != a1)
+      while (--v18 != result)
       {
         if (*v18 < v16)
         {
-          *a1 = *v18;
+          *result = *v18;
           *v18 = a4;
           if (v17)
           {
@@ -9495,7 +9431,7 @@ void std::__nth_element[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,vo
         }
       }
 
-      v28 = a1 + 1;
+      v28 = result + 1;
       if (a4 >= *v6)
       {
         while (v28 != v6)
@@ -9522,7 +9458,7 @@ LABEL_65:
 
       while (1)
       {
-        v32 = *a1;
+        v32 = *result;
         do
         {
           v33 = *v28++;
@@ -9547,7 +9483,7 @@ LABEL_65:
         *v6 = a4;
       }
 
-      a1 = v28 - 1;
+      result = v28 - 1;
       if (v34 > a2)
       {
         return;
@@ -9558,15 +9494,15 @@ LABEL_65:
     {
       v18 = a3 - 1;
 LABEL_33:
-      v19 = a1 + 1;
-      if (a1 + 1 >= v18)
+      v19 = result + 1;
+      if (result + 1 >= v18)
       {
-        v23 = a1 + 1;
+        v23 = result + 1;
       }
 
       else
       {
-        v20 = a1 + 1;
+        v20 = result + 1;
         while (1)
         {
           v21 = *v5;
@@ -9652,7 +9588,7 @@ LABEL_33:
 LABEL_49:
       if (v23 <= a2)
       {
-        a1 = v23 + 1;
+        result = v23 + 1;
       }
 
       else
@@ -9702,11 +9638,10 @@ double std::__selection_sort[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<vo
 
 void beryllium::BerylliumProcessor::interpolate_Tachograms_and_calc_AFibBurden(os_log_t log, float a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 134217984;
-  v4 = a2;
-  _os_log_debug_impl(&dword_23E83E000, log, OS_LOG_TYPE_DEBUG, "\nAfib burden without interpolation: %f", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 134217984;
+  v3 = a2;
+  _os_log_debug_impl(&dword_23E83E000, log, OS_LOG_TYPE_DEBUG, "\nAfib burden without interpolation: %f", &v2, 0xCu);
 }
 
 void beryllium::BerylliumProcessor::median()
@@ -9778,24 +9713,24 @@ void sub_23E850A28(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<float>::resize(void *a1, unint64_t a2)
+void std::vector<float>::resize(void *result, unint64_t a2)
 {
-  v2 = (a1[1] - *a1) >> 2;
+  v2 = (result[1] - *result) >> 2;
   if (a2 <= v2)
   {
     if (a2 < v2)
     {
-      a1[1] = *a1 + 4 * a2;
+      result[1] = *result + 4 * a2;
     }
   }
 
   else
   {
-    std::vector<float>::__append(a1, a2 - v2);
+    std::vector<float>::__append(result, a2 - v2);
   }
 }
 
-float stats::covariance(stats *this, const float *a2, const float *a3, const float *a4, int a5)
+float stats::covariance(stats *this, const float *a2, float *a3, const float *a4, int a5)
 {
   if (a2 <= 0)
   {
@@ -9863,4 +9798,91 @@ void sub_23E850BDC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   }
 
   _Unwind_Resume(exception_object);
+}
+
+float stats::std(stats *this, const float *a2, int a3)
+{
+  if (a2 <= 0)
+  {
+    stats::std();
+  }
+
+  if (!this)
+  {
+    stats::std();
+  }
+
+  return sqrtf(stats::variance(this, a2, a3));
+}
+
+float stats::rmssd(stats *this, const float *a2)
+{
+  if (a2 <= 0)
+  {
+    stats::rmssd();
+  }
+
+  if (!this)
+  {
+    stats::rmssd();
+  }
+
+  __C = 0.0;
+  __B = 0;
+  v7 = 0;
+  v3 = (a2 - 1);
+  v8 = 0;
+  std::vector<float>::resize(&__B, v3);
+  MEMORY[0x23EF16340](&this->cp_time[1], 1, this, 1, __B, 1, v3);
+  vDSP_dotpr(__B, 1, __B, 1, &__C, v3);
+  v4 = sqrtf(__C / v3);
+  __C = v4;
+  if (__B)
+  {
+    v7 = __B;
+    operator delete(__B);
+  }
+
+  return v4;
+}
+
+void sub_23E850CFC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10)
+{
+  if (__p)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+float stats::madsd(stats *this, const float *a2)
+{
+  if (a2 <= 0)
+  {
+    stats::madsd();
+  }
+
+  if (!this)
+  {
+    stats::madsd();
+  }
+
+  v9 = 0.0;
+  __C = 0;
+  v7 = 0;
+  v3 = (a2 - 1);
+  v8 = 0;
+  std::vector<float>::resize(&__C, v3);
+  MEMORY[0x23EF16340](&this->cp_time[1], 1, this, 1, __C, 1, v3);
+  vDSP_vabs(__C, 1, __C, 1, v3);
+  vDSP_meanv_wrapper(__C, 1, &v9, v3);
+  v4 = v9;
+  if (__C)
+  {
+    v7 = __C;
+    operator delete(__C);
+  }
+
+  return v4;
 }

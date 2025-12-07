@@ -70,52 +70,52 @@
 
 - (void)enumeratePredictions:(unint64_t)predictions maxTokensPerPrediction:(unint64_t)prediction withBlock:(id)block
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   prediction = [MEMORY[0x1E696AEC0] stringWithFormat:@"%u/%u", predictions, prediction];
   v10 = [(NSMutableDictionary *)self->_cachedPredictionsDictionary objectForKey:prediction];
   if (!v10)
   {
     v10 = [MEMORY[0x1E695DF70] arrayWithCapacity:predictions];
     state = self->_state;
-    v27[0] = MEMORY[0x1E69E9820];
-    v27[1] = 3221225472;
-    v27[2] = __81__PRNLPLanguageModelState_enumeratePredictions_maxTokensPerPrediction_withBlock___block_invoke;
-    v27[3] = &unk_1E84053F0;
-    v27[4] = v10;
-    [(NLLanguageModelState *)state enumeratePredictions:predictions maximumTokensPerPrediction:prediction withBlock:v27];
+    v26[0] = MEMORY[0x1E69E9820];
+    v26[1] = 3221225472;
+    v26[2] = __81__PRNLPLanguageModelState_enumeratePredictions_maxTokensPerPrediction_withBlock___block_invoke;
+    v26[3] = &unk_1E84053F0;
+    v26[4] = v10;
+    [(NLLanguageModelState *)state enumeratePredictions:predictions maximumTokensPerPrediction:prediction withBlock:v26];
     [(NSMutableDictionary *)self->_cachedPredictionsDictionary setObject:v10 forKey:prediction];
   }
 
-  v25 = 0u;
-  v26 = 0u;
-  v23 = 0u;
   v24 = 0u;
-  v12 = [v10 countByEnumeratingWithState:&v23 objects:v28 count:16];
+  v25 = 0u;
+  v22 = 0u;
+  v23 = 0u;
+  v12 = [v10 countByEnumeratingWithState:&v22 objects:v27 count:16];
   if (v12)
   {
     v13 = v12;
-    v21 = 0;
-    v14 = *v24;
+    v20 = 0;
+    v14 = *v23;
 LABEL_5:
     v15 = 0;
-    v16 = v21;
-    v21 += v13;
+    v16 = v20;
+    v20 += v13;
     while (1)
     {
-      if (*v24 != v14)
+      if (*v23 != v14)
       {
         objc_enumerationMutation(v10);
       }
 
       v17 = 0;
-      v18 = *(*(&v23 + 1) + 8 * v15);
-      v22 = 0;
+      v18 = *(*(&v22 + 1) + 8 * v15);
+      v21 = 0;
       if (v16 < predictions)
       {
         prediction2 = [v18 prediction];
         [objc_msgSend(v18 "probabilityInfo")];
-        (*(block + 2))(block, prediction2, &v22);
-        v17 = v22;
+        (*(block + 2))(block, prediction2, &v21);
+        v17 = v21;
       }
 
       if (v17)
@@ -130,18 +130,16 @@ LABEL_5:
 
       if (v13 == ++v15)
       {
-        v13 = [v10 countByEnumeratingWithState:&v23 objects:v28 count:16];
+        v13 = [v10 countByEnumeratingWithState:&v22 objects:v27 count:16];
         if (v13)
         {
           goto LABEL_5;
         }
 
-        break;
+        return;
       }
     }
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (void)dealloc

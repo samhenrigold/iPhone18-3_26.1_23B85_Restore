@@ -30,6 +30,7 @@
 - (void)sleepModeDidChange:(int64_t)change previousMode:(int64_t)mode reason:(unint64_t)reason;
 - (void)wakeUpAlarmWasDismissedFromSource:(unint64_t)source;
 - (void)wakeUpAlarmWasSnoozedFromSource:(unint64_t)source;
+- (void)wakeUpWasConfirmed:(BOOL)confirmed;
 @end
 
 @implementation HDSPIDSServiceManager
@@ -115,68 +116,64 @@
 
 - (void)sendNotifiedForEarlyWakeUpMessage
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(HDSPNotifiedForEarlyWakeUpIDSMessage);
   v4 = HKSPLogForCategory();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138543618;
-    v8 = objc_opt_class();
-    v9 = 2114;
-    v10 = v3;
-    v5 = v8;
-    _os_log_impl(&dword_269B11000, v4, OS_LOG_TYPE_DEFAULT, "[%{public}@] syncing notifiedForEarlyWakeUpMessage %{public}@", &v7, 0x16u);
+    v6 = 138543618;
+    v7 = objc_opt_class();
+    v8 = 2114;
+    v9 = v3;
+    v5 = v7;
+    _os_log_impl(&dword_269B11000, v4, OS_LOG_TYPE_DEFAULT, "[%{public}@] syncing notifiedForEarlyWakeUpMessage %{public}@", &v6, 0x16u);
   }
 
   [(HDSPIDSServiceManager *)self sendMessage:v3];
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sendTestIDSMessage
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(HDSPTestIDSMessage);
   v4 = HKSPLogForCategory();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138543618;
-    v8 = objc_opt_class();
-    v9 = 2114;
-    v10 = v3;
-    v5 = v8;
-    _os_log_impl(&dword_269B11000, v4, OS_LOG_TYPE_DEFAULT, "[%{public}@] syncing testIDSMessage %{public}@", &v7, 0x16u);
+    v6 = 138543618;
+    v7 = objc_opt_class();
+    v8 = 2114;
+    v9 = v3;
+    v5 = v7;
+    _os_log_impl(&dword_269B11000, v4, OS_LOG_TYPE_DEFAULT, "[%{public}@] syncing testIDSMessage %{public}@", &v6, 0x16u);
   }
 
   [(HDSPIDSServiceManager *)self sendMessage:v3];
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sleepModeDidChange:(int64_t)change previousMode:(int64_t)mode reason:(unint64_t)reason
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   if ([(HDSPIDSServiceManager *)self _shouldSyncSleepModeWithReason:reason, mode])
   {
     v7 = [[HDSPSetSleepModeIDSMessage alloc] initWithSleepModeOn:change == 2];
     v8 = HKSPLogForCategory();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = 138543618;
-      v12 = objc_opt_class();
-      v13 = 2114;
-      v14 = v7;
-      v9 = v12;
-      _os_log_impl(&dword_269B11000, v8, OS_LOG_TYPE_DEFAULT, "[%{public}@] syncing setSleepModeMessage %{public}@", &v11, 0x16u);
+      v10 = 138543618;
+      v11 = objc_opt_class();
+      v12 = 2114;
+      v13 = v7;
+      v9 = v11;
+      _os_log_impl(&dword_269B11000, v8, OS_LOG_TYPE_DEFAULT, "[%{public}@] syncing setSleepModeMessage %{public}@", &v10, 0x16u);
     }
 
     [(HDSPIDSServiceManager *)self sendMessage:v7];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_shouldSyncSleepModeWithReason:(unint64_t)reason
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   _shouldSyncMessage = [(HDSPIDSServiceManager *)self _shouldSyncMessage];
   if (_shouldSyncMessage)
   {
@@ -186,10 +183,10 @@
       v5 = HKSPLogForCategory();
       if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
       {
-        v15 = 138543362;
-        v16 = objc_opt_class();
-        v6 = v16;
-        _os_log_impl(&dword_269B11000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] checking if paired device supports focus mode", &v15, 0xCu);
+        v14 = 138543362;
+        v15 = objc_opt_class();
+        v6 = v15;
+        _os_log_impl(&dword_269B11000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] checking if paired device supports focus mode", &v14, 0xCu);
       }
 
       WeakRetained = objc_loadWeakRetained(&self->_environment);
@@ -202,10 +199,10 @@
         if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
         {
           v11 = objc_opt_class();
-          v15 = 138543362;
-          v16 = v11;
+          v14 = 138543362;
+          v15 = v11;
           v12 = v11;
-          _os_log_impl(&dword_269B11000, v10, OS_LOG_TYPE_DEFAULT, "[%{public}@] not syncing because paired device supports focus mode", &v15, 0xCu);
+          _os_log_impl(&dword_269B11000, v10, OS_LOG_TYPE_DEFAULT, "[%{public}@] not syncing because paired device supports focus mode", &v14, 0xCu);
         }
 
         LOBYTE(_shouldSyncMessage) = 0;
@@ -218,13 +215,12 @@
     }
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return _shouldSyncMessage;
 }
 
 - (BOOL)_shouldSyncMessage
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   environment = [(HDSPIDSServiceManager *)self environment];
   currentContext = [environment currentContext];
 
@@ -251,65 +247,93 @@ LABEL_7:
     v8 = objc_opt_class();
     v9 = v8;
     source3 = [currentContext source];
-    v14 = 138543618;
-    v15 = v8;
-    v16 = 2114;
-    v17 = source3;
-    _os_log_impl(&dword_269B11000, v7, OS_LOG_TYPE_DEFAULT, "[%{public}@] not syncing message for source %{public}@", &v14, 0x16u);
+    v13 = 138543618;
+    v14 = v8;
+    v15 = 2114;
+    v16 = source3;
+    _os_log_impl(&dword_269B11000, v7, OS_LOG_TYPE_DEFAULT, "[%{public}@] not syncing message for source %{public}@", &v13, 0x16u);
   }
 
   v11 = 0;
 LABEL_8:
 
-  v12 = *MEMORY[0x277D85DE8];
   return v11;
+}
+
+- (void)wakeUpWasConfirmed:(BOOL)confirmed
+{
+  confirmedCopy = confirmed;
+  v18 = *MEMORY[0x277D85DE8];
+  if ([(HDSPIDSServiceManager *)self _shouldSyncMessage])
+  {
+    environment = [(HDSPIDSServiceManager *)self environment];
+    sleepScheduleModelManager = [environment sleepScheduleModelManager];
+    sleepEventRecord = [sleepScheduleModelManager sleepEventRecord];
+
+    v8 = [HDSPConfirmWakeUpIDSMessage alloc];
+    wakeUpEarlyNotificationConfirmedDate = [sleepEventRecord wakeUpEarlyNotificationConfirmedDate];
+    wakeUpConfirmedUntilDate = [sleepEventRecord wakeUpConfirmedUntilDate];
+    v11 = [(HDSPConfirmWakeUpIDSMessage *)v8 initWithWasExplicitConfirmation:confirmedCopy wakeUpConfirmedDate:wakeUpEarlyNotificationConfirmedDate wakeUpConfirmedUntilDate:wakeUpConfirmedUntilDate];
+
+    v12 = HKSPLogForCategory();
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    {
+      v14 = 138543618;
+      v15 = objc_opt_class();
+      v16 = 2114;
+      v17 = v11;
+      v13 = v15;
+      _os_log_impl(&dword_269B11000, v12, OS_LOG_TYPE_DEFAULT, "[%{public}@] syncing confirmWakeUpMessage %{public}@", &v14, 0x16u);
+    }
+
+    [(HDSPIDSServiceManager *)self sendMessage:v11];
+  }
 }
 
 - (BOOL)_shouldSyncAlarmMessageFromSource:(unint64_t)source
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   if (source == 2)
   {
     v3 = HKSPLogForCategory();
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 138543362;
-      v9 = objc_opt_class();
-      v4 = v9;
+      v7 = 138543362;
+      v8 = objc_opt_class();
+      v4 = v8;
       v5 = "[%{public}@] not syncing alarm message from Cloud";
       goto LABEL_7;
     }
+
+LABEL_8:
+
+    return 0;
   }
 
-  else
+  if (source == 1)
   {
-    if (source != 1)
-    {
-      result = 1;
-      goto LABEL_10;
-    }
-
     v3 = HKSPLogForCategory();
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 138543362;
-      v9 = objc_opt_class();
-      v4 = v9;
+      v7 = 138543362;
+      v8 = objc_opt_class();
+      v4 = v8;
       v5 = "[%{public}@] not syncing alarm message from NanoSync";
 LABEL_7:
-      _os_log_impl(&dword_269B11000, v3, OS_LOG_TYPE_DEFAULT, v5, &v8, 0xCu);
+      _os_log_impl(&dword_269B11000, v3, OS_LOG_TYPE_DEFAULT, v5, &v7, 0xCu);
+
+      goto LABEL_8;
     }
+
+    goto LABEL_8;
   }
 
-  result = 0;
-LABEL_10:
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  return 1;
 }
 
 - (void)wakeUpAlarmWasDismissedFromSource:(unint64_t)source
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   if ([(HDSPIDSServiceManager *)self _shouldSyncMessage]&& [(HDSPIDSServiceManager *)self _shouldSyncAlarmMessageFromSource:source])
   {
     environment = [(HDSPIDSServiceManager *)self environment];
@@ -323,23 +347,21 @@ LABEL_10:
     v11 = HKSPLogForCategory();
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      v14 = 138543618;
-      v15 = objc_opt_class();
-      v16 = 2114;
-      v17 = v10;
-      v12 = v15;
-      _os_log_impl(&dword_269B11000, v11, OS_LOG_TYPE_DEFAULT, "[%{public}@] syncing wakeUpAlarmWasDismissed %{public}@", &v14, 0x16u);
+      v13 = 138543618;
+      v14 = objc_opt_class();
+      v15 = 2114;
+      v16 = v10;
+      v12 = v14;
+      _os_log_impl(&dword_269B11000, v11, OS_LOG_TYPE_DEFAULT, "[%{public}@] syncing wakeUpAlarmWasDismissed %{public}@", &v13, 0x16u);
     }
 
     [(HDSPIDSServiceManager *)self sendMessage:v10];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)wakeUpAlarmWasSnoozedFromSource:(unint64_t)source
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   if ([(HDSPIDSServiceManager *)self _shouldSyncMessage]&& [(HDSPIDSServiceManager *)self _shouldSyncAlarmMessageFromSource:source])
   {
     environment = [(HDSPIDSServiceManager *)self environment];
@@ -353,23 +375,21 @@ LABEL_10:
     v11 = HKSPLogForCategory();
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      v14 = 138543618;
-      v15 = objc_opt_class();
-      v16 = 2114;
-      v17 = v10;
-      v12 = v15;
-      _os_log_impl(&dword_269B11000, v11, OS_LOG_TYPE_DEFAULT, "[%{public}@] syncing wakeUpAlarmWasSnoozed %{public}@", &v14, 0x16u);
+      v13 = 138543618;
+      v14 = objc_opt_class();
+      v15 = 2114;
+      v16 = v10;
+      v12 = v14;
+      _os_log_impl(&dword_269B11000, v11, OS_LOG_TYPE_DEFAULT, "[%{public}@] syncing wakeUpAlarmWasSnoozed %{public}@", &v13, 0x16u);
     }
 
     [(HDSPIDSServiceManager *)self sendMessage:v10];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)goodMorningWasDismissed
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   if ([(HDSPIDSServiceManager *)self _shouldSyncMessage])
   {
     environment = [(HDSPIDSServiceManager *)self environment];
@@ -383,18 +403,16 @@ LABEL_10:
     v9 = HKSPLogForCategory();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = 138543618;
-      v13 = objc_opt_class();
-      v14 = 2114;
-      v15 = v8;
-      v10 = v13;
-      _os_log_impl(&dword_269B11000, v9, OS_LOG_TYPE_DEFAULT, "[%{public}@] syncing dismissGoodMorningMessage %{public}@", &v12, 0x16u);
+      v11 = 138543618;
+      v12 = objc_opt_class();
+      v13 = 2114;
+      v14 = v8;
+      v10 = v12;
+      _os_log_impl(&dword_269B11000, v9, OS_LOG_TYPE_DEFAULT, "[%{public}@] syncing dismissGoodMorningMessage %{public}@", &v11, 0x16u);
     }
 
     [(HDSPIDSServiceManager *)self sendMessage:v8];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sleepEventIsDue:(id)due
@@ -430,7 +448,7 @@ LABEL_10:
 
 - (BOOL)_shouldSendCloudMessage:(id)message
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   environment = [(HDSPIDSServiceManager *)self environment];
   sleepScheduleModelManager = [environment sleepScheduleModelManager];
@@ -446,54 +464,51 @@ LABEL_10:
     v9 = HKSPLogForCategory();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = 138543362;
-      v14 = objc_opt_class();
-      v10 = v14;
-      _os_log_impl(&dword_269B11000, v9, OS_LOG_TYPE_DEFAULT, "[%{public}@] not sending cloud message because share across devices is disabled", &v13, 0xCu);
+      v12 = 138543362;
+      v13 = objc_opt_class();
+      v10 = v13;
+      _os_log_impl(&dword_269B11000, v9, OS_LOG_TYPE_DEFAULT, "[%{public}@] not sending cloud message because share across devices is disabled", &v12, 0xCu);
     }
 
     LOBYTE(v8) = 0;
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
 + (void)_sendMessage:(id)message onService:(id)service
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   serviceCopy = service;
   v8 = HKSPLogForCategory();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543874;
-    v18 = objc_opt_class();
-    v19 = 2114;
-    v20 = messageCopy;
-    v21 = 2114;
-    v22 = serviceCopy;
-    v9 = v18;
+    v17 = objc_opt_class();
+    v18 = 2114;
+    v19 = messageCopy;
+    v20 = 2114;
+    v21 = serviceCopy;
+    v9 = v17;
     _os_log_impl(&dword_269B11000, v8, OS_LOG_TYPE_DEFAULT, "[%{public}@] sending message %{public}@ on service %{public}@", buf, 0x20u);
   }
 
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __48__HDSPIDSServiceManager__sendMessage_onService___block_invoke;
-  v13[3] = &unk_279C7C6F0;
-  v15 = serviceCopy;
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __48__HDSPIDSServiceManager__sendMessage_onService___block_invoke;
+  v12[3] = &unk_279C7C6F0;
+  v14 = serviceCopy;
   selfCopy = self;
-  v14 = messageCopy;
+  v13 = messageCopy;
   v10 = serviceCopy;
   v11 = messageCopy;
-  [v10 sendMessage:v11 completion:v13];
-
-  v12 = *MEMORY[0x277D85DE8];
+  [v10 sendMessage:v11 completion:v12];
 }
 
 void __48__HDSPIDSServiceManager__sendMessage_onService___block_invoke(void *a1, int a2, void *a3)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = HKSPLogForCategory();
   v7 = v6;
@@ -504,43 +519,39 @@ void __48__HDSPIDSServiceManager__sendMessage_onService___block_invoke(void *a1,
       goto LABEL_6;
     }
 
-    v14 = a1[6];
-    v15 = objc_opt_class();
-    v16 = a1[4];
-    v17 = a1[5];
-    v18 = 138544130;
-    v19 = v15;
-    v20 = 2114;
-    v21 = v16;
-    v22 = 2114;
-    v23 = v5;
-    v24 = 2114;
-    v25 = v17;
-    v12 = v15;
-    _os_log_error_impl(&dword_269B11000, v7, OS_LOG_TYPE_ERROR, "[%{public}@] failed to send message %{public}@ with error %{public}@ on service %{public}@", &v18, 0x2Au);
+    v12 = objc_opt_class();
+    v13 = a1[4];
+    v14 = a1[5];
+    v15 = 138544130;
+    v16 = v12;
+    v17 = 2114;
+    v18 = v13;
+    v19 = 2114;
+    v20 = v5;
+    v21 = 2114;
+    v22 = v14;
+    v11 = v12;
+    _os_log_error_impl(&dword_269B11000, v7, OS_LOG_TYPE_ERROR, "[%{public}@] failed to send message %{public}@ with error %{public}@ on service %{public}@", &v15, 0x2Au);
     goto LABEL_4;
   }
 
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = a1[6];
-    v9 = objc_opt_class();
-    v10 = a1[4];
-    v11 = a1[5];
-    v18 = 138543874;
-    v19 = v9;
-    v20 = 2114;
-    v21 = v10;
-    v22 = 2114;
-    v23 = v11;
-    v12 = v9;
-    _os_log_impl(&dword_269B11000, v7, OS_LOG_TYPE_DEFAULT, "[%{public}@] sent message %{public}@ on service %{public}@", &v18, 0x20u);
+    v8 = objc_opt_class();
+    v9 = a1[4];
+    v10 = a1[5];
+    v15 = 138543874;
+    v16 = v8;
+    v17 = 2114;
+    v18 = v9;
+    v19 = 2114;
+    v20 = v10;
+    v11 = v8;
+    _os_log_impl(&dword_269B11000, v7, OS_LOG_TYPE_DEFAULT, "[%{public}@] sent message %{public}@ on service %{public}@", &v15, 0x20u);
 LABEL_4:
   }
 
 LABEL_6:
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 + (id)_allowedMessageClasses
@@ -557,52 +568,48 @@ LABEL_6:
 
 void __47__HDSPIDSServiceManager__allowedMessageClasses__block_invoke()
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v0 = MEMORY[0x277CBEB98];
+  v4 = objc_opt_class();
   v5 = objc_opt_class();
   v6 = objc_opt_class();
   v7 = objc_opt_class();
   v8 = objc_opt_class();
   v9 = objc_opt_class();
   v10 = objc_opt_class();
-  v11 = objc_opt_class();
-  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:&v5 count:7];
-  v2 = [v0 setWithArray:{v1, v5, v6, v7, v8, v9, v10}];
+  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:&v4 count:7];
+  v2 = [v0 setWithArray:{v1, v4, v5, v6, v7, v8, v9}];
   v3 = _MergedGlobals_17;
   _MergedGlobals_17 = v2;
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)service:(id)service didReceiveMessage:(id)message
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   serviceCopy = service;
   messageCopy = message;
   v8 = HKSPLogForCategory();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 138543874;
-    v12 = objc_opt_class();
-    v13 = 2114;
-    v14 = messageCopy;
-    v15 = 2114;
-    v16 = serviceCopy;
-    v9 = v12;
-    _os_log_impl(&dword_269B11000, v8, OS_LOG_TYPE_DEFAULT, "[%{public}@] received message %{public}@ from service %{public}@", &v11, 0x20u);
+    v10 = 138543874;
+    v11 = objc_opt_class();
+    v12 = 2114;
+    v13 = messageCopy;
+    v14 = 2114;
+    v15 = serviceCopy;
+    v9 = v11;
+    _os_log_impl(&dword_269B11000, v8, OS_LOG_TYPE_DEFAULT, "[%{public}@] received message %{public}@ from service %{public}@", &v10, 0x20u);
   }
 
   if ([(HDSPIDSServiceManager *)self _shouldHandleMessageFromService:serviceCopy])
   {
     [(HDSPIDSServiceManager *)self _handleReceivedMessage:messageCopy];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_shouldHandleMessageFromService:(id)service
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   serviceCopy = service;
   environment = [(HDSPIDSServiceManager *)self environment];
   sleepScheduleModelManager = [environment sleepScheduleModelManager];
@@ -619,12 +626,12 @@ void __47__HDSPIDSServiceManager__allowedMessageClasses__block_invoke()
       v11 = HKSPLogForCategory();
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
-        v17 = 138543362;
-        v18 = objc_opt_class();
-        v12 = v18;
+        v16 = 138543362;
+        v17 = objc_opt_class();
+        v12 = v17;
         v13 = "[%{public}@] ignoring message because watch sleep features are disabled";
 LABEL_11:
-        _os_log_impl(&dword_269B11000, v11, OS_LOG_TYPE_DEFAULT, v13, &v17, 0xCu);
+        _os_log_impl(&dword_269B11000, v11, OS_LOG_TYPE_DEFAULT, v13, &v16, 0xCu);
 
         goto LABEL_12;
       }
@@ -642,9 +649,9 @@ LABEL_11:
     v11 = HKSPLogForCategory();
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      v17 = 138543362;
-      v18 = objc_opt_class();
-      v12 = v18;
+      v16 = 138543362;
+      v17 = objc_opt_class();
+      v12 = v17;
       v13 = "[%{public}@] ignoring cloud message because share across devices is disabled";
       goto LABEL_11;
     }
@@ -658,7 +665,6 @@ LABEL_12:
   v14 = 1;
 LABEL_13:
 
-  v15 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
@@ -678,113 +684,96 @@ LABEL_13:
 
 void __48__HDSPIDSServiceManager__handleReceivedMessage___block_invoke(uint64_t a1)
 {
-  v40 = *MEMORY[0x277D85DE8];
-  v2 = *(a1 + 32);
+  v24 = *MEMORY[0x277D85DE8];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v4 = *(a1 + 32);
-    v3 = *(a1 + 40);
-    v5 = *MEMORY[0x277D85DE8];
+    v3 = *(a1 + 32);
+    v2 = *(a1 + 40);
 
-    [v3 _handleSetSleepModeMessage:v4];
+    [v2 _handleSetSleepModeMessage:v3];
   }
 
   else
   {
-    v6 = *(a1 + 32);
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v8 = *(a1 + 32);
-      v7 = *(a1 + 40);
-      v9 = *MEMORY[0x277D85DE8];
+      v5 = *(a1 + 32);
+      v4 = *(a1 + 40);
 
-      [v7 _handleConfirmWakeUpMessage:v8];
+      [v4 _handleConfirmWakeUpMessage:v5];
     }
 
     else
     {
-      v10 = *(a1 + 32);
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v12 = *(a1 + 32);
-        v11 = *(a1 + 40);
-        v13 = *MEMORY[0x277D85DE8];
+        v7 = *(a1 + 32);
+        v6 = *(a1 + 40);
 
-        [v11 _handleDismissGoodMorningMessage:v12];
+        [v6 _handleDismissGoodMorningMessage:v7];
       }
 
       else
       {
-        v14 = *(a1 + 32);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v16 = *(a1 + 32);
-          v15 = *(a1 + 40);
-          v17 = *MEMORY[0x277D85DE8];
+          v9 = *(a1 + 32);
+          v8 = *(a1 + 40);
 
-          [v15 _handleNotifiedForEarlyWakeUpMessage:v16];
+          [v8 _handleNotifiedForEarlyWakeUpMessage:v9];
         }
 
         else
         {
-          v18 = *(a1 + 32);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v20 = *(a1 + 32);
-            v19 = *(a1 + 40);
-            v21 = *MEMORY[0x277D85DE8];
+            v11 = *(a1 + 32);
+            v10 = *(a1 + 40);
 
-            [v19 _handleSleepAlarmDismissedMessage:v20];
+            [v10 _handleSleepAlarmDismissedMessage:v11];
           }
 
           else
           {
-            v22 = *(a1 + 32);
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              v24 = *(a1 + 32);
-              v23 = *(a1 + 40);
-              v25 = *MEMORY[0x277D85DE8];
+              v13 = *(a1 + 32);
+              v12 = *(a1 + 40);
 
-              [v23 _handleSleepAlarmSnoozedMessage:v24];
+              [v12 _handleSleepAlarmSnoozedMessage:v13];
             }
 
             else
             {
-              v26 = *(a1 + 32);
               objc_opt_class();
               if (objc_opt_isKindOfClass())
               {
-                v28 = *(a1 + 32);
-                v27 = *(a1 + 40);
-                v29 = *MEMORY[0x277D85DE8];
+                v15 = *(a1 + 32);
+                v14 = *(a1 + 40);
 
-                [v27 _handleTestMessage:v28];
+                [v14 _handleTestMessage:v15];
               }
 
               else
               {
-                v30 = HKSPLogForCategory();
-                if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+                v16 = HKSPLogForCategory();
+                if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
                 {
-                  v32 = *(a1 + 40);
-                  v33 = objc_opt_class();
-                  v34 = *(a1 + 32);
-                  v36 = 138543618;
-                  v37 = v33;
-                  v38 = 2114;
-                  v39 = v34;
-                  v35 = v33;
-                  _os_log_error_impl(&dword_269B11000, v30, OS_LOG_TYPE_ERROR, "[%{public}@] unexpected message received %{public}@", &v36, 0x16u);
+                  v17 = objc_opt_class();
+                  v18 = *(a1 + 32);
+                  v20 = 138543618;
+                  v21 = v17;
+                  v22 = 2114;
+                  v23 = v18;
+                  v19 = v17;
+                  _os_log_error_impl(&dword_269B11000, v16, OS_LOG_TYPE_ERROR, "[%{public}@] unexpected message received %{public}@", &v20, 0x16u);
                 }
-
-                v31 = *MEMORY[0x277D85DE8];
               }
             }
           }
@@ -796,17 +785,17 @@ void __48__HDSPIDSServiceManager__handleReceivedMessage___block_invoke(uint64_t 
 
 - (void)_handleSetSleepModeMessage:(id)message
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   v5 = HKSPLogForCategory();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    *v11 = 138543618;
-    *&v11[4] = objc_opt_class();
-    *&v11[12] = 2114;
-    *&v11[14] = messageCopy;
-    v6 = *&v11[4];
-    _os_log_impl(&dword_269B11000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] _handleSetSleepModeMessage: %{public}@", v11, 0x16u);
+    *v10 = 138543618;
+    *&v10[4] = objc_opt_class();
+    *&v10[12] = 2114;
+    *&v10[14] = messageCopy;
+    v6 = *&v10[4];
+    _os_log_impl(&dword_269B11000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] _handleSetSleepModeMessage: %{public}@", v10, 0x16u);
   }
 
   environment = [(HDSPIDSServiceManager *)self environment];
@@ -821,24 +810,22 @@ void __48__HDSPIDSServiceManager__handleReceivedMessage___block_invoke(uint64_t 
     v9 = 0;
   }
 
-  [sleepModeManager setSleepMode:v9 reason:{5, *v11, *&v11[16], v12}];
-
-  v10 = *MEMORY[0x277D85DE8];
+  [sleepModeManager setSleepMode:v9 reason:{5, *v10, *&v10[8], v11}];
 }
 
 - (void)_handleConfirmWakeUpMessage:(id)message
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   v5 = HKSPLogForCategory();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v13 = 138543618;
-    v14 = objc_opt_class();
-    v15 = 2114;
-    v16 = messageCopy;
-    v6 = v14;
-    _os_log_impl(&dword_269B11000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] _handleConfirmWakeUpMessage: %{public}@", &v13, 0x16u);
+    v12 = 138543618;
+    v13 = objc_opt_class();
+    v14 = 2114;
+    v15 = messageCopy;
+    v6 = v13;
+    _os_log_impl(&dword_269B11000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] _handleConfirmWakeUpMessage: %{public}@", &v12, 0x16u);
   }
 
   environment = [(HDSPIDSServiceManager *)self environment];
@@ -847,34 +834,9 @@ void __48__HDSPIDSServiceManager__handleReceivedMessage___block_invoke(uint64_t 
   wakeUpConfirmedDate = [messageCopy wakeUpConfirmedDate];
   wakeUpConfirmedUntilDate = [messageCopy wakeUpConfirmedUntilDate];
   [actionManager confirmWakeUp:wasExplicitConfirmation date:wakeUpConfirmedDate confirmUntilDate:wakeUpConfirmedUntilDate];
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleDismissGoodMorningMessage:(id)message
-{
-  v15 = *MEMORY[0x277D85DE8];
-  messageCopy = message;
-  v5 = HKSPLogForCategory();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
-  {
-    v11 = 138543618;
-    v12 = objc_opt_class();
-    v13 = 2114;
-    v14 = messageCopy;
-    v6 = v12;
-    _os_log_impl(&dword_269B11000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] _handleDismissGoodMorningMessage: %{public}@", &v11, 0x16u);
-  }
-
-  environment = [(HDSPIDSServiceManager *)self environment];
-  actionManager = [environment actionManager];
-  goodMorningDismissed = [messageCopy goodMorningDismissed];
-  [actionManager dismissGoodMorningOnDate:goodMorningDismissed];
-
-  v10 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_handleNotifiedForEarlyWakeUpMessage:(id)message
 {
   v14 = *MEMORY[0x277D85DE8];
   messageCopy = message;
@@ -886,19 +848,38 @@ void __48__HDSPIDSServiceManager__handleReceivedMessage___block_invoke(uint64_t 
     v12 = 2114;
     v13 = messageCopy;
     v6 = v11;
-    _os_log_impl(&dword_269B11000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] _handleNotifiedForEarlyWakeUpMessage: %{public}@", &v10, 0x16u);
+    _os_log_impl(&dword_269B11000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] _handleDismissGoodMorningMessage: %{public}@", &v10, 0x16u);
+  }
+
+  environment = [(HDSPIDSServiceManager *)self environment];
+  actionManager = [environment actionManager];
+  goodMorningDismissed = [messageCopy goodMorningDismissed];
+  [actionManager dismissGoodMorningOnDate:goodMorningDismissed];
+}
+
+- (void)_handleNotifiedForEarlyWakeUpMessage:(id)message
+{
+  v13 = *MEMORY[0x277D85DE8];
+  messageCopy = message;
+  v5 = HKSPLogForCategory();
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    v9 = 138543618;
+    v10 = objc_opt_class();
+    v11 = 2114;
+    v12 = messageCopy;
+    v6 = v10;
+    _os_log_impl(&dword_269B11000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] _handleNotifiedForEarlyWakeUpMessage: %{public}@", &v9, 0x16u);
   }
 
   environment = [(HDSPIDSServiceManager *)self environment];
   wakeDetectionManager = [environment wakeDetectionManager];
   [wakeDetectionManager earlyWakeUpWasNotifiedRemotely];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleSleepAlarmDismissedMessage:(id)message
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   environment = [(HDSPIDSServiceManager *)self environment];
   behavior = [environment behavior];
@@ -909,12 +890,12 @@ void __48__HDSPIDSServiceManager__handleReceivedMessage___block_invoke(uint64_t 
     v8 = HKSPLogForCategory();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v14 = 138543618;
-      v15 = objc_opt_class();
-      v16 = 2114;
-      v17 = messageCopy;
-      v9 = v15;
-      _os_log_impl(&dword_269B11000, v8, OS_LOG_TYPE_DEFAULT, "[%{public}@] _handleSleepAlarmDismissedMessage: %{public}@", &v14, 0x16u);
+      v13 = 138543618;
+      v14 = objc_opt_class();
+      v15 = 2114;
+      v16 = messageCopy;
+      v9 = v14;
+      _os_log_impl(&dword_269B11000, v8, OS_LOG_TYPE_DEFAULT, "[%{public}@] _handleSleepAlarmDismissedMessage: %{public}@", &v13, 0x16u);
     }
 
     environment2 = [(HDSPIDSServiceManager *)self environment];
@@ -922,13 +903,11 @@ void __48__HDSPIDSServiceManager__handleReceivedMessage___block_invoke(uint64_t 
     dismissedDate = [messageCopy dismissedDate];
     [actionManager sleepAlarmDismissedOnDate:dismissedDate source:2];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleSleepAlarmSnoozedMessage:(id)message
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   environment = [(HDSPIDSServiceManager *)self environment];
   behavior = [environment behavior];
@@ -939,12 +918,12 @@ void __48__HDSPIDSServiceManager__handleReceivedMessage___block_invoke(uint64_t 
     v8 = HKSPLogForCategory();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v14 = 138543618;
-      v15 = objc_opt_class();
-      v16 = 2114;
-      v17 = messageCopy;
-      v9 = v15;
-      _os_log_impl(&dword_269B11000, v8, OS_LOG_TYPE_DEFAULT, "[%{public}@] _handleSleepAlarmSnoozedMessage: %{public}@", &v14, 0x16u);
+      v13 = 138543618;
+      v14 = objc_opt_class();
+      v15 = 2114;
+      v16 = messageCopy;
+      v9 = v14;
+      _os_log_impl(&dword_269B11000, v8, OS_LOG_TYPE_DEFAULT, "[%{public}@] _handleSleepAlarmSnoozedMessage: %{public}@", &v13, 0x16u);
     }
 
     environment2 = [(HDSPIDSServiceManager *)self environment];
@@ -952,26 +931,22 @@ void __48__HDSPIDSServiceManager__handleReceivedMessage___block_invoke(uint64_t 
     snoozedUntilDate = [messageCopy snoozedUntilDate];
     [actionManager sleepAlarmSnoozedUntilDate:snoozedUntilDate source:2];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleTestMessage:(id)message
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   v4 = HKSPLogForCategory();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138543618;
-    v8 = objc_opt_class();
-    v9 = 2114;
-    v10 = messageCopy;
-    v5 = v8;
-    _os_log_impl(&dword_269B11000, v4, OS_LOG_TYPE_DEFAULT, "[%{public}@] _handleTestMessage: %{public}@", &v7, 0x16u);
+    v6 = 138543618;
+    v7 = objc_opt_class();
+    v8 = 2114;
+    v9 = messageCopy;
+    v5 = v7;
+    _os_log_impl(&dword_269B11000, v4, OS_LOG_TYPE_DEFAULT, "[%{public}@] _handleTestMessage: %{public}@", &v6, 0x16u);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (NSString)sourceIdentifier
@@ -983,27 +958,25 @@ void __48__HDSPIDSServiceManager__handleReceivedMessage___block_invoke(uint64_t 
 
 - (id)notificationListener:(id)listener didReceiveNotificationWithName:(id)name
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   if ([nameCopy isEqualToString:@"com.apple.sleepd.ids.test"])
   {
     v6 = HKSPLogForCategory();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      *v11 = 138543618;
-      *&v11[4] = objc_opt_class();
-      *&v11[12] = 2114;
-      *&v11[14] = nameCopy;
-      v7 = *&v11[4];
-      _os_log_impl(&dword_269B11000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}@] received %{public}@", v11, 0x16u);
+      *v10 = 138543618;
+      *&v10[4] = objc_opt_class();
+      *&v10[12] = 2114;
+      *&v10[14] = nameCopy;
+      v7 = *&v10[4];
+      _os_log_impl(&dword_269B11000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}@] received %{public}@", v10, 0x16u);
     }
 
     [(HDSPIDSServiceManager *)self sendTestIDSMessage];
   }
 
   futureWithNoResult = [MEMORY[0x277D2C900] futureWithNoResult];
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return futureWithNoResult;
 }

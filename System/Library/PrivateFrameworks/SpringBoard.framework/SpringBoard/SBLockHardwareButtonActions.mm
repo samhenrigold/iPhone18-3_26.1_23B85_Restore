@@ -130,7 +130,7 @@
 
 - (void)performInitialButtonDownActions
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v58 = *MEMORY[0x277D85DE8];
   v4 = objc_opt_class();
   v5 = SBSafeCast(v4, self->_siriButtonInteraction);
   if (v5)
@@ -142,20 +142,19 @@
   v6 = dispatch_get_global_queue(0, 0);
   dispatch_async(v6, &__block_literal_global_16);
 
-  if ((objc_opt_respondsToSelector() & 1) == 0 || ![(SBHardwareButtonInteraction *)self->_proximitySensorButtonInteraction consumeInitialPressDown])
+  if ((objc_opt_respondsToSelector() & 1) == 0 || (v7 = [(SBHardwareButtonInteraction *)self->_proximitySensorButtonInteraction consumeInitialPressDown], !v7))
   {
     windowSceneManager = [SBApp windowSceneManager];
     activeDisplayWindowScene = [windowSceneManager activeDisplayWindowScene];
 
-    v11 = +[SBWorkspace mainWorkspace];
-    transientOverlayPresentationManager = [v11 transientOverlayPresentationManager];
-    v8 = [transientOverlayPresentationManager transientOverlayPresenterForWindowScene:activeDisplayWindowScene];
+    v12 = +[SBWorkspace mainWorkspace];
+    transientOverlayPresentationManager = [v12 transientOverlayPresentationManager];
+    v9 = [transientOverlayPresentationManager transientOverlayPresenterForWindowScene:activeDisplayWindowScene];
 
     systemApertureControllerForMainDisplay = [SBApp systemApertureControllerForMainDisplay];
     if ([systemApertureControllerForMainDisplay handleLockButtonPress])
     {
-      [(SBSleepWakeHardwareButtonInteraction *)self->_sleepWakeButtonInteraction setInhibitNextSinglePressUp:1];
-      bannerManager = SBLogButtonsLock();
+      bannerManager = SBLogButtonsLock([(SBSleepWakeHardwareButtonInteraction *)self->_sleepWakeButtonInteraction setInhibitNextSinglePressUp:1]);
       if (!os_log_type_enabled(bannerManager, OS_LOG_TYPE_DEFAULT))
       {
 LABEL_44:
@@ -165,7 +164,7 @@ LABEL_44:
 
       lockOutController = NSStringFromSelector(a2);
       *buf = 138543362;
-      v49 = lockOutController;
+      v55 = lockOutController;
       _os_log_impl(&dword_21ED4E000, bannerManager, OS_LOG_TYPE_DEFAULT, "%{public}@ result: ignoring lock down because the system aperture controller is handling it", buf, 0xCu);
 LABEL_43:
 
@@ -173,11 +172,11 @@ LABEL_43:
     }
 
     aSelector = a2;
-    v47 = v5;
+    v53 = v5;
     bannerManager = [SBApp bannerManager];
-    v15 = [bannerManager bannerWindowInWindowScene:activeDisplayWindowScene];
-    [v15 windowLevel];
-    if (([v8 hasPresentationAboveWindowLevel:?]& 1) != 0)
+    v16 = [bannerManager bannerWindowInWindowScene:activeDisplayWindowScene];
+    [v16 windowLevel];
+    if (([v9 hasPresentationAboveWindowLevel:?]& 1) != 0)
     {
     }
 
@@ -187,214 +186,218 @@ LABEL_43:
 
       if (handleLockButtonPress)
       {
-        [(SBSleepWakeHardwareButtonInteraction *)self->_sleepWakeButtonInteraction setInhibitNextSinglePressUp:1];
-        lockOutController = SBLogButtonsLock();
-        v5 = v47;
+        lockOutController = SBLogButtonsLock([(SBSleepWakeHardwareButtonInteraction *)self->_sleepWakeButtonInteraction setInhibitNextSinglePressUp:1]);
+        v5 = v53;
         if (!os_log_type_enabled(lockOutController, OS_LOG_TYPE_DEFAULT))
         {
           goto LABEL_43;
         }
 
-        v17 = NSStringFromSelector(aSelector);
+        v18 = NSStringFromSelector(aSelector);
         *buf = 138543362;
-        v49 = v17;
-        v18 = "%{public}@ result: ignoring lock down because a banner manager is handling it";
+        v55 = v18;
+        v19 = "%{public}@ result: ignoring lock down because a banner manager is handling it";
 LABEL_18:
-        _os_log_impl(&dword_21ED4E000, lockOutController, OS_LOG_TYPE_DEFAULT, v18, buf, 0xCu);
+        _os_log_impl(&dword_21ED4E000, lockOutController, OS_LOG_TYPE_DEFAULT, v19, buf, 0xCu);
 
         goto LABEL_43;
       }
     }
 
-    if ([v8 handleLockButtonPress])
+    if ([v9 handleLockButtonPress])
     {
-      [(SBSleepWakeHardwareButtonInteraction *)self->_sleepWakeButtonInteraction setInhibitNextSinglePressUp:1];
-      lockOutController = SBLogButtonsLock();
-      v5 = v47;
+      lockOutController = SBLogButtonsLock([(SBSleepWakeHardwareButtonInteraction *)self->_sleepWakeButtonInteraction setInhibitNextSinglePressUp:1]);
+      v5 = v53;
       if (!os_log_type_enabled(lockOutController, OS_LOG_TYPE_DEFAULT))
       {
         goto LABEL_43;
       }
 
-      v17 = NSStringFromSelector(aSelector);
+      v18 = NSStringFromSelector(aSelector);
       *buf = 138543362;
-      v49 = v17;
-      v18 = "%{public}@ result: ignoring lock down because a transient overlay is handling it";
+      v55 = v18;
+      v19 = "%{public}@ result: ignoring lock down because a transient overlay is handling it";
       goto LABEL_18;
     }
 
     lockOutController = [SBApp lockOutController];
     if ([lockOutController isProximityReaderBlocked])
     {
-      v44 = systemApertureControllerForMainDisplay;
+      v50 = systemApertureControllerForMainDisplay;
       systemUIScenesCoordinator = [SBApp systemUIScenesCoordinator];
       proximityReaderUISceneController = [systemUIScenesCoordinator proximityReaderUISceneController];
       if ([proximityReaderUISceneController handleLockButtonPress])
       {
-        v21 = systemUIScenesCoordinator;
-        [(SBSleepWakeHardwareButtonInteraction *)self->_sleepWakeButtonInteraction setInhibitNextSinglePressUp:1];
-        v22 = SBLogButtonsLock();
-        if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+        v22 = systemUIScenesCoordinator;
+        v23 = SBLogButtonsLock([(SBSleepWakeHardwareButtonInteraction *)self->_sleepWakeButtonInteraction setInhibitNextSinglePressUp:1]);
+        if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
         {
-          v23 = NSStringFromSelector(aSelector);
+          v24 = NSStringFromSelector(aSelector);
           *buf = 138543362;
-          v49 = v23;
-          _os_log_impl(&dword_21ED4E000, v22, OS_LOG_TYPE_DEFAULT, "%{public}@ result: ignoring lock down because a proximity reader is handling it", buf, 0xCu);
+          v55 = v24;
+          _os_log_impl(&dword_21ED4E000, v23, OS_LOG_TYPE_DEFAULT, "%{public}@ result: ignoring lock down because a proximity reader is handling it", buf, 0xCu);
         }
 
-        v5 = v47;
-        v24 = v21;
-        systemApertureControllerForMainDisplay = v44;
+        v5 = v53;
+        v25 = v22;
+        systemApertureControllerForMainDisplay = v50;
         goto LABEL_42;
       }
 
-      systemApertureControllerForMainDisplay = v44;
+      systemApertureControllerForMainDisplay = v50;
     }
 
-    v42 = v8;
-    v45 = lockOutController;
-    v25 = +[SBLockScreenManager sharedInstance];
-    lockScreenEnvironment = [v25 lockScreenEnvironment];
+    v48 = v9;
+    v51 = lockOutController;
+    v26 = +[SBLockScreenManager sharedInstance];
+    lockScreenEnvironment = [v26 lockScreenEnvironment];
     buttonEventsHandler = [lockScreenEnvironment buttonEventsHandler];
 
-    v43 = buttonEventsHandler;
-    if ([buttonEventsHandler handleLockButtonPress])
+    v49 = buttonEventsHandler;
+    handleLockButtonPress2 = [buttonEventsHandler handleLockButtonPress];
+    if (handleLockButtonPress2)
     {
-      v28 = SBLogButtonsLock();
-      v24 = buttonEventsHandler;
-      if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+      v30 = SBLogButtonsLock(handleLockButtonPress2);
+      v25 = buttonEventsHandler;
+      if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
       {
-        v29 = NSStringFromSelector(aSelector);
+        v31 = NSStringFromSelector(aSelector);
         *buf = 138543618;
-        v49 = v29;
-        v50 = 2114;
-        v51 = buttonEventsHandler;
-        _os_log_impl(&dword_21ED4E000, v28, OS_LOG_TYPE_DEFAULT, "%{public}@ result: ignoring lock down because a lockscreen is handling it: %{public}@", buf, 0x16u);
+        v55 = v31;
+        v56 = 2114;
+        v57 = buttonEventsHandler;
+        _os_log_impl(&dword_21ED4E000, v30, OS_LOG_TYPE_DEFAULT, "%{public}@ result: ignoring lock down because a lockscreen is handling it: %{public}@", buf, 0x16u);
       }
 
-      v5 = v47;
-      lockOutController = v45;
-      v8 = v42;
+      v5 = v53;
+      lockOutController = v51;
+      v9 = v48;
       goto LABEL_42;
     }
 
-    v30 = +[SBLockScreenManager sharedInstance];
-    isSupressingLockButton = [v30 isSupressingLockButton];
+    v32 = +[SBLockScreenManager sharedInstance];
+    isSupressingLockButton = [v32 isSupressingLockButton];
 
     if (isSupressingLockButton)
     {
-      v32 = SBLogButtonsLock();
-      v8 = v42;
-      if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
-      {
-        v33 = NSStringFromSelector(aSelector);
-        *buf = 138543362;
-        v49 = v33;
-        _os_log_impl(&dword_21ED4E000, v32, OS_LOG_TYPE_DEFAULT, "%{public}@ result: ignoring lock down because lock button is supressed", buf, 0xCu);
-      }
-
-      [(SBSleepWakeHardwareButtonInteraction *)self->_sleepWakeButtonInteraction setInhibitNextSinglePressUp:1];
-      v5 = v47;
-      v24 = v43;
-      lockOutController = v45;
-      goto LABEL_42;
-    }
-
-    v34 = +[SBMainSwitcherControllerCoordinator sharedInstance];
-    handleLockButtonPress2 = [v34 handleLockButtonPress];
-
-    v8 = v42;
-    if (handleLockButtonPress2)
-    {
-      [(SBSleepWakeHardwareButtonInteraction *)self->_sleepWakeButtonInteraction setInhibitNextSinglePressUp:1];
-      v24 = SBLogButtonsLock();
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+      v35 = SBLogButtonsLock(v34);
+      v9 = v48;
+      if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
       {
         v36 = NSStringFromSelector(aSelector);
         *buf = 138543362;
-        v49 = v36;
-        _os_log_impl(&dword_21ED4E000, v24, OS_LOG_TYPE_DEFAULT, "%{public}@ result: ignoring lock down because main switcher is handling it", buf, 0xCu);
+        v55 = v36;
+        _os_log_impl(&dword_21ED4E000, v35, OS_LOG_TYPE_DEFAULT, "%{public}@ result: ignoring lock down because lock button is supressed", buf, 0xCu);
       }
 
-      v5 = v47;
+      [(SBSleepWakeHardwareButtonInteraction *)self->_sleepWakeButtonInteraction setInhibitNextSinglePressUp:1];
+      v5 = v53;
+      v25 = v49;
+      lockOutController = v51;
+      goto LABEL_42;
+    }
+
+    v37 = +[SBMainSwitcherControllerCoordinator sharedInstance];
+    handleLockButtonPress3 = [v37 handleLockButtonPress];
+
+    v9 = v48;
+    if (handleLockButtonPress3)
+    {
+      v25 = SBLogButtonsLock([(SBSleepWakeHardwareButtonInteraction *)self->_sleepWakeButtonInteraction setInhibitNextSinglePressUp:1]);
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+      {
+        v39 = NSStringFromSelector(aSelector);
+        *buf = 138543362;
+        v55 = v39;
+        _os_log_impl(&dword_21ED4E000, v25, OS_LOG_TYPE_DEFAULT, "%{public}@ result: ignoring lock down because main switcher is handling it", buf, 0xCu);
+      }
+
+      v5 = v53;
     }
 
     else
     {
-      lockOutController = v45;
-      if ([(SBLockHardwareButtonActions *)self _sendButtonDownToRegisteredApp])
+      _sendButtonDownToRegisteredApp = [(SBLockHardwareButtonActions *)self _sendButtonDownToRegisteredApp];
+      lockOutController = v51;
+      if (_sendButtonDownToRegisteredApp)
       {
-        v24 = SBLogButtonsLock();
-        if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+        v25 = SBLogButtonsLock(_sendButtonDownToRegisteredApp);
+        if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
         {
-          v37 = NSStringFromSelector(aSelector);
+          v41 = NSStringFromSelector(aSelector);
           appsRegisteredForLockButtonEvents = [SBApp appsRegisteredForLockButtonEvents];
           firstObject = [appsRegisteredForLockButtonEvents firstObject];
           *buf = 138543618;
-          v49 = v37;
-          v50 = 2114;
-          v51 = firstObject;
-          _os_log_impl(&dword_21ED4E000, v24, OS_LOG_TYPE_DEFAULT, "%{public}@ result: registered app handled initial button down: %{public}@", buf, 0x16u);
+          v55 = v41;
+          v56 = 2114;
+          v57 = firstObject;
+          _os_log_impl(&dword_21ED4E000, v25, OS_LOG_TYPE_DEFAULT, "%{public}@ result: registered app handled initial button down: %{public}@", buf, 0x16u);
 
-          lockOutController = v45;
+          lockOutController = v51;
         }
 
-        v5 = v47;
+        v5 = v53;
         goto LABEL_42;
       }
 
-      v5 = v47;
-      if ((objc_opt_respondsToSelector() & 1) != 0 && [(SBSiriHardwareButtonInteraction *)self->_siriButtonInteraction consumeInitialPressDown])
+      v5 = v53;
+      if ((objc_opt_respondsToSelector() & 1) != 0 && (v44 = [(SBSiriHardwareButtonInteraction *)self->_siriButtonInteraction consumeInitialPressDown], v44))
       {
-        v24 = SBLogButtonsLock();
-        if (!os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+        v25 = SBLogButtonsLock(v44);
+        if (!os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
         {
           goto LABEL_42;
         }
 
-        v40 = NSStringFromSelector(aSelector);
+        v45 = NSStringFromSelector(aSelector);
         *buf = 138543362;
-        v49 = v40;
-        v41 = "%{public}@ result: Siri handled it";
+        v55 = v45;
+        v46 = "%{public}@ result: Siri handled it";
       }
 
       else
       {
-        if ((objc_opt_respondsToSelector() & 1) == 0 || ![(SBSleepWakeHardwareButtonInteraction *)self->_sleepWakeButtonInteraction consumeInitialPressDown])
+        if ((objc_opt_respondsToSelector() & 1) == 0)
         {
           goto LABEL_43;
         }
 
-        v24 = SBLogButtonsLock();
-        if (!os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+        consumeInitialPressDown = [(SBSleepWakeHardwareButtonInteraction *)self->_sleepWakeButtonInteraction consumeInitialPressDown];
+        if (!consumeInitialPressDown)
+        {
+          goto LABEL_43;
+        }
+
+        v25 = SBLogButtonsLock(consumeInitialPressDown);
+        if (!os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
         {
           goto LABEL_42;
         }
 
-        v40 = NSStringFromSelector(aSelector);
+        v45 = NSStringFromSelector(aSelector);
         *buf = 138543362;
-        v49 = v40;
-        v41 = "%{public}@ result: Sleep/wake interaction handled it";
+        v55 = v45;
+        v46 = "%{public}@ result: Sleep/wake interaction handled it";
       }
 
-      _os_log_impl(&dword_21ED4E000, v24, OS_LOG_TYPE_DEFAULT, v41, buf, 0xCu);
+      _os_log_impl(&dword_21ED4E000, v25, OS_LOG_TYPE_DEFAULT, v46, buf, 0xCu);
     }
 
-    lockOutController = v45;
+    lockOutController = v51;
 LABEL_42:
 
     goto LABEL_43;
   }
 
-  activeDisplayWindowScene = SBLogButtonsLock();
+  activeDisplayWindowScene = SBLogButtonsLock(v7);
   if (os_log_type_enabled(activeDisplayWindowScene, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = NSStringFromSelector(a2);
+    v9 = NSStringFromSelector(a2);
     *buf = 138543618;
-    v49 = v8;
-    v50 = 2114;
-    v51 = objc_opt_class();
-    systemApertureControllerForMainDisplay = v51;
+    v55 = v9;
+    v56 = 2114;
+    v57 = objc_opt_class();
+    systemApertureControllerForMainDisplay = v57;
     _os_log_impl(&dword_21ED4E000, activeDisplayWindowScene, OS_LOG_TYPE_DEFAULT, "%{public}@ result: ignoring lock down because %{public}@ handled it", buf, 0x16u);
 LABEL_45:
   }
@@ -410,8 +413,7 @@ LABEL_45:
 
   if (objc_opt_respondsToSelector())
   {
-    [(SBSleepWakeHardwareButtonInteraction *)self->_sleepWakeButtonInteraction consumeInitialPressUp];
-    v4 = SBLogButtonsLock();
+    v4 = SBLogButtonsLock([(SBSleepWakeHardwareButtonInteraction *)self->_sleepWakeButtonInteraction consumeInitialPressUp]);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       v5 = NSStringFromSelector(a2);
@@ -427,8 +429,7 @@ LABEL_45:
   v8 = *MEMORY[0x277D85DE8];
   if (objc_opt_respondsToSelector())
   {
-    [(SBSleepWakeHardwareButtonInteraction *)self->_sleepWakeButtonInteraction consumeSecondPressDown];
-    v4 = SBLogButtonsLock();
+    v4 = SBLogButtonsLock([(SBSleepWakeHardwareButtonInteraction *)self->_sleepWakeButtonInteraction consumeSecondPressDown]);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       v5 = NSStringFromSelector(a2);
@@ -441,18 +442,18 @@ LABEL_45:
 
 - (void)performLongPressActions
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   if (self->_lastLockButtonEventRecipient)
   {
-    homeHardwareButton = SBLogButtonsLock();
+    homeHardwareButton = SBLogButtonsLock(self);
     if (os_log_type_enabled(homeHardwareButton, OS_LOG_TYPE_DEFAULT))
     {
       v4 = NSStringFromSelector(a2);
-      v18 = 138543362;
-      v19 = v4;
+      v22 = 138543362;
+      v23 = v4;
       v5 = "%{public}@ result: ignored because there's a lock button recipient waiting for an up event";
 LABEL_13:
-      _os_log_impl(&dword_21ED4E000, homeHardwareButton, OS_LOG_TYPE_DEFAULT, v5, &v18, 0xCu);
+      _os_log_impl(&dword_21ED4E000, homeHardwareButton, OS_LOG_TYPE_DEFAULT, v5, &v22, 0xCu);
 
       goto LABEL_14;
     }
@@ -460,14 +461,15 @@ LABEL_13:
     goto LABEL_14;
   }
 
-  if ([(SBHardwareButtonService *)self->_hardwareButtonService consumeLockButtonLongPressWithPriority:0])
+  v7 = [(SBHardwareButtonService *)self->_hardwareButtonService consumeLockButtonLongPressWithPriority:0];
+  if (v7)
   {
-    homeHardwareButton = SBLogButtonsLock();
+    homeHardwareButton = SBLogButtonsLock(v7);
     if (os_log_type_enabled(homeHardwareButton, OS_LOG_TYPE_DEFAULT))
     {
       v4 = NSStringFromSelector(a2);
-      v18 = 138543362;
-      v19 = v4;
+      v22 = 138543362;
+      v23 = v4;
       v5 = "%{public}@ result: button consumer app handled it";
       goto LABEL_13;
     }
@@ -477,17 +479,17 @@ LABEL_14:
     return;
   }
 
-  v7 = +[SBSyncController sharedInstance];
-  isRestoring = [v7 isRestoring];
+  v8 = +[SBSyncController sharedInstance];
+  isRestoring = [v8 isRestoring];
 
   if (isRestoring)
   {
-    homeHardwareButton = SBLogButtonsLock();
+    homeHardwareButton = SBLogButtonsLock(v10);
     if (os_log_type_enabled(homeHardwareButton, OS_LOG_TYPE_DEFAULT))
     {
       v4 = NSStringFromSelector(a2);
-      v18 = 138543362;
-      v19 = v4;
+      v22 = 138543362;
+      v23 = v4;
       v5 = "%{public}@ result: ignored because we're restoring";
       goto LABEL_13;
     }
@@ -495,17 +497,17 @@ LABEL_14:
     goto LABEL_14;
   }
 
-  v9 = +[SBSyncController sharedInstance];
-  isResetting = [v9 isResetting];
+  v11 = +[SBSyncController sharedInstance];
+  isResetting = [v11 isResetting];
 
   if (isResetting)
   {
-    homeHardwareButton = SBLogButtonsLock();
+    homeHardwareButton = SBLogButtonsLock(v13);
     if (os_log_type_enabled(homeHardwareButton, OS_LOG_TYPE_DEFAULT))
     {
       v4 = NSStringFromSelector(a2);
-      v18 = 138543362;
-      v19 = v4;
+      v22 = 138543362;
+      v23 = v4;
       v5 = "%{public}@ result: ignored because we're resetting";
       goto LABEL_13;
     }
@@ -517,43 +519,44 @@ LABEL_14:
   {
     homeHardwareButton = [SBApp homeHardwareButton];
     isButtonDown = [homeHardwareButton isButtonDown];
-    v14 = SBLogButtonsLock();
-    v15 = os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT);
-    if (isButtonDown)
+    v17 = isButtonDown;
+    v18 = SBLogButtonsLock(isButtonDown);
+    v19 = os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT);
+    if (v17)
     {
-      if (v15)
+      if (v19)
       {
-        v16 = NSStringFromSelector(a2);
-        v18 = 138543362;
-        v19 = v16;
-        _os_log_impl(&dword_21ED4E000, v14, OS_LOG_TYPE_DEFAULT, "%{public}@ result: ignored because home button is down", &v18, 0xCu);
+        v20 = NSStringFromSelector(a2);
+        v22 = 138543362;
+        v23 = v20;
+        _os_log_impl(&dword_21ED4E000, v18, OS_LOG_TYPE_DEFAULT, "%{public}@ result: ignored because home button is down", &v22, 0xCu);
       }
     }
 
     else
     {
-      if (v15)
+      if (v19)
       {
-        v17 = NSStringFromSelector(a2);
-        v18 = 138543362;
-        v19 = v17;
-        _os_log_impl(&dword_21ED4E000, v14, OS_LOG_TYPE_DEFAULT, "%{public}@ result: showing power down transient overlay", &v18, 0xCu);
+        v21 = NSStringFromSelector(a2);
+        v22 = 138543362;
+        v23 = v21;
+        _os_log_impl(&dword_21ED4E000, v18, OS_LOG_TYPE_DEFAULT, "%{public}@ result: showing power down transient overlay", &v22, 0xCu);
       }
 
-      v14 = +[SBWorkspace mainWorkspace];
-      [v14 presentPowerDownTransientOverlay];
+      v18 = +[SBWorkspace mainWorkspace];
+      [v18 presentPowerDownTransientOverlay];
     }
 
     goto LABEL_14;
   }
 
-  v11 = SBLogButtonsLock();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  v14 = SBLogButtonsLock(v13);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = NSStringFromSelector(a2);
-    v18 = 138543362;
-    v19 = v12;
-    _os_log_impl(&dword_21ED4E000, v11, OS_LOG_TYPE_DEFAULT, "%{public}@ result: sending to Siri", &v18, 0xCu);
+    v15 = NSStringFromSelector(a2);
+    v22 = 138543362;
+    v23 = v15;
+    _os_log_impl(&dword_21ED4E000, v14, OS_LOG_TYPE_DEFAULT, "%{public}@ result: sending to Siri", &v22, 0xCu);
   }
 
   if (objc_opt_respondsToSelector())
@@ -566,7 +569,7 @@ LABEL_14:
 {
   v10 = *MEMORY[0x277D85DE8];
   isButtonDown = self->_isButtonDown;
-  v4 = SBLogButtonsLock();
+  v4 = SBLogButtonsLock(self);
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
   if (isButtonDown)
   {
@@ -594,7 +597,7 @@ LABEL_14:
 - (void)performForceResetSequenceBeganActions
 {
   v8 = *MEMORY[0x277D85DE8];
-  v4 = SBLogButtonsLock();
+  v4 = SBLogButtonsLock(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = NSStringFromSelector(a2);
@@ -627,7 +630,7 @@ LABEL_14:
 
 - (void)performSinglePressAction
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   if (objc_opt_respondsToSelector())
   {
     [(SBSiriHardwareButtonInteraction *)self->_siriButtonInteraction observeFinalPressUp];
@@ -636,17 +639,18 @@ LABEL_14:
   defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
   [defaultCenter postNotificationName:*MEMORY[0x277D67A80] object:0];
 
-  if ([(SBLockHardwareButtonActions *)self _sendButtonUpToRegisteredApp])
+  _sendButtonUpToRegisteredApp = [(SBLockHardwareButtonActions *)self _sendButtonUpToRegisteredApp];
+  if (_sendButtonUpToRegisteredApp)
   {
-    v5 = SBLogButtonsLock();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = SBLogButtonsLock(_sendButtonUpToRegisteredApp);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = NSStringFromSelector(a2);
-      *v17 = 138543362;
-      *&v17[4] = v6;
-      v7 = "%{public}@ result: registered app handled it";
+      v7 = NSStringFromSelector(a2);
+      *v24 = 138543362;
+      *&v24[4] = v7;
+      v8 = "%{public}@ result: registered app handled it";
 LABEL_17:
-      _os_log_impl(&dword_21ED4E000, v5, OS_LOG_TYPE_DEFAULT, v7, v17, 0xCu);
+      _os_log_impl(&dword_21ED4E000, v6, OS_LOG_TYPE_DEFAULT, v8, v24, 0xCu);
       goto LABEL_18;
     }
 
@@ -655,131 +659,144 @@ LABEL_17:
 
   if ([(SBLockHardwareButtonActions *)self _isSOSActive]&& self->_sosTriggerMechanism == 3)
   {
-    [(SOSManager *)self->_sosManager dismissSOSWithCompletion:&__block_literal_global_94];
-    v5 = SBLogButtonsLock();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = SBLogButtonsLock([(SOSManager *)self->_sosManager dismissSOSWithCompletion:&__block_literal_global_94]);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = NSStringFromSelector(a2);
-      *v17 = 138543362;
-      *&v17[4] = v6;
-      v7 = "%{public}@ result: SOS dismiss handled it";
+      v7 = NSStringFromSelector(a2);
+      *v24 = 138543362;
+      *&v24[4] = v7;
+      v8 = "%{public}@ result: SOS dismiss handled it";
       goto LABEL_17;
     }
 
 LABEL_19:
 
-    v9 = 1;
+    v12 = 1;
     goto LABEL_20;
   }
 
-  if ((objc_opt_respondsToSelector() & 1) != 0 && [(SBHardwareButtonInteraction *)self->_proximitySensorButtonInteraction consumeSinglePressUp])
+  if (objc_opt_respondsToSelector())
   {
-    v5 = SBLogButtonsLock();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    consumeSinglePressUp = [(SBHardwareButtonInteraction *)self->_proximitySensorButtonInteraction consumeSinglePressUp];
+    if (consumeSinglePressUp)
     {
-      v6 = NSStringFromSelector(a2);
-      *v17 = 138543618;
-      *&v17[4] = v6;
-      *&v17[12] = 2114;
-      *&v17[14] = objc_opt_class();
-      v8 = *&v17[14];
-      _os_log_impl(&dword_21ED4E000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@ result: %{public}@ handled it", v17, 0x16u);
+      v6 = SBLogButtonsLock(consumeSinglePressUp);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      {
+        v7 = NSStringFromSelector(a2);
+        *v24 = 138543618;
+        *&v24[4] = v7;
+        *&v24[12] = 2114;
+        *&v24[14] = objc_opt_class();
+        v10 = *&v24[14];
+        _os_log_impl(&dword_21ED4E000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@ result: %{public}@ handled it", v24, 0x16u);
 
 LABEL_18:
+        goto LABEL_19;
+      }
+
       goto LABEL_19;
     }
-
-    goto LABEL_19;
   }
 
-  if ([(SBHardwareButtonService *)self->_hardwareButtonService consumeLockButtonSinglePressUpWithPriority:0])
+  v11 = [(SBHardwareButtonService *)self->_hardwareButtonService consumeLockButtonSinglePressUpWithPriority:0];
+  if (v11)
   {
-    v5 = SBLogButtonsLock();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = SBLogButtonsLock(v11);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = NSStringFromSelector(a2);
-      *v17 = 138543362;
-      *&v17[4] = v6;
-      v7 = "%{public}@ result: button consumer app handled it";
+      v7 = NSStringFromSelector(a2);
+      *v24 = 138543362;
+      *&v24[4] = v7;
+      v8 = "%{public}@ result: button consumer app handled it";
       goto LABEL_17;
     }
 
     goto LABEL_19;
   }
 
-  if ((objc_opt_respondsToSelector() & 1) != 0 && [(SBSiriHardwareButtonInteraction *)self->_siriButtonInteraction consumeSinglePressUp])
+  if (objc_opt_respondsToSelector())
   {
-    v5 = SBLogButtonsLock();
-    if (!os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    consumeSinglePressUp2 = [(SBSiriHardwareButtonInteraction *)self->_siriButtonInteraction consumeSinglePressUp];
+    if (consumeSinglePressUp2)
     {
-      goto LABEL_19;
-    }
+      v6 = SBLogButtonsLock(consumeSinglePressUp2);
+      if (!os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      {
+        goto LABEL_19;
+      }
 
-    v6 = NSStringFromSelector(a2);
-    *v17 = 138543362;
-    *&v17[4] = v6;
-    v7 = "%{public}@ result: Siri handled it";
-    goto LABEL_17;
+      v7 = NSStringFromSelector(a2);
+      *v24 = 138543362;
+      *&v24[4] = v7;
+      v8 = "%{public}@ result: Siri handled it";
+      goto LABEL_17;
+    }
   }
 
-  v9 = 0;
+  v12 = 0;
 LABEL_20:
-  if ([(SBLockHardwareButtonActions *)self _isSOSActive:*v17])
+  v13 = [(SBLockHardwareButtonActions *)self _isSOSActive:*v24];
+  if (v13)
   {
-    v10 = SBLogButtonsLock();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v14 = SBLogButtonsLock(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = NSStringFromSelector(a2);
-      *v17 = 138543362;
-      *&v17[4] = v11;
-      _os_log_impl(&dword_21ED4E000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@ result: ignored because _isSOSActive", v17, 0xCu);
+      v15 = NSStringFromSelector(a2);
+      *v24 = 138543362;
+      *&v24[4] = v15;
+      _os_log_impl(&dword_21ED4E000, v14, OS_LOG_TYPE_DEFAULT, "%{public}@ result: ignored because _isSOSActive", v24, 0xCu);
     }
 
-    v9 = 1;
+    v12 = 1;
   }
 
-  v12 = +[SBMainWorkspace sharedInstance];
-  isPowerDownTransientOverlayTopmost = [v12 isPowerDownTransientOverlayTopmost];
+  v16 = +[SBMainWorkspace sharedInstance];
+  isPowerDownTransientOverlayTopmost = [v16 isPowerDownTransientOverlayTopmost];
 
   if (isPowerDownTransientOverlayTopmost)
   {
-    v14 = SBLogButtonsLock();
-    if (!os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v19 = SBLogButtonsLock(v18);
+    if (!os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
 LABEL_28:
 
       return;
     }
 
-    v15 = NSStringFromSelector(a2);
-    *v17 = 138543362;
-    *&v17[4] = v15;
-    v16 = "%{public}@ result: ignored because power down alert is topmost";
+    v20 = NSStringFromSelector(a2);
+    *v24 = 138543362;
+    *&v24[4] = v20;
+    v21 = "%{public}@ result: ignored because power down alert is topmost";
 LABEL_27:
-    _os_log_impl(&dword_21ED4E000, v14, OS_LOG_TYPE_DEFAULT, v16, v17, 0xCu);
+    _os_log_impl(&dword_21ED4E000, v19, OS_LOG_TYPE_DEFAULT, v21, v24, 0xCu);
 
     goto LABEL_28;
   }
 
-  if ((v9 & 1) == 0 && (objc_opt_respondsToSelector() & 1) != 0 && [(SBSleepWakeHardwareButtonInteraction *)self->_sleepWakeButtonInteraction consumeSinglePressUp])
+  if (v12 & 1) == 0 && (objc_opt_respondsToSelector())
   {
-    v14 = SBLogButtonsLock();
-    if (!os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    consumeSinglePressUp3 = [(SBSleepWakeHardwareButtonInteraction *)self->_sleepWakeButtonInteraction consumeSinglePressUp];
+    if (consumeSinglePressUp3)
     {
-      goto LABEL_28;
-    }
+      v19 = SBLogButtonsLock(consumeSinglePressUp3);
+      if (!os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+      {
+        goto LABEL_28;
+      }
 
-    v15 = NSStringFromSelector(a2);
-    *v17 = 138543362;
-    *&v17[4] = v15;
-    v16 = "%{public}@ result: Sleep/wake interaction handled it";
-    goto LABEL_27;
+      v20 = NSStringFromSelector(a2);
+      *v24 = 138543362;
+      *&v24[4] = v20;
+      v21 = "%{public}@ result: Sleep/wake interaction handled it";
+      goto LABEL_27;
+    }
   }
 }
 
 - (void)performDoublePressActions
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   if (objc_opt_respondsToSelector())
   {
     [(SBSiriHardwareButtonInteraction *)self->_siriButtonInteraction observeFinalPressUp];
@@ -788,105 +805,108 @@ LABEL_27:
   v4 = +[SBWorkspace mainWorkspace];
   transientOverlayPresentationManager = [v4 transientOverlayPresentationManager];
 
-  if (+[SBInCallPresentationManager isSpecializedAPISupported](SBInCallPresentationManager, "isSpecializedAPISupported") || ![transientOverlayPresentationManager handleLockButtonPress])
+  if (+[SBInCallPresentationManager isSpecializedAPISupported](SBInCallPresentationManager, "isSpecializedAPISupported") || (v6 = [transientOverlayPresentationManager handleLockButtonPress], !v6))
   {
-    v8 = 0;
+    v9 = 0;
   }
 
   else
   {
-    v6 = SBLogButtonsLock();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = SBLogButtonsLock(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = NSStringFromSelector(a2);
-      v18 = 138543362;
-      v19 = v7;
-      _os_log_impl(&dword_21ED4E000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@ result: transient overlay is handling it as a separate single press", &v18, 0xCu);
+      v8 = NSStringFromSelector(a2);
+      v23 = 138543362;
+      v24 = v8;
+      _os_log_impl(&dword_21ED4E000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@ result: transient overlay is handling it as a separate single press", &v23, 0xCu);
     }
 
-    v8 = 1;
+    v9 = 1;
   }
 
-  if ([(SBLockHardwareButtonActions *)self _isSOSActive])
+  _isSOSActive = [(SBLockHardwareButtonActions *)self _isSOSActive];
+  if (_isSOSActive)
   {
-    v9 = SBLogButtonsLock();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v11 = SBLogButtonsLock(_isSOSActive);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = NSStringFromSelector(a2);
-      v18 = 138543362;
-      v19 = v10;
-      _os_log_impl(&dword_21ED4E000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@ result: ignored because SOS is active", &v18, 0xCu);
+      v12 = NSStringFromSelector(a2);
+      v23 = 138543362;
+      v24 = v12;
+      _os_log_impl(&dword_21ED4E000, v11, OS_LOG_TYPE_DEFAULT, "%{public}@ result: ignored because SOS is active", &v23, 0xCu);
     }
 
-    v8 = 1;
+    v9 = 1;
   }
 
-  v11 = +[SBMainWorkspace sharedInstance];
-  isPowerDownTransientOverlayTopmost = [v11 isPowerDownTransientOverlayTopmost];
+  v13 = +[SBMainWorkspace sharedInstance];
+  isPowerDownTransientOverlayTopmost = [v13 isPowerDownTransientOverlayTopmost];
 
   if (isPowerDownTransientOverlayTopmost)
   {
-    v13 = SBLogButtonsLock();
-    if (!os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v16 = SBLogButtonsLock(v15);
+    if (!os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
 LABEL_17:
 
       goto LABEL_19;
     }
 
-    v14 = NSStringFromSelector(a2);
-    v18 = 138543362;
-    v19 = v14;
-    v15 = "%{public}@ result: ignored because power down alert is topmost";
+    v17 = NSStringFromSelector(a2);
+    v23 = 138543362;
+    v24 = v17;
+    v18 = "%{public}@ result: ignored because power down alert is topmost";
 LABEL_16:
-    _os_log_impl(&dword_21ED4E000, v13, OS_LOG_TYPE_DEFAULT, v15, &v18, 0xCu);
+    _os_log_impl(&dword_21ED4E000, v16, OS_LOG_TYPE_DEFAULT, v18, &v23, 0xCu);
 
     goto LABEL_17;
   }
 
-  if (v8)
+  if (v9)
   {
     goto LABEL_19;
   }
 
   [MEMORY[0x277CD4790] notifyEvent:0];
-  if ([(SBHardwareButtonService *)self->_hardwareButtonService consumeLockButtonDoublePressUpWithPriority:0])
+  v19 = [(SBHardwareButtonService *)self->_hardwareButtonService consumeLockButtonDoublePressUpWithPriority:0];
+  if (v19)
   {
-    v13 = SBLogButtonsLock();
-    if (!os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v16 = SBLogButtonsLock(v19);
+    if (!os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_17;
     }
 
-    v14 = NSStringFromSelector(a2);
-    v18 = 138543362;
-    v19 = v14;
-    v15 = "%{public}@ result: button consumer app handled it";
-    goto LABEL_16;
-  }
-
-  if (![(SBWalletPreArmController *)self->_walletPreArmController isPreArmTriggeredByLockButtonDoublePress]|| ![(SBWalletPreArmController *)self->_walletPreArmController isPreArmAllowed])
-  {
-    v13 = SBLogButtonsLock();
-    if (!os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
-    {
-      goto LABEL_17;
-    }
-
-    v14 = NSStringFromSelector(a2);
-    v18 = 138543362;
-    v19 = v14;
-    v15 = "%{public}@ result: ignored";
-    goto LABEL_16;
-  }
-
-  v16 = SBLogButtonsLock();
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
-  {
     v17 = NSStringFromSelector(a2);
-    v18 = 138543362;
-    v19 = v17;
-    _os_log_impl(&dword_21ED4E000, v16, OS_LOG_TYPE_DEFAULT, "%{public}@ result: presenting wallet pre-arm", &v18, 0xCu);
+    v23 = 138543362;
+    v24 = v17;
+    v18 = "%{public}@ result: button consumer app handled it";
+    goto LABEL_16;
+  }
+
+  isPreArmTriggeredByLockButtonDoublePress = [(SBWalletPreArmController *)self->_walletPreArmController isPreArmTriggeredByLockButtonDoublePress];
+  if (!isPreArmTriggeredByLockButtonDoublePress || (isPreArmTriggeredByLockButtonDoublePress = [(SBWalletPreArmController *)self->_walletPreArmController isPreArmAllowed], !isPreArmTriggeredByLockButtonDoublePress))
+  {
+    v16 = SBLogButtonsLock(isPreArmTriggeredByLockButtonDoublePress);
+    if (!os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    {
+      goto LABEL_17;
+    }
+
+    v17 = NSStringFromSelector(a2);
+    v23 = 138543362;
+    v24 = v17;
+    v18 = "%{public}@ result: ignored";
+    goto LABEL_16;
+  }
+
+  v21 = SBLogButtonsLock(isPreArmTriggeredByLockButtonDoublePress);
+  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+  {
+    v22 = NSStringFromSelector(a2);
+    v23 = 138543362;
+    v24 = v22;
+    _os_log_impl(&dword_21ED4E000, v21, OS_LOG_TYPE_DEFAULT, "%{public}@ result: presenting wallet pre-arm", &v23, 0xCu);
   }
 
   [(SBWalletPreArmController *)self->_walletPreArmController presentPreArmInterfaceForWalletConsumer];
@@ -895,35 +915,36 @@ LABEL_19:
 
 - (void)performTriplePressActions
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   if (objc_opt_respondsToSelector())
   {
     [(SBSiriHardwareButtonInteraction *)self->_siriButtonInteraction observeFinalPressUp];
   }
 
-  if ((objc_opt_respondsToSelector() & 1) != 0 && [(SBAccessibilityHardwareButtonInteraction *)self->_accessibilityButtonInteraction consumeTriplePressUp])
+  v4 = objc_opt_respondsToSelector();
+  if ((v4 & 1) != 0 && (v4 = [(SBAccessibilityHardwareButtonInteraction *)self->_accessibilityButtonInteraction consumeTriplePressUp], v4))
   {
-    v4 = SBLogButtonsLock();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = SBLogButtonsLock(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = NSStringFromSelector(a2);
-      v7 = 138543362;
-      v8 = v5;
-      v6 = "%{public}@ result: accessibility handled it";
+      v6 = NSStringFromSelector(a2);
+      v8 = 138543362;
+      v9 = v6;
+      v7 = "%{public}@ result: accessibility handled it";
 LABEL_9:
-      _os_log_impl(&dword_21ED4E000, v4, OS_LOG_TYPE_DEFAULT, v6, &v7, 0xCu);
+      _os_log_impl(&dword_21ED4E000, v5, OS_LOG_TYPE_DEFAULT, v7, &v8, 0xCu);
     }
   }
 
   else
   {
-    v4 = SBLogButtonsLock();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = SBLogButtonsLock(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = NSStringFromSelector(a2);
-      v7 = 138543362;
-      v8 = v5;
-      v6 = "%{public}@ result: ignored";
+      v6 = NSStringFromSelector(a2);
+      v8 = 138543362;
+      v9 = v6;
+      v7 = "%{public}@ result: ignored";
       goto LABEL_9;
     }
   }
@@ -939,10 +960,10 @@ LABEL_9:
 
   if (hasVisibleSuperModalAlert)
   {
-    v12 = SBLogButtonsLock();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v13 = SBLogButtonsLock(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      [SBLockHardwareButtonActions performSOSActionsWithUUID:v12 triggerMechanism:? completion:?];
+      [SBLockHardwareButtonActions performSOSActionsWithUUID:v13 triggerMechanism:? completion:?];
     }
 
     if (completionCopy)
@@ -953,16 +974,16 @@ LABEL_9:
 
   else
   {
-    v13 = dispatch_get_global_queue(21, 0);
-    v14[0] = MEMORY[0x277D85DD0];
-    v14[1] = 3221225472;
-    v14[2] = __85__SBLockHardwareButtonActions_performSOSActionsWithUUID_triggerMechanism_completion___block_invoke;
-    v14[3] = &unk_2783AB780;
-    v14[4] = self;
-    v15 = dCopy;
+    v14 = dispatch_get_global_queue(21, 0);
+    v15[0] = MEMORY[0x277D85DD0];
+    v15[1] = 3221225472;
+    v15[2] = __85__SBLockHardwareButtonActions_performSOSActionsWithUUID_triggerMechanism_completion___block_invoke;
+    v15[3] = &unk_2783AB780;
+    v15[4] = self;
+    v16 = dCopy;
     mechanismCopy = mechanism;
-    v16 = completionCopy;
-    dispatch_async(v13, v14);
+    v17 = completionCopy;
+    dispatch_async(v14, v15);
   }
 }
 
@@ -1002,7 +1023,7 @@ void __85__SBLockHardwareButtonActions_performSOSActionsWithUUID_triggerMechanis
 
 - (void)performLongPressCancelledActions
 {
-  v3 = SBLogButtonsLock();
+  v3 = SBLogButtonsLock(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     *v4 = 0;
@@ -1024,7 +1045,7 @@ void __85__SBLockHardwareButtonActions_performSOSActionsWithUUID_triggerMechanis
 
 - (BOOL)_shouldWaitForDoublePress
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   isPreArmTriggeredByLockButtonDoublePress = [(SBWalletPreArmController *)self->_walletPreArmController isPreArmTriggeredByLockButtonDoublePress];
   if (isPreArmTriggeredByLockButtonDoublePress)
   {
@@ -1040,25 +1061,27 @@ void __85__SBLockHardwareButtonActions_performSOSActionsWithUUID_triggerMechanis
 
   maximumPressCount = [(SBHardwareButtonGestureParameters *)self->_accessibilityGestureParameters maximumPressCount];
   hasConsumersForLockButtonDoublePressUp = [(SBHardwareButtonService *)self->_hardwareButtonService hasConsumersForLockButtonDoublePressUp];
-  v8 = SBLogButtonsLock();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v8 = hasConsumersForLockButtonDoublePressUp;
+  v9 = (isPreArmAvailable || isPreArmExternallySuppressed) | hasConsumersForLockButtonDoublePressUp | (maximumPressCount > 2);
+  v10 = SBLogButtonsLock(hasConsumersForLockButtonDoublePressUp);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    v10[0] = 67110400;
-    v10[1] = isPreArmAvailable || isPreArmExternallySuppressed || hasConsumersForLockButtonDoublePressUp || maximumPressCount > 2;
-    v11 = 1024;
-    v12 = isPreArmTriggeredByLockButtonDoublePress;
+    v12[0] = 67110400;
+    v12[1] = v9 & 1;
     v13 = 1024;
-    v14 = isPreArmAvailable;
+    v14 = isPreArmTriggeredByLockButtonDoublePress;
     v15 = 1024;
-    v16 = isPreArmExternallySuppressed;
+    v16 = isPreArmAvailable;
     v17 = 1024;
-    v18 = maximumPressCount > 2;
+    v18 = isPreArmExternallySuppressed;
     v19 = 1024;
-    v20 = hasConsumersForLockButtonDoublePressUp;
-    _os_log_impl(&dword_21ED4E000, v8, OS_LOG_TYPE_DEFAULT, "Lock button single press should wait for double-press timeout: %{BOOL}u  (preArmDevice: %{BOOL}u preArmAvailable: %{BOOL}u preArmSuppressed: %{BOOL}u axTripleClickEnabled: %{BOOL}u buttonConsumer: %{BOOL}u)", v10, 0x26u);
+    v20 = maximumPressCount > 2;
+    v21 = 1024;
+    v22 = v8 & 1;
+    _os_log_impl(&dword_21ED4E000, v10, OS_LOG_TYPE_DEFAULT, "Lock button single press should wait for double-press timeout: %{BOOL}u  (preArmDevice: %{BOOL}u preArmAvailable: %{BOOL}u preArmSuppressed: %{BOOL}u axTripleClickEnabled: %{BOOL}u buttonConsumer: %{BOOL}u)", v12, 0x26u);
   }
 
-  return isPreArmAvailable || isPreArmExternallySuppressed || hasConsumersForLockButtonDoublePressUp || maximumPressCount > 2;
+  return v9 & 1;
 }
 
 - (BOOL)disallowsSinglePressForReason:(id *)reason
@@ -1301,21 +1324,21 @@ void __85__SBLockHardwareButtonActions_performSOSActionsWithUUID_triggerMechanis
 - (void)_sendButtonEventToApp:(id)app down:(BOOL)down
 {
   downCopy = down;
-  v16 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   appCopy = app;
   bundleIdentifier = [appCopy bundleIdentifier];
   processState = [appCopy processState];
 
   v9 = [processState pid];
-  v10 = SBLogButtonsLock();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v11 = SBLogButtonsLock(v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = NSStringFromSelector(a2);
-    v12 = 138543618;
-    v13 = v11;
-    v14 = 2114;
-    v15 = bundleIdentifier;
-    _os_log_impl(&dword_21ED4E000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@ result: sending to %{public}@", &v12, 0x16u);
+    v12 = NSStringFromSelector(a2);
+    v13 = 138543618;
+    v14 = v12;
+    v15 = 2114;
+    v16 = bundleIdentifier;
+    _os_log_impl(&dword_21ED4E000, v11, OS_LOG_TYPE_DEFAULT, "%{public}@ result: sending to %{public}@", &v13, 0x16u);
   }
 
   SBSendFakeButtonPressEventToApplication(bundleIdentifier, v9, 104, downCopy);

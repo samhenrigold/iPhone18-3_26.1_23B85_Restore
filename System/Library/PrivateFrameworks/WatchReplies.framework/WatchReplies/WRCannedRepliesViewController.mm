@@ -15,12 +15,14 @@
 - (void)returnPressedAtEnd;
 - (void)saveReplies;
 - (void)setCustomReply:(id)reply specifier:(id)specifier;
+- (void)setEditing:(BOOL)editing animated:(BOOL)animated;
 - (void)setIncludeSmartReplies:(id)replies specifier:(id)specifier;
 - (void)tableView:(id)view commitEditingStyle:(int64_t)style forRowAtIndexPath:(id)path;
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path;
 - (void)tableView:(id)view moveRowAtIndexPath:(id)path toIndexPath:(id)indexPath;
 - (void)updateEditDoneButton;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation WRCannedRepliesViewController
@@ -50,6 +52,14 @@
   }
 }
 
+- (void)viewWillAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = WRCannedRepliesViewController;
+  [(WRCannedRepliesViewController *)&v4 viewWillAppear:appear];
+  [(WRCannedRepliesViewController *)self updateEditDoneButton];
+}
+
 - (void)updateEditDoneButton
 {
   if (self->_supportedEnhancedEditing && (-[WRCannedRepliesViewController cannedReplies](self, "cannedReplies"), v3 = objc_claimAutoreleasedReturnValue(), v4 = [v3 count], v3, v4))
@@ -66,6 +76,59 @@
   }
 }
 
+- (void)setEditing:(BOOL)editing animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  editingCopy = editing;
+  if (editing)
+  {
+    isEditing = 0;
+  }
+
+  else
+  {
+    isEditing = [(WRCannedRepliesViewController *)self isEditing];
+  }
+
+  v11.receiver = self;
+  v11.super_class = WRCannedRepliesViewController;
+  [(WRCannedRepliesViewController *)&v11 setEditing:editingCopy animated:animatedCopy];
+  [(WRCannedRepliesViewController *)self returnPressedAtEnd];
+  if (self->_supportedEnhancedEditing)
+  {
+    table = [(WRCannedRepliesViewController *)self table];
+    [table setEditing:editingCopy animated:1];
+
+    addNewSpecifier = self->_addNewSpecifier;
+    if (addNewSpecifier)
+    {
+      if (!editingCopy)
+      {
+        lastObject = [*(&self->super.super.super.super.super.isa + *MEMORY[0x277D3FC48]) lastObject];
+        [(WRCannedRepliesViewController *)self insertSpecifier:addNewSpecifier afterSpecifier:lastObject animated:animatedCopy];
+
+        if (!isEditing)
+        {
+          return;
+        }
+
+LABEL_9:
+        [(WRCannedRepliesViewController *)self saveReplies];
+        return;
+      }
+
+      [(WRCannedRepliesViewController *)self removeSpecifier:self->_addNewSpecifier animated:animatedCopy];
+    }
+
+    if (!isEditing)
+    {
+      return;
+    }
+
+    goto LABEL_9;
+  }
+}
+
 - (id)specifiers
 {
   v3 = *MEMORY[0x277D3FC48];
@@ -74,52 +137,52 @@
   {
     v5 = objc_alloc_init(MEMORY[0x277CBEB18]);
     v6 = MEMORY[0x277D3FAD8];
-    v7 = WRBundle();
+    v7 = WRBundle(v5);
     v8 = [v7 localizedStringForKey:@"DEFAULT_REPLIES" value:&stru_288224B90 table:@"WRCannedRepliesViewController"];
     v9 = [v6 groupSpecifierWithName:v8];
 
-    v10 = WRBundle();
-    v11 = [v10 localizedStringForKey:@"DEFAULT_REPLIES_HELP" value:&stru_288224B90 table:@"WRCannedRepliesViewController"];
-    [v9 setObject:v11 forKeyedSubscript:*MEMORY[0x277D3FF88]];
+    v11 = WRBundle(v10);
+    v12 = [v11 localizedStringForKey:@"DEFAULT_REPLIES_HELP" value:&stru_288224B90 table:@"WRCannedRepliesViewController"];
+    [v9 setObject:v12 forKeyedSubscript:*MEMORY[0x277D3FF88]];
 
     [v5 addObject:v9];
-    v29 = 0;
-    v30 = &v29;
-    v31 = 0x2020000000;
-    v32 = [v5 indexOfObject:v9];
-    v12 = v30[3];
-    if (v12 != 0x7FFFFFFFFFFFFFFFLL)
+    v31 = 0;
+    v32 = &v31;
+    v33 = 0x2020000000;
+    v34 = [v5 indexOfObject:v9];
+    v13 = v32[3];
+    if (v13 != 0x7FFFFFFFFFFFFFFFLL)
     {
-      v30[3] = v12 + 1;
+      v32[3] = v13 + 1;
       cannedReplies = [(WRCannedRepliesViewController *)self cannedReplies];
-      v22 = MEMORY[0x277D85DD0];
-      v23 = 3221225472;
-      v24 = __43__WRCannedRepliesViewController_specifiers__block_invoke;
-      v25 = &unk_279E66A28;
+      v24 = MEMORY[0x277D85DD0];
+      v25 = 3221225472;
+      v26 = __43__WRCannedRepliesViewController_specifiers__block_invoke;
+      v27 = &unk_279E66A28;
       selfCopy = self;
-      v14 = v5;
-      v27 = v14;
-      v28 = &v29;
-      [cannedReplies enumerateObjectsUsingBlock:&v22];
+      v15 = v5;
+      v29 = v15;
+      v30 = &v31;
+      v16 = [cannedReplies enumerateObjectsUsingBlock:&v24];
       if (self->_supportedEnhancedEditing)
       {
-        v15 = MEMORY[0x277D3FAD8];
-        v16 = WRBundle();
-        v17 = [v16 localizedStringForKey:@"ADD_NEW_REPLY" value:&stru_288224B90 table:@"WRCannedRepliesViewController"];
-        v18 = [v15 preferenceSpecifierNamed:v17 target:self set:0 get:0 detail:0 cell:13 edit:{0, v22, v23, v24, v25, selfCopy}];
+        v17 = MEMORY[0x277D3FAD8];
+        v18 = WRBundle(v16);
+        v19 = [v18 localizedStringForKey:@"ADD_NEW_REPLY" value:&stru_288224B90 table:@"WRCannedRepliesViewController"];
+        v20 = [v17 preferenceSpecifierNamed:v19 target:self set:0 get:0 detail:0 cell:13 edit:{0, v24, v25, v26, v27, selfCopy}];
         addNewSpecifier = self->_addNewSpecifier;
-        self->_addNewSpecifier = v18;
+        self->_addNewSpecifier = v20;
 
         [(PSSpecifier *)self->_addNewSpecifier setButtonAction:sel_addNewReply_];
         [(PSSpecifier *)self->_addNewSpecifier setProperty:MEMORY[0x277CBEC38] forKey:*MEMORY[0x277D3FF38]];
-        [v14 addObject:self->_addNewSpecifier];
+        [v15 addObject:self->_addNewSpecifier];
       }
     }
 
-    v20 = *(&self->super.super.super.super.super.isa + v3);
+    v22 = *(&self->super.super.super.super.super.isa + v3);
     *(&self->super.super.super.super.super.isa + v3) = v5;
 
-    _Block_object_dispose(&v29, 8);
+    _Block_object_dispose(&v31, 8);
     v4 = *(&self->super.super.super.super.super.isa + v3);
   }
 
@@ -130,7 +193,7 @@ void __43__WRCannedRepliesViewController_specifiers__block_invoke(void *a1, void
 {
   v3 = a2;
   v4 = a1[4];
-  v16 = v3;
+  v17 = v3;
   if (v4[1496] == 1)
   {
     v5 = [v3 defaultReplyText];
@@ -138,30 +201,30 @@ void __43__WRCannedRepliesViewController_specifiers__block_invoke(void *a1, void
 
     if (v6)
     {
-      v7 = MEMORY[0x277D3FAD8];
-      v8 = WRBundle();
-      v9 = [v8 localizedStringForKey:@"SMART_REPLIES" value:&stru_288224B90 table:@"WRCannedRepliesViewController"];
-      v10 = [v7 preferenceSpecifierNamed:v9 target:a1[4] set:sel_setIncludeSmartReplies_specifier_ get:sel_includeSmartReplies detail:0 cell:6 edit:0];
-      v11 = a1[4];
-      v12 = *(v11 + 1472);
-      *(v11 + 1472) = v10;
+      v8 = MEMORY[0x277D3FAD8];
+      v9 = WRBundle(v7);
+      v10 = [v9 localizedStringForKey:@"SMART_REPLIES" value:&stru_288224B90 table:@"WRCannedRepliesViewController"];
+      v11 = [v8 preferenceSpecifierNamed:v10 target:a1[4] set:sel_setIncludeSmartReplies_specifier_ get:sel_includeSmartReplies detail:0 cell:6 edit:0];
+      v12 = a1[4];
+      v13 = *(v12 + 1472);
+      *(v12 + 1472) = v11;
 
-      v13 = *(a1[4] + 1472);
+      v14 = *(a1[4] + 1472);
       goto LABEL_6;
     }
 
     v4 = a1[4];
   }
 
-  v13 = [v4 newCannedReplySpecifier];
-  v14 = [v16 defaultReplyText];
-  [v13 setPlaceholder:v14];
+  v14 = [v4 newCannedReplySpecifier];
+  v15 = [v17 defaultReplyText];
+  [v14 setPlaceholder:v15];
 
 LABEL_6:
-  [v13 setProperty:v16 forKey:@"WRCannedReplyKey"];
-  v15 = a1[5];
+  [v14 setProperty:v17 forKey:@"WRCannedReplyKey"];
+  v16 = a1[5];
   ++*(*(a1[6] + 8) + 24);
-  [v15 insertObject:v13 atIndex:?];
+  [v16 insertObject:v14 atIndex:?];
 }
 
 - (id)tableView:(id)view cellForRowAtIndexPath:(id)path
@@ -440,43 +503,41 @@ LABEL_6:
 
 - (id)cannedRepliesFromSpecifiers
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277CBEB18]);
   v4 = *MEMORY[0x277D3FC48];
   v5 = [v3 initWithCapacity:{objc_msgSend(*(&self->super.super.super.super.super.isa + v4), "count")}];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v6 = *(&self->super.super.super.super.super.isa + v4);
-  v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v15;
+    v9 = *v14;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v15 != v9)
+        if (*v14 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = [*(*(&v14 + 1) + 8 * i) propertyForKey:{@"WRCannedReplyKey", v14}];
+        v11 = [*(*(&v13 + 1) + 8 * i) propertyForKey:{@"WRCannedReplyKey", v13}];
         if (v11)
         {
           [v5 addObject:v11];
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v8);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -493,9 +554,7 @@ LABEL_6:
 {
   if (!self->_repliesStore)
   {
-    v3 = [[WRCannedRepliesStore alloc] initWithCategory:[(WRCannedRepliesViewController *)self category]];
-    repliesStore = self->_repliesStore;
-    self->_repliesStore = v3;
+    self->_repliesStore = [[WRCannedRepliesStore alloc] initWithCategory:[(WRCannedRepliesViewController *)self category]];
 
     MEMORY[0x2821F96F8]();
   }

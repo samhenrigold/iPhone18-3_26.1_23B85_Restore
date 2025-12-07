@@ -30,7 +30,7 @@
 
 - (id)_ar_decodeDataNoCopyWithFallbackForKey:()ARAdditions
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v4 = a3;
   if ([self decodingFailurePolicy])
   {
@@ -41,21 +41,21 @@
 
       if (error)
       {
-        v7 = _ARLogGeneral_44();
-        if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
+        v8 = _ARLogGeneral_44(v7);
+        if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
         {
-          v8 = objc_opt_class();
-          v9 = NSStringFromClass(v8);
+          v9 = objc_opt_class();
+          v10 = NSStringFromClass(v9);
           error2 = [self error];
-          v12 = 138544130;
-          v13 = v9;
-          v14 = 2048;
+          v13 = 138544130;
+          v14 = v10;
+          v15 = 2048;
           selfCopy = self;
-          v16 = 2114;
-          v17 = v4;
-          v18 = 2112;
-          v19 = error2;
-          _os_log_impl(&dword_1C241C000, v7, OS_LOG_TYPE_FAULT, "%{public}@ <%p>: Failed to decode bytes for key %{public}@ and decoder is not configured to raise exceptions, error = %@", &v12, 0x2Au);
+          v17 = 2114;
+          v18 = v4;
+          v19 = 2112;
+          v20 = error2;
+          _os_log_impl(&dword_1C241C000, v8, OS_LOG_TYPE_FAULT, "%{public}@ <%p>: Failed to decode bytes for key %{public}@ and decoder is not configured to raise exceptions, error = %@", &v13, 0x2Au);
         }
       }
     }

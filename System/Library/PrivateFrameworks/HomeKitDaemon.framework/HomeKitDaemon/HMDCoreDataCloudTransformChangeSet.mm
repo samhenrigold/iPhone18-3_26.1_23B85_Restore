@@ -176,31 +176,31 @@ LABEL_9:
 {
   v3 = [MEMORY[0x277CBEB18] arrayWithCapacity:{-[NSMutableSet count](self->_inserts, "count")}];
   inserts = self->_inserts;
-  v33[0] = MEMORY[0x277D85DD0];
-  v33[1] = 3221225472;
-  v33[2] = __49__HMDCoreDataCloudTransformChangeSet_description__block_invoke;
-  v33[3] = &unk_2786792A0;
-  v34 = v3;
+  v32[0] = MEMORY[0x277D85DD0];
+  v32[1] = 3221225472;
+  v32[2] = __49__HMDCoreDataCloudTransformChangeSet_description__block_invoke;
+  v32[3] = &unk_2786792A0;
+  v33 = v3;
   v5 = v3;
-  [(NSMutableSet *)inserts hmf_enumerateWithAutoreleasePoolUsingBlock:v33];
+  [(NSMutableSet *)inserts hmf_enumerateWithAutoreleasePoolUsingBlock:v32];
   v6 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:{-[NSMutableDictionary count](self->_updates, "count")}];
   updates = self->_updates;
-  v31[0] = MEMORY[0x277D85DD0];
-  v31[1] = 3221225472;
-  v31[2] = __49__HMDCoreDataCloudTransformChangeSet_description__block_invoke_2;
-  v31[3] = &unk_2786792C8;
-  v32 = v6;
+  v30[0] = MEMORY[0x277D85DD0];
+  v30[1] = 3221225472;
+  v30[2] = __49__HMDCoreDataCloudTransformChangeSet_description__block_invoke_2;
+  v30[3] = &unk_2786792C8;
+  v31 = v6;
   v8 = v6;
-  [(NSMutableDictionary *)updates enumerateKeysAndObjectsUsingBlock:v31];
+  [(NSMutableDictionary *)updates enumerateKeysAndObjectsUsingBlock:v30];
   v9 = [MEMORY[0x277CBEB18] arrayWithCapacity:{-[NSMutableDictionary count](self->_deletes, "count")}];
   deletes = self->_deletes;
-  v29[0] = MEMORY[0x277D85DD0];
-  v29[1] = 3221225472;
-  v29[2] = __49__HMDCoreDataCloudTransformChangeSet_description__block_invoke_3;
-  v29[3] = &unk_2786792F0;
-  v30 = v9;
+  v28[0] = MEMORY[0x277D85DD0];
+  v28[1] = 3221225472;
+  v28[2] = __49__HMDCoreDataCloudTransformChangeSet_description__block_invoke_3;
+  v28[3] = &unk_2786792F0;
+  v29 = v9;
   v11 = v9;
-  [(NSMutableDictionary *)deletes enumerateKeysAndObjectsUsingBlock:v29];
+  [(NSMutableDictionary *)deletes enumerateKeysAndObjectsUsingBlock:v28];
   v12 = MEMORY[0x277CCACA8];
   v13 = objc_opt_class();
   v14 = NSStringFromClass(v13);
@@ -244,11 +244,10 @@ LABEL_9:
   }
 
   v24 = v19;
-  shouldTransform = self->_shouldTransform;
-  v26 = HMFBooleanToString();
-  v27 = [v12 stringWithFormat:@"<%@ %@: clientIdentifier = %@, qos = %@, transform = %@, inserts = %@, updates = %@, deletes = %@>", v14, v18, v17, v24, v26, v5, v8, v11];
+  v25 = HMFBooleanToString();
+  v26 = [v12 stringWithFormat:@"<%@ %@: clientIdentifier = %@, qos = %@, transform = %@, inserts = %@, updates = %@, deletes = %@>", v14, v18, v17, v24, v25, v5, v8, v11];
 
-  return v27;
+  return v26;
 }
 
 void __49__HMDCoreDataCloudTransformChangeSet_description__block_invoke(uint64_t a1, void *a2)

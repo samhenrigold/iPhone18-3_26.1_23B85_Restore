@@ -17,58 +17,58 @@
 
 - (BOOL)processSyndicatedAssetRevGeoCodingWithError:(id *)error progressReporter:(id)reporter
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   reporterCopy = reporter;
-  v31 = 0;
-  v32 = &v31;
-  v33 = 0x2020000000;
-  v34 = 0;
+  v30 = 0;
+  v31 = &v30;
+  v32 = 0x2020000000;
+  v33 = 0;
   v7 = [reporterCopy isCancelledWithProgress:0.0];
-  *(v32 + 24) = v7;
+  *(v31 + 24) = v7;
   if (!v7)
   {
     v9 = [(PGSyndicationProcessor *)self syndicationPhotoLibraryWithError:error];
     if (v9)
     {
       *buf = 0;
-      *&v40 = buf;
-      *(&v40 + 1) = 0x3032000000;
-      v41 = __Block_byref_object_copy__16426;
-      v42 = __Block_byref_object_dispose__16427;
-      v43 = objc_alloc_init(MEMORY[0x277CBEA60]);
+      *&v39 = buf;
+      *(&v39 + 1) = 0x3032000000;
+      v40 = __Block_byref_object_copy__16426;
+      v41 = __Block_byref_object_dispose__16427;
+      v42 = objc_alloc_init(MEMORY[0x277CBEA60]);
       workingContext = self->_workingContext;
-      v30[0] = MEMORY[0x277D85DD0];
-      v30[1] = 3221225472;
-      v30[2] = __87__PGSyndicationProcessor_processSyndicatedAssetRevGeoCodingWithError_progressReporter___block_invoke;
-      v30[3] = &unk_27888A5C0;
-      v30[4] = buf;
-      [(PGManagerWorkingContext *)workingContext performSynchronousConcurrentGraphReadUsingBlock:v30];
+      v29[0] = MEMORY[0x277D85DD0];
+      v29[1] = 3221225472;
+      v29[2] = __87__PGSyndicationProcessor_processSyndicatedAssetRevGeoCodingWithError_progressReporter___block_invoke;
+      v29[3] = &unk_27888A5C0;
+      v29[4] = buf;
+      [(PGManagerWorkingContext *)workingContext performSynchronousConcurrentGraphReadUsingBlock:v29];
       loggingConnection = [(PGManagerWorkingContext *)self->_workingContext loggingConnection];
       v12 = [PGRevGeocodeProcessor alloc];
-      v13 = *(v40 + 40);
+      v13 = *(v39 + 40);
       locationCache = [(PGManagerWorkingContext *)self->_workingContext locationCache];
       v15 = [(PGRevGeocodeProcessor *)v12 initWithPhotoLibrary:v9 homeLocations:v13 loggingConnection:loggingConnection locationCache:locationCache];
 
       v16 = [PGRevGeocodeProcessor momentsRequiringRevGeocodingWithUUIDs:0 inPhotoLibrary:v9 defaultToAllAssets:1 loggingConnection:loggingConnection];
-      v27[0] = MEMORY[0x277D85DD0];
-      v27[1] = 3221225472;
-      v27[2] = __87__PGSyndicationProcessor_processSyndicatedAssetRevGeoCodingWithError_progressReporter___block_invoke_2;
-      v27[3] = &unk_278889448;
-      v29 = &v31;
+      v26[0] = MEMORY[0x277D85DD0];
+      v26[1] = 3221225472;
+      v26[2] = __87__PGSyndicationProcessor_processSyndicatedAssetRevGeoCodingWithError_progressReporter___block_invoke_2;
+      v26[3] = &unk_278889448;
+      v28 = &v30;
       v17 = reporterCopy;
-      v28 = v17;
-      v18 = [(PGRevGeocodeProcessor *)v15 revGeocodeMoments:v16 progressBlock:v27];
-      if (*(v32 + 24) == 1)
+      v27 = v17;
+      v18 = [(PGRevGeocodeProcessor *)v15 revGeocodeMoments:v16 progressBlock:v26];
+      if (*(v31 + 24) == 1)
       {
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
         {
-          *v35 = 67109378;
-          v36 = 764;
-          v37 = 2080;
-          v38 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Syndication/PGSyndicationProcessor.m";
+          *v34 = 67109378;
+          v35 = 764;
+          v36 = 2080;
+          v37 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Syndication/PGSyndicationProcessor.m";
           v19 = MEMORY[0x277D86220];
 LABEL_22:
-          _os_log_impl(&dword_22F0FC000, v19, OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", v35, 0x12u);
+          _os_log_impl(&dword_22F0FC000, v19, OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", v34, 0x12u);
         }
       }
 
@@ -84,15 +84,15 @@ LABEL_22:
           (throughputReportBlock2)[2](throughputReportBlock2, [v16 count], @"revGeo");
         }
 
-        if (v32[3])
+        if (v31[3])
         {
-          *(v32 + 24) = 1;
+          *(v31 + 24) = 1;
         }
 
         else
         {
           v24 = [v17 isCancelledWithProgress:1.0];
-          *(v32 + 24) = v24;
+          *(v31 + 24) = v24;
           if ((v24 & 1) == 0)
           {
 LABEL_24:
@@ -104,10 +104,10 @@ LABEL_24:
 
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
         {
-          *v35 = 67109378;
-          v36 = 770;
-          v37 = 2080;
-          v38 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Syndication/PGSyndicationProcessor.m";
+          *v34 = 67109378;
+          v35 = 770;
+          v36 = 2080;
+          v37 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Syndication/PGSyndicationProcessor.m";
           v19 = MEMORY[0x277D86220];
           goto LABEL_22;
         }
@@ -117,15 +117,15 @@ LABEL_24:
       goto LABEL_24;
     }
 
-    if (v32[3])
+    if (v31[3])
     {
-      *(v32 + 24) = 1;
+      *(v31 + 24) = 1;
     }
 
     else
     {
       v23 = [reporterCopy isCancelledWithProgress:1.0];
-      *(v32 + 24) = v23;
+      *(v31 + 24) = v23;
       if ((v23 & 1) == 0)
       {
 LABEL_18:
@@ -140,8 +140,8 @@ LABEL_25:
     {
       *buf = 67109378;
       *&buf[4] = 748;
-      LOWORD(v40) = 2080;
-      *(&v40 + 2) = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Syndication/PGSyndicationProcessor.m";
+      LOWORD(v39) = 2080;
+      *(&v39 + 2) = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Syndication/PGSyndicationProcessor.m";
       _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
     }
 
@@ -152,16 +152,15 @@ LABEL_25:
   {
     *buf = 67109378;
     *&buf[4] = 744;
-    LOWORD(v40) = 2080;
-    *(&v40 + 2) = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Syndication/PGSyndicationProcessor.m";
+    LOWORD(v39) = 2080;
+    *(&v39 + 2) = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Syndication/PGSyndicationProcessor.m";
     _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
   }
 
   v8 = 0;
 LABEL_26:
-  _Block_object_dispose(&v31, 8);
+  _Block_object_dispose(&v30, 8);
 
-  v25 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
@@ -217,30 +216,30 @@ uint64_t __87__PGSyndicationProcessor_processSyndicatedAssetRevGeoCodingWithErro
 
 - (id)_bestAssetUUIDInAssetCluster:(id)cluster
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   clusterCopy = cluster;
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
-  v4 = [clusterCopy countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v4 = [clusterCopy countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v4)
   {
     v5 = v4;
     v6 = 0;
-    v7 = *v23;
+    v7 = *v22;
     v8 = -1.79769313e308;
     v9 = -1.79769313e308;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v23 != v7)
+        if (*v22 != v7)
         {
           objc_enumerationMutation(clusterCopy);
         }
 
-        v11 = *(*(&v22 + 1) + 8 * i);
+        v11 = *(*(&v21 + 1) + 8 * i);
         [v11 curationScore];
         if (v12 >= v9)
         {
@@ -263,7 +262,7 @@ uint64_t __87__PGSyndicationProcessor_processSyndicatedAssetRevGeoCodingWithErro
         }
       }
 
-      v5 = [clusterCopy countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v5 = [clusterCopy countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v5);
@@ -274,45 +273,43 @@ uint64_t __87__PGSyndicationProcessor_processSyndicatedAssetRevGeoCodingWithErro
     v6 = 0;
   }
 
-  v20 = *MEMORY[0x277D85DE8];
-
   return v6;
 }
 
 - (id)duplicateAssetUUIDsForSuggesterResult:(id)result assetsInferredAsGuestAsset:(id)asset syndicationLibrary:(id)library error:(id *)error progressBlock:(id)block
 {
-  v159 = *MEMORY[0x277D85DE8];
+  v158 = *MEMORY[0x277D85DE8];
   resultCopy = result;
   assetCopy = asset;
   libraryCopy = library;
   blockCopy = block;
   selfCopy = self;
   oslog = [(PGManagerWorkingContext *)self->_workingContext loggingConnection];
-  v122 = [MEMORY[0x277CBEB58] set];
+  v121 = [MEMORY[0x277CBEB58] set];
   distantFuture = [MEMORY[0x277CBEAA8] distantFuture];
   distantPast = [MEMORY[0x277CBEAA8] distantPast];
   v14 = [MEMORY[0x277CBEB58] set];
+  v141 = 0u;
   v142 = 0u;
   v143 = 0u;
   v144 = 0u;
-  v145 = 0u;
-  v114 = resultCopy;
+  v113 = resultCopy;
   suggesterInputs = [resultCopy suggesterInputs];
-  v16 = [suggesterInputs countByEnumeratingWithState:&v142 objects:v158 count:16];
+  v16 = [suggesterInputs countByEnumeratingWithState:&v141 objects:v157 count:16];
   if (v16)
   {
     v17 = v16;
-    v18 = *v143;
+    v18 = *v142;
     do
     {
       for (i = 0; i != v17; ++i)
       {
-        if (*v143 != v18)
+        if (*v142 != v18)
         {
           objc_enumerationMutation(suggesterInputs);
         }
 
-        v20 = *(*(&v142 + 1) + 8 * i);
+        v20 = *(*(&v141 + 1) + 8 * i);
         asset = [v20 asset];
         if (asset)
         {
@@ -327,7 +324,7 @@ uint64_t __87__PGSyndicationProcessor_processSyndicatedAssetRevGeoCodingWithErro
         }
       }
 
-      v17 = [suggesterInputs countByEnumeratingWithState:&v142 objects:v158 count:16];
+      v17 = [suggesterInputs countByEnumeratingWithState:&v141 objects:v157 count:16];
     }
 
     while (v17);
@@ -340,62 +337,62 @@ uint64_t __87__PGSyndicationProcessor_processSyndicatedAssetRevGeoCodingWithErro
     v26 = [distantPast dateByAddingTimeInterval:1.0];
 
     v27 = [MEMORY[0x277CCAC30] predicateWithFormat:@"creationDate >= %@ && creationDate <= %@", v25, v26];
-    v108 = v26;
-    v109 = v25;
-    v110 = [MEMORY[0x277CCAC30] predicateWithFormat:@"dateCreated >= %@ && dateCreated <= %@", v25, v26];
+    v107 = v26;
+    v108 = v25;
+    v109 = [MEMORY[0x277CCAC30] predicateWithFormat:@"dateCreated >= %@ && dateCreated <= %@", v25, v26];
     photoLibrary = [(PGManagerWorkingContext *)selfCopy->_workingContext photoLibrary];
     librarySpecificFetchOptions = [photoLibrary librarySpecificFetchOptions];
 
     [librarySpecificFetchOptions setIncludeGuestAssets:0];
     v31 = *MEMORY[0x277CD9B10];
-    v156[0] = *MEMORY[0x277CD9B18];
-    v30 = v156[0];
-    v156[1] = v31;
-    v157 = *MEMORY[0x277CD9AD0];
-    v32 = v157;
-    v33 = [MEMORY[0x277CBEA60] arrayWithObjects:v156 count:3];
+    v155[0] = *MEMORY[0x277CD9B18];
+    v30 = v155[0];
+    v155[1] = v31;
+    v156 = *MEMORY[0x277CD9AD0];
+    v32 = v156;
+    v33 = [MEMORY[0x277CBEA60] arrayWithObjects:v155 count:3];
     [librarySpecificFetchOptions setFetchPropertySets:v33];
 
     [librarySpecificFetchOptions setPredicate:v27];
-    v106 = librarySpecificFetchOptions;
+    v105 = librarySpecificFetchOptions;
     v34 = [MEMORY[0x277CD97A8] fetchAssetsWithOptions:librarySpecificFetchOptions];
-    v107 = v27;
+    v106 = v27;
     v35 = [assetCopy filteredSetUsingPredicate:v27];
     v36 = [MEMORY[0x277D3B248] predicateForIncludeMask:objc_msgSend(MEMORY[0x277D3B248] useIndex:{"maskForGuestAsset"), 1}];
     v37 = [MEMORY[0x277CCAC30] predicateWithFormat:@"%K == %lu OR %K == %lu", @"mediaAnalysisAttributes.syndicationProcessingVersion", *MEMORY[0x277CD9B40], @"mediaAnalysisAttributes.syndicationProcessingVersion", *MEMORY[0x277CD9B48]];
     librarySpecificFetchOptions2 = [libraryCopy librarySpecificFetchOptions];
     [librarySpecificFetchOptions2 setIncludeGuestAssets:1];
-    v155[0] = v30;
-    v155[1] = v31;
-    v155[2] = v32;
-    v39 = [MEMORY[0x277CBEA60] arrayWithObjects:v155 count:3];
+    v154[0] = v30;
+    v154[1] = v31;
+    v154[2] = v32;
+    v39 = [MEMORY[0x277CBEA60] arrayWithObjects:v154 count:3];
     [librarySpecificFetchOptions2 setFetchPropertySets:v39];
 
     v40 = MEMORY[0x277CCA920];
-    v154[0] = v110;
-    v102 = v37;
-    v103 = v36;
-    v154[1] = v36;
-    v154[2] = v37;
-    v41 = [MEMORY[0x277CBEA60] arrayWithObjects:v154 count:3];
+    v153[0] = v109;
+    v101 = v37;
+    v102 = v36;
+    v153[1] = v36;
+    v153[2] = v37;
+    v41 = [MEMORY[0x277CBEA60] arrayWithObjects:v153 count:3];
     v42 = [v40 andPredicateWithSubpredicates:v41];
     [librarySpecificFetchOptions2 setInternalPredicate:v42];
 
-    v101 = librarySpecificFetchOptions2;
+    v100 = librarySpecificFetchOptions2;
     v43 = [MEMORY[0x277CD97A8] fetchAssetsWithOptions:librarySpecificFetchOptions2];
     v44 = MEMORY[0x277CBEB18];
     allObjects = [v14 allObjects];
     v46 = [v44 arrayWithArray:allObjects];
 
-    v105 = v34;
+    v104 = v34;
     fetchedObjects = [v34 fetchedObjects];
     [v46 addObjectsFromArray:fetchedObjects];
 
-    v104 = v35;
+    v103 = v35;
     allObjects2 = [v35 allObjects];
     [v46 addObjectsFromArray:allObjects2];
 
-    v100 = v43;
+    v99 = v43;
     fetchedObjects2 = [v43 fetchedObjects];
     [v46 addObjectsFromArray:fetchedObjects2];
 
@@ -403,55 +400,55 @@ uint64_t __87__PGSyndicationProcessor_processSyndicatedAssetRevGeoCodingWithErro
     v50 = [objc_alloc(MEMORY[0x277D3AC30]) initWithDistanceBlock:&__block_literal_global_368];
     [v50 setMaximumDistance:1.0];
     [v50 setMinimumNumberOfObjects:2];
-    v98 = v50;
-    v99 = v46;
+    v97 = v50;
+    v98 = v46;
     v51 = [v50 performWithDataset:v46 progressBlock:blockCopy];
-    v97 = v51;
+    v96 = v51;
     if ([v51 count])
     {
       similarStacker = [(PGSyndicationProcessor *)selfCopy similarStacker];
+      v137 = 0u;
       v138 = 0u;
       v139 = 0u;
       v140 = 0u;
-      v141 = 0u;
       obj = v51;
-      v116 = [obj countByEnumeratingWithState:&v138 objects:v153 count:16];
-      if (v116)
+      v115 = [obj countByEnumeratingWithState:&v137 objects:v152 count:16];
+      if (v115)
       {
-        v115 = *v139;
+        v114 = *v138;
         while (2)
         {
           v52 = 0;
           do
           {
-            if (*v139 != v115)
+            if (*v138 != v114)
             {
               objc_enumerationMutation(obj);
             }
 
-            v119 = v52;
-            v53 = *(*(&v138 + 1) + 8 * v52);
+            v118 = v52;
+            v53 = *(*(&v137 + 1) + 8 * v52);
             context = objc_autoreleasePoolPush();
+            v133 = 0u;
             v134 = 0u;
             v135 = 0u;
             v136 = 0u;
-            v137 = 0u;
             objects = [v53 objects];
-            v55 = [objects countByEnumeratingWithState:&v134 objects:v152 count:16];
+            v55 = [objects countByEnumeratingWithState:&v133 objects:v151 count:16];
             if (v55)
             {
               v56 = v55;
-              v57 = *v135;
+              v57 = *v134;
 LABEL_19:
               v58 = 0;
               while (1)
               {
-                if (*v135 != v57)
+                if (*v134 != v57)
                 {
                   objc_enumerationMutation(objects);
                 }
 
-                v59 = *(*(&v134 + 1) + 8 * v58);
+                v59 = *(*(&v133 + 1) + 8 * v58);
                 sceneAnalysisProperties = [v59 sceneAnalysisProperties];
                 sceneAnalysisVersion = [sceneAnalysisProperties sceneAnalysisVersion];
 
@@ -465,7 +462,7 @@ LABEL_19:
 
                 if (v56 == ++v58)
                 {
-                  v56 = [objects countByEnumeratingWithState:&v134 objects:v152 count:16];
+                  v56 = [objects countByEnumeratingWithState:&v133 objects:v151 count:16];
                   if (v56)
                   {
                     goto LABEL_19;
@@ -478,8 +475,8 @@ LABEL_19:
               v64 = MEMORY[0x277CCA9B8];
               v65 = MEMORY[0x277CCACA8];
               uuid = [v59 uuid];
-              v114 = [v65 stringWithFormat:@"Asset %@ has no scenes processed: could not dedupe guest asset for %@.", uuid, v114];
-              v68 = [v64 errorWithDescription:v114];
+              v113 = [v65 stringWithFormat:@"Asset %@ has no scenes processed: could not dedupe guest asset for %@.", uuid, v113];
+              v68 = [v64 errorWithDescription:v113];
 
               if (!v68)
               {
@@ -488,7 +485,7 @@ LABEL_19:
 
               objc_autoreleasePoolPop(context);
 
-              v92 = v108;
+              v92 = v107;
               if (error)
               {
                 v93 = v68;
@@ -496,8 +493,8 @@ LABEL_19:
               }
 
               v91 = 0;
-              v89 = v122;
-              distantFuture = v109;
+              v89 = v121;
+              distantFuture = v108;
               goto LABEL_64;
             }
 
@@ -507,53 +504,53 @@ LABEL_27:
             objects2 = [v53 objects];
             v70 = [similarStacker stackSimilarItems:objects2 withSimilarity:2 timestampSupport:0 progressBlock:blockCopy];
 
-            v132 = 0u;
-            v133 = 0u;
-            v130 = 0u;
             v131 = 0u;
-            v124 = v70;
-            v71 = [v124 countByEnumeratingWithState:&v130 objects:v151 count:16];
+            v132 = 0u;
+            v129 = 0u;
+            v130 = 0u;
+            v123 = v70;
+            v71 = [v123 countByEnumeratingWithState:&v129 objects:v150 count:16];
             if (v71)
             {
               v72 = v71;
-              v73 = *v131;
+              v73 = *v130;
               do
               {
                 v74 = 0;
-                v123 = v72;
+                v122 = v72;
                 do
                 {
-                  if (*v131 != v73)
+                  if (*v130 != v73)
                   {
-                    objc_enumerationMutation(v124);
+                    objc_enumerationMutation(v123);
                   }
 
-                  v75 = *(*(&v130 + 1) + 8 * v74);
+                  v75 = *(*(&v129 + 1) + 8 * v74);
                   v76 = [v75 count];
                   if (v76 >= 2)
                   {
                     v77 = v76;
                     array = [MEMORY[0x277CBEB18] array];
+                    v125 = 0u;
                     v126 = 0u;
                     v127 = 0u;
                     v128 = 0u;
-                    v129 = 0u;
                     v79 = v75;
-                    v80 = [v79 countByEnumeratingWithState:&v126 objects:v150 count:16];
+                    v80 = [v79 countByEnumeratingWithState:&v125 objects:v149 count:16];
                     if (v80)
                     {
                       v81 = v80;
-                      v82 = *v127;
+                      v82 = *v126;
                       do
                       {
                         for (j = 0; j != v81; ++j)
                         {
-                          if (*v127 != v82)
+                          if (*v126 != v82)
                           {
                             objc_enumerationMutation(v79);
                           }
 
-                          v84 = *(*(&v126 + 1) + 8 * j);
+                          v84 = *(*(&v125 + 1) + 8 * j);
                           if ([v14 containsObject:v84])
                           {
                             uuid2 = [v84 uuid];
@@ -561,7 +558,7 @@ LABEL_27:
                           }
                         }
 
-                        v81 = [v79 countByEnumeratingWithState:&v126 objects:v150 count:16];
+                        v81 = [v79 countByEnumeratingWithState:&v125 objects:v149 count:16];
                       }
 
                       while (v81);
@@ -575,21 +572,21 @@ LABEL_27:
                       if (os_log_type_enabled(oslog, OS_LOG_TYPE_DEBUG))
                       {
                         *buf = 138412546;
-                        v147 = array;
-                        v148 = 2112;
-                        v149 = v87;
+                        v146 = array;
+                        v147 = 2112;
+                        v148 = v87;
                         _os_log_debug_impl(&dword_22F0FC000, oslog, OS_LOG_TYPE_DEBUG, "PGSyndicationProcessor: Cluster only contains input items %@, selected best item: %@", buf, 0x16u);
                       }
                     }
 
-                    v72 = v123;
+                    v72 = v122;
                     if (v86)
                     {
-                      [v122 addObjectsFromArray:array];
+                      [v121 addObjectsFromArray:array];
                       if (os_log_type_enabled(oslog, OS_LOG_TYPE_DEBUG))
                       {
                         *buf = 138412290;
-                        v147 = array;
+                        v146 = array;
                         _os_log_debug_impl(&dword_22F0FC000, oslog, OS_LOG_TYPE_DEBUG, "PGSyndicationProcessor: Found cluster of duplicates %@", buf, 0xCu);
                       }
                     }
@@ -599,19 +596,19 @@ LABEL_27:
                 }
 
                 while (v74 != v72);
-                v72 = [v124 countByEnumeratingWithState:&v130 objects:v151 count:16];
+                v72 = [v123 countByEnumeratingWithState:&v129 objects:v150 count:16];
               }
 
               while (v72);
             }
 
             objc_autoreleasePoolPop(context);
-            v52 = v119 + 1;
+            v52 = v118 + 1;
           }
 
-          while (v119 + 1 != v116);
-          v116 = [obj countByEnumeratingWithState:&v138 objects:v153 count:16];
-          if (v116)
+          while (v118 + 1 != v115);
+          v115 = [obj countByEnumeratingWithState:&v137 objects:v152 count:16];
+          if (v115)
           {
             continue;
           }
@@ -622,20 +619,20 @@ LABEL_27:
     }
 
     v88 = oslog;
-    v89 = v122;
+    v89 = v121;
     if (os_log_type_enabled(v88, OS_LOG_TYPE_DEFAULT))
     {
-      v90 = [v122 count];
+      v90 = [v121 count];
       *buf = 134218242;
-      v147 = v90;
-      v148 = 2112;
-      v149 = v114;
+      v146 = v90;
+      v147 = 2112;
+      v148 = v113;
       _os_log_impl(&dword_22F0FC000, v88, OS_LOG_TYPE_DEFAULT, "PGSyndicationProcessor: Found %lu duplicate(s) for : %@", buf, 0x16u);
     }
 
-    v91 = v122;
-    v92 = v108;
-    distantFuture = v109;
+    v91 = v121;
+    v92 = v107;
+    distantFuture = v108;
 LABEL_64:
 
     distantPast = v92;
@@ -646,15 +643,13 @@ LABEL_64:
     if (os_log_type_enabled(oslog, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v147 = v114;
+      v146 = v113;
       _os_log_impl(&dword_22F0FC000, oslog, OS_LOG_TYPE_DEFAULT, "PGSyndicationProcessor: No duplicates to find since there are no assets for: %@", buf, 0xCu);
     }
 
-    v89 = v122;
-    v91 = v122;
+    v89 = v121;
+    v91 = v121;
   }
-
-  v94 = *MEMORY[0x277D85DE8];
 
   return v91;
 }
@@ -670,7 +665,7 @@ void __130__PGSyndicationProcessor_duplicateAssetUUIDsForSuggesterResult_assetsI
 
 - (id)guestAssetSenderIdentifiersByMomentUUIDForMomentUUIDs:(id)ds inPhotoLibrary:(id)library
 {
-  v54[2] = *MEMORY[0x277D85DE8];
+  v53[2] = *MEMORY[0x277D85DE8];
   dsCopy = ds;
   libraryCopy = library;
   oslog = [(PGManagerWorkingContext *)self->_workingContext loggingConnection];
@@ -680,52 +675,52 @@ void __130__PGSyndicationProcessor_duplicateAssetUUIDsForSuggesterResult_assetsI
   v11 = [MEMORY[0x277CCAC30] predicateWithFormat:@"%K == %lu OR %K == %lu", @"mediaAnalysisAttributes.syndicationProcessingVersion", *MEMORY[0x277CD9B40], @"mediaAnalysisAttributes.syndicationProcessingVersion", *MEMORY[0x277CD9B48]];
   [librarySpecificFetchOptions setIncludeGuestAssets:1];
   v12 = *MEMORY[0x277CD9AD0];
-  v54[0] = *MEMORY[0x277CD9A80];
-  v54[1] = v12;
-  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v54 count:2];
+  v53[0] = *MEMORY[0x277CD9A80];
+  v53[1] = v12;
+  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v53 count:2];
   [librarySpecificFetchOptions setFetchPropertySets:v13];
 
   v14 = MEMORY[0x277CCA920];
-  v53[0] = dsCopy;
-  v53[1] = v10;
-  v53[2] = v11;
-  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v53 count:3];
+  v52[0] = dsCopy;
+  v52[1] = v10;
+  v52[2] = v11;
+  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v52 count:3];
   v16 = [v14 andPredicateWithSubpredicates:v15];
   [librarySpecificFetchOptions setInternalPredicate:v16];
 
   v17 = [MEMORY[0x277CD97A8] fetchAssetsWithOptions:librarySpecificFetchOptions];
   if ([v17 count])
   {
-    v36 = v11;
-    v37 = v10;
-    v38 = dsCopy;
-    v39 = librarySpecificFetchOptions;
-    v40 = libraryCopy;
-    v41 = dsCopy;
-    v45 = [MEMORY[0x277CD97A8] senderIdentifierByAssetUUIDForAssets:v17];
-    v44 = [MEMORY[0x277CD98F8] fetchMomentUUIDByAssetUUIDForAssets:v17 options:0];
+    v35 = v11;
+    v36 = v10;
+    v37 = dsCopy;
+    v38 = librarySpecificFetchOptions;
+    v39 = libraryCopy;
+    v40 = dsCopy;
+    v44 = [MEMORY[0x277CD97A8] senderIdentifierByAssetUUIDForAssets:v17];
+    v43 = [MEMORY[0x277CD98F8] fetchMomentUUIDByAssetUUIDForAssets:v17 options:0];
     v18 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    v45 = 0u;
     v46 = 0u;
     v47 = 0u;
     v48 = 0u;
-    v49 = 0u;
-    v35 = v17;
+    v34 = v17;
     obj = v17;
-    v19 = [obj countByEnumeratingWithState:&v46 objects:v52 count:16];
+    v19 = [obj countByEnumeratingWithState:&v45 objects:v51 count:16];
     if (v19)
     {
       v20 = v19;
-      v21 = *v47;
+      v21 = *v46;
       do
       {
         for (i = 0; i != v20; ++i)
         {
-          if (*v47 != v21)
+          if (*v46 != v21)
           {
             objc_enumerationMutation(obj);
           }
 
-          v23 = *(*(&v46 + 1) + 8 * i);
+          v23 = *(*(&v45 + 1) + 8 * i);
           v24 = objc_autoreleasePoolPush();
           mediaAnalysisProperties = [v23 mediaAnalysisProperties];
           v26 = [mediaAnalysisProperties syndicationProcessingValue] & 0x6EF0;
@@ -733,15 +728,15 @@ void __130__PGSyndicationProcessor_duplicateAssetUUIDsForSuggesterResult_assetsI
           if (v26)
           {
             uuid = [v23 uuid];
-            v28 = [v44 objectForKeyedSubscript:uuid];
-            v29 = [v45 objectForKeyedSubscript:uuid];
+            v28 = [v43 objectForKeyedSubscript:uuid];
+            v29 = [v44 objectForKeyedSubscript:uuid];
             if (!v29)
             {
               v29 = &stru_2843F5C58;
               if (os_log_type_enabled(oslog, OS_LOG_TYPE_FAULT))
               {
                 *buf = 138412290;
-                v51 = uuid;
+                v50 = uuid;
                 _os_log_fault_impl(&dword_22F0FC000, oslog, OS_LOG_TYPE_FAULT, "No sender identifier for %@, see: rdar://74551611 ([Hubble] Some syndicated assets have the same syndication identifier but different uuids)", buf, 0xCu);
               }
             }
@@ -763,19 +758,19 @@ void __130__PGSyndicationProcessor_duplicateAssetUUIDsForSuggesterResult_assetsI
           objc_autoreleasePoolPop(v24);
         }
 
-        v20 = [obj countByEnumeratingWithState:&v46 objects:v52 count:16];
+        v20 = [obj countByEnumeratingWithState:&v45 objects:v51 count:16];
       }
 
       while (v20);
     }
 
-    libraryCopy = v40;
-    dsCopy = v41;
-    dsCopy = v38;
-    librarySpecificFetchOptions = v39;
-    v11 = v36;
-    v10 = v37;
-    v17 = v35;
+    libraryCopy = v39;
+    dsCopy = v40;
+    dsCopy = v37;
+    librarySpecificFetchOptions = v38;
+    v11 = v35;
+    v10 = v36;
+    v17 = v34;
   }
 
   else
@@ -783,52 +778,50 @@ void __130__PGSyndicationProcessor_duplicateAssetUUIDsForSuggesterResult_assetsI
     v18 = MEMORY[0x277CBEC10];
   }
 
-  v33 = *MEMORY[0x277D85DE8];
-
   return v18;
 }
 
 - (BOOL)processSyndicatedAssetGuestInferenceWithError:(id *)error progressReporter:(id)reporter shareBackSuggester:(id)suggester
 {
-  v123[7] = *MEMORY[0x277D85DE8];
+  v122[7] = *MEMORY[0x277D85DE8];
   reporterCopy = reporter;
   suggesterCopy = suggester;
-  v114 = 0;
-  v115 = &v114;
-  v116 = 0x2020000000;
-  v117 = 0;
-  v81 = reporterCopy;
-  v9 = [v81 isCancelledWithProgress:0.0];
-  *(v115 + 24) = v9;
+  v113 = 0;
+  v114 = &v113;
+  v115 = 0x2020000000;
+  v116 = 0;
+  v80 = reporterCopy;
+  v9 = [v80 isCancelledWithProgress:0.0];
+  *(v114 + 24) = v9;
   if (!v9)
   {
     oslog = [(PGManagerWorkingContext *)self->_workingContext loggingConnection];
     v11 = [(PGSyndicationProcessor *)self syndicationPhotoLibraryWithError:error];
-    v76 = v11;
+    v75 = v11;
     if (v11)
     {
       errorCopy = error;
       selfCopy = self;
       librarySpecificFetchOptions = [v11 librarySpecificFetchOptions];
       v12 = *MEMORY[0x277CD9A70];
-      v123[0] = *MEMORY[0x277CD9A78];
-      v123[1] = v12;
+      v122[0] = *MEMORY[0x277CD9A78];
+      v122[1] = v12;
       v13 = *MEMORY[0x277CD9A80];
-      v123[2] = *MEMORY[0x277CD9AD0];
-      v123[3] = v13;
+      v122[2] = *MEMORY[0x277CD9AD0];
+      v122[3] = v13;
       v14 = *MEMORY[0x277CD9B10];
-      v123[4] = *MEMORY[0x277CD9B18];
-      v123[5] = v14;
-      v123[6] = *MEMORY[0x277CD9AC0];
-      v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v123 count:7];
+      v122[4] = *MEMORY[0x277CD9B18];
+      v122[5] = v14;
+      v122[6] = *MEMORY[0x277CD9AC0];
+      v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v122 count:7];
       [librarySpecificFetchOptions setFetchPropertySets:v15];
 
       internalPredicateToFilterSyndicatedAssetsEligibleForGuestInferenceProcessing = [MEMORY[0x277D3C7C0] internalPredicateToFilterSyndicatedAssetsEligibleForGuestInferenceProcessing];
       [librarySpecificFetchOptions setInternalPredicate:internalPredicateToFilterSyndicatedAssetsEligibleForGuestInferenceProcessing];
 
       [librarySpecificFetchOptions setIncludeGuestAssets:1];
-      v75 = [MEMORY[0x277CD97A8] fetchAssetsWithOptions:librarySpecificFetchOptions];
-      v17 = [v75 count];
+      v74 = [MEMORY[0x277CD97A8] fetchAssetsWithOptions:librarySpecificFetchOptions];
+      v17 = [v74 count];
       v18 = os_log_type_enabled(oslog, OS_LOG_TYPE_DEFAULT);
       if (!v17)
       {
@@ -838,15 +831,15 @@ void __130__PGSyndicationProcessor_duplicateAssetUUIDsForSuggesterResult_assetsI
           _os_log_impl(&dword_22F0FC000, oslog, OS_LOG_TYPE_DEFAULT, "PGSyndicationProcessor: No asset eligible for guest processing", buf, 2u);
         }
 
-        if (v115[3])
+        if (v114[3])
         {
-          *(v115 + 24) = 1;
+          *(v114 + 24) = 1;
         }
 
         else
         {
-          v66 = [v81 isCancelledWithProgress:1.0];
-          *(v115 + 24) = v66;
+          v66 = [v80 isCancelledWithProgress:1.0];
+          *(v114 + 24) = v66;
           if ((v66 & 1) == 0)
           {
             v10 = 1;
@@ -881,7 +874,7 @@ LABEL_71:
       v21 = v19;
       v22 = v21;
       spid = v20;
-      v72 = v20 - 1;
+      v71 = v20 - 1;
       log = v21;
       if (v20 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
       {
@@ -897,32 +890,32 @@ LABEL_71:
 
       info = 0;
       mach_timebase_info(&info);
-      v70 = mach_absolute_time();
-      v85 = [MEMORY[0x277CD97A8] senderIdentifierByAssetUUIDForAssets:v75];
-      v86 = [MEMORY[0x277CD98F8] fetchMomentUUIDByAssetUUIDForAssets:v75 options:0];
+      v69 = mach_absolute_time();
+      v84 = [MEMORY[0x277CD97A8] senderIdentifierByAssetUUIDForAssets:v74];
+      v85 = [MEMORY[0x277CD98F8] fetchMomentUUIDByAssetUUIDForAssets:v74 options:0];
       v24 = objc_alloc_init(MEMORY[0x277CBEB38]);
-      v111 = 0u;
-      v112 = 0u;
-      v109 = 0u;
       v110 = 0u;
-      obj = v75;
-      v25 = [obj countByEnumeratingWithState:&v109 objects:v122 count:16];
+      v111 = 0u;
+      v108 = 0u;
+      v109 = 0u;
+      obj = v74;
+      v25 = [obj countByEnumeratingWithState:&v108 objects:v121 count:16];
       if (v25)
       {
-        v26 = *v110;
+        v26 = *v109;
         do
         {
           for (i = 0; i != v25; ++i)
           {
-            if (*v110 != v26)
+            if (*v109 != v26)
             {
               objc_enumerationMutation(obj);
             }
 
-            v28 = *(*(&v109 + 1) + 8 * i);
+            v28 = *(*(&v108 + 1) + 8 * i);
             uuid = [v28 uuid];
-            v30 = [v86 objectForKeyedSubscript:uuid];
-            v31 = [v85 objectForKeyedSubscript:uuid];
+            v30 = [v85 objectForKeyedSubscript:uuid];
+            v31 = [v84 objectForKeyedSubscript:uuid];
             if (!v31)
             {
               v31 = &stru_2843F5C58;
@@ -955,7 +948,7 @@ LABEL_71:
             }
           }
 
-          v25 = [obj countByEnumeratingWithState:&v109 objects:v122 count:16];
+          v25 = [obj countByEnumeratingWithState:&v108 objects:v121 count:16];
         }
 
         while (v25);
@@ -963,37 +956,37 @@ LABEL_71:
 
       v36 = [MEMORY[0x277CBEB58] set];
       dictionary = [MEMORY[0x277CBEB38] dictionary];
-      allValues = [v86 allValues];
-      v39 = [(PGSyndicationProcessor *)selfCopy guestAssetSenderIdentifiersByMomentUUIDForMomentUUIDs:allValues inPhotoLibrary:v76];
+      allValues = [v85 allValues];
+      v39 = [(PGSyndicationProcessor *)selfCopy guestAssetSenderIdentifiersByMomentUUIDForMomentUUIDs:allValues inPhotoLibrary:v75];
 
       serviceManager = [(PGManagerWorkingContext *)selfCopy->_workingContext serviceManager];
       workingContext = selfCopy->_workingContext;
-      v97[0] = MEMORY[0x277D85DD0];
-      v97[1] = 3221225472;
-      v97[2] = __108__PGSyndicationProcessor_processSyndicatedAssetGuestInferenceWithError_progressReporter_shareBackSuggester___block_invoke;
-      v97[3] = &unk_278880AC8;
-      v98 = suggesterCopy;
+      v96[0] = MEMORY[0x277D85DD0];
+      v96[1] = 3221225472;
+      v96[2] = __108__PGSyndicationProcessor_processSyndicatedAssetGuestInferenceWithError_progressReporter_shareBackSuggester___block_invoke;
+      v96[3] = &unk_278880AC8;
+      v97 = suggesterCopy;
       v42 = log;
-      v99 = v42;
-      v43 = v76;
-      v100 = v43;
-      v101 = selfCopy;
+      v98 = v42;
+      v43 = v75;
+      v99 = v43;
+      v100 = selfCopy;
       loga = serviceManager;
-      v102 = loga;
+      v101 = loga;
       v44 = v24;
-      v103 = v44;
+      v102 = v44;
       v45 = dictionary;
-      v104 = v45;
+      v103 = v45;
       v46 = v39;
-      v105 = v46;
+      v104 = v46;
       v47 = v36;
-      v106 = v47;
-      v108 = &v114;
-      v48 = v81;
-      v107 = v48;
-      [(PGManagerWorkingContext *)workingContext performSynchronousConcurrentGraphReadUsingBlock:v97];
-      v80 = v46;
-      if (*(v115 + 24) == 1)
+      v105 = v47;
+      v107 = &v113;
+      v48 = v80;
+      v106 = v48;
+      [(PGManagerWorkingContext *)workingContext performSynchronousConcurrentGraphReadUsingBlock:v96];
+      v79 = v46;
+      if (*(v114 + 24) == 1)
       {
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
         {
@@ -1022,32 +1015,32 @@ LABEL_71:
       *buf = 0;
       *&buf[8] = buf;
       *&buf[16] = 0x2020000000;
-      v121 = 0;
+      v120 = 0;
       if (v51)
       {
-        v88[0] = MEMORY[0x277D85DD0];
-        v88[1] = 3221225472;
-        v88[2] = __108__PGSyndicationProcessor_processSyndicatedAssetGuestInferenceWithError_progressReporter_shareBackSuggester___block_invoke_341;
-        v88[3] = &unk_278880AF0;
-        v95 = v51;
-        v89 = obj;
+        v87[0] = MEMORY[0x277D85DD0];
+        v87[1] = 3221225472;
+        v87[2] = __108__PGSyndicationProcessor_processSyndicatedAssetGuestInferenceWithError_progressReporter_shareBackSuggester___block_invoke_341;
+        v87[3] = &unk_278880AF0;
+        v94 = v51;
+        v88 = obj;
         v53 = v45;
-        v90 = v45;
-        v91 = v47;
-        v96 = 1.0 / v52;
-        v93 = buf;
-        v94 = &v114;
-        v92 = v48;
-        v87 = 0;
-        v54 = [v43 performChangesAndWait:v88 error:&v87];
-        v55 = v87;
+        v89 = v45;
+        v90 = v47;
+        v95 = 1.0 / v52;
+        v92 = buf;
+        v93 = &v113;
+        v91 = v48;
+        v86 = 0;
+        v54 = [v43 performChangesAndWait:v87 error:&v86];
+        v55 = v86;
         if ((v54 & 1) == 0)
         {
           if (os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
           {
-            *v118 = 138412290;
-            *v119 = v55;
-            _os_log_error_impl(&dword_22F0FC000, v49, OS_LOG_TYPE_ERROR, "PGSyndicationProcessor: Error saving guest asset inference to database: %@", v118, 0xCu);
+            *v117 = 138412290;
+            *v118 = v55;
+            _os_log_error_impl(&dword_22F0FC000, v49, OS_LOG_TYPE_ERROR, "PGSyndicationProcessor: Error saving guest asset inference to database: %@", v117, 0xCu);
           }
 
           if (errorCopy)
@@ -1074,30 +1067,30 @@ LABEL_71:
       denom = info.denom;
       v63 = v49;
       v64 = v63;
-      if (v72 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v63))
+      if (v71 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v63))
       {
-        *v118 = 0;
-        _os_signpost_emit_with_name_impl(&dword_22F0FC000, v64, OS_SIGNPOST_INTERVAL_END, spid, "PGSyndicationProcessorAssetGuestInference", "", v118, 2u);
+        *v117 = 0;
+        _os_signpost_emit_with_name_impl(&dword_22F0FC000, v64, OS_SIGNPOST_INTERVAL_END, spid, "PGSyndicationProcessorAssetGuestInference", "", v117, 2u);
       }
 
       if (os_log_type_enabled(v64, OS_LOG_TYPE_INFO))
       {
-        *v118 = 136315394;
-        *v119 = "PGSyndicationProcessorAssetGuestInference";
-        *&v119[8] = 2048;
-        *&v119[10] = ((((v60 - v70) * numer) / denom) / 1000000.0);
-        _os_log_impl(&dword_22F0FC000, v64, OS_LOG_TYPE_INFO, "[Performance] %s: %f ms", v118, 0x16u);
+        *v117 = 136315394;
+        *v118 = "PGSyndicationProcessorAssetGuestInference";
+        *&v118[8] = 2048;
+        *&v118[10] = ((((v60 - v69) * numer) / denom) / 1000000.0);
+        _os_log_impl(&dword_22F0FC000, v64, OS_LOG_TYPE_INFO, "[Performance] %s: %f ms", v117, 0x16u);
       }
 
-      if (*(v115 + 24) == 1)
+      if (*(v114 + 24) == 1)
       {
-        *(v115 + 24) = 1;
+        *(v114 + 24) = 1;
       }
 
       else
       {
         v67 = [v48 isCancelledWithProgress:1.0];
-        *(v115 + 24) = v67;
+        *(v114 + 24) = v67;
         if (!v67)
         {
           v10 = 1;
@@ -1111,26 +1104,26 @@ LABEL_70:
 
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
       {
-        *v118 = 67109378;
-        *v119 = 509;
-        *&v119[4] = 2080;
-        *&v119[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Syndication/PGSyndicationProcessor.m";
-        _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", v118, 0x12u);
+        *v117 = 67109378;
+        *v118 = 509;
+        *&v118[4] = 2080;
+        *&v118[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Syndication/PGSyndicationProcessor.m";
+        _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", v117, 0x12u);
       }
 
       v10 = 0;
       goto LABEL_69;
     }
 
-    if (v115[3])
+    if (v114[3])
     {
-      *(v115 + 24) = 1;
+      *(v114 + 24) = 1;
     }
 
     else
     {
-      v65 = [v81 isCancelledWithProgress:1.0];
-      *(v115 + 24) = v65;
+      v65 = [v80 isCancelledWithProgress:1.0];
+      *(v114 + 24) = v65;
       if ((v65 & 1) == 0)
       {
 LABEL_58:
@@ -1164,9 +1157,8 @@ LABEL_72:
 
   v10 = 0;
 LABEL_73:
-  _Block_object_dispose(&v114, 8);
+  _Block_object_dispose(&v113, 8);
 
-  v68 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -1333,31 +1325,31 @@ void __108__PGSyndicationProcessor_processSyndicatedAssetGuestInferenceWithError
 
 void __108__PGSyndicationProcessor_processSyndicatedAssetGuestInferenceWithError_progressReporter_shareBackSuggester___block_invoke_3(uint64_t a1, void *a2, void *a3, _BYTE *a4)
 {
-  v98 = *MEMORY[0x277D85DE8];
-  v67 = a2;
+  v97 = *MEMORY[0x277D85DE8];
+  v66 = a2;
   v6 = a3;
   v7 = [MEMORY[0x277CBEB18] array];
+  v87 = 0u;
   v88 = 0u;
   v89 = 0u;
   v90 = 0u;
-  v91 = 0u;
   v8 = v6;
-  v9 = [v8 countByEnumeratingWithState:&v88 objects:v97 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v87 objects:v96 count:16];
   v10 = v7;
   if (v9)
   {
     v11 = v9;
-    v12 = *v89;
+    v12 = *v88;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v89 != v12)
+        if (*v88 != v12)
         {
           objc_enumerationMutation(v8);
         }
 
-        v14 = *(*(&v88 + 1) + 8 * i);
+        v14 = *(*(&v87 + 1) + 8 * i);
         if ([v14 creationDateSource] == 3)
         {
           v15 = *(a1 + 32);
@@ -1376,7 +1368,7 @@ void __108__PGSyndicationProcessor_processSyndicatedAssetGuestInferenceWithError
         }
       }
 
-      v11 = [v8 countByEnumeratingWithState:&v88 objects:v97 count:16];
+      v11 = [v8 countByEnumeratingWithState:&v87 objects:v96 count:16];
     }
 
     while (v11);
@@ -1389,18 +1381,18 @@ void __108__PGSyndicationProcessor_processSyndicatedAssetGuestInferenceWithError
     v8 = v18;
   }
 
-  v68 = v8;
+  v67 = v8;
   v19 = [*(a1 + 48) objectForKeyedSubscript:*(a1 + 56)];
-  v20 = v67;
-  if ([v19 containsObject:v67])
+  v20 = v66;
+  if ([v19 containsObject:v66])
   {
     v21 = [PGGraphMomentNodeCollection momentNodeForUUID:*(a1 + 56) inGraph:*(a1 + 64)];
     v22 = [PGShareBackSuggesterResult alloc];
     v23 = [v21 temporarySet];
     v24 = 128;
-    v25 = [(PGShareBackSuggesterResult *)v22 initWithInputs:v68 processingValue:128 momentNodes:v23];
+    v25 = [(PGShareBackSuggesterResult *)v22 initWithInputs:v67 processingValue:128 momentNodes:v23];
 
-    v71 = v25;
+    v70 = v25;
     if (v25)
     {
       v26 = 0;
@@ -1408,40 +1400,40 @@ LABEL_29:
       v37 = *(a1 + 88);
       v38 = *(a1 + 96);
       v39 = *(a1 + 104);
-      v82 = 0;
-      v80[0] = MEMORY[0x277D85DD0];
-      v80[1] = 3221225472;
-      v80[2] = __108__PGSyndicationProcessor_processSyndicatedAssetGuestInferenceWithError_progressReporter_shareBackSuggester___block_invoke_334;
-      v80[3] = &unk_278889448;
-      *obja = *(a1 + 112);
-      v40 = obja[0];
-      v81 = *obja;
-      v41 = [v37 duplicateAssetUUIDsForSuggesterResult:v71 assetsInferredAsGuestAsset:v38 syndicationLibrary:v39 error:&v82 progressBlock:v80];
-      obj = v82;
+      v81 = 0;
+      v79[0] = MEMORY[0x277D85DD0];
+      v79[1] = 3221225472;
+      v79[2] = __108__PGSyndicationProcessor_processSyndicatedAssetGuestInferenceWithError_progressReporter_shareBackSuggester___block_invoke_334;
+      v79[3] = &unk_278889448;
+      obja = *(a1 + 112);
+      v40 = obja;
+      v80 = obja;
+      v41 = [v37 duplicateAssetUUIDsForSuggesterResult:v70 assetsInferredAsGuestAsset:v38 syndicationLibrary:v39 error:&v81 progressBlock:v79];
+      obj = v81;
       if (v41)
       {
-        v62 = v26;
-        v65 = v19;
-        v78 = 0u;
-        v79 = 0u;
-        v76 = 0u;
+        v61 = v26;
+        v64 = v19;
         v77 = 0u;
-        v42 = v68;
-        v43 = [v42 countByEnumeratingWithState:&v76 objects:v93 count:16];
+        v78 = 0u;
+        v75 = 0u;
+        v76 = 0u;
+        v42 = v67;
+        v43 = [v42 countByEnumeratingWithState:&v75 objects:v92 count:16];
         if (v43)
         {
           v44 = v43;
-          v45 = *v77;
+          v45 = *v76;
           do
           {
             for (j = 0; j != v44; ++j)
             {
-              if (*v77 != v45)
+              if (*v76 != v45)
               {
                 objc_enumerationMutation(v42);
               }
 
-              v47 = *(*(&v76 + 1) + 8 * j);
+              v47 = *(*(&v75 + 1) + 8 * j);
               v48 = [v47 uuid];
               if ([v41 containsObject:v48])
               {
@@ -1451,20 +1443,20 @@ LABEL_29:
               else
               {
                 [*(a1 + 96) addObject:v47];
-                v49 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:{objc_msgSend(v71, "processingValue")}];
+                v49 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:{objc_msgSend(v70, "processingValue")}];
                 [*(a1 + 40) setObject:v49 forKeyedSubscript:v48];
               }
             }
 
-            v44 = [v42 countByEnumeratingWithState:&v76 objects:v93 count:16];
+            v44 = [v42 countByEnumeratingWithState:&v75 objects:v92 count:16];
           }
 
           while (v44);
         }
 
-        v19 = v65;
-        v20 = v67;
-        v26 = v62;
+        v19 = v64;
+        v20 = v66;
+        v26 = v61;
       }
 
       else
@@ -1473,7 +1465,7 @@ LABEL_29:
         if (os_log_type_enabled(v58, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v95 = obj;
+          v94 = obj;
           _os_log_impl(&dword_22F0FC000, v58, OS_LOG_TYPE_DEFAULT, "Issue while running deduping, skipping processing for this batch: %@", buf, 0xCu);
         }
       }
@@ -1489,33 +1481,33 @@ LABEL_29:
 
   v27 = *(a1 + 72);
   v28 = [*(a1 + 80) graph];
-  v87 = 0;
-  v29 = [v27 suggesterResultsForInputs:v68 inGraph:v28 error:&v87];
-  v26 = v87;
+  v86 = 0;
+  v29 = [v27 suggesterResultsForInputs:v67 inGraph:v28 error:&v86];
+  v26 = v86;
 
   if (v29)
   {
-    v64 = v19;
-    v85 = 0u;
-    v86 = 0u;
-    v83 = 0u;
+    v63 = v19;
     v84 = 0u;
+    v85 = 0u;
+    v82 = 0u;
+    v83 = 0u;
     v30 = v29;
-    v31 = [v30 countByEnumeratingWithState:&v83 objects:v96 count:16];
+    v31 = [v30 countByEnumeratingWithState:&v82 objects:v95 count:16];
     if (v31)
     {
       v32 = v31;
-      v33 = *v84;
+      v33 = *v83;
 LABEL_21:
       v34 = 0;
       while (1)
       {
-        if (*v84 != v33)
+        if (*v83 != v33)
         {
           objc_enumerationMutation(v30);
         }
 
-        v35 = *(*(&v83 + 1) + 8 * v34);
+        v35 = *(*(&v82 + 1) + 8 * v34);
         v24 = [v35 processingValue];
         if ((v24 & 0x7EF0) != 0)
         {
@@ -1524,7 +1516,7 @@ LABEL_21:
 
         if (v32 == ++v34)
         {
-          v32 = [v30 countByEnumeratingWithState:&v83 objects:v96 count:16];
+          v32 = [v30 countByEnumeratingWithState:&v82 objects:v95 count:16];
           if (v32)
           {
             goto LABEL_21;
@@ -1536,8 +1528,8 @@ LABEL_21:
 
       v36 = v35;
 
-      v19 = v64;
-      v71 = v36;
+      v19 = v63;
+      v70 = v36;
       if (!v36)
       {
         goto LABEL_41;
@@ -1548,56 +1540,56 @@ LABEL_21:
 
 LABEL_27:
 
-    v19 = v64;
+    v19 = v63;
   }
 
 LABEL_41:
   if (v26)
   {
-    v71 = 0;
+    v70 = 0;
     goto LABEL_55;
   }
 
-  v74 = 0u;
-  v75 = 0u;
-  v72 = 0u;
   v73 = 0u;
-  obj = v68;
-  v50 = [obj countByEnumeratingWithState:&v72 objects:v92 count:16];
+  v74 = 0u;
+  v71 = 0u;
+  v72 = 0u;
+  obj = v67;
+  v50 = [obj countByEnumeratingWithState:&v71 objects:v91 count:16];
   if (v50)
   {
     v51 = v50;
-    v66 = v19;
-    v52 = *v73;
+    v65 = v19;
+    v52 = *v72;
     do
     {
       for (k = 0; k != v51; ++k)
       {
-        if (*v73 != v52)
+        if (*v72 != v52)
         {
           objc_enumerationMutation(obj);
         }
 
-        v54 = *(*(&v72 + 1) + 8 * k);
+        v54 = *(*(&v71 + 1) + 8 * k);
         v55 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:v24];
         v56 = *(a1 + 40);
         v57 = [v54 uuid];
         [v56 setObject:v55 forKeyedSubscript:v57];
       }
 
-      v51 = [obj countByEnumeratingWithState:&v72 objects:v92 count:16];
+      v51 = [obj countByEnumeratingWithState:&v71 objects:v91 count:16];
     }
 
     while (v51);
-    v71 = 0;
+    v70 = 0;
     v26 = 0;
-    v19 = v66;
-    v20 = v67;
+    v19 = v65;
+    v20 = v66;
   }
 
   else
   {
-    v71 = 0;
+    v70 = 0;
     v26 = 0;
   }
 
@@ -1621,8 +1613,6 @@ LABEL_55:
   {
     *a4 = 1;
   }
-
-  v61 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __108__PGSyndicationProcessor_processSyndicatedAssetGuestInferenceWithError_progressReporter_shareBackSuggester___block_invoke_334(uint64_t a1, _BYTE *a2)
@@ -1650,26 +1640,26 @@ uint64_t __108__PGSyndicationProcessor_processSyndicatedAssetGuestInferenceWithE
 
 - (BOOL)processSavedSyndicatedAssetsWithError:(id *)error progressReporter:(id)reporter
 {
-  v98[1] = *MEMORY[0x277D85DE8];
+  v97[1] = *MEMORY[0x277D85DE8];
   reporterCopy = reporter;
-  v87 = 0;
-  v88 = &v87;
-  v89 = 0x2020000000;
-  v90 = 0;
+  v86 = 0;
+  v87 = &v86;
+  v88 = 0x2020000000;
+  v89 = 0;
   v7 = [reporterCopy isCancelledWithProgress:0.0];
-  *(v88 + 24) = v7;
+  *(v87 + 24) = v7;
   if (!v7)
   {
     loggingConnection = [(PGManagerWorkingContext *)self->_workingContext loggingConnection];
-    v70 = [(PGSyndicationProcessor *)self syndicationPhotoLibraryWithError:error];
-    if (v70)
+    v69 = [(PGSyndicationProcessor *)self syndicationPhotoLibraryWithError:error];
+    if (v69)
     {
       v9 = loggingConnection;
       v10 = os_signpost_id_generate(v9);
       v11 = v9;
       v12 = v11;
       spid = v10;
-      v65 = v10 - 1;
+      v64 = v10 - 1;
       if (v10 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v11))
       {
         *buf = 0;
@@ -1680,39 +1670,39 @@ uint64_t __108__PGSyndicationProcessor_processSyndicatedAssetGuestInferenceWithE
 
       info = 0;
       mach_timebase_info(&info);
-      v63 = mach_absolute_time();
-      v69 = [MEMORY[0x277CCAC30] predicateWithFormat:@"additionalAttributes.syndicationIdentifier != nil"];
+      v62 = mach_absolute_time();
+      v68 = [MEMORY[0x277CCAC30] predicateWithFormat:@"additionalAttributes.syndicationIdentifier != nil"];
       photoLibrary = [(PGManagerWorkingContext *)self->_workingContext photoLibrary];
       librarySpecificFetchOptions = [photoLibrary librarySpecificFetchOptions];
 
-      [librarySpecificFetchOptions setInternalPredicate:v69];
+      [librarySpecificFetchOptions setInternalPredicate:v68];
       v14 = *MEMORY[0x277CD9A80];
-      v98[0] = *MEMORY[0x277CD9A80];
-      v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v98 count:1];
+      v97[0] = *MEMORY[0x277CD9A80];
+      v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v97 count:1];
       [librarySpecificFetchOptions setFetchPropertySets:v15];
 
       [librarySpecificFetchOptions setIncludeGuestAssets:0];
       v16 = [MEMORY[0x277CD97A8] fetchAssetsWithOptions:librarySpecificFetchOptions];
       v17 = objc_alloc_init(MEMORY[0x277CBEB58]);
-      v85 = 0u;
-      v83 = 0u;
       v84 = 0u;
       v82 = 0u;
+      v83 = 0u;
+      v81 = 0u;
       v18 = v16;
-      v19 = [v18 countByEnumeratingWithState:&v82 objects:v97 count:16];
+      v19 = [v18 countByEnumeratingWithState:&v81 objects:v96 count:16];
       if (v19)
       {
-        v20 = *v83;
+        v20 = *v82;
         do
         {
           for (i = 0; i != v19; ++i)
           {
-            if (*v83 != v20)
+            if (*v82 != v20)
             {
               objc_enumerationMutation(v18);
             }
 
-            curationProperties = [*(*(&v82 + 1) + 8 * i) curationProperties];
+            curationProperties = [*(*(&v81 + 1) + 8 * i) curationProperties];
             syndicationIdentifier = [curationProperties syndicationIdentifier];
 
             if ([syndicationIdentifier length])
@@ -1721,7 +1711,7 @@ uint64_t __108__PGSyndicationProcessor_processSyndicatedAssetGuestInferenceWithE
             }
           }
 
-          v19 = [v18 countByEnumeratingWithState:&v82 objects:v97 count:16];
+          v19 = [v18 countByEnumeratingWithState:&v81 objects:v96 count:16];
         }
 
         while (v19);
@@ -1735,36 +1725,36 @@ uint64_t __108__PGSyndicationProcessor_processSyndicatedAssetGuestInferenceWithE
           _os_log_impl(&dword_22F0FC000, oslog, OS_LOG_TYPE_DEFAULT, "PGSyndicationProcessor: No saved asset with syndication identifiers", buf, 2u);
         }
 
-        if (v88[3])
+        if (v87[3])
         {
-          *(v88 + 24) = 1;
+          *(v87 + 24) = 1;
         }
 
         else
         {
           v49 = [reporterCopy isCancelledWithProgress:1.0];
-          *(v88 + 24) = v49;
+          *(v87 + 24) = v49;
           if ((v49 & 1) == 0)
           {
-            v53 = mach_absolute_time();
+            v52 = mach_absolute_time();
             numer = info.numer;
             denom = info.denom;
-            v56 = oslog;
-            v57 = v56;
-            if (v65 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v56))
+            v55 = oslog;
+            v56 = v55;
+            if (v64 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v55))
             {
               *buf = 0;
-              _os_signpost_emit_with_name_impl(&dword_22F0FC000, v57, OS_SIGNPOST_INTERVAL_END, spid, "PGSyndicationSavedSyndicatedAssets", "", buf, 2u);
+              _os_signpost_emit_with_name_impl(&dword_22F0FC000, v56, OS_SIGNPOST_INTERVAL_END, spid, "PGSyndicationSavedSyndicatedAssets", "", buf, 2u);
             }
 
             v8 = 1;
-            if (os_log_type_enabled(v57, OS_LOG_TYPE_INFO))
+            if (os_log_type_enabled(v56, OS_LOG_TYPE_INFO))
             {
               *buf = 136315394;
               *&buf[4] = "PGSyndicationSavedSyndicatedAssets";
               *&buf[12] = 2048;
-              *&buf[14] = ((((v53 - v63) * numer) / denom) / 1000000.0);
-              _os_log_impl(&dword_22F0FC000, v57, OS_LOG_TYPE_INFO, "[Performance] %s: %f ms", buf, 0x16u);
+              *&buf[14] = ((((v52 - v62) * numer) / denom) / 1000000.0);
+              _os_log_impl(&dword_22F0FC000, v56, OS_LOG_TYPE_INFO, "[Performance] %s: %f ms", buf, 0x16u);
             }
 
             goto LABEL_66;
@@ -1786,21 +1776,21 @@ LABEL_66:
         goto LABEL_67;
       }
 
-      v68 = [MEMORY[0x277CCAC30] predicateWithFormat:@"additionalAttributes.syndicationIdentifier IN %@", v17];
+      v67 = [MEMORY[0x277CCAC30] predicateWithFormat:@"additionalAttributes.syndicationIdentifier IN %@", v17];
       v24 = [MEMORY[0x277D3B248] predicateForExcludeMask:objc_msgSend(MEMORY[0x277D3B248] useIndex:{"maskForGuestAsset"), 1}];
       filterPredicateToIncludeOnlyReceivedSyndicatedAssets = [MEMORY[0x277CD97A8] filterPredicateToIncludeOnlyReceivedSyndicatedAssets];
-      v66 = [MEMORY[0x277CCAC30] predicateWithFormat:@"%K >= %d", @"thumbnailIndex", *MEMORY[0x277D3ADD8]];
-      librarySpecificFetchOptions2 = [v70 librarySpecificFetchOptions];
-      v96 = v14;
-      v26 = [MEMORY[0x277CBEA60] arrayWithObjects:&v96 count:1];
+      v65 = [MEMORY[0x277CCAC30] predicateWithFormat:@"%K >= %d", @"thumbnailIndex", *MEMORY[0x277D3ADD8]];
+      librarySpecificFetchOptions2 = [v69 librarySpecificFetchOptions];
+      v95 = v14;
+      v26 = [MEMORY[0x277CBEA60] arrayWithObjects:&v95 count:1];
       [librarySpecificFetchOptions2 setFetchPropertySets:v26];
 
       v27 = MEMORY[0x277CCA920];
-      v95[0] = v68;
-      v95[1] = v24;
-      v95[2] = filterPredicateToIncludeOnlyReceivedSyndicatedAssets;
-      v95[3] = v66;
-      v28 = [MEMORY[0x277CBEA60] arrayWithObjects:v95 count:4];
+      v94[0] = v67;
+      v94[1] = v24;
+      v94[2] = filterPredicateToIncludeOnlyReceivedSyndicatedAssets;
+      v94[3] = v65;
+      v28 = [MEMORY[0x277CBEA60] arrayWithObjects:v94 count:4];
       v29 = [v27 andPredicateWithSubpredicates:v28];
       [librarySpecificFetchOptions2 setInternalPredicate:v29];
 
@@ -1816,36 +1806,36 @@ LABEL_66:
           _os_log_impl(&dword_22F0FC000, oslog, OS_LOG_TYPE_DEFAULT, "PGSyndicationProcessor: No saved syndicated asset eligible for guest promoting", buf, 2u);
         }
 
-        if (v88[3])
+        if (v87[3])
         {
-          *(v88 + 24) = 1;
+          *(v87 + 24) = 1;
         }
 
         else
         {
           v50 = [reporterCopy isCancelledWithProgress:1.0];
-          *(v88 + 24) = v50;
+          *(v87 + 24) = v50;
           if ((v50 & 1) == 0)
           {
-            v58 = mach_absolute_time();
-            v59 = info.numer;
-            v60 = info.denom;
-            v61 = oslog;
-            v62 = v61;
-            if (v65 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v61))
+            v57 = mach_absolute_time();
+            v58 = info.numer;
+            v59 = info.denom;
+            v60 = oslog;
+            v61 = v60;
+            if (v64 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v60))
             {
               *buf = 0;
-              _os_signpost_emit_with_name_impl(&dword_22F0FC000, v62, OS_SIGNPOST_INTERVAL_END, spid, "PGSyndicationSavedSyndicatedAssets", "", buf, 2u);
+              _os_signpost_emit_with_name_impl(&dword_22F0FC000, v61, OS_SIGNPOST_INTERVAL_END, spid, "PGSyndicationSavedSyndicatedAssets", "", buf, 2u);
             }
 
             v8 = 1;
-            if (os_log_type_enabled(v62, OS_LOG_TYPE_INFO))
+            if (os_log_type_enabled(v61, OS_LOG_TYPE_INFO))
             {
               *buf = 136315394;
               *&buf[4] = "PGSyndicationSavedSyndicatedAssets";
               *&buf[12] = 2048;
-              *&buf[14] = ((((v58 - v63) * v59) / v60) / 1000000.0);
-              _os_log_impl(&dword_22F0FC000, v62, OS_LOG_TYPE_INFO, "[Performance] %s: %f ms", buf, 0x16u);
+              *&buf[14] = ((((v57 - v62) * v58) / v59) / 1000000.0);
+              _os_log_impl(&dword_22F0FC000, v61, OS_LOG_TYPE_INFO, "[Performance] %s: %f ms", buf, 0x16u);
             }
 
             goto LABEL_65;
@@ -1879,7 +1869,7 @@ LABEL_65:
       *buf = 0;
       *&buf[8] = buf;
       *&buf[16] = 0x2020000000;
-      v94 = 0;
+      v93 = 0;
       if (!v33)
       {
 LABEL_28:
@@ -1897,30 +1887,30 @@ LABEL_28:
         v44 = info.denom;
         v45 = oslog;
         v46 = v45;
-        if (v65 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v45))
+        if (v64 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v45))
         {
-          *v91 = 0;
-          _os_signpost_emit_with_name_impl(&dword_22F0FC000, v46, OS_SIGNPOST_INTERVAL_END, spid, "PGSyndicationSavedSyndicatedAssets", "", v91, 2u);
+          *v90 = 0;
+          _os_signpost_emit_with_name_impl(&dword_22F0FC000, v46, OS_SIGNPOST_INTERVAL_END, spid, "PGSyndicationSavedSyndicatedAssets", "", v90, 2u);
         }
 
         if (os_log_type_enabled(v46, OS_LOG_TYPE_INFO))
         {
-          *v91 = 136315394;
-          *v92 = "PGSyndicationSavedSyndicatedAssets";
-          *&v92[8] = 2048;
-          *&v92[10] = ((((v42 - v63) * v43) / v44) / 1000000.0);
-          _os_log_impl(&dword_22F0FC000, v46, OS_LOG_TYPE_INFO, "[Performance] %s: %f ms", v91, 0x16u);
+          *v90 = 136315394;
+          *v91 = "PGSyndicationSavedSyndicatedAssets";
+          *&v91[8] = 2048;
+          *&v91[10] = ((((v42 - v62) * v43) / v44) / 1000000.0);
+          _os_log_impl(&dword_22F0FC000, v46, OS_LOG_TYPE_INFO, "[Performance] %s: %f ms", v90, 0x16u);
         }
 
-        if (*(v88 + 24) == 1)
+        if (*(v87 + 24) == 1)
         {
-          *(v88 + 24) = 1;
+          *(v87 + 24) = 1;
         }
 
         else
         {
           v48 = [reporterCopy isCancelledWithProgress:1.0];
-          *(v88 + 24) = v48;
+          *(v87 + 24) = v48;
           if (!v48)
           {
             v8 = 1;
@@ -1932,11 +1922,11 @@ LABEL_64:
 
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
         {
-          *v91 = 67109378;
-          *v92 = 286;
-          *&v92[4] = 2080;
-          *&v92[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Syndication/PGSyndicationProcessor.m";
-          _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", v91, 0x12u);
+          *v90 = 67109378;
+          *v91 = 286;
+          *&v91[4] = 2080;
+          *&v91[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Syndication/PGSyndicationProcessor.m";
+          _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", v90, 0x12u);
         }
 
         v8 = 0;
@@ -1944,26 +1934,26 @@ LABEL_64:
       }
 
       v35 = v24;
-      v75[0] = MEMORY[0x277D85DD0];
-      v75[1] = 3221225472;
-      v75[2] = __81__PGSyndicationProcessor_processSavedSyndicatedAssetsWithError_progressReporter___block_invoke;
-      v75[3] = &unk_278880A50;
-      v80 = v33;
-      v76 = v30;
-      v81 = 1.0 / v34;
-      v78 = buf;
-      v79 = &v87;
-      v77 = reporterCopy;
-      v74 = 0;
-      v36 = [v70 performChangesAndWait:v75 error:&v74];
-      v37 = v74;
+      v74[0] = MEMORY[0x277D85DD0];
+      v74[1] = 3221225472;
+      v74[2] = __81__PGSyndicationProcessor_processSavedSyndicatedAssetsWithError_progressReporter___block_invoke;
+      v74[3] = &unk_278880A50;
+      v79 = v33;
+      v75 = v30;
+      v80 = 1.0 / v34;
+      v77 = buf;
+      v78 = &v86;
+      v76 = reporterCopy;
+      v73 = 0;
+      v36 = [v69 performChangesAndWait:v74 error:&v73];
+      v37 = v73;
       if ((v36 & 1) == 0)
       {
         if (os_log_type_enabled(oslog, OS_LOG_TYPE_ERROR))
         {
-          *v91 = 138412290;
-          *v92 = v37;
-          _os_log_error_impl(&dword_22F0FC000, oslog, OS_LOG_TYPE_ERROR, "PGSyndicationProcessor: Error saving guest asset to database: %@", v91, 0xCu);
+          *v90 = 138412290;
+          *v91 = v37;
+          _os_log_error_impl(&dword_22F0FC000, oslog, OS_LOG_TYPE_ERROR, "PGSyndicationProcessor: Error saving guest asset to database: %@", v90, 0xCu);
           if (!error)
           {
             goto LABEL_27;
@@ -1986,15 +1976,15 @@ LABEL_27:
       goto LABEL_28;
     }
 
-    if (v88[3])
+    if (v87[3])
     {
-      *(v88 + 24) = 1;
+      *(v87 + 24) = 1;
     }
 
     else
     {
       v47 = [reporterCopy isCancelledWithProgress:1.0];
-      *(v88 + 24) = v47;
+      *(v87 + 24) = v47;
       if ((v47 & 1) == 0)
       {
 LABEL_46:
@@ -2028,9 +2018,8 @@ LABEL_67:
 
   v8 = 0;
 LABEL_68:
-  _Block_object_dispose(&v87, 8);
+  _Block_object_dispose(&v86, 8);
 
-  v51 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
@@ -2079,29 +2068,27 @@ void __81__PGSyndicationProcessor_processSavedSyndicatedAssetsWithError_progress
 
 - (void)_persistCurationScores:(id)scores inPhotoLibrary:(id)library
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   scoresCopy = scores;
   libraryCopy = library;
   if ([scoresCopy count])
   {
     loggingConnection = [(PGManagerWorkingContext *)self->_workingContext loggingConnection];
-    v13[0] = MEMORY[0x277D85DD0];
-    v13[1] = 3221225472;
-    v13[2] = __64__PGSyndicationProcessor__persistCurationScores_inPhotoLibrary___block_invoke;
-    v13[3] = &unk_27888A660;
-    v14 = scoresCopy;
-    v12 = 0;
-    v9 = [libraryCopy performChangesAndWait:v13 error:&v12];
-    v10 = v12;
+    v12[0] = MEMORY[0x277D85DD0];
+    v12[1] = 3221225472;
+    v12[2] = __64__PGSyndicationProcessor__persistCurationScores_inPhotoLibrary___block_invoke;
+    v12[3] = &unk_27888A660;
+    v13 = scoresCopy;
+    v11 = 0;
+    v9 = [libraryCopy performChangesAndWait:v12 error:&v11];
+    v10 = v11;
     if ((v9 & 1) == 0 && os_log_type_enabled(loggingConnection, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v16 = v10;
+      v15 = v10;
       _os_log_error_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_ERROR, "PGSyndicationProcessor: Error saving curation scores to database: %@", buf, 0xCu);
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __64__PGSyndicationProcessor__persistCurationScores_inPhotoLibrary___block_invoke_2(uint64_t a1, void *a2, void *a3)
@@ -2124,16 +2111,16 @@ void __64__PGSyndicationProcessor__persistCurationScores_inPhotoLibrary___block_
 
 - (BOOL)processSyndicatedAssetCurationWithError:(id *)error progressReporter:(id)reporter
 {
-  v62 = *MEMORY[0x277D85DE8];
+  v61 = *MEMORY[0x277D85DE8];
   reporterCopy = reporter;
   if ([reporterCopy isCancelledWithProgress:0.0])
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
     {
       *buf = 67109378;
-      *v61 = 87;
-      *&v61[4] = 2080;
-      *&v61[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Syndication/PGSyndicationProcessor.m";
+      *v60 = 87;
+      *&v60[4] = 2080;
+      *&v60[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Syndication/PGSyndicationProcessor.m";
       _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
     }
 
@@ -2163,17 +2150,17 @@ void __64__PGSyndicationProcessor__persistCurationScores_inPhotoLibrary___block_
         if (v16)
         {
           *buf = 134217984;
-          *v61 = v15;
+          *v60 = v15;
           _os_log_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_DEFAULT, "PGSyndicationProcessor: %tu asset(s) eligible for curation processing", buf, 0xCu);
         }
 
-        v52 = librarySpecificFetchOptions;
-        v49 = loggingConnection;
+        v51 = librarySpecificFetchOptions;
+        v48 = loggingConnection;
         v17 = loggingConnection;
         v18 = os_signpost_id_generate(v17);
         v19 = v17;
         v20 = v19;
-        v48 = v18 - 1;
+        v47 = v18 - 1;
         if (v18 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v19))
         {
           *buf = 0;
@@ -2181,21 +2168,21 @@ void __64__PGSyndicationProcessor__persistCurationScores_inPhotoLibrary___block_
         }
 
         spid = v18;
-        v50 = v20;
+        v49 = v20;
 
         info = 0;
         mach_timebase_info(&info);
-        v47 = mach_absolute_time();
-        v56 = [objc_alloc(MEMORY[0x277D3C790]) initWithPhotoLibrary:v10];
+        v46 = mach_absolute_time();
+        v55 = [objc_alloc(MEMORY[0x277D3C790]) initWithPhotoLibrary:v10];
         v21 = 1.0 / v15;
-        v51 = v14;
+        v50 = v14;
         fetchedObjects = [v14 fetchedObjects];
         v22 = 0;
         v23 = *MEMORY[0x277D3C778];
         v24 = 0.0;
         selfCopy = self;
-        v55 = v10;
-        v53 = v15;
+        v54 = v10;
+        v52 = v15;
         while (1)
         {
           context = objc_autoreleasePoolPush();
@@ -2203,20 +2190,20 @@ void __64__PGSyndicationProcessor__persistCurationScores_inPhotoLibrary___block_
           v26 = v22 + 200 <= v15 ? 200 : v15 - v22;
           v27 = [fetchedObjects subarrayWithRange:{v22, v26, spid}];
           dictionary = [MEMORY[0x277CBEB38] dictionary];
-          [MEMORY[0x277CD97A8] prefetchOnAssets:v27 options:13 curationContext:v56];
+          [MEMORY[0x277CD97A8] prefetchOnAssets:v27 options:13 curationContext:v55];
           if ([v27 count])
           {
             break;
           }
 
 LABEL_22:
-          v10 = v55;
-          [(PGSyndicationProcessor *)selfCopy _persistCurationScores:dictionary inPhotoLibrary:v55];
+          v10 = v54;
+          [(PGSyndicationProcessor *)selfCopy _persistCurationScores:dictionary inPhotoLibrary:v54];
 
           objc_autoreleasePoolPop(context);
           v22 = v25;
-          v15 = v53;
-          if (v25 >= v53)
+          v15 = v52;
+          if (v25 >= v52)
           {
             throughputReportBlock = [reporterCopy throughputReportBlock];
 
@@ -2229,35 +2216,35 @@ LABEL_22:
             v38 = mach_absolute_time();
             numer = info.numer;
             denom = info.denom;
-            v41 = v50;
-            v42 = v50;
+            v41 = v49;
+            v42 = v49;
             v43 = v42;
-            v14 = v51;
-            if (v48 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v42))
+            v14 = v50;
+            if (v47 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v42))
             {
               *buf = 0;
               _os_signpost_emit_with_name_impl(&dword_22F0FC000, v43, OS_SIGNPOST_INTERVAL_END, spid, "PGSyndicationProcessorAssetCuration", "", buf, 2u);
             }
 
-            librarySpecificFetchOptions = v52;
+            librarySpecificFetchOptions = v51;
             if (os_log_type_enabled(v43, OS_LOG_TYPE_INFO))
             {
               *buf = 136315394;
-              *v61 = "PGSyndicationProcessorAssetCuration";
-              *&v61[8] = 2048;
-              *&v61[10] = ((((v38 - v47) * numer) / denom) / 1000000.0);
+              *v60 = "PGSyndicationProcessorAssetCuration";
+              *&v60[8] = 2048;
+              *&v60[10] = ((((v38 - v46) * numer) / denom) / 1000000.0);
               _os_log_impl(&dword_22F0FC000, v43, OS_LOG_TYPE_INFO, "[Performance] %s: %f ms", buf, 0x16u);
             }
 
             if ([reporterCopy isCancelledWithProgress:1.0])
             {
-              loggingConnection = v49;
+              loggingConnection = v48;
               if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
               {
                 *buf = 67109378;
-                *v61 = 158;
-                *&v61[4] = 2080;
-                *&v61[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Syndication/PGSyndicationProcessor.m";
+                *v60 = 158;
+                *&v60[4] = 2080;
+                *&v60[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Syndication/PGSyndicationProcessor.m";
                 _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
               }
 
@@ -2267,7 +2254,7 @@ LABEL_22:
             else
             {
               v7 = 1;
-              loggingConnection = v49;
+              loggingConnection = v48;
             }
 
             goto LABEL_41;
@@ -2306,20 +2293,20 @@ LABEL_22:
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
         {
           *buf = 67109378;
-          *v61 = 147;
-          *&v61[4] = 2080;
-          *&v61[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Syndication/PGSyndicationProcessor.m";
+          *v60 = 147;
+          *&v60[4] = 2080;
+          *&v60[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Syndication/PGSyndicationProcessor.m";
           _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
         }
 
         objc_autoreleasePoolPop(v30);
         objc_autoreleasePoolPop(context);
         v7 = 0;
-        loggingConnection = v49;
-        v41 = v50;
-        v10 = v55;
-        v14 = v51;
-        librarySpecificFetchOptions = v52;
+        loggingConnection = v48;
+        v41 = v49;
+        v10 = v54;
+        v14 = v50;
+        librarySpecificFetchOptions = v51;
 LABEL_41:
       }
 
@@ -2336,9 +2323,9 @@ LABEL_41:
           if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
           {
             *buf = 67109378;
-            *v61 = 106;
-            *&v61[4] = 2080;
-            *&v61[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Syndication/PGSyndicationProcessor.m";
+            *v60 = 106;
+            *&v60[4] = 2080;
+            *&v60[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Syndication/PGSyndicationProcessor.m";
             _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
           }
 
@@ -2357,9 +2344,9 @@ LABEL_41:
       if ([reporterCopy isCancelledWithProgress:1.0] && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
       {
         *buf = 67109378;
-        *v61 = 93;
-        *&v61[4] = 2080;
-        *&v61[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Syndication/PGSyndicationProcessor.m";
+        *v60 = 93;
+        *&v60[4] = 2080;
+        *&v60[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Syndication/PGSyndicationProcessor.m";
         _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
       }
 
@@ -2367,22 +2354,21 @@ LABEL_41:
     }
   }
 
-  v44 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
 - (id)syndicationPhotoLibraryWithError:(id *)error
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   syndicationLibrary = self->_syndicationLibrary;
   if (syndicationLibrary)
   {
     goto LABEL_12;
   }
 
-  v16 = 0;
-  v6 = [MEMORY[0x277CD9948] openPhotoLibraryWithWellKnownIdentifier:3 error:&v16];
-  v7 = v16;
+  v15 = 0;
+  v6 = [MEMORY[0x277CD9948] openPhotoLibraryWithWellKnownIdentifier:3 error:&v15];
+  v7 = v15;
   if (v6)
   {
     v8 = v7 == 0;
@@ -2409,7 +2395,7 @@ LABEL_12:
   if (os_log_type_enabled(loggingConnection, OS_LOG_TYPE_ERROR))
   {
     *buf = 138412290;
-    v18 = v9;
+    v17 = v9;
     _os_log_error_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_ERROR, "PGSyndicationProcessor: Failed to open syndicated library: %@", buf, 0xCu);
   }
 
@@ -2421,7 +2407,6 @@ LABEL_12:
 
   v12 = 0;
 LABEL_13:
-  v14 = *MEMORY[0x277D85DE8];
 
   return v12;
 }

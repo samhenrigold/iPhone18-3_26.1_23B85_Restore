@@ -3,7 +3,7 @@
 
 @implementation AXSUserEnabledPasscodeForPurchases
 
-uint64_t ___AXSUserEnabledPasscodeForPurchases_block_invoke()
+void *___AXSUserEnabledPasscodeForPurchases_block_invoke()
 {
   if (!_processIsResponsibleForPreferenceObserving())
   {

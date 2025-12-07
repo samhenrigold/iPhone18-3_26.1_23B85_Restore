@@ -42,8 +42,8 @@
   transportOptions = [(MTRPushAVStreamTransportClusterTransportConfigurationStruct *)self transportOptions];
   [(MTRPushAVStreamTransportClusterTransportConfigurationStruct *)v4 setTransportOptions:transportOptions];
 
-  fabricIndex = [(MTRPushAVStreamTransportClusterTransportConfigurationStruct *)self fabricIndex];
-  [(MTRPushAVStreamTransportClusterTransportConfigurationStruct *)v4 setFabricIndex:fabricIndex];
+  v8 = objc_msgSend_fabricIndex(self);
+  [(MTRPushAVStreamTransportClusterTransportConfigurationStruct *)v4 setFabricIndex:v8];
 
   return v4;
 }

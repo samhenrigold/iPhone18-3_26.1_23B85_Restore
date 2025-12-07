@@ -140,7 +140,7 @@ LABEL_11:
 
 - (BOOL)addDomainsFromSelection:(id)selection
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   selectionCopy = selection;
   if ([selectionCopy isEmpty])
   {
@@ -152,30 +152,30 @@ LABEL_11:
     objc_opt_class();
     if (objc_opt_isKindOfClass() & 1) == 0 || (*(selectionCopy + 24))
     {
-      v16 = 0u;
-      v17 = 0u;
-      v14 = 0u;
       v15 = 0u;
+      v16 = 0u;
+      v13 = 0u;
+      v14 = 0u;
       allDomains = [selectionCopy allDomains];
-      v8 = [allDomains countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v8 = [allDomains countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v8)
       {
         v9 = v8;
         v5 = 0;
-        v10 = *v15;
+        v10 = *v14;
         do
         {
           for (i = 0; i != v9; ++i)
           {
-            if (*v15 != v10)
+            if (*v14 != v10)
             {
               objc_enumerationMutation(allDomains);
             }
 
-            v5 |= [(_PASMutableDomainSelection *)self addDomain:*(*(&v14 + 1) + 8 * i)];
+            v5 |= [(_PASMutableDomainSelection *)self addDomain:*(*(&v13 + 1) + 8 * i)];
           }
 
-          v9 = [allDomains countByEnumeratingWithState:&v14 objects:v18 count:16];
+          v9 = [allDomains countByEnumeratingWithState:&v13 objects:v17 count:16];
         }
 
         while (v9);
@@ -195,7 +195,6 @@ LABEL_11:
     }
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return v5 & 1;
 }
 
@@ -244,58 +243,58 @@ LABEL_11:
 
 - (BOOL)_addDomainsFrom:(id)from
 {
-  v55 = *MEMORY[0x1E69E9840];
+  v54 = *MEMORY[0x1E69E9840];
   fromCopy = from;
-  v34 = 0;
+  v33 = 0;
   v3 = 1;
   while (1)
   {
-    v52 = 0u;
-    v53 = 0u;
-    v50 = 0u;
     v51 = 0u;
+    v52 = 0u;
+    v49 = 0u;
+    v50 = 0u;
     v4 = fromCopy;
-    v37 = [v4 countByEnumeratingWithState:&v50 objects:v54 count:16];
-    if (!v37)
+    v36 = [v4 countByEnumeratingWithState:&v49 objects:v53 count:16];
+    if (!v36)
     {
       break;
     }
 
-    v35 = *v51;
-    v36 = 0x7FFFFFFFFFFFFFFFLL;
+    v34 = *v50;
+    v35 = 0x7FFFFFFFFFFFFFFFLL;
     obj = v4;
     do
     {
-      for (i = 0; i != v37; ++i)
+      for (i = 0; i != v36; ++i)
       {
-        if (*v51 != v35)
+        if (*v50 != v34)
         {
           objc_enumerationMutation(obj);
         }
 
-        v6 = *(*(&v50 + 1) + 8 * i);
+        v6 = *(*(&v49 + 1) + 8 * i);
         v7 = objc_autoreleasePoolPush();
         v8 = v6;
         v9 = objc_opt_self();
 
         if (v9)
         {
-          v49 = 0;
+          v48 = 0;
+          v46 = 0u;
           v47 = 0u;
-          v48 = 0u;
-          v45 = 0u;
-          *theString = 0u;
-          v43 = 0u;
           v44 = 0u;
-          v41 = 0u;
+          *theString = 0u;
           v42 = 0u;
-          v39 = 0u;
+          v43 = 0u;
           v40 = 0u;
+          v41 = 0u;
+          v38 = 0u;
+          v39 = 0u;
           *buffer = 0u;
           Length = CFStringGetLength(v8);
           theString[0] = v8;
-          *(&v47 + 1) = 0;
-          *&v48 = Length;
+          *(&v46 + 1) = 0;
+          *&v47 = Length;
           CharactersPtr = CFStringGetCharactersPtr(v8);
           CStringPtr = 0;
           theString[1] = CharactersPtr;
@@ -304,9 +303,9 @@ LABEL_11:
             CStringPtr = CFStringGetCStringPtr(v8, 0x600u);
           }
 
-          *&v47 = CStringPtr;
-          *(&v48 + 1) = 0;
-          v49 = 0;
+          *&v46 = CStringPtr;
+          *(&v47 + 1) = 0;
+          v48 = 0;
           if (Length >= 1)
           {
             v13 = 0;
@@ -317,8 +316,8 @@ LABEL_11:
             while (1)
             {
               v18 = v15 >= 4 ? 4 : v15;
-              v19 = v48;
-              if (v48 > v15)
+              v19 = v47;
+              if (v47 > v15)
               {
                 break;
               }
@@ -335,39 +334,39 @@ LABEL_23:
 
             if (theString[1])
             {
-              v20 = theString[1] + *(&v47 + 1);
+              v20 = theString[1] + *(&v46 + 1);
               goto LABEL_18;
             }
 
-            if (v47)
+            if (v46)
             {
-              v21 = *(v47 + *(&v47 + 1) + v15);
+              v21 = *(v46 + *(&v46 + 1) + v15);
             }
 
             else
             {
-              if (v49 <= v15 || v14 > v15)
+              if (v48 <= v15 || v14 > v15)
               {
                 v23 = v18 + v13;
                 v24 = v16 - v18;
                 v25 = v15 - v18;
                 v26 = v25 + 64;
-                if (v25 + 64 >= v48)
+                if (v25 + 64 >= v47)
                 {
-                  v26 = v48;
+                  v26 = v47;
                 }
 
-                *(&v48 + 1) = v25;
-                v49 = v26;
-                if (v48 >= v24)
+                *(&v47 + 1) = v25;
+                v48 = v26;
+                if (v47 >= v24)
                 {
                   v19 = v24;
                 }
 
-                v56.location = v25 + *(&v47 + 1);
-                v56.length = v19 + v23;
-                CFStringGetCharacters(theString[0], v56, buffer);
-                v14 = *(&v48 + 1);
+                v55.location = v25 + *(&v46 + 1);
+                v55.length = v19 + v23;
+                CFStringGetCharacters(theString[0], v55, buffer);
+                v14 = *(&v47 + 1);
               }
 
               v20 = &buffer[-v14];
@@ -389,15 +388,15 @@ LABEL_36:
 
         if (v17 == v3)
         {
-          v34 |= [(_PASMutableDomainSelection *)self addDomain:v8];
+          v33 |= [(_PASMutableDomainSelection *)self addDomain:v8];
         }
 
         else
         {
-          v27 = v36;
-          if (v17 >= v36)
+          v27 = v35;
+          if (v17 >= v35)
           {
-            v28 = v36;
+            v28 = v35;
           }
 
           else
@@ -410,28 +409,27 @@ LABEL_36:
             v27 = v28;
           }
 
-          v36 = v27;
+          v35 = v27;
         }
 
         objc_autoreleasePoolPop(v7);
       }
 
       v4 = obj;
-      v37 = [obj countByEnumeratingWithState:&v50 objects:v54 count:16];
+      v36 = [obj countByEnumeratingWithState:&v49 objects:v53 count:16];
     }
 
-    while (v37);
+    while (v36);
 
-    v3 = v36;
-    if (v36 == 0x7FFFFFFFFFFFFFFFLL)
+    v3 = v35;
+    if (v35 == 0x7FFFFFFFFFFFFFFFLL)
     {
       goto LABEL_49;
     }
   }
 
 LABEL_49:
-  v29 = *MEMORY[0x1E69E9840];
-  return v34 & 1;
+  return v33 & 1;
 }
 
 - (BOOL)addDomain:(id)domain
@@ -553,14 +551,14 @@ LABEL_17:
 
 - (id)allDomains
 {
-  v23[1] = *MEMORY[0x1E69E9840];
+  v22[1] = *MEMORY[0x1E69E9840];
   if ([(NSMutableDictionary *)self->_domains count])
   {
-    v18 = a2;
+    v17 = a2;
     v4 = [objc_alloc(MEMORY[0x1E695DFA8]) initWithCapacity:self->_count];
     v5 = [_PASTuple2 tupleWithFirst:self->_domains second:&stru_1F1B24B60];
-    v23[0] = v5;
-    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:1];
+    v22[0] = v5;
+    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v22 count:1];
     v7 = [v6 mutableCopy];
 
     do
@@ -570,17 +568,17 @@ LABEL_17:
       [v7 removeLastObject];
       first = [lastObject first];
       second = [lastObject second];
-      v19[0] = MEMORY[0x1E69E9820];
-      v19[1] = 3221225472;
-      v19[2] = __40___PASMutableDomainSelection_allDomains__block_invoke;
-      v19[3] = &unk_1E77F2158;
+      v18[0] = MEMORY[0x1E69E9820];
+      v18[1] = 3221225472;
+      v18[2] = __40___PASMutableDomainSelection_allDomains__block_invoke;
+      v18[3] = &unk_1E77F2158;
       v12 = v4;
-      v20 = v12;
-      v21 = second;
+      v19 = v12;
+      v20 = second;
       v13 = v7;
-      v22 = v13;
+      v21 = v13;
       v14 = second;
-      [first enumerateKeysAndObjectsUsingBlock:v19];
+      [first enumerateKeysAndObjectsUsingBlock:v18];
 
       objc_autoreleasePoolPop(v8);
     }
@@ -589,7 +587,7 @@ LABEL_17:
     if ([v12 count] != self->_count)
     {
       currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-      [currentHandler handleFailureInMethod:v18 object:self file:@"_PASDomainSelection.m" lineNumber:367 description:{@"Invalid parameter not satisfying: %@", @"allDomainsSet.count == _count"}];
+      [currentHandler handleFailureInMethod:v17 object:self file:@"_PASDomainSelection.m" lineNumber:367 description:{@"Invalid parameter not satisfying: %@", @"allDomainsSet.count == _count"}];
     }
   }
 
@@ -597,8 +595,6 @@ LABEL_17:
   {
     v12 = [MEMORY[0x1E695DFD8] set];
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return v12;
 }

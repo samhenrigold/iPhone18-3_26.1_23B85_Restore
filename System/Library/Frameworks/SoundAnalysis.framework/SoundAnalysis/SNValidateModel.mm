@@ -18,10 +18,10 @@
 
 + (BOOL)ensureMultiArrayShapeConstraint:(id)constraint hasDimensionSizeRanges:(id)ranges error:(id *)error
 {
-  sub_1C97BD318(0, &qword_1EC3C5690);
-  v6 = sub_1C9A92798();
+  sub_1C97BD318(v5, 0, &qword_1EC3C5690, 0x1E696B098);
+  v7 = sub_1C9A92798();
   constraintCopy = constraint;
-  sub_1C9997B64(constraintCopy, v6);
+  sub_1C9997B64(constraintCopy, v7);
 
   return 1;
 }

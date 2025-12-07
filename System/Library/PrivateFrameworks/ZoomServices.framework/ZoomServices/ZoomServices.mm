@@ -17,7 +17,7 @@ void sub_275238BC8(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-double ZOTMainScreenSize()
+double ZOTMainScreenSize(uint64_t a1, uint64_t a2)
 {
   if (ZOTMainScreenSize_onceToken != -1)
   {
@@ -83,22 +83,22 @@ LABEL_10:
   return result;
 }
 
-uint64_t ZOTRotateToScreen(char a1)
+uint64_t ZOTRotateToScreen(uint64_t a1, uint64_t a2)
 {
   if ((a1 & 1) == 0)
   {
-    ZOTMainScreenSize();
+    ZOTMainScreenSize(a1, a2);
     ZOTDeviceRotation();
   }
 
   return ZOTDeviceRotation();
 }
 
-uint64_t ZOTRotateFromScreen(char a1)
+uint64_t ZOTRotateFromScreen(uint64_t a1, uint64_t a2)
 {
   if ((a1 & 1) == 0)
   {
-    ZOTMainScreenSize();
+    ZOTMainScreenSize(a1, a2);
     ZOTDeviceRotation();
   }
 

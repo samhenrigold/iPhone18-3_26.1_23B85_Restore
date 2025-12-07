@@ -2,6 +2,7 @@
 + (id)streamWithData:(id)data;
 - (NSDataInputStream)initWithData:(id)data;
 - (int)read;
+- (int)readWithByteArray:(id)array withInt:(int)int withInt:(int)withInt;
 - (void)dealloc;
 @end
 
@@ -47,6 +48,45 @@
   v6 = self->position_;
   self->position_ = v6 + 1;
   return bytes[v6];
+}
+
+- (int)readWithByteArray:(id)array withInt:(int)int withInt:(int)withInt
+{
+  LODWORD(v5) = withInt;
+  if (withInt)
+  {
+    v6 = *&int;
+    position = self->position_;
+    if (position == [(NSData *)self->data_ length])
+    {
+      LODWORD(v5) = -1;
+    }
+
+    else
+    {
+      v10 = [(NSData *)self->data_ length];
+      if (!array)
+      {
+        JreThrowNullPointerException();
+      }
+
+      v11 = v10 - LODWORD(self->position_);
+      if (v11 >= v5)
+      {
+        v5 = v5;
+      }
+
+      else
+      {
+        v5 = v11;
+      }
+
+      [array replaceBytes:-[NSData bytes](self->data_ length:"bytes") + self->position_ offset:{v5, v6}];
+      self->position_ += v5;
+    }
+  }
+
+  return v5;
 }
 
 @end

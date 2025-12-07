@@ -56,7 +56,7 @@
 
 - (NSString)accessibilityIdentifier
 {
-  sub_2159F7DA8(0, &unk_2811A2530);
+  sub_2159F7DA8(0, &unk_2811A2530, 0x277D82BB8);
   selfCopy = self;
   rootFolder = [(BookmarksLibraryItemController *)selfCopy rootFolder];
   bookmarkCollection = [(BookmarksLibraryItemController *)selfCopy bookmarkCollection];
@@ -70,7 +70,7 @@
 
 - (int64_t)sidebarSelectionAnalyticsAction
 {
-  sub_2159F7DA8(0, &unk_2811A2530);
+  sub_2159F7DA8(0, &unk_2811A2530, 0x277D82BB8);
   selfCopy = self;
   rootFolder = [(BookmarksLibraryItemController *)selfCopy rootFolder];
   bookmarkCollection = [(BookmarksLibraryItemController *)selfCopy bookmarkCollection];

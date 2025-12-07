@@ -43,15 +43,32 @@
 
 - (void)start
 {
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_251143000, v0, v1, "Spatial Profile: Sound & Haptics: Start Engine Error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  v3 = sharedBluetoothSettingsLogComponent(self);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 0;
+    _os_log_impl(&dword_251143000, v3, OS_LOG_TYPE_DEFAULT, "Spatial Profile: Sound & Haptics: Start Engine", buf, 2u);
+  }
+
+  [(HPSSpatialProfileSoundHapticManager *)self setupPlayers];
+  engine = self->_engine;
+  v8 = 0;
+  [(CHHapticEngine *)engine startAndReturnError:&v8];
+  v5 = v8;
+  v6 = v5;
+  if (v5)
+  {
+    v7 = sharedBluetoothSettingsLogComponent(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    {
+      [HPSSpatialProfileSoundHapticManager start];
+    }
+  }
 }
 
 - (void)stop
 {
-  v3 = sharedBluetoothSettingsLogComponent();
+  v3 = sharedBluetoothSettingsLogComponent(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -103,7 +120,7 @@
   enrollmentCompletedPlayer = v23->_enrollmentCompletedPlayer;
   v23->_enrollmentCompletedPlayer = v24;
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](v24, enrollmentCompletedPlayer);
 }
 
 - (void)setEnrollGuidancePitch:(float)pitch
@@ -131,10 +148,27 @@
 
 - (void)pauseEnrollGuidancePlayer
 {
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_251143000, v0, v1, "Spatial Profile: Sound & Haptics: Stop Scan In Progress Player Error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  if (self->_dynamicEnrollmentFeedback)
+  {
+    v9[3] = v2;
+    v9[4] = v3;
+    enrollGuidancePlayer = self->_enrollGuidancePlayer;
+    if (enrollGuidancePlayer)
+    {
+      v9[0] = 0;
+      [(CHHapticAdvancedPatternPlayer *)enrollGuidancePlayer stopAtTime:v9 error:0.0];
+      v6 = v9[0];
+      v7 = [(CHHapticAdvancedPatternPlayer *)self->_enrollGuidancePlayer setLoopEnabled:0];
+      if (v6)
+      {
+        v8 = sharedBluetoothSettingsLogComponent(v7);
+        if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+        {
+          [HPSSpatialProfileSoundHapticManager pauseEnrollGuidancePlayer];
+        }
+      }
+    }
+  }
 }
 
 - (void)playEnrollGuidance:(int)guidance
@@ -160,7 +194,7 @@
           if (v9)
           {
             v10 = v9;
-            v11 = sharedBluetoothSettingsLogComponent();
+            v11 = sharedBluetoothSettingsLogComponent(v9);
             if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
             {
               [HPSSpatialProfileSoundHapticManager playEnrollGuidance:];
@@ -192,7 +226,7 @@
     if (v3)
     {
       v4 = v3;
-      v5 = sharedBluetoothSettingsLogComponent();
+      v5 = sharedBluetoothSettingsLogComponent(v3);
       if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
       {
         [HPSSpatialProfileSoundHapticManager pauseEnrollGuidancePlayer];
@@ -218,7 +252,7 @@
       if (v7)
       {
         v8 = v7;
-        v9 = sharedBluetoothSettingsLogComponent();
+        v9 = sharedBluetoothSettingsLogComponent(v7);
         if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
         {
           [HPSSpatialProfileSoundHapticManager playEnrollGuidance:];
@@ -235,32 +269,34 @@
   v6 = [v4 bundleForClass:objc_opt_class()];
   v7 = [v6 URLForResource:nameCopy withExtension:@"ahap"];
 
-  v17 = 0;
-  v8 = [objc_alloc(MEMORY[0x277CBF6D0]) initWithContentsOfURL:v7 error:&v17];
-  v9 = v17;
+  v19 = 0;
+  v8 = [objc_alloc(MEMORY[0x277CBF6D0]) initWithContentsOfURL:v7 error:&v19];
+  v9 = v19;
+  v10 = v9;
   if (v9)
   {
-    v10 = sharedBluetoothSettingsLogComponent();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = sharedBluetoothSettingsLogComponent(v9);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       [HPSSpatialProfileSoundHapticManager initPlayerWithFileName:];
     }
   }
 
   engine = self->_engine;
-  v16 = 0;
-  v12 = [(CHHapticEngine *)engine createAdvancedPlayerWithPattern:v8 error:&v16];
-  v13 = v16;
-  if (v13)
+  v18 = 0;
+  v13 = [(CHHapticEngine *)engine createAdvancedPlayerWithPattern:v8 error:&v18];
+  v14 = v18;
+  v15 = v14;
+  if (v14)
   {
-    v14 = sharedBluetoothSettingsLogComponent();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v16 = sharedBluetoothSettingsLogComponent(v14);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       [HPSSpatialProfileSoundHapticManager initPlayerWithFileName:];
     }
   }
 
-  return v12;
+  return v13;
 }
 
 - (void)triggerSoundHapticForEnrollmentState:(int)state completion:(id)completion
@@ -269,14 +305,14 @@
   v7 = dispatch_group_create();
   mEMORY[0x277CB83F8] = [MEMORY[0x277CB83F8] sharedInstance];
   v9 = *MEMORY[0x277CB8030];
-  v41 = 0;
-  [mEMORY[0x277CB83F8] setCategory:v9 error:&v41];
-  v10 = v41;
+  v43 = 0;
+  [mEMORY[0x277CB83F8] setCategory:v9 error:&v43];
+  v10 = v43;
 
   if (v10)
   {
-    v11 = sharedBluetoothSettingsLogComponent();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = sharedBluetoothSettingsLogComponent(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       [HPSSpatialProfileSoundHapticManager triggerSoundHapticForEnrollmentState:completion:];
     }
@@ -292,11 +328,11 @@
         {
           if (state == 16)
           {
-            v12 = sharedBluetoothSettingsLogComponent();
-            if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+            v13 = sharedBluetoothSettingsLogComponent(v11);
+            if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 0;
-              _os_log_impl(&dword_251143000, v12, OS_LOG_TYPE_DEFAULT, "Spatial Profile: Sound & Haptics: Enrollment Completed", buf, 2u);
+              _os_log_impl(&dword_251143000, v13, OS_LOG_TYPE_DEFAULT, "Spatial Profile: Sound & Haptics: Enrollment Completed", buf, 2u);
             }
 
             soundHapticSerialQueue = self->_soundHapticSerialQueue;
@@ -304,12 +340,12 @@
             block[1] = 3221225472;
             block[2] = __87__HPSSpatialProfileSoundHapticManager_triggerSoundHapticForEnrollmentState_completion___block_invoke_47;
             block[3] = &unk_2796AD5F0;
-            v28 = v7;
+            v30 = v7;
             selfCopy = self;
-            v30 = completionCopy;
+            v32 = completionCopy;
             dispatch_async(soundHapticSerialQueue, block);
 
-            v14 = v28;
+            v15 = v30;
 LABEL_29:
 
             goto LABEL_30;
@@ -319,24 +355,24 @@ LABEL_29:
         }
 
 LABEL_17:
-        v15 = sharedBluetoothSettingsLogComponent();
-        if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+        v16 = sharedBluetoothSettingsLogComponent(v11);
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&dword_251143000, v15, OS_LOG_TYPE_DEFAULT, "Spatial Profile: Sound & Haptics: Scan Completed", buf, 2u);
+          _os_log_impl(&dword_251143000, v16, OS_LOG_TYPE_DEFAULT, "Spatial Profile: Sound & Haptics: Scan Completed", buf, 2u);
         }
 
-        v16 = self->_soundHapticSerialQueue;
-        v31[0] = MEMORY[0x277D85DD0];
-        v31[1] = 3221225472;
-        v31[2] = __87__HPSSpatialProfileSoundHapticManager_triggerSoundHapticForEnrollmentState_completion___block_invoke_41;
-        v31[3] = &unk_2796AD5F0;
-        v31[4] = self;
-        v32 = v7;
-        v33 = completionCopy;
-        dispatch_async(v16, v31);
+        v17 = self->_soundHapticSerialQueue;
+        v33[0] = MEMORY[0x277D85DD0];
+        v33[1] = 3221225472;
+        v33[2] = __87__HPSSpatialProfileSoundHapticManager_triggerSoundHapticForEnrollmentState_completion___block_invoke_41;
+        v33[3] = &unk_2796AD5F0;
+        v33[4] = self;
+        v34 = v7;
+        v35 = completionCopy;
+        dispatch_async(v17, v33);
 
-        v14 = v32;
+        v15 = v34;
         goto LABEL_29;
       }
 
@@ -345,23 +381,23 @@ LABEL_17:
 
     if ((state - 17) < 3)
     {
-      v17 = sharedBluetoothSettingsLogComponent();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+      v18 = sharedBluetoothSettingsLogComponent(v11);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
-        [HPSSpatialProfileSoundHapticManager triggerSoundHapticForEnrollmentState:v17 completion:?];
+        [HPSSpatialProfileSoundHapticManager triggerSoundHapticForEnrollmentState:v18 completion:?];
       }
 
-      v18 = self->_soundHapticSerialQueue;
-      v24[0] = MEMORY[0x277D85DD0];
-      v24[1] = 3221225472;
-      v24[2] = __87__HPSSpatialProfileSoundHapticManager_triggerSoundHapticForEnrollmentState_completion___block_invoke_53;
-      v24[3] = &unk_2796AD5F0;
-      v24[4] = self;
-      v25 = v7;
-      v26 = completionCopy;
-      dispatch_async(v18, v24);
+      v19 = self->_soundHapticSerialQueue;
+      v26[0] = MEMORY[0x277D85DD0];
+      v26[1] = 3221225472;
+      v26[2] = __87__HPSSpatialProfileSoundHapticManager_triggerSoundHapticForEnrollmentState_completion___block_invoke_53;
+      v26[3] = &unk_2796AD5F0;
+      v26[4] = self;
+      v27 = v7;
+      v28 = completionCopy;
+      dispatch_async(v19, v26);
 
-      v14 = v25;
+      v15 = v27;
       goto LABEL_29;
     }
 
@@ -376,25 +412,25 @@ LABEL_17:
         goto LABEL_17;
       case 7:
 LABEL_26:
-        v19 = sharedBluetoothSettingsLogComponent();
-        if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+        v20 = sharedBluetoothSettingsLogComponent(v11);
+        if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&dword_251143000, v19, OS_LOG_TYPE_DEFAULT, "Spatial Profile: Sound & Haptics: Scan Start", buf, 2u);
+          _os_log_impl(&dword_251143000, v20, OS_LOG_TYPE_DEFAULT, "Spatial Profile: Sound & Haptics: Scan Start", buf, 2u);
         }
 
-        v20 = self->_soundHapticSerialQueue;
-        v34[0] = MEMORY[0x277D85DD0];
-        v34[1] = 3221225472;
-        v34[2] = __87__HPSSpatialProfileSoundHapticManager_triggerSoundHapticForEnrollmentState_completion___block_invoke;
-        v34[3] = &unk_2796AD5C8;
-        v35 = v7;
+        v21 = self->_soundHapticSerialQueue;
+        v36[0] = MEMORY[0x277D85DD0];
+        v36[1] = 3221225472;
+        v36[2] = __87__HPSSpatialProfileSoundHapticManager_triggerSoundHapticForEnrollmentState_completion___block_invoke;
+        v36[3] = &unk_2796AD5C8;
+        v37 = v7;
         selfCopy2 = self;
         stateCopy = state;
-        v37 = completionCopy;
-        dispatch_async(v20, v34);
+        v39 = completionCopy;
+        dispatch_async(v21, v36);
 
-        v14 = v35;
+        v15 = v37;
         goto LABEL_29;
       case 8:
         goto LABEL_17;
@@ -420,14 +456,14 @@ LABEL_38:
   }
 
   scanInProgressPlayer = self->_scanInProgressPlayer;
-  v40 = v10;
-  [(CHHapticAdvancedPatternPlayer *)scanInProgressPlayer stopAtTime:&v40 error:0.0];
-  v22 = v40;
+  v42 = v10;
+  [(CHHapticAdvancedPatternPlayer *)scanInProgressPlayer stopAtTime:&v42 error:0.0];
+  v23 = v42;
 
-  if (v22)
+  if (v23)
   {
-    v23 = sharedBluetoothSettingsLogComponent();
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+    v25 = sharedBluetoothSettingsLogComponent(v24);
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
     {
       [HPSSpatialProfileSoundHapticManager pauseEnrollGuidancePlayer];
     }
@@ -438,62 +474,63 @@ LABEL_38:
     completionCopy[2](completionCopy);
   }
 
-  v10 = v22;
+  v10 = v23;
 LABEL_30:
 }
 
 void __87__HPSSpatialProfileSoundHapticManager_triggerSoundHapticForEnrollmentState_completion___block_invoke(uint64_t a1)
 {
   dispatch_group_enter(*(a1 + 32));
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __87__HPSSpatialProfileSoundHapticManager_triggerSoundHapticForEnrollmentState_completion___block_invoke_2;
-  v15[3] = &unk_2796AD578;
-  v16 = *(a1 + 32);
-  [*(*(a1 + 40) + 16) setCompletionHandler:v15];
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __87__HPSSpatialProfileSoundHapticManager_triggerSoundHapticForEnrollmentState_completion___block_invoke_2;
+  v16[3] = &unk_2796AD578;
+  v17 = *(a1 + 32);
+  [*(*(a1 + 40) + 16) setCompletionHandler:v16];
   v2 = *(*(a1 + 40) + 16);
-  v14 = 0;
-  [v2 startAtTime:&v14 error:0.0];
-  v3 = v14;
+  v15 = 0;
+  [v2 startAtTime:&v15 error:0.0];
+  v3 = v15;
+  v4 = v3;
   if (v3)
   {
-    v4 = sharedBluetoothSettingsLogComponent();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = sharedBluetoothSettingsLogComponent(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       __87__HPSSpatialProfileSoundHapticManager_triggerSoundHapticForEnrollmentState_completion___block_invoke_cold_1();
     }
   }
 
   [*(*(a1 + 40) + 24) setLoopEnabled:1];
-  LODWORD(v5) = 1.0;
-  [*(*(a1 + 40) + 24) setPlaybackRate:v5];
-  v6 = *(*(a1 + 40) + 24);
-  v13 = v3;
-  [v6 startAtTime:&v13 error:0.0];
-  v7 = v13;
+  LODWORD(v6) = 1.0;
+  [*(*(a1 + 40) + 24) setPlaybackRate:v6];
+  v7 = *(*(a1 + 40) + 24);
+  v14 = v4;
+  [v7 startAtTime:&v14 error:0.0];
+  v8 = v14;
 
-  v8 = *(a1 + 40);
-  if (v8[80] == 1)
+  v9 = *(a1 + 40);
+  if (v9[80] == 1)
   {
-    [v8 playEnrollGuidance:*(a1 + 56)];
+    v9 = [v9 playEnrollGuidance:*(a1 + 56)];
   }
 
-  if (v7)
+  if (v8)
   {
-    v9 = sharedBluetoothSettingsLogComponent();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = sharedBluetoothSettingsLogComponent(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       [HPSSpatialProfileSoundHapticManager playEnrollGuidance:];
     }
   }
 
-  v10 = *(a1 + 32);
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __87__HPSSpatialProfileSoundHapticManager_triggerSoundHapticForEnrollmentState_completion___block_invoke_39;
-  v11[3] = &unk_2796AD5A0;
-  v12 = *(a1 + 48);
-  dispatch_group_notify(v10, MEMORY[0x277D85CD0], v11);
+  v11 = *(a1 + 32);
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __87__HPSSpatialProfileSoundHapticManager_triggerSoundHapticForEnrollmentState_completion___block_invoke_39;
+  v12[3] = &unk_2796AD5A0;
+  v13 = *(a1 + 48);
+  dispatch_group_notify(v11, MEMORY[0x277D85CD0], v12);
 }
 
 void __87__HPSSpatialProfileSoundHapticManager_triggerSoundHapticForEnrollmentState_completion___block_invoke_2(uint64_t a1, uint64_t a2)
@@ -529,46 +566,47 @@ void __87__HPSSpatialProfileSoundHapticManager_triggerSoundHapticForEnrollmentSt
   }
 
   v3 = *(v2 + 24);
-  v15 = 0;
-  [v3 stopAtTime:&v15 error:0.0];
-  v4 = v15;
+  v17 = 0;
+  [v3 stopAtTime:&v17 error:0.0];
+  v4 = v17;
+  v5 = v4;
   if (v4)
   {
-    v5 = sharedBluetoothSettingsLogComponent();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = sharedBluetoothSettingsLogComponent(v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [HPSSpatialProfileSoundHapticManager pauseEnrollGuidancePlayer];
     }
   }
 
   dispatch_group_enter(*(a1 + 40));
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __87__HPSSpatialProfileSoundHapticManager_triggerSoundHapticForEnrollmentState_completion___block_invoke_42;
-  v13[3] = &unk_2796AD578;
-  v14 = *(a1 + 40);
-  [*(*(a1 + 32) + 56) setCompletionHandler:v13];
-  v6 = *(*(a1 + 32) + 56);
-  v12 = v4;
-  [v6 startAtTime:&v12 error:0.0];
-  v7 = v12;
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __87__HPSSpatialProfileSoundHapticManager_triggerSoundHapticForEnrollmentState_completion___block_invoke_42;
+  v15[3] = &unk_2796AD578;
+  v16 = *(a1 + 40);
+  [*(*(a1 + 32) + 56) setCompletionHandler:v15];
+  v7 = *(*(a1 + 32) + 56);
+  v14 = v5;
+  [v7 startAtTime:&v14 error:0.0];
+  v8 = v14;
 
-  if (v7)
+  if (v8)
   {
-    v8 = sharedBluetoothSettingsLogComponent();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v10 = sharedBluetoothSettingsLogComponent(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       __87__HPSSpatialProfileSoundHapticManager_triggerSoundHapticForEnrollmentState_completion___block_invoke_41_cold_2();
     }
   }
 
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __87__HPSSpatialProfileSoundHapticManager_triggerSoundHapticForEnrollmentState_completion___block_invoke_46;
-  v10[3] = &unk_2796AD5A0;
-  v9 = *(a1 + 40);
-  v11 = *(a1 + 48);
-  dispatch_group_notify(v9, MEMORY[0x277D85CD0], v10);
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __87__HPSSpatialProfileSoundHapticManager_triggerSoundHapticForEnrollmentState_completion___block_invoke_46;
+  v12[3] = &unk_2796AD5A0;
+  v11 = *(a1 + 40);
+  v13 = *(a1 + 48);
+  dispatch_group_notify(v11, MEMORY[0x277D85CD0], v12);
 }
 
 void __87__HPSSpatialProfileSoundHapticManager_triggerSoundHapticForEnrollmentState_completion___block_invoke_42(uint64_t a1, uint64_t a2)
@@ -597,32 +635,33 @@ uint64_t __87__HPSSpatialProfileSoundHapticManager_triggerSoundHapticForEnrollme
 void __87__HPSSpatialProfileSoundHapticManager_triggerSoundHapticForEnrollmentState_completion___block_invoke_47(uint64_t a1)
 {
   dispatch_group_enter(*(a1 + 32));
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __87__HPSSpatialProfileSoundHapticManager_triggerSoundHapticForEnrollmentState_completion___block_invoke_2_48;
-  v9[3] = &unk_2796AD578;
-  v10 = *(a1 + 32);
-  [*(*(a1 + 40) + 72) setCompletionHandler:v9];
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __87__HPSSpatialProfileSoundHapticManager_triggerSoundHapticForEnrollmentState_completion___block_invoke_2_48;
+  v10[3] = &unk_2796AD578;
+  v11 = *(a1 + 32);
+  [*(*(a1 + 40) + 72) setCompletionHandler:v10];
   v2 = *(*(a1 + 40) + 72);
-  v8 = 0;
-  [v2 startAtTime:&v8 error:0.0];
-  v3 = v8;
+  v9 = 0;
+  [v2 startAtTime:&v9 error:0.0];
+  v3 = v9;
+  v4 = v3;
   if (v3)
   {
-    v4 = sharedBluetoothSettingsLogComponent();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = sharedBluetoothSettingsLogComponent(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       __87__HPSSpatialProfileSoundHapticManager_triggerSoundHapticForEnrollmentState_completion___block_invoke_47_cold_1();
     }
   }
 
-  v5 = *(a1 + 32);
+  v6 = *(a1 + 32);
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __87__HPSSpatialProfileSoundHapticManager_triggerSoundHapticForEnrollmentState_completion___block_invoke_52;
   block[3] = &unk_2796AD5A0;
-  v7 = *(a1 + 48);
-  dispatch_group_notify(v5, MEMORY[0x277D85CD0], block);
+  v8 = *(a1 + 48);
+  dispatch_group_notify(v6, MEMORY[0x277D85CD0], block);
 }
 
 void __87__HPSSpatialProfileSoundHapticManager_triggerSoundHapticForEnrollmentState_completion___block_invoke_2_48(uint64_t a1, uint64_t a2)
@@ -651,46 +690,47 @@ uint64_t __87__HPSSpatialProfileSoundHapticManager_triggerSoundHapticForEnrollme
 void __87__HPSSpatialProfileSoundHapticManager_triggerSoundHapticForEnrollmentState_completion___block_invoke_53(uint64_t a1)
 {
   v2 = *(*(a1 + 32) + 24);
-  v14 = 0;
-  [v2 stopAtTime:&v14 error:0.0];
-  v3 = v14;
+  v16 = 0;
+  [v2 stopAtTime:&v16 error:0.0];
+  v3 = v16;
+  v4 = v3;
   if (v3)
   {
-    v4 = sharedBluetoothSettingsLogComponent();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = sharedBluetoothSettingsLogComponent(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       [HPSSpatialProfileSoundHapticManager pauseEnrollGuidancePlayer];
     }
   }
 
   dispatch_group_enter(*(a1 + 40));
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __87__HPSSpatialProfileSoundHapticManager_triggerSoundHapticForEnrollmentState_completion___block_invoke_54;
-  v12[3] = &unk_2796AD578;
-  v13 = *(a1 + 40);
-  [*(*(a1 + 32) + 64) setCompletionHandler:v12];
-  v5 = *(*(a1 + 32) + 64);
-  v11 = v3;
-  [v5 startAtTime:&v11 error:0.0];
-  v6 = v11;
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __87__HPSSpatialProfileSoundHapticManager_triggerSoundHapticForEnrollmentState_completion___block_invoke_54;
+  v14[3] = &unk_2796AD578;
+  v15 = *(a1 + 40);
+  [*(*(a1 + 32) + 64) setCompletionHandler:v14];
+  v6 = *(*(a1 + 32) + 64);
+  v13 = v4;
+  [v6 startAtTime:&v13 error:0.0];
+  v7 = v13;
 
-  if (v6)
+  if (v7)
   {
-    v7 = sharedBluetoothSettingsLogComponent();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v9 = sharedBluetoothSettingsLogComponent(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       __87__HPSSpatialProfileSoundHapticManager_triggerSoundHapticForEnrollmentState_completion___block_invoke_53_cold_2();
     }
   }
 
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __87__HPSSpatialProfileSoundHapticManager_triggerSoundHapticForEnrollmentState_completion___block_invoke_58;
-  v9[3] = &unk_2796AD5A0;
-  v8 = *(a1 + 40);
-  v10 = *(a1 + 48);
-  dispatch_group_notify(v8, MEMORY[0x277D85CD0], v9);
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __87__HPSSpatialProfileSoundHapticManager_triggerSoundHapticForEnrollmentState_completion___block_invoke_58;
+  v11[3] = &unk_2796AD5A0;
+  v10 = *(a1 + 40);
+  v12 = *(a1 + 48);
+  dispatch_group_notify(v10, MEMORY[0x277D85CD0], v11);
 }
 
 void __87__HPSSpatialProfileSoundHapticManager_triggerSoundHapticForEnrollmentState_completion___block_invoke_54(uint64_t a1, uint64_t a2)
@@ -737,97 +777,99 @@ uint64_t __87__HPSSpatialProfileSoundHapticManager_triggerSoundHapticForEnrollme
   dispatch_async(soundHapticSerialQueue, v12);
 }
 
-void __87__HPSSpatialProfileSoundHapticManager_triggerSoundHapticForEarCaptureState_completion___block_invoke(uint64_t a1)
+void __87__HPSSpatialProfileSoundHapticManager_triggerSoundHapticForEarCaptureState_completion___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = *(a1 + 56);
-  if (v2 == 1)
+  v3 = *(a1 + 56);
+  if (v3 == 1)
   {
-    v12 = sharedBluetoothSettingsLogComponent();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v14 = sharedBluetoothSettingsLogComponent(a1);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_251143000, v12, OS_LOG_TYPE_DEFAULT, "Spatial Profile: Sound & Haptics: Ear Progress Second", buf, 2u);
+      _os_log_impl(&dword_251143000, v14, OS_LOG_TYPE_DEFAULT, "Spatial Profile: Sound & Haptics: Ear Progress Second", buf, 2u);
     }
 
     dispatch_group_enter(*(a1 + 32));
-    v18[0] = MEMORY[0x277D85DD0];
-    v18[1] = 3221225472;
-    v18[2] = __87__HPSSpatialProfileSoundHapticManager_triggerSoundHapticForEarCaptureState_completion___block_invoke_64;
-    v18[3] = &unk_2796AD578;
-    v4 = &v19;
-    v19 = *(a1 + 32);
-    [*(*(a1 + 40) + 48) setCompletionHandler:v18];
-    v13 = *(*(a1 + 40) + 48);
-    v17 = 0;
-    [v13 startAtTime:&v17 error:0.0];
-    v6 = v17;
-    if (v6)
+    v21[0] = MEMORY[0x277D85DD0];
+    v21[1] = 3221225472;
+    v21[2] = __87__HPSSpatialProfileSoundHapticManager_triggerSoundHapticForEarCaptureState_completion___block_invoke_64;
+    v21[3] = &unk_2796AD578;
+    v5 = &v22;
+    v22 = *(a1 + 32);
+    [*(*(a1 + 40) + 48) setCompletionHandler:v21];
+    v15 = *(*(a1 + 40) + 48);
+    v20 = 0;
+    [v15 startAtTime:&v20 error:0.0];
+    v16 = v20;
+    v8 = v16;
+    if (v16)
     {
-      v14 = sharedBluetoothSettingsLogComponent();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v17 = sharedBluetoothSettingsLogComponent(v16);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
         __87__HPSSpatialProfileSoundHapticManager_triggerSoundHapticForEarCaptureState_completion___block_invoke_cold_1();
       }
     }
 
-    v8 = *(a1 + 32);
-    v15[0] = MEMORY[0x277D85DD0];
-    v15[1] = 3221225472;
-    v15[2] = __87__HPSSpatialProfileSoundHapticManager_triggerSoundHapticForEarCaptureState_completion___block_invoke_68;
-    v15[3] = &unk_2796AD5A0;
-    v9 = &v16;
-    v16 = *(a1 + 48);
-    v10 = MEMORY[0x277D85CD0];
-    v11 = v15;
+    v10 = *(a1 + 32);
+    v18[0] = MEMORY[0x277D85DD0];
+    v18[1] = 3221225472;
+    v18[2] = __87__HPSSpatialProfileSoundHapticManager_triggerSoundHapticForEarCaptureState_completion___block_invoke_68;
+    v18[3] = &unk_2796AD5A0;
+    v11 = &v19;
+    v19 = *(a1 + 48);
+    v12 = MEMORY[0x277D85CD0];
+    v13 = v18;
   }
 
   else
   {
-    if (v2)
+    if (v3)
     {
       return;
     }
 
-    v3 = sharedBluetoothSettingsLogComponent();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = sharedBluetoothSettingsLogComponent(a1);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_251143000, v3, OS_LOG_TYPE_DEFAULT, "Spatial Profile: Sound & Haptics: Ear Progress First", buf, 2u);
+      _os_log_impl(&dword_251143000, v4, OS_LOG_TYPE_DEFAULT, "Spatial Profile: Sound & Haptics: Ear Progress First", buf, 2u);
     }
 
     dispatch_group_enter(*(a1 + 32));
-    v23[0] = MEMORY[0x277D85DD0];
-    v23[1] = 3221225472;
-    v23[2] = __87__HPSSpatialProfileSoundHapticManager_triggerSoundHapticForEarCaptureState_completion___block_invoke_59;
-    v23[3] = &unk_2796AD578;
-    v4 = &v24;
-    v24 = *(a1 + 32);
-    [*(*(a1 + 40) + 40) setCompletionHandler:v23];
-    v5 = *(*(a1 + 40) + 40);
-    v22 = 0;
-    [v5 startAtTime:&v22 error:0.0];
-    v6 = v22;
-    if (v6)
+    v26[0] = MEMORY[0x277D85DD0];
+    v26[1] = 3221225472;
+    v26[2] = __87__HPSSpatialProfileSoundHapticManager_triggerSoundHapticForEarCaptureState_completion___block_invoke_59;
+    v26[3] = &unk_2796AD578;
+    v5 = &v27;
+    v27 = *(a1 + 32);
+    [*(*(a1 + 40) + 40) setCompletionHandler:v26];
+    v6 = *(*(a1 + 40) + 40);
+    v25 = 0;
+    [v6 startAtTime:&v25 error:0.0];
+    v7 = v25;
+    v8 = v7;
+    if (v7)
     {
-      v7 = sharedBluetoothSettingsLogComponent();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      v9 = sharedBluetoothSettingsLogComponent(v7);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         __87__HPSSpatialProfileSoundHapticManager_triggerSoundHapticForEarCaptureState_completion___block_invoke_cold_2();
       }
     }
 
-    v8 = *(a1 + 32);
-    v20[0] = MEMORY[0x277D85DD0];
-    v20[1] = 3221225472;
-    v20[2] = __87__HPSSpatialProfileSoundHapticManager_triggerSoundHapticForEarCaptureState_completion___block_invoke_63;
-    v20[3] = &unk_2796AD5A0;
-    v9 = &v21;
-    v21 = *(a1 + 48);
-    v10 = MEMORY[0x277D85CD0];
-    v11 = v20;
+    v10 = *(a1 + 32);
+    v23[0] = MEMORY[0x277D85DD0];
+    v23[1] = 3221225472;
+    v23[2] = __87__HPSSpatialProfileSoundHapticManager_triggerSoundHapticForEarCaptureState_completion___block_invoke_63;
+    v23[3] = &unk_2796AD5A0;
+    v11 = &v24;
+    v24 = *(a1 + 48);
+    v12 = MEMORY[0x277D85CD0];
+    v13 = v23;
   }
 
-  dispatch_group_notify(v8, v10, v11);
+  dispatch_group_notify(v10, v12, v13);
 }
 
 void __87__HPSSpatialProfileSoundHapticManager_triggerSoundHapticForEarCaptureState_completion___block_invoke_59(uint64_t a1, uint64_t a2)
@@ -892,86 +934,6 @@ uint64_t __87__HPSSpatialProfileSoundHapticManager_triggerSoundHapticForEarCaptu
 
   v4 = !v3;
   self->_dynamicEnrollmentFeedback = v4;
-}
-
-- (void)playEnrollGuidance:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_251143000, v0, v1, "Spatial Profile: Sound & Haptics: Start Scan In Progress Player Error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)initPlayerWithFileName:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_251143000, v0, v1, "Spatial Profile: Sound & Haptics: Create Pattern Error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)initPlayerWithFileName:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_251143000, v0, v1, "Spatial Profile: Sound & Haptics: Create Pattern Player Error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)triggerSoundHapticForEnrollmentState:completion:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_251143000, v0, v1, "Spatial Profile: Sound & Haptics: Set Category Error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __87__HPSSpatialProfileSoundHapticManager_triggerSoundHapticForEnrollmentState_completion___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_251143000, v0, v1, "Spatial Profile: Sound & Haptics: Start Scan Lock Player Error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __87__HPSSpatialProfileSoundHapticManager_triggerSoundHapticForEnrollmentState_completion___block_invoke_41_cold_2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_251143000, v0, v1, "Spatial Profile: Sound & Haptics: Start Scan Completed Player Error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __87__HPSSpatialProfileSoundHapticManager_triggerSoundHapticForEnrollmentState_completion___block_invoke_47_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_251143000, v0, v1, "Spatial Profile: Sound & Haptics: Start Enrollment Completed Player Error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __87__HPSSpatialProfileSoundHapticManager_triggerSoundHapticForEnrollmentState_completion___block_invoke_53_cold_2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_251143000, v0, v1, "Spatial Profile: Sound & Haptics: Start Scan Error Player Error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __87__HPSSpatialProfileSoundHapticManager_triggerSoundHapticForEarCaptureState_completion___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_251143000, v0, v1, "Spatial Profile: Sound & Haptics: Start Scan Second Tick Player Error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __87__HPSSpatialProfileSoundHapticManager_triggerSoundHapticForEarCaptureState_completion___block_invoke_cold_2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_251143000, v0, v1, "Spatial Profile: Sound & Haptics: Start Scan First Tick Player Error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -1,11 +1,11 @@
 @interface SBHardwareButtonCoordinator
 - (BOOL)buttonShouldStart:(id)start;
+- (id)_shouldSuppressButtonIdentifier:(unint64_t)identifier;
 - (id)assertButtonIsActive:(id)active dropletHintIdentifier:(int64_t)identifier;
 - (id)cancelHardwareButtons:(id)buttons fromButton:(id)button;
 - (id)setWindowScene:(id *)result;
 - (id)windowScene;
 - (int)initWithHardwareButtons:(void *)buttons windowScene:;
-- (unint64_t)_shouldSuppressButtonIdentifier:(unint64_t)identifier;
 - (void)dealloc;
 @end
 
@@ -14,7 +14,7 @@
 void __67__SBHardwareButtonCoordinator_initWithHardwareButtons_windowScene___block_invoke(uint64_t a1)
 {
   v14 = *MEMORY[0x277D85DE8];
-  v2 = SBLogButtonsLock();
+  v2 = SBLogButtonsLock(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -68,24 +68,25 @@ void __67__SBHardwareButtonCoordinator_initWithHardwareButtons_windowScene___blo
 
 - (id)assertButtonIsActive:(id)active dropletHintIdentifier:(int64_t)identifier
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   activeCopy = active;
+  v7 = activeCopy;
   if (!self->_activeButtonIdentifiers)
   {
-    v7 = objc_alloc_init(MEMORY[0x277CCA940]);
+    v8 = objc_alloc_init(MEMORY[0x277CCA940]);
     activeButtonIdentifiers = self->_activeButtonIdentifiers;
-    self->_activeButtonIdentifiers = v7;
+    self->_activeButtonIdentifiers = v8;
   }
 
-  v9 = SBLogButtonsInteraction();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v10 = SBLogButtonsInteraction(activeCopy);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v44 = activeCopy;
-    _os_log_impl(&dword_21ED4E000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@ active", buf, 0xCu);
+    v45 = v7;
+    _os_log_impl(&dword_21ED4E000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@ active", buf, 0xCu);
   }
 
-  [(NSCountedSet *)self->_activeButtonIdentifiers addObject:activeCopy];
+  [(NSCountedSet *)self->_activeButtonIdentifiers addObject:v7];
   if (identifier)
   {
     WeakRetained = objc_loadWeakRetained(&self->_windowScene);
@@ -93,92 +94,91 @@ void __67__SBHardwareButtonCoordinator_initWithHardwareButtons_windowScene___blo
     identifier = [hardwareButtonBezelEffectsCoordinator activateHintDropletForButton:identifier];
   }
 
-  if ([(NSCountedSet *)self->_activeButtonIdentifiers countForObject:activeCopy]== 1)
+  if ([(NSCountedSet *)self->_activeButtonIdentifiers countForObject:v7]== 1)
   {
-    v12 = [(NSDictionary *)self->_buttonIdentifierToSuppressedButtonIdentifiers objectForKey:activeCopy];
-    v37 = 0u;
+    v13 = [(NSDictionary *)self->_buttonIdentifierToSuppressedButtonIdentifiers objectForKey:v7];
     v38 = 0u;
     v39 = 0u;
     v40 = 0u;
-    v13 = [v12 countByEnumeratingWithState:&v37 objects:v42 count:16];
-    if (v13)
+    v41 = 0u;
+    v14 = [v13 countByEnumeratingWithState:&v38 objects:v43 count:16];
+    if (v14)
     {
-      v14 = v13;
-      v15 = *v38;
+      v15 = v14;
+      v16 = *v39;
       do
       {
-        for (i = 0; i != v14; ++i)
+        for (i = 0; i != v15; ++i)
         {
-          if (*v38 != v15)
+          if (*v39 != v16)
           {
-            objc_enumerationMutation(v12);
+            objc_enumerationMutation(v13);
           }
 
-          v17 = [(NSDictionary *)self->_buttonIdentifierToButtonInstance objectForKey:*(*(&v37 + 1) + 8 * i)];
-          [v17 cancelHardwareButtonPress];
+          v18 = [(NSDictionary *)self->_buttonIdentifierToButtonInstance objectForKey:*(*(&v38 + 1) + 8 * i)];
+          [v18 cancelHardwareButtonPress];
         }
 
-        v14 = [v12 countByEnumeratingWithState:&v37 objects:v42 count:16];
+        v15 = [v13 countByEnumeratingWithState:&v38 objects:v43 count:16];
       }
 
-      while (v14);
+      while (v15);
     }
   }
 
-  v35 = 0u;
   v36 = 0u;
-  v33 = 0u;
+  v37 = 0u;
   v34 = 0u;
-  v18 = self->_otherButtonsAlwaysSuppressButtonIdentifiers;
-  v19 = [(NSSet *)v18 countByEnumeratingWithState:&v33 objects:v41 count:16];
-  if (v19)
+  v35 = 0u;
+  v19 = self->_otherButtonsAlwaysSuppressButtonIdentifiers;
+  v20 = [(NSSet *)v19 countByEnumeratingWithState:&v34 objects:v42 count:16];
+  if (v20)
   {
-    v20 = v19;
-    v21 = *v34;
+    v21 = v20;
+    v22 = *v35;
     do
     {
-      for (j = 0; j != v20; ++j)
+      for (j = 0; j != v21; ++j)
       {
-        if (*v34 != v21)
+        if (*v35 != v22)
         {
-          objc_enumerationMutation(v18);
+          objc_enumerationMutation(v19);
         }
 
-        v23 = *(*(&v33 + 1) + 8 * j);
-        if (([activeCopy isEqual:v23] & 1) == 0)
+        v24 = *(*(&v34 + 1) + 8 * j);
+        if (([v7 isEqual:v24] & 1) == 0)
         {
-          v24 = [(NSDictionary *)self->_buttonIdentifierToButtonInstance objectForKey:v23];
-          [v24 cancelHardwareButtonPress];
+          v25 = [(NSDictionary *)self->_buttonIdentifierToButtonInstance objectForKey:v24];
+          [v25 cancelHardwareButtonPress];
         }
       }
 
-      v20 = [(NSSet *)v18 countByEnumeratingWithState:&v33 objects:v41 count:16];
+      v21 = [(NSSet *)v19 countByEnumeratingWithState:&v34 objects:v42 count:16];
     }
 
-    while (v20);
+    while (v21);
   }
 
-  v25 = objc_alloc(MEMORY[0x277CF0CE8]);
-  v30[0] = MEMORY[0x277D85DD0];
-  v30[1] = 3221225472;
-  v30[2] = __92__SBHardwareButtonCoordinator_ButtonsColluding__assertButtonIsActive_dropletHintIdentifier___block_invoke;
-  v30[3] = &unk_2783BB1A8;
-  v30[4] = self;
-  v31 = activeCopy;
+  v26 = objc_alloc(MEMORY[0x277CF0CE8]);
+  v31[0] = MEMORY[0x277D85DD0];
+  v31[1] = 3221225472;
+  v31[2] = __92__SBHardwareButtonCoordinator_ButtonsColluding__assertButtonIsActive_dropletHintIdentifier___block_invoke;
+  v31[3] = &unk_2783BB1A8;
+  v31[4] = self;
+  v32 = v7;
   identifierCopy = identifier;
   identifierCopy2 = identifier;
-  v27 = activeCopy;
-  v28 = [v25 initWithIdentifier:v27 forReason:@"button active" invalidationBlock:v30];
+  v28 = v7;
+  v29 = [v26 initWithIdentifier:v28 forReason:@"button active" invalidationBlock:v31];
 
-  return v28;
+  return v29;
 }
 
 void __92__SBHardwareButtonCoordinator_ButtonsColluding__assertButtonIsActive_dropletHintIdentifier___block_invoke(uint64_t a1)
 {
   v6 = *MEMORY[0x277D85DE8];
   [*(*(a1 + 32) + 40) removeObject:*(a1 + 40)];
-  [*(a1 + 48) invalidate];
-  v2 = SBLogButtonsInteraction();
+  v2 = SBLogButtonsInteraction([*(a1 + 48) invalidate]);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 40);
@@ -190,121 +190,122 @@ void __92__SBHardwareButtonCoordinator_ButtonsColluding__assertButtonIsActive_dr
 
 - (id)cancelHardwareButtons:(id)buttons fromButton:(id)button
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   buttonsCopy = buttons;
   buttonCopy = button;
+  v9 = buttonCopy;
   if (!self->_canceledButtonIdentifiers)
   {
-    v9 = objc_alloc_init(MEMORY[0x277CCA940]);
+    v10 = objc_alloc_init(MEMORY[0x277CCA940]);
     canceledButtonIdentifiers = self->_canceledButtonIdentifiers;
-    self->_canceledButtonIdentifiers = v9;
+    self->_canceledButtonIdentifiers = v10;
   }
 
-  v11 = SBLogButtonsInteraction();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  v12 = SBLogButtonsInteraction(buttonCopy);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = [MEMORY[0x277CF0C08] descriptionForRootObject:buttonsCopy];
+    v13 = [MEMORY[0x277CF0C08] descriptionForRootObject:buttonsCopy];
     *buf = 138543618;
-    v35 = buttonCopy;
-    v36 = 2114;
-    v37 = v12;
-    _os_log_impl(&dword_21ED4E000, v11, OS_LOG_TYPE_DEFAULT, "%{public}@ started canceling %{public}@", buf, 0x16u);
+    v36 = v9;
+    v37 = 2114;
+    v38 = v13;
+    _os_log_impl(&dword_21ED4E000, v12, OS_LOG_TYPE_DEFAULT, "%{public}@ started canceling %{public}@", buf, 0x16u);
   }
 
-  v31 = 0u;
   v32 = 0u;
-  v29 = 0u;
+  v33 = 0u;
   v30 = 0u;
-  v13 = buttonsCopy;
-  v14 = [v13 countByEnumeratingWithState:&v29 objects:v33 count:16];
-  if (v14)
+  v31 = 0u;
+  v14 = buttonsCopy;
+  v15 = [v14 countByEnumeratingWithState:&v30 objects:v34 count:16];
+  if (v15)
   {
-    v15 = v14;
-    v16 = *v30;
+    v16 = v15;
+    v17 = *v31;
     do
     {
-      for (i = 0; i != v15; ++i)
+      for (i = 0; i != v16; ++i)
       {
-        if (*v30 != v16)
+        if (*v31 != v17)
         {
-          objc_enumerationMutation(v13);
+          objc_enumerationMutation(v14);
         }
 
-        v18 = *(*(&v29 + 1) + 8 * i);
-        if ([v18 isEqual:buttonCopy])
+        v19 = *(*(&v30 + 1) + 8 * i);
+        if ([v19 isEqual:v9])
         {
-          [(SBHardwareButtonCoordinator(ButtonsColluding) *)buttonCopy cancelHardwareButtons:a2 fromButton:self];
+          [(SBHardwareButtonCoordinator(ButtonsColluding) *)v9 cancelHardwareButtons:a2 fromButton:self];
         }
 
-        [(NSCountedSet *)self->_canceledButtonIdentifiers addObject:v18];
-        v19 = [(NSDictionary *)self->_buttonIdentifierToButtonInstance objectForKey:v18];
-        [v19 cancelHardwareButtonPress];
+        [(NSCountedSet *)self->_canceledButtonIdentifiers addObject:v19];
+        v20 = [(NSDictionary *)self->_buttonIdentifierToButtonInstance objectForKey:v19];
+        [v20 cancelHardwareButtonPress];
       }
 
-      v15 = [v13 countByEnumeratingWithState:&v29 objects:v33 count:16];
+      v16 = [v14 countByEnumeratingWithState:&v30 objects:v34 count:16];
     }
 
-    while (v15);
+    while (v16);
   }
 
-  v20 = objc_alloc(MEMORY[0x277CF0CE8]);
-  v25[0] = MEMORY[0x277D85DD0];
-  v25[1] = 3221225472;
-  v25[2] = __82__SBHardwareButtonCoordinator_ButtonsColluding__cancelHardwareButtons_fromButton___block_invoke;
-  v25[3] = &unk_2783BB1A8;
-  v26 = v13;
+  v21 = objc_alloc(MEMORY[0x277CF0CE8]);
+  v26[0] = MEMORY[0x277D85DD0];
+  v26[1] = 3221225472;
+  v26[2] = __82__SBHardwareButtonCoordinator_ButtonsColluding__cancelHardwareButtons_fromButton___block_invoke;
+  v26[3] = &unk_2783BB1A8;
+  v27 = v14;
   selfCopy = self;
-  v28 = buttonCopy;
-  v21 = buttonCopy;
-  v22 = v13;
-  v23 = [v20 initWithIdentifier:@"cancel some buttons" forReason:v21 invalidationBlock:v25];
+  v29 = v9;
+  v22 = v9;
+  v23 = v14;
+  v24 = [v21 initWithIdentifier:@"cancel some buttons" forReason:v22 invalidationBlock:v26];
 
-  return v23;
+  return v24;
 }
 
 void __82__SBHardwareButtonCoordinator_ButtonsColluding__cancelHardwareButtons_fromButton___block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
-  v10 = 0u;
+  v20 = *MEMORY[0x277D85DE8];
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
   v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v10 objects:v18 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v11 objects:v19 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v11;
+    v5 = *v12;
     do
     {
       v6 = 0;
       do
       {
-        if (*v11 != v5)
+        if (*v12 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        [*(*(a1 + 40) + 32) removeObject:{*(*(&v10 + 1) + 8 * v6++), v10}];
+        [*(*(a1 + 40) + 32) removeObject:{*(*(&v11 + 1) + 8 * v6++), v11}];
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v10 objects:v18 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v11 objects:v19 count:16];
     }
 
     while (v4);
   }
 
-  v7 = SBLogButtonsInteraction();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v8 = SBLogButtonsInteraction(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = *(a1 + 48);
-    v9 = [MEMORY[0x277CF0C08] descriptionForRootObject:*(a1 + 32)];
+    v9 = *(a1 + 48);
+    v10 = [MEMORY[0x277CF0C08] descriptionForRootObject:*(a1 + 32)];
     *buf = 138543618;
-    v15 = v8;
-    v16 = 2114;
-    v17 = v9;
-    _os_log_impl(&dword_21ED4E000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@ stopped canceling %{public}@", buf, 0x16u);
+    v16 = v9;
+    v17 = 2114;
+    v18 = v10;
+    _os_log_impl(&dword_21ED4E000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@ stopped canceling %{public}@", buf, 0x16u);
   }
 }
 
@@ -436,12 +437,12 @@ void __82__SBHardwareButtonCoordinator_ButtonsColluding__cancelHardwareButtons_f
   return result;
 }
 
-- (unint64_t)_shouldSuppressButtonIdentifier:(unint64_t)identifier
+- (id)_shouldSuppressButtonIdentifier:(unint64_t)identifier
 {
   v3 = a2;
   if (identifier)
   {
-    if ([*(identifier + 56) containsObject:v3])
+    if (objc_msgSend_containsObject_(*(identifier + 56)))
     {
       v4 = [*(identifier + 40) mutableCopy];
       [v4 removeObject:v3];
@@ -460,33 +461,34 @@ void __82__SBHardwareButtonCoordinator_ButtonsColluding__cancelHardwareButtons_f
 
 - (BOOL)buttonShouldStart:(id)start
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   startCopy = start;
   v5 = [(SBHardwareButtonCoordinator *)self _shouldSuppressButtonIdentifier:startCopy];
-  v6 = [(NSCountedSet *)self->_canceledButtonIdentifiers containsObject:startCopy];
-  v7 = (v5 | v6) ^ 1;
-  v8 = SBLogButtonsInteraction();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+  v6 = objc_msgSend_containsObject_(self->_canceledButtonIdentifiers);
+  v7 = v6;
+  v8 = (v5 | v6) ^ 1;
+  v9 = SBLogButtonsInteraction(v6);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
-    v10 = v6 & 1;
-    v11 = [MEMORY[0x277CF0C08] descriptionForRootObject:self->_activeButtonIdentifiers];
-    v12 = [MEMORY[0x277CF0C08] descriptionForRootObject:self->_canceledButtonIdentifiers];
-    v13 = 138544642;
-    v14 = startCopy;
-    v15 = 1024;
-    v16 = v5;
-    v17 = 1024;
-    v18 = v10;
-    v19 = 1024;
-    v20 = v7 & 1;
-    v21 = 2114;
-    v22 = v11;
-    v23 = 2114;
-    v24 = v12;
-    _os_log_debug_impl(&dword_21ED4E000, v8, OS_LOG_TYPE_DEBUG, "%{public}@ shouldSuppress:(%{BOOL}u) isCanceled:(%{BOOL}u) shouldStart:(%{BOOL}u) active:%{public}@ canceled:%{public}@", &v13, 0x32u);
+    v11 = v7 & 1;
+    v12 = [MEMORY[0x277CF0C08] descriptionForRootObject:self->_activeButtonIdentifiers];
+    v13 = [MEMORY[0x277CF0C08] descriptionForRootObject:self->_canceledButtonIdentifiers];
+    v14 = 138544642;
+    v15 = startCopy;
+    v16 = 1024;
+    v17 = v5;
+    v18 = 1024;
+    v19 = v11;
+    v20 = 1024;
+    v21 = v8 & 1;
+    v22 = 2114;
+    v23 = v12;
+    v24 = 2114;
+    v25 = v13;
+    _os_log_debug_impl(&dword_21ED4E000, v9, OS_LOG_TYPE_DEBUG, "%{public}@ shouldSuppress:(%{BOOL}u) isCanceled:(%{BOOL}u) shouldStart:(%{BOOL}u) active:%{public}@ canceled:%{public}@", &v14, 0x32u);
   }
 
-  return v7 & 1;
+  return v8 & 1;
 }
 
 @end

@@ -20,7 +20,7 @@
 - (void)returnInSettingDescription:(id)description
 {
   v4 = [(SUUISignInSettingsGroupController *)self _keyForSettingDescription:description];
-  if ([v4 isEqualToString:@"accountName"])
+  if (objc_msgSend_isEqualToString_(v4))
   {
     [(SUUISignInSettingsGroupController *)self _becomeFirstResponderWithKey:@"password"];
   }
@@ -401,7 +401,7 @@ LABEL_4:
 
         v11 = *(*(&v24 + 1) + 8 * v10);
         v12 = [(NSMapTable *)self->_keyMapping objectForKey:v11];
-        if ([keyCopy isEqualToString:v12])
+        if (objc_msgSend_isEqualToString_(keyCopy))
         {
           break;
         }
@@ -452,7 +452,7 @@ LABEL_10:
 
         v17 = *(*(&v20 + 1) + 8 * i);
         v18 = [(SUUISignInSettingsGroupController *)self _keyForSettingDescription:0];
-        if ([keyCopy isEqualToString:v18])
+        if (objc_msgSend_isEqualToString_(keyCopy))
         {
           v13 = v17;
 

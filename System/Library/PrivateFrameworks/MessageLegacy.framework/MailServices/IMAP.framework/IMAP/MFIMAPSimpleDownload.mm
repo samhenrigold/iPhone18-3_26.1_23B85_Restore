@@ -1,4 +1,5 @@
 @interface MFIMAPSimpleDownload
+- (MFIMAPSimpleDownload)initWithUid:(unsigned int)uid section:(id)section length:(unint64_t)length lengthIsKnown:(BOOL)known range:(_NSRange)range consumer:(id)consumer;
 - (unint64_t)bytesFetched;
 - (void)addCommandsToPipeline:(id)pipeline withCache:(id)cache;
 - (void)dealloc;
@@ -8,6 +9,31 @@
 @end
 
 @implementation MFIMAPSimpleDownload
+
+- (MFIMAPSimpleDownload)initWithUid:(unsigned int)uid section:(id)section length:(unint64_t)length lengthIsKnown:(BOOL)known range:(_NSRange)range consumer:(id)consumer
+{
+  length = range.length;
+  location = range.location;
+  v17[2] = *MEMORY[0x277D85DE8];
+  v16.receiver = self;
+  v16.super_class = MFIMAPSimpleDownload;
+  v13 = [(MFIMAPDownload *)&v16 initWithUid:*&uid];
+  if (v13)
+  {
+    v13->_section = [section copy];
+    v13->_length = length;
+    *(v13 + 64) = *(v13 + 64) & 0xFE | known;
+    v13->_range.location = location;
+    v13->_range.length = length;
+    v13->super._countingConsumer = objc_alloc_init(MEMORY[0x277D24EF8]);
+    v14 = objc_alloc(MEMORY[0x277D24EE0]);
+    v17[0] = v13->super._countingConsumer;
+    v17[1] = consumer;
+    v13->super._mainConsumer = [v14 initWithConsumers:{objc_msgSend(MEMORY[0x277CBEA60], "arrayWithObjects:count:", v17, 2)}];
+  }
+
+  return v13;
+}
 
 - (unint64_t)bytesFetched
 {
@@ -155,7 +181,6 @@
         if (v9)
         {
           [v6 appendString:@"<"];
-          location = self->_range.location;
           [v6 appendString:EFStringWithUnsignedInteger()];
           [v6 appendString:@"."];
           [v6 appendString:EFStringWithUnsignedInteger()];

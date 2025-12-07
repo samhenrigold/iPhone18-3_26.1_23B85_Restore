@@ -36,16 +36,14 @@
 
 - (void)setWantsEdgeAntialiasing:(BOOL)antialiasing
 {
-  antialiasingCopy = antialiasing;
   selfCopy = self;
-  sub_1890DF484(antialiasingCopy);
+  sub_1890DF484(antialiasing);
 }
 
 - (void)setCrossBlurWhenMorphing:(BOOL)morphing
 {
-  morphingCopy = morphing;
   selfCopy = self;
-  sub_188D738F8(morphingCopy);
+  sub_188D738F8(morphing);
 }
 
 - (void)setShadowIntensity:(float)intensity
@@ -78,7 +76,7 @@
 {
   enabledCopy = enabled;
   v4.receiver = self;
-  v4.super_class = type metadata accessor for _UIMagicMorphView();
+  v4.super_class = type metadata accessor for _UIMagicMorphView(0);
   [(UIView *)&v4 setUserInteractionEnabled:enabledCopy];
 }
 
@@ -92,7 +90,7 @@
   }
 
   v5.receiver = self;
-  v5.super_class = type metadata accessor for _UIMagicMorphView();
+  v5.super_class = type metadata accessor for _UIMagicMorphView(0);
   [(UIView *)&v5 dealloc];
 }
 

@@ -14,17 +14,17 @@
   contextCopy = context;
   areaBoundsRedFilter = [v7 areaBoundsRedFilter];
   [areaBoundsRedFilter setInputImage:contextCopy];
-  [contextCopy extent];
+  objc_msgSend_extent(contextCopy);
   [areaBoundsRedFilter setExtent:?];
   outputImage = [areaBoundsRedFilter outputImage];
-  [outputImage extent];
+  objc_msgSend_extent(outputImage);
   [v8 render:outputImage toBitmap:v39 rowBytes:16 bounds:*MEMORY[0x1E695F918] format:objc_msgSend(v8 colorSpace:{"workingColorSpace"), v12, v13, v14, v15}];
 
   v34 = v39[0];
   v33 = v39[1];
   v32 = v39[2];
   v31 = v39[3];
-  [contextCopy extent];
+  objc_msgSend_extent(contextCopy);
   v17 = v16;
   v19 = v18;
   v21 = v20;
@@ -64,7 +64,7 @@
   imageCopy = image;
   areaAverageFilter = [v5 areaAverageFilter];
   [areaAverageFilter setInputImage:imageCopy];
-  [imageCopy extent];
+  objc_msgSend_extent(imageCopy);
   v10 = v9;
   v12 = v11;
   v14 = v13;
@@ -73,7 +73,7 @@
   [areaAverageFilter setExtent:{v10, v12, v14, v16}];
   outputImage = [areaAverageFilter outputImage];
   v20 = 0.0;
-  [outputImage extent];
+  objc_msgSend_extent(outputImage);
   [contextCopy render:outputImage toBitmap:&v20 rowBytes:4 bounds:*MEMORY[0x1E695F8C8] format:0 colorSpace:?];
 
   v18 = v20;
@@ -133,7 +133,7 @@
   [self _areaOfMaskImage:v9 context:v8];
   v11 = v10;
   memset(buf, 0, 32);
-  [self _tightBoundsOfMaskImage:v9 context:v8];
+  objc_msgSend__tightBoundsOfMaskImage_context_(self);
   v12 = [NUMaskProperties alloc];
   v13 = [maskCopy size];
   v33[0] = *buf;

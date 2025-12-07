@@ -18,6 +18,7 @@
 - (void)setSignature:(id)signature;
 - (void)setSignature:(id)signature forAccount:(id)account;
 - (void)setSignature:(id)signature forEmailAddress:(id)address;
+- (void)setUseAccountSignatures:(BOOL)signatures;
 @end
 
 @implementation MFSignatures
@@ -93,27 +94,23 @@ id __30__MFSignatures_sharedInstance__block_invoke(uint64_t a1)
 - (id)_getValue:(id)value
 {
   MFMobileMailPreferenceDomain();
-  v3 = *MEMORY[0x277CBF040];
-  v4 = *MEMORY[0x277CBF010];
   MFMobileMailContainerPath();
-  v5 = _CFPreferencesCopyValueWithContainer();
+  v3 = _CFPreferencesCopyValueWithContainer();
 
-  return v5;
+  return v3;
 }
 
 - (void)_setValue:(id)value value:(void *)a4
 {
   MFMobileMailPreferenceDomain();
-  v5 = *MEMORY[0x277CBF040];
-  v6 = *MEMORY[0x277CBF010];
   MFMobileMailContainerPath();
   _CFPreferencesSetValueWithContainer();
   MFMobileMailContainerPath();
   if (_CFPreferencesSynchronizeWithContainer())
   {
-    v7 = *MEMORY[0x277D28668];
+    v5 = *MEMORY[0x277D28668];
 
-    MEMORY[0x282167578](v7, value);
+    MEMORY[0x282167578](v5, value);
   }
 }
 
@@ -151,6 +148,13 @@ id __30__MFSignatures_sharedInstance__block_invoke(uint64_t a1)
   v2 = [(MFSignatures *)self _getValue:@"UseAccountSignatures"];
 
   return [v2 BOOLValue];
+}
+
+- (void)setUseAccountSignatures:(BOOL)signatures
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithBool:signatures];
+
+  [(MFSignatures *)self _setValue:@"UseAccountSignatures" value:v4];
 }
 
 - (id)signatureForAccount:(id)account

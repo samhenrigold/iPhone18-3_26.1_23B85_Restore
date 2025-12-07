@@ -215,34 +215,34 @@ LABEL_7:
 
 void __52__AXSSWordDescriptionManager_ja_descriptionForWord___block_invoke(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
 {
-  v39[4] = *MEMORY[0x1E69E9840];
+  v38[4] = *MEMORY[0x1E69E9840];
   v7 = a2;
   if (GetHiraganaSet___onceToken != -1)
   {
     __52__AXSSWordDescriptionManager_ja_descriptionForWord___block_invoke_cold_1();
   }
 
-  v39[0] = GetHiraganaSet___hiraganaSet;
+  v38[0] = GetHiraganaSet___hiraganaSet;
   if (GetKatakanaSet___onceToken != -1)
   {
     __52__AXSSWordDescriptionManager_ja_descriptionForWord___block_invoke_cold_2();
   }
 
-  v39[1] = GetKatakanaSet___katakanaSet;
+  v38[1] = GetKatakanaSet___katakanaSet;
   if (GetHalfWidthLatinSet___onceToken != -1)
   {
     __52__AXSSWordDescriptionManager_ja_descriptionForWord___block_invoke_cold_3();
   }
 
-  v39[2] = GetHalfWidthLatinSet___halfWidthLatinSet;
+  v38[2] = GetHalfWidthLatinSet___halfWidthLatinSet;
   if (GetFullWidthLatinSet___onceToken != -1)
   {
     __52__AXSSWordDescriptionManager_ja_descriptionForWord___block_invoke_cold_4();
   }
 
-  v39[3] = GetFullWidthLatinSet___fullWidthLatinSet;
-  v38[0] = xmmword_1E8135BB8;
-  v38[1] = *off_1E8135BC8;
+  v38[3] = GetFullWidthLatinSet___fullWidthLatinSet;
+  v37[0] = xmmword_1E8135BB8;
+  v37[1] = *off_1E8135BC8;
   if ([v7 _isOnlyIdeographs])
   {
     goto LABEL_36;
@@ -256,7 +256,7 @@ LABEL_23:
       v13 = *(*(*(a1 + 72) + 8) + 24);
       if (v13 <= 3)
       {
-        v14 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@%@", *(v38 + v13), *(*(*(a1 + 64) + 8) + 40)];
+        v14 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@%@", *(v37 + v13), *(*(*(a1 + 64) + 8) + 40)];
         [*(a1 + 40) addObject:v14];
       }
     }
@@ -267,7 +267,7 @@ LABEL_23:
 
     v17 = 0;
     *(*(*(a1 + 72) + 8) + 24) = 0x7FFFFFFFFFFFFFFFLL;
-    while (![v7 _contentsExclusivelyInCharacterSet:v39[v17]])
+    while (![v7 _contentsExclusivelyInCharacterSet:v38[v17]])
     {
       if (++v17 == 4)
       {
@@ -296,7 +296,7 @@ LABEL_36:
     goto LABEL_37;
   }
 
-  v9 = v39[v8];
+  v9 = v38[v8];
   v10 = v7;
   if (([v10 _contentsExclusivelyInCharacterSet:v9] & 1) == 0)
   {
@@ -343,7 +343,7 @@ LABEL_37:
     v24 = *(*(*(a1 + 72) + 8) + 24);
     if (v24 <= 3)
     {
-      v25 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@%@", *(v38 + v24), *(*(*(a1 + 64) + 8) + 40)];
+      v25 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@%@", *(v37 + v24), *(*(*(a1 + 64) + 8) + 40)];
       [*(a1 + 40) addObject:v25];
     }
   }
@@ -360,9 +360,9 @@ LABEL_37:
     [v28 setPredicate:v29];
 
     v30 = *(a1 + 56);
-    v37 = 0;
-    v31 = [v30 executeFetchRequest:v28 error:&v37];
-    v32 = v37;
+    v36 = 0;
+    v31 = [v30 executeFetchRequest:v28 error:&v36];
+    v32 = v36;
     if ([v31 count])
     {
       v33 = [v31 objectAtIndex:0];
@@ -378,8 +378,6 @@ LABEL_46:
   for (i = 24; i != -8; i -= 8)
   {
   }
-
-  v36 = *MEMORY[0x1E69E9840];
 }
 
 @end

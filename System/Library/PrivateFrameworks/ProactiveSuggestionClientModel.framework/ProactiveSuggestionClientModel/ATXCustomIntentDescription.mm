@@ -148,52 +148,50 @@ LABEL_14:
 
   if (v8)
   {
-    v10 = [MEMORY[0x1E696E880] atx_createIntentWithIntentType:v4 intentData:v8];
-    v11 = v10;
-    if (v10)
+    v11 = [MEMORY[0x1E696E880] atx_createIntentWithIntentType:v4 intentData:v8];
+    v12 = v11;
+    if (v11)
     {
-      v11 = v10;
       v12 = v11;
+      v13 = v12;
     }
 
     else
     {
-      v13 = __atxlog_handle_default();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      v14 = __atxlog_handle_default(0);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
         [(ATXCustomIntentDescription *)v4 createIntent];
       }
 
-      v12 = 0;
+      v13 = 0;
     }
   }
 
   else
   {
-    v11 = __atxlog_handle_default();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = __atxlog_handle_default(v10);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       [(ATXCustomIntentDescription *)v4 createIntent];
     }
 
-    v12 = 0;
+    v13 = 0;
   }
 
   objc_autoreleasePoolPop(v3);
-  v14 = *MEMORY[0x1E69E9840];
 
-  return v12;
+  return v13;
 }
 
 - (void)createIntent
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v4 = 138412546;
+  v7 = *MEMORY[0x1E69E9840];
+  v3 = 138412546;
   selfCopy = self;
-  v6 = 2112;
-  v7 = a2;
-  _os_log_error_impl(&dword_1DEFC4000, log, OS_LOG_TYPE_ERROR, "Could not form JSON for intent of type %@ with error: %@", &v4, 0x16u);
-  v3 = *MEMORY[0x1E69E9840];
+  v5 = 2112;
+  v6 = a2;
+  _os_log_error_impl(&dword_1DEFC4000, log, OS_LOG_TYPE_ERROR, "Could not form JSON for intent of type %@ with error: %@", &v3, 0x16u);
 }
 
 @end

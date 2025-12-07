@@ -90,25 +90,24 @@ LABEL_8:
     return 0;
   }
 
-  v11 = 0u;
-  v12 = 0u;
-  v9 = 0u;
   v10 = 0u;
-  v3 = [(NSArray *)v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v11 = 0u;
+  v8 = 0u;
+  v9 = 0u;
+  v3 = [(NSArray *)v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v10;
+    v5 = *v9;
 LABEL_4:
     v6 = 0;
     while (1)
     {
-      if (*v10 != v5)
+      if (*v9 != v5)
       {
         objc_enumerationMutation(v2);
       }
 
-      v7 = *(*(&v9 + 1) + 8 * v6);
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {
@@ -117,7 +116,7 @@ LABEL_4:
 
       if (v4 == ++v6)
       {
-        v4 = [(NSArray *)v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+        v4 = [(NSArray *)v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
         if (v4)
         {
           goto LABEL_4;

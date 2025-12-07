@@ -16,20 +16,18 @@
 
 + (id)columns
 {
-  v10[5] = *MEMORY[0x1E69E9840];
+  v9[5] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"numSelfTriggersDetectedDuringEvent" dataType:0 requestOnly:0 fieldNumber:1 protoDataType:4 convertedType:0];
   v3 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"durationOfSelfTriggerEventInSec" dataType:1 requestOnly:0 fieldNumber:2 protoDataType:0 convertedType:0];
   v4 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"audioSource" dataType:0 requestOnly:0 fieldNumber:3 protoDataType:4 convertedType:0];
   v5 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"isBluetoothSpeakerActive" dataType:0 requestOnly:0 fieldNumber:4 protoDataType:12 convertedType:0];
   v6 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"isBuiltInSpeakerActive" dataType:0 requestOnly:0 fieldNumber:5 protoDataType:12 convertedType:0];
-  v10[0] = v2;
-  v10[1] = v3;
-  v10[2] = v4;
-  v10[3] = v5;
-  v10[4] = v6;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:5];
-
-  v8 = *MEMORY[0x1E69E9840];
+  v9[0] = v2;
+  v9[1] = v3;
+  v9[2] = v4;
+  v9[3] = v5;
+  v9[4] = v6;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:5];
 
   return v7;
 }
@@ -137,7 +135,7 @@ LABEL_26:
 
 - (id)jsonDictionary
 {
-  v21[5] = *MEMORY[0x1E69E9840];
+  v20[5] = *MEMORY[0x1E69E9840];
   if ([(BMSiriSelfTriggerSuppression *)self hasNumSelfTriggersDetectedDuringEvent])
   {
     v3 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:{-[BMSiriSelfTriggerSuppression numSelfTriggersDetectedDuringEvent](self, "numSelfTriggersDetectedDuringEvent")}];
@@ -182,48 +180,48 @@ LABEL_26:
     v9 = 0;
   }
 
-  v18 = v3;
-  v20[0] = @"numSelfTriggersDetectedDuringEvent";
+  v17 = v3;
+  v19[0] = @"numSelfTriggersDetectedDuringEvent";
   null = v3;
   if (!v3)
   {
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v21[0] = null;
-  v20[1] = @"durationOfSelfTriggerEventInSec";
+  v20[0] = null;
+  v19[1] = @"durationOfSelfTriggerEventInSec";
   null2 = v6;
   if (!v6)
   {
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v21[1] = null2;
-  v20[2] = @"audioSource";
+  v20[1] = null2;
+  v19[2] = @"audioSource";
   null3 = v7;
   if (!v7)
   {
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v21[2] = null3;
-  v20[3] = @"isBluetoothSpeakerActive";
+  v20[2] = null3;
+  v19[3] = @"isBluetoothSpeakerActive";
   null4 = v8;
   if (!v8)
   {
     null4 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v21[3] = null4;
-  v20[4] = @"isBuiltInSpeakerActive";
+  v20[3] = null4;
+  v19[4] = @"isBuiltInSpeakerActive";
   null5 = v9;
   if (!v9)
   {
     null5 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v21[4] = null5;
-  v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v21 forKeys:v20 count:{5, v18}];
+  v20[4] = null5;
+  v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:v19 count:{5, v17}];
   if (v9)
   {
     if (v8)
@@ -268,18 +266,16 @@ LABEL_27:
 LABEL_36:
 
 LABEL_28:
-  if (!v19)
+  if (!v18)
   {
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return v15;
 }
 
 - (BMSiriSelfTriggerSuppression)initWithJSONDictionary:(id)dictionary error:(id *)error
 {
-  v47[1] = *MEMORY[0x1E69E9840];
+  v46[1] = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   v7 = [dictionaryCopy objectForKeyedSubscript:@"numSelfTriggersDetectedDuringEvent"];
   if (!v7 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
@@ -295,34 +291,34 @@ LABEL_4:
       {
         if (!error)
         {
-          v37 = 0;
+          v36 = 0;
           v14 = 0;
           goto LABEL_33;
         }
 
         v15 = objc_alloc(MEMORY[0x1E696ABC0]);
         v16 = *MEMORY[0x1E698F240];
-        v44 = *MEMORY[0x1E696A578];
-        v35 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"durationOfSelfTriggerEventInSec"];
-        v45 = v35;
-        [MEMORY[0x1E695DF20] dictionaryWithObjects:&v45 forKeys:&v44 count:1];
+        v43 = *MEMORY[0x1E696A578];
+        v34 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"durationOfSelfTriggerEventInSec"];
+        v44 = v34;
+        [MEMORY[0x1E695DF20] dictionaryWithObjects:&v44 forKeys:&v43 count:1];
         v10 = v17 = error;
-        v37 = 0;
+        v36 = 0;
         v14 = 0;
         *v17 = [v15 initWithDomain:v16 code:2 userInfo:v10];
         goto LABEL_32;
       }
 
-      v37 = v9;
+      v36 = v9;
     }
 
     else
     {
-      v37 = 0;
+      v36 = 0;
     }
 
     v10 = [dictionaryCopy objectForKeyedSubscript:@"audioSource"];
-    v34 = v8;
+    v33 = v8;
     if (v10 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
     {
       objc_opt_class();
@@ -338,24 +334,24 @@ LABEL_4:
         {
           if (!errorCopy)
           {
-            v35 = 0;
+            v34 = 0;
             v14 = 0;
             goto LABEL_32;
           }
 
-          v36 = objc_alloc(MEMORY[0x1E696ABC0]);
-          v28 = *MEMORY[0x1E698F240];
-          v42 = *MEMORY[0x1E696A578];
+          v35 = objc_alloc(MEMORY[0x1E696ABC0]);
+          v27 = *MEMORY[0x1E698F240];
+          v41 = *MEMORY[0x1E696A578];
           v19 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (corresponding to enum value), or NSString (string version of enum)", objc_opt_class(), @"audioSource"];
-          v43 = v19;
-          v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v43 forKeys:&v42 count:1];
-          v29 = [v36 initWithDomain:v28 code:2 userInfo:v18];
-          v35 = 0;
+          v42 = v19;
+          v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v42 forKeys:&v41 count:1];
+          v28 = [v35 initWithDomain:v27 code:2 userInfo:v18];
+          v34 = 0;
           v14 = 0;
-          *errorCopy = v29;
+          *errorCopy = v28;
 LABEL_31:
 
-          v8 = v34;
+          v8 = v33;
 LABEL_32:
 
           goto LABEL_33;
@@ -364,12 +360,12 @@ LABEL_32:
         v11 = [MEMORY[0x1E696AD98] numberWithInt:BMSiriSelfTriggerSuppressionAudioSourceFromString(v10)];
       }
 
-      v35 = v11;
+      v34 = v11;
     }
 
     else
     {
-      v35 = 0;
+      v34 = 0;
     }
 
     v18 = [dictionaryCopy objectForKeyedSubscript:@"isBluetoothSpeakerActive"];
@@ -385,16 +381,16 @@ LABEL_32:
           goto LABEL_31;
         }
 
-        v31 = objc_alloc(MEMORY[0x1E696ABC0]);
-        v24 = *MEMORY[0x1E698F240];
-        v40 = *MEMORY[0x1E696A578];
+        v30 = objc_alloc(MEMORY[0x1E696ABC0]);
+        v23 = *MEMORY[0x1E698F240];
+        v39 = *MEMORY[0x1E696A578];
         v21 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"isBluetoothSpeakerActive"];
-        v41 = v21;
-        v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v41 forKeys:&v40 count:1];
-        v25 = [v31 initWithDomain:v24 code:2 userInfo:v20];
+        v40 = v21;
+        v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v40 forKeys:&v39 count:1];
+        v24 = [v30 initWithDomain:v23 code:2 userInfo:v20];
         v19 = 0;
         v14 = 0;
-        *errorCopy = v25;
+        *errorCopy = v24;
         goto LABEL_30;
       }
 
@@ -414,13 +410,13 @@ LABEL_32:
       {
         if (errorCopy)
         {
-          v32 = objc_alloc(MEMORY[0x1E696ABC0]);
-          v30 = *MEMORY[0x1E698F240];
-          v38 = *MEMORY[0x1E696A578];
-          v26 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"isBuiltInSpeakerActive"];
-          v39 = v26;
-          v27 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v39 forKeys:&v38 count:1];
-          *errorCopy = [v32 initWithDomain:v30 code:2 userInfo:v27];
+          v31 = objc_alloc(MEMORY[0x1E696ABC0]);
+          v29 = *MEMORY[0x1E698F240];
+          v37 = *MEMORY[0x1E696A578];
+          v25 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"isBuiltInSpeakerActive"];
+          v38 = v25;
+          v26 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v38 forKeys:&v37 count:1];
+          *errorCopy = [v31 initWithDomain:v29 code:2 userInfo:v26];
         }
 
         v21 = 0;
@@ -436,7 +432,7 @@ LABEL_32:
       v21 = 0;
     }
 
-    v14 = -[BMSiriSelfTriggerSuppression initWithNumSelfTriggersDetectedDuringEvent:durationOfSelfTriggerEventInSec:audioSource:isBluetoothSpeakerActive:isBuiltInSpeakerActive:](self, "initWithNumSelfTriggersDetectedDuringEvent:durationOfSelfTriggerEventInSec:audioSource:isBluetoothSpeakerActive:isBuiltInSpeakerActive:", v34, v37, [v35 intValue], v19, v21);
+    v14 = -[BMSiriSelfTriggerSuppression initWithNumSelfTriggersDetectedDuringEvent:durationOfSelfTriggerEventInSec:audioSource:isBluetoothSpeakerActive:isBuiltInSpeakerActive:](self, "initWithNumSelfTriggersDetectedDuringEvent:durationOfSelfTriggerEventInSec:audioSource:isBluetoothSpeakerActive:isBuiltInSpeakerActive:", v33, v36, [v34 intValue], v19, v21);
     self = v14;
 LABEL_30:
 
@@ -459,17 +455,16 @@ LABEL_30:
 
   v12 = objc_alloc(MEMORY[0x1E696ABC0]);
   v13 = *MEMORY[0x1E698F240];
-  v46 = *MEMORY[0x1E696A578];
-  v37 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"numSelfTriggersDetectedDuringEvent"];
-  v47[0] = v37;
-  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v47 forKeys:&v46 count:1];
+  v45 = *MEMORY[0x1E696A578];
+  v36 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"numSelfTriggersDetectedDuringEvent"];
+  v46[0] = v36;
+  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v46 forKeys:&v45 count:1];
   v8 = 0;
   v14 = 0;
   *error = [v12 initWithDomain:v13 code:2 userInfo:v9];
 LABEL_33:
 
 LABEL_34:
-  v22 = *MEMORY[0x1E69E9840];
   return v14;
 }
 
@@ -487,27 +482,22 @@ LABEL_34:
   toCopy = to;
   if (self->_hasNumSelfTriggersDetectedDuringEvent)
   {
-    numSelfTriggersDetectedDuringEvent = self->_numSelfTriggersDetectedDuringEvent;
     PBDataWriterWriteUint32Field();
   }
 
   if (self->_hasDurationOfSelfTriggerEventInSec)
   {
-    durationOfSelfTriggerEventInSec = self->_durationOfSelfTriggerEventInSec;
     PBDataWriterWriteDoubleField();
   }
 
-  audioSource = self->_audioSource;
   PBDataWriterWriteUint32Field();
   if (self->_hasIsBluetoothSpeakerActive)
   {
-    isBluetoothSpeakerActive = self->_isBluetoothSpeakerActive;
     PBDataWriterWriteBOOLField();
   }
 
   if (self->_hasIsBuiltInSpeakerActive)
   {
-    isBuiltInSpeakerActive = self->_isBuiltInSpeakerActive;
     PBDataWriterWriteBOOLField();
   }
 }
@@ -908,19 +898,17 @@ LABEL_83:
 
 + (id)protoFields
 {
-  v10[5] = *MEMORY[0x1E69E9840];
+  v9[5] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"numSelfTriggersDetectedDuringEvent" number:1 type:4 subMessageClass:0];
   v3 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"durationOfSelfTriggerEventInSec" number:2 type:0 subMessageClass:{0, v2}];
-  v10[1] = v3;
+  v9[1] = v3;
   v4 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"audioSource" number:3 type:4 subMessageClass:0];
-  v10[2] = v4;
+  v9[2] = v4;
   v5 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"isBluetoothSpeakerActive" number:4 type:12 subMessageClass:0];
-  v10[3] = v5;
+  v9[3] = v5;
   v6 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"isBuiltInSpeakerActive" number:5 type:12 subMessageClass:0];
-  v10[4] = v6;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:5];
-
-  v8 = *MEMORY[0x1E69E9840];
+  v9[4] = v6;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:5];
 
   return v7;
 }

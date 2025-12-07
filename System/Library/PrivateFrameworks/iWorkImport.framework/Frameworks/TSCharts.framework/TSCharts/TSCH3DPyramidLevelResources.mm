@@ -70,18 +70,18 @@
   if (!v8)
   {
     v13 = MEMORY[0x277D81150];
-    v33 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v9, v10, v11, v12, "[TSCH3DPyramidLevelResources size]");
+    v32 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v9, v10, v11, v12, "[TSCH3DPyramidLevelResources size]");
     v18 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v14, v15, v16, v17, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCH3DPyramidBlurShadowsRenderer.mm");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v13, v19, v20, v21, v22, v33, v18, 99, 0, "invalid nil value for '%{public}s'", "self.finalResource");
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v13, v19, v20, v21, v22, v32, v18, 99, 0, "invalid nil value for '%{public}s'", "self.finalResource");
 
     objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v23, v24, v25, v26);
   }
 
   v27 = objc_msgSend_finalResource(self, v9, v10, v11, v12);
-  v34 = v27;
+  v33 = v27;
   if (v27)
   {
-    objc_msgSend_size(v27, v28, v29, v30, v31);
+    objc_msgSend_size(v27, v28, v29, v30);
   }
 
   else
@@ -89,7 +89,7 @@
     *v7 = 0;
   }
 
-  return v32;
+  return v31;
 }
 
 @end

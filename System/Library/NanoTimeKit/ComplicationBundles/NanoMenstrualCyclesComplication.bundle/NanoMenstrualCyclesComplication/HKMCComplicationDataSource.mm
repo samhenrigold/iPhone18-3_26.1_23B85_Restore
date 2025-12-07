@@ -50,10 +50,10 @@
 
 - (HKMCComplicationDataSource)initWithComplication:(id)complication family:(int64_t)family forDevice:(id)device
 {
-  v19 = *MEMORY[0x277D85DE8];
-  v14.receiver = self;
-  v14.super_class = HKMCComplicationDataSource;
-  v5 = [(CLKCComplicationDataSource *)&v14 initWithComplication:complication family:family forDevice:device];
+  v18 = *MEMORY[0x277D85DE8];
+  v13.receiver = self;
+  v13.super_class = HKMCComplicationDataSource;
+  v5 = [(CLKCComplicationDataSource *)&v13 initWithComplication:complication family:family forDevice:device];
   v6 = v5;
   if (v5)
   {
@@ -66,15 +66,14 @@
       v9 = objc_opt_class();
       v10 = v6->_template;
       *buf = 138543618;
-      v16 = v9;
-      v17 = 2112;
-      v18 = v10;
+      v15 = v9;
+      v16 = 2112;
+      v17 = v10;
       v11 = v9;
       _os_log_impl(&dword_23BD89000, v8, OS_LOG_TYPE_DEFAULT, "[%{public}@] Initializing with template: %@", buf, 0x16u);
     }
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v6;
 }
 

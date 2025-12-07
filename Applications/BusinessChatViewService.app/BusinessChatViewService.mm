@@ -71,16 +71,15 @@ void BCChatSuggestRemoteViewController.presentAppleSupportGuidedHelp(presenter:)
 
 uint64_t sub_100001E10(uint64_t *a1, uint64_t *a2)
 {
-  v6 = *a1;
+  v5 = *a1;
   if (!*a1)
   {
-    v3 = *a2;
     TypeByMangledNameInContext2 = swift_getTypeByMangledNameInContext2();
     *a1 = TypeByMangledNameInContext2;
     return TypeByMangledNameInContext2;
   }
 
-  return v6;
+  return v5;
 }
 
 void sub_100001EEC(void *a1)
@@ -176,9 +175,9 @@ void sub_100002318(void *a1)
   _objc_release(a1);
 }
 
-void (*sub_1000023B0(void *a1))(uint64_t *a1, char a2)
+void (*sub_1000023B0(void *a1))(id **a1, char a2)
 {
-  v3 = sub_100002CF8(0x30uLL);
+  v3 = sub_100002CF8(0x30uLL, 63754);
   *a1 = v3;
   v3[4] = v1;
   v3[5] = OBJC_IVAR____TtCE23BusinessChatViewServiceCSo33BCChatSuggestRemoteViewControllerP33_D33DBE072432EE7147065A24717A63BF38SupportFlowViewControllerDelegateProxy_chatSuggestRemoteViewController;
@@ -187,30 +186,27 @@ void (*sub_1000023B0(void *a1))(uint64_t *a1, char a2)
   return sub_10000245C;
 }
 
-void sub_10000245C(uint64_t *a1, char a2)
+void sub_10000245C(id **a1, char a2)
 {
-  v7 = *a1;
+  v4 = *a1;
   if (a2)
   {
-    v4 = *(v7 + 32) + *(v7 + 40);
-    v5 = *(v7 + 24);
-    v5;
+    v2 = v4[3];
+    v2;
     swift_unknownObjectWeakAssign();
-    _objc_release(v5);
-    sub_1000027E4((v7 + 24));
+    _objc_release(v2);
+    sub_1000027E4(v4 + 3);
   }
 
   else
   {
-    v2 = *(v7 + 40);
-    v3 = *(v7 + 32);
-    v6 = *(v7 + 24);
+    v3 = v4[3];
     swift_unknownObjectWeakAssign();
-    _objc_release(v6);
+    _objc_release(v3);
   }
 
   swift_endAccess();
-  free(v7);
+  free(v4);
 }
 
 id sub_100002528(void *a1)
@@ -233,7 +229,7 @@ id sub_100002528(void *a1)
   return v3;
 }
 
-uint64_t *sub_10000264C(uint64_t *a1)
+void *sub_10000264C(void *a1)
 {
   if (a1[3])
   {
@@ -243,15 +239,17 @@ uint64_t *sub_10000264C(uint64_t *a1)
   return a1;
 }
 
-uint64_t sub_100002688(uint64_t *a1)
+uint64_t sub_100002688(void *a1)
 {
-  v3 = a1[3];
-  if ((*(*(v3 - 8) + 80) & 0x20000) == 0)
+  v2 = a1[3];
+  if ((*(*(v2 - 8) + 80) & 0x20000) != 0)
   {
-    return (*(*(v3 - 8) + 8))(a1);
   }
 
-  v2 = *a1;
+  else
+  {
+    return (*(*(v2 - 8) + 8))(a1);
+  }
 }
 
 __n128 sub_100002728(uint64_t a1, uint64_t a2)
@@ -311,7 +309,7 @@ id sub_100002C64()
   return objc_msgSendSuper2(&v2, "dealloc");
 }
 
-void *sub_100002CF8(size_t a1)
+void *sub_100002CF8(size_t a1, uint64_t a2)
 {
   if (&_swift_coroFrameAlloc)
   {
@@ -405,20 +403,20 @@ uint64_t sub_1000030B0@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, unint64_t a3@<X2
         __chkstk_darwin(v17);
         v15 = sub_100003DF4;
         v16 = &v37;
-        sub_100002D84(sub_100003E10, v13, v11);
+        sub_100002D84(sub_100003E10, &v13, v11);
         return v10;
       }
 
       LODWORD(v15) = 0;
       v14 = 148;
-      v13[0] = 2;
+      LOBYTE(v13) = 2;
       _assertionFailure(_:_:file:line:flags:)();
       __break(1u);
     }
 
     LODWORD(v15) = 0;
     v14 = 3053;
-    v13[0] = 2;
+    LOBYTE(v13) = 2;
     _assertionFailure(_:_:file:line:flags:)();
     __break(1u);
   }
@@ -437,7 +435,7 @@ uint64_t sub_1000030B0@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, unint64_t a3@<X2
       {
         LODWORD(v15) = 0;
         v14 = 268;
-        v13[0] = 2;
+        LOBYTE(v13) = 2;
         _assertionFailure(_:_:file:line:flags:)();
         __break(1u);
       }
@@ -457,7 +455,7 @@ uint64_t sub_1000030B0@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, unint64_t a3@<X2
           {
             LODWORD(v15) = 0;
             v14 = 269;
-            v13[0] = 2;
+            LOBYTE(v13) = 2;
             _assertionFailure(_:_:file:line:flags:)();
             __break(1u);
           }
@@ -485,63 +483,63 @@ uint64_t sub_1000030B0@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, unint64_t a3@<X2
 
                     LODWORD(v15) = 0;
                     v14 = 3053;
-                    v13[0] = 2;
+                    LOBYTE(v13) = 2;
                     _assertionFailure(_:_:file:line:flags:)();
                     __break(1u);
                   }
 
                   LODWORD(v15) = 0;
                   v14 = 3053;
-                  v13[0] = 2;
+                  LOBYTE(v13) = 2;
                   _assertionFailure(_:_:file:line:flags:)();
                   __break(1u);
                 }
 
                 LODWORD(v15) = 0;
                 v14 = 3268;
-                v13[0] = 2;
+                LOBYTE(v13) = 2;
                 _assertionFailure(_:_:file:line:flags:)();
                 __break(1u);
               }
 
               LODWORD(v15) = 0;
               v14 = 3262;
-              v13[0] = 2;
+              LOBYTE(v13) = 2;
               _assertionFailure(_:_:file:line:flags:)();
               __break(1u);
             }
 
             LODWORD(v15) = 0;
             v14 = 3268;
-            v13[0] = 2;
+            LOBYTE(v13) = 2;
             _assertionFailure(_:_:file:line:flags:)();
             __break(1u);
           }
 
           LODWORD(v15) = 0;
           v14 = 3262;
-          v13[0] = 2;
+          LOBYTE(v13) = 2;
           _assertionFailure(_:_:file:line:flags:)();
           __break(1u);
         }
 
         LODWORD(v15) = 0;
         v14 = 3268;
-        v13[0] = 2;
+        LOBYTE(v13) = 2;
         _assertionFailure(_:_:file:line:flags:)();
         __break(1u);
       }
 
       LODWORD(v15) = 0;
       v14 = 3262;
-      v13[0] = 2;
+      LOBYTE(v13) = 2;
       _assertionFailure(_:_:file:line:flags:)();
       __break(1u);
     }
 
     LODWORD(v15) = 0;
     v14 = 1410;
-    v13[0] = 2;
+    LOBYTE(v13) = 2;
     _fatalErrorMessage(_:_:file:line:flags:)();
     __break(1u);
   }
@@ -661,18 +659,17 @@ uint64_t sub_100003FDC()
   return ColorResource.init(name:bundle:)();
 }
 
-uint64_t sub_100004074(uint64_t a1, uint64_t *a2)
+uint64_t *sub_100004074(uint64_t a1, uint64_t *a2)
 {
-  v6 = a2;
+  v5 = a2;
   if ((*(*(a1 - 8) + 80) & 0x20000) != 0)
   {
-    v2 = *(*(a1 - 8) + 64);
-    v3 = swift_slowAlloc();
-    *a2 = v3;
-    return v3;
+    v2 = swift_slowAlloc();
+    *a2 = v2;
+    return v2;
   }
 
-  return v6;
+  return v5;
 }
 
 uint64_t sub_100004110(uint64_t a1, uint64_t a2)
@@ -1459,29 +1456,29 @@ void sub_10000BC90(id a1)
 
 uint64_t sub_10000BD00()
 {
-  v4 = 0;
-  v5 = &v4;
-  v6 = 0x2020000000;
+  v5 = 0;
+  v6 = &v5;
+  v7 = 0x2020000000;
   v0 = off_10001E930;
-  v7 = off_10001E930;
+  v8 = off_10001E930;
   if (!off_10001E930)
   {
-    v3[0] = _NSConcreteStackBlock;
-    v3[1] = 3221225472;
-    v3[2] = sub_10000BDE4;
-    v3[3] = &unk_1000188A0;
-    v3[4] = &v4;
-    sub_10000BDE4(v3);
-    v0 = v5[3];
+    v4[0] = _NSConcreteStackBlock;
+    v4[1] = 3221225472;
+    v4[2] = sub_10000BDE4;
+    v4[3] = &unk_1000188A0;
+    v4[4] = &v5;
+    sub_10000BDE4(v4);
+    v0 = v6[3];
   }
 
-  _Block_object_dispose(&v4, 8);
+  _Block_object_dispose(&v5, 8);
   if (!v0)
   {
-    dlerror();
-    v2 = abort_report_np();
-    _Block_object_dispose(&v4, 8);
-    _Unwind_Resume(v2);
+    v2 = dlerror();
+    v3 = abort_report_np("%s", v2);
+    _Block_object_dispose(&v5, 8);
+    _Unwind_Resume(v3);
   }
 
   return v0(0);
@@ -1512,7 +1509,7 @@ void *sub_10000BDE4(uint64_t a1)
 
     else
     {
-      v3 = abort_report_np();
+      v3 = abort_report_np("%s", v5[0]);
     }
 
     free(v3);
@@ -1529,7 +1526,6 @@ LABEL_5:
 
 uint64_t sub_10000BF24(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_10001E938 = result;
   return result;
@@ -1544,4 +1540,12 @@ uint64_t start(int a1, char **a2)
 
   objc_autoreleasePoolPop(v4);
   return v7;
+}
+
+Swift::String __swiftcall String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)(Builtin::RawPointer _builtinStringLiteral, Builtin::Word utf8CodeUnitCount, Builtin::Int1 isASCII)
+{
+  v3 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)(_builtinStringLiteral, utf8CodeUnitCount, isASCII);
+  result._object = v4;
+  result._countAndFlagsBits = v3;
+  return result;
 }

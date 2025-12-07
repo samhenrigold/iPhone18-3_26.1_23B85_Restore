@@ -24,7 +24,7 @@
     else
     {
       v7 = [NUImageGeometry alloc];
-      [v4 extent];
+      objc_msgSend_extent(v4);
       v8 = -[NUImageGeometry initWithExtent:renderScale:orientation:](v7, "initWithExtent:renderScale:orientation:", &v11, 1, 2, [v4 orientation]);
     }
 

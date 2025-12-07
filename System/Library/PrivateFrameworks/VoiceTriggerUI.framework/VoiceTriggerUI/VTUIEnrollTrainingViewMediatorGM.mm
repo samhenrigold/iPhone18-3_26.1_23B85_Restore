@@ -30,23 +30,22 @@
 - (void)animateSuccessfulStep:(BOOL)step completion:(id)completion
 {
   stepCopy = step;
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   v7 = *MEMORY[0x277CEF0E8];
   if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 136315394;
-    v11 = "[VTUIEnrollTrainingViewMediatorGM animateSuccessfulStep:completion:]";
-    v12 = 1024;
-    v13 = stepCopy;
-    _os_log_impl(&dword_2728BC000, v7, OS_LOG_TYPE_DEFAULT, "%s Animate. For Success: %d", &v10, 0x12u);
+    v9 = 136315394;
+    v10 = "[VTUIEnrollTrainingViewMediatorGM animateSuccessfulStep:completion:]";
+    v11 = 1024;
+    v12 = stepCopy;
+    _os_log_impl(&dword_2728BC000, v7, OS_LOG_TYPE_DEFAULT, "%s Animate. For Success: %d", &v9, 0x12u);
   }
 
   lightLayer = [(VTUIEnrollTrainingIntelligentLightView *)self->_trainingView lightLayer];
   [lightLayer transitionToNextBuddyStep];
 
   [(VTUIEnrollTrainingIntelligentLightView *)self->_trainingView animateSuccessfulStepWithCompletion:completionCopy];
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)hideTrainingView:(BOOL)view

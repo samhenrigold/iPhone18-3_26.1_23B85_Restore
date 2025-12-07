@@ -13,22 +13,22 @@
 
 + (id)_onboardingCompletionsForHighestVersion:(void *)version featureIdentifier:(void *)identifier transaction:(uint64_t)transaction error:
 {
-  v37[2] = *MEMORY[0x277D85DE8];
+  v36[2] = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   versionCopy = version;
   objc_opt_self();
   v9 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v10 = [MEMORY[0x277D10B18] predicateWithProperty:@"feature_identifier" value:versionCopy comparisonType:1];
 
-  v32[0] = MEMORY[0x277D85DD0];
-  v32[1] = 3221225472;
-  v32[2] = __108__HDOnboardingCompletionEntity__onboardingCompletionsForHighestVersion_featureIdentifier_transaction_error___block_invoke;
-  v32[3] = &unk_27861F3F8;
-  v29 = v9;
-  v33 = v29;
+  v31[0] = MEMORY[0x277D85DD0];
+  v31[1] = 3221225472;
+  v31[2] = __108__HDOnboardingCompletionEntity__onboardingCompletionsForHighestVersion_featureIdentifier_transaction_error___block_invoke;
+  v31[3] = &unk_27861F3F8;
+  v28 = v9;
+  v32 = v28;
   v11 = identifierCopy;
   v12 = v10;
-  v13 = v32;
+  v13 = v31;
   v14 = @"version";
   v15 = objc_opt_self();
   v16 = [MEMORY[0x277D10B18] predicateWithProperty:@"deleted" value:MEMORY[0x277CBEC28] comparisonType:1];
@@ -39,32 +39,30 @@
     v16 = v17;
   }
 
-  v18 = [v11 databaseForEntityClass:{v15, v29}];
+  v18 = [v11 databaseForEntityClass:{v15, v28}];
   v19 = [MEMORY[0x277D10B68] orderingTermWithProperty:@"version" entityClass:v15 ascending:a2 ^ 1u];
 
-  v37[0] = v19;
+  v36[0] = v19;
   v20 = [MEMORY[0x277D10B68] orderingTermWithProperty:*MEMORY[0x277D10A40] entityClass:v15 ascending:a2 ^ 1u];
-  v37[1] = v20;
-  v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v37 count:2];
+  v36[1] = v20;
+  v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v36 count:2];
   v22 = [v15 queryWithDatabase:v18 predicate:v16 limit:0 orderingTerms:v21 groupBy:0];
 
   v23 = HDOnboardingCompletionEntityAllProperties();
-  v34[0] = MEMORY[0x277D85DD0];
-  v34[1] = 3221225472;
-  v34[2] = __150__HDOnboardingCompletionEntity__enumerateAllOnboardingCompletionModelsWithTransaction_predicate_orderedByProperty_ascending_error_enumerationHandler___block_invoke;
-  v34[3] = &unk_278618B48;
-  v35 = v13;
-  v36 = v15;
+  v33[0] = MEMORY[0x277D85DD0];
+  v33[1] = 3221225472;
+  v33[2] = __150__HDOnboardingCompletionEntity__enumerateAllOnboardingCompletionModelsWithTransaction_predicate_orderedByProperty_ascending_error_enumerationHandler___block_invoke;
+  v33[3] = &unk_278618B48;
+  v34 = v13;
+  v35 = v15;
   v24 = v13;
-  v25 = [v22 enumerateProperties:v23 error:transaction enumerationHandler:v34];
+  v25 = [v22 enumerateProperties:v23 error:transaction enumerationHandler:v33];
 
   v26 = 0;
   if (v25)
   {
-    v26 = [v30 copy];
+    v26 = objc_msgSend_copy(v29);
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 
   return v26;
 }
@@ -89,10 +87,10 @@ uint64_t __108__HDOnboardingCompletionEntity__onboardingCompletionsForHighestVer
 
 uint64_t __150__HDOnboardingCompletionEntity__enumerateAllOnboardingCompletionModelsWithTransaction_predicate_orderedByProperty_ascending_error_enumerationHandler___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
-  v11 = 0;
-  v4 = _OnboardingCompletionFromRow(a3, &v11);
-  v5 = v11;
+  v15 = *MEMORY[0x277D85DE8];
+  v10 = 0;
+  v4 = _OnboardingCompletionFromRow(a3, &v10);
+  v5 = v10;
   if (v4)
   {
     v6 = (*(*(a1 + 32) + 16))();
@@ -104,62 +102,59 @@ uint64_t __150__HDOnboardingCompletionEntity__enumerateAllOnboardingCompletionMo
     v7 = *MEMORY[0x277CCC2A0];
     if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_ERROR))
     {
-      v10 = *(a1 + 40);
+      v9 = *(a1 + 40);
       *buf = 138543618;
-      v13 = v10;
-      v14 = 2114;
-      v15 = v5;
+      v12 = v9;
+      v13 = 2114;
+      v14 = v5;
       _os_log_error_impl(&dword_228986000, v7, OS_LOG_TYPE_ERROR, "[%{public}@] Unexpectedly unable to load onboarding completion: %{public}@", buf, 0x16u);
     }
 
     v6 = 1;
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
 + (BOOL)enumerateAllOnboardingCompletionsWithTransaction:(id)transaction predicate:(id)predicate error:(id *)error enumerationHandler:(id)handler
 {
-  v24[1] = *MEMORY[0x277D85DE8];
+  v23[1] = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   predicateCopy = predicate;
   v12 = [transaction databaseForEntityClass:self];
   v13 = *MEMORY[0x277D10A40];
   v14 = [MEMORY[0x277D10B68] orderingTermWithProperty:*MEMORY[0x277D10A40] entityClass:self ascending:1];
-  v24[0] = v14;
-  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:1];
+  v23[0] = v14;
+  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:1];
   v16 = [self queryWithDatabase:v12 predicate:predicateCopy limit:0 orderingTerms:v15 groupBy:0];
 
   v17 = HDOnboardingCompletionEntityAllProperties();
   v18 = [v17 arrayByAddingObject:v13];
 
-  v22[0] = MEMORY[0x277D85DD0];
-  v22[1] = 3221225472;
-  v22[2] = __116__HDOnboardingCompletionEntity_enumerateAllOnboardingCompletionsWithTransaction_predicate_error_enumerationHandler___block_invoke;
-  v22[3] = &unk_2786145A8;
-  v23 = handlerCopy;
+  v21[0] = MEMORY[0x277D85DD0];
+  v21[1] = 3221225472;
+  v21[2] = __116__HDOnboardingCompletionEntity_enumerateAllOnboardingCompletionsWithTransaction_predicate_error_enumerationHandler___block_invoke;
+  v21[3] = &unk_2786145A8;
+  v22 = handlerCopy;
   v19 = handlerCopy;
-  LOBYTE(error) = [v16 enumerateProperties:v18 error:error enumerationHandler:v22];
+  LOBYTE(error) = [v16 enumerateProperties:v18 error:error enumerationHandler:v21];
 
-  v20 = *MEMORY[0x277D85DE8];
   return error;
 }
 
 uint64_t __116__HDOnboardingCompletionEntity_enumerateAllOnboardingCompletionsWithTransaction_predicate_error_enumerationHandler___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   HDSQLiteColumnWithNameAsBoolean();
-  v7 = *MEMORY[0x277D10A40];
   HDSQLiteColumnWithNameAsInt64();
-  v8 = _OnboardingCompletionFromRow(a3, a4);
-  v9 = (*(*(a1 + 32) + 16))();
+  v7 = _OnboardingCompletionFromRow(a3, a4);
+  v8 = (*(*(a1 + 32) + 16))();
 
-  return v9;
+  return v8;
 }
 
 + (id)insertOnboardingCompletion:(id)completion syncIdentity:(int64_t)identity transaction:(id)transaction error:(id *)error
 {
-  v56[4] = *MEMORY[0x277D85DE8];
+  v55[4] = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   transactionCopy = transaction;
   v12 = completionCopy;
@@ -176,10 +171,10 @@ uint64_t __116__HDOnboardingCompletionEntity_enumerateAllOnboardingCompletionsWi
     identityCopy = identity;
     selfCopy = self;
     errorCopy = error;
-    v54 = v12;
+    v53 = v12;
     v18 = v12;
     [v18 featureIdentifier];
-    v19 = v53 = v13;
+    v19 = v52 = v13;
     version = [v18 version];
     countryCode2 = [v18 countryCode];
     countryCodeProvenance = [v18 countryCodeProvenance];
@@ -188,28 +183,28 @@ uint64_t __116__HDOnboardingCompletionEntity_enumerateAllOnboardingCompletionsWi
     v24 = MEMORY[0x277D10B18];
     v25 = countryCode2;
     v26 = [v24 predicateWithProperty:@"feature_identifier" value:v19 comparisonType:1];
-    v56[0] = v26;
+    v55[0] = v26;
     v27 = MEMORY[0x277D10B18];
     v28 = [MEMORY[0x277CCABB0] numberWithInteger:version];
     v29 = [v27 predicateWithProperty:@"version" value:v28 comparisonType:1];
 
-    v56[1] = v29;
+    v55[1] = v29;
     v30 = [MEMORY[0x277D10B18] predicateWithProperty:@"country_code" value:v25 comparisonType:1];
 
-    v56[2] = v30;
+    v55[2] = v30;
     v31 = MEMORY[0x277D10B18];
     v32 = [MEMORY[0x277CCABB0] numberWithInteger:countryCodeProvenance];
     v33 = [v31 predicateWithProperty:@"country_code_provenance" value:v32 comparisonType:1];
 
-    v56[3] = v33;
-    v34 = [MEMORY[0x277CBEA60] arrayWithObjects:v56 count:4];
+    v55[3] = v33;
+    v34 = [MEMORY[0x277CBEA60] arrayWithObjects:v55 count:4];
     v35 = [v23 predicateMatchingAllPredicates:v34];
 
-    v13 = v53;
-    v36 = [v53 databaseForEntityClass:v14];
-    v55 = 0;
-    v37 = [v14 anyInDatabase:v36 predicate:v35 error:&v55];
-    v38 = v55;
+    v13 = v52;
+    v36 = [v52 databaseForEntityClass:v14];
+    v54 = 0;
+    v37 = [v14 anyInDatabase:v36 predicate:v35 error:&v54];
+    v38 = v54;
 
     if (v37 || !v38)
     {
@@ -223,9 +218,9 @@ uint64_t __116__HDOnboardingCompletionEntity_enumerateAllOnboardingCompletionsWi
         countryCode3 = [v18 countryCode];
         countryCodeProvenance2 = [v18 countryCodeProvenance];
         date = [MEMORY[0x277CBEAA8] date];
-        v47 = [(HDOnboardingCompletionEntity *)selfCopy _insertEntityWithUUID:uUID featureIdentifier:featureIdentifier version:version2 completionDate:completionDate countryCode:countryCode3 countryCodeProvenance:countryCodeProvenance2 modificationDate:date deleted:0 syncProvenance:0 syncIdentity:identityCopy transaction:v53 error:errorCopy];
+        v47 = [(HDOnboardingCompletionEntity *)selfCopy _insertEntityWithUUID:uUID featureIdentifier:featureIdentifier version:version2 completionDate:completionDate countryCode:countryCode3 countryCodeProvenance:countryCodeProvenance2 modificationDate:date deleted:0 syncProvenance:0 syncIdentity:identityCopy transaction:v52 error:errorCopy];
 
-        v12 = v54;
+        v12 = v53;
         goto LABEL_14;
       }
 
@@ -243,13 +238,11 @@ uint64_t __116__HDOnboardingCompletionEntity_enumerateAllOnboardingCompletionsWi
       _HKLogDroppedError();
     }
 
-    v12 = v54;
+    v12 = v53;
   }
 
   v47 = 0;
 LABEL_14:
-
-  v48 = *MEMORY[0x277D85DE8];
 
   return v47;
 }
@@ -292,39 +285,39 @@ LABEL_14:
 
 + (id)insertCodableOnboardingCompletions:(id)completions syncProvenance:(int64_t)provenance profile:(id)profile transaction:(id)transaction error:(id *)error
 {
-  v95 = *MEMORY[0x277D85DE8];
+  v94 = *MEMORY[0x277D85DE8];
   completionsCopy = completions;
   profileCopy = profile;
   transactionCopy = transaction;
-  v67 = [objc_alloc(MEMORY[0x277CBEB58]) initWithCapacity:{objc_msgSend(completionsCopy, "count")}];
+  v66 = [objc_alloc(MEMORY[0x277CBEB58]) initWithCapacity:{objc_msgSend(completionsCopy, "count")}];
+  v85 = 0u;
   v86 = 0u;
   v87 = 0u;
   v88 = 0u;
-  v89 = 0u;
   v12 = completionsCopy;
-  v13 = [v12 countByEnumeratingWithState:&v86 objects:v94 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v85 objects:v93 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v87;
-    v71 = transactionCopy;
-    v72 = profileCopy;
-    v68 = v12;
-    v70 = *v87;
+    v15 = *v86;
+    v70 = transactionCopy;
+    v71 = profileCopy;
+    v67 = v12;
+    v69 = *v86;
 LABEL_3:
     v16 = 0;
-    v77 = v14;
+    v76 = v14;
     while (1)
     {
-      if (*v87 != v15)
+      if (*v86 != v15)
       {
         objc_enumerationMutation(v12);
       }
 
-      v17 = *(*(&v86 + 1) + 8 * v16);
-      v85 = 0;
-      v18 = [v17 isValidWithError:&v85];
-      v19 = v85;
+      v17 = *(*(&v85 + 1) + 8 * v16);
+      v84 = 0;
+      v18 = [v17 isValidWithError:&v84];
+      v19 = v84;
       if ((v18 & 1) == 0)
       {
         _HKInitializeLogging();
@@ -333,8 +326,8 @@ LABEL_3:
         {
           *buf = 138543618;
           selfCopy = self;
-          v92 = 2114;
-          v93 = v19;
+          v91 = 2114;
+          v92 = v19;
           _os_log_error_impl(&dword_228986000, v32, OS_LOG_TYPE_ERROR, "[%{public}@] Skipping invalid codable: %{public}@", buf, 0x16u);
         }
 
@@ -347,9 +340,9 @@ LABEL_3:
       if ([v17 hasSyncIdentity])
       {
         syncIdentity = [v17 syncIdentity];
-        v84 = v19;
-        v23 = [HDSyncIdentity syncIdentityWithCodable:syncIdentity error:&v84];
-        v24 = v84;
+        v83 = v19;
+        v23 = [HDSyncIdentity syncIdentityWithCodable:syncIdentity error:&v83];
+        v24 = v83;
         v25 = v19;
         v19 = v24;
 
@@ -357,7 +350,7 @@ LABEL_3:
         {
           _HKInitializeLogging();
           v59 = *MEMORY[0x277CCC2A0];
-          v14 = v77;
+          v14 = v76;
           if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_FAULT))
           {
             *buf = 138543362;
@@ -371,9 +364,9 @@ LABEL_3:
 
         v26 = transactionCopy;
         syncIdentityManager2 = [profileCopy syncIdentityManager];
-        v83 = v19;
-        v28 = [syncIdentityManager2 concreteIdentityForIdentity:v23 shouldCreate:1 transaction:v26 error:&v83];
-        v29 = v83;
+        v82 = v19;
+        v28 = [syncIdentityManager2 concreteIdentityForIdentity:v23 shouldCreate:1 transaction:v26 error:&v82];
+        v29 = v82;
 
         if (!v28)
         {
@@ -388,18 +381,18 @@ LABEL_3:
 
           legacySyncIdentity = 0;
           v19 = v29;
-          v15 = v70;
-          transactionCopy = v71;
-          v14 = v77;
-          profileCopy = v72;
+          v15 = v69;
+          transactionCopy = v70;
+          v14 = v76;
+          profileCopy = v71;
           goto LABEL_32;
         }
 
         legacySyncIdentity = v28;
-        v30 = v70;
-        transactionCopy = v71;
+        v30 = v69;
+        transactionCopy = v70;
         v19 = v29;
-        v31 = v72;
+        v31 = v71;
       }
 
       else
@@ -408,7 +401,7 @@ LABEL_3:
         v31 = profileCopy;
       }
 
-      v81 = legacySyncIdentity;
+      v80 = legacySyncIdentity;
       entity = [legacySyncIdentity entity];
       persistentID = [entity persistentID];
       v33 = v17;
@@ -417,11 +410,11 @@ LABEL_3:
       LODWORD(v36) = [v33 deleted];
       decodedUUID = [v33 decodedUUID];
       v38 = decodedUUID;
-      v82 = v19;
+      v81 = v19;
       if (decodedUUID)
       {
-        v76 = decodedUUID;
-        v74 = v34;
+        v75 = decodedUUID;
+        v73 = v34;
         if (v36)
         {
           v39 = v34;
@@ -446,7 +439,7 @@ LABEL_3:
         else
         {
           featureIdentifier2 = [v33 featureIdentifier];
-          featureIdentifier = [featureIdentifier2 copy];
+          featureIdentifier = objc_msgSend_copy(featureIdentifier2);
           v51 = featureIdentifier;
 
           featureIdentifier3 = [v33 featureIdentifier];
@@ -459,9 +452,9 @@ LABEL_3:
         countryCode = [v33 countryCode];
         countryCodeProvenance = [v33 countryCodeProvenance];
         decodedModificationDate = [v33 decodedModificationDate];
-        v65 = errorCopy2;
-        v34 = v74;
-        v58 = [(HDOnboardingCompletionEntity *)v52 _insertEntityWithUUID:v76 featureIdentifier:featureIdentifier3 version:version completionDate:decodedCompletionDate countryCode:countryCode countryCodeProvenance:countryCodeProvenance modificationDate:decodedModificationDate deleted:v36 syncProvenance:provenance syncIdentity:persistentID transaction:v74 error:v65];
+        v64 = errorCopy2;
+        v34 = v73;
+        v58 = [(HDOnboardingCompletionEntity *)v52 _insertEntityWithUUID:v75 featureIdentifier:featureIdentifier3 version:version completionDate:decodedCompletionDate countryCode:countryCode countryCodeProvenance:countryCodeProvenance modificationDate:decodedModificationDate deleted:v36 syncProvenance:provenance syncIdentity:persistentID transaction:v73 error:v64];
 
         if ((v36 & 1) == 0)
         {
@@ -469,11 +462,11 @@ LABEL_3:
 
         v49 = v58 != 0;
 
-        transactionCopy = v71;
-        profileCopy = v72;
-        v15 = v70;
-        v14 = v77;
-        v38 = v76;
+        transactionCopy = v70;
+        profileCopy = v71;
+        v15 = v69;
+        v14 = v76;
+        v38 = v75;
         v48 = featureIdentifier;
       }
 
@@ -484,37 +477,37 @@ LABEL_3:
         v49 = 0;
         profileCopy = v31;
         v15 = v30;
-        v14 = v77;
+        v14 = v76;
       }
 
       v23 = v48;
       if (!v49)
       {
 
-        v12 = v68;
+        v12 = v67;
         v62 = 0;
-        v61 = v67;
+        v61 = v66;
         goto LABEL_38;
       }
 
-      v12 = v68;
-      legacySyncIdentity = v81;
+      v12 = v67;
+      legacySyncIdentity = v80;
       if (v23)
       {
-        [v67 addObject:v23];
-        v19 = v82;
+        [v66 addObject:v23];
+        v19 = v81;
 LABEL_32:
 
         goto LABEL_33;
       }
 
-      v19 = v82;
+      v19 = v81;
 LABEL_33:
 
 LABEL_34:
       if (v14 == ++v16)
       {
-        v14 = [v12 countByEnumeratingWithState:&v86 objects:v94 count:16];
+        v14 = [v12 countByEnumeratingWithState:&v85 objects:v93 count:16];
         if (v14)
         {
           goto LABEL_3;
@@ -525,11 +518,9 @@ LABEL_34:
     }
   }
 
-  v61 = v67;
-  v62 = [v67 copy];
+  v61 = v66;
+  v62 = objc_msgSend_copy(v66);
 LABEL_38:
-
-  v63 = *MEMORY[0x277D85DE8];
 
   return v62;
 }
@@ -545,61 +536,60 @@ void __200__HDOnboardingCompletionEntity__insertEntityWithUUID_featureIdentifier
   MEMORY[0x22AAC6B50](a2, @"mod_date", *(a1 + 64));
   MEMORY[0x22AAC6B30](a2, @"deleted", *(a1 + 104));
   MEMORY[0x22AAC6B90](a2, @"sync_provenance", *(a1 + 88));
-  v4 = *(a1 + 96);
 
   JUMPOUT(0x22AAC6B90);
 }
 
 + (BOOL)deleteAllCompletionsForFeatureIdentifier:(id)identifier syncIdentity:(int64_t)identity transaction:(id)transaction error:(id *)error
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   transactionCopy = transaction;
   v10 = [MEMORY[0x277D10B18] predicateWithProperty:@"feature_identifier" equalToValue:identifier];
   v11 = [transactionCopy databaseForEntityClass:self];
   v12 = [self queryWithDatabase:v11 predicate:v10];
 
   v13 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v44 = @"uuid";
-  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:&v44 count:1];
-  v38[0] = MEMORY[0x277D85DD0];
-  v38[1] = 3221225472;
-  v38[2] = __104__HDOnboardingCompletionEntity_deleteAllCompletionsForFeatureIdentifier_syncIdentity_transaction_error___block_invoke;
-  v38[3] = &unk_27861E4C0;
+  v43 = @"uuid";
+  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:&v43 count:1];
+  v37[0] = MEMORY[0x277D85DD0];
+  v37[1] = 3221225472;
+  v37[2] = __104__HDOnboardingCompletionEntity_deleteAllCompletionsForFeatureIdentifier_syncIdentity_transaction_error___block_invoke;
+  v37[3] = &unk_27861E4C0;
   v15 = v13;
-  v39 = v15;
+  v38 = v15;
   errorCopy = error;
-  LODWORD(v13) = [v12 enumerateProperties:v14 error:error enumerationHandler:v38];
+  LODWORD(v13) = [v12 enumerateProperties:v14 error:error enumerationHandler:v37];
 
   if (v13)
   {
     v16 = v15;
-    v35 = transactionCopy;
+    v34 = transactionCopy;
     objc_opt_self();
+    v39 = 0u;
     v40 = 0u;
     v41 = 0u;
     v42 = 0u;
-    v43 = 0u;
     obj = v16;
-    v17 = [obj countByEnumeratingWithState:&v40 objects:v45 count:16];
+    v17 = [obj countByEnumeratingWithState:&v39 objects:v44 count:16];
     v18 = 1;
     if (v17)
     {
       v19 = v17;
-      v31 = v12;
-      v32 = v10;
-      v33 = transactionCopy;
-      v20 = *v41;
+      v30 = v12;
+      v31 = v10;
+      v32 = transactionCopy;
+      v20 = *v40;
       while (2)
       {
         for (i = 0; i != v19; ++i)
         {
-          if (*v41 != v20)
+          if (*v40 != v20)
           {
             objc_enumerationMutation(obj);
           }
 
-          v22 = *(*(&v40 + 1) + 8 * i);
-          v23 = v35;
+          v22 = *(*(&v39 + 1) + 8 * i);
+          v23 = v34;
           v24 = v22;
           v25 = objc_opt_self();
           v26 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceReferenceDate:0.0];
@@ -613,7 +603,7 @@ void __200__HDOnboardingCompletionEntity__insertEntityWithUUID_featureIdentifier
           }
         }
 
-        v19 = [obj countByEnumeratingWithState:&v40 objects:v45 count:16];
+        v19 = [obj countByEnumeratingWithState:&v39 objects:v44 count:16];
         if (v19)
         {
           continue;
@@ -624,9 +614,9 @@ void __200__HDOnboardingCompletionEntity__insertEntityWithUUID_featureIdentifier
 
       v18 = 1;
 LABEL_13:
-      v10 = v32;
-      transactionCopy = v33;
-      v12 = v31;
+      v10 = v31;
+      transactionCopy = v32;
+      v12 = v30;
     }
   }
 
@@ -635,14 +625,13 @@ LABEL_13:
     v18 = 0;
   }
 
-  v29 = *MEMORY[0x277D85DE8];
   return v18;
 }
 
-uint64_t __104__HDOnboardingCompletionEntity_deleteAllCompletionsForFeatureIdentifier_syncIdentity_transaction_error___block_invoke(uint64_t a1)
+uint64_t __104__HDOnboardingCompletionEntity_deleteAllCompletionsForFeatureIdentifier_syncIdentity_transaction_error___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v2 = HDSQLiteColumnWithNameAsUUID();
-  [*(a1 + 32) addObject:v2];
+  v4 = HDSQLiteColumnWithNameAsUUID();
+  [*(a1 + 32) addObject:v4];
 
   return 1;
 }
@@ -688,7 +677,7 @@ uint64_t __74__HDOnboardingCompletionEntity_onboardingCompletionWithTransaction_
   v6 = *(v5 + 40);
   *(v5 + 40) = v4;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v4, v6);
 }
 
 + (id)entityEncoderForProfile:(id)profile transaction:(id)transaction purpose:(int64_t)purpose encodingOptions:(id)options authorizationFilter:(id)filter

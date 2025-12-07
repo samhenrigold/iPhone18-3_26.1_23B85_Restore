@@ -245,7 +245,7 @@
   v42 = v21;
   v23 = [NSMutableArray arrayWithObject:v21];
   v24 = v52;
-  while ([v23 count])
+  while (objc_msgSend_count(v23))
   {
     firstObject = [v23 firstObject];
     [v23 removeObjectAtIndex:0];
@@ -375,7 +375,7 @@ LABEL_46:
     v8 = [NSMutableSet setWithObject:v7];
     v17 = v7;
     v9 = [NSMutableArray arrayWithObject:v7];
-    while ([v9 count])
+    while (objc_msgSend_count(v9))
     {
       firstObject = [v9 firstObject];
       withCopy[2](withCopy, firstObject);
@@ -430,7 +430,7 @@ LABEL_46:
   v8 = [NSMutableSet setWithObject:v7];
   v21 = v7;
   v9 = [NSMutableArray arrayWithObject:v7];
-  if ([v9 count])
+  if (objc_msgSend_count(v9))
   {
     v23 = v9;
     do
@@ -497,7 +497,7 @@ LABEL_17:
       v9 = v23;
     }
 
-    while ([v23 count]);
+    while (objc_msgSend_count(v23));
   }
 
   return selfCopy;

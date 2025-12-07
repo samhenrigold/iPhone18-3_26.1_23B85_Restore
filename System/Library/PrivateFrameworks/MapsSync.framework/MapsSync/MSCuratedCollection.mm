@@ -1,5 +1,6 @@
 @interface MSCuratedCollection
 + (Class)managedClass;
+- (MSCuratedCollection)initWithCuratedCollectionIdentifier:(unint64_t)identifier positionIndex:(int64_t)index resultProviderIdentifier:(int)providerIdentifier;
 - (MSCuratedCollection)initWithObject:(id)object store:(id)store lazyLoad:(BOOL)load parent:(BOOL)parent;
 - (int)resultProviderIdentifier;
 - (void)setCuratedCollectionIdentifier:(unint64_t)identifier;
@@ -9,6 +10,21 @@
 @end
 
 @implementation MSCuratedCollection
+
+- (MSCuratedCollection)initWithCuratedCollectionIdentifier:(unint64_t)identifier positionIndex:(int64_t)index resultProviderIdentifier:(int)providerIdentifier
+{
+  v5 = *&providerIdentifier;
+  if (qword_1EDB0F2A0 != -1)
+  {
+    selfCopy = self;
+    swift_once();
+    self = selfCopy;
+  }
+
+  v8 = qword_1EDB0F2A8;
+
+  return [(MSCuratedCollection *)self initWithStore:v8 curatedCollectionIdentifier:identifier positionIndex:index resultProviderIdentifier:v5];
+}
 
 + (Class)managedClass
 {

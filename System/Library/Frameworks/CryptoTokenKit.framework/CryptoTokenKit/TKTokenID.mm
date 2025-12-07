@@ -168,7 +168,7 @@
 
 - (id)decodedObjectID:(id)d isCertificate:(BOOL *)certificate error:(id *)error
 {
-  v23[1] = *MEMORY[0x1E69E9840];
+  v22[1] = *MEMORY[0x1E69E9840];
   dCopy = d;
   v9 = [(TKTLVRecord *)TKBERTLVRecord recordFromData:dCopy];
   if ([v9 tag] != 0x5FC8C6BFE112)
@@ -200,9 +200,9 @@
       if (error && !v11)
       {
         v17 = MEMORY[0x1E696ABC0];
-        v22 = *MEMORY[0x1E696A578];
-        v23[0] = @"corrupted objectID detected";
-        v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:&v22 count:1];
+        v21 = *MEMORY[0x1E696A578];
+        v22[0] = @"corrupted objectID detected";
+        v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:&v21 count:1];
         *error = [v17 errorWithDomain:@"CryptoTokenKit" code:-3 userInfo:v18];
 
         v12 = 0;
@@ -225,31 +225,28 @@ LABEL_12:
 
   v19 = v11;
 
-  v20 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
 - (id)decodedKeyID:(id)d error:(id *)error
 {
-  v12[1] = *MEMORY[0x1E69E9840];
-  v10 = 0;
-  v5 = [(TKTokenID *)self decodedObjectID:d isCertificate:&v10 error:error];
-  if (v5 && v10 == 1)
+  v11[1] = *MEMORY[0x1E69E9840];
+  v9 = 0;
+  v5 = [(TKTokenID *)self decodedObjectID:d isCertificate:&v9 error:error];
+  if (v5 && v9 == 1)
   {
 
     if (error)
     {
       v6 = MEMORY[0x1E696ABC0];
-      v11 = *MEMORY[0x1E696A278];
-      v12[0] = @"Expecting key, but provided certificate objectID";
-      v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:&v11 count:1];
+      v10 = *MEMORY[0x1E696A278];
+      v11[0] = @"Expecting key, but provided certificate objectID";
+      v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:&v10 count:1];
       *error = [v6 errorWithDomain:@"CryptoTokenKit" code:-6 userInfo:v7];
     }
 
     v5 = 0;
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v5;
 }

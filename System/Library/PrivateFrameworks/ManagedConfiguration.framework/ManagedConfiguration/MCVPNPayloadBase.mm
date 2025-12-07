@@ -13,7 +13,7 @@
 + (id)NEVPNPayloadBaseDelegateWithConfigurationDict:(id)dict
 {
   dictCopy = dict;
-  MCNEProfileIngestionClass();
+  MCNEProfileIngestionClass(dictCopy);
   v4 = [objc_alloc(NSClassFromString(&cfstr_Neprofilepaylo_0.isa)) initWithPayload:dictCopy];
 
   return v4;
@@ -22,7 +22,7 @@
 + (id)NEAlwaysOnVPNPayloadBaseDelegateWithConfigurationDict:(id)dict
 {
   dictCopy = dict;
-  MCNEProfileIngestionClass();
+  MCNEProfileIngestionClass(dictCopy);
   v4 = [objc_alloc(NSClassFromString(&cfstr_Neprofilepaylo.isa)) initWithPayload:dictCopy];
 
   return v4;
@@ -30,12 +30,12 @@
 
 - (MCVPNPayloadBase)initWithDictionary:(id)dictionary profile:(id)profile outError:(id *)error
 {
-  v99[6] = *MEMORY[0x1E69E9840];
+  v98[6] = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   profileCopy = profile;
-  v90.receiver = self;
-  v90.super_class = MCVPNPayloadBase;
-  v10 = [(MCPayload *)&v90 initWithDictionary:dictionaryCopy profile:profileCopy outError:error];
+  v89.receiver = self;
+  v89.super_class = MCVPNPayloadBase;
+  v10 = [(MCPayload *)&v89 initWithDictionary:dictionaryCopy profile:profileCopy outError:error];
   if (v10)
   {
     if ([profileCopy isStub])
@@ -52,9 +52,9 @@ LABEL_10:
       goto LABEL_11;
     }
 
-    v89 = 0;
-    v15 = [dictionaryCopy MCValidateAndRemoveNonZeroLengthStringWithKey:@"VPNType" isRequired:1 outError:&v89];
-    vpnType = v89;
+    v88 = 0;
+    v15 = [dictionaryCopy MCValidateAndRemoveNonZeroLengthStringWithKey:@"VPNType" isRequired:1 outError:&v88];
+    vpnType = v88;
     v16 = v10->_vpnType;
     v10->_vpnType = v15;
 
@@ -63,16 +63,16 @@ LABEL_10:
       goto LABEL_5;
     }
 
-    v99[0] = @"VPN";
-    v99[1] = @"L2TP";
-    v99[2] = @"PPTP";
-    v99[3] = @"IPSec";
-    v99[4] = @"IKEv2";
-    v99[5] = @"AlwaysOn";
-    v27 = [MEMORY[0x1E695DEC8] arrayWithObjects:v99 count:6];
-    v28 = [v27 containsObject:v10->_vpnType];
+    v98[0] = @"VPN";
+    v98[1] = @"L2TP";
+    v98[2] = @"PPTP";
+    v98[3] = @"IPSec";
+    v98[4] = @"IKEv2";
+    v98[5] = @"AlwaysOn";
+    v26 = [MEMORY[0x1E695DEC8] arrayWithObjects:v98 count:6];
+    v27 = [v26 containsObject:v10->_vpnType];
 
-    if ((v28 & 1) == 0)
+    if ((v27 & 1) == 0)
     {
       vpnType = [MCPayload badFieldTypeErrorWithField:@"VPNType"];
       if (!vpnType)
@@ -83,9 +83,9 @@ LABEL_10:
       goto LABEL_5;
     }
 
-    v29 = objc_alloc_init(MEMORY[0x1E695DF90]);
+    v28 = objc_alloc_init(MEMORY[0x1E695DF90]);
     configurationDictionary = v10->_configurationDictionary;
-    v10->_configurationDictionary = v29;
+    v10->_configurationDictionary = v28;
 
     displayName = v10->super._displayName;
     if (displayName)
@@ -93,22 +93,22 @@ LABEL_10:
       [(NSMutableDictionary *)v10->_configurationDictionary setObject:displayName forKeyedSubscript:@"PayloadDisplayName"];
     }
 
-    v81 = v10->_configurationDictionary;
-    v97[0] = @"Enabled";
-    v98[0] = objc_opt_class();
-    v97[1] = @"VPNApplicationBundleID";
-    v98[1] = objc_opt_class();
-    v97[2] = @"VPNApplicationID";
-    v98[2] = objc_opt_class();
-    v97[3] = @"AppRules";
-    v98[3] = objc_opt_class();
-    v97[4] = @"PayloadCertificateHash";
-    v98[4] = objc_opt_class();
-    v32 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v98 forKeys:v97 count:5];
-    v88 = 0;
-    v33 = [dictionaryCopy MCMutableDictionaryContainingValidatedKeysAndClasses:v32 removeKeys:1 outError:&v88];
-    vpnType = v88;
-    [(NSMutableDictionary *)v81 addEntriesFromDictionary:v33];
+    v80 = v10->_configurationDictionary;
+    v96[0] = @"Enabled";
+    v97[0] = objc_opt_class();
+    v96[1] = @"VPNApplicationBundleID";
+    v97[1] = objc_opt_class();
+    v96[2] = @"VPNApplicationID";
+    v97[2] = objc_opt_class();
+    v96[3] = @"AppRules";
+    v97[3] = objc_opt_class();
+    v96[4] = @"PayloadCertificateHash";
+    v97[4] = objc_opt_class();
+    v31 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v97 forKeys:v96 count:5];
+    v87 = 0;
+    v32 = [dictionaryCopy MCMutableDictionaryContainingValidatedKeysAndClasses:v31 removeKeys:1 outError:&v87];
+    vpnType = v87;
+    [(NSMutableDictionary *)v80 addEntriesFromDictionary:v32];
 
     if (vpnType)
     {
@@ -117,34 +117,34 @@ LABEL_10:
 
     if ([(NSString *)v10->_vpnType isEqualToString:@"AlwaysOn"])
     {
-      v34 = [dictionaryCopy MCValidateAndRemoveNonZeroLengthStringWithKey:@"UserDefinedName" isRequired:0 outError:0];
-      v35 = v10->_serviceName;
-      v10->_serviceName = v34;
+      v33 = [dictionaryCopy MCValidateAndRemoveNonZeroLengthStringWithKey:@"UserDefinedName" isRequired:0 outError:0];
+      v34 = v10->_serviceName;
+      v10->_serviceName = v33;
 
       [(NSMutableDictionary *)v10->_configurationDictionary setObject:v10->_vpnType forKeyedSubscript:@"VPNType"];
-      v36 = v10->_serviceName;
-      if (v36)
+      v35 = v10->_serviceName;
+      if (v35)
       {
-        [(NSMutableDictionary *)v10->_configurationDictionary setObject:v36 forKeyedSubscript:@"UserDefinedName"];
+        [(NSMutableDictionary *)v10->_configurationDictionary setObject:v35 forKeyedSubscript:@"UserDefinedName"];
       }
 
-      v87 = 0;
-      v37 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"AlwaysOn" isRequired:1 outError:&v87];
-      vpnType = v87;
+      v86 = 0;
+      v36 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"AlwaysOn" isRequired:1 outError:&v86];
+      vpnType = v86;
       if (!vpnType)
       {
-        [(NSMutableDictionary *)v10->_configurationDictionary setObject:v37 forKeyedSubscript:@"AlwaysOn"];
-        v38 = [MCVPNPayloadBase NEAlwaysOnVPNPayloadBaseDelegateWithConfigurationDict:v10->_configurationDictionary];
+        [(NSMutableDictionary *)v10->_configurationDictionary setObject:v36 forKeyedSubscript:@"AlwaysOn"];
+        v37 = [MCVPNPayloadBase NEAlwaysOnVPNPayloadBaseDelegateWithConfigurationDict:v10->_configurationDictionary];
         nePayloadBase = v10->_nePayloadBase;
-        v10->_nePayloadBase = v38;
+        v10->_nePayloadBase = v37;
 
         validatePayload = [(NEProfilePayloadBaseDelegate *)v10->_nePayloadBase validatePayload];
         if (validatePayload)
         {
-          v48 = validatePayload;
-          v49 = MEMORY[0x1E696ABC0];
-          v50 = MCErrorArray(@"ERROR_VPN_COULD_NOT_PARSE", v41, v42, v43, v44, v45, v46, v47, 0);
-          vpnType = [v49 MCErrorWithDomain:@"MCVPNErrorDomain" code:15005 descriptionArray:v50 underlyingError:v48 errorType:@"MCFatalError"];
+          v47 = validatePayload;
+          v48 = MEMORY[0x1E696ABC0];
+          v49 = MCErrorArray(@"ERROR_VPN_COULD_NOT_PARSE", v40, v41, v42, v43, v44, v45, v46, 0);
+          vpnType = [v48 MCErrorWithDomain:@"MCVPNErrorDomain" code:15005 descriptionArray:v49 underlyingError:v47 errorType:@"MCFatalError"];
         }
 
         else
@@ -156,52 +156,40 @@ LABEL_10:
       goto LABEL_46;
     }
 
-    v51 = v10->_configurationDictionary;
-    v95[0] = @"VendorConfig";
-    v96[0] = objc_opt_class();
-    v95[1] = @"OverridePrimary";
-    v96[1] = objc_opt_class();
-    v95[2] = @"OnDemandEnabled";
-    v96[2] = objc_opt_class();
-    v95[3] = @"OnDemandMatchDomainsAlways";
-    v96[3] = objc_opt_class();
-    v95[4] = @"OnDemandMatchDomainsNever";
-    v96[4] = objc_opt_class();
-    v95[5] = @"OnDemandMatchDomainsOnRetry";
-    v96[5] = objc_opt_class();
-    v95[6] = @"OnDemandRules";
-    v96[6] = objc_opt_class();
-    v95[7] = @"IPv4";
-    v96[7] = objc_opt_class();
-    v95[8] = @"PPP";
-    v96[8] = objc_opt_class();
-    v95[9] = @"IPSec";
-    v96[9] = objc_opt_class();
-    v95[10] = @"IKEv2";
-    v96[10] = objc_opt_class();
-    v95[11] = @"Proxies";
-    v96[11] = objc_opt_class();
-    v95[12] = @"DNS";
-    v96[12] = objc_opt_class();
-    v52 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v96 forKeys:v95 count:13];
-    v86 = 0;
-    v53 = [dictionaryCopy MCMutableDictionaryContainingValidatedKeysAndClasses:v52 removeKeys:1 outError:&v86];
-    vpnType = v86;
-    [(NSMutableDictionary *)v51 addEntriesFromDictionary:v53];
-
-    if (vpnType)
-    {
-      goto LABEL_5;
-    }
-
-    [(NSMutableDictionary *)v10->_configurationDictionary setObject:v10->_vpnType forKeyedSubscript:@"VPNType"];
+    v50 = v10->_configurationDictionary;
+    v94[0] = @"VendorConfig";
+    v95[0] = objc_opt_class();
+    v94[1] = @"OverridePrimary";
+    v95[1] = objc_opt_class();
+    v94[2] = @"OnDemandEnabled";
+    v95[2] = objc_opt_class();
+    v94[3] = @"OnDemandMatchDomainsAlways";
+    v95[3] = objc_opt_class();
+    v94[4] = @"OnDemandMatchDomainsNever";
+    v95[4] = objc_opt_class();
+    v94[5] = @"OnDemandMatchDomainsOnRetry";
+    v95[5] = objc_opt_class();
+    v94[6] = @"OnDemandRules";
+    v95[6] = objc_opt_class();
+    v94[7] = @"IPv4";
+    v95[7] = objc_opt_class();
+    v94[8] = @"PPP";
+    v95[8] = objc_opt_class();
+    v94[9] = @"IPSec";
+    v95[9] = objc_opt_class();
+    v94[10] = @"IKEv2";
+    v95[10] = objc_opt_class();
+    v94[11] = @"Proxies";
+    v95[11] = objc_opt_class();
+    v94[12] = @"DNS";
+    v95[12] = objc_opt_class();
+    v51 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v95 forKeys:v94 count:13];
     v85 = 0;
-    v54 = [dictionaryCopy MCValidateAndRemoveNonZeroLengthStringWithKey:@"UserDefinedName" isRequired:0 outError:&v85];
+    v52 = [dictionaryCopy MCMutableDictionaryContainingValidatedKeysAndClasses:v51 removeKeys:1 outError:&v85];
     vpnType = v85;
-    v55 = v10->_serviceName;
-    v10->_serviceName = v54;
+    [(NSMutableDictionary *)v50 addEntriesFromDictionary:v52];
 
-    if (vpnType)
+    if (vpnType || (-[NSMutableDictionary setObject:forKeyedSubscript:](v10->_configurationDictionary, "setObject:forKeyedSubscript:", v10->_vpnType, @"VPNType"), v84 = 0, [dictionaryCopy MCValidateAndRemoveNonZeroLengthStringWithKey:@"UserDefinedName" isRequired:0 outError:&v84], v53 = objc_claimAutoreleasedReturnValue(), vpnType = v84, v54 = v10->_serviceName, v10->_serviceName = v53, v54, vpnType))
     {
 LABEL_5:
       v17 = [(MCPayload *)v10 malformedPayloadErrorWithError:vpnType];
@@ -220,9 +208,9 @@ LABEL_5:
         v23 = v22;
         mCVerboseDescription = [v18 MCVerboseDescription];
         *buf = 138543618;
-        v92 = v22;
-        v93 = 2114;
-        v94 = mCVerboseDescription;
+        v91 = v22;
+        v92 = 2114;
+        v93 = mCVerboseDescription;
         _os_log_impl(&dword_1A795B000, v21, OS_LOG_TYPE_ERROR, "%{public}@ Can't parse payload: %{public}@", buf, 0x16u);
       }
 
@@ -230,16 +218,16 @@ LABEL_5:
       goto LABEL_10;
     }
 
-    v56 = v10->_serviceName;
-    if (v56)
+    v55 = v10->_serviceName;
+    if (v55)
     {
-      [(NSMutableDictionary *)v10->_configurationDictionary setObject:v56 forKeyedSubscript:@"UserDefinedName"];
+      [(NSMutableDictionary *)v10->_configurationDictionary setObject:v55 forKeyedSubscript:@"UserDefinedName"];
     }
 
-    v84 = 0;
-    v57 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"VPN" isRequired:0 outError:&v84];
-    vpnType = v84;
-    v37 = [v57 mutableCopy];
+    v83 = 0;
+    v56 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"VPN" isRequired:0 outError:&v83];
+    vpnType = v83;
+    v36 = [v56 mutableCopy];
 
     if (vpnType)
     {
@@ -253,60 +241,60 @@ LABEL_46:
       goto LABEL_5;
     }
 
-    if (v37)
+    if (v36)
     {
-      v58 = [v37 copy];
-      [(NSMutableDictionary *)v10->_configurationDictionary setObject:v58 forKeyedSubscript:@"VPN"];
+      v57 = [v36 copy];
+      [(NSMutableDictionary *)v10->_configurationDictionary setObject:v57 forKeyedSubscript:@"VPN"];
     }
 
     if ([(NSString *)v10->_vpnType isEqualToString:@"VPN"]|| [(NSString *)v10->_vpnType isEqualToString:@"IKEv2"])
     {
-      v59 = [(NSString *)v10->_vpnType isEqualToString:@"VPN"];
-      v83 = 0;
-      v60 = [dictionaryCopy MCValidateAndRemoveNonZeroLengthStringWithKey:@"VPNSubType" isRequired:v59 outError:&v83];
-      v61 = v83;
-      if (v61)
+      v58 = [(NSString *)v10->_vpnType isEqualToString:@"VPN"];
+      v82 = 0;
+      v59 = [dictionaryCopy MCValidateAndRemoveNonZeroLengthStringWithKey:@"VPNSubType" isRequired:v58 outError:&v82];
+      v60 = v82;
+      if (v60)
       {
-        vpnType = v61;
+        vpnType = v60;
 LABEL_45:
 
         goto LABEL_46;
       }
 
-      if (v60)
+      if (v59)
       {
-        [(NSMutableDictionary *)v10->_configurationDictionary setObject:v60 forKeyedSubscript:@"VPNSubType"];
+        [(NSMutableDictionary *)v10->_configurationDictionary setObject:v59 forKeyedSubscript:@"VPNSubType"];
       }
 
       type = [(MCPayload *)v10 type];
-      v63 = +[MCAppLayerVPNPayload typeStrings];
-      firstObject = [v63 firstObject];
-      v65 = [type isEqualToString:firstObject];
+      v62 = +[MCAppLayerVPNPayload typeStrings];
+      firstObject = [v62 firstObject];
+      v64 = [type isEqualToString:firstObject];
 
-      if (v65)
+      if (v64)
       {
-        v82 = 0;
-        v66 = [dictionaryCopy MCValidateAndRemoveNonZeroLengthStringWithKey:@"CellularSliceUUID" isRequired:0 outError:&v82];
-        vpnType = v82;
+        v81 = 0;
+        v65 = [dictionaryCopy MCValidateAndRemoveNonZeroLengthStringWithKey:@"CellularSliceUUID" isRequired:0 outError:&v81];
+        vpnType = v81;
         CellularSliceUUID = v10->_CellularSliceUUID;
-        v10->_CellularSliceUUID = v66;
+        v10->_CellularSliceUUID = v65;
 
         if (vpnType)
         {
           goto LABEL_45;
         }
 
-        v68 = v10->_CellularSliceUUID;
-        if (v68)
+        v67 = v10->_CellularSliceUUID;
+        if (v67)
         {
-          [(NSMutableDictionary *)v10->_configurationDictionary setObject:v68 forKeyedSubscript:@"CellularSliceUUID"];
+          [(NSMutableDictionary *)v10->_configurationDictionary setObject:v67 forKeyedSubscript:@"CellularSliceUUID"];
         }
       }
     }
 
-    v69 = [MCVPNPayloadBase NEVPNPayloadBaseDelegateWithConfigurationDict:v10->_configurationDictionary];
-    v70 = v10->_nePayloadBase;
-    v10->_nePayloadBase = v69;
+    v68 = [MCVPNPayloadBase NEVPNPayloadBaseDelegateWithConfigurationDict:v10->_configurationDictionary];
+    v69 = v10->_nePayloadBase;
+    v10->_nePayloadBase = v68;
 
     vpnType = [(NEProfilePayloadBaseDelegate *)v10->_nePayloadBase validatePayload];
     if (!vpnType)
@@ -314,18 +302,17 @@ LABEL_45:
       goto LABEL_46;
     }
 
-    v78 = MEMORY[0x1E696ABC0];
-    v60 = MCErrorArray(@"ERROR_VPN_COULD_NOT_PARSE", v71, v72, v73, v74, v75, v76, v77, 0);
-    v79 = [v78 MCErrorWithDomain:@"MCVPNErrorDomain" code:15005 descriptionArray:v60 underlyingError:vpnType errorType:@"MCFatalError"];
-    v80 = vpnType;
-    vpnType = v79;
+    v77 = MEMORY[0x1E696ABC0];
+    v59 = MCErrorArray(@"ERROR_VPN_COULD_NOT_PARSE", v70, v71, v72, v73, v74, v75, v76, 0);
+    v78 = [v77 MCErrorWithDomain:@"MCVPNErrorDomain" code:15005 descriptionArray:v59 underlyingError:vpnType errorType:@"MCFatalError"];
+    v79 = vpnType;
+    vpnType = v78;
 
     goto LABEL_45;
   }
 
 LABEL_11:
 
-  v25 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
@@ -415,7 +402,7 @@ LABEL_11:
 
 - (id)payloadDescriptionKeyValueSections
 {
-  v19[1] = *MEMORY[0x1E69E9840];
+  v18[1] = *MEMORY[0x1E69E9840];
   v3 = objc_opt_new();
   serviceName = [(MCVPNPayloadBase *)self serviceName];
 
@@ -444,16 +431,14 @@ LABEL_11:
   if ([v3 count] && (+[MCKeyValueSection sectionWithKeyValues:](MCKeyValueSection, "sectionWithKeyValues:", v3), (v14 = objc_claimAutoreleasedReturnValue()) != 0))
   {
     v15 = v14;
-    v19[0] = v14;
-    v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:1];
+    v18[0] = v14;
+    v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:1];
   }
 
   else
   {
     v16 = 0;
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 
   return v16;
 }

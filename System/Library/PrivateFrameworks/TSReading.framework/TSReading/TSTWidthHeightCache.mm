@@ -49,7 +49,7 @@
   v3 = v2;
   if (v2)
   {
-    std::vector<TSTWidthHeightCache_Private::WHCCol>::reserve(&v2->mFittingColumnWidth.__begin_, 0x20uLL);
+    std::vector<TSTWidthHeightCache_Private::WHCCol>::reserve(v2 + 1, 0x20uLL);
     v3->mMaxRow = 0;
     v3->mMaxCol = 0;
     pthread_rwlock_init(&v3->mLock, 0);
@@ -113,7 +113,7 @@
       v13 = self->mFittingRowHeight.__begin_;
       if (d.var0 >= 0xCF3CF3CF3CF3CF3DLL * ((self->mFittingRowHeight.__end_ - v13) >> 3))
       {
-        std::vector<TSTWidthHeightCache_Private::WHCRow>::resize(&self->mFittingRowHeight.__begin_, d.var0 + 1);
+        std::vector<TSTWidthHeightCache_Private::WHCRow>::resize(&self->mFittingRowHeight, d.var0 + 1);
         v13 = self->mFittingRowHeight.__begin_;
       }
 
@@ -164,7 +164,7 @@
   begin = self->mFittingRowHeight.__begin_;
   if (var0 >= 0xCF3CF3CF3CF3CF3DLL * ((self->mFittingRowHeight.__end_ - begin) >> 3))
   {
-    std::vector<TSTWidthHeightCache_Private::WHCRow>::resize(&self->mFittingRowHeight.__begin_, var0 + 1);
+    std::vector<TSTWidthHeightCache_Private::WHCRow>::resize(&self->mFittingRowHeight, var0 + 1);
     begin = self->mFittingRowHeight.__begin_;
   }
 
@@ -428,7 +428,7 @@
   begin = self->mFittingRowHeight.__begin_;
   if (0xCF3CF3CF3CF3CF3DLL * ((self->mFittingRowHeight.__end_ - begin) >> 3) < rowCopy)
   {
-    std::vector<TSTWidthHeightCache_Private::WHCRow>::resize(&self->mFittingRowHeight.__begin_, rowCopy);
+    std::vector<TSTWidthHeightCache_Private::WHCRow>::resize(&self->mFittingRowHeight, rowCopy);
     begin = self->mFittingRowHeight.__begin_;
   }
 
@@ -489,7 +489,7 @@
   p_mFittingRowHeight = &self->mFittingRowHeight;
   if (0xCF3CF3CF3CF3CF3DLL * ((self->mFittingRowHeight.__end_ - begin) >> 3) < v9)
   {
-    std::vector<TSTWidthHeightCache_Private::WHCRow>::resize(&self->mFittingRowHeight.__begin_, v9);
+    std::vector<TSTWidthHeightCache_Private::WHCRow>::resize(&self->mFittingRowHeight, v9);
     begin = p_mFittingRowHeight->__begin_;
   }
 
@@ -594,7 +594,7 @@ LABEL_20:
   }
 
   std::__move_impl<std::_ClassicAlgPolicy>::operator()[abi:nn200100]<TSTWidthHeightCache_Private::WHCCol *,TSTWidthHeightCache_Private::WHCCol *,TSTWidthHeightCache_Private::WHCCol *>(&v23, v20, v21, v14);
-  for (i = self->mFittingRowHeight.__begin_; i < self->mFittingRowHeight.__end_; i = (i + 168))
+  for (i = self->mFittingRowHeight.__begin_; i < self->mFittingRowHeight.__end_; i += 168)
   {
     TSTWidthHeightCache_NibArray::NibArray<8u>::move(i, from.var0.var1, from.var0.var1 + v19, colCopy, 0x100u);
   }
@@ -811,7 +811,7 @@ LABEL_12:
   v8 = 0xCF3CF3CF3CF3CF3DLL * ((self->mFittingRowHeight.__end_ - begin) >> 3);
   if (v8 <= endingWithCopy)
   {
-    std::vector<TSTWidthHeightCache_Private::WHCRow>::resize(&self->mFittingRowHeight.__begin_, endingWithCopy + 1);
+    std::vector<TSTWidthHeightCache_Private::WHCRow>::resize(&self->mFittingRowHeight, endingWithCopy + 1);
     begin = self->mFittingRowHeight.__begin_;
   }
 
@@ -934,7 +934,7 @@ LABEL_12:
   v7 = var1 + var0.var0;
   if (0xCF3CF3CF3CF3CF3DLL * ((self->mFittingRowHeight.__end_ - self->mFittingRowHeight.__begin_) >> 3) < v7)
   {
-    std::vector<TSTWidthHeightCache_Private::WHCRow>::resize(&self->mFittingRowHeight.__begin_, var1 + var0.var0);
+    std::vector<TSTWidthHeightCache_Private::WHCRow>::resize(&self->mFittingRowHeight, var1 + var0.var0);
   }
 
   if (var0.var1 + v5 > ((self->mFittingColumnWidth.__end_ - self->mFittingColumnWidth.__begin_) >> 5))
@@ -990,7 +990,7 @@ LABEL_12:
   v7 = colsCopy - 1;
   if (self->mMaxRow > (rowsCopy - 1))
   {
-    std::vector<TSTWidthHeightCache_Private::WHCRow>::resize(&self->mFittingRowHeight.__begin_, rowsCopy);
+    std::vector<TSTWidthHeightCache_Private::WHCRow>::resize(&self->mFittingRowHeight, rowsCopy);
   }
 
   if (self->mMaxCol > v7)
@@ -1277,7 +1277,7 @@ LABEL_9:
 {
   begin = self->mFittingColumnWidth.__begin_;
   p_mFittingColumnWidth = &self->mFittingColumnWidth;
-  if (capacity >= ((p_mFittingColumnWidth->__cap_ - begin) >> 5))
+  if (capacity >= ((p_mFittingColumnWidth[2] - begin) >> 5))
   {
     if ((capacity & 0xFFFFFF1F) != 0)
     {
@@ -1297,7 +1297,7 @@ LABEL_9:
 {
   begin = self->mFittingRowHeight.__begin_;
   p_mFittingRowHeight = &self->mFittingRowHeight;
-  if (0xCF3CF3CF3CF3CF3DLL * ((p_mFittingRowHeight->__cap_ - begin) >> 3) <= capacity)
+  if (0xCF3CF3CF3CF3CF3DLL * ((p_mFittingRowHeight[2] - begin) >> 3) <= capacity)
   {
     std::vector<TSTWidthHeightCache_Private::WHCRow>::reserve(p_mFittingRowHeight, 0);
   }

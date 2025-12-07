@@ -780,7 +780,7 @@ LABEL_152:
   return 1;
 }
 
-uint64_t __89__CAMApplication_Testing__runTakeVideoTestWithTestPlan_options_userPreferencesOverrides___block_invoke_2(uint64_t a1)
+void *__89__CAMApplication_Testing__runTakeVideoTestWithTestPlan_options_userPreferencesOverrides___block_invoke_2(uint64_t a1)
 {
   result = [*(a1 + 32) isRunningTest];
   if (result)

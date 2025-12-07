@@ -76,9 +76,9 @@
   swift_getObjCClassMetadata();
   startCopy = start;
   endCopy = end;
-  v9 = sub_23BE30D44();
+  v10 = sub_23BE30D44(startCopy, endCopy, fraction);
 
-  return v9;
+  return v10;
 }
 
 @end

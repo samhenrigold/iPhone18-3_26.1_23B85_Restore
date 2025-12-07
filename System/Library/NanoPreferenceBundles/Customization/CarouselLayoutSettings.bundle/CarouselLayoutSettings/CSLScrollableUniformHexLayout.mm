@@ -15,11 +15,10 @@
   [(CSLUniformHexLayout *)&v9 layoutAttributesForItemAtHex:hex];
   [(CSLHexLayout *)self scrolledPointFromContentPoint:vcvtq_f64_f32(*v5)];
   *&v8.var0 = v8.var0;
-  v6 = *v5->f32;
   v5[1].i32[0] = v5[1];
-  LODWORD(v6) = LODWORD(v8.var0);
+  v6.i32[0] = LODWORD(v8.var0);
   *&v8.var0 = v7;
-  DWORD1(v6) = LODWORD(v8.var0);
+  v6.i32[1] = LODWORD(v8.var0);
   *v5 = v6;
   return v8;
 }

@@ -497,7 +497,7 @@ void __43__BSObjCValue_StructSupport__structMembers__block_invoke(uint64_t a1, v
   }
 
   v75 = v2;
-  v4 = +[NSString bsobjc_typeQualifiers];
+  v4 = +[(NSString *)MEMORY[0x1E696AEC0]];
   v5 = [v75 rangeOfCharacterFromSet:v4 options:10];
 
   if (v5 == 0x7FFFFFFFFFFFFFFFLL)
@@ -509,7 +509,7 @@ void __43__BSObjCValue_StructSupport__structMembers__block_invoke(uint64_t a1, v
   else
   {
     v8 = [MEMORY[0x1E696AE88] scannerWithString:v75];
-    v9 = +[NSString bsobjc_typeQualifiers];
+    v9 = +[(NSString *)MEMORY[0x1E696AEC0]];
     *sizep = 0;
     v10 = [v8 scanCharactersFromSet:v9 intoString:sizep];
     v11 = *sizep;
@@ -1472,10 +1472,11 @@ LABEL_96:
     goto LABEL_35;
   }
 
-  v13 = *(v4 + 9);
-  if (!*(value + 72))
+  v13 = *(value + 72);
+  v14 = *(v4 + 9);
+  if (!v13)
   {
-    if (!v13)
+    if (!v14)
     {
       goto LABEL_30;
     }
@@ -1485,7 +1486,7 @@ LABEL_35:
     goto LABEL_36;
   }
 
-  if (!v13 || (([BSObjCValue _isIndistinguishableFromValue:])() & 1) == 0)
+  if (!v14 || ![(BSObjCValue *)v13 _isIndistinguishableFromValue:v14])
   {
     goto LABEL_35;
   }
@@ -1496,24 +1497,24 @@ LABEL_30:
     goto LABEL_35;
   }
 
-  v14 = 0;
+  v15 = 0;
   do
   {
-    v15 = [*(value + 80) count];
-    v8 = v14 >= v15;
-    if (v14 >= v15)
+    v16 = [*(value + 80) count];
+    v8 = v15 >= v16;
+    if (v15 >= v16)
     {
       break;
     }
 
-    v16 = [*(value + 80) objectAtIndex:v14];
-    v17 = [*(v4 + 10) objectAtIndex:v14];
-    v18 = [(BSObjCValue *)v16 _isIndistinguishableFromValue:v17];
+    v17 = [*(value + 80) objectAtIndex:v15];
+    v18 = [*(v4 + 10) objectAtIndex:v15];
+    v19 = [(BSObjCValue *)v17 _isIndistinguishableFromValue:v18];
 
-    ++v14;
+    ++v15;
   }
 
-  while ((v18 & 1) != 0);
+  while (v19);
 LABEL_36:
 
   return v8;
@@ -1524,7 +1525,7 @@ void __32__BSObjCValue__prettyTypeString__block_invoke(uint64_t a1, void *a2, ui
   v5 = a2;
   v6 = *(a1 + 32);
   v8 = v5;
-  [BSObjCValue _prettyTypeString];
+  [(BSObjCValue *)v5 _prettyTypeString];
   if (a3)
     v7 = {;
     [v6 appendFormat:@", %@", v7];

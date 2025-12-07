@@ -120,11 +120,11 @@ uint64_t __40__HKMedicalIDStore_medicalIDSetUpStatus__block_invoke(uint64_t a1, 
 void __40__HKMedicalIDStore_medicalIDSetUpStatus__block_invoke_3(uint64_t a1, void *a2)
 {
   v2 = a2;
-  _HKInitializeLogging();
-  v3 = HKLogInfrastructure();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+  _HKInitializeLogging(v2, v3);
+  v6 = HKLogInfrastructure(v4, v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
-    __40__HKMedicalIDStore_medicalIDSetUpStatus__block_invoke_3_cold_1(v2, v3);
+    __40__HKMedicalIDStore_medicalIDSetUpStatus__block_invoke_3_cold_1(v2, v6);
   }
 }
 
@@ -453,11 +453,10 @@ void __54__HKMedicalIDStore_removeEmergencyContact_completion___block_invoke(uin
 
 void __40__HKMedicalIDStore_medicalIDSetUpStatus__block_invoke_3_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_19197B000, a2, OS_LOG_TYPE_ERROR, "Failed to get synchronous proxy with error, %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_19197B000, a2, OS_LOG_TYPE_ERROR, "Failed to get synchronous proxy with error, %{public}@", &v2, 0xCu);
 }
 
 @end

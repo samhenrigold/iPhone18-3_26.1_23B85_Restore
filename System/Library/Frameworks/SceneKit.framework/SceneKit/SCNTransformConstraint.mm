@@ -30,55 +30,55 @@
   return v6;
 }
 
-void *__57__SCNTransformConstraint_initTransformInWorld_withBlock___block_invoke(uint64_t a1, float a2, uint64_t a3, float32x4_t *a4, uint64_t a5)
+void *__57__SCNTransformConstraint_initTransformInWorld_withBlock___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, float a5)
 {
-  memset(&v21, 0, sizeof(v21));
+  memset(&v24, 0, sizeof(v24));
   if (*(a1 + 40) == 1)
   {
-    WorldMatrix = C3DNodeGetWorldMatrix(a4);
+    WorldMatrix = C3DNodeGetWorldMatrix(a3, a2);
   }
 
   else
   {
-    memset(&v20, 0, sizeof(v20));
-    C3DNodeGetMatrix(a4, &v20);
-    WorldMatrix = &v20;
+    memset(&v23, 0, sizeof(v23));
+    C3DNodeGetMatrix(a3, a2, &v23);
+    WorldMatrix = &v23;
   }
 
-  [SCNNode nodeWithNodeRef:a4, C3DMatrix4x4ToSCNMatrix4(WorldMatrix, &v21).n128_f64[0]];
-  memset(&v20, 0, sizeof(v20));
+  [SCNNode nodeWithNodeRef:a3, C3DMatrix4x4ToSCNMatrix4(WorldMatrix, &v24).n128_f64[0]];
+  memset(&v23, 0, sizeof(v23));
   v10 = *(*(a1 + 32) + 16);
-  a = v21;
-  v10(&v20);
-  a = v21;
-  v18 = v20;
-  result = SCNMatrix4EqualToMatrix4(&a, &v18);
+  a = v24;
+  v10(&v23);
+  a = v24;
+  v21 = v23;
+  result = SCNMatrix4EqualToMatrix4(&a, &v21);
   if ((result & 1) == 0)
   {
     memset(&a, 0, sizeof(a));
-    C3DMatrix4x4FromSCNMatrix4(&a, &v20);
+    C3DMatrix4x4FromSCNMatrix4(&a, &v23);
     if (*(a1 + 40) == 1)
     {
-      Parent = C3DNodeGetParent(a4);
+      Parent = C3DNodeGetParent(a3, v12);
       if (Parent)
       {
-        memset(&v18, 0, sizeof(v18));
-        v13 = C3DNodeGetWorldMatrix(Parent);
-        C3DMatrix4x4Invert(v13, &v18);
-        C3DMatrix4x4Mult(&a, &v18, &a);
+        memset(&v21, 0, sizeof(v21));
+        v14 = C3DNodeGetWorldMatrix(Parent, v12);
+        C3DMatrix4x4Invert(v14, &v21);
+        C3DMatrix4x4Mult(&a, &v21, &a);
       }
     }
 
-    TargetAddress = C3DModelTargetGetTargetAddress(a5);
-    v15 = TargetAddress;
-    if (a2 != 1.0)
+    TargetAddress = C3DModelTargetGetTargetAddress(a4, v12);
+    v17 = TargetAddress;
+    if (a5 != 1.0)
     {
-      C3DMatrix4x4Interpolate(TargetAddress, &a, &a, a2);
+      C3DMatrix4x4Interpolate(TargetAddress, &a, &a, a5);
     }
 
-    Target = C3DModelTargetGetTarget(a5);
-    v17 = C3DSizeOfBaseType(11);
-    return C3DSetValue(Target, v15, &a, v17, *(a5 + 34), *(a5 + 35));
+    Target = C3DModelTargetGetTarget(a4, v16);
+    v20 = C3DSizeOfBaseType(11, v19);
+    return C3DSetValue(Target, v17, &a, v20, *(a4 + 34), *(a4 + 35));
   }
 
   return result;
@@ -103,67 +103,67 @@ void *__57__SCNTransformConstraint_initTransformInWorld_withBlock___block_invoke
   return v6;
 }
 
-void *__56__SCNTransformConstraint_initPositionInWorld_withBlock___block_invoke(uint64_t a1, float a2, uint64_t a3, float32x4_t *a4, uint64_t a5)
+void *__56__SCNTransformConstraint_initPositionInWorld_withBlock___block_invoke(uint64_t a1, uint64_t a2, __n128 *a3, uint64_t a4, float a5)
 {
   if (*(a1 + 40) == 1)
   {
-    WorldMatrix = C3DNodeGetWorldMatrix(a4);
-    *(v30.columns[0].i64 + 4) = 0;
-    v30.columns[0].i32[0] = 0;
-    C3DMatrix4x4GetTranslation(WorldMatrix, &v30);
-    v9 = v30.columns[0];
+    WorldMatrix = C3DNodeGetWorldMatrix(a3, a2);
+    *(v33.columns[0].i64 + 4) = 0;
+    v33.columns[0].i32[0] = 0;
+    C3DMatrix4x4GetTranslation(WorldMatrix, &v33);
+    v9 = v33.columns[0];
   }
 
   else
   {
-    *v9.i64 = C3DNodeGetPosition(a4);
+    *v9.i64 = C3DNodeGetPosition(a3);
   }
 
   b = v9.i64[0];
   v10 = v9.f32[2];
-  [SCNNode nodeWithNodeRef:a4];
+  [SCNNode nodeWithNodeRef:a3];
   *v11.i64 = (*(*(a1 + 32) + 16))();
-  v26 = v11;
-  v23 = v12;
-  v24 = v13;
-  *&v32.x = b;
-  v32.z = v10;
-  result = SCNVector3EqualToVector3(*v11.f32, v32);
+  v29 = v11;
+  v26 = v12;
+  v27 = v13;
+  *&v35.x = b;
+  v35.z = v10;
+  result = SCNVector3EqualToVector3(*v11.f32, v35);
   if ((result & 1) == 0)
   {
-    v15 = v26;
-    v15.i32[1] = v23;
-    v15.i32[2] = v24;
-    v31 = v15;
-    v27 = v15;
+    v16 = v29;
+    v16.i32[1] = v26;
+    v16.i32[2] = v27;
+    v34 = v16;
+    v30 = v16;
     if (*(a1 + 40) == 1)
     {
-      Parent = C3DNodeGetParent(a4);
+      Parent = C3DNodeGetParent(a3, v15);
       if (Parent)
       {
-        memset(&v30, 0, sizeof(v30));
-        v17 = C3DNodeGetWorldMatrix(Parent);
-        C3DMatrix4x4Invert(v17, &v30);
-        v29[0] = v30.columns[0];
-        v29[1] = v30.columns[1];
-        v29[2] = v30.columns[2];
-        v29[3] = v30.columns[3];
-        *v18.i64 = C3DVector3MultMatrix4x4(v29, v27);
-        v27 = v18;
-        v31 = v18;
+        memset(&v33, 0, sizeof(v33));
+        v18 = C3DNodeGetWorldMatrix(Parent, v15);
+        C3DMatrix4x4Invert(v18, &v33);
+        v32[0] = v33.columns[0];
+        v32[1] = v33.columns[1];
+        v32[2] = v33.columns[2];
+        v32[3] = v33.columns[3];
+        *v19.i64 = C3DVector3MultMatrix4x4(v32, v30);
+        v30 = v19;
+        v34 = v19;
       }
     }
 
-    if (a2 != 1.0)
+    if (a5 != 1.0)
     {
-      *v19.i64 = C3DNodeGetPosition(a4);
-      v31 = vmlaq_n_f32(v19, vsubq_f32(v27, v19), a2);
+      *v20.i64 = C3DNodeGetPosition(a3);
+      v34 = vmlaq_n_f32(v20, vsubq_f32(v30, v20), a5);
     }
 
-    Target = C3DModelTargetGetTarget(a5);
-    TargetAddress = C3DModelTargetGetTargetAddress(a5);
-    v22 = C3DSizeOfBaseType(9);
-    return C3DSetValue(Target, TargetAddress, &v31, v22, *(a5 + 34), *(a5 + 35));
+    Target = C3DModelTargetGetTarget(a4, v15);
+    TargetAddress = C3DModelTargetGetTargetAddress(a4, v22);
+    v25 = C3DSizeOfBaseType(9, v24);
+    return C3DSetValue(Target, TargetAddress, &v34, v25, *(a4 + 34), *(a4 + 35));
   }
 
   return result;
@@ -192,62 +192,62 @@ void *__64__SCNTransformConstraint_initOrientationInWorldSpace_withBlock___block
 {
   if (*(a1 + 40) == 1)
   {
-    v56.columns[0] = 0uLL;
-    C3DNodeGetWorldOrientation(a4, &v56);
-    v8 = v56.columns[0];
+    v59.columns[0] = 0uLL;
+    C3DNodeGetWorldOrientation(a4, &v59);
+    v8 = v59.columns[0];
   }
 
   else
   {
-    C3DNodeGetQuaternion(a4);
+    C3DNodeGetQuaternion(a4, a3);
   }
 
   ba = v8;
   [SCNNode nodeWithNodeRef:a4];
   *&v9.x = (*(*(a1 + 32) + 16))();
-  v49 = v9;
-  v44 = v10;
-  v45 = v11;
-  v46 = v12;
+  v52 = v9;
+  v47 = v10;
+  v48 = v11;
+  v49 = v12;
   result = SCNVector4EqualToVector4(v9, ba);
   if ((result & 1) == 0)
   {
-    v14 = v49;
-    v14.y = v44;
-    v14.z = v45;
-    v15 = v14;
-    v15.i32[3] = v46;
-    b = v15;
-    v57 = v15;
+    v15 = v52;
+    v15.y = v47;
+    v15.z = v48;
+    v16 = v15;
+    v16.i32[3] = v49;
+    b = v16;
+    v60 = v16;
     if (*(a1 + 40) == 1)
     {
-      v50 = v14;
-      Parent = C3DNodeGetParent(a4);
+      v53 = v15;
+      Parent = C3DNodeGetParent(a4, v14);
       if (Parent)
       {
-        memset(&v56, 0, sizeof(v56));
-        WorldMatrix = C3DNodeGetWorldMatrix(Parent);
-        C3DMatrix4x4Invert(WorldMatrix, &v56);
-        v55[0] = v56.columns[0];
-        v55[1] = v56.columns[1];
-        v55[2] = v56.columns[2];
-        v55[3] = v56.columns[3];
-        *v18.i64 = C3DMatrix4x4GetRotation(v55);
-        v19 = v18;
-        v19.i32[3] = v18.i32[0];
-        v20 = v50;
-        v21 = vzip1q_s32(v20, v20);
-        v21.i32[0] = v50.i32[2];
-        v22 = vuzp1q_s32(v20, v20);
-        v22.i32[0] = v50.i32[1];
-        v57 = vmlsq_f32(vmlaq_f32(vmlaq_laneq_f32(vmulq_f32(vmulq_f32(v19, vextq_s8(vdupq_laneq_s32(b, 3), b, 4uLL)), xmmword_21C27FD00), b, v18, 3), xmmword_21C27FD00, vmulq_f32(vextq_s8(vextq_s8(v18, v18, 0xCuLL), v18, 8uLL), v21)), v22, vextq_s8(vuzp1q_s32(v18, v18), v18, 0xCuLL));
-        b = v57;
+        memset(&v59, 0, sizeof(v59));
+        WorldMatrix = C3DNodeGetWorldMatrix(Parent, v14);
+        C3DMatrix4x4Invert(WorldMatrix, &v59);
+        v58[0] = v59.columns[0];
+        v58[1] = v59.columns[1];
+        v58[2] = v59.columns[2];
+        v58[3] = v59.columns[3];
+        *v19.i64 = C3DMatrix4x4GetRotation(v58);
+        v20 = v19;
+        v20.i32[3] = v19.i32[0];
+        v21 = v53;
+        v22 = vzip1q_s32(v21, v21);
+        v22.i32[0] = v53.i32[2];
+        v23 = vuzp1q_s32(v21, v21);
+        v23.i32[0] = v53.i32[1];
+        v60 = vmlsq_f32(vmlaq_f32(vmlaq_laneq_f32(vmulq_f32(vmulq_f32(v20, vextq_s8(vdupq_laneq_s32(b, 3), b, 4uLL)), xmmword_21C27FD00), b, v19, 3), xmmword_21C27FD00, vmulq_f32(vextq_s8(vextq_s8(v19, v19, 0xCuLL), v19, 8uLL), v22)), v23, vextq_s8(vuzp1q_s32(v19, v19), v19, 0xCuLL));
+        b = v60;
       }
     }
 
-    TargetAddress = C3DModelTargetGetTargetAddress(a5);
-    v25 = TargetAddress;
-    v26 = a2;
+    TargetAddress = C3DModelTargetGetTargetAddress(a5, v14);
+    v27 = TargetAddress;
+    v28 = a2;
     if (a2 != 1.0)
     {
       _Q6 = *TargetAddress;
@@ -256,43 +256,43 @@ void *__64__SCNTransformConstraint_initOrientationInWorldSpace_withBlock___block
       __asm { FMLA            S0, S1, V6.S[2] }
 
       _Q2.i32[0] = LODWORD(b.w);
-      v33 = -(_Q0.f32[0] + (COERCE_FLOAT(HIDWORD(*TargetAddress)) * b.w));
+      v35 = -(_Q0.f32[0] + (COERCE_FLOAT(HIDWORD(*TargetAddress)) * b.w));
       __asm { FMLA            S0, S2, V6.S[3] }
 
       _Q2.i64[0] = 0;
-      v35 = vbslq_s8(vdupq_lane_s32(*&vcgtq_f32(_Q2, _Q0), 0), vnegq_f32(b), b);
+      v37 = vbslq_s8(vdupq_lane_s32(*&vcgtq_f32(_Q2, _Q0), 0), vnegq_f32(b), b);
       if (_Q0.f32[0] < 0.0)
       {
-        _Q0.f32[0] = v33;
+        _Q0.f32[0] = v35;
       }
 
       if (1.0 - _Q0.f32[0] <= 0.00100000005)
       {
-        v41 = 1.0 - a2;
+        v43 = 1.0 - a2;
       }
 
       else
       {
-        v51 = v35;
+        v54 = v37;
         bb = *TargetAddress;
-        v36 = acosf(_Q0.f32[0]);
-        v37 = sinf(v36);
-        v38 = sinf((1.0 - a2) * v36);
-        v39 = v36 * a2;
-        v48 = v38 / v37;
-        v40 = sinf(v39);
-        v41 = v48;
-        v35 = v51;
+        v38 = acosf(_Q0.f32[0]);
+        v39 = sinf(v38);
+        v40 = sinf((1.0 - a2) * v38);
+        v41 = v38 * a2;
+        v51 = v40 / v39;
+        v42 = sinf(v41);
+        v43 = v51;
+        v37 = v54;
         _Q6 = bb;
-        v26 = v40 / v37;
+        v28 = v42 / v39;
       }
 
-      v57 = vmlaq_n_f32(vmulq_n_f32(v35, v26), _Q6, v41);
+      v60 = vmlaq_n_f32(vmulq_n_f32(v37, v28), _Q6, v43);
     }
 
-    Target = C3DModelTargetGetTarget(a5);
-    v43 = C3DSizeOfBaseType(10);
-    return C3DSetValue(Target, v25, &v57, v43, *(a5 + 34), *(a5 + 35));
+    Target = C3DModelTargetGetTarget(a5, v25);
+    v46 = C3DSizeOfBaseType(10, v45);
+    return C3DSetValue(Target, v27, &v60, v46, *(a5 + 34), *(a5 + 35));
   }
 
   return result;
@@ -336,7 +336,7 @@ void *__64__SCNTransformConstraint_initOrientationInWorldSpace_withBlock___block
 - (id)copyWithZone:(_NSZone *)zone
 {
   v4 = objc_alloc_init(objc_opt_class());
-  Copy = C3DConstraintProceduralCreateCopy(self->super._constraintRef);
+  Copy = C3DConstraintProceduralCreateCopy(self->super._constraintRef, v5);
   [v4 setConstraintRef:Copy];
   CFRelease(Copy);
   [(SCNConstraint *)self copyTo:v4];

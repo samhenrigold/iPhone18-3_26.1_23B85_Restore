@@ -115,7 +115,7 @@
 
 - (BOOL)importIntoLocalModelWithContext:(id)context
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   workingStoreHomeMember = [(MKFCKSharedUserData *)self workingStoreHomeMember];
   v6 = workingStoreHomeMember;
@@ -149,11 +149,11 @@
       v13 = HMFGetLogIdentifier();
       objectID = [(MKFCKSharedUserDataRoot *)selfCopy objectID];
       hmd_debugIdentifier = [objectID hmd_debugIdentifier];
-      v20 = 138543618;
-      v21 = v13;
-      v22 = 2112;
-      v23 = hmd_debugIdentifier;
-      _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_ERROR, "%{public}@Unable to resolve working store user for shared settings import of %@, skipping import", &v20, 0x16u);
+      v19 = 138543618;
+      v20 = v13;
+      v21 = 2112;
+      v22 = hmd_debugIdentifier;
+      _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_ERROR, "%{public}@Unable to resolve working store user for shared settings import of %@, skipping import", &v19, 0x16u);
     }
 
     objc_autoreleasePoolPop(v10);
@@ -162,7 +162,6 @@
   LOBYTE(v16) = 1;
 LABEL_11:
 
-  v18 = *MEMORY[0x277D85DE8];
   return v16;
 }
 
@@ -210,13 +209,12 @@ LABEL_11:
 
 uint64_t __49__MKFCKSharedUserDataRoot_fetchEquivalentModels___block_invoke(uint64_t a1, void *a2)
 {
-  v3 = *(a1 + 32);
-  v4 = [a2 objectID];
-  v5 = [v3 objectForKeyedSubscript:v4];
-  v6 = *(a1 + 40);
-  v7 = HMFEqualObjects();
+  v2 = *(a1 + 32);
+  v3 = [a2 objectID];
+  v4 = [v2 objectForKeyedSubscript:v3];
+  v5 = HMFEqualObjects();
 
-  return v7;
+  return v5;
 }
 
 + (id)entityDescriptionFromContext:(id)context
@@ -269,34 +267,34 @@ uint64_t __49__MKFCKSharedUserDataRoot_fetchEquivalentModels___block_invoke(uint
 
 - (BOOL)importPersonsIntoLocalModel:(id)model context:(id)context
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   modelCopy = model;
   contextCopy = context;
   v7 = MEMORY[0x277CBEB58];
   personsFromPhotos = [(MKFCKSharedUserDataRoot *)self personsFromPhotos];
   v9 = [v7 setWithCapacity:{objc_msgSend(personsFromPhotos, "count")}];
 
-  v42 = 0u;
-  v43 = 0u;
-  v40 = 0u;
   v41 = 0u;
+  v42 = 0u;
+  v39 = 0u;
+  v40 = 0u;
   obj = [(MKFCKSharedUserDataRoot *)self personsFromPhotos];
-  v10 = [obj countByEnumeratingWithState:&v40 objects:v44 count:16];
+  v10 = [obj countByEnumeratingWithState:&v39 objects:v43 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v41;
+    v12 = *v40;
     do
     {
       for (i = 0; i != v11; ++i)
       {
         v14 = v9;
-        if (*v41 != v12)
+        if (*v40 != v12)
         {
           objc_enumerationMutation(obj);
         }
 
-        v15 = *(*(&v40 + 1) + 8 * i);
+        v15 = *(*(&v39 + 1) + 8 * i);
         modelID = [v15 modelID];
         v17 = [(_MKFModel *)_MKFPhotosPerson modelWithModelID:modelID context:contextCopy];
 
@@ -336,7 +334,7 @@ uint64_t __49__MKFCKSharedUserDataRoot_fetchEquivalentModels___block_invoke(uint
         [v14 addObject:v17];
       }
 
-      v11 = [obj countByEnumeratingWithState:&v40 objects:v44 count:16];
+      v11 = [obj countByEnumeratingWithState:&v39 objects:v43 count:16];
     }
 
     while (v11);
@@ -348,20 +346,19 @@ uint64_t __49__MKFCKSharedUserDataRoot_fetchEquivalentModels___block_invoke(uint
   if ((v29 & 1) == 0)
   {
     personsFromPhotos3 = [modelCopy personsFromPhotos];
-    v37[0] = MEMORY[0x277D85DD0];
-    v37[1] = 3221225472;
-    v37[2] = __72__MKFCKSharedUserDataRoot_Persons__importPersonsIntoLocalModel_context___block_invoke;
-    v37[3] = &unk_27867D180;
+    v36[0] = MEMORY[0x277D85DD0];
+    v36[1] = 3221225472;
+    v36[2] = __72__MKFCKSharedUserDataRoot_Persons__importPersonsIntoLocalModel_context___block_invoke;
+    v36[3] = &unk_27867D180;
     v31 = v9;
-    v38 = v31;
-    v39 = contextCopy;
-    [personsFromPhotos3 hmf_enumerateWithAutoreleasePoolUsingBlock:v37];
+    v37 = v31;
+    v38 = contextCopy;
+    [personsFromPhotos3 hmf_enumerateWithAutoreleasePoolUsingBlock:v36];
 
-    v32 = [v31 copy];
+    v32 = objc_msgSend_copy(v31);
     [modelCopy setPersonsFromPhotos_:v32];
   }
 
-  v33 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
@@ -376,36 +373,36 @@ void __72__MKFCKSharedUserDataRoot_Persons__importPersonsIntoLocalModel_context_
 
 - (BOOL)importAccessorySettingsIntoLocalModel:(id)model context:(id)context
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   modelCopy = model;
   contextCopy = context;
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   accessorySettings = [(MKFCKSharedUserDataRoot *)self accessorySettings];
-  v9 = [accessorySettings countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v9 = [accessorySettings countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v17;
+    v11 = *v16;
     while (2)
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v17 != v11)
+        if (*v16 != v11)
         {
           objc_enumerationMutation(accessorySettings);
         }
 
-        if (![*(*(&v16 + 1) + 8 * i) importIntoLocalUserModel:modelCopy context:contextCopy])
+        if (![*(*(&v15 + 1) + 8 * i) importIntoLocalUserModel:modelCopy context:contextCopy])
         {
           v13 = 0;
           goto LABEL_11;
         }
       }
 
-      v10 = [accessorySettings countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v10 = [accessorySettings countByEnumeratingWithState:&v15 objects:v19 count:16];
       if (v10)
       {
         continue;
@@ -418,7 +415,6 @@ void __72__MKFCKSharedUserDataRoot_Persons__importPersonsIntoLocalModel_context_
   v13 = 1;
 LABEL_11:
 
-  v14 = *MEMORY[0x277D85DE8];
   return v13;
 }
 

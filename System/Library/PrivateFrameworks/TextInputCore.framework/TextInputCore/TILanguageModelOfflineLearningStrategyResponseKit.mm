@@ -61,28 +61,28 @@ BOOL __68__TILanguageModelOfflineLearningStrategyResponseKit_filterMessages___bl
 
 - (BOOL)learnMessages:(id)messages withRecipientRecords:(id)records
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   recordsCopy = records;
   v7 = [(TILanguageModelOfflineLearningStrategyResponseKit *)self messagesClusteredByRecipient:messages];
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
-  v8 = [v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v20;
+    v10 = *v19;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v20 != v10)
+        if (*v19 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v19 + 1) + 8 * i);
+        v12 = *(*(&v18 + 1) + 8 * i);
         v13 = [recordsCopy objectForKey:v12];
         v14 = [v13 objectForKey:@"compositeName"];
         if (v14)
@@ -99,41 +99,40 @@ BOOL __68__TILanguageModelOfflineLearningStrategyResponseKit_filterMessages___bl
         }
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v9);
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
 - (id)messagesClusteredByRecipient:(id)recipient
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   recipientCopy = recipient;
   dictionary = [MEMORY[0x277CBEB38] dictionary];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v5 = recipientCopy;
-  v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v16;
+    v8 = *v15;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v16 != v8)
+        if (*v15 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v15 + 1) + 8 * i);
+        v10 = *(*(&v14 + 1) + 8 * i);
         recipient = [v10 recipient];
         if (recipient)
         {
@@ -148,13 +147,11 @@ BOOL __68__TILanguageModelOfflineLearningStrategyResponseKit_filterMessages___bl
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v7);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return dictionary;
 }

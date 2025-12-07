@@ -69,17 +69,17 @@ uint64_t __58__FAServerBagFlag_memberPhotoRequest404CacheDurationHours__block_in
 
 - (FAServerBagFlag)initWithServerKey:(id)key
 {
-  v10[3] = *MEMORY[0x1E69E9840];
+  v9[3] = *MEMORY[0x1E69E9840];
   keyCopy = key;
-  v9.receiver = self;
-  v9.super_class = FAServerBagFlag;
-  v5 = [(FAServerBagFlag *)&v9 init];
+  v8.receiver = self;
+  v8.super_class = FAServerBagFlag;
+  v5 = [(FAServerBagFlag *)&v8 init];
   if (v5)
   {
-    v10[0] = @"usePDS";
-    v10[1] = @"megadomeKillSwitch";
-    v10[2] = @"memberPhotoRequest404CacheDurationHours";
-    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:3];
+    v9[0] = @"usePDS";
+    v9[1] = @"megadomeKillSwitch";
+    v9[2] = @"memberPhotoRequest404CacheDurationHours";
+    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:3];
     if ([v6 containsObject:keyCopy])
     {
       [(FAServerBagFlag *)v5 setName:keyCopy];
@@ -87,7 +87,6 @@ uint64_t __58__FAServerBagFlag_memberPhotoRequest404CacheDurationHours__block_in
     }
   }
 
-  v7 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -118,7 +117,7 @@ uint64_t __58__FAServerBagFlag_memberPhotoRequest404CacheDurationHours__block_in
   aa_primaryAppleAccount = [defaultStore aa_primaryAppleAccount];
 
   v5 = [aa_primaryAppleAccount propertiesForDataclass:@"com.apple.Dataclass.Family"];
-  v6 = _FALogSystem();
+  v6 = _FALogSystem(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v14 = 138412290;
@@ -148,27 +147,25 @@ uint64_t __58__FAServerBagFlag_memberPhotoRequest404CacheDurationHours__block_in
   {
     if (name2 == @"memberPhotoRequest404CacheDurationHours")
     {
-      v10 = _FALogSystem();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      v11 = _FALogSystem(v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
         LOWORD(v14) = 0;
-        _os_log_impl(&dword_1B70B0000, v10, OS_LOG_TYPE_DEFAULT, "use default value for FAMemberPhotoRequest404CacheDurationHour", &v14, 2u);
+        _os_log_impl(&dword_1B70B0000, v11, OS_LOG_TYPE_DEFAULT, "use default value for FAMemberPhotoRequest404CacheDurationHour", &v14, 2u);
       }
 
-      [(FAServerBagFlag *)self setIntValue:6];
+      v10 = [(FAServerBagFlag *)self setIntValue:6];
     }
 
-    v11 = _FALogSystem();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v12 = _FALogSystem(v10);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       name3 = [(FAServerBagFlag *)self name];
       v14 = 138412290;
       v15 = name3;
-      _os_log_impl(&dword_1B70B0000, v11, OS_LOG_TYPE_DEFAULT, "No server value for %@", &v14, 0xCu);
+      _os_log_impl(&dword_1B70B0000, v12, OS_LOG_TYPE_DEFAULT, "No server value for %@", &v14, 0xCu);
     }
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 @end

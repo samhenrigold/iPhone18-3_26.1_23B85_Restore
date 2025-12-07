@@ -161,7 +161,7 @@
   [v10 setPropertiesToFetch:propertiesToFetch];
 
   [v10 setIncludesPendingChanges:0];
-  if ([dsCopy count] >= 0x65)
+  if (objc_msgSend_count(dsCopy) >= 0x65)
   {
     [v10 setFetchBatchSize:100];
   }
@@ -169,7 +169,7 @@
   dsCopy = [MEMORY[0x1E696AE18] predicateWithFormat:@"uuid IN %@", dsCopy];
   [v10 setPredicate:dsCopy];
 
-  [v10 setFetchLimit:{objc_msgSend(dsCopy, "count")}];
+  [v10 setFetchLimit:objc_msgSend_count(dsCopy)];
   v17 = 0;
   v13 = [contextCopy executeFetchRequest:v10 error:&v17];
 
@@ -200,8 +200,8 @@
 
 - (BOOL)promoteToUserEditedMemoryWithError:(id *)error
 {
-  entity = [(PLMemory *)self entity];
-  name = [entity name];
+  v5 = objc_msgSend_entity(self, a2);
+  name = [v5 name];
   managedObjectContext = [(PLMemory *)self managedObjectContext];
   v15 = 0;
   v8 = PLSafeInsertNewObjectForEntityForNameInManagedObjectContext(name, managedObjectContext, &v15);
@@ -732,7 +732,7 @@ LABEL_11:
 - (BOOL)hasAnyAssets
 {
   curatedAssets = [(PLMemory *)self curatedAssets];
-  if ([curatedAssets count])
+  if (objc_msgSend_count(curatedAssets))
   {
     v4 = 1;
   }
@@ -740,7 +740,7 @@ LABEL_11:
   else
   {
     representativeAssets = [(PLMemory *)self representativeAssets];
-    if ([representativeAssets count])
+    if (objc_msgSend_count(representativeAssets))
     {
       v4 = 1;
     }
@@ -748,7 +748,7 @@ LABEL_11:
     else
     {
       extendedCuratedAssets = [(PLMemory *)self extendedCuratedAssets];
-      if ([extendedCuratedAssets count])
+      if (objc_msgSend_count(extendedCuratedAssets))
       {
         v4 = 1;
       }
@@ -756,7 +756,7 @@ LABEL_11:
       else
       {
         userCuratedAssets = [(PLMemory *)self userCuratedAssets];
-        if ([userCuratedAssets count])
+        if (objc_msgSend_count(userCuratedAssets))
         {
           v4 = 1;
         }
@@ -764,7 +764,7 @@ LABEL_11:
         else
         {
           customUserAssets = [(PLMemory *)self customUserAssets];
-          v4 = [customUserAssets count] != 0;
+          v4 = objc_msgSend_count(customUserAssets) != 0;
         }
       }
     }
@@ -793,7 +793,7 @@ LABEL_11:
   v51 = changeCopy;
   assetList = [changeCopy assetList];
   assets = [assetList assets];
-  v13 = [assets count];
+  v13 = objc_msgSend_count(assets);
 
   v60 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:v13];
   v57 = [MEMORY[0x1E695DFA8] setWithCapacity:v13];
@@ -900,7 +900,7 @@ LABEL_11:
   assets3 = [customUserAssetList assets];
   v46 = [assets3 valueForKey:@"assetIdentifier"];
   v28 = [PLManagedAsset assetsByCloudAssetUUID:"assetsByCloudAssetUUID:inLibrary:" inLibrary:?];
-  v52 = [objc_alloc(MEMORY[0x1E695DFA0]) initWithCapacity:{objc_msgSend(assets3, "count")}];
+  v52 = [objc_alloc(MEMORY[0x1E695DFA0]) initWithCapacity:objc_msgSend_count(assets3)];
   v61 = 0u;
   v62 = 0u;
   v63 = 0u;
@@ -1036,9 +1036,9 @@ LABEL_11:
       if (v21)
       {
         graphMemoryIdentifier = [(PLMemory *)self graphMemoryIdentifier];
-        v23 = [v21 isEqualToString:graphMemoryIdentifier];
+        isEqualToString = objc_msgSend_isEqualToString_(v21);
 
-        if ((v23 & 1) == 0)
+        if ((isEqualToString & 1) == 0)
         {
           [(PLMemory *)self setGraphMemoryIdentifier:v21];
         }
@@ -1133,7 +1133,7 @@ LABEL_18:
 {
   userActionOptions = [(PLMemory *)self userActionOptions];
   userFeedbacks = [(PLMemory *)self userFeedbacks];
-  v5 = [userFeedbacks count] != 0;
+  v5 = objc_msgSend_count(userFeedbacks) != 0;
 
   v6 = userActionOptions & 0xFFFFFFF9 | (2 * v5) | (4 * ([(PLMemory *)self creationType]== 1));
   if ([(PLMemory *)self userActionOptions]!= v6)
@@ -1280,7 +1280,7 @@ LABEL_6:
   v10 = [changedValues objectForKeyedSubscript:@"cloudLocalState"];
   if (v10)
   {
-    v11 = [changedValues count] != 1;
+    v11 = objc_msgSend_count(changedValues) != 1;
   }
 
   else
@@ -1520,7 +1520,7 @@ void __28__PLMemory_isSyncableChange__block_invoke()
   v86 = *MEMORY[0x1E69E9840];
   assetsCopy = assets;
   predicateCopy = predicate;
-  if ([assetsCopy count])
+  if (objc_msgSend_count(assetsCopy))
   {
     array = [MEMORY[0x1E695DF70] array];
     v73 = 0u;
@@ -1606,7 +1606,7 @@ void __28__PLMemory_isSyncableChange__block_invoke()
     v61 = v14;
     v30 = [managedObjectContext executeFetchRequest:v14 error:&v72];
     v54 = v72;
-    v66 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(v30, "count")}];
+    v66 = [MEMORY[0x1E695DF70] arrayWithCapacity:objc_msgSend_count(v30)];
     v68 = 0u;
     v69 = 0u;
     v70 = 0u;
@@ -1726,7 +1726,7 @@ LABEL_5:
   }
 
 LABEL_3:
-  v10 = +[PLMemory entity];
+  v10 = objc_msgSend_entity(PLMemory);
   attributesByName = [v10 attributesByName];
   v23[0] = MEMORY[0x1E69E9820];
   v23[1] = 3221225472;
@@ -1738,7 +1738,7 @@ LABEL_3:
   v25 = v13;
   [attributesByName enumerateKeysAndObjectsUsingBlock:v23];
 
-  v14 = +[PLMemory entity];
+  v14 = objc_msgSend_entity(PLMemory);
   relationshipsByName = [v14 relationshipsByName];
   v20[0] = MEMORY[0x1E69E9820];
   v20[1] = 3221225472;
@@ -1986,14 +1986,14 @@ LABEL_12:
   v15 = *MEMORY[0x1E69E9840];
   dsCopy = ds;
   contextCopy = context;
-  if ([dsCopy count])
+  if (objc_msgSend_count(dsCopy))
   {
     if ((*MEMORY[0x1E6994D48] & 1) == 0)
     {
       v8 = __CPLAssetsdOSLogDomain();
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
-        v9 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(dsCopy, "count")}];
+        v9 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:objc_msgSend_count(dsCopy)];
         *buf = 138412290;
         v14 = v9;
         _os_log_impl(&dword_19BF1F000, v8, OS_LOG_TYPE_DEFAULT, "Removing %@ memories", buf, 0xCu);
@@ -2365,7 +2365,7 @@ void __88__PLMemory__shouldPrefetchMemoryMovieCuratedAssetsInPhotoLibrary_prefet
 
   v3 = [MEMORY[0x1E696AE18] predicateWithFormat:@"%K >= %@", @"lastViewedDate", v5];
   v4 = [*(a1 + 56) _memoriesMatchingPredicate:v3 sortDescriptors:0 limit:1 inPhotoLibrary:*(a1 + 40)];
-  *(*(*(a1 + 48) + 8) + 24) = [v4 count] != 0;
+  *(*(*(a1 + 48) + 8) + 24) = objc_msgSend_count(v4) != 0;
 }
 
 + (id)memoriesToUploadInPhotoLibrary:(id)library limit:(int64_t)limit

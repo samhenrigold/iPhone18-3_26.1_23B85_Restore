@@ -48,9 +48,9 @@ uint64_t std::vector<TSWPAdornments>::__emplace_back_slow_path<TSWPAdornments co
   return v12;
 }
 
-void sub_26C988044(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_26C988044(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<TSWPAdornments>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -63,23 +63,23 @@ void TSWPAdornments::TSWPAdornments(TSWPAdornments *this, const TSWPAdornments *
   *(this + 4) = 0;
   *(this + 5) = 0;
   *(this + 6) = 0;
-  std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long *,unsigned long *>(this + 32, *(a2 + 4), *(a2 + 5), (*(a2 + 5) - *(a2 + 4)) >> 3);
+  std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long *,unsigned long *>(this + 4, *(a2 + 4), *(a2 + 5), (*(a2 + 5) - *(a2 + 4)) >> 3);
   *(this + 7) = 0;
   *(this + 8) = 0;
   *(this + 9) = 0;
-  std::vector<unsigned short>::__init_with_size[abi:ne200100]<unsigned short *,unsigned short *>(this + 56, *(a2 + 7), *(a2 + 8), (*(a2 + 8) - *(a2 + 7)) >> 1);
+  std::vector<unsigned short>::__init_with_size[abi:ne200100]<unsigned short *,unsigned short *>(this + 7, *(a2 + 7), *(a2 + 8), (*(a2 + 8) - *(a2 + 7)) >> 1);
   *(this + 10) = 0;
   *(this + 11) = 0;
   *(this + 12) = 0;
-  std::vector<CGRect>::__init_with_size[abi:ne200100]<CGRect*,CGRect*>(this + 80, *(a2 + 10), *(a2 + 11), (*(a2 + 11) - *(a2 + 10)) >> 5);
+  std::vector<CGRect>::__init_with_size[abi:ne200100]<CGRect*,CGRect*>(this + 10, *(a2 + 10), *(a2 + 11), (*(a2 + 11) - *(a2 + 10)) >> 5);
   *(this + 13) = 0;
   *(this + 14) = 0;
   *(this + 15) = 0;
-  std::vector<CGPoint>::__init_with_size[abi:ne200100]<CGPoint*,CGPoint*>(this + 104, *(a2 + 13), *(a2 + 14), (*(a2 + 14) - *(a2 + 13)) >> 4);
+  std::vector<CGPoint>::__init_with_size[abi:ne200100]<CGPoint*,CGPoint*>(this + 13, *(a2 + 13), *(a2 + 14), (*(a2 + 14) - *(a2 + 13)) >> 4);
   *(this + 16) = 0;
   *(this + 17) = 0;
   *(this + 18) = 0;
-  std::vector<TSWPAttachmentPosition>::__init_with_size[abi:ne200100]<TSWPAttachmentPosition*,TSWPAttachmentPosition*>(this + 128, *(a2 + 16), *(a2 + 17), (*(a2 + 17) - *(a2 + 16)) >> 4);
+  std::vector<TSWPAttachmentPosition>::__init_with_size[abi:ne200100]<TSWPAttachmentPosition*,TSWPAttachmentPosition*>(this + 16, *(a2 + 16), *(a2 + 17), (*(a2 + 17) - *(a2 + 16)) >> 4);
   *(this + 152) = *(a2 + 152);
   *(this + 21) = *(a2 + 21);
   *(this + 11) = *(a2 + 11);
@@ -125,7 +125,7 @@ void sub_26C988188(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<unsigned short>::__init_with_size[abi:ne200100]<unsigned short *,unsigned short *>(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t *std::vector<unsigned short>::__init_with_size[abi:ne200100]<unsigned short *,unsigned short *>(uint64_t *result, const void *a2, uint64_t a3, uint64_t a4)
 {
   if (a4)
   {
@@ -147,7 +147,7 @@ void sub_26C988264(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<CGRect>::__init_with_size[abi:ne200100]<CGRect*,CGRect*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<CGRect>::__init_with_size[abi:ne200100]<CGRect*,CGRect*>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -169,7 +169,7 @@ void sub_26C9882E0(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<TSWPAttachmentPosition>::__init_with_size[abi:ne200100]<TSWPAttachmentPosition*,TSWPAttachmentPosition*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<TSWPAttachmentPosition>::__init_with_size[abi:ne200100]<TSWPAttachmentPosition*,TSWPAttachmentPosition*>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -201,7 +201,7 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<TSWPAdornments>>(uint
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-void std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<TSWPAdornments>,TSWPAdornments*>(int a1, CGColorRef *a2, TSWPAdornments *a3, TSWPAdornments *this)
+void std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<TSWPAdornments>,TSWPAdornments*>(int a1, CGColorRef *a2, CGColorRef *a3, TSWPAdornments *this)
 {
   if (a2 != a3)
   {
@@ -268,7 +268,7 @@ void ___ZL19TSWPPlaceholderFontv_block_invoke()
   }
 }
 
-uint64_t ___ZL17iOSIsGreaterThan7v_block_invoke()
+void *___ZL17iOSIsGreaterThan7v_block_invoke()
 {
   result = [objc_msgSend(objc_msgSend(MEMORY[0x277D75418] "currentDevice")];
   iOSIsGreaterThan7(void)::result = result == 1;
@@ -282,9 +282,9 @@ void std::shared_ptr<TSWPParagraphTypesetter>::shared_ptr[abi:ne200100]<TSWPPara
   operator new();
 }
 
-void sub_26C9885C8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_26C9885C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<TSWPParagraphTypesetter>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -332,16 +332,16 @@ void std::vector<TSWPAdornmentLine>::__base_destruct_at_end[abi:ne200100](uint64
   *(a1 + 8) = a2;
 }
 
-uint64_t std::vector<TSWPUIAttachmentData>::__emplace_back_slow_path<TSWPUIAttachmentData const&>(uint64_t a1, uint64_t a2)
+uint64_t std::vector<TSWPUIAttachmentData>::__emplace_back_slow_path<TSWPUIAttachmentData const&>(uint64_t *a1, uint64_t a2)
 {
-  v2 = (*(a1 + 8) - *a1) >> 5;
+  v2 = (a1[1] - *a1) >> 5;
   v3 = v2 + 1;
   if ((v2 + 1) >> 59)
   {
     std::vector<CGPoint>::__throw_length_error[abi:ne200100]();
   }
 
-  v6 = *(a1 + 16) - *a1;
+  v6 = a1[2] - *a1;
   if (v6 >> 4 > v3)
   {
     v3 = v6 >> 4;
@@ -367,14 +367,14 @@ uint64_t std::vector<TSWPUIAttachmentData>::__emplace_back_slow_path<TSWPUIAttac
   v15 = 32 * v2;
   std::allocator_traits<std::allocator<TSWPUIAttachmentData>>::construct[abi:ne200100]<TSWPUIAttachmentData,TSWPUIAttachmentData const&,0>(a1, 32 * v2, a2);
   v16 = (32 * v2 + 32);
-  v8 = *(a1 + 8);
+  v8 = a1[1];
   v9 = 32 * v2 + *a1 - v8;
   std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<TSWPUIAttachmentData>,TSWPUIAttachmentData*>(a1, *a1, v8, v9);
   v10 = *a1;
   *a1 = v9;
-  v11 = *(a1 + 16);
+  v11 = a1[2];
   v13 = v16;
-  *(a1 + 8) = v16;
+  *(a1 + 1) = v16;
   *&v16 = v10;
   *(&v16 + 1) = v11;
   v14 = v10;
@@ -383,9 +383,9 @@ uint64_t std::vector<TSWPUIAttachmentData>::__emplace_back_slow_path<TSWPUIAttac
   return v13;
 }
 
-void sub_26C9887FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_26C9887FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<TSWPUIAttachmentData>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -510,17 +510,17 @@ void std::__split_buffer<TSWPUIAttachmentData>::__destruct_at_end[abi:ne200100](
   }
 }
 
-void *std::vector<CGPoint>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<CGPoint>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<CGPoint>::__vallocate[abi:ne200100](result, a2);
+    std::vector<CGPoint>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_26C988B78(_Unwind_Exception *exception_object)
@@ -535,17 +535,17 @@ void sub_26C988B78(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void *std::vector<CGSize>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<CGSize>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<CGPoint>::__vallocate[abi:ne200100](result, a2);
+    std::vector<CGPoint>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_26C988BF0(_Unwind_Exception *exception_object)
@@ -688,7 +688,7 @@ uint64_t TSWPIsPotentialTateChuYokoCharacter(uint64_t a1)
   return [v2 longCharacterIsMember:a1];
 }
 
-uint64_t __TSWPIsPotentialTateChuYokoCharacter_block_invoke()
+void *__TSWPIsPotentialTateChuYokoCharacter_block_invoke()
 {
   v0 = objc_alloc_init(MEMORY[0x277CCAB50]);
   [v0 addCharactersInRange:{48, 10}];
@@ -795,14 +795,14 @@ LABEL_2:
   return result;
 }
 
-void TSWPFillVerticalFacingRangesFromBuffer(uint64_t a1, unint64_t a2, void *a3)
+void TSWPFillVerticalFacingRangesFromBuffer(uint64_t result, unint64_t a2, void *a3)
 {
   if (a2)
   {
     v6 = 0;
     for (i = 0; i < a2; v6 = i)
     {
-      v8 = *(a1 + 2 * v6);
+      v8 = *(result + 2 * v6);
       v9 = v8 & 0xFC00;
       v11 = v9 == 55296 || v9 == 56320;
       v12 = i + 1;
@@ -813,11 +813,11 @@ void TSWPFillVerticalFacingRangesFromBuffer(uint64_t a1, unint64_t a2, void *a3)
 
       else
       {
-        v14 = *(a1 + 2 * v12);
+        v14 = *(result + 2 * v12);
         v15 = v9 == 55296;
         if (v9 == 55296)
         {
-          v16 = *(a1 + 2 * v6);
+          v16 = *(result + 2 * v6);
         }
 
         else
@@ -827,7 +827,7 @@ void TSWPFillVerticalFacingRangesFromBuffer(uint64_t a1, unint64_t a2, void *a3)
 
         if (!v15)
         {
-          v14 = *(a1 + 2 * v6);
+          v14 = *(result + 2 * v6);
         }
 
         v8 = (v14 + (v16 << 10) - 56613888);
@@ -1051,7 +1051,7 @@ uint64_t TSWPScriptForCharacter(UChar32 a1)
   return result;
 }
 
-uint64_t TSWPForegroundInit()
+void *TSWPForegroundInit()
 {
   result = [MEMORY[0x277CCACC8] isMainThread];
   if ((result & 1) == 0)
@@ -1080,7 +1080,7 @@ uint64_t TSWPBackgroundInit()
   return [(TSWPLoadableFonts *)v2 backgroundLoadAll];
 }
 
-BOOL TSWPFontNameIsValid(uint64_t a1)
+BOOL TSWPFontNameIsValid(void *a1)
 {
   v1 = a1;
   if (a1)
@@ -1151,7 +1151,7 @@ const __CTFont *TSWPCreateFontWithFamilyName(uint64_t a1, int a2, int a3, CGFloa
   return v8;
 }
 
-uint64_t TSWPCreateUIFontWithName(uint64_t result, double a2)
+void *TSWPCreateUIFontWithName(void *result, double a2)
 {
   if (result)
   {
@@ -1165,7 +1165,7 @@ uint64_t TSWPCreateUIFontWithName(uint64_t result, double a2)
   return result;
 }
 
-uint64_t TSWPCreateFontWithNameAttributesAndWeight(uint64_t result, uint64_t a2, double a3, double a4)
+void *TSWPCreateFontWithNameAttributesAndWeight(void *result, uint64_t a2, double a3, double a4)
 {
   if (result)
   {
@@ -1179,7 +1179,7 @@ uint64_t TSWPCreateFontWithNameAttributesAndWeight(uint64_t result, uint64_t a2,
   return result;
 }
 
-const __CTFont *TSWPFontCopyGraphicsFont()
+const __CTFont *TSWPFontCopyGraphicsFont(uint64_t a1)
 {
   CTFontGetTypeID();
   result = TSUCFTypeCast();
@@ -1261,7 +1261,7 @@ LABEL_12:
   return v8;
 }
 
-const __CFString *TSWPFontNameWithFamilyName(uint64_t a1, int a2, int a3)
+const __CFString *TSWPFontNameWithFamilyName(const __CFString *a1, int a2, int a3)
 {
   v3 = a1;
   v4 = TSWPCreateFontWithFamilyName(a1, a2, a3, 12.0);
@@ -1312,7 +1312,7 @@ BOOL TSWPFontHasTraits(const __CTFont *a1, int a2)
   return (a2 & ~v3) == 0;
 }
 
-uint64_t TSWPFontGetAttributes(uint64_t a1, uint64_t *a2, BOOL *a3, _BYTE *a4, CGFloat *a5)
+const __CTFont *TSWPFontGetAttributes(uint64_t a1, void *a2, BOOL *a3, _BYTE *a4, CGFloat *a5)
 {
   CTFontGetTypeID();
   result = TSUCFTypeCast();
@@ -1354,16 +1354,16 @@ LABEL_10:
   return result;
 }
 
-void TSWPFontGetLineHeight()
+void TSWPFontGetLineHeight(uint64_t a1)
 {
   CTFontGetTypeID();
-  v0 = TSUCFTypeCast();
-  if (v0)
+  v1 = TSUCFTypeCast();
+  if (v1)
   {
-    v1 = v0;
-    CTFontGetAscent(v0);
-    CTFontGetDescent(v1);
-    CTFontGetLeading(v1);
+    v2 = v1;
+    CTFontGetAscent(v1);
+    CTFontGetDescent(v2);
+    CTFontGetLeading(v2);
   }
 }
 
@@ -1436,16 +1436,16 @@ uint64_t TSWPFontFamilyNames()
   return result;
 }
 
-unint64_t TSWPMostCompatibleStringEncodingForFont()
+unint64_t TSWPMostCompatibleStringEncodingForFont(uint64_t a1)
 {
   CTFontGetTypeID();
-  v0 = TSUCFTypeCast();
-  if (v0)
+  v1 = TSUCFTypeCast();
+  if (v1)
   {
-    LODWORD(v0) = CTFontGetStringEncoding(v0);
+    LODWORD(v1) = CTFontGetStringEncoding(v1);
   }
 
-  return CFStringConvertEncodingToNSStringEncoding(v0);
+  return CFStringConvertEncodingToNSStringEncoding(v1);
 }
 
 const __CTFont *TSWPCreateSubstituteFontForString(uint64_t a1, __CFString *a2)
@@ -1519,7 +1519,7 @@ void *TSWPPropertyMapByResolvingFontSizeDeltaInPropertyMapAgainstStyle(void *a1,
   return v9;
 }
 
-uint64_t TSWPParagraphBreakingCharacterSet()
+uint64_t TSWPParagraphBreakingCharacterSet(uint64_t a1, uint64_t a2)
 {
   if (TSWPParagraphBreakingCharacterSet::sTSWPParagraphBreakingCharacterSetOnceToken != -1)
   {
@@ -1544,20 +1544,21 @@ void __TSWPParagraphBreakingCharacterSet_block_invoke()
   TSWPParagraphBreakingCharacterSet::sParagraphBreakingCharacterSet = [v0 copy];
 }
 
-uint64_t IsParagraphBreakingCharacter(uint64_t a1)
+uint64_t IsParagraphBreakingCharacter(uint64_t a1, uint64_t a2)
 {
   if (TSWPParagraphBreakingCharacterSet::sTSWPParagraphBreakingCharacterSetOnceToken != -1)
   {
     TSWPParagraphBreakingCharacterSet_cold_1();
   }
 
-  v2 = TSWPParagraphBreakingCharacterSet::sParagraphBreakingCharacterSet;
+  v3 = TSWPParagraphBreakingCharacterSet::sParagraphBreakingCharacterSet;
 
-  return [v2 longCharacterIsMember:a1];
+  return [v3 longCharacterIsMember:a1];
 }
 
-uint64_t TSWPFullNameForCharacter(unsigned __int16 a1, int a2)
+uint64_t TSWPFullNameForCharacter(uint64_t a1, uint64_t a2)
 {
+  v2 = a2;
   if (a1 > 0x2006u)
   {
     if (a1 > 0x2028u)
@@ -1567,8 +1568,8 @@ uint64_t TSWPFullNameForCharacter(unsigned __int16 a1, int a2)
         if (a1 == 8233)
         {
 LABEL_23:
-          v3 = TSWPBundle();
-          if (a2)
+          v3 = TSWPBundle(a1, a2);
+          if (v2)
           {
             v4 = @"Paragraph Breaks";
           }
@@ -1599,8 +1600,8 @@ LABEL_23:
         case 0x3000u:
           goto LABEL_15;
         case 0xFFFCu:
-          v3 = TSWPBundle();
-          if (a2)
+          v3 = TSWPBundle(a1, a2);
+          if (v2)
           {
             v4 = @"Attachments";
           }
@@ -1630,8 +1631,8 @@ LABEL_23:
 
       if (a1 == 8232)
       {
-        v3 = TSWPBundle();
-        if (a2)
+        v3 = TSWPBundle(a1, a2);
+        if (v2)
         {
           v4 = @"Line Breaks";
         }
@@ -1658,8 +1659,8 @@ LABEL_23:
       }
 
 LABEL_33:
-      v3 = TSWPBundle();
-      if (a2)
+      v3 = TSWPBundle(a1, a2);
+      if (v2)
       {
         v4 = @"Non Breaking Spaces";
       }
@@ -1673,8 +1674,8 @@ LABEL_33:
     }
 
 LABEL_15:
-    v3 = TSWPBundle();
-    if (a2)
+    v3 = TSWPBundle(a1, a2);
+    if (v2)
     {
       v4 = @"Spaces";
     }
@@ -1692,8 +1693,8 @@ LABEL_15:
     switch(a1)
     {
       case 4u:
-        v3 = TSWPBundle();
-        if (a2)
+        v3 = TSWPBundle(a1, a2);
+        if (v2)
         {
           v4 = @"Section Breaks";
         }
@@ -1705,8 +1706,8 @@ LABEL_15:
 
         goto LABEL_54;
       case 5u:
-        v3 = TSWPBundle();
-        if (a2)
+        v3 = TSWPBundle(a1, a2);
+        if (v2)
         {
           v4 = @"Page Breaks";
         }
@@ -1718,8 +1719,8 @@ LABEL_15:
 
         goto LABEL_54;
       case 9u:
-        v3 = TSWPBundle();
-        if (a2)
+        v3 = TSWPBundle(a1, a2);
+        if (v2)
         {
           v4 = @"Tabs";
         }
@@ -1750,8 +1751,8 @@ LABEL_15:
     goto LABEL_23;
   }
 
-  v3 = TSWPBundle();
-  if (a2)
+  v3 = TSWPBundle(a1, a2);
+  if (v2)
   {
     v4 = @"Column Breaks";
   }
@@ -1778,7 +1779,7 @@ uint64_t IsWhitespaceCharacter(uint64_t theChar)
     return 1;
   }
 
-  LODWORD(result) = IsParagraphBreakingCharacter(theChar);
+  LODWORD(result) = IsParagraphBreakingCharacter(theChar, v2);
   if (theChar == 8232)
   {
     return 1;
@@ -1809,7 +1810,7 @@ BOOL IsBreakingSpaceCharacter(UTF32Char theChar)
   return CFCharacterSetIsLongCharacterMember(v2, theChar) != 0;
 }
 
-uint64_t IsWordBoundaryCharacter(uint64_t a1)
+uint64_t IsWordBoundaryCharacter(uint64_t a1, uint64_t a2)
 {
   if (a1 <= 8211)
   {
@@ -1824,15 +1825,15 @@ uint64_t IsWordBoundaryCharacter(uint64_t a1)
     return 1;
   }
 
-  v3 = IsParagraphBreakingCharacter(a1);
-  if (a1 == 8232 || (v3 & 1) != 0)
+  v4 = IsParagraphBreakingCharacter(a1, a2);
+  if (a1 == 8232 || (v4 & 1) != 0)
   {
     return 1;
   }
 
-  v4 = [MEMORY[0x277CCA900] spaceCharacterSet];
+  v5 = [MEMORY[0x277CCA900] spaceCharacterSet];
 
-  return [v4 longCharacterIsMember:a1];
+  return [v5 longCharacterIsMember:a1];
 }
 
 BOOL KinsokuIllegalEndChar(UTF32Char theChar)
@@ -2081,7 +2082,7 @@ void ___Z19BursageEligibleCharj_block_invoke()
   BursageEligibleChar::sSet = Mutable;
 }
 
-uint64_t TSWPPreviousCharFromTextSource(uint64_t a1, void *a2)
+void *TSWPPreviousCharFromTextSource(void *a1, void *a2)
 {
   if (!a2)
   {
@@ -2110,7 +2111,7 @@ uint64_t TSWPPreviousCharFromTextSource(uint64_t a1, void *a2)
   return [a2 charIndexMappedToStorage:v7 - 1];
 }
 
-uint64_t TSWPNextCharFromTextSource(uint64_t a1, void *a2)
+void *TSWPNextCharFromTextSource(void *a1, void *a2)
 {
   if (!a2)
   {
@@ -2152,7 +2153,7 @@ uint64_t TSWPNextCharFromTextSource(uint64_t a1, void *a2)
   }
 }
 
-uint64_t TSWPComposedCharacterAtIndexForTextSource(unint64_t a1, void *a2)
+unint64_t TSWPComposedCharacterAtIndexForTextSource(unint64_t a1, void *a2)
 {
   if (!a2)
   {
@@ -2207,7 +2208,7 @@ LABEL_6:
   return v8;
 }
 
-unint64_t TSWPRangeByExtendingRangeToWhitespaceForTextSource(unint64_t a1, uint64_t a2, void *a3)
+char *TSWPRangeByExtendingRangeToWhitespaceForTextSource(unint64_t a1, uint64_t a2, void *a3)
 {
   v3 = a1;
   v4 = a1 + a2;
@@ -2833,7 +2834,7 @@ LABEL_74:
   return TSWPCreateFontWithNameAttributesTraitsAndWeight(v53, v55 != 0, v31 != 0, v37, v36, v29 != -1000.0, v35, v52);
 }
 
-const __CTFont *TSWPCreateFontWithNameAttributesTraitsAndWeight(uint64_t a1, int a2, int a3, uint64_t a4, void *a5, char a6, double a7, double a8)
+const __CTFont *TSWPCreateFontWithNameAttributesTraitsAndWeight(void *a1, int a2, int a3, uint64_t a4, void *a5, char a6, double a7, double a8)
 {
   if (!TSWPCreateFontWithNameAttributesTraitsAndWeight::gMissingFontNameCache || ([TSWPCreateFontWithNameAttributesTraitsAndWeight::gMissingFontNameCache containsObject:a1] & 1) == 0)
   {
@@ -3038,22 +3039,22 @@ double TSWPAttachmentVAlignmentCorrection(int a1, uint64_t a2, void *a3, unint64
   return Ascent;
 }
 
-double TSWPFontHeightInfoForFont@<D0>(const __CTFont *a1@<X0>, _OWORD *a2@<X8>)
+double TSWPFontHeightInfoForFont@<D0>(uint64_t *__return_ptr a1@<X8>)
 {
-  v4 = +[TSWPFontHeightCache sharedCache];
-  if (v4)
+  v3 = +[TSWPFontHeightCache sharedCache];
+  if (v3)
   {
 
-    [v4 fontHeightInfoForFont:a1];
+    objc_msgSend_fontHeightInfoForFont_(v3);
   }
 
   else
   {
     result = 0.0;
-    a2[2] = 0u;
-    a2[3] = 0u;
-    *a2 = 0u;
-    a2[1] = 0u;
+    *(a1 + 2) = 0u;
+    *(a1 + 3) = 0u;
+    *a1 = 0u;
+    *(a1 + 1) = 0u;
   }
 
   return result;
@@ -3149,10 +3150,10 @@ double TSWPUnderlineAdornmentMetricsForFont(const __CTFont *a1, const __CTFont *
 
 double pAdjustedLineHeight(const __CTFont *a1, double *a2)
 {
-  v4 = +[TSWPFontHeightCache sharedCache];
-  if (v4)
+  v3 = +[TSWPFontHeightCache sharedCache];
+  if (v3)
   {
-    [v4 fontHeightInfoForFont:a1];
+    objc_msgSend_fontHeightInfoForFont_(v3);
   }
 
   *a2 = 0.0 + 0.0;
@@ -3281,7 +3282,7 @@ void TSWPUnionRects(CGRect **a1)
   }
 }
 
-uint64_t __TSWPCJKLanguageForInputLanguageString_block_invoke()
+void *__TSWPCJKLanguageForInputLanguageString_block_invoke()
 {
   result = [objc_alloc(MEMORY[0x277CBEAC0]) initWithObjectsAndKeys:{@"zh-hans", &unk_287DDD938, @"zh_hans", &unk_287DDD950, @"zh-hant", &unk_287DDD950, @"zh_hant", &unk_287DDD968, @"ja-jp", &unk_287DDD980, @"ko-ko", &unk_287DDD950, @"zh", &unk_287DDD968, @"ja", &unk_287DDD980, @"ko", 0}];
   TSWPCJKLanguageForInputLanguageString::sMappings = result;
@@ -3314,7 +3315,7 @@ uint64_t TSWPListLanguageForInputLanguageString(void *a1)
   return result;
 }
 
-uint64_t __TSWPListLanguageForInputLanguageString_block_invoke()
+void *__TSWPListLanguageForInputLanguageString_block_invoke()
 {
   result = [objc_alloc(MEMORY[0x277CBEAC0]) initWithObjectsAndKeys:{@"zh-hans", &unk_287DDD938, @"zh_hans", &unk_287DDD950, @"zh-hant", &unk_287DDD950, @"zh_hant", &unk_287DDD968, @"ja-jp", &unk_287DDD980, @"ko-ko", &unk_287DDD950, @"zh", &unk_287DDD968, @"ja", &unk_287DDD980, @"ko", &unk_287DDD998, @"ar", &unk_287DDD9B0, @"he", 0}];
   TSWPListLanguageForInputLanguageString::sMappings = result;
@@ -3649,7 +3650,7 @@ uint64_t TSWPGetListNumberTypeForString(uint64_t a1)
   }
 }
 
-uint64_t __TSWPGetListNumberTypeForString_block_invoke()
+void *__TSWPGetListNumberTypeForString_block_invoke()
 {
   v0 = [objc_alloc(MEMORY[0x277CBEB38]) initWithCapacity:4];
   v1 = 0;
@@ -3971,11 +3972,11 @@ void TSWPStorageTransaction::~TSWPStorageTransaction(TSWPStorageTransaction *thi
   std::vector<TSWPStorageTransactionObject>::__destroy_vector::operator()[abi:nn200100](&v2);
 }
 
-void std::vector<TSWPStorageTransactionObject>::clear[abi:nn200100](TSWPStorageTransactionObject **a1)
+void std::vector<TSWPStorageTransactionObject>::clear[abi:nn200100](TSWPStorageTransactionObject **result)
 {
-  v3 = *a1;
-  v2 = a1[1];
-  if (v2 != *a1)
+  v3 = *result;
+  v2 = result[1];
+  if (v2 != *result)
   {
     v4 = (v2 - 32);
     do
@@ -3992,7 +3993,7 @@ void std::vector<TSWPStorageTransactionObject>::clear[abi:nn200100](TSWPStorageT
     while (!v5);
   }
 
-  a1[1] = v3;
+  result[1] = v3;
 }
 
 void TSWPStorageTransaction::TSWPStorageTransaction(TSWPStorageTransaction *this)
@@ -4045,15 +4046,15 @@ float64x2_t TSWPStorageTransaction::compress(TSWPStorageTransaction *this)
   return result;
 }
 
-void std::vector<TSWPStorageTransactionObject>::resize(void *a1, unint64_t a2)
+void std::vector<TSWPStorageTransactionObject>::resize(TSWPStorageTransactionObject **result, unint64_t a2)
 {
-  v3 = a1[1];
-  v4 = (v3 - *a1) >> 5;
+  v3 = result[1];
+  v4 = (v3 - *result) >> 5;
   if (a2 <= v4)
   {
     if (a2 < v4)
     {
-      v6 = *a1 + 32 * a2;
+      v6 = *result + 32 * a2;
       if (v3 != v6)
       {
         v7 = (v3 - 32);
@@ -4071,7 +4072,7 @@ void std::vector<TSWPStorageTransactionObject>::resize(void *a1, unint64_t a2)
         while (!v8);
       }
 
-      a1[1] = v6;
+      result[1] = v6;
     }
   }
 
@@ -4079,16 +4080,16 @@ void std::vector<TSWPStorageTransactionObject>::resize(void *a1, unint64_t a2)
   {
     v5 = a2 - v4;
 
-    std::vector<TSWPStorageTransactionObject>::__append(a1, v5);
+    std::vector<TSWPStorageTransactionObject>::__append(result, v5);
   }
 }
 
-uint64_t TSWPStorageTransaction::operator==(unsigned __int16 **a1, uint64_t a2)
+BOOL TSWPStorageTransaction::operator==(unsigned __int16 **a1, unsigned __int16 **a2)
 {
   v2 = *a1;
   v3 = a1[1];
   v4 = *a2;
-  if (v3 - *a1 != *(a2 + 8) - *a2)
+  if (v3 - *a1 != a2[1] - *a2)
   {
     return 0;
   }
@@ -4921,7 +4922,7 @@ void TSWPStorageTransactionObject::adjustRetainCount(TSWPStorageTransactionObjec
   }
 }
 
-uint64_t TSWPStorageTransactionObject::operator==(unsigned __int16 *a1, unsigned __int16 *a2)
+BOOL TSWPStorageTransactionObject::operator==(unsigned __int16 *a1, unsigned __int16 *a2)
 {
   v2 = *a1;
   if (v2 != *a2)
@@ -5085,7 +5086,7 @@ void std::vector<TSWPStorageTransactionObject>::__destroy_vector::operator()[abi
   }
 }
 
-uint64_t std::vector<TSWPStorageTransactionObject>::__init_with_size[abi:nn200100]<TSWPStorageTransactionObject*,TSWPStorageTransactionObject*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<TSWPStorageTransactionObject>::__init_with_size[abi:nn200100]<TSWPStorageTransactionObject*,TSWPStorageTransactionObject*>(uint64_t *result, TSWPStorageTransactionObject *a2, int a3, unint64_t a4)
 {
   if (a4)
   {
@@ -5095,7 +5096,7 @@ uint64_t std::vector<TSWPStorageTransactionObject>::__init_with_size[abi:nn20010
   return result;
 }
 
-void std::vector<TSWPStorageTransactionObject>::__vallocate[abi:nn200100](uint64_t a1, unint64_t a2)
+void std::vector<TSWPStorageTransactionObject>::__vallocate[abi:nn200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 59))
   {
@@ -5142,30 +5143,30 @@ TSWPStorageTransactionObject *std::__uninitialized_allocator_copy[abi:nn200100]<
   return this;
 }
 
-uint64_t std::vector<TSWPStorageTransactionObject>::__append(uint64_t result, unint64_t a2)
+TSWPStorageTransactionObject **std::vector<TSWPStorageTransactionObject>::__append(TSWPStorageTransactionObject **result, unint64_t a2)
 {
   v3 = result;
-  v4 = *(result + 8);
-  v5 = *(result + 16);
+  v4 = result[1];
+  v5 = result[2];
   if (a2 <= (v5 - v4) >> 5)
   {
     if (a2)
     {
-      v11 = v4 + 32 * a2;
+      v11 = (v4 + 32 * a2);
       do
       {
         *v4 = 0;
         *(v4 + 12) = 0;
         *(v4 + 4) = 0;
-        *(v4 + 20) = 0;
-        v4 += 32;
+        *(v4 + 5) = 0;
+        v4 = (v4 + 32);
       }
 
       while (v4 != v11);
       v4 = v11;
     }
 
-    *(result + 8) = v4;
+    result[1] = v4;
   }
 
   else
@@ -5216,13 +5217,13 @@ uint64_t std::vector<TSWPStorageTransactionObject>::__append(uint64_t result, un
 
     while (v13 != 32 * v8 + 32 * a2);
     *&v20 = v12 + 32 * a2;
-    v14 = *(result + 8);
+    v14 = result[1];
     v15 = (v12 + *result - v14);
     std::__uninitialized_allocator_relocate[abi:nn200100]<std::allocator<TSWPStorageTransactionObject>,TSWPStorageTransactionObject*>(result, *result, v14, v15);
     v16 = *v3;
     *v3 = v15;
-    v17 = *(v3 + 16);
-    *(v3 + 8) = v20;
+    v17 = v3[2];
+    *(v3 + 1) = v20;
     *&v20 = v16;
     *(&v20 + 1) = v17;
     v18 = v16;
@@ -5233,9 +5234,9 @@ uint64_t std::vector<TSWPStorageTransactionObject>::__append(uint64_t result, un
   return result;
 }
 
-void sub_26C98FEE0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_26C98FEE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<TSWPStorageTransactionObject>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -5389,9 +5390,9 @@ uint64_t std::vector<TSWPStorageTransactionObject>::__emplace_back_slow_path<TSW
   return v16;
 }
 
-void sub_26C990184(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_26C990184(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<TSWPStorageTransactionObject>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -5905,12 +5906,12 @@ TSWPAttributeArray *TSWPSmartFieldAttributeArray::willDeleteAttribute(TSWPAttrib
   return result;
 }
 
-uint64_t TSWPSmartFieldAttributeArray::shouldDeleteAttributeBeforeReplace(TSWPSmartFieldAttributeArray *this)
+uint64_t TSWPSmartFieldAttributeArray::shouldDeleteAttributeBeforeReplace(TSWPSmartFieldAttributeArray *this, uint64_t a2)
 {
   objc_opt_class();
-  v1 = TSUDynamicCast();
+  v2 = TSUDynamicCast();
 
-  return [v1 allowsEditing];
+  return [v2 allowsEditing];
 }
 
 void TSWPSmartFieldAttributeArray::~TSWPSmartFieldAttributeArray(TSWPAttributeArray *this)
@@ -6990,7 +6991,7 @@ void TSWPDropCapLayoutState::updateWithEndOfParagraph(TSWPDropCapLayoutState *th
   }
 }
 
-BOOL TSWPDropCapLayoutState::isSatifyingRequirements(TSWPDropCapLayoutState *this)
+uint64_t TSWPDropCapLayoutState::isSatifyingRequirements(TSWPDropCapLayoutState *this)
 {
   if (!*(this + 7))
   {
@@ -7150,7 +7151,7 @@ uint64_t TSWPDropCapLayoutState::updateWithBaselineOffset(uint64_t this, double 
   return this;
 }
 
-BOOL TSWPDropCapLayoutState::canFinalize(TSWPDropCapLayoutState *this)
+uint64_t TSWPDropCapLayoutState::canFinalize(TSWPDropCapLayoutState *this)
 {
   if (!*(this + 7))
   {
@@ -7233,7 +7234,7 @@ double TSWPDropCapLayoutState::adjustedAttachmentPosition(TSWPDropCapLayoutState
   return x;
 }
 
-void sub_26C9A0D00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, char a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, void **a38)
+void sub_26C9A0D00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, char a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, char *a38)
 {
   a38 = &a22;
   std::vector<TSWPAdornmentLine>::__destroy_vector::operator()[abi:nn200100](&a38);
@@ -7353,15 +7354,15 @@ void std::vector<TSWPAdornmentLine>::clear[abi:nn200100](uint64_t *a1)
   a1[1] = v2;
 }
 
-void sub_26C9A3884(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_26C9A3884(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   TSWPChangeEnumerator::~TSWPChangeEnumerator(va);
-  v5 = *v3;
-  if (*v3)
+  v7 = *v5;
+  if (*v5)
   {
-    *(v3 + 8) = v5;
-    operator delete(v5);
+    *(v5 + 8) = v7;
+    operator delete(v7);
   }
 
   _Unwind_Resume(a1);
@@ -7387,6 +7388,13 @@ void sub_26C9A3AE0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   }
 
   _Unwind_Resume(exception_object);
+}
+
+void sub_26C9A4528(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, ...)
+{
+  va_start(va, a36);
+  TSWPChangeEnumerator::~TSWPChangeEnumerator(va);
+  _Unwind_Resume(a1);
 }
 
 void sub_26C9A53DC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, void *__p, uint64_t a18, uint64_t a19, void *a20, uint64_t a21)
@@ -7533,35 +7541,35 @@ uint64_t **std::__hash_table<std::__hash_value_type<SFUtility::ObjcSharedPtr<TST
   return i;
 }
 
-uint64_t **std::__hash_table<std::__hash_value_type<SFUtility::ObjcSharedPtr<TSTTableDataObject>,unsigned int>,std::__unordered_map_hasher<SFUtility::ObjcSharedPtr<TSTTableDataObject>,std::__hash_value_type<SFUtility::ObjcSharedPtr<TSTTableDataObject>,unsigned int>,TSTTableDataObjectHasher,TSTTableDataObjectEqual,true>,std::__unordered_map_equal<SFUtility::ObjcSharedPtr<TSTTableDataObject>,std::__hash_value_type<SFUtility::ObjcSharedPtr<TSTTableDataObject>,unsigned int>,TSTTableDataObjectEqual,TSTTableDataObjectHasher,true>,std::allocator<std::__hash_value_type<SFUtility::ObjcSharedPtr<TSTTableDataObject>,unsigned int>>>::__emplace_unique_key_args<SFUtility::ObjcSharedPtr<TSTTableDataObject>,std::pair<SFUtility::ObjcSharedPtr<TSTTableDataObject> const,unsigned int>>(void *a1, id *a2)
+uint64_t **std::__hash_table<std::__hash_value_type<SFUtility::ObjcSharedPtr<TSTTableDataObject>,unsigned int>,std::__unordered_map_hasher<SFUtility::ObjcSharedPtr<TSTTableDataObject>,std::__hash_value_type<SFUtility::ObjcSharedPtr<TSTTableDataObject>,unsigned int>,TSTTableDataObjectHasher,TSTTableDataObjectEqual,true>,std::__unordered_map_equal<SFUtility::ObjcSharedPtr<TSTTableDataObject>,std::__hash_value_type<SFUtility::ObjcSharedPtr<TSTTableDataObject>,unsigned int>,TSTTableDataObjectEqual,TSTTableDataObjectHasher,true>,std::allocator<std::__hash_value_type<SFUtility::ObjcSharedPtr<TSTTableDataObject>,unsigned int>>>::__emplace_unique_key_args<SFUtility::ObjcSharedPtr<TSTTableDataObject>,std::pair<SFUtility::ObjcSharedPtr<TSTTableDataObject> const,unsigned int>>(void *a1, id *a2, uint64_t a3)
 {
-  v4 = [*a2 hash];
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
+  v5 = [*a2 hash];
+  v6 = v5;
+  v7 = a1[1];
+  if (!*&v7)
   {
     goto LABEL_18;
   }
 
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
+  v8 = vcnt_s8(v7);
+  v8.i16[0] = vaddlv_u8(v8);
+  v9 = v8.u32[0];
+  if (v8.u32[0] > 1uLL)
   {
-    v9 = v4;
-    if (v4 >= *&v6)
+    v10 = v5;
+    if (v5 >= *&v7)
     {
-      v9 = v4 % *&v6;
+      v10 = v5 % *&v7;
     }
   }
 
   else
   {
-    v9 = (*&v6 - 1) & v4;
+    v10 = (*&v7 - 1) & v5;
   }
 
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
+  v11 = *(*a1 + 8 * v10);
+  if (!v11 || (v12 = *v11) == 0)
   {
 LABEL_18:
     operator new();
@@ -7569,49 +7577,49 @@ LABEL_18:
 
   while (1)
   {
-    v12 = v11[1];
-    if (v12 == v5)
+    v13 = v12[1];
+    if (v13 == v6)
     {
       break;
     }
 
-    if (v8 > 1)
+    if (v9 > 1)
     {
-      if (v12 >= *&v6)
+      if (v13 >= *&v7)
       {
-        v12 %= *&v6;
+        v13 %= *&v7;
       }
     }
 
     else
     {
-      v12 &= *&v6 - 1;
+      v13 &= *&v7 - 1;
     }
 
-    if (v12 != v9)
+    if (v13 != v10)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v11 = *v11;
-    if (!v11)
+    v12 = *v12;
+    if (!v12)
     {
       goto LABEL_18;
     }
   }
 
-  if (([v11[2] isEqual:*a2] & 1) == 0)
+  if (([v12[2] isEqual:*a2] & 1) == 0)
   {
     goto LABEL_17;
   }
 
-  return v11;
+  return v12;
 }
 
-void sub_26C9A761C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_26C9A761C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<SFUtility::ObjcSharedPtr<TSTTableDataObject>,unsigned int>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<SFUtility::ObjcSharedPtr<TSTTableDataObject>,unsigned int>,void *>>>>::~unique_ptr[abi:nn200100](va);
   _Unwind_Resume(a1);
 }
@@ -7664,25 +7672,26 @@ void std::__hash_table<std::__hash_value_type<SFUtility::ObjcSharedPtr<TSTTableD
   }
 }
 
-void sub_26C9A7F58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, char a36)
+void sub_26C9A7F58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, ...)
 {
-  _Block_object_dispose(&a36, 8);
-  _Block_object_dispose((v36 - 200), 8);
-  _Block_object_dispose((v36 - 168), 8);
-  _Block_object_dispose((v36 - 136), 8);
+  va_start(va, a35);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v35 - 200), 8);
+  _Block_object_dispose((v35 - 168), 8);
+  _Block_object_dispose((v35 - 136), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_26C9A8740(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_26C9A8740(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_26C9A88A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_26C9A88A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7835,131 +7844,131 @@ uint64_t TSTCellStorageHeaderFlagsForCell(uint64_t a1)
   }
 }
 
-uint64_t TSTCellStorageFormatFlagsForCell(void *a1)
+uint64_t TSTCellStorageFormatFlagsForCell(void *a1, const char *a2)
 {
   if (!a1)
   {
     return 0;
   }
 
-  v2 = a1[19];
-  if (v2)
+  v3 = a1[19];
+  if (v3)
   {
-    [v2 getFormatStruct];
-    v3 = (v12 - 1) < 0xFFFFFFFE;
+    objc_msgSend_getFormatStruct(v3, a2);
+    v4 = (v13 - 1) < 0xFFFFFFFE;
   }
 
   else
   {
-    v3 = 0;
+    v4 = 0;
   }
 
-  v4 = a1[21];
-  if (v4)
-  {
-    [v4 getFormatStruct];
-    if ((v12 - 1) >= 0xFFFFFFFE)
-    {
-      v3 = v3;
-    }
-
-    else
-    {
-      v3 = v3 | 8;
-    }
-  }
-
-  v5 = a1[25];
+  v5 = a1[21];
   if (v5)
   {
-    [v5 getFormatStruct];
-    if ((v12 - 1) >= 0xFFFFFFFE)
+    objc_msgSend_getFormatStruct(v5);
+    if ((v13 - 1) >= 0xFFFFFFFE)
     {
-      v3 = v3;
+      v4 = v4;
     }
 
     else
     {
-      v3 = v3 | 2;
+      v4 = v4 | 8;
     }
   }
 
-  v6 = a1[23];
+  v6 = a1[25];
   if (v6)
   {
-    [v6 getFormatStruct];
-    if ((v12 - 1) >= 0xFFFFFFFE)
+    objc_msgSend_getFormatStruct(v6);
+    if ((v13 - 1) >= 0xFFFFFFFE)
     {
-      v3 = v3;
+      v4 = v4;
     }
 
     else
     {
-      v3 = v3 | 4;
+      v4 = v4 | 2;
     }
   }
 
-  v7 = a1[27];
+  v7 = a1[23];
   if (v7)
   {
-    [v7 getFormatStruct];
-    if ((v12 - 1) >= 0xFFFFFFFE)
+    objc_msgSend_getFormatStruct(v7);
+    if ((v13 - 1) >= 0xFFFFFFFE)
     {
-      v3 = v3;
+      v4 = v4;
     }
 
     else
     {
-      v3 = v3 | 0x10;
+      v4 = v4 | 4;
     }
   }
 
-  v8 = a1[29];
+  v8 = a1[27];
   if (v8)
   {
-    [v8 getFormatStruct];
-    if ((v12 - 1) >= 0xFFFFFFFE)
+    objc_msgSend_getFormatStruct(v8);
+    if ((v13 - 1) >= 0xFFFFFFFE)
     {
-      v3 = v3;
+      v4 = v4;
     }
 
     else
     {
-      v3 = v3 | 0x20;
+      v4 = v4 | 0x10;
     }
   }
 
-  v9 = a1[31];
+  v9 = a1[29];
   if (v9)
   {
-    [v9 getFormatStruct];
-    if ((v12 - 1) >= 0xFFFFFFFE)
+    objc_msgSend_getFormatStruct(v9);
+    if ((v13 - 1) >= 0xFFFFFFFE)
     {
-      v3 = v3;
+      v4 = v4;
     }
 
     else
     {
-      v3 = v3 | 0x40;
+      v4 = v4 | 0x20;
     }
   }
 
-  v10 = a1[33];
+  v10 = a1[31];
   if (v10)
   {
-    [v10 getFormatStruct];
-    if ((v12 - 1) >= 0xFFFFFFFE)
+    objc_msgSend_getFormatStruct(v10);
+    if ((v13 - 1) >= 0xFFFFFFFE)
     {
-      return v3;
+      v4 = v4;
     }
 
     else
     {
-      return v3 | 0x80;
+      v4 = v4 | 0x40;
     }
   }
 
-  return v3;
+  v11 = a1[33];
+  if (v11)
+  {
+    objc_msgSend_getFormatStruct(v11);
+    if ((v13 - 1) >= 0xFFFFFFFE)
+    {
+      return v4;
+    }
+
+    else
+    {
+      return v4 | 0x80;
+    }
+  }
+
+  return v4;
 }
 
 unsigned __int8 *TSTCellStorageVersionAssert(unsigned __int8 *result)
@@ -7975,7 +7984,7 @@ unsigned __int8 *TSTCellStorageVersionAssert(unsigned __int8 *result)
   return result;
 }
 
-uint64_t TSTCellToCellStorage(uint64_t a1, unsigned __int8 *a2)
+void *TSTCellToCellStorage(uint64_t a1, unsigned __int8 *a2)
 {
   *a2 = 3;
   if (a1)
@@ -7989,64 +7998,64 @@ uint64_t TSTCellToCellStorage(uint64_t a1, unsigned __int8 *a2)
   }
 
   *(a2 + 1) = a2[1] | v4;
-  v5 = *(a2 + 4) & 0xFFFFFFFFFFFF0000 | TSTCellStorageHeaderFlagsForCell(a1);
-  *(a2 + 4) = v5;
+  v6 = *(a2 + 4) & 0xFFFFFFFFFFFF0000 | TSTCellStorageHeaderFlagsForCell(a1);
+  *(a2 + 4) = v6;
   if (a1)
   {
-    *(a2 + 4) = v5 & 0xFFFFFFFF0000FFFFLL | (*(a1 + 10) << 16);
-    v6 = *(a1 + 272);
+    *(a2 + 4) = v6 & 0xFFFFFFFF0000FFFFLL | (*(a1 + 10) << 16);
+    v7 = *(a1 + 272);
   }
 
   else
   {
-    v6 = 0;
-    *(a2 + 4) = v5 & 0xFFFFFFFF0000FFFFLL;
+    v7 = 0;
+    *(a2 + 4) = v6 & 0xFFFFFFFF0000FFFFLL;
   }
 
-  a2[3] = v6;
-  v7 = TSTCellStorageFormatFlagsForCell(a1);
-  v9 = v7;
-  v10 = *(a2 + 4);
-  *(a2 + 4) = v10 & 0xFFFFFFFFFFFFLL | (v7 << 48);
+  a2[3] = v7;
+  v8 = TSTCellStorageFormatFlagsForCell(a1, v5);
+  v10 = v8;
+  v11 = *(a2 + 4);
+  *(a2 + 4) = v11 & 0xFFFFFFFFFFFFLL | (v8 << 48);
   if (!a1)
   {
-    *(a2 + 4) = v10 | (v7 << 48);
-    v14 = v10;
-    v12 = v7;
-    if ((v10 & 2) != 0)
+    *(a2 + 4) = v11 | (v8 << 48);
+    v15 = v11;
+    v13 = v8;
+    if ((v11 & 2) != 0)
     {
       *(a2 + 3) = 0;
-      v17 = v10 & 0xFFFD;
-      if ((v10 & 0x80) == 0)
+      v18 = v11 & 0xFFFD;
+      if ((v11 & 0x80) == 0)
       {
-        v13 = 4;
-        if ((v10 & 4) == 0)
+        v14 = 4;
+        if ((v11 & 4) == 0)
         {
           goto LABEL_47;
         }
 
 LABEL_38:
-        v18 = &a2[v13 + 12];
+        v19 = &a2[v14 + 12];
         if (!a1)
         {
-          v21 = 0;
-          LOWORD(v14) = v17;
+          v22 = 0;
+          LOWORD(v15) = v18;
           goto LABEL_52;
         }
 
-        LOWORD(v14) = v17;
+        LOWORD(v15) = v18;
 LABEL_51:
-        v21 = *(a1 + 100);
+        v22 = *(a1 + 100);
 LABEL_52:
-        *v18 = v21;
-        v13 += 4;
-        v14 &= 0xFFFBu;
-        if ((v14 & 0x200) == 0)
+        *v19 = v22;
+        v14 += 4;
+        v15 &= 0xFFFBu;
+        if ((v15 & 0x200) == 0)
         {
 LABEL_57:
-          if ((v14 & 0x1000) == 0)
+          if ((v15 & 0x1000) == 0)
           {
-            if ((v14 & 0x10) != 0)
+            if ((v15 & 0x10) != 0)
             {
               goto LABEL_123;
             }
@@ -8054,21 +8063,21 @@ LABEL_57:
             goto LABEL_59;
           }
 
-          v40 = &a2[v13 + 12];
+          v41 = &a2[v14 + 12];
           if (a1)
           {
             goto LABEL_89;
           }
 
-          v41 = 0;
+          v42 = 0;
 LABEL_122:
-          *v40 = v41;
-          v13 += 4;
-          v14 &= 0xEFFFu;
-          if ((v14 & 0x10) != 0)
+          *v41 = v42;
+          v14 += 4;
+          v15 &= 0xEFFFu;
+          if ((v15 & 0x10) != 0)
           {
 LABEL_123:
-            v49 = &a2[v13 + 12];
+            v50 = &a2[v14 + 12];
             if (!a1)
             {
               goto LABEL_128;
@@ -8078,7 +8087,7 @@ LABEL_123:
           }
 
 LABEL_59:
-          if ((v14 & 0x20) != 0)
+          if ((v15 & 0x20) != 0)
           {
             goto LABEL_130;
           }
@@ -8087,89 +8096,89 @@ LABEL_59:
         }
 
 LABEL_53:
-        v22 = &a2[v13 + 12];
+        v23 = &a2[v14 + 12];
         if (!a1)
         {
-          v23 = 0;
+          v24 = 0;
           goto LABEL_56;
         }
 
 LABEL_54:
-        v23 = *(a1 + 64);
+        v24 = *(a1 + 64);
 LABEL_56:
-        *v22 = v23;
-        v13 += 4;
-        v14 &= 0xFDFFu;
+        *v23 = v24;
+        v14 += 4;
+        v15 &= 0xFDFFu;
         goto LABEL_57;
       }
 
-      v20 = 0;
-      v19 = a2 + 16;
-      v13 = 8;
-      LOWORD(v14) = v14 & 0xFFFD;
+      v21 = 0;
+      v20 = a2 + 16;
+      v14 = 8;
+      LOWORD(v15) = v15 & 0xFFFD;
     }
 
     else
     {
-      if ((v10 & 0x80) == 0)
+      if ((v11 & 0x80) == 0)
       {
-        v13 = 0;
-        if ((v10 & 4) == 0)
+        v14 = 0;
+        if ((v11 & 4) == 0)
         {
-          if ((v10 & 0x200) == 0)
+          if ((v11 & 0x200) == 0)
           {
-            if ((v10 & 0x1000) == 0)
+            if ((v11 & 0x1000) == 0)
             {
-              if ((v10 & 0x10) == 0)
+              if ((v11 & 0x10) == 0)
               {
-                if ((v10 & 0x20) == 0)
+                if ((v11 & 0x20) == 0)
                 {
-                  if ((v10 & 0x40) != 0)
+                  if ((v11 & 0x40) != 0)
                   {
-                    v15 = 0;
-                    v16 = a2 + 12;
+                    v16 = 0;
+                    v17 = a2 + 12;
                     goto LABEL_164;
                   }
 
                   goto LABEL_61;
                 }
 
-                v53 = a2 + 12;
+                v54 = a2 + 12;
                 goto LABEL_153;
               }
 
-              v49 = a2 + 12;
+              v50 = a2 + 12;
               goto LABEL_128;
             }
 
-            v41 = 0;
-            v40 = a2 + 12;
+            v42 = 0;
+            v41 = a2 + 12;
             goto LABEL_122;
           }
 
-          v23 = 0;
-          v22 = a2 + 12;
+          v24 = 0;
+          v23 = a2 + 12;
           goto LABEL_56;
         }
 
-        v21 = 0;
-        v18 = a2 + 12;
+        v22 = 0;
+        v19 = a2 + 12;
         goto LABEL_52;
       }
 
-      v20 = 0;
-      v19 = a2 + 12;
-      v13 = 4;
+      v21 = 0;
+      v20 = a2 + 12;
+      v14 = 4;
     }
 
 LABEL_46:
-    *v19 = v20;
-    v17 = v14 & 0xFF7F;
-    if ((v14 & 4) == 0)
+    *v20 = v21;
+    v18 = v15 & 0xFF7F;
+    if ((v15 & 4) == 0)
     {
 LABEL_47:
-      v14 = v17;
-      if ((v17 & 0x200) == 0)
+      v15 = v18;
+      if ((v18 & 0x200) == 0)
       {
         goto LABEL_57;
       }
@@ -8180,52 +8189,52 @@ LABEL_47:
     goto LABEL_38;
   }
 
-  *(a2 + 4) = v10 | (v7 << 48) | (*(a1 + 96) << 32);
-  v11 = v10;
-  v12 = v7;
-  if ((v10 & 2) == 0)
+  *(a2 + 4) = v11 | (v8 << 48) | (*(a1 + 96) << 32);
+  v12 = v11;
+  v13 = v8;
+  if ((v11 & 2) == 0)
   {
-    if ((v10 & 0x80) == 0)
+    if ((v11 & 0x80) == 0)
     {
-      v13 = 0;
-      if ((v10 & 4) == 0)
+      v14 = 0;
+      if ((v11 & 4) == 0)
       {
-        if ((v10 & 0x200) == 0)
+        if ((v11 & 0x200) == 0)
         {
-          if ((v10 & 0x1000) == 0)
+          if ((v11 & 0x1000) == 0)
           {
-            if ((v10 & 0x10) == 0)
+            if ((v11 & 0x10) == 0)
             {
-              if ((v10 & 0x20) == 0)
+              if ((v11 & 0x20) == 0)
               {
-                if ((v10 & 0x40) == 0)
+                if ((v11 & 0x40) == 0)
                 {
-                  if (!v10)
+                  if (!v11)
                   {
                     goto LABEL_63;
                   }
 
 LABEL_62:
-                  v24 = [MEMORY[0x277D6C290] currentHandler];
-                  v25 = [MEMORY[0x277CCACA8] stringWithUTF8String:{"void TSTCellToCellStorage(TSTCell *, TSTCellStorage *)"}];
-                  [v24 handleFailureInFunction:v25 file:objc_msgSend(MEMORY[0x277CCACA8] lineNumber:"stringWithUTF8String:" description:{"/Library/Caches/com.apple.xbs/Sources/AlderShared/tables/TSTCellStorage.mm"), 392, @"Failed to process all storage elements!"}];
+                  v25 = [MEMORY[0x277D6C290] currentHandler];
+                  v26 = [MEMORY[0x277CCACA8] stringWithUTF8String:{"void TSTCellToCellStorage(TSTCell *, TSTCellStorage *)"}];
+                  [v25 handleFailureInFunction:v26 file:objc_msgSend(MEMORY[0x277CCACA8] lineNumber:"stringWithUTF8String:" description:{"/Library/Caches/com.apple.xbs/Sources/AlderShared/tables/TSTCellStorage.mm"), 392, @"Failed to process all storage elements!"}];
                   goto LABEL_63;
                 }
 
-                v16 = a2 + 12;
+                v17 = a2 + 12;
 LABEL_157:
                 if (*(a1 + 9))
                 {
                   if (*(a1 + 9) == 5)
                   {
-                    v15 = *(a1 + 16);
+                    v16 = *(a1 + 16);
 LABEL_163:
-                    LOWORD(v14) = v11;
+                    LOWORD(v15) = v12;
 LABEL_164:
-                    [v15 timeIntervalSinceReferenceDate];
-                    *v16 = v8.i64[0];
-                    v13 += 8;
-                    if ((v14 & 0xFFBF) != 0)
+                    [v16 timeIntervalSinceReferenceDate];
+                    *v17 = v9.i64[0];
+                    v14 += 8;
+                    if ((v15 & 0xFFBF) != 0)
                     {
                       goto LABEL_62;
                     }
@@ -8233,138 +8242,138 @@ LABEL_164:
                     goto LABEL_63;
                   }
 
-                  v60 = [MEMORY[0x277D6C290] currentHandler];
-                  v61 = [MEMORY[0x277CCACA8] stringWithUTF8String:"NSDate *TSTCellDateValue(TSTCell *)"];
-                  [v60 handleFailureInFunction:v61 file:objc_msgSend(MEMORY[0x277CCACA8] lineNumber:"stringWithUTF8String:" description:{"/Library/Caches/com.apple.xbs/Sources/AlderShared/tables/TSTCell.h"), 1021, @"can't get date value from a non-date cell: %p", a1}];
+                  v61 = [MEMORY[0x277D6C290] currentHandler];
+                  v62 = [MEMORY[0x277CCACA8] stringWithUTF8String:"NSDate *TSTCellDateValue(TSTCell *)"];
+                  [v61 handleFailureInFunction:v62 file:objc_msgSend(MEMORY[0x277CCACA8] lineNumber:"stringWithUTF8String:" description:{"/Library/Caches/com.apple.xbs/Sources/AlderShared/tables/TSTCell.h"), 1021, @"can't get date value from a non-date cell: %p", a1}];
                 }
 
-                v15 = 0;
+                v16 = 0;
                 goto LABEL_163;
               }
 
-              v53 = a2 + 12;
+              v54 = a2 + 12;
               goto LABEL_132;
             }
 
-            v49 = a2 + 12;
+            v50 = a2 + 12;
             goto LABEL_125;
           }
 
-          v40 = a2 + 12;
-          LOWORD(v14) = v11;
+          v41 = a2 + 12;
+          LOWORD(v15) = v12;
           goto LABEL_89;
         }
 
-        v22 = a2 + 12;
-        LOWORD(v14) = v11;
+        v23 = a2 + 12;
+        LOWORD(v15) = v12;
         goto LABEL_54;
       }
 
-      v18 = a2 + 12;
-      LOWORD(v14) = v11;
+      v19 = a2 + 12;
+      LOWORD(v15) = v12;
       goto LABEL_51;
     }
 
-    v19 = a2 + 12;
-    v13 = 4;
-    LOWORD(v14) = v11;
+    v20 = a2 + 12;
+    v14 = 4;
+    LOWORD(v15) = v12;
     goto LABEL_42;
   }
 
   *(a2 + 3) = *(a1 + 32);
-  LOWORD(v14) = v10 & 0xFFFD;
-  if ((v10 & 0x80) != 0)
+  LOWORD(v15) = v11 & 0xFFFD;
+  if ((v11 & 0x80) != 0)
   {
-    v19 = a2 + 16;
-    v13 = 8;
+    v20 = a2 + 16;
+    v14 = 8;
 LABEL_42:
-    v20 = *(a1 + 48);
+    v21 = *(a1 + 48);
     goto LABEL_46;
   }
 
-  if ((v10 & 4) != 0)
+  if ((v11 & 4) != 0)
   {
-    v18 = a2 + 16;
-    v13 = 4;
+    v19 = a2 + 16;
+    v14 = 4;
     goto LABEL_51;
   }
 
-  if ((v10 & 0x200) != 0)
+  if ((v11 & 0x200) != 0)
   {
-    v22 = a2 + 16;
-    v13 = 4;
+    v23 = a2 + 16;
+    v14 = 4;
     goto LABEL_54;
   }
 
-  if ((v10 & 0x1000) != 0)
+  if ((v11 & 0x1000) != 0)
   {
-    v40 = a2 + 16;
-    v13 = 4;
+    v41 = a2 + 16;
+    v14 = 4;
 LABEL_89:
-    v41 = *(a1 + 80);
+    v42 = *(a1 + 80);
     goto LABEL_122;
   }
 
-  if ((v10 & 0x10) != 0)
+  if ((v11 & 0x10) != 0)
   {
-    v49 = a2 + 16;
-    v13 = 4;
+    v50 = a2 + 16;
+    v14 = 4;
 LABEL_124:
-    v11 = v14;
+    v12 = v15;
 LABEL_125:
     if (*(a1 + 9) << 8 == 768)
     {
-      v50 = *(a1 + 16);
+      v51 = *(a1 + 16);
       goto LABEL_129;
     }
 
-    LOWORD(v14) = v11;
+    LOWORD(v15) = v12;
 LABEL_128:
-    v51 = [MEMORY[0x277D6C290] currentHandler];
-    v52 = [MEMORY[0x277CCACA8] stringWithUTF8String:"TSTTableDataListKey TSTCellStringID(TSTCell *)"];
-    [v51 handleFailureInFunction:v52 file:objc_msgSend(MEMORY[0x277CCACA8] lineNumber:"stringWithUTF8String:" description:{"/Library/Caches/com.apple.xbs/Sources/AlderShared/tables/TSTCell.h"), 948, @"can't get string ID from non-string cell: %p", a1}];
-    v50 = 0;
-    v11 = v14;
+    v52 = [MEMORY[0x277D6C290] currentHandler];
+    v53 = [MEMORY[0x277CCACA8] stringWithUTF8String:"TSTTableDataListKey TSTCellStringID(TSTCell *)"];
+    [v52 handleFailureInFunction:v53 file:objc_msgSend(MEMORY[0x277CCACA8] lineNumber:"stringWithUTF8String:" description:{"/Library/Caches/com.apple.xbs/Sources/AlderShared/tables/TSTCell.h"), 948, @"can't get string ID from non-string cell: %p", a1}];
+    v51 = 0;
+    v12 = v15;
 LABEL_129:
-    *v49 = v50;
-    v13 += 4;
-    v14 = v11 & 0xFFEF;
-    if ((v11 & 0x20) != 0)
+    *v50 = v51;
+    v14 += 4;
+    v15 = v12 & 0xFFEF;
+    if ((v12 & 0x20) != 0)
     {
 LABEL_130:
-      v53 = &a2[v13 + 12];
+      v54 = &a2[v14 + 12];
       if (a1)
       {
 LABEL_131:
-        v11 = v14;
+        v12 = v15;
 LABEL_132:
         if ((*(a1 + 8) & 0xFB00) == 0x200 || BYTE1(*(a1 + 8)) == 7)
         {
-          v55 = *(a1 + 16);
+          v56 = *(a1 + 16);
         }
 
         else
         {
-          v55 = 0;
+          v56 = 0;
           if (BYTE1(*(a1 + 8)))
           {
-            v56 = [MEMORY[0x277D6C290] currentHandler];
-            v57 = [MEMORY[0x277CCACA8] stringWithUTF8String:"double TSTCellDoubleValue(TSTCell *)"];
-            [v56 handleFailureInFunction:v57 file:objc_msgSend(MEMORY[0x277CCACA8] lineNumber:"stringWithUTF8String:" description:{"/Library/Caches/com.apple.xbs/Sources/AlderShared/tables/TSTCell.h"), 897, @"can't get value from non-value cell: %p", a1}];
+            v57 = [MEMORY[0x277D6C290] currentHandler];
+            v58 = [MEMORY[0x277CCACA8] stringWithUTF8String:"double TSTCellDoubleValue(TSTCell *)"];
+            [v57 handleFailureInFunction:v58 file:objc_msgSend(MEMORY[0x277CCACA8] lineNumber:"stringWithUTF8String:" description:{"/Library/Caches/com.apple.xbs/Sources/AlderShared/tables/TSTCell.h"), 897, @"can't get value from non-value cell: %p", a1}];
           }
         }
 
 LABEL_154:
-        *v53 = v55;
-        v13 += 8;
-        v14 = v11 & 0xFFDF;
-        if ((v11 & 0x40) != 0)
+        *v54 = v56;
+        v14 += 8;
+        v15 = v12 & 0xFFDF;
+        if ((v12 & 0x40) != 0)
         {
 LABEL_155:
-          v16 = &a2[v13 + 12];
+          v17 = &a2[v14 + 12];
           if (!a1)
           {
-            v15 = 0;
+            v16 = 0;
             goto LABEL_164;
           }
 
@@ -8372,7 +8381,7 @@ LABEL_155:
         }
 
 LABEL_61:
-        if (!v14)
+        if (!v15)
         {
           goto LABEL_63;
         }
@@ -8381,16 +8390,16 @@ LABEL_61:
       }
 
 LABEL_153:
-      v58 = [MEMORY[0x277D6C290] currentHandler];
-      v59 = [MEMORY[0x277CCACA8] stringWithUTF8String:"double TSTCellDoubleValue(TSTCell *)"];
-      [v58 handleFailureInFunction:v59 file:objc_msgSend(MEMORY[0x277CCACA8] lineNumber:"stringWithUTF8String:" description:{"/Library/Caches/com.apple.xbs/Sources/AlderShared/tables/TSTCell.h"), 889, @"invalid nil value for '%s'", "cell"}];
-      v55 = 0;
-      v11 = v14;
+      v59 = [MEMORY[0x277D6C290] currentHandler];
+      v60 = [MEMORY[0x277CCACA8] stringWithUTF8String:"double TSTCellDoubleValue(TSTCell *)"];
+      [v59 handleFailureInFunction:v60 file:objc_msgSend(MEMORY[0x277CCACA8] lineNumber:"stringWithUTF8String:" description:{"/Library/Caches/com.apple.xbs/Sources/AlderShared/tables/TSTCell.h"), 889, @"invalid nil value for '%s'", "cell"}];
+      v56 = 0;
+      v12 = v15;
       goto LABEL_154;
     }
 
 LABEL_60:
-    if ((v14 & 0x40) != 0)
+    if ((v15 & 0x40) != 0)
     {
       goto LABEL_155;
     }
@@ -8398,48 +8407,48 @@ LABEL_60:
     goto LABEL_61;
   }
 
-  if ((v10 & 0x20) != 0)
+  if ((v11 & 0x20) != 0)
   {
-    v53 = a2 + 16;
-    v13 = 4;
+    v54 = a2 + 16;
+    v14 = 4;
     goto LABEL_131;
   }
 
-  if ((v10 & 0x40) != 0)
+  if ((v11 & 0x40) != 0)
   {
-    v16 = a2 + 16;
-    v13 = 4;
+    v17 = a2 + 16;
+    v14 = 4;
 LABEL_156:
-    v11 = v14;
+    v12 = v15;
     goto LABEL_157;
   }
 
-  v13 = 4;
-  if ((v10 & 0xFFFD) != 0)
+  v14 = 4;
+  if ((v11 & 0xFFFD) != 0)
   {
     goto LABEL_62;
   }
 
 LABEL_63:
-  if (v9)
+  if (v10)
   {
     if (a1)
     {
-      v36 = *(a1 + 144);
+      v37 = *(a1 + 144);
     }
 
     else
     {
-      v36 = 0;
+      v37 = 0;
     }
 
-    *&a2[v13 + 12] = v36;
-    v13 += 4;
-    v12 &= 0xFFFEu;
-    if ((v12 & 8) == 0)
+    *&a2[v14 + 12] = v37;
+    v14 += 4;
+    v13 &= 0xFFFEu;
+    if ((v13 & 8) == 0)
     {
 LABEL_65:
-      if ((v12 & 2) == 0)
+      if ((v13 & 2) == 0)
       {
         goto LABEL_66;
       }
@@ -8448,28 +8457,28 @@ LABEL_65:
     }
   }
 
-  else if ((v12 & 8) == 0)
+  else if ((v13 & 8) == 0)
   {
     goto LABEL_65;
   }
 
   if (a1)
   {
-    v42 = *(a1 + 160);
+    v43 = *(a1 + 160);
   }
 
   else
   {
-    v42 = 0;
+    v43 = 0;
   }
 
-  *&a2[v13 + 12] = v42;
-  v13 += 4;
-  v12 &= ~8u;
-  if ((v12 & 2) == 0)
+  *&a2[v14 + 12] = v43;
+  v14 += 4;
+  v13 &= ~8u;
+  if ((v13 & 2) == 0)
   {
 LABEL_66:
-    if ((v12 & 4) == 0)
+    if ((v13 & 4) == 0)
     {
       goto LABEL_67;
     }
@@ -8480,21 +8489,21 @@ LABEL_66:
 LABEL_96:
   if (a1)
   {
-    v43 = *(a1 + 192);
+    v44 = *(a1 + 192);
   }
 
   else
   {
-    v43 = 0;
+    v44 = 0;
   }
 
-  *&a2[v13 + 12] = v43;
-  v13 += 4;
-  v12 &= 0xFFFDu;
-  if ((v12 & 4) == 0)
+  *&a2[v14 + 12] = v44;
+  v14 += 4;
+  v13 &= 0xFFFDu;
+  if ((v13 & 4) == 0)
   {
 LABEL_67:
-    if ((v12 & 0x10) == 0)
+    if ((v13 & 0x10) == 0)
     {
       goto LABEL_68;
     }
@@ -8505,21 +8514,21 @@ LABEL_67:
 LABEL_100:
   if (a1)
   {
-    v44 = *(a1 + 176);
+    v45 = *(a1 + 176);
   }
 
   else
   {
-    v44 = 0;
+    v45 = 0;
   }
 
-  *&a2[v13 + 12] = v44;
-  v13 += 4;
-  v12 &= 0xFFFBu;
-  if ((v12 & 0x10) == 0)
+  *&a2[v14 + 12] = v45;
+  v14 += 4;
+  v13 &= 0xFFFBu;
+  if ((v13 & 0x10) == 0)
   {
 LABEL_68:
-    if ((v12 & 0x20) == 0)
+    if ((v13 & 0x20) == 0)
     {
       goto LABEL_69;
     }
@@ -8530,21 +8539,21 @@ LABEL_68:
 LABEL_104:
   if (a1)
   {
-    v45 = *(a1 + 208);
+    v46 = *(a1 + 208);
   }
 
   else
   {
-    v45 = 0;
+    v46 = 0;
   }
 
-  *&a2[v13 + 12] = v45;
-  v13 += 4;
-  v12 &= 0xFFEFu;
-  if ((v12 & 0x20) == 0)
+  *&a2[v14 + 12] = v46;
+  v14 += 4;
+  v13 &= 0xFFEFu;
+  if ((v13 & 0x20) == 0)
   {
 LABEL_69:
-    if ((v12 & 0x40) == 0)
+    if ((v13 & 0x40) == 0)
     {
       goto LABEL_70;
     }
@@ -8555,21 +8564,21 @@ LABEL_69:
 LABEL_108:
   if (a1)
   {
-    v46 = *(a1 + 224);
+    v47 = *(a1 + 224);
   }
 
   else
   {
-    v46 = 0;
+    v47 = 0;
   }
 
-  *&a2[v13 + 12] = v46;
-  v13 += 4;
-  v12 &= 0xFFDFu;
-  if ((v12 & 0x40) == 0)
+  *&a2[v14 + 12] = v47;
+  v14 += 4;
+  v13 &= 0xFFDFu;
+  if ((v13 & 0x40) == 0)
   {
 LABEL_70:
-    if ((v12 & 0x80) == 0)
+    if ((v13 & 0x80) == 0)
     {
       goto LABEL_71;
     }
@@ -8580,21 +8589,21 @@ LABEL_70:
 LABEL_112:
   if (a1)
   {
-    v47 = *(a1 + 240);
+    v48 = *(a1 + 240);
   }
 
   else
   {
-    v47 = 0;
+    v48 = 0;
   }
 
-  *&a2[v13 + 12] = v47;
-  LOWORD(v13) = v13 + 4;
-  v12 &= 0xFFBFu;
-  if ((v12 & 0x80) == 0)
+  *&a2[v14 + 12] = v48;
+  LOWORD(v14) = v14 + 4;
+  v13 &= 0xFFBFu;
+  if ((v13 & 0x80) == 0)
   {
 LABEL_71:
-    if (!v12)
+    if (!v13)
     {
       goto LABEL_73;
     }
@@ -8605,65 +8614,65 @@ LABEL_71:
 LABEL_116:
   if (a1)
   {
-    v48 = *(a1 + 256);
+    v49 = *(a1 + 256);
   }
 
   else
   {
-    v48 = 0;
+    v49 = 0;
   }
 
-  *&a2[v13 + 12] = v48;
-  LOWORD(v13) = v13 + 4;
-  if ((v12 & 0xFF7F) != 0)
+  *&a2[v14 + 12] = v49;
+  LOWORD(v14) = v14 + 4;
+  if ((v13 & 0xFF7F) != 0)
   {
 LABEL_72:
-    v26 = [MEMORY[0x277D6C290] currentHandler];
-    v27 = [MEMORY[0x277CCACA8] stringWithUTF8String:{"void TSTCellToCellStorage(TSTCell *, TSTCellStorage *)"}];
-    [v26 handleFailureInFunction:v27 file:objc_msgSend(MEMORY[0x277CCACA8] lineNumber:"stringWithUTF8String:" description:{"/Library/Caches/com.apple.xbs/Sources/AlderShared/tables/TSTCellStorage.mm"), 467, @"Failed to process all format storage elements!"}];
+    v27 = [MEMORY[0x277D6C290] currentHandler];
+    v28 = [MEMORY[0x277CCACA8] stringWithUTF8String:{"void TSTCellToCellStorage(TSTCell *, TSTCellStorage *)"}];
+    [v27 handleFailureInFunction:v28 file:objc_msgSend(MEMORY[0x277CCACA8] lineNumber:"stringWithUTF8String:" description:{"/Library/Caches/com.apple.xbs/Sources/AlderShared/tables/TSTCellStorage.mm"), 467, @"Failed to process all format storage elements!"}];
   }
 
 LABEL_73:
-  v28 = *(a2 + 4);
-  v29 = v28;
-  v30 = *a2;
-  if (v30 <= 1)
+  v29 = *(a2 + 4);
+  v30 = v29;
+  v31 = *a2;
+  if (v31 <= 1)
   {
-    v31 = 0;
+    v32 = 0;
   }
 
   else
   {
-    v31 = HIWORD(v28);
+    v32 = HIWORD(v29);
   }
 
-  v33 = v13 + 12;
-  if (v33 != TSTCellStorageSizeForHeaderFlags(*(a2 + 4), v31, v8))
+  v34 = v14 + 12;
+  if (v34 != TSTCellStorageSizeForHeaderFlags(*(a2 + 4), v32, v9))
   {
     NSLog(@"hate");
-    v28 = *(a2 + 4);
-    v30 = *a2;
-    v29 = v28;
+    v29 = *(a2 + 4);
+    v31 = *a2;
+    v30 = v29;
   }
 
-  if (v30 <= 1)
+  if (v31 <= 1)
   {
-    v34 = 0;
+    v35 = 0;
   }
 
   else
   {
-    v34 = HIWORD(v28);
+    v35 = HIWORD(v29);
   }
 
-  result = TSTCellStorageSizeForHeaderFlags(v29, v34, v32);
-  if (v33 != result)
+  result = TSTCellStorageSizeForHeaderFlags(v30, v35, v33);
+  if (v34 != result)
   {
-    v37 = [MEMORY[0x277D6C290] currentHandler];
-    v38 = [MEMORY[0x277CCACA8] stringWithUTF8String:{"void TSTCellToCellStorage(TSTCell *, TSTCellStorage *)"}];
-    v39 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/AlderShared/tables/TSTCellStorage.mm"];
+    v38 = [MEMORY[0x277D6C290] currentHandler];
+    v39 = [MEMORY[0x277CCACA8] stringWithUTF8String:{"void TSTCellToCellStorage(TSTCell *, TSTCellStorage *)"}];
+    v40 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/AlderShared/tables/TSTCellStorage.mm"];
 
-    return [v37 handleFailureInFunction:v38 file:v39 lineNumber:474 description:@"Size miscalculation!"];
+    return [v38 handleFailureInFunction:v39 file:v40 lineNumber:474 description:@"Size miscalculation!"];
   }
 
   return result;
@@ -8936,7 +8945,7 @@ LABEL_16:
 void TSTCellStorageToCell(unsigned __int8 *a1, uint64_t a2)
 {
   TSTCellStorageVersionAssert(a1);
-  TSTCellClear(a2);
+  TSTCellClear(a2, v4);
   if (!a1)
   {
     return;
@@ -8949,20 +8958,20 @@ void TSTCellStorageToCell(unsigned __int8 *a1, uint64_t a2)
     return;
   }
 
-  v4 = a1[2];
+  v5 = a1[2];
   TSTCellClearValue(a2);
-  *(a2 + 9) = v4;
+  *(a2 + 9) = v5;
   *(a2 + 10) = *(a1 + 3);
   *(a2 + 272) = a1[3];
   *(a2 + 96) = *(a1 + 2);
-  v6 = *(a1 + 4);
-  v7 = v6;
-  if ((v6 & 2) != 0)
+  v7 = *(a1 + 4);
+  v8 = v7;
+  if ((v7 & 2) != 0)
   {
     *(a2 + 32) = *(a1 + 3);
-    v7 = v6 & 0xFFFD;
-    v8 = 4;
-    if ((v6 & 0x80) == 0)
+    v8 = v7 & 0xFFFD;
+    v9 = 4;
+    if ((v7 & 0x80) == 0)
     {
       goto LABEL_11;
     }
@@ -8970,25 +8979,25 @@ void TSTCellStorageToCell(unsigned __int8 *a1, uint64_t a2)
     goto LABEL_10;
   }
 
-  v8 = 0;
-  if ((v6 & 0x80) != 0)
+  v9 = 0;
+  if ((v7 & 0x80) != 0)
   {
 LABEL_10:
-    *(a2 + 48) = *&a1[v8 + 12];
-    v8 += 4;
-    v7 &= 0xFF7Fu;
+    *(a2 + 48) = *&a1[v9 + 12];
+    v9 += 4;
+    v8 &= 0xFF7Fu;
   }
 
 LABEL_11:
-  if ((v7 & 4) != 0)
+  if ((v8 & 4) != 0)
   {
-    *(a2 + 100) = *&a1[v8 + 12];
-    v8 += 4;
-    v7 &= 0xFFFBu;
-    if ((v7 & 0x200) == 0)
+    *(a2 + 100) = *&a1[v9 + 12];
+    v9 += 4;
+    v8 &= 0xFFFBu;
+    if ((v8 & 0x200) == 0)
     {
 LABEL_13:
-      if ((v7 & 0x1000) == 0)
+      if ((v8 & 0x1000) == 0)
       {
         goto LABEL_14;
       }
@@ -8997,18 +9006,18 @@ LABEL_13:
     }
   }
 
-  else if ((v7 & 0x200) == 0)
+  else if ((v8 & 0x200) == 0)
   {
     goto LABEL_13;
   }
 
-  *(a2 + 64) = *&a1[v8 + 12];
-  v8 += 4;
-  v7 &= 0xFDFFu;
-  if ((v7 & 0x1000) == 0)
+  *(a2 + 64) = *&a1[v9 + 12];
+  v9 += 4;
+  v8 &= 0xFDFFu;
+  if ((v8 & 0x1000) == 0)
   {
 LABEL_14:
-    if ((v7 & 0x10) == 0)
+    if ((v8 & 0x10) == 0)
     {
       goto LABEL_15;
     }
@@ -9017,152 +9026,152 @@ LABEL_14:
   }
 
 LABEL_19:
-  *(a2 + 80) = *&a1[v8 + 12];
-  v8 += 4;
-  v7 &= 0xEFFFu;
-  if ((v7 & 0x10) == 0)
+  *(a2 + 80) = *&a1[v9 + 12];
+  v9 += 4;
+  v8 &= 0xEFFFu;
+  if ((v8 & 0x10) == 0)
   {
 LABEL_15:
-    if ((v7 & 0x20) == 0)
+    if ((v8 & 0x20) == 0)
     {
       goto LABEL_43;
     }
 
 LABEL_24:
-    v11 = a1[2];
-    v12 = *&a1[v8 + 12];
-    if (v11 == 7)
+    v12 = a1[2];
+    v13 = *&a1[v9 + 12];
+    if (v12 == 7)
     {
-      v14 = *(a2 + 8);
-      if ((v14 & 0xFF00) == 0)
+      v15 = *(a2 + 8);
+      if ((v15 & 0xFF00) == 0)
       {
         TSTCellClearValue(a2);
         *(a2 + 9) = 7;
-        v14 = *(a2 + 8);
+        v15 = *(a2 + 8);
       }
 
-      if ((v14 & 0xFF00) != 0x700)
+      if ((v15 & 0xFF00) != 0x700)
       {
-        v15 = [MEMORY[0x277D6C290] currentHandler];
-        v16 = [MEMORY[0x277CCACA8] stringWithUTF8String:{"void TSTCellSetDurationValue(TSTCell *, NSTimeInterval)"}];
-        [v15 handleFailureInFunction:v16 file:objc_msgSend(MEMORY[0x277CCACA8] lineNumber:"stringWithUTF8String:" description:{"/Library/Caches/com.apple.xbs/Sources/AlderShared/tables/TSTCell.h"), 1080, @"can't set duration value on a non-duration cell: %p", a2}];
+        v16 = [MEMORY[0x277D6C290] currentHandler];
+        v17 = [MEMORY[0x277CCACA8] stringWithUTF8String:{"void TSTCellSetDurationValue(TSTCell *, NSTimeInterval)"}];
+        [v16 handleFailureInFunction:v17 file:objc_msgSend(MEMORY[0x277CCACA8] lineNumber:"stringWithUTF8String:" description:{"/Library/Caches/com.apple.xbs/Sources/AlderShared/tables/TSTCell.h"), 1080, @"can't set duration value on a non-duration cell: %p", a2}];
 LABEL_42:
-        v8 += 8;
-        v7 &= 0xFFDFu;
+        v9 += 8;
+        v8 &= 0xFFDFu;
         goto LABEL_43;
       }
     }
 
     else
     {
-      if (v11 == 6)
+      if (v12 == 6)
       {
-        v13 = *(a2 + 8);
-        if ((v13 & 0xFF00) == 0)
+        v14 = *(a2 + 8);
+        if ((v14 & 0xFF00) == 0)
         {
           TSTCellClearValue(a2);
           *(a2 + 9) = 6;
-          v13 = *(a2 + 8);
+          v14 = *(a2 + 8);
         }
 
-        if ((v13 & 0xFF00) == 0x600)
+        if ((v14 & 0xFF00) == 0x600)
         {
-          v5.i64[0] = 0;
-          if (v12 != 0.0)
+          v6.i64[0] = 0;
+          if (v13 != 0.0)
           {
-            *v5.i64 = 1.0;
+            *v6.i64 = 1.0;
           }
 
-          *(a2 + 16) = v5.i64[0];
+          *(a2 + 16) = v6.i64[0];
         }
 
         else
         {
-          v18 = [MEMORY[0x277D6C290] currentHandler];
-          v19 = [MEMORY[0x277CCACA8] stringWithUTF8String:{"void TSTCellSetBoolValue(TSTCell *, BOOL)"}];
-          [v18 handleFailureInFunction:v19 file:objc_msgSend(MEMORY[0x277CCACA8] lineNumber:"stringWithUTF8String:" description:{"/Library/Caches/com.apple.xbs/Sources/AlderShared/tables/TSTCell.h"), 939, @"can't set BOOL value to non-BOOL cell: %p", a2}];
+          v19 = [MEMORY[0x277D6C290] currentHandler];
+          v20 = [MEMORY[0x277CCACA8] stringWithUTF8String:{"void TSTCellSetBoolValue(TSTCell *, BOOL)"}];
+          [v19 handleFailureInFunction:v20 file:objc_msgSend(MEMORY[0x277CCACA8] lineNumber:"stringWithUTF8String:" description:{"/Library/Caches/com.apple.xbs/Sources/AlderShared/tables/TSTCell.h"), 939, @"can't set BOOL value to non-BOOL cell: %p", a2}];
         }
 
         goto LABEL_42;
       }
 
-      v17 = *(a2 + 8);
-      if ((v17 & 0xFF00) == 0)
+      v18 = *(a2 + 8);
+      if ((v18 & 0xFF00) == 0)
       {
         TSTCellClearValue(a2);
         *(a2 + 9) = 2;
-        v17 = *(a2 + 8);
+        v18 = *(a2 + 8);
       }
 
-      if ((v17 & 0xFF00) != 0x200)
+      if ((v18 & 0xFF00) != 0x200)
       {
-        v20 = [MEMORY[0x277D6C290] currentHandler];
-        v21 = [MEMORY[0x277CCACA8] stringWithUTF8String:{"void TSTCellSetDoubleValue(TSTCell *, double)"}];
-        [v20 handleFailureInFunction:v21 file:objc_msgSend(MEMORY[0x277CCACA8] lineNumber:"stringWithUTF8String:" description:{"/Library/Caches/com.apple.xbs/Sources/AlderShared/tables/TSTCell.h"), 912, @"can't set value to non-value cell: %p", a2}];
+        v21 = [MEMORY[0x277D6C290] currentHandler];
+        v22 = [MEMORY[0x277CCACA8] stringWithUTF8String:{"void TSTCellSetDoubleValue(TSTCell *, double)"}];
+        [v21 handleFailureInFunction:v22 file:objc_msgSend(MEMORY[0x277CCACA8] lineNumber:"stringWithUTF8String:" description:{"/Library/Caches/com.apple.xbs/Sources/AlderShared/tables/TSTCell.h"), 912, @"can't set value to non-value cell: %p", a2}];
         goto LABEL_42;
       }
     }
 
-    *(a2 + 16) = v12;
+    *(a2 + 16) = v13;
     goto LABEL_42;
   }
 
 LABEL_20:
   if (*(a2 + 9) << 8 == 768)
   {
-    *(a2 + 16) = *&a1[v8 + 12];
+    *(a2 + 16) = *&a1[v9 + 12];
   }
 
   else
   {
-    v9 = [MEMORY[0x277D6C290] currentHandler];
-    v10 = [MEMORY[0x277CCACA8] stringWithUTF8String:{"void TSTCellSetStringID(TSTCell *, TSTTableDataListKey)"}];
-    [v9 handleFailureInFunction:v10 file:objc_msgSend(MEMORY[0x277CCACA8] lineNumber:"stringWithUTF8String:" description:{"/Library/Caches/com.apple.xbs/Sources/AlderShared/tables/TSTCell.h"), 958, @"can't set string ID on non-string cell: %p", a2}];
+    v10 = [MEMORY[0x277D6C290] currentHandler];
+    v11 = [MEMORY[0x277CCACA8] stringWithUTF8String:{"void TSTCellSetStringID(TSTCell *, TSTTableDataListKey)"}];
+    [v10 handleFailureInFunction:v11 file:objc_msgSend(MEMORY[0x277CCACA8] lineNumber:"stringWithUTF8String:" description:{"/Library/Caches/com.apple.xbs/Sources/AlderShared/tables/TSTCell.h"), 958, @"can't set string ID on non-string cell: %p", a2}];
   }
 
-  v8 += 4;
-  v7 &= 0xFFEFu;
-  if ((v7 & 0x20) != 0)
+  v9 += 4;
+  v8 &= 0xFFEFu;
+  if ((v8 & 0x20) != 0)
   {
     goto LABEL_24;
   }
 
 LABEL_43:
-  v22 = HIWORD(v6);
-  if ((v7 & 0x40) != 0)
+  v23 = HIWORD(v7);
+  if ((v8 & 0x40) != 0)
   {
-    v32 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceReferenceDate:*&a1[v8 + 12]];
-    v33 = *(a2 + 8);
-    if ((v33 & 0xFF00) == 0)
+    v33 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceReferenceDate:*&a1[v9 + 12]];
+    v34 = *(a2 + 8);
+    if ((v34 & 0xFF00) == 0)
     {
       TSTCellClearValue(a2);
       *(a2 + 9) = 5;
-      v33 = *(a2 + 8);
+      v34 = *(a2 + 8);
     }
 
-    if ((v33 & 0xFF00) == 0x500)
+    if ((v34 & 0xFF00) == 0x500)
     {
-      v34 = *(a2 + 16);
-      if (v34 != v32)
+      v35 = *(a2 + 16);
+      if (v35 != v33)
       {
 
-        *(a2 + 16) = v32;
+        *(a2 + 16) = v33;
       }
     }
 
     else
     {
-      v38 = [MEMORY[0x277D6C290] currentHandler];
-      v39 = [MEMORY[0x277CCACA8] stringWithUTF8String:{"void TSTCellSetDateValue(TSTCell *, NSDate *)"}];
-      [v38 handleFailureInFunction:v39 file:objc_msgSend(MEMORY[0x277CCACA8] lineNumber:"stringWithUTF8String:" description:{"/Library/Caches/com.apple.xbs/Sources/AlderShared/tables/TSTCell.h"), 1038, @"can't set date value on a non-date cell: %p", a2}];
+      v39 = [MEMORY[0x277D6C290] currentHandler];
+      v40 = [MEMORY[0x277CCACA8] stringWithUTF8String:{"void TSTCellSetDateValue(TSTCell *, NSDate *)"}];
+      [v39 handleFailureInFunction:v40 file:objc_msgSend(MEMORY[0x277CCACA8] lineNumber:"stringWithUTF8String:" description:{"/Library/Caches/com.apple.xbs/Sources/AlderShared/tables/TSTCell.h"), 1038, @"can't set date value on a non-date cell: %p", a2}];
     }
 
-    v8 += 8;
-    v7 &= 0xFFBFu;
-    if ((v6 & 0x1000000000000) == 0)
+    v9 += 8;
+    v8 &= 0xFFBFu;
+    if ((v7 & 0x1000000000000) == 0)
     {
 LABEL_45:
-      if ((v6 & 0x8000000000000) == 0)
+      if ((v7 & 0x8000000000000) == 0)
       {
         goto LABEL_46;
       }
@@ -9171,18 +9180,18 @@ LABEL_45:
     }
   }
 
-  else if ((v6 & 0x1000000000000) == 0)
+  else if ((v7 & 0x1000000000000) == 0)
   {
     goto LABEL_45;
   }
 
-  *(a2 + 144) = *&a1[v8 + 12];
-  v8 += 4;
-  LODWORD(v22) = HIWORD(v6) & 0xFFFE;
-  if ((v6 & 0x8000000000000) == 0)
+  *(a2 + 144) = *&a1[v9 + 12];
+  v9 += 4;
+  LODWORD(v23) = HIWORD(v7) & 0xFFFE;
+  if ((v7 & 0x8000000000000) == 0)
   {
 LABEL_46:
-    if ((v22 & 2) == 0)
+    if ((v23 & 2) == 0)
     {
       goto LABEL_47;
     }
@@ -9191,13 +9200,13 @@ LABEL_46:
   }
 
 LABEL_76:
-  *(a2 + 160) = *&a1[v8 + 12];
-  v8 += 4;
-  LODWORD(v22) = v22 & 0xFFFFFFF7;
-  if ((v22 & 2) == 0)
+  *(a2 + 160) = *&a1[v9 + 12];
+  v9 += 4;
+  LODWORD(v23) = v23 & 0xFFFFFFF7;
+  if ((v23 & 2) == 0)
   {
 LABEL_47:
-    if ((v22 & 4) == 0)
+    if ((v23 & 4) == 0)
     {
       goto LABEL_48;
     }
@@ -9206,13 +9215,13 @@ LABEL_47:
   }
 
 LABEL_77:
-  *(a2 + 192) = *&a1[v8 + 12];
-  v8 += 4;
-  LODWORD(v22) = v22 & 0xFFFD;
-  if ((v22 & 4) == 0)
+  *(a2 + 192) = *&a1[v9 + 12];
+  v9 += 4;
+  LODWORD(v23) = v23 & 0xFFFD;
+  if ((v23 & 4) == 0)
   {
 LABEL_48:
-    if ((v22 & 0x10) == 0)
+    if ((v23 & 0x10) == 0)
     {
       goto LABEL_49;
     }
@@ -9221,13 +9230,13 @@ LABEL_48:
   }
 
 LABEL_78:
-  *(a2 + 176) = *&a1[v8 + 12];
-  v8 += 4;
-  LODWORD(v22) = v22 & 0xFFFB;
-  if ((v22 & 0x10) == 0)
+  *(a2 + 176) = *&a1[v9 + 12];
+  v9 += 4;
+  LODWORD(v23) = v23 & 0xFFFB;
+  if ((v23 & 0x10) == 0)
   {
 LABEL_49:
-    if ((v22 & 0x20) == 0)
+    if ((v23 & 0x20) == 0)
     {
       goto LABEL_50;
     }
@@ -9236,22 +9245,22 @@ LABEL_49:
   }
 
 LABEL_79:
-  *(a2 + 208) = *&a1[v8 + 12];
-  v8 += 4;
-  LODWORD(v22) = v22 & 0xFFEF;
-  if ((v22 & 0x20) == 0)
+  *(a2 + 208) = *&a1[v9 + 12];
+  v9 += 4;
+  LODWORD(v23) = v23 & 0xFFEF;
+  if ((v23 & 0x20) == 0)
   {
 LABEL_50:
-    if ((v22 & 0x40) == 0)
+    if ((v23 & 0x40) == 0)
     {
       goto LABEL_51;
     }
 
 LABEL_81:
-    *(a2 + 240) = *&a1[v8 + 12];
-    LOWORD(v8) = v8 + 4;
-    LODWORD(v22) = v22 & 0xFFBF;
-    if ((v22 & 0x80) == 0)
+    *(a2 + 240) = *&a1[v9 + 12];
+    LOWORD(v9) = v9 + 4;
+    LODWORD(v23) = v23 & 0xFFBF;
+    if ((v23 & 0x80) == 0)
     {
       goto LABEL_53;
     }
@@ -9260,70 +9269,70 @@ LABEL_81:
   }
 
 LABEL_80:
-  *(a2 + 224) = *&a1[v8 + 12];
-  v8 += 4;
-  LODWORD(v22) = v22 & 0xFFDF;
-  if ((v22 & 0x40) != 0)
+  *(a2 + 224) = *&a1[v9 + 12];
+  v9 += 4;
+  LODWORD(v23) = v23 & 0xFFDF;
+  if ((v23 & 0x40) != 0)
   {
     goto LABEL_81;
   }
 
 LABEL_51:
-  if ((v22 & 0x80) != 0)
+  if ((v23 & 0x80) != 0)
   {
 LABEL_52:
-    *(a2 + 256) = *&a1[v8 + 12];
-    LOWORD(v8) = v8 + 4;
-    LODWORD(v22) = v22 & 0xFF7F;
+    *(a2 + 256) = *&a1[v9 + 12];
+    LOWORD(v9) = v9 + 4;
+    LODWORD(v23) = v23 & 0xFF7F;
   }
 
 LABEL_53:
-  if (v22 | v7)
+  if (v23 | v8)
   {
-    v23 = [MEMORY[0x277D6C290] currentHandler];
-    v24 = [MEMORY[0x277CCACA8] stringWithUTF8String:{"void TSTCellStorageToCell(TSTCellStorage *, TSTCell *)"}];
-    [v23 handleFailureInFunction:v24 file:objc_msgSend(MEMORY[0x277CCACA8] lineNumber:"stringWithUTF8String:" description:{"/Library/Caches/com.apple.xbs/Sources/AlderShared/tables/TSTCellStorage.mm"), 831, @"Failed to process all storage elements!"}];
+    v24 = [MEMORY[0x277D6C290] currentHandler];
+    v25 = [MEMORY[0x277CCACA8] stringWithUTF8String:{"void TSTCellStorageToCell(TSTCellStorage *, TSTCell *)"}];
+    [v24 handleFailureInFunction:v25 file:objc_msgSend(MEMORY[0x277CCACA8] lineNumber:"stringWithUTF8String:" description:{"/Library/Caches/com.apple.xbs/Sources/AlderShared/tables/TSTCellStorage.mm"), 831, @"Failed to process all storage elements!"}];
   }
 
-  v25 = *(a1 + 4);
-  v26 = v25;
-  v27 = *a1;
-  if (v27 <= 1)
+  v26 = *(a1 + 4);
+  v27 = v26;
+  v28 = *a1;
+  if (v28 <= 1)
   {
-    v28 = 0;
+    v29 = 0;
   }
 
   else
   {
-    v28 = HIWORD(v25);
+    v29 = HIWORD(v26);
   }
 
-  v30 = v8 + 12;
-  if (v30 != TSTCellStorageSizeForHeaderFlags(*(a1 + 4), v28, v5))
+  v31 = v9 + 12;
+  if (v31 != TSTCellStorageSizeForHeaderFlags(*(a1 + 4), v29, v6))
   {
     NSLog(@"hate");
-    v25 = *(a1 + 4);
-    v27 = *a1;
-    v26 = v25;
+    v26 = *(a1 + 4);
+    v28 = *a1;
+    v27 = v26;
   }
 
-  if (v27 <= 1)
+  if (v28 <= 1)
   {
-    v31 = 0;
+    v32 = 0;
   }
 
   else
   {
-    v31 = HIWORD(v25);
+    v32 = HIWORD(v26);
   }
 
-  if (v30 != TSTCellStorageSizeForHeaderFlags(v26, v31, v29))
+  if (v31 != TSTCellStorageSizeForHeaderFlags(v27, v32, v30))
   {
-    v35 = [MEMORY[0x277D6C290] currentHandler];
-    v36 = [MEMORY[0x277CCACA8] stringWithUTF8String:{"void TSTCellStorageToCell(TSTCellStorage *, TSTCell *)"}];
-    v37 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/AlderShared/tables/TSTCellStorage.mm"];
+    v36 = [MEMORY[0x277D6C290] currentHandler];
+    v37 = [MEMORY[0x277CCACA8] stringWithUTF8String:{"void TSTCellStorageToCell(TSTCellStorage *, TSTCell *)"}];
+    v38 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/AlderShared/tables/TSTCellStorage.mm"];
 
-    [v35 handleFailureInFunction:v36 file:v37 lineNumber:838 description:@"Size miscalculation!"];
+    [v36 handleFailureInFunction:v37 file:v38 lineNumber:838 description:@"Size miscalculation!"];
   }
 }
 
@@ -9623,7 +9632,7 @@ LABEL_23:
   return 0;
 }
 
-uint64_t TSTBundle()
+uint64_t TSTBundle(uint64_t a1, uint64_t a2)
 {
   if (TSTBundle::onceToken != -1)
   {
@@ -9633,7 +9642,7 @@ uint64_t TSTBundle()
   return TSTBundle::bundle;
 }
 
-uint64_t __TSTBundle_block_invoke()
+void *__TSTBundle_block_invoke()
 {
   result = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
   TSTBundle::bundle = result;
@@ -9746,11 +9755,11 @@ uint64_t TSTTableRepGetCellIDForCanvasPoint(void *a1, CGFloat a2, double a3)
   return TSTLayoutGetCellIDHitByCanvasPoint(v5, a2, a3);
 }
 
-uint64_t TSTTableRepGetClosestCellIDForCanvasPoint(void *a1)
+uint64_t TSTTableRepGetClosestCellIDForCanvasPoint(void *a1, double a2, double a3)
 {
-  v1 = [a1 tableLayout];
+  v5 = [a1 tableLayout];
 
-  return TSTLayoutGetCellIDNearbyCanvasPoint(v1);
+  return TSTLayoutGetCellIDNearbyCanvasPoint(v5, a2, a3);
 }
 
 void TSTTableRepSetupUserSpaceToDeviceSpaceTransform(TSTTableRep *a1, CGFloat a2, double a3)
@@ -9768,7 +9777,7 @@ void TSTTableRepSetupUserSpaceToDeviceSpaceTransform(TSTTableRep *a1, CGFloat a2
   v7 = [(TSDRep *)a1 layout];
   if (v7)
   {
-    [(TSDAbstractLayout *)v7 transformInRoot];
+    objc_msgSend_transformInRoot(v7);
   }
 
   else

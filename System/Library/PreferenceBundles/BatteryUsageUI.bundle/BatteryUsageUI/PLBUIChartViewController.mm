@@ -56,10 +56,9 @@
 + (void)reloadLocale
 {
   v2 = sub_5A754();
-  type metadata accessor for BUIChartViewConfig();
+  type metadata accessor for BUIChartViewConfig(0);
   v3 = sub_59600();
   swift_beginAccess();
-  v4 = *v2;
   *v2 = v3;
 }
 
@@ -102,15 +101,14 @@
 {
   v6 = sub_115760();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
   __chkstk_darwin(v6);
-  v10 = &v13 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v12 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_115730();
   datasetCopy = dataset;
   selfCopy = self;
   PLBUIChartViewController.setDataset(_:endOfDay:)(datasetCopy);
 
-  (*(v7 + 8))(v10, v6);
+  (*(v7 + 8))(v9, v6);
 }
 
 - (void)setMarginWithTop:(double)top bottom:(double)bottom

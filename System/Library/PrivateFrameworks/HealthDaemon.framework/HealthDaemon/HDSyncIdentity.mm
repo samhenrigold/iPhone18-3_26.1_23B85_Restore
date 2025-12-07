@@ -42,15 +42,15 @@
   v11 = [(HDSyncIdentity *)&v19 init];
   if (v11)
   {
-    v12 = [identifierCopy copy];
+    v12 = objc_msgSend_copy(identifierCopy);
     hardwareIdentifier = v11->_hardwareIdentifier;
     v11->_hardwareIdentifier = v12;
 
-    v14 = [databaseIdentifierCopy copy];
+    v14 = objc_msgSend_copy(databaseIdentifierCopy);
     databaseIdentifier = v11->_databaseIdentifier;
     v11->_databaseIdentifier = v14;
 
-    v16 = [discriminatorCopy copy];
+    v16 = objc_msgSend_copy(discriminatorCopy);
     instanceDiscriminator = v11->_instanceDiscriminator;
     v11->_instanceDiscriminator = v16;
   }

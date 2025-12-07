@@ -1320,7 +1320,7 @@ LABEL_4:
 
   self->_otherPictureInPictureActive = activeCopy;
   v7 = activeCopy || [(AVPictureInPictureController *)self isPictureInPictureActive];
-  [(AVPictureInPictureController *)self _setCanStopPictureInPicture:v7, *v8, *&v8[16]];
+  [(AVPictureInPictureController *)self _setCanStopPictureInPicture:v7, *v8, *&v8[8]];
 }
 
 - (void)setPictureInPictureActive:(BOOL)active
@@ -1350,7 +1350,7 @@ LABEL_4:
   [playerController setPictureInPictureActive:activeCopy];
 
   v8 = activeCopy || [(AVPictureInPictureController *)self isOtherPictureInPictureActive];
-  [(AVPictureInPictureController *)self _setCanStopPictureInPicture:v8, *v9, *&v9[16]];
+  [(AVPictureInPictureController *)self _setCanStopPictureInPicture:v8, *v9, *&v9[8]];
 }
 
 - (void)setAllowsPictureInPictureFromInlineWhenEnteringBackground:(BOOL)background

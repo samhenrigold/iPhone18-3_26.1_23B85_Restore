@@ -133,71 +133,71 @@
 
 - (BOOL)canThrowRenderOutput:(id)output withInput:(id)input withInfo:(id *)info
 {
-  v6 = MEMORY[0x28223BE20](self);
+  *&v6 = MEMORY[0x28223BE20](self, a2, output, input, info).n128_u64[0];
   v8 = v7;
   v10 = v9;
-  v34 = v11;
-  v45[2] = *MEMORY[0x277D85DE8];
-  v33 = v6;
-  v12 = [*(v6 + 8) apiForProtocol:&unk_28735B780];
-  v13 = v12;
-  if (v12)
+  v35 = v11;
+  v46[2] = *MEMORY[0x277D85DE8];
+  v34 = v12;
+  v13 = [v12[1] apiForProtocol:{&unk_28735B780, v6}];
+  v14 = v13;
+  if (v13)
   {
-    v43[0] = 0.0;
-    [v12 getFloatValue:v43 fromParm:1 atFxTime:*v8];
-    if (v43[0] == 0.0)
+    v44[0] = 0.0;
+    [v13 getFloatValue:v44 fromParm:1 atFxTime:*v8];
+    if (v44[0] == 0.0)
     {
       if (v10)
       {
-        [v10 heliumRef];
+        objc_msgSend_heliumRef(v10, v44[0]);
       }
 
       else
       {
-        *&v44[0].var0 = 0;
+        *&v45[0].var0 = 0;
       }
 
-      [v34 setHeliumRef:v44];
-      if (*&v44[0].var0)
+      [v35 setHeliumRef:v45];
+      if (*&v45[0].var0)
       {
-        (*(**&v44[0].var0 + 24))(*&v44[0].var0);
+        (*(**&v45[0].var0 + 24))(*&v45[0].var0);
       }
     }
 
     else
     {
-      v41 = 0x3FE0000000000000;
       v42 = 0x3FE0000000000000;
-      [v13 getXValue:&v42 YValue:&v41 fromParm:2 atFxTime:{*v8, v43[0]}];
+      v43 = 0x3FE0000000000000;
+      [v14 getXValue:&v43 YValue:&v42 fromParm:2 atFxTime:{*v8, v44[0]}];
+      v41 = 0;
+      [v14 getFloatValue:&v41 fromParm:3 atFxTime:*v8];
       v40 = 0;
-      [v13 getFloatValue:&v40 fromParm:3 atFxTime:*v8];
-      v39 = 0;
-      [v13 getBoolValue:&v39 fromParm:5 atFxTime:*v8];
+      [v14 getBoolValue:&v40 fromParm:5 atFxTime:*v8];
       if (v10)
       {
-        [v10 heliumRef];
+        objc_msgSend_heliumRef(v10);
       }
 
       else
       {
-        v38 = 0;
+        v39 = 0;
       }
 
-      width = [v34 width];
-      height = [v34 height];
-      v45[0] = 0;
-      v45[1] = 0;
-      v16 = HGObject::operator new(0x1D0uLL);
-      HGTextureWrap::HGTextureWrap(v16);
-      HGTextureWrap::SetTextureWrapMode(v16, 0, v17);
-      HGTextureWrap::SetTextureBorderColor(v16, v45);
-      (*(*v16 + 120))(v16, 0, v38);
-      v18 = width * 0.5;
-      v19 = vcvtd_n_f64_u64(height, 1uLL);
-      *&v44[0].var0 = HGRectMake4f(v20, -v18, -v19, v18, v19);
-      *&v44[0].var2 = v21;
-      HGTextureWrap::SetCropRect(v16, v44);
-      if ([objc_msgSend(v33[1] apiForProtocol:{&unk_28735F2C8), "versionAtCreation"}])
+      width = [v35 width];
+      height = [v35 height];
+      v46[0] = 0;
+      v46[1] = 0;
+      v17 = HGObject::operator new(0x1D0uLL);
+      HGTextureWrap::HGTextureWrap(v17);
+      HGTextureWrap::SetTextureWrapMode(v17, 0, v18);
+      HGTextureWrap::SetTextureBorderColor(v17, v46);
+      (*(*v17 + 120))(v17, 0, v39);
+      v19 = width * 0.5;
+      v20 = vcvtd_n_f64_u64(height, 1uLL);
+      *&v45[0].var0 = HGRectMake4f(v21, -v19, -v20, v19, v20);
+      *&v45[0].var2 = v22;
+      HGTextureWrap::SetCropRect(v17, v45);
+      if ([objc_msgSend(v34[1] apiForProtocol:{&unk_28735F2C8), "versionAtCreation"}])
       {
         [v10 width];
         [v10 width];
@@ -205,81 +205,81 @@
         [v10 height];
       }
 
-      [v33 getScaleForImage:v10];
-      v22 = v36;
-      if (v36 <= v37)
+      objc_msgSend_getScaleForImage_(v34);
+      v23 = v37;
+      if (v37 <= v38)
       {
-        v22 = v37;
+        v23 = v38;
       }
 
-      LODWORD(height2) = vcvtpd_s64_f64(v22 * v43[0] * 0.5);
+      LODWORD(height2) = vcvtpd_s64_f64(v23 * v44[0] * 0.5);
       if (height2 >= 1)
       {
-        v23 = 0;
-        v24 = 0.00390625 / v22;
-        v25 = 0.0;
+        v24 = 0;
+        v25 = 0.00390625 / v23;
+        v26 = 0.0;
         do
         {
-          v26 = 1.0 - (v23 / height2);
-          *(&v44[0].var0 + v23) = v26;
-          v25 = v25 + v26;
-          *(&v43[1] + v23) = 1.0 - (v24 * v23);
-          ++v23;
+          v27 = 1.0 - (v24 / height2);
+          *(&v45[0].var0 + v24) = v27;
+          v26 = v26 + v27;
+          *(&v44[1] + v24) = 1.0 - (v25 * v24);
+          ++v24;
         }
 
-        while (height2 != v23);
-        v27 = v44;
-        v28 = height2;
-        v29 = 1.0 / v25;
+        while (height2 != v24);
+        v28 = v45;
+        v29 = height2;
+        v30 = 1.0 / v26;
         do
         {
-          *v27 = v29 * *v27;
-          ++v27;
-          --v28;
+          *v28 = v30 * *v28;
+          ++v28;
+          --v29;
         }
 
-        while (v28);
+        while (v29);
       }
 
-      v35 = 0;
+      v36 = 0;
       if (height2)
       {
-        v30 = HGObject::operator new(0x1A0uLL);
-        HGNode::HGNode(v30);
-        if (v30)
+        v31 = HGObject::operator new(0x1A0uLL);
+        HGNode::HGNode(v31);
+        if (v31)
         {
-          v35 = v30;
+          v36 = v31;
         }
 
         if (height2 >= 1)
         {
-          v31 = HGObject::operator new(0x1B0uLL);
-          HgcConvolvePass8tapPoint::HgcConvolvePass8tapPoint(v31);
+          v32 = HGObject::operator new(0x1B0uLL);
+          HgcConvolvePass8tapPoint::HgcConvolvePass8tapPoint(v32);
         }
       }
 
       else
       {
-        v35 = v16;
-        (*(*v16 + 16))(v16);
+        v36 = v17;
+        (*(*v17 + 16))(v17);
       }
 
-      [v33 crop:&v35 fromImage:v34 toImage:v34];
-      [v34 setHeliumRef:&v35];
-      if (v35)
+      [v34 crop:&v36 fromImage:v35 toImage:v35];
+      [v35 setHeliumRef:&v36];
+      if (v36)
       {
-        (*(*v35 + 24))(v35);
+        (*(*v36 + 24))(v36);
       }
 
-      (*(*v16 + 24))(v16);
-      if (v38)
+      (*(*v17 + 24))(v17);
+      if (v39)
       {
-        (*(*v38 + 24))(v38);
+        (*(*v39 + 24))(v39);
       }
     }
   }
 
-  return v13 != 0;
+  return v14 != 0;
 }
 
 - (BOOL)frameSetup:(id *)setup inputInfo:(id *)info hardware:(BOOL *)hardware software:(BOOL *)software

@@ -1781,17 +1781,17 @@ LABEL_17:
   return v11;
 }
 
-uint64_t __90__PHRelationshipChangeRequestHelper_initWithRelationshipName_xpcDict_changeRequestHelper___block_invoke(uint64_t a1)
+uint64_t __90__PHRelationshipChangeRequestHelper_initWithRelationshipName_xpcDict_changeRequestHelper___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v2 = PLManagedObjectIDFromXPCValue();
-  if (v2)
+  v4 = PLManagedObjectIDFromXPCValue();
+  if (v4)
   {
-    v3 = v2;
-    v4 = [PHPhotoLibrary uniquedOID:v2];
+    v5 = v4;
+    v6 = [PHPhotoLibrary uniquedOID:v4];
 
-    if (v4)
+    if (v6)
     {
-      [*(*(a1 + 40) + 40) addObject:v4];
+      [*(*(a1 + 40) + 40) addObject:v6];
     }
   }
 

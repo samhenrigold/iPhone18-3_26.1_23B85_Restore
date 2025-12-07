@@ -214,7 +214,7 @@ LABEL_37:
   fileName = self->_fileName;
   if (!fileName)
   {
-    v4 = WBS_LOG_CHANNEL_PREFIXDownloads();
+    v4 = WBS_LOG_CHANNEL_PREFIXDownloads(0, a2);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       [(SFQuickLookDocument *)v4 fileName:v5];
@@ -234,12 +234,13 @@ LABEL_37:
   v6 = fileName;
   if (fileName)
   {
-    if (![(NSString *)v6 isEqualToString:documentCopy])
+    v9 = [(NSString *)v6 isEqualToString:documentCopy];
+    if ((v9 & 1) == 0)
     {
-      v9 = WBS_LOG_CHANNEL_PREFIXDownloads();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v11 = WBS_LOG_CHANNEL_PREFIXDownloads(v9, v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
-        [(SFQuickLookDocument *)v9 setFileNameForPDFDocument:v10, v11, v12, v13, v14, v15, v16];
+        [(SFQuickLookDocument *)v11 setFileNameForPDFDocument:v12, v13, v14, v15, v16, v17, v18];
       }
     }
   }
@@ -252,17 +253,17 @@ LABEL_37:
 
 - (unint64_t)fileSize
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   savedPath = [(SFQuickLookDocument *)self savedPath];
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
-  v12 = 0;
-  v4 = [defaultManager attributesOfItemAtPath:savedPath error:&v12];
-  v5 = v12;
+  v14 = 0;
+  v4 = [defaultManager attributesOfItemAtPath:savedPath error:&v14];
+  v5 = v14;
 
   if (v5)
   {
-    v6 = WBS_LOG_CHANNEL_PREFIXDownloads();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v8 = WBS_LOG_CHANNEL_PREFIXDownloads(v6, v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       safari_privacyPreservingDescription = [v5 safari_privacyPreservingDescription];
       [(SFQuickLookDocument *)safari_privacyPreservingDescription fileSize];
@@ -271,11 +272,11 @@ LABEL_37:
 
   if (v4)
   {
-    v8 = [v4 safari_numberForKey:*MEMORY[0x1E696A3B8]];
-    v9 = v8;
-    if (v8)
+    v10 = [v4 safari_numberForKey:*MEMORY[0x1E696A3B8]];
+    v11 = v10;
+    if (v10)
     {
-      unsignedLongLongValue = [v8 unsignedLongLongValue];
+      unsignedLongLongValue = [v10 unsignedLongLongValue];
     }
 
     else
@@ -542,37 +543,38 @@ void __69__SFQuickLookDocument__deleteSavedPathWithProperExtensionIfNecessary__b
 
 void __42__SFQuickLookDocument_saveToFileIfNeeded___block_invoke(uint64_t a1, void *a2)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (v3)
   {
-    v4 = [*(a1 + 32) createTemporaryFile];
-    if (v4)
+    v5 = [*(a1 + 32) createTemporaryFile];
+    if (v5)
     {
-      v21 = 0;
-      v5 = [v3 writeToFile:v4 options:1 error:&v21];
-      v6 = v21;
-      if (v5)
+      v27 = 0;
+      v6 = [v3 writeToFile:v5 options:1 error:&v27];
+      v7 = v27;
+      v9 = v7;
+      if (v6)
       {
-        [*(a1 + 32) setSavedPath:v4 shouldDelete:1];
-        v7 = *(a1 + 40);
-        v8 = [*(a1 + 32) savedURLWithProperExtension];
-        (*(v7 + 16))(v7, v8);
+        [*(a1 + 32) setSavedPath:v5 shouldDelete:1];
+        v10 = *(a1 + 40);
+        v11 = [*(a1 + 32) savedURLWithProperExtension];
+        (*(v10 + 16))(v10, v11);
       }
 
       else
       {
-        v18 = WBS_LOG_CHANNEL_PREFIXDownloads();
-        if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+        v22 = WBS_LOG_CHANNEL_PREFIXDownloads(v7, v8);
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
         {
-          v19 = [v6 safari_privacyPreservingDescription];
-          __42__SFQuickLookDocument_saveToFileIfNeeded___block_invoke_cold_1(v19, buf, v18);
+          v23 = [v9 safari_privacyPreservingDescription];
+          __42__SFQuickLookDocument_saveToFileIfNeeded___block_invoke_cold_1(v23, buf, v22);
         }
 
-        v20 = WBS_LOG_CHANNEL_PREFIXDownloads();
-        if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+        v26 = WBS_LOG_CHANNEL_PREFIXDownloads(v24, v25);
+        if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
         {
-          __42__SFQuickLookDocument_saveToFileIfNeeded___block_invoke_cold_2(v4, v20);
+          __42__SFQuickLookDocument_saveToFileIfNeeded___block_invoke_cold_2(v5, v26);
         }
 
         (*(*(a1 + 40) + 16))();
@@ -581,16 +583,17 @@ void __42__SFQuickLookDocument_saveToFileIfNeeded___block_invoke(uint64_t a1, vo
 
     else
     {
-      v9 = WBS_LOG_CHANNEL_PREFIXDownloads();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v12 = WBS_LOG_CHANNEL_PREFIXDownloads(0, v4);
+      v13 = os_log_type_enabled(v12, OS_LOG_TYPE_ERROR);
+      if (v13)
       {
-        __42__SFQuickLookDocument_saveToFileIfNeeded___block_invoke_cold_3(v9, v10, v11, v12, v13, v14, v15, v16);
+        __42__SFQuickLookDocument_saveToFileIfNeeded___block_invoke_cold_3(v12, v14, v15, v16, v17, v18, v19, v20);
       }
 
-      v17 = WBS_LOG_CHANNEL_PREFIXDownloads();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+      v21 = WBS_LOG_CHANNEL_PREFIXDownloads(v13, v14);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
       {
-        __42__SFQuickLookDocument_saveToFileIfNeeded___block_invoke_cold_4(v17);
+        __42__SFQuickLookDocument_saveToFileIfNeeded___block_invoke_cold_4(v21);
       }
 
       (*(*(a1 + 40) + 16))();

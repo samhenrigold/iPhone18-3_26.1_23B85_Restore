@@ -52,10 +52,10 @@
     sub_1A524C674();
   }
 
-  type metadata accessor for LemonadePhotoLibraryContext();
+  type metadata accessor for LemonadePhotoLibraryContext(0, a2);
   libraryCopy = library;
   v6 = LemonadePhotoLibraryContext.__allocating_init(photoLibrary:pickerConfiguration:bookmarksManager:)(libraryCopy, 0, 0);
-  type metadata accessor for LemonadeMediaTypesItemListManager();
+  type metadata accessor for LemonadeMediaTypesItemListManager(0);
   v7 = libraryCopy;
 
   v8 = sub_1A3C5A374();
@@ -68,16 +68,23 @@
 {
   if (identifier)
   {
-    sub_1A524C674();
+    v5 = sub_1A524C674();
+    v6 = a2;
   }
 
-  type metadata accessor for LemonadePhotoLibraryContext();
-  v5 = LemonadePhotoLibraryContext.__allocating_init(photoLibrary:pickerConfiguration:bookmarksManager:)(library, 0, 0);
-  v6 = sub_1A3C5A374();
-  v7 = sub_1A43D7BB4(v5, 0, v6 & 1, 0, 1);
-  sub_1A44DE1D8();
-  v9 = objc_allocWithZone(v8);
-  sub_1A44DB9A8(v7);
+  else
+  {
+    v5 = 0;
+    v6 = 0;
+  }
+
+  type metadata accessor for LemonadePhotoLibraryContext(0, a2);
+  v7 = LemonadePhotoLibraryContext.__allocating_init(photoLibrary:pickerConfiguration:bookmarksManager:)(library, 0, 0);
+  v8 = sub_1A3C5A374();
+  v9 = sub_1A43D7BB4(v7, 0, v8 & 1, 0, 1);
+  sub_1A44DE1D8(0);
+  v11 = objc_allocWithZone(v10);
+  sub_1A44DB9A8(v9, v5, v6);
 }
 
 - (PXSidebarDataManagerFactory)init

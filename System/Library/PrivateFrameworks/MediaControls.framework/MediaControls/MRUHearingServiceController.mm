@@ -43,7 +43,7 @@
   {
     v5 = listeningModeOffAllowed;
     self->_secondaryListeningModeOffAllowed = v4;
-    v6 = MCLogCategoryVolume();
+    v6 = MCLogCategoryVolume(listeningModeOffAllowed);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       v7 = objc_opt_class();
@@ -115,7 +115,7 @@
   {
     v5 = listeningModeOffAllowed;
     self->_primaryListeningModeOffAllowed = v4;
-    v6 = MCLogCategoryVolume();
+    v6 = MCLogCategoryVolume(listeningModeOffAllowed);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       v7 = objc_opt_class();
@@ -180,52 +180,56 @@
 
 - (void)updateClient
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   primaryOutputDeviceRoute = [(MRUSystemOutputDeviceRouteController *)self->_outputDeviceRouteController primaryOutputDeviceRoute];
   logicalLeaderOutputDevice = [primaryOutputDeviceRoute logicalLeaderOutputDevice];
   if ([logicalLeaderOutputDevice deviceType] == 2 && !self->_client)
   {
     objc_initWeak(buf, self);
-    v6 = objc_alloc_init(MEMORY[0x1E69A4590]);
+    v7 = objc_alloc_init(MEMORY[0x1E69A4590]);
     client = self->_client;
-    self->_client = v6;
+    self->_client = v7;
 
-    v13[0] = MEMORY[0x1E69E9820];
-    v13[1] = 3221225472;
-    v13[2] = __43__MRUHearingServiceController_updateClient__block_invoke;
-    v13[3] = &unk_1E7663AE8;
-    objc_copyWeak(&v14, buf);
-    [(HMServiceClient *)self->_client setInterruptionHandler:v13];
-    v11[0] = MEMORY[0x1E69E9820];
-    v11[1] = 3221225472;
-    v11[2] = __43__MRUHearingServiceController_updateClient__block_invoke_8;
-    v11[3] = &unk_1E76657D8;
-    objc_copyWeak(&v12, buf);
-    [(HMServiceClient *)self->_client setDeviceRecordChangedHandler:v11];
-    v8 = self->_client;
-    v9[0] = MEMORY[0x1E69E9820];
-    v9[1] = 3221225472;
-    v9[2] = __43__MRUHearingServiceController_updateClient__block_invoke_2;
-    v9[3] = &unk_1E7665800;
-    objc_copyWeak(&v10, buf);
-    [(HMServiceClient *)v8 activateWithCompletion:v9];
-    objc_destroyWeak(&v10);
-    objc_destroyWeak(&v12);
-    objc_destroyWeak(&v14);
+    v14[0] = MEMORY[0x1E69E9820];
+    v14[1] = 3221225472;
+    v14[2] = __43__MRUHearingServiceController_updateClient__block_invoke;
+    v14[3] = &unk_1E7663AE8;
+    objc_copyWeak(&v15, buf);
+    [(HMServiceClient *)self->_client setInterruptionHandler:v14];
+    v12[0] = MEMORY[0x1E69E9820];
+    v12[1] = 3221225472;
+    v12[2] = __43__MRUHearingServiceController_updateClient__block_invoke_8;
+    v12[3] = &unk_1E76657D8;
+    objc_copyWeak(&v13, buf);
+    [(HMServiceClient *)self->_client setDeviceRecordChangedHandler:v12];
+    v9 = self->_client;
+    v10[0] = MEMORY[0x1E69E9820];
+    v10[1] = 3221225472;
+    v10[2] = __43__MRUHearingServiceController_updateClient__block_invoke_2;
+    v10[3] = &unk_1E7665800;
+    objc_copyWeak(&v11, buf);
+    [(HMServiceClient *)v9 activateWithCompletion:v10];
+    objc_destroyWeak(&v11);
+    objc_destroyWeak(&v13);
+    objc_destroyWeak(&v15);
     objc_destroyWeak(buf);
   }
 
-  else if ([logicalLeaderOutputDevice deviceType] != 2)
+  else
   {
-    v5 = MCLogCategoryVolume();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    deviceType = [logicalLeaderOutputDevice deviceType];
+    if (deviceType != 2)
     {
-      *buf = 138543362;
-      v16 = objc_opt_class();
-      _os_log_impl(&dword_1A20FC000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@ resetting service, no bluetooth devices", buf, 0xCu);
-    }
+      v6 = MCLogCategoryVolume(deviceType);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 138543362;
+        v17 = objc_opt_class();
+        _os_log_impl(&dword_1A20FC000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@ resetting service, no bluetooth devices", buf, 0xCu);
+      }
 
-    [(MRUHearingServiceController *)self reset];
+      [(MRUHearingServiceController *)self reset];
+    }
   }
 }
 
@@ -238,7 +242,7 @@
   {
     v5 = hearingAidEnabled;
     self->_primaryHearingAidEnabled = v4;
-    v6 = MCLogCategoryVolume();
+    v6 = MCLogCategoryVolume(hearingAidEnabled);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       v7 = objc_opt_class();
@@ -303,7 +307,7 @@
 
 - (void)updateSecondaryAmplification
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   amplification = [(HMDeviceRecord *)self->_secondaryHealthRecord amplification];
   [amplification floatValue];
   v5 = v4;
@@ -311,56 +315,56 @@
   if (v5 != self->_secondaryAmplification)
   {
     self->_secondaryAmplification = v5;
-    v6 = MCLogCategoryVolume();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = MCLogCategoryVolume(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = objc_opt_class();
+      v8 = objc_opt_class();
       bluetoothAddress = [(HMDeviceRecord *)self->_secondaryHealthRecord bluetoothAddress];
       amplification2 = [(HMDeviceRecord *)self->_secondaryHealthRecord amplification];
       *buf = 138543874;
-      v23 = v7;
-      v24 = 2114;
-      v25 = bluetoothAddress;
-      v26 = 2114;
-      v27 = amplification2;
-      _os_log_impl(&dword_1A20FC000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@ update secondary amplification for device: %{public}@ | amplification: %{public}@", buf, 0x20u);
+      v24 = v8;
+      v25 = 2114;
+      v26 = bluetoothAddress;
+      v27 = 2114;
+      v28 = amplification2;
+      _os_log_impl(&dword_1A20FC000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@ update secondary amplification for device: %{public}@ | amplification: %{public}@", buf, 0x20u);
     }
 
-    v19 = 0u;
     v20 = 0u;
-    v17 = 0u;
+    v21 = 0u;
     v18 = 0u;
-    v10 = [(NSHashTable *)self->_observers copy];
-    v11 = [v10 countByEnumeratingWithState:&v17 objects:v21 count:16];
-    if (v11)
+    v19 = 0u;
+    v11 = [(NSHashTable *)self->_observers copy];
+    v12 = [v11 countByEnumeratingWithState:&v18 objects:v22 count:16];
+    if (v12)
     {
-      v12 = v11;
-      v13 = *v18;
+      v13 = v12;
+      v14 = *v19;
       do
       {
-        v14 = 0;
+        v15 = 0;
         do
         {
-          if (*v18 != v13)
+          if (*v19 != v14)
           {
-            objc_enumerationMutation(v10);
+            objc_enumerationMutation(v11);
           }
 
-          v15 = *(*(&v17 + 1) + 8 * v14);
+          v16 = *(*(&v18 + 1) + 8 * v15);
           if (objc_opt_respondsToSelector())
           {
-            *&v16 = v5;
-            [v15 hearingServiceController:self didChangeSecondaryAmplification:v16];
+            *&v17 = v5;
+            [v16 hearingServiceController:self didChangeSecondaryAmplification:v17];
           }
 
-          ++v14;
+          ++v15;
         }
 
-        while (v12 != v14);
-        v12 = [v10 countByEnumeratingWithState:&v17 objects:v21 count:16];
+        while (v13 != v15);
+        v13 = [v11 countByEnumeratingWithState:&v18 objects:v22 count:16];
       }
 
-      while (v12);
+      while (v13);
     }
   }
 }
@@ -374,7 +378,7 @@
   {
     v5 = hearingAidEnabled;
     self->_secondaryHearingAidEnabled = v4;
-    v6 = MCLogCategoryVolume();
+    v6 = MCLogCategoryVolume(hearingAidEnabled);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       v7 = objc_opt_class();
@@ -439,7 +443,7 @@
 
 - (void)updatePrimaryAmplification
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   amplification = [(HMDeviceRecord *)self->_primaryHealthRecord amplification];
   [amplification floatValue];
   v5 = v4;
@@ -447,56 +451,56 @@
   if (v5 != self->_primaryAmplification)
   {
     self->_primaryAmplification = v5;
-    v6 = MCLogCategoryVolume();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = MCLogCategoryVolume(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = objc_opt_class();
+      v8 = objc_opt_class();
       bluetoothAddress = [(HMDeviceRecord *)self->_primaryHealthRecord bluetoothAddress];
       amplification2 = [(HMDeviceRecord *)self->_primaryHealthRecord amplification];
       *buf = 138543874;
-      v23 = v7;
-      v24 = 2114;
-      v25 = bluetoothAddress;
-      v26 = 2114;
-      v27 = amplification2;
-      _os_log_impl(&dword_1A20FC000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@ update primary amplification for device: %{public}@ | amplification: %{public}@", buf, 0x20u);
+      v24 = v8;
+      v25 = 2114;
+      v26 = bluetoothAddress;
+      v27 = 2114;
+      v28 = amplification2;
+      _os_log_impl(&dword_1A20FC000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@ update primary amplification for device: %{public}@ | amplification: %{public}@", buf, 0x20u);
     }
 
-    v19 = 0u;
     v20 = 0u;
-    v17 = 0u;
+    v21 = 0u;
     v18 = 0u;
-    v10 = [(NSHashTable *)self->_observers copy];
-    v11 = [v10 countByEnumeratingWithState:&v17 objects:v21 count:16];
-    if (v11)
+    v19 = 0u;
+    v11 = [(NSHashTable *)self->_observers copy];
+    v12 = [v11 countByEnumeratingWithState:&v18 objects:v22 count:16];
+    if (v12)
     {
-      v12 = v11;
-      v13 = *v18;
+      v13 = v12;
+      v14 = *v19;
       do
       {
-        v14 = 0;
+        v15 = 0;
         do
         {
-          if (*v18 != v13)
+          if (*v19 != v14)
           {
-            objc_enumerationMutation(v10);
+            objc_enumerationMutation(v11);
           }
 
-          v15 = *(*(&v17 + 1) + 8 * v14);
+          v16 = *(*(&v18 + 1) + 8 * v15);
           if (objc_opt_respondsToSelector())
           {
-            *&v16 = v5;
-            [v15 hearingServiceController:self didChangePrimaryAmplification:v16];
+            *&v17 = v5;
+            [v16 hearingServiceController:self didChangePrimaryAmplification:v17];
           }
 
-          ++v14;
+          ++v15;
         }
 
-        while (v12 != v14);
-        v12 = [v10 countByEnumeratingWithState:&v17 objects:v21 count:16];
+        while (v13 != v15);
+        v13 = [v11 countByEnumeratingWithState:&v18 objects:v22 count:16];
       }
 
-      while (v12);
+      while (v13);
     }
   }
 }
@@ -591,122 +595,124 @@
 
 - (void)setPrimaryAmplification:(float)amplification
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   bluetoothUUID = [(HMDeviceRecord *)self->_primaryHealthRecord bluetoothUUID];
   v6 = objc_alloc_init(MEMORY[0x1E69A4578]);
   *&v7 = amplification;
   v8 = [MEMORY[0x1E696AD98] numberWithFloat:v7];
   [v6 setAmplification:v8];
 
-  v9 = MCLogCategoryVolume();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v10 = MCLogCategoryVolume(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = objc_opt_class();
+    v11 = objc_opt_class();
     amplification = [v6 amplification];
     *buf = 138543874;
-    v19 = v10;
-    v20 = 2114;
-    v21 = bluetoothUUID;
-    v22 = 2112;
-    v23 = amplification;
-    _os_log_impl(&dword_1A20FC000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@ setting primary amplification for device: %{public}@ | amplification: %@", buf, 0x20u);
+    v20 = v11;
+    v21 = 2114;
+    v22 = bluetoothUUID;
+    v23 = 2112;
+    v24 = amplification;
+    _os_log_impl(&dword_1A20FC000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@ setting primary amplification for device: %{public}@ | amplification: %@", buf, 0x20u);
   }
 
   client = self->_client;
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = __55__MRUHearingServiceController_setPrimaryAmplification___block_invoke;
-  v15[3] = &unk_1E7664380;
-  v15[4] = self;
-  v16 = bluetoothUUID;
-  v17 = v6;
-  v13 = v6;
-  v14 = bluetoothUUID;
-  [(HMServiceClient *)client modifyDeviceConfig:v13 identifier:v14 completion:v15];
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = __55__MRUHearingServiceController_setPrimaryAmplification___block_invoke;
+  v16[3] = &unk_1E7664380;
+  v16[4] = self;
+  v17 = bluetoothUUID;
+  v18 = v6;
+  v14 = v6;
+  v15 = bluetoothUUID;
+  [(HMServiceClient *)client modifyDeviceConfig:v14 identifier:v15 completion:v16];
 }
 
 void __55__MRUHearingServiceController_setPrimaryAmplification___block_invoke(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v3 = a2;
+  v4 = v3;
   if (v3)
   {
-    v4 = MCLogCategoryVolume();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = MCLogCategoryVolume(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = objc_opt_class();
-      v6 = *(a1 + 40);
-      v7 = [*(a1 + 48) amplification];
-      v8 = 138544130;
-      v9 = v5;
-      v10 = 2114;
-      v11 = v6;
-      v12 = 2114;
-      v13 = v7;
-      v14 = 2114;
-      v15 = v3;
-      _os_log_impl(&dword_1A20FC000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ error setting primary amplification for device: %{public}@ | amplification: %{public}@ | error: %{public}@", &v8, 0x2Au);
+      v6 = objc_opt_class();
+      v7 = *(a1 + 40);
+      v8 = [*(a1 + 48) amplification];
+      v9 = 138544130;
+      v10 = v6;
+      v11 = 2114;
+      v12 = v7;
+      v13 = 2114;
+      v14 = v8;
+      v15 = 2114;
+      v16 = v4;
+      _os_log_impl(&dword_1A20FC000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@ error setting primary amplification for device: %{public}@ | amplification: %{public}@ | error: %{public}@", &v9, 0x2Au);
     }
   }
 }
 
 - (void)setSecondaryAmplification:(float)amplification
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   bluetoothUUID = [(HMDeviceRecord *)self->_secondaryHealthRecord bluetoothUUID];
   v6 = objc_alloc_init(MEMORY[0x1E69A4578]);
   *&v7 = amplification;
   v8 = [MEMORY[0x1E696AD98] numberWithFloat:v7];
   [v6 setAmplification:v8];
 
-  v9 = MCLogCategoryVolume();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v10 = MCLogCategoryVolume(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = objc_opt_class();
+    v11 = objc_opt_class();
     amplification = [v6 amplification];
     *buf = 138543874;
-    v19 = v10;
-    v20 = 2114;
-    v21 = bluetoothUUID;
-    v22 = 2112;
-    v23 = amplification;
-    _os_log_impl(&dword_1A20FC000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@ setting secondary amplification for device: %{public}@ | amplification: %@", buf, 0x20u);
+    v20 = v11;
+    v21 = 2114;
+    v22 = bluetoothUUID;
+    v23 = 2112;
+    v24 = amplification;
+    _os_log_impl(&dword_1A20FC000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@ setting secondary amplification for device: %{public}@ | amplification: %@", buf, 0x20u);
   }
 
   client = self->_client;
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = __57__MRUHearingServiceController_setSecondaryAmplification___block_invoke;
-  v15[3] = &unk_1E7664380;
-  v15[4] = self;
-  v16 = bluetoothUUID;
-  v17 = v6;
-  v13 = v6;
-  v14 = bluetoothUUID;
-  [(HMServiceClient *)client modifyDeviceConfig:v13 identifier:v14 completion:v15];
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = __57__MRUHearingServiceController_setSecondaryAmplification___block_invoke;
+  v16[3] = &unk_1E7664380;
+  v16[4] = self;
+  v17 = bluetoothUUID;
+  v18 = v6;
+  v14 = v6;
+  v15 = bluetoothUUID;
+  [(HMServiceClient *)client modifyDeviceConfig:v14 identifier:v15 completion:v16];
 }
 
 void __57__MRUHearingServiceController_setSecondaryAmplification___block_invoke(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v3 = a2;
+  v4 = v3;
   if (v3)
   {
-    v4 = MCLogCategoryVolume();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = MCLogCategoryVolume(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = objc_opt_class();
-      v6 = *(a1 + 40);
-      v7 = [*(a1 + 48) amplification];
-      v8 = 138544130;
-      v9 = v5;
-      v10 = 2114;
-      v11 = v6;
-      v12 = 2114;
-      v13 = v7;
-      v14 = 2114;
-      v15 = v3;
-      _os_log_impl(&dword_1A20FC000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ error setting secondary amplification for device: %{public}@ | amplification: %{public}@ | error: %{public}@", &v8, 0x2Au);
+      v6 = objc_opt_class();
+      v7 = *(a1 + 40);
+      v8 = [*(a1 + 48) amplification];
+      v9 = 138544130;
+      v10 = v6;
+      v11 = 2114;
+      v12 = v7;
+      v13 = 2114;
+      v14 = v8;
+      v15 = 2114;
+      v16 = v4;
+      _os_log_impl(&dword_1A20FC000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@ error setting secondary amplification for device: %{public}@ | amplification: %{public}@ | error: %{public}@", &v9, 0x2Au);
     }
   }
 }
@@ -739,7 +745,7 @@ void __57__MRUHearingServiceController_setSecondaryAmplification___block_invoke(
 void __43__MRUHearingServiceController_updateClient__block_invoke(uint64_t a1)
 {
   v7 = *MEMORY[0x1E69E9840];
-  v2 = MCLogCategoryVolume();
+  v2 = MCLogCategoryVolume(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     WeakRetained = objc_loadWeakRetained((a1 + 32));
@@ -766,23 +772,24 @@ void __43__MRUHearingServiceController_updateClient__block_invoke_8(uint64_t a1,
 
 void __43__MRUHearingServiceController_updateClient__block_invoke_2(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v3 = a2;
+  v4 = v3;
   if (v3)
   {
-    v4 = MCLogCategoryVolume();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = MCLogCategoryVolume(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       WeakRetained = objc_loadWeakRetained((a1 + 32));
-      v7 = 138543618;
-      v8 = objc_opt_class();
-      v9 = 2114;
-      v10 = v3;
-      _os_log_impl(&dword_1A20FC000, v4, OS_LOG_TYPE_ERROR, "%{public}@ received error trying to activate service error: %{public}@ ", &v7, 0x16u);
+      v8 = 138543618;
+      v9 = objc_opt_class();
+      v10 = 2114;
+      v11 = v4;
+      _os_log_impl(&dword_1A20FC000, v5, OS_LOG_TYPE_ERROR, "%{public}@ received error trying to activate service error: %{public}@ ", &v8, 0x16u);
     }
 
-    v6 = objc_loadWeakRetained((a1 + 32));
-    [v6 reset];
+    v7 = objc_loadWeakRetained((a1 + 32));
+    [v7 reset];
   }
 }
 

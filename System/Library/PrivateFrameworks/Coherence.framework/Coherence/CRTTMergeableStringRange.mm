@@ -45,9 +45,8 @@
 
 - (id)_objCRenameSequence
 {
-  v8 = *MEMORY[0x1E69E9840];
-  [(CRTTMergeableStringRange *)self range];
-  if (v7)
+  objc_msgSend_range(self, a2);
+  if (v6)
   {
     v3 = 0;
   }
@@ -59,8 +58,6 @@
     [(ObjCRenameSequence *)v3 addWithReplica:v4 range:self->_range.charID.clock lastTimestamp:self->_range.length, 0];
   }
 
-  v5 = *MEMORY[0x1E69E9840];
-
   return v3;
 }
 
@@ -68,56 +65,55 @@
 {
   length = from.length;
   location = from.location;
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v6 = [_TtC9Coherence24CRTTMergeableStringRange alloc];
-  v11 = *self->_range.charID.replica.uuid;
+  v10 = *self->_range.charID.replica.uuid;
   v7 = self->_range.charID.clock + location;
   index = self->_range.charID.replica.index;
-  v13 = v7;
-  v14 = length;
-  v8 = [(CRTTMergeableStringRange *)v6 initWithTopoIDRange:&v11 renameGeneration:self->_renameGeneration maxCounter:self->_maxCounter];
-  v9 = *MEMORY[0x1E69E9840];
+  v12 = v7;
+  v13 = length;
+  v8 = [(CRTTMergeableStringRange *)v6 initWithTopoIDRange:&v10 renameGeneration:self->_renameGeneration maxCounter:self->_maxCounter];
 
   return v8;
 }
 
 - (BOOL)isEqual:(id)equal
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   equalCopy = equal;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
     v5 = equalCopy;
-    [(CRTTMergeableStringRange *)self range];
+    objc_msgSend_range(self);
     if (v5)
     {
-      [v5 range];
-      if ((v14 == 0) != (v11 != 0))
+      objc_msgSend_range(v5);
+      if ((v13 == 0) != (v10 != 0))
       {
 LABEL_4:
-        [(CRTTMergeableStringRange *)self range];
+        objc_msgSend_range(self);
         if (v5)
         {
-          [v5 range];
-          v6 = HIDWORD(v11);
+          objc_msgSend_range(v5);
+          v6 = HIDWORD(v10);
         }
 
         else
         {
           v6 = 0;
-          v10[0] = 0;
-          v10[1] = 0;
-          v12 = 0;
+          v9[0] = 0;
+          v9[1] = 0;
           v11 = 0;
+          v10 = 0;
         }
 
-        v7 = v15 == v6 && v14 == v11 && !uuid_compare(uu1, v10) && v16 == v12;
+        v7 = v14 == v6 && v13 == v10 && !uuid_compare(uu1, v9) && v15 == v11;
         goto LABEL_14;
       }
     }
 
-    else if (!v14)
+    else if (!v13)
     {
       goto LABEL_4;
     }
@@ -131,7 +127,6 @@ LABEL_14:
   v7 = 0;
 LABEL_15:
 
-  v8 = *MEMORY[0x1E69E9840];
   return v7;
 }
 

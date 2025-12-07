@@ -180,7 +180,7 @@
 {
   v10 = *MEMORY[0x277D85DE8];
   itemCopy = item;
-  v6 = SBLogActivity();
+  v6 = SBLogActivity(itemCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     identifier = [itemCopy identifier];
@@ -196,7 +196,7 @@
 {
   v10 = *MEMORY[0x277D85DE8];
   itemCopy = item;
-  v5 = SBLogActivity();
+  v5 = SBLogActivity(itemCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     identifier = [itemCopy identifier];
@@ -229,7 +229,7 @@
   v22 = *MEMORY[0x277D85DE8];
   itemCopy = item;
   blockCopy = block;
-  v8 = SBLogActivity();
+  v8 = SBLogActivity(blockCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     identifier = [(SBActivityItem *)itemCopy identifier];
@@ -295,7 +295,7 @@
       v18 = 4;
     }
 
-    if (([(NSMutableSet *)self->_itemsWithSwappedScenes containsObject:itemCopy]& 1) == 0)
+    if ((objc_msgSend_containsObject_(self->_itemsWithSwappedScenes) & 1) == 0)
     {
       [(SBActivityAmbientViewController *)self _transitionOverlayForActivityItem:itemCopy withTransitionType:v18 configuringForAlerting:1 withCompletion:0];
     }
@@ -306,27 +306,28 @@
 
 - (void)alertDidDismissForActivityItem:(id)item completion:(id)completion
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   itemCopy = item;
   completionCopy = completion;
-  if ([(NSMutableSet *)self->_itemsWithSwappedScenes containsObject:itemCopy])
+  v8 = objc_msgSend_containsObject_(self->_itemsWithSwappedScenes);
+  if (v8)
   {
-    v8 = SBLogActivity();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = SBLogActivity(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       identifier = [itemCopy identifier];
       *buf = 138543362;
-      v13 = identifier;
-      _os_log_impl(&dword_21ED4E000, v8, OS_LOG_TYPE_DEFAULT, "[ActivityID: %{public}@] ambient item restoring swapped scene", buf, 0xCu);
+      v14 = identifier;
+      _os_log_impl(&dword_21ED4E000, v9, OS_LOG_TYPE_DEFAULT, "[ActivityID: %{public}@] ambient item restoring swapped scene", buf, 0xCu);
     }
 
-    v10[0] = MEMORY[0x277D85DD0];
-    v10[1] = 3221225472;
-    v10[2] = __77__SBActivityAmbientViewController_alertDidDismissForActivityItem_completion___block_invoke;
-    v10[3] = &unk_2783A92D8;
-    v10[4] = self;
-    v11 = itemCopy;
-    [(SBActivityAmbientViewController *)self _dismissFullOverlayWithCompletion:v10];
+    v11[0] = MEMORY[0x277D85DD0];
+    v11[1] = 3221225472;
+    v11[2] = __77__SBActivityAmbientViewController_alertDidDismissForActivityItem_completion___block_invoke;
+    v11[3] = &unk_2783A92D8;
+    v11[4] = self;
+    v12 = itemCopy;
+    [(SBActivityAmbientViewController *)self _dismissFullOverlayWithCompletion:v11];
   }
 
   else
@@ -385,7 +386,7 @@ LABEL_9:
   }
 }
 
-uint64_t __79__SBActivityAmbientViewController_removeOverlayForActivityItem_withCompletion___block_invoke_2(uint64_t a1)
+void *__79__SBActivityAmbientViewController_removeOverlayForActivityItem_withCompletion___block_invoke_2(uint64_t a1)
 {
   [*(a1 + 32) _cleanupCurrentCompactOverlayViewController];
   v2 = *(a1 + 32);
@@ -407,7 +408,7 @@ uint64_t __79__SBActivityAmbientViewController_removeOverlayForActivityItem_with
     result = *(a1 + 48);
     if (result)
     {
-      v5 = *(result + 16);
+      v5 = result[2];
 
       return v5();
     }
@@ -494,7 +495,7 @@ uint64_t __79__SBActivityAmbientViewController_removeOverlayForActivityItem_with
   v15 = *MEMORY[0x277D85DE8];
   itemCopy = item;
   completionCopy = completion;
-  v8 = SBLogActivity();
+  v8 = SBLogActivity(completionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     identifier = [itemCopy identifier];
@@ -544,7 +545,7 @@ uint64_t __88__SBActivityAmbientViewController__updateCompactActivityOverlayWith
     [v8 _compactOverlayFrameForContentSize:?];
     [v6 _layoutCompactOverlayIfNecessaryWithView:v7 frame:?];
 
-    [*(a1 + 32) _animatePresentationOfCompactOverlayWithCompactViewController:v11 completion:*(a1 + 40)];
+    v9 = [*(a1 + 32) _animatePresentationOfCompactOverlayWithCompactViewController:v11 completion:*(a1 + 40)];
   }
 
   else
@@ -552,11 +553,11 @@ uint64_t __88__SBActivityAmbientViewController__updateCompactActivityOverlayWith
     v9 = *(a1 + 40);
     if (v9)
     {
-      (*(v9 + 16))();
+      v9 = (*(v9 + 16))();
     }
   }
 
-  return MEMORY[0x2821F9730]();
+  return MEMORY[0x2821F9730](v9);
 }
 
 - (void)_updateFullActivityOverlayWithItem:(id)item configuringForAlert:(BOOL)alert
@@ -564,7 +565,7 @@ uint64_t __88__SBActivityAmbientViewController__updateCompactActivityOverlayWith
   alertCopy = alert;
   v14 = *MEMORY[0x277D85DE8];
   itemCopy = item;
-  v7 = SBLogActivity();
+  v7 = SBLogActivity(itemCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     identifier = [itemCopy identifier];
@@ -660,10 +661,11 @@ uint64_t __90__SBActivityAmbientViewController__updateFullActivityOverlayWithIte
 void __100__SBActivityAmbientViewController__fullOverlayViewControllerForItem_configuringForAlert_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
+  v4 = v3;
   if (v3)
   {
-    v4 = SBLogActivity();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = SBLogActivity(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       __100__SBActivityAmbientViewController__fullOverlayViewControllerForItem_configuringForAlert_completion___block_invoke_cold_1(a1);
     }
@@ -673,16 +675,16 @@ void __100__SBActivityAmbientViewController__fullOverlayViewControllerForItem_co
 
   else
   {
-    v6 = *(a1 + 40);
-    v5 = *(a1 + 48);
-    v7[0] = MEMORY[0x277D85DD0];
-    v7[1] = 3221225472;
-    v7[2] = __100__SBActivityAmbientViewController__fullOverlayViewControllerForItem_configuringForAlert_completion___block_invoke_30;
-    v7[3] = &unk_2783B5B70;
-    v7[4] = v6;
-    v8 = v5;
-    v9 = *(a1 + 56);
-    [v6 bs_addChildViewController:v8 animated:0 transitionBlock:v7];
+    v7 = *(a1 + 40);
+    v6 = *(a1 + 48);
+    v8[0] = MEMORY[0x277D85DD0];
+    v8[1] = 3221225472;
+    v8[2] = __100__SBActivityAmbientViewController__fullOverlayViewControllerForItem_configuringForAlert_completion___block_invoke_30;
+    v8[3] = &unk_2783B5B70;
+    v8[4] = v7;
+    v9 = v6;
+    v10 = *(a1 + 56);
+    [v7 bs_addChildViewController:v9 animated:0 transitionBlock:v8];
   }
 }
 
@@ -747,28 +749,29 @@ void __100__SBActivityAmbientViewController__fullOverlayViewControllerForItem_co
 void __83__SBActivityAmbientViewController__compactOverlayViewControllerForItem_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
+  v4 = v3;
   if (v3)
   {
-    v4 = SBLogActivity();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = SBLogActivity(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       __83__SBActivityAmbientViewController__compactOverlayViewControllerForItem_completion___block_invoke_cold_1(a1);
     }
 
-    v5 = *(*(a1 + 56) + 16);
+    v6 = *(*(a1 + 56) + 16);
   }
 
   else
   {
-    v6 = [*(a1 + 40) view];
+    v7 = [*(a1 + 40) view];
     [*(a1 + 40) cornerRadius];
-    [v6 _setContinuousCornerRadius:?];
+    [v7 _setContinuousCornerRadius:?];
 
     [*(a1 + 48) bs_addChildViewController:*(a1 + 40)];
-    v5 = *(*(a1 + 56) + 16);
+    v6 = *(*(a1 + 56) + 16);
   }
 
-  v5();
+  v6();
 }
 
 - (void)_animatePresentationOfCompactOverlayWithCompactViewController:(id)controller completion:(id)completion
@@ -964,7 +967,7 @@ uint64_t __95__SBActivityAmbientViewController__dismissCompactOverlayWithView_fo
     self->_fullOverlayViewController = 0;
 
     view = [(SBActivityAmbientFullOverlayViewController *)v6 view];
-    v9 = SBLogActivity();
+    v9 = SBLogActivity(view);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       activityItem = [(SBActivityViewController *)v6 activityItem];
@@ -1078,7 +1081,7 @@ uint64_t __69__SBActivityAmbientViewController__dismissFullOverlayWithCompletion
 {
   v12 = *MEMORY[0x277D85DE8];
   itemCopy = item;
-  v5 = SBLogActivity();
+  v5 = SBLogActivity(itemCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     identifier = [itemCopy identifier];
@@ -1150,7 +1153,7 @@ LABEL_10:
 
   v5 = +[SBActivityManager sharedInstance];
   firstPartyActivityGroupingIdentifiers = [v5 firstPartyActivityGroupingIdentifiers];
-  v7 = [firstPartyActivityGroupingIdentifiers containsObject:platterTargetBundleIdentifier];
+  v7 = objc_msgSend_containsObject_(firstPartyActivityGroupingIdentifiers);
 
   return v7;
 }
@@ -1362,7 +1365,7 @@ LABEL_13:
   v41 = *MEMORY[0x277D85DE8];
   itemCopy = item;
   completionCopy = completion;
-  v12 = SBLogActivity();
+  v12 = SBLogActivity(completionCopy);
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     identifier = [(SBActivityItem *)itemCopy identifier];
@@ -1596,21 +1599,21 @@ uint64_t __120__SBActivityAmbientViewController__beginTransitionForActivityItem_
   self->_isAnimatingTransition = 1;
   view = [transitionCopy view];
   view2 = [controllerCopy view];
-  [view2 frame];
+  objc_msgSend_frame(view2);
   v17 = v16;
   v19 = v18;
   v21 = v20;
   v23 = v22;
-  [view frame];
+  objc_msgSend_frame(view);
   v25 = v24;
   v84.origin.x = v17;
   v84.origin.y = v19;
   v84.size.width = v21;
   v84.size.height = v23;
   MidY = CGRectGetMidY(v84);
-  [view frame];
+  objc_msgSend_frame(view);
   v28 = v21 / v27;
-  [view frame];
+  objc_msgSend_frame(view);
   v29 = MEMORY[0x277D75D18];
   v80[0] = MEMORY[0x277D85DD0];
   v31 = v23 / v30;
@@ -2050,7 +2053,7 @@ uint64_t __228__SBActivityAmbientViewController__animateTransitionToBecomeNewPri
   v14 = v13;
   v16 = v15;
   layer = [view layer];
-  [layer frame];
+  objc_msgSend_frame(layer);
   v19 = v18;
   v21 = v20;
   v23 = v22;
@@ -2464,7 +2467,7 @@ LABEL_11:
   v21 = *MEMORY[0x277D85DE8];
   itemCopy = item;
   completionCopy = completion;
-  v12 = SBLogActivity();
+  v12 = SBLogActivity(completionCopy);
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     identifier = [itemCopy identifier];
@@ -2496,8 +2499,7 @@ LABEL_11:
   delegate = [(SBActivityAmbientViewController *)self delegate];
   [delegate activityAmbientViewControllerResetIdleTimerBehavior:self];
 
-  [(SBActivityAmbientViewController *)self _updateResolvedPreferences];
-  v15 = SBLogActivity();
+  v15 = SBLogActivity([(SBActivityAmbientViewController *)self _updateResolvedPreferences]);
   if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
     identifier2 = [itemCopy identifier];
@@ -2516,19 +2518,19 @@ LABEL_11:
 
 - (void)_addSecondaryActivityItemIfAvailable
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   delegate = [(SBActivityAmbientViewController *)self delegate];
   v4 = [delegate activityAmbientViewControllerNextPendingActivityItem:self];
 
   if (v4)
   {
-    v5 = SBLogActivity();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = SBLogActivity(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       identifier = [v4 identifier];
-      v7 = 138543362;
-      v8 = identifier;
-      _os_log_impl(&dword_21ED4E000, v5, OS_LOG_TYPE_DEFAULT, "[ActivityID: %{public}@] dequeueing ambient item to be secondary", &v7, 0xCu);
+      v8 = 138543362;
+      v9 = identifier;
+      _os_log_impl(&dword_21ED4E000, v6, OS_LOG_TYPE_DEFAULT, "[ActivityID: %{public}@] dequeueing ambient item to be secondary", &v8, 0xCu);
     }
 
     [(SBActivityAmbientViewController *)self addOverlayForSecondaryActivityItem:v4];
@@ -2537,7 +2539,7 @@ LABEL_11:
 
 - (void)_resetPrimaryActivityItemWithCompletion:(id)completion
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   v5 = completionCopy;
   if (!self->_isAnimatingTransition)
@@ -2565,13 +2567,13 @@ LABEL_11:
 
         if (v8)
         {
-          v9 = SBLogActivity();
-          if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+          v10 = SBLogActivity(v9);
+          if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
           {
             identifier = [v8 identifier];
-            v11 = 138543362;
-            v12 = identifier;
-            _os_log_impl(&dword_21ED4E000, v9, OS_LOG_TYPE_DEFAULT, "[ActivityID: %{public}@] dequeueing ambient item to be primary", &v11, 0xCu);
+            v12 = 138543362;
+            v13 = identifier;
+            _os_log_impl(&dword_21ED4E000, v10, OS_LOG_TYPE_DEFAULT, "[ActivityID: %{public}@] dequeueing ambient item to be primary", &v12, 0xCu);
           }
 
           if (self->_overlayMode)
@@ -2771,7 +2773,7 @@ LABEL_6:
 
 - (void)_handleDismissGestureEnded:(id)ended
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   self->_isInFullOverlayDrag = 0;
   self->_currentFullOverlayDragTranslationY = 9.22337204e18;
   self->_currentFullOverlayDragScale = 9.22337204e18;
@@ -2799,18 +2801,18 @@ LABEL_6:
 
     if (isMomentary)
     {
-      v16 = SBLogActivity();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+      v17 = SBLogActivity(v16);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
       {
         identifier = [(SBActivityItem *)self->_primaryActivityItem identifier];
-        v21 = 138543362;
-        v22 = identifier;
-        _os_log_impl(&dword_21ED4E000, v16, OS_LOG_TYPE_DEFAULT, "[ActivityID: %{public}@] ambient full screen dismissed but is momentary so ending activity", &v21, 0xCu);
+        v22 = 138543362;
+        v23 = identifier;
+        _os_log_impl(&dword_21ED4E000, v17, OS_LOG_TYPE_DEFAULT, "[ActivityID: %{public}@] ambient full screen dismissed but is momentary so ending activity", &v22, 0xCu);
       }
 
-      v18 = objc_alloc_init(MEMORY[0x277CB98A0]);
+      v19 = objc_alloc_init(MEMORY[0x277CB98A0]);
       identifier2 = [(SBActivityItem *)self->_primaryActivityItem identifier];
-      [v18 endActivity:identifier2];
+      [v19 endActivity:identifier2];
     }
 
     else
@@ -2827,7 +2829,7 @@ LABEL_6:
   y = location.y;
   x = location.x;
   view = [(SBActivityAmbientFullOverlayViewController *)self->_fullOverlayViewController view];
-  [view frame];
+  objc_msgSend_frame(view);
   v8 = v7;
   v10 = v9;
   v12 = v11;
@@ -2858,13 +2860,13 @@ void __78__SBActivityAmbientViewController__prepareFullOverlayViewForDragWithLoc
   y = drag.y;
   x = drag.x;
   viewCopy = view;
-  [viewCopy frame];
+  objc_msgSend_frame(viewCopy);
   v7 = v6;
   v9 = v8;
   layer = [viewCopy layer];
   [layer setAnchorPoint:{x, y}];
 
-  [viewCopy frame];
+  objc_msgSend_frame(viewCopy);
   v12 = v11 - v7;
   v14 = v13 - v9;
   [viewCopy center];
@@ -2970,7 +2972,7 @@ void __78__SBActivityAmbientViewController__prepareFullOverlayViewForDragWithLoc
   self->_currentFullOverlayDragTranslationY = v8;
   self->_currentFullOverlayDragScale = currentFullOverlayDragScale;
   layer = [v20 layer];
-  [layer frame];
+  objc_msgSend_frame(layer);
   self->_currentFullOverlayDragOriginY = v22;
 }
 
@@ -3245,14 +3247,14 @@ void __100__SBActivityAmbientViewController__fullOverlayViewControllerForItem_co
 {
   v1 = [*(a1 + 32) identifier];
   OUTLINED_FUNCTION_2_2();
-  OUTLINED_FUNCTION_8(&dword_21ED4E000, v2, v3, "[ActivityID: %{public}@] error ensuring ambient full screen overlay content: %{public}@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_8(&dword_21ED4E000, v2, v3, "[ActivityID: %{public}@] error ensuring ambient full screen overlay content: %{public}@", v4, v5, v6, v7);
 }
 
 void __83__SBActivityAmbientViewController__compactOverlayViewControllerForItem_completion___block_invoke_cold_1(uint64_t a1)
 {
   v1 = [*(a1 + 32) identifier];
   OUTLINED_FUNCTION_2_2();
-  OUTLINED_FUNCTION_8(&dword_21ED4E000, v2, v3, "[ActivityID: %{public}@] error ensuring ambient compact overlay content: %{public}@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_8(&dword_21ED4E000, v2, v3, "[ActivityID: %{public}@] error ensuring ambient compact overlay content: %{public}@", v4, v5, v6, v7);
 }
 
 @end

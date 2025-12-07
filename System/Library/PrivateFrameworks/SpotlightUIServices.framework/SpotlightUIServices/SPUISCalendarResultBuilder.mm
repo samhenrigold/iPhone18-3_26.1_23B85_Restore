@@ -1,5 +1,6 @@
 @interface SPUISCalendarResultBuilder
 + (BOOL)supportsResult:(id)result;
++ (id)stringWithStartDate:(id)date endDate:(id)endDate isAllDay:(BOOL)day;
 - (SPUISCalendarResultBuilder)initWithResult:(id)result;
 - (id)buildBackgroundColor;
 - (id)buildCompactCardSection;
@@ -28,6 +29,14 @@
   }
 
   return v5;
+}
+
++ (id)stringWithStartDate:(id)date endDate:(id)endDate isAllDay:(BOOL)day
+{
+  v5 = [SPUISDateFormatManager stringsFromDate:date toDate:endDate isAllDay:day];
+  v6 = [v5 componentsJoinedByString:@" · "];
+
+  return v6;
 }
 
 - (SPUISCalendarResultBuilder)initWithResult:(id)result
@@ -84,7 +93,7 @@
 
 - (id)buildInlineCardSection
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v3 = objc_opt_new();
   location = [(SPUISCalendarResultBuilder *)self location];
   if (location)
@@ -140,9 +149,9 @@ LABEL_12:
 
   v9 = 0;
 LABEL_18:
-  v29.receiver = self;
-  v29.super_class = SPUISCalendarResultBuilder;
-  buildInlineCardSection = [(SPUISResultBuilder *)&v29 buildInlineCardSection];
+  v28.receiver = self;
+  v28.super_class = SPUISCalendarResultBuilder;
+  buildInlineCardSection = [(SPUISResultBuilder *)&v28 buildInlineCardSection];
   if ([v9 length])
   {
     v14 = [MEMORY[0x277D4C3A0] textWithString:v9];
@@ -154,13 +163,13 @@ LABEL_18:
     [buildInlineCardSection setSecondaryTitle:0];
   }
 
-  title = [buildInlineCardSection title];
-  [title setMaxLines:1];
+  v15 = objc_msgSend_title(buildInlineCardSection);
+  [v15 setMaxLines:1];
 
   secondaryTitle = [buildInlineCardSection secondaryTitle];
   [buildInlineCardSection setIsSecondaryTitleDetached:secondaryTitle != 0];
 
-  if ([v3 count])
+  if (objc_msgSend_count(v3))
   {
     v17 = [objc_opt_class() richTextsFromStrings:v3];
     [buildInlineCardSection setDescriptions:v17];
@@ -171,35 +180,33 @@ LABEL_18:
     [buildInlineCardSection setDescriptions:0];
   }
 
-  v27 = 0u;
-  v28 = 0u;
-  v25 = 0u;
   v26 = 0u;
+  v27 = 0u;
+  v24 = 0u;
+  v25 = 0u;
   descriptions = [buildInlineCardSection descriptions];
-  v19 = [descriptions countByEnumeratingWithState:&v25 objects:v30 count:16];
+  v19 = [descriptions countByEnumeratingWithState:&v24 objects:v29 count:16];
   if (v19)
   {
     v20 = v19;
-    v21 = *v26;
+    v21 = *v25;
     do
     {
       for (i = 0; i != v20; ++i)
       {
-        if (*v26 != v21)
+        if (*v25 != v21)
         {
           objc_enumerationMutation(descriptions);
         }
 
-        [*(*(&v25 + 1) + 8 * i) setMaxLines:1];
+        [*(*(&v24 + 1) + 8 * i) setMaxLines:1];
       }
 
-      v20 = [descriptions countByEnumeratingWithState:&v25 objects:v30 count:16];
+      v20 = [descriptions countByEnumeratingWithState:&v24 objects:v29 count:16];
     }
 
     while (v20);
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 
   return buildInlineCardSection;
 }

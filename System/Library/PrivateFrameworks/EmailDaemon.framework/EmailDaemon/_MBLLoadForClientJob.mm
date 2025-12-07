@@ -57,42 +57,41 @@
   v5 = [(MBLSingleMessageClient *)self->_client wantsContentsOfType:0];
   v6 = [(MBLSingleMessageClient *)self->_client wantsContentsOfType:1];
   v7 = [(MBLSingleMessageClient *)self->_client wantsContentsOfType:2];
-  client = self->_client;
-  v9 = [NSString stringWithFormat:@"com.apple.mobilemail.messagebodyloader_job.client.%@", objc_opt_class()];
-  v10 = +[MFPowerController sharedInstance];
+  v8 = [NSString stringWithFormat:@"com.apple.mobilemail.messagebodyloader_job.client.%@", objc_opt_class()];
+  v9 = +[MFPowerController sharedInstance];
   account = [message account];
-  [v10 retainAssertionWithIdentifier:v9 withAccount:account];
+  [v9 retainAssertionWithIdentifier:v8 withAccount:account];
 
   if ((v5 | v7))
   {
     summary = [message summary];
     if (summary)
     {
-      v39 = 0;
+      v38 = 0;
     }
 
     else
     {
-      v13 = +[_MBLLoadForClientJob signpostLog];
+      v12 = +[_MBLLoadForClientJob signpostLog];
       signpostID = [(_MBLLoadForClientJob *)self signpostID];
-      if (signpostID - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v13))
+      if (signpostID - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v12))
       {
         messageID = [message messageID];
         *buf = 138412290;
-        v41 = messageID;
-        _os_signpost_emit_with_name_impl(&_mh_execute_header, v13, OS_SIGNPOST_INTERVAL_BEGIN, signpostID, "MBL COPY SUMMARY", "Message=%@", buf, 0xCu);
+        v40 = messageID;
+        _os_signpost_emit_with_name_impl(&_mh_execute_header, v12, OS_SIGNPOST_INTERVAL_BEGIN, signpostID, "MBL COPY SUMMARY", "Message=%@", buf, 0xCu);
       }
 
       summary = [MessageBodyLoader copySummaryForMessage:message downloadIfNecessary:1];
-      v16 = +[_MBLLoadForClientJob signpostLog];
+      v15 = +[_MBLLoadForClientJob signpostLog];
       signpostID2 = [(_MBLLoadForClientJob *)self signpostID];
-      if (signpostID2 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v16))
+      if (signpostID2 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v15))
       {
         *buf = 0;
-        _os_signpost_emit_with_name_impl(&_mh_execute_header, v16, OS_SIGNPOST_INTERVAL_END, signpostID2, "MBL COPY SUMMARY", "", buf, 2u);
+        _os_signpost_emit_with_name_impl(&_mh_execute_header, v15, OS_SIGNPOST_INTERVAL_END, signpostID2, "MBL COPY SUMMARY", "", buf, 2u);
       }
 
-      v39 = [(__CFString *)summary length]!= 0;
+      v38 = [(__CFString *)summary length]!= 0;
     }
 
     error = [v3 error];
@@ -107,47 +106,47 @@
 LABEL_16:
       if ([message shouldSetSummary])
       {
-        v22 = &stru_10015BEC8;
+        v21 = &stru_10015BEC8;
         if (summary)
         {
-          v22 = summary;
+          v21 = summary;
         }
 
-        v23 = v22;
+        v22 = v21;
 
-        v24 = +[_MBLLoadForClientJob signpostLog];
+        v23 = +[_MBLLoadForClientJob signpostLog];
         signpostID3 = [(_MBLLoadForClientJob *)self signpostID];
-        if (signpostID3 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v24))
+        if (signpostID3 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v23))
         {
           messageID2 = [message messageID];
           *buf = 138412290;
-          v41 = messageID2;
-          v38 = messageID2;
-          _os_signpost_emit_with_name_impl(&_mh_execute_header, v24, OS_SIGNPOST_INTERVAL_BEGIN, signpostID3, "MBL WRITE SUMMARY", "Message=%@", buf, 0xCu);
+          v40 = messageID2;
+          v37 = messageID2;
+          _os_signpost_emit_with_name_impl(&_mh_execute_header, v23, OS_SIGNPOST_INTERVAL_BEGIN, signpostID3, "MBL WRITE SUMMARY", "Message=%@", buf, 0xCu);
         }
 
-        [message setSummary:v23];
-        v27 = +[_MBLLoadForClientJob signpostLog];
+        [message setSummary:v22];
+        v26 = +[_MBLLoadForClientJob signpostLog];
         signpostID4 = [(_MBLLoadForClientJob *)self signpostID];
-        if (signpostID4 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v27))
+        if (signpostID4 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v26))
         {
           *buf = 0;
-          _os_signpost_emit_with_name_impl(&_mh_execute_header, v27, OS_SIGNPOST_INTERVAL_END, signpostID4, "MBL WRITE SUMMARY", "", buf, 2u);
+          _os_signpost_emit_with_name_impl(&_mh_execute_header, v26, OS_SIGNPOST_INTERVAL_END, signpostID4, "MBL WRITE SUMMARY", "", buf, 2u);
         }
 
-        summary = v23;
+        summary = v22;
       }
 
       [(MBLSingleMessageClient *)self->_client notifyContentsAvailable:summary forMessage:message];
-      if ((v7 & 1) != 0 || v39 && ([message messageFlags] & 1) == 0)
+      if ((v7 & 1) != 0 || v38 && ([message messageFlags] & 1) == 0)
       {
         mailbox = [message mailbox];
         mailboxType = [mailbox mailboxType];
 
         if ((mailboxType & 0xFFFFFFFFFFFFFFFDLL) != 1)
         {
-          v31 = +[MessageAddressScanner sharedInstance];
-          [v31 scanSummary:summary forMessage:message];
+          v30 = +[MessageAddressScanner sharedInstance];
+          [v30 scanSummary:summary forMessage:message];
         }
       }
 
@@ -157,9 +156,9 @@ LABEL_16:
     domain = [error domain];
     if ([MFMessageErrorDomain isEqualToString:domain])
     {
-      v21 = [error code] == 1036;
+      v20 = [error code] == 1036;
 
-      if (v21)
+      if (v20)
       {
         goto LABEL_16;
       }
@@ -176,12 +175,12 @@ LABEL_31:
 
   if (v6)
   {
-    v32 = [MFMessageLoadingContext alloc];
-    v33 = +[MessageBodyLoader attachmentManager];
-    v34 = [v32 initWithMessage:message attachmentManager:v33];
+    v31 = [MFMessageLoadingContext alloc];
+    v32 = +[MessageBodyLoader attachmentManager];
+    v33 = [v31 initWithMessage:message attachmentManager:v32];
 
-    v35 = +[EFScheduler immediateScheduler];
-    [v34 load:1 scheduler:v35];
+    v34 = +[EFScheduler immediateScheduler];
+    [v33 load:1 scheduler:v34];
 
     if ([v3 shouldCancel])
     {
@@ -195,8 +194,8 @@ LABEL_31:
     }
   }
 
-  v37 = +[MFPowerController sharedInstance];
-  [v37 releaseAssertionWithIdentifier:v9];
+  v36 = +[MFPowerController sharedInstance];
+  [v36 releaseAssertionWithIdentifier:v8];
 }
 
 - (id)initForClient:(id)client forMBLMailbox:(id)mailbox

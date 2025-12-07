@@ -100,7 +100,7 @@ void __98__QLItemProviderFetcher_fetchContentWithAllowedOutputClasses_inQueue_up
 
 void __98__QLItemProviderFetcher_fetchContentWithAllowedOutputClasses_inQueue_updateBlock_completionBlock___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
@@ -118,9 +118,9 @@ void __98__QLItemProviderFetcher_fetchContentWithAllowedOutputClasses_inQueue_up
 
       if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
-        v18 = 138412290;
-        v19 = v6;
-        _os_log_impl(&dword_261653000, v11, OS_LOG_TYPE_ERROR, "Error while attempting to load item: %@ #PreviewItem", &v18, 0xCu);
+        v17 = 138412290;
+        v18 = v6;
+        _os_log_impl(&dword_261653000, v11, OS_LOG_TYPE_ERROR, "Error while attempting to load item: %@ #PreviewItem", &v17, 0xCu);
       }
 
       v12 = *(*(a1 + 40) + 16);
@@ -135,16 +135,16 @@ void __98__QLItemProviderFetcher_fetchContentWithAllowedOutputClasses_inQueue_up
         v9 = *MEMORY[0x277D43EF8];
         if (!*MEMORY[0x277D43EF8])
         {
-          v17 = MEMORY[0x277D43EF8];
+          v16 = MEMORY[0x277D43EF8];
           QLSInitLogging();
-          v9 = *v17;
+          v9 = *v16;
         }
 
         if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
         {
-          v18 = 138412290;
-          v19 = v8;
-          _os_log_impl(&dword_261653000, v9, OS_LOG_TYPE_INFO, "Did obtain NSURL as contents for item backed by NSItemProvider: %@ #PreviewItem", &v18, 0xCu);
+          v17 = 138412290;
+          v18 = v8;
+          _os_log_impl(&dword_261653000, v9, OS_LOG_TYPE_INFO, "Did obtain NSURL as contents for item backed by NSItemProvider: %@ #PreviewItem", &v17, 0xCu);
         }
 
         [WeakRetained _updateCompletionBlockWithAllowedOutputClasses:*(a1 + 32) URL:v8];
@@ -162,8 +162,8 @@ void __98__QLItemProviderFetcher_fetchContentWithAllowedOutputClasses_inQueue_up
 
       if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
-        LOWORD(v18) = 0;
-        _os_log_impl(&dword_261653000, v14, OS_LOG_TYPE_ERROR, "QLItems backed by NSItemProvider can only provide NSURLs, NSData is not supported. #PreviewItem", &v18, 2u);
+        LOWORD(v17) = 0;
+        _os_log_impl(&dword_261653000, v14, OS_LOG_TYPE_ERROR, "QLItems backed by NSItemProvider can only provide NSURLs, NSData is not supported. #PreviewItem", &v17, 2u);
       }
 
       v12 = *(*(a1 + 40) + 16);
@@ -174,8 +174,6 @@ LABEL_21:
     v15 = +[QLNetworkStateObserver sharedInstance];
     [v15 popOperation];
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateCompletionBlockWithAllowedOutputClasses:(id)classes URL:(id)l
@@ -207,9 +205,9 @@ void __76__QLItemProviderFetcher__updateCompletionBlockWithAllowedOutputClasses_
       return;
     }
 
-    v12 = [a1[4] completionBlock];
+    v8 = [a1[4] completionBlock];
     v3 = [MEMORY[0x277CBEA90] dataWithContentsOfURL:a1[5]];
-    v12[2](v12, v3, 0);
+    v8[2](v8, v3, 0);
   }
 
   else
@@ -225,28 +223,20 @@ void __76__QLItemProviderFetcher__updateCompletionBlockWithAllowedOutputClasses_
       {
         return;
       }
-
-      v7 = [a1[4] completionBlock];
-      v8 = a1[5];
-      v9 = *(v7 + 16);
-      v12 = v7;
     }
 
     else
     {
-      v10 = [v5 completionBlock];
+      v7 = [v5 completionBlock];
 
-      if (!v10)
+      if (!v7)
       {
         return;
       }
-
-      v11 = [a1[4] completionBlock];
-      v9 = *(v11 + 16);
-      v12 = v11;
     }
 
-    v9();
+    v8 = [a1[4] completionBlock];
+    (v8[2])();
   }
 }
 
@@ -305,7 +295,7 @@ uint64_t __69__QLItemProviderFetcher_getURLWithDownloadTracker_completionHandler
 
 void __69__QLItemProviderFetcher_getURLWithDownloadTracker_completionHandler___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v5 && (objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), !v6) && (isKindOfClass & 1) != 0)
@@ -339,17 +329,15 @@ void __69__QLItemProviderFetcher_getURLWithDownloadTracker_completionHandler___b
 
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      v14 = 138412546;
-      v15 = v5;
-      v16 = 2112;
-      v17 = v6;
-      _os_log_impl(&dword_261653000, v12, OS_LOG_TYPE_ERROR, "Error while obtaining URL in getURLWithDownloadTracker: %@. Error: %@ #PreviewItem", &v14, 0x16u);
+      v13 = 138412546;
+      v14 = v5;
+      v15 = 2112;
+      v16 = v6;
+      _os_log_impl(&dword_261653000, v12, OS_LOG_TYPE_ERROR, "Error while obtaining URL in getURLWithDownloadTracker: %@. Error: %@ #PreviewItem", &v13, 0x16u);
     }
 
     (*(*(a1 + 32) + 16))();
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dealloc

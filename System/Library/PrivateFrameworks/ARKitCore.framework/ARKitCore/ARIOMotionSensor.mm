@@ -33,7 +33,7 @@
   currentAccelerometerData = v3->_currentAccelerometerData;
   v3->_currentAccelerometerData = v7;
 
-  v9 = ARCreateFixedPriorityDispatchQueue("com.apple.arkit.motion");
+  v9 = ARCreateFixedPriorityDispatchQueue("com.apple.arkit.motion", 0);
   imuDataQueue = v3->_imuDataQueue;
   v3->_imuDataQueue = v9;
 

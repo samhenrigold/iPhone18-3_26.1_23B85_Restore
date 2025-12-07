@@ -271,27 +271,15 @@ LABEL_7:
 {
   notificationCopy = notification;
   notification = self->_notification;
-  if (!notification)
+  if (!notification || (-[UNNotification request](notification, "request"), v7 = objc_claimAutoreleasedReturnValue(), [v7 identifier], v8 = objc_claimAutoreleasedReturnValue(), objc_msgSend(notificationCopy, "request"), v9 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v9, "identifier"), v10 = objc_claimAutoreleasedReturnValue(), v11 = objc_msgSend(v8, "isEqualToString:", v10), v10, v9, v8, v7, v11))
   {
-    goto LABEL_3;
-  }
-
-  request = [(UNNotification *)notification request];
-  identifier = [request identifier];
-  request2 = [notificationCopy request];
-  identifier2 = [request2 identifier];
-  v11 = [identifier isEqualToString:identifier2];
-
-  if (v11)
-  {
-LABEL_3:
     v12 = qword_1000115F0;
     if (os_log_type_enabled(qword_1000115F0, OS_LOG_TYPE_DEFAULT))
     {
       v13 = v12;
-      request3 = [notificationCopy request];
-      identifier3 = [request3 identifier];
-      un_logDigest = [identifier3 un_logDigest];
+      request = [notificationCopy request];
+      identifier = [request identifier];
+      un_logDigest = [identifier un_logDigest];
       v17 = 138412290;
       v18 = un_logDigest;
       _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Default extension did receive notification %@{public}", &v17, 0xCu);

@@ -45,27 +45,27 @@
     return;
   }
 
-  MEMORY[0x19EB02040](&v21, [objc_msgSend(object "device")]);
+  MEMORY[0x19EB02040](&v22, [objc_msgSend(object "device")]);
   videoRotationAngleForHorizonLevelPreview = [object videoRotationAngleForHorizonLevelPreview];
   if (v10 >= 2147483650.0 || v10 <= -2147483650.0)
   {
     goto LABEL_9;
   }
 
-  v17 = v10;
+  v18 = v10;
   if (v10 == 90)
   {
     v12 = 90;
     goto LABEL_10;
   }
 
-  if (v17 == 270)
+  if (v18 == 270)
   {
     v12 = 270;
     goto LABEL_10;
   }
 
-  if (v17 != 180)
+  if (v18 != 180)
   {
 LABEL_9:
     v12 = 0;
@@ -78,29 +78,29 @@ LABEL_9:
 
 LABEL_10:
   WTF::RunLoop::mainSingleton(videoRotationAngleForHorizonLevelPreview);
-  *&v18 = self;
+  *&v19 = self;
   selfCopy = self;
-  *(&v18 + 1) = self;
+  *(&v19 + 1) = self;
   WTF::String::isolatedCopy();
-  v14 = WTF::fastMalloc(0x28);
-  *v14 = &unk_1F1102CD0;
-  *(v14 + 8) = v18;
-  *(v14 + 24) = v19;
-  *(v14 + 32) = v12;
-  v20 = v14;
+  v15 = WTF::fastMalloc(v14, 0x28);
+  *v15 = &unk_1F1102CD0;
+  *(v15 + 1) = v19;
+  v15[3] = v20;
+  *(v15 + 16) = v12;
+  v21 = v15;
   WTF::RunLoop::dispatch();
-  if (v20)
+  if (v21)
   {
-    (*(*v20 + 8))(v20);
+    (*(*v21 + 8))(v21);
   }
 
-  v16 = v21;
-  v21 = 0;
-  if (v16)
+  v17 = v22;
+  v22 = 0;
+  if (v17)
   {
-    if (atomic_fetch_add_explicit(v16, 0xFFFFFFFE, memory_order_relaxed) == 2)
+    if (atomic_fetch_add_explicit(v17, 0xFFFFFFFE, memory_order_relaxed) == 2)
     {
-      WTF::StringImpl::destroy(v16, v15);
+      WTF::StringImpl::destroy(v17, v16);
     }
   }
 }
@@ -511,7 +511,7 @@ LABEL_15:
     v2 = *(v1 + 8);
     if (v2)
     {
-      WebKit::UserMediaPermissionRequestManagerProxy::rotationAngleForCaptureDeviceChanged(*(v2 + 72), path + 24, *(path + 32));
+      WebKit::UserMediaPermissionRequestManagerProxy::rotationAngleForCaptureDeviceChanged(*(v2 + 72), (path + 24), *(path + 32));
     }
   }
 }

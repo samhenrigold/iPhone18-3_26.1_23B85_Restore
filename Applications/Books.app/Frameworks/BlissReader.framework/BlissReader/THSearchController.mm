@@ -867,68 +867,72 @@ LABEL_13:
 - (void)p_populatePageNumbersOfModelSearchResults:(id)results
 {
   resultsCopy = results;
-  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v5 = [results countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v27 = 0u;
+  v5 = [results countByEnumeratingWithState:&v24 objects:v28 count:16];
   if (v5)
   {
-    v6 = v5;
-    v7 = *v24;
-    v8 = @"-";
-    v9 = &stru_471858;
+    v7 = v5;
+    v8 = *v25;
+    v9 = @"-";
+    v10 = &stru_471858;
     selfCopy = self;
     do
     {
-      for (i = 0; i != v6; ++i)
+      v11 = 0;
+      do
       {
-        if (*v24 != v7)
+        if (*v25 != v8)
         {
           objc_enumerationMutation(resultsCopy);
         }
 
-        v11 = [THBundle() localizedStringForKey:v8 value:v9 table:0];
+        v12 = [THBundle(v5 v6)];
         objc_opt_class();
-        v12 = TSUDynamicCast();
+        v13 = TSUDynamicCast();
         if ([(THSearchController *)self paginationResultsValid])
         {
-          if ([objc_msgSend(v12 "cfi")])
+          if ([objc_msgSend(v13 "cfi")])
           {
-            v13 = -[THDocumentRoot absolutePageIndexForCFI:](self->mDocumentRoot, "absolutePageIndexForCFI:", [v12 cfi]);
-            if (v13 != 0x7FFFFFFFFFFFFFFFLL)
+            v14 = -[THDocumentRoot absolutePageIndexForCFI:](self->mDocumentRoot, "absolutePageIndexForCFI:", [v13 cfi]);
+            if (v14 != 0x7FFFFFFFFFFFFFFFLL)
             {
-              v14 = v13;
-              v15 = [(THDisplayPageNumberMap *)[(THSearchController *)self displayPageNumberMap] displayPageNumberForAbsolutePageIndex:v13];
-              v16 = v6;
+              v15 = v14;
+              v16 = [(THDisplayPageNumberMap *)[(THSearchController *)self displayPageNumberMap] displayPageNumberForAbsolutePageIndex:v14];
               v17 = v7;
-              v18 = v9;
-              v19 = v8;
-              v20 = resultsCopy;
-              v21 = v15;
-              if ([v15 length])
+              v18 = v8;
+              v19 = v10;
+              v20 = v9;
+              v21 = resultsCopy;
+              v22 = v16;
+              if ([v16 length])
               {
-                v11 = v21;
+                v12 = v22;
               }
 
-              resultsCopy = v20;
-              v8 = v19;
-              v9 = v18;
+              resultsCopy = v21;
+              v9 = v20;
+              v10 = v19;
+              v8 = v18;
               v7 = v17;
-              v6 = v16;
               self = selfCopy;
-              [v12 setPageNumber:v14];
+              [v13 setPageNumber:v15];
             }
           }
         }
 
-        [v12 setDisplayPageNumber:v11];
+        v5 = [v13 setDisplayPageNumber:v12];
+        ++v11;
       }
 
-      v6 = [resultsCopy countByEnumeratingWithState:&v23 objects:v27 count:16];
+      while (v7 != v11);
+      v5 = [resultsCopy countByEnumeratingWithState:&v24 objects:v28 count:16];
+      v7 = v5;
     }
 
-    while (v6);
+    while (v5);
   }
 }
 

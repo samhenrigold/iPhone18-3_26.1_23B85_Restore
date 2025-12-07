@@ -8,6 +8,8 @@
 - (id)_allNoiseFieldsWithCurrentDate:(id)date gregorianCalendar:(id)calendar;
 - (id)_areBloodOxygenMeasurementsEnabledWithDataSource:(id)source;
 - (id)_areRespiratoryRateMeasurementsEnabledWithDataSource:(id)source;
+- (id)_celsiusValueFromQuantity:(id)quantity scale:(signed __int16)scale;
+- (id)_changeInCelsiusStringFromQuantity:(id)quantity scale:(signed __int16)scale;
 - (id)_countOfLast30DaysWithSleepSamplesWithCurrentDate:(id)date calendarCache:(id)cache;
 - (id)_countOfLast30DaysWithSleepingWristTemperatureSamplesWithCurrentDate:(id)date gregorianCalendar:(id)calendar;
 - (id)_countOfUniqueSourcesOfWristTemperatureSamplesFieldsWithCurrentDate:(id)date gregorianCalendar:(id)calendar;
@@ -37,6 +39,7 @@
 - (id)_predicateForAppleWatchSamplesInLastNSleepDays:(int64_t)days currentDate:(id)date gregorianCalendar:(id)calendar sampleType:(id)type;
 - (id)_predicateForAppleWatchSamplesInLastNSleepDays:(int64_t)days currentDate:(id)date gregorianCalendar:(id)calendar sampleType:(id)type sourceEntityPredicate:(id)predicate;
 - (id)_preferredSleepingWristTemperatureUnit;
+- (id)_roundDouble:(double)double scale:(signed __int16)scale;
 - (id)_sampleStandardDeviationOfValues:(id)values;
 - (id)_samplesByMorningIndex:(id)index gregorianCalendar:(id)calendar;
 - (id)_sleepFields;
@@ -527,12 +530,12 @@
 
 - (id)_sleepFields
 {
-  v23[1] = *MEMORY[0x277D85DE8];
+  v22[1] = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CBEB38];
-  v22 = @"isSleepFocusSetUp";
+  v21 = @"isSleepFocusSetUp";
   v4 = [MEMORY[0x277CCABB0] numberWithBool:{-[HKSPSleepStore hasSleepFocusMode](self->_sleepStore, "hasSleepFocusMode")}];
-  v23[0] = v4;
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:&v22 count:1];
+  v22[0] = v4;
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:&v21 count:1];
   v6 = [v3 dictionaryWithDictionary:v5];
 
   v7 = [(HKSPSleepStore *)self->_sleepStore currentSleepSettingsWithError:0];
@@ -585,8 +588,6 @@
 
   v19 = [v6 copy];
 
-  v20 = *MEMORY[0x277D85DE8];
-
   return v19;
 }
 
@@ -620,7 +621,7 @@
 
 - (id)_discreteSleepingWristTemperatureStatisticsLast30DaysWithCurrentDate:(id)date gregorianCalendar:(id)calendar dominantWatchSourceEntityPredicate:(id)predicate
 {
-  v35[3] = *MEMORY[0x277D85DE8];
+  v34[3] = *MEMORY[0x277D85DE8];
   predicateCopy = predicate;
   calendarCopy = calendar;
   dateCopy = date;
@@ -633,40 +634,38 @@
   v16 = [v14 initForProfile:WeakRetained quantityType:v11 predicate:v13 restrictedSourceEntities:0];
 
   [v12 setDataSource:v16];
-  v33 = 0;
-  v17 = [v12 queryForInitialStatisticsWithError:&v33];
-  v18 = v33;
+  v32 = 0;
+  v17 = [v12 queryForInitialStatisticsWithError:&v32];
+  v18 = v32;
   currentStatistics = [v12 currentStatistics];
   v20 = currentStatistics;
   v21 = MEMORY[0x277CBEC10];
   if (v17 && currentStatistics && [currentStatistics dataCount])
   {
-    v34[0] = @"aggTempPast30DaysMin";
+    v33[0] = @"aggTempPast30DaysMin";
     minimumQuantity = [v20 minimumQuantity];
-    v31 = [(HDMCWristTemperatureDailyAnalyticsEvent *)self _celsiusValueFromQuantity:minimumQuantity scale:1];
-    stringValue = [v31 stringValue];
-    v35[0] = stringValue;
-    v34[1] = @"aggTempPast30DaysMax";
+    v30 = [(HDMCWristTemperatureDailyAnalyticsEvent *)self _celsiusValueFromQuantity:minimumQuantity scale:1];
+    stringValue = [v30 stringValue];
+    v34[0] = stringValue;
+    v33[1] = @"aggTempPast30DaysMax";
     maximumQuantity = [v20 maximumQuantity];
-    v28 = [(HDMCWristTemperatureDailyAnalyticsEvent *)self _celsiusValueFromQuantity:maximumQuantity scale:1];
-    stringValue2 = [v28 stringValue];
-    v35[1] = stringValue2;
-    v34[2] = @"aggTempPast30DaysMean";
+    v27 = [(HDMCWristTemperatureDailyAnalyticsEvent *)self _celsiusValueFromQuantity:maximumQuantity scale:1];
+    stringValue2 = [v27 stringValue];
+    v34[1] = stringValue2;
+    v33[2] = @"aggTempPast30DaysMean";
     averageQuantity = [v20 averageQuantity];
     v23 = [(HDMCWristTemperatureDailyAnalyticsEvent *)self _celsiusValueFromQuantity:averageQuantity scale:1];
     stringValue3 = [v23 stringValue];
-    v35[2] = stringValue3;
-    v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v35 forKeys:v34 count:3];
+    v34[2] = stringValue3;
+    v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v34 forKeys:v33 count:3];
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 
   return v21;
 }
 
 - (id)_discreteRelativeSleepingWristTemperatureStatisticsLast30DaysWithCurrentDate:(id)date gregorianCalendar:(id)calendar dominantWatchSourceEntityPredicate:(id)predicate
 {
-  v31[2] = *MEMORY[0x277D85DE8];
+  v30[2] = *MEMORY[0x277D85DE8];
   predicateCopy = predicate;
   calendarCopy = calendar;
   dateCopy = date;
@@ -680,26 +679,24 @@
   v17 = [v14 initForProfile:WeakRetained quantityType:v11 predicate:v13 restrictedSourceEntities:0 configuration:_rollingBaselineConfiguration currentDate:dateCopy];
 
   [v12 setDataSource:v17];
-  v29 = 0;
-  v18 = [v12 queryForInitialStatisticsWithError:&v29];
-  v19 = v29;
+  v28 = 0;
+  v18 = [v12 queryForInitialStatisticsWithError:&v28];
+  v19 = v28;
   currentStatistics = [v12 currentStatistics];
   v21 = currentStatistics;
   v22 = MEMORY[0x277CBEC10];
   if (v18 && currentStatistics && [currentStatistics dataCount])
   {
-    v30[0] = @"aggTempDisplayedPast30DaysMin";
+    v29[0] = @"aggTempDisplayedPast30DaysMin";
     minimumQuantity = [v21 minimumQuantity];
     v23 = [(HDMCWristTemperatureDailyAnalyticsEvent *)self _changeInCelsiusStringFromQuantity:minimumQuantity scale:1];
-    v30[1] = @"aggTempDisplayedPast30DaysMax";
-    v31[0] = v23;
+    v29[1] = @"aggTempDisplayedPast30DaysMax";
+    v30[0] = v23;
     maximumQuantity = [v21 maximumQuantity];
     v25 = [(HDMCWristTemperatureDailyAnalyticsEvent *)self _changeInCelsiusStringFromQuantity:maximumQuantity scale:1];
-    v31[1] = v25;
-    v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v31 forKeys:v30 count:2];
+    v30[1] = v25;
+    v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:v29 count:2];
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 
   return v22;
 }
@@ -766,7 +763,7 @@
 
 - (id)_countOfLast30DaysWithSleepingWristTemperatureSamplesWithCurrentDate:(id)date gregorianCalendar:(id)calendar
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   dateCopy = date;
   calendarCopy = calendar;
   v8 = _HKMCAppleSleepingWristTemperatureType();
@@ -775,61 +772,61 @@
   v11 = objc_alloc_init(MEMORY[0x277CBEAB8]);
   [v11 setCalendar:calendarCopy];
   [v11 setDay:1];
-  v36 = [objc_alloc(MEMORY[0x277CCDD78]) initWithAnchorDate:v10 intervalComponents:v11];
-  v12 = [MEMORY[0x277D10890] calculatorForQuantityType:v8 intervalCollection:v36 options:_HKStatisticsOptionPresence() mergeStrategy:1];
+  v35 = [objc_alloc(MEMORY[0x277CCDD78]) initWithAnchorDate:v10 intervalComponents:v11];
+  v12 = [MEMORY[0x277D10890] calculatorForQuantityType:v8 intervalCollection:v35 options:_HKStatisticsOptionPresence() mergeStrategy:1];
   v13 = [(HDMCWristTemperatureDailyAnalyticsEvent *)self _predicateForAppleWatchSamplesInLast30SleepDaysRelativeToCurrentDate:dateCopy gregorianCalendar:calendarCopy sampleType:v8];
   v14 = objc_alloc(MEMORY[0x277D108A0]);
   WeakRetained = objc_loadWeakRetained(&self->_profile);
-  v35 = v13;
+  v34 = v13;
   v16 = [v14 initForProfile:WeakRetained quantityType:v8 predicate:v13 restrictedSourceEntities:0];
 
-  v34 = v16;
+  v33 = v16;
   [v12 setDataSource:v16];
   v17 = [objc_alloc(MEMORY[0x277CCDA58]) initWithAnchorDate:v10 statisticsInterval:v11];
-  v42[0] = MEMORY[0x277D85DD0];
-  v42[1] = 3221225472;
-  v42[2] = __130__HDMCWristTemperatureDailyAnalyticsEvent__countOfLast30DaysWithSleepingWristTemperatureSamplesWithCurrentDate_gregorianCalendar___block_invoke;
-  v42[3] = &unk_27865AB18;
+  v41[0] = MEMORY[0x277D85DD0];
+  v41[1] = 3221225472;
+  v41[2] = __130__HDMCWristTemperatureDailyAnalyticsEvent__countOfLast30DaysWithSleepingWristTemperatureSamplesWithCurrentDate_gregorianCalendar___block_invoke;
+  v41[3] = &unk_27865AB18;
   v18 = v17;
-  v43 = v18;
-  [v12 setStatisticsHandler:v42];
-  v41 = 0;
-  LODWORD(v13) = [v12 queryForInitialStatisticsWithError:&v41];
-  v19 = v41;
+  v42 = v18;
+  [v12 setStatisticsHandler:v41];
+  v40 = 0;
+  LODWORD(v13) = [v12 queryForInitialStatisticsWithError:&v40];
+  v19 = v40;
   v20 = 0;
   if (v13)
   {
-    v30 = v19;
-    v31 = v10;
-    v32 = v9;
-    v33 = dateCopy;
-    v39 = 0u;
-    v40 = 0u;
-    v37 = 0u;
+    v29 = v19;
+    v30 = v10;
+    v31 = v9;
+    v32 = dateCopy;
     v38 = 0u;
+    v39 = 0u;
+    v36 = 0u;
+    v37 = 0u;
     statistics = [v18 statistics];
-    v22 = [statistics countByEnumeratingWithState:&v37 objects:v44 count:16];
+    v22 = [statistics countByEnumeratingWithState:&v36 objects:v43 count:16];
     if (v22)
     {
       v23 = v22;
       v24 = 0;
-      v25 = *v38;
+      v25 = *v37;
       do
       {
         for (i = 0; i != v23; ++i)
         {
-          if (*v38 != v25)
+          if (*v37 != v25)
           {
             objc_enumerationMutation(statistics);
           }
 
-          if ([*(*(&v37 + 1) + 8 * i) dataCount])
+          if ([*(*(&v36 + 1) + 8 * i) dataCount])
           {
             ++v24;
           }
         }
 
-        v23 = [statistics countByEnumeratingWithState:&v37 objects:v44 count:16];
+        v23 = [statistics countByEnumeratingWithState:&v36 objects:v43 count:16];
       }
 
       while (v23);
@@ -851,13 +848,11 @@
     }
 
     v20 = [MEMORY[0x277CCABB0] numberWithInteger:v27];
-    v9 = v32;
-    dateCopy = v33;
-    v19 = v30;
-    v10 = v31;
+    v9 = v31;
+    dateCopy = v32;
+    v19 = v29;
+    v10 = v30;
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 
   return v20;
 }
@@ -901,7 +896,7 @@
   return v17;
 }
 
-uint64_t __107__HDMCWristTemperatureDailyAnalyticsEvent__countOfLast30DaysWithSleepSamplesWithCurrentDate_calendarCache___block_invoke(uint64_t a1, void *a2)
+void *__107__HDMCWristTemperatureDailyAnalyticsEvent__countOfLast30DaysWithSleepSamplesWithCurrentDate_calendarCache___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 containsPeriodsWithAppleSleepTrackingData];
   if (result)
@@ -914,7 +909,7 @@ uint64_t __107__HDMCWristTemperatureDailyAnalyticsEvent__countOfLast30DaysWithSl
 
 - (id)_hoursAsleepDuringLastSleepDayWithCurrentDate:(id)date gregorianCalendar:(id)calendar
 {
-  v53[2] = *MEMORY[0x277D85DE8];
+  v52[2] = *MEMORY[0x277D85DE8];
   dateCopy = date;
   calendarCopy = calendar;
   v8 = [MEMORY[0x277CCD0C0] categoryTypeForIdentifier:*MEMORY[0x277CCBAB8]];
@@ -925,16 +920,16 @@ uint64_t __107__HDMCWristTemperatureDailyAnalyticsEvent__countOfLast30DaysWithSl
   v13 = HDCategorySampleEntityPredicateEqualToValues();
 
   v14 = MEMORY[0x277D10B20];
-  v45 = v13;
-  v46 = v10;
-  v53[0] = v10;
-  v53[1] = v13;
-  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v53 count:2];
+  v44 = v13;
+  v45 = v10;
+  v52[0] = v10;
+  v52[1] = v13;
+  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v52 count:2];
   v16 = [v14 predicateMatchingAllPredicates:v15];
 
   v17 = objc_alloc(MEMORY[0x277D108A0]);
   WeakRetained = objc_loadWeakRetained(&self->_profile);
-  v44 = v16;
+  v43 = v16;
   v19 = [v17 initForProfile:WeakRetained categoryType:v8 predicate:v16 restrictedSourceEntities:0];
 
   [v9 setDataSource:v19];
@@ -944,39 +939,39 @@ uint64_t __107__HDMCWristTemperatureDailyAnalyticsEvent__countOfLast30DaysWithSl
   v23 = [v20 initWithProfile:v21 quantityType:quantityType];
 
   [v9 setSourceOrderProvider:v23];
-  v51 = 0;
-  LODWORD(v13) = [v9 queryForInitialStatisticsWithError:&v51];
-  v43 = v51;
+  v50 = 0;
+  LODWORD(v13) = [v9 queryForInitialStatisticsWithError:&v50];
+  v42 = v50;
   currentStatistics = [v9 currentStatistics];
   v25 = currentStatistics;
   v26 = 0;
   if (v13 && currentStatistics)
   {
-    v39 = v23;
+    v38 = v23;
     selfCopy = self;
-    v41 = v8;
-    v42 = calendarCopy;
-    v49 = 0u;
-    v50 = 0u;
-    v47 = 0u;
+    v40 = v8;
+    v41 = calendarCopy;
     v48 = 0u;
+    v49 = 0u;
+    v46 = 0u;
+    v47 = 0u;
     sources = [currentStatistics sources];
-    v28 = [sources countByEnumeratingWithState:&v47 objects:v52 count:16];
+    v28 = [sources countByEnumeratingWithState:&v46 objects:v51 count:16];
     if (v28)
     {
       v29 = v28;
-      v30 = *v48;
+      v30 = *v47;
       v31 = 0.0;
       do
       {
         for (i = 0; i != v29; ++i)
         {
-          if (*v48 != v30)
+          if (*v47 != v30)
           {
             objc_enumerationMutation(sources);
           }
 
-          v33 = [v25 durationForSource:*(*(&v47 + 1) + 8 * i)];
+          v33 = [v25 durationForSource:*(*(&v46 + 1) + 8 * i)];
           secondUnit = [MEMORY[0x277CCDAB0] secondUnit];
           [v33 doubleValueForUnit:secondUnit];
           v36 = v35;
@@ -987,7 +982,7 @@ uint64_t __107__HDMCWristTemperatureDailyAnalyticsEvent__countOfLast30DaysWithSl
           }
         }
 
-        v29 = [sources countByEnumeratingWithState:&v47 objects:v52 count:16];
+        v29 = [sources countByEnumeratingWithState:&v46 objects:v51 count:16];
       }
 
       while (v29);
@@ -999,12 +994,10 @@ uint64_t __107__HDMCWristTemperatureDailyAnalyticsEvent__countOfLast30DaysWithSl
     }
 
     v26 = [(HDMCWristTemperatureDailyAnalyticsEvent *)selfCopy _roundDouble:0 scale:v31 / 3600.0];
-    calendarCopy = v42;
-    v8 = v41;
-    v23 = v39;
+    calendarCopy = v41;
+    v8 = v40;
+    v23 = v38;
   }
-
-  v37 = *MEMORY[0x277D85DE8];
 
   return v26;
 }
@@ -1058,7 +1051,7 @@ uint64_t __107__HDMCWristTemperatureDailyAnalyticsEvent__countOfLast30DaysWithSl
   return v17;
 }
 
-uint64_t __98__HDMCWristTemperatureDailyAnalyticsEvent__lastSleepDayHasSleepDataWithCurrentDate_calendarCache___block_invoke(uint64_t a1, void *a2)
+void *__98__HDMCWristTemperatureDailyAnalyticsEvent__lastSleepDayHasSleepDataWithCurrentDate_calendarCache___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 containsPeriodsWithAppleSleepTrackingData];
   if (result)
@@ -1127,7 +1120,7 @@ uint64_t __127__HDMCWristTemperatureDailyAnalyticsEvent__lastSleepDayHasSleepDat
 
 - (id)_IHAGatedLastSleepDayWristTemperatureFieldsWithCurrentDate:(id)date gregorianCalendar:(id)calendar
 {
-  v22[1] = *MEMORY[0x277D85DE8];
+  v21[1] = *MEMORY[0x277D85DE8];
   v5 = [(HDMCWristTemperatureDailyAnalyticsEvent *)self _sleepingWristTemperatureSamplesFromLastNSleepDays:1 currentDate:date gregorianCalendar:calendar sourceEntityPredicate:0];
   if ([v5 count])
   {
@@ -1143,10 +1136,10 @@ uint64_t __127__HDMCWristTemperatureDailyAnalyticsEvent__lastSleepDayHasSleepDat
     }
 
     v10 = MEMORY[0x277CBEB38];
-    v21 = @"tempPastDay";
+    v20 = @"tempPastDay";
     stringValue = [v8 stringValue];
-    v22[0] = stringValue;
-    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:&v21 count:1];
+    v21[0] = stringValue;
+    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:&v20 count:1];
     v13 = [v10 dictionaryWithDictionary:v12];
 
     metadata = [lastObject metadata];
@@ -1166,8 +1159,6 @@ uint64_t __127__HDMCWristTemperatureDailyAnalyticsEvent__lastSleepDayHasSleepDat
   {
     v18 = MEMORY[0x277CBEC10];
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v18;
 }
@@ -1365,30 +1356,30 @@ void __110__HDMCWristTemperatureDailyAnalyticsEvent__noiseMetricsFromSleepingWri
 
 - (id)_samplesByMorningIndex:(id)index gregorianCalendar:(id)calendar
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   indexCopy = index;
   calendarCopy = calendar;
   dictionary = [MEMORY[0x277CBEB38] dictionary];
+  v30 = 0u;
   v31 = 0u;
   v32 = 0u;
   v33 = 0u;
-  v34 = 0u;
   obj = indexCopy;
-  v7 = [obj countByEnumeratingWithState:&v31 objects:v35 count:16];
+  v7 = [obj countByEnumeratingWithState:&v30 objects:v34 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v32;
+    v9 = *v31;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v32 != v9)
+        if (*v31 != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v31 + 1) + 8 * i);
+        v11 = *(*(&v30 + 1) + 8 * i);
         endDate = [v11 endDate];
         v13 = [endDate hk_morningIndexWithCalendar:calendarCopy];
 
@@ -1424,33 +1415,31 @@ void __110__HDMCWristTemperatureDailyAnalyticsEvent__noiseMetricsFromSleepingWri
         }
       }
 
-      v8 = [obj countByEnumeratingWithState:&v31 objects:v35 count:16];
+      v8 = [obj countByEnumeratingWithState:&v30 objects:v34 count:16];
     }
 
     while (v8);
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 
   return dictionary;
 }
 
 - (id)_countOfUniqueSourcesOfWristTemperatureSamplesFieldsWithCurrentDate:(id)date gregorianCalendar:(id)calendar
 {
-  v21[2] = *MEMORY[0x277D85DE8];
+  v20[2] = *MEMORY[0x277D85DE8];
   calendarCopy = calendar;
   dateCopy = date;
   v8 = [(HDMCWristTemperatureDailyAnalyticsEvent *)self _sleepingWristTemperatureSamplesFromLastNSleepDays:30 currentDate:dateCopy gregorianCalendar:calendarCopy sourceEntityPredicate:0];
   v9 = [(HDMCWristTemperatureDailyAnalyticsEvent *)self _sleepingWristTemperatureSamplesFromLastNSleepDays:365 currentDate:dateCopy gregorianCalendar:calendarCopy sourceEntityPredicate:0];
 
   v10 = MEMORY[0x277CBEB38];
-  v20[0] = @"numUniqueWatchesPast30Days";
+  v19[0] = @"numUniqueWatchesPast30Days";
   v11 = [MEMORY[0x277CCABB0] numberWithInteger:{-[HDMCWristTemperatureDailyAnalyticsEvent _countOfUniqueSourcesFromSamples:](self, "_countOfUniqueSourcesFromSamples:", v8)}];
-  v20[1] = @"numUniqueWatchesPastYear";
-  v21[0] = v11;
+  v19[1] = @"numUniqueWatchesPastYear";
+  v20[0] = v11;
   v12 = [MEMORY[0x277CCABB0] numberWithInteger:{-[HDMCWristTemperatureDailyAnalyticsEvent _countOfUniqueSourcesFromSamples:](self, "_countOfUniqueSourcesFromSamples:", v9)}];
-  v21[1] = v12;
-  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:v20 count:2];
+  v20[1] = v12;
+  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:2];
   v14 = [v10 dictionaryWithDictionary:v13];
 
   mEMORY[0x277CCDD30] = [MEMORY[0x277CCDD30] sharedBehavior];
@@ -1464,37 +1453,35 @@ void __110__HDMCWristTemperatureDailyAnalyticsEvent__noiseMetricsFromSleepingWri
 
   v17 = [v14 copy];
 
-  v18 = *MEMORY[0x277D85DE8];
-
   return v17;
 }
 
 - (int64_t)_countOfUniqueSourcesFromSamples:(id)samples
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   samplesCopy = samples;
   v4 = [MEMORY[0x277CBEB58] set];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v5 = samplesCopy;
-  v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v16;
+    v8 = *v15;
     do
     {
       v9 = 0;
       do
       {
-        if (*v16 != v8)
+        if (*v15 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        sourceRevision = [*(*(&v15 + 1) + 8 * v9) sourceRevision];
+        sourceRevision = [*(*(&v14 + 1) + 8 * v9) sourceRevision];
         source = [sourceRevision source];
         [v4 addObject:source];
 
@@ -1502,20 +1489,19 @@ void __110__HDMCWristTemperatureDailyAnalyticsEvent__noiseMetricsFromSleepingWri
       }
 
       while (v7 != v9);
-      v7 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v7);
   }
 
   v12 = [v4 count];
-  v13 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
 - (int64_t)_countOfUniqueSerialNumbersFromSamples:(id)samples
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   samplesCopy = samples;
   v5 = MEMORY[0x277D10718];
   WeakRetained = objc_loadWeakRetained(&self->_profile);
@@ -1523,27 +1509,27 @@ void __110__HDMCWristTemperatureDailyAnalyticsEvent__noiseMetricsFromSleepingWri
 
   _wristTemperatureSerialNumbersBySourceIdentifier = [v7 _wristTemperatureSerialNumbersBySourceIdentifier];
   v9 = [MEMORY[0x277CBEB58] set];
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   v10 = samplesCopy;
-  v11 = [v10 countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v23;
+    v13 = *v22;
     do
     {
       v14 = 0;
       do
       {
-        if (*v23 != v13)
+        if (*v22 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        sourceRevision = [*(*(&v22 + 1) + 8 * v14) sourceRevision];
+        sourceRevision = [*(*(&v21 + 1) + 8 * v14) sourceRevision];
         source = [sourceRevision source];
         bundleIdentifier = [source bundleIdentifier];
 
@@ -1557,14 +1543,13 @@ void __110__HDMCWristTemperatureDailyAnalyticsEvent__noiseMetricsFromSleepingWri
       }
 
       while (v12 != v14);
-      v12 = [v10 countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v12);
   }
 
   v19 = [v9 count];
-  v20 = *MEMORY[0x277D85DE8];
   return v19;
 }
 
@@ -1690,7 +1675,7 @@ void __110__HDMCWristTemperatureDailyAnalyticsEvent__noiseMetricsFromSleepingWri
 
 - (id)_sleepingWristTemperatureSamplesFromLastNSleepDays:(int64_t)days currentDate:(id)date gregorianCalendar:(id)calendar sourceEntityPredicate:(id)predicate
 {
-  v30[1] = *MEMORY[0x277D85DE8];
+  v29[1] = *MEMORY[0x277D85DE8];
   predicateCopy = predicate;
   calendarCopy = calendar;
   dateCopy = date;
@@ -1703,20 +1688,20 @@ void __110__HDMCWristTemperatureDailyAnalyticsEvent__noiseMetricsFromSleepingWri
 
   [v16 setPredicate:v17];
   v18 = [MEMORY[0x277D10B68] orderingTermWithProperty:*MEMORY[0x277D104A8] entityClass:objc_opt_class() ascending:1];
-  v30[0] = v18;
-  v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v30 count:1];
+  v29[0] = v18;
+  v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v29 count:1];
   [v16 setOrderingTerms:v19];
 
   array = [MEMORY[0x277CBEB18] array];
-  v29 = 0;
-  v27[0] = MEMORY[0x277D85DD0];
-  v27[1] = 3221225472;
-  v27[2] = __146__HDMCWristTemperatureDailyAnalyticsEvent__sleepingWristTemperatureSamplesFromLastNSleepDays_currentDate_gregorianCalendar_sourceEntityPredicate___block_invoke;
-  v27[3] = &unk_27865ABD0;
+  v28 = 0;
+  v26[0] = MEMORY[0x277D85DD0];
+  v26[1] = 3221225472;
+  v26[2] = __146__HDMCWristTemperatureDailyAnalyticsEvent__sleepingWristTemperatureSamplesFromLastNSleepDays_currentDate_gregorianCalendar_sourceEntityPredicate___block_invoke;
+  v26[3] = &unk_27865ABD0;
   v21 = array;
-  v28 = v21;
-  LOBYTE(dateCopy) = [v16 enumerateWithError:&v29 handler:v27];
-  v22 = v29;
+  v27 = v21;
+  LOBYTE(dateCopy) = [v16 enumerateWithError:&v28 handler:v26];
+  v22 = v28;
   if (dateCopy)
   {
     v23 = v21;
@@ -1728,20 +1713,18 @@ void __110__HDMCWristTemperatureDailyAnalyticsEvent__noiseMetricsFromSleepingWri
     v24 = HKLogAnalytics();
     if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
-      [HDMCWristTemperatureDailyAnalyticsEvent _sleepingWristTemperatureSamplesFromLastNSleepDays:currentDate:gregorianCalendar:sourceEntityPredicate:];
+      [HDMCWristTemperatureDailyAnalyticsEvent _sleepingWristTemperatureSamplesFromLastNSleepDays:? currentDate:? gregorianCalendar:? sourceEntityPredicate:?];
     }
 
     v23 = MEMORY[0x277CBEBF8];
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 
   return v23;
 }
 
 - (id)_firstPartySleepSamplesFromLastNSleepDays:(int64_t)days currentDate:(id)date gregorianCalendar:(id)calendar
 {
-  v29[1] = *MEMORY[0x277D85DE8];
+  v28[1] = *MEMORY[0x277D85DE8];
   v8 = MEMORY[0x277CCD0C0];
   v9 = *MEMORY[0x277CCBAB8];
   calendarCopy = calendar;
@@ -1755,20 +1738,20 @@ void __110__HDMCWristTemperatureDailyAnalyticsEvent__noiseMetricsFromSleepingWri
 
   [v15 setPredicate:v16];
   v17 = [MEMORY[0x277D10B68] orderingTermWithProperty:*MEMORY[0x277D104A8] entityClass:objc_opt_class() ascending:1];
-  v29[0] = v17;
-  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v29 count:1];
+  v28[0] = v17;
+  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:1];
   [v15 setOrderingTerms:v18];
 
   array = [MEMORY[0x277CBEB18] array];
-  v28 = 0;
-  v26[0] = MEMORY[0x277D85DD0];
-  v26[1] = 3221225472;
-  v26[2] = __115__HDMCWristTemperatureDailyAnalyticsEvent__firstPartySleepSamplesFromLastNSleepDays_currentDate_gregorianCalendar___block_invoke;
-  v26[3] = &unk_27865ABD0;
+  v27 = 0;
+  v25[0] = MEMORY[0x277D85DD0];
+  v25[1] = 3221225472;
+  v25[2] = __115__HDMCWristTemperatureDailyAnalyticsEvent__firstPartySleepSamplesFromLastNSleepDays_currentDate_gregorianCalendar___block_invoke;
+  v25[3] = &unk_27865ABD0;
   v20 = array;
-  v27 = v20;
-  LOBYTE(dateCopy) = [v15 enumerateWithError:&v28 handler:v26];
-  v21 = v28;
+  v26 = v20;
+  LOBYTE(dateCopy) = [v15 enumerateWithError:&v27 handler:v25];
+  v21 = v27;
   if (dateCopy)
   {
     v22 = v20;
@@ -1780,13 +1763,11 @@ void __110__HDMCWristTemperatureDailyAnalyticsEvent__noiseMetricsFromSleepingWri
     v23 = HKLogAnalytics();
     if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
     {
-      [HDMCWristTemperatureDailyAnalyticsEvent _firstPartySleepSamplesFromLastNSleepDays:currentDate:gregorianCalendar:];
+      [HDMCWristTemperatureDailyAnalyticsEvent _firstPartySleepSamplesFromLastNSleepDays:? currentDate:? gregorianCalendar:?];
     }
 
     v22 = MEMORY[0x277CBEBF8];
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 
   return v22;
 }
@@ -1871,32 +1852,32 @@ void __126__HDMCWristTemperatureDailyAnalyticsEvent__dominantSleepingWristTemper
 
 - (id)_sleepingWristTemperatureSampleCountBySourceOverLastNDays:(int64_t)days currentDate:(id)date gregorianCalendar:(id)calendar
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v5 = [(HDMCWristTemperatureDailyAnalyticsEvent *)self _sleepingWristTemperatureSamplesFromLastNSleepDays:days currentDate:date gregorianCalendar:calendar sourceEntityPredicate:0];
   if ([v5 count])
   {
     dictionary = [MEMORY[0x277CBEB38] dictionary];
+    v21 = 0u;
     v22 = 0u;
     v23 = 0u;
     v24 = 0u;
-    v25 = 0u;
-    v21 = v5;
+    v20 = v5;
     v7 = v5;
-    v8 = [v7 countByEnumeratingWithState:&v22 objects:v26 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v21 objects:v25 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v23;
+      v10 = *v22;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v23 != v10)
+          if (*v22 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          sourceRevision = [*(*(&v22 + 1) + 8 * i) sourceRevision];
+          sourceRevision = [*(*(&v21 + 1) + 8 * i) sourceRevision];
           source = [sourceRevision source];
 
           v14 = [dictionary objectForKeyedSubscript:source];
@@ -1915,14 +1896,14 @@ void __126__HDMCWristTemperatureDailyAnalyticsEvent__dominantSleepingWristTemper
           }
         }
 
-        v9 = [v7 countByEnumeratingWithState:&v22 objects:v26 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v21 objects:v25 count:16];
       }
 
       while (v9);
     }
 
     v18 = [dictionary copy];
-    v5 = v21;
+    v5 = v20;
   }
 
   else
@@ -1930,23 +1911,21 @@ void __126__HDMCWristTemperatureDailyAnalyticsEvent__dominantSleepingWristTemper
     v18 = MEMORY[0x277CBEC10];
   }
 
-  v19 = *MEMORY[0x277D85DE8];
-
   return v18;
 }
 
 - (id)_predicateForAppleWatchSamplesInLastNSleepDays:(int64_t)days currentDate:(id)date gregorianCalendar:(id)calendar sampleType:(id)type sourceEntityPredicate:(id)predicate
 {
-  v20[2] = *MEMORY[0x277D85DE8];
+  v19[2] = *MEMORY[0x277D85DE8];
   predicateCopy = predicate;
   v13 = [(HDMCWristTemperatureDailyAnalyticsEvent *)self _predicateForAppleWatchSamplesInLastNSleepDays:days currentDate:date gregorianCalendar:calendar sampleType:type];
   v14 = v13;
   if (predicateCopy)
   {
     v15 = MEMORY[0x277D10B20];
-    v20[0] = v13;
-    v20[1] = predicateCopy;
-    v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:2];
+    v19[0] = v13;
+    v19[1] = predicateCopy;
+    v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:2];
     v17 = [v15 predicateMatchingAllPredicates:v16];
   }
 
@@ -1955,14 +1934,12 @@ void __126__HDMCWristTemperatureDailyAnalyticsEvent__dominantSleepingWristTemper
     v17 = v13;
   }
 
-  v18 = *MEMORY[0x277D85DE8];
-
   return v17;
 }
 
 - (id)_predicateForAppleWatchSamplesInLastNSleepDays:(int64_t)days currentDate:(id)date gregorianCalendar:(id)calendar sampleType:(id)type
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   typeCopy = type;
   calendarCopy = calendar;
   v11 = [date hk_sleepDayStartWithCalendar:calendarCopy];
@@ -1971,16 +1948,14 @@ void __126__HDMCWristTemperatureDailyAnalyticsEvent__dominantSleepingWristTemper
   v13 = [objc_alloc(MEMORY[0x277CCA970]) initWithStartDate:v12 endDate:v11];
   v14 = MEMORY[0x277D10B20];
   v15 = HDSampleEntityPredicateForDataType();
-  v22 = v15;
+  v21 = v15;
   v16 = HDSampleEntityPredicateForDateInterval();
 
-  v23 = v16;
+  v22 = v16;
   v17 = HDDataEntityPredicateForObjectsFromAppleWatchSources();
-  v24 = v17;
-  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:&v22 count:3];
-  v19 = [v14 predicateMatchingAllPredicates:{v18, v22, v23}];
-
-  v20 = *MEMORY[0x277D85DE8];
+  v23 = v17;
+  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:&v21 count:3];
+  v19 = [v14 predicateMatchingAllPredicates:{v18, v21, v22}];
 
   return v19;
 }
@@ -2024,24 +1999,67 @@ double __76__HDMCWristTemperatureDailyAnalyticsEvent__sampleStandardDeviationOfV
   return v5 * (v7 - *(a1 + 32));
 }
 
-- (void)_sleepingWristTemperatureSamplesFromLastNSleepDays:currentDate:gregorianCalendar:sourceEntityPredicate:.cold.1()
+- (id)_celsiusValueFromQuantity:(id)quantity scale:(signed __int16)scale
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v0 = objc_opt_class();
-  v1 = OUTLINED_FUNCTION_0_2(v0);
-  OUTLINED_FUNCTION_4(&dword_2293D1000, v2, v3, "[%{public}@] Error querying sleeping wrist temperature samples: %{public}@", v4, v5, v6, v7, v9);
+  scaleCopy = scale;
+  v6 = MEMORY[0x277CCDAB0];
+  quantityCopy = quantity;
+  degreeCelsiusUnit = [v6 degreeCelsiusUnit];
+  [quantityCopy doubleValueForUnit:degreeCelsiusUnit];
+  v10 = v9;
 
-  v8 = *MEMORY[0x277D85DE8];
+  return [(HDMCWristTemperatureDailyAnalyticsEvent *)self _roundDouble:scaleCopy scale:v10];
 }
 
-- (void)_firstPartySleepSamplesFromLastNSleepDays:currentDate:gregorianCalendar:.cold.1()
+- (id)_changeInCelsiusStringFromQuantity:(id)quantity scale:(signed __int16)scale
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v0 = objc_opt_class();
-  v1 = OUTLINED_FUNCTION_0_2(v0);
-  OUTLINED_FUNCTION_4(&dword_2293D1000, v2, v3, "[%{public}@] Error querying sleep samples: %{public}@", v4, v5, v6, v7, v9);
+  scaleCopy = scale;
+  v6 = MEMORY[0x277CCDAB0];
+  quantityCopy = quantity;
+  _changeInDegreeCelsiusUnit = [v6 _changeInDegreeCelsiusUnit];
+  [quantityCopy _baselineRelativeDoubleValueForUnit:_changeInDegreeCelsiusUnit];
+  v10 = v9;
 
-  v8 = *MEMORY[0x277D85DE8];
+  if (v10 == 1.79769313e308)
+  {
+    stringValue = @"collecting";
+  }
+
+  else if (v10 == 1.0)
+  {
+    stringValue = @"unavailable";
+  }
+
+  else
+  {
+    v12 = [(HDMCWristTemperatureDailyAnalyticsEvent *)self _roundDouble:scaleCopy scale:v10];
+    stringValue = [v12 stringValue];
+  }
+
+  return stringValue;
+}
+
+- (id)_roundDouble:(double)double scale:(signed __int16)scale
+{
+  v5 = [MEMORY[0x277CCA988] decimalNumberHandlerWithRoundingMode:0 scale:scale raiseOnExactness:0 raiseOnOverflow:0 raiseOnUnderflow:0 raiseOnDivideByZero:0];
+  v6 = [objc_alloc(MEMORY[0x277CCA980]) initWithDouble:double];
+  v7 = [v6 decimalNumberByRoundingAccordingToBehavior:v5];
+
+  return v7;
+}
+
+- (void)_sleepingWristTemperatureSamplesFromLastNSleepDays:(uint64_t)a1 currentDate:gregorianCalendar:sourceEntityPredicate:.cold.1(uint64_t a1)
+{
+  v1 = objc_opt_class();
+  v2 = OUTLINED_FUNCTION_0_2(v1);
+  OUTLINED_FUNCTION_4(&dword_2293D1000, v3, v4, "[%{public}@] Error querying sleeping wrist temperature samples: %{public}@", v5, v6, v7, v8);
+}
+
+- (void)_firstPartySleepSamplesFromLastNSleepDays:(uint64_t)a1 currentDate:gregorianCalendar:.cold.1(uint64_t a1)
+{
+  v1 = objc_opt_class();
+  v2 = OUTLINED_FUNCTION_0_2(v1);
+  OUTLINED_FUNCTION_4(&dword_2293D1000, v3, v4, "[%{public}@] Error querying sleep samples: %{public}@", v5, v6, v7, v8);
 }
 
 @end

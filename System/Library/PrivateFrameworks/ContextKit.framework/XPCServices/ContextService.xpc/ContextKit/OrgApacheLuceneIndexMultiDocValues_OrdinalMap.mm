@@ -1,6 +1,7 @@
 @interface OrgApacheLuceneIndexMultiDocValues_OrdinalMap
 + (void)initialize;
 - (id)getChildResources;
+- (id)getGlobalOrdsWithInt:(int)int;
 - (int)getFirstSegmentNumberWithLong:(int64_t)long;
 - (int64_t)getFirstSegmentOrdWithLong:(int64_t)long;
 - (int64_t)getValueCount;
@@ -8,6 +9,24 @@
 @end
 
 @implementation OrgApacheLuceneIndexMultiDocValues_OrdinalMap
+
+- (id)getGlobalOrdsWithInt:(int)int
+{
+  segmentToGlobalOrds = self->segmentToGlobalOrds_;
+  if (!segmentToGlobalOrds || (segmentMap = self->segmentMap_) == 0)
+  {
+    JreThrowNullPointerException();
+  }
+
+  v5 = [(OrgApacheLuceneIndexMultiDocValues_OrdinalMap_SegmentMap *)segmentMap oldToNewWithInt:*&int];
+  size = segmentToGlobalOrds->super.size_;
+  if ((v5 & 0x80000000) != 0 || v5 >= size)
+  {
+    IOSArray_throwOutOfBoundsWithMsg(size, v5);
+  }
+
+  return (&segmentToGlobalOrds->elementType_)[v5];
+}
 
 - (int64_t)getFirstSegmentOrdWithLong:(int64_t)long
 {

@@ -46,18 +46,19 @@
 
 + (id)newAssertionForBundleIdentifier:(id)identifier withReason:(id)reason withCallbackQueue:(id)queue andBlock:(id)block
 {
-  v9 = [identifier copy];
-  v10 = [reason copy];
+  v9 = objc_msgSend_copy(identifier, a2, identifier, reason);
+  v13 = objc_msgSend_copy(reason, v10, v11, v12);
 
-  return sub_19B96068C(v9, &stru_1F0E6F140, v10, queue, block);
+  return sub_19B96068C(v9, &stru_1F0E6F140, v13, queue, block);
 }
 
 + (id)newAssertionForBundle:(id)bundle withReason:(id)reason withCallbackQueue:(id)queue andBlock:(id)block
 {
-  v9 = [objc_msgSend(bundle "bundlePath")];
-  v10 = [reason copy];
+  v9 = objc_msgSend_bundlePath(bundle, a2, bundle, reason);
+  v13 = objc_msgSend_copy(v9, v10, v11, v12);
+  v17 = objc_msgSend_copy(reason, v14, v15, v16);
 
-  return sub_19B96068C(&stru_1F0E6F140, v9, v10, queue, block);
+  return sub_19B96068C(&stru_1F0E6F140, v13, v17, queue, block);
 }
 
 @end

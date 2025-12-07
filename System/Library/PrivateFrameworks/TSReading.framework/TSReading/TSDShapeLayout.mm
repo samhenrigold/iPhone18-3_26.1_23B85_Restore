@@ -171,7 +171,7 @@
       {
         v29 = layoutInfoGeometry;
         v30 = TSDSubtractPoints(v23, v25, v27);
-        [v29 transformBasedOnPoint:*MEMORY[0x277CBF348] centeredAtPoint:{*(MEMORY[0x277CBF348] + 8), v30, v31}];
+        objc_msgSend_transformBasedOnPoint_centeredAtPoint_(v29, *MEMORY[0x277CBF348], *(MEMORY[0x277CBF348] + 8), v30, v31);
       }
 
       else
@@ -243,7 +243,7 @@ LABEL_48:
     v53 = v52;
     v55 = v54;
     memset(&v59, 0, sizeof(v59));
-    [(TSDShapeLayout *)self computeLayoutTransform];
+    objc_msgSend_computeLayoutTransform(self);
     v56 = [TSDLayoutGeometry alloc];
     v58 = v59;
     v11 = [(TSDLayoutGeometry *)v56 initWithSize:&v58 transform:v53, v55];
@@ -262,7 +262,7 @@ LABEL_48:
   layoutInfoGeometry = [(TSDShapeLayout *)self layoutInfoGeometry];
   if (layoutInfoGeometry)
   {
-    [layoutInfoGeometry transform];
+    objc_msgSend_transform(layoutInfoGeometry);
   }
 
   else
@@ -300,7 +300,7 @@ LABEL_5:
 
       if (geometry)
       {
-        [geometry transform];
+        objc_msgSend_transform(geometry);
         v8 = v18;
         v9 = v19;
         v10 = v20;
@@ -315,7 +315,7 @@ LABEL_5:
 
       v11 = *(MEMORY[0x277CBF348] + 8);
       v16 = vaddq_f64(v10, vmlaq_n_f64(vmulq_n_f64(v9, v11), v8, *MEMORY[0x277CBF348]));
-      [(TSDLayoutGeometry *)v6 transform:*&v11];
+      objc_msgSend_transform(v6, *&v11, v7, *MEMORY[0x277CBF348], *&v11);
       v12 = TSDSubtractPoints(v16.f64[0], v16.f64[1], vaddq_f64(v20, vmlaq_n_f64(vmulq_n_f64(v19, v14), v18, v15)).f64[0]);
       self->mCachedAlignmentFrame.origin.x = TSDAddPoints(self->mCachedAlignmentFrame.origin.x, self->mCachedAlignmentFrame.origin.y, v12);
       self->mCachedAlignmentFrame.origin.y = v13;
@@ -333,7 +333,7 @@ LABEL_10:
   if ((*&self->mShapeInvalidFlags & 0x20) != 0)
   {
     p_mCachedAlignmentFrame = &self->mCachedAlignmentFrame;
-    [(TSDAbstractLayout *)self transform];
+    objc_msgSend_transform(self, a2);
     [(TSDShapeLayout *)self shapeFrameWithTransform:&v12];
     p_mCachedAlignmentFrame->origin.x = v4;
     p_mCachedAlignmentFrame->origin.y = v5;
@@ -359,7 +359,7 @@ LABEL_10:
   {
     if (self)
     {
-      [(TSDAbstractLayout *)self transformInRoot];
+      objc_msgSend_transformInRoot(self);
     }
 
     else
@@ -625,7 +625,7 @@ LABEL_11:
   geometryInRoot = [(TSDAbstractLayout *)self geometryInRoot];
   if (geometryInRoot)
   {
-    [geometryInRoot transform];
+    objc_msgSend_transform(geometryInRoot);
     v9 = v25.f64[1];
     v8 = v25.f64[0];
     v11 = v26.f64[1];
@@ -650,7 +650,7 @@ LABEL_11:
   geometryInRoot2 = [(TSDAbstractLayout *)self geometryInRoot];
   if (geometryInRoot2)
   {
-    [geometryInRoot2 transform];
+    objc_msgSend_transform(geometryInRoot2);
     v17 = v25;
     v18 = v26;
     v19 = v27;
@@ -846,7 +846,7 @@ LABEL_11:
   memset(&v44, 0, sizeof(v44));
   if (self)
   {
-    [(TSDAbstractLayout *)self transform];
+    objc_msgSend_transform(self);
   }
 
   v42 = v44;
@@ -959,7 +959,7 @@ LABEL_11:
   memset(&v42, 0, sizeof(v42));
   if (self)
   {
-    [(TSDAbstractLayout *)self transformInRoot];
+    objc_msgSend_transformInRoot(self);
   }
 
   *adjustedStroke = stroke;
@@ -1108,7 +1108,7 @@ LABEL_11:
     info = [(TSDLayout *)self info];
     if (info)
     {
-      [(TSDInfo *)info computeFullTransform];
+      objc_msgSend_computeFullTransform(info);
     }
 
     else

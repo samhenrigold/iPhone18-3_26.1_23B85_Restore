@@ -529,61 +529,61 @@ void sub_1DDF33CEC(_Unwind_Exception *a1, int a2)
   _Unwind_Resume(a1);
 }
 
-void sub_1DDF33D04(uint64_t a1, int a2)
+void sub_1DDF33D04(void *a1, int a2)
 {
   if (a2)
   {
-    __clang_call_terminate();
+    __clang_call_terminate(a1);
   }
 
   JUMPOUT(0x1DDF34A04);
 }
 
-void sub_1DDF33D0C(uint64_t a1, int a2)
+void sub_1DDF33D0C(void *a1, int a2)
 {
   if (a2)
   {
-    __clang_call_terminate();
+    __clang_call_terminate(a1);
   }
 
   JUMPOUT(0x1DDF34A04);
 }
 
-void sub_1DDF33D14(uint64_t a1, int a2)
+void sub_1DDF33D14(void *a1, int a2)
 {
   if (a2)
   {
-    __clang_call_terminate();
+    __clang_call_terminate(a1);
   }
 
   JUMPOUT(0x1DDF34A04);
 }
 
-void sub_1DDF33D1C(uint64_t a1, int a2)
+void sub_1DDF33D1C(void *a1, int a2)
 {
   if (a2)
   {
-    __clang_call_terminate();
+    __clang_call_terminate(a1);
   }
 
   JUMPOUT(0x1DDF34A04);
 }
 
-void sub_1DDF33D24(uint64_t a1, int a2)
+void sub_1DDF33D24(void *a1, int a2)
 {
   if (a2)
   {
-    __clang_call_terminate();
+    __clang_call_terminate(a1);
   }
 
   JUMPOUT(0x1DDF34A04);
 }
 
-void sub_1DDF33D2C(uint64_t a1, int a2)
+void sub_1DDF33D2C(void *a1, int a2)
 {
   if (a2)
   {
-    __clang_call_terminate();
+    __clang_call_terminate(a1);
   }
 
   JUMPOUT(0x1DDF34A04);
@@ -1087,14 +1087,14 @@ void sub_1DDF343A4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
   JUMPOUT(0x1DDF34A04);
 }
 
-void sub_1DDF343B0(uint64_t a1, int a2)
+void sub_1DDF343B0(void *a1, int a2)
 {
   if (!a2)
   {
     JUMPOUT(0x1DDF343B4);
   }
 
-  __clang_call_terminate();
+  __clang_call_terminate(a1);
 }
 
 void sub_1DDF343BC(_Unwind_Exception *a1, int a2)
@@ -1114,11 +1114,11 @@ void sub_1DDF343BC(_Unwind_Exception *a1, int a2)
   _Unwind_Resume(a1);
 }
 
-void sub_1DDF34494(uint64_t a1, int a2)
+void sub_1DDF34494(void *a1, int a2)
 {
   if (a2)
   {
-    __clang_call_terminate();
+    __clang_call_terminate(a1);
   }
 
   JUMPOUT(0x1DDF34A04);
@@ -1148,11 +1148,11 @@ void sub_1DDF344A8(_Unwind_Exception *a1, int a2)
   _Unwind_Resume(a1);
 }
 
-void sub_1DDF34564(uint64_t a1, int a2)
+void sub_1DDF34564(void *a1, int a2)
 {
   if (a2)
   {
-    __clang_call_terminate();
+    __clang_call_terminate(a1);
   }
 
   JUMPOUT(0x1DDF34A04);
@@ -1179,11 +1179,11 @@ void sub_1DDF34578(_Unwind_Exception *a1, int a2)
   _Unwind_Resume(a1);
 }
 
-void sub_1DDF34638(uint64_t a1, int a2)
+void sub_1DDF34638(void *a1, int a2)
 {
   if (a2)
   {
-    __clang_call_terminate();
+    __clang_call_terminate(a1);
   }
 
   JUMPOUT(0x1DDF34A04);
@@ -1210,11 +1210,11 @@ void sub_1DDF3464C(_Unwind_Exception *a1, int a2)
   _Unwind_Resume(a1);
 }
 
-void sub_1DDF34678(uint64_t a1, int a2)
+void sub_1DDF34678(void *a1, int a2)
 {
   if (a2)
   {
-    __clang_call_terminate();
+    __clang_call_terminate(a1);
   }
 
   JUMPOUT(0x1DDF34A04);
@@ -1507,11 +1507,11 @@ void sub_1DDF34AC0(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint
   _Unwind_Resume(a1);
 }
 
-void sub_1DDF34AE8(uint64_t a1, int a2)
+void sub_1DDF34AE8(void *a1, int a2)
 {
   if (a2)
   {
-    __clang_call_terminate();
+    __clang_call_terminate(a1);
   }
 
   JUMPOUT(0x1DDF34A04);
@@ -1548,11 +1548,11 @@ void sub_1DDF34AF0(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint
   _Unwind_Resume(a1);
 }
 
-void sub_1DDF34B74(uint64_t a1, int a2)
+void sub_1DDF34B74(void *a1, int a2)
 {
   if (a2)
   {
-    __clang_call_terminate();
+    __clang_call_terminate(a1);
   }
 
   JUMPOUT(0x1DDF34A04);

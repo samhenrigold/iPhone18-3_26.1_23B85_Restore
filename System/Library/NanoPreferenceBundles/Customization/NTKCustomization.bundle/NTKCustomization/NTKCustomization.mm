@@ -1,6 +1,6 @@
-void sub_16C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_16C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -29,7 +29,7 @@ Class sub_16D8(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -366,9 +366,9 @@ NSString *NTKFaceSnapshotRendererSuccessLogMessage(int a1)
   return [NSString stringWithFormat:@"snapshot succeeded%@", v1];
 }
 
-void sub_76AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_76AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -603,7 +603,7 @@ int64_t sub_8664(id a1, NTKFaceSnapshotRequest *a2, NTKFaceSnapshotRequest *a3)
 
 void sub_8998(uint64_t a1)
 {
-  v2 = a1 + 32;
+  v2 = (a1 + 32);
   v3 = [*(a1 + 32) options];
   v4 = [v3 objectForKey:@"NTKSnapshotMetricsKey"];
 
@@ -1194,7 +1194,7 @@ LABEL_11:
   }
 
   v6 = *(a1 + 32);
-  v5 = a1 + 32;
+  v5 = (a1 + 32);
   v7 = _NTKLoggingObjectForDomain();
   v8 = v7;
   if (v6)
@@ -1259,10 +1259,11 @@ void sub_AC5C(uint64_t a1)
   }
 }
 
-void sub_AEB8(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_AEB8(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 void sub_BE64(id a1)
@@ -1332,7 +1333,7 @@ void sub_C604(uint64_t a1)
   [v1 loadViewIfNeeded];
 }
 
-uint64_t sub_C9FC()
+uint64_t sub_C9FC(uint64_t a1)
 {
   result = _sl_dlopen();
   qword_27820 = result;
@@ -1488,6 +1489,20 @@ void sub_F624(uint64_t a1, NSObject *a2)
   v2 = 138412290;
   v3 = a1;
   _os_log_error_impl(&dword_0, a2, OS_LOG_TYPE_ERROR, "Face upgrade failed but no error given: %@", &v2, 0xCu);
+}
+
+void sub_F7D4(void *a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *a1;
+  sub_AEB8(&dword_0, a2, a3, "Metrics invalid for request %@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_FB1C(void *a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *a1;
+  sub_AEB8(&dword_0, a2, a3, "finalizeForSnapshotting failed after timeout: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void sub_FC08(uint64_t a1, NSObject *a2)

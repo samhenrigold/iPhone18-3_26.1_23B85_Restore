@@ -187,17 +187,17 @@ LABEL_8:
     if ([accessCopy placementSparsePageSize])
     {
       device = [accessCopy device];
-      textureType2 = [accessCopy textureType];
-      pixelFormat = [accessCopy pixelFormat];
-      sampleCount = [accessCopy sampleCount];
-      placementSparsePageSize = [accessCopy placementSparsePageSize];
+      [accessCopy textureType];
+      [accessCopy pixelFormat];
+      [accessCopy sampleCount];
+      [accessCopy placementSparsePageSize];
       if (device)
       {
-        [device sparseTileSizeWithTextureType:textureType2 pixelFormat:pixelFormat sampleCount:sampleCount sparsePageSize:placementSparsePageSize];
+        objc_msgSend_sparseTileSizeWithTextureType_pixelFormat_sampleCount_sparsePageSize_(device);
 LABEL_16:
-        v27 = v31;
-        v26 = v32;
-        accessCopy = v33;
+        v20 = v22;
+        v19 = v23;
+        accessCopy = v24;
         goto LABEL_18;
       }
     }
@@ -205,23 +205,23 @@ LABEL_16:
     else
     {
       device2 = [accessCopy device];
-      textureType3 = [accessCopy textureType];
-      pixelFormat2 = [accessCopy pixelFormat];
-      sampleCount2 = [accessCopy sampleCount];
+      [accessCopy textureType];
+      [accessCopy pixelFormat];
+      [accessCopy sampleCount];
       if (device2)
       {
-        [device2 sparseTileSizeWithTextureType:textureType3 pixelFormat:pixelFormat2 sampleCount:sampleCount2];
+        objc_msgSend_sparseTileSizeWithTextureType_pixelFormat_sampleCount_(device2);
         goto LABEL_16;
       }
     }
 
     accessCopy = 0;
-    v26 = 0;
-    v27 = 0;
+    v19 = 0;
+    v20 = 0;
 LABEL_18:
     device = accessCopy - 1;
-    level = (v26 - 1) / v26;
-    if (region->var1.var0 + region->var0.var0 <= (v27 - 1) / v27)
+    level = (v19 - 1) / v19;
+    if (region->var1.var0 + region->var0.var0 <= (v20 - 1) / v20)
     {
       goto LABEL_19;
     }
@@ -233,16 +233,14 @@ LABEL_18:
 LABEL_25:
   MTLReportFailure();
 LABEL_19:
-  v28 = device / accessCopy;
+  v21 = device / accessCopy;
   if (region->var1.var1 + region->var0.var1 > level)
   {
-    v29 = region->var1.var1 + region->var0.var1;
     MTLReportFailure();
   }
 
-  if (region->var1.var2 + region->var0.var2 > v28)
+  if (region->var1.var2 + region->var0.var2 > v21)
   {
-    v30 = region->var1.var2 + region->var0.var2;
     MTLReportFailure();
   }
 }
@@ -365,10 +363,8 @@ LABEL_13:
 
 - (void)moveTextureMappingsFromTexture:(id)texture sourceSlice:(unint64_t)slice sourceLevel:(unint64_t)level sourceOrigin:(id *)origin sourceSize:(id *)size toTexture:(id)toTexture destinationSlice:(unint64_t)destinationSlice destinationLevel:(unint64_t)self0 destinationOrigin:(id *)self1
 {
-  v48 = 0;
-  v46 = 0u;
-  v47 = 0u;
-  v45 = 0u;
+  v46 = 0;
+  memset(v45, 0, sizeof(v45));
   [(MTLToolsObject *)self device];
   _MTLMessageContextBegin_();
   if (![(MTLDebugResourceStateCommandEncoder *)self checkEncoderState])
@@ -401,7 +397,7 @@ LABEL_13:
   sampleCount = [texture sampleCount];
   if (sampleCount != [toTexture sampleCount])
   {
-    [MTLDebugResourceStateCommandEncoder moveTextureMappingsFromTexture:texture sourceSlice:toTexture sourceLevel:? sourceOrigin:? sourceSize:? toTexture:? destinationSlice:? destinationLevel:? destinationOrigin:?];
+    [MTLDebugResourceStateCommandEncoder moveTextureMappingsFromTexture:texture sourceSlice:toTexture sourceLevel:v45 sourceOrigin:? sourceSize:? toTexture:? destinationSlice:? destinationLevel:? destinationOrigin:?];
   }
 
   if ([texture mipmapLevelCount] <= level)
@@ -414,7 +410,7 @@ LABEL_13:
   numFaces = [texture numFaces];
   if ([texture arrayLength] * numFaces <= slice)
   {
-    [MTLDebugResourceStateCommandEncoder moveTextureMappingsFromTexture:texture sourceSlice:? sourceLevel:? sourceOrigin:? sourceSize:? toTexture:? destinationSlice:? destinationLevel:? destinationOrigin:?];
+    [MTLDebugResourceStateCommandEncoder moveTextureMappingsFromTexture:texture sourceSlice:v45 sourceLevel:? sourceOrigin:? sourceSize:? toTexture:? destinationSlice:? destinationLevel:? destinationOrigin:?];
   }
 
   if ([toTexture mipmapLevelCount] <= destinationLevel)
@@ -427,7 +423,7 @@ LABEL_13:
   numFaces2 = [toTexture numFaces];
   if ([toTexture arrayLength] * numFaces2 <= destinationSlice)
   {
-    [MTLDebugResourceStateCommandEncoder moveTextureMappingsFromTexture:toTexture sourceSlice:? sourceLevel:? sourceOrigin:? sourceSize:? toTexture:? destinationSlice:? destinationLevel:? destinationOrigin:?];
+    [MTLDebugResourceStateCommandEncoder moveTextureMappingsFromTexture:toTexture sourceSlice:v45 sourceLevel:? sourceOrigin:? sourceSize:? toTexture:? destinationSlice:? destinationLevel:? destinationOrigin:?];
   }
 
   if ([toTexture firstMipmapInTail] < destinationLevel)
@@ -480,7 +476,7 @@ LABEL_13:
 - (void)updateFence:(id)fence
 {
   fenceCopy = fence;
-  std::deque<objc_object *>::push_back(&self->updatedFences.__map_.__first_, &fenceCopy);
+  std::deque<objc_object *>::push_back(&self->updatedFences, &fenceCopy);
   *(&self->hasEndedEncoding + 3) = 1;
   [(MTLToolsRetainingContainer *)[(MTLToolsCommandEncoder *)self commandBuffer] addObject:fence retained:1 purgeable:0];
   [-[MTLToolsObject baseObject](self "baseObject")];
@@ -572,28 +568,21 @@ LABEL_13:
   return MTLReportFailure();
 }
 
-- (uint64_t)updateTextureMappings:(uint64_t *)a1 mode:(void *)a2 regions:mipLevels:slices:numRegions:.cold.4(uint64_t *a1, void *a2)
-{
-  v3 = *a1;
-  [a2 firstMipmapInTail];
-  return MTLReportFailure();
-}
-
-- (uint64_t)moveTextureMappingsFromTexture:(void *)a1 sourceSlice:(void *)a2 sourceLevel:sourceOrigin:sourceSize:toTexture:destinationSlice:destinationLevel:destinationOrigin:.cold.1(void *a1, void *a2)
+- (uint64_t)moveTextureMappingsFromTexture:(uint64_t)a3 sourceSlice:sourceLevel:sourceOrigin:sourceSize:toTexture:destinationSlice:destinationLevel:destinationOrigin:.cold.1(void *a1, void *a2, uint64_t a3)
 {
   [a1 sampleCount];
   [a2 sampleCount];
   return _MTLMessageContextPush_();
 }
 
-- (uint64_t)moveTextureMappingsFromTexture:(void *)a1 sourceSlice:sourceLevel:sourceOrigin:sourceSize:toTexture:destinationSlice:destinationLevel:destinationOrigin:.cold.2(void *a1)
+- (uint64_t)moveTextureMappingsFromTexture:(void *)a1 sourceSlice:(uint64_t)a2 sourceLevel:sourceOrigin:sourceSize:toTexture:destinationSlice:destinationLevel:destinationOrigin:.cold.2(void *a1, uint64_t a2)
 {
   [a1 numFaces];
   [a1 arrayLength];
   return _MTLMessageContextPush_();
 }
 
-- (uint64_t)moveTextureMappingsFromTexture:(void *)a1 sourceSlice:sourceLevel:sourceOrigin:sourceSize:toTexture:destinationSlice:destinationLevel:destinationOrigin:.cold.3(void *a1)
+- (uint64_t)moveTextureMappingsFromTexture:(void *)a1 sourceSlice:(uint64_t)a2 sourceLevel:sourceOrigin:sourceSize:toTexture:destinationSlice:destinationLevel:destinationOrigin:.cold.3(void *a1, uint64_t a2)
 {
   [a1 numFaces];
   [a1 arrayLength];

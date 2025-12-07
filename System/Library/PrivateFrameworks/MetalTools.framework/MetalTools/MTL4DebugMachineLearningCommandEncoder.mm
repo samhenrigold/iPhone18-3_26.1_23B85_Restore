@@ -32,9 +32,8 @@
 
 - (id)commandBuffer
 {
-  v6 = 0;
-  memset(&v5[1], 0, 48);
-  device = self->super.super.super._device;
+  v5 = 0;
+  memset(&v4[1], 0, 48);
   _MTLMessageContextBegin_();
   if ([(MTL4DebugCommandEncoder *)self->_debugCommandEncoder hasEndEncoding])
   {
@@ -42,9 +41,9 @@
   }
 
   _MTLMessageContextEnd();
-  v5[0].receiver = self;
-  v5[0].super_class = MTL4DebugMachineLearningCommandEncoder;
-  return [(objc_super *)v5 commandBuffer];
+  v4[0].receiver = self;
+  v4[0].super_class = MTL4DebugMachineLearningCommandEncoder;
+  return [(objc_super *)v4 commandBuffer];
 }
 
 - (void)setArgumentTable:(id)table

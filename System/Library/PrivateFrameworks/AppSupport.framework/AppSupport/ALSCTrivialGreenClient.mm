@@ -22,10 +22,10 @@
 
 - (id)_initWithSKURegionCode:(id)code key2EnablingSKURegionCodes:(id)codes
 {
-  v16 = *MEMORY[0x1E69E9840];
-  v11.receiver = self;
-  v11.super_class = ALSCTrivialGreenClient;
-  v6 = [(ALSCTrivialGreenClient *)&v11 init];
+  v15 = *MEMORY[0x1E69E9840];
+  v10.receiver = self;
+  v10.super_class = ALSCTrivialGreenClient;
+  v6 = [(ALSCTrivialGreenClient *)&v10 init];
   if (v6)
   {
     if (code)
@@ -43,14 +43,13 @@
     {
       calculatedKey2Value = [(ALSCTrivialGreenClient *)v6 calculatedKey2Value];
       *buf = 67109378;
-      v13 = calculatedKey2Value;
-      v14 = 2112;
+      v12 = calculatedKey2Value;
+      v13 = 2112;
       codeCopy = code;
       _os_log_impl(&dword_195E6C000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "Trivial green calculated value %d for region code %@", buf, 0x12u);
     }
   }
 
-  v9 = *MEMORY[0x1E69E9840];
   return v6;
 }
 

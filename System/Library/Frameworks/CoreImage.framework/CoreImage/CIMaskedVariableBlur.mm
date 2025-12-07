@@ -73,10 +73,11 @@
     }
   }
 
-  Rectangle::inset(&v23, -1.0, -1.0, &v20);
-  Rectangle::scale(&v20, 0.5, &v21);
-  Rectangle::integralize(&v21, 0.0001, &v22);
-  v23 = v22;
+  Rectangle::inset(&v20, &v23, -1.0, -1.0);
+  Rectangle::scale(&v21, &v20, 0.5);
+  Rectangle::integralize(v22, &v21, 0.0001);
+  *&v23.var0 = v22[0];
+  *&v23.var2 = v22[1];
   _kernelD2 = [(CIMaskedVariableBlur *)self _kernelD2];
   v10 = vceqq_f64(*&v23.var2, vdupq_n_s64(0x7FEFFFFFFFFFFFFFuLL));
   v11 = vmvnq_s8(vuzp1q_s32(vceqq_f64(*&v23.var0, vdupq_n_s64(0xFFDFFFFFFFFFFFFFLL)), v10));
@@ -133,9 +134,9 @@ void __32__CIMaskedVariableBlur_downTwo___block_invoke(CGFloat a1, CGFloat a2, C
     }
   }
 
-  Rectangle::scale(&v11, 2.0, &v8);
-  Rectangle::inset(&v8, -1.0, -1.0, &v9);
-  Rectangle::integralize(&v9, 0.0001, &v10);
+  Rectangle::scale(&v8, &v11, 2.0);
+  Rectangle::inset(&v9, &v8, -1.0, -1.0);
+  Rectangle::integralize(&v10, &v9, 0.0001);
 }
 
 - (id)upCubic:(id)cubic scale:(float)scale
@@ -297,7 +298,7 @@ void __35__CIMaskedVariableBlur_outputImage__block_invoke(CGFloat a1, CGFloat a2
       }
     }
 
-    Rectangle::inset(&v20, 0.5, 0.5, v21);
+    Rectangle::inset(v21, &v20, 0.5, 0.5);
     _Q1 = vaddq_f64(v21[0], v21[1]);
     __asm { FMOV            V5.2S, #-1.0 }
 
@@ -307,7 +308,7 @@ void __35__CIMaskedVariableBlur_outputImage__block_invoke(CGFloat a1, CGFloat a2
 
     *&v20.var0 = vcvtq_f64_f32(v14);
     *&v20.var2 = vcvtq_f64_f32(vsub_f32(vadd_f32(v15, *&_Q1.f64[0]), v14));
-    Rectangle::integralize(&v20, 0.0001, &v19);
+    Rectangle::integralize(&v19, &v20, 0.0001);
   }
 }
 

@@ -26,7 +26,6 @@
 - (id)_tvAirplayIdentifier;
 - (id)_tvMediaRemoteIdentifier;
 - (int64_t)lockScreenInternalRoutePickerOverrideWithDefaultStyle:(int64_t)style;
-- (uint64_t)_showShareAudioViewController;
 - (void)_dismissShareAudioViewController;
 - (void)_platterViewControllerReceivedInteraction:(id)interaction;
 - (void)_presentRoutingViewControllerFromCoverSheet;
@@ -779,7 +778,7 @@ LABEL_18:
 
 - (void)setEndpointController:(id)controller
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   controllerCopy = controller;
   delegate = [(MediaControlsEndpointController *)self->_endpointController delegate];
 
@@ -792,14 +791,14 @@ LABEL_18:
   label = [(MRPlatterViewController *)self label];
   [(MediaControlsEndpointController *)controllerCopy setLabel:label];
 
-  v8 = MCLogCategoryRouting();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v9 = MCLogCategoryRouting(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v15 = 138543618;
+    v16 = 138543618;
     selfCopy = self;
-    v17 = 2114;
-    v18 = controllerCopy;
-    _os_log_impl(&dword_1A20FC000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@ changing to endpoint controller: %{public}@", &v15, 0x16u);
+    v18 = 2114;
+    v19 = controllerCopy;
+    _os_log_impl(&dword_1A20FC000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@ changing to endpoint controller: %{public}@", &v16, 0x16u);
   }
 
   if (self->_endpointController != controllerCopy)
@@ -1233,7 +1232,7 @@ void __51__MRPlatterViewController_shareAudioViewController__block_invoke(uint64
   v13 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
-  v7 = MCLogCategoryDefault();
+  v7 = MCLogCategoryDefault(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     v8 = [v5 mediaRouteIdentifier];
@@ -1249,37 +1248,9 @@ void __51__MRPlatterViewController_shareAudioViewController__block_invoke(uint64
 
 - (void)_showShareAudioViewController
 {
-  v5[0] = MEMORY[0x1E69E9820];
-  v5[1] = 3221225472;
-  v5[2] = __56__MRPlatterViewController__showShareAudioViewController__block_invoke;
-  v5[3] = &unk_1E7665AE8;
-  v5[4] = self;
-  v2 = v5;
-  v7 = 0;
-  v8 = &v7;
-  v9 = 0x2020000000;
-  v3 = getSBSRequestPasscodeUnlockAlertUISymbolLoc_ptr;
-  v10 = getSBSRequestPasscodeUnlockAlertUISymbolLoc_ptr;
-  if (!getSBSRequestPasscodeUnlockAlertUISymbolLoc_ptr)
-  {
-    v6[0] = MEMORY[0x1E69E9820];
-    v6[1] = 3221225472;
-    v6[2] = __getSBSRequestPasscodeUnlockAlertUISymbolLoc_block_invoke;
-    v6[3] = &unk_1E7665BF0;
-    v6[4] = &v7;
-    __getSBSRequestPasscodeUnlockAlertUISymbolLoc_block_invoke(v6);
-    v3 = v8[3];
-  }
-
-  _Block_object_dispose(&v7, 8);
-  if (!v3)
-  {
-    _showShareAudioViewController = [MRPlatterViewController _showShareAudioViewController];
-    _Block_object_dispose(&v7, 8);
-    _Unwind_Resume(_showShareAudioViewController);
-  }
-
-  v3(v2);
+  v0 = dlerror();
+  abort_report_np("%s", v0);
+  +[MRUHardwareVolumeController sharedInstance];
 }
 
 void __56__MRPlatterViewController__showShareAudioViewController__block_invoke(uint64_t a1, int a2)
@@ -1597,7 +1568,7 @@ LABEL_8:
   v23 = *MEMORY[0x1E69E9840];
   responseCopy = response;
   controllerCopy = controller;
-  v8 = MCLogCategoryDefault();
+  v8 = MCLogCategoryDefault(controllerCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     tracklist = [responseCopy tracklist];
@@ -1728,11 +1699,11 @@ LABEL_13:
     configuration = [endpointController2 configuration];
 
     endpointController3 = [(MRPlatterViewController *)self endpointController];
-    state = [endpointController3 state];
+    v27 = objc_msgSend_state(endpointController3);
 
-    if ((state - 1) >= 2)
+    if ((v27 - 1) >= 2)
     {
-      if (state == -1)
+      if (v27 == -1)
       {
         if (!configuration || self->_style == 3)
         {
@@ -1953,7 +1924,7 @@ LABEL_39:
 
 - (void)_updateRouteNameLabel
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   route = [(MediaControlsEndpointController *)self->_endpointController route];
   nowPlayingHeaderView = [(MRPlatterViewController *)self nowPlayingHeaderView];
   routeLabel = [nowPlayingHeaderView routeLabel];
@@ -1985,16 +1956,16 @@ LABEL_39:
 
   if (v19)
   {
-    v20 = MCLogCategoryDefault();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+    v21 = MCLogCategoryDefault(v20);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
     {
       endpointController4 = [(MRPlatterViewController *)self endpointController];
       response4 = [endpointController4 response];
       playerPath4 = [response4 playerPath];
       bundleID3 = [playerPath4 bundleID];
-      v28 = 138412290;
-      v29 = bundleID3;
-      _os_log_impl(&dword_1A20FC000, v20, OS_LOG_TYPE_DEFAULT, "MRPlatterViewController displaying MagicalMomentsPlayer suggestion for bundleID=%@", &v28, 0xCu);
+      v29 = 138412290;
+      v30 = bundleID3;
+      _os_log_impl(&dword_1A20FC000, v21, OS_LOG_TYPE_DEFAULT, "MRPlatterViewController displaying MagicalMomentsPlayer suggestion for bundleID=%@", &v29, 0xCu);
     }
   }
 
@@ -2008,7 +1979,7 @@ LABEL_39:
 
 - (void)setArtworkCatalog:(id)catalog
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   catalogCopy = catalog;
   artworkCatalog = self->_artworkCatalog;
   if (!catalogCopy)
@@ -2026,7 +1997,8 @@ LABEL_39:
     goto LABEL_11;
   }
 
-  if (![(MPArtworkCatalog *)artworkCatalog isArtworkVisuallyIdenticalToCatalog:catalogCopy])
+  v7 = [(MPArtworkCatalog *)artworkCatalog isArtworkVisuallyIdenticalToCatalog:catalogCopy];
+  if (!v7)
   {
     self->_failedArtworkRetryCount = 0;
 LABEL_10:
@@ -2038,29 +2010,29 @@ LABEL_10:
     [(MPArtworkCatalog *)self->_artworkCatalog setDestinationScale:?];
 
     objc_initWeak(buf, self);
-    v14 = MEMORY[0x1E69B14D8];
-    v24[0] = MEMORY[0x1E69E9820];
-    v24[1] = 3221225472;
-    v24[2] = __45__MRPlatterViewController_setArtworkCatalog___block_invoke;
-    v24[3] = &unk_1E7663AE8;
-    objc_copyWeak(&v25, buf);
-    v15 = [v14 timerWithInterval:0 repeats:v24 block:1.0];
+    v15 = MEMORY[0x1E69B14D8];
+    v25[0] = MEMORY[0x1E69E9820];
+    v25[1] = 3221225472;
+    v25[2] = __45__MRPlatterViewController_setArtworkCatalog___block_invoke;
+    v25[3] = &unk_1E7663AE8;
+    objc_copyWeak(&v26, buf);
+    v16 = [v15 timerWithInterval:0 repeats:v25 block:1.0];
     artworkTimer = self->_artworkTimer;
-    self->_artworkTimer = v15;
+    self->_artworkTimer = v16;
 
     [(MPArtworkCatalog *)self->_artworkCatalog setCacheIdentifier:@"MediaControlsHeaderView" forRequestingContext:self];
-    v17 = self->_artworkCatalog;
+    v18 = self->_artworkCatalog;
     nowPlayingHeaderView2 = [(MRPlatterViewController *)self nowPlayingHeaderView];
     artworkView2 = [nowPlayingHeaderView2 artworkView];
-    v22[0] = MEMORY[0x1E69E9820];
-    v22[1] = 3221225472;
-    v22[2] = __45__MRPlatterViewController_setArtworkCatalog___block_invoke_133;
-    v22[3] = &unk_1E7665B10;
-    objc_copyWeak(&v23, buf);
-    [(MPArtworkCatalog *)v17 setDestination:artworkView2 configurationBlock:v22];
+    v23[0] = MEMORY[0x1E69E9820];
+    v23[1] = 3221225472;
+    v23[2] = __45__MRPlatterViewController_setArtworkCatalog___block_invoke_133;
+    v23[3] = &unk_1E7665B10;
+    objc_copyWeak(&v24, buf);
+    [(MPArtworkCatalog *)v18 setDestination:artworkView2 configurationBlock:v23];
 
-    objc_destroyWeak(&v23);
-    objc_destroyWeak(&v25);
+    objc_destroyWeak(&v24);
+    objc_destroyWeak(&v26);
     objc_destroyWeak(buf);
     goto LABEL_11;
   }
@@ -2074,25 +2046,25 @@ LABEL_10:
   if (failedArtworkRetryCount < 3)
   {
     self->_failedArtworkRetryCount = failedArtworkRetryCount + 1;
-    v20 = MCLogCategoryDefault();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    v21 = MCLogCategoryDefault(v7);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
-      v21 = self->_failedArtworkRetryCount;
+      v22 = self->_failedArtworkRetryCount;
       *buf = 134217984;
-      v27 = v21;
-      _os_log_impl(&dword_1A20FC000, v20, OS_LOG_TYPE_ERROR, "MRPlatterViewController _failedToLoadArtwork=YES retryAttempt=%ld, retrying", buf, 0xCu);
+      v28 = v22;
+      _os_log_impl(&dword_1A20FC000, v21, OS_LOG_TYPE_ERROR, "MRPlatterViewController _failedToLoadArtwork=YES retryAttempt=%ld, retrying", buf, 0xCu);
     }
 
     goto LABEL_10;
   }
 
-  v8 = MCLogCategoryDefault();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+  v9 = MCLogCategoryDefault(v7);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
   {
-    v9 = self->_failedArtworkRetryCount;
+    v10 = self->_failedArtworkRetryCount;
     *buf = 134217984;
-    v27 = v9;
-    _os_log_impl(&dword_1A20FC000, v8, OS_LOG_TYPE_ERROR, "MRPlatterViewController _failedToLoadArtwork=YES retryAttemptsExhausted=%ld, leaving failed", buf, 0xCu);
+    v28 = v10;
+    _os_log_impl(&dword_1A20FC000, v9, OS_LOG_TYPE_ERROR, "MRPlatterViewController _failedToLoadArtwork=YES retryAttemptsExhausted=%ld, leaving failed", buf, 0xCu);
   }
 
 LABEL_11:
@@ -2102,7 +2074,7 @@ void __45__MRPlatterViewController_setArtworkCatalog___block_invoke(uint64_t a1)
 {
   v8 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v2 = MCLogCategoryDefault();
+  v2 = MCLogCategoryDefault(WeakRetained);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     v3 = [WeakRetained artworkCatalog];
@@ -2118,33 +2090,33 @@ void __45__MRPlatterViewController_setArtworkCatalog___block_invoke(uint64_t a1)
 
 void __45__MRPlatterViewController_setArtworkCatalog___block_invoke_133(uint64_t a1, void *a2, void *a3)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  [WeakRetained setArtworkTimer:0];
-  if (v6 && ([WeakRetained artworkCatalog], v8 = objc_claimAutoreleasedReturnValue(), v8, v8))
+  v8 = [WeakRetained setArtworkTimer:0];
+  if (v6 && ([WeakRetained artworkCatalog], v9 = objc_claimAutoreleasedReturnValue(), v9, v9))
   {
-    v9 = [WeakRetained nowPlayingHeaderView];
-    v10 = [v9 placeholderArtworkView];
-    [v10 setImage:0];
+    v10 = [WeakRetained nowPlayingHeaderView];
+    v11 = [v10 placeholderArtworkView];
+    [v11 setImage:0];
 
     [v5 setImage:v6];
-    v11 = [WeakRetained effectiveHeaderView];
-    [v11 setNeedsLayout];
+    v12 = [WeakRetained effectiveHeaderView];
+    [v12 setNeedsLayout];
   }
 
   else
   {
-    v12 = MCLogCategoryDefault();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v13 = MCLogCategoryDefault(v8);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      v13 = [WeakRetained artworkCatalog];
-      v14 = 134218240;
-      v15 = v6;
-      v16 = 2048;
-      v17 = v13;
-      _os_log_impl(&dword_1A20FC000, v12, OS_LOG_TYPE_ERROR, "MRPlatterViewController _failedToLoadArtwork image=%p artworkCatalog=%p", &v14, 0x16u);
+      v14 = [WeakRetained artworkCatalog];
+      v15 = 134218240;
+      v16 = v6;
+      v17 = 2048;
+      v18 = v14;
+      _os_log_impl(&dword_1A20FC000, v13, OS_LOG_TYPE_ERROR, "MRPlatterViewController _failedToLoadArtwork image=%p artworkCatalog=%p", &v15, 0x16u);
     }
 
     [WeakRetained setFailedToLoadArtwork:1];
@@ -3330,7 +3302,7 @@ void __51__MRPlatterViewController__updateRoutingIndicators__block_invoke(uint64
   }
 }
 
-uint64_t __57__MRPlatterViewController__routingCornerViewReceivedTap___block_invoke(uint64_t a1)
+void *__57__MRPlatterViewController__routingCornerViewReceivedTap___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) style];
   if (!result)
@@ -3557,13 +3529,6 @@ void __76__MRPlatterViewController_layoutMonitor_didUpdateDisplayLayout_withCont
   WeakRetained = objc_loadWeakRetained(&self->_languageOptionsViewController);
 
   return WeakRetained;
-}
-
-- (uint64_t)_showShareAudioViewController
-{
-  dlerror();
-  v0 = abort_report_np();
-  return +[(MRUHardwareVolumeController *)v0];
 }
 
 @end

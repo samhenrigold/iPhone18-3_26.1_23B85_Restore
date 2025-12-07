@@ -116,7 +116,7 @@
   if ([sample dataType] == 69)
   {
     v5 = objc_alloc_init(HDCodableCategorySample);
-    v6 = [sample copy];
+    v6 = objc_msgSend_copy(sample);
     [(HDCodableCategorySample *)v5 setSample:v6];
 
     sample2 = [(HDCodableCategorySample *)v5 sample];

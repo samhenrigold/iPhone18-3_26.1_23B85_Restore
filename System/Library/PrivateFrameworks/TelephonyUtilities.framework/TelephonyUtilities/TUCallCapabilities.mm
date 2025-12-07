@@ -65,6 +65,15 @@
 + (void)invalidateAndRefreshWiFiCallingProvisioningURL;
 + (void)removeDelegate:(id)delegate;
 + (void)requestPinFromPrimaryDevice;
++ (void)setRelayCallingEnabled:(BOOL)enabled;
++ (void)setRelayCallingEnabled:(BOOL)enabled forDeviceWithID:(id)d;
++ (void)setThumperCallingAllowed:(BOOL)allowed onSecondaryDeviceWithID:(id)d;
++ (void)setThumperCallingAllowed:(BOOL)allowed onSecondaryDeviceWithID:(id)d forSenderIdentityWithUUID:(id)iD;
++ (void)setThumperCallingAllowedOnDefaultPairedSecondaryDevice:(BOOL)device;
++ (void)setThumperCallingEnabled:(BOOL)enabled;
++ (void)setVoLTECallingEnabled:(BOOL)enabled;
++ (void)setWiFiCallingEnabled:(BOOL)enabled;
++ (void)setWiFiCallingRoamingEnabled:(BOOL)enabled;
 @end
 
 @implementation TUCallCapabilities
@@ -148,33 +157,33 @@ uint64_t __28__TUCallCapabilities_client__block_invoke()
 
 + (NSSet)senderIdentityCapabilities
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   client = [self client];
   state = [client state];
   senderIdentityCapabilitiesStateByUUID = [state senderIdentityCapabilitiesStateByUUID];
 
   v6 = [MEMORY[0x1E695DFA8] setWithCapacity:{objc_msgSend(senderIdentityCapabilitiesStateByUUID, "count")}];
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   v7 = senderIdentityCapabilitiesStateByUUID;
-  v8 = [v7 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v21;
+    v10 = *v20;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v21 != v10)
+        if (*v20 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v20 + 1) + 8 * i);
-        v13 = [v7 objectForKeyedSubscript:{v12, v20}];
+        v12 = *(*(&v19 + 1) + 8 * i);
+        v13 = [v7 objectForKeyedSubscript:{v12, v19}];
         v14 = [TUSenderIdentityCapabilities alloc];
         client2 = [self client];
         v16 = [(TUSenderIdentityCapabilities *)v14 initWithSenderIdentityUUID:v12 state:v13 client:client2];
@@ -182,19 +191,18 @@ uint64_t __28__TUCallCapabilities_client__block_invoke()
         [v6 addObject:v16];
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v9);
   }
 
   v17 = [v6 copy];
-  v18 = *MEMORY[0x1E69E9840];
 
   return v17;
 }
 
-uint64_t __45__TUCallCapabilities_isThumperCallingEnabled__block_invoke(uint64_t a1, void *a2, _BYTE *a3)
+void *__45__TUCallCapabilities_isThumperCallingEnabled__block_invoke(uint64_t a1, void *a2, _BYTE *a3)
 {
   result = [a2 isThumperCallingEnabled];
   *a3 = result;
@@ -411,33 +419,33 @@ uint64_t __45__TUCallCapabilities_isThumperCallingEnabled__block_invoke(uint64_t
 
 + (id)_senderIdentityCapabilitiesByUUID
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   client = [self client];
   state = [client state];
   senderIdentityCapabilitiesStateByUUID = [state senderIdentityCapabilitiesStateByUUID];
 
   v6 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:{objc_msgSend(senderIdentityCapabilitiesStateByUUID, "count")}];
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   v7 = senderIdentityCapabilitiesStateByUUID;
-  v8 = [v7 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v21;
+    v10 = *v20;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v21 != v10)
+        if (*v20 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v20 + 1) + 8 * i);
-        v13 = [v7 objectForKeyedSubscript:{v12, v20}];
+        v12 = *(*(&v19 + 1) + 8 * i);
+        v13 = [v7 objectForKeyedSubscript:{v12, v19}];
         v14 = [TUSenderIdentityCapabilities alloc];
         client2 = [self client];
         v16 = [(TUSenderIdentityCapabilities *)v14 initWithSenderIdentityUUID:v12 state:v13 client:client2];
@@ -445,14 +453,13 @@ uint64_t __45__TUCallCapabilities_isThumperCallingEnabled__block_invoke(uint64_t
         [v6 setObject:v16 forKeyedSubscript:v12];
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v9);
   }
 
   v17 = [v6 copy];
-  v18 = *MEMORY[0x1E69E9840];
 
   return v17;
 }
@@ -468,33 +475,33 @@ uint64_t __45__TUCallCapabilities_isThumperCallingEnabled__block_invoke(uint64_t
 
 + (BOOL)isWiFiCallingCurrentlyAvailable
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
+  v7 = 0u;
   v8 = 0u;
   v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
   senderIdentityCapabilities = [self senderIdentityCapabilities];
-  v3 = [senderIdentityCapabilities countByEnumeratingWithState:&v8 objects:v12 count:16];
+  v3 = [senderIdentityCapabilities countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v3)
   {
-    v4 = *v9;
+    v4 = *v8;
     while (2)
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v9 != v4)
+        if (*v8 != v4)
         {
           objc_enumerationMutation(senderIdentityCapabilities);
         }
 
-        if ([*(*(&v8 + 1) + 8 * i) isWiFiCallingCurrentlyAvailable])
+        if ([*(*(&v7 + 1) + 8 * i) isWiFiCallingCurrentlyAvailable])
         {
           LOBYTE(v3) = 1;
           goto LABEL_11;
         }
       }
 
-      v3 = [senderIdentityCapabilities countByEnumeratingWithState:&v8 objects:v12 count:16];
+      v3 = [senderIdentityCapabilities countByEnumeratingWithState:&v7 objects:v11 count:16];
       if (v3)
       {
         continue;
@@ -506,7 +513,6 @@ uint64_t __45__TUCallCapabilities_isThumperCallingEnabled__block_invoke(uint64_t
 
 LABEL_11:
 
-  v6 = *MEMORY[0x1E69E9840];
   return v3;
 }
 
@@ -619,7 +625,7 @@ LABEL_7:
   return v3;
 }
 
-uint64_t __51__TUCallCapabilities_isCSCallingCurrentlyAvailable__block_invoke(uint64_t a1, void *a2, _BYTE *a3)
+void *__51__TUCallCapabilities_isCSCallingCurrentlyAvailable__block_invoke(uint64_t a1, void *a2, _BYTE *a3)
 {
   result = [a2 isCSCallingCurrentlyAvailable];
   *a3 = result;
@@ -644,6 +650,14 @@ uint64_t __51__TUCallCapabilities_isCSCallingCurrentlyAvailable__block_invoke(ui
   return isWiFiCallingEnabled;
 }
 
++ (void)setWiFiCallingEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  senderIdentityCapabilities = [self senderIdentityCapabilities];
+  anyObject = [senderIdentityCapabilities anyObject];
+  [anyObject setWiFiCallingEnabled:enabledCopy];
+}
+
 + (BOOL)isWiFiCallingRoamingEnabled
 {
   senderIdentityCapabilities = [self senderIdentityCapabilities];
@@ -651,6 +665,25 @@ uint64_t __51__TUCallCapabilities_isCSCallingCurrentlyAvailable__block_invoke(ui
   isWiFiCallingRoamingEnabled = [anyObject isWiFiCallingRoamingEnabled];
 
   return isWiFiCallingRoamingEnabled;
+}
+
++ (void)setWiFiCallingRoamingEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  v11 = *MEMORY[0x1E69E9840];
+  v5 = TUDefaultLog(self);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    v8[0] = 67109376;
+    v8[1] = [self isWiFiCallingRoamingEnabled];
+    v9 = 1024;
+    v10 = enabledCopy;
+    _os_log_impl(&dword_1956FD000, v5, OS_LOG_TYPE_DEFAULT, "Asked to change wiFiCallingRoamingEnabled from %d to %d", v8, 0xEu);
+  }
+
+  senderIdentityCapabilities = [self senderIdentityCapabilities];
+  anyObject = [senderIdentityCapabilities anyObject];
+  [anyObject setWiFiCallingRoamingEnabled:enabledCopy];
 }
 
 + (TUCTCapabilityInfo)wiFiCallingCapabilityInfo
@@ -689,6 +722,14 @@ uint64_t __51__TUCallCapabilities_isCSCallingCurrentlyAvailable__block_invoke(ui
   return isVoLTECallingEnabled;
 }
 
++ (void)setVoLTECallingEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  senderIdentityCapabilities = [self senderIdentityCapabilities];
+  anyObject = [senderIdentityCapabilities anyObject];
+  [anyObject setVoLTECallingEnabled:enabledCopy];
+}
+
 + (TUCTCapabilityInfo)voLTECallingCapabilityInfo
 {
   senderIdentityCapabilities = [self senderIdentityCapabilities];
@@ -706,7 +747,7 @@ uint64_t __51__TUCallCapabilities_isCSCallingCurrentlyAvailable__block_invoke(ui
   return v3;
 }
 
-uint64_t __54__TUCallCapabilities_isVoLTECallingCurrentlyAvailable__block_invoke(uint64_t a1, void *a2, _BYTE *a3)
+void *__54__TUCallCapabilities_isVoLTECallingCurrentlyAvailable__block_invoke(uint64_t a1, void *a2, _BYTE *a3)
 {
   result = [a2 isVoLTECallingCurrentlyAvailable];
   *a3 = result;
@@ -730,7 +771,7 @@ uint64_t __54__TUCallCapabilities_isVoLTECallingCurrentlyAvailable__block_invoke
   return v3;
 }
 
-uint64_t __44__TUCallCapabilities_supportsThumperCalling__block_invoke(uint64_t a1, void *a2, _BYTE *a3)
+void *__44__TUCallCapabilities_supportsThumperCalling__block_invoke(uint64_t a1, void *a2, _BYTE *a3)
 {
   result = [a2 supportsThumperCalling];
   *a3 = result;
@@ -754,7 +795,7 @@ uint64_t __44__TUCallCapabilities_supportsThumperCalling__block_invoke(uint64_t 
   return v3;
 }
 
-uint64_t __61__TUCallCapabilities_isThumperCallingAllowedForCurrentDevice__block_invoke(uint64_t a1, void *a2, _BYTE *a3)
+void *__61__TUCallCapabilities_isThumperCallingAllowedForCurrentDevice__block_invoke(uint64_t a1, void *a2, _BYTE *a3)
 {
   result = [a2 isThumperCallingAllowedForCurrentDevice];
   *a3 = result;
@@ -769,11 +810,46 @@ uint64_t __61__TUCallCapabilities_isThumperCallingAllowedForCurrentDevice__block
   return v3;
 }
 
-uint64_t __56__TUCallCapabilities_isThumperCallingCurrentlyAvailable__block_invoke(uint64_t a1, void *a2, _BYTE *a3)
+void *__56__TUCallCapabilities_isThumperCallingCurrentlyAvailable__block_invoke(uint64_t a1, void *a2, _BYTE *a3)
 {
   result = [a2 isThumperCallingCurrentlyAvailable];
   *a3 = result;
   return result;
+}
+
++ (void)setThumperCallingEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  v14 = *MEMORY[0x1E69E9840];
+  senderIdentityCapabilities = [self senderIdentityCapabilities];
+  v9 = 0u;
+  v10 = 0u;
+  v11 = 0u;
+  v12 = 0u;
+  v5 = [senderIdentityCapabilities countByEnumeratingWithState:&v9 objects:v13 count:16];
+  if (v5)
+  {
+    v6 = v5;
+    v7 = *v10;
+    do
+    {
+      v8 = 0;
+      do
+      {
+        if (*v10 != v7)
+        {
+          objc_enumerationMutation(senderIdentityCapabilities);
+        }
+
+        [*(*(&v9 + 1) + 8 * v8++) setThumperCallingEnabled:enabledCopy];
+      }
+
+      while (v6 != v8);
+      v6 = [senderIdentityCapabilities countByEnumeratingWithState:&v9 objects:v13 count:16];
+    }
+
+    while (v6);
+  }
 }
 
 + (BOOL)isThumperCallingAllowedOnSecondaryDeviceWithID:(id)d
@@ -792,7 +868,7 @@ uint64_t __56__TUCallCapabilities_isThumperCallingCurrentlyAvailable__block_invo
   return v8;
 }
 
-uint64_t __69__TUCallCapabilities_isThumperCallingAllowedOnSecondaryDeviceWithID___block_invoke(uint64_t a1, void *a2, _BYTE *a3)
+void *__69__TUCallCapabilities_isThumperCallingAllowedOnSecondaryDeviceWithID___block_invoke(uint64_t a1, void *a2, _BYTE *a3)
 {
   result = [a2 isThumperCallingAllowedOnSecondaryDeviceWithID:*(a1 + 32)];
   *a3 = result;
@@ -808,11 +884,91 @@ uint64_t __69__TUCallCapabilities_isThumperCallingAllowedOnSecondaryDeviceWithID
   return v4;
 }
 
-uint64_t __75__TUCallCapabilities_isThumperCallingAllowedOnDefaultPairedSecondaryDevice__block_invoke(uint64_t a1, void *a2, _BYTE *a3)
+void *__75__TUCallCapabilities_isThumperCallingAllowedOnDefaultPairedSecondaryDevice__block_invoke(uint64_t a1, void *a2, _BYTE *a3)
 {
   result = [a2 isThumperCallingAllowedOnDefaultPairedSecondaryDevice];
   *a3 = result;
   return result;
+}
+
++ (void)setThumperCallingAllowed:(BOOL)allowed onSecondaryDeviceWithID:(id)d
+{
+  allowedCopy = allowed;
+  v17 = *MEMORY[0x1E69E9840];
+  dCopy = d;
+  senderIdentityCapabilities = [self senderIdentityCapabilities];
+  v12 = 0u;
+  v13 = 0u;
+  v14 = 0u;
+  v15 = 0u;
+  v8 = [senderIdentityCapabilities countByEnumeratingWithState:&v12 objects:v16 count:16];
+  if (v8)
+  {
+    v9 = v8;
+    v10 = *v13;
+    do
+    {
+      v11 = 0;
+      do
+      {
+        if (*v13 != v10)
+        {
+          objc_enumerationMutation(senderIdentityCapabilities);
+        }
+
+        [*(*(&v12 + 1) + 8 * v11++) setThumperCallingAllowed:allowedCopy onSecondaryDeviceWithID:dCopy];
+      }
+
+      while (v9 != v11);
+      v9 = [senderIdentityCapabilities countByEnumeratingWithState:&v12 objects:v16 count:16];
+    }
+
+    while (v9);
+  }
+}
+
++ (void)setThumperCallingAllowed:(BOOL)allowed onSecondaryDeviceWithID:(id)d forSenderIdentityWithUUID:(id)iD
+{
+  allowedCopy = allowed;
+  iDCopy = iD;
+  dCopy = d;
+  client = [self client];
+  [client setThumperCallingAllowed:allowedCopy onSecondaryDeviceWithID:dCopy forSenderIdentityWithUUID:iDCopy];
+}
+
++ (void)setThumperCallingAllowedOnDefaultPairedSecondaryDevice:(BOOL)device
+{
+  deviceCopy = device;
+  v14 = *MEMORY[0x1E69E9840];
+  senderIdentityCapabilities = [self senderIdentityCapabilities];
+  v9 = 0u;
+  v10 = 0u;
+  v11 = 0u;
+  v12 = 0u;
+  v5 = [senderIdentityCapabilities countByEnumeratingWithState:&v9 objects:v13 count:16];
+  if (v5)
+  {
+    v6 = v5;
+    v7 = *v10;
+    do
+    {
+      v8 = 0;
+      do
+      {
+        if (*v10 != v7)
+        {
+          objc_enumerationMutation(senderIdentityCapabilities);
+        }
+
+        [*(*(&v9 + 1) + 8 * v8++) setThumperCallingAllowedOnDefaultPairedSecondaryDevice:deviceCopy];
+      }
+
+      while (v6 != v8);
+      v6 = [senderIdentityCapabilities countByEnumeratingWithState:&v9 objects:v13 count:16];
+    }
+
+    while (v6);
+  }
 }
 
 + (void)invalidateAndRefreshWiFiCallingProvisioningURL
@@ -838,6 +994,24 @@ uint64_t __75__TUCallCapabilities_isThumperCallingAllowedOnDefaultPairedSecondar
   return isRelayCallingEnabled;
 }
 
++ (void)setRelayCallingEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  v10 = *MEMORY[0x1E69E9840];
+  v5 = TUDefaultLog(self);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    v7[0] = 67109376;
+    v7[1] = [self isRelayCallingEnabled];
+    v8 = 1024;
+    v9 = enabledCopy;
+    _os_log_impl(&dword_1956FD000, v5, OS_LOG_TYPE_DEFAULT, "Asked to change relayCallingEnabled from %d to %d", v7, 0xEu);
+  }
+
+  client = [self client];
+  [client setRelayCallingEnabled:enabledCopy];
+}
+
 + (BOOL)isRelayCallingEnabledForDeviceWithID:(id)d
 {
   dCopy = d;
@@ -848,6 +1022,27 @@ uint64_t __75__TUCallCapabilities_isThumperCallingAllowedOnDefaultPairedSecondar
 
   LOBYTE(dCopy) = [v8 BOOLValue];
   return dCopy ^ 1;
+}
+
++ (void)setRelayCallingEnabled:(BOOL)enabled forDeviceWithID:(id)d
+{
+  enabledCopy = enabled;
+  v14 = *MEMORY[0x1E69E9840];
+  dCopy = d;
+  v7 = TUDefaultLog(dCopy);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  {
+    v9[0] = 67109634;
+    v9[1] = [self isRelayCallingEnabledForDeviceWithID:dCopy];
+    v10 = 1024;
+    v11 = enabledCopy;
+    v12 = 2112;
+    v13 = dCopy;
+    _os_log_impl(&dword_1956FD000, v7, OS_LOG_TYPE_DEFAULT, "Asked to change relayCallingEnabled from %d to %d for %@", v9, 0x18u);
+  }
+
+  client = [self client];
+  [client setRelayCallingEnabled:enabledCopy forDeviceWithID:dCopy];
 }
 
 + (BOOL)supportsFaceTimeAudioRelayCalling
@@ -920,7 +1115,7 @@ uint64_t __75__TUCallCapabilities_isThumperCallingAllowedOnDefaultPairedSecondar
 
 + (void)_sendNotificationsAndCallbacksAfterRunningBlock:(id)block
 {
-  v104 = *MEMORY[0x1E69E9840];
+  v106 = *MEMORY[0x1E69E9840];
   blockCopy = block;
   supportsTelephonyCalls = [self supportsTelephonyCalls];
   supportsFaceTimeAudioCalls = [self supportsFaceTimeAudioCalls];
@@ -936,7 +1131,7 @@ uint64_t __75__TUCallCapabilities_isThumperCallingAllowedOnDefaultPairedSecondar
   isEmergencyCallbackModeEnabled = [self isEmergencyCallbackModeEnabled];
   isEmergencyCallbackPossible = [self isEmergencyCallbackPossible];
   _senderIdentityCapabilitiesByUUID = [self _senderIdentityCapabilitiesByUUID];
-  v74 = blockCopy;
+  v76 = blockCopy;
   (*(blockCopy + 2))(blockCopy);
   supportsTelephonyCalls2 = [self supportsTelephonyCalls];
   supportsFaceTimeAudioCalls2 = [self supportsFaceTimeAudioCalls];
@@ -953,17 +1148,18 @@ uint64_t __75__TUCallCapabilities_isThumperCallingAllowedOnDefaultPairedSecondar
   isEmergencyCallbackPossible2 = [self isEmergencyCallbackPossible];
   selfCopy = self;
   _senderIdentityCapabilitiesByUUID2 = [self _senderIdentityCapabilitiesByUUID];
-  v83 = cloudCallingDevices;
+  v88 = _senderIdentityCapabilitiesByUUID2;
+  v85 = cloudCallingDevices;
   if (supportsTelephonyCalls != supportsTelephonyCalls2)
   {
-    v14 = TUDefaultLog();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v15 = TUDefaultLog(_senderIdentityCapabilitiesByUUID2);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109376;
-      *v101 = supportsTelephonyCalls;
-      *&v101[4] = 1024;
-      *&v101[6] = supportsTelephonyCalls2;
-      _os_log_impl(&dword_1956FD000, v14, OS_LOG_TYPE_DEFAULT, "Telephony support changed from %d to %d", buf, 0xEu);
+      *v103 = supportsTelephonyCalls;
+      *&v103[4] = 1024;
+      *&v103[6] = supportsTelephonyCalls2;
+      _os_log_impl(&dword_1956FD000, v15, OS_LOG_TYPE_DEFAULT, "Telephony support changed from %d to %d", buf, 0xEu);
     }
 
     client = [self client];
@@ -972,20 +1168,20 @@ uint64_t __75__TUCallCapabilities_isThumperCallingAllowedOnDefaultPairedSecondar
     defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
     [defaultCenter postNotificationName:@"TUCallCapabilitiesSupportsTelephonyCallsChangedNotification" object:0];
 
-    cloudCallingDevices = v83;
+    cloudCallingDevices = v85;
   }
 
-  v17 = _senderIdentityCapabilitiesByUUID2;
+  v18 = v88;
   if (supportsFaceTimeAudioCalls != supportsFaceTimeAudioCalls2)
   {
-    v18 = TUDefaultLog();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+    v19 = TUDefaultLog(_senderIdentityCapabilitiesByUUID2);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109376;
-      *v101 = supportsFaceTimeAudioCalls;
-      *&v101[4] = 1024;
-      *&v101[6] = supportsFaceTimeAudioCalls2;
-      _os_log_impl(&dword_1956FD000, v18, OS_LOG_TYPE_DEFAULT, "FaceTime Audio support changed from %d to %d", buf, 0xEu);
+      *v103 = supportsFaceTimeAudioCalls;
+      *&v103[4] = 1024;
+      *&v103[6] = supportsFaceTimeAudioCalls2;
+      _os_log_impl(&dword_1956FD000, v19, OS_LOG_TYPE_DEFAULT, "FaceTime Audio support changed from %d to %d", buf, 0xEu);
     }
 
     client2 = [self client];
@@ -997,14 +1193,14 @@ uint64_t __75__TUCallCapabilities_isThumperCallingAllowedOnDefaultPairedSecondar
 
   if (supportsFaceTimeVideoCalls != supportsFaceTimeVideoCalls2)
   {
-    v21 = TUDefaultLog();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+    v22 = TUDefaultLog(_senderIdentityCapabilitiesByUUID2);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109376;
-      *v101 = supportsFaceTimeVideoCalls;
-      *&v101[4] = 1024;
-      *&v101[6] = supportsFaceTimeVideoCalls2;
-      _os_log_impl(&dword_1956FD000, v21, OS_LOG_TYPE_DEFAULT, "FaceTime Video support changed from %d to %d", buf, 0xEu);
+      *v103 = supportsFaceTimeVideoCalls;
+      *&v103[4] = 1024;
+      *&v103[6] = supportsFaceTimeVideoCalls2;
+      _os_log_impl(&dword_1956FD000, v22, OS_LOG_TYPE_DEFAULT, "FaceTime Video support changed from %d to %d", buf, 0xEu);
     }
 
     client3 = [self client];
@@ -1016,18 +1212,18 @@ uint64_t __75__TUCallCapabilities_isThumperCallingAllowedOnDefaultPairedSecondar
 
   if (isDirectFaceTimeAudioCallingCurrentlyAvailable != isDirectFaceTimeAudioCallingCurrentlyAvailable2 || isDirectFaceTimeVideoCallingCurrentlyAvailable != isDirectFaceTimeVideoCallingCurrentlyAvailable2)
   {
-    v24 = TUDefaultLog();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+    v25 = TUDefaultLog(_senderIdentityCapabilitiesByUUID2);
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109888;
-      *v101 = isDirectFaceTimeAudioCallingCurrentlyAvailable;
-      *&v101[4] = 1024;
-      *&v101[6] = isDirectFaceTimeVideoCallingCurrentlyAvailable;
-      LOWORD(v102) = 1024;
-      *(&v102 + 2) = isDirectFaceTimeAudioCallingCurrentlyAvailable2;
-      HIWORD(v102) = 1024;
-      v103 = isDirectFaceTimeVideoCallingCurrentlyAvailable2;
-      _os_log_impl(&dword_1956FD000, v24, OS_LOG_TYPE_DEFAULT, "FaceTime availability changed from (audio=%d video=%d) to (audio=%d video=%d)", buf, 0x1Au);
+      *v103 = isDirectFaceTimeAudioCallingCurrentlyAvailable;
+      *&v103[4] = 1024;
+      *&v103[6] = isDirectFaceTimeVideoCallingCurrentlyAvailable;
+      LOWORD(v104) = 1024;
+      *(&v104 + 2) = isDirectFaceTimeAudioCallingCurrentlyAvailable2;
+      HIWORD(v104) = 1024;
+      v105 = isDirectFaceTimeVideoCallingCurrentlyAvailable2;
+      _os_log_impl(&dword_1956FD000, v25, OS_LOG_TYPE_DEFAULT, "FaceTime availability changed from (audio=%d video=%d) to (audio=%d video=%d)", buf, 0x1Au);
     }
 
     client4 = [self client];
@@ -1039,18 +1235,18 @@ uint64_t __75__TUCallCapabilities_isThumperCallingAllowedOnDefaultPairedSecondar
 
   if (supportsRelayCalling != supportsRelayCalling2 || isRelayCallingEnabled != isRelayCallingEnabled2)
   {
-    v27 = TUDefaultLog();
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+    v28 = TUDefaultLog(_senderIdentityCapabilitiesByUUID2);
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109888;
-      *v101 = supportsRelayCalling;
-      *&v101[4] = 1024;
-      *&v101[6] = isRelayCallingEnabled;
-      LOWORD(v102) = 1024;
-      *(&v102 + 2) = supportsRelayCalling2;
-      HIWORD(v102) = 1024;
-      v103 = isRelayCallingEnabled2;
-      _os_log_impl(&dword_1956FD000, v27, OS_LOG_TYPE_DEFAULT, "Relay capabilities changed from (supported=%d enabled=%d) to (supported=%d enabled=%d)", buf, 0x1Au);
+      *v103 = supportsRelayCalling;
+      *&v103[4] = 1024;
+      *&v103[6] = isRelayCallingEnabled;
+      LOWORD(v104) = 1024;
+      *(&v104 + 2) = supportsRelayCalling2;
+      HIWORD(v104) = 1024;
+      v105 = isRelayCallingEnabled2;
+      _os_log_impl(&dword_1956FD000, v28, OS_LOG_TYPE_DEFAULT, "Relay capabilities changed from (supported=%d enabled=%d) to (supported=%d enabled=%d)", buf, 0x1Au);
     }
 
     client5 = [self client];
@@ -1062,14 +1258,14 @@ uint64_t __75__TUCallCapabilities_isThumperCallingAllowedOnDefaultPairedSecondar
 
   if (relayCallingAvailability != relayCallingAvailability2)
   {
-    v30 = TUDefaultLog();
-    if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+    v31 = TUDefaultLog(_senderIdentityCapabilitiesByUUID2);
+    if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109376;
-      *v101 = relayCallingAvailability;
-      *&v101[4] = 1024;
-      *&v101[6] = relayCallingAvailability2;
-      _os_log_impl(&dword_1956FD000, v30, OS_LOG_TYPE_DEFAULT, "Relay calling availability changed from %d to %d", buf, 0xEu);
+      *v103 = relayCallingAvailability;
+      *&v103[4] = 1024;
+      *&v103[6] = relayCallingAvailability2;
+      _os_log_impl(&dword_1956FD000, v31, OS_LOG_TYPE_DEFAULT, "Relay calling availability changed from %d to %d", buf, 0xEu);
     }
 
     client6 = [self client];
@@ -1081,27 +1277,28 @@ uint64_t __75__TUCallCapabilities_isThumperCallingAllowedOnDefaultPairedSecondar
 
   if (areRelayCallingFeaturesEnabled != areRelayCallingFeaturesEnabled2)
   {
-    v33 = TUDefaultLog();
-    if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
+    v34 = TUDefaultLog(_senderIdentityCapabilitiesByUUID2);
+    if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109376;
-      *v101 = areRelayCallingFeaturesEnabled;
-      *&v101[4] = 1024;
-      *&v101[6] = areRelayCallingFeaturesEnabled2;
-      _os_log_impl(&dword_1956FD000, v33, OS_LOG_TYPE_DEFAULT, "Relay calling features changed from %d to %d", buf, 0xEu);
+      *v103 = areRelayCallingFeaturesEnabled;
+      *&v103[4] = 1024;
+      *&v103[6] = areRelayCallingFeaturesEnabled2;
+      _os_log_impl(&dword_1956FD000, v34, OS_LOG_TYPE_DEFAULT, "Relay calling features changed from %d to %d", buf, 0xEu);
     }
 
     client7 = [self client];
     [client7 performDelegateCallbackBlock:&__block_literal_global_96];
   }
 
-  if (([cloudCallingDevices isEqualToArray:cloudCallingDevices2] & 1) == 0)
+  v36 = [cloudCallingDevices isEqualToArray:cloudCallingDevices2];
+  if ((v36 & 1) == 0)
   {
-    v35 = TUDefaultLog();
-    if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
+    v37 = TUDefaultLog(v36);
+    if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_1956FD000, v35, OS_LOG_TYPE_DEFAULT, "Cloud calling devices changed", buf, 2u);
+      _os_log_impl(&dword_1956FD000, v37, OS_LOG_TYPE_DEFAULT, "Cloud calling devices changed", buf, 2u);
     }
 
     client8 = [self client];
@@ -1111,16 +1308,17 @@ uint64_t __75__TUCallCapabilities_isThumperCallingAllowedOnDefaultPairedSecondar
     [defaultCenter7 postNotificationName:@"TUCallCapabilitiesCloudCallingDevicesChangedNotification" object:0];
   }
 
-  if ((TUStringsAreEqualOrNil(outgoingRelayCallerID, outgoingRelayCallerID2) & 1) == 0)
+  v40 = TUStringsAreEqualOrNil(outgoingRelayCallerID, outgoingRelayCallerID2);
+  if ((v40 & 1) == 0)
   {
-    v38 = TUDefaultLog();
-    if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
+    v41 = TUDefaultLog(v40);
+    if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      *v101 = outgoingRelayCallerID;
-      *&v101[8] = 2112;
-      v102 = outgoingRelayCallerID2;
-      _os_log_impl(&dword_1956FD000, v38, OS_LOG_TYPE_DEFAULT, "Outgoing relay caller ID changed from %@ to %@", buf, 0x16u);
+      *v103 = outgoingRelayCallerID;
+      *&v103[8] = 2112;
+      v104 = outgoingRelayCallerID2;
+      _os_log_impl(&dword_1956FD000, v41, OS_LOG_TYPE_DEFAULT, "Outgoing relay caller ID changed from %@ to %@", buf, 0x16u);
     }
 
     client9 = [self client];
@@ -1132,14 +1330,14 @@ uint64_t __75__TUCallCapabilities_isThumperCallingAllowedOnDefaultPairedSecondar
 
   if (isEmergencyCallbackModeEnabled != isEmergencyCallbackModeEnabled2)
   {
-    v41 = TUDefaultLog();
-    if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
+    v44 = TUDefaultLog(v40);
+    if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109376;
-      *v101 = isEmergencyCallbackModeEnabled;
-      *&v101[4] = 1024;
-      *&v101[6] = isEmergencyCallbackModeEnabled2;
-      _os_log_impl(&dword_1956FD000, v41, OS_LOG_TYPE_DEFAULT, "Emergency Callback Mode changed from %d to %d", buf, 0xEu);
+      *v103 = isEmergencyCallbackModeEnabled;
+      *&v103[4] = 1024;
+      *&v103[6] = isEmergencyCallbackModeEnabled2;
+      _os_log_impl(&dword_1956FD000, v44, OS_LOG_TYPE_DEFAULT, "Emergency Callback Mode changed from %d to %d", buf, 0xEu);
     }
 
     client10 = [self client];
@@ -1149,17 +1347,17 @@ uint64_t __75__TUCallCapabilities_isThumperCallingAllowedOnDefaultPairedSecondar
     [defaultCenter9 postNotificationName:@"TUCallCapabilitiesEmergencyCallbackModeChangedNotification" object:0];
   }
 
-  v82 = cloudCallingDevices2;
+  v84 = cloudCallingDevices2;
   if (isEmergencyCallbackPossible != isEmergencyCallbackPossible2)
   {
-    v44 = TUDefaultLog();
-    if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
+    v47 = TUDefaultLog(v40);
+    if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109376;
-      *v101 = isEmergencyCallbackPossible;
-      *&v101[4] = 1024;
-      *&v101[6] = isEmergencyCallbackPossible2;
-      _os_log_impl(&dword_1956FD000, v44, OS_LOG_TYPE_DEFAULT, "Emergency Callback Possible changed from %d to %d", buf, 0xEu);
+      *v103 = isEmergencyCallbackPossible;
+      *&v103[4] = 1024;
+      *&v103[6] = isEmergencyCallbackPossible2;
+      _os_log_impl(&dword_1956FD000, v47, OS_LOG_TYPE_DEFAULT, "Emergency Callback Possible changed from %d to %d", buf, 0xEu);
     }
 
     client11 = [self client];
@@ -1169,91 +1367,89 @@ uint64_t __75__TUCallCapabilities_isThumperCallingAllowedOnDefaultPairedSecondar
     [defaultCenter10 postNotificationName:@"TUCallCapabilitiesEmergencyCallbackPossibleChangedNotification" object:0];
   }
 
-  v47 = [_senderIdentityCapabilitiesByUUID2 mutableCopy];
-  v94 = 0u;
-  v95 = 0u;
+  v50 = [v88 mutableCopy];
   v96 = 0u;
   v97 = 0u;
-  v48 = _senderIdentityCapabilitiesByUUID;
-  v49 = [v48 countByEnumeratingWithState:&v94 objects:v99 count:16];
-  if (v49)
+  v98 = 0u;
+  v99 = 0u;
+  v51 = _senderIdentityCapabilitiesByUUID;
+  v52 = [v51 countByEnumeratingWithState:&v96 objects:v101 count:16];
+  if (v52)
   {
-    v50 = v49;
-    v51 = *v95;
+    v53 = v52;
+    v54 = *v97;
     do
     {
-      for (i = 0; i != v50; ++i)
+      for (i = 0; i != v53; ++i)
       {
-        if (*v95 != v51)
+        if (*v97 != v54)
         {
-          objc_enumerationMutation(v48);
+          objc_enumerationMutation(v51);
         }
 
-        v53 = *(*(&v94 + 1) + 8 * i);
-        v54 = [v48 objectForKeyedSubscript:v53];
-        v55 = [v17 objectForKeyedSubscript:v53];
-        if (v55)
+        v56 = *(*(&v96 + 1) + 8 * i);
+        v57 = [v51 objectForKeyedSubscript:v56];
+        v58 = [v18 objectForKeyedSubscript:v56];
+        if (v58)
         {
-          [v47 setObject:0 forKeyedSubscript:v53];
-          [v55 _sendNotificationsAndCallbacksComparingToOldSenderIdentityCapabilities:v54];
+          [v50 setObject:0 forKeyedSubscript:v56];
+          [v58 _sendNotificationsAndCallbacksComparingToOldSenderIdentityCapabilities:v57];
         }
 
         else
         {
           client12 = [selfCopy client];
-          v93[0] = MEMORY[0x1E69E9820];
-          v93[1] = 3221225472;
-          v93[2] = __70__TUCallCapabilities__sendNotificationsAndCallbacksAfterRunningBlock___block_invoke_2;
-          v93[3] = &unk_1E7424DA0;
-          v93[4] = v53;
-          [client12 performDelegateCallbackBlock:v93];
+          v95[0] = MEMORY[0x1E69E9820];
+          v95[1] = 3221225472;
+          v95[2] = __70__TUCallCapabilities__sendNotificationsAndCallbacksAfterRunningBlock___block_invoke_2;
+          v95[3] = &unk_1E7424DA0;
+          v95[4] = v56;
+          [client12 performDelegateCallbackBlock:v95];
 
-          v17 = _senderIdentityCapabilitiesByUUID2;
+          v18 = v88;
         }
       }
 
-      v50 = [v48 countByEnumeratingWithState:&v94 objects:v99 count:16];
+      v53 = [v51 countByEnumeratingWithState:&v96 objects:v101 count:16];
     }
 
-    while (v50);
+    while (v53);
   }
 
+  v93 = 0u;
+  v94 = 0u;
   v91 = 0u;
   v92 = 0u;
-  v89 = 0u;
-  v90 = 0u;
-  v57 = v47;
-  v58 = [v57 countByEnumeratingWithState:&v89 objects:v98 count:16];
-  if (v58)
+  v60 = v50;
+  v61 = [v60 countByEnumeratingWithState:&v91 objects:v100 count:16];
+  if (v61)
   {
-    v59 = v58;
-    v60 = *v90;
+    v62 = v61;
+    v63 = *v92;
     do
     {
-      for (j = 0; j != v59; ++j)
+      for (j = 0; j != v62; ++j)
       {
-        if (*v90 != v60)
+        if (*v92 != v63)
         {
-          objc_enumerationMutation(v57);
+          objc_enumerationMutation(v60);
         }
 
-        v62 = *(*(&v89 + 1) + 8 * j);
+        v65 = *(*(&v91 + 1) + 8 * j);
         client13 = [selfCopy client];
-        v88[0] = MEMORY[0x1E69E9820];
-        v88[1] = 3221225472;
-        v88[2] = __70__TUCallCapabilities__sendNotificationsAndCallbacksAfterRunningBlock___block_invoke_3;
-        v88[3] = &unk_1E7424DA0;
-        v88[4] = v62;
-        [client13 performDelegateCallbackBlock:v88];
+        v90[0] = MEMORY[0x1E69E9820];
+        v90[1] = 3221225472;
+        v90[2] = __70__TUCallCapabilities__sendNotificationsAndCallbacksAfterRunningBlock___block_invoke_3;
+        v90[3] = &unk_1E7424DA0;
+        v90[4] = v65;
+        [client13 performDelegateCallbackBlock:v90];
       }
 
-      v59 = [v57 countByEnumeratingWithState:&v89 objects:v98 count:16];
+      v62 = [v60 countByEnumeratingWithState:&v91 objects:v100 count:16];
     }
 
-    while (v59);
+    while (v62);
   }
-
-  v64 = *MEMORY[0x1E69E9840];
 }
 
 void __70__TUCallCapabilities__sendNotificationsAndCallbacksAfterRunningBlock___block_invoke(uint64_t a1, void *a2)

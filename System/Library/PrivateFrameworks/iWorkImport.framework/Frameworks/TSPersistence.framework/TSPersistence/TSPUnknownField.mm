@@ -91,7 +91,7 @@
   {
     v7 = *(info + 15);
 LABEL_6:
-    google::protobuf::internal::RepeatedPtrFieldBase::Reserve(info + 12, v7 + 1);
+    google::protobuf::internal::RepeatedPtrFieldBase::Reserve((info + 48), v7 + 1);
     v5 = *(info + 8);
     v7 = *v5;
     goto LABEL_7;

@@ -17,30 +17,26 @@
 
 - (id)labels
 {
-  v6[1] = *MEMORY[0x277D85DE8];
+  v5[1] = *MEMORY[0x277D85DE8];
   name = [(HMDNetworkRouterFirewallRuleManagerBackingStoreMirrorLocalZoneID *)self name];
-  v6[0] = name;
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:1];
-
-  v4 = *MEMORY[0x277D85DE8];
+  v5[0] = name;
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:1];
 
   return v3;
 }
 
 - (NSArray)attributeDescriptions
 {
-  v12[2] = *MEMORY[0x277D85DE8];
+  v11[2] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277D0F778]);
   name = [(HMDNetworkRouterFirewallRuleManagerBackingStoreMirrorLocalZoneID *)self name];
   v5 = [v3 initWithName:@"Name" value:name];
-  v12[0] = v5;
+  v11[0] = v5;
   v6 = objc_alloc(MEMORY[0x277D0F778]);
   token = [(HMDNetworkRouterFirewallRuleManagerBackingStoreMirrorLocalZoneID *)self token];
   v8 = [v6 initWithName:@"Token" value:token];
-  v12[1] = v8;
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:2];
-
-  v10 = *MEMORY[0x277D85DE8];
+  v11[1] = v8;
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:2];
 
   return v9;
 }

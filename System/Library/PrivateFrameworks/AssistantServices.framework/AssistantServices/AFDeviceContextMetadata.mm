@@ -107,18 +107,17 @@
 
 - (AFDeviceContextMetadata)initWithCoder:(id)coder
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v4 = MEMORY[0x1E695DFD8];
   coderCopy = coder;
+  v11 = objc_opt_class();
   v12 = objc_opt_class();
   v13 = objc_opt_class();
-  v14 = objc_opt_class();
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v12 count:3];
-  v7 = [v4 setWithArray:{v6, v12, v13}];
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v11 count:3];
+  v7 = [v4 setWithArray:{v6, v11, v12}];
   v8 = [coderCopy decodeObjectOfClasses:v7 forKey:@"serializedBackingStore"];
 
   v9 = [(AFDeviceContextMetadata *)self initWithBackingStore:v8];
-  v10 = *MEMORY[0x1E69E9840];
   return v9;
 }
 

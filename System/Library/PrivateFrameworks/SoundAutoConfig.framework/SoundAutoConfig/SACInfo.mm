@@ -186,7 +186,7 @@ LABEL_10:
 
 - (id)description
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CCAB68]);
   [v3 appendFormat:@"SACInfo <%lu> {\n", -[SACInfo hash](self, "hash")];
   angle = [(SACInfo *)self angle];
@@ -251,25 +251,25 @@ LABEL_10:
       if ((v21 & 1) == 0)
       {
         [v3 appendFormat:@"companion info = {\n"];
-        v51 = 0u;
-        v52 = 0u;
-        v49 = 0u;
         v50 = 0u;
+        v51 = 0u;
+        v48 = 0u;
+        v49 = 0u;
         companionInfo2 = [(SACInfo *)self companionInfo];
-        v23 = [companionInfo2 countByEnumeratingWithState:&v49 objects:v53 count:16];
+        v23 = [companionInfo2 countByEnumeratingWithState:&v48 objects:v52 count:16];
         if (v23)
         {
-          v24 = *v50;
+          v24 = *v49;
           do
           {
             for (i = 0; i != v23; ++i)
             {
-              if (*v50 != v24)
+              if (*v49 != v24)
               {
                 objc_enumerationMutation(companionInfo2);
               }
 
-              v26 = *(*(&v49 + 1) + 8 * i);
+              v26 = *(*(&v48 + 1) + 8 * i);
               role5 = [v26 role];
               v28 = role5 == 0;
 
@@ -329,7 +329,7 @@ LABEL_10:
               [v3 appendFormat:@"\n"];
             }
 
-            v23 = [companionInfo2 countByEnumeratingWithState:&v49 objects:v53 count:16];
+            v23 = [companionInfo2 countByEnumeratingWithState:&v48 objects:v52 count:16];
           }
 
           while (v23);
@@ -345,7 +345,6 @@ LABEL_10:
   }
 
   [v3 appendString:@"}"];
-  v47 = *MEMORY[0x277D85DE8];
 
   return v3;
 }

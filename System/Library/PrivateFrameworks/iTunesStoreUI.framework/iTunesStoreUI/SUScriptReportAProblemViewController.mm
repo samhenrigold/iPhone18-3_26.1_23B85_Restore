@@ -31,31 +31,36 @@
     if ((v22[3] & 1) == 0)
     {
       mEMORY[0x1E69D4938] = [MEMORY[0x1E69D4938] sharedConfig];
-      shouldLog = [mEMORY[0x1E69D4938] shouldLog];
+      LODWORD(v9) = [mEMORY[0x1E69D4938] shouldLog];
       shouldLogToDisk = [mEMORY[0x1E69D4938] shouldLogToDisk];
       oSLogObject = [mEMORY[0x1E69D4938] OSLogObject];
+      v12 = oSLogObject;
       if (shouldLogToDisk)
       {
-        shouldLog |= 2u;
+        LODWORD(v9) = v9 | 2;
       }
 
-      if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
       {
-        shouldLog &= 2u;
+        v9 = v9;
       }
 
-      if (shouldLog)
+      else
+      {
+        v9 &= 2u;
+      }
+
+      if (v9)
       {
         _className = [(SUScriptReportAProblemViewController *)v7 _className];
         v26 = 138412290;
         v27 = _className;
-        LODWORD(v16) = 12;
-        v13 = _os_log_send_and_compose_impl();
-        if (v13)
+        v14 = _os_log_send_and_compose_impl(v9, 0, 0, 0, &dword_1C21AF000, v12, 0, "%@: Not supported in this client", &v26, 12, v17, 3221225472, __71__SUScriptReportAProblemViewController_initWithAdamID_clientInterface___block_invoke, &unk_1E8165CC8, dCopy, interfaceCopy, v20, &v21);
+        if (v14)
         {
-          v14 = v13;
-          [MEMORY[0x1E696AEC0] stringWithCString:v13 encoding:{4, &v26, v16, v17, 3221225472, __71__SUScriptReportAProblemViewController_initWithAdamID_clientInterface___block_invoke, &unk_1E8165CC8, dCopy, interfaceCopy, v20, &v21}];
-          free(v14);
+          v15 = v14;
+          [MEMORY[0x1E696AEC0] stringWithCString:v14 encoding:4];
+          free(v15);
           SSFileLog();
         }
       }

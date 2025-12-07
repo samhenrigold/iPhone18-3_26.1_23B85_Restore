@@ -92,19 +92,18 @@
 
 - (void)dealloc
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v3 = MSPGetSharedTripLog();
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = MSPGetSharedTripLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136380675;
-    v7 = "[MSPSenderETAController dealloc]";
+    v6 = "[MSPSenderETAController dealloc]";
     _os_log_impl(&dword_25813A000, v3, OS_LOG_TYPE_DEBUG, "[Sender] %{private}s", buf, 0xCu);
   }
 
-  v5.receiver = self;
-  v5.super_class = MSPSenderETAController;
-  [(MSPSenderETAController *)&v5 dealloc];
-  v4 = *MEMORY[0x277D85DE8];
+  v4.receiver = self;
+  v4.super_class = MSPSenderETAController;
+  [(MSPSenderETAController *)&v4 dealloc];
 }
 
 - (void)_updateStorage
@@ -141,21 +140,22 @@
       [array addObjectsFromArray:messageStrategyIdentifiers];
     }
 
-    if ([v4 smsStrategyIdentifiersCount])
+    smsStrategyIdentifiersCount = [v4 smsStrategyIdentifiersCount];
+    if (smsStrategyIdentifiersCount)
     {
       smsStrategyIdentifiers = [v4 smsStrategyIdentifiers];
       [array addObjectsFromArray:smsStrategyIdentifiers];
     }
 
-    v10 = MSPGetSharedTripLog();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = MSPGetSharedTripLog(smsStrategyIdentifiersCount);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       mspDescription = [state mspDescription];
       *buf = 138412546;
       v25 = mspDescription;
       v26 = 2112;
       v27 = array;
-      _os_log_impl(&dword_25813A000, v10, OS_LOG_TYPE_DEFAULT, "[Sender] _restoreLastSession restoring state %@ to %@", buf, 0x16u);
+      _os_log_impl(&dword_25813A000, v11, OS_LOG_TYPE_DEFAULT, "[Sender] _restoreLastSession restoring state %@ to %@", buf, 0x16u);
     }
 
     if ([array count] && objc_msgSend(state, "hasGroupIdentifier"))
@@ -163,22 +163,22 @@
       groupIdentifier = [state groupIdentifier];
       [(MSPSenderETAController *)self _createGroupSessionIfNeededWithIdentifier:groupIdentifier];
 
-      v13 = [MEMORY[0x277D18778] _msp_IDSIdentifiersFor:array];
-      [(NSMutableSet *)self->_destinations addObjectsFromArray:v13];
-      [(MSPSharedTripGroupSession *)self->_groupSession addSharingWith:v13];
+      v14 = [MEMORY[0x277D18778] _msp_IDSIdentifiersFor:array];
+      [(NSMutableSet *)self->_destinations addObjectsFromArray:v14];
+      [(MSPSharedTripGroupSession *)self->_groupSession addSharingWith:v14];
       [(MSPSharedTripSenderStrategyController *)self->_senderStrategyController restoreFromGroupSessionStorage:v4];
       [(MSPSenderETAController *)self _setState:state forEvent:1];
       objc_initWeak(buf, self);
-      v14 = self->_navigationListener;
-      v15 = dispatch_time(0, 3000000000);
+      v15 = self->_navigationListener;
+      v16 = dispatch_time(0, 3000000000);
       v18 = MEMORY[0x277D85DD0];
       v19 = 3221225472;
       v20 = __45__MSPSenderETAController__restoreLastSession__block_invoke;
       v21 = &unk_279868528;
-      v22 = v14;
-      v16 = v14;
+      v22 = v15;
+      v17 = v15;
       objc_copyWeak(&v23, buf);
-      dispatch_after(v15, MEMORY[0x277D85CD0], &v18);
+      dispatch_after(v16, MEMORY[0x277D85CD0], &v18);
       objc_destroyWeak(&v23);
 
       objc_destroyWeak(buf);
@@ -186,8 +186,6 @@
 
     [(MSPSenderETAController *)self _invalidateActiveHandles:v18];
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __45__MSPSenderETAController__restoreLastSession__block_invoke(uint64_t a1)
@@ -203,29 +201,30 @@ void __45__MSPSenderETAController__restoreLastSession__block_invoke(uint64_t a1)
 {
   v20 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
+  v5 = identifierCopy;
   if (!self->_groupSession)
   {
-    v5 = MSPGetSharedTripLog();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = MSPGetSharedTripLog(identifierCopy);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       v18 = 138543362;
-      v19 = identifierCopy;
-      _os_log_impl(&dword_25813A000, v5, OS_LOG_TYPE_DEFAULT, "MSPSenderETAController creating group session for uuid %{public}@", &v18, 0xCu);
+      v19 = v5;
+      _os_log_impl(&dword_25813A000, v6, OS_LOG_TYPE_DEFAULT, "MSPSenderETAController creating group session for uuid %{public}@", &v18, 0xCu);
     }
 
     WeakRetained = objc_loadWeakRetained(&self->_idsRelay);
-    v7 = [WeakRetained startSharingGroupSessionWithTripIdentifer:identifierCopy];
+    v8 = [WeakRetained startSharingGroupSessionWithTripIdentifer:v5];
     groupSession = self->_groupSession;
-    self->_groupSession = v7;
+    self->_groupSession = v8;
 
     [(MSPSharedTripGroupSession *)self->_groupSession setDelegate:self];
-    v9 = [[MSPSharedTripSenderStrategyController alloc] initWithGroupSession:self->_groupSession messageStrategyDelegate:self];
+    v10 = [[MSPSharedTripSenderStrategyController alloc] initWithGroupSession:self->_groupSession messageStrategyDelegate:self];
     senderStrategyController = self->_senderStrategyController;
-    self->_senderStrategyController = v9;
+    self->_senderStrategyController = v10;
 
-    v11 = objc_alloc_init(MSPGroupSessionStorage);
+    v12 = objc_alloc_init(MSPGroupSessionStorage);
     sessionStorage = self->_sessionStorage;
-    self->_sessionStorage = v11;
+    self->_sessionStorage = v12;
 
     identifier = [(MSPSharedTripGroupSession *)self->_groupSession identifier];
     [(MSPGroupSessionStorage *)self->_sessionStorage setGroupIdentifier:identifier];
@@ -238,8 +237,6 @@ void __45__MSPSenderETAController__restoreLastSession__block_invoke(uint64_t a1)
     groupIdentifier = [(MSPGroupSessionStorage *)self->_sessionStorage groupIdentifier];
     [delegate senderController:self didStartSharingWithGroupIdentifier:groupIdentifier];
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_startingGroupSession
@@ -254,16 +251,16 @@ void __45__MSPSenderETAController__restoreLastSession__block_invoke(uint64_t a1)
 
 - (BOOL)startSharingWith:(id)with capabilityType:(unint64_t)type serviceName:(id)name error:(id *)error
 {
-  v55[1] = *MEMORY[0x277D85DE8];
+  v57[1] = *MEMORY[0x277D85DE8];
   withCopy = with;
   nameCopy = name;
   if ([(MSPSenderETAController *)self _validateNavigationState:error])
   {
     if (type <= 1)
     {
-      v55[0] = *MEMORY[0x277CCA068];
+      v57[0] = *MEMORY[0x277CCA068];
       *buf = @"Unknown";
-      v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:buf forKeys:v55 count:1];
+      v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:buf forKeys:v57 count:1];
       v13 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.Maps.SharedTrip" code:0 userInfo:v12];
 
       if (error)
@@ -283,38 +280,39 @@ LABEL_33:
       goto LABEL_34;
     }
 
-    if (![withCopy count])
+    v16 = [withCopy count];
+    if (!v16)
     {
-      v55[0] = *MEMORY[0x277CCA068];
+      v57[0] = *MEMORY[0x277CCA068];
       *buf = @"No contact handles provided";
-      v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:buf forKeys:v55 count:1];
-      v13 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.Maps.SharedTrip" code:11 userInfo:v18];
+      v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:buf forKeys:v57 count:1];
+      v13 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.Maps.SharedTrip" code:11 userInfo:v19];
 
 LABEL_25:
-      v34 = MSPGetSharedTripLog();
-      if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
+      v37 = MSPGetSharedTripLog(v20);
+      if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
       {
         destinations = self->_destinations;
         if (type - 2 > 2)
         {
-          v36 = @"Unknown";
+          v39 = @"Unknown";
         }
 
         else
         {
-          v36 = off_279868628[type - 2];
+          v39 = off_279868628[type - 2];
         }
 
         *buf = 138478083;
         *&buf[4] = destinations;
-        v53 = 2114;
-        v54 = v36;
-        _os_log_impl(&dword_25813A000, v34, OS_LOG_TYPE_DEFAULT, "[Sender] destinations is now %{private}@ (startSharingWith %{public}@)", buf, 0x16u);
+        v55 = 2114;
+        v56 = v39;
+        _os_log_impl(&dword_25813A000, v37, OS_LOG_TYPE_DEFAULT, "[Sender] destinations is now %{private}@ (startSharingWith %{public}@)", buf, 0x16u);
       }
 
       if (error)
       {
-        v37 = v13;
+        v40 = v13;
         *error = v13;
       }
 
@@ -322,96 +320,97 @@ LABEL_25:
       goto LABEL_33;
     }
 
-    v16 = MSPGetSharedTripLog();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    v17 = MSPGetSharedTripLog(v16);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
       if (type - 2 > 2)
       {
-        v17 = @"Unknown";
+        v18 = @"Unknown";
       }
 
       else
       {
-        v17 = off_279868628[type - 2];
+        v18 = off_279868628[type - 2];
       }
 
       *buf = 138412546;
       *&buf[4] = withCopy;
-      v53 = 2114;
-      v54 = v17;
-      _os_log_impl(&dword_25813A000, v16, OS_LOG_TYPE_DEFAULT, "[Sender] startSharingWith identifiers: %@, via %{public}@", buf, 0x16u);
+      v55 = 2114;
+      v56 = v18;
+      _os_log_impl(&dword_25813A000, v17, OS_LOG_TYPE_DEFAULT, "[Sender] startSharingWith identifiers: %@, via %{public}@", buf, 0x16u);
     }
 
     [(MSPSenderETAController *)self _startingGroupSession];
-    v19 = [MEMORY[0x277D18778] _msp_IDSIdentifiersFor:withCopy];
-    [(NSMutableSet *)self->_destinations addObjectsFromArray:v19];
-    [(MSPSharedTripGroupSession *)self->_groupSession addSharingWith:v19];
-    v20 = nameCopy;
+    v21 = [MEMORY[0x277D18778] _msp_IDSIdentifiersFor:withCopy];
+    [(NSMutableSet *)self->_destinations addObjectsFromArray:v21];
+    [(MSPSharedTripGroupSession *)self->_groupSession addSharingWith:v21];
+    v22 = nameCopy;
     if (!nameCopy)
     {
       if (type - 2 > 2)
       {
-        v21 = 0;
+        v23 = 0;
         goto LABEL_18;
       }
 
-      v20 = *off_279868610[type - 2];
+      v22 = *off_279868610[type - 2];
     }
 
-    v21 = v20;
+    v23 = v22;
 LABEL_18:
-    v49[0] = MEMORY[0x277D85DD0];
-    v49[1] = 3221225472;
-    v49[2] = __76__MSPSenderETAController_startSharingWith_capabilityType_serviceName_error___block_invoke;
-    v49[3] = &unk_279868550;
-    v22 = v21;
-    v50 = v22;
+    v51[0] = MEMORY[0x277D85DD0];
+    v51[1] = 3221225472;
+    v51[2] = __76__MSPSenderETAController_startSharingWith_capabilityType_serviceName_error___block_invoke;
+    v51[3] = &unk_279868550;
+    v24 = v23;
+    v52 = v24;
     typeCopy = type;
-    v23 = MEMORY[0x259C7AD60](v49);
+    v25 = MEMORY[0x259C7AD60](v51);
     mEMORY[0x277D0EC70] = [MEMORY[0x277D0EC70] sharedPlatform];
     isInternalInstall = [mEMORY[0x277D0EC70] isInternalInstall];
 
     if (isInternalInstall)
     {
-      v26 = MSPSharedTripGetVirtualReceivers(withCopy);
-      if ([(__CFString *)v26 count])
+      v28 = MSPSharedTripGetVirtualReceivers(withCopy);
+      v29 = [(__CFString *)v28 count];
+      if (v29)
       {
-        v27 = MSPGetSharedTripLog();
-        if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+        v30 = MSPGetSharedTripLog(v29);
+        if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
         {
-          v28 = [(__CFString *)v26 count];
+          v31 = [(__CFString *)v28 count];
           *buf = 134218242;
-          *&buf[4] = v28;
-          v53 = 2114;
-          v54 = v26;
-          _os_log_impl(&dword_25813A000, v27, OS_LOG_TYPE_DEFAULT, "[Sender] found %lu virtual receivers: %{public}@", buf, 0x16u);
+          *&buf[4] = v31;
+          v55 = 2114;
+          v56 = v28;
+          _os_log_impl(&dword_25813A000, v30, OS_LOG_TYPE_DEFAULT, "[Sender] found %lu virtual receivers: %{public}@", buf, 0x16u);
         }
 
         senderStrategyController = self->_senderStrategyController;
-        v46[0] = MEMORY[0x277D85DD0];
-        v46[1] = 3221225472;
-        v46[2] = __76__MSPSenderETAController_startSharingWith_capabilityType_serviceName_error___block_invoke_23;
-        v46[3] = &unk_279868578;
-        v48 = v23;
-        v47 = v26;
-        [(MSPSharedTripSenderStrategyController *)senderStrategyController performWithVirtualSenders:1 block:v46];
-        v30 = MSPSharedTripGetRealReceivers(v19);
+        v48[0] = MEMORY[0x277D85DD0];
+        v48[1] = 3221225472;
+        v48[2] = __76__MSPSenderETAController_startSharingWith_capabilityType_serviceName_error___block_invoke_23;
+        v48[3] = &unk_279868578;
+        v50 = v25;
+        v49 = v28;
+        [(MSPSharedTripSenderStrategyController *)senderStrategyController performWithVirtualSenders:1 block:v48];
+        v33 = MSPSharedTripGetRealReceivers(v21);
 
-        v19 = v30;
+        v21 = v33;
       }
     }
 
-    v31 = self->_senderStrategyController;
-    v40 = MEMORY[0x277D85DD0];
-    v41 = 3221225472;
-    v42 = __76__MSPSenderETAController_startSharingWith_capabilityType_serviceName_error___block_invoke_2;
-    v43 = &unk_279868578;
-    v44 = v19;
-    v45 = v23;
-    v32 = v19;
-    v33 = v23;
-    [(MSPSharedTripSenderStrategyController *)v31 performWithVirtualSenders:0 block:&v40];
-    [(MSPSenderETAController *)self _updateStorage:v40];
+    v34 = self->_senderStrategyController;
+    v42 = MEMORY[0x277D85DD0];
+    v43 = 3221225472;
+    v44 = __76__MSPSenderETAController_startSharingWith_capabilityType_serviceName_error___block_invoke_2;
+    v45 = &unk_279868578;
+    v46 = v21;
+    v47 = v25;
+    v35 = v21;
+    v36 = v25;
+    [(MSPSharedTripSenderStrategyController *)v34 performWithVirtualSenders:0 block:&v42];
+    [(MSPSenderETAController *)self _updateStorage:v42];
     [(MSPSenderETAController *)self _invalidateActiveHandles];
 
     v13 = 0;
@@ -421,7 +420,6 @@ LABEL_18:
   v15 = 0;
 LABEL_34:
 
-  v38 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
@@ -453,33 +451,34 @@ void __76__MSPSenderETAController_startSharingWith_capabilityType_serviceName_er
 {
   v52 = *MEMORY[0x277D85DE8];
   withCopy = with;
+  v7 = [withCopy count];
   v36 = withCopy;
-  if ([withCopy count])
+  if (v7)
   {
     [MEMORY[0x277D18778] _msp_IDSIdentifiersFor:withCopy];
     v44 = 0u;
     v45 = 0u;
     v42 = 0u;
     obj = v43 = 0u;
-    v7 = 0;
-    v8 = [obj countByEnumeratingWithState:&v42 objects:v51 count:16];
-    if (v8)
+    v8 = 0;
+    v9 = [obj countByEnumeratingWithState:&v42 objects:v51 count:16];
+    if (v9)
     {
-      v9 = *v43;
+      v10 = *v43;
       do
       {
-        for (i = 0; i != v8; ++i)
+        for (i = 0; i != v9; ++i)
         {
-          if (*v43 != v9)
+          if (*v43 != v10)
           {
             objc_enumerationMutation(obj);
           }
 
-          v11 = *(*(&v42 + 1) + 8 * i);
+          v12 = *(*(&v42 + 1) + 8 * i);
           mEMORY[0x277D0EC70] = [MEMORY[0x277D0EC70] sharedPlatform];
           isInternalInstall = [mEMORY[0x277D0EC70] isInternalInstall];
 
-          if (isInternalInstall && (MSPSharedTripVirtualReceiverIsValid(v11) & 1) != 0)
+          if (isInternalInstall && (MSPSharedTripVirtualReceiverIsValid(v12) & 1) != 0)
           {
             *v49 = 0;
             *&v49[8] = v49;
@@ -492,23 +491,22 @@ void __76__MSPSenderETAController_startSharingWith_capabilityType_serviceName_er
             v40[3] = &unk_2798685A0;
             v40[5] = v49;
             v40[6] = reason;
-            v40[4] = v11;
-            [(MSPSharedTripSenderStrategyController *)senderStrategyController performWithVirtualSenders:1 block:v40];
-            v15 = MSPGetSharedTripLog();
-            if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+            v40[4] = v12;
+            v16 = MSPGetSharedTripLog([(MSPSharedTripSenderStrategyController *)senderStrategyController performWithVirtualSenders:1 block:v40]);
+            if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
             {
-              v16 = @"NO";
+              v17 = @"NO";
               if (*(*&v49[8] + 24))
               {
-                v16 = @"YES";
+                v17 = @"YES";
               }
 
-              v17 = v16;
+              v18 = v17;
               *buf = 138543618;
-              *&buf[4] = v11;
+              *&buf[4] = v12;
               v47 = 2114;
-              v48 = v17;
-              _os_log_impl(&dword_25813A000, v15, OS_LOG_TYPE_INFO, "stopSharingWith (virtual): %{public}@ wasSharing: %{public}@", buf, 0x16u);
+              v48 = v18;
+              _os_log_impl(&dword_25813A000, v16, OS_LOG_TYPE_INFO, "stopSharingWith (virtual): %{public}@ wasSharing: %{public}@", buf, 0x16u);
             }
           }
 
@@ -518,71 +516,70 @@ void __76__MSPSenderETAController_startSharingWith_capabilityType_serviceName_er
             *&v49[8] = v49;
             *&v49[16] = 0x2020000000;
             v50 = 0;
-            v18 = self->_senderStrategyController;
+            v19 = self->_senderStrategyController;
             v41[0] = MEMORY[0x277D85DD0];
             v41[1] = 3221225472;
             v41[2] = __55__MSPSenderETAController_stopSharingWith_reason_error___block_invoke;
             v41[3] = &unk_2798685A0;
             v41[5] = v49;
             v41[6] = reason;
-            v41[4] = v11;
-            [(MSPSharedTripSenderStrategyController *)v18 performWithVirtualSenders:0 block:v41];
-            v15 = MSPGetSharedTripLog();
-            if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+            v41[4] = v12;
+            v16 = MSPGetSharedTripLog([(MSPSharedTripSenderStrategyController *)v19 performWithVirtualSenders:0 block:v41]);
+            if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
             {
-              v19 = @"NO";
+              v20 = @"NO";
               if (*(*&v49[8] + 24))
               {
-                v19 = @"YES";
+                v20 = @"YES";
               }
 
-              v20 = v19;
+              v21 = v20;
               *buf = 138543618;
-              *&buf[4] = v11;
+              *&buf[4] = v12;
               v47 = 2114;
-              v48 = v20;
-              _os_log_impl(&dword_25813A000, v15, OS_LOG_TYPE_INFO, "stopSharingWith: %{public}@ wasSharing: %{public}@", buf, 0x16u);
+              v48 = v21;
+              _os_log_impl(&dword_25813A000, v16, OS_LOG_TYPE_INFO, "stopSharingWith: %{public}@ wasSharing: %{public}@", buf, 0x16u);
             }
           }
 
-          if (v7)
+          if (v8)
           {
-            v7 = 1;
+            v8 = 1;
           }
 
           else
           {
-            v7 = *(*&v49[8] + 24);
+            v8 = *(*&v49[8] + 24);
           }
 
           _Block_object_dispose(v49, 8);
         }
 
-        v8 = [obj countByEnumeratingWithState:&v42 objects:v51 count:16];
+        v9 = [obj countByEnumeratingWithState:&v42 objects:v51 count:16];
       }
 
-      while (v8);
+      while (v9);
     }
 
-    v21 = MSPGetSharedTripLog();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
+    v23 = MSPGetSharedTripLog(v22);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
     {
-      v22 = [obj count];
+      v24 = [obj count];
       *v49 = 134218243;
-      *&v49[4] = v22;
+      *&v49[4] = v24;
       *&v49[12] = 2113;
       *&v49[14] = obj;
-      _os_log_impl(&dword_25813A000, v21, OS_LOG_TYPE_INFO, "Removing %lu identifiers from sharing: %{private}@", v49, 0x16u);
+      _os_log_impl(&dword_25813A000, v23, OS_LOG_TYPE_INFO, "Removing %lu identifiers from sharing: %{private}@", v49, 0x16u);
     }
 
     destinations = self->_destinations;
-    v24 = [MEMORY[0x277CBEB98] setWithArray:obj];
-    [(NSMutableSet *)destinations minusSet:v24];
+    v26 = [MEMORY[0x277CBEB98] setWithArray:obj];
+    [(NSMutableSet *)destinations minusSet:v26];
 
     WeakRetained = objc_loadWeakRetained(&self->_idsRelay);
-    v26 = [WeakRetained removeSharingWith:obj];
+    v28 = [WeakRetained removeSharingWith:obj];
     groupSession = self->_groupSession;
-    self->_groupSession = v26;
+    self->_groupSession = v28;
 
     [(MSPSenderETAController *)self _updateStorage];
     if (![(NSMutableSet *)self->_destinations count])
@@ -595,38 +592,37 @@ void __76__MSPSenderETAController_startSharingWith_capabilityType_serviceName_er
 
   else
   {
-    v7 = 0;
+    v8 = 0;
   }
 
-  if (error && (v7 & 1) == 0)
+  if (error && (v8 & 1) == 0)
   {
-    v28 = MSPGetSharedTripLog();
-    if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+    v30 = MSPGetSharedTripLog(v7);
+    if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
     {
       *v49 = 0;
-      _os_log_impl(&dword_25813A000, v28, OS_LOG_TYPE_ERROR, "[Sender] Asked to stop sharing but we didn't match with any of the handles", v49, 2u);
+      _os_log_impl(&dword_25813A000, v30, OS_LOG_TYPE_ERROR, "[Sender] Asked to stop sharing but we didn't match with any of the handles", v49, 2u);
     }
 
     *buf = *MEMORY[0x277CCA068];
     *v49 = @"Not currently sharing with contacts";
-    v29 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v49 forKeys:buf count:1];
-    v30 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.Maps.SharedTrip" code:13 userInfo:v29];
+    v31 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v49 forKeys:buf count:1];
+    v32 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.Maps.SharedTrip" code:13 userInfo:v31];
 
-    v31 = v30;
-    *error = v30;
+    v7 = v32;
+    *error = v32;
   }
 
-  v32 = MSPGetSharedTripLog();
-  if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
+  v33 = MSPGetSharedTripLog(v7);
+  if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
   {
-    v33 = self->_destinations;
+    v34 = self->_destinations;
     *v49 = 138477827;
-    *&v49[4] = v33;
-    _os_log_impl(&dword_25813A000, v32, OS_LOG_TYPE_DEFAULT, "[Sender] destinations is now %{private}@ (stopSharingWith)", v49, 0xCu);
+    *&v49[4] = v34;
+    _os_log_impl(&dword_25813A000, v33, OS_LOG_TYPE_DEFAULT, "[Sender] destinations is now %{private}@ (stopSharingWith)", v49, 0xCu);
   }
 
-  v34 = *MEMORY[0x277D85DE8];
-  return v7 & 1;
+  return v8 & 1;
 }
 
 void __55__MSPSenderETAController_stopSharingWith_reason_error___block_invoke(void *a1, void *a2)
@@ -656,13 +652,14 @@ void __55__MSPSenderETAController_stopSharingWith_reason_error___block_invoke_25
   allObjects = [(NSMutableSet *)self->_destinations allObjects];
   v8 = [(MSPSenderETAController *)self stopSharingWith:allObjects reason:reason error:error];
 
-  if ([(NSMutableSet *)self->_destinations count])
+  v9 = [(NSMutableSet *)self->_destinations count];
+  if (v9)
   {
-    v9 = MSPGetSharedTripLog();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
+    v10 = MSPGetSharedTripLog(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
     {
-      *v11 = 0;
-      _os_log_impl(&dword_25813A000, v9, OS_LOG_TYPE_FAULT, "[Sender] stopSharing didn't clear all destinations, forcing it now", v11, 2u);
+      *v12 = 0;
+      _os_log_impl(&dword_25813A000, v10, OS_LOG_TYPE_FAULT, "[Sender] stopSharing didn't clear all destinations, forcing it now", v12, 2u);
     }
 
     [(MSPSenderETAController *)self _updateStorage];
@@ -675,39 +672,37 @@ void __55__MSPSenderETAController_stopSharingWith_reason_error___block_invoke_25
 
 void __52__MSPSenderETAController_serviceNamesByActiveHandle__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v5 = a3;
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v6 = [a2 participants];
-  v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v13;
+    v9 = *v12;
     do
     {
       v10 = 0;
       do
       {
-        if (*v13 != v9)
+        if (*v12 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        [*(a1 + 32) setObject:v5 forKeyedSubscript:*(*(&v12 + 1) + 8 * v10++)];
+        [*(a1 + 32) setObject:v5 forKeyedSubscript:*(*(&v11 + 1) + 8 * v10++)];
       }
 
       while (v8 != v10);
-      v8 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v8);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_startLiveForVirtualReceiver:(id)receiver
@@ -728,14 +723,12 @@ void __52__MSPSenderETAController_serviceNamesByActiveHandle__block_invoke(uint6
 
 void __55__MSPSenderETAController__startLiveForVirtualReceiver___block_invoke(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v6 = *(a1 + 32);
+  v6 = *MEMORY[0x277D85DE8];
+  v5 = *(a1 + 32);
   v2 = MEMORY[0x277CBEA60];
   v3 = a2;
-  v4 = [v2 arrayWithObjects:&v6 count:1];
-  [v3 addLiveParticipants:{v4, v6, v7}];
-
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = [v2 arrayWithObjects:&v5 count:1];
+  [v3 addLiveParticipants:{v4, v5, v6}];
 }
 
 - (void)_stopLiveForVirtualReceiver:(id)receiver
@@ -756,13 +749,13 @@ void __55__MSPSenderETAController__startLiveForVirtualReceiver___block_invoke(ui
 
 - (void)_cleanObjects
 {
-  v12 = *MEMORY[0x277D85DE8];
-  v3 = MSPGetSharedTripLog();
+  v11 = *MEMORY[0x277D85DE8];
+  v3 = MSPGetSharedTripLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 136315138;
-    v11 = "[MSPSenderETAController _cleanObjects]";
-    _os_log_impl(&dword_25813A000, v3, OS_LOG_TYPE_DEFAULT, "[Sender] %s", &v10, 0xCu);
+    v9 = 136315138;
+    v10 = "[MSPSenderETAController _cleanObjects]";
+    _os_log_impl(&dword_25813A000, v3, OS_LOG_TYPE_DEFAULT, "[Sender] %s", &v9, 0xCu);
   }
 
   sessionStorage = self->_sessionStorage;
@@ -782,8 +775,6 @@ void __55__MSPSenderETAController__startLiveForVirtualReceiver___block_invoke(ui
 
   transaction = self->_transaction;
   self->_transaction = 0;
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_invalidateSharedTripWithError:(id)error
@@ -838,11 +829,11 @@ void __50__MSPSenderETAController__invalidateActiveHandles__block_invoke(uint64_
 
   if (!delegate)
   {
-    v4 = MSPGetSharedTripLog();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+    v5 = MSPGetSharedTripLog(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
-      *v5 = 0;
-      _os_log_impl(&dword_25813A000, v4, OS_LOG_TYPE_INFO, "MSPSenderETAController start listening to navigation", v5, 2u);
+      *v6 = 0;
+      _os_log_impl(&dword_25813A000, v5, OS_LOG_TYPE_INFO, "MSPSenderETAController start listening to navigation", v6, 2u);
     }
 
     [(MSPNavigationListener *)self->_navigationListener setDelegate:self];
@@ -855,11 +846,11 @@ void __50__MSPSenderETAController__invalidateActiveHandles__block_invoke(uint64_
 
   if (delegate == self)
   {
-    v4 = MSPGetSharedTripLog();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+    v5 = MSPGetSharedTripLog(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
-      *v5 = 0;
-      _os_log_impl(&dword_25813A000, v4, OS_LOG_TYPE_INFO, "MSPSenderETAController stop listening to navigation", v5, 2u);
+      *v6 = 0;
+      _os_log_impl(&dword_25813A000, v5, OS_LOG_TYPE_INFO, "MSPSenderETAController stop listening to navigation", v6, 2u);
     }
 
     [(MSPNavigationListener *)self->_navigationListener setDelegate:0];
@@ -868,36 +859,37 @@ void __50__MSPSenderETAController__invalidateActiveHandles__block_invoke(uint64_
 
 - (BOOL)_validateNavigationState:(id *)state
 {
-  v17[1] = *MEMORY[0x277D85DE8];
+  v16[1] = *MEMORY[0x277D85DE8];
   if (![(MSPNavigationListener *)self->_navigationListener isInNavigatingState])
   {
-    v17[0] = *MEMORY[0x277CCA068];
-    *v14 = @"Not navigating";
-    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v17 count:1];
-    v7 = MEMORY[0x277CCA9B8];
-    v8 = 7;
+    v16[0] = *MEMORY[0x277CCA068];
+    *v13 = @"Not navigating";
+    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v16 count:1];
+    v8 = MEMORY[0x277CCA9B8];
+    v9 = 7;
     goto LABEL_9;
   }
 
   if (![(MSPNavigationListener *)self->_navigationListener isCompatibleTransportType])
   {
-    v17[0] = *MEMORY[0x277CCA068];
-    *v14 = @"Incompatible transport type";
-    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v17 count:1];
-    v7 = MEMORY[0x277CCA9B8];
-    v8 = 8;
+    v16[0] = *MEMORY[0x277CCA068];
+    *v13 = @"Incompatible transport type";
+    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v16 count:1];
+    v8 = MEMORY[0x277CCA9B8];
+    v9 = 8;
     goto LABEL_9;
   }
 
-  if (![(MSPNavigationListener *)self->_navigationListener isCompatibleNavigationType])
+  isCompatibleNavigationType = [(MSPNavigationListener *)self->_navigationListener isCompatibleNavigationType];
+  if ((isCompatibleNavigationType & 1) == 0)
   {
-    v17[0] = *MEMORY[0x277CCA068];
-    *v14 = @"Incompatible navigation type";
-    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v17 count:1];
-    v7 = MEMORY[0x277CCA9B8];
-    v8 = 9;
+    v16[0] = *MEMORY[0x277CCA068];
+    *v13 = @"Incompatible navigation type";
+    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v16 count:1];
+    v8 = MEMORY[0x277CCA9B8];
+    v9 = 9;
 LABEL_9:
-    v5 = [v7 errorWithDomain:@"com.apple.Maps.SharedTrip" code:v8 userInfo:v6];
+    v6 = [v8 errorWithDomain:@"com.apple.Maps.SharedTrip" code:v9 userInfo:v7];
 
     if (!state)
     {
@@ -907,31 +899,30 @@ LABEL_9:
     goto LABEL_10;
   }
 
-  v5 = 0;
+  v6 = 0;
   if (state)
   {
 LABEL_10:
-    v9 = v5;
-    *state = v5;
+    isCompatibleNavigationType = v6;
+    *state = v6;
   }
 
 LABEL_11:
-  if (v5)
+  if (v6)
   {
-    v10 = MSPGetSharedTripLog();
+    v10 = MSPGetSharedTripLog(isCompatibleNavigationType);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       navigationListener = self->_navigationListener;
-      *v14 = 138412546;
-      *&v14[4] = v5;
-      v15 = 2112;
-      v16 = navigationListener;
-      _os_log_impl(&dword_25813A000, v10, OS_LOG_TYPE_ERROR, "[Sender] invalid navigation state for sharing: %@ | listener: %@", v14, 0x16u);
+      *v13 = 138412546;
+      *&v13[4] = v6;
+      v14 = 2112;
+      v15 = navigationListener;
+      _os_log_impl(&dword_25813A000, v10, OS_LOG_TYPE_ERROR, "[Sender] invalid navigation state for sharing: %@ | listener: %@", v13, 0x16u);
     }
   }
 
-  v12 = *MEMORY[0x277D85DE8];
-  return v5 == 0;
+  return v6 == 0;
 }
 
 - (void)_setState:(id)state forEvent:(unint64_t)event
@@ -1011,40 +1002,38 @@ LABEL_11:
 
 - (void)groupSession:(id)session participantDidJoin:(id)join
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   joinCopy = join;
-  v6 = MSPGetSharedTripLog();
+  v6 = MSPGetSharedTripLog(joinCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v12 = joinCopy;
+    v11 = joinCopy;
     _os_log_impl(&dword_25813A000, v6, OS_LOG_TYPE_DEFAULT, "[Sender] live participant did join %@", buf, 0xCu);
   }
 
   if (joinCopy)
   {
     senderStrategyController = self->_senderStrategyController;
-    v10 = joinCopy;
-    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:&v10 count:1];
+    v9 = joinCopy;
+    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:&v9 count:1];
     [(MSPSharedTripSenderStrategyController *)senderStrategyController addLiveParticipants:v8];
 
     [(MSPSenderETAController *)self _updateStorage];
     [(MSPSenderETAController *)self _invalidateActiveHandles];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)groupSession:(id)session participantDidLeave:(id)leave
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   leaveCopy = leave;
-  v6 = MSPGetSharedTripLog();
+  v6 = MSPGetSharedTripLog(leaveCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138412290;
-    v9 = leaveCopy;
-    _os_log_impl(&dword_25813A000, v6, OS_LOG_TYPE_DEFAULT, "[Sender] live participant did leave %@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = leaveCopy;
+    _os_log_impl(&dword_25813A000, v6, OS_LOG_TYPE_DEFAULT, "[Sender] live participant did leave %@", &v7, 0xCu);
   }
 
   if (leaveCopy)
@@ -1053,8 +1042,6 @@ LABEL_11:
     [(MSPSenderETAController *)self _updateStorage];
     [(MSPSenderETAController *)self _invalidateActiveHandles];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)groupSessionEnded:(id)ended withError:(id)error

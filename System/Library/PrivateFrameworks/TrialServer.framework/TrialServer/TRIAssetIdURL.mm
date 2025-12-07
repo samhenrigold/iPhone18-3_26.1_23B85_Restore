@@ -80,39 +80,8 @@ LABEL_3:
 {
   tourlCopy = tourl;
   v5 = tourlCopy;
-  if (!tourlCopy)
+  if (!tourlCopy || (v6 = self->_assetId == 0, [tourlCopy assetId], v7 = objc_claimAutoreleasedReturnValue(), v8 = v7 != 0, v7, v6 == v8) || (assetId = self->_assetId) != 0 && (objc_msgSend(v5, "assetId"), v10 = objc_claimAutoreleasedReturnValue(), v11 = -[TRIAssetId isEqual:](assetId, "isEqual:", v10), v10, !v11) || (v12 = self->_url == 0, objc_msgSend(v5, "url"), v13 = objc_claimAutoreleasedReturnValue(), v14 = v13 != 0, v13, v12 == v14))
   {
-    goto LABEL_8;
-  }
-
-  v6 = self->_assetId == 0;
-  assetId = [tourlCopy assetId];
-  v8 = assetId != 0;
-
-  if (v6 == v8)
-  {
-    goto LABEL_8;
-  }
-
-  assetId = self->_assetId;
-  if (assetId)
-  {
-    assetId2 = [v5 assetId];
-    v11 = [(TRIAssetId *)assetId isEqual:assetId2];
-
-    if (!v11)
-    {
-      goto LABEL_8;
-    }
-  }
-
-  v12 = self->_url == 0;
-  v13 = [v5 url];
-  v14 = v13 != 0;
-
-  if (v12 == v14)
-  {
-LABEL_8:
     v17 = 0;
   }
 

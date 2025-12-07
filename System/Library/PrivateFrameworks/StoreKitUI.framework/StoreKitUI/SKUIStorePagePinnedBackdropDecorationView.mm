@@ -125,7 +125,7 @@
     v21 = 0;
   }
 
-  if (groupName != v21 && ([(__CFString *)groupName isEqualToString:v21, v20]& 1) == 0)
+  if (groupName != v21 && (objc_msgSend_isEqualToString_(groupName, v20) & 1) == 0)
   {
     [(_UIBackdropView *)self->_backdropView setGroupName:v21];
   }
@@ -183,6 +183,12 @@
   v46.receiver = self;
   v46.super_class = SKUIStorePagePinnedBackdropDecorationView;
   [(SKUIStorePagePinnedBackdropDecorationView *)&v46 applyLayoutAttributes:attributesCopy];
+}
+
+- (void)initWithFrame:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIStorePagePinnedBackdropDecorationView initWithFrame:]";
 }
 
 @end

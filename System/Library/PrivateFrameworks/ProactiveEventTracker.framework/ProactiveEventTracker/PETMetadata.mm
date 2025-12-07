@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)uploadServiceAsString:(int)string;
 - (int)StringAsUploadService:(id)service;
 - (int)uploadService;
 - (unint64_t)hash;
@@ -350,7 +351,6 @@ LABEL_23:
       goto LABEL_90;
     }
 
-    v15 = *(equalCopy + 94);
     if (self->_isInternal)
     {
       if ((*(equalCopy + 94) & 1) == 0)
@@ -377,7 +377,6 @@ LABEL_23:
       goto LABEL_90;
     }
 
-    v16 = *(equalCopy + 96);
     if (self->_isSeed)
     {
       if ((*(equalCopy + 96) & 1) == 0)
@@ -404,7 +403,6 @@ LABEL_23:
       goto LABEL_90;
     }
 
-    v17 = *(equalCopy + 93);
     if (self->_isGm)
     {
       if ((*(equalCopy + 93) & 1) == 0)
@@ -461,7 +459,6 @@ LABEL_23:
       goto LABEL_90;
     }
 
-    v20 = *(equalCopy + 97);
     if (self->_isTestingData)
     {
       if ((*(equalCopy + 97) & 1) == 0)
@@ -500,7 +497,6 @@ LABEL_23:
       goto LABEL_90;
     }
 
-    v21 = *(equalCopy + 98);
     if (self->_isTrialUpload)
     {
       if ((*(equalCopy + 98) & 1) == 0)
@@ -527,7 +523,6 @@ LABEL_23:
       goto LABEL_90;
     }
 
-    v22 = *(equalCopy + 95);
     if (self->_isInternalCarry)
     {
       if ((*(equalCopy + 95) & 1) == 0)
@@ -554,7 +549,6 @@ LABEL_23:
       goto LABEL_90;
     }
 
-    v23 = *(equalCopy + 92);
     if (self->_isConfigEnabled)
     {
       if ((*(equalCopy + 92) & 1) == 0)
@@ -583,7 +577,7 @@ LABEL_23:
   if (![(NSString *)messageGroup isEqual:?])
   {
 LABEL_90:
-    v25 = 0;
+    v18 = 0;
     goto LABEL_91;
   }
 
@@ -606,17 +600,17 @@ LABEL_60:
   uploadIdentifier = self->_uploadIdentifier;
   if (uploadIdentifier | *(equalCopy + 10))
   {
-    v25 = [(NSString *)uploadIdentifier isEqual:?];
+    v18 = [(NSString *)uploadIdentifier isEqual:?];
   }
 
   else
   {
-    v25 = 1;
+    v18 = 1;
   }
 
 LABEL_91:
 
-  return v25;
+  return v18;
 }
 
 - (id)copyWithZone:(_NSZone *)zone
@@ -898,38 +892,36 @@ LABEL_27:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v18 = toCopy;
+  v8 = toCopy;
   if (*&self->_has)
   {
-    uploadTime = self->_uploadTime;
     PBDataWriterWriteUint64Field();
-    toCopy = v18;
+    toCopy = v8;
   }
 
   if (self->_platform)
   {
     PBDataWriterWriteStringField();
-    toCopy = v18;
+    toCopy = v8;
   }
 
   if (self->_device)
   {
     PBDataWriterWriteStringField();
-    toCopy = v18;
+    toCopy = v8;
   }
 
   if (self->_build)
   {
     PBDataWriterWriteStringField();
-    toCopy = v18;
+    toCopy = v8;
   }
 
   has = self->_has;
   if ((has & 0x20) != 0)
   {
-    isInternal = self->_isInternal;
     PBDataWriterWriteBOOLField();
-    toCopy = v18;
+    toCopy = v8;
     has = self->_has;
     if ((has & 0x80) == 0)
     {
@@ -948,63 +940,58 @@ LABEL_11:
     goto LABEL_11;
   }
 
-  isSeed = self->_isSeed;
   PBDataWriterWriteBOOLField();
-  toCopy = v18;
+  toCopy = v8;
   if ((*&self->_has & 0x10) != 0)
   {
 LABEL_12:
-    isGm = self->_isGm;
     PBDataWriterWriteBOOLField();
-    toCopy = v18;
+    toCopy = v8;
   }
 
 LABEL_13:
   if (self->_country)
   {
     PBDataWriterWriteStringField();
-    toCopy = v18;
+    toCopy = v8;
   }
 
   if (self->_language)
   {
     PBDataWriterWriteStringField();
-    toCopy = v18;
+    toCopy = v8;
   }
 
-  v8 = self->_has;
-  if ((v8 & 2) != 0)
+  v6 = self->_has;
+  if ((v6 & 2) != 0)
   {
-    configVersion = self->_configVersion;
     PBDataWriterWriteUint32Field();
-    toCopy = v18;
-    v8 = self->_has;
+    toCopy = v8;
+    v6 = self->_has;
   }
 
-  if ((v8 & 0x100) != 0)
+  if ((v6 & 0x100) != 0)
   {
-    isTestingData = self->_isTestingData;
     PBDataWriterWriteBOOLField();
-    toCopy = v18;
+    toCopy = v8;
   }
 
   if (self->_pseudoDeviceId)
   {
     PBDataWriterWriteStringField();
-    toCopy = v18;
+    toCopy = v8;
   }
 
-  v11 = self->_has;
-  if ((v11 & 0x200) != 0)
+  v7 = self->_has;
+  if ((v7 & 0x200) != 0)
   {
-    isTrialUpload = self->_isTrialUpload;
     PBDataWriterWriteBOOLField();
-    toCopy = v18;
-    v11 = self->_has;
-    if ((v11 & 0x40) == 0)
+    toCopy = v8;
+    v7 = self->_has;
+    if ((v7 & 0x40) == 0)
     {
 LABEL_25:
-      if ((v11 & 8) == 0)
+      if ((v7 & 8) == 0)
       {
         goto LABEL_27;
       }
@@ -1013,40 +1000,37 @@ LABEL_25:
     }
   }
 
-  else if ((v11 & 0x40) == 0)
+  else if ((v7 & 0x40) == 0)
   {
     goto LABEL_25;
   }
 
-  isInternalCarry = self->_isInternalCarry;
   PBDataWriterWriteBOOLField();
-  toCopy = v18;
+  toCopy = v8;
   if ((*&self->_has & 8) != 0)
   {
 LABEL_26:
-    isConfigEnabled = self->_isConfigEnabled;
     PBDataWriterWriteBOOLField();
-    toCopy = v18;
+    toCopy = v8;
   }
 
 LABEL_27:
   if (self->_messageGroup)
   {
     PBDataWriterWriteStringField();
-    toCopy = v18;
+    toCopy = v8;
   }
 
   if ((*&self->_has & 4) != 0)
   {
-    uploadService = self->_uploadService;
     PBDataWriterWriteInt32Field();
-    toCopy = v18;
+    toCopy = v8;
   }
 
   if (self->_uploadIdentifier)
   {
     PBDataWriterWriteStringField();
-    toCopy = v18;
+    toCopy = v8;
   }
 }
 
@@ -1260,6 +1244,21 @@ LABEL_13:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)uploadServiceAsString:(int)string
+{
+  if (string >= 3)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E86C2900[string];
   }
 
   return v4;

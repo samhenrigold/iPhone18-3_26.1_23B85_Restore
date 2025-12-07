@@ -140,7 +140,7 @@
     _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_INFO, "%s : %i : ", &v15, 0x12u);
   }
 
-  v14 = sub_10037E00C();
+  v14 = sub_10037E00C(KmlSharingTransport);
   sub_1003CD3F8(v14, messageCopy, identifierCopy, mailboxIdentifierCopy);
 
   callbackCopy[2](callbackCopy, 0);

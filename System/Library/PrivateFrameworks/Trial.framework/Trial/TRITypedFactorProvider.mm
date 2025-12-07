@@ -92,45 +92,8 @@ LABEL_3:
 {
   providerCopy = provider;
   v5 = providerCopy;
-  if (!providerCopy)
+  if (!providerCopy || (type = self->_type, type != [providerCopy type]) || (v7 = self->_provider == 0, objc_msgSend(v5, "provider"), v8 = objc_claimAutoreleasedReturnValue(), v9 = v8 != 0, v8, v7 == v9) || (provider = self->_provider) != 0 && (objc_msgSend(v5, "provider"), v11 = objc_claimAutoreleasedReturnValue(), v12 = -[TRINamespaceFactorProviding isEqual:](provider, "isEqual:", v11), v11, !v12) || (v13 = self->_logDesc == 0, objc_msgSend(v5, "logDesc"), v14 = objc_claimAutoreleasedReturnValue(), v15 = v14 != 0, v14, v13 == v15))
   {
-    goto LABEL_9;
-  }
-
-  type = self->_type;
-  if (type != [providerCopy type])
-  {
-    goto LABEL_9;
-  }
-
-  v7 = self->_provider == 0;
-  provider = [v5 provider];
-  v9 = provider != 0;
-
-  if (v7 == v9)
-  {
-    goto LABEL_9;
-  }
-
-  provider = self->_provider;
-  if (provider)
-  {
-    provider2 = [v5 provider];
-    v12 = [(TRINamespaceFactorProviding *)provider isEqual:provider2];
-
-    if (!v12)
-    {
-      goto LABEL_9;
-    }
-  }
-
-  v13 = self->_logDesc == 0;
-  logDesc = [v5 logDesc];
-  v15 = logDesc != 0;
-
-  if (v13 == v15)
-  {
-LABEL_9:
     v18 = 0;
   }
 
@@ -139,8 +102,8 @@ LABEL_9:
     logDesc = self->_logDesc;
     if (logDesc)
     {
-      logDesc2 = [v5 logDesc];
-      v18 = [(NSString *)logDesc isEqual:logDesc2];
+      logDesc = [v5 logDesc];
+      v18 = [(NSString *)logDesc isEqual:logDesc];
     }
 
     else

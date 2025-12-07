@@ -25,20 +25,21 @@
 
 - (CLMiLoConnection)initWithDelegate:(id)delegate delegateQueue:(id)queue
 {
-  v11.receiver = self;
-  v11.super_class = CLMiLoConnection;
-  v6 = [(CLMiLoConnection *)&v11 init];
+  v13.receiver = self;
+  v13.super_class = CLMiLoConnection;
+  v6 = [(CLMiLoConnection *)&v13 init];
   if (v6)
   {
-    v7 = [[CLMiLoConnectionInternal alloc] initWithInfo:v6 delegate:delegate delegateQueue:queue];
-    v6->_internal = v7;
-    internalQueue = v7->_internalQueue;
+    v7 = [CLMiLoConnectionInternal alloc];
+    v9 = objc_msgSend_initWithInfo_delegate_delegateQueue_(v7, v8, v6, delegate, queue);
+    v6->_internal = v9;
+    v10 = *(v9 + 16);
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = sub_19BA0A574;
     block[3] = &unk_1E753CC90;
     block[4] = v6;
-    dispatch_sync(internalQueue, block);
+    dispatch_sync(v10, block);
   }
 
   return v6;
@@ -64,12 +65,14 @@
 {
   if (!types)
   {
-    [objc_msgSend(MEMORY[0x1E696AAA8] "currentHandler")];
+    v10 = objc_msgSend_currentHandler(MEMORY[0x1E696AAA8], a2, type, 0);
+    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v10, v11, a2, self, @"CLMiLoConnection.mm", 1317, @"Invalid parameter not satisfying: %@", @"locationTypes");
   }
 
   if (type - 5 <= 0xFFFFFFFFFFFFFFFBLL)
   {
-    [objc_msgSend(MEMORY[0x1E696AAA8] "currentHandler")];
+    v12 = objc_msgSend_currentHandler(MEMORY[0x1E696AAA8], a2, type, types);
+    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v12, v13, a2, self, @"CLMiLoConnection.mm", 1318, @"Invalid parameter not satisfying: %@", @"serviceType > CLMiLoServiceTypeNone && serviceType < CLMiLoServiceTypeMax");
   }
 
   internal = self->_internal;
@@ -88,7 +91,8 @@
 {
   if (!identifier)
   {
-    [objc_msgSend(MEMORY[0x1E696AAA8] "currentHandler")];
+    v9 = objc_msgSend_currentHandler(MEMORY[0x1E696AAA8], a2, 0, v3);
+    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v9, v10, a2, self, @"CLMiLoConnection.mm", 1327, @"Invalid parameter not satisfying: %@", @"serviceIdentifier");
   }
 
   internal = self->_internal;
@@ -130,7 +134,8 @@
 {
   if (!identifier)
   {
-    [objc_msgSend(MEMORY[0x1E696AAA8] "currentHandler")];
+    v9 = objc_msgSend_currentHandler(MEMORY[0x1E696AAA8], a2, 0, v3);
+    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v9, v10, a2, self, @"CLMiLoConnection.mm", 1352, @"Invalid parameter not satisfying: %@", @"serviceIdentifier");
   }
 
   internal = self->_internal;
@@ -148,7 +153,8 @@
 {
   if (!identifier)
   {
-    [objc_msgSend(MEMORY[0x1E696AAA8] "currentHandler")];
+    v9 = objc_msgSend_currentHandler(MEMORY[0x1E696AAA8], a2, 0, v3);
+    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v9, v10, a2, self, @"CLMiLoConnection.mm", 1361, @"Invalid parameter not satisfying: %@", @"serviceIdentifier");
   }
 
   internal = self->_internal;
@@ -164,22 +170,22 @@
 
 - (id)requestMiLoPrediction
 {
-  uUID = [MEMORY[0x1E696AFB0] UUID];
+  v5 = objc_msgSend_UUID(MEMORY[0x1E696AFB0], a2, v2, v3);
   internal = self->_internal;
   internalQueue = internal->_internalQueue;
-  v7[0] = MEMORY[0x1E69E9820];
-  v7[1] = 3221225472;
-  v7[2] = sub_19BA0ABE0;
-  v7[3] = &unk_1E753CF38;
-  v7[4] = internal;
-  v7[5] = uUID;
-  dispatch_async(internalQueue, v7);
-  return uUID;
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = sub_19BA0ABE0;
+  v9[3] = &unk_1E753CF38;
+  v9[4] = internal;
+  v9[5] = v5;
+  dispatch_async(internalQueue, v9);
+  return v5;
 }
 
 - (id)requestObservation:(id)observation
 {
-  uUID = [MEMORY[0x1E696AFB0] UUID];
+  v6 = objc_msgSend_UUID(MEMORY[0x1E696AFB0], a2, observation, v3);
   internal = self->_internal;
   internalQueue = internal->_internalQueue;
   block[0] = MEMORY[0x1E69E9820];
@@ -187,24 +193,26 @@
   block[2] = sub_19BA0AC90;
   block[3] = &unk_1E753D098;
   block[4] = internal;
-  block[5] = uUID;
+  block[5] = v6;
   block[6] = observation;
   dispatch_async(internalQueue, block);
-  return uUID;
+  return v6;
 }
 
 - (id)labelObservationWithRequestIdentifier:(id)identifier withPlaceIdentifier:(id)placeIdentifier
 {
   if (!identifier)
   {
-    [objc_msgSend(MEMORY[0x1E696AAA8] "currentHandler")];
+    v12 = objc_msgSend_currentHandler(MEMORY[0x1E696AAA8], a2, 0, placeIdentifier);
+    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v12, v13, a2, self, @"CLMiLoConnection.mm", 1391, @"Invalid parameter not satisfying: %@", @"observationIdentifier");
     if (placeIdentifier)
     {
       goto LABEL_3;
     }
 
 LABEL_5:
-    [objc_msgSend(MEMORY[0x1E696AAA8] "currentHandler")];
+    v14 = objc_msgSend_currentHandler(MEMORY[0x1E696AAA8], a2, identifier, placeIdentifier);
+    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v14, v15, a2, self, @"CLMiLoConnection.mm", 1392, @"Invalid parameter not satisfying: %@", @"placeLabel");
     goto LABEL_3;
   }
 
@@ -214,7 +222,7 @@ LABEL_5:
   }
 
 LABEL_3:
-  uUID = [MEMORY[0x1E696AFB0] UUID];
+  v8 = objc_msgSend_UUID(MEMORY[0x1E696AFB0], a2, identifier, placeIdentifier);
   internal = self->_internal;
   internalQueue = internal->_internalQueue;
   block[0] = MEMORY[0x1E69E9820];
@@ -222,11 +230,11 @@ LABEL_3:
   block[2] = sub_19BA0ADCC;
   block[3] = &unk_1E753EB30;
   block[4] = internal;
-  block[5] = uUID;
+  block[5] = v8;
   block[6] = placeIdentifier;
   block[7] = identifier;
   dispatch_async(internalQueue, block);
-  return uUID;
+  return v8;
 }
 
 - (id)labelObservationsWithStartDate:(id)date endDate:(id)endDate placeIdentifier:(id)identifier
@@ -239,18 +247,21 @@ LABEL_3:
     }
 
 LABEL_6:
-    [objc_msgSend(MEMORY[0x1E696AAA8] "currentHandler")];
+    v16 = objc_msgSend_currentHandler(MEMORY[0x1E696AAA8], a2, date, endDate);
+    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v16, v17, a2, self, @"CLMiLoConnection.mm", 1412, @"Invalid parameter not satisfying: %@", @"endDate");
     if (identifier)
     {
       goto LABEL_4;
     }
 
 LABEL_7:
-    [objc_msgSend(MEMORY[0x1E696AAA8] "currentHandler")];
+    v18 = objc_msgSend_currentHandler(MEMORY[0x1E696AAA8], a2, date, endDate);
+    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v18, v19, a2, self, @"CLMiLoConnection.mm", 1413, @"Invalid parameter not satisfying: %@", @"placeLabel");
     goto LABEL_4;
   }
 
-  [objc_msgSend(MEMORY[0x1E696AAA8] "currentHandler")];
+  v14 = objc_msgSend_currentHandler(MEMORY[0x1E696AAA8], a2, 0, endDate);
+  objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v14, v15, a2, self, @"CLMiLoConnection.mm", 1411, @"Invalid parameter not satisfying: %@", @"startDate");
   if (!endDate)
   {
     goto LABEL_6;
@@ -263,7 +274,7 @@ LABEL_3:
   }
 
 LABEL_4:
-  uUID = [MEMORY[0x1E696AFB0] UUID];
+  v10 = objc_msgSend_UUID(MEMORY[0x1E696AFB0], a2, date, endDate);
   internal = self->_internal;
   internalQueue = internal->_internalQueue;
   block[0] = MEMORY[0x1E69E9820];
@@ -274,19 +285,20 @@ LABEL_4:
   block[5] = date;
   block[6] = endDate;
   block[7] = identifier;
-  block[8] = uUID;
+  block[8] = v10;
   dispatch_async(internalQueue, block);
-  return uUID;
+  return v10;
 }
 
 - (id)removeLabels:(id)labels
 {
   if (!labels)
   {
-    [objc_msgSend(MEMORY[0x1E696AAA8] "currentHandler")];
+    v11 = objc_msgSend_currentHandler(MEMORY[0x1E696AAA8], a2, 0, v3);
+    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v11, v12, a2, self, @"CLMiLoConnection.mm", 1430, @"Invalid parameter not satisfying: %@", @"labels");
   }
 
-  uUID = [MEMORY[0x1E696AFB0] UUID];
+  v6 = objc_msgSend_UUID(MEMORY[0x1E696AFB0], a2, labels, v3);
   internal = self->_internal;
   internalQueue = internal->_internalQueue;
   block[0] = MEMORY[0x1E69E9820];
@@ -295,19 +307,20 @@ LABEL_4:
   block[3] = &unk_1E753D098;
   block[4] = internal;
   block[5] = labels;
-  block[6] = uUID;
+  block[6] = v6;
   dispatch_async(internalQueue, block);
-  return uUID;
+  return v6;
 }
 
 - (id)removeCustomLocationOfInterestWithIdentifier:(id)identifier
 {
   if (!identifier)
   {
-    [objc_msgSend(MEMORY[0x1E696AAA8] "currentHandler")];
+    v11 = objc_msgSend_currentHandler(MEMORY[0x1E696AAA8], a2, 0, v3);
+    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v11, v12, a2, self, @"CLMiLoConnection.mm", 1441, @"Invalid parameter not satisfying: %@", @"identifier");
   }
 
-  uUID = [MEMORY[0x1E696AFB0] UUID];
+  v6 = objc_msgSend_UUID(MEMORY[0x1E696AFB0], a2, identifier, v3);
   internal = self->_internal;
   internalQueue = internal->_internalQueue;
   block[0] = MEMORY[0x1E69E9820];
@@ -316,19 +329,20 @@ LABEL_4:
   block[3] = &unk_1E753D098;
   block[4] = internal;
   block[5] = identifier;
-  block[6] = uUID;
+  block[6] = v6;
   dispatch_async(internalQueue, block);
-  return uUID;
+  return v6;
 }
 
 - (id)startUpdatingMicroLocationWithConfiguration:(id)configuration
 {
   if (!configuration)
   {
-    [objc_msgSend(MEMORY[0x1E696AAA8] "currentHandler")];
+    v11 = objc_msgSend_currentHandler(MEMORY[0x1E696AAA8], a2, 0, v3);
+    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v11, v12, a2, self, @"CLMiLoConnection.mm", 1452, @"Invalid parameter not satisfying: %@", @"configuration");
   }
 
-  uUID = [MEMORY[0x1E696AFB0] UUID];
+  v6 = objc_msgSend_UUID(MEMORY[0x1E696AFB0], a2, configuration, v3);
   internal = self->_internal;
   internalQueue = internal->_internalQueue;
   block[0] = MEMORY[0x1E69E9820];
@@ -337,84 +351,84 @@ LABEL_4:
   block[3] = &unk_1E753D098;
   block[4] = internal;
   block[5] = configuration;
-  block[6] = uUID;
+  block[6] = v6;
   dispatch_async(internalQueue, block);
-  return uUID;
+  return v6;
 }
 
 - (id)stopUpdatingMicroLocation
 {
-  uUID = [MEMORY[0x1E696AFB0] UUID];
+  v5 = objc_msgSend_UUID(MEMORY[0x1E696AFB0], a2, v2, v3);
   internal = self->_internal;
   internalQueue = internal->_internalQueue;
-  v7[0] = MEMORY[0x1E69E9820];
-  v7[1] = 3221225472;
-  v7[2] = sub_19BA0B2F0;
-  v7[3] = &unk_1E753CF38;
-  v7[4] = internal;
-  v7[5] = uUID;
-  dispatch_async(internalQueue, v7);
-  return uUID;
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = sub_19BA0B2F0;
+  v9[3] = &unk_1E753CF38;
+  v9[4] = internal;
+  v9[5] = v5;
+  dispatch_async(internalQueue, v9);
+  return v5;
 }
 
 - (id)requestModelLearning
 {
-  uUID = [MEMORY[0x1E696AFB0] UUID];
+  v5 = objc_msgSend_UUID(MEMORY[0x1E696AFB0], a2, v2, v3);
   internal = self->_internal;
   internalQueue = internal->_internalQueue;
-  v7[0] = MEMORY[0x1E69E9820];
-  v7[1] = 3221225472;
-  v7[2] = sub_19BA0B390;
-  v7[3] = &unk_1E753CF38;
-  v7[4] = internal;
-  v7[5] = uUID;
-  dispatch_async(internalQueue, v7);
-  return uUID;
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = sub_19BA0B390;
+  v9[3] = &unk_1E753CF38;
+  v9[4] = internal;
+  v9[5] = v5;
+  dispatch_async(internalQueue, v9);
+  return v5;
 }
 
 - (id)purgeAllMiLoData
 {
-  uUID = [MEMORY[0x1E696AFB0] UUID];
+  v5 = objc_msgSend_UUID(MEMORY[0x1E696AFB0], a2, v2, v3);
   internal = self->_internal;
   internalQueue = internal->_internalQueue;
-  v7[0] = MEMORY[0x1E69E9820];
-  v7[1] = 3221225472;
-  v7[2] = sub_19BA0B430;
-  v7[3] = &unk_1E753CF38;
-  v7[4] = internal;
-  v7[5] = uUID;
-  dispatch_async(internalQueue, v7);
-  return uUID;
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = sub_19BA0B430;
+  v9[3] = &unk_1E753CF38;
+  v9[4] = internal;
+  v9[5] = v5;
+  dispatch_async(internalQueue, v9);
+  return v5;
 }
 
 - (id)requestExportDatabase
 {
-  uUID = [MEMORY[0x1E696AFB0] UUID];
+  v5 = objc_msgSend_UUID(MEMORY[0x1E696AFB0], a2, v2, v3);
   internal = self->_internal;
   internalQueue = internal->_internalQueue;
-  v7[0] = MEMORY[0x1E69E9820];
-  v7[1] = 3221225472;
-  v7[2] = sub_19BA0B4D0;
-  v7[3] = &unk_1E753CF38;
-  v7[4] = internal;
-  v7[5] = uUID;
-  dispatch_async(internalQueue, v7);
-  return uUID;
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = sub_19BA0B4D0;
+  v9[3] = &unk_1E753CF38;
+  v9[4] = internal;
+  v9[5] = v5;
+  dispatch_async(internalQueue, v9);
+  return v5;
 }
 
 - (id)createCustomLocationOfInterestAtCurrentLocation
 {
-  uUID = [MEMORY[0x1E696AFB0] UUID];
+  v5 = objc_msgSend_UUID(MEMORY[0x1E696AFB0], a2, v2, v3);
   internal = self->_internal;
   internalQueue = internal->_internalQueue;
-  v7[0] = MEMORY[0x1E69E9820];
-  v7[1] = 3221225472;
-  v7[2] = sub_19BA0B570;
-  v7[3] = &unk_1E753CF38;
-  v7[4] = internal;
-  v7[5] = uUID;
-  dispatch_async(internalQueue, v7);
-  return uUID;
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = sub_19BA0B570;
+  v9[3] = &unk_1E753CF38;
+  v9[4] = internal;
+  v9[5] = v5;
+  dispatch_async(internalQueue, v9);
+  return v5;
 }
 
 @end

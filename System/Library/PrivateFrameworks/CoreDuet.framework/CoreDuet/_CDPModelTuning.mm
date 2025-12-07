@@ -24,7 +24,7 @@
 
 - (void)resumeTuningWithState:(id)state
 {
-  *&v32[5] = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   stateCopy = state;
   if (!stateCopy)
   {
@@ -69,22 +69,22 @@ LABEL_6:
         *&v15 = v10;
         *&v16 = v14;
         [(_CDPSimpleModel *)self->_model setLambda:v15 w0:v16];
-        v30 = 0.0;
-        [(_CDPModelTuning *)self _testModelWithThreshold:&v30];
+        v29 = 0.0;
+        [(_CDPModelTuning *)self _testModelWithThreshold:&v29];
         v18 = v17;
         [(_CDPModelTuningState *)self->_currentState bestScore];
         if (v18 > v19)
         {
           if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
           {
-            [(_CDPModelTuning *)buf resumeTuningWithState:v32, v18];
+            [(_CDPModelTuning *)buf resumeTuningWithState:v18];
           }
 
           *&v20 = v9;
           [(_CDPModelTuningState *)self->_currentState setBestLogLambda:v20];
           *&v21 = v14;
           [(_CDPModelTuningState *)self->_currentState setBestW0:v21];
-          *&v22 = v30;
+          *&v22 = v29;
           [(_CDPModelTuningState *)self->_currentState setBestThreshold:v22];
           *&v23 = v18;
           [(_CDPModelTuningState *)self->_currentState setBestScore:v23];
@@ -94,13 +94,13 @@ LABEL_6:
 
         if (heartBeat)
         {
-          v29 = 0;
+          v28 = 0;
           heartBeat2 = [(_CDPModelTuning *)self heartBeat];
-          v26 = v30;
+          v26 = v29;
           [(_CDPModelTuningState *)self->_currentState progress];
-          (heartBeat2)[2](heartBeat2, self, &v29, v10, v14, v26, v18, v27);
+          (heartBeat2)[2](heartBeat2, self, &v28, v10, v14, v26, v18, v27);
 
-          if (v29 == 1)
+          if (v28 == 1)
           {
             break;
           }
@@ -121,8 +121,6 @@ LABEL_6:
   }
 
 LABEL_20:
-
-  v28 = *MEMORY[0x1E69E9840];
 }
 
 + (void)_enumerateSubsetsOfSet:(unsigned int *)set setLength:(unint64_t)length index:(unint64_t)index subset:(unsigned int *)subset subsetLength:(unint64_t)subsetLength index:(unint64_t)a8 callback:(id)callback

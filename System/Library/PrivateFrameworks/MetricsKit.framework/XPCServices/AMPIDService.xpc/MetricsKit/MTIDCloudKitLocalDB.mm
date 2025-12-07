@@ -9,6 +9,7 @@
 - (MTIDCloudKitLocalDBDelegate)delegate;
 - (id)allRecords;
 - (id)dataForName:(id)name error:(id *)error;
+- (id)decodeRecordFromData:(id)data recordID:(id)d isSynchronized:(BOOL)synchronized;
 - (id)encodeRecord:(id)record;
 - (id)pendingRecordIDs;
 - (id)recordWithID:(id)d error:(id *)error;
@@ -26,9 +27,9 @@
   identifierCopy = identifier;
   typeCopy = type;
   dCopy = d;
-  v37.receiver = self;
-  v37.super_class = MTIDCloudKitLocalDB;
-  v11 = [(MTIDCloudKitLocalDB *)&v37 init];
+  v38.receiver = self;
+  v38.super_class = MTIDCloudKitLocalDB;
+  v11 = [(MTIDCloudKitLocalDB *)&v38 init];
   v12 = v11;
   if (v11)
   {
@@ -45,9 +46,9 @@
 
     if (v18)
     {
-      v36 = 0;
-      v19 = [v13 createDirectoryAtURL:v18 withIntermediateDirectories:1 attributes:0 error:&v36];
-      v20 = v36;
+      v37 = 0;
+      v19 = [v13 createDirectoryAtURL:v18 withIntermediateDirectories:1 attributes:0 error:&v37];
+      v20 = v37;
       v21 = v20;
       if (v19)
       {
@@ -57,41 +58,41 @@ LABEL_7:
         goto LABEL_8;
       }
 
-      v34 = v20;
-      v35 = 0;
+      v35 = v20;
+      v36 = 0;
       path = [v18 path];
-      v23 = [v13 fileExistsAtPath:path isDirectory:&v35];
-      v24 = v35;
+      v23 = [v13 fileExistsAtPath:path isDirectory:&v36];
+      v24 = v36;
 
       if (v23 && (v24 & 1) != 0)
       {
-        v21 = v34;
+        v21 = v35;
         goto LABEL_7;
       }
 
-      v29 = MTMetricsKitOSLog();
-      if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+      v30 = MTMetricsKitOSLog(v25);
+      if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v39 = v34;
-        _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_ERROR, "MetricsKit: Error: %@", buf, 0xCu);
+        v40 = v35;
+        _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_ERROR, "MetricsKit: Error: %@", buf, 0xCu);
       }
 
       path2 = [v18 path];
-      v31 = [NSString stringWithFormat:@"Application doesn't have write access to %@", path2];
-      userInfo = [v34 userInfo];
-      v27 = [NSException exceptionWithName:@"MTIDCloudKitLocalDB" reason:v31 userInfo:userInfo];
-      v33 = v27;
+      v32 = [NSString stringWithFormat:@"Application doesn't have write access to %@", path2];
+      userInfo = [v35 userInfo];
+      v28 = [NSException exceptionWithName:@"MTIDCloudKitLocalDB" reason:v32 userInfo:userInfo];
+      v34 = v28;
     }
 
     else
     {
-      v26 = [NSString stringWithFormat:@"MTFrameworkEnvironment.sharedEnvironment.localDataPath is not valid: %@", localDataPath];
-      v27 = [NSException exceptionWithName:@"MTIDCloudKitLocalDB" reason:v26 userInfo:0];
-      v28 = v27;
+      v27 = [NSString stringWithFormat:@"MTFrameworkEnvironment.sharedEnvironment.localDataPath is not valid: %@", localDataPath];
+      v28 = [NSException exceptionWithName:@"MTIDCloudKitLocalDB" reason:v27 userInfo:0];
+      v29 = v28;
     }
 
-    objc_exception_throw(v27);
+    objc_exception_throw(v28);
   }
 
 LABEL_8:
@@ -237,19 +238,91 @@ LABEL_7:
   return encodedData2;
 }
 
+- (id)decodeRecordFromData:(id)data recordID:(id)d isSynchronized:(BOOL)synchronized
+{
+  synchronizedCopy = synchronized;
+  dCopy = d;
+  dataCopy = data;
+  v10 = [[NSKeyedUnarchiver alloc] initForReadingFromData:dataCopy error:0];
+
+  [v10 setRequiresSecureCoding:1];
+  v11 = [v10 decodeObjectOfClass:objc_opt_class() forKey:@"systemFields"];
+  if (v11)
+  {
+    v12 = [[NSKeyedUnarchiver alloc] initForReadingFromData:v11 error:0];
+    [v12 setRequiresSecureCoding:1];
+    v13 = [[CKRecord alloc] initWithCoder:v12];
+
+    if (v13)
+    {
+      recordType = [v13 recordType];
+      recordType2 = [(MTIDCloudKitLocalDB *)self recordType];
+      v16 = [recordType isEqualToString:recordType2];
+
+      if (v16)
+      {
+        goto LABEL_6;
+      }
+    }
+
+    if (dCopy)
+    {
+LABEL_5:
+      v17 = [CKRecord alloc];
+      recordType3 = [(MTIDCloudKitLocalDB *)self recordType];
+      v19 = [v17 initWithRecordType:recordType3 recordID:dCopy];
+
+      synchronizedCopy = 0;
+      v13 = v19;
+LABEL_6:
+      v20 = [v10 decodeObjectOfClass:objc_opt_class() forKey:@"namespace"];
+      [v13 setObject:v20 forKeyedSubscript:@"namespace"];
+
+      v21 = [v10 decodeObjectOfClass:objc_opt_class() forKey:@"secretKey"];
+      [v13 setObject:v21 forKeyedSubscript:@"secretKey"];
+
+      v22 = [v10 decodeObjectOfClass:objc_opt_class() forKey:@"expiration"];
+      [v13 setObject:v22 forKeyedSubscript:@"expiration"];
+
+      v23 = [v10 decodeObjectOfClass:objc_opt_class() forKey:@"secretValue"];
+      [v13 mt_setSecretValue:v23];
+
+      [v13 mt_setSynchronized:synchronizedCopy];
+      v13 = v13;
+      v24 = v13;
+      goto LABEL_9;
+    }
+  }
+
+  else
+  {
+    v13 = 0;
+    if (dCopy)
+    {
+      goto LABEL_5;
+    }
+  }
+
+  v24 = 0;
+LABEL_9:
+
+  return v24;
+}
+
 - (id)userRecordIDName
 {
-  v7 = 0;
-  v2 = [(MTIDCloudKitLocalDB *)self dataForName:@"UserRecordID" error:&v7];
-  v3 = v7;
+  v8 = 0;
+  v2 = [(MTIDCloudKitLocalDB *)self dataForName:@"UserRecordID" error:&v8];
+  v3 = v8;
+  v4 = v3;
   if (v3)
   {
-    v4 = MTMetricsKitOSLog();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = MTMetricsKitOSLog(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v9 = v3;
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_ERROR, "MetricsKit: Failed to load user record ID with error %@", buf, 0xCu);
+      v10 = v4;
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_ERROR, "MetricsKit: Failed to load user record ID with error %@", buf, 0xCu);
     }
 
     goto LABEL_5;
@@ -258,32 +331,32 @@ LABEL_7:
   if (!v2)
   {
 LABEL_5:
-    v5 = 0;
+    v6 = 0;
     goto LABEL_8;
   }
 
-  v5 = [[NSString alloc] initWithData:v2 encoding:4];
+  v6 = [[NSString alloc] initWithData:v2 encoding:4];
 LABEL_8:
 
-  return v5;
+  return v6;
 }
 
 - (BOOL)setUserRecordIDName:(id)name
 {
   nameCopy = name;
   userRecordIDName = [(MTIDCloudKitLocalDB *)self userRecordIDName];
-  if (userRecordIDName == nameCopy || ([nameCopy isEqual:userRecordIDName] & 1) != 0)
+  if (userRecordIDName == nameCopy || (v6 = [nameCopy isEqual:userRecordIDName], (v6 & 1) != 0))
   {
-    v6 = 0;
+    v7 = 0;
   }
 
   else
   {
-    v7 = MTMetricsKitOSLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+    v8 = MTMetricsKitOSLog(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEBUG, "MetricsKit: CloudKit user has changed", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEBUG, "MetricsKit: CloudKit user has changed", buf, 2u);
     }
 
     [(MTIDCloudKitLocalDB *)self clearData];
@@ -292,28 +365,28 @@ LABEL_8:
       [(MTIDCloudKitLocalDB *)self setNeedsFetchRecords:1];
     }
 
-    v8 = [nameCopy dataUsingEncoding:4];
-    v13 = 0;
-    v9 = [(MTIDCloudKitLocalDB *)self writeData:v8 forName:@"UserRecordID" error:&v13];
-    v10 = v13;
+    v9 = [nameCopy dataUsingEncoding:4];
+    v15 = 0;
+    v10 = [(MTIDCloudKitLocalDB *)self writeData:v9 forName:@"UserRecordID" error:&v15];
+    v11 = v15;
 
-    if ((v9 & 1) == 0)
+    if ((v10 & 1) == 0)
     {
-      v11 = MTMetricsKitOSLog();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v13 = MTMetricsKitOSLog(v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v15 = v10;
-        _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_ERROR, "MetricsKit: Failed to write user record ID with error %@", buf, 0xCu);
+        v17 = v11;
+        _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_ERROR, "MetricsKit: Failed to write user record ID with error %@", buf, 0xCu);
       }
     }
 
     [(MTIDCloudKitLocalDB *)self setZoneCreated:0];
 
-    v6 = 1;
+    v7 = 1;
   }
 
-  return v6;
+  return v7;
 }
 
 - (void)setNeedsFetchRecords:(BOOL)records
@@ -321,9 +394,9 @@ LABEL_8:
   if (records)
   {
     v4 = [@"1" dataUsingEncoding:4];
-    v8 = 0;
-    [(MTIDCloudKitLocalDB *)self writeData:v4 forName:@"NeedsFetch" error:&v8];
-    v5 = v8;
+    v9 = 0;
+    [(MTIDCloudKitLocalDB *)self writeData:v4 forName:@"NeedsFetch" error:&v9];
+    v5 = v9;
 
     if (!v5)
     {
@@ -333,21 +406,22 @@ LABEL_8:
 
   else
   {
-    v7 = 0;
-    [(MTIDCloudKitLocalDB *)self deleteIfExists:@"NeedsFetch" error:&v7];
-    v5 = v7;
-    if (!v5)
+    v8 = 0;
+    [(MTIDCloudKitLocalDB *)self deleteIfExists:@"NeedsFetch" error:&v8];
+    v6 = v8;
+    v5 = v6;
+    if (!v6)
     {
       goto LABEL_8;
     }
   }
 
-  v6 = MTMetricsKitOSLog();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+  v7 = MTMetricsKitOSLog(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
     *buf = 138412290;
-    v10 = v5;
-    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_ERROR, "MetricsKit: Failed to write fetch file with error %@", buf, 0xCu);
+    v11 = v5;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_ERROR, "MetricsKit: Failed to write fetch file with error %@", buf, 0xCu);
   }
 
 LABEL_8:
@@ -355,50 +429,51 @@ LABEL_8:
 
 - (id)syncStatusCode
 {
-  v7 = 0;
-  v2 = [(MTIDCloudKitLocalDB *)self dataForName:@"SyncEngineStatus" error:&v7];
-  v3 = v7;
+  v8 = 0;
+  v2 = [(MTIDCloudKitLocalDB *)self dataForName:@"SyncEngineStatus" error:&v8];
+  v3 = v8;
+  v4 = v3;
   if (v3)
   {
-    v4 = MTMetricsKitOSLog();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = MTMetricsKitOSLog(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v9 = v3;
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_ERROR, "MetricsKit: Failed to load sync engine status with error %@", buf, 0xCu);
+      v10 = v4;
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_ERROR, "MetricsKit: Failed to load sync engine status with error %@", buf, 0xCu);
     }
 
-    v5 = 0;
+    v6 = 0;
   }
 
   else if (v2)
   {
-    v5 = [[NSString alloc] initWithData:v2 encoding:4];
+    v6 = [[NSString alloc] initWithData:v2 encoding:4];
   }
 
   else
   {
-    v5 = @"Starting";
+    v6 = @"Starting";
   }
 
-  return v5;
+  return v6;
 }
 
 - (void)setSyncStatusCode:(id)code
 {
   v4 = [code dataUsingEncoding:4];
-  v8 = 0;
-  v5 = [(MTIDCloudKitLocalDB *)self writeData:v4 forName:@"SyncEngineStatus" error:&v8];
-  v6 = v8;
+  v9 = 0;
+  v5 = [(MTIDCloudKitLocalDB *)self writeData:v4 forName:@"SyncEngineStatus" error:&v9];
+  v6 = v9;
 
   if ((v5 & 1) == 0)
   {
-    v7 = MTMetricsKitOSLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = MTMetricsKitOSLog(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v10 = v6;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_ERROR, "MetricsKit: Failed to write sync engine status with error %@", buf, 0xCu);
+      v11 = v6;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_ERROR, "MetricsKit: Failed to write sync engine status with error %@", buf, 0xCu);
     }
   }
 }
@@ -411,26 +486,27 @@ LABEL_8:
   recordID = [recordCopy recordID];
   mt_syncingFileName = [recordID mt_syncingFileName];
 
-  if (![recordCopy mt_isSynchronized])
+  mt_isSynchronized = [recordCopy mt_isSynchronized];
+  if (!mt_isSynchronized)
   {
-    v16 = MTMetricsKitOSLog();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+    v17 = MTMetricsKitOSLog(mt_isSynchronized);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
     {
       recordID2 = [recordCopy recordID];
       recordName = [recordID2 recordName];
-      v19 = [recordCopy objectForKeyedSubscript:@"namespace"];
-      v25 = 138412546;
-      v26 = recordName;
-      v27 = 2112;
-      v28 = v19;
-      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEBUG, "MetricsKit: Saving unsynchronized record with ID %@ for namespace %@", &v25, 0x16u);
+      v20 = [recordCopy objectForKeyedSubscript:@"namespace"];
+      v26 = 138412546;
+      v27 = recordName;
+      v28 = 2112;
+      v29 = v20;
+      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEBUG, "MetricsKit: Saving unsynchronized record with ID %@ for namespace %@", &v26, 0x16u);
     }
 
     recordID3 = [recordCopy recordID];
     mt_syncedFileName = [recordID3 mt_syncedFileName];
-    v22 = [(MTIDCloudKitLocalDB *)selfCopy deleteIfExists:mt_syncedFileName error:error];
+    v23 = [(MTIDCloudKitLocalDB *)selfCopy deleteIfExists:mt_syncedFileName error:error];
 
-    if (v22)
+    if (v23)
     {
       goto LABEL_9;
     }
@@ -440,17 +516,17 @@ LABEL_11:
     goto LABEL_12;
   }
 
-  v10 = MTMetricsKitOSLog();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+  v11 = MTMetricsKitOSLog(mt_isSynchronized);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
     recordID4 = [recordCopy recordID];
     recordName2 = [recordID4 recordName];
-    v13 = [recordCopy objectForKeyedSubscript:@"namespace"];
-    v25 = 138412546;
-    v26 = recordName2;
-    v27 = 2112;
-    v28 = v13;
-    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEBUG, "MetricsKit: Saving synchronized record with ID %@ for namespace %@", &v25, 0x16u);
+    v14 = [recordCopy objectForKeyedSubscript:@"namespace"];
+    v26 = 138412546;
+    v27 = recordName2;
+    v28 = 2112;
+    v29 = v14;
+    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEBUG, "MetricsKit: Saving synchronized record with ID %@ for namespace %@", &v26, 0x16u);
   }
 
   if (![(MTIDCloudKitLocalDB *)selfCopy deleteIfExists:mt_syncingFileName error:error])
@@ -463,8 +539,8 @@ LABEL_11:
 
   mt_syncingFileName = mt_syncedFileName2;
 LABEL_9:
-  v23 = [(MTIDCloudKitLocalDB *)selfCopy encodeRecord:recordCopy];
-  LODWORD(error) = [(MTIDCloudKitLocalDB *)selfCopy writeData:v23 forName:mt_syncingFileName error:error];
+  v24 = [(MTIDCloudKitLocalDB *)selfCopy encodeRecord:recordCopy];
+  LODWORD(error) = [(MTIDCloudKitLocalDB *)selfCopy writeData:v24 forName:mt_syncingFileName error:error];
 
   if (error)
   {
@@ -500,19 +576,20 @@ LABEL_12:
     v12 = [(MTIDCloudKitLocalDB *)selfCopy decodeRecordFromData:v11 recordID:dCopy isSynchronized:v9];
     if (!v12)
     {
-      v17 = 0;
-      v13 = [(MTIDCloudKitLocalDB *)selfCopy deleteIfExists:mt_syncedFileName error:&v17];
-      v14 = v17;
+      v18 = 0;
+      v13 = [(MTIDCloudKitLocalDB *)selfCopy deleteIfExists:mt_syncedFileName error:&v18];
+      v14 = v18;
+      v15 = v14;
       if ((v13 & 1) == 0)
       {
-        v15 = MTMetricsKitOSLog();
-        if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+        v16 = MTMetricsKitOSLog(v14);
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412546;
-          v19 = mt_syncedFileName;
-          v20 = 2112;
-          v21 = v14;
-          _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_ERROR, "MetricsKit: Failed to delete corrupted data file %@ error %@", buf, 0x16u);
+          v20 = mt_syncedFileName;
+          v21 = 2112;
+          v22 = v15;
+          _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_ERROR, "MetricsKit: Failed to delete corrupted data file %@ error %@", buf, 0x16u);
         }
       }
     }
@@ -592,7 +669,7 @@ LABEL_2:
 
 - (void)clearData
 {
-  v3 = MTMetricsKitOSLog();
+  v3 = MTMetricsKitOSLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     *buf = 0;
@@ -607,7 +684,7 @@ LABEL_2:
 
   v8 = 0;
   *&v9 = 138412546;
-  v15 = v9;
+  v16 = v9;
   while (1)
   {
     nextObject = [v7 nextObject];
@@ -617,29 +694,30 @@ LABEL_2:
       break;
     }
 
-    v16 = 0;
-    v11 = [v5 removeItemAtURL:nextObject error:&v16];
-    v12 = v16;
+    v17 = 0;
+    v11 = [v5 removeItemAtURL:nextObject error:&v17];
+    v12 = v17;
+    v13 = v12;
     if (v12)
     {
-      v13 = v11;
+      v14 = v11;
     }
 
     else
     {
-      v13 = 1;
+      v14 = 1;
     }
 
-    if ((v13 & 1) == 0)
+    if ((v14 & 1) == 0)
     {
-      v14 = MTMetricsKitOSLog();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v15 = MTMetricsKitOSLog(v12);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
-        *buf = v15;
-        v18 = nextObject;
-        v19 = 2112;
-        v20 = v12;
-        _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_ERROR, "MetricsKit: Failed to remove local record data %@ with error %@", buf, 0x16u);
+        *buf = v16;
+        v19 = nextObject;
+        v20 = 2112;
+        v21 = v13;
+        _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_ERROR, "MetricsKit: Failed to remove local record data %@ with error %@", buf, 0x16u);
       }
     }
 

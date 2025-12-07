@@ -4,6 +4,7 @@
 - (NEVPNIKEv1ProposalParameters)initWithCoder:(id)coder;
 - (id)copyLegacyDictionary;
 - (id)copyWithZone:(_NSZone *)zone;
+- (id)descriptionWithIndent:(int)indent options:(unint64_t)options;
 - (id)initFromLegacyDictionary:(id)dictionary;
 - (void)encodeWithCoder:(id)coder;
 @end
@@ -81,9 +82,9 @@ LABEL_15:
   if (v7)
   {
     v8 = [dictionaryCopy objectForKeyedSubscript:@"EncryptionAlgorithm"];
-    v9 = [@"DES" isEqualToString:v8];
+    isEqualToString = objc_msgSend_isEqualToString_(@"DES");
 
-    if (v9)
+    if (isEqualToString)
     {
       v10 = 1;
     }
@@ -91,7 +92,7 @@ LABEL_15:
     else
     {
       v11 = [dictionaryCopy objectForKeyedSubscript:@"EncryptionAlgorithm"];
-      v12 = [@"3DES" isEqualToString:v11];
+      v12 = objc_msgSend_isEqualToString_(@"3DES");
 
       if (v12)
       {
@@ -101,7 +102,7 @@ LABEL_15:
       else
       {
         v13 = [dictionaryCopy objectForKeyedSubscript:@"EncryptionAlgorithm"];
-        v14 = [@"AES" isEqualToString:v13];
+        v14 = objc_msgSend_isEqualToString_(@"AES");
 
         if (v14)
         {
@@ -111,7 +112,7 @@ LABEL_15:
         else
         {
           v15 = [dictionaryCopy objectForKeyedSubscript:@"EncryptionAlgorithm"];
-          v16 = [@"AES256" isEqualToString:v15];
+          v16 = objc_msgSend_isEqualToString_(@"AES256");
 
           if (!v16)
           {
@@ -133,7 +134,7 @@ LABEL_12:
   if (v18)
   {
     v19 = [dictionaryCopy objectForKeyedSubscript:@"HashAlgorithm"];
-    v20 = [@"SHA1" isEqualToString:v19];
+    v20 = objc_msgSend_isEqualToString_(@"SHA1");
 
     if (v20)
     {
@@ -144,7 +145,7 @@ LABEL_17:
     }
 
     v22 = [dictionaryCopy objectForKeyedSubscript:@"HashAlgorithm"];
-    v23 = [@"MD5" isEqualToString:v22];
+    v23 = objc_msgSend_isEqualToString_(@"MD5");
 
     if (v23)
     {
@@ -208,6 +209,60 @@ LABEL_22:
   }
 
   return v4;
+}
+
+- (id)descriptionWithIndent:(int)indent options:(unint64_t)options
+{
+  v5 = *&indent;
+  v7 = objc_alloc_init(MEMORY[0x1E696AD60]);
+  if ([(NEVPNIKEv1ProposalParameters *)self encryptionAlgorithm]== 1)
+  {
+    v8 = @"DES";
+  }
+
+  else if ([(NEVPNIKEv1ProposalParameters *)self encryptionAlgorithm]== 2)
+  {
+    v8 = @"3DES";
+  }
+
+  else if ([(NEVPNIKEv1ProposalParameters *)self encryptionAlgorithm]== 3)
+  {
+    v8 = @"AES";
+  }
+
+  else
+  {
+    if ([(NEVPNIKEv1ProposalParameters *)self encryptionAlgorithm]!= 4)
+    {
+      goto LABEL_10;
+    }
+
+    v8 = @"AES-256";
+  }
+
+  [v7 appendPrettyObject:v8 withName:@"encryptionAlgorithm" andIndent:v5 options:options];
+LABEL_10:
+  if ([(NEVPNIKEv1ProposalParameters *)self integrityAlgorithm]== 1)
+  {
+    v9 = @"SHA1";
+  }
+
+  else
+  {
+    if ([(NEVPNIKEv1ProposalParameters *)self integrityAlgorithm]!= 2)
+    {
+      goto LABEL_15;
+    }
+
+    v9 = @"MD5";
+  }
+
+  [v7 appendPrettyObject:v9 withName:@"integrityAlgorithm" andIndent:v5 options:options];
+LABEL_15:
+  [v7 appendPrettyInt:-[NEVPNIKEv1ProposalParameters diffieHellmanGroup](self withName:"diffieHellmanGroup") andIndent:@"diffieHellmanGroup" options:{v5, options}];
+  [v7 appendPrettyInt:-[NEVPNIKEv1ProposalParameters lifetimeSeconds](self withName:"lifetimeSeconds") andIndent:@"lifetimeSeconds" options:{v5, options}];
+
+  return v7;
 }
 
 - (void)encodeWithCoder:(id)coder

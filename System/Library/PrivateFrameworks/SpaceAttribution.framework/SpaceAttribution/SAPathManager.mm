@@ -38,42 +38,42 @@ uint64_t __31__SAPathManager_defaultManager__block_invoke(uint64_t a1)
 
 - (id)checkUnAllowedBundleIDs:(id)ds
 {
-  v25[4] = *MEMORY[0x277D85DE8];
+  v24[4] = *MEMORY[0x277D85DE8];
   dsCopy = ds;
-  v25[0] = @"com.apple.fakeapp.System";
-  v25[1] = @"com.apple.fakeapp.SystemData";
-  v25[2] = @"com.apple.fakeapp.SoftwareUpdate";
-  v25[3] = @"com.apple.fakeapp.SoftwareUpdateReserve";
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:4];
+  v24[0] = @"com.apple.fakeapp.System";
+  v24[1] = @"com.apple.fakeapp.SystemData";
+  v24[2] = @"com.apple.fakeapp.SoftwareUpdate";
+  v24[3] = @"com.apple.fakeapp.SoftwareUpdateReserve";
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:4];
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   v5 = dsCopy;
-  v6 = [v5 countByEnumeratingWithState:&v18 objects:v24 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v17 objects:v23 count:16];
   if (v6)
   {
-    v7 = *v19;
+    v7 = *v18;
     while (2)
     {
       for (i = 0; i != v6; i = i + 1)
       {
-        if (*v19 != v7)
+        if (*v18 != v7)
         {
           objc_enumerationMutation(v5);
         }
 
-        v9 = *(*(&v18 + 1) + 8 * i);
+        v9 = *(*(&v17 + 1) + 8 * i);
         v10 = objc_autoreleasePoolPush();
         bundleID = [v9 bundleID];
         if ([v4 containsObject:bundleID])
         {
           v12 = MEMORY[0x277CCA9B8];
           v13 = *MEMORY[0x277CCA5B8];
-          v22 = *MEMORY[0x277CCA450];
+          v21 = *MEMORY[0x277CCA450];
           v14 = [MEMORY[0x277CCACA8] stringWithFormat:@"Un-allowed bundleID"];
-          v23 = v14;
-          v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v23 forKeys:&v22 count:1];
+          v22 = v14;
+          v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v22 forKeys:&v21 count:1];
           v6 = [v12 errorWithDomain:v13 code:22 userInfo:v15];
 
           objc_autoreleasePoolPop(v10);
@@ -83,7 +83,7 @@ uint64_t __31__SAPathManager_defaultManager__block_invoke(uint64_t a1)
         objc_autoreleasePoolPop(v10);
       }
 
-      v6 = [v5 countByEnumeratingWithState:&v18 objects:v24 count:16];
+      v6 = [v5 countByEnumeratingWithState:&v17 objects:v23 count:16];
       if (v6)
       {
         continue;
@@ -94,8 +94,6 @@ uint64_t __31__SAPathManager_defaultManager__block_invoke(uint64_t a1)
   }
 
 LABEL_11:
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -123,7 +121,7 @@ LABEL_11:
 
 void __37__SAPathManager_checkUnAllowedPaths___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
-  v40[1] = *MEMORY[0x277D85DE8];
+  v39[1] = *MEMORY[0x277D85DE8];
   v6 = a2;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -136,13 +134,13 @@ void __37__SAPathManager_checkUnAllowedPaths___block_invoke(uint64_t a1, void *a
     {
       v10 = MEMORY[0x277CCA9B8];
       v11 = *MEMORY[0x277CCA5B8];
-      v37 = *MEMORY[0x277CCA450];
+      v36 = *MEMORY[0x277CCA450];
       v12 = MEMORY[0x277CCACA8];
       v13 = [v6 url];
       v14 = [v6 bundleID];
       v15 = [v12 stringWithFormat:@"Path (%@) is not permitted to be registered for bundle (%@)", v13, v14];
-      v38 = v15;
-      v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v38 forKeys:&v37 count:1];
+      v37 = v15;
+      v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v37 forKeys:&v36 count:1];
       v17 = [v10 errorWithDomain:v11 code:1 userInfo:v16];
       v18 = *(*(a1 + 32) + 8);
       v19 = *(v18 + 40);
@@ -151,29 +149,29 @@ void __37__SAPathManager_checkUnAllowedPaths___block_invoke(uint64_t a1, void *a
 
     else
     {
-      v34[0] = MEMORY[0x277D85DD0];
-      v34[1] = 3221225472;
-      v34[2] = __37__SAPathManager_checkUnAllowedPaths___block_invoke_2;
-      v34[3] = &unk_279CD6E58;
+      v33[0] = MEMORY[0x277D85DD0];
+      v33[1] = 3221225472;
+      v33[2] = __37__SAPathManager_checkUnAllowedPaths___block_invoke_2;
+      v33[3] = &unk_279CD6E58;
       v26 = v6;
       v27 = *(a1 + 32);
-      v35 = v26;
-      v36 = v27;
-      [&unk_287BCCB98 enumerateObjectsUsingBlock:v34];
+      v34 = v26;
+      v35 = v27;
+      [&unk_287BCCB98 enumerateObjectsUsingBlock:v33];
       if (!*(*(*(a1 + 32) + 8) + 40))
       {
-        v31[0] = MEMORY[0x277D85DD0];
-        v31[1] = 3221225472;
-        v31[2] = __37__SAPathManager_checkUnAllowedPaths___block_invoke_3;
-        v31[3] = &unk_279CD6E58;
+        v30[0] = MEMORY[0x277D85DD0];
+        v30[1] = 3221225472;
+        v30[2] = __37__SAPathManager_checkUnAllowedPaths___block_invoke_3;
+        v30[3] = &unk_279CD6E58;
         v28 = v26;
         v29 = *(a1 + 32);
-        v32 = v28;
-        v33 = v29;
-        [&unk_287BCCBB0 enumerateObjectsUsingBlock:v31];
+        v31 = v28;
+        v32 = v29;
+        [&unk_287BCCBB0 enumerateObjectsUsingBlock:v30];
       }
 
-      v13 = v35;
+      v13 = v34;
     }
   }
 
@@ -181,10 +179,10 @@ void __37__SAPathManager_checkUnAllowedPaths___block_invoke(uint64_t a1, void *a
   {
     v20 = MEMORY[0x277CCA9B8];
     v21 = *MEMORY[0x277CCA5B8];
-    v39 = *MEMORY[0x277CCA450];
+    v38 = *MEMORY[0x277CCA450];
     v13 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid paths input, not all objects in the paths array are of type SAPathInfo"];
-    v40[0] = v13;
-    v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v40 forKeys:&v39 count:1];
+    v39[0] = v13;
+    v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v39 forKeys:&v38 count:1];
     v23 = [v20 errorWithDomain:v21 code:22 userInfo:v22];
     v24 = *(*(a1 + 32) + 8);
     v25 = *(v24 + 40);
@@ -195,13 +193,11 @@ void __37__SAPathManager_checkUnAllowedPaths___block_invoke(uint64_t a1, void *a
   {
     *a4 = 1;
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 void __37__SAPathManager_checkUnAllowedPaths___block_invoke_2(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
-  v19[1] = *MEMORY[0x277D85DE8];
+  v18[1] = *MEMORY[0x277D85DE8];
   v6 = a2;
   v7 = [*(a1 + 32) url];
   v8 = [v7 path];
@@ -212,8 +208,8 @@ void __37__SAPathManager_checkUnAllowedPaths___block_invoke_2(uint64_t a1, void 
     v10 = MEMORY[0x277CCA9B8];
     v11 = *MEMORY[0x277CCA5B8];
     v12 = [MEMORY[0x277CCACA8] stringWithFormat:@"Registering paths under %@ is not permitted", v6, *MEMORY[0x277CCA450]];
-    v19[0] = v12;
-    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:&v18 count:1];
+    v18[0] = v12;
+    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:&v17 count:1];
     v14 = [v10 errorWithDomain:v11 code:1 userInfo:v13];
     v15 = *(*(a1 + 40) + 8);
     v16 = *(v15 + 40);
@@ -221,13 +217,11 @@ void __37__SAPathManager_checkUnAllowedPaths___block_invoke_2(uint64_t a1, void 
 
     *a4 = 1;
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __37__SAPathManager_checkUnAllowedPaths___block_invoke_3(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
-  v19[1] = *MEMORY[0x277D85DE8];
+  v18[1] = *MEMORY[0x277D85DE8];
   v6 = *(a1 + 32);
   v7 = a2;
   v8 = [v6 url];
@@ -238,9 +232,9 @@ void __37__SAPathManager_checkUnAllowedPaths___block_invoke_3(uint64_t a1, void 
   {
     v11 = MEMORY[0x277CCA9B8];
     v12 = *MEMORY[0x277CCA5B8];
-    v18 = *MEMORY[0x277CCA450];
-    v19[0] = @"Registering paths with reference to current/parent directory is not allowed";
-    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:&v18 count:1];
+    v17 = *MEMORY[0x277CCA450];
+    v18[0] = @"Registering paths with reference to current/parent directory is not allowed";
+    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:&v17 count:1];
     v14 = [v11 errorWithDomain:v12 code:1 userInfo:v13];
     v15 = *(*(a1 + 40) + 8);
     v16 = *(v15 + 40);
@@ -248,42 +242,40 @@ void __37__SAPathManager_checkUnAllowedPaths___block_invoke_3(uint64_t a1, void 
 
     *a4 = 1;
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (id)checkForDuplicatePathsWithDifferentExclusivity:(id)exclusivity
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   exclusivityCopy = exclusivity;
   v4 = objc_opt_new();
+  v28 = 0u;
   v29 = 0u;
   v30 = 0u;
   v31 = 0u;
-  v32 = 0u;
   obj = exclusivityCopy;
-  v5 = [obj countByEnumeratingWithState:&v29 objects:v35 count:16];
+  v5 = [obj countByEnumeratingWithState:&v28 objects:v34 count:16];
   if (!v5)
   {
-    v27 = 0;
+    v26 = 0;
     goto LABEL_16;
   }
 
   v6 = v5;
-  v27 = 0;
-  v28 = *v30;
-  v25 = *MEMORY[0x277CCA050];
-  v24 = *MEMORY[0x277CCA470];
+  v26 = 0;
+  v27 = *v29;
+  v24 = *MEMORY[0x277CCA050];
+  v23 = *MEMORY[0x277CCA470];
   do
   {
     for (i = 0; i != v6; ++i)
     {
-      if (*v30 != v28)
+      if (*v29 != v27)
       {
         objc_enumerationMutation(obj);
       }
 
-      v8 = *(*(&v29 + 1) + 8 * i);
+      v8 = *(*(&v28 + 1) + 8 * i);
       v9 = objc_autoreleasePoolPush();
       v10 = [v8 url];
       v11 = [v4 objectForKeyedSubscript:v10];
@@ -314,56 +306,54 @@ void __37__SAPathManager_checkUnAllowedPaths___block_invoke_3(uint64_t a1, void 
       }
 
       v18 = MEMORY[0x277CCA9B8];
-      v33 = v24;
+      v32 = v23;
       v19 = [MEMORY[0x277CCACA8] stringWithFormat:@"Path %@ is supplied more than once with different exclusivity OR multiple bundles", v10];
-      v34 = v19;
-      v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v34 forKeys:&v33 count:1];
-      v21 = [v18 errorWithDomain:v25 code:1024 userInfo:v20];
+      v33 = v19;
+      v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v33 forKeys:&v32 count:1];
+      v21 = [v18 errorWithDomain:v24 code:1024 userInfo:v20];
 
-      v27 = v21;
+      v26 = v21;
 LABEL_12:
 
       objc_autoreleasePoolPop(v9);
     }
 
-    v6 = [obj countByEnumeratingWithState:&v29 objects:v35 count:16];
+    v6 = [obj countByEnumeratingWithState:&v28 objects:v34 count:16];
   }
 
   while (v6);
 LABEL_16:
 
-  v22 = *MEMORY[0x277D85DE8];
-
-  return v27;
+  return v26;
 }
 
 - (BOOL)validatePaths:(id)paths
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   pathsCopy = paths;
   v4 = pathsCopy;
   if (pathsCopy && [pathsCopy count])
   {
-    v17 = 0u;
-    v18 = 0u;
-    v15 = 0u;
     v16 = 0u;
+    v17 = 0u;
+    v14 = 0u;
+    v15 = 0u;
     v5 = v4;
-    v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v16;
+      v8 = *v15;
       while (2)
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v16 != v8)
+          if (*v15 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          bundleID = [*(*(&v15 + 1) + 8 * i) bundleID];
+          bundleID = [*(*(&v14 + 1) + 8 * i) bundleID];
           v11 = bundleID;
           if (!bundleID || ![bundleID length])
           {
@@ -373,7 +363,7 @@ LABEL_16:
           }
         }
 
-        v7 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
         v12 = 1;
         if (v7)
         {
@@ -397,13 +387,12 @@ LABEL_16:
     v12 = 0;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
 - (void)registerPaths:(id)paths forBundleID:(id)d completionHandler:(id)handler
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   pathsCopy = paths;
   dCopy = d;
   handlerCopy = handler;
@@ -415,29 +404,29 @@ LABEL_16:
 
   else
   {
-    v20 = 0u;
-    v21 = 0u;
-    v18 = 0u;
     v19 = 0u;
+    v20 = 0u;
+    v17 = 0u;
+    v18 = 0u;
     v12 = pathsCopy;
-    v13 = [v12 countByEnumeratingWithState:&v18 objects:v22 count:16];
+    v13 = [v12 countByEnumeratingWithState:&v17 objects:v21 count:16];
     if (v13)
     {
       v14 = v13;
-      v15 = *v19;
+      v15 = *v18;
       do
       {
         for (i = 0; i != v14; ++i)
         {
-          if (*v19 != v15)
+          if (*v18 != v15)
           {
             objc_enumerationMutation(v12);
           }
 
-          [*(*(&v18 + 1) + 8 * i) setBundleID:{dCopy, v18}];
+          [*(*(&v17 + 1) + 8 * i) setBundleID:{dCopy, v17}];
         }
 
-        v14 = [v12 countByEnumeratingWithState:&v18 objects:v22 count:16];
+        v14 = [v12 countByEnumeratingWithState:&v17 objects:v21 count:16];
       }
 
       while (v14);
@@ -445,8 +434,6 @@ LABEL_16:
 
     [(SAPathManager *)self registerPaths:v12 completionHandler:handlerCopy];
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)registerPaths:(id)paths completionHandler:(id)handler
@@ -521,7 +508,7 @@ LABEL_16:
     goto LABEL_10;
   }
 
-  v8 = SALog();
+  v8 = SALog(0);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
   {
     [SAPathManager registerPaths:completionHandler:];
@@ -542,21 +529,20 @@ void __49__SAPathManager_registerPaths_completionHandler___block_invoke_2(uint64
 {
   v8 = *MEMORY[0x277D85DE8];
   v3 = a2;
+  v4 = v3;
   if (v3)
   {
-    v4 = SALog();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = SALog(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       v6 = 138412290;
-      v7 = v3;
-      _os_log_impl(&dword_26B26B000, v4, OS_LOG_TYPE_DEFAULT, "registerPaths returned err %@", &v6, 0xCu);
+      v7 = v4;
+      _os_log_impl(&dword_26B26B000, v5, OS_LOG_TYPE_DEFAULT, "registerPaths returned err %@", &v6, 0xCu);
     }
   }
 
   (*(*(a1 + 32) + 16))();
   [*(*(*(a1 + 40) + 8) + 40) invalidate];
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)unregisterPaths:(id)paths completionHandler:(id)handler
@@ -565,8 +551,8 @@ void __49__SAPathManager_registerPaths_completionHandler___block_invoke_2(uint64
   handlerCopy = handler;
   if (!handlerCopy)
   {
-    v11 = SALog();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = SALog(0);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       [SAPathManager unregisterPaths:completionHandler:];
     }
@@ -574,52 +560,53 @@ void __49__SAPathManager_registerPaths_completionHandler___block_invoke_2(uint64
     goto LABEL_9;
   }
 
-  if (![(SAPathManager *)self validatePaths:pathsCopy])
+  v8 = [(SAPathManager *)self validatePaths:pathsCopy];
+  if ((v8 & 1) == 0)
   {
-    v12 = SALog();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v13 = SALog(v8);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       [SAPathManager unregisterPaths:completionHandler:];
     }
 
-    v11 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA050] code:1024 userInfo:0];
-    handlerCopy[2](handlerCopy, v11);
+    v12 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA050] code:1024 userInfo:0];
+    handlerCopy[2](handlerCopy, v12);
 LABEL_9:
 
     goto LABEL_10;
   }
 
-  v19 = 0;
-  v20 = &v19;
-  v21 = 0x3032000000;
-  v22 = __Block_byref_object_copy__2;
-  v23 = __Block_byref_object_dispose__2;
-  v24 = [SADaemonXPC newWithInvalidationHandler:0];
-  v8 = v20[5];
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = __51__SAPathManager_unregisterPaths_completionHandler___block_invoke;
-  v16[3] = &unk_279CD6EA8;
-  v9 = handlerCopy;
-  v17 = v9;
-  v18 = &v19;
-  v10 = [v8 remoteObjectProxyWithErrorHandler:v16];
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __51__SAPathManager_unregisterPaths_completionHandler___block_invoke_180;
-  v13[3] = &unk_279CD6EA8;
-  v14 = v9;
-  v15 = &v19;
-  [v10 unregisterPaths:pathsCopy reply:v13];
+  v20 = 0;
+  v21 = &v20;
+  v22 = 0x3032000000;
+  v23 = __Block_byref_object_copy__2;
+  v24 = __Block_byref_object_dispose__2;
+  v25 = [SADaemonXPC newWithInvalidationHandler:0];
+  v9 = v21[5];
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __51__SAPathManager_unregisterPaths_completionHandler___block_invoke;
+  v17[3] = &unk_279CD6EA8;
+  v10 = handlerCopy;
+  v18 = v10;
+  v19 = &v20;
+  v11 = [v9 remoteObjectProxyWithErrorHandler:v17];
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __51__SAPathManager_unregisterPaths_completionHandler___block_invoke_180;
+  v14[3] = &unk_279CD6EA8;
+  v15 = v10;
+  v16 = &v20;
+  [v11 unregisterPaths:pathsCopy reply:v14];
 
-  _Block_object_dispose(&v19, 8);
+  _Block_object_dispose(&v20, 8);
 LABEL_10:
 }
 
 uint64_t __51__SAPathManager_unregisterPaths_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = SALog();
+  v4 = SALog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __51__SAPathManager_unregisterPaths_completionHandler___block_invoke_cold_1();
@@ -632,10 +619,11 @@ uint64_t __51__SAPathManager_unregisterPaths_completionHandler___block_invoke(ui
 void __51__SAPathManager_unregisterPaths_completionHandler___block_invoke_180(uint64_t a1, void *a2)
 {
   v3 = a2;
+  v4 = v3;
   if (v3)
   {
-    v4 = SALog();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = SALog(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       __51__SAPathManager_unregisterPaths_completionHandler___block_invoke_180_cold_1();
     }
@@ -647,78 +635,45 @@ void __51__SAPathManager_unregisterPaths_completionHandler___block_invoke_180(ui
 
 - (void)unregisterURLs:(id)ls forBundleID:(id)d completionHandler:(id)handler
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   lsCopy = ls;
   dCopy = d;
   handlerCopy = handler;
   v11 = objc_opt_new();
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   v12 = lsCopy;
-  v13 = [v12 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v20;
+    v15 = *v19;
     do
     {
       v16 = 0;
       do
       {
-        if (*v20 != v15)
+        if (*v19 != v15)
         {
           objc_enumerationMutation(v12);
         }
 
-        v17 = [SAPathInfo pathInfoWithURL:*(*(&v19 + 1) + 8 * v16) bundleID:dCopy, v19];
+        v17 = [SAPathInfo pathInfoWithURL:*(*(&v18 + 1) + 8 * v16) bundleID:dCopy, v18];
         [v11 addObject:v17];
 
         ++v16;
       }
 
       while (v14 != v16);
-      v14 = [v12 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v14 = [v12 countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v14);
   }
 
   [(SAPathManager *)self unregisterPaths:v11 completionHandler:handlerCopy];
-  v18 = *MEMORY[0x277D85DE8];
-}
-
-- (void)registerPaths:completionHandler:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)unregisterPaths:completionHandler:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)unregisterPaths:completionHandler:.cold.2()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __51__SAPathManager_unregisterPaths_completionHandler___block_invoke_180_cold_1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

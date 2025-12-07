@@ -113,7 +113,6 @@ LABEL_8:
     goto LABEL_21;
   }
 
-  v5 = *(equalCopy + 36);
   if (*&self->_has)
   {
     if ((*(equalCopy + 36) & 1) == 0 || self->_day != *(equalCopy + 4))
@@ -125,7 +124,7 @@ LABEL_8:
   else if (*(equalCopy + 36))
   {
 LABEL_21:
-    v8 = 0;
+    v7 = 0;
     goto LABEL_22;
   }
 
@@ -164,17 +163,17 @@ LABEL_21:
   timeZoneName = self->_timeZoneName;
   if (timeZoneName | *(equalCopy + 3))
   {
-    v8 = [(NSString *)timeZoneName isEqual:?];
+    v7 = [(NSString *)timeZoneName isEqual:?];
   }
 
   else
   {
-    v8 = 1;
+    v7 = 1;
   }
 
 LABEL_22:
 
-  return v8;
+  return v7;
 }
 
 - (id)copyWithZone:(_NSZone *)zone
@@ -282,12 +281,11 @@ LABEL_5:
 {
   toCopy = to;
   has = self->_has;
-  v9 = toCopy;
+  v6 = toCopy;
   if (has)
   {
-    day = self->_day;
     PBDataWriterWriteInt32Field();
-    toCopy = v9;
+    toCopy = v6;
     has = self->_has;
     if ((has & 2) == 0)
     {
@@ -306,28 +304,26 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  month = self->_month;
   PBDataWriterWriteInt32Field();
-  toCopy = v9;
+  toCopy = v6;
   if ((*&self->_has & 4) != 0)
   {
 LABEL_4:
-    year = self->_year;
     PBDataWriterWriteInt32Field();
-    toCopy = v9;
+    toCopy = v6;
   }
 
 LABEL_5:
   if (self->_calendarIdentifier)
   {
     PBDataWriterWriteStringField();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_timeZoneName)
   {
     PBDataWriterWriteStringField();
-    toCopy = v9;
+    toCopy = v6;
   }
 }
 

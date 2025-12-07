@@ -65,7 +65,7 @@
   {
     videoId = [(_TUIRenderModelVideo *)self videoId];
     videoId2 = [modelCopy videoId];
-    if ([videoId isEqualToString:videoId2])
+    if (objc_msgSend_isEqualToString_(videoId))
     {
       posterFrameResource = [(_TUIRenderModelVideo *)self posterFrameResource];
       posterFrameResource2 = [modelCopy posterFrameResource];

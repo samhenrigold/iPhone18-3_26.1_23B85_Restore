@@ -25,15 +25,16 @@
 {
   v3 = v1;
   [(ULWiFiMeasurementMO *)self timestamp];
-  v11 = v4;
-  TrajectoryPointCloud = ULHomeSlamModel::getTrajectoryPointCloud([(ULWiFiMeasurementMO *)self sourceBSSID]);
+  v12 = v4;
+  ULHomeSlamModel::getTrajectoryPointCloud([(ULWiFiMeasurementMO *)self sourceBSSID]);
+  v11 = v5;
   rssi = [(ULWiFiMeasurementMO *)self rssi];
   channel = [(ULWiFiMeasurementMO *)self channel];
   band = [(ULWiFiMeasurementMO *)self band];
-  ULWiFiMeasurementDO::ULWiFiMeasurementDO(v9, &v11, rssi, &TrajectoryPointCloud, channel, &band, [(ULWiFiMeasurementMO *)self flags]);
-  v7 = ULWiFiMeasurementDO::ULWiFiMeasurementDO(v3, v9);
+  ULWiFiMeasurementDO::ULWiFiMeasurementDO(v10, &v12, rssi, &v11, channel, &band, [(ULWiFiMeasurementMO *)self flags]);
+  v8 = ULWiFiMeasurementDO::ULWiFiMeasurementDO(v3, v10);
   *(v3 + 32) = 1;
-  return v7;
+  return v8;
 }
 
 @end

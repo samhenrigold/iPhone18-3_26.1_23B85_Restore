@@ -16,7 +16,7 @@
 - (void)layoutSubviews
 {
   v3.receiver = self;
-  v3.super_class = type metadata accessor for ProgressiveBlurView();
+  v3.super_class = type metadata accessor for ProgressiveBlurView(self, a2);
   v2 = v3.receiver;
   [(ProgressiveBlurView *)&v3 layoutSubviews];
   ProgressiveBlurView.updateEffect()();

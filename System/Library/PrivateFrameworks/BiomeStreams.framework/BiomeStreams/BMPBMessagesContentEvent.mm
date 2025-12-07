@@ -239,7 +239,7 @@
 
 - (id)dictionaryRepresentation
 {
-  v57 = *MEMORY[0x1E69E9840];
+  v56 = *MEMORY[0x1E69E9840];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   v4 = dictionary;
   uniqueId = self->_uniqueId;
@@ -312,30 +312,30 @@
   if ([(NSMutableArray *)self->_toHandles count])
   {
     v17 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{-[NSMutableArray count](self->_toHandles, "count")}];
+    v51 = 0u;
     v52 = 0u;
     v53 = 0u;
     v54 = 0u;
-    v55 = 0u;
     v18 = self->_toHandles;
-    v19 = [(NSMutableArray *)v18 countByEnumeratingWithState:&v52 objects:v56 count:16];
+    v19 = [(NSMutableArray *)v18 countByEnumeratingWithState:&v51 objects:v55 count:16];
     if (v19)
     {
       v20 = v19;
-      v21 = *v53;
+      v21 = *v52;
       do
       {
         for (i = 0; i != v20; ++i)
         {
-          if (*v53 != v21)
+          if (*v52 != v21)
           {
             objc_enumerationMutation(v18);
           }
 
-          dictionaryRepresentation2 = [*(*(&v52 + 1) + 8 * i) dictionaryRepresentation];
+          dictionaryRepresentation2 = [*(*(&v51 + 1) + 8 * i) dictionaryRepresentation];
           [v17 addObject:dictionaryRepresentation2];
         }
 
-        v20 = [(NSMutableArray *)v18 countByEnumeratingWithState:&v52 objects:v56 count:16];
+        v20 = [(NSMutableArray *)v18 countByEnumeratingWithState:&v51 objects:v55 count:16];
       }
 
       while (v20);
@@ -390,8 +390,8 @@
   has = self->_has;
   if ((has & 0x100) != 0)
   {
-    v45 = [MEMORY[0x1E696AD98] numberWithBool:self->_isNew];
-    [v4 setObject:v45 forKey:@"isNew"];
+    v44 = [MEMORY[0x1E696AD98] numberWithBool:self->_isNew];
+    [v4 setObject:v44 forKey:@"isNew"];
 
     has = self->_has;
     if ((has & 0x800) == 0)
@@ -411,8 +411,8 @@ LABEL_48:
     goto LABEL_48;
   }
 
-  v46 = [MEMORY[0x1E696AD98] numberWithBool:{self->_isTwoFactorCode, v52}];
-  [v4 setObject:v46 forKey:@"isTwoFactorCode"];
+  v45 = [MEMORY[0x1E696AD98] numberWithBool:{self->_isTwoFactorCode, v51}];
+  [v4 setObject:v45 forKey:@"isTwoFactorCode"];
 
   has = self->_has;
   if ((has & 0x10) == 0)
@@ -427,8 +427,8 @@ LABEL_49:
   }
 
 LABEL_72:
-  v47 = [MEMORY[0x1E696AD98] numberWithBool:{self->_isFromMe, v52}];
-  [v4 setObject:v47 forKey:@"isFromMe"];
+  v46 = [MEMORY[0x1E696AD98] numberWithBool:{self->_isFromMe, v51}];
+  [v4 setObject:v46 forKey:@"isFromMe"];
 
   has = self->_has;
   if ((has & 0x20) == 0)
@@ -443,8 +443,8 @@ LABEL_50:
   }
 
 LABEL_73:
-  v48 = [MEMORY[0x1E696AD98] numberWithBool:{self->_isGroupThread, v52}];
-  [v4 setObject:v48 forKey:@"isGroupThread"];
+  v47 = [MEMORY[0x1E696AD98] numberWithBool:{self->_isGroupThread, v51}];
+  [v4 setObject:v47 forKey:@"isGroupThread"];
 
   has = self->_has;
   if ((has & 0x40) == 0)
@@ -459,8 +459,8 @@ LABEL_51:
   }
 
 LABEL_74:
-  v49 = [MEMORY[0x1E696AD98] numberWithBool:{self->_isJunk, v52}];
-  [v4 setObject:v49 forKey:@"isJunk"];
+  v48 = [MEMORY[0x1E696AD98] numberWithBool:{self->_isJunk, v51}];
+  [v4 setObject:v48 forKey:@"isJunk"];
 
   has = self->_has;
   if ((has & 0x400) == 0)
@@ -475,8 +475,8 @@ LABEL_52:
   }
 
 LABEL_75:
-  v50 = [MEMORY[0x1E696AD98] numberWithBool:{self->_isRead, v52}];
-  [v4 setObject:v50 forKey:@"isRead"];
+  v49 = [MEMORY[0x1E696AD98] numberWithBool:{self->_isRead, v51}];
+  [v4 setObject:v49 forKey:@"isRead"];
 
   has = self->_has;
   if ((has & 0x200) == 0)
@@ -491,13 +491,13 @@ LABEL_53:
   }
 
 LABEL_76:
-  v51 = [MEMORY[0x1E696AD98] numberWithBool:{self->_isPinned, v52}];
-  [v4 setObject:v51 forKey:@"isPinned"];
+  v50 = [MEMORY[0x1E696AD98] numberWithBool:{self->_isPinned, v51}];
+  [v4 setObject:v50 forKey:@"isPinned"];
 
   if ((*&self->_has & 8) != 0)
   {
 LABEL_54:
-    v33 = [MEMORY[0x1E696AD98] numberWithBool:{self->_isBusinessChat, v52}];
+    v33 = [MEMORY[0x1E696AD98] numberWithBool:{self->_isBusinessChat, v51}];
     [v4 setObject:v33 forKey:@"isBusinessChat"];
   }
 
@@ -549,13 +549,12 @@ LABEL_55:
 
   v42 = v4;
 
-  v43 = *MEMORY[0x1E69E9840];
   return v4;
 }
 
 - (void)writeTo:(id)to
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   toCopy = to;
   if (self->_uniqueId)
   {
@@ -569,7 +568,6 @@ LABEL_55:
 
   if (*&self->_has)
   {
-    absoluteTimestamp = self->_absoluteTimestamp;
     PBDataWriterWriteDoubleField();
   }
 
@@ -613,33 +611,32 @@ LABEL_55:
     PBDataWriterWriteSubmessage();
   }
 
-  v38 = 0u;
-  v39 = 0u;
-  v36 = 0u;
-  v37 = 0u;
-  v6 = self->_toHandles;
-  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v36 objects:v41 count:16];
-  if (v7)
+  v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
+  v5 = self->_toHandles;
+  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v21 objects:v26 count:16];
+  if (v6)
   {
-    v8 = v7;
-    v9 = *v37;
+    v7 = v6;
+    v8 = *v22;
     do
     {
-      for (i = 0; i != v8; ++i)
+      for (i = 0; i != v7; ++i)
       {
-        if (*v37 != v9)
+        if (*v22 != v8)
         {
-          objc_enumerationMutation(v6);
+          objc_enumerationMutation(v5);
         }
 
-        v11 = *(*(&v36 + 1) + 8 * i);
         PBDataWriterWriteSubmessage();
       }
 
-      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v36 objects:v41 count:16];
+      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v21 objects:v26 count:16];
     }
 
-    while (v8);
+    while (v7);
   }
 
   if (self->_accountIdentifier)
@@ -652,33 +649,32 @@ LABEL_55:
     PBDataWriterWriteStringField();
   }
 
-  v34 = 0u;
-  v35 = 0u;
-  v32 = 0u;
-  v33 = 0u;
-  v12 = self->_accountHandles;
-  v13 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v32 objects:v40 count:16];
-  if (v13)
+  v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
+  v10 = self->_accountHandles;
+  v11 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v17 objects:v25 count:16];
+  if (v11)
   {
-    v14 = v13;
-    v15 = *v33;
+    v12 = v11;
+    v13 = *v18;
     do
     {
-      for (j = 0; j != v14; ++j)
+      for (j = 0; j != v12; ++j)
       {
-        if (*v33 != v15)
+        if (*v18 != v13)
         {
-          objc_enumerationMutation(v12);
+          objc_enumerationMutation(v10);
         }
 
-        v17 = *(*(&v32 + 1) + 8 * j);
         PBDataWriterWriteStringField();
       }
 
-      v14 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v32 objects:v40 count:16];
+      v12 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v17 objects:v25 count:16];
     }
 
-    while (v14);
+    while (v12);
   }
 
   if (self->_attachment)
@@ -704,7 +700,6 @@ LABEL_55:
   has = self->_has;
   if ((has & 0x100) != 0)
   {
-    isNew = self->_isNew;
     PBDataWriterWriteBOOLField();
     has = self->_has;
     if ((has & 0x800) == 0)
@@ -724,7 +719,6 @@ LABEL_51:
     goto LABEL_51;
   }
 
-  isTwoFactorCode = self->_isTwoFactorCode;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((has & 0x10) == 0)
@@ -739,7 +733,6 @@ LABEL_52:
   }
 
 LABEL_75:
-  isFromMe = self->_isFromMe;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((has & 0x20) == 0)
@@ -754,7 +747,6 @@ LABEL_53:
   }
 
 LABEL_76:
-  isGroupThread = self->_isGroupThread;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((has & 0x40) == 0)
@@ -769,7 +761,6 @@ LABEL_54:
   }
 
 LABEL_77:
-  isJunk = self->_isJunk;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((has & 0x400) == 0)
@@ -784,7 +775,6 @@ LABEL_55:
   }
 
 LABEL_78:
-  isRead = self->_isRead;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((has & 0x200) == 0)
@@ -799,12 +789,10 @@ LABEL_56:
   }
 
 LABEL_79:
-  isPinned = self->_isPinned;
   PBDataWriterWriteBOOLField();
   if ((*&self->_has & 8) != 0)
   {
 LABEL_57:
-    isBusinessChat = self->_isBusinessChat;
     PBDataWriterWriteBOOLField();
   }
 
@@ -816,7 +804,6 @@ LABEL_58:
 
   if ((*&self->_has & 2) != 0)
   {
-    tapbackType = self->_tapbackType;
     PBDataWriterWriteInt64Field();
   }
 
@@ -830,17 +817,15 @@ LABEL_58:
     PBDataWriterWriteStringField();
   }
 
-  v21 = self->_has;
-  if ((v21 & 4) != 0)
+  v16 = self->_has;
+  if ((v16 & 4) != 0)
   {
-    messageEffect = self->_messageEffect;
     PBDataWriterWriteInt32Field();
-    v21 = self->_has;
+    v16 = self->_has;
   }
 
-  if ((v21 & 0x80) != 0)
+  if ((v16 & 0x80) != 0)
   {
-    isKnownSender = self->_isKnownSender;
     PBDataWriterWriteBOOLField();
   }
 
@@ -848,8 +833,6 @@ LABEL_58:
   {
     PBDataWriterWriteStringField();
   }
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 - (void)copyTo:(id)to
@@ -1133,7 +1116,7 @@ LABEL_52:
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v72 = *MEMORY[0x1E69E9840];
+  v71 = *MEMORY[0x1E69E9840];
   v5 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
   v6 = [(NSString *)self->_uniqueId copyWithZone:zone];
   v7 = *(v5 + 192);
@@ -1181,30 +1164,30 @@ LABEL_52:
   v25 = *(v5 + 112);
   *(v5 + 112) = v24;
 
-  v68 = 0u;
-  v69 = 0u;
-  v66 = 0u;
   v67 = 0u;
+  v68 = 0u;
+  v65 = 0u;
+  v66 = 0u;
   v26 = self->_toHandles;
-  v27 = [(NSMutableArray *)v26 countByEnumeratingWithState:&v66 objects:v71 count:16];
+  v27 = [(NSMutableArray *)v26 countByEnumeratingWithState:&v65 objects:v70 count:16];
   if (v27)
   {
     v28 = v27;
-    v29 = *v67;
+    v29 = *v66;
     do
     {
       for (i = 0; i != v28; ++i)
       {
-        if (*v67 != v29)
+        if (*v66 != v29)
         {
           objc_enumerationMutation(v26);
         }
 
-        v31 = [*(*(&v66 + 1) + 8 * i) copyWithZone:zone];
+        v31 = [*(*(&v65 + 1) + 8 * i) copyWithZone:zone];
         [v5 addToHandles:v31];
       }
 
-      v28 = [(NSMutableArray *)v26 countByEnumeratingWithState:&v66 objects:v71 count:16];
+      v28 = [(NSMutableArray *)v26 countByEnumeratingWithState:&v65 objects:v70 count:16];
     }
 
     while (v28);
@@ -1218,30 +1201,30 @@ LABEL_52:
   v35 = *(v5 + 40);
   *(v5 + 40) = v34;
 
-  v64 = 0u;
-  v65 = 0u;
-  v62 = 0u;
   v63 = 0u;
+  v64 = 0u;
+  v61 = 0u;
+  v62 = 0u;
   v36 = self->_accountHandles;
-  v37 = [(NSMutableArray *)v36 countByEnumeratingWithState:&v62 objects:v70 count:16];
+  v37 = [(NSMutableArray *)v36 countByEnumeratingWithState:&v61 objects:v69 count:16];
   if (v37)
   {
     v38 = v37;
-    v39 = *v63;
+    v39 = *v62;
     do
     {
       for (j = 0; j != v38; ++j)
       {
-        if (*v63 != v39)
+        if (*v62 != v39)
         {
           objc_enumerationMutation(v36);
         }
 
-        v41 = [*(*(&v62 + 1) + 8 * j) copyWithZone:{zone, v62}];
+        v41 = [*(*(&v61 + 1) + 8 * j) copyWithZone:{zone, v61}];
         [v5 addAccountHandles:v41];
       }
 
-      v38 = [(NSMutableArray *)v36 countByEnumeratingWithState:&v62 objects:v70 count:16];
+      v38 = [(NSMutableArray *)v36 countByEnumeratingWithState:&v61 objects:v69 count:16];
     }
 
     while (v38);
@@ -1371,7 +1354,7 @@ LABEL_25:
   }
 
 LABEL_26:
-  v51 = [(NSString *)self->_tapbackAssociatedMessageID copyWithZone:zone, v62];
+  v51 = [(NSString *)self->_tapbackAssociatedMessageID copyWithZone:zone, v61];
   v52 = *(v5 + 176);
   *(v5 + 176) = v51;
 
@@ -1407,7 +1390,6 @@ LABEL_26:
   v59 = *(v5 + 96);
   *(v5 + 96) = v58;
 
-  v60 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -1601,7 +1583,6 @@ LABEL_26:
       goto LABEL_121;
     }
 
-    v28 = *(equalCopy + 213);
     if (self->_isNew)
     {
       if ((*(equalCopy + 213) & 1) == 0)
@@ -1628,7 +1609,6 @@ LABEL_26:
       goto LABEL_121;
     }
 
-    v29 = *(equalCopy + 216);
     if (self->_isTwoFactorCode)
     {
       if ((*(equalCopy + 216) & 1) == 0)
@@ -1655,7 +1635,6 @@ LABEL_26:
       goto LABEL_121;
     }
 
-    v30 = *(equalCopy + 209);
     if (self->_isFromMe)
     {
       if ((*(equalCopy + 209) & 1) == 0)
@@ -1682,7 +1661,6 @@ LABEL_26:
       goto LABEL_121;
     }
 
-    v31 = *(equalCopy + 210);
     if (self->_isGroupThread)
     {
       if ((*(equalCopy + 210) & 1) == 0)
@@ -1709,7 +1687,6 @@ LABEL_26:
       goto LABEL_121;
     }
 
-    v32 = *(equalCopy + 211);
     if (self->_isJunk)
     {
       if ((*(equalCopy + 211) & 1) == 0)
@@ -1736,7 +1713,6 @@ LABEL_26:
       goto LABEL_121;
     }
 
-    v33 = *(equalCopy + 215);
     if (self->_isRead)
     {
       if ((*(equalCopy + 215) & 1) == 0)
@@ -1763,7 +1739,6 @@ LABEL_26:
       goto LABEL_121;
     }
 
-    v34 = *(equalCopy + 214);
     if (self->_isPinned)
     {
       if ((*(equalCopy + 214) & 1) == 0)
@@ -1790,7 +1765,6 @@ LABEL_26:
       goto LABEL_121;
     }
 
-    v35 = *(equalCopy + 208);
     if (self->_isBusinessChat)
     {
       if ((*(equalCopy + 208) & 1) == 0)
@@ -1850,39 +1824,38 @@ LABEL_26:
     }
   }
 
-  v38 = self->_has;
-  v39 = *(equalCopy + 110);
-  if ((v38 & 4) != 0)
+  v30 = self->_has;
+  v31 = *(equalCopy + 110);
+  if ((v30 & 4) != 0)
   {
-    if ((v39 & 4) == 0 || self->_messageEffect != *(equalCopy + 30))
+    if ((v31 & 4) == 0 || self->_messageEffect != *(equalCopy + 30))
     {
       goto LABEL_121;
     }
   }
 
-  else if ((v39 & 4) != 0)
+  else if ((v31 & 4) != 0)
   {
     goto LABEL_121;
   }
 
-  if ((v38 & 0x80) == 0)
+  if ((v30 & 0x80) == 0)
   {
-    if ((v39 & 0x80) == 0)
+    if ((v31 & 0x80) == 0)
     {
       goto LABEL_127;
     }
 
 LABEL_121:
-    v40 = 0;
+    v32 = 0;
     goto LABEL_122;
   }
 
-  if ((v39 & 0x80) == 0)
+  if ((v31 & 0x80) == 0)
   {
     goto LABEL_121;
   }
 
-  v43 = *(equalCopy + 212);
   if (self->_isKnownSender)
   {
     if ((*(equalCopy + 212) & 1) == 0)
@@ -1900,17 +1873,17 @@ LABEL_127:
   conversationUUID = self->_conversationUUID;
   if (conversationUUID | *(equalCopy + 12))
   {
-    v40 = [(NSString *)conversationUUID isEqual:?];
+    v32 = [(NSString *)conversationUUID isEqual:?];
   }
 
   else
   {
-    v40 = 1;
+    v32 = 1;
   }
 
 LABEL_122:
 
-  return v40;
+  return v32;
 }
 
 - (unint64_t)hash
@@ -2115,7 +2088,7 @@ LABEL_32:
 
 - (void)mergeFrom:(id)from
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   fromCopy = from;
   if (*(fromCopy + 24))
   {
@@ -2183,29 +2156,29 @@ LABEL_32:
     [(BMPBMessagesContentEvent *)self setFromHandle:?];
   }
 
-  v28 = 0u;
-  v29 = 0u;
-  v26 = 0u;
   v27 = 0u;
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
   v7 = *(fromCopy + 23);
-  v8 = [v7 countByEnumeratingWithState:&v26 objects:v31 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v25 objects:v30 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v27;
+    v10 = *v26;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v27 != v10)
+        if (*v26 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        [(BMPBMessagesContentEvent *)self addToHandles:*(*(&v26 + 1) + 8 * i)];
+        [(BMPBMessagesContentEvent *)self addToHandles:*(*(&v25 + 1) + 8 * i)];
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v26 objects:v31 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v25 objects:v30 count:16];
     }
 
     while (v9);
@@ -2221,29 +2194,29 @@ LABEL_32:
     [(BMPBMessagesContentEvent *)self setAccountType:?];
   }
 
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
   v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
   v12 = *(fromCopy + 3);
-  v13 = [v12 countByEnumeratingWithState:&v22 objects:v30 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v21 objects:v29 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v23;
+    v15 = *v22;
     do
     {
       for (j = 0; j != v14; ++j)
       {
-        if (*v23 != v15)
+        if (*v22 != v15)
         {
           objc_enumerationMutation(v12);
         }
 
-        [(BMPBMessagesContentEvent *)self addAccountHandles:*(*(&v22 + 1) + 8 * j), v22];
+        [(BMPBMessagesContentEvent *)self addAccountHandles:*(*(&v21 + 1) + 8 * j), v21];
       }
 
-      v14 = [v12 countByEnumeratingWithState:&v22 objects:v30 count:16];
+      v14 = [v12 countByEnumeratingWithState:&v21 objects:v29 count:16];
     }
 
     while (v14);
@@ -2426,8 +2399,6 @@ LABEL_64:
   {
     [(BMPBMessagesContentEvent *)self setConversationUUID:?];
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 @end

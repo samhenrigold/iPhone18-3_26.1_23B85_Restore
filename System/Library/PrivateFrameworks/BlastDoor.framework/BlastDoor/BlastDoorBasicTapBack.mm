@@ -92,12 +92,10 @@
 
 - (NSString)plainTextBody
 {
-  v2 = *&self->basicTapBack[OBJC_IVAR___BlastDoorBasicTapBack_basicTapBack + 104];
-  v3 = *&self->basicTapBack[OBJC_IVAR___BlastDoorBasicTapBack_basicTapBack + 112];
 
-  v4 = sub_2146D9588();
+  v2 = sub_2146D9588();
 
-  return v4;
+  return v2;
 }
 
 - (BlastDoorBasicTapBack)init

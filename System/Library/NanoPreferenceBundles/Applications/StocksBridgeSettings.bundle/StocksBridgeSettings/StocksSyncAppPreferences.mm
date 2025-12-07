@@ -281,68 +281,65 @@
   [persistence synchronize];
 
   _stockDictionaries = [(StocksSyncAppPreferences *)self _stockDictionaries];
-  v26 = [[NSMutableArray alloc] initWithCapacity:{objc_msgSend(_stockDictionaries, "count")}];
+  v24 = [[NSMutableArray alloc] initWithCapacity:{objc_msgSend(_stockDictionaries, "count")}];
+  v26 = 0u;
+  v27 = 0u;
   v28 = 0u;
   v29 = 0u;
-  v30 = 0u;
-  v31 = 0u;
   obj = _stockDictionaries;
-  v5 = [obj countByEnumeratingWithState:&v28 objects:v32 count:16];
+  v5 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v29;
-    v8 = &objc_alloc_ptr;
+    v7 = *v27;
     do
     {
       for (i = 0; i != v6; i = i + 1)
       {
-        if (*v29 != v7)
+        if (*v27 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v28 + 1) + 8 * i);
-        v11 = v8[87];
+        v9 = *(*(&v26 + 1) + 8 * i);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v12 = +[StocksSyncPreferenceKeys symbol];
-          v13 = [v10 objectForKeyedSubscript:v12];
+          v10 = +[StocksSyncPreferenceKeys symbol];
+          v11 = [v9 objectForKeyedSubscript:v10];
 
-          if (v13)
+          if (v11)
           {
-            v14 = +[StocksSyncPreferenceKeys companyName];
-            v15 = [v10 objectForKeyedSubscript:v14];
+            v12 = +[StocksSyncPreferenceKeys companyName];
+            v13 = [v9 objectForKeyedSubscript:v12];
 
             +[StocksSyncPreferenceKeys listName];
-            v17 = v16 = v7;
-            v18 = [v10 objectForKeyedSubscript:v17];
+            v15 = v14 = v7;
+            v16 = [v9 objectForKeyedSubscript:v15];
 
-            v19 = +[StocksSyncPreferenceKeys compactListName];
-            v20 = [v10 objectForKeyedSubscript:v19];
+            v17 = +[StocksSyncPreferenceKeys compactListName];
+            v18 = [v9 objectForKeyedSubscript:v17];
 
-            v21 = +[StocksSyncPreferenceKeys type];
-            v22 = [v10 objectForKeyedSubscript:v21];
+            v19 = +[StocksSyncPreferenceKeys type];
+            v20 = [v9 objectForKeyedSubscript:v19];
 
-            v23 = [[StocksSyncStock alloc] initWithSymbol:v13 companyName:v15 listName:v18 compactListName:v20 type:v22];
-            [v26 addObject:v23];
+            v21 = [[StocksSyncStock alloc] initWithSymbol:v11 companyName:v13 listName:v16 compactListName:v18 type:v20];
+            [v24 addObject:v21];
 
-            v7 = v16;
-            v8 = &objc_alloc_ptr;
+            v7 = v14;
           }
         }
       }
 
-      v6 = [obj countByEnumeratingWithState:&v28 objects:v32 count:16];
+      v6 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
     }
 
     while (v6);
   }
 
-  v24 = [v26 copy];
+  v22 = [v24 copy];
 
-  return v24;
+  return v22;
 }
 
 @end

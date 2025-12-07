@@ -12,40 +12,40 @@
 
 - (RWIProtocolCSSSelectorList)initWithSelectors:(id)selectors text:(id)text
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   selectorsCopy = selectors;
   textCopy = text;
-  v25.receiver = self;
-  v25.super_class = RWIProtocolCSSSelectorList;
-  v20 = [(RWIProtocolJSONObject *)&v25 init];
-  if (v20)
+  v24.receiver = self;
+  v24.super_class = RWIProtocolCSSSelectorList;
+  v19 = [(RWIProtocolJSONObject *)&v24 init];
+  if (v19)
   {
     if (!selectorsCopy)
     {
       [MEMORY[0x277CBEAD8] raise:*MEMORY[0x277CBE660] format:{@"required property '%@' cannot be nil", @"selectors"}];
     }
 
-    v23 = 0u;
-    v24 = 0u;
-    v21 = 0u;
     v22 = 0u;
+    v23 = 0u;
+    v20 = 0u;
+    v21 = 0u;
     v6 = selectorsCopy;
-    v7 = [v6 countByEnumeratingWithState:&v21 objects:v26 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v20 objects:v25 count:16];
     if (v7)
     {
-      v8 = *v22;
+      v8 = *v21;
       v9 = *MEMORY[0x277CBE660];
       do
       {
         v10 = 0;
         do
         {
-          if (*v22 != v8)
+          if (*v21 != v8)
           {
             objc_enumerationMutation(v6);
           }
 
-          v11 = *(*(&v21 + 1) + 8 * v10);
+          v11 = *(*(&v20 + 1) + 8 * v10);
           objc_opt_class();
           if ((objc_opt_isKindOfClass() & 1) == 0)
           {
@@ -59,7 +59,7 @@
         }
 
         while (v7 != v10);
-        v7 = [v6 countByEnumeratingWithState:&v21 objects:v26 count:16];
+        v7 = [v6 countByEnumeratingWithState:&v20 objects:v25 count:16];
       }
 
       while (v7);
@@ -70,38 +70,37 @@
       [MEMORY[0x277CBEAD8] raise:*MEMORY[0x277CBE660] format:{@"required property '%@' cannot be nil", @"text"}];
     }
 
-    [(RWIProtocolCSSSelectorList *)v20 setSelectors:v6];
-    [(RWIProtocolCSSSelectorList *)v20 setText:textCopy];
-    v15 = v20;
+    [(RWIProtocolCSSSelectorList *)v19 setSelectors:v6];
+    [(RWIProtocolCSSSelectorList *)v19 setText:textCopy];
+    v15 = v19;
   }
 
-  v16 = *MEMORY[0x277D85DE8];
-  return v20;
+  return v19;
 }
 
 - (void)setSelectors:(id)selectors
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   obj = selectors;
-  v3 = [obj countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v3 = [obj countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v3)
   {
-    v4 = *v18;
+    v4 = *v17;
     v5 = *MEMORY[0x277CBE660];
     do
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v18 != v4)
+        if (*v17 != v4)
         {
           objc_enumerationMutation(obj);
         }
 
-        v7 = *(*(&v17 + 1) + 8 * i);
+        v7 = *(*(&v16 + 1) + 8 * i);
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
@@ -112,18 +111,18 @@
         }
       }
 
-      v3 = [obj countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v3 = [obj countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v3);
   }
 
-  Inspector::toJSONObjectArray(obj, &v16);
-  v15.receiver = self;
-  v15.super_class = RWIProtocolCSSSelectorList;
-  [(RWIProtocolJSONObject *)&v15 setJSONArray:&v16 forKey:@"selectors"];
-  v11 = v16;
-  v16 = 0;
+  Inspector::toJSONObjectArray(obj, &v15);
+  v14.receiver = self;
+  v14.super_class = RWIProtocolCSSSelectorList;
+  [(RWIProtocolJSONObject *)&v14 setJSONArray:&v15 forKey:@"selectors"];
+  v11 = v15;
+  v15 = 0;
   if (v11)
   {
     if (*v11 == 1)
@@ -136,8 +135,6 @@
       --*v11;
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (NSArray)selectors
@@ -184,7 +181,7 @@
     v11.receiver = self;
     v11.super_class = RWIProtocolCSSSelectorList;
     v5 = [(RWIProtocolJSONObject *)&v11 objectForKey:@"range"];
-    [v5 toJSONObject];
+    objc_msgSend_toJSONObject(v5);
     v6 = v12;
     ++*v12;
     v13 = v6;

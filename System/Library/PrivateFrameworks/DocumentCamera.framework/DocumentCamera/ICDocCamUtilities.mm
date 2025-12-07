@@ -205,7 +205,7 @@ uint64_t __79__ICDocCamUtilities_prepareForRotationIfNecessaryWithShutterButton_
   interfaceOrientation = [windowScene interfaceOrientation];
   if (coordinatorCopy)
   {
-    [coordinatorCopy targetTransform];
+    objc_msgSend_targetTransform(coordinatorCopy);
   }
 
   else
@@ -298,7 +298,7 @@ LABEL_13:
   width = size.width;
   imageCopy = image;
   v10 = (([imageCopy imageOrientation] - 2) & 0xFFFFFFFFFFFFFFFALL) == 0;
-  [ICDocCamUtilities transformForOrientation:imageCopy newSize:width, height];
+  objc_msgSend_transformForOrientation_newSize_(ICDocCamUtilities, width, height);
   v11 = [self resizedImage:imageCopy newSize:&v13 transform:v10 drawTransposed:v5 interpolationQuality:{width, height}];
 
   return v11;

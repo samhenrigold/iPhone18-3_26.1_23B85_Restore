@@ -7,22 +7,20 @@
 
 - (id)attributeDescriptions
 {
-  v16[3] = *MEMORY[0x1E69E9840];
+  v15[3] = *MEMORY[0x1E69E9840];
   v3 = objc_alloc(MEMORY[0x1E69A29C8]);
   peerDestination = [(HMMMClientRequestHandlerOptions *)self peerDestination];
   v5 = [v3 initWithName:@"PeerDestination" value:peerDestination];
   v6 = objc_alloc(MEMORY[0x1E69A29C8]);
   messageName = [(HMMMClientRequestHandlerOptions *)self messageName];
   v8 = [v6 initWithName:@"MessageName" value:messageName];
-  v16[1] = v8;
+  v15[1] = v8;
   v9 = objc_alloc(MEMORY[0x1E69A29C8]);
   user = [(HMMMClientRequestHandlerOptions *)self user];
   uniqueIdentifier = [user uniqueIdentifier];
   v12 = [v9 initWithName:@"UserUUID" value:uniqueIdentifier];
-  v16[2] = v12;
-  v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:3];
-
-  v14 = *MEMORY[0x1E69E9840];
+  v15[2] = v12;
+  v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:3];
 
   return v13;
 }

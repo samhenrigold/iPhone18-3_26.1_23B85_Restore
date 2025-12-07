@@ -38,7 +38,7 @@
 
 - (void)addSetChange:(id)change
 {
-  v50 = *MEMORY[0x1E69E9840];
+  v49 = *MEMORY[0x1E69E9840];
   changeCopy = change;
   sharedItem = [changeCopy sharedItem];
   content = [sharedItem content];
@@ -107,26 +107,26 @@
   allLocalInstances = [changeCopy allLocalInstances];
   if ([allLocalInstances count])
   {
-    v47 = 0u;
-    v48 = 0u;
-    v45 = 0u;
     v46 = 0u;
+    v47 = 0u;
+    v44 = 0u;
+    v45 = 0u;
     obj = allLocalInstances;
-    v23 = [obj countByEnumeratingWithState:&v45 objects:v49 count:16];
+    v23 = [obj countByEnumeratingWithState:&v44 objects:v48 count:16];
     if (v23)
     {
-      v24 = *v46;
+      v24 = *v45;
       v25 = allLocalInstances;
       do
       {
         for (i = 0; i != v23; ++i)
         {
-          if (*v46 != v24)
+          if (*v45 != v24)
           {
             objc_enumerationMutation(obj);
           }
 
-          metaContent = [*(*(&v45 + 1) + 8 * i) metaContent];
+          metaContent = [*(*(&v44 + 1) + 8 * i) metaContent];
           data2 = [metaContent data];
           v29 = [data2 length];
 
@@ -191,7 +191,7 @@
           self->_sumMetaContentLength += v29;
         }
 
-        v23 = [obj countByEnumeratingWithState:&v45 objects:v49 count:16];
+        v23 = [obj countByEnumeratingWithState:&v44 objects:v48 count:16];
       }
 
       while (v23);
@@ -203,13 +203,11 @@
   allDevices = [changeCopy allDevices];
   [(NSMutableSet *)self->_devices addObjectsFromArray:allDevices];
   self->_deviceContentCount += [allDevices count];
-
-  v42 = *MEMORY[0x1E69E9840];
 }
 
 - (id)compute
 {
-  v36[12] = *MEMORY[0x1E69E9840];
+  v35[12] = *MEMORY[0x1E69E9840];
   v3 = *(self->_contentLengths.__ptr_ + 1) - *self->_contentLengths.__ptr_;
   v4 = v3 >> 1;
   if (v3)
@@ -224,7 +222,7 @@
 
   cntrl = self->_contentLengths.__cntrl_;
   ptr = self->_contentLengths.__ptr_;
-  v34 = cntrl;
+  v33 = cntrl;
   if (cntrl)
   {
     atomic_fetch_add_explicit(cntrl + 1, 1uLL, memory_order_relaxed);
@@ -232,9 +230,9 @@
 
   [CCSetMetrics _populationStandardDeviation:&ptr mean:v5];
   v8 = v7;
-  if (v34)
+  if (v33)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v34);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v33);
   }
 
   v9 = *(self->_metaContentLengths.__ptr_ + 1) - *self->_metaContentLengths.__ptr_;
@@ -250,89 +248,87 @@
   }
 
   v12 = self->_metaContentLengths.__cntrl_;
-  v31 = self->_metaContentLengths.__ptr_;
-  v32 = v12;
+  v30 = self->_metaContentLengths.__ptr_;
+  v31 = v12;
   if (v12)
   {
     atomic_fetch_add_explicit(v12 + 1, 1uLL, memory_order_relaxed);
   }
 
-  [CCSetMetrics _populationStandardDeviation:&v31 mean:v11];
+  [CCSetMetrics _populationStandardDeviation:&v30 mean:v11];
   v14 = v13;
-  if (v32)
+  if (v31)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v32);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v31);
   }
 
   itemType = [(CCSet *)self->_set itemType];
   _sanitizedEncodedDescriptors = [(CCSetDistribution *)self _sanitizedEncodedDescriptors];
-  v35[0] = @"itemType";
-  v29 = [MEMORY[0x1E696AD98] numberWithUnsignedShort:itemType];
-  v36[0] = v29;
-  v36[1] = _sanitizedEncodedDescriptors;
-  v35[1] = @"encodedDescriptors";
-  v35[2] = @"contentCount";
-  v28 = [MEMORY[0x1E696AD98] numberWithUnsignedLong:v4];
-  v36[2] = v28;
-  v35[3] = @"contentLengthMean";
-  v27 = [MEMORY[0x1E696AD98] numberWithDouble:v5];
-  v36[3] = v27;
-  v35[4] = @"contentLengthStdev";
+  v34[0] = @"itemType";
+  v28 = [MEMORY[0x1E696AD98] numberWithUnsignedShort:itemType];
+  v35[0] = v28;
+  v35[1] = _sanitizedEncodedDescriptors;
+  v34[1] = @"encodedDescriptors";
+  v34[2] = @"contentCount";
+  v27 = [MEMORY[0x1E696AD98] numberWithUnsignedLong:v4];
+  v35[2] = v27;
+  v34[3] = @"contentLengthMean";
+  v26 = [MEMORY[0x1E696AD98] numberWithDouble:v5];
+  v35[3] = v26;
+  v34[4] = @"contentLengthStdev";
   v16 = [MEMORY[0x1E696AD98] numberWithDouble:v8];
-  v36[4] = v16;
-  v35[5] = @"metaContentCount";
+  v35[4] = v16;
+  v34[5] = @"metaContentCount";
   v17 = [MEMORY[0x1E696AD98] numberWithUnsignedLong:v10];
-  v36[5] = v17;
-  v35[6] = @"metaContentLengthMean";
+  v35[5] = v17;
+  v34[6] = @"metaContentLengthMean";
   v18 = [MEMORY[0x1E696AD98] numberWithDouble:v11];
-  v36[6] = v18;
-  v35[7] = @"metaContentLengthStdev";
+  v35[6] = v18;
+  v34[7] = @"metaContentLengthStdev";
   v19 = [MEMORY[0x1E696AD98] numberWithDouble:v14];
-  v36[7] = v19;
-  v35[8] = @"localContentCount";
+  v35[7] = v19;
+  v34[8] = @"localContentCount";
   v20 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:self->_localContentCount];
-  v36[8] = v20;
-  v35[9] = @"deviceContributorCount";
+  v35[8] = v20;
+  v34[9] = @"deviceContributorCount";
   v21 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[NSMutableSet count](self->_devices, "count")}];
-  v36[9] = v21;
-  v35[10] = @"deviceContributedContentCount";
+  v35[9] = v21;
+  v34[10] = @"deviceContributedContentCount";
   v22 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:self->_deviceContentCount];
-  v36[10] = v22;
-  v35[11] = @"isSynchronized";
+  v35[10] = v22;
+  v34[11] = @"isSynchronized";
   v23 = [MEMORY[0x1E696AD98] numberWithBool:0];
-  v36[11] = v23;
-  v24 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v36 forKeys:v35 count:12];
-
-  v25 = *MEMORY[0x1E69E9840];
+  v35[11] = v23;
+  v24 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v35 forKeys:v34 count:12];
 
   return v24;
 }
 
 - (id)_sanitizedEncodedDescriptors
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   p_set = &self->_set;
   descriptors = [(CCSet *)self->_set descriptors];
   v3 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(descriptors, "count")}];
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
   v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   v4 = descriptors;
-  v5 = [v4 countByEnumeratingWithState:&v20 objects:v28 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v19 objects:v27 count:16];
   if (v5)
   {
-    v6 = *v21;
+    v6 = *v20;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v21 != v6)
+        if (*v20 != v6)
         {
           objc_enumerationMutation(v4);
         }
 
-        v8 = *(*(&v20 + 1) + 8 * i);
+        v8 = *(*(&v19 + 1) + 8 * i);
         v9 = [v8 key];
         if (([v9 isEqual:@"sourceIdentifier"] & 1) != 0 || objc_msgSend(v9, "isEqual:", @"localeIdentifier"))
         {
@@ -344,22 +340,22 @@
         {
           v11 = *p_set;
           *buf = 138412546;
-          v25 = v9;
-          v26 = 2112;
-          v27 = v11;
+          v24 = v9;
+          v25 = 2112;
+          v26 = v11;
           _os_log_debug_impl(&dword_1B6DB2000, v10, OS_LOG_TYPE_DEBUG, "Filtering out descriptor with key: %@ for set: %@", buf, 0x16u);
         }
       }
 
-      v5 = [v4 countByEnumeratingWithState:&v20 objects:v28 count:16];
+      v5 = [v4 countByEnumeratingWithState:&v19 objects:v27 count:16];
     }
 
     while (v5);
   }
 
-  v19 = 0;
-  v12 = [(BMResourceDescriptor *)CCSetDescriptor encodedStringFromDescriptors:v3 error:&v19];
-  v13 = v19;
+  v18 = 0;
+  v12 = [(BMResourceDescriptor *)CCSetDescriptor encodedStringFromDescriptors:v3 error:&v18];
+  v13 = v18;
   if (v12)
   {
     v14 = v12;
@@ -376,8 +372,6 @@
     v14 = &stru_1F2EBB700;
   }
 
-  v16 = *MEMORY[0x1E69E9840];
-
   return v14;
 }
 
@@ -390,14 +384,13 @@
 
 - (void)_sanitizedEncodedDescriptors
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = *self;
-  v5 = 138412546;
-  v6 = v3;
-  v7 = 2112;
-  v8 = a2;
-  _os_log_error_impl(&dword_1B6DB2000, log, OS_LOG_TYPE_ERROR, "Failed to encode sanitized descriptors for set: %@ error: %@", &v5, 0x16u);
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = 138412546;
+  v5 = v3;
+  v6 = 2112;
+  v7 = a2;
+  _os_log_error_impl(&dword_1B6DB2000, log, OS_LOG_TYPE_ERROR, "Failed to encode sanitized descriptors for set: %@ error: %@", &v4, 0x16u);
 }
 
 @end

@@ -10,11 +10,11 @@
 
 - (void)temperatureService:(id)service didUpdateTargetTemperature:(id)temperature
 {
-  v5 = sub_1000040E8(&unk_100114790);
+  v5 = sub_1000040E8(&unk_100114790, &qword_1000D6820);
   v6 = *(v5 - 8);
   __chkstk_darwin(v5);
   v8 = &v10 - v7;
-  sub_10000827C(0, &qword_100114AB0);
+  sub_10000827C(0, &qword_100114AB0, NSUnitTemperature_ptr);
   static Measurement._unconditionallyBridgeFromObjectiveC(_:)();
   selfCopy = self;
   sub_10009114C();
@@ -24,20 +24,20 @@
 
 - (void)temperatureService:(id)service didUpdateCurrentTemperature:(id)temperature
 {
-  v6 = sub_1000040E8(&unk_1001153F0);
+  v6 = sub_1000040E8(&unk_1001153F0, qword_1000D5C40);
   __chkstk_darwin(v6 - 8);
   v8 = &v12 - v7;
   if (temperature)
   {
-    sub_10000827C(0, &qword_100114AB0);
+    sub_10000827C(0, &qword_100114AB0, NSUnitTemperature_ptr);
     static Measurement._unconditionallyBridgeFromObjectiveC(_:)();
-    v9 = sub_1000040E8(&unk_100114790);
+    v9 = sub_1000040E8(&unk_100114790, &qword_1000D6820);
     (*(*(v9 - 8) + 56))(v8, 0, 1, v9);
   }
 
   else
   {
-    v10 = sub_1000040E8(&unk_100114790);
+    v10 = sub_1000040E8(&unk_100114790, &qword_1000D6820);
     (*(*(v10 - 8) + 56))(v8, 1, 1, v10);
   }
 

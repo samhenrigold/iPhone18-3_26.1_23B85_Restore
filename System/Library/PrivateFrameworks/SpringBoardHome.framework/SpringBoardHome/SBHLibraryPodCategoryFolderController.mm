@@ -68,27 +68,27 @@
 
 - (void)viewWillAppear:(BOOL)appear
 {
-  v5.receiver = self;
-  v5.super_class = SBHLibraryPodCategoryFolderController;
-  [(SBHLibraryPodFolderController *)&v5 viewWillAppear:appear];
-  v3 = SBLogTelemetrySignposts();
-  if (os_signpost_enabled(v3))
+  v6.receiver = self;
+  v6.super_class = SBHLibraryPodCategoryFolderController;
+  v3 = [(SBHLibraryPodFolderController *)&v6 viewWillAppear:appear];
+  v4 = SBLogTelemetrySignposts(v3);
+  if (os_signpost_enabled(v4))
   {
-    *v4 = 0;
-    _os_signpost_emit_with_name_impl(&dword_1BEB18000, v3, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "SBH_HOME_LIBRARY_EXPAND_POD", " enableTelemetry=YES ", v4, 2u);
+    *v5 = 0;
+    _os_signpost_emit_with_name_impl(&dword_1BEB18000, v4, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "SBH_HOME_LIBRARY_EXPAND_POD", " enableTelemetry=YES ", v5, 2u);
   }
 }
 
 - (void)viewDidAppear:(BOOL)appear
 {
-  v6.receiver = self;
-  v6.super_class = SBHLibraryPodCategoryFolderController;
-  [(SBFolderController *)&v6 viewDidAppear:appear];
-  v4 = SBLogTelemetrySignposts();
-  if (os_signpost_enabled(v4))
+  v7.receiver = self;
+  v7.super_class = SBHLibraryPodCategoryFolderController;
+  v4 = [(SBFolderController *)&v7 viewDidAppear:appear];
+  v5 = SBLogTelemetrySignposts(v4);
+  if (os_signpost_enabled(v5))
   {
-    *v5 = 0;
-    _os_signpost_emit_with_name_impl(&dword_1BEB18000, v4, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "SBH_HOME_LIBRARY_EXPAND_POD", " enableTelemetry=YES ", v5, 2u);
+    *v6 = 0;
+    _os_signpost_emit_with_name_impl(&dword_1BEB18000, v5, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "SBH_HOME_LIBRARY_EXPAND_POD", " enableTelemetry=YES ", v6, 2u);
   }
 
   [(SBHLibraryPodCategoryFolderController *)self _logCategoryVisibilityChangedTo:1];
@@ -96,14 +96,14 @@
 
 - (void)viewWillDisappear:(BOOL)disappear
 {
-  v6.receiver = self;
-  v6.super_class = SBHLibraryPodCategoryFolderController;
-  [(SBFolderController *)&v6 viewWillDisappear:disappear];
-  v4 = SBLogTelemetrySignposts();
-  if (os_signpost_enabled(v4))
+  v7.receiver = self;
+  v7.super_class = SBHLibraryPodCategoryFolderController;
+  v4 = [(SBFolderController *)&v7 viewWillDisappear:disappear];
+  v5 = SBLogTelemetrySignposts(v4);
+  if (os_signpost_enabled(v5))
   {
-    *v5 = 0;
-    _os_signpost_emit_with_name_impl(&dword_1BEB18000, v4, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "SBH_HOME_LIBRARY_COLLAPSE_POD", " enableTelemetry=YES ", v5, 2u);
+    *v6 = 0;
+    _os_signpost_emit_with_name_impl(&dword_1BEB18000, v5, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "SBH_HOME_LIBRARY_COLLAPSE_POD", " enableTelemetry=YES ", v6, 2u);
   }
 
   [(SBHLibraryPodFolderController *)self dismissDisplayedContextMenu];
@@ -111,14 +111,14 @@
 
 - (void)viewDidDisappear:(BOOL)disappear
 {
-  v6.receiver = self;
-  v6.super_class = SBHLibraryPodCategoryFolderController;
-  [(SBFolderController *)&v6 viewDidDisappear:disappear];
-  v4 = SBLogTelemetrySignposts();
-  if (os_signpost_enabled(v4))
+  v7.receiver = self;
+  v7.super_class = SBHLibraryPodCategoryFolderController;
+  v4 = [(SBFolderController *)&v7 viewDidDisappear:disappear];
+  v5 = SBLogTelemetrySignposts(v4);
+  if (os_signpost_enabled(v5))
   {
-    *v5 = 0;
-    _os_signpost_emit_with_name_impl(&dword_1BEB18000, v4, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "SBH_HOME_LIBRARY_COLLAPSE_POD", " enableTelemetry=YES ", v5, 2u);
+    *v6 = 0;
+    _os_signpost_emit_with_name_impl(&dword_1BEB18000, v5, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "SBH_HOME_LIBRARY_COLLAPSE_POD", " enableTelemetry=YES ", v6, 2u);
   }
 
   [(SBHLibraryPodCategoryFolderController *)self _logCategoryVisibilityChangedTo:0];

@@ -350,7 +350,7 @@ LABEL_3:
   }
 }
 
-uint64_t __61__FigCaptureTrie__enumeratePathsWithPrefix_stop_processLeaf___block_invoke(uint64_t a1, uint64_t a2, void *a3, _BYTE *a4)
+void *__61__FigCaptureTrie__enumeratePathsWithPrefix_stop_processLeaf___block_invoke(uint64_t a1, uint64_t a2, void *a3, _BYTE *a4)
 {
   result = [a3 _enumeratePathsWithPrefix:objc_msgSend(*(a1 + 32) stop:"arrayByAddingObject:" processLeaf:{a2), *(a1 + 48), *(a1 + 40)}];
   *a4 = **(a1 + 48);
@@ -466,7 +466,7 @@ uint64_t __61__FigCaptureTrie__enumeratePathsWithPrefix_stop_processLeaf___block
   return fromCopy;
 }
 
-uint64_t __75__FigCaptureTrie__extractFrom_writeTarget_destinationMutability_overwrite___block_invoke(uint64_t a1, uint64_t a2, void *a3)
+void *__75__FigCaptureTrie__extractFrom_writeTarget_destinationMutability_overwrite___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
   result = [*(a1 + 32) objectForKeyedSubscript:a2];
   if (result)

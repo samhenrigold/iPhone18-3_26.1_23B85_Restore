@@ -38,50 +38,50 @@
 
 - (void)updateDelegates
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   array = [MEMORY[0x277CBEB18] array];
-  v46 = 0;
-  v4 = [(CardDAVDelegateManager *)self collectDelegateInfoReturningError:&v46];
-  v5 = v46;
+  v45 = 0;
+  v4 = [(CardDAVDelegateManager *)self collectDelegateInfoReturningError:&v45];
+  v5 = v45;
   v6 = v5;
   if (v4)
   {
-    v34 = v5;
-    v36 = array;
+    v33 = v5;
+    v35 = array;
     dAAccountPrincipalPath = [MEMORY[0x277D03970] DAAccountPrincipalPath];
     selfCopy = self;
     v8 = [(CardDAVDelegateManager *)self existingChildAccountsWithProperty:dAAccountPrincipalPath];
     v9 = [v8 mutableCopy];
 
-    v44 = 0u;
-    v45 = 0u;
-    v42 = 0u;
     v43 = 0u;
-    v35 = v4;
+    v44 = 0u;
+    v41 = 0u;
+    v42 = 0u;
+    v34 = v4;
     obj = v4;
-    v10 = [obj countByEnumeratingWithState:&v42 objects:v51 count:16];
+    v10 = [obj countByEnumeratingWithState:&v41 objects:v50 count:16];
     if (!v10)
     {
       goto LABEL_19;
     }
 
     v11 = v10;
-    v12 = *v43;
+    v12 = *v42;
     v13 = *MEMORY[0x277CFBD30];
     v14 = *MEMORY[0x277CFBD30] + 16;
     v15 = *(MEMORY[0x277D03988] + 3);
     type = v15;
-    v37 = *MEMORY[0x277CFBD30];
+    v36 = *MEMORY[0x277CFBD30];
     while (1)
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v43 != v12)
+        if (*v42 != v12)
         {
           objc_enumerationMutation(obj);
         }
 
-        v17 = *(*(&v42 + 1) + 8 * i);
+        v17 = *(*(&v41 + 1) + 8 * i);
         principalPath = [v17 principalPath];
         if (!(*(v13 + 16))(v13, principalPath))
         {
@@ -110,7 +110,7 @@
           }
 
           v29 = [(CardDAVDelegateManager *)selfCopy saveAccount:v19];
-          [v36 addObject:v29];
+          [v35 addObject:v29];
 
 LABEL_15:
           v9 = v24;
@@ -118,7 +118,7 @@ LABEL_15:
           v12 = v23;
           v14 = v22;
           v11 = v21;
-          v13 = v37;
+          v13 = v36;
           goto LABEL_16;
         }
 
@@ -130,9 +130,9 @@ LABEL_15:
 
         dsid = [v17 dsid];
         *buf = 138543618;
-        v48 = dsid;
-        v49 = 2112;
-        v50 = v17;
+        v47 = dsid;
+        v48 = 2112;
+        v49 = v17;
         _os_log_impl(&dword_24850D000, v19, type, "Unexpected condition updating deletes - no principal path for delegateInfo: %{public}@ %@", buf, 0x16u);
 
 LABEL_16:
@@ -140,26 +140,26 @@ LABEL_16:
 LABEL_17:
       }
 
-      v11 = [obj countByEnumeratingWithState:&v42 objects:v51 count:16];
+      v11 = [obj countByEnumeratingWithState:&v41 objects:v50 count:16];
       if (!v11)
       {
 LABEL_19:
 
         allValues = [v9 allValues];
-        v41[0] = MEMORY[0x277D85DD0];
-        v41[1] = 3221225472;
-        v41[2] = __41__CardDAVDelegateManager_updateDelegates__block_invoke;
-        v41[3] = &unk_278F1AD10;
-        v41[4] = selfCopy;
-        v31 = [allValues _cn_map:v41];
+        v40[0] = MEMORY[0x277D85DD0];
+        v40[1] = 3221225472;
+        v40[2] = __41__CardDAVDelegateManager_updateDelegates__block_invoke;
+        v40[3] = &unk_278F1AD10;
+        v40[4] = selfCopy;
+        v31 = [allValues _cn_map:v40];
 
         [(CardDAVDelegateManager *)selfCopy deleteOrphanDatabasesLackingRepresentationInDelegateInfos:obj];
         [objc_opt_class() finishFutures:v31];
-        array = v36;
-        [objc_opt_class() finishFutures:v36];
+        array = v35;
+        [objc_opt_class() finishFutures:v35];
 
-        v6 = v34;
-        v4 = v35;
+        v6 = v33;
+        v4 = v34;
         goto LABEL_22;
       }
     }
@@ -170,13 +170,11 @@ LABEL_19:
   if (os_log_type_enabled(v9, v32))
   {
     *buf = 138412290;
-    v48 = v6;
+    v47 = v6;
     _os_log_impl(&dword_24850D000, v9, v32, "Skipping delegate state update (including account account adds/removes) because we got an error fetching delegates from Family Circle. error:  %@", buf, 0xCu);
   }
 
 LABEL_22:
-
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 - (void)deleteOrphanDatabasesLackingRepresentationInDelegateInfos:(id)infos
@@ -216,44 +214,43 @@ LABEL_22:
 
 - (id)existingChildAccountsWithProperty:(id)property
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   propertyCopy = property;
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   account = [(CardDAVDelegateManager *)self account];
   childAccounts = [account childAccounts];
 
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   v8 = childAccounts;
-  v9 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v19;
+    v11 = *v18;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v19 != v11)
+        if (*v18 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v18 + 1) + 8 * i);
-        v14 = [v13 accountPropertyForKey:{propertyCopy, v18}];
+        v13 = *(*(&v17 + 1) + 8 * i);
+        v14 = [v13 accountPropertyForKey:{propertyCopy, v17}];
         [dictionary setObject:v13 forKeyedSubscript:v14];
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v10);
   }
 
   v15 = [dictionary copy];
-  v16 = *MEMORY[0x277D85DE8];
 
   return v15;
 }
@@ -310,37 +307,33 @@ LABEL_22:
 
 void __38__CardDAVDelegateManager_saveAccount___block_invoke(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = DALoggingwithCategory();
   v5 = *(MEMORY[0x277D03988] + 3);
   if (os_log_type_enabled(v4, v5))
   {
     v6 = [*(a1 + 32) identifier];
-    v8 = 138412546;
-    v9 = v6;
-    v10 = 2114;
-    v11 = v3;
-    _os_log_impl(&dword_24850D000, v4, v5, "Delegate with account ID %@ cannot be saved, error %{public}@", &v8, 0x16u);
+    v7 = 138412546;
+    v8 = v6;
+    v9 = 2114;
+    v10 = v3;
+    _os_log_impl(&dword_24850D000, v4, v5, "Delegate with account ID %@ cannot be saved, error %{public}@", &v7, 0x16u);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __38__CardDAVDelegateManager_saveAccount___block_invoke_8(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = DALoggingwithCategory();
   v3 = *(MEMORY[0x277D03988] + 7);
   if (os_log_type_enabled(v2, v3))
   {
     v4 = [*(a1 + 32) identifier];
-    v6 = 138412290;
-    v7 = v4;
-    _os_log_impl(&dword_24850D000, v2, v3, "Delegate with account ID %@ can be saved", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v4;
+    _os_log_impl(&dword_24850D000, v2, v3, "Delegate with account ID %@ can be saved", &v5, 0xCu);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 id __38__CardDAVDelegateManager_saveAccount___block_invoke_10(uint64_t a1)
@@ -366,37 +359,33 @@ id __38__CardDAVDelegateManager_saveAccount___block_invoke_10(uint64_t a1)
 
 void __38__CardDAVDelegateManager_saveAccount___block_invoke_2(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = DALoggingwithCategory();
   v5 = *(MEMORY[0x277D03988] + 3);
   if (os_log_type_enabled(v4, v5))
   {
     v6 = [*(a1 + 32) identifier];
-    v8 = 138412546;
-    v9 = v6;
-    v10 = 2114;
-    v11 = v3;
-    _os_log_impl(&dword_24850D000, v4, v5, "Delegate with account ID %@ save failed, error %{public}@", &v8, 0x16u);
+    v7 = 138412546;
+    v8 = v6;
+    v9 = 2114;
+    v10 = v3;
+    _os_log_impl(&dword_24850D000, v4, v5, "Delegate with account ID %@ save failed, error %{public}@", &v7, 0x16u);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __38__CardDAVDelegateManager_saveAccount___block_invoke_11(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = DALoggingwithCategory();
   v3 = *(MEMORY[0x277D03988] + 7);
   if (os_log_type_enabled(v2, v3))
   {
     v4 = [*(a1 + 32) identifier];
-    v6 = 138412290;
-    v7 = v4;
-    _os_log_impl(&dword_24850D000, v2, v3, "Delegate with account ID %@ saved", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v4;
+    _os_log_impl(&dword_24850D000, v2, v3, "Delegate with account ID %@ saved", &v5, 0xCu);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (id)removeAccount:(id)account
@@ -425,37 +414,33 @@ void __38__CardDAVDelegateManager_saveAccount___block_invoke_11(uint64_t a1)
 
 void __40__CardDAVDelegateManager_removeAccount___block_invoke(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = DALoggingwithCategory();
   v5 = *(MEMORY[0x277D03988] + 3);
   if (os_log_type_enabled(v4, v5))
   {
     v6 = [*(a1 + 32) identifier];
-    v8 = 138412546;
-    v9 = v6;
-    v10 = 2114;
-    v11 = v3;
-    _os_log_impl(&dword_24850D000, v4, v5, "Delegate with account ID %@ failed to be removed, error %{public}@", &v8, 0x16u);
+    v7 = 138412546;
+    v8 = v6;
+    v9 = 2114;
+    v10 = v3;
+    _os_log_impl(&dword_24850D000, v4, v5, "Delegate with account ID %@ failed to be removed, error %{public}@", &v7, 0x16u);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __40__CardDAVDelegateManager_removeAccount___block_invoke_13(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = DALoggingwithCategory();
   v3 = *(MEMORY[0x277D03988] + 7);
   if (os_log_type_enabled(v2, v3))
   {
     v4 = [*(a1 + 32) identifier];
-    v6 = 138412290;
-    v7 = v4;
-    _os_log_impl(&dword_24850D000, v2, v3, "Delegate with account ID %@ was successfully removed", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v4;
+    _os_log_impl(&dword_24850D000, v2, v3, "Delegate with account ID %@ was successfully removed", &v5, 0xCu);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

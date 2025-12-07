@@ -129,30 +129,30 @@ void __54__DDSAssertionTracker_assertionDueForUpdateSinceDate___block_invoke(voi
 
 - (id)assertionDueForUpdateFrom:(id)from SinceDate:(id)date
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   fromCopy = from;
   dateCopy = date;
   v8 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
   v9 = fromCopy;
-  v10 = [v9 countByEnumeratingWithState:&v26 objects:v30 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v25 objects:v29 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v27;
+    v12 = *v26;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v27 != v12)
+        if (*v26 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = *(*(&v26 + 1) + 8 * i);
+        v14 = *(*(&v25 + 1) + 8 * i);
         policy = [v14 policy];
         preferredDownloadFrequency = [policy preferredDownloadFrequency];
 
@@ -175,13 +175,11 @@ void __54__DDSAssertionTracker_assertionDueForUpdateSinceDate___block_invoke(voi
         [v8 addObject:v14];
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v26 objects:v30 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v25 objects:v29 count:16];
     }
 
     while (v11);
   }
-
-  v24 = *MEMORY[0x1E69E9840];
 
   return v8;
 }
@@ -202,27 +200,27 @@ void __54__DDSAssertionTracker_assertionDueForUpdateSinceDate___block_invoke(voi
 
 void __58__DDSAssertionTracker_resetAssertionDueDatesForAssetType___block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v2 = [*(a1 + 32) trackedAssertions];
-  v3 = [v2 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v15;
+    v5 = *v14;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v15 != v5)
+        if (*v14 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v14 + 1) + 8 * i);
+        v7 = *(*(&v13 + 1) + 8 * i);
         v8 = [v7 query];
         v9 = [v8 assetType];
         v10 = [v9 isEqualToString:*(a1 + 40)];
@@ -233,7 +231,7 @@ void __58__DDSAssertionTracker_resetAssertionDueDatesForAssetType___block_invoke
         }
       }
 
-      v4 = [v2 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v4);
@@ -242,8 +240,6 @@ void __58__DDSAssertionTracker_resetAssertionDueDatesForAssetType___block_invoke
   v11 = [*(a1 + 32) dataHandler];
   v12 = [*(a1 + 32) trackedAssertions];
   [v11 saveAssertionData:v12];
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addAssertionForQuery:(id)query policy:(id)policy assertionID:(id)d clientID:(id)iD
@@ -358,124 +354,121 @@ LABEL_11:
 
   if ((*(*(*(a1 + 80) + 8) + 24) & 1) == 0)
   {
-    v13 = [[DDSAssertion alloc] initWithQuery:*(a1 + 40)];
-    v14 = *(*(a1 + 88) + 8);
-    v15 = *(v14 + 40);
-    *(v14 + 40) = v13;
+    v14 = [[DDSAssertion alloc] initWithQuery:*(a1 + 40)];
+    v15 = *(*(a1 + 88) + 8);
+    v16 = *(v15 + 40);
+    *(v15 + 40) = v14;
 
-    v16 = [*(*(*(a1 + 88) + 8) + 40) addDescriptorWithAssertionID:*(a1 + 48) clientID:*(a1 + 56) policy:*(a1 + 64)];
-    v17 = *(*(a1 + 72) + 8);
-    v18 = *(v17 + 40);
-    *(v17 + 40) = v16;
+    v17 = [*(*(*(a1 + 88) + 8) + 40) addDescriptorWithAssertionID:*(a1 + 48) clientID:*(a1 + 56) policy:*(a1 + 64)];
+    v18 = *(*(a1 + 72) + 8);
+    v19 = *(v18 + 40);
+    *(v18 + 40) = v17;
 
-    v19 = [*(a1 + 32) trackedAssertions];
-    [v19 addObject:*(*(*(a1 + 88) + 8) + 40)];
+    v20 = [*(a1 + 32) trackedAssertions];
+    [v20 addObject:*(*(*(a1 + 88) + 8) + 40)];
   }
 
-  v20 = DefaultLog();
-  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+  v21 = DefaultLog(v13);
+  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
   {
-    v21 = *(*(*(a1 + 88) + 8) + 40);
-    v22 = *(a1 + 48);
-    v23 = *(a1 + 56);
+    v22 = *(*(*(a1 + 88) + 8) + 40);
+    v23 = *(a1 + 48);
+    v24 = *(a1 + 56);
     *buf = 138543874;
-    v32 = v21;
+    v32 = v22;
     v33 = 2114;
-    v34 = v22;
+    v34 = v23;
     v35 = 2114;
-    v36 = v23;
-    _os_log_impl(&dword_1DF7C6000, v20, OS_LOG_TYPE_DEFAULT, "Add assertion (%{public}@) with id (%{public}@) for client (%{public}@)", buf, 0x20u);
+    v36 = v24;
+    _os_log_impl(&dword_1DF7C6000, v21, OS_LOG_TYPE_DEFAULT, "Add assertion (%{public}@) with id (%{public}@) for client (%{public}@)", buf, 0x20u);
   }
 
-  v24 = [*(a1 + 32) dataHandler];
-  v25 = [*(a1 + 32) trackedAssertions];
-  [v24 saveAssertionData:v25];
-
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = [*(a1 + 32) dataHandler];
+  v26 = [*(a1 + 32) trackedAssertions];
+  [v25 saveAssertionData:v26];
 }
 
 - (void)removeAssertionWithID:(id)d
 {
   dCopy = d;
-  v14 = 0;
-  v15[0] = &v14;
-  v15[1] = 0x3032000000;
-  v15[2] = __Block_byref_object_copy__3;
-  v15[3] = __Block_byref_object_dispose__3;
-  v16 = 0;
+  v15 = 0;
+  v16[0] = &v15;
+  v16[1] = 0x3032000000;
+  v16[2] = __Block_byref_object_copy__3;
+  v16[3] = __Block_byref_object_dispose__3;
+  v17 = 0;
   queue = [(DDSAssertionTracker *)self queue];
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __45__DDSAssertionTracker_removeAssertionWithID___block_invoke;
   block[3] = &unk_1E86C65A8;
   v6 = dCopy;
-  v11 = v6;
+  v12 = v6;
   selfCopy = self;
-  v13 = &v14;
+  v14 = &v15;
   dispatch_sync(queue, block);
 
-  v7 = DefaultLog();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+  v8 = DefaultLog(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
-    [(DDSAssertionTracker *)v15 removeAssertionWithID:v7];
+    [(DDSAssertionTracker *)v16 removeAssertionWithID:v8];
   }
 
-  if (*(v15[0] + 40))
+  if (*(v16[0] + 40))
   {
     delegate = [(DDSAssertionTracker *)self delegate];
-    v9 = [MEMORY[0x1E695DFD8] setWithObject:*(v15[0] + 40)];
-    [delegate handleRemovedAssertions:v9];
+    v10 = [MEMORY[0x1E695DFD8] setWithObject:*(v16[0] + 40)];
+    [delegate handleRemovedAssertions:v10];
   }
 
-  _Block_object_dispose(&v14, 8);
+  _Block_object_dispose(&v15, 8);
 }
 
 void __45__DDSAssertionTracker_removeAssertionWithID___block_invoke(uint64_t a1)
 {
-  v33 = *MEMORY[0x1E69E9840];
-  v2 = DefaultLog();
+  v34 = *MEMORY[0x1E69E9840];
+  v2 = DefaultLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     *buf = 138543362;
-    v32 = v3;
+    v33 = v3;
     _os_log_impl(&dword_1DF7C6000, v2, OS_LOG_TYPE_DEFAULT, "Remove assertion with id: %{public}@", buf, 0xCu);
   }
 
-  v26 = 0u;
   v27 = 0u;
-  v24 = 0u;
+  v28 = 0u;
   v25 = 0u;
+  v26 = 0u;
   v4 = [*(a1 + 40) trackedAssertions];
-  v5 = [v4 countByEnumeratingWithState:&v24 objects:v30 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v25 objects:v31 count:16];
   if (v5)
   {
     v7 = v5;
-    v8 = *v25;
+    v8 = *v26;
     *&v6 = 138543362;
-    v23 = v6;
+    v24 = v6;
     while (2)
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v25 != v8)
+        if (*v26 != v8)
         {
           objc_enumerationMutation(v4);
         }
 
-        v10 = *(*(&v24 + 1) + 8 * i);
+        v10 = *(*(&v25 + 1) + 8 * i);
         v11 = [v10 assertionIdentifiers];
         v12 = [v11 containsObject:*(a1 + 32)];
 
         if (v12)
         {
-          [v10 removeDescriptorWithAssertionID:*(a1 + 32)];
-          v13 = DefaultLog();
+          v13 = DefaultLog([v10 removeDescriptorWithAssertionID:*(a1 + 32)]);
           if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
           {
-            v17 = *(a1 + 32);
-            *buf = v23;
-            v32 = v17;
+            v18 = *(a1 + 32);
+            *buf = v24;
+            v33 = v18;
             _os_log_debug_impl(&dword_1DF7C6000, v13, OS_LOG_TYPE_DEBUG, "Removed descriptor id: %{public}@", buf, 0xCu);
           }
         }
@@ -486,23 +479,23 @@ void __45__DDSAssertionTracker_removeAssertionWithID___block_invoke(uint64_t a1)
         if (!v15)
         {
           objc_storeStrong((*(*(a1 + 48) + 8) + 40), v10);
-          v18 = DefaultLog();
-          if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+          v20 = DefaultLog(v19);
+          if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
           {
-            __45__DDSAssertionTracker_removeAssertionWithID___block_invoke_cold_2(a1 + 48, v18);
+            __45__DDSAssertionTracker_removeAssertionWithID___block_invoke_cold_2(a1 + 48, v20);
           }
 
           goto LABEL_21;
         }
 
-        v16 = DefaultLog();
-        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+        v17 = DefaultLog(v16);
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
         {
-          __45__DDSAssertionTracker_removeAssertionWithID___block_invoke_cold_1(v28, v10, &v29, v16);
+          __45__DDSAssertionTracker_removeAssertionWithID___block_invoke_cold_1(v29, v10, &v30, v17);
         }
       }
 
-      v7 = [v4 countByEnumeratingWithState:&v24 objects:v30 count:16];
+      v7 = [v4 countByEnumeratingWithState:&v25 objects:v31 count:16];
       if (v7)
       {
         continue;
@@ -516,15 +509,13 @@ LABEL_21:
 
   if (*(*(*(a1 + 48) + 8) + 40))
   {
-    v19 = [*(a1 + 40) trackedAssertions];
-    [v19 removeObject:*(*(*(a1 + 48) + 8) + 40)];
+    v21 = [*(a1 + 40) trackedAssertions];
+    [v21 removeObject:*(*(*(a1 + 48) + 8) + 40)];
   }
 
-  v20 = [*(a1 + 40) dataHandler];
-  v21 = [*(a1 + 40) trackedAssertions];
-  [v20 saveAssertionData:v21];
-
-  v22 = *MEMORY[0x1E69E9840];
+  v22 = [*(a1 + 40) dataHandler];
+  v23 = [*(a1 + 40) trackedAssertions];
+  [v22 saveAssertionData:v23];
 }
 
 - (void)didUpdateAssertion:(id)assertion atDate:(id)date
@@ -546,25 +537,23 @@ LABEL_21:
 
 void __49__DDSAssertionTracker_didUpdateAssertion_atDate___block_invoke(uint64_t a1)
 {
-  v12 = *MEMORY[0x1E69E9840];
-  v2 = DefaultLog();
+  v11 = *MEMORY[0x1E69E9840];
+  v2 = DefaultLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     v4 = *(a1 + 40);
-    v8 = 138543618;
-    v9 = v3;
-    v10 = 2114;
-    v11 = v4;
-    _os_log_impl(&dword_1DF7C6000, v2, OS_LOG_TYPE_DEFAULT, "Setting last updated for assertion (%{public}@) set to (%{public}@)", &v8, 0x16u);
+    v7 = 138543618;
+    v8 = v3;
+    v9 = 2114;
+    v10 = v4;
+    _os_log_impl(&dword_1DF7C6000, v2, OS_LOG_TYPE_DEFAULT, "Setting last updated for assertion (%{public}@) set to (%{public}@)", &v7, 0x16u);
   }
 
   [*(a1 + 32) setLastUpdated:*(a1 + 40)];
   v5 = [*(a1 + 48) dataHandler];
   v6 = [*(a1 + 48) trackedAssertions];
   [v5 saveAssertionData:v6];
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (id)assertionForQuery:(id)query
@@ -595,27 +584,27 @@ void __49__DDSAssertionTracker_didUpdateAssertion_atDate___block_invoke(uint64_t
 
 void __41__DDSAssertionTracker_assertionForQuery___block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   v2 = [*(a1 + 32) trackedAssertions];
-  v3 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v12;
+    v5 = *v11;
     while (2)
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v12 != v5)
+        if (*v11 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v11 + 1) + 8 * i);
+        v7 = *(*(&v10 + 1) + 8 * i);
         v8 = [v7 query];
         v9 = [v8 isEqualToAssetQuery:*(a1 + 40)];
 
@@ -626,7 +615,7 @@ void __41__DDSAssertionTracker_assertionForQuery___block_invoke(uint64_t a1)
         }
       }
 
-      v4 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
       if (v4)
       {
         continue;
@@ -637,8 +626,6 @@ void __41__DDSAssertionTracker_assertionForQuery___block_invoke(uint64_t a1)
   }
 
 LABEL_11:
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (double)intervalForDownloadFrequency:(int64_t)frequency
@@ -678,29 +665,29 @@ LABEL_11:
 
 void __40__DDSAssertionTracker_trackedAssetTypes__block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   v2 = [*(a1 + 32) trackedAssertions];
-  v3 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v12;
+    v5 = *v11;
     do
     {
       v6 = 0;
       do
       {
-        if (*v12 != v5)
+        if (*v11 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
         v7 = *(a1 + 40);
-        v8 = [*(*(&v11 + 1) + 8 * v6) query];
+        v8 = [*(*(&v10 + 1) + 8 * v6) query];
         v9 = [v8 assetType];
         [v7 addObject:v9];
 
@@ -708,13 +695,11 @@ void __40__DDSAssertionTracker_trackedAssetTypes__block_invoke(uint64_t a1)
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v4);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (id)assertionIDsForClientID:(id)d
@@ -741,42 +726,40 @@ void __40__DDSAssertionTracker_trackedAssetTypes__block_invoke(uint64_t a1)
 
 void __47__DDSAssertionTracker_assertionIDsForClientID___block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   v2 = [*(a1 + 32) trackedAssertions];
-  v3 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v11;
+    v5 = *v10;
     do
     {
       v6 = 0;
       do
       {
-        if (*v11 != v5)
+        if (*v10 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
         v7 = *(a1 + 40);
-        v8 = [*(*(&v10 + 1) + 8 * v6) assertionIDsForClientID:*(a1 + 48)];
+        v8 = [*(*(&v9 + 1) + 8 * v6) assertionIDsForClientID:*(a1 + 48)];
         [v7 unionSet:v8];
 
         ++v6;
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v4);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)modifyUpdateStatusForAssertion:(id)assertion toStatus:(int64_t)status
@@ -837,29 +820,26 @@ void __48__DDSAssertionTracker_updateStatusForAssertion___block_invoke(uint64_t 
   v6 = [v2 objectForKey:v5];
   *(*(*(a1 + 48) + 8) + 24) = [v6 intValue];
 
-  v7 = DefaultLog();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v8 = DefaultLog(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = [*(a1 + 40) assertionIdentifiers];
-    v9 = *(*(*(a1 + 48) + 8) + 24);
+    v9 = [*(a1 + 40) assertionIdentifiers];
+    v10 = *(*(*(a1 + 48) + 8) + 24);
     v11 = 138543618;
-    v12 = v8;
+    v12 = v9;
     v13 = 2048;
-    v14 = v9;
-    _os_log_impl(&dword_1DF7C6000, v7, OS_LOG_TYPE_DEFAULT, "Asset Download UI updateStatusForAssertion for Assertion: (%{public}@), status: (%ld)", &v11, 0x16u);
+    v14 = v10;
+    _os_log_impl(&dword_1DF7C6000, v8, OS_LOG_TYPE_DEFAULT, "Asset Download UI updateStatusForAssertion for Assertion: (%{public}@), status: (%ld)", &v11, 0x16u);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)removeAssertionWithID:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v2 = *(*a1 + 40);
-  v4 = 138543362;
-  v5 = v2;
-  _os_log_debug_impl(&dword_1DF7C6000, a2, OS_LOG_TYPE_DEBUG, "Calling delegate to remove assertion: %{public}@", &v4, 0xCu);
-  v3 = *MEMORY[0x1E69E9840];
+  v3 = 138543362;
+  v4 = v2;
+  _os_log_debug_impl(&dword_1DF7C6000, a2, OS_LOG_TYPE_DEBUG, "Calling delegate to remove assertion: %{public}@", &v3, 0xCu);
 }
 
 void __45__DDSAssertionTracker_removeAssertionWithID___block_invoke_cold_1(uint8_t *a1, void *a2, void *a3, NSObject *a4)
@@ -872,12 +852,11 @@ void __45__DDSAssertionTracker_removeAssertionWithID___block_invoke_cold_1(uint8
 
 void __45__DDSAssertionTracker_removeAssertionWithID___block_invoke_cold_2(uint64_t a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v2 = *(*(*a1 + 8) + 40);
-  v4 = 138543362;
-  v5 = v2;
-  _os_log_debug_impl(&dword_1DF7C6000, a2, OS_LOG_TYPE_DEBUG, "Removing assertion: %{public}@", &v4, 0xCu);
-  v3 = *MEMORY[0x1E69E9840];
+  v3 = 138543362;
+  v4 = v2;
+  _os_log_debug_impl(&dword_1DF7C6000, a2, OS_LOG_TYPE_DEBUG, "Removing assertion: %{public}@", &v3, 0xCu);
 }
 
 @end

@@ -79,7 +79,7 @@
   v7 = v2;
   if (v3 || (v3 = v7) != 0)
   {
-    [v3 ps_STLString];
+    objc_msgSend_ps_STLString(v3);
     v5 = v7;
   }
 

@@ -178,7 +178,7 @@ LABEL_10:
 LABEL_21:
 }
 
-uint64_t __48__ICNote_HTML__fixTextColorsInAttributedString___block_invoke(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
+void *__48__ICNote_HTML__fixTextColorsInAttributedString___block_invoke(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
 {
   result = [a2 ic_isBlack];
   if (result)
@@ -206,17 +206,17 @@ void __75__ICNote_HTML__htmlStringFromAttributedString_attachmentConversionHandl
 
 void __75__ICNote_HTML__htmlStringFromAttributedString_attachmentConversionHandler___block_invoke_2(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
 {
-  v83 = *MEMORY[0x1E69E9840];
-  v54 = a2;
+  v82 = *MEMORY[0x1E69E9840];
+  v53 = a2;
   v5 = [*(a1 + 72) tagDictionariesForAttributes:? attachmentConversionHandler:?];
   v6 = [v5 count];
+  v75 = 0u;
   v76 = 0u;
+  v54 = v6 == 0;
   v77 = 0u;
-  v55 = v6 == 0;
   v78 = 0u;
-  v79 = 0u;
   obj = v5;
-  v7 = [obj countByEnumeratingWithState:&v76 objects:v82 count:16];
+  v7 = [obj countByEnumeratingWithState:&v75 objects:v81 count:16];
   if (!v7)
   {
 
@@ -230,21 +230,21 @@ void __75__ICNote_HTML__htmlStringFromAttributedString_attachmentConversionHandl
   }
 
   v8 = 0;
-  v9 = *v77;
+  v9 = *v76;
   do
   {
     v10 = 0;
     v11 = v8;
     do
     {
-      if (*v77 != v9)
+      if (*v76 != v9)
       {
         objc_enumerationMutation(obj);
       }
 
-      v12 = *(*(&v76 + 1) + 8 * v10);
-      v13 = [v12 objectForKeyedSubscript:@"TagName"];
-      v14 = [v12 objectForKeyedSubscript:@"Attributes"];
+      v12 = *(*(&v75 + 1) + 8 * v10);
+      v13 = objc_msgSend_objectForKeyedSubscript_(v12);
+      v14 = objc_msgSend_objectForKeyedSubscript_(v12);
       v15 = v14;
       v16 = &stru_1F4F94F00;
       if (v14)
@@ -267,7 +267,7 @@ void __75__ICNote_HTML__htmlStringFromAttributedString_attachmentConversionHandl
         }
       }
 
-      v8 = [v12 objectForKeyedSubscript:@"TextContent"];
+      v8 = objc_msgSend_objectForKeyedSubscript_(v12);
 
       [*(a1 + 32) appendFormat:@"<%@%@", v13, v17];
       if ([*(a1 + 40) containsObject:v13])
@@ -277,7 +277,7 @@ void __75__ICNote_HTML__htmlStringFromAttributedString_attachmentConversionHandl
 
       else
       {
-        v55 = 1;
+        v54 = 1;
       }
 
       [*(a1 + 32) appendString:@">"];
@@ -287,12 +287,12 @@ void __75__ICNote_HTML__htmlStringFromAttributedString_attachmentConversionHandl
     }
 
     while (v7 != v10);
-    v7 = [obj countByEnumeratingWithState:&v76 objects:v82 count:16];
+    v7 = [obj countByEnumeratingWithState:&v75 objects:v81 count:16];
   }
 
   while (v7);
 
-  if (v55)
+  if (v54)
   {
     if (v8)
     {
@@ -302,90 +302,89 @@ LABEL_35:
     }
 
 LABEL_21:
-    v70 = 0;
-    v71 = &v70;
-    v72 = 0x3032000000;
-    v73 = __Block_byref_object_copy__3;
-    v74 = __Block_byref_object_dispose__3;
+    v69 = 0;
+    v70 = &v69;
+    v71 = 0x3032000000;
+    v72 = __Block_byref_object_copy__3;
+    v73 = __Block_byref_object_dispose__3;
     v21 = [*(a1 + 48) string];
-    v75 = [v21 substringWithRange:{a3, a4}];
+    v74 = [v21 substringWithRange:{a3, a4}];
 
-    v22 = [v71[5] ic_stringReplacingUnsafeHTMLCharacters];
-    v23 = v71[5];
-    v71[5] = v22;
+    v22 = [v70[5] ic_stringReplacingUnsafeHTMLCharacters];
+    v23 = v70[5];
+    v70[5] = v22;
 
     v24 = [MEMORY[0x1E695DF90] dictionary];
     v25 = *(a1 + 56);
-    v66[0] = MEMORY[0x1E69E9820];
-    v66[1] = 3221225472;
-    v66[2] = __75__ICNote_HTML__htmlStringFromAttributedString_attachmentConversionHandler___block_invoke_3;
-    v66[3] = &unk_1E84694F8;
-    v69 = *(a1 + 80);
-    v68 = &v70;
+    v65[0] = MEMORY[0x1E69E9820];
+    v65[1] = 3221225472;
+    v65[2] = __75__ICNote_HTML__htmlStringFromAttributedString_attachmentConversionHandler___block_invoke_3;
+    v65[3] = &unk_1E84694F8;
+    v68 = *(a1 + 80);
+    v67 = &v69;
     v26 = v24;
-    v67 = v26;
-    [v25 enumerateKeysAndObjectsUsingBlock:v66];
+    v66 = v26;
+    [v25 enumerateKeysAndObjectsUsingBlock:v65];
     if ([v26 count])
     {
       v27 = [MEMORY[0x1E696AD60] string];
       v28 = [v26 allKeys];
       v29 = [v28 sortedArrayUsingSelector:sel_compare_];
 
-      v64 = 0u;
-      v65 = 0u;
-      v62 = 0u;
       v63 = 0u;
-      v56 = v29;
+      v64 = 0u;
+      v61 = 0u;
+      v62 = 0u;
+      v55 = v29;
       v30 = 0;
-      v31 = [v56 countByEnumeratingWithState:&v62 objects:v81 count:16];
+      v31 = [v55 countByEnumeratingWithState:&v61 objects:v80 count:16];
       if (v31)
       {
-        v32 = *v63;
+        v32 = *v62;
         do
         {
           for (i = 0; i != v31; ++i)
           {
-            if (*v63 != v32)
+            if (*v62 != v32)
             {
-              objc_enumerationMutation(v56);
+              objc_enumerationMutation(v55);
             }
 
-            v34 = *(*(&v62 + 1) + 8 * i);
-            v35 = [v34 unsignedIntegerValue] - *(a1 + 80);
-            v36 = [v71[5] substringWithRange:{v30, v35 - v30}];
-            [v27 appendFormat:@"<span>%@</span>", v36];
-            v37 = [v26 objectForKeyedSubscript:v34];
-            [v27 appendString:v37];
+            v34 = [*(*(&v61 + 1) + 8 * i) unsignedIntegerValue] - *(a1 + 80);
+            v35 = [v70[5] substringWithRange:{v30, v34 - v30}];
+            [v27 appendFormat:@"<span>%@</span>", v35];
+            v36 = objc_msgSend_objectForKeyedSubscript_(v26);
+            [v27 appendString:v36];
 
-            v30 = v35 + 1;
+            v30 = v34 + 1;
           }
 
-          v31 = [v56 countByEnumeratingWithState:&v62 objects:v81 count:16];
+          v31 = [v55 countByEnumeratingWithState:&v61 objects:v80 count:16];
         }
 
         while (v31);
       }
 
-      v38 = [v71[5] substringWithRange:{v30, objc_msgSend(v71[5], "length") - v30}];
-      if ([v38 length])
+      v37 = [v70[5] substringWithRange:{v30, objc_msgSend(v70[5], "length") - v30}];
+      if ([v37 length])
       {
-        [v27 appendFormat:@"<span>%@</span>", v38];
+        [v27 appendFormat:@"<span>%@</span>", v37];
       }
 
-      v39 = [v27 copy];
-      v40 = v71[5];
-      v71[5] = v39;
+      v38 = [v27 copy];
+      v39 = v70[5];
+      v70[5] = v38;
     }
 
-    v41 = v71[5];
-    v42 = [MEMORY[0x1E696AEC0] ic_attachmentCharacterString];
-    v43 = [v41 stringByReplacingOccurrencesOfString:v42 withString:&stru_1F4F94F00];
-    v44 = v71[5];
-    v71[5] = v43;
+    v40 = v70[5];
+    v41 = [MEMORY[0x1E696AEC0] ic_attachmentCharacterString];
+    v42 = [v40 stringByReplacingOccurrencesOfString:v41 withString:&stru_1F4F94F00];
+    v43 = v70[5];
+    v70[5] = v42;
 
-    v45 = v71[5];
-    v46 = [MEMORY[0x1E696AB08] newlineCharacterSet];
-    v8 = [v45 stringByTrimmingCharactersInSet:v46];
+    v44 = v70[5];
+    v45 = [MEMORY[0x1E696AB08] newlineCharacterSet];
+    v8 = [v44 stringByTrimmingCharactersInSet:v45];
 
     if (![(__CFString *)v8 length])
     {
@@ -393,40 +392,40 @@ LABEL_21:
       v8 = @"<br>";
     }
 
-    _Block_object_dispose(&v70, 8);
+    _Block_object_dispose(&v69, 8);
     goto LABEL_35;
   }
 
 LABEL_36:
-  v60 = 0u;
-  v61 = 0u;
-  v58 = 0u;
   v59 = 0u;
-  v47 = [obj reverseObjectEnumerator];
-  v48 = [v47 countByEnumeratingWithState:&v58 objects:v80 count:16];
-  if (v48)
+  v60 = 0u;
+  v57 = 0u;
+  v58 = 0u;
+  v46 = [obj reverseObjectEnumerator];
+  v47 = [v46 countByEnumeratingWithState:&v57 objects:v79 count:16];
+  if (v47)
   {
-    v49 = *v59;
+    v48 = *v58;
     do
     {
-      for (j = 0; j != v48; ++j)
+      for (j = 0; j != v47; ++j)
       {
-        if (*v59 != v49)
+        if (*v58 != v48)
         {
-          objc_enumerationMutation(v47);
+          objc_enumerationMutation(v46);
         }
 
-        v51 = [*(*(&v58 + 1) + 8 * j) objectForKeyedSubscript:@"TagName"];
-        if (([*(a1 + 40) containsObject:v51] & 1) == 0)
+        v50 = objc_msgSend_objectForKeyedSubscript_(*(*(&v57 + 1) + 8 * j));
+        if (([*(a1 + 40) containsObject:v50] & 1) == 0)
         {
-          [*(a1 + 32) appendFormat:@"</%@>", v51];
+          [*(a1 + 32) appendFormat:@"</%@>", v50];
         }
       }
 
-      v48 = [v47 countByEnumeratingWithState:&v58 objects:v80 count:16];
+      v47 = [v46 countByEnumeratingWithState:&v57 objects:v79 count:16];
     }
 
-    while (v48);
+    while (v47);
   }
 }
 
@@ -1166,7 +1165,7 @@ void __74__ICNote_UI__markBlockAndInlineAttachmentsForDeletion_inAttributedStrin
       v9 = os_log_create("com.apple.notes", "UI");
       if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
-        __74__ICNote_UI__markBlockAndInlineAttachmentsForDeletion_inAttributedString___block_invoke_cold_4();
+        __74__ICNote_UI__markBlockAndInlineAttachmentsForDeletion_inAttributedString___block_invoke_cold_4(v3);
       }
     }
 
@@ -1323,7 +1322,7 @@ void __64__ICNote_UI__updatePKDrawingsWithHandwritingRecognitionEnabled___block_
   objc_autoreleasePoolPop(v3);
 }
 
-uint64_t __49__ICNote_UI__addHashtagToNoteBody_onlyIfMissing___block_invoke(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, _BYTE *a5)
+void *__49__ICNote_UI__addHashtagToNoteBody_onlyIfMissing___block_invoke(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, _BYTE *a5)
 {
   result = [a2 isHashtagAttachment];
   if (result)
@@ -1528,15 +1527,15 @@ uint64_t __101__ICNote_UI__isHashtagRowAtRange_outRangeForAppending_outIndex_for
 {
   v9 = a2;
   objc_opt_class();
-  v12 = ICDynamicCast();
+  v13 = ICDynamicCast();
 
-  if (v12 && ([v12 isHashtagAttachment] & 1) != 0)
+  if (v13 && (v10 = [v13 isHashtagAttachment], (v10 & 1) != 0))
   {
-    v10 = *(a1[6] + 8);
-    *(v10 + 32) = a3;
-    *(v10 + 40) = a4;
+    v11 = *(a1[6] + 8);
+    *(v11 + 32) = a3;
+    *(v11 + 40) = a4;
     ++*(*(a1[7] + 8) + 24);
-    if (v12 == a1[4])
+    if (v13 == a1[4])
     {
       *(*(a1[8] + 8) + 24) = *(*(a1[7] + 8) + 24) - 1;
     }
@@ -1548,7 +1547,7 @@ uint64_t __101__ICNote_UI__isHashtagRowAtRange_outRangeForAppending_outIndex_for
     *(*(a1[5] + 8) + 24) = 0;
   }
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v10);
 }
 
 void __53__ICNote_UI__icaxGalleryViewCustomContentDescription__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
@@ -1905,14 +1904,14 @@ void __74__ICNote_UI__markBlockAndInlineAttachmentsForDeletion_inAttributedStrin
   _os_log_debug_impl(v3, v4, v5, v6, v7, 0x12u);
 }
 
-void __74__ICNote_UI__markBlockAndInlineAttachmentsForDeletion_inAttributedString___block_invoke_cold_4()
+void __74__ICNote_UI__markBlockAndInlineAttachmentsForDeletion_inAttributedString___block_invoke_cold_4(uint64_t a1)
 {
   objc_opt_class();
-  v0 = ICDynamicCast();
-  v1 = [v0 attachment];
+  v1 = ICDynamicCast();
+  v2 = [v1 attachment];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1_3();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
 }
 
 void __52__ICNote_SearchIndexable_UI__dataForTypeIdentifier___block_invoke_cold_1(uint64_t a1, NSObject *a2)

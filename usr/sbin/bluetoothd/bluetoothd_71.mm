@@ -1,3 +1,1900 @@
+void sub_10050AF0C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, void *a16, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22, void *a23, uint64_t a24, int a25, __int16 a26, char a27, char a28)
+{
+  if (a14 < 0)
+  {
+    operator delete(__p);
+  }
+
+  if (a21 < 0)
+  {
+    operator delete(a16);
+  }
+
+  sub_100320BE8(&a23);
+  _Unwind_Resume(a1);
+}
+
+void sub_10050AF90(uint64_t a1)
+{
+  if (qword_100B508F0 != -1)
+  {
+    sub_10083CA10();
+  }
+
+  v2 = sub_100029A5C(off_100B508E8);
+  if (qword_100B508D0 != -1)
+  {
+    sub_10083CA24();
+  }
+
+  v13 = 0;
+  v3 = sub_100029738(off_100B508C8) + v2;
+  v12 = 0;
+  v11 = 0;
+  v10 = 0;
+  v4 = sub_100017E6C();
+  (*(*v4 + 56))(v4, &v13 + 1, &v13, &v12 + 1, &v12, &v11, &v10);
+  if (v3 > 2)
+  {
+    goto LABEL_6;
+  }
+
+  if (v3 == 2)
+  {
+    if ((v13 & 0x100) != 0)
+    {
+LABEL_6:
+      v5 = qword_100BCE8B8;
+      if (os_log_type_enabled(qword_100BCE8B8, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 0;
+        _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Adjusting SBC bitpool to to 37 either due to > 2 Hid's or wifi state is 2.4 Ghz with >1 Hid", buf, 2u);
+      }
+
+      v6 = 37;
+LABEL_9:
+      *(a1 + 264) = v6;
+    }
+  }
+
+  else if ((v13 & 0x100) != 0)
+  {
+    v7 = qword_100BCE8B8;
+    if (os_log_type_enabled(qword_100BCE8B8, OS_LOG_TYPE_DEFAULT))
+    {
+      *v8 = 0;
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Adjusting SBC bitpool to 42, wifi state is 2.4 Ghz", v8, 2u);
+    }
+
+    v6 = 42;
+    goto LABEL_9;
+  }
+}
+
+void sub_10050B10C(uint64_t a1)
+{
+  v12 = 0;
+  v11 = 0u;
+  memset(v10, 0, sizeof(v10));
+  v8 = 0u;
+  *__p = 0u;
+  v6 = 0u;
+  *v7 = 0u;
+  v4 = 0u;
+  *v5 = 0u;
+  sub_1000DE474(&v4 + 1);
+  BYTE2(v5[0]) = 0;
+  BYTE4(v5[0]) = 0;
+  BYTE2(v7[0]) = 0;
+  BYTE4(v7[0]) = 0;
+  DWORD1(v10[1]) = 0;
+  v6 = 0uLL;
+  v5[1] = 0;
+  LOBYTE(v7[0]) = 0;
+  v8 = 0uLL;
+  v7[1] = 0;
+  LOBYTE(__p[0]) = 0;
+  memset(v10, 0, 19);
+  __p[1] = 0;
+  BYTE8(v10[1]) = 1;
+  *(&v10[1] + 14) = 0;
+  *(&v10[1] + 9) = 0;
+  v11 = 0uLL;
+  *(&v10[2] + 1) = 0;
+  LOBYTE(v12) = 0;
+  *(&v12 + 2) = 0;
+  v2 = *(a1 + 208);
+  if (v2)
+  {
+    if (sub_100536A18(v2, &v4))
+    {
+      v3 = BYTE12(v10[1]);
+      if (HIDWORD(v10[1]))
+      {
+        *(a1 + 264) = HIDWORD(v10[1]);
+        *(*(*(a1 + 184) + 24) + 3) = v3;
+      }
+    }
+  }
+
+  if (SHIBYTE(v10[0]) < 0)
+  {
+    operator delete(__p[1]);
+  }
+
+  if (SHIBYTE(v8) < 0)
+  {
+    operator delete(v7[1]);
+  }
+
+  if (SHIBYTE(v6) < 0)
+  {
+    operator delete(v5[1]);
+  }
+
+  nullsub_21();
+}
+
+uint64_t sub_10050B260(uint64_t a1, uint64_t a2)
+{
+  v8[0] = 0;
+  v8[1] = 0;
+  v9 = 0;
+  sub_10050CDDC(a1, a2, v8);
+  v4 = sub_10050C560(v2, v3);
+  v5 = v9 >> 8 <= 0x176 || v9 / 0x3E8 > v4;
+  v6 = !v5;
+  if (v5 && os_log_type_enabled(qword_100BCE8B8, OS_LOG_TYPE_ERROR))
+  {
+    sub_10083CA38();
+  }
+
+  return v6;
+}
+
+uint64_t sub_10050B310(uint64_t a1, uint64_t a2, unsigned int a3)
+{
+  *(a1 + 348) = a3;
+  *(a1 + 344) = 0;
+  v5 = 0;
+  if (a3)
+  {
+    v6 = a3;
+    v7 = (a2 + 3);
+    do
+    {
+      if (*(v7 - 1) != 255 && !*(v7 - 3) && *(v7 - 2) == 1 && !*v7)
+      {
+        *(a1 + 344) = ++v5;
+      }
+
+      v7 += 4;
+      --v6;
+    }
+
+    while (v6);
+  }
+
+  *(a1 + 352) = 0;
+  v8 = *(a1 + 360);
+  if (v8)
+  {
+    free(v8);
+    v5 = *(a1 + 344);
+  }
+
+  *(a1 + 360) = malloc_type_calloc(v5, 0x20uLL, 0x1020040C75495F1uLL);
+  v9 = qword_100BCE8B8;
+  if (os_log_type_enabled(qword_100BCE8B8, OS_LOG_TYPE_INFO))
+  {
+    v10 = *(a1 + 344);
+    *buf = 67109120;
+    v20 = v10;
+    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_INFO, "Available endpoints: %d", buf, 8u);
+  }
+
+  v11 = *(a1 + 348);
+  if (v11)
+  {
+    v12 = 0;
+    v13 = 0;
+    v14 = (a2 + 3);
+    do
+    {
+      v15 = *(v14 - 1);
+      if (v15 != 255 && !*(v14 - 3) && *(v14 - 2) == 1 && !*v14)
+      {
+        v16 = *(a1 + 360) + 32 * v13;
+        *(v16 + 4) = v15;
+        *(v16 + 8) = 1;
+        *v16 = 0;
+        v17 = qword_100BCE8B8;
+        if (os_log_type_enabled(qword_100BCE8B8, OS_LOG_TYPE_DEBUG))
+        {
+          *buf = 67111168;
+          v20 = v12;
+          v21 = 1024;
+          v22 = v15;
+          v23 = 1024;
+          v24 = 0;
+          v25 = 1024;
+          v26 = 1;
+          v27 = 1024;
+          v28 = v13;
+          v29 = 1024;
+          v30 = v15;
+          v31 = 1024;
+          v32 = 0;
+          v33 = 1024;
+          v34 = 1;
+          v35 = 1024;
+          v36 = 0;
+          _os_log_debug_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEBUG, "SaveDiscoveredPeerEndpoints Current Record = %d, seid = %d, inUse = %d, endpointType = %d, Endpoint saved: streamEndpointInfo = %d, seid = %d, inUse = %d, endpointType = %d, queryDone = %d", buf, 0x38u);
+          v11 = *(a1 + 348);
+        }
+
+        ++v13;
+      }
+
+      ++v12;
+      v14 += 4;
+    }
+
+    while (v12 < v11);
+  }
+
+  return 0;
+}
+
+void sub_10050B584(uint64_t a1)
+{
+  v2 = *(a1 + 344);
+  v3 = *(a1 + 360);
+  if (v2)
+  {
+    v4 = 0;
+    v5 = 16;
+    v6 = v3;
+    do
+    {
+      if (v6)
+      {
+        v7 = *&v6[v5];
+        if (v7)
+        {
+          if (*(v7 + 8))
+          {
+            free(*(v7 + 8));
+            v3 = *(a1 + 360);
+          }
+
+          free(*&v3[v5]);
+          v3 = *(a1 + 360);
+          *&v3[v5] = 0;
+          v2 = *(a1 + 344);
+          v6 = v3;
+        }
+      }
+
+      ++v4;
+      v5 += 32;
+    }
+
+    while (v4 < v2);
+  }
+
+  if (v3)
+  {
+    free(v3);
+  }
+
+  *(a1 + 344) = 0;
+  *(a1 + 352) = 0;
+  *(a1 + 360) = 0;
+}
+
+uint64_t sub_10050B61C(uint64_t a1, uint64_t a2)
+{
+  v4 = sub_10050A6F0(a1);
+  *(a1 + 176) = v4;
+  v5 = sub_1005095F8(a1, v4);
+  if (!v5)
+  {
+    if (os_log_type_enabled(qword_100BCE8B8, OS_LOG_TYPE_ERROR))
+    {
+      sub_10083CB1C();
+    }
+
+    return 0;
+  }
+
+  if (!a2)
+  {
+    if (os_log_type_enabled(qword_100BCE8B8, OS_LOG_TYPE_ERROR))
+    {
+      sub_10083CAA8();
+    }
+
+    return 0;
+  }
+
+  v6 = v5;
+  *(a1 + 152) = *(a2 + 4);
+  *(a1 + 156) = *(v5 + 4);
+  sub_10050AA90(a1);
+  *(a1 + 196) = 3;
+  v7 = malloc_type_calloc(3uLL, 0x10uLL, 0x105204037B82EA9uLL);
+  *(a1 + 184) = v7;
+  *v7 = 1;
+  *(*(a1 + 184) + 16) = 7;
+  *(*(a1 + 184) + 17) = 0;
+  *(*(a1 + 184) + 18) = *(a1 + 176);
+  *(*(a1 + 184) + 19) = *(*(a2 + 16) + 19);
+  *(*(a1 + 184) + 24) = malloc_type_calloc(*(*(a2 + 16) + 19), 1uLL, 0x100004077774924uLL);
+  *(*(a1 + 184) + 32) = 8;
+  *(a1 + 192) = 1;
+  memcpy(*(*(a1 + 184) + 24), *(*(a2 + 16) + 24), *(*(a2 + 16) + 19));
+  v8 = sub_10050AAE8(a1, *(a1 + 176));
+  *(a1 + 272) = v8;
+  v9 = *(a1 + 176);
+  switch(v9)
+  {
+    case 255:
+      v19 = qword_100BCE8B8;
+      if (!os_log_type_enabled(qword_100BCE8B8, OS_LOG_TYPE_DEFAULT))
+      {
+LABEL_61:
+        sub_100509BD8();
+        return *(a1 + 184);
+      }
+
+      v22 = *(a1 + 156);
+      *buf = 67109120;
+      *&buf[4] = v22;
+      v21 = "Selecting remote Vendor-Specific A2DP SEID %u";
+      goto LABEL_31;
+    case 2:
+      *(*(*(a1 + 184) + 24) + 1) = v8 == 44100.0;
+      if (*(a1 + 272) == 44100.0)
+      {
+        v18 = 4;
+      }
+
+      else
+      {
+        v18 = -124;
+      }
+
+      *(*(*(a1 + 184) + 24) + 2) = v18;
+      if (sub_10050B260(a1, *(*(v6 + 16) + 8)))
+      {
+        *(*(*(a1 + 184) + 24) + 3) = *(*(*(v6 + 16) + 8) + 3);
+        *(*(*(a1 + 184) + 24) + 4) = *(*(*(v6 + 16) + 8) + 4);
+        *(*(*(a1 + 184) + 24) + 5) = *(*(*(v6 + 16) + 8) + 5);
+      }
+
+      v19 = qword_100BCE8B8;
+      if (!os_log_type_enabled(qword_100BCE8B8, OS_LOG_TYPE_DEFAULT))
+      {
+        goto LABEL_61;
+      }
+
+      v20 = *(a1 + 156);
+      *buf = 67109120;
+      *&buf[4] = v20;
+      v21 = "Selecting remote AAC SEID %u";
+LABEL_31:
+      v23 = v19;
+      v24 = 8;
+LABEL_60:
+      _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, v21, buf, v24);
+      goto LABEL_61;
+    case 0:
+      if (v8 == 44100.0)
+      {
+        v10 = 53;
+      }
+
+      else
+      {
+        v10 = 48;
+      }
+
+      *(a1 + 264) = v10;
+      v42 = 0;
+      v11 = sub_10000E92C();
+      sub_100007E30(buf, "A2DP");
+      sub_100007E30(__p, "SBCBitpool");
+      v12 = (*(*v11 + 128))(v11, buf, __p, &v42);
+      v14 = v12;
+      if (v41 < 0)
+      {
+        operator delete(__p[0]);
+      }
+
+      if (v46 < 0)
+      {
+        operator delete(*buf);
+      }
+
+      if (v14)
+      {
+        v15 = v42;
+        v16 = qword_100BCE8B8;
+        if ((v42 - 251) > 0xFFFFFF06)
+        {
+          if (os_log_type_enabled(qword_100BCE8B8, OS_LOG_TYPE_DEFAULT))
+          {
+            *buf = 67109120;
+            *&buf[4] = v15;
+            _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Warning: Setting user defined SBC Bitpool value to %d", buf, 8u);
+            v15 = v42;
+          }
+
+          *(a1 + 264) = v15;
+        }
+
+        else if (os_log_type_enabled(qword_100BCE8B8, OS_LOG_TYPE_ERROR))
+        {
+          sub_10083C610();
+        }
+      }
+
+      else
+      {
+        v25 = sub_10000C798(v12, v13);
+        if ((*(*v25 + 416))(v25))
+        {
+          v26 = qword_100BCE8B8;
+          if (os_log_type_enabled(qword_100BCE8B8, OS_LOG_TYPE_DEFAULT))
+          {
+            *buf = 0;
+            _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "Adjusting bitpool if needed - we are Central", buf, 2u);
+          }
+
+          sub_10050AF90(a1);
+        }
+      }
+
+      v27 = *(v6 + 16);
+      v28 = *(*(v27 + 8) + 2);
+      if (v10 >= v28)
+      {
+        if (*(a1 + 264) < v28)
+        {
+          v30 = qword_100BCE8B8;
+          if (os_log_type_enabled(qword_100BCE8B8, OS_LOG_TYPE_DEFAULT))
+          {
+            *buf = 67109120;
+            *&buf[4] = v28;
+            _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEFAULT, "Warning: Increasing SBC Bitpool to %d based on sink's Minimum Bitpool Value", buf, 8u);
+            v27 = *(v6 + 16);
+            v28 = *(*(v27 + 8) + 2);
+          }
+
+          *(a1 + 264) = v28;
+        }
+      }
+
+      else
+      {
+        v29 = qword_100BCE8B8;
+        if (os_log_type_enabled(qword_100BCE8B8, OS_LOG_TYPE_ERROR))
+        {
+          *buf = 67109120;
+          *&buf[4] = v28;
+          _os_log_error_impl(&_mh_execute_header, v29, OS_LOG_TYPE_ERROR, "Ignoring sink's SBC Minimum Bitpool Value of %d because it is too high", buf, 8u);
+          v27 = *(v6 + 16);
+        }
+      }
+
+      v31 = *(*(v27 + 8) + 3);
+      if (v31 > 1)
+      {
+        if (*(a1 + 264) > v31)
+        {
+          v33 = qword_100BCE8B8;
+          if (os_log_type_enabled(qword_100BCE8B8, OS_LOG_TYPE_DEFAULT))
+          {
+            *buf = 67109120;
+            *&buf[4] = v31;
+            _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_DEFAULT, "Warning: Reducing SBC Bitpool to %d based on sink's Maximum Bitpool Value", buf, 8u);
+            v27 = *(v6 + 16);
+            v31 = *(*(v27 + 8) + 3);
+          }
+
+          *(a1 + 264) = v31;
+        }
+      }
+
+      else
+      {
+        v32 = qword_100BCE8B8;
+        if (os_log_type_enabled(qword_100BCE8B8, OS_LOG_TYPE_ERROR))
+        {
+          *buf = 67109120;
+          *&buf[4] = v31;
+          _os_log_error_impl(&_mh_execute_header, v32, OS_LOG_TYPE_ERROR, "Ignoring sink's SBC Maximum Bitpool Value of %d because it is too low", buf, 8u);
+          v27 = *(v6 + 16);
+        }
+      }
+
+      v34 = *(*(a1 + 184) + 24);
+      v35 = *(*(v27 + 8) + 2);
+      if (*(v34 + 2) < v35)
+      {
+        *(v34 + 2) = v35;
+        v34 = *(*(a1 + 184) + 24);
+      }
+
+      *(v34 + 3) = *(a1 + 264);
+      if (*(a1 + 272) == 44100.0)
+      {
+        v36 = 33;
+      }
+
+      else
+      {
+        v36 = 17;
+      }
+
+      **(*(a1 + 184) + 24) = v36;
+      v37 = qword_100BCE8B8;
+      if (!os_log_type_enabled(qword_100BCE8B8, OS_LOG_TYPE_DEFAULT))
+      {
+        goto LABEL_61;
+      }
+
+      v38 = *(a1 + 156);
+      v39 = *(a1 + 264);
+      *buf = 67109376;
+      *&buf[4] = v38;
+      v44 = 1024;
+      v45 = v39;
+      v21 = "Selecting remote SBC SEID %u with bitpool %d";
+      v23 = v37;
+      v24 = 14;
+      goto LABEL_60;
+  }
+
+  return *(a1 + 184);
+}
+
+void sub_10050BD1C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, void *a16, uint64_t a17, int a18, __int16 a19, char a20, char a21)
+{
+  if (a14 < 0)
+  {
+    operator delete(__p);
+  }
+
+  if (a21 < 0)
+  {
+    operator delete(a16);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+uint64_t sub_10050BD58(uint64_t a1)
+{
+  v1 = *(a1 + 344);
+  if (!v1)
+  {
+    return 255;
+  }
+
+  v3 = 0;
+  v4 = 0;
+  v5 = *(a1 + 360);
+  v6 = 32 * v1;
+  while ((*(v5 + v4) & 1) != 0)
+  {
+    v4 += 32;
+    ++v3;
+    if (v6 == v4)
+    {
+      return 255;
+    }
+  }
+
+  *(v5 + v4) = 1;
+  v8 = qword_100BCE8B8;
+  if (os_log_type_enabled(qword_100BCE8B8, OS_LOG_TYPE_DEBUG))
+  {
+    v9 = *(v5 + v4 + 4);
+    v10[0] = 67109632;
+    v10[1] = v3;
+    v11 = 1024;
+    v12 = v9;
+    v13 = 1024;
+    v14 = 1;
+    _os_log_debug_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEBUG, "getNextSeidForGetCapQuery Position: %d seid: %d queryDone %d", v10, 0x14u);
+    v5 = *(a1 + 360);
+  }
+
+  return *(v5 + v4 + 4);
+}
+
+uint64_t sub_10050BE78(uint64_t a1, uint64_t a2)
+{
+  v3 = sub_10000C798(a1, a2);
+  if ((*(*v3 + 840))(v3, 5))
+  {
+    v4 = qword_100BCE8B8;
+    if (os_log_type_enabled(qword_100BCE8B8, OS_LOG_TYPE_DEFAULT))
+    {
+      v14 = 67109120;
+      v15 = 60;
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "A2DP Latency = %d ms for constant low latency", &v14, 8u);
+    }
+
+    return 60000;
+  }
+
+  else
+  {
+    v6 = *(a1 + 208);
+    if (v6 && sub_1000E2140(v6, 0xCu) && !sub_1000E2140(*(a1 + 208), 0xDu) && !*(a1 + 292))
+    {
+      *(a1 + 292) = 150000;
+    }
+
+    v5 = *(a1 + 292);
+    if (v5)
+    {
+      v7 = *(a1 + 304);
+      v8 = qword_100BCE8B8;
+      v9 = os_log_type_enabled(qword_100BCE8B8, OS_LOG_TYPE_DEFAULT);
+      if (v7 == 1)
+      {
+        if (v9)
+        {
+          v14 = 67109120;
+          v15 = v5;
+          _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "A2DP Latency = %d ms (DelayReport from accessory)", &v14, 8u);
+          return *(a1 + 292);
+        }
+      }
+
+      else
+      {
+        if (v9)
+        {
+          v12 = *(a1 + 280);
+          v14 = 67109632;
+          v15 = (v5 + v12) / 0x3E8;
+          v16 = 1024;
+          v17 = v5 / 0x3E8;
+          v18 = 1024;
+          v19 = v12 / 0x3E8;
+          _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "A2DP Latency = %d ms (%d ms DelayReport from accessory + %d ms RTP blocking)", &v14, 0x14u);
+          LODWORD(v5) = *(a1 + 292);
+        }
+
+        return (*(a1 + 280) + v5);
+      }
+    }
+
+    else
+    {
+      v10 = qword_100BCE8B8;
+      if (os_log_type_enabled(qword_100BCE8B8, OS_LOG_TYPE_DEFAULT))
+      {
+        v11 = *(a1 + 288) / 0x3E8u;
+        v14 = 67109120;
+        v15 = v11;
+        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "A2DP Latency = %d ms (estimate) calculated based on RTP packet interval", &v14, 8u);
+      }
+
+      return *(a1 + 288);
+    }
+  }
+
+  return v5;
+}
+
+void sub_10050C108(uint64_t a1, int a2)
+{
+  v4 = qword_100BCE8B8;
+  if (os_log_type_enabled(qword_100BCE8B8, OS_LOG_TYPE_INFO))
+  {
+    v5[0] = 67109120;
+    v5[1] = a2;
+    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_INFO, "Setting stream config delay report latency for %d", v5, 8u);
+  }
+
+  *(a1 + 292) = a2;
+}
+
+void sub_10050C1BC(uint64_t a1, int a2)
+{
+  v4 = qword_100BCE8B8;
+  if (os_log_type_enabled(qword_100BCE8B8, OS_LOG_TYPE_INFO))
+  {
+    v5 = "not supported";
+    if (a2)
+    {
+      v5 = "supported";
+    }
+
+    v6 = 136315138;
+    v7 = v5;
+    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_INFO, "Setting absolute volume support to %s", &v6, 0xCu);
+  }
+
+  *(a1 + 300) = a2;
+}
+
+void sub_10050C288(uint64_t a1, int a2)
+{
+  v4 = qword_100BCE8B8;
+  v5 = os_log_type_enabled(qword_100BCE8B8, OS_LOG_TYPE_INFO);
+  if (v5)
+  {
+    v10 = 67109120;
+    v11 = a2;
+    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_INFO, "Reported MTU = %d", &v10, 8u);
+  }
+
+  if (a2 >= 1004)
+  {
+    v7 = 1004;
+  }
+
+  else
+  {
+    v7 = a2;
+  }
+
+  if (a2 >= 680)
+  {
+    v8 = sub_10000C798(v5, v6);
+    if ((*(*v8 + 104))(v8))
+    {
+      v7 = 679;
+    }
+  }
+
+  *(a1 + 248) = v7 - 16;
+  v9 = qword_100BCE8B8;
+  if (os_log_type_enabled(qword_100BCE8B8, OS_LOG_TYPE_INFO))
+  {
+    v10 = 67109120;
+    v11 = v7 - 16;
+    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_INFO, "Setting RTP frame length to %d", &v10, 8u);
+  }
+}
+
+void sub_10050C3D4(uint64_t a1, uint64_t a2)
+{
+  v2 = *(a1 + 264);
+  *(a2 + 2) = v2;
+  v3 = 2 * v2 + 13;
+  v4 = *(a1 + 272);
+  *(a1 + 252) = v3;
+  *(a1 + 256) = (v4 * (8 * v3) * 0.0078125 / 1000.0);
+  v5 = *(a1 + 248);
+  if (v5 / v3 >= 0xC)
+  {
+    v6 = 12;
+  }
+
+  else
+  {
+    v6 = v5 / v3;
+  }
+
+  *(a1 + 260) = v6;
+  v7 = (128000000 * v6) / v4;
+  *(a1 + 280) = v7;
+  *(a1 + 288) = (v7 * 5.0);
+  v8 = qword_100BCE8B8;
+  if (os_log_type_enabled(qword_100BCE8B8, OS_LOG_TYPE_DEFAULT))
+  {
+    v9 = 134219776;
+    v10 = v4 / 1000.0;
+    v11 = 1024;
+    v12 = v2;
+    v13 = 1024;
+    v14 = (v4 * (8 * v3) * 0.0078125 / 1000.0);
+    v15 = 1024;
+    v16 = v6;
+    v17 = 1024;
+    v18 = 2 * v2 + 13;
+    v19 = 1024;
+    v20 = v6 * v3;
+    v21 = 1024;
+    v22 = v5;
+    v23 = 2048;
+    v24 = v7 / 1000.0;
+    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "A2DP configured at %2.1f KHz. Codec: SBC, Bitpool: %d (%d kbps). %d frames * %d bytes = %d per RTP (max=%d) every %.2f ms", &v9, 0x3Au);
+  }
+}
+
+uint64_t sub_10050C560(uint64_t a1, uint64_t a2)
+{
+  v2 = sub_10000C7D0(a1, a2);
+  v4 = sub_10041074C(v2, v3);
+  if (v4)
+  {
+    return 256;
+  }
+
+  v7 = sub_10000C798(v4, v5);
+  if ((*(*v7 + 760))(v7))
+  {
+    return 192;
+  }
+
+  else
+  {
+    return 244;
+  }
+}
+
+void sub_10050C5C8(uint64_t a1, uint64_t a2)
+{
+  v4 = sub_10050C560(a1, a2);
+  v5 = (a1 + 256);
+  *(a1 + 256) = v4;
+  v6 = qword_100BCE8B8;
+  if (os_log_type_enabled(qword_100BCE8B8, OS_LOG_TYPE_INFO))
+  {
+    *buf = 67109120;
+    *&buf[4] = v4;
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_INFO, "For this platform, the default AAC-LC bitrate is %d", buf, 8u);
+    v4 = *v5;
+  }
+
+  v7 = *(a2 + 16);
+  v8 = v7 / 0x3E8;
+  if (v7 >> 8 < 0x177 || v8 > v4)
+  {
+    if (os_log_type_enabled(qword_100BCE8B8, OS_LOG_TYPE_ERROR))
+    {
+      sub_10083CB90();
+    }
+  }
+
+  else
+  {
+    *v5 = v8;
+    v10 = qword_100BCE8B8;
+    if (os_log_type_enabled(qword_100BCE8B8, OS_LOG_TYPE_INFO))
+    {
+      *buf = 67109120;
+      *&buf[4] = v8;
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_INFO, "Setting AAC-LC max bitrate to sink requested bitrate of %d", buf, 8u);
+    }
+  }
+
+  v27 = *v5;
+  v12 = sub_10000E92C();
+  sub_100007E30(buf, "A2DP");
+  sub_100007E30(__p, "AACBitrate");
+  v13 = (*(*v12 + 88))(v12, buf, __p, &v27);
+  if (v26 < 0)
+  {
+    operator delete(__p[0]);
+  }
+
+  if (SHIBYTE(v32) < 0)
+  {
+    operator delete(*buf);
+    if (!v13)
+    {
+      goto LABEL_23;
+    }
+  }
+
+  else if (!v13)
+  {
+    goto LABEL_23;
+  }
+
+  v14 = v27;
+  if (v27 < 96)
+  {
+    if (os_log_type_enabled(qword_100BCE8B8, OS_LOG_TYPE_ERROR))
+    {
+      sub_10083CC00();
+    }
+  }
+
+  else
+  {
+    *v5 = v27;
+    v15 = qword_100BCE8B8;
+    if (os_log_type_enabled(qword_100BCE8B8, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 67109120;
+      *&buf[4] = v14;
+      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Warning: Setting user defined AAC-LC bitrate: %d kbps", buf, 8u);
+    }
+  }
+
+LABEL_23:
+  v16 = *(a1 + 256);
+  v17 = *(a1 + 272);
+  v18 = vcvtpd_u64_f64((1000 * v16) * 1024.0 / v17 * 0.125);
+  *(a1 + 252) = v18;
+  v19 = *(a1 + 248);
+  v20 = v19 - 12;
+  if (v19 - 12 < v18)
+  {
+    v16 = vcvtmd_u64_f64(v17 * (8 * v20) * 0.0009765625 / 1000.0);
+    *(a1 + 252) = v20;
+    *(a1 + 256) = v16;
+    v18 = v19 - 12;
+  }
+
+  *(a1 + 260) = v18 + 12 <= v19;
+  if (v18 + 12 > v19)
+  {
+    v21 = 0;
+  }
+
+  else
+  {
+    v21 = 1024000000;
+  }
+
+  v22 = v21 / v17;
+  *(a1 + 280) = v22;
+  *(a1 + 288) = (v22 * 6.0);
+  v23 = qword_100BCE8B8;
+  if (os_log_type_enabled(qword_100BCE8B8, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 134219776;
+    if (v18 + 12 > v19)
+    {
+      v24 = 0;
+    }
+
+    else
+    {
+      v24 = v18 + 12;
+    }
+
+    *&buf[4] = v17 / 1000.0;
+    v29 = 1024;
+    v30 = v16;
+    v31 = 1024;
+    v32 = v18 + 12 <= v19;
+    v33 = 1024;
+    v34 = 12;
+    v35 = 1024;
+    v36 = v18;
+    v37 = 1024;
+    v38 = v24;
+    v39 = 1024;
+    v40 = v19;
+    v41 = 2048;
+    v42 = v22 / 1000.0;
+    _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "A2DP configured at %2.1f KHz. Codec: AAC-LC, VBR max: %d kbps. %d frames * (%d+%d) bytes = %d per RTP (max=%d) every %.2f ms", buf, 0x3Au);
+  }
+}
+
+void sub_10050C9A4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, void *a16, uint64_t a17, int a18, __int16 a19, char a20, char a21)
+{
+  if (a14 < 0)
+  {
+    operator delete(__p);
+  }
+
+  if (a21 < 0)
+  {
+    operator delete(a16);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void sub_10050C9E0(uint64_t a1, uint64_t a2)
+{
+  v3 = (a1 + 256);
+  *(a1 + 256) = 256;
+  v4 = sub_10000C798(a1, a2);
+  if ((*(*v4 + 760))(v4))
+  {
+    *v3 = 174;
+  }
+
+  v20 = 256;
+  v5 = sub_10000E92C();
+  sub_100007E30(buf, "A2DP");
+  sub_100007E30(__p, "AACELDBitrate");
+  v6 = (*(*v5 + 88))(v5, buf, __p, &v20);
+  if (v19 < 0)
+  {
+    operator delete(__p[0]);
+  }
+
+  if (SHIBYTE(v25) < 0)
+  {
+    operator delete(*buf);
+  }
+
+  if (v6)
+  {
+    v7 = v20;
+    if (v20 < 96)
+    {
+      if (os_log_type_enabled(qword_100BCE8B8, OS_LOG_TYPE_ERROR))
+      {
+        sub_10083CC70();
+      }
+    }
+
+    else
+    {
+      *v3 = v20;
+      v8 = qword_100BCE8B8;
+      if (os_log_type_enabled(qword_100BCE8B8, OS_LOG_TYPE_INFO))
+      {
+        *buf = 67109120;
+        *&buf[4] = v7;
+        _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_INFO, "Setting user defined AAC-ELD bitrate: %d kbps", buf, 8u);
+      }
+    }
+  }
+
+  v9 = *(a1 + 248);
+  v10 = v9 - 2;
+  v11 = *(a1 + 256);
+  v12 = *(a1 + 272);
+  v13 = vcvtpd_u64_f64((480000 * v11) / v12 * 0.125);
+  *(a1 + 248) = v9 - 2;
+  *(a1 + 252) = v13;
+  v14 = v9 - 4;
+  if (v14 < v13)
+  {
+    v11 = vcvtmd_u64_f64(v12 * (8 * v14) / 480.0 / 1000.0);
+    *(a1 + 252) = v14;
+    *(a1 + 256) = v11;
+    v13 = v14;
+  }
+
+  if (v10 / v13 >= 3)
+  {
+    v15 = 3;
+  }
+
+  else
+  {
+    v15 = v10 / v13;
+  }
+
+  *(a1 + 260) = v15;
+  v16 = (480000000 * v15) / v12;
+  *(a1 + 280) = v16;
+  *(a1 + 288) = (v16 * 5.0);
+  v17 = qword_100BCE8B8;
+  if (os_log_type_enabled(qword_100BCE8B8, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 134219776;
+    *&buf[4] = v12 / 1000.0;
+    v22 = 1024;
+    v23 = v11;
+    v24 = 1024;
+    v25 = v15;
+    v26 = 1024;
+    v27 = 2;
+    v28 = 1024;
+    v29 = v13;
+    v30 = 1024;
+    v31 = v15 * (v13 + 2);
+    v32 = 1024;
+    v33 = v10;
+    v34 = 2048;
+    v35 = v16 / 1000.0;
+    _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "A2DP configured at %2.1f KHz. Codec: AAC-ELD, VBR max: %d kbps. %d frames * (%d+%d) bytes = %d per RTP (max=%d) every %.2f ms", buf, 0x3Au);
+  }
+}
+
+void sub_10050CCEC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, void *a16, uint64_t a17, int a18, __int16 a19, char a20, char a21)
+{
+  if (a14 < 0)
+  {
+    operator delete(__p);
+  }
+
+  if (a21 < 0)
+  {
+    operator delete(a16);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void sub_10050CD28(uint64_t a1, _BYTE *a2, _BYTE *a3)
+{
+  a3[4] = *a2 >> 4;
+  a3[5] = *a2 & 0xF;
+  *a3 = a2[1] >> 4;
+  a3[1] = (a2[1] >> 2) & 3;
+  a3[6] = a2[1] & 3;
+  a3[3] = a2[2];
+  a3[2] = a2[3];
+  v3 = qword_100BCE8B8;
+  if (os_log_type_enabled(qword_100BCE8B8, OS_LOG_TYPE_INFO))
+  {
+    *v4 = 0;
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_INFO, "Extracted SBC configuration data", v4, 2u);
+  }
+}
+
+void sub_10050CDDC(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  *a3 = *a2;
+  *(a3 + 4) = bswap32(*(a2 + 1)) >> 20;
+  *(a3 + 8) = (*(a2 + 2) >> 2) & 3;
+  *(a3 + 9) = *(a2 + 3) >> 7;
+  *(a3 + 16) = (*(a2 + 4) << 8) | ((*(a2 + 3) & 0x7F) << 16) | *(a2 + 5);
+  v3 = qword_100BCE8B8;
+  if (os_log_type_enabled(qword_100BCE8B8, OS_LOG_TYPE_INFO))
+  {
+    *v4 = 0;
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_INFO, "Extracted AAC-LC configuration data", v4, 2u);
+  }
+}
+
+void sub_10050CE90(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  *a3 = __rev16(*(a2 + 6));
+  *(a3 + 4) = (*(a2 + 9) >> 4) | (16 * *(a2 + 8));
+  *(a3 + 8) = *(a2 + 10) | ((*(a2 + 9) & 0xF) << 8);
+  *(a3 + 12) = *(a2 + 11) >> 7;
+  *(a3 + 16) = (*(a2 + 12) << 8) | ((*(a2 + 11) & 0x7F) << 16) | *(a2 + 13);
+  v3 = qword_100BCE8B8;
+  if (os_log_type_enabled(qword_100BCE8B8, OS_LOG_TYPE_INFO))
+  {
+    *v4 = 0;
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_INFO, "Extracted AAC-ELD configuration data", v4, 2u);
+  }
+}
+
+void sub_10050CF50(uint64_t a1)
+{
+  v2 = *(a1 + 176);
+  v3 = qword_100BCE8B8;
+  if (v2 > 254)
+  {
+    if (v2 == 255)
+    {
+      if (os_log_type_enabled(qword_100BCE8B8, OS_LOG_TYPE_ERROR))
+      {
+        sub_10083CCE0();
+      }
+    }
+
+    else
+    {
+      if (v2 != 33023)
+      {
+LABEL_14:
+        if (os_log_type_enabled(qword_100BCE8B8, OS_LOG_TYPE_ERROR))
+        {
+          sub_10083CD5C();
+        }
+
+        return;
+      }
+
+      v7 = os_log_type_enabled(qword_100BCE8B8, OS_LOG_TYPE_INFO);
+      if (v7)
+      {
+        v12[0] = 0x80FF04000100;
+        _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_INFO, "Found AVDTP_CODEC_APPLE_AACELD codec type 0x%x", v12, 8u);
+      }
+
+      sub_10050CE90(v7, *(*(a1 + 184) + 24), v12);
+      sub_10050C9E0(a1, v8);
+    }
+  }
+
+  else
+  {
+    if (v2)
+    {
+      if (v2 == 2)
+      {
+        v4 = os_log_type_enabled(qword_100BCE8B8, OS_LOG_TYPE_INFO);
+        if (v4)
+        {
+          v12[0] = 0x204000100;
+          _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_INFO, "Found AVDTP_CODEC_MPEG_AAC codec type 0x%x", v12, 8u);
+        }
+
+        v5 = *(a1 + 184);
+        if (v5)
+        {
+          v6 = *(v5 + 24);
+          if (v6)
+          {
+            memset(v12, 0, sizeof(v12));
+            sub_10050CDDC(v4, v6, v12);
+            sub_10050C5C8(a1, v12);
+          }
+        }
+
+        return;
+      }
+
+      goto LABEL_14;
+    }
+
+    v9 = os_log_type_enabled(qword_100BCE8B8, OS_LOG_TYPE_INFO);
+    if (v9)
+    {
+      v12[0] = 67109120;
+      _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_INFO, "Found AVDTP_CODEC_SBC codec type 0x%x", v12, 8u);
+    }
+
+    v10 = *(a1 + 184);
+    if (v10)
+    {
+      v11 = *(v10 + 24);
+      if (v11)
+      {
+        sub_10050CD28(v9, v11, v12);
+        sub_10050C3D4(a1, v12);
+      }
+    }
+  }
+}
+
+double sub_10050D254(uint64_t a1)
+{
+  *(a1 + 24) = *off_100AFB060;
+  *(a1 + 40) = *off_100AFB070;
+  *(a1 + 56) = *off_100AFB080;
+  *(a1 + 72) = *off_100AFB090;
+  *(a1 + 88) = "None";
+  *(a1 + 96) = "StartPending";
+  result = 0.0;
+  *(a1 + 104) = 0u;
+  *(a1 + 120) = 0u;
+  *(a1 + 136) = 0u;
+  return result;
+}
+
+uint64_t sub_10050D29C(uint64_t a1)
+{
+  sub_10050D2D4(a1);
+  v2 = *(a1 + 128);
+  if (v2)
+  {
+    *(a1 + 136) = v2;
+    operator delete(v2);
+  }
+
+  return a1;
+}
+
+uint64_t sub_10050D2D4(uint64_t a1)
+{
+  v2 = *(a1 + 120);
+  if (v2)
+  {
+    if (*(a1 + 104))
+    {
+      v3 = 0;
+      v4 = 16;
+      do
+      {
+        free(*(*(a1 + 120) + v4));
+        ++v3;
+        v4 += 32;
+      }
+
+      while (v3 < *(a1 + 104));
+      v2 = *(a1 + 120);
+    }
+
+    free(v2);
+    *(a1 + 120) = 0;
+  }
+
+  return 0;
+}
+
+uint64_t sub_10050D348(uint64_t a1)
+{
+  *a1 = -100526831;
+  *(a1 + 112) = 0;
+  v2 = malloc_type_calloc(6uLL, 0x20uLL, 0x1020040C75495F1uLL);
+  *(a1 + 120) = v2;
+  *(v2 + 3) = 0;
+  *(v2 + 4) = 1;
+  *(v2 + 7) = 3;
+  v3 = malloc_type_calloc(3uLL, 0x10uLL, 0x105204037B82EA9uLL);
+  *(*(a1 + 120) + 16) = v3;
+  *v3 = 1;
+  *(*(*(a1 + 120) + 16) + 16) = 7;
+  *(*(*(a1 + 120) + 16) + 17) = 0;
+  *(*(*(a1 + 120) + 16) + 18) = 0;
+  *(*(*(a1 + 120) + 16) + 19) = 4;
+  *(*(*(a1 + 120) + 16) + 24) = a1;
+  *(*(*(a1 + 120) + 16) + 32) = 8;
+  v4 = *(a1 + 120);
+  *(v4 + 24) = 1;
+  *(v4 + 44) = 0;
+  *(v4 + 36) = 2;
+  *(v4 + 60) = 3;
+  v5 = malloc_type_calloc(3uLL, 0x10uLL, 0x105204037B82EA9uLL);
+  *(*(a1 + 120) + 48) = v5;
+  *v5 = 1;
+  *(*(*(a1 + 120) + 48) + 16) = 7;
+  *(*(*(a1 + 120) + 48) + 18) = 0;
+  *(*(*(a1 + 120) + 48) + 19) = 4;
+  *(*(*(a1 + 120) + 48) + 24) = a1;
+  *(*(*(a1 + 120) + 48) + 32) = 8;
+  *(*(a1 + 120) + 56) = 1;
+  v36 = 0;
+  v6 = sub_10000E92C();
+  v7 = (*(*v6 + 8))(v6);
+  if (!v7)
+  {
+    goto LABEL_8;
+  }
+
+  v9 = sub_10000E92C();
+  sub_100007E30(buf, "A2DP");
+  sub_100007E30(__p, "DisableAAC");
+  v7 = (*(*v9 + 72))(v9, buf, __p, &v36);
+  if (v33 < 0)
+  {
+    operator delete(__p[0]);
+  }
+
+  if (v35 < 0)
+  {
+    operator delete(*buf);
+  }
+
+  if (v36)
+  {
+    v36 = 1;
+    v10 = 2;
+  }
+
+  else
+  {
+LABEL_8:
+    v11 = sub_10000C798(v7, v8);
+    v36 = (*(*v11 + 832))(v11);
+    v10 = 2;
+    if ((v36 & 1) == 0)
+    {
+      *(a1 + 4) = -2088501120;
+      *(a1 + 8) = 232;
+      v12 = *(a1 + 120);
+      *(v12 + 76) = 0;
+      *(v12 + 68) = 3;
+      *(v12 + 92) = 3;
+      v13 = malloc_type_calloc(3uLL, 0x10uLL, 0x105204037B82EA9uLL);
+      *(*(a1 + 120) + 80) = v13;
+      *v13 = 1;
+      *(*(*(a1 + 120) + 80) + 16) = 7;
+      *(*(*(a1 + 120) + 80) + 17) = 0;
+      *(*(*(a1 + 120) + 80) + 18) = 2;
+      *(*(*(a1 + 120) + 80) + 19) = 6;
+      *(*(*(a1 + 120) + 80) + 24) = a1 + 4;
+      *(*(*(a1 + 120) + 80) + 32) = 8;
+      v14 = *(a1 + 120);
+      *(v14 + 88) = 1;
+      *(v14 + 108) = 0;
+      *(v14 + 100) = 4;
+      *(v14 + 124) = 3;
+      v15 = malloc_type_calloc(3uLL, 0x10uLL, 0x105204037B82EA9uLL);
+      *(*(a1 + 120) + 112) = v15;
+      *v15 = 1;
+      *(*(*(a1 + 120) + 112) + 16) = 7;
+      *(*(*(a1 + 120) + 112) + 17) = 0;
+      *(*(*(a1 + 120) + 112) + 18) = 2;
+      *(*(*(a1 + 120) + 112) + 19) = 6;
+      *(*(*(a1 + 120) + 112) + 24) = a1 + 4;
+      *(*(*(a1 + 120) + 112) + 32) = 8;
+      *(*(a1 + 120) + 120) = 1;
+      v10 = 4;
+    }
+  }
+
+  v31 = 0;
+  v16 = sub_10000E92C();
+  v17 = (*(*v16 + 8))(v16);
+  if (!v17)
+  {
+    goto LABEL_17;
+  }
+
+  v19 = sub_10000E92C();
+  sub_100007E30(buf, "A2DP");
+  sub_100007E30(__p, "DisableAACELD");
+  v17 = (*(*v19 + 72))(v19, buf, __p, &v31);
+  if (v33 < 0)
+  {
+    operator delete(__p[0]);
+  }
+
+  if (v35 < 0)
+  {
+    operator delete(*buf);
+  }
+
+  if (v31)
+  {
+    v31 = 1;
+  }
+
+  else
+  {
+LABEL_17:
+    v20 = sub_10000C798(v17, v18);
+    v31 = (*(*v20 + 368))(v20);
+    if ((v31 & 1) == 0)
+    {
+      *(a1 + 10) = 0x800080010000004CLL;
+      *(a1 + 18) = -2080340992;
+      *(a1 + 22) = 226;
+      v21 = *(a1 + 120) + 32 * v10;
+      *(v21 + 12) = 0;
+      *(v21 + 4) = 5;
+      *(v21 + 28) = 3;
+      v22 = malloc_type_calloc(3uLL, 0x10uLL, 0x105204037B82EA9uLL);
+      *(*(a1 + 120) + 32 * v10 + 16) = v22;
+      *v22 = 1;
+      *(*(*(a1 + 120) + 32 * v10 + 16) + 16) = 7;
+      *(*(*(a1 + 120) + 32 * v10 + 16) + 17) = 0;
+      *(*(*(a1 + 120) + 32 * v10 + 16) + 18) = -1;
+      *(*(*(a1 + 120) + 32 * v10 + 16) + 19) = 14;
+      *(*(*(a1 + 120) + 32 * v10 + 16) + 24) = a1 + 10;
+      *(*(*(a1 + 120) + 32 * v10 + 16) + 32) = 8;
+      v23 = *(a1 + 120);
+      *(v23 + 32 * v10 + 24) = 1;
+      v24 = v10 | 1;
+      v25 = v23 + 32 * v24;
+      *(v25 + 12) = 0;
+      *(v25 + 4) = 6;
+      *(v25 + 28) = 3;
+      v26 = malloc_type_calloc(3uLL, 0x10uLL, 0x105204037B82EA9uLL);
+      *(*(a1 + 120) + 32 * v24 + 16) = v26;
+      *v26 = 1;
+      *(*(*(a1 + 120) + 32 * v24 + 16) + 16) = 7;
+      *(*(*(a1 + 120) + 32 * v24 + 16) + 17) = 0;
+      *(*(*(a1 + 120) + 32 * v24 + 16) + 18) = -1;
+      *(*(*(a1 + 120) + 32 * v24 + 16) + 19) = 14;
+      *(*(*(a1 + 120) + 32 * v24 + 16) + 24) = a1 + 10;
+      *(*(*(a1 + 120) + 32 * v24 + 16) + 32) = 8;
+      *(*(a1 + 120) + 32 * v24 + 24) = 1;
+      v10 += 2;
+    }
+  }
+
+  *(a1 + 104) = v10;
+  *(a1 + 108) = v10;
+  v27 = qword_100BCE8B8;
+  if (os_log_type_enabled(qword_100BCE8B8, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 0;
+    _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "Local A2DP stream endpoints:", buf, 2u);
+  }
+
+  buf[0] = 0;
+  sub_1000216B4(buf);
+  if (*(a1 + 104))
+  {
+    v28 = 0;
+    v29 = 16;
+    do
+    {
+      nullsub_21();
+      ++v28;
+      v29 += 32;
+    }
+
+    while (v28 < *(a1 + 104));
+  }
+
+  sub_10002249C(buf);
+  return 0;
+}
+
+void sub_10050DA38(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *a16, uint64_t a17, int a18, __int16 a19, char a20, char a21)
+{
+  if (a15 < 0)
+  {
+    operator delete(__p);
+  }
+
+  if (a21 < 0)
+  {
+    operator delete(a16);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+uint64_t sub_10050DA84(uint64_t a1)
+{
+  v6 = 0;
+  sub_1000216B4(&v6);
+  if (*(a1 + 104))
+  {
+    v2 = 0;
+    v3 = 16;
+    while (!sub_1001F5498(0, 0, *(*(a1 + 120) + v3), 3, 1, (*(a1 + 120) + v3 - 12)))
+    {
+      ++v2;
+      v3 += 32;
+      if (v2 >= *(a1 + 104))
+      {
+        goto LABEL_5;
+      }
+    }
+
+    if (os_log_type_enabled(qword_100BCE8B8, OS_LOG_TYPE_ERROR))
+    {
+      sub_10083CDD0();
+    }
+
+    goto LABEL_10;
+  }
+
+LABEL_5:
+  v4 = sub_1001F1758(1, &off_100B54758);
+  if (v4)
+  {
+    if (os_log_type_enabled(qword_100BCE8B8, OS_LOG_TYPE_ERROR))
+    {
+      sub_10083CE38();
+    }
+
+LABEL_10:
+    v4 = 1;
+  }
+
+  sub_10002249C(&v6);
+  return v4;
+}
+
+uint64_t sub_10050DBA4(uint64_t a1)
+{
+  v6 = 0;
+  sub_1000216B4(&v6);
+  if (sub_1001F18AC() && os_log_type_enabled(qword_100BCE8B8, OS_LOG_TYPE_ERROR))
+  {
+    sub_10083CEA0();
+  }
+
+  if (*(a1 + 104))
+  {
+    v2 = 0;
+    v3 = 4;
+    while (!sub_1001F56BC(*(*(a1 + 120) + v3)))
+    {
+      ++v2;
+      v3 += 32;
+      if (v2 >= *(a1 + 104))
+      {
+        goto LABEL_8;
+      }
+    }
+
+    if (os_log_type_enabled(qword_100BCE8B8, OS_LOG_TYPE_ERROR))
+    {
+      sub_10083CF08();
+    }
+
+    v4 = 1;
+  }
+
+  else
+  {
+LABEL_8:
+    v4 = 0;
+  }
+
+  sub_10002249C(&v6);
+  return v4;
+}
+
+uint64_t sub_10050DCAC(uint64_t a1, int a2)
+{
+  v2 = *(a1 + 104);
+  if (!v2)
+  {
+    return 0;
+  }
+
+  result = 0;
+  v5 = *(a1 + 120);
+  do
+  {
+    if (*(*(v5 + 16) + 18) == a2)
+    {
+      result = v5;
+    }
+
+    v5 += 32;
+    --v2;
+  }
+
+  while (v2);
+  return result;
+}
+
+uint64_t sub_10050DCE8(uint64_t a1, int a2)
+{
+  v4 = qword_100BCE8B8;
+  if (os_log_type_enabled(qword_100BCE8B8, OS_LOG_TYPE_DEFAULT))
+  {
+    v8[0] = 67109120;
+    v8[1] = a2;
+    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Getting local stream config for local seid %d", v8, 8u);
+  }
+
+  v5 = *(a1 + 104);
+  if (!v5)
+  {
+    return 0;
+  }
+
+  result = 0;
+  v7 = *(a1 + 120);
+  do
+  {
+    if (*(v7 + 4) == a2)
+    {
+      result = v7;
+    }
+
+    v7 += 32;
+    --v5;
+  }
+
+  while (v5);
+  return result;
+}
+
+void sub_10050DDC8(uint64_t a1@<X0>, std::string *a2@<X8>)
+{
+  *&a2->__r_.__value_.__l.__data_ = 0uLL;
+  a2->__r_.__value_.__r.__words[2] = 0;
+  if (*(a1 + 23) < 0)
+  {
+    sub_100008904(a2, *a1, *(a1 + 8));
+  }
+
+  else
+  {
+    *a2 = *a1;
+  }
+
+  v3 = SHIBYTE(a2->__r_.__value_.__r.__words[2]);
+  if ((v3 & 0x80000000) == 0)
+  {
+    size = SHIBYTE(a2->__r_.__value_.__r.__words[2]);
+  }
+
+  else
+  {
+    size = a2->__r_.__value_.__l.__size_;
+  }
+
+  if (!size)
+  {
+    return;
+  }
+
+  v5 = 0;
+  v6 = v3 >> 63;
+  v7 = a2->__r_.__value_.__r.__words[0];
+  if ((v3 & 0x80000000) == 0)
+  {
+    v8 = a2;
+  }
+
+  else
+  {
+    v8 = a2->__r_.__value_.__r.__words[0];
+  }
+
+  while (2)
+  {
+    v9 = v8 + size;
+    v10 = v8 + v5;
+LABEL_12:
+    v11 = 0;
+    while (*v10 != asc_1009C5A03[v11])
+    {
+      if (++v11 == 5)
+      {
+        if (++v10 != v9)
+        {
+          goto LABEL_12;
+        }
+
+        return;
+      }
+    }
+
+    if (v10 == v9)
+    {
+      return;
+    }
+
+    v12 = v10 - v8;
+    if (v10 - v8 == -1)
+    {
+      return;
+    }
+
+    if ((v6 & 1) == 0)
+    {
+      v7 = a2;
+    }
+
+    memset(&v18, 0, sizeof(v18));
+    v13 = v7->__r_.__value_.__s.__data_[v12];
+    if (v13 <= 38)
+    {
+      if (v13 == 34)
+      {
+        v14 = "&quot;";
+      }
+
+      else
+      {
+        if (v13 != 38)
+        {
+          goto LABEL_32;
+        }
+
+        v14 = "&amp;";
+      }
+    }
+
+    else if (v13 == 39)
+    {
+      v14 = "&apos;";
+    }
+
+    else
+    {
+      v14 = "&gt;";
+      if (v13 != 62)
+      {
+        if (v13 != 60)
+        {
+          goto LABEL_32;
+        }
+
+        v14 = "&lt;";
+      }
+    }
+
+    std::string::assign(&v18, v14);
+LABEL_32:
+    if ((v18.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    {
+      v15 = &v18;
+    }
+
+    else
+    {
+      v15 = v18.__r_.__value_.__r.__words[0];
+    }
+
+    if ((v18.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    {
+      v16 = HIBYTE(v18.__r_.__value_.__r.__words[2]);
+    }
+
+    else
+    {
+      v16 = v18.__r_.__value_.__l.__size_;
+    }
+
+    std::string::replace(a2, v12, 1uLL, v15, v16);
+    v17 = SHIBYTE(v18.__r_.__value_.__r.__words[2]);
+    if ((SHIBYTE(v18.__r_.__value_.__r.__words[2]) & 0x8000000000000000) != 0)
+    {
+      v17 = v18.__r_.__value_.__l.__size_;
+      operator delete(v18.__r_.__value_.__l.__data_);
+    }
+
+    v5 = v17 + v12;
+    size = SHIBYTE(a2->__r_.__value_.__r.__words[2]);
+    v6 = size >> 63;
+    v7 = a2->__r_.__value_.__r.__words[0];
+    if ((size & 0x80000000) == 0)
+    {
+      v8 = a2;
+    }
+
+    else
+    {
+      v8 = a2->__r_.__value_.__r.__words[0];
+    }
+
+    if ((size & 0x80000000) != 0)
+    {
+      size = a2->__r_.__value_.__l.__size_;
+    }
+
+    if (size > v5)
+    {
+      continue;
+    }
+
+    break;
+  }
+}
+
+void sub_10050DFB0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
+{
+  if (a15 < 0)
+  {
+    operator delete(__p);
+  }
+
+  if (*(v15 + 23) < 0)
+  {
+    operator delete(*v15);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+unint64_t sub_10050DFDC(uint64_t a1)
+{
+  v2 = *(a1 + 23);
+  if (v2 >= 0)
+  {
+    v3 = a1;
+  }
+
+  else
+  {
+    v3 = *a1;
+  }
+
+  if (v2 >= 0)
+  {
+    v4 = *(a1 + 23);
+  }
+
+  else
+  {
+    v4 = *(a1 + 8);
+  }
+
+  v5 = sub_100059420(&v9, v3, v4);
+  v6 = qword_100BCE8D8;
+  if (os_log_type_enabled(qword_100BCE8D8, OS_LOG_TYPE_INFO))
+  {
+    if (*(a1 + 23) >= 0)
+    {
+      v7 = a1;
+    }
+
+    else
+    {
+      v7 = *a1;
+    }
+
+    v9 = 136446466;
+    v10 = v7;
+    v11 = 2048;
+    v12 = v5;
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_INFO, "Hashing %{public}s as %zu", &v9, 0x16u);
+  }
+
+  return v5;
+}
+
 uint64_t sub_10050E0CC(uint64_t a1, unsigned __int8 *a2)
 {
   v4 = 0;
@@ -10,14 +1907,14 @@ uint64_t sub_10050E0CC(uint64_t a1, unsigned __int8 *a2)
   return v2 + 56;
 }
 
-void sub_10050E108(uint64_t a1, void *a2)
+void sub_10050E108(os_unfair_lock_s *a1, void *a2)
 {
   v3 = a2;
   os_unfair_lock_lock(a1);
   v5 = 0;
   v6 = 0;
   v7 = 0;
-  sub_100007F20(&v5, (a1 + 8));
+  sub_100007F20(&v5, &a1[2]._os_unfair_lock_opaque);
   os_unfair_lock_unlock(a1);
   v4 = v5;
   if (v5 != v6)
@@ -167,16 +2064,17 @@ void sub_10050E9FC(uint64_t a1, int a2, int a3)
 void sub_10050EAB8(uint64_t a1)
 {
   v2 = qword_100BCEA28;
-  if (os_log_type_enabled(qword_100BCEA28, OS_LOG_TYPE_INFO))
+  v3 = os_log_type_enabled(qword_100BCEA28, OS_LOG_TYPE_INFO);
+  if (v3)
   {
-    *v4 = 0;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_INFO, "ExposureNotification::advertisingStoppedForSession", v4, 2u);
+    *v6 = 0;
+    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_INFO, "ExposureNotification::advertisingStoppedForSession", v6, 2u);
   }
 
   if (*(a1 + 80))
   {
-    v3 = sub_100007EE8();
-    sub_10000CA94(v3, &stru_100AFB0C8);
+    v5 = sub_100007EE8(v3, v4);
+    sub_10000CA94(v5, &stru_100AFB0C8);
   }
 }
 
@@ -204,13 +2102,14 @@ uint64_t sub_10050EB80(uint64_t a1)
 
 id sub_10050EDF8(uint64_t a1)
 {
-  if (os_log_type_enabled(qword_100BCEA28, OS_LOG_TYPE_DEBUG))
+  v2 = os_log_type_enabled(qword_100BCEA28, OS_LOG_TYPE_DEBUG);
+  if (v2)
   {
     sub_10083D354();
   }
 
-  v2 = sub_10000C798();
-  result = (*(*v2 + 384))(v2);
+  v4 = sub_10000C798(v2, v3);
+  result = (*(*v4 + 384))(v4);
   if (result)
   {
     return [*(a1 + 288) stopActivityUpdates];
@@ -234,7 +2133,7 @@ void sub_10050EE84(uint64_t a1)
 void sub_10050EF00(uint64_t a1, unint64_t a2)
 {
   v3 = HIDWORD(a2) == 1;
-  v4 = sub_100007EE8();
+  v4 = sub_100007EE8(a1, a2);
   v5[0] = _NSConcreteStackBlock;
   v5[1] = 3221225472;
   v5[2] = sub_10050EF8C;
@@ -267,8 +2166,8 @@ double sub_10050F07C(uint64_t a1)
 {
   *a1 = off_100AFB0F8;
   *(a1 + 8) = off_100AFB188;
-  *(a1 + 16) = off_100AFB1E8;
-  *(a1 + 24) = off_100AFB218;
+  *(a1 + 16) = &off_100AFB1E8;
+  *(a1 + 24) = &off_100AFB218;
   *(a1 + 32) = off_100AFB248;
   *(a1 + 56) = 0;
   *(a1 + 64) = 0;
@@ -316,14 +2215,14 @@ uint64_t sub_10050F1E8(uint64_t a1)
     _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_INFO, "restarting advertising", buf, 2u);
   }
 
-  sub_10050F2B4(a1);
-  v3 = sub_100007EE8();
-  v5[0] = _NSConcreteStackBlock;
-  v5[1] = 3221225472;
-  v5[2] = sub_10050F398;
-  v5[3] = &unk_100ADF8F8;
-  v5[4] = a1;
-  sub_10000CA94(v3, v5);
+  v3 = sub_10050F2B4(a1);
+  v5 = sub_100007EE8(v3, v4);
+  v7[0] = _NSConcreteStackBlock;
+  v7[1] = 3221225472;
+  v7[2] = sub_10050F398;
+  v7[3] = &unk_100ADF8F8;
+  v7[4] = a1;
+  sub_10000CA94(v5, v7);
   return 0;
 }
 
@@ -369,55 +2268,55 @@ uint64_t sub_10050F398(uint64_t result)
   return result;
 }
 
-uint64_t sub_10050F414(void *a1)
+uint64_t sub_10050F414(uint64_t a1)
 {
-  v2 = a1[5];
+  v2 = *(a1 + 40);
   if (qword_100B51078 != -1)
   {
     sub_10083D3A8();
   }
 
-  result = sub_10006E2A0(off_100B51070, *(v2 + 80), a1[6]);
-  *(*(a1[4] + 8) + 24) = result;
+  result = sub_10006E2A0(off_100B51070, *(v2 + 80), *(a1 + 48));
+  *(*(*(a1 + 32) + 8) + 24) = result;
   return result;
 }
 
-uint64_t sub_10050F470(uint64_t a1)
+uint64_t sub_10050F470(uint64_t a1, uint64_t a2)
 {
   if (!*(a1 + 80))
   {
     return 12;
   }
 
-  v8 = 0;
-  v9 = &v8;
-  v10 = 0x2020000000;
-  v11 = 0;
-  v2 = sub_100007EE8();
-  v7[0] = _NSConcreteStackBlock;
-  v7[1] = 3221225472;
-  v7[2] = sub_10050F5C8;
-  v7[3] = &unk_100AE25F0;
-  v7[4] = &v8;
-  v7[5] = a1;
-  sub_10000D334(v2, v7);
-  v3 = qword_100BCEA28;
+  v9 = 0;
+  v10 = &v9;
+  v11 = 0x2020000000;
+  v12 = 0;
+  v3 = sub_100007EE8(a1, a2);
+  v8[0] = _NSConcreteStackBlock;
+  v8[1] = 3221225472;
+  v8[2] = sub_10050F5C8;
+  v8[3] = &unk_100AE25F0;
+  v8[4] = &v9;
+  v8[5] = a1;
+  sub_10000D334(v3, v8);
+  v4 = qword_100BCEA28;
   if (os_log_type_enabled(qword_100BCEA28, OS_LOG_TYPE_INFO))
   {
-    v4 = *(v9 + 6);
+    v5 = *(v10 + 6);
     *buf = 67109120;
-    v13 = v4;
-    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_INFO, "stopScanning returning %d", buf, 8u);
+    v14 = v5;
+    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_INFO, "stopScanning returning %d", buf, 8u);
   }
 
-  v5 = *(v9 + 6);
-  _Block_object_dispose(&v8, 8);
-  return v5;
+  v6 = *(v10 + 6);
+  _Block_object_dispose(&v9, 8);
+  return v6;
 }
 
-void sub_10050F5B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10050F5B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -495,18 +2394,18 @@ void sub_10050F6B0(uint64_t a1)
   }
 }
 
-uint64_t sub_10050F884(uint64_t a1, void *a2, int a3, unint64_t *a4)
+uint64_t sub_10050F884(uint64_t a1, void *a2, uint64_t a3, uint64_t *a4)
 {
   if (a2 && a3 == 20)
   {
-    v58 = 0uLL;
-    v50 = 0;
+    v60 = 0uLL;
+    v52 = 0;
     if (qword_100B508C0 != -1)
     {
       sub_10083D3BC();
     }
 
-    v7 = sub_1007CE1DC(off_100B508B8, &v58, 16, &v50);
+    v7 = sub_1007CE1DC(off_100B508B8, &v60, 16, &v52);
     if (qword_100B508C0 != -1)
     {
       sub_10083D3D0();
@@ -514,7 +2413,7 @@ uint64_t sub_10050F884(uint64_t a1, void *a2, int a3, unint64_t *a4)
 
     v8 = (a1 + 146);
     sub_1007CC840(off_100B508B8, a1 + 146, 16);
-    if (!v7 && (*v8 == v58 ? (v9 = *(a1 + 154) == *(&v58 + 1)) : (v9 = 0), v9))
+    if (!v7 && (*v8 == v60 ? (v9 = *(a1 + 154) == *(&v60 + 1)) : (v9 = 0), v9))
     {
       v13 = qword_100BCEA28;
       if (os_log_type_enabled(qword_100BCEA28, OS_LOG_TYPE_DEFAULT))
@@ -523,7 +2422,7 @@ uint64_t sub_10050F884(uint64_t a1, void *a2, int a3, unint64_t *a4)
         _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "using the same payload as before", buf, 2u);
       }
 
-      *a4 = v50;
+      *a4 = v52;
     }
 
     else
@@ -564,33 +2463,34 @@ uint64_t sub_10050F884(uint64_t a1, void *a2, int a3, unint64_t *a4)
       v15 = qword_100BCEA28;
       if (os_log_type_enabled(qword_100BCEA28, OS_LOG_TYPE_DEFAULT))
       {
-        v16 = sub_100063D0C();
-        v17 = sub_100063D0C();
+        v16 = sub_100063D0C(v52);
+        v17 = sub_100063D0C(*a4);
         *buf = 138479107;
         *&buf[4] = v16;
         *&buf[12] = 2113;
         *&buf[14] = v17;
         *&buf[22] = 1041;
-        *v52 = 16;
-        *&v52[4] = 2097;
-        *v53 = &v58;
-        *&v53[8] = 1041;
         *v54 = 16;
         *&v54[4] = 2097;
-        v55[0] = a1 + 146;
+        *v55 = &v60;
+        *&v55[8] = 1041;
+        *v56 = 16;
+        *&v56[4] = 2097;
+        v57[0] = a1 + 146;
         _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "previousAddress:%{private}@ newAddress:%{private}@ previousPayload:%{private}.16P fCurrentAdvertisingPayload:%{private}.16P", buf, 0x36u);
       }
     }
 
-    v57[0] = 0;
-    v57[1] = 0;
+    v59[0] = 0;
+    v59[1] = 0;
     if (qword_100B508C0 != -1)
     {
       sub_10083D3D0();
     }
 
-    v11 = sub_1007CC8C0(off_100B508B8, v57, 0x10uLL, 0);
-    if (v11)
+    v18 = sub_1007CC8C0(off_100B508B8, v59, 0x10uLL, 0);
+    v11 = v18;
+    if (v18)
     {
       if (os_log_type_enabled(qword_100BCEA18, OS_LOG_TYPE_ERROR))
       {
@@ -600,18 +2500,18 @@ uint64_t sub_10050F884(uint64_t a1, void *a2, int a3, unint64_t *a4)
 
     else
     {
-      v49 = 257;
-      v18 = sub_10000C798();
-      BYTE2(v49) = (*(*v18 + 856))(v18);
-      HIBYTE(v49) = 3;
-      v56 = *v8;
-      v48 = 0;
+      v51 = 257;
+      v20 = sub_10000C798(v18, v19);
+      BYTE2(v51) = (*(*v20 + 856))(v20);
+      HIBYTE(v51) = 3;
+      v58 = *v8;
+      v50 = 0;
       if (qword_100B508C0 != -1)
       {
         sub_10083D3D0();
       }
 
-      v11 = sub_1007CDDE8(off_100B508B8, v57, &v49, &v56, &v48);
+      v11 = sub_1007CDDE8(off_100B508B8, v59, &v51, &v58, &v50);
       if (v11)
       {
         if (os_log_type_enabled(qword_100BCEA18, OS_LOG_TYPE_ERROR))
@@ -622,68 +2522,68 @@ uint64_t sub_10050F884(uint64_t a1, void *a2, int a3, unint64_t *a4)
 
       else
       {
-        *(a1 + 162) = v48;
-        v19 = sub_10000E92C();
-        if ((*(*v19 + 184))(v19))
+        *(a1 + 162) = v50;
+        v21 = sub_10000E92C();
+        if ((*(*v21 + 184))(v21))
         {
-          v20 = qword_100BCEA28;
+          v22 = qword_100BCEA28;
           if (os_log_type_enabled(qword_100BCEA28, OS_LOG_TYPE_DEFAULT))
           {
-            LODWORD(v47) = SBYTE2(v49);
-            v21 = v49;
-            v22 = BYTE1(v49);
-            v23 = HIBYTE(v49);
-            v24 = sub_100063D0C();
+            LODWORD(v49) = SBYTE2(v51);
+            v23 = v51;
+            v24 = BYTE1(v51);
+            v25 = HIBYTE(v51);
+            v26 = sub_100063D0C(*a4);
             *&buf[4] = 20;
             *buf = 68224771;
             *&buf[8] = 2097;
             *&buf[10] = a1 + 146;
             *&buf[18] = 1024;
-            *&buf[20] = v47;
-            *v52 = 1024;
-            *&v52[2] = (16 * (v22 & 3)) | (v21 << 6) | (4 * (v23 & 3));
-            *v53 = 2113;
-            *&v53[2] = v24;
-            *v54 = 1040;
-            *&v54[2] = 4;
-            LOWORD(v55[0]) = 2096;
-            *(v55 + 2) = &v48;
-            _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "Payload is now %{private}.20P TXPower:%d version:0x%x address:%{private}@ aem:%.4P", buf, 0x38u);
+            *&buf[20] = v49;
+            *v54 = 1024;
+            *&v54[2] = (16 * (v24 & 3)) | (v23 << 6) | (4 * (v25 & 3));
+            *v55 = 2113;
+            *&v55[2] = v26;
+            *v56 = 1040;
+            *&v56[2] = 4;
+            LOWORD(v57[0]) = 2096;
+            *(v57 + 2) = &v50;
+            _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "Payload is now %{private}.20P TXPower:%d version:0x%x address:%{private}@ aem:%.4P", buf, 0x38u);
           }
         }
 
-        v25 = sub_10000E92C();
-        if ((*(*v25 + 8))(v25))
+        v27 = sub_10000E92C();
+        if ((*(*v27 + 8))(v27))
         {
-          v26 = +[NSMutableDictionary dictionary];
-          v27 = +[NSLocale currentLocale];
-          v28 = +[NSDate date];
-          v29 = [v28 descriptionWithLocale:v27];
-          [v26 setObject:v29 forKeyedSubscript:@"RPIHistoryTime"];
+          v28 = +[NSMutableDictionary dictionary];
+          v29 = +[NSLocale currentLocale];
+          v30 = +[NSDate date];
+          v31 = [v30 descriptionWithLocale:v29];
+          [v28 setObject:v31 forKeyedSubscript:@"RPIHistoryTime"];
 
-          v30 = [NSData dataWithBytes:a1 + 146 length:20];
-          [v26 setObject:v30 forKeyedSubscript:@"RPIHistoryOTAPayload"];
+          v32 = [NSData dataWithBytes:a1 + 146 length:20];
+          [v28 setObject:v32 forKeyedSubscript:@"RPIHistoryOTAPayload"];
 
-          v31 = [NSNumber numberWithUnsignedChar:v48];
-          [v26 setObject:v31 forKeyedSubscript:@"RPIHistoryAEMVersion"];
+          v33 = [NSNumber numberWithUnsignedChar:v50];
+          [v28 setObject:v33 forKeyedSubscript:@"RPIHistoryAEMVersion"];
 
-          v32 = [NSNumber numberWithUnsignedChar:BYTE1(v48)];
-          [v26 setObject:v32 forKeyedSubscript:@"RPIHistoryAEMTxPower"];
+          v34 = [NSNumber numberWithUnsignedChar:BYTE1(v50)];
+          [v28 setObject:v34 forKeyedSubscript:@"RPIHistoryAEMTxPower"];
 
-          v33 = [NSNumber numberWithDouble:CFAbsoluteTimeGetCurrent() + kCFAbsoluteTimeIntervalSince1970];
-          [v26 setObject:v33 forKeyedSubscript:@"RPIHistorySecondsSince1970"];
+          v35 = [NSNumber numberWithDouble:CFAbsoluteTimeGetCurrent() + kCFAbsoluteTimeIntervalSince1970];
+          [v28 setObject:v35 forKeyedSubscript:@"RPIHistorySecondsSince1970"];
 
           if (qword_100B508C0 != -1)
           {
             sub_10083D3D0();
           }
 
-          v34 = [NSNumber numberWithUnsignedInt:sub_1007CD970(0.0)];
-          [v26 setObject:v34 forKeyedSubscript:@"RPIHistoryENIntervalNumber"];
+          v36 = [NSNumber numberWithUnsignedInt:sub_1007CD970(0.0)];
+          [v28 setObject:v36 forKeyedSubscript:@"RPIHistoryENIntervalNumber"];
 
-          v35 = *(a1 + 168);
-          v36 = [v26 copy];
-          [v35 insertObject:v36 atIndex:0];
+          v37 = *(a1 + 168);
+          v38 = [v28 copy];
+          [v37 insertObject:v38 atIndex:0];
 
           while ([*(a1 + 168) count] >= 0x191)
           {
@@ -693,58 +2593,58 @@ uint64_t sub_10050F884(uint64_t a1, void *a2, int a3, unint64_t *a4)
 
         if (*(a1 + 113) == 1)
         {
-          v37 = *(a1 + 120);
-          v38 = *(a1 + 128) - v37;
-          v39 = 0xAAAAAAAAAAAAAAABLL * (v38 >> 3);
-          if (v38)
+          v39 = *(a1 + 120);
+          v40 = *(a1 + 128) - v39;
+          v41 = 0xAAAAAAAAAAAAAAABLL * (v40 >> 3);
+          if (v40)
           {
-            v40 = 1;
-            v41 = (a1 + 146);
+            v42 = 1;
+            v43 = (a1 + 146);
             do
             {
-              v42 = v37;
-              if (*(v37 + 23) < 0)
+              v44 = v39;
+              if (*(v39 + 23) < 0)
               {
-                v42 = *v37;
+                v44 = *v39;
               }
 
-              *v41 = atoi(v42);
-              v43 = sub_10000E92C();
-              if ((*(*v43 + 184))(v43))
+              *v43 = atoi(v44);
+              v45 = sub_10000E92C();
+              if ((*(*v45 + 184))(v45))
               {
-                v44 = qword_100BCEA28;
+                v46 = qword_100BCEA28;
                 if (os_log_type_enabled(qword_100BCEA28, OS_LOG_TYPE_DEFAULT))
                 {
-                  v45 = v37;
-                  if (*(v37 + 23) < 0)
+                  v47 = v39;
+                  if (*(v39 + 23) < 0)
                   {
-                    v45 = *v37;
+                    v47 = *v39;
                   }
 
-                  v46 = atoi(v45);
+                  v48 = atoi(v47);
                   *buf = 67109376;
-                  *&buf[4] = v40;
+                  *&buf[4] = v42;
                   *&buf[8] = 1024;
-                  *&buf[10] = v46;
-                  _os_log_impl(&_mh_execute_header, v44, OS_LOG_TYPE_DEFAULT, "Force Payload fCurrentAdvertisingPayload[%d] = %d", buf, 0xEu);
+                  *&buf[10] = v48;
+                  _os_log_impl(&_mh_execute_header, v46, OS_LOG_TYPE_DEFAULT, "Force Payload fCurrentAdvertisingPayload[%d] = %d", buf, 0xEu);
                 }
               }
 
-              v37 += 24;
-              ++v41;
-              ++v40;
+              v39 += 24;
+              ++v43;
+              ++v42;
             }
 
-            while (v37 != *(a1 + 128));
+            while (v39 != *(a1 + 128));
           }
         }
 
         else
         {
-          LOBYTE(v39) = 20;
+          LOBYTE(v41) = 20;
         }
 
-        memcpy(a2, (a1 + 146), v39);
+        memcpy(a2, (a1 + 146), v41);
         return 0;
       }
     }
@@ -766,8 +2666,8 @@ uint64_t sub_10050F884(uint64_t a1, void *a2, int a3, unint64_t *a4)
 uint64_t sub_1005101D4(uint64_t a1, void *a2, double a3)
 {
   v5 = a2;
-  v6 = sub_10000C798();
-  if ((*(*v6 + 384))(v6))
+  v7 = sub_10000C798(v5, v6);
+  if ((*(*v7 + 384))(v7))
   {
     if (*(a1 + 80))
     {
@@ -777,31 +2677,31 @@ uint64_t sub_1005101D4(uint64_t a1, void *a2, double a3)
       }
 
 LABEL_16:
-      v7 = 12;
+      v8 = 12;
       goto LABEL_17;
     }
 
     if (v5)
     {
-      v8 = [NSString stringWithFormat:@"%@-ENClient", v5];
-      v9 = *(a1 + 96);
-      *(a1 + 96) = v8;
+      v9 = [NSString stringWithFormat:@"%@-ENClient", v5];
+      v10 = *(a1 + 96);
+      *(a1 + 96) = v9;
     }
 
-    v23 = 0;
+    v26 = 0;
     if (qword_100B50B88 != -1)
     {
       sub_10083D66C();
     }
 
-    v10 = qword_100B50B80;
+    v11 = qword_100B50B80;
     sub_100007E30(&__p, [*(a1 + 96) UTF8String]);
-    v11 = sub_100044414(v10, &__p);
-    v12 = v11;
-    if (SHIBYTE(v21) < 0)
+    v12 = sub_100044414(v11, &__p, &v26, 1);
+    v13 = v12;
+    if (SHIBYTE(v24) < 0)
     {
       operator delete(__p);
-      if (v12)
+      if (v13)
       {
 LABEL_14:
         if (os_log_type_enabled(qword_100BCEA18, OS_LOG_TYPE_ERROR))
@@ -813,7 +2713,7 @@ LABEL_14:
       }
     }
 
-    else if (v11)
+    else if (v12)
     {
       goto LABEL_14;
     }
@@ -823,9 +2723,9 @@ LABEL_14:
       sub_10083D6F4();
     }
 
-    v14 = sub_1000117DC(qword_100B50B80, v23);
-    *(a1 + 80) = v14;
-    if (!v14)
+    v15 = sub_1000117DC(qword_100B50B80, v26);
+    *(a1 + 80) = v15;
+    if (!v15)
     {
       if (os_log_type_enabled(qword_100BCEA18, OS_LOG_TYPE_ERROR))
       {
@@ -835,7 +2735,7 @@ LABEL_14:
       goto LABEL_16;
     }
 
-    if (*(a1 + 72) == 1 && (v7 = sub_10050E3C0(a1), v7))
+    if (*(a1 + 72) == 1 && (v15 = sub_10050E3C0(a1), v8 = v15, v15))
     {
       if (os_log_type_enabled(qword_100BCEA18, OS_LOG_TYPE_ERROR))
       {
@@ -847,16 +2747,16 @@ LABEL_14:
     {
       __p = 0;
       p_p = &__p;
-      v21 = 0x2020000000;
-      v22 = 0;
-      v15 = sub_100007EE8();
-      v18[0] = _NSConcreteStackBlock;
-      v18[1] = 3221225472;
-      v18[2] = sub_1005105BC;
-      v18[3] = &unk_100AE25F0;
-      v18[4] = &__p;
-      v18[5] = a1;
-      sub_10000D334(v15, v18);
+      v24 = 0x2020000000;
+      v25 = 0;
+      v17 = sub_100007EE8(v15, v16);
+      v21[0] = _NSConcreteStackBlock;
+      v21[1] = 3221225472;
+      v21[2] = sub_1005105BC;
+      v21[3] = &unk_100AE25F0;
+      v21[4] = &__p;
+      v21[5] = a1;
+      sub_10000D334(v17, v21);
       if (*(p_p + 6))
       {
         if (os_log_type_enabled(qword_100BCEA18, OS_LOG_TYPE_ERROR))
@@ -864,25 +2764,25 @@ LABEL_14:
           sub_10083D78C();
         }
 
-        sub_10050F470(a1);
-        v7 = *(p_p + 6);
+        sub_10050F470(a1, v18);
+        v8 = *(p_p + 6);
       }
 
       else
       {
         *(a1 + 104) = a3;
-        v16 = qword_100BCEA28;
+        v19 = qword_100BCEA28;
         if (os_log_type_enabled(qword_100BCEA28, OS_LOG_TYPE_INFO))
         {
-          v17 = *(a1 + 96);
+          v20 = *(a1 + 96);
           *buf = 134218242;
-          v25 = a3;
-          v26 = 2112;
-          v27 = v17;
-          _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_INFO, "started at %f with %@", buf, 0x16u);
+          v28 = a3;
+          v29 = 2112;
+          v30 = v20;
+          _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_INFO, "started at %f with %@", buf, 0x16u);
         }
 
-        v7 = 0;
+        v8 = 0;
       }
 
       _Block_object_dispose(&__p, 8);
@@ -896,12 +2796,12 @@ LABEL_14:
       sub_10083D5B8();
     }
 
-    v7 = 11;
+    v8 = 11;
   }
 
 LABEL_17:
 
-  return v7;
+  return v8;
 }
 
 uint64_t sub_1005105BC(uint64_t a1)
@@ -911,14 +2811,14 @@ uint64_t sub_1005105BC(uint64_t a1)
   return result;
 }
 
-uint64_t sub_1005105F0(uint64_t a1)
+uint64_t sub_1005105F0(uint64_t a1, uint64_t a2)
 {
-  v2 = sub_10000C798();
-  if ((*(*v2 + 384))(v2))
+  v3 = sub_10000C798(a1, a2);
+  if ((*(*v3 + 384))(v3))
   {
     if (*(a1 + 80))
     {
-      if (*(a1 + 72) == 1 && sub_10050F470(a1) && os_log_type_enabled(qword_100BCEA18, OS_LOG_TYPE_ERROR))
+      if (*(a1 + 72) == 1 && sub_10050F470(a1, v4) && os_log_type_enabled(qword_100BCEA18, OS_LOG_TYPE_ERROR))
       {
         sub_10083D838();
       }
@@ -933,9 +2833,9 @@ uint64_t sub_1005105F0(uint64_t a1)
         sub_10083D6F4();
       }
 
-      v3 = qword_100B50B80;
-      v4 = sub_100011794(*(a1 + 80));
-      if (sub_100079604(v3, v4))
+      v5 = qword_100B50B80;
+      v6 = sub_100011794(*(a1 + 80));
+      if (sub_100079604(v5, v6))
       {
         if (os_log_type_enabled(qword_100BCEA18, OS_LOG_TYPE_ERROR))
         {
@@ -944,11 +2844,11 @@ uint64_t sub_1005105F0(uint64_t a1)
       }
 
       *(a1 + 80) = 0;
-      v5 = *(a1 + 96);
+      v7 = *(a1 + 96);
       *(a1 + 96) = @"unknown";
 
       [*(a1 + 288) stopActivityUpdates];
-      v6 = *(a1 + 280);
+      v8 = *(a1 + 280);
       *(a1 + 280) = 0;
 
       return 0;
@@ -978,17 +2878,17 @@ uint64_t sub_1005105F0(uint64_t a1)
 
 void sub_1005107CC(uint64_t a1)
 {
-  v113 = 0;
+  v115 = 0;
   v2 = sub_10000E92C();
   sub_100007E30(buf, "LE");
   sub_100007E30(__p, "ENScanWithDuplicateEnable");
-  v3 = (*(*v2 + 72))(v2, buf, __p, &v113);
-  if (v112 < 0)
+  v3 = (*(*v2 + 72))(v2, buf, __p, &v115);
+  if (v114 < 0)
   {
     operator delete(__p[0]);
   }
 
-  if (v115 < 0)
+  if (v117 < 0)
   {
     operator delete(*buf);
     if (!v3)
@@ -1002,8 +2902,8 @@ void sub_1005107CC(uint64_t a1)
     goto LABEL_9;
   }
 
-  v4 = v113;
-  *(a1 + 112) = v113;
+  v4 = v115;
+  *(a1 + 112) = v115;
   v5 = qword_100BCEA28;
   if (os_log_type_enabled(qword_100BCEA28, OS_LOG_TYPE_DEFAULT))
   {
@@ -1017,7 +2917,7 @@ LABEL_9:
   sub_100007E30(buf, "ENForceCustomPayloadData");
   v7 = (*(*v6 + 120))(v6, buf, a1 + 120);
   v8 = v7;
-  if (v115 < 0)
+  if (v117 < 0)
   {
     operator delete(*buf);
     if (!v8)
@@ -1041,17 +2941,17 @@ LABEL_9:
 
 LABEL_15:
   *(a1 + 144) = 432;
-  v110 = 0;
+  v112 = 0;
   v10 = sub_10000E92C();
   sub_100007E30(buf, "LE");
   sub_100007E30(__p, "ENForceCustomAdvInterval");
-  v11 = (*(*v10 + 88))(v10, buf, __p, &v110);
-  if (v112 < 0)
+  v11 = (*(*v10 + 88))(v10, buf, __p, &v112);
+  if (v114 < 0)
   {
     operator delete(__p[0]);
   }
 
-  if (v115 < 0)
+  if (v117 < 0)
   {
     operator delete(*buf);
     if (!v11)
@@ -1065,8 +2965,8 @@ LABEL_15:
     goto LABEL_23;
   }
 
-  v12 = v110;
-  *(a1 + 144) = v110;
+  v12 = v112;
+  *(a1 + 144) = v112;
   v13 = qword_100BCEA28;
   if (os_log_type_enabled(qword_100BCEA28, OS_LOG_TYPE_DEFAULT))
   {
@@ -1076,17 +2976,17 @@ LABEL_15:
   }
 
 LABEL_23:
-  v109 = 0;
+  v111 = 0;
   v14 = sub_10000E92C();
   sub_100007E30(buf, "ENScanOverrides");
   sub_100007E30(__p, "ENOverrideScanWithDuplicatesDurationInMS");
-  v15 = (*(*v14 + 88))(v14, buf, __p, &v109);
-  if (v112 < 0)
+  v15 = (*(*v14 + 88))(v14, buf, __p, &v111);
+  if (v114 < 0)
   {
     operator delete(__p[0]);
   }
 
-  if (v115 < 0)
+  if (v117 < 0)
   {
     operator delete(*buf);
     if (!v15)
@@ -1100,8 +3000,8 @@ LABEL_23:
     goto LABEL_31;
   }
 
-  v16 = v109;
-  *(a1 + 214) = v109;
+  v16 = v111;
+  *(a1 + 214) = v111;
   v17 = qword_100BCEA28;
   if (os_log_type_enabled(qword_100BCEA28, OS_LOG_TYPE_DEFAULT))
   {
@@ -1111,17 +3011,17 @@ LABEL_23:
   }
 
 LABEL_31:
-  v108 = 0;
+  v110 = 0;
   v18 = sub_10000E92C();
   sub_100007E30(buf, "ENScanOverrides");
   sub_100007E30(__p, "ENOverrideExtraScanTimeInMs");
-  v19 = (*(*v18 + 88))(v18, buf, __p, &v108);
-  if (v112 < 0)
+  v19 = (*(*v18 + 88))(v18, buf, __p, &v110);
+  if (v114 < 0)
   {
     operator delete(__p[0]);
   }
 
-  if (v115 < 0)
+  if (v117 < 0)
   {
     operator delete(*buf);
     if (!v19)
@@ -1135,8 +3035,8 @@ LABEL_31:
     goto LABEL_39;
   }
 
-  v20 = v108;
-  *(a1 + 216) = v108;
+  v20 = v110;
+  *(a1 + 216) = v110;
   v21 = qword_100BCEA28;
   if (os_log_type_enabled(qword_100BCEA28, OS_LOG_TYPE_DEFAULT))
   {
@@ -1146,17 +3046,17 @@ LABEL_31:
   }
 
 LABEL_39:
-  v107 = 0;
+  v109 = 0;
   v22 = sub_10000E92C();
   sub_100007E30(buf, "ENScanOverrides");
   sub_100007E30(__p, "ENOverrideNumOfSightingsHighThreshold");
-  v23 = (*(*v22 + 88))(v22, buf, __p, &v107);
-  if (v112 < 0)
+  v23 = (*(*v22 + 88))(v22, buf, __p, &v109);
+  if (v114 < 0)
   {
     operator delete(__p[0]);
   }
 
-  if (v115 < 0)
+  if (v117 < 0)
   {
     operator delete(*buf);
     if (!v23)
@@ -1170,8 +3070,8 @@ LABEL_39:
     goto LABEL_47;
   }
 
-  v24 = v107;
-  *(a1 + 218) = v107;
+  v24 = v109;
+  *(a1 + 218) = v109;
   v25 = qword_100BCEA28;
   if (os_log_type_enabled(qword_100BCEA28, OS_LOG_TYPE_DEFAULT))
   {
@@ -1181,17 +3081,17 @@ LABEL_39:
   }
 
 LABEL_47:
-  v106 = 0;
+  v108 = 0;
   v26 = sub_10000E92C();
   sub_100007E30(buf, "ENScanOverrides");
   sub_100007E30(__p, "ENOverrideRSSIHighThreshold");
-  v27 = (*(*v26 + 88))(v26, buf, __p, &v106);
-  if (v112 < 0)
+  v27 = (*(*v26 + 88))(v26, buf, __p, &v108);
+  if (v114 < 0)
   {
     operator delete(__p[0]);
   }
 
-  if (v115 < 0)
+  if (v117 < 0)
   {
     operator delete(*buf);
     if (!v27)
@@ -1205,8 +3105,8 @@ LABEL_47:
     goto LABEL_55;
   }
 
-  v28 = v106;
-  *(a1 + 220) = v106;
+  v28 = v108;
+  *(a1 + 220) = v108;
   v29 = qword_100BCEA28;
   if (os_log_type_enabled(qword_100BCEA28, OS_LOG_TYPE_DEFAULT))
   {
@@ -1216,17 +3116,17 @@ LABEL_47:
   }
 
 LABEL_55:
-  v105 = 0;
+  v107 = 0;
   v30 = sub_10000E92C();
   sub_100007E30(buf, "ENScanOverrides");
   sub_100007E30(__p, "ENOverrideShortAPWakeDeltaInSeconds");
-  v31 = (*(*v30 + 88))(v30, buf, __p, &v105);
-  if (v112 < 0)
+  v31 = (*(*v30 + 88))(v30, buf, __p, &v107);
+  if (v114 < 0)
   {
     operator delete(__p[0]);
   }
 
-  if (v115 < 0)
+  if (v117 < 0)
   {
     operator delete(*buf);
     if (!v31)
@@ -1240,8 +3140,8 @@ LABEL_55:
     goto LABEL_63;
   }
 
-  v32 = v105;
-  *(a1 + 222) = v105;
+  v32 = v107;
+  *(a1 + 222) = v107;
   v33 = qword_100BCEA28;
   if (os_log_type_enabled(qword_100BCEA28, OS_LOG_TYPE_DEFAULT))
   {
@@ -1251,17 +3151,17 @@ LABEL_55:
   }
 
 LABEL_63:
-  v104 = 0;
+  v106 = 0;
   v34 = sub_10000E92C();
   sub_100007E30(buf, "ENScanOverrides");
   sub_100007E30(__p, "ENOverrideNormalAPWakeDeltaInSeconds");
-  v35 = (*(*v34 + 88))(v34, buf, __p, &v104);
-  if (v112 < 0)
+  v35 = (*(*v34 + 88))(v34, buf, __p, &v106);
+  if (v114 < 0)
   {
     operator delete(__p[0]);
   }
 
-  if (v115 < 0)
+  if (v117 < 0)
   {
     operator delete(*buf);
     if (!v35)
@@ -1275,8 +3175,8 @@ LABEL_63:
     goto LABEL_71;
   }
 
-  v36 = v104;
-  *(a1 + 224) = v104;
+  v36 = v106;
+  *(a1 + 224) = v106;
   v37 = qword_100BCEA28;
   if (os_log_type_enabled(qword_100BCEA28, OS_LOG_TYPE_DEFAULT))
   {
@@ -1286,17 +3186,17 @@ LABEL_63:
   }
 
 LABEL_71:
-  v103 = 0;
+  v105 = 0;
   v38 = sub_10000E92C();
   sub_100007E30(buf, "ENScanOverrides");
   sub_100007E30(__p, "ENOverrideStationaryDurationInSeconds");
-  v39 = (*(*v38 + 88))(v38, buf, __p, &v103);
-  if (v112 < 0)
+  v39 = (*(*v38 + 88))(v38, buf, __p, &v105);
+  if (v114 < 0)
   {
     operator delete(__p[0]);
   }
 
-  if (v115 < 0)
+  if (v117 < 0)
   {
     operator delete(*buf);
     if (!v39)
@@ -1310,8 +3210,8 @@ LABEL_71:
     goto LABEL_79;
   }
 
-  v40 = v103;
-  *(a1 + 226) = v103;
+  v40 = v105;
+  *(a1 + 226) = v105;
   v41 = qword_100BCEA28;
   if (os_log_type_enabled(qword_100BCEA28, OS_LOG_TYPE_DEFAULT))
   {
@@ -1321,17 +3221,17 @@ LABEL_71:
   }
 
 LABEL_79:
-  v102 = 0;
+  v104 = 0;
   v42 = sub_10000E92C();
   sub_100007E30(buf, "ENScanOverrides");
   sub_100007E30(__p, "ENOverrideMaxDailyShortAPWakes");
-  v43 = (*(*v42 + 88))(v42, buf, __p, &v102);
-  if (v112 < 0)
+  v43 = (*(*v42 + 88))(v42, buf, __p, &v104);
+  if (v114 < 0)
   {
     operator delete(__p[0]);
   }
 
-  if (v115 < 0)
+  if (v117 < 0)
   {
     operator delete(*buf);
     if (!v43)
@@ -1345,8 +3245,8 @@ LABEL_79:
     goto LABEL_87;
   }
 
-  v44 = v102;
-  *(a1 + 228) = v102;
+  v44 = v104;
+  *(a1 + 228) = v104;
   v45 = qword_100BCEA28;
   if (os_log_type_enabled(qword_100BCEA28, OS_LOG_TYPE_DEFAULT))
   {
@@ -1356,17 +3256,17 @@ LABEL_79:
   }
 
 LABEL_87:
-  v101 = 0;
+  v103 = 0;
   v46 = sub_10000E92C();
   sub_100007E30(buf, "ENScanOverrides");
   sub_100007E30(__p, "ENEnableAdaptiveAPWakeScheduling");
-  v47 = (*(*v46 + 72))(v46, buf, __p, &v101);
-  if (v112 < 0)
+  v47 = (*(*v46 + 72))(v46, buf, __p, &v103);
+  if (v114 < 0)
   {
     operator delete(__p[0]);
   }
 
-  if (v115 < 0)
+  if (v117 < 0)
   {
     operator delete(*buf);
     if (!v47)
@@ -1380,8 +3280,8 @@ LABEL_87:
     goto LABEL_95;
   }
 
-  v48 = v101;
-  *(a1 + 249) = v101;
+  v48 = v103;
+  *(a1 + 249) = v103;
   v49 = qword_100BCEA28;
   if (os_log_type_enabled(qword_100BCEA28, OS_LOG_TYPE_DEFAULT))
   {
@@ -1391,12 +3291,12 @@ LABEL_87:
   }
 
 LABEL_95:
-  v100 = 0;
+  v102 = 0;
   v50 = sub_10000E92C();
   sub_100007E30(buf, "LeObserver");
   sub_100007E30(__p, "OverrideContactTracingScanDurationSeconds");
-  v51 = (*(*v50 + 88))(v50, buf, __p, &v100);
-  if (v100)
+  v51 = (*(*v50 + 88))(v50, buf, __p, &v102);
+  if (v102)
   {
     v52 = v51;
   }
@@ -1406,12 +3306,12 @@ LABEL_95:
     v52 = 0;
   }
 
-  if (v112 < 0)
+  if (v114 < 0)
   {
     operator delete(__p[0]);
   }
 
-  if (v115 < 0)
+  if (v117 < 0)
   {
     operator delete(*buf);
     if (!v52)
@@ -1425,7 +3325,7 @@ LABEL_95:
     goto LABEL_107;
   }
 
-  *(a1 + 252) = v100;
+  *(a1 + 252) = v102;
   v53 = sub_10000E92C();
   if ((*(*v53 + 176))(v53))
   {
@@ -1440,17 +3340,17 @@ LABEL_95:
   }
 
 LABEL_107:
-  v99 = 0;
+  v101 = 0;
   v56 = sub_10000E92C();
   sub_100007E30(buf, "LeObserver");
   sub_100007E30(__p, "OverrideContactTracingScanDeltaSeconds");
-  v57 = (*(*v56 + 88))(v56, buf, __p, &v99);
-  if (v112 < 0)
+  v57 = (*(*v56 + 88))(v56, buf, __p, &v101);
+  if (v114 < 0)
   {
     operator delete(__p[0]);
   }
 
-  if (v115 < 0)
+  if (v117 < 0)
   {
     operator delete(*buf);
     if (!v57)
@@ -1464,7 +3364,7 @@ LABEL_107:
     goto LABEL_116;
   }
 
-  *(a1 + 260) = v99;
+  *(a1 + 260) = v101;
   v58 = sub_10000E92C();
   if ((*(*v58 + 176))(v58))
   {
@@ -1479,12 +3379,12 @@ LABEL_107:
   }
 
 LABEL_116:
-  v98 = 0;
+  v100 = 0;
   v61 = sub_10000E92C();
   sub_100007E30(buf, "LeObserver");
   sub_100007E30(__p, "OverrideContactTracingLowDutyScanDurationSeconds");
-  v62 = (*(*v61 + 88))(v61, buf, __p, &v98);
-  if (v98)
+  v62 = (*(*v61 + 88))(v61, buf, __p, &v100);
+  if (v100)
   {
     v63 = v62;
   }
@@ -1494,12 +3394,12 @@ LABEL_116:
     v63 = 0;
   }
 
-  if (v112 < 0)
+  if (v114 < 0)
   {
     operator delete(__p[0]);
   }
 
-  if (v115 < 0)
+  if (v117 < 0)
   {
     operator delete(*buf);
     if (!v63)
@@ -1513,7 +3413,7 @@ LABEL_116:
     goto LABEL_128;
   }
 
-  *(a1 + 256) = v98;
+  *(a1 + 256) = v100;
   v64 = sub_10000E92C();
   if ((*(*v64 + 176))(v64))
   {
@@ -1528,12 +3428,12 @@ LABEL_116:
   }
 
 LABEL_128:
-  v97 = 0;
+  v99 = 0;
   v67 = sub_10000E92C();
   sub_100007E30(buf, "LeObserver");
   sub_100007E30(__p, "OverrideContactTracingLowDutyScanIntervalSeconds");
-  v68 = (*(*v67 + 88))(v67, buf, __p, &v97);
-  if (v97)
+  v68 = (*(*v67 + 88))(v67, buf, __p, &v99);
+  if (v99)
   {
     v69 = v68;
   }
@@ -1543,12 +3443,12 @@ LABEL_128:
     v69 = 0;
   }
 
-  if (v112 < 0)
+  if (v114 < 0)
   {
     operator delete(__p[0]);
   }
 
-  if (v115 < 0)
+  if (v117 < 0)
   {
     operator delete(*buf);
     if (!v69)
@@ -1562,7 +3462,7 @@ LABEL_128:
     goto LABEL_140;
   }
 
-  *(a1 + 268) = v97;
+  *(a1 + 268) = v99;
   v70 = sub_10000E92C();
   if ((*(*v70 + 176))(v70))
   {
@@ -1577,12 +3477,12 @@ LABEL_128:
   }
 
 LABEL_140:
-  v96 = 0;
+  v98 = 0;
   v73 = sub_10000E92C();
   sub_100007E30(buf, "LeObserver");
   sub_100007E30(__p, "OverrideContactTracingScanDurationA2DPWifi2GSeconds");
-  v74 = (*(*v73 + 88))(v73, buf, __p, &v96);
-  if (v96)
+  v74 = (*(*v73 + 88))(v73, buf, __p, &v98);
+  if (v98)
   {
     v75 = v74;
   }
@@ -1592,12 +3492,12 @@ LABEL_140:
     v75 = 0;
   }
 
-  if (v112 < 0)
+  if (v114 < 0)
   {
     operator delete(__p[0]);
   }
 
-  if (v115 < 0)
+  if (v117 < 0)
   {
     operator delete(*buf);
     if (!v75)
@@ -1611,7 +3511,7 @@ LABEL_140:
     goto LABEL_152;
   }
 
-  *(a1 + 270) = v96;
+  *(a1 + 270) = v98;
   v76 = sub_10000E92C();
   if ((*(*v76 + 176))(v76))
   {
@@ -1626,17 +3526,17 @@ LABEL_140:
   }
 
 LABEL_152:
-  v95 = 0;
+  v97 = 0;
   v79 = sub_10000E92C();
   sub_100007E30(buf, "ENScanOverrides");
   sub_100007E30(__p, "ENOverrideScanWithDuplicatesDurationA2DPWifi2GInMS");
-  v80 = (*(*v79 + 88))(v79, buf, __p, &v95);
-  if (v112 < 0)
+  v80 = (*(*v79 + 88))(v79, buf, __p, &v97);
+  if (v114 < 0)
   {
     operator delete(__p[0]);
   }
 
-  if (v115 < 0)
+  if (v117 < 0)
   {
     operator delete(*buf);
     if (!v80)
@@ -1650,7 +3550,7 @@ LABEL_152:
     goto LABEL_161;
   }
 
-  *(a1 + 272) = v95;
+  *(a1 + 272) = v97;
   v81 = sub_10000E92C();
   if ((*(*v81 + 176))(v81))
   {
@@ -1658,53 +3558,56 @@ LABEL_152:
     if (os_log_type_enabled(qword_100BCEA28, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109120;
-      *&buf[4] = v95;
+      *&buf[4] = v97;
       _os_log_impl(&_mh_execute_header, v82, OS_LOG_TYPE_DEFAULT, "Overriding fNextScanWithDuplicatesDurationA2DPWifi2GInMs = %d ", buf, 8u);
     }
   }
 
 LABEL_161:
-  v94 = 0;
+  v96 = 0;
   v83 = sub_10000E92C();
   sub_100007E30(buf, "ENScanOverrides");
   sub_100007E30(__p, "ENOverrideMaxAllowedRSSILevel");
-  v84 = (*(*v83 + 88))(v83, buf, __p, &v94);
-  if (v112 < 0)
+  v84 = (*(*v83 + 88))(v83, buf, __p, &v96);
+  v86 = v84;
+  if (v114 < 0)
   {
     operator delete(__p[0]);
   }
 
-  if (v115 < 0)
+  if (v117 < 0)
   {
     operator delete(*buf);
-    if (!v84)
+    if (!v86)
     {
       goto LABEL_170;
     }
   }
 
-  else if (!v84)
+  else if (!v86)
   {
     goto LABEL_170;
   }
 
-  *(a1 + 296) = v94;
-  v85 = sub_10000E92C();
-  if ((*(*v85 + 176))(v85))
+  *(a1 + 296) = v96;
+  v87 = sub_10000E92C();
+  v84 = (*(*v87 + 176))(v87);
+  if (v84)
   {
-    v86 = qword_100BCEA28;
-    if (os_log_type_enabled(qword_100BCEA28, OS_LOG_TYPE_DEFAULT))
+    v88 = qword_100BCEA28;
+    v84 = os_log_type_enabled(qword_100BCEA28, OS_LOG_TYPE_DEFAULT);
+    if (v84)
     {
-      v87 = *(a1 + 296);
+      v89 = *(a1 + 296);
       *buf = 67109120;
-      *&buf[4] = v87;
-      _os_log_impl(&_mh_execute_header, v86, OS_LOG_TYPE_DEFAULT, "Overriding fMaxAllowedRSSILevel = %d ", buf, 8u);
+      *&buf[4] = v89;
+      _os_log_impl(&_mh_execute_header, v88, OS_LOG_TYPE_DEFAULT, "Overriding fMaxAllowedRSSILevel = %d ", buf, 8u);
     }
   }
 
 LABEL_170:
-  v88 = sub_10000C798();
-  if ((*(*v88 + 384))(v88))
+  v90 = sub_10000C798(v84, v85);
+  if ((*(*v90 + 384))(v90))
   {
     if (qword_100B50AA0 != -1)
     {
@@ -1730,21 +3633,21 @@ LABEL_170:
     }
 
     sub_1000DB5D8(off_100B51070 + 1896, a1 + 8);
-    v89 = sub_100017E6C();
-    sub_100312B50(v89 + 304, a1 + 40);
+    v91 = sub_100017E6C();
+    sub_100312B50(v91 + 304, a1 + 40);
     if (qword_100B50AA0 != -1)
     {
       sub_10083D9CC();
     }
 
     *(a1 + 88) = sub_10006DBF8(off_100B50A98);
-    v90 = +[NSMutableArray array];
-    v91 = *(a1 + 168);
-    *(a1 + 168) = v90;
+    v92 = +[NSMutableArray array];
+    v93 = *(a1 + 168);
+    *(a1 + 168) = v92;
 
-    v92 = objc_opt_new();
-    v93 = *(a1 + 288);
-    *(a1 + 288) = v92;
+    v94 = objc_opt_new();
+    v95 = *(a1 + 288);
+    *(a1 + 288) = v94;
   }
 }
 
@@ -1850,11 +3753,11 @@ void sub_100511F18()
   v0 = sub_10000E92C();
   if ((*(*v0 + 176))(v0))
   {
-    v1 = qword_100BCEA28;
+    v2 = qword_100BCEA28;
     if (os_log_type_enabled(qword_100BCEA28, OS_LOG_TYPE_DEFAULT))
     {
-      *v2 = 0;
-      _os_log_impl(&_mh_execute_header, v1, OS_LOG_TYPE_DEFAULT, "scanDurationStarted", v2, 2u);
+      *v3 = 0;
+      _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "scanDurationStarted", v3, 2u);
     }
   }
 
@@ -1863,7 +3766,7 @@ void sub_100511F18()
     sub_10083DAB4();
   }
 
-  sub_100747D7C(off_100B508A8);
+  sub_100747D7C(off_100B508A8, v1);
 }
 
 void sub_100511FD0(uint64_t a1)
@@ -2076,7 +3979,7 @@ void sub_100511FD0(uint64_t a1)
         v52 = v18 & 1;
         v47 = v17;
         v48 = v40;
-        sub_10050E108(v43 + 176, v44);
+        sub_10050E108((v43 + 176), v44);
 
         v53 = &off_100AE0A78;
         if (v54)
@@ -2602,8 +4505,8 @@ uint64_t sub_100513640(uint64_t a1)
 {
   *a1 = off_100AFB0F8;
   *(a1 + 8) = off_100AFB188;
-  *(a1 + 16) = off_100AFB1E8;
-  *(a1 + 24) = off_100AFB218;
+  *(a1 + 16) = &off_100AFB1E8;
+  *(a1 + 24) = &off_100AFB218;
   *(a1 + 32) = off_100AFB248;
   *(a1 + 40) = &off_100AFB278;
 
@@ -2633,19 +4536,19 @@ void sub_10051377C(uint64_t a1, char *a2)
   }
 }
 
-uint64_t sub_1005137DC(uint64_t a1, uint64_t a2)
+uint64_t sub_1005137DC(uint64_t **a1, uint64_t a2, uint64_t a3, _OWORD **a4)
 {
-  v4 = 0;
-  v2 = *sub_100513888(a1, &v4, a2);
-  if (!v2)
+  v6 = 0;
+  v4 = *sub_100513888(a1, &v6, a2);
+  if (!v4)
   {
     operator new();
   }
 
-  return v2;
+  return v4;
 }
 
-uint64_t *sub_100513888(uint64_t a1, void *a2, uint64_t a3)
+uint64_t *sub_100513888(uint64_t a1, uint64_t **a2, uint64_t a3)
 {
   v5 = *(a1 + 8);
   result = (a1 + 8);
@@ -2658,7 +4561,7 @@ uint64_t *sub_100513888(uint64_t a1, void *a2, uint64_t a3)
       while (1)
       {
         v7 = v4;
-        v8 = bswap64(v4[4]);
+        v8 = bswap64(*(v4 + 32));
         if (v6 == v8)
         {
           break;
@@ -2730,10 +4633,10 @@ LABEL_24:
   return result;
 }
 
-uint64_t sub_100513984(uint64_t a1, uint64_t a2)
+uint64_t sub_100513984(void *a1, uint64_t a2)
 {
-  v3 = *(a1 + 8);
-  if (v3 >= *(a1 + 16))
+  v3 = a1[1];
+  if (v3 >= a1[2])
   {
     v4 = sub_10009643C(a1, a2);
   }
@@ -2744,7 +4647,7 @@ uint64_t sub_100513984(uint64_t a1, uint64_t a2)
     v4 = v3 + 16;
   }
 
-  *(a1 + 8) = v4;
+  a1[1] = v4;
   return v4 - 16;
 }
 
@@ -2762,7 +4665,7 @@ void sub_1005139C8(uint64_t a1, uint64_t a2)
   *(a1 + 8) = v3 + 2;
 }
 
-uint64_t sub_100513D34(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *sub_100513D34(uint64_t *result, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -2772,7 +4675,7 @@ uint64_t sub_100513D34(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
   return result;
 }
 
-void sub_100513D98(uint64_t a1, unint64_t a2)
+void sub_100513D98(uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 60))
   {
@@ -2782,17 +4685,17 @@ void sub_100513D98(uint64_t a1, unint64_t a2)
   sub_1000C7698();
 }
 
-void sub_100513DD4(uint64_t a1, uint64_t a2, uint64_t a3)
+void sub_100513DD4(uint64_t result, uint64_t a2, uint64_t a3)
 {
   if (a2 == a3)
   {
-    v7 = *(a1 + 8);
+    v7 = *(result + 8);
   }
 
   else
   {
     v5 = a2;
-    v6 = *(a1 + 8);
+    v6 = *(result + 8);
     v7 = v6;
     do
     {
@@ -2812,7 +4715,7 @@ void sub_100513DD4(uint64_t a1, uint64_t a2, uint64_t a3)
     while (v5 != a3);
   }
 
-  *(a1 + 8) = v7;
+  *(result + 8) = v7;
 }
 
 uint64_t sub_100514044(uint64_t a1)
@@ -2824,7 +4727,7 @@ uint64_t sub_100514044(uint64_t a1)
   *(a1 + 32) = &off_100AFB4F0;
   *(a1 + 40) = &off_100AFB508;
   *(a1 + 48) = &off_100AFB520;
-  sub_100044BBC(a1 + 56);
+  sub_100044BBC((a1 + 56));
   *(a1 + 120) = 0;
   *(a1 + 128) = 0u;
   *(a1 + 144) = 0u;
@@ -3098,14 +5001,15 @@ uint64_t sub_1005145AC(uint64_t a1, uint64_t a2)
   return sub_1000088CC(v13);
 }
 
-void sub_10051471C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, uint64_t a14, char a15)
+void sub_10051471C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, uint64_t a14, ...)
 {
+  va_start(va, a14);
   if (__p)
   {
     operator delete(__p);
   }
 
-  sub_1000088CC(&a15);
+  sub_1000088CC(va);
   _Unwind_Resume(a1);
 }
 
@@ -3155,14 +5059,15 @@ uint64_t sub_100514758(uint64_t a1, uint64_t a2)
   return sub_1000088CC(v13);
 }
 
-void sub_1005148C8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, uint64_t a14, char a15)
+void sub_1005148C8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, uint64_t a14, ...)
 {
+  va_start(va, a14);
   if (__p)
   {
     operator delete(__p);
   }
 
-  sub_1000088CC(&a15);
+  sub_1000088CC(va);
   _Unwind_Resume(a1);
 }
 
@@ -3212,14 +5117,15 @@ uint64_t sub_100514904(uint64_t a1, uint64_t a2)
   return sub_1000088CC(v13);
 }
 
-void sub_100514A74(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, uint64_t a14, char a15)
+void sub_100514A74(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, uint64_t a14, ...)
 {
+  va_start(va, a14);
   if (__p)
   {
     operator delete(__p);
   }
 
-  sub_1000088CC(&a15);
+  sub_1000088CC(va);
   _Unwind_Resume(a1);
 }
 
@@ -3269,14 +5175,15 @@ uint64_t sub_100514AB0(uint64_t a1, uint64_t a2)
   return sub_1000088CC(v13);
 }
 
-void sub_100514C20(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, uint64_t a14, char a15)
+void sub_100514C20(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, uint64_t a14, ...)
 {
+  va_start(va, a14);
   if (__p)
   {
     operator delete(__p);
   }
 
-  sub_1000088CC(&a15);
+  sub_1000088CC(va);
   _Unwind_Resume(a1);
 }
 
@@ -3331,14 +5238,15 @@ uint64_t sub_100514C5C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   return sub_1000088CC(v20);
 }
 
-void sub_100514E24(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, uint64_t a14, char a15)
+void sub_100514E24(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, uint64_t a14, ...)
 {
+  va_start(va, a14);
   if (__p)
   {
     operator delete(__p);
   }
 
-  sub_1000088CC(&a15);
+  sub_1000088CC(va);
   _Unwind_Resume(a1);
 }
 
@@ -3394,14 +5302,15 @@ uint64_t sub_100514E60(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   return sub_1000088CC(v19);
 }
 
-void sub_10051500C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, uint64_t a14, char a15)
+void sub_10051500C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, uint64_t a14, ...)
 {
+  va_start(va, a14);
   if (__p)
   {
     operator delete(__p);
   }
 
-  sub_1000088CC(&a15);
+  sub_1000088CC(va);
   _Unwind_Resume(a1);
 }
 
@@ -3453,14 +5362,15 @@ uint64_t sub_100515048(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
   return sub_1000088CC(v17);
 }
 
-void sub_1005151DC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, uint64_t a14, char a15)
+void sub_1005151DC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, uint64_t a14, ...)
 {
+  va_start(va, a14);
   if (__p)
   {
     operator delete(__p);
   }
 
-  sub_1000088CC(&a15);
+  sub_1000088CC(va);
   _Unwind_Resume(a1);
 }
 
@@ -3512,14 +5422,15 @@ uint64_t sub_100515218(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
   return sub_1000088CC(v17);
 }
 
-void sub_1005153AC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, uint64_t a14, char a15)
+void sub_1005153AC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, uint64_t a14, ...)
 {
+  va_start(va, a14);
   if (__p)
   {
     operator delete(__p);
   }
 
-  sub_1000088CC(&a15);
+  sub_1000088CC(va);
   _Unwind_Resume(a1);
 }
 
@@ -3571,14 +5482,15 @@ uint64_t sub_1005153E8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
   return sub_1000088CC(v17);
 }
 
-void sub_10051557C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, uint64_t a14, char a15)
+void sub_10051557C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, uint64_t a14, ...)
 {
+  va_start(va, a14);
   if (__p)
   {
     operator delete(__p);
   }
 
-  sub_1000088CC(&a15);
+  sub_1000088CC(va);
   _Unwind_Resume(a1);
 }
 
@@ -3630,14 +5542,15 @@ uint64_t sub_1005155B8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
   return sub_1000088CC(v17);
 }
 
-void sub_10051574C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, uint64_t a14, char a15)
+void sub_10051574C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, uint64_t a14, ...)
 {
+  va_start(va, a14);
   if (__p)
   {
     operator delete(__p);
   }
 
-  sub_1000088CC(&a15);
+  sub_1000088CC(va);
   _Unwind_Resume(a1);
 }
 
@@ -3693,14 +5606,15 @@ uint64_t sub_100515788(uint64_t a1, uint64_t a2, uint64_t a3, unsigned __int8 *a
   return sub_1000088CC(v19);
 }
 
-void sub_10051592C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, uint64_t a14, char a15)
+void sub_10051592C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, uint64_t a14, ...)
 {
+  va_start(va, a14);
   if (__p)
   {
     operator delete(__p);
   }
 
-  sub_1000088CC(&a15);
+  sub_1000088CC(va);
   _Unwind_Resume(a1);
 }
 
@@ -3752,14 +5666,15 @@ uint64_t sub_100515968(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
   return sub_1000088CC(v17);
 }
 
-void sub_100515B00(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, uint64_t a14, char a15)
+void sub_100515B00(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, uint64_t a14, ...)
 {
+  va_start(va, a14);
   if (__p)
   {
     operator delete(__p);
   }
 
-  sub_1000088CC(&a15);
+  sub_1000088CC(va);
   _Unwind_Resume(a1);
 }
 
@@ -3811,75 +5726,60 @@ uint64_t sub_100515B3C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
   return sub_1000088CC(v17);
 }
 
-void sub_100515CD4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, uint64_t a14, char a15)
+void sub_100515CD4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, uint64_t a14, ...)
 {
+  va_start(va, a14);
   if (__p)
   {
     operator delete(__p);
   }
 
-  sub_1000088CC(&a15);
+  sub_1000088CC(va);
   _Unwind_Resume(a1);
 }
 
 uint64_t sub_100515D10(uint64_t a1, uint64_t a2)
 {
-  v26[0] = 0;
-  v26[1] = 0;
-  sub_100007F88(v26, a1 + 56);
-  v23 = 0;
-  v24 = 0;
+  v28[0] = 0;
+  v28[1] = 0;
+  sub_100007F88(v28, a1 + 56);
   v25 = 0;
-  sub_100007F20(&v23, (a1 + 208));
-  sub_10000801C(v26);
+  v26 = 0;
+  v27 = 0;
+  sub_100007F20(&v25, (a1 + 208));
+  sub_10000801C(v28);
   v4 = qword_100BCE8C8;
-  if (os_log_type_enabled(qword_100BCE8C8, OS_LOG_TYPE_INFO))
+  v5 = os_log_type_enabled(qword_100BCE8C8, OS_LOG_TYPE_INFO);
+  if (v5)
   {
     sub_1000E5A58(a2, __p);
-    v5 = v22 >= 0 ? __p : __p[0];
+    v7 = v24 >= 0 ? __p : __p[0];
     *buf = 136446210;
-    v30 = v5;
+    v32 = v7;
     _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_INFO, "Device %{public}s reported in ear state change", buf, 0xCu);
-    if (v22 < 0)
+    if (v24 < 0)
     {
       operator delete(__p[0]);
     }
   }
 
-  for (i = v23; i != v24; ++i)
+  for (i = v25; i != v26; ++i)
   {
-    (*(**i + 128))(*i, a2);
+    v5 = (*(**i + 128))(*i, a2);
   }
 
-  if (sub_1005FC8F4())
+  if (sub_1005FC8F4(v5, v6))
   {
     *buf = 0;
-    v20 = 0;
+    v22 = 0;
     if (qword_100B50950 != -1)
     {
       sub_10083DBC8();
     }
 
-    sub_10033C1E4(off_100B50948, a2, buf, &v20);
+    sub_10033C1E4(off_100B50948, a2, buf, &v22);
     sub_1000C23E0(a2, __p);
-    if (v22 >= 0)
-    {
-      v7 = __p;
-    }
-
-    else
-    {
-      v7 = __p[0];
-    }
-
-    v8 = [NSString stringWithUTF8String:v7];
-    if (v22 < 0)
-    {
-      operator delete(__p[0]);
-    }
-
-    sub_1000BE6F8((a2 + 128), __p);
-    if (v22 >= 0)
+    if (v24 >= 0)
     {
       v9 = __p;
     }
@@ -3890,29 +5790,46 @@ uint64_t sub_100515D10(uint64_t a1, uint64_t a2)
     }
 
     v10 = [NSString stringWithUTF8String:v9];
-    if (v22 < 0)
+    if (v24 < 0)
     {
       operator delete(__p[0]);
     }
 
-    v27[0] = @"primaryInEarStatus";
-    v11 = [NSNumber numberWithUnsignedInt:*buf];
-    v28[0] = v11;
-    v27[1] = @"secondaryInEarStatus";
-    v12 = [NSNumber numberWithUnsignedInt:v20];
-    v28[1] = v12;
-    v13 = +[_CDContextQueries bluetoothNameKey];
-    v27[2] = v13;
-    v28[2] = v8;
-    v14 = +[_CDContextQueries bluetoothAddressKey];
-    v27[3] = v14;
-    v28[3] = v10;
-    v15 = [NSDictionary dictionaryWithObjects:v28 forKeys:v27 count:4];
+    sub_1000BE6F8((a2 + 128), __p);
+    if (v24 >= 0)
+    {
+      v11 = __p;
+    }
 
-    v16 = [_CDContextualKeyPath keyPathWithKey:@"/bluetooth/inEarStatus"];
-    v17 = [v15 copy];
-    v18 = +[_CDClientContext userContext];
-    [v18 setObject:v17 forKeyedSubscript:v16];
+    else
+    {
+      v11 = __p[0];
+    }
+
+    v12 = [NSString stringWithUTF8String:v11];
+    if (v24 < 0)
+    {
+      operator delete(__p[0]);
+    }
+
+    v29[0] = @"primaryInEarStatus";
+    v13 = [NSNumber numberWithUnsignedInt:*buf];
+    v30[0] = v13;
+    v29[1] = @"secondaryInEarStatus";
+    v14 = [NSNumber numberWithUnsignedInt:v22];
+    v30[1] = v14;
+    v15 = +[_CDContextQueries bluetoothNameKey];
+    v29[2] = v15;
+    v30[2] = v10;
+    v16 = +[_CDContextQueries bluetoothAddressKey];
+    v29[3] = v16;
+    v30[3] = v12;
+    v17 = [NSDictionary dictionaryWithObjects:v30 forKeys:v29 count:4];
+
+    v18 = [_CDContextualKeyPath keyPathWithKey:@"/bluetooth/inEarStatus"];
+    v19 = [v17 copy];
+    v20 = +[_CDClientContext userContext];
+    [v20 setObject:v19 forKeyedSubscript:v18];
   }
 
   else if (os_log_type_enabled(qword_100BCE8C8, OS_LOG_TYPE_ERROR))
@@ -3920,13 +5837,13 @@ uint64_t sub_100515D10(uint64_t a1, uint64_t a2)
     sub_10083DB94();
   }
 
-  if (v23)
+  if (v25)
   {
-    v24 = v23;
-    operator delete(v23);
+    v26 = v25;
+    operator delete(v25);
   }
 
-  return sub_1000088CC(v26);
+  return sub_1000088CC(v28);
 }
 
 void sub_100516088(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, int a13, __int16 a14, char a15, char a16, void *__p, uint64_t a18, uint64_t a19, char a20)
@@ -3988,14 +5905,15 @@ uint64_t sub_100516178(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
   return sub_1000088CC(v17);
 }
 
-void sub_10051630C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, uint64_t a14, char a15)
+void sub_10051630C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, uint64_t a14, ...)
 {
+  va_start(va, a14);
   if (__p)
   {
     operator delete(__p);
   }
 
-  sub_1000088CC(&a15);
+  sub_1000088CC(va);
   _Unwind_Resume(a1);
 }
 
@@ -4061,14 +5979,15 @@ uint64_t sub_100516348(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   return sub_1000088CC(v21);
 }
 
-void sub_100516544(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, uint64_t a14, char a15)
+void sub_100516544(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, uint64_t a14, ...)
 {
+  va_start(va, a14);
   if (__p)
   {
     operator delete(__p);
   }
 
-  sub_1000088CC(&a15);
+  sub_1000088CC(va);
   _Unwind_Resume(a1);
 }
 
@@ -4120,26 +6039,27 @@ uint64_t sub_100516580(uint64_t a1, uint64_t a2, uint64_t a3)
   return sub_1000088CC(v15);
 }
 
-void sub_100516704(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, uint64_t a14, char a15)
+void sub_100516704(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, uint64_t a14, ...)
 {
+  va_start(va, a14);
   if (__p)
   {
     operator delete(__p);
   }
 
-  sub_1000088CC(&a15);
+  sub_1000088CC(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_100516740(uint64_t a1, uint64_t a2)
+uint64_t sub_100516740(uint64_t a1, uint64_t a2, int a3, int a4)
 {
-  v20[0] = 0;
-  v20[1] = 0;
-  sub_100007F88(v20, a1 + 56);
-  v4 = *(a1 + 256);
-  if (v4 == *(a1 + 264))
+  v22[0] = 0;
+  v22[1] = 0;
+  sub_100007F88(v22, a1 + 56);
+  v6 = *(a1 + 256);
+  if (v6 == *(a1 + 264))
   {
-    v15 = 106;
+    v17 = 106;
   }
 
   else
@@ -4151,62 +6071,62 @@ uint64_t sub_100516740(uint64_t a1, uint64_t a2)
         sub_10083DBF0();
       }
 
-      if (sub_100076290(qword_100B50B80, *v4))
+      if (sub_100076290(qword_100B50B80, *v6))
       {
-        v4 += 7;
-        v5 = *(a1 + 264);
-      }
-
-      else
-      {
-        v6 = qword_100BCE8C8;
-        if (os_log_type_enabled(qword_100BCE8C8, OS_LOG_TYPE_DEFAULT))
-        {
-          *buf = 0;
-          _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Warning: AccessoryManager, Invalid BTAccessoryManager handle - removing associated callbacks", buf, 2u);
-        }
-
+        v6 += 7;
         v7 = *(a1 + 264);
-        if (v4 + 7 == v7)
+      }
+
+      else
+      {
+        v8 = qword_100BCE8C8;
+        if (os_log_type_enabled(qword_100BCE8C8, OS_LOG_TYPE_DEFAULT))
         {
-          v5 = v4;
+          *buf = 0;
+          _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Warning: AccessoryManager, Invalid BTAccessoryManager handle - removing associated callbacks", buf, 2u);
+        }
+
+        v9 = *(a1 + 264);
+        if (v6 + 7 == v9)
+        {
+          v7 = v6;
         }
 
         else
         {
-          v8 = v4;
-          v5 = v4;
+          v10 = v6;
+          v7 = v6;
           do
           {
-            v9 = *(v5 + 56);
-            v5 += 56;
-            *v8 = v9;
-            v10 = *(v8 + 80);
-            *(v8 + 8) = *(v8 + 64);
-            *(v8 + 24) = v10;
-            *(v8 + 40) = *(v8 + 96);
-            *(v8 + 48) = *(v8 + 104);
-            v11 = (v8 + 112);
-            v8 = v5;
+            v11 = *(v7 + 56);
+            v7 += 56;
+            *v10 = v11;
+            v12 = *(v10 + 80);
+            *(v10 + 8) = *(v10 + 64);
+            *(v10 + 24) = v12;
+            *(v10 + 40) = *(v10 + 96);
+            *(v10 + 48) = *(v10 + 104);
+            v13 = (v10 + 112);
+            v10 = v7;
           }
 
-          while (v11 != v7);
+          while (v13 != v9);
         }
 
-        *(a1 + 264) = v5;
+        *(a1 + 264) = v7;
       }
     }
 
-    while (v4 != v5);
-    v12 = *(a1 + 256);
+    while (v6 != v7);
+    v14 = *(a1 + 256);
     *buf = 0;
-    v18 = 0;
-    v19 = 0;
-    sub_10051B344(buf, v12, v5, 0x6DB6DB6DB6DB6DB7 * ((v5 - v12) >> 3));
-    sub_10000801C(v20);
-    v14 = *buf;
-    v13 = v18;
-    if (*buf != v18)
+    v20 = 0;
+    v21 = 0;
+    sub_10051B344(buf, v14, v7, 0x6DB6DB6DB6DB6DB7 * ((v7 - v14) >> 3));
+    sub_10000801C(v22);
+    v16 = *buf;
+    v15 = v20;
+    if (*buf != v20)
     {
       do
       {
@@ -4215,14 +6135,14 @@ uint64_t sub_100516740(uint64_t a1, uint64_t a2)
           sub_10083DBF0();
         }
 
-        sub_100076290(qword_100B50B80, *v14);
+        sub_100076290(qword_100B50B80, *v16);
         if (qword_100B508F0 != -1)
         {
           sub_10083DC18();
         }
 
-        sub_10056A4C4(off_100B508E8, *v14, a2);
-        if (v14[1])
+        sub_10056A4C4(off_100B508E8, *v16, a2);
+        if (v16[1])
         {
           if (qword_100B540D0 != -1)
           {
@@ -4232,46 +6152,47 @@ uint64_t sub_100516740(uint64_t a1, uint64_t a2)
           operator new();
         }
 
-        v14 += 7;
+        v16 += 7;
       }
 
-      while (v14 != v13);
-      v14 = *buf;
+      while (v16 != v15);
+      v16 = *buf;
     }
 
-    if (v14)
+    if (v16)
     {
-      v18 = v14;
-      operator delete(v14);
+      v20 = v16;
+      operator delete(v16);
     }
 
-    v15 = 0;
+    v17 = 0;
   }
 
-  sub_1000088CC(v20);
-  return v15;
+  sub_1000088CC(v22);
+  return v17;
 }
 
-void sub_100516A00(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, uint64_t a13, uint64_t a14, char a15)
+void sub_100516A00(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, uint64_t a13, uint64_t a14, ...)
 {
+  va_start(va, a14);
   if (__p)
   {
     operator delete(__p);
   }
 
-  sub_1000088CC(&a15);
+  sub_1000088CC(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_100516A38(uint64_t a1, uint64_t a2)
+uint64_t sub_100516A38(uint64_t a1, uint64_t a2, int a3, char a4, unsigned int a5, const void *a6)
 {
-  v20[0] = 0;
-  v20[1] = 0;
-  sub_100007F88(v20, a1 + 56);
-  v4 = *(a1 + 256);
-  if (v4 == *(a1 + 264))
+  v24[0] = 0;
+  v24[1] = 0;
+  sub_100007F88(v24, a1 + 56);
+  v8 = *(a1 + 256);
+  if (v8 == *(a1 + 264))
   {
-    v15 = 106;
+    v19 = 106;
   }
 
   else
@@ -4283,62 +6204,62 @@ uint64_t sub_100516A38(uint64_t a1, uint64_t a2)
         sub_10083DBF0();
       }
 
-      if (sub_100076290(qword_100B50B80, *v4))
+      if (sub_100076290(qword_100B50B80, *v8))
       {
-        v4 += 7;
-        v5 = *(a1 + 264);
+        v8 += 7;
+        v9 = *(a1 + 264);
       }
 
       else
       {
-        v6 = qword_100BCE8C8;
+        v10 = qword_100BCE8C8;
         if (os_log_type_enabled(qword_100BCE8C8, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Warning: AccessoryManager, Invalid BTAccessoryManager handle - removing associated callbacks", buf, 2u);
+          _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Warning: AccessoryManager, Invalid BTAccessoryManager handle - removing associated callbacks", buf, 2u);
         }
 
-        v7 = *(a1 + 264);
-        if (v4 + 7 == v7)
+        v11 = *(a1 + 264);
+        if (v8 + 7 == v11)
         {
-          v5 = v4;
+          v9 = v8;
         }
 
         else
         {
-          v8 = v4;
-          v5 = v4;
+          v12 = v8;
+          v9 = v8;
           do
           {
-            v9 = *(v5 + 56);
-            v5 += 56;
-            *v8 = v9;
-            v10 = *(v8 + 80);
-            *(v8 + 8) = *(v8 + 64);
-            *(v8 + 24) = v10;
-            *(v8 + 40) = *(v8 + 96);
-            *(v8 + 48) = *(v8 + 104);
-            v11 = (v8 + 112);
-            v8 = v5;
+            v13 = *(v9 + 56);
+            v9 += 56;
+            *v12 = v13;
+            v14 = *(v12 + 80);
+            *(v12 + 8) = *(v12 + 64);
+            *(v12 + 24) = v14;
+            *(v12 + 40) = *(v12 + 96);
+            *(v12 + 48) = *(v12 + 104);
+            v15 = (v12 + 112);
+            v12 = v9;
           }
 
-          while (v11 != v7);
+          while (v15 != v11);
         }
 
-        *(a1 + 264) = v5;
+        *(a1 + 264) = v9;
       }
     }
 
-    while (v4 != v5);
-    v12 = *(a1 + 256);
+    while (v8 != v9);
+    v16 = *(a1 + 256);
     *buf = 0;
-    v18 = 0;
-    v19 = 0;
-    sub_10051B344(buf, v12, v5, 0x6DB6DB6DB6DB6DB7 * ((v5 - v12) >> 3));
-    sub_10000801C(v20);
-    v14 = *buf;
-    v13 = v18;
-    if (*buf != v18)
+    v22 = 0;
+    v23 = 0;
+    sub_10051B344(buf, v16, v9, 0x6DB6DB6DB6DB6DB7 * ((v9 - v16) >> 3));
+    sub_10000801C(v24);
+    v18 = *buf;
+    v17 = v22;
+    if (*buf != v22)
     {
       do
       {
@@ -4347,14 +6268,14 @@ uint64_t sub_100516A38(uint64_t a1, uint64_t a2)
           sub_10083DBF0();
         }
 
-        sub_100076290(qword_100B50B80, *v14);
+        sub_100076290(qword_100B50B80, *v18);
         if (qword_100B508F0 != -1)
         {
           sub_10083DC18();
         }
 
-        sub_10056A4C4(off_100B508E8, *v14, a2);
-        if (v14[2])
+        sub_10056A4C4(off_100B508E8, *v18, a2);
+        if (v18[2])
         {
           if (qword_100B540D0 != -1)
           {
@@ -4364,46 +6285,47 @@ uint64_t sub_100516A38(uint64_t a1, uint64_t a2)
           operator new();
         }
 
-        v14 += 7;
+        v18 += 7;
       }
 
-      while (v14 != v13);
-      v14 = *buf;
+      while (v18 != v17);
+      v18 = *buf;
     }
 
-    if (v14)
+    if (v18)
     {
-      v18 = v14;
-      operator delete(v14);
+      v22 = v18;
+      operator delete(v18);
     }
 
-    v15 = 0;
+    v19 = 0;
   }
 
-  sub_1000088CC(v20);
-  return v15;
+  sub_1000088CC(v24);
+  return v19;
 }
 
-void sub_100516D40(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, uint64_t a15, uint64_t a16, char a17)
+void sub_100516D40(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
+  va_start(va, a16);
   if (__p)
   {
     operator delete(__p);
   }
 
-  sub_1000088CC(&a17);
+  sub_1000088CC(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_100516D98(uint64_t a1, uint64_t a2)
+uint64_t sub_100516D98(uint64_t a1, uint64_t a2, uint64_t a3, int a4, unsigned int a5, const void *a6)
 {
-  v20[0] = 0;
-  v20[1] = 0;
-  sub_100007F88(v20, a1 + 56);
-  v3 = *(a1 + 256);
-  if (v3 == *(a1 + 264))
+  v24[0] = 0;
+  v24[1] = 0;
+  sub_100007F88(v24, a1 + 56);
+  v7 = *(a1 + 256);
+  if (v7 == *(a1 + 264))
   {
-    v14 = 106;
+    v18 = 106;
   }
 
   else
@@ -4415,62 +6337,62 @@ uint64_t sub_100516D98(uint64_t a1, uint64_t a2)
         sub_10083DBF0();
       }
 
-      if (sub_100076290(qword_100B50B80, *v3))
+      if (sub_100076290(qword_100B50B80, *v7))
       {
-        v3 += 7;
-        v4 = *(a1 + 264);
+        v7 += 7;
+        v8 = *(a1 + 264);
       }
 
       else
       {
-        v5 = qword_100BCE8C8;
+        v9 = qword_100BCE8C8;
         if (os_log_type_enabled(qword_100BCE8C8, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Warning: AccessoryManager, Invalid BTAccessoryManager handle - removing associated callbacks", buf, 2u);
+          _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Warning: AccessoryManager, Invalid BTAccessoryManager handle - removing associated callbacks", buf, 2u);
         }
 
-        v6 = *(a1 + 264);
-        if (v3 + 7 == v6)
+        v10 = *(a1 + 264);
+        if (v7 + 7 == v10)
         {
-          v4 = v3;
+          v8 = v7;
         }
 
         else
         {
-          v7 = v3;
-          v4 = v3;
+          v11 = v7;
+          v8 = v7;
           do
           {
-            v8 = *(v4 + 56);
-            v4 += 56;
-            *v7 = v8;
-            v9 = *(v7 + 80);
-            *(v7 + 8) = *(v7 + 64);
-            *(v7 + 24) = v9;
-            *(v7 + 40) = *(v7 + 96);
-            *(v7 + 48) = *(v7 + 104);
-            v10 = (v7 + 112);
-            v7 = v4;
+            v12 = *(v8 + 56);
+            v8 += 56;
+            *v11 = v12;
+            v13 = *(v11 + 80);
+            *(v11 + 8) = *(v11 + 64);
+            *(v11 + 24) = v13;
+            *(v11 + 40) = *(v11 + 96);
+            *(v11 + 48) = *(v11 + 104);
+            v14 = (v11 + 112);
+            v11 = v8;
           }
 
-          while (v10 != v6);
+          while (v14 != v10);
         }
 
-        *(a1 + 264) = v4;
+        *(a1 + 264) = v8;
       }
     }
 
-    while (v3 != v4);
-    v11 = *(a1 + 256);
+    while (v7 != v8);
+    v15 = *(a1 + 256);
     *buf = 0;
-    v18 = 0;
-    v19 = 0;
-    sub_10051B344(buf, v11, v4, 0x6DB6DB6DB6DB6DB7 * ((v4 - v11) >> 3));
-    sub_10000801C(v20);
-    v13 = *buf;
-    v12 = v18;
-    if (*buf != v18)
+    v22 = 0;
+    v23 = 0;
+    sub_10051B344(buf, v15, v8, 0x6DB6DB6DB6DB6DB7 * ((v8 - v15) >> 3));
+    sub_10000801C(v24);
+    v17 = *buf;
+    v16 = v22;
+    if (*buf != v22)
     {
       do
       {
@@ -4479,14 +6401,14 @@ uint64_t sub_100516D98(uint64_t a1, uint64_t a2)
           sub_10083DBF0();
         }
 
-        sub_100076290(qword_100B50B80, *v13);
+        sub_100076290(qword_100B50B80, *v17);
         if (qword_100B508F0 != -1)
         {
           sub_10083DC18();
         }
 
-        sub_10056A4C4(off_100B508E8, *v13, a2);
-        if (v13[3])
+        sub_10056A4C4(off_100B508E8, *v17, a2);
+        if (v17[3])
         {
           if (qword_100B540D0 != -1)
           {
@@ -4496,46 +6418,47 @@ uint64_t sub_100516D98(uint64_t a1, uint64_t a2)
           operator new();
         }
 
-        v13 += 7;
+        v17 += 7;
       }
 
-      while (v13 != v12);
-      v13 = *buf;
+      while (v17 != v16);
+      v17 = *buf;
     }
 
-    if (v13)
+    if (v17)
     {
-      v18 = v13;
-      operator delete(v13);
+      v22 = v17;
+      operator delete(v17);
     }
 
-    v14 = 0;
+    v18 = 0;
   }
 
-  sub_1000088CC(v20);
-  return v14;
+  sub_1000088CC(v24);
+  return v18;
 }
 
-void sub_1005170B4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, char a19)
+void sub_1005170B4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
+  va_start(va, a18);
   if (__p)
   {
     operator delete(__p);
   }
 
-  sub_1000088CC(&a19);
+  sub_1000088CC(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_10051710C(uint64_t a1, uint64_t a2)
+uint64_t sub_10051710C(uint64_t a1, uint64_t a2, int a3, __int16 a4, __int16 a5)
 {
-  v20[0] = 0;
-  v20[1] = 0;
-  sub_100007F88(v20, a1 + 56);
-  v4 = *(a1 + 256);
-  if (v4 == *(a1 + 264))
+  v23[0] = 0;
+  v23[1] = 0;
+  sub_100007F88(v23, a1 + 56);
+  v7 = *(a1 + 256);
+  if (v7 == *(a1 + 264))
   {
-    v15 = 106;
+    v18 = 106;
   }
 
   else
@@ -4547,62 +6470,62 @@ uint64_t sub_10051710C(uint64_t a1, uint64_t a2)
         sub_10083DBF0();
       }
 
-      if (sub_100076290(qword_100B50B80, *v4))
+      if (sub_100076290(qword_100B50B80, *v7))
       {
-        v4 += 7;
-        v5 = *(a1 + 264);
+        v7 += 7;
+        v8 = *(a1 + 264);
       }
 
       else
       {
-        v6 = qword_100BCE8C8;
+        v9 = qword_100BCE8C8;
         if (os_log_type_enabled(qword_100BCE8C8, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Warning: AccessoryManager, Invalid BTAccessoryManager handle - removing associated callbacks", buf, 2u);
+          _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Warning: AccessoryManager, Invalid BTAccessoryManager handle - removing associated callbacks", buf, 2u);
         }
 
-        v7 = *(a1 + 264);
-        if (v4 + 7 == v7)
+        v10 = *(a1 + 264);
+        if (v7 + 7 == v10)
         {
-          v5 = v4;
+          v8 = v7;
         }
 
         else
         {
-          v8 = v4;
-          v5 = v4;
+          v11 = v7;
+          v8 = v7;
           do
           {
-            v9 = *(v5 + 56);
-            v5 += 56;
-            *v8 = v9;
-            v10 = *(v8 + 80);
-            *(v8 + 8) = *(v8 + 64);
-            *(v8 + 24) = v10;
-            *(v8 + 40) = *(v8 + 96);
-            *(v8 + 48) = *(v8 + 104);
-            v11 = (v8 + 112);
-            v8 = v5;
+            v12 = *(v8 + 56);
+            v8 += 56;
+            *v11 = v12;
+            v13 = *(v11 + 80);
+            *(v11 + 8) = *(v11 + 64);
+            *(v11 + 24) = v13;
+            *(v11 + 40) = *(v11 + 96);
+            *(v11 + 48) = *(v11 + 104);
+            v14 = (v11 + 112);
+            v11 = v8;
           }
 
-          while (v11 != v7);
+          while (v14 != v10);
         }
 
-        *(a1 + 264) = v5;
+        *(a1 + 264) = v8;
       }
     }
 
-    while (v4 != v5);
-    v12 = *(a1 + 256);
+    while (v7 != v8);
+    v15 = *(a1 + 256);
     *buf = 0;
-    v18 = 0;
-    v19 = 0;
-    sub_10051B344(buf, v12, v5, 0x6DB6DB6DB6DB6DB7 * ((v5 - v12) >> 3));
-    sub_10000801C(v20);
-    v14 = *buf;
-    v13 = v18;
-    if (*buf != v18)
+    v21 = 0;
+    v22 = 0;
+    sub_10051B344(buf, v15, v8, 0x6DB6DB6DB6DB6DB7 * ((v8 - v15) >> 3));
+    sub_10000801C(v23);
+    v17 = *buf;
+    v16 = v21;
+    if (*buf != v21)
     {
       do
       {
@@ -4611,14 +6534,14 @@ uint64_t sub_10051710C(uint64_t a1, uint64_t a2)
           sub_10083DBF0();
         }
 
-        sub_100076290(qword_100B50B80, *v14);
+        sub_100076290(qword_100B50B80, *v17);
         if (qword_100B508F0 != -1)
         {
           sub_10083DC18();
         }
 
-        sub_10056A4C4(off_100B508E8, *v14, a2);
-        if (v14[4])
+        sub_10056A4C4(off_100B508E8, *v17, a2);
+        if (v17[4])
         {
           if (qword_100B540D0 != -1)
           {
@@ -4628,34 +6551,35 @@ uint64_t sub_10051710C(uint64_t a1, uint64_t a2)
           operator new();
         }
 
-        v14 += 7;
+        v17 += 7;
       }
 
-      while (v14 != v13);
-      v14 = *buf;
+      while (v17 != v16);
+      v17 = *buf;
     }
 
-    if (v14)
+    if (v17)
     {
-      v18 = v14;
-      operator delete(v14);
+      v21 = v17;
+      operator delete(v17);
     }
 
-    v15 = 0;
+    v18 = 0;
   }
 
-  sub_1000088CC(v20);
-  return v15;
+  sub_1000088CC(v23);
+  return v18;
 }
 
-void sub_1005173DC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, uint64_t a13, uint64_t a14, char a15)
+void sub_1005173DC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, uint64_t a13, uint64_t a14, ...)
 {
+  va_start(va, a14);
   if (__p)
   {
     operator delete(__p);
   }
 
-  sub_1000088CC(&a15);
+  sub_1000088CC(va);
   _Unwind_Resume(a1);
 }
 
@@ -4767,7 +6691,7 @@ uint64_t sub_1005175FC(uint64_t result, uint64_t a2, int a3, uint64_t a4, uint64
         _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Remote Timesync: Timesync Notification %{public}s : %llx [%d]", &v13, 0x1Cu);
       }
 
-      return sub_100516740(v8, v9);
+      return sub_100516740(v8, v9, v10, 0);
     }
   }
 
@@ -4785,7 +6709,7 @@ void sub_10051774C(uint64_t a1, uint64_t a2)
       _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "Notify clients of head track change", v5, 2u);
     }
 
-    sub_100516740(a1, a2);
+    sub_100516740(a1, a2, 14, 0);
   }
 
   else if (os_log_type_enabled(qword_100BCE8C8, OS_LOG_TYPE_ERROR))
@@ -4805,7 +6729,7 @@ void sub_1005177FC(uint64_t a1, uint64_t a2)
       _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "Notify clients of head track change", v5, 2u);
     }
 
-    sub_100516740(a1, a2);
+    sub_100516740(a1, a2, 15, 0);
   }
 
   else if (os_log_type_enabled(qword_100BCE8C8, OS_LOG_TYPE_ERROR))
@@ -4848,9 +6772,9 @@ uint64_t sub_1005178AC(uint64_t result, int a2, int a3)
   return result;
 }
 
-void sub_100517948(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_100517948(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   sub_1000088CC(va);
   _Unwind_Resume(a1);
 }
@@ -5004,29 +6928,31 @@ void sub_100517C40(uint64_t a1, uint64_t a2, uint64_t a3, int a4)
   else
   {
     *buf = 0;
-    v12 = 0;
-    sub_1000C2364(a2, &buf[4], buf, &v12 + 1, &v12);
+    v16 = 0;
+    sub_1000C2364(a2, &buf[4], buf, &v16 + 1, &v16);
     v8 = sub_10000E92C();
-    if ((*(*v8 + 8))(v8))
+    v9 = (*(*v8 + 8))(v8);
+    if (v9)
     {
-      v9 = sub_10000C798();
-      if ((*(*v9 + 352))(v9))
+      v11 = sub_10000C798(v9, v10);
+      if ((*(*v11 + 352))(v11))
       {
         if (qword_100B50AC0 != -1)
         {
           sub_10083DC68();
         }
 
-        if ((sub_1000E077C(off_100B50AB8, a2) & 0x80000) != 0 && (HIDWORD(v12) - 8194) <= 0xE && ((1 << (BYTE4(v12) - 2)) & 0x409B) != 0)
+        v12 = sub_1000E077C(off_100B50AB8, a2);
+        if ((v12 & 0x80000) != 0 && (HIDWORD(v16) - 8194) <= 0xE && ((1 << (BYTE4(v16) - 2)) & 0x409B) != 0)
         {
           byte_100B6EFB2 = 1;
-          v10 = sub_100017F4C();
-          v11[0] = _NSConcreteStackBlock;
-          v11[1] = 3221225472;
-          v11[2] = sub_100517E9C;
-          v11[3] = &unk_100ADF8F8;
-          v11[4] = a2;
-          sub_10008E008(v10, 250, v11);
+          v14 = sub_100017F4C(v12, v13);
+          v15[0] = _NSConcreteStackBlock;
+          v15[1] = 3221225472;
+          v15[2] = sub_100517E9C;
+          v15[3] = &unk_100ADF8F8;
+          v15[4] = a2;
+          sub_10008E008(v14, 250, v15);
         }
       }
     }
@@ -5141,9 +7067,9 @@ LABEL_9:
   return a1;
 }
 
-void sub_100518134(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_100518134(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   sub_1000088CC(va);
   _Unwind_Resume(a1);
 }
@@ -5214,9 +7140,9 @@ LABEL_18:
   return v8;
 }
 
-void sub_10051827C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_10051827C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   sub_1000088CC(va);
   _Unwind_Resume(a1);
 }
@@ -5279,9 +7205,9 @@ LABEL_16:
   return 0;
 }
 
-void sub_1005183D8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1005183D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_1000088CC(va);
   _Unwind_Resume(a1);
 }
@@ -5307,9 +7233,9 @@ uint64_t sub_1005183EC(uint64_t a1, uint64_t a2, __int128 *a3)
   return 0;
 }
 
-void sub_1005184AC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1005184AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_1000088CC(va);
   _Unwind_Resume(a1);
 }
@@ -5359,16 +7285,16 @@ uint64_t sub_1005184C0(uint64_t a1, uint64_t a2)
 
     sub_100598044(off_100B50AB8, v11);
     sub_100514904(a1, v11);
-    v6 = sub_100516740(a1, v11);
+    v6 = sub_100516740(a1, v11, 2, 0);
   }
 
   sub_1000088CC(v10);
   return v6;
 }
 
-void sub_100518638(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_100518638(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   sub_1000088CC(va);
   _Unwind_Resume(a1);
 }
@@ -5386,7 +7312,7 @@ uint64_t sub_100518658(uint64_t a1, unsigned __int8 *a2)
     }
 
     sub_100541494(v16, 1);
-    sub_100516740(a1, v16);
+    sub_100516740(a1, v16, 0, 1);
     if (qword_100B512C8 != -1)
     {
       sub_10083DE90();
@@ -5514,7 +7440,7 @@ LABEL_22:
   }
 }
 
-void sub_1005189B0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17)
+void sub_1005189B0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17)
 {
   if (a17 < 0)
   {
@@ -5545,7 +7471,7 @@ uint64_t sub_1005189F4(uint64_t a1, uint64_t a2)
       sub_10056923C((a1 + 160), a2);
       sub_10000801C(v6);
       sub_100514758(a1, a2);
-      v4 = sub_100516740(a1, a2);
+      v4 = sub_100516740(a1, a2, 0, 2);
       sub_1000088CC(v6);
     }
   }
@@ -5563,9 +7489,9 @@ uint64_t sub_1005189F4(uint64_t a1, uint64_t a2)
   return v4;
 }
 
-void sub_100518AE0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_100518AE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_1000088CC(va);
   _Unwind_Resume(a1);
 }
@@ -5605,7 +7531,7 @@ uint64_t sub_100518B78(uint64_t a1, uint64_t a2, _BYTE *a3)
   return result;
 }
 
-uint64_t sub_100518BC8(uint64_t a1, void *a2)
+uint64_t sub_100518BC8(uint64_t a1, uint64_t *a2)
 {
   v5[0] = 0;
   v5[1] = 0;
@@ -5623,7 +7549,7 @@ uint64_t sub_100518C44(uint64_t a1, uint64_t a2)
 {
   sub_100514AB0(a1, a2);
 
-  return sub_100516740(a1, a2);
+  return sub_100516740(a1, a2, 1, 0);
 }
 
 uint64_t sub_100518C8C(uint64_t a1, uint64_t a2)
@@ -5651,26 +7577,29 @@ uint64_t sub_100518C8C(uint64_t a1, uint64_t a2)
     }
   }
 
-  return sub_100516740(a1, a2);
+  return sub_100516740(a1, a2, 4, 0);
 }
 
 uint64_t sub_100518D80(uint64_t a1, uint64_t a2)
 {
   sub_100515D10(a1, a2);
 
-  return sub_100516740(a1, a2);
+  return sub_100516740(a1, a2, 6, 0);
 }
 
-uint64_t sub_100518DD8(uint64_t a1, uint64_t a2, unsigned int *a3, uint64_t a4, uint64_t a5, uint64_t a6)
+uint64_t sub_100518DD8(uint64_t a1, uint64_t a2, unsigned int *a3, uint64_t a4, uint64_t a5, const void *a6)
 {
+  v7 = a5;
+  v8 = a4;
   sub_100516348(a1, a2, *a3 | (*(a3 + 2) << 32), a4, a5, a6);
+  v12 = *a3 | (*(a3 + 2) << 32);
 
-  return sub_100516D98(a1, a2);
+  return sub_100516D98(a1, a2, v12, v8, v7, a6);
 }
 
 void sub_100518E60(uint64_t a1, uint64_t a2)
 {
-  v2 = sub_100516740(a1, a2);
+  v2 = sub_100516740(a1, a2, 23, 0);
   v3 = qword_100BCE8C8;
   if (os_log_type_enabled(qword_100BCE8C8, OS_LOG_TYPE_DEBUG))
   {
@@ -5680,9 +7609,12 @@ void sub_100518E60(uint64_t a1, uint64_t a2)
 
 uint64_t sub_100518ECC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
+  v5 = a5;
+  v6 = a4;
+  v7 = a3;
   sub_100514E60(a1, a2, a3, a4, a5);
 
-  return sub_10051710C(a1, a2);
+  return sub_10051710C(a1, a2, v7, v6, v5);
 }
 
 uint64_t sub_100518F34(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -5694,29 +7626,32 @@ uint64_t sub_100518F34(uint64_t a1, uint64_t a2, uint64_t a3)
     case 2:
       v6 = a1;
       v7 = a2;
+      v8 = 10;
       goto LABEL_7;
     case 1:
       v6 = a1;
       v7 = a2;
+      v8 = 11;
       goto LABEL_7;
     case 0:
       v6 = a1;
       v7 = a2;
+      v8 = 9;
 LABEL_7:
 
-      return sub_100516740(v6, v7);
+      return sub_100516740(v6, v7, v8, 0);
   }
 
-  v9 = qword_100BCE8C8;
+  v10 = qword_100BCE8C8;
   if (os_log_type_enabled(qword_100BCE8C8, OS_LOG_TYPE_ERROR))
   {
-    sub_10083E064(v3, v9);
+    sub_10083E064(v3, v10);
   }
 
   return 1;
 }
 
-uint64_t sub_100518FFC(uint64_t a1, __n128 *a2, uint64_t a3)
+uint64_t sub_100518FFC(uint64_t a1, unsigned __int8 *a2, uint64_t a3)
 {
   if (qword_100B50950 != -1)
   {
@@ -5725,10 +7660,10 @@ uint64_t sub_100518FFC(uint64_t a1, __n128 *a2, uint64_t a3)
 
   v5 = off_100B50948;
 
-  return sub_10033DA80(v5, a2, a3, 2u);
+  return sub_10033DA80(v5, a2, a3, 2);
 }
 
-uint64_t sub_10051905C(uint64_t a1, __n128 *a2, uint64_t a3)
+uint64_t sub_10051905C(uint64_t a1, unsigned __int8 *a2, uint64_t a3)
 {
   if (qword_100B50950 != -1)
   {
@@ -5740,7 +7675,7 @@ uint64_t sub_10051905C(uint64_t a1, __n128 *a2, uint64_t a3)
   return sub_10033DB4C(v5, a2, a3);
 }
 
-uint64_t sub_1005190B8(uint64_t a1, __n128 *a2, unsigned int a3, unsigned int a4)
+uint64_t sub_1005190B8(uint64_t a1, unsigned __int8 *a2, unsigned int a3, unsigned int a4)
 {
   if (qword_100B50950 != -1)
   {
@@ -5752,10 +7687,12 @@ uint64_t sub_1005190B8(uint64_t a1, __n128 *a2, unsigned int a3, unsigned int a4
   return sub_10033DD54(v7, a2, a3, a4, 2);
 }
 
-uint64_t sub_100519128(uint64_t a1, unsigned __int8 *a2, uint64_t a3, char a4, int a5)
+uint64_t sub_100519128(uint64_t a1, unsigned __int8 *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   if (a2)
   {
+    v5 = a5;
+    v6 = a4;
     v16 = 0;
     v17 = 0;
     sub_1000C2364(a2, &v17 + 1, &v17, &v16 + 1, &v16);
@@ -5773,7 +7710,7 @@ uint64_t sub_100519128(uint64_t a1, unsigned __int8 *a2, uint64_t a3, char a4, i
 
     if (os_log_type_enabled(qword_100BCE8C8, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = sub_1000E2140(a2, 20);
+      v12 = sub_1000E2140(a2, 0x14u);
       v13 = "No";
       if (v12)
       {
@@ -5786,7 +7723,7 @@ uint64_t sub_100519128(uint64_t a1, unsigned __int8 *a2, uint64_t a3, char a4, i
     }
 
     v14 = (HIDWORD(v16) - 8202) > 9 || ((1 << (BYTE4(v16) - 10)) & 0x311) == 0;
-    if (v14 && !sub_1000E2140(a2, 20))
+    if (v14 && !sub_1000E2140(a2, 0x14u))
     {
       if (os_log_type_enabled(qword_100BCE8C8, OS_LOG_TYPE_ERROR))
       {
@@ -5801,7 +7738,7 @@ uint64_t sub_100519128(uint64_t a1, unsigned __int8 *a2, uint64_t a3, char a4, i
       sub_10083E144();
     }
 
-    return sub_10062FB80(off_100B50938, (a2[128] << 40) | (a2[129] << 32) | (a2[130] << 24) | (a2[131] << 16) | (a2[132] << 8) | a2[133], a3, a4, a1 + 48, a5);
+    return sub_10062FB80(off_100B50938, (a2[128] << 40) | (a2[129] << 32) | (a2[130] << 24) | (a2[131] << 16) | (a2[132] << 8) | a2[133], a3, v6, a1 + 48, v5);
   }
 
   else
@@ -5872,7 +7809,7 @@ uint64_t sub_100519430(uint64_t a1, uint64_t a2, int *a3)
   return 0;
 }
 
-uint64_t sub_100519550(uint64_t a1, __n128 *a2, uint64_t a3)
+uint64_t sub_100519550(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (qword_100B508F0 != -1)
   {
@@ -5881,37 +7818,38 @@ uint64_t sub_100519550(uint64_t a1, __n128 *a2, uint64_t a3)
 
   sub_10056C1D8(off_100B508E8, a2, a3);
   v6 = qword_100BCE8C8;
-  if (os_log_type_enabled(qword_100BCE8C8, OS_LOG_TYPE_DEFAULT))
+  v7 = os_log_type_enabled(qword_100BCE8C8, OS_LOG_TYPE_DEFAULT);
+  if (v7)
   {
     sub_1000C23E0(a2, __p);
-    if (v12 >= 0)
+    if (v14 >= 0)
     {
-      v7 = __p;
+      v9 = __p;
     }
 
     else
     {
-      v7 = __p[0];
+      v9 = __p[0];
     }
 
     *buf = 67109378;
-    v14 = a3;
-    v15 = 2080;
-    v16 = v7;
+    v16 = a3;
+    v17 = 2080;
+    v18 = v9;
     _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "notifySpatialAudioAllowSpatialChanged to %d  %s", buf, 0x12u);
-    if (v12 < 0)
+    if (v14 < 0)
     {
       operator delete(__p[0]);
     }
   }
 
-  v8 = sub_1000DAB84();
-  v10[0] = _NSConcreteStackBlock;
-  v10[1] = 3221225472;
-  v10[2] = sub_1005196D8;
-  v10[3] = &unk_100ADF8F8;
-  v10[4] = a2;
-  sub_10000CA94(v8, v10);
+  v10 = sub_1000DAB84(v7, v8);
+  v12[0] = _NSConcreteStackBlock;
+  v12[1] = 3221225472;
+  v12[2] = sub_1005196D8;
+  v12[3] = &unk_100ADF8F8;
+  v12[4] = a2;
+  sub_10000CA94(v10, v12);
   sub_100519738(a1, a2);
   return 0;
 }
@@ -5960,13 +7898,13 @@ uint64_t sub_100519738(uint64_t a1, uint64_t a2)
     }
   }
 
-  return sub_100516740(a1, a2);
+  return sub_100516740(a1, a2, 5, 0);
 }
 
 uint64_t sub_10051982C(uint64_t a1, uint64_t a2, uint64_t a3, int *a4, _DWORD *a5)
 {
   v16 = 1;
-  v8 = [NSString stringWithUTF8String:?];
+  v8 = [NSString stringWithUTF8String:a3];
   if (qword_100B508F0 != -1)
   {
     sub_10083DC90();
@@ -6013,14 +7951,15 @@ uint64_t sub_10051982C(uint64_t a1, uint64_t a2, uint64_t a3, int *a4, _DWORD *a
   return 0;
 }
 
-uint64_t sub_1005199DC(uint64_t a1, uint64_t a2, int a3)
+uint64_t sub_1005199DC(uint64_t a1, uint64_t a2, uint64_t a3)
 {
+  v3 = a3;
   if (qword_100B50940 != -1)
   {
     sub_10083E1A0();
   }
 
-  sub_10063977C(off_100B50938, a2, a3);
+  sub_10063977C(off_100B50938, a2, v3);
   v5 = qword_100BCE8C8;
   if (os_log_type_enabled(qword_100BCE8C8, OS_LOG_TYPE_DEFAULT))
   {
@@ -6036,7 +7975,7 @@ uint64_t sub_1005199DC(uint64_t a1, uint64_t a2, int a3)
     }
 
     *buf = 67109378;
-    v11 = a3;
+    v11 = v3;
     v12 = 2080;
     v13 = v6;
     _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "updateSpatialAudioSpatialActiveChanged to %d  %s", buf, 0x12u);
@@ -6063,7 +8002,7 @@ uint64_t sub_100519AF8(uint64_t a1, uint64_t a2, void *a3, uint64_t a4, int a5)
   if (os_log_type_enabled(qword_100BCE8C8, OS_LOG_TYPE_DEFAULT))
   {
     sub_1000C23E0(a2, __p);
-    if (v25 >= 0)
+    if (v26 >= 0)
     {
       v12 = __p;
     }
@@ -6075,43 +8014,43 @@ uint64_t sub_100519AF8(uint64_t a1, uint64_t a2, void *a3, uint64_t a4, int a5)
 
     v13 = @"None";
     *buf = 136315906;
-    v27 = v12;
+    v28 = v12;
     v14 = "YES";
     if (v9)
     {
       v13 = v9;
     }
 
-    v28 = 1024;
-    v29 = a4;
+    v29 = 1024;
+    v30 = a4;
     if (a5 != -1)
     {
       v14 = "NO";
     }
 
-    v30 = 2112;
-    v31 = v13;
-    v32 = 2082;
-    v33 = v14;
+    v31 = 2112;
+    v32 = v13;
+    v33 = 2082;
+    v34 = v14;
     _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Notify Spatial Audio Mode changed for device %s to %d for App %@ Head Tracking %{public}s", buf, 0x26u);
-    if (v25 < 0)
+    if (v26 < 0)
     {
       operator delete(__p[0]);
     }
   }
 
   v15 = [(__CFString *)v9 copy];
-  v16 = sub_1000DAB84();
-  v19[0] = _NSConcreteStackBlock;
-  v19[1] = 3221225472;
-  v19[2] = sub_100519D6C;
-  v19[3] = &unk_100AE2880;
-  v21 = a2;
-  v17 = v15;
-  v20 = v17;
-  v22 = a4;
-  v23 = v10;
-  sub_10000CA94(v16, v19);
+  v17 = sub_1000DAB84(v15, v16);
+  v20[0] = _NSConcreteStackBlock;
+  v20[1] = 3221225472;
+  v20[2] = sub_100519D6C;
+  v20[3] = &unk_100AE2880;
+  v22 = a2;
+  v18 = v15;
+  v21 = v18;
+  v23 = a4;
+  v24 = v10;
+  sub_10000CA94(v17, v20);
   sub_100519738(a1, a2);
 
   return 0;
@@ -6139,7 +8078,7 @@ uint64_t sub_100519D6C(uint64_t result)
   return result;
 }
 
-uint64_t sub_100519DD4(uint64_t a1, __n128 *a2, int a3)
+uint64_t sub_100519DD4(uint64_t a1, unsigned __int8 *a2, uint64_t a3)
 {
   if (qword_100B50950 != -1)
   {
@@ -6148,7 +8087,7 @@ uint64_t sub_100519DD4(uint64_t a1, __n128 *a2, int a3)
 
   v5 = off_100B50948;
 
-  return sub_10033DF90(v5, a2, a3, 2u);
+  return sub_10033DF90(v5, a2, a3, 2);
 }
 
 uint64_t sub_100519E34(uint64_t a1, uint64_t a2, _DWORD *a3, _DWORD *a4)
@@ -6175,34 +8114,34 @@ uint64_t sub_100519EA0(uint64_t a1, uint64_t a2, int *a3)
   return sub_10033C47C(v5, a2, a3);
 }
 
-uint64_t sub_100519EFC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t sub_100519EFC(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
 {
-  v7 = qword_100BCE8C8;
+  v8 = qword_100BCE8C8;
   if (os_log_type_enabled(qword_100BCE8C8, OS_LOG_TYPE_INFO))
   {
     sub_1000E5A58(a2, __p);
-    if (v11 >= 0)
+    if (v12 >= 0)
     {
-      v8 = __p;
+      v9 = __p;
     }
 
     else
     {
-      v8 = __p[0];
+      v9 = __p[0];
     }
 
     *buf = 136446466;
-    v13 = a4;
-    v14 = 2082;
-    v15 = v8;
-    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_INFO, "Sending %{public}s changed for %{public}s", buf, 0x16u);
-    if (v11 < 0)
+    v14 = a4;
+    v15 = 2082;
+    v16 = v9;
+    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_INFO, "Sending %{public}s changed for %{public}s", buf, 0x16u);
+    if (v12 < 0)
     {
       operator delete(__p[0]);
     }
   }
 
-  return sub_100516740(a1, a2);
+  return sub_100516740(a1, a2, a3, 0);
 }
 
 uint64_t sub_10051A00C(uint64_t a1, uint64_t a2)
@@ -6230,10 +8169,10 @@ uint64_t sub_10051A00C(uint64_t a1, uint64_t a2)
     }
   }
 
-  return sub_100516740(a1, a2);
+  return sub_100516740(a1, a2, 22, 0);
 }
 
-uint64_t sub_10051A100(uint64_t a1, void *a2)
+uint64_t sub_10051A100(uint64_t a1, uint64_t *a2)
 {
   v20 = 0;
   v21 = 0;
@@ -6342,7 +8281,7 @@ uint64_t sub_10051A100(uint64_t a1, void *a2)
   return v4;
 }
 
-void sub_10051A384(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, char a18, uint64_t a19, void *__p, uint64_t a21)
+void sub_10051A384(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, void *__p, uint64_t a21)
 {
   sub_1000088CC(&a18);
   if (__p)
@@ -6505,7 +8444,7 @@ void sub_10051A9D0(uint64_t a1)
   operator delete();
 }
 
-uint64_t sub_10051AA10(unint64_t *a1)
+uint64_t sub_10051AA10(uint64_t *a1)
 {
   result = sub_10051A520(a1, a1[2]);
   if (result)
@@ -6521,7 +8460,7 @@ uint64_t sub_10051AA10(unint64_t *a1)
   return result;
 }
 
-uint64_t sub_10051AA84(unint64_t *a1)
+uint64_t sub_10051AA84(uint64_t *a1)
 {
   result = sub_10051A520(a1, a1[2]);
   if (result)
@@ -6537,7 +8476,7 @@ uint64_t sub_10051AA84(unint64_t *a1)
   return result;
 }
 
-uint64_t sub_10051AAF8(unint64_t *a1)
+uint64_t sub_10051AAF8(uint64_t *a1)
 {
   result = sub_10051A520(a1, a1[2]);
   if (result)
@@ -6553,7 +8492,7 @@ uint64_t sub_10051AAF8(unint64_t *a1)
   return result;
 }
 
-uint64_t sub_10051AB6C(unint64_t *a1)
+uint64_t sub_10051AB6C(uint64_t *a1)
 {
   result = sub_10051A520(a1, a1[2]);
   if (result)
@@ -6611,7 +8550,7 @@ char *sub_10051AC6C(void *a1, char *__src, char *a3)
       sub_1000C7698();
     }
 
-    v12 = __src - v10;
+    v12 = &__src[-v10];
     v13 = v7 - v10;
     if (v13 >> 2 > v11)
     {
@@ -6681,7 +8620,7 @@ char *sub_10051AC6C(void *a1, char *__src, char *a3)
     else
     {
       *v6 = *(v6 - 1);
-      v9 = v6 + 8;
+      v9 = (v6 + 8);
     }
 
     a1[1] = v9;
@@ -6714,7 +8653,7 @@ void sub_10051AE08(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void *sub_10051AE40(void *result, char *__src, char *a3, unint64_t a4)
+uint64_t *sub_10051AE40(uint64_t *result, char *__src, char *a3, unint64_t a4)
 {
   v6 = result;
   v7 = result[2];
@@ -6840,11 +8779,11 @@ void *sub_10051AF6C(void *a1)
     operator delete(v7);
   }
 
-  sub_10007A068(a1 + 7);
+  sub_10007A068((a1 + 7));
   return a1;
 }
 
-uint64_t sub_10051B344(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *sub_10051B344(uint64_t *result, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -6854,7 +8793,7 @@ uint64_t sub_10051B344(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
   return result;
 }
 
-void sub_10051B3C8(uint64_t a1, unint64_t a2)
+void sub_10051B3C8(uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0x492492492492493)
   {
@@ -7313,7 +9252,7 @@ LABEL_28:
 
   *a6 = 0;
 LABEL_41:
-  nullsub_21(v36);
+  nullsub_21();
   return v15;
 }
 
@@ -7505,7 +9444,7 @@ uint64_t sub_10051C4C0(unint64_t a1, unint64_t a2, _DWORD *a3)
   return sub_100518AF4(v7, v9, a3);
 }
 
-uint64_t sub_10051C5A0(unint64_t a1, uint64_t a2, void *a3, uint64_t a4)
+uint64_t sub_10051C5A0(unint64_t a1, uint64_t a2, uint64_t *a3, uint64_t a4)
 {
   v4 = 3;
   if (a2 && a3)
@@ -7834,7 +9773,7 @@ uint64_t sub_10051CA8C(unint64_t a1, int *a2, char *a3, uint64_t a4, int a5, _OW
       v15 = 7;
     }
 
-    nullsub_21(&v23);
+    nullsub_21();
   }
 
   else
@@ -7861,1909 +9800,4 @@ uint64_t sub_10051CA8C(unint64_t a1, int *a2, char *a3, uint64_t a4, int a5, _OW
   }
 
   return v15;
-}
-
-uint64_t sub_10051CE28(unint64_t a1, unint64_t a2, uint64_t a3)
-{
-  if (a2 - 4294901761u < 2 || a2 == 0)
-  {
-    return 3;
-  }
-
-  if (qword_100B508F0 != -1)
-  {
-    sub_10083E4CC();
-  }
-
-  v8 = sub_1000E41C0(off_100B508E8, a2);
-  if (!v8)
-  {
-    return 7;
-  }
-
-  v9 = v8;
-  if (sub_1000DFB74(v8, 0x80000u) != 4)
-  {
-    return 108;
-  }
-
-  if (qword_100B508E0 != -1)
-  {
-    sub_10083E244();
-  }
-
-  v10 = sub_100518000(off_100B508D8, a1);
-  if (!v10)
-  {
-    if (os_log_type_enabled(qword_100BCE8C8, OS_LOG_TYPE_ERROR))
-    {
-      sub_10083E464();
-    }
-
-    return 7;
-  }
-
-  v11 = v10;
-  if (qword_100B50B88 != -1)
-  {
-    sub_10083E4E0();
-  }
-
-  v12 = sub_1000117DC(qword_100B50B80, a1);
-  if (v12)
-  {
-    v13 = v12;
-    if (sub_100067238())
-    {
-      CTGreenTeaOsLogHandle = getCTGreenTeaOsLogHandle();
-      if (CTGreenTeaOsLogHandle)
-      {
-        v15 = CTGreenTeaOsLogHandle;
-        if (os_log_type_enabled(CTGreenTeaOsLogHandle, OS_LOG_TYPE_INFO))
-        {
-          sub_100018384(v13, v22);
-          v16 = v23;
-          v17 = v22[0];
-          sub_1000E5A58(v9, __p);
-          v18 = v22;
-          if (v16 < 0)
-          {
-            v18 = v17;
-          }
-
-          if (v21 >= 0)
-          {
-            v19 = __p;
-          }
-
-          else
-          {
-            v19 = __p[0];
-          }
-
-          *buf = 136446466;
-          v25 = v18;
-          v26 = 2082;
-          v27 = v19;
-          _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_INFO, "Session %{public}s is asking to set double tap action for device %{public}s", buf, 0x16u);
-          if (v21 < 0)
-          {
-            operator delete(__p[0]);
-          }
-
-          if (v23 < 0)
-          {
-            operator delete(v22[0]);
-          }
-        }
-      }
-    }
-  }
-
-  if (sub_1000E3188(v9) == a3)
-  {
-    return 0;
-  }
-
-  else
-  {
-    return sub_10051905C(v11, v9, a3);
-  }
-}
-
-void sub_10051D080(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17)
-{
-  if (a17 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-uint64_t sub_10051D0A4(unint64_t a1, unint64_t a2, unsigned int a3, unsigned int a4)
-{
-  if (a2 - 4294901761u < 2 || a2 == 0)
-  {
-    return 3;
-  }
-
-  if (qword_100B508F0 != -1)
-  {
-    sub_10083E4CC();
-  }
-
-  v10 = sub_1000E41C0(off_100B508E8, a2);
-  if (!v10)
-  {
-    return 7;
-  }
-
-  v11 = v10;
-  if (sub_1000DFB74(v10, 0x80000u) != 4)
-  {
-    return 108;
-  }
-
-  if (qword_100B508E0 != -1)
-  {
-    sub_10083E244();
-  }
-
-  v12 = sub_100518000(off_100B508D8, a1);
-  if (!v12)
-  {
-    if (os_log_type_enabled(qword_100BCE8C8, OS_LOG_TYPE_ERROR))
-    {
-      sub_10083E464();
-    }
-
-    return 7;
-  }
-
-  v13 = v12;
-  v14 = sub_1000E3188(v11);
-  v15 = sub_1000E3188(v11) >> 8;
-  if (qword_100B50B88 != -1)
-  {
-    sub_10083E4E0();
-  }
-
-  v16 = sub_1000117DC(qword_100B50B80, a1);
-  if (v16)
-  {
-    v17 = v16;
-    if (sub_100067238())
-    {
-      CTGreenTeaOsLogHandle = getCTGreenTeaOsLogHandle();
-      if (CTGreenTeaOsLogHandle)
-      {
-        v19 = CTGreenTeaOsLogHandle;
-        if (os_log_type_enabled(CTGreenTeaOsLogHandle, OS_LOG_TYPE_INFO))
-        {
-          sub_100018384(v17, v26);
-          v20 = v27;
-          v21 = v26[0];
-          sub_1000E5A58(v11, __p);
-          v22 = v26;
-          if (v20 < 0)
-          {
-            v22 = v21;
-          }
-
-          if (v25 >= 0)
-          {
-            v23 = __p;
-          }
-
-          else
-          {
-            v23 = __p[0];
-          }
-
-          *buf = 136446466;
-          v29 = v22;
-          v30 = 2082;
-          v31 = v23;
-          _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_INFO, "Session %{public}s is asking to set advanced double tap action for device %{public}s", buf, 0x16u);
-          if (v25 < 0)
-          {
-            operator delete(__p[0]);
-          }
-
-          if (v27 < 0)
-          {
-            operator delete(v26[0]);
-          }
-        }
-      }
-    }
-  }
-
-  if (v14 == a4 && v15 == a3)
-  {
-    return 0;
-  }
-
-  else
-  {
-    return sub_1005190B8(v13, v11, a3, a4);
-  }
-}
-
-void sub_10051D32C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17)
-{
-  if (a17 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-uint64_t sub_10051D350(unint64_t a1, unint64_t a2, _BOOL4 *a3)
-{
-  if (a2 - 4294901761u < 2 || a2 == 0)
-  {
-    return 3;
-  }
-
-  if (qword_100B508F0 != -1)
-  {
-    sub_10083E4CC();
-  }
-
-  v8 = sub_1000E41C0(off_100B508E8, a2);
-  if (!v8)
-  {
-    return 7;
-  }
-
-  v9 = v8;
-  if (qword_100B508F0 != -1)
-  {
-    sub_10083E4CC();
-  }
-
-  if (sub_1000BE6E8(off_100B508E8))
-  {
-    if (sub_1000DFB74(v9, 0x80000u) != 4)
-    {
-      return 108;
-    }
-
-    if (qword_100B508E0 != -1)
-    {
-      sub_10083E244();
-    }
-
-    if (sub_100518000(off_100B508D8, a1))
-    {
-      v10 = sub_1000E2140(v9, 14);
-      result = 0;
-      *a3 = v10;
-      return result;
-    }
-
-    if (os_log_type_enabled(qword_100BCE8C8, OS_LOG_TYPE_ERROR))
-    {
-      sub_10083E464();
-    }
-
-    return 7;
-  }
-
-  if (os_log_type_enabled(qword_100BCE8C8, OS_LOG_TYPE_ERROR))
-  {
-    sub_10083E55C();
-  }
-
-  return 212;
-}
-
-uint64_t sub_10051D4B8(uint64_t a1, unint64_t a2, int a3, int *a4)
-{
-  if (a2 - 4294901761u < 2 || a2 == 0)
-  {
-    return 3;
-  }
-
-  if (qword_100B508F0 != -1)
-  {
-    sub_10083E4CC();
-  }
-
-  v9 = sub_1000E41C0(off_100B508E8, a2);
-  if (!v9)
-  {
-    return 7;
-  }
-
-  v10 = v9;
-  if (qword_100B508F0 != -1)
-  {
-    sub_10083E4CC();
-  }
-
-  if (sub_1000BE6E8(off_100B508E8))
-  {
-    v11 = sub_1000E2140(v10, a3);
-    result = 0;
-    *a4 = v11 << 31 >> 31;
-  }
-
-  else
-  {
-    if (os_log_type_enabled(qword_100BCE8C8, OS_LOG_TYPE_ERROR))
-    {
-      sub_10083E55C();
-    }
-
-    return 212;
-  }
-
-  return result;
-}
-
-uint64_t sub_10051D5B4(uint64_t a1, unint64_t a2, int *a3)
-{
-  if (a2 - 4294901761u < 2 || a2 == 0)
-  {
-    return 3;
-  }
-
-  v16[5] = v3;
-  v16[6] = v4;
-  if (qword_100B508F0 != -1)
-  {
-    sub_10083E4CC();
-  }
-
-  v9 = sub_1000E41C0(off_100B508E8, a2);
-  if (!v9)
-  {
-    return 7;
-  }
-
-  v10 = v9;
-  if (qword_100B508F0 != -1)
-  {
-    sub_10083E4CC();
-  }
-
-  if (sub_1000BE6E8(off_100B508E8))
-  {
-    v15 = 0;
-    v16[0] = 0;
-    sub_1000C2364(v10, v16 + 1, v16, &v15 + 1, &v15);
-    v11 = HIDWORD(v15);
-    if ((HIDWORD(v15) - 8194) <= 0x2D && ((1 << (BYTE4(v15) - 2)) & 0x20647A877F9BLL) != 0)
-    {
-      v12 = HIDWORD(v15) - 8194;
-      if (HIDWORD(v15) - 8194) < 0xF && ((0x409Bu >> v12))
-      {
-        v11 = dword_1008A9D38[v12];
-      }
-
-      else
-      {
-        if (sub_1000E2140(v10, 27))
-        {
-          goto LABEL_26;
-        }
-
-        v11 = HIDWORD(v15);
-      }
-    }
-
-    v13 = v11 - 8214;
-    if (v13 > 0xF || ((1 << v13) & 0x8003) == 0)
-    {
-      v14 = 0;
-      goto LABEL_27;
-    }
-
-LABEL_26:
-    v14 = -1;
-LABEL_27:
-    result = 0;
-    *a3 = v14;
-    return result;
-  }
-
-  if (os_log_type_enabled(qword_100BCE8C8, OS_LOG_TYPE_ERROR))
-  {
-    sub_10083E55C();
-  }
-
-  return 212;
-}
-
-uint64_t sub_10051D754(unint64_t a1, unint64_t a2, uint64_t a3)
-{
-  if (a2 - 4294901761u < 2 || a2 == 0)
-  {
-    return 3;
-  }
-
-  if (qword_100B508F0 != -1)
-  {
-    sub_10083E4CC();
-  }
-
-  v8 = sub_1000E41C0(off_100B508E8, a2);
-  if (!v8)
-  {
-    return 7;
-  }
-
-  v9 = v8;
-  if (sub_1000DFB74(v8, 0x80000u) != 4)
-  {
-    return 108;
-  }
-
-  if (qword_100B508E0 != -1)
-  {
-    sub_10083E244();
-  }
-
-  v10 = sub_100518000(off_100B508D8, a1);
-  if (!v10)
-  {
-    if (os_log_type_enabled(qword_100BCE8C8, OS_LOG_TYPE_ERROR))
-    {
-      sub_10083E464();
-    }
-
-    return 7;
-  }
-
-  v11 = v10;
-  if (sub_1000E3314(v9) == a3)
-  {
-    return 0;
-  }
-
-  if (qword_100B50B88 != -1)
-  {
-    sub_10083E4E0();
-  }
-
-  v12 = sub_1000117DC(qword_100B50B80, a1);
-  if (v12)
-  {
-    v13 = v12;
-    if (sub_100067238())
-    {
-      CTGreenTeaOsLogHandle = getCTGreenTeaOsLogHandle();
-      if (CTGreenTeaOsLogHandle)
-      {
-        v15 = CTGreenTeaOsLogHandle;
-        if (os_log_type_enabled(CTGreenTeaOsLogHandle, OS_LOG_TYPE_INFO))
-        {
-          sub_100018384(v13, v22);
-          v16 = v23;
-          v17 = v22[0];
-          sub_1000E5A58(v9, __p);
-          v18 = v22;
-          if (v16 < 0)
-          {
-            v18 = v17;
-          }
-
-          if (v21 >= 0)
-          {
-            v19 = __p;
-          }
-
-          else
-          {
-            v19 = __p[0];
-          }
-
-          *buf = 136446466;
-          v25 = v18;
-          v26 = 2082;
-          v27 = v19;
-          _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_INFO, "Session %{public}s is asking to set Mic mode for device %{public}s", buf, 0x16u);
-          if (v21 < 0)
-          {
-            operator delete(__p[0]);
-          }
-
-          if (v23 < 0)
-          {
-            operator delete(v22[0]);
-          }
-        }
-      }
-    }
-  }
-
-  return sub_100518FFC(v11, v9, a3);
-}
-
-void sub_10051D9AC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17)
-{
-  if (a17 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-uint64_t sub_10051D9D0(unint64_t a1, unint64_t a2, int a3, int a4)
-{
-  if (qword_100B50940 != -1)
-  {
-    sub_10083E590();
-  }
-
-  if ((sub_100630220() & 1) == 0)
-  {
-    if (os_log_type_enabled(qword_100BCE8C8, OS_LOG_TYPE_ERROR))
-    {
-      sub_10083E5A4();
-    }
-
-    return 108;
-  }
-
-  if (a2 - 4294901761u < 2 || !a2)
-  {
-    if (os_log_type_enabled(qword_100BCE8C8, OS_LOG_TYPE_ERROR))
-    {
-      sub_10083E5D8();
-    }
-
-    return 3;
-  }
-
-  if (qword_100B508F0 != -1)
-  {
-    sub_10083E4CC();
-  }
-
-  v10 = sub_1000E41C0(off_100B508E8, a2);
-  if (!v10)
-  {
-    if (os_log_type_enabled(qword_100BCE8C8, OS_LOG_TYPE_ERROR))
-    {
-      sub_10083E718();
-    }
-
-    return 7;
-  }
-
-  v11 = v10;
-  if (sub_1000DFB74(v10, 0x80000u) != 4)
-  {
-    if (os_log_type_enabled(qword_100BCE8C8, OS_LOG_TYPE_ERROR))
-    {
-      sub_10083E60C();
-    }
-
-    return 108;
-  }
-
-  if (qword_100B50AA0 != -1)
-  {
-    sub_10083E640();
-  }
-
-  if (*(off_100B50A98 + 60))
-  {
-    v26 = 0;
-    sub_1000216B4(&v26);
-    v12 = sub_10024132C((v11 + 128));
-    sub_100022214(&v26);
-    if ((v12 & 1) == 0)
-    {
-      if (os_log_type_enabled(qword_100BCE8C8, OS_LOG_TYPE_ERROR))
-      {
-        sub_10083E688();
-      }
-
-      v8 = 108;
-      goto LABEL_60;
-    }
-
-    if (qword_100B508E0 != -1)
-    {
-      sub_10083E258();
-    }
-
-    v13 = sub_100518000(off_100B508D8, a1);
-    if (v13)
-    {
-      if (qword_100B50B88 != -1)
-      {
-        sub_10083E6BC();
-      }
-
-      v14 = sub_1000117DC(qword_100B50B80, a1);
-      v15 = qword_100BCE8C8;
-      v16 = os_log_type_enabled(qword_100BCE8C8, OS_LOG_TYPE_DEFAULT);
-      if (v14)
-      {
-        if (v16)
-        {
-          sub_100018384(v14, v27);
-          v17 = v30;
-          v18 = *v27;
-          sub_1000E5A58(v11, __p);
-          v19 = v27;
-          if (v17 < 0)
-          {
-            v19 = v18;
-          }
-
-          if (v25 >= 0)
-          {
-            v20 = __p;
-          }
-
-          else
-          {
-            v20 = __p[0];
-          }
-
-          v21 = "Enabled";
-          *buf = 136446722;
-          *&buf[4] = v19;
-          v32 = 2082;
-          if (!a3)
-          {
-            v21 = "Disabled";
-          }
-
-          v33 = v20;
-          v34 = 2082;
-          v35 = v21;
-          _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "TimeSyncEnable: Session %{public}s is configuring Remote Timesync for device %{public}s to %{public}s", buf, 0x20u);
-          if (v25 < 0)
-          {
-            operator delete(__p[0]);
-          }
-
-          if (v30 < 0)
-          {
-            operator delete(*v27);
-          }
-        }
-
-        v22 = sub_100011794(v14);
-        v8 = sub_100519128(v13, v11, v22, a3 != 0, a4);
-        goto LABEL_60;
-      }
-
-      if (v16)
-      {
-        sub_1000E5A58(v11, buf);
-        v23 = v34 >= 0 ? buf : *buf;
-        *v27 = 136446466;
-        *&v27[4] = v23;
-        v28 = 1024;
-        v29 = a3;
-        _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Warning: TimeSyncEnable: Invalid Session Setting TimeSync, ignoring device %{public}s to %d", v27, 0x12u);
-        if (SHIBYTE(v34) < 0)
-        {
-          operator delete(*buf);
-        }
-      }
-    }
-
-    else if (os_log_type_enabled(qword_100BCE8C8, OS_LOG_TYPE_ERROR))
-    {
-      sub_10083E6E4();
-    }
-
-    v8 = 7;
-LABEL_60:
-    sub_10002249C(&v26);
-    return v8;
-  }
-
-  if (os_log_type_enabled(qword_100BCE8C8, OS_LOG_TYPE_ERROR))
-  {
-    sub_10083E654();
-  }
-
-  return 111;
-}
-
-uint64_t sub_10051DE88(unint64_t a1, unint64_t a2, uint64_t *a3)
-{
-  if (!a3)
-  {
-    return 3;
-  }
-
-  if (qword_100B508E0 != -1)
-  {
-    sub_10083E244();
-  }
-
-  v6 = sub_100518000(off_100B508D8, a1);
-  if (!v6)
-  {
-    return 7;
-  }
-
-  v7 = v6;
-  result = 3;
-  if (a2 - 4294901761u >= 2 && a2)
-  {
-    if (qword_100B508F0 != -1)
-    {
-      sub_10083E4CC();
-    }
-
-    v9 = sub_1000E41C0(off_100B508E8, a2);
-    if (v9)
-    {
-      sub_100519354(v7, v9, a3);
-      return 0;
-    }
-
-    return 7;
-  }
-
-  return result;
-}
-
-uint64_t sub_10051DF58(unint64_t a1, unint64_t a2, int a3)
-{
-  if (a2 - 4294901761u < 2 || a2 == 0)
-  {
-    return 3;
-  }
-
-  if (qword_100B508F0 != -1)
-  {
-    sub_10083E4CC();
-  }
-
-  v8 = sub_1000E41C0(off_100B508E8, a2);
-  if (!v8)
-  {
-    return 7;
-  }
-
-  v9 = v8;
-  if (sub_1000DFB74(v8, 0x80000u) != 4)
-  {
-    return 108;
-  }
-
-  if (qword_100B508E0 != -1)
-  {
-    sub_10083E244();
-  }
-
-  v10 = sub_100518000(off_100B508D8, a1);
-  if (!v10)
-  {
-    if (os_log_type_enabled(qword_100BCE8C8, OS_LOG_TYPE_ERROR))
-    {
-      sub_10083E464();
-    }
-
-    return 7;
-  }
-
-  v11 = v10;
-  if ((a3 != 0) == sub_1000E356C(v9))
-  {
-    return 0;
-  }
-
-  if (qword_100B50B88 != -1)
-  {
-    sub_10083E4E0();
-  }
-
-  v12 = sub_1000117DC(qword_100B50B80, a1);
-  v13 = qword_100BCE8C8;
-  v14 = os_log_type_enabled(qword_100BCE8C8, OS_LOG_TYPE_DEFAULT);
-  if (v12)
-  {
-    if (!v14)
-    {
-      return sub_100519DD4(v11, v9, a3 != 0);
-    }
-
-    sub_100018384(v12, v23);
-    v15 = v26;
-    v16 = *v23;
-    sub_1000E5A58(v9, __p);
-    v17 = v23;
-    if (v15 < 0)
-    {
-      v17 = v16;
-    }
-
-    v18 = v22 >= 0 ? __p : __p[0];
-    *buf = 136446722;
-    *&buf[4] = v17;
-    v28 = 2082;
-    v29 = v18;
-    v30 = 1024;
-    v31 = a3;
-    _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Session %{public}s is asking to set in ear detection mode for device %{public}s to %d", buf, 0x1Cu);
-    if (v22 < 0)
-    {
-      operator delete(__p[0]);
-    }
-
-    if ((v26 & 0x80000000) == 0)
-    {
-      return sub_100519DD4(v11, v9, a3 != 0);
-    }
-
-    v19 = *v23;
-  }
-
-  else
-  {
-    if (!v14)
-    {
-      return sub_100519DD4(v11, v9, a3 != 0);
-    }
-
-    sub_1000E5A58(v9, buf);
-    v20 = v30 >= 0 ? buf : *buf;
-    *v23 = 136446466;
-    *&v23[4] = v20;
-    v24 = 1024;
-    v25 = a3;
-    _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Setting in ear detection mode for device %{public}s to %d", v23, 0x12u);
-    if ((SHIBYTE(v30) & 0x80000000) == 0)
-    {
-      return sub_100519DD4(v11, v9, a3 != 0);
-    }
-
-    v19 = *buf;
-  }
-
-  operator delete(v19);
-  return sub_100519DD4(v11, v9, a3 != 0);
-}
-
-void sub_10051E22C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18)
-{
-  if (a18 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-uint64_t sub_10051E250(unint64_t a1, unint64_t a2, _DWORD *a3, _DWORD *a4)
-{
-  if (a2 - 4294901761u < 2 || a2 == 0)
-  {
-    return 3;
-  }
-
-  if (qword_100B508F0 != -1)
-  {
-    sub_10083E4CC();
-  }
-
-  v10 = sub_1000E41C0(off_100B508E8, a2);
-  if (!v10)
-  {
-    return 7;
-  }
-
-  v11 = v10;
-  if (qword_100B508F0 != -1)
-  {
-    sub_10083E4CC();
-  }
-
-  if (sub_1000BE6E8(off_100B508E8))
-  {
-    if (sub_1000DFB74(v11, 0x80000u) != 4)
-    {
-      return 108;
-    }
-
-    if (qword_100B508E0 != -1)
-    {
-      sub_10083E244();
-    }
-
-    v12 = sub_100518000(off_100B508D8, a1);
-    if (v12)
-    {
-      sub_100519E34(v12, v11, a3, a4);
-      return 0;
-    }
-
-    if (os_log_type_enabled(qword_100BCE8C8, OS_LOG_TYPE_ERROR))
-    {
-      sub_10083E464();
-    }
-
-    return 7;
-  }
-
-  if (os_log_type_enabled(qword_100BCE8C8, OS_LOG_TYPE_ERROR))
-  {
-    sub_10083E55C();
-  }
-
-  return 212;
-}
-
-uint64_t sub_10051E3B8(unint64_t a1, unint64_t a2, unsigned __int8 a3, uint64_t a4, unsigned __int16 *a5, uint64_t a6)
-{
-  if (qword_100B508E0 != -1)
-  {
-    sub_10083E244();
-  }
-
-  if (!sub_100518000(off_100B508D8, a1))
-  {
-    return 7;
-  }
-
-  result = 3;
-  if (a2 - 4294901761u < 2 || !a2)
-  {
-    return result;
-  }
-
-  if (qword_100B508F0 != -1)
-  {
-    sub_10083E4CC();
-  }
-
-  v13 = sub_1000E41C0(off_100B508E8, a2);
-  if (!v13)
-  {
-    return 7;
-  }
-
-  v14 = v13;
-  if (qword_100B508F0 != -1)
-  {
-    sub_10083E4CC();
-  }
-
-  if (sub_1000BE6E8(off_100B508E8))
-  {
-    if (sub_1000DFB74(v14, 0x80000u) == 4)
-    {
-      if (qword_100B50B88 != -1)
-      {
-        sub_10083E4E0();
-      }
-
-      v15 = sub_1000117DC(qword_100B50B80, a1);
-      if (v15)
-      {
-        v16 = v15;
-        v17 = qword_100BCE8C8;
-        if (os_log_type_enabled(qword_100BCE8C8, OS_LOG_TYPE_DEFAULT))
-        {
-          sub_100018384(v16, v24);
-          v18 = v25;
-          v19 = v24[0];
-          sub_1000E5A58(v14, __p);
-          v20 = v24;
-          if (v18 < 0)
-          {
-            v20 = v19;
-          }
-
-          if (v23 >= 0)
-          {
-            v21 = __p;
-          }
-
-          else
-          {
-            v21 = __p[0];
-          }
-
-          *buf = 136446466;
-          v27 = v20;
-          v28 = 2082;
-          v29 = v21;
-          _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "Session %{public}s is asking to send Setup Command to device %{public}s", buf, 0x16u);
-          if (v23 < 0)
-          {
-            operator delete(__p[0]);
-          }
-
-          if (v25 < 0)
-          {
-            operator delete(v24[0]);
-          }
-        }
-      }
-
-      if (qword_100B50950 != -1)
-      {
-        sub_10083E74C();
-      }
-
-      return sub_100334D98(off_100B50948, v14, a3, a4, a6, a5);
-    }
-
-    else
-    {
-      return 108;
-    }
-  }
-
-  else
-  {
-    if (os_log_type_enabled(qword_100BCE8C8, OS_LOG_TYPE_ERROR))
-    {
-      sub_10083E55C();
-    }
-
-    return 212;
-  }
-}
-
-void sub_10051E648(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17)
-{
-  if (a17 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-uint64_t sub_10051E66C(unint64_t a1, unint64_t a2, uint64_t a3, int a4, const void *a5, unsigned int a6)
-{
-  if (qword_100B508E0 != -1)
-  {
-    sub_10083E244();
-  }
-
-  if (!sub_100518000(off_100B508D8, a1))
-  {
-    return 7;
-  }
-
-  result = 3;
-  if (a2 - 4294901761u < 2 || !a2)
-  {
-    return result;
-  }
-
-  if (qword_100B508F0 != -1)
-  {
-    sub_10083E4CC();
-  }
-
-  v13 = sub_1000E41C0(off_100B508E8, a2);
-  if (!v13)
-  {
-    return 7;
-  }
-
-  v14 = v13;
-  if (sub_1000DFB74(v13, 0x80000u) != 4)
-  {
-    return 108;
-  }
-
-  if (qword_100B50B88 != -1)
-  {
-    sub_10083E4E0();
-  }
-
-  v15 = sub_1000117DC(qword_100B50B80, a1);
-  if (v15)
-  {
-    v16 = v15;
-    v17 = qword_100BCE8C8;
-    if (os_log_type_enabled(qword_100BCE8C8, OS_LOG_TYPE_DEFAULT))
-    {
-      sub_100018384(v16, v24);
-      v18 = v25;
-      v19 = v24[0];
-      sub_1000E5A58(v14, __p);
-      v20 = v24;
-      if (v18 < 0)
-      {
-        v20 = v19;
-      }
-
-      if (v23 >= 0)
-      {
-        v21 = __p;
-      }
-
-      else
-      {
-        v21 = __p[0];
-      }
-
-      *buf = 136446466;
-      v27 = v20;
-      v28 = 2082;
-      v29 = v21;
-      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "Session %{public}s is asking to send Relay Msg to device %{public}s", buf, 0x16u);
-      if (v23 < 0)
-      {
-        operator delete(__p[0]);
-      }
-
-      if (v25 < 0)
-      {
-        operator delete(v24[0]);
-      }
-    }
-  }
-
-  if (qword_100B50950 != -1)
-  {
-    sub_10083E74C();
-  }
-
-  return sub_100335068(off_100B50948, v14, a3, a4, a6, a5);
-}
-
-void sub_10051E8AC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17)
-{
-  if (a17 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-uint64_t sub_10051E8D0(unint64_t a1, unint64_t a2, int a3, uint64_t a4, unsigned int a5)
-{
-  if (qword_100B508E0 != -1)
-  {
-    sub_10083E244();
-  }
-
-  if (!sub_100518000(off_100B508D8, a1))
-  {
-    return 7;
-  }
-
-  result = 3;
-  if (a2 - 4294901761u < 2 || !a2)
-  {
-    return result;
-  }
-
-  if (qword_100B508F0 != -1)
-  {
-    sub_10083E4CC();
-  }
-
-  v11 = sub_1000E41C0(off_100B508E8, a2);
-  if (!v11)
-  {
-    return 7;
-  }
-
-  v12 = v11;
-  if (sub_1000DFB74(v11, 0x80000u) != 4)
-  {
-    return 108;
-  }
-
-  if (qword_100B50B88 != -1)
-  {
-    sub_10083E4E0();
-  }
-
-  v13 = sub_1000117DC(qword_100B50B80, a1);
-  if (v13)
-  {
-    v14 = v13;
-    v15 = qword_100BCE8C8;
-    if (os_log_type_enabled(qword_100BCE8C8, OS_LOG_TYPE_DEFAULT))
-    {
-      sub_100018384(v14, v22);
-      v16 = v23;
-      v17 = v22[0];
-      sub_1000E5A58(v12, __p);
-      v18 = v22;
-      if (v16 < 0)
-      {
-        v18 = v17;
-      }
-
-      if (v21 >= 0)
-      {
-        v19 = __p;
-      }
-
-      else
-      {
-        v19 = __p[0];
-      }
-
-      *buf = 136446466;
-      v25 = v18;
-      v26 = 2082;
-      v27 = v19;
-      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Session %{public}s is asking to send Update Connection Priority List to device %{public}s", buf, 0x16u);
-      if (v21 < 0)
-      {
-        operator delete(__p[0]);
-      }
-
-      if (v23 < 0)
-      {
-        operator delete(v22[0]);
-      }
-    }
-  }
-
-  if (qword_100B50950 != -1)
-  {
-    sub_10083E74C();
-  }
-
-  return sub_100335434(off_100B50948, v12, a3, a4, a5);
-}
-
-void sub_10051EB00(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17)
-{
-  if (a17 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-uint64_t sub_10051EB24(unint64_t a1, unint64_t a2, _DWORD *a3)
-{
-  if (a2 - 4294901761u < 2 || a2 == 0)
-  {
-    return 3;
-  }
-
-  if (qword_100B508F0 != -1)
-  {
-    sub_10083E4CC();
-  }
-
-  v8 = sub_1000E41C0(off_100B508E8, a2);
-  if (!v8)
-  {
-    return 7;
-  }
-
-  v9 = v8;
-  if (qword_100B508F0 != -1)
-  {
-    sub_10083E4CC();
-  }
-
-  if (sub_1000BE6E8(off_100B508E8))
-  {
-    if (sub_1000DFB74(v9, 0x80000u) != 4)
-    {
-      return 108;
-    }
-
-    if (qword_100B508E0 != -1)
-    {
-      sub_10083E244();
-    }
-
-    if (sub_100518000(off_100B508D8, a1))
-    {
-      v10 = sub_1000E3188(v9);
-      result = 0;
-      *a3 = v10;
-      return result;
-    }
-
-    if (os_log_type_enabled(qword_100BCE8C8, OS_LOG_TYPE_ERROR))
-    {
-      sub_10083E464();
-    }
-
-    return 7;
-  }
-
-  if (os_log_type_enabled(qword_100BCE8C8, OS_LOG_TYPE_ERROR))
-  {
-    sub_10083E55C();
-  }
-
-  return 212;
-}
-
-uint64_t sub_10051EC88(unint64_t a1, unint64_t a2, _DWORD *a3, int *a4)
-{
-  if (a2 - 4294901761u < 2 || a2 == 0)
-  {
-    return 3;
-  }
-
-  if (qword_100B508F0 != -1)
-  {
-    sub_10083E4CC();
-  }
-
-  v10 = sub_1000E41C0(off_100B508E8, a2);
-  if (!v10)
-  {
-    return 7;
-  }
-
-  v11 = v10;
-  if (qword_100B508F0 != -1)
-  {
-    sub_10083E4CC();
-  }
-
-  if (sub_1000BE6E8(off_100B508E8))
-  {
-    if (sub_1000DFB74(v11, 0x80000u) != 4)
-    {
-      return 108;
-    }
-
-    if (qword_100B508E0 != -1)
-    {
-      sub_10083E244();
-    }
-
-    if (sub_100518000(off_100B508D8, a1))
-    {
-      *a4 = sub_1000E3188(v11);
-      v12 = (sub_1000E3188(v11) >> 8);
-      *a3 = v12;
-      v13 = qword_100BCE8C8;
-      v14 = os_log_type_enabled(qword_100BCE8C8, OS_LOG_TYPE_DEFAULT);
-      result = 0;
-      if (v14)
-      {
-        v15 = *a4;
-        v16[0] = 67109376;
-        v16[1] = v12;
-        v17 = 1024;
-        v18 = v15;
-        _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Double tap values read from device, left = %d, rght = %d", v16, 0xEu);
-        return 0;
-      }
-
-      return result;
-    }
-
-    if (os_log_type_enabled(qword_100BCE8C8, OS_LOG_TYPE_ERROR))
-    {
-      sub_10083E464();
-    }
-
-    return 7;
-  }
-
-  if (os_log_type_enabled(qword_100BCE8C8, OS_LOG_TYPE_ERROR))
-  {
-    sub_10083E55C();
-  }
-
-  return 212;
-}
-
-uint64_t sub_10051EE98(unint64_t a1, unint64_t a2, _DWORD *a3)
-{
-  if (!a3)
-  {
-    return 3;
-  }
-
-  if (a2 - 4294901761u < 2 || a2 == 0)
-  {
-    return 3;
-  }
-
-  if (qword_100B508F0 != -1)
-  {
-    sub_10083E4CC();
-  }
-
-  v8 = sub_1000E41C0(off_100B508E8, a2);
-  if (!v8)
-  {
-    return 7;
-  }
-
-  v9 = v8;
-  if (qword_100B508F0 != -1)
-  {
-    sub_10083E4CC();
-  }
-
-  if (sub_1000BE6E8(off_100B508E8))
-  {
-    if (sub_1000DFB74(v9, 0x80000u) != 4)
-    {
-      return 108;
-    }
-
-    if (qword_100B508E0 != -1)
-    {
-      sub_10083E244();
-    }
-
-    if (sub_100518000(off_100B508D8, a1))
-    {
-      v10 = sub_1000E3314(v9);
-      result = 0;
-      *a3 = v10;
-      return result;
-    }
-
-    if (os_log_type_enabled(qword_100BCE8C8, OS_LOG_TYPE_ERROR))
-    {
-      sub_10083E464();
-    }
-
-    return 7;
-  }
-
-  if (os_log_type_enabled(qword_100BCE8C8, OS_LOG_TYPE_ERROR))
-  {
-    sub_10083E55C();
-  }
-
-  return 212;
-}
-
-uint64_t sub_10051F008(unint64_t a1, unint64_t a2, int *a3)
-{
-  if (!a3)
-  {
-    return 3;
-  }
-
-  if (a2 - 4294901761u < 2 || a2 == 0)
-  {
-    return 3;
-  }
-
-  if (qword_100B508F0 != -1)
-  {
-    sub_10083E4CC();
-  }
-
-  v8 = sub_1000E41C0(off_100B508E8, a2);
-  if (!v8)
-  {
-    return 7;
-  }
-
-  v9 = v8;
-  if (qword_100B508F0 != -1)
-  {
-    sub_10083E4CC();
-  }
-
-  if (sub_1000BE6E8(off_100B508E8))
-  {
-    if (sub_1000DFB74(v9, 0x80000u) != 4)
-    {
-      return 108;
-    }
-
-    if (qword_100B508E0 != -1)
-    {
-      sub_10083E244();
-    }
-
-    if (sub_100518000(off_100B508D8, a1))
-    {
-      v10 = sub_1000E356C(v9);
-      result = 0;
-      *a3 = v10 << 31 >> 31;
-      return result;
-    }
-
-    if (os_log_type_enabled(qword_100BCE8C8, OS_LOG_TYPE_ERROR))
-    {
-      sub_10083E464();
-    }
-
-    return 7;
-  }
-
-  if (os_log_type_enabled(qword_100BCE8C8, OS_LOG_TYPE_ERROR))
-  {
-    sub_10083E55C();
-  }
-
-  return 212;
-}
-
-uint64_t sub_10051F17C(unint64_t a1, unint64_t a2, int a3)
-{
-  if (a2 - 4294901761u < 2 || a2 == 0)
-  {
-    return 3;
-  }
-
-  if (qword_100B508F0 != -1)
-  {
-    sub_10083E4CC();
-  }
-
-  v8 = sub_1000E41C0(off_100B508E8, a2);
-  if (!v8)
-  {
-    return 7;
-  }
-
-  v9 = v8;
-  if (qword_100B508E0 != -1)
-  {
-    sub_10083E244();
-  }
-
-  if (!sub_100518000(off_100B508D8, a1))
-  {
-    if (os_log_type_enabled(qword_100BCE8C8, OS_LOG_TYPE_ERROR))
-    {
-      sub_10083E464();
-    }
-
-    return 7;
-  }
-
-  if (qword_100B508F0 != -1)
-  {
-    sub_10083E4CC();
-  }
-
-  if (sub_1000BE6E8(off_100B508E8))
-  {
-    if (sub_1000DFB74(v9, 0x80000u) == 4)
-    {
-      if (qword_100B50950 != -1)
-      {
-        sub_10083E774();
-      }
-
-      sub_10035BBE0(off_100B50948, v9, a3 != 0);
-      return 0;
-    }
-
-    else
-    {
-      return 108;
-    }
-  }
-
-  else
-  {
-    if (os_log_type_enabled(qword_100BCE8C8, OS_LOG_TYPE_ERROR))
-    {
-      sub_10083E55C();
-    }
-
-    return 212;
-  }
-}
-
-uint64_t sub_10051F300(unint64_t a1, uint64_t *a2, int a3, uint64_t a4)
-{
-  if (qword_100B508E0 != -1)
-  {
-    sub_10083E244();
-  }
-
-  if (!sub_100518000(off_100B508D8, a1))
-  {
-    return 7;
-  }
-
-  if (qword_100B50950 != -1)
-  {
-    sub_10083E774();
-  }
-
-  v8 = off_100B50948;
-
-  return sub_1003561D4(v8, a1, a3, a2, a4);
-}
-
-uint64_t sub_10051F3B4(unint64_t a1, uint64_t *a2)
-{
-  if (qword_100B508E0 != -1)
-  {
-    sub_10083E244();
-  }
-
-  if (!sub_100518000(off_100B508D8, a1))
-  {
-    return 7;
-  }
-
-  if (qword_100B50950 != -1)
-  {
-    sub_10083E774();
-  }
-
-  v4 = off_100B50948;
-
-  return sub_1003565F4(v4, a1, a2);
-}
-
-uint64_t sub_10051F44C(unint64_t a1, uint64_t a2, unint64_t a3, uint64_t a4, unsigned __int16 a5)
-{
-  if (qword_100B508E0 != -1)
-  {
-    sub_10083E244();
-  }
-
-  if (!sub_100518000(off_100B508D8, a1))
-  {
-    return 7;
-  }
-
-  result = 3;
-  if (a3 - 4294901761u < 2 || !a3)
-  {
-    return result;
-  }
-
-  if (qword_100B508F0 != -1)
-  {
-    sub_10083E4CC();
-  }
-
-  v11 = sub_1000E41C0(off_100B508E8, a3);
-  if (!v11)
-  {
-    return 7;
-  }
-
-  v12 = v11;
-  if (sub_1000DFB74(v11, 0x80000u) != 4)
-  {
-    return 108;
-  }
-
-  if (qword_100B50B88 != -1)
-  {
-    sub_10083E4E0();
-  }
-
-  v13 = sub_1000117DC(qword_100B50B80, a1);
-  if (v13)
-  {
-    v14 = v13;
-    if (sub_100067238())
-    {
-      CTGreenTeaOsLogHandle = getCTGreenTeaOsLogHandle();
-      if (CTGreenTeaOsLogHandle)
-      {
-        v16 = CTGreenTeaOsLogHandle;
-        if (os_log_type_enabled(CTGreenTeaOsLogHandle, OS_LOG_TYPE_INFO))
-        {
-          sub_100018384(v14, v23);
-          v17 = v24;
-          v18 = v23[0];
-          sub_1000E5A58(v12, __p);
-          v19 = v23;
-          if (v17 < 0)
-          {
-            v19 = v18;
-          }
-
-          if (v22 >= 0)
-          {
-            v20 = __p;
-          }
-
-          else
-          {
-            v20 = __p[0];
-          }
-
-          *buf = 136446466;
-          v26 = v19;
-          v27 = 2082;
-          v28 = v20;
-          _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_INFO, "Session %{public}s is asking to send custom data to device %{public}s", buf, 0x16u);
-          if (v22 < 0)
-          {
-            operator delete(__p[0]);
-          }
-
-          if (v24 < 0)
-          {
-            operator delete(v23[0]);
-          }
-        }
-      }
-    }
-  }
-
-  if (qword_100B50950 != -1)
-  {
-    sub_10083E74C();
-  }
-
-  return sub_100330C90(off_100B50948, v12, a2, a5, a4);
-}
-
-void sub_10051F68C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17)
-{
-  if (a17 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-uint64_t sub_10051F6B0(unint64_t a1, unint64_t a2, unsigned __int16 *a3, unsigned __int16 a4)
-{
-  if (qword_100B508E0 != -1)
-  {
-    sub_10083E244();
-  }
-
-  if (!sub_100518000(off_100B508D8, a1))
-  {
-    return 7;
-  }
-
-  result = 3;
-  if (a2 - 4294901761u < 2 || !a2)
-  {
-    return result;
-  }
-
-  if (qword_100B508F0 != -1)
-  {
-    sub_10083E4CC();
-  }
-
-  v9 = sub_1000E41C0(off_100B508E8, a2);
-  if (!v9)
-  {
-    return 7;
-  }
-
-  v10 = v9;
-  if (sub_1000DFB74(v9, 0x80000u) != 4)
-  {
-    return 108;
-  }
-
-  if (qword_100B50B88 != -1)
-  {
-    sub_10083E4E0();
-  }
-
-  v11 = sub_1000117DC(qword_100B50B80, a1);
-  if (v11)
-  {
-    v12 = v11;
-    if (sub_100067238())
-    {
-      CTGreenTeaOsLogHandle = getCTGreenTeaOsLogHandle();
-      if (CTGreenTeaOsLogHandle)
-      {
-        v14 = CTGreenTeaOsLogHandle;
-        if (os_log_type_enabled(CTGreenTeaOsLogHandle, OS_LOG_TYPE_INFO))
-        {
-          sub_100018384(v12, v21);
-          v15 = v22;
-          v16 = v21[0];
-          sub_1000E5A58(v10, __p);
-          v17 = v21;
-          if (v15 < 0)
-          {
-            v17 = v16;
-          }
-
-          if (v20 >= 0)
-          {
-            v18 = __p;
-          }
-
-          else
-          {
-            v18 = __p[0];
-          }
-
-          *buf = 136446466;
-          v24 = v17;
-          v25 = 2082;
-          v26 = v18;
-          _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_INFO, "Session %{public}s simulating receiving AACP Msg from device %{public}s", buf, 0x16u);
-          if (v20 < 0)
-          {
-            operator delete(__p[0]);
-          }
-
-          if (v22 < 0)
-          {
-            operator delete(v21[0]);
-          }
-        }
-      }
-    }
-  }
-
-  if (qword_100B50950 != -1)
-  {
-    sub_10083E74C();
-  }
-
-  return sub_100330DE4(off_100B50948, a2, a3, a4, 0);
-}
-
-void sub_10051F8EC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17)
-{
-  if (a17 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-uint64_t sub_10051F910(unint64_t a1, unint64_t a2, unsigned int a3, unsigned __int8 *a4)
-{
-  if (qword_100B508E0 != -1)
-  {
-    sub_10083E244();
-  }
-
-  if (!sub_100518000(off_100B508D8, a1))
-  {
-    return 7;
-  }
-
-  result = 3;
-  if (a2 - 4294901761u < 2 || !a2)
-  {
-    return result;
-  }
-
-  if (qword_100B508F0 != -1)
-  {
-    sub_10083E4CC();
-  }
-
-  v9 = sub_1000E41C0(off_100B508E8, a2);
-  if (!v9)
-  {
-    return 7;
-  }
-
-  v10 = v9;
-  if (sub_1000DFB74(v9, 0x80000u) != 4)
-  {
-    return 108;
-  }
-
-  if (qword_100B50950 != -1)
-  {
-    sub_10083E774();
-  }
-
-  v11 = off_100B50948;
-
-  return sub_10033FD88(v11, v10, a3, a4);
 }

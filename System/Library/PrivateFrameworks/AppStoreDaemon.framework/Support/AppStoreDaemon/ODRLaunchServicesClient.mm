@@ -15,7 +15,7 @@
   v22 = sub_100397488;
   v23 = &off_100548298;
   objc_opt_self();
-  v8 = sub_100208FBC();
+  v8 = sub_100208FBC(ODRDatabaseStore);
   v12 = _NSConcreteStackBlock;
   v13 = 3221225472;
   v14 = sub_100397490;

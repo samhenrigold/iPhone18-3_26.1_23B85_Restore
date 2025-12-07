@@ -63,7 +63,7 @@
 
   sub_1002FBB48(action, v16, &v17);
 
-  sub_1000079B4(v16, &qword_10076AE40);
+  sub_1000079B4(v16, &qword_10076AE40, &qword_10062EE50);
   v8 = v18;
   if (v18)
   {

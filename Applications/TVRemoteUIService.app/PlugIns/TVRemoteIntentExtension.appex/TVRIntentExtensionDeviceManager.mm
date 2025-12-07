@@ -57,7 +57,7 @@ void __49__TVRIntentExtensionDeviceManager_sharedInstance__block_invoke(id a1)
 
 - (void)dealloc
 {
-  v3 = _TVRIntentExtensionLog();
+  v3 = _TVRIntentExtensionLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
@@ -120,7 +120,7 @@ void __49__TVRIntentExtensionDeviceManager_sharedInstance__block_invoke(id a1)
   else
   {
     v8 = TVRCMakeError();
-    v9 = _TVRIntentExtensionLog();
+    v9 = _TVRIntentExtensionLog(v8);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       [TVRIntentExtensionDeviceManager resolveDeviceWithIdentifier:v8 handler:v9];
@@ -134,9 +134,9 @@ void __71__TVRIntentExtensionDeviceManager_resolveDeviceWithIdentifier_handler__
 {
   v2 = [*(a1 + 32) _cachedDeviceForIdentifier:*(a1 + 40)];
   v3 = v2;
-  if (v2 && [v2 connectionState] == 2)
+  if (v2 && (v2 = [v2 connectionState], v2 == 2))
   {
-    v4 = _TVRIntentExtensionLog();
+    v4 = _TVRIntentExtensionLog(2);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       v5 = *(a1 + 40);
@@ -154,7 +154,7 @@ void __71__TVRIntentExtensionDeviceManager_resolveDeviceWithIdentifier_handler__
 
   else
   {
-    v6 = _TVRIntentExtensionLog();
+    v6 = _TVRIntentExtensionLog(v2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       v7 = *(a1 + 40);
@@ -226,7 +226,7 @@ LABEL_11:
 - (void)_disconnectDeviceWithID:(id)d
 {
   dCopy = d;
-  v5 = _TVRIntentExtensionLog();
+  v5 = _TVRIntentExtensionLog(dCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v15 = 136315394;
@@ -237,7 +237,7 @@ LABEL_11:
   }
 
   v6 = [(TVRIntentExtensionDeviceManager *)self _cachedDeviceForIdentifier:dCopy];
-  v7 = _TVRIntentExtensionLog();
+  v7 = _TVRIntentExtensionLog(v6);
   v8 = v7;
   if (v6)
   {
@@ -269,14 +269,14 @@ LABEL_11:
 - (void)deviceConnected:(id)connected
 {
   connectedCopy = connected;
-  v5 = _TVRIntentExtensionLog();
+  v5 = _TVRIntentExtensionLog(connectedCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v18 = 136315394;
-    v19 = "[TVRIntentExtensionDeviceManager deviceConnected:]";
-    v20 = 2114;
-    v21 = connectedCopy;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "%s, device=%{public}@", &v18, 0x16u);
+    v19 = 136315394;
+    v20 = "[TVRIntentExtensionDeviceManager deviceConnected:]";
+    v21 = 2114;
+    v22 = connectedCopy;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "%s, device=%{public}@", &v19, 0x16u);
   }
 
   identifier = [connectedCopy identifier];
@@ -286,15 +286,15 @@ LABEL_11:
   identifier2 = [connectedCopy identifier];
   [(NSMutableDictionary *)attemptedConnectionDict removeObjectForKey:identifier2];
 
-  v10 = _TVRIntentExtensionLog();
-  v11 = v10;
+  v11 = _TVRIntentExtensionLog(v10);
+  v12 = v11;
   if (v7)
   {
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      v18 = 138543362;
-      v19 = connectedCopy;
-      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Calling handler for device=%{public}@", &v18, 0xCu);
+      v19 = 138543362;
+      v20 = connectedCopy;
+      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Calling handler for device=%{public}@", &v19, 0xCu);
     }
 
     (v7)[2](v7, connectedCopy, 0);
@@ -304,9 +304,9 @@ LABEL_11:
 
   else
   {
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      [(TVRIntentExtensionDeviceManager *)connectedCopy deviceConnected:v11, v12, v13, v14, v15, v16, v17];
+      [(TVRIntentExtensionDeviceManager *)connectedCopy deviceConnected:v12, v13, v14, v15, v16, v17, v18];
     }
   }
 }
@@ -315,54 +315,54 @@ LABEL_11:
 {
   deviceCopy = device;
   errorCopy = error;
-  v10 = _TVRIntentExtensionLog();
+  v10 = _TVRIntentExtensionLog(errorCopy);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    v25 = 136315906;
-    v26 = "[TVRIntentExtensionDeviceManager device:disconnectedForReason:error:]";
-    v27 = 2114;
-    v28 = deviceCopy;
-    v29 = 2048;
+    v26 = 136315906;
+    v27 = "[TVRIntentExtensionDeviceManager device:disconnectedForReason:error:]";
+    v28 = 2114;
+    v29 = deviceCopy;
+    v30 = 2048;
     reasonCopy = reason;
-    v31 = 2114;
-    v32 = errorCopy;
-    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "%s, device=%{public}@, reason=%ld, error=%{public}@", &v25, 0x2Au);
+    v32 = 2114;
+    v33 = errorCopy;
+    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "%s, device=%{public}@, reason=%ld, error=%{public}@", &v26, 0x2Au);
   }
 
   identifierToHandlerMapping = self->_identifierToHandlerMapping;
   identifier = [deviceCopy identifier];
   v13 = [(NSMapTable *)identifierToHandlerMapping objectForKey:identifier];
 
-  v14 = _TVRIntentExtensionLog();
-  identifier2 = v14;
+  v15 = _TVRIntentExtensionLog(v14);
+  identifier2 = v15;
   if (v13)
   {
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
-      v25 = 138543618;
-      v26 = deviceCopy;
-      v27 = 2114;
-      v28 = errorCopy;
-      _os_log_impl(&_mh_execute_header, identifier2, OS_LOG_TYPE_DEFAULT, "Calling handler for device=%{public}@, error=%{public}@", &v25, 0x16u);
+      v26 = 138543618;
+      v27 = deviceCopy;
+      v28 = 2114;
+      v29 = errorCopy;
+      _os_log_impl(&_mh_execute_header, identifier2, OS_LOG_TYPE_DEFAULT, "Calling handler for device=%{public}@, error=%{public}@", &v26, 0x16u);
     }
 
     (v13)[2](v13, 0, errorCopy);
-    v16 = self->_identifierToHandlerMapping;
+    v17 = self->_identifierToHandlerMapping;
     identifier2 = [deviceCopy identifier];
-    [(NSMapTable *)v16 removeObjectForKey:identifier2];
+    [(NSMapTable *)v17 removeObjectForKey:identifier2];
   }
 
-  else if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+  else if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
   {
-    [(TVRIntentExtensionDeviceManager *)deviceCopy deviceConnected:identifier2, v17, v18, v19, v20, v21, v22];
+    [(TVRIntentExtensionDeviceManager *)deviceCopy deviceConnected:identifier2, v18, v19, v20, v21, v22, v23];
   }
 
   identifier3 = [deviceCopy identifier];
-  v24 = [(TVRIntentExtensionDeviceManager *)self _cachedDeviceForIdentifier:identifier3];
+  v25 = [(TVRIntentExtensionDeviceManager *)self _cachedDeviceForIdentifier:identifier3];
 
-  if (v24)
+  if (v25)
   {
-    [(NSMutableSet *)self->_cachedDevices removeObject:v24];
+    [(NSMutableSet *)self->_cachedDevices removeObject:v25];
   }
 }
 
@@ -373,6 +373,20 @@ LABEL_11:
   v4 = 2114;
   v5 = a1;
   _os_log_error_impl(&_mh_execute_header, a2, OS_LOG_TYPE_ERROR, "Invalid identifier passed into %s, error=%{public}@", &v2, 0x16u);
+}
+
+- (void)_disconnectDeviceWithID:(uint64_t)a3 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_2(&_mh_execute_header, a2, a3, "No cached device found with identifier=%{public}@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)deviceConnected:(uint64_t)a3 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_2(&_mh_execute_header, a2, a3, "No handler found for device=%{public}@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

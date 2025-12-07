@@ -1,9 +1,11 @@
 @interface _LSDisplayNameConstructor
 + (NSString)suffixForRemoteXCTests;
 + (id)concatenateBaseName:(id)name andExtension:(id)extension;
++ (id)displayNameConstructorWithContext:(LSContext *)context bundle:(unsigned int)bundle bundleClass:(const unsigned int *)class node:(id)node preferredLocalizations:(id)localizations error:(id *)error;
 + (id)displayNameConstructorWithContext:(LSContext *)context node:(id)node error:(id *)error;
 + (id)displayNameConstructorWithContextIfNeeded:(Context *)needed bundle:(unsigned int)bundle bundleClass:(const unsigned int *)class node:(id)node preferredLocalizations:(id)localizations error:(id *)error;
 + (id)displayNameConstructorWithContextIfNeeded:(Context *)needed node:(id)node error:(id *)error;
++ (id)displayNameConstructorsWithContext:(LSContext *)context bundle:(unsigned int)bundle bundleClass:(const unsigned int *)class node:(id)node error:(id *)error;
 + (id)displayNameConstructorsWithContext:(LSContext *)context node:(id)node error:(id *)error;
 + (id)displayNameConstructorsWithContextIfNeeded:(Context *)needed bundle:(unsigned int)bundle bundleClass:(const unsigned int *)class node:(id)node error:(id *)error;
 + (id)displayNameConstructorsWithContextIfNeeded:(Context *)needed node:(id)node error:(id *)error;
@@ -13,6 +15,7 @@
 - (BOOL)canSetExtensionHiddenWithContext:(LSContext *)context;
 - (BOOL)isStringNaturallyRTL:(id)l;
 - (BOOL)showExtensionWithContextIfNeeded:(Context *)needed asIfShowingAllExtensions:(id)extensions;
+- (_LSDisplayNameConstructor)initWithContextIfNeeded:(Context *)needed node:(id)node isDirectory:(BOOL)directory bundleClass:(const unsigned int *)class desiredDisplayName:(id)name treatAsFSName:(BOOL)sName;
 - (id)cleanSecondaryExtension:(id)extension;
 - (id)combineBaseName:(id)name extension:(id)extension;
 - (id)insertCompleteNameBiDiControlCharacters:(id)characters;
@@ -166,7 +169,7 @@ LABEL_4:
 
 + (NSString)suffixForRemoteXCTests
 {
-  if ([__LSDefaultsGetSharedInstance() isInXCTestRigInsecure])
+  if ([__LSDefaultsGetSharedInstance(self a2)])
   {
     v2 = getenv("LS_SUFFIX_FOR_REMOTE_XCTESTS");
     if (v2)
@@ -186,7 +189,7 @@ LABEL_4:
 + (void)setSuffixForRemoteXCTests:(id)tests
 {
   testsCopy = tests;
-  if ([__LSDefaultsGetSharedInstance() isInXCTestRigInsecure])
+  if ([__LSDefaultsGetSharedInstance(testsCopy v3)])
   {
     if (testsCopy)
     {
@@ -224,6 +227,32 @@ LABEL_4:
   return v9;
 }
 
++ (id)displayNameConstructorWithContext:(LSContext *)context bundle:(unsigned int)bundle bundleClass:(const unsigned int *)class node:(id)node preferredLocalizations:(id)localizations error:(id *)error
+{
+  v11 = *&bundle;
+  nodeCopy = node;
+  localizationsCopy = localizations;
+  contextCopy = context;
+  v21 = 0;
+  v22 = 0;
+  v23 = 0;
+  v16 = [self displayNameConstructorWithContextIfNeeded:&contextCopy bundle:v11 bundleClass:class node:nodeCopy preferredLocalizations:localizationsCopy error:error];
+  if (contextCopy && v22 == 1)
+  {
+    _LSContextDestroy(&contextCopy->db);
+  }
+
+  v17 = v21;
+  contextCopy = 0;
+  v21 = 0;
+
+  v22 = 0;
+  v18 = v23;
+  v23 = 0;
+
+  return v16;
+}
+
 + (id)displayNameConstructorsWithContext:(LSContext *)context node:(id)node error:(id *)error
 {
   nodeCopy = node;
@@ -246,6 +275,31 @@ LABEL_4:
   v16 = 0;
 
   return v9;
+}
+
++ (id)displayNameConstructorsWithContext:(LSContext *)context bundle:(unsigned int)bundle bundleClass:(const unsigned int *)class node:(id)node error:(id *)error
+{
+  v9 = *&bundle;
+  nodeCopy = node;
+  contextCopy = context;
+  v18 = 0;
+  v19 = 0;
+  v20 = 0;
+  v13 = [self displayNameConstructorsWithContextIfNeeded:&contextCopy bundle:v9 bundleClass:class node:nodeCopy error:error];
+  if (contextCopy && v19 == 1)
+  {
+    _LSContextDestroy(&contextCopy->db);
+  }
+
+  v14 = v18;
+  contextCopy = 0;
+  v18 = 0;
+
+  v19 = 0;
+  v15 = v20;
+  v20 = 0;
+
+  return v13;
 }
 
 + (id)displayNameConstructorWithContextIfNeeded:(Context *)needed node:(id)node error:(id *)error
@@ -302,7 +356,7 @@ LABEL_10:
 
 + (id)displayNameConstructorWithContextIfNeeded:(Context *)needed bundle:(unsigned int)bundle bundleClass:(const unsigned int *)class node:(id)node preferredLocalizations:(id)localizations error:(id *)error
 {
-  v45[1] = *MEMORY[0x1E69E9840];
+  v44[1] = *MEMORY[0x1E69E9840];
   bundleCopy = bundle;
   nodeCopy = node;
   localizationsCopy = localizations;
@@ -311,7 +365,7 @@ LABEL_10:
   {
     v15 = 0;
     v16 = 0;
-    v42 = 0;
+    v41 = 0;
     if (![nodeCopy isDirectory])
     {
       goto LABEL_8;
@@ -320,7 +374,7 @@ LABEL_10:
 
   else
   {
-    v42 = 0;
+    v41 = 0;
     v15 = 1;
   }
 
@@ -359,12 +413,12 @@ LABEL_54:
 
   if (!class)
   {
-    if (!_LSDNCGetBundleClass(&needed->_contextPointer, nodeCopy, v16, &v42, error))
+    if (!_LSDNCGetBundleClass(&needed->_contextPointer, nodeCopy, v16, &v41, error))
     {
       goto LABEL_61;
     }
 
-    class = &v42;
+    class = &v41;
   }
 
   if (!*class)
@@ -373,7 +427,7 @@ LABEL_54:
   }
 
   v23 = +[_LSDServiceDomain defaultServiceDomain];
-  v24 = LaunchServices::Database::Context::_get(needed, v23, 0);
+  v24 = LaunchServices::Database::Context::_get(&needed->_contextPointer, v23, 0);
 
   if (!v24)
   {
@@ -385,7 +439,7 @@ LABEL_54:
     goto LABEL_66;
   }
 
-  if (bundleCopy || !_LSFindOrFindOrRegisterBundleNode(v24, nodeCopy, class, 0x2000000u, 0, &bundleCopy, 0))
+  if (bundleCopy || !_LSFindOrFindOrRegisterBundleNode(v24, nodeCopy, class, 0x2000000, 0, &bundleCopy, 0))
   {
     v17 = _LSBundleGetLocalizedName(*v24, bundleCopy, 0, nodeCopy, ls_preferredLocalizations, 0);
     v18 = 0;
@@ -411,9 +465,9 @@ LABEL_23:
   }
 
   v25 = +[_LSDServiceDomain defaultServiceDomain];
-  v38 = LaunchServices::Database::Context::_get(needed, v25, 0);
+  v37 = LaunchServices::Database::Context::_get(&needed->_contextPointer, v25, 0);
 
-  if (v38)
+  if (v37)
   {
     v26 = [nodeCopy extensionWithError:error];
     v27 = v26;
@@ -446,11 +500,11 @@ LABEL_43:
 
         else
         {
-          v41 = 0;
-          v22 = [nodeCopy getResourceValue:&v41 forKey:*MEMORY[0x1E695DDE8] options:1 error:0];
+          v40 = 0;
+          v22 = [nodeCopy getResourceValue:&v40 forKey:*MEMORY[0x1E695DDE8] options:1 error:0];
           if (v22)
           {
-            v17 = v41;
+            v17 = v40;
           }
 
           else
@@ -477,8 +531,8 @@ LABEL_52:
 
       if (class && *class == 10)
       {
-        v37 = [nodeCopy nameWithError:0];
-        if (!v37 || ![(_LSDatabase *)v37 isEqual:@"myDocuments.cannedSearch"])
+        v36 = [nodeCopy nameWithError:0];
+        if (!v36 || ![(_LSDatabase *)v36 isEqual:@"myDocuments.cannedSearch"])
         {
           goto LABEL_39;
         }
@@ -489,11 +543,11 @@ LABEL_52:
           ls_preferredLocalizations = [v29 ls_preferredLocalizations];
         }
 
-        v30 = LaunchServices::CanonicalString::Find(*v38, v37, v28);
+        v30 = LaunchServices::CanonicalString::Find(*v37, v36, v28);
         if (v30)
         {
           LocalizedString = LaunchServices::CanonicalString::getLocalizedString(v30);
-          v17 = LaunchServices::LocalizedString::localizeUnsafely(LocalizedString, *v38, ls_preferredLocalizations);
+          v17 = LaunchServices::LocalizedString::localizeUnsafely(LocalizedString, *v37, ls_preferredLocalizations);
 
           if (v17)
           {
@@ -509,16 +563,16 @@ LABEL_39:
 
       if ([nodeCopy canIssueIO])
       {
-        v17 = _LSBundleGetDisplayNameForNodeWithUnregisteredBundleType(v38, nodeCopy, v27, 0);
+        v17 = _LSBundleGetDisplayNameForNodeWithUnregisteredBundleType(v37, nodeCopy, v27, 0);
         goto LABEL_42;
       }
 
       if (error)
       {
-        v44 = *MEMORY[0x1E696A278];
-        v45[0] = @"node had unregistered bundle type but can't issue IO to localize its name";
-        v36 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v45 forKeys:&v44 count:1];
-        *error = _LSMakeNSErrorImpl(*MEMORY[0x1E696A798], 5, v36, "+[_LSDisplayNameConstructor(ConstructForAnyFile) displayNameConstructorWithContextIfNeeded:bundle:bundleClass:node:preferredLocalizations:error:]", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Base/LSDisplayNameConstructor.mm", 444);
+        v43 = *MEMORY[0x1E696A278];
+        v44[0] = @"node had unregistered bundle type but can't issue IO to localize its name";
+        v35 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v44 forKeys:&v43 count:1];
+        *error = _LSMakeNSErrorImpl(*MEMORY[0x1E696A798], 5, v35, "+[_LSDisplayNameConstructor(ConstructForAnyFile) displayNameConstructorWithContextIfNeeded:bundle:bundleClass:node:preferredLocalizations:error:]", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Base/LSDisplayNameConstructor.mm", 444);
       }
 
 LABEL_61:
@@ -541,8 +595,6 @@ LABEL_66:
   *error = v33 = 0;
 LABEL_55:
 
-  v34 = *MEMORY[0x1E69E9840];
-
   return v33;
 }
 
@@ -555,7 +607,7 @@ LABEL_55:
 
 + (id)displayNameConstructorsWithContextIfNeeded:(Context *)needed bundle:(unsigned int)bundle bundleClass:(const unsigned int *)class node:(id)node error:(id *)error
 {
-  v62[1] = *MEMORY[0x1E69E9840];
+  v61[1] = *MEMORY[0x1E69E9840];
   bundleCopy = bundle;
   nodeCopy = node;
   isVolume = [nodeCopy isVolume];
@@ -569,16 +621,16 @@ LABEL_55:
     isDirectory = [nodeCopy isDirectory];
   }
 
-  v59 = 0;
+  v58 = 0;
   v14 = _LSGetBRDisplayNameForSideFaultFileNode(nodeCopy);
-  v58 = v14;
+  v57 = v14;
 
   if (!v14)
   {
     if (isVolume)
     {
-      [nodeCopy getResourceValue:&v58 forKey:*MEMORY[0x1E695DDE8] options:1 error:error];
-      v15 = v58;
+      [nodeCopy getResourceValue:&v57 forKey:*MEMORY[0x1E695DDE8] options:1 error:error];
+      v15 = v57;
       if (v15)
       {
         goto LABEL_12;
@@ -588,8 +640,8 @@ LABEL_55:
     }
 
     v17 = [nodeCopy nameWithError:error];
-    v18 = v58;
-    v58 = v17;
+    v18 = v57;
+    v57 = v17;
 
     v15 = v17;
 LABEL_11:
@@ -625,19 +677,19 @@ LABEL_12:
 
   else
   {
-    if ((_LSDNCGetBundleClass(&needed->_contextPointer, nodeCopy, isDirectory, &v59, error) & 1) == 0)
+    if ((_LSDNCGetBundleClass(&needed->_contextPointer, nodeCopy, isDirectory, &v58, error) & 1) == 0)
     {
       goto LABEL_36;
     }
 
-    class = &v59;
+    class = &v58;
     if (!isDirectory)
     {
 LABEL_46:
       v37 = [dictionary objectForKeyedSubscript:@"LSDefaultLocalizedValue"];
       v38 = v37 == 0;
 
-      if (v58)
+      if (v57)
       {
         v39 = v38;
       }
@@ -650,7 +702,7 @@ LABEL_46:
       if (v39)
       {
         v40 = [selfCopy alloc];
-        v41 = [v40 initWithContextIfNeeded:needed node:nodeCopy isDirectory:isDirectory bundleClass:class desiredDisplayName:v58 treatAsFSName:1];
+        v41 = [v40 initWithContextIfNeeded:needed node:nodeCopy isDirectory:isDirectory bundleClass:class desiredDisplayName:v57 treatAsFSName:1];
         [dictionary setObject:v41 forKeyedSubscript:@"LSDefaultLocalizedValue"];
       }
 
@@ -665,19 +717,19 @@ LABEL_46:
   }
 
   v21 = +[_LSDServiceDomain defaultServiceDomain];
-  v22 = LaunchServices::Database::Context::_get(needed, v21, 0);
+  v22 = LaunchServices::Database::Context::_get(&needed->_contextPointer, v21, 0);
 
   if (v22)
   {
-    v47 = [nodeCopy extensionWithError:0];
+    v46 = [nodeCopy extensionWithError:0];
     v23 = bundleCopy;
-    if (bundleCopy || (_LSFindOrFindOrRegisterBundleNode(v22, nodeCopy, class, 0x2000000u, 0, &bundleCopy, 0), (v23 = bundleCopy) != 0))
+    if (bundleCopy || (_LSFindOrFindOrRegisterBundleNode(v22, nodeCopy, class, 0x2000000, 0, &bundleCopy, 0), (v23 = bundleCopy) != 0))
     {
       v24 = _LSBundleGetLocalizedNameDictionary(*v22, v23, nodeCopy, v15);
       if (v24)
       {
 LABEL_44:
-        v25 = v47;
+        v25 = v46;
         goto LABEL_45;
       }
     }
@@ -687,13 +739,13 @@ LABEL_44:
       v24 = 0;
     }
 
-    v25 = v47;
-    if (!v47)
+    v25 = v46;
+    if (!v46)
     {
       goto LABEL_45;
     }
 
-    if (([v47 length] == 0) | isVolume & 1 || !_LSBundleNodeHasUnregisteredPersonality(v22, nodeCopy, v47, class))
+    if (([v46 length] == 0) | isVolume & 1 || !_LSBundleNodeHasUnregisteredPersonality(v22, nodeCopy, v46, class))
     {
 LABEL_43:
       v24 = 0;
@@ -718,7 +770,7 @@ LABEL_43:
       LocalizedString = LaunchServices::CanonicalString::getLocalizedString(v29);
       v24 = LaunchServices::LocalizedString::getAllUnsafeLocalizations(LocalizedString, *v22, 0, 0, 0);
 
-      v25 = v47;
+      v25 = v46;
       if (!v24)
       {
 LABEL_38:
@@ -740,11 +792,11 @@ LABEL_38:
 
               else
               {
-                v44 = _LSBundleGetLocalizer(*v22, 0, 0, nodeCopy);
-                v45 = v44;
-                if (v44)
+                v43 = _LSBundleGetLocalizer(*v22, 0, 0, nodeCopy);
+                v44 = v43;
+                if (v43)
                 {
-                  v24 = [v44 localizedStringDictionaryWithString:v34 defaultValue:0];
+                  v24 = [v43 localizedStringDictionaryWithString:v34 defaultValue:0];
                 }
 
                 else
@@ -772,29 +824,29 @@ LABEL_38:
       }
 
 LABEL_45:
-      v49[0] = MEMORY[0x1E69E9820];
-      v49[1] = 3221225472;
-      v49[2] = __123___LSDisplayNameConstructor_ConstructForAnyFile__displayNameConstructorsWithContextIfNeeded_bundle_bundleClass_node_error___block_invoke;
-      v49[3] = &unk_1E6A1BF20;
+      v48[0] = MEMORY[0x1E69E9820];
+      v48[1] = 3221225472;
+      v48[2] = __123___LSDisplayNameConstructor_ConstructForAnyFile__displayNameConstructorsWithContextIfNeeded_bundle_bundleClass_node_error___block_invoke;
+      v48[3] = &unk_1E6A1BF20;
       v36 = v25;
-      v56 = 1;
-      v50 = v36;
-      v53 = selfCopy;
-      v51 = dictionary;
+      v55 = 1;
+      v49 = v36;
+      v52 = selfCopy;
+      v50 = dictionary;
       neededCopy = needed;
-      v57 = isDirectory;
-      v52 = nodeCopy;
+      v56 = isDirectory;
+      v51 = nodeCopy;
       classCopy = class;
-      [v24 enumerateKeysAndObjectsUsingBlock:v49];
+      [v24 enumerateKeysAndObjectsUsingBlock:v48];
 
       goto LABEL_46;
     }
 
     if (error)
     {
-      v61 = *MEMORY[0x1E696A278];
-      v62[0] = @"node had unregistered personality but cannot do IO to localize its name";
-      v31 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v62 forKeys:&v61 count:1];
+      v60 = *MEMORY[0x1E696A278];
+      v61[0] = @"node had unregistered personality but cannot do IO to localize its name";
+      v31 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v61 forKeys:&v60 count:1];
       *error = _LSMakeNSErrorImpl(*MEMORY[0x1E696A798], 5, v31, "+[_LSDisplayNameConstructor(ConstructForAnyFile) displayNameConstructorsWithContextIfNeeded:bundle:bundleClass:node:error:]", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Base/LSDisplayNameConstructor.mm", 628);
     }
   }
@@ -811,7 +863,6 @@ LABEL_36:
 LABEL_52:
 
 LABEL_53:
-  v42 = *MEMORY[0x1E69E9840];
 
   return v16;
 }
@@ -853,6 +904,56 @@ LABEL_53:
   return v6;
 }
 
+- (_LSDisplayNameConstructor)initWithContextIfNeeded:(Context *)needed node:(id)node isDirectory:(BOOL)directory bundleClass:(const unsigned int *)class desiredDisplayName:(id)name treatAsFSName:(BOOL)sName
+{
+  sNameCopy = sName;
+  directoryCopy = directory;
+  nodeCopy = node;
+  nameCopy = name;
+  v21.receiver = self;
+  v21.super_class = _LSDisplayNameConstructor;
+  v17 = [(_LSDisplayNameConstructor *)&v21 init];
+  if (nodeCopy)
+  {
+    if (nameCopy)
+    {
+      goto LABEL_3;
+    }
+
+LABEL_7:
+    currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
+    [currentHandler handleFailureInMethod:a2 object:v17 file:@"LSDisplayNameConstructor.mm" lineNumber:880 description:{@"Invalid parameter not satisfying: %@", @"displayName != nil"}];
+
+    if (!v17)
+    {
+      goto LABEL_5;
+    }
+
+    goto LABEL_4;
+  }
+
+  currentHandler2 = [MEMORY[0x1E696AAA8] currentHandler];
+  [currentHandler2 handleFailureInMethod:a2 object:v17 file:@"LSDisplayNameConstructor.mm" lineNumber:879 description:{@"Invalid parameter not satisfying: %@", @"node != NULL"}];
+
+  if (!nameCopy)
+  {
+    goto LABEL_7;
+  }
+
+LABEL_3:
+  if (v17)
+  {
+LABEL_4:
+    [(_LSDisplayNameConstructor *)v17 initNodeBitsWithContextIfNeeded:needed node:nodeCopy isDirectory:directoryCopy bundleClass:class];
+    [(_LSDisplayNameConstructor *)v17 initContentBitsWithDisplayName:nameCopy treatAsFSName:sNameCopy];
+    [(_LSDisplayNameConstructor *)v17 initNamePartsWithDisplayName:nameCopy];
+  }
+
+LABEL_5:
+
+  return v17;
+}
+
 + (void)getExtensionRange:(_NSRange *)range secondaryExtensionRange:(_NSRange *)extensionRange fromFileName:(id)name considerConfusables:(BOOL)confusables
 {
   _CFGetPathExtensionRangesFromPathComponent();
@@ -878,7 +979,7 @@ LABEL_53:
   if (directoryCopy)
   {
     v11 = +[_LSDServiceDomain defaultServiceDomain];
-    v12 = LaunchServices::Database::Context::_get(needed, v11, 0);
+    v12 = LaunchServices::Database::Context::_get(&needed->_contextPointer, v11, 0);
 
     v10 = *(self + 32) & 0xFD | (2 * (_LSNodeIsPackage(v12, nodeCopy, 0) == 0));
     *(self + 32) = v10;

@@ -11,9 +11,9 @@
     +[NSBundle(JFX) jfxBundle];
   }
 
-  v1 = jfxBundle_jfxBundle;
+  v2 = jfxBundle_jfxBundle;
 
-  return v1;
+  return v2;
 }
 
 @end

@@ -59,17 +59,17 @@
 
 - (SCNAnimationPlayer)initWithAnimationPlayerRef:(__C3DAnimationPlayer *)ref
 {
-  v7.receiver = self;
-  v7.super_class = SCNAnimationPlayer;
-  v4 = [(SCNAnimationPlayer *)&v7 init];
+  v11.receiver = self;
+  v11.super_class = SCNAnimationPlayer;
+  v4 = [(SCNAnimationPlayer *)&v11 init];
   if (v4)
   {
     v5 = CFRetain(ref);
     v4->_playerRef = v5;
-    v4->_animation = [SCNAnimation animationWithC3DAnimation:C3DAnimationPlayerGetAnimation(v5)];
-    v4->_weight = C3DAnimationPlayerGetWeight(ref);
-    v4->_speed = C3DAnimationPlayerGetSpeed(ref);
-    v4->_paused = C3DAnimationPlayerGetPaused(ref);
+    v4->_animation = [SCNAnimation animationWithC3DAnimation:C3DAnimationPlayerGetAnimation(v5, v6)];
+    v4->_weight = C3DAnimationPlayerGetWeight(ref, v7);
+    v4->_speed = C3DAnimationPlayerGetSpeed(ref, v8);
+    v4->_paused = C3DAnimationPlayerGetPaused(ref, v9);
     v4->_animationsLock._os_unfair_lock_opaque = 0;
     [(SCNAnimationPlayer *)v4 _syncObjCAnimations];
   }
@@ -86,12 +86,13 @@
 
 - (SCNAnimationPlayer)initWithSCNAnimation:(id)animation
 {
-  v6.receiver = self;
-  v6.super_class = SCNAnimationPlayer;
-  v4 = [(SCNAnimationPlayer *)&v6 init];
+  v8.receiver = self;
+  v8.super_class = SCNAnimationPlayer;
+  v4 = [(SCNAnimationPlayer *)&v8 init];
   if (v4)
   {
-    v4->_playerRef = C3DAnimationPlayerCreateWithAnimation([animation animationRef]);
+    animationRef = [animation animationRef];
+    v4->_playerRef = C3DAnimationPlayerCreateWithAnimation(animationRef, v6);
     v4->_animation = animation;
     v4->_animationsLock._os_unfair_lock_opaque = 0;
     [(SCNAnimationPlayer *)v4 commonInit];
@@ -137,14 +138,15 @@
 
     if (animation)
     {
-      v7 = C3DAnimationPlayerCreateWithAnimation([animation animationRef]);
-      self->_playerRef = v7;
-      C3DAnimationPlayerSetWeight(v7, self->_weight);
-      C3DAnimationPlayerSetSpeed(self->_playerRef, self->_speed);
-      v8 = self->_playerRef;
+      animationRef = [animation animationRef];
+      v9 = C3DAnimationPlayerCreateWithAnimation(animationRef, v8);
+      self->_playerRef = v9;
+      C3DAnimationPlayerSetWeight(v9, v10, self->_weight);
+      C3DAnimationPlayerSetSpeed(self->_playerRef, v11, self->_speed);
+      v12 = self->_playerRef;
       paused = self->_paused;
 
-      C3DAnimationPlayerSetPaused(v8, paused);
+      C3DAnimationPlayerSetPaused(v12, paused);
     }
   }
 }
@@ -178,7 +180,7 @@
   if (result)
   {
 
-    return C3DSceneGetAnimationManager(result);
+    return C3DSceneGetAnimationManager(result, v3);
   }
 
   return result;
@@ -197,12 +199,13 @@
   {
     [(SCNOrderedDictionary *)self->_animations removeObjectForKey:key];
     __CFObject = [(SCNAnimationPlayer *)self __CFObject];
-    if ((CFTypeIsC3DEntity(__CFObject) & 1) == 0)
+    v9 = CFTypeIsC3DEntity(__CFObject);
+    if ((v9 & 1) == 0)
     {
-      v9 = scn_default_log();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
+      v11 = scn_default_log(v9, v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
       {
-        [(SCNNode *)v9 __removeAnimation:v10 forKey:v11, v12, v13, v14, v15, v16];
+        [(SCNNode *)v11 __removeAnimation:v12 forKey:v13, v14, v15, v16, v17, v18];
       }
     }
 
@@ -246,7 +249,7 @@
 
   else
   {
-    v9 = scn_default_log();
+    v9 = scn_default_log(self, a2);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       [SCNMaterial addAnimationPlayer:forKey:];
@@ -292,7 +295,7 @@ void __48__SCNAnimationPlayer_addAnimationPlayer_forKey___block_invoke(uint64_t 
 
   else
   {
-    v8 = scn_default_log();
+    v8 = scn_default_log(self, a2);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       [SCNMaterial addAnimation:forKey:];
@@ -385,10 +388,10 @@ void __48__SCNAnimationPlayer_addAnimationPlayer_forKey___block_invoke(uint64_t 
 - (void)_syncObjCAnimations
 {
   sceneRef = [(SCNAnimationPlayer *)self sceneRef];
-  v4 = sceneRef;
+  v5 = sceneRef;
   if (sceneRef)
   {
-    C3DSceneLock(sceneRef);
+    C3DSceneLock(sceneRef, v4);
   }
 
   os_unfair_lock_lock(&self->_animationsLock);
@@ -398,29 +401,30 @@ void __48__SCNAnimationPlayer_addAnimationPlayer_forKey___block_invoke(uint64_t 
   __CFObject = [(SCNAnimationPlayer *)self __CFObject];
   if (__CFObject)
   {
-    v6 = __CFObject;
-    if ((CFTypeIsC3DEntity(__CFObject) & 1) == 0)
+    v8 = __CFObject;
+    v9 = CFTypeIsC3DEntity(__CFObject);
+    if ((v9 & 1) == 0)
     {
-      v7 = scn_default_log();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
+      v11 = scn_default_log(v9, v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
       {
-        [(SCNNode *)v7 _syncObjCAnimations:v8];
+        [(SCNNode *)v11 _syncObjCAnimations:v10];
       }
     }
 
-    Animations = C3DEntityGetAnimations(v6);
+    Animations = C3DEntityGetAnimations(v8, v10);
     if (Animations)
     {
-      v16 = Animations;
+      v19 = Animations;
       os_unfair_lock_lock(&self->_animationsLock);
-      C3DOrderedDictionaryApplyFunction(v16, SCNConvertC3DAnimationDictionaryFunc, self->_animations);
+      C3DOrderedDictionaryApplyFunction(v19, SCNConvertC3DAnimationDictionaryFunc, self->_animations);
       os_unfair_lock_unlock(&self->_animationsLock);
     }
   }
 
-  if (v4)
+  if (v5)
   {
-    C3DSceneUnlock(v4);
+    C3DSceneUnlock(v5, v7);
   }
 }
 
@@ -589,21 +593,21 @@ void __47__SCNAnimationPlayer_setSpeed_forAnimationKey___block_invoke(uint64_t a
 - (BOOL)isAnimationForKeyPaused:(id)paused
 {
   sceneRef = [(SCNAnimationPlayer *)self sceneRef];
-  v6 = sceneRef;
+  v7 = sceneRef;
   if (sceneRef)
   {
-    C3DSceneLock(sceneRef);
+    C3DSceneLock(sceneRef, v6);
   }
 
   __CFObject = [(SCNAnimationPlayer *)self __CFObject];
   if (__CFObject)
   {
-    v8 = __CFObject;
+    v10 = __CFObject;
     animationManager = [(SCNAnimationPlayer *)self animationManager];
     if (animationManager)
     {
-      IsPaused = C3DAnimationManagerGetAnimationForKeyIsPaused(animationManager, v8, paused);
-      if (!v6)
+      IsPaused = C3DAnimationManagerGetAnimationForKeyIsPaused(animationManager, v10, paused);
+      if (!v7)
       {
         return IsPaused;
       }
@@ -613,10 +617,10 @@ void __47__SCNAnimationPlayer_setSpeed_forAnimationKey___block_invoke(uint64_t a
   }
 
   IsPaused = 0;
-  if (v6)
+  if (v7)
   {
 LABEL_8:
-    C3DSceneUnlock(v6);
+    C3DSceneUnlock(v7, v9);
   }
 
   return IsPaused;
@@ -710,14 +714,14 @@ void __39__SCNAnimationPlayer_removeAllBindings__block_invoke(uint64_t a1)
 {
   v1 = [*(a1 + 32) __CFObject];
 
-  C3DEntityRemoveAllBindings(v1);
+  C3DEntityRemoveAllBindings(v1, v2);
 }
 
 - (__C3DScene)sceneRef
 {
   __CFObject = [(SCNAnimationPlayer *)self __CFObject];
 
-  return C3DGetScene(__CFObject);
+  return C3DGetScene(__CFObject, v3);
 }
 
 - (id)scene
@@ -742,10 +746,10 @@ void __39__SCNAnimationPlayer_removeAllBindings__block_invoke(uint64_t a1)
   }
 }
 
-float __37__SCNAnimationPlayer_setBlendFactor___block_invoke(uint64_t a1)
+float __37__SCNAnimationPlayer_setBlendFactor___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 40);
-  C3DAnimationPlayerSetWeight(*(*(a1 + 32) + 8), v1);
+  v2 = *(a1 + 40);
+  C3DAnimationPlayerSetWeight(*(*(a1 + 32) + 8), a2, v2);
   return result;
 }
 
@@ -759,10 +763,10 @@ float __37__SCNAnimationPlayer_setBlendFactor___block_invoke(uint64_t a1)
   }
 }
 
-float __31__SCNAnimationPlayer_setSpeed___block_invoke(uint64_t a1)
+float __31__SCNAnimationPlayer_setSpeed___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 40);
-  C3DAnimationPlayerSetSpeed(*(*(a1 + 32) + 8), v1);
+  v2 = *(a1 + 40);
+  C3DAnimationPlayerSetSpeed(*(*(a1 + 32) + 8), a2, v2);
   return result;
 }
 

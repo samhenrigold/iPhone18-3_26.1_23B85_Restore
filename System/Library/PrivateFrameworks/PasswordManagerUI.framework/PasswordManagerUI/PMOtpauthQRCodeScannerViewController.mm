@@ -7,6 +7,8 @@
 - (void)captureOutput:(id)output didOutputMetadataObjects:(id)objects fromConnection:(id)connection;
 - (void)viewDidLayoutSubviews;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
+- (void)viewWillDisappear:(BOOL)disappear;
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id)coordinator;
 @end
 
@@ -14,10 +16,10 @@
 
 - (void)viewDidLoad
 {
-  v26[4] = *MEMORY[0x277D85DE8];
-  v25.receiver = self;
-  v25.super_class = PMOtpauthQRCodeScannerViewController;
-  [(PMOtpauthQRCodeScannerViewController *)&v25 viewDidLoad];
+  v25[4] = *MEMORY[0x277D85DE8];
+  v24.receiver = self;
+  v24.super_class = PMOtpauthQRCodeScannerViewController;
+  [(PMOtpauthQRCodeScannerViewController *)&v24 viewDidLoad];
   view = [(PMOtpauthQRCodeScannerViewController *)self view];
   [view setOpaque:1];
   v4 = objc_alloc_init(MEMORY[0x277D75D18]);
@@ -26,25 +28,25 @@
 
   [(UIView *)self->_viewfinderView setTranslatesAutoresizingMaskIntoConstraints:0];
   [view addSubview:self->_viewfinderView];
-  v19 = MEMORY[0x277CCAAD0];
+  v18 = MEMORY[0x277CCAAD0];
   topAnchor = [(UIView *)self->_viewfinderView topAnchor];
   topAnchor2 = [view topAnchor];
-  v22 = [topAnchor constraintEqualToAnchor:topAnchor2];
-  v26[0] = v22;
+  v21 = [topAnchor constraintEqualToAnchor:topAnchor2];
+  v25[0] = v21;
   rightAnchor = [(UIView *)self->_viewfinderView rightAnchor];
   rightAnchor2 = [view rightAnchor];
-  v18 = [rightAnchor constraintEqualToAnchor:rightAnchor2];
-  v26[1] = v18;
+  v17 = [rightAnchor constraintEqualToAnchor:rightAnchor2];
+  v25[1] = v17;
   bottomAnchor = [(UIView *)self->_viewfinderView bottomAnchor];
   bottomAnchor2 = [view bottomAnchor];
   v8 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
-  v26[2] = v8;
+  v25[2] = v8;
   leftAnchor = [(UIView *)self->_viewfinderView leftAnchor];
   leftAnchor2 = [view leftAnchor];
   v11 = [leftAnchor constraintEqualToAnchor:leftAnchor2];
-  v26[3] = v11;
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:4];
-  [v19 activateConstraints:v12];
+  v25[3] = v11;
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:4];
+  [v18 activateConstraints:v12];
 
   [(PMOtpauthQRCodeScannerViewController *)self _configureCaptureSession];
   v13 = [MEMORY[0x277CE5B68] layerWithSession:self->_captureSession];
@@ -59,8 +61,34 @@
   [(PMOtpauthQRCodeScannerViewController *)self _updatePreviewLayerOrientation];
   layer2 = [(UIView *)self->_viewfinderView layer];
   [layer2 addSublayer:self->_previewLayer];
+}
 
-  v17 = *MEMORY[0x277D85DE8];
+- (void)viewWillAppear:(BOOL)appear
+{
+  v6.receiver = self;
+  v6.super_class = PMOtpauthQRCodeScannerViewController;
+  [(PMOtpauthQRCodeScannerViewController *)&v6 viewWillAppear:appear];
+  v4 = dispatch_get_global_queue(0, 0);
+  block[0] = MEMORY[0x277D85DD0];
+  block[1] = 3221225472;
+  block[2] = __55__PMOtpauthQRCodeScannerViewController_viewWillAppear___block_invoke;
+  block[3] = &unk_27831C9D8;
+  block[4] = self;
+  dispatch_async(v4, block);
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  v6.receiver = self;
+  v6.super_class = PMOtpauthQRCodeScannerViewController;
+  [(PMOtpauthQRCodeScannerViewController *)&v6 viewWillDisappear:disappear];
+  v4 = dispatch_get_global_queue(0, 0);
+  block[0] = MEMORY[0x277D85DD0];
+  block[1] = 3221225472;
+  block[2] = __58__PMOtpauthQRCodeScannerViewController_viewWillDisappear___block_invoke;
+  block[3] = &unk_27831C9D8;
+  block[4] = self;
+  dispatch_async(v4, block);
 }
 
 - (void)viewDidLayoutSubviews
@@ -90,22 +118,22 @@
   if (type == v8)
   {
     stringValue = [firstObject stringValue];
-    v10 = [MEMORY[0x277CBEBC0] URLWithString:stringValue relativeToURL:0];
-    if (v10)
+    v11 = [MEMORY[0x277CBEBC0] URLWithString:stringValue relativeToURL:0];
+    if (v11)
     {
       WeakRetained = objc_loadWeakRetained(&self->_delegate);
       if (objc_opt_respondsToSelector())
       {
-        [WeakRetained QRCodeScannerViewController:self didScanQRCodeWithURLValue:v10];
+        [WeakRetained QRCodeScannerViewController:self didScanQRCodeWithURLValue:v11];
       }
     }
 
     else
     {
-      v12 = WBS_LOG_CHANNEL_PREFIXPasswords();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+      v13 = WBS_LOG_CHANNEL_PREFIXPasswords(0, v10);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
       {
-        [PMOtpauthQRCodeScannerViewController captureOutput:stringValue didOutputMetadataObjects:v12 fromConnection:?];
+        [PMOtpauthQRCodeScannerViewController captureOutput:stringValue didOutputMetadataObjects:v13 fromConnection:?];
       }
     }
   }
@@ -120,14 +148,12 @@
 
 - (void)_configureCaptureSession
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   safari_privacyPreservingDescription = [a2 safari_privacyPreservingDescription];
-  v6 = 138412290;
-  v7 = safari_privacyPreservingDescription;
-  _os_log_error_impl(&dword_21C6E5000, selfCopy, OS_LOG_TYPE_ERROR, "Unable to create input for QR code capture device. %@", &v6, 0xCu);
-
-  v5 = *MEMORY[0x277D85DE8];
+  v5 = 138412290;
+  v6 = safari_privacyPreservingDescription;
+  _os_log_error_impl(&dword_21C6E5000, selfCopy, OS_LOG_TYPE_ERROR, "Unable to create input for QR code capture device. %@", &v5, 0xCu);
 }
 
 void __64__PMOtpauthQRCodeScannerViewController__configureCaptureSession__block_invoke(uint64_t a1, char a2)
@@ -171,11 +197,10 @@ void __64__PMOtpauthQRCodeScannerViewController__configureCaptureSession__block_
 
 - (void)captureOutput:(uint64_t)a1 didOutputMetadataObjects:(NSObject *)a2 fromConnection:.cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_debug_impl(&dword_21C6E5000, a2, OS_LOG_TYPE_DEBUG, "QR code does not contain a valid URL. %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_debug_impl(&dword_21C6E5000, a2, OS_LOG_TYPE_DEBUG, "QR code does not contain a valid URL. %@", &v2, 0xCu);
 }
 
 @end

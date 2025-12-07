@@ -57,7 +57,7 @@
 
   else
   {
-    +[PXDemoTilingControllerWidgetLayout backgroundTileIdentifier];
+    objc_msgSend_backgroundTileIdentifier(PXDemoTilingControllerWidgetLayout);
     v11 = *&identifier->index[5];
     v22[2] = *&identifier->index[3];
     v22[3] = v11;
@@ -133,7 +133,7 @@
 
   else
   {
-    +[PXDemoTilingControllerWidgetLayout backgroundTileIdentifier];
+    objc_msgSend_backgroundTileIdentifier(PXDemoTilingControllerWidgetLayout);
     v12 = *&identifier->index[5];
     v26[2] = *&identifier->index[3];
     v26[3] = v12;

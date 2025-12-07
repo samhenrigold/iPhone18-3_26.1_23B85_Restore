@@ -23,7 +23,7 @@
 - (BOOL)getValue:(id)value
 {
   valueCopy = value;
-  CCPreferences::create(cf, valueCopy);
+  CCPreferences::create(valueCopy);
   v4 = cf[0];
   v5 = cf[1];
   cf[0] = 0;

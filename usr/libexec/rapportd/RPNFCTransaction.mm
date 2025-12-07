@@ -367,90 +367,108 @@ LABEL_13:
 
 - (NSString)description
 {
-  NSAppendPrintF();
-  v3 = 0;
+  v41 = 0;
+  NSAppendPrintF(&v41, "RPNFCTransaction\n");
+  v3 = v41;
   v4 = v3;
   identifier = self->_identifier;
   if (identifier)
   {
-    v31 = v3;
-    v23 = identifier;
-    NSAppendPrintF();
-    v6 = v31;
+    v40 = v3;
+    v6 = identifier;
+    NSAppendPrintF(&v40, "ID %@\n", v6);
+    v7 = v40;
 
-    v4 = v6;
+    v4 = v7;
   }
 
-  state = self->_state;
-  v24 = RPNearFieldTransactionStateDescription();
-  NSAppendPrintF();
-  v8 = v4;
+  v39 = v4;
+  v8 = RPNearFieldTransactionStateDescription();
+  NSAppendPrintF(&v39, "State %@\n", v8);
+  v9 = v39;
 
   connectionDate = self->_connectionDate;
   if (connectionDate)
   {
-    v25 = connectionDate;
-    NSAppendPrintF();
-    v10 = v8;
+    v38 = v9;
+    v11 = connectionDate;
+    NSAppendPrintF(&v38, "ConnectionDate %@\n", v11);
+    v12 = v38;
 
-    v8 = v10;
+    v9 = v12;
   }
 
   tapEvent = self->_tapEvent;
   if (tapEvent)
   {
-    v26 = tapEvent;
-    NSAppendPrintF();
-    v12 = v8;
+    v37 = v9;
+    v14 = tapEvent;
+    NSAppendPrintF(&v37, "TapEvent %@\n", v14);
+    v15 = v37;
 
-    v8 = v12;
+    v9 = v15;
   }
 
   remoteIdentity = self->_remoteIdentity;
   if (remoteIdentity)
   {
-    v27 = remoteIdentity;
-    NSAppendPrintF();
-    v14 = v8;
+    v36 = v9;
+    v17 = remoteIdentity;
+    NSAppendPrintF(&v36, "RemoteIdentity %@\n", v17);
+    v18 = v36;
 
-    v8 = v14;
+    v9 = v18;
   }
 
   remoteAuthenticationMessage = self->_remoteAuthenticationMessage;
   if (remoteAuthenticationMessage)
   {
-    v28 = remoteAuthenticationMessage;
-    NSAppendPrintF();
-    v16 = v8;
+    v35 = v9;
+    v20 = remoteAuthenticationMessage;
+    NSAppendPrintF(&v35, "RemoteAuthenticationMessage %@\n", v20);
+    v21 = v35;
 
-    v8 = v16;
+    v9 = v21;
   }
 
   remoteValidationMessage = self->_remoteValidationMessage;
   if (remoteValidationMessage)
   {
-    v29 = remoteValidationMessage;
-    NSAppendPrintF();
-    v18 = v8;
+    v34 = v9;
+    v23 = remoteValidationMessage;
+    NSAppendPrintF(&v34, "RemoteValidationMessage %@\n", v23);
+    v24 = v34;
 
-    v8 = v18;
+    v9 = v24;
   }
 
   error = self->_error;
   if (error)
   {
-    v30 = error;
-    NSAppendPrintF();
-    v20 = v8;
+    v33 = v9;
+    v26 = error;
+    NSAppendPrintF(&v33, "Error %@\n", v26);
+    v27 = v33;
 
-    v8 = v20;
+    v9 = v27;
   }
 
-  self->_role;
-  NSAppendPrintF();
-  v21 = v8;
+  v32 = v9;
+  if (self->_role == 1)
+  {
+    v28 = @"Initiator";
+  }
 
-  return v8;
+  else
+  {
+    v28 = @"Receiver";
+  }
+
+  NSAppendPrintF(&v32, "Role %@\n", v28);
+  v29 = v32;
+  v30 = v32;
+
+  return v29;
 }
 
 - (RPNFCTransactionDelegate)delegate

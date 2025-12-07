@@ -118,7 +118,7 @@ LABEL_5:
     {
       if (downloadSessionState != 7)
       {
-        goto LABEL_21;
+        goto LABEL_22;
       }
 
       if (v4)
@@ -165,43 +165,47 @@ LABEL_5:
   shouldLog = [v11 shouldLog];
   if ([v11 shouldLogToDisk])
   {
-    v13 = shouldLog | 2;
+    LODWORD(v13) = shouldLog | 2;
   }
 
   else
   {
-    v13 = shouldLog;
+    LODWORD(v13) = shouldLog;
   }
 
-  if (!os_log_type_enabled([v11 OSLogObject], OS_LOG_TYPE_DEBUG))
+  oSLogObject = [v11 OSLogObject];
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
+  {
+    v13 = v13;
+  }
+
+  else
   {
     v13 &= 2u;
   }
 
   if (v13)
   {
-    v14 = objc_opt_class();
+    v15 = objc_opt_class();
     sessionProperties = self->_sessionProperties;
     v23 = 138412546;
-    v24 = v14;
+    v24 = v15;
     v25 = 2112;
     v26 = sessionProperties;
-    LODWORD(v21) = 22;
-    v20 = &v23;
-    v16 = _os_log_send_and_compose_impl();
-    if (v16)
+    v17 = _os_log_send_and_compose_impl(v13, 0, 0, 0, &_mh_execute_header, oSLogObject, 2, "%@: No session for properties: %@", &v23, 22);
+    if (v17)
     {
-      v17 = v16;
-      v18 = [NSString stringWithCString:v16 encoding:4, &v23, v21];
-      free(v17);
-      v20 = v18;
+      v18 = v17;
+      v19 = [NSString stringWithCString:v17 encoding:4];
+      free(v18);
+      v21 = v19;
       SSFileLog();
     }
   }
 
-  [(DownloadHandlerAuthenticationOperation *)self _setState:10, v20];
+  [(DownloadHandlerAuthenticationOperation *)self _setState:10, v21];
   sessionID = 0;
-LABEL_21:
+LABEL_22:
   outputBlock = [(DownloadHandlerAuthenticationOperation *)self outputBlock];
   if (outputBlock)
   {
@@ -295,15 +299,21 @@ LABEL_21:
       shouldLog = [v8 shouldLog];
       if ([v8 shouldLogToDisk])
       {
-        v10 = shouldLog | 2;
+        LODWORD(v10) = shouldLog | 2;
       }
 
       else
       {
-        v10 = shouldLog;
+        LODWORD(v10) = shouldLog;
       }
 
-      if (!os_log_type_enabled([v8 OSLogObject], OS_LOG_TYPE_INFO))
+      oSLogObject = [v8 OSLogObject];
+      if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+      {
+        v10 = v10;
+      }
+
+      else
       {
         v10 &= 2u;
       }
@@ -314,20 +324,18 @@ LABEL_21:
         v17 = objc_opt_class();
         v18 = 2112;
         v19 = clientIdentifier;
-        LODWORD(v15) = 22;
-        v14 = &v16;
-        v11 = _os_log_send_and_compose_impl();
-        if (v11)
+        v12 = _os_log_send_and_compose_impl(v10, 0, 0, 0, &_mh_execute_header, oSLogObject, 1, "%@: Launched download handler: %@", &v16, 22);
+        if (v12)
         {
-          v12 = v11;
-          v13 = [NSString stringWithCString:v11 encoding:4, &v16, v15];
-          free(v12);
-          v14 = v13;
+          v13 = v12;
+          v14 = [NSString stringWithCString:v12 encoding:4];
+          free(v13);
+          v15 = v14;
           SSFileLog();
         }
       }
 
-      [NSThread sleepForTimeInterval:10.0, v14];
+      [NSThread sleepForTimeInterval:10.0, v15];
       return [v3 openSessionWithProperties:self->_sessionProperties];
     }
   }

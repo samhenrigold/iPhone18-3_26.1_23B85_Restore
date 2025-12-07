@@ -17,6 +17,7 @@
 - (void)popOrderedListItemsContextAndSortListsInAccountChangeItem:(id)item;
 - (void)pushOrderedListItemsContext;
 - (void)recordAddedListChangeItem:(id)item withOriginalIdentifier:(id)identifier order:(id)order;
+- (void)recordMigrationFailureWithDescription:(id)description inStage:(unint64_t)stage underlyingError:(id)error relatedTo:(id)to isFatal:(BOOL)fatal;
 @end
 
 @implementation CalReminderMigrationContext
@@ -284,11 +285,9 @@
 
 - (void)_loadAccountsIfNeeded
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_0_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)recordAddedListChangeItem:(id)item withOriginalIdentifier:(id)identifier order:(id)order
@@ -356,37 +355,37 @@
 
 - (void)_sortAddedReminderListsInAccountChangeItem:(id)item
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   itemCopy = item;
   [(CalReminderMigrationContext *)self _sortedAddedListChangeItems];
+  v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
-  obj = v30 = 0u;
-  v5 = [obj countByEnumeratingWithState:&v27 objects:v41 count:16];
+  obj = v29 = 0u;
+  v5 = [obj countByEnumeratingWithState:&v26 objects:v40 count:16];
   if (v5)
   {
     v7 = v5;
     v8 = 0;
     listChangeItem = 0;
-    v10 = *v28;
+    v10 = *v27;
     v11 = 0x278D6D000uLL;
     *&v6 = 138413314;
-    v23 = v6;
-    v24 = itemCopy;
+    v22 = v6;
+    v23 = itemCopy;
     do
     {
       v12 = 0;
       v13 = listChangeItem;
-      v25 = v7;
+      v24 = v7;
       do
       {
-        if (*v28 != v10)
+        if (*v27 != v10)
         {
           objc_enumerationMutation(obj);
         }
 
-        v14 = *(*(&v27 + 1) + 8 * v12);
+        v14 = *(*(&v26 + 1) + 8 * v12);
         listChangeItem = [v14 listChangeItem];
         order = [v14 order];
         if (order == 0x7FFFFFFFFFFFFFFFLL)
@@ -407,22 +406,22 @@
           name2 = [v13 name];
           [v13 objectID];
           v21 = v20 = v10;
-          *buf = v23;
-          v32 = name;
-          v33 = 2114;
-          v34 = objectID;
-          v35 = 2112;
-          v36 = name2;
-          v37 = 2114;
-          v38 = v21;
-          v39 = 2048;
-          v40 = v8;
+          *buf = v22;
+          v31 = name;
+          v32 = 2114;
+          v33 = objectID;
+          v34 = 2112;
+          v35 = name2;
+          v36 = 2114;
+          v37 = v21;
+          v38 = 2048;
+          v39 = v8;
           _os_log_impl(&dword_2428EA000, reminders, OS_LOG_TYPE_DEFAULT, "Inserting List %@ (%{public}@) after list %@ (%{public}@) and assigning it order %li", buf, 0x34u);
 
           v10 = v20;
-          v7 = v25;
+          v7 = v24;
 
-          itemCopy = v24;
+          itemCopy = v23;
           v11 = 0x278D6D000;
         }
 
@@ -434,39 +433,50 @@
       }
 
       while (v7 != v12);
-      v7 = [obj countByEnumeratingWithState:&v27 objects:v41 count:16];
+      v7 = [obj countByEnumeratingWithState:&v26 objects:v40 count:16];
     }
 
     while (v7);
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_sortedAddedListChangeItems
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"order" ascending:1];
-  v9[0] = v3;
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
+  v8[0] = v3;
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
 
   lastObject = [(NSMutableArray *)self->_orderedListChangeItemsStack lastObject];
   v6 = [lastObject sortedArrayUsingDescriptors:v4];
 
-  v7 = *MEMORY[0x277D85DE8];
-
   return v6;
+}
+
+- (void)recordMigrationFailureWithDescription:(id)description inStage:(unint64_t)stage underlyingError:(id)error relatedTo:(id)to isFatal:(BOOL)fatal
+{
+  fatalCopy = fatal;
+  toCopy = to;
+  errorCopy = error;
+  descriptionCopy = description;
+  v15 = [[CalMigrationFailure alloc] initWithDescription:descriptionCopy stage:stage underlyingError:errorCopy relatedPath:toCopy isFatal:fatalCopy];
+
+  [(CalReminderKitDatabaseMigrationContext *)self->_remDatabaseMigrationContext recordMigrationFailure:v15];
+  if (fatalCopy)
+  {
+    self->_recordedAnyFatalFailures = 1;
+  }
 }
 
 - (BOOL)finishMigrationWithSave:(BOOL)save
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   if (save)
   {
     saveRequest = [(CalReminderMigrationContext *)self saveRequest];
-    v18 = 0;
-    v5 = [saveRequest saveSynchronouslyWithError:&v18];
-    v6 = v18;
+    v17 = 0;
+    v5 = [saveRequest saveSynchronouslyWithError:&v17];
+    v6 = v17;
 
     if ((v5 & 1) == 0)
     {
@@ -502,9 +512,9 @@
           defaultListOriginalIdentifier2 = [(CalReminderMigrationContext *)self defaultListOriginalIdentifier];
           defaultListMigratedIdentifier = [(CalReminderMigrationContext *)self defaultListMigratedIdentifier];
           *buf = 138543618;
-          v20 = defaultListOriginalIdentifier2;
-          v21 = 2114;
-          v22 = defaultListMigratedIdentifier;
+          v19 = defaultListOriginalIdentifier2;
+          v20 = 2114;
+          v21 = defaultListMigratedIdentifier;
           _os_log_impl(&dword_2428EA000, v12, OS_LOG_TYPE_DEFAULT, "Migrating default reminder list with original identifier %{public}@ and migrated identifier %{public}@", buf, 0x16u);
         }
 
@@ -537,76 +547,61 @@
 
   [(CalReminderMigrationContext *)self _didEndMigrationWithSuccess:!recordedAnyFatalFailures];
 
-  v16 = *MEMORY[0x277D85DE8];
   return !recordedAnyFatalFailures;
 }
 
 - (void)ensureAccountsExist:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_0_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)existingAccountChangeItemWithAccountIdentifier:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_0_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)existingAccountChangeItemWithAccountIdentifier:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_0_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_verifyAccountHasNoLists:(NSObject *)a3 withAccountIdentifier:.cold.1(uint64_t a1, void *a2, NSObject *a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v5 = [a2 objectID];
-  v7 = 138543618;
-  v8 = a1;
-  v9 = 2114;
-  v10 = v5;
-  _os_log_error_impl(&dword_2428EA000, a3, OS_LOG_TYPE_ERROR, "Failed to fetch lists for account with identifier = %{public}@, objectID = %{public}@", &v7, 0x16u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  v6 = 138543618;
+  v7 = a1;
+  v8 = 2114;
+  v9 = v5;
+  _os_log_error_impl(&dword_2428EA000, a3, OS_LOG_TYPE_ERROR, "Failed to fetch lists for account with identifier = %{public}@, objectID = %{public}@", &v6, 0x16u);
 }
 
 - (void)_verifyAccountHasNoLists:withAccountIdentifier:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_0_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)finishMigrationWithSave:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_0_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)finishMigrationWithSave:(void *)a1 .cold.2(void *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v3 = [a1 defaultListOriginalIdentifier];
   OUTLINED_FUNCTION_1_1();
-  _os_log_error_impl(&dword_2428EA000, a2, OS_LOG_TYPE_ERROR, "Failed to find migrated default reminder list with original identifier %{public}@", v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_2428EA000, a2, OS_LOG_TYPE_ERROR, "Failed to find migrated default reminder list with original identifier %{public}@", v4, 0xCu);
 }
 
 @end

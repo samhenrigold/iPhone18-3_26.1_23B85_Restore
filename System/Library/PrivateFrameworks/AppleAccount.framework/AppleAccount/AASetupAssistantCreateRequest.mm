@@ -38,96 +38,92 @@
 
 - (id)urlRequest
 {
-  v36 = *MEMORY[0x1E69E9840];
-  v33.receiver = self;
-  v33.super_class = AASetupAssistantCreateRequest;
-  urlRequest = [(AARequest *)&v33 urlRequest];
+  v38 = *MEMORY[0x1E69E9840];
+  v35.receiver = self;
+  v35.super_class = AASetupAssistantCreateRequest;
+  urlRequest = [(AARequest *)&v35 urlRequest];
   v4 = [urlRequest mutableCopy];
 
   [v4 setHTTPMethod:@"POST"];
   v5 = MEMORY[0x1E696AE40];
   bodyDictionary = [(AASetupAssistantCreateRequest *)self bodyDictionary];
-  v32 = 0;
-  v7 = [v5 dataWithPropertyList:bodyDictionary format:100 options:0 error:&v32];
-  v8 = v32;
+  v34 = 0;
+  v7 = [v5 dataWithPropertyList:bodyDictionary format:100 options:0 error:&v34];
+  v8 = v34;
 
   if (v7)
   {
-    [v4 setHTTPBody:v7];
+    v10 = [v4 setHTTPBody:v7];
   }
 
   else
   {
-    v9 = _AALogSystem();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v11 = _AALogSystem(v9);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       localizedDescription = [v8 localizedDescription];
       *buf = 138412290;
-      v35 = localizedDescription;
-      _os_log_impl(&dword_1B6F6A000, v9, OS_LOG_TYPE_DEFAULT, "%@", buf, 0xCu);
+      v37 = localizedDescription;
+      _os_log_impl(&dword_1B6F6A000, v11, OS_LOG_TYPE_DEFAULT, "%@", buf, 0xCu);
     }
   }
 
-  v11 = _AALogSystem();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  v13 = _AALogSystem(v10);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     bodyDictionary2 = [(AASetupAssistantCreateRequest *)self bodyDictionary];
-    v13 = [(AARequest *)self redactedBodyStringWithPropertyList:bodyDictionary2];
+    v15 = [(AARequest *)self redactedBodyStringWithPropertyList:bodyDictionary2];
     *buf = 138412290;
-    v35 = v13;
-    _os_log_impl(&dword_1B6F6A000, v11, OS_LOG_TYPE_DEFAULT, "CreateAppleID request body: \n%@", buf, 0xCu);
+    v37 = v15;
+    _os_log_impl(&dword_1B6F6A000, v13, OS_LOG_TYPE_DEFAULT, "CreateAppleID request body: \n%@", buf, 0xCu);
   }
 
-  v14 = +[AADeviceInfo udid];
-  [v4 setValue:v14 forHTTPHeaderField:@"Device-UDID"];
+  v16 = +[AADeviceInfo udid];
+  [v4 setValue:v16 forHTTPHeaderField:@"Device-UDID"];
 
   aa_authToken = [(ACAccount *)self->_account aa_authToken];
   if (aa_authToken)
   {
-    v16 = aa_authToken;
+    v18 = aa_authToken;
     username = [(ACAccount *)self->_account username];
 
     if (username)
     {
-      v18 = MEMORY[0x1E696AEC0];
+      v20 = MEMORY[0x1E696AEC0];
       aa_personID = [(ACAccount *)self->_account aa_personID];
       aa_authToken2 = [(ACAccount *)self->_account aa_authToken];
-      v21 = [v18 stringWithFormat:@"%@:%@", aa_personID, aa_authToken2];
+      v23 = [v20 stringWithFormat:@"%@:%@", aa_personID, aa_authToken2];
 
-      v22 = [v21 dataUsingEncoding:4];
-      v23 = [v22 base64EncodedStringWithOptions:0];
+      v24 = [v23 dataUsingEncoding:4];
+      v25 = [v24 base64EncodedStringWithOptions:0];
 
-      v24 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Basic %@", v23];
-      [v4 addValue:v24 forHTTPHeaderField:@"Authorization"];
-      v25 = _AALogSystem();
-      if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+      v26 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Basic %@", v25];
+      v27 = _AALogSystem([v4 addValue:v26 forHTTPHeaderField:@"Authorization"]);
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_1B6F6A000, v25, OS_LOG_TYPE_DEFAULT, "Using token auth", buf, 2u);
+        _os_log_impl(&dword_1B6F6A000, v27, OS_LOG_TYPE_DEFAULT, "Using token auth", buf, 2u);
       }
     }
   }
 
-  [v4 aa_signBodyData:v7 withSigningSession:self->signingSession];
-  v26 = _AALogSystem();
-  if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
-  {
-    v27 = [v4 description];
-    *buf = 138412290;
-    v35 = v27;
-    _os_log_impl(&dword_1B6F6A000, v26, OS_LOG_TYPE_DEFAULT, "request is: %@", buf, 0xCu);
-  }
-
-  v28 = _AALogSystem();
+  v28 = _AALogSystem([v4 aa_signBodyData:v7 withSigningSession:self->signingSession]);
   if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
   {
     v29 = [v4 description];
     *buf = 138412290;
-    v35 = v29;
+    v37 = v29;
     _os_log_impl(&dword_1B6F6A000, v28, OS_LOG_TYPE_DEFAULT, "request is: %@", buf, 0xCu);
   }
 
-  v30 = *MEMORY[0x1E69E9840];
+  v31 = _AALogSystem(v30);
+  if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+  {
+    v32 = [v4 description];
+    *buf = 138412290;
+    v37 = v32;
+    _os_log_impl(&dword_1B6F6A000, v31, OS_LOG_TYPE_DEFAULT, "request is: %@", buf, 0xCu);
+  }
 
   return v4;
 }

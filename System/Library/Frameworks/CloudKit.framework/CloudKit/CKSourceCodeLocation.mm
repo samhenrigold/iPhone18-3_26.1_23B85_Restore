@@ -3,6 +3,7 @@
 - (CKSourceCodeLocation)initWithCoder:(id)coder;
 - (CKSourceCodeLocation)initWithFilePath:(id)path lineNumber:(unint64_t)number;
 - (CKSourceCodeLocation)initWithFileURL:(id)l lineNumber:(unint64_t)number;
+- (id)CKShortDescriptionRedact:(BOOL)redact;
 - (unint64_t)hash;
 - (void)CKDescribePropertiesUsing:(id)using;
 - (void)encodeWithCoder:(id)coder;
@@ -98,6 +99,17 @@
   v12 = objc_msgSend_lineNumber(self, v10, v11);
   v15 = objc_msgSend_numberWithUnsignedInteger_(v9, v13, v12);
   objc_msgSend_addProperty_value_shouldRedact_(usingCopy, v14, @"lineNumber", v15, 0);
+}
+
+- (id)CKShortDescriptionRedact:(BOOL)redact
+{
+  v4 = MEMORY[0x1E696AEC0];
+  v5 = objc_msgSend_fileURL(self, a2, redact);
+  v8 = objc_msgSend_lastPathComponent(v5, v6, v7);
+  v11 = objc_msgSend_lineNumber(self, v9, v10);
+  v13 = objc_msgSend_stringWithFormat_(v4, v12, @"%@:%ld", v8, v11);
+
+  return v13;
 }
 
 - (void)encodeWithCoder:(id)coder

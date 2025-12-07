@@ -11,7 +11,7 @@
 
 - (void)sync
 {
-  v62[1] = *MEMORY[0x1E69E9840];
+  v61[1] = *MEMORY[0x1E69E9840];
   persistentReference = [(NEKeychainItem *)self persistentReference];
   if (persistentReference)
   {
@@ -23,9 +23,9 @@
 
     if (identifier)
     {
-      v47 = 0;
-      v5 = [NEKeychainItem copyDataFromKeychainItem:0 outData:0 outIdentifier:&v47 outPersistentReference:?];
-      v6 = v47;
+      v46 = 0;
+      v5 = [NEKeychainItem copyDataFromKeychainItem:0 outData:0 outIdentifier:&v46 outPersistentReference:?];
+      v6 = v46;
       if (v5)
       {
         [(NEKeychainItem *)self setPersistentReference:v6];
@@ -38,8 +38,8 @@
   if (persistentReference2)
   {
     result = 0;
-    v62[0] = *MEMORY[0x1E697B328];
-    v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v62 count:1];
+    v61[0] = *MEMORY[0x1E697B328];
+    v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v61 count:1];
     v9 = [(NEIdentityKeychainItem *)self copyQueryWithReturnTypes:v8];
 
     if (!SecItemCopyMatching(v9, &result))
@@ -82,8 +82,8 @@
     }
 
     result = 0;
-    v61 = *MEMORY[0x1E697B310];
-    v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v61 count:1];
+    v60 = *MEMORY[0x1E697B310];
+    v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v60 count:1];
     v12 = [(NEIdentityKeychainItem *)self copyQueryWithReturnTypes:v11];
 
     v13 = SecItemCopyMatching(v12, &result);
@@ -96,8 +96,8 @@
         persistentReference3 = [(NEKeychainItem *)self persistentReference];
         *buf = 138412546;
         *&buf[4] = persistentReference3;
-        v49 = 1024;
-        LODWORD(v50) = v14;
+        v48 = 1024;
+        LODWORD(v49) = v14;
         _os_log_error_impl(&dword_1BA83C000, v15, OS_LOG_TYPE_ERROR, "Cannot update access group, failed to find item with persistent reference %@: %d", buf, 0x12u);
       }
 
@@ -112,29 +112,29 @@
       if (isa_nsdata(v23))
       {
         v25 = *MEMORY[0x1E697B000];
-        v57[0] = *MEMORY[0x1E697AFF8];
-        v24 = v57[0];
-        v57[1] = v22;
-        v59[0] = v25;
-        v59[1] = v23;
-        v58 = *MEMORY[0x1E697B3A8];
-        v26 = v58;
-        v60 = *MEMORY[0x1E695E4D0];
-        v27 = v60;
-        persistentReference4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v59 forKeys:v57 count:3];
+        v56[0] = *MEMORY[0x1E697AFF8];
+        v24 = v56[0];
+        v56[1] = v22;
+        v58[0] = v25;
+        v58[1] = v23;
+        v57 = *MEMORY[0x1E697B3A8];
+        v26 = v57;
+        v59 = *MEMORY[0x1E695E4D0];
+        v27 = v59;
+        persistentReference4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v58 forKeys:v56 count:3];
         v29 = *MEMORY[0x1E697B020];
         v30 = *MEMORY[0x1E697AC40];
-        v55[0] = v24;
-        v55[1] = v30;
-        v56[0] = v29;
-        v56[1] = v23;
-        v55[2] = v26;
-        v56[2] = v27;
-        v31 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v56 forKeys:v55 count:3];
-        v53 = *MEMORY[0x1E697ABD0];
+        v54[0] = v24;
+        v54[1] = v30;
+        v55[0] = v29;
+        v55[1] = v23;
+        v54[2] = v26;
+        v55[2] = v27;
+        v31 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v55 forKeys:v54 count:3];
+        v52 = *MEMORY[0x1E697ABD0];
         accessGroup2 = [(NEKeychainItem *)self accessGroup];
-        v54 = accessGroup2;
-        v33 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v54 forKeys:&v53 count:1];
+        v53 = accessGroup2;
+        v33 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v53 forKeys:&v52 count:1];
 
         v34 = SecItemUpdate(persistentReference4, v33);
         if (v34)
@@ -146,10 +146,10 @@
             accessGroup3 = [(NEKeychainItem *)self accessGroup];
             *buf = 138412802;
             *&buf[4] = accessGroup3;
-            v49 = 2112;
-            v50 = v23;
-            v51 = 1024;
-            v52 = v35;
+            v48 = 2112;
+            v49 = v23;
+            v50 = 1024;
+            v51 = v35;
             v37 = "Failed to update the access group to %@ for certificate %@: %d";
 LABEL_45:
             _os_log_error_impl(&dword_1BA83C000, v36, OS_LOG_TYPE_ERROR, v37, buf, 0x1Cu);
@@ -173,10 +173,10 @@ LABEL_34:
             accessGroup3 = [(NEKeychainItem *)self accessGroup];
             *buf = 138412802;
             *&buf[4] = accessGroup3;
-            v49 = 2112;
-            v50 = v23;
-            v51 = 1024;
-            v52 = v42;
+            v48 = 2112;
+            v49 = v23;
+            v50 = 1024;
+            v51 = v42;
             v37 = "Failed to update the access group to %@ for key %@: %d";
             goto LABEL_45;
           }
@@ -235,13 +235,11 @@ LABEL_41:
   {
     objc_setProperty_atomic_copy(self, v43, 0, 72);
   }
-
-  v44 = *MEMORY[0x1E69E9840];
 }
 
 - (id)copyQueryWithReturnTypes:(id)types
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   typesCopy = types;
   v5 = objc_alloc_init(MEMORY[0x1E695DF90]);
   persistentReference = [(NEKeychainItem *)self persistentReference];
@@ -274,39 +272,38 @@ LABEL_41:
   [v5 setObject:persistentReference2 forKeyedSubscript:*v8];
 
 LABEL_8:
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   v10 = typesCopy;
-  v11 = [v10 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v19;
+    v13 = *v18;
     v14 = MEMORY[0x1E695E118];
     do
     {
       v15 = 0;
       do
       {
-        if (*v19 != v13)
+        if (*v18 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        [v5 setObject:v14 forKeyedSubscript:{*(*(&v18 + 1) + 8 * v15++), v18}];
+        [v5 setObject:v14 forKeyedSubscript:{*(*(&v17 + 1) + 8 * v15++), v17}];
       }
 
       while (v12 != v15);
-      v12 = [v10 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v12);
   }
 
   [v5 setObject:MEMORY[0x1E695E118] forKeyedSubscript:*MEMORY[0x1E697B3A8]];
-  v16 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -323,7 +320,7 @@ LABEL_8:
 
 + (id)importPKCS12Data:(id)data passphrase:(id)passphrase
 {
-  v33[1] = *MEMORY[0x1E69E9840];
+  v32[1] = *MEMORY[0x1E69E9840];
   dataCopy = data;
   passphraseCopy = passphrase;
   v7 = passphraseCopy;
@@ -331,9 +328,9 @@ LABEL_8:
   {
     v8 = *MEMORY[0x1E697B0B0];
     items = 0;
-    v32 = v8;
-    v33[0] = passphraseCopy;
-    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v33 forKeys:&v32 count:1];
+    v31 = v8;
+    v32[0] = passphraseCopy;
+    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v32 forKeys:&v31 count:1];
     if (!v9 || SecPKCS12Import(dataCopy, v9, &items) || ((v10 = *MEMORY[0x1E695E480], Mutable = CFDictionaryCreateMutable(*MEMORY[0x1E695E480], 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]), v12 = CFArrayCreateMutable(v10, 0, MEMORY[0x1E695E9C0]), Mutable) ? (v13 = v12 == 0) : (v13 = 1), v13 || (v14 = v12, !CFArrayGetCount(items))))
     {
       v14 = 0;
@@ -349,7 +346,7 @@ LABEL_8:
       {
         v16 = 0;
         key = *MEMORY[0x1E697B3D0];
-        v26 = *MEMORY[0x1E697B320];
+        v25 = *MEMORY[0x1E697B320];
         v17 = *MEMORY[0x1E695E4D0];
         v18 = *MEMORY[0x1E697ABD8];
         v19 = *MEMORY[0x1E697ABE0];
@@ -364,7 +361,7 @@ LABEL_8:
           }
 
           CFDictionarySetValue(Mutable, key, CertificateAtIndex);
-          CFDictionarySetValue(Mutable, v26, v17);
+          CFDictionarySetValue(Mutable, v25, v17);
           CFDictionarySetValue(Mutable, v18, v19);
           CFDictionarySetValue(Mutable, v20, v17);
           v22 = SecItemAdd(Mutable, &result);
@@ -396,14 +393,12 @@ LABEL_8:
     v14 = 0;
   }
 
-  v23 = *MEMORY[0x1E69E9840];
-
   return v14;
 }
 
 + (id)copyIdentities:(id)identities fromDomain:(int64_t)domain
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   identitiesCopy = identities;
   v5 = objc_alloc_init(MEMORY[0x1E695DF90]);
   result = 0;
@@ -436,70 +431,70 @@ LABEL_8:
     }
 
     *buf = 67109120;
-    LODWORD(v38) = v10;
-    v32 = "SecItemCopyMatching failed: %d";
-    v33 = v11;
-    v34 = 8;
+    LODWORD(v37) = v10;
+    v31 = "SecItemCopyMatching failed: %d";
+    v32 = v11;
+    v33 = 8;
     goto LABEL_35;
   }
 
-  v15 = result;
+  v14 = result;
   TypeID = CFArrayGetTypeID();
-  if (v15 && CFGetTypeID(v15) == TypeID)
+  if (v14 && CFGetTypeID(v14) == TypeID)
   {
-    v35 = identitiesCopy;
+    v34 = identitiesCopy;
     v11 = objc_alloc_init(MEMORY[0x1E695DF90]);
-    v17 = 0;
+    v16 = 0;
     v12 = 0;
-    v18 = result;
-    v19 = 0x1E7F04000uLL;
-    while (v17 < CFArrayGetCount(v18))
+    v17 = result;
+    v18 = 0x1E7F04000uLL;
+    while (v16 < CFArrayGetCount(v17))
     {
-      ValueAtIndex = CFArrayGetValueAtIndex(v18, v17);
-      v21 = SecIdentityGetTypeID();
-      if (ValueAtIndex && CFGetTypeID(ValueAtIndex) == v21)
+      ValueAtIndex = CFArrayGetValueAtIndex(v17, v16);
+      v20 = SecIdentityGetTypeID();
+      if (ValueAtIndex && CFGetTypeID(ValueAtIndex) == v20)
       {
-        v22 = [(NEIdentityKeychainItem *)*(v19 + 3184) copyPropertiesForIdentity:0 persistentReference:?];
-        v23 = v22;
-        if (v22)
+        v21 = [(NEIdentityKeychainItem *)*(v18 + 3184) copyPropertiesForIdentity:0 persistentReference:?];
+        v22 = v21;
+        if (v21)
         {
-          v24 = [v22 objectForKeyedSubscript:@"persistent-reference"];
-          v25 = [v11 objectForKeyedSubscript:v24];
+          v23 = [v21 objectForKeyedSubscript:@"persistent-reference"];
+          v24 = [v11 objectForKeyedSubscript:v23];
 
-          if (!v25)
+          if (!v24)
           {
-            v26 = [v23 objectForKeyedSubscript:@"persistent-reference"];
-            [v11 setObject:v23 forKeyedSubscript:v26];
+            v25 = [v22 objectForKeyedSubscript:@"persistent-reference"];
+            [v11 setObject:v22 forKeyedSubscript:v25];
 
             if (!v12)
             {
               v12 = objc_alloc_init(MEMORY[0x1E695DF70]);
             }
 
-            [v12 addObject:{v23, v35}];
-            v19 = 0x1E7F04000;
+            [v12 addObject:{v22, v34}];
+            v18 = 0x1E7F04000;
           }
         }
       }
 
-      ++v17;
+      ++v16;
     }
 
-    identitiesCopy = v35;
+    identitiesCopy = v34;
   }
 
   else
   {
-    v27 = result;
-    v28 = SecIdentityGetTypeID();
-    if (!v27 || CFGetTypeID(v27) != v28)
+    v26 = result;
+    v27 = SecIdentityGetTypeID();
+    if (!v26 || CFGetTypeID(v26) != v27)
     {
-      v29 = result;
-      v30 = ne_log_obj();
-      v11 = v30;
-      if (!v29)
+      v28 = result;
+      v29 = ne_log_obj();
+      v11 = v29;
+      if (!v28)
       {
-        if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
+        if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
         {
           *buf = 0;
           _os_log_impl(&dword_1BA83C000, v11, OS_LOG_TYPE_INFO, "SecItemCopyMatching returned NULL while searching for identities", buf, 2u);
@@ -508,21 +503,21 @@ LABEL_8:
         goto LABEL_6;
       }
 
-      if (!os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+      if (!os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
       {
 LABEL_6:
         v12 = 0;
         goto LABEL_7;
       }
 
-      v31 = CFGetTypeID(result);
+      v30 = CFGetTypeID(result);
       *buf = 134217984;
-      v38 = v31;
-      v32 = "SecItemCopyMatching returned an unsupported type (%lu) when searching for identities";
-      v33 = v11;
-      v34 = 12;
+      v37 = v30;
+      v31 = "SecItemCopyMatching returned an unsupported type (%lu) when searching for identities";
+      v32 = v11;
+      v33 = 12;
 LABEL_35:
-      _os_log_error_impl(&dword_1BA83C000, v33, OS_LOG_TYPE_ERROR, v32, buf, v34);
+      _os_log_error_impl(&dword_1BA83C000, v32, OS_LOG_TYPE_ERROR, v31, buf, v33);
       goto LABEL_6;
     }
 
@@ -542,13 +537,12 @@ LABEL_7:
     CFRelease(result);
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return v12;
 }
 
 + (uint64_t)copyPropertiesForIdentity:(void *)identity persistentReference:
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   identityCopy = identity;
   v5 = objc_opt_self();
   if (identityCopy)
@@ -584,19 +578,19 @@ LABEL_14:
       if (v17)
       {
         v18 = CFGetTypeID(result);
-        *v27 = 134217984;
-        v28 = v18;
+        *v26 = 134217984;
+        v27 = v18;
         v19 = "SecItemCopyMatching returned an object with an unexpected type (%lu) when getting an identity's persistent reference";
         v20 = v16;
         v21 = 12;
 LABEL_25:
-        _os_log_error_impl(&dword_1BA83C000, v20, OS_LOG_TYPE_ERROR, v19, v27, v21);
+        _os_log_error_impl(&dword_1BA83C000, v20, OS_LOG_TYPE_ERROR, v19, v26, v21);
       }
     }
 
     else if (v17)
     {
-      *v27 = 0;
+      *v26 = 0;
       v19 = "SecItemCopyMatching returned NULL when getting an identity's persistent reference";
       v20 = v16;
       v21 = 2;
@@ -651,15 +645,14 @@ LABEL_2:
   {
     v8 = SecCertificateCopyData(certificateRef[0]);
     CFRelease(certificateRef[0]);
-    v25[0] = @"persistent-reference";
-    v25[1] = @"certificate-data";
-    v26[0] = identityCopy;
-    v26[1] = v8;
-    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v26 forKeys:v25 count:2];
+    v24[0] = @"persistent-reference";
+    v24[1] = @"certificate-data";
+    v25[0] = identityCopy;
+    v25[1] = v8;
+    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v25 forKeys:v24 count:2];
   }
 
 LABEL_23:
-  v22 = *MEMORY[0x1E69E9840];
   return v9;
 }
 

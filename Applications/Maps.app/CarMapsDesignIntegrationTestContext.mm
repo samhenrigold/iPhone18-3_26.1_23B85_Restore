@@ -10,7 +10,7 @@
 
 - (_TtC4Maps35CarMapsDesignIntegrationTestContext)init
 {
-  *&self->_TtC4Maps32MapsDesignIntegrationTestContext_opaque[OBJC_IVAR____TtC4Maps35CarMapsDesignIntegrationTestContext_contentController] = [objc_allocWithZone(type metadata accessor for CarIntegrationTestViewController()) initWithNibName:0 bundle:0];
+  *&self->_TtC4Maps32MapsDesignIntegrationTestContext_opaque[OBJC_IVAR____TtC4Maps35CarMapsDesignIntegrationTestContext_contentController] = [objc_allocWithZone(type metadata accessor for CarIntegrationTestViewController(0)) initWithNibName:0 bundle:0];
   v4.receiver = self;
   v4.super_class = type metadata accessor for CarMapsDesignIntegrationTestContext();
   return [(MapsDesignIntegrationTestContext *)&v4 init];
@@ -18,7 +18,7 @@
 
 - (NSArray)carFocusOrderSequences
 {
-  sub_1000CE6B8(&qword_101908400);
+  sub_1000CE6B8(&qword_101908400, &qword_1011E2ED0);
   v2 = swift_allocObject();
   *(v2 + 16) = xmmword_1011E47B0;
   *(v2 + 32) = [objc_opt_self() defaultSequence];

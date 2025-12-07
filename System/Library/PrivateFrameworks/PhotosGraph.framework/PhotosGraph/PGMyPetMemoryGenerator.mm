@@ -11,7 +11,7 @@
 
 - (id)titleGeneratorForTriggeredMemory:(id)memory withKeyAsset:(id)asset curatedAssets:(id)assets extendedCuratedAssets:(id)curatedAssets titleGenerationContext:(id)context inGraph:(id)graph
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   memoryCopy = memory;
   contextCopy = context;
   memoryFeatureNodes = [memoryCopy memoryFeatureNodes];
@@ -35,10 +35,10 @@
         loggingConnection = [(PGMemoryGenerator *)self loggingConnection];
         if (os_log_type_enabled(loggingConnection, OS_LOG_TYPE_ERROR))
         {
-          v27 = [v19 description];
-          v28 = 138412290;
-          v29 = v27;
-          _os_log_error_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_ERROR, "[PGMyPetMemoryGenerator] No season name found for season node in collection %@", &v28, 0xCu);
+          v26 = [v19 description];
+          v27 = 138412290;
+          v28 = v26;
+          _os_log_error_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_ERROR, "[PGMyPetMemoryGenerator] No season name found for season node in collection %@", &v27, 0xCu);
         }
 
         v15 = 0;
@@ -70,15 +70,13 @@ LABEL_18:
   loggingConnection2 = [(PGMemoryGenerator *)self loggingConnection];
   if (os_log_type_enabled(loggingConnection2, OS_LOG_TYPE_ERROR))
   {
-    v28 = 67109120;
-    LODWORD(v29) = [v13 count];
-    _os_log_error_impl(&dword_22F0FC000, loggingConnection2, OS_LOG_TYPE_ERROR, "[PGMyPetMemoryGenerator] At least one and at most two pet nodes expected, found %d", &v28, 8u);
+    v27 = 67109120;
+    LODWORD(v28) = [v13 count];
+    _os_log_error_impl(&dword_22F0FC000, loggingConnection2, OS_LOG_TYPE_ERROR, "[PGMyPetMemoryGenerator] At least one and at most two pet nodes expected, found %d", &v27, 8u);
   }
 
   v15 = 0;
 LABEL_19:
-
-  v25 = *MEMORY[0x277D85DE8];
 
   return v15;
 }
@@ -86,7 +84,7 @@ LABEL_19:
 - (id)relevantFeederForTriggeredMemory:(id)memory inGraph:(id)graph allowGuestAsset:(BOOL)asset progressReporter:(id)reporter
 {
   assetCopy = asset;
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   memoryCopy = memory;
   graphCopy = graph;
   reporterCopy = reporter;
@@ -96,27 +94,27 @@ LABEL_19:
   {
     memoryMomentNodes = [memoryCopy memoryMomentNodes];
     *buf = 0;
-    v41 = buf;
-    v42 = 0x3032000000;
-    v43 = __Block_byref_object_copy__6276;
-    v44 = __Block_byref_object_dispose__6277;
-    v45 = 0;
+    v40 = buf;
+    v41 = 0x3032000000;
+    v42 = __Block_byref_object_copy__6276;
+    v43 = __Block_byref_object_dispose__6277;
+    v44 = 0;
     if ([v13 count] == 1)
     {
-      v29 = [(PGGraphEdgeCollection *)PGGraphMomentFeaturesEdgeCollection edgesFromNodes:memoryMomentNodes toNodes:v13];
-      if ([v29 count])
+      v28 = [(PGGraphEdgeCollection *)PGGraphMomentFeaturesEdgeCollection edgesFromNodes:memoryMomentNodes toNodes:v13];
+      if ([v28 count])
       {
-        allRelevantAssetLocalIdentifiers = [v29 allRelevantAssetLocalIdentifiers];
+        allRelevantAssetLocalIdentifiers = [v28 allRelevantAssetLocalIdentifiers];
         v17 = [allRelevantAssetLocalIdentifiers mutableCopy];
-        v18 = *(v41 + 5);
-        *(v41 + 5) = v17;
+        v18 = *(v40 + 5);
+        *(v40 + 5) = v17;
 
         v19 = [(PGGraphNodeCollection *)PGGraphPersonNodeCollection subsetInCollection:memoryFeatureNodes];
         if ([v19 count])
         {
-          v28 = [(PGGraphEdgeCollection *)PGGraphMomentFeaturesEdgeCollection edgesFromNodes:memoryMomentNodes toNodes:v19];
-          v20 = *(v41 + 5);
-          allRelevantAssetLocalIdentifiers2 = [v28 allRelevantAssetLocalIdentifiers];
+          v27 = [(PGGraphEdgeCollection *)PGGraphMomentFeaturesEdgeCollection edgesFromNodes:memoryMomentNodes toNodes:v19];
+          v20 = *(v40 + 5);
+          allRelevantAssetLocalIdentifiers2 = [v27 allRelevantAssetLocalIdentifiers];
           [v20 intersectSet:allRelevantAssetLocalIdentifiers2];
         }
 
@@ -126,31 +124,31 @@ LABEL_19:
       loggingConnection = [(PGMemoryGenerator *)self loggingConnection];
       if (os_log_type_enabled(loggingConnection, OS_LOG_TYPE_ERROR))
       {
-        *v36 = 0;
-        _os_log_error_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_ERROR, "[PGMyPetMemoryGenerator] No pet moment feature edges found", v36, 2u);
+        *v35 = 0;
+        _os_log_error_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_ERROR, "[PGMyPetMemoryGenerator] No pet moment feature edges found", v35, 2u);
       }
     }
 
     else
     {
-      *v36 = 0;
-      v37 = v36;
-      v38 = 0x2020000000;
-      v39 = 0;
-      v32[0] = MEMORY[0x277D85DD0];
-      v32[1] = 3221225472;
-      v32[2] = __100__PGMyPetMemoryGenerator_relevantFeederForTriggeredMemory_inGraph_allowGuestAsset_progressReporter___block_invoke;
-      v32[3] = &unk_27887F8C8;
-      v33 = memoryMomentNodes;
-      v34 = v36;
-      v35 = buf;
-      [v13 enumerateIdentifiersAsCollectionsWithBlock:v32];
-      if (v37[24] != 1)
+      *v35 = 0;
+      v36 = v35;
+      v37 = 0x2020000000;
+      v38 = 0;
+      v31[0] = MEMORY[0x277D85DD0];
+      v31[1] = 3221225472;
+      v31[2] = __100__PGMyPetMemoryGenerator_relevantFeederForTriggeredMemory_inGraph_allowGuestAsset_progressReporter___block_invoke;
+      v31[3] = &unk_27887F8C8;
+      v32 = memoryMomentNodes;
+      v33 = v35;
+      v34 = buf;
+      [v13 enumerateIdentifiersAsCollectionsWithBlock:v31];
+      if (v36[24] != 1)
       {
 
-        _Block_object_dispose(v36, 8);
+        _Block_object_dispose(v35, 8);
 LABEL_16:
-        allObjects = [*(v41 + 5) allObjects];
+        allObjects = [*(v40 + 5) allObjects];
         memoryCurationSession = [(PGMemoryGenerator *)self memoryCurationSession];
         v15 = [PGMemoryGenerationHelper feederForMemoriesWithAssetLocalIdentifiers:allObjects memoryCurationSession:memoryCurationSession graph:graphCopy allowGuestAsset:assetCopy];
 
@@ -163,11 +161,11 @@ LABEL_21:
       loggingConnection2 = [(PGMemoryGenerator *)self loggingConnection];
       if (os_log_type_enabled(loggingConnection2, OS_LOG_TYPE_ERROR))
       {
-        *v31 = 0;
-        _os_log_error_impl(&dword_22F0FC000, loggingConnection2, OS_LOG_TYPE_ERROR, "[PGMyPetMemoryGenerator] No pet moment feature edges found", v31, 2u);
+        *v30 = 0;
+        _os_log_error_impl(&dword_22F0FC000, loggingConnection2, OS_LOG_TYPE_ERROR, "[PGMyPetMemoryGenerator] No pet moment feature edges found", v30, 2u);
       }
 
-      _Block_object_dispose(v36, 8);
+      _Block_object_dispose(v35, 8);
     }
 
     v15 = 0;
@@ -184,8 +182,6 @@ LABEL_21:
 
   v15 = 0;
 LABEL_22:
-
-  v26 = *MEMORY[0x277D85DE8];
 
   return v15;
 }
@@ -247,31 +243,25 @@ void __100__PGMyPetMemoryGenerator_relevantFeederForTriggeredMemory_inGraph_allo
 - (unint64_t)memoryCategorySubcategoryForOverTimeType:(unint64_t)type
 {
   typeCopy = type;
-  v13 = *MEMORY[0x277D85DE8];
-  if (type - 1 >= 3)
+  v12 = *MEMORY[0x277D85DE8];
+  if (type - 1 < 3)
   {
-    loggingConnection = [(PGMemoryGenerator *)self loggingConnection];
-    if (os_log_type_enabled(loggingConnection, OS_LOG_TYPE_ERROR))
-    {
-      v7 = objc_opt_class();
-      v8 = NSStringFromClass(v7);
-      v9 = 138412546;
-      v10 = v8;
-      v11 = 1024;
-      v12 = typeCopy;
-      _os_log_error_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_ERROR, "[%@] Returning PHMemoryCategorySubcategoryNone for PGOverTimeMemoryType %d, this should never happen", &v9, 0x12u);
-    }
-
-    result = 0;
+    return type | 0x1B58;
   }
 
-  else
+  loggingConnection = [(PGMemoryGenerator *)self loggingConnection];
+  if (os_log_type_enabled(loggingConnection, OS_LOG_TYPE_ERROR))
   {
-    result = type | 0x1B58;
+    v6 = objc_opt_class();
+    v7 = NSStringFromClass(v6);
+    v8 = 138412546;
+    v9 = v7;
+    v10 = 1024;
+    v11 = typeCopy;
+    _os_log_error_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_ERROR, "[%@] Returning PHMemoryCategorySubcategoryNone for PGOverTimeMemoryType %d, this should never happen", &v8, 0x12u);
   }
 
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  return 0;
 }
 
 - (void)enumerateMomentNodesAndFeatureNodesInGraph:(id)graph usingBlock:(id)block

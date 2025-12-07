@@ -361,7 +361,7 @@ LABEL_10:
       v20 = 0;
       v21 = 0;
       v22 = 0;
-      [(FrameSynthesis *)self synthesisTensorSizeForLevel:flowLevel];
+      objc_msgSend_synthesisTensorSizeForLevel_(self, a2, flowLevel);
       v7 = v20;
       v6 = v21;
       v8 = createTextures(self->_device, v20, v21, 1, 1uLL);
@@ -912,7 +912,6 @@ void __45__FrameSynthesis_warpFeatureLevel_timeScale___block_invoke_2(uint64_t a
 
 - (void)allocateFeaturesForUsage:(int64_t)usage Level:(int)level
 {
-  usageCopy = usage;
   if (self->_synthesisMode == 3)
   {
     if (self->_fullSizeSplatting)
@@ -944,7 +943,7 @@ void __45__FrameSynthesis_warpFeatureLevel_timeScale___block_invoke_2(uint64_t a
   v14 = 0;
   v15 = 0;
   v16 = 0;
-  getSynthesisTensorSize(usageCopy, flowLevel, &v14);
+  getSynthesisTensorSize(usage, flowLevel, &v14);
   v13 = [MEMORY[0x277CD7058] texture2DDescriptorWithPixelFormat:25 width:v14 height:v15 mipmapped:0];
   [v13 setUsage:3];
   [v13 setTextureType:3];

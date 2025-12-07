@@ -17,8 +17,7 @@ void ___TypeLabel_block_invoke()
   v3 = [MEMORY[0x1E69DC888] whiteColor];
   [_TypeLabel___typeLabel setTextColor:v3];
 
-  [_TypeLabel___typeLabel setAllowsDefaultTighteningForTruncation:1];
-  v4 = _LabelFont();
+  v4 = _LabelFont([_TypeLabel___typeLabel setAllowsDefaultTighteningForTruncation:1]);
   [_TypeLabel___typeLabel setFont:v4];
 
   v5 = [MEMORY[0x1E69DB7D0] defaultParagraphStyle];

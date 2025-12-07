@@ -47,28 +47,28 @@
 
 + (id)rateLimitsFromBudgetProperties
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CBEC10] mutableCopy];
   +[_DPPrivacyBudgetProperties allBudgetPropertiesKeys];
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
-  obj = v25 = 0u;
-  v3 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
+  obj = v24 = 0u;
+  v3 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v23;
+    v5 = *v22;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v23 != v5)
+        if (*v22 != v5)
         {
           objc_enumerationMutation(obj);
         }
 
-        v7 = *(*(&v22 + 1) + 8 * i);
+        v7 = *(*(&v21 + 1) + 8 * i);
         v8 = [_DPPrivacyBudgetProperties budgetPropertiesForKey:v7];
         v9 = [MEMORY[0x277CBEC10] mutableCopy];
         [v2 setObject:v9 forKeyedSubscript:v7];
@@ -92,13 +92,11 @@
         [v9 setObject:date forKeyedSubscript:@"checkpoint"];
       }
 
-      v4 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v4 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v4);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v2;
 }

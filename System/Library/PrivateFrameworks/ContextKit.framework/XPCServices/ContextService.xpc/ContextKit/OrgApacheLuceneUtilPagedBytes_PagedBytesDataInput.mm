@@ -3,6 +3,7 @@
 - (id)clone;
 - (id)nextBlock;
 - (void)dealloc;
+- (void)readBytesWithByteArray:(id)array withInt:(int)int withInt:(int)withInt;
 - (void)setPositionWithLong:(int64_t)long;
 @end
 
@@ -85,6 +86,32 @@
   v5 = *(v1 + 24 + 8 * v3);
 
   return JreStrongAssign((self + 32), v5);
+}
+
+- (void)readBytesWithByteArray:(id)array withInt:(int)int withInt:(int)withInt
+{
+  v5 = *&withInt;
+  v6 = *&int;
+  currentBlockUpto = self->currentBlockUpto_;
+  v10 = (self->this$0_->blockSize_ - currentBlockUpto);
+  if (v10 < withInt)
+  {
+    v11 = withInt + int;
+    do
+    {
+      JavaLangSystem_arraycopyWithId_withInt_withId_withInt_withInt_(self->currentBlock_, currentBlockUpto, array, v6, v10);
+      [OrgApacheLuceneUtilPagedBytes_PagedBytesDataInput nextBlock]_0(self);
+      v6 = (v10 + v6);
+      currentBlockUpto = self->currentBlockUpto_;
+      v10 = (self->this$0_->blockSize_ - currentBlockUpto);
+      v5 = (v11 - v6);
+    }
+
+    while (v10 < v5);
+  }
+
+  JavaLangSystem_arraycopyWithId_withInt_withId_withInt_withInt_(self->currentBlock_, currentBlockUpto, array, v6, v5);
+  self->currentBlockUpto_ += v5;
 }
 
 - (void)dealloc

@@ -2158,9 +2158,9 @@ id __54__SBSwitcherModifierQuerySnapshot__buildFromModifier___block_invoke_51(ui
 
 id __54__SBSwitcherModifierQuerySnapshot__buildFromModifier___block_invoke_52(uint64_t a1, uint64_t a2)
 {
-  [*(a1 + 32) asyncRenderingAttributesForAppLayout:a2];
+  v2 = [*(a1 + 32) asyncRenderingAttributesForAppLayout:a2];
 
-  return SBStringForSwitcherAsyncRenderingAttributes();
+  return SBStringForSwitcherAsyncRenderingAttributes(v2);
 }
 
 id __54__SBSwitcherModifierQuerySnapshot__buildFromModifier___block_invoke_53(uint64_t a1)
@@ -2808,12 +2808,12 @@ id __54__SBSwitcherModifierQuerySnapshot__buildFromModifier___block_invoke_107(u
   return v8;
 }
 
-id __54__SBSwitcherModifierQuerySnapshot__buildFromModifier___block_invoke_108(uint64_t a1, uint64_t a2)
+id __54__SBSwitcherModifierQuerySnapshot__buildFromModifier___block_invoke_108(uint64_t a1, const char *a2)
 {
   v2 = *(a1 + 32);
   if (v2)
   {
-    [v2 presentationAttributesForShelf:a2];
+    objc_msgSend_presentationAttributesForShelf_(v2, a2, a2);
   }
 
   else

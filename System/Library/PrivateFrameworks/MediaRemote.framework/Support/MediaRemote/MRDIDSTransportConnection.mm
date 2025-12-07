@@ -59,21 +59,20 @@
   v3 = [[NSMutableString alloc] initWithFormat:@"<%@:%p {\n", objc_opt_class(), self];
   selfCopy = self;
   objc_sync_enter(selfCopy);
-  connection = selfCopy->_connection;
-  v6 = MRCreateIndentedDebugDescriptionFromObject();
-  [v3 appendFormat:@" connection = %@\n", v6];
+  v5 = MRCreateIndentedDebugDescriptionFromObject();
+  [v3 appendFormat:@" connection = %@\n", v5];
 
   [v3 appendFormat:@" type = %@\n", selfCopy->_type];
   [v3 appendFormat:@" destination = %@\n", selfCopy->_destination];
   [v3 appendFormat:@" session = %@\n", selfCopy->_session];
   isValid = [(MRDIDSTransportConnection *)selfCopy isValid];
-  v8 = @"NO";
+  v7 = @"NO";
   if (isValid)
   {
-    v8 = @"YES";
+    v7 = @"YES";
   }
 
-  [v3 appendFormat:@" isValid = %@\n", v8];
+  [v3 appendFormat:@" isValid = %@\n", v7];
   [v3 appendFormat:@" error = %@\n", selfCopy->_error];
   objc_sync_exit(selfCopy);
 

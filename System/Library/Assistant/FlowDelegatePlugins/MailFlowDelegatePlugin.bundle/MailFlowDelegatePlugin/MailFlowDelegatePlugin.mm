@@ -1,59 +1,57 @@
 uint64_t sub_1358@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
 {
-  v38 = a2;
+  v33 = a2;
   v3 = sub_1E24();
-  v4 = sub_1DC0(v3);
-  v6 = v5;
-  v8 = *(v7 + 64);
-  v9 = __chkstk_darwin(v4);
-  v11 = &v34 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v9);
-  v13 = &v34 - v12;
-  v14 = sub_1E84();
-  v15 = sub_1DC0(v14);
-  v36 = v16;
-  v37 = v15;
-  v18 = *(v17 + 64);
-  __chkstk_darwin(v15);
-  v20 = &v34 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
+  sub_1DC0();
+  v5 = v4;
+  v7 = __chkstk_darwin(v6);
+  v9 = &v29 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v7);
+  v11 = &v29 - v10;
+  sub_1E84();
+  sub_1DC0();
+  v31 = v13;
+  v32 = v12;
+  __chkstk_darwin(v12);
+  v15 = &v29 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1E44();
   type metadata accessor for MailFlowDelegatePlugin();
   ObjCClassFromMetadata = swift_getObjCClassFromMetadata();
-  v22 = [objc_opt_self() bundleForClass:ObjCClassFromMetadata];
+  v17 = [objc_opt_self() bundleForClass:ObjCClassFromMetadata];
   sub_1E34();
 
   sub_1E64();
-  v23 = *(v6 + 16);
-  v23(v13, a1, v3);
-  v35 = v20;
-  v24 = sub_1E74();
-  v25 = sub_1EB4();
-  if (os_log_type_enabled(v24, v25))
+  v18 = *(v5 + 16);
+  v18(v11, a1, v3);
+  v30 = v15;
+  v19 = sub_1E74();
+  v20 = sub_1EB4();
+  if (os_log_type_enabled(v19, v20))
   {
-    v26 = swift_slowAlloc();
-    v34 = a1;
-    v27 = v26;
-    v28 = swift_slowAlloc();
-    v39 = v28;
-    *v27 = 136315138;
-    v23(v11, v13, v3);
-    v29 = sub_1E94();
-    v31 = v30;
-    (*(v6 + 8))(v13, v3);
-    v32 = sub_175C(v29, v31, &v39);
+    v21 = swift_slowAlloc();
+    v29 = a1;
+    v22 = v21;
+    v23 = swift_slowAlloc();
+    v34 = v23;
+    *v22 = 136315138;
+    v18(v9, v11, v3);
+    v24 = sub_1E94();
+    v26 = v25;
+    (*(v5 + 8))(v11, v3);
+    v27 = sub_175C(v24, v26, &v34);
 
-    *(v27 + 4) = v32;
-    _os_log_impl(&dword_0, v24, v25, "#MailFlowDelegatePlugin findFlowForX(parse:) %s", v27, 0xCu);
-    sub_1CCC(v28);
+    *(v22 + 4) = v27;
+    _os_log_impl(&dword_0, v19, v20, "#MailFlowDelegatePlugin findFlowForX(parse:) %s", v22, 0xCu);
+    sub_1CCC(v23);
   }
 
   else
   {
 
-    (*(v6 + 8))(v13, v3);
+    (*(v5 + 8))(v11, v3);
   }
 
-  (*(v36 + 8))(v35, v37);
+  (*(v31 + 8))(v30, v32);
   return sub_1E54();
 }
 
@@ -170,16 +168,14 @@ LABEL_8:
 
 char *sub_1920(uint64_t a1, unint64_t a2)
 {
-  v4 = sub_196C(a1, a2);
+  v3 = sub_196C(a1, a2);
   sub_1A84(&off_42A0);
-  result = v4;
-  v3 = *(v4 + 2) - 1;
-  return result;
+  return v3;
 }
 
 char *sub_196C(uint64_t a1, unint64_t a2)
 {
-  v4 = HIBYTE(a2) & 0xF;
+  v4 = (HIBYTE(a2) & 0xF);
   if ((a2 & 0x1000000000000000) != 0)
   {
     goto LABEL_19;
@@ -229,8 +225,8 @@ char *sub_196C(uint64_t a1, unint64_t a2)
       {
         if ((a1 & 0x1000000000000000) != 0)
         {
-          v8 = (a2 & 0xFFFFFFFFFFFFFFFLL) + 32;
-          v4 = a1 & 0xFFFFFFFFFFFFLL;
+          v8 = ((a2 & 0xFFFFFFFFFFFFFFFLL) + 32);
+          v4 = (a1 & 0xFFFFFFFFFFFFLL);
         }
 
         else
@@ -282,21 +278,20 @@ LABEL_16:
   }
 
   v6 = result;
-  v7 = *v1;
   result = swift_isUniquelyReferenced_nonNull_native();
   if (!result || v5 > *(v3 + 24) >> 1)
   {
     if (v4 <= v5)
     {
-      v8 = v4 + v2;
+      v7 = v4 + v2;
     }
 
     else
     {
-      v8 = v4;
+      v7 = v4;
     }
 
-    result = sub_1BD8(result, v8, 1, v3);
+    result = sub_1BD8(result, v7, 1, v3);
     v3 = result;
   }
 
@@ -311,15 +306,15 @@ LABEL_16:
     goto LABEL_16;
   }
 
-  v9 = *(v3 + 16);
-  if ((*(v3 + 24) >> 1) - v9 < v2)
+  v8 = *(v3 + 16);
+  if ((*(v3 + 24) >> 1) - v8 < v2)
   {
 LABEL_17:
     __break(1u);
     goto LABEL_18;
   }
 
-  memcpy((v3 + v9 + 32), (v6 + 32), v2);
+  memcpy((v3 + v8 + 32), (v6 + 32), v2);
 
   if (!v2)
   {
@@ -328,12 +323,12 @@ LABEL_14:
     return result;
   }
 
-  v10 = *(v3 + 16);
-  v11 = __OFADD__(v10, v2);
-  v12 = v10 + v2;
-  if (!v11)
+  v9 = *(v3 + 16);
+  v10 = __OFADD__(v9, v2);
+  v11 = v9 + v2;
+  if (!v10)
   {
-    *(v3 + 16) = v12;
+    *(v3 + 16) = v11;
     goto LABEL_14;
   }
 
@@ -467,7 +462,6 @@ uint64_t sub_1D74(uint64_t *a1, uint64_t *a2)
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }

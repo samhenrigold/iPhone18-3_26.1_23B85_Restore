@@ -13,7 +13,7 @@ uint64_t OSAllocatedUnfairLock<A>.init(initialState:)(uint64_t a1, uint64_t a2)
   v5 = *(a2 - 8);
   v6 = a2 - 8;
   v3 = (*(v5 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  __chkstk_darwin();
+  __chkstk_darwin(a1);
   v4 = &v3 - v3;
   (*(v5 + 16))();
   v9 = OSAllocatedUnfairLock.init(uncheckedState:)(v4, v7);
@@ -23,16 +23,15 @@ uint64_t OSAllocatedUnfairLock<A>.init(initialState:)(uint64_t a1, uint64_t a2)
 
 uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1, uint64_t *a2)
 {
-  v6 = *a1;
+  v5 = *a1;
   if (!*a1)
   {
-    v3 = *a2;
     TypeByMangledNameInContext2 = swift_getTypeByMangledNameInContext2();
     *a1 = TypeByMangledNameInContext2;
     return TypeByMangledNameInContext2;
   }
 
-  return v6;
+  return v5;
 }
 
 void key path getter for MLServerDelegate.mediaML : MLServerDelegate(id *a1@<X0>, void *a2@<X8>)
@@ -64,10 +63,9 @@ uint64_t MLServerDelegate.mediaML.getter()
 uint64_t MLServerDelegate.mediaML.setter(uint64_t a1)
 {
 
-  v4 = (v1 + OBJC_IVAR____TtC10mediamlxpc16MLServerDelegate_mediaML);
+  v3 = (v1 + OBJC_IVAR____TtC10mediamlxpc16MLServerDelegate_mediaML);
   swift_beginAccess();
-  v2 = *v4;
-  *v4 = a1;
+  *v3 = a1;
 
   swift_endAccess();
 }
@@ -91,18 +89,17 @@ uint64_t one-time initialization function for logger()
   return Logger.init(subsystem:category:)();
 }
 
-uint64_t __swift_allocate_value_buffer(uint64_t a1, uint64_t *a2)
+uint64_t *__swift_allocate_value_buffer(uint64_t a1, uint64_t *a2)
 {
-  v6 = a2;
+  v5 = a2;
   if ((*(*(a1 - 8) + 80) & 0x20000) != 0)
   {
-    v2 = *(*(a1 - 8) + 64);
-    v3 = swift_slowAlloc();
-    *a2 = v3;
-    return v3;
+    v2 = swift_slowAlloc();
+    *a2 = v2;
+    return v2;
   }
 
-  return v6;
+  return v5;
 }
 
 uint64_t __swift_project_value_buffer(uint64_t a1, uint64_t a2)
@@ -170,142 +167,126 @@ uint64_t closure #1 in MLServerDelegate.ensureMediaML()(uint64_t a1, uint64_t a2
   v4[5] = 0;
   v5 = type metadata accessor for Logger();
   v4[7] = v5;
-  v10 = *(v5 - 8);
-  v4[8] = v10;
-  v6 = *(v10 + 64) + 15;
+  v4[8] = *(v5 - 8);
   v4[9] = swift_task_alloc();
   v4[3] = a4;
   type metadata accessor for MediaML();
-  v7 = async function pointer to MediaML.__allocating_init()[1];
-  v8 = swift_task_alloc();
-  *(v12 + 80) = v8;
-  *v8 = *(v12 + 16);
-  v8[1] = closure #1 in MLServerDelegate.ensureMediaML();
+  v6 = swift_task_alloc();
+  *(v9 + 80) = v6;
+  *v6 = *(v9 + 16);
+  v6[1] = closure #1 in MLServerDelegate.ensureMediaML();
 
   return MediaML.__allocating_init()();
 }
 
 uint64_t closure #1 in MLServerDelegate.ensureMediaML()(uint64_t a1)
 {
-  v9 = *v2;
-  v4 = *(*v2 + 80);
-  v9[2] = *v2;
-  v10 = v9 + 2;
-  v9[11] = a1;
-  v9[12] = v1;
+  v5 = *v2;
+  v5[2] = *v2;
+  v5[11] = a1;
+  v5[12] = v1;
 
   if (v1)
   {
-    v7 = *v10;
-    v6 = closure #1 in MLServerDelegate.ensureMediaML();
+    v3 = closure #1 in MLServerDelegate.ensureMediaML();
   }
 
   else
   {
-    v5 = *v10;
-    v6 = closure #1 in MLServerDelegate.ensureMediaML();
+    v3 = closure #1 in MLServerDelegate.ensureMediaML();
   }
 
-  return _swift_task_switch(v6, 0);
+  return _swift_task_switch(v3, 0);
 }
 
 uint64_t closure #1 in MLServerDelegate.ensureMediaML()()
 {
   v1 = v0[12];
-  v11 = v0[11];
+  v7 = v0[11];
   v2 = v0[6];
   v0[2] = v0;
-  v0[5] = v11;
-  v12 = (*((*v2 & swift_isaMask) + 0x58))();
+  v0[5] = v7;
+  v8 = (*((*v2 & swift_isaMask) + 0x58))();
 
   v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7MediaMLAACSgMd, &_s7MediaMLAACSgMR);
-  OSAllocatedUnfairLock.withLock<A>(_:)(partial apply for closure #1 in closure #1 in MLServerDelegate.ensureMediaML(), v11, v12, v3, &type metadata for () + 8);
+  OSAllocatedUnfairLock.withLock<A>(_:)(partial apply for closure #1 in closure #1 in MLServerDelegate.ensureMediaML(), v7, v8, v3, &type metadata for () + 8);
   if (v1)
   {
-    v8 = v10[11];
   }
 
-  else
-  {
-    v9 = v10[11];
+  v4 = *(*(v6 + 16) + 8);
 
-    v4 = v10[9];
-
-    v5 = *(v10[2] + 8);
-    v6 = v10[2];
-
-    return v5();
-  }
+  return v4();
 }
 
 {
-  v33 = v0;
-  v18 = v0[12];
+  v31 = v0;
+  v16 = v0[12];
   v1 = v0[9];
-  v16 = v0[8];
-  v17 = v0[7];
+  v14 = v0[8];
+  v15 = v0[7];
   v0[2] = v0;
   swift_errorRetain();
-  v0[4] = v18;
+  v0[4] = v16;
   v2 = MLServerDelegate.logger.unsafeMutableAddressor();
-  (*(v16 + 16))(v1, v2, v17);
+  (*(v14 + 16))(v1, v2, v15);
   swift_errorRetain();
-  v19 = swift_allocObject();
-  *(v19 + 16) = v18;
+  v17 = swift_allocObject();
+  *(v17 + 16) = v16;
   default argument 2 of OSLogInterpolation.appendInterpolation(_:privacy:attributes:)();
 
-  v26 = Logger.logObject.getter();
-  v27 = static os_log_type_t.error.getter();
-  v22 = swift_allocObject();
-  *(v22 + 16) = 64;
-  v23 = swift_allocObject();
-  *(v23 + 16) = 8;
+  v24 = Logger.logObject.getter();
+  v25 = static os_log_type_t.error.getter();
   v20 = swift_allocObject();
-  *(v20 + 16) = partial apply for implicit closure #1 in closure #1 in MLServerDelegate.ensureMediaML();
-  *(v20 + 24) = v19;
+  *(v20 + 16) = 64;
   v21 = swift_allocObject();
-  *(v21 + 16) = partial apply for implicit closure #1 in OSLogInterpolation.appendInterpolation(_:privacy:attributes:);
-  *(v21 + 24) = v20;
-  v24 = swift_allocObject();
-  *(v24 + 16) = partial apply for implicit closure #1 in OSLogInterpolation.appendInterpolation(_:privacy:attributes:);
-  *(v24 + 24) = v21;
+  *(v21 + 16) = 8;
+  v18 = swift_allocObject();
+  *(v18 + 16) = partial apply for implicit closure #1 in closure #1 in MLServerDelegate.ensureMediaML();
+  *(v18 + 24) = v17;
+  v19 = swift_allocObject();
+  *(v19 + 16) = partial apply for implicit closure #1 in OSLogInterpolation.appendInterpolation(_:privacy:attributes:);
+  *(v19 + 24) = v18;
+  v22 = swift_allocObject();
+  *(v22 + 16) = partial apply for implicit closure #1 in OSLogInterpolation.appendInterpolation(_:privacy:attributes:);
+  *(v22 + 24) = v19;
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMd, &_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMR);
   _allocateUninitializedArray<A>(_:)();
-  v25 = v3;
+  v23 = v3;
 
-  *v25 = partial apply for closure #1 in OSLogArguments.append(_:);
-  v25[1] = v22;
+  *v23 = partial apply for closure #1 in OSLogArguments.append(_:);
+  v23[1] = v20;
 
-  v25[2] = closure #1 in OSLogArguments.append(_:)partial apply;
-  v25[3] = v23;
+  v23[2] = closure #1 in OSLogArguments.append(_:)partial apply;
+  v23[3] = v21;
 
-  v25[4] = partial apply for closure #1 in OSLogArguments.append(_:);
-  v25[5] = v24;
+  v23[4] = partial apply for closure #1 in OSLogArguments.append(_:);
+  v23[5] = v22;
   _finalizeUninitializedArray<A>(_:)();
 
-  if (os_log_type_enabled(v26, v27))
+  if (os_log_type_enabled(v24, v25))
   {
     buf = static UnsafeMutablePointer.allocate(capacity:)();
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
-    v13 = createStorage<A>(capacity:type:)(1);
-    v14 = createStorage<A>(capacity:type:)(0);
-    v28 = buf;
-    v29 = v13;
-    v30 = v14;
-    serialize(_:at:)(2, &v28);
-    serialize(_:at:)(1, &v28);
-    v31 = partial apply for closure #1 in OSLogArguments.append(_:);
-    v32 = v22;
-    closure #1 in osLogInternal(_:log:type:)(&v31, &v28, &v29, &v30);
-    v31 = closure #1 in OSLogArguments.append(_:)partial apply;
-    v32 = v23;
-    closure #1 in osLogInternal(_:log:type:)(&v31, &v28, &v29, &v30);
-    v31 = partial apply for closure #1 in OSLogArguments.append(_:);
-    v32 = v24;
-    closure #1 in osLogInternal(_:log:type:)(&v31, &v28, &v29, &v30);
-    _os_log_impl(&_mh_execute_header, v26, v27, "Failed to init MediaML due to error=%@", buf, 0xCu);
-    destroyStorage<A>(_:count:)(v13);
-    destroyStorage<A>(_:count:)(v14);
+    v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
+    v11 = createStorage<A>(capacity:type:)(1, v9, v9);
+    v12 = createStorage<A>(capacity:type:)(0, &type metadata for Any + 8, &type metadata for Any + 8);
+    v26 = buf;
+    v27 = v11;
+    v28 = v12;
+    serialize(_:at:)(2, &v26);
+    serialize(_:at:)(1, &v26);
+    v29 = partial apply for closure #1 in OSLogArguments.append(_:);
+    v30 = v20;
+    closure #1 in osLogInternal(_:log:type:)(&v29, &v26, &v27, &v28);
+    v29 = closure #1 in OSLogArguments.append(_:)partial apply;
+    v30 = v21;
+    closure #1 in osLogInternal(_:log:type:)(&v29, &v26, &v27, &v28);
+    v29 = partial apply for closure #1 in OSLogArguments.append(_:);
+    v30 = v22;
+    closure #1 in osLogInternal(_:log:type:)(&v29, &v26, &v27, &v28);
+    _os_log_impl(&_mh_execute_header, v24, v25, "Failed to init MediaML due to error=%@", buf, 0xCu);
+    destroyStorage<A>(_:count:)(v11, 1);
+    destroyStorage<A>(_:count:)(v12, 0);
     UnsafeMutablePointer.deallocate()();
   }
 
@@ -313,24 +294,19 @@ uint64_t closure #1 in MLServerDelegate.ensureMediaML()()
   {
   }
 
-  v11 = v15[12];
-  v9 = v15[9];
-  v10 = v15[7];
-  v8 = v15[8];
+  v7 = v13[9];
+  v8 = v13[7];
+  v6 = v13[8];
 
-  (*(v8 + 8))(v9, v10);
+  (*(v6 + 8))(v7, v8);
 
-  v4 = v15[9];
+  v4 = *(v13[2] + 8);
 
-  v5 = *(v15[2] + 8);
-  v6 = v15[2];
-
-  return v5();
+  return v4();
 }
 
 uint64_t sub_100002784()
 {
-  v1 = *(v0 + 16);
   swift_unknownObjectRelease();
 
   return swift_deallocObject();
@@ -343,7 +319,6 @@ uint64_t partial apply for closure #1 in MLServerDelegate.ensureMediaML()(uint64
   v6 = v1[2];
   v7 = v1[3];
   v8 = v1[4];
-  v9 = v1[5];
   v3 = swift_task_alloc();
   *(v5 + 24) = v3;
   *v3 = *(v5 + 16);
@@ -354,154 +329,151 @@ uint64_t partial apply for closure #1 in MLServerDelegate.ensureMediaML()(uint64
 
 uint64_t partial apply for closure #1 in MLServerDelegate.ensureMediaML()()
 {
-  v4 = *v0;
-  v1 = *(*v0 + 24);
-  *(v4 + 16) = *v0;
+  v3 = *v0;
+  *(v3 + 16) = *v0;
 
-  v2 = *(*(v4 + 16) + 8);
+  v1 = *(*(v3 + 16) + 8);
 
-  return v2();
+  return v1();
 }
 
 uint64_t closure #1 in closure #1 in MLServerDelegate.ensureMediaML()(uint64_t *a1, uint64_t a2)
 {
 
-  v2 = *a1;
   *a1 = a2;
 }
 
 uint64_t _sScTss5NeverORs_rlE4name8priority9operationScTyxABGSSSg_ScPSgxyYaYAcntcfC(uint64_t a1, uint64_t a2, const void *a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  v46 = a1;
-  v47 = a2;
-  v55 = a3;
-  v56 = a4;
-  v57 = a5;
-  v48 = a6;
-  v49 = "Fatal error";
-  v50 = "Unexpectedly found nil while unwrapping an Optional value";
-  v51 = "_Concurrency/arm64e-apple-ios.private.swiftinterface";
-  v52 = &_sxIeAgHr_xs5Error_pIegHrzo_s8SendableRzs5NeverORs_r0_lTRTATu;
-  v53 = 0;
-  v66 = a6;
-  v54 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  __chkstk_darwin(v57);
-  v58 = &v15 - v54;
+  v45 = a1;
+  v46 = a2;
+  v54 = a3;
+  v55 = a4;
+  v56 = a5;
+  v47 = a6;
+  v48 = "Fatal error";
+  v49 = "Unexpectedly found nil while unwrapping an Optional value";
+  v50 = "_Concurrency/arm64e-apple-ios.private.swiftinterface";
+  v51 = &_sxIeAgHr_xs5Error_pIegHrzo_s8SendableRzs5NeverORs_r0_lTRTATu;
+  v52 = 0;
+  v65 = a6;
+  v53 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  __chkstk_darwin(v56);
+  v57 = &v14 - v53;
 
+  v63 = v55;
   v64 = v56;
-  v65 = v57;
-  outlined init with copy of TaskPriority?(v55, v58);
-  v59 = type metadata accessor for TaskPriority();
-  v60 = *(v59 - 8);
-  v61 = v59 - 8;
-  if ((*(v60 + 48))(v58, 1) == 1)
+  outlined init with copy of TaskPriority?(v54, v57);
+  v58 = type metadata accessor for TaskPriority();
+  v59 = *(v58 - 8);
+  v60 = v58 - 8;
+  if ((*(v59 + 48))(v57, 1) == 1)
   {
-    outlined destroy of TaskPriority?(v58);
-    v45 = 0;
+    outlined destroy of TaskPriority?(v57);
+    v44 = 0;
   }
 
   else
   {
-    v44 = TaskPriority.rawValue.getter();
-    (*(v60 + 8))(v58, v59);
-    v45 = v44;
+    v43 = TaskPriority.rawValue.getter();
+    (*(v59 + 8))(v57, v58);
+    v44 = v43;
   }
 
-  v41 = v45 | 0x1C00;
-  v43 = *(v57 + 16);
-  v42 = *(v57 + 24);
+  v40 = v44 | 0x1C00;
+  v42 = *(v56 + 16);
+  v41 = *(v56 + 24);
   swift_unknownObjectRetain();
 
-  if (v43)
+  if (v42)
   {
-    v39 = v43;
-    v40 = v42;
+    v38 = v42;
+    v39 = v41;
+    v32 = v41;
     v33 = v42;
-    v34 = v43;
     swift_getObjectType();
-    v35 = dispatch thunk of Actor.unownedExecutor.getter();
-    v36 = v6;
+    v34 = dispatch thunk of Actor.unownedExecutor.getter();
+    v35 = v6;
     swift_unknownObjectRelease();
+    v36 = v34;
     v37 = v35;
-    v38 = v36;
   }
 
   else
   {
+    v36 = 0;
     v37 = 0;
-    v38 = 0;
   }
 
-  v31 = v38;
-  v32 = v37;
+  v30 = v37;
+  v31 = v36;
 
-  if (v47)
+  if (v46)
   {
+    v28 = v45;
     v29 = v46;
-    v30 = v47;
-    v7 = v53;
-    v26 = v47;
-    v27 = String.utf8CString.getter();
+    v7 = v52;
+    v25 = v46;
+    v26 = String.utf8CString.getter();
 
-    v8 = *(v27 + 16);
-    _sScTss5NeverORs_rlE4name8priority9operationScTyxABGSSSg_ScPSgxyYaYAcntcfcBoSRys4Int8VGXEfU_(v27 + 32, &v64, v48, &v62);
+    _sScTss5NeverORs_rlE4name8priority9operationScTyxABGSSSg_ScPSgxyYaYAcntcfcBoSRys4Int8VGXEfU_(v26 + 32, &v63, v47, &v61);
     if (v7)
     {
       __break(1u);
     }
 
-    v25 = v62;
+    v24 = v61;
 
-    v28 = v25;
+    v27 = v24;
   }
 
   else
   {
-    v28 = 0;
+    v27 = 0;
   }
 
-  v24 = v28;
-  if (v28)
+  v23 = v27;
+  if (v27)
   {
-    v18 = v24;
-    v17 = v24;
-    outlined destroy of TaskPriority?(v55);
+    v17 = v23;
+    v16 = v23;
+    outlined destroy of TaskPriority?(v54);
 
-    v19 = v17;
+    v18 = v16;
   }
 
   else
   {
 
-    outlined destroy of TaskPriority?(v55);
+    outlined destroy of TaskPriority?(v54);
+    v19 = v63;
     v20 = v64;
-    v21 = v65;
 
-    v9 = swift_allocObject();
+    v8 = swift_allocObject();
+    v9 = v19;
     v10 = v20;
-    v11 = v21;
-    v12 = v32;
-    v13 = v31;
-    v22 = v9;
-    v9[2] = v48;
-    v9[3] = v10;
-    v9[4] = v11;
-    v23 = 0;
-    if (v12 != 0 || v13 != 0)
+    v11 = v31;
+    v12 = v30;
+    v21 = v8;
+    v8[2] = v47;
+    v8[3] = v9;
+    v8[4] = v10;
+    v22 = 0;
+    if (v11 != 0 || v12 != 0)
     {
-      v63[0] = 0;
-      v63[1] = 0;
-      v63[2] = v32;
-      v63[3] = v31;
-      v23 = v63;
+      v62[0] = 0;
+      v62[1] = 0;
+      v62[2] = v31;
+      v62[3] = v30;
+      v22 = v62;
     }
 
-    v19 = swift_task_create();
+    v18 = swift_task_create();
   }
 
-  v16 = v19;
+  v15 = v18;
 
-  return v16;
+  return v15;
 }
 
 void *MLServerDelegate.init()()
@@ -581,13 +553,6 @@ id MLServerDelegate.__deallocating_deinit()
   return objc_msgSendSuper2(&v2, "dealloc");
 }
 
-uint64_t *outlined destroy of OSAllocatedUnfairLock<MediaML?>(uint64_t *a1)
-{
-  v1 = *a1;
-
-  return a1;
-}
-
 void *outlined init with copy of OSAllocatedUnfairLock<MediaML?>(uint64_t *a1, void *a2)
 {
   v4 = *a1;
@@ -597,7 +562,7 @@ void *outlined init with copy of OSAllocatedUnfairLock<MediaML?>(uint64_t *a1, v
   return result;
 }
 
-uint64_t createStorage<A>(capacity:type:)(uint64_t a1)
+uint64_t createStorage<A>(capacity:type:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (a1)
   {
@@ -618,7 +583,7 @@ uint64_t serialize(_:at:)(uint64_t result, _BYTE **a2)
   return result;
 }
 
-void destroyStorage<A>(_:count:)(uint64_t a1)
+void destroyStorage<A>(_:count:)(uint64_t a1, uint64_t a2)
 {
   if (a1)
   {
@@ -629,7 +594,7 @@ void destroyStorage<A>(_:count:)(uint64_t a1)
 
 uint64_t OSAllocatedUnfairLock.init(uncheckedState:)(uint64_t a1, uint64_t a2)
 {
-  type metadata accessor for os_unfair_lock_s();
+  type metadata accessor for os_unfair_lock_s(255);
   type metadata accessor for ManagedBuffer();
   v5 = static ManagedBuffer.create(minimumCapacity:makingHeaderWith:)();
   (*(*(a2 - 8) + 8))(a1);
@@ -643,7 +608,7 @@ uint64_t closure #1 in OSAllocatedUnfairLock.init(uncheckedState:)@<X0>(uint64_t
   return (*(*(*(v3 + class metadata base offset for ManagedBuffer) - 8) + 16))(a2);
 }
 
-uint64_t _sScTss5NeverORs_rlE4name8priority9operationScTyxABGSSSg_ScPSgxyYaYAcntcfcBoSRys4Int8VGXEfU_@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X5>, uint64_t a3@<X6>, uint64_t *a4@<X8>)
+uint64_t _sScTss5NeverORs_rlE4name8priority9operationScTyxABGSSSg_ScPSgxyYaYAcntcfcBoSRys4Int8VGXEfU_@<X0>(uint64_t a1@<X0>, uint64_t *a5@<X5>, uint64_t a6@<X6>, uint64_t *a7@<X8>)
 {
   if (!a1)
   {
@@ -651,41 +616,39 @@ uint64_t _sScTss5NeverORs_rlE4name8priority9operationScTyxABGSSSg_ScPSgxyYaYAcnt
     __break(1u);
   }
 
-  v5 = *a2;
-  v6 = a2[1];
+  v8 = *a5;
+  v9 = a5[1];
 
-  v7 = swift_allocObject();
-  v7[2] = a3;
-  v7[3] = v5;
-  v7[4] = v6;
+  v10 = swift_allocObject();
+  v10[2] = a6;
+  v10[3] = v8;
+  v10[4] = v9;
   result = swift_task_create();
-  *a4 = result;
+  *a7 = result;
   return result;
 }
 
 uint64_t _sxIeAgHr_xs5Error_pIegHrzo_s8SendableRzs5NeverORs_r0_lTR(uint64_t a1, int *a2)
 {
-  v6 = v2;
+  v5 = v2;
   *(v2 + 16) = v2;
-  v7 = (a2 + *a2);
-  v3 = a2[1];
-  v4 = swift_task_alloc();
-  *(v6 + 24) = v4;
-  *v4 = *(v6 + 16);
-  v4[1] = _sxIeAgHr_xs5Error_pIegHrzo_s8SendableRzs5NeverORs_r0_lTRTQ0_;
+  v6 = (a2 + *a2);
+  v3 = swift_task_alloc();
+  *(v5 + 24) = v3;
+  *v3 = *(v5 + 16);
+  v3[1] = _sxIeAgHr_xs5Error_pIegHrzo_s8SendableRzs5NeverORs_r0_lTRTQ0_;
 
-  return v7(a1);
+  return v6(a1);
 }
 
 uint64_t _sxIeAgHr_xs5Error_pIegHrzo_s8SendableRzs5NeverORs_r0_lTRTQ0_()
 {
-  v4 = *v0;
-  v1 = *(*v0 + 24);
-  *(v4 + 16) = *v0;
+  v3 = *v0;
+  *(v3 + 16) = *v0;
 
-  v2 = *(*(v4 + 16) + 8);
+  v1 = *(*(v3 + 16) + 8);
 
-  return v2();
+  return v1();
 }
 
 void OSAllocatedUnfairLock.withLockUncheckedInternal<A>(body:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
@@ -695,7 +658,7 @@ void OSAllocatedUnfairLock.withLockUncheckedInternal<A>(body:)(uint64_t a1, uint
   partial apply for closure #1 in OSAllocatedUnfairLock.withLockUncheckedInternal<A>(body:)(a3 + *(*a3 + class metadata base offset for ManagedBuffer + 16), (a3 + ((*(*a3 + 48) + 3) & 0xFFFFFFFFFFFFFFFCLL)), v5);
 }
 
-void *implicit closure #1 in OSLogInterpolation.appendInterpolation(_:privacy:attributes:)(void (*a1)(void))
+void *implicit closure #1 in OSLogInterpolation.appendInterpolation(_:privacy:attributes:)(uint64_t (*a1)(void))
 {
   a1();
   v2 = _swift_stdlib_bridgeErrorToNSError();
@@ -755,21 +718,11 @@ uint64_t outlined destroy of TaskPriority?(uint64_t a1)
   return a1;
 }
 
-uint64_t sub_100004260()
-{
-  v3 = *(v0 + 16);
-  v1 = *(v0 + 32);
-
-  return swift_deallocObject();
-}
-
 uint64_t _sxIeAgHr_xs5Error_pIegHrzo_s8SendableRzs5NeverORs_r0_lTRTA(uint64_t a1)
 {
   v5 = v2;
   *(v2 + 16) = v2;
-  v8 = v1[2];
-  v6 = v1[3];
-  v7 = v1[4];
+  v6 = *(v1 + 24);
   v3 = swift_task_alloc();
   *(v5 + 24) = v3;
   *v3 = *(v5 + 16);
@@ -780,30 +733,19 @@ uint64_t _sxIeAgHr_xs5Error_pIegHrzo_s8SendableRzs5NeverORs_r0_lTRTA(uint64_t a1
 
 uint64_t _sxIeAgHr_xs5Error_pIegHrzo_s8SendableRzs5NeverORs_r0_lTRTATQ0_()
 {
-  v4 = *v0;
-  v1 = *(*v0 + 24);
-  *(v4 + 16) = *v0;
+  v3 = *v0;
+  *(v3 + 16) = *v0;
 
-  v2 = *(*(v4 + 16) + 8);
+  v1 = *(*(v3 + 16) + 8);
 
-  return v2();
-}
-
-uint64_t sub_1000044C4()
-{
-  v3 = *(v0 + 16);
-  v1 = *(v0 + 32);
-
-  return swift_deallocObject();
+  return v1();
 }
 
 uint64_t _sxIeAgHr_xs5Error_pIegHrzo_s8SendableRzs5NeverORs_r0_lTRTA_11(uint64_t a1)
 {
   v5 = v2;
   *(v2 + 16) = v2;
-  v8 = v1[2];
-  v6 = v1[3];
-  v7 = v1[4];
+  v6 = *(v1 + 24);
   v3 = swift_task_alloc();
   *(v5 + 24) = v3;
   *v3 = *(v5 + 16);
@@ -814,27 +756,12 @@ uint64_t _sxIeAgHr_xs5Error_pIegHrzo_s8SendableRzs5NeverORs_r0_lTRTA_11(uint64_t
 
 uint64_t _sxIeAgHr_xs5Error_pIegHrzo_s8SendableRzs5NeverORs_r0_lTRTA_11TQ0_()
 {
-  v4 = *v0;
-  v1 = *(*v0 + 24);
-  *(v4 + 16) = *v0;
+  v3 = *v0;
+  *(v3 + 16) = *v0;
 
-  v2 = *(*(v4 + 16) + 8);
+  v1 = *(*(v3 + 16) + 8);
 
-  return v2();
-}
-
-uint64_t sub_100004728()
-{
-  v1 = *(v0 + 16);
-
-  return swift_deallocObject();
-}
-
-uint64_t partial apply for implicit closure #1 in closure #1 in MLServerDelegate.ensureMediaML()()
-{
-  result = *(v0 + 16);
-  implicit closure #1 in closure #1 in MLServerDelegate.ensureMediaML()();
-  return result;
+  return v1();
 }
 
 _BYTE **closure #1 in OSLogArguments.append(_:)(_BYTE **result, uint64_t a2, uint64_t a3, char a4)
@@ -894,23 +821,9 @@ _BYTE **closure #1 in OSLogArguments.append(_:)partial apply(_BYTE **a1, uint64_
   return closure #1 in OSLogArguments.append(_:)(a1, a2, a3, *(v3 + 16));
 }
 
-uint64_t sub_1000047F8()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_100004844()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
 void closure #1 in OSLogArguments.append(_:)(uint64_t *a1, void **a2, uint64_t a3, uint64_t (*a4)(void))
 {
-  v8 = a4();
+  v8 = (a4)(a1, a2, a3);
   v7 = *a1;
   _objc_retain(v8);
   UnsafeMutableRawBufferPointer.copyMemory(from:)();
@@ -933,29 +846,22 @@ void closure #1 in OSLogArguments.append(_:)(uint64_t *a1, void **a2, uint64_t a
   }
 }
 
-uint64_t sub_100004A14()
+unint64_t type metadata accessor for os_unfair_lock_s(uint64_t a1)
 {
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t type metadata accessor for os_unfair_lock_s()
-{
-  v4 = lazy cache variable for type metadata for os_unfair_lock_s;
+  v5 = lazy cache variable for type metadata for os_unfair_lock_s;
   if (!lazy cache variable for type metadata for os_unfair_lock_s)
   {
     ForeignTypeMetadata = swift_getForeignTypeMetadata();
-    v4 = ForeignTypeMetadata;
-    if (!v0)
+    v5 = ForeignTypeMetadata;
+    if (!v1)
     {
-      v1 = ForeignTypeMetadata;
+      v2 = ForeignTypeMetadata;
       atomic_store(ForeignTypeMetadata, &lazy cache variable for type metadata for os_unfair_lock_s);
-      return v1;
+      return v2;
     }
   }
 
-  return v4;
+  return v5;
 }
 
 uint64_t getEnumTagSinglePayload for os_unfair_lock_s(uint64_t a1, int a2)
@@ -1080,291 +986,290 @@ id MLServer.init(mediaML:)(uint64_t a1)
 
 void MLServer.getPrediction(inputFeatures:with:)(uint64_t a1, void (*a2)(void, double), uint64_t a3)
 {
-  v112 = a3;
-  v114 = a2;
-  v126 = a1;
+  v111 = a3;
+  v113 = a2;
+  v125 = a1;
   ObjectType = swift_getObjectType();
-  v109 = 0;
-  v161 = 0;
+  v108 = 0;
   v160 = 0;
   v159 = 0;
   v158 = 0;
   v157 = 0;
   v156 = 0;
-  v97 = 0;
-  v98 = type metadata accessor for DispatchTimeInterval();
-  v99 = *(v98 - 8);
-  v100 = v99;
-  v3 = *(v99 + 64);
+  v155 = 0;
+  v96 = 0;
+  v97 = type metadata accessor for DispatchTimeInterval();
+  v98 = *(v97 - 8);
+  v99 = v98;
   __chkstk_darwin(0);
-  v101 = &v45 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v102 = type metadata accessor for DispatchTime();
-  v103 = *(v102 - 8);
-  v104 = v103;
-  v105 = *(v103 + 64);
-  __chkstk_darwin(v102 - 8);
-  v107 = (v105 + 15) & 0xFFFFFFFFFFFFFFF0;
-  v106 = &v45 - v107;
-  __chkstk_darwin(&v45 - v107);
-  v108 = &v45 - v107;
-  v110 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  __chkstk_darwin(v109);
-  v111 = &v45 - v110;
-  v123 = type metadata accessor for Logger();
-  v115 = v123;
-  v116 = *(v123 - 8);
-  v122 = v116;
-  v117 = v116;
-  v118 = *(v116 + 64);
-  v5 = __chkstk_darwin(v126);
-  v120 = (v118 + 15) & 0xFFFFFFFFFFFFFFF0;
-  v119 = &v45 - v120;
-  v6 = __chkstk_darwin(v5);
-  v7 = &v45 - v120;
-  v121 = &v45 - v120;
-  v161 = v6;
+  v100 = &v44 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v101 = type metadata accessor for DispatchTime();
+  v102 = *(v101 - 8);
+  v103 = v102;
+  v104 = *(v102 + 64);
+  __chkstk_darwin(v101 - 8);
+  v106 = (v104 + 15) & 0xFFFFFFFFFFFFFFF0;
+  v105 = &v44 - v106;
+  __chkstk_darwin(&v44 - v106);
+  v107 = &v44 - v106;
+  v109 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  __chkstk_darwin(v108);
+  v110 = &v44 - v109;
+  v122 = type metadata accessor for Logger();
+  v114 = v122;
+  v115 = *(v122 - 8);
+  v121 = v115;
+  v116 = v115;
+  v117 = *(v115 + 64);
+  v4 = __chkstk_darwin(v125);
+  v119 = (v117 + 15) & 0xFFFFFFFFFFFFFFF0;
+  v118 = &v44 - v119;
+  v5 = __chkstk_darwin(v4);
+  v6 = &v44 - v119;
+  v120 = &v44 - v119;
+  v160 = v5;
+  v158 = v7;
   v159 = v8;
-  v160 = v9;
-  v158 = v10;
-  v11 = MLServer.logger.unsafeMutableAddressor();
-  v124 = *(v122 + 16);
-  v125 = (v122 + 16) & 0xFFFFFFFFFFFFLL | 0xE3BA000000000000;
-  v124(v7, v11, v123);
+  v157 = v9;
+  v10 = MLServer.logger.unsafeMutableAddressor();
+  v123 = *(v121 + 16);
+  v124 = (v121 + 16) & 0xFFFFFFFFFFFFLL | 0xE3BA000000000000;
+  v123(v6, v10, v122);
 
-  v135 = 7;
-  v127 = swift_allocObject();
-  *(v127 + 16) = v126;
+  v134 = 7;
+  v126 = swift_allocObject();
+  *(v126 + 16) = v125;
 
-  v130 = 32;
-  v134 = 32;
-  v12 = swift_allocObject();
-  v13 = v127;
-  v136 = v12;
-  *(v12 + 16) = partial apply for implicit closure #1 in MLServer.getPrediction(inputFeatures:with:);
-  *(v12 + 24) = v13;
+  v129 = 32;
+  v133 = 32;
+  v11 = swift_allocObject();
+  v12 = v126;
+  v135 = v11;
+  *(v11 + 16) = partial apply for implicit closure #1 in MLServer.getPrediction(inputFeatures:with:);
+  *(v11 + 24) = v12;
 
-  v147 = Logger.logObject.getter();
-  v128 = v147;
-  v146 = static os_log_type_t.debug.getter();
-  v129 = v146;
-  v131 = 17;
+  v146 = Logger.logObject.getter();
+  v127 = v146;
+  v145 = static os_log_type_t.debug.getter();
+  v128 = v145;
+  v130 = 17;
+  v139 = swift_allocObject();
+  v131 = v139;
+  *(v139 + 16) = v129;
   v140 = swift_allocObject();
   v132 = v140;
-  *(v140 + 16) = v130;
-  v141 = swift_allocObject();
-  v133 = v141;
-  *(v141 + 16) = 8;
-  v14 = swift_allocObject();
-  v15 = v136;
-  v137 = v14;
-  *(v14 + 16) = partial apply for implicit closure #1 in OSLogInterpolation.appendInterpolation<A>(_:align:privacy:);
-  *(v14 + 24) = v15;
-  v16 = swift_allocObject();
-  v17 = v137;
-  v144 = v16;
-  v138 = v16;
-  *(v16 + 16) = partial apply for implicit closure #1 in OSLogInterpolation.appendInterpolation(_:align:privacy:);
-  *(v16 + 24) = v17;
-  v145 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMd, &_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMR);
-  v139 = v145;
-  v142 = _allocateUninitializedArray<A>(_:)();
-  v143 = v18;
+  *(v140 + 16) = 8;
+  v13 = swift_allocObject();
+  v14 = v135;
+  v136 = v13;
+  *(v13 + 16) = partial apply for implicit closure #1 in OSLogInterpolation.appendInterpolation<A>(_:align:privacy:);
+  *(v13 + 24) = v14;
+  v15 = swift_allocObject();
+  v16 = v136;
+  v143 = v15;
+  v137 = v15;
+  *(v15 + 16) = partial apply for implicit closure #1 in OSLogInterpolation.appendInterpolation(_:align:privacy:);
+  *(v15 + 24) = v16;
+  v144 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMd, &_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMR);
+  v138 = v144;
+  v141 = _allocateUninitializedArray<A>(_:)();
+  v142 = v17;
 
-  v19 = v140;
-  v20 = v143;
-  *v143 = _s2os14OSLogArgumentsV6appendyys5UInt8VFySpyAFGz_SpySo8NSObjectCSgGSgzSpyypGSgztcfU_TA_0;
-  v20[1] = v19;
+  v18 = v139;
+  v19 = v142;
+  *v142 = _s2os14OSLogArgumentsV6appendyys5UInt8VFySpyAFGz_SpySo8NSObjectCSgGSgzSpyypGSgztcfU_TA_0;
+  v19[1] = v18;
 
-  v21 = v141;
-  v22 = v143;
-  v143[2] = closure #1 in OSLogArguments.append(_:)partial apply;
-  v22[3] = v21;
+  v20 = v140;
+  v21 = v142;
+  v142[2] = closure #1 in OSLogArguments.append(_:)partial apply;
+  v21[3] = v20;
 
+  v22 = v142;
   v23 = v143;
-  v24 = v144;
-  v143[4] = partial apply for closure #1 in OSLogArguments.append(_:);
-  v23[5] = v24;
+  v142[4] = partial apply for closure #1 in OSLogArguments.append(_:);
+  v22[5] = v23;
   _finalizeUninitializedArray<A>(_:)();
 
-  if (os_log_type_enabled(v147, v146))
+  if (os_log_type_enabled(v146, v145))
   {
-    v25 = v97;
-    v89 = static UnsafeMutablePointer.allocate(capacity:)();
-    v86 = v89;
-    v87 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
-    v90 = createStorage<A>(capacity:type:)(0);
-    v88 = v90;
-    v92 = 1;
-    v91 = createStorage<A>(capacity:type:)(1);
-    v152[0] = v89;
-    v151 = v90;
-    v150 = v91;
-    v93 = v152;
-    serialize(_:at:)(2, v152);
-    serialize(_:at:)(v92, v93);
-    v148 = _s2os14OSLogArgumentsV6appendyys5UInt8VFySpyAFGz_SpySo8NSObjectCSgGSgzSpyypGSgztcfU_TA_0;
-    v149 = v132;
-    closure #1 in osLogInternal(_:log:type:)(&v148, v93, &v151, &v150);
-    v94 = v25;
-    v95 = v25;
-    if (v25)
+    v24 = v96;
+    v88 = static UnsafeMutablePointer.allocate(capacity:)();
+    v85 = v88;
+    v86 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
+    v89 = createStorage<A>(capacity:type:)(0, v86, v86);
+    v87 = v89;
+    v91 = 1;
+    v90 = createStorage<A>(capacity:type:)(1, &type metadata for Any + 8, &type metadata for Any + 8);
+    v151[0] = v88;
+    v150 = v89;
+    v149 = v90;
+    v92 = v151;
+    serialize(_:at:)(2, v151);
+    serialize(_:at:)(v91, v92);
+    v147 = _s2os14OSLogArgumentsV6appendyys5UInt8VFySpyAFGz_SpySo8NSObjectCSgGSgzSpyypGSgztcfU_TA_0;
+    v148 = v131;
+    closure #1 in osLogInternal(_:log:type:)(&v147, v92, &v150, &v149);
+    v93 = v24;
+    v94 = v24;
+    if (v24)
     {
-      v84 = 0;
+      v83 = 0;
 
       __break(1u);
     }
 
     else
     {
-      v148 = closure #1 in OSLogArguments.append(_:)partial apply;
-      v149 = v133;
-      closure #1 in osLogInternal(_:log:type:)(&v148, v152, &v151, &v150);
-      v82 = 0;
-      v83 = 0;
-      v148 = partial apply for closure #1 in OSLogArguments.append(_:);
-      v149 = v138;
-      closure #1 in osLogInternal(_:log:type:)(&v148, v152, &v151, &v150);
-      v80 = 0;
+      v147 = closure #1 in OSLogArguments.append(_:)partial apply;
+      v148 = v132;
+      closure #1 in osLogInternal(_:log:type:)(&v147, v151, &v150, &v149);
       v81 = 0;
-      _os_log_impl(&_mh_execute_header, v128, v129, "Called into getPrediction with inputFeatures: %s", v86, 0xCu);
-      destroyStorage<A>(_:count:)(v88);
-      destroyStorage<A>(_:count:)(v91);
+      v82 = 0;
+      v147 = partial apply for closure #1 in OSLogArguments.append(_:);
+      v148 = v137;
+      closure #1 in osLogInternal(_:log:type:)(&v147, v151, &v150, &v149);
+      v79 = 0;
+      v80 = 0;
+      _os_log_impl(&_mh_execute_header, v127, v128, "Called into getPrediction with inputFeatures: %s", v85, 0xCu);
+      destroyStorage<A>(_:count:)(v87, 0);
+      destroyStorage<A>(_:count:)(v90, 1);
       UnsafeMutablePointer.deallocate()();
 
-      v85 = v80;
+      v84 = v79;
     }
   }
 
   else
   {
-    v26 = v97;
+    v25 = v96;
 
-    v85 = v26;
+    v84 = v25;
   }
 
-  v67 = v85;
+  v66 = v84;
 
-  v68 = *(v117 + 8);
-  v69 = (v117 + 8) & 0xFFFFFFFFFFFFLL | 0x4F8000000000000;
-  v68(v121, v115);
-  v74 = 0;
-  v27 = dispatch_semaphore_create(0);
-  v70 = v27;
-  v157 = v27;
-  v71 = priority.unsafeMutableAddressor();
-  v73 = type metadata accessor for TaskPriority();
-  v72 = *(v73 - 8);
-  (*(v72 + 16))(v111, v71);
-  v28 = *(v72 + 56);
-  v79 = 1;
-  v28(v111, 0);
-  v29 = v113;
+  v67 = *(v116 + 8);
+  v68 = (v116 + 8) & 0xFFFFFFFFFFFFLL | 0x4F8000000000000;
+  v67(v120, v114);
+  v73 = 0;
+  v26 = dispatch_semaphore_create(0);
+  v69 = v26;
+  v156 = v26;
+  v70 = priority.unsafeMutableAddressor();
+  v72 = type metadata accessor for TaskPriority();
+  v71 = *(v72 - 8);
+  (*(v71 + 16))(v110, v70);
+  v27 = *(v71 + 56);
+  v78 = 1;
+  v27(v110, 0);
+  v28 = v112;
 
-  v30 = v27;
-  v31 = swift_allocObject();
-  v32 = v113;
-  v33 = v126;
-  v34 = v114;
-  v35 = v112;
-  v36 = ObjectType;
-  v37 = v74;
-  v38 = v111;
-  v75 = v31;
-  v31[2] = v74;
-  v31[3] = v37;
-  v31[4] = v32;
-  v31[5] = v33;
-  v31[6] = v34;
-  v31[7] = v35;
-  v31[8] = v27;
-  v31[9] = v37;
-  v31[10] = v36;
-  _sScTss5NeverORs_rlE4name8priority9operationScTyxABGSSSg_ScPSgxyYaYAcntcfC(v37, v37, v38, &async function pointer to partial apply for closure #1 in MLServer.getPrediction(inputFeatures:with:), v31, &type metadata for () + 8);
+  v29 = v26;
+  v30 = swift_allocObject();
+  v31 = v112;
+  v32 = v125;
+  v33 = v113;
+  v34 = v111;
+  v35 = ObjectType;
+  v36 = v73;
+  v37 = v110;
+  v74 = v30;
+  v30[2] = v73;
+  v30[3] = v36;
+  v30[4] = v31;
+  v30[5] = v32;
+  v30[6] = v33;
+  v30[7] = v34;
+  v30[8] = v26;
+  v30[9] = v36;
+  v30[10] = v35;
+  _sScTss5NeverORs_rlE4name8priority9operationScTyxABGSSSg_ScPSgxyYaYAcntcfC(v36, v36, v37, &async function pointer to partial apply for closure #1 in MLServer.getPrediction(inputFeatures:with:), v30, &type metadata for () + 8);
 
   static DispatchTime.now()();
-  v39 = semaphoreTimeoutValue.unsafeMutableAddressor();
-  (*(v100 + 16))(v101, v39, v98);
+  v38 = semaphoreTimeoutValue.unsafeMutableAddressor();
+  (*(v99 + 16))(v100, v38, v97);
   + infix(_:_:)();
-  (*(v100 + 8))(v101, v98);
-  v77 = *(v104 + 8);
-  v76 = v104 + 8;
-  v77(v106, v102);
-  v78 = OS_dispatch_semaphore.wait(timeout:)();
-  v77(v108, v102);
-  v156 = v78 & 1;
+  (*(v99 + 8))(v100, v97);
+  v76 = *(v103 + 8);
+  v75 = v103 + 8;
+  v76(v105, v101);
+  v77 = OS_dispatch_semaphore.wait(timeout:)();
+  v76(v107, v101);
+  v155 = v77 & 1;
   if (static DispatchTimeoutResult.== infix(_:_:)())
   {
-    v40 = v119;
-    v41 = MLServer.logger.unsafeMutableAddressor();
-    v124(v40, v41, v115);
-    v65 = Logger.logObject.getter();
-    v62 = v65;
-    v64 = static os_log_type_t.error.getter();
-    v63 = v64;
-    v66 = _allocateUninitializedArray<A>(_:)();
-    if (os_log_type_enabled(v65, v64))
+    v39 = v118;
+    v40 = MLServer.logger.unsafeMutableAddressor();
+    v123(v39, v40, v114);
+    v64 = Logger.logObject.getter();
+    v61 = v64;
+    v63 = static os_log_type_t.error.getter();
+    v62 = v63;
+    v65 = _allocateUninitializedArray<A>(_:)();
+    if (os_log_type_enabled(v64, v63))
     {
-      v42 = v67;
-      v53 = static UnsafeMutablePointer.allocate(capacity:)();
-      v49 = v53;
-      v50 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
-      v51 = 0;
-      v54 = createStorage<A>(capacity:type:)(0);
-      v52 = v54;
-      v55 = createStorage<A>(capacity:type:)(v51);
-      v155 = v53;
-      v154 = v54;
-      v153 = v55;
-      v56 = 0;
-      v57 = &v155;
-      serialize(_:at:)(0, &v155);
-      serialize(_:at:)(v56, v57);
-      v152[2] = v66;
-      v58 = &v45;
-      __chkstk_darwin(&v45);
-      v59 = &v45 - 6;
-      *(&v45 - 4) = v43;
-      *(&v45 - 3) = &v154;
-      *(&v45 - 2) = &v153;
-      v60 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSayySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcGMd, &_sSayySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcGMR);
+      v41 = v66;
+      v52 = static UnsafeMutablePointer.allocate(capacity:)();
+      v48 = v52;
+      v49 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
+      v50 = 0;
+      v53 = createStorage<A>(capacity:type:)(0, v49, v49);
+      v51 = v53;
+      v54 = createStorage<A>(capacity:type:)(v50, &type metadata for Any + 8, &type metadata for Any + 8);
+      v154 = v52;
+      v153 = v53;
+      v152 = v54;
+      v55 = 0;
+      v56 = &v154;
+      serialize(_:at:)(0, &v154);
+      serialize(_:at:)(v55, v56);
+      v151[2] = v65;
+      v57 = &v44;
+      __chkstk_darwin(&v44);
+      v58 = &v44 - 6;
+      *(&v44 - 4) = v42;
+      *(&v44 - 3) = &v153;
+      *(&v44 - 2) = &v152;
+      v59 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSayySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcGMd, &_sSayySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcGMR);
       lazy protocol witness table accessor for type [(_:_:_:)] and conformance [A]();
       Sequence.forEach(_:)();
-      v61 = v42;
-      if (v42)
+      v60 = v41;
+      if (v41)
       {
         __break(1u);
       }
 
       else
       {
-        _os_log_impl(&_mh_execute_header, v62, v63, "getPrediction timed-out", v49, 2u);
-        v47 = 0;
-        destroyStorage<A>(_:count:)(v52);
-        destroyStorage<A>(_:count:)(v55);
+        _os_log_impl(&_mh_execute_header, v61, v62, "getPrediction timed-out", v48, 2u);
+        v46 = 0;
+        destroyStorage<A>(_:count:)(v51, 0);
+        destroyStorage<A>(_:count:)(v54, v46);
         UnsafeMutablePointer.deallocate()();
 
-        v48 = v61;
+        v47 = v60;
       }
     }
 
     else
     {
 
-      v48 = v67;
+      v47 = v66;
     }
 
-    v45 = v48;
+    v44 = v47;
 
-    v68(v119, v115);
+    v67(v118, v114);
 
-    v114(v44, 0.0);
+    v113(v43, 0.0);
 
-    v46 = v45;
+    v45 = v44;
   }
 
   else
   {
-    v46 = v67;
+    v45 = v66;
   }
 }
 
@@ -1374,13 +1279,6 @@ uint64_t implicit closure #1 in MLServer.getPrediction(inputFeatures:with:)@<X0>
   result = a1;
   *a2 = a1;
   return result;
-}
-
-uint64_t sub_100006394()
-{
-  v1 = *(v0 + 16);
-
-  return swift_deallocObject();
 }
 
 uint64_t closure #1 in MLServer.getPrediction(inputFeatures:with:)(double a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
@@ -1402,9 +1300,7 @@ uint64_t closure #1 in MLServer.getPrediction(inputFeatures:with:)(double a1, ui
   *(v9 + 80) = 0;
   v10 = type metadata accessor for Logger();
   *(v9 + 136) = v10;
-  v14 = *(v10 - 8);
-  *(v9 + 144) = v14;
-  v11 = *(v14 + 64) + 15;
+  *(v9 + 144) = *(v10 - 8);
   *(v9 + 152) = swift_task_alloc();
   *(v9 + 40) = a5;
   *(v9 + 48) = a6;
@@ -1412,7 +1308,6 @@ uint64_t closure #1 in MLServer.getPrediction(inputFeatures:with:)(double a1, ui
   *(v9 + 24) = a8;
   *(v9 + 56) = a9;
   *(v9 + 64) = a1;
-  v12 = *(v9 + 32);
 
   return _swift_task_switch(closure #1 in MLServer.getPrediction(inputFeatures:with:), 0);
 }
@@ -1423,14 +1318,13 @@ uint64_t closure #1 in MLServer.getPrediction(inputFeatures:with:)()
   v0[4] = v0;
   v0[20] = *(v1 + OBJC_IVAR____TtC10mediamlxpc8MLServer_mediaML);
 
-  v2 = async function pointer to MediaML.getPrediction(data:)[1];
-  v3 = swift_task_alloc();
-  v6[21] = v3;
-  *v3 = v6[4];
-  v3[1] = closure #1 in MLServer.getPrediction(inputFeatures:with:);
-  v4 = v6[12];
+  v2 = swift_task_alloc();
+  v5[21] = v2;
+  *v2 = v5[4];
+  v2[1] = closure #1 in MLServer.getPrediction(inputFeatures:with:);
+  v3 = v5[12];
 
-  return MediaML.getPrediction(data:)(v4);
+  return MediaML.getPrediction(data:)(v3);
 }
 
 {
@@ -1439,100 +1333,95 @@ uint64_t closure #1 in MLServer.getPrediction(inputFeatures:with:)()
   *(v0 + 32) = v0;
   if (v1)
   {
-    v11 = 0.0;
+    v7 = 0.0;
   }
 
   else
   {
-    v11 = v2;
+    v7 = v2;
   }
 
-  v9 = *(v12 + 15);
-  v10 = *(v12 + 14);
-  v8 = *(v12 + 13);
-  v12[10] = v11;
+  v6 = *(v8 + 13);
+  v8[10] = v7;
 
-  v8(v3, v11);
+  v6(v3, v7);
 
   OS_dispatch_semaphore.signal()();
-  v4 = *(v12 + 19);
 
-  v5 = *(*(v12 + 4) + 8);
-  v6 = *(v12 + 4);
+  v4 = *(*(v8 + 4) + 8);
 
-  return v5();
+  return v4();
 }
 
 {
-  v38 = v0;
-  v23 = v0[22];
-  v1 = v0[20];
-  v2 = v0[19];
-  v21 = v0[18];
-  v22 = v0[17];
+  v34 = v0;
+  v19 = v0[22];
+  v1 = v0[19];
+  v17 = v0[18];
+  v18 = v0[17];
   v0[4] = v0;
 
   swift_errorRetain();
-  v0[9] = v23;
-  v3 = MLServer.logger.unsafeMutableAddressor();
-  (*(v21 + 16))(v2, v3, v22);
+  v0[9] = v19;
+  v2 = MLServer.logger.unsafeMutableAddressor();
+  (*(v17 + 16))(v1, v2, v18);
   swift_errorRetain();
-  v24 = swift_allocObject();
-  *(v24 + 16) = v23;
+  v20 = swift_allocObject();
+  *(v20 + 16) = v19;
   default argument 2 of OSLogInterpolation.appendInterpolation(_:privacy:attributes:)();
 
-  v31 = Logger.logObject.getter();
-  v32 = static os_log_type_t.error.getter();
-  v27 = swift_allocObject();
-  *(v27 + 16) = 64;
-  v28 = swift_allocObject();
-  *(v28 + 16) = 8;
+  v27 = Logger.logObject.getter();
+  v28 = static os_log_type_t.error.getter();
+  v23 = swift_allocObject();
+  *(v23 + 16) = 64;
+  v24 = swift_allocObject();
+  *(v24 + 16) = 8;
+  v21 = swift_allocObject();
+  *(v21 + 16) = partial apply for implicit closure #2 in closure #1 in MLServer.getPrediction(inputFeatures:with:);
+  *(v21 + 24) = v20;
+  v22 = swift_allocObject();
+  *(v22 + 16) = implicit closure #1 in OSLogInterpolation.appendInterpolation(_:privacy:attributes:)partial apply;
+  *(v22 + 24) = v21;
   v25 = swift_allocObject();
-  *(v25 + 16) = partial apply for implicit closure #2 in closure #1 in MLServer.getPrediction(inputFeatures:with:);
-  *(v25 + 24) = v24;
-  v26 = swift_allocObject();
-  *(v26 + 16) = implicit closure #1 in OSLogInterpolation.appendInterpolation(_:privacy:attributes:)partial apply;
-  *(v26 + 24) = v25;
-  v29 = swift_allocObject();
-  *(v29 + 16) = implicit closure #1 in OSLogInterpolation.appendInterpolation(_:privacy:attributes:)partial apply;
-  *(v29 + 24) = v26;
+  *(v25 + 16) = implicit closure #1 in OSLogInterpolation.appendInterpolation(_:privacy:attributes:)partial apply;
+  *(v25 + 24) = v22;
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMd, &_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMR);
   _allocateUninitializedArray<A>(_:)();
-  v30 = v4;
+  v26 = v3;
 
-  *v30 = closure #1 in OSLogArguments.append(_:)partial apply;
-  v30[1] = v27;
+  *v26 = closure #1 in OSLogArguments.append(_:)partial apply;
+  v26[1] = v23;
 
-  v30[2] = closure #1 in OSLogArguments.append(_:)partial apply;
-  v30[3] = v28;
+  v26[2] = closure #1 in OSLogArguments.append(_:)partial apply;
+  v26[3] = v24;
 
-  v30[4] = closure #1 in OSLogArguments.append(_:)partial apply;
-  v30[5] = v29;
+  v26[4] = closure #1 in OSLogArguments.append(_:)partial apply;
+  v26[5] = v25;
   _finalizeUninitializedArray<A>(_:)();
 
-  if (os_log_type_enabled(v31, v32))
+  if (os_log_type_enabled(v27, v28))
   {
     buf = static UnsafeMutablePointer.allocate(capacity:)();
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
-    v18 = createStorage<A>(capacity:type:)(1);
-    v19 = createStorage<A>(capacity:type:)(0);
-    v33 = buf;
-    v34 = v18;
-    v35 = v19;
-    serialize(_:at:)(2, &v33);
-    serialize(_:at:)(1, &v33);
-    v36 = closure #1 in OSLogArguments.append(_:)partial apply;
-    v37 = v27;
-    closure #1 in osLogInternal(_:log:type:)(&v36, &v33, &v34, &v35);
-    v36 = closure #1 in OSLogArguments.append(_:)partial apply;
-    v37 = v28;
-    closure #1 in osLogInternal(_:log:type:)(&v36, &v33, &v34, &v35);
-    v36 = closure #1 in OSLogArguments.append(_:)partial apply;
-    v37 = v29;
-    closure #1 in osLogInternal(_:log:type:)(&v36, &v33, &v34, &v35);
-    _os_log_impl(&_mh_execute_header, v31, v32, "Failed to get prediction with error=%@", buf, 0xCu);
-    destroyStorage<A>(_:count:)(v18);
-    destroyStorage<A>(_:count:)(v19);
+    v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
+    v14 = createStorage<A>(capacity:type:)(1, v12, v12);
+    v15 = createStorage<A>(capacity:type:)(0, &type metadata for Any + 8, &type metadata for Any + 8);
+    v29 = buf;
+    v30 = v14;
+    v31 = v15;
+    serialize(_:at:)(2, &v29);
+    serialize(_:at:)(1, &v29);
+    v32 = closure #1 in OSLogArguments.append(_:)partial apply;
+    v33 = v23;
+    closure #1 in osLogInternal(_:log:type:)(&v32, &v29, &v30, &v31);
+    v32 = closure #1 in OSLogArguments.append(_:)partial apply;
+    v33 = v24;
+    closure #1 in osLogInternal(_:log:type:)(&v32, &v29, &v30, &v31);
+    v32 = closure #1 in OSLogArguments.append(_:)partial apply;
+    v33 = v25;
+    closure #1 in osLogInternal(_:log:type:)(&v32, &v29, &v30, &v31);
+    _os_log_impl(&_mh_execute_header, v27, v28, "Failed to get prediction with error=%@", buf, 0xCu);
+    destroyStorage<A>(_:count:)(v14, 1);
+    destroyStorage<A>(_:count:)(v15, 0);
     UnsafeMutablePointer.deallocate()();
   }
 
@@ -1540,359 +1429,348 @@ uint64_t closure #1 in MLServer.getPrediction(inputFeatures:with:)()
   {
   }
 
-  v16 = *(v20 + 22);
-  v12 = *(v20 + 19);
-  v13 = *(v20 + 17);
-  v14 = v20[16];
-  v5 = *(v20 + 14);
-  v15 = *(v20 + 13);
-  v11 = *(v20 + 18);
+  v8 = *(v16 + 19);
+  v9 = *(v16 + 17);
+  v10 = v16[16];
+  v11 = *(v16 + 13);
+  v7 = *(v16 + 18);
 
-  (*(v11 + 8))(v12, v13);
+  (*(v7 + 8))(v8, v9);
 
-  v15(v6, v14);
+  v11(v4, v10);
 
-  v7 = *(v20 + 19);
+  v5 = *(*(v16 + 4) + 8);
 
-  v8 = *(*(v20 + 4) + 8);
-  v9 = *(v20 + 4);
-
-  return v8();
+  return v5();
 }
 
 uint64_t closure #1 in MLServer.getPrediction(inputFeatures:with:)(uint64_t a1, char a2)
 {
-  v11 = *v3;
-  v5 = *(*v3 + 168);
-  *(v11 + 32) = *v3;
-  v12 = (v11 + 32);
-  *(v11 + 176) = v2;
-  *(v11 + 184) = a1;
-  *(v11 + 192) = a2;
+  v6 = *v3;
+  *(v6 + 32) = *v3;
+  *(v6 + 176) = v2;
+  *(v6 + 184) = a1;
+  *(v6 + 192) = a2;
 
   if (v2)
   {
-    v9 = *v12;
-    v8 = closure #1 in MLServer.getPrediction(inputFeatures:with:);
+    v4 = closure #1 in MLServer.getPrediction(inputFeatures:with:);
   }
 
   else
   {
-    v6 = *(v11 + 160);
 
-    v7 = *v12;
-    v8 = closure #1 in MLServer.getPrediction(inputFeatures:with:);
+    v4 = closure #1 in MLServer.getPrediction(inputFeatures:with:);
   }
 
-  return _swift_task_switch(v8, 0);
+  return _swift_task_switch(v4, 0);
 }
 
 void MLServer.getPredictionDictionary(inputFeatures:with:)(uint64_t a1, void (*a2)(void), uint64_t a3)
 {
-  v124 = a3;
-  v126 = a2;
-  v138 = a1;
+  v123 = a3;
+  v125 = a2;
+  v137 = a1;
   ObjectType = swift_getObjectType();
-  v121 = 0;
-  v174 = 0;
+  v120 = 0;
   v173 = 0;
   v172 = 0;
   v171 = 0;
   v170 = 0;
   v169 = 0;
   v168 = 0;
-  v109 = 0;
-  v110 = type metadata accessor for DispatchTimeInterval();
-  v111 = *(v110 - 8);
-  v112 = v111;
-  v3 = *(v111 + 64);
+  v167 = 0;
+  v108 = 0;
+  v109 = type metadata accessor for DispatchTimeInterval();
+  v110 = *(v109 - 8);
+  v111 = v110;
   __chkstk_darwin(0);
-  v113 = &v50 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v114 = type metadata accessor for DispatchTime();
-  v115 = *(v114 - 8);
-  v116 = v115;
-  v117 = *(v115 + 64);
-  __chkstk_darwin(v114 - 8);
-  v119 = (v117 + 15) & 0xFFFFFFFFFFFFFFF0;
-  v118 = &v50 - v119;
-  __chkstk_darwin(&v50 - v119);
-  v120 = &v50 - v119;
-  v122 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  __chkstk_darwin(v121);
-  v123 = &v50 - v122;
-  v135 = type metadata accessor for Logger();
-  v127 = v135;
-  v128 = *(v135 - 8);
-  v134 = v128;
-  v129 = v128;
-  v130 = *(v128 + 64);
-  v5 = __chkstk_darwin(v138);
-  v132 = (v130 + 15) & 0xFFFFFFFFFFFFFFF0;
-  v131 = &v50 - v132;
-  v6 = __chkstk_darwin(v5);
-  v7 = &v50 - v132;
-  v133 = &v50 - v132;
-  v174 = v6;
+  v112 = &v49 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v113 = type metadata accessor for DispatchTime();
+  v114 = *(v113 - 8);
+  v115 = v114;
+  v116 = *(v114 + 64);
+  __chkstk_darwin(v113 - 8);
+  v118 = (v116 + 15) & 0xFFFFFFFFFFFFFFF0;
+  v117 = &v49 - v118;
+  __chkstk_darwin(&v49 - v118);
+  v119 = &v49 - v118;
+  v121 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  __chkstk_darwin(v120);
+  v122 = &v49 - v121;
+  v134 = type metadata accessor for Logger();
+  v126 = v134;
+  v127 = *(v134 - 8);
+  v133 = v127;
+  v128 = v127;
+  v129 = *(v127 + 64);
+  v4 = __chkstk_darwin(v137);
+  v131 = (v129 + 15) & 0xFFFFFFFFFFFFFFF0;
+  v130 = &v49 - v131;
+  v5 = __chkstk_darwin(v4);
+  v6 = &v49 - v131;
+  v132 = &v49 - v131;
+  v173 = v5;
+  v171 = v7;
   v172 = v8;
-  v173 = v9;
-  v171 = v10;
-  v11 = MLServer.logger.unsafeMutableAddressor();
-  v136 = *(v134 + 16);
-  v137 = (v134 + 16) & 0xFFFFFFFFFFFFLL | 0xE3BA000000000000;
-  v136(v7, v11, v135);
+  v170 = v9;
+  v10 = MLServer.logger.unsafeMutableAddressor();
+  v135 = *(v133 + 16);
+  v136 = (v133 + 16) & 0xFFFFFFFFFFFFLL | 0xE3BA000000000000;
+  v135(v6, v10, v134);
 
-  v147 = 7;
-  v139 = swift_allocObject();
-  *(v139 + 16) = v138;
+  v146 = 7;
+  v138 = swift_allocObject();
+  *(v138 + 16) = v137;
 
-  v142 = 32;
-  v146 = 32;
-  v12 = swift_allocObject();
-  v13 = v139;
-  v148 = v12;
-  *(v12 + 16) = partial apply for implicit closure #1 in MLServer.getPredictionDictionary(inputFeatures:with:);
-  *(v12 + 24) = v13;
+  v141 = 32;
+  v145 = 32;
+  v11 = swift_allocObject();
+  v12 = v138;
+  v147 = v11;
+  *(v11 + 16) = partial apply for implicit closure #1 in MLServer.getPredictionDictionary(inputFeatures:with:);
+  *(v11 + 24) = v12;
 
-  v159 = Logger.logObject.getter();
-  v140 = v159;
-  v158 = static os_log_type_t.debug.getter();
-  v141 = v158;
-  v143 = 17;
+  v158 = Logger.logObject.getter();
+  v139 = v158;
+  v157 = static os_log_type_t.debug.getter();
+  v140 = v157;
+  v142 = 17;
+  v151 = swift_allocObject();
+  v143 = v151;
+  *(v151 + 16) = v141;
   v152 = swift_allocObject();
   v144 = v152;
-  *(v152 + 16) = v142;
-  v153 = swift_allocObject();
-  v145 = v153;
-  *(v153 + 16) = 8;
-  v14 = swift_allocObject();
-  v15 = v148;
-  v149 = v14;
-  *(v14 + 16) = implicit closure #1 in OSLogInterpolation.appendInterpolation<A>(_:align:privacy:)partial apply;
-  *(v14 + 24) = v15;
-  v16 = swift_allocObject();
-  v17 = v149;
-  v156 = v16;
-  v150 = v16;
-  *(v16 + 16) = implicit closure #1 in OSLogInterpolation.appendInterpolation(_:align:privacy:)partial apply;
-  *(v16 + 24) = v17;
-  v157 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMd, &_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMR);
-  v151 = v157;
-  v154 = _allocateUninitializedArray<A>(_:)();
-  v155 = v18;
+  *(v152 + 16) = 8;
+  v13 = swift_allocObject();
+  v14 = v147;
+  v148 = v13;
+  *(v13 + 16) = implicit closure #1 in OSLogInterpolation.appendInterpolation<A>(_:align:privacy:)partial apply;
+  *(v13 + 24) = v14;
+  v15 = swift_allocObject();
+  v16 = v148;
+  v155 = v15;
+  v149 = v15;
+  *(v15 + 16) = implicit closure #1 in OSLogInterpolation.appendInterpolation(_:align:privacy:)partial apply;
+  *(v15 + 24) = v16;
+  v156 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMd, &_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMR);
+  v150 = v156;
+  v153 = _allocateUninitializedArray<A>(_:)();
+  v154 = v17;
 
-  v19 = v152;
-  v20 = v155;
-  *v155 = closure #1 in OSLogArguments.append(_:)partial apply;
-  v20[1] = v19;
+  v18 = v151;
+  v19 = v154;
+  *v154 = closure #1 in OSLogArguments.append(_:)partial apply;
+  v19[1] = v18;
 
-  v21 = v153;
-  v22 = v155;
-  v155[2] = closure #1 in OSLogArguments.append(_:)partial apply;
-  v22[3] = v21;
+  v20 = v152;
+  v21 = v154;
+  v154[2] = closure #1 in OSLogArguments.append(_:)partial apply;
+  v21[3] = v20;
 
+  v22 = v154;
   v23 = v155;
-  v24 = v156;
-  v155[4] = closure #1 in OSLogArguments.append(_:)partial apply;
-  v23[5] = v24;
+  v154[4] = closure #1 in OSLogArguments.append(_:)partial apply;
+  v22[5] = v23;
   _finalizeUninitializedArray<A>(_:)();
 
-  if (os_log_type_enabled(v159, v158))
+  if (os_log_type_enabled(v158, v157))
   {
-    v25 = v109;
-    v101 = static UnsafeMutablePointer.allocate(capacity:)();
-    v98 = v101;
-    v99 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
-    v102 = createStorage<A>(capacity:type:)(0);
-    v100 = v102;
-    v104 = 1;
-    v103 = createStorage<A>(capacity:type:)(1);
-    v164[0] = v101;
-    v163 = v102;
-    v162 = v103;
-    v105 = v164;
-    serialize(_:at:)(2, v164);
-    serialize(_:at:)(v104, v105);
-    v160 = closure #1 in OSLogArguments.append(_:)partial apply;
-    v161 = v144;
-    closure #1 in osLogInternal(_:log:type:)(&v160, v105, &v163, &v162);
-    v106 = v25;
-    v107 = v25;
-    if (v25)
+    v24 = v108;
+    v100 = static UnsafeMutablePointer.allocate(capacity:)();
+    v97 = v100;
+    v98 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
+    v101 = createStorage<A>(capacity:type:)(0, v98, v98);
+    v99 = v101;
+    v103 = 1;
+    v102 = createStorage<A>(capacity:type:)(1, &type metadata for Any + 8, &type metadata for Any + 8);
+    v163[0] = v100;
+    v162 = v101;
+    v161 = v102;
+    v104 = v163;
+    serialize(_:at:)(2, v163);
+    serialize(_:at:)(v103, v104);
+    v159 = closure #1 in OSLogArguments.append(_:)partial apply;
+    v160 = v143;
+    closure #1 in osLogInternal(_:log:type:)(&v159, v104, &v162, &v161);
+    v105 = v24;
+    v106 = v24;
+    if (v24)
     {
-      v96 = 0;
+      v95 = 0;
 
       __break(1u);
     }
 
     else
     {
-      v160 = closure #1 in OSLogArguments.append(_:)partial apply;
-      v161 = v145;
-      closure #1 in osLogInternal(_:log:type:)(&v160, v164, &v163, &v162);
-      v94 = 0;
-      v95 = 0;
-      v160 = closure #1 in OSLogArguments.append(_:)partial apply;
-      v161 = v150;
-      closure #1 in osLogInternal(_:log:type:)(&v160, v164, &v163, &v162);
-      v92 = 0;
+      v159 = closure #1 in OSLogArguments.append(_:)partial apply;
+      v160 = v144;
+      closure #1 in osLogInternal(_:log:type:)(&v159, v163, &v162, &v161);
       v93 = 0;
-      _os_log_impl(&_mh_execute_header, v140, v141, "Called into getPredictionDictionary with inputFeatures: %s", v98, 0xCu);
-      destroyStorage<A>(_:count:)(v100);
-      destroyStorage<A>(_:count:)(v103);
+      v94 = 0;
+      v159 = closure #1 in OSLogArguments.append(_:)partial apply;
+      v160 = v149;
+      closure #1 in osLogInternal(_:log:type:)(&v159, v163, &v162, &v161);
+      v91 = 0;
+      v92 = 0;
+      _os_log_impl(&_mh_execute_header, v139, v140, "Called into getPredictionDictionary with inputFeatures: %s", v97, 0xCu);
+      destroyStorage<A>(_:count:)(v99, 0);
+      destroyStorage<A>(_:count:)(v102, 1);
       UnsafeMutablePointer.deallocate()();
 
-      v97 = v92;
+      v96 = v91;
     }
   }
 
   else
   {
-    v26 = v109;
+    v25 = v108;
 
-    v97 = v26;
+    v96 = v25;
   }
 
-  v73 = v97;
+  v72 = v96;
 
-  v74 = *(v129 + 8);
-  v75 = (v129 + 8) & 0xFFFFFFFFFFFFLL | 0x4F8000000000000;
-  v74(v133, v127);
-  v85 = 0;
-  v27 = dispatch_semaphore_create(0);
-  v76 = v27;
-  v170 = v27;
-  v79 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS_SdtMd, &_sSS_SdtMR);
-  v80 = _allocateUninitializedArray<A>(_:)();
-  v78 = v28;
-  v29 = kMediaML_throughputPrediction.unsafeMutableAddressor();
-  outlined init with copy of String(v29, v78);
-  v30 = v78;
-  v78[2] = v85;
-  v77 = v30 + 3;
-  v31 = kMediaML_throughputStdDev.unsafeMutableAddressor();
-  outlined init with copy of String(v31, v77);
-  v78[5] = v85;
+  v73 = *(v128 + 8);
+  v74 = (v128 + 8) & 0xFFFFFFFFFFFFLL | 0x4F8000000000000;
+  v73(v132, v126);
+  v84 = 0;
+  v26 = dispatch_semaphore_create(0);
+  v75 = v26;
+  v169 = v26;
+  v78 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS_SdtMd, &_sSS_SdtMR);
+  v79 = _allocateUninitializedArray<A>(_:)();
+  v77 = v27;
+  v28 = kMediaML_throughputPrediction.unsafeMutableAddressor();
+  outlined init with copy of String(v28, v77);
+  v29 = v77;
+  v77[2] = v84;
+  v76 = v29 + 3;
+  v30 = kMediaML_throughputStdDev.unsafeMutableAddressor();
+  outlined init with copy of String(v30, v76);
+  v77[5] = v84;
   _finalizeUninitializedArray<A>(_:)();
-  v86 = Dictionary.init(dictionaryLiteral:)();
-  v81 = v86;
-  v169 = v86;
-  v82 = priority.unsafeMutableAddressor();
-  v84 = type metadata accessor for TaskPriority();
-  v83 = *(v84 - 8);
-  (*(v83 + 16))(v123, v82);
-  v32 = *(v83 + 56);
-  v91 = 1;
-  v32(v123, 0);
-  v33 = v125;
+  v85 = Dictionary.init(dictionaryLiteral:)();
+  v80 = v85;
+  v168 = v85;
+  v81 = priority.unsafeMutableAddressor();
+  v83 = type metadata accessor for TaskPriority();
+  v82 = *(v83 - 8);
+  (*(v82 + 16))(v122, v81);
+  v31 = *(v82 + 56);
+  v90 = 1;
+  v31(v122, 0);
+  v32 = v124;
 
-  v34 = v27;
-  v35 = swift_allocObject();
-  v36 = v125;
-  v37 = v138;
-  v38 = v126;
-  v39 = v124;
-  v40 = ObjectType;
-  v41 = v85;
-  v42 = v123;
-  v43 = v35;
-  v44 = v86;
-  v87 = v43;
-  v43[2] = v85;
-  v43[3] = v41;
-  v43[4] = v36;
-  v43[5] = v37;
-  v43[6] = v44;
-  v43[7] = v38;
-  v43[8] = v39;
-  v43[9] = v27;
-  v43[10] = v40;
-  _sScTss5NeverORs_rlE4name8priority9operationScTyxABGSSSg_ScPSgxyYaYAcntcfC(v41, v41, v42, &async function pointer to partial apply for closure #1 in MLServer.getPredictionDictionary(inputFeatures:with:), v43, &type metadata for () + 8);
+  v33 = v26;
+  v34 = swift_allocObject();
+  v35 = v124;
+  v36 = v137;
+  v37 = v125;
+  v38 = v123;
+  v39 = ObjectType;
+  v40 = v84;
+  v41 = v122;
+  v42 = v34;
+  v43 = v85;
+  v86 = v42;
+  v42[2] = v84;
+  v42[3] = v40;
+  v42[4] = v35;
+  v42[5] = v36;
+  v42[6] = v43;
+  v42[7] = v37;
+  v42[8] = v38;
+  v42[9] = v26;
+  v42[10] = v39;
+  _sScTss5NeverORs_rlE4name8priority9operationScTyxABGSSSg_ScPSgxyYaYAcntcfC(v40, v40, v41, &async function pointer to partial apply for closure #1 in MLServer.getPredictionDictionary(inputFeatures:with:), v42, &type metadata for () + 8);
 
   static DispatchTime.now()();
-  v45 = semaphoreTimeoutValue.unsafeMutableAddressor();
-  (*(v112 + 16))(v113, v45, v110);
+  v44 = semaphoreTimeoutValue.unsafeMutableAddressor();
+  (*(v111 + 16))(v112, v44, v109);
   + infix(_:_:)();
-  (*(v112 + 8))(v113, v110);
-  v89 = *(v116 + 8);
-  v88 = v116 + 8;
-  v89(v118, v114);
-  v90 = OS_dispatch_semaphore.wait(timeout:)();
-  v89(v120, v114);
-  v168 = v90 & 1;
+  (*(v111 + 8))(v112, v109);
+  v88 = *(v115 + 8);
+  v87 = v115 + 8;
+  v88(v117, v113);
+  v89 = OS_dispatch_semaphore.wait(timeout:)();
+  v88(v119, v113);
+  v167 = v89 & 1;
   if (static DispatchTimeoutResult.== infix(_:_:)())
   {
-    v46 = v131;
-    v47 = MLServer.logger.unsafeMutableAddressor();
-    v136(v46, v47, v127);
-    v71 = Logger.logObject.getter();
-    v68 = v71;
-    v70 = static os_log_type_t.error.getter();
-    v69 = v70;
-    v72 = _allocateUninitializedArray<A>(_:)();
-    if (os_log_type_enabled(v71, v70))
+    v45 = v130;
+    v46 = MLServer.logger.unsafeMutableAddressor();
+    v135(v45, v46, v126);
+    v70 = Logger.logObject.getter();
+    v67 = v70;
+    v69 = static os_log_type_t.error.getter();
+    v68 = v69;
+    v71 = _allocateUninitializedArray<A>(_:)();
+    if (os_log_type_enabled(v70, v69))
     {
-      v48 = v73;
-      v59 = static UnsafeMutablePointer.allocate(capacity:)();
-      v55 = v59;
-      v56 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
-      v57 = 0;
-      v60 = createStorage<A>(capacity:type:)(0);
-      v58 = v60;
-      v61 = createStorage<A>(capacity:type:)(v57);
-      v167 = v59;
-      v166 = v60;
-      v165 = v61;
-      v62 = 0;
-      v63 = &v167;
-      serialize(_:at:)(0, &v167);
-      serialize(_:at:)(v62, v63);
-      v164[2] = v72;
-      v64 = &v50;
-      __chkstk_darwin(&v50);
-      v65 = &v50 - 6;
-      *(&v50 - 4) = v49;
-      *(&v50 - 3) = &v166;
-      *(&v50 - 2) = &v165;
-      v66 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSayySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcGMd, &_sSayySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcGMR);
+      v47 = v72;
+      v58 = static UnsafeMutablePointer.allocate(capacity:)();
+      v54 = v58;
+      v55 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
+      v56 = 0;
+      v59 = createStorage<A>(capacity:type:)(0, v55, v55);
+      v57 = v59;
+      v60 = createStorage<A>(capacity:type:)(v56, &type metadata for Any + 8, &type metadata for Any + 8);
+      v166 = v58;
+      v165 = v59;
+      v164 = v60;
+      v61 = 0;
+      v62 = &v166;
+      serialize(_:at:)(0, &v166);
+      serialize(_:at:)(v61, v62);
+      v163[2] = v71;
+      v63 = &v49;
+      __chkstk_darwin(&v49);
+      v64 = &v49 - 6;
+      *(&v49 - 4) = v48;
+      *(&v49 - 3) = &v165;
+      *(&v49 - 2) = &v164;
+      v65 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSayySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcGMd, &_sSayySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcGMR);
       lazy protocol witness table accessor for type [(_:_:_:)] and conformance [A]();
       Sequence.forEach(_:)();
-      v67 = v48;
-      if (v48)
+      v66 = v47;
+      if (v47)
       {
         __break(1u);
       }
 
       else
       {
-        _os_log_impl(&_mh_execute_header, v68, v69, "getPredictionDictionary timed-out", v55, 2u);
-        v53 = 0;
-        destroyStorage<A>(_:count:)(v58);
-        destroyStorage<A>(_:count:)(v61);
+        _os_log_impl(&_mh_execute_header, v67, v68, "getPredictionDictionary timed-out", v54, 2u);
+        v52 = 0;
+        destroyStorage<A>(_:count:)(v57, 0);
+        destroyStorage<A>(_:count:)(v60, v52);
         UnsafeMutablePointer.deallocate()();
 
-        v54 = v67;
+        v53 = v66;
       }
     }
 
     else
     {
 
-      v54 = v73;
+      v53 = v72;
     }
 
-    v51 = v54;
+    v50 = v53;
 
-    v74(v131, v127);
+    v73(v130, v126);
 
-    v50 = _dictionaryUpCast<A, B, C, D>(_:)();
-    v126(v50);
+    v49 = _dictionaryUpCast<A, B, C, D>(_:)();
+    (v125)(v49);
 
-    v52 = v51;
+    v51 = v50;
   }
 
   else
   {
-    v52 = v73;
+    v51 = v72;
   }
 }
 
@@ -1906,7 +1784,7 @@ uint64_t implicit closure #1 in MLServer.getPredictionDictionary(inputFeatures:w
 
 uint64_t closure #1 in MLServer.getPredictionDictionary(inputFeatures:with:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v8[18] = v20;
+  v8[18] = v17;
   v8[17] = a8;
   v8[16] = a7;
   v8[15] = a6;
@@ -1923,17 +1801,14 @@ uint64_t closure #1 in MLServer.getPredictionDictionary(inputFeatures:with:)(uin
   v8[12] = 0;
   v9 = type metadata accessor for Logger();
   v8[19] = v9;
-  v13 = *(v9 - 8);
-  v8[20] = v13;
-  v10 = *(v13 + 64) + 15;
+  v8[20] = *(v9 - 8);
   v8[21] = swift_task_alloc();
   v8[5] = a4;
   v8[6] = a5;
   v8[7] = a6;
   v8[2] = a7;
   v8[3] = a8;
-  v8[8] = v20;
-  v11 = v8[4];
+  v8[8] = v17;
 
   return _swift_task_switch(closure #1 in MLServer.getPredictionDictionary(inputFeatures:with:), 0);
 }
@@ -1944,129 +1819,119 @@ uint64_t closure #1 in MLServer.getPredictionDictionary(inputFeatures:with:)()
   v0[4] = v0;
   v0[22] = *(v1 + OBJC_IVAR____TtC10mediamlxpc8MLServer_mediaML);
 
-  v2 = async function pointer to MediaML.getPredictionDictionary(data:)[1];
-  v3 = swift_task_alloc();
-  v6[23] = v3;
-  *v3 = v6[4];
-  v3[1] = closure #1 in MLServer.getPredictionDictionary(inputFeatures:with:);
-  v4 = v6[14];
+  v2 = swift_task_alloc();
+  v5[23] = v2;
+  *v2 = v5[4];
+  v2[1] = closure #1 in MLServer.getPredictionDictionary(inputFeatures:with:);
+  v3 = v5[14];
 
-  return MediaML.getPredictionDictionary(data:)(v4);
+  return MediaML.getPredictionDictionary(data:)(v3);
 }
 
 {
   v1 = v0[24];
-  v2 = v0[15];
   v0[4] = v0;
   v0[11] = v1;
 
   if (v0[11])
   {
-    v13[9] = v13[11];
+    v6[9] = v6[11];
   }
 
   else
   {
-    v12 = v13[15];
 
-    v13[9] = _dictionaryUpCast<A, B, C, D>(_:)();
+    v6[9] = _dictionaryUpCast<A, B, C, D>(_:)();
 
-    if (v13[11])
+    if (v6[11])
     {
-      outlined destroy of [String : Any]?(v13 + 11);
+      outlined destroy of [String : Any]?(v6 + 11);
     }
   }
 
-  v9 = v13[18];
-  v10 = v13[17];
-  v8 = v13[16];
-  v3 = v13[15];
+  v4 = v6[16];
 
-  v11 = v13[9];
-  v13[12] = v11;
+  v5 = v6[9];
+  v6[12] = v5;
 
-  v8(v11);
+  v4(v5);
 
   OS_dispatch_semaphore.signal()();
 
-  v4 = v13[21];
+  v2 = *(v6[4] + 8);
 
-  v5 = *(v13[4] + 8);
-  v6 = v13[4];
-
-  return v5();
+  return v2();
 }
 
 {
-  v37 = v0;
-  v22 = v0[25];
-  v1 = v0[22];
-  v2 = v0[21];
-  v20 = v0[20];
-  v21 = v0[19];
+  v32 = v0;
+  v17 = v0[25];
+  v1 = v0[21];
+  v15 = v0[20];
+  v16 = v0[19];
   v0[4] = v0;
 
   swift_errorRetain();
-  v0[10] = v22;
-  v3 = MLServer.logger.unsafeMutableAddressor();
-  (*(v20 + 16))(v2, v3, v21);
+  v0[10] = v17;
+  v2 = MLServer.logger.unsafeMutableAddressor();
+  (*(v15 + 16))(v1, v2, v16);
   swift_errorRetain();
-  v23 = swift_allocObject();
-  *(v23 + 16) = v22;
+  v18 = swift_allocObject();
+  *(v18 + 16) = v17;
   default argument 2 of OSLogInterpolation.appendInterpolation(_:privacy:attributes:)();
 
-  v30 = Logger.logObject.getter();
-  v31 = static os_log_type_t.error.getter();
-  v26 = swift_allocObject();
-  *(v26 + 16) = 64;
-  v27 = swift_allocObject();
-  *(v27 + 16) = 8;
-  v24 = swift_allocObject();
-  *(v24 + 16) = partial apply for implicit closure #2 in closure #1 in MLServer.getPredictionDictionary(inputFeatures:with:);
-  *(v24 + 24) = v23;
-  v25 = swift_allocObject();
-  *(v25 + 16) = _s2os18OSLogInterpolationV06appendC0_7privacy10attributesys5Error_pyXA_AA0B7PrivacyVSStFSo8NSObjectCycfu_TA_0;
-  *(v25 + 24) = v24;
-  v28 = swift_allocObject();
-  *(v28 + 16) = _s2os18OSLogInterpolationV06appendC0_7privacy10attributesySo8NSObjectCyXA_AA0B7PrivacyVSStFAHSgycfu_TA_0;
-  *(v28 + 24) = v25;
+  v25 = Logger.logObject.getter();
+  v26 = static os_log_type_t.error.getter();
+  v21 = swift_allocObject();
+  *(v21 + 16) = 64;
+  v22 = swift_allocObject();
+  *(v22 + 16) = 8;
+  v19 = swift_allocObject();
+  *(v19 + 16) = partial apply for implicit closure #2 in closure #1 in MLServer.getPredictionDictionary(inputFeatures:with:);
+  *(v19 + 24) = v18;
+  v20 = swift_allocObject();
+  *(v20 + 16) = _s2os18OSLogInterpolationV06appendC0_7privacy10attributesys5Error_pyXA_AA0B7PrivacyVSStFSo8NSObjectCycfu_TA_0;
+  *(v20 + 24) = v19;
+  v23 = swift_allocObject();
+  *(v23 + 16) = _s2os18OSLogInterpolationV06appendC0_7privacy10attributesySo8NSObjectCyXA_AA0B7PrivacyVSStFAHSgycfu_TA_0;
+  *(v23 + 24) = v20;
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMd, &_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMR);
   _allocateUninitializedArray<A>(_:)();
-  v29 = v4;
+  v24 = v3;
 
-  *v29 = closure #1 in OSLogArguments.append(_:)partial apply;
-  v29[1] = v26;
+  *v24 = closure #1 in OSLogArguments.append(_:)partial apply;
+  v24[1] = v21;
 
-  v29[2] = closure #1 in OSLogArguments.append(_:)partial apply;
-  v29[3] = v27;
+  v24[2] = closure #1 in OSLogArguments.append(_:)partial apply;
+  v24[3] = v22;
 
-  v29[4] = _s2os14OSLogArgumentsV6appendyySo8NSObjectCSgycFySpys5UInt8VGz_SpyAGGSgzSpyypGSgztcfU_TA_0;
-  v29[5] = v28;
+  v24[4] = _s2os14OSLogArgumentsV6appendyySo8NSObjectCSgycFySpys5UInt8VGz_SpyAGGSgzSpyypGSgztcfU_TA_0;
+  v24[5] = v23;
   _finalizeUninitializedArray<A>(_:)();
 
-  if (os_log_type_enabled(v30, v31))
+  if (os_log_type_enabled(v25, v26))
   {
     buf = static UnsafeMutablePointer.allocate(capacity:)();
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
-    v17 = createStorage<A>(capacity:type:)(1);
-    v18 = createStorage<A>(capacity:type:)(0);
-    v32 = buf;
-    v33 = v17;
-    v34 = v18;
-    serialize(_:at:)(2, &v32);
-    serialize(_:at:)(1, &v32);
-    v35 = closure #1 in OSLogArguments.append(_:)partial apply;
-    v36 = v26;
-    closure #1 in osLogInternal(_:log:type:)(&v35, &v32, &v33, &v34);
-    v35 = closure #1 in OSLogArguments.append(_:)partial apply;
-    v36 = v27;
-    closure #1 in osLogInternal(_:log:type:)(&v35, &v32, &v33, &v34);
-    v35 = _s2os14OSLogArgumentsV6appendyySo8NSObjectCSgycFySpys5UInt8VGz_SpyAGGSgzSpyypGSgztcfU_TA_0;
-    v36 = v28;
-    closure #1 in osLogInternal(_:log:type:)(&v35, &v32, &v33, &v34);
-    _os_log_impl(&_mh_execute_header, v30, v31, "Failed to get prediction with error=%@", buf, 0xCu);
-    destroyStorage<A>(_:count:)(v17);
-    destroyStorage<A>(_:count:)(v18);
+    v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
+    v12 = createStorage<A>(capacity:type:)(1, v10, v10);
+    v13 = createStorage<A>(capacity:type:)(0, &type metadata for Any + 8, &type metadata for Any + 8);
+    v27 = buf;
+    v28 = v12;
+    v29 = v13;
+    serialize(_:at:)(2, &v27);
+    serialize(_:at:)(1, &v27);
+    v30 = closure #1 in OSLogArguments.append(_:)partial apply;
+    v31 = v21;
+    closure #1 in osLogInternal(_:log:type:)(&v30, &v27, &v28, &v29);
+    v30 = closure #1 in OSLogArguments.append(_:)partial apply;
+    v31 = v22;
+    closure #1 in osLogInternal(_:log:type:)(&v30, &v27, &v28, &v29);
+    v30 = _s2os14OSLogArgumentsV6appendyySo8NSObjectCSgycFySpys5UInt8VGz_SpyAGGSgzSpyypGSgztcfU_TA_0;
+    v31 = v23;
+    closure #1 in osLogInternal(_:log:type:)(&v30, &v27, &v28, &v29);
+    _os_log_impl(&_mh_execute_header, v25, v26, "Failed to get prediction with error=%@", buf, 0xCu);
+    destroyStorage<A>(_:count:)(v12, 1);
+    destroyStorage<A>(_:count:)(v13, 0);
     UnsafeMutablePointer.deallocate()();
   }
 
@@ -2074,51 +1939,40 @@ uint64_t closure #1 in MLServer.getPredictionDictionary(inputFeatures:with:)()
   {
   }
 
-  v15 = v19[25];
-  v11 = v19[21];
-  v12 = v19[19];
-  v5 = v19[17];
-  v13 = v19[16];
-  v14 = v19[15];
-  v10 = v19[20];
+  v7 = v14[21];
+  v8 = v14[19];
+  v9 = v14[16];
+  v6 = v14[20];
 
-  (*(v10 + 8))(v11, v12);
+  (*(v6 + 8))(v7, v8);
 
   _dictionaryUpCast<A, B, C, D>(_:)();
-  v13();
+  v9();
 
-  v6 = v19[21];
+  v4 = *(v14[4] + 8);
 
-  v7 = *(v19[4] + 8);
-  v8 = v19[4];
-
-  return v7();
+  return v4();
 }
 
 uint64_t closure #1 in MLServer.getPredictionDictionary(inputFeatures:with:)(uint64_t a1)
 {
-  v10 = *v2;
-  v4 = *(*v2 + 184);
-  v10[4] = *v2;
-  v11 = v10 + 4;
-  v10[24] = a1;
-  v10[25] = v1;
+  v5 = *v2;
+  v5[4] = *v2;
+  v5[24] = a1;
+  v5[25] = v1;
 
   if (v1)
   {
-    v8 = *v11;
-    v7 = closure #1 in MLServer.getPredictionDictionary(inputFeatures:with:);
+    v3 = closure #1 in MLServer.getPredictionDictionary(inputFeatures:with:);
   }
 
   else
   {
-    v5 = v10[22];
 
-    v6 = *v11;
-    v7 = closure #1 in MLServer.getPredictionDictionary(inputFeatures:with:);
+    v3 = closure #1 in MLServer.getPredictionDictionary(inputFeatures:with:);
   }
 
-  return _swift_task_switch(v7, 0);
+  return _swift_task_switch(v3, 0);
 }
 
 void thunk for @escaping @callee_unowned @convention(block) (@unowned NSDictionary) -> ()(uint64_t a1, uint64_t a2)
@@ -2170,9 +2024,9 @@ uint64_t MLServer.write(data:with:)(uint64_t a1, void (*a2)(uint64_t), uint64_t 
     v26 = v30;
     v27 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
     v28 = 0;
-    v31 = createStorage<A>(capacity:type:)(0);
+    v31 = createStorage<A>(capacity:type:)(0, v27, v27);
     v29 = v31;
-    v32 = createStorage<A>(capacity:type:)(v28);
+    v32 = createStorage<A>(capacity:type:)(v28, &type metadata for Any + 8, &type metadata for Any + 8);
     v63 = v30;
     v62 = v31;
     v61 = v32;
@@ -2200,8 +2054,8 @@ uint64_t MLServer.write(data:with:)(uint64_t a1, void (*a2)(uint64_t), uint64_t 
     {
       _os_log_impl(&_mh_execute_header, v54, v55, "Called into writeData", v26, 2u);
       v24 = 0;
-      destroyStorage<A>(_:count:)(v29);
-      destroyStorage<A>(_:count:)(v32);
+      destroyStorage<A>(_:count:)(v29, 0);
+      destroyStorage<A>(_:count:)(v32, v24);
       UnsafeMutablePointer.deallocate()();
 
       v25 = v38;
@@ -2248,95 +2102,92 @@ uint64_t closure #1 in MLServer.write(data:with:)(uint64_t a1, uint64_t a2, uint
   v5[4] = 0;
   v6 = type metadata accessor for DispatchTime();
   v5[7] = v6;
-  v10 = *(v6 - 8);
-  v5[8] = v10;
-  v5[9] = *(v10 + 64);
+  v9 = *(v6 - 8);
+  v5[8] = v9;
+  v5[9] = *(v9 + 64);
   v5[10] = swift_task_alloc();
   v5[11] = swift_task_alloc();
   v5[12] = swift_task_alloc();
   v5[13] = swift_task_alloc();
   v7 = type metadata accessor for Logger();
   v5[14] = v7;
-  v11 = *(v7 - 8);
-  v5[15] = v11;
-  v12 = *(v11 + 64);
+  v5[15] = *(v7 - 8);
   v5[16] = swift_task_alloc();
   v5[17] = swift_task_alloc();
   v5[3] = a4;
   v5[4] = a5;
-  v8 = v5[2];
 
   return _swift_task_switch(closure #1 in MLServer.write(data:with:), 0);
 }
 
 uint64_t closure #1 in MLServer.write(data:with:)()
 {
-  v83 = v0;
+  v74 = v0;
   v1 = v0[17];
-  v60 = v0[15];
-  v61 = v0[14];
-  v63 = v0[5];
+  v51 = v0[15];
+  v52 = v0[14];
+  v54 = v0[5];
   v0[2] = v0;
   v2 = MLServer.logger.unsafeMutableAddressor();
-  v62 = *(v60 + 16);
-  v62(v1, v2, v61);
+  v53 = *(v51 + 16);
+  v53(v1, v2, v52);
 
-  v64 = swift_allocObject();
-  *(v64 + 16) = v63;
+  v55 = swift_allocObject();
+  *(v55 + 16) = v54;
 
-  v65 = swift_allocObject();
-  *(v65 + 16) = partial apply for implicit closure #1 in closure #1 in MLServer.write(data:with:);
-  *(v65 + 24) = v64;
+  v56 = swift_allocObject();
+  *(v56 + 16) = partial apply for implicit closure #1 in closure #1 in MLServer.write(data:with:);
+  *(v56 + 24) = v55;
 
-  v71 = Logger.logObject.getter();
-  v72 = static os_log_type_t.debug.getter();
-  v67 = swift_allocObject();
-  *(v67 + 16) = 32;
-  v68 = swift_allocObject();
-  *(v68 + 16) = 8;
-  v66 = swift_allocObject();
-  *(v66 + 16) = implicit closure #1 in OSLogInterpolation.appendInterpolation<A>(_:align:privacy:)partial apply;
-  *(v66 + 24) = v65;
-  v69 = swift_allocObject();
-  *(v69 + 16) = implicit closure #1 in OSLogInterpolation.appendInterpolation(_:align:privacy:)partial apply;
-  *(v69 + 24) = v66;
+  v62 = Logger.logObject.getter();
+  v63 = static os_log_type_t.debug.getter();
+  v58 = swift_allocObject();
+  *(v58 + 16) = 32;
+  v59 = swift_allocObject();
+  *(v59 + 16) = 8;
+  v57 = swift_allocObject();
+  *(v57 + 16) = implicit closure #1 in OSLogInterpolation.appendInterpolation<A>(_:align:privacy:)partial apply;
+  *(v57 + 24) = v56;
+  v60 = swift_allocObject();
+  *(v60 + 16) = implicit closure #1 in OSLogInterpolation.appendInterpolation(_:align:privacy:)partial apply;
+  *(v60 + 24) = v57;
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMd, &_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMR);
   _allocateUninitializedArray<A>(_:)();
-  v70 = v3;
+  v61 = v3;
 
-  *v70 = closure #1 in OSLogArguments.append(_:)partial apply;
-  v70[1] = v67;
+  *v61 = closure #1 in OSLogArguments.append(_:)partial apply;
+  v61[1] = v58;
 
-  v70[2] = closure #1 in OSLogArguments.append(_:)partial apply;
-  v70[3] = v68;
+  v61[2] = closure #1 in OSLogArguments.append(_:)partial apply;
+  v61[3] = v59;
 
-  v70[4] = closure #1 in OSLogArguments.append(_:)partial apply;
-  v70[5] = v69;
+  v61[4] = closure #1 in OSLogArguments.append(_:)partial apply;
+  v61[5] = v60;
   _finalizeUninitializedArray<A>(_:)();
 
-  if (os_log_type_enabled(v71, v72))
+  if (os_log_type_enabled(v62, v63))
   {
     buf = static UnsafeMutablePointer.allocate(capacity:)();
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
-    v57 = createStorage<A>(capacity:type:)(0);
-    v58 = createStorage<A>(capacity:type:)(1);
-    v78 = buf;
-    v79 = v57;
-    v80 = v58;
-    serialize(_:at:)(2, &v78);
-    serialize(_:at:)(1, &v78);
-    v81 = closure #1 in OSLogArguments.append(_:)partial apply;
-    v82 = v67;
-    closure #1 in osLogInternal(_:log:type:)(&v81, &v78, &v79, &v80);
-    v81 = closure #1 in OSLogArguments.append(_:)partial apply;
-    v82 = v68;
-    closure #1 in osLogInternal(_:log:type:)(&v81, &v78, &v79, &v80);
-    v81 = closure #1 in OSLogArguments.append(_:)partial apply;
-    v82 = v69;
-    closure #1 in osLogInternal(_:log:type:)(&v81, &v78, &v79, &v80);
-    _os_log_impl(&_mh_execute_header, v71, v72, "Checking text and numerical input validity for data dictionary: %s", buf, 0xCu);
-    destroyStorage<A>(_:count:)(v57);
-    destroyStorage<A>(_:count:)(v58);
+    v46 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
+    v48 = createStorage<A>(capacity:type:)(0, v46, v46);
+    v49 = createStorage<A>(capacity:type:)(1, &type metadata for Any + 8, &type metadata for Any + 8);
+    v69 = buf;
+    v70 = v48;
+    v71 = v49;
+    serialize(_:at:)(2, &v69);
+    serialize(_:at:)(1, &v69);
+    v72 = closure #1 in OSLogArguments.append(_:)partial apply;
+    v73 = v58;
+    closure #1 in osLogInternal(_:log:type:)(&v72, &v69, &v70, &v71);
+    v72 = closure #1 in OSLogArguments.append(_:)partial apply;
+    v73 = v59;
+    closure #1 in osLogInternal(_:log:type:)(&v72, &v69, &v70, &v71);
+    v72 = closure #1 in OSLogArguments.append(_:)partial apply;
+    v73 = v60;
+    closure #1 in osLogInternal(_:log:type:)(&v72, &v69, &v70, &v71);
+    _os_log_impl(&_mh_execute_header, v62, v63, "Checking text and numerical input validity for data dictionary: %s", buf, 0xCu);
+    destroyStorage<A>(_:count:)(v48, 0);
+    destroyStorage<A>(_:count:)(v49, 1);
     UnsafeMutablePointer.deallocate()();
   }
 
@@ -2344,114 +2195,104 @@ uint64_t closure #1 in MLServer.write(data:with:)()
   {
   }
 
-  rawValue = v59[17]._rawValue;
-  v51 = v59[14]._rawValue;
-  v53 = v59[13]._rawValue;
-  data._rawValue = v59[5]._rawValue;
-  v49 = v59[15]._rawValue;
+  rawValue = v50[17]._rawValue;
+  v42 = v50[14]._rawValue;
+  data._rawValue = v50[5]._rawValue;
+  v40 = v50[15]._rawValue;
 
-  v52 = v49[1];
-  v52(rawValue, v51);
+  v43 = v40[1];
+  v43(rawValue, v42);
   static DispatchTime.now()();
-  v55 = checkValidTextInputs(data:)(data);
+  v45 = checkValidTextInputs(data:)(data);
 
-  if (!v55)
+  if (!v45)
   {
-    v5 = v59[5]._rawValue;
 
 LABEL_14:
-    (*(v59[8]._rawValue + 1))(v59[13]._rawValue, v59[7]._rawValue);
-    v13 = v59[17]._rawValue;
-    v17 = v59[16]._rawValue;
-    v18 = v59[13]._rawValue;
-    v19 = v59[12]._rawValue;
-    v20 = v59[11]._rawValue;
-    v21 = v59[10]._rawValue;
+    (*(v50[8]._rawValue + 1))(v50[13]._rawValue, v50[7]._rawValue);
 
-    v14 = *(v59[2]._rawValue + 1);
-    v15 = v59[2]._rawValue;
+    v10 = *(v50[2]._rawValue + 1);
 
-    return v14();
+    return v10();
   }
 
-  v48 = checkValidTextInputs(data:)(v59[5]);
-  v4 = v59[5]._rawValue;
+  v39 = checkValidTextInputs(data:)(v50[5]);
 
-  if (!v48)
+  if (!v39)
   {
     goto LABEL_14;
   }
 
-  v6 = v59[16]._rawValue;
-  v28 = v59[14]._rawValue;
-  v31 = v59[13]._rawValue;
-  v30 = v59[12]._rawValue;
-  v35 = v59[11]._rawValue;
-  v37 = v59[10]._rawValue;
-  v33 = v59[9]._rawValue;
-  v38 = v59[7]._rawValue;
-  v29 = v59[8]._rawValue;
+  v4 = v50[16]._rawValue;
+  v19 = v50[14]._rawValue;
+  v22 = v50[13]._rawValue;
+  v21 = v50[12]._rawValue;
+  v26 = v50[11]._rawValue;
+  v28 = v50[10]._rawValue;
+  v24 = v50[9]._rawValue;
+  v29 = v50[7]._rawValue;
+  v20 = v50[8]._rawValue;
   static DispatchTime.now()();
-  v7 = MLServer.logger.unsafeMutableAddressor();
-  v62(v6, v7, v28);
-  v32 = v29[2];
-  v32(v35, v30, v38);
-  v32(v37, v31, v38);
-  v8 = *(v29 + 20);
-  v34 = (v8 + 16) & ~v8;
-  v36 = (v33 + v34 + v8) & ~v8;
-  v40 = swift_allocObject();
-  v39 = v29[4];
-  v39(v40 + v34, v35, v38);
-  v39(v40 + v36, v37, v38);
+  v5 = MLServer.logger.unsafeMutableAddressor();
+  v53(v4, v5, v19);
+  v23 = v20[2];
+  v23(v26, v21, v29);
+  v23(v28, v22, v29);
+  v6 = *(v20 + 20);
+  v25 = (v6 + 16) & ~v6;
+  v27 = (v24 + v25 + v6) & ~v6;
+  v31 = swift_allocObject();
+  v30 = v20[4];
+  v30(v31 + v25, v26, v29);
+  v30(v31 + v27, v28, v29);
   oslog = Logger.logObject.getter();
-  v47 = static os_log_type_t.info.getter();
-  v42 = swift_allocObject();
-  *(v42 + 16) = 0;
-  v43 = swift_allocObject();
-  *(v43 + 16) = 8;
-  v41 = swift_allocObject();
-  *(v41 + 16) = partial apply for implicit closure #3 in closure #1 in MLServer.write(data:with:);
-  *(v41 + 24) = v40;
-  v44 = swift_allocObject();
-  *(v44 + 16) = partial apply for implicit closure #1 in OSLogInterpolation.appendInterpolation(_:format:align:privacy:);
-  *(v44 + 24) = v41;
+  v38 = static os_log_type_t.info.getter();
+  v33 = swift_allocObject();
+  *(v33 + 16) = 0;
+  v34 = swift_allocObject();
+  *(v34 + 16) = 8;
+  v32 = swift_allocObject();
+  *(v32 + 16) = partial apply for implicit closure #3 in closure #1 in MLServer.write(data:with:);
+  *(v32 + 24) = v31;
+  v35 = swift_allocObject();
+  *(v35 + 16) = partial apply for implicit closure #1 in OSLogInterpolation.appendInterpolation(_:format:align:privacy:);
+  *(v35 + 24) = v32;
   _allocateUninitializedArray<A>(_:)();
-  v45 = v9;
+  v36 = v7;
 
-  *v45 = closure #1 in OSLogArguments.append(_:)partial apply;
-  v45[1] = v42;
+  *v36 = closure #1 in OSLogArguments.append(_:)partial apply;
+  v36[1] = v33;
 
-  v45[2] = closure #1 in OSLogArguments.append(_:)partial apply;
-  v45[3] = v43;
+  v36[2] = closure #1 in OSLogArguments.append(_:)partial apply;
+  v36[3] = v34;
 
-  v45[4] = partial apply for closure #1 in OSLogArguments.append(_:);
-  v45[5] = v44;
+  v36[4] = partial apply for closure #1 in OSLogArguments.append(_:);
+  v36[5] = v35;
   _finalizeUninitializedArray<A>(_:)();
 
-  if (os_log_type_enabled(oslog, v47))
+  if (os_log_type_enabled(oslog, v38))
   {
-    v25 = static UnsafeMutablePointer.allocate(capacity:)();
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
-    v26 = createStorage<A>(capacity:type:)(0);
-    v27 = createStorage<A>(capacity:type:)(0);
-    v73 = v25;
-    v74 = v26;
-    v75 = v27;
-    serialize(_:at:)(0, &v73);
-    serialize(_:at:)(1, &v73);
-    v76 = closure #1 in OSLogArguments.append(_:)partial apply;
-    v77 = v42;
-    closure #1 in osLogInternal(_:log:type:)(&v76, &v73, &v74, &v75);
-    v76 = closure #1 in OSLogArguments.append(_:)partial apply;
-    v77 = v43;
-    closure #1 in osLogInternal(_:log:type:)(&v76, &v73, &v74, &v75);
-    v76 = partial apply for closure #1 in OSLogArguments.append(_:);
-    v77 = v44;
-    closure #1 in osLogInternal(_:log:type:)(&v76, &v73, &v74, &v75);
-    _os_log_impl(&_mh_execute_header, oslog, v47, "Validity check in MLServer Time taken = %f [ns]", v25, 0xCu);
-    destroyStorage<A>(_:count:)(v26);
-    destroyStorage<A>(_:count:)(v27);
+    v16 = static UnsafeMutablePointer.allocate(capacity:)();
+    v15 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
+    v17 = createStorage<A>(capacity:type:)(0, v15, v15);
+    v18 = createStorage<A>(capacity:type:)(0, &type metadata for Any + 8, &type metadata for Any + 8);
+    v64 = v16;
+    v65 = v17;
+    v66 = v18;
+    serialize(_:at:)(0, &v64);
+    serialize(_:at:)(1, &v64);
+    v67 = closure #1 in OSLogArguments.append(_:)partial apply;
+    v68 = v33;
+    closure #1 in osLogInternal(_:log:type:)(&v67, &v64, &v65, &v66);
+    v67 = closure #1 in OSLogArguments.append(_:)partial apply;
+    v68 = v34;
+    closure #1 in osLogInternal(_:log:type:)(&v67, &v64, &v65, &v66);
+    v67 = partial apply for closure #1 in OSLogArguments.append(_:);
+    v68 = v35;
+    closure #1 in osLogInternal(_:log:type:)(&v67, &v64, &v65, &v66);
+    _os_log_impl(&_mh_execute_header, oslog, v38, "Validity check in MLServer Time taken = %f [ns]", v16, 0xCu);
+    destroyStorage<A>(_:count:)(v17, 0);
+    destroyStorage<A>(_:count:)(v18, 0);
     UnsafeMutablePointer.deallocate()();
   }
 
@@ -2459,54 +2300,41 @@ LABEL_14:
   {
   }
 
-  v22 = v59[16]._rawValue;
-  v23 = v59[14]._rawValue;
-  v24 = v59[6]._rawValue;
+  v12 = v50[16]._rawValue;
+  v13 = v50[14]._rawValue;
+  v14 = v50[6]._rawValue;
 
-  v52(v22, v23);
-  v59[18]._rawValue = *&v24[OBJC_IVAR____TtC10mediamlxpc8MLServer_mediaML];
+  v43(v12, v13);
+  v50[18]._rawValue = *&v14[OBJC_IVAR____TtC10mediamlxpc8MLServer_mediaML];
 
-  v10 = async function pointer to MediaML.writeData(data:)[1];
-  v11 = swift_task_alloc();
-  v59[19]._rawValue = v11;
-  *v11 = v59[2]._rawValue;
-  v11[1] = closure #1 in MLServer.write(data:with:);
-  v12 = v59[5]._rawValue;
+  v8 = swift_task_alloc();
+  v50[19]._rawValue = v8;
+  *v8 = v50[2]._rawValue;
+  v8[1] = closure #1 in MLServer.write(data:with:);
+  v9 = v50[5]._rawValue;
 
-  return MediaML.writeData(data:)(v12);
+  return MediaML.writeData(data:)(v9);
 }
 
 {
-  v5 = *v0;
-  v1 = *(*v0 + 152);
-  v4 = *(*v0 + 144);
-  *(v5 + 16) = *v0;
-
-  v2 = *(v5 + 16);
+  *(*v0 + 16) = *v0;
 
   return _swift_task_switch(closure #1 in MLServer.write(data:with:), 0);
 }
 
 {
-  v7 = v0[13];
+  v5 = v0[13];
   v1 = v0[12];
   v2 = v0[8];
-  v8 = v0[7];
+  v6 = v0[7];
   v0[2] = v0;
-  v9 = *(v2 + 8);
-  v9(v1);
-  (v9)(v7, v8);
-  v3 = v0[17];
-  v10 = v0[16];
-  v11 = v0[13];
-  v12 = v0[12];
-  v13 = v0[11];
-  v14 = v0[10];
+  v7 = *(v2 + 8);
+  v7(v1);
+  (v7)(v5, v6);
 
-  v4 = *(v0[2] + 8);
-  v5 = v0[2];
+  v3 = *(v0[2] + 8);
 
-  return v4();
+  return v3();
 }
 
 uint64_t implicit closure #1 in closure #1 in MLServer.write(data:with:)@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
@@ -2517,7 +2345,7 @@ uint64_t implicit closure #1 in closure #1 in MLServer.write(data:with:)@<X0>(ui
   return result;
 }
 
-uint64_t implicit closure #3 in closure #1 in MLServer.write(data:with:)()
+unint64_t implicit closure #3 in closure #1 in MLServer.write(data:with:)()
 {
   v2 = DispatchTime.uptimeNanoseconds.getter();
   v0 = DispatchTime.uptimeNanoseconds.getter();
@@ -2577,9 +2405,9 @@ uint64_t MLServer.wakeRemoteService(with:)(void (*a1)(uint64_t), uint64_t a2)
     v11 = v15;
     v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
     v13 = 0;
-    v16 = createStorage<A>(capacity:type:)(0);
+    v16 = createStorage<A>(capacity:type:)(0, v12, v12);
     v14 = v16;
-    v17 = createStorage<A>(capacity:type:)(v13);
+    v17 = createStorage<A>(capacity:type:)(v13, &type metadata for Any + 8, &type metadata for Any + 8);
     v43 = v15;
     v42 = v16;
     v41 = v17;
@@ -2607,8 +2435,8 @@ uint64_t MLServer.wakeRemoteService(with:)(void (*a1)(uint64_t), uint64_t a2)
     {
       _os_log_impl(&_mh_execute_header, v34, v35, "Starting mediamlxpc service", v11, 2u);
       v9 = 0;
-      destroyStorage<A>(_:count:)(v14);
-      destroyStorage<A>(_:count:)(v17);
+      destroyStorage<A>(_:count:)(v14, 0);
+      destroyStorage<A>(_:count:)(v17, v9);
       UnsafeMutablePointer.deallocate()();
 
       v10 = v23;
@@ -2665,9 +2493,9 @@ uint64_t MLServer.getModelStats(with:)(uint64_t a1, uint64_t a2)
     v23 = v27;
     v24 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
     v25 = 0;
-    v28 = createStorage<A>(capacity:type:)(0);
+    v28 = createStorage<A>(capacity:type:)(0, v24, v24);
     v26 = v28;
-    v29 = createStorage<A>(capacity:type:)(v25);
+    v29 = createStorage<A>(capacity:type:)(v25, &type metadata for Any + 8, &type metadata for Any + 8);
     v58 = v27;
     v57 = v28;
     v56 = v29;
@@ -2695,8 +2523,8 @@ uint64_t MLServer.getModelStats(with:)(uint64_t a1, uint64_t a2)
     {
       _os_log_impl(&_mh_execute_header, v49, v50, "Getting model stats", v23, 2u);
       v21 = 0;
-      destroyStorage<A>(_:count:)(v26);
-      destroyStorage<A>(_:count:)(v29);
+      destroyStorage<A>(_:count:)(v26, 0);
+      destroyStorage<A>(_:count:)(v29, v21);
       UnsafeMutablePointer.deallocate()();
 
       v22 = v35;
@@ -2745,7 +2573,6 @@ uint64_t closure #1 in MLServer.getModelStats(with:)(uint64_t a1, uint64_t a2, u
   v6[5] = a4;
   v6[2] = a5;
   v6[3] = a6;
-  v7 = v6[4];
   return _swift_task_switch(closure #1 in MLServer.getModelStats(with:), 0);
 }
 
@@ -2755,190 +2582,177 @@ uint64_t closure #1 in MLServer.getModelStats(with:)()
   v0[4] = v0;
   v0[10] = *(v1 + OBJC_IVAR____TtC10mediamlxpc8MLServer_mediaML);
 
-  v2 = async function pointer to MediaML.getModelStats()[1];
-  v3 = swift_task_alloc();
-  *(v5 + 88) = v3;
-  *v3 = *(v5 + 32);
-  v3[1] = closure #1 in MLServer.getModelStats(with:);
+  v2 = swift_task_alloc();
+  *(v4 + 88) = v2;
+  *v2 = *(v4 + 32);
+  v2[1] = closure #1 in MLServer.getModelStats(with:);
 
   return MediaML.getModelStats()();
 }
 
 {
-  v6 = v0[12];
-  v5 = v0[9];
-  v4 = v0[8];
+  v4 = v0[12];
+  v3 = v0[8];
   v0[4] = v0;
-  v0[6] = v6;
+  v0[6] = v4;
 
-  v4(v6);
+  v3(v4);
 
   v1 = *(v0[4] + 8);
-  v2 = v0[4];
 
   return v1();
 }
 
 {
-  v1 = *(v0 + 80);
   *(v0 + 32) = v0;
 
-  v2 = v0;
-  v3 = *(*(v0 + 32) + 8);
-  v4 = *(v0 + 32);
-  v5 = *(v2 + 104);
+  v1 = *(*(v0 + 32) + 8);
 
-  return v3();
+  return v1();
 }
 
 uint64_t closure #1 in MLServer.getModelStats(with:)(uint64_t a1)
 {
-  v10 = *v2;
-  v4 = *(*v2 + 88);
-  v10[4] = *v2;
-  v11 = v10 + 4;
-  v10[12] = a1;
-  v10[13] = v1;
+  v5 = *v2;
+  v5[4] = *v2;
+  v5[12] = a1;
+  v5[13] = v1;
 
   if (v1)
   {
-    v8 = *v11;
-    v7 = closure #1 in MLServer.getModelStats(with:);
+    v3 = closure #1 in MLServer.getModelStats(with:);
   }
 
   else
   {
-    v5 = v10[10];
 
-    v6 = *v11;
-    v7 = closure #1 in MLServer.getModelStats(with:);
+    v3 = closure #1 in MLServer.getModelStats(with:);
   }
 
-  return _swift_task_switch(v7, 0);
+  return _swift_task_switch(v3, 0);
 }
 
 uint64_t _sScTss5Error_pRs_rlE4name8priority9operationScTyxsAA_pGSSSg_ScPSgxyYaKYAcntcfC(uint64_t a1, uint64_t a2, const void *a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  v40 = a1;
-  v41 = a2;
-  v48 = a3;
-  v49 = a4;
-  v50 = a5;
-  v42 = a6;
-  v43 = "Fatal error";
-  v44 = "Unexpectedly found nil while unwrapping an Optional value";
-  v45 = "_Concurrency/arm64e-apple-ios.private.swiftinterface";
-  v46 = 0;
-  v59 = a6;
-  v47 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  __chkstk_darwin(v50);
-  v51 = &v10 - v47;
+  v39 = a1;
+  v40 = a2;
+  v47 = a3;
+  v48 = a4;
+  v49 = a5;
+  v41 = a6;
+  v42 = "Fatal error";
+  v43 = "Unexpectedly found nil while unwrapping an Optional value";
+  v44 = "_Concurrency/arm64e-apple-ios.private.swiftinterface";
+  v45 = 0;
+  v58 = a6;
+  v46 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  __chkstk_darwin(v49);
+  v50 = &v9 - v46;
 
+  v56 = v48;
   v57 = v49;
-  v58 = v50;
-  outlined init with copy of TaskPriority?(v48, v51);
-  v52 = type metadata accessor for TaskPriority();
-  v53 = *(v52 - 8);
-  v54 = v52 - 8;
-  if ((*(v53 + 48))(v51, 1) == 1)
+  outlined init with copy of TaskPriority?(v47, v50);
+  v51 = type metadata accessor for TaskPriority();
+  v52 = *(v51 - 8);
+  v53 = v51 - 8;
+  if ((*(v52 + 48))(v50, 1) == 1)
   {
-    outlined destroy of TaskPriority?(v51);
-    v39 = 0;
+    outlined destroy of TaskPriority?(v50);
+    v38 = 0;
   }
 
   else
   {
-    v38 = TaskPriority.rawValue.getter();
-    (*(v53 + 8))(v51, v52);
-    v39 = v38;
+    v37 = TaskPriority.rawValue.getter();
+    (*(v52 + 8))(v50, v51);
+    v38 = v37;
   }
 
-  v35 = v39 | 0x1C00;
-  v37 = *(v50 + 16);
-  v36 = *(v50 + 24);
+  v34 = v38 | 0x1C00;
+  v36 = *(v49 + 16);
+  v35 = *(v49 + 24);
   swift_unknownObjectRetain();
 
-  if (v37)
+  if (v36)
   {
-    v33 = v37;
-    v34 = v36;
+    v32 = v36;
+    v33 = v35;
+    v26 = v35;
     v27 = v36;
-    v28 = v37;
     swift_getObjectType();
-    v29 = dispatch thunk of Actor.unownedExecutor.getter();
-    v30 = v6;
+    v28 = dispatch thunk of Actor.unownedExecutor.getter();
+    v29 = v6;
     swift_unknownObjectRelease();
+    v30 = v28;
     v31 = v29;
-    v32 = v30;
   }
 
   else
   {
+    v30 = 0;
     v31 = 0;
-    v32 = 0;
   }
 
-  v25 = v32;
-  v26 = v31;
+  v24 = v31;
+  v25 = v30;
 
-  if (v41)
+  if (v40)
   {
+    v22 = v39;
     v23 = v40;
-    v24 = v41;
-    v7 = v46;
-    v20 = v41;
-    v21 = String.utf8CString.getter();
+    v7 = v45;
+    v19 = v40;
+    v20 = String.utf8CString.getter();
 
-    v8 = *(v21 + 16);
-    _sScTss5Error_pRs_rlE4name8priority9operationScTyxsAA_pGSSSg_ScPSgxyYaKYAcntcfcBoSRys4Int8VGXEfU_(v21 + 32, &v57, &v55);
+    _sScTss5Error_pRs_rlE4name8priority9operationScTyxsAA_pGSSSg_ScPSgxyYaKYAcntcfcBoSRys4Int8VGXEfU_(v20 + 32, &v54);
     if (v7)
     {
       __break(1u);
     }
 
-    v19 = v55;
+    v18 = v54;
 
-    v22 = v19;
+    v21 = v18;
   }
 
   else
   {
-    v22 = 0;
+    v21 = 0;
   }
 
-  v18 = v22;
-  if (v22)
+  v17 = v21;
+  if (v21)
   {
-    v13 = v18;
-    v12 = v18;
-    outlined destroy of TaskPriority?(v48);
+    v12 = v17;
+    v11 = v17;
+    outlined destroy of TaskPriority?(v47);
 
-    v14 = v12;
+    v13 = v11;
   }
 
   else
   {
 
-    outlined destroy of TaskPriority?(v48);
+    outlined destroy of TaskPriority?(v47);
+    v14 = v56;
     v15 = v57;
-    v16 = v58;
 
-    v17 = 0;
-    if (v26 != 0 || v25 != 0)
+    v16 = 0;
+    if (v25 != 0 || v24 != 0)
     {
-      v56[0] = 0;
-      v56[1] = 0;
-      v56[2] = v26;
-      v56[3] = v25;
-      v17 = v56;
+      v55[0] = 0;
+      v55[1] = 0;
+      v55[2] = v25;
+      v55[3] = v24;
+      v16 = v55;
     }
 
-    v14 = swift_task_create();
+    v13 = swift_task_create();
   }
 
-  v11 = v14;
+  v10 = v13;
 
-  return v11;
+  return v10;
 }
 
 void thunk for @escaping @callee_unowned @convention(block) (@unowned NSDictionary?) -> ()(uint64_t a1, uint64_t a2)
@@ -2983,13 +2797,6 @@ uint64_t implicit closure #1 in OSLogInterpolation.appendInterpolation<A>(_:alig
   return v12;
 }
 
-uint64_t sub_10000C6A4()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
 uint64_t partial apply for implicit closure #1 in OSLogInterpolation.appendInterpolation<A>(_:align:privacy:)()
 {
   v5 = *(v0 + 16);
@@ -3002,16 +2809,15 @@ uint64_t partial apply for implicit closure #1 in OSLogInterpolation.appendInter
 
 uint64_t __swift_instantiateConcreteTypeFromMangledNameAbstractV2(uint64_t *a1, uint64_t *a2)
 {
-  v6 = *a1;
+  v5 = *a1;
   if (!*a1)
   {
-    v3 = *a2;
     TypeByMangledNameInContextInMetadataState2 = swift_getTypeByMangledNameInContextInMetadataState2();
     *a1 = TypeByMangledNameInContextInMetadataState2;
     return TypeByMangledNameInContextInMetadataState2;
   }
 
-  return v6;
+  return v5;
 }
 
 uint64_t specialized Unicode.Scalar.withUTF8CodeUnits<A>(_:)(uint64_t (*a1)(uint64_t *, uint64_t), uint64_t a2, unsigned int a3)
@@ -3095,20 +2901,20 @@ uint64_t closure #1 in closure #1 in _unimplementedInitializer(className:initNam
         __chkstk_darwin(v17);
         v15 = partial apply for closure #1 in closure #1 in closure #1 in _unimplementedInitializer(className:initName:file:line:column:);
         v16 = &v37;
-        specialized Unicode.Scalar.withUTF8CodeUnits<A>(_:)(partial apply for specialized closure #1 in StaticString.withUTF8Buffer<A>(_:), v13, v11);
+        specialized Unicode.Scalar.withUTF8CodeUnits<A>(_:)(partial apply for specialized closure #1 in StaticString.withUTF8Buffer<A>(_:), &v13, v11);
         return v10;
       }
 
       LODWORD(v15) = 0;
       v14 = 148;
-      v13[0] = 2;
+      LOBYTE(v13) = 2;
       _assertionFailure(_:_:file:line:flags:)();
       __break(1u);
     }
 
     LODWORD(v15) = 0;
     v14 = 3053;
-    v13[0] = 2;
+    LOBYTE(v13) = 2;
     _assertionFailure(_:_:file:line:flags:)();
     __break(1u);
   }
@@ -3127,7 +2933,7 @@ uint64_t closure #1 in closure #1 in _unimplementedInitializer(className:initNam
       {
         LODWORD(v15) = 0;
         v14 = 268;
-        v13[0] = 2;
+        LOBYTE(v13) = 2;
         _assertionFailure(_:_:file:line:flags:)();
         __break(1u);
       }
@@ -3147,7 +2953,7 @@ uint64_t closure #1 in closure #1 in _unimplementedInitializer(className:initNam
           {
             LODWORD(v15) = 0;
             v14 = 269;
-            v13[0] = 2;
+            LOBYTE(v13) = 2;
             _assertionFailure(_:_:file:line:flags:)();
             __break(1u);
           }
@@ -3175,63 +2981,63 @@ uint64_t closure #1 in closure #1 in _unimplementedInitializer(className:initNam
 
                     LODWORD(v15) = 0;
                     v14 = 3053;
-                    v13[0] = 2;
+                    LOBYTE(v13) = 2;
                     _assertionFailure(_:_:file:line:flags:)();
                     __break(1u);
                   }
 
                   LODWORD(v15) = 0;
                   v14 = 3053;
-                  v13[0] = 2;
+                  LOBYTE(v13) = 2;
                   _assertionFailure(_:_:file:line:flags:)();
                   __break(1u);
                 }
 
                 LODWORD(v15) = 0;
                 v14 = 3268;
-                v13[0] = 2;
+                LOBYTE(v13) = 2;
                 _assertionFailure(_:_:file:line:flags:)();
                 __break(1u);
               }
 
               LODWORD(v15) = 0;
               v14 = 3262;
-              v13[0] = 2;
+              LOBYTE(v13) = 2;
               _assertionFailure(_:_:file:line:flags:)();
               __break(1u);
             }
 
             LODWORD(v15) = 0;
             v14 = 3268;
-            v13[0] = 2;
+            LOBYTE(v13) = 2;
             _assertionFailure(_:_:file:line:flags:)();
             __break(1u);
           }
 
           LODWORD(v15) = 0;
           v14 = 3262;
-          v13[0] = 2;
+          LOBYTE(v13) = 2;
           _assertionFailure(_:_:file:line:flags:)();
           __break(1u);
         }
 
         LODWORD(v15) = 0;
         v14 = 3268;
-        v13[0] = 2;
+        LOBYTE(v13) = 2;
         _assertionFailure(_:_:file:line:flags:)();
         __break(1u);
       }
 
       LODWORD(v15) = 0;
       v14 = 3262;
-      v13[0] = 2;
+      LOBYTE(v13) = 2;
       _assertionFailure(_:_:file:line:flags:)();
       __break(1u);
     }
 
     LODWORD(v15) = 0;
     v14 = 1410;
-    v13[0] = 2;
+    LOBYTE(v13) = 2;
     _fatalErrorMessage(_:_:file:line:flags:)();
     __break(1u);
   }
@@ -3315,16 +3121,15 @@ uint64_t closure #1 in closure #1 in closure #1 in _unimplementedInitializer(cla
 
 uint64_t _sxIeAgHr_xs5Error_pIegHrzo_s8SendableRzs5NeverORs_r0_lTRTQ0__0()
 {
-  v4 = *v0;
-  v1 = *(*v0 + 24);
-  *(v4 + 16) = *v0;
+  v3 = *v0;
+  *(v3 + 16) = *v0;
 
-  v2 = *(*(v4 + 16) + 8);
+  v1 = *(*(v3 + 16) + 8);
 
-  return v2();
+  return v1();
 }
 
-uint64_t _sScTss5Error_pRs_rlE4name8priority9operationScTyxsAA_pGSSSg_ScPSgxyYaKYAcntcfcBoSRys4Int8VGXEfU_@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X5>, uint64_t *a3@<X8>)
+uint64_t _sScTss5Error_pRs_rlE4name8priority9operationScTyxsAA_pGSSSg_ScPSgxyYaKYAcntcfcBoSRys4Int8VGXEfU_@<X0>(uint64_t a1@<X0>, uint64_t *a7@<X8>)
 {
   if (!a1)
   {
@@ -3332,17 +3137,14 @@ uint64_t _sScTss5Error_pRs_rlE4name8priority9operationScTyxsAA_pGSSSg_ScPSgxyYaK
     __break(1u);
   }
 
-  v4 = *a2;
-  v5 = a2[1];
-
   result = swift_task_create();
-  *a3 = result;
+  *a7 = result;
   return result;
 }
 
 void *closure #1 in OSLogArguments.append(_:)(void *a1, uint64_t a2, uint64_t *a3, uint64_t (*a4)(void))
 {
-  v4 = a4();
+  v4 = (a4)(a1, a2);
   getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v4, v5, a3);
   v8 = *a1;
 
@@ -3407,7 +3209,7 @@ uint64_t getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(uint64_t a1,
   return v11;
 }
 
-uint64_t specialized _StringGuts._deconstructUTF8<A>(scratch:)(uint64_t result, char *a2, uint64_t a3, char a4, uint64_t a5, uint64_t a6)
+void *specialized _StringGuts._deconstructUTF8<A>(scratch:)(void *result, char *a2, uint64_t a3, char a4, uint64_t a5, uint64_t a6)
 {
   v19 = result;
   v25 = a6;
@@ -3558,10 +3360,10 @@ void *_StringGuts._allocateForDeconstruct()(uint64_t a1, uint64_t a2)
   v7 = specialized _copyCollectionToContiguousArray<A>(_:)(a1, a2);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys5UInt8VGMd, &_ss23_ContiguousArrayStorageCys5UInt8VGMR);
   inited = swift_initStackObject();
-  v3 = _sSa13_adoptStorage_5countSayxG_SpyxGts016_ContiguousArrayB0CyxGn_SitFZs5UInt8V_Tt1gq5(inited, 1);
-  *v4 = 0;
+  _sSa13_adoptStorage_5countSayxG_SpyxGts016_ContiguousArrayB0CyxGn_SitFZs5UInt8V_Tt1gq5(inited, 1);
+  *v3 = 0;
   specialized _finalizeUninitializedArray<A>(_:)();
-  specialized Array.append<A>(contentsOf:)(v3);
+  specialized Array.append<A>(contentsOf:)(v4);
 
   v8 = specialized Array.count.getter(v7);
 
@@ -3699,46 +3501,44 @@ uint64_t _sSa13_adoptStorage_5countSayxG_SpyxGts016_ContiguousArrayB0CyxGn_SitFZ
 
 void specialized Array.append<A>(contentsOf:)(uint64_t a1)
 {
-  v20 = specialized Array.count.getter(a1);
+  v18 = specialized Array.count.getter(a1);
   v2 = specialized Array.count.getter(*v1);
-  v21 = v2 + v20;
-  if (__OFADD__(v2, v20))
+  v19 = v2 + v18;
+  if (__OFADD__(v2, v18))
   {
     goto LABEL_31;
   }
 
-  v16 = *v19;
+  v14 = *v17;
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  *v19 = v16;
-  if ((isUniquelyReferenced_nonNull_native & 1) == 0 || v21 > *(*v19 + 24) >> 1)
+  *v17 = v14;
+  if ((isUniquelyReferenced_nonNull_native & 1) == 0 || v19 > *(*v17 + 24) >> 1)
   {
-    if (*(*v19 + 16) < v21)
+    if (*(*v17 + 16) < v19)
     {
-      v15 = v21;
+      v13 = v19;
     }
 
     else
     {
-      v15 = *(*v19 + 16);
+      v13 = *(*v17 + 16);
     }
 
-    v14 = *v19;
+    v12 = *v17;
 
-    v4 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(isUniquelyReferenced_nonNull_native, v15, 1, v14);
-    v5 = *v19;
-    *v19 = v4;
+    *v17 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(isUniquelyReferenced_nonNull_native, v13, 1, v12);
   }
 
-  v6 = *(*v19 + 16);
-  v12 = (*v19 + 32 + v6);
-  v7 = *(*v19 + 24) >> 1;
-  v13 = v7 - v6;
-  if (__OFSUB__(v7, v6))
+  v4 = *(*v17 + 16);
+  v10 = (*v17 + 32 + v4);
+  v5 = *(*v17 + 24) >> 1;
+  v11 = v5 - v4;
+  if (__OFSUB__(v5, v4))
   {
     goto LABEL_32;
   }
 
-  if (v13 < 0)
+  if (v11 < 0)
   {
 LABEL_30:
     _fatalErrorMessage(_:_:file:line:flags:)();
@@ -3754,7 +3554,7 @@ LABEL_32:
   {
 LABEL_21:
 
-    if (v20 <= 0)
+    if (v18 <= 0)
     {
       goto LABEL_28;
     }
@@ -3764,26 +3564,26 @@ LABEL_21:
     goto LABEL_30;
   }
 
-  if (v13 < v20)
+  if (v11 < v18)
   {
     _assertionFailure(_:_:file:line:flags:)();
     __break(1u);
     goto LABEL_21;
   }
 
-  specialized UnsafeMutablePointer.initialize(from:count:)((a1 + 32), v20, v12);
+  specialized UnsafeMutablePointer.initialize(from:count:)((a1 + 32), v18, v10);
 
   swift_unknownObjectRelease();
-  if (v20 <= 0)
+  if (v18 <= 0)
   {
     goto LABEL_28;
   }
 
-  v9 = *(*v19 + 16);
-  v11 = v9 + v20;
-  if (!__OFADD__(v9, v20))
+  v7 = *(*v17 + 16);
+  v9 = v7 + v18;
+  if (!__OFADD__(v7, v18))
   {
-    *(*v19 + 16) = v11;
+    *(*v17 + 16) = v9;
 LABEL_28:
     specialized Array._endMutation()();
     return;
@@ -3851,7 +3651,7 @@ void *specialized UnsafeMutablePointer.initialize(from:count:)(char *a1, size_t 
   return result;
 }
 
-uint64_t _StringGuts._slowEnsureMatchingEncoding(_:)(unint64_t a1, uint64_t a2, uint64_t a3)
+unint64_t _StringGuts._slowEnsureMatchingEncoding(_:)(unint64_t a1, uint64_t a2, uint64_t a3)
 {
   v11 = a1;
   if ((a3 & 0x1000000000000000) != 0 && (a2 & 0x800000000000000) == 0)
@@ -3973,28 +3773,9 @@ char *specialized UnsafeMutablePointer.moveInitialize(from:count:)(char *result,
   return result;
 }
 
-uint64_t sub_10000F87C()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_10000F8C8()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
 uint64_t sub_10000F914()
 {
-  v1 = *(v0 + 16);
   swift_unknownObjectRelease();
-
-  v2 = *(v0 + 40);
-
-  v3 = *(v0 + 56);
 
   return swift_deallocObject();
 }
@@ -4003,32 +3784,30 @@ uint64_t partial apply for closure #1 in MLServer.getPrediction(inputFeatures:wi
 {
   v5 = v2;
   *(v2 + 16) = v2;
-  v7 = *(v1 + 2);
-  v8 = *(v1 + 3);
-  v9 = *(v1 + 4);
-  v10 = *(v1 + 5);
-  v11 = *(v1 + 6);
-  v12 = *(v1 + 7);
-  v13 = *(v1 + 8);
-  v14 = v1[9];
-  v6 = *(v1 + 10);
+  v6 = *(v1 + 2);
+  v7 = *(v1 + 3);
+  v8 = *(v1 + 4);
+  v9 = *(v1 + 5);
+  v10 = *(v1 + 6);
+  v11 = *(v1 + 7);
+  v12 = *(v1 + 8);
+  v13 = v1[9];
   v3 = swift_task_alloc();
   *(v5 + 24) = v3;
   *v3 = *(v5 + 16);
   v3[1] = partial apply for closure #1 in MLServer.getPrediction(inputFeatures:with:);
 
-  return closure #1 in MLServer.getPrediction(inputFeatures:with:)(v14, a1, v7, v8, v9, v10, v11, v12, v13);
+  return closure #1 in MLServer.getPrediction(inputFeatures:with:)(v13, a1, v6, v7, v8, v9, v10, v11, v12);
 }
 
 uint64_t partial apply for closure #1 in MLServer.getPrediction(inputFeatures:with:)()
 {
-  v4 = *v0;
-  v1 = *(*v0 + 24);
-  *(v4 + 16) = *v0;
+  v3 = *v0;
+  *(v3 + 16) = *v0;
 
-  v2 = *(*(v4 + 16) + 8);
+  v1 = *(*(v3 + 16) + 8);
 
-  return v2();
+  return v1();
 }
 
 unint64_t lazy protocol witness table accessor for type [(_:_:_:)] and conformance [A]()
@@ -4043,20 +3822,6 @@ unint64_t lazy protocol witness table accessor for type [(_:_:_:)] and conforman
   }
 
   return v2;
-}
-
-uint64_t sub_10000FCD4()
-{
-  v1 = *(v0 + 16);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_10000FD1C()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
 }
 
 uint64_t implicit closure #1 in OSLogInterpolation.appendInterpolation<A>(_:align:privacy:)partial apply()
@@ -4078,39 +3843,21 @@ uint64_t implicit closure #1 in OSLogInterpolation.appendInterpolation<A>(_:alig
   return implicit closure #1 in OSLogInterpolation.appendInterpolation<A>(_:align:privacy:)(v5, v3, v4, v1);
 }
 
-uint64_t sub_10000FE2C()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
 uint64_t implicit closure #1 in OSLogInterpolation.appendInterpolation(_:align:privacy:)partial apply()
 {
-  v1 = *(v0 + 24);
   return implicit closure #1 in OSLogInterpolation.appendInterpolation(_:align:privacy:)(*(v0 + 16));
 }
 
 {
-  v1 = *(v0 + 24);
   return implicit closure #1 in OSLogInterpolation.appendInterpolation(_:align:privacy:)(*(v0 + 16));
-}
-
-uint64_t sub_10000FE78()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
 }
 
 void *closure #1 in OSLogArguments.append(_:)partial apply(void *a1, uint64_t a2, uint64_t *a3)
 {
-  v4 = *(v3 + 24);
   return closure #1 in OSLogArguments.append(_:)(a1, a2, a3, *(v3 + 16));
 }
 
 {
-  v4 = *(v3 + 24);
   return closure #1 in OSLogArguments.append(_:)(a1, a2, a3, *(v3 + 16));
 }
 
@@ -4126,14 +3873,7 @@ void *outlined init with copy of String(void *a1, void *a2)
 
 uint64_t sub_10000FF04()
 {
-  v1 = *(v0 + 16);
   swift_unknownObjectRelease();
-
-  v2 = *(v0 + 40);
-
-  v3 = *(v0 + 48);
-
-  v4 = *(v0 + 64);
 
   return swift_deallocObject();
 }
@@ -4142,35 +3882,32 @@ uint64_t partial apply for closure #1 in MLServer.getPredictionDictionary(inputF
 {
   v5 = v2;
   *(v2 + 16) = v2;
-  v8 = v1[2];
-  v9 = v1[3];
-  v10 = v1[4];
-  v11 = v1[5];
-  v12 = v1[6];
-  v13 = v1[7];
-  v14 = v1[8];
-  v6 = v1[9];
-  v7 = v1[10];
+  v6 = v1[2];
+  v7 = v1[3];
+  v8 = v1[4];
+  v9 = v1[5];
+  v10 = v1[6];
+  v11 = v1[7];
+  v12 = v1[8];
   v3 = swift_task_alloc();
   *(v5 + 24) = v3;
   *v3 = *(v5 + 16);
   v3[1] = partial apply for closure #1 in MLServer.getPredictionDictionary(inputFeatures:with:);
 
-  return closure #1 in MLServer.getPredictionDictionary(inputFeatures:with:)(a1, v8, v9, v10, v11, v12, v13, v14);
+  return closure #1 in MLServer.getPredictionDictionary(inputFeatures:with:)(a1, v6, v7, v8, v9, v10, v11, v12);
 }
 
 uint64_t partial apply for closure #1 in MLServer.getPredictionDictionary(inputFeatures:with:)()
 {
-  v4 = *v0;
-  v1 = *(*v0 + 24);
-  *(v4 + 16) = *v0;
+  v3 = *v0;
+  *(v3 + 16) = *v0;
 
-  v2 = *(*(v4 + 16) + 8);
+  v1 = *(*(v3 + 16) + 8);
 
-  return v2();
+  return v1();
 }
 
-uint64_t closure #1 in osLogInternal(_:log:type:)partial apply(uint64_t a1)
+uint64_t closure #1 in osLogInternal(_:log:type:)partial apply(uint64_t (**a1)(uint64_t, uint64_t, uint64_t))
 {
   return closure #1 in osLogInternal(_:log:type:)(a1, v1[2], v1[3], v1[4]);
 }
@@ -4189,9 +3926,7 @@ uint64_t closure #1 in osLogInternal(_:log:type:)partial apply(uint64_t a1)
 
 uint64_t sub_100010248()
 {
-  v1 = *(v0 + 16);
   swift_unknownObjectRelease();
-  v2 = *(v0 + 32);
 
   return swift_deallocObject();
 }
@@ -4204,7 +3939,6 @@ uint64_t partial apply for closure #1 in MLServer.write(data:with:)(uint64_t a1)
   v7 = v1[3];
   v8 = v1[4];
   v9 = v1[5];
-  v10 = v1[6];
   v3 = swift_task_alloc();
   *(v5 + 24) = v3;
   *v3 = *(v5 + 16);
@@ -4215,21 +3949,17 @@ uint64_t partial apply for closure #1 in MLServer.write(data:with:)(uint64_t a1)
 
 uint64_t partial apply for closure #1 in MLServer.write(data:with:)()
 {
-  v4 = *v0;
-  v1 = *(*v0 + 24);
-  *(v4 + 16) = *v0;
+  v3 = *v0;
+  *(v3 + 16) = *v0;
 
-  v2 = *(*(v4 + 16) + 8);
+  v1 = *(*(v3 + 16) + 8);
 
-  return v2();
+  return v1();
 }
 
 uint64_t sub_1000105AC()
 {
-  v1 = *(v0 + 16);
   swift_unknownObjectRelease();
-
-  v2 = *(v0 + 48);
 
   return swift_deallocObject();
 }
@@ -4253,41 +3983,12 @@ uint64_t partial apply for closure #1 in MLServer.getModelStats(with:)(uint64_t 
 
 uint64_t partial apply for closure #1 in MLServer.getModelStats(with:)()
 {
-  v4 = *v0;
-  v1 = *(*v0 + 24);
-  *(v4 + 16) = *v0;
+  v3 = *v0;
+  *(v3 + 16) = *v0;
 
-  v2 = *(*(v4 + 16) + 8);
+  v1 = *(*(v3 + 16) + 8);
 
-  return v2();
-}
-
-uint64_t sub_1000108DC()
-{
-  v1 = *(v0 + 16);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_100010924()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_100010A34()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_100010A80()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
+  return v1();
 }
 
 uint64_t sub_100010ACC()
@@ -4303,36 +4004,21 @@ uint64_t sub_100010ACC()
   return swift_deallocObject();
 }
 
-uint64_t partial apply for implicit closure #3 in closure #1 in MLServer.write(data:with:)()
+unint64_t partial apply for implicit closure #3 in closure #1 in MLServer.write(data:with:)()
 {
-  v3 = *(type metadata accessor for DispatchTime() - 8);
-  v1 = v0 + ((((*(v3 + 80) + 16) & ~*(v3 + 80)) + *(v3 + 64) + *(v3 + 80)) & ~*(v3 + 80));
+  type metadata accessor for DispatchTime();
 
   return implicit closure #3 in closure #1 in MLServer.write(data:with:)();
 }
 
-uint64_t sub_100010D14()
+void *closure #1 in OSLogArguments.append(_:)(void *a1, uint64_t a2, uint64_t a3, double (*a4)(void))
 {
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-void *closure #1 in OSLogArguments.append(_:)(void *a1, uint64_t a2, uint64_t a3, void (*a4)(void))
-{
-  a4();
+  (a4)(a1, a2, a3);
   v5 = *a1;
   UnsafeMutableRawBufferPointer.copyMemory(from:)();
   result = a1;
   *a1 = v5 + 8;
   return result;
-}
-
-uint64_t sub_100010DCC()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
 }
 
 unint64_t lazy protocol witness table accessor for type UInt64 and conformance UInt64()
@@ -4348,85 +4034,17 @@ unint64_t lazy protocol witness table accessor for type UInt64 and conformance U
   return v2;
 }
 
-uint64_t sub_100010E90()
+uint64_t __swift_destroy_boxed_opaque_existential_0(uint64_t a1)
 {
-  v1 = *(v0 + 16);
-
-  return swift_deallocObject();
-}
-
-uint64_t partial apply for implicit closure #2 in closure #1 in MLServer.getPredictionDictionary(inputFeatures:with:)()
-{
-  result = *(v0 + 16);
-  implicit closure #2 in closure #1 in MLServer.getPredictionDictionary(inputFeatures:with:)();
-  return result;
-}
-
-uint64_t sub_100010F40()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_100010F8C()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_100010FD8()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_100011050()
-{
-  v1 = *(v0 + 16);
-
-  return swift_deallocObject();
-}
-
-uint64_t partial apply for implicit closure #2 in closure #1 in MLServer.getPrediction(inputFeatures:with:)()
-{
-  result = *(v0 + 16);
-  implicit closure #2 in closure #1 in MLServer.getPrediction(inputFeatures:with:)();
-  return result;
-}
-
-uint64_t sub_100011100()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_10001114C()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_100011198()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t __swift_destroy_boxed_opaque_existential_0(uint64_t *a1)
-{
-  v3 = a1[3];
-  if ((*(*(v3 - 8) + 80) & 0x20000) == 0)
+  v2 = *(a1 + 24);
+  if ((*(*(v2 - 8) + 80) & 0x20000) != 0)
   {
-    return (*(*(v3 - 8) + 8))(a1);
   }
 
-  v2 = *a1;
+  else
+  {
+    return (*(*(v2 - 8) + 8))(a1);
+  }
 }
 
 uint64_t outlined init with copy of Any(uint64_t a1, uint64_t a2)
@@ -4435,13 +4053,6 @@ uint64_t outlined init with copy of Any(uint64_t a1, uint64_t a2)
   *(a2 + 24) = v2;
   (**(v2 - 8))(a2);
   return a2;
-}
-
-uint64_t outlined destroy of String.UTF8View(uint64_t a1)
-{
-  v1 = *(a1 + 8);
-
-  return a1;
 }
 
 void static Main.main()()
@@ -4453,4 +4064,12 @@ void static Main.main()()
   [v0 setDelegate:v1];
   swift_unknownObjectRelease();
   [v0 activate];
+}
+
+Swift::String __swiftcall String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)(Builtin::RawPointer _builtinStringLiteral, Builtin::Word utf8CodeUnitCount, Builtin::Int1 isASCII)
+{
+  v3 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)(_builtinStringLiteral, utf8CodeUnitCount, isASCII);
+  result._object = v4;
+  result._countAndFlagsBits = v3;
+  return result;
 }

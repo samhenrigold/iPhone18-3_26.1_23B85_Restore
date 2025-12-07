@@ -57,7 +57,6 @@ LABEL_9:
   to;
   if ([(_CPButtonForFeedback *)self commandType])
   {
-    commandType = self->_commandType;
     PBDataWriterWriteInt32Field();
   }
 
@@ -65,13 +64,11 @@ LABEL_9:
 
   if (commandDetail)
   {
-    commandDetail = self->_commandDetail;
     PBDataWriterWriteStringField();
   }
 
   if ([(_CPButtonForFeedback *)self uniqueId])
   {
-    uniqueId = self->_uniqueId;
     PBDataWriterWriteUint64Field();
   }
 

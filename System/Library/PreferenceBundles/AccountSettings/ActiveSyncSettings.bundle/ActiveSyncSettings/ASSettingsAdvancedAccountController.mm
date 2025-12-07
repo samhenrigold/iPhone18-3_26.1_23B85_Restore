@@ -18,7 +18,10 @@
 - (id)specifiers;
 - (unint64_t)configurationOptionsForIdentityPickerController:(id)controller;
 - (void)_handleTrustFromIdentity:(__SecIdentity *)identity handler:(id)handler;
+- (void)_setNeedsSaveAndValidation:(BOOL)validation;
 - (void)dealloc;
+- (void)identityPickerController:(id)controller setPropertyEnabled:(BOOL)enabled withIdentity:(__SecIdentity *)identity;
+- (void)setAccountArchivesMailByDefault:(BOOL)default;
 - (void)setAccountBooleanProperty:(id)property withSpecifier:(id)specifier;
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path;
 @end
@@ -411,6 +414,15 @@ LABEL_11:
   return v3;
 }
 
+- (void)setAccountArchivesMailByDefault:(BOOL)default
+{
+  defaultCopy = default;
+  account = [(ASSettingsAdvancedAccountController *)self account];
+  [account setAccountBoolProperty:defaultCopy forKey:MFMailAccountArchive];
+
+  [(ASSettingsAdvancedAccountController *)self _setNeedsSaveAndValidation:0];
+}
+
 - (void)setAccountBooleanProperty:(id)property withSpecifier:(id)specifier
 {
   propertyCopy = property;
@@ -437,6 +449,16 @@ LABEL_11:
 
 LABEL_6:
   [(ASSettingsAdvancedAccountController *)self _setNeedsSaveAndValidation:v8];
+}
+
+- (void)_setNeedsSaveAndValidation:(BOOL)validation
+{
+  validationCopy = validation;
+  parentController = [(ASSettingsAdvancedAccountController *)self parentController];
+  if (objc_opt_respondsToSelector())
+  {
+    [parentController setNeedsSaveAndValidation:validationCopy];
+  }
 }
 
 - (id)accountBooleanPropertyWithSpecifier:(id)specifier
@@ -656,6 +678,58 @@ LABEL_12:
 
 LABEL_15:
   return v15;
+}
+
+- (void)identityPickerController:(id)controller setPropertyEnabled:(BOOL)enabled withIdentity:(__SecIdentity *)identity
+{
+  enabledCopy = enabled;
+  controllerCopy = controller;
+  specifier = [controllerCopy specifier];
+  account = [(ASSettingsAdvancedAccountController *)self account];
+  v10 = [specifier propertyForKey:PSKeyNameKey];
+  [account setAccountBoolProperty:enabledCopy forKey:v10];
+
+  if (identity)
+  {
+    identifier = [specifier identifier];
+    if ([identifier isEqualToString:@"ASSpecifierSMIMESignID"])
+    {
+      [(ASSettingsAdvancedAccountController *)self _handleTrustFromIdentity:identity handler:&stru_308E0];
+    }
+
+    v12 = [(ASSettingsAdvancedAccountController *)self _persistentRefForIdentity:identity];
+    if (!v12)
+    {
+      goto LABEL_10;
+    }
+
+    if ([identifier isEqualToString:@"ASSpecifierSMIMESignID"])
+    {
+      account2 = [(ASSettingsAdvancedAccountController *)self account];
+      [account2 setSigningIdentityPersistentReference:v12];
+    }
+
+    else
+    {
+      if (![identifier isEqualToString:@"ASSpecifierSMIMEEncryptID"])
+      {
+LABEL_10:
+
+        goto LABEL_11;
+      }
+
+      account2 = [(ASSettingsAdvancedAccountController *)self account];
+      [account2 setEncryptionIdentityPersistentReference:v12];
+    }
+
+    goto LABEL_10;
+  }
+
+LABEL_11:
+  specifier2 = [controllerCopy specifier];
+  [(ASSettingsAdvancedAccountController *)self reloadSpecifier:specifier2];
+
+  [(ASSettingsAdvancedAccountController *)self _setNeedsSaveAndValidation:0];
 }
 
 - (id)localizedSwitchNameForIdentityPickerController:(id)controller

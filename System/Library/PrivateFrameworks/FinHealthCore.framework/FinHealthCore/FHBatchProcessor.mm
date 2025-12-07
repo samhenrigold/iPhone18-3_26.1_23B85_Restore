@@ -22,11 +22,11 @@
 
 - (id)_init:(id)_init
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   _initCopy = _init;
-  v47.receiver = self;
-  v47.super_class = FHBatchProcessor;
-  v5 = [(FHBatchProcessor *)&v47 init];
+  v46.receiver = self;
+  v46.super_class = FHBatchProcessor;
+  v5 = [(FHBatchProcessor *)&v46 init];
   if (v5)
   {
     v6 = MEMORY[0x277CCA980];
@@ -44,31 +44,31 @@
     v5->_indexedAmountArray = v12;
 
     v14 = objc_opt_new();
+    v42 = 0u;
     v43 = 0u;
     v44 = 0u;
     v45 = 0u;
-    v46 = 0u;
-    v42 = _initCopy;
+    v41 = _initCopy;
     internalStates = [_initCopy internalStates];
-    v16 = [internalStates countByEnumeratingWithState:&v43 objects:v48 count:16];
+    v16 = [internalStates countByEnumeratingWithState:&v42 objects:v47 count:16];
     if (v16)
     {
       v17 = v16;
-      v18 = *v44;
+      v18 = *v43;
       do
       {
         for (i = 0; i != v17; ++i)
         {
-          if (*v44 != v18)
+          if (*v43 != v18)
           {
             objc_enumerationMutation(internalStates);
           }
 
-          v20 = [MEMORY[0x277CCAC30] predicateWithFormat:@"SELF.%K == %lu", @"transactionInternalState", objc_msgSend(*(*(&v43 + 1) + 8 * i), "integerValue")];
+          v20 = [MEMORY[0x277CCAC30] predicateWithFormat:@"SELF.%K == %lu", @"transactionInternalState", objc_msgSend(*(*(&v42 + 1) + 8 * i), "integerValue")];
           [v14 addObject:v20];
         }
 
-        v17 = [internalStates countByEnumeratingWithState:&v43 objects:v48 count:16];
+        v17 = [internalStates countByEnumeratingWithState:&v42 objects:v47 count:16];
       }
 
       while (v17);
@@ -86,23 +86,23 @@
     predicates = v5->_predicates;
     v5->_predicates = v28;
 
-    _initCopy = v42;
-    databaseManager = [v42 databaseManager];
+    _initCopy = v41;
+    databaseManager = [v41 databaseManager];
     objc_storeWeak(&v5->_databaseManager, databaseManager);
 
-    startDate = [v42 startDate];
+    startDate = [v41 startDate];
     if (startDate)
     {
       v32 = startDate;
-      endDate = [v42 endDate];
+      endDate = [v41 endDate];
 
       if (endDate)
       {
-        startDate2 = [v42 startDate];
+        startDate2 = [v41 startDate];
         startDate = v5->_startDate;
         v5->_startDate = startDate2;
 
-        endDate2 = [v42 endDate];
+        endDate2 = [v41 endDate];
         endDate = v5->_endDate;
         v5->_endDate = endDate2;
 
@@ -112,10 +112,9 @@
       }
     }
 
-    v5->_computeMerchantCounts = [v42 computeMerchantCounts];
+    v5->_computeMerchantCounts = [v41 computeMerchantCounts];
   }
 
-  v40 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -133,46 +132,46 @@
 
 - (NSSet)merchantsWithSignificantCount
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   v3 = objc_opt_new();
   context = objc_autoreleasePoolPush();
   v4 = MEMORY[0x277CCA980];
   v5 = MEMORY[0x277CCACA8];
   WeakRetained = objc_loadWeakRetained(&self->_databaseManager);
   v7 = [v5 stringWithFormat:@"%lu", objc_msgSend(WeakRetained, "mostRecentTransactionDate")];
-  v33 = [v4 decimalNumberWithString:v7];
+  v32 = [v4 decimalNumberWithString:v7];
 
   v8 = FinHealthLogObject(@"FinHealthCore");
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
-    stringValue = [v33 stringValue];
+    stringValue = [v32 stringValue];
     *buf = 138412290;
-    v42 = stringValue;
+    v41 = stringValue;
     _os_log_impl(&dword_226DD4000, v8, OS_LOG_TYPE_DEBUG, "mostRecentDate %@", buf, 0xCu);
   }
 
-  v38 = 0u;
-  v39 = 0u;
-  v36 = 0u;
   v37 = 0u;
+  v38 = 0u;
+  v35 = 0u;
+  v36 = 0u;
   obj = self->_merchantWithTimeStampPairs;
-  v10 = [(NSMutableArray *)obj countByEnumeratingWithState:&v36 objects:v40 count:16];
-  v11 = v33;
+  v10 = [(NSMutableArray *)obj countByEnumeratingWithState:&v35 objects:v39 count:16];
+  v11 = v32;
   if (v10)
   {
     v12 = v10;
     v13 = 0;
-    v35 = *v37;
+    v34 = *v36;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v37 != v35)
+        if (*v36 != v34)
         {
           objc_enumerationMutation(obj);
         }
 
-        v15 = *(*(&v36 + 1) + 8 * i);
+        v15 = *(*(&v35 + 1) + 8 * i);
         featureRank = [v15 featureRank];
         v17 = [v11 decimalNumberBySubtracting:featureRank];
         v18 = [v17 decimalNumberByDividingBy:self->_secondsInDay];
@@ -199,13 +198,13 @@
           [v25 setValue:v27 forKey:featureLabel2];
 
           v3 = v25;
-          v11 = v33;
+          v11 = v32;
         }
 
         ++v13;
       }
 
-      v12 = [(NSMutableArray *)obj countByEnumeratingWithState:&v36 objects:v40 count:16];
+      v12 = [(NSMutableArray *)obj countByEnumeratingWithState:&v35 objects:v39 count:16];
     }
 
     while (v12);
@@ -214,41 +213,40 @@
   v29 = [v3 keysOfEntriesPassingTest:&__block_literal_global_4];
 
   objc_autoreleasePoolPop(context);
-  v30 = *MEMORY[0x277D85DE8];
 
   return v29;
 }
 
 - (void)processBatch:(id)batch
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   batchCopy = batch;
   v5 = [batchCopy filteredArrayUsingPredicate:self->_predicates];
   v6 = v5;
   if (self->_computeMerchantCounts)
   {
-    v31 = v5;
-    v32 = batchCopy;
-    v36 = 0u;
-    v37 = 0u;
-    v34 = 0u;
+    v30 = v5;
+    v31 = batchCopy;
     v35 = 0u;
+    v36 = 0u;
+    v33 = 0u;
+    v34 = 0u;
     obj = v5;
-    v7 = [obj countByEnumeratingWithState:&v34 objects:v38 count:16];
+    v7 = [obj countByEnumeratingWithState:&v33 objects:v37 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v35;
+      v9 = *v34;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v35 != v9)
+          if (*v34 != v9)
           {
             objc_enumerationMutation(obj);
           }
 
-          v11 = *(*(&v34 + 1) + 8 * i);
+          v11 = *(*(&v33 + 1) + 8 * i);
           transactionDate = [v11 transactionDate];
           [transactionDate timeIntervalSinceReferenceDate];
           v14 = v13;
@@ -270,14 +268,14 @@
           objc_autoreleasePoolPop(v15);
         }
 
-        v8 = [obj countByEnumeratingWithState:&v34 objects:v38 count:16];
+        v8 = [obj countByEnumeratingWithState:&v33 objects:v37 count:16];
       }
 
       while (v8);
     }
 
-    v6 = v31;
-    batchCopy = v32;
+    v6 = v30;
+    batchCopy = v31;
   }
 
   startDate = self->_startDate;
@@ -293,8 +291,6 @@
       [(NSMutableArray *)resultArray addObjectsFromArray:v29];
     }
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 - (FHDatabaseManager)databaseManager

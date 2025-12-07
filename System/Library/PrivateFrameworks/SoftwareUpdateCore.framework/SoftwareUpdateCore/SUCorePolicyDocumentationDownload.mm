@@ -27,7 +27,6 @@
 
 - (void)backToDefaults
 {
-  additionalOptions = self->_additionalOptions;
   self->_specifiedFields = 0;
   self->_additionalOptions = 0;
   *&self->_allowsCellular = 0;

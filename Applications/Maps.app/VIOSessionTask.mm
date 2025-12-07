@@ -1276,8 +1276,8 @@ LABEL_16:
   if ([configurationCopy isVIO])
   {
     session = [(VIOSessionTask *)self session];
-    configuration = [session configuration];
-    isVIO = [configuration isVIO];
+    v6 = objc_msgSend_configuration(session);
+    isVIO = [v6 isVIO];
   }
 
   else
@@ -1288,8 +1288,8 @@ LABEL_16:
   if ([configurationCopy isVLF])
   {
     session2 = [(VIOSessionTask *)self session];
-    configuration2 = [session2 configuration];
-    isVIO |= [configuration2 isVLF];
+    v9 = objc_msgSend_configuration(session2);
+    isVIO |= [v9 isVLF];
   }
 
   monitors = [(VIOSessionTask *)self monitors];
@@ -1420,14 +1420,14 @@ LABEL_16:
 {
   if ([(VIOSessionTask *)self shouldStartVIOSession]&& ![(VIOSessionTask *)self isEligibleToStartVIO])
   {
-    configuration = sub_100AF99D4();
-    if (os_log_type_enabled(configuration, OS_LOG_TYPE_INFO))
+    v3 = sub_100AF99D4();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
       v23 = 0;
       v16 = "VIO should not start or is not eligible to start; not starting";
       v17 = &v23;
 LABEL_20:
-      _os_log_impl(&_mh_execute_header, configuration, OS_LOG_TYPE_INFO, v16, v17, 2u);
+      _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_INFO, v16, v17, 2u);
     }
   }
 
@@ -1435,7 +1435,7 @@ LABEL_20:
   {
     if (![(VIOSessionTask *)self shouldStartVLFSession]|| [(VIOSessionTask *)self isEligibleToStartVLF])
     {
-      configuration = [(VIOSessionTask *)self configuration];
+      v3 = objc_msgSend_configuration(self);
       v4 = +[NSUserDefaults standardUserDefaults];
       v5 = [v4 BOOLForKey:@"MapsARSessionRecordingEnabledKey"];
 
@@ -1451,12 +1451,12 @@ LABEL_20:
         v7 = +[NSDate now];
         [v7 timeIntervalSince1970];
         v9 = [NSString stringWithFormat:@"vio.%.0f.mov", v8 * 1000.0];
-        v10 = [configuration recordingConfigurationWithFileName:v9];
+        v10 = [v3 recordingConfigurationWithFileName:v9];
 
-        configuration = v10;
+        v3 = v10;
       }
 
-      [(VIOSessionTask *)self createMonitorsForConfiguration:configuration];
+      [(VIOSessionTask *)self createMonitorsForConfiguration:v3];
       if ([(VIOSessionTask *)self areMonitorsDisablingVIO])
       {
         v11 = sub_100AF99D4();
@@ -1471,7 +1471,7 @@ LABEL_20:
         goto LABEL_27;
       }
 
-      if ([configuration isVIO])
+      if ([v3 isVIO])
       {
         v13 = sub_100AF99D4();
         if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
@@ -1486,11 +1486,11 @@ LABEL_24:
 
       else
       {
-        if (![configuration isVLF])
+        if (![v3 isVLF])
         {
 LABEL_26:
           session = [(VIOSessionTask *)self session];
-          [session runWithConfiguration:configuration];
+          [session runWithConfiguration:v3];
 LABEL_27:
 
           goto LABEL_28;
@@ -1509,8 +1509,8 @@ LABEL_27:
       goto LABEL_26;
     }
 
-    configuration = sub_100AF99D4();
-    if (os_log_type_enabled(configuration, OS_LOG_TYPE_INFO))
+    v3 = sub_100AF99D4();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
       *v22 = 0;
       v16 = "Post-VLF VIO should not start or is not eligible to start; not starting";

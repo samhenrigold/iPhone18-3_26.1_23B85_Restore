@@ -209,20 +209,17 @@ uint64_t ggctl_hdqRead8(mach_port_t a1, int a2)
   output[1] = *MEMORY[0x277D85DE8];
   output[0] = 0;
   input = a2;
-  v6 = vdupq_n_s64(8uLL);
+  v5 = vdupq_n_s64(8uLL);
   outputCnt = 1;
   if (IOConnectCallScalarMethod(a1, 7u, &input, 3u, output, &outputCnt))
   {
-    result = 0xFFFFFFFFLL;
+    return 0xFFFFFFFFLL;
   }
 
   else
   {
-    result = LODWORD(output[0]);
+    return LODWORD(output[0]);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
 uint64_t ggctl_hdqRead16(mach_port_t a1, int a2)
@@ -230,38 +227,32 @@ uint64_t ggctl_hdqRead16(mach_port_t a1, int a2)
   output[1] = *MEMORY[0x277D85DE8];
   output[0] = 0;
   outputCnt = 1;
-  v4 = a2;
-  if (IOConnectCallScalarMethod(a1, 8u, &v4, 1u, output, &outputCnt))
+  v3 = a2;
+  if (IOConnectCallScalarMethod(a1, 8u, &v3, 1u, output, &outputCnt))
   {
-    result = 0xFFFFFFFFLL;
+    return 0xFFFFFFFFLL;
   }
 
   else
   {
-    result = LODWORD(output[0]);
+    return LODWORD(output[0]);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
 uint64_t ggctl_hdqWrite8(mach_port_t a1, char a2, unsigned __int8 a3)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v5 = a2 & 0x7F | (a3 << 8) | 0x80u;
-  v6 = xmmword_27727F740;
-  if (IOConnectCallScalarMethod(a1, 7u, &v5, 3u, 0, 0))
+  v6 = *MEMORY[0x277D85DE8];
+  v4 = a2 & 0x7F | (a3 << 8) | 0x80u;
+  v5 = xmmword_27727F740;
+  if (IOConnectCallScalarMethod(a1, 7u, &v4, 3u, 0, 0))
   {
-    result = 0xFFFFFFFFLL;
+    return 0xFFFFFFFFLL;
   }
 
   else
   {
-    result = 0;
+    return 0;
   }
-
-  v4 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
 uint64_t ggctl_controlRead16(mach_port_t a1, int a2)
@@ -269,19 +260,16 @@ uint64_t ggctl_controlRead16(mach_port_t a1, int a2)
   output[1] = *MEMORY[0x277D85DE8];
   output[0] = 0;
   outputCnt = 1;
-  v4 = a2;
-  if (IOConnectCallScalarMethod(a1, 0xBu, &v4, 1u, output, &outputCnt))
+  v3 = a2;
+  if (IOConnectCallScalarMethod(a1, 0xBu, &v3, 1u, output, &outputCnt))
   {
-    result = 0xFFFFFFFFLL;
+    return 0xFFFFFFFFLL;
   }
 
   else
   {
-    result = LODWORD(output[0]);
+    return LODWORD(output[0]);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
 uint64_t ggctl_controlWrite16(mach_port_t a1, int a2, int a3)
@@ -291,16 +279,13 @@ uint64_t ggctl_controlWrite16(mach_port_t a1, int a2, int a3)
   input[1] = a3;
   if (IOConnectCallScalarMethod(a1, 0xAu, input, 2u, 0, 0))
   {
-    result = 0xFFFFFFFFLL;
+    return 0xFFFFFFFFLL;
   }
 
   else
   {
-    result = 0;
+    return 0;
   }
-
-  v4 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
 uint64_t ggctl_readBlock(mach_port_t a1, int a2, int a3, void *outputStruct, _BYTE *a5)
@@ -310,22 +295,18 @@ uint64_t ggctl_readBlock(mach_port_t a1, int a2, int a3, void *outputStruct, _BY
   input[1] = a3;
   output = 0;
   outputCnt = 1;
-  v8 = 32;
-  if (IOConnectCallMethod(a1, 9u, input, 2u, 0, 0, &output, &outputCnt, outputStruct, &v8))
+  v7 = 32;
+  if (IOConnectCallMethod(a1, 9u, input, 2u, 0, 0, &output, &outputCnt, outputStruct, &v7))
   {
-    result = 0xFFFFFFFFLL;
+    return 0xFFFFFFFFLL;
   }
 
-  else
+  result = 0;
+  if (a5)
   {
-    result = 0;
-    if (a5)
-    {
-      *a5 = output;
-    }
+    *a5 = output;
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -336,16 +317,13 @@ uint64_t ggctl_writeBlock(mach_port_t a1, int a2, int a3, void *inputStruct)
   input[1] = a3;
   if (IOConnectCallMethod(a1, 0xFu, input, 2u, inputStruct, 0x20uLL, 0, 0, 0, 0))
   {
-    result = 0xFFFFFFFFLL;
+    return 0xFFFFFFFFLL;
   }
 
   else
   {
-    result = 0;
+    return 0;
   }
-
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
 uint64_t ggctl_drainDataLog(mach_port_t a1)
@@ -407,38 +385,32 @@ uint64_t hdqRead16(mach_port_t a1, int a2)
   output[1] = *MEMORY[0x277D85DE8];
   output[0] = 0;
   outputCnt = 1;
-  v4 = a2;
-  if (IOConnectCallScalarMethod(a1, 8u, &v4, 1u, output, &outputCnt))
+  v3 = a2;
+  if (IOConnectCallScalarMethod(a1, 8u, &v3, 1u, output, &outputCnt))
   {
-    result = 0xFFFFFFFFLL;
+    return 0xFFFFFFFFLL;
   }
 
   else
   {
-    result = LODWORD(output[0]);
+    return LODWORD(output[0]);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
 uint64_t hdqWrite8(mach_port_t a1, char a2, unsigned __int8 a3)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v5 = a2 & 0x7F | (a3 << 8) | 0x80u;
-  v6 = xmmword_27727F740;
-  if (IOConnectCallScalarMethod(a1, 7u, &v5, 3u, 0, 0))
+  v6 = *MEMORY[0x277D85DE8];
+  v4 = a2 & 0x7F | (a3 << 8) | 0x80u;
+  v5 = xmmword_27727F740;
+  if (IOConnectCallScalarMethod(a1, 7u, &v4, 3u, 0, 0))
   {
-    result = 0xFFFFFFFFLL;
+    return 0xFFFFFFFFLL;
   }
 
   else
   {
-    result = 0;
+    return 0;
   }
-
-  v4 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
 uint64_t controlOp16(mach_port_t a1, int a2)
@@ -460,19 +432,16 @@ uint64_t controlRead16(mach_port_t a1, int a2)
   output[1] = *MEMORY[0x277D85DE8];
   output[0] = 0;
   outputCnt = 1;
-  v4 = a2;
-  if (IOConnectCallScalarMethod(a1, 0xBu, &v4, 1u, output, &outputCnt))
+  v3 = a2;
+  if (IOConnectCallScalarMethod(a1, 0xBu, &v3, 1u, output, &outputCnt))
   {
-    result = 0xFFFFFFFFLL;
+    return 0xFFFFFFFFLL;
   }
 
   else
   {
-    result = LODWORD(output[0]);
+    return LODWORD(output[0]);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
 uint64_t controlWrite16(mach_port_t a1, int a2, int a3)
@@ -482,16 +451,13 @@ uint64_t controlWrite16(mach_port_t a1, int a2, int a3)
   input[1] = a3;
   if (IOConnectCallScalarMethod(a1, 0xAu, input, 2u, 0, 0))
   {
-    result = 0xFFFFFFFFLL;
+    return 0xFFFFFFFFLL;
   }
 
   else
   {
-    result = 0;
+    return 0;
   }
-
-  v4 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
 uint64_t writeBlock(mach_port_t a1, int a2, int a3, void *inputStruct)
@@ -501,16 +467,13 @@ uint64_t writeBlock(mach_port_t a1, int a2, int a3, void *inputStruct)
   input[1] = a3;
   if (IOConnectCallMethod(a1, 0xFu, input, 2u, inputStruct, 0x20uLL, 0, 0, 0, 0))
   {
-    result = 0xFFFFFFFFLL;
+    return 0xFFFFFFFFLL;
   }
 
   else
   {
-    result = 0;
+    return 0;
   }
-
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
 uint64_t drainDataLog(mach_port_t a1)
@@ -576,16 +539,17 @@ uint64_t gaugeDisableInterrupts(mach_port_t a1)
   }
 }
 
-uint64_t gaugeDisconnect(mach_port_t connection)
+uint64_t gaugeDisconnect(uint64_t connection)
 {
+  v1 = connection;
   v2 = 0;
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   while (1)
   {
     output = 0;
     outputCnt = 1;
     input = 23;
-    v3 = IOConnectCallScalarMethod(connection, 0xBu, &input, 1u, &output, &outputCnt) ? -1 : output;
+    v3 = IOConnectCallScalarMethod(v1, 0xBu, &input, 1u, &output, &outputCnt) ? -1 : output;
     if (!v3)
     {
       break;
@@ -596,8 +560,8 @@ uint64_t gaugeDisconnect(mach_port_t connection)
     {
       LODWORD(output) = 67109376;
       HIDWORD(output) = v2;
-      v14 = 1024;
-      v15 = v3;
+      v13 = 1024;
+      v14 = v3;
       _os_log_error_impl(&dword_277275000, v4, OS_LOG_TYPE_ERROR, "%d: retry OpenProtector (%d)", &output, 0xEu);
     }
 
@@ -611,13 +575,13 @@ uint64_t gaugeDisconnect(mach_port_t connection)
 
   v5 = 0;
 LABEL_11:
-  v10 = 0;
+  v9 = 0;
   output = 0;
   outputCnt = 1;
   input = 32;
-  IOConnectCallScalarMethod(connection, 0xBu, &input, 1u, &output, &outputCnt);
-  v6 = controlReadU16(connection, 0, &v10);
-  if ((v10 & 0x2000) != 0)
+  IOConnectCallScalarMethod(v1, 0xBu, &input, 1u, &output, &outputCnt);
+  v6 = controlReadU16(v1, 0, &v9);
+  if ((v9 & 0x2000) != 0)
   {
     v7 = v5;
   }
@@ -629,16 +593,13 @@ LABEL_11:
 
   if (v6)
   {
-    result = 4294967291;
+    return 4294967291;
   }
 
   else
   {
-    result = v7;
+    return v7;
   }
-
-  v9 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
 uint64_t controlReadU16(mach_port_t a1, int a2, _WORD *a3)
@@ -646,8 +607,8 @@ uint64_t controlReadU16(mach_port_t a1, int a2, _WORD *a3)
   output[1] = *MEMORY[0x277D85DE8];
   output[0] = 0;
   outputCnt = 1;
-  v6 = a2;
-  if (IOConnectCallScalarMethod(a1, 0xBu, &v6, 1u, output, &outputCnt))
+  v5 = a2;
+  if (IOConnectCallScalarMethod(a1, 0xBu, &v5, 1u, output, &outputCnt))
   {
     result = 0xFFFFFFFFLL;
   }
@@ -664,10 +625,9 @@ uint64_t controlReadU16(mach_port_t a1, int a2, _WORD *a3)
       *a3 = result;
     }
 
-    result = 0;
+    return 0;
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -676,8 +636,8 @@ uint64_t hdqReadS16(mach_port_t a1, int a2, _WORD *a3)
   output[1] = *MEMORY[0x277D85DE8];
   output[0] = 0;
   outputCnt = 1;
-  v6 = a2;
-  if (IOConnectCallScalarMethod(a1, 8u, &v6, 1u, output, &outputCnt))
+  v5 = a2;
+  if (IOConnectCallScalarMethod(a1, 8u, &v5, 1u, output, &outputCnt))
   {
     result = 0xFFFFFFFFLL;
   }
@@ -694,10 +654,9 @@ uint64_t hdqReadS16(mach_port_t a1, int a2, _WORD *a3)
       *a3 = result;
     }
 
-    result = 0;
+    return 0;
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -706,8 +665,8 @@ uint64_t hdqReadU16(mach_port_t a1, int a2, _WORD *a3)
   output[1] = *MEMORY[0x277D85DE8];
   output[0] = 0;
   outputCnt = 1;
-  v6 = a2;
-  if (IOConnectCallScalarMethod(a1, 8u, &v6, 1u, output, &outputCnt))
+  v5 = a2;
+  if (IOConnectCallScalarMethod(a1, 8u, &v5, 1u, output, &outputCnt))
   {
     result = 0xFFFFFFFFLL;
   }
@@ -724,10 +683,9 @@ uint64_t hdqReadU16(mach_port_t a1, int a2, _WORD *a3)
       *a3 = result;
     }
 
-    result = 0;
+    return 0;
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -768,8 +726,8 @@ uint64_t controlReadS16(mach_port_t a1, int a2, _WORD *a3)
   output[1] = *MEMORY[0x277D85DE8];
   output[0] = 0;
   outputCnt = 1;
-  v6 = a2;
-  if (IOConnectCallScalarMethod(a1, 0xBu, &v6, 1u, output, &outputCnt))
+  v5 = a2;
+  if (IOConnectCallScalarMethod(a1, 0xBu, &v5, 1u, output, &outputCnt))
   {
     result = 0xFFFFFFFFLL;
   }
@@ -786,14 +744,13 @@ uint64_t controlReadS16(mach_port_t a1, int a2, _WORD *a3)
       *a3 = result;
     }
 
-    result = 0;
+    return 0;
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-uint64_t dumpBuffer(unsigned __int8 *a1, int a2)
+uint64_t dumpBuffer(unsigned __int8 *a1, unsigned int a2)
 {
   if (a2 >= 1)
   {
@@ -938,93 +895,54 @@ LABEL_2:
   return 0xFFFFFFFFLL;
 }
 
-uint64_t readLifetimeData(_OWORD *a1, uint64_t a2, mach_port_t a3)
+double readLifetimeData(_OWORD *a1, uint64_t a2, mach_port_t a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
-  v9 = 0;
-  if ((getFWVersion(a3, &v9) & 0x80000000) == 0)
+  v11 = *MEMORY[0x277D85DE8];
+  v8 = 0;
+  if ((getFWVersion(a3, &v8) & 0x80000000) == 0 && v8 >= 0x313u && !ggctl_readBlock(a3, -1, 4, &outputStruct, 0))
   {
-    if (v9 < 0x313u)
+    v6 = v10;
+    *a1 = outputStruct;
+    a1[1] = v6;
+    if (!ggctl_readBlock(a3, -1, 6, &outputStruct, 0))
     {
-      result = 0;
-      goto LABEL_7;
-    }
-
-    if (!ggctl_readBlock(a3, -1, 4, &outputStruct, 0))
-    {
-      v5 = v11;
-      *a1 = outputStruct;
-      a1[1] = v5;
-      result = ggctl_readBlock(a3, -1, 6, &outputStruct, 0);
-      if (!result)
-      {
-        v8 = v11;
-        a1[2] = outputStruct;
-        a1[3] = v8;
-        goto LABEL_7;
-      }
+      result = *&outputStruct;
+      v7 = v10;
+      a1[2] = outputStruct;
+      a1[3] = v7;
     }
   }
 
-  result = 0xFFFFFFFFLL;
-LABEL_7:
-  v7 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-uint64_t readRaTableData(_OWORD *a1, uint64_t a2, mach_port_t a3)
+double readRaTableData(_OWORD *a1, uint64_t a2, mach_port_t a3)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v8 = 0;
-  if ((getFWVersion(a3, &v8) & 0x80000000) == 0)
+  v9 = *MEMORY[0x277D85DE8];
+  v7 = 0;
+  if ((getFWVersion(a3, &v7) & 0x80000000) == 0 && v7 >= 0x600u && !ggctl_readBlock(a3, -1, 7, outputStruct, 0))
   {
-    if (v8 < 0x600u)
-    {
-      result = 0;
-      goto LABEL_7;
-    }
-
-    result = ggctl_readBlock(a3, -1, 7, outputStruct, 0);
-    if (!result)
-    {
-      v6 = outputStruct[1];
-      *a1 = outputStruct[0];
-      a1[1] = v6;
-      goto LABEL_7;
-    }
+    result = *outputStruct;
+    v6 = outputStruct[1];
+    *a1 = outputStruct[0];
+    a1[1] = v6;
   }
 
-  result = 0xFFFFFFFFLL;
-LABEL_7:
-  v7 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-uint64_t readIMAXAndSOCSmoothData(_OWORD *a1, uint64_t a2, mach_port_t a3)
+double readIMAXAndSOCSmoothData(_OWORD *a1, uint64_t a2, mach_port_t a3)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v8 = 0;
-  if ((getFWVersion(a3, &v8) & 0x80000000) == 0)
+  v9 = *MEMORY[0x277D85DE8];
+  v7 = 0;
+  if ((getFWVersion(a3, &v7) & 0x80000000) == 0 && v7 >= 0x600u && !ggctl_readBlock(a3, -1, 8, outputStruct, 0))
   {
-    if (v8 < 0x600u)
-    {
-      result = 0;
-      goto LABEL_7;
-    }
-
-    result = ggctl_readBlock(a3, -1, 8, outputStruct, 0);
-    if (!result)
-    {
-      v6 = outputStruct[1];
-      *a1 = outputStruct[0];
-      a1[1] = v6;
-      goto LABEL_7;
-    }
+    result = *outputStruct;
+    v6 = outputStruct[1];
+    *a1 = outputStruct[0];
+    a1[1] = v6;
   }
 
-  result = 0xFFFFFFFFLL;
-LABEL_7:
-  v7 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -1051,196 +969,180 @@ CFDictionaryRef readShutdownReasonData(uint64_t a1)
   v7 = 0u;
   memset(v6, 0, sizeof(v6));
   memset(v13, 0, sizeof(v13));
-  if (ggctl_logShutdownReason(a1, v6, 1u))
+  ggctl_logShutdownReason(a1, v6, 1u);
+  if (v2)
   {
-    v2 = logger;
-    if (os_log_type_enabled(logger, OS_LOG_TYPE_DEFAULT))
+    v3 = logger;
+    if (!os_log_type_enabled(logger, OS_LOG_TYPE_DEFAULT))
     {
-      *buf = 136315394;
-      v10 = "readShutdownReasonData";
-      v11 = 1024;
-      v12 = 2502;
-      v3 = "%s:%d cannot read data";
+      return 0;
+    }
+
+    *buf = 136315394;
+    v10 = "readShutdownReasonData";
+    v11 = 1024;
+    v12 = 2502;
+    v4 = "%s:%d cannot read data";
 LABEL_4:
-      _os_log_impl(&dword_277275000, v2, OS_LOG_TYPE_DEFAULT, v3, buf, 0x12u);
-    }
+    _os_log_impl(&dword_277275000, v3, OS_LOG_TYPE_DEFAULT, v4, buf, 0x12u);
+    return 0;
   }
 
-  else
+  if (!*(&v7 + 1))
   {
-    if (*(&v7 + 1))
+    v3 = logger;
+    if (!os_log_type_enabled(logger, OS_LOG_TYPE_DEFAULT))
     {
-      result = parseShutdownReason(v6, v13, a1);
-      goto LABEL_8;
+      return 0;
     }
 
-    v2 = logger;
-    if (os_log_type_enabled(logger, OS_LOG_TYPE_DEFAULT))
-    {
-      *buf = 136315394;
-      v10 = "readShutdownReasonData";
-      v11 = 1024;
-      v12 = 2506;
-      v3 = "%s:%d invalid timestamp";
-      goto LABEL_4;
-    }
-  }
-
-  result = 0;
-LABEL_8:
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-uint64_t ggctl_logShutdownReason(mach_port_t a1, uint64_t a2, unsigned int a3)
-{
-  v17 = *MEMORY[0x277D85DE8];
-  v10 = 64;
-  if (!a2)
-  {
-LABEL_4:
-    result = 0xFFFFFFFFLL;
-    goto LABEL_9;
-  }
-
-  if (a3)
-  {
-    v13 = 0u;
-    v14 = 0u;
-    outputStruct = 0u;
-    v12 = 0u;
-    input = a3;
-    result = IOConnectCallMethod(a1, 0x11u, &input, 1u, inputStruct, 0x40uLL, 0, 0, &outputStruct, &v10);
-    if (!result)
-    {
-      v6 = v12;
-      *a2 = outputStruct;
-      *(a2 + 16) = v6;
-      *(a2 + 32) = v13;
-      *(a2 + 48) = v14;
-      goto LABEL_9;
-    }
-
+    *buf = 136315394;
+    v10 = "readShutdownReasonData";
+    v11 = 1024;
+    v12 = 2506;
+    v4 = "%s:%d invalid timestamp";
     goto LABEL_4;
   }
 
-  v5 = *(a2 + 16);
-  inputStruct[0] = *a2;
-  inputStruct[1] = v5;
-  inputStruct[2] = *(a2 + 32);
-  v16 = *(a2 + 48);
-  v9 = a3;
-  if (IOConnectCallMethod(a1, 0x11u, &v9, 1u, inputStruct, 0x40uLL, 0, 0, &outputStruct, &v10))
+  return parseShutdownReason(v6, v13, a1);
+}
+
+double ggctl_logShutdownReason(mach_port_t a1, uint64_t a2, unsigned int a3)
+{
+  v16 = *MEMORY[0x277D85DE8];
+  v9 = 64;
+  if (a2)
   {
-    result = 0xFFFFFFFFLL;
+    if (a3)
+    {
+      v12 = 0u;
+      v13 = 0u;
+      outputStruct = 0u;
+      v11 = 0u;
+      input = a3;
+      if (!IOConnectCallMethod(a1, 0x11u, &input, 1u, inputStruct, 0x40uLL, 0, 0, &outputStruct, &v9))
+      {
+        v6 = v11;
+        *a2 = outputStruct;
+        *(a2 + 16) = v6;
+        result = *&v12;
+        *(a2 + 32) = v12;
+        *(a2 + 48) = v13;
+      }
+    }
+
+    else
+    {
+      v5 = *(a2 + 16);
+      inputStruct[0] = *a2;
+      inputStruct[1] = v5;
+      inputStruct[2] = *(a2 + 32);
+      v15 = *(a2 + 48);
+      v8 = a3;
+      IOConnectCallMethod(a1, 0x11u, &v8, 1u, inputStruct, 0x40uLL, 0, 0, &outputStruct, &v9);
+    }
   }
 
-  else
-  {
-    result = 0;
-  }
-
-LABEL_9:
-  v7 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 CFDictionaryRef parseShutdownReason(__int16 *a1, const UInt8 *a2, uint64_t a3)
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v3 = a3;
+  v48 = *MEMORY[0x277D85DE8];
+  v42 = 0u;
   v43 = 0u;
   v44 = 0u;
-  v45 = 0u;
+  v38 = 0u;
   v39 = 0u;
-  v40 = 0u;
-  v41 = 0;
+  v40 = 0;
   keys[0] = @"ShutDownTimestamp";
   v6 = *MEMORY[0x277CBECE8];
   valuePtr = *(a1 + 5);
   values[0] = CFNumberCreate(v6, kCFNumberLongType, &valuePtr);
   keys[1] = @"ShutDownUISoc";
-  v36 = *(a1 + 12);
-  values[1] = CFNumberCreate(v6, kCFNumberFloatType, &v36);
+  v35 = *(a1 + 12);
+  values[1] = CFNumberCreate(v6, kCFNumberFloatType, &v35);
   keys[2] = @"ShutDownTemperature";
-  v35 = *a1;
-  values[2] = CFNumberCreate(v6, kCFNumberIntType, &v35);
+  v34 = *a1;
+  values[2] = CFNumberCreate(v6, kCFNumberIntType, &v34);
   keys[3] = @"ShutDownPresentDOD";
-  v34 = a1[1];
-  values[3] = CFNumberCreate(v6, kCFNumberIntType, &v34);
+  v33 = a1[1];
+  values[3] = CFNumberCreate(v6, kCFNumberIntType, &v33);
   keys[4] = @"ShutDownMaxRa08";
-  v33 = a1[2];
-  values[4] = CFNumberCreate(v6, kCFNumberIntType, &v33);
+  v32 = a1[2];
+  values[4] = CFNumberCreate(v6, kCFNumberIntType, &v32);
   keys[5] = @"ShutDownNominalChargeCapacity";
-  v32 = a1[3];
-  values[5] = CFNumberCreate(v6, kCFNumberIntType, &v32);
+  v31 = a1[3];
+  values[5] = CFNumberCreate(v6, kCFNumberIntType, &v31);
   keys[6] = @"ShutDownPrevNominalChargeCapacity";
-  v31 = a1[4];
-  values[6] = CFNumberCreate(v6, kCFNumberIntType, &v31);
+  v30 = a1[4];
+  values[6] = CFNumberCreate(v6, kCFNumberIntType, &v30);
   keys[7] = @"ShutDownFullChargeCapacity";
-  v30 = a1[5];
-  values[7] = CFNumberCreate(v6, kCFNumberIntType, &v30);
+  v29 = a1[5];
+  values[7] = CFNumberCreate(v6, kCFNumberIntType, &v29);
   keys[8] = @"ShutDownPrevFullChargeCapacity";
-  v29 = a1[6];
-  values[8] = CFNumberCreate(v6, kCFNumberIntType, &v29);
+  v28 = a1[6];
+  values[8] = CFNumberCreate(v6, kCFNumberIntType, &v28);
   keys[9] = @"ShutDownRemainingCapacity";
-  v28 = a1[7];
-  values[9] = CFNumberCreate(v6, kCFNumberIntType, &v28);
+  v27 = a1[7];
+  values[9] = CFNumberCreate(v6, kCFNumberIntType, &v27);
   keys[10] = @"ShutDownPrevRemainingCapacity";
-  v27 = a1[8];
-  values[10] = CFNumberCreate(v6, kCFNumberIntType, &v27);
+  v26 = a1[8];
+  values[10] = CFNumberCreate(v6, kCFNumberIntType, &v26);
   keys[11] = @"ShutDownCycleCount";
-  v26 = a1[9];
-  values[11] = CFNumberCreate(v6, kCFNumberIntType, &v26);
+  v25 = a1[9];
+  values[11] = CFNumberCreate(v6, kCFNumberIntType, &v25);
   keys[12] = @"ShutDownMaxDischargeCurrent";
-  v25 = a1[10];
-  values[12] = CFNumberCreate(v6, kCFNumberIntType, &v25);
+  v24 = a1[10];
+  values[12] = CFNumberCreate(v6, kCFNumberIntType, &v24);
   keys[13] = @"ShutDownTimeAbove95";
-  v24 = *(a1 + 22);
-  values[13] = CFNumberCreate(v6, kCFNumberIntType, &v24);
+  v23 = *(a1 + 22);
+  values[13] = CFNumberCreate(v6, kCFNumberIntType, &v23);
   keys[14] = @"ShutDownVoltage";
-  v23 = *(a1 + 23);
-  values[14] = CFNumberCreate(v6, kCFNumberIntType, &v23);
+  v22 = *(a1 + 23);
+  values[14] = CFNumberCreate(v6, kCFNumberIntType, &v22);
   keys[15] = @"ShutDownPrevVoltage";
-  v22 = *(a1 + 25);
-  values[15] = CFNumberCreate(v6, kCFNumberIntType, &v22);
+  v21 = *(a1 + 25);
+  values[15] = CFNumberCreate(v6, kCFNumberIntType, &v21);
   keys[16] = @"ShutDownAverageCurrent";
-  v21 = *(a1 + 27);
-  values[16] = CFNumberCreate(v6, kCFNumberIntType, &v21);
+  v20 = *(a1 + 27);
+  values[16] = CFNumberCreate(v6, kCFNumberIntType, &v20);
   keys[17] = @"ShutDownPrevAverageCurrent";
-  v20 = *(a1 + 29);
-  values[17] = CFNumberCreate(v6, kCFNumberIntType, &v20);
+  v19 = *(a1 + 29);
+  values[17] = CFNumberCreate(v6, kCFNumberIntType, &v19);
   keys[18] = @"ShutDownCycleCountLastQmax";
-  v19 = *(a1 + 31);
-  values[18] = CFNumberCreate(v6, kCFNumberIntType, &v19);
+  v18 = *(a1 + 31);
+  values[18] = CFNumberCreate(v6, kCFNumberIntType, &v18);
   keys[19] = @"ShutDownResScale";
-  v18 = a1[16];
-  values[19] = CFNumberCreate(v6, kCFNumberIntType, &v18);
+  v17 = a1[16];
+  values[19] = CFNumberCreate(v6, kCFNumberIntType, &v17);
   keys[20] = @"ShutDownQstart";
-  v17 = a1[17];
-  values[20] = CFNumberCreate(v6, kCFNumberIntType, &v17);
+  v16 = a1[17];
+  values[20] = CFNumberCreate(v6, kCFNumberIntType, &v16);
   keys[21] = @"ShutDownPassedCharge";
-  v16 = a1[18];
-  values[21] = CFNumberCreate(v6, kCFNumberIntType, &v16);
+  v15 = a1[18];
+  values[21] = CFNumberCreate(v6, kCFNumberIntType, &v15);
   keys[22] = @"ShutDownDOD0";
-  v15 = a1[19];
-  *&v43 = CFNumberCreate(v6, kCFNumberIntType, &v15);
-  *&v39 = @"Raw";
-  *(&v43 + 1) = CFDataCreate(v6, a1, 52);
-  v48 = 0;
+  v14 = a1[19];
+  *&v42 = CFNumberCreate(v6, kCFNumberIntType, &v14);
+  *&v38 = @"Raw";
+  *(&v42 + 1) = CFDataCreate(v6, a1, 52);
+  v47 = 0;
   *bytes = 0u;
-  v47 = 0u;
-  ggctl_logShutdownDLog(a3, bytes, 1u);
-  *(&v39 + 1) = @"ShutDownDLog";
-  *&v44 = CFDataCreate(v6, bytes, 40);
-  *&v40 = @"timeSinceAwake";
-  v14 = *a2;
-  *(&v44 + 1) = CFNumberCreate(v6, kCFNumberLongType, &v14);
-  *(&v40 + 1) = @"ShutDownRaTableRaw";
-  *&v45 = CFDataCreate(v6, a2 + 8, 32);
-  v41 = @"ShutDownRSS";
-  v13 = *(a2 + 20);
-  v7 = &v45 + 1;
-  *(&v45 + 1) = CFNumberCreate(v6, kCFNumberIntType, &v13);
+  v46 = 0u;
+  ggctl_logShutdownDLog(v3, bytes, 1u);
+  *(&v38 + 1) = @"ShutDownDLog";
+  *&v43 = CFDataCreate(v6, bytes, 40);
+  *&v39 = @"timeSinceAwake";
+  v13 = *a2;
+  *(&v43 + 1) = CFNumberCreate(v6, kCFNumberLongType, &v13);
+  *(&v39 + 1) = @"ShutDownRaTableRaw";
+  *&v44 = CFDataCreate(v6, a2 + 8, 32);
+  v40 = @"ShutDownRSS";
+  v12 = *(a2 + 20);
+  v7 = &v44 + 1;
+  *(&v44 + 1) = CFNumberCreate(v6, kCFNumberIntType, &v12);
   v8 = CFDictionaryCreate(v6, keys, values, 28, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
   for (i = 29; i > 1; --i)
   {
@@ -1248,44 +1150,43 @@ CFDictionaryRef parseShutdownReason(__int16 *a1, const UInt8 *a2, uint64_t a3)
     CFRelease(v10);
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
-void writeBatteryDiagnosticData(uint64_t a1, int a2)
+void writeBatteryDiagnosticData(uint64_t a1, uint64_t a2)
 {
-  v8[44] = *MEMORY[0x277D85DE8];
-  bzero(v6, 0x258uLL);
+  v2 = a2;
+  v7[44] = *MEMORY[0x277D85DE8];
+  bzero(v5, 0x258uLL);
   outputStructCnt = 352;
-  IOConnectCallStructMethod(a1, 2u, 0, 0, v8, &outputStructCnt);
-  v7 = 4000;
-  logBatteryDiagnosticData(v6, a1, a2);
-  v4 = *MEMORY[0x277D85DE8];
+  IOConnectCallStructMethod(a1, 2u, 0, 0, v7, &outputStructCnt);
+  v6 = 4000;
+  logBatteryDiagnosticData(v5, a1, v2);
 }
 
 void logBatteryDiagnosticData(uint64_t a1, uint64_t a2, int a3)
 {
-  v44 = *MEMORY[0x277D85DE8];
-  v15 = 0;
+  v43 = *MEMORY[0x277D85DE8];
+  v14 = 0;
+  v40 = 0u;
   v41 = 0u;
-  v42 = 0u;
-  v43 = 0;
+  v42 = 0;
   v6 = IOServiceMatching("IOPMPowerSource");
   service = IOServiceGetMatchingService(*MEMORY[0x277CD2898], v6);
   if (service)
   {
-    if ((getSInt32ForKey(@"CurrentCapacity", &v15 + 1) & 0x80000000) != 0)
+    if ((getSInt32ForKey(@"CurrentCapacity", &v14 + 1) & 0x80000000) != 0)
     {
       IOObjectRelease(service);
     }
 
     else
     {
-      SInt32ForKey = getSInt32ForKey(@"MaxCapacity", &v15);
+      SInt32ForKey = getSInt32ForKey(@"MaxCapacity", &v14);
       IOObjectRelease(service);
       if ((SInt32ForKey & 0x80000000) == 0)
       {
-        v8 = (100 * HIDWORD(v15)) / v15;
+        v8 = (100 * HIDWORD(v14)) / v14;
         setUPOData(@"IOPMUBootUPOState", v8 > 10.0);
         if (*(a1 + 596) && v8 > 10.0 && *(a1 + 48) >= 2742)
         {
@@ -1298,46 +1199,46 @@ void logBatteryDiagnosticData(uint64_t a1, uint64_t a2, int a3)
         v12 = *(a1 + 139);
         if (a3)
         {
-          v39 = time(0);
-          v40 = v8;
+          v38 = time(0);
+          v39 = v8;
           *__str = *(a1 + 48);
-          v22 = *(a1 + 58);
-          v23 = v10;
-          v24 = *(a1 + 46);
-          v25 = *(a1 + 228);
-          v26 = *(a1 + 44);
-          v27 = *(a1 + 226);
-          v28 = *(a1 + 52);
-          v29 = *(a1 + 230);
-          v30 = *(a1 + 84);
-          v31 = v9;
-          v32 = v11;
-          v33 = *(a1 + 42);
-          v34 = *(a1 + 222);
-          v35 = *(a1 + 50);
-          v36 = *(a1 + 224);
-          v37 = v12;
-          v38 = *(a1 + 60);
-          v20 = 0;
-          *v18 = v39 - *(a1 + 232);
-          *&v18[8] = *(a1 + 158);
-          v19 = *(a1 + 174);
-          LOWORD(v20) = bswap32(*(a1 + 191)) >> 16;
+          v21 = *(a1 + 58);
+          v22 = v10;
+          v23 = *(a1 + 46);
+          v24 = *(a1 + 228);
+          v25 = *(a1 + 44);
+          v26 = *(a1 + 226);
+          v27 = *(a1 + 52);
+          v28 = *(a1 + 230);
+          v29 = *(a1 + 84);
+          v30 = v9;
+          v31 = v11;
+          v32 = *(a1 + 42);
+          v33 = *(a1 + 222);
+          v34 = *(a1 + 50);
+          v35 = *(a1 + 224);
+          v36 = v12;
+          v37 = *(a1 + 60);
+          v19 = 0;
+          *v17 = v38 - *(a1 + 232);
+          *&v17[8] = *(a1 + 158);
+          v18 = *(a1 + 174);
+          LOWORD(v19) = bswap32(*(a1 + 191)) >> 16;
           ggctl_logShutdownReason(a2, __str, 0);
-          ggctl_logShutdownDLog(a2, &v41, 0);
-          ggctl_logShutdownReason2(a2, v18, 0);
+          ggctl_logShutdownDLog(a2, &v40, 0);
+          ggctl_logShutdownReason2(a2, v17, 0);
         }
 
-        *v18 = *a1;
-        *&v18[16] = *(a1 + 16);
-        snprintf(__str, 0x200uLL, "%s,%5.2f,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d,%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d", v18, v8, *(a1 + 48), *(a1 + 58), v10, *(a1 + 46), *(a1 + 228), *(a1 + 44), *(a1 + 226), *(a1 + 52), *(a1 + 230), *(a1 + 84), v9, v11, *(a1 + 42), *(a1 + 222), *(a1 + 50), *(a1 + 224), v12, *(a1 + 60), __rev16(*(a1 + 191)), __rev16(*(a1 + 158)), __rev16(*(a1 + 160)), __rev16(*(a1 + 162)), __rev16(*(a1 + 164)), __rev16(*(a1 + 166)), __rev16(*(a1 + 168)), __rev16(*(a1 + 170)), __rev16(*(a1 + 172)), __rev16(*(a1 + 174)), __rev16(*(a1 + 176)), __rev16(*(a1 + 178)), __rev16(*(a1 + 180)), __rev16(*(a1 + 182)), __rev16(*(a1 + 184)), __rev16(*(a1 + 186)), v41, WORD1(v41), WORD2(v41), WORD3(v41), WORD4(v41), WORD5(v41), WORD6(v41), HIWORD(v41), v42, WORD1(v42), WORD2(v42), WORD3(v42), WORD4(v42), WORD5(v42), WORD6(v42), HIWORD(v42), v43, WORD1(v43), WORD2(v43), HIWORD(v43));
+        *v17 = *a1;
+        *&v17[16] = *(a1 + 16);
+        snprintf(__str, 0x200uLL, "%s,%5.2f,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d,%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d", v17, v8, *(a1 + 48), *(a1 + 58), v10, *(a1 + 46), *(a1 + 228), *(a1 + 44), *(a1 + 226), *(a1 + 52), *(a1 + 230), *(a1 + 84), v9, v11, *(a1 + 42), *(a1 + 222), *(a1 + 50), *(a1 + 224), v12, *(a1 + 60), __rev16(*(a1 + 191)), __rev16(*(a1 + 158)), __rev16(*(a1 + 160)), __rev16(*(a1 + 162)), __rev16(*(a1 + 164)), __rev16(*(a1 + 166)), __rev16(*(a1 + 168)), __rev16(*(a1 + 170)), __rev16(*(a1 + 172)), __rev16(*(a1 + 174)), __rev16(*(a1 + 176)), __rev16(*(a1 + 178)), __rev16(*(a1 + 180)), __rev16(*(a1 + 182)), __rev16(*(a1 + 184)), __rev16(*(a1 + 186)), v40, WORD1(v40), WORD2(v40), WORD3(v40), WORD4(v40), WORD5(v40), WORD6(v40), HIWORD(v40), v41, WORD1(v41), WORD2(v41), WORD3(v41), WORD4(v41), WORD5(v41), WORD6(v41), HIWORD(v41), v42, WORD1(v42), WORD2(v42), HIWORD(v42));
         CFAbsoluteTimeGetCurrent();
         logLineForAppleCare();
         v13 = logger;
         if (os_log_type_enabled(logger, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136315138;
-          v17 = __str;
+          v16 = __str;
           _os_log_impl(&dword_277275000, v13, OS_LOG_TYPE_DEFAULT, "Battery Diagnostic Data:: %s", buf, 0xCu);
         }
       }
@@ -1348,42 +1249,46 @@ void logBatteryDiagnosticData(uint64_t a1, uint64_t a2, int a3)
   {
     logBatteryDiagnosticData_cold_1();
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t startUpdateThread(unsigned int a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  memset(&v8, 0, sizeof(v8));
-  if (stat("/dev/cu.gas-gauge", &v8) || (v7 = 0, memset(&v8, 0, 64), pthread_attr_init(&v8), pthread_attr_setdetachstate(&v8, 2), (logger = os_log_create("com.apple.AppleHDQGasGauge", "battery")) == 0))
+  v8 = *MEMORY[0x277D85DE8];
+  memset(&v7, 0, sizeof(v7));
+  if (stat("/dev/cu.gas-gauge", &v7))
   {
-    v2 = 0xFFFFFFFFLL;
+    return 0xFFFFFFFFLL;
+  }
+
+  v6 = 0;
+  memset(&v7, 0, 64);
+  pthread_attr_init(&v7);
+  pthread_attr_setdetachstate(&v7, 2);
+  logger = os_log_create("com.apple.AppleHDQGasGauge", "battery");
+  if (!logger)
+  {
+    return 0xFFFFFFFFLL;
+  }
+
+  v2 = pthread_create(&v6, &v7, updateThread, a1);
+  if (v2)
+  {
+    v4 = logger;
+    if (os_log_type_enabled(logger, OS_LOG_TYPE_ERROR))
+    {
+      *v5 = 0;
+      _os_log_error_impl(&dword_277275000, v4, OS_LOG_TYPE_ERROR, "pthread_create", v5, 2u);
+      v4 = logger;
+    }
+
+    os_release(v4);
   }
 
   else
   {
-    v2 = pthread_create(&v7, &v8, updateThread, a1);
-    if (v2)
-    {
-      v5 = logger;
-      if (os_log_type_enabled(logger, OS_LOG_TYPE_ERROR))
-      {
-        *v6 = 0;
-        _os_log_error_impl(&dword_277275000, v5, OS_LOG_TYPE_ERROR, "pthread_create", v6, 2u);
-        v5 = logger;
-      }
-
-      os_release(v5);
-    }
-
-    else
-    {
-      pthread_attr_destroy(&v8);
-    }
+    pthread_attr_destroy(&v7);
   }
 
-  v3 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
@@ -1420,7 +1325,7 @@ uint64_t updateThread(uint64_t a1)
         updateThread_cold_1();
       }
 
-      goto LABEL_19;
+      return 0;
     }
 
     Current = CFRunLoopGetCurrent();
@@ -1437,7 +1342,7 @@ uint64_t updateThread(uint64_t a1)
       v14 = 0x280A6A000uLL;
       if (!v13)
       {
-        goto LABEL_19;
+        return 0;
       }
 
       v15 = v13;
@@ -1463,7 +1368,7 @@ uint64_t updateThread(uint64_t a1)
         }
 
         IOServiceClose(v15);
-        goto LABEL_19;
+        return 0;
       }
 
       v280 = *buf;
@@ -1477,42 +1382,42 @@ uint64_t updateThread(uint64_t a1)
       valuePtr = dword_2815AEF1C;
       v288 = *MEMORY[0x277CBF030];
       v289 = *MEMORY[0x277CBF040];
-      v21 = CFPreferencesCopyValue(@"UpdateSampleConfig", @"com.apple.gasgauge", *MEMORY[0x277CBF040], *MEMORY[0x277CBF030]);
-      if (v21)
+      v20 = CFPreferencesCopyValue(@"UpdateSampleConfig", @"com.apple.gasgauge", *MEMORY[0x277CBF040], *MEMORY[0x277CBF030]);
+      if (v20)
       {
-        v22 = v21;
-        v23 = CFGetTypeID(v21);
-        if (v23 == CFNumberGetTypeID())
+        v21 = v20;
+        v22 = CFGetTypeID(v20);
+        if (v22 == CFNumberGetTypeID())
         {
-          CFNumberGetValue(v22, kCFNumberSInt32Type, &valuePtr);
-          v24 = logger;
+          CFNumberGetValue(v21, kCFNumberSInt32Type, &valuePtr);
+          v23 = logger;
           if (os_log_type_enabled(logger, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 67109120;
             *&buf[4] = valuePtr;
-            _os_log_impl(&dword_277275000, v24, OS_LOG_TYPE_DEFAULT, "changed updateSampleConfig=%#x", buf, 8u);
+            _os_log_impl(&dword_277275000, v23, OS_LOG_TYPE_DEFAULT, "changed updateSampleConfig=%#x", buf, 8u);
           }
         }
 
-        CFRelease(v22);
+        CFRelease(v21);
       }
 
       v284 = valuePtr;
-      v25 = CFPreferencesCopyValue(@"CriticalBattery", @"com.apple.gasgauge", v289, v288);
-      if (v25)
+      v24 = CFPreferencesCopyValue(@"CriticalBattery", @"com.apple.gasgauge", v289, v288);
+      if (v24)
       {
-        v26 = v25;
-        v27 = CFGetTypeID(v25);
-        if (v27 == CFNumberGetTypeID())
+        v25 = v24;
+        v26 = CFGetTypeID(v24);
+        if (v26 == CFNumberGetTypeID())
         {
-          CFNumberGetValue(v26, kCFNumberSInt32Type, &word_2815AEF14);
-          CFRelease(v26);
+          CFNumberGetValue(v25, kCFNumberSInt32Type, &word_2815AEF14);
+          CFRelease(v25);
         }
 
         else
         {
-          Value = CFBooleanGetValue(v26);
-          CFRelease(v26);
+          Value = CFBooleanGetValue(v25);
+          CFRelease(v25);
           if (!Value)
           {
             v263 = logger;
@@ -1525,19 +1430,19 @@ uint64_t updateThread(uint64_t a1)
             }
 
 LABEL_30:
-            v29 = CFPreferencesCopyValue(@"UserMode", @"com.apple.gasgauge", v289, v288);
-            if (v29)
+            v28 = CFPreferencesCopyValue(@"UserMode", @"com.apple.gasgauge", v289, v288);
+            if (v28)
             {
-              v30 = v29;
-              v31 = CFGetTypeID(v29);
-              v286 = v31 == CFBooleanGetTypeID() && CFBooleanGetValue(v30) != 0;
-              CFRelease(v30);
-              v32 = logger;
+              v29 = v28;
+              v30 = CFGetTypeID(v28);
+              v286 = v30 == CFBooleanGetTypeID() && CFBooleanGetValue(v29) != 0;
+              CFRelease(v29);
+              v31 = logger;
               if (os_log_type_enabled(logger, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 67109120;
                 *&buf[4] = v286;
-                _os_log_impl(&dword_277275000, v32, OS_LOG_TYPE_DEFAULT, "gas gauge: userModeEnabled=%d", buf, 8u);
+                _os_log_impl(&dword_277275000, v31, OS_LOG_TYPE_DEFAULT, "gas gauge: userModeEnabled=%d", buf, 8u);
               }
             }
 
@@ -1546,73 +1451,73 @@ LABEL_30:
               v286 = 0;
             }
 
-            v33 = CFPreferencesCopyValue(@"CriticalFlagDelay", @"com.apple.gasgauge", v289, v288);
-            if (v33)
+            v32 = CFPreferencesCopyValue(@"CriticalFlagDelay", @"com.apple.gasgauge", v289, v288);
+            if (v32)
             {
-              v34 = v33;
-              v35 = CFGetTypeID(v33);
-              if (v35 == CFNumberGetTypeID())
+              v33 = v32;
+              v34 = CFGetTypeID(v32);
+              if (v34 == CFNumberGetTypeID())
               {
-                CFNumberGetValue(v34, kCFNumberSInt32Type, &v333);
+                CFNumberGetValue(v33, kCFNumberSInt32Type, &v333);
               }
 
-              CFRelease(v34);
-              v36 = logger;
+              CFRelease(v33);
+              v35 = logger;
               if (os_log_type_enabled(logger, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 67109120;
                 *&buf[4] = v333;
-                _os_log_impl(&dword_277275000, v36, OS_LOG_TYPE_DEFAULT, "gas gauge: critical flag delay %d", buf, 8u);
+                _os_log_impl(&dword_277275000, v35, OS_LOG_TYPE_DEFAULT, "gas gauge: critical flag delay %d", buf, 8u);
               }
             }
 
-            v37 = CFPreferencesCopyValue(@"DebugPolling", @"com.apple.gasgauge", v289, v288);
-            if (v37)
+            v36 = CFPreferencesCopyValue(@"DebugPolling", @"com.apple.gasgauge", v289, v288);
+            if (v36)
             {
-              v38 = v37;
-              v39 = CFGetTypeID(v37);
-              if (v39 == CFBooleanGetTypeID())
+              v37 = v36;
+              v38 = CFGetTypeID(v36);
+              if (v38 == CFBooleanGetTypeID())
               {
-                debug_polling = CFBooleanGetValue(v38) != 0;
+                debug_polling = CFBooleanGetValue(v37) != 0;
               }
 
-              CFRelease(v38);
-              v40 = logger;
+              CFRelease(v37);
+              v39 = logger;
               if (os_log_type_enabled(logger, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 67109120;
                 *&buf[4] = debug_polling;
-                _os_log_impl(&dword_277275000, v40, OS_LOG_TYPE_DEFAULT, "gas gauge: debug_polling=%d", buf, 8u);
+                _os_log_impl(&dword_277275000, v39, OS_LOG_TYPE_DEFAULT, "gas gauge: debug_polling=%d", buf, 8u);
               }
             }
 
-            v41 = CFPreferencesCopyValue(@"RestricLogCounter", @"com.apple.gasgauge", v289, v288);
-            if (v41)
+            v40 = CFPreferencesCopyValue(@"RestricLogCounter", @"com.apple.gasgauge", v289, v288);
+            if (v40)
             {
-              v42 = v41;
-              v43 = CFGetTypeID(v41);
-              if (v43 == CFNumberGetTypeID())
+              v41 = v40;
+              v42 = CFGetTypeID(v40);
+              if (v42 == CFNumberGetTypeID())
               {
-                CFNumberGetValue(v42, kCFNumberSInt32Type, &gRestrictLogCounter);
+                CFNumberGetValue(v41, kCFNumberSInt32Type, &gRestrictLogCounter);
               }
 
-              CFRelease(v42);
-              v44 = logger;
+              CFRelease(v41);
+              v43 = logger;
               if (os_log_type_enabled(logger, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 67109120;
                 *&buf[4] = gRestrictLogCounter;
-                _os_log_impl(&dword_277275000, v44, OS_LOG_TYPE_DEFAULT, "gas gauge: log counter %d", buf, 8u);
+                _os_log_impl(&dword_277275000, v43, OS_LOG_TYPE_DEFAULT, "gas gauge: log counter %d", buf, 8u);
               }
             }
 
             v299 = dword_2815AEF20;
             if (dword_2815AEF20)
             {
-              v45 = IONotificationPortCreate(v6);
-              v46 = IOServiceAddInterestNotification(v45, notification[1], "IOGeneralInterest", iokit_callback, &refCon, notification);
-              v47 = logger;
-              if (v46)
+              v44 = IONotificationPortCreate(v6);
+              v45 = IOServiceAddInterestNotification(v44, notification[1], "IOGeneralInterest", iokit_callback, &refCon, notification);
+              v46 = logger;
+              if (v45)
               {
                 if (os_log_type_enabled(logger, OS_LOG_TYPE_ERROR))
                 {
@@ -1625,12 +1530,12 @@ LABEL_30:
                 if (os_log_type_enabled(logger, OS_LOG_TYPE_DEFAULT))
                 {
                   *buf = 0;
-                  _os_log_impl(&dword_277275000, v47, OS_LOG_TYPE_DEFAULT, "gasgauge: listening for battery interrupts", buf, 2u);
+                  _os_log_impl(&dword_277275000, v46, OS_LOG_TYPE_DEFAULT, "gasgauge: listening for battery interrupts", buf, 2u);
                 }
 
-                v48 = CFRunLoopGetCurrent();
-                v49 = IONotificationPortGetRunLoopSource(v45);
-                CFRunLoopAddSource(v48, v49, v10);
+                v47 = CFRunLoopGetCurrent();
+                v48 = IONotificationPortGetRunLoopSource(v44);
+                CFRunLoopAddSource(v47, v48, v10);
               }
             }
 
@@ -1645,12 +1550,12 @@ LABEL_30:
             }
 
             mode = v10;
-            v50 = UpSeconds();
-            v51 = logger;
+            v49 = UpSeconds();
+            v50 = logger;
             if (os_log_type_enabled(logger, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 134219776;
-              *&buf[4] = v50;
+              *&buf[4] = v49;
               *&buf[12] = 1024;
               *&buf[14] = v283;
               *&buf[18] = 1024;
@@ -1665,7 +1570,7 @@ LABEL_30:
               HIDWORD(v371) = dword_2815AEF18;
               LOWORD(v372) = 1024;
               *(&v372 + 2) = v334;
-              _os_log_impl(&dword_277275000, v51, OS_LOG_TYPE_DEFAULT, "gasgauge: %llu updateThread critical(%d, 0x%x), uscfg=0x%x, dyn=%d cfd=%d cfd-voltage=%d, upos=%x", buf, 0x36u);
+              _os_log_impl(&dword_277275000, v50, OS_LOG_TYPE_DEFAULT, "gasgauge: %llu updateThread critical(%d, 0x%x), uscfg=0x%x, dyn=%d cfd=%d cfd-voltage=%d, upos=%x", buf, 0x36u);
             }
 
             v275 = a1;
@@ -1673,14 +1578,14 @@ LABEL_30:
             v270 = 0;
             v272 = 0;
             v300 = 0;
-            v52 = 0;
+            v51 = 0;
             v287 = 0;
             v293 = 0;
             v297 = 0;
+            v52 = 0;
             v53 = 0;
-            v54 = 0;
             v281 = 0;
-            v55 = 0;
+            v54 = 0;
             qword_2815AEE78 = time(0);
             v273 = (dword_2815AEF30 | dword_2815AEF74) != 0;
             v276 = (v284 >> 3) & 1;
@@ -1689,12 +1594,12 @@ LABEL_30:
             allocator = *MEMORY[0x277CBECE8];
             v296 = *MEMORY[0x277CBED28];
             v282 = *MEMORY[0x277CBED10];
+            v55 = 0.0;
             v56 = 0.0;
-            v57 = 0.0;
             v298 = -1;
             v274 = 1;
 LABEL_65:
-            v58 = -1;
+            v57 = -1;
             while (1)
             {
               v390 = 0u;
@@ -1740,70 +1645,70 @@ LABEL_65:
               v351 = 0u;
               *v348 = 0u;
               v349 = 0u;
-              if (v299 && v58 != -1)
+              if (v299 && v57 != -1)
               {
                 *input = 1;
-                v59 = IOConnectCallScalarMethod(v58, 0x10u, input, 1u, 0, 0);
-                v60 = v59 == -536870183 ? -2 : -1;
-                if (v59)
+                v58 = IOConnectCallScalarMethod(v57, 0x10u, input, 1u, 0, 0);
+                v59 = v58 == -536870183 ? -2 : -1;
+                if (v58)
                 {
-                  v61 = *(v2 + 3456);
-                  if (os_log_type_enabled(v61, OS_LOG_TYPE_DEFAULT))
+                  v60 = *(v2 + 3456);
+                  if (os_log_type_enabled(v60, OS_LOG_TYPE_DEFAULT))
                   {
                     *input = 67109120;
-                    *&input[4] = v60;
-                    _os_log_impl(&dword_277275000, v61, OS_LOG_TYPE_DEFAULT, "cannot enable gauge interrupts (%d)", input, 8u);
+                    *&input[4] = v59;
+                    _os_log_impl(&dword_277275000, v60, OS_LOG_TYPE_DEFAULT, "cannot enable gauge interrupts (%d)", input, 8u);
                   }
                 }
               }
 
               LODWORD(refCon) = 0;
-              if (v54)
+              if (v53)
               {
-                v62 = *(v14 + 2448);
-                if (v62)
+                v61 = *(v14 + 2448);
+                if (v61)
                 {
-                  v63 = v62 - 1;
+                  v62 = v61 - 1;
                 }
 
                 else
                 {
-                  if (v57 == 0.0)
+                  if (v56 == 0.0)
                   {
                     goto LABEL_82;
                   }
 
-                  v64 = *(v2 + 3456);
-                  if (os_log_type_enabled(v64, OS_LOG_TYPE_DEFAULT))
+                  v63 = *(v2 + 3456);
+                  if (os_log_type_enabled(v63, OS_LOG_TYPE_DEFAULT))
                   {
-                    v65 = CFAbsoluteTimeGetCurrent();
+                    v64 = CFAbsoluteTimeGetCurrent();
                     *input = 67109632;
-                    *&input[4] = v54;
+                    *&input[4] = v53;
                     *&input[8] = 2048;
-                    *&input[10] = v65 - v57;
+                    *&input[10] = v64 - v56;
                     *&input[18] = 1024;
                     *&input[20] = gRestrictLogCounter;
-                    _os_log_impl(&dword_277275000, v64, OS_LOG_TYPE_DEFAULT, "failure last_update_failed_counter=%d last_success at %g, supressing %d subsequent errors", input, 0x18u);
+                    _os_log_impl(&dword_277275000, v63, OS_LOG_TYPE_DEFAULT, "failure last_update_failed_counter=%d last_success at %g, supressing %d subsequent errors", input, 0x18u);
                   }
 
-                  v63 = gRestrictLogCounter;
+                  v62 = gRestrictLogCounter;
                 }
 
-                *(v14 + 2448) = v63;
+                *(v14 + 2448) = v62;
               }
 
 LABEL_82:
               if (v298 != -1 && v298 < 50)
               {
-                v66 = 5.0;
+                v65 = 5.0;
               }
 
               else
               {
-                v66 = 20.0;
+                v65 = 20.0;
               }
 
-              if (v52)
+              if (v51)
               {
 LABEL_507:
                 IOObjectRelease(v5);
@@ -1817,184 +1722,184 @@ LABEL_507:
                   _os_log_impl(&dword_277275000, v262, OS_LOG_TYPE_DEFAULT, "gasgauge: updateThread terminated", buf, 2u);
                 }
 
-                goto LABEL_19;
+                return 0;
               }
 
-              if (!(v55 | v54))
+              if (!(v54 | v53))
               {
-                v69 = 1;
+                v68 = 1;
                 goto LABEL_122;
               }
 
-              v67 = CFAbsoluteTimeGetCurrent();
-              if (debug_polling == 1 && (v68 = *(v2 + 3456), os_log_type_enabled(v68, OS_LOG_TYPE_DEBUG)))
+              v66 = CFAbsoluteTimeGetCurrent();
+              if (debug_polling == 1 && (v67 = *(v2 + 3456), os_log_type_enabled(v67, OS_LOG_TYPE_DEBUG)))
               {
                 *input = 136316418;
                 *&input[4] = "updateThread";
                 *&input[12] = 1024;
                 *&input[14] = 2802;
                 *&input[18] = 1024;
-                *&input[20] = v55;
+                *&input[20] = v54;
                 *&input[24] = 1024;
-                *&input[26] = v53 & 1;
+                *&input[26] = v52 & 1;
                 *&input[30] = 2048;
-                *&input[32] = v67;
+                *&input[32] = v66;
                 *&input[40] = 2048;
-                *&input[42] = v56;
-                _os_log_debug_impl(&dword_277275000, v68, OS_LOG_TYPE_DEBUG, "*** %s:%d updatesDone=%d last_update_ignored=%d now=%f deadline=%f *** ", input, 0x32u);
-                if ((v53 & 1) == 0)
+                *&input[42] = v55;
+                _os_log_debug_impl(&dword_277275000, v67, OS_LOG_TYPE_DEBUG, "*** %s:%d updatesDone=%d last_update_ignored=%d now=%f deadline=%f *** ", input, 0x32u);
+                if ((v52 & 1) == 0)
                 {
 LABEL_94:
-                  v56 = v66 + v67;
+                  v55 = v65 + v66;
                   goto LABEL_95;
                 }
               }
 
-              else if ((v53 & 1) == 0)
+              else if ((v52 & 1) == 0)
               {
                 goto LABEL_94;
               }
 
-              v66 = 0.0;
-              if (v67 < v56)
+              v65 = 0.0;
+              if (v66 < v55)
               {
-                v66 = v56 - v67;
+                v65 = v55 - v66;
               }
 
 LABEL_95:
               if (debug_polling == 1)
               {
-                v70 = *(v2 + 3456);
-                if (os_log_type_enabled(v70, OS_LOG_TYPE_ERROR))
+                v69 = *(v2 + 3456);
+                if (os_log_type_enabled(v69, OS_LOG_TYPE_ERROR))
                 {
                   *input = 136316674;
                   *&input[4] = "updateThread";
                   *&input[12] = 1024;
                   *&input[14] = 2860;
                   *&input[18] = 1024;
-                  *&input[20] = v55;
+                  *&input[20] = v54;
                   *&input[24] = 1024;
-                  *&input[26] = v53 & 1;
+                  *&input[26] = v52 & 1;
                   *&input[30] = 2048;
-                  *&input[32] = v67;
+                  *&input[32] = v66;
                   *&input[40] = 2048;
-                  *&input[42] = v56;
+                  *&input[42] = v55;
                   *&input[50] = 2048;
-                  v346 = v66;
-                  _os_log_error_impl(&dword_277275000, v70, OS_LOG_TYPE_ERROR, "*** %s:%d updatesDone=%d last_update_ignored=%d now=%f deadline=%f update_interval=%f *** ", input, 0x3Cu);
+                  v346 = v65;
+                  _os_log_error_impl(&dword_277275000, v69, OS_LOG_TYPE_ERROR, "*** %s:%d updatesDone=%d last_update_ignored=%d now=%f deadline=%f update_interval=%f *** ", input, 0x3Cu);
                 }
               }
 
-              if (v66 == 0.0)
+              if (v65 == 0.0)
               {
-                v69 = 0;
-                v53 = 0;
+                v68 = 0;
+                v52 = 0;
                 LODWORD(refCon) = 0;
                 goto LABEL_122;
               }
 
-              v69 = 1;
-              if (CFRunLoopRunInMode(mode, v66, 1u) != kCFRunLoopRunHandledSource)
+              v68 = 1;
+              if (CFRunLoopRunInMode(mode, v65, 1u) != kCFRunLoopRunHandledSource)
               {
-                v53 = 0;
+                v52 = 0;
                 goto LABEL_122;
               }
 
-              v53 = 0;
-              v71 = refCon;
-              v72 = 1;
+              v52 = 0;
+              v70 = refCon;
+              v71 = 1;
               if (refCon > -536870145)
               {
                 if (refCon != -536870144 && refCon != -536723200)
                 {
-                  v73 = -469794560;
+                  v72 = -469794560;
 LABEL_109:
-                  if (refCon != v73)
+                  if (refCon != v72)
                   {
                     if (debug_polling == 1)
                     {
-                      v74 = *(v2 + 3456);
-                      if (os_log_type_enabled(v74, OS_LOG_TYPE_ERROR))
+                      v73 = *(v2 + 3456);
+                      if (os_log_type_enabled(v73, OS_LOG_TYPE_ERROR))
                       {
                         *input = 136315906;
                         *&input[4] = "updateThread";
                         *&input[12] = 1024;
                         *&input[14] = 2879;
                         *&input[18] = 1024;
-                        *&input[20] = v55;
+                        *&input[20] = v54;
                         *&input[24] = 1024;
-                        *&input[26] = v71;
-                        _os_log_error_impl(&dword_277275000, v74, OS_LOG_TYPE_ERROR, "*** %s:%d updatesDone=%d message.messageType=%#x  (ign) *** ", input, 0x1Eu);
+                        *&input[26] = v70;
+                        _os_log_error_impl(&dword_277275000, v73, OS_LOG_TYPE_ERROR, "*** %s:%d updatesDone=%d message.messageType=%#x  (ign) *** ", input, 0x1Eu);
                       }
                     }
 
-                    v72 = 0;
-                    v53 = 1;
+                    v71 = 0;
+                    v52 = 1;
                   }
                 }
               }
 
               else if ((refCon + 536870288) > 0x20 || ((1 << (refCon - 112)) & 0x100010001) == 0)
               {
-                v73 = -536870320;
+                v72 = -536870320;
                 goto LABEL_109;
               }
 
-              if (v71 > -536870145)
+              if (v70 > -536870145)
               {
-                if (v71 == -536870144 || v71 == -536723200)
+                if (v70 == -536870144 || v70 == -536723200)
                 {
                   goto LABEL_122;
                 }
 
-                v75 = -469794560;
+                v74 = -469794560;
               }
 
               else
               {
-                if ((v71 + 536870288) <= 0x20 && ((1 << (v71 - 112)) & 0x100010001) != 0)
+                if ((v70 + 536870288) <= 0x20 && ((1 << (v70 - 112)) & 0x100010001) != 0)
                 {
                   goto LABEL_122;
                 }
 
-                v75 = -536870320;
+                v74 = -536870320;
               }
 
-              if (v71 == v75 || v72)
+              if (v70 == v74 || v71)
               {
 LABEL_122:
-                if (debug_polling == 1 && (v76 = *(v2 + 3456), os_log_type_enabled(v76, OS_LOG_TYPE_ERROR)))
+                if (debug_polling == 1 && (v75 = *(v2 + 3456), os_log_type_enabled(v75, OS_LOG_TYPE_ERROR)))
                 {
                   *input = 136316162;
                   *&input[4] = "updateThread";
                   *&input[12] = 1024;
                   *&input[14] = 2897;
                   *&input[18] = 1024;
-                  *&input[20] = v55;
+                  *&input[20] = v54;
                   *&input[24] = 1024;
                   *&input[26] = refCon;
                   *&input[30] = 1024;
                   *&input[32] = v300 & 1;
-                  _os_log_error_impl(&dword_277275000, v76, OS_LOG_TYPE_ERROR, "*** %s:%d updatesDone=%d message.messageType=%#x system_sleep=%d *** ", input, 0x24u);
-                  if (v55)
+                  _os_log_error_impl(&dword_277275000, v75, OS_LOG_TYPE_ERROR, "*** %s:%d updatesDone=%d message.messageType=%#x system_sleep=%d *** ", input, 0x24u);
+                  if (v54)
                   {
                     goto LABEL_125;
                   }
 
 LABEL_126:
                   CFProperty = IORegistryEntryCreateCFProperty(v5, @"AdapterInfo", allocator, 0);
-                  v79 = IORegistryEntryCreateCFProperty(v5, @"AppleRawExternalConnected", allocator, 0);
+                  v78 = IORegistryEntryCreateCFProperty(v5, @"AppleRawExternalConnected", allocator, 0);
                   LODWORD(keys[0]) = 0;
                   if (CFProperty)
                   {
-                    v80 = CFGetTypeID(CFProperty);
-                    if (v80 == CFNumberGetTypeID())
+                    v79 = CFGetTypeID(CFProperty);
+                    if (v79 == CFNumberGetTypeID())
                     {
                       CFNumberGetValue(CFProperty, kCFNumberSInt32Type, keys);
                     }
 
                     CFRelease(CFProperty);
-                    v81 = keys[0];
+                    v80 = keys[0];
                     if (v297 != (LODWORD(keys[0]) == 0))
                     {
                       goto LABEL_135;
@@ -2005,20 +1910,20 @@ LABEL_126:
                   {
                     if (!v297)
                     {
-                      v81 = 0;
+                      v80 = 0;
 LABEL_135:
-                      v82 = v293 ^ (v79 != v296);
+                      v81 = v293 ^ (v78 != v296);
                       goto LABEL_136;
                     }
 
-                    v81 = 0;
+                    v80 = 0;
                   }
 
-                  v82 = 0;
+                  v81 = 0;
 LABEL_136:
                   if (debug_polling == 1)
                   {
-                    v83 = logger;
+                    v82 = logger;
                     if (os_log_type_enabled(logger, OS_LOG_TYPE_DEFAULT))
                     {
                       *input = 136316418;
@@ -2026,97 +1931,97 @@ LABEL_136:
                       *&input[12] = 1024;
                       *&input[14] = 2921;
                       *&input[18] = 1024;
-                      *&input[20] = v55;
+                      *&input[20] = v54;
                       *&input[24] = 1024;
-                      *&input[26] = v82 & 1;
+                      *&input[26] = v81 & 1;
                       *&input[30] = 1024;
-                      *&input[32] = v81;
+                      *&input[32] = v80;
                       *&input[36] = 1024;
-                      *&input[38] = v79 == v296;
-                      _os_log_impl(&dword_277275000, v83, OS_LOG_TYPE_DEFAULT, "*** %s:%d updatesDone=%d same_adaptor=%d adaptor_type=%d external_connected=%d *** ", input, 0x2Au);
+                      *&input[38] = v78 == v296;
+                      _os_log_impl(&dword_277275000, v82, OS_LOG_TYPE_DEFAULT, "*** %s:%d updatesDone=%d same_adaptor=%d adaptor_type=%d external_connected=%d *** ", input, 0x2Au);
                     }
                   }
 
-                  if ((v69 & v82 & (v55 != 0)) != 1)
+                  if ((v68 & v81 & (v54 != 0)) != 1)
                   {
-                    v84 = keys[0];
+                    v83 = keys[0];
                     v297 = LODWORD(keys[0]) != 0;
-                    v293 = v79 == v296;
+                    v293 = v78 == v296;
                     v2 = 0x2815AE000uLL;
-                    if (v79)
+                    if (v78)
                     {
-                      CFRelease(v79);
+                      CFRelease(v78);
                     }
 
-                    if (v84 != 0 && v292)
+                    if (v83 != 0 && v292)
                     {
                       setUPOData(@"IOPMUBootUPOState", 0);
                       v292 = 0;
                     }
 
                     ++debug_cnt_ut_recv;
-                    v77 = refCon;
+                    v76 = refCon;
                     v14 = 0x280A6A000;
                     goto LABEL_148;
                   }
 
                   v2 = 0x2815AE000;
-                  if (v79)
+                  if (v78)
                   {
-                    CFRelease(v79);
+                    CFRelease(v78);
                   }
 
-                  v52 = 0;
-                  v58 = -1;
-                  v53 = 1;
+                  v51 = 0;
+                  v57 = -1;
+                  v52 = 1;
                   v14 = 0x280A6A000;
                 }
 
                 else
                 {
-                  if (!v55)
+                  if (!v54)
                   {
                     goto LABEL_126;
                   }
 
 LABEL_125:
-                  v77 = refCon;
+                  v76 = refCon;
                   if (refCon == -536723200)
                   {
                     goto LABEL_126;
                   }
 
 LABEL_148:
-                  if (v77 == -469794560)
+                  if (v76 == -469794560)
                   {
-                    v85 = v69;
+                    v84 = v68;
                   }
 
                   else
                   {
-                    v85 = 0;
+                    v84 = 0;
                   }
 
-                  v53 |= v77 == -469794560;
-                  if ((v300 & (v77 != -536870144)) != 0)
+                  v52 |= v76 == -469794560;
+                  if ((v300 & (v76 != -536870144)) != 0)
                   {
 LABEL_152:
-                    v52 = 0;
-                    v58 = -1;
+                    v51 = 0;
+                    v57 = -1;
                     v300 = 1;
                   }
 
-                  else if (v77 == -536870288)
+                  else if (v76 == -536870288)
                   {
                     IOAllowPowerChange(kernelPort, notificationID);
-                    v52 = 0;
-                    v58 = -1;
-                    v53 = 1;
+                    v51 = 0;
+                    v57 = -1;
+                    v52 = 1;
                   }
 
                   else
                   {
-                    if (v54 && v77 == -536870272)
+                    if (v53 && v76 == -536870272)
                     {
                       IOAllowPowerChange(kernelPort, notificationID);
                       goto LABEL_152;
@@ -2124,12 +2029,12 @@ LABEL_152:
 
                     if (v291 == -1)
                     {
-                      v52 = 0;
-                      ++v54;
+                      v51 = 0;
+                      ++v53;
                       goto LABEL_65;
                     }
 
-                    if (v77 == -536870144)
+                    if (v76 == -536870144)
                     {
                       if (v287)
                       {
@@ -2153,8 +2058,8 @@ LABEL_152:
                     hdq_state = ggctl_get_hdq_state(v291);
                     if (hdq_state == -2)
                     {
-                      v52 = 1;
-                      v58 = v291;
+                      v51 = 1;
+                      v57 = v291;
                     }
 
                     else if (hdq_state)
@@ -2166,35 +2071,35 @@ LABEL_152:
                           updateThread_cold_9(&v321, v322);
                         }
 
-                        v52 = 0;
-                        ++v54;
-                        v58 = v291;
+                        v51 = 0;
+                        ++v53;
+                        v57 = v291;
                       }
 
                       else
                       {
-                        v90 = hdqBreak(v291);
-                        if (v90 != -2)
+                        v89 = hdqBreak(v291);
+                        if (v89 != -2)
                         {
-                          if (v90 < 0)
+                          if (v89 < 0)
                           {
-                            v91 = ++updateThread_debug_break_failures;
-                            v92 = *(v2 + 3456);
-                            if (os_log_type_enabled(v92, OS_LOG_TYPE_ERROR))
+                            v90 = ++updateThread_debug_break_failures;
+                            v91 = *(v2 + 3456);
+                            if (os_log_type_enabled(v91, OS_LOG_TYPE_ERROR))
                             {
                               *input = 136315906;
                               *&input[4] = "updateThread";
                               *&input[12] = 1024;
                               *&input[14] = 3024;
                               *&input[18] = 1024;
-                              *&input[20] = v91;
+                              *&input[20] = v90;
                               *&input[24] = 1024;
                               *&input[26] = -1;
-                              _os_log_error_impl(&dword_277275000, v92, OS_LOG_TYPE_ERROR, "%s:%d break failed break_failures=%d (%d)", input, 0x1Eu);
-                              v91 = updateThread_debug_break_failures;
+                              _os_log_error_impl(&dword_277275000, v91, OS_LOG_TYPE_ERROR, "%s:%d break failed break_failures=%d (%d)", input, 0x1Eu);
+                              v90 = updateThread_debug_break_failures;
                             }
 
-                            if ((-858993459 * v91) <= 0x33333333)
+                            if ((-858993459 * v90) <= 0x33333333)
                             {
                               statsAndLogs(notification[1], 0);
                               v14 = 0x280A6A000;
@@ -2202,9 +2107,9 @@ LABEL_152:
 
                             else
                             {
-                              v93 = -1227133513 * v91;
+                              v92 = -1227133513 * v90;
                               v14 = 0x280A6A000;
-                              if (v93 <= 0x24924924)
+                              if (v92 <= 0x24924924)
                               {
                                 debugLog(notification[1], 63);
                               }
@@ -2221,13 +2126,13 @@ LABEL_152:
 
                         if (v299)
                         {
-                          if (v55)
+                          if (v54)
                           {
-                            v94 = gaugeDisableInterrupts(v291);
-                            if (v94 < 0)
+                            v93 = gaugeDisableInterrupts(v291);
+                            if (v93 < 0)
                             {
-                              v95 = v94;
-                              v96 = logger;
+                              v94 = v93;
+                              v95 = logger;
                               if (os_log_type_enabled(logger, OS_LOG_TYPE_ERROR))
                               {
                                 *input = 136315650;
@@ -2235,8 +2140,8 @@ LABEL_152:
                                 *&input[12] = 1024;
                                 *&input[14] = 3044;
                                 *&input[18] = 1024;
-                                *&input[20] = v95;
-                                _os_log_error_impl(&dword_277275000, v96, OS_LOG_TYPE_ERROR, "%s:%d cannot disable gauge interrupts (%d)", input, 0x18u);
+                                *&input[20] = v94;
+                                _os_log_error_impl(&dword_277275000, v95, OS_LOG_TYPE_ERROR, "%s:%d cannot disable gauge interrupts (%d)", input, 0x18u);
                               }
                             }
                           }
@@ -2244,18 +2149,18 @@ LABEL_152:
 
                         if (refCon == -536870272)
                         {
-                          v102 = OSThermalNotificationCurrentLevel();
-                          v287 = v102 > 14;
-                          if (v102 >= 15)
+                          v101 = OSThermalNotificationCurrentLevel();
+                          v287 = v101 > 14;
+                          if (v101 >= 15)
                           {
                             updateThermalCoolDownState(notification[1], 1);
                           }
 
                           IOAllowPowerChange(kernelPort, notificationID);
-                          v52 = 0;
+                          v51 = 0;
                           v300 = 1;
 LABEL_420:
-                          v58 = v291;
+                          v57 = v291;
                           v2 = 0x2815AE000;
                         }
 
@@ -2267,108 +2172,108 @@ LABEL_420:
                             goto LABEL_507;
                           }
 
-                          if (v55)
+                          if (v54)
                           {
                             v269 = 0;
 LABEL_202:
                             if (debug_polling == 1)
                             {
-                              v97 = *(v2 + 3456);
-                              if (os_log_type_enabled(v97, OS_LOG_TYPE_DEFAULT))
+                              v96 = *(v2 + 3456);
+                              if (os_log_type_enabled(v96, OS_LOG_TYPE_DEFAULT))
                               {
                                 *input = 136315650;
                                 *&input[4] = "updateThread";
                                 *&input[12] = 1024;
                                 *&input[14] = 3146;
                                 *&input[18] = 1024;
-                                *&input[20] = v55;
-                                _os_log_impl(&dword_277275000, v97, OS_LOG_TYPE_DEFAULT, "%s:%d  updatesDone=%d READING FLAGS", input, 0x18u);
+                                *&input[20] = v54;
+                                _os_log_impl(&dword_277275000, v96, OS_LOG_TYPE_DEFAULT, "%s:%d  updatesDone=%d READING FLAGS", input, 0x18u);
                               }
                             }
 
-                            v98 = hdqReadU16(v291, 10, &word_2815AEDEA) == 0;
-                            v99 = word_2815AEDEA != 0xFFFF && v98;
-                            if ((v99 & v283) != 1)
+                            v97 = hdqReadU16(v291, 10, &word_2815AEDEA) == 0;
+                            v98 = word_2815AEDEA != 0xFFFF && v97;
+                            if ((v98 & v283) != 1)
                             {
-                              LOBYTE(v101) = 0;
+                              LOBYTE(v100) = 0;
                               goto LABEL_265;
                             }
 
-                            v265 = v98;
+                            v265 = v97;
                             if (word_2815AEF14)
                             {
                               v267 = 0;
-                              v100 = v277;
-                              LOBYTE(v101) = ((v284 & 0x20) == 0 || v277) && (word_2815AEF14 & ~word_2815AEDEA) == 0;
+                              v99 = v277;
+                              LOBYTE(v100) = ((v284 & 0x20) == 0 || v277) && (word_2815AEF14 & ~word_2815AEDEA) == 0;
                               if ((v284 & 0x20) != 0)
                               {
-                                v100 = (word_2815AEF14 & ~word_2815AEDEA) == 0;
+                                v99 = (word_2815AEF14 & ~word_2815AEDEA) == 0;
                               }
 
-                              v277 = v100;
+                              v277 = v99;
                             }
 
-                            else if (v55 && dword_2815AEF18 >= word_2815AEDBA)
+                            else if (v54 && dword_2815AEF18 >= word_2815AEDBA)
                             {
                               v267 = 0;
-                              LOBYTE(v101) = 1;
+                              LOBYTE(v100) = 1;
                             }
 
                             else
                             {
-                              v101 = (word_2815AEDEA >> 2) & 1;
+                              v100 = (word_2815AEDEA >> 2) & 1;
                               v267 = 1;
                             }
 
-                            v110 = v101;
+                            v109 = v100;
                             if (debug_polling == 1)
                             {
-                              v111 = logger;
-                              v112 = os_log_type_enabled(logger, OS_LOG_TYPE_DEFAULT);
-                              LOBYTE(v101) = v110;
-                              if (v112)
+                              v110 = logger;
+                              v111 = os_log_type_enabled(logger, OS_LOG_TYPE_DEFAULT);
+                              LOBYTE(v100) = v109;
+                              if (v111)
                               {
-                                v113 = UpSeconds();
+                                v112 = UpSeconds();
                                 *input = 136317186;
                                 *&input[4] = "updateThread";
                                 *&input[12] = 1024;
                                 *&input[14] = 3178;
                                 *&input[18] = 1024;
-                                *&input[20] = v55;
+                                *&input[20] = v54;
                                 *&input[24] = 1024;
-                                *&input[26] = v110 & 1;
+                                *&input[26] = v109 & 1;
                                 v14 = 0x280A6A000;
                                 *&input[30] = 1024;
                                 *&input[32] = v293;
                                 *&input[36] = 2048;
-                                *&input[38] = v113;
+                                *&input[38] = v112;
                                 *&input[46] = 1024;
                                 *&input[48] = v333;
                                 LOWORD(v346) = 1024;
                                 *(&v346 + 2) = dword_2815AEF18;
                                 HIWORD(v346) = 1024;
                                 v347 = word_2815AEDBA;
-                                _os_log_impl(&dword_277275000, v111, OS_LOG_TYPE_DEFAULT, "%s:%d  updatesDone=%d criticalValue=%d external_connected=%d UpSeconds=%llu cfd=%d cfd-voltage=%d batteryInfo.voltage=%d", input, 0x40u);
-                                LOBYTE(v101) = v110;
+                                _os_log_impl(&dword_277275000, v110, OS_LOG_TYPE_DEFAULT, "%s:%d  updatesDone=%d criticalValue=%d external_connected=%d UpSeconds=%llu cfd=%d cfd-voltage=%d batteryInfo.voltage=%d", input, 0x40u);
+                                LOBYTE(v100) = v109;
                               }
                             }
 
                             if (v333)
                             {
-                              v114 = UpSeconds();
-                              if (v114 <= v333)
+                              v113 = UpSeconds();
+                              if (v113 <= v333)
                               {
-                                LOBYTE(v101) = v110;
-                                if (!v55)
+                                LOBYTE(v100) = v109;
+                                if (!v54)
                                 {
                                   goto LABEL_513;
                                 }
 
-                                v117 = word_2815AEDBA;
+                                v116 = word_2815AEDBA;
                                 if (dword_2815AEF18 >= word_2815AEDBA)
                                 {
-                                  v121 = v114;
-                                  v122 = logger;
+                                  v120 = v113;
+                                  v121 = logger;
                                   if (os_log_type_enabled(logger, OS_LOG_TYPE_DEFAULT))
                                   {
                                     *input = 136316162;
@@ -2376,16 +2281,16 @@ LABEL_202:
                                     *&input[12] = 1024;
                                     *&input[14] = 3201;
                                     *&input[18] = 1024;
-                                    *&input[20] = v55;
+                                    *&input[20] = v54;
                                     *&input[24] = 2048;
-                                    *&input[26] = v121;
+                                    *&input[26] = v120;
                                     *&input[34] = 1024;
-                                    *&input[36] = v117;
-                                    _os_log_impl(&dword_277275000, v122, OS_LOG_TYPE_DEFAULT, "%s:%d updatesDone=%d UpSeconds=%llu voltage=%d (low)", input, 0x28u);
+                                    *&input[36] = v116;
+                                    _os_log_impl(&dword_277275000, v121, OS_LOG_TYPE_DEFAULT, "%s:%d updatesDone=%d UpSeconds=%llu voltage=%d (low)", input, 0x28u);
                                   }
 
                                   v267 = 0;
-                                  LOBYTE(v101) = 1;
+                                  LOBYTE(v100) = 1;
                                   v14 = 0x280A6A000;
                                   goto LABEL_260;
                                 }
@@ -2394,28 +2299,28 @@ LABEL_202:
                                 if (v293)
                                 {
 LABEL_513:
-                                  if (debug_polling & v110)
+                                  if (debug_polling & v109)
                                   {
-                                    v118 = logger;
-                                    v119 = os_log_type_enabled(logger, OS_LOG_TYPE_DEFAULT);
-                                    LOBYTE(v101) = v110;
-                                    if (v119)
+                                    v117 = logger;
+                                    v118 = os_log_type_enabled(logger, OS_LOG_TYPE_DEFAULT);
+                                    LOBYTE(v100) = v109;
+                                    if (v118)
                                     {
-                                      v120 = UpSeconds();
+                                      v119 = UpSeconds();
                                       *input = 136315906;
                                       *&input[4] = "updateThread";
                                       *&input[12] = 1024;
                                       *&input[14] = 3209;
                                       *&input[18] = 2048;
-                                      *&input[20] = v120;
+                                      *&input[20] = v119;
                                       *&input[28] = 1024;
                                       *&input[30] = v333;
-                                      _os_log_impl(&dword_277275000, v118, OS_LOG_TYPE_DEFAULT, "%s:%d UpSeconds=%llu (cfd = %u) forcing critical to 0", input, 0x22u);
-                                      LOBYTE(v101) = v110;
+                                      _os_log_impl(&dword_277275000, v117, OS_LOG_TYPE_DEFAULT, "%s:%d UpSeconds=%llu (cfd = %u) forcing critical to 0", input, 0x22u);
+                                      LOBYTE(v100) = v109;
                                     }
                                   }
 
-                                  LOBYTE(v101) = v267 & v101;
+                                  LOBYTE(v100) = v267 & v100;
                                   v267 = v267 << 31 >> 31;
                                 }
                               }
@@ -2424,129 +2329,129 @@ LABEL_513:
                               {
                                 if (debug_polling == 1)
                                 {
-                                  v115 = logger;
+                                  v114 = logger;
                                   if (os_log_type_enabled(logger, OS_LOG_TYPE_DEFAULT))
                                   {
-                                    v116 = UpSeconds();
+                                    v115 = UpSeconds();
                                     *input = 136315906;
                                     *&input[4] = "updateThread";
                                     *&input[12] = 1024;
                                     *&input[14] = 3191;
                                     *&input[18] = 2048;
-                                    *&input[20] = v116;
+                                    *&input[20] = v115;
                                     *&input[28] = 1024;
                                     *&input[30] = v333;
-                                    _os_log_impl(&dword_277275000, v115, OS_LOG_TYPE_DEFAULT, "%s:%d deadline expired at UpSeconds=%llu (cfd = %u)", input, 0x22u);
+                                    _os_log_impl(&dword_277275000, v114, OS_LOG_TYPE_DEFAULT, "%s:%d deadline expired at UpSeconds=%llu (cfd = %u)", input, 0x22u);
                                   }
                                 }
 
-                                LOBYTE(v101) = v110;
+                                LOBYTE(v100) = v109;
                               }
                             }
 
 LABEL_260:
-                            v98 = v265;
+                            v97 = v265;
                             if (!word_2815AEF14)
                             {
                               v320 = v267;
-                              v123 = v101;
-                              v124 = CFNumberCreate(allocator, kCFNumberIntType, &v320);
-                              LOBYTE(v101) = v123;
-                              *(buf | (8 * v269)) = v124;
+                              v122 = v100;
+                              v123 = CFNumberCreate(allocator, kCFNumberIntType, &v320);
+                              LOBYTE(v100) = v122;
+                              *(buf | (8 * v269)) = v123;
                               *(v348 & 0xFFFFFFFFFFFFFFF7 | (8 * (v269++ & 1))) = @"SOCBasedShutdown";
                             }
 
-                            if (debug_polling & v101)
+                            if (debug_polling & v100)
                             {
-                              v125 = logger;
-                              v126 = os_log_type_enabled(logger, OS_LOG_TYPE_DEFAULT);
-                              LOBYTE(v101) = 1;
-                              if (v126)
+                              v124 = logger;
+                              v125 = os_log_type_enabled(logger, OS_LOG_TYPE_DEFAULT);
+                              LOBYTE(v100) = 1;
+                              if (v125)
                               {
-                                v127 = UpSeconds();
+                                v126 = UpSeconds();
                                 *input = 136316674;
                                 *&input[4] = "updateThread";
                                 *&input[12] = 1024;
                                 *&input[14] = 3227;
                                 *&input[18] = 1024;
-                                *&input[20] = v55;
+                                *&input[20] = v54;
                                 *&input[24] = 1024;
                                 *&input[26] = 1;
                                 *&input[30] = 1024;
                                 *&input[32] = v293;
                                 v14 = 0x280A6A000;
                                 *&input[36] = 2048;
-                                *&input[38] = v127;
+                                *&input[38] = v126;
                                 *&input[46] = 1024;
                                 *&input[48] = word_2815AEDBA;
-                                _os_log_impl(&dword_277275000, v125, OS_LOG_TYPE_DEFAULT, "%s:%d  updatesDone=%d criticalValue=%d external_connected=%d UpSeconds=%llu batteryInfo.voltage=%d", input, 0x34u);
-                                LOBYTE(v101) = 1;
+                                _os_log_impl(&dword_277275000, v124, OS_LOG_TYPE_DEFAULT, "%s:%d  updatesDone=%d criticalValue=%d external_connected=%d UpSeconds=%llu batteryInfo.voltage=%d", input, 0x34u);
+                                LOBYTE(v100) = 1;
                               }
                             }
 
 LABEL_265:
-                            if (!(v85 & 1 | (v298 != -1 && v298 < 50)) || (v281 > 2) | v101 & 1 || v54)
+                            if (!(v84 & 1 | (v298 != -1 && v298 < 50)) || (v281 > 2) | v100 & 1 || v53)
                             {
-                              v268 = v101;
+                              v268 = v100;
                               v281 = 0;
                               goto LABEL_272;
                             }
 
                             ++v281;
                             v2 = 0x2815AE000uLL;
-                            v128 = logger;
+                            v127 = logger;
                             if (os_log_type_enabled(logger, OS_LOG_TYPE_INFO))
                             {
                               *input = 0;
-                              _os_log_impl(&dword_277275000, v128, OS_LOG_TYPE_INFO, "flags update only", input, 2u);
+                              _os_log_impl(&dword_277275000, v127, OS_LOG_TYPE_INFO, "flags update only", input, 2u);
                             }
 
-                            v52 = 0;
-                            v54 = 0;
-                            v58 = v291;
+                            v51 = 0;
+                            v53 = 0;
+                            v57 = v291;
                           }
 
                           else if ((getFWVersion(v291, &word_2815AEDB6) & 0x80000000) != 0)
                           {
-                            v52 = 0;
-                            v55 = 0;
-                            ++v54;
-                            v58 = v291;
+                            v51 = 0;
+                            v54 = 0;
+                            ++v53;
+                            v57 = v291;
                           }
 
                           else
                           {
-                            v103 = CFNumberCreate(allocator, kCFNumberIntType, &word_2815AEDB6);
-                            if (v103)
+                            v102 = CFNumberCreate(allocator, kCFNumberIntType, &word_2815AEDB6);
+                            if (v102)
                             {
-                              v104 = v103;
-                              IORegistryEntrySetCFProperty(v5, @"GasGaugeFirmwareVersion", v103);
-                              CFRelease(v104);
+                              v103 = v102;
+                              IORegistryEntrySetCFProperty(v5, @"GasGaugeFirmwareVersion", v102);
+                              CFRelease(v103);
                             }
 
-                            v105 = word_2815AEDB6;
-                            v106 = word_2815AEDB6 - 1281 < 2;
+                            v104 = word_2815AEDB6;
+                            v105 = word_2815AEDB6 - 1281 < 2;
                             *v285 = word_2815AEDB6 > 0x131u;
-                            if (v105 == 265)
+                            if (v104 == 265)
                             {
-                              v107 = logger;
+                              v106 = logger;
                               v283 = 0;
                               if (os_log_type_enabled(logger, OS_LOG_TYPE_DEFAULT))
                               {
                                 *input = 0;
-                                _os_log_impl(&dword_277275000, v107, OS_LOG_TYPE_DEFAULT, "gas gauge firmware 1.09: disabling critical battery shutdown", input, 2u);
+                                _os_log_impl(&dword_277275000, v106, OS_LOG_TYPE_DEFAULT, "gas gauge firmware 1.09: disabling critical battery shutdown", input, 2u);
                                 v283 = 0;
                               }
                             }
 
-                            LOBYTE(v279) = v279 | v106;
+                            LOBYTE(v279) = v279 | v105;
                             keys[0] = 0;
                             if ((readChargeTable(v291, keys) & 0x80000000) != 0)
                             {
-                              v52 = 0;
-                              v55 = 0;
-                              ++v54;
-                              v58 = v291;
+                              v51 = 0;
+                              v54 = 0;
+                              ++v53;
+                              v57 = v291;
                               v14 = 0x280A6A000;
                             }
 
@@ -2567,15 +2472,15 @@ LABEL_265:
 
                               if (dword_2815AEE88)
                               {
-                                v108 = dword_2815AEE88;
+                                v107 = dword_2815AEE88;
                               }
 
                               else
                               {
-                                v108 = 2;
+                                v107 = 2;
                               }
 
-                              Block = ggctl_readBlock(v291, -1, v108, updateThread_batteryInfo, 0);
+                              Block = ggctl_readBlock(v291, -1, v107, updateThread_batteryInfo, 0);
                               if (Block < 0)
                               {
                                 strcpy(updateThread_batteryInfo, "000000");
@@ -2619,38 +2524,38 @@ LABEL_431:
                               }
 
                               v268 = 0;
-                              v98 = 0;
+                              v97 = 0;
                               word_2815AEDB0 = 0;
 LABEL_272:
-                              v319 = v55 < 16;
+                              v319 = v54 < 16;
                               *&buf[8 * v269] = CFNumberCreate(allocator, kCFNumberIntType, &v319);
                               v348[v269] = @"ForceFullGGUpdateOnBoot";
-                              if (20 * v55 % 60)
+                              if (20 * v54 % 60)
                               {
-                                v129 = 0;
+                                v128 = 0;
                               }
 
                               else
                               {
-                                v129 = v55 < 16;
+                                v128 = v54 < 16;
                               }
 
-                              if (v129)
+                              if (v128)
                               {
-                                v130 = 1;
+                                v129 = 1;
                               }
 
                               else
                               {
-                                HIDWORD(v131) = -1813430636 * v55 + 9544368;
-                                LODWORD(v131) = HIDWORD(v131);
-                                v130 = (v131 >> 4) < 0x123457;
+                                HIDWORD(v130) = -1813430636 * v54 + 9544368;
+                                LODWORD(v130) = HIDWORD(v130);
+                                v129 = (v130 >> 4) < 0x123457;
                               }
 
-                              v132 = debug_polling;
+                              v131 = debug_polling;
                               if (debug_polling == 1)
                               {
-                                v133 = logger;
+                                v132 = logger;
                                 if (os_log_type_enabled(logger, OS_LOG_TYPE_DEFAULT))
                                 {
                                   *input = 136316418;
@@ -2658,51 +2563,51 @@ LABEL_272:
                                   *&input[12] = 1024;
                                   *&input[14] = 3254;
                                   *&input[18] = 1024;
-                                  *&input[20] = v55;
+                                  *&input[20] = v54;
                                   *&input[24] = 1024;
-                                  *&input[26] = v130;
+                                  *&input[26] = v129;
                                   *&input[30] = 1024;
-                                  *&input[32] = v129;
+                                  *&input[32] = v128;
                                   *&input[36] = 1024;
-                                  *&input[38] = v55 < 16;
-                                  _os_log_impl(&dword_277275000, v133, OS_LOG_TYPE_DEFAULT, "%s:%d  updatesDone=%d, fullUpdate=%d, bootFullUpdate=%d, forceFullUpdate=%d] ", input, 0x2Au);
-                                  v132 = debug_polling;
+                                  *&input[38] = v54 < 16;
+                                  _os_log_impl(&dword_277275000, v132, OS_LOG_TYPE_DEFAULT, "%s:%d  updatesDone=%d, fullUpdate=%d, bootFullUpdate=%d, forceFullUpdate=%d] ", input, 0x2Au);
+                                  v131 = debug_polling;
                                 }
 
                                 else
                                 {
-                                  v132 = 1;
+                                  v131 = 1;
                                 }
                               }
 
-                              if (v55)
+                              if (v54)
                               {
-                                v134 = v130;
+                                v133 = v129;
                               }
 
                               else
                               {
-                                v134 = 0;
+                                v133 = 0;
                               }
 
-                              if ((v132 & 1) != 0 && v134)
+                              if ((v131 & 1) != 0 && v133)
                               {
                                 statsAndLogs(notification[1], 1);
                               }
 
                               v14 = 0x280A6A000;
-                              v135 = v280;
-                              if (!v98)
+                              v134 = v280;
+                              if (!v97)
                               {
-                                v141 = v285;
+                                v140 = v285;
                                 goto LABEL_416;
                               }
 
-                              v264 = v134;
-                              v266 = v130;
+                              v264 = v133;
+                              v266 = v129;
                               if (debug_polling == 1)
                               {
-                                v136 = logger;
+                                v135 = logger;
                                 if (os_log_type_enabled(logger, OS_LOG_TYPE_DEFAULT))
                                 {
                                   *input = 136315650;
@@ -2710,137 +2615,137 @@ LABEL_272:
                                   *&input[12] = 1024;
                                   *&input[14] = 3295;
                                   *&input[18] = 1024;
-                                  *&input[20] = v55;
-                                  _os_log_impl(&dword_277275000, v136, OS_LOG_TYPE_DEFAULT, "%s:%d  updatesDone=%d POLLING THE BATTERY", input, 0x18u);
+                                  *&input[20] = v54;
+                                  _os_log_impl(&dword_277275000, v135, OS_LOG_TYPE_DEFAULT, "%s:%d  updatesDone=%d POLLING THE BATTERY", input, 0x18u);
                                 }
                               }
 
-                              v137 = v269 + 1;
-                              if (v55)
+                              v136 = v269 + 1;
+                              if (v54)
                               {
-                                v138 = !v286;
+                                v137 = !v286;
                               }
 
                               else
                               {
-                                v138 = 1;
+                                v137 = 1;
                               }
 
-                              if (v138 == 1)
+                              if (v137 == 1)
                               {
                                 if (v266)
                                 {
-                                  v139 = 18;
+                                  v138 = 18;
                                 }
 
                                 else
                                 {
-                                  v139 = 10;
+                                  v138 = 10;
                                 }
 
-                                BatteryData = readBatteryData(&updateThread_updates, v139, v291);
-                                if (BatteryData == v139)
+                                BatteryData = readBatteryData(&updateThread_updates, v138, v291);
+                                if (BatteryData == v138)
                                 {
                                   calculateBatteryHealthMetric();
                                 }
 
                                 else
                                 {
-                                  v142 = BatteryData;
-                                  v143 = logger;
+                                  v141 = BatteryData;
+                                  v142 = logger;
                                   if (os_log_type_enabled(logger, OS_LOG_TYPE_DEFAULT))
                                   {
                                     *input = 67109376;
-                                    *&input[4] = v139;
+                                    *&input[4] = v138;
                                     *&input[8] = 1024;
-                                    *&input[10] = v142;
-                                    _os_log_impl(&dword_277275000, v143, OS_LOG_TYPE_DEFAULT, "cannot read battery data count=%d (err=%d)", input, 0xEu);
+                                    *&input[10] = v141;
+                                    _os_log_impl(&dword_277275000, v142, OS_LOG_TYPE_DEFAULT, "cannot read battery data count=%d (err=%d)", input, 0xEu);
                                   }
 
                                   calculateBatteryHealthMetric();
-                                  if (v142)
+                                  if (v141)
                                   {
                                     goto LABEL_316;
                                   }
                                 }
                               }
 
-                              v144 = word_2815AEDBA;
-                              v145 = word_2815AEDC2;
+                              v143 = word_2815AEDBA;
+                              v144 = word_2815AEDC2;
                               if (word_2815AEDC2)
                               {
-                                v146 = 0;
+                                v145 = 0;
                               }
 
                               else
                               {
-                                v146 = word_2815AEDBA == 3600;
+                                v145 = word_2815AEDBA == 3600;
                               }
 
-                              v147 = word_2815AEDEA;
-                              if (v146 || word_2815AEDEA == 0xFFFF)
+                              v146 = word_2815AEDEA;
+                              if (v145 || word_2815AEDEA == 0xFFFF)
                               {
-                                v152 = logger;
+                                v151 = logger;
                                 if (os_log_type_enabled(logger, OS_LOG_TYPE_DEFAULT))
                                 {
                                   *input = 67110144;
-                                  *&input[4] = v147;
+                                  *&input[4] = v146;
                                   *&input[8] = 1024;
                                   *&input[10] = word_2815AEDC4;
                                   *&input[14] = 1024;
                                   *&input[16] = word_2815AEDBC;
                                   *&input[20] = 1024;
-                                  *&input[22] = v144;
+                                  *&input[22] = v143;
                                   *&input[26] = 1024;
-                                  *&input[28] = v145;
-                                  _os_log_impl(&dword_277275000, v152, OS_LOG_TYPE_DEFAULT, "gas gauge reset detected (flags %#x capacity %d/%dmAh voltage %dmV current %dmA)", input, 0x20u);
+                                  *&input[28] = v144;
+                                  _os_log_impl(&dword_277275000, v151, OS_LOG_TYPE_DEFAULT, "gas gauge reset detected (flags %#x capacity %d/%dmAh voltage %dmV current %dmA)", input, 0x20u);
                                 }
 
 LABEL_316:
-                                LOBYTE(v153) = v138 ^ 1;
-                                v154 = !v293;
-                                v155 = 1;
+                                LOBYTE(v152) = v137 ^ 1;
+                                v153 = !v293;
+                                v154 = 1;
                                 goto LABEL_336;
                               }
 
-                              if (!v55 && v334)
+                              if (!v54 && v334)
                               {
                                 v334 = 0;
-                                v148 = word_2815AEDBC;
-                                v149 = 100 * (word_2815AEDBC / 100) + 100;
-                                v150 = logger;
+                                v147 = word_2815AEDBC;
+                                v148 = 100 * (word_2815AEDBC / 100) + 100;
+                                v149 = logger;
                                 if (os_log_type_enabled(logger, OS_LOG_TYPE_DEFAULT))
                                 {
                                   *input = 67110144;
-                                  v151 = ((26215 * v149) >> 18) + ((26215 * v149) >> 31);
+                                  v150 = ((26215 * v148) >> 18) + ((26215 * v148) >> 31);
                                   *&input[8] = 1024;
-                                  *&input[10] = v148;
+                                  *&input[10] = v147;
                                   *&input[14] = 1024;
                                   *&input[16] = word_2815AEDC4;
                                   *&input[20] = 1024;
-                                  *&input[22] = v149;
+                                  *&input[22] = v148;
                                   *&input[26] = 1024;
-                                  *&input[28] = v151;
-                                  _os_log_impl(&dword_277275000, v150, OS_LOG_TYPE_DEFAULT, "mask real UPOState=%x FCC=%d RemCap=%d new FCC=%d new RemCap=%d", input, 0x20u);
+                                  *&input[28] = v150;
+                                  _os_log_impl(&dword_277275000, v149, OS_LOG_TYPE_DEFAULT, "mask real UPOState=%x FCC=%d RemCap=%d new FCC=%d new RemCap=%d", input, 0x20u);
                                 }
 
                                 else
                                 {
-                                  v151 = ((26215 * v149) >> 18) + ((26215 * v149) >> 31);
+                                  v150 = ((26215 * v148) >> 18) + ((26215 * v148) >> 31);
                                 }
 
-                                word_2815AEDBC = v149;
-                                word_2815AEDC4 = v151;
+                                word_2815AEDBC = v148;
+                                word_2815AEDC4 = v150;
                               }
 
-                              v153 = v138 ^ 1;
-                              if ((v138 & 1) == 0)
+                              v152 = v137 ^ 1;
+                              if ((v137 & 1) == 0)
                               {
-                                v155 = 0;
-                                v154 = !v293;
-                                v158 = 1;
+                                v154 = 0;
+                                v153 = !v293;
+                                v157 = 1;
 LABEL_333:
-                                if (!v158)
+                                if (!v157)
                                 {
                                   goto LABEL_336;
                                 }
@@ -2849,8 +2754,8 @@ LABEL_334:
                                 if (word_2815AEDB6 >= 0x501u)
                                 {
                                   v318 = word_2815AEDBE;
-                                  *&buf[8 * v137] = CFNumberCreate(allocator, kCFNumberIntType, &v318);
-                                  v348[v137++] = @"NominalChargeCapacity";
+                                  *&buf[8 * v136] = CFNumberCreate(allocator, kCFNumberIntType, &v318);
+                                  v348[v136++] = @"NominalChargeCapacity";
                                 }
 
                                 goto LABEL_336;
@@ -2858,31 +2763,31 @@ LABEL_334:
 
                               if (v293)
                               {
-                                v156 = 24;
+                                v155 = 24;
                               }
 
                               else
                               {
-                                v156 = 22;
+                                v155 = 22;
                               }
 
-                              S16 = hdqReadS16(v291, v156, &word_2815AEDC6);
-                              v158 = S16 == 0;
-                              v155 = S16 != 0;
-                              v159 = (v284 & 2) == 0 || S16 != 0;
-                              v154 = !v293;
-                              if ((v159 | !v293 | v153))
+                              S16 = hdqReadS16(v291, v155, &word_2815AEDC6);
+                              v157 = S16 == 0;
+                              v154 = S16 != 0;
+                              v158 = (v284 & 2) == 0 || S16 != 0;
+                              v153 = !v293;
+                              if ((v158 | !v293 | v152))
                               {
                                 goto LABEL_333;
                               }
 
                               ChargerData = readChargerData(v279 & 1, v276 & 1, v291);
-                              *&buf[8 * v137] = ChargerData;
+                              *&buf[8 * v136] = ChargerData;
                               if (!ChargerData)
                               {
+                                v153 = 0;
                                 v154 = 0;
-                                v155 = 0;
-                                if (!v158)
+                                if (!v157)
                                 {
                                   goto LABEL_336;
                                 }
@@ -2895,11 +2800,11 @@ LABEL_334:
                                 CFShow(ChargerData);
                               }
 
+                              v153 = 0;
                               v154 = 0;
-                              v155 = 0;
-                              v348[v137] = @"ChargerData";
-                              v137 = v269 + 2;
-                              if (v158)
+                              v348[v136] = @"ChargerData";
+                              v136 = v269 + 2;
+                              if (v157)
                               {
                                 goto LABEL_334;
                               }
@@ -2907,127 +2812,127 @@ LABEL_334:
 LABEL_336:
                               if (debug_polling == 1)
                               {
-                                v161 = logger;
+                                v160 = logger;
                                 if (os_log_type_enabled(logger, OS_LOG_TYPE_DEFAULT))
                                 {
                                   *input = 67109376;
                                   *&input[4] = dword_2815AEF30;
                                   *&input[8] = 1024;
                                   *&input[10] = dword_2815AEF74;
-                                  _os_log_impl(&dword_277275000, v161, OS_LOG_TYPE_DEFAULT, "determineVACVoltage, vacLevelCount=%d, vac95LevelCount=%d", input, 0xEu);
+                                  _os_log_impl(&dword_277275000, v160, OS_LOG_TYPE_DEFAULT, "determineVACVoltage, vacLevelCount=%d, vac95LevelCount=%d", input, 0xEu);
                                 }
                               }
 
-                              if (byte_2815AEDD4 == 1 && (v55 == 0 || v293))
+                              if (byte_2815AEDD4 == 1 && (v54 == 0 || v293))
                               {
-                                v162 = dynamicATV(v291);
-                                *&buf[8 * v137] = v162;
-                                if (!v162)
+                                v161 = dynamicATV(v291);
+                                *&buf[8 * v136] = v161;
+                                if (!v161)
                                 {
                                   goto LABEL_351;
                                 }
 
                                 if (v275)
                                 {
-                                  CFShow(v162);
+                                  CFShow(v161);
                                 }
 
-                                v163 = @"AppleDynamicATV";
+                                v162 = @"AppleDynamicATV";
                               }
 
                               else
                               {
-                                if (!v273 || v55 != 0 && !v293)
+                                if (!v273 || v54 != 0 && !v293)
                                 {
                                   goto LABEL_351;
                                 }
 
-                                v164 = determineVACVoltage();
-                                if (v164 == dword_2815AEDD8)
+                                v163 = determineVACVoltage();
+                                if (v163 == dword_2815AEDD8)
                                 {
                                   goto LABEL_351;
                                 }
 
-                                v165 = v164;
-                                dword_2815AEDD8 = v164;
-                                v166 = logger;
+                                v164 = v163;
+                                dword_2815AEDD8 = v163;
+                                v165 = logger;
                                 if (os_log_type_enabled(logger, OS_LOG_TYPE_DEFAULT))
                                 {
                                   *input = 67109120;
-                                  *&input[4] = v165;
-                                  _os_log_impl(&dword_277275000, v166, OS_LOG_TYPE_DEFAULT, "Added atvAbsMaxVoltageMV=%u to battery dict", input, 8u);
-                                  v165 = dword_2815AEDD8;
+                                  *&input[4] = v164;
+                                  _os_log_impl(&dword_277275000, v165, OS_LOG_TYPE_DEFAULT, "Added atvAbsMaxVoltageMV=%u to battery dict", input, 8u);
+                                  v164 = dword_2815AEDD8;
                                 }
 
-                                v317 = v165;
-                                *&buf[8 * v137] = CFNumberCreate(allocator, kCFNumberIntType, &v317);
-                                v163 = @"atvAbsMaxVoltageMV";
+                                v317 = v164;
+                                *&buf[8 * v136] = CFNumberCreate(allocator, kCFNumberIntType, &v317);
+                                v162 = @"atvAbsMaxVoltageMV";
                               }
 
-                              v348[v137++] = v163;
+                              v348[v136++] = v162;
 LABEL_351:
-                              if (v153 & 1 | v155 | (v284 >> 1) & 1 | v154)
+                              if (v152 & 1 | v154 | (v284 >> 1) & 1 | v153)
                               {
-                                v167 = allocator;
+                                v166 = allocator;
                               }
 
                               else
                               {
                                 *input = 0;
                                 keys[0] = 0;
-                                v167 = allocator;
+                                v166 = allocator;
                                 *input = CFNumberCreate(allocator, kCFNumberIntType, &dword_2815AEDD8);
                                 keys[0] = @"ChargingVoltage";
-                                *&buf[8 * v137] = CFDictionaryCreate(allocator, keys, input, 1, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
-                                v348[v137++] = @"ChargerData";
+                                *&buf[8 * v136] = CFDictionaryCreate(allocator, keys, input, 1, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
+                                v348[v136++] = @"ChargerData";
                                 CFRelease(*input);
                               }
 
                               if (dword_2815AEFB8)
                               {
-                                v168 = determinePoSMThreshold();
-                                if (v168 != dword_2815AEDE0)
+                                v167 = determinePoSMThreshold();
+                                if (v167 != dword_2815AEDE0)
                                 {
-                                  dword_2815AEDE0 = v168;
+                                  dword_2815AEDE0 = v167;
                                 }
 
-                                *input = HIWORD(v168);
-                                LODWORD(keys[0]) = v168;
-                                if (v168 == 0xFFFF || HIWORD(v168) == 0xFFFF)
+                                *input = HIWORD(v167);
+                                LODWORD(keys[0]) = v167;
+                                if (v167 == 0xFFFF || HIWORD(v167) == 0xFFFF)
                                 {
-                                  v170 = 0;
+                                  v169 = 0;
                                 }
 
                                 else
                                 {
-                                  v170 = dword_2815AEFB8;
+                                  v169 = dword_2815AEFB8;
                                 }
 
-                                *v338 = v170;
-                                *&buf[8 * v137] = CFNumberCreate(v167, kCFNumberIntType, v338);
-                                v348[v137] = @"PoSMEnabled";
-                                v171 = CFNumberCreate(v167, kCFNumberIntType, input);
-                                v172 = 8 * v137 + 8;
-                                *&buf[v172] = v171;
-                                *(v348 + v172) = @"PoSMUpperThreshold";
-                                v173 = CFNumberCreate(v167, kCFNumberIntType, keys);
-                                v175 = 8 * v137 + 16;
-                                *&buf[v175] = v173;
-                                *(v348 + v175) = @"PoSMLowerThreshold";
-                                v176 = v137 + 3;
+                                *v338 = v169;
+                                *&buf[8 * v136] = CFNumberCreate(v166, kCFNumberIntType, v338);
+                                v348[v136] = @"PoSMEnabled";
+                                v170 = CFNumberCreate(v166, kCFNumberIntType, input);
+                                v171 = 8 * v136 + 8;
+                                *&buf[v171] = v170;
+                                *(v348 + v171) = @"PoSMUpperThreshold";
+                                v172 = CFNumberCreate(v166, kCFNumberIntType, keys);
+                                v174 = 8 * v136 + 16;
+                                *&buf[v174] = v172;
+                                *(v348 + v174) = @"PoSMLowerThreshold";
+                                v175 = v136 + 3;
                               }
 
                               else
                               {
                                 *input = 0;
-                                *&buf[8 * v137] = CFNumberCreate(v167, kCFNumberIntType, input);
-                                v348[v137] = @"PoSMEnabled";
-                                v176 = v137 + 1;
+                                *&buf[8 * v136] = CFNumberCreate(v166, kCFNumberIntType, input);
+                                v348[v136] = @"PoSMEnabled";
+                                v175 = v136 + 1;
                               }
 
-                              if (v153 & 1 | (v155 || (v284 & 1) == 0))
+                              if (v152 & 1 | (v154 || (v284 & 1) == 0))
                               {
-                                if (v155)
+                                if (v154)
                                 {
                                   goto LABEL_378;
                                 }
@@ -3036,121 +2941,121 @@ LABEL_351:
                               else if (hdqReadU16(v291, 110, &word_2815AEDC8))
                               {
 LABEL_378:
-                                v207 = 0;
+                                v206 = 0;
                                 v2 = 0x2815AE000uLL;
-                                v206 = v268;
+                                v205 = v268;
                                 goto LABEL_379;
                               }
 
                               v316 = 10 * word_2815AEDC0 - 27320;
-                              v177 = 8 * v176;
-                              *&buf[8 * v176] = CFNumberCreate(v167, kCFNumberIntType, &v316);
-                              v348[v176] = @"Temperature";
+                              v176 = 8 * v175;
+                              *&buf[8 * v175] = CFNumberCreate(v166, kCFNumberIntType, &v316);
+                              v348[v175] = @"Temperature";
                               v315 = word_2815AEDC2;
-                              v178 = CFNumberCreate(v167, kCFNumberIntType, &v315);
-                              v179 = 8 * v176 + 8;
-                              *&buf[v179] = v178;
-                              *(v348 + v179) = @"Amperage";
+                              v177 = CFNumberCreate(v166, kCFNumberIntType, &v315);
+                              v178 = 8 * v175 + 8;
+                              *&buf[v178] = v177;
+                              *(v348 + v178) = @"Amperage";
                               v314 = word_2815AEDBA;
-                              v180 = CFNumberCreate(v167, kCFNumberIntType, &v314);
-                              v181 = 8 * v176 + 16;
-                              *&buf[v181] = v180;
-                              *(v348 + v181) = @"Voltage";
+                              v179 = CFNumberCreate(v166, kCFNumberIntType, &v314);
+                              v180 = 8 * v175 + 16;
+                              *&buf[v180] = v179;
+                              *(v348 + v180) = @"Voltage";
                               v313 = word_2815AEDC6;
-                              v182 = CFNumberCreate(v167, kCFNumberIntType, &v313);
-                              v183 = 8 * v176 + 24;
-                              *&buf[v183] = v182;
-                              *(v348 + v183) = @"TimeRemaining";
+                              v181 = CFNumberCreate(v166, kCFNumberIntType, &v313);
+                              v182 = 8 * v175 + 24;
+                              *&buf[v182] = v181;
+                              *(v348 + v182) = @"TimeRemaining";
                               v298 = word_2815AEDC4;
                               v312 = word_2815AEDC4;
-                              v184 = CFNumberCreate(v167, kCFNumberIntType, &v312);
-                              v185 = 8 * v176 + 32;
-                              *&buf[v185] = v184;
-                              *(v348 + v185) = @"CurrentCapacity";
+                              v183 = CFNumberCreate(v166, kCFNumberIntType, &v312);
+                              v184 = 8 * v175 + 32;
+                              *&buf[v184] = v183;
+                              *(v348 + v184) = @"CurrentCapacity";
                               v311 = word_2815AEDBC;
-                              v186 = CFNumberCreate(v167, kCFNumberIntType, &v311);
-                              v187 = 8 * v176 + 40;
-                              *&buf[v187] = v186;
-                              *(v348 + v187) = @"MaxCapacity";
-                              HIWORD(v188) = -18304;
-                              LOWORD(v188) = word_2815AEDE6;
-                              *input = llroundf(((word_2815AEDCA * -0.000061035) + 1.0) * v188);
-                              v189 = CFNumberCreate(v167, kCFNumberIntType, input);
-                              v190 = 8 * v176 + 48;
-                              *&buf[v190] = v189;
-                              *(v348 + v190) = @"AbsoluteCapacity";
-                              v191 = v296;
+                              v185 = CFNumberCreate(v166, kCFNumberIntType, &v311);
+                              v186 = 8 * v175 + 40;
+                              *&buf[v186] = v185;
+                              *(v348 + v186) = @"MaxCapacity";
+                              HIWORD(v187) = -18304;
+                              LOWORD(v187) = word_2815AEDE6;
+                              *input = llroundf(((word_2815AEDCA * -0.000061035) + 1.0) * v187);
+                              v188 = CFNumberCreate(v166, kCFNumberIntType, input);
+                              v189 = 8 * v175 + 48;
+                              *&buf[v189] = v188;
+                              *(v348 + v189) = @"AbsoluteCapacity";
+                              v190 = v296;
                               if ((v268 & 1) == 0)
                               {
-                                v191 = v282;
+                                v190 = v282;
                               }
 
-                              v192 = v177 + 56;
-                              *&buf[v192] = v191;
-                              *(v348 + v192) = @"AtCriticalLevel";
+                              v191 = v176 + 56;
+                              *&buf[v191] = v190;
+                              *(v348 + v191) = @"AtCriticalLevel";
                               v310 = word_2815AEDEA;
-                              v193 = CFNumberCreate(v167, kCFNumberIntType, &v310);
-                              v194 = v177 + 64;
-                              *&buf[v194] = v193;
-                              *(v348 + v194) = @"AppleRawBatteryFlags";
-                              v195 = v167;
-                              v196 = v176 + 9;
+                              v192 = CFNumberCreate(v166, kCFNumberIntType, &v310);
+                              v193 = v176 + 64;
+                              *&buf[v193] = v192;
+                              *(v348 + v193) = @"AppleRawBatteryFlags";
+                              v194 = v166;
+                              v195 = v175 + 9;
                               if (v284)
                               {
                                 v309 = word_2815AEDC8;
-                                *&buf[8 * v196] = CFNumberCreate(v195, kCFNumberIntType, &v309);
-                                v348[v196] = @"ITMiscStatus";
+                                *&buf[8 * v195] = CFNumberCreate(v194, kCFNumberIntType, &v309);
+                                v348[v195] = @"ITMiscStatus";
                                 v308 = word_2815AEDC8 & 3;
-                                v197 = CFNumberCreate(v195, kCFNumberIntType, &v308);
-                                v198 = v177 + 80;
-                                *&buf[v198] = v197;
-                                *(v348 + v198) = @"ITSimulationCounter";
+                                v196 = CFNumberCreate(v194, kCFNumberIntType, &v308);
+                                v197 = v176 + 80;
+                                *&buf[v197] = v196;
+                                *(v348 + v197) = @"ITSimulationCounter";
                                 v307 = (word_2815AEDC8 >> 2) & 3;
-                                v199 = CFNumberCreate(v195, kCFNumberIntType, &v307);
-                                v200 = v177 + 88;
-                                *&buf[v200] = v199;
-                                *(v348 + v200) = @"RaUpdateCounter";
-                                v196 = v176 + 12;
+                                v198 = CFNumberCreate(v194, kCFNumberIntType, &v307);
+                                v199 = v176 + 88;
+                                *&buf[v199] = v198;
+                                *(v348 + v199) = @"RaUpdateCounter";
+                                v195 = v175 + 12;
                               }
 
                               v306 = word_2815AEDEA & 0x80;
-                              *&buf[8 * v196] = CFNumberCreate(v195, kCFNumberIntType, &v306);
-                              v348[v196] = @"OCVTakenFlag";
+                              *&buf[8 * v195] = CFNumberCreate(v194, kCFNumberIntType, &v306);
+                              v348[v195] = @"OCVTakenFlag";
                               v305 = word_2815AEDEA & 0x200;
-                              v201 = CFNumberCreate(v195, kCFNumberIntType, &v305);
-                              v202 = 8 * v196 + 8;
-                              *&buf[v202] = v201;
-                              *(v348 + v202) = @"FCFlag";
-                              v176 = v196 + 2;
+                              v200 = CFNumberCreate(v194, kCFNumberIntType, &v305);
+                              v201 = 8 * v195 + 8;
+                              *&buf[v201] = v200;
+                              *(v348 + v201) = @"FCFlag";
+                              v175 = v195 + 2;
                               v2 = 0x2815AE000;
                               if (v266)
                               {
                                 v304 = word_2815AEDE4;
-                                *&buf[8 * v176] = CFNumberCreate(v195, kCFNumberIntType, &v304);
-                                v348[v176] = @"CycleCount";
+                                *&buf[8 * v175] = CFNumberCreate(v194, kCFNumberIntType, &v304);
+                                v348[v175] = @"CycleCount";
                                 v303 = word_2815AEDB2;
-                                v203 = CFNumberCreate(v195, kCFNumberIntType, &v303);
-                                v204 = 8 * v196 + 24;
-                                *&buf[v204] = v203;
-                                *(v348 + v204) = @"DesignCapacity";
-                                v176 = v196 + 4;
-                                v205 = parseBatteryData(v284 & 1, v271);
-                                *&buf[8 * v196 + 32] = v205;
-                                if (v205)
+                                v202 = CFNumberCreate(v194, kCFNumberIntType, &v303);
+                                v203 = 8 * v195 + 24;
+                                *&buf[v203] = v202;
+                                *(v348 + v203) = @"DesignCapacity";
+                                v175 = v195 + 4;
+                                v204 = parseBatteryData(v284 & 1, v271);
+                                *&buf[8 * v195 + 32] = v204;
+                                if (v204)
                                 {
                                   if (v275)
                                   {
-                                    CFShow(v205);
+                                    CFShow(v204);
                                   }
 
-                                  v348[v176] = @"BatteryData";
-                                  v176 = v196 + 5;
+                                  v348[v175] = @"BatteryData";
+                                  v175 = v195 + 5;
                                 }
                               }
 
-                              v206 = v268;
-                              v207 = 1;
-                              v167 = allocator;
+                              v205 = v268;
+                              v206 = 1;
+                              v166 = allocator;
 LABEL_379:
                               if (v278 && (updateThread_oneTime & 1) == 0)
                               {
@@ -3158,7 +3063,8 @@ LABEL_379:
                                 memset(input, 0, sizeof(input));
                                 *keys = 0u;
                                 v343 = 0u;
-                                if (ggctl_logShutdownReason(v291, input, 1u) || !*&input[40])
+                                ggctl_logShutdownReason(v291, input, 1u);
+                                if (v207 || !*&input[40])
                                 {
                                   v210 = *(v2 + 3456);
                                   if (os_log_type_enabled(v210, OS_LOG_TYPE_DEFAULT))
@@ -3183,8 +3089,8 @@ LABEL_379:
                                       CFShow(v208);
                                     }
 
-                                    *&buf[8 * v176] = v209;
-                                    v348[v176++] = @"BatteryShutdownReason";
+                                    *&buf[8 * v175] = v209;
+                                    v348[v175++] = @"BatteryShutdownReason";
                                   }
 
                                   memset(input, 0, sizeof(input));
@@ -3196,19 +3102,19 @@ LABEL_379:
                                 }
 
                                 updateThread_oneTime = 1;
-                                v206 = v268;
+                                v205 = v268;
+                              }
+
+                              if (v205)
+                              {
+                                readIMAXAndSOCSmoothData(xmmword_2815AEE4E, v173, v291);
+                                v166 = allocator;
+                                logBatteryDiagnosticData(updateThread_batteryInfo, v291, v278 != 0);
                               }
 
                               if (v206)
                               {
-                                readIMAXAndSOCSmoothData(byte_2815AEE4E, v174, v291);
-                                v167 = allocator;
-                                logBatteryDiagnosticData(updateThread_batteryInfo, v291, v278 != 0);
-                              }
-
-                              if (v207)
-                              {
-                                v211 = CFDictionaryCreate(v167, v348, buf, v176, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
+                                v211 = CFDictionaryCreate(v166, v348, buf, v175, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
                                 if (v211)
                                 {
                                   v212 = v211;
@@ -3227,13 +3133,13 @@ LABEL_379:
                                       *&input[12] = 1024;
                                       *&input[14] = 3600;
                                       *&input[18] = 1024;
-                                      *&input[20] = v55;
+                                      *&input[20] = v54;
                                       _os_log_impl(&dword_277275000, v213, OS_LOG_TYPE_DEFAULT, "%s:%d  updatesDone=%d PUBLISHING BATTERY data", input, 0x18u);
                                     }
                                   }
 
                                   v214 = IORegistryEntrySetCFProperties(v5, v212);
-                                  LOBYTE(v207) = v214 == 0;
+                                  LOBYTE(v206) = v214 == 0;
                                   if (v214)
                                   {
                                     v215 = v214;
@@ -3261,16 +3167,16 @@ LABEL_379:
                                     *&input[12] = 1024;
                                     *&input[14] = 3608;
                                     *&input[18] = 1024;
-                                    *&input[20] = v55;
+                                    *&input[20] = v54;
                                     _os_log_error_impl(&dword_277275000, v217, OS_LOG_TYPE_ERROR, "%s:%d  updatesDone=%d dictionary failed", input, 0x18u);
                                   }
 
-                                  LOBYTE(v207) = 1;
+                                  LOBYTE(v206) = 1;
                                 }
                               }
 
-                              v218 = v176 + 1;
-                              v219 = &buf[8 * v176 - 8];
+                              v218 = v175 + 1;
+                              v219 = &buf[8 * v175 - 8];
                               do
                               {
                                 v220 = *v219--;
@@ -3280,19 +3186,19 @@ LABEL_379:
 
                               while (v218 > 1);
                               v14 = 0x280A6A000uLL;
-                              if ((v207 & 1) == 0)
+                              if ((v206 & 1) == 0)
                               {
-                                v141 = v285;
-                                v135 = v280;
+                                v140 = v285;
+                                v134 = v280;
 LABEL_416:
-                                if (*v141 && *(v135 + 4))
+                                if (*v140 && *(v134 + 4))
                                 {
-                                  ++*(v135 + 28);
+                                  ++*(v134 + 28);
                                 }
 
-                                v52 = 0;
+                                v51 = 0;
                                 ++debug_cnt_ut_err;
-                                ++v54;
+                                ++v53;
                                 goto LABEL_420;
                               }
 
@@ -3332,7 +3238,7 @@ LABEL_416:
                                       if (v232)
                                       {
                                         *input = 67109376;
-                                        *&input[4] = v55;
+                                        *&input[4] = v54;
                                         *&input[8] = 2048;
                                         *&input[10] = v229;
                                         v233 = v231;
@@ -3416,14 +3322,14 @@ LABEL_465:
 
                                     if ((v247 & 1) == 0)
                                     {
-                                      if (!v55 || v246 != 1)
+                                      if (!v54 || v246 != 1)
                                       {
                                         v248 = logger;
                                         if (os_log_type_enabled(logger, OS_LOG_TYPE_DEFAULT))
                                         {
                                           v249 = *(v280 + 4);
                                           *input = 67109376;
-                                          *&input[4] = v55;
+                                          *&input[4] = v54;
                                           *&input[8] = 1024;
                                           *&input[10] = v249;
                                           _os_log_impl(&dword_277275000, v248, OS_LOG_TYPE_DEFAULT, "gathering data log updatesDone=%d num_clients=%d", input, 0xEu);
@@ -3479,7 +3385,7 @@ LABEL_465:
                                       if (os_log_type_enabled(logger, OS_LOG_TYPE_DEFAULT))
                                       {
                                         *input = 67109376;
-                                        *&input[4] = v55;
+                                        *&input[4] = v54;
                                         *&input[8] = 2048;
                                         *&input[10] = v270;
                                         _os_log_impl(&dword_277275000, v261, OS_LOG_TYPE_DEFAULT, "CCA: disabled DLOG updatesDone=%d ccaDeadline=%lu", input, 0x12u);
@@ -3535,7 +3441,7 @@ LABEL_465:
                                   if (v239)
                                   {
                                     *input = 67109376;
-                                    *&input[4] = v55;
+                                    *&input[4] = v54;
                                     *&input[8] = 2048;
                                     *&input[10] = v229;
                                     v233 = v231;
@@ -3590,7 +3496,7 @@ LABEL_494:
                               gRestrictLogMessagesCounter = 0;
                               v255 = *(v2 + 3456);
                               v256 = os_log_type_enabled(v255, OS_LOG_TYPE_DEFAULT);
-                              if (v57 == 0.0)
+                              if (v56 == 0.0)
                               {
                                 if (!v256)
                                 {
@@ -3612,7 +3518,7 @@ LABEL_494:
 
                                 v260 = CFAbsoluteTimeGetCurrent();
                                 *input = 134217984;
-                                *&input[4] = v260 - v57;
+                                *&input[4] = v260 - v56;
                                 v257 = v255;
                                 v258 = "gasgauge success after previous %gs failure";
                                 v259 = 12;
@@ -3620,15 +3526,15 @@ LABEL_494:
 
                               _os_log_impl(&dword_277275000, v257, OS_LOG_TYPE_DEFAULT, v258, input, v259);
 LABEL_501:
-                              v57 = CFAbsoluteTimeGetCurrent();
-                              v52 = 0;
-                              v54 = 0;
+                              v56 = CFAbsoluteTimeGetCurrent();
+                              v51 = 0;
+                              v53 = 0;
                               word_2815AEE6E = word_2815AEDBA;
                               word_2815AEE70 = word_2815AEDC2;
                               dword_2815AEE72 = *&word_2815AEDBC;
                               word_2815AEE76 = word_2815AEDC4;
-                              ++v55;
-                              v58 = v291;
+                              ++v54;
+                              v57 = v291;
                             }
                           }
                         }
@@ -3637,12 +3543,12 @@ LABEL_501:
 
                     else
                     {
-                      v87 = CFPreferencesCopyValue(@"ResetEnabled", @"com.apple.gasgauge", v289, v288);
-                      v88 = os_log_type_enabled(*(v2 + 3456), OS_LOG_TYPE_ERROR);
-                      if (v87 == v282)
+                      v86 = CFPreferencesCopyValue(@"ResetEnabled", @"com.apple.gasgauge", v289, v288);
+                      v87 = os_log_type_enabled(*(v2 + 3456), OS_LOG_TYPE_ERROR);
+                      if (v86 == v282)
                       {
-                        v89 = v291;
-                        if (v88)
+                        v88 = v291;
+                        if (v87)
                         {
                           updateThread_cold_6(&v325, v326);
                         }
@@ -3650,18 +3556,18 @@ LABEL_501:
 
                       else
                       {
-                        if (v88)
+                        if (v87)
                         {
                           updateThread_cold_5(&v323, v324);
                         }
 
-                        v89 = v291;
+                        v88 = v291;
                         ggctl_reset(v291, 1u);
                       }
 
-                      v52 = 0;
-                      ++v54;
-                      v58 = v89;
+                      v51 = 0;
+                      ++v53;
+                      v57 = v88;
                     }
                   }
                 }
@@ -3669,8 +3575,8 @@ LABEL_501:
 
               else
               {
-                v52 = 0;
-                v58 = -1;
+                v51 = 0;
+                v57 = -1;
               }
             }
           }
@@ -3687,8 +3593,6 @@ LABEL_501:
     }
   }
 
-LABEL_19:
-  v19 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
@@ -3815,48 +3719,47 @@ void __GGEventInstall_block_invoke(uint64_t a1)
   dispatch_release(v2);
 }
 
-uint64_t ggctl_logShutdownDLog(uint64_t result, uint64_t a2, unsigned int a3)
+double ggctl_logShutdownDLog(mach_port_t a1, uint64_t a2, unsigned int a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
-  v8 = 40;
+  v13 = *MEMORY[0x277D85DE8];
+  v9 = 40;
   if (a3)
   {
     if (!a2)
     {
-      goto LABEL_8;
+      return result;
     }
 
-    v11 = 0;
+    v12 = 0;
     outputStruct = 0u;
-    v10 = 0u;
-    v6 = a3;
-    result = IOConnectCallMethod(result, 0x12u, &v6, 1u, 0, 0, 0, 0, &outputStruct, &v8);
+    v11 = 0u;
+    v7 = a3;
+    v4 = IOConnectCallMethod(a1, 0x12u, &v7, 1u, 0, 0, 0, 0, &outputStruct, &v9);
   }
 
   else
   {
     if (!a2)
     {
-      goto LABEL_8;
+      return result;
     }
 
-    v11 = 0;
+    v12 = 0;
     outputStruct = 0u;
-    v10 = 0u;
+    v11 = 0u;
     input = a3;
-    result = IOConnectCallMethod(result, 0x12u, &input, 1u, 0, 0, 0, 0, &outputStruct, &v8);
+    v4 = IOConnectCallMethod(a1, 0x12u, &input, 1u, 0, 0, 0, 0, &outputStruct, &v9);
   }
 
-  if (!result)
+  if (!v4)
   {
-    v4 = v10;
+    result = *&outputStruct;
+    v6 = v11;
     *a2 = outputStruct;
-    *(a2 + 16) = v4;
-    *(a2 + 32) = v11;
+    *(a2 + 16) = v6;
+    *(a2 + 32) = v12;
   }
 
-LABEL_8:
-  v5 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -3928,23 +3831,23 @@ void setUPOData(const __CFString *a1, int a2)
 
 uint64_t ggctl_logShutdownReason2(uint64_t result, _OWORD *a2, unsigned int a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
-  v9 = 48;
+  v13 = *MEMORY[0x277D85DE8];
+  v8 = 48;
   if (a2)
   {
     if (a3)
     {
+      v10 = 0u;
       v11 = 0u;
-      v12 = 0u;
       outputStruct = 0u;
       input = a3;
-      result = IOConnectCallMethod(result, 0x13u, &input, 1u, inputStruct, 0x30uLL, 0, 0, &outputStruct, &v9);
+      result = IOConnectCallMethod(result, 0x13u, &input, 1u, inputStruct, 0x30uLL, 0, 0, &outputStruct, &v8);
       if (!result)
       {
-        v4 = v11;
+        v4 = v10;
         *a2 = outputStruct;
         a2[1] = v4;
-        a2[2] = v12;
+        a2[2] = v11;
       }
     }
 
@@ -3954,12 +3857,11 @@ uint64_t ggctl_logShutdownReason2(uint64_t result, _OWORD *a2, unsigned int a3)
       inputStruct[0] = *a2;
       inputStruct[1] = v5;
       inputStruct[2] = a2[2];
-      v8 = a3;
-      result = IOConnectCallMethod(result, 0x13u, &v8, 1u, inputStruct, 0x30uLL, 0, 0, &outputStruct, &v9);
+      v7 = a3;
+      return IOConnectCallMethod(result, 0x13u, &v7, 1u, inputStruct, 0x30uLL, 0, 0, &outputStruct, &v8);
     }
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -3972,7 +3874,7 @@ uint64_t iokit_callback(uint64_t result, uint64_t a2, int a3, uint64_t a4)
 
 void getUPOData(CFStringRef key, void *a2)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v4 = find_pmu_pmu_service;
   v5 = MEMORY[0x277CBECE8];
   if (find_pmu_pmu_service)
@@ -3984,9 +3886,9 @@ void getUPOData(CFStringRef key, void *a2)
   if (v6)
   {
     v7 = v6;
-    v16 = 0;
+    v15 = 0;
     v8 = *v5;
-    find_pmu_zero_number = CFNumberCreate(*v5, kCFNumberSInt32Type, &v16);
+    find_pmu_zero_number = CFNumberCreate(*v5, kCFNumberSInt32Type, &v15);
     v9 = CFDictionaryCreate(v8, &find_pmu_tmp, &find_pmu_zero_number, 1, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
     if (v9)
     {
@@ -4016,19 +3918,17 @@ LABEL_7:
         v14 = logger;
         if (os_log_type_enabled(logger, OS_LOG_TYPE_DEFAULT))
         {
-          v16 = 136315394;
-          v17 = "/Library/Caches/com.apple.xbs/Sources/AppleHDQGasGauge/AppleHDQGasGauge.c";
-          v18 = 1024;
-          v19 = 2348;
-          _os_log_impl(&dword_277275000, v14, OS_LOG_TYPE_DEFAULT, "%s:%d cannot read upo data", &v16, 0x12u);
+          v15 = 136315394;
+          v16 = "/Library/Caches/com.apple.xbs/Sources/AppleHDQGasGauge/AppleHDQGasGauge.c";
+          v17 = 1024;
+          v18 = 2348;
+          _os_log_impl(&dword_277275000, v14, OS_LOG_TYPE_DEFAULT, "%s:%d cannot read upo data", &v15, 0x12u);
         }
       }
 
       CFRelease(v12);
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void updateThermalCoolDownState(io_registry_entry_t a1, int a2)
@@ -4055,14 +3955,12 @@ void updateThermalCoolDownState(io_registry_entry_t a1, int a2)
   {
     updateThermalCoolDownState_cold_1();
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void statsAndLogs(io_registry_entry_t a1, int a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
-  v13 = 0;
+  v13 = *MEMORY[0x277D85DE8];
+  v12 = 0;
   cf = 0;
   v4 = *MEMORY[0x277CBECE8];
   keys = CFStringCreateWithCString(*MEMORY[0x277CBECE8], "stats", 0x8000100u);
@@ -4070,7 +3968,7 @@ void statsAndLogs(io_registry_entry_t a1, int a2)
   values = *MEMORY[0x277CBED10];
   if (a2)
   {
-    v13 = CFStringCreateWithCString(v4, "log", 0x8000100u);
+    v12 = CFStringCreateWithCString(v4, "log", 0x8000100u);
     cf = v5;
     v6 = 2;
   }
@@ -4101,8 +3999,6 @@ void statsAndLogs(io_registry_entry_t a1, int a2)
   {
     statsAndLogs_cold_2();
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void debugLog(io_registry_entry_t a1, int a2)
@@ -4116,9 +4012,12 @@ void debugLog(io_registry_entry_t a1, int a2)
   if (v4)
   {
     v5 = v4;
-    if (IORegistryEntrySetCFProperties(a1, v4) && os_log_type_enabled(logger, OS_LOG_TYPE_ERROR))
+    if (IORegistryEntrySetCFProperties(a1, v4))
     {
-      debugLog_cold_1();
+      if (os_log_type_enabled(logger, OS_LOG_TYPE_ERROR))
+      {
+        debugLog_cold_1();
+      }
     }
 
     CFRelease(v5);
@@ -4129,39 +4028,37 @@ void debugLog(io_registry_entry_t a1, int a2)
   {
     debugLog_cold_2();
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t readChargeTable(mach_port_t a1, __CFData **a2)
 {
-  *&v46[26] = *MEMORY[0x277D85DE8];
+  *&v45[26] = *MEMORY[0x277D85DE8];
   *a2 = 0;
   if (!dword_2815AEE8C)
   {
-    goto LABEL_15;
+    return 0;
   }
 
   v3 = 0xFFFFFFFFLL;
   if (!ggctl_readBlock(a1, -1, dword_2815AEE8C, &outputStruct, 0))
   {
-    v4 = v44;
-    if (v44 != 255)
+    v4 = v43;
+    if (v43 != 255)
     {
       v5 = logger;
       if (os_log_type_enabled(logger, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 67109120;
-        v36 = v4;
+        v35 = v4;
         v6 = "gas gauge charge table invalid type: %#x";
         v7 = v5;
         v8 = 8;
 LABEL_14:
         _os_log_impl(&dword_277275000, v7, OS_LOG_TYPE_DEFAULT, v6, buf, v8);
-        goto LABEL_15;
+        return 0;
       }
 
-      goto LABEL_15;
+      return 0;
     }
 
     v9 = outputStruct;
@@ -4173,22 +4070,20 @@ LABEL_14:
       if (os_log_type_enabled(logger, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 67109376;
-        v36 = v10;
-        v37 = 1024;
-        v38 = 6 * v10 + 4;
+        v35 = v10;
+        v36 = 1024;
+        v37 = 6 * v10 + 4;
         v6 = "gas gauge charge table inconsistent: %d data entries, %d bytes";
         v7 = v12;
         v8 = 14;
         goto LABEL_14;
       }
 
-LABEL_15:
-      v3 = 0;
-      goto LABEL_16;
+      return 0;
     }
 
     v13 = 0;
-    v34 = v43;
+    v33 = v42;
     p_outputStruct = &outputStruct;
     do
     {
@@ -4205,78 +4100,76 @@ LABEL_15:
       if (os_log_type_enabled(logger, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 67109632;
-        v36 = v16;
-        v37 = 1024;
-        v38 = v42;
-        v39 = 1024;
-        v40 = 256 - (v16 - v42);
+        v35 = v16;
+        v36 = 1024;
+        v37 = v41;
+        v38 = 1024;
+        v39 = 256 - (v16 - v41);
         v6 = "gas gauge charge table bad checksum: checksum %#x checksum byte %#x expecting %#x";
         v7 = v17;
         v8 = 20;
         goto LABEL_14;
       }
 
-      goto LABEL_15;
+      return 0;
     }
 
-    v33 = v43 >> 4;
-    v20 = 4 * v33 + 8;
-    Mutable = CFDataCreateMutable(*MEMORY[0x277CBECE8], v20 * v10);
-    CFDataSetLength(Mutable, v20 * v10);
+    v32 = v42 >> 4;
+    v19 = 4 * v32 + 8;
+    Mutable = CFDataCreateMutable(*MEMORY[0x277CBECE8], v19 * v10);
+    CFDataSetLength(Mutable, v19 * v10);
     if (v9 >= 0x10)
     {
-      v22 = 0;
-      v23 = v46;
-      v24 = 10;
+      v21 = 0;
+      v22 = v45;
+      v23 = 10;
       do
       {
         MutableBytePtr = CFDataGetMutableBytePtr(Mutable);
-        v26 = &MutableBytePtr[v22 * v20];
-        v27 = &v45[6 * v22];
-        *v26 = 100 * *v27;
-        *(v26 + 1) = 100 * v27[1];
-        *(v26 + 1) = v33;
-        if (v34 >= 0x10)
+        v25 = &MutableBytePtr[v21 * v19];
+        v26 = &v44[6 * v21];
+        *v25 = 100 * *v26;
+        *(v25 + 1) = 100 * v26[1];
+        *(v25 + 1) = v32;
+        if (v33 >= 0x10)
         {
-          v28 = &MutableBytePtr[v24];
-          v29 = v23;
-          v30 = v33;
+          v27 = &MutableBytePtr[v23];
+          v28 = v22;
+          v29 = v32;
           do
           {
-            if (v30 == 1)
+            if (v29 == 1)
             {
-              LOWORD(v31) = -1;
+              LOWORD(v30) = -1;
             }
 
             else
             {
-              v31 = updateThread_batteryInfo[(*v29 & 0xF) + 64];
+              v30 = updateThread_batteryInfo[(*v28 & 0xF) + 64];
             }
 
-            *(v28 - 1) = v31;
-            v32 = *v29++;
-            *v28 = *(&updateThread_batteryInfo[80] + ((v32 >> 2) & 0x3C));
-            v28 += 4;
-            --v30;
+            *(v27 - 1) = v30;
+            v31 = *v28++;
+            *v27 = *(&updateThread_batteryInfo[80] + ((v31 >> 2) & 0x3C));
+            v27 += 4;
+            --v29;
           }
 
-          while (v30);
+          while (v29);
         }
 
-        ++v22;
-        v23 += 6;
-        v24 += v20;
+        ++v21;
+        v22 += 6;
+        v23 += v19;
       }
 
-      while (v22 != v10);
+      while (v21 != v10);
     }
 
     v3 = 0;
     *a2 = Mutable;
   }
 
-LABEL_16:
-  v18 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
@@ -4391,17 +4284,16 @@ LABEL_7:
 
 CFDictionaryRef readChargerData(int a1, int a2, mach_port_t a3)
 {
-  v28[6] = *MEMORY[0x277D85DE8];
+  v27[6] = *MEMORY[0x277D85DE8];
   if (readBatteryData(&readChargerData_chargerRegs, 5, a3) != 5)
   {
-    v11 = 0;
-    goto LABEL_15;
+    return 0;
   }
 
-  v6 = v26;
-  v7 = v28;
-  memset(v28, 0, 48);
-  memset(v26, 0, sizeof(v26));
+  v6 = v25;
+  v7 = v27;
+  memset(v27, 0, 48);
+  memset(v25, 0, sizeof(v25));
   v8 = *MEMORY[0x277CBECE8];
   values[0] = CFNumberCreate(*MEMORY[0x277CBECE8], kCFNumberSInt8Type, &readChargerData_notChargingReason);
   keys[0] = @"NotChargingReason";
@@ -4414,14 +4306,14 @@ CFDictionaryRef readChargerData(int a1, int a2, mach_port_t a3)
 
   if (a2 && (readChargerData_notChargingReason & 0x10) != 0)
   {
-    LOWORD(v24) = 0;
-    if ((hdqReadU16(a3, 52, &v24) & 0x80000000) != 0)
+    LOWORD(v23) = 0;
+    if ((hdqReadU16(a3, 52, &v23) & 0x80000000) != 0)
     {
       goto LABEL_7;
     }
 
     v9 = 1717986919 * byte_2815AEDB8 * word_2815AEDB2;
-    if (((v9 >> 34) + (v9 >> 63)) <= v24)
+    if (((v9 >> 34) + (v9 >> 63)) <= v23)
     {
       goto LABEL_7;
     }
@@ -4437,10 +4329,10 @@ LABEL_10:
   }
 
 LABEL_7:
-  v6 = &v26[1];
-  v7 = &v28[1];
-  v28[0] = *MEMORY[0x277CBED28];
-  v26[0] = @"ChargerTimeout";
+  v6 = &v25[1];
+  v7 = &v27[1];
+  v27[0] = *MEMORY[0x277CBED28];
+  v25[0] = @"ChargerTimeout";
   v10 = 3;
 LABEL_11:
   if ((readChargerData_notChargingReason & 0x20) != 0)
@@ -4462,8 +4354,8 @@ LABEL_11:
   v17 = 8 * v10 + 16;
   *(values + v17) = v16;
   *(keys + v17) = @"ChargerStatus";
-  v24 = time(0);
-  v18 = CFNumberCreate(v8, kCFNumberLongType, &v24);
+  v23 = time(0);
+  v18 = CFNumberCreate(v8, kCFNumberLongType, &v23);
   v19 = 8 * v10 + 24;
   *(values + v19) = v18;
   *(keys + v19) = @"UpdateTime";
@@ -4477,18 +4369,16 @@ LABEL_11:
   }
 
   while (v20 > 1);
-LABEL_15:
-  v22 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
 CFDictionaryRef dynamicATV(mach_port_t a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
-  v16 = 0;
-  v14 = 0;
+  v18 = *MEMORY[0x277D85DE8];
+  v15 = 0;
+  v13 = 0;
   *input = xmmword_27727F750;
-  v18 = 0;
+  v17 = 0;
   if (IOConnectCallScalarMethod(a1, 7u, input, 3u, 0, 0) && os_log_type_enabled(logger, OS_LOG_TYPE_ERROR))
   {
     dynamicATV_cold_1();
@@ -4514,7 +4404,7 @@ CFDictionaryRef dynamicATV(mach_port_t a1)
   dword_2815AEDDC = v2;
   v4 = *MEMORY[0x277CBECE8];
   values = CFNumberCreate(*MEMORY[0x277CBECE8], kCFNumberIntType, &dword_2815AEDDC);
-  v13 = @"atvBatteryCapacityMA";
+  v12 = @"atvBatteryCapacityMA";
   if (dword_2815AEF30)
   {
     v5 = determineVACVoltage();
@@ -4523,8 +4413,8 @@ CFDictionaryRef dynamicATV(mach_port_t a1)
       dword_2815AEDD8 = v5;
     }
 
-    v16 = CFNumberCreate(v4, kCFNumberIntType, &dword_2815AEDD8);
-    v14 = @"atvAbsMaxVoltageMV";
+    v15 = CFNumberCreate(v4, kCFNumberIntType, &dword_2815AEDD8);
+    v13 = @"atvAbsMaxVoltageMV";
     v6 = 2;
   }
 
@@ -4533,7 +4423,7 @@ CFDictionaryRef dynamicATV(mach_port_t a1)
     v6 = 1;
   }
 
-  v7 = CFDictionaryCreate(v4, &v13, &values, v6, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
+  v7 = CFDictionaryCreate(v4, &v12, &values, v6, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
   v8 = v6 + 1;
   v9 = (&values + v6 - 1);
   do
@@ -4544,13 +4434,12 @@ CFDictionaryRef dynamicATV(mach_port_t a1)
   }
 
   while (v8 > 1);
-  v11 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
 uint64_t determineVACVoltage()
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   v0 = dword_2815AEDD8;
   v1 = dword_2815AEF30;
   if (dword_2815AEF30)
@@ -4594,9 +4483,9 @@ LABEL_17:
       v9 = logger;
       if (os_log_type_enabled(logger, OS_LOG_TYPE_DEFAULT))
       {
-        v38 = 67109120;
-        v39 = v8;
-        _os_log_impl(&dword_277275000, v9, OS_LOG_TYPE_DEFAULT, "determineVACVoltage:: vacBasedVoltageMV=%d", &v38, 8u);
+        v37 = 67109120;
+        v38 = v8;
+        _os_log_impl(&dword_277275000, v9, OS_LOG_TYPE_DEFAULT, "determineVACVoltage:: vacBasedVoltageMV=%d", &v37, 8u);
         v8 = determineVACVoltage_vacBasedVoltageMV;
       }
 
@@ -4686,11 +4575,11 @@ LABEL_54:
         v25 = logger;
         if (os_log_type_enabled(logger, OS_LOG_TYPE_DEFAULT))
         {
-          v38 = 67109376;
-          v39 = v24;
-          v40 = 1024;
-          v41 = v0;
-          _os_log_impl(&dword_277275000, v25, OS_LOG_TYPE_DEFAULT, "determineVACVoltage:: vac95BasedVoltageMV=%d absMaxVoltageMV=%d", &v38, 0xEu);
+          v37 = 67109376;
+          v38 = v24;
+          v39 = 1024;
+          v40 = v0;
+          _os_log_impl(&dword_277275000, v25, OS_LOG_TYPE_DEFAULT, "determineVACVoltage:: vac95BasedVoltageMV=%d absMaxVoltageMV=%d", &v37, 0xEu);
           v24 = determineVACVoltage_vac95BasedVoltageMV;
         }
 
@@ -4766,36 +4655,31 @@ LABEL_54:
 
   if (v33)
   {
-    v31 = v30;
+    return v30;
   }
 
-  else
+  v34 = logger;
+  if (os_log_type_enabled(logger, OS_LOG_TYPE_DEFAULT))
   {
-    v34 = logger;
-    if (os_log_type_enabled(logger, OS_LOG_TYPE_DEFAULT))
-    {
-      v38 = 67109376;
-      v39 = v32;
-      v40 = 1024;
-      v41 = v30;
-      _os_log_impl(&dword_277275000, v34, OS_LOG_TYPE_DEFAULT, "determineVACVoltage:: waiting for vbat(%d) < vac(%d)", &v38, 0xEu);
-      v31 = dword_2815AEDD8;
-    }
+    v37 = 67109376;
+    v38 = v32;
+    v39 = 1024;
+    v40 = v30;
+    _os_log_impl(&dword_277275000, v34, OS_LOG_TYPE_DEFAULT, "determineVACVoltage:: waiting for vbat(%d) < vac(%d)", &v37, 0xEu);
+    return dword_2815AEDD8;
   }
 
-  v36 = *MEMORY[0x277D85DE8];
   return v31;
 }
 
 uint64_t determinePoSMThreshold()
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   if (word_2815AEDB6 <= 0x500u)
   {
     if (word_2815AEDB6 < 0x313u)
     {
-      v22 = 0xFFFFFFFFLL;
-      goto LABEL_62;
+      return 0xFFFFFFFFLL;
     }
 
     v2 = &word_2815AEE1E;
@@ -4823,8 +4707,8 @@ uint64_t determinePoSMThreshold()
   v13 = determinePoSMThreshold_lastBatteryCycleCount != word_2815AEDE4 && dword_2815AEFBC != 0;
   v14 = determinePoSMThreshold_lastToT != v3 && word_2815AEFC0 != 0;
   v15 = determinePoSMThreshold_lastAbove95 != v4 && word_2815AEFC8 != 0;
-  v32 = v15;
-  v33 = v13;
+  v31 = v15;
+  v32 = v13;
   if (v13)
   {
     determinePoSMThreshold_lastBatteryCycleCount = word_2815AEDE4;
@@ -4875,8 +4759,8 @@ uint64_t determinePoSMThreshold()
     determinePoSMThreshold_vac95Threshold = v19;
   }
 
-  v34 = word_2815AEDE4;
-  v31 = v14;
+  v33 = word_2815AEDE4;
+  v30 = v14;
   if (word_2815AEFC8)
   {
     determinePoSMThreshold_lastAbove95 = v4;
@@ -4961,13 +4845,13 @@ uint64_t determinePoSMThreshold()
   if (os_log_type_enabled(logger, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109888;
-    v36 = v6;
-    v37 = 1024;
-    v38 = v8;
-    v39 = 1024;
-    v40 = v10;
-    v41 = 1024;
-    v42 = v12;
+    v35 = v6;
+    v36 = 1024;
+    v37 = v8;
+    v38 = 1024;
+    v39 = v10;
+    v40 = 1024;
+    v41 = v12;
     _os_log_impl(&dword_277275000, v28, OS_LOG_TYPE_DEFAULT, "determinePoSMThreshold, enabled:%d %d %d %d ", buf, 0x1Au);
     v28 = logger;
   }
@@ -4975,13 +4859,13 @@ uint64_t determinePoSMThreshold()
   if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109888;
-    v36 = v33;
-    v37 = 1024;
-    v38 = v31;
-    v39 = 1024;
-    v40 = v17;
-    v41 = 1024;
-    v42 = v32;
+    v35 = v32;
+    v36 = 1024;
+    v37 = v30;
+    v38 = 1024;
+    v39 = v17;
+    v40 = 1024;
+    v41 = v31;
     _os_log_impl(&dword_277275000, v28, OS_LOG_TYPE_DEFAULT, "determinePoSMThreshold, changed:%d %d %d %d ", buf, 0x1Au);
     v28 = logger;
   }
@@ -4989,21 +4873,21 @@ uint64_t determinePoSMThreshold()
   if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67110912;
-    v36 = v34;
-    v37 = 1024;
-    v38 = HIWORD(dword_2815AEFBC);
-    v39 = 1024;
-    v40 = v3;
-    v41 = 1024;
-    v42 = word_2815AEFC2;
-    v43 = 1024;
-    v44 = (42949673 * (v4 * v3)) >> 32;
-    v45 = 1024;
-    v46 = HIWORD(dword_2815AEFC4);
-    v47 = 1024;
-    v48 = v4;
-    v49 = 1024;
-    v50 = word_2815AEFCA;
+    v35 = v33;
+    v36 = 1024;
+    v37 = HIWORD(dword_2815AEFBC);
+    v38 = 1024;
+    v39 = v3;
+    v40 = 1024;
+    v41 = word_2815AEFC2;
+    v42 = 1024;
+    v43 = (42949673 * (v4 * v3)) >> 32;
+    v44 = 1024;
+    v45 = HIWORD(dword_2815AEFC4);
+    v46 = 1024;
+    v47 = v4;
+    v48 = 1024;
+    v49 = word_2815AEFCA;
     _os_log_impl(&dword_277275000, v28, OS_LOG_TYPE_DEFAULT, "determinePoSMThreshold, cmp:%d>%u %d>%u %d>%u %d>%u", buf, 0x32u);
     v28 = logger;
   }
@@ -5011,94 +4895,92 @@ uint64_t determinePoSMThreshold()
   if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67110144;
-    v36 = v22;
-    v37 = 1024;
-    v38 = determinePoSMThreshold_vacThreshold;
-    v39 = 1024;
-    v40 = determinePoSMThreshold_vacpThreshold;
-    v41 = 1024;
-    v42 = determinePoSMThreshold_vac95Threshold;
-    v43 = 1024;
-    v44 = determinePoSMThreshold_vac95pThreshold;
+    v35 = v22;
+    v36 = 1024;
+    v37 = determinePoSMThreshold_vacThreshold;
+    v38 = 1024;
+    v39 = determinePoSMThreshold_vacpThreshold;
+    v40 = 1024;
+    v41 = determinePoSMThreshold_vac95Threshold;
+    v42 = 1024;
+    v43 = determinePoSMThreshold_vac95pThreshold;
     _os_log_impl(&dword_277275000, v28, OS_LOG_TYPE_DEFAULT, "determinePoSMThreshold,minThreshold=%u threshold:%u %u %u %u", buf, 0x20u);
   }
 
-LABEL_62:
-  v29 = *MEMORY[0x277D85DE8];
   return v22;
 }
 
 CFDictionaryRef parseBatteryData(int a1, int a2)
 {
-  v113 = *MEMORY[0x277D85DE8];
+  v112 = *MEMORY[0x277D85DE8];
   *&valuePtr[4] = 0;
-  memset(v104, 0, sizeof(v104));
-  memset(v102, 0, sizeof(v102));
+  memset(v103, 0, sizeof(v103));
+  memset(v101, 0, sizeof(v101));
   v4 = *MEMORY[0x277CBECE8];
-  v103[0] = CFDataCreate(*MEMORY[0x277CBECE8], updateThread_batteryInfo, 32);
-  v101[0] = @"MfgData";
-  v103[1] = createStringWithBytes(updateThread_batteryInfo, 0x12uLL);
-  v101[1] = @"Serial";
+  v102[0] = CFDataCreate(*MEMORY[0x277CBECE8], updateThread_batteryInfo, 32);
+  v100[0] = @"MfgData";
+  v102[1] = createStringWithBytes(updateThread_batteryInfo, 0x12uLL);
+  v100[1] = @"Serial";
   *valuePtr = word_2815AEDB2;
-  v103[2] = CFNumberCreate(v4, kCFNumberIntType, valuePtr);
-  v101[2] = @"DesignCapacity";
-  v72 = word_2815AEDE6;
-  values = CFNumberCreate(v4, kCFNumberIntType, &v72);
+  v102[2] = CFNumberCreate(v4, kCFNumberIntType, valuePtr);
+  v100[2] = @"DesignCapacity";
+  v71 = word_2815AEDE6;
+  values = CFNumberCreate(v4, kCFNumberIntType, &v71);
   if (values)
   {
-    v5 = &v104[1];
-    v6 = &v102[1];
-    v104[0] = CFArrayCreate(v4, &values, 1, MEMORY[0x277CBF128]);
-    v102[0] = @"Qmax";
+    v5 = &v103[1];
+    v6 = &v101[1];
+    v103[0] = CFArrayCreate(v4, &values, 1, MEMORY[0x277CBF128]);
+    v101[0] = @"Qmax";
     CFRelease(values);
     v7 = 4;
   }
 
   else
   {
-    v5 = v104;
-    v6 = v102;
+    v5 = v103;
+    v6 = v101;
     v7 = 3;
   }
 
-  v71 = word_2815AEDBC;
-  *v5 = CFNumberCreate(v4, kCFNumberIntType, &v71);
+  v70 = word_2815AEDBC;
+  *v5 = CFNumberCreate(v4, kCFNumberIntType, &v70);
   *v6 = @"MaxCapacity";
-  v70 = word_2815AEDE4;
-  v8 = CFNumberCreate(v4, kCFNumberIntType, &v70);
+  v69 = word_2815AEDE4;
+  v8 = CFNumberCreate(v4, kCFNumberIntType, &v69);
   v9 = 8 * v7 + 8;
-  *(v103 + v9) = v8;
-  *(v101 + v9) = @"CycleCount";
-  v69 = word_2815AEDE8;
-  v10 = CFNumberCreate(v4, kCFNumberIntType, &v69);
+  *(v102 + v9) = v8;
+  *(v100 + v9) = @"CycleCount";
+  v68 = word_2815AEDE8;
+  v10 = CFNumberCreate(v4, kCFNumberIntType, &v68);
   v11 = 8 * v7 + 16;
-  *(v103 + v11) = v10;
-  *(v101 + v11) = @"StateOfCharge";
-  v68 = word_2815AEDBA;
-  v12 = CFNumberCreate(v4, kCFNumberIntType, &v68);
+  *(v102 + v11) = v10;
+  *(v100 + v11) = @"StateOfCharge";
+  v67 = word_2815AEDBA;
+  v12 = CFNumberCreate(v4, kCFNumberIntType, &v67);
   v13 = 8 * v7 + 24;
-  *(v103 + v13) = v12;
-  *(v101 + v13) = @"Voltage";
-  v67 = word_2815AEDEA;
-  v14 = CFNumberCreate(v4, kCFNumberIntType, &v67);
+  *(v102 + v13) = v12;
+  *(v100 + v13) = @"Voltage";
+  v66 = word_2815AEDEA;
+  v14 = CFNumberCreate(v4, kCFNumberIntType, &v66);
   v15 = 8 * v7 + 32;
-  *(v103 + v15) = v14;
-  *(v101 + v15) = @"Flags";
+  *(v102 + v15) = v14;
+  *(v100 + v15) = @"Flags";
   StringWithBytes = createStringWithBytes(updateThread_batteryInfo + 2, 4uLL);
   v17 = 8 * v7 + 40;
-  *(v103 + v17) = StringWithBytes;
-  *(v101 + v17) = @"ManufactureDate";
-  v66 = word_2815AEDB0;
-  v18 = CFNumberCreate(v4, kCFNumberSInt16Type, &v66);
+  *(v102 + v17) = StringWithBytes;
+  *(v100 + v17) = @"ManufactureDate";
+  v65 = word_2815AEDB0;
+  v18 = CFNumberCreate(v4, kCFNumberSInt16Type, &v65);
   v19 = 8 * v7 + 48;
-  *(v103 + v19) = v18;
-  *(v101 + v19) = @"ChemID";
+  *(v102 + v19) = v18;
+  *(v100 + v19) = @"ChemID";
   v20 = v7 + 7;
   if (word_2815AEDB6 != 1536)
   {
-    v65 = word_2815AEDEC;
-    v103[v20] = CFNumberCreate(v4, kCFNumberIntType, &v65);
-    v101[v20] = @"FullAvailableCapacity";
+    v64 = word_2815AEDEC;
+    v102[v20] = CFNumberCreate(v4, kCFNumberIntType, &v64);
+    v100[v20] = @"FullAvailableCapacity";
     v20 = v7 | 8;
     if (word_2815AEDB6 < 0x313u)
     {
@@ -5106,90 +4988,90 @@ CFDictionaryRef parseBatteryData(int a1, int a2)
     }
   }
 
+  v109 = 0u;
   v110 = 0u;
   v111 = 0u;
-  v112 = 0u;
+  v105 = 0u;
   v106 = 0u;
-  v107 = 0u;
-  v108 = 0;
-  v100 = time(0);
+  v107 = 0;
+  v99 = time(0);
   keys[0] = @"UpdateTime";
-  v109[0] = CFNumberCreate(v4, kCFNumberLongType, &v100);
+  v108[0] = CFNumberCreate(v4, kCFNumberLongType, &v99);
   keys[1] = @"MaximumTemperature";
-  v99 = (byte_2815AEDEE << 8) | byte_2815AEDEF;
-  v109[1] = CFNumberCreate(v4, kCFNumberIntType, &v99);
+  v98 = (byte_2815AEDEE << 8) | byte_2815AEDEF;
+  v108[1] = CFNumberCreate(v4, kCFNumberIntType, &v98);
   keys[2] = @"MinimumTemperature";
-  v98 = (byte_2815AEDF0 << 8) | byte_2815AEDF1;
-  v109[2] = CFNumberCreate(v4, kCFNumberIntType, &v98);
+  v97 = (byte_2815AEDF0 << 8) | byte_2815AEDF1;
+  v108[2] = CFNumberCreate(v4, kCFNumberIntType, &v97);
   keys[3] = @"MaximumPackVoltage";
-  v97 = (byte_2815AEDF2 << 8) | byte_2815AEDF3;
-  v109[3] = CFNumberCreate(v4, kCFNumberIntType, &v97);
+  v96 = (byte_2815AEDF2 << 8) | byte_2815AEDF3;
+  v108[3] = CFNumberCreate(v4, kCFNumberIntType, &v96);
   keys[4] = @"MinimumPackVoltage";
-  v96 = (byte_2815AEDF4 << 8) | byte_2815AEDF5;
-  v109[4] = CFNumberCreate(v4, kCFNumberIntType, &v96);
+  v95 = (byte_2815AEDF4 << 8) | byte_2815AEDF5;
+  v108[4] = CFNumberCreate(v4, kCFNumberIntType, &v95);
   keys[5] = @"MaximumChargeCurrent";
-  v95 = (byte_2815AEDF6 << 8) | byte_2815AEDF7;
-  v109[5] = CFNumberCreate(v4, kCFNumberIntType, &v95);
+  v94 = (byte_2815AEDF6 << 8) | byte_2815AEDF7;
+  v108[5] = CFNumberCreate(v4, kCFNumberIntType, &v94);
   keys[6] = @"MaximumDischargeCurrent";
-  v94 = (byte_2815AEDF8 << 8) | byte_2815AEDF9;
-  v109[6] = CFNumberCreate(v4, kCFNumberIntType, &v94);
+  v93 = (byte_2815AEDF8 << 8) | byte_2815AEDF9;
+  v108[6] = CFNumberCreate(v4, kCFNumberIntType, &v93);
   keys[7] = @"MaximumOverChargedCapacity";
-  v93 = (byte_2815AEDFA << 8) | byte_2815AEDFB;
-  v109[7] = CFNumberCreate(v4, kCFNumberIntType, &v93);
+  v92 = (byte_2815AEDFA << 8) | byte_2815AEDFB;
+  v108[7] = CFNumberCreate(v4, kCFNumberIntType, &v92);
   keys[8] = @"MaximumOverDischargedCapacity";
-  v92 = (byte_2815AEDFC << 8) | byte_2815AEDFD;
-  v109[8] = CFNumberCreate(v4, kCFNumberIntType, &v92);
+  v91 = (byte_2815AEDFC << 8) | byte_2815AEDFD;
+  v108[8] = CFNumberCreate(v4, kCFNumberIntType, &v91);
   keys[9] = @"MaximumFCC";
-  v91 = (byte_2815AEDFE << 8) | byte_2815AEDFF;
-  v109[9] = CFNumberCreate(v4, kCFNumberIntType, &v91);
+  v90 = (byte_2815AEDFE << 8) | byte_2815AEDFF;
+  v108[9] = CFNumberCreate(v4, kCFNumberIntType, &v90);
   keys[10] = @"MinimumFCC";
-  v90 = (byte_2815AEE00 << 8) | byte_2815AEE01;
-  v109[10] = CFNumberCreate(v4, kCFNumberIntType, &v90);
+  v89 = (byte_2815AEE00 << 8) | byte_2815AEE01;
+  v108[10] = CFNumberCreate(v4, kCFNumberIntType, &v89);
   keys[11] = @"MaximumDeltaVoltage";
-  v89 = (byte_2815AEE02 << 8) | byte_2815AEE03;
-  v109[11] = CFNumberCreate(v4, kCFNumberIntType, &v89);
+  v88 = (byte_2815AEE02 << 8) | byte_2815AEE03;
+  v108[11] = CFNumberCreate(v4, kCFNumberIntType, &v88);
   keys[12] = @"MinimumDeltaVoltage";
-  v88 = (byte_2815AEE04 << 8) | byte_2815AEE05;
-  v109[12] = CFNumberCreate(v4, kCFNumberIntType, &v88);
+  v87 = (byte_2815AEE04 << 8) | byte_2815AEE05;
+  v108[12] = CFNumberCreate(v4, kCFNumberIntType, &v87);
   keys[13] = @"LowAvgCurrentLastRun";
-  v87 = (byte_2815AEE06 << 8) | byte_2815AEE07;
-  v109[13] = CFNumberCreate(v4, kCFNumberIntType, &v87);
+  v86 = (byte_2815AEE06 << 8) | byte_2815AEE07;
+  v108[13] = CFNumberCreate(v4, kCFNumberIntType, &v86);
   keys[14] = @"HighAvgCurrentLastRun";
-  v86 = (byte_2815AEE08 << 8) | byte_2815AEE09;
-  v109[14] = CFNumberCreate(v4, kCFNumberIntType, &v86);
+  v85 = (byte_2815AEE08 << 8) | byte_2815AEE09;
+  v108[14] = CFNumberCreate(v4, kCFNumberIntType, &v85);
   keys[15] = @"MaximumQmax";
-  v85 = (byte_2815AEE0A << 8) | byte_2815AEE0B;
-  v109[15] = CFNumberCreate(v4, kCFNumberIntType, &v85);
+  v84 = (byte_2815AEE0A << 8) | byte_2815AEE0B;
+  v108[15] = CFNumberCreate(v4, kCFNumberIntType, &v84);
   keys[16] = @"MinimumQmax";
-  v84 = (byte_2815AEE0C << 8) | byte_2815AEE0D;
-  v109[16] = CFNumberCreate(v4, kCFNumberIntType, &v84);
+  v83 = (byte_2815AEE0C << 8) | byte_2815AEE0D;
+  v108[16] = CFNumberCreate(v4, kCFNumberIntType, &v83);
   keys[17] = @"MaximumRa0-8";
-  v83 = (byte_2815AEE0E << 8) | byte_2815AEE0F;
-  v109[17] = CFNumberCreate(v4, kCFNumberIntType, &v83);
+  v82 = (byte_2815AEE0E << 8) | byte_2815AEE0F;
+  v108[17] = CFNumberCreate(v4, kCFNumberIntType, &v82);
   keys[18] = @"MinimumRa0-8";
-  v82 = (byte_2815AEE10 << 8) | byte_2815AEE11;
-  v109[18] = CFNumberCreate(v4, kCFNumberIntType, &v82);
+  v81 = (byte_2815AEE10 << 8) | byte_2815AEE11;
+  v108[18] = CFNumberCreate(v4, kCFNumberIntType, &v81);
   keys[19] = @"AverageTemperature";
-  v81 = byte_2815AEE12;
-  v109[19] = CFNumberCreate(v4, kCFNumberIntType, &v81);
+  v80 = byte_2815AEE12;
+  v108[19] = CFNumberCreate(v4, kCFNumberIntType, &v80);
   keys[20] = @"TemperatureSamples";
-  v80 = bswap32(unk_2815AEE13);
-  v109[20] = CFNumberCreate(v4, kCFNumberIntType, &v80);
+  v79 = bswap32(unk_2815AEE13);
+  v108[20] = CFNumberCreate(v4, kCFNumberIntType, &v79);
   keys[21] = @"FlashWriteCount";
-  v79 = __rev16(unk_2815AEE17);
-  *&v110 = CFNumberCreate(v4, kCFNumberIntType, &v79);
-  *&v106 = @"RDISCnt";
-  v78 = __rev16(unk_2815AEE19);
-  *(&v110 + 1) = CFNumberCreate(v4, kCFNumberIntType, &v78);
-  *(&v106 + 1) = @"CycleCountLastQmax";
-  v77 = byte_2815AEE1B;
-  *&v111 = CFNumberCreate(v4, kCFNumberIntType, &v77);
+  v78 = __rev16(unk_2815AEE17);
+  *&v109 = CFNumberCreate(v4, kCFNumberIntType, &v78);
+  *&v105 = @"RDISCnt";
+  v77 = __rev16(unk_2815AEE19);
+  *(&v109 + 1) = CFNumberCreate(v4, kCFNumberIntType, &v77);
+  *(&v105 + 1) = @"CycleCountLastQmax";
+  v76 = byte_2815AEE1B;
+  *&v110 = CFNumberCreate(v4, kCFNumberIntType, &v76);
   if (word_2815AEDB6 < 0x501u)
   {
     if (word_2815AEDB6 < 0x313u)
     {
-      v24 = &v107;
-      v25 = &v111 + 8;
+      v24 = &v106;
+      v25 = &v110 + 8;
       v26 = 25;
       goto LABEL_12;
     }
@@ -5203,24 +5085,24 @@ CFDictionaryRef parseBatteryData(int a1, int a2)
   }
 
   v22 = __rev16(*v21);
-  *&v107 = @"TotalOperatingTime";
-  v76 = v22;
-  *(&v111 + 1) = CFNumberCreate(v4, kCFNumberIntType, &v76);
+  *&v106 = @"TotalOperatingTime";
+  v75 = v22;
+  *(&v110 + 1) = CFNumberCreate(v4, kCFNumberIntType, &v75);
   v23 = *(v21 + 2);
-  *(&v107 + 1) = @"TimeAbove95Perc";
-  v75 = v23;
-  v24 = &v108;
-  v25 = &v112 + 8;
-  *&v112 = CFNumberCreate(v4, kCFNumberIntType, &v75);
+  *(&v106 + 1) = @"TimeAbove95Perc";
+  v74 = v23;
+  v24 = &v107;
+  v25 = &v111 + 8;
+  *&v111 = CFNumberCreate(v4, kCFNumberIntType, &v74);
   v26 = 27;
 LABEL_12:
   *v24 = @"Raw";
   *v25 = CFDataCreate(v4, &byte_2815AEDEE, 64);
-  v27 = CFDictionaryCreate(v4, keys, v109, v26, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
+  v27 = CFDictionaryCreate(v4, keys, v108, v26, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
   v28 = v26 - 1;
   do
   {
-    CFRelease(v109[v28]);
+    CFRelease(v108[v28]);
     v29 = v28-- + 1;
   }
 
@@ -5236,14 +5118,14 @@ LABEL_12:
       }
 
 LABEL_21:
-      v64 = word_2815AEDC8;
-      v103[v20] = CFNumberCreate(v4, kCFNumberIntType, &v64);
-      v101[v20] = @"ITMiscStatus";
-      v63 = word_2815AEDC8 & 3;
-      v30 = CFNumberCreate(v4, kCFNumberIntType, &v63);
+      v63 = word_2815AEDC8;
+      v102[v20] = CFNumberCreate(v4, kCFNumberIntType, &v63);
+      v100[v20] = @"ITMiscStatus";
+      v62 = word_2815AEDC8 & 3;
+      v30 = CFNumberCreate(v4, kCFNumberIntType, &v62);
       v31 = 8 * v20 + 8;
-      *(v103 + v31) = v30;
-      *(v101 + v31) = @"ITSimulationCounter";
+      *(v102 + v31) = v30;
+      *(v100 + v31) = @"ITSimulationCounter";
       v20 += 2;
       goto LABEL_22;
     }
@@ -5262,8 +5144,8 @@ LABEL_20:
     CFShow(v27);
   }
 
-  v103[v20] = v27;
-  v101[v20++] = @"LifetimeData";
+  v102[v20] = v27;
+  v100[v20++] = @"LifetimeData";
   if (a1)
   {
     goto LABEL_21;
@@ -5275,24 +5157,24 @@ LABEL_22:
     *&valuePtr[4] = CFDataCreate(v4, &word_2815AEE2E, 32);
     if (*&valuePtr[4])
     {
-      v103[v20] = CFArrayCreate(v4, &valuePtr[4], 1, MEMORY[0x277CBF128]);
-      v101[v20++] = @"RaTableRaw";
+      v102[v20] = CFArrayCreate(v4, &valuePtr[4], 1, MEMORY[0x277CBF128]);
+      v100[v20++] = @"RaTableRaw";
       CFRelease(*&valuePtr[4]);
     }
 
-    v62 = word_2815AEE84;
-    v103[v20] = CFNumberCreate(v4, kCFNumberIntType, &v62);
-    v101[v20] = @"WeightedRa";
-    v61 = word_2815AEE86;
-    v32 = CFNumberCreate(v4, kCFNumberIntType, &v61);
+    v61 = word_2815AEE84;
+    v102[v20] = CFNumberCreate(v4, kCFNumberIntType, &v61);
+    v100[v20] = @"WeightedRa";
+    v60 = word_2815AEE86;
+    v32 = CFNumberCreate(v4, kCFNumberIntType, &v60);
     v33 = 8 * v20 + 8;
-    *(v103 + v33) = v32;
-    *(v101 + v33) = @"ChemicalWeightedRa";
-    v60 = dword_2815AEE80;
-    v34 = CFNumberCreate(v4, kCFNumberIntType, &v60);
+    *(v102 + v33) = v32;
+    *(v100 + v33) = @"ChemicalWeightedRa";
+    v59 = dword_2815AEE80;
+    v34 = CFNumberCreate(v4, kCFNumberIntType, &v59);
     v35 = 8 * v20 + 16;
-    *(v103 + v35) = v34;
-    *(v101 + v35) = @"BatteryHealthMetric";
+    *(v102 + v35) = v34;
+    *(v100 + v35) = @"BatteryHealthMetric";
     v36 = v20 + 3;
     if (word_2815AEDB6 < 0x600u)
     {
@@ -5301,68 +5183,68 @@ LABEL_22:
 
     else
     {
-      v103[v36] = CFDataCreate(v4, byte_2815AEE4E, 32);
-      v101[v36] = @"iMaxAndSocSmoothTable";
-      v59 = __rev16(*&byte_2815AEE4E[1]);
-      v37 = CFNumberCreate(v4, kCFNumberIntType, &v59);
+      v102[v36] = CFDataCreate(v4, xmmword_2815AEE4E, 32);
+      v100[v36] = @"iMaxAndSocSmoothTable";
+      v58 = __rev16(*(xmmword_2815AEE4E + 1));
+      v37 = CFNumberCreate(v4, kCFNumberIntType, &v58);
       v38 = 8 * v20 + 32;
-      *(v103 + v38) = v37;
-      *(v101 + v38) = @"RSS";
+      *(v102 + v38) = v37;
+      *(v100 + v38) = @"RSS";
       v20 += 5;
     }
   }
 
-  v58 = word_2815AEDCC;
-  v103[v20] = CFNumberCreate(v4, kCFNumberIntType, &v58);
-  v101[v20] = @"ResScale";
-  v57 = word_2815AEDCE;
-  v39 = CFNumberCreate(v4, kCFNumberIntType, &v57);
+  v57 = word_2815AEDCC;
+  v102[v20] = CFNumberCreate(v4, kCFNumberIntType, &v57);
+  v100[v20] = @"ResScale";
+  v56 = word_2815AEDCE;
+  v39 = CFNumberCreate(v4, kCFNumberIntType, &v56);
   v40 = 8 * v20 + 8;
-  *(v103 + v40) = v39;
-  *(v101 + v40) = @"Qstart";
-  v56 = word_2815AEDD0;
-  v41 = CFNumberCreate(v4, kCFNumberIntType, &v56);
+  *(v102 + v40) = v39;
+  *(v100 + v40) = @"Qstart";
+  v55 = word_2815AEDD0;
+  v41 = CFNumberCreate(v4, kCFNumberIntType, &v55);
   v42 = 8 * v20 + 16;
-  *(v103 + v42) = v41;
-  *(v101 + v42) = @"PassedCharge";
+  *(v102 + v42) = v41;
+  *(v100 + v42) = @"PassedCharge";
   v43 = v20 + 3;
-  v55 = word_2815AEDD2;
-  values = CFNumberCreate(v4, kCFNumberIntType, &v55);
+  v54 = word_2815AEDD2;
+  values = CFNumberCreate(v4, kCFNumberIntType, &v54);
   if (values)
   {
-    v103[v43] = CFArrayCreate(v4, &values, 1, MEMORY[0x277CBF128]);
-    v101[v43] = @"DOD0";
+    v102[v43] = CFArrayCreate(v4, &values, 1, MEMORY[0x277CBF128]);
+    v100[v43] = @"DOD0";
     v43 = v20 + 4;
     CFRelease(values);
   }
 
-  v54 = word_2815AEDCA;
-  values = CFNumberCreate(v4, kCFNumberIntType, &v54);
+  v53 = word_2815AEDCA;
+  values = CFNumberCreate(v4, kCFNumberIntType, &v53);
   if (values)
   {
-    v103[v43] = CFArrayCreate(v4, &values, 1, MEMORY[0x277CBF128]);
-    v101[v43++] = @"PresentDOD";
+    v102[v43] = CFArrayCreate(v4, &values, 1, MEMORY[0x277CBF128]);
+    v100[v43++] = @"PresentDOD";
     CFRelease(values);
   }
 
-  v53 = word_2815AEDEA;
-  v103[v43] = CFNumberCreate(v4, kCFNumberIntType, &v53);
-  v101[v43] = @"GaugeFlagRaw";
-  v52 = gauge_reset_count;
-  v44 = CFNumberCreate(v4, kCFNumberLongLongType, &v52);
+  v52 = word_2815AEDEA;
+  v102[v43] = CFNumberCreate(v4, kCFNumberIntType, &v52);
+  v100[v43] = @"GaugeFlagRaw";
+  v51 = gauge_reset_count;
+  v44 = CFNumberCreate(v4, kCFNumberLongLongType, &v51);
   v45 = 8 * v43 + 8;
-  *(v103 + v45) = v44;
-  *(v101 + v45) = @"GaugeResetCounter";
+  *(v102 + v45) = v44;
+  *(v100 + v45) = @"GaugeResetCounter";
   if (v43 >= 27)
   {
     parseBatteryData_cold_2();
   }
 
-  v46 = CFDictionaryCreate(v4, v101, v103, v43 + 2, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
+  v46 = CFDictionaryCreate(v4, v100, v102, v43 + 2, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
   if (v43 >= -1)
   {
     v47 = v43 + 3;
-    v48 = &v103[v43 + 1];
+    v48 = &v102[v43 + 1];
     do
     {
       v49 = *v48--;
@@ -5373,7 +5255,6 @@ LABEL_22:
     while (v47 > 1);
   }
 
-  v50 = *MEMORY[0x277D85DE8];
   return v46;
 }
 
@@ -5428,19 +5309,9 @@ void OUTLINED_FUNCTION_4(void *a1, int a2, os_log_t log, const char *a4, uint8_t
 
 void ggctl_connect_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_7();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void ggctl_connect_cold_2()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void ggctl_reset_cold_1()
@@ -5452,12 +5323,10 @@ void ggctl_reset_cold_1()
 
 void ggctl_open_device_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x18u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void ggctl_open_device_cold_2()
@@ -5476,21 +5345,17 @@ void ggctl_open_device_cold_3()
 
 void ggctl_open_device_cold_4()
 {
-  v7 = *MEMORY[0x277D85DE8];
   v0 = __error();
   strerror(*v0);
   OUTLINED_FUNCTION_6();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void logBatteryDiagnosticData_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void updateThread_cold_1()
@@ -5502,30 +5367,24 @@ void updateThread_cold_1()
 
 void updateThread_cold_2(mach_error_t a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
   mach_error_string(a1);
   OUTLINED_FUNCTION_6();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void updateThread_cold_3()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_7();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void updateThread_cold_4()
 {
-  v7 = *MEMORY[0x277D85DE8];
   v0 = __error();
   strerror(*v0);
   OUTLINED_FUNCTION_6();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void updateThread_cold_8(uint8_t *buf, _DWORD *a2, os_log_t log)
@@ -5544,104 +5403,76 @@ void updateThread_cold_10()
 
 void EnableFullSleepForRevCOrLater_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x18u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void EnableFullSleepForRevCOrLater_cold_2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x18u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void EnableFullSleepForRevCOrLater_cold_3()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void EnableFullSleepForRevCOrLater_cold_4()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_7();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void EnableFullSleepForRevCOrLater_cold_5()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_7();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void updateThermalCoolDownState_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void statsAndLogs_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x18u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void statsAndLogs_cold_2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void debugLog_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x18u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void debugLog_cold_2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void dynamicATV_cold_1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void parseBatteryData_cold_1()

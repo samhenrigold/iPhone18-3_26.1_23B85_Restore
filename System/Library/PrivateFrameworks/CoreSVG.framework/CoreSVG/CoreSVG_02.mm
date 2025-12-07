@@ -1,6 +1,128 @@
-void sub_1DF12DBF0(_Unwind_Exception *a1, uint64_t a2, ...)
+void ApplyCGSVGAttributes(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  va_start(va, a2);
+  v6 = *a1;
+  Attribute = CGSVGAttributeMapGetAttribute(a2, 0x13);
+  if (Attribute)
+  {
+    v25 = 1.0;
+    Float = CGSVGAttributeGetFloat(Attribute, &v25);
+    if (Float)
+    {
+      *(*(a1 + 40) - 96) = SVGUtilities::CGFloatClamp(Float, v25, 0.0, 1.0) * *(*(a1 + 40) - 96);
+    }
+  }
+
+  v9 = CGSVGAttributeMapGetAttribute(a2, 0x3A);
+  if (v9)
+  {
+    v25 = 1.0;
+    v10 = CGSVGAttributeGetFloat(v9, &v25);
+    if (v10)
+    {
+      *(*(a1 + 40) - 88) = SVGUtilities::CGFloatClamp(v10, v25, 0.0, 1.0) * *(*(a1 + 40) - 88);
+    }
+  }
+
+  v11 = CGSVGAttributeMapGetAttribute(a2, 0xC);
+  if (v11)
+  {
+    v13 = v11;
+    FloatCount = CGSVGAttributeGetFloatCount(v11, v12);
+    if (FloatCount)
+    {
+      v15 = FloatCount;
+      v16 = malloc_type_malloc(8 * FloatCount, 0x100004000313F17uLL);
+      CGSVGAttributeGetFloats(v13, v16);
+      v25 = 0.0;
+      v17 = CGSVGAttributeMapGetAttribute(a2, 0xD);
+      if (v17)
+      {
+        CGSVGAttributeGetFloat(v17, &v25);
+        v18 = v25;
+      }
+
+      else
+      {
+        v18 = 0.0;
+      }
+
+      CGContextSetLineDash(*a1, v18, v16, v15);
+      free(v16);
+    }
+  }
+
+  v25 = 0.0;
+  v26 = &v25;
+  v27 = 0x2000000000;
+  v28 = 0;
+  v24[0] = MEMORY[0x1E69E9820];
+  v24[1] = 0x40000000;
+  v24[2] = ___ZL20ApplyCGSVGAttributesP21CGSVGDrawStateContextP17CGSVGAttributeMapP9CGSVGNode_block_invoke;
+  v24[3] = &unk_1E86AAB08;
+  v24[6] = a1;
+  v24[7] = a3;
+  v24[4] = &v25;
+  v24[5] = v6;
+  CGSVGAttributeMapEnumerate(a2, v24);
+  if (*(v26 + 24) == 1)
+  {
+    if (!a3)
+    {
+      v22 = (a1 + 40);
+LABEL_19:
+      CGContextBeginTransparencyLayer(v6, 0);
+      *(*v22 - 72) = 1;
+      goto LABEL_20;
+    }
+
+    Type = CGSVGNodeGetType(a3, v19);
+    v23 = *(a1 + 40);
+    v22 = (a1 + 40);
+    v21 = v23;
+    if (Type != 2 || (*(v21 - 216) & *(v21 - 215) & 1) != 0)
+    {
+      goto LABEL_19;
+    }
+  }
+
+LABEL_20:
+  _Block_object_dispose(&v25, 8);
+}
+
+void sub_1DF12DB2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+{
+  va_start(va, a16);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void PushSVGNodeAttributes(uint64_t a1, uint64_t a2)
+{
+  CGContextSaveGState(*a1);
+  CGSVGDrawState::CGSVGDrawState(v8, (*(a1 + 40) - 216));
+  v8[144] = 0;
+  v4 = *(a1 + 40);
+  if (v4 >= *(a1 + 48))
+  {
+    v6 = std::vector<CGSVGDrawState>::__emplace_back_slow_path<CGSVGDrawState const&>(a1 + 32, v8);
+  }
+
+  else
+  {
+    CGSVGDrawState::CGSVGDrawState(*(a1 + 40), v8);
+    v6 = v4 + 216;
+    *(a1 + 40) = v4 + 216;
+  }
+
+  *(a1 + 40) = v6;
+  AttributeMap = CGSVGNodeGetAttributeMap(a2, v5);
+  ApplyCGSVGAttributes(a1, AttributeMap, a2);
+  CGSVGDrawState::~CGSVGDrawState(v8);
+}
+
+void sub_1DF12DBF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va, a3);
   CGSVGDrawState::~CGSVGDrawState(va);
   _Unwind_Resume(a1);
 }
@@ -82,7 +204,7 @@ void ___ZL20ApplyCGSVGAttributesP21CGSVGDrawStateContextP17CGSVGAttributeMapP9CG
           v46.a = 0.0;
           if (CGSVGAttributeGetPaint(a3, &v46) && CGSVGPaintGetType(*&v46.a, v36) == 1)
           {
-            CGSVGPaintGetColor(*&v46.a, v37, &width);
+            CGSVGPaintGetColor(*&v46.a, &width, v37);
             v38 = *(*(a1 + 48) + 40);
             v39 = *&width.a;
             v40 = *&width.c;
@@ -609,9 +731,9 @@ uint64_t std::vector<CGSVGDrawState>::__emplace_back_slow_path<CGSVGDrawState co
   return v12;
 }
 
-void sub_1DF12E8B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_1DF12E8B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<CGSVGDrawState>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -917,7 +1039,7 @@ LABEL_24:
               v40 = CreateColorForNode(v3, 0x12);
               CGSVGDrawState::CGSVGDrawState(y, x);
               valuePtr = y[0].c / 400.0 + -1.0;
-              SVGUtilities::StringWithCFString(v199, &matrix);
+              SVGUtilities::StringWithCFString(&matrix, v199);
               v187 = v40;
               v190 = v3;
               if (matrix.c >= 0.0)
@@ -1638,21 +1760,21 @@ CGColorRef CreateColorForNode(uint64_t a1, const char *a2)
     return 0;
   }
 
-  CGSVGPaintGetColor(v7, v4, v6);
+  CGSVGPaintGetColor(v7, v6, v4);
   return CGSVGColorCreateCGColor(v6);
 }
 
-void *std::vector<unsigned short>::vector[abi:ne200100](void *result, uint64_t a2)
+uint64_t *std::vector<unsigned short>::vector[abi:ne200100](uint64_t *a1, uint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<unsigned short>::__vallocate[abi:ne200100](result, a2);
+    std::vector<unsigned short>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_1DF12FFD8(_Unwind_Exception *exception_object)
@@ -1667,7 +1789,7 @@ void sub_1DF12FFD8(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<unsigned short>::__vallocate[abi:ne200100](uint64_t a1, uint64_t a2)
+void std::vector<unsigned short>::__vallocate[abi:ne200100](uint64_t *a1, uint64_t a2)
 {
   if ((a2 & 0x8000000000000000) == 0)
   {
@@ -1687,7 +1809,7 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<unsigned short>>(uint
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-uint64_t std::vector<unsigned short>::__init_with_size[abi:ne200100]<unsigned short const*,unsigned short const*>(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t *std::vector<unsigned short>::__init_with_size[abi:ne200100]<unsigned short const*,unsigned short const*>(uint64_t *result, __int16 *a2, __int16 *a3, uint64_t a4)
 {
   if (a4)
   {
@@ -1709,17 +1831,17 @@ void sub_1DF1300C8(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void *std::vector<CGPoint>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<CGPoint>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<CGPoint>::__vallocate[abi:ne200100](result, a2);
+    std::vector<CGPoint>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_1DF130140(_Unwind_Exception *exception_object)
@@ -1734,7 +1856,7 @@ void sub_1DF130140(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<CGPoint>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<CGPoint>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 60))
   {
@@ -1744,7 +1866,7 @@ void std::vector<CGPoint>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
   std::vector<double>::__throw_length_error[abi:ne200100]();
 }
 
-uint64_t std::vector<CGPoint>::__init_with_size[abi:ne200100]<CGPoint const*,CGPoint const*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<CGPoint>::__init_with_size[abi:ne200100]<CGPoint const*,CGPoint const*>(uint64_t *result, __int128 *a2, __int128 *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -1821,27 +1943,26 @@ void std::vector<CGSVGDrawState>::__destroy_vector::operator()[abi:ne200100](voi
   }
 }
 
-void *std::__split_buffer<CGSVGNode *>::emplace_back<CGSVGNode *>(void *result, void *a2)
+void std::__split_buffer<CGSVGNode *>::emplace_back<CGSVGNode *>(unint64_t *a1, void *a2)
 {
-  v3 = result;
-  v4 = result[2];
-  if (v4 == result[3])
+  v4 = a1[2];
+  if (v4 == a1[3])
   {
-    v5 = result[1];
-    v6 = &v5[-*result];
-    if (v5 <= *result)
+    v5 = a1[1];
+    v6 = &v5[-*a1];
+    if (v5 <= *a1)
     {
-      if (v4 == *result)
+      if (v4 == *a1)
       {
         v11 = 1;
       }
 
       else
       {
-        v11 = &v4[-*result] >> 2;
+        v11 = &v4[-*a1] >> 2;
       }
 
-      std::__allocate_at_least[abi:ne200100]<std::allocator<SVGPathCommand *>>(result[4], v11);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<SVGPathCommand *>>(a1[4], v11);
     }
 
     v7 = ((v6 >> 3) + 1) / -2;
@@ -1850,18 +1971,17 @@ void *std::__split_buffer<CGSVGNode *>::emplace_back<CGSVGNode *>(void *result, 
     v10 = v4 - v5;
     if (v4 != v5)
     {
-      result = memmove(&v5[-8 * v8], v5, v4 - v5);
-      v5 = v3[1];
+      memmove(&v5[-8 * v8], v5, v4 - v5);
+      v5 = a1[1];
     }
 
     v4 = &v9[v10];
-    v3[1] = &v5[8 * v7];
-    v3[2] = &v9[v10];
+    a1[1] = &v5[8 * v7];
+    a1[2] = &v9[v10];
   }
 
   *v4 = *a2;
-  v3[2] += 8;
-  return result;
+  a1[2] += 8;
 }
 
 uint64_t std::vector<CGSVGDrawState>::__emplace_back_slow_path<CGSVGDrawState>(uint64_t a1, const CGSVGDrawState *a2)
@@ -1914,9 +2034,9 @@ uint64_t std::vector<CGSVGDrawState>::__emplace_back_slow_path<CGSVGDrawState>(u
   return v12;
 }
 
-void sub_1DF1305CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_1DF1305CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<CGSVGDrawState>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -2001,9 +2121,9 @@ void CGSVGFilterRelease(CFTypeRef cf)
   }
 }
 
-void SVGImage::SVGImage(SVGImage *this)
+void SVGImage::SVGImage(SVGImage *this, char a2)
 {
-  v2 = 5;
+  v3 = 5;
   strcpy(__p, "image");
   SVGViewBoxNode::SVGViewBoxNode(this, __p);
 }
@@ -2018,13 +2138,13 @@ void sub_1DF1308BC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void SVGImage::SVGImage(SVGImage *this, SVGDocument *a2)
+void SVGImage::SVGImage(SVGImage *this, CFTypeRef *a2)
 {
-  SVGImage::SVGImage(this);
+  SVGImage::SVGImage(this, 0);
 }
 
 {
-  SVGImage::SVGImage(this);
+  SVGImage::SVGImage(this, 0);
 }
 
 void SVGImage::~SVGImage(SVGImage *this)
@@ -2049,7 +2169,7 @@ void SVGImage::~SVGImage(SVGImage *this)
 
   CGPathRelease(*(this + 39));
 
-  SVGMask::~SVGMask(this);
+  SVGMask::~SVGMask(this, v4);
 }
 
 {
@@ -2060,11 +2180,11 @@ void SVGImage::~SVGImage(SVGImage *this)
 
 void SVGImage::SVGImage(SVGImage *this, CGImage *a2)
 {
-  SVGImage::SVGImage(this);
+  SVGImage::SVGImage(this, 0);
 }
 
 {
-  SVGImage::SVGImage(this);
+  SVGImage::SVGImage(this, 0);
 }
 
 BOOL SVGImage::rasterImage(SVGImage *this, CGImage **a2)
@@ -2251,7 +2371,7 @@ uint64_t SVGImage::updatedSpecificAttribute(uint64_t a1, int a2, SVGAttribute *t
     }
 
 LABEL_14:
-    v11 = SVGAtom::ToString(0x4E20u);
+    v11 = SVGAtom::ToString(20000);
     SVGUtilities::error("Failed to parse %s for node name svg", v12, v11);
     return 1;
   }
@@ -2336,7 +2456,7 @@ void sub_1DF131328(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void *CGSVGPaintCreateWithGradient(uint64_t a1, const char *a2)
+SVGGradient *CGSVGPaintCreateWithGradient(uint64_t a1, const char *a2)
 {
   result = CFRetained::getObject<SVGGradient>(a1, a2);
   if (result)
@@ -2347,7 +2467,7 @@ void *CGSVGPaintCreateWithGradient(uint64_t a1, const char *a2)
   return result;
 }
 
-void *CGSVGPaintCreateWithPattern(uint64_t a1, const char *a2)
+SVGPattern *CGSVGPaintCreateWithPattern(uint64_t a1, const char *a2)
 {
   result = CFRetained::getObject<SVGPattern>(a1, a2);
   if (result)
@@ -2446,15 +2566,15 @@ double *CGSVGPaintSetOpacity(uint64_t a1, const char *a2, double a3)
   return result;
 }
 
-void CGSVGPaintGetColor(uint64_t a1@<X0>, const char *a2@<X1>, uint64_t a3@<X8>)
+void CGSVGPaintGetColor(uint64_t a1@<X0>, uint64_t a2@<X8>, const char *a3@<X1>)
 {
-  *(a3 + 32) = 0;
-  *a3 = 0u;
-  *(a3 + 16) = 0u;
-  CGSVGPaintGetColorAllowUntagged(a1, a2, a3);
-  if (*(a3 + 32) == 3)
+  *(a2 + 32) = 0;
+  *a2 = 0u;
+  *(a2 + 16) = 0u;
+  CGSVGPaintGetColorAllowUntagged(a1, a3, a2);
+  if (*(a2 + 32) == 3)
   {
-    *(a3 + 32) = 0;
+    *(a2 + 32) = 0;
   }
 }
 
@@ -2720,6 +2840,21 @@ void sub_1DF131E0C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
+void SVGGradient::SVGGradient(void *a1, int a2, const char *a3)
+{
+  if (a2)
+  {
+    v3 = 48;
+  }
+
+  else
+  {
+    v3 = 33;
+  }
+
+  SVGNode::SVGNode(a1, v3);
+}
+
 void sub_1DF131F1C(_Unwind_Exception *a1, CFRetained *a2)
 {
   v5 = *v3;
@@ -2793,124 +2928,125 @@ void SVGGradient::~SVGGradient(SVGGradient *this, CFRetained *a2)
   JUMPOUT(0x1E12CE5D0);
 }
 
-void SVGGradient::updatedAttributes(SVGGradient *this, SVGAttributeMap *a2)
+void SVGGradient::updatedAttributes(SVGGradient *this, SVGAttributeMap *a2, double a3, __n128 a4)
 {
-  v48 = 0;
-  v49 = &v48;
-  v50 = 0x4802000000;
-  v51 = __Block_byref_object_copy__1;
-  v52 = __Block_byref_object_dispose__1;
-  memset(v53, 0, sizeof(v53));
-  CGSVGPointMake(v53, 0.0, 0.0);
-  v42 = 0;
-  v43 = &v42;
-  v44 = 0x4802000000;
-  v45 = __Block_byref_object_copy__1;
-  v46 = __Block_byref_object_dispose__1;
-  memset(v47, 0, sizeof(v47));
-  CGSVGPointMakeWithTypes(1, 1, v47, 100.0, 0.0);
-  v36 = 0;
-  v37 = &v36;
-  v38 = 0x4802000000;
-  v39 = __Block_byref_object_copy__1;
-  v40 = __Block_byref_object_dispose__1;
-  memset(v41, 0, sizeof(v41));
-  CGSVGPointMakeWithTypes(1, 1, v41, 50.0, 50.0);
-  v34[0] = 0;
-  v34[1] = v34;
-  v34[2] = 0x4802000000;
-  v34[3] = __Block_byref_object_copy__1;
-  v34[4] = __Block_byref_object_dispose__1;
-  memset(v35, 0, sizeof(v35));
-  CGSVGPointMakeWithTypes(1, 1, v35, 50.0, 50.0);
-  v27 = 0;
-  v28 = &v27;
-  v29 = 0x3802000000;
-  v30 = __Block_byref_object_copy__2;
-  v32 = 0;
-  v33 = 0;
-  v31 = __Block_byref_object_dispose__3;
+  v50 = 0;
+  v51 = &v50;
+  v52 = 0x4802000000;
+  v53 = __Block_byref_object_copy__1;
+  v54 = __Block_byref_object_dispose__1;
+  memset(v55, 0, sizeof(v55));
+  CGSVGPointMake(v55, 0.0, 0.0);
+  v44 = 0;
+  v45 = &v44;
+  v46 = 0x4802000000;
+  v47 = __Block_byref_object_copy__1;
+  v48 = __Block_byref_object_dispose__1;
+  memset(v49, 0, sizeof(v49));
+  CGSVGPointMakeWithTypes(1, 1, v49, 100.0, 0.0);
+  v38 = 0;
+  v39 = &v38;
+  v40 = 0x4802000000;
+  v41 = __Block_byref_object_copy__1;
+  v42 = __Block_byref_object_dispose__1;
+  memset(v43, 0, sizeof(v43));
+  CGSVGPointMakeWithTypes(1, 1, v43, 50.0, 50.0);
+  v36[0] = 0;
+  v36[1] = v36;
+  v36[2] = 0x4802000000;
+  v36[3] = __Block_byref_object_copy__1;
+  v36[4] = __Block_byref_object_dispose__1;
+  memset(v37, 0, sizeof(v37));
+  CGSVGPointMakeWithTypes(1, 1, v37, 50.0, 50.0);
+  v29 = 0;
+  v30 = &v29;
+  v31 = 0x3802000000;
+  v32 = __Block_byref_object_copy__2;
+  v34 = 0;
+  v35 = 0;
+  v33 = __Block_byref_object_dispose__3;
   CGSVGLengthMakeWithType();
-  v32 = v4;
-  v33 = v5;
-  v19 = 0;
-  v20 = &v19;
-  v21 = 0x5802000000;
-  v22 = __Block_byref_object_copy__4;
-  v6 = *(MEMORY[0x1E695EFD0] + 16);
-  v24 = *MEMORY[0x1E695EFD0];
-  v23 = __Block_byref_object_dispose__5;
-  v25 = v6;
-  v26 = *(MEMORY[0x1E695EFD0] + 32);
-  v15 = 0;
-  v16 = &v15;
-  v17 = 0x2000000000;
-  v18 = 0;
-  v14[0] = MEMORY[0x1E69E9820];
-  v14[1] = 0x40000000;
-  v14[2] = ___ZN11SVGGradient17updatedAttributesEP15SVGAttributeMap_block_invoke;
-  v14[3] = &unk_1E86AAB50;
-  v14[4] = &v48;
-  v14[5] = &v42;
-  v14[6] = &v36;
-  v14[7] = v34;
-  v14[8] = &v27;
-  v14[9] = &v19;
-  v14[10] = &v15;
-  SVGAttributeMap::enumerate(a2, v14);
-  v7 = *(v49 + 7);
-  *(this + 15) = *(v49 + 5);
-  *(this + 16) = v7;
-  v8 = *(v43 + 7);
-  *(this + 17) = *(v43 + 5);
-  *(this + 18) = v8;
-  v9 = *(v37 + 7);
-  *(this + 19) = *(v37 + 5);
-  *(this + 20) = v9;
-  *(this + 23) = *(v28 + 5);
+  v34 = v6;
+  v35 = v7;
+  v21 = 0;
+  v22 = &v21;
+  v23 = 0x5802000000;
+  v24 = __Block_byref_object_copy__4;
+  v8 = *(MEMORY[0x1E695EFD0] + 16);
+  v26 = *MEMORY[0x1E695EFD0];
+  v25 = __Block_byref_object_dispose__5;
+  v27 = v8;
+  v28 = *(MEMORY[0x1E695EFD0] + 32);
+  v17 = 0;
+  v18 = &v17;
+  v19 = 0x2000000000;
+  v20 = 0;
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 0x40000000;
+  v16[2] = ___ZN11SVGGradient17updatedAttributesEP15SVGAttributeMap_block_invoke;
+  v16[3] = &unk_1E86AAB50;
+  v16[4] = &v50;
+  v16[5] = &v44;
+  v16[6] = &v38;
+  v16[7] = v36;
+  v16[8] = &v29;
+  v16[9] = &v21;
+  v16[10] = &v17;
+  SVGAttributeMap::enumerate(a2, v16);
+  v9 = *(v51 + 7);
+  *(this + 15) = *(v51 + 5);
+  *(this + 16) = v9;
+  v10 = *(v45 + 7);
+  *(this + 17) = *(v45 + 5);
+  *(this + 18) = v10;
+  v11 = *(v39 + 7);
+  *(this + 19) = *(v39 + 5);
+  *(this + 20) = v11;
+  *(this + 23) = *(v30 + 5);
   if (SVGAttributeMap::hasAttribute(a2, 0x1Au))
   {
-    v10 = v34;
+    v12 = v36;
   }
 
   else
   {
-    v10 = &v36;
+    v12 = &v38;
   }
 
-  *(this + 21) = *(v10[1] + 40);
+  *(this + 21) = *(v12[1] + 40);
   if (SVGAttributeMap::hasAttribute(a2, 0x1Bu))
   {
-    v11 = v34;
+    v13 = v36;
   }
 
   else
   {
-    v11 = &v36;
+    v13 = &v38;
   }
 
-  *(this + 22) = *(v11[1] + 56);
-  v12 = *(v20 + 9);
-  v13 = *(v20 + 5);
-  *(this + 408) = *(v20 + 7);
-  *(this + 424) = v12;
-  *(this + 392) = v13;
-  *(this + 96) = *(v16 + 6);
-  _Block_object_dispose(&v15, 8);
-  _Block_object_dispose(&v19, 8);
-  _Block_object_dispose(&v27, 8);
-  _Block_object_dispose(v34, 8);
-  _Block_object_dispose(&v36, 8);
-  _Block_object_dispose(&v42, 8);
-  _Block_object_dispose(&v48, 8);
+  *(this + 22) = *(v13[1] + 56);
+  v14 = *(v22 + 9);
+  v15 = *(v22 + 5);
+  *(this + 408) = *(v22 + 7);
+  *(this + 424) = v14;
+  *(this + 392) = v15;
+  *(this + 96) = *(v18 + 6);
+  _Block_object_dispose(&v17, 8);
+  _Block_object_dispose(&v21, 8);
+  _Block_object_dispose(&v29, 8);
+  _Block_object_dispose(v36, 8);
+  _Block_object_dispose(&v38, 8);
+  _Block_object_dispose(&v44, 8);
+  _Block_object_dispose(&v50, 8);
 }
 
-void sub_1DF1325B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, char a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, char a52)
+void sub_1DF1325B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, ...)
 {
+  va_start(va, a51);
   _Block_object_dispose(&a43, 8);
-  _Block_object_dispose(&a52, 8);
-  _Block_object_dispose((v52 - 208), 8);
-  _Block_object_dispose((v52 - 136), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v51 - 208), 8);
+  _Block_object_dispose((v51 - 136), 8);
   _Unwind_Resume(a1);
 }
 
@@ -2939,7 +3075,7 @@ __n128 __Block_byref_object_copy__4(uint64_t a1, uint64_t a2)
   return result;
 }
 
-void ___ZN11SVGGradient17updatedAttributesEP15SVGAttributeMap_block_invoke(void *a1, int a2, os_unfair_lock_s *this)
+void ___ZN11SVGGradient17updatedAttributesEP15SVGAttributeMap_block_invoke(void *result, int a2, os_unfair_lock_s *this)
 {
   os_unfair_lock_opaque = this[12]._os_unfair_lock_opaque;
   if (os_unfair_lock_opaque <= 67)
@@ -2953,17 +3089,17 @@ void ___ZN11SVGGradient17updatedAttributesEP15SVGAttributeMap_block_invoke(void 
           return;
         }
 
-        v6 = a1[6];
+        v6 = result[6];
         goto LABEL_30;
       }
 
-      v7 = a1[6];
+      v7 = result[6];
       goto LABEL_28;
     }
 
     if (os_unfair_lock_opaque == 26)
     {
-      v7 = a1[7];
+      v7 = result[7];
       goto LABEL_28;
     }
 
@@ -2974,11 +3110,11 @@ void ___ZN11SVGGradient17updatedAttributesEP15SVGAttributeMap_block_invoke(void 
         return;
       }
 
-      v7 = a1[8];
+      v7 = result[8];
       goto LABEL_28;
     }
 
-    v6 = a1[7];
+    v6 = result[7];
 LABEL_30:
     v10 = *(v6 + 8) + 56;
 LABEL_31:
@@ -2995,13 +3131,13 @@ LABEL_31:
     switch(os_unfair_lock_opaque)
     {
       case 'D':
-        v7 = a1[4];
+        v7 = result[4];
         break;
       case 'E':
-        v7 = a1[5];
+        v7 = result[5];
         break;
       case 'G':
-        v6 = a1[4];
+        v6 = result[4];
         goto LABEL_30;
       default:
         return;
@@ -3014,13 +3150,13 @@ LABEL_28:
 
   if (os_unfair_lock_opaque == 72)
   {
-    v6 = a1[5];
+    v6 = result[5];
     goto LABEL_30;
   }
 
   if (os_unfair_lock_opaque == 78)
   {
-    if (SVGAttribute::transformValue(this, (*(a1[9] + 8) + 40)))
+    if (SVGAttribute::transformValue(this, (*(result[9] + 8) + 40)))
     {
       return;
     }
@@ -3055,7 +3191,7 @@ LABEL_32:
 
   if (*v8 == 24944 && *(v8 + 2) == 100)
   {
-    *(*(a1[10] + 8) + 24) = 0;
+    *(*(result[10] + 8) + 24) = 0;
     return;
   }
 
@@ -3079,7 +3215,7 @@ LABEL_40:
 
   if (*v14 == 1818649970 && *(v14 + 3) == 1952671084)
   {
-    v20 = *(a1[10] + 8);
+    v20 = *(result[10] + 8);
     v21 = 1;
     goto LABEL_62;
   }
@@ -3104,7 +3240,7 @@ LABEL_49:
 
   if (*v17 == 1701864818 && *(v17 + 4) == 29793)
   {
-    v20 = *(a1[10] + 8);
+    v20 = *(result[10] + 8);
     v21 = 2;
 LABEL_62:
     *(v20 + 24) = v21;
@@ -3238,15 +3374,12 @@ uint64_t SVGGradient::inheritParentGradient(SVGGradient *this)
   return (*(*this + 24))(this, *(this + 7));
 }
 
-uint64_t ___ZN11SVGGradient21inheritParentGradientEv_block_invoke(uint64_t a1, unsigned int a2)
+void ___ZN11SVGGradient21inheritParentGradientEv_block_invoke(uint64_t a1, unsigned int a2, const SVGAttribute *a3)
 {
-  result = SVGAttributeMap::hasAttribute(*(*(a1 + 32) + 56), a2);
-  if ((result & 1) == 0)
+  if ((SVGAttributeMap::hasAttribute(*(*(a1 + 32) + 56), a2) & 1) == 0)
   {
     operator new();
   }
-
-  return result;
 }
 
 void SVGGradient::print(SVGGradient *this, const char *a2)
@@ -3304,7 +3437,7 @@ void sub_1DF132DD0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t CGSVGImageCreateWithRasterImage(uint64_t result)
+CGImage *CGSVGImageCreateWithRasterImage(CGImage *result)
 {
   if (result)
   {
@@ -3540,7 +3673,7 @@ SVGDocument *CGSVGDocumentGetCanvas(uint64_t a1, const char *a2)
   result = CFRetained::getObject<SVGDocument>(a1, a2);
   if (result)
   {
-    return *(SVGDocument::canvas(result) + 40);
+    return *(SVGDocument::canvas(result) + 5);
   }
 
   return result;
@@ -3589,7 +3722,7 @@ void CGSVGDocumentAddNamedStyle(uint64_t a1, const char *a2, uint64_t a3)
   if (v5)
   {
     v6 = v5;
-    SVGUtilities::StringWithCFString(a2, __p);
+    SVGUtilities::StringWithCFString(__p, a2);
     v8 = CFRetained::getObject<SVGAttributeMap>(a3, v7);
     if (v8)
     {
@@ -3652,7 +3785,7 @@ void CGSVGDocumentDefsAddNode(uint64_t a1, const char *a2)
   }
 }
 
-const __CFString *CGSVGDocumentDefsGetNode(uint64_t a1, const char *a2)
+const __CFString *CGSVGDocumentDefsGetNode(uint64_t a1, const __CFString *a2)
 {
   v2 = a2;
   v3 = CFRetained::getObject<SVGDocument>(a1, a2);
@@ -3680,7 +3813,7 @@ const __CFString *CGSVGDocumentDefsGetNode(uint64_t a1, const char *a2)
   }
 
   v8 = v7;
-  SVGUtilities::StringWithCFString(v2, __p);
+  SVGUtilities::StringWithCFString(__p, v2);
   if (v14 >= 0)
   {
     v9 = __p;
@@ -3831,10 +3964,10 @@ void CGSVGDocumentGetColorOfGradientStop(uint64_t a1@<X0>, const char *a2@<X1>, 
   }
 }
 
-void CopyOptionsIntoMap(const __CFString *a1, const __CFString *a2, void *a3)
+void CopyOptionsIntoMap(const __CFString *a1, const __CFString *a2, uint64_t a3)
 {
-  SVGUtilities::StringWithCFString(a1, v7);
-  SVGUtilities::StringWithCFString(a2, &__p);
+  SVGUtilities::StringWithCFString(v7, a1);
+  SVGUtilities::StringWithCFString(&__p, a2);
   if (v8 >= 0)
   {
     v5 = v7;
@@ -3849,9 +3982,9 @@ void CopyOptionsIntoMap(const __CFString *a1, const __CFString *a2, void *a3)
   operator new();
 }
 
-void sub_1DF133C28(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20)
+void sub_1DF133C28(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20)
 {
-  MEMORY[0x1E12CE5D0](v20, 0x10B3C405B4D0908);
+  MEMORY[0x1E12CE5D0](v20, 0x10B3C405B4D0908, a3, a4, a5, a6, a7, a8);
   if (a14 < 0)
   {
     operator delete(__p);
@@ -3920,9 +4053,9 @@ void SVGClipPath::updatedAttributes(SVGClipPath *this, SVGAttributeMap *a2)
   _Block_object_dispose(&v4, 8);
 }
 
-void sub_1DF133F08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1DF133F08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4112,10 +4245,10 @@ void CGSVGPathCommandAppendPoint(uint64_t a1, const char *a2, double a3, double 
   v6 = CFRetained::getObject<SVGPathCommand>(a1, a2);
   if (v6)
   {
-    v7 = a3;
-    v8 = a4;
+    v8 = a3;
+    v9 = a4;
 
-    SVGPathCommand::appendPoint(v6, *&v7);
+    SVGPathCommand::appendPoint(v6, *&v8, v7);
   }
 }
 
@@ -4179,7 +4312,7 @@ void CGSVGPathRelease(CFTypeRef cf)
   }
 }
 
-void *CGSVGPathAppendCommand(uint64_t a1, const char *a2)
+SVGPath *CGSVGPathAppendCommand(uint64_t a1, const char *a2)
 {
   result = CFRetained::getObject<SVGPath>(a1, a2);
   if (result)
@@ -4221,7 +4354,7 @@ void *CGSVGPathGetCommandAtIndex(uint64_t a1, const char *a2)
   return result;
 }
 
-uint64_t CGSVGPathCreateWithCGPath(uint64_t result)
+const CGPath *CGSVGPathCreateWithCGPath(const CGPath *result)
 {
   if (result)
   {
@@ -4233,7 +4366,7 @@ uint64_t CGSVGPathCreateWithCGPath(uint64_t result)
 
 void __CGSVGPathCreateWithCGPath_block_invoke(uint64_t a1, uint64_t a2)
 {
-  v12[1] = *MEMORY[0x1E69E9840];
+  *(&v12 + 1) = *MEMORY[0x1E69E9840];
   v2 = *(a2 + 8);
   v3 = *a2;
   if (*a2 <= 1)
@@ -4270,7 +4403,7 @@ void __CGSVGPathCreateWithCGPath_block_invoke(uint64_t a1, uint64_t a2)
         v7 = 0;
         v8 = 0;
         __p = 0;
-        std::vector<CGPoint>::__init_with_size[abi:ne200100]<CGPoint const*,CGPoint const*>(&__p, &v9, v12, 3uLL);
+        std::vector<CGPoint>::__init_with_size[abi:ne200100]<CGPoint const*,CGPoint const*>(&__p, &v9, &v12, 3uLL);
         operator new();
       case 4:
         operator new();
@@ -4278,9 +4411,9 @@ void __CGSVGPathCreateWithCGPath_block_invoke(uint64_t a1, uint64_t a2)
   }
 }
 
-void sub_1DF134868(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11)
+void sub_1DF134868(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *__p, uint64_t a11)
 {
-  MEMORY[0x1E12CE5D0](v11, 0x10B3C40A582917CLL);
+  MEMORY[0x1E12CE5D0](v11, 0x10B3C40A582917CLL, a3, a4, a5, a6, a7, a8);
   if (__p)
   {
     operator delete(__p);
@@ -4293,7 +4426,7 @@ uint64_t CGSVGPathCreateWithPathDescription(const __CFString *a1)
 {
   if (a1)
   {
-    SVGUtilities::StringWithCFString(a1, __p);
+    SVGUtilities::StringWithCFString(__p, a1);
     if (v5 < 0)
     {
       if (__p[1])
@@ -4334,7 +4467,7 @@ CFStringRef CGSVGPathCreatePathDescription(uint64_t a1, const char *a2)
     return 0;
   }
 
-  SVGPath::createStringRepresentation(v2, &__p);
+  SVGPath::createStringRepresentation(&__p, v2);
   if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
     p_p = &__p;
@@ -4396,14 +4529,14 @@ void SVGFilterPrimitive::~SVGFilterPrimitive(SVGFilterPrimitive *this, CFRetaine
   JUMPOUT(0x1E12CE5D0);
 }
 
-double SVGFilterPrimitive::draw(SVGFilterPrimitive *a1, const char *a2, void *a3, uint64_t a4, double a5, double a6, double a7, double a8)
+double SVGFilterPrimitive::draw(SVGFilterPrimitive *a1, const char *a2, uint64_t *a3, uint64_t a4, double a5, double a6, double a7, double a8)
 {
   *v33 = a5;
   *&v33[1] = a6;
   *v32 = a7;
   *&v32[1] = a8;
   *(a1 + 26) = a2;
-  v10 = (a1 + 208);
+  v10 = a1 + 208;
   *(a1 + 27) = *a3;
   *(a1 + 28) = a4;
   *(a1 + 29) = v33;
@@ -4457,7 +4590,7 @@ double SVGFilterPrimitive::draw(SVGFilterPrimitive *a1, const char *a2, void *a3
     if (!*(&v31.__r_.__value_.__s + 23))
     {
       *a3 = v11;
-      v10[4] = 0;
+      *(v10 + 4) = 0;
       result = 0.0;
       *v10 = 0u;
       *(v10 + 1) = 0u;
@@ -4523,7 +4656,7 @@ LABEL_56:
   {
     v26 = *(a1 + 28);
     __p[0] = &v31;
-    std::__hash_table<std::__hash_value_type<std::string,FilterResult *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,FilterResult *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,FilterResult *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,FilterResult *>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v26, &v31.__r_.__value_.__l.__data_)[5] = v11;
+    std::__hash_table<std::__hash_value_type<std::string,FilterResult *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,FilterResult *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,FilterResult *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,FilterResult *>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v26, &v31, &std::piecewise_construct, __p, &v34)[5] = v11;
   }
 
 LABEL_58:
@@ -4532,7 +4665,7 @@ LABEL_58:
   result = 0.0;
   *v10 = 0u;
   *(v10 + 1) = 0u;
-  v10[4] = 0;
+  *(v10 + 4) = 0;
   if (v27 < 0)
   {
     operator delete(v31.__r_.__value_.__l.__data_);
@@ -4672,7 +4805,7 @@ id SVGFilterPrimitive::drawFeOffset(double **this)
   return v6;
 }
 
-id SVGFilterPrimitive::drawFeFlood(SVGFilterPrimitive *this)
+id SVGFilterPrimitive::drawFeFlood(double **this)
 {
   SVGColor::SVGColor(&v12, 3u, 0.0, 0.0, 0.0, 1.0);
   SVGFilterPrimitive::colorAttr(this, 0x5Cu, &v12, v15);
@@ -4687,7 +4820,7 @@ id SVGFilterPrimitive::drawFeFlood(SVGFilterPrimitive *this)
   CGColor = CGSVGColorCreateCGColor(v10);
   v3 = [MEMORY[0x1E695F610] colorWithCGColor:CGColor];
   CGColorRelease(CGColor);
-  v4 = *(this + 29);
+  v4 = this[29];
   v5 = *v4;
   v6 = v4[1];
   v7 = [MEMORY[0x1E695F658] imageWithColor:v3];
@@ -5034,7 +5167,7 @@ void sub_1DF1362A8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void SVGFilterPrimitive::drawFeConvolveMatrix(SVGFilterPrimitive *this@<X0>, _OWORD *a2@<X8>)
+void SVGFilterPrimitive::drawFeConvolveMatrix(uint64_t *__return_ptr a1@<X8>, SVGFilterPrimitive *this@<X0>)
 {
   v4 = SVGFilterPrimitive::inputImage<vImage_Buffer>(this, 0x58u);
   if (v4)
@@ -5046,7 +5179,7 @@ void SVGFilterPrimitive::drawFeConvolveMatrix(SVGFilterPrimitive *this@<X0>, _OW
     v6 = SVGFilterPrimitive::floatsAttr(this, 0x7Au, &v26);
     if (MEMORY[0x1E12CE990](&dest, v5->height, v5->width, *(*(*(this + 26) + 8) + 4), 0))
     {
-      *a2 = 0;
+      *a1 = 0;
     }
 
     else
@@ -5089,14 +5222,14 @@ void SVGFilterPrimitive::drawFeConvolveMatrix(SVGFilterPrimitive *this@<X0>, _OW
           if (vImageConvolveWithBias_ARGB8888(v5, &dest, 0, 0, 0, *color, v10, v10, divisor, (v18 * divisor * 255.0), 0, 8u))
           {
             free(dest.data);
-            *a2 = 0;
+            *a1 = 0;
           }
 
           else
           {
             v19 = *&dest.width;
-            *a2 = *&dest.data;
-            a2[1] = v19;
+            *a1 = *&dest.data;
+            *(a1 + 1) = v19;
           }
 
           if (*color)
@@ -5108,7 +5241,7 @@ void SVGFilterPrimitive::drawFeConvolveMatrix(SVGFilterPrimitive *this@<X0>, _OW
 
         else
         {
-          SVGFilterPrimitive::drawFeConvolveMatrix(void)const::$_0::operator()(&v23, a2);
+          SVGFilterPrimitive::drawFeConvolveMatrix(void)const::$_0::operator()(&v23, a1);
         }
       }
 
@@ -5122,8 +5255,8 @@ void SVGFilterPrimitive::drawFeConvolveMatrix(SVGFilterPrimitive *this@<X0>, _OW
         }
 
         v11 = *&v7->width;
-        *a2 = *&v7->data;
-        a2[1] = v11;
+        *a1 = *&v7->data;
+        *(a1 + 1) = v11;
       }
     }
 
@@ -5136,7 +5269,7 @@ void SVGFilterPrimitive::drawFeConvolveMatrix(SVGFilterPrimitive *this@<X0>, _OW
 
   else
   {
-    *a2 = 0;
+    *a1 = 0;
   }
 }
 
@@ -5361,15 +5494,15 @@ __n128 SVGFilterPrimitive::drawFeConvolveMatrix(void)const::$_0::operator()@<Q0>
 {
   v2 = a1;
   *color = 0;
-  p_data = &a1[1].data;
+  v4 = a1 + 1;
   if (vImageBufferFill_ARGB8888(a1 + 1, color, 0))
   {
-    free(*p_data);
+    free(v4->data);
   }
 
   else
   {
-    v2 = p_data;
+    v2 = v4;
   }
 
   result = *&v2->data;
@@ -5379,19 +5512,17 @@ __n128 SVGFilterPrimitive::drawFeConvolveMatrix(void)const::$_0::operator()@<Q0>
   return result;
 }
 
-void *std::vector<short>::reserve(void *result, unint64_t a2)
+void std::vector<short>::reserve(void *a1, unint64_t a2)
 {
-  if (a2 > (result[2] - *result) >> 1)
+  if (a2 > (a1[2] - *a1) >> 1)
   {
     if ((a2 & 0x8000000000000000) == 0)
     {
-      std::__allocate_at_least[abi:ne200100]<std::allocator<unsigned short>>(result, a2);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<unsigned short>>(a1, a2);
     }
 
     std::vector<double>::__throw_length_error[abi:ne200100]();
   }
-
-  return result;
 }
 
 const void **std::transform[abi:ne200100]<std::__wrap_iter<double *>,std::back_insert_iterator<std::vector<short>>,SVGFilterPrimitive::drawFeConvolveMatrix(void)::$_1>(double *a1, double *a2, const void **a3)
@@ -5469,35 +5600,35 @@ const void **std::transform[abi:ne200100]<std::__wrap_iter<double *>,std::back_i
   return a3;
 }
 
-const void **std::__hash_table<std::__hash_value_type<std::string,FilterResult *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,FilterResult *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,FilterResult *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,FilterResult *>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(void *a1, const void **a2)
+const void **std::__hash_table<std::__hash_value_type<std::string,FilterResult *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,FilterResult *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,FilterResult *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,FilterResult *>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(void *a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v4 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
+  v7 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
+  v8 = v7;
+  v9 = a1[1];
+  if (!*&v9)
   {
     goto LABEL_18;
   }
 
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
+  v10 = vcnt_s8(v9);
+  v10.i16[0] = vaddlv_u8(v10);
+  v11 = v10.u32[0];
+  if (v10.u32[0] > 1uLL)
   {
-    v9 = v4;
-    if (v4 >= *&v6)
+    v12 = v7;
+    if (v7 >= *&v9)
     {
-      v9 = v4 % *&v6;
+      v12 = v7 % *&v9;
     }
   }
 
   else
   {
-    v9 = (*&v6 - 1) & v4;
+    v12 = (*&v9 - 1) & v7;
   }
 
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
+  v13 = *(*a1 + 8 * v12);
+  if (!v13 || (v14 = *v13) == 0)
   {
 LABEL_18:
     std::__hash_table<std::__hash_value_type<std::string,FilterResult *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,FilterResult *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,FilterResult *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,FilterResult *>>>::__construct_node_hash<std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>();
@@ -5505,44 +5636,44 @@ LABEL_18:
 
   while (1)
   {
-    v12 = v11[1];
-    if (v12 == v5)
+    v15 = v14[1];
+    if (v15 == v8)
     {
       break;
     }
 
-    if (v8 > 1)
+    if (v11 > 1)
     {
-      if (v12 >= *&v6)
+      if (v15 >= *&v9)
       {
-        v12 %= *&v6;
+        v15 %= *&v9;
       }
     }
 
     else
     {
-      v12 &= *&v6 - 1;
+      v15 &= *&v9 - 1;
     }
 
-    if (v12 != v9)
+    if (v15 != v12)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v11 = *v11;
-    if (!v11)
+    v14 = *v14;
+    if (!v14)
     {
       goto LABEL_18;
     }
   }
 
-  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v11 + 2, a2))
+  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v14 + 2, a2))
   {
     goto LABEL_17;
   }
 
-  return v11;
+  return v14;
 }
 
 void sub_1DF136EA4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void **__p, uint64_t a11)
@@ -5562,9 +5693,9 @@ void sub_1DF136F6C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-unint64_t std::__string_hash<char>::operator()[abi:ne200100](uint64_t a1, uint64_t a2)
+unint64_t std::__string_hash<char>::operator()[abi:ne200100](uint64_t a1, uint64_t *a2)
 {
-  v2 = *(a2 + 8);
+  v2 = a2[1];
   if (*(a2 + 23) >= 0)
   {
     v3 = *(a2 + 23);
@@ -5779,7 +5910,7 @@ void std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_val
   operator delete(__p);
 }
 
-const void **std::__hash_table<std::__hash_value_type<std::string,FilterResult *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,FilterResult *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,FilterResult *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,FilterResult *>>>::find<std::string>(void *a1, const void **a2)
+const void **std::__hash_table<std::__hash_value_type<std::string,FilterResult *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,FilterResult *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,FilterResult *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,FilterResult *>>>::find<std::string>(void *a1, uint64_t *a2)
 {
   v4 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
   v5 = a1[1];
@@ -5861,7 +5992,7 @@ SVGPath *CGSVGShapeNodeSetPath(uint64_t a1, const char *a2)
   return result;
 }
 
-CGPath *CGSVGShapeNodeCreateCGPath(uint64_t a1, const char *a2)
+SVGShapeNode *CGSVGShapeNodeCreateCGPath(uint64_t a1, const char *a2)
 {
   result = CFRetained::getObject<SVGShapeNode>(a1, a2);
   if (result)
@@ -5876,17 +6007,18 @@ CGPath *CGSVGShapeNodeCreateCGPath(uint64_t a1, const char *a2)
 void CGSVGShapeNodeSetFloats(uint64_t a1, __int128 *a2, unint64_t a3)
 {
   __p = 0;
-  v6 = 0;
   v7 = 0;
+  v8 = 0;
   SVGUtilities::CGPointListFromFloats(a2, a3, &__p);
-  if (CFRetained::getObject<SVGShapeNode>(a1, v4))
+  v5 = CFRetained::getObject<SVGShapeNode>(a1, v4);
+  if (v5)
   {
-    SVGShapeNode::setPointList();
+    SVGShapeNode::setPointList(v5, &__p);
   }
 
   if (__p)
   {
-    v6 = __p;
+    v7 = __p;
     operator delete(__p);
   }
 }
@@ -6169,6 +6301,20 @@ void CGSVGPatternRelease(CFTypeRef cf)
   }
 }
 
+void SVGNode::SVGNode(void *a1, __int128 *a2)
+{
+  std::string::basic_string[abi:ne200100]<0>(__p, SVGNode::kSVGNodeClassName);
+  CFRetained::CFRetained(a1, __p);
+  if (v4 < 0)
+  {
+    operator delete(__p[0]);
+  }
+
+  *a1 = &unk_1F5A443F8;
+  a1[6] = 0;
+  operator new();
+}
+
 void sub_1DF137F10(_Unwind_Exception *a1)
 {
   v8 = v2;
@@ -6225,7 +6371,7 @@ void sub_1DF137F10(_Unwind_Exception *a1)
 
 void SVGNode::updateChildIdentifer(SVGNode *this, SVGNode *a2, char *__s)
 {
-  v6 = this + 136;
+  v6 = (this + 136);
   v5 = *(this + 17);
   if (v5 == (this + 144))
   {
@@ -6279,7 +6425,7 @@ LABEL_12:
     {
       std::string::basic_string[abi:ne200100]<0>(__p, __s);
       v12 = a2;
-      std::__tree<std::__value_type<std::string,SVGNode *>,std::__map_value_compare<std::string,std::__value_type<std::string,SVGNode *>,CaseInsensitiveStringLess,true>,std::allocator<std::__value_type<std::string,SVGNode *>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,SVGNode *>>(v6, __p);
+      std::__tree<std::__value_type<std::string,SVGNode *>,std::__map_value_compare<std::string,std::__value_type<std::string,SVGNode *>,CaseInsensitiveStringLess,true>,std::allocator<std::__value_type<std::string,SVGNode *>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,SVGNode *>>(v6, __p, __p);
       if (v11 < 0)
       {
         operator delete(__p[0]);
@@ -6302,13 +6448,14 @@ void SVGNode::setIdentifier(SVGNode *this, char *a2)
 {
   if (a2 && *a2)
   {
-    std::string::basic_string[abi:ne200100]<0>(&__p, a2);
-    SVGAttributeMap::setAttribute();
+    v2 = *(this + 7);
+    std::string::basic_string[abi:ne200100]<0>(__p, a2);
+    SVGAttributeMap::setAttribute(v2, 31, __p);
   }
 
-  v2 = *(this + 7);
+  v3 = *(this + 7);
 
-  SVGAttributeMap::removeAttribute(v2, 0x1Fu);
+  SVGAttributeMap::removeAttribute(v3, 0x1Fu);
 }
 
 void sub_1DF13829C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
@@ -6332,7 +6479,7 @@ void SVGNode::setIdentifier(uint64_t a1, uint64_t a2)
   v3 = *(a1 + 56);
   if (v2)
   {
-    SVGAttributeMap::setAttribute();
+    SVGAttributeMap::setAttribute(v3, 31, a2);
   }
 
   SVGAttributeMap::removeAttribute(v3, 0x1Fu);
@@ -6415,7 +6562,7 @@ LABEL_14:
       v13 = SVGNode::identifier(a3);
       std::string::basic_string[abi:ne200100]<0>(__p, v13);
       v16 = a3;
-      std::__tree<std::__value_type<std::string,SVGNode *>,std::__map_value_compare<std::string,std::__value_type<std::string,SVGNode *>,CaseInsensitiveStringLess,true>,std::allocator<std::__value_type<std::string,SVGNode *>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,SVGNode *>>(this + 136, __p);
+      std::__tree<std::__value_type<std::string,SVGNode *>,std::__map_value_compare<std::string,std::__value_type<std::string,SVGNode *>,CaseInsensitiveStringLess,true>,std::allocator<std::__value_type<std::string,SVGNode *>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,SVGNode *>>(this + 17, __p, __p);
       if (v15 < 0)
       {
         operator delete(__p[0]);
@@ -6726,7 +6873,7 @@ void SVGNode::findChildNodesWithName(uint64_t a1, void *a2, uint64_t a3)
       }
 
       v30 = v24[7];
-      (SVGNode::findChildNodesWithName)();
+      SVGNode::findChildNodesWithName(v30, v4, a3);
       if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
       {
         operator delete(__p.__r_.__value_.__l.__data_);
@@ -6851,22 +6998,22 @@ void SVGNode::findChildAttributesWithName(uint64_t *a1, uint64_t a2, uint64_t a3
     {
       if (*(v21 + 55) < 0)
       {
-        std::string::__init_copy_ctor_external(&__p, v21[4], v21[5]);
+        std::string::__init_copy_ctor_external(&__p, *(v21 + 32), *(v21 + 40));
       }
 
       else
       {
-        __p = *(v21 + 4);
+        __p = *(v21 + 32);
       }
 
-      v27 = v21[7];
-      (SVGNode::findChildAttributesWithName)();
+      v27 = *(v21 + 56);
+      SVGNode::findChildAttributesWithName(v27, a2, a3);
       if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
       {
         operator delete(__p.__r_.__value_.__l.__data_);
       }
 
-      v23 = v21[1];
+      v23 = *(v21 + 8);
       if (v23)
       {
         do
@@ -6882,7 +7029,7 @@ void SVGNode::findChildAttributesWithName(uint64_t *a1, uint64_t a2, uint64_t a3
       {
         do
         {
-          v24 = v21[2];
+          v24 = *(v21 + 16);
           v25 = *v24 == v21;
           v21 = v24;
         }
@@ -6949,7 +7096,7 @@ LABEL_3:
 
     std::string::basic_string[abi:ne200100]<0>(__p, v8);
     v13 = a3;
-    std::__tree<std::__value_type<std::string,SVGNode *>,std::__map_value_compare<std::string,std::__value_type<std::string,SVGNode *>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,SVGNode *>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,SVGNode *>>(this + 160, __p);
+    std::__tree<std::__value_type<std::string,SVGNode *>,std::__map_value_compare<std::string,std::__value_type<std::string,SVGNode *>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,SVGNode *>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,SVGNode *>>(this + 20, __p, __p);
     if (v12 < 0)
     {
       operator delete(__p[0]);
@@ -7035,7 +7182,7 @@ double SVGNode::boundingBox(uint64_t a1, uint64_t a2)
     v14 = v13;
     v16 = v15;
     memset(&v23, 0, sizeof(v23));
-    SVGNode::transform(v9, &v23);
+    SVGNode::transform(&v23, v9);
     v22 = v23;
     v24.origin.x = v10;
     v24.origin.y = v12;
@@ -7151,35 +7298,35 @@ void SVGNode::print(SVGAttributeMap **this)
   SVGUtilities::unindent(v6);
 }
 
-void SVGNode::setComment(SVGNode *this, const char *a2)
+void SVGNode::setComment(void *this, char *a2)
 {
   if (a2)
   {
     operator new();
   }
 
-  v3 = *(this + 23);
-  *(this + 23) = 0;
+  v3 = this[23];
+  this[23] = 0;
   if (v3)
   {
-    v2 = this + 184;
+    v2 = this + 23;
 
     std::default_delete<std::string>::operator()[abi:ne200100](v2, v3);
   }
 }
 
-void SVGNode::setText(SVGNode *this, const char *a2)
+void SVGNode::setText(void *this, char *a2)
 {
   if (a2)
   {
     operator new();
   }
 
-  v3 = *(this + 24);
-  *(this + 24) = 0;
+  v3 = this[24];
+  this[24] = 0;
   if (v3)
   {
-    v2 = this + 192;
+    v2 = this + 24;
 
     std::default_delete<std::string>::operator()[abi:ne200100](v2, v3);
   }
@@ -7202,7 +7349,7 @@ BOOL SVGNode::isChildOf(uint64_t a1, uint64_t a2)
   return v2;
 }
 
-void SVGNode::SVGNode(SVGNode *this, const SVGNode *a2)
+void SVGNode::SVGNode(SVGNode *this, const SVGAttributeMap **a2)
 {
   std::string::basic_string[abi:ne200100]<0>(__p, SVGNode::kSVGNodeClassName);
   CFRetained::CFRetained(this, __p);
@@ -7535,9 +7682,9 @@ BOOL std::__map_value_compare<std::string,std::__value_type<std::string,SVGNode 
   }
 }
 
-uint64_t std::__tree<std::__value_type<std::string,SVGNode *>,std::__map_value_compare<std::string,std::__value_type<std::string,SVGNode *>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,SVGNode *>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,SVGNode *>>(uint64_t a1, const void **a2)
+uint64_t *std::__tree<std::__value_type<std::string,SVGNode *>,std::__map_value_compare<std::string,std::__value_type<std::string,SVGNode *>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,SVGNode *>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,SVGNode *>>(uint64_t **a1, const void **a2, uint64_t a3)
 {
-  result = *std::__tree<std::__value_type<std::string,SVGNode *>,std::__map_value_compare<std::string,std::__value_type<std::string,SVGNode *>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,SVGNode *>>>::__find_equal<std::string>(a1, &v3, a2);
+  result = *std::__tree<std::__value_type<std::string,SVGNode *>,std::__map_value_compare<std::string,std::__value_type<std::string,SVGNode *>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,SVGNode *>>>::__find_equal<std::string>(a1, &v4, a2);
   if (!result)
   {
     std::__tree<std::__value_type<std::string,SVGNode *>,std::__map_value_compare<std::string,std::__value_type<std::string,SVGNode *>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,SVGNode *>>>::__construct_node<std::pair<std::string const,SVGNode *>>();
@@ -7963,7 +8110,7 @@ LABEL_16:
   v8 = v6 + 8;
   do
   {
-    result = (*(**(v8 - 8) + 56))(*(v8 - 8));
+    result = (*(**(v8 - 8) + 56))(*(v8 - 8), a2);
     if (result)
     {
       v9 = v8 == v7;
@@ -8309,9 +8456,9 @@ BOOL SVGParser::GetParentheticalComponent(const char *a1, uint64_t a2)
   }
 
   v7 = v6 + 1;
-  if ((v6 + 1) < v5)
+  if (v6 + 1 < v5)
   {
-    v8 = &a1[v4] - v6 - 1;
+    v8 = (&a1[v4] - v6 - 1);
     v7 = v6 + 1;
     while (*v7 != 41)
     {
@@ -8333,7 +8480,7 @@ BOOL SVGParser::GetParentheticalComponent(const char *a1, uint64_t a2)
   return v9 > 0;
 }
 
-void SVGParser::GetComponentsSeparatedByDelimiters(const char *a1, const char *a2, uint64_t a3)
+void SVGParser::GetComponentsSeparatedByDelimiters(char *a1, const char *a2, uint64_t a3)
 {
   v4 = a1;
   v5 = strlen(a1);
@@ -8374,7 +8521,7 @@ void SVGParser::GetComponentsSeparatedByDelimiters(const char *a1, const char *a
         {
           if (v15 == v9)
           {
-            TrimmedString(v10 + 1, i - 1, __p);
+            TrimmedString(__p, v10 + 1, i - 1);
             v19 = v31;
             v20 = v31;
             if ((v31 & 0x80u) != 0)
@@ -8466,7 +8613,7 @@ LABEL_56:
 
         if (v7 == i || v21)
         {
-          TrimmedString(v4, i - 1, __p);
+          TrimmedString(__p, v4, i - 1);
           v22 = v31;
           if ((v31 & 0x80u) != 0)
           {
@@ -8564,12 +8711,12 @@ void sub_1DF13ADA8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *TrimmedString@<X0>(char *__src@<X0>, char *a2@<X1>, _BYTE *a3@<X8>)
+uint64_t *TrimmedString@<X0>(uint64_t *__return_ptr a1@<X8>, char *__src@<X0>, char *a3@<X1>)
 {
-  v3 = a2;
+  v3 = a3;
   v4 = __src;
   v6 = MEMORY[0x1E69E9830];
-  if (__src < a2)
+  if (__src < a3)
   {
     do
     {
@@ -8614,7 +8761,7 @@ LABEL_8:
     --v3;
   }
 
-  return std::string::basic_string[abi:ne200100](a3, v4, v3 - v4 + 1);
+  return std::string::basic_string[abi:ne200100](a1, v4, v3 - v4 + 1);
 }
 
 void SVGReaderOptions::~SVGReaderOptions(CFTypeRef **this, CFRetained *a2)
@@ -8629,7 +8776,8 @@ void SVGReaderOptions::~SVGReaderOptions(CFTypeRef **this, CFRetained *a2)
 
 void SVGReader::report(SVGReader *this, SVGParser *a2, uint64_t a3, uint64_t a4, ...)
 {
-  *v9 = &a4;
+  va_start(va, a4);
+  va_copy(v9, va);
   SVGParser::FormatString(a2, v9, __p);
   if (v8 >= 0)
   {
@@ -8706,8 +8854,8 @@ double ___ZN9SVGReader20parseXMLNodeGradientEP8_xmlNodeP7SVGNodeN7SVGAtom4NameE_
     case '(':
       if (SVGAttribute::lengthValue(this, v6))
       {
-        result = v6[0];
-        *(*(*(*(a1 + 32) + 8) + 24) + 96) = *v6;
+        result = *v6;
+        *(*(*(*(a1 + 32) + 8) + 24) + 96) = v6[0];
       }
 
       break;
@@ -8716,51 +8864,48 @@ double ___ZN9SVGReader20parseXMLNodeGradientEP8_xmlNodeP7SVGNodeN7SVGAtom4NameE_
   return result;
 }
 
-uint64_t ApplyVariablesToAttributes(const SVGAttributeMap *a1, SVGAttributeMap *a2)
+void ApplyVariablesToAttributes(const SVGAttributeMap *a1, SVGAttributeMap *a2)
 {
-  result = SVGAttributeMap::count(a1);
-  if (result)
+  if (SVGAttributeMap::count(a1))
   {
-    v3[0] = 0;
-    v3[1] = v3;
-    v3[2] = 0x2000000000;
+    v2[0] = 0;
+    v2[1] = v2;
+    v2[2] = 0x2000000000;
     operator new();
   }
-
-  return result;
 }
 
 void SetNodeTextIfAvailable(_xmlNode *a1, SVGNode *a2)
 {
   Content = xmlNodeGetContent(a1);
-  v3 = Content;
+  v4 = Content;
   if (Content && *Content)
   {
     std::string::basic_string[abi:ne200100]<0>(&__p, Content);
-    SVGParser::StripLeadingTrailingWhitespace(&__p, &v6);
+    SVGParser::StripLeadingTrailingWhitespace(&v7, &__p);
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(__p.__r_.__value_.__l.__data_);
     }
 
-    size = HIBYTE(v6.__r_.__value_.__r.__words[2]);
-    if ((v6.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+    size = HIBYTE(v7.__r_.__value_.__r.__words[2]);
+    if ((v7.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
     {
-      size = v6.__r_.__value_.__l.__size_;
+      size = v7.__r_.__value_.__l.__size_;
     }
 
     if (size)
     {
-      SVGNode::setText();
+      SVGNode::setText(a2, &v7);
     }
 
-    if ((*(&v6.__r_.__value_.__s + 23) & 0x80) != 0)
+    if ((*(&v7.__r_.__value_.__s + 23) & 0x80) != 0)
     {
-      operator delete(v6.__r_.__value_.__l.__data_);
+      operator delete(v7.__r_.__value_.__l.__data_);
     }
   }
 
-  free(v3);
+  free(v4);
 }
 
 void sub_1DF13B6B0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20)
@@ -8773,9 +8918,9 @@ void sub_1DF13B6B0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_1DF13C008(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14)
+void sub_1DF13C008(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14)
 {
-  MEMORY[0x1E12CE5D0](v14, 0x10F3C406E4AB7DALL);
+  MEMORY[0x1E12CE5D0](v14, 0x10F3C406E4AB7DALL, a3, a4, a5, a6, a7, a8);
   SVGReaderOptions::~SVGReaderOptions(&__p, v16);
   _Unwind_Resume(a1);
 }
@@ -8834,15 +8979,15 @@ LABEL_34:
               size = __str.__r_.__value_.__l.__size_;
             }
 
-            std::string::basic_string(&v21, &__str, 1uLL, size - 1, &v23);
-            if (SHIBYTE(v21.__r_.__value_.__r.__words[2]) < 0)
+            std::string::basic_string(&v22, &__str, 1uLL, size - 1, &v24);
+            if (SHIBYTE(v22.__r_.__value_.__r.__words[2]) < 0)
             {
-              v15 = v21.__r_.__value_.__r.__words[0];
-              if (!v21.__r_.__value_.__l.__size_)
+              v15 = v22.__r_.__value_.__r.__words[0];
+              if (!v22.__r_.__value_.__l.__size_)
               {
-                v20 = v21.__r_.__value_.__r.__words[0];
+                v21 = v22.__r_.__value_.__r.__words[0];
 LABEL_29:
-                operator delete(v20);
+                operator delete(v21);
 LABEL_30:
                 if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
                 {
@@ -8855,12 +9000,12 @@ LABEL_30:
 
             else
             {
-              if (!*(&v21.__r_.__value_.__s + 23))
+              if (!*(&v22.__r_.__value_.__s + 23))
               {
                 goto LABEL_30;
               }
 
-              v15 = &v21;
+              v15 = &v22;
             }
 
             DefinitionNode = SVGNode::findDefinitionNode(a1, v15);
@@ -8870,7 +9015,7 @@ LABEL_30:
               if (v19 && v8 != v19)
               {
                 SVGGradient::setParentGradient(v8, v19);
-                ResolveGradientHrefDefinition(v18);
+                ResolveGradientHrefDefinition(v18, v20);
               }
             }
 
@@ -8879,12 +9024,12 @@ LABEL_30:
               SVGUtilities::error("Failed to resolve gradient xlink:href definition", v17);
             }
 
-            if ((SHIBYTE(v21.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+            if ((SHIBYTE(v22.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
             {
               goto LABEL_30;
             }
 
-            v20 = v21.__r_.__value_.__r.__words[0];
+            v21 = v22.__r_.__value_.__r.__words[0];
             goto LABEL_29;
           }
         }
@@ -8949,19 +9094,19 @@ void ResolvePatternHrefDefinition(uint64_t a1, const char *a2)
               size = __str.__r_.__value_.__l.__size_;
             }
 
-            std::string::basic_string(&v20, &__str, 1uLL, size - 1, &v22);
-            v12 = std::operator==[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v20, &unk_1DF145996);
-            v13 = SHIBYTE(v20.__r_.__value_.__r.__words[2]);
+            std::string::basic_string(&v21, &__str, 1uLL, size - 1, &v23);
+            v12 = std::operator==[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v21, &unk_1DF145996);
+            v13 = SHIBYTE(v21.__r_.__value_.__r.__words[2]);
             if (!v12)
             {
-              if ((v20.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+              if ((v21.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
               {
-                v14 = &v20;
+                v14 = &v21;
               }
 
               else
               {
-                v14 = v20.__r_.__value_.__r.__words[0];
+                v14 = v21.__r_.__value_.__r.__words[0];
               }
 
               DefinitionNode = SVGNode::findDefinitionNode(a1, v14);
@@ -8975,7 +9120,7 @@ void ResolvePatternHrefDefinition(uint64_t a1, const char *a2)
                   {
                     *(v5 + 35) = v18;
                     SVGPattern::inheritParentPattern(v5);
-                    ResolvePatternHrefDefinition(v17);
+                    ResolvePatternHrefDefinition(v17, v20);
                     *(v5 + 35) = v19;
                     SVGPattern::inheritParentPattern(v5);
                   }
@@ -8987,12 +9132,12 @@ void ResolvePatternHrefDefinition(uint64_t a1, const char *a2)
                 SVGUtilities::error("Failed to resolve pattern xlink:href definition", v16);
               }
 
-              v13 = SHIBYTE(v20.__r_.__value_.__r.__words[2]);
+              v13 = SHIBYTE(v21.__r_.__value_.__r.__words[2]);
             }
 
             if (v13 < 0)
             {
-              operator delete(v20.__r_.__value_.__l.__data_);
+              operator delete(v21.__r_.__value_.__l.__data_);
             }
 
             if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
@@ -9021,112 +9166,114 @@ void sub_1DF13C504(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void ___ZL26ApplyVariablesToAttributesPK15SVGAttributeMapPS__block_invoke(uint64_t a1, int a2, SVGAttribute *this)
+void ___ZL26ApplyVariablesToAttributesPK15SVGAttributeMapPS__block_invoke(uint64_t a1, uint64_t a2, SVGAttribute *this)
 {
-  v4 = SVGAttribute::stringValue(this);
-  if (*(v4 + 23) < 0)
+  v5 = SVGAttribute::stringValue(this);
+  if (*(v5 + 23) < 0)
   {
-    std::string::__init_copy_ctor_external(&v24, *v4, *(v4 + 8));
+    std::string::__init_copy_ctor_external(&v28, *v5, *(v5 + 8));
   }
 
   else
   {
-    v6 = *v4;
-    v24.__r_.__value_.__r.__words[2] = *(v4 + 16);
-    *&v24.__r_.__value_.__l.__data_ = v6;
+    v7 = *v5;
+    v28.__r_.__value_.__r.__words[2] = *(v5 + 16);
+    *&v28.__r_.__value_.__l.__data_ = v7;
   }
 
-  if ((v24.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  if ((v28.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v7 = &v24;
+    v8 = &v28;
   }
 
   else
   {
-    v7 = v24.__r_.__value_.__r.__words[0];
+    v8 = v28.__r_.__value_.__r.__words[0];
   }
 
-  if (SVGParser::StringBeginsWith(v7, "var(", v5))
+  if (SVGParser::StringBeginsWith(v8, "var(", v6))
   {
-    v21 = 0;
-    v22 = 0;
-    v23 = 0;
-    if ((v24.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    v25 = 0;
+    v26 = 0;
+    v27 = 0;
+    if ((v28.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      v8 = &v24;
+      v9 = &v28;
     }
 
     else
     {
-      v8 = v24.__r_.__value_.__r.__words[0];
+      v9 = v28.__r_.__value_.__r.__words[0];
     }
 
-    SVGParser::GetComponentsSeparatedByDelimiters(v8, "())", &v21);
-    if (v22 - v21 == 48)
+    SVGParser::GetComponentsSeparatedByDelimiters(v9, "())", &v25);
+    if (v26 - v25 == 48)
     {
-      v18 = 0;
-      v19 = 0;
-      v20 = 0;
-      v9 = (v21 + 24);
-      if (*(v21 + 47) < 0)
+      v22 = 0;
+      v23 = 0;
+      v24 = 0;
+      v10 = (v25 + 24);
+      if (*(v25 + 47) < 0)
       {
-        v9 = *v9;
+        v10 = *v10;
       }
 
-      SVGParser::GetComponentsSeparatedByDelimiters(v9, ",", &v18);
-      if (v19 != v18)
+      SVGParser::GetComponentsSeparatedByDelimiters(v10, ",", &v22);
+      if (v23 != v22)
       {
-        v11 = 0;
-        if (0xAAAAAAAAAAAAAAABLL * (v19 - v18) <= 1)
+        v12 = 0;
+        if (0xAAAAAAAAAAAAAAABLL * (v23 - v22) <= 1)
         {
-          v12 = 1;
+          v13 = 1;
         }
 
         else
         {
-          v12 = 0xAAAAAAAAAAAAAAABLL * (v19 - v18);
+          v13 = 0xAAAAAAAAAAAAAAABLL * (v23 - v22);
         }
 
         do
         {
-          v13 = &v18[v11];
-          if (SHIBYTE(v18[v11 + 2]) < 0)
+          v14 = &v22[v12];
+          if (SHIBYTE(v22[v12 + 2]) < 0)
           {
-            v13 = *v13;
+            v14 = *v14;
           }
 
-          if (!SVGParser::StringBeginsWith(v13, "--", v10))
+          if (!SVGParser::StringBeginsWith(v14, "--", v11))
           {
-            std::string::basic_string[abi:ne200100]<0>(__p, v13);
-            SVGAttributeMap::setAttribute();
+            v18 = *(*(*(a1 + 32) + 8) + 24);
+            std::string::basic_string[abi:ne200100]<0>(__p, v14);
+            SVGAttributeMap::setAttribute(v18, a2, __p);
           }
 
-          v15 = SVGAtom::ToName(v13, v14);
-          v16 = SVGAttributeMap::attribute(*(a1 + 40), v15);
-          if (v16)
+          v16 = SVGAtom::ToName(v14, v15);
+          v17 = SVGAttributeMap::attribute(*(a1 + 40), v16);
+          if (v17)
           {
-            SVGAttribute::stringValue(v16);
-            SVGAttributeMap::setAttribute();
+            v19 = *(*(*(a1 + 32) + 8) + 24);
+            v20 = SVGAttribute::stringValue(v17);
+            SVGAttributeMap::setAttribute(v19, a2, v20);
           }
 
-          v11 += 3;
-          --v12;
+          v12 += 3;
+          --v13;
         }
 
-        while (v12);
+        while (v13);
       }
 
-      __p[0] = &v18;
+      __p[0] = &v22;
       std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](__p);
     }
 
-    v18 = &v21;
-    std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v18);
+    v22 = &v25;
+    std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v22);
   }
 
-  if (SHIBYTE(v24.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v28.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v24.__r_.__value_.__l.__data_);
+    operator delete(v28.__r_.__value_.__l.__data_);
   }
 }
 
@@ -9346,7 +9493,7 @@ LABEL_13:
   return Image;
 }
 
-uint64_t SVGFilter::filterPrimitive(unsigned int a1)
+uint64_t SVGFilter::filterPrimitive(uint64_t a1)
 {
   for (i = 0; i != 6; ++i)
   {
@@ -9440,11 +9587,12 @@ void SVGFilter::updatedAttributes(SVGFilter *this, SVGAttributeMap *a2)
   _Block_object_dispose(&v45, 8);
 }
 
-void sub_1DF13D990(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, char a35)
+void sub_1DF13D990(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, ...)
 {
-  _Block_object_dispose(&a35, 8);
-  _Block_object_dispose((v35 - 192), 8);
-  _Block_object_dispose((v35 - 128), 8);
+  va_start(va, a34);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v34 - 192), 8);
+  _Block_object_dispose((v34 - 128), 8);
   _Unwind_Resume(a1);
 }
 
@@ -9455,7 +9603,7 @@ __n128 __Block_byref_object_copy__2(__n128 *a1, __n128 *a2)
   return result;
 }
 
-void ___ZN9SVGFilter17updatedAttributesEP15SVGAttributeMap_block_invoke(void *a1, int a2, SVGAttribute *this)
+void ___ZN9SVGFilter17updatedAttributesEP15SVGAttributeMap_block_invoke(void *result, int a2, SVGAttribute *this)
 {
   v5 = *(this + 12);
   if (v5 <= 69)
@@ -9463,13 +9611,13 @@ void ___ZN9SVGFilter17updatedAttributesEP15SVGAttributeMap_block_invoke(void *a1
     switch(v5)
     {
       case 30:
-        v6 = a1[7];
+        v6 = result[7];
         break;
       case 66:
-        v6 = a1[6];
+        v6 = result[6];
         break;
       case 67:
-        v6 = a1[4];
+        v6 = result[4];
         break;
       default:
         return;
@@ -9507,7 +9655,7 @@ LABEL_15:
 
       if (*v7 == 0x6F427463656A626FLL && *(v7 + 8) == 0x6F42676E69646E75 && *(v7 + 16) == 120)
       {
-        *(*(a1[9] + 8) + 24) = 0;
+        *(*(result[9] + 8) + 24) = 0;
       }
 
       break;
@@ -9531,12 +9679,12 @@ LABEL_15:
 
       if (*v11 == 0x6361705372657375 && *(v11 + 6) == 0x6573556E4F656361)
       {
-        *(*(a1[8] + 8) + 24) = 1;
+        *(*(result[8] + 8) + 24) = 1;
       }
 
       break;
     case 'F':
-      v6 = a1[5];
+      v6 = result[5];
       goto LABEL_15;
     default:
       return;
@@ -9564,159 +9712,5 @@ FilterResult *std::vector<std::unique_ptr<FilterResult>>::__base_destruct_at_end
   }
 
   *(v3 + 8) = a2;
-  return result;
-}
-
-FilterResult *std::allocator_traits<std::allocator<std::unique_ptr<FilterResult>>>::destroy[abi:ne200100]<std::unique_ptr<FilterResult>,0>(uint64_t a1, FilterResult **a2)
-{
-  result = *a2;
-  *a2 = 0;
-  if (result)
-  {
-    FilterResult::~FilterResult(result);
-
-    JUMPOUT(0x1E12CE5D0);
-  }
-
-  return result;
-}
-
-uint64_t std::__hash_table<std::__hash_value_type<std::string,FilterResult *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,FilterResult *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,FilterResult *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,FilterResult *>>>::~__hash_table(uint64_t a1)
-{
-  std::__hash_table<std::__hash_value_type<std::string,FilterResult *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,FilterResult *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,FilterResult *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,FilterResult *>>>::__deallocate_node(a1, *(a1 + 16));
-  v2 = *a1;
-  *a1 = 0;
-  if (v2)
-  {
-    operator delete(v2);
-  }
-
-  return a1;
-}
-
-void std::__hash_table<std::__hash_value_type<std::string,FilterResult *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,FilterResult *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,FilterResult *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,FilterResult *>>>::__deallocate_node(int a1, void **__p)
-{
-  if (__p)
-  {
-    v2 = __p;
-    do
-    {
-      v3 = *v2;
-      if (*(v2 + 39) < 0)
-      {
-        operator delete(v2[2]);
-      }
-
-      operator delete(v2);
-      v2 = v3;
-    }
-
-    while (v3);
-  }
-}
-
-const void **std::__hash_table<std::__hash_value_type<std::string,FilterResult *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,FilterResult *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,FilterResult *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,FilterResult *>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(void *a1, const void **a2)
-{
-  v4 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
-  {
-    goto LABEL_18;
-  }
-
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
-  {
-    v9 = v4;
-    if (v4 >= *&v6)
-    {
-      v9 = v4 % *&v6;
-    }
-  }
-
-  else
-  {
-    v9 = (*&v6 - 1) & v4;
-  }
-
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
-  {
-LABEL_18:
-    operator new();
-  }
-
-  while (1)
-  {
-    v12 = v11[1];
-    if (v12 == v5)
-    {
-      break;
-    }
-
-    if (v8 > 1)
-    {
-      if (v12 >= *&v6)
-      {
-        v12 %= *&v6;
-      }
-    }
-
-    else
-    {
-      v12 &= *&v6 - 1;
-    }
-
-    if (v12 != v9)
-    {
-      goto LABEL_18;
-    }
-
-LABEL_17:
-    v11 = *v11;
-    if (!v11)
-    {
-      goto LABEL_18;
-    }
-  }
-
-  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v11 + 2, a2))
-  {
-    goto LABEL_17;
-  }
-
-  return v11;
-}
-
-uint64_t *std::__split_buffer<std::unique_ptr<FilterResult>>::~__split_buffer(uint64_t *a1)
-{
-  std::__split_buffer<std::unique_ptr<FilterResult>>::__destruct_at_end[abi:ne200100](a1, a1[1]);
-  if (*a1)
-  {
-    operator delete(*a1);
-  }
-
-  return a1;
-}
-
-FilterResult *std::__split_buffer<std::unique_ptr<FilterResult>>::__destruct_at_end[abi:ne200100](FilterResult *result, uint64_t a2)
-{
-  v3 = result;
-  while (1)
-  {
-    v4 = *(v3 + 2);
-    if (v4 == a2)
-    {
-      break;
-    }
-
-    v5 = *(v3 + 4);
-    *(v3 + 2) = v4 - 8;
-    result = std::allocator_traits<std::allocator<std::unique_ptr<FilterResult>>>::destroy[abi:ne200100]<std::unique_ptr<FilterResult>,0>(v5, (v4 - 8));
-  }
-
   return result;
 }

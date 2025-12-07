@@ -27,12 +27,10 @@
 
 + (id)genSQLCreateStatements
 {
-  v6[1] = *MEMORY[0x1E69E9840];
+  v5[1] = *MEMORY[0x1E69E9840];
   v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"CREATE TABLE IF NOT EXISTS %@ (%@ integer PRIMARY KEY, %@ blob NOT NULL, %@ varchar NULLABLE, %@ integer NOT NULL, %@ integer NOT NULL, %@ integer NOT NULL, %@ integer NOT NULL, %@ integer NOT NULL, %@ integer NULLABLE)", @"device", @"device_row_id", @"device_uuid", @"ids_device_id", @"device_platform", @"options", @"resource_generation", @"attestation_generation", @"delta_generation", @"expiration_date"];;
-  v6[0] = v2;
-  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:1];
-
-  v4 = *MEMORY[0x1E69E9840];
+  v5[0] = v2;
+  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:1];
 
   return v3;
 }
@@ -92,17 +90,16 @@
 
 - (NSString)description
 {
-  v11.receiver = self;
-  v11.super_class = CCDeviceRecord;
-  v3 = [(CCDeviceRecord *)&v11 description];
+  v10.receiver = self;
+  v10.super_class = CCDeviceRecord;
+  v3 = [(CCDeviceRecord *)&v10 description];
   deviceRowId = self->_deviceRowId;
   uUIDString = [(NSUUID *)self->_deviceUUID UUIDString];
   idsDeviceId = self->_idsDeviceId;
-  platform = self->_platform;
-  v8 = BMDevicePlatformToString();
-  v9 = [v3 stringByAppendingFormat:@" deviceRowId: %@, deviceId: %@ idsDeviceId: %@ platform: %@ recordOptions %X, resourceGeneration: %@, attestationGeneration: %@, deltaGeneration: %@, expiration: %@", deviceRowId, uUIDString, idsDeviceId, v8, self->_recordOptions, self->_resourceGeneration, self->_attestationGeneration, self->_deltaGeneration, self->_expirationDate];
+  v7 = BMDevicePlatformToString();
+  v8 = [v3 stringByAppendingFormat:@" deviceRowId: %@, deviceId: %@ idsDeviceId: %@ platform: %@ recordOptions %X, resourceGeneration: %@, attestationGeneration: %@, deltaGeneration: %@, expiration: %@", deviceRowId, uUIDString, idsDeviceId, v7, self->_recordOptions, self->_resourceGeneration, self->_attestationGeneration, self->_deltaGeneration, self->_expirationDate];
 
-  return v9;
+  return v8;
 }
 
 - (BOOL)isEqual:(id)equal

@@ -17,7 +17,7 @@
 
 + (id)columns
 {
-  v12[7] = *MEMORY[0x1E69E9840];
+  v11[7] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2D8]) initWithName:@"trialIdentifiers_json" dataType:5 requestOnly:1 extractBlock:&__block_literal_global_61266];
   v3 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"contextID" dataType:2 requestOnly:0 fieldNumber:2 protoDataType:13 convertedType:0];
   v4 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"timestamp" dataType:3 requestOnly:0 fieldNumber:3 protoDataType:0 convertedType:2];
@@ -25,16 +25,14 @@
   v6 = [objc_alloc(MEMORY[0x1E698F2D8]) initWithName:@"taskFetched_json" dataType:5 requestOnly:1 extractBlock:&__block_literal_global_209_61268];
   v7 = [objc_alloc(MEMORY[0x1E698F2D8]) initWithName:@"taskScheduled_json" dataType:5 requestOnly:1 extractBlock:&__block_literal_global_211];
   v8 = [objc_alloc(MEMORY[0x1E698F2D8]) initWithName:@"taskCompleted_json" dataType:5 requestOnly:1 extractBlock:&__block_literal_global_213];
-  v12[0] = v2;
-  v12[1] = v3;
-  v12[2] = v4;
-  v12[3] = v5;
-  v12[4] = v6;
-  v12[5] = v7;
-  v12[6] = v8;
-  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:7];
-
-  v10 = *MEMORY[0x1E69E9840];
+  v11[0] = v2;
+  v11[1] = v3;
+  v11[2] = v4;
+  v11[3] = v5;
+  v11[4] = v6;
+  v11[5] = v7;
+  v11[6] = v8;
+  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:7];
 
   return v9;
 }
@@ -206,7 +204,7 @@ LABEL_27:
 
 - (id)jsonDictionary
 {
-  v34[7] = *MEMORY[0x1E69E9840];
+  v33[7] = *MEMORY[0x1E69E9840];
   trialIdentifiers = [(BMLighthouseLedgerMlruntimedEvent *)self trialIdentifiers];
   jsonDictionary = [trialIdentifiers jsonDictionary];
 
@@ -237,68 +235,68 @@ LABEL_27:
   taskCompleted = [(BMLighthouseLedgerMlruntimedEvent *)self taskCompleted];
   jsonDictionary5 = [taskCompleted jsonDictionary];
 
-  v33[0] = @"trialIdentifiers";
+  v32[0] = @"trialIdentifiers";
   null = jsonDictionary;
   if (!jsonDictionary)
   {
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v30 = null;
-  v34[0] = null;
-  v33[1] = @"contextID";
+  v29 = null;
+  v33[0] = null;
+  v32[1] = @"contextID";
   null2 = contextID;
   if (!contextID)
   {
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v29 = null2;
-  v34[1] = null2;
-  v33[2] = @"timestamp";
+  v28 = null2;
+  v33[1] = null2;
+  v32[2] = @"timestamp";
   null3 = v9;
   if (!v9)
   {
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v32 = jsonDictionary;
-  v28 = null3;
-  v34[2] = null3;
-  v33[3] = @"activityScheduleStatus";
+  v31 = jsonDictionary;
+  v27 = null3;
+  v33[2] = null3;
+  v32[3] = @"activityScheduleStatus";
   null4 = jsonDictionary2;
   if (!jsonDictionary2)
   {
     null4 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v31 = contextID;
-  v34[3] = null4;
-  v33[4] = @"taskFetched";
+  v30 = contextID;
+  v33[3] = null4;
+  v32[4] = @"taskFetched";
   null5 = jsonDictionary3;
   if (!jsonDictionary3)
   {
     null5 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v34[4] = null5;
-  v33[5] = @"taskScheduled";
+  v33[4] = null5;
+  v32[5] = @"taskScheduled";
   null6 = jsonDictionary4;
   if (!jsonDictionary4)
   {
     null6 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v34[5] = null6;
-  v33[6] = @"taskCompleted";
+  v33[5] = null6;
+  v32[6] = @"taskCompleted";
   null7 = jsonDictionary5;
   if (!jsonDictionary5)
   {
     null7 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v34[6] = null7;
-  v25 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v34 forKeys:v33 count:7];
+  v33[6] = null7;
+  v25 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v33 forKeys:v32 count:7];
   if (jsonDictionary5)
   {
     if (jsonDictionary4)
@@ -336,14 +334,14 @@ LABEL_21:
 
   if (v9)
   {
-    if (v31)
+    if (v30)
     {
       goto LABEL_25;
     }
 
 LABEL_33:
 
-    if (v32)
+    if (v31)
     {
       goto LABEL_26;
     }
@@ -351,13 +349,13 @@ LABEL_33:
     goto LABEL_34;
   }
 
-  if (!v31)
+  if (!v30)
   {
     goto LABEL_33;
   }
 
 LABEL_25:
-  if (v32)
+  if (v31)
   {
     goto LABEL_26;
   }
@@ -365,14 +363,13 @@ LABEL_25:
 LABEL_34:
 
 LABEL_26:
-  v26 = *MEMORY[0x1E69E9840];
 
   return v25;
 }
 
 - (BMLighthouseLedgerMlruntimedEvent)initWithJSONDictionary:(id)dictionary error:(id *)error
 {
-  v101[1] = *MEMORY[0x1E69E9840];
+  v100[1] = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   v7 = [dictionaryCopy objectForKeyedSubscript:@"trialIdentifiers"];
   if (!v7 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
@@ -385,9 +382,9 @@ LABEL_26:
   if (objc_opt_isKindOfClass())
   {
     v10 = v7;
-    v87 = 0;
-    v8 = [[BMLighthouseLedgerTrialIdentifiers alloc] initWithJSONDictionary:v10 error:&v87];
-    v12 = v87;
+    v86 = 0;
+    v8 = [[BMLighthouseLedgerTrialIdentifiers alloc] initWithJSONDictionary:v10 error:&v86];
+    v12 = v86;
     if (v12)
     {
       if (error)
@@ -420,10 +417,10 @@ LABEL_82:
         v23 = objc_alloc(MEMORY[0x1E696ABC0]);
         v24 = v9;
         v25 = *MEMORY[0x1E698F240];
-        v98 = *MEMORY[0x1E696A578];
-        v82 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"contextID"];
-        v99 = v82;
-        v26 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v99 forKeys:&v98 count:1];
+        v97 = *MEMORY[0x1E696A578];
+        v81 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"contextID"];
+        v98 = v81;
+        v26 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v98 forKeys:&v97 count:1];
         v27 = v25;
         v9 = v24;
         v10 = 0;
@@ -444,10 +441,10 @@ LABEL_81:
     }
 
     v11 = [dictionaryCopy objectForKeyedSubscript:@"timestamp"];
-    v80 = v8;
+    v79 = v8;
     if (v11 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
     {
-      v72 = v7;
+      v71 = v7;
       errorCopy2 = error;
       objc_opt_class();
       if (objc_opt_isKindOfClass())
@@ -458,7 +455,7 @@ LABEL_81:
         [v16 doubleValue];
         v19 = v18;
 
-        v82 = [v17 initWithTimeIntervalSince1970:v19];
+        v81 = [v17 initWithTimeIntervalSince1970:v19];
       }
 
       else
@@ -467,7 +464,7 @@ LABEL_81:
         if (objc_opt_isKindOfClass())
         {
           v28 = objc_alloc_init(MEMORY[0x1E696AC80]);
-          v82 = [v28 dateFromString:v11];
+          v81 = [v28 dateFromString:v11];
         }
 
         else
@@ -477,40 +474,40 @@ LABEL_81:
           {
             if (!error)
             {
-              v82 = 0;
+              v81 = 0;
               v13 = 0;
-              v7 = v72;
+              v7 = v71;
               goto LABEL_81;
             }
 
-            v59 = objc_alloc(MEMORY[0x1E696ABC0]);
-            v60 = v9;
-            v61 = *MEMORY[0x1E698F240];
-            v96 = *MEMORY[0x1E696A578];
+            v58 = objc_alloc(MEMORY[0x1E696ABC0]);
+            v59 = v9;
+            v60 = *MEMORY[0x1E698F240];
+            v95 = *MEMORY[0x1E696A578];
             v35 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (as time internal since 1970), NSString (ISO8601 format), or NSDate", objc_opt_class(), @"timestamp"];
-            v97 = v35;
-            v62 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v97 forKeys:&v96 count:1];
-            v63 = v61;
-            v9 = v60;
-            v79 = v62;
-            v82 = 0;
+            v96 = v35;
+            v61 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v96 forKeys:&v95 count:1];
+            v62 = v60;
+            v9 = v59;
+            v78 = v61;
+            v81 = 0;
             v13 = 0;
-            *error = [v59 initWithDomain:v63 code:2 userInfo:?];
-            v7 = v72;
+            *error = [v58 initWithDomain:v62 code:2 userInfo:?];
+            v7 = v71;
             goto LABEL_79;
           }
 
-          v82 = v11;
+          v81 = v11;
         }
       }
 
       error = errorCopy2;
-      v7 = v72;
+      v7 = v71;
     }
 
     else
     {
-      v82 = 0;
+      v81 = 0;
     }
 
     v29 = [dictionaryCopy objectForKeyedSubscript:@"activityScheduleStatus"];
@@ -526,35 +523,35 @@ LABEL_81:
           goto LABEL_80;
         }
 
-        v77 = objc_alloc(MEMORY[0x1E696ABC0]);
+        v76 = objc_alloc(MEMORY[0x1E696ABC0]);
         v39 = v9;
         v40 = *MEMORY[0x1E698F240];
-        v94 = *MEMORY[0x1E696A578];
-        v73 = v7;
+        v93 = *MEMORY[0x1E696A578];
+        v72 = v7;
         v41 = v11;
         errorCopy3 = error;
         v43 = v10;
         v44 = objc_alloc(MEMORY[0x1E696AEC0]);
-        v64 = objc_opt_class();
+        v63 = objc_opt_class();
         v45 = v44;
         v10 = v43;
-        v79 = [v45 initWithFormat:@"Unexpected type %@ for element of %@, expecting NSDictionary", v64, @"activityScheduleStatus"];
-        v95 = v79;
-        v46 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v95 forKeys:&v94 count:1];
+        v78 = [v45 initWithFormat:@"Unexpected type %@ for element of %@, expecting NSDictionary", v63, @"activityScheduleStatus"];
+        v94 = v78;
+        v46 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v94 forKeys:&v93 count:1];
         v47 = v40;
         v9 = v39;
-        *errorCopy3 = [v77 initWithDomain:v47 code:2 userInfo:v46];
+        *errorCopy3 = [v76 initWithDomain:v47 code:2 userInfo:v46];
         v11 = v41;
-        v7 = v73;
+        v7 = v72;
 
         v13 = 0;
         goto LABEL_78;
       }
 
       v35 = v29;
-      v86 = 0;
-      v79 = [[BMLighthouseLedgerMlruntimedEventScheduleStatus alloc] initWithJSONDictionary:v35 error:&v86];
-      v36 = v86;
+      v85 = 0;
+      v78 = [[BMLighthouseLedgerMlruntimedEventScheduleStatus alloc] initWithJSONDictionary:v35 error:&v85];
+      v36 = v85;
       if (v36)
       {
         if (error)
@@ -570,11 +567,11 @@ LABEL_81:
 
     else
     {
-      v79 = 0;
+      v78 = 0;
     }
 
     v30 = [dictionaryCopy objectForKeyedSubscript:@"taskFetched"];
-    v78 = v10;
+    v77 = v10;
     if (v30 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
     {
       objc_opt_class();
@@ -586,28 +583,28 @@ LABEL_81:
           goto LABEL_77;
         }
 
-        v71 = objc_alloc(MEMORY[0x1E696ABC0]);
+        v70 = objc_alloc(MEMORY[0x1E696ABC0]);
         v51 = *MEMORY[0x1E698F240];
-        v92 = *MEMORY[0x1E696A578];
-        v75 = v7;
+        v91 = *MEMORY[0x1E696A578];
+        v74 = v7;
         v52 = v11;
         errorCopy4 = error;
-        v76 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSDictionary", objc_opt_class(), @"taskFetched"];
-        v93 = v76;
-        v31 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v93 forKeys:&v92 count:1];
-        v54 = [v71 initWithDomain:v51 code:2 userInfo:v31];
+        v75 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSDictionary", objc_opt_class(), @"taskFetched"];
+        v92 = v75;
+        v31 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v92 forKeys:&v91 count:1];
+        v54 = [v70 initWithDomain:v51 code:2 userInfo:v31];
         v13 = 0;
         *errorCopy4 = v54;
         v11 = v52;
-        v7 = v75;
+        v7 = v74;
         goto LABEL_75;
       }
 
       errorCopy6 = error;
       v31 = v30;
-      v85 = 0;
-      v76 = [[BMLighthouseLedgerMlruntimedEventTaskEvent alloc] initWithJSONDictionary:v31 error:&v85];
-      v37 = v85;
+      v84 = 0;
+      v75 = [[BMLighthouseLedgerMlruntimedEventTaskEvent alloc] initWithJSONDictionary:v31 error:&v84];
+      v37 = v84;
       if (v37)
       {
         if (errorCopy6)
@@ -624,41 +621,41 @@ LABEL_81:
     else
     {
       errorCopy6 = error;
-      v76 = 0;
+      v75 = 0;
     }
 
     v31 = [dictionaryCopy objectForKeyedSubscript:@"taskScheduled"];
-    v68 = v9;
+    v67 = v9;
     if (v31 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
     {
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {
-        v74 = v7;
+        v73 = v7;
         v50 = v11;
         if (!errorCopy6)
         {
           v13 = 0;
-          v7 = v74;
+          v7 = v73;
           goto LABEL_76;
         }
 
-        v66 = objc_alloc(MEMORY[0x1E696ABC0]);
+        v65 = objc_alloc(MEMORY[0x1E696ABC0]);
         v55 = *MEMORY[0x1E698F240];
-        v90 = *MEMORY[0x1E696A578];
+        v89 = *MEMORY[0x1E696A578];
         v32 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSDictionary", objc_opt_class(), @"taskScheduled"];
-        v91 = v32;
-        v33 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v91 forKeys:&v90 count:1];
-        v56 = [v66 initWithDomain:v55 code:2 userInfo:v33];
+        v90 = v32;
+        v33 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v90 forKeys:&v89 count:1];
+        v56 = [v65 initWithDomain:v55 code:2 userInfo:v33];
         v13 = 0;
         *errorCopy6 = v56;
         goto LABEL_95;
       }
 
       v33 = v31;
-      v84 = 0;
-      v32 = [[BMLighthouseLedgerMlruntimedEventTaskEvent alloc] initWithJSONDictionary:v33 error:&v84];
-      v38 = v84;
+      v83 = 0;
+      v32 = [[BMLighthouseLedgerMlruntimedEventTaskEvent alloc] initWithJSONDictionary:v33 error:&v83];
+      v38 = v83;
       if (v38)
       {
         if (errorCopy6)
@@ -682,15 +679,15 @@ LABEL_81:
     {
       v34 = 0;
 LABEL_42:
-      v13 = [(BMLighthouseLedgerMlruntimedEvent *)selfCopy initWithTrialIdentifiers:v80 contextID:v78 timestamp:v82 activityScheduleStatus:v79 taskFetched:v76 taskScheduled:v32 taskCompleted:v34];
+      v13 = [(BMLighthouseLedgerMlruntimedEvent *)selfCopy initWithTrialIdentifiers:v79 contextID:v77 timestamp:v81 activityScheduleStatus:v78 taskFetched:v75 taskScheduled:v32 taskCompleted:v34];
       selfCopy = v13;
 LABEL_73:
 
-      v9 = v68;
+      v9 = v67;
 LABEL_74:
 
 LABEL_75:
-      v10 = v78;
+      v10 = v77;
 LABEL_76:
 
 LABEL_77:
@@ -702,7 +699,7 @@ LABEL_79:
       v29 = v35;
 LABEL_80:
 
-      v8 = v80;
+      v8 = v79;
       goto LABEL_81;
     }
 
@@ -710,16 +707,16 @@ LABEL_80:
     if (objc_opt_isKindOfClass())
     {
       v48 = v33;
-      v83 = 0;
-      v34 = [[BMLighthouseLedgerMlruntimedEventTaskEvent alloc] initWithJSONDictionary:v48 error:&v83];
-      v49 = v83;
+      v82 = 0;
+      v34 = [[BMLighthouseLedgerMlruntimedEventTaskEvent alloc] initWithJSONDictionary:v48 error:&v82];
+      v49 = v82;
       if (!v49)
       {
 
         goto LABEL_42;
       }
 
-      v74 = v7;
+      v73 = v7;
       v50 = v11;
       if (errorCopy6)
       {
@@ -730,28 +727,28 @@ LABEL_80:
 LABEL_72:
       v13 = 0;
       v11 = v50;
-      v7 = v74;
+      v7 = v73;
       goto LABEL_73;
     }
 
-    v74 = v7;
+    v73 = v7;
     v50 = v11;
     if (errorCopy6)
     {
-      v67 = objc_alloc(MEMORY[0x1E696ABC0]);
-      v65 = *MEMORY[0x1E698F240];
-      v88 = *MEMORY[0x1E696A578];
+      v66 = objc_alloc(MEMORY[0x1E696ABC0]);
+      v64 = *MEMORY[0x1E698F240];
+      v87 = *MEMORY[0x1E696A578];
       v34 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSDictionary", objc_opt_class(), @"taskCompleted"];
-      v89 = v34;
-      v48 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v89 forKeys:&v88 count:1];
-      *errorCopy6 = [v67 initWithDomain:v65 code:2 userInfo:v48];
+      v88 = v34;
+      v48 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v88 forKeys:&v87 count:1];
+      *errorCopy6 = [v66 initWithDomain:v64 code:2 userInfo:v48];
       goto LABEL_72;
     }
 
     v13 = 0;
 LABEL_95:
     v11 = v50;
-    v7 = v74;
+    v7 = v73;
     goto LABEL_74;
   }
 
@@ -760,10 +757,10 @@ LABEL_95:
     errorCopy7 = error;
     v20 = objc_alloc(MEMORY[0x1E696ABC0]);
     v21 = *MEMORY[0x1E698F240];
-    v100 = *MEMORY[0x1E696A578];
+    v99 = *MEMORY[0x1E696A578];
     v8 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSDictionary", objc_opt_class(), @"trialIdentifiers"];
-    v101[0] = v8;
-    v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v101 forKeys:&v100 count:1];
+    v100[0] = v8;
+    v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v100 forKeys:&v99 count:1];
     v13 = 0;
     *errorCopy7 = [v20 initWithDomain:v21 code:2 userInfo:v10];
 LABEL_83:
@@ -774,7 +771,6 @@ LABEL_83:
   v13 = 0;
 LABEL_84:
 
-  v57 = *MEMORY[0x1E69E9840];
   return v13;
 }
 
@@ -804,7 +800,6 @@ LABEL_84:
 
   if (self->_hasRaw_timestamp)
   {
-    raw_timestamp = self->_raw_timestamp;
     PBDataWriterWriteDoubleField();
   }
 
@@ -1131,75 +1126,73 @@ LABEL_55:
 
 + (id)protoFields
 {
-  v12[7] = *MEMORY[0x1E69E9840];
+  v11[7] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"trialIdentifiers" number:1 type:14 subMessageClass:objc_opt_class()];
   v3 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"contextID" number:2 type:13 subMessageClass:{0, v2}];
-  v12[1] = v3;
+  v11[1] = v3;
   v4 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"timestamp" number:3 type:0 subMessageClass:0];
-  v12[2] = v4;
+  v11[2] = v4;
   v5 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"activityScheduleStatus" number:101 type:14 subMessageClass:objc_opt_class()];
-  v12[3] = v5;
+  v11[3] = v5;
   v6 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"taskFetched" number:102 type:14 subMessageClass:objc_opt_class()];
-  v12[4] = v6;
+  v11[4] = v6;
   v7 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"taskScheduled" number:103 type:14 subMessageClass:objc_opt_class()];
-  v12[5] = v7;
+  v11[5] = v7;
   v8 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"taskCompleted" number:104 type:14 subMessageClass:objc_opt_class()];
-  v12[6] = v8;
-  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:7];
-
-  v10 = *MEMORY[0x1E69E9840];
+  v11[6] = v8;
+  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:7];
 
   return v9;
 }
 
-id __44__BMLighthouseLedgerMlruntimedEvent_columns__block_invoke_5(uint64_t a1, void *a2)
+id __44__BMLighthouseLedgerMlruntimedEvent_columns__block_invoke_5(uint64_t a1, void *a2, uint64_t a3)
 {
-  v2 = [a2 eventBodyKeepingBackingData:1];
-  v3 = [v2 taskCompleted];
-  v4 = [v3 jsonDictionary];
-  v5 = BMConvertObjectToJSONString();
+  v3 = [a2 eventBodyKeepingBackingData:1];
+  v4 = [v3 taskCompleted];
+  v5 = [v4 jsonDictionary];
+  v6 = BMConvertObjectToJSONString();
 
-  return v5;
+  return v6;
 }
 
-id __44__BMLighthouseLedgerMlruntimedEvent_columns__block_invoke_4(uint64_t a1, void *a2)
+id __44__BMLighthouseLedgerMlruntimedEvent_columns__block_invoke_4(uint64_t a1, void *a2, uint64_t a3)
 {
-  v2 = [a2 eventBodyKeepingBackingData:1];
-  v3 = [v2 taskScheduled];
-  v4 = [v3 jsonDictionary];
-  v5 = BMConvertObjectToJSONString();
+  v3 = [a2 eventBodyKeepingBackingData:1];
+  v4 = [v3 taskScheduled];
+  v5 = [v4 jsonDictionary];
+  v6 = BMConvertObjectToJSONString();
 
-  return v5;
+  return v6;
 }
 
-id __44__BMLighthouseLedgerMlruntimedEvent_columns__block_invoke_3(uint64_t a1, void *a2)
+id __44__BMLighthouseLedgerMlruntimedEvent_columns__block_invoke_3(uint64_t a1, void *a2, uint64_t a3)
 {
-  v2 = [a2 eventBodyKeepingBackingData:1];
-  v3 = [v2 taskFetched];
-  v4 = [v3 jsonDictionary];
-  v5 = BMConvertObjectToJSONString();
+  v3 = [a2 eventBodyKeepingBackingData:1];
+  v4 = [v3 taskFetched];
+  v5 = [v4 jsonDictionary];
+  v6 = BMConvertObjectToJSONString();
 
-  return v5;
+  return v6;
 }
 
-id __44__BMLighthouseLedgerMlruntimedEvent_columns__block_invoke_2(uint64_t a1, void *a2)
+id __44__BMLighthouseLedgerMlruntimedEvent_columns__block_invoke_2(uint64_t a1, void *a2, uint64_t a3)
 {
-  v2 = [a2 eventBodyKeepingBackingData:1];
-  v3 = [v2 activityScheduleStatus];
-  v4 = [v3 jsonDictionary];
-  v5 = BMConvertObjectToJSONString();
+  v3 = [a2 eventBodyKeepingBackingData:1];
+  v4 = [v3 activityScheduleStatus];
+  v5 = [v4 jsonDictionary];
+  v6 = BMConvertObjectToJSONString();
 
-  return v5;
+  return v6;
 }
 
-id __44__BMLighthouseLedgerMlruntimedEvent_columns__block_invoke(uint64_t a1, void *a2)
+id __44__BMLighthouseLedgerMlruntimedEvent_columns__block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v2 = [a2 eventBodyKeepingBackingData:1];
-  v3 = [v2 trialIdentifiers];
-  v4 = [v3 jsonDictionary];
-  v5 = BMConvertObjectToJSONString();
+  v3 = [a2 eventBodyKeepingBackingData:1];
+  v4 = [v3 trialIdentifiers];
+  v5 = [v4 jsonDictionary];
+  v6 = BMConvertObjectToJSONString();
 
-  return v5;
+  return v6;
 }
 
 + (id)eventWithData:(id)data dataVersion:(unsigned int)version

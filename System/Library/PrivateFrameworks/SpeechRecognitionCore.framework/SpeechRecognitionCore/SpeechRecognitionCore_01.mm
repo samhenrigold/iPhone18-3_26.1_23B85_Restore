@@ -220,7 +220,7 @@ std::string *RDURL::DirName(std::string *this)
   return result;
 }
 
-uint64_t std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>@<X0>(const void **a1@<X0>, const void **a2@<X1>, uint64_t a3@<X8>)
+char *std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>@<X0>(const void **a1@<X0>, const void **a2@<X1>, uint64_t a3@<X8>)
 {
   if (*(a1 + 23) >= 0)
   {
@@ -243,7 +243,7 @@ uint64_t std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator
   }
 
   result = std::string::basic_string[abi:ne200100](a3, v6 + v5);
-  if (*(result + 23) >= 0)
+  if (result[23] >= 0)
   {
     v8 = result;
   }
@@ -288,7 +288,7 @@ uint64_t std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator
   return result;
 }
 
-uint64_t std::string::find[abi:ne200100](uint64_t *a1, char *a2, unint64_t a3)
+unint64_t std::string::find[abi:ne200100](uint64_t *a1, char *a2, unint64_t a3)
 {
   v3 = a1;
   v4 = *(a1 + 23);
@@ -327,10 +327,10 @@ uint64_t std::string::find[abi:ne200100](uint64_t *a1, char *a2, unint64_t a3)
 
   if (v7)
   {
-    v9 = (v3 + v4);
+    v9 = v3 + v4;
     if (v8 >= v7)
     {
-      v12 = (v3 + a3);
+      v12 = v3 + a3;
       v13 = *v6;
       do
       {
@@ -367,14 +367,14 @@ LABEL_14:
 
     else
     {
-      return &v10[-v3];
+      return v10 - v3;
     }
   }
 
   return a3;
 }
 
-uint64_t std::string::basic_string[abi:ne200100](uint64_t result, unint64_t a2)
+uint64_t std::string::basic_string[abi:ne200100](uint64_t a1, unint64_t a2)
 {
   if (a2 >= 0x7FFFFFFFFFFFFFF8)
   {
@@ -386,11 +386,11 @@ uint64_t std::string::basic_string[abi:ne200100](uint64_t result, unint64_t a2)
     operator new();
   }
 
-  *(result + 8) = 0;
-  *(result + 16) = 0;
-  *result = 0;
-  *(result + 23) = a2;
-  return result;
+  *(a1 + 8) = 0;
+  *(a1 + 16) = 0;
+  *a1 = 0;
+  *(a1 + 23) = a2;
+  return a1;
 }
 
 void std::__throw_out_of_range[abi:ne200100](const char *a1)

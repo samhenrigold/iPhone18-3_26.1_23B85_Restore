@@ -66,28 +66,35 @@
   v9 = v8;
   if (v7)
   {
-    *(swift_allocObject() + 16) = v7;
+    v10 = swift_allocObject();
+    *(v10 + 16) = v7;
     v7 = sub_1B1B20A18;
     if (v9)
     {
 LABEL_3:
-      *(swift_allocObject() + 16) = v9;
-      v10 = sub_1B1B20A10;
+      v11 = swift_allocObject();
+      *(v11 + 16) = v9;
+      v12 = sub_1B1B20A10;
       goto LABEL_6;
     }
   }
 
-  else if (v8)
+  else
   {
-    goto LABEL_3;
+    v10 = 0;
+    if (v8)
+    {
+      goto LABEL_3;
+    }
   }
 
-  v10 = 0;
+  v12 = 0;
+  v11 = 0;
 LABEL_6:
   selfCopy = self;
-  TTSAsset.download(options:progress:then:)(selfCopy, v11, v12, v10);
-  sub_1B1A949B4(v10);
-  sub_1B1A949B4(v7);
+  TTSAsset.download(options:progress:then:)(selfCopy, v13, v14, v12);
+  sub_1B1A949B4(v12, v11);
+  sub_1B1A949B4(v7, v10);
 }
 
 - (void)cancelDownloadingThen:(id)then
@@ -116,13 +123,19 @@ LABEL_6:
   v4 = _Block_copy(then);
   if (v4)
   {
-    *(swift_allocObject() + 16) = v4;
+    v5 = swift_allocObject();
+    *(v5 + 16) = v4;
     v4 = sub_1B1A95AD0;
+  }
+
+  else
+  {
+    v5 = 0;
   }
 
   selfCopy = self;
   TTSAsset.purge(then:)(v4);
-  sub_1B1A949B4(v4);
+  sub_1B1A949B4(v4, v5);
 }
 
 - (id)legacyAssetWithBundle:(id)bundle
@@ -140,11 +153,11 @@ LABEL_6:
   swift_unknownObjectRetain();
   swift_unknownObjectRetain();
   swift_unknownObjectRetain();
-  v5 = static TTSAsset.handleProxy(event:reply:connection:)();
+  v8 = static TTSAsset.handleProxy(event:reply:connection:)(event, reply, connection);
   swift_unknownObjectRelease();
   swift_unknownObjectRelease();
   swift_unknownObjectRelease();
-  return v5 & 1;
+  return v8 & 1;
 }
 
 + (BOOL)setServer:(id)server forType:(id)type
@@ -236,7 +249,7 @@ LABEL_6:
 
 - (NSNumber)age
 {
-  v2 = sub_1B1BD6504();
+  v2 = sub_1B1BD6504(self);
 
   return v2;
 }
@@ -245,12 +258,12 @@ LABEL_6:
 {
   ageCopy = age;
   selfCopy = self;
-  sub_1B1BD6540();
+  sub_1B1BD6540(age);
 }
 
 - (NSNumber)downloadSize
 {
-  v2 = sub_1B1BD6580();
+  v2 = sub_1B1BD6580(self);
 
   return v2;
 }
@@ -259,12 +272,12 @@ LABEL_6:
 {
   sizeCopy = size;
   selfCopy = self;
-  sub_1B1BD65BC();
+  sub_1B1BD65BC(size);
 }
 
 - (NSNumber)diskSize
 {
-  v2 = sub_1B1BD7410();
+  v2 = sub_1B1BD7410(self);
 
   return v2;
 }
@@ -273,12 +286,12 @@ LABEL_6:
 {
   sizeCopy = size;
   selfCopy = self;
-  sub_1B1BD65FC();
+  sub_1B1BD65FC(size);
 }
 
 - (NSBundle)bundle
 {
-  v2 = sub_1B1BD7578();
+  v2 = sub_1B1BD7578(self);
 
   return v2;
 }
@@ -287,7 +300,7 @@ LABEL_6:
 {
   bundleCopy = bundle;
   selfCopy = self;
-  sub_1B1BD667C();
+  sub_1B1BD667C(bundle);
 }
 
 - (int64_t)brand

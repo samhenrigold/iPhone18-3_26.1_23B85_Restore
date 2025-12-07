@@ -205,15 +205,15 @@
 
 void __50__WDExportManager_createExportFileWithCompletion___block_invoke(uint64_t a1)
 {
-  v124[1] = *MEMORY[0x277D85DE8];
-  v89 = [MEMORY[0x277CCAA00] defaultManager];
+  v123[1] = *MEMORY[0x277D85DE8];
+  v88 = [MEMORY[0x277CCAA00] defaultManager];
   v2 = (a1 + 32);
-  if ([v89 fileExistsAtPath:*(*(a1 + 32) + 80)])
+  if ([v88 fileExistsAtPath:*(*(a1 + 32) + 80)])
   {
     v3 = *(*v2 + 10);
-    v119 = 0;
-    [v89 removeItemAtPath:v3 error:&v119];
-    v4 = v119;
+    v118 = 0;
+    [v88 removeItemAtPath:v3 error:&v118];
+    v4 = v118;
   }
 
   else
@@ -225,21 +225,21 @@ void __50__WDExportManager_createExportFileWithCompletion___block_invoke(uint64_
   v6 = *MEMORY[0x277CCA190];
   v7 = *MEMORY[0x277CCA1B0];
   v8 = [MEMORY[0x277CBEAC0] dictionaryWithObject:*MEMORY[0x277CCA190] forKey:*MEMORY[0x277CCA1B0]];
-  [v89 createDirectoryAtPath:v5 withIntermediateDirectories:1 attributes:v8 error:0];
+  [v88 createDirectoryAtPath:v5 withIntermediateDirectories:1 attributes:v8 error:0];
 
   v9 = *(*v2 + 11);
   v10 = [MEMORY[0x277CBEAC0] dictionaryWithObject:v6 forKey:v7];
-  [v89 createFileAtPath:v9 contents:0 attributes:v10];
+  [v88 createFileAtPath:v9 contents:0 attributes:v10];
 
   v11 = *(*v2 + 12);
   v12 = [MEMORY[0x277CBEAC0] dictionaryWithObject:v6 forKey:v7];
-  [v89 createFileAtPath:v11 contents:0 attributes:v12];
+  [v88 createFileAtPath:v11 contents:0 attributes:v12];
 
   v13 = *(*v2 + 13);
   v14 = [MEMORY[0x277CBEAC0] dictionaryWithObject:v6 forKey:v7];
-  [v89 createFileAtPath:v13 contents:0 attributes:v14];
+  [v88 createFileAtPath:v13 contents:0 attributes:v14];
 
-  if ([v89 fileExistsAtPath:*(*v2 + 11)] && (objc_msgSend(v89, "fileExistsAtPath:", *(*v2 + 12)) & 1) != 0)
+  if ([v88 fileExistsAtPath:*(*v2 + 11)] && (objc_msgSend(v88, "fileExistsAtPath:", *(*v2 + 12)) & 1) != 0)
   {
     v15 = v4;
   }
@@ -250,12 +250,12 @@ void __50__WDExportManager_createExportFileWithCompletion___block_invoke(uint64_
     v16 = HKLogWellnessDashboard();
     if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      __50__WDExportManager_createExportFileWithCompletion___block_invoke_cold_1(a1 + 32);
+      __50__WDExportManager_createExportFileWithCompletion___block_invoke_cold_1();
     }
 
-    v123 = *MEMORY[0x277CCA450];
-    v124[0] = @"Export file(s) could not be created.";
-    v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v124 forKeys:&v123 count:1];
+    v122 = *MEMORY[0x277CCA450];
+    v123[0] = @"Export file(s) could not be created.";
+    v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v123 forKeys:&v122 count:1];
     v15 = [MEMORY[0x277CCA9B8] errorWithDomain:@"HealthExport" code:100 userInfo:v17];
 
     (*(*(a1 + 40) + 16))();
@@ -296,12 +296,12 @@ void __50__WDExportManager_createExportFileWithCompletion___block_invoke(uint64_
   xmlTextWriterWriteAttributeNS(*(*v2 + 4), "xmlns", "fhir", 0, "http://hl7.org/fhir/v3");
 
   v24 = [*(*v2 + 1) healthStore];
-  v118 = 0;
-  v84 = [v24 dateOfBirthComponentsWithError:&v118];
-  v25 = v118;
+  v117 = 0;
+  v83 = [v24 dateOfBirthComponentsWithError:&v117];
+  v25 = v117;
 
   v26 = [MEMORY[0x277CBEA80] calendarWithIdentifier:*MEMORY[0x277CBE5C0]];
-  v27 = [v26 dateFromComponents:v84];
+  v27 = [v26 dateFromComponents:v83];
 
   if (!v27 && v25)
   {
@@ -314,9 +314,9 @@ void __50__WDExportManager_createExportFileWithCompletion___block_invoke(uint64_
   }
 
   v29 = [*(*v2 + 1) healthStore];
-  v117 = 0;
-  v30 = [v29 biologicalSexWithError:&v117];
-  v31 = v117;
+  v116 = 0;
+  v30 = [v29 biologicalSexWithError:&v116];
+  v31 = v116;
 
   if (!v30 && v31)
   {
@@ -329,11 +329,11 @@ void __50__WDExportManager_createExportFileWithCompletion___block_invoke(uint64_
   }
 
   v33 = [*(*v2 + 1) healthStore];
-  v116 = 0;
-  v86 = [v33 bloodTypeWithError:&v116];
-  v34 = v116;
+  v115 = 0;
+  v85 = [v33 bloodTypeWithError:&v115];
+  v34 = v115;
 
-  if (!v86 && v34)
+  if (!v85 && v34)
   {
     _HKInitializeLogging();
     v35 = HKLogWellnessDashboard();
@@ -344,11 +344,11 @@ void __50__WDExportManager_createExportFileWithCompletion___block_invoke(uint64_
   }
 
   v36 = [*(*v2 + 1) healthStore];
-  v115 = 0;
-  v85 = [v36 fitzpatrickSkinTypeWithError:&v115];
-  v37 = v115;
+  v114 = 0;
+  v84 = [v36 fitzpatrickSkinTypeWithError:&v114];
+  v37 = v114;
 
-  if (!v85 && v37)
+  if (!v84 && v37)
   {
     _HKInitializeLogging();
     v38 = HKLogWellnessDashboard();
@@ -359,11 +359,11 @@ void __50__WDExportManager_createExportFileWithCompletion___block_invoke(uint64_
   }
 
   v39 = [*(*v2 + 1) healthStore];
-  v114 = 0;
-  v40 = [v39 _cardioFitnessMedicationsUseWithError:&v114];
-  v87 = v114;
+  v113 = 0;
+  v40 = [v39 _cardioFitnessMedicationsUseWithError:&v113];
+  v86 = v113;
 
-  if (!v40 && v87)
+  if (!v40 && v86)
   {
     _HKInitializeLogging();
     v41 = HKLogWellnessDashboard();
@@ -373,52 +373,52 @@ void __50__WDExportManager_createExportFileWithCompletion___block_invoke(uint64_
     }
   }
 
-  v88 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v87 = objc_alloc_init(MEMORY[0x277CBEB18]);
   if ([v40 takingCalciumChannelBlockers])
   {
     v42 = WDBundle();
     v43 = [v42 localizedStringForKey:@"CALCIUM_CHANNEL_USE" value:&stru_28641D9B8 table:@"WellnessDashboard-Localizable"];
-    [v88 addObject:v43];
+    [v87 addObject:v43];
   }
 
   if ([v40 takingBetaBlockers])
   {
     v44 = WDBundle();
     v45 = [v44 localizedStringForKey:@"BETA_BLOCKERS" value:&stru_28641D9B8 table:@"WellnessDashboard-Localizable"];
-    [v88 addObject:v45];
+    [v87 addObject:v45];
   }
 
   if (([v40 medicationsAreSet] & 1) == 0)
   {
     v46 = WDBundle();
     v47 = [v46 localizedStringForKey:@"NONE" value:&stru_28641D9B8 table:@"WellnessDashboard-Localizable"];
-    [v88 addObject:v47];
+    [v87 addObject:v47];
   }
 
-  v83 = [v88 componentsJoinedByString:{@", "}];
-  [*v2 _writeXMLPersonWithDateOfBirth:v27 biologicalSex:objc_msgSend(v30 bloodType:"biologicalSex") skinType:objc_msgSend(v86 cardioFitnessMedicationsUse:{"bloodType"), objc_msgSend(v85, "skinType"), v83}];
-  v108 = 0;
-  v109 = &v108;
-  v110 = 0x3032000000;
-  v111 = __Block_byref_object_copy_;
-  v112 = __Block_byref_object_dispose_;
-  v113 = 0;
+  v82 = [v87 componentsJoinedByString:{@", "}];
+  [*v2 _writeXMLPersonWithDateOfBirth:v27 biologicalSex:objc_msgSend(v30 bloodType:"biologicalSex") skinType:objc_msgSend(v85 cardioFitnessMedicationsUse:{"bloodType"), objc_msgSend(v84, "skinType"), v82}];
+  v107 = 0;
+  v108 = &v107;
+  v109 = 0x3032000000;
+  v110 = __Block_byref_object_copy_;
+  v111 = __Block_byref_object_dispose_;
+  v112 = 0;
   v48 = objc_alloc(MEMORY[0x277CCD5E8]);
   v49 = [*(*v2 + 1) healthStore];
   v50 = [v48 initWithHealthStore:v49];
 
-  v104[0] = MEMORY[0x277D85DD0];
-  v104[1] = 3221225472;
-  v104[2] = __50__WDExportManager_createExportFileWithCompletion___block_invoke_370;
-  v104[3] = &unk_2796E7170;
+  v103[0] = MEMORY[0x277D85DD0];
+  v103[1] = 3221225472;
+  v103[2] = __50__WDExportManager_createExportFileWithCompletion___block_invoke_370;
+  v103[3] = &unk_2796E7170;
   v51 = *v2;
-  v107 = &v108;
-  v104[4] = v51;
-  v82 = v27;
-  v105 = v82;
-  v81 = v30;
-  v106 = v81;
-  [v50 fetchMedicalIDDataWithCompletion:v104];
+  v106 = &v107;
+  v103[4] = v51;
+  v81 = v27;
+  v104 = v81;
+  v80 = v30;
+  v105 = v80;
+  [v50 fetchMedicalIDDataWithCompletion:v103];
   dispatch_semaphore_wait(*(*v2 + 5), 0xFFFFFFFFFFFFFFFFLL);
   v52 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v53 = objc_alloc_init(MEMORY[0x277CBEB18]);
@@ -437,25 +437,25 @@ void __50__WDExportManager_createExportFileWithCompletion___block_invoke(uint64_
   if (([*v2 exportFailed] & 1) == 0)
   {
     v57 = a1;
-    v102 = 0u;
-    v103 = 0u;
-    v100 = 0u;
     v101 = 0u;
+    v102 = 0u;
+    v99 = 0u;
+    v100 = 0u;
     v58 = v52;
-    v59 = [v58 countByEnumeratingWithState:&v100 objects:v122 count:16];
+    v59 = [v58 countByEnumeratingWithState:&v99 objects:v121 count:16];
     if (v59)
     {
-      v60 = *v101;
+      v60 = *v100;
 LABEL_44:
       v61 = 0;
       while (1)
       {
-        if (*v101 != v60)
+        if (*v100 != v60)
         {
           objc_enumerationMutation(v58);
         }
 
-        [*v2 _writeQuantityType:*(*(&v100 + 1) + 8 * v61)];
+        [*v2 _writeQuantityType:*(*(&v99 + 1) + 8 * v61)];
         if ([*v2 exportFailed])
         {
           break;
@@ -463,7 +463,7 @@ LABEL_44:
 
         if (v59 == ++v61)
         {
-          v59 = [v58 countByEnumeratingWithState:&v100 objects:v122 count:16];
+          v59 = [v58 countByEnumeratingWithState:&v99 objects:v121 count:16];
           if (v59)
           {
             goto LABEL_44;
@@ -482,25 +482,25 @@ LABEL_44:
     v62 = objc_alloc_init(MEMORY[0x277CBEB18]);
     [*v2 _getAllOrdinaryDataTypesOfClass:objc_opt_class() withArray:v62];
     v63 = a1;
-    v98 = 0u;
-    v99 = 0u;
-    v96 = 0u;
     v97 = 0u;
+    v98 = 0u;
+    v95 = 0u;
+    v96 = 0u;
     v64 = v62;
-    v65 = [v64 countByEnumeratingWithState:&v96 objects:v121 count:16];
+    v65 = [v64 countByEnumeratingWithState:&v95 objects:v120 count:16];
     if (v65)
     {
-      v66 = *v97;
+      v66 = *v96;
 LABEL_54:
       v67 = 0;
       while (1)
       {
-        if (*v97 != v66)
+        if (*v96 != v66)
         {
           objc_enumerationMutation(v64);
         }
 
-        [*v2 _writeCategoryType:*(*(&v96 + 1) + 8 * v67)];
+        [*v2 _writeCategoryType:*(*(&v95 + 1) + 8 * v67)];
         dispatch_semaphore_wait(*(*v2 + 5), 0xFFFFFFFFFFFFFFFFLL);
         if ([*v2 exportFailed])
         {
@@ -509,7 +509,7 @@ LABEL_54:
 
         if (v65 == ++v67)
         {
-          v65 = [v64 countByEnumeratingWithState:&v96 objects:v121 count:16];
+          v65 = [v64 countByEnumeratingWithState:&v95 objects:v120 count:16];
           if (v65)
           {
             goto LABEL_54;
@@ -527,25 +527,25 @@ LABEL_54:
   {
     v68 = objc_alloc_init(MEMORY[0x277CBEB18]);
     [*v2 _getAllOrdinaryDataTypesOfClass:objc_opt_class() withArray:v68];
-    v94 = 0u;
-    v95 = 0u;
-    v92 = 0u;
     v93 = 0u;
+    v94 = 0u;
+    v91 = 0u;
+    v92 = 0u;
     v69 = v68;
-    v70 = [v69 countByEnumeratingWithState:&v92 objects:v120 count:16];
+    v70 = [v69 countByEnumeratingWithState:&v91 objects:v119 count:16];
     if (v70)
     {
-      v71 = *v93;
+      v71 = *v92;
 LABEL_64:
       v72 = 0;
       while (1)
       {
-        if (*v93 != v71)
+        if (*v92 != v71)
         {
           objc_enumerationMutation(v69);
         }
 
-        [*v2 _writeCorrelationType:*(*(&v92 + 1) + 8 * v72)];
+        [*v2 _writeCorrelationType:*(*(&v91 + 1) + 8 * v72)];
         dispatch_semaphore_wait(*(*v2 + 5), 0xFFFFFFFFFFFFFFFFLL);
         if ([*v2 exportFailed])
         {
@@ -554,7 +554,7 @@ LABEL_64:
 
         if (v70 == ++v72)
         {
-          v70 = [v69 countByEnumeratingWithState:&v92 objects:v120 count:16];
+          v70 = [v69 countByEnumeratingWithState:&v91 objects:v119 count:16];
           if (v70)
           {
             goto LABEL_64;
@@ -604,20 +604,20 @@ LABEL_64:
 
   [*v2 _completeAndCloseStreamingXML];
   [*v2 _exportHealthRecords];
-  [*v2 _exportElectrocardiogramsWithName:v109[5] dateOfBirth:v82];
+  [*v2 _exportElectrocardiogramsWithName:v108[5] dateOfBirth:v81];
   v73 = [MEMORY[0x277CCABD8] mainQueue];
-  v91[0] = MEMORY[0x277D85DD0];
-  v91[1] = 3221225472;
-  v91[2] = __50__WDExportManager_createExportFileWithCompletion___block_invoke_3;
-  v91[3] = &unk_2796E6D18;
-  v91[4] = *v2;
-  [v73 addOperationWithBlock:v91];
+  v90[0] = MEMORY[0x277D85DD0];
+  v90[1] = 3221225472;
+  v90[2] = __50__WDExportManager_createExportFileWithCompletion___block_invoke_3;
+  v90[3] = &unk_2796E6D18;
+  v90[4] = *v2;
+  [v73 addOperationWithBlock:v90];
 
   v74 = [*v2 exportFailed];
   v75 = *v2;
   if (v74)
   {
-    [v75 cleanupExportFilesWithError:v87];
+    [v75 cleanupExportFilesWithError:v86];
     (*(*(a1 + 40) + 16))();
   }
 
@@ -626,7 +626,7 @@ LABEL_64:
     [v75 _archiveExportDirectory:v75[10] toFile:v75[13]];
     v76 = *(a1 + 40);
     v77 = [MEMORY[0x277CBEBC0] fileURLWithPath:*(*(a1 + 32) + 104)];
-    (*(v76 + 16))(v76, v77, v87);
+    (*(v76 + 16))(v76, v77, v86);
   }
 
   v78 = *v2;
@@ -638,8 +638,7 @@ LABEL_64:
   block[4] = v78;
   dispatch_async(v79, block);
 
-  _Block_object_dispose(&v108, 8);
-  v80 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v107, 8);
 }
 
 void __50__WDExportManager_createExportFileWithCompletion___block_invoke_370(uint64_t a1, void *a2)
@@ -755,23 +754,23 @@ void __38__WDExportManager__queryForDateRanges__block_invoke(uint64_t a1, uint64
 
 - (void)_queryForSamplesOfType:(id)type batchHandler:(id)handler
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   typeCopy = type;
   handlerCopy = handler;
-  v35 = 0;
-  v36 = &v35;
-  v37 = 0x3032000000;
-  v38 = __Block_byref_object_copy_;
-  v39 = __Block_byref_object_dispose_;
-  v40 = 0;
-  v31 = 0;
-  v32 = &v31;
-  v33 = 0x2020000000;
   v34 = 0;
-  v27 = 0;
-  v28 = &v27;
-  v29 = 0x2020000000;
+  v35 = &v34;
+  v36 = 0x3032000000;
+  v37 = __Block_byref_object_copy_;
+  v38 = __Block_byref_object_dispose_;
+  v39 = 0;
   v30 = 0;
+  v31 = &v30;
+  v32 = 0x2020000000;
+  v33 = 0;
+  v26 = 0;
+  v27 = &v26;
+  v28 = 0x2020000000;
+  v29 = 0;
   v8 = dispatch_semaphore_create(0);
   do
   {
@@ -779,30 +778,30 @@ void __38__WDExportManager__queryForDateRanges__block_invoke(uint64_t a1, uint64
     v9 = HKLogWellnessDashboard();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = v36[5];
+      v10 = v35[5];
       *buf = 138543618;
-      v42 = typeCopy;
-      v43 = 2114;
-      v44 = v10;
+      v41 = typeCopy;
+      v42 = 2114;
+      v43 = v10;
       _os_log_impl(&dword_251E85000, v9, OS_LOG_TYPE_DEFAULT, "Querying for %{public}@ starting with anchor: %{public}@", buf, 0x16u);
     }
 
     v11 = objc_alloc(MEMORY[0x277CCCFF0]);
-    v12 = v36[5];
-    v20[0] = MEMORY[0x277D85DD0];
-    v20[1] = 3221225472;
-    v20[2] = __55__WDExportManager__queryForSamplesOfType_batchHandler___block_invoke;
-    v20[3] = &unk_2796E71E8;
+    v12 = v35[5];
+    v19[0] = MEMORY[0x277D85DD0];
+    v19[1] = 3221225472;
+    v19[2] = __55__WDExportManager__queryForSamplesOfType_batchHandler___block_invoke;
+    v19[3] = &unk_2796E71E8;
     v13 = typeCopy;
-    v21 = v13;
-    v24 = &v31;
-    v25 = &v27;
-    v26 = &v35;
+    v20 = v13;
+    v23 = &v30;
+    v24 = &v26;
+    v25 = &v34;
     v14 = handlerCopy;
-    v23 = v14;
+    v22 = v14;
     v15 = v8;
-    v22 = v15;
-    v16 = [v11 initWithType:v13 predicate:0 anchor:v12 limit:2000 resultsHandler:v20];
+    v21 = v15;
+    v16 = [v11 initWithType:v13 predicate:0 anchor:v12 limit:2000 resultsHandler:v19];
     healthStore = [(WDProfile *)self->_profile healthStore];
     [healthStore executeQuery:v16];
 
@@ -811,22 +810,20 @@ void __38__WDExportManager__queryForDateRanges__block_invoke(uint64_t a1, uint64
     [healthStore2 stopQuery:v16];
   }
 
-  while ((v32[3] & 1) == 0 && ![(WDExportManager *)self exportFailed]);
-  if (*(v28 + 24) == 1)
+  while ((v31[3] & 1) == 0 && ![(WDExportManager *)self exportFailed]);
+  if (*(v27 + 24) == 1)
   {
     [(WDExportManager *)self setExportFailed:1];
   }
 
-  _Block_object_dispose(&v27, 8);
-  _Block_object_dispose(&v31, 8);
-  _Block_object_dispose(&v35, 8);
-
-  v19 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v26, 8);
+  _Block_object_dispose(&v30, 8);
+  _Block_object_dispose(&v34, 8);
 }
 
 void __55__WDExportManager__queryForSamplesOfType_batchHandler___block_invoke(uint64_t a1, uint64_t a2, void *a3, void *a4, void *a5, void *a6)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v10 = a3;
   v11 = a4;
   v12 = a5;
@@ -835,11 +832,11 @@ void __55__WDExportManager__queryForSamplesOfType_batchHandler___block_invoke(ui
   v14 = HKLogWellnessDashboard();
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
-    v17 = 134218242;
-    v18 = [v10 count];
-    v19 = 2114;
-    v20 = v12;
-    _os_log_impl(&dword_251E85000, v14, OS_LOG_TYPE_DEFAULT, "Got %lld samples with anchor: %{public}@", &v17, 0x16u);
+    v16 = 134218242;
+    v17 = [v10 count];
+    v18 = 2114;
+    v19 = v12;
+    _os_log_impl(&dword_251E85000, v14, OS_LOG_TYPE_DEFAULT, "Got %lld samples with anchor: %{public}@", &v16, 0x16u);
   }
 
   if (v13)
@@ -847,7 +844,7 @@ void __55__WDExportManager__queryForSamplesOfType_batchHandler___block_invoke(ui
     _HKInitializeLogging();
     if (os_log_type_enabled(*MEMORY[0x277CCC2B0], OS_LOG_TYPE_ERROR))
     {
-      __55__WDExportManager__queryForSamplesOfType_batchHandler___block_invoke_cold_1(a1);
+      __55__WDExportManager__queryForSamplesOfType_batchHandler___block_invoke_cold_1();
     }
 
     *(*(*(a1 + 56) + 8) + 24) = 1;
@@ -874,8 +871,6 @@ void __55__WDExportManager__queryForSamplesOfType_batchHandler___block_invoke(ui
   *(v15 + 24) = 1;
 LABEL_11:
   dispatch_semaphore_signal(*(a1 + 40));
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_writeQuantityType:(id)type
@@ -972,26 +967,24 @@ uint64_t __38__WDExportManager__writeQuantityType___block_invoke_2(void *a1)
 
 - (void)_writeCategoryType:(id)type
 {
-  v19[1] = *MEMORY[0x277D85DE8];
+  v18[1] = *MEMORY[0x277D85DE8];
   typeCopy = type;
   v5 = objc_alloc(MEMORY[0x277CCAC98]);
   v6 = [v5 initWithKey:*MEMORY[0x277CCCD38] ascending:1];
   v7 = objc_alloc(MEMORY[0x277CCD8D0]);
-  v19[0] = v6;
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:1];
-  v13 = MEMORY[0x277D85DD0];
-  v14 = 3221225472;
-  v15 = __38__WDExportManager__writeCategoryType___block_invoke;
-  v16 = &unk_2796E7288;
+  v18[0] = v6;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:1];
+  v12 = MEMORY[0x277D85DD0];
+  v13 = 3221225472;
+  v14 = __38__WDExportManager__writeCategoryType___block_invoke;
+  v15 = &unk_2796E7288;
   selfCopy = self;
-  v18 = typeCopy;
+  v17 = typeCopy;
   v9 = typeCopy;
-  v10 = [v7 initWithSampleType:v9 predicate:0 limit:0 sortDescriptors:v8 resultsHandler:&v13];
+  v10 = [v7 initWithSampleType:v9 predicate:0 limit:0 sortDescriptors:v8 resultsHandler:&v12];
 
-  v11 = [(WDProfile *)self->_profile healthStore:v13];
+  v11 = [(WDProfile *)self->_profile healthStore:v12];
   [v11 executeQuery:v10];
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __38__WDExportManager__writeCategoryType___block_invoke(uint64_t a1, uint64_t a2, void *a3, uint64_t a4)
@@ -1078,24 +1071,22 @@ uint64_t __41__WDExportManager__writeCorrelationType___block_invoke_2(uint64_t a
 
 - (void)_writeAudiogramType
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277CCAC98]);
   v4 = [v3 initWithKey:*MEMORY[0x277CCCD38] ascending:1];
   v5 = objc_alloc(MEMORY[0x277CCD8D0]);
   audiogramSampleType = [MEMORY[0x277CCD720] audiogramSampleType];
-  v12[0] = v4;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __38__WDExportManager__writeAudiogramType__block_invoke;
-  v11[3] = &unk_2796E6FC8;
-  v11[4] = self;
-  v8 = [v5 initWithSampleType:audiogramSampleType predicate:0 limit:0 sortDescriptors:v7 resultsHandler:v11];
+  v11[0] = v4;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __38__WDExportManager__writeAudiogramType__block_invoke;
+  v10[3] = &unk_2796E6FC8;
+  v10[4] = self;
+  v8 = [v5 initWithSampleType:audiogramSampleType predicate:0 limit:0 sortDescriptors:v7 resultsHandler:v10];
 
   healthStore = [(WDProfile *)self->_profile healthStore];
   [healthStore executeQuery:v8];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __38__WDExportManager__writeAudiogramType__block_invoke(uint64_t a1, uint64_t a2, void *a3, uint64_t a4)
@@ -1131,24 +1122,22 @@ uint64_t __38__WDExportManager__writeAudiogramType__block_invoke_2(uint64_t a1)
 
 - (void)_writeWorkoutType
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277CCAC98]);
   v4 = [v3 initWithKey:*MEMORY[0x277CCCD38] ascending:1];
   v5 = objc_alloc(MEMORY[0x277CCD8D0]);
   workoutType = [MEMORY[0x277CCD720] workoutType];
-  v12[0] = v4;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __36__WDExportManager__writeWorkoutType__block_invoke;
-  v11[3] = &unk_2796E6FC8;
-  v11[4] = self;
-  v8 = [v5 initWithSampleType:workoutType predicate:0 limit:0 sortDescriptors:v7 resultsHandler:v11];
+  v11[0] = v4;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __36__WDExportManager__writeWorkoutType__block_invoke;
+  v10[3] = &unk_2796E6FC8;
+  v10[4] = self;
+  v8 = [v5 initWithSampleType:workoutType predicate:0 limit:0 sortDescriptors:v7 resultsHandler:v10];
 
   healthStore = [(WDProfile *)self->_profile healthStore];
   [healthStore executeQuery:v8];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __36__WDExportManager__writeWorkoutType__block_invoke(uint64_t a1, uint64_t a2, void *a3, uint64_t a4)
@@ -1184,7 +1173,7 @@ uint64_t __36__WDExportManager__writeWorkoutType__block_invoke_2(uint64_t a1)
 
 - (void)_writeWorkoutRouteForWorkout:(id)workout semaphore:(id)semaphore
 {
-  v23[1] = *MEMORY[0x277D85DE8];
+  v22[1] = *MEMORY[0x277D85DE8];
   semaphoreCopy = semaphore;
   workoutCopy = workout;
   v8 = HKCreateSerialDispatchQueue();
@@ -1194,23 +1183,21 @@ uint64_t __36__WDExportManager__writeWorkoutType__block_invoke_2(uint64_t a1)
   workoutRouteType = [MEMORY[0x277CCD920] workoutRouteType];
   v13 = [MEMORY[0x277CCD838] predicateForObjectsFromWorkout:workoutCopy];
 
-  v23[0] = v10;
-  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:1];
-  v20[0] = MEMORY[0x277D85DD0];
-  v20[1] = 3221225472;
-  v20[2] = __58__WDExportManager__writeWorkoutRouteForWorkout_semaphore___block_invoke;
-  v20[3] = &unk_2796E72D8;
-  v20[4] = self;
-  v21 = semaphoreCopy;
-  v22 = v8;
+  v22[0] = v10;
+  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:1];
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = __58__WDExportManager__writeWorkoutRouteForWorkout_semaphore___block_invoke;
+  v19[3] = &unk_2796E72D8;
+  v19[4] = self;
+  v20 = semaphoreCopy;
+  v21 = v8;
   v15 = v8;
   v16 = semaphoreCopy;
-  v17 = [v11 initWithSampleType:workoutRouteType predicate:v13 limit:0 sortDescriptors:v14 resultsHandler:v20];
+  v17 = [v11 initWithSampleType:workoutRouteType predicate:v13 limit:0 sortDescriptors:v14 resultsHandler:v19];
 
   healthStore = [(WDProfile *)self->_profile healthStore];
   [healthStore executeQuery:v17];
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void __58__WDExportManager__writeWorkoutRouteForWorkout_semaphore___block_invoke(uint64_t a1, uint64_t a2, void *a3, uint64_t a4)
@@ -1283,24 +1270,22 @@ uint64_t __42__WDExportManager__writeActivitySummaries__block_invoke_2(uint64_t 
 
 - (void)_writeHRVAndTachograms
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277CCAC98]);
   v4 = [v3 initWithKey:*MEMORY[0x277CCCD38] ascending:1];
   v5 = objc_alloc(MEMORY[0x277CCD8D0]);
   v6 = [MEMORY[0x277CCD830] dataTypeWithCode:139];
-  v12[0] = v4;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __41__WDExportManager__writeHRVAndTachograms__block_invoke;
-  v11[3] = &unk_2796E6FC8;
-  v11[4] = self;
-  v8 = [v5 initWithSampleType:v6 predicate:0 limit:0 sortDescriptors:v7 resultsHandler:v11];
+  v11[0] = v4;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __41__WDExportManager__writeHRVAndTachograms__block_invoke;
+  v10[3] = &unk_2796E6FC8;
+  v10[4] = self;
+  v8 = [v5 initWithSampleType:v6 predicate:0 limit:0 sortDescriptors:v7 resultsHandler:v10];
 
   healthStore = [(WDProfile *)self->_profile healthStore];
   [healthStore executeQuery:v8];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __41__WDExportManager__writeHRVAndTachograms__block_invoke(uint64_t a1, uint64_t a2, void *a3, uint64_t a4)
@@ -1336,24 +1321,22 @@ uint64_t __41__WDExportManager__writeHRVAndTachograms__block_invoke_2(uint64_t a
 
 - (void)_writePrescriptionType
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277CCAC98]);
   v4 = [v3 initWithKey:*MEMORY[0x277CCCD38] ascending:1];
   v5 = objc_alloc(MEMORY[0x277CCD8D0]);
   visionPrescriptionType = [MEMORY[0x277CCD7A8] visionPrescriptionType];
-  v12[0] = v4;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __41__WDExportManager__writePrescriptionType__block_invoke;
-  v11[3] = &unk_2796E6FC8;
-  v11[4] = self;
-  v8 = [v5 initWithSampleType:visionPrescriptionType predicate:0 limit:0 sortDescriptors:v7 resultsHandler:v11];
+  v11[0] = v4;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __41__WDExportManager__writePrescriptionType__block_invoke;
+  v10[3] = &unk_2796E6FC8;
+  v10[4] = self;
+  v8 = [v5 initWithSampleType:visionPrescriptionType predicate:0 limit:0 sortDescriptors:v7 resultsHandler:v10];
 
   healthStore = [(WDProfile *)self->_profile healthStore];
   [healthStore executeQuery:v8];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __41__WDExportManager__writePrescriptionType__block_invoke(uint64_t a1, uint64_t a2, void *a3, uint64_t a4)
@@ -1389,29 +1372,29 @@ uint64_t __41__WDExportManager__writePrescriptionType__block_invoke_2(uint64_t a
 
 - (void)_writeMedicalRecords
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277CCAC98]);
-  v19 = [v3 initWithKey:*MEMORY[0x277CCCD38] ascending:1];
+  v18 = [v3 initWithKey:*MEMORY[0x277CCCD38] ascending:1];
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   obj = [objc_opt_class() allSupportedMedicalTypes];
-  v4 = [obj countByEnumeratingWithState:&v22 objects:v27 count:16];
+  v4 = [obj countByEnumeratingWithState:&v21 objects:v26 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v23;
+    v6 = *v22;
     while (2)
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v23 != v6)
+        if (*v22 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v22 + 1) + 8 * i);
+        v8 = *(*(&v21 + 1) + 8 * i);
         if ([(WDExportManager *)self exportFailed])
         {
           _HKInitializeLogging();
@@ -1425,18 +1408,18 @@ uint64_t __41__WDExportManager__writePrescriptionType__block_invoke_2(uint64_t a
         }
 
         v9 = dispatch_semaphore_create(0);
-        v20[0] = MEMORY[0x277D85DD0];
-        v20[1] = 3221225472;
-        v20[2] = __39__WDExportManager__writeMedicalRecords__block_invoke;
-        v20[3] = &unk_2796E72D8;
-        v20[4] = self;
-        v20[5] = v8;
-        v21 = v9;
+        v19[0] = MEMORY[0x277D85DD0];
+        v19[1] = 3221225472;
+        v19[2] = __39__WDExportManager__writeMedicalRecords__block_invoke;
+        v19[3] = &unk_2796E72D8;
+        v19[4] = self;
+        v19[5] = v8;
+        v20 = v9;
         v10 = v9;
-        v11 = MEMORY[0x253092270](v20);
+        v11 = MEMORY[0x253092270](v19);
         v12 = objc_alloc(MEMORY[0x277CCD8D0]);
-        v26 = v19;
-        v13 = [MEMORY[0x277CBEA60] arrayWithObjects:&v26 count:1];
+        v25 = v18;
+        v13 = [MEMORY[0x277CBEA60] arrayWithObjects:&v25 count:1];
         v14 = [v12 initWithSampleType:v8 predicate:0 limit:0 sortDescriptors:v13 resultsHandler:v11];
 
         healthStore = [(WDProfile *)self->_profile healthStore];
@@ -1445,7 +1428,7 @@ uint64_t __41__WDExportManager__writePrescriptionType__block_invoke_2(uint64_t a
         dispatch_semaphore_wait(v10, 0xFFFFFFFFFFFFFFFFLL);
       }
 
-      v5 = [obj countByEnumeratingWithState:&v22 objects:v27 count:16];
+      v5 = [obj countByEnumeratingWithState:&v21 objects:v26 count:16];
       if (v5)
       {
         continue;
@@ -1458,7 +1441,6 @@ uint64_t __41__WDExportManager__writePrescriptionType__block_invoke_2(uint64_t a
 LABEL_13:
 
   dispatch_semaphore_signal(self->_sem);
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __39__WDExportManager__writeMedicalRecords__block_invoke(uint64_t a1, uint64_t a2, void *a3, void *a4)
@@ -1486,7 +1468,7 @@ void __39__WDExportManager__writeMedicalRecords__block_invoke(uint64_t a1, uint6
     v9 = HKLogWellnessDashboard();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      __39__WDExportManager__writeMedicalRecords__block_invoke_cold_1(a1);
+      __39__WDExportManager__writeMedicalRecords__block_invoke_cold_1();
     }
 
     dispatch_semaphore_signal(*(a1 + 48));
@@ -1538,37 +1520,37 @@ intptr_t __39__WDExportManager__writeMedicalRecords__block_invoke_400(uint64_t a
 
 - (void)_outputSerialQueue_writeSamples:(id)samples forQuantityType:(id)type
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   samplesCopy = samples;
   selfCopy = self;
   typeCopy = type;
-  v32 = [(WDExportManager *)self _preferredUnitForObjectType:?];
-  v34 = [v32 description];
+  v31 = [(WDExportManager *)self _preferredUnitForObjectType:?];
+  v33 = [v31 description];
+  v42 = 0u;
   v43 = 0u;
   v44 = 0u;
   v45 = 0u;
-  v46 = 0u;
   obj = samplesCopy;
-  v33 = [obj countByEnumeratingWithState:&v43 objects:v47 count:16];
-  if (v33)
+  v32 = [obj countByEnumeratingWithState:&v42 objects:v46 count:16];
+  if (v32)
   {
-    v31 = *v44;
+    v30 = *v43;
     do
     {
       v7 = 0;
       do
       {
-        if (*v44 != v31)
+        if (*v43 != v30)
         {
           objc_enumerationMutation(obj);
         }
 
-        v40 = v7;
-        v8 = *(*(&v43 + 1) + 8 * v7);
+        v39 = v7;
+        v8 = *(*(&v42 + 1) + 8 * v7);
         v9 = MEMORY[0x277CCABB0];
         quantity = [v8 quantity];
-        [quantity doubleValueForUnit:v32];
-        v42 = [v9 numberWithDouble:?];
+        [quantity doubleValueForUnit:v31];
+        v41 = [v9 numberWithDouble:?];
 
         identifier = [typeCopy identifier];
         sourceRevision = [v8 sourceRevision];
@@ -1582,7 +1564,7 @@ intptr_t __39__WDExportManager__writeMedicalRecords__block_invoke_400(uint64_t a
         _creationDate = [v8 _creationDate];
         startDate = [v8 startDate];
         endDate = [v8 endDate];
-        [(WDExportManager *)selfCopy _writeXMLRecordWithType:identifier sourceName:name sourceVersion:version device:v15 unit:v34 metadata:metadata hrvMetadataList:0 creationDate:_creationDate startDate:startDate endDate:endDate value:v42];
+        [(WDExportManager *)selfCopy _writeXMLRecordWithType:identifier sourceName:name sourceVersion:version device:v15 unit:v33 metadata:metadata hrvMetadataList:0 creationDate:_creationDate startDate:startDate endDate:endDate value:v41];
 
         if (!getCategoryOfType(typeCopy) || getCategoryOfType(typeCopy) == 1)
         {
@@ -1596,25 +1578,23 @@ intptr_t __39__WDExportManager__writeMedicalRecords__block_invoke_400(uint64_t a
           metadata2 = [v8 metadata];
           startDate2 = [v8 startDate];
           endDate2 = [v8 endDate];
-          [(WDExportManager *)selfCopy _writeCDAEntryWithValue:v42 type:typeCopy sourceName:name2 sourceVersion:version2 device:v25 unit:v34 metadata:metadata2 startDate:startDate2 endDate:endDate2];
+          [(WDExportManager *)selfCopy _writeCDAEntryWithValue:v41 type:typeCopy sourceName:name2 sourceVersion:version2 device:v25 unit:v33 metadata:metadata2 startDate:startDate2 endDate:endDate2];
         }
 
-        v7 = v40 + 1;
+        v7 = v39 + 1;
       }
 
-      while (v33 != v40 + 1);
-      v33 = [obj countByEnumeratingWithState:&v43 objects:v47 count:16];
+      while (v32 != v39 + 1);
+      v32 = [obj countByEnumeratingWithState:&v42 objects:v46 count:16];
     }
 
-    while (v33);
+    while (v32);
   }
 
   if ([(NSArray *)selfCopy->_completedRecords count]&& (!getCategoryOfType(typeCopy) || getCategoryOfType(typeCopy) == 1))
   {
     [(WDExportManager *)selfCopy _writeCDAOrganizerEnd];
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_outputSerialQueue_finishWritingQuantityType:(id)type count:(unint64_t)count
@@ -1649,29 +1629,29 @@ LABEL_9:
 
 - (void)_writeDataForCategoryType:(id)type
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   typeCopy = type;
   selfCopy = self;
+  v26 = 0u;
   v27 = 0u;
   v28 = 0u;
   v29 = 0u;
-  v30 = 0u;
   obj = self->_completedRecords;
-  v20 = [(NSArray *)obj countByEnumeratingWithState:&v27 objects:v31 count:16];
-  if (v20)
+  v19 = [(NSArray *)obj countByEnumeratingWithState:&v26 objects:v30 count:16];
+  if (v19)
   {
-    v17 = *v28;
+    v16 = *v27;
     do
     {
       v4 = 0;
       do
       {
-        if (*v28 != v17)
+        if (*v27 != v16)
         {
           objc_enumerationMutation(obj);
         }
 
-        v5 = *(*(&v27 + 1) + 8 * v4);
+        v5 = *(*(&v26 + 1) + 8 * v4);
         identifier = [typeCopy identifier];
         sourceRevision = [v5 sourceRevision];
         source = [sourceRevision source];
@@ -1691,44 +1671,43 @@ LABEL_9:
         ++v4;
       }
 
-      while (v20 != v4);
-      v20 = [(NSArray *)obj countByEnumeratingWithState:&v27 objects:v31 count:16];
+      while (v19 != v4);
+      v19 = [(NSArray *)obj countByEnumeratingWithState:&v26 objects:v30 count:16];
     }
 
-    while (v20);
+    while (v19);
   }
 
   completedRecords = selfCopy->_completedRecords;
   selfCopy->_completedRecords = 0;
 
   dispatch_semaphore_signal(selfCopy->_sem);
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_writeDataForCorrelationType:(id)type
 {
-  v61 = *MEMORY[0x277D85DE8];
+  v60 = *MEMORY[0x277D85DE8];
+  v54 = 0u;
   v55 = 0u;
   v56 = 0u;
   v57 = 0u;
-  v58 = 0u;
   obj = self->_completedRecords;
-  v34 = [(NSArray *)obj countByEnumeratingWithState:&v55 objects:v60 count:16];
-  if (v34)
+  v33 = [(NSArray *)obj countByEnumeratingWithState:&v54 objects:v59 count:16];
+  if (v33)
   {
-    v33 = *v56;
+    v32 = *v55;
     do
     {
       v3 = 0;
       do
       {
-        if (*v56 != v33)
+        if (*v55 != v32)
         {
           objc_enumerationMutation(obj);
         }
 
-        v35 = v3;
-        v4 = *(*(&v55 + 1) + 8 * v3);
+        v34 = v3;
+        v4 = *(*(&v54 + 1) + 8 * v3);
         sampleType = [v4 sampleType];
         identifier = [sampleType identifier];
         sourceRevision = [v4 sourceRevision];
@@ -1744,28 +1723,28 @@ LABEL_9:
         endDate = [v4 endDate];
         [(WDExportManager *)self _writeXMLCorrelationStartWithType:identifier sourceName:name sourceVersion:version device:v9 metadata:metadata creationDate:_creationDate startDate:startDate endDate:endDate];
 
-        v53 = 0u;
-        v54 = 0u;
-        v51 = 0u;
         v52 = 0u;
+        v53 = 0u;
+        v50 = 0u;
+        v51 = 0u;
         objects = [v4 objects];
-        v38 = [objects countByEnumeratingWithState:&v51 objects:v59 count:16];
-        if (v38)
+        v37 = [objects countByEnumeratingWithState:&v50 objects:v58 count:16];
+        if (v37)
         {
-          v37 = *v52;
+          v36 = *v51;
           do
           {
             v14 = 0;
             do
             {
-              if (*v52 != v37)
+              if (*v51 != v36)
               {
                 objc_enumerationMutation(objects);
               }
 
-              v15 = *(*(&v51 + 1) + 8 * v14);
+              v15 = *(*(&v50 + 1) + 8 * v14);
               objc_opt_class();
-              v48 = v14;
+              v47 = v14;
               if (objc_opt_isKindOfClass())
               {
                 sampleType2 = [v15 sampleType];
@@ -1774,7 +1753,7 @@ LABEL_9:
                 v18 = MEMORY[0x277CCABB0];
                 quantity = [v15 quantity];
                 [quantity doubleValueForUnit:v17];
-                v50 = [v18 numberWithDouble:?];
+                v49 = [v18 numberWithDouble:?];
 LABEL_15:
 
                 goto LABEL_17;
@@ -1784,15 +1763,15 @@ LABEL_15:
               if (objc_opt_isKindOfClass())
               {
                 quantity = [v15 sampleType];
-                v50 = stringForCategoryValue([quantity code], objc_msgSend(v15, "value"));
+                v49 = stringForCategoryValue([quantity code], objc_msgSend(v15, "value"));
                 v17 = 0;
                 goto LABEL_15;
               }
 
-              v50 = 0;
+              v49 = 0;
               v17 = 0;
 LABEL_17:
-              v40 = v17;
+              v39 = v17;
               sampleType3 = [v15 sampleType];
               identifier2 = [sampleType3 identifier];
               sourceRevision3 = [v15 sourceRevision];
@@ -1807,83 +1786,82 @@ LABEL_17:
               _creationDate2 = [v15 _creationDate];
               startDate2 = [v15 startDate];
               endDate2 = [v15 endDate];
-              [(WDExportManager *)self _writeXMLRecordWithType:identifier2 sourceName:name2 sourceVersion:version2 device:v24 unit:v25 metadata:metadata2 hrvMetadataList:0 creationDate:_creationDate2 startDate:startDate2 endDate:endDate2 value:v50];
+              [(WDExportManager *)self _writeXMLRecordWithType:identifier2 sourceName:name2 sourceVersion:version2 device:v24 unit:v25 metadata:metadata2 hrvMetadataList:0 creationDate:_creationDate2 startDate:startDate2 endDate:endDate2 value:v49];
 
-              v14 = v48 + 1;
+              v14 = v47 + 1;
             }
 
-            while (v38 != v48 + 1);
-            v38 = [objects countByEnumeratingWithState:&v51 objects:v59 count:16];
+            while (v37 != v47 + 1);
+            v37 = [objects countByEnumeratingWithState:&v50 objects:v58 count:16];
           }
 
-          while (v38);
+          while (v37);
         }
 
         [(WDExportManager *)self _writeXMLCorrelationEnd];
-        v3 = v35 + 1;
+        v3 = v34 + 1;
       }
 
-      while (v35 + 1 != v34);
-      v34 = [(NSArray *)obj countByEnumeratingWithState:&v55 objects:v60 count:16];
+      while (v34 + 1 != v33);
+      v33 = [(NSArray *)obj countByEnumeratingWithState:&v54 objects:v59 count:16];
     }
 
-    while (v34);
+    while (v33);
   }
 
   completedRecords = self->_completedRecords;
   self->_completedRecords = 0;
 
   dispatch_semaphore_signal(self->_sem);
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_writeDataForAudiogramType
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
   obj = self->_completedRecords;
-  v3 = [(NSArray *)obj countByEnumeratingWithState:&v23 objects:v28 count:16];
+  v3 = [(NSArray *)obj countByEnumeratingWithState:&v22 objects:v27 count:16];
   if (v3)
   {
     v4 = v3;
-    v18 = *v24;
+    v17 = *v23;
     do
     {
       v5 = 0;
       do
       {
-        if (*v24 != v18)
+        if (*v23 != v17)
         {
           objc_enumerationMutation(obj);
         }
 
-        v6 = *(*(&v23 + 1) + 8 * v5);
+        v6 = *(*(&v22 + 1) + 8 * v5);
         v7 = objc_autoreleasePoolPush();
         [(WDExportManager *)self _writeXMLAudiogramStartWithAudiogram:v6];
-        v21 = 0u;
-        v22 = 0u;
-        v19 = 0u;
         v20 = 0u;
+        v21 = 0u;
+        v18 = 0u;
+        v19 = 0u;
         sensitivityPoints = [v6 sensitivityPoints];
-        v9 = [sensitivityPoints countByEnumeratingWithState:&v19 objects:v27 count:16];
+        v9 = [sensitivityPoints countByEnumeratingWithState:&v18 objects:v26 count:16];
         if (v9)
         {
           v10 = v9;
-          v11 = *v20;
+          v11 = *v19;
           do
           {
             v12 = 0;
             do
             {
-              if (*v20 != v11)
+              if (*v19 != v11)
               {
                 objc_enumerationMutation(sensitivityPoints);
               }
 
-              v13 = *(*(&v19 + 1) + 8 * v12);
+              v13 = *(*(&v18 + 1) + 8 * v12);
               v14 = objc_autoreleasePoolPush();
               [(WDExportManager *)self _writeXMLAudiogramSensitivityPoint:v13];
               objc_autoreleasePoolPop(v14);
@@ -1891,7 +1869,7 @@ LABEL_17:
             }
 
             while (v10 != v12);
-            v10 = [sensitivityPoints countByEnumeratingWithState:&v19 objects:v27 count:16];
+            v10 = [sensitivityPoints countByEnumeratingWithState:&v18 objects:v26 count:16];
           }
 
           while (v10);
@@ -1903,7 +1881,7 @@ LABEL_17:
       }
 
       while (v5 != v4);
-      v4 = [(NSArray *)obj countByEnumeratingWithState:&v23 objects:v28 count:16];
+      v4 = [(NSArray *)obj countByEnumeratingWithState:&v22 objects:v27 count:16];
     }
 
     while (v4);
@@ -1913,39 +1891,38 @@ LABEL_17:
   self->_completedRecords = 0;
 
   dispatch_semaphore_signal(self->_sem);
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_writeDataForWorkoutType
 {
-  v74 = *MEMORY[0x277D85DE8];
+  v73 = *MEMORY[0x277D85DE8];
+  v65 = 0u;
   v66 = 0u;
   v67 = 0u;
   v68 = 0u;
-  v69 = 0u;
   obj = self->_completedRecords;
-  v44 = [(NSArray *)obj countByEnumeratingWithState:&v66 objects:v73 count:16];
-  if (v44)
+  v43 = [(NSArray *)obj countByEnumeratingWithState:&v65 objects:v72 count:16];
+  if (v43)
   {
-    v43 = *v67;
+    v42 = *v66;
     do
     {
-      for (i = 0; i != v44; i = v26 + 1)
+      for (i = 0; i != v43; i = v26 + 1)
       {
-        if (*v67 != v43)
+        if (*v66 != v42)
         {
           objc_enumerationMutation(obj);
         }
 
-        v50 = i;
-        v4 = *(*(&v66 + 1) + 8 * i);
+        v49 = i;
+        v4 = *(*(&v65 + 1) + 8 * i);
         [v4 workoutActivityType];
-        v53 = _HKWorkoutActivityNameForActivityType();
+        v52 = _HKWorkoutActivityNameForActivityType();
         v5 = MEMORY[0x277CCABB0];
         [v4 duration];
-        v52 = [v5 numberWithDouble:v6 / 60.0];
+        v51 = [v5 numberWithDouble:v6 / 60.0];
         minuteUnit = [MEMORY[0x277CCDAB0] minuteUnit];
-        v51 = [minuteUnit description];
+        v50 = [minuteUnit description];
         sourceRevision = [v4 sourceRevision];
         source = [sourceRevision source];
         name = [source name];
@@ -1957,31 +1934,31 @@ LABEL_17:
         _creationDate = [v4 _creationDate];
         startDate = [v4 startDate];
         endDate = [v4 endDate];
-        [(WDExportManager *)self _writeXMLWorkoutStartWithActivityType:v53 duration:v52 durationUnit:v51 sourceName:name sourceVersion:version device:v9 metadata:metadata creationDate:_creationDate startDate:startDate endDate:endDate];
+        [(WDExportManager *)self _writeXMLWorkoutStartWithActivityType:v52 duration:v51 durationUnit:v50 sourceName:name sourceVersion:version device:v9 metadata:metadata creationDate:_creationDate startDate:startDate endDate:endDate];
 
-        v64 = 0u;
-        v65 = 0u;
-        v62 = 0u;
         v63 = 0u;
+        v64 = 0u;
+        v61 = 0u;
+        v62 = 0u;
         workoutEvents = [v4 workoutEvents];
-        v15 = [workoutEvents countByEnumeratingWithState:&v62 objects:v72 count:16];
+        v15 = [workoutEvents countByEnumeratingWithState:&v61 objects:v71 count:16];
         if (v15)
         {
           v16 = v15;
-          v17 = *v63;
+          v17 = *v62;
           do
           {
             for (j = 0; j != v16; ++j)
             {
-              if (*v63 != v17)
+              if (*v62 != v17)
               {
                 objc_enumerationMutation(workoutEvents);
               }
 
-              [(WDExportManager *)self _writeXMLWorkoutEvent:*(*(&v62 + 1) + 8 * j)];
+              [(WDExportManager *)self _writeXMLWorkoutEvent:*(*(&v61 + 1) + 8 * j)];
             }
 
-            v16 = [workoutEvents countByEnumeratingWithState:&v62 objects:v72 count:16];
+            v16 = [workoutEvents countByEnumeratingWithState:&v61 objects:v71 count:16];
           }
 
           while (v16);
@@ -1991,31 +1968,31 @@ LABEL_17:
         if ([workoutActivities count] >= 2)
         {
 
-          v26 = v50;
+          v26 = v49;
 LABEL_18:
-          v60 = 0u;
-          v61 = 0u;
-          v58 = 0u;
           v59 = 0u;
+          v60 = 0u;
+          v57 = 0u;
+          v58 = 0u;
           workoutActivities = [v4 workoutActivities];
-          v27 = [workoutActivities countByEnumeratingWithState:&v58 objects:v71 count:16];
+          v27 = [workoutActivities countByEnumeratingWithState:&v57 objects:v70 count:16];
           if (v27)
           {
             v28 = v27;
-            v29 = *v59;
+            v29 = *v58;
             do
             {
               for (k = 0; k != v28; ++k)
               {
-                if (*v59 != v29)
+                if (*v58 != v29)
                 {
                   objc_enumerationMutation(workoutActivities);
                 }
 
-                [(WDExportManager *)self _writeXMLWorkoutActivity:*(*(&v58 + 1) + 8 * k)];
+                [(WDExportManager *)self _writeXMLWorkoutActivity:*(*(&v57 + 1) + 8 * k)];
               }
 
-              v28 = [workoutActivities countByEnumeratingWithState:&v58 objects:v71 count:16];
+              v28 = [workoutActivities countByEnumeratingWithState:&v57 objects:v70 count:16];
             }
 
             while (v28);
@@ -2030,7 +2007,7 @@ LABEL_27:
         if ([workoutActivities2 count] != 1)
         {
 
-          v26 = v50;
+          v26 = v49;
           goto LABEL_27;
         }
 
@@ -2040,41 +2017,41 @@ LABEL_27:
         uUID2 = [v4 UUID];
         v25 = [uUID isEqual:uUID2];
 
-        v26 = v50;
+        v26 = v49;
         if ((v25 & 1) == 0)
         {
           goto LABEL_18;
         }
 
 LABEL_28:
-        v56 = 0u;
-        v57 = 0u;
-        v54 = 0u;
         v55 = 0u;
+        v56 = 0u;
+        v53 = 0u;
+        v54 = 0u;
         allStatistics = [v4 allStatistics];
         allValues = [allStatistics allValues];
 
-        v33 = [allValues countByEnumeratingWithState:&v54 objects:v70 count:16];
+        v33 = [allValues countByEnumeratingWithState:&v53 objects:v69 count:16];
         if (v33)
         {
           v34 = v33;
-          v35 = *v55;
+          v35 = *v54;
           do
           {
             for (m = 0; m != v34; ++m)
             {
-              if (*v55 != v35)
+              if (*v54 != v35)
               {
                 objc_enumerationMutation(allValues);
               }
 
-              v37 = *(*(&v54 + 1) + 8 * m);
+              v37 = *(*(&v53 + 1) + 8 * m);
               xmlTextWriterStartElement(self->_writer, "WorkoutStatistics");
               [(WDExportManager *)self _writeXMLWorkoutStatistics:v37];
               xmlTextWriterEndElement(self->_writer);
             }
 
-            v34 = [allValues countByEnumeratingWithState:&v54 objects:v70 count:16];
+            v34 = [allValues countByEnumeratingWithState:&v53 objects:v69 count:16];
           }
 
           while (v34);
@@ -2089,63 +2066,62 @@ LABEL_28:
         [(WDExportManager *)self _writeXMLWorkoutEnd];
       }
 
-      v44 = [(NSArray *)obj countByEnumeratingWithState:&v66 objects:v73 count:16];
+      v43 = [(NSArray *)obj countByEnumeratingWithState:&v65 objects:v72 count:16];
     }
 
-    while (v44);
+    while (v43);
   }
 
   completedRecords = self->_completedRecords;
   self->_completedRecords = 0;
 
   dispatch_semaphore_signal(self->_sem);
-  v41 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_writeDataForWorkoutRoutes:(id)routes semaphore:(id)semaphore
 {
-  v54[1] = *MEMORY[0x277D85DE8];
+  v53[1] = *MEMORY[0x277D85DE8];
   routesCopy = routes;
   semaphoreCopy = semaphore;
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-  v53 = *MEMORY[0x277CCA1B0];
-  v54[0] = *MEMORY[0x277CCA198];
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v54 forKeys:&v53 count:1];
+  v52 = *MEMORY[0x277CCA1B0];
+  v53[0] = *MEMORY[0x277CCA198];
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v53 forKeys:&v52 count:1];
   selfCopy = self;
   [(NSString *)self->_exportPath stringByAppendingPathComponent:@"workout-routes"];
-  v37 = v49 = 0;
+  v36 = v48 = 0;
   LODWORD(semaphore) = [defaultManager createDirectoryAtPath:? withIntermediateDirectories:? attributes:? error:?];
   v10 = 0;
   v11 = v10;
   if (semaphore)
   {
-    v30 = v10;
-    v31 = v9;
-    v32 = defaultManager;
-    v33 = semaphoreCopy;
-    v47 = 0u;
-    v48 = 0u;
-    v45 = 0u;
+    v29 = v10;
+    v30 = v9;
+    v31 = defaultManager;
+    v32 = semaphoreCopy;
     v46 = 0u;
-    v34 = routesCopy;
+    v47 = 0u;
+    v44 = 0u;
+    v45 = 0u;
+    v33 = routesCopy;
     obj = routesCopy;
-    v38 = [obj countByEnumeratingWithState:&v45 objects:v52 count:16];
-    if (v38)
+    v37 = [obj countByEnumeratingWithState:&v44 objects:v51 count:16];
+    if (v37)
     {
-      v36 = *v46;
+      v35 = *v45;
       do
       {
-        for (i = 0; i != v38; ++i)
+        for (i = 0; i != v37; ++i)
         {
-          if (*v46 != v36)
+          if (*v45 != v35)
           {
             objc_enumerationMutation(obj);
           }
 
-          v13 = *(*(&v45 + 1) + 8 * i);
+          v13 = *(*(&v44 + 1) + 8 * i);
           [(WDExportManager *)selfCopy _writeXMLWorkoutRouteStart:v13];
-          v39 = [MEMORY[0x277CCD478] fileNameForRoute:v13];
-          v14 = [v37 stringByAppendingPathComponent:?];
+          v38 = [MEMORY[0x277CCD478] fileNameForRoute:v13];
+          v14 = [v36 stringByAppendingPathComponent:?];
           v15 = [MEMORY[0x277CBEBC0] fileURLWithPath:v14];
           v16 = [objc_alloc(MEMORY[0x277CCD478]) initWithURL:v15 route:v13];
           v17 = WDBundle();
@@ -2156,22 +2132,22 @@ LABEL_28:
           [(WDExportManager *)selfCopy _writeXMLWorkoutRouteFileReference:lastObject];
           v21 = dispatch_semaphore_create(0);
           v22 = objc_alloc(MEMORY[0x277CCDC88]);
-          v42[0] = MEMORY[0x277D85DD0];
-          v42[1] = 3221225472;
-          v42[2] = __56__WDExportManager__writeDataForWorkoutRoutes_semaphore___block_invoke;
-          v42[3] = &unk_2796E7328;
+          v41[0] = MEMORY[0x277D85DD0];
+          v41[1] = 3221225472;
+          v41[2] = __56__WDExportManager__writeDataForWorkoutRoutes_semaphore___block_invoke;
+          v41[3] = &unk_2796E7328;
           v23 = v16;
-          v43 = v23;
+          v42 = v23;
           v24 = v21;
-          v44 = v24;
-          v25 = [v22 initWithRoute:v13 dataHandler:v42];
+          v43 = v24;
+          v25 = [v22 initWithRoute:v13 dataHandler:v41];
           healthStore = [(WDProfile *)selfCopy->_profile healthStore];
           [healthStore executeQuery:v25];
 
           dispatch_semaphore_wait(v24, 0xFFFFFFFFFFFFFFFFLL);
-          v41 = 0;
-          LOBYTE(v22) = [v23 finishWithError:&v41];
-          v27 = v41;
+          v40 = 0;
+          LOBYTE(v22) = [v23 finishWithError:&v40];
+          v27 = v40;
           if ((v22 & 1) == 0)
           {
             _HKInitializeLogging();
@@ -2179,7 +2155,7 @@ LABEL_28:
             if (os_log_type_enabled(*MEMORY[0x277CCC2B0], OS_LOG_TYPE_ERROR))
             {
               *buf = 138543362;
-              v51 = v27;
+              v50 = v27;
               _os_log_error_impl(&dword_251E85000, v28, OS_LOG_TYPE_ERROR, "Error exporting workout route to GPX: %{public}@", buf, 0xCu);
             }
           }
@@ -2187,17 +2163,17 @@ LABEL_28:
           [(WDExportManager *)selfCopy _writeXMLWorkoutRouteEnd];
         }
 
-        v38 = [obj countByEnumeratingWithState:&v45 objects:v52 count:16];
+        v37 = [obj countByEnumeratingWithState:&v44 objects:v51 count:16];
       }
 
-      while (v38);
+      while (v37);
     }
 
-    semaphoreCopy = v33;
-    routesCopy = v34;
-    v9 = v31;
-    defaultManager = v32;
-    v11 = v30;
+    semaphoreCopy = v32;
+    routesCopy = v33;
+    v9 = v30;
+    defaultManager = v31;
+    v11 = v29;
   }
 
   else
@@ -2210,11 +2186,9 @@ LABEL_28:
   }
 
   dispatch_semaphore_signal(semaphoreCopy);
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
-intptr_t __56__WDExportManager__writeDataForWorkoutRoutes_semaphore___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, char a4, uint64_t a5)
+void *__56__WDExportManager__writeDataForWorkoutRoutes_semaphore___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, char a4, uint64_t a5)
 {
   result = [*(a1 + 32) appendLocations:a3 error:0];
   if (a5 || (a4 & 1) != 0 || !result)
@@ -2229,35 +2203,35 @@ intptr_t __56__WDExportManager__writeDataForWorkoutRoutes_semaphore___block_invo
 
 - (void)_writeDataForActivitySummaries
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CCD720] quantityTypeForIdentifier:*MEMORY[0x277CCC918]];
   v4 = [(WDExportManager *)self _preferredUnitForObjectType:v3];
 
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   v5 = self->_completedRecords;
-  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v13;
+    v8 = *v12;
     do
     {
       v9 = 0;
       do
       {
-        if (*v13 != v8)
+        if (*v12 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        [(WDExportManager *)self _writeXMLActivitySummary:*(*(&v12 + 1) + 8 * v9++) activeEnergyBurnedUnit:v4, v12];
+        [(WDExportManager *)self _writeXMLActivitySummary:*(*(&v11 + 1) + 8 * v9++) activeEnergyBurnedUnit:v4, v11];
       }
 
       while (v7 != v9);
-      v7 = [(NSArray *)v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v7 = [(NSArray *)v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v7);
@@ -2267,56 +2241,55 @@ intptr_t __56__WDExportManager__writeDataForWorkoutRoutes_semaphore___block_invo
   self->_completedRecords = 0;
 
   dispatch_semaphore_signal(self->_sem);
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_writeDataForHRVAndTachograms
 {
-  v27 = *MEMORY[0x277D85DE8];
-  v16 = [MEMORY[0x277CCD830] dataTypeWithCode:139];
+  v26 = *MEMORY[0x277D85DE8];
+  v15 = [MEMORY[0x277CCD830] dataTypeWithCode:139];
   v3 = [(WDExportManager *)self _preferredUnitForObjectType:?];
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   obj = self->_completedRecords;
-  v4 = [(NSArray *)obj countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v4 = [(NSArray *)obj countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v23;
+    v6 = *v22;
     do
     {
       v7 = 0;
       do
       {
-        if (*v23 != v6)
+        if (*v22 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v22 + 1) + 8 * v7);
+        v8 = *(*(&v21 + 1) + 8 * v7);
         v9 = dispatch_semaphore_create(0);
         v10 = MEMORY[0x277CCD528];
         healthStore = [(WDProfile *)self->_profile healthStore];
-        v17[0] = MEMORY[0x277D85DD0];
-        v17[1] = 3221225472;
-        v17[2] = __48__WDExportManager__writeDataForHRVAndTachograms__block_invoke;
-        v17[3] = &unk_2796E7350;
-        v17[4] = self;
-        v18 = v16;
-        v19 = v8;
-        v20 = v3;
-        v21 = v9;
+        v16[0] = MEMORY[0x277D85DD0];
+        v16[1] = 3221225472;
+        v16[2] = __48__WDExportManager__writeDataForHRVAndTachograms__block_invoke;
+        v16[3] = &unk_2796E7350;
+        v16[4] = self;
+        v17 = v15;
+        v18 = v8;
+        v19 = v3;
+        v20 = v9;
         v12 = v9;
-        [v10 queryForParentSequenceOfHRV:v8 healthStore:healthStore completion:v17];
+        [v10 queryForParentSequenceOfHRV:v8 healthStore:healthStore completion:v16];
 
         dispatch_semaphore_wait(v12, 0xFFFFFFFFFFFFFFFFLL);
         ++v7;
       }
 
       while (v5 != v7);
-      v5 = [(NSArray *)obj countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v5 = [(NSArray *)obj countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v5);
@@ -2326,7 +2299,6 @@ intptr_t __56__WDExportManager__writeDataForWorkoutRoutes_semaphore___block_invo
   self->_completedRecords = 0;
 
   dispatch_semaphore_signal(self->_sem);
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __48__WDExportManager__writeDataForHRVAndTachograms__block_invoke(uint64_t a1, uint64_t a2)
@@ -2366,10 +2338,200 @@ void __48__WDExportManager__writeDataForHRVAndTachograms__block_invoke(uint64_t 
 
 - (void)_writeDataForVisionRx
 {
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_0_1(&dword_251E85000, v0, v1, "Unable to create attachment directory: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  v72[1] = *MEMORY[0x277D85DE8];
+  v3 = objc_alloc(MEMORY[0x277CCD018]);
+  healthStore = [(WDProfile *)self->_profile healthStore];
+  v42 = [v3 initWithHealthStore:healthStore];
+
+  defaultManager = [MEMORY[0x277CCAA00] defaultManager];
+  v41 = [(NSString *)self->_exportPath stringByAppendingPathComponent:@"attachments"];
+  v71 = *MEMORY[0x277CCA1B0];
+  v72[0] = *MEMORY[0x277CCA190];
+  v34 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v72 forKeys:&v71 count:1];
+  v67 = 0;
+  LOBYTE(healthStore) = [defaultManager createDirectoryAtPath:v41 withIntermediateDirectories:1 attributes:v34 error:&v67];
+  v33 = v67;
+  if (healthStore)
+  {
+    v65 = 0u;
+    v66 = 0u;
+    v63 = 0u;
+    v64 = 0u;
+    obj = self->_completedRecords;
+    v38 = [(NSArray *)obj countByEnumeratingWithState:&v63 objects:v70 count:16];
+    if (v38)
+    {
+      v37 = *v64;
+      do
+      {
+        v5 = 0;
+        do
+        {
+          if (*v64 != v37)
+          {
+            v6 = v5;
+            objc_enumerationMutation(obj);
+            v5 = v6;
+          }
+
+          v39 = v5;
+          v7 = *(*(&v63 + 1) + 8 * v5);
+          xmlTextWriterStartElement(self->_writer, "VisionPrescription");
+          objc_opt_class();
+          if (objc_opt_isKindOfClass())
+          {
+            [(WDExportManager *)self _writeGlassesRx:v7];
+          }
+
+          else
+          {
+            objc_opt_class();
+            if (objc_opt_isKindOfClass())
+            {
+              [(WDExportManager *)self _writeContactsRx:v7];
+            }
+
+            else
+            {
+              [(WDExportManager *)self _writeVisionRx:v7];
+            }
+          }
+
+          v8 = dispatch_semaphore_create(0);
+          v57 = 0;
+          v58 = &v57;
+          v59 = 0x3032000000;
+          v60 = __Block_byref_object_copy_;
+          v61 = __Block_byref_object_dispose_;
+          v62 = 0;
+          v54[0] = MEMORY[0x277D85DD0];
+          v54[1] = 3221225472;
+          v54[2] = __40__WDExportManager__writeDataForVisionRx__block_invoke;
+          v54[3] = &unk_2796E7378;
+          v54[4] = self;
+          v56 = &v57;
+          dsema = v8;
+          v55 = dsema;
+          [v42 getAttachmentsForObject:v7 completion:v54];
+          dispatch_semaphore_wait(dsema, 0xFFFFFFFFFFFFFFFFLL);
+          if ([v58[5] count])
+          {
+            xmlTextWriterStartElement(self->_writer, "Attachment");
+            v52 = 0u;
+            v53 = 0u;
+            v51 = 0u;
+            v50 = 0u;
+            v9 = v58[5];
+            v10 = [v9 countByEnumeratingWithState:&v50 objects:v69 count:16];
+            if (v10)
+            {
+              v11 = *v51;
+              do
+              {
+                for (i = 0; i != v10; ++i)
+                {
+                  if (*v51 != v11)
+                  {
+                    objc_enumerationMutation(v9);
+                  }
+
+                  writer = self->_writer;
+                  identifier = [*(*(&v50 + 1) + 8 * i) identifier];
+                  uUIDString = [identifier UUIDString];
+                  v16 = uUIDString;
+                  xmlTextWriterWriteAttribute(writer, "identifier", [uUIDString UTF8String]);
+                }
+
+                v10 = [v9 countByEnumeratingWithState:&v50 objects:v69 count:16];
+              }
+
+              while (v10);
+            }
+
+            xmlTextWriterEndElement(self->_writer);
+            v48 = 0u;
+            v49 = 0u;
+            v46 = 0u;
+            v47 = 0u;
+            v17 = v58[5];
+            v18 = [v17 countByEnumeratingWithState:&v46 objects:v68 count:16];
+            if (v18)
+            {
+              v19 = *v47;
+              do
+              {
+                for (j = 0; j != v18; ++j)
+                {
+                  if (*v47 != v19)
+                  {
+                    objc_enumerationMutation(v17);
+                  }
+
+                  v21 = *(*(&v46 + 1) + 8 * j);
+                  identifier2 = [v21 identifier];
+                  uUIDString2 = [identifier2 UUIDString];
+                  v24 = [v41 stringByAppendingPathComponent:uUIDString2];
+
+                  contentType = [v21 contentType];
+                  preferredFilenameExtension = [contentType preferredFilenameExtension];
+
+                  if (preferredFilenameExtension)
+                  {
+                    v27 = [v24 stringByAppendingPathExtension:preferredFilenameExtension];
+
+                    v24 = v27;
+                  }
+
+                  v28 = dispatch_semaphore_create(0);
+                  v43[0] = MEMORY[0x277D85DD0];
+                  v43[1] = 3221225472;
+                  v43[2] = __40__WDExportManager__writeDataForVisionRx__block_invoke_2;
+                  v43[3] = &unk_2796E73A0;
+                  v43[4] = self;
+                  v29 = v24;
+                  v44 = v29;
+                  v30 = v28;
+                  v45 = v30;
+                  v31 = [v42 getDataForAttachment:v21 completion:v43];
+                  dispatch_semaphore_wait(v30, 0xFFFFFFFFFFFFFFFFLL);
+                }
+
+                v18 = [v17 countByEnumeratingWithState:&v46 objects:v68 count:16];
+              }
+
+              while (v18);
+            }
+          }
+
+          xmlTextWriterEndElement(self->_writer);
+
+          _Block_object_dispose(&v57, 8);
+          v5 = v39 + 1;
+        }
+
+        while (v39 + 1 != v38);
+        v38 = [(NSArray *)obj countByEnumeratingWithState:&v63 objects:v70 count:16];
+      }
+
+      while (v38);
+    }
+  }
+
+  else
+  {
+    _HKInitializeLogging();
+    if (os_log_type_enabled(*MEMORY[0x277CCC2B0], OS_LOG_TYPE_ERROR))
+    {
+      [WDExportManager _writeDataForVisionRx];
+    }
+
+    [(WDExportManager *)self setExportFailed:1, v33];
+  }
+
+  completedRecords = self->_completedRecords;
+  self->_completedRecords = 0;
+
+  dispatch_semaphore_signal(self->_sem);
 }
 
 void __40__WDExportManager__writeDataForVisionRx__block_invoke(uint64_t a1, void *a2, uint64_t a3)
@@ -2402,7 +2564,7 @@ void __40__WDExportManager__writeDataForVisionRx__block_invoke_2(uint64_t a1, vo
 
 - (void)_writeDataForMedicalRecords:(id)records
 {
-  v41[1] = *MEMORY[0x277D85DE8];
+  v40[1] = *MEMORY[0x277D85DE8];
   recordsCopy = records;
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
   exportPath = self->_exportPath;
@@ -2410,39 +2572,39 @@ void __40__WDExportManager__writeDataForVisionRx__block_invoke_2(uint64_t a1, vo
   v8 = [v7 localizedStringForKey:@"EXPORT_DATA_CR_DIRECTORY" value:&stru_28641D9B8 table:@"WellnessDashboard-Localizable"];
   v9 = [(NSString *)exportPath stringByAppendingPathComponent:v8];
 
-  v40 = *MEMORY[0x277CCA1B0];
-  v41[0] = *MEMORY[0x277CCA190];
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v41 forKeys:&v40 count:1];
-  v38 = 0;
-  v11 = [defaultManager createDirectoryAtPath:v9 withIntermediateDirectories:1 attributes:v10 error:&v38];
-  v12 = v38;
+  v39 = *MEMORY[0x277CCA1B0];
+  v40[0] = *MEMORY[0x277CCA190];
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v40 forKeys:&v39 count:1];
+  v37 = 0;
+  v11 = [defaultManager createDirectoryAtPath:v9 withIntermediateDirectories:1 attributes:v10 error:&v37];
+  v12 = v37;
   v13 = v12;
   if (v11)
   {
-    v25 = v12;
-    v26 = v10;
-    v27 = defaultManager;
-    v28 = recordsCopy;
-    v36 = 0u;
-    v37 = 0u;
-    v34 = 0u;
+    v24 = v12;
+    v25 = v10;
+    v26 = defaultManager;
+    v27 = recordsCopy;
     v35 = 0u;
+    v36 = 0u;
+    v33 = 0u;
+    v34 = 0u;
     obj = recordsCopy;
-    v14 = [obj countByEnumeratingWithState:&v34 objects:v39 count:16];
+    v14 = [obj countByEnumeratingWithState:&v33 objects:v38 count:16];
     if (v14)
     {
       v15 = v14;
-      v16 = *v35;
+      v16 = *v34;
       while (2)
       {
         for (i = 0; i != v15; ++i)
         {
-          if (*v35 != v16)
+          if (*v34 != v16)
           {
             objc_enumerationMutation(obj);
           }
 
-          v18 = *(*(&v34 + 1) + 8 * i);
+          v18 = *(*(&v33 + 1) + 8 * i);
           if ([(WDExportManager *)self exportFailed])
           {
             _HKInitializeLogging();
@@ -2456,23 +2618,23 @@ void __40__WDExportManager__writeDataForVisionRx__block_invoke_2(uint64_t a1, vo
           }
 
           v19 = dispatch_semaphore_create(0);
-          v30[0] = MEMORY[0x277D85DD0];
-          v30[1] = 3221225472;
-          v30[2] = __47__WDExportManager__writeDataForMedicalRecords___block_invoke;
-          v30[3] = &unk_2796E73C8;
-          v30[4] = self;
-          v31 = v19;
-          v32 = v18;
-          v33 = v9;
+          v29[0] = MEMORY[0x277D85DD0];
+          v29[1] = 3221225472;
+          v29[2] = __47__WDExportManager__writeDataForMedicalRecords___block_invoke;
+          v29[3] = &unk_2796E73C8;
+          v29[4] = self;
+          v30 = v19;
+          v31 = v18;
+          v32 = v9;
           v20 = v19;
-          v21 = MEMORY[0x253092270](v30);
+          v21 = MEMORY[0x253092270](v29);
           healthRecordsStore = [(WDProfile *)self->_profile healthRecordsStore];
           [healthRecordsStore fetchExportedPropertiesForHealthRecord:v18 completion:v21];
 
           dispatch_semaphore_wait(v20, 0xFFFFFFFFFFFFFFFFLL);
         }
 
-        v15 = [obj countByEnumeratingWithState:&v34 objects:v39 count:16];
+        v15 = [obj countByEnumeratingWithState:&v33 objects:v38 count:16];
         if (v15)
         {
           continue;
@@ -2484,10 +2646,10 @@ void __40__WDExportManager__writeDataForVisionRx__block_invoke_2(uint64_t a1, vo
 
 LABEL_17:
 
-    defaultManager = v27;
-    recordsCopy = v28;
-    v13 = v25;
-    v10 = v26;
+    defaultManager = v26;
+    recordsCopy = v27;
+    v13 = v24;
+    v10 = v25;
   }
 
   else
@@ -2500,8 +2662,6 @@ LABEL_17:
 
     [(WDExportManager *)self setExportFailed:1];
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 void __47__WDExportManager__writeDataForMedicalRecords___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -2654,7 +2814,7 @@ LABEL_16:
 
 - (void)_writeXMLRecordWithType:(id)type sourceName:(id)name sourceVersion:(id)version device:(id)device unit:(id)unit metadata:(id)metadata hrvMetadataList:(id)list creationDate:(id)self0 startDate:(id)self1 endDate:(id)self2 value:(id)self3
 {
-  v66 = *MEMORY[0x277D85DE8];
+  v65 = *MEMORY[0x277D85DE8];
   typeCopy = type;
   nameCopy = name;
   versionCopy = version;
@@ -2667,7 +2827,7 @@ LABEL_16:
   endDateCopy = endDate;
   valueCopy = value;
   xmlTextWriterStartElement(self->_writer, "Record");
-  v55 = typeCopy;
+  v54 = typeCopy;
   xmlTextWriterWriteAttribute(self->_writer, "type", [typeCopy UTF8String]);
   xmlTextWriterWriteAttribute(self->_writer, "sourceName", [nameCopy UTF8String]);
   if ([versionCopy length])
@@ -2686,7 +2846,7 @@ LABEL_16:
     xmlTextWriterWriteAttribute(self->_writer, "unit", [unitCopy UTF8String]);
   }
 
-  v57 = unitCopy;
+  v56 = unitCopy;
   if (dateCopy)
   {
     writer = self->_writer;
@@ -2711,13 +2871,13 @@ LABEL_16:
     v37 = [v35 stringWithFormat:@"%g", v36];
     xmlTextWriterWriteAttribute(v34, "value", [v37 UTF8String]);
 
-    v38 = v57;
+    v38 = v56;
   }
 
   else
   {
     objc_opt_class();
-    v38 = v57;
+    v38 = v56;
     if (objc_opt_isKindOfClass())
     {
       xmlTextWriterWriteAttribute(self->_writer, "value", [valueCopy UTF8String]);
@@ -2727,33 +2887,33 @@ LABEL_16:
   [(WDExportManager *)self _writeXMLMetadataEntries:metadataCopy];
   if (listCopy)
   {
-    v49 = startDateCopy;
-    v50 = dateCopy;
-    v52 = deviceCopy;
-    v53 = versionCopy;
-    v54 = nameCopy;
+    v48 = startDateCopy;
+    v49 = dateCopy;
+    v51 = deviceCopy;
+    v52 = versionCopy;
+    v53 = nameCopy;
     xmlTextWriterStartElement(self->_writer, "HeartRateVariabilityMetadataList");
+    v60 = 0u;
     v61 = 0u;
     v62 = 0u;
     v63 = 0u;
-    v64 = 0u;
-    v51 = listCopy;
+    v50 = listCopy;
     obj = listCopy;
-    v39 = [obj countByEnumeratingWithState:&v61 objects:v65 count:16];
+    v39 = [obj countByEnumeratingWithState:&v60 objects:v64 count:16];
     if (v39)
     {
       v40 = v39;
-      v41 = *v62;
+      v41 = *v61;
       do
       {
         for (i = 0; i != v40; ++i)
         {
-          if (*v62 != v41)
+          if (*v61 != v41)
           {
             objc_enumerationMutation(obj);
           }
 
-          v43 = *(*(&v61 + 1) + 8 * i);
+          v43 = *(*(&v60 + 1) + 8 * i);
           xmlTextWriterStartElement(self->_writer, "InstantaneousBeatsPerMinute");
           v44 = self->_writer;
           v45 = [(WDExportManager *)self _formatBPMForBeatToBeatReading:v43];
@@ -2766,26 +2926,24 @@ LABEL_16:
           xmlTextWriterEndElement(self->_writer);
         }
 
-        v40 = [obj countByEnumeratingWithState:&v61 objects:v65 count:16];
+        v40 = [obj countByEnumeratingWithState:&v60 objects:v64 count:16];
       }
 
       while (v40);
     }
 
     xmlTextWriterEndElement(self->_writer);
-    versionCopy = v53;
-    nameCopy = v54;
-    listCopy = v51;
-    deviceCopy = v52;
+    versionCopy = v52;
+    nameCopy = v53;
+    listCopy = v50;
+    deviceCopy = v51;
     v27 = valueCopy;
-    v38 = v57;
-    startDateCopy = v49;
-    dateCopy = v50;
+    v38 = v56;
+    startDateCopy = v48;
+    dateCopy = v49;
   }
 
   xmlTextWriterEndElement(self->_writer);
-
-  v48 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_writeXMLCorrelationStartWithType:(id)type sourceName:(id)name sourceVersion:(id)version device:(id)device metadata:(id)metadata creationDate:(id)date startDate:(id)startDate endDate:(id)self0
@@ -3197,7 +3355,7 @@ BOOL __54__WDExportManager__writeXMLAudiogramSensitivityPoint___block_invoke_2(u
 
 - (void)_writeXMLWorkoutActivity:(id)activity
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   activityCopy = activity;
   xmlTextWriterStartElement(self->_writer, "WorkoutActivity");
   writer = self->_writer;
@@ -3233,62 +3391,62 @@ BOOL __54__WDExportManager__writeXMLAudiogramSensitivityPoint___block_invoke_2(u
     xmlTextWriterWriteAttribute(self->_writer, "durationUnit", [v20 UTF8String]);
   }
 
-  v44 = 0u;
-  v45 = 0u;
-  v42 = 0u;
   v43 = 0u;
+  v44 = 0u;
+  v41 = 0u;
+  v42 = 0u;
   workoutEvents = [activityCopy workoutEvents];
-  v25 = [workoutEvents countByEnumeratingWithState:&v42 objects:v47 count:16];
+  v25 = [workoutEvents countByEnumeratingWithState:&v41 objects:v46 count:16];
   if (v25)
   {
     v26 = v25;
-    v27 = *v43;
+    v27 = *v42;
     do
     {
       for (i = 0; i != v26; ++i)
       {
-        if (*v43 != v27)
+        if (*v42 != v27)
         {
           objc_enumerationMutation(workoutEvents);
         }
 
-        [(WDExportManager *)self _writeXMLWorkoutEvent:*(*(&v42 + 1) + 8 * i)];
+        [(WDExportManager *)self _writeXMLWorkoutEvent:*(*(&v41 + 1) + 8 * i)];
       }
 
-      v26 = [workoutEvents countByEnumeratingWithState:&v42 objects:v47 count:16];
+      v26 = [workoutEvents countByEnumeratingWithState:&v41 objects:v46 count:16];
     }
 
     while (v26);
   }
 
-  v40 = 0u;
-  v41 = 0u;
-  v38 = 0u;
   v39 = 0u;
+  v40 = 0u;
+  v37 = 0u;
+  v38 = 0u;
   allStatistics = [activityCopy allStatistics];
   allValues = [allStatistics allValues];
 
-  v31 = [allValues countByEnumeratingWithState:&v38 objects:v46 count:16];
+  v31 = [allValues countByEnumeratingWithState:&v37 objects:v45 count:16];
   if (v31)
   {
     v32 = v31;
-    v33 = *v39;
+    v33 = *v38;
     do
     {
       for (j = 0; j != v32; ++j)
       {
-        if (*v39 != v33)
+        if (*v38 != v33)
         {
           objc_enumerationMutation(allValues);
         }
 
-        v35 = *(*(&v38 + 1) + 8 * j);
+        v35 = *(*(&v37 + 1) + 8 * j);
         xmlTextWriterStartElement(self->_writer, "WorkoutStatistics");
         [(WDExportManager *)self _writeXMLWorkoutStatistics:v35];
         xmlTextWriterEndElement(self->_writer);
       }
 
-      v32 = [allValues countByEnumeratingWithState:&v38 objects:v46 count:16];
+      v32 = [allValues countByEnumeratingWithState:&v37 objects:v45 count:16];
     }
 
     while (v32);
@@ -3298,7 +3456,6 @@ BOOL __54__WDExportManager__writeXMLAudiogramSensitivityPoint___block_invoke_2(u
   [(WDExportManager *)self _writeXMLMetadataEntries:metadata];
 
   xmlTextWriterEndElement(self->_writer);
-  v37 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_writeXMLObjectAttributes:(id)attributes
@@ -3360,31 +3517,31 @@ BOOL __54__WDExportManager__writeXMLAudiogramSensitivityPoint___block_invoke_2(u
 
 - (void)_writeXMLMetadataEntries:(id)entries
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   entriesCopy = entries;
   v5 = entriesCopy;
   if (entriesCopy)
   {
-    v17 = 0u;
-    v18 = 0u;
-    v15 = 0u;
     v16 = 0u;
-    v6 = [entriesCopy countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v17 = 0u;
+    v14 = 0u;
+    v15 = 0u;
+    v6 = [entriesCopy countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v16;
+      v8 = *v15;
       do
       {
         v9 = 0;
         do
         {
-          if (*v16 != v8)
+          if (*v15 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          v10 = *(*(&v15 + 1) + 8 * v9);
+          v10 = *(*(&v14 + 1) + 8 * v9);
           if ((_HKMetadataKeyIsPrivate() & 1) == 0)
           {
             xmlTextWriterStartElement(self->_writer, "MetadataEntry");
@@ -3401,14 +3558,12 @@ BOOL __54__WDExportManager__writeXMLAudiogramSensitivityPoint___block_invoke_2(u
         }
 
         while (v7 != v9);
-        v7 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
       }
 
       while (v7);
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_writeXMLWorkoutRouteStart:(id)start
@@ -3731,7 +3886,7 @@ LABEL_11:
 
 - (void)_writeCDAEntryWithValue:(id)value type:(id)type sourceName:(id)name sourceVersion:(id)version device:(id)device unit:(id)unit metadata:(id)metadata startDate:(id)self0 endDate:(id)self1
 {
-  v98 = *MEMORY[0x277D85DE8];
+  v97 = *MEMORY[0x277D85DE8];
   valueCopy = value;
   typeCopy = type;
   nameCopy = name;
@@ -4036,7 +4191,7 @@ LABEL_45:
 
   xmlTextWriterStartElement(self->_writerCDA, "value");
   objc_opt_class();
-  v90 = deviceCopy;
+  v89 = deviceCopy;
   if (objc_opt_isKindOfClass())
   {
     v59 = self->_writerCDA;
@@ -4067,32 +4222,32 @@ LABEL_45:
   xmlTextWriterEndElement(self->_writerCDA);
   if (metadataCopy)
   {
-    v84 = endDateCopy;
-    v85 = dateCopy;
-    v87 = versionCopy;
-    v88 = typeCopy;
-    v89 = valueCopy;
-    v95 = 0u;
-    v96 = 0u;
-    v93 = 0u;
+    v83 = endDateCopy;
+    v84 = dateCopy;
+    v86 = versionCopy;
+    v87 = typeCopy;
+    v88 = valueCopy;
     v94 = 0u;
-    v86 = metadataCopy;
+    v95 = 0u;
+    v92 = 0u;
+    v93 = 0u;
+    v85 = metadataCopy;
     v65 = metadataCopy;
-    v66 = [v65 countByEnumeratingWithState:&v93 objects:v97 count:16];
+    v66 = [v65 countByEnumeratingWithState:&v92 objects:v96 count:16];
     if (v66)
     {
       v67 = v66;
-      v68 = *v94;
+      v68 = *v93;
       do
       {
         for (i = 0; i != v67; ++i)
         {
-          if (*v94 != v68)
+          if (*v93 != v68)
           {
             objc_enumerationMutation(v65);
           }
 
-          v70 = *(*(&v93 + 1) + 8 * i);
+          v70 = *(*(&v92 + 1) + 8 * i);
           if ((_HKMetadataKeyIsPrivate() & 1) == 0)
           {
             xmlTextWriterStartElement(self->_writerCDA, "metadataEntry");
@@ -4110,18 +4265,18 @@ LABEL_45:
           }
         }
 
-        v67 = [v65 countByEnumeratingWithState:&v93 objects:v97 count:16];
+        v67 = [v65 countByEnumeratingWithState:&v92 objects:v96 count:16];
       }
 
       while (v67);
     }
 
-    v23 = v88;
-    valueCopy = v89;
-    metadataCopy = v86;
-    versionCopy = v87;
-    endDateCopy = v84;
-    dateCopy = v85;
+    v23 = v87;
+    valueCopy = v88;
+    metadataCopy = v85;
+    versionCopy = v86;
+    endDateCopy = v83;
+    dateCopy = v84;
   }
 
   xmlTextWriterEndElement(self->_writerCDA);
@@ -4153,13 +4308,13 @@ LABEL_45:
     v81 = [v79 stringWithFormat:@"%g", v80];
     xmlTextWriterWriteAttribute(v78, "value", [v81 UTF8String]);
 
-    v82 = v90;
+    v82 = v89;
   }
 
   else
   {
     objc_opt_class();
-    v82 = v90;
+    v82 = v89;
     if (objc_opt_isKindOfClass())
     {
       xmlTextWriterWriteAttribute(self->_writerCDA, "value", [valueCopy UTF8String]);
@@ -4174,8 +4329,6 @@ LABEL_45:
   xmlTextWriterEndElement(self->_writerCDA);
   xmlTextWriterEndElement(self->_writerCDA);
   xmlTextWriterEndElement(self->_writerCDA);
-
-  v83 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_writeXMLMedicalRecordWithType:(id)type identifier:(id)identifier sourceName:(id)name sourceURL:(id)l fhirVersion:(id)version receivedDate:(id)date jsonFilePath:(id)path
@@ -4841,15 +4994,50 @@ LABEL_45:
 
 - (void)_exportHealthRecords
 {
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_0_1(&dword_251E85000, v0, v1, "Unable to create document directory: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  v19[1] = *MEMORY[0x277D85DE8];
+  defaultManager = [MEMORY[0x277CCAA00] defaultManager];
+  v4 = [(NSString *)self->_exportPath stringByAppendingPathComponent:@"documents"];
+  v18 = *MEMORY[0x277CCA1B0];
+  v19[0] = *MEMORY[0x277CCA190];
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:&v18 count:1];
+  v17 = 0;
+  v6 = [defaultManager createDirectoryAtPath:v4 withIntermediateDirectories:1 attributes:v5 error:&v17];
+  v7 = v17;
+  if (v6)
+  {
+    v8 = objc_alloc_init(MEMORY[0x277CBEB58]);
+    v14[0] = MEMORY[0x277D85DD0];
+    v14[1] = 3221225472;
+    v14[2] = __39__WDExportManager__exportHealthRecords__block_invoke;
+    v14[3] = &unk_2796E7410;
+    v14[4] = self;
+    v15 = v4;
+    v16 = v8;
+    v9 = v8;
+    v10 = MEMORY[0x253092270](v14);
+    v11 = [MEMORY[0x277CCD720] documentTypeForIdentifier:*MEMORY[0x277CCBCB8]];
+    v12 = [objc_alloc(MEMORY[0x277CCD360]) initWithDocumentType:v11 predicate:0 limit:0 sortDescriptors:0 includeDocumentData:1 resultsHandler:v10];
+    healthStore = [(WDProfile *)self->_profile healthStore];
+    [healthStore executeQuery:v12];
+
+    dispatch_semaphore_wait(self->_sem, 0xFFFFFFFFFFFFFFFFLL);
+  }
+
+  else
+  {
+    _HKInitializeLogging();
+    if (os_log_type_enabled(*MEMORY[0x277CCC2B0], OS_LOG_TYPE_ERROR))
+    {
+      [WDExportManager _exportHealthRecords];
+    }
+
+    [(WDExportManager *)self setExportFailed:1];
+  }
 }
 
 void __39__WDExportManager__exportHealthRecords__block_invoke(uint64_t a1, void *a2, void *a3, int a4, void *a5)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v9 = a2;
   v10 = a3;
   v11 = a5;
@@ -4867,30 +5055,30 @@ void __39__WDExportManager__exportHealthRecords__block_invoke(uint64_t a1, void 
     goto LABEL_14;
   }
 
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
   v20 = 0u;
-  v12 = [v10 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
+  v12 = [v10 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v20;
+    v14 = *v19;
     do
     {
       v15 = 0;
       do
       {
-        if (*v20 != v14)
+        if (*v19 != v14)
         {
           objc_enumerationMutation(v10);
         }
 
-        [*(a1 + 32) _writeHealthRecord:*(*(&v19 + 1) + 8 * v15++) documentDirectory:*(a1 + 40) fileNamesInUse:*(a1 + 48)];
+        [*(a1 + 32) _writeHealthRecord:*(*(&v18 + 1) + 8 * v15++) documentDirectory:*(a1 + 40) fileNamesInUse:*(a1 + 48)];
       }
 
       while (v13 != v15);
-      v13 = [v10 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v13 = [v10 countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v13);
@@ -4902,8 +5090,6 @@ void __39__WDExportManager__exportHealthRecords__block_invoke(uint64_t a1, void 
 LABEL_14:
     dispatch_semaphore_signal(*(*v16 + 40));
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_electrocardiogramHeaderWithName:(id)name dateOfBirth:(id)birth
@@ -4946,54 +5132,54 @@ LABEL_14:
 
 - (BOOL)_writeElectrocardiogramsToDisk:(id)disk header:(id)header version:(id)version
 {
-  v62[1] = *MEMORY[0x277D85DE8];
+  v61[1] = *MEMORY[0x277D85DE8];
   diskCopy = disk;
   headerCopy = header;
   versionCopy = version;
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
   selfCopy = self;
   v11 = [(NSString *)self->_exportPath stringByAppendingPathComponent:@"electrocardiograms"];
-  v61 = *MEMORY[0x277CCA1B0];
-  v62[0] = *MEMORY[0x277CCA190];
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v62 forKeys:&v61 count:1];
-  v59 = 0;
-  v50 = v11;
-  LOBYTE(v11) = [defaultManager createDirectoryAtPath:v11 withIntermediateDirectories:1 attributes:v12 error:&v59];
-  v13 = v59;
+  v60 = *MEMORY[0x277CCA1B0];
+  v61[0] = *MEMORY[0x277CCA190];
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v61 forKeys:&v60 count:1];
+  v58 = 0;
+  v49 = v11;
+  LOBYTE(v11) = [defaultManager createDirectoryAtPath:v11 withIntermediateDirectories:1 attributes:v12 error:&v58];
+  v13 = v58;
 
   if (v11)
   {
     v14 = objc_alloc_init(MEMORY[0x277CBEB58]);
     v15 = objc_alloc(MEMORY[0x277CBEA80]);
-    v48 = [v15 initWithCalendarIdentifier:*MEMORY[0x277CBE5C0]];
+    v47 = [v15 initWithCalendarIdentifier:*MEMORY[0x277CBE5C0]];
+    v54 = 0u;
     v55 = 0u;
     v56 = 0u;
     v57 = 0u;
-    v58 = 0u;
     obj = diskCopy;
-    v47 = [obj countByEnumeratingWithState:&v55 objects:v60 count:16];
-    if (v47)
+    v46 = [obj countByEnumeratingWithState:&v54 objects:v59 count:16];
+    if (v46)
     {
-      v41 = v13;
-      v42 = defaultManager;
-      v43 = diskCopy;
-      v45 = *v56;
-      v46 = versionCopy;
+      v40 = v13;
+      v41 = defaultManager;
+      v42 = diskCopy;
+      v44 = *v55;
+      v45 = versionCopy;
       while (2)
       {
-        for (i = 0; i != v47; ++i)
+        for (i = 0; i != v46; ++i)
         {
-          if (*v56 != v45)
+          if (*v55 != v44)
           {
             objc_enumerationMutation(obj);
           }
 
-          v17 = *(*(&v55 + 1) + 8 * i);
+          v17 = *(*(&v54 + 1) + 8 * i);
           context = objc_autoreleasePoolPush();
           startDate = [v17 startDate];
-          v19 = [v48 components:28 fromDate:startDate];
+          v19 = [v47 components:28 fromDate:startDate];
 
-          v52 = v19;
+          v51 = v19;
           v20 = [MEMORY[0x277CCACA8] stringWithFormat:@"ecg_%ld-%02ld-%02ld", objc_msgSend(v19, "year"), objc_msgSend(v19, "month"), objc_msgSend(v19, "day")];
           v21 = v20;
           if ([v14 containsObject:v20])
@@ -5026,10 +5212,10 @@ LABEL_14:
           [v24 appendString:v30];
 
           [v24 appendString:@"\n"];
-          versionCopy = v46;
-          if (v46)
+          versionCopy = v45;
+          if (v45)
           {
-            v31 = [v17 wd_commaSeparatedHeaderWithActiveAlgorithmVersion:{objc_msgSend(v46, "integerValue")}];
+            v31 = [v17 wd_commaSeparatedHeaderWithActiveAlgorithmVersion:{objc_msgSend(v45, "integerValue")}];
             [v24 appendString:v31];
 
             [v24 appendString:@"\n"];
@@ -5038,12 +5224,12 @@ LABEL_14:
           wd_commaSeparatedData = [v17 wd_commaSeparatedData];
           [v24 appendString:wd_commaSeparatedData];
 
-          v33 = [v50 stringByAppendingPathComponent:v21];
+          v33 = [v49 stringByAppendingPathComponent:v21];
           v34 = [v33 stringByAppendingPathExtension:@"csv"];
 
-          v54 = 0;
-          LOBYTE(v33) = [v24 writeToFile:v34 atomically:1 encoding:4 error:&v54];
-          v35 = v54;
+          v53 = 0;
+          LOBYTE(v33) = [v24 writeToFile:v34 atomically:1 encoding:4 error:&v53];
+          v35 = v53;
           v36 = v35;
           if ((v33 & 1) == 0)
           {
@@ -5062,8 +5248,8 @@ LABEL_14:
           objc_autoreleasePoolPop(context);
         }
 
-        v47 = [obj countByEnumeratingWithState:&v55 objects:v60 count:16];
-        if (v47)
+        v46 = [obj countByEnumeratingWithState:&v54 objects:v59 count:16];
+        if (v46)
         {
           continue;
         }
@@ -5073,9 +5259,9 @@ LABEL_14:
 
       v37 = 1;
 LABEL_22:
-      defaultManager = v42;
-      diskCopy = v43;
-      v13 = v41;
+      defaultManager = v41;
+      diskCopy = v42;
+      v13 = v40;
     }
 
     else
@@ -5096,7 +5282,6 @@ LABEL_22:
     v37 = 0;
   }
 
-  v39 = *MEMORY[0x277D85DE8];
   return v37;
 }
 
@@ -5167,51 +5352,51 @@ void __65__WDExportManager__exportElectrocardiogramsWithName_dateOfBirth___block
 
 - (BOOL)_addSourceDirectory:(id)directory asPath:(id)path archive:(id)archive fileManager:(id)manager
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   directoryCopy = directory;
   pathCopy = path;
   archiveCopy = archive;
   managerCopy = manager;
-  v39 = 0;
-  v12 = [managerCopy contentsOfDirectoryAtURL:directoryCopy includingPropertiesForKeys:MEMORY[0x277CBEBF8] options:4 error:&v39];
-  v13 = v39;
+  v38 = 0;
+  v12 = [managerCopy contentsOfDirectoryAtURL:directoryCopy includingPropertiesForKeys:MEMORY[0x277CBEBF8] options:4 error:&v38];
+  v13 = v38;
   if (v12)
   {
-    v37 = 0u;
-    v38 = 0u;
-    v35 = 0u;
     v36 = 0u;
+    v37 = 0u;
+    v34 = 0u;
+    v35 = 0u;
     obj = v12;
-    v14 = [obj countByEnumeratingWithState:&v35 objects:v40 count:16];
+    v14 = [obj countByEnumeratingWithState:&v34 objects:v39 count:16];
     if (v14)
     {
       v15 = v14;
-      v27 = v13;
-      v28 = v12;
-      v29 = directoryCopy;
-      v16 = *v36;
+      v26 = v13;
+      v27 = v12;
+      v28 = directoryCopy;
+      v16 = *v35;
       while (2)
       {
         v17 = 0;
-        v31 = v15;
+        v30 = v15;
         do
         {
-          if (*v36 != v16)
+          if (*v35 != v16)
           {
             objc_enumerationMutation(obj);
           }
 
-          v18 = *(*(&v35 + 1) + 8 * v17);
+          v18 = *(*(&v34 + 1) + 8 * v17);
           v19 = objc_autoreleasePoolPush();
           path = [v18 path];
           pathComponents = [v18 pathComponents];
           lastObject = [pathComponents lastObject];
 
           v23 = [pathCopy URLByAppendingPathComponent:lastObject];
-          v34 = 0;
-          if ([managerCopy fileExistsAtPath:path isDirectory:&v34])
+          v33 = 0;
+          if ([managerCopy fileExistsAtPath:path isDirectory:&v33])
           {
-            if (v34 == 1)
+            if (v33 == 1)
             {
               if (![(WDExportManager *)self _addSourceDirectory:v18 asPath:v23 archive:archiveCopy fileManager:managerCopy])
               {
@@ -5222,7 +5407,7 @@ void __65__WDExportManager__exportElectrocardiogramsWithName_dateOfBirth___block
             else
             {
               [archiveCopy addFileToArchive:v18 pathInArchive:v23];
-              v15 = v31;
+              v15 = v30;
               if (![archiveCopy archiveIsValid])
               {
 LABEL_18:
@@ -5239,7 +5424,7 @@ LABEL_18:
         }
 
         while (v15 != v17);
-        v15 = [obj countByEnumeratingWithState:&v35 objects:v40 count:16];
+        v15 = [obj countByEnumeratingWithState:&v34 objects:v39 count:16];
         if (v15)
         {
           continue;
@@ -5250,9 +5435,9 @@ LABEL_18:
 
       v24 = 1;
 LABEL_19:
-      v12 = v28;
-      directoryCopy = v29;
-      v13 = v27;
+      v12 = v27;
+      directoryCopy = v28;
+      v13 = v26;
     }
 
     else
@@ -5272,7 +5457,6 @@ LABEL_19:
     v24 = 0;
   }
 
-  v25 = *MEMORY[0x277D85DE8];
   return v24;
 }
 
@@ -5338,43 +5522,41 @@ LABEL_19:
 
 - (void)_getAllOrdinaryDataTypesOfCategory:(int64_t)category withArray:(id)array
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   arrayCopy = array;
   v7 = objc_alloc_init(MEMORY[0x277CBEB18]);
   [(WDExportManager *)self _getAllOrdinaryDataTypesOfClass:objc_opt_class() withArray:v7];
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   v8 = v7;
-  v9 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v16;
+    v11 = *v15;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v16 != v11)
+        if (*v15 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v15 + 1) + 8 * i);
+        v13 = *(*(&v14 + 1) + 8 * i);
         if (getCategoryOfType(v13) == category)
         {
-          [arrayCopy addObject:{v13, v15}];
+          [arrayCopy addObject:{v13, v14}];
         }
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v10);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_preferredUnitForObjectType:(id)type
@@ -5423,169 +5605,6 @@ LABEL_19:
   WeakRetained = objc_loadWeakRetained(&self->_applicationProvider);
 
   return WeakRetained;
-}
-
-void __50__WDExportManager_createExportFileWithCompletion___block_invoke_cold_1(uint64_t a1)
-{
-  v9 = *MEMORY[0x277D85DE8];
-  v7 = *(*a1 + 88);
-  v8 = *(*a1 + 96);
-  OUTLINED_FUNCTION_1_0();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __50__WDExportManager_createExportFileWithCompletion___block_invoke_cold_2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_0_1(&dword_251E85000, v0, v1, "Error getting birth date: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __50__WDExportManager_createExportFileWithCompletion___block_invoke_cold_3()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_0_1(&dword_251E85000, v0, v1, "Error getting biological sex: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __50__WDExportManager_createExportFileWithCompletion___block_invoke_cold_4()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_0_1(&dword_251E85000, v0, v1, "Error getting blood type: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __50__WDExportManager_createExportFileWithCompletion___block_invoke_cold_5()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_0_1(&dword_251E85000, v0, v1, "Error getting fitzpatrick skin type: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __50__WDExportManager_createExportFileWithCompletion___block_invoke_cold_6()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_0_1(&dword_251E85000, v0, v1, "Error getting cardio fitness medications use: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __38__WDExportManager__queryForDateRanges__block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_0_1(&dword_251E85000, v0, v1, "Failed to retrieve date ranges during export: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __55__WDExportManager__queryForSamplesOfType_batchHandler___block_invoke_cold_1(uint64_t a1)
-{
-  v5 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
-  OUTLINED_FUNCTION_3_0();
-  OUTLINED_FUNCTION_4(&dword_251E85000, v2, v3, "Query for '%@' failed during export attempt: %{public}@");
-  v4 = *MEMORY[0x277D85DE8];
-}
-
-void __39__WDExportManager__writeMedicalRecords__block_invoke_cold_1(uint64_t a1)
-{
-  v5 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 40);
-  OUTLINED_FUNCTION_3_0();
-  OUTLINED_FUNCTION_4(&dword_251E85000, v2, v3, "Medical type query failed for type %{public}@ (%{public}@)");
-  v4 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_writeDataForWorkoutRoutes:semaphore:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_0_1(&dword_251E85000, v0, v1, "Error creating workout-route export directory: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_writeDataForMedicalRecords:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_0_1(&dword_251E85000, v0, v1, "Unable to create directory for medical records (%{public}@)", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __47__WDExportManager__writeDataForMedicalRecords___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_0_1(&dword_251E85000, v0, v1, "Unable to export properties for medical record (%{public}@)", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __47__WDExportManager__writeDataForMedicalRecords___block_invoke_cold_2(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
-{
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1(&dword_251E85000, a1, a3, "Did not export all expected properties for medical record (%{public}@)", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
-}
-
-void __47__WDExportManager__writeDataForMedicalRecords___block_invoke_cold_3()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_0_1(&dword_251E85000, v0, v1, "Unable to write JSON file for medical record (%{public}@)", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __39__WDExportManager__exportHealthRecords__block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_0_1(&dword_251E85000, v0, v1, "Query for health record documents failed: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_writeElectrocardiogramsToDisk:header:version:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_0_1(&dword_251E85000, v0, v1, "Unable to create electrocardiograms export directory: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_writeElectrocardiogramsToDisk:header:version:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_0_1(&dword_251E85000, v0, v1, "Failed to write electrocardiogram content: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_exportElectrocardiogramsWithName:dateOfBirth:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_0_1(&dword_251E85000, v0, v1, "Failed to lookup active electrocardiogram version: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __65__WDExportManager__exportElectrocardiogramsWithName_dateOfBirth___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_0_1(&dword_251E85000, v0, v1, "Query for electrocardiogram samples failed: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_addSourceDirectory:asPath:archive:fileManager:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_0_1(&dword_251E85000, v0, v1, "Unable to list archive directory: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

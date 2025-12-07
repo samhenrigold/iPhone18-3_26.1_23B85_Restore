@@ -47,7 +47,7 @@
   *&retstr->var1.height = 0u;
   *&retstr->var3 = 0u;
   *&retstr->var0 = 0u;
-  result = [SignStyle arrowMetricsForStyle:0];
+  result = objc_msgSend_arrowMetricsForStyle_(SignStyle, style, 0);
   retstr->var1 = xmmword_101212AD0;
   retstr->var16 = 30.0;
   return result;

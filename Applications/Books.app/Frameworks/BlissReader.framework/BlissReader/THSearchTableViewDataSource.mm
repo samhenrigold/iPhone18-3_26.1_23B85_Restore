@@ -167,22 +167,22 @@ LABEL_19:
   searchViewMode = [(THSearchTableViewDataSource *)self searchViewMode];
   if (!searchViewMode)
   {
-    v6 = @"Recent Searches";
+    v7 = @"Recent Searches";
     goto LABEL_11;
   }
 
   if (searchViewMode == 2)
   {
-    v7 = [(THSearchTableViewDataSource *)self p_resultKindForSection:section];
-    if (!v7)
+    searchViewMode = [(THSearchTableViewDataSource *)self p_resultKindForSection:section];
+    if (!searchViewMode)
     {
-      v6 = @"Text";
+      v7 = @"Text";
       goto LABEL_11;
     }
 
-    if (v7 == 1)
+    if (searchViewMode == 1)
     {
-      v6 = @"Media";
+      v7 = @"Media";
       goto LABEL_11;
     }
 
@@ -196,10 +196,10 @@ LABEL_8:
     goto LABEL_8;
   }
 
-  v6 = @"Suggestions";
+  v7 = @"Suggestions";
 LABEL_11:
-  v9 = THBundle();
-  v8 = [v9 localizedStringForKey:v6 value:&stru_471858 table:0];
+  v9 = THBundle(searchViewMode, v6);
+  v8 = [v9 localizedStringForKey:v7 value:&stru_471858 table:0];
 
 LABEL_12:
 
@@ -303,31 +303,31 @@ LABEL_12:
   searchViewMode = [(THSearchTableViewDataSource *)self searchViewMode];
   if (searchViewMode == 2)
   {
-    v20 = -[THSearchTableViewDataSource p_resultsForSection:](self, "p_resultsForSection:", [pathCopy section]);
-    v21 = [v20 count];
+    v21 = -[THSearchTableViewDataSource p_resultsForSection:](self, "p_resultsForSection:", [pathCopy section]);
+    v22 = [v21 count];
 
     v13 = [(THSearchTableViewDataSource *)self searchResultForTableIndexPath:pathCopy];
     if (v13)
     {
-      v19 = [controllerCopy tableView:viewCopy cellForSearchResult:v13];
+      v20 = [controllerCopy tableView:viewCopy cellForSearchResult:v13];
     }
 
     else
     {
-      v23 = -[THSearchTableViewDataSource p_resultKindForSection:](self, "p_resultKindForSection:", [pathCopy section]);
-      if (v21)
+      v24 = -[THSearchTableViewDataSource p_resultKindForSection:](self, "p_resultKindForSection:", [pathCopy section]);
+      if (v22)
       {
-        v24 = -[THSearchTableViewDataSource p_resultsForSection:onlyTop:](self, "p_resultsForSection:onlyTop:", [pathCopy section], 0);
-        v25 = [v24 count];
+        v25 = -[THSearchTableViewDataSource p_resultsForSection:onlyTop:](self, "p_resultsForSection:onlyTop:", [pathCopy section], 0);
+        v26 = [v25 count];
 
-        [controllerCopy tableView:viewCopy seeAllResultsCellWithKind:v23 count:v25];
+        [controllerCopy tableView:viewCopy seeAllResultsCellWithKind:v24 count:v26];
       }
 
       else
       {
-        [controllerCopy tableView:viewCopy noResultsCellWithKind:v23];
+        [controllerCopy tableView:viewCopy noResultsCellWithKind:v24];
       }
-      v19 = ;
+      v20 = ;
     }
   }
 
@@ -341,12 +341,12 @@ LABEL_12:
       if ([searchController isEncodedResultForPageNumber:v13])
       {
         v15 = [searchController displayNumberStringFromEncodedPageNumberResult:v13];
-        v16 = THBundle();
-        v17 = [v16 localizedStringForKey:@"Page %@" value:&stru_471858 table:0];
+        v17 = THBundle(v15, v16);
+        v18 = [v17 localizedStringForKey:@"Page %@" value:&stru_471858 table:0];
 
-        v18 = [NSString stringWithFormat:v17, v15];
+        v19 = [NSString stringWithFormat:v18, v15];
 
-        v13 = v18;
+        v13 = v19;
       }
     }
 
@@ -354,23 +354,23 @@ LABEL_12:
     {
       if (searchViewMode)
       {
-        v22 = 0;
+        v23 = 0;
         goto LABEL_16;
       }
 
       v13 = [searchController recentSearchQueryAtIndex:{objc_msgSend(pathCopy, "row")}];
     }
 
-    v19 = [controllerCopy tableView:viewCopy cellForPlainString:v13];
+    v20 = [controllerCopy tableView:viewCopy cellForPlainString:v13];
   }
 
-  v22 = v19;
+  v23 = v20;
 
 LABEL_16:
   backgroundColor = [viewCopy backgroundColor];
-  [v22 setBackgroundColor:backgroundColor];
+  [v23 setBackgroundColor:backgroundColor];
 
-  return v22;
+  return v23;
 }
 
 - (BOOL)indexPathCorrespondsToSeeAllResultsRow:(id)row

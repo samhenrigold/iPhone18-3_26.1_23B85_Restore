@@ -43,30 +43,29 @@
 
 - (BOOL)waitUntilTime:(ASDTTime *)time
 {
-  ASDTTime::machAbsoluteTime(self, &v13);
-  v7 = v13 < time->nsec;
-  if (v13 < time->nsec)
+  ASDTTime::machAbsoluteTime(&v12);
+  v7 = v12 < time->nsec;
+  if (v12 < time->nsec)
   {
     do
     {
-      v10 = *&time->nsec;
-      v11 = *&time->hostFrac;
-      ASDTTime::operator-=(&v10, &v13, v5, v6);
-      v12.tv_sec = v10 / 1000000000;
-      v12.tv_nsec = v10 % 1000000000;
-      v8 = pthread_cond_timedwait_relative_np(&self->_cond, &self->_mutex, &v12);
-      if (v8 != 60)
+      v9 = *&time->nsec;
+      v10 = *&time->hostFrac;
+      ASDTTime::operator-=(&v9, &v12, v5, v6);
+      v11.tv_sec = v9 / 1000000000;
+      v11.tv_nsec = v9 % 1000000000;
+      if (pthread_cond_timedwait_relative_np(&self->_cond, &self->_mutex, &v11) != 60)
       {
         break;
       }
 
-      ASDTTime::machAbsoluteTime(v8, &v10);
+      ASDTTime::machAbsoluteTime(&v9);
+      v12 = v9;
       v13 = v10;
-      v14 = v11;
-      v7 = v10 < time->nsec;
+      v7 = v9 < time->nsec;
     }
 
-    while (v10 < time->nsec);
+    while (v9 < time->nsec);
   }
 
   return v7;

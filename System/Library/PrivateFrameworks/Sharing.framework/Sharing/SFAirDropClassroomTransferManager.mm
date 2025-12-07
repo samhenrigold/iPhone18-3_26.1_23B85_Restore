@@ -57,42 +57,40 @@ void __106__SFAirDropClassroomTransferManager_updateTransferWithIdentifier_withS
   v5 = [v3 dispatchQueue];
   dispatch_assert_queue_V2(v5);
 
-  v6 = airdrop_log();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = airdrop_log(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = a1[5];
-    v8 = a1[8];
+    v8 = a1[5];
+    v9 = a1[8];
     *buf = 138412546;
-    v21 = v7;
+    v21 = v8;
     v22 = 1024;
-    v23 = v8;
-    _os_log_impl(&dword_1A9662000, v6, OS_LOG_TYPE_DEFAULT, "updating daemon with transfer %@ with state %d", buf, 0x12u);
+    v23 = v9;
+    _os_log_impl(&dword_1A9662000, v7, OS_LOG_TYPE_DEFAULT, "updating daemon with transfer %@ with state %d", buf, 0x12u);
   }
 
-  v9 = a1[8];
-  v10 = a1[5];
-  v11 = a1[6];
+  v10 = a1[8];
+  v11 = a1[5];
+  v12 = a1[6];
   v16[0] = MEMORY[0x1E69E9820];
   v16[1] = 3221225472;
   v16[2] = __106__SFAirDropClassroomTransferManager_updateTransferWithIdentifier_withState_information_completionHandler___block_invoke_123;
   v16[3] = &unk_1E788D588;
-  v12 = v10;
-  v14 = a1[7];
-  v13 = a1[8];
-  v17 = v12;
-  v19 = v13;
-  v18 = v14;
-  [v4 updateTransferWithIdentifier:v12 withState:v9 information:v11 completionHandler:v16];
-
-  v15 = *MEMORY[0x1E69E9840];
+  v13 = v11;
+  v15 = a1[7];
+  v14 = a1[8];
+  v17 = v13;
+  v19 = v14;
+  v18 = v15;
+  [v4 updateTransferWithIdentifier:v13 withState:v10 information:v12 completionHandler:v16];
 }
 
 void __106__SFAirDropClassroomTransferManager_updateTransferWithIdentifier_withState_information_completionHandler___block_invoke_123(void *a1, int a2, void *a3, void *a4)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v7 = a4;
   v8 = a3;
-  v9 = airdrop_log();
+  v9 = airdrop_log(v8);
   v10 = v9;
   if (a2)
   {
@@ -100,11 +98,11 @@ void __106__SFAirDropClassroomTransferManager_updateTransferWithIdentifier_withS
     {
       v11 = a1[4];
       v12 = a1[6];
-      v14 = 138412546;
-      v15 = v11;
-      v16 = 1024;
-      v17 = v12;
-      _os_log_impl(&dword_1A9662000, v10, OS_LOG_TYPE_DEFAULT, "updated daemon with transfer %@ with state %d", &v14, 0x12u);
+      v13 = 138412546;
+      v14 = v11;
+      v15 = 1024;
+      v16 = v12;
+      _os_log_impl(&dword_1A9662000, v10, OS_LOG_TYPE_DEFAULT, "updated daemon with transfer %@ with state %d", &v13, 0x12u);
     }
   }
 
@@ -114,39 +112,36 @@ void __106__SFAirDropClassroomTransferManager_updateTransferWithIdentifier_withS
   }
 
   (*(a1[5] + 16))();
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)transferWithIdentifierWasAccepted:(id)accepted
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   acceptedCopy = accepted;
-  v5 = airdrop_log();
+  v5 = airdrop_log(acceptedCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138412290;
-    v9 = acceptedCopy;
-    _os_log_impl(&dword_1A9662000, v5, OS_LOG_TYPE_DEFAULT, "transferWithIdentifierWasAccepted %@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = acceptedCopy;
+    _os_log_impl(&dword_1A9662000, v5, OS_LOG_TYPE_DEFAULT, "transferWithIdentifierWasAccepted %@", &v7, 0xCu);
   }
 
   delegate = [(SFAirDropClassroomTransferManager *)self delegate];
   [delegate transferWithIdentifierWasAccepted:acceptedCopy];
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)transferWithIdentifierWasDeclined:(id)declined withFailureReason:(unint64_t)reason
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   declinedCopy = declined;
-  v7 = airdrop_log();
+  v7 = airdrop_log(declinedCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v14 = 138412546;
-    v15 = declinedCopy;
-    v16 = 1024;
+    v13 = 138412546;
+    v14 = declinedCopy;
+    v15 = 1024;
     reasonCopy = reason;
-    _os_log_impl(&dword_1A9662000, v7, OS_LOG_TYPE_DEFAULT, "transferWithIdentifierWasDeclined %@, withFailureReason: %d", &v14, 0x12u);
+    _os_log_impl(&dword_1A9662000, v7, OS_LOG_TYPE_DEFAULT, "transferWithIdentifierWasDeclined %@, withFailureReason: %d", &v13, 0x12u);
   }
 
   delegate = [(SFAirDropClassroomTransferManager *)self delegate];
@@ -172,8 +167,6 @@ LABEL_7:
   }
 
 LABEL_8:
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (SFAirDropClassroomTransferDelegate)delegate
@@ -185,14 +178,13 @@ LABEL_8:
 
 void __106__SFAirDropClassroomTransferManager_updateTransferWithIdentifier_withState_information_completionHandler___block_invoke_123_cold_1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = *(a1 + 32);
-  v5 = 138412546;
-  v6 = v3;
-  v7 = 2112;
-  v8 = a2;
-  _os_log_error_impl(&dword_1A9662000, log, OS_LOG_TYPE_ERROR, "Failed to update daemon with transfer %@ (%@)", &v5, 0x16u);
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = 138412546;
+  v5 = v3;
+  v6 = 2112;
+  v7 = a2;
+  _os_log_error_impl(&dword_1A9662000, log, OS_LOG_TYPE_ERROR, "Failed to update daemon with transfer %@ (%@)", &v4, 0x16u);
 }
 
 @end

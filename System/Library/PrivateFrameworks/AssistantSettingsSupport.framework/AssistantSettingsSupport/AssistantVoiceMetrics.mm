@@ -15,9 +15,7 @@
 
 - (void)setVoiceDownloadForLanguageCode:(id)code name:(id)name
 {
-  v5 = [AssistantVoiceMetrics keyForLanguage:code name:name];
-  voiceDownloadKey = self->_voiceDownloadKey;
-  self->_voiceDownloadKey = v5;
+  self->_voiceDownloadKey = [AssistantVoiceMetrics keyForLanguage:code name:name];
 
   MEMORY[0x2821F96F8]();
 }
@@ -150,37 +148,35 @@ double __37__AssistantVoiceMetrics__clockFactor__block_invoke()
 
 - (id)dictionaryMetrics
 {
-  v24 = *MEMORY[0x277D85DE8];
-  v15[0] = @"voice";
-  v15[1] = @"last_preview";
-  v16 = vbslq_s8(vceqzq_s64(*&self->_voiceDownloadKey), vdupq_n_s64(&stru_285317CF0), *&self->_voiceDownloadKey);
-  v15[2] = @"voices_previewed";
+  v23 = *MEMORY[0x277D85DE8];
+  v14[0] = @"voice";
+  v14[1] = @"last_preview";
+  v15 = vbslq_s8(vceqzq_s64(*&self->_voiceDownloadKey), vdupq_n_s64(&stru_285317CF0), *&self->_voiceDownloadKey);
+  v14[2] = @"voices_previewed";
   v3 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:self->_voicesPreviewed];
-  v17 = v3;
-  v15[3] = @"voices_previewed_unique";
+  v16 = v3;
+  v14[3] = @"voices_previewed_unique";
   v4 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[AssistantVoiceMetrics uniqueVoicesPreviewed](self, "uniqueVoicesPreviewed")}];
-  v18 = v4;
-  v15[4] = @"allowing_cellular";
+  v17 = v4;
+  v14[4] = @"allowing_cellular";
   v5 = [MEMORY[0x277CCABB0] numberWithBool:self->_isCellularAllowed];
-  v19 = v5;
-  v15[5] = @"download_duration";
+  v18 = v5;
+  v14[5] = @"download_duration";
   v6 = MEMORY[0x277CCABB0];
   [(AssistantVoiceMetrics *)self downloadObservationDuration];
   v7 = [v6 numberWithDouble:?];
-  v20 = v7;
-  v15[6] = @"download_progress";
+  v19 = v7;
+  v14[6] = @"download_progress";
   *&v8 = self->_downloadObservationProgress;
   v9 = [MEMORY[0x277CCABB0] numberWithFloat:v8];
-  v21 = v9;
-  v15[7] = @"download_error";
+  v20 = v9;
+  v14[7] = @"download_error";
   v10 = [MEMORY[0x277CCABB0] numberWithBool:self->_downloadError];
-  v22 = v10;
-  v15[8] = @"previewed_successfully";
+  v21 = v10;
+  v14[8] = @"previewed_successfully";
   v11 = [MEMORY[0x277CCABB0] numberWithBool:self->_previewedSuccessfully];
-  v23 = v11;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v16 forKeys:v15 count:9];
-
-  v13 = *MEMORY[0x277D85DE8];
+  v22 = v11;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v15 forKeys:v14 count:9];
 
   return v12;
 }

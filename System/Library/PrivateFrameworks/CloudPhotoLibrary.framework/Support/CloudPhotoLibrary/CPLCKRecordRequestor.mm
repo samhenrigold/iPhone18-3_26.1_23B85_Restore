@@ -145,27 +145,27 @@
 - (BOOL)processedFetchedRequestedRecordsWithError:(id *)error
 {
   v4 = objc_alloc_init(NSMutableDictionary);
+  v31 = 0u;
   v32 = 0u;
   v33 = 0u;
   v34 = 0u;
-  v35 = 0u;
   obj = self->_requests;
-  v5 = [(NSMutableArray *)obj countByEnumeratingWithState:&v32 objects:v46 count:16];
+  v5 = [(NSMutableArray *)obj countByEnumeratingWithState:&v31 objects:v45 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v33;
+    v7 = *v32;
     do
     {
       v8 = 0;
       do
       {
-        if (*v33 != v7)
+        if (*v32 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v32 + 1) + 8 * v8);
+        v9 = *(*(&v31 + 1) + 8 * v8);
         if (v9)
         {
           v10 = *(v9 + 3);
@@ -176,68 +176,67 @@
           v10 = 0;
         }
 
-        fetchCache = self->_fetchCache;
-        v12 = v10[2];
-        v13 = v10;
-        v14 = v12();
-        v15 = 0;
+        v11 = v10[2];
+        v12 = v10;
+        v13 = v11();
+        v14 = 0;
 
-        if ((v14 & 1) == 0)
+        if ((v13 & 1) == 0)
         {
           if (v9)
           {
-            v16 = *(v9 + 2);
+            v15 = *(v9 + 2);
           }
 
           else
           {
-            v16 = 0;
+            v15 = 0;
           }
 
           scopeProvider = self->_scopeProvider;
-          v18 = v16;
-          v19 = [(CPLCloudKitScopeProvider *)scopeProvider rejectedScopedIdentifierForRejectedCKRecordID:v18];
+          v17 = v15;
+          v18 = [(CPLCloudKitScopeProvider *)scopeProvider rejectedScopedIdentifierForRejectedCKRecordID:v17];
 
-          v20 = [v4 objectForKeyedSubscript:v19];
+          v19 = [v4 objectForKeyedSubscript:v18];
 
-          if (!v20)
+          if (!v19)
           {
-            if (!v15)
+            if (!v14)
             {
-              v15 = @"processing requested record failed";
+              v14 = @"processing requested record failed";
             }
 
             if ((_CPLSilentLogging & 1) == 0)
             {
-              v21 = __CPLGenericOSLogDomain();
-              if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+              v20 = __CPLGenericOSLogDomain();
+              if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
               {
                 if (v9)
                 {
-                  v22 = *(v9 + 1);
-                  v23 = *(v9 + 2);
-                  v9 = v22;
+                  v21 = *(v9 + 1);
+                  v22 = *(v9 + 2);
+                  v9 = v21;
                 }
 
                 else
                 {
+                  v21 = 0;
                   v22 = 0;
-                  v23 = 0;
                 }
 
                 *buf = 138413058;
-                v39 = v22;
-                v40 = 2112;
-                v41 = v23;
-                v42 = 2112;
-                v43 = v19;
-                v44 = 2114;
-                v45 = v15;
-                _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_ERROR, "Processing requested record %@ for %@ (on behalf of %@) was rejected: %{public}@", buf, 0x2Au);
+                v38 = v21;
+                v39 = 2112;
+                v40 = v22;
+                v41 = 2112;
+                v42 = v18;
+                v43 = 2114;
+                v44 = v14;
+                _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_ERROR, "Processing requested record %@ for %@ (on behalf of %@) was rejected: %{public}@", buf, 0x2Au);
               }
             }
 
-            [v4 setObject:v15 forKeyedSubscript:v19];
+            [v4 setObject:v14 forKeyedSubscript:v18];
           }
         }
 
@@ -245,29 +244,29 @@
       }
 
       while (v6 != v8);
-      v24 = [(NSMutableArray *)obj countByEnumeratingWithState:&v32 objects:v46 count:16];
-      v6 = v24;
+      v23 = [(NSMutableArray *)obj countByEnumeratingWithState:&v31 objects:v45 count:16];
+      v6 = v23;
     }
 
-    while (v24);
+    while (v23);
   }
 
-  v25 = [v4 count];
-  if (v25)
+  v24 = [v4 count];
+  if (v24)
   {
-    v36 = CPLErrorRejectedRecordIdentifiersAndReasonsKey;
-    v37 = v4;
-    v26 = [NSDictionary dictionaryWithObjects:&v37 forKeys:&v36 count:1];
-    v27 = [CPLErrors cplErrorWithCode:18 underlyingError:0 userInfo:v26 description:@"Rejecting some records because of bad or missing requested records"];
+    v35 = CPLErrorRejectedRecordIdentifiersAndReasonsKey;
+    v36 = v4;
+    v25 = [NSDictionary dictionaryWithObjects:&v36 forKeys:&v35 count:1];
+    v26 = [CPLErrors cplErrorWithCode:18 underlyingError:0 userInfo:v25 description:@"Rejecting some records because of bad or missing requested records"];
 
     if (error)
     {
-      v28 = v27;
-      *error = v27;
+      v27 = v26;
+      *error = v26;
     }
   }
 
-  return v25 == 0;
+  return v24 == 0;
 }
 
 @end

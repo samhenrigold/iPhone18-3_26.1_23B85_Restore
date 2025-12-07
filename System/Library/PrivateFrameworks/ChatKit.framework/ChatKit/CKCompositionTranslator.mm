@@ -35,7 +35,7 @@
 
 - (void)translate:(id)translate into:(id)into from:(id)from version:(int64_t)version
 {
-  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EAD54C10);
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EAD54C10, &qword_190DE84D0);
   MEMORY[0x1EEE9AC00](v10 - 8);
   v12 = &v20 - v11;
   v13 = sub_190D519C0();
@@ -59,7 +59,7 @@
   selfCopy = self;
   sub_190A9A204(translateCopy, v16, v12, version);
 
-  sub_19022EEA4(v12, &qword_1EAD54C10);
+  sub_19022EEA4(v12, &qword_1EAD54C10, &qword_190DE84D0);
   (*(v14 + 8))(v16, v13);
 }
 

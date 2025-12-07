@@ -93,40 +93,51 @@ LABEL_8:
 
 - ($1E6FB7347BE694799A5E8CC69A739A06)_constructNowPlayingMessage
 {
-  LOWORD(v13) = 3;
-  WORD1(v13) = self->_currentPlaybackState;
+  LOWORD(v14) = 3;
+  currentPlaybackState = self->_currentPlaybackState;
+  WORD1(v14) = self->_currentPlaybackState;
   mediaType = self->_mediaType;
-  BYTE4(v13) = self->_mediaType;
+  BYTE4(v14) = self->_mediaType;
   mediaSubType = self->_mediaSubType;
-  BYTE5(v13) = self->_mediaSubType;
+  BYTE5(v14) = self->_mediaSubType;
   lastPlayedTime = self->_lastPlayedTime;
-  HIWORD(v13) = lastPlayedTime;
+  HIWORD(v14) = lastPlayedTime;
   if (dword_1002F6A08 <= 30 && (dword_1002F6A08 != -1 || _LogCategory_Initialize()))
   {
-    if (mediaType <= 2)
+    if (mediaType > 2)
     {
-      v6 = off_1002B94C8[mediaType];
+      v7 = "Unknown";
     }
 
-    if (mediaSubType <= 7)
+    else
     {
-      v7 = off_1002B94E0[mediaSubType];
+      v7 = off_1002B94C8[mediaType];
+    }
+
+    if (mediaSubType > 7)
+    {
+      v8 = "Unknown";
+    }
+
+    else
+    {
+      v8 = off_1002B94E0[mediaSubType];
     }
 
     dateFormatter = self->_dateFormatter;
-    v9 = [NSDate dateWithTimeIntervalSince1970:lastPlayedTime];
-    v12 = [(NSDateFormatter *)dateFormatter stringFromDate:v9];
-    LogPrintF();
+    v10 = [NSDate dateWithTimeIntervalSince1970:lastPlayedTime];
+    v11 = [(NSDateFormatter *)dateFormatter stringFromDate:v10];
+    LogPrintF(&dword_1002F6A08, "[SRNowPlayingObserver _constructNowPlayingMessage]", 30, "SRNowPlayingObserver Message: infoMessageType %d NowPlaying State %d, MediaType %s, MediaSubType %s, Time %@", 3, currentPlaybackState, v7, v8, v11);
   }
 
-  v10 = lastPlayedTime >> 16;
-  v11 = v13;
-  result.var5 = v10;
-  result.var0 = v11;
-  result.var1 = BYTE2(v11);
-  result.var2 = BYTE3(v11);
-  result.var3 = BYTE4(v11);
-  result.var4 = BYTE5(v11);
+  v12 = lastPlayedTime >> 16;
+  v13 = v14;
+  result.var5 = v12;
+  result.var0 = v13;
+  result.var1 = BYTE2(v13);
+  result.var2 = BYTE3(v13);
+  result.var3 = BYTE4(v13);
+  result.var4 = BYTE5(v13);
   return result;
 }
 
@@ -211,40 +222,60 @@ LABEL_8:
 - (void)sendNowPlayingMessage
 {
   DeviceClass = GestaltGetDeviceClass();
+  v4 = DeviceClass;
   if (self->_lastTarget == 4)
   {
-    currentPlaybackState = self->_currentPlaybackState;
+    v5 = "yes";
     if (DeviceClass == 1 || self->_currentPlaybackState != 1)
     {
-      v5 = self->_shortPlaybackDetectionTimer == 0;
-      self->_currentPlaybackState;
+      v6 = self->_shortPlaybackDetectionTimer == 0;
+      if (self->_currentPlaybackState != 1)
+      {
+        v5 = "no";
+      }
     }
 
     else
     {
-      v5 = 0;
+      v6 = 0;
     }
   }
 
   else
   {
-    v5 = self->_shortPlaybackDetectionTimer == 0;
+    v6 = self->_shortPlaybackDetectionTimer == 0;
+    v5 = "no";
   }
 
   if (dword_1002F6A08 <= 30 && (dword_1002F6A08 != -1 || _LogCategory_Initialize()))
   {
-    lastTargetHeadsetAddress = self->_lastTargetHeadsetAddress;
-    LogPrintF();
+    v7 = "yes";
+    if (v4 == 1)
+    {
+      v8 = "yes";
+    }
+
+    else
+    {
+      v8 = "no";
+    }
+
+    if (!v6)
+    {
+      v7 = "no";
+    }
+
+    LogPrintF(&dword_1002F6A08, "[SRNowPlayingObserver sendNowPlayingMessage]", 30, "SRNowPlayingObserver: isDeviceiPhone %s, isDevicePlayingToOtherTarget %s, eligibleToSendNPMessage %s last target address %@", v8, v5, v7, self->_lastTargetHeadsetAddress);
   }
 
-  if (v5)
+  if (v6)
   {
     _constructNowPlayingMessage = [(SRNowPlayingObserver *)self _constructNowPlayingMessage];
     srDaemon = self->_srDaemon;
     lastTarget = self->_lastTarget;
-    v10 = self->_lastTargetHeadsetAddress;
+    lastTargetHeadsetAddress = self->_lastTargetHeadsetAddress;
 
-    [(BTSmartRoutingDaemon *)srDaemon updateNowPlayingInfoForConnectedWx:_constructNowPlayingMessage withLastPlayedTarget:v6 & 0xFFFFFFFFFFFFLL andHeadsetAddress:lastTarget, v10];
+    [(BTSmartRoutingDaemon *)srDaemon updateNowPlayingInfoForConnectedWx:_constructNowPlayingMessage withLastPlayedTarget:v9 & 0xFFFFFFFFFFFFLL andHeadsetAddress:lastTarget, lastTargetHeadsetAddress];
   }
 }
 
@@ -299,18 +330,28 @@ LABEL_8:
       if (dword_1002F6A08 != -1)
       {
 LABEL_13:
-        if (currentPlaybackState <= 4)
+        if (currentPlaybackState > 4)
+        {
+          v9 = "Unknown";
+        }
+
+        else
         {
           v9 = off_1002B9520[currentPlaybackState];
         }
 
-        if (toCopy <= 4)
+        if (toCopy > 4)
+        {
+          v10 = "Unknown";
+        }
+
+        else
         {
           v10 = off_1002B9520[toCopy];
         }
 
-        LogPrintF();
-        goto LABEL_20;
+        LogPrintF(&dword_1002F6A08, "[SRNowPlayingObserver handlePlaybackStateChangedTo:]", 30, "SRNowPlayingObserver: Playback state changed %s -> %s", v9, v10);
+        goto LABEL_22;
       }
 
       if (_LogCategory_Initialize())
@@ -320,7 +361,7 @@ LABEL_13:
       }
     }
 
-LABEL_20:
+LABEL_22:
     self->_currentPlaybackState = toCopy;
   }
 
@@ -420,7 +461,7 @@ LABEL_17:
   {
     if (dword_1002F6A08 <= 30 && (dword_1002F6A08 != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&dword_1002F6A08, "[SRNowPlayingObserver handleNowPlayingRouteChangedFrom:toRoute:]", 30, "SRNowPlayingObserver: Current system route changed %@ -> %@", fromCopy, routeCopy);
     }
 
     objc_storeStrong(&self->_currentSystemRoute, route);
@@ -443,23 +484,23 @@ LABEL_17:
     {
       if ([(NSString *)self->_currentSystemRoute isEqualToString:@"Speaker"])
       {
-        v9 = 3;
+        v10 = 3;
       }
 
       else
       {
-        v9 = 4;
+        v10 = 4;
       }
 
-      self->_lastTarget = v9;
-      v10 = self->_lastTargetHeadsetAddress;
+      self->_lastTarget = v10;
+      v11 = self->_lastTargetHeadsetAddress;
       self->_lastTargetHeadsetAddress = 0;
     }
   }
 
   else
   {
-    sub_1001EF108(dword_1002F6A08 < 31, dword_1002F6A08);
+    sub_1001EF108(dword_1002F6A08 < 31, dword_1002F6A08, v6);
   }
 }
 
@@ -495,23 +536,27 @@ LABEL_17:
 
 - (void)_handleShortPlaybackDetectionTimerExpiry
 {
+  selfCopy = self;
   if (self->_currentPlaybackState == 1)
   {
-    if (dword_1002F6A08 <= 30 && (dword_1002F6A08 != -1 || _LogCategory_Initialize()))
+    if (dword_1002F6A08 <= 30)
     {
-      sub_1001EF1BC();
+      if (dword_1002F6A08 != -1 || (self = _LogCategory_Initialize(), self))
+      {
+        sub_1001EF1BC(self, a2, v2);
+      }
     }
 
-    [(SRNowPlayingObserver *)self sendNowPlayingMessage];
+    [(SRNowPlayingObserver *)selfCopy sendNowPlayingMessage];
   }
 
-  shortPlaybackDetectionTimer = self->_shortPlaybackDetectionTimer;
+  shortPlaybackDetectionTimer = selfCopy->_shortPlaybackDetectionTimer;
   if (shortPlaybackDetectionTimer)
   {
-    v5 = shortPlaybackDetectionTimer;
-    dispatch_source_cancel(v5);
-    v4 = self->_shortPlaybackDetectionTimer;
-    self->_shortPlaybackDetectionTimer = 0;
+    v6 = shortPlaybackDetectionTimer;
+    dispatch_source_cancel(v6);
+    v5 = selfCopy->_shortPlaybackDetectionTimer;
+    selfCopy->_shortPlaybackDetectionTimer = 0;
   }
 }
 

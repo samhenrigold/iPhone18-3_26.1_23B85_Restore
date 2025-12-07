@@ -28,11 +28,13 @@
 
 @implementation PHImportController
 
-uint64_t __36__PHImportController_sharedInstance__block_invoke()
+uint64_t __36__PHImportController_sharedInstance__block_invoke(uint64_t a1, uint64_t a2)
 {
-  sharedInstance_controller = objc_opt_new();
+  v2 = objc_opt_new();
+  v3 = sharedInstance_controller;
+  sharedInstance_controller = v2;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2, v3);
 }
 
 - (PHImportController)init
@@ -1097,19 +1099,19 @@ void __50__PHImportController_addImportControllerObserver___block_invoke(uint64_
   return v4;
 }
 
-uint64_t __40__PHImportController_enableDeviceImport__block_invoke_3(uint64_t a1)
+uint64_t __40__PHImportController_enableDeviceImport__block_invoke_3(uint64_t a1, uint64_t a2)
 {
-  v2 = objc_opt_new();
-  v3 = *(a1 + 32);
-  v4 = *(v3 + 24);
-  *(v3 + 24) = v2;
+  v3 = objc_opt_new();
+  v4 = *(a1 + 32);
+  v5 = *(v4 + 24);
+  *(v4 + 24) = v3;
 
   [*(*(a1 + 32) + 24) setDelegate:?];
-  v5 = PLImportGetLog();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = PLImportGetLog();
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    *v7 = 0;
-    _os_log_impl(&dword_19C86F000, v5, OS_LOG_TYPE_DEFAULT, "Listening for import sources from Image Capture", v7, 2u);
+    *v8 = 0;
+    _os_log_impl(&dword_19C86F000, v6, OS_LOG_TYPE_DEFAULT, "Listening for import sources from Image Capture", v8, 2u);
   }
 
   return [*(*(a1 + 32) + 24) start];

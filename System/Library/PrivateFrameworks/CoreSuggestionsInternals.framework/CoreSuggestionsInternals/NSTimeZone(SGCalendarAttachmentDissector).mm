@@ -90,7 +90,7 @@ LABEL_20:
 
 + (id)gmtOffsetTimeZoneWithHour:()SGCalendarAttachmentDissector withMinute:forDate:
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   v8 = a5;
   v9 = v8;
   if (a3 >= 0)
@@ -119,41 +119,41 @@ LABEL_20:
     if (a4)
     {
       selfCopy = self;
-      v35 = v9;
+      v34 = v9;
       context = objc_autoreleasePoolPush();
       knownTimeZoneNames = [MEMORY[0x277CBEBB0] knownTimeZoneNames];
       v18 = [&unk_28474A438 arrayByAddingObjectsFromArray:knownTimeZoneNames];
 
-      v39 = 0u;
-      v40 = 0u;
-      v37 = 0u;
       v38 = 0u;
+      v39 = 0u;
+      v36 = 0u;
+      v37 = 0u;
       v19 = v18;
-      v20 = [v19 countByEnumeratingWithState:&v37 objects:v41 count:16];
+      v20 = [v19 countByEnumeratingWithState:&v36 objects:v40 count:16];
       if (v20)
       {
         v21 = v20;
-        v22 = *v38;
+        v22 = *v37;
         while (2)
         {
           for (i = 0; i != v21; ++i)
           {
-            if (*v38 != v22)
+            if (*v37 != v22)
             {
               objc_enumerationMutation(v19);
             }
 
-            localTimeZone2 = [MEMORY[0x277CBEBB0] timeZoneWithName:*(*(&v37 + 1) + 8 * i)];
+            localTimeZone2 = [MEMORY[0x277CBEBB0] timeZoneWithName:*(*(&v36 + 1) + 8 * i)];
             if (v12 == [localTimeZone2 secondsFromGMTForDate:v13])
             {
 
               objc_autoreleasePoolPop(context);
-              v9 = v35;
+              v9 = v34;
               goto LABEL_22;
             }
           }
 
-          v21 = [v19 countByEnumeratingWithState:&v37 objects:v41 count:16];
+          v21 = [v19 countByEnumeratingWithState:&v36 objects:v40 count:16];
           if (v21)
           {
             continue;
@@ -164,7 +164,7 @@ LABEL_20:
       }
 
       objc_autoreleasePoolPop(context);
-      v9 = v35;
+      v9 = v34;
       self = selfCopy;
     }
 
@@ -195,8 +195,6 @@ LABEL_20:
   }
 
 LABEL_22:
-
-  v30 = *MEMORY[0x277D85DE8];
 
   return localTimeZone2;
 }
@@ -279,7 +277,7 @@ LABEL_16:
     v4 = objc_autoreleasePoolPush();
     v5 = __75__NSTimeZone_SGCalendarAttachmentDissector__systemTimeZoneWithWindowsName___block_invoke(v3, @"/");
 
-    v6 = __75__NSTimeZone_SGCalendarAttachmentDissector__systemTimeZoneWithWindowsName___block_invoke(v5, @"\\"");
+    v6 = __75__NSTimeZone_SGCalendarAttachmentDissector__systemTimeZoneWithWindowsName___block_invoke(v5, @"\");
 
     v7 = __75__NSTimeZone_SGCalendarAttachmentDissector__systemTimeZoneWithWindowsName___block_invoke(v6, @", ");
 

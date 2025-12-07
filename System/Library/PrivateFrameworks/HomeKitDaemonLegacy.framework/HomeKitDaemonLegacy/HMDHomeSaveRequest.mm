@@ -1,4 +1,5 @@
 @interface HMDHomeSaveRequest
+- (HMDHomeSaveRequest)initWithHome:(id)home reason:(id)reason information:(id)information postSyncNotification:(BOOL)notification objectChange:(BOOL)change;
 - (id)_initWithHome:(id)home reason:(id)reason information:(id)information postSyncNotification:(BOOL)notification objectChange:(BOOL)change saveOptions:(unint64_t)options;
 - (void)_updateSaveOptions:(BOOL)options reason:(id)reason;
 @end
@@ -16,6 +17,21 @@
   {
     self->_saveOptions |= 1uLL;
   }
+}
+
+- (HMDHomeSaveRequest)initWithHome:(id)home reason:(id)reason information:(id)information postSyncNotification:(BOOL)notification objectChange:(BOOL)change
+{
+  changeCopy = change;
+  notificationCopy = notification;
+  reasonCopy = reason;
+  v13 = [(HMDHomeSaveRequest *)self _initWithHome:home reason:reasonCopy information:information postSyncNotification:notificationCopy objectChange:changeCopy saveOptions:0];
+  v14 = v13;
+  if (v13)
+  {
+    [(HMDHomeSaveRequest *)v13 _updateSaveOptions:notificationCopy reason:reasonCopy];
+  }
+
+  return v14;
 }
 
 - (id)_initWithHome:(id)home reason:(id)reason information:(id)information postSyncNotification:(BOOL)notification objectChange:(BOOL)change saveOptions:(unint64_t)options

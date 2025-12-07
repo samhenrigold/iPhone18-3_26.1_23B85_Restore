@@ -188,32 +188,31 @@ LABEL_17:
 
 - (BOOL)eventHasNewProposedTime:(void *)time
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
+  v11 = 0u;
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
-  v16 = 0u;
   v3 = CalCalendarItemCopyAttendees();
-  v4 = [v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v4)
   {
     v5 = v4;
     v6 = 0;
-    v7 = *v14;
+    v7 = *v12;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v14 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(v3);
         }
 
-        v9 = *(*(&v13 + 1) + 8 * i);
         if (CalParticipantGetProposedStartDateChanged())
         {
           CalAttendeeGetProposedStartDate();
-          if (v10 != 0.0)
+          if (v9 != 0.0)
           {
             if (CalEventAttendeeIsSelf() && CalAttendeeGetProposedStartDateStatus() == 3)
             {
@@ -225,7 +224,7 @@ LABEL_17:
         }
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v5);
@@ -237,56 +236,54 @@ LABEL_14:
     v6 = 0;
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v6 & 1;
 }
 
 - (id)nearestProposedTimeForEvent:(void *)event
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   calSimulatedDateForNow = [MEMORY[0x277CBEAA8] CalSimulatedDateForNow];
+  v15 = 0u;
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
-  v20 = 0u;
   v4 = CalCalendarItemCopyAttendees();
-  v5 = [v4 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v5)
   {
     v6 = v5;
     v7 = 0;
-    v8 = *v18;
+    v8 = *v16;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v18 != v8)
+        if (*v16 != v8)
         {
           objc_enumerationMutation(v4);
         }
 
-        v10 = *(*(&v17 + 1) + 8 * i);
         if (CalParticipantGetProposedStartDateChanged())
         {
           CalAttendeeGetProposedStartDate();
-          if (v11 != 0.0)
+          if (v10 != 0.0)
           {
-            v12 = v11;
+            v11 = v10;
             if (CalAttendeeGetProposedStartDateStatus() != 3)
             {
-              v13 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceReferenceDate:{v12, v17}];
-              if ([v13 isAfterDate:calSimulatedDateForNow] && (!v7 || objc_msgSend(v13, "isBeforeDate:", v7)))
+              v12 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceReferenceDate:{v11, v15}];
+              if ([v12 isAfterDate:calSimulatedDateForNow] && (!v7 || objc_msgSend(v12, "isBeforeDate:", v7)))
               {
-                v14 = v13;
+                v13 = v12;
 
-                v7 = v14;
+                v7 = v13;
               }
             }
           }
         }
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v6);
@@ -297,14 +294,12 @@ LABEL_14:
     v7 = 0;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
-
   return v7;
 }
 
 - (BOOL)isEventTimeSensitiveForFocus:(void *)focus
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   if (CalEventGetJunkStatus() != 3)
   {
     v6 = CalEventGetInvitationChangedProperties() & 0xF0;
@@ -316,12 +311,12 @@ LABEL_14:
       if (os_log_type_enabled(CADNotificationLogHandle, OS_LOG_TYPE_INFO))
       {
         v10 = v9;
-        v27 = 67109120;
+        v26 = 67109120;
         RowID = CalCalendarItemGetRowID();
-        _os_log_impl(&dword_22430B000, v10, OS_LOG_TYPE_INFO, "Notification for event (rowID = %d) is not time-sensitive because it is an attendee reply that is not a proposed time", &v27, 8u);
+        _os_log_impl(&dword_22430B000, v10, OS_LOG_TYPE_INFO, "Notification for event (rowID = %d) is not time-sensitive because it is an attendee reply that is not a proposed time", &v26, 8u);
       }
 
-      goto LABEL_2;
+      return 0;
     }
 
     CalCalendarItemGetStatus();
@@ -335,14 +330,14 @@ LABEL_14:
       v15 = *MEMORY[0x277CF7910];
       if (v16 <= *MEMORY[0x277CF7910])
       {
-        v25 = CADNotificationLogHandle;
+        v24 = CADNotificationLogHandle;
         v5 = 1;
         if (os_log_type_enabled(CADNotificationLogHandle, OS_LOG_TYPE_INFO))
         {
-          v26 = v25;
-          v27 = 67109120;
+          v25 = v24;
+          v26 = 67109120;
           RowID = CalCalendarItemGetRowID();
-          _os_log_impl(&dword_22430B000, v26, OS_LOG_TYPE_INFO, "Notification for event (rowID = %d) is time-sensitive because it starts within the time-sensitive window", &v27, 8u);
+          _os_log_impl(&dword_22430B000, v25, OS_LOG_TYPE_INFO, "Notification for event (rowID = %d) is time-sensitive because it starts within the time-sensitive window", &v26, 8u);
         }
 
         goto LABEL_19;
@@ -364,9 +359,9 @@ LABEL_14:
           if (os_log_type_enabled(CADNotificationLogHandle, OS_LOG_TYPE_INFO))
           {
             v21 = v20;
-            v27 = 67109120;
+            v26 = 67109120;
             RowID = CalCalendarItemGetRowID();
-            _os_log_impl(&dword_22430B000, v21, OS_LOG_TYPE_INFO, "Notification for event (rowID = %d) is time-sensitive because it is an attendee proposed time within the time-sensitive window", &v27, 8u);
+            _os_log_impl(&dword_22430B000, v21, OS_LOG_TYPE_INFO, "Notification for event (rowID = %d) is time-sensitive because it is an attendee proposed time within the time-sensitive window", &v26, 8u);
           }
 
           v5 = 1;
@@ -384,23 +379,19 @@ LABEL_18:
         v5 = 0;
 LABEL_19:
 
-        goto LABEL_20;
+        return v5;
       }
 
       v18 = v22;
-      v27 = 67109120;
+      v26 = 67109120;
       RowID = CalCalendarItemGetRowID();
-      _os_log_impl(&dword_22430B000, v18, OS_LOG_TYPE_INFO, "Notification for event (rowID = %d) is not time-sensitive because there is no occurrence ending after now", &v27, 8u);
+      _os_log_impl(&dword_22430B000, v18, OS_LOG_TYPE_INFO, "Notification for event (rowID = %d) is not time-sensitive because there is no occurrence ending after now", &v26, 8u);
     }
 
     goto LABEL_18;
   }
 
-LABEL_2:
-  v5 = 0;
-LABEL_20:
-  v23 = *MEMORY[0x277D85DE8];
-  return v5;
+  return 0;
 }
 
 - (double)expirationTimestampForEvent:(void *)event database:(CalDatabase *)database
@@ -416,32 +407,32 @@ LABEL_20:
 
 - (double)expirationTimestampForEvent:(void *)event withInitialOccurrenceDate:(double)date database:(CalDatabase *)database
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v9 = CalCalendarItemCopyRecurrences();
   if ([v9 count])
   {
     v10 = *MEMORY[0x277CF78E8];
-    v21 = 0u;
-    v22 = 0u;
-    v19 = 0u;
     v20 = 0u;
+    v21 = 0u;
+    v18 = 0u;
+    v19 = 0u;
     v11 = v9;
-    v12 = [v11 countByEnumeratingWithState:&v19 objects:v23 count:16];
+    v12 = [v11 countByEnumeratingWithState:&v18 objects:v22 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v20;
+      v14 = *v19;
       do
       {
         v15 = 0;
         do
         {
-          if (*v20 != v14)
+          if (*v19 != v14)
           {
             objc_enumerationMutation(v11);
           }
 
-          [(CADNotificationGatheringContext *)self expirationTimestampForRecurrence:*(*(&v19 + 1) + 8 * v15) event:event database:database, v19];
+          [(CADNotificationGatheringContext *)self expirationTimestampForRecurrence:*(*(&v18 + 1) + 8 * v15) event:event database:database, v18];
           if (v10 < v16)
           {
             v10 = v16;
@@ -451,7 +442,7 @@ LABEL_20:
         }
 
         while (v13 != v15);
-        v13 = [v11 countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v13 = [v11 countByEnumeratingWithState:&v18 objects:v22 count:16];
       }
 
       while (v13);
@@ -463,7 +454,6 @@ LABEL_20:
     v10 = CalEventGetDuration() + date;
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -487,34 +477,15 @@ LABEL_20:
     [endDate timeIntervalSinceReferenceDate];
     v16 = v15;
 
-    if (v9 < v16)
+    if (v9 >= v16 && ([v13 endDate], v17 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v17, "timeIntervalSinceReferenceDate"), v19 = v18, objc_msgSend(v13, "timeZone"), v20 = objc_claimAutoreleasedReturnValue(), MEMORY[0x22AA4AEF0](v19), v20, v17, v21 = *MEMORY[0x277CF78E0], objc_msgSend(v13, "timeZone"), v22 = objc_claimAutoreleasedReturnValue(), MEMORY[0x22AA4AEF0](v21), v22, objc_msgSend(v13, "timeZone"), v23 = objc_claimAutoreleasedReturnValue(), v24 = CalEventOccurrencesExistForEventInDateRange(), v23, v24))
     {
-      goto LABEL_7;
-    }
-
-    endDate2 = [v13 endDate];
-    [endDate2 timeIntervalSinceReferenceDate];
-    v19 = v18;
-    timeZone = [v13 timeZone];
-    MEMORY[0x22AA4AEF0](v19);
-
-    v21 = *MEMORY[0x277CF78E0];
-    timeZone2 = [v13 timeZone];
-    MEMORY[0x22AA4AEF0](v21);
-
-    timeZone3 = [v13 timeZone];
-    v24 = CalEventOccurrencesExistForEventInDateRange();
-
-    if (v24)
-    {
-      endDate3 = [v13 endDate];
-      [endDate3 timeIntervalSinceReferenceDate];
+      endDate2 = [v13 endDate];
+      [endDate2 timeIntervalSinceReferenceDate];
       v10 = v26;
     }
 
     else
     {
-LABEL_7:
       v10 = *MEMORY[0x277CF78E8];
     }
   }
@@ -524,31 +495,30 @@ LABEL_7:
 
 - (double)endDateOfLastOccurrenceInCacheForEvent:(void *)event database:(CalDatabase *)database cacheRange:(id *)range
 {
-  v6 = CalFilterCreateWithDatabaseShowingAll();
+  v5 = CalFilterCreateWithDatabaseShowingAll();
   RowID = CalCalendarItemGetRowID();
   Mutable = CFArrayCreateMutable(0, 0, 0);
   CFArrayAppendValue(Mutable, RowID);
   Duration = CalEventGetDuration();
-  v10 = self->_now - Duration;
-  v11 = CalDatabaseCopyEventOccurrenceCache();
-  v12 = CalEventOccurrenceCacheCopyEventOccurrencesWithIDsAfterDate();
-  CFRelease(v11);
-  v13 = *MEMORY[0x277CF78E8];
-  if (v12)
+  v9 = CalDatabaseCopyEventOccurrenceCache();
+  v10 = CalEventOccurrenceCacheCopyEventOccurrencesWithIDsAfterDate();
+  CFRelease(v9);
+  v11 = *MEMORY[0x277CF78E8];
+  if (v10)
   {
-    if (CFArrayGetCount(v12))
+    if (CFArrayGetCount(v10))
     {
-      CFArrayGetValueAtIndex(v12, 0);
+      CFArrayGetValueAtIndex(v10, 0);
       CalEventOccurrenceGetDate();
-      v13 = v14 + Duration;
+      v11 = v12 + Duration;
     }
 
-    CFRelease(v12);
+    CFRelease(v10);
   }
 
   CFRelease(Mutable);
-  CFRelease(v6);
-  return v13;
+  CFRelease(v5);
+  return v11;
 }
 
 - (BOOL)isSharedCalendarOwnerBlocked:(void *)blocked

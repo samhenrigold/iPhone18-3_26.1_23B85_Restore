@@ -29,8 +29,8 @@ LABEL_5:
   }
 
   anyObject = [v4 anyObject];
-  home = [(HFStatusItem *)self home];
-  roomForEntireHome = [home roomForEntireHome];
+  v7 = objc_msgSend_home(self);
+  roomForEntireHome = [v7 roomForEntireHome];
   v9 = [anyObject isEqual:roomForEntireHome];
 
   if (v9)
@@ -76,8 +76,8 @@ LABEL_6:
   }
 
   anyObject = [v6 anyObject];
-  home = [(HFStatusItem *)self home];
-  roomForEntireHome = [home roomForEntireHome];
+  v11 = objc_msgSend_home(self);
+  roomForEntireHome = [v11 roomForEntireHome];
   v13 = [anyObject isEqual:roomForEntireHome];
 
   if (v13)

@@ -51,8 +51,9 @@
   sub_1000077C8(&qword_100172A90, &qword_1001187E0);
   v4 = swift_allocObject();
   *(v4 + 16) = xmmword_1001186F0;
-  sub_100058DC8(&v7, (v4 + 32));
+  sub_100058DC8(&v14, (v4 + 32));
   v5.super.isa = Array._bridgeToObjectiveC()().super.isa;
+  v4, v6, v7, v8, v9, v10, v11, v12;
 
   return v5.super.isa;
 }

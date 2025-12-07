@@ -23,8 +23,8 @@
 - (NSString)description
 {
   v2 = MEMORY[0x1E696AEC0];
-  region = [(NUFixedRegionPolicy *)self region];
-  v4 = [v2 stringWithFormat:@"{region=%@}", region];
+  v3 = objc_msgSend_region(self, a2);
+  v4 = [v2 stringWithFormat:@"{region=%@}", v3];
 
   return v4;
 }
@@ -33,8 +33,8 @@
 {
   v3 = MEMORY[0x1E696AEC0];
   v4 = objc_opt_class();
-  region = [(NUFixedRegionPolicy *)self region];
-  v6 = [v3 stringWithFormat:@"<%@:%p> region=%@", v4, self, region];
+  v5 = objc_msgSend_region(self);
+  v6 = [v3 stringWithFormat:@"<%@:%p> region=%@", v4, self, v5];
 
   return v6;
 }

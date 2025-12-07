@@ -12,41 +12,39 @@
 
 - (id)topicIDs
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v2 = MEMORY[0x1E695DF70];
   topics = [self topics];
   v4 = [v2 arrayWithCapacity:{objc_msgSend(topics, "count")}];
 
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
   v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   topics2 = [self topics];
-  v6 = [topics2 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [topics2 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v14;
+    v8 = *v13;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(topics2);
         }
 
-        tagID = [*(*(&v13 + 1) + 8 * i) tagID];
+        tagID = [*(*(&v12 + 1) + 8 * i) tagID];
         [v4 addObject:tagID];
       }
 
-      v7 = [topics2 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [topics2 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v7);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v4;
 }

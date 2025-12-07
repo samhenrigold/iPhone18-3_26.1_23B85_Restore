@@ -17,11 +17,11 @@
 
 - (id)featureValueForName:(id)name
 {
-  sub_237EF8590();
+  v3 = sub_237EF8590();
 
-  v3 = sub_237D4C1B0();
+  v4 = sub_237D4C1B0(v3);
 
-  return v3;
+  return v4;
 }
 
 @end

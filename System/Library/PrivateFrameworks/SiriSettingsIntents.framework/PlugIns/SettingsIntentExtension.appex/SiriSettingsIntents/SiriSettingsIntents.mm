@@ -21,43 +21,44 @@ unint64_t sub_10000142C()
 
 uint64_t sub_100001470@<X0>(void *a1@<X0>, uint64_t *a2@<X8>)
 {
-  sub_1000019AC();
+  v4 = sub_1000019AC();
   if (qword_100008118 != -1)
   {
     swift_once();
   }
 
-  sub_10000198C();
+  v5 = qword_100008160;
+  sub_10000198C(v4, &_mh_execute_header, qword_100008160, "IntentHandler selecting correct handler based on intent", 55, 2, &_swiftEmptyArrayStorage);
   sub_10000197C();
   if (swift_dynamicCastClass())
   {
-    v4 = a1;
+    v6 = a1;
     sub_10000196C();
-    v5 = v16;
-    v6 = sub_10000187C(v15, v16);
-    a2[3] = v5;
-    v7 = sub_1000018C0(a2);
-    (*(*(v5 - 8) + 16))(v7, v6, v5);
+    v7 = v19;
+    v8 = sub_10000187C(v18, v19);
+    a2[3] = v7;
+    v9 = sub_1000018C0(a2);
+    (*(*(v7 - 8) + 16))(v9, v8, v7);
 
-    return sub_100001920(v15);
+    return sub_100001920(v18);
   }
 
   else
   {
-    sub_1000019BC();
+    v11 = sub_1000019BC();
     sub_1000017E0(&qword_100008150, qword_100001BF8);
-    v9 = swift_allocObject();
-    *(v9 + 16) = xmmword_100001BC0;
-    v10 = a1;
-    v11 = [v10 description];
-    v12 = sub_10000199C();
-    v14 = v13;
+    v12 = swift_allocObject();
+    *(v12 + 16) = xmmword_100001BC0;
+    v13 = a1;
+    v14 = [v13 description];
+    v15 = sub_10000199C();
+    v17 = v16;
 
-    *(v9 + 56) = &type metadata for String;
-    *(v9 + 64) = sub_100001828();
-    *(v9 + 32) = v12;
-    *(v9 + 40) = v14;
-    sub_10000198C();
+    *(v12 + 56) = &type metadata for String;
+    *(v12 + 64) = sub_100001828();
+    *(v12 + 32) = v15;
+    *(v12 + 40) = v17;
+    sub_10000198C(v11, &_mh_execute_header, v5, "Received unexpected intent %@", 29, 2, v12);
 
     result = sub_1000019DC();
     __break(1u);
@@ -85,7 +86,6 @@ uint64_t sub_1000017E0(uint64_t *a1, uint64_t *a2)
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }

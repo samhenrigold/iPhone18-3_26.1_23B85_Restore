@@ -7,7 +7,7 @@
 - (HAPBTLECharacteristicSignature)initWithCharacteristicType:(id)type serviceInstanceID:(id)d serviceType:(id)serviceType characteristicProperties:(unsigned __int16)properties characteristicMetadata:(id)metadata authenticated:(BOOL)authenticated
 {
   propertiesCopy = properties;
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   typeCopy = type;
   dCopy = d;
   serviceTypeCopy = serviceType;
@@ -24,10 +24,10 @@
 
     v29 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v36 = v29;
-    v37 = 2112;
-    v38 = objc_opt_class();
-    v30 = v38;
+    v35 = v29;
+    v36 = 2112;
+    v37 = objc_opt_class();
+    v30 = v37;
     v31 = "%{public}@[%@] The characteristic type is required";
 LABEL_19:
     _os_log_impl(&dword_22AADC000, v28, OS_LOG_TYPE_ERROR, v31, buf, 0x16u);
@@ -46,10 +46,10 @@ LABEL_19:
 
     v29 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v36 = v29;
-    v37 = 2112;
-    v38 = objc_opt_class();
-    v30 = v38;
+    v35 = v29;
+    v36 = 2112;
+    v37 = objc_opt_class();
+    v30 = v37;
     v31 = "%{public}@[%@] The service instance ID is required";
     goto LABEL_19;
   }
@@ -65,10 +65,10 @@ LABEL_19:
 
     v29 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v36 = v29;
-    v37 = 2112;
-    v38 = objc_opt_class();
-    v30 = v38;
+    v35 = v29;
+    v36 = 2112;
+    v37 = objc_opt_class();
+    v30 = v37;
     v31 = "%{public}@[%@] The service type is required";
     goto LABEL_19;
   }
@@ -84,10 +84,10 @@ LABEL_19:
 
     v29 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v36 = v29;
-    v37 = 2112;
-    v38 = objc_opt_class();
-    v30 = v38;
+    v35 = v29;
+    v36 = 2112;
+    v37 = objc_opt_class();
+    v30 = v37;
     v31 = "%{public}@[%@] The characteristic properties is required";
     goto LABEL_19;
   }
@@ -100,10 +100,10 @@ LABEL_19:
     {
       v29 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v36 = v29;
-      v37 = 2112;
-      v38 = objc_opt_class();
-      v30 = v38;
+      v35 = v29;
+      v36 = 2112;
+      v37 = objc_opt_class();
+      v30 = v37;
       v31 = "%{public}@[%@] The characteristic metadata is required";
       goto LABEL_19;
     }
@@ -115,9 +115,9 @@ LABEL_20:
     goto LABEL_21;
   }
 
-  v34.receiver = self;
-  v34.super_class = HAPBTLECharacteristicSignature;
-  v19 = [(HAPBTLECharacteristicSignature *)&v34 init];
+  v33.receiver = self;
+  v33.super_class = HAPBTLECharacteristicSignature;
+  v19 = [(HAPBTLECharacteristicSignature *)&v33 init];
   if (v19)
   {
     v20 = [typeCopy copy];
@@ -141,7 +141,6 @@ LABEL_20:
   selfCopy = self;
 LABEL_21:
 
-  v32 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 

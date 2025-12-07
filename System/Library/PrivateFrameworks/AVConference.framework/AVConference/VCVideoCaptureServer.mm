@@ -177,10 +177,10 @@
 
 - (VCVideoCaptureServer)init
 {
-  v27 = *MEMORY[0x1E69E9840];
-  v24.receiver = self;
-  v24.super_class = VCVideoCaptureServer;
-  v2 = [(VCVideoCaptureServer *)&v24 init];
+  v31 = *MEMORY[0x1E69E9840];
+  v28.receiver = self;
+  v28.super_class = VCVideoCaptureServer;
+  v2 = [(VCVideoCaptureServer *)&v28 init];
   v3 = v2;
   if (v2)
   {
@@ -234,13 +234,13 @@
     v9 = dispatch_source_create(v7, 0, 0, *(v3 + 30));
     *(v3 + 7) = v9;
     dispatch_source_set_timer(v9, 0, 0x12A05F200uLL, 0x11E1A300uLL);
-    v22[0] = MEMORY[0x1E69E9820];
-    v22[1] = 3221225472;
-    v22[2] = __28__VCVideoCaptureServer_init__block_invoke_21;
-    v22[3] = &unk_1E85F3778;
-    v22[4] = v3;
-    dispatch_source_set_event_handler(*(v3 + 7), v22);
-    dispatch_source_set_cancel_handler(*(v3 + 7), v22);
+    v26[0] = MEMORY[0x1E69E9820];
+    v26[1] = 3221225472;
+    v26[2] = __28__VCVideoCaptureServer_init__block_invoke_21;
+    v26[3] = &unk_1E85F3778;
+    v26[4] = v3;
+    dispatch_source_set_event_handler(*(v3 + 7), v26);
+    dispatch_source_set_cancel_handler(*(v3 + 7), v26);
     [*(v3 + 56) setCamera:3];
     *(v3 + 212) = 257;
     if (([v3 isAirPlayXPCHelper] & 1) == 0)
@@ -248,24 +248,24 @@
       [v3 registerBlocksForServer];
     }
 
-    [v3 setupStreamInputs];
-    thermalLevel = [VCPowerManager_DefaultManager() thermalLevel];
-    *(v3 + 102) = thermalLevel;
-    *(v3 + 101) = thermalLevel;
+    setupStreamInputs = [v3 setupStreamInputs];
+    v12 = [VCPowerManager_DefaultManager(setupStreamInputs v11)];
+    *(v3 + 102) = v12;
+    *(v3 + 101) = v12;
     v3[428] = [+[VCDefaults sharedInstance](VCDefaults forceDisableThermal];
     notify_register_check("com.apple.system.peakpowerpressurelevel", v3 + 103);
-    v11 = *(v3 + 103);
+    v13 = *(v3 + 103);
     state64.value = 0;
-    notify_get_state(v11, &state64);
+    notify_get_state(v13, &state64);
     value = state64.value;
     *(v3 + 105) = state64.value;
     *(v3 + 104) = value;
-    v21[0] = MEMORY[0x1E69E9820];
-    v21[1] = 3221225472;
-    v21[2] = __28__VCVideoCaptureServer_init__block_invoke_26;
-    v21[3] = &unk_1E85F4A20;
-    v21[4] = v3;
-    notify_register_dispatch("com.apple.system.peakpowerpressurelevel", v3 + 103, MEMORY[0x1E69E96A0], v21);
+    v25[0] = MEMORY[0x1E69E9820];
+    v25[1] = 3221225472;
+    v25[2] = __28__VCVideoCaptureServer_init__block_invoke_26;
+    v25[3] = &unk_1E85F4A20;
+    v25[4] = v3;
+    notify_register_dispatch("com.apple.system.peakpowerpressurelevel", v3 + 103, MEMORY[0x1E69E96A0], v25);
     HostTimeClock = CMClockGetHostTimeClock();
     CMClockGetTime(&state64, HostTimeClock);
     *(v3 + 79) = CMTimeGetSeconds(&state64);
@@ -274,23 +274,23 @@
       [v3 setFollowSystemCamera:1];
     }
 
-    v14 = VCFeatureFlagManager_PreviewMSROptimizationForEmbedded();
-    v3[721] = v14;
-    if (v14)
+    v16 = VCFeatureFlagManager_PreviewMSROptimizationForEmbedded();
+    v3[721] = v16;
+    if (v16)
     {
       if (VRTraceGetErrorLogLevelForModule() >= 7)
       {
-        v15 = VRTraceErrorLogLevelToCSTR();
-        v16 = *MEMORY[0x1E6986650];
+        v17 = VRTraceErrorLogLevelToCSTR();
+        v18 = *MEMORY[0x1E6986650];
         if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
         {
           LODWORD(state64.value) = 136315650;
-          *(&state64.value + 4) = v15;
+          *(&state64.value + 4) = v17;
           LOWORD(state64.flags) = 2080;
           *(&state64.flags + 2) = "[VCVideoCaptureServer init]";
           HIWORD(state64.epoch) = 1024;
-          v26 = 583;
-          _os_log_impl(&dword_1DB56E000, v16, OS_LOG_TYPE_DEFAULT, "VCVideoCaptureServer [%s] %s:%d _skipPreviewRotation=YES", &state64, 0x1Cu);
+          v30 = 583;
+          _os_log_impl(&dword_1DB56E000, v18, OS_LOG_TYPE_DEFAULT, "VCVideoCaptureServer [%s] %s:%d _skipPreviewRotation=YES", &state64, 0x1Cu);
         }
       }
     }
@@ -298,28 +298,29 @@
     v3[720] = 1;
     [v3 setUpImageRotationConverter];
     [v3 setupLogFiles];
-    *(v3 + 91) = objc_alloc_init(MEMORY[0x1E695DFA8]);
-    [VCPowerManager_DefaultManager() registerForThermalEvents:v3];
+    v19 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+    *(v3 + 91) = v19;
+    [VCPowerManager_DefaultManager(v19 v20)];
     if (VRTraceGetErrorLogLevelForModule() > 7)
     {
-      v17 = VRTraceErrorLogLevelToCSTR();
-      v18 = *MEMORY[0x1E6986650];
-      v19 = *MEMORY[0x1E6986650];
+      v21 = VRTraceErrorLogLevelToCSTR();
+      v22 = *MEMORY[0x1E6986650];
+      v23 = *MEMORY[0x1E6986650];
       if (*MEMORY[0x1E6986640] == 1)
       {
-        if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+        if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
         {
           LODWORD(state64.value) = 136315650;
-          *(&state64.value + 4) = v17;
+          *(&state64.value + 4) = v21;
           LOWORD(state64.flags) = 2080;
           *(&state64.flags + 2) = "[VCVideoCaptureServer init]";
           HIWORD(state64.epoch) = 1024;
-          v26 = 594;
-          _os_log_impl(&dword_1DB56E000, v18, OS_LOG_TYPE_DEFAULT, "VCVideoCaptureServer [%s] %s:%d done initialization of singleton", &state64, 0x1Cu);
+          v30 = 594;
+          _os_log_impl(&dword_1DB56E000, v22, OS_LOG_TYPE_DEFAULT, "VCVideoCaptureServer [%s] %s:%d done initialization of singleton", &state64, 0x1Cu);
         }
       }
 
-      else if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+      else if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
       {
         [VCVideoCaptureServer init];
       }
@@ -521,7 +522,7 @@ LABEL_4:
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, "VCVideoCaptureServer [%s] %s:%d failed to open capture_statistics.log", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, "VCVideoCaptureServer [%s] %s:%d failed to open capture_statistics.log", v2, v3, v4, v5);
 }
 
 - (void)setUpDefaultAspectRatios
@@ -579,26 +580,28 @@ LABEL_4:
 
 - (void)dealloc
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   if (objc_opt_class() == self)
   {
-    if (VRTraceGetErrorLogLevelForModule() >= 6)
+    ErrorLogLevelForModule = VRTraceGetErrorLogLevelForModule();
+    if (ErrorLogLevelForModule >= 6)
     {
-      v4 = VRTraceErrorLogLevelToCSTR();
-      v5 = *MEMORY[0x1E6986650];
-      if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
+      v6 = VRTraceErrorLogLevelToCSTR();
+      v7 = *MEMORY[0x1E6986650];
+      ErrorLogLevelForModule = os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT);
+      if (ErrorLogLevelForModule)
       {
         *buf = 136315650;
-        v20 = v4;
-        v21 = 2080;
-        v22 = "[VCVideoCaptureServer dealloc]";
-        v23 = 1024;
-        v24 = 667;
-        v6 = "VCVideoCaptureServer [%s] %s:%d ";
-        v7 = v5;
-        v8 = 28;
+        v22 = v6;
+        v23 = 2080;
+        v24 = "[VCVideoCaptureServer dealloc]";
+        v25 = 1024;
+        v26 = 667;
+        v8 = "VCVideoCaptureServer [%s] %s:%d ";
+        v9 = v7;
+        v10 = 28;
 LABEL_11:
-        _os_log_impl(&dword_1DB56E000, v7, OS_LOG_TYPE_DEFAULT, v6, buf, v8);
+        _os_log_impl(&dword_1DB56E000, v9, OS_LOG_TYPE_DEFAULT, v8, buf, v10);
       }
     }
   }
@@ -615,31 +618,33 @@ LABEL_11:
       v3 = &stru_1F570E008;
     }
 
-    if (VRTraceGetErrorLogLevelForModule() >= 6)
+    ErrorLogLevelForModule = VRTraceGetErrorLogLevelForModule();
+    if (ErrorLogLevelForModule >= 6)
     {
-      v9 = VRTraceErrorLogLevelToCSTR();
-      v10 = *MEMORY[0x1E6986650];
-      if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
+      v11 = VRTraceErrorLogLevelToCSTR();
+      v12 = *MEMORY[0x1E6986650];
+      ErrorLogLevelForModule = os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT);
+      if (ErrorLogLevelForModule)
       {
         *buf = 136316162;
-        v20 = v9;
-        v21 = 2080;
-        v22 = "[VCVideoCaptureServer dealloc]";
-        v23 = 1024;
-        v24 = 667;
-        v25 = 2112;
-        v26 = v3;
-        v27 = 2048;
+        v22 = v11;
+        v23 = 2080;
+        v24 = "[VCVideoCaptureServer dealloc]";
+        v25 = 1024;
+        v26 = 667;
+        v27 = 2112;
+        v28 = v3;
+        v29 = 2048;
         selfCopy = self;
-        v6 = "VCVideoCaptureServer [%s] %s:%d %@(%p) ";
-        v7 = v10;
-        v8 = 48;
+        v8 = "VCVideoCaptureServer [%s] %s:%d %@(%p) ";
+        v9 = v12;
+        v10 = 48;
         goto LABEL_11;
       }
     }
   }
 
-  [VCPowerManager_DefaultManager() unregisterForThermalEvents:self];
+  [VCPowerManager_DefaultManager(ErrorLogLevelForModule v5)];
   notify_cancel(self->_peakPowerNotificationToken);
   if (self->_followSystemCamera)
   {
@@ -661,10 +666,10 @@ LABEL_11:
   if (cameraHealthMonitor)
   {
     dispatch_source_cancel(cameraHealthMonitor);
-    v12 = self->cameraHealthMonitor;
-    if (v12)
+    v14 = self->cameraHealthMonitor;
+    if (v14)
     {
-      dispatch_release(v12);
+      dispatch_release(v14);
       self->cameraHealthMonitor = 0;
     }
   }
@@ -673,10 +678,10 @@ LABEL_11:
   if (screenHealthMonitor)
   {
     dispatch_source_cancel(screenHealthMonitor);
-    v14 = self->screenHealthMonitor;
-    if (v14)
+    v16 = self->screenHealthMonitor;
+    if (v16)
     {
-      dispatch_release(v14);
+      dispatch_release(v16);
       self->screenHealthMonitor = 0;
     }
   }
@@ -710,9 +715,9 @@ LABEL_11:
 
   [(SCVideoStreamAnalyzer *)self->_sensitiveContentAnalyzer endAnalysis];
 
-  v18.receiver = self;
-  v18.super_class = VCVideoCaptureServer;
-  [(VCVideoCaptureServer *)&v18 dealloc];
+  v20.receiver = self;
+  v20.super_class = VCVideoCaptureServer;
+  [(VCVideoCaptureServer *)&v20 dealloc];
 }
 
 - (void)registerBlocksForServer
@@ -1781,7 +1786,7 @@ uint64_t __51__VCVideoCaptureServer_handleAVCaptureError_error___block_invoke_17
   return [v2 sendMessageAsync:"previewDidReceiveCameraError" arguments:v3];
 }
 
-uint64_t __51__VCVideoCaptureServer_handleAVCaptureError_error___block_invoke_2(uint64_t a1)
+void *__51__VCVideoCaptureServer_handleAVCaptureError_error___block_invoke_2(uint64_t a1)
 {
   v12 = *MEMORY[0x1E69E9840];
   v8 = 0u;
@@ -1804,7 +1809,8 @@ uint64_t __51__VCVideoCaptureServer_handleAVCaptureError_error___block_invoke_2(
           objc_enumerationMutation(v2);
         }
 
-        [*(*(&v8 + 1) + 8 * v6++) avConferencePreviewError:*(a1 + 40)];
+        [*(*(&v8 + 1) + 8 * v6) avConferencePreviewError:*(a1 + 40)];
+        v6 = v6 + 1;
       }
 
       while (v4 != v6);
@@ -2156,7 +2162,7 @@ uint64_t __51__VCVideoCaptureServer_handleCaptureEvent_subType___block_invoke_19
   return [v2 sendMessageAsync:"previewCameraDidBecomeAvailable" arguments:v3];
 }
 
-uint64_t __51__VCVideoCaptureServer_handleCaptureEvent_subType___block_invoke_206(uint64_t a1)
+void *__51__VCVideoCaptureServer_handleCaptureEvent_subType___block_invoke_206(uint64_t a1)
 {
   v13 = *MEMORY[0x1E69E9840];
   v9 = 0u;
@@ -2185,7 +2191,7 @@ uint64_t __51__VCVideoCaptureServer_handleCaptureEvent_subType___block_invoke_20
           [v7 avConferenceScreenCaptureError:*(a1 + 40)];
         }
 
-        ++v6;
+        v6 = v6 + 1;
       }
 
       while (v4 != v6);
@@ -3451,7 +3457,7 @@ LABEL_29:
   dispatch_async(captureClientQueue, block);
 }
 
-uint64_t __54__VCVideoCaptureServer_notifyThermalChangeForClients___block_invoke(uint64_t a1)
+void *__54__VCVideoCaptureServer_notifyThermalChangeForClients___block_invoke(uint64_t a1)
 {
   v12 = *MEMORY[0x1E69E9840];
   kdebug_trace();
@@ -3475,7 +3481,8 @@ uint64_t __54__VCVideoCaptureServer_notifyThermalChangeForClients___block_invoke
           objc_enumerationMutation(v2);
         }
 
-        [*(*(&v8 + 1) + 8 * v6++) thermalLevelDidChange:*(*(a1 + 32) + 408)];
+        [*(*(&v8 + 1) + 8 * v6) thermalLevelDidChange:*(*(a1 + 32) + 408)];
+        v6 = v6 + 1;
       }
 
       while (v4 != v6);
@@ -3502,7 +3509,7 @@ uint64_t __54__VCVideoCaptureServer_notifyThermalChangeForClients___block_invoke
   dispatch_async(captureClientQueue, block);
 }
 
-uint64_t __68__VCVideoCaptureServer_notifyCameraDidChangeAvailability_available___block_invoke(uint64_t a1)
+void *__68__VCVideoCaptureServer_notifyCameraDidChangeAvailability_available___block_invoke(uint64_t a1)
 {
   v12 = *MEMORY[0x1E69E9840];
   v8 = 0u;
@@ -3525,7 +3532,8 @@ uint64_t __68__VCVideoCaptureServer_notifyCameraDidChangeAvailability_available_
           objc_enumerationMutation(v2);
         }
 
-        [*(*(&v8 + 1) + 8 * v6++) cameraAvailabilityDidChange:*(a1 + 40)];
+        [*(*(&v8 + 1) + 8 * v6) cameraAvailabilityDidChange:*(a1 + 40)];
+        v6 = v6 + 1;
       }
 
       while (v4 != v6);
@@ -3554,7 +3562,7 @@ uint64_t __68__VCVideoCaptureServer_notifyCameraDidChangeAvailability_available_
   dispatch_async(captureClientQueue, block);
 }
 
-uint64_t __119__VCVideoCaptureServer_notifyFrameRateBeingThrottledForClients_newFrameRate_thermalLevelDidChange_powerLevelDidChange___block_invoke(uint64_t a1)
+void *__119__VCVideoCaptureServer_notifyFrameRateBeingThrottledForClients_newFrameRate_thermalLevelDidChange_powerLevelDidChange___block_invoke(uint64_t a1)
 {
   v13 = *MEMORY[0x1E69E9840];
   v9 = 0u;
@@ -3583,7 +3591,7 @@ uint64_t __119__VCVideoCaptureServer_notifyFrameRateBeingThrottledForClients_new
           [v7 frameRateIsBeingThrottled:*(a1 + 40) thermalLevelDidChange:*(a1 + 44) powerLevelDidChange:*(a1 + 45)];
         }
 
-        ++v6;
+        v6 = v6 + 1;
       }
 
       while (v4 != v6);
@@ -3675,10 +3683,10 @@ uint64_t __67__VCVideoCaptureServer_onCaptureScreenFrame_frameTime_orientation__
   dispatch_async(captureServerQueue, block);
 }
 
-uint64_t __63__VCVideoCaptureServer_changeCameraToPendingSettingsWithReset___block_invoke(uint64_t result)
+void *__63__VCVideoCaptureServer_changeCameraToPendingSettingsWithReset___block_invoke(void *result)
 {
   v19 = *MEMORY[0x1E69E9840];
-  if (*(*(result + 32) + 68) * *(*(result + 32) + 64))
+  if (*(result[4] + 68) * *(result[4] + 64))
   {
     v1 = result;
     if (VRTraceGetErrorLogLevelForModule() >= 7)
@@ -3687,7 +3695,7 @@ uint64_t __63__VCVideoCaptureServer_changeCameraToPendingSettingsWithReset___blo
       v3 = *MEMORY[0x1E6986650];
       if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
       {
-        v4 = *(v1 + 32);
+        v4 = v1[4];
         v5 = *(v4 + 64);
         LODWORD(v4) = *(v4 + 68);
         v6 = *(v1 + 40);
@@ -3707,13 +3715,13 @@ uint64_t __63__VCVideoCaptureServer_changeCameraToPendingSettingsWithReset___blo
       }
     }
 
-    result = [*(v1 + 32) setCaptureWidth:*(*(v1 + 32) + 64) height:*(*(v1 + 32) + 68) rate:*(*(v1 + 32) + 72)];
-    *(*(v1 + 32) + 64) = 0;
-    *(*(v1 + 32) + 68) = 0;
-    *(*(v1 + 32) + 72) = 0;
+    result = [v1[4] setCaptureWidth:*(v1[4] + 64) height:*(v1[4] + 68) rate:*(v1[4] + 72)];
+    *(v1[4] + 64) = 0;
+    *(v1[4] + 68) = 0;
+    *(v1[4] + 72) = 0;
     if (*(v1 + 40) == 1)
     {
-      return [*(v1 + 32) previewVideoWidth:*(v1 + 32) + 64 height:*(v1 + 32) + 68 frameRate:*(v1 + 32) + 72];
+      return [v1[4] previewVideoWidth:v1[4] + 64 height:v1[4] + 68 frameRate:v1[4] + 72];
     }
   }
 
@@ -3970,7 +3978,7 @@ void __60__VCVideoCaptureServer_registerCaptureClientForScreenShare___block_invo
   }
 }
 
-uint64_t __62__VCVideoCaptureServer_deregisterCaptureClientForScreenShare___block_invoke(uint64_t a1)
+void *__62__VCVideoCaptureServer_deregisterCaptureClientForScreenShare___block_invoke(uint64_t a1)
 {
   v2 = [*(*(a1 + 32) + 584) objectForKeyedSubscript:{objc_msgSend(MEMORY[0x1E696AD98], "numberWithUnsignedInteger:", objc_msgSend(*(a1 + 40), "hash"))}];
   v3 = *(a1 + 32);
@@ -4011,7 +4019,7 @@ uint64_t __62__VCVideoCaptureServer_deregisterCaptureClientForScreenShare___bloc
   dispatch_async(captureClientQueue, block);
 }
 
-uint64_t __60__VCVideoCaptureServer_registerScreenVideoConfig_forSource___block_invoke(uint64_t a1)
+void *__60__VCVideoCaptureServer_registerScreenVideoConfig_forSource___block_invoke(uint64_t a1)
 {
   v28 = *MEMORY[0x1E69E9840];
   if (VRTraceGetErrorLogLevelForModule() >= 7)
@@ -4735,7 +4743,7 @@ LABEL_10:
   return v3;
 }
 
-uint64_t __43__VCVideoCaptureServer_copyCameraColorInfo__block_invoke(uint64_t a1)
+void *__43__VCVideoCaptureServer_copyCameraColorInfo__block_invoke(uint64_t a1)
 {
   result = *(*(a1 + 32) + 304);
   if (result)
@@ -5032,7 +5040,7 @@ uint64_t __43__VCVideoCaptureServer_copyCameraColorInfo__block_invoke(uint64_t a
   return v17 & 1;
 }
 
-uint64_t __70__VCVideoCaptureServer_registerForVideoFramesFromSource_sourceConfig___block_invoke(uint64_t a1, double a2)
+void *__70__VCVideoCaptureServer_registerForVideoFramesFromSource_sourceConfig___block_invoke(uint64_t a1, double a2)
 {
   *&a2 = *(*(*(a1 + 64) + 8) + 24);
   [*(a1 + 32) dispatchedUpdateCaptureRuleForClient:*(a1 + 40) width:*(*(*(a1 + 48) + 8) + 24) height:*(*(*(a1 + 56) + 8) + 24) frameRate:a2];
@@ -5047,7 +5055,7 @@ uint64_t __70__VCVideoCaptureServer_registerForVideoFramesFromSource_sourceConfi
   return result;
 }
 
-uint64_t __70__VCVideoCaptureServer_registerForVideoFramesFromSource_sourceConfig___block_invoke_2(uint64_t a1)
+void *__70__VCVideoCaptureServer_registerForVideoFramesFromSource_sourceConfig___block_invoke_2(uint64_t a1)
 {
   v23 = *MEMORY[0x1E69E9840];
   v2 = [*(*(a1 + 32) + 112) count];
@@ -5113,7 +5121,8 @@ uint64_t __70__VCVideoCaptureServer_registerForVideoFramesFromSource_sourceConfi
             objc_enumerationMutation(v8);
           }
 
-          [*(*(&v13 + 1) + 8 * v11++) sourceFrameRateDidChange:{objc_msgSend(objc_msgSend(*(a1 + 48), "objectForKeyedSubscript:", @"FrameRate", "intValue")}];
+          [*(*(&v13 + 1) + 8 * v11) sourceFrameRateDidChange:{objc_msgSend(objc_msgSend(*(a1 + 48), "objectForKeyedSubscript:", @"FrameRate", "intValue")}];
+          v11 = v11 + 1;
         }
 
         while (v9 != v11);
@@ -5383,7 +5392,7 @@ LABEL_3:
   return v4;
 }
 
-uint64_t __53__VCVideoCaptureServer_getCaptureFrameRateForSource___block_invoke(uint64_t a1)
+void *__53__VCVideoCaptureServer_getCaptureFrameRateForSource___block_invoke(uint64_t a1)
 {
   v2 = *(a1 + 32);
   if ((*(a1 + 48) - 1) > 1)
@@ -6447,7 +6456,7 @@ void *__61__VCVideoCaptureServer_newFormatDescriptionForCaptureSource___block_in
   return v4;
 }
 
-uint64_t __56__VCVideoCaptureServer_streamInputIDForCaptureSourceID___block_invoke(uint64_t a1)
+void *__56__VCVideoCaptureServer_streamInputIDForCaptureSourceID___block_invoke(uint64_t a1)
 {
   result = [objc_msgSend(*(*(a1 + 32) + 544) objectForKeyedSubscript:{objc_msgSend(MEMORY[0x1E696AD98], "numberWithUnsignedInt:", *(a1 + 48))), "streamInputID"}];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -6771,7 +6780,7 @@ void __78__VCVideoCaptureServer_unregisterStreamInputCaptureSourceWithCaptureSou
   return v4;
 }
 
-uint64_t __44__VCVideoCaptureServer_registerStreamInput___block_invoke(uint64_t a1)
+void *__44__VCVideoCaptureServer_registerStreamInput___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) internalRegisterStreamInput:*(a1 + 40)];
   *(*(*(a1 + 48) + 8) + 24) = result;
@@ -7123,7 +7132,7 @@ uint64_t __48__VCVideoCaptureServer_setLocalVideoAttributes___block_invoke_322(u
   return v3;
 }
 
-uint64_t __44__VCVideoCaptureServer_localVideoAttributes__block_invoke(uint64_t a1)
+void *__44__VCVideoCaptureServer_localVideoAttributes__block_invoke(uint64_t a1)
 {
   v11 = *MEMORY[0x1E69E9840];
   *(*(*(a1 + 40) + 8) + 40) = [VideoAttributes videoAttributesWithVideoAttributes:*(*(a1 + 32) + 448)];
@@ -7152,7 +7161,7 @@ uint64_t __44__VCVideoCaptureServer_localVideoAttributes__block_invoke(uint64_t 
   return result;
 }
 
-uint64_t __VCVideoCaptureServer_CopyLocalVideoAttributes_block_invoke(uint64_t a1)
+void *__VCVideoCaptureServer_CopyLocalVideoAttributes_block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 448) copy];
   *(*(*(a1 + 40) + 8) + 40) = result;
@@ -7579,7 +7588,7 @@ __n128 __63__VCVideoCaptureServer_localExpectedRatioForScreenOrientation___block
   dispatch_async(captureClientQueue, block);
 }
 
-uint64_t __61__VCVideoCaptureServer_handleCaptureSourcePositionDidChange___block_invoke(uint64_t a1)
+void *__61__VCVideoCaptureServer_handleCaptureSourcePositionDidChange___block_invoke(uint64_t a1)
 {
   v13 = *MEMORY[0x1E69E9840];
   v9 = 0u;
@@ -7608,7 +7617,7 @@ uint64_t __61__VCVideoCaptureServer_handleCaptureSourcePositionDidChange___block
           [v7 captureSourcePositionDidChange:*(a1 + 40)];
         }
 
-        ++v6;
+        v6 = v6 + 1;
       }
 
       while (v4 != v6);
@@ -7635,7 +7644,7 @@ uint64_t __61__VCVideoCaptureServer_handleCaptureSourcePositionDidChange___block
   dispatch_async(captureClientQueue, block);
 }
 
-uint64_t __52__VCVideoCaptureServer_centerStageEnabledDidChange___block_invoke(uint64_t a1)
+void *__52__VCVideoCaptureServer_centerStageEnabledDidChange___block_invoke(uint64_t a1)
 {
   v13 = *MEMORY[0x1E69E9840];
   v9 = 0u;
@@ -7664,7 +7673,7 @@ uint64_t __52__VCVideoCaptureServer_centerStageEnabledDidChange___block_invoke(u
           [v7 captureSourceCenterStageEnabledDidChange:*(a1 + 40)];
         }
 
-        ++v6;
+        v6 = v6 + 1;
       }
 
       while (v4 != v6);
@@ -7691,7 +7700,7 @@ uint64_t __52__VCVideoCaptureServer_centerStageEnabledDidChange___block_invoke(u
   dispatch_async(captureClientQueue, block);
 }
 
-uint64_t __53__VCVideoCaptureServer_portraitBlurEnabledDidChange___block_invoke(uint64_t a1)
+void *__53__VCVideoCaptureServer_portraitBlurEnabledDidChange___block_invoke(uint64_t a1)
 {
   v13 = *MEMORY[0x1E69E9840];
   v9 = 0u;
@@ -7720,7 +7729,7 @@ uint64_t __53__VCVideoCaptureServer_portraitBlurEnabledDidChange___block_invoke(
           [v7 captureSourcePortraitBlurEnabledDidChange:*(a1 + 40)];
         }
 
-        ++v6;
+        v6 = v6 + 1;
       }
 
       while (v4 != v6);
@@ -7747,7 +7756,7 @@ uint64_t __53__VCVideoCaptureServer_portraitBlurEnabledDidChange___block_invoke(
   dispatch_async(captureClientQueue, block);
 }
 
-uint64_t __65__VCVideoCaptureServer_captureSourceVideoFeatureStatusDidChange___block_invoke(uint64_t a1)
+void *__65__VCVideoCaptureServer_captureSourceVideoFeatureStatusDidChange___block_invoke(uint64_t a1)
 {
   v14 = *MEMORY[0x1E69E9840];
   v10 = 0u;
@@ -7777,7 +7786,7 @@ uint64_t __65__VCVideoCaptureServer_captureSourceVideoFeatureStatusDidChange___b
           [v8 updateCaptureSourceVideoFeatureStatus:v1];
         }
 
-        ++v7;
+        v7 = v7 + 1;
       }
 
       while (v5 != v7);
@@ -7804,7 +7813,7 @@ uint64_t __65__VCVideoCaptureServer_captureSourceVideoFeatureStatusDidChange___b
   dispatch_async(captureClientQueue, block);
 }
 
-uint64_t __41__VCVideoCaptureServer_reactionDidStart___block_invoke(uint64_t a1)
+void *__41__VCVideoCaptureServer_reactionDidStart___block_invoke(uint64_t a1)
 {
   v13 = *MEMORY[0x1E69E9840];
   v9 = 0u;
@@ -7833,7 +7842,7 @@ uint64_t __41__VCVideoCaptureServer_reactionDidStart___block_invoke(uint64_t a1)
           [v7 reactionDidStart:*(a1 + 40)];
         }
 
-        ++v6;
+        v6 = v6 + 1;
       }
 
       while (v4 != v6);
@@ -7859,7 +7868,7 @@ uint64_t __41__VCVideoCaptureServer_reactionDidStart___block_invoke(uint64_t a1)
   dispatch_async(captureClientQueue, v3);
 }
 
-uint64_t __39__VCVideoCaptureServer_didStopReacting__block_invoke(uint64_t a1)
+void *__39__VCVideoCaptureServer_didStopReacting__block_invoke(uint64_t a1)
 {
   v12 = *MEMORY[0x1E69E9840];
   v8 = 0u;
@@ -7888,7 +7897,7 @@ uint64_t __39__VCVideoCaptureServer_didStopReacting__block_invoke(uint64_t a1)
           [v6 didStopReacting];
         }
 
-        ++v5;
+        v5 = v5 + 1;
       }
 
       while (v3 != v5);
@@ -7914,7 +7923,7 @@ uint64_t __39__VCVideoCaptureServer_didStopReacting__block_invoke(uint64_t a1)
   dispatch_async(captureClientQueue, v3);
 }
 
-uint64_t __53__VCVideoCaptureServer_didSelectUnbinnedCameraFormat__block_invoke(uint64_t a1)
+void *__53__VCVideoCaptureServer_didSelectUnbinnedCameraFormat__block_invoke(uint64_t a1)
 {
   v12 = *MEMORY[0x1E69E9840];
   v8 = 0u;
@@ -7943,7 +7952,7 @@ uint64_t __53__VCVideoCaptureServer_didSelectUnbinnedCameraFormat__block_invoke(
           [v6 captureSourceDidSelectUnbinnedCameraFormat];
         }
 
-        ++v5;
+        v5 = v5 + 1;
       }
 
       while (v3 != v5);
@@ -8162,7 +8171,7 @@ LABEL_18:
   }
 }
 
-uint64_t __60__VCVideoCaptureServer_dispatchedSetCaptureCameraWithToken___block_invoke(uint64_t a1)
+void *__60__VCVideoCaptureServer_dispatchedSetCaptureCameraWithToken___block_invoke(uint64_t a1)
 {
   v14 = *MEMORY[0x1E69E9840];
   v10 = 0u;
@@ -8197,7 +8206,7 @@ uint64_t __60__VCVideoCaptureServer_dispatchedSetCaptureCameraWithToken___block_
           [v8 updateCaptureSourceVideoFeatureStatus:v1];
         }
 
-        ++v7;
+        v7 = v7 + 1;
       }
 
       while (v5 != v7);
@@ -8258,7 +8267,7 @@ uint64_t __60__VCVideoCaptureServer_dispatchedSetCaptureCameraWithToken___block_
       CFRelease(EncodedCFDictionary);
     }
 
-    if (VCImageQueue_setCALayerSize(v13, handle))
+    if (VCImageQueue_setCALayerSize(v13, handle, x, y, width, height))
     {
       if (VRTraceGetErrorLogLevelForModule() >= 7)
       {
@@ -8504,7 +8513,7 @@ LABEL_6:
 LABEL_8:
   if (v4)
   {
-    if (*(*(*(a1 + 40) + 8) + 24) == 1 && (VCImageQueue_setCALayerSize(v4, 0) & 1) == 0)
+    if (*(*(*(a1 + 40) + 8) + 24) == 1 && (VCImageQueue_setCALayerSize(v4, 0, *(v2 + 24), *(v2 + 32), *(v2 + 40), *(v2 + 48)) & 1) == 0)
     {
       if (objc_opt_class() == *(a1 + 32))
       {
@@ -9882,7 +9891,7 @@ LABEL_11:
   return v5;
 }
 
-uint64_t __51__VCVideoCaptureServer_cameraSupportsWidth_height___block_invoke(uint64_t a1)
+void *__51__VCVideoCaptureServer_cameraSupportsWidth_height___block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 304) cameraSupportsFormatWidth:*(a1 + 48) height:*(a1 + 52)];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -10165,7 +10174,7 @@ uint64_t __50__VCVideoCaptureServer_copyInitialStatsDictionary__block_invoke(uin
     v6 = 0;
   }
 
-  CFDictionaryAddValue(dict, @"ScreenSharingIsFullScreen", [MEMORY[0x1E696AD98] numberWithBool:{v6, *v10, *&v10[16]}]);
+  CFDictionaryAddValue(dict, @"ScreenSharingIsFullScreen", [MEMORY[0x1E696AD98] numberWithBool:{v6, *v10, *&v10[8]}]);
 }
 
 - (void)updatePreviewState
@@ -10681,7 +10690,7 @@ void __49__VCVideoCaptureServer_sourceFrameRateDidChange___block_invoke(uint64_t
   dispatch_async(v6, v7);
 }
 
-uint64_t __49__VCVideoCaptureServer_sourceFrameRateDidChange___block_invoke_406(uint64_t a1)
+void *__49__VCVideoCaptureServer_sourceFrameRateDidChange___block_invoke_406(uint64_t a1)
 {
   v12 = *MEMORY[0x1E69E9840];
   v8 = 0u;
@@ -10704,7 +10713,8 @@ uint64_t __49__VCVideoCaptureServer_sourceFrameRateDidChange___block_invoke_406(
           objc_enumerationMutation(v2);
         }
 
-        [*(*(&v8 + 1) + 8 * v6++) sourceFrameRateDidChange:*(a1 + 40)];
+        [*(*(&v8 + 1) + 8 * v6) sourceFrameRateDidChange:*(a1 + 40)];
+        v6 = v6 + 1;
       }
 
       while (v4 != v6);
@@ -10818,7 +10828,7 @@ uint64_t __VCVideoCaptureServer_IsCaptureFullBleedPreferred_block_invoke(uint64_
   }
 }
 
-uint64_t __47__VCVideoCaptureServer_addDeviceStateDelegate___block_invoke(uint64_t a1)
+void *__47__VCVideoCaptureServer_addDeviceStateDelegate___block_invoke(uint64_t a1)
 {
   v13 = *MEMORY[0x1E69E9840];
   v9 = 0u;
@@ -10930,7 +10940,7 @@ void __50__VCVideoCaptureServer_removeDeviceStateDelegate___block_invoke(uint64_
   dispatch_async(captureClientQueue, block);
 }
 
-uint64_t __66__VCVideoCaptureServer_notifyDeviceStateDelegatesWithOrientation___block_invoke(uint64_t a1)
+void *__66__VCVideoCaptureServer_notifyDeviceStateDelegatesWithOrientation___block_invoke(uint64_t a1)
 {
   v12 = *MEMORY[0x1E69E9840];
   v8 = 0u;
@@ -10953,7 +10963,8 @@ uint64_t __66__VCVideoCaptureServer_notifyDeviceStateDelegatesWithOrientation___
           objc_enumerationMutation(v2);
         }
 
-        [objc_msgSend(*(*(&v8 + 1) + 8 * v6++) "strong")];
+        [objc_msgSend(*(*(&v8 + 1) + 8 * v6) "strong")];
+        v6 = v6 + 1;
       }
 
       while (v4 != v6);
@@ -11038,31 +11049,33 @@ uint64_t __66__VCVideoCaptureServer_notifyDeviceStateDelegatesWithOrientation___
 
 void __75__VCVideoCaptureServer_dispatchedUpdateRemoteScreenAttributes_forceUpdate___block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x1E69E9840];
-  if (VRTraceGetErrorLogLevelForModule() >= 7)
+  v19 = *MEMORY[0x1E69E9840];
+  ErrorLogLevelForModule = VRTraceGetErrorLogLevelForModule();
+  if (ErrorLogLevelForModule >= 7)
   {
-    v2 = VRTraceErrorLogLevelToCSTR();
-    v3 = *MEMORY[0x1E6986650];
-    if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
+    v4 = VRTraceErrorLogLevelToCSTR();
+    v5 = *MEMORY[0x1E6986650];
+    ErrorLogLevelForModule = os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT);
+    if (ErrorLogLevelForModule)
     {
-      v4 = *(a1 + 32);
-      v5 = *(*(a1 + 40) + 832);
-      v7 = 136316162;
-      v8 = v2;
-      v9 = 2080;
-      v10 = "[VCVideoCaptureServer dispatchedUpdateRemoteScreenAttributes:forceUpdate:]_block_invoke";
-      v11 = 1024;
-      v12 = 4822;
-      v13 = 2112;
-      v14 = v4;
-      v15 = 1024;
-      v16 = v5;
-      _os_log_impl(&dword_1DB56E000, v3, OS_LOG_TYPE_DEFAULT, "VCVideoCaptureServer [%s] %s:%d Calling VCRemoteVideoManager_RemoteScreenAttributesDidChange() with remoteScreenAttributes=%@, localPreviewStreamToken=%d", &v7, 0x2Cu);
+      v6 = *(a1 + 32);
+      v7 = *(*(a1 + 40) + 832);
+      v9 = 136316162;
+      v10 = v4;
+      v11 = 2080;
+      v12 = "[VCVideoCaptureServer dispatchedUpdateRemoteScreenAttributes:forceUpdate:]_block_invoke";
+      v13 = 1024;
+      v14 = 4822;
+      v15 = 2112;
+      v16 = v6;
+      v17 = 1024;
+      v18 = v7;
+      _os_log_impl(&dword_1DB56E000, v5, OS_LOG_TYPE_DEFAULT, "VCVideoCaptureServer [%s] %s:%d Calling VCRemoteVideoManager_RemoteScreenAttributesDidChange() with remoteScreenAttributes=%@, localPreviewStreamToken=%d", &v9, 0x2Cu);
     }
   }
 
-  v6 = VCRemoteVideoManager_DefaultManager();
-  VCRemoteVideoManager_RemoteScreenAttributesDidChange(v6, *(a1 + 32), *(*(a1 + 40) + 832));
+  v8 = VCRemoteVideoManager_DefaultManager(ErrorLogLevelForModule, v3);
+  VCRemoteVideoManager_RemoteScreenAttributesDidChange(v8, *(a1 + 32), *(*(a1 + 40) + 832));
 }
 
 uint64_t __VCVideoCaptureServer_UpdateRemoteScreenAttributes_block_invoke(uint64_t a1)
@@ -11091,7 +11104,7 @@ uint64_t __VCVideoCaptureServer_UpdateRemoteScreenAttributes_block_invoke(uint64
   }
 }
 
-uint64_t __46__VCVideoCaptureServer_didChangeThermalLevel___block_invoke(uint64_t a1)
+void *__46__VCVideoCaptureServer_didChangeThermalLevel___block_invoke(uint64_t a1)
 {
   v12 = *MEMORY[0x1E69E9840];
   v8 = 0u;
@@ -11114,7 +11127,8 @@ uint64_t __46__VCVideoCaptureServer_didChangeThermalLevel___block_invoke(uint64_
           objc_enumerationMutation(v2);
         }
 
-        [*(*(&v8 + 1) + 8 * v6++) thermalLevelDidChange:*(a1 + 40)];
+        [*(*(&v8 + 1) + 8 * v6) thermalLevelDidChange:*(a1 + 40)];
+        v6 = v6 + 1;
       }
 
       while (v4 != v6);
@@ -11715,7 +11729,7 @@ void __70__VCVideoCaptureServer_deregisterForVideoFramesFromSource_withClient___
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_11(&dword_1DB56E000, v0, v1, "VCVideoCaptureServer [%s] %s:%d done initialization of singleton", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_11(&dword_1DB56E000, v0, v1, "VCVideoCaptureServer [%s] %s:%d done initialization of singleton", v2, v3, v4, v5);
 }
 
 void __28__VCVideoCaptureServer_init__block_invoke_cold_1()
@@ -11748,14 +11762,14 @@ void __47__VCVideoCaptureServer_registerBlocksForServer__block_invoke_2_cold_1()
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, "VCVideoCaptureServer [%s] %s:%d VCCameraPreview not found. Cannot start preview before initialize.", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, "VCVideoCaptureServer [%s] %s:%d VCCameraPreview not found. Cannot start preview before initialize.", v2, v3, v4, v5);
 }
 
 void __47__VCVideoCaptureServer_registerBlocksForServer__block_invoke_79_cold_1()
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, "VCVideoCaptureServer [%s] %s:%d VCCameraPreview not found. Cannot pause preview before initialize.", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, "VCVideoCaptureServer [%s] %s:%d VCCameraPreview not found. Cannot pause preview before initialize.", v2, v3, v4, v5);
 }
 
 void __47__VCVideoCaptureServer_registerBlocksForServer__block_invoke_109_cold_1()
@@ -11822,14 +11836,14 @@ void __47__VCVideoCaptureServer_registerBlocksForServer__block_invoke_109_cold_3
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_11(&dword_1DB56E000, v0, v1, "VCVideoCaptureServer [%s] %s:%d notifying app of acvapture error", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_11(&dword_1DB56E000, v0, v1, "VCVideoCaptureServer [%s] %s:%d notifying app of acvapture error", v2, v3, v4, v5);
 }
 
 - (void)handleAVCaptureError:error:.cold.2()
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_11(&dword_1DB56E000, v0, v1, "VCVideoCaptureServer [%s] %s:%d notifying clients of avcapture error", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_11(&dword_1DB56E000, v0, v1, "VCVideoCaptureServer [%s] %s:%d notifying clients of avcapture error", v2, v3, v4, v5);
 }
 
 - (void)handleAVCaptureError:error:.cold.3()
@@ -11875,14 +11889,14 @@ void __60__VCVideoCaptureServer_registerCaptureClientForScreenShare___block_invo
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, "VCVideoCaptureServer [%s] %s:%d Attempting to register a nil client", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, "VCVideoCaptureServer [%s] %s:%d Attempting to register a nil client", v2, v3, v4, v5);
 }
 
 - (void)deregisterCaptureClientForScreenShare:.cold.1()
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, "VCVideoCaptureServer [%s] %s:%d Attempting to deregister a nil client", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, "VCVideoCaptureServer [%s] %s:%d Attempting to deregister a nil client", v2, v3, v4, v5);
 }
 
 void __60__VCVideoCaptureServer_registerSystemAudioConfig_forSource___block_invoke_cold_1()
@@ -12059,28 +12073,28 @@ void __62__VCVideoCaptureServer_deregisterSystemAudioConfig_forSource___block_in
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, "VCVideoCaptureServer [%s] %s:%d Invalid VCCaptureSource", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, "VCVideoCaptureServer [%s] %s:%d Invalid VCCaptureSource", v2, v3, v4, v5);
 }
 
 void __68__VCVideoCaptureServer_isClientRegisteredForVideoFrames_fromSource___block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, "VCVideoCaptureServer [%s] %s:%d Invalid VCCaptureSource", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, "VCVideoCaptureServer [%s] %s:%d Invalid VCCaptureSource", v2, v3, v4, v5);
 }
 
 void __66__VCVideoCaptureServer_setScreenCaptureFrameRate_captureSourceID___block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, "VCVideoCaptureServer [%s] %s:%d Failed to set screen capture frame rate", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, "VCVideoCaptureServer [%s] %s:%d Failed to set screen capture frame rate", v2, v3, v4, v5);
 }
 
 void __66__VCVideoCaptureServer_setScreenCaptureFrameRate_captureSourceID___block_invoke_cold_2()
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, "VCVideoCaptureServer [%s] %s:%d No screen capture object found", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, "VCVideoCaptureServer [%s] %s:%d No screen capture object found", v2, v3, v4, v5);
 }
 
 - (void)setUpScreenVideoCaptureSource:.cold.1()
@@ -12499,35 +12513,35 @@ void __48__VCVideoCaptureServer_setLocalVideoAttributes___block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_11(&dword_1DB56E000, v0, v1, "VCVideoCaptureServer [%s] %s:%d notifying app of video attributes change", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_11(&dword_1DB56E000, v0, v1, "VCVideoCaptureServer [%s] %s:%d notifying app of video attributes change", v2, v3, v4, v5);
 }
 
 void __48__VCVideoCaptureServer_setLocalVideoAttributes___block_invoke_cold_2()
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_11(&dword_1DB56E000, v0, v1, "VCVideoCaptureServer [%s] %s:%d notifying clients of video attributes change", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_11(&dword_1DB56E000, v0, v1, "VCVideoCaptureServer [%s] %s:%d notifying clients of video attributes change", v2, v3, v4, v5);
 }
 
 void __49__VCVideoCaptureServer_setLocalScreenAttributes___block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_11(&dword_1DB56E000, v0, v1, "VCVideoCaptureServer [%s] %s:%d notifying app of video attributes change", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_11(&dword_1DB56E000, v0, v1, "VCVideoCaptureServer [%s] %s:%d notifying app of video attributes change", v2, v3, v4, v5);
 }
 
 void __49__VCVideoCaptureServer_setLocalScreenAttributes___block_invoke_cold_2()
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_11(&dword_1DB56E000, v0, v1, "VCVideoCaptureServer [%s] %s:%d notifying clients of video attributes change", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_11(&dword_1DB56E000, v0, v1, "VCVideoCaptureServer [%s] %s:%d notifying clients of video attributes change", v2, v3, v4, v5);
 }
 
 - (void)dispatchedSetCaptureCameraWithToken:.cold.1()
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, "VCVideoCaptureServer [%s] %s:%d Invalid cameraUID", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, "VCVideoCaptureServer [%s] %s:%d Invalid cameraUID", v2, v3, v4, v5);
 }
 
 - (void)setBoundsForRemoteLayerWithFacing:frameRect:fenceHandle:.cold.1()
@@ -12543,7 +12557,7 @@ void __49__VCVideoCaptureServer_setLocalScreenAttributes___block_invoke_cold_2()
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, "VCVideoCaptureServer [%s] %s:%d Invalid VCLocalDestinationConfig config", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, "VCVideoCaptureServer [%s] %s:%d Invalid VCLocalDestinationConfig config", v2, v3, v4, v5);
 }
 
 void __49__VCVideoCaptureServer_setLocalVideoDestination___block_invoke_cold_1()
@@ -12559,7 +12573,7 @@ void __63__VCVideoCaptureServer_startPreviewWithWidth_height_frameRate___block_i
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, "VCVideoCaptureServer [%s] %s:%d error creating AVCapture handle", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, "VCVideoCaptureServer [%s] %s:%d error creating AVCapture handle", v2, v3, v4, v5);
 }
 
 void __63__VCVideoCaptureServer_startPreviewWithWidth_height_frameRate___block_invoke_cold_2()
@@ -12664,7 +12678,7 @@ void ___VCVideoCaptureServer_ProcessCaptureSampleBuffer_block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_11(&dword_1DB56E000, v0, v1, "VCVideoCaptureServer [%s] %s:%d sending frame to VideoConference", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_11(&dword_1DB56E000, v0, v1, "VCVideoCaptureServer [%s] %s:%d sending frame to VideoConference", v2, v3, v4, v5);
 }
 
 @end

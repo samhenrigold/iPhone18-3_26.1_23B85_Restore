@@ -74,12 +74,12 @@ uint64_t __38__SPEmbeddingTokenizer_sharedInstance__block_invoke()
 
 - (void)initTokenizer
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   if (!self->_tokenizer)
   {
-    v8 = 0;
-    v3 = [MEMORY[0x277D014C8] TokenizerForRevision:objc_msgSend(MEMORY[0x277D268A0] error:{"csuTokenizerRevision"), &v8}];
-    v4 = v8;
+    v7 = 0;
+    v3 = [MEMORY[0x277D014C8] TokenizerForRevision:objc_msgSend(MEMORY[0x277D268A0] error:{"csuTokenizerRevision"), &v7}];
+    v4 = v7;
     tokenizer = self->_tokenizer;
     self->_tokenizer = v3;
 
@@ -89,13 +89,11 @@ uint64_t __38__SPEmbeddingTokenizer_sharedInstance__block_invoke()
       if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v10 = v4;
+        v9 = v4;
         _os_log_impl(&dword_26B793000, v6, OS_LOG_TYPE_ERROR, "CSU tokenizer initialization failed with error %@", buf, 0xCu);
       }
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (id)getTokenIDsForText:(id)text
@@ -131,10 +129,7 @@ void *__43__SPEmbeddingTokenizer_getTokenIDsForText___block_invoke(uint64_t a1)
   result = *(*(a1 + 32) + 8);
   if (result)
   {
-    v3 = [result getTokenIDsForText:*(a1 + 40)];
-    v4 = *(*(a1 + 48) + 8);
-    v5 = *(v4 + 40);
-    *(v4 + 40) = v3;
+    *(*(*(a1 + 48) + 8) + 40) = [result getTokenIDsForText:*(a1 + 40)];
 
     return MEMORY[0x2821F96F8]();
   }
@@ -175,10 +170,7 @@ void *__41__SPEmbeddingTokenizer_getTokensForText___block_invoke(uint64_t a1)
   result = *(*(a1 + 32) + 8);
   if (result)
   {
-    v3 = [result getTokensForText:*(a1 + 40)];
-    v4 = *(*(a1 + 48) + 8);
-    v5 = *(v4 + 40);
-    *(v4 + 40) = v3;
+    *(*(*(a1 + 48) + 8) + 40) = [result getTokensForText:*(a1 + 40)];
 
     return MEMORY[0x2821F96F8]();
   }

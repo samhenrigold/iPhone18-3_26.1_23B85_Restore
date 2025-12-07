@@ -208,9 +208,9 @@
 - (id)_descriptionWithIndent:(unint64_t)indent
 {
   v4 = objc_alloc(MEMORY[0x1E696AEC0]);
-  v11.receiver = self;
-  v11.super_class = AFExperimentState;
-  v5 = [(AFExperimentState *)&v11 description];
+  v10.receiver = self;
+  v10.super_class = AFExperimentState;
+  v5 = [(AFExperimentState *)&v10 description];
   v6 = v5;
   v7 = @"NO";
   if (self->_didEnd)
@@ -218,10 +218,9 @@
     v7 = @"YES";
   }
 
-  endingGroupIdentifier = self->_endingGroupIdentifier;
-  v9 = [v4 initWithFormat:@"%@ {lastSyncDate = %@, didEnd = %@, endingGroupIdentifier = %@, version = %@}", v5, self->_lastSyncDate, v7, endingGroupIdentifier, self->_version];
+  v8 = [v4 initWithFormat:@"%@ {lastSyncDate = %@, didEnd = %@, endingGroupIdentifier = %@, version = %@}", v5, self->_lastSyncDate, v7, self->_endingGroupIdentifier, self->_version];
 
-  return v9;
+  return v8;
 }
 
 - (AFExperimentState)initWithLastSyncDate:(id)date didEnd:(BOOL)end endingGroupIdentifier:(id)identifier version:(id)version

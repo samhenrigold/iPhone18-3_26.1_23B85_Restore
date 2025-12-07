@@ -1,51 +1,53 @@
-id PHDefaultLog()
+id PHDefaultLog(uint64_t a1)
 {
   if (PHDefaultLog_onceToken != -1)
   {
     PHDefaultLog_cold_1();
   }
 
-  v1 = PHDefaultLog_PHDefaultLog;
+  v2 = PHDefaultLog_PHDefaultLog;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __PHDefaultLog_block_invoke()
 {
-  PHDefaultLog_PHDefaultLog = os_log_create("com.apple.calls.mobilephone", "Default");
+  v0 = os_log_create("com.apple.calls.mobilephone", "Default");
+  PHDefaultLog_PHDefaultLog = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0);
 }
 
-id PHOversizedLog()
+id PHOversizedLog(uint64_t a1)
 {
   if (PHOversizedLog_onceToken != -1)
   {
     PHOversizedLog_cold_1();
   }
 
-  v1 = PHOversizedLog_PHOversizedLog;
+  v2 = PHOversizedLog_PHOversizedLog;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __PHOversizedLog_block_invoke()
 {
-  PHOversizedLog_PHOversizedLog = os_log_create("com.apple.calls.mobilephone", "Oversized");
+  v0 = os_log_create("com.apple.calls.mobilephone", "Oversized");
+  PHOversizedLog_PHOversizedLog = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0);
 }
 
-id PHOversizedLogQueue()
+id PHOversizedLogQueue(uint64_t a1)
 {
   if (PHOversizedLogQueue_onceToken != -1)
   {
     PHOversizedLogQueue_cold_1();
   }
 
-  v1 = PHOversizedLogQueue_PHOversizedLogQueue;
+  v2 = PHOversizedLogQueue_PHOversizedLogQueue;
 
-  return v1;
+  return v2;
 }
 
 void __PHOversizedLogQueue_block_invoke()
@@ -77,37 +79,23 @@ void SettingRequestCallback(uint64_t a1, void *a2, void *a3, uint64_t a4, void *
 
   v14 = v13;
   v15 = [v7 pendingRequestForUniqueSettingType:v13];
+  v16 = v15;
   if (v15)
   {
-    v16 = PHDefaultLog();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    v17 = PHDefaultLog(v15);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
       v21 = 138412802;
       v22 = v8;
       v23 = 2112;
-      v24 = v15;
+      v24 = v16;
       v25 = 2112;
       v26 = v9;
-      _os_log_impl(&dword_23C12D000, v16, OS_LOG_TYPE_DEFAULT, "Request %@ completed with status %@ and response %@", &v21, 0x20u);
+      _os_log_impl(&dword_23C12D000, v17, OS_LOG_TYPE_DEFAULT, "Request %@ completed with status %@ and response %@", &v21, 0x20u);
     }
 
     [v7 receivedRequestResponseForUniqueSettingType:v14];
     if ([v11 isEqualToString:v12])
-    {
-      if (v10)
-      {
-        v17 = v9;
-      }
-
-      else
-      {
-        v17 = 0;
-      }
-
-      [v7 _handleCallForwardingSettings:v17 didAttemptToSet:0 forwardingReason:v14];
-    }
-
-    else if ([v11 isEqualToString:*MEMORY[0x277CC4240]])
     {
       if (v10)
       {
@@ -119,15 +107,10 @@ void SettingRequestCallback(uint64_t a1, void *a2, void *a3, uint64_t a4, void *
         v18 = 0;
       }
 
-      [v7 _handleCallWaitingSettings:v18];
+      [v7 _handleCallForwardingSettings:v18 didAttemptToSet:0 forwardingReason:v14];
     }
 
-    else if ([v11 isEqualToString:*MEMORY[0x277CC4248]])
-    {
-      [v7 _handleCallerIDSettings:v9];
-    }
-
-    else if ([v11 isEqualToString:*MEMORY[0x277CC4258]])
+    else if ([v11 isEqualToString:*MEMORY[0x277CC4240]])
     {
       if (v10)
       {
@@ -139,27 +122,45 @@ void SettingRequestCallback(uint64_t a1, void *a2, void *a3, uint64_t a4, void *
         v19 = 0;
       }
 
-      [v7 _handleSIMLockSettings:v19];
+      [v7 _handleCallWaitingSettings:v19];
+    }
+
+    else if ([v11 isEqualToString:*MEMORY[0x277CC4248]])
+    {
+      [v7 _handleCallerIDSettings:v9];
+    }
+
+    else if ([v11 isEqualToString:*MEMORY[0x277CC4258]])
+    {
+      if (v10)
+      {
+        v20 = v9;
+      }
+
+      else
+      {
+        v20 = 0;
+      }
+
+      [v7 _handleSIMLockSettings:v20];
     }
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void SettingSaveCallback(uint64_t a1, void *a2, void *a3, uint64_t a4, void *a5)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = a5;
-  v10 = PHDefaultLog();
+  v10 = PHDefaultLog(v9);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    v23 = 138412546;
-    v24 = v8;
-    v25 = 2112;
-    v26 = v9;
-    _os_log_impl(&dword_23C12D000, v10, OS_LOG_TYPE_DEFAULT, "SettingSaveCallback: %@: %@", &v23, 0x16u);
+    v22 = 138412546;
+    v23 = v8;
+    v24 = 2112;
+    v25 = v9;
+    _os_log_impl(&dword_23C12D000, v10, OS_LOG_TYPE_DEFAULT, "SettingSaveCallback: %@: %@", &v22, 0x16u);
   }
 
   v11 = [v8 isEqualToString:*MEMORY[0x277CC4228]];
@@ -260,24 +261,22 @@ void SettingSaveCallback(uint64_t a1, void *a2, void *a3, uint64_t a4, void *a5)
   {
     [v12 isEqualToString:*MEMORY[0x277CC4250]];
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 void SettingChangedCallback(uint64_t a1, void *a2, void *a3, uint64_t a4, void *a5)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = a5;
-  v10 = PHDefaultLog();
+  v10 = PHDefaultLog(v9);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    v13 = 138412546;
-    v14 = v8;
-    v15 = 2112;
-    v16 = v9;
-    _os_log_impl(&dword_23C12D000, v10, OS_LOG_TYPE_DEFAULT, "SettingChangedCallback: %@: %@", &v13, 0x16u);
+    v12 = 138412546;
+    v13 = v8;
+    v14 = 2112;
+    v15 = v9;
+    _os_log_impl(&dword_23C12D000, v10, OS_LOG_TYPE_DEFAULT, "SettingChangedCallback: %@: %@", &v12, 0x16u);
   }
 
   v11 = [v9 objectForKeyedSubscript:*MEMORY[0x277CC4230]];
@@ -285,24 +284,22 @@ void SettingChangedCallback(uint64_t a1, void *a2, void *a3, uint64_t a4, void *
   {
     [v7 _handleCallerIDChanged];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void NetworkListCallback(uint64_t a1, void *a2, void *a3, uint64_t a4, void *a5)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = a5;
-  v10 = PHDefaultLog();
+  v10 = PHDefaultLog(v9);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    v14 = 138412546;
-    v15 = v8;
-    v16 = 2112;
-    v17 = v9;
-    _os_log_impl(&dword_23C12D000, v10, OS_LOG_TYPE_DEFAULT, "NetworkListCallback: %@: %@", &v14, 0x16u);
+    v13 = 138412546;
+    v14 = v8;
+    v15 = 2112;
+    v16 = v9;
+    _os_log_impl(&dword_23C12D000, v10, OS_LOG_TYPE_DEFAULT, "NetworkListCallback: %@: %@", &v13, 0x16u);
   }
 
   if ([v8 isEqualToString:*MEMORY[0x277CC3CE8]])
@@ -324,52 +321,46 @@ void NetworkListCallback(uint64_t a1, void *a2, void *a3, uint64_t a4, void *a5)
       [v7 _handleNetworkList:v12];
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void OperatorNameChangeCallback(uint64_t a1, void *a2, void *a3, uint64_t a4, void *a5)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v7 = a3;
   v8 = a5;
   v9 = a2;
-  v10 = PHDefaultLog();
+  v10 = PHDefaultLog(v9);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    v13 = 138412546;
-    v14 = v7;
-    v15 = 2112;
-    v16 = v8;
-    _os_log_impl(&dword_23C12D000, v10, OS_LOG_TYPE_DEFAULT, "OperatorNameChangeCallback: %@: %@", &v13, 0x16u);
+    v12 = 138412546;
+    v13 = v7;
+    v14 = 2112;
+    v15 = v8;
+    _os_log_impl(&dword_23C12D000, v10, OS_LOG_TYPE_DEFAULT, "OperatorNameChangeCallback: %@: %@", &v12, 0x16u);
   }
 
   v11 = [MEMORY[0x277CCAB98] defaultCenter];
   [v11 postNotificationName:@"SettingsTelephonyOperatorNameChangedNotification" object:v9];
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void RadioModuleOffErrorCallback(uint64_t a1, void *a2, void *a3, uint64_t a4, void *a5)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v7 = a3;
   v8 = a5;
   v9 = a2;
-  v10 = PHDefaultLog();
+  v10 = PHDefaultLog(v9);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    v13 = 138412546;
-    v14 = v7;
-    v15 = 2112;
-    v16 = v8;
-    _os_log_impl(&dword_23C12D000, v10, OS_LOG_TYPE_DEFAULT, "RadioModuleOffErrorCallback: %@: %@", &v13, 0x16u);
+    v12 = 138412546;
+    v13 = v7;
+    v14 = 2112;
+    v15 = v8;
+    _os_log_impl(&dword_23C12D000, v10, OS_LOG_TYPE_DEFAULT, "RadioModuleOffErrorCallback: %@: %@", &v12, 0x16u);
   }
 
   v11 = [MEMORY[0x277CCAB98] defaultCenter];
   [v11 postNotificationName:@"SettingsTelephonyRadioModuleOffErrorNotification" object:v9];
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void SIMStatusChangedCallback(uint64_t a1, void *a2, void *a3, uint64_t a4, void *a5)
@@ -379,19 +370,20 @@ void SIMStatusChangedCallback(uint64_t a1, void *a2, void *a3, uint64_t a4, void
   v8 = a3;
   v9 = a5;
   v10 = [v7 simLocked:0];
-  v11 = PHDefaultLog();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  v11 = v10;
+  v12 = PHDefaultLog(v10);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     v14 = 138412802;
     v15 = v8;
     v16 = 2112;
     v17 = v9;
     v18 = 1024;
-    v19 = v10;
-    _os_log_impl(&dword_23C12D000, v11, OS_LOG_TYPE_DEFAULT, "SIMStatusChangedCallback: name: %@ userInfo: %@ currentSimLockedValue: %u", &v14, 0x1Cu);
+    v19 = v11;
+    _os_log_impl(&dword_23C12D000, v12, OS_LOG_TYPE_DEFAULT, "SIMStatusChangedCallback: name: %@ userInfo: %@ currentSimLockedValue: %u", &v14, 0x1Cu);
   }
 
-  if (v10)
+  if (v11)
   {
     if ([v8 isEqualToString:*MEMORY[0x277CC3EB8]])
     {
@@ -401,8 +393,8 @@ void SIMStatusChangedCallback(uint64_t a1, void *a2, void *a3, uint64_t a4, void
 
   else if ([v8 isEqualToString:*MEMORY[0x277CC3EC8]])
   {
-    v12 = [v9 objectForKeyedSubscript:*MEMORY[0x277CC3EC0]];
-    if ([v12 isEqualToString:*MEMORY[0x277CC3ED8]])
+    v13 = [v9 objectForKeyedSubscript:*MEMORY[0x277CC3EC0]];
+    if ([v13 isEqualToString:*MEMORY[0x277CC3ED8]])
     {
       [v7 _simRemoved];
 LABEL_7:
@@ -412,15 +404,15 @@ LABEL_12:
       goto LABEL_13;
     }
 
-    if (![v12 isEqualToString:*MEMORY[0x277CC3F00]])
+    if (![v13 isEqualToString:*MEMORY[0x277CC3F00]])
     {
-      if ([v12 isEqualToString:*MEMORY[0x277CC3EF0]])
+      if ([v13 isEqualToString:*MEMORY[0x277CC3EF0]])
       {
         [v7 _simPUKLocked];
         goto LABEL_7;
       }
 
-      if (![v12 isEqualToString:*MEMORY[0x277CC3EE8]])
+      if (![v13 isEqualToString:*MEMORY[0x277CC3EE8]])
       {
         goto LABEL_12;
       }
@@ -432,24 +424,22 @@ LABEL_12:
   }
 
 LABEL_13:
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void CustomerServiceProfileUpdated(uint64_t a1, void *a2, void *a3, uint64_t a4, void *a5)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = a5;
-  v10 = PHDefaultLog();
+  v10 = PHDefaultLog(v9);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    v14 = 138412546;
-    v15 = v8;
-    v16 = 2112;
-    v17 = v9;
-    _os_log_impl(&dword_23C12D000, v10, OS_LOG_TYPE_DEFAULT, "CustomerServiceProfileUpdated: %@: %@", &v14, 0x16u);
+    v13 = 138412546;
+    v14 = v8;
+    v15 = 2112;
+    v16 = v9;
+    _os_log_impl(&dword_23C12D000, v10, OS_LOG_TYPE_DEFAULT, "CustomerServiceProfileUpdated: %@: %@", &v13, 0x16u);
   }
 
   v11 = [v9 objectForKey:*MEMORY[0x277CC3CF8]];
@@ -459,8 +449,6 @@ void CustomerServiceProfileUpdated(uint64_t a1, void *a2, void *a3, uint64_t a4,
   {
     [v7 _networkSettingsDisabled];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void SIMPhoneBookCallback(uint64_t a1, void *a2, void *a3, uint64_t a4, void *a5)

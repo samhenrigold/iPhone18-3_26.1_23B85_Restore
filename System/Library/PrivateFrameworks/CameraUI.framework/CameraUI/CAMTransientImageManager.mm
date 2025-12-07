@@ -66,7 +66,7 @@
   memset(&v51, 0, sizeof(v51));
   if (convertibleCopy)
   {
-    [convertibleCopy irisStillDisplayTime];
+    objc_msgSend_irisStillDisplayTime(convertibleCopy);
   }
 
   if (irisStillImageUUID && persistenceURL && (v51.flags & 1) != 0)
@@ -121,7 +121,7 @@ LABEL_11:
             {
               v24 = MEMORY[0x1E695DF90];
               v25 = MEMORY[0x1E696B098];
-              [(CAMTransientPairedVideo *)v11 stillDisplayTime];
+              objc_msgSend_stillDisplayTime(v11);
               v26 = [v25 valueWithCMTime:&time];
               v27 = [v24 dictionaryWithObject:v26 forKey:v42];
 
@@ -279,7 +279,7 @@ void __72__CAMTransientImageManager_insertPairedVideoWithConvertible_filterType_
   {
     v10 = MEMORY[0x1E695DF90];
     v11 = MEMORY[0x1E696B098];
-    [v9 stillDisplayTime];
+    objc_msgSend_stillDisplayTime(v9);
     v12 = [v11 valueWithCMTime:location];
     v13 = [v10 dictionaryWithObject:v12 forKey:*MEMORY[0x1E69C49C0]];
 

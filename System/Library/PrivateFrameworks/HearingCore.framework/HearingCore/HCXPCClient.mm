@@ -105,7 +105,7 @@
 - (void)setWantsUpdates:(BOOL)updates forIdentifier:(unint64_t)identifier
 {
   updatesCopy = updates;
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   requestedUpdates = [(HCXPCClient *)self requestedUpdates];
   if (updatesCopy)
   {
@@ -115,11 +115,11 @@
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
         v9 = messageIdentifierDescription(identifier);
-        v14 = 138412546;
+        v13 = 138412546;
         selfCopy2 = self;
-        v16 = 2112;
-        v17 = v9;
-        _os_log_impl(&dword_1D952C000, v8, OS_LOG_TYPE_DEFAULT, "Client %@ wants update for: %@", &v14, 0x16u);
+        v15 = 2112;
+        v16 = v9;
+        _os_log_impl(&dword_1D952C000, v8, OS_LOG_TYPE_DEFAULT, "Client %@ wants update for: %@", &v13, 0x16u);
       }
     }
 
@@ -134,11 +134,11 @@
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
         v12 = messageIdentifierDescription(identifier);
-        v14 = 138412546;
+        v13 = 138412546;
         selfCopy2 = self;
-        v16 = 2112;
-        v17 = v12;
-        _os_log_impl(&dword_1D952C000, v11, OS_LOG_TYPE_DEFAULT, "Client %@ doesn't want update for: %@", &v14, 0x16u);
+        v15 = 2112;
+        v16 = v12;
+        _os_log_impl(&dword_1D952C000, v11, OS_LOG_TYPE_DEFAULT, "Client %@ doesn't want update for: %@", &v13, 0x16u);
       }
     }
 
@@ -146,7 +146,6 @@
   }
 
   [(HCXPCClient *)self setRequestedUpdates:v10];
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)sendMessage:(id)message errorBlock:(id)block
@@ -173,7 +172,7 @@
 
 void __38__HCXPCClient_sendMessage_errorBlock___block_invoke(uint64_t a1)
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) xpcConnection];
 
   if (!v2)
@@ -185,17 +184,17 @@ void __38__HCXPCClient_sendMessage_errorBlock___block_invoke(uint64_t a1)
   v3 = MEMORY[0x1E6988810];
   v4 = [*(a1 + 40) payload];
   v5 = [*(a1 + 40) xpcMessage];
-  v22 = 0;
-  v6 = [v3 copyXPCMessageFromDictionary:v4 inReplyToXPCMessage:v5 error:&v22];
-  v7 = v22;
+  v21 = 0;
+  v6 = [v3 copyXPCMessageFromDictionary:v4 inReplyToXPCMessage:v5 error:&v21];
+  v7 = v21;
 
   if (!v6)
   {
     v8 = MEMORY[0x1E6988810];
     v9 = [*(a1 + 40) payload];
-    v21 = v7;
-    v6 = [v8 copyXPCMessageFromDictionary:v9 inReplyToXPCMessage:0 error:&v21];
-    v10 = v21;
+    v20 = v7;
+    v6 = [v8 copyXPCMessageFromDictionary:v9 inReplyToXPCMessage:0 error:&v20];
+    v10 = v20;
 
     if (!v6)
     {
@@ -224,7 +223,7 @@ LABEL_10:
     if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v24 = v16;
+      v23 = v16;
       _os_log_impl(&dword_1D952C000, v18, OS_LOG_TYPE_DEFAULT, "%@", buf, 0xCu);
     }
 
@@ -255,8 +254,6 @@ LABEL_15:
   }
 
 LABEL_18:
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 @end

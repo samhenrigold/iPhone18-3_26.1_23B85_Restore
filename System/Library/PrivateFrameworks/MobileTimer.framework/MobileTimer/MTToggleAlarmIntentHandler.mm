@@ -2,6 +2,7 @@
 - (BOOL)getEnableStateForAlarm:(id)alarm;
 - (id)_alarmUserActivityWithDisableIntent:(id)intent;
 - (id)_alarmUserActivityWithEnableIntent:(id)intent;
+- (id)updateEnableStateForAlarm:(id)alarm enabled:(BOOL)enabled;
 - (void)_toggleAlarm:(id)alarm alarmIDString:(id)string completion:(id)completion;
 - (void)confirmDisableAlarm:(id)alarm completion:(id)completion;
 - (void)confirmEnableAlarm:(id)alarm completion:(id)completion;
@@ -390,35 +391,22 @@ void __59__MTToggleAlarmIntentHandler_handleToggleAlarm_completion___block_invok
 
 id __68__MTToggleAlarmIntentHandler__toggleAlarm_alarmIDString_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v36[1] = *MEMORY[0x1E69E9840];
+  v35[1] = *MEMORY[0x1E69E9840];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 56));
   v5 = MTLogForCategory(3);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543618;
-    v30 = WeakRetained;
-    v31 = 2114;
-    *v32 = v3;
+    v29 = WeakRetained;
+    v30 = 2114;
+    *v31 = v3;
     _os_log_impl(&dword_1B1F9F000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@ alarm fetch returned alarms: %{public}@", buf, 0x16u);
   }
 
   v6 = *(a1 + 32);
-  if (!v6)
+  if (!v6 || (v26[0] = MEMORY[0x1E69E9820], v26[1] = 3221225472, v26[2] = __68__MTToggleAlarmIntentHandler__toggleAlarm_alarmIDString_completion___block_invoke_11, v26[3] = &unk_1E7B0C6B0, v27 = v6, [v3 na_firstObjectPassingTest:v26], v7 = objc_claimAutoreleasedReturnValue(), v27, !v7))
   {
-    goto LABEL_9;
-  }
-
-  v27[0] = MEMORY[0x1E69E9820];
-  v27[1] = 3221225472;
-  v27[2] = __68__MTToggleAlarmIntentHandler__toggleAlarm_alarmIDString_completion___block_invoke_11;
-  v27[3] = &unk_1E7B0C6B0;
-  v28 = v6;
-  v7 = [v3 na_firstObjectPassingTest:v27];
-
-  if (!v7)
-  {
-LABEL_9:
     v12 = MTLogForCategory(3);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
@@ -427,9 +415,9 @@ LABEL_9:
 
     v13 = MEMORY[0x1E69B3780];
     v14 = MEMORY[0x1E696ABC0];
-    v35 = *MEMORY[0x1E696A588];
-    v36[0] = @"Found no alarm to enable/disable";
-    v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v36 forKeys:&v35 count:1];
+    v34 = *MEMORY[0x1E696A588];
+    v35[0] = @"Found no alarm to enable/disable";
+    v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v35 forKeys:&v34 count:1];
     v15 = [v14 errorWithDomain:@"com.apple.mobiletimer.alarmintent" code:0 userInfo:v7];
     v16 = [v13 futureWithError:v15];
     goto LABEL_18;
@@ -453,11 +441,11 @@ LABEL_13:
       if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543874;
-        v30 = WeakRetained;
-        v31 = 1024;
-        *v32 = v11;
-        *&v32[4] = 2114;
-        *&v32[6] = v7;
+        v29 = WeakRetained;
+        v30 = 1024;
+        *v31 = v11;
+        *&v31[4] = 2114;
+        *&v31[6] = v7;
         _os_log_impl(&dword_1B1F9F000, v17, OS_LOG_TYPE_DEFAULT, "%{public}@ Updating enable state to %i for alarm: %{public}@", buf, 0x1Cu);
       }
 
@@ -482,42 +470,40 @@ LABEL_12:
     goto LABEL_13;
   }
 
-  v23 = MTLogForCategory(3);
-  if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+  v22 = MTLogForCategory(3);
+  if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
   {
-    v24 = *(a1 + 40);
+    v23 = *(a1 + 40);
     *buf = 138544130;
-    v30 = WeakRetained;
-    v31 = 2114;
-    *v32 = v7;
-    *&v32[8] = 2114;
-    *&v32[10] = v24;
-    v33 = 1024;
-    v34 = v8;
-    _os_log_impl(&dword_1B1F9F000, v23, OS_LOG_TYPE_DEFAULT, "%{public}@ Alarm being modified: %{public}@. Enabled state from intent: %{public}@, current alarm enable state: %i", buf, 0x26u);
+    v29 = WeakRetained;
+    v30 = 2114;
+    *v31 = v7;
+    *&v31[8] = 2114;
+    *&v31[10] = v23;
+    v32 = 1024;
+    v33 = v8;
+    _os_log_impl(&dword_1B1F9F000, v22, OS_LOG_TYPE_DEFAULT, "%{public}@ Alarm being modified: %{public}@. Enabled state from intent: %{public}@, current alarm enable state: %i", buf, 0x26u);
   }
 
-  v25 = 1;
+  v24 = 1;
   if (!v8)
   {
-    v25 = 2;
+    v24 = 2;
   }
 
-  *(*(*(a1 + 48) + 8) + 24) = v25;
-  v26 = MTLogForCategory(3);
-  if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+  *(*(*(a1 + 48) + 8) + 24) = v24;
+  v25 = MTLogForCategory(3);
+  if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543618;
-    v30 = WeakRetained;
-    v31 = 2114;
-    *v32 = v7;
-    _os_log_impl(&dword_1B1F9F000, v26, OS_LOG_TYPE_DEFAULT, "%{public}@ alarm state already matches intent state : %{public}@", buf, 0x16u);
+    v29 = WeakRetained;
+    v30 = 2114;
+    *v31 = v7;
+    _os_log_impl(&dword_1B1F9F000, v25, OS_LOG_TYPE_DEFAULT, "%{public}@ alarm state already matches intent state : %{public}@", buf, 0x16u);
   }
 
   v16 = [MEMORY[0x1E69B3780] futureWithNoResult];
 LABEL_19:
-
-  v21 = *MEMORY[0x1E69E9840];
 
   return v16;
 }
@@ -544,6 +530,24 @@ uint64_t __68__MTToggleAlarmIntentHandler__toggleAlarm_alarmIDString_completion_
   }
 
   return sleepSchedule;
+}
+
+- (id)updateEnableStateForAlarm:(id)alarm enabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  alarmCopy = alarm;
+  v6 = [alarmCopy mutableCopy];
+  [v6 setEnabled:enabledCopy];
+  isSleepAlarm = [alarmCopy isSleepAlarm];
+
+  if (isSleepAlarm)
+  {
+    [v6 setSleepSchedule:enabledCopy];
+  }
+
+  v8 = [v6 copy];
+
+  return v8;
 }
 
 - (id)_alarmUserActivityWithEnableIntent:(id)intent
@@ -582,35 +586,31 @@ uint64_t __68__MTToggleAlarmIntentHandler__toggleAlarm_alarmIDString_completion_
 
 - (void)handleEnableAlarm:completion:.cold.1()
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1_0(&dword_1B1F9F000, v0, v1, "%s intent:%@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_0(&dword_1B1F9F000, v0, v1, "%s intent:%@", v2, v3, v4, v5, v6);
 }
 
 - (void)handleDisableAlarm:completion:.cold.1()
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1_0(&dword_1B1F9F000, v0, v1, "%s intent:%@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_0(&dword_1B1F9F000, v0, v1, "%s intent:%@", v2, v3, v4, v5, v6);
 }
 
 - (void)handleToggleAlarm:completion:.cold.1()
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1_0(&dword_1B1F9F000, v0, v1, "%s intent:%@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_0(&dword_1B1F9F000, v0, v1, "%s intent:%@", v2, v3, v4, v5, v6);
 }
 
 void __68__MTToggleAlarmIntentHandler__toggleAlarm_alarmIDString_completion___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_1B1F9F000, a2, OS_LOG_TYPE_ERROR, "%{public}@ found no alarm to enable", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_1B1F9F000, a2, OS_LOG_TYPE_ERROR, "%{public}@ found no alarm to enable", &v2, 0xCu);
 }
 
 @end

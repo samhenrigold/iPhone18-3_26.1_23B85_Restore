@@ -203,41 +203,41 @@ void __33__CODiscoveryManager__timerFired__block_invoke(uint64_t a1)
 
 - (id)_triggerDiscovery_unsafe
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   os_unfair_lock_assert_owner(&self->_lock);
   [(CODiscoveryManager *)self discoveryDelay];
   v4 = v3;
   v5 = clock_gettime_nsec_np(_CLOCK_UPTIME_RAW);
-  v20 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v19 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v6 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   envelopes = [(CODiscoveryManager *)self envelopes];
-  v8 = [envelopes countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v8 = [envelopes countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v8)
   {
     v9 = v8;
     v10 = v5 - (v4 * 1000000000.0);
-    v11 = *v22;
+    v11 = *v21;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v22 != v11)
+        if (*v21 != v11)
         {
           objc_enumerationMutation(envelopes);
         }
 
-        v13 = *(*(&v21 + 1) + 8 * i);
+        v13 = *(*(&v20 + 1) + 8 * i);
         envelopes2 = [(CODiscoveryManager *)self envelopes];
         v15 = [envelopes2 objectForKey:v13];
 
         if ([v15 received] <= v10)
         {
           record = [v15 record];
-          [v20 addObject:record];
+          [v19 addObject:record];
         }
 
         else
@@ -246,7 +246,7 @@ void __33__CODiscoveryManager__timerFired__block_invoke(uint64_t a1)
         }
       }
 
-      v9 = [envelopes countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v9 = [envelopes countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v9);
@@ -255,9 +255,7 @@ void __33__CODiscoveryManager__timerFired__block_invoke(uint64_t a1)
   v17 = [MEMORY[0x277CBEAC0] dictionaryWithDictionary:v6];
   [(CODiscoveryManager *)self setEnvelopes:v17];
 
-  v18 = *MEMORY[0x277D85DE8];
-
-  return v20;
+  return v19;
 }
 
 - (void)_configureTimer

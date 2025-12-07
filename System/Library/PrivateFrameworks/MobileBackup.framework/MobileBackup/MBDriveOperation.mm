@@ -1,4 +1,7 @@
 @interface MBDriveOperation
++ (id)operationWithType:(int)type count:(int64_t)count duration:(double)duration;
++ (id)operationWithType:(int)type count:(int64_t)count size:(int64_t)size duration:(double)duration;
++ (id)operationWithType:(int)type duration:(double)duration;
 + (id)stringForType:(int)type;
 - (MBDriveOperation)initWithType:(int)type count:(int64_t)count size:(int64_t)size duration:(double)duration;
 - (id)description;
@@ -17,6 +20,27 @@
   {
     return off_1003BFC28[type];
   }
+}
+
++ (id)operationWithType:(int)type duration:(double)duration
+{
+  v4 = [[MBDriveOperation alloc] initWithType:*&type count:1 size:-1 duration:duration];
+
+  return v4;
+}
+
++ (id)operationWithType:(int)type count:(int64_t)count duration:(double)duration
+{
+  v5 = [[MBDriveOperation alloc] initWithType:*&type count:count size:-1 duration:duration];
+
+  return v5;
+}
+
++ (id)operationWithType:(int)type count:(int64_t)count size:(int64_t)size duration:(double)duration
+{
+  v6 = [[MBDriveOperation alloc] initWithType:*&type count:count size:size duration:duration];
+
+  return v6;
 }
 
 - (MBDriveOperation)initWithType:(int)type count:(int64_t)count size:(int64_t)size duration:(double)duration

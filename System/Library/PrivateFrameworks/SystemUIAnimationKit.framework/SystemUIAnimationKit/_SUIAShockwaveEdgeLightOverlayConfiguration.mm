@@ -338,15 +338,15 @@
       gradientLayerSize2 = [edgeLightInitialCircleMask gradientLayerSize];
       [gradientLayerSize2 sizeValue];
       BSRectWithSize();
-      v74 = v58;
-      v75 = v57;
-      v72 = v60;
-      v73 = v59;
+      v75 = v58;
+      v76 = v57;
+      v73 = v60;
+      v74 = v59;
 
-      v39 = SAUIRectMovedOffscreenByProportionToNormalizedButtonRectInContextOfShockwaveBounds(v75, v74, v73, v72, 0.5, v61, v62, v63, v18, v17, v16, v15, x, y, width, height);
-      v41 = v64;
-      v43 = v65;
-      v45 = v66;
+      v39 = SAUIRectMovedOffscreenByProportionToNormalizedButtonRectInContextOfShockwaveBounds(v76, v75, v74, v73, 0.5, v62, v63, v64, v61, v18, v17, v16, v15, x, y, width, height);
+      v41 = v65;
+      v43 = v66;
+      v45 = v67;
       if (!radius)
       {
         goto LABEL_11;
@@ -354,7 +354,7 @@
     }
 
     [edgeLightInitialCircleMask majorDiameter];
-    v50 = v67 * 0.5;
+    v50 = v68 * 0.5;
     goto LABEL_10;
   }
 
@@ -370,11 +370,11 @@
 
   [edgeLightInitialCircleMask innerRadius];
   v36 = v34 / v35;
-  v76.origin.x = v25;
-  v76.origin.y = v27;
-  v76.size.width = v29;
-  v76.size.height = v31;
-  v37 = v36 * CGRectGetWidth(v76);
+  v77.origin.x = v25;
+  v77.origin.y = v27;
+  v77.size.width = v29;
+  v77.size.height = v31;
+  v37 = v36 * CGRectGetWidth(v77);
   BSRectWithSize();
   UIRectGetCenter();
   BSRectCenteredAboutPoint();
@@ -397,14 +397,14 @@ LABEL_10:
 LABEL_11:
 
 LABEL_12:
-  v68 = v39;
-  v69 = v41;
-  v70 = v43;
-  v71 = v45;
-  result.size.height = v71;
-  result.size.width = v70;
-  result.origin.y = v69;
-  result.origin.x = v68;
+  v69 = v39;
+  v70 = v41;
+  v71 = v43;
+  v72 = v45;
+  result.size.height = v72;
+  result.size.width = v71;
+  result.origin.y = v70;
+  result.origin.x = v69;
   return result;
 }
 

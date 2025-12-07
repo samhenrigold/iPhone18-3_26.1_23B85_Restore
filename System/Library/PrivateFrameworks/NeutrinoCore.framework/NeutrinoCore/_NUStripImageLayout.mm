@@ -51,7 +51,7 @@
 {
   v8 = 0u;
   v9 = 0u;
-  [(_NUStripImageLayout *)self contentRectForTileAtIndex:?];
+  objc_msgSend_contentRectForTileAtIndex_(self, a2);
   v7[0] = v8;
   v7[1] = v9;
   v6[0] = v8;

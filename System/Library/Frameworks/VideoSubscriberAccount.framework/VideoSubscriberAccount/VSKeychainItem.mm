@@ -132,9 +132,11 @@
 {
   if (self->_primitiveValues != values)
   {
-    self->_primitiveValues = [values mutableCopy];
+    v5 = [values mutableCopy];
+    primitiveValues = self->_primitiveValues;
+    self->_primitiveValues = v5;
 
-    MEMORY[0x2821F96F8]();
+    MEMORY[0x2821F96F8](v5, primitiveValues);
   }
 }
 

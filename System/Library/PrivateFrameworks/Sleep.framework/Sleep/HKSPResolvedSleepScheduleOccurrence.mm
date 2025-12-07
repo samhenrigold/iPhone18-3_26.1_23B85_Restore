@@ -220,18 +220,18 @@ LABEL_11:
 
 - (id)generateOverrideOccurrenceForCurrentDate:(id)date gregorianCalendar:(id)calendar
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   dateCopy = date;
   calendarCopy = calendar;
   v8 = HKSPLogForCategory(0);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v33 = 138543618;
-    v34 = objc_opt_class();
-    v35 = 2114;
-    v36 = dateCopy;
-    v9 = v34;
-    _os_log_impl(&dword_269A84000, v8, OS_LOG_TYPE_DEFAULT, "[%{public}@] generating override occurrence for current date %{public}@", &v33, 0x16u);
+    v32 = 138543618;
+    v33 = objc_opt_class();
+    v34 = 2114;
+    v35 = dateCopy;
+    v9 = v33;
+    _os_log_impl(&dword_269A84000, v8, OS_LOG_TYPE_DEFAULT, "[%{public}@] generating override occurrence for current date %{public}@", &v32, 0x16u);
   }
 
   scheduledInterval = [(HKSPResolvedSleepScheduleOccurrence *)self scheduledInterval];
@@ -244,8 +244,8 @@ LABEL_11:
     if (v13)
     {
       v21 = objc_opt_class();
-      v33 = 138543362;
-      v34 = v21;
+      v32 = 138543362;
+      v33 = v21;
       v19 = v21;
       v20 = "[%{public}@] date is outside this occurrence's interval, generating override from template";
       goto LABEL_11;
@@ -264,10 +264,10 @@ LABEL_12:
   if (v13)
   {
     v14 = objc_opt_class();
-    v33 = 138543362;
-    v34 = v14;
+    v32 = 138543362;
+    v33 = v14;
     v15 = v14;
-    _os_log_impl(&dword_269A84000, v12, OS_LOG_TYPE_DEFAULT, "[%{public}@] current date is inside this occurrence's interval, generating override for this occurrence", &v33, 0xCu);
+    _os_log_impl(&dword_269A84000, v12, OS_LOG_TYPE_DEFAULT, "[%{public}@] current date is inside this occurrence's interval, generating override for this occurrence", &v32, 0xCu);
   }
 
   wakeUpEvent = [(HKSPResolvedSleepScheduleOccurrence *)self wakeUpEvent];
@@ -279,12 +279,12 @@ LABEL_12:
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       v18 = objc_opt_class();
-      v33 = 138543362;
-      v34 = v18;
+      v32 = 138543362;
+      v33 = v18;
       v19 = v18;
       v20 = "[%{public}@] this occurrence is snoozed, generating overide from template";
 LABEL_11:
-      _os_log_impl(&dword_269A84000, v12, OS_LOG_TYPE_DEFAULT, v20, &v33, 0xCu);
+      _os_log_impl(&dword_269A84000, v12, OS_LOG_TYPE_DEFAULT, v20, &v32, 0xCu);
 
       goto LABEL_12;
     }
@@ -298,13 +298,12 @@ LABEL_11:
   occurrence2 = [(HKSPResolvedSleepScheduleOccurrence *)self occurrence];
   occurrence = [occurrence2 bedtimeDateForWakeUpDate:startDate gregorianCalendar:calendarCopy];
 
-  v30 = [calendarCopy components:124 fromDate:startDate];
-  v31 = [calendarCopy components:124 fromDate:occurrence];
+  v29 = [calendarCopy components:124 fromDate:startDate];
+  v30 = [calendarCopy components:124 fromDate:occurrence];
   occurrence3 = [(HKSPResolvedSleepScheduleOccurrence *)self occurrence];
-  v25 = [occurrence3 overrideOccurrenceWithWakeUpComponents:v30 bedtimeComponents:v31];
+  v25 = [occurrence3 overrideOccurrenceWithWakeUpComponents:v29 bedtimeComponents:v30];
 
 LABEL_13:
-  v26 = *MEMORY[0x277D85DE8];
 
   return v25;
 }

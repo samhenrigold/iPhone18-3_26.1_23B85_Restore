@@ -384,126 +384,124 @@
 {
   timestampCopy = timestamp;
   v5 = mach_absolute_time();
-  clock = self->_clock;
   objc_opt_class();
   isKindOfClass = objc_opt_isKindOfClass();
-  v8 = self->_clock;
+  clock = self->_clock;
   if (isKindOfClass)
   {
-    v9 = [(TSClock *)v8 convertFromMachAbsoluteToDomainTime:v5 grandmasterUsed:&self->_lastGrandmasterIdentity portNumber:&self->_lastPortNumber];
+    v8 = [(TSClock *)clock convertFromMachAbsoluteToDomainTime:v5 grandmasterUsed:&self->_lastGrandmasterIdentity portNumber:&self->_lastPortNumber];
   }
 
   else
   {
-    v9 = [(TSClock *)v8 convertFromMachAbsoluteToDomainTime:v5];
+    v8 = [(TSClock *)clock convertFromMachAbsoluteToDomainTime:v5];
   }
 
-  if (v9 == TSInvalidTime)
+  if (v8 == TSInvalidTime)
   {
-    v10 = self->_clock;
+    v9 = self->_clock;
     loggingQueue = self->_loggingQueue;
-    v41[0] = _NSConcreteStackBlock;
-    v41[1] = 3221225472;
-    v41[2] = sub_59C8;
-    v41[3] = &unk_C588;
-    v41[4] = self;
-    v42 = v10;
-    v12 = v10;
-    dispatch_async(loggingQueue, v41);
+    v35[0] = _NSConcreteStackBlock;
+    v35[1] = 3221225472;
+    v35[2] = sub_59C8;
+    v35[3] = &unk_C588;
+    v35[4] = self;
+    v36 = v9;
+    v11 = v9;
+    dispatch_async(loggingQueue, v35);
   }
 
   else
   {
-    self->_lastDomainTimestamp = 260000000 * (v9 / 0xF7F4900);
-    v13 = self->_clock;
+    self->_lastDomainTimestamp = 260000000 * (v8 / 0xF7F4900);
     objc_opt_class();
-    v14 = &NSObject__properties;
+    v12 = &NSObject__properties;
     if (objc_opt_isKindOfClass())
     {
-      v59 = TSNullgPTPClockIdentity;
-      v60[0] = TSNullgPTPClockIdentity;
-      v58 = -1;
-      v57 = -1;
-      self->_lastMachTimestamp = [(TSClock *)self->_clock convertFromDomainToMachAbsoluteTime:self->_lastDomainTimestamp grandmasterUsed:v60 portNumber:&v58];
-      v15 = [(TSClock *)self->_clock convertFromDomainToMachAbsoluteTime:self->_lastDomainTimestamp + 290000000 grandmasterUsed:&v59 portNumber:&v57];
-      v16 = v60[0];
-      if (v60[0] == v59 && v58 == v57)
+      v53 = TSNullgPTPClockIdentity;
+      v54[0] = TSNullgPTPClockIdentity;
+      v52 = -1;
+      v51 = -1;
+      self->_lastMachTimestamp = [(TSClock *)self->_clock convertFromDomainToMachAbsoluteTime:self->_lastDomainTimestamp grandmasterUsed:v54 portNumber:&v52];
+      v13 = [(TSClock *)self->_clock convertFromDomainToMachAbsoluteTime:self->_lastDomainTimestamp + 290000000 grandmasterUsed:&v53 portNumber:&v51];
+      v14 = v54[0];
+      if (v54[0] == v53 && v52 == v51)
       {
-        290000000 = v15;
+        290000000 = v13;
       }
 
       else
       {
-        v18 = self->_loggingQueue;
+        v16 = self->_loggingQueue;
         block[0] = _NSConcreteStackBlock;
         block[1] = 3221225472;
         block[2] = sub_5584;
         block[3] = &unk_C4B0;
-        v55 = v58;
-        block[4] = v60[0];
-        block[5] = v59;
-        v56 = v57;
-        dispatch_async(v18, block);
-        self->_lastMachTimestamp = [(TSClock *)self->_clock convertFromDomainToMachAbsoluteTime:self->_lastDomainTimestamp grandmasterUsed:v60 portNumber:&v58];
-        290000000 = [(TSClock *)self->_clock convertFromDomainToMachAbsoluteTime:self->_lastDomainTimestamp + 290000000 grandmasterUsed:&v59 portNumber:&v57];
-        v16 = v60[0];
-        if (v60[0] != v59 || v58 != v57)
+        v49 = v52;
+        block[4] = v54[0];
+        block[5] = v53;
+        v50 = v51;
+        dispatch_async(v16, block);
+        self->_lastMachTimestamp = [(TSClock *)self->_clock convertFromDomainToMachAbsoluteTime:self->_lastDomainTimestamp grandmasterUsed:v54 portNumber:&v52];
+        290000000 = [(TSClock *)self->_clock convertFromDomainToMachAbsoluteTime:self->_lastDomainTimestamp + 290000000 grandmasterUsed:&v53 portNumber:&v51];
+        v14 = v54[0];
+        if (v54[0] != v53 || v52 != v51)
         {
-          v19 = self->_loggingQueue;
-          v51[0] = _NSConcreteStackBlock;
-          v51[1] = 3221225472;
-          v51[2] = sub_5650;
-          v51[3] = &unk_C4B0;
-          v52 = v58;
-          v51[4] = v60[0];
-          v51[5] = v59;
-          v53 = v57;
-          dispatch_async(v19, v51);
-          v16 = v60[0];
+          v17 = self->_loggingQueue;
+          v45[0] = _NSConcreteStackBlock;
+          v45[1] = 3221225472;
+          v45[2] = sub_5650;
+          v45[3] = &unk_C4B0;
+          v46 = v52;
+          v45[4] = v54[0];
+          v45[5] = v53;
+          v47 = v51;
+          dispatch_async(v17, v45);
+          v14 = v54[0];
         }
       }
 
-      if (self->_lastGrandmasterIdentity != v16 || self->_lastPortNumber != v58)
+      if (self->_lastGrandmasterIdentity != v14 || self->_lastPortNumber != v52)
       {
         self->_lastDomainTimestamp = 260000000 * ([(TSClock *)self->_clock convertFromMachAbsoluteToDomainTime:v5 grandmasterUsed:&self->_lastGrandmasterIdentity portNumber:&self->_lastPortNumber]/ 0xF7F4900);
         self->_lastMachTimestamp = [TSClock convertFromDomainToMachAbsoluteTime:"convertFromDomainToMachAbsoluteTime:grandmasterUsed:portNumber:" grandmasterUsed:? portNumber:?];
-        v20 = [(TSClock *)self->_clock convertFromDomainToMachAbsoluteTime:self->_lastDomainTimestamp + 290000000 grandmasterUsed:&v59 portNumber:&v57];
-        if (v60[0] == v59 && v58 == v57)
+        v18 = [(TSClock *)self->_clock convertFromDomainToMachAbsoluteTime:self->_lastDomainTimestamp + 290000000 grandmasterUsed:&v53 portNumber:&v51];
+        if (v54[0] == v53 && v52 == v51)
         {
-          290000000 = v20;
+          290000000 = v18;
         }
 
         else
         {
-          v21 = self->_loggingQueue;
-          v48[0] = _NSConcreteStackBlock;
-          v48[1] = 3221225472;
-          v48[2] = sub_571C;
-          v48[3] = &unk_C4B0;
-          v49 = v58;
-          v48[4] = v60[0];
-          v48[5] = v59;
-          v50 = v57;
-          dispatch_async(v21, v48);
-          self->_lastMachTimestamp = [(TSClock *)self->_clock convertFromDomainToMachAbsoluteTime:self->_lastDomainTimestamp grandmasterUsed:v60 portNumber:&v58];
-          290000000 = [(TSClock *)self->_clock convertFromDomainToMachAbsoluteTime:self->_lastDomainTimestamp + 290000000 grandmasterUsed:&v59 portNumber:&v57];
-          if (v60[0] != v59 || v58 != v57)
+          v19 = self->_loggingQueue;
+          v42[0] = _NSConcreteStackBlock;
+          v42[1] = 3221225472;
+          v42[2] = sub_571C;
+          v42[3] = &unk_C4B0;
+          v43 = v52;
+          v42[4] = v54[0];
+          v42[5] = v53;
+          v44 = v51;
+          dispatch_async(v19, v42);
+          self->_lastMachTimestamp = [(TSClock *)self->_clock convertFromDomainToMachAbsoluteTime:self->_lastDomainTimestamp grandmasterUsed:v54 portNumber:&v52];
+          290000000 = [(TSClock *)self->_clock convertFromDomainToMachAbsoluteTime:self->_lastDomainTimestamp + 290000000 grandmasterUsed:&v53 portNumber:&v51];
+          if (v54[0] != v53 || v52 != v51)
           {
-            v22 = self->_loggingQueue;
-            v45[0] = _NSConcreteStackBlock;
-            v45[1] = 3221225472;
-            v45[2] = sub_57E8;
-            v45[3] = &unk_C4B0;
-            v46 = v58;
-            v45[4] = v60[0];
-            v45[5] = v59;
-            v47 = v57;
-            dispatch_async(v22, v45);
+            v20 = self->_loggingQueue;
+            v39[0] = _NSConcreteStackBlock;
+            v39[1] = 3221225472;
+            v39[2] = sub_57E8;
+            v39[3] = &unk_C4B0;
+            v40 = v52;
+            v39[4] = v54[0];
+            v39[5] = v53;
+            v41 = v51;
+            dispatch_async(v20, v39);
           }
         }
       }
 
-      v14 = &NSObject__properties;
+      v12 = &NSObject__properties;
     }
 
     else
@@ -513,46 +511,42 @@
     }
 
     self->_lastSampleTime = 0;
-    lastDomainTimestamp = self->_lastDomainTimestamp;
     self->_lastFilteredTimestamp = [(TSIntervalFilter *)self->_intervalFilter addTimestamp:self->_lastMachTimestamp, self->_lastMachTimestamp];
     self->_lastFilteredInterval = 0;
     lastSampleTime = self->_lastSampleTime;
     lastFilteredTimestamp = self->_lastFilteredTimestamp;
     lastSeed = self->_lastSeed;
-    v27 = atomic_load(&self->_timestamp.mTimestampIndex.__a_.__a_value);
-    v28 = (v27 + 1) % self->_timestamp.mNumberOfSlots;
-    v29 = (self->_timestamp.mTimestamps.__begin_ + 24 * v28);
-    *v29 = lastSampleTime;
-    v29[1] = lastFilteredTimestamp;
-    v29[2] = lastSeed;
-    atomic_store(v28, &self->_timestamp.mTimestampIndex.__a_.__a_value);
+    v24 = atomic_load(&self->_timestamp.mTimestampIndex.__a_.__a_value);
+    v25 = (v24 + 1) % self->_timestamp.mNumberOfSlots;
+    v26 = (self->_timestamp.mTimestamps.__begin_ + 24 * v25);
+    *v26 = lastSampleTime;
+    v26[1] = lastFilteredTimestamp;
+    v26[2] = lastSeed;
+    atomic_store(v25, &self->_timestamp.mTimestampIndex.__a_.__a_value);
     lastGrandmasterIdentity = self->_lastGrandmasterIdentity;
     LOWORD(lastSampleTime) = self->_lastPortNumber;
     lastMachTimestamp = self->_lastMachTimestamp;
-    v32 = self->_lastDomainTimestamp;
-    v33 = self->_lastSampleTime;
-    v34 = self->_lastFilteredTimestamp;
-    v35 = *&self->ASDClockDevice_opaque[v14[443].entrysize];
-    v43[0] = _NSConcreteStackBlock;
-    v43[1] = 3221225472;
-    v43[2] = sub_58B4;
-    v43[3] = &unk_C670;
-    v43[4] = self;
-    v43[5] = v33;
-    v43[6] = v34;
-    v43[7] = lastGrandmasterIdentity;
-    v44 = lastSampleTime;
-    v43[8] = v32;
-    v43[9] = lastMachTimestamp;
-    dispatch_async(v35, v43);
+    lastDomainTimestamp = self->_lastDomainTimestamp;
+    v30 = self->_lastSampleTime;
+    v31 = self->_lastFilteredTimestamp;
+    v32 = *&self->ASDClockDevice_opaque[v12[443].entrysize];
+    v37[0] = _NSConcreteStackBlock;
+    v37[1] = 3221225472;
+    v37[2] = sub_58B4;
+    v37[3] = &unk_C670;
+    v37[4] = self;
+    v37[5] = v30;
+    v37[6] = v31;
+    v37[7] = lastGrandmasterIdentity;
+    v38 = lastSampleTime;
+    v37[8] = lastDomainTimestamp;
+    v37[9] = lastMachTimestamp;
+    dispatch_async(v32, v37);
     [(ATSACCAClockDevice *)self clockIdentifier];
-    v36 = self->_lastSampleTime;
-    v37 = self->_lastFilteredTimestamp;
-    v38 = self->_lastGrandmasterIdentity;
     kdebug_trace();
     self->_hasLastTimestamp = 1;
-    v39 = +[TSClockManager sharedClockManager];
-    self->_lastMachInterval = [v39 machAbsoluteNanosecondsToTicks:260000000];
+    v33 = +[TSClockManager sharedClockManager];
+    self->_lastMachInterval = [v33 machAbsoluteNanosecondsToTicks:260000000];
 
     self->_dispatchTime = 290000000;
     dispatch_source_set_timer(timestampCopy, 290000000, 0xFFFFFFFFFFFFFFFFLL, 0);
@@ -581,7 +575,9 @@
 {
   p_timestamp = &self->_timestamp;
   self->_timestamp.mNumberOfSlots = 4;
-  sub_6088(&self->_timestamp.mTimestamps.__begin_, 4uLL);
+  v5 = 0uLL;
+  v6 = 0;
+  sub_6088(&self->_timestamp.mTimestamps, 4uLL, &v5);
   p_timestamp->mTimestampIndex.__a_.__a_value = 0;
   return self;
 }

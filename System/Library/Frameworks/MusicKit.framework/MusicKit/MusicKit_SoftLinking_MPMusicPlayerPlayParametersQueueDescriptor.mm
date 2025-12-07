@@ -12,71 +12,70 @@
 
 - (MusicKit_SoftLinking_MPMusicPlayerPlayParametersQueueDescriptor)initWithPlayParametersQueue:(id)queue
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   queueCopy = queue;
-  v23.receiver = self;
-  v23.super_class = MusicKit_SoftLinking_MPMusicPlayerPlayParametersQueueDescriptor;
-  v5 = [(MusicKit_SoftLinking_MPMusicPlayerPlayParametersQueueDescriptor *)&v23 init];
+  v22.receiver = self;
+  v22.super_class = MusicKit_SoftLinking_MPMusicPlayerPlayParametersQueueDescriptor;
+  v5 = [(MusicKit_SoftLinking_MPMusicPlayerPlayParametersQueueDescriptor *)&v22 init];
   if (v5)
   {
     v6 = objc_alloc_init(MEMORY[0x277CBEB18]);
-    v21 = 0u;
-    v22 = 0u;
-    v19 = 0u;
     v20 = 0u;
+    v21 = 0u;
+    v18 = 0u;
+    v19 = 0u;
     v7 = queueCopy;
-    v8 = [v7 countByEnumeratingWithState:&v19 objects:v29 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v18 objects:v28 count:16];
     if (v8)
     {
-      v9 = *v20;
+      v9 = *v19;
       do
       {
         v10 = 0;
         do
         {
-          if (*v20 != v9)
+          if (*v19 != v9)
           {
             objc_enumerationMutation(v7);
           }
 
-          _underlyingPlayParameters = [*(*(&v19 + 1) + 8 * v10) _underlyingPlayParameters];
+          _underlyingPlayParameters = [*(*(&v18 + 1) + 8 * v10) _underlyingPlayParameters];
           [v6 addObject:_underlyingPlayParameters];
 
           ++v10;
         }
 
         while (v8 != v10);
-        v8 = [v7 countByEnumeratingWithState:&v19 objects:v29 count:16];
+        v8 = [v7 countByEnumeratingWithState:&v18 objects:v28 count:16];
       }
 
       while (v8);
     }
 
     v12 = [v6 copy];
-    v25 = 0;
-    v26 = &v25;
-    v27 = 0x2050000000;
+    v24 = 0;
+    v25 = &v24;
+    v26 = 0x2050000000;
     v13 = getMPMusicPlayerPlayParametersQueueDescriptorClass_softClass;
-    v28 = getMPMusicPlayerPlayParametersQueueDescriptorClass_softClass;
+    v27 = getMPMusicPlayerPlayParametersQueueDescriptorClass_softClass;
     if (!getMPMusicPlayerPlayParametersQueueDescriptorClass_softClass)
     {
-      v24[0] = MEMORY[0x277D85DD0];
-      v24[1] = 3221225472;
-      v24[2] = __getMPMusicPlayerPlayParametersQueueDescriptorClass_block_invoke;
-      v24[3] = &unk_278229610;
-      v24[4] = &v25;
-      __getMPMusicPlayerPlayParametersQueueDescriptorClass_block_invoke(v24);
-      v13 = v26[3];
+      v23[0] = MEMORY[0x277D85DD0];
+      v23[1] = 3221225472;
+      v23[2] = __getMPMusicPlayerPlayParametersQueueDescriptorClass_block_invoke;
+      v23[3] = &unk_278229610;
+      v23[4] = &v24;
+      __getMPMusicPlayerPlayParametersQueueDescriptorClass_block_invoke(v23);
+      v13 = v25[3];
     }
 
     v14 = v13;
-    _Block_object_dispose(&v25, 8);
+    _Block_object_dispose(&v24, 8);
     v15 = [[v13 alloc] initWithPlayParametersQueue:v12];
     underlyingQueueDescriptor = v5->_underlyingQueueDescriptor;
     v5->_underlyingQueueDescriptor = v15;
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -87,17 +86,20 @@
   if (playActivityFeatureName != nameCopy)
   {
     v8 = nameCopy;
-    if (([(NSString *)playActivityFeatureName isEqual:nameCopy]& 1) == 0)
+    playActivityFeatureName = [playActivityFeatureName isEqual:nameCopy];
+    nameCopy = v8;
+    if ((playActivityFeatureName & 1) == 0)
     {
-      v6 = [(NSString *)v8 copy];
+      v6 = [v8 copy];
       v7 = self->_playActivityFeatureName;
       self->_playActivityFeatureName = v6;
 
-      [(MPMusicPlayerPlayParametersQueueDescriptor *)self->_underlyingQueueDescriptor setPlayActivityFeatureName:v8];
+      playActivityFeatureName = [(MPMusicPlayerPlayParametersQueueDescriptor *)self->_underlyingQueueDescriptor setPlayActivityFeatureName:v8];
+      nameCopy = v8;
     }
   }
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](playActivityFeatureName, nameCopy);
 }
 
 - (void)setPlayActivityRecommendationData:(id)data
@@ -107,17 +109,20 @@
   if (playActivityRecommendationData != dataCopy)
   {
     v8 = dataCopy;
-    if (([(NSData *)playActivityRecommendationData isEqual:dataCopy]& 1) == 0)
+    playActivityRecommendationData = [playActivityRecommendationData isEqual:dataCopy];
+    dataCopy = v8;
+    if ((playActivityRecommendationData & 1) == 0)
     {
-      v6 = [(NSData *)v8 copy];
+      v6 = [v8 copy];
       v7 = self->_playActivityRecommendationData;
       self->_playActivityRecommendationData = v6;
 
-      [(MPMusicPlayerPlayParametersQueueDescriptor *)self->_underlyingQueueDescriptor setPlayActivityRecommendationData:v8];
+      playActivityRecommendationData = [(MPMusicPlayerPlayParametersQueueDescriptor *)self->_underlyingQueueDescriptor setPlayActivityRecommendationData:v8];
+      dataCopy = v8;
     }
   }
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](playActivityRecommendationData, dataCopy);
 }
 
 - (void)setStartItemPlayParameters:(id)parameters

@@ -780,38 +780,38 @@ void sub_1000046E0(id a1)
   _objc_release_x1();
 }
 
-intptr_t sub_100004CF8(uint64_t a1)
+intptr_t sub_100004CF8(uint64_t a1, uint64_t a2)
 {
   __ICOSLogCreate();
-  v2 = @"closeDevice";
+  v3 = @"closeDevice";
   if ([@"closeDevice" length] >= 0x15)
   {
-    v3 = [@"closeDevice" substringWithRange:{0, 18}];
-    v2 = [v3 stringByAppendingString:@".."];
+    v4 = [@"closeDevice" substringWithRange:{0, 18}];
+    v3 = [v4 stringByAppendingString:@".."];
   }
 
-  v4 = [*(a1 + 32) cameraDictionary];
-  v5 = [v4 objectForKeyedSubscript:@"ICDeviceName"];
-  v6 = [NSString stringWithFormat:@">>> Issuing Close: %@", v5];
+  v5 = [*(a1 + 32) cameraDictionary];
+  v6 = [v5 objectForKeyedSubscript:@"ICDeviceName"];
+  v7 = [NSString stringWithFormat:@">>> Issuing Close: %@", v6];
 
-  v7 = _gICOSLog;
+  v8 = _gICOSLog;
   if (os_log_type_enabled(_gICOSLog, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = v2;
-    v9 = v7;
+    v9 = v3;
+    v10 = v8;
     *buf = 136446466;
-    v14 = [(__CFString *)v2 UTF8String];
-    v15 = 2114;
-    v16 = v6;
-    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
+    v15 = [(__CFString *)v3 UTF8String];
+    v16 = 2114;
+    v17 = v7;
+    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
   }
 
-  v10 = [*(a1 + 32) initiator];
+  v11 = [*(a1 + 32) initiator];
 
-  if (v10)
+  if (v11)
   {
-    v11 = [*(a1 + 32) initiator];
-    [v11 stop];
+    v12 = [*(a1 + 32) initiator];
+    [v12 stop];
   }
 
   return dispatch_semaphore_signal(*(a1 + 40));
@@ -1427,9 +1427,9 @@ void sub_10000856C(uint64_t a1)
   [v4 sendStatusNotification:v3 toConnections:v6];
 }
 
-void sub_10000BF88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10000BF88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1939,11 +1939,12 @@ void sub_100010DE0(void (**a1)(void))
   }
 }
 
-void sub_100011684(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, char a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, id location, char a25)
+void sub_100011684(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, char a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, id location, ...)
 {
+  va_start(va, location);
   objc_destroyWeak(&a23);
   objc_destroyWeak(&location);
-  _Block_object_dispose(&a25, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -2089,10 +2090,11 @@ void sub_1000128B8(uint64_t a1)
   (*(v1 + 2))(v1, *(a1 + 48), *(a1 + 40));
 }
 
-void sub_10001292C(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_10001292C(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x16u);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
 }
 
 uint64_t sub_10001294C(uint64_t result, uint64_t a2, uint64_t a3, float a4)
@@ -2116,10 +2118,11 @@ void sub_10001297C(void *a1@<X0>, const char *a2@<X3>, uint8_t *a3@<X4>, NSObjec
   _os_log_error_impl(a1, a4, OS_LOG_TYPE_ERROR, a2, a3, 0x16u);
 }
 
-void sub_1000138F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, char a30)
+void sub_1000138F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, ...)
 {
-  _Block_object_dispose((v30 - 160), 8);
-  _Block_object_dispose(&a30, 8);
+  va_start(va, a29);
+  _Block_object_dispose((v29 - 160), 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -2741,32 +2744,32 @@ void sub_10001C160(void *a1, io_iterator_t a2)
   }
 }
 
-void sub_10001C854(uint64_t a1)
+void sub_10001C854(uint64_t a1, uint64_t a2)
 {
   __ICOSLogCreate();
-  v2 = @"cameraRest";
+  v3 = @"cameraRest";
   if ([@"cameraRest" length] >= 0x15)
   {
-    v3 = [@"cameraRest" substringWithRange:{0, 18}];
-    v2 = [v3 stringByAppendingString:@".."];
+    v4 = [@"cameraRest" substringWithRange:{0, 18}];
+    v3 = [v4 stringByAppendingString:@".."];
   }
 
-  v4 = +[NSString stringWithFormat:](NSString, "stringWithFormat:", @"Resetting location: %llu", [*(a1 + 32) unsignedLongLongValue]);
-  v5 = _gICOSLog;
+  v5 = +[NSString stringWithFormat:](NSString, "stringWithFormat:", @"Resetting location: %llu", [*(a1 + 32) unsignedLongLongValue]);
+  v6 = _gICOSLog;
   if (os_log_type_enabled(_gICOSLog, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = v2;
-    v7 = v5;
+    v7 = v3;
+    v8 = v6;
     *buf = 136446466;
-    v11 = [(__CFString *)v2 UTF8String];
-    v12 = 2114;
-    v13 = v4;
-    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
+    v12 = [(__CFString *)v3 UTF8String];
+    v13 = 2114;
+    v14 = v5;
+    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
   }
 
-  v8 = *(a1 + 40);
-  v9 = +[NSString stringWithFormat:](NSString, "stringWithFormat:", @"%llu", [*(a1 + 32) unsignedLongLongValue]);
-  [v8 notifyClientDeviceRemoved:v9];
+  v9 = *(a1 + 40);
+  v10 = +[NSString stringWithFormat:](NSString, "stringWithFormat:", @"%llu", [*(a1 + 32) unsignedLongLongValue]);
+  [v9 notifyClientDeviceRemoved:v10];
 }
 
 uint64_t start()
@@ -2830,7 +2833,7 @@ void sub_10001D1F0()
   v3 = v0;
   sub_100012964();
   sub_100012904();
-  sub_10001292C(&_mh_execute_header, v4, v5, "%{public}20s ! %{public}@", v6, v7, v8, v9, v10);
+  sub_10001292C(&_mh_execute_header, v4, v5, "%{public}20s ! %{public}@", v6, v7, v8, v9);
 }
 
 void sub_10001D2B8(uint64_t a1, uint64_t a2, uint8_t *buf, os_log_t log)
@@ -2848,7 +2851,7 @@ void sub_10001D360(void *a1, void *a2)
   v5 = a2;
   [a1 UTF8String];
   sub_100012904();
-  sub_10001292C(&_mh_execute_header, v6, v7, "%{public}20s ! %{public}@", v8, v9, v10, v11, v12);
+  sub_10001292C(&_mh_execute_header, v6, v7, "%{public}20s ! %{public}@", v8, v9, v10, v11);
 }
 
 CFUUIDBytes CFUUIDGetUUIDBytes(CFUUIDRef uuid)

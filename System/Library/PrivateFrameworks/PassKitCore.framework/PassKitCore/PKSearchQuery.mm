@@ -232,7 +232,7 @@ LABEL_12:
 
 - (id)peerPaymentToken
 {
-  v2 = PKSearchTokensOfGroupTypeFromTokens(12, self->_tokens);
+  v2 = PKSearchTokensOfGroupTypeFromTokens(0xC, self->_tokens);
   firstObject = [v2 firstObject];
 
   return firstObject;
@@ -240,7 +240,7 @@ LABEL_12:
 
 - (id)accountUserToken
 {
-  v2 = PKSearchTokensOfGroupTypeFromTokens(16, self->_tokens);
+  v2 = PKSearchTokensOfGroupTypeFromTokens(0x10, self->_tokens);
   firstObject = [v2 firstObject];
 
   return firstObject;
@@ -264,7 +264,7 @@ LABEL_12:
 
 - (id)objectTypeToken
 {
-  v2 = PKSearchTokensOfTypeFromTokens(10, self->_tokens);
+  v2 = PKSearchTokensOfTypeFromTokens(0xA, self->_tokens);
   firstObject = [v2 firstObject];
 
   return firstObject;

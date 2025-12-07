@@ -17,10 +17,10 @@
   width = frame.size.width;
   y = frame.origin.y;
   x = frame.origin.x;
-  v20[1] = *MEMORY[0x277D85DE8];
-  v19.receiver = self;
-  v19.super_class = ASCExpandableLabelTruncationButton;
-  v7 = [(ASCExpandableLabelTruncationButton *)&v19 initWithFrame:?];
+  v19[1] = *MEMORY[0x277D85DE8];
+  v18.receiver = self;
+  v18.super_class = ASCExpandableLabelTruncationButton;
+  v7 = [(ASCExpandableLabelTruncationButton *)&v18 initWithFrame:?];
   v8 = v7;
   if (v7)
   {
@@ -33,17 +33,17 @@
     moreLabel = v8->_moreLabel;
     v8->_moreLabel = v11;
 
-    v14 = ASCLocalizedString(@"EXPANDABLE_LABEL_TRUNCATION_TEXT", v13);
-    [(UILabel *)v8->_moreLabel setText:v14];
+    v13 = ASCLocalizedString(@"EXPANDABLE_LABEL_TRUNCATION_TEXT");
+    [(UILabel *)v8->_moreLabel setText:v13];
 
     tintColor = [(ASCExpandableLabelTruncationButton *)v8 tintColor];
     [(UILabel *)v8->_moreLabel setTextColor:tintColor];
 
     [(UILabel *)v8->_moreLabel setAdjustsFontForContentSizeCategory:1];
     [(ASCExpandableLabelTruncationButton *)v8 addSubview:v8->_moreLabel];
-    v20[0] = objc_opt_class();
-    v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:1];
-    v17 = [(ASCExpandableLabelTruncationButton *)v8 registerForTraitChanges:v16 withTarget:v8 action:sel_updateGradientLayer];
+    v19[0] = objc_opt_class();
+    v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:1];
+    v16 = [(ASCExpandableLabelTruncationButton *)v8 registerForTraitChanges:v15 withTarget:v8 action:sel_updateGradientLayer];
   }
 
   return v8;

@@ -95,19 +95,19 @@
   v8 = v7;
   if (v6 == v7)
   {
-    v9 = 1;
+    isEqualToString = 1;
   }
 
   else
   {
-    v9 = 0;
+    isEqualToString = 0;
     if (v6 && v7)
     {
-      v9 = [(NSString *)v6 isEqualToString:v7];
+      isEqualToString = objc_msgSend_isEqualToString_(v6);
     }
   }
 
-  return v9;
+  return isEqualToString;
 }
 
 - (PKPendingShareableCredential)initWithCoder:(id)coder

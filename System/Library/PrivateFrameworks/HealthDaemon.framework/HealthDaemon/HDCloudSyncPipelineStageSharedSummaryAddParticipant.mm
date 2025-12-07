@@ -14,11 +14,11 @@
   v12 = [(HDCloudSyncPipelineStage *)&v18 initWithConfiguration:configuration cloudState:state];
   if (v12)
   {
-    v13 = [entryCopy copy];
+    v13 = objc_msgSend_copy(entryCopy);
     codableEntry = v12->_codableEntry;
     v12->_codableEntry = v13;
 
-    v15 = [identifiersCopy copy];
+    v15 = objc_msgSend_copy(identifiersCopy);
     authorizationIdentifiers = v12->_authorizationIdentifiers;
     v12->_authorizationIdentifiers = v15;
   }
@@ -70,19 +70,19 @@ LABEL_7:
 
 void __59__HDCloudSyncPipelineStageSharedSummaryAddParticipant_main__block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v95[2] = *MEMORY[0x277D85DE8];
-  v72 = a2;
+  v94[2] = *MEMORY[0x277D85DE8];
+  v71 = a2;
   v7 = a3;
   v8 = a4;
   v9 = v8;
-  v71 = v7;
+  v70 = v7;
   if (v7)
   {
-    v62 = v8;
+    v61 = v8;
     v10 = *(a1 + 32);
-    v69 = *(a1 + 40);
-    v63 = v72;
-    v66 = v7;
+    v68 = *(a1 + 40);
+    v62 = v71;
+    v65 = v7;
     if (v10)
     {
       v11 = [v10 configuration];
@@ -94,114 +94,114 @@ void __59__HDCloudSyncPipelineStageSharedSummaryAddParticipant_main__block_invok
 
       v16 = [HDCloudSyncLookupParticipantOperation alloc];
       v17 = [v10 configuration];
-      v18 = [(HDCloudSyncLookupParticipantOperation *)v16 initWithConfiguration:v17 cloudState:0 identityLookupInfo:v69];
+      v18 = [(HDCloudSyncLookupParticipantOperation *)v16 initWithConfiguration:v17 cloudState:0 identityLookupInfo:v68];
 
       [(HDCloudSyncCompoundOperation *)v15 addOperation:v18 transitionHandler:0];
       v19 = [HDCloudSyncSharedSummaryValidateOutgoingInvitationOperation alloc];
       v20 = [v10 configuration];
       v21 = [(HDCloudSyncSharedSummaryValidateOutgoingInvitationOperation *)v19 initWithConfiguration:v20 cloudState:0];
 
-      v93[0] = MEMORY[0x277D85DD0];
-      v93[1] = 3221225472;
-      v93[2] = __106__HDCloudSyncPipelineStageSharedSummaryAddParticipant__addParticipantWithLookupInfo_ownerName_ownerEmail___block_invoke;
-      v93[3] = &unk_278625240;
+      v92[0] = MEMORY[0x277D85DD0];
+      v92[1] = 3221225472;
+      v92[2] = __106__HDCloudSyncPipelineStageSharedSummaryAddParticipant__addParticipantWithLookupInfo_ownerName_ownerEmail___block_invoke;
+      v92[3] = &unk_278625240;
       v22 = v18;
-      v94 = v22;
-      v61 = v21;
-      [(HDCloudSyncCompoundOperation *)v15 addOperation:v21 transitionHandler:v93];
+      v93 = v22;
+      v60 = v21;
+      [(HDCloudSyncCompoundOperation *)v15 addOperation:v21 transitionHandler:v92];
       v23 = objc_alloc(MEMORY[0x277CBC5E8]);
       v24 = MEMORY[0x277CBC5F8];
       v25 = [v10 configuration];
       v26 = [v25 syncContainerPrefix];
       v27 = [v24 hd_privateMetadataZoneIDForSyncCircleIdentifier:v26];
-      v68 = [v23 initWithZoneID:v27];
+      v67 = [v23 initWithZoneID:v27];
 
       v28 = objc_alloc(MEMORY[0x277CCAD78]);
       v29 = [*(v10 + 128) uuid];
-      v70 = [v28 initWithUUIDString:v29];
+      v69 = [v28 initWithUUIDString:v29];
 
       v30 = MEMORY[0x277CBC5F8];
       v31 = [v12 syncCircleIdentifier];
-      v32 = [v30 hd_sharedSummaryZoneIDWithSyncCircleIdentifier:v31 userIdentifier:v70];
+      v32 = [v30 hd_sharedSummaryZoneIDWithSyncCircleIdentifier:v31 userIdentifier:v69];
 
-      v67 = [objc_alloc(MEMORY[0x277CBC5E8]) initWithZoneID:v32];
+      v66 = [objc_alloc(MEMORY[0x277CBC5E8]) initWithZoneID:v32];
       v33 = [HDCloudSyncCreateZonesOperation alloc];
       v34 = [v10 configuration];
-      v95[0] = v68;
-      v95[1] = v67;
-      v35 = [MEMORY[0x277CBEA60] arrayWithObjects:v95 count:2];
+      v94[0] = v67;
+      v94[1] = v66;
+      v35 = [MEMORY[0x277CBEA60] arrayWithObjects:v94 count:2];
       v36 = [v12 primaryCKContainer];
-      v65 = [(HDCloudSyncCreateZonesOperation *)v33 initWithConfiguration:v34 cloudState:0 zones:v35 container:v36];
+      v64 = [(HDCloudSyncCreateZonesOperation *)v33 initWithConfiguration:v34 cloudState:0 zones:v35 container:v36];
 
-      [(HDCloudSyncCompoundOperation *)v15 addOperation:v65 transitionHandler:0];
+      [(HDCloudSyncCompoundOperation *)v15 addOperation:v64 transitionHandler:0];
       v37 = [HDCloudSyncRemoveInvalidShareParticipantsOperation alloc];
       v38 = [v10 configuration];
       v39 = [v10 cloudState];
-      v64 = [(HDCloudSyncRemoveInvalidShareParticipantsOperation *)v37 initWithConfiguration:v38 cloudState:v39];
+      v63 = [(HDCloudSyncRemoveInvalidShareParticipantsOperation *)v37 initWithConfiguration:v38 cloudState:v39];
 
-      v91[0] = MEMORY[0x277D85DD0];
-      v91[1] = 3221225472;
-      v91[2] = __106__HDCloudSyncPipelineStageSharedSummaryAddParticipant__addParticipantWithLookupInfo_ownerName_ownerEmail___block_invoke_2;
-      v91[3] = &unk_278625240;
+      v90[0] = MEMORY[0x277D85DD0];
+      v90[1] = 3221225472;
+      v90[2] = __106__HDCloudSyncPipelineStageSharedSummaryAddParticipant__addParticipantWithLookupInfo_ownerName_ownerEmail___block_invoke_2;
+      v90[3] = &unk_278625240;
       v40 = v22;
-      v92 = v40;
-      [(HDCloudSyncCompoundOperation *)v15 addOperation:v64 transitionHandler:v91];
+      v91 = v40;
+      [(HDCloudSyncCompoundOperation *)v15 addOperation:v63 transitionHandler:v90];
       v41 = [HDCloudSyncAddSharingParticipantOperation alloc];
       v42 = [v10 configuration];
       v43 = [(HDCloudSyncAddSharingParticipantOperation *)v41 initWithConfiguration:v42 cloudState:0];
 
-      v87[0] = MEMORY[0x277D85DD0];
-      v87[1] = 3221225472;
-      v87[2] = __106__HDCloudSyncPipelineStageSharedSummaryAddParticipant__addParticipantWithLookupInfo_ownerName_ownerEmail___block_invoke_3;
-      v87[3] = &unk_2786261A0;
+      v86[0] = MEMORY[0x277D85DD0];
+      v86[1] = 3221225472;
+      v86[2] = __106__HDCloudSyncPipelineStageSharedSummaryAddParticipant__addParticipantWithLookupInfo_ownerName_ownerEmail___block_invoke_3;
+      v86[3] = &unk_2786261A0;
       v44 = v40;
-      v88 = v44;
-      v60 = v32;
-      v89 = v60;
+      v87 = v44;
+      v59 = v32;
+      v88 = v59;
       v45 = v12;
-      v90 = v45;
-      [(HDCloudSyncCompoundOperation *)v15 addOperation:v43 transitionHandler:v87];
-      v85[0] = 0;
-      v85[1] = v85;
-      v85[2] = 0x3032000000;
-      v85[3] = __Block_byref_object_copy__149;
-      v85[4] = __Block_byref_object_dispose__149;
-      v86 = 0;
+      v89 = v45;
+      [(HDCloudSyncCompoundOperation *)v15 addOperation:v43 transitionHandler:v86];
+      v84[0] = 0;
+      v84[1] = v84;
+      v84[2] = 0x3032000000;
+      v84[3] = __Block_byref_object_copy__149;
+      v84[4] = __Block_byref_object_dispose__149;
+      v85 = 0;
       v46 = [HDCloudSyncSharedSummaryUpdateParticipantOperation alloc];
       v47 = [v10 configuration];
       v48 = [(HDCloudSyncSharedSummaryUpdateParticipantOperation *)v46 initWithConfiguration:v47 codableEntry:*(v10 + 128) authorizationIdentifiersToAdd:*(v10 + 136) authorizationIdentifiersToDelete:MEMORY[0x277CBEBF8]];
 
-      v77[0] = MEMORY[0x277D85DD0];
-      v77[1] = 3221225472;
-      v77[2] = __106__HDCloudSyncPipelineStageSharedSummaryAddParticipant__addParticipantWithLookupInfo_ownerName_ownerEmail___block_invoke_321;
-      v77[3] = &unk_278627770;
-      v84 = v85;
+      v76[0] = MEMORY[0x277D85DD0];
+      v76[1] = 3221225472;
+      v76[2] = __106__HDCloudSyncPipelineStageSharedSummaryAddParticipant__addParticipantWithLookupInfo_ownerName_ownerEmail___block_invoke_321;
+      v76[3] = &unk_278627770;
+      v83 = v84;
       v49 = v45;
-      v78 = v49;
-      v50 = v70;
-      v79 = v50;
+      v77 = v49;
+      v50 = v69;
+      v78 = v50;
       v51 = v43;
-      v80 = v51;
-      v81 = v66;
-      v82 = v10;
+      v79 = v51;
+      v80 = v65;
+      v81 = v10;
       v52 = v48;
-      v83 = v52;
-      [(HDCloudSyncCompoundOperation *)v15 addOperation:v52 transitionHandler:v77];
-      v74[0] = MEMORY[0x277D85DD0];
-      v74[1] = 3221225472;
-      v74[2] = __106__HDCloudSyncPipelineStageSharedSummaryAddParticipant__addParticipantWithLookupInfo_ownerName_ownerEmail___block_invoke_324;
-      v74[3] = &unk_278627798;
-      v74[4] = v10;
-      v76 = v85;
-      v53 = v44;
-      v75 = v53;
-      [(HDCloudSyncOperation *)v15 setOnSuccess:v74];
+      v82 = v52;
+      [(HDCloudSyncCompoundOperation *)v15 addOperation:v52 transitionHandler:v76];
       v73[0] = MEMORY[0x277D85DD0];
       v73[1] = 3221225472;
-      v73[2] = __106__HDCloudSyncPipelineStageSharedSummaryAddParticipant__addParticipantWithLookupInfo_ownerName_ownerEmail___block_invoke_2_326;
-      v73[3] = &unk_278613088;
+      v73[2] = __106__HDCloudSyncPipelineStageSharedSummaryAddParticipant__addParticipantWithLookupInfo_ownerName_ownerEmail___block_invoke_324;
+      v73[3] = &unk_278627798;
       v73[4] = v10;
-      [(HDCloudSyncOperation *)v15 setOnError:v73];
+      v75 = v84;
+      v53 = v44;
+      v74 = v53;
+      [(HDCloudSyncOperation *)v15 setOnSuccess:v73];
+      v72[0] = MEMORY[0x277D85DD0];
+      v72[1] = 3221225472;
+      v72[2] = __106__HDCloudSyncPipelineStageSharedSummaryAddParticipant__addParticipantWithLookupInfo_ownerName_ownerEmail___block_invoke_2_326;
+      v72[3] = &unk_278613088;
+      v72[4] = v10;
+      [(HDCloudSyncOperation *)v15 setOnError:v72];
       v54 = [(HDCloudSyncOperation *)v15 progress];
       v55 = [v54 totalUnitCount];
 
@@ -213,10 +213,10 @@ void __59__HDCloudSyncPipelineStageSharedSummaryAddParticipant_main__block_invok
       [v57 addChild:v58 withPendingUnitCount:v55];
 
       [(HDCloudSyncCompoundOperation *)v15 start];
-      _Block_object_dispose(v85, 8);
+      _Block_object_dispose(v84, 8);
     }
 
-    v9 = v62;
+    v9 = v61;
   }
 
   else
@@ -228,8 +228,6 @@ void __59__HDCloudSyncPipelineStageSharedSummaryAddParticipant_main__block_invok
 
     [*(a1 + 32) finishWithSuccess:0 error:v9];
   }
-
-  v59 = *MEMORY[0x277D85DE8];
 }
 
 void __106__HDCloudSyncPipelineStageSharedSummaryAddParticipant__addParticipantWithLookupInfo_ownerName_ownerEmail___block_invoke(uint64_t a1, uint64_t a2, void *a3)
@@ -243,15 +241,15 @@ void __106__HDCloudSyncPipelineStageSharedSummaryAddParticipant__addParticipantW
 
 void __106__HDCloudSyncPipelineStageSharedSummaryAddParticipant__addParticipantWithLookupInfo_ownerName_ownerEmail___block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   v4 = a3;
   v5 = [*(a1 + 32) participant];
 
   if (v5)
   {
     v6 = [*(a1 + 32) participant];
-    v9[0] = v6;
-    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
+    v8[0] = v6;
+    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
     [v4 setParticipantsToCheck:v7];
   }
 
@@ -259,13 +257,11 @@ void __106__HDCloudSyncPipelineStageSharedSummaryAddParticipant__addParticipantW
   {
     [v4 setParticipantsToCheck:MEMORY[0x277CBEBF8]];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __106__HDCloudSyncPipelineStageSharedSummaryAddParticipant__addParticipantWithLookupInfo_ownerName_ownerEmail___block_invoke_3(uint64_t a1, uint64_t a2, void *a3)
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   v4 = *(a1 + 32);
   v5 = a3;
   v6 = [v4 participant];
@@ -276,16 +272,14 @@ void __106__HDCloudSyncPipelineStageSharedSummaryAddParticipant__addParticipantW
   v9 = [v8 containerIdentifier];
   v10 = [HDCloudSyncZoneIdentifier identifierForZone:v7 container:v9 scope:2];
 
-  v13[0] = v10;
-  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
+  v12[0] = v10;
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
   [v5 setZoneIdentifiers:v11];
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __106__HDCloudSyncPipelineStageSharedSummaryAddParticipant__addParticipantWithLookupInfo_ownerName_ownerEmail___block_invoke_321(uint64_t a1)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v2 = [HDCloudSyncShareSetupMetadata alloc];
   v3 = [*(a1 + 32) syncCircleIdentifier];
   v4 = [MEMORY[0x277CCD7C8] _profileWithUUID:*(a1 + 40) type:2];
@@ -299,9 +293,9 @@ void __106__HDCloudSyncPipelineStageSharedSummaryAddParticipant__addParticipantW
   *(v10 + 40) = v9;
 
   v12 = *(*(*(a1 + 80) + 8) + 40);
-  v19 = 0;
-  v13 = [v12 codableSharingSetupMetadataWithError:&v19];
-  v14 = v19;
+  v18 = 0;
+  v13 = [v12 codableSharingSetupMetadataWithError:&v18];
+  v14 = v18;
   [*(*(a1 + 64) + 128) setSharingSetupMetadata:v13];
 
   v15 = [*(*(a1 + 64) + 128) sharingSetupMetadata];
@@ -312,18 +306,16 @@ void __106__HDCloudSyncPipelineStageSharedSummaryAddParticipant__addParticipantW
     v16 = HKLogSharing();
     if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      v18 = *(a1 + 64);
+      v17 = *(a1 + 64);
       *buf = 138543618;
-      v21 = v18;
-      v22 = 2114;
-      v23 = v14;
+      v20 = v17;
+      v21 = 2114;
+      v22 = v14;
       _os_log_error_impl(&dword_228986000, v16, OS_LOG_TYPE_ERROR, "%{public}@: [summary-sharing] Failed to create codable sharing setup metadata: %{public}@", buf, 0x16u);
     }
   }
 
   [*(a1 + 72) setEntry:*(*(a1 + 64) + 128)];
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __106__HDCloudSyncPipelineStageSharedSummaryAddParticipant__addParticipantWithLookupInfo_ownerName_ownerEmail___block_invoke_324(uint64_t a1)

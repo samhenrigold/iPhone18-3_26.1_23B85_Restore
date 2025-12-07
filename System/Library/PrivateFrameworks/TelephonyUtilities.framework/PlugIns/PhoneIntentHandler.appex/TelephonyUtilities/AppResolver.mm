@@ -7,54 +7,56 @@
 - (BOOL)appSupportsDeprecatedCallingIntents:(id)intents
 {
   intentsCopy = intents;
-  v15 = 0;
-  v4 = [[LSApplicationRecord alloc] initWithBundleIdentifier:intentsCopy allowPlaceholder:1 error:&v15];
-  v5 = v15;
+  v17 = 0;
+  v4 = [[LSApplicationRecord alloc] initWithBundleIdentifier:intentsCopy allowPlaceholder:1 error:&v17];
+  v5 = v17;
+  v6 = v5;
   if (!v5)
   {
     compatibilityObject = [v4 compatibilityObject];
     plugInKitPlugins = [compatibilityObject plugInKitPlugins];
-    v10 = INSupportedIntentsByExtensions();
+    v11 = INSupportedIntentsByExtensions();
 
-    v11 = [v10 containsObject:INStartCallIntentIdentifier];
-    if (v11)
+    v12 = [v11 containsObject:INStartCallIntentIdentifier];
+    v13 = v12;
+    if (v12)
     {
-      v12 = IntentHandlerDefaultLog();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+      v14 = IntentHandlerDefaultLog(v12);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
       {
-        sub_10002F45C(v12);
+        sub_10002F45C(v14);
       }
     }
 
-    else if (![v10 containsObject:INStartAudioCallIntentIdentifier])
+    else if (![v11 containsObject:INStartAudioCallIntentIdentifier])
     {
-      v14 = [v10 containsObject:INStartVideoCallIntentIdentifier];
+      v16 = [v11 containsObject:INStartVideoCallIntentIdentifier];
 
-      if (v14)
+      if (v16)
       {
-        v7 = 1;
+        v8 = 1;
         goto LABEL_12;
       }
 
       goto LABEL_5;
     }
 
-    v7 = v11 ^ 1;
+    v8 = v13 ^ 1;
 
     goto LABEL_12;
   }
 
-  v6 = IntentHandlerDefaultLog();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+  v7 = IntentHandlerDefaultLog(v5);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
-    sub_10002F3D4(intentsCopy, v5, v6);
+    sub_10002F3D4(intentsCopy, v6, v7);
   }
 
 LABEL_5:
-  v7 = 0;
+  v8 = 0;
 LABEL_12:
 
-  return v7;
+  return v8;
 }
 
 @end

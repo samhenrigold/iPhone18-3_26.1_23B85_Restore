@@ -462,7 +462,7 @@ LABEL_27:
   }
 }
 
-uint64_t __45__PKBannerPresentationManager__displayBanner__block_invoke(uint64_t a1)
+void __45__PKBannerPresentationManager__displayBanner__block_invoke(uint64_t a1)
 {
   v2 = *(a1 + 32);
   v3 = *(v2 + 40);
@@ -470,7 +470,7 @@ uint64_t __45__PKBannerPresentationManager__displayBanner__block_invoke(uint64_t
 
   v4 = *(a1 + 32);
 
-  return [(PKBannerPresentationManager *)v4 _displayBanner];
+  [(PKBannerPresentationManager *)v4 _displayBanner];
 }
 
 - (void)bannerSourceDidInvalidate:(id)invalidate

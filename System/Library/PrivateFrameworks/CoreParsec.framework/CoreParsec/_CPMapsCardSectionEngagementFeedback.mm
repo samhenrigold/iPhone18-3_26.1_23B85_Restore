@@ -140,7 +140,6 @@ LABEL_22:
   toCopy = to;
   if ([(_CPMapsCardSectionEngagementFeedback *)self timestamp])
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
   }
 
@@ -154,19 +153,16 @@ LABEL_22:
 
   if ([(_CPMapsCardSectionEngagementFeedback *)self triggerEvent])
   {
-    triggerEvent = self->_triggerEvent;
     PBDataWriterWriteInt32Field();
   }
 
   if ([(_CPMapsCardSectionEngagementFeedback *)self actionCardType])
   {
-    actionCardType = self->_actionCardType;
     PBDataWriterWriteInt32Field();
   }
 
   if ([(_CPMapsCardSectionEngagementFeedback *)self feedbackType])
   {
-    feedbackType = self->_feedbackType;
     PBDataWriterWriteInt32Field();
   }
 
@@ -174,18 +170,16 @@ LABEL_22:
 
   if (cardSectionId)
   {
-    cardSectionId = self->_cardSectionId;
     PBDataWriterWriteStringField();
   }
 
   resultId = [(_CPMapsCardSectionEngagementFeedback *)self resultId];
 
-  v13 = toCopy;
+  v8 = toCopy;
   if (resultId)
   {
-    resultId = self->_resultId;
     PBDataWriterWriteStringField();
-    v13 = toCopy;
+    v8 = toCopy;
   }
 }
 

@@ -3,6 +3,7 @@
 - (void)_reloadAfterSettingPreferenceValue:(id)value specifier:(id)specifier;
 - (void)dealloc;
 - (void)setPreferenceValue:(id)value specifier:(id)specifier;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLoad;
 @end
 
@@ -180,6 +181,31 @@
   specifierCopy = specifier;
   [(RCVoiceMemosSettingsController *)&v7 setPreferenceValue:value specifier:specifierCopy];
   [(RCVoiceMemosSettingsController *)self reloadSpecifier:specifierCopy, v7.receiver, v7.super_class];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v18.receiver = self;
+  v18.super_class = RCVoiceMemosSettingsController;
+  [(RCVoiceMemosSettingsController *)&v18 viewDidAppear:appear];
+  v4 = [NSURL URLWithString:@"settings-navigation://com.apple.Settings.Apps/com.apple.VoiceMemos"];
+  v5 = [_NSLocalizedStringResource alloc];
+  v6 = +[NSLocale currentLocale];
+  v7 = RCVoiceMemosFrameworkBundleID;
+  v8 = [NSBundle bundleWithIdentifier:RCVoiceMemosFrameworkBundleID];
+  bundleURL = [v8 bundleURL];
+  v10 = [v5 initWithKey:@"VOICE_MEMOS_APP_NAME" table:0 locale:v6 bundleURL:bundleURL];
+
+  v11 = [_NSLocalizedStringResource alloc];
+  v12 = +[NSLocale currentLocale];
+  v13 = [NSBundle bundleWithIdentifier:v7];
+  bundleURL2 = [v13 bundleURL];
+  v15 = [v11 initWithKey:@"SETTINGS_NAVIGATION_DONATION_SUBTITLE" table:0 locale:v12 bundleURL:bundleURL2];
+
+  v16 = RCVoiceMemosBundleID;
+  v19 = v15;
+  v17 = [NSArray arrayWithObjects:&v19 count:1];
+  [(RCVoiceMemosSettingsController *)self pe_emitNavigationEventForApplicationSettingsWithApplicationBundleIdentifier:v16 title:v10 localizedNavigationComponents:v17 deepLink:v4];
 }
 
 - (void)viewDidLoad

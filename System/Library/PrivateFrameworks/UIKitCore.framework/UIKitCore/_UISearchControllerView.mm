@@ -145,7 +145,7 @@
 - (void)_keyboardWillHideOrShow:(id)show
 {
   name = [show name];
-  self->_receivedKeyboardWillShow = [name isEqualToString:@"UIKeyboardWillShowNotification"];
+  self->_receivedKeyboardWillShow = objc_msgSend_isEqualToString_(name);
 
   borrowedSearchTextField = [(_UISearchControllerInlineSearchFieldAccessoryView *)self->_inlineSearchFieldAccessoryView borrowedSearchTextField];
 

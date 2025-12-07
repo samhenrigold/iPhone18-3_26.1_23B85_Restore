@@ -216,7 +216,7 @@
     v6 = HKLogAuthorization();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
-      [HKPrescriptionPickerViewController shareButtonTapped:];
+      [HKPrescriptionPickerViewController shareButtonTapped:?];
     }
   }
 
@@ -234,7 +234,7 @@
     v6 = HKLogAuthorization();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
-      [HKPrescriptionPickerViewController cancelButtonTapped:];
+      [HKPrescriptionPickerViewController cancelButtonTapped:?];
     }
   }
 
@@ -254,7 +254,7 @@
     v7 = HKLogAuthorization();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
-      [HKPrescriptionPickerViewController _finishWithError:];
+      [HKPrescriptionPickerViewController _finishWithError:?];
     }
   }
 
@@ -464,7 +464,7 @@ LABEL_9:
     v5 = HKLogAuthorization();
     if (os_log_type_enabled(&v5->super, OS_LOG_TYPE_ERROR))
     {
-      [HKPrescriptionPickerViewController _loadPreviewControllerForPrescription:];
+      [HKPrescriptionPickerViewController _loadPreviewControllerForPrescription:?];
     }
 
     goto LABEL_15;
@@ -481,7 +481,7 @@ LABEL_9:
     v11 = HKLogAuthorization();
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      [HKPrescriptionPickerViewController _loadPreviewControllerForPrescription:];
+      [HKPrescriptionPickerViewController _loadPreviewControllerForPrescription:?];
     }
 
 LABEL_15:
@@ -506,7 +506,7 @@ LABEL_2:
     v6 = HKLogAuthorization();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      [HKPrescriptionPickerViewController _loadPreviewControllerForPrescription:];
+      [HKPrescriptionPickerViewController _loadPreviewControllerForPrescription:?];
     }
 
     v7 = 0;
@@ -534,55 +534,55 @@ uint64_t __59__HKPrescriptionPickerViewController__sortedPrescriptions___block_i
   return WeakRetained;
 }
 
-- (void)shareButtonTapped:.cold.1()
+- (void)shareButtonTapped:(uint64_t)a1 .cold.1(uint64_t a1)
 {
   objc_opt_class();
   OUTLINED_FUNCTION_1_4();
-  v1 = v0;
-  OUTLINED_FUNCTION_0_7(&dword_1C3942000, v2, v3, "%{public}@: Finished prescription authorization", v4, v5, v6, v7, v8);
+  v2 = v1;
+  OUTLINED_FUNCTION_0_7(&dword_1C3942000, v3, v4, "%{public}@: Finished prescription authorization", v5, v6, v7, v8);
 }
 
-- (void)cancelButtonTapped:.cold.1()
+- (void)cancelButtonTapped:(uint64_t)a1 .cold.1(uint64_t a1)
 {
   objc_opt_class();
   OUTLINED_FUNCTION_1_4();
-  v1 = v0;
-  OUTLINED_FUNCTION_0_7(&dword_1C3942000, v2, v3, "%{public}@: Canceled prescription authorization", v4, v5, v6, v7, v8);
+  v2 = v1;
+  OUTLINED_FUNCTION_0_7(&dword_1C3942000, v3, v4, "%{public}@: Canceled prescription authorization", v5, v6, v7, v8);
 }
 
-- (void)_finishWithError:.cold.1()
+- (void)_finishWithError:(uint64_t)a1 .cold.1(uint64_t a1)
 {
   objc_opt_class();
   OUTLINED_FUNCTION_1_4();
-  v1 = v0;
-  OUTLINED_FUNCTION_0_7(&dword_1C3942000, v2, v3, "%{public}@: Dismissing prescription picker", v4, v5, v6, v7, v8);
+  v2 = v1;
+  OUTLINED_FUNCTION_0_7(&dword_1C3942000, v3, v4, "%{public}@: Dismissing prescription picker", v5, v6, v7, v8);
 }
 
-- (void)_loadPreviewControllerForPrescription:.cold.1()
+- (void)_loadPreviewControllerForPrescription:(uint64_t)a1 .cold.1(uint64_t a1)
 {
   objc_opt_class();
   OUTLINED_FUNCTION_1_4();
-  v1 = v0;
+  v2 = v1;
   OUTLINED_FUNCTION_2_1();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
 }
 
-- (void)_loadPreviewControllerForPrescription:.cold.2()
+- (void)_loadPreviewControllerForPrescription:(uint64_t)a1 .cold.2(uint64_t a1)
 {
   objc_opt_class();
   OUTLINED_FUNCTION_1_4();
-  v1 = v0;
+  v2 = v1;
   OUTLINED_FUNCTION_2_1();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0xCu);
 }
 
-- (void)_loadPreviewControllerForPrescription:.cold.3()
+- (void)_loadPreviewControllerForPrescription:(uint64_t)a1 .cold.3(uint64_t a1)
 {
   objc_opt_class();
   OUTLINED_FUNCTION_1_4();
-  v1 = v0;
+  v2 = v1;
   OUTLINED_FUNCTION_2_1();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0xCu);
 }
 
 @end

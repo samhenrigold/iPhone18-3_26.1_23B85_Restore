@@ -17,7 +17,7 @@
   (*(*(v4 - 8) + 16))(self + v3, v5, v4);
   *(&self->super.isa + OBJC_IVAR____TtC16HearingAppPlugin27HearingAppPluginAppDelegate____lazy_storage___articleIdentifiersByUrl) = 0;
   v7.receiver = self;
-  v7.super_class = type metadata accessor for HearingAppPluginAppDelegate();
+  v7.super_class = type metadata accessor for HearingAppPluginAppDelegate(0);
   return [(HearingAppPluginAppDelegate *)&v7 init];
 }
 

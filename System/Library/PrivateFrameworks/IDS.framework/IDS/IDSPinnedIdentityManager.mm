@@ -28,28 +28,26 @@
 
 - (void)pinIdentityBlob:(id)blob withCompletion:(id)completion
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   blobCopy = blob;
   completionCopy = completion;
   iDSPinnedIdentity = [MEMORY[0x1E69A5270] IDSPinnedIdentity];
   if (os_log_type_enabled(iDSPinnedIdentity, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v15 = blobCopy;
+    v14 = blobCopy;
     _os_log_impl(&dword_1959FF000, iDSPinnedIdentity, OS_LOG_TYPE_DEFAULT, "Client requested to pin identity {identityBlob: %@}", buf, 0xCu);
   }
 
-  v11[0] = MEMORY[0x1E69E9820];
-  v11[1] = 3221225472;
-  v11[2] = sub_195A8D4E0;
-  v11[3] = &unk_1E743F8A0;
-  v12 = blobCopy;
-  v13 = completionCopy;
+  v10[0] = MEMORY[0x1E69E9820];
+  v10[1] = 3221225472;
+  v10[2] = sub_195A8D4E0;
+  v10[3] = &unk_1E743F8A0;
+  v11 = blobCopy;
+  v12 = completionCopy;
   v8 = completionCopy;
   v9 = blobCopy;
-  [IDSXPCDaemonController performDaemonControllerTask:v11];
-
-  v10 = *MEMORY[0x1E69E9840];
+  [IDSXPCDaemonController performDaemonControllerTask:v10];
 }
 
 - (void)fetchAllPinnedIdentitiesWithCompletion:(id)completion

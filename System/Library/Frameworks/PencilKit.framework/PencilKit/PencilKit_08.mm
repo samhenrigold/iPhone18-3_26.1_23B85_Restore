@@ -620,17 +620,18 @@ void sub_1C7EA4138(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_1C7EA5F50(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_1C7EA5F50(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   ClipperLib::Clipper::~Clipper(va);
 
   _Unwind_Resume(a1);
 }
 
-void sub_1C7EA64B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void **a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, char a45, uint64_t a46, uint64_t a47, char a48)
+void sub_1C7EA64B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void **a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, char a45, uint64_t a46, uint64_t a47, ...)
 {
-  ClipperLib::Clipper::~Clipper(&a48);
+  va_start(va, a47);
+  ClipperLib::Clipper::~Clipper(va);
   a15 = &a45;
   std::vector<std::vector<ClipperLib::IntPoint>>::__destroy_vector::operator()[abi:ne200100](&a15);
 
@@ -648,33 +649,33 @@ void sub_1C7EA6F8C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_1C7EA70CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_1C7EA70CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   drawing::Stroke::~Stroke(va);
 
   _Unwind_Resume(a1);
 }
 
-void sub_1C7EA71C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_1C7EA71C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   drawing::Stroke::~Stroke(va);
   _Unwind_Resume(a1);
 }
 
-__n128 std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,-[PKStrokeMask calculateCenterlineSlices:]::$_0 &,_PKFloatRange *,0>(__n128 *a1, double *a2, double *a3, _OWORD *a4, unint64_t *a5, __n128 result)
+__n128 std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,-[PKStrokeMask calculateCenterlineSlices:]::$_0 &,_PKFloatRange *,0>(__n128 *a1, __n128 *a2, double *a3, _OWORD *a4, unint64_t *a5, __n128 result)
 {
-  v6 = *a2;
+  v6 = a2->n128_f64[0];
   v7 = *a3;
-  if (*a2 >= a1->n128_f64[0])
+  if (a2->n128_f64[0] >= a1->n128_f64[0])
   {
     if (v7 < v6)
     {
       result = *a2;
       *a2 = *a3;
       *a3 = result;
-      if (*a2 < a1->n128_f64[0])
+      if (a2->n128_f64[0] < a1->n128_f64[0])
       {
         result = *a1;
         *a1 = *a2;
@@ -697,7 +698,7 @@ LABEL_9:
     result = *a1;
     *a1 = *a2;
     *a2 = result;
-    if (*a3 < *a2)
+    if (*a3 < a2->n128_f64[0])
     {
       result = *a2;
       *a2 = *a3;
@@ -711,12 +712,12 @@ LABEL_10:
     result = *a3;
     *a3 = *a4;
     *a4 = result;
-    if (*a3 < *a2)
+    if (*a3 < a2->n128_f64[0])
     {
       result = *a2;
       *a2 = *a3;
       *a3 = result;
-      if (*a2 < a1->n128_f64[0])
+      if (a2->n128_f64[0] < a1->n128_f64[0])
       {
         result = *a1;
         *a1 = *a2;
@@ -738,13 +739,13 @@ LABEL_10:
       *a3 = *a4;
       *a4 = result;
       result.n128_f64[0] = *a3;
-      if (*a3 < *a2)
+      if (*a3 < a2->n128_f64[0])
       {
         result = *a2;
         *a2 = *a3;
         *a3 = result;
-        result.n128_f64[0] = *a2;
-        if (*a2 < a1->n128_f64[0])
+        result.n128_u64[0] = a2->n128_u64[0];
+        if (a2->n128_f64[0] < a1->n128_f64[0])
         {
           result = *a1;
           *a1 = *a2;
@@ -965,7 +966,7 @@ LABEL_33:
   while (1)
   {
     v33 = *v30;
-    if (v30->n128_f64[0] < v11->n128_f64[0])
+    if (*v30 < v11->n128_f64[0])
     {
       v34 = v31;
       while (1)
@@ -978,7 +979,7 @@ LABEL_33:
 
         v35 = *(a1 + v34 + 16);
         v34 -= 16;
-        if (v33.n128_f64[0] >= v35)
+        if (*&v33 >= v35)
         {
           v36 = (a1 + v34 + 48);
           goto LABEL_41;
@@ -990,13 +991,14 @@ LABEL_41:
       *v36 = v33;
       if (++v32 == 8)
       {
-        return &v30[1] == a2;
+        return v30 + 2 == a2;
       }
     }
 
     v11 = v30;
     v31 += 16;
-    if (++v30 == a2)
+    v30 += 2;
+    if (v30 == a2)
     {
       return 1;
     }
@@ -1511,25 +1513,25 @@ void sub_1C7EACB04(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t *std::vector<anonymous namespace::StrokeVertex>::resize(uint64_t *result, unint64_t a2)
+void std::vector<anonymous namespace::StrokeVertex>::resize(const void **a1, unint64_t a2)
 {
-  v3 = *result;
-  v2 = result[1];
-  v4 = 0xAAAAAAAAAAAAAAABLL * ((v2 - *result) >> 3);
+  v3 = *a1;
+  v2 = a1[1];
+  v4 = 0xAAAAAAAAAAAAAAABLL * ((v2 - *a1) >> 3);
   v5 = a2 - v4;
   if (a2 <= v4)
   {
     if (a2 >= v4)
     {
-      return result;
+      return;
     }
 
-    v10 = v3 + 24 * a2;
+    v10 = &v3[24 * a2];
   }
 
   else
   {
-    v6 = result[2];
+    v6 = a1[2];
     if (0xAAAAAAAAAAAAAAABLL * ((v6 - v2) >> 3) < v5)
     {
       v7 = 0xAAAAAAAAAAAAAAABLL * ((v6 - v3) >> 3);
@@ -1557,14 +1559,13 @@ uint64_t *std::vector<anonymous namespace::StrokeVertex>::resize(uint64_t *resul
       std::__throw_bad_array_new_length[abi:ne200100]();
     }
 
-    v10 = v2 + 24 * (24 * v5 / 0x18);
+    v10 = &v2[24 * (24 * v5 / 0x18)];
   }
 
-  result[1] = v10;
-  return result;
+  a1[1] = v10;
 }
 
-void std::vector<PKMetalSDFStrokeVertex>::resize(uint64_t *a1)
+void std::vector<PKMetalSDFStrokeVertex>::resize(char **a1)
 {
   v2 = *a1;
   v3 = a1[1];
@@ -1577,7 +1578,7 @@ void std::vector<PKMetalSDFStrokeVertex>::resize(uint64_t *a1)
       return;
     }
 
-    v11 = v2 + 2359296;
+    v11 = (v2 + 2359296);
   }
 
   else
@@ -1586,7 +1587,7 @@ void std::vector<PKMetalSDFStrokeVertex>::resize(uint64_t *a1)
     v7 = a1[2];
     if (0x8E38E38E38E38E39 * ((v7 - v3) >> 2) < v6)
     {
-      v8 = 0x8E38E38E38E38E39 * ((v7 - v2) >> 2);
+      v8 = 0x8E38E38E38E38E39 * (&v7[-v2] >> 2);
       v9 = 2 * v8;
       if (2 * v8 <= 0x10000)
       {
@@ -1612,16 +1613,16 @@ void std::vector<PKMetalSDFStrokeVertex>::resize(uint64_t *a1)
     }
 
     bzero(a1[1], 2359260 - v4 - (2359260 - v4) % 0x24u + 36);
-    v11 = v3 + 2359260 - v4 - (2359260 - v4) % 0x24u + 36;
+    v11 = &v3[2359260 - v4 - (2359260 - v4) % 0x24u + 36];
   }
 
   a1[1] = v11;
 }
 
-void sub_1C7EACEB0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_1C7EACEB0(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   a9.super_class = PKMetalRenderer;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -1753,30 +1754,30 @@ void sub_1C7EADE98(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void anonymous namespace::AnimatingStroke::~AnimatingStroke(_anonymous_namespace_::AnimatingStroke *this)
+void anonymous namespace::AnimatingStroke::~AnimatingStroke(id *this)
 {
   std::unique_ptr<PKMetalInputProvider>::reset[abi:ne200100](this + 13, 0);
   std::unique_ptr<PKBSplineFilter>::reset[abi:ne200100](this + 12, 0);
 
-  v2 = *(this + 7);
+  v2 = this[7];
   if (v2)
   {
     std::__shared_weak_count::__release_shared[abi:ne200100](v2);
   }
 
-  v3 = *(this + 5);
+  v3 = this[5];
   if (v3)
   {
     std::__shared_weak_count::__release_shared[abi:ne200100](v3);
   }
 
-  v4 = *(this + 3);
+  v4 = this[3];
   if (v4)
   {
     std::__shared_weak_count::__release_shared[abi:ne200100](v4);
   }
 
-  v5 = *(this + 1);
+  v5 = this[1];
   if (v5)
   {
     std::__shared_weak_count::__release_shared[abi:ne200100](v5);
@@ -2092,12 +2093,13 @@ uint64_t anonymous namespace::AnimatingStroke::strokeBufferBytesAtIndex(_anonymo
   return v5 + a2 * v6;
 }
 
-uint64_t anonymous namespace::RendererFramebuffer::RendererFramebuffer(uint64_t a1, void *a2, void *a3, char a4, double a5, double a6)
+uint64_t anonymous namespace::RendererFramebuffer::RendererFramebuffer(uint64_t a1, void *a2, void *a3, uint64_t a4, double a5, double a6)
 {
+  v6 = a4;
   v11 = a3;
   *a1 = 0;
   *(a1 + 8) = 0;
-  v12 = [[PKMetalFramebuffer alloc] initWithSize:a2 pixelFormat:v11 device:a4 memoryless:0 backedByIOSurface:1 sampleCount:1 purgeable:a5, a6];
+  v12 = [[PKMetalFramebuffer alloc] initWithSize:a2 pixelFormat:v11 device:v6 memoryless:0 backedByIOSurface:1 sampleCount:1 purgeable:a5, a6];
   v13 = *a1;
   *a1 = v12;
 
@@ -2258,13 +2260,13 @@ uint64_t anonymous namespace::AnimatingStroke::isSDFPenStroke(_anonymous_namespa
   return v3;
 }
 
-void sub_1C7EC017C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, void *a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, char a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, char a55, uint64_t a56, uint64_t a57, uint64_t a58, char a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
+void sub_1C7EC017C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, void *a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
   _Block_object_dispose(&a45, 8);
 
   _Block_object_dispose(&a55, 8);
   _Block_object_dispose(&a59, 8);
-  _Block_object_dispose(&a71, 8);
+  _Block_object_dispose(&a65, 8);
   _Unwind_Resume(a1);
 }
 
@@ -2351,7 +2353,7 @@ __int16 anonymous namespace::metalParticleStrokePointFromStrokePoint@<H0>(_anony
   return result;
 }
 
-void PKBSplineFilter::copyPointsFromStroke(PKBSplineFilter *a1, void *a2, PKInk *a3, uint64_t *a4)
+void PKBSplineFilter::copyPointsFromStroke(PKBSplineFilter *a1, void *a2, PKInk *a3, char **a4)
 {
   v7 = a2;
   PKBSplineFilter::configureForInk(a1, a3);
@@ -2381,7 +2383,7 @@ void PKBSplineFilter::copyPointsFromStroke(PKBSplineFilter *a1, void *a2, PKInk 
       goto LABEL_16;
     }
 
-    v20 = v12 + 4 * v11;
+    v20 = (v12 + 4 * v11);
   }
 
   else
@@ -2392,7 +2394,7 @@ void PKBSplineFilter::copyPointsFromStroke(PKBSplineFilter *a1, void *a2, PKInk 
     {
       if (!(v11 >> 62))
       {
-        v17 = v16 - v12;
+        v17 = &v16[-v12];
         v18 = v17 >> 1;
         if (v17 >> 1 <= v11)
         {
@@ -2421,7 +2423,7 @@ void PKBSplineFilter::copyPointsFromStroke(PKBSplineFilter *a1, void *a2, PKInk 
     }
 
     bzero(a4[1], 4 * v15);
-    v20 = v13 + 4 * v15;
+    v20 = &v13[4 * v15];
   }
 
   a4[1] = v20;
@@ -2431,7 +2433,7 @@ LABEL_16:
   {
     for (i = 0; i != v11; ++i)
     {
-      *(*a4 + 4 * i) = PKBSplineFilter::calculateStepsForSegment(a1, i, &v23, &v22);
+      *&(*a4)[4 * i] = PKBSplineFilter::calculateStepsForSegment(a1, i, &v23, &v22);
     }
   }
 
@@ -2440,14 +2442,12 @@ LABEL_19:
 
 __n128 __Block_byref_object_copy__125(__n128 *a1, __n128 *a2)
 {
-  a1[3].n128_u64[0] = 0;
-  a1[3].n128_u64[1] = 0;
+  a1[3] = 0uLL;
   a1[4].n128_u64[0] = 0;
   result = a2[3];
   a1[3] = result;
   a1[4].n128_u64[0] = a2[4].n128_u64[0];
-  a2[3].n128_u64[0] = 0;
-  a2[3].n128_u64[1] = 0;
+  a2[3] = 0uLL;
   a2[4].n128_u64[0] = 0;
   return result;
 }
@@ -2462,9 +2462,9 @@ void __Block_byref_object_dispose__126(uint64_t a1)
   }
 }
 
-void sub_1C7EC3F7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_1C7EC3F7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::vector<std::vector<ClipperLib::IntPoint>>::__destroy_vector::operator()[abi:ne200100](va);
 
   _Unwind_Resume(a1);
@@ -2477,7 +2477,7 @@ void sub_1C7EC42A4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_1C7EC5A84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+void sub_1C7EC5A84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, id a9)
 {
   v15 = *(v13 - 128);
   if (v15)
@@ -3035,7 +3035,7 @@ uint64_t drawing::Ink::Ink(uint64_t a1, uint64_t a2)
   return a1;
 }
 
-drawing *drawing::Ink::operator=(drawing *a1, uint64_t a2)
+drawing *drawing::Ink::operator=(drawing *a1, drawing *a2)
 {
   if (a1 != a2)
   {
@@ -3180,7 +3180,7 @@ uint64_t drawing::Ink::readFrom(drawing::Ink *this, PB::Reader *a2)
       while (!v14);
 LABEL_17:
       v22 = 0;
-      LODWORD(v23) = 0;
+      v23 = 0;
 LABEL_18:
       v24 = *(this + 15);
       if (!v24)
@@ -3959,9 +3959,9 @@ LABEL_31:
   return v22 ^ v23 ^ v21 ^ v5 ^ v7 ^ v9 ^ v11 ^ v12 ^ v13 ^ v15 ^ v17 ^ v18 ^ *&v19;
 }
 
-uint64_t drawing::Ink::makeColor(uint64_t this)
+void *drawing::Ink::makeColor(void *this)
 {
-  if (!*(this + 16))
+  if (!this[2])
   {
     operator new();
   }
@@ -3969,9 +3969,9 @@ uint64_t drawing::Ink::makeColor(uint64_t this)
   return this;
 }
 
-uint64_t drawing::Ink::makeSixChannelAddColor(uint64_t this)
+void *drawing::Ink::makeSixChannelAddColor(void *this)
 {
-  if (!*(this + 72))
+  if (!this[9])
   {
     operator new();
   }
@@ -3979,9 +3979,9 @@ uint64_t drawing::Ink::makeSixChannelAddColor(uint64_t this)
   return this;
 }
 
-uint64_t drawing::Ink::makeSixChannelMultiplyColor(uint64_t this)
+void *drawing::Ink::makeSixChannelMultiplyColor(void *this)
 {
-  if (!*(this + 80))
+  if (!this[10])
   {
     operator new();
   }
@@ -3989,9 +3989,9 @@ uint64_t drawing::Ink::makeSixChannelMultiplyColor(uint64_t this)
   return this;
 }
 
-uint64_t drawing::Ink::makeHdrColor(uint64_t this)
+void *drawing::Ink::makeHdrColor(void *this)
 {
-  if (!*(this + 32))
+  if (!this[4])
   {
     operator new();
   }
@@ -3999,9 +3999,9 @@ uint64_t drawing::Ink::makeHdrColor(uint64_t this)
   return this;
 }
 
-uint64_t drawing::Ink::makeHdrAddColor(uint64_t this)
+void *drawing::Ink::makeHdrAddColor(void *this)
 {
-  if (!*(this + 24))
+  if (!this[3])
   {
     operator new();
   }
@@ -4009,9 +4009,9 @@ uint64_t drawing::Ink::makeHdrAddColor(uint64_t this)
   return this;
 }
 
-uint64_t drawing::Ink::makeHdrMultiplyColor(uint64_t this)
+void *drawing::Ink::makeHdrMultiplyColor(void *this)
 {
-  if (!*(this + 48))
+  if (!this[6])
   {
     operator new();
   }
@@ -4593,7 +4593,7 @@ void __getFBSDisplayLayoutMonitorConfigurationClass_block_invoke(uint64_t a1)
 
   else
   {
-    abort_report_np();
+    abort_report_np("Unable to find class %s", "FBSDisplayLayoutMonitorConfiguration");
     FrontBoardServicesLibrary();
   }
 }
@@ -4623,14 +4623,14 @@ void FrontBoardServicesLibrary()
 
     else
     {
-      v0 = abort_report_np();
+      v0 = abort_report_np("%s", v1[0]);
     }
 
     free(v0);
   }
 }
 
-uint64_t __FrontBoardServicesLibraryCore_block_invoke()
+uint64_t __FrontBoardServicesLibraryCore_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   FrontBoardServicesLibraryCore_frameworkLibrary = result;
@@ -4649,7 +4649,7 @@ Class __getFBSDisplayLayoutMonitorClass_block_invoke(uint64_t a1)
 
   else
   {
-    v3 = abort_report_np();
+    v3 = abort_report_np("Unable to find class %s", "FBSDisplayLayoutMonitor");
     return __getFBDisplayManagerClass_block_invoke(v3);
   }
 
@@ -4681,7 +4681,7 @@ Class __getFBDisplayManagerClass_block_invoke(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -4692,23 +4692,23 @@ LABEL_4:
   *(*(*(a1 + 32) + 8) + 24) = result;
   if (!*(*(*(a1 + 32) + 8) + 24))
   {
-    abort_report_np();
+    abort_report_np("Unable to find class %s", "FBDisplayManager");
   }
 
   qword_1ED6A51B8 = *(*(*(a1 + 32) + 8) + 24);
   return result;
 }
 
-uint64_t __FrontBoardLibraryCore_block_invoke()
+uint64_t __FrontBoardLibraryCore_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   qword_1ED6A51C0 = result;
   return result;
 }
 
-void sub_1C7ED1120(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1C7ED1120(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4738,7 +4738,7 @@ Class __getIAUtilityClass_block_invoke(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -4749,14 +4749,14 @@ LABEL_4:
   *(*(*(a1 + 32) + 8) + 24) = result;
   if (!*(*(*(a1 + 32) + 8) + 24))
   {
-    abort_report_np();
+    abort_report_np("Unable to find class %s", "IAUtility");
   }
 
   qword_1ED6A51E8 = *(*(*(a1 + 32) + 8) + 24);
   return result;
 }
 
-uint64_t __InputAnalyticsLibraryCore_block_invoke()
+uint64_t __InputAnalyticsLibraryCore_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   qword_1ED6A51F0 = result;
@@ -4785,9 +4785,9 @@ void sub_1C7ED8C28(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_1C7EDA3B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1C7EDA3B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5497,23 +5497,23 @@ void drawingV1::Stroke::~Stroke(drawingV1::Stroke *this)
   JUMPOUT(0x1CCA6ECB0);
 }
 
-uint64_t drawingV1::Stroke::Stroke(uint64_t this, const drawingV1::Stroke *a2)
+drawingV1::Stroke *drawingV1::Stroke::Stroke(drawingV1::Stroke *this, const drawingV1::StrokeID **a2)
 {
   *this = &unk_1F476A4D0;
-  *(this + 8) = 0;
-  *(this + 24) = 0;
-  *(this + 40) = 0;
-  *(this + 56) = 0;
-  *(this + 72) = 0;
-  *(this + 92) = 0;
-  *(this + 48) = 0;
-  *(this + 80) = 0;
-  if (*(a2 + 6))
+  *(this + 1) = 0;
+  *(this + 3) = 0;
+  *(this + 5) = 0;
+  *(this + 7) = 0;
+  *(this + 9) = 0;
+  *(this + 23) = 0;
+  *(this + 6) = 0;
+  *(this + 10) = 0;
+  if (a2[6])
   {
     operator new();
   }
 
-  if (*(a2 + 10))
+  if (a2[10])
   {
     operator new();
   }
@@ -5521,25 +5521,25 @@ uint64_t drawingV1::Stroke::Stroke(uint64_t this, const drawingV1::Stroke *a2)
   v2 = *(a2 + 92);
   if (v2)
   {
-    v3 = *(a2 + 2);
+    v3 = a2[2];
     *(this + 92) |= 1u;
-    *(this + 16) = v3;
+    *(this + 2) = v3;
     v2 = *(a2 + 92);
   }
 
   if ((v2 & 2) != 0)
   {
-    v4 = *(a2 + 4);
+    v4 = a2[4];
     *(this + 92) |= 2u;
-    *(this + 32) = v4;
+    *(this + 4) = v4;
   }
 
-  if (*(a2 + 3))
+  if (a2[3])
   {
     operator new();
   }
 
-  if (*(a2 + 1))
+  if (a2[1])
   {
     operator new();
   }
@@ -5551,7 +5551,7 @@ uint64_t drawingV1::Stroke::Stroke(uint64_t this, const drawingV1::Stroke *a2)
     *(this + 89) = v5;
   }
 
-  if (*(a2 + 9))
+  if (a2[9])
   {
     operator new();
   }
@@ -5559,9 +5559,9 @@ uint64_t drawingV1::Stroke::Stroke(uint64_t this, const drawingV1::Stroke *a2)
   v6 = *(a2 + 92);
   if ((v6 & 4) != 0)
   {
-    v7 = *(a2 + 8);
+    v7 = a2[8];
     *(this + 92) |= 4u;
-    *(this + 64) = v7;
+    *(this + 8) = v7;
     v6 = *(a2 + 92);
   }
 
@@ -5572,12 +5572,12 @@ uint64_t drawingV1::Stroke::Stroke(uint64_t this, const drawingV1::Stroke *a2)
     *(this + 88) = v8;
   }
 
-  if (*(a2 + 7))
+  if (a2[7])
   {
     operator new();
   }
 
-  if (*(a2 + 5))
+  if (a2[5])
   {
     operator new();
   }
@@ -5585,7 +5585,7 @@ uint64_t drawingV1::Stroke::Stroke(uint64_t this, const drawingV1::Stroke *a2)
   return this;
 }
 
-drawingV1 *drawingV1::Stroke::operator=(drawingV1 *a1, const drawingV1::Stroke *a2)
+drawingV1 *drawingV1::Stroke::operator=(drawingV1 *a1, const drawingV1::StrokeID **a2)
 {
   if (a1 != a2)
   {
@@ -5710,7 +5710,7 @@ uint64_t drawingV1::Stroke::Stroke(uint64_t a1, uint64_t a2)
   return a1;
 }
 
-drawingV1 *drawingV1::Stroke::operator=(drawingV1 *a1, uint64_t a2)
+drawingV1 *drawingV1::Stroke::operator=(drawingV1 *a1, drawingV1 *a2)
 {
   if (a1 != a2)
   {
@@ -6250,34 +6250,34 @@ uint64_t drawingV1::Stroke::writeTo(uint64_t this, PB::Writer *a2)
   return this;
 }
 
-BOOL drawingV1::Stroke::operator==(uint64_t a1, uint64_t a2)
+BOOL drawingV1::Stroke::operator==(uint64_t a1, uint64_t a2, __n128 a3)
 {
-  v4 = *(a1 + 48);
-  v5 = *(a2 + 48);
-  if (v4)
+  v5 = *(a1 + 48);
+  v6 = *(a2 + 48);
+  if (v5)
   {
-    if (!v5 || !drawingV1::StrokeID::operator==(v4, v5))
+    if (!v6 || !drawingV1::StrokeID::operator==(v5, v6))
     {
       return 0;
     }
   }
 
-  else if (v5)
+  else if (v6)
   {
     return 0;
   }
 
-  v6 = *(a1 + 80);
-  v7 = *(a2 + 80);
-  if (v6)
+  v7 = *(a1 + 80);
+  v8 = *(a2 + 80);
+  if (v7)
   {
-    if (!v7 || !drawingV1::StrokeID::operator==(v6, v7))
+    if (!v8 || !drawingV1::StrokeID::operator==(v7, v8))
     {
       return 0;
     }
   }
 
-  else if (v7)
+  else if (v8)
   {
     return 0;
   }
@@ -6308,38 +6308,38 @@ BOOL drawingV1::Stroke::operator==(uint64_t a1, uint64_t a2)
     return 0;
   }
 
-  v8 = *(a2 + 24);
+  v9 = *(a2 + 24);
   if (*(a1 + 24))
   {
-    if (!v8 || (PB::Data::operator==() & 1) == 0 && *(a1 + 24) | *(a2 + 24))
+    if (!v9 || (PB::Data::operator==() & 1) == 0 && *(a1 + 24) | *(a2 + 24))
     {
       return 0;
     }
   }
 
-  else if (v8)
+  else if (v9)
   {
     return 0;
   }
 
-  v9 = *(a1 + 8);
-  v10 = *(a2 + 8);
-  if (v9)
+  v10 = *(a1 + 8);
+  v11 = *(a2 + 8);
+  if (v10)
   {
-    if (!v10 || !drawingV1::Rectangle::operator==(v9, v10))
+    if (!v11 || !drawingV1::Rectangle::operator==(v10, v11))
     {
       return 0;
     }
   }
 
-  else if (v10)
+  else if (v11)
   {
     return 0;
   }
 
-  v11 = *(a1 + 92);
-  v12 = *(a2 + 92);
-  if ((v11 & 0x10) != 0)
+  v12 = *(a1 + 92);
+  v13 = *(a2 + 92);
+  if ((v12 & 0x10) != 0)
   {
     if ((*(a2 + 92) & 0x10) == 0 || *(a1 + 89) != *(a2 + 89))
     {
@@ -6352,51 +6352,51 @@ BOOL drawingV1::Stroke::operator==(uint64_t a1, uint64_t a2)
     return 0;
   }
 
-  v13 = *(a1 + 72);
-  v14 = *(a2 + 72);
-  if (v13)
+  v14 = *(a1 + 72);
+  v15 = *(a2 + 72);
+  if (v14)
   {
-    if (!v14 || !drawingV1::Transform::operator==(v13, v14))
+    if (!v15 || !drawingV1::Transform::operator==(v14, v15))
     {
       return 0;
     }
   }
 
-  else if (v14)
+  else if (v15)
   {
     return 0;
   }
 
-  if ((v11 & 4) != 0)
+  if ((v12 & 4) != 0)
   {
-    if ((v12 & 4) == 0 || *(a1 + 64) != *(a2 + 64))
+    if ((v13 & 4) == 0 || *(a1 + 64) != *(a2 + 64))
     {
       return 0;
     }
   }
 
-  else if ((v12 & 4) != 0)
+  else if ((v13 & 4) != 0)
   {
     return 0;
   }
 
-  if ((v11 & 8) != 0)
+  if ((v12 & 8) != 0)
   {
-    if ((v12 & 8) == 0 || *(a1 + 88) != *(a2 + 88))
+    if ((v13 & 8) == 0 || *(a1 + 88) != *(a2 + 88))
     {
       return 0;
     }
   }
 
-  else if ((v12 & 8) != 0)
+  else if ((v13 & 8) != 0)
   {
     return 0;
   }
 
-  v15 = *(a2 + 56);
+  v16 = *(a2 + 56);
   if (!*(a1 + 56))
   {
-    if (!v15)
+    if (!v16)
     {
       goto LABEL_58;
     }
@@ -6404,7 +6404,7 @@ BOOL drawingV1::Stroke::operator==(uint64_t a1, uint64_t a2)
     return 0;
   }
 
-  if (!v15 || (PB::Data::operator==() & 1) == 0 && *(a1 + 56) | *(a2 + 56))
+  if (!v16 || (PB::Data::operator==() & 1) == 0 && *(a1 + 56) | *(a2 + 56))
   {
     return 0;
   }
@@ -6646,9 +6646,9 @@ LABEL_45:
   return v24 ^ v25 ^ v10 ^ v11 ^ v12 ^ v14 ^ v16 ^ v18 ^ v19 ^ v20 ^ v21 ^ v22;
 }
 
-uint64_t drawingV1::Stroke::makeStrokeID(uint64_t this)
+void *drawingV1::Stroke::makeStrokeID(void *this)
 {
-  if (!*(this + 48))
+  if (!this[6])
   {
     operator new();
   }
@@ -6656,9 +6656,9 @@ uint64_t drawingV1::Stroke::makeStrokeID(uint64_t this)
   return this;
 }
 
-uint64_t drawingV1::Stroke::makeVersion(uint64_t this)
+void *drawingV1::Stroke::makeVersion(void *this)
 {
-  if (!*(this + 80))
+  if (!this[10])
   {
     operator new();
   }
@@ -6666,9 +6666,9 @@ uint64_t drawingV1::Stroke::makeVersion(uint64_t this)
   return this;
 }
 
-uint64_t drawingV1::Stroke::makeBounds(uint64_t this)
+void *drawingV1::Stroke::makeBounds(void *this)
 {
-  if (!*(this + 8))
+  if (!this[1])
   {
     operator new();
   }
@@ -6676,9 +6676,9 @@ uint64_t drawingV1::Stroke::makeBounds(uint64_t this)
   return this;
 }
 
-uint64_t drawingV1::Stroke::makeTransform(uint64_t this)
+void *drawingV1::Stroke::makeTransform(void *this)
 {
-  if (!*(this + 72))
+  if (!this[9])
   {
     operator new();
   }
@@ -6808,7 +6808,7 @@ PKCompressedStrokePoint *PKCompressedStrokePoint::setForce(PKCompressedStrokePoi
   return this;
 }
 
-uint64_t PKCompressedStrokePoint::compressAzimuth(PKCompressedStrokePoint *this, long double a2)
+uint64_t PKCompressedStrokePoint::compressAzimuth(PKCompressedStrokePoint *this, double a2)
 {
   v3 = fmod(a2, 6.28318531);
   v4 = 0.0;
@@ -6840,7 +6840,7 @@ uint64_t PKCompressedStrokePoint::compressAzimuth(PKCompressedStrokePoint *this,
   return v4;
 }
 
-uint64_t PKCompressedStrokePoint::setAzimuth(PKCompressedStrokePoint *this, long double a2)
+uint64_t PKCompressedStrokePoint::setAzimuth(PKCompressedStrokePoint *this, double a2)
 {
   result = PKCompressedStrokePoint::compressAzimuth(this, a2);
   this->var6 = result;
@@ -6994,77 +6994,77 @@ uint64_t PKConvertToCompressedStrokePoint@<X0>(uint64_t result@<X0>, uint64_t a2
   return result;
 }
 
-uint64_t PKCompressStrokePoint@<X0>(PKCompressedStrokePoint *a1@<X0>, double a2@<D0>, float32x4_t *a3@<X8>)
+uint64_t *PKCompressStrokePoint@<X0>(uint64_t *__return_ptr a1@<X8>, PKCompressedStrokePoint *a2@<X0>, double a3@<D0>)
 {
-  v5.f64[0] = *&a1->var0 - a2;
-  v5.f64[1] = *&a1->var7;
-  *a3 = vcvt_hight_f32_f64(vcvt_f32_f64(*&a1->var1), v5);
-  v6 = *&a1->var10 * 1000.0;
+  v5.f64[0] = *&a2->var0 - a3;
+  v5.f64[1] = *&a2->var7;
+  *a1 = vcvt_hight_f32_f64(vcvt_f32_f64(*&a2->var1), v5);
+  v6 = *&a2->var10 * 1000.0;
   v7 = 0.0;
   v8 = 0.0;
   if (v6 >= 0.0)
   {
-    v8 = *&a1->var10 * 1000.0;
+    v8 = *&a2->var10 * 1000.0;
     if (v6 > 65535.0)
     {
       v8 = 65535.0;
     }
   }
 
-  a3[1].i16[0] = v8;
-  v9 = *&a1[1].var0.var1 * 10.0;
+  *(a1 + 8) = v8;
+  v9 = *&a2[1].var0.var1 * 10.0;
   if (v9 >= 0.0)
   {
-    v7 = *&a1[1].var0.var1 * 10.0;
+    v7 = *&a2[1].var0.var1 * 10.0;
     if (v9 > 65535.0)
     {
       v7 = 65535.0;
     }
   }
 
-  a3[1].i16[1] = v7;
-  v10 = *&a1[1].var2 * 1000.0;
+  *(a1 + 9) = v7;
+  v10 = *&a2[1].var2 * 1000.0;
   v11 = 0.0;
   v12 = 0.0;
   if (v10 >= 0.0)
   {
-    v12 = *&a1[1].var2 * 1000.0;
+    v12 = *&a2[1].var2 * 1000.0;
     if (v10 > 65535.0)
     {
       v12 = 65535.0;
     }
   }
 
-  a3[1].i16[2] = v12;
-  result = PKCompressedStrokePoint::compressAzimuth(a1, *&a1[1].var5);
-  a3[1].i16[3] = result;
-  v14 = *&a1[1].var9 * 41720.8768;
+  *(a1 + 10) = v12;
+  result = PKCompressedStrokePoint::compressAzimuth(a2, *&a2[1].var5);
+  *(a1 + 11) = result;
+  v14 = *&a2[1].var9 * 41720.8768;
   if (v14 >= 0.0)
   {
-    v11 = *&a1[1].var9 * 41720.8768;
+    v11 = *&a2[1].var9 * 41720.8768;
     if (v14 > 65535.0)
     {
       v11 = 65535.0;
     }
   }
 
-  a3[1].i16[4] = v11;
-  v15 = *&a1[2].var0 * 32767.5;
+  *(a1 + 12) = v11;
+  v15 = *&a2[2].var0 * 32767.5;
   v16 = 0.0;
   v17 = 0.0;
   if (v15 >= 0.0)
   {
-    v17 = *&a1[2].var0 * 32767.5;
+    v17 = *&a2[2].var0 * 32767.5;
     if (v15 > 65535.0)
     {
       v17 = 65535.0;
     }
   }
 
-  a3[1].i16[5] = v17;
-  v18 = *&a1[2].var3;
-  v19 = *&a1[2].var1;
-  a3[1].f32[3] = v19;
+  *(a1 + 13) = v17;
+  v18 = *&a2[2].var3;
+  v19 = *&a2[2].var1;
+  *(a1 + 7) = v19;
   if (v18 * 32767.5 >= 0.0)
   {
     v16 = v18 * 32767.5;
@@ -7074,7 +7074,7 @@ uint64_t PKCompressStrokePoint@<X0>(PKCompressedStrokePoint *a1@<X0>, double a2@
     }
   }
 
-  a3[2].i16[0] = v16;
+  *(a1 + 16) = v16;
   return result;
 }
 
@@ -7198,7 +7198,7 @@ uint64_t PKCompressedStrokePointV1::setForce(uint64_t this, double a2)
   return this;
 }
 
-void PKCompressedStrokePointV1::setAzimuth(PKCompressedStrokePointV1 *this, long double a2)
+void PKCompressedStrokePointV1::setAzimuth(PKCompressedStrokePointV1 *this, double a2)
 {
   v4 = fmod(a2, 6.28318531);
   v5 = 0.0;
@@ -7304,9 +7304,9 @@ uint64_t PKConvertToCompressedStrokePointV1@<X0>(uint64_t result@<X0>, uint64_t 
   return result;
 }
 
-void sub_1C7EE8EA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1C7EE8EA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7414,9 +7414,9 @@ LABEL_20:
   return v16;
 }
 
-void sub_1C7EEA780(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1C7EEA780(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7482,7 +7482,7 @@ void *___ZL42getDDShouldUseLightLinksForResultSymbolLocv_block_invoke(uint64_t a
 
     else
     {
-      v3 = abort_report_np();
+      v3 = abort_report_np("%s", v5[0]);
     }
 
     free(v3);
@@ -7497,7 +7497,7 @@ LABEL_5:
   return result;
 }
 
-uint64_t ___ZL28DataDetectorsCoreLibraryCorePPc_block_invoke()
+uint64_t ___ZL28DataDetectorsCoreLibraryCorePPc_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   qword_1ED6A5230 = result;
@@ -7529,7 +7529,7 @@ Class ___ZL29getDDDetectionControllerClassv_block_invoke(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -7540,14 +7540,14 @@ LABEL_4:
   *(*(*(a1 + 32) + 8) + 24) = result;
   if (!*(*(*(a1 + 32) + 8) + 24))
   {
-    abort_report_np();
+    abort_report_np("Unable to find class %s", "DDDetectionController");
   }
 
   qword_1ED6A5238 = *(*(*(a1 + 32) + 8) + 24);
   return result;
 }
 
-uint64_t ___ZL26DataDetectorsUILibraryCorePPc_block_invoke()
+uint64_t ___ZL26DataDetectorsUILibraryCorePPc_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   qword_1ED6A5240 = result;
@@ -7566,9 +7566,9 @@ uint64_t _PKHandleRemotePencilSettingDidChangeNotification(uint64_t a1, void *a2
   return [a2 _handleRemotePencilSettingDidChangeNotification];
 }
 
-void sub_1C7EEE4C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+void sub_1C7EEE4C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, ...)
 {
-  va_start(va, a16);
+  va_start(va, a23);
 
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
@@ -7612,16 +7612,16 @@ BOOL distanceToRect(CGFloat a1, CGFloat a2, CGFloat a3, CGFloat a4, CGFloat a5, 
   return CGRectContainsPoint(v10, v9);
 }
 
-void sub_1C7EF4658(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1C7EF4658(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1C7EF5260(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1C7EF5260(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7651,7 +7651,7 @@ Class __getWFConfiguredSystemActionClass_block_invoke(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -7662,14 +7662,14 @@ LABEL_4:
   *(*(*(a1 + 32) + 8) + 24) = result;
   if (!*(*(*(a1 + 32) + 8) + 24))
   {
-    abort_report_np();
+    abort_report_np("Unable to find class %s", "WFConfiguredSystemAction");
   }
 
   qword_1ED6A5278 = *(*(*(a1 + 32) + 8) + 24);
   return result;
 }
 
-uint64_t __WorkflowUIServicesLibraryCore_block_invoke()
+uint64_t __WorkflowUIServicesLibraryCore_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   qword_1ED6A5280 = result;
@@ -7735,9 +7735,9 @@ id getDDContextMenuActionClass()
   return v1;
 }
 
-void sub_1C7EFAFBC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1C7EFAFBC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7749,16 +7749,17 @@ void sub_1C7EFB208(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_1C7EFB678(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, char a33)
+void sub_1C7EFB678(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, ...)
 {
-  _Block_object_dispose(&a33, 8);
-  _Block_object_dispose((v33 - 176), 8);
+  va_start(va, a32);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v32 - 176), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1C7EFBAC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1C7EFBAC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7798,7 +7799,7 @@ uint64_t DataDetectorsUILibrary()
 
     else
     {
-      v1 = abort_report_np();
+      v1 = abort_report_np("%s", v3[0]);
     }
 
     free(v1);
@@ -7808,7 +7809,7 @@ uint64_t DataDetectorsUILibrary()
   return DataDetectorsUILibraryCore_frameworkLibrary;
 }
 
-uint64_t __DataDetectorsUILibraryCore_block_invoke_0()
+uint64_t __DataDetectorsUILibraryCore_block_invoke_0(uint64_t a1)
 {
   result = _sl_dlopen();
   DataDetectorsUILibraryCore_frameworkLibrary = result;
@@ -7836,7 +7837,7 @@ Class __getDDContextMenuActionClass_block_invoke(uint64_t a1)
 
   else
   {
-    v3 = abort_report_np();
+    v3 = abort_report_np("Unable to find class %s", "DDContextMenuAction");
     return __getDDContextMenuConfigurationClass_block_invoke(v3);
   }
 
@@ -7855,7 +7856,7 @@ Class __getDDContextMenuConfigurationClass_block_invoke(uint64_t a1)
 
   else
   {
-    v3 = abort_report_np();
+    v3 = abort_report_np("Unable to find class %s", "DDContextMenuConfiguration");
     return [v3 _pkDebugStringRepresentation];
   }
 
@@ -9332,7 +9333,7 @@ uint64_t DKUTransformColorFromRGBA(uint64_t a1, uint64_t a2)
   return DKUConvertHSLToSRGB(&v4, a2);
 }
 
-const void *DKUTransformCGColor(CGColor *a1)
+CGColorRef DKUTransformCGColor(CGColor *a1)
 {
   v12 = *MEMORY[0x1E69E9840];
   v9[0] = __const_DKUColorIsEqualToColorIgnoringOpacityWithTolerance_secondColorRGBA;
@@ -9343,9 +9344,9 @@ const void *DKUTransformCGColor(CGColor *a1)
   v7 = __const_DKUColorIsEqualToColorIgnoringOpacityWithTolerance_secondColorRGBA;
   v8 = unk_1C801E930;
   v10 = __const_DKUTransformColorFromRGBA_hsla;
-  v11 = unk_1C801E8F0;
+  *v11 = unk_1C801E8F0;
   DKUConvertsRGBToHSL(v9, &v10);
-  *&v11 = 1.0 - *&v11;
+  v11[0] = 1.0 - v11[0];
   DKUConvertHSLToSRGB(&v10, &v7);
   if (v3 <= 1.0)
   {
@@ -9534,13 +9535,14 @@ PKProtobufUnknownFields *PKProtobufUnknownFields::_decrementRecursionDepth(PKPro
   return this;
 }
 
-uint64_t PKProtobufUnknownFields::add(PKProtobufUnknownFields *this, int a2, int a3, PB::Reader *a4)
+uint64_t PKProtobufUnknownFields::add(PKProtobufUnknownFields *this, uint64_t a2, int a3, PB::Reader *a4)
 {
   if (a2 == -1)
   {
     __assert_rtn("add", "PKProtobufUnknownFields.cpp", 76, "tag != TAG_DONT_WRITE");
   }
 
+  v5 = a2;
   v7 = 0;
   if (a3 <= 1)
   {
@@ -9692,13 +9694,13 @@ LABEL_67:
               if (v15)
               {
 LABEL_33:
-                LODWORD(v27) = 0;
+                v27 = 0;
                 v28 = 0;
                 goto LABEL_41;
               }
             }
 
-            LODWORD(v27) = 0;
+            v27 = 0;
             v28 = 0;
             *(a4 + 24) = 1;
           }
@@ -9731,7 +9733,7 @@ LABEL_33:
 LABEL_34:
             v28 = v23 & 7;
             v27 = v23 >> 3;
-            if ((v23 & 7) == 4 && v27 == a2)
+            if (v28 == 4 && v27 == v5)
             {
               break;
             }

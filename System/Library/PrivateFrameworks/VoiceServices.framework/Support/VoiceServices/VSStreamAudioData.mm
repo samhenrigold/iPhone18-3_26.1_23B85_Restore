@@ -20,53 +20,51 @@
 
 - (BOOL)writeWaveToFilePath:(id)path
 {
-  v59 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   pathCopy = path;
   inFormat.mSampleRate = self->_asbd.mSampleRate;
   *&inFormat.mFormatID = xmmword_272832680;
   *&inFormat.mBytesPerFrame = xmmword_272832690;
   outAudioFile = 0;
-  v5 = [MEMORY[0x277CBEBC0] fileURLWithPath:pathCopy];
-  v6 = AudioFileCreateWithURL(v5, 0x57415645u, &inFormat, 1u, &outAudioFile);
-  if (v6)
+  v5 = [MEMORY[0x277CBEBC0] fileURLWithPath:?];
+  if (AudioFileCreateWithURL(v5, 0x57415645u, &inFormat, 1u, &outAudioFile))
   {
-    v7 = v6;
-    v8 = VSGetLogDefault();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v6 = VSGetLogDefault();
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v9 = [MEMORY[0x277CCACA8] vs_stringFrom4CC:v7];
+      v7 = [MEMORY[0x277CCACA8] vs_stringFrom4CC:?];
       *buf = 138412546;
       *&buf[4] = pathCopy;
       *&buf[12] = 2112;
-      *&buf[14] = v9;
-      _os_log_error_impl(&dword_2727E4000, v8, OS_LOG_TYPE_ERROR, "Error AudioFileCreateWithURL: '%@', code: %@", buf, 0x16u);
+      *&buf[14] = v7;
+      _os_log_error_impl(&dword_2727E4000, v6, OS_LOG_TYPE_ERROR, "Error AudioFileCreateWithURL: '%@', code: %@", buf, 0x16u);
       goto LABEL_31;
     }
 
 LABEL_36:
-    v33 = 0;
+    v26 = 0;
     goto LABEL_37;
   }
 
   if (self->_asbd.mFormatID == 1869641075)
   {
-    v8 = objc_alloc_init(MEMORY[0x277D79960]);
-    v10 = *&self->_asbd.mBytesPerPacket;
+    v6 = objc_alloc_init(MEMORY[0x277D79960]);
+    v8 = *&self->_asbd.mBytesPerPacket;
     *buf = *&self->_asbd.mSampleRate;
-    *&buf[16] = v10;
-    v58 = *&self->_asbd.mBitsPerChannel;
-    v11 = [v8 beginChunkDecoderForStreamDescription:buf];
-    if (v11)
+    *&buf[16] = v8;
+    v48 = *&self->_asbd.mBitsPerChannel;
+    v9 = [v6 beginChunkDecoderForStreamDescription:?];
+    if (v9)
     {
-      v9 = v11;
-      v12 = VSGetLogDefault();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v7 = v9;
+      v10 = VSGetLogDefault();
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        *&buf[4] = v9;
-        v38 = "Unable to begin OPUS decoder, %@";
-        v39 = v12;
-        v40 = 12;
+        *&buf[4] = v7;
+        v29 = "Unable to begin OPUS decoder, %@";
+        v30 = v10;
+        v31 = 12;
         goto LABEL_44;
       }
 
@@ -76,125 +74,128 @@ LABEL_36:
 
   else
   {
-    v8 = 0;
+    v6 = 0;
   }
 
-  v52 = 0u;
-  v53 = 0u;
-  v50 = 0u;
-  v51 = 0u;
+  v43 = 0u;
+  v44 = 0u;
+  v41 = 0u;
+  v42 = 0u;
   obj = self->_mappedAudioInfo;
-  v44 = [(NSMutableArray *)obj countByEnumeratingWithState:&v50 objects:v56 count:16];
-  if (!v44)
+  v35 = [NSMutableArray countByEnumeratingWithState:"countByEnumeratingWithState:objects:count:" objects:? count:?];
+  if (!v35)
   {
     goto LABEL_27;
   }
 
-  v13 = 0;
-  v46 = *v51;
-  v42 = v5;
-  v43 = pathCopy;
+  v11 = 0;
+  v37 = *v42;
+  v33 = v5;
+  v34 = pathCopy;
   while (2)
   {
-    for (i = 0; i != v44; ++i)
+    for (i = 0; i != v35; i = (i + 1))
     {
-      if (*v51 != v46)
+      if (*v42 != v37)
       {
         objc_enumerationMutation(obj);
       }
 
-      v15 = *(*(&v50 + 1) + 8 * i);
-      inStartingByte = v13;
-      if (v8)
+      v13 = *(*(&v41 + 1) + 8 * i);
+      inStartingByte = v11;
+      if (v6)
       {
         data = [MEMORY[0x277CBEB28] data];
-        if ([v15 packetCount])
+        if ([v13 packetCount])
         {
-          v17 = 0;
-          v18 = 0;
+          v15 = 0;
+          v16 = 0;
           while (1)
           {
-            v19 = -[VSMappedData bytesAtOffset:](self->_mappedData, "bytesAtOffset:", [v15 packetDescriptionsRange]);
-            v20 = *(v19 + v17 + 12);
-            v21 = -[VSMappedData bytesAtOffset:](self->_mappedData, "bytesAtOffset:", [v15 audioBytesRange] + *(v19 + v17));
-            v22 = [MEMORY[0x277CBEA90] dataWithBytesNoCopy:v21 length:v20 freeWhenDone:0];
-            v49 = 0;
-            v23 = [v8 decodeChunk:v22 outError:&v49];
-            v24 = v49;
-            if (v24)
+            mappedData = self->_mappedData;
+            [v13 packetDescriptionsRange];
+            [(VSMappedData *)mappedData bytesAtOffset:?];
+            v18 = self->_mappedData;
+            [v13 audioBytesRange];
+            [(VSMappedData *)v18 bytesAtOffset:?];
+            v19 = [MEMORY[0x277CBEA90] dataWithBytesNoCopy:? length:? freeWhenDone:?];
+            v40 = 0;
+            v20 = [NSObject decodeChunk:v6 outError:"decodeChunk:outError:"];
+            v21 = v40;
+            if (v21)
             {
               break;
             }
 
-            [data appendData:v23];
+            [data appendData:?];
 
-            ++v18;
-            v17 += 16;
-            if ([v15 packetCount] <= v18)
+            ++v16;
+            v15 += 16;
+            if ([v13 packetCount] <= v16)
             {
-              v5 = v42;
-              pathCopy = v43;
+              v5 = v33;
+              pathCopy = v34;
               goto LABEL_21;
             }
           }
 
-          v31 = v24;
-          v32 = VSGetLogDefault();
-          if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+          v24 = v21;
+          v25 = VSGetLogDefault();
+          if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412290;
-            *&buf[4] = v31;
-            _os_log_error_impl(&dword_2727E4000, v32, OS_LOG_TYPE_ERROR, "Error during decoding, %@", buf, 0xCu);
+            *&buf[4] = v24;
+            _os_log_error_impl(&dword_2727E4000, v25, OS_LOG_TYPE_ERROR, "Error during decoding, %@", buf, 0xCu);
           }
 
-          v5 = v42;
-          pathCopy = v43;
+          v5 = v33;
+          pathCopy = v34;
           goto LABEL_35;
         }
       }
 
       else
       {
-        v25 = -[VSMappedData bytesAtOffset:](self->_mappedData, "bytesAtOffset:", [v15 audioBytesRange]);
-        v26 = MEMORY[0x277CBEA90];
-        [v15 audioBytesRange];
-        data = [v26 dataWithBytesNoCopy:v25 length:v27 freeWhenDone:0];
+        v22 = self->_mappedData;
+        [v13 audioBytesRange];
+        [(VSMappedData *)v22 bytesAtOffset:?];
+        v23 = MEMORY[0x277CBEA90];
+        [v13 audioBytesRange];
+        data = [v23 dataWithBytesNoCopy:? length:? freeWhenDone:?];
       }
 
 LABEL_21:
       if ([data length])
       {
         ioNumBytes = [data length];
-        v28 = AudioFileWriteBytes(outAudioFile, 0, inStartingByte, &ioNumBytes, [data bytes]);
-        if (v28)
+        if (AudioFileWriteBytes(outAudioFile, 0, inStartingByte, &ioNumBytes, [data bytes]))
         {
-          v36 = v28;
-          v37 = VSGetLogDefault();
-          if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
+          v28 = VSGetLogDefault();
+          if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
           {
-            v41 = [MEMORY[0x277CCACA8] vs_stringFrom4CC:v36];
+            v32 = [MEMORY[0x277CCACA8] vs_stringFrom4CC:?];
             *buf = 138412546;
             *&buf[4] = pathCopy;
             *&buf[12] = 2112;
-            *&buf[14] = v41;
-            _os_log_error_impl(&dword_2727E4000, v37, OS_LOG_TYPE_ERROR, "Error AudioFileWriteBytes: '%@', code: %@", buf, 0x16u);
+            *&buf[14] = v32;
+            _os_log_error_impl(&dword_2727E4000, v28, OS_LOG_TYPE_ERROR, "Error AudioFileWriteBytes: '%@', code: %@", buf, 0x16u);
           }
 
 LABEL_35:
           goto LABEL_36;
         }
 
-        v13 = inStartingByte + ioNumBytes;
+        v11 = inStartingByte + ioNumBytes;
       }
 
       else
       {
-        v13 = inStartingByte;
+        v11 = inStartingByte;
       }
     }
 
-    v44 = [(NSMutableArray *)obj countByEnumeratingWithState:&v50 objects:v56 count:16];
-    if (v44)
+    v35 = [NSMutableArray countByEnumeratingWithState:"countByEnumeratingWithState:objects:count:" objects:? count:?];
+    if (v35)
     {
       continue;
     }
@@ -204,54 +205,46 @@ LABEL_35:
 
 LABEL_27:
 
-  if (v8)
+  if (v6)
   {
-    [v8 endChunkDecoding];
+    [v6 endChunkDecoding];
   }
 
-  v29 = AudioFileClose(outAudioFile);
-  if (v29)
+  if (AudioFileClose(outAudioFile))
   {
-    v30 = v29;
-    v9 = VSGetLogDefault();
-    if (!os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v7 = VSGetLogDefault();
+    if (!os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
 LABEL_31:
 
       goto LABEL_36;
     }
 
-    v12 = [MEMORY[0x277CCACA8] vs_stringFrom4CC:v30];
+    v10 = [MEMORY[0x277CCACA8] vs_stringFrom4CC:?];
     *buf = 138412546;
     *&buf[4] = pathCopy;
     *&buf[12] = 2112;
-    *&buf[14] = v12;
-    v38 = "Error AudioFileClose: '%@', code: %@";
-    v39 = v9;
-    v40 = 22;
+    *&buf[14] = v10;
+    v29 = "Error AudioFileClose: '%@', code: %@";
+    v30 = v7;
+    v31 = 22;
 LABEL_44:
-    _os_log_error_impl(&dword_2727E4000, v39, OS_LOG_TYPE_ERROR, v38, buf, v40);
+    _os_log_error_impl(&dword_2727E4000, v30, OS_LOG_TYPE_ERROR, v29, buf, v31);
 LABEL_7:
 
     goto LABEL_31;
   }
 
-  v33 = 1;
+  v26 = 1;
 LABEL_37:
 
-  v34 = *MEMORY[0x277D85DE8];
-  return v33;
+  return v26;
 }
 
 - (double)duration
 {
-  v26 = *MEMORY[0x277D85DE8];
-  v21 = 0u;
-  v22 = 0u;
-  v23 = 0u;
-  v24 = 0u;
   v3 = self->_mappedAudioInfo;
-  v4 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v4 = [NSMutableArray countByEnumeratingWithState:v3 objects:"countByEnumeratingWithState:objects:count:" count:0];
   v5 = 0.0;
   v6 = 0.0;
   v7 = 0.0;
@@ -260,23 +253,23 @@ LABEL_37:
     v8 = v4;
     v9 = 0;
     v10 = 0;
-    v11 = *v22;
+    v11 = MEMORY[0];
     do
     {
-      for (i = 0; i != v8; ++i)
+      for (i = 0; i != v8; i = (i + 1))
       {
-        if (*v22 != v11)
+        if (MEMORY[0] != v11)
         {
           objc_enumerationMutation(v3);
         }
 
-        v13 = *(*(&v21 + 1) + 8 * i);
+        v13 = *(8 * i);
         [v13 audioBytesRange];
         v10 += v14;
         v9 += [v13 packetCount];
       }
 
-      v8 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v8 = [NSMutableArray countByEnumeratingWithState:v3 objects:"countByEnumeratingWithState:objects:count:" count:?];
     }
 
     while (v8);
@@ -291,7 +284,7 @@ LABEL_37:
     if (mSampleRate != 0.0)
     {
       LODWORD(v15) = self->_asbd.mFramesPerPacket;
-      v5 = v6 * v15 / mSampleRate;
+      return v6 * v15 / mSampleRate;
     }
   }
 
@@ -301,49 +294,48 @@ LABEL_37:
     v17 = self->_asbd.mSampleRate * v15;
     if (v17 != 0.0)
     {
-      v5 = v7 / v17;
+      return v7 / v17;
     }
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
 - (void)enumerateAudioWithBlock:(id)block
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   blockCopy = block;
-  v24 = 0;
-  v20 = 0u;
-  v21 = 0u;
-  v22 = 0u;
-  v23 = 0u;
+  v17 = 0;
   obj = self->_mappedAudioInfo;
-  v5 = [(NSMutableArray *)obj countByEnumeratingWithState:&v20 objects:v25 count:16];
+  v5 = [NSMutableArray countByEnumeratingWithState:"countByEnumeratingWithState:objects:count:" objects:? count:?];
   if (v5)
   {
     v6 = v5;
-    v19 = *v21;
+    v16 = MEMORY[0];
 LABEL_3:
     v7 = 0;
     while (1)
     {
-      if (*v21 != v19)
+      if (MEMORY[0] != v16)
       {
         objc_enumerationMutation(obj);
       }
 
-      v8 = *(*(&v20 + 1) + 8 * v7);
-      v9 = -[VSMappedData bytesAtOffset:](self->_mappedData, "bytesAtOffset:", [v8 audioBytesRange]);
+      v8 = *(8 * v7);
+      mappedData = self->_mappedData;
+      [v8 audioBytesRange];
+      [(VSMappedData *)mappedData bytesAtOffset:?];
       v10 = MEMORY[0x277CBEA90];
       [v8 audioBytesRange];
-      v12 = [v10 dataWithBytesNoCopy:v9 length:v11 freeWhenDone:0];
-      v13 = -[VSMappedData bytesAtOffset:](self->_mappedData, "bytesAtOffset:", [v8 packetDescriptionsRange]);
-      v14 = MEMORY[0x277CBEA90];
+      v11 = [v10 dataWithBytesNoCopy:? length:? freeWhenDone:?];
+      v12 = self->_mappedData;
       [v8 packetDescriptionsRange];
-      v16 = [v14 dataWithBytesNoCopy:v13 length:v15 freeWhenDone:0];
-      blockCopy[2](blockCopy, v12, [v8 packetCount], v16, &v24);
-      LOBYTE(v8) = v24;
+      [(VSMappedData *)v12 bytesAtOffset:?];
+      v13 = MEMORY[0x277CBEA90];
+      [v8 packetDescriptionsRange];
+      v14 = [v13 dataWithBytesNoCopy:? length:? freeWhenDone:?];
+      blockCopy[2](blockCopy, v11, [v8 packetCount], v14, &v17);
+      LOBYTE(v8) = v17;
 
       if (v8)
       {
@@ -352,7 +344,7 @@ LABEL_3:
 
       if (v6 == ++v7)
       {
-        v6 = [(NSMutableArray *)obj countByEnumeratingWithState:&v20 objects:v25 count:16];
+        v6 = [NSMutableArray countByEnumeratingWithState:"countByEnumeratingWithState:objects:count:" objects:? count:?];
         if (v6)
         {
           goto LABEL_3;
@@ -362,8 +354,6 @@ LABEL_3:
       }
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)appendAudioData:(id)data packetCount:(unint64_t)count packetDescriptions:(id)descriptions
@@ -371,19 +361,17 @@ LABEL_3:
   mappedData = self->_mappedData;
   descriptionsCopy = descriptions;
   dataCopy = data;
-  [(VSMappedData *)mappedData appendData:dataCopy];
-  [(VSMappedData *)self->_mappedData appendData:descriptionsCopy];
-  v17 = objc_alloc_init(VSStreamAudioMappedInfo);
-  v11 = [(VSMappedData *)self->_mappedData appendData:dataCopy];
-  v13 = v12;
+  [(VSMappedData *)mappedData appendData:?];
+  [(VSMappedData *)self->_mappedData appendData:?];
+  v10 = objc_alloc_init(VSStreamAudioMappedInfo);
+  [(VSMappedData *)self->_mappedData appendData:?];
 
-  [(VSStreamAudioMappedInfo *)v17 setAudioBytesRange:v11, v13];
-  [(VSStreamAudioMappedInfo *)v17 setPacketCount:count];
-  v14 = [(VSMappedData *)self->_mappedData appendData:descriptionsCopy];
-  v16 = v15;
+  [(VSStreamAudioMappedInfo *)v10 setAudioBytesRange:?];
+  [(VSStreamAudioMappedInfo *)v10 setPacketCount:?];
+  [(VSMappedData *)self->_mappedData appendData:?];
 
-  [(VSStreamAudioMappedInfo *)v17 setPacketDescriptionsRange:v14, v16];
-  [(NSMutableArray *)self->_mappedAudioInfo addObject:v17];
+  [(VSStreamAudioMappedInfo *)v10 setPacketDescriptionsRange:?];
+  [(NSMutableArray *)self->_mappedAudioInfo addObject:?];
 }
 
 - (VSStreamAudioData)initWithASBD:(AudioStreamBasicDescription *)d

@@ -111,398 +111,405 @@ void __32__DiagnosticDataController_init__block_invoke(uint64_t a1, uint64_t a2)
 
 void __63__DiagnosticDataController__loadDiagnosticsDataWithCompletion___block_invoke(uint64_t a1)
 {
-  v122 = *MEMORY[0x277D85DE8];
-  v88 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v128 = *MEMORY[0x277D85DE8];
+  v94 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v2 = MEMORY[0x277CBEB18];
-  v111 = 0;
-  v112 = &v111;
-  v113 = 0x2020000000;
+  v117 = 0;
+  v118 = &v117;
+  v119 = 0x2020000000;
   v3 = getOSAGetSubmittableLogsSymbolLoc_ptr;
-  v114 = getOSAGetSubmittableLogsSymbolLoc_ptr;
+  v120 = getOSAGetSubmittableLogsSymbolLoc_ptr;
   if (!getOSAGetSubmittableLogsSymbolLoc_ptr)
   {
     *&buf = MEMORY[0x277D85DD0];
     *(&buf + 1) = 3221225472;
-    v119 = __getOSAGetSubmittableLogsSymbolLoc_block_invoke;
-    v120 = &unk_279BA0D08;
-    v121 = &v111;
+    v125 = __getOSAGetSubmittableLogsSymbolLoc_block_invoke;
+    v126 = &unk_279BA0D08;
+    v127 = &v117;
     __getOSAGetSubmittableLogsSymbolLoc_block_invoke(&buf);
-    v3 = v112[3];
+    v3 = v118[3];
   }
 
-  _Block_object_dispose(&v111, 8);
+  _Block_object_dispose(&v117, 8);
   if (!v3)
   {
     [PUILockdownModeController getEligibleDevicesWithCompletion:];
     goto LABEL_101;
   }
 
-  v71 = a1;
+  v77 = a1;
   v4 = v3(0);
   v5 = [v2 arrayWithArray:v4];
 
-  v111 = 0;
-  v112 = &v111;
-  v113 = 0x2050000000;
+  v117 = 0;
+  v118 = &v117;
+  v119 = 0x2050000000;
   v6 = getRTCReportingClass_softClass;
-  v114 = getRTCReportingClass_softClass;
+  v120 = getRTCReportingClass_softClass;
   if (!getRTCReportingClass_softClass)
   {
     *&buf = MEMORY[0x277D85DD0];
     *(&buf + 1) = 3221225472;
-    v119 = __getRTCReportingClass_block_invoke;
-    v120 = &unk_279BA0D08;
-    v121 = &v111;
+    v125 = __getRTCReportingClass_block_invoke;
+    v126 = &unk_279BA0D08;
+    v127 = &v117;
     __getRTCReportingClass_block_invoke(&buf);
-    v6 = v112[3];
+    v6 = v118[3];
   }
 
   v7 = v6;
-  _Block_object_dispose(&v111, 8);
-  v110 = 0;
-  v80 = [v6 _privacyLogs:&v110];
-  v77 = v110;
-  if (v77)
+  _Block_object_dispose(&v117, 8);
+  v116 = 0;
+  v86 = [v6 _privacyLogs:&v116];
+  v8 = v116;
+  v83 = v8;
+  if (v8)
   {
-    v8 = _PUILoggingFacility();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = _PUILoggingFacility(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       LODWORD(buf) = 138412290;
-      *(&buf + 4) = v77;
-      _os_log_impl(&dword_2657FE000, v8, OS_LOG_TYPE_DEFAULT, "RTCReporting log files not fetched: Error: %@", &buf, 0xCu);
+      *(&buf + 4) = v83;
+      _os_log_impl(&dword_2657FE000, v9, OS_LOG_TYPE_DEFAULT, "RTCReporting log files not fetched: Error: %@", &buf, 0xCu);
     }
   }
 
   else
   {
-    [v5 addObjectsFromArray:v80];
+    [v5 addObjectsFromArray:v86];
   }
 
-  v111 = 0;
-  v112 = &v111;
-  v113 = 0x2050000000;
-  v9 = getCloudTelemetryReporterClass_softClass;
-  v114 = getCloudTelemetryReporterClass_softClass;
+  v117 = 0;
+  v118 = &v117;
+  v119 = 0x2050000000;
+  v10 = getCloudTelemetryReporterClass_softClass;
+  v120 = getCloudTelemetryReporterClass_softClass;
   if (!getCloudTelemetryReporterClass_softClass)
   {
     *&buf = MEMORY[0x277D85DD0];
     *(&buf + 1) = 3221225472;
-    v119 = __getCloudTelemetryReporterClass_block_invoke;
-    v120 = &unk_279BA0D08;
-    v121 = &v111;
+    v125 = __getCloudTelemetryReporterClass_block_invoke;
+    v126 = &unk_279BA0D08;
+    v127 = &v117;
     __getCloudTelemetryReporterClass_block_invoke(&buf);
-    v9 = v112[3];
+    v10 = v118[3];
   }
 
-  v10 = v9;
-  _Block_object_dispose(&v111, 8);
-  v109 = 0;
-  v79 = [v9 _privacyLogs:&v109];
-  v76 = v109;
-  if (v76)
+  v11 = v10;
+  _Block_object_dispose(&v117, 8);
+  v115 = 0;
+  v85 = [v10 _privacyLogs:&v115];
+  v12 = v115;
+  v82 = v12;
+  if (v12)
   {
-    v11 = _PUILoggingFacility();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v13 = _PUILoggingFacility(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       LODWORD(buf) = 138412290;
-      *(&buf + 4) = v76;
-      _os_log_impl(&dword_2657FE000, v11, OS_LOG_TYPE_DEFAULT, "CloudTelemetry log files not fetched: Error: %@", &buf, 0xCu);
+      *(&buf + 4) = v82;
+      _os_log_impl(&dword_2657FE000, v13, OS_LOG_TYPE_DEFAULT, "CloudTelemetry log files not fetched: Error: %@", &buf, 0xCu);
     }
   }
 
   else
   {
-    [v5 addObjectsFromArray:v79];
+    [v5 addObjectsFromArray:v85];
   }
 
-  v111 = 0;
-  v112 = &v111;
-  v113 = 0x2050000000;
-  v12 = getAATransparencyLoggingClass_softClass;
-  v114 = getAATransparencyLoggingClass_softClass;
+  v117 = 0;
+  v118 = &v117;
+  v119 = 0x2050000000;
+  v14 = getAATransparencyLoggingClass_softClass;
+  v120 = getAATransparencyLoggingClass_softClass;
   if (!getAATransparencyLoggingClass_softClass)
   {
     *&buf = MEMORY[0x277D85DD0];
     *(&buf + 1) = 3221225472;
-    v119 = __getAATransparencyLoggingClass_block_invoke;
-    v120 = &unk_279BA0D08;
-    v121 = &v111;
+    v125 = __getAATransparencyLoggingClass_block_invoke;
+    v126 = &unk_279BA0D08;
+    v127 = &v117;
     __getAATransparencyLoggingClass_block_invoke(&buf);
-    v12 = v112[3];
+    v14 = v118[3];
   }
 
-  v13 = v12;
-  _Block_object_dispose(&v111, 8);
-  v108 = 0;
-  v78 = [v12 logsWithError:&v108];
-  v75 = v108;
-  if (v75)
+  v15 = v14;
+  _Block_object_dispose(&v117, 8);
+  v114 = 0;
+  v84 = [v14 logsWithError:&v114];
+  v16 = v114;
+  v81 = v16;
+  if (v16)
   {
-    v14 = _PUILoggingFacility();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v17 = _PUILoggingFacility(v16);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
       LODWORD(buf) = 138412290;
-      *(&buf + 4) = v75;
-      _os_log_impl(&dword_2657FE000, v14, OS_LOG_TYPE_DEFAULT, "AppAnalytics log files not fetched: Error: %@", &buf, 0xCu);
+      *(&buf + 4) = v81;
+      _os_log_impl(&dword_2657FE000, v17, OS_LOG_TYPE_DEFAULT, "AppAnalytics log files not fetched: Error: %@", &buf, 0xCu);
     }
   }
 
   else
   {
-    [v5 addObjectsFromArray:v78];
+    [v5 addObjectsFromArray:v84];
   }
 
-  v111 = 0;
-  v112 = &v111;
-  v113 = 0x2050000000;
-  v15 = get_DPReportFileManagerClass_softClass;
-  v114 = get_DPReportFileManagerClass_softClass;
+  v117 = 0;
+  v118 = &v117;
+  v119 = 0x2050000000;
+  v18 = get_DPReportFileManagerClass_softClass;
+  v120 = get_DPReportFileManagerClass_softClass;
   if (!get_DPReportFileManagerClass_softClass)
   {
     *&buf = MEMORY[0x277D85DD0];
     *(&buf + 1) = 3221225472;
-    v119 = __get_DPReportFileManagerClass_block_invoke;
-    v120 = &unk_279BA0D08;
-    v121 = &v111;
+    v125 = __get_DPReportFileManagerClass_block_invoke;
+    v126 = &unk_279BA0D08;
+    v127 = &v117;
     __get_DPReportFileManagerClass_block_invoke(&buf);
-    v15 = v112[3];
+    v18 = v118[3];
   }
 
-  v16 = v15;
-  _Block_object_dispose(&v111, 8);
-  v86 = [v15 submittedReports];
-  [v5 addObjectsFromArray:v86];
-  v85 = [MEMORY[0x277CBEBC0] fileURLWithPath:@"/var/mobile/Library/Logs/CrashReporter/DiagnosticLogs/sysdiagnose" isDirectory:1];
-  v17 = [MEMORY[0x277CCAA00] defaultManager];
-  v18 = *MEMORY[0x277CBE8E8];
-  v19 = [MEMORY[0x277CBEA60] arrayWithObject:*MEMORY[0x277CBE8E8]];
-  v20 = [v17 contentsOfDirectoryAtURL:v85 includingPropertiesForKeys:v19 options:4 error:0];
+  v19 = v18;
+  _Block_object_dispose(&v117, 8);
+  v92 = [v18 submittedReports];
+  [v5 addObjectsFromArray:v92];
+  v91 = [MEMORY[0x277CBEBC0] fileURLWithPath:@"/var/mobile/Library/Logs/CrashReporter/DiagnosticLogs/sysdiagnose" isDirectory:1];
+  v20 = [MEMORY[0x277CCAA00] defaultManager];
+  v21 = *MEMORY[0x277CBE8E8];
+  v22 = [MEMORY[0x277CBEA60] arrayWithObject:*MEMORY[0x277CBE8E8]];
+  v23 = [v20 contentsOfDirectoryAtURL:v91 includingPropertiesForKeys:v22 options:4 error:0];
 
-  v106 = 0u;
-  v107 = 0u;
-  v104 = 0u;
-  v105 = 0u;
-  obj = v20;
-  v21 = [obj countByEnumeratingWithState:&v104 objects:v117 count:16];
-  if (v21)
+  v112 = 0u;
+  v113 = 0u;
+  v110 = 0u;
+  v111 = 0u;
+  obj = v23;
+  v24 = [obj countByEnumeratingWithState:&v110 objects:v123 count:16];
+  if (v24)
   {
-    v22 = *v105;
+    v25 = *v111;
     do
     {
-      for (i = 0; i != v21; ++i)
+      for (i = 0; i != v24; ++i)
       {
-        if (*v105 != v22)
+        if (*v111 != v25)
         {
           objc_enumerationMutation(obj);
         }
 
-        v24 = [*(*(&v104 + 1) + 8 * i) absoluteURL];
-        [v5 addObject:v24];
+        v27 = [*(*(&v110 + 1) + 8 * i) absoluteURL];
+        [v5 addObject:v27];
       }
 
-      v21 = [obj countByEnumeratingWithState:&v104 objects:v117 count:16];
+      v24 = [obj countByEnumeratingWithState:&v110 objects:v123 count:16];
     }
 
-    while (v21);
+    while (v24);
   }
 
-  v84 = [MEMORY[0x277CBEBC0] fileURLWithPath:@"/var/mobile/Library/Logs/CrashReporter/DiagnosticLogs/PerformanceTraces" isDirectory:1];
-  v25 = [MEMORY[0x277CCAA00] defaultManager];
-  v26 = [MEMORY[0x277CBEA60] arrayWithObject:v18];
-  v27 = [v25 contentsOfDirectoryAtURL:v84 includingPropertiesForKeys:v26 options:4 error:0];
+  v90 = [MEMORY[0x277CBEBC0] fileURLWithPath:@"/var/mobile/Library/Logs/CrashReporter/DiagnosticLogs/PerformanceTraces" isDirectory:1];
+  v28 = [MEMORY[0x277CCAA00] defaultManager];
+  v29 = [MEMORY[0x277CBEA60] arrayWithObject:v21];
+  v30 = [v28 contentsOfDirectoryAtURL:v90 includingPropertiesForKeys:v29 options:4 error:0];
 
-  v102 = 0u;
-  v103 = 0u;
-  v100 = 0u;
-  v101 = 0u;
-  v90 = v27;
-  v28 = [v90 countByEnumeratingWithState:&v100 objects:v116 count:16];
-  if (v28)
+  v108 = 0u;
+  v109 = 0u;
+  v106 = 0u;
+  v107 = 0u;
+  v96 = v30;
+  v31 = [v96 countByEnumeratingWithState:&v106 objects:v122 count:16];
+  if (v31)
   {
-    v29 = *v101;
+    v32 = *v107;
     do
     {
-      for (j = 0; j != v28; ++j)
+      for (j = 0; j != v31; ++j)
       {
-        if (*v101 != v29)
+        if (*v107 != v32)
         {
-          objc_enumerationMutation(v90);
+          objc_enumerationMutation(v96);
         }
 
-        v31 = [*(*(&v100 + 1) + 8 * j) absoluteURL];
-        [v5 addObject:v31];
+        v34 = [*(*(&v106 + 1) + 8 * j) absoluteURL];
+        [v5 addObject:v34];
       }
 
-      v28 = [v90 countByEnumeratingWithState:&v100 objects:v116 count:16];
+      v31 = [v96 countByEnumeratingWithState:&v106 objects:v122 count:16];
     }
 
-    while (v28);
+    while (v31);
   }
 
-  v99 = 0;
-  v111 = 0;
-  v112 = &v111;
-  v113 = 0x2020000000;
-  v32 = getDESSubmissionLogFileURLsSymbolLoc_ptr;
-  v114 = getDESSubmissionLogFileURLsSymbolLoc_ptr;
+  v105 = 0;
+  v117 = 0;
+  v118 = &v117;
+  v119 = 0x2020000000;
+  v35 = getDESSubmissionLogFileURLsSymbolLoc_ptr;
+  v120 = getDESSubmissionLogFileURLsSymbolLoc_ptr;
   if (!getDESSubmissionLogFileURLsSymbolLoc_ptr)
   {
     *&buf = MEMORY[0x277D85DD0];
     *(&buf + 1) = 3221225472;
-    v119 = __getDESSubmissionLogFileURLsSymbolLoc_block_invoke;
-    v120 = &unk_279BA0D08;
-    v121 = &v111;
+    v125 = __getDESSubmissionLogFileURLsSymbolLoc_block_invoke;
+    v126 = &unk_279BA0D08;
+    v127 = &v117;
     __getDESSubmissionLogFileURLsSymbolLoc_block_invoke(&buf);
-    v32 = v112[3];
+    v35 = v118[3];
   }
 
-  _Block_object_dispose(&v111, 8);
-  if (!v32)
+  _Block_object_dispose(&v117, 8);
+  if (!v35)
   {
     [PUILockdownModeController getEligibleDevicesWithCompletion:];
     goto LABEL_101;
   }
 
-  v83 = v32(&v99);
-  v74 = v99;
-  if (v74)
+  v89 = v35(&v105);
+  v36 = v105;
+  v80 = v36;
+  if (v36)
   {
-    v33 = _PUILoggingFacility();
-    if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
+    v37 = _PUILoggingFacility(v36);
+    if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
     {
       LODWORD(buf) = 138412290;
-      *(&buf + 4) = v74;
-      _os_log_impl(&dword_2657FE000, v33, OS_LOG_TYPE_DEFAULT, "DES Submission Log Files not fetched: Error: %@", &buf, 0xCu);
+      *(&buf + 4) = v80;
+      _os_log_impl(&dword_2657FE000, v37, OS_LOG_TYPE_DEFAULT, "DES Submission Log Files not fetched: Error: %@", &buf, 0xCu);
     }
   }
 
-  else if (v83)
+  else if (v89)
   {
-    [v5 addObjectsFromArray:v83];
+    [v5 addObjectsFromArray:v89];
   }
 
-  v111 = 0;
-  v112 = &v111;
-  v113 = 0x2050000000;
-  v34 = getSPMLLoggingClass_softClass;
-  v114 = getSPMLLoggingClass_softClass;
+  v117 = 0;
+  v118 = &v117;
+  v119 = 0x2050000000;
+  v38 = getSPMLLoggingClass_softClass;
+  v120 = getSPMLLoggingClass_softClass;
   if (!getSPMLLoggingClass_softClass)
   {
     *&buf = MEMORY[0x277D85DD0];
     *(&buf + 1) = 3221225472;
-    v119 = __getSPMLLoggingClass_block_invoke;
-    v120 = &unk_279BA0D08;
-    v121 = &v111;
+    v125 = __getSPMLLoggingClass_block_invoke;
+    v126 = &unk_279BA0D08;
+    v127 = &v117;
     __getSPMLLoggingClass_block_invoke(&buf);
-    v34 = v112[3];
+    v38 = v118[3];
   }
 
-  v35 = v34;
-  _Block_object_dispose(&v111, 8);
-  v98 = 0;
-  v82 = [v34 submitttedSpotlightReportsError:&v98];
-  v73 = v98;
-  if (v73)
+  v39 = v38;
+  _Block_object_dispose(&v117, 8);
+  v104 = 0;
+  v88 = [v38 submitttedSpotlightReportsError:&v104];
+  v40 = v104;
+  v79 = v40;
+  if (v40)
   {
-    v36 = _PUILoggingFacility();
-    if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
+    v41 = _PUILoggingFacility(v40);
+    if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
     {
       LODWORD(buf) = 138412290;
-      *(&buf + 4) = v73;
-      _os_log_impl(&dword_2657FE000, v36, OS_LOG_TYPE_DEFAULT, "Search metadata reports not fetched: Error: %@", &buf, 0xCu);
+      *(&buf + 4) = v79;
+      _os_log_impl(&dword_2657FE000, v41, OS_LOG_TYPE_DEFAULT, "Search metadata reports not fetched: Error: %@", &buf, 0xCu);
     }
   }
 
-  else if (v82)
+  else if (v88)
   {
-    [v5 addObjectsFromArray:v82];
+    [v5 addObjectsFromArray:v88];
   }
 
-  v111 = 0;
-  v112 = &v111;
-  v113 = 0x2050000000;
-  v37 = getPLDiagnosticsClass_softClass;
-  v114 = getPLDiagnosticsClass_softClass;
+  v117 = 0;
+  v118 = &v117;
+  v119 = 0x2050000000;
+  v42 = getPLDiagnosticsClass_softClass;
+  v120 = getPLDiagnosticsClass_softClass;
   if (!getPLDiagnosticsClass_softClass)
   {
     *&buf = MEMORY[0x277D85DD0];
     *(&buf + 1) = 3221225472;
-    v119 = __getPLDiagnosticsClass_block_invoke;
-    v120 = &unk_279BA0D08;
-    v121 = &v111;
+    v125 = __getPLDiagnosticsClass_block_invoke;
+    v126 = &unk_279BA0D08;
+    v127 = &v117;
     __getPLDiagnosticsClass_block_invoke(&buf);
-    v37 = v112[3];
+    v42 = v118[3];
   }
 
-  v38 = v37;
-  _Block_object_dispose(&v111, 8);
-  v39 = [v37 diagnosticsURLs];
-  [v5 addObjectsFromArray:v39];
+  v43 = v42;
+  _Block_object_dispose(&v117, 8);
+  v44 = [v42 diagnosticsURLs];
+  [v5 addObjectsFromArray:v44];
 
-  v97 = 0;
-  v111 = 0;
-  v112 = &v111;
-  v113 = 0x2020000000;
-  v40 = getSDRGetAllLogFileURLsSymbolLoc_ptr;
-  v114 = getSDRGetAllLogFileURLsSymbolLoc_ptr;
+  v103 = 0;
+  v117 = 0;
+  v118 = &v117;
+  v119 = 0x2020000000;
+  v45 = getSDRGetAllLogFileURLsSymbolLoc_ptr;
+  v120 = getSDRGetAllLogFileURLsSymbolLoc_ptr;
   if (!getSDRGetAllLogFileURLsSymbolLoc_ptr)
   {
     *&buf = MEMORY[0x277D85DD0];
     *(&buf + 1) = 3221225472;
-    v119 = __getSDRGetAllLogFileURLsSymbolLoc_block_invoke;
-    v120 = &unk_279BA0D08;
-    v121 = &v111;
+    v125 = __getSDRGetAllLogFileURLsSymbolLoc_block_invoke;
+    v126 = &unk_279BA0D08;
+    v127 = &v117;
     __getSDRGetAllLogFileURLsSymbolLoc_block_invoke(&buf);
-    v40 = v112[3];
+    v45 = v118[3];
   }
 
-  _Block_object_dispose(&v111, 8);
-  if (!v40)
+  _Block_object_dispose(&v117, 8);
+  if (!v45)
   {
     [PUILockdownModeController getEligibleDevicesWithCompletion:];
     goto LABEL_101;
   }
 
-  v81 = v40(&v97);
-  v72 = v97;
-  if (v72)
+  v87 = v45(&v103);
+  v46 = v103;
+  v78 = v46;
+  if (v46)
   {
-    v41 = _PUILoggingFacility();
-    if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
+    v47 = _PUILoggingFacility(v46);
+    if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
     {
       LODWORD(buf) = 138412290;
-      *(&buf + 4) = v72;
-      _os_log_impl(&dword_2657FE000, v41, OS_LOG_TYPE_DEFAULT, "System Diagnostic Reporter logs not fetched: Error: %@", &buf, 0xCu);
+      *(&buf + 4) = v78;
+      _os_log_impl(&dword_2657FE000, v47, OS_LOG_TYPE_DEFAULT, "System Diagnostic Reporter logs not fetched: Error: %@", &buf, 0xCu);
     }
   }
 
-  else if (v81)
+  else if (v87)
   {
-    [v5 addObjectsFromArray:v81];
+    [v5 addObjectsFromArray:v87];
   }
 
   if (getDRGetAllLogFileURLsSymbolLoc())
   {
-    v96 = 0;
+    v102 = 0;
     DRGetAllLogFileURLsSymbolLoc = getDRGetAllLogFileURLsSymbolLoc();
     if (DRGetAllLogFileURLsSymbolLoc)
     {
-      v43 = DRGetAllLogFileURLsSymbolLoc(&v96);
-      v44 = v96;
-      if (v44)
+      v49 = DRGetAllLogFileURLsSymbolLoc(&v102);
+      v50 = v102;
+      v51 = v50;
+      if (v50)
       {
-        v45 = _PUILoggingFacility();
-        if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
+        v52 = _PUILoggingFacility(v50);
+        if (os_log_type_enabled(v52, OS_LOG_TYPE_DEFAULT))
         {
           LODWORD(buf) = 138412290;
-          *(&buf + 4) = v44;
-          _os_log_impl(&dword_2657FE000, v45, OS_LOG_TYPE_DEFAULT, "DiagnosticPipeline logs not fetched: Error: %@", &buf, 0xCu);
+          *(&buf + 4) = v51;
+          _os_log_impl(&dword_2657FE000, v52, OS_LOG_TYPE_DEFAULT, "DiagnosticPipeline logs not fetched: Error: %@", &buf, 0xCu);
         }
       }
 
-      else if (v43)
+      else if (v49)
       {
-        [v5 addObjectsFromArray:v43];
+        [v5 addObjectsFromArray:v49];
       }
 
       goto LABEL_78;
@@ -517,109 +524,107 @@ LABEL_78:
   if (![v5 count])
   {
 LABEL_95:
-    v66 = MEMORY[0x277D3FAD8];
-    v67 = PUI_LocalizedStringForProblemReporting(@"PROBLEM_REPORTING_NO_DATA");
-    v68 = [v66 preferenceSpecifierNamed:v67 target:0 set:0 get:0 detail:0 cell:13 edit:0];
+    v73 = MEMORY[0x277D3FAD8];
+    v74 = PUI_LocalizedStringForProblemReporting(@"PROBLEM_REPORTING_NO_DATA");
+    v75 = [v73 preferenceSpecifierNamed:v74 target:0 set:0 get:0 detail:0 cell:13 edit:0];
 
-    v69 = [MEMORY[0x277CCABB0] numberWithBool:0];
-    [v68 setProperty:v69 forKey:*MEMORY[0x277D3FF38]];
+    v76 = [MEMORY[0x277CCABB0] numberWithBool:0];
+    [v75 setProperty:v76 forKey:*MEMORY[0x277D3FF38]];
 
-    [v88 addObject:v68];
+    [v94 addObject:v75];
     goto LABEL_96;
   }
 
   [v5 sortUsingComparator:&__block_literal_global_0];
-  v94 = 0u;
-  v95 = 0u;
-  v92 = 0u;
-  v93 = 0u;
-  v89 = v5;
-  v46 = [v89 countByEnumeratingWithState:&v92 objects:v115 count:16];
-  if (!v46)
+  v100 = 0u;
+  v101 = 0u;
+  v98 = 0u;
+  v99 = 0u;
+  v95 = v5;
+  v53 = [v95 countByEnumeratingWithState:&v98 objects:v121 count:16];
+  if (!v53)
   {
 
     goto LABEL_95;
   }
 
-  v47 = 0;
-  v48 = *v93;
-  v87 = *MEMORY[0x277D3F908];
+  v54 = 0;
+  v55 = *v99;
+  v93 = *MEMORY[0x277D3F908];
   do
   {
-    for (k = 0; k != v46; ++k)
+    for (k = 0; k != v53; ++k)
     {
-      if (*v93 != v48)
+      if (*v99 != v55)
       {
-        objc_enumerationMutation(v89);
+        objc_enumerationMutation(v95);
       }
 
-      v50 = *(*(&v92 + 1) + 8 * k);
-      v51 = [v50 URLByStandardizingPath];
-      v52 = [v51 absoluteString];
-      v53 = [v52 hasSuffix:@"/"];
+      v57 = *(*(&v98 + 1) + 8 * k);
+      v58 = [v57 URLByStandardizingPath];
+      v59 = [v58 absoluteString];
+      v60 = [v59 hasSuffix:@"/"];
 
-      if ((v53 & 1) == 0)
+      if ((v60 & 1) == 0)
       {
-        v54 = MEMORY[0x277D3FAD8];
-        v55 = [v50 lastPathComponent];
-        v56 = objc_opt_class();
-        v57 = [v54 preferenceSpecifierNamed:v55 target:0 set:0 get:0 detail:v56 cell:2 edit:objc_opt_class()];
+        v61 = MEMORY[0x277D3FAD8];
+        v62 = [v57 lastPathComponent];
+        v63 = objc_opt_class();
+        v64 = [v61 preferenceSpecifierNamed:v62 target:0 set:0 get:0 detail:v63 cell:2 edit:objc_opt_class()];
 
-        v58 = [v50 lastPathComponent];
-        LODWORD(v56) = [v58 hasSuffix:@"PLSQL.pll.anon"];
+        v65 = [v57 lastPathComponent];
+        LODWORD(v63) = [v65 hasSuffix:@"PLSQL.pll.anon"];
 
-        if (v56)
+        if (v63)
         {
-          [v57 setDetailControllerClass:objc_opt_class()];
-          v111 = 0;
-          v112 = &v111;
-          v113 = 0x2050000000;
-          v59 = getPLDatabaseReaderClass_softClass;
-          v114 = getPLDatabaseReaderClass_softClass;
+          [v64 setDetailControllerClass:objc_opt_class()];
+          v117 = 0;
+          v118 = &v117;
+          v119 = 0x2050000000;
+          v66 = getPLDatabaseReaderClass_softClass;
+          v120 = getPLDatabaseReaderClass_softClass;
           if (!getPLDatabaseReaderClass_softClass)
           {
             *&buf = MEMORY[0x277D85DD0];
             *(&buf + 1) = 3221225472;
-            v119 = __getPLDatabaseReaderClass_block_invoke;
-            v120 = &unk_279BA0D08;
-            v121 = &v111;
+            v125 = __getPLDatabaseReaderClass_block_invoke;
+            v126 = &unk_279BA0D08;
+            v127 = &v117;
             __getPLDatabaseReaderClass_block_invoke(&buf);
-            v59 = v112[3];
+            v66 = v118[3];
           }
 
-          v60 = v59;
-          _Block_object_dispose(&v111, 8);
-          v61 = [v59 alloc];
-          v62 = [v50 absoluteString];
-          v63 = [v61 initWithDatabaseFile:v62];
+          v67 = v66;
+          _Block_object_dispose(&v117, 8);
+          v68 = [v66 alloc];
+          v69 = [v57 absoluteString];
+          v70 = [v68 initWithDatabaseFile:v69];
 
-          [v57 setProperty:v63 forKey:@"powerlogReader"];
-          v64 = [v63 tableNamesFromDatabase];
-          [v57 setValues:v64 titles:v64];
+          [v64 setProperty:v70 forKey:@"powerlogReader"];
+          v71 = [v70 tableNamesFromDatabase];
+          [v64 setValues:v71 titles:v71];
         }
 
-        v65 = [v50 path];
-        [v57 setProperty:v65 forKey:v87];
+        v72 = [v57 path];
+        [v64 setProperty:v72 forKey:v93];
 
-        [v88 addObject:v57];
-        v47 = 1;
+        [v94 addObject:v64];
+        v54 = 1;
       }
     }
 
-    v46 = [v89 countByEnumeratingWithState:&v92 objects:v115 count:16];
+    v53 = [v95 countByEnumeratingWithState:&v98 objects:v121 count:16];
   }
 
-  while (v46);
+  while (v53);
 
-  if ((v47 & 1) == 0)
+  if ((v54 & 1) == 0)
   {
     goto LABEL_95;
   }
 
 LABEL_96:
-  (*(*(v71 + 32) + 16))();
-
-  v70 = *MEMORY[0x277D85DE8];
+  (*(*(v77 + 32) + 16))();
 }
 
 uint64_t __63__DiagnosticDataController__loadDiagnosticsDataWithCompletion___block_invoke_452(uint64_t a1, void *a2, void *a3)
@@ -634,7 +639,7 @@ uint64_t __63__DiagnosticDataController__loadDiagnosticsDataWithCompletion___blo
 
 - (id)specifiers
 {
-  v20[1] = *MEMORY[0x277D85DE8];
+  v19[1] = *MEMORY[0x277D85DE8];
   _state = [(DiagnosticDataController *)self _state];
   v4 = MEMORY[0x277D3FC48];
   if (!_state)
@@ -644,19 +649,19 @@ uint64_t __63__DiagnosticDataController__loadDiagnosticsDataWithCompletion___blo
     if (!_allSpecifiers)
     {
       objc_initWeak(&location, self);
-      v17[0] = MEMORY[0x277D85DD0];
-      v17[1] = 3221225472;
-      v17[2] = __38__DiagnosticDataController_specifiers__block_invoke;
-      v17[3] = &unk_279BA1088;
-      objc_copyWeak(&v18, &location);
-      [(DiagnosticDataController *)self _loadDiagnosticsDataWithCompletion:v17];
-      objc_destroyWeak(&v18);
+      v16[0] = MEMORY[0x277D85DD0];
+      v16[1] = 3221225472;
+      v16[2] = __38__DiagnosticDataController_specifiers__block_invoke;
+      v16[3] = &unk_279BA1088;
+      objc_copyWeak(&v17, &location);
+      [(DiagnosticDataController *)self _loadDiagnosticsDataWithCompletion:v16];
+      objc_destroyWeak(&v17);
       objc_destroyWeak(&location);
     }
 
     v6 = [MEMORY[0x277D3FAD8] preferenceSpecifierNamed:0 target:0 set:0 get:0 detail:0 cell:15 edit:0];
-    v20[0] = v6;
-    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:1];
+    v19[0] = v6;
+    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:1];
     v8 = *v4;
     v9 = *(&self->super.super.super.super.super.isa + v8);
     *(&self->super.super.super.super.super.isa + v8) = v7;
@@ -680,7 +685,6 @@ uint64_t __63__DiagnosticDataController__loadDiagnosticsDataWithCompletion___blo
 
 LABEL_9:
   v14 = *(&self->super.super.super.super.super.isa + *v4);
-  v15 = *MEMORY[0x277D85DE8];
 
   return v14;
 }

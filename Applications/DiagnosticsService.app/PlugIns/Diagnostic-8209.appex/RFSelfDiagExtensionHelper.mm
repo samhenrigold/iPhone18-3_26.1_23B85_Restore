@@ -1,5 +1,6 @@
 @interface RFSelfDiagExtensionHelper
 - (BOOL)addAWDConfiguration:(int)configuration;
+- (BOOL)initMonitorChamber:(int)chamber ALSThreshold:(unsigned int)threshold;
 - (BOOL)isTestSupported:(int)supported;
 - (BOOL)loadTestConfigFromUserDefaults;
 - (BOOL)prepareSetupForTest;
@@ -27,9 +28,9 @@
 - (RFSelfDiagExtensionHelper)initWithDelegate:(id)delegate
 {
   delegateCopy = delegate;
-  v16.receiver = self;
-  v16.super_class = RFSelfDiagExtensionHelper;
-  v5 = [(RFSelfDiagExtensionHelper *)&v16 init];
+  v14.receiver = self;
+  v14.super_class = RFSelfDiagExtensionHelper;
+  v5 = [(RFSelfDiagExtensionHelper *)&v14 init];
   [v5 setDelegate:delegateCopy];
   v6 = dispatch_group_create();
   v7 = *(v5 + 5);
@@ -50,27 +51,18 @@
   v9 = *(v5 + 3);
   *(v5 + 3) = 0;
 
-  BasebandRFDiagnostics::create(&v15, v10);
-  v11 = v15;
-  v15 = 0uLL;
-  v12 = *(v5 + 2);
-  *(v5 + 8) = v11;
-  if (v12 && !atomic_fetch_add(&v12->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  BasebandRFDiagnostics::create(v10);
+  v11 = *(v5 + 2);
+  *(v5 + 8) = v13;
+  if (v11 && !atomic_fetch_add(&v11->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
-    (v12->__on_zero_shared)(v12);
-    std::__shared_weak_count::__release_weak(v12);
-  }
-
-  v13 = *(&v15 + 1);
-  if (*(&v15 + 1) && !atomic_fetch_add((*(&v15 + 1) + 8), 0xFFFFFFFFFFFFFFFFLL))
-  {
-    (v13->__on_zero_shared)(v13);
-    std::__shared_weak_count::__release_weak(v13);
+    (v11->__on_zero_shared)(v11);
+    std::__shared_weak_count::__release_weak(v11);
   }
 
   *(v5 + 14) = 0;
   v5[60] = 0;
-  [v5 setFSensor:{0, v15}];
+  [v5 setFSensor:{0, 0}];
 
   return v5;
 }
@@ -117,17 +109,85 @@
   }
 }
 
+- (BOOL)initMonitorChamber:(int)chamber ALSThreshold:(unsigned int)threshold
+{
+  v4 = *&chamber;
+  self->fGroupMonitorChamber.gr_gid = 0;
+  if (chamber)
+  {
+    v7 = *&threshold;
+    v8 = [[DiagExtALSDataMonitor alloc] initWithDelegate:self];
+    fALSMonitor = self->fALSMonitor;
+    self->fALSMonitor = v8;
+
+    v10 = self->fALSMonitor;
+    if (v10)
+    {
+      setupALSClient = [(DiagExtALSDataMonitor *)v10 setupALSClient];
+      [(DiagExtALSDataMonitor *)self->fALSMonitor setEnclosedLimit:v7];
+    }
+
+    else
+    {
+      setupALSClient = 0;
+    }
+
+    v11 = +[ABMDiagnosticExtensionLogging getOSLogHandler];
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    {
+      v12 = "Faiiled";
+      if (setupALSClient)
+      {
+        v12 = "Success";
+      }
+
+      v19 = 136315138;
+      v20 = v12;
+      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "ALS Monitor initialzation: %s", &v19, 0xCu);
+    }
+  }
+
+  else
+  {
+    setupALSClient = 1;
+  }
+
+  if ((v4 & 2) != 0 && setupALSClient && ((v13 = [[DiagExtWifiScanner alloc] initWithDelegate:self], fWifiScanner = self->fWifiScanner, self->fWifiScanner = v13, fWifiScanner, (v15 = self->fWifiScanner) == 0) ? (setupALSClient = 0) : (setupALSClient = [(DiagExtWifiScanner *)v15 setupWifiManagerClient]), v16 = +[ABMDiagnosticExtensionLogging getOSLogHandler], os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT)))
+  {
+    v17 = "Faiiled";
+    if (setupALSClient)
+    {
+      v17 = "Success";
+    }
+
+    v19 = 136315138;
+    v20 = v17;
+    _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Wifi Scanner initialzation: %s", &v19, 0xCu);
+    if ((setupALSClient & 1) == 0)
+    {
+      return 0;
+    }
+  }
+
+  else if (!setupALSClient)
+  {
+    return 0;
+  }
+
+  [(RFSelfDiagExtensionHelper *)self setFSensor:v4];
+  return 1;
+}
+
 - (BOOL)isTestSupported:(int)supported
 {
-  ptr = self->fBasebandDiagnostics.__ptr_;
   isRFTestSupported = BasebandRFDiagnostics::isRFTestSupported();
   if ((isRFTestSupported & 1) == 0)
   {
-    v5 = +[ABMDiagnosticExtensionLogging getOSLogHandler];
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v4 = +[ABMDiagnosticExtensionLogging getOSLogHandler];
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      *v7 = 0;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Test is not supported on this device", v7, 2u);
+      *v6 = 0;
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Test is not supported on this device", v6, 2u);
     }
   }
 
@@ -655,11 +715,11 @@ LABEL_14:
     {
       if (RadioType != 2)
       {
-        v18 = +[ABMDiagnosticExtensionLogging getOSLogHandler];
-        if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+        v17 = +[ABMDiagnosticExtensionLogging getOSLogHandler];
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
         {
-          *v22 = 0;
-          _os_log_error_impl(&_mh_execute_header, v18, OS_LOG_TYPE_ERROR, "Failed to get awd deviceconfig: unknown baseband", v22, 2u);
+          *v21 = 0;
+          _os_log_error_impl(&_mh_execute_header, v17, OS_LOG_TYPE_ERROR, "Failed to get awd deviceconfig: unknown baseband", v21, 2u);
         }
 
         goto LABEL_18;
@@ -689,62 +749,61 @@ LABEL_14:
       BasebandDiagnostics::removeAWDConfig(self->fBasebandDiagnostics.__ptr_);
       if (BasebandDiagnostics::addAWDConfigPayload(self->fBasebandDiagnostics.__ptr_, v15, v14))
       {
-        ptr = self->fBasebandDiagnostics.__ptr_;
-        v23[0] = off_100010478;
-        v23[1] = self;
-        v24 = v23;
+        v22[0] = off_100010478;
+        v22[1] = self;
+        v23 = v22;
         BasebandDiagnostics::registerAWDMetricHandler();
-        if (v24 == v23)
+        if (v23 == v22)
         {
-          (*(*v24 + 32))(v24);
-          v17 = 1;
+          (*(*v23 + 32))(v23);
+          v16 = 1;
         }
 
         else
         {
-          if (v24)
+          if (v23)
           {
-            (*(*v24 + 40))();
+            (*(*v23 + 40))();
           }
 
-          v17 = 1;
+          v16 = 1;
         }
 
         goto LABEL_25;
       }
 
-      v19 = +[ABMDiagnosticExtensionLogging getOSLogHandler];
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+      v18 = +[ABMDiagnosticExtensionLogging getOSLogHandler];
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
-        *v22 = 0;
-        v20 = "Failed to add AWD config to Baseband";
+        *v21 = 0;
+        v19 = "Failed to add AWD config to Baseband";
         goto LABEL_23;
       }
     }
 
     else
     {
-      v19 = +[ABMDiagnosticExtensionLogging getOSLogHandler];
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+      v18 = +[ABMDiagnosticExtensionLogging getOSLogHandler];
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
-        *v22 = 0;
-        v20 = "Failed to read AWD Config file";
+        *v21 = 0;
+        v19 = "Failed to read AWD Config file";
 LABEL_23:
-        _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, v20, v22, 2u);
+        _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, v19, v21, 2u);
       }
     }
 
-    v17 = 0;
+    v16 = 0;
 LABEL_25:
 
     goto LABEL_26;
   }
 
 LABEL_18:
-  v17 = 0;
+  v16 = 0;
 LABEL_26:
 
-  return v17;
+  return v16;
 }
 
 - (BOOL)startBasebandRFSelfTest:(unsigned int)test TestCommand:(unsigned int)command
@@ -762,9 +821,9 @@ LABEL_26:
         v8 = +[ABMDiagnosticExtensionLogging getOSLogHandler];
         if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
         {
-          v16 = 136315138;
-          v17 = BasebandRFDiagnostics::asString();
-          _os_log_error_impl(&_mh_execute_header, v8, OS_LOG_TYPE_ERROR, "Set RF Self Test Ticket: %s", &v16, 0xCu);
+          v15 = 136315138;
+          v16 = BasebandRFDiagnostics::asString();
+          _os_log_error_impl(&_mh_execute_header, v8, OS_LOG_TYPE_ERROR, "Set RF Self Test Ticket: %s", &v15, 0xCu);
           if (v7)
           {
 LABEL_9:
@@ -786,10 +845,9 @@ LABEL_9:
 
       if ([(RFSelfDiagExtensionHelper *)self setBasebandFTM])
       {
-        v14 = self->fBasebandDiagnostics.__ptr_;
-LABEL_21:
+LABEL_20:
         started = BasebandRFDiagnostics::startBasebandRFSelfTestFTMMode();
-LABEL_22:
+LABEL_21:
         v7 = started;
         v9 = +[ABMDiagnosticExtensionLogging getOSLogHandler];
         if (!os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
@@ -800,11 +858,11 @@ LABEL_22:
         goto LABEL_10;
       }
 
-      v15 = +[ABMDiagnosticExtensionLogging getOSLogHandler];
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      v14 = +[ABMDiagnosticExtensionLogging getOSLogHandler];
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
-        LOWORD(v16) = 0;
-        _os_log_error_impl(&_mh_execute_header, v15, OS_LOG_TYPE_ERROR, "Failed to set to FTM", &v16, 2u);
+        LOWORD(v15) = 0;
+        _os_log_error_impl(&_mh_execute_header, v14, OS_LOG_TYPE_ERROR, "Failed to set to FTM", &v15, 2u);
       }
 
       v7 = 8;
@@ -816,28 +874,28 @@ LABEL_22:
 
 LABEL_10:
       v10 = BasebandRFDiagnostics::asString();
-      v16 = 136315138;
-      v17 = v10;
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Start RF Self Test:  %s", &v16, 0xCu);
+      v15 = 136315138;
+      v16 = v10;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Start RF Self Test:  %s", &v15, 0xCu);
       return v7 == 0;
     case 2:
       BasebandRFDiagnostics::prepareRFSelfTest(self->fBasebandDiagnostics.__ptr_);
       ptr = self->fBasebandDiagnostics.__ptr_;
       if (*(&self->fGroupMonitorChamber.gr_gid + 1))
       {
-        goto LABEL_21;
+        goto LABEL_20;
       }
 
 LABEL_13:
       started = BasebandRFDiagnostics::startBasebandRFSelfTestAST2Mode(ptr);
-      goto LABEL_22;
+      goto LABEL_21;
   }
 
   v13 = +[ABMDiagnosticExtensionLogging getOSLogHandler];
   if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
   {
-    LOWORD(v16) = 0;
-    _os_log_error_impl(&_mh_execute_header, v13, OS_LOG_TYPE_ERROR, "Failed to start: unknown baseband", &v16, 2u);
+    LOWORD(v15) = 0;
+    _os_log_error_impl(&_mh_execute_header, v13, OS_LOG_TYPE_ERROR, "Failed to start: unknown baseband", &v15, 2u);
   }
 
   v7 = 9;
@@ -863,12 +921,11 @@ LABEL_13:
 
 - (BOOL)resetBaseband:(BOOL)baseband
 {
-  ptr = self->fBasebandDiagnostics.__ptr_;
   __p = operator new(0x40uLL);
   strcpy(__p, "RF Self Test: RFSelfDiag extension triggers baseband reset");
-  v4 = BasebandDiagnostics::resetBaseband();
+  v3 = BasebandDiagnostics::resetBaseband();
   operator delete(__p);
-  return v4;
+  return v3;
 }
 
 - (BOOL)recoverBasebandState:(BOOL)state
@@ -881,31 +938,30 @@ LABEL_13:
     case 1:
       if (!state)
       {
-        v7 = +[ABMDiagnosticExtensionLogging getOSLogHandler];
-        if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+        v6 = +[ABMDiagnosticExtensionLogging getOSLogHandler];
+        if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
         {
-          ptr = self->fBasebandDiagnostics.__ptr_;
           updated = BasebandDiagnostics::updateBasebandOperatingMode();
-          v10 = "Failed";
+          v8 = "Failed";
           if (updated)
           {
-            v10 = "Success";
+            v8 = "Success";
           }
 
           *__p = 136315138;
-          *&__p[4] = v10;
-          _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Set to baseband online: %s", __p, 0xCu);
+          *&__p[4] = v8;
+          _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Set to baseband online: %s", __p, 0xCu);
         }
 
-        v11 = dispatch_semaphore_create(0);
-        v12 = dispatch_time(0, 1000000000);
-        if (dispatch_semaphore_wait(v11, v12))
+        v9 = dispatch_semaphore_create(0);
+        v10 = dispatch_time(0, 1000000000);
+        if (dispatch_semaphore_wait(v9, v10))
         {
-          v13 = +[ABMDiagnosticExtensionLogging getOSLogHandler];
-          if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+          v11 = +[ABMDiagnosticExtensionLogging getOSLogHandler];
+          if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
           {
             *__p = 0;
-            _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Trigger reset baseband", __p, 2u);
+            _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Trigger reset baseband", __p, 2u);
           }
         }
       }
@@ -913,44 +969,42 @@ LABEL_13:
       goto LABEL_15;
     case 0:
 LABEL_4:
-      v6 = +[ABMDiagnosticExtensionLogging getOSLogHandler];
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      v5 = +[ABMDiagnosticExtensionLogging getOSLogHandler];
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
       {
         *__p = 0;
-        _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Trigger reset baseband", __p, 2u);
+        _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Trigger reset baseband", __p, 2u);
       }
 
 LABEL_15:
-      v14 = self->fBasebandDiagnostics.__ptr_;
       *__p = operator new(0x40uLL);
       *&__p[8] = xmmword_1000093E0;
       strcpy(*__p, "RF Self Test: RFSelfDiag extension triggers baseband reset");
-      LOBYTE(v15) = BasebandDiagnostics::resetBaseband();
+      LOBYTE(v12) = BasebandDiagnostics::resetBaseband();
       if ((__p[23] & 0x80000000) != 0)
       {
-        v16 = v15;
+        v13 = v12;
         operator delete(*__p);
-        LOBYTE(v15) = v16;
+        LOBYTE(v12) = v13;
       }
 
-      return v15;
+      return v12;
   }
 
-  v17 = +[ABMDiagnosticExtensionLogging getOSLogHandler];
-  v15 = os_log_type_enabled(v17, OS_LOG_TYPE_ERROR);
-  if (v15)
+  v14 = +[ABMDiagnosticExtensionLogging getOSLogHandler];
+  v12 = os_log_type_enabled(v14, OS_LOG_TYPE_ERROR);
+  if (v12)
   {
     *__p = 0;
-    _os_log_error_impl(&_mh_execute_header, v17, OS_LOG_TYPE_ERROR, "Failed to recover baseband: unknown baseband", __p, 2u);
-    LOBYTE(v15) = 0;
+    _os_log_error_impl(&_mh_execute_header, v14, OS_LOG_TYPE_ERROR, "Failed to recover baseband: unknown baseband", __p, 2u);
+    LOBYTE(v12) = 0;
   }
 
-  return v15;
+  return v12;
 }
 
 - (BOOL)loadTestConfigFromUserDefaults
 {
-  ptr = self->fBasebandDiagnostics.__ptr_;
   *__p = operator new(0x20uLL);
   *&__p[8] = xmmword_1000093F0;
   strcpy(*__p, "overrideTestConfigEnable");
@@ -960,63 +1014,54 @@ LABEL_15:
     operator delete(*__p);
   }
 
-  v4 = self->fBasebandDiagnostics.__ptr_;
   *__p = operator new(0x20uLL);
-  *&__p[8] = xmmword_100009400;
   strcpy(*__p, "override_detectChamberReady");
-  LODWORD(v4) = BasebandDiagnostics::readIntegerFromUserDefaults();
-  operator delete(*__p);
-  HIDWORD(self->fGroupMonitorChamber.gr_mem) = v4 & ~(v4 >> 31);
-  v5 = self->fBasebandDiagnostics.__ptr_;
-  *__p = operator new(0x20uLL);
-  *&__p[8] = xmmword_100009410;
-  strcpy(*__p, "override_closeChamberCountdown");
   IntegerFromUserDefaults = BasebandDiagnostics::readIntegerFromUserDefaults();
   operator delete(*__p);
-  if (IntegerFromUserDefaults >= 1)
-  {
-    v7 = IntegerFromUserDefaults;
-  }
-
-  else
-  {
-    v7 = 120;
-  }
-
-  LODWORD(self->fSessionMonitorChamber.fObj.fObj) = v7;
-  v8 = self->fBasebandDiagnostics.__ptr_;
-  __p[23] = 21;
-  strcpy(__p, "override_ALSThreshold");
-  v9 = BasebandDiagnostics::readIntegerFromUserDefaults();
-  if (v9 >= 1)
-  {
-    v10 = v9;
-  }
-
-  else
-  {
-    v10 = 4;
-  }
-
-  HIDWORD(self->fSessionMonitorChamber.fObj.fObj) = v10;
-  v11 = self->fBasebandDiagnostics.__ptr_;
+  HIDWORD(self->fGroupMonitorChamber.gr_mem) = IntegerFromUserDefaults & ~(IntegerFromUserDefaults >> 31);
   *__p = operator new(0x20uLL);
-  *&__p[8] = xmmword_100009410;
-  strcpy(*__p, "override_testCompleteAlertTime");
-  v12 = BasebandDiagnostics::readIntegerFromUserDefaults();
+  strcpy(*__p, "override_closeChamberCountdown");
+  v4 = BasebandDiagnostics::readIntegerFromUserDefaults();
   operator delete(*__p);
-  if (v12 >= 1)
+  if (v4 >= 1)
   {
-    v13 = v12;
+    v5 = v4;
   }
 
   else
   {
-    v13 = 300;
+    v5 = 120;
   }
 
-  self->fEnclosedCheckRunningFlag = v13;
-  v14 = self->fBasebandDiagnostics.__ptr_;
+  LODWORD(self->fSessionMonitorChamber.fObj.fObj) = v5;
+  strcpy(__p, "override_ALSThreshold");
+  v6 = BasebandDiagnostics::readIntegerFromUserDefaults();
+  if (v6 >= 1)
+  {
+    v7 = v6;
+  }
+
+  else
+  {
+    v7 = 4;
+  }
+
+  HIDWORD(self->fSessionMonitorChamber.fObj.fObj) = v7;
+  *__p = operator new(0x20uLL);
+  strcpy(*__p, "override_testCompleteAlertTime");
+  v8 = BasebandDiagnostics::readIntegerFromUserDefaults();
+  operator delete(*__p);
+  if (v8 >= 1)
+  {
+    v9 = v8;
+  }
+
+  else
+  {
+    v9 = 300;
+  }
+
+  self->fEnclosedCheckRunningFlag = v9;
   *__p = operator new(0x19uLL);
   *&__p[8] = xmmword_100009420;
   strcpy(*__p, "override_vibrationAlert");
@@ -1026,7 +1071,6 @@ LABEL_15:
     operator delete(*__p);
   }
 
-  v15 = self->fBasebandDiagnostics.__ptr_;
   __p[23] = 19;
   strcpy(__p, "override_chimeAlert");
   *(&self->fFactoryTestEnabled + 1) = BasebandDiagnostics::readIntegerFromUserDefaults() != 0;
@@ -1035,26 +1079,26 @@ LABEL_15:
     operator delete(*__p);
   }
 
-  v16 = [ABMDiagnosticExtensionLogging getOSLogHandler:30];
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+  v10 = [ABMDiagnosticExtensionLogging getOSLogHandler:30];
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     gr_mem_low = LOBYTE(self->fGroupMonitorChamber.gr_mem);
     *__p = 67109120;
     *&__p[4] = gr_mem_low;
-    _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Test config: overrides test config enabled = %d", __p, 8u);
+    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Test config: overrides test config enabled = %d", __p, 8u);
   }
 
   if (LOBYTE(self->fGroupMonitorChamber.gr_mem) == 1)
   {
-    v18 = +[ABMDiagnosticExtensionLogging getOSLogHandler];
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+    v12 = +[ABMDiagnosticExtensionLogging getOSLogHandler];
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       gr_mem_high = HIDWORD(self->fGroupMonitorChamber.gr_mem);
       fObj = self->fSessionMonitorChamber.fObj.fObj;
       fObj_high = HIDWORD(self->fSessionMonitorChamber.fObj.fObj);
       fEnclosedCheckRunningFlag = self->fEnclosedCheckRunningFlag;
       fFactoryTestEnabled = self->fFactoryTestEnabled;
-      v24 = *(&self->fFactoryTestEnabled + 1);
+      v18 = *(&self->fFactoryTestEnabled + 1);
       *__p = 67110400;
       *&__p[4] = gr_mem_high;
       *&__p[8] = 1024;
@@ -1063,68 +1107,66 @@ LABEL_15:
       *&__p[16] = fObj_high;
       *&__p[20] = 1024;
       *&__p[22] = fEnclosedCheckRunningFlag;
-      v38 = 1024;
-      v39 = fFactoryTestEnabled;
-      v40 = 1024;
-      v41 = v24;
-      _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "\tdetectChamberReady=%d, closeChamberCountdown=%d, ALSThreshold=%d, testCompleteAlertTime=%d, vibrationAlert=%d, chimeAlert=%d", __p, 0x26u);
+      v30 = 1024;
+      v31 = fFactoryTestEnabled;
+      v32 = 1024;
+      v33 = v18;
+      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "\tdetectChamberReady=%d, closeChamberCountdown=%d, ALSThreshold=%d, testCompleteAlertTime=%d, vibrationAlert=%d, chimeAlert=%d", __p, 0x26u);
     }
   }
 
-  v25 = self->fBasebandDiagnostics.__ptr_;
   strcpy(__p, "basebandResultWaitTime");
   __p[23] = 22;
-  v26 = BasebandDiagnostics::readIntegerFromUserDefaults();
+  v19 = BasebandDiagnostics::readIntegerFromUserDefaults();
   if ((__p[23] & 0x80000000) != 0)
   {
-    v27 = v26;
+    v20 = v19;
     operator delete(*__p);
-    v26 = v27;
+    v19 = v20;
   }
 
-  if (v26 >= 1)
+  if (v19 >= 1)
   {
-    v28 = v26;
+    v21 = v19;
   }
 
   else
   {
-    v28 = 120;
+    v21 = 120;
   }
 
-  *&self->testConfig.overrideTestConfigEnable = v28;
-  v29 = self->fBasebandDiagnostics.__ptr_;
+  *&self->testConfig.overrideTestConfigEnable = v21;
   __p[23] = 16;
   strcpy(__p, "wifiScanInterval");
-  v30 = BasebandDiagnostics::readIntegerFromUserDefaults();
+  v22 = BasebandDiagnostics::readIntegerFromUserDefaults();
   if ((__p[23] & 0x80000000) != 0)
   {
-    v31 = v30;
+    v23 = v22;
     operator delete(*__p);
-    v30 = v31;
+    v22 = v23;
   }
 
-  if (v30 >= 1)
+  if (v22 >= 1)
   {
-    v32 = v30;
+    v24 = v22;
   }
 
   else
   {
-    v32 = 8;
+    v24 = 8;
   }
 
-  self->testConfig.override_detectChamberSensor = v32;
-  v33 = +[ABMDiagnosticExtensionLogging getOSLogHandler];
-  if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
+  self->testConfig.override_detectChamberSensor = v24;
+  v25 = +[ABMDiagnosticExtensionLogging getOSLogHandler];
+  if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
   {
-    v34 = *&self->testConfig.overrideTestConfigEnable;
+    v26 = *&self->testConfig.overrideTestConfigEnable;
     override_detectChamberSensor = self->testConfig.override_detectChamberSensor;
     *__p = 67109376;
-    *&__p[4] = v34;
+    *&__p[4] = v26;
     *&__p[8] = 1024;
     *&__p[10] = override_detectChamberSensor;
-    _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_DEFAULT, "Test config: basebandResultWaitTime=%d, wifiScanInterval=%d", __p, 0xEu);
+    _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "Test config: basebandResultWaitTime=%d, wifiScanInterval=%d", __p, 0xEu);
   }
 
   return self->fGroupMonitorChamber.gr_mem;

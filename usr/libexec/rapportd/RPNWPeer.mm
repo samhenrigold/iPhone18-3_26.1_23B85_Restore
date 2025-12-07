@@ -18,6 +18,8 @@
 - (void)receiveWithRequestID:(id)d receiveHandler:(id)handler;
 - (void)resolvePeer:(id)peer token:(id)token controlFlags:(unint64_t)flags applicationService:(id)service clientPublicKey:(id)key resolveHandler:(id)handler;
 - (void)sendDataForConnection:(id)connection token:(id)token applicationService:(id)service connectionID:(id)d responseHandler:(id)handler;
+- (void)sendStatusUpdateForConnection:(id)connection token:(id)token connectionID:(id)d status:(int)status responseHandler:(id)handler;
+- (void)sendWithRequestID:(id)d token:(id)token data:(id)data status:(int)status applicationService:(id)service clientPublicKey:(id)key listenerID:(id)iD automapListener:(BOOL)self0 connectionID:(id)self1 responseHandler:(id)self2;
 - (void)startDiscovery:(unsigned int)discovery applicationService:(id)service controlFlags:(unint64_t)flags deviceFilter:(id)filter startHandler:(id)handler connectedHandler:(id)connectedHandler updateHandler:(id)updateHandler lostHandler:(id)self0 invalidationHandler:(id)self1;
 - (void)stopDiscovery;
 @end
@@ -360,12 +362,10 @@ LABEL_14:
   handlerCopy = handler;
   if (dword_1001D4728 <= 30 && (dword_1001D4728 != -1 || _LogCategory_Initialize()))
   {
-    v26 = tokenCopy;
-    v27 = peerCopy;
-    LogPrintF();
+    LogPrintF(&dword_1001D4728, "[RPNWPeer resolvePeer:token:controlFlags:applicationService:clientPublicKey:resolveHandler:]", 30, "%@ Resolving peer device '%@'", tokenCopy, peerCopy);
   }
 
-  v19 = [RPNWNetworkAgent sharedNetworkAgent:v26];
+  v19 = +[RPNWNetworkAgent sharedNetworkAgent];
   dispatchQueue = [v19 dispatchQueue];
   [(RPNWPeer *)self setDispatchQueue:dispatchQueue];
 
@@ -376,22 +376,22 @@ LABEL_14:
     [(RPNWPeer *)self setServiceType:serviceCopy];
   }
 
-  v28[0] = _NSConcreteStackBlock;
-  v28[1] = 3221225472;
-  v28[2] = sub_10008CA3C;
-  v28[3] = &unk_1001ADF40;
-  v29 = tokenCopy;
-  v30 = peerCopy;
+  v26[0] = _NSConcreteStackBlock;
+  v26[1] = 3221225472;
+  v26[2] = sub_10008CA3C;
+  v26[3] = &unk_1001ADF40;
+  v27 = tokenCopy;
+  v28 = peerCopy;
   selfCopy = self;
-  v32 = serviceCopy;
-  v33 = keyCopy;
-  v34 = handlerCopy;
+  v30 = serviceCopy;
+  v31 = keyCopy;
+  v32 = handlerCopy;
   v21 = keyCopy;
   v22 = serviceCopy;
   v23 = handlerCopy;
   v24 = peerCopy;
   v25 = tokenCopy;
-  [(RPNWPeer *)self activateWithCompletion:v28];
+  [(RPNWPeer *)self activateWithCompletion:v26];
 }
 
 - (void)connectToOneAPIPeer:(id)peer token:(id)token inboundConnection:(BOOL)connection applicationService:(id)service listenerID:(id)d automapListener:(BOOL)listener connectionID:(id)iD connectHandler:(id)self0
@@ -482,171 +482,177 @@ LABEL_14:
   iDCopy = iD;
   if (dword_1001D4728 <= 40 && (dword_1001D4728 != -1 || _LogCategory_Initialize()))
   {
-    v33 = serviceCopy;
-    v36 = connectionCopy;
-    LogPrintF();
+    LogPrintF(&dword_1001D4728, "[RPNWPeer findListenerAndCreateConnection:version:applicationService:listenerID:connectionID:]", 40, "Received request for appSvc='%@' from '%@'", serviceCopy, connectionCopy);
   }
 
-  v16 = [RPNWListener findListenerForID:dCopy applicationService:serviceCopy fromPeer:connectionCopy, v33, v36];
-  v17 = v16;
+  v16 = [RPNWListener findListenerForID:dCopy applicationService:serviceCopy fromPeer:connectionCopy];
+  v19 = v16;
   if (v16)
   {
-    v18 = [v16 getConnectionWithID:iDCopy];
-    v44 = dCopy;
-    if (v18)
+    v20 = [v16 getConnectionWithID:iDCopy];
+    v43 = dCopy;
+    if (v20)
     {
-      v19 = v18;
+      v21 = v20;
       if (dword_1001D4728 <= 40 && (dword_1001D4728 != -1 || _LogCategory_Initialize()))
       {
-        sub_100123404();
+        sub_100123404(v21);
       }
     }
 
     else
     {
-      v21 = [RPNWConnection alloc];
-      v22 = +[NSUUID UUID];
-      v19 = [(RPNWConnection *)v21 initWithPeer:connectionCopy token:0 version:versionCopy inbound:1 internal:1 applicationService:serviceCopy connectionID:iDCopy endpointID:v22];
+      v23 = [RPNWConnection alloc];
+      v24 = +[NSUUID UUID];
+      v21 = [(RPNWConnection *)v23 initWithPeer:connectionCopy token:0 version:versionCopy inbound:1 internal:1 applicationService:serviceCopy connectionID:iDCopy endpointID:v24];
 
-      [v17 addIncomingConnection:v19];
+      [v19 addIncomingConnection:v21];
       if (dword_1001D4728 <= 30 && (dword_1001D4728 != -1 || _LogCategory_Initialize()))
       {
-        v34 = v19;
-        v37 = v17;
-        LogPrintF();
+        LogPrintF(&dword_1001D4728, "[RPNWPeer findListenerAndCreateConnection:version:applicationService:listenerID:connectionID:]", 30, "Created incoming RPNWConnection[%@] and attached to listener %@", v21, v19);
       }
     }
 
-    v23 = iDCopy;
+    v25 = iDCopy;
     memset(buffer, 0, 96);
-    v24 = proc_pidinfo([v17 pid], 4, 0, buffer, 96);
-    v25 = versionCopy;
-    if (v24 == 96)
+    v26 = proc_pidinfo([v19 pid], 4, 0, buffer, 96);
+    v27 = versionCopy;
+    if (v26 == 96)
     {
       if (dword_1001D4728 > 30 || dword_1001D4728 == -1 && !_LogCategory_Initialize())
       {
         goto LABEL_27;
       }
+
+      v28 = "Succeeded accessing client app PID (%d)";
     }
 
-    else if (dword_1001D4728 > 30 || dword_1001D4728 == -1 && !_LogCategory_Initialize())
+    else
     {
-      goto LABEL_27;
+      if (dword_1001D4728 > 30 || dword_1001D4728 == -1 && !_LogCategory_Initialize())
+      {
+        goto LABEL_27;
+      }
+
+      v28 = "Failed to access client app PID info (%d)";
     }
 
-    sub_100123444(v17);
+    sub_100123444(v19, v28);
 LABEL_27:
-    agentClient = [v17 agentClient];
+    agentClient = [v19 agentClient];
     flowToken = [agentClient flowToken];
-    [(RPNWConnection *)v19 setToken:flowToken];
+    [(RPNWConnection *)v21 setToken:flowToken];
 
-    if (v24 == 96)
+    if (v26 == 96)
     {
-      versionCopy = v25;
+      versionCopy = v27;
       if (agentClient)
       {
-        iDCopy = v23;
+        iDCopy = v25;
         if (dword_1001D4728 <= 30 && (dword_1001D4728 != -1 || _LogCategory_Initialize()))
         {
-          sub_1001234E8(v19);
+          sub_1001234E8(v21);
         }
 
-        [(RPNWConnection *)v19 setIsConnected:1];
-        dCopy = v44;
-        if ([v17 hasTriggeredConnection])
+        [(RPNWConnection *)v21 setIsConnected:1];
+        dCopy = v43;
+        if ([v19 hasTriggeredConnection])
         {
           if (dword_1001D4728 <= 30 && (dword_1001D4728 != -1 || _LogCategory_Initialize()))
           {
-            sub_100123540(v19);
+            sub_100123540(v21);
           }
 
-          [(RPNWConnection *)v19 setIsTriggerable:1];
+          [(RPNWConnection *)v21 setIsTriggerable:1];
         }
 
         else
         {
-          [v17 startConnection:v19 agentClient:agentClient];
+          [v19 startConnection:v21 agentClient:agentClient];
         }
 
         [versionCopy doubleValue];
-        if (v31 >= 2.0)
+        if (v34 >= 2.0)
         {
-          v20 = 1;
+          v22 = 1;
         }
 
         else
         {
-          v20 = 2;
+          v22 = 2;
         }
       }
 
       else
       {
-        v39 = connectionCopy;
-        v43 = v25;
-        iDCopy = v23;
+        v38 = connectionCopy;
+        v42 = v27;
+        iDCopy = v25;
         if (dword_1001D4728 <= 30 && (dword_1001D4728 != -1 || _LogCategory_Initialize()))
         {
-          sub_100123598(v19);
+          sub_100123598(v21);
         }
 
-        peer = [(RPNWConnection *)v19 peer];
-        peer2 = [(RPNWConnection *)v19 peer];
+        peer = [(RPNWConnection *)v21 peer];
+        peer2 = [(RPNWConnection *)v21 peer];
         destinationDevice = [peer2 destinationDevice];
-        token = [(RPNWConnection *)v19 token];
-        inbound = [(RPNWConnection *)v19 inbound];
-        endpointUUID = [(RPNWConnection *)v19 endpointUUID];
-        connectionUUID = [(RPNWConnection *)v19 connectionUUID];
-        v45[0] = _NSConcreteStackBlock;
-        v45[1] = 3221225472;
-        v45[2] = sub_10008D8BC;
-        v45[3] = &unk_1001ADFE0;
-        v46 = v19;
-        LOBYTE(v35) = 0;
-        [peer connectToPeer:destinationDevice token:token inboundConnection:inbound controlFlags:0 applicationService:serviceCopy listenerID:endpointUUID automapListener:v35 connectionID:connectionUUID connectHandler:v45 lostHandler:&stru_1001AE000];
+        token = [(RPNWConnection *)v21 token];
+        inbound = [(RPNWConnection *)v21 inbound];
+        endpointUUID = [(RPNWConnection *)v21 endpointUUID];
+        connectionUUID = [(RPNWConnection *)v21 connectionUUID];
+        v44[0] = _NSConcreteStackBlock;
+        v44[1] = 3221225472;
+        v44[2] = sub_10008D8BC;
+        v44[3] = &unk_1001ADFE0;
+        v45 = v21;
+        LOBYTE(v36) = 0;
+        [peer connectToPeer:destinationDevice token:token inboundConnection:inbound controlFlags:0 applicationService:serviceCopy listenerID:endpointUUID automapListener:v36 connectionID:connectionUUID connectHandler:v44 lostHandler:&stru_1001AE000];
 
-        v20 = 1;
-        versionCopy = v43;
-        dCopy = v44;
-        connectionCopy = v39;
+        v22 = 1;
+        versionCopy = v42;
+        dCopy = v43;
+        connectionCopy = v38;
       }
     }
 
     else
     {
-      versionCopy = v25;
+      versionCopy = v27;
       if (dword_1001D4728 > 30)
       {
-        v20 = 0;
-        iDCopy = v23;
+        v22 = 0;
+        iDCopy = v25;
       }
 
       else
       {
-        iDCopy = v23;
+        iDCopy = v25;
         if (dword_1001D4728 != -1 || _LogCategory_Initialize())
         {
-          sub_100123490(v19);
+          sub_100123490(v21);
         }
 
-        v20 = 0;
+        v22 = 0;
       }
 
-      dCopy = v44;
+      dCopy = v43;
     }
 
     goto LABEL_52;
   }
 
-  if (dword_1001D4728 <= 90 && (dword_1001D4728 != -1 || _LogCategory_Initialize()))
+  if (dword_1001D4728 <= 90)
   {
-    sub_100123620();
+    if (dword_1001D4728 != -1 || (v16 = _LogCategory_Initialize(), v16))
+    {
+      sub_100123620(v16, v17, v18);
+    }
   }
 
-  v20 = 0;
+  v22 = 0;
 LABEL_52:
 
-  return v20;
+  return v22;
 }
 
 - (void)handleConnectionData:(BOOL)data
@@ -739,7 +745,7 @@ LABEL_52:
 
       if (dword_1001D4728 <= 30 && (dword_1001D4728 != -1 || _LogCategory_Initialize()))
       {
-        sub_1001238F8();
+        sub_1001238F8(v11);
       }
     }
 
@@ -818,7 +824,7 @@ LABEL_52:
 
   if (endpointCopy)
   {
-    [endpointCopy operatingSystemVersion];
+    objc_msgSend_operatingSystemVersion(endpointCopy);
   }
 
   else
@@ -949,7 +955,7 @@ LABEL_52:
   handlerCopy = handler;
   if (dword_1001D4728 <= 30 && (dword_1001D4728 != -1 || _LogCategory_Initialize()))
   {
-    sub_100123938();
+    sub_100123938(dCopy);
   }
 
   v10[0] = _NSConcreteStackBlock;
@@ -961,6 +967,86 @@ LABEL_52:
   v8 = handlerCopy;
   v9 = dCopy;
   [(RPNWPeer *)self registerRequestID:v9 options:0 handler:v10];
+}
+
+- (void)sendWithRequestID:(id)d token:(id)token data:(id)data status:(int)status applicationService:(id)service clientPublicKey:(id)key listenerID:(id)iD automapListener:(BOOL)self0 connectionID:(id)self1 responseHandler:(id)self2
+{
+  v14 = *&status;
+  dCopy = d;
+  tokenCopy = token;
+  dataCopy = data;
+  serviceCopy = service;
+  keyCopy = key;
+  iDCopy = iD;
+  connectionIDCopy = connectionID;
+  handlerCopy = handler;
+  v23 = objc_alloc_init(NSMutableDictionary);
+  v24 = objc_alloc_init(NSMutableString);
+  [v23 setObject:&off_1001B8150 forKeyedSubscript:@"version"];
+  v36 = keyCopy;
+  if (dataCopy)
+  {
+    [v23 setObject:dataCopy forKeyedSubscript:@"request"];
+    [v24 appendFormat:@" data=%zu bytes", objc_msgSend(dataCopy, "length")];
+  }
+
+  else if (v14)
+  {
+    v25 = [NSNumber numberWithInt:v14];
+    [v23 setObject:v25 forKeyedSubscript:@"status"];
+    [v24 appendFormat:@" status=%s", +[RPNWPeer statusCodeToString:](RPNWPeer, "statusCodeToString:", v14)];
+
+    keyCopy = v36;
+  }
+
+  [v23 setObject:serviceCopy forKeyedSubscript:@"applicationService"];
+  if (keyCopy)
+  {
+    [v23 setObject:keyCopy forKeyedSubscript:@"clientPublicKey"];
+    [v24 appendFormat:@" clientPublicKey=%zu bytes", objc_msgSend(keyCopy, "length")];
+  }
+
+  if (iDCopy)
+  {
+    [v23 setObject:iDCopy forKeyedSubscript:@"listenerID"];
+    [v24 appendFormat:@" listenerID=%@", iDCopy];
+  }
+
+  v26 = [NSNumber numberWithBool:listener];
+  [v23 setObject:v26 forKeyedSubscript:@"automapListener"];
+
+  if (connectionIDCopy)
+  {
+    [v23 setObject:connectionIDCopy forKeyedSubscript:@"connectionID"];
+    [v24 appendFormat:@" connectionID=%@", connectionIDCopy];
+  }
+
+  v34 = iDCopy;
+  v35 = dataCopy;
+  if (dword_1001D4728 <= 30 && (dword_1001D4728 != -1 || _LogCategory_Initialize()))
+  {
+    destinationDevice = [(RPNWPeer *)self destinationDevice];
+    name = [destinationDevice name];
+    LogPrintF(&dword_1001D4728, "[RPNWPeer sendWithRequestID:token:data:status:applicationService:clientPublicKey:listenerID:automapListener:connectionID:responseHandler:]", 30, "%@ TX REQ to '%@': requestID=%@ appSvc=%@%@\n", tokenCopy, name, dCopy, serviceCopy, v24, iDCopy, dataCopy);
+  }
+
+  v46 = @"timeoutSeconds";
+  v47 = &off_1001B7FF0;
+  v29 = [NSDictionary dictionaryWithObjects:&v47 forKeys:&v46 count:1];
+  v40[0] = _NSConcreteStackBlock;
+  v40[1] = 3221225472;
+  v40[2] = sub_10008F244;
+  v40[3] = &unk_1001AE048;
+  v41 = tokenCopy;
+  selfCopy = self;
+  v43 = dCopy;
+  v44 = serviceCopy;
+  v45 = handlerCopy;
+  v30 = handlerCopy;
+  v31 = serviceCopy;
+  v32 = dCopy;
+  v33 = tokenCopy;
+  [(RPNWPeer *)self sendRequestID:v32 request:v23 destinationID:@"rapport:rdid:DirectPeer" options:v29 responseHandler:v40];
 }
 
 - (void)receiveDataForConnection:(id)connection statusHandler:(id)handler
@@ -986,6 +1072,30 @@ LABEL_52:
   v12 = handlerCopy;
   LOBYTE(v13) = 0;
   [(RPNWPeer *)self sendWithRequestID:@"com.apple.oneapi.data" token:token data:connection status:0 applicationService:service clientPublicKey:0 listenerID:0 automapListener:v13 connectionID:d responseHandler:v14];
+}
+
+- (void)sendStatusUpdateForConnection:(id)connection token:(id)token connectionID:(id)d status:(int)status responseHandler:(id)handler
+{
+  v8 = *&status;
+  connectionCopy = connection;
+  tokenCopy = token;
+  dCopy = d;
+  handlerCopy = handler;
+  if (dword_1001D4728 <= 30 && (dword_1001D4728 != -1 || _LogCategory_Initialize()))
+  {
+    sub_100123C70(v8, tokenCopy, dCopy);
+  }
+
+  v19[0] = _NSConcreteStackBlock;
+  v19[1] = 3221225472;
+  v19[2] = sub_10008F9A4;
+  v19[3] = &unk_1001AE0C0;
+  v20 = tokenCopy;
+  v21 = handlerCopy;
+  v16 = handlerCopy;
+  v17 = tokenCopy;
+  LOBYTE(v18) = 0;
+  [(RPNWPeer *)self sendWithRequestID:@"com.apple.oneapi.data" token:v17 data:0 status:v8 applicationService:connectionCopy clientPublicKey:0 listenerID:0 automapListener:v18 connectionID:dCopy responseHandler:v19];
 }
 
 - (int64_t)_rssiThresholdForApplicationService:(id)service

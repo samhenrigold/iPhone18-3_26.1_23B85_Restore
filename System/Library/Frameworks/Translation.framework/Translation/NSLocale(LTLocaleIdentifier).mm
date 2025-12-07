@@ -89,7 +89,7 @@
 
 + (void)lt_bestMatchesForPreferredLocales:()LTLocaleIdentifier fromSupportedLocales:
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = a4;
   if (![v5 count])
@@ -102,29 +102,29 @@
   v8 = [v6 _ltCompactMap:&__block_literal_global_7_0];
   v9 = [v5 _ltCompactMap:&__block_literal_global_9_0];
   array = [MEMORY[0x277CBEB18] array];
-  v28 = v9;
-  v29 = v8;
+  v27 = v9;
+  v28 = v8;
   v11 = [MEMORY[0x277CBEAF8] matchedLanguagesFromAvailableLanguages:v8 forPreferredLanguages:v9];
+  v33 = 0u;
   v34 = 0u;
   v35 = 0u;
   v36 = 0u;
-  v37 = 0u;
-  v12 = [v11 countByEnumeratingWithState:&v34 objects:v39 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v33 objects:v38 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v35;
+    v14 = *v34;
     do
     {
       v15 = 0;
       do
       {
-        if (*v35 != v14)
+        if (*v34 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        v16 = [MEMORY[0x277CBEAF8] localeWithLocaleIdentifier:*(*(&v34 + 1) + 8 * v15)];
+        v16 = [MEMORY[0x277CBEAF8] localeWithLocaleIdentifier:*(*(&v33 + 1) + 8 * v15)];
         if (v16)
         {
           [array addObject:v16];
@@ -134,7 +134,7 @@
       }
 
       while (v13 != v15);
-      v13 = [v11 countByEnumeratingWithState:&v34 objects:v39 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v33 objects:v38 count:16];
     }
 
     while (v13);
@@ -143,27 +143,27 @@
   v17 = array;
   if (![array count])
   {
-    v32 = 0u;
-    v33 = 0u;
-    v30 = 0u;
     v31 = 0u;
+    v32 = 0u;
+    v29 = 0u;
+    v30 = 0u;
     v18 = v5;
-    v19 = [v18 countByEnumeratingWithState:&v30 objects:v38 count:16];
+    v19 = [v18 countByEnumeratingWithState:&v29 objects:v37 count:16];
     if (v19)
     {
       v20 = v19;
-      v21 = *v31;
+      v21 = *v30;
       do
       {
         v22 = 0;
         do
         {
-          if (*v31 != v21)
+          if (*v30 != v21)
           {
             objc_enumerationMutation(v18);
           }
 
-          _ltLocaleIdentifier = [*(*(&v30 + 1) + 8 * v22) _ltLocaleIdentifier];
+          _ltLocaleIdentifier = [*(*(&v29 + 1) + 8 * v22) _ltLocaleIdentifier];
           v24 = _LTLanguageCodeToSupportedLocale(_ltLocaleIdentifier, v6);
 
           if (v24)
@@ -175,7 +175,7 @@
         }
 
         while (v20 != v22);
-        v20 = [v18 countByEnumeratingWithState:&v30 objects:v38 count:16];
+        v20 = [v18 countByEnumeratingWithState:&v29 objects:v37 count:16];
       }
 
       while (v20);
@@ -194,7 +194,6 @@
 
   v25 = v17;
 
-  v26 = *MEMORY[0x277D85DE8];
   return v17;
 }
 
@@ -231,7 +230,7 @@ LABEL_6:
 
 + (id)lt_defaultTargetForSource:()LTLocaleIdentifier systemLocale:availableLocales:targetMap:
 {
-  v66[1] = *MEMORY[0x277D85DE8];
+  v67[1] = *MEMORY[0x277D85DE8];
   v10 = a3;
   v11 = a4;
   v12 = a5;
@@ -240,14 +239,14 @@ LABEL_6:
   if (!v13)
   {
     selfCopy = self;
-    v53 = v12;
-    v55 = v11;
+    v54 = v12;
+    v56 = v11;
     v15 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
     v16 = [v15 URLForResource:@"DefaultTargets" withExtension:@"plist"];
     v17 = [MEMORY[0x277CBEA90] dataWithContentsOfURL:v16];
-    v63 = 0;
-    v18 = [MEMORY[0x277CCAC58] propertyListWithData:v17 options:0 format:0 error:&v63];
-    v19 = v63;
+    v64 = 0;
+    v18 = [MEMORY[0x277CCAC58] propertyListWithData:v17 options:0 format:0 error:&v64];
+    v19 = v64;
     v20 = objc_opt_class();
     v21 = objc_opt_class();
     v22 = v18;
@@ -259,44 +258,22 @@ LABEL_6:
 
     if (!v14 || v19)
     {
-      v23 = _LTOSLogAssets();
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+      v25 = _LTOSLogAssets(v23, v24);
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
       {
-        [NSLocale(LTLocaleIdentifier) lt_defaultTargetForSource:v19 systemLocale:v23 availableLocales:? targetMap:?];
+        [NSLocale(LTLocaleIdentifier) lt_defaultTargetForSource:v19 systemLocale:v25 availableLocales:? targetMap:?];
       }
     }
 
-    v12 = v53;
-    v11 = v55;
+    v12 = v54;
+    v11 = v56;
     self = selfCopy;
     v13 = 0;
   }
 
   regionCode = [v11 regionCode];
-  v24 = [v14 objectForKeyedSubscript:?];
-  v25 = [v24 objectForKeyedSubscript:@"source"];
-  if (v25)
-  {
-    objc_opt_class();
-    if (objc_opt_isKindOfClass())
-    {
-      v26 = v25;
-    }
-
-    else
-    {
-      v26 = 0;
-    }
-  }
-
-  else
-  {
-    v26 = 0;
-  }
-
-  v58 = v26;
-
-  v27 = [v24 objectForKeyedSubscript:@"target"];
+  v26 = [v14 objectForKeyedSubscript:?];
+  v27 = [v26 objectForKeyedSubscript:@"source"];
   if (v27)
   {
     objc_opt_class();
@@ -316,69 +293,91 @@ LABEL_6:
     v28 = 0;
   }
 
-  v29 = v28;
+  v59 = v28;
 
-  v30 = v58;
-  if (v14 && v24 && v58 && v29)
+  v29 = [v26 objectForKeyedSubscript:@"target"];
+  if (v29)
   {
-    v52 = v13;
-    v56 = v11;
-    v31 = [MEMORY[0x277CBEAF8] localeWithLocaleIdentifier:v58];
-    v66[0] = v31;
-    v32 = [MEMORY[0x277CBEA60] arrayWithObjects:v66 count:1];
-    v33 = [self lt_bestMatchForPreferredLocales:v32 fromSupportedLocales:v12];
+    objc_opt_class();
+    if (objc_opt_isKindOfClass())
+    {
+      v30 = v29;
+    }
 
-    v49 = v29;
-    v34 = [MEMORY[0x277CBEAF8] localeWithLocaleIdentifier:v29];
-    v65 = v34;
-    v35 = [MEMORY[0x277CBEA60] arrayWithObjects:&v65 count:1];
-    v36 = [self lt_bestMatchForPreferredLocales:v35 fromSupportedLocales:v12];
+    else
+    {
+      v30 = 0;
+    }
+  }
+
+  else
+  {
+    v30 = 0;
+  }
+
+  v31 = v30;
+
+  v32 = v59;
+  if (v14 && v26 && v59 && v31)
+  {
+    v53 = v13;
+    v57 = v11;
+    v33 = [MEMORY[0x277CBEAF8] localeWithLocaleIdentifier:v59];
+    v67[0] = v33;
+    v34 = [MEMORY[0x277CBEA60] arrayWithObjects:v67 count:1];
+    v35 = [self lt_bestMatchForPreferredLocales:v34 fromSupportedLocales:v12];
+
+    v50 = v31;
+    v36 = [MEMORY[0x277CBEAF8] localeWithLocaleIdentifier:v31];
+    v66 = v36;
+    v37 = [MEMORY[0x277CBEA60] arrayWithObjects:&v66 count:1];
+    v38 = [self lt_bestMatchForPreferredLocales:v37 fromSupportedLocales:v12];
 
     array = [MEMORY[0x277CBEB18] array];
-    if (v33 && ([v10 _ltEqual:v33] & 1) == 0)
+    if (v35 && ([v10 _ltEqual:v35] & 1) == 0)
     {
-      [array addObject:v33];
+      [array addObject:v35];
     }
 
-    v48 = v33;
+    v49 = v35;
     selfCopy2 = self;
-    v54 = v12;
-    if (v36)
+    v55 = v12;
+    if (v38)
     {
-      [array addObject:v36];
+      [array addObject:v38];
     }
 
-    v61 = 0u;
     v62 = 0u;
-    v59 = 0u;
+    v63 = 0u;
     v60 = 0u;
-    v38 = array;
-    v39 = [v38 countByEnumeratingWithState:&v59 objects:v64 count:16];
-    if (v39)
+    v61 = 0u;
+    v40 = array;
+    v41 = [v40 countByEnumeratingWithState:&v60 objects:v65 count:16];
+    if (v41)
     {
-      v40 = v39;
-      v41 = *v60;
+      v42 = v41;
+      v43 = *v61;
       while (2)
       {
-        for (i = 0; i != v40; ++i)
+        for (i = 0; i != v42; ++i)
         {
-          if (*v60 != v41)
+          if (*v61 != v43)
           {
-            objc_enumerationMutation(v38);
+            objc_enumerationMutation(v40);
           }
 
-          v43 = *(*(&v59 + 1) + 8 * i);
-          v44 = [[_LTLocalePair alloc] initWithSourceLocale:v10 targetLocale:v43];
-          if (![(_LTLocalePair *)v44 isVariantPair])
+          v45 = *(*(&v60 + 1) + 8 * i);
+          v46 = [[_LTLocalePair alloc] initWithSourceLocale:v10 targetLocale:v45];
+          if (![(_LTLocalePair *)v46 isVariantPair])
           {
-            v45 = v43;
+            v47 = v45;
 
             goto LABEL_41;
           }
         }
 
-        v40 = [v38 countByEnumeratingWithState:&v59 objects:v64 count:16];
-        if (v40)
+        v42 = [v40 countByEnumeratingWithState:&v60 objects:v65 count:16];
+        if (v42)
         {
           continue;
         }
@@ -387,24 +386,22 @@ LABEL_6:
       }
     }
 
-    v45 = [selfCopy2 lt_fallbackForLocale:v10];
+    v47 = [selfCopy2 lt_fallbackForLocale:v10];
 LABEL_41:
 
-    v12 = v54;
-    v11 = v56;
-    v13 = v52;
-    v29 = v49;
-    v30 = v58;
+    v12 = v55;
+    v11 = v57;
+    v13 = v53;
+    v31 = v50;
+    v32 = v59;
   }
 
   else
   {
-    v45 = [self lt_fallbackForLocale:v10];
+    v47 = [self lt_fallbackForLocale:v10];
   }
 
-  v46 = *MEMORY[0x277D85DE8];
-
-  return v45;
+  return v47;
 }
 
 - (id)lt_displayNameForContext:()LTLocaleIdentifier inTargetLocale:
@@ -710,11 +707,10 @@ LABEL_19:
 
 + (void)lt_defaultTargetForSource:()LTLocaleIdentifier systemLocale:availableLocales:targetMap:.cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_23AAF5000, a2, OS_LOG_TYPE_ERROR, "Failed to read default target locale mapping: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_23AAF5000, a2, OS_LOG_TYPE_ERROR, "Failed to read default target locale mapping: %@", &v2, 0xCu);
 }
 
 @end

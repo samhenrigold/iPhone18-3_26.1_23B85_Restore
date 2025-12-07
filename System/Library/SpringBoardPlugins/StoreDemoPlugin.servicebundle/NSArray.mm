@@ -19,38 +19,39 @@
 - (NSArray)initWithXPCArray:(id)array
 {
   arrayCopy = array;
-  v15 = 0;
-  v16[0] = &v15;
-  v16[1] = 0x3032000000;
-  v16[2] = sub_A760;
-  v16[3] = sub_A770;
-  v17 = +[NSMutableArray array];
-  v9 = _NSConcreteStackBlock;
-  v10 = 3221225472;
-  v11 = sub_A778;
-  v12 = &unk_18908;
-  v14 = &v15;
+  v16 = 0;
+  v17[0] = &v16;
+  v17[1] = 0x3032000000;
+  v17[2] = sub_A760;
+  v17[3] = sub_A770;
+  v18 = +[NSMutableArray array];
+  v10 = _NSConcreteStackBlock;
+  v11 = 3221225472;
+  v12 = sub_A778;
+  v13 = &unk_18908;
+  v15 = &v16;
   selfCopy = self;
-  v13 = selfCopy;
-  if (xpc_array_apply(arrayCopy, &v9))
+  v14 = selfCopy;
+  v6 = xpc_array_apply(arrayCopy, &v10);
+  if (v6)
   {
-    v6 = defaultLogHandle();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+    v7 = defaultLogHandle(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
-      sub_C580(v16, v6);
+      sub_C580(v17, v7);
     }
 
-    selfCopy = [(NSArray *)selfCopy initWithArray:*(v16[0] + 40), v9, v10, v11, v12];
-    v7 = selfCopy;
+    selfCopy = [(NSArray *)selfCopy initWithArray:*(v17[0] + 40), v10, v11, v12, v13];
+    v8 = selfCopy;
   }
 
   else
   {
-    v7 = 0;
+    v8 = 0;
   }
 
-  _Block_object_dispose(&v15, 8);
-  return v7;
+  _Block_object_dispose(&v16, 8);
+  return v8;
 }
 
 - (id)xpcArrayFromArray
@@ -86,141 +87,136 @@
 {
   if (self)
   {
-    v31 = objc_alloc_init(NSMutableArray);
-    v38 = 0u;
-    v39 = 0u;
-    v40 = 0u;
-    v41 = 0u;
+    v26 = objc_alloc_init(NSMutableArray);
+    v33 = 0u;
+    v34 = 0u;
+    v35 = 0u;
+    v36 = 0u;
     obj = self;
-    v3 = [(NSArray *)obj countByEnumeratingWithState:&v38 objects:v43 count:16];
+    v3 = [(NSArray *)obj countByEnumeratingWithState:&v33 objects:v38 count:16];
     if (!v3)
     {
       goto LABEL_32;
     }
 
     v4 = v3;
-    v5 = &BYSetupAssistantNeedsToRun_ptr;
-    v6 = *v39;
-    v7 = &BYSetupAssistantNeedsToRun_ptr;
-    v8 = &BYSetupAssistantNeedsToRun_ptr;
-    v29 = *v39;
+    v5 = *v34;
+    v6 = &BYSetupAssistantNeedsToRun_ptr;
+    v24 = *v34;
     while (1)
     {
-      v9 = 0;
-      v30 = v4;
+      v7 = 0;
+      v25 = v4;
       do
       {
-        if (*v39 != v6)
+        if (*v34 != v5)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v38 + 1) + 8 * v9);
-        v11 = v5[158];
+        v8 = *(*(&v33 + 1) + 8 * v7);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v32 = v9;
-          v12 = v10;
-          v13 = objc_alloc_init(NSMutableDictionary);
-          v34 = 0u;
-          v35 = 0u;
-          v36 = 0u;
-          v37 = 0u;
-          v14 = v12;
-          v15 = [v14 countByEnumeratingWithState:&v34 objects:v42 count:16];
-          if (v15)
+          v27 = v7;
+          v9 = v8;
+          v10 = objc_alloc_init(NSMutableDictionary);
+          v29 = 0u;
+          v30 = 0u;
+          v31 = 0u;
+          v32 = 0u;
+          v11 = v9;
+          v12 = [v11 countByEnumeratingWithState:&v29 objects:v37 count:16];
+          if (v12)
           {
-            v16 = v15;
-            v17 = *v35;
+            v13 = v12;
+            v14 = *v30;
             do
             {
-              v18 = 0;
+              v15 = 0;
               do
               {
-                if (*v35 != v17)
+                if (*v30 != v14)
                 {
-                  objc_enumerationMutation(v14);
+                  objc_enumerationMutation(v11);
                 }
 
-                v19 = *(*(&v34 + 1) + 8 * v18);
-                v20 = [v14 objectForKeyedSubscript:v19];
+                v16 = *(*(&v29 + 1) + 8 * v15);
+                v17 = [v11 objectForKeyedSubscript:v16];
                 objc_opt_class();
-                if (objc_opt_isKindOfClass() & 1) != 0 || (v21 = v7[133], objc_opt_class(), (objc_opt_isKindOfClass()) || (v22 = v8[156], objc_opt_class(), (objc_opt_isKindOfClass()) || (objc_opt_class(), (objc_opt_isKindOfClass()) || (objc_opt_class(), (objc_opt_isKindOfClass()))
+                if (objc_opt_isKindOfClass() & 1) != 0 || (objc_opt_class(), (objc_opt_isKindOfClass()) || (objc_opt_class(), (objc_opt_isKindOfClass()) || (objc_opt_class(), (objc_opt_isKindOfClass()) || (objc_opt_class(), (objc_opt_isKindOfClass()))
                 {
-                  [v13 setObject:v20 forKeyedSubscript:v19];
+                  [v10 setObject:v17 forKeyedSubscript:v16];
                 }
 
                 else
                 {
-                  v23 = v8;
-                  if (v20)
+                  v18 = v6;
+                  if (v17)
                   {
-                    [(NSArray *)obj _convertObjectToNSData:v20];
+                    [(NSArray *)obj _convertObjectToNSData:v17];
                   }
 
                   else
                   {
                     +[NSNull null];
                   }
-                  v24 = ;
-                  [v13 setObject:v24 forKeyedSubscript:v19];
+                  v19 = ;
+                  [v10 setObject:v19 forKeyedSubscript:v16];
 
-                  v8 = v23;
-                  v7 = &BYSetupAssistantNeedsToRun_ptr;
+                  v6 = v18;
                 }
 
-                v18 = v18 + 1;
+                v15 = v15 + 1;
               }
 
-              while (v16 != v18);
-              v25 = [v14 countByEnumeratingWithState:&v34 objects:v42 count:16];
-              v16 = v25;
+              while (v13 != v15);
+              v20 = [v11 countByEnumeratingWithState:&v29 objects:v37 count:16];
+              v13 = v20;
             }
 
-            while (v25);
+            while (v20);
           }
 
-          v26 = [v13 copy];
-          [v31 addObject:v26];
+          v21 = [v10 copy];
+          [v26 addObject:v21];
 
-          v5 = &BYSetupAssistantNeedsToRun_ptr;
-          v6 = v29;
-          v4 = v30;
-          v9 = v32;
+          v5 = v24;
+          v4 = v25;
+          v7 = v27;
         }
 
         else
         {
-          if (!v10)
+          if (!v8)
           {
             goto LABEL_30;
           }
 
-          v14 = [v10 description];
-          [v31 addObject:v14];
+          v11 = [v8 description];
+          [v26 addObject:v11];
         }
 
 LABEL_30:
-        v9 = v9 + 1;
+        v7 = v7 + 1;
       }
 
-      while (v9 != v4);
-      v4 = [(NSArray *)obj countByEnumeratingWithState:&v38 objects:v43 count:16];
+      while (v7 != v4);
+      v4 = [(NSArray *)obj countByEnumeratingWithState:&v33 objects:v38 count:16];
       if (!v4)
       {
 LABEL_32:
 
-        v27 = [v31 copy];
+        v22 = [v26 copy];
         goto LABEL_34;
       }
     }
   }
 
-  v27 = &__NSArray0__struct;
+  v22 = &__NSArray0__struct;
 LABEL_34:
 
-  return v27;
+  return v22;
 }
 
 - (id)_convertObjectToNSData:(id)data

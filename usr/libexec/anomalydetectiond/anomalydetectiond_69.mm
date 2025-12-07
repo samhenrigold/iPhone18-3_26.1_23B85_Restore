@@ -1301,16 +1301,16 @@ void sub_1002C33B8(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-char **sub_1002C33E0@<X0>(uint64_t a1@<X0>, char ***a2@<X8>)
+void *sub_1002C33E0@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
 {
   result = *a1;
   {
-    v6 = *(a1 + 8);
+    v5 = *(a1 + 8);
     *a2 = result;
-    a2[1] = v6;
-    if (v6)
+    a2[1] = v5;
+    if (v5)
     {
-      atomic_fetch_add_explicit((v6 + 8), 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit((v5 + 8), 1uLL, memory_order_relaxed);
     }
   }
 
@@ -3214,16 +3214,16 @@ void sub_1002C7198(uint64_t a1, void *a2)
   }
 }
 
-id sub_1002C7914()
+id sub_1002C7914(uint64_t a1, uint64_t a2)
 {
   if (qword_1004567D8 != -1)
   {
     sub_1002CD4A0();
   }
 
-  v1 = qword_1004567E0;
+  v3 = qword_1004567E0;
 
-  return v1;
+  return v3;
 }
 
 void sub_1002CC5B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11)
@@ -3262,112 +3262,112 @@ BOOL sub_1002CD438(NSObject *a1)
   return os_log_type_enabled(a1, OS_LOG_TYPE_INFO);
 }
 
-void sub_1002CD4DC()
+void sub_1002CD4DC(uint64_t a1, uint64_t a2)
 {
-  v1 = sub_1002C7914();
-  if (sub_1002CD420(v1))
+  v3 = sub_1002C7914(a1, a2);
+  if (sub_1002CD420(v3))
   {
     sub_100009C7C();
-    sub_10002EB78(&_mh_execute_header, v2, v3, "{msg%{public}.0s:UUID cannot be nil, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v4, v5, v6, v7, v21, v22, v23, v24, v25);
+    sub_10002EB78(&_mh_execute_header, v4, v5, "{msg%{public}.0s:UUID cannot be nil, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v6, v7, v8, v9, v27, v28, v29, v30);
   }
 
-  v8 = sub_1002C7914();
-  if (os_signpost_enabled(v8))
+  v12 = sub_1002C7914(v10, v11);
+  if (os_signpost_enabled(v12))
   {
     sub_100009C7C();
-    sub_10002EAF4(&_mh_execute_header, v9, v10, v11, "UUID cannot be nil", "{msg%{public}.0s:UUID cannot be nil, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v12, v13, v21, v22, v23, v24, v25);
+    sub_10002EAF4(&_mh_execute_header, v13, v14, v15, "UUID cannot be nil", "{msg%{public}.0s:UUID cannot be nil, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v16, v17, v27, v28, v29, v30);
   }
 
-  v14 = sub_1002C7914();
-  if (sub_1002CD438(v14))
+  v20 = sub_1002C7914(v18, v19);
+  if (sub_1002CD438(v20))
   {
     sub_100009C7C();
-    sub_10002EB58(&_mh_execute_header, v15, v16, "{msg%{public}.0s:UUID cannot be nil, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v17, v18, v19, v20, v21, v22, v23, v24, v25);
+    sub_10002EB58(&_mh_execute_header, v21, v22, "{msg%{public}.0s:UUID cannot be nil, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v23, v24, v25, v26, v27, v28, v29, v30);
   }
 
-  abort_report_np();
+  abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/CoreSafety/SafetyAlgorithms/CSAnomalyEventService.mm", 289, "[CSAnomalyEventService startRecordingWithTTRManagedMsl:andPreempt:]");
   __break(1u);
 }
 
-uint64_t sub_1002CD608()
+uint64_t sub_1002CD608(uint64_t a1, uint64_t a2)
 {
-  v1 = sub_1002C7914();
-  if (sub_1002CD420(v1))
+  v3 = sub_1002C7914(a1, a2);
+  if (sub_1002CD420(v3))
   {
     sub_100009C7C();
-    sub_10002EB78(&_mh_execute_header, v2, v3, "{msg%{public}.0s:invalid mode, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v4, v5, v6, v7, v23, v24, v25, v26, v27);
+    sub_10002EB78(&_mh_execute_header, v4, v5, "{msg%{public}.0s:invalid mode, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v6, v7, v8, v9, v30, v31, v32, v33);
   }
 
-  v8 = sub_1002C7914();
-  if (os_signpost_enabled(v8))
+  v12 = sub_1002C7914(v10, v11);
+  if (os_signpost_enabled(v12))
   {
     sub_100009C7C();
-    sub_10002EAF4(&_mh_execute_header, v9, v10, v11, "invalid mode", "{msg%{public}.0s:invalid mode, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v12, v13, v23, v24, v25, v26, v27);
+    sub_10002EAF4(&_mh_execute_header, v13, v14, v15, "invalid mode", "{msg%{public}.0s:invalid mode, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v16, v17, v30, v31, v32, v33);
   }
 
-  v14 = sub_1002C7914();
-  if (sub_1002CD438(v14))
+  v20 = sub_1002C7914(v18, v19);
+  if (sub_1002CD438(v20))
   {
     sub_100009C7C();
-    sub_10002EB58(&_mh_execute_header, v15, v16, "{msg%{public}.0s:invalid mode, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v17, v18, v19, v20, v23, v24, v25, v26, v27);
+    sub_10002EB58(&_mh_execute_header, v21, v22, "{msg%{public}.0s:invalid mode, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v23, v24, v25, v26, v30, v31, v32, v33);
   }
 
-  v21 = abort_report_np();
-  return sub_1002CD72C(v21);
+  abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/CoreSafety/SafetyAlgorithms/CSAnomalyEventService.mm", 1033, "[CSAnomalyEventService setForcedCompanionTrigger:]");
+  return sub_1002CD72C(v27, v28);
 }
 
-uint64_t sub_1002CD72C()
+uint64_t sub_1002CD72C(uint64_t a1, uint64_t a2)
 {
-  v1 = sub_1002C7914();
-  if (sub_1002CD420(v1))
+  v3 = sub_1002C7914(a1, a2);
+  if (sub_1002CD420(v3))
   {
     sub_100009C7C();
-    sub_10002EB78(&_mh_execute_header, v2, v3, "{msg%{public}.0s:invalid mode, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v4, v5, v6, v7, v23, v24, v25, v26, v27);
+    sub_10002EB78(&_mh_execute_header, v4, v5, "{msg%{public}.0s:invalid mode, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v6, v7, v8, v9, v30, v31, v32, v33);
   }
 
-  v8 = sub_1002C7914();
-  if (os_signpost_enabled(v8))
+  v12 = sub_1002C7914(v10, v11);
+  if (os_signpost_enabled(v12))
   {
     sub_100009C7C();
-    sub_10002EAF4(&_mh_execute_header, v9, v10, v11, "invalid mode", "{msg%{public}.0s:invalid mode, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v12, v13, v23, v24, v25, v26, v27);
+    sub_10002EAF4(&_mh_execute_header, v13, v14, v15, "invalid mode", "{msg%{public}.0s:invalid mode, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v16, v17, v30, v31, v32, v33);
   }
 
-  v14 = sub_1002C7914();
-  if (sub_1002CD438(v14))
+  v20 = sub_1002C7914(v18, v19);
+  if (sub_1002CD438(v20))
   {
     sub_100009C7C();
-    sub_10002EB58(&_mh_execute_header, v15, v16, "{msg%{public}.0s:invalid mode, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v17, v18, v19, v20, v23, v24, v25, v26, v27);
+    sub_10002EB58(&_mh_execute_header, v21, v22, "{msg%{public}.0s:invalid mode, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v23, v24, v25, v26, v30, v31, v32, v33);
   }
 
-  v21 = abort_report_np();
-  return sub_1002CD850(v21);
+  abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/CoreSafety/SafetyAlgorithms/CSAnomalyEventService.mm", 1020, "[CSAnomalyEventService setForcedCompanionTrigger:]");
+  return sub_1002CD850(v27, v28);
 }
 
-uint64_t sub_1002CD850()
+CSAOPSvc::Idle *sub_1002CD850(uint64_t a1, uint64_t a2)
 {
-  v1 = sub_1002C7914();
-  if (sub_1002CD420(v1))
+  v3 = sub_1002C7914(a1, a2);
+  if (sub_1002CD420(v3))
   {
     sub_100009C7C();
-    sub_10002EB78(&_mh_execute_header, v2, v3, "{msg%{public}.0s:No _aop to tell about companion, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v4, v5, v6, v7, v25, v26, v27, v28, v29);
+    sub_10002EB78(&_mh_execute_header, v4, v5, "{msg%{public}.0s:No _aop to tell about companion, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v6, v7, v8, v9, v31, v32, v33, v34);
   }
 
-  v8 = sub_1002C7914();
-  if (os_signpost_enabled(v8))
+  v12 = sub_1002C7914(v10, v11);
+  if (os_signpost_enabled(v12))
   {
     sub_100009C7C();
-    sub_10002EAF4(&_mh_execute_header, v9, v10, v11, "No _aop to tell about companion", "{msg%{public}.0s:No _aop to tell about companion, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v12, v13, v25, v26, v27, v28, v29);
+    sub_10002EAF4(&_mh_execute_header, v13, v14, v15, "No _aop to tell about companion", "{msg%{public}.0s:No _aop to tell about companion, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v16, v17, v31, v32, v33, v34);
   }
 
-  v14 = sub_1002C7914();
-  if (sub_1002CD438(v14))
+  v20 = sub_1002C7914(v18, v19);
+  if (sub_1002CD438(v20))
   {
     sub_100009C7C();
-    sub_10002EB58(&_mh_execute_header, v15, v16, "{msg%{public}.0s:No _aop to tell about companion, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v17, v18, v19, v20, v25, v26, v27, v28, v29);
+    sub_10002EB58(&_mh_execute_header, v21, v22, "{msg%{public}.0s:No _aop to tell about companion, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v23, v24, v25, v26, v31, v32, v33, v34);
   }
 
-  v21 = abort_report_np();
-  return CSAOPSvc::Idle::trigger(v21, v22, v23);
+  abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/CoreSafety/SafetyAlgorithms/CSAnomalyEventService.mm", 1146, "[CSAnomalyEventService onCompanionConnectionStatusUpdate:cftime:sputime:]");
+  return CSAOPSvc::Idle::trigger(v27, v28, v29);
 }
 
 CSAOPSvc::Idle *CSAOPSvc::Idle::trigger(CSAOPSvc::Idle *this, uint64_t a2, const void *a3)
@@ -3440,19 +3440,19 @@ LABEL_5:
   return v3;
 }
 
-id sub_1002CDB10()
+id sub_1002CDB10(uint64_t a1)
 {
   if (qword_100456808 != -1)
   {
     sub_1002D5800();
   }
 
-  v1 = qword_100456810;
+  v2 = qword_100456810;
 
-  return v1;
+  return v2;
 }
 
-void CSAOPSvc::Idle::action(CSAOPSvc::Idle *this, uint64_t a2, const void *a3)
+void CSAOPSvc::Idle::action(CSAOPSvc **this, uint64_t a2, const void *a3)
 {
   if (a2 == 1)
   {
@@ -3464,23 +3464,23 @@ void CSAOPSvc::Idle::action(CSAOPSvc::Idle *this, uint64_t a2, const void *a3)
     v4 = qword_100456810;
     if (os_log_type_enabled(qword_100456810, OS_LOG_TYPE_DEBUG))
     {
-      v5 = *(*(this + 6) + 40);
+      v5 = *(this[6] + 5);
       v22 = 138412290;
       *v23 = v5;
       _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEBUG, "triggered data %@", &v22, 0xCu);
     }
 
-    v6 = *(this + 6);
-    v7 = *(v6 + 1008);
-    *(v6 + 1008) = 0;
+    v6 = this[6];
+    v7 = *(v6 + 126);
+    *(v6 + 126) = 0;
 
-    v8 = CSAOPSvc::resetTriggerSessionStats(*(this + 6));
-    v9 = *(this + 6);
+    v8 = CSAOPSvc::resetTriggerSessionStats(this[6]);
+    v9 = this[6];
     *(v9 + 1050) = 0;
-    v10 = *([*(v9 + 40) c_struct] + 1);
-    if (*([*(*(this + 6) + 40) c_struct] + 1))
+    v10 = *([*(v9 + 5) c_struct] + 1);
+    if (*([*(this[6] + 5) c_struct] + 1))
     {
-      v11 = (*([*(*(this + 6) + 40) c_struct] + 1) & 0x10) == 0;
+      v11 = (*([*(this[6] + 5) c_struct] + 1) & 0x10) == 0;
     }
 
     else
@@ -3488,9 +3488,9 @@ void CSAOPSvc::Idle::action(CSAOPSvc::Idle *this, uint64_t a2, const void *a3)
       v11 = 0;
     }
 
-    if (*([*(*(this + 6) + 40) c_struct] + 46))
+    if (*([*(this[6] + 5) c_struct] + 46))
     {
-      v12 = (*([*(*(this + 6) + 40) c_struct] + 46) & 0x10) == 0;
+      v12 = (*([*(this[6] + 5) c_struct] + 46) & 0x10) == 0;
     }
 
     else
@@ -3498,9 +3498,9 @@ void CSAOPSvc::Idle::action(CSAOPSvc::Idle *this, uint64_t a2, const void *a3)
       v12 = 0;
     }
 
-    if (!*([*(*(this + 6) + 40) c_struct] + 1) && (*(objc_msgSend(*(*(this + 6) + 40), "c_struct") + 46) & 0x10) != 0)
+    if (!*([*(this[6] + 5) c_struct] + 1) && (*(objc_msgSend(*(this[6] + 5), "c_struct") + 46) & 0x10) != 0)
     {
-      v13 = (*([*(*(this + 6) + 40) c_struct] + 93) >> 1) & 1;
+      v13 = (*([*(this[6] + 5) c_struct] + 93) >> 1) & 1;
     }
 
     else
@@ -3508,8 +3508,8 @@ void CSAOPSvc::Idle::action(CSAOPSvc::Idle *this, uint64_t a2, const void *a3)
       v13 = 0;
     }
 
-    v14 = *([*(*(this + 6) + 40) c_struct] + 46);
-    v15 = *([*(*(this + 6) + 40) c_struct] + 64);
+    v14 = *([*(this[6] + 5) c_struct] + 46);
+    v15 = *([*(this[6] + 5) c_struct] + 64);
     v16 = (v10 | v14) == 0;
     v17 = v15;
     if (v15)
@@ -3522,7 +3522,7 @@ void CSAOPSvc::Idle::action(CSAOPSvc::Idle *this, uint64_t a2, const void *a3)
       v18 = 0;
     }
 
-    *(*(this + 6) + 1032) = v18;
+    *(this[6] + 1032) = v18;
     if (qword_100456808 != -1)
     {
       sub_1002D5814();
@@ -3560,7 +3560,7 @@ void CSAOPSvc::Idle::action(CSAOPSvc::Idle *this, uint64_t a2, const void *a3)
       }
 
 LABEL_29:
-      [*(*(this + 6) + 16) triggered:*(*(this + 6) + 40)];
+      [*(this[6] + 2) triggered:*(this[6] + 5)];
       return;
     }
 
@@ -3857,14 +3857,14 @@ LABEL_15:
             goto LABEL_117;
           }
 
-          v59 = 0u;
           v60 = 0u;
-          v57 = 0u;
+          v61 = 0u;
           v58 = 0u;
-          v55 = 0u;
+          v59 = 0u;
           v56 = 0u;
+          v57 = 0u;
           *buf = 0u;
-          v54 = 0u;
+          v55 = 0u;
           Name = IORegistryEntryGetName(child, buf);
           if (Name)
           {
@@ -3898,9 +3898,9 @@ LABEL_118:
 
           sub_10029F5A0(__s1, "Acc800Fp");
           v22 = strlen(buf);
-          if ((v52 & 0x8000000000000000) == 0)
+          if ((v53 & 0x8000000000000000) == 0)
           {
-            if (v22 == v52 && !memcmp(__s1, buf, v22))
+            if (v22 == v53 && !memcmp(__s1, buf, v22))
             {
               goto LABEL_42;
             }
@@ -3935,7 +3935,7 @@ LABEL_107:
                 sub_1002D5814();
               }
 
-              v45 = qword_100456810;
+              v46 = qword_100456810;
               if (!os_log_type_enabled(qword_100456810, OS_LOG_TYPE_INFO))
               {
                 goto LABEL_118;
@@ -3944,7 +3944,7 @@ LABEL_107:
               *__s1 = 136315138;
               *&__s1[4] = buf;
               v16 = __s1;
-              v17 = v45;
+              v17 = v46;
               v18 = OS_LOG_TYPE_INFO;
               v19 = "Fastpath %s already opened.";
               v20 = 12;
@@ -3952,8 +3952,8 @@ LABEL_107:
 
             else
             {
-              v46 = CSFastpathGlue::open(v26, v25, child);
-              if (!v46)
+              v47 = CSFastpathGlue::open(v26, v25, child);
+              if (!v47)
               {
                 goto LABEL_118;
               }
@@ -3963,7 +3963,7 @@ LABEL_107:
                 sub_1002D5814();
               }
 
-              v47 = qword_100456810;
+              v48 = qword_100456810;
               if (!os_log_type_enabled(qword_100456810, OS_LOG_TYPE_ERROR))
               {
                 goto LABEL_118;
@@ -3972,9 +3972,9 @@ LABEL_107:
               *__s1 = 136315394;
               *&__s1[4] = buf;
               *&__s1[12] = 1024;
-              *&__s1[14] = v46;
+              *&__s1[14] = v47;
               v16 = __s1;
-              v17 = v47;
+              v17 = v48;
               v18 = OS_LOG_TYPE_ERROR;
               v19 = "Failed to open %s, error 0x%x";
               v20 = 18;
@@ -3988,7 +3988,7 @@ LABEL_117:
 LABEL_44:
           sub_10029F5A0(__s1, "Acc100Fp");
           v27 = strlen(buf);
-          if ((v52 & 0x8000000000000000) != 0)
+          if ((v53 & 0x8000000000000000) != 0)
           {
             if (v27 == *&__s1[8])
             {
@@ -4012,7 +4012,7 @@ LABEL_44:
             }
           }
 
-          else if (v27 == v52 && !memcmp(__s1, buf, v27))
+          else if (v27 == v53 && !memcmp(__s1, buf, v27))
           {
 LABEL_51:
             v25 = 7;
@@ -4022,7 +4022,7 @@ LABEL_51:
 
           sub_10029F5A0(__s1, "HgAccFp");
           v30 = strlen(buf);
-          if ((v52 & 0x8000000000000000) != 0)
+          if ((v53 & 0x8000000000000000) != 0)
           {
             if (v30 == *&__s1[8])
             {
@@ -4046,7 +4046,7 @@ LABEL_51:
             }
           }
 
-          else if (v30 == v52 && !memcmp(__s1, buf, v30))
+          else if (v30 == v53 && !memcmp(__s1, buf, v30))
           {
 LABEL_60:
             v25 = 5;
@@ -4056,7 +4056,7 @@ LABEL_60:
 
           sub_10029F5A0(__s1, "DmFp");
           v33 = strlen(buf);
-          if ((v52 & 0x8000000000000000) != 0)
+          if ((v53 & 0x8000000000000000) != 0)
           {
             if (v33 == *&__s1[8])
             {
@@ -4080,7 +4080,7 @@ LABEL_60:
             }
           }
 
-          else if (v33 == v52 && !memcmp(__s1, buf, v33))
+          else if (v33 == v53 && !memcmp(__s1, buf, v33))
           {
 LABEL_69:
             v25 = 1;
@@ -4090,7 +4090,7 @@ LABEL_69:
 
           sub_10029F5A0(__s1, "PressureFp");
           v36 = sub_1002D3AF4(__s1, buf);
-          if (v52 < 0)
+          if (v53 < 0)
           {
             operator delete(*__s1);
           }
@@ -4105,7 +4105,7 @@ LABEL_69:
           {
             sub_10029F5A0(__s1, "GpsFp");
             v37 = sub_1002D3AF4(__s1, buf);
-            if (v52 < 0)
+            if (v53 < 0)
             {
               operator delete(*__s1);
             }
@@ -4120,7 +4120,7 @@ LABEL_69:
             {
               sub_10029F5A0(__s1, "RmsFp");
               v38 = sub_1002D3AF4(__s1, buf);
-              if (v52 < 0)
+              if (v53 < 0)
               {
                 operator delete(*__s1);
               }
@@ -4135,7 +4135,7 @@ LABEL_69:
               {
                 sub_10029F5A0(__s1, "StepsFp");
                 v39 = sub_1002D3AF4(__s1, buf);
-                if (v52 < 0)
+                if (v53 < 0)
                 {
                   operator delete(*__s1);
                 }
@@ -4150,7 +4150,7 @@ LABEL_69:
                 {
                   sub_10029F5A0(__s1, "RoadsFp");
                   v40 = sub_1002D3AF4(__s1, buf);
-                  if (v52 < 0)
+                  if (v53 < 0)
                   {
                     operator delete(*__s1);
                   }
@@ -4165,7 +4165,7 @@ LABEL_69:
                   {
                     sub_10029F5A0(__s1, "AudioFp");
                     v41 = sub_1002D3AF4(__s1, buf);
-                    if (v52 < 0)
+                    if (v53 < 0)
                     {
                       operator delete(*__s1);
                     }
@@ -4180,7 +4180,7 @@ LABEL_69:
                     {
                       sub_10029F5A0(__s1, "ActivityFp");
                       v42 = sub_1002D3AF4(__s1, buf);
-                      if (v52 < 0)
+                      if (v53 < 0)
                       {
                         operator delete(*__s1);
                       }
@@ -4195,7 +4195,7 @@ LABEL_69:
                       {
                         sub_10029F5A0(__s1, "HertzFp");
                         v43 = sub_1002D3AF4(__s1, buf);
-                        if (v52 < 0)
+                        if (v53 < 0)
                         {
                           operator delete(*__s1);
                         }
@@ -4210,19 +4210,20 @@ LABEL_69:
                         {
                           sub_10029F5A0(__s1, "MagFp");
                           v44 = sub_1002D3AF4(__s1, buf);
-                          if (v52 < 0)
+                          v45 = v44;
+                          if (v53 < 0)
                           {
                             operator delete(*__s1);
                           }
 
-                          if (!v44)
+                          if (!v45)
                           {
-                            v48 = sub_1002CDB10();
-                            if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
+                            v49 = sub_1002CDB10(v44);
+                            if (os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
                             {
                               *__s1 = 136315138;
                               *&__s1[4] = buf;
-                              _os_log_impl(&_mh_execute_header, v48, OS_LOG_TYPE_ERROR, "Unexpected AppleSPUFastpathDriver %s", __s1, 0xCu);
+                              _os_log_impl(&_mh_execute_header, v49, OS_LOG_TYPE_ERROR, "Unexpected AppleSPUFastpathDriver %s", __s1, 0xCu);
                             }
 
                             goto LABEL_118;
@@ -4343,9 +4344,10 @@ id CSAOPSvc::Reading::exit(id *this, unint64_t a2, const void *a3)
 
 void CSAOPSvc::restartSessionInternal(id *this)
 {
-  if (!CSHSM::isIn(this, (this + 15)))
+  v2 = CSHSM::isIn(this, (this + 15));
+  if (!v2)
   {
-    sub_1002D5850();
+    sub_1002D5850(v2);
   }
 
   if (qword_100456808 != -1)
@@ -4353,26 +4355,26 @@ void CSAOPSvc::restartSessionInternal(id *this)
     sub_1002D5800();
   }
 
-  v2 = qword_100456810;
+  v3 = qword_100456810;
   if (os_log_type_enabled(qword_100456810, OS_LOG_TYPE_DEBUG))
   {
-    *v5 = 0;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEBUG, "forcefully restarting the session; any recordings will be discarded", v5, 2u);
+    *v6 = 0;
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEBUG, "forcefully restarting the session; any recordings will be discarded", v6, 2u);
   }
 
   *(this + 45) = 0;
   [this[126] stopAndKeep:0];
-  v3 = this[126];
+  v4 = this[126];
   this[126] = 0;
 
   CSAOPSvc::resetFastpaths(this);
   [this[134] reset];
   *(this + 176) = 0;
   [this[133] reset];
-  v4 = [this[5] timestamp];
-  if (v4 && (this[125] & 1) == 0)
+  v5 = [this[5] timestamp];
+  if (v5 && (this[125] & 1) == 0)
   {
-    this[124] = v4;
+    this[124] = v5;
     *(this + 1000) = 1;
   }
 
@@ -4447,7 +4449,7 @@ uint64_t CSAOPSvc::punchThruCollectionShouldBeAborted(CSAOPSvc *this)
   return v5 & 1;
 }
 
-void CSAOPSvc::forceStopCollection(CSAOPSvc *this)
+void CSAOPSvc::forceStopCollection(id *this)
 {
   if (*(this + 1051) == 1)
   {
@@ -4481,11 +4483,11 @@ void CSAOPSvc::forceStopCollection(CSAOPSvc *this)
     }
 
     *(this + 47) = 0;
-    [*(this + 126) stopAndKeep:0];
-    v4 = *(this + 126);
-    *(this + 126) = 0;
+    [this[126] stopAndKeep:0];
+    v4 = this[126];
+    this[126] = 0;
 
-    [*(this + 2) abortSession];
+    [this[2] abortSession];
   }
 }
 
@@ -4570,7 +4572,7 @@ CSAOPSvc::Reading *CSAOPSvc::Reading::trigger(CSAOPSvc::Reading *this, uint64_t 
   v4 = *(this + 6);
   if (!*(v4 + 40))
   {
-    sub_1002D5984();
+    sub_1002D5984(this);
   }
 
   [*(v4 + 1064) addObject:?];
@@ -4641,21 +4643,21 @@ CSAOPSvc::Reading *CSAOPSvc::Reading::trigger(CSAOPSvc::Reading *this, uint64_t 
 void CSAOPSvc::readFastpaths(CSAOPSvc *this)
 {
   v1 = __chkstk_darwin(this);
-  v180 = v1;
+  v176 = v1;
   if (v1[102])
   {
     for (i = 0; i != 240; i += 8)
     {
-      v3 = &v188[i];
+      v3 = &v184[i];
       *(v3 + 2) = 0;
       *v3 = 0;
     }
 
-    v4 = CSFastpathGlue::read((v1 + 100), v188, 30);
-    v1 = v180;
+    v4 = CSFastpathGlue::read((v1 + 100), v184, 30);
+    v1 = v176;
     if (v4)
     {
-      v5 = *&v188[8 * v4 - 8];
+      v5 = *&v184[8 * v4 - 8];
       if (qword_100456808 != -1)
       {
         sub_1002D5814();
@@ -4665,25 +4667,25 @@ void CSAOPSvc::readFastpaths(CSAOPSvc *this)
       if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
       {
         *buf = 67109632;
-        *v186 = v4;
-        *&v186[4] = 2048;
-        *&v186[6] = *v188;
-        *&v186[14] = 2048;
-        *&v186[16] = v5;
+        *v182 = v4;
+        *&v182[4] = 2048;
+        *&v182[6] = *v184;
+        *&v182[14] = 2048;
+        *&v182[16] = v5;
         _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEBUG, "%u HzSamples %llu %llu", buf, 0x1Cu);
       }
 
       v7 = v4;
-      v8 = &v188[5] + 1;
-      v1 = v180;
+      v8 = &v184[5] + 1;
+      v1 = v176;
       do
       {
         if ((*(v8 - 11) + 30000000) >= v1[123])
         {
           v9 = [[CSSPUHertzSample alloc] initWithTimestamp:*(v8 - 11) dramDurationMs:*(v8 - 3) vehicularFlags:*(v8 - 1) hapticsOn:*v8];
-          [v180[133] addObject:v9];
+          [v176[133] addObject:v9];
 
-          v1 = v180;
+          v1 = v176;
         }
 
         v8 += 16;
@@ -4696,8 +4698,8 @@ void CSAOPSvc::readFastpaths(CSAOPSvc *this)
 
   if (v1[36])
   {
-    v10 = CSFastpathGlue::read((v1 + 34), v188, 2400);
-    v1 = v180;
+    v10 = CSFastpathGlue::read((v1 + 34), v184, 2400);
+    v1 = v176;
     if (v10)
     {
       if (qword_100456808 != -1)
@@ -4709,15 +4711,15 @@ void CSAOPSvc::readFastpaths(CSAOPSvc *this)
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
       {
         *buf = 67109376;
-        *v186 = v10;
-        *&v186[4] = 2048;
-        *&v186[6] = *&v188[6];
+        *v182 = v10;
+        *&v182[4] = 2048;
+        *&v182[6] = *&v184[6];
         _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEBUG, "%u acc800 %llu", buf, 0x12u);
       }
 
       v12 = v10;
-      v13 = &v188[6];
-      v1 = v180;
+      v13 = &v184[6];
+      v1 = v176;
       do
       {
         if ((*v13 + 3000000) >= v1[123])
@@ -4727,9 +4729,9 @@ void CSAOPSvc::readFastpaths(CSAOPSvc *this)
           LODWORD(v16) = *(v13 - 2);
           LODWORD(v17) = *(v13 - 1);
           v18 = [(CSSPUAccel800 *)v14 initWithTimestamp:*v13 x:v15 y:v16 z:v17];
-          [v180[133] addObject:v18];
+          [v176[133] addObject:v18];
 
-          v1 = v180;
+          v1 = v176;
         }
 
         v13 = (v13 + 20);
@@ -4742,8 +4744,8 @@ void CSAOPSvc::readFastpaths(CSAOPSvc *this)
 
   if (v1[78])
   {
-    v19 = CSFastpathGlue::read((v1 + 76), v188, 3000);
-    v1 = v180;
+    v19 = CSFastpathGlue::read((v1 + 76), v184, 3000);
+    v1 = v176;
     if (v19)
     {
       if (qword_100456808 != -1)
@@ -4755,15 +4757,15 @@ void CSAOPSvc::readFastpaths(CSAOPSvc *this)
       if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
       {
         *buf = 67109376;
-        *v186 = v19;
-        *&v186[4] = 2048;
-        *&v186[6] = *&v188[6];
+        *v182 = v19;
+        *&v182[4] = 2048;
+        *&v182[6] = *&v184[6];
         _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEBUG, "%u acc100 %llu", buf, 0x12u);
       }
 
       v21 = v19;
-      v22 = &v188[6];
-      v1 = v180;
+      v22 = &v184[6];
+      v1 = v176;
       do
       {
         if ((*v22 + 30000000) >= v1[123])
@@ -4773,9 +4775,9 @@ void CSAOPSvc::readFastpaths(CSAOPSvc *this)
           LODWORD(v25) = *(v22 - 2);
           LODWORD(v26) = *(v22 - 1);
           v27 = [(CSSPUTriad *)v23 initWithTimestamp:*v22 x:v24 y:v25 z:v26];
-          [v180[133] addObject:v27];
+          [v176[133] addObject:v27];
 
-          v1 = v180;
+          v1 = v176;
         }
 
         v22 = (v22 + 20);
@@ -4788,7 +4790,7 @@ void CSAOPSvc::readFastpaths(CSAOPSvc *this)
 
   if (v1[66])
   {
-    v28 = CSFastpathGlue::read((v1 + 64), v188, 800);
+    v28 = CSFastpathGlue::read((v1 + 64), v184, 800);
     if (v28)
     {
       if (qword_100456808 != -1)
@@ -4800,15 +4802,15 @@ void CSAOPSvc::readFastpaths(CSAOPSvc *this)
       if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
       {
         *buf = 67109376;
-        *v186 = v28;
-        *&v186[4] = 2048;
-        *&v186[6] = *&v188[3];
+        *v182 = v28;
+        *&v182[4] = 2048;
+        *&v182[6] = *&v184[3];
         _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEBUG, "%u hgacc %llu", buf, 0x12u);
       }
 
       v30 = v28;
-      v31 = &v188[3];
-      v32 = v180;
+      v31 = &v184[3];
+      v32 = v176;
       do
       {
         if ((*v31 + 3000000) >= v32[123])
@@ -4818,9 +4820,9 @@ void CSAOPSvc::readFastpaths(CSAOPSvc *this)
           *&v35 = vcvts_n_f32_s32(*(v31 - 2), 5uLL);
           *&v36 = vcvts_n_f32_s32(*(v31 - 1), 5uLL);
           v37 = [(CSSPUHgAccel *)v33 initWithTimestamp:*v31 x:v34 y:v35 z:v36];
-          [v180[133] addObject:v37];
+          [v176[133] addObject:v37];
 
-          v32 = v180;
+          v32 = v176;
         }
 
         v31 = (v31 + 14);
@@ -4834,21 +4836,21 @@ void CSAOPSvc::readFastpaths(CSAOPSvc *this)
   v38 = +[CSPlatformInfo sharedInstance];
   v39 = [v38 isExtendedPretriggerMagDevice];
 
-  v40 = v180;
-  if (v39 && v180[108])
+  v40 = v176;
+  if (v39 && v176[108])
   {
     operator new[]();
   }
 
-  if (v180[42])
+  if (v176[42])
   {
     operator new[]();
   }
 
-  if (v180[60])
+  if (v176[60])
   {
-    v41 = CSFastpathGlue::read((v180 + 58), v188, 3000);
-    v40 = v180;
+    v41 = CSFastpathGlue::read((v176 + 58), v184, 3000);
+    v40 = v176;
     if (v41)
     {
       if (qword_100456808 != -1)
@@ -4860,17 +4862,17 @@ void CSAOPSvc::readFastpaths(CSAOPSvc *this)
       if (os_log_type_enabled(v42, OS_LOG_TYPE_DEBUG))
       {
         *buf = 67109632;
-        *v186 = v41;
-        *&v186[4] = 1024;
-        *&v186[6] = *&v188[4];
-        *&v186[10] = 2048;
-        *&v186[12] = *&v188[6];
+        *v182 = v41;
+        *&v182[4] = 1024;
+        *&v182[6] = *&v184[4];
+        *&v182[10] = 2048;
+        *&v182[12] = *&v184[6];
         _os_log_impl(&_mh_execute_header, v42, OS_LOG_TYPE_DEBUG, "%u SPL, sn = 0x%08x, %g", buf, 0x18u);
       }
 
       v43 = v41;
-      v44 = &v188[6];
-      v40 = v180;
+      v44 = &v184[6];
+      v40 = v176;
       do
       {
         v45 = *(v44 - 1);
@@ -4883,9 +4885,9 @@ void CSAOPSvc::readFastpaths(CSAOPSvc *this)
             v48 = [CSSPUSpl alloc];
             *&v49 = sqrtf(*v44);
             v50 = [(CSSPUSpl *)v48 initWithTimestamp:v47 + v46 rms:v49];
-            [v180[133] addObject:v50];
+            [v176[133] addObject:v50];
 
-            v40 = v180;
+            v40 = v176;
           }
         }
 
@@ -4899,8 +4901,8 @@ void CSAOPSvc::readFastpaths(CSAOPSvc *this)
 
   if (v40[48])
   {
-    v51 = CSFastpathGlue::read((v40 + 46), v188, 360);
-    v40 = v180;
+    v51 = CSFastpathGlue::read((v40 + 46), v184, 360);
+    v40 = v176;
     if (v51)
     {
       if (qword_100456808 != -1)
@@ -4912,17 +4914,17 @@ void CSAOPSvc::readFastpaths(CSAOPSvc *this)
       if (os_log_type_enabled(v52, OS_LOG_TYPE_DEBUG))
       {
         *buf = 67109632;
-        *v186 = v51;
-        *&v186[4] = 2048;
-        *&v186[6] = *v188;
-        *&v186[14] = 2048;
-        *&v186[16] = *&v188[4];
+        *v182 = v51;
+        *&v182[4] = 2048;
+        *&v182[6] = *v184;
+        *&v182[14] = 2048;
+        *&v182[16] = *&v184[4];
         _os_log_impl(&_mh_execute_header, v52, OS_LOG_TYPE_DEBUG, "%u pressure, batch[0] = %llu %f", buf, 0x1Cu);
       }
 
       v53 = v51;
-      v54 = v188;
-      v40 = v180;
+      v54 = v184;
+      v40 = v176;
       do
       {
         if ((*v54 + 3000000) >= v40[123])
@@ -4931,9 +4933,9 @@ void CSAOPSvc::readFastpaths(CSAOPSvc *this)
           LODWORD(v56) = *(v54 + 2);
           LODWORD(v57) = *(v54 + 3);
           v58 = [(CSSPUPressure *)v55 initWithTimestamp:*v54 pressure:v56 temperature:v57];
-          [v180[133] addObject:v58];
+          [v176[133] addObject:v58];
 
-          v40 = v180;
+          v40 = v176;
         }
 
         v54 += 8;
@@ -4948,17 +4950,17 @@ void CSAOPSvc::readFastpaths(CSAOPSvc *this)
   {
     for (j = 12; j != 972; j += 32)
     {
-      *&v188[j] = -1;
+      *&v184[j] = -1;
     }
 
-    v60 = CSFastpathGlue::read((v40 + 52), v188, 30);
+    v60 = CSFastpathGlue::read((v40 + 52), v184, 30);
     if (v60)
     {
       v61 = v60;
-      v62 = &v190 + 4;
+      v62 = &v186 + 4;
       do
       {
-        if ((*(v62 + 1) + 30000000) >= v180[123])
+        if ((*(v62 + 1) + 30000000) >= v176[123])
         {
           if (qword_100456808 != -1)
           {
@@ -4971,9 +4973,9 @@ void CSAOPSvc::readFastpaths(CSAOPSvc *this)
             v64 = *(v62 + 1);
             v65 = *(v62 - 8);
             *buf = 134218240;
-            *v186 = v64;
-            *&v186[8] = 2048;
-            *&v186[10] = v65;
+            *v182 = v64;
+            *&v182[8] = 2048;
+            *&v182[10] = v65;
             _os_log_impl(&_mh_execute_header, v63, OS_LOG_TYPE_DEBUG, "GPS, %llu %f...", buf, 0x16u);
           }
 
@@ -4984,14 +4986,10 @@ void CSAOPSvc::readFastpaths(CSAOPSvc *this)
           LODWORD(v70) = *(v62 - 5);
           LODWORD(v71) = *(v62 - 4);
           LODWORD(v72) = *(v62 - 3);
-          v73 = *(v62 - 1);
-          v74 = *v62;
-          LODWORD(v75) = *(v62 + 4);
-          v76 = *(v62 + 5);
-          v77 = *(v62 + 7);
-          LODWORD(v176) = *(v62 + 6);
-          v78 = [CSSPUGps initWithTimestamp:v66 doubleTS:"initWithTimestamp:doubleTS:speedMS:speedAccuracyMS:courseDeg:courseAccuracyDeg:latitude:longitude:wayForm:roadClass:signalEnvironment:horizontalAccuracy:demNumContiguousFlatPoints:demConfidence:type:" speedMS:*(v62 + 1) speedAccuracyMS:v67 courseDeg:v68 courseAccuracyDeg:v69 latitude:v70 longitude:v71 wayForm:v72 roadClass:v75 signalEnvironment:v176 horizontalAccuracy:? demNumContiguousFlatPoints:? demConfidence:? type:?];
-          [v180[133] addObject:v78];
+          LODWORD(v73) = *(v62 + 4);
+          LODWORD(v172) = *(v62 + 6);
+          v74 = [CSSPUGps initWithTimestamp:v66 doubleTS:"initWithTimestamp:doubleTS:speedMS:speedAccuracyMS:courseDeg:courseAccuracyDeg:latitude:longitude:wayForm:roadClass:signalEnvironment:horizontalAccuracy:demNumContiguousFlatPoints:demConfidence:type:" speedMS:*(v62 + 1) speedAccuracyMS:v67 courseDeg:v68 courseAccuracyDeg:v69 latitude:v70 longitude:v71 wayForm:v72 roadClass:v73 signalEnvironment:v172 horizontalAccuracy:? demNumContiguousFlatPoints:? demConfidence:? type:?];
+          [v176[133] addObject:v74];
         }
 
         v62 += 64;
@@ -5001,131 +4999,131 @@ void CSAOPSvc::readFastpaths(CSAOPSvc *this)
       while (v61);
     }
 
-    v40 = v180;
+    v40 = v176;
   }
 
   if (v40[72])
   {
-    v79 = CSFastpathGlue::read((v40 + 70), v188, 4);
-    v40 = v180;
-    if (v79)
+    v75 = CSFastpathGlue::read((v40 + 70), v184, 4);
+    v40 = v176;
+    if (v75)
     {
       if (qword_100456808 != -1)
       {
         sub_1002D5814();
       }
 
-      v80 = qword_100456810;
-      if (os_log_type_enabled(v80, OS_LOG_TYPE_DEBUG))
+      v76 = qword_100456810;
+      if (os_log_type_enabled(v76, OS_LOG_TYPE_DEBUG))
       {
         *buf = 67110400;
-        *v186 = v79;
-        *&v186[4] = 2048;
-        *&v186[6] = *v188;
-        *&v186[14] = 1024;
-        *&v186[16] = *&v188[4];
-        *&v186[20] = 1024;
-        *&v186[22] = *&v188[6];
-        *&v186[26] = 2048;
-        *&v186[28] = *&v188[8];
-        *v187 = 1024;
-        *&v187[2] = LOBYTE(v188[10]);
-        _os_log_impl(&_mh_execute_header, v80, OS_LOG_TYPE_DEBUG, "%u steps, batch[0] = %llu %i %i %f %d", buf, 0x2Eu);
+        *v182 = v75;
+        *&v182[4] = 2048;
+        *&v182[6] = *v184;
+        *&v182[14] = 1024;
+        *&v182[16] = *&v184[4];
+        *&v182[20] = 1024;
+        *&v182[22] = *&v184[6];
+        *&v182[26] = 2048;
+        *&v182[28] = *&v184[8];
+        *v183 = 1024;
+        *&v183[2] = LOBYTE(v184[10]);
+        _os_log_impl(&_mh_execute_header, v76, OS_LOG_TYPE_DEBUG, "%u steps, batch[0] = %llu %i %i %f %d", buf, 0x2Eu);
       }
 
-      v81 = v79;
-      v82 = v188;
-      v40 = v180;
+      v77 = v75;
+      v78 = v184;
+      v40 = v176;
       do
       {
-        if ((*v82 + 12800000) >= v40[123])
+        if ((*v78 + 12800000) >= v40[123])
         {
-          v83 = [CSSPUSteps alloc];
-          LODWORD(v84) = *(v82 + 4);
-          v85 = [(CSSPUSteps *)v83 initWithTimestamp:*v82 stepCount:*(v82 + 2) deltaSteps:*(v82 + 3) currentCadence:*(v82 + 20) pedometerArmConstrainedState:v84];
-          [v180[133] addObject:v85];
+          v79 = [CSSPUSteps alloc];
+          LODWORD(v80) = *(v78 + 4);
+          v81 = [(CSSPUSteps *)v79 initWithTimestamp:*v78 stepCount:*(v78 + 2) deltaSteps:*(v78 + 3) currentCadence:*(v78 + 20) pedometerArmConstrainedState:v80];
+          [v176[133] addObject:v81];
 
-          v40 = v180;
+          v40 = v176;
         }
 
-        v82 += 12;
-        --v81;
+        v78 += 12;
+        --v77;
       }
 
-      while (v81);
+      while (v77);
     }
   }
 
   if (v40[84])
   {
-    v86 = CSFastpathGlue::read((v40 + 82), v188, 1);
-    if (v86)
+    v82 = CSFastpathGlue::read((v40 + 82), v184, 1);
+    if (v82)
     {
-      v87 = 0;
-      v88 = 96 * v86;
+      v83 = 0;
+      v84 = 96 * v82;
       do
       {
-        v89 = v180;
-        if ((*v188 + 3000000) >= v180[123])
+        v85 = v176;
+        if ((*v184 + 3000000) >= v176[123])
         {
           if (qword_100456808 != -1)
           {
             sub_1002D5814();
           }
 
-          v92 = qword_100456810;
-          if (os_log_type_enabled(v92, OS_LOG_TYPE_DEBUG))
+          v88 = qword_100456810;
+          if (os_log_type_enabled(v88, OS_LOG_TYPE_DEBUG))
           {
-            v93 = *&v188[v87 / 2 + 4];
+            v89 = *&v184[v83 / 2 + 4];
             *buf = 134218240;
-            *v186 = *v188;
-            *&v186[8] = 2048;
-            *&v186[10] = v93;
-            _os_log_impl(&_mh_execute_header, v92, OS_LOG_TYPE_DEBUG, "Roads, %llu %f...", buf, 0x16u);
+            *v182 = *v184;
+            *&v182[8] = 2048;
+            *&v182[10] = v89;
+            _os_log_impl(&_mh_execute_header, v88, OS_LOG_TYPE_DEBUG, "Roads, %llu %f...", buf, 0x16u);
           }
 
-          v94 = [CSSPURoadInfo alloc];
-          v95 = *v188;
-          v96 = &v188[v87 / 2];
-          v97 = *&v188[v87 / 2 + 4];
-          v98 = LOBYTE(v188[v87 / 2 + 6]);
-          v99 = *&v188[v87 / 2 + 8];
-          v100 = v188[v87 / 2 + 10];
-          v101 = [[NSString alloc] initWithBytes:&v188[v87 / 2 + 11] length:strnlen(&v188[v87 / 2 + 11] encoding:{0x40uLL), 1}];
-          LODWORD(v102) = v99;
-          v90 = [(CSSPURoadInfo *)v94 initWithTimestamp:v95 distanceToNearestRoad:v98 roadClass:v100 horizontalAccuracy:v101 numRoadFeaturesEvaluated:*&v192[v87 + 32] GEOHandlerErrorDomain:v97 GEOHandlerErrorCode:v102];
+          v90 = [CSSPURoadInfo alloc];
+          v91 = *v184;
+          v92 = &v184[v83 / 2];
+          v93 = *&v184[v83 / 2 + 4];
+          v94 = LOBYTE(v184[v83 / 2 + 6]);
+          v95 = *&v184[v83 / 2 + 8];
+          v96 = v184[v83 / 2 + 10];
+          v97 = [[NSString alloc] initWithBytes:&v184[v83 / 2 + 11] length:strnlen(&v184[v83 / 2 + 11] encoding:{0x40uLL), 1}];
+          LODWORD(v98) = v95;
+          v86 = [(CSSPURoadInfo *)v90 initWithTimestamp:v91 distanceToNearestRoad:v94 roadClass:v96 horizontalAccuracy:v97 numRoadFeaturesEvaluated:*&v188[v83 + 32] GEOHandlerErrorDomain:v93 GEOHandlerErrorCode:v98];
 
           if (qword_100456808 != -1)
           {
             sub_1002D5814();
           }
 
-          v103 = qword_100456810;
-          if (os_log_type_enabled(v103, OS_LOG_TYPE_INFO))
+          v99 = qword_100456810;
+          if (os_log_type_enabled(v99, OS_LOG_TYPE_INFO))
           {
-            v104 = v96[2];
-            v105 = *(v96 + 12);
-            v106 = v96[4];
-            v107 = *(v96 + 10);
-            v108 = *&v192[v87 + 32];
+            v100 = v92[2];
+            v101 = *(v92 + 12);
+            v102 = v92[4];
+            v103 = *(v92 + 10);
+            v104 = *&v188[v83 + 32];
             *buf = 134219522;
-            *v186 = *v188;
-            *&v186[8] = 2048;
-            *&v186[10] = v104;
-            *&v186[18] = 1024;
-            *&v186[20] = v105;
-            *&v186[24] = 2048;
-            *&v186[26] = v106;
-            *&v186[34] = 1024;
-            *v187 = v107;
-            *&v187[4] = 2080;
-            *&v187[6] = &v188[v87 / 2 + 11];
-            *&v187[14] = 2048;
-            *&v187[16] = v108;
-            _os_log_impl(&_mh_execute_header, v103, OS_LOG_TYPE_INFO, "road info %llu %f %d %f %d %s %ld", buf, 0x40u);
+            *v182 = *v184;
+            *&v182[8] = 2048;
+            *&v182[10] = v100;
+            *&v182[18] = 1024;
+            *&v182[20] = v101;
+            *&v182[24] = 2048;
+            *&v182[26] = v102;
+            *&v182[34] = 1024;
+            *v183 = v103;
+            *&v183[4] = 2080;
+            *&v183[6] = &v184[v83 / 2 + 11];
+            *&v183[14] = 2048;
+            *&v183[16] = v104;
+            _os_log_impl(&_mh_execute_header, v99, OS_LOG_TYPE_INFO, "road info %llu %f %d %f %d %s %ld", buf, 0x40u);
           }
 
-          [v180[133] addObject:v90];
+          [v176[133] addObject:v86];
         }
 
         else
@@ -5133,35 +5131,35 @@ void CSAOPSvc::readFastpaths(CSAOPSvc *this)
           if (qword_100456808 != -1)
           {
             sub_1002D5814();
-            v89 = v180;
+            v85 = v176;
           }
 
-          v90 = qword_100456810;
-          if (os_log_type_enabled(v90, OS_LOG_TYPE_DEBUG))
+          v86 = qword_100456810;
+          if (os_log_type_enabled(v86, OS_LOG_TYPE_DEBUG))
           {
-            v91 = v89[123];
+            v87 = v85[123];
             *buf = 134218496;
-            *v186 = *v188;
-            *&v186[8] = 2048;
-            *&v186[10] = v91;
-            *&v186[18] = 2048;
-            *&v186[20] = (v91 - *v188 - 3000000) / 1000000.0;
-            _os_log_impl(&_mh_execute_header, v90, OS_LOG_TYPE_DEBUG, "DROPPED Roads: %llu < %llu by %f seconds", buf, 0x20u);
+            *v182 = *v184;
+            *&v182[8] = 2048;
+            *&v182[10] = v87;
+            *&v182[18] = 2048;
+            *&v182[20] = (v87 - *v184 - 3000000) / 1000000.0;
+            _os_log_impl(&_mh_execute_header, v86, OS_LOG_TYPE_DEBUG, "DROPPED Roads: %llu < %llu by %f seconds", buf, 0x20u);
           }
         }
 
-        v87 += 96;
+        v83 += 96;
       }
 
-      while (v88 != v87);
+      while (v84 != v83);
     }
 
-    v40 = v180;
+    v40 = v176;
   }
 
   if (v40[125])
   {
-    v109 = 1;
+    v105 = 1;
   }
 
   else
@@ -5171,149 +5169,149 @@ void CSAOPSvc::readFastpaths(CSAOPSvc *this)
       sub_1002D5814();
     }
 
-    v110 = qword_100456810;
-    if (os_log_type_enabled(v110, OS_LOG_TYPE_FAULT))
+    v106 = qword_100456810;
+    if (os_log_type_enabled(v106, OS_LOG_TYPE_FAULT))
     {
-      v188[0] = 0;
-      _os_log_impl(&_mh_execute_header, v110, OS_LOG_TYPE_FAULT, "missing _firstTriggerTimestamp", v188, 2u);
+      v184[0] = 0;
+      _os_log_impl(&_mh_execute_header, v106, OS_LOG_TYPE_FAULT, "missing _firstTriggerTimestamp", v184, 2u);
     }
 
-    v40 = v180;
-    v109 = *(v180 + 1000);
+    v40 = v176;
+    v105 = *(v176 + 1000);
   }
 
-  v111 = (v109 & 1) == 0;
-  v112 = 123;
-  if (!v111)
+  v107 = (v105 & 1) == 0;
+  v108 = 123;
+  if (!v107)
   {
-    v112 = 124;
+    v108 = 124;
   }
 
-  v178 = v40[v112];
-  v113 = +[CSPlatformInfo sharedInstance];
-  v114 = [v113 isMDevice];
+  v174 = v40[v108];
+  v109 = +[CSPlatformInfo sharedInstance];
+  v110 = [v109 isMDevice];
 
-  v115 = v180;
-  if (v114)
+  v111 = v176;
+  if (v110)
   {
-    if (v180[90])
+    if (v176[90])
     {
       for (k = 0; k != 248; k += 124)
       {
-        v117 = &v188[k];
-        *v117 = 0;
-        *(v117 + 2) = 0;
-        *(v117 + 22) = 0;
-        *(v117 + 44) = 0;
-        *(v117 + 21) = 0;
-        *(v117 + 2) = 0;
-        *(v117 + 3) = 0;
-        *(v117 + 8) = 0;
-        *(v117 + 5) = 0;
-        *(v117 + 6) = 0;
-        *(v117 + 14) = 0;
-        *(v117 + 8) = 0;
-        *(v117 + 9) = 0;
-        *(v117 + 80) = 0;
-        *(v117 + 12) = 0;
-        *(v117 + 13) = 0;
-        *(v117 + 28) = 0;
-        *(v117 + 34) = 0;
-        *(v117 + 15) = 0;
-        *(v117 + 16) = 0;
-        *(v117 + 18) = 0;
-        *(v117 + 19) = 0;
-        *(v117 + 160) = 0;
-        *(v117 + 92) = 0uLL;
-        *(v117 + 100) = 0uLL;
-        *(v117 + 108) = 0uLL;
-        *(v117 + 114) = 0uLL;
+        v113 = &v184[k];
+        *v113 = 0;
+        *(v113 + 2) = 0;
+        *(v113 + 22) = 0;
+        *(v113 + 44) = 0;
+        *(v113 + 21) = 0;
+        *(v113 + 2) = 0;
+        *(v113 + 3) = 0;
+        *(v113 + 8) = 0;
+        *(v113 + 5) = 0;
+        *(v113 + 6) = 0;
+        *(v113 + 14) = 0;
+        *(v113 + 8) = 0;
+        *(v113 + 9) = 0;
+        *(v113 + 80) = 0;
+        *(v113 + 12) = 0;
+        *(v113 + 13) = 0;
+        *(v113 + 28) = 0;
+        *(v113 + 34) = 0;
+        *(v113 + 15) = 0;
+        *(v113 + 16) = 0;
+        *(v113 + 18) = 0;
+        *(v113 + 19) = 0;
+        *(v113 + 160) = 0;
+        *(v113 + 92) = 0uLL;
+        *(v113 + 100) = 0uLL;
+        *(v113 + 108) = 0uLL;
+        *(v113 + 114) = 0uLL;
       }
 
-      v118 = CSFastpathGlue::read((v180 + 88), v188, 2);
-      if (v118)
+      v114 = CSFastpathGlue::read((v176 + 88), v184, 2);
+      if (v114)
       {
-        v119 = v178 - 3000000;
-        v120 = v118;
-        v121 = v188;
+        v115 = v174 - 3000000;
+        v116 = v114;
+        v117 = v184;
         p_vtable = GPBRootObject.vtable;
-        v123 = GPBRootObject.vtable;
-        v124 = &_mh_execute_header;
+        v119 = GPBRootObject.vtable;
+        v120 = &_mh_execute_header;
         p_info = (&OBJC_METACLASS___CSSPUMag + 32);
         do
         {
-          v126 = p_vtable[257];
-          if (*v121 >= v119)
+          v122 = p_vtable[257];
+          if (*v117 >= v115)
           {
-            if (v126 != -1)
+            if (v122 != -1)
             {
               sub_1002D5814();
             }
 
-            v130 = v123[258];
-            if (os_log_type_enabled(v130, OS_LOG_TYPE_DEBUG))
+            v126 = v119[258];
+            if (os_log_type_enabled(v126, OS_LOG_TYPE_DEBUG))
             {
-              v131 = v124;
-              v132 = *v121;
-              v133 = *(v121 + 44);
-              v135 = *(v121 + 25);
-              v134 = *(v121 + 26);
-              v137 = *(v121 + 27);
-              v136 = *(v121 + 28);
-              v138 = +[CSTimeManager SPU_estimate_current_timestamp];
+              v127 = v120;
+              v128 = *v117;
+              v129 = *(v117 + 44);
+              v131 = *(v117 + 25);
+              v130 = *(v117 + 26);
+              v133 = *(v117 + 27);
+              v132 = *(v117 + 28);
+              v134 = +[CSTimeManager SPU_estimate_current_timestamp];
               *buf = 134219520;
-              *v186 = v132;
-              *&v186[8] = 1024;
-              *&v186[10] = v133;
-              *&v186[14] = 2048;
-              *&v186[16] = v135;
-              *&v186[24] = 2048;
-              *&v186[26] = v134;
-              *&v186[34] = 2048;
-              *v187 = v137;
-              *&v187[8] = 2048;
-              *&v187[10] = v136;
-              *&v187[18] = 2048;
-              *&v187[20] = v138;
-              v124 = v131;
-              _os_log_impl(v131, v130, OS_LOG_TYPE_DEBUG, "AudioResult, %llu %d dram %llu,%llu calc %llu wr %llu now %llu", buf, 0x44u);
+              *v182 = v128;
+              *&v182[8] = 1024;
+              *&v182[10] = v129;
+              *&v182[14] = 2048;
+              *&v182[16] = v131;
+              *&v182[24] = 2048;
+              *&v182[26] = v130;
+              *&v182[34] = 2048;
+              *v183 = v133;
+              *&v183[8] = 2048;
+              *&v183[10] = v132;
+              *&v183[18] = 2048;
+              *&v183[20] = v134;
+              v120 = v127;
+              _os_log_impl(v127, v126, OS_LOG_TYPE_DEBUG, "AudioResult, %llu %d dram %llu,%llu calc %llu wr %llu now %llu", buf, 0x44u);
               p_vtable = (GPBRootObject + 24);
-              v119 = v178 - 3000000;
-              v123 = (GPBRootObject + 24);
+              v115 = v174 - 3000000;
+              v119 = (GPBRootObject + 24);
               p_info = &OBJC_METACLASS___CSSPUMag.info;
             }
 
-            v127 = [objc_alloc((p_info + 61)) initWithSPUPacketStruct:v121];
-            [v180[133] addObject:v127];
+            v123 = [objc_alloc((p_info + 61)) initWithSPUPacketStruct:v117];
+            [v176[133] addObject:v123];
           }
 
           else
           {
-            if (v126 != -1)
+            if (v122 != -1)
             {
               sub_1002D5814();
             }
 
-            v127 = v123[258];
-            if (os_log_type_enabled(v127, OS_LOG_TYPE_DEBUG))
+            v123 = v119[258];
+            if (os_log_type_enabled(v123, OS_LOG_TYPE_DEBUG))
             {
-              v128 = *v121;
-              v129 = (v119 - *v121);
+              v124 = *v117;
+              v125 = (v115 - *v117);
               *buf = 134218496;
-              *v186 = v128;
-              *&v186[8] = 2048;
-              *&v186[10] = v178;
-              *&v186[18] = 2048;
-              *&v186[20] = v129 / 1000000.0;
-              _os_log_impl(v124, v127, OS_LOG_TYPE_DEBUG, "DROPPED AudioResult: %llu < %llu by %f seconds", buf, 0x20u);
+              *v182 = v124;
+              *&v182[8] = 2048;
+              *&v182[10] = v174;
+              *&v182[18] = 2048;
+              *&v182[20] = v125 / 1000000.0;
+              _os_log_impl(v120, v123, OS_LOG_TYPE_DEBUG, "DROPPED AudioResult: %llu < %llu by %f seconds", buf, 0x20u);
             }
           }
 
-          v121 += 124;
-          --v120;
+          v117 += 124;
+          --v116;
         }
 
-        while (v120);
+        while (v116);
       }
     }
 
@@ -5324,90 +5322,90 @@ void CSAOPSvc::readFastpaths(CSAOPSvc *this)
         sub_1002D5814();
       }
 
-      v139 = qword_100456810;
-      if (os_log_type_enabled(v139, OS_LOG_TYPE_DEBUG))
+      v135 = qword_100456810;
+      if (os_log_type_enabled(v135, OS_LOG_TYPE_DEBUG))
       {
-        v188[0] = 0;
-        _os_log_impl(&_mh_execute_header, v139, OS_LOG_TYPE_DEBUG, "AudioResult glue invalid", v188, 2u);
+        v184[0] = 0;
+        _os_log_impl(&_mh_execute_header, v135, OS_LOG_TYPE_DEBUG, "AudioResult glue invalid", v184, 2u);
       }
     }
 
-    v115 = v180;
+    v111 = v176;
   }
 
-  if (v115[96])
+  if (v111[96])
   {
-    v189 = 0;
-    v190 = 0;
-    *v188 = 0;
-    *&v188[4] = 0;
-    *(&v188[6] + 1) = 0;
-    v191 = 0u;
-    memset(v192, 0, 28);
-    v140 = CSFastpathGlue::read((v115 + 94), v188, 1);
-    if (v140)
+    v185 = 0;
+    v186 = 0;
+    *v184 = 0;
+    *&v184[4] = 0;
+    *(&v184[6] + 1) = 0;
+    v187 = 0u;
+    memset(v188, 0, 28);
+    v136 = CSFastpathGlue::read((v111 + 94), v184, 1);
+    if (v136)
     {
-      v141 = 0;
-      v177 = 88 * v140;
-      HIDWORD(v142) = 0;
+      v137 = 0;
+      v173 = 88 * v136;
+      HIDWORD(v138) = 0;
       do
       {
-        v143 = v180;
-        if ((*v188 + 3000000) >= v180[123])
+        v139 = v176;
+        if ((*v184 + 3000000) >= v176[123])
         {
-          LODWORD(v142) = *&v188[v141 / 2 + 4];
-          v146 = [NSNumber numberWithFloat:v142];
-          v184[0] = v146;
-          LODWORD(v147) = *&v188[v141 / 2 + 6];
+          LODWORD(v138) = *&v184[v137 / 2 + 4];
+          v142 = [NSNumber numberWithFloat:v138];
+          v180[0] = v142;
+          LODWORD(v143) = *&v184[v137 / 2 + 6];
+          v144 = [NSNumber numberWithFloat:v143];
+          v180[1] = v144;
+          LODWORD(v145) = *&v184[v137 / 2 + 8];
+          v146 = [NSNumber numberWithFloat:v145];
+          v180[2] = v146;
+          v175 = [NSArray arrayWithObjects:v180 count:3];
+
+          LODWORD(v147) = *&v184[v137 / 2 + 12];
           v148 = [NSNumber numberWithFloat:v147];
-          v184[1] = v148;
-          LODWORD(v149) = *&v188[v141 / 2 + 8];
+          v179[0] = v148;
+          LODWORD(v149) = *(&v186 + v137);
           v150 = [NSNumber numberWithFloat:v149];
-          v184[2] = v150;
-          v179 = [NSArray arrayWithObjects:v184 count:3];
-
-          LODWORD(v151) = *&v188[v141 / 2 + 12];
+          v179[1] = v150;
+          LODWORD(v151) = *(&v186 + v137 + 4);
           v152 = [NSNumber numberWithFloat:v151];
-          v183[0] = v152;
-          LODWORD(v153) = *(&v190 + v141);
-          v154 = [NSNumber numberWithFloat:v153];
-          v183[1] = v154;
-          LODWORD(v155) = *(&v190 + v141 + 4);
-          v156 = [NSNumber numberWithFloat:v155];
-          v183[2] = v156;
-          v157 = [NSArray arrayWithObjects:v183 count:3];
+          v179[2] = v152;
+          v153 = [NSArray arrayWithObjects:v179 count:3];
 
-          v158 = [NSNumber numberWithUnsignedShort:*&v192[v141 - 8]];
-          v182[0] = v158;
-          v159 = [NSNumber numberWithUnsignedShort:*&v192[v141 - 6]];
-          v182[1] = v159;
-          v160 = [NSNumber numberWithUnsignedShort:*&v192[v141 - 4]];
-          v182[2] = v160;
-          v161 = [NSNumber numberWithUnsignedShort:*&v192[v141 - 2]];
-          v182[3] = v161;
-          v162 = [NSNumber numberWithUnsignedShort:*&v192[v141]];
-          v182[4] = v162;
-          v163 = [NSArray arrayWithObjects:v182 count:5];
+          v154 = [NSNumber numberWithUnsignedShort:*&v188[v137 - 8]];
+          v178[0] = v154;
+          v155 = [NSNumber numberWithUnsignedShort:*&v188[v137 - 6]];
+          v178[1] = v155;
+          v156 = [NSNumber numberWithUnsignedShort:*&v188[v137 - 4]];
+          v178[2] = v156;
+          v157 = [NSNumber numberWithUnsignedShort:*&v188[v137 - 2]];
+          v178[3] = v157;
+          v158 = [NSNumber numberWithUnsignedShort:*&v188[v137]];
+          v178[4] = v158;
+          v159 = [NSArray arrayWithObjects:v178 count:5];
 
-          v164 = [NSNumber numberWithUnsignedShort:*&v192[v141 + 2]];
-          v181[0] = v164;
-          v165 = [NSNumber numberWithUnsignedShort:*&v192[v141 + 4]];
-          v181[1] = v165;
-          v166 = [NSNumber numberWithUnsignedShort:*&v192[v141 + 6]];
-          v181[2] = v166;
-          v167 = [NSNumber numberWithUnsignedShort:*&v192[v141 + 8]];
-          v181[3] = v167;
-          v168 = [NSNumber numberWithUnsignedShort:*&v192[v141 + 10]];
-          v181[4] = v168;
-          v169 = [NSArray arrayWithObjects:v181 count:5];
+          v160 = [NSNumber numberWithUnsignedShort:*&v188[v137 + 2]];
+          v177[0] = v160;
+          v161 = [NSNumber numberWithUnsignedShort:*&v188[v137 + 4]];
+          v177[1] = v161;
+          v162 = [NSNumber numberWithUnsignedShort:*&v188[v137 + 6]];
+          v177[2] = v162;
+          v163 = [NSNumber numberWithUnsignedShort:*&v188[v137 + 8]];
+          v177[3] = v163;
+          v164 = [NSNumber numberWithUnsignedShort:*&v188[v137 + 10]];
+          v177[4] = v164;
+          v165 = [NSArray arrayWithObjects:v177 count:5];
 
-          v170 = [CSSPUActivityPhone alloc];
-          LODWORD(v171) = *&v192[v141 + 12];
-          LODWORD(v172) = *&v192[v141 + 16];
-          LODWORD(v173) = *&v192[v141 + 20];
-          LODWORD(v174) = *&v192[v141 + 24];
-          v175 = [(CSSPUActivityPhone *)v170 initWithTimestamp:*v188 armTimeImuConfidences:v179 armTimeActivityHints:LOBYTE(v188[v141 / 2 + 10]) windowAfterArmImuConfidences:v157 triggerTimeLastHighImuDrivingConfidenceTimestamp:*&v192[v141 - 16] sessionSwivelAngleDegHistogram:v163 sessionTiltAngleDegHistogram:v171 sessionImuHintPercentage:v172 sessionBtHintPercentage:v173 sessionGpsHintPercentage:v174 sessionWifiHintPercentage:v169];
-          [v180[133] addObject:v175];
+          v166 = [CSSPUActivityPhone alloc];
+          LODWORD(v167) = *&v188[v137 + 12];
+          LODWORD(v168) = *&v188[v137 + 16];
+          LODWORD(v169) = *&v188[v137 + 20];
+          LODWORD(v170) = *&v188[v137 + 24];
+          v171 = [(CSSPUActivityPhone *)v166 initWithTimestamp:*v184 armTimeImuConfidences:v175 armTimeActivityHints:LOBYTE(v184[v137 / 2 + 10]) windowAfterArmImuConfidences:v153 triggerTimeLastHighImuDrivingConfidenceTimestamp:*&v188[v137 - 16] sessionSwivelAngleDegHistogram:v159 sessionTiltAngleDegHistogram:v167 sessionImuHintPercentage:v168 sessionBtHintPercentage:v169 sessionGpsHintPercentage:v170 sessionWifiHintPercentage:v165];
+          [v176[133] addObject:v171];
         }
 
         else
@@ -5415,30 +5413,37 @@ void CSAOPSvc::readFastpaths(CSAOPSvc *this)
           if (qword_100456808 != -1)
           {
             sub_1002D5814();
-            v143 = v180;
+            v139 = v176;
           }
 
-          v144 = qword_100456810;
-          v179 = v144;
-          if (os_log_type_enabled(v144, OS_LOG_TYPE_DEBUG))
+          v140 = qword_100456810;
+          v175 = v140;
+          if (os_log_type_enabled(v140, OS_LOG_TYPE_DEBUG))
           {
-            v145 = v143[123];
+            v141 = v139[123];
             *buf = 134218496;
-            *v186 = *v188;
-            *&v186[8] = 2048;
-            *&v186[10] = v145;
-            *&v186[18] = 2048;
-            *&v186[20] = (v145 - *v188 - 3000000) / 1000000.0;
-            _os_log_impl(&_mh_execute_header, v144, OS_LOG_TYPE_DEBUG, "DROPPED Activity: %llu < %llu by %f seconds", buf, 0x20u);
+            *v182 = *v184;
+            *&v182[8] = 2048;
+            *&v182[10] = v141;
+            *&v182[18] = 2048;
+            *&v182[20] = (v141 - *v184 - 3000000) / 1000000.0;
+            _os_log_impl(&_mh_execute_header, v140, OS_LOG_TYPE_DEBUG, "DROPPED Activity: %llu < %llu by %f seconds", buf, 0x20u);
           }
         }
 
-        v141 += 88;
+        v137 += 88;
       }
 
-      while (v177 != v141);
+      while (v173 != v137);
     }
   }
+}
+
+void sub_1002D0F34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, ...)
+{
+  va_start(va, a50);
+  sub_1002D5520(va);
+  _Unwind_Resume(a1);
 }
 
 void CSAOPSvc::readAPEventsBuffer(id *this)
@@ -6153,13 +6158,6 @@ uint64_t CSAOPSvc::getStat(CSAOPSvc *this, CSCAStat *a2)
   return v9;
 }
 
-uint64_t CSAOPSvc::clearStat(CSAOPSvc *this)
-{
-  v1 = *(this + 7);
-  *(this + 7) = 0;
-  return _objc_release_x1();
-}
-
 void CSAOPSvc::begin(CSAOPSvc *this)
 {
   CSHSM::initial(this, (this + 64));
@@ -6721,30 +6719,30 @@ char *CSAOPSvc::recordStreams(id *this, NSMutableArray *a2, int a3)
   v6 = [(NSMutableArray *)v5 count];
   if (!v6)
   {
-    v25 = 0;
     v26 = 0;
-    v24 = 0;
-    HIDWORD(v23) = 0;
-    v9 = 0;
     v27 = 0;
+    v25 = 0;
+    HIDWORD(v24) = 0;
+    v9 = 0;
     v28 = 0;
-    v15 = 0;
     v29 = 0;
+    v16 = 0;
+    v30 = 0;
     v8 = 0;
     v7 = 0;
     goto LABEL_69;
   }
 
-  v28 = 0;
   v29 = 0;
+  v30 = 0;
   v7 = 0;
   v8 = 0;
-  v26 = 0;
   v27 = 0;
-  v23 = 0;
+  v28 = 0;
   v24 = 0;
-  v9 = 0;
   v25 = 0;
+  v9 = 0;
+  v26 = 0;
   while (1)
   {
     v10 = [(NSMutableArray *)v5 objectAtIndexedSubscript:v9];
@@ -6785,7 +6783,7 @@ LABEL_7:
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    ++HIDWORD(v29);
+    ++HIDWORD(v30);
     if (a3)
     {
       [this[126] recordHgAccel:v10];
@@ -6797,7 +6795,7 @@ LABEL_7:
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    LODWORD(v29) = v29 + 1;
+    LODWORD(v30) = v30 + 1;
     if (a3)
     {
       [this[126] recordDeviceMotion:v10];
@@ -6809,7 +6807,7 @@ LABEL_7:
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    ++HIDWORD(v28);
+    ++HIDWORD(v29);
     if (a3)
     {
       [this[126] recordPressure:v10];
@@ -6821,7 +6819,7 @@ LABEL_7:
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    LODWORD(v28) = v28 + 1;
+    LODWORD(v29) = v29 + 1;
     if (a3)
     {
       [this[126] recordAccel:v10];
@@ -6839,7 +6837,7 @@ LABEL_7:
     }
 
     CSAOPSvc::processSample(this, v10);
-    ++HIDWORD(v27);
+    ++HIDWORD(v28);
     goto LABEL_7;
   }
 
@@ -6849,10 +6847,10 @@ LABEL_7:
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v22 = +[CSPersistentConfiguration sharedConfiguration];
-      v14 = [(CSSPUKappaTrigger *)v22 BOOLForKey:@"CSKappaRecordSteps"];
+      v23 = +[CSPersistentConfiguration sharedConfiguration];
+      v14 = [(CSSPUKappaTrigger *)v23 BOOLForKey:@"CSKappaRecordSteps"];
 
-      LODWORD(v23) = v23 + 1;
+      LODWORD(v24) = v24 + 1;
       if ((v14 & a3) == 1)
       {
         [this[126] recordSteps:v10];
@@ -6864,7 +6862,7 @@ LABEL_7:
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        LODWORD(v27) = v27 + 1;
+        LODWORD(v28) = v28 + 1;
         if (a3)
         {
           [this[126] recordMag:v10];
@@ -6876,7 +6874,7 @@ LABEL_7:
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          ++HIDWORD(v26);
+          ++HIDWORD(v27);
           if (a3)
           {
             [this[126] recordPressureCalibration:v10];
@@ -6894,7 +6892,7 @@ LABEL_7:
             }
 
             CSAOPSvc::processSample(this, v10);
-            LODWORD(v26) = v26 + 1;
+            LODWORD(v27) = v27 + 1;
           }
 
           else
@@ -6902,7 +6900,7 @@ LABEL_7:
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              ++HIDWORD(v25);
+              ++HIDWORD(v26);
               if (a3)
               {
                 [this[126] recordTrustedAudio:v10];
@@ -6914,7 +6912,7 @@ LABEL_7:
               objc_opt_class();
               if (objc_opt_isKindOfClass())
               {
-                LODWORD(v25) = v25 + 1;
+                LODWORD(v26) = v26 + 1;
                 if (a3)
                 {
                   [this[126] recordActivityPhone:v10];
@@ -6926,7 +6924,7 @@ LABEL_7:
                 objc_opt_class();
                 if (objc_opt_isKindOfClass())
                 {
-                  ++HIDWORD(v24);
+                  ++HIDWORD(v25);
                   if (a3)
                   {
                     [this[126] recordSafetyHertzSample:v10];
@@ -6938,7 +6936,7 @@ LABEL_7:
                   objc_opt_class();
                   if (objc_opt_isKindOfClass())
                   {
-                    LODWORD(v24) = v24 + 1;
+                    LODWORD(v25) = v25 + 1;
                     if (a3)
                     {
                       [this[126] recordCompanionStatus:v10];
@@ -6950,7 +6948,7 @@ LABEL_7:
                     objc_opt_class();
                     if (objc_opt_isKindOfClass())
                     {
-                      ++HIDWORD(v23);
+                      ++HIDWORD(v24);
                       if (a3)
                       {
                         [this[126] recordRemoteSample:v10];
@@ -6968,8 +6966,8 @@ LABEL_7:
     goto LABEL_7;
   }
 
-  v21 = v10;
-  if (([(CSSPUKappaTrigger *)v21 meta]& 0x80000000) == 0)
+  v22 = v10;
+  if (([(CSSPUKappaTrigger *)v22 meta]& 0x80000000) == 0)
   {
     if (qword_100456808 != -1)
     {
@@ -6979,90 +6977,91 @@ LABEL_7:
     v11 = qword_100456810;
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      v20 = v11;
-      v12 = [(CSSPUKappaTrigger *)v21 timestamp];
-      v13 = *([(CSSPUKappaTrigger *)v21 c_struct]+ 1);
+      v21 = v11;
+      v12 = [(CSSPUKappaTrigger *)v22 timestamp];
+      v13 = *([(CSSPUKappaTrigger *)v22 c_struct]+ 1);
       *buf = 134349568;
-      *v31 = v12;
-      *&v31[8] = 2048;
-      v11 = v20;
-      v32 = v21;
-      *v33 = 1024;
-      *&v33[2] = v13;
-      _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "Notifying trigger %{public}llu %p %d", buf, 0x1Cu);
+      *v32 = v12;
+      *&v32[8] = 2048;
+      v11 = v21;
+      v33 = v22;
+      *v34 = 1024;
+      *&v34[2] = v13;
+      _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "Notifying trigger %{public}llu %p %d", buf, 0x1Cu);
     }
 
     goto LABEL_42;
   }
 
-  if ([(CSSPUKappaTrigger *)v21 timestamp]<= this[123])
+  v15 = [(CSSPUKappaTrigger *)v22 timestamp];
+  if (v15 <= this[123])
   {
 LABEL_42:
     if (a3)
     {
-      [this[126] recordKappaTrigger:v21];
+      [this[126] recordKappaTrigger:v22];
     }
 
-    CSAOPSvc::processSample(this, v21);
+    CSAOPSvc::processSample(this, v22);
 
     goto LABEL_7;
   }
 
-  v18 = sub_1002CDB10();
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+  v19 = sub_1002CDB10(v15);
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
   {
-    v19 = [(CSSPUKappaTrigger *)v21 timestamp];
+    v20 = [(CSSPUKappaTrigger *)v22 timestamp];
     *buf = 134349056;
-    *v31 = v19;
-    _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "Notifying streaming finish %{public}llu", buf, 0xCu);
+    *v32 = v20;
+    _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "Notifying streaming finish %{public}llu", buf, 0xCu);
   }
 
 LABEL_67:
-  v15 = v23;
+  v16 = v24;
 LABEL_69:
   if (qword_100456808 != -1)
   {
     sub_1002D5814();
   }
 
-  v16 = qword_100456810;
+  v17 = qword_100456810;
   if (os_log_type_enabled(qword_100456810, OS_LOG_TYPE_DEBUG))
   {
     *buf = 67113216;
-    *v31 = v7;
-    *&v31[4] = 1024;
-    *&v31[6] = v29;
-    LOWORD(v32) = 1024;
-    *(&v32 + 2) = HIDWORD(v28);
-    HIWORD(v32) = 1024;
-    *v33 = v8;
-    *&v33[4] = 1024;
-    v34 = HIDWORD(v27);
-    v35 = 1024;
-    v36 = HIDWORD(v29);
-    v37 = 1024;
-    v38 = v15;
-    v39 = 1024;
-    v40 = v28;
-    v41 = 1024;
-    v42 = v27;
-    v43 = 1024;
-    v44 = HIDWORD(v26);
-    v45 = 1024;
-    v46 = v26;
-    v47 = 1024;
-    v48 = v25;
-    v49 = 1024;
-    v50 = 0;
-    v51 = 1024;
-    v52 = HIDWORD(v24);
-    v53 = 1024;
-    v54 = v24;
-    v55 = 1024;
-    v56 = HIDWORD(v23);
-    v57 = 1024;
-    v58 = HIDWORD(v25);
-    _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEBUG, "Sorted %u, %u, %u, %u, %u, %u, %u, %u, %u, %u, %u, %u, %u, %u, %u, %u, %u", buf, 0x68u);
+    *v32 = v7;
+    *&v32[4] = 1024;
+    *&v32[6] = v30;
+    LOWORD(v33) = 1024;
+    *(&v33 + 2) = HIDWORD(v29);
+    HIWORD(v33) = 1024;
+    *v34 = v8;
+    *&v34[4] = 1024;
+    v35 = HIDWORD(v28);
+    v36 = 1024;
+    v37 = HIDWORD(v30);
+    v38 = 1024;
+    v39 = v16;
+    v40 = 1024;
+    v41 = v29;
+    v42 = 1024;
+    v43 = v28;
+    v44 = 1024;
+    v45 = HIDWORD(v27);
+    v46 = 1024;
+    v47 = v27;
+    v48 = 1024;
+    v49 = v26;
+    v50 = 1024;
+    v51 = 0;
+    v52 = 1024;
+    v53 = HIDWORD(v25);
+    v54 = 1024;
+    v55 = v25;
+    v56 = 1024;
+    v57 = HIDWORD(v24);
+    v58 = 1024;
+    v59 = HIDWORD(v26);
+    _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEBUG, "Sorted %u, %u, %u, %u, %u, %u, %u, %u, %u, %u, %u, %u, %u, %u, %u, %u, %u", buf, 0x68u);
   }
 
   return v9;
@@ -7293,7 +7292,7 @@ void CSAOPSvc::setRecording(id *this, CSMSLDataRecording *a2, NSUUID *a3, char a
   {
     sub_1002D5AC0(buf);
 
-    abort_report_np();
+    abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/CoreSafety/SafetyAlgorithms/CSAOPSvc.mm", 1500, "setRecording");
     __break(1u);
   }
 
@@ -7602,82 +7601,82 @@ uint64_t sub_1002D57B4(uint64_t a1, uint64_t a2)
   }
 }
 
-void sub_1002D5850()
+void sub_1002D5850(uint64_t a1)
 {
-  v0 = sub_1002CDB10();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_FAULT))
+  v1 = sub_1002CDB10(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_FAULT))
   {
     sub_100009C7C();
-    sub_10002EB78(&_mh_execute_header, v1, v2, "{msg%{public}.0s:restartSession can only happen in reading, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v3, v4, v5, v6, v21, v22, v23, v24, v25);
+    sub_10002EB78(&_mh_execute_header, v2, v3, "{msg%{public}.0s:restartSession can only happen in reading, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v4, v5, v6, v7, v24, v25, v26, v27);
   }
 
-  v7 = sub_1002CDB10();
-  if (os_signpost_enabled(v7))
+  v9 = sub_1002CDB10(v8);
+  if (os_signpost_enabled(v9))
   {
     sub_100009C7C();
-    sub_10002EAF4(&_mh_execute_header, v8, v9, v10, "restartSession can only happen in reading", "{msg%{public}.0s:restartSession can only happen in reading, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v11, v12, v21, v22, v23, v24, v25);
+    sub_10002EAF4(&_mh_execute_header, v10, v11, v12, "restartSession can only happen in reading", "{msg%{public}.0s:restartSession can only happen in reading, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v13, v14, v24, v25, v26, v27);
   }
 
-  v13 = sub_1002CDB10();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+  v16 = sub_1002CDB10(v15);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
   {
     sub_100009C7C();
-    sub_10002EB58(&_mh_execute_header, v14, v15, "{msg%{public}.0s:restartSession can only happen in reading, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v16, v17, v18, v19, v21, v22, v23, v24, v25);
+    sub_10002EB58(&_mh_execute_header, v17, v18, "{msg%{public}.0s:restartSession can only happen in reading, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v19, v20, v21, v22, v24, v25, v26, v27);
   }
 
-  v20 = abort_report_np();
-  sub_1002D5984(v20);
+  abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/CoreSafety/SafetyAlgorithms/CSAOPSvc.mm", 231, "restartSessionInternal");
+  sub_1002D5984(v23);
 }
 
-void sub_1002D5984()
+void sub_1002D5984(uint64_t a1)
 {
-  v0 = sub_1002CDB10();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_FAULT))
+  v1 = sub_1002CDB10(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_FAULT))
   {
     sub_100009C7C();
-    sub_10002EB78(&_mh_execute_header, v1, v2, "{msg%{public}.0s:trigger is null, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v3, v4, v5, v6, v20, v21, v22, v23, v24);
+    sub_10002EB78(&_mh_execute_header, v2, v3, "{msg%{public}.0s:trigger is null, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v4, v5, v6, v7, v23, v24, v25, v26);
   }
 
-  v7 = sub_1002CDB10();
-  if (os_signpost_enabled(v7))
+  v9 = sub_1002CDB10(v8);
+  if (os_signpost_enabled(v9))
   {
     sub_100009C7C();
-    sub_10002EAF4(&_mh_execute_header, v8, v9, v10, "trigger is null", "{msg%{public}.0s:trigger is null, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v11, v12, v20, v21, v22, v23, v24);
+    sub_10002EAF4(&_mh_execute_header, v10, v11, v12, "trigger is null", "{msg%{public}.0s:trigger is null, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v13, v14, v23, v24, v25, v26);
   }
 
-  v13 = sub_1002CDB10();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+  v16 = sub_1002CDB10(v15);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
   {
     sub_100009C7C();
-    sub_10002EB58(&_mh_execute_header, v14, v15, "{msg%{public}.0s:trigger is null, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v16, v17, v18, v19, v20, v21, v22, v23, v24);
+    sub_10002EB58(&_mh_execute_header, v17, v18, "{msg%{public}.0s:trigger is null, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v19, v20, v21, v22, v23, v24, v25, v26);
   }
 
-  abort_report_np();
+  abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/CoreSafety/SafetyAlgorithms/CSAOPSvc.mm", 296, "trigger");
   __break(1u);
 }
 
 void sub_1002D5AC0(NSObject **a1)
 {
-  v2 = sub_1002CDB10();
+  v2 = sub_1002CDB10(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
   {
     sub_1000190D0();
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:recording details can only be set in idle, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v5, 0x26u);
+    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:recording details can only be set in idle, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v7, 0x26u);
   }
 
-  v3 = sub_1002CDB10();
-  if (os_signpost_enabled(v3))
+  v4 = sub_1002CDB10(v3);
+  if (os_signpost_enabled(v4))
   {
     sub_1000190D0();
-    _os_signpost_emit_with_name_impl(&_mh_execute_header, v3, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "recording details can only be set in idle", "{msg%{public}.0s:recording details can only be set in idle, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v5, 0x26u);
+    _os_signpost_emit_with_name_impl(&_mh_execute_header, v4, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "recording details can only be set in idle", "{msg%{public}.0s:recording details can only be set in idle, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v7, 0x26u);
   }
 
-  v4 = sub_1002CDB10();
-  *a1 = v4;
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+  v6 = sub_1002CDB10(v5);
+  *a1 = v6;
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     sub_1000190D0();
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_INFO, "{msg%{public}.0s:recording details can only be set in idle, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v5, 0x26u);
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_INFO, "{msg%{public}.0s:recording details can only be set in idle, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v7, 0x26u);
   }
 }
 
@@ -8103,16 +8102,16 @@ void sub_1002D6A04(_Unwind_Exception *a1)
   }
 }
 
-char **sub_1002D6B24@<X0>(uint64_t a1@<X0>, char ***a2@<X8>)
+void *sub_1002D6B24@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
 {
   result = *a1;
   {
-    v6 = *(a1 + 8);
+    v5 = *(a1 + 8);
     *a2 = result;
-    a2[1] = v6;
-    if (v6)
+    a2[1] = v5;
+    if (v5)
     {
-      atomic_fetch_add_explicit((v6 + 8), 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit((v5 + 8), 1uLL, memory_order_relaxed);
     }
   }
 
@@ -9058,24 +9057,6 @@ uint64_t virtual thunk toCLMartyInferencesAlgSevereCrash::feedFeatures(void *a1,
   return CLKappaDeescalatorMovingGps::updateWithFeatures(v4, a2);
 }
 
-unsigned __int16 *CLMartyInferencesAlgSevereCrash::feedFeatures(uint64_t a1, uint64_t a2)
-{
-  return CLKappaDeescalatorSteps::updateWithStepsFeatures(*(a1 + 112), a2);
-}
-
-{
-  return CLKappaDeescalatorMAP::updateWithIsMAP(*(a1 + 176), a2);
-}
-
-unsigned __int16 *virtual thunk toCLMartyInferencesAlgSevereCrash::feedFeatures(void *a1, uint64_t a2)
-{
-  return CLKappaDeescalatorSteps::updateWithStepsFeatures(*(a1 + *(*a1 - 104) + 112), a2);
-}
-
-{
-  return CLKappaDeescalatorMAP::updateWithIsMAP(*(a1 + *(*a1 - 136) + 176), a2);
-}
-
 float CLMartyInferencesAlgSevereCrash::feedFeatures(uint64_t a1, uint64_t a2)
 {
   CLKappaDeescalatorQuiescence::updateWithPulseFeatures(*(a1 + 80), a2);
@@ -9512,16 +9493,16 @@ void sub_1002D9A74(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-char **sub_1002D9AA8@<X0>(uint64_t a1@<X0>, char ***a2@<X8>)
+void *sub_1002D9AA8@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
 {
   result = *a1;
   {
-    v6 = *(a1 + 8);
+    v5 = *(a1 + 8);
     *a2 = result;
-    a2[1] = v6;
-    if (v6)
+    a2[1] = v5;
+    if (v5)
     {
-      atomic_fetch_add_explicit((v6 + 8), 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit((v5 + 8), 1uLL, memory_order_relaxed);
     }
   }
 
@@ -9683,4 +9664,27 @@ void sub_1002DA040(CLKappaAlgBlock *this)
   }
 
   CLKappaAlgBlock::~CLKappaAlgBlock(this, off_100430328);
+}
+
+void sub_1002DA13C(CLKappaAlgBlock *this)
+{
+  *this = off_10042FDD8;
+  *(this + 10) = off_100430098;
+  *(this + 11) = off_1004301E0;
+  *(this + 12) = off_1004302D0;
+  v2 = *(this + 7);
+  if (v2)
+  {
+    sub_100009A48(v2);
+  }
+
+  v3 = *(this + 5);
+  if (v3)
+  {
+    sub_100009A48(v3);
+  }
+
+  CLKappaAlgBlock::~CLKappaAlgBlock(this, off_100430328);
+
+  operator delete();
 }

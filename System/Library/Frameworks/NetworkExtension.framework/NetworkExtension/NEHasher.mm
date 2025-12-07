@@ -105,30 +105,34 @@
 - (void)encodeDataObject:(id)object
 {
   objectCopy = object;
+  v5 = objectCopy;
   if (objectCopy)
   {
-    v6 = objectCopy;
-    if ([objectCopy length])
+    v7 = objectCopy;
+    objectCopy = [objectCopy length];
+    v5 = v7;
+    if (objectCopy)
     {
       if (self)
       {
         self = self->_sha1Context;
       }
 
-      v5 = v6;
-      CC_SHA1_Update(self, [v6 bytes], objc_msgSend(v6, "length"));
+      v6 = v7;
+      objectCopy = CC_SHA1_Update(self, [v7 bytes], objc_msgSend(v7, "length"));
+      v5 = v7;
     }
   }
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](objectCopy, v5);
 }
 
 - (void)encodeValueOfObjCType:(const char *)type at:(const void *)at
 {
-  v69 = *MEMORY[0x1E69E9840];
+  v67 = *MEMORY[0x1E69E9840];
   if (!at)
   {
-    goto LABEL_60;
+    return;
   }
 
   selfCopy = self;
@@ -145,10 +149,21 @@
 
       if (v6 != 100)
       {
-        goto LABEL_32;
+LABEL_32:
+        v22 = ne_log_obj();
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
+        {
+          *buf = 136315138;
+          *&buf[4] = type;
+          _os_log_debug_impl(&dword_1BA83C000, v22, OS_LOG_TYPE_DEBUG, "Not hashing value with type %s", buf, 0xCu);
+        }
+
+        return;
       }
 
-      goto LABEL_37;
+LABEL_37:
+      v7 = 8;
+      goto LABEL_38;
     }
 
     if (v6 != 105)
@@ -158,9 +173,7 @@
         goto LABEL_32;
       }
 
-LABEL_37:
-      v7 = 8;
-      goto LABEL_38;
+      goto LABEL_37;
     }
 
 LABEL_43:
@@ -200,8 +213,6 @@ LABEL_44:
       {
 LABEL_59:
 
-LABEL_60:
-        v29 = *MEMORY[0x1E69E9840];
         return;
       }
 
@@ -209,25 +220,25 @@ LABEL_60:
       {
         v10 = v9;
         [v10 allKeys];
+        v58 = 0u;
+        v59 = 0u;
         v60 = 0u;
-        v61 = 0u;
-        v62 = 0u;
-        v11 = v63 = 0u;
-        v12 = [v11 countByEnumeratingWithState:&v60 objects:v68 count:16];
+        v11 = v61 = 0u;
+        v12 = [v11 countByEnumeratingWithState:&v58 objects:v66 count:16];
         if (v12)
         {
           v13 = v12;
-          v14 = *v61;
+          v14 = *v59;
           while (2)
           {
             for (i = 0; i != v13; ++i)
             {
-              if (*v61 != v14)
+              if (*v59 != v14)
               {
                 objc_enumerationMutation(v11);
               }
 
-              if (!isa_nsstring(*(*(&v60 + 1) + 8 * i)))
+              if (!isa_nsstring(*(*(&v58 + 1) + 8 * i)))
               {
 
                 v16 = ne_log_obj();
@@ -241,7 +252,7 @@ LABEL_60:
               }
             }
 
-            v13 = [v11 countByEnumeratingWithState:&v60 objects:v68 count:16];
+            v13 = [v11 countByEnumeratingWithState:&v58 objects:v66 count:16];
             if (v13)
             {
               continue;
@@ -252,29 +263,29 @@ LABEL_60:
         }
 
         v16 = [v11 sortedArrayUsingSelector:NSSelectorFromString(&cfstr_Compare.isa)];
+        v54 = 0u;
+        v55 = 0u;
         v56 = 0u;
         v57 = 0u;
-        v58 = 0u;
-        v59 = 0u;
-        v17 = [v16 countByEnumeratingWithState:&v56 objects:v67 count:16];
+        v17 = [v16 countByEnumeratingWithState:&v54 objects:v65 count:16];
         if (v17)
         {
           v18 = v17;
-          v19 = *v57;
+          v19 = *v55;
           do
           {
             for (j = 0; j != v18; ++j)
             {
-              if (*v57 != v19)
+              if (*v55 != v19)
               {
                 objc_enumerationMutation(v16);
               }
 
-              v21 = [v10 objectForKeyedSubscript:*(*(&v56 + 1) + 8 * j)];
+              v21 = [v10 objectForKeyedSubscript:*(*(&v54 + 1) + 8 * j)];
               [(NEHasher *)selfCopy encodeObject:v21];
             }
 
-            v18 = [v16 countByEnumeratingWithState:&v56 objects:v67 count:16];
+            v18 = [v16 countByEnumeratingWithState:&v54 objects:v65 count:16];
           }
 
           while (v18);
@@ -289,31 +300,31 @@ LABEL_57:
       if (isa_nsarray(v9))
       {
         v10 = v9;
+        v50 = 0u;
+        v51 = 0u;
         v52 = 0u;
         v53 = 0u;
-        v54 = 0u;
-        v55 = 0u;
-        v25 = [v10 countByEnumeratingWithState:&v52 objects:v66 count:16];
-        if (v25)
+        v24 = [v10 countByEnumeratingWithState:&v50 objects:v64 count:16];
+        if (v24)
         {
-          v26 = v25;
-          v27 = *v53;
+          v25 = v24;
+          v26 = *v51;
           do
           {
-            for (k = 0; k != v26; ++k)
+            for (k = 0; k != v25; ++k)
             {
-              if (*v53 != v27)
+              if (*v51 != v26)
               {
                 objc_enumerationMutation(v10);
               }
 
-              [(NEHasher *)selfCopy encodeObject:*(*(&v52 + 1) + 8 * k)];
+              [(NEHasher *)selfCopy encodeObject:*(*(&v50 + 1) + 8 * k)];
             }
 
-            v26 = [v10 countByEnumeratingWithState:&v52 objects:v66 count:16];
+            v25 = [v10 countByEnumeratingWithState:&v50 objects:v64 count:16];
           }
 
-          while (v26);
+          while (v25);
         }
 
 LABEL_58:
@@ -342,7 +353,7 @@ LABEL_65:
         if (isa_nsnumber(v9))
         {
           [v9 doubleValue];
-          *buf = v34;
+          *buf = v32;
           if (selfCopy)
           {
             sha1Context = selfCopy->_sha1Context;
@@ -353,8 +364,8 @@ LABEL_65:
             sha1Context = 0;
           }
 
-          v33 = buf;
-          v31 = 8;
+          v31 = buf;
+          v29 = 8;
           goto LABEL_75;
         }
 
@@ -372,14 +383,14 @@ LABEL_65:
             sha1Context = 0;
           }
 
-          v33 = buf;
-          v31 = 16;
+          v31 = buf;
+          v29 = 16;
           goto LABEL_75;
         }
 
         if (!isa_nsurl(v9))
         {
-          if (isa_neclass())
+          if (isa_neclass(v9))
           {
             [v9 encodeWithCoder:selfCopy];
           }
@@ -388,7 +399,7 @@ LABEL_65:
           {
             if (selfCopy)
             {
-              Property = objc_getProperty(selfCopy, v36, 16, 1);
+              Property = objc_getProperty(selfCopy, v34, 16, 1);
             }
 
             else
@@ -398,46 +409,46 @@ LABEL_65:
 
             if ([Property count])
             {
-              v38 = objc_opt_class();
-              v10 = NSStringFromClass(v38);
+              v36 = objc_opt_class();
+              v10 = NSStringFromClass(v36);
+              v46 = 0u;
+              v47 = 0u;
               v48 = 0u;
               v49 = 0u;
-              v50 = 0u;
-              v51 = 0u;
               if (selfCopy)
               {
-                v40 = objc_getProperty(selfCopy, v39, 16, 1);
+                v38 = objc_getProperty(selfCopy, v37, 16, 1);
               }
 
               else
               {
-                v40 = 0;
+                v38 = 0;
               }
 
-              v11 = v40;
-              v41 = [v11 countByEnumeratingWithState:&v48 objects:v64 count:16];
-              if (v41)
+              v11 = v38;
+              v39 = [v11 countByEnumeratingWithState:&v46 objects:v62 count:16];
+              if (v39)
               {
-                v42 = v41;
-                v43 = *v49;
+                v40 = v39;
+                v41 = *v47;
                 while (2)
                 {
-                  for (m = 0; m != v42; ++m)
+                  for (m = 0; m != v40; ++m)
                   {
-                    if (*v49 != v43)
+                    if (*v47 != v41)
                     {
                       objc_enumerationMutation(v11);
                     }
 
-                    if ([v10 hasPrefix:{*(*(&v48 + 1) + 8 * m), v48}])
+                    if ([v10 hasPrefix:{*(*(&v46 + 1) + 8 * m), v46}])
                     {
                       [v9 encodeWithCoder:selfCopy];
                       goto LABEL_57;
                     }
                   }
 
-                  v42 = [v11 countByEnumeratingWithState:&v48 objects:v64 count:16];
-                  if (v42)
+                  v40 = [v11 countByEnumeratingWithState:&v46 objects:v62 count:16];
+                  if (v40)
                   {
                     continue;
                   }
@@ -447,14 +458,14 @@ LABEL_65:
               }
             }
 
-            v45 = ne_log_obj();
-            if (os_log_type_enabled(v45, OS_LOG_TYPE_DEBUG))
+            v43 = ne_log_obj();
+            if (os_log_type_enabled(v43, OS_LOG_TYPE_DEBUG))
             {
-              v46 = objc_opt_class();
-              v47 = NSStringFromClass(v46);
+              v44 = objc_opt_class();
+              v45 = NSStringFromClass(v44);
               *buf = 138412290;
-              *&buf[4] = v47;
-              _os_log_debug_impl(&dword_1BA83C000, v45, OS_LOG_TYPE_DEBUG, "Not hashing value with class %@", buf, 0xCu);
+              *&buf[4] = v45;
+              _os_log_debug_impl(&dword_1BA83C000, v43, OS_LOG_TYPE_DEBUG, "Not hashing value with class %@", buf, 0xCu);
             }
           }
 
@@ -470,24 +481,15 @@ LABEL_65:
         }
       }
 
-      v31 = strlen(uTF8String);
+      v29 = strlen(uTF8String);
       sha1Context = selfCopy;
-      v33 = uTF8String;
+      v31 = uTF8String;
 LABEL_75:
-      CC_SHA1_Update(sha1Context, v33, v31);
+      CC_SHA1_Update(sha1Context, v31, v29);
       goto LABEL_59;
     }
 
-LABEL_32:
-    v22 = ne_log_obj();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
-    {
-      *buf = 136315138;
-      *&buf[4] = type;
-      _os_log_debug_impl(&dword_1BA83C000, v22, OS_LOG_TYPE_DEBUG, "Not hashing value with type %s", buf, 0xCu);
-    }
-
-    goto LABEL_60;
+    goto LABEL_32;
   }
 
 LABEL_38:
@@ -499,7 +501,6 @@ LABEL_38:
 LABEL_39:
   v23 = self->_sha1Context;
 LABEL_40:
-  v24 = *MEMORY[0x1E69E9840];
 
   CC_SHA1_Update(v23, at, v7);
 }
@@ -559,7 +560,7 @@ LABEL_40:
 
 - (id)finishHashing
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   if (self && (v2 = *(self + 8)) != 0)
   {
     CC_SHA1_Final(md, v2);
@@ -572,8 +573,6 @@ LABEL_40:
   {
     v3 = 0;
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 
   return v3;
 }

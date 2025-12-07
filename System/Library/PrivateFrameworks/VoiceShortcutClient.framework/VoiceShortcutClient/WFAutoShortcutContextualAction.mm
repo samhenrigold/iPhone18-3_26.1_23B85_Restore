@@ -10,6 +10,7 @@
 - (WFAutoShortcutContextualAction)initWithAutoShortcut:(id)shortcut phrase:(id)phrase alternativePhrases:(id)phrases bundleIdentifier:(id)identifier;
 - (WFAutoShortcutContextualAction)initWithCoder:(id)coder;
 - (WFAutoShortcutContextualAction)initWithExecutableAppShortcut:(id)shortcut index:(unint64_t)index;
+- (id)actionBySettingEligibilityForProminentDisplay:(BOOL)display;
 - (id)actionForRunningFromSpotlight;
 - (id)creationDate;
 - (id)relatedApp;
@@ -384,9 +385,28 @@ LABEL_47:
   return v10;
 }
 
+- (id)actionBySettingEligibilityForProminentDisplay:(BOOL)display
+{
+  displayCopy = display;
+  v17 = [WFAutoShortcutContextualAction alloc];
+  autoShortcut = [(WFAutoShortcutContextualAction *)self autoShortcut];
+  parameterlessIdentifier = [(WFAutoShortcutContextualAction *)self parameterlessIdentifier];
+  phrase = [(WFAutoShortcutContextualAction *)self phrase];
+  alternativePhrases = [(WFAutoShortcutContextualAction *)self alternativePhrases];
+  bundleIdentifier = [(WFAutoShortcutContextualAction *)self bundleIdentifier];
+  actionIdentifier = [(WFAutoShortcutContextualAction *)self actionIdentifier];
+  orderOfShortcut = [(WFAutoShortcutContextualAction *)self orderOfShortcut];
+  parentAction = [(WFAutoShortcutContextualAction *)self parentAction];
+  v13 = [MEMORY[0x1E696AD98] numberWithBool:displayCopy];
+  executableAppShortcut = [(WFAutoShortcutContextualAction *)self executableAppShortcut];
+  v15 = [(WFAutoShortcutContextualAction *)v17 initWithAutoShortcut:autoShortcut identifier:0 parameterlessIdentifier:parameterlessIdentifier phrase:phrase alternativePhrases:alternativePhrases bundleIdentifier:bundleIdentifier actionIdentifier:actionIdentifier orderOfShortcut:orderOfShortcut parentAction:parentAction prominentDisplayEligibility:v13 executableAppShortcut:executableAppShortcut];
+
+  return v15;
+}
+
 - (BOOL)isEligibleForProminentDisplay
 {
-  v15[1] = *MEMORY[0x1E69E9840];
+  v13[1] = *MEMORY[0x1E69E9840];
   cachedProminentDisplayEligibility = [(WFAutoShortcutContextualAction *)self cachedProminentDisplayEligibility];
 
   if (cachedProminentDisplayEligibility)
@@ -394,23 +414,21 @@ LABEL_47:
     cachedProminentDisplayEligibility2 = [(WFAutoShortcutContextualAction *)self cachedProminentDisplayEligibility];
     bOOLValue = [cachedProminentDisplayEligibility2 BOOLValue];
 
-    v6 = *MEMORY[0x1E69E9840];
     return bOOLValue;
   }
 
   else
   {
-    v15[0] = self;
-    v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:1];
-    v9 = [WFAutoShortcutContextualAction autoShortcutContextualActionsByQueryingEligibilityForProminentDisplay:v8];
-    firstObject = [v9 firstObject];
+    v13[0] = self;
+    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:1];
+    v8 = [WFAutoShortcutContextualAction autoShortcutContextualActionsByQueryingEligibilityForProminentDisplay:v7];
+    firstObject = [v8 firstObject];
 
     isEligibleForProminentDisplay = [firstObject isEligibleForProminentDisplay];
-    v12 = [MEMORY[0x1E696AD98] numberWithBool:isEligibleForProminentDisplay];
+    v11 = [MEMORY[0x1E696AD98] numberWithBool:isEligibleForProminentDisplay];
     cachedProminentDisplayEligibility = self->_cachedProminentDisplayEligibility;
-    self->_cachedProminentDisplayEligibility = v12;
+    self->_cachedProminentDisplayEligibility = v11;
 
-    v14 = *MEMORY[0x1E69E9840];
     return isEligibleForProminentDisplay;
   }
 }
@@ -503,14 +521,14 @@ LABEL_47:
 
 - (id)spotlightItem
 {
-  v91 = *MEMORY[0x1E69E9840];
-  v85.receiver = self;
-  v85.super_class = WFAutoShortcutContextualAction;
-  spotlightItem = [(WFContextualAction *)&v85 spotlightItem];
+  v90 = *MEMORY[0x1E69E9840];
+  v84.receiver = self;
+  v84.super_class = WFAutoShortcutContextualAction;
+  spotlightItem = [(WFContextualAction *)&v84 spotlightItem];
   v4 = objc_alloc_init(MEMORY[0x1E695DF70]);
-  v86 = @"com.apple.musicrecognition";
+  v85 = @"com.apple.musicrecognition";
   *buf = @"com.shazam.Shazam";
-  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:buf forKeys:&v86 count:1];
+  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:buf forKeys:&v85 count:1];
   bundleIdentifier = [(WFAutoShortcutContextualAction *)self bundleIdentifier];
   v7 = [v5 objectForKeyedSubscript:bundleIdentifier];
 
@@ -584,9 +602,9 @@ LABEL_47:
   *buf = @"com.apple.mobilenotes";
   *&buf[8] = @"com.apple.freeform";
   *&buf[16] = @"com.apple.mobilephone";
-  v88 = @"com.apple.facetime";
-  v89 = @"com.apple.Music";
-  v90 = @"com.apple.podcasts";
+  v87 = @"com.apple.facetime";
+  v88 = @"com.apple.Music";
+  v89 = @"com.apple.podcasts";
   attributeSet6 = [MEMORY[0x1E695DEC8] arrayWithObjects:buf count:6];
   if ([attributeSet6 containsObject:v31])
   {
@@ -687,15 +705,15 @@ LABEL_19:
 
       else
       {
-        v80 = getWFSpotlightSyncLogObject();
-        if (os_log_type_enabled(v80, OS_LOG_TYPE_DEBUG))
+        v79 = getWFSpotlightSyncLogObject();
+        if (os_log_type_enabled(v79, OS_LOG_TYPE_DEBUG))
         {
           bundleIdentifier4 = [(WFAutoShortcutContextualAction *)self bundleIdentifier];
           *buf = 136315394;
           *&buf[4] = "[WFAutoShortcutContextualAction spotlightItem]";
           *&buf[12] = 2112;
           *&buf[14] = bundleIdentifier4;
-          _os_log_impl(&dword_1B1DE3000, v80, OS_LOG_TYPE_DEBUG, "%s Indexing App Shortcut with data backed image for %@, this should be investigated", buf, 0x16u);
+          _os_log_impl(&dword_1B1DE3000, v79, OS_LOG_TYPE_DEBUG, "%s Indexing App Shortcut with data backed image for %@, this should be investigated", buf, 0x16u);
         }
 
         icon4 = [entityInfo icon];
@@ -748,15 +766,15 @@ LABEL_30:
           goto LABEL_35;
         }
 
-        v84 = [attributeSet13 length];
+        v83 = [attributeSet13 length];
         attributeSet12 = [(WFAutoShortcutContextualAction *)self bundleIdentifier];
         *buf = 136315650;
         *&buf[4] = "[WFAutoShortcutContextualAction spotlightItem]";
         *&buf[12] = 2048;
-        *&buf[14] = v84;
+        *&buf[14] = v83;
         v54 = 0x1E696A000;
         *&buf[22] = 2112;
-        v88 = attributeSet12;
+        v87 = attributeSet12;
         _os_log_impl(&dword_1B1DE3000, imageURL2, OS_LOG_TYPE_DEBUG, "%s Indexing large App Shortcut image of size %lu for app %@", buf, 0x20u);
       }
     }
@@ -776,7 +794,6 @@ LABEL_30:
 LABEL_35:
 
 LABEL_36:
-  v78 = *MEMORY[0x1E69E9840];
 
   return spotlightItem;
 }
@@ -1071,7 +1088,7 @@ LABEL_3:
 
 id __104__WFAutoShortcutContextualAction_autoShortcutContextualActionsByQueryingEligibilityForProminentDisplay___block_invoke_2(uint64_t a1, void *a2)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = *(a1 + 32);
   v5 = [v3 bundleIdentifier];
@@ -1095,13 +1112,13 @@ id __104__WFAutoShortcutContextualAction_autoShortcutContextualActionsByQuerying
       v13 = [v3 autoShortcut];
       v14 = [v13 actionIdentifier];
       v15 = [v3 bundleIdentifier];
-      v18 = 136315650;
-      v19 = "+[WFAutoShortcutContextualAction autoShortcutContextualActionsByQueryingEligibilityForProminentDisplay:]_block_invoke";
-      v20 = 2112;
-      v21 = v14;
-      v22 = 2112;
-      v23 = v15;
-      _os_log_impl(&dword_1B1DE3000, v12, OS_LOG_TYPE_FAULT, "%s We got auto shortcut metadata with no error, but can't find %@ in the returned set (for bundle %@)", &v18, 0x20u);
+      v17 = 136315650;
+      v18 = "+[WFAutoShortcutContextualAction autoShortcutContextualActionsByQueryingEligibilityForProminentDisplay:]_block_invoke";
+      v19 = 2112;
+      v20 = v14;
+      v21 = 2112;
+      v22 = v15;
+      _os_log_impl(&dword_1B1DE3000, v12, OS_LOG_TYPE_FAULT, "%s We got auto shortcut metadata with no error, but can't find %@ in the returned set (for bundle %@)", &v17, 0x20u);
     }
 
     v9 = 0;
@@ -1113,18 +1130,16 @@ id __104__WFAutoShortcutContextualAction_autoShortcutContextualActionsByQuerying
     if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
     {
       v11 = [v3 bundleIdentifier];
-      v18 = 136315394;
-      v19 = "+[WFAutoShortcutContextualAction autoShortcutContextualActionsByQueryingEligibilityForProminentDisplay:]_block_invoke_2";
-      v20 = 2112;
-      v21 = v11;
-      _os_log_impl(&dword_1B1DE3000, v9, OS_LOG_TYPE_FAULT, "%s We got auto shortcut metadata with no error, but can't find %@ in the returned set", &v18, 0x16u);
+      v17 = 136315394;
+      v18 = "+[WFAutoShortcutContextualAction autoShortcutContextualActionsByQueryingEligibilityForProminentDisplay:]_block_invoke_2";
+      v19 = 2112;
+      v20 = v11;
+      _os_log_impl(&dword_1B1DE3000, v9, OS_LOG_TYPE_FAULT, "%s We got auto shortcut metadata with no error, but can't find %@ in the returned set", &v17, 0x16u);
     }
   }
 
   v10 = 0;
 LABEL_10:
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
@@ -1145,7 +1160,7 @@ id __104__WFAutoShortcutContextualAction_autoShortcutContextualActionsByQuerying
 
 + (id)allActionsForAutoShortcut:(id)shortcut bundleIdentifier:(id)identifier startIndex:(unint64_t)index
 {
-  v36[1] = *MEMORY[0x1E69E9840];
+  v35[1] = *MEMORY[0x1E69E9840];
   shortcutCopy = shortcut;
   identifierCopy = identifier;
   v11 = identifierCopy;
@@ -1205,21 +1220,21 @@ LABEL_3:
       v22 = 0;
     }
 
-    v31[0] = MEMORY[0x1E69E9820];
-    v31[1] = 3221225472;
-    v31[2] = __88__WFAutoShortcutContextualAction_allActionsForAutoShortcut_bundleIdentifier_startIndex___block_invoke;
-    v31[3] = &unk_1E7B00710;
+    v30[0] = MEMORY[0x1E69E9820];
+    v30[1] = 3221225472;
+    v30[2] = __88__WFAutoShortcutContextualAction_allActionsForAutoShortcut_bundleIdentifier_startIndex___block_invoke;
+    v30[3] = &unk_1E7B00710;
     indexCopy = index;
-    v32 = shortcutCopy;
-    v33 = v11;
+    v31 = shortcutCopy;
+    v32 = v11;
     v23 = v22;
-    v34 = v23;
-    v24 = [v13 if_compactMap:v31];
+    v33 = v23;
+    v24 = [v13 if_compactMap:v30];
     v25 = v24;
     if (v23)
     {
-      v36[0] = v23;
-      v26 = [MEMORY[0x1E695DEC8] arrayWithObjects:v36 count:1];
+      v35[0] = v23;
+      v26 = [MEMORY[0x1E695DEC8] arrayWithObjects:v35 count:1];
       v16 = [v26 arrayByAddingObjectsFromArray:v25];
     }
 
@@ -1233,8 +1248,6 @@ LABEL_3:
   {
     v16 = MEMORY[0x1E695E0F0];
   }
-
-  v27 = *MEMORY[0x1E69E9840];
 
   return v16;
 }

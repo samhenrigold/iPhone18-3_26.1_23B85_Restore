@@ -153,13 +153,13 @@
 
 - (void)presenterWillDisappear
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v3 = LogSubsystem();
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = LogSubsystem(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 136315138;
-    v7 = "[ICSDataclassDetailSpecifierProvider presenterWillDisappear]";
-    _os_log_impl(&dword_275819000, v3, OS_LOG_TYPE_DEFAULT, "%s", &v6, 0xCu);
+    v5 = 136315138;
+    v6 = "[ICSDataclassDetailSpecifierProvider presenterWillDisappear]";
+    _os_log_impl(&dword_275819000, v3, OS_LOG_TYPE_DEFAULT, "%s", &v5, 0xCu);
   }
 
   manageStorageController = self->_manageStorageController;
@@ -167,8 +167,6 @@
   {
     [(ICSManageStorageDrilldownController *)manageStorageController cancelLoading];
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_headerGroupSpecifiers
@@ -336,7 +334,7 @@ LABEL_18:
 
     else
     {
-      v8 = LogSubsystem();
+      v8 = LogSubsystem(0);
       if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         [(ICSDataclassDetailSpecifierProvider *)dataclassCopy _iconForDataclass:v8];
@@ -353,7 +351,7 @@ LABEL_18:
 
 - (id)_storageUsedGroupSpecifiers
 {
-  v11[2] = *MEMORY[0x277D85DE8];
+  v10[2] = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277D3FAD8];
   v4 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
   v5 = [v4 localizedStringForKey:@"STORAGE_USED" value:&stru_288487370 table:@"Localizable-AppleID"];
@@ -362,11 +360,9 @@ LABEL_18:
   [v6 setObject:MEMORY[0x277CBEC28] forKeyedSubscript:*MEMORY[0x277D3FF38]];
   [(ICSDataclassDetailSpecifierProvider *)self _setupStorageUsedSpecifier:v6];
   v7 = [MEMORY[0x277D3FAD8] groupSpecifierWithID:@"DATACLASS_STORAGE_USED_GROUP"];
-  v11[0] = v7;
-  v11[1] = v6;
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:2];
-
-  v9 = *MEMORY[0x277D85DE8];
+  v10[0] = v7;
+  v10[1] = v6;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:2];
 
   return v8;
 }
@@ -471,7 +467,7 @@ LABEL_18:
 
 - (id)_syncingToDriveGroupSpecifiers
 {
-  v11[2] = *MEMORY[0x277D85DE8];
+  v10[2] = *MEMORY[0x277D85DE8];
   if ([(ICSDataclassDetailSpecifierProvider *)self _shouldShowDriveGroupSpecifiers])
   {
     v3 = MEMORY[0x277D3FAD8];
@@ -484,17 +480,15 @@ LABEL_18:
     [v6 setObject:self->_accountManager forKeyedSubscript:@"icloudAccountManager"];
     [v6 setObject:MEMORY[0x277CBEC38] forKeyedSubscript:*MEMORY[0x277D3FD80]];
     v7 = [MEMORY[0x277D3FAD8] groupSpecifierWithID:@"DATACLASS_DRIVE_GROUP"];
-    v11[0] = v7;
-    v11[1] = v6;
-    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:2];
+    v10[0] = v7;
+    v10[1] = v6;
+    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:2];
   }
 
   else
   {
     v8 = MEMORY[0x277CBEBF8];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -520,76 +514,77 @@ LABEL_18:
 
 - (id)_cellularDataGroupSpecifiers
 {
-  v15[2] = *MEMORY[0x277D85DE8];
-  if ((_os_feature_enabled_impl() & 1) == 0)
+  v17[2] = *MEMORY[0x277D85DE8];
+  v3 = _os_feature_enabled_impl();
+  if ((v3 & 1) == 0)
   {
-    v6 = LogSubsystem();
-    if (!os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v9 = LogSubsystem(v3);
+    if (!os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_12;
     }
 
     *buf = 0;
-    v11 = "Drive Cellular feature flag disabled";
+    v14 = "Drive Cellular feature flag disabled";
 LABEL_11:
-    _os_log_impl(&dword_275819000, v6, OS_LOG_TYPE_DEFAULT, v11, buf, 2u);
+    _os_log_impl(&dword_275819000, v9, OS_LOG_TYPE_DEFAULT, v14, buf, 2u);
     goto LABEL_12;
   }
 
-  if (![(ICSDataclassDetailSpecifierProvider *)self _supportsCellular])
+  _supportsCellular = [(ICSDataclassDetailSpecifierProvider *)self _supportsCellular];
+  if ((_supportsCellular & 1) == 0)
   {
-    v6 = LogSubsystem();
-    if (!os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v9 = LogSubsystem(_supportsCellular);
+    if (!os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_12;
     }
 
     *buf = 0;
-    v11 = "Device does not support cellular, hiding cellular data group specifier";
+    v14 = "Device does not support cellular, hiding cellular data group specifier";
     goto LABEL_11;
   }
 
-  if ([(ICSDataclassDetailSpecifierProvider *)self _shouldShowDriveGroupSpecifiers])
+  _shouldShowDriveGroupSpecifiers = [(ICSDataclassDetailSpecifierProvider *)self _shouldShowDriveGroupSpecifiers];
+  if (_shouldShowDriveGroupSpecifiers)
   {
-    v3 = MEMORY[0x277D3FAD8];
-    v4 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-    v5 = [v4 localizedStringForKey:@"DRIVE_CELLULAR_LINK_SPECIFIER_NAME" value:&stru_288487370 table:@"Localizable-AppleID"];
-    v6 = [v3 preferenceSpecifierNamed:v5 target:self set:0 get:0 detail:0 cell:2 edit:0];
+    v6 = MEMORY[0x277D3FAD8];
+    v7 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+    v8 = [v7 localizedStringForKey:@"DRIVE_CELLULAR_LINK_SPECIFIER_NAME" value:&stru_288487370 table:@"Localizable-AppleID"];
+    v9 = [v6 preferenceSpecifierNamed:v8 target:self set:0 get:0 detail:0 cell:2 edit:0];
 
-    [v6 setButtonAction:sel__pushCellularSettingsView_];
-    [v6 setObject:MEMORY[0x277CBEC38] forKeyedSubscript:*MEMORY[0x277D3FF38]];
-    v7 = [MEMORY[0x277D3FAD8] groupSpecifierWithID:@"DATACLASS_CELLULAR_GROUP"];
-    v8 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-    v9 = [v8 localizedStringForKey:@"DRIVE_CELLULAR_LINK_SPECIFIER_FOOTER" value:&stru_288487370 table:@"Localizable-AppleID"];
-    [v7 setProperty:v9 forKey:*MEMORY[0x277D3FF88]];
+    [v9 setButtonAction:sel__pushCellularSettingsView_];
+    [v9 setObject:MEMORY[0x277CBEC38] forKeyedSubscript:*MEMORY[0x277D3FF38]];
+    v10 = [MEMORY[0x277D3FAD8] groupSpecifierWithID:@"DATACLASS_CELLULAR_GROUP"];
+    v11 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+    v12 = [v11 localizedStringForKey:@"DRIVE_CELLULAR_LINK_SPECIFIER_FOOTER" value:&stru_288487370 table:@"Localizable-AppleID"];
+    [v10 setProperty:v12 forKey:*MEMORY[0x277D3FF88]];
 
-    v15[0] = v7;
-    v15[1] = v6;
-    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:2];
+    v17[0] = v10;
+    v17[1] = v9;
+    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:2];
 
     goto LABEL_13;
   }
 
-  v6 = LogSubsystem();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v9 = LogSubsystem(_shouldShowDriveGroupSpecifiers);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    v11 = "Account is not primary, skipping cellular data group specifier";
+    v14 = "Account is not primary, skipping cellular data group specifier";
     goto LABEL_11;
   }
 
 LABEL_12:
-  v10 = MEMORY[0x277CBEBF8];
+  v13 = MEMORY[0x277CBEBF8];
 LABEL_13:
 
-  v12 = *MEMORY[0x277D85DE8];
-
-  return v10;
+  return v13;
 }
 
 - (void)_pushCellularSettingsView:(id)view
 {
-  v4 = LogSubsystem();
+  v4 = LogSubsystem(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -609,10 +604,10 @@ LABEL_13:
 
   else
   {
-    v6 = LogSubsystem();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = LogSubsystem(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      [ICSDataclassDetailSpecifierProvider _pushCellularSettingsView:v6];
+      [ICSDataclassDetailSpecifierProvider _pushCellularSettingsView:v7];
     }
   }
 }
@@ -853,7 +848,7 @@ void __57__ICSDataclassDetailSpecifierProvider__fetchStorageUsed___block_invoke(
 {
   v6 = a2;
   v7 = a3;
-  v8 = LogSubsystem();
+  v8 = LogSubsystem(v7);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     __57__ICSDataclassDetailSpecifierProvider__fetchStorageUsed___block_invoke_cold_1(v6, v7, v8);
@@ -890,7 +885,7 @@ void __57__ICSDataclassDetailSpecifierProvider__fetchStorageUsed___block_invoke_
 
 - (void)_fetchStorageUsedAndRefreshSpecifier
 {
-  v3 = LogSubsystem();
+  v3 = LogSubsystem(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v8 = 0;
@@ -944,11 +939,11 @@ void __57__ICSDataclassDetailSpecifierProvider__fetchStorageUsed___block_invoke_
   -[ICSAnalyticsController sendToggleEventForDataclassID:actionType:enabled:](self->_analyticsController, "sendToggleEventForDataclassID:actionType:enabled:", v8, 0, [valueCopy BOOLValue]);
 }
 
-uint64_t __62__ICSDataclassDetailSpecifierProvider__setValue_forSpecifier___block_invoke(uint64_t result, int a2)
+id *__62__ICSDataclassDetailSpecifierProvider__setValue_forSpecifier___block_invoke(id *result, int a2)
 {
   if (a2)
   {
-    return [*(result + 32) ics_performSuperSetterWithValue:*(result + 40)];
+    return [result[4] ics_performSuperSetterWithValue:result[5]];
   }
 
   return result;
@@ -1074,22 +1069,20 @@ uint64_t __62__ICSDataclassDetailSpecifierProvider__setValue_forSpecifier___bloc
 
 - (void)_iconForDataclass:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_275819000, a2, OS_LOG_TYPE_ERROR, "Missing icon for dataclass %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_275819000, a2, OS_LOG_TYPE_ERROR, "Missing icon for dataclass %@", &v2, 0xCu);
 }
 
 void __57__ICSDataclassDetailSpecifierProvider__fetchStorageUsed___block_invoke_cold_1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 138412546;
-  v5 = a1;
-  v6 = 2112;
-  v7 = a2;
-  _os_log_debug_impl(&dword_275819000, log, OS_LOG_TYPE_DEBUG, "Fetched storage used: %@, error: %@", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 138412546;
+  v4 = a1;
+  v5 = 2112;
+  v6 = a2;
+  _os_log_debug_impl(&dword_275819000, log, OS_LOG_TYPE_DEBUG, "Fetched storage used: %@, error: %@", &v3, 0x16u);
 }
 
 @end

@@ -1071,7 +1071,7 @@ LABEL_24:
 
 - (unint64_t)p_moveFromCharIndex:(unint64_t *)index leadingEdge:(BOOL *)edge tokenizerRef:(__CFStringTokenizer *)ref tokenizerRange:(_NSRange *)range direction:(int64_t)direction currentWordRange:(_NSRange)wordRange newWordRange:(_NSRange *)newWordRange reasonToStop:(unint64_t)self0
 {
-  [(CRLWPEditorHelper *)self paragraphEnumeratorAtCharIndex:*index];
+  objc_msgSend_paragraphEnumeratorAtCharIndex_(self, a2, *index);
   textSource = [(CRLWPEditorHelper *)self textSource];
   location = wordRange.location;
   if (wordRange.location == -1)
@@ -1215,7 +1215,7 @@ LABEL_49:
   v35 = 4;
 LABEL_50:
 
-  sub_10024068C(&v47);
+  sub_10024068C(v47);
   return v35;
 }
 
@@ -4430,7 +4430,7 @@ LABEL_47:
   textSource = [(CRLWPEditorHelper *)self textSource];
   v11 = [(CRLWPEditorHelper *)self availableSelectionRangeForCharIndex:index];
   v13 = v12;
-  [(CRLWPEditorHelper *)self paragraphEnumeratorAtCharIndex:index];
+  objc_msgSend_paragraphEnumeratorAtCharIndex_(self);
   textSource2 = [(CRLWPEditorHelper *)self textSource];
   v15 = textSource2;
   v16 = &v11[v13];
@@ -4848,7 +4848,7 @@ LABEL_97:
 
 LABEL_120:
 
-  sub_10024068C(&v73);
+  sub_10024068C(v73);
   return index;
 }
 
@@ -5207,7 +5207,7 @@ LABEL_63:
 
       if (v12)
       {
-        [(CRLWPEditorHelper *)self paragraphEnumeratorAtCharIndex:v7];
+        objc_msgSend_paragraphEnumeratorAtCharIndex_(self);
         if (sub_100240844(v21))
         {
           +[CRLAssertionHandler _atomicIncrementAssertCount];
@@ -5729,7 +5729,8 @@ LABEL_15:
       v44 = 0;
       if (!-[CRLWPEditorHelper p_lineFragmentForCharIndex:column:eol:](self, "p_lineFragmentForCharIndex:column:eol:", [selection start], &v44, objc_msgSend(selection, "caretAffinity") == 1))
       {
-        -[CRLWPEditorHelper paragraphEnumeratorAtCharIndex:](self, "paragraphEnumeratorAtCharIndex:", [selection start]);
+        [selection start];
+        objc_msgSend_paragraphEnumeratorAtCharIndex_(self);
         if (sub_100240ABC(&v42) == rightCopy)
         {
           start = [selection end];
@@ -7602,7 +7603,7 @@ LABEL_16:
       memset(&v46[1], 0, sizeof(CGAffineTransform));
       if (v18)
       {
-        [v18 transformInRoot];
+        objc_msgSend_transformInRoot(v18);
       }
 
       v46[0] = v46[1];
@@ -8199,7 +8200,7 @@ LABEL_43:
       interactiveCanvasController2 = [(CRLWPEditorHelper *)self interactiveCanvasController];
       commandController = [interactiveCanvasController2 commandController];
 
-      v50 = commandController;
+      v51 = commandController;
       if (!commandController)
       {
         +[CRLAssertionHandler _atomicIncrementAssertCount];
@@ -8284,26 +8285,27 @@ LABEL_43:
       if (v19)
       {
 LABEL_47:
-        v46 = [[_TtC8Freeform12CRLTextRange alloc] initWithRange:range, v23];
+        v47 = [[_TtC8Freeform12CRLTextRange alloc] initWithRange:range, v23];
         editor = [(CRLWPEditorHelper *)self editor];
-        v48 = [[_TtC8Freeform15CRLWPTextString alloc] initWithString:&stru_1018BCA28];
-        [editor replace:v46 with:v48];
+        v49 = [[_TtC8Freeform15CRLWPTextString alloc] initWithString:&stru_1018BCA28];
+        [editor replace:v47 with:v49];
 
 LABEL_48:
         return;
       }
 
       styleProvider = [(CRLWPEditorHelper *)self styleProvider];
-      [(CRLWPEditorHelper *)self paragraphEnumeratorAtCharIndex:superRange styleProvider:styleProvider];
+      objc_msgSend_paragraphEnumeratorAtCharIndex_styleProvider_(self);
 
-      v32 = sub_100240A60(v51);
+      v32 = sub_100240A60(v52);
       if (backwardCopy && v32)
       {
-        v33 = sub_100240978(v51);
-        v34 = [NSString stringWithFormat:@"%C", 65532, v50];
+        v33 = sub_100240978(v52);
+        v34 = [NSString stringWithFormat:@"%C", 65532, v51];
         v35 = [v33 stringByReplacingOccurrencesOfString:v34 withString:&stru_1018BCA28];
 
-        if (![v35 length] || (sub_10027E214(), v36 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v35, "stringByTrimmingCharactersInSet:", v36), v37 = objc_claimAutoreleasedReturnValue(), v38 = objc_msgSend(v37, "length") == 0, v37, v36, v38))
+        v36 = [v35 length];
+        if (!v36 || (sub_10027E214(v36), v37 = objc_claimAutoreleasedReturnValue(), [v35 stringByTrimmingCharactersInSet:v37], v38 = objc_claimAutoreleasedReturnValue(), v39 = objc_msgSend(v38, "length") == 0, v38, v37, v39))
         {
           [(CRLWPEditorHelper *)self p_deleteBackwardsOnEmptyListWithRange:range ignoreLevel:v23, 1];
 
@@ -8315,45 +8317,45 @@ LABEL_48:
       range = [(CRLWPEditorHelper *)self getVisualDeletionIndexForSelection:selection4 backward:&backwardCopy];
 
       textSource4 = [(CRLWPEditorHelper *)self textSource];
-      v41 = [textSource4 length];
+      v42 = [textSource4 length];
 
       if (backwardCopy)
       {
         if (range)
         {
           textSource5 = [(CRLWPEditorHelper *)self textSource];
-          v43 = [textSource5 previousCharacterIndex:range];
+          v44 = [textSource5 previousCharacterIndex:range];
 
 LABEL_39:
-          if (range <= v43)
+          if (range <= v44)
           {
-            v45 = v43;
+            v46 = v44;
           }
 
           else
           {
-            v45 = range;
+            v46 = range;
           }
 
-          if (range >= v43)
+          if (range >= v44)
           {
-            range = v43;
+            range = v44;
           }
 
-          v23 = v45 - range;
+          v23 = v46 - range;
         }
       }
 
-      else if (range < v41 - 1)
+      else if (range < v42 - 1)
       {
         textSource6 = [(CRLWPEditorHelper *)self textSource];
-        v43 = [textSource6 nextCharacterIndex:range];
+        v44 = [textSource6 nextCharacterIndex:range];
 
         goto LABEL_39;
       }
 
 LABEL_46:
-      sub_10024068C(v51);
+      sub_10024068C(v52);
       goto LABEL_47;
     }
   }
@@ -9269,7 +9271,8 @@ LABEL_11:
     v41 = range;
 
     selection3 = [(CRLWPEditorHelper *)selfCopy selection];
-    -[CRLWPEditorHelper paragraphEnumeratorAtCharIndex:](selfCopy, "paragraphEnumeratorAtCharIndex:", [selection3 range]);
+    [selection3 range];
+    objc_msgSend_paragraphEnumeratorAtCharIndex_(selfCopy);
 
     while (!sub_100240844(v47))
     {

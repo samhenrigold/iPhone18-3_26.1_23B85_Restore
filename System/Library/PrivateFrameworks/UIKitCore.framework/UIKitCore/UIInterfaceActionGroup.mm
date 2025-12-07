@@ -198,7 +198,7 @@ LABEL_12:
 - (void)setPreferredAction:(id)action
 {
   actionCopy = action;
-  if (([(UIInterfaceAction *)self->_preferredAction isEqual:actionCopy]& 1) == 0)
+  if ((objc_msgSend_isEqual_(self->_preferredAction) & 1) == 0)
   {
     objc_storeStrong(&self->_preferredAction, action);
     v6[0] = MEMORY[0x1E69E9820];
@@ -225,16 +225,15 @@ uint64_t __45__UIInterfaceActionGroup_setPreferredAction___block_invoke(uint64_t
 
 void __45__UIInterfaceActionGroup_setPreferredAction___block_invoke_2(uint64_t a1, void *a2)
 {
-  v2 = *(*(a1 + 32) + 16);
-  v3 = a2;
-  [v3 _setIsPreferred:{objc_msgSend(v3, "isEqual:", v2)}];
+  v2 = a2;
+  [v2 _setIsPreferred:objc_msgSend_isEqual_(v2)];
 }
 
 - (void)_setVisualStyle:(id)style
 {
   v16 = *MEMORY[0x1E69E9840];
   styleCopy = style;
-  if (![(UIInterfaceActionVisualStyle *)self->_visualStyle isEqual:styleCopy])
+  if ((objc_msgSend_isEqual_(self->_visualStyle) & 1) == 0)
   {
     objc_storeStrong(&self->_visualStyle, style);
     [(UIInterfaceActionGroup *)self _notifyObserversVisualStyleDidChange];

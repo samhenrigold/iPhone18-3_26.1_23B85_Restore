@@ -15,7 +15,7 @@ Class __get_SWMutableCollaborationMetadataClass_block_invoke(uint64_t a1)
 
   else
   {
-    v3 = __get_SWMutableCollaborationMetadataClass_block_invoke_cold_1();
+    __get_SWMutableCollaborationMetadataClass_block_invoke_cold_1();
     return [(_BlastDoorLPPlatformColor *)v3 copyWithZone:v4, v5];
   }
 

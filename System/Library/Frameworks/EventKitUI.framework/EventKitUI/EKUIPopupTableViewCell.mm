@@ -28,8 +28,8 @@
     [(UILabel *)v7->_textLabel setAdjustsFontForContentSizeCategory:1];
     LODWORD(v11) = 1148846080;
     [(UILabel *)v7->_textLabel setContentCompressionResistancePriority:0 forAxis:v11];
-    contentView = [(EKUIPopupTableViewCell *)v7 contentView];
-    [contentView addSubview:v7->_textLabel];
+    v12 = objc_msgSend_contentView(v7);
+    [v12 addSubview:v7->_textLabel];
 
     plainButtonConfiguration = [MEMORY[0x1E69DC740] plainButtonConfiguration];
     [plainButtonConfiguration setTitleLineBreakMode:4];
@@ -64,8 +64,8 @@
     LODWORD(v23) = 1144750080;
     [(UIButton *)v7->_popupButton setContentCompressionResistancePriority:0 forAxis:v23];
     [(EKUIPopupTableViewCell *)v7 _setPopupMenuButton:v7->_popupButton];
-    contentView2 = [(EKUIPopupTableViewCell *)v7 contentView];
-    [contentView2 addSubview:v7->_popupButton];
+    v24 = objc_msgSend_contentView(v7);
+    [v24 addSubview:v7->_popupButton];
 
     [(EKUIPopupTableViewCell *)v7 _updateConstraints];
     objc_initWeak(&from, v7);
@@ -180,8 +180,8 @@ void __56__EKUIPopupTableViewCell_initWithStyle_reuseIdentifier___block_invoke_1
   v4 = EKUIUsesLargeTextLayout(traitCollection);
 
   leadingAnchor = [(UILabel *)self->_textLabel leadingAnchor];
-  contentView = [(EKUIPopupTableViewCell *)self contentView];
-  layoutMarginsGuide = [contentView layoutMarginsGuide];
+  v39 = objc_msgSend_contentView(self);
+  layoutMarginsGuide = [v39 layoutMarginsGuide];
   [layoutMarginsGuide leadingAnchor];
   v37 = v41 = leadingAnchor;
   v6 = [leadingAnchor constraintEqualToAnchor:?];
@@ -190,32 +190,32 @@ void __56__EKUIPopupTableViewCell_initWithStyle_reuseIdentifier___block_invoke_1
   {
     v47[0] = v6;
     topAnchor = [(UILabel *)self->_textLabel topAnchor];
-    contentView2 = [(EKUIPopupTableViewCell *)self contentView];
-    layoutMarginsGuide2 = [contentView2 layoutMarginsGuide];
+    v45 = objc_msgSend_contentView(self);
+    layoutMarginsGuide2 = [v45 layoutMarginsGuide];
     topAnchor2 = [layoutMarginsGuide2 topAnchor];
     v42 = [topAnchor constraintEqualToAnchor:?];
     v47[1] = v42;
     leadingAnchor2 = [(UIButton *)self->_popupButton leadingAnchor];
-    contentView3 = [(EKUIPopupTableViewCell *)self contentView];
-    layoutMarginsGuide3 = [contentView3 layoutMarginsGuide];
+    v32 = objc_msgSend_contentView(self);
+    layoutMarginsGuide3 = [v32 layoutMarginsGuide];
     leadingAnchor3 = [layoutMarginsGuide3 leadingAnchor];
     v40 = leadingAnchor2;
     v27 = [leadingAnchor2 constraintEqualToAnchor:leadingAnchor3];
     v47[2] = v27;
     trailingAnchor = [(UIButton *)self->_popupButton trailingAnchor];
-    contentView4 = [(EKUIPopupTableViewCell *)self contentView];
-    layoutMarginsGuide4 = [contentView4 layoutMarginsGuide];
+    v35 = objc_msgSend_contentView(self);
+    layoutMarginsGuide4 = [v35 layoutMarginsGuide];
     trailingAnchor2 = [layoutMarginsGuide4 trailingAnchor];
     layoutMarginsGuide6 = trailingAnchor;
-    contentView7 = [trailingAnchor constraintLessThanOrEqualToAnchor:trailingAnchor2];
-    v47[3] = contentView7;
+    v10 = [trailingAnchor constraintLessThanOrEqualToAnchor:trailingAnchor2];
+    v47[3] = v10;
     topAnchor3 = [(UIButton *)self->_popupButton topAnchor];
     bottomAnchor = [(UILabel *)self->_textLabel bottomAnchor];
     v30 = [topAnchor3 constraintEqualToAnchor:bottomAnchor];
     v47[4] = v30;
     bottomAnchor2 = [(UIButton *)self->_popupButton bottomAnchor];
-    contentView5 = [(EKUIPopupTableViewCell *)self contentView];
-    layoutMarginsGuide5 = [contentView5 layoutMarginsGuide];
+    v14 = objc_msgSend_contentView(self);
+    layoutMarginsGuide5 = [v14 layoutMarginsGuide];
     [layoutMarginsGuide5 bottomAnchor];
     v16 = v28 = v7;
     v17 = [bottomAnchor2 constraintEqualToAnchor:v16];
@@ -224,7 +224,7 @@ void __56__EKUIPopupTableViewCell_initWithStyle_reuseIdentifier___block_invoke_1
     constraints = self->_constraints;
     self->_constraints = v18;
 
-    contentView6 = v27;
+    v20 = v27;
     v7 = v28;
 
     centerYAnchor2 = trailingAnchor2;
@@ -234,27 +234,27 @@ void __56__EKUIPopupTableViewCell_initWithStyle_reuseIdentifier___block_invoke_1
   {
     v46[0] = v6;
     centerYAnchor = [(UILabel *)self->_textLabel centerYAnchor];
-    contentView2 = [(EKUIPopupTableViewCell *)self contentView];
-    layoutMarginsGuide2 = [contentView2 layoutMarginsGuide];
+    v45 = objc_msgSend_contentView(self);
+    layoutMarginsGuide2 = [v45 layoutMarginsGuide];
     [layoutMarginsGuide2 centerYAnchor];
     topAnchor2 = topAnchor = centerYAnchor;
     v42 = [centerYAnchor constraintEqualToAnchor:?];
     v46[1] = v42;
     leadingAnchor4 = [(UIButton *)self->_popupButton leadingAnchor];
     [(UILabel *)self->_textLabel trailingAnchor];
-    contentView3 = v40 = leadingAnchor4;
-    layoutMarginsGuide3 = [leadingAnchor4 constraintGreaterThanOrEqualToAnchor:contentView3 constant:8.0];
+    v32 = v40 = leadingAnchor4;
+    layoutMarginsGuide3 = [leadingAnchor4 constraintGreaterThanOrEqualToAnchor:v32 constant:8.0];
     v46[2] = layoutMarginsGuide3;
     trailingAnchor3 = [(UIButton *)self->_popupButton trailingAnchor];
-    contentView6 = [(EKUIPopupTableViewCell *)self contentView];
-    layoutMarginsGuide6 = [contentView6 layoutMarginsGuide];
+    v20 = objc_msgSend_contentView(self);
+    layoutMarginsGuide6 = [v20 layoutMarginsGuide];
     [layoutMarginsGuide6 trailingAnchor];
-    contentView4 = leadingAnchor3 = trailingAnchor3;
+    v35 = leadingAnchor3 = trailingAnchor3;
     layoutMarginsGuide4 = [trailingAnchor3 constraintEqualToAnchor:?];
     v46[3] = layoutMarginsGuide4;
     centerYAnchor2 = [(UIButton *)self->_popupButton centerYAnchor];
-    contentView7 = [(EKUIPopupTableViewCell *)self contentView];
-    topAnchor3 = [contentView7 layoutMarginsGuide];
+    v10 = objc_msgSend_contentView(self);
+    topAnchor3 = [v10 layoutMarginsGuide];
     bottomAnchor = [topAnchor3 centerYAnchor];
     v30 = [centerYAnchor2 constraintEqualToAnchor:bottomAnchor];
     v46[4] = v30;

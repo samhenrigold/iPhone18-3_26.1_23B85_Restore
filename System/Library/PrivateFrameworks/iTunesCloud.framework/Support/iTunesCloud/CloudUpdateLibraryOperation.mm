@@ -48,36 +48,36 @@
   v12 = sub_1000A760C(0, @"cloud-library-update-check", 3, v11, 60.0);
   if (v12)
   {
-    *&v53 = 0;
-    *(&v53 + 1) = &v53;
-    v54 = 0x3032000000;
-    v55 = sub_10011EA78;
-    v56 = sub_10011EA88;
-    v57 = 0;
-    v41 = 0;
-    v42 = &v41;
-    v43 = 0x3032000000;
-    v44 = sub_10011EA78;
-    v45 = sub_10011EA88;
-    v46 = 0;
-    v35 = 0;
-    v36 = &v35;
-    v37 = 0x3032000000;
-    v38 = sub_10011EA78;
-    v39 = sub_10011EA88;
+    *&v52 = 0;
+    *(&v52 + 1) = &v52;
+    v53 = 0x3032000000;
+    v54 = sub_10011EA78;
+    v55 = sub_10011EA88;
+    v56 = 0;
     v40 = 0;
-    v30[0] = _NSConcreteStackBlock;
-    v30[1] = 3221225472;
-    v30[2] = sub_10011EA90;
-    v30[3] = &unk_1001DED08;
-    v32 = &v53;
-    v33 = &v41;
-    v34 = &v35;
+    v41 = &v40;
+    v42 = 0x3032000000;
+    v43 = sub_10011EA78;
+    v44 = sub_10011EA88;
+    v45 = 0;
+    v34 = 0;
+    v35 = &v34;
+    v36 = 0x3032000000;
+    v37 = sub_10011EA78;
+    v38 = sub_10011EA88;
+    v39 = 0;
+    v29[0] = _NSConcreteStackBlock;
+    v29[1] = 3221225472;
+    v29[2] = sub_10011EA90;
+    v29[3] = &unk_1001DED08;
+    v31 = &v52;
+    v32 = &v40;
+    v33 = &v34;
     v13 = dispatch_semaphore_create(0);
-    v31 = v13;
-    [v12 startGeniusRequestWithRetryTimeout:@"determineResultsURL" debugName:v30 connectionResponseBlock:timeout];
+    v30 = v13;
+    [v12 startGeniusRequestWithRetryTimeout:@"determineResultsURL" debugName:v29 connectionResponseBlock:timeout];
     dispatch_semaphore_wait(v13, 0xFFFFFFFFFFFFFFFFLL);
-    v14 = v36[5];
+    v14 = v35[5];
     if (v14)
     {
       domain = [v14 domain];
@@ -85,20 +85,20 @@
 
       if (v16)
       {
-        userInfo = [v36[5] userInfo];
+        userInfo = [v35[5] userInfo];
         v18 = [userInfo objectForKeyedSubscript:@"server-status-code"];
         integerValue = [v18 integerValue];
 
         v20 = os_log_create("com.apple.amp.itunescloudd", "CloudSync");
         if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
         {
-          v21 = v42[5];
+          v21 = v41[5];
           *buf = 138543874;
           selfCopy3 = self;
-          v49 = 2048;
-          v50 = integerValue;
-          v51 = 2114;
-          v52 = v21;
+          v48 = 2048;
+          v49 = integerValue;
+          v50 = 2114;
+          v51 = v21;
           _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_ERROR, "%{public}@ - Failed to determine result URLs with server status code: %ld response: %{public}@", buf, 0x20u);
         }
 
@@ -110,10 +110,10 @@ LABEL_18:
 LABEL_20:
           v23 = v22;
 
-          _Block_object_dispose(&v35, 8);
-          _Block_object_dispose(&v41, 8);
+          _Block_object_dispose(&v34, 8);
+          _Block_object_dispose(&v40, 8);
 
-          _Block_object_dispose(&v53, 8);
+          _Block_object_dispose(&v52, 8);
           v24 = v23;
           goto LABEL_21;
         }
@@ -126,18 +126,17 @@ LABEL_19:
       v20 = os_log_create("com.apple.amp.itunescloudd", "CloudSync");
       if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
-        v28 = v36[5];
+        v27 = v35[5];
         *buf = 138543618;
         selfCopy3 = self;
-        v49 = 2114;
-        v50 = v28;
+        v48 = 2114;
+        v49 = v27;
         _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_ERROR, "%{public}@ - Failed to determine result URLs with unknown error: %{public}@", buf, 0x16u);
       }
     }
 
     else
     {
-      v25 = v42[5];
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {
@@ -151,18 +150,18 @@ LABEL_19:
         goto LABEL_19;
       }
 
-      v26 = os_log_create("com.apple.amp.itunescloudd", "CloudSync");
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+      v25 = os_log_create("com.apple.amp.itunescloudd", "CloudSync");
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
       {
-        v27 = v42[5];
+        v26 = v41[5];
         *buf = 138543618;
         selfCopy3 = self;
-        v49 = 2114;
-        v50 = v27;
-        _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "%{public}@ - Determine result URLs response: %{public}@", buf, 0x16u);
+        v48 = 2114;
+        v49 = v26;
+        _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "%{public}@ - Determine result URLs response: %{public}@", buf, 0x16u);
       }
 
-      v20 = [v42[5] objectForKey:@"additional-fields-url"];
+      v20 = [v41[5] objectForKey:@"additional-fields-url"];
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
@@ -180,9 +179,9 @@ LABEL_19:
   v23 = os_log_create("com.apple.amp.itunescloudd", "CloudSync");
   if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
   {
-    LODWORD(v53) = 138543362;
-    *(&v53 + 4) = self;
-    _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_ERROR, "%{public}@ - Could not create determineResultsURLRequest", &v53, 0xCu);
+    LODWORD(v52) = 138543362;
+    *(&v52 + 4) = self;
+    _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_ERROR, "%{public}@ - Could not create determineResultsURLRequest", &v52, 0xCu);
   }
 
   v24 = 0;
@@ -881,22 +880,22 @@ LABEL_11:
     {
       if (!CFPreferencesGetAppBooleanValue(@"ForceLibraryUnification", @"com.apple.itunescloudd", 0))
       {
-        v180 = 0;
+        v178 = 0;
 LABEL_13:
         v9 = ML3TrackPropertyMediaType;
         v10 = [ML3ComparisonPredicate predicateWithProperty:ML3TrackPropertyMediaType value:&off_1001EDD68 comparison:10];
-        v266[0] = v10;
+        v264[0] = v10;
         v11 = [ML3PropertyPredicate predicateWithProperty:ML3TrackPropertyIsInMyLibrary];
-        v266[1] = v11;
+        v264[1] = v11;
         v12 = [ML3PropertyPredicate predicateWithProperty:ML3TrackPropertyIsPlayable];
-        v266[2] = v12;
-        v13 = [NSArray arrayWithObjects:v266 count:3];
+        v264[2] = v12;
+        v13 = [NSArray arrayWithObjects:v264 count:3];
         v3 = [ML3AllCompoundPredicate predicateMatchingPredicates:v13];
 
         musicLibrary2 = [(CloudLibraryOperation *)self musicLibrary];
-        v187 = [ML3Track queryWithLibrary:musicLibrary2 predicate:v3];
+        v185 = [ML3Track queryWithLibrary:musicLibrary2 predicate:v3];
 
-        countOfEntities = [v187 countOfEntities];
+        countOfEntities = [v185 countOfEntities];
         v15 = os_log_create("com.apple.amp.itunescloudd", "CloudSync");
         if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
         {
@@ -905,41 +904,41 @@ LABEL_13:
           *&buf[12] = 2048;
           *&buf[14] = countOfEntities;
           *&buf[22] = 2114;
-          v263 = v187;
+          v261 = v185;
           _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "%{public}@ - Found %lu songs to upload from query: %{public}@", buf, 0x20u);
         }
 
         cuid = [(CloudUpdateLibraryOperation *)self cuid];
         troveID = [(CloudUpdateLibraryOperation *)self troveID];
         v18 = [NSNumber numberWithUnsignedInteger:countOfEntities];
-        v188 = [NSMutableDictionary dictionaryWithObjectsAndKeys:@"auto-update", &__kCFBooleanFalse, @"incremental", &off_1001EDD80, @"min-itunes-match-compatible-version", &off_1001EDD98, @"itunes-match-protocol-version", cuid, @"cuid", troveID, @"troveid", v18, @"num-tracks", 0];
+        v186 = [NSMutableDictionary dictionaryWithObjectsAndKeys:@"auto-update", &__kCFBooleanFalse, @"incremental", &off_1001EDD80, @"min-itunes-match-compatible-version", &off_1001EDD98, @"itunes-match-protocol-version", cuid, @"cuid", troveID, @"troveid", v18, @"num-tracks", 0];
 
-        v234 = 0;
-        v235 = &v234;
-        v236 = 0x2050000000;
+        v232 = 0;
+        v233 = &v232;
+        v234 = 0x2050000000;
         v19 = qword_100213E48;
-        v237 = qword_100213E48;
+        v235 = qword_100213E48;
         if (!qword_100213E48)
         {
           *buf = _NSConcreteStackBlock;
           *&buf[8] = 3221225472;
           *&buf[16] = sub_100122FD8;
-          v263 = &unk_1001DF318;
-          v264 = &v234;
+          v261 = &unk_1001DF318;
+          v262 = &v232;
           sub_100122FD8(buf);
-          v19 = v235[3];
+          v19 = v233[3];
         }
 
         v20 = v19;
-        _Block_object_dispose(&v234, 8);
+        _Block_object_dispose(&v232, 8);
         if (v19)
         {
           v21 = objc_alloc_init(v19);
           v22 = +[NSNumber numberWithBool:](NSNumber, "numberWithBool:", [v21 state] == 2);
-          [v188 setObject:v22 forKey:@"restore-in-progress"];
+          [v186 setObject:v22 forKey:@"restore-in-progress"];
         }
 
-        v23 = sub_1000A760C(0, @"cloud-library-update-request", 0, v188, 60.0);
+        v23 = sub_1000A760C(0, @"cloud-library-update-request", 0, v186, 60.0);
         [(CloudUpdateLibraryOperation *)self setUpdateRequest:v23];
 
         updateRequest = [(CloudUpdateLibraryOperation *)self updateRequest];
@@ -971,125 +970,123 @@ LABEL_13:
           *&buf[12] = 2114;
           *&buf[14] = v28;
           *&buf[22] = 2048;
-          v263 = updateRequest3;
+          v261 = updateRequest3;
           _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "%{public}@ - Sending upload library request: <%{public}@ %p>", buf, 0x20u);
         }
 
         *buf = 0;
         *&buf[8] = buf;
         *&buf[16] = 0x3032000000;
-        v263 = sub_10011EA78;
-        v264 = sub_10011EA88;
-        v265 = 0;
-        v234 = 0;
-        v235 = &v234;
-        v236 = 0x3032000000;
-        v237 = sub_10011EA78;
-        v238 = sub_10011EA88;
-        v239 = 0;
-        v232[0] = 0;
-        v232[1] = v232;
-        v232[2] = 0x3032000000;
-        v232[3] = sub_10011EA78;
-        v232[4] = sub_10011EA88;
-        v233 = 0;
+        v261 = sub_10011EA78;
+        v262 = sub_10011EA88;
+        v263 = 0;
+        v232 = 0;
+        v233 = &v232;
+        v234 = 0x3032000000;
+        v235 = sub_10011EA78;
+        v236 = sub_10011EA88;
+        v237 = 0;
+        v230[0] = 0;
+        v230[1] = v230;
+        v230[2] = 0x3032000000;
+        v230[3] = sub_10011EA78;
+        v230[4] = sub_10011EA88;
+        v231 = 0;
         v31 = dispatch_semaphore_create(0);
         updateRequest4 = [(CloudUpdateLibraryOperation *)self updateRequest];
-        v227[0] = _NSConcreteStackBlock;
-        v227[1] = 3221225472;
-        v227[2] = sub_1001231C4;
-        v227[3] = &unk_1001DED08;
-        v229 = buf;
-        v230 = &v234;
-        v231 = v232;
+        v225[0] = _NSConcreteStackBlock;
+        v225[1] = 3221225472;
+        v225[2] = sub_1001231C4;
+        v225[3] = &unk_1001DED08;
+        v227 = buf;
+        v228 = &v232;
+        v229 = v230;
         dsema = v31;
-        v228 = dsema;
-        [updateRequest4 startGeniusRequestWithRetryTimeout:@"libraryUpdateRequest" debugName:v227 connectionResponseBlock:300.0];
+        v226 = dsema;
+        [updateRequest4 startGeniusRequestWithRetryTimeout:@"libraryUpdateRequest" debugName:v225 connectionResponseBlock:300.0];
 
         dispatch_semaphore_wait(dsema, 0xFFFFFFFFFFFFFFFFLL);
         v33 = os_log_create("com.apple.amp.itunescloudd", "CloudSync");
         if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
         {
-          v34 = *(*&buf[8] + 40);
-          v35 = objc_opt_class();
-          v36 = *(*&buf[8] + 40);
-          *v249 = 138543874;
-          *&v249[4] = self;
-          *&v249[12] = 2114;
-          *&v249[14] = v35;
-          *&v249[22] = 2048;
-          v250 = v36;
-          v37 = v35;
-          _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_DEFAULT, "%{public}@ - Got upload library response: <%{public}@ %p>", v249, 0x20u);
+          v34 = objc_opt_class();
+          v35 = *(*&buf[8] + 40);
+          *v247 = 138543874;
+          *&v247[4] = self;
+          *&v247[12] = 2114;
+          *&v247[14] = v34;
+          *&v247[22] = 2048;
+          v248 = v35;
+          v36 = v34;
+          _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_DEFAULT, "%{public}@ - Got upload library response: <%{public}@ %p>", v247, 0x20u);
         }
 
         [(CloudUpdateLibraryOperation *)self setUpdateRequest:0];
-        v38 = v235[5];
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v39 = os_log_create("com.apple.amp.itunescloudd", "CloudSync_Oversize");
-          if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
+          v37 = os_log_create("com.apple.amp.itunescloudd", "CloudSync_Oversize");
+          if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
           {
-            v40 = v235[5];
-            *v249 = 138543618;
-            *&v249[4] = self;
-            *&v249[12] = 2114;
-            *&v249[14] = v40;
-            _os_log_impl(&_mh_execute_header, v39, OS_LOG_TYPE_DEFAULT, "%{public}@ - Upload library response body: %{public}@", v249, 0x16u);
+            v38 = v233[5];
+            *v247 = 138543618;
+            *&v247[4] = self;
+            *&v247[12] = 2114;
+            *&v247[14] = v38;
+            _os_log_impl(&_mh_execute_header, v37, OS_LOG_TYPE_DEFAULT, "%{public}@ - Upload library response body: %{public}@", v247, 0x16u);
           }
 
-          v41 = [v235[5] objectForKey:@"url"];
-          if (v41)
+          v39 = [v233[5] objectForKey:@"url"];
+          if (v39)
           {
-            v179 = [NSURL URLWithString:v41];
+            v177 = [NSURL URLWithString:v39];
           }
 
           else
           {
-            v179 = 0;
+            v177 = 0;
           }
 
-          v183 = [v235[5] objectForKey:@"update-id"];
+          v181 = [v233[5] objectForKey:@"update-id"];
 
-          if (v179)
+          if (v177)
           {
-            v42 = os_log_create("com.apple.amp.itunescloudd", "CloudSync");
-            if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
+            v40 = os_log_create("com.apple.amp.itunescloudd", "CloudSync");
+            if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
             {
-              *v249 = 138543618;
-              *&v249[4] = self;
-              *&v249[12] = 2114;
-              *&v249[14] = v179;
-              _os_log_impl(&_mh_execute_header, v42, OS_LOG_TYPE_DEFAULT, "%{public}@ - Determined upload URL: %{public}@", v249, 0x16u);
+              *v247 = 138543618;
+              *&v247[4] = self;
+              *&v247[12] = 2114;
+              *&v247[14] = v177;
+              _os_log_impl(&_mh_execute_header, v40, OS_LOG_TYPE_DEFAULT, "%{public}@ - Determined upload URL: %{public}@", v247, 0x16u);
             }
 
-            v43 = NSTemporaryDirectory();
-            v261[0] = v43;
-            v261[1] = @"CloudLibraryUpload.plist";
-            v44 = [NSArray arrayWithObjects:v261 count:2];
-            v178 = [NSURL fileURLWithPathComponents:v44];
+            v41 = NSTemporaryDirectory();
+            v259[0] = v41;
+            v259[1] = @"CloudLibraryUpload.plist";
+            v42 = [NSArray arrayWithObjects:v259 count:2];
+            v176 = [NSURL fileURLWithPathComponents:v42];
 
-            v45 = +[NSFileManager defaultManager];
-            path = [v178 path];
-            [v45 createFileAtPath:path contents:0 attributes:0];
+            v43 = +[NSFileManager defaultManager];
+            path = [v176 path];
+            [v43 createFileAtPath:path contents:0 attributes:0];
 
-            v226 = 0;
-            v176 = [NSFileHandle fileHandleForWritingToURL:v178 error:&v226];
-            v47 = v226;
-            v48 = os_log_create("com.apple.amp.itunescloudd", "CloudSync");
-            v49 = v48;
-            v175 = v47;
-            if (v47)
+            v224 = 0;
+            v174 = [NSFileHandle fileHandleForWritingToURL:v176 error:&v224];
+            v45 = v224;
+            v46 = os_log_create("com.apple.amp.itunescloudd", "CloudSync");
+            v47 = v46;
+            v173 = v45;
+            if (v45)
             {
-              v177 = v48;
-              if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
+              v175 = v46;
+              if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
               {
-                *v249 = 138543618;
-                *&v249[4] = self;
-                *&v249[12] = 2114;
-                *&v249[14] = v47;
-                _os_log_impl(&_mh_execute_header, v49, OS_LOG_TYPE_ERROR, "%{public}@ - Failed to open file for writing library upload metadata plist with error: %{public}@", v249, 0x16u);
+                *v247 = 138543618;
+                *&v247[4] = self;
+                *&v247[12] = 2114;
+                *&v247[14] = v45;
+                _os_log_impl(&_mh_execute_header, v47, OS_LOG_TYPE_ERROR, "%{public}@ - Failed to open file for writing library upload metadata plist with error: %{public}@", v247, 0x16u);
               }
 
               v4 = 0;
@@ -1097,490 +1094,490 @@ LABEL_13:
 
             else
             {
-              if (os_log_type_enabled(v48, OS_LOG_TYPE_DEFAULT))
+              if (os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT))
               {
-                path2 = [v178 path];
-                *v249 = 138543618;
-                *&v249[4] = self;
-                *&v249[12] = 2114;
-                *&v249[14] = path2;
-                _os_log_impl(&_mh_execute_header, v49, OS_LOG_TYPE_DEFAULT, "%{public}@ - Writing library upload metadata to plist at: %{public}@", v249, 0x16u);
+                path2 = [v176 path];
+                *v247 = 138543618;
+                *&v247[4] = self;
+                *&v247[12] = 2114;
+                *&v247[14] = path2;
+                _os_log_impl(&_mh_execute_header, v47, OS_LOG_TYPE_DEFAULT, "%{public}@ - Writing library upload metadata to plist at: %{public}@", v247, 0x16u);
               }
 
-              v52 = [[MSVPropertyListEncoder alloc] initWithOutputFileHandle:v176];
-              [v52 startDictionary];
+              v50 = [[MSVPropertyListEncoder alloc] initWithOutputFileHandle:v174];
+              [v50 startDictionary];
               cuid2 = [(CloudUpdateLibraryOperation *)self cuid];
-              [v52 setObject:cuid2 forKey:@"cuid"];
+              [v50 setObject:cuid2 forKey:@"cuid"];
 
               troveID2 = [(CloudUpdateLibraryOperation *)self troveID];
-              [v52 setObject:troveID2 forKey:@"troveid"];
+              [v50 setObject:troveID2 forKey:@"troveid"];
 
-              [v52 setObject:&off_1001EDD80 forKey:@"min-itunes-match-compatible-version"];
-              [v52 setObject:&off_1001EDD98 forKey:@"itunes-match-protocol-version"];
-              [v52 setObject:&off_1001EDD80 forKey:@"min-compatible-version"];
-              [v52 setObject:&off_1001EDD80 forKey:@"protocol-version"];
-              v55 = arc4random();
-              v56 = [NSString stringWithFormat:@"%08X%08X", v55, arc4random()];
-              [v52 setObject:v56 forKey:@"persistent-library-id"];
+              [v50 setObject:&off_1001EDD80 forKey:@"min-itunes-match-compatible-version"];
+              [v50 setObject:&off_1001EDD98 forKey:@"itunes-match-protocol-version"];
+              [v50 setObject:&off_1001EDD80 forKey:@"min-compatible-version"];
+              [v50 setObject:&off_1001EDD80 forKey:@"protocol-version"];
+              v53 = arc4random();
+              v54 = [NSString stringWithFormat:@"%08X%08X", v53, arc4random()];
+              [v50 setObject:v54 forKey:@"persistent-library-id"];
 
-              v57 = [NSNumber numberWithBool:v180];
-              [v52 setObject:v57 forKey:@"should-upload"];
+              v55 = [NSNumber numberWithBool:v178];
+              [v50 setObject:v55 forKey:@"should-upload"];
 
-              [v52 startArrayForKey:@"tracks"];
-              v169 = objc_autoreleasePoolPush();
-              v58 = objc_alloc_init(CloudGeniusUtilities);
-              v260[0] = v9;
-              v260[1] = ML3TrackPropertyBaseLocationID;
-              v260[2] = ML3TrackPropertyStoreProtectionType;
-              v260[3] = ML3TrackPropertyUserRatingIsDerived;
-              v260[4] = ML3TrackPropertyUserAlbumRatingIsDerived;
-              v59 = [NSArray arrayWithObjects:v260 count:5];
-              allML3TrackPropertiesWithGeniusTrackProperties = [(CloudGeniusUtilities *)v58 allML3TrackPropertiesWithGeniusTrackProperties];
-              v61 = [allML3TrackPropertiesWithGeniusTrackProperties arrayByAddingObjectsFromArray:v59];
-              v174 = v59;
+              [v50 startArrayForKey:@"tracks"];
+              v167 = objc_autoreleasePoolPush();
+              v56 = objc_alloc_init(CloudGeniusUtilities);
+              v258[0] = v9;
+              v258[1] = ML3TrackPropertyBaseLocationID;
+              v258[2] = ML3TrackPropertyStoreProtectionType;
+              v258[3] = ML3TrackPropertyUserRatingIsDerived;
+              v258[4] = ML3TrackPropertyUserAlbumRatingIsDerived;
+              v57 = [NSArray arrayWithObjects:v258 count:5];
+              allML3TrackPropertiesWithGeniusTrackProperties = [(CloudGeniusUtilities *)v56 allML3TrackPropertiesWithGeniusTrackProperties];
+              v59 = [allML3TrackPropertiesWithGeniusTrackProperties arrayByAddingObjectsFromArray:v57];
+              v172 = v57;
 
-              v62 = [v61 count];
-              v63 = [v59 count];
-              allGeniusTrackPropertiesWithML3TrackProperties = [(CloudGeniusUtilities *)v58 allGeniusTrackPropertiesWithML3TrackProperties];
-              v259[0] = @"persistent-id";
-              v259[1] = @"kind";
-              v65 = [NSArray arrayWithObjects:v259 count:2];
-              v173 = [allGeniusTrackPropertiesWithML3TrackProperties arrayByAddingObjectsFromArray:v65];
+              v60 = [v59 count];
+              v61 = [v57 count];
+              allGeniusTrackPropertiesWithML3TrackProperties = [(CloudGeniusUtilities *)v56 allGeniusTrackPropertiesWithML3TrackProperties];
+              v257[0] = @"persistent-id";
+              v257[1] = @"kind";
+              v63 = [NSArray arrayWithObjects:v257 count:2];
+              v171 = [allGeniusTrackPropertiesWithML3TrackProperties arrayByAddingObjectsFromArray:v63];
 
-              [NSDictionary sharedKeySetForKeys:v173];
-              v220[0] = _NSConcreteStackBlock;
-              v220[1] = 3221225472;
-              v220[2] = sub_100123294;
-              v220[3] = &unk_1001DED30;
-              v168 = v220[4] = self;
-              v221 = v168;
-              v225 = v62 - v63;
-              v222 = v61;
-              v172 = v58;
-              v223 = v172;
-              v177 = v52;
-              v224 = v177;
-              v167 = v222;
-              [v187 enumeratePersistentIDsAndProperties:v222 usingBlock:v220];
-              [v177 endArray];
+              [NSDictionary sharedKeySetForKeys:v171];
+              v218[0] = _NSConcreteStackBlock;
+              v218[1] = 3221225472;
+              v218[2] = sub_100123294;
+              v218[3] = &unk_1001DED30;
+              v166 = v218[4] = self;
+              v219 = v166;
+              v223 = v60 - v61;
+              v220 = v59;
+              v170 = v56;
+              v221 = v170;
+              v175 = v50;
+              v222 = v175;
+              v165 = v220;
+              [v185 enumeratePersistentIDsAndProperties:v220 usingBlock:v218];
+              [v175 endArray];
               context = objc_autoreleasePoolPush();
-              if (v180)
+              if (v178)
               {
-                [v177 setObject:&__kCFBooleanTrue forKey:@"process-playlists"];
-                [v177 startArrayForKey:@"playlists"];
-                v66 = ML3ContainerPropertyDistinguishedKind;
-                v181 = [ML3ComparisonPredicate predicateWithProperty:"predicateWithProperty:equalToInteger:" equalToInteger:?];
-                v257[0] = v181;
-                v165 = [ML3ComparisonPredicate predicateWithProperty:v66 value:&off_1001EDDB0 comparison:4];
-                v256[0] = v165;
-                v163 = [ML3ComparisonPredicate predicateWithProperty:v66 value:&off_1001EDDC8 comparison:6];
-                v256[1] = v163;
-                v161 = [NSArray arrayWithObjects:v256 count:2];
-                v160 = [ML3AllCompoundPredicate predicateMatchingPredicates:v161];
-                v257[1] = v160;
-                v159 = [NSArray arrayWithObjects:v257 count:2];
-                v67 = [ML3AnyCompoundPredicate predicateMatchingPredicates:v159];
-                v258[0] = v67;
-                v68 = ML3ContainerPropertyContainedMediaType;
-                v69 = [ML3ComparisonPredicate predicateWithProperty:ML3ContainerPropertyContainedMediaType equalToInteger:0];
-                v255[0] = v69;
-                v70 = [ML3ComparisonPredicate predicateWithProperty:v68 value:&off_1001EDD68 comparison:10];
-                v255[1] = v70;
-                v71 = [NSArray arrayWithObjects:v255 count:2];
-                v72 = [ML3AnyCompoundPredicate predicateMatchingPredicates:v71];
-                v258[1] = v72;
-                v73 = [ML3ComparisonPredicate predicateWithProperty:ML3ContainerPropertyIsHidden equalToInteger:0];
-                v258[2] = v73;
-                v74 = [NSArray arrayWithObjects:v258 count:3];
-                v158 = [ML3AllCompoundPredicate predicateMatchingPredicates:v74];
+                [v175 setObject:&__kCFBooleanTrue forKey:@"process-playlists"];
+                [v175 startArrayForKey:@"playlists"];
+                v64 = ML3ContainerPropertyDistinguishedKind;
+                v179 = [ML3ComparisonPredicate predicateWithProperty:"predicateWithProperty:equalToInteger:" equalToInteger:?];
+                v255[0] = v179;
+                v163 = [ML3ComparisonPredicate predicateWithProperty:v64 value:&off_1001EDDB0 comparison:4];
+                v254[0] = v163;
+                v161 = [ML3ComparisonPredicate predicateWithProperty:v64 value:&off_1001EDDC8 comparison:6];
+                v254[1] = v161;
+                v159 = [NSArray arrayWithObjects:v254 count:2];
+                v158 = [ML3AllCompoundPredicate predicateMatchingPredicates:v159];
+                v255[1] = v158;
+                v157 = [NSArray arrayWithObjects:v255 count:2];
+                v65 = [ML3AnyCompoundPredicate predicateMatchingPredicates:v157];
+                v256[0] = v65;
+                v66 = ML3ContainerPropertyContainedMediaType;
+                v67 = [ML3ComparisonPredicate predicateWithProperty:ML3ContainerPropertyContainedMediaType equalToInteger:0];
+                v253[0] = v67;
+                v68 = [ML3ComparisonPredicate predicateWithProperty:v66 value:&off_1001EDD68 comparison:10];
+                v253[1] = v68;
+                v69 = [NSArray arrayWithObjects:v253 count:2];
+                v70 = [ML3AnyCompoundPredicate predicateMatchingPredicates:v69];
+                v256[1] = v70;
+                v71 = [ML3ComparisonPredicate predicateWithProperty:ML3ContainerPropertyIsHidden equalToInteger:0];
+                v256[2] = v71;
+                v72 = [NSArray arrayWithObjects:v256 count:3];
+                v156 = [ML3AllCompoundPredicate predicateMatchingPredicates:v72];
 
                 musicLibrary3 = [(CloudLibraryOperation *)self musicLibrary];
-                v76 = [ML3Container queryWithLibrary:musicLibrary3 predicate:v158];
+                v74 = [ML3Container queryWithLibrary:musicLibrary3 predicate:v156];
 
-                countOfEntities2 = [v76 countOfEntities];
-                v78 = sub_10010275C();
-                v79 = os_log_type_enabled(v78, OS_LOG_TYPE_DEFAULT);
+                countOfEntities2 = [v74 countOfEntities];
+                v76 = sub_10010275C();
+                v77 = os_log_type_enabled(v76, OS_LOG_TYPE_DEFAULT);
                 if (countOfEntities2)
                 {
-                  if (v79)
+                  if (v77)
                   {
-                    *v249 = 138543874;
-                    *&v249[4] = self;
-                    *&v249[12] = 2048;
-                    *&v249[14] = countOfEntities2;
-                    *&v249[22] = 2114;
-                    v250 = v76;
-                    _os_log_impl(&_mh_execute_header, v78, OS_LOG_TYPE_DEFAULT, "%{public}@ - Found %lu playlists to upload from query: %{public}@", v249, 0x20u);
+                    *v247 = 138543874;
+                    *&v247[4] = self;
+                    *&v247[12] = 2048;
+                    *&v247[14] = countOfEntities2;
+                    *&v247[22] = 2114;
+                    v248 = v74;
+                    _os_log_impl(&_mh_execute_header, v76, OS_LOG_TYPE_DEFAULT, "%{public}@ - Found %lu playlists to upload from query: %{public}@", v247, 0x20u);
                   }
 
-                  v254[0] = ML3ContainerPropertyCloudGlobalID;
-                  v254[1] = ML3ContainerPropertyCloudIsSubscribed;
-                  v254[2] = ML3ContainerPropertyCloudIsCuratorPlaylist;
-                  v254[3] = ML3ContainerPropertyIsExternalVendorPlaylist;
-                  v254[4] = ML3ContainerPropertySmartIsFolder;
-                  v254[5] = ML3ContainerPropertySmartCriteria;
-                  v254[6] = ML3ContainerPropertySmartIsGenius;
-                  v254[7] = ML3ContainerPropertySeedItemPersistentID;
-                  v254[8] = ML3ContainerPropertySmartIsDynamic;
-                  v254[9] = ML3ContainerPropertySmartIsFiltered;
-                  v254[10] = ML3ContainerPropertySmartIsLimited;
-                  v254[11] = ML3ContainerPropertySmartLimitKind;
-                  v254[12] = ML3ContainerPropertySmartEvaluationOrder;
-                  v254[13] = ML3ContainerPropertySmartLimitOrder;
-                  v254[14] = ML3ContainerPropertySmartLimitValue;
-                  v254[15] = ML3ContainerPropertySmartEnabledOnly;
-                  v254[16] = ML3ContainerPropertySmartReverseLimitOrder;
-                  v254[17] = v66;
-                  v78 = [NSArray arrayWithObjects:v254 count:18];
-                  allML3ContainerPropertiesWithGeniusPlaylistProperties = [(CloudGeniusUtilities *)v172 allML3ContainerPropertiesWithGeniusPlaylistProperties];
-                  v81 = [allML3ContainerPropertiesWithGeniusPlaylistProperties arrayByAddingObjectsFromArray:v78];
+                  v252[0] = ML3ContainerPropertyCloudGlobalID;
+                  v252[1] = ML3ContainerPropertyCloudIsSubscribed;
+                  v252[2] = ML3ContainerPropertyCloudIsCuratorPlaylist;
+                  v252[3] = ML3ContainerPropertyIsExternalVendorPlaylist;
+                  v252[4] = ML3ContainerPropertySmartIsFolder;
+                  v252[5] = ML3ContainerPropertySmartCriteria;
+                  v252[6] = ML3ContainerPropertySmartIsGenius;
+                  v252[7] = ML3ContainerPropertySeedItemPersistentID;
+                  v252[8] = ML3ContainerPropertySmartIsDynamic;
+                  v252[9] = ML3ContainerPropertySmartIsFiltered;
+                  v252[10] = ML3ContainerPropertySmartIsLimited;
+                  v252[11] = ML3ContainerPropertySmartLimitKind;
+                  v252[12] = ML3ContainerPropertySmartEvaluationOrder;
+                  v252[13] = ML3ContainerPropertySmartLimitOrder;
+                  v252[14] = ML3ContainerPropertySmartLimitValue;
+                  v252[15] = ML3ContainerPropertySmartEnabledOnly;
+                  v252[16] = ML3ContainerPropertySmartReverseLimitOrder;
+                  v252[17] = v64;
+                  v76 = [NSArray arrayWithObjects:v252 count:18];
+                  allML3ContainerPropertiesWithGeniusPlaylistProperties = [(CloudGeniusUtilities *)v170 allML3ContainerPropertiesWithGeniusPlaylistProperties];
+                  v79 = [allML3ContainerPropertiesWithGeniusPlaylistProperties arrayByAddingObjectsFromArray:v76];
 
-                  v82 = [v81 count];
-                  v83 = [v78 count];
-                  allGeniusPlaylistPropertiesWithML3ContainerProperties = [(CloudGeniusUtilities *)v172 allGeniusPlaylistPropertiesWithML3ContainerProperties];
-                  v253[0] = @"persistent-id";
-                  v253[1] = @"kind";
-                  v253[2] = @"items";
-                  v253[3] = @"data";
-                  v85 = [NSArray arrayWithObjects:v253 count:4];
-                  v86 = [allGeniusPlaylistPropertiesWithML3ContainerProperties arrayByAddingObjectsFromArray:v85];
+                  v80 = [v79 count];
+                  v81 = [v76 count];
+                  allGeniusPlaylistPropertiesWithML3ContainerProperties = [(CloudGeniusUtilities *)v170 allGeniusPlaylistPropertiesWithML3ContainerProperties];
+                  v251[0] = @"persistent-id";
+                  v251[1] = @"kind";
+                  v251[2] = @"items";
+                  v251[3] = @"data";
+                  v83 = [NSArray arrayWithObjects:v251 count:4];
+                  v84 = [allGeniusPlaylistPropertiesWithML3ContainerProperties arrayByAddingObjectsFromArray:v83];
 
-                  [NSDictionary sharedKeySetForKeys:v86];
-                  v87 = v82 - v83;
-                  v214[0] = _NSConcreteStackBlock;
-                  v214[1] = 3221225472;
-                  v214[2] = sub_100123548;
-                  v214[3] = &unk_1001DED30;
-                  v88 = v214[4] = self;
-                  v215 = v88;
-                  v219 = v87;
-                  v89 = v81;
-                  v216 = v89;
-                  v217 = v172;
-                  v218 = v177;
-                  [v76 enumeratePersistentIDsAndProperties:v89 usingBlock:v214];
+                  [NSDictionary sharedKeySetForKeys:v84];
+                  v85 = v80 - v81;
+                  v212[0] = _NSConcreteStackBlock;
+                  v212[1] = 3221225472;
+                  v212[2] = sub_100123548;
+                  v212[3] = &unk_1001DED30;
+                  v86 = v212[4] = self;
+                  v213 = v86;
+                  v217 = v85;
+                  v87 = v79;
+                  v214 = v87;
+                  v215 = v170;
+                  v216 = v175;
+                  [v74 enumeratePersistentIDsAndProperties:v87 usingBlock:v212];
                 }
 
-                else if (v79)
+                else if (v77)
                 {
-                  *v249 = 138543362;
-                  *&v249[4] = self;
-                  _os_log_impl(&_mh_execute_header, v78, OS_LOG_TYPE_DEFAULT, "%{public}@ - Found zero playlists to upload.", v249, 0xCu);
+                  *v247 = 138543362;
+                  *&v247[4] = self;
+                  _os_log_impl(&_mh_execute_header, v76, OS_LOG_TYPE_DEFAULT, "%{public}@ - Found zero playlists to upload.", v247, 0xCu);
                 }
               }
 
-              [v177 close];
-              v90 = v178;
-              v91 = [NSMutableURLRequest requestWithURL:v179];
-              [v91 setHTTPMethod:@"POST"];
-              [v91 setTimeoutInterval:120.0];
-              v92 = v90;
-              v93 = [v92 URLByAppendingPathExtension:@"gz"];
-              v94 = os_log_create("com.apple.amp.itunescloudd", "Genius");
-              if (os_log_type_enabled(v94, OS_LOG_TYPE_DEFAULT))
+              [v175 close];
+              v88 = v176;
+              v89 = [NSMutableURLRequest requestWithURL:v177];
+              [v89 setHTTPMethod:@"POST"];
+              [v89 setTimeoutInterval:120.0];
+              v90 = v88;
+              v91 = [v90 URLByAppendingPathExtension:@"gz"];
+              v92 = os_log_create("com.apple.amp.itunescloudd", "Genius");
+              if (os_log_type_enabled(v92, OS_LOG_TYPE_DEFAULT))
               {
-                *v249 = 138543362;
-                *&v249[4] = v93;
-                _os_log_impl(&_mh_execute_header, v94, OS_LOG_TYPE_DEFAULT, "Compressing plist to path: %{public}@", v249, 0xCu);
+                *v247 = 138543362;
+                *&v247[4] = v91;
+                _os_log_impl(&_mh_execute_header, v92, OS_LOG_TYPE_DEFAULT, "Compressing plist to path: %{public}@", v247, 0xCu);
               }
 
-              v95 = v92;
+              v93 = v90;
               if (MSVGzipCompressFile())
               {
-                v95 = v93;
+                v93 = v91;
               }
 
               if (MSVDeviceOSIsInternalInstall())
               {
-                v96 = MSVMediaLoggingDirectory();
-                v97 = [NSURL fileURLWithPath:v96 isDirectory:1];
+                v94 = MSVMediaLoggingDirectory();
+                v95 = [NSURL fileURLWithPath:v94 isDirectory:1];
 
-                lastPathComponent = [v95 lastPathComponent];
-                v99 = [v97 URLByAppendingPathComponent:lastPathComponent isDirectory:0];
+                lastPathComponent = [v93 lastPathComponent];
+                v97 = [v95 URLByAppendingPathComponent:lastPathComponent isDirectory:0];
 
-                v100 = +[NSFileManager defaultManager];
-                path3 = [v99 path];
-                v102 = [v100 fileExistsAtPath:path3];
+                v98 = +[NSFileManager defaultManager];
+                path3 = [v97 path];
+                v100 = [v98 fileExistsAtPath:path3];
 
-                if (v102)
+                if (v100)
                 {
-                  [v100 removeItemAtURL:v99 error:0];
+                  [v98 removeItemAtURL:v97 error:0];
                 }
 
-                [v100 linkItemAtURL:v95 toURL:v99 error:0];
+                [v98 linkItemAtURL:v93 toURL:v97 error:0];
               }
 
-              v103 = [NSData mappedDataWithContentsOfTemporaryFileURL:v95 error:0];
+              v101 = [NSData mappedDataWithContentsOfTemporaryFileURL:v93 error:0];
 
-              [v91 setValue:@"application/x-apple-plist" forHTTPHeaderField:@"Content-Type"];
-              [v91 setValue:@"gzip" forHTTPHeaderField:@"Content-Encoding"];
-              [v91 setHTTPBody:v103];
-              v104 = [ICStoreRequestContext alloc];
-              v105 = +[ICUserIdentity activeAccount];
-              v106 = [v104 initWithIdentity:v105];
+              [v89 setValue:@"application/x-apple-plist" forHTTPHeaderField:@"Content-Type"];
+              [v89 setValue:@"gzip" forHTTPHeaderField:@"Content-Encoding"];
+              [v89 setHTTPBody:v101];
+              v102 = [ICStoreRequestContext alloc];
+              v103 = +[ICUserIdentity activeAccount];
+              v104 = [v102 initWithIdentity:v103];
 
-              v107 = [[ICStoreURLRequest alloc] initWithURLRequest:v91 requestContext:v106];
-              [v107 setShouldUseMescalSigning:1];
+              v105 = [[ICStoreURLRequest alloc] initWithURLRequest:v89 requestContext:v104];
+              [v105 setShouldUseMescalSigning:1];
 
-              [(CloudUpdateLibraryOperation *)self setUploadLibraryRequest:v107];
+              [(CloudUpdateLibraryOperation *)self setUploadLibraryRequest:v105];
               objc_autoreleasePoolPop(context);
-              *v249 = 0;
-              *&v249[8] = v249;
-              *&v249[16] = 0x3032000000;
-              v250 = sub_10011EA78;
-              v251 = sub_10011EA88;
-              v252 = 0;
-              v208 = 0;
-              v209 = &v208;
-              v210 = 0x3032000000;
-              v211 = sub_10011EA78;
-              v212 = sub_10011EA88;
-              v213 = 0;
-              v108 = dispatch_semaphore_create(0);
-              v109 = +[ICURLSessionManager defaultSession];
+              *v247 = 0;
+              *&v247[8] = v247;
+              *&v247[16] = 0x3032000000;
+              v248 = sub_10011EA78;
+              v249 = sub_10011EA88;
+              v250 = 0;
+              v206 = 0;
+              v207 = &v206;
+              v208 = 0x3032000000;
+              v209 = sub_10011EA78;
+              v210 = sub_10011EA88;
+              v211 = 0;
+              v106 = dispatch_semaphore_create(0);
+              v107 = +[ICURLSessionManager defaultSession];
               uploadLibraryRequest = [(CloudUpdateLibraryOperation *)self uploadLibraryRequest];
-              v204[0] = _NSConcreteStackBlock;
-              v204[1] = 3221225472;
-              v204[2] = sub_100123D14;
-              v204[3] = &unk_1001DED80;
-              v206 = &v208;
-              v207 = v249;
-              v111 = v108;
-              v205 = v111;
-              [v109 enqueueDataRequest:uploadLibraryRequest withCompletionHandler:v204];
+              v202[0] = _NSConcreteStackBlock;
+              v202[1] = 3221225472;
+              v202[2] = sub_100123D14;
+              v202[3] = &unk_1001DED80;
+              v204 = &v206;
+              v205 = v247;
+              v109 = v106;
+              v203 = v109;
+              [v107 enqueueDataRequest:uploadLibraryRequest withCompletionHandler:v202];
 
-              dispatch_semaphore_wait(v111, 0xFFFFFFFFFFFFFFFFLL);
-              urlResponse = [v209[5] urlResponse];
-              LODWORD(v109) = [urlResponse statusCode] == 200;
+              dispatch_semaphore_wait(v109, 0xFFFFFFFFFFFFFFFFLL);
+              urlResponse = [v207[5] urlResponse];
+              LODWORD(v107) = [urlResponse statusCode] == 200;
 
-              if (v109)
+              if (v107)
               {
-                v113 = dbl_10016AE50[countOfEntities > 0x2710];
-                v203 = -1;
-                v114 = [(CloudUpdateLibraryOperation *)self _determineResultsURLWhenReadyWithUpdateID:v183 retryTimeout:&v203 responseStatusCode:v113];
-                [(CloudUpdateLibraryOperation *)self setUploadResponseStatus:v203];
-                v115 = sub_10010275C();
-                if (os_log_type_enabled(v115, OS_LOG_TYPE_DEFAULT))
+                v111 = dbl_10016AE50[countOfEntities > 0x2710];
+                v201 = -1;
+                v112 = [(CloudUpdateLibraryOperation *)self _determineResultsURLWhenReadyWithUpdateID:v181 retryTimeout:&v201 responseStatusCode:v111];
+                [(CloudUpdateLibraryOperation *)self setUploadResponseStatus:v201];
+                v113 = sub_10010275C();
+                if (os_log_type_enabled(v113, OS_LOG_TYPE_DEFAULT))
                 {
-                  *v245 = 138543618;
-                  *&v245[4] = self;
-                  *&v245[12] = 2114;
-                  *&v245[14] = v114;
-                  _os_log_impl(&_mh_execute_header, v115, OS_LOG_TYPE_DEFAULT, "%{public}@ - Determined results URL: %{public}@", v245, 0x16u);
+                  *v243 = 138543618;
+                  *&v243[4] = self;
+                  *&v243[12] = 2114;
+                  *&v243[14] = v112;
+                  _os_log_impl(&_mh_execute_header, v113, OS_LOG_TYPE_DEFAULT, "%{public}@ - Determined results URL: %{public}@", v243, 0x16u);
                 }
 
-                if (v114)
+                if (v112)
                 {
-                  v116 = [NSMutableDictionary dictionaryWithObjectsAndKeys:&off_1001EDD80, @"min-itunes-match-compatible-version", &off_1001EDD98, @"itunes-match-protocol-version", 0];
-                  v117 = sub_1000A760C(v114, 0, 0, v116, 120.0);
-                  [(CloudUpdateLibraryOperation *)self setGetResultsRequest:v117];
-                  v182 = v116;
+                  v114 = [NSMutableDictionary dictionaryWithObjectsAndKeys:&off_1001EDD80, @"min-itunes-match-compatible-version", &off_1001EDD98, @"itunes-match-protocol-version", 0];
+                  v115 = sub_1000A760C(v112, 0, 0, v114, 120.0);
+                  [(CloudUpdateLibraryOperation *)self setGetResultsRequest:v115];
+                  v180 = v114;
 
-                  *v245 = 0;
-                  *&v245[8] = v245;
-                  *&v245[16] = 0x3032000000;
-                  v246 = sub_10011EA78;
-                  v247 = sub_10011EA88;
-                  v248 = 0;
-                  v197 = 0;
-                  v198 = &v197;
-                  v199 = 0x3032000000;
-                  v200 = sub_10011EA78;
-                  v201 = sub_10011EA88;
-                  v202 = 0;
-                  v118 = +[ICURLSessionManager defaultSession];
+                  *v243 = 0;
+                  *&v243[8] = v243;
+                  *&v243[16] = 0x3032000000;
+                  v244 = sub_10011EA78;
+                  v245 = sub_10011EA88;
+                  v246 = 0;
+                  v195 = 0;
+                  v196 = &v195;
+                  v197 = 0x3032000000;
+                  v198 = sub_10011EA78;
+                  v199 = sub_10011EA88;
+                  v200 = 0;
+                  v116 = +[ICURLSessionManager defaultSession];
                   getResultsRequest = [(CloudUpdateLibraryOperation *)self getResultsRequest];
-                  v193[0] = _NSConcreteStackBlock;
-                  v193[1] = 3221225472;
-                  v193[2] = sub_100123DB0;
-                  v193[3] = &unk_1001DED80;
-                  v195 = &v197;
-                  v196 = v245;
-                  v120 = v111;
-                  v194 = v120;
-                  [v118 enqueueDataRequest:getResultsRequest withCompletionHandler:v193];
+                  v191[0] = _NSConcreteStackBlock;
+                  v191[1] = 3221225472;
+                  v191[2] = sub_100123DB0;
+                  v191[3] = &unk_1001DED80;
+                  v193 = &v195;
+                  v194 = v243;
+                  v118 = v109;
+                  v192 = v118;
+                  [v116 enqueueDataRequest:getResultsRequest withCompletionHandler:v191];
 
-                  dispatch_semaphore_wait(v120, 0xFFFFFFFFFFFFFFFFLL);
+                  dispatch_semaphore_wait(v118, 0xFFFFFFFFFFFFFFFFLL);
                   [(CloudUpdateLibraryOperation *)self setGetResultsRequest:0];
-                  urlResponse2 = [v198[5] urlResponse];
-                  v122 = [urlResponse2 statusCode] == 200;
+                  urlResponse2 = [v196[5] urlResponse];
+                  v120 = [urlResponse2 statusCode] == 200;
 
-                  if (v122)
+                  if (v120)
                   {
-                    bodyData = [v198[5] bodyData];
+                    bodyData = [v196[5] bodyData];
                     if (bodyData)
                     {
-                      v123 = NSTemporaryDirectory();
-                      v244[0] = v123;
-                      v244[1] = @"com.apple.MediaServices";
-                      v124 = +[NSUUID UUID];
-                      uUIDString = [v124 UUIDString];
-                      v244[2] = uUIDString;
-                      v244[3] = @"CloudLibraryUploadResults.plist";
-                      v126 = [NSArray arrayWithObjects:v244 count:4];
-                      v186 = [NSURL fileURLWithPathComponents:v126];
+                      v121 = NSTemporaryDirectory();
+                      v242[0] = v121;
+                      v242[1] = @"com.apple.MediaServices";
+                      v122 = +[NSUUID UUID];
+                      uUIDString = [v122 UUIDString];
+                      v242[2] = uUIDString;
+                      v242[3] = @"CloudLibraryUploadResults.plist";
+                      v124 = [NSArray arrayWithObjects:v242 count:4];
+                      v184 = [NSURL fileURLWithPathComponents:v124];
 
                       contexta = +[NSFileManager defaultManager];
-                      uRLByDeletingLastPathComponent = [v186 URLByDeletingLastPathComponent];
+                      uRLByDeletingLastPathComponent = [v184 URLByDeletingLastPathComponent];
                       [contexta createDirectoryAtURL:uRLByDeletingLastPathComponent withIntermediateDirectories:1 attributes:0 error:0];
 
-                      path4 = [v186 path];
+                      path4 = [v184 path];
                       [contexta createFileAtPath:path4 contents:0 attributes:0];
 
-                      v129 = *(*&v249[8] + 40);
-                      *(*&v249[8] + 40) = 0;
+                      v127 = *(*&v247[8] + 40);
+                      *(*&v247[8] + 40) = 0;
 
-                      v130 = (*&v249[8] + 40);
-                      obj = *(*&v249[8] + 40);
-                      v164 = [NSFileHandle fileHandleForWritingToURL:v186 error:&obj];
-                      objc_storeStrong(v130, obj);
-                      if (v164)
+                      v128 = (*&v247[8] + 40);
+                      obj = *(*&v247[8] + 40);
+                      v162 = [NSFileHandle fileHandleForWritingToURL:v184 error:&obj];
+                      objc_storeStrong(v128, obj);
+                      if (v162)
                       {
-                        [v164 writeData:bodyData];
-                        [v164 closeFile];
-                        v131 = sub_10010275C();
-                        if (os_log_type_enabled(v131, OS_LOG_TYPE_DEFAULT))
+                        [v162 writeData:bodyData];
+                        [v162 closeFile];
+                        v129 = sub_10010275C();
+                        if (os_log_type_enabled(v129, OS_LOG_TYPE_DEFAULT))
                         {
-                          path5 = [v186 path];
-                          *v242 = 138543618;
-                          *&v242[4] = self;
-                          *&v242[12] = 2114;
-                          *&v242[14] = path5;
-                          _os_log_impl(&_mh_execute_header, v131, OS_LOG_TYPE_DEFAULT, "%{public}@ - Saved results plist to: %{public}@", v242, 0x16u);
+                          path5 = [v184 path];
+                          *v240 = 138543618;
+                          *&v240[4] = self;
+                          *&v240[12] = 2114;
+                          *&v240[14] = path5;
+                          _os_log_impl(&_mh_execute_header, v129, OS_LOG_TYPE_DEFAULT, "%{public}@ - Saved results plist to: %{public}@", v240, 0x16u);
                         }
 
                         if (MSVDeviceOSIsInternalInstall())
                         {
-                          v133 = MSVMediaLoggingDirectory();
-                          v134 = [NSURL fileURLWithPath:v133 isDirectory:1];
+                          v131 = MSVMediaLoggingDirectory();
+                          v132 = [NSURL fileURLWithPath:v131 isDirectory:1];
 
-                          lastPathComponent2 = [v186 lastPathComponent];
-                          v136 = [v134 URLByAppendingPathComponent:lastPathComponent2 isDirectory:0];
+                          lastPathComponent2 = [v184 lastPathComponent];
+                          v134 = [v132 URLByAppendingPathComponent:lastPathComponent2 isDirectory:0];
 
-                          path6 = [v136 path];
-                          v138 = [contexta fileExistsAtPath:path6];
+                          path6 = [v134 path];
+                          v136 = [contexta fileExistsAtPath:path6];
 
-                          if (v138)
+                          if (v136)
                           {
-                            [contexta removeItemAtURL:v136 error:0];
+                            [contexta removeItemAtURL:v134 error:0];
                           }
 
-                          [contexta linkItemAtURL:v186 toURL:v136 error:0];
+                          [contexta linkItemAtURL:v184 toURL:v134 error:0];
                         }
 
-                        path7 = [v186 path];
-                        v162 = [path7 dataUsingEncoding:4];
+                        path7 = [v184 path];
+                        v160 = [path7 dataUsingEncoding:4];
 
-                        v140 = [ML3DatabaseImport alloc];
+                        v138 = [ML3DatabaseImport alloc];
                         musicLibrary4 = [(CloudLibraryOperation *)self musicLibrary];
                         databasePath = [musicLibrary4 databasePath];
                         clientIdentity = [(CloudLibraryOperation *)self clientIdentity];
-                        v144 = [v140 initWithLibraryPath:databasePath trackData:v162 playlistData:v162 clientIdentity:clientIdentity];
+                        v142 = [v138 initWithLibraryPath:databasePath trackData:v160 playlistData:v160 clientIdentity:clientIdentity];
 
-                        *v242 = 0;
-                        *&v242[8] = v242;
-                        *&v242[16] = 0x2020000000;
-                        LOBYTE(v243) = 0;
-                        v145 = dispatch_semaphore_create(0);
-                        v146 = +[MLMediaLibraryService sharedMediaLibraryService];
-                        v189[0] = _NSConcreteStackBlock;
-                        v189[1] = 3221225472;
-                        v189[2] = sub_100123E4C;
-                        v189[3] = &unk_1001DEDA8;
-                        v189[4] = self;
-                        v191 = v242;
-                        v147 = v145;
-                        v190 = v147;
-                        [v146 performImport:v144 fromSource:9 withProgressBlock:0 completionHandler:v189];
+                        *v240 = 0;
+                        *&v240[8] = v240;
+                        *&v240[16] = 0x2020000000;
+                        LOBYTE(v241) = 0;
+                        v143 = dispatch_semaphore_create(0);
+                        v144 = +[MLMediaLibraryService sharedMediaLibraryService];
+                        v187[0] = _NSConcreteStackBlock;
+                        v187[1] = 3221225472;
+                        v187[2] = sub_100123E4C;
+                        v187[3] = &unk_1001DEDA8;
+                        v187[4] = self;
+                        v189 = v240;
+                        v145 = v143;
+                        v188 = v145;
+                        [v144 performImport:v142 fromSource:9 withProgressBlock:0 completionHandler:v187];
 
-                        dispatch_semaphore_wait(v147, 0xFFFFFFFFFFFFFFFFLL);
-                        v4 = *(*&v242[8] + 24);
+                        dispatch_semaphore_wait(v145, 0xFFFFFFFFFFFFFFFFLL);
+                        v4 = *(*&v240[8] + 24);
                         if ((v4 & 1) == 0)
                         {
-                          v148 = sub_10010275C();
-                          if (os_log_type_enabled(v148, OS_LOG_TYPE_DEFAULT))
+                          v146 = sub_10010275C();
+                          if (os_log_type_enabled(v146, OS_LOG_TYPE_DEFAULT))
                           {
-                            *v240 = 138543362;
+                            *v238 = 138543362;
                             selfCopy = self;
-                            _os_log_impl(&_mh_execute_header, v148, OS_LOG_TYPE_DEFAULT, "%{public}@ - Failed to import cloud-id mapping.", v240, 0xCu);
+                            _os_log_impl(&_mh_execute_header, v146, OS_LOG_TYPE_DEFAULT, "%{public}@ - Failed to import cloud-id mapping.", v238, 0xCu);
                           }
                         }
 
-                        _Block_object_dispose(v242, 8);
-                        v149 = v162;
+                        _Block_object_dispose(v240, 8);
+                        v147 = v160;
                       }
 
                       else
                       {
-                        v149 = sub_10010275C();
-                        if (os_log_type_enabled(v149, OS_LOG_TYPE_ERROR))
+                        v147 = sub_10010275C();
+                        if (os_log_type_enabled(v147, OS_LOG_TYPE_ERROR))
                         {
-                          *v242 = 138543362;
-                          *&v242[4] = self;
-                          _os_log_impl(&_mh_execute_header, v149, OS_LOG_TYPE_ERROR, "%{public}@ - Received empty response when getting match results.", v242, 0xCu);
+                          *v240 = 138543362;
+                          *&v240[4] = self;
+                          _os_log_impl(&_mh_execute_header, v147, OS_LOG_TYPE_ERROR, "%{public}@ - Received empty response when getting match results.", v240, 0xCu);
                         }
 
                         v4 = 0;
                       }
 
-                      v154 = v186;
+                      v152 = v184;
                     }
 
                     else
                     {
-                      v154 = sub_10010275C();
-                      if (os_log_type_enabled(v154, OS_LOG_TYPE_ERROR))
+                      v152 = sub_10010275C();
+                      if (os_log_type_enabled(v152, OS_LOG_TYPE_ERROR))
                       {
-                        v155 = v198[5];
-                        v156 = *(*&v245[8] + 40);
-                        *v242 = 138543874;
-                        *&v242[4] = self;
-                        *&v242[12] = 2114;
-                        *&v242[14] = v155;
-                        *&v242[22] = 2114;
-                        v243 = v156;
-                        _os_log_impl(&_mh_execute_header, v154, OS_LOG_TYPE_ERROR, "%{public}@ - Received non-200 response when getting match results: %{public}@ error: %{public}@", v242, 0x20u);
+                        v153 = v196[5];
+                        v154 = *(*&v243[8] + 40);
+                        *v240 = 138543874;
+                        *&v240[4] = self;
+                        *&v240[12] = 2114;
+                        *&v240[14] = v153;
+                        *&v240[22] = 2114;
+                        v241 = v154;
+                        _os_log_impl(&_mh_execute_header, v152, OS_LOG_TYPE_ERROR, "%{public}@ - Received non-200 response when getting match results: %{public}@ error: %{public}@", v240, 0x20u);
                       }
 
                       v4 = 0;
                     }
 
-                    v153 = bodyData;
+                    v151 = bodyData;
                   }
 
                   else
                   {
-                    v153 = sub_10010275C();
-                    if (os_log_type_enabled(v153, OS_LOG_TYPE_ERROR))
+                    v151 = sub_10010275C();
+                    if (os_log_type_enabled(v151, OS_LOG_TYPE_ERROR))
                     {
-                      *v242 = 138543362;
-                      *&v242[4] = self;
-                      _os_log_impl(&_mh_execute_header, v153, OS_LOG_TYPE_ERROR, "%{public}@ - Failed to determined results URL", v242, 0xCu);
+                      *v240 = 138543362;
+                      *&v240[4] = self;
+                      _os_log_impl(&_mh_execute_header, v151, OS_LOG_TYPE_ERROR, "%{public}@ - Failed to determined results URL", v240, 0xCu);
                     }
 
                     v4 = 0;
                   }
 
-                  _Block_object_dispose(&v197, 8);
-                  _Block_object_dispose(v245, 8);
+                  _Block_object_dispose(&v195, 8);
+                  _Block_object_dispose(v243, 8);
 
-                  v150 = v182;
+                  v148 = v180;
                 }
 
                 else
                 {
-                  v150 = sub_10010275C();
-                  if (os_log_type_enabled(v150, OS_LOG_TYPE_ERROR))
+                  v148 = sub_10010275C();
+                  if (os_log_type_enabled(v148, OS_LOG_TYPE_ERROR))
                   {
-                    v151 = v209[5];
-                    v152 = *(*&v249[8] + 40);
-                    *v245 = 138543874;
-                    *&v245[4] = self;
-                    *&v245[12] = 2114;
-                    *&v245[14] = v151;
-                    *&v245[22] = 2114;
-                    v246 = v152;
-                    _os_log_impl(&_mh_execute_header, v150, OS_LOG_TYPE_ERROR, "%{public}@ - Received non-200 response when uploading library: %{public}@ error: %{public}@", v245, 0x20u);
+                    v149 = v207[5];
+                    v150 = *(*&v247[8] + 40);
+                    *v243 = 138543874;
+                    *&v243[4] = self;
+                    *&v243[12] = 2114;
+                    *&v243[14] = v149;
+                    *&v243[22] = 2114;
+                    v244 = v150;
+                    _os_log_impl(&_mh_execute_header, v148, OS_LOG_TYPE_ERROR, "%{public}@ - Received non-200 response when uploading library: %{public}@ error: %{public}@", v243, 0x20u);
                   }
 
                   v4 = 0;
@@ -1594,17 +1591,17 @@ LABEL_13:
 
               [(CloudUpdateLibraryOperation *)self setUploadLibraryRequest:0];
 
-              _Block_object_dispose(&v208, 8);
-              _Block_object_dispose(v249, 8);
+              _Block_object_dispose(&v206, 8);
+              _Block_object_dispose(v247, 8);
 
-              objc_autoreleasePoolPop(v169);
+              objc_autoreleasePoolPop(v167);
             }
 
-            v50 = v179;
+            v48 = v177;
 LABEL_100:
 
-            _Block_object_dispose(v232, 8);
-            _Block_object_dispose(&v234, 8);
+            _Block_object_dispose(v230, 8);
+            _Block_object_dispose(&v232, 8);
 
             _Block_object_dispose(buf, 8);
 LABEL_101:
@@ -1615,15 +1612,15 @@ LABEL_101:
 
         else
         {
-          v183 = 0;
+          v181 = 0;
         }
 
-        v50 = os_log_create("com.apple.amp.itunescloudd", "CloudSync");
-        if (os_log_type_enabled(v50, OS_LOG_TYPE_ERROR))
+        v48 = os_log_create("com.apple.amp.itunescloudd", "CloudSync");
+        if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
         {
-          *v249 = 138543362;
-          *&v249[4] = self;
-          _os_log_impl(&_mh_execute_header, v50, OS_LOG_TYPE_ERROR, "%{public}@ - Failed to determined upload URL, skipping upload", v249, 0xCu);
+          *v247 = 138543362;
+          *&v247[4] = self;
+          _os_log_impl(&_mh_execute_header, v48, OS_LOG_TYPE_ERROR, "%{public}@ - Failed to determined upload URL, skipping upload", v247, 0xCu);
         }
 
         v4 = 0;
@@ -1640,7 +1637,7 @@ LABEL_101:
       }
     }
 
-    v180 = 1;
+    v178 = 1;
     goto LABEL_13;
   }
 
@@ -1693,63 +1690,62 @@ LABEL_102:
   v9 = os_log_create("com.apple.amp.itunescloudd", "CloudSync");
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    reason = self->_reason;
-    v11 = ICCloudClientGetStringForRequestReason();
+    v10 = ICCloudClientGetStringForRequestReason();
     *buf = 138544642;
     selfCopy11 = self;
-    v88 = 2114;
-    *v89 = v11;
-    *&v89[8] = 1024;
-    *&v89[10] = sagaOnDiskDatabaseRevision == 0;
-    v90 = 1024;
+    v87 = 2114;
+    *v88 = v10;
+    *&v88[8] = 1024;
+    *&v88[10] = sagaOnDiskDatabaseRevision == 0;
+    v89 = 1024;
     isExplicitUserAction = [(CloudUpdateLibraryOperation *)self isExplicitUserAction];
-    v92 = 1024;
+    v91 = 1024;
     allowNoisyAuthPrompt = [(CloudUpdateLibraryOperation *)self allowNoisyAuthPrompt];
-    v94 = 1024;
-    v95 = sagaInitiateClientResetSync;
+    v93 = 1024;
+    v94 = sagaInitiateClientResetSync;
     _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "%{public}@ - Updating cloud library operation (reason = %{public}@), isInitialImport=%{BOOL}u, isExplicitUserAction=%{BOOL}u, allowNoisyAuthPrompt=%{BOOL}u, sagaClientInitiatedResetSync=%{BOOL}u", buf, 0x2Eu);
   }
 
   if (!sagaOnDiskDatabaseRevision)
   {
-    v21 = sub_100004B8C();
-    v22 = os_log_create("com.apple.amp.itunescloudd", "CloudSync");
-    v23 = os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT);
-    if (v21)
+    v20 = sub_100004B8C();
+    v21 = os_log_create("com.apple.amp.itunescloudd", "CloudSync");
+    v22 = os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT);
+    if (v20)
     {
-      if (v23)
+      if (v22)
       {
         *buf = 138543362;
         selfCopy11 = self;
-        _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "%{public}@ - Skipping initial import on non standalone wOS platform", buf, 0xCu);
+        _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "%{public}@ - Skipping initial import on non standalone wOS platform", buf, 0xCu);
       }
 
-      v85[0] = &off_1001EDC90;
-      v84[0] = @"ICDCloudMusicLibraryProgressUpdateOperationStatusKey";
-      v84[1] = @"ICDCloudMusicLibraryProgressRequestReasonKey";
-      v24 = [NSNumber numberWithInteger:self->_reason];
-      v85[1] = v24;
-      v84[2] = @"ICDCloudMusicLibraryProgressWasInitialImportKey";
-      v25 = [NSNumber numberWithBool:1];
-      v85[2] = v25;
-      v84[3] = @"ICDCloudMusicLibraryProgressWasExplicitUserActionKey";
-      v26 = [NSNumber numberWithBool:[(CloudUpdateLibraryOperation *)self isExplicitUserAction]];
-      v85[3] = v26;
-      v27 = v85;
-      v28 = v84;
+      v84[0] = &off_1001EDC90;
+      v83[0] = @"ICDCloudMusicLibraryProgressUpdateOperationStatusKey";
+      v83[1] = @"ICDCloudMusicLibraryProgressRequestReasonKey";
+      v23 = [NSNumber numberWithInteger:self->_reason];
+      v84[1] = v23;
+      v83[2] = @"ICDCloudMusicLibraryProgressWasInitialImportKey";
+      v24 = [NSNumber numberWithBool:1];
+      v84[2] = v24;
+      v83[3] = @"ICDCloudMusicLibraryProgressWasExplicitUserActionKey";
+      v25 = [NSNumber numberWithBool:[(CloudUpdateLibraryOperation *)self isExplicitUserAction]];
+      v84[3] = v25;
+      v26 = v84;
+      v27 = v83;
 LABEL_13:
-      v29 = 4;
+      v28 = 4;
 LABEL_42:
-      v40 = [NSDictionary dictionaryWithObjects:v27 forKeys:v28 count:v29];
+      v39 = [NSDictionary dictionaryWithObjects:v26 forKeys:v27 count:v28];
 
       goto LABEL_61;
     }
 
-    if (v23)
+    if (v22)
     {
       *buf = 138543362;
       selfCopy11 = self;
-      _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "%{public}@ - Preparing for initial library update...", buf, 0xCu);
+      _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "%{public}@ - Preparing for initial library update...", buf, 0xCu);
     }
 
     DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
@@ -1763,28 +1759,28 @@ LABEL_42:
     {
       if ([(CloudUpdateLibraryOperation *)self isCancelled])
       {
-        v41 = os_log_create("com.apple.amp.itunescloudd", "CloudSync");
-        if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
+        v40 = os_log_create("com.apple.amp.itunescloudd", "CloudSync");
+        if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138543362;
           selfCopy11 = self;
-          _os_log_impl(&_mh_execute_header, v41, OS_LOG_TYPE_DEFAULT, "%{public}@ - Cancelled after registering device", buf, 0xCu);
+          _os_log_impl(&_mh_execute_header, v40, OS_LOG_TYPE_DEFAULT, "%{public}@ - Cancelled after registering device", buf, 0xCu);
         }
 
         [(CloudLibraryOperation *)self setStatus:4];
-        v81[0] = &off_1001EDCD8;
-        v80[0] = @"ICDCloudMusicLibraryProgressUpdateOperationStatusKey";
-        v80[1] = @"ICDCloudMusicLibraryProgressRequestReasonKey";
-        v24 = [NSNumber numberWithInteger:self->_reason];
-        v81[1] = v24;
-        v80[2] = @"ICDCloudMusicLibraryProgressWasInitialImportKey";
-        v25 = [NSNumber numberWithBool:1];
-        v81[2] = v25;
-        v80[3] = @"ICDCloudMusicLibraryProgressWasExplicitUserActionKey";
-        v26 = [NSNumber numberWithBool:[(CloudUpdateLibraryOperation *)self isExplicitUserAction]];
-        v81[3] = v26;
-        v27 = v81;
-        v28 = v80;
+        v80[0] = &off_1001EDCD8;
+        v79[0] = @"ICDCloudMusicLibraryProgressUpdateOperationStatusKey";
+        v79[1] = @"ICDCloudMusicLibraryProgressRequestReasonKey";
+        v23 = [NSNumber numberWithInteger:self->_reason];
+        v80[1] = v23;
+        v79[2] = @"ICDCloudMusicLibraryProgressWasInitialImportKey";
+        v24 = [NSNumber numberWithBool:1];
+        v80[2] = v24;
+        v79[3] = @"ICDCloudMusicLibraryProgressWasExplicitUserActionKey";
+        v25 = [NSNumber numberWithBool:[(CloudUpdateLibraryOperation *)self isExplicitUserAction]];
+        v80[3] = v25;
+        v26 = v80;
+        v27 = v79;
         goto LABEL_13;
       }
 
@@ -1792,28 +1788,28 @@ LABEL_42:
       {
         if ([(CloudUpdateLibraryOperation *)self isCancelled])
         {
-          v45 = sub_10010275C();
-          if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
+          v44 = sub_10010275C();
+          if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138543362;
             selfCopy11 = self;
-            _os_log_impl(&_mh_execute_header, v45, OS_LOG_TYPE_DEFAULT, "%{public}@ - Cancelled after uploading library metadata", buf, 0xCu);
+            _os_log_impl(&_mh_execute_header, v44, OS_LOG_TYPE_DEFAULT, "%{public}@ - Cancelled after uploading library metadata", buf, 0xCu);
           }
 
           [(CloudLibraryOperation *)self setStatus:4];
-          v75[0] = &off_1001EDCD8;
-          v74[0] = @"ICDCloudMusicLibraryProgressUpdateOperationStatusKey";
-          v74[1] = @"ICDCloudMusicLibraryProgressRequestReasonKey";
-          v35 = [NSNumber numberWithInteger:self->_reason];
-          v75[1] = v35;
-          v74[2] = @"ICDCloudMusicLibraryProgressWasInitialImportKey";
-          v36 = [NSNumber numberWithBool:1];
-          v75[2] = v36;
-          v74[3] = @"ICDCloudMusicLibraryProgressWasExplicitUserActionKey";
-          v37 = [NSNumber numberWithBool:[(CloudUpdateLibraryOperation *)self isExplicitUserAction]];
-          v75[3] = v37;
-          v38 = v75;
-          v39 = v74;
+          v74[0] = &off_1001EDCD8;
+          v73[0] = @"ICDCloudMusicLibraryProgressUpdateOperationStatusKey";
+          v73[1] = @"ICDCloudMusicLibraryProgressRequestReasonKey";
+          v34 = [NSNumber numberWithInteger:self->_reason];
+          v74[1] = v34;
+          v73[2] = @"ICDCloudMusicLibraryProgressWasInitialImportKey";
+          v35 = [NSNumber numberWithBool:1];
+          v74[2] = v35;
+          v73[3] = @"ICDCloudMusicLibraryProgressWasExplicitUserActionKey";
+          v36 = [NSNumber numberWithBool:[(CloudUpdateLibraryOperation *)self isExplicitUserAction]];
+          v74[3] = v36;
+          v37 = v74;
+          v38 = v73;
           goto LABEL_27;
         }
 
@@ -1824,30 +1820,30 @@ LABEL_23:
           goto LABEL_4;
         }
 
-        v34 = os_log_create("com.apple.amp.itunescloudd", "CloudSync");
-        if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
+        v33 = os_log_create("com.apple.amp.itunescloudd", "CloudSync");
+        if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138543362;
           selfCopy11 = self;
-          _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_DEFAULT, "%{public}@ - Cancelled after preparing library for cloud import", buf, 0xCu);
+          _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_DEFAULT, "%{public}@ - Cancelled after preparing library for cloud import", buf, 0xCu);
         }
 
         [(CloudLibraryOperation *)self setStatus:4];
-        v73[0] = &off_1001EDCD8;
-        v72[0] = @"ICDCloudMusicLibraryProgressUpdateOperationStatusKey";
-        v72[1] = @"ICDCloudMusicLibraryProgressRequestReasonKey";
-        v35 = [NSNumber numberWithInteger:self->_reason];
-        v73[1] = v35;
-        v72[2] = @"ICDCloudMusicLibraryProgressWasInitialImportKey";
-        v36 = [NSNumber numberWithBool:1];
-        v73[2] = v36;
-        v72[3] = @"ICDCloudMusicLibraryProgressWasExplicitUserActionKey";
-        v37 = [NSNumber numberWithBool:[(CloudUpdateLibraryOperation *)self isExplicitUserAction]];
-        v73[3] = v37;
-        v38 = v73;
-        v39 = v72;
+        v72[0] = &off_1001EDCD8;
+        v71[0] = @"ICDCloudMusicLibraryProgressUpdateOperationStatusKey";
+        v71[1] = @"ICDCloudMusicLibraryProgressRequestReasonKey";
+        v34 = [NSNumber numberWithInteger:self->_reason];
+        v72[1] = v34;
+        v71[2] = @"ICDCloudMusicLibraryProgressWasInitialImportKey";
+        v35 = [NSNumber numberWithBool:1];
+        v72[2] = v35;
+        v71[3] = @"ICDCloudMusicLibraryProgressWasExplicitUserActionKey";
+        v36 = [NSNumber numberWithBool:[(CloudUpdateLibraryOperation *)self isExplicitUserAction]];
+        v72[3] = v36;
+        v37 = v72;
+        v38 = v71;
 LABEL_27:
-        v40 = [NSDictionary dictionaryWithObjects:v38 forKeys:v39 count:4];
+        v39 = [NSDictionary dictionaryWithObjects:v37 forKeys:v38 count:4];
 
         [(CloudUpdateLibraryOperation *)self _clearAllCloudIDs];
         goto LABEL_61;
@@ -1856,95 +1852,95 @@ LABEL_27:
       if ([(CloudUpdateLibraryOperation *)self uploadResponseStatus]== 4011)
       {
         [(CloudLibraryOperation *)self setStatus:3];
-        v54 = sub_10010275C();
-        if (os_log_type_enabled(v54, OS_LOG_TYPE_DEFAULT))
+        v53 = sub_10010275C();
+        if (os_log_type_enabled(v53, OS_LOG_TYPE_DEFAULT))
         {
           uploadResponseStatus = [(CloudUpdateLibraryOperation *)self uploadResponseStatus];
           *buf = 138543618;
           selfCopy11 = self;
-          v88 = 1024;
-          *v89 = uploadResponseStatus;
-          _os_log_impl(&_mh_execute_header, v54, OS_LOG_TYPE_DEFAULT, "%{public}@ - self.uploadResponseStatus=%d, treating as a hard failure", buf, 0x12u);
+          v87 = 1024;
+          *v88 = uploadResponseStatus;
+          _os_log_impl(&_mh_execute_header, v53, OS_LOG_TYPE_DEFAULT, "%{public}@ - self.uploadResponseStatus=%d, treating as a hard failure", buf, 0x12u);
         }
 
-        v79[0] = &off_1001EDCA8;
-        v78[0] = @"ICDCloudMusicLibraryProgressUpdateOperationStatusKey";
-        v78[1] = @"ICDCloudMusicLibraryProgressRequestReasonKey";
-        v24 = [NSNumber numberWithInteger:self->_reason];
-        v79[1] = v24;
-        v78[2] = @"ICDCloudMusicLibraryProgressWasInitialImportKey";
-        v25 = [NSNumber numberWithBool:1];
-        v79[2] = v25;
-        v79[3] = &off_1001EDCF0;
-        v78[3] = @"ICDCloudMusicLibraryProgressPermanentFailureTypeKey";
-        v78[4] = @"ICDCloudMusicLibraryProgressWasExplicitUserActionKey";
-        v26 = [NSNumber numberWithBool:[(CloudUpdateLibraryOperation *)self isExplicitUserAction]];
-        v79[4] = v26;
-        v27 = v79;
-        v28 = v78;
+        v78[0] = &off_1001EDCA8;
+        v77[0] = @"ICDCloudMusicLibraryProgressUpdateOperationStatusKey";
+        v77[1] = @"ICDCloudMusicLibraryProgressRequestReasonKey";
+        v23 = [NSNumber numberWithInteger:self->_reason];
+        v78[1] = v23;
+        v77[2] = @"ICDCloudMusicLibraryProgressWasInitialImportKey";
+        v24 = [NSNumber numberWithBool:1];
+        v78[2] = v24;
+        v78[3] = &off_1001EDCF0;
+        v77[3] = @"ICDCloudMusicLibraryProgressPermanentFailureTypeKey";
+        v77[4] = @"ICDCloudMusicLibraryProgressWasExplicitUserActionKey";
+        v25 = [NSNumber numberWithBool:[(CloudUpdateLibraryOperation *)self isExplicitUserAction]];
+        v78[4] = v25;
+        v26 = v78;
+        v27 = v77;
       }
 
       else
       {
         [(CloudLibraryOperation *)self setStatus:5];
-        v56 = sub_10010275C();
-        if (os_log_type_enabled(v56, OS_LOG_TYPE_DEFAULT))
+        v55 = sub_10010275C();
+        if (os_log_type_enabled(v55, OS_LOG_TYPE_DEFAULT))
         {
           uploadResponseStatus2 = [(CloudUpdateLibraryOperation *)self uploadResponseStatus];
           *buf = 138543618;
           selfCopy11 = self;
-          v88 = 1024;
-          *v89 = uploadResponseStatus2;
-          _os_log_impl(&_mh_execute_header, v56, OS_LOG_TYPE_DEFAULT, "%{public}@ - self.uploadResponseStatus=%d, treating as a temporary failure", buf, 0x12u);
+          v87 = 1024;
+          *v88 = uploadResponseStatus2;
+          _os_log_impl(&_mh_execute_header, v55, OS_LOG_TYPE_DEFAULT, "%{public}@ - self.uploadResponseStatus=%d, treating as a temporary failure", buf, 0x12u);
         }
 
-        v77[0] = &off_1001EDD08;
-        v76[0] = @"ICDCloudMusicLibraryProgressUpdateOperationStatusKey";
-        v76[1] = @"ICDCloudMusicLibraryProgressRequestReasonKey";
-        v24 = [NSNumber numberWithInteger:self->_reason];
-        v77[1] = v24;
-        v76[2] = @"ICDCloudMusicLibraryProgressWasInitialImportKey";
-        v25 = [NSNumber numberWithBool:1];
-        v77[2] = v25;
-        v77[3] = &off_1001EDD20;
-        v76[3] = @"ICDCloudMusicLibraryProgressTemporaryFialureTypeKey";
-        v76[4] = @"ICDCloudMusicLibraryProgressWasExplicitUserActionKey";
-        v26 = [NSNumber numberWithBool:[(CloudUpdateLibraryOperation *)self isExplicitUserAction]];
-        v77[4] = v26;
-        v27 = v77;
-        v28 = v76;
+        v76[0] = &off_1001EDD08;
+        v75[0] = @"ICDCloudMusicLibraryProgressUpdateOperationStatusKey";
+        v75[1] = @"ICDCloudMusicLibraryProgressRequestReasonKey";
+        v23 = [NSNumber numberWithInteger:self->_reason];
+        v76[1] = v23;
+        v75[2] = @"ICDCloudMusicLibraryProgressWasInitialImportKey";
+        v24 = [NSNumber numberWithBool:1];
+        v76[2] = v24;
+        v76[3] = &off_1001EDD20;
+        v75[3] = @"ICDCloudMusicLibraryProgressTemporaryFialureTypeKey";
+        v75[4] = @"ICDCloudMusicLibraryProgressWasExplicitUserActionKey";
+        v25 = [NSNumber numberWithBool:[(CloudUpdateLibraryOperation *)self isExplicitUserAction]];
+        v76[4] = v25;
+        v26 = v76;
+        v27 = v75;
       }
     }
 
     else
     {
-      v44 = os_log_create("com.apple.amp.itunescloudd", "CloudSync");
-      if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
+      v43 = os_log_create("com.apple.amp.itunescloudd", "CloudSync");
+      if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543362;
         selfCopy11 = self;
-        _os_log_impl(&_mh_execute_header, v44, OS_LOG_TYPE_ERROR, "%{public}@ - Failed to register device, bailing on initial library update", buf, 0xCu);
+        _os_log_impl(&_mh_execute_header, v43, OS_LOG_TYPE_ERROR, "%{public}@ - Failed to register device, bailing on initial library update", buf, 0xCu);
       }
 
       [(CloudLibraryOperation *)self setStatus:3];
-      v83[0] = &off_1001EDCA8;
-      v82[0] = @"ICDCloudMusicLibraryProgressUpdateOperationStatusKey";
-      v82[1] = @"ICDCloudMusicLibraryProgressRequestReasonKey";
-      v24 = [NSNumber numberWithInteger:self->_reason];
-      v83[1] = v24;
-      v82[2] = @"ICDCloudMusicLibraryProgressWasInitialImportKey";
-      v25 = [NSNumber numberWithBool:1];
-      v83[2] = v25;
-      v83[3] = &off_1001EDCC0;
-      v82[3] = @"ICDCloudMusicLibraryProgressPermanentFailureTypeKey";
-      v82[4] = @"ICDCloudMusicLibraryProgressWasExplicitUserActionKey";
-      v26 = [NSNumber numberWithBool:[(CloudUpdateLibraryOperation *)self isExplicitUserAction]];
-      v83[4] = v26;
-      v27 = v83;
-      v28 = v82;
+      v82[0] = &off_1001EDCA8;
+      v81[0] = @"ICDCloudMusicLibraryProgressUpdateOperationStatusKey";
+      v81[1] = @"ICDCloudMusicLibraryProgressRequestReasonKey";
+      v23 = [NSNumber numberWithInteger:self->_reason];
+      v82[1] = v23;
+      v81[2] = @"ICDCloudMusicLibraryProgressWasInitialImportKey";
+      v24 = [NSNumber numberWithBool:1];
+      v82[2] = v24;
+      v82[3] = &off_1001EDCC0;
+      v81[3] = @"ICDCloudMusicLibraryProgressPermanentFailureTypeKey";
+      v81[4] = @"ICDCloudMusicLibraryProgressWasExplicitUserActionKey";
+      v25 = [NSNumber numberWithBool:[(CloudUpdateLibraryOperation *)self isExplicitUserAction]];
+      v82[4] = v25;
+      v26 = v82;
+      v27 = v81;
     }
 
-    v29 = 5;
+    v28 = 5;
     goto LABEL_42;
   }
 
@@ -1952,37 +1948,37 @@ LABEL_4:
   self->_didSubscriptionStatusLapse = 0;
   self->_didEncounterFatalErrorImportingPayload = 0;
   _updateLibrary = [(CloudUpdateLibraryOperation *)self _updateLibrary];
-  v13 = +[ICDefaults standardDefaults];
-  if ([v13 shouldTreatSubscriptionStatusAsExpired])
+  v12 = +[ICDefaults standardDefaults];
+  if ([v12 shouldTreatSubscriptionStatusAsExpired])
   {
-    v14 = MSVDeviceOSIsInternalInstall();
+    v13 = MSVDeviceOSIsInternalInstall();
 
-    if (v14)
+    if (v13)
     {
-      v15 = os_log_create("com.apple.amp.itunescloudd", "CloudSync");
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+      v14 = os_log_create("com.apple.amp.itunescloudd", "CloudSync");
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543362;
         selfCopy11 = self;
-        _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "%{public}@ - shouldTreatSubscriptionStatusAsExpired is set. Will force subscription status to be expired", buf, 0xCu);
+        _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "%{public}@ - shouldTreatSubscriptionStatusAsExpired is set. Will force subscription status to be expired", buf, 0xCu);
       }
 
       [(CloudLibraryOperation *)self setStatus:3];
-      v71[0] = &off_1001EDCA8;
-      v70[0] = @"ICDCloudMusicLibraryProgressUpdateOperationStatusKey";
-      v70[1] = @"ICDCloudMusicLibraryProgressRequestReasonKey";
-      v16 = [NSNumber numberWithInteger:self->_reason];
-      v71[1] = v16;
-      v70[2] = @"ICDCloudMusicLibraryProgressWasInitialImportKey";
-      v17 = [NSNumber numberWithBool:sagaOnDiskDatabaseRevision == 0];
-      v71[2] = v17;
-      v71[3] = &off_1001EDD20;
-      v70[3] = @"ICDCloudMusicLibraryProgressPermanentFailureTypeKey";
-      v70[4] = @"ICDCloudMusicLibraryProgressWasExplicitUserActionKey";
-      v18 = [NSNumber numberWithBool:[(CloudUpdateLibraryOperation *)self isExplicitUserAction]];
-      v71[4] = v18;
-      v19 = v71;
-      v20 = v70;
+      v70[0] = &off_1001EDCA8;
+      v69[0] = @"ICDCloudMusicLibraryProgressUpdateOperationStatusKey";
+      v69[1] = @"ICDCloudMusicLibraryProgressRequestReasonKey";
+      v15 = [NSNumber numberWithInteger:self->_reason];
+      v70[1] = v15;
+      v69[2] = @"ICDCloudMusicLibraryProgressWasInitialImportKey";
+      v16 = [NSNumber numberWithBool:sagaOnDiskDatabaseRevision == 0];
+      v70[2] = v16;
+      v70[3] = &off_1001EDD20;
+      v69[3] = @"ICDCloudMusicLibraryProgressPermanentFailureTypeKey";
+      v69[4] = @"ICDCloudMusicLibraryProgressWasExplicitUserActionKey";
+      v17 = [NSNumber numberWithBool:[(CloudUpdateLibraryOperation *)self isExplicitUserAction]];
+      v70[4] = v17;
+      v18 = v70;
+      v19 = v69;
       goto LABEL_19;
     }
   }
@@ -1998,19 +1994,19 @@ LABEL_4:
       if (sagaOnDiskDatabaseRevision)
       {
         [(CloudLibraryOperation *)self setStatus:5];
-        v61[0] = &off_1001EDD08;
-        v60[0] = @"ICDCloudMusicLibraryProgressUpdateOperationStatusKey";
-        v60[1] = @"ICDCloudMusicLibraryProgressRequestReasonKey";
-        v16 = [NSNumber numberWithInteger:self->_reason];
-        v61[1] = v16;
-        v60[2] = @"ICDCloudMusicLibraryProgressWasInitialImportKey";
-        v17 = [NSNumber numberWithBool:0];
-        v61[2] = v17;
-        v60[3] = @"ICDCloudMusicLibraryProgressWasExplicitUserActionKey";
-        v18 = [NSNumber numberWithBool:[(CloudUpdateLibraryOperation *)self isExplicitUserAction]];
-        v61[3] = v18;
-        v30 = [NSDictionary dictionaryWithObjects:v61 forKeys:v60 count:4];
-        v31 = @"load initial cloud library";
+        v60[0] = &off_1001EDD08;
+        v59[0] = @"ICDCloudMusicLibraryProgressUpdateOperationStatusKey";
+        v59[1] = @"ICDCloudMusicLibraryProgressRequestReasonKey";
+        v15 = [NSNumber numberWithInteger:self->_reason];
+        v60[1] = v15;
+        v59[2] = @"ICDCloudMusicLibraryProgressWasInitialImportKey";
+        v16 = [NSNumber numberWithBool:0];
+        v60[2] = v16;
+        v59[3] = @"ICDCloudMusicLibraryProgressWasExplicitUserActionKey";
+        v17 = [NSNumber numberWithBool:[(CloudUpdateLibraryOperation *)self isExplicitUserAction]];
+        v60[3] = v17;
+        v29 = [NSDictionary dictionaryWithObjects:v60 forKeys:v59 count:4];
+        v30 = @"load initial cloud library";
       }
 
       else
@@ -2020,130 +2016,130 @@ LABEL_4:
           if (MSVDeviceSupportsMultipleLibraries())
           {
             [(CloudLibraryOperation *)self setStatus:5];
-            v67[0] = &off_1001EDD08;
-            v66[0] = @"ICDCloudMusicLibraryProgressUpdateOperationStatusKey";
-            v66[1] = @"ICDCloudMusicLibraryProgressRequestReasonKey";
-            v16 = [NSNumber numberWithInteger:self->_reason];
-            v67[1] = v16;
-            v66[2] = @"ICDCloudMusicLibraryProgressWasInitialImportKey";
-            v17 = [NSNumber numberWithBool:1];
-            v67[2] = v17;
-            v67[3] = &off_1001EDD38;
-            v66[3] = @"ICDCloudMusicLibraryProgressTemporaryFialureTypeKey";
-            v66[4] = @"ICDCloudMusicLibraryProgressWasExplicitUserActionKey";
-            v18 = [NSNumber numberWithBool:[(CloudUpdateLibraryOperation *)self isExplicitUserAction]];
-            v67[4] = v18;
-            v42 = v67;
-            v43 = v66;
+            v66[0] = &off_1001EDD08;
+            v65[0] = @"ICDCloudMusicLibraryProgressUpdateOperationStatusKey";
+            v65[1] = @"ICDCloudMusicLibraryProgressRequestReasonKey";
+            v15 = [NSNumber numberWithInteger:self->_reason];
+            v66[1] = v15;
+            v65[2] = @"ICDCloudMusicLibraryProgressWasInitialImportKey";
+            v16 = [NSNumber numberWithBool:1];
+            v66[2] = v16;
+            v66[3] = &off_1001EDD38;
+            v65[3] = @"ICDCloudMusicLibraryProgressTemporaryFialureTypeKey";
+            v65[4] = @"ICDCloudMusicLibraryProgressWasExplicitUserActionKey";
+            v17 = [NSNumber numberWithBool:[(CloudUpdateLibraryOperation *)self isExplicitUserAction]];
+            v66[4] = v17;
+            v41 = v66;
+            v42 = v65;
           }
 
           else
           {
             [(CloudLibraryOperation *)self setStatus:3];
-            v65[0] = &off_1001EDCA8;
-            v64[0] = @"ICDCloudMusicLibraryProgressUpdateOperationStatusKey";
-            v64[1] = @"ICDCloudMusicLibraryProgressRequestReasonKey";
-            v16 = [NSNumber numberWithInteger:self->_reason];
-            v65[1] = v16;
-            v64[2] = @"ICDCloudMusicLibraryProgressWasInitialImportKey";
-            v17 = [NSNumber numberWithBool:1];
-            v65[2] = v17;
-            v65[3] = &off_1001EDD50;
-            v64[3] = @"ICDCloudMusicLibraryProgressPermanentFailureTypeKey";
-            v64[4] = @"ICDCloudMusicLibraryProgressWasExplicitUserActionKey";
-            v18 = [NSNumber numberWithBool:[(CloudUpdateLibraryOperation *)self isExplicitUserAction]];
-            v65[4] = v18;
-            v42 = v65;
-            v43 = v64;
+            v64[0] = &off_1001EDCA8;
+            v63[0] = @"ICDCloudMusicLibraryProgressUpdateOperationStatusKey";
+            v63[1] = @"ICDCloudMusicLibraryProgressRequestReasonKey";
+            v15 = [NSNumber numberWithInteger:self->_reason];
+            v64[1] = v15;
+            v63[2] = @"ICDCloudMusicLibraryProgressWasInitialImportKey";
+            v16 = [NSNumber numberWithBool:1];
+            v64[2] = v16;
+            v64[3] = &off_1001EDD50;
+            v63[3] = @"ICDCloudMusicLibraryProgressPermanentFailureTypeKey";
+            v63[4] = @"ICDCloudMusicLibraryProgressWasExplicitUserActionKey";
+            v17 = [NSNumber numberWithBool:[(CloudUpdateLibraryOperation *)self isExplicitUserAction]];
+            v64[4] = v17;
+            v41 = v64;
+            v42 = v63;
           }
         }
 
         else
         {
           [(CloudLibraryOperation *)self setStatus:5];
-          v63[0] = &off_1001EDD08;
-          v62[0] = @"ICDCloudMusicLibraryProgressUpdateOperationStatusKey";
-          v62[1] = @"ICDCloudMusicLibraryProgressRequestReasonKey";
-          v16 = [NSNumber numberWithInteger:self->_reason];
-          v63[1] = v16;
-          v62[2] = @"ICDCloudMusicLibraryProgressWasInitialImportKey";
-          v17 = [NSNumber numberWithBool:1];
-          v63[2] = v17;
-          v63[3] = &off_1001EDD38;
-          v62[3] = @"ICDCloudMusicLibraryProgressTemporaryFialureTypeKey";
-          v62[4] = @"ICDCloudMusicLibraryProgressWasExplicitUserActionKey";
-          v18 = [NSNumber numberWithBool:[(CloudUpdateLibraryOperation *)self isExplicitUserAction]];
-          v63[4] = v18;
-          v42 = v63;
-          v43 = v62;
+          v62[0] = &off_1001EDD08;
+          v61[0] = @"ICDCloudMusicLibraryProgressUpdateOperationStatusKey";
+          v61[1] = @"ICDCloudMusicLibraryProgressRequestReasonKey";
+          v15 = [NSNumber numberWithInteger:self->_reason];
+          v62[1] = v15;
+          v61[2] = @"ICDCloudMusicLibraryProgressWasInitialImportKey";
+          v16 = [NSNumber numberWithBool:1];
+          v62[2] = v16;
+          v62[3] = &off_1001EDD38;
+          v61[3] = @"ICDCloudMusicLibraryProgressTemporaryFialureTypeKey";
+          v61[4] = @"ICDCloudMusicLibraryProgressWasExplicitUserActionKey";
+          v17 = [NSNumber numberWithBool:[(CloudUpdateLibraryOperation *)self isExplicitUserAction]];
+          v62[4] = v17;
+          v41 = v62;
+          v42 = v61;
         }
 
-        v30 = [NSDictionary dictionaryWithObjects:v42 forKeys:v43 count:5];
-        v31 = @"load initial cloud library - isInitialImport";
+        v29 = [NSDictionary dictionaryWithObjects:v41 forKeys:v42 count:5];
+        v30 = @"load initial cloud library - isInitialImport";
       }
 
       goto LABEL_51;
     }
 
     [(CloudLibraryOperation *)self setStatus:3];
-    v69[0] = &off_1001EDCA8;
-    v68[0] = @"ICDCloudMusicLibraryProgressUpdateOperationStatusKey";
-    v68[1] = @"ICDCloudMusicLibraryProgressRequestReasonKey";
-    v16 = [NSNumber numberWithInteger:self->_reason];
-    v69[1] = v16;
-    v68[2] = @"ICDCloudMusicLibraryProgressWasInitialImportKey";
-    v17 = [NSNumber numberWithBool:sagaOnDiskDatabaseRevision == 0];
-    v69[2] = v17;
-    v69[3] = &off_1001EDD20;
-    v68[3] = @"ICDCloudMusicLibraryProgressPermanentFailureTypeKey";
-    v68[4] = @"ICDCloudMusicLibraryProgressWasExplicitUserActionKey";
-    v18 = [NSNumber numberWithBool:[(CloudUpdateLibraryOperation *)self isExplicitUserAction]];
-    v69[4] = v18;
-    v19 = v69;
-    v20 = v68;
+    v68[0] = &off_1001EDCA8;
+    v67[0] = @"ICDCloudMusicLibraryProgressUpdateOperationStatusKey";
+    v67[1] = @"ICDCloudMusicLibraryProgressRequestReasonKey";
+    v15 = [NSNumber numberWithInteger:self->_reason];
+    v68[1] = v15;
+    v67[2] = @"ICDCloudMusicLibraryProgressWasInitialImportKey";
+    v16 = [NSNumber numberWithBool:sagaOnDiskDatabaseRevision == 0];
+    v68[2] = v16;
+    v68[3] = &off_1001EDD20;
+    v67[3] = @"ICDCloudMusicLibraryProgressPermanentFailureTypeKey";
+    v67[4] = @"ICDCloudMusicLibraryProgressWasExplicitUserActionKey";
+    v17 = [NSNumber numberWithBool:[(CloudUpdateLibraryOperation *)self isExplicitUserAction]];
+    v68[4] = v17;
+    v18 = v68;
+    v19 = v67;
 LABEL_19:
-    v30 = [NSDictionary dictionaryWithObjects:v19 forKeys:v20 count:5];
-    v31 = @"subscription lapsed";
+    v29 = [NSDictionary dictionaryWithObjects:v18 forKeys:v19 count:5];
+    v30 = @"subscription lapsed";
 LABEL_51:
 
-    v32 = 0;
+    v31 = 0;
     goto LABEL_52;
   }
 
+  v29 = 0;
   v30 = 0;
-  v31 = 0;
-  v32 = 1;
+  v31 = 1;
 LABEL_52:
-  v46 = os_log_create("com.apple.amp.itunescloudd", "CloudSync");
-  if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
+  v45 = os_log_create("com.apple.amp.itunescloudd", "CloudSync");
+  if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
   {
     status = [(CloudLibraryOperation *)self status];
     *buf = 138543874;
     selfCopy11 = self;
-    v88 = 1024;
-    *v89 = status;
-    *&v89[4] = 2114;
-    *&v89[6] = v31;
-    _os_log_impl(&_mh_execute_header, v46, OS_LOG_TYPE_ERROR, "%{public}@ - finished with status=%d, failureReason=%{public}@", buf, 0x1Cu);
+    v87 = 1024;
+    *v88 = status;
+    *&v88[4] = 2114;
+    *&v88[6] = v30;
+    _os_log_impl(&_mh_execute_header, v45, OS_LOG_TYPE_ERROR, "%{public}@ - finished with status=%d, failureReason=%{public}@", buf, 0x1Cu);
   }
 
-  if (v32)
+  if (v31)
   {
-    v59[0] = &off_1001EDC90;
-    v48 = [NSNumber numberWithInteger:self->_reason, @"ICDCloudMusicLibraryProgressUpdateOperationStatusKey", @"ICDCloudMusicLibraryProgressRequestReasonKey"];
-    v59[1] = v48;
-    v58[2] = @"ICDCloudMusicLibraryProgressWasInitialImportKey";
-    v49 = [NSNumber numberWithBool:sagaOnDiskDatabaseRevision == 0];
-    v59[2] = v49;
-    v58[3] = @"ICDCloudMusicLibraryProgressWasExplicitUserActionKey";
-    v50 = [NSNumber numberWithBool:[(CloudUpdateLibraryOperation *)self isExplicitUserAction]];
-    v59[3] = v50;
-    v40 = [NSDictionary dictionaryWithObjects:v59 forKeys:v58 count:4];
+    v58[0] = &off_1001EDC90;
+    v47 = [NSNumber numberWithInteger:self->_reason, @"ICDCloudMusicLibraryProgressUpdateOperationStatusKey", @"ICDCloudMusicLibraryProgressRequestReasonKey"];
+    v58[1] = v47;
+    v57[2] = @"ICDCloudMusicLibraryProgressWasInitialImportKey";
+    v48 = [NSNumber numberWithBool:sagaOnDiskDatabaseRevision == 0];
+    v58[2] = v48;
+    v57[3] = @"ICDCloudMusicLibraryProgressWasExplicitUserActionKey";
+    v49 = [NSNumber numberWithBool:[(CloudUpdateLibraryOperation *)self isExplicitUserAction]];
+    v58[3] = v49;
+    v39 = [NSDictionary dictionaryWithObjects:v58 forKeys:v57 count:4];
 
     if (!sagaOnDiskDatabaseRevision)
     {
-      v51 = CFNotificationCenterGetDarwinNotifyCenter();
-      CFNotificationCenterPostNotification(v51, ICCloudClientInitialCloudLibraryImportCompletedNotification, 0, 0, 1u);
+      v50 = CFNotificationCenterGetDarwinNotifyCenter();
+      CFNotificationCenterPostNotification(v50, ICCloudClientInitialCloudLibraryImportCompletedNotification, 0, 0, 1u);
     }
   }
 
@@ -2154,15 +2150,15 @@ LABEL_52:
       [(CloudUpdateLibraryOperation *)self _clearAllCloudIDs];
     }
 
-    v40 = v30;
+    v39 = v29;
   }
 
 LABEL_61:
   musicLibrary4 = [(CloudLibraryOperation *)self musicLibrary];
-  v53 = MSVTCCIdentityForCurrentProcess();
-  [musicLibrary4 setClientIdentity:v53];
+  v52 = MSVTCCIdentityForCurrentProcess();
+  [musicLibrary4 setClientIdentity:v52];
 
-  [(ICDCloudMusicLibrarySagaUpdateTaskHelper *)self->_updateTaskHelper finishedUpdateOperationForLibraryType:1 withResponse:v40];
+  [(ICDCloudMusicLibrarySagaUpdateTaskHelper *)self->_updateTaskHelper finishedUpdateOperationForLibraryType:1 withResponse:v39];
 }
 
 - (void)cancel

@@ -7,33 +7,33 @@
 
 + (id)createWithCodable:()HDCodingSupport
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v3 = a3;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
     v4 = v3;
     v5 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v15 = 0u;
     v16 = 0u;
     v17 = 0u;
     v18 = 0u;
-    v19 = 0u;
     codedValues = [v4 codedValues];
-    v7 = [codedValues countByEnumeratingWithState:&v16 objects:v20 count:16];
+    v7 = [codedValues countByEnumeratingWithState:&v15 objects:v19 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v17;
+      v9 = *v16;
       while (2)
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v17 != v9)
+          if (*v16 != v9)
           {
             objc_enumerationMutation(codedValues);
           }
 
-          v11 = [MEMORY[0x277CCD1A0] createWithCodable:*(*(&v16 + 1) + 8 * i)];
+          v11 = [MEMORY[0x277CCD1A0] createWithCodable:*(*(&v15 + 1) + 8 * i)];
           if (!v11)
           {
 
@@ -45,7 +45,7 @@
           [v5 addObject:v11];
         }
 
-        v8 = [codedValues countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v8 = [codedValues countByEnumeratingWithState:&v15 objects:v19 count:16];
         if (v8)
         {
           continue;
@@ -63,8 +63,6 @@ LABEL_13:
   {
     v13 = 0;
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v13;
 }

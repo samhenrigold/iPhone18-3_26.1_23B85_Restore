@@ -3,7 +3,7 @@
 
 @implementation PLIncrementSharedCountForAssets
 
-uint64_t ___PLIncrementSharedCountForAssets_block_invoke(uint64_t a1)
+void *___PLIncrementSharedCountForAssets_block_invoke(uint64_t a1)
 {
   v11 = *MEMORY[0x277D85DE8];
   v6 = 0u;
@@ -26,7 +26,8 @@ uint64_t ___PLIncrementSharedCountForAssets_block_invoke(uint64_t a1)
           objc_enumerationMutation(v1);
         }
 
-        [objc_msgSend(MEMORY[0x277CD97B0] changeRequestForAsset:{*(*(&v6 + 1) + 8 * v5++)), "incrementShareCount"}];
+        [objc_msgSend(MEMORY[0x277CD97B0] changeRequestForAsset:{*(*(&v6 + 1) + 8 * v5)), "incrementShareCount"}];
+        v5 = v5 + 1;
       }
 
       while (v3 != v5);

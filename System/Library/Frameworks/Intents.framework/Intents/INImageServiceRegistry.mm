@@ -33,10 +33,11 @@
 
 uint64_t __40__INImageServiceRegistry_sharedInstance__block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
-  sharedInstance_sSharedInstance = objc_alloc_init(objc_opt_class());
+  v1 = objc_alloc_init(objc_opt_class());
+  v2 = sharedInstance_sSharedInstance;
+  sharedInstance_sSharedInstance = v1;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v1, v2);
 }
 
 - (INImageServiceRegistry)init
@@ -143,7 +144,7 @@ uint64_t __77__INImageServiceRegistry_INImageStorageServiceRegistry__imageStorag
   v4 = *(v3 + 40);
   *(v3 + 40) = v2;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2, v4);
 }
 
 - (id)imageServiceForServiceIdentifier:(id)identifier

@@ -39,6 +39,8 @@
 {
   if (dword_1ED806880)
   {
+    v7 = 0;
+    v6 = 0;
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
@@ -88,8 +90,8 @@ uint64_t __29__AVFlashlight_hasFlashlight__block_invoke()
 
 - (void)_setupFlashlight
 {
-  FigSimpleMutexCheckIsLockedOnThisThread();
-  if (AVCaptureIsRunningInMediaserverd())
+  v3 = FigSimpleMutexCheckIsLockedOnThisThread();
+  if (AVCaptureIsRunningInMediaserverd(v3, v4))
   {
     if (FigFlashlightCreate())
     {
@@ -101,7 +103,7 @@ LABEL_8:
 
   else if (FigFlashlightRemoteCreate())
   {
-    v3 = 2;
+    v5 = 2;
     while (1)
     {
       usleep(0x3D090u);
@@ -110,24 +112,24 @@ LABEL_8:
         break;
       }
 
-      if (!--v3)
+      if (!--v5)
       {
         goto LABEL_8;
       }
     }
   }
 
-  v4 = [MEMORY[0x1E6987F48] notificationDispatcherForCMNotificationCenter:CMNotificationCenterGetDefaultLocalCenter()];
-  [v4 addListenerWithWeakReference:self->_internal->weakReference callback:avflashlightNotification name:*MEMORY[0x1E69909D0] object:self->_internal->flashlight flags:0];
-  [v4 addListenerWithWeakReference:self->_internal->weakReference callback:avflashlightNotification name:*MEMORY[0x1E69909E8] object:self->_internal->flashlight flags:0];
-  [v4 addListenerWithWeakReference:self->_internal->weakReference callback:avflashlightNotification name:*MEMORY[0x1E69909E0] object:self->_internal->flashlight flags:0];
-  [v4 addListenerWithWeakReference:self->_internal->weakReference callback:avflashlightNotification name:*MEMORY[0x1E69909D8] object:self->_internal->flashlight flags:0];
+  v6 = [MEMORY[0x1E6987F48] notificationDispatcherForCMNotificationCenter:CMNotificationCenterGetDefaultLocalCenter()];
+  [v6 addListenerWithWeakReference:self->_internal->weakReference callback:avflashlightNotification name:*MEMORY[0x1E69909D0] object:self->_internal->flashlight flags:0];
+  [v6 addListenerWithWeakReference:self->_internal->weakReference callback:avflashlightNotification name:*MEMORY[0x1E69909E8] object:self->_internal->flashlight flags:0];
+  [v6 addListenerWithWeakReference:self->_internal->weakReference callback:avflashlightNotification name:*MEMORY[0x1E69909E0] object:self->_internal->flashlight flags:0];
+  [v6 addListenerWithWeakReference:self->_internal->weakReference callback:avflashlightNotification name:*MEMORY[0x1E69909D8] object:self->_internal->flashlight flags:0];
   internal = self->_internal;
-  v6 = *MEMORY[0x1E69909F0];
+  v8 = *MEMORY[0x1E69909F0];
   weakReference = internal->weakReference;
   flashlight = internal->flashlight;
 
-  [v4 addListenerWithWeakReference:weakReference callback:avflashlightNotification name:v6 object:flashlight flags:0];
+  [v6 addListenerWithWeakReference:weakReference callback:avflashlightNotification name:v8 object:flashlight flags:0];
 }
 
 - (void)_teardownFlashlight
@@ -156,20 +158,20 @@ LABEL_8:
 {
   if (!+[AVFlashlight hasFlashlight])
   {
-    v11 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D920] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
+    v13 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D920] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
 
-    if (AVCaptureShouldThrowForAPIViolations())
+    if (AVCaptureShouldThrowForAPIViolations(v14, v15))
     {
-      objc_exception_throw(v11);
+      objc_exception_throw(v13);
     }
 
-    NSLog(&cfstr_SuppressingExc.isa, v11);
+    NSLog(&cfstr_SuppressingExc.isa, v13);
     return 0;
   }
 
-  v13.receiver = self;
-  v13.super_class = AVFlashlight;
-  v3 = [(AVFlashlight *)&v13 init];
+  v17.receiver = self;
+  v17.super_class = AVFlashlight;
+  v3 = [(AVFlashlight *)&v17 init];
   if (v3)
   {
     v3->_internal = objc_alloc_init(AVFlashlightInternal);
@@ -183,33 +185,33 @@ LABEL_8:
     flashlight = v3->_internal->flashlight;
     if (flashlight)
     {
-      v6 = *(*(CMBaseObjectGetVTable() + 16) + 72);
-      if (v6)
+      v7 = *(*(CMBaseObjectGetVTable() + 16) + 72);
+      if (v7)
       {
-        v6(flashlight);
+        v7(flashlight);
       }
     }
 
     v3->_internal->flashlightLevel = 0.0;
-    v3->_internal->minBeamWidth = AVGestaltGetFloatAnswer(@"AVGQTorchMinBeamWidth");
-    FloatAnswer = AVGestaltGetFloatAnswer(@"AVGQTorchMaxBeamWidth");
-    v8 = 0;
+    v3->_internal->minBeamWidth = AVGestaltGetFloatAnswer(@"AVGQTorchMinBeamWidth", v5);
+    FloatAnswer = AVGestaltGetFloatAnswer(@"AVGQTorchMaxBeamWidth", v8);
+    v10 = 0;
     v3->_internal->maxBeamWidth = FloatAnswer;
     internal = v3->_internal;
     if (internal->minBeamWidth > 0.0)
     {
-      v8 = internal->maxBeamWidth > 0.0;
+      v10 = internal->maxBeamWidth > 0.0;
     }
 
-    internal->beamWidthControlSupported = v8;
-    v10 = v3->_internal;
-    if (v10->beamWidthControlSupported && v10->minBeamWidth > v10->maxBeamWidth)
+    internal->beamWidthControlSupported = v10;
+    v12 = v3->_internal;
+    if (v12->beamWidthControlSupported && v12->minBeamWidth > v12->maxBeamWidth)
     {
-      v10->beamWidthControlSupported = 0;
-      v10 = v3->_internal;
+      v12->beamWidthControlSupported = 0;
+      v12 = v3->_internal;
     }
 
-    v10->beamWidth = v10->minBeamWidth;
+    v12->beamWidth = v12->minBeamWidth;
     FigSimpleMutexUnlock();
     if (!v3->_internal->flashlight)
     {
@@ -240,6 +242,8 @@ LABEL_8:
 {
   if (dword_1ED806880)
   {
+    v11 = 0;
+    v10 = 0;
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
@@ -279,6 +283,8 @@ LABEL_8:
 {
   if (dword_1ED806880)
   {
+    v20 = 0;
+    v19 = 0;
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
@@ -368,18 +374,20 @@ LABEL_24:
     {
       if (dword_1ED806880)
       {
+        v19 = 0;
+        v18 = 0;
         os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
         os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
         fig_log_call_emit_and_clean_up_after_send_and_compose();
       }
 
       FigSimpleMutexLock();
-      v11 = self->_internal;
-      if (v11->beamWidth != width && (flashlight = v11->flashlight) != 0 && (minBeamWidth = v11->minBeamWidth, maxBeamWidth = v11->maxBeamWidth, (v15 = *(*(CMBaseObjectGetVTable() + 16) + 56)) != 0))
+      v12 = self->_internal;
+      if (v12->beamWidth != width && (flashlight = v12->flashlight) != 0 && (minBeamWidth = v12->minBeamWidth, maxBeamWidth = v12->maxBeamWidth, (v16 = *(*(CMBaseObjectGetVTable() + 16) + 56)) != 0))
       {
-        v16 = v15(flashlight, (width - minBeamWidth) / (maxBeamWidth - minBeamWidth));
+        v17 = v16(flashlight, (width - minBeamWidth) / (maxBeamWidth - minBeamWidth));
         FigSimpleMutexUnlock();
-        if (!v16)
+        if (!v17)
         {
           [(AVFlashlight *)self willChangeValueForKey:@"beamWidth"];
           FigSimpleMutexLock();
@@ -408,7 +416,7 @@ LABEL_24:
   }
 
   v9 = [v7 exceptionWithName:v8 reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-  if (AVCaptureShouldThrowForAPIViolations())
+  if (AVCaptureShouldThrowForAPIViolations(v9, v10))
   {
     objc_exception_throw(v9);
   }
@@ -434,8 +442,8 @@ LABEL_24:
   beamWidth = internal->beamWidth;
   if ([notification isEqualToString:*MEMORY[0x1E69909D0]])
   {
-    v12 = [objc_msgSend(payload objectForKeyedSubscript:{*MEMORY[0x1E69909C8]), "BOOLValue"}];
-    if (v12)
+    bOOLValue = [objc_msgSend_objectForKeyedSubscript_(payload) BOOLValue];
+    if (bOOLValue)
     {
       v13 = flashlightLevel;
     }
@@ -450,8 +458,8 @@ LABEL_24:
 
   if ([notification isEqualToString:*MEMORY[0x1E69909E8]])
   {
-    v14 = [objc_msgSend(payload objectForKeyedSubscript:{*MEMORY[0x1E69909C8]), "BOOLValue"}];
-    v12 = available;
+    bOOLValue2 = [objc_msgSend_objectForKeyedSubscript_(payload) BOOLValue];
+    bOOLValue = available;
 LABEL_8:
     v13 = flashlightLevel;
     goto LABEL_9;
@@ -459,11 +467,11 @@ LABEL_8:
 
   if ([notification isEqualToString:*MEMORY[0x1E69909E0]])
   {
-    [objc_msgSend(payload objectForKeyedSubscript:{*MEMORY[0x1E69909C8]), "floatValue"}];
+    [objc_msgSend_objectForKeyedSubscript_(payload) floatValue];
     v13 = v16;
-    v12 = available;
+    bOOLValue = available;
 LABEL_5:
-    v14 = overheated;
+    bOOLValue2 = overheated;
 LABEL_9:
     v15 = beamWidth;
     goto LABEL_10;
@@ -471,15 +479,15 @@ LABEL_9:
 
   if (![notification isEqualToString:*MEMORY[0x1E69909D8]])
   {
-    v12 = available;
-    v14 = overheated;
+    bOOLValue = available;
+    bOOLValue2 = overheated;
     goto LABEL_8;
   }
 
-  [objc_msgSend(payload objectForKeyedSubscript:{*MEMORY[0x1E69909C8]), "floatValue"}];
+  [objc_msgSend_objectForKeyedSubscript_(payload) floatValue];
   v15 = self->_internal->minBeamWidth + (v17 * (self->_internal->maxBeamWidth - self->_internal->minBeamWidth));
-  v12 = available;
-  v14 = overheated;
+  bOOLValue = available;
+  bOOLValue2 = overheated;
   v13 = flashlightLevel;
 LABEL_10:
   FigSimpleMutexUnlock();
@@ -493,12 +501,12 @@ LABEL_10:
     [(AVFlashlight *)self willChangeValueForKey:@"beamWidth"];
   }
 
-  if (available != v12)
+  if (available != bOOLValue)
   {
     [(AVFlashlight *)self willChangeValueForKey:@"available"];
   }
 
-  if (overheated != v14)
+  if (overheated != bOOLValue2)
   {
     [(AVFlashlight *)self willChangeValueForKey:@"overheated"];
   }
@@ -506,15 +514,15 @@ LABEL_10:
   FigSimpleMutexLock();
   self->_internal->flashlightLevel = v13;
   self->_internal->beamWidth = v15;
-  self->_internal->available = v12;
-  self->_internal->overheated = v14;
+  self->_internal->available = bOOLValue;
+  self->_internal->overheated = bOOLValue2;
   FigSimpleMutexUnlock();
-  if (overheated != v14)
+  if (overheated != bOOLValue2)
   {
     [(AVFlashlight *)self didChangeValueForKey:@"overheated"];
   }
 
-  if (available != v12)
+  if (available != bOOLValue)
   {
     [(AVFlashlight *)self didChangeValueForKey:@"available"];
   }
@@ -556,44 +564,44 @@ LABEL_10:
   dispatch_async(self->_internal->serverReconnectQueue, v4);
 }
 
-uint64_t __34__AVFlashlight__reconnectToServer__block_invoke(uint64_t a1)
+uint64_t __34__AVFlashlight__reconnectToServer__block_invoke(uint64_t a1, uint64_t a2)
 {
   FigSimpleMutexLock();
   [*(a1 + 32) _teardownFlashlight];
   [*(a1 + 32) _setupFlashlight];
-  v2 = *(*(a1 + 32) + 8);
-  v3 = *(v2 + 16);
-  if (v3)
+  v3 = *(*(a1 + 32) + 8);
+  v4 = *(v3 + 16);
+  if (v4)
   {
-    v4 = *(v2 + 44);
-    if (v4 > 0.0)
+    v5 = *(v3 + 44);
+    if (v5 > 0.0)
     {
-      v5 = *(v2 + 36);
-      v6 = *(v2 + 40);
-      v7 = *(*(CMBaseObjectGetVTable() + 16) + 56);
-      if (v7)
+      v6 = *(v3 + 36);
+      v7 = *(v3 + 40);
+      v8 = *(*(CMBaseObjectGetVTable() + 16) + 56);
+      if (v8)
       {
-        v7(v3, (v4 - v5) / (v6 - v5));
+        v8(v4, (v5 - v6) / (v7 - v6));
       }
     }
 
-    v8 = *(*(a1 + 32) + 8);
-    v9 = *(v8 + 28);
-    if (v9 > 0.0)
+    v9 = *(*(a1 + 32) + 8);
+    v10 = *(v9 + 28);
+    if (v10 > 0.0)
     {
-      v10 = *(v8 + 16);
-      v11 = *(*(CMBaseObjectGetVTable() + 16) + 40);
-      if (v11)
+      v11 = *(v9 + 16);
+      v12 = *(*(CMBaseObjectGetVTable() + 16) + 40);
+      if (v12)
       {
-        v11(v10, v9);
+        v12(v11, v10);
       }
     }
 
-    v12 = *(*(*(a1 + 32) + 8) + 16);
-    v13 = *(*(CMBaseObjectGetVTable() + 16) + 72);
-    if (v13)
+    v13 = *(*(*(a1 + 32) + 8) + 16);
+    v14 = *(*(CMBaseObjectGetVTable() + 16) + 72);
+    if (v14)
     {
-      v13(v12);
+      v14(v13);
     }
   }
 

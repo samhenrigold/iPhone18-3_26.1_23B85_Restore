@@ -29,21 +29,21 @@
   v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:7];
   v16 = 0;
   v9 = SecItemCopyMatching(v8, &v16);
-  v10 = v9;
+  v11 = v9;
   if (v9 != -25300)
   {
     if (!v9)
     {
-      v11 = v16;
-      v12 = [v16 safari_mapAndFilterObjectsUsingBlock:&__block_literal_global_8];
+      v12 = v16;
+      v13 = [v16 safari_mapAndFilterObjectsUsingBlock:&__block_literal_global_8];
 
       goto LABEL_9;
     }
 
-    v13 = WBS_LOG_CHANNEL_PREFIXAutoFill();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v14 = WBS_LOG_CHANNEL_PREFIXAutoFill(v9, v10);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      [(SFSafariCreditCardStore *)v10 savedCreditCardsWithError:v13];
+      [(SFSafariCreditCardStore *)v11 savedCreditCardsWithError:v14];
     }
 
     if (error)
@@ -52,12 +52,10 @@
     }
   }
 
-  v12 = MEMORY[0x277CBEBF8];
+  v13 = MEMORY[0x277CBEBF8];
 LABEL_9:
 
-  v14 = *MEMORY[0x277D85DE8];
-
-  return v12;
+  return v13;
 }
 
 id __53__SFSafariCreditCardStore_savedCreditCardsWithError___block_invoke(uint64_t a1, uint64_t a2)
@@ -148,11 +146,10 @@ id __53__SFSafariCreditCardStore_savedCreditCardsWithError___block_invoke(uint64
 
 + (void)savedCreditCardsWithError:(int)a1 .cold.1(int a1, NSObject *a2)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v3[0] = 67109120;
-  v3[1] = a1;
-  _os_log_error_impl(&dword_26450F000, a2, OS_LOG_TYPE_ERROR, "SecItemCopyMatching failed with error %d", v3, 8u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v2[0] = 67109120;
+  v2[1] = a1;
+  _os_log_error_impl(&dword_26450F000, a2, OS_LOG_TYPE_ERROR, "SecItemCopyMatching failed with error %d", v2, 8u);
 }
 
 @end

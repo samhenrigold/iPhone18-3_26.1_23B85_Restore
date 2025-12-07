@@ -12,7 +12,7 @@
   imageCopy = image;
   self->_frameCount = [imageCopy frameCount];
   self->_loopCount = [imageCopy loopCount];
-  [imageCopy duration];
+  objc_msgSend_duration(imageCopy);
   self->_duration = v5;
   [imageCopy pixelSize];
   v7 = v6;

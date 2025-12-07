@@ -24,12 +24,12 @@
 
 - (BCSBusinessEmailItem)initWithEmail:(id)email localizedNames:(id)names
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   emailCopy = email;
   namesCopy = names;
-  v26.receiver = self;
-  v26.super_class = BCSBusinessEmailItem;
-  v8 = [(BCSItem *)&v26 init];
+  v25.receiver = self;
+  v25.super_class = BCSBusinessEmailItem;
+  v8 = [(BCSItem *)&v25 init];
   if (v8)
   {
     v9 = objc_alloc_init(BCSEmailMetadataParquetMessage);
@@ -37,31 +37,31 @@
     v8->_message = v9;
 
     [(BCSEmailMetadataParquetMessage *)v8->_message setKey:emailCopy];
-    v24 = 0u;
-    v25 = 0u;
-    v22 = 0u;
     v23 = 0u;
+    v24 = 0u;
+    v21 = 0u;
+    v22 = 0u;
     v11 = namesCopy;
-    v12 = [v11 countByEnumeratingWithState:&v22 objects:v27 count:16];
+    v12 = [v11 countByEnumeratingWithState:&v21 objects:v26 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v23;
+      v14 = *v22;
       do
       {
         v15 = 0;
         do
         {
-          if (*v23 != v14)
+          if (*v22 != v14)
           {
             objc_enumerationMutation(v11);
           }
 
-          [(BCSEmailMetadataParquetMessage *)v8->_message addName:*(*(&v22 + 1) + 8 * v15++), v22];
+          [(BCSEmailMetadataParquetMessage *)v8->_message addName:*(*(&v21 + 1) + 8 * v15++), v21];
         }
 
         while (v13 != v15);
-        v13 = [v11 countByEnumeratingWithState:&v22 objects:v27 count:16];
+        v13 = [v11 countByEnumeratingWithState:&v21 objects:v26 count:16];
       }
 
       while (v13);
@@ -74,84 +74,83 @@
     v8->_identifier = v18;
   }
 
-  v20 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
 - (BCSBusinessEmailItem)initWithEmail:(id)email localizedNames:(id)names localizedDisplayNames:(id)displayNames businessId:(id)id companyId:(id)companyId
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   emailCopy = email;
   namesCopy = names;
   displayNamesCopy = displayNames;
   idCopy = id;
   companyIdCopy = companyId;
-  v45.receiver = self;
-  v45.super_class = BCSBusinessEmailItem;
-  v17 = [(BCSItem *)&v45 init];
+  v44.receiver = self;
+  v44.super_class = BCSBusinessEmailItem;
+  v17 = [(BCSItem *)&v44 init];
   if (v17)
   {
     v18 = objc_alloc_init(BCSEmailMetadataParquetMessage);
     message = v17->_message;
     v17->_message = v18;
 
-    v36 = emailCopy;
+    v35 = emailCopy;
     [(BCSEmailMetadataParquetMessage *)v17->_message setKey:emailCopy];
-    v43 = 0u;
-    v44 = 0u;
-    v41 = 0u;
     v42 = 0u;
+    v43 = 0u;
+    v40 = 0u;
+    v41 = 0u;
     v20 = namesCopy;
-    v21 = [v20 countByEnumeratingWithState:&v41 objects:v47 count:16];
+    v21 = [v20 countByEnumeratingWithState:&v40 objects:v46 count:16];
     if (v21)
     {
       v22 = v21;
-      v23 = *v42;
+      v23 = *v41;
       do
       {
         v24 = 0;
         do
         {
-          if (*v42 != v23)
+          if (*v41 != v23)
           {
             objc_enumerationMutation(v20);
           }
 
-          [(BCSEmailMetadataParquetMessage *)v17->_message addName:*(*(&v41 + 1) + 8 * v24++)];
+          [(BCSEmailMetadataParquetMessage *)v17->_message addName:*(*(&v40 + 1) + 8 * v24++)];
         }
 
         while (v22 != v24);
-        v22 = [v20 countByEnumeratingWithState:&v41 objects:v47 count:16];
+        v22 = [v20 countByEnumeratingWithState:&v40 objects:v46 count:16];
       }
 
       while (v22);
     }
 
-    v39 = 0u;
-    v40 = 0u;
-    v37 = 0u;
     v38 = 0u;
+    v39 = 0u;
+    v36 = 0u;
+    v37 = 0u;
     v25 = displayNamesCopy;
-    v26 = [v25 countByEnumeratingWithState:&v37 objects:v46 count:16];
+    v26 = [v25 countByEnumeratingWithState:&v36 objects:v45 count:16];
     if (v26)
     {
       v27 = v26;
-      v28 = *v38;
+      v28 = *v37;
       do
       {
         v29 = 0;
         do
         {
-          if (*v38 != v28)
+          if (*v37 != v28)
           {
             objc_enumerationMutation(v25);
           }
 
-          [(BCSEmailMetadataParquetMessage *)v17->_message addDisplayName:*(*(&v37 + 1) + 8 * v29++)];
+          [(BCSEmailMetadataParquetMessage *)v17->_message addDisplayName:*(*(&v36 + 1) + 8 * v29++)];
         }
 
         while (v27 != v29);
-        v27 = [v25 countByEnumeratingWithState:&v37 objects:v46 count:16];
+        v27 = [v25 countByEnumeratingWithState:&v36 objects:v45 count:16];
       }
 
       while (v27);
@@ -165,10 +164,9 @@
     identifier = v17->_identifier;
     v17->_identifier = v32;
 
-    emailCopy = v36;
+    emailCopy = v35;
   }
 
-  v34 = *MEMORY[0x277D85DE8];
   return v17;
 }
 
@@ -196,7 +194,7 @@
 
 - (BCSBusinessEmailItem)initWithIdentifier:(id)identifier defaultsDictionary:(id)dictionary
 {
-  v19[1] = *MEMORY[0x277D85DE8];
+  v18[1] = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
   identifierCopy = identifier;
   v8 = objc_alloc_init(BCSEmailLocalizedString);
@@ -207,15 +205,14 @@
   [(BCSEmailLocalizedString *)v8 setIsDefault:1];
   email = [identifierCopy email];
 
-  v19[0] = v8;
-  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:1];
-  v18 = v8;
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:&v18 count:1];
+  v18[0] = v8;
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:1];
+  v17 = v8;
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:&v17 count:1];
   v13 = [dictionaryCopy objectForKeyedSubscript:@"businessId"];
   v14 = [dictionaryCopy objectForKeyedSubscript:@"companyId"];
 
   v15 = [(BCSBusinessEmailItem *)self initWithEmail:email localizedNames:v11 localizedDisplayNames:v12 businessId:v13 companyId:v14];
-  v16 = *MEMORY[0x277D85DE8];
   return v15;
 }
 

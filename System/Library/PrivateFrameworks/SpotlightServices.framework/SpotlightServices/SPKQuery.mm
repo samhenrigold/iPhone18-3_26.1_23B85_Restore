@@ -1,4 +1,5 @@
 @interface SPKQuery
+- (BOOL)sendEmptyResponseIfNecessaryForSourceKind:(int)kind;
 - (BOOL)shouldReturnEarly;
 - (NSArray)childQueries;
 - (NSString)unmodifiedUserQueryString;
@@ -108,7 +109,7 @@
 
 void __27__SPKQuery_responseHandler__block_invoke(uint64_t a1, void *a2)
 {
-  v72 = *MEMORY[0x1E69E9840];
+  v71 = *MEMORY[0x1E69E9840];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v5 = WeakRetained;
@@ -129,9 +130,9 @@ void __27__SPKQuery_responseHandler__block_invoke(uint64_t a1, void *a2)
       v11 = [v3 userQueryString];
       if (([v10 isEqualToString:v11] & 1) == 0)
       {
-        v43 = [v3 isRewrite];
+        v42 = [v3 isRewrite];
 
-        if ((v43 & 1) == 0)
+        if ((v42 & 1) == 0)
         {
           goto LABEL_29;
         }
@@ -142,50 +143,50 @@ void __27__SPKQuery_responseHandler__block_invoke(uint64_t a1, void *a2)
   }
 
 LABEL_8:
-  v46 = v5;
-  v47 = a1;
-  v48 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v45 = v5;
+  v46 = a1;
+  v47 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v48 = 0u;
   v49 = 0u;
   v50 = 0u;
   v51 = 0u;
-  v52 = 0u;
-  v45 = v3;
+  v44 = v3;
   v12 = [v3 sections];
-  v13 = [v12 countByEnumeratingWithState:&v49 objects:v71 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v48 objects:v70 count:16];
   if (v13)
   {
     v14 = v13;
     v15 = 0;
     v16 = 0;
-    v17 = *v50;
+    v17 = *v49;
     do
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v50 != v17)
+        if (*v49 != v17)
         {
           objc_enumerationMutation(v12);
         }
 
-        v19 = *(*(&v49 + 1) + 8 * i);
+        v19 = *(*(&v48 + 1) + 8 * i);
         v20 = [v19 bundleIdentifier];
 
         if (v20)
         {
           v21 = MEMORY[0x1E696AD98];
           v22 = [v19 results];
-          v23 = [v21 numberWithUnsignedInteger:{objc_msgSend(v22, "count")}];
+          v23 = [v21 numberWithUnsignedInteger:objc_msgSend_count(v22)];
           v24 = [v19 bundleIdentifier];
-          [v48 setObject:v23 forKeyedSubscript:v24];
+          [v47 setObject:v23 forKeyedSubscript:v24];
 
           v25 = [v19 results];
-          v15 += [v25 count];
+          v15 += objc_msgSend_count(v25);
 
           ++v16;
         }
       }
 
-      v14 = [v12 countByEnumeratingWithState:&v49 objects:v71 count:16];
+      v14 = [v12 countByEnumeratingWithState:&v48 objects:v70 count:16];
     }
 
     while (v14);
@@ -199,70 +200,69 @@ LABEL_8:
 
   [MEMORY[0x1E695DF00] timeIntervalSinceReferenceDate];
   v27 = v26;
-  [*(v47 + 32) startTime];
+  [*(v46 + 32) startTime];
   v29 = v28;
   v30 = SSGeneralLog();
-  v3 = v45;
+  v3 = v44;
   if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
   {
-    v44 = [v46 queryGroupId];
-    v31 = [v46 userQueryString];
-    v32 = [v46 queryContext];
+    v43 = [v45 queryGroupId];
+    v31 = [v45 userQueryString];
+    v32 = [v45 queryContext];
     v33 = SSRedactStringClient(v31, 0, [v32 isSearchToolClient]);
-    v34 = SPKStringFromSourceKind([v45 sourceKind]);
-    v35 = SPKStringFromResponseKind([v45 kind]);
-    v36 = [v45 topHitIsIn];
+    v34 = SPKStringFromSourceKind([v44 sourceKind]);
+    v35 = SPKStringFromResponseKind([v44 kind]);
+    v36 = [v44 topHitIsIn];
     *buf = 134220034;
-    v54 = v44;
-    v55 = 2112;
-    v56 = v33;
-    v57 = 2112;
-    v58 = v34;
-    v59 = 2112;
-    v60 = v35;
-    v61 = 2048;
-    v62 = (v27 - v29) * 1000.0;
-    v63 = 1024;
-    v64 = v36;
-    v65 = 2048;
-    v66 = v15;
-    v67 = 2048;
-    v68 = v16;
-    v69 = 2112;
-    v70 = v48;
+    v53 = v43;
+    v54 = 2112;
+    v55 = v33;
+    v56 = 2112;
+    v57 = v34;
+    v58 = 2112;
+    v59 = v35;
+    v60 = 2048;
+    v61 = (v27 - v29) * 1000.0;
+    v62 = 1024;
+    v63 = v36;
+    v64 = 2048;
+    v65 = v15;
+    v66 = 2048;
+    v67 = v16;
+    v68 = 2112;
+    v69 = v47;
     _os_log_impl(&dword_1D9F69000, v30, OS_LOG_TYPE_DEFAULT, "[qid=%lu][%@][%@][%@] Sending response (time=%.3fms) with topHitIsIn:%d #(total):%lu #(sections):%lu section:%@", buf, 0x58u);
   }
 
-  v5 = v46;
-  v37 = [v46 delegate];
+  v5 = v45;
+  v37 = [v45 delegate];
   v38 = objc_opt_respondsToSelector();
 
   if (v38)
   {
-    v39 = [v46 delegate];
-    [v39 delayResponse:v45 forQuery:v46];
+    v39 = [v45 delegate];
+    [v39 delayResponse:v44 forQuery:v45];
   }
 
-  v40 = [v45 kind];
+  v40 = [v44 kind];
   if (v40)
   {
     if (v40 == 6 || v40 == 4)
     {
-      [v46 _queryDidComplete];
+      [v45 _queryDidComplete];
     }
   }
 
   else
   {
-    [v46 setQueryState:6];
+    [v45 setQueryState:6];
   }
 
-  [*(v47 + 32) sendEndLocalSearchFeedback];
-  v41 = [v46 delegate];
-  [v41 queryTask:v46 gotResponse:v45];
+  [*(v46 + 32) sendEndLocalSearchFeedback];
+  v41 = [v45 delegate];
+  [v41 queryTask:v45 gotResponse:v44];
 
 LABEL_29:
-  v42 = *MEMORY[0x1E69E9840];
 }
 
 - (NSArray)childQueries
@@ -295,7 +295,7 @@ LABEL_29:
   searchDomains = [queryContext searchDomains];
 
   searchDomain = [objc_opt_class() searchDomain];
-  if ([searchDomains count])
+  if (objc_msgSend_count(searchDomains))
   {
     v5 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:searchDomain];
     v6 = [searchDomains containsObject:v5] ^ 1;
@@ -307,6 +307,56 @@ LABEL_29:
   }
 
   return v6;
+}
+
+- (BOOL)sendEmptyResponseIfNecessaryForSourceKind:(int)kind
+{
+  v4 = *&kind;
+  queryContext = [(SPKQuery *)self queryContext];
+  queryKind = [queryContext queryKind];
+
+  if (queryKind > 0xF || ((1 << queryKind) & 0xB000) == 0)
+  {
+    queryContext = [(SPKQuery *)self queryContext];
+    searchEntities = [queryContext searchEntities];
+    v9 = objc_msgSend_count(searchEntities) != 0;
+  }
+
+  else
+  {
+    v9 = 1;
+  }
+
+  if (queryKind > 0xF || ((1 << queryKind) & 0xB000) == 0)
+  {
+  }
+
+  if ([(NSString *)self->_trimmedUserQueryString length])
+  {
+    userQueryString = [(SPKQuery *)self userQueryString];
+    if ([userQueryString length])
+    {
+      userQueryString2 = [(SPKQuery *)self userQueryString];
+      v12 = [userQueryString2 UTF8String] != 0;
+
+      v9 |= v12;
+    }
+
+    else
+    {
+      v9 = 1;
+    }
+  }
+
+  v13 = ![(SPKQuery *)self shouldReturnEarly]& v9;
+  if ((v13 & 1) == 0)
+  {
+    v14 = [[SPKResponse alloc] initWithQueryID:[(SPKQuery *)self queryGroupId] sourceKind:v4 sections:0];
+    responseHandler = [(SPKQuery *)self responseHandler];
+    (responseHandler)[2](responseHandler, v14);
+  }
+
+  return v13 ^ 1;
 }
 
 - (void)sendStartLocalSearchFeedback
@@ -383,7 +433,7 @@ LABEL_18:
     if ([input length])
     {
       searchEntities2 = [queryContext searchEntities];
-      v30 = [searchEntities2 count];
+      v30 = objc_msgSend_count(searchEntities2);
 
       if (!v30 && (queryKind > 0x11 || ((1 << queryKind) & 0x27000) == 0))
       {
@@ -439,40 +489,39 @@ LABEL_19:
 
 - (void)cancel
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   [(SPKQuery *)self setQueryState:5];
-  v11 = 0u;
-  v12 = 0u;
-  v9 = 0u;
   v10 = 0u;
+  v11 = 0u;
+  v8 = 0u;
+  v9 = 0u;
   childQueries = [(SPKQuery *)self childQueries];
-  v4 = [childQueries countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v4 = [childQueries countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v10;
+    v6 = *v9;
     do
     {
       v7 = 0;
       do
       {
-        if (*v10 != v6)
+        if (*v9 != v6)
         {
           objc_enumerationMutation(childQueries);
         }
 
-        [*(*(&v9 + 1) + 8 * v7++) cancel];
+        [*(*(&v8 + 1) + 8 * v7++) cancel];
       }
 
       while (v5 != v7);
-      v5 = [childQueries countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v5 = [childQueries countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v5);
   }
 
   [(SPKQuery *)self sendEndLocalSearchFeedback];
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_queryWillStart

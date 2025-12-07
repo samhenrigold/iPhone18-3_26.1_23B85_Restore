@@ -26,7 +26,7 @@
   return [PAECompoundBlur properties]::sPropertiesDict;
 }
 
-uint64_t __29__PAECompoundBlur_properties__block_invoke()
+void *__29__PAECompoundBlur_properties__block_invoke()
 {
   v0 = objc_alloc(MEMORY[0x277CBEAC0]);
   v1 = [MEMORY[0x277CCABB0] numberWithBool:0];
@@ -114,7 +114,7 @@ uint64_t __29__PAECompoundBlur_properties__block_invoke()
   }
 
   v11 = v10;
-  [(PAESharedDefaultBase *)self getScaleForImage:input];
+  objc_msgSend_getScaleForImage_(self);
   v13 = v42;
   v12 = v43;
   if (v42 <= v43)
@@ -215,7 +215,7 @@ LABEL_25:
     {
       if (input)
       {
-        [input heliumRef];
+        objc_msgSend_heliumRef(input);
       }
 
       else
@@ -232,7 +232,7 @@ LABEL_25:
       [(PAESharedDefaultBase *)self getHeliumImage:&inputCopy layerOffsetX:0 layerOffsetY:0 requestInfo:v44 fromParm:2 atTime:info->var0.var1];
       if (inputCopy)
       {
-        [inputCopy heliumRef];
+        objc_msgSend_heliumRef(inputCopy);
       }
 
       else
@@ -271,7 +271,7 @@ LABEL_25:
 
   if (input)
   {
-    [input heliumRef];
+    objc_msgSend_heliumRef(input, __x);
   }
 
   else

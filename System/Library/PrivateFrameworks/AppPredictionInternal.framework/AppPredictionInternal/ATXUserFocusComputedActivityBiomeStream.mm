@@ -4,6 +4,7 @@
 - (id)initFromUserFocusComputedModeStream:(id)stream;
 - (id)sessionPublisherFromStartTime:(double)time;
 - (id)transitionPublisherFromStartTime:(double)time;
+- (id)transitionPublisherFromStartTime:(id)time endTime:(id)endTime maxEvents:(id)events lastN:(id)n reversed:(BOOL)reversed;
 @end
 
 @implementation ATXUserFocusComputedActivityBiomeStream
@@ -91,6 +92,14 @@ id __95__ATXUserFocusComputedActivityBiomeStream__transitionPublisherFromCompute
   v7 = [(ATXUserFocusComputedActivityBiomeStream *)self _transitionPublisherFromComputedModeStreamPublisher:v6];
 
   return v7;
+}
+
+- (id)transitionPublisherFromStartTime:(id)time endTime:(id)endTime maxEvents:(id)events lastN:(id)n reversed:(BOOL)reversed
+{
+  v8 = [(BMStream *)self->_computedModeStream atx_publisherWithStartTime:time endTime:endTime maxEvents:events lastN:n reversed:reversed];
+  v9 = [(ATXUserFocusComputedActivityBiomeStream *)self _transitionPublisherFromComputedModeStreamPublisher:v8];
+
+  return v9;
 }
 
 @end

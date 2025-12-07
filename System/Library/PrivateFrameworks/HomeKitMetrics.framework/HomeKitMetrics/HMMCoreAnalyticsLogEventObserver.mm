@@ -22,7 +22,7 @@
 
 - (void)observeEvent:(id)event
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -30,11 +30,11 @@
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v8 = HMFGetLogIdentifier();
-    v20 = 138543618;
-    v21 = v8;
-    v22 = 2114;
-    v23 = objc_opt_class();
-    _os_log_impl(&dword_22B074000, v7, OS_LOG_TYPE_INFO, "%{public}@[CA] Received event from dispatcher: %{public}@", &v20, 0x16u);
+    v19 = 138543618;
+    v20 = v8;
+    v21 = 2114;
+    v22 = objc_opt_class();
+    _os_log_impl(&dword_22B074000, v7, OS_LOG_TYPE_INFO, "%{public}@[CA] Received event from dispatcher: %{public}@", &v19, 0x16u);
   }
 
   objc_autoreleasePoolPop(v5);
@@ -70,51 +70,49 @@
       if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
       {
         v18 = HMFGetLogIdentifier();
-        v20 = 138543618;
-        v21 = v18;
-        v22 = 2114;
-        v23 = coreAnalyticsEventName;
-        _os_log_impl(&dword_22B074000, v17, OS_LOG_TYPE_DEBUG, "%{public}@Event %{public}@ is not submitted due to filtering.", &v20, 0x16u);
+        v19 = 138543618;
+        v20 = v18;
+        v21 = 2114;
+        v22 = coreAnalyticsEventName;
+        _os_log_impl(&dword_22B074000, v17, OS_LOG_TYPE_DEBUG, "%{public}@Event %{public}@ is not submitted due to filtering.", &v19, 0x16u);
       }
 
       objc_autoreleasePoolPop(v15);
     }
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)filterAcceptsEvent:(id)event
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   eventCopy = event;
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   filters = [(HMMCoreAnalyticsLogEventObserver *)self filters];
-  v6 = [filters countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [filters countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v14;
+    v8 = *v13;
     while (2)
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(filters);
         }
 
-        if (![*(*(&v13 + 1) + 8 * i) isEventInSample:eventCopy])
+        if (![*(*(&v12 + 1) + 8 * i) isEventInSample:eventCopy])
         {
           v10 = 0;
           goto LABEL_11;
         }
       }
 
-      v7 = [filters countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [filters countByEnumeratingWithState:&v12 objects:v16 count:16];
       if (v7)
       {
         continue;
@@ -127,13 +125,12 @@
   v10 = 1;
 LABEL_11:
 
-  v11 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
 - (id)dictionaryFromEvent:(id)event
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   coreAnalyticsEventDictionary = [eventCopy coreAnalyticsEventDictionary];
   v6 = [coreAnalyticsEventDictionary mutableCopy];
@@ -156,12 +153,12 @@ LABEL_11:
     }
 
     v13 = HMFGetLogIdentifier();
-    v19 = 138543874;
-    v20 = v13;
-    v21 = 2114;
-    v22 = objc_opt_class();
-    v23 = 2112;
-    v24 = v6;
+    v18 = 138543874;
+    v19 = v13;
+    v20 = 2114;
+    v21 = objc_opt_class();
+    v22 = 2112;
+    v23 = v6;
     v14 = v12;
     v15 = OS_LOG_TYPE_ERROR;
   }
@@ -174,17 +171,17 @@ LABEL_11:
     }
 
     v13 = HMFGetLogIdentifier();
-    v19 = 138543874;
-    v20 = v13;
-    v21 = 2114;
-    v22 = objc_opt_class();
-    v23 = 2112;
-    v24 = v6;
+    v18 = 138543874;
+    v19 = v13;
+    v20 = 2114;
+    v21 = objc_opt_class();
+    v22 = 2112;
+    v23 = v6;
     v14 = v12;
     v15 = OS_LOG_TYPE_DEBUG;
   }
 
-  _os_log_impl(&dword_22B074000, v14, v15, "%{public}@[CA] Submitting event: %{public}@/%@", &v19, 0x20u);
+  _os_log_impl(&dword_22B074000, v14, v15, "%{public}@[CA] Submitting event: %{public}@/%@", &v18, 0x20u);
 
 LABEL_7:
   objc_autoreleasePoolPop(v9);
@@ -192,14 +189,12 @@ LABEL_7:
   [(HMMCoreAnalyticsLogEventObserver *)selfCopy addHomeSummaryForLogEvent:eventCopy toEventDictionary:v6];
   v16 = [v6 copy];
 
-  v17 = *MEMORY[0x277D85DE8];
-
   return v16;
 }
 
 - (void)addErrorDetailsForLogEvent:(id)event toEventDictionary:(id)dictionary
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   dictionaryCopy = dictionary;
   error = [eventCopy error];
@@ -212,15 +207,15 @@ LABEL_7:
     {
       v12 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v40 = v12;
-      v41 = 2114;
-      v42 = objc_opt_class();
-      v43 = 2112;
-      v44 = error;
+      v39 = v12;
+      v40 = 2114;
+      v41 = objc_opt_class();
+      v42 = 2112;
+      v43 = error;
       _os_log_impl(&dword_22B074000, v11, OS_LOG_TYPE_INFO, "%{public}@[CA] Adding error details from %{public}@: %@", buf, 0x20u);
     }
 
-    v38 = eventCopy;
+    v37 = eventCopy;
 
     objc_autoreleasePoolPop(v9);
     domain = [error domain];
@@ -288,7 +283,7 @@ LABEL_7:
 
     v33 = MEMORY[0x277CCACA8];
     code = [error code];
-    eventCopy = v38;
+    eventCopy = v37;
     if (v16)
     {
       [v33 stringWithFormat:@"%@%zd(%ld)", domain, code, objc_msgSend(v16, "longValue")];
@@ -296,7 +291,7 @@ LABEL_7:
 
     else
     {
-      [v33 stringWithFormat:@"%@%zd", domain, code, v37];
+      [v33 stringWithFormat:@"%@%zd", domain, code, v36];
     }
     v35 = ;
     [dictionaryCopy setObject:v35 forKeyedSubscript:@"error"];
@@ -307,13 +302,11 @@ LABEL_7:
   {
     [dictionaryCopy setObject:&unk_283EF3D20 forKeyedSubscript:@"errorCode"];
   }
-
-  v36 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addAccessoryDetailsForLogEvent:(id)event toEventDictionary:(id)dictionary
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   dictionaryCopy = dictionary;
   if (([eventCopy coreAnalyticsEventOptions] & 4) != 0)
@@ -345,23 +338,21 @@ LABEL_7:
       if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
         v16 = HMFGetLogIdentifier();
-        v18 = 138543618;
-        v19 = v16;
-        v20 = 2114;
-        v21 = objc_opt_class();
-        _os_log_impl(&dword_22B074000, v15, OS_LOG_TYPE_ERROR, "%{public}@Core Analytics event uses accessory identifier but doesn't define accessoryIdentifier property: %{public}@", &v18, 0x16u);
+        v17 = 138543618;
+        v18 = v16;
+        v19 = 2114;
+        v20 = objc_opt_class();
+        _os_log_impl(&dword_22B074000, v15, OS_LOG_TYPE_ERROR, "%{public}@Core Analytics event uses accessory identifier but doesn't define accessoryIdentifier property: %{public}@", &v17, 0x16u);
       }
 
       objc_autoreleasePoolPop(v13);
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addHomeSummaryForLogEvent:(id)event toEventDictionary:(id)dictionary
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   dictionaryCopy = dictionary;
   delegate = [(HMMCoreAnalyticsLogEventObserver *)self delegate];
@@ -390,29 +381,27 @@ LABEL_7:
       if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
         v14 = HMFGetLogIdentifier();
-        v16 = 138543618;
-        v17 = v14;
-        v18 = 2114;
-        v19 = objc_opt_class();
-        _os_log_impl(&dword_22B074000, v13, OS_LOG_TYPE_ERROR, "%{public}@Core Analytics event uses home UUID but doesn't define homeUUID property: %{public}@", &v16, 0x16u);
+        v15 = 138543618;
+        v16 = v14;
+        v17 = 2114;
+        v18 = objc_opt_class();
+        _os_log_impl(&dword_22B074000, v13, OS_LOG_TYPE_ERROR, "%{public}@Core Analytics event uses home UUID but doesn't define homeUUID property: %{public}@", &v15, 0x16u);
       }
 
       objc_autoreleasePoolPop(v11);
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (HMMCoreAnalyticsLogEventObserver)initWithDelegate:(id)delegate filters:(id)filters submissionBlock:(id)block
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   delegateCopy = delegate;
   filtersCopy = filters;
   blockCopy = block;
-  v28.receiver = self;
-  v28.super_class = HMMCoreAnalyticsLogEventObserver;
-  v11 = [(HMMCoreAnalyticsLogEventObserver *)&v28 init];
+  v27.receiver = self;
+  v27.super_class = HMMCoreAnalyticsLogEventObserver;
+  v11 = [(HMMCoreAnalyticsLogEventObserver *)&v27 init];
   v12 = v11;
   if (v11)
   {
@@ -425,38 +414,37 @@ LABEL_7:
     submissionBlock = v12->_submissionBlock;
     v12->_submissionBlock = v15;
 
-    v26 = 0u;
-    v27 = 0u;
-    v24 = 0u;
     v25 = 0u;
+    v26 = 0u;
+    v23 = 0u;
+    v24 = 0u;
     v17 = filtersCopy;
-    v18 = [v17 countByEnumeratingWithState:&v24 objects:v29 count:16];
+    v18 = [v17 countByEnumeratingWithState:&v23 objects:v28 count:16];
     if (v18)
     {
       v19 = v18;
-      v20 = *v25;
+      v20 = *v24;
       do
       {
         v21 = 0;
         do
         {
-          if (*v25 != v20)
+          if (*v24 != v20)
           {
             objc_enumerationMutation(v17);
           }
 
-          [(NSHashTable *)v12->_filters addObject:*(*(&v24 + 1) + 8 * v21++), v24];
+          [(NSHashTable *)v12->_filters addObject:*(*(&v23 + 1) + 8 * v21++), v23];
         }
 
         while (v19 != v21);
-        v19 = [v17 countByEnumeratingWithState:&v24 objects:v29 count:16];
+        v19 = [v17 countByEnumeratingWithState:&v23 objects:v28 count:16];
       }
 
       while (v19);
     }
   }
 
-  v22 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
@@ -474,7 +462,7 @@ LABEL_7:
 
 void __61__HMMCoreAnalyticsLogEventObserver_initWithDelegate_filters___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if ((AnalyticsSendEventLazy() & 1) == 0)
@@ -486,16 +474,14 @@ void __61__HMMCoreAnalyticsLogEventObserver_initWithDelegate_filters___block_inv
     {
       v10 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v13 = v10;
-      v14 = 2114;
-      v15 = v5;
+      v12 = v10;
+      v13 = 2114;
+      v14 = v5;
       _os_log_impl(&dword_22B074000, v9, OS_LOG_TYPE_DEBUG, "%{public}@Event %{public}@ was not in the CoreAnalytics config and was dropped", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v7);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 + (id)logCategory
@@ -512,7 +498,6 @@ void __61__HMMCoreAnalyticsLogEventObserver_initWithDelegate_filters___block_inv
 
 uint64_t __47__HMMCoreAnalyticsLogEventObserver_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
   logCategory__hmf_once_v10_765 = HMFCreateOSLogHandle();
 
   return MEMORY[0x2821F96F8]();

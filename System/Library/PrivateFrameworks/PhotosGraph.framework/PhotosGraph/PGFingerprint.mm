@@ -223,7 +223,7 @@ void __108__PGFingerprint_momentNodeFingerprintsDataFrameWithVersion_forMomentNo
 
 + (id)assetCollectionFingerprintsDataframeWithVersion:(int64_t)version forAssetCollections:(id)collections withGraph:(id)graph withTransformers:(id)transformers progressReporter:(id)reporter error:(id *)error
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   collectionsCopy = collections;
   graphCopy = graph;
   transformersCopy = transformers;
@@ -233,42 +233,42 @@ void __108__PGFingerprint_momentNodeFingerprintsDataFrameWithVersion_forMomentNo
     v18 = [PGFingerprintVersionHelper featureExtractorForFingerprintVersion:version withGraph:graphCopy withTransformers:transformersCopy error:error];
     if (v18)
     {
-      v29 = reporterCopy;
+      v28 = reporterCopy;
       v19 = objc_alloc_init(MEMORY[0x277CBEB18]);
+      v30 = 0u;
       v31 = 0u;
       v32 = 0u;
       v33 = 0u;
-      v34 = 0u;
-      v30 = collectionsCopy;
+      v29 = collectionsCopy;
       v20 = collectionsCopy;
-      v21 = [v20 countByEnumeratingWithState:&v31 objects:v35 count:16];
+      v21 = [v20 countByEnumeratingWithState:&v30 objects:v34 count:16];
       if (v21)
       {
         v22 = v21;
-        v23 = *v32;
+        v23 = *v31;
         do
         {
           for (i = 0; i != v22; ++i)
           {
-            if (*v32 != v23)
+            if (*v31 != v23)
             {
               objc_enumerationMutation(v20);
             }
 
-            localIdentifier = [*(*(&v31 + 1) + 8 * i) localIdentifier];
+            localIdentifier = [*(*(&v30 + 1) + 8 * i) localIdentifier];
             [v19 addObject:localIdentifier];
           }
 
-          v22 = [v20 countByEnumeratingWithState:&v31 objects:v35 count:16];
+          v22 = [v20 countByEnumeratingWithState:&v30 objects:v34 count:16];
         }
 
         while (v22);
       }
 
-      reporterCopy = v29;
-      error = [v18 featureVectorsWithEntities:v20 entityLabels:v19 progressReporter:v29 error:error];
+      reporterCopy = v28;
+      error = [v18 featureVectorsWithEntities:v20 entityLabels:v19 progressReporter:v28 error:error];
 
-      collectionsCopy = v30;
+      collectionsCopy = v29;
     }
 
     else
@@ -285,34 +285,32 @@ void __108__PGFingerprint_momentNodeFingerprintsDataFrameWithVersion_forMomentNo
     error = 0;
   }
 
-  v26 = *MEMORY[0x277D85DE8];
-
   return error;
 }
 
 + (id)assetCollectionFingerprintsWithVersion:(int64_t)version forAssetCollections:(id)collections withGraph:(id)graph withTransformers:(id)transformers error:(id *)error
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   collectionsCopy = collections;
   graphCopy = graph;
   transformersCopy = transformers;
   if ([PGFingerprintVersionHelper isMomentFingerprintVersion:version]|| [PGFingerprintVersionHelper isMemoryFingerprintVersion:version])
   {
     errorCopy = error;
-    v31 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    v30 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    v35 = 0u;
     v36 = 0u;
     v37 = 0u;
     v38 = 0u;
-    v39 = 0u;
-    v29 = collectionsCopy;
+    v28 = collectionsCopy;
     obj = collectionsCopy;
-    v12 = [obj countByEnumeratingWithState:&v36 objects:v40 count:16];
+    v12 = [obj countByEnumeratingWithState:&v35 objects:v39 count:16];
     if (v12)
     {
       v13 = v12;
       v14 = 0;
       v15 = 0;
-      v16 = *v37;
+      v16 = *v36;
       do
       {
         v17 = 0;
@@ -320,21 +318,21 @@ void __108__PGFingerprint_momentNodeFingerprintsDataFrameWithVersion_forMomentNo
         v19 = v15;
         do
         {
-          if (*v37 != v16)
+          if (*v36 != v16)
           {
             objc_enumerationMutation(obj);
           }
 
-          v20 = *(*(&v36 + 1) + 8 * v17);
+          v20 = *(*(&v35 + 1) + 8 * v17);
           v21 = objc_autoreleasePoolPush();
-          v35 = v19;
-          v14 = [self assetCollectionFingerprintWithVersion:version forAssetCollection:v20 withGraph:graphCopy withTransformers:transformersCopy error:&v35];
-          v15 = v35;
+          v34 = v19;
+          v14 = [self assetCollectionFingerprintWithVersion:version forAssetCollection:v20 withGraph:graphCopy withTransformers:transformersCopy error:&v34];
+          v15 = v34;
 
           if (v14)
           {
             localIdentifier = [v20 localIdentifier];
-            [v31 setObject:v14 forKeyedSubscript:localIdentifier];
+            [v30 setObject:v14 forKeyedSubscript:localIdentifier];
           }
 
           objc_autoreleasePoolPop(v21);
@@ -344,7 +342,7 @@ void __108__PGFingerprint_momentNodeFingerprintsDataFrameWithVersion_forMomentNo
         }
 
         while (v13 != v17);
-        v13 = [obj countByEnumeratingWithState:&v36 objects:v40 count:16];
+        v13 = [obj countByEnumeratingWithState:&v35 objects:v39 count:16];
       }
 
       while (v13);
@@ -356,9 +354,9 @@ void __108__PGFingerprint_momentNodeFingerprintsDataFrameWithVersion_forMomentNo
       v15 = 0;
     }
 
-    if ([v31 count] || !v15)
+    if ([v30 count] || !v15)
     {
-      v24 = v31;
+      v24 = v30;
     }
 
     else if (errorCopy)
@@ -373,7 +371,7 @@ void __108__PGFingerprint_momentNodeFingerprintsDataFrameWithVersion_forMomentNo
       v24 = 0;
     }
 
-    collectionsCopy = v29;
+    collectionsCopy = v28;
   }
 
   else
@@ -386,8 +384,6 @@ void __108__PGFingerprint_momentNodeFingerprintsDataFrameWithVersion_forMomentNo
 
     v24 = 0;
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 
   return v24;
 }
@@ -462,7 +458,7 @@ LABEL_12:
 
 + (id)assetFingerprintsDataframeWithVersion:(int64_t)version forAssets:(id)assets withGraph:(id)graph withTransformers:(id)transformers progressReporter:(id)reporter error:(id *)error
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   assetsCopy = assets;
   graphCopy = graph;
   transformersCopy = transformers;
@@ -472,33 +468,33 @@ LABEL_12:
     v18 = [PGFingerprintVersionHelper featureExtractorForFingerprintVersion:version withGraph:graphCopy withTransformers:transformersCopy error:error];
     if (v18)
     {
-      v29 = graphCopy;
+      v28 = graphCopy;
       v19 = objc_alloc_init(MEMORY[0x277CBEB18]);
+      v30 = 0u;
       v31 = 0u;
       v32 = 0u;
       v33 = 0u;
-      v34 = 0u;
-      v30 = assetsCopy;
+      v29 = assetsCopy;
       v20 = assetsCopy;
-      v21 = [v20 countByEnumeratingWithState:&v31 objects:v35 count:16];
+      v21 = [v20 countByEnumeratingWithState:&v30 objects:v34 count:16];
       if (v21)
       {
         v22 = v21;
-        v23 = *v32;
+        v23 = *v31;
         do
         {
           for (i = 0; i != v22; ++i)
           {
-            if (*v32 != v23)
+            if (*v31 != v23)
             {
               objc_enumerationMutation(v20);
             }
 
-            localIdentifier = [*(*(&v31 + 1) + 8 * i) localIdentifier];
+            localIdentifier = [*(*(&v30 + 1) + 8 * i) localIdentifier];
             [v19 addObject:localIdentifier];
           }
 
-          v22 = [v20 countByEnumeratingWithState:&v31 objects:v35 count:16];
+          v22 = [v20 countByEnumeratingWithState:&v30 objects:v34 count:16];
         }
 
         while (v22);
@@ -506,8 +502,8 @@ LABEL_12:
 
       error = [v18 featureVectorsWithEntities:v20 entityLabels:v19 progressReporter:reporterCopy error:error];
 
-      graphCopy = v29;
-      assetsCopy = v30;
+      graphCopy = v28;
+      assetsCopy = v29;
     }
 
     else
@@ -524,54 +520,52 @@ LABEL_12:
     error = 0;
   }
 
-  v27 = *MEMORY[0x277D85DE8];
-
   return error;
 }
 
 + (id)assetFingerprintsWithVersion:(int64_t)version forAssets:(id)assets withGraph:(id)graph withTransformers:(id)transformers error:(id *)error
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   assetsCopy = assets;
   graphCopy = graph;
   transformersCopy = transformers;
   if ([PGFingerprintVersionHelper isAssetFingerprintVersion:version])
   {
     errorCopy = error;
-    v31 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    v30 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    v34 = 0u;
     v35 = 0u;
     v36 = 0u;
     v37 = 0u;
-    v38 = 0u;
-    v29 = assetsCopy;
+    v28 = assetsCopy;
     obj = assetsCopy;
-    v13 = [obj countByEnumeratingWithState:&v35 objects:v39 count:16];
+    v13 = [obj countByEnumeratingWithState:&v34 objects:v38 count:16];
     if (v13)
     {
       v14 = v13;
       v15 = 0;
-      v16 = *v36;
+      v16 = *v35;
       do
       {
         v17 = 0;
         v18 = v15;
         do
         {
-          if (*v36 != v16)
+          if (*v35 != v16)
           {
             objc_enumerationMutation(obj);
           }
 
-          v19 = *(*(&v35 + 1) + 8 * v17);
+          v19 = *(*(&v34 + 1) + 8 * v17);
           v20 = objc_autoreleasePoolPush();
-          v34 = v18;
-          v21 = [self assetFingerprintWithVersion:version forAsset:v19 withGraph:graphCopy withTransformers:transformersCopy error:&v34];
-          v15 = v34;
+          v33 = v18;
+          v21 = [self assetFingerprintWithVersion:version forAsset:v19 withGraph:graphCopy withTransformers:transformersCopy error:&v33];
+          v15 = v33;
 
           if (v21)
           {
             localIdentifier = [v19 localIdentifier];
-            [v31 setObject:v21 forKeyedSubscript:localIdentifier];
+            [v30 setObject:v21 forKeyedSubscript:localIdentifier];
           }
 
           objc_autoreleasePoolPop(v20);
@@ -580,7 +574,7 @@ LABEL_12:
         }
 
         while (v14 != v17);
-        v14 = [obj countByEnumeratingWithState:&v35 objects:v39 count:16];
+        v14 = [obj countByEnumeratingWithState:&v34 objects:v38 count:16];
       }
 
       while (v14);
@@ -591,9 +585,9 @@ LABEL_12:
       v15 = 0;
     }
 
-    if ([v31 count] || !v15)
+    if ([v30 count] || !v15)
     {
-      v24 = v31;
+      v24 = v30;
     }
 
     else if (errorCopy)
@@ -608,7 +602,7 @@ LABEL_12:
       v24 = 0;
     }
 
-    assetsCopy = v29;
+    assetsCopy = v28;
   }
 
   else
@@ -621,8 +615,6 @@ LABEL_12:
 
     v24 = 0;
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 
   return v24;
 }

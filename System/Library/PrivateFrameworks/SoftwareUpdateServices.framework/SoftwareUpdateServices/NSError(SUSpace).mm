@@ -23,7 +23,7 @@
 
 + (id)spaceErrorWithAdditionalSpaceRequired:()SUSpace originalError:
 {
-  v18[1] = *MEMORY[0x277D85DE8];
+  v17[1] = *MEMORY[0x277D85DE8];
   v5 = a4;
   domain = [v5 domain];
   if (![domain isEqualToString:@"com.apple.softwareupdateservices.errors"])
@@ -51,17 +51,15 @@ LABEL_6:
 
     if (!v11)
     {
-      v17 = @"SUAdditionalSpaceRequired";
+      v16 = @"SUAdditionalSpaceRequired";
       v12 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:a3];
-      v18[0] = v12;
-      v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:&v17 count:1];
+      v17[0] = v12;
+      v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:&v16 count:1];
       v14 = [SUUtility updateError:v9 withAdditionalUserInfo:v13];
 
       v9 = v14;
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v9;
 }

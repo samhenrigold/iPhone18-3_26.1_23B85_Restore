@@ -10,94 +10,99 @@
 
 - (void)registerResultBlock:(id)block
 {
-  currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-  [currentHandler handleFailureInMethod:a2 object:self file:@"CUTPromise.m" lineNumber:168 description:@"CUTPromise is abstract and should never be created"];
+  v6 = objc_msgSend_currentHandler(MEMORY[0x1E696AAA8], a2, block);
+  objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v6, v5, a2, self, @"CUTPromise.m", 168, @"CUTPromise is abstract and should never be created");
 }
 
 + (id)failedPromiseWithError:(id)error
 {
   errorCopy = error;
   v4 = [_CUTStaticPromise alloc];
-  v5 = [[CUTResult alloc] initWithError:errorCopy];
+  v5 = [CUTResult alloc];
+  v7 = objc_msgSend_initWithError_(v5, v6, errorCopy);
 
-  v6 = [(_CUTStaticPromise *)v4 initWithResult:v5 safe:1];
+  v9 = objc_msgSend_initWithResult_safe_(v4, v8, v7, 1);
 
-  return v6;
+  return v9;
 }
 
 + (id)fulfilledPromiseWithValue:(id)value
 {
   valueCopy = value;
   v4 = [_CUTStaticPromise alloc];
-  v5 = [[CUTResult alloc] initWithSuccess:valueCopy];
+  v5 = [CUTResult alloc];
+  v7 = objc_msgSend_initWithSuccess_(v5, v6, valueCopy);
 
-  v6 = [(_CUTStaticPromise *)v4 initWithResult:v5 safe:1];
+  v9 = objc_msgSend_initWithResult_safe_(v4, v8, v7, 1);
 
-  return v6;
+  return v9;
 }
 
 + (id)all:(id)all
 {
   allCopy = all;
   v4 = objc_alloc_init(_CUTLockingPromise);
-  lock = [(_CUTLockingPromise *)v4 lock];
-  v6 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(allCopy, "count")}];
-  if ([allCopy count])
+  v7 = objc_msgSend_lock(v4, v5, v6);
+  v8 = objc_alloc(MEMORY[0x1E695DF70]);
+  v11 = objc_msgSend_count(allCopy, v9, v10);
+  v13 = objc_msgSend_initWithCapacity_(v8, v12, v11);
+  if (objc_msgSend_count(allCopy, v14, v15))
   {
-    v7 = 0;
+    v18 = 0;
     do
     {
-      null = [MEMORY[0x1E695DFB0] null];
-      [v6 addObject:null];
+      v19 = objc_msgSend_null(MEMORY[0x1E695DFB0], v16, v17);
+      objc_msgSend_addObject_(v13, v20, v19);
 
-      ++v7;
+      ++v18;
     }
 
-    while ([allCopy count] > v7);
+    while (objc_msgSend_count(allCopy, v21, v22) > v18);
   }
 
-  v26 = 0;
-  v27 = &v26;
-  v28 = 0x2020000000;
-  v29 = 0;
-  v24[0] = 0;
-  v24[1] = v24;
-  v24[2] = 0x2020000000;
-  v25 = 0;
-  if (![allCopy count])
+  v50 = 0;
+  v51 = &v50;
+  v52 = 0x2020000000;
+  v53 = 0;
+  v48[0] = 0;
+  v48[1] = v48;
+  v48[2] = 0x2020000000;
+  v49 = 0;
+  if (!objc_msgSend_count(allCopy, v16, v17))
   {
-    v9 = [[CUTResult alloc] initWithSuccess:v6];
-    [(_CUTLockingPromise *)v4 _fulfillWithResult:v9];
+    v25 = [CUTResult alloc];
+    v27 = objc_msgSend_initWithSuccess_(v25, v26, v13);
+    objc_msgSend__fulfillWithResult_(v4, v28, v27);
 
-    *(v27 + 24) = 1;
+    *(v51 + 24) = 1;
   }
 
-  for (i = 0; [allCopy count] > i; ++i)
+  for (i = 0; objc_msgSend_count(allCopy, v23, v24) > i; ++i)
   {
-    v11 = [allCopy objectAtIndexedSubscript:i];
+    v31 = objc_msgSend_objectAtIndexedSubscript_(allCopy, v30, i);
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
-      currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-      [currentHandler handleFailureInMethod:a2 object:self file:@"CUTPromise.m" lineNumber:195 description:{@"Invalid parameter not satisfying: %@", @"[promise isKindOfClass:[CUTPromise class]]"}];
+      v38 = objc_msgSend_currentHandler(MEMORY[0x1E696AAA8], v32, v33);
+      objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v38, v36, a2, self, @"CUTPromise.m", 195, @"Invalid parameter not satisfying: %@", @"[promise isKindOfClass:[CUTPromise class]]");
     }
 
-    v17[0] = MEMORY[0x1E69E9820];
-    v17[1] = 3221225472;
-    v17[2] = sub_1B232EFB0;
-    v17[3] = &unk_1E7B21150;
-    v18 = lock;
-    v21 = &v26;
-    v19 = v4;
-    v12 = v6;
-    v23 = i;
-    v20 = v12;
-    v22 = v24;
-    [v11 registerResultBlock:v17];
+    v41[0] = MEMORY[0x1E69E9820];
+    v41[1] = 3221225472;
+    v41[2] = sub_1B232EFB0;
+    v41[3] = &unk_1E7B21150;
+    v42 = v7;
+    v45 = &v50;
+    v43 = v4;
+    v34 = v13;
+    v47 = i;
+    v44 = v34;
+    v46 = v48;
+    objc_msgSend_registerResultBlock_(v31, v35, v41);
   }
 
-  _Block_object_dispose(v24, 8);
-  _Block_object_dispose(&v26, 8);
+  _Block_object_dispose(v48, 8);
+  _Block_object_dispose(&v50, 8);
 
   return v4;
 }
@@ -106,56 +111,59 @@
 {
   successesCopy = successes;
   v4 = objc_alloc_init(_CUTLockingPromise);
-  lock = [(_CUTLockingPromise *)v4 lock];
-  v6 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(successesCopy, "count")}];
-  if ([successesCopy count])
+  v7 = objc_msgSend_lock(v4, v5, v6);
+  v8 = objc_alloc(MEMORY[0x1E695DF70]);
+  v11 = objc_msgSend_count(successesCopy, v9, v10);
+  v13 = objc_msgSend_initWithCapacity_(v8, v12, v11);
+  if (objc_msgSend_count(successesCopy, v14, v15))
   {
-    v7 = 0;
+    v18 = 0;
     do
     {
-      null = [MEMORY[0x1E695DFB0] null];
-      [v6 addObject:null];
+      v19 = objc_msgSend_null(MEMORY[0x1E695DFB0], v16, v17);
+      objc_msgSend_addObject_(v13, v20, v19);
 
-      ++v7;
+      ++v18;
     }
 
-    while ([successesCopy count] > v7);
+    while (objc_msgSend_count(successesCopy, v21, v22) > v18);
   }
 
-  v23[0] = 0;
-  v23[1] = v23;
-  v23[2] = 0x2020000000;
-  v24 = 0;
-  if (![successesCopy count])
+  v47[0] = 0;
+  v47[1] = v47;
+  v47[2] = 0x2020000000;
+  v48 = 0;
+  if (!objc_msgSend_count(successesCopy, v16, v17))
   {
-    v9 = [[CUTResult alloc] initWithSuccess:v6];
-    [(_CUTLockingPromise *)v4 _fulfillWithResult:v9];
+    v25 = [CUTResult alloc];
+    v27 = objc_msgSend_initWithSuccess_(v25, v26, v13);
+    objc_msgSend__fulfillWithResult_(v4, v28, v27);
   }
 
-  for (i = 0; [successesCopy count] > i; ++i)
+  for (i = 0; objc_msgSend_count(successesCopy, v23, v24) > i; ++i)
   {
-    v11 = [successesCopy objectAtIndexedSubscript:i];
+    v31 = objc_msgSend_objectAtIndexedSubscript_(successesCopy, v30, i);
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
-      currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-      [currentHandler handleFailureInMethod:a2 object:self file:@"CUTPromise.m" lineNumber:232 description:{@"Invalid parameter not satisfying: %@", @"[promise isKindOfClass:[CUTPromise class]]"}];
+      v38 = objc_msgSend_currentHandler(MEMORY[0x1E696AAA8], v32, v33);
+      objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v38, v36, a2, self, @"CUTPromise.m", 232, @"Invalid parameter not satisfying: %@", @"[promise isKindOfClass:[CUTPromise class]]");
     }
 
-    v17[0] = MEMORY[0x1E69E9820];
-    v17[1] = 3221225472;
-    v17[2] = sub_1B232F3B0;
-    v17[3] = &unk_1E7B21178;
-    v18 = lock;
-    v12 = v6;
-    v22 = i;
-    v19 = v12;
-    v21 = v23;
-    v20 = v4;
-    [v11 registerResultBlock:v17];
+    v41[0] = MEMORY[0x1E69E9820];
+    v41[1] = 3221225472;
+    v41[2] = sub_1B232F3B0;
+    v41[3] = &unk_1E7B21178;
+    v42 = v7;
+    v34 = v13;
+    v46 = i;
+    v43 = v34;
+    v45 = v47;
+    v44 = v4;
+    objc_msgSend_registerResultBlock_(v31, v35, v41);
   }
 
-  _Block_object_dispose(v23, 8);
+  _Block_object_dispose(v47, 8);
 
   return v4;
 }

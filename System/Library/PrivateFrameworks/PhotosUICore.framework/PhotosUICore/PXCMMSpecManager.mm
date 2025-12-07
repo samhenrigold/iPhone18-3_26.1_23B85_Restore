@@ -8,7 +8,7 @@
 - (id)createSpec
 {
   extendedTraitCollection = [(PXFeatureSpecManager *)self extendedTraitCollection];
-  v4 = [[PXCMMSpec alloc] initWithExtendedTraitCollection:extendedTraitCollection options:[(PXFeatureSpecManager *)self options] activityType:[(PXCMMSpecManager *)self activityType]];
+  v4 = [[PXCMMSpec alloc] initWithExtendedTraitCollection:extendedTraitCollection options:objc_msgSend_options(self) activityType:[(PXCMMSpecManager *)self activityType]];
 
   return v4;
 }

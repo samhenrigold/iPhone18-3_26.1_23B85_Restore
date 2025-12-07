@@ -12,6 +12,8 @@
 - (void)setImagePosition:(int64_t)position;
 - (void)setReversesActions:(BOOL)actions;
 - (void)setSystemInteractionStartIndex:(unint64_t)index;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation SBUIActionPlatterViewController
@@ -67,7 +69,7 @@
 
 - (void)loadView
 {
-  v62 = *MEMORY[0x277D85DE8];
+  v61 = *MEMORY[0x277D85DE8];
   v3 = 0x277D75000uLL;
   v4 = objc_alloc(MEMORY[0x277D75D18]);
   v5 = *MEMORY[0x277CBF3A0];
@@ -88,34 +90,34 @@
     }
 
     imagePosition = [(SBUIActionPlatterViewController *)self imagePosition];
+    v56 = 0u;
     v57 = 0u;
     v58 = 0u;
     v59 = 0u;
-    v60 = 0u;
     actions = actions;
-    v15 = [actions countByEnumeratingWithState:&v57 objects:v61 count:16];
+    v15 = [actions countByEnumeratingWithState:&v56 objects:v60 count:16];
     if (v15)
     {
       v16 = v15;
-      v17 = *v58;
+      v17 = *v57;
       do
       {
         for (i = 0; i != v16; ++i)
         {
-          if (*v58 != v17)
+          if (*v57 != v17)
           {
             objc_enumerationMutation(actions);
           }
 
-          v19 = *(*(&v57 + 1) + 8 * i);
+          v19 = *(*(&v56 + 1) + 8 * i);
           v20 = [SBUIActionView alloc];
-          v21 = [(SBUIActionView *)v20 initWithAction:v19, v57];
+          v21 = [(SBUIActionView *)v20 initWithAction:v19, v56];
           [(SBUIActionView *)v21 setImagePosition:imagePosition];
           [(SBUIActionView *)v21 setTranslatesAutoresizingMaskIntoConstraints:0];
           [v11 addObject:v21];
         }
 
-        v16 = [actions countByEnumeratingWithState:&v57 objects:v61 count:16];
+        v16 = [actions countByEnumeratingWithState:&v56 objects:v60 count:16];
       }
 
       while (v16);
@@ -196,7 +198,24 @@
   self->_feedbackRetargetBehavior = v54;
 
   [(SBUIActionPlatterViewController *)self setView:v9];
-  v56 = *MEMORY[0x277D85DE8];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v5.receiver = self;
+  v5.super_class = SBUIActionPlatterViewController;
+  [(SBUIActionPlatterViewController *)&v5 viewDidAppear:appear];
+  gestureRecognizer = [(SBUIActionPlatterViewController *)self gestureRecognizer];
+  [gestureRecognizer addTarget:self action:sel__handleLongPressGestureRecognizer_];
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  v5.receiver = self;
+  v5.super_class = SBUIActionPlatterViewController;
+  [(SBUIActionPlatterViewController *)&v5 viewWillDisappear:disappear];
+  gestureRecognizer = [(SBUIActionPlatterViewController *)self gestureRecognizer];
+  [gestureRecognizer removeTarget:self action:sel__handleLongPressGestureRecognizer_];
 }
 
 - (void)setSystemInteractionStartIndex:(unint64_t)index
@@ -210,36 +229,36 @@
 
 - (void)setReversesActions:(BOOL)actions
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   if (self->_reversesActions != actions)
   {
     self->_reversesActions = actions;
     if ([(SBUIActionPlatterViewController *)self isViewLoaded])
     {
       arrangedSubviews = [(UIStackView *)self->_stackView arrangedSubviews];
+      v10 = 0u;
       v11 = 0u;
       v12 = 0u;
       v13 = 0u;
-      v14 = 0u;
       reverseObjectEnumerator = [arrangedSubviews reverseObjectEnumerator];
-      v6 = [reverseObjectEnumerator countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v6 = [reverseObjectEnumerator countByEnumeratingWithState:&v10 objects:v14 count:16];
       if (v6)
       {
         v7 = v6;
-        v8 = *v12;
+        v8 = *v11;
         do
         {
           for (i = 0; i != v7; ++i)
           {
-            if (*v12 != v8)
+            if (*v11 != v8)
             {
               objc_enumerationMutation(reverseObjectEnumerator);
             }
 
-            [(UIStackView *)self->_stackView addArrangedSubview:*(*(&v11 + 1) + 8 * i)];
+            [(UIStackView *)self->_stackView addArrangedSubview:*(*(&v10 + 1) + 8 * i)];
           }
 
-          v7 = [reverseObjectEnumerator countByEnumeratingWithState:&v11 objects:v15 count:16];
+          v7 = [reverseObjectEnumerator countByEnumeratingWithState:&v10 objects:v14 count:16];
         }
 
         while (v7);
@@ -248,49 +267,45 @@
       [(SBUIActionPlatterViewController *)self _updateKeylineViews];
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setImagePosition:(int64_t)position
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   if (self->_imagePosition != position)
   {
     self->_imagePosition = position;
     if ([(SBUIActionPlatterViewController *)self isViewLoaded])
     {
-      v13 = 0u;
-      v14 = 0u;
-      v11 = 0u;
       v12 = 0u;
+      v13 = 0u;
+      v10 = 0u;
+      v11 = 0u;
       arrangedSubviews = [(UIStackView *)self->_stackView arrangedSubviews];
-      v6 = [arrangedSubviews countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v6 = [arrangedSubviews countByEnumeratingWithState:&v10 objects:v14 count:16];
       if (v6)
       {
         v7 = v6;
-        v8 = *v12;
+        v8 = *v11;
         do
         {
           for (i = 0; i != v7; ++i)
           {
-            if (*v12 != v8)
+            if (*v11 != v8)
             {
               objc_enumerationMutation(arrangedSubviews);
             }
 
-            [*(*(&v11 + 1) + 8 * i) setImagePosition:position];
+            [*(*(&v10 + 1) + 8 * i) setImagePosition:position];
           }
 
-          v7 = [arrangedSubviews countByEnumeratingWithState:&v11 objects:v15 count:16];
+          v7 = [arrangedSubviews countByEnumeratingWithState:&v10 objects:v14 count:16];
         }
 
         while (v7);
       }
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setDelegate:(id)delegate
@@ -319,32 +334,32 @@
 
 - (void)_updateKeylineViews
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
+  v26 = 0u;
   v27 = 0u;
   v28 = 0u;
   v29 = 0u;
-  v30 = 0u;
   subviews = [(UIView *)self->_keylinesContainerView subviews];
-  v4 = [subviews countByEnumeratingWithState:&v27 objects:v31 count:16];
+  v4 = [subviews countByEnumeratingWithState:&v26 objects:v30 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v28;
+    v6 = *v27;
     do
     {
       v7 = 0;
       do
       {
-        if (*v28 != v6)
+        if (*v27 != v6)
         {
           objc_enumerationMutation(subviews);
         }
 
-        [*(*(&v27 + 1) + 8 * v7++) removeFromSuperview];
+        [*(*(&v26 + 1) + 8 * v7++) removeFromSuperview];
       }
 
       while (v5 != v7);
-      v5 = [subviews countByEnumeratingWithState:&v27 objects:v31 count:16];
+      v5 = [subviews countByEnumeratingWithState:&v26 objects:v30 count:16];
     }
 
     while (v5);
@@ -397,13 +412,11 @@
 
     while (v13 < [arrangedSubviews count]);
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleLongPressGestureRecognizer:(id)recognizer
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   recognizerCopy = recognizer;
   arrangedSubviews = [(UIStackView *)self->_stackView arrangedSubviews];
   if ([arrangedSubviews count])
@@ -435,39 +448,39 @@
 
     if (v6)
     {
-      v43 = 0uLL;
-      v44 = 0uLL;
-      v41 = 0uLL;
       v42 = 0uLL;
+      v43 = 0uLL;
+      v40 = 0uLL;
+      v41 = 0uLL;
       v9 = arrangedSubviews;
-      v10 = [v9 countByEnumeratingWithState:&v41 objects:v47 count:16];
+      v10 = [v9 countByEnumeratingWithState:&v40 objects:v46 count:16];
       if (v10)
       {
-        v11 = *v42;
+        v11 = *v41;
         while (2)
         {
           for (i = 0; i != v10; i = i + 1)
           {
-            if (*v42 != v11)
+            if (*v41 != v11)
             {
               objc_enumerationMutation(v9);
             }
 
-            v13 = *(*(&v41 + 1) + 8 * i);
+            v13 = *(*(&v40 + 1) + 8 * i);
             [recognizerCopy locationInView:v13];
             v15 = v14;
             v17 = v16;
             [v13 bounds];
-            v49.x = v15;
-            v49.y = v17;
-            if (CGRectContainsPoint(v50, v49))
+            v48.x = v15;
+            v48.y = v17;
+            if (CGRectContainsPoint(v49, v48))
             {
               v10 = v13;
               goto LABEL_30;
             }
           }
 
-          v10 = [v9 countByEnumeratingWithState:&v41 objects:v47 count:16];
+          v10 = [v9 countByEnumeratingWithState:&v40 objects:v46 count:16];
           if (v10)
           {
             continue;
@@ -479,26 +492,26 @@
 
 LABEL_30:
 
-      v39 = 0u;
-      v40 = 0u;
-      v37 = 0u;
       v38 = 0u;
+      v39 = 0u;
+      v36 = 0u;
+      v37 = 0u;
       v22 = v9;
-      v23 = [v22 countByEnumeratingWithState:&v37 objects:v46 count:16];
+      v23 = [v22 countByEnumeratingWithState:&v36 objects:v45 count:16];
       if (v23)
       {
         v24 = v23;
-        v25 = *v38;
+        v25 = *v37;
         do
         {
           for (j = 0; j != v24; ++j)
           {
-            if (*v38 != v25)
+            if (*v37 != v25)
             {
               objc_enumerationMutation(v22);
             }
 
-            v27 = *(*(&v37 + 1) + 8 * j);
+            v27 = *(*(&v36 + 1) + 8 * j);
             if ([recognizerCopy state] == 2)
             {
               feedbackRetargetBehavior = self->_feedbackRetargetBehavior;
@@ -512,7 +525,7 @@ LABEL_30:
             [v27 setHighlighted:v27 == v10 withFeedbackRetargetBehavior:feedbackRetargetBehavior];
           }
 
-          v24 = [v22 countByEnumeratingWithState:&v37 objects:v46 count:16];
+          v24 = [v22 countByEnumeratingWithState:&v36 objects:v45 count:16];
         }
 
         while (v24);
@@ -532,37 +545,35 @@ LABEL_30:
 
     else
     {
-      v35 = 0uLL;
-      v36 = 0uLL;
-      v33 = 0uLL;
       v34 = 0uLL;
+      v35 = 0uLL;
+      v32 = 0uLL;
+      v33 = 0uLL;
       v10 = arrangedSubviews;
-      v18 = [v10 countByEnumeratingWithState:&v33 objects:v45 count:16];
+      v18 = [v10 countByEnumeratingWithState:&v32 objects:v44 count:16];
       if (v18)
       {
         v19 = v18;
-        v20 = *v34;
+        v20 = *v33;
         do
         {
           for (k = 0; k != v19; ++k)
           {
-            if (*v34 != v20)
+            if (*v33 != v20)
             {
               objc_enumerationMutation(v10);
             }
 
-            [*(*(&v33 + 1) + 8 * k) setHighlighted:{0, v33}];
+            [*(*(&v32 + 1) + 8 * k) setHighlighted:{0, v32}];
           }
 
-          v19 = [v10 countByEnumeratingWithState:&v33 objects:v45 count:16];
+          v19 = [v10 countByEnumeratingWithState:&v32 objects:v44 count:16];
         }
 
         while (v19);
       }
     }
   }
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)gestureRecognizerShouldBegin:(id)begin

@@ -1,7 +1,6 @@
 @interface RSKeyframeExtended
 - (RSKeyframeExtended)initWithDictionary:(id)dictionary withGroupId:(unsigned int)id;
 - (RSKeyframeExtended)initWithKeyframe:(id)keyframe;
-- (__n128)cameraPose;
 - (__n128)setCameraPose:(__n128)pose;
 - (id).cxx_construct;
 - (id)copyWithZone:(_NSZone *)zone;
@@ -36,27 +35,18 @@
   return result;
 }
 
-- (__n128)cameraPose
-{
-  result = *(self + 160);
-  v2 = *(self + 176);
-  v3 = *(self + 192);
-  v4 = *(self + 208);
-  return result;
-}
-
 - (void)processWithVoxelize:(BOOL)voxelize asPythonApproach:(BOOL)approach resample:(BOOL)resample outlierRemove:(BOOL)remove
 {
   removeCopy = remove;
   resampleCopy = resample;
   approachCopy = approach;
   voxelizeCopy = voxelize;
-  sub_2621CD160(__p, (*&self->_anon_20[8] - *self->_anon_20) >> 4);
-  v11 = __p[0];
-  if (__p[0] != __p[1])
+  sub_2621CD160(&__p, (*&self->_anon_20[8] - *self->_anon_20) >> 4);
+  v11 = __p;
+  if (__p != v21)
   {
     v12 = 0;
-    v13 = (__p[1] - __p[0] - 8) >> 3;
+    v13 = (v21 - __p - 8) >> 3;
     v14 = vdupq_n_s64(v13);
     v15 = (v13 + 2) & 0x3FFFFFFFFFFFFFFELL;
     v16 = xmmword_2623A7620;
@@ -86,30 +76,30 @@
     v19 = *self->_anon_20;
     if (approachCopy)
     {
-      sub_2622C606C(v19, __p);
+      sub_2622C606C(v19, &__p);
     }
 
     else
     {
-      sub_2622C5D14(v19, __p);
+      sub_2622C5D14(v19, &__p);
     }
   }
 
   if (resampleCopy)
   {
-    sub_2622C5C44(__p);
+    sub_2622C5C44(&__p);
   }
 
   if (removeCopy)
   {
-    sub_2622C6EA0(*self->_anon_20, __p);
+    sub_2622C6EA0(*self->_anon_20, &__p);
   }
 
-  sub_2622AB5CC(self, (__p[1] - __p[0]) >> 3, __p[0]);
-  if (__p[0])
+  sub_2622AB5CC(self, (v21 - __p) >> 3, __p);
+  if (__p)
   {
-    __p[1] = __p[0];
-    operator delete(__p[0]);
+    v21 = __p;
+    operator delete(__p);
   }
 }
 
@@ -164,7 +154,7 @@
           v36 = v35;
         }
 
-        sub_2621C8EEC(v5 + 56, v36);
+        sub_2621C8EEC(v5 + 7, v36);
       }
 
       sub_2621CBEB0();
@@ -246,7 +236,7 @@
           v54 = v53;
         }
 
-        sub_2621CC71C(v5 + 80, v54);
+        sub_2621CC71C(v5 + 10, v54);
       }
 
       sub_2621CBEB0();

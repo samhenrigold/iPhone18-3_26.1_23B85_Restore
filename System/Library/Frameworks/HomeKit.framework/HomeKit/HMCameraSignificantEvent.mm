@@ -14,7 +14,7 @@
 
 - (HMCameraSignificantEvent)initWithCoder:(id)coder
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"ui"];
   v6 = [coderCopy decodeIntegerForKey:@"r"];
@@ -37,22 +37,21 @@
     {
       v15 = HMFGetLogIdentifier();
       v16 = HMStringFromCameraSignificantEventConfidenceLevel(v8);
-      v19 = 138544130;
-      v20 = v15;
-      v21 = 2112;
-      v22 = v5;
-      v23 = 2112;
-      v24 = v7;
-      v25 = 2112;
-      v26 = v16;
-      _os_log_impl(&dword_19BB39000, v14, OS_LOG_TYPE_ERROR, "%{public}@Could not initialize from decoded uniqueIdentifier: %@ dateOfOccurrence: %@ confidence level: %@", &v19, 0x2Au);
+      v18 = 138544130;
+      v19 = v15;
+      v20 = 2112;
+      v21 = v5;
+      v22 = 2112;
+      v23 = v7;
+      v24 = 2112;
+      v25 = v16;
+      _os_log_impl(&dword_19BB39000, v14, OS_LOG_TYPE_ERROR, "%{public}@Could not initialize from decoded uniqueIdentifier: %@ dateOfOccurrence: %@ confidence level: %@", &v18, 0x2Au);
     }
 
     objc_autoreleasePoolPop(v13);
     v12 = 0;
   }
 
-  v17 = *MEMORY[0x1E69E9840];
   return v12;
 }
 
@@ -144,34 +143,32 @@
 
 - (NSArray)attributeDescriptions
 {
-  v24[6] = *MEMORY[0x1E69E9840];
+  v23[6] = *MEMORY[0x1E69E9840];
   v3 = objc_alloc(MEMORY[0x1E69A29C8]);
   uniqueIdentifier = [(HMCameraSignificantEvent *)self uniqueIdentifier];
-  v22 = [v3 initWithName:@"ID" value:uniqueIdentifier];
-  v24[0] = v22;
+  v21 = [v3 initWithName:@"ID" value:uniqueIdentifier];
+  v23[0] = v21;
   v4 = objc_alloc(MEMORY[0x1E69A29C8]);
-  v21 = HMStringFromCameraSignificantEventReason([(HMCameraSignificantEvent *)self reason]);
-  v5 = [v4 initWithName:@"Reason" value:v21];
-  v24[1] = v5;
+  v20 = HMStringFromCameraSignificantEventReason([(HMCameraSignificantEvent *)self reason]);
+  v5 = [v4 initWithName:@"Reason" value:v20];
+  v23[1] = v5;
   v6 = objc_alloc(MEMORY[0x1E69A29C8]);
   dateOfOccurrence = [(HMCameraSignificantEvent *)self dateOfOccurrence];
   v8 = [v6 initWithName:@"Date" value:dateOfOccurrence];
-  v24[2] = v8;
+  v23[2] = v8;
   v9 = objc_alloc(MEMORY[0x1E69A29C8]);
   v10 = HMStringFromCameraSignificantEventConfidenceLevel([(HMCameraSignificantEvent *)self confidenceLevel]);
   v11 = [v9 initWithName:@"Confidence level" value:v10];
-  v24[3] = v11;
+  v23[3] = v11;
   v12 = objc_alloc(MEMORY[0x1E69A29C8]);
   cameraProfileUUID = [(HMCameraSignificantEvent *)self cameraProfileUUID];
   v14 = [v12 initWithName:@"Camera Profile UUID" value:cameraProfileUUID];
-  v24[4] = v14;
+  v23[4] = v14;
   v15 = objc_alloc(MEMORY[0x1E69A29C8]);
   faceClassification = [(HMCameraSignificantEvent *)self faceClassification];
   v17 = [v15 initWithName:@"Face Classification" value:faceClassification];
-  v24[5] = v17;
-  v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:v24 count:6];
-
-  v19 = *MEMORY[0x1E69E9840];
+  v23[5] = v17;
+  v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:6];
 
   return v18;
 }

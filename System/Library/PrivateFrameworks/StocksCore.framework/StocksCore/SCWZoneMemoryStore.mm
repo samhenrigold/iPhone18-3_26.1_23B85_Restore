@@ -48,9 +48,7 @@
 
 - (void)clearPendingCommandsUpToCount:(unint64_t)count
 {
-  v4 = [(NSArray *)self->_pendingCommands subarrayWithRange:count, [(NSArray *)self->_pendingCommands count]- count];
-  pendingCommands = self->_pendingCommands;
-  self->_pendingCommands = v4;
+  self->_pendingCommands = [(NSArray *)self->_pendingCommands subarrayWithRange:count, [(NSArray *)self->_pendingCommands count]- count];
 
   MEMORY[0x1EEE66BB8]();
 }

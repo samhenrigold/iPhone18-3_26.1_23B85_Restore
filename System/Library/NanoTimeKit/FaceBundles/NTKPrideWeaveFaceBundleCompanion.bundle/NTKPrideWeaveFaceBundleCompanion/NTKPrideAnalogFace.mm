@@ -202,25 +202,17 @@ LABEL_11:
 
 - (Class)_optionClassForCustomEditMode:(int64_t)mode
 {
-  if (mode == 15)
+  if (mode == 15 || mode == 12)
   {
-    v4 = off_243E8;
-LABEL_5:
-    v5 = *v4;
-    v6 = objc_opt_class();
-
-    return v6;
+    v4 = objc_opt_class();
   }
 
-  if (mode == 12)
+  else
   {
-    v4 = &off_243F0;
-    goto LABEL_5;
+    v4 = 0;
   }
 
-  v6 = 0;
-
-  return v6;
+  return v4;
 }
 
 + (BOOL)isRestrictedForDevice:(id)device

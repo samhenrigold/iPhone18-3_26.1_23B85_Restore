@@ -61,25 +61,23 @@
 
 - (id)jsonDict
 {
-  v13[4] = *MEMORY[0x277D85DE8];
-  v12[0] = @"date";
+  v12[4] = *MEMORY[0x277D85DE8];
+  v11[0] = @"date";
   v3 = MEMORY[0x277CCABB0];
   date = [(ATXPredictionTimeContext *)self date];
   [date timeIntervalSinceReferenceDate];
   v5 = [v3 numberWithDouble:?];
-  v13[0] = v5;
-  v12[1] = @"dayOfWeek";
+  v12[0] = v5;
+  v11[1] = @"dayOfWeek";
   v6 = [MEMORY[0x277CCABB0] numberWithInt:self->_dayOfWeek];
-  v13[1] = v6;
-  v12[2] = @"timeOfDay";
+  v12[1] = v6;
+  v11[2] = @"timeOfDay";
   v7 = [MEMORY[0x277CCABB0] numberWithInt:self->_timeOfDay];
-  v13[2] = v7;
-  v12[3] = @"dateInWeekend";
+  v12[2] = v7;
+  v11[3] = @"dateInWeekend";
   v8 = [MEMORY[0x277CCABB0] numberWithBool:self->_dateInWeekend];
-  v13[3] = v8;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:4];
-
-  v10 = *MEMORY[0x277D85DE8];
+  v12[3] = v8;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:4];
 
   return v9;
 }
@@ -122,25 +120,26 @@ LABEL_7:
   }
 
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
+  isKindOfClass = objc_opt_isKindOfClass();
+  if ((isKindOfClass & 1) == 0)
   {
-    v12 = __atxlog_handle_default();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
+    v13 = __atxlog_handle_default(isKindOfClass);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
     {
-      [(ATXPredictionTimeContext *)self initWithProto:v12];
+      [(ATXPredictionTimeContext *)self initWithProto:v13];
     }
 
     goto LABEL_7;
   }
 
-  v5 = MEMORY[0x277CBEAA8];
-  v6 = protoCopy;
-  v7 = [v5 alloc];
-  [v6 date];
-  v9 = v8;
+  v6 = MEMORY[0x277CBEAA8];
+  v7 = protoCopy;
+  v8 = [v6 alloc];
+  [v7 date];
+  v10 = v9;
 
-  v10 = [v7 initWithTimeIntervalSince1970:v9];
-  self = [(ATXPredictionTimeContext *)self initWithDate:v10];
+  v11 = [v8 initWithTimeIntervalSince1970:v10];
+  self = [(ATXPredictionTimeContext *)self initWithDate:v11];
 
   selfCopy = self;
 LABEL_8:
@@ -189,14 +188,12 @@ LABEL_8:
 
 - (void)initWithProto:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = objc_opt_class();
   v4 = NSStringFromClass(v3);
-  v6 = 138412290;
-  v7 = v4;
-  _os_log_fault_impl(&dword_2263AA000, a2, OS_LOG_TYPE_FAULT, "%@: tried to initialize with a non-ATXPBPredictionTimeContext proto", &v6, 0xCu);
-
-  v5 = *MEMORY[0x277D85DE8];
+  v5 = 138412290;
+  v6 = v4;
+  _os_log_fault_impl(&dword_2263AA000, a2, OS_LOG_TYPE_FAULT, "%@: tried to initialize with a non-ATXPBPredictionTimeContext proto", &v5, 0xCu);
 }
 
 @end

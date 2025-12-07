@@ -28,7 +28,7 @@
 
 - (void)submitDailyStatusEvent
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   dataSource = [(HMDAppleMediaAccessoryMetricsDispatcher *)self dataSource];
   v4 = dataSource;
   if (dataSource)
@@ -38,18 +38,18 @@
     v7 = [v4 numberOfActionSetsWithCurrentAccessoryMediaActionForAppleMediaAccessoryMetricsDispatcher:self];
     *&buf = 0;
     *(&buf + 1) = &buf;
-    v21 = 0x2020000000;
-    v22 = 0;
+    v20 = 0x2020000000;
+    v21 = 0;
     v8 = dispatch_group_create();
     dispatch_group_enter(v8);
-    v17[0] = MEMORY[0x277D85DD0];
-    v17[1] = 3221225472;
-    v17[2] = __65__HMDAppleMediaAccessoryMetricsDispatcher_submitDailyStatusEvent__block_invoke;
-    v17[3] = &unk_2797231A0;
+    v16[0] = MEMORY[0x277D85DD0];
+    v16[1] = 3221225472;
+    v16[2] = __65__HMDAppleMediaAccessoryMetricsDispatcher_submitDailyStatusEvent__block_invoke;
+    v16[3] = &unk_2797231A0;
     p_buf = &buf;
     v9 = v8;
-    v18 = v9;
-    [v4 currentAccessorySensorStatusFlagsForAppleMediaAccessoryMetricsDispatcher:self completion:v17];
+    v17 = v9;
+    [v4 currentAccessorySensorStatusFlagsForAppleMediaAccessoryMetricsDispatcher:self completion:v16];
     v10 = [v4 workQueueForAppleMediaAccessoryMetricsDispatcher:self];
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
@@ -80,8 +80,6 @@
 
     objc_autoreleasePoolPop(v11);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __65__HMDAppleMediaAccessoryMetricsDispatcher_submitDailyStatusEvent__block_invoke_2(uint64_t a1)
@@ -101,7 +99,7 @@ void __65__HMDAppleMediaAccessoryMetricsDispatcher_submitDailyStatusEvent__block
 {
   nameCopy = name;
   os_unfair_lock_lock_with_options();
-  v4 = [nameCopy copy];
+  v4 = objc_msgSend_copy(nameCopy);
   previousRoomName = self->_previousRoomName;
   self->_previousRoomName = v4;
 
@@ -119,7 +117,7 @@ void __65__HMDAppleMediaAccessoryMetricsDispatcher_submitDailyStatusEvent__block
 
 - (void)submitRoomChangeEvent:(id)event previousRoom:(id)room
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   roomCopy = room;
   v8 = objc_autoreleasePoolPush();
@@ -128,9 +126,9 @@ void __65__HMDAppleMediaAccessoryMetricsDispatcher_submitDailyStatusEvent__block
   if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
     v11 = HMFGetLogIdentifier();
-    v17 = 138543362;
-    v18 = v11;
-    _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_INFO, "%{public}@Recording change but not submitting room changed event", &v17, 0xCu);
+    v16 = 138543362;
+    v17 = v11;
+    _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_INFO, "%{public}@Recording change but not submitting room changed event", &v16, 0xCu);
   }
 
   objc_autoreleasePoolPop(v8);
@@ -142,9 +140,9 @@ void __65__HMDAppleMediaAccessoryMetricsDispatcher_submitDailyStatusEvent__block
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       v15 = HMFGetLogIdentifier();
-      v17 = 138543362;
-      v18 = v15;
-      _os_log_impl(&dword_2531F8000, v14, OS_LOG_TYPE_ERROR, "%{public}@previousRoom is nil. Substituting with empty string.", &v17, 0xCu);
+      v16 = 138543362;
+      v17 = v15;
+      _os_log_impl(&dword_2531F8000, v14, OS_LOG_TYPE_ERROR, "%{public}@previousRoom is nil. Substituting with empty string.", &v16, 0xCu);
     }
 
     objc_autoreleasePoolPop(v12);
@@ -152,22 +150,20 @@ void __65__HMDAppleMediaAccessoryMetricsDispatcher_submitDailyStatusEvent__block
   }
 
   [(HMDAppleMediaAccessoryMetricsDispatcher *)selfCopy setPreviousRoomName:roomCopy];
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)submitDailySetRoomEvent
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     v6 = HMFGetLogIdentifier();
-    v27 = 138543362;
-    v28 = v6;
-    _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_INFO, "%{public}@Submitting daily room event", &v27, 0xCu);
+    v26 = 138543362;
+    v27 = v6;
+    _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_INFO, "%{public}@Submitting daily room event", &v26, 0xCu);
   }
 
   objc_autoreleasePoolPop(v3);
@@ -188,13 +184,13 @@ void __65__HMDAppleMediaAccessoryMetricsDispatcher_submitDailyStatusEvent__block
       if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
       {
         v14 = HMFGetLogIdentifier();
-        v27 = 138543874;
-        v28 = v14;
-        v29 = 2112;
-        v30 = v9;
-        v31 = 2112;
-        v32 = v10;
-        _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_INFO, "%{public}@Submitting daily room event with currentRoom: %@, previousRoom: %@", &v27, 0x20u);
+        v26 = 138543874;
+        v27 = v14;
+        v28 = 2112;
+        v29 = v9;
+        v30 = 2112;
+        v31 = v10;
+        _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_INFO, "%{public}@Submitting daily room event with currentRoom: %@, previousRoom: %@", &v26, 0x20u);
       }
 
       objc_autoreleasePoolPop(v11);
@@ -212,11 +208,11 @@ void __65__HMDAppleMediaAccessoryMetricsDispatcher_submitDailyStatusEvent__block
       {
         v24 = HMFGetLogIdentifier();
         previousRoomName = [(HMDAppleMediaAccessoryMetricsDispatcher *)v22 previousRoomName];
-        v27 = 138543618;
-        v28 = v24;
-        v29 = 2112;
-        v30 = previousRoomName;
-        _os_log_impl(&dword_2531F8000, v23, OS_LOG_TYPE_ERROR, "%{public}@Data sourced nil current room name when submitting set room event metric with previous room name %@", &v27, 0x16u);
+        v26 = 138543618;
+        v27 = v24;
+        v28 = 2112;
+        v29 = previousRoomName;
+        _os_log_impl(&dword_2531F8000, v23, OS_LOG_TYPE_ERROR, "%{public}@Data sourced nil current room name when submitting set room event metric with previous room name %@", &v26, 0x16u);
       }
 
       objc_autoreleasePoolPop(v21);
@@ -231,15 +227,13 @@ void __65__HMDAppleMediaAccessoryMetricsDispatcher_submitDailyStatusEvent__block
     if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
       v20 = HMFGetLogIdentifier();
-      v27 = 138543362;
-      v28 = v20;
-      _os_log_impl(&dword_2531F8000, v19, OS_LOG_TYPE_ERROR, "%{public}@No data source to submit set room event metric", &v27, 0xCu);
+      v26 = 138543362;
+      v27 = v20;
+      _os_log_impl(&dword_2531F8000, v19, OS_LOG_TYPE_ERROR, "%{public}@No data source to submit set room event metric", &v26, 0xCu);
     }
 
     objc_autoreleasePoolPop(v17);
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (void)registerForDailySetRoomLogEvents

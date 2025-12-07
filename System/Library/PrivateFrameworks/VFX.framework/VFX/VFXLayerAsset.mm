@@ -24,8 +24,8 @@
   if (!result)
   {
     v4 = objc_alloc(MEMORY[0x1E69794D0]);
-    v8 = objc_msgSend_rootLayer(self, v5, v6, v7);
-    result = objc_msgSend_initWithLayer_(v4, v9, v8, v10);
+    v7 = objc_msgSend_rootLayer(self, v5, v6);
+    result = objc_msgSend_initWithLayer_(v4, v8, v7);
     self->_stateController = result;
   }
 
@@ -34,28 +34,28 @@
 
 - (void)updateActiveState
 {
-  if (objc_msgSend_world(self, a2, v2, v3))
+  if (objc_msgSend_world(self, a2, v2))
   {
-    v8 = objc_msgSend_world(self, v5, v6, v7);
-    v12 = objc_msgSend_clock(v8, v9, v10, v11);
-    objc_msgSend_speed(v12, v13, v14, v15);
+    v6 = objc_msgSend_world(self, v4, v5);
+    v9 = objc_msgSend_clock(v6, v7, v8);
+    objc_msgSend_speed(v9, v10, v11);
   }
 
   if (self->_activeStateName)
   {
-    v16 = objc_msgSend_rootLayer(self, v5, v6, v7);
-    v19 = objc_msgSend_stateWithName_(v16, v17, self->_activeStateName, v18);
+    v12 = objc_msgSend_rootLayer(self, v4, v5);
+    v14 = objc_msgSend_stateWithName_(v12, v13, self->_activeStateName);
   }
 
   else
   {
-    v19 = 0;
+    v14 = 0;
   }
 
-  v20 = objc_msgSend_stateController(self, v5, v6, v7);
-  v24 = objc_msgSend_rootLayer(self, v21, v22, v23);
+  v15 = objc_msgSend_stateController(self, v4, v5);
+  objc_msgSend_rootLayer(self, v16, v17);
 
-  MEMORY[0x1EEE66B58](v20, sel_setState_ofLayer_transitionSpeed_, v19, v24);
+  MEMORY[0x1EEE66B58](v15, sel_setState_ofLayer_transitionSpeed_, v14);
 }
 
 - (CALayer)rootLayer
@@ -63,23 +63,23 @@
   if (!self->_loaded)
   {
     self->_loaded = 1;
-    v5 = objc_msgSend_world(self, a2, v2, v3);
-    v12 = objc_msgSend_assetPathResolver(v5, v6, v7, v8);
-    if (!v12)
+    v4 = objc_msgSend_world(self, a2, v2);
+    v9 = objc_msgSend_assetPathResolver(v4, v5, v6);
+    if (!v9)
     {
-      v13 = objc_msgSend_valueForKey_(VFXTransaction, v9, @"VFXWorldLoadingContextKey", v11);
-      v12 = objc_msgSend_objectForKeyedSubscript_(v13, v14, @"VFXWorldLoaderAssetPathResolver", v15);
+      v10 = objc_msgSend_valueForKey_(VFXTransaction, v7, @"VFXWorldLoadingContextKey");
+      v9 = objc_msgSend_objectForKeyedSubscript_(v10, v11, @"VFXWorldLoaderAssetPathResolver");
     }
 
-    v16 = objc_msgSend_filename(self, v9, v10, v11);
-    v19 = objc_msgSend_absoluteURLForAssetPath_(v12, v17, v16, v18);
-    if (v19)
+    v12 = objc_msgSend_filename(self, v7, v8);
+    v14 = objc_msgSend_absoluteURLForAssetPath_(v9, v13, v12);
+    if (v14)
     {
-      v23 = objc_msgSend_packageWithContentsOfURL_type_options_error_(MEMORY[0x1E6979400], v20, v19, *MEMORY[0x1E6979EF8], 0, 0);
-      self->_rootLayer = objc_msgSend_rootLayer(v23, v24, v25, v26);
+      v17 = objc_msgSend_packageWithContentsOfURL_type_options_error_(MEMORY[0x1E6979400], v15, v14, *MEMORY[0x1E6979EF8], 0, 0);
+      self->_rootLayer = objc_msgSend_rootLayer(v17, v18, v19);
     }
 
-    objc_msgSend_updateActiveState(self, v20, v21, v22);
+    objc_msgSend_updateActiveState(self, v15, v16);
   }
 
   return self->_rootLayer;
@@ -106,20 +106,20 @@
 
     self->_activeStateName = nameCopy;
 
-    objc_msgSend_updateActiveState(self, v5, v6, v7);
+    objc_msgSend_updateActiveState(self, v5, v6);
   }
 }
 
 - (VFXLayerAsset)initWithCoder:(id)coder
 {
-  v11.receiver = self;
-  v11.super_class = VFXLayerAsset;
-  v4 = [(VFXFileAsset *)&v11 initWithCoder:?];
+  v10.receiver = self;
+  v10.super_class = VFXLayerAsset;
+  v4 = [(VFXFileAsset *)&v10 initWithCoder:?];
   if (v4)
   {
     v5 = objc_opt_class();
     v7 = objc_msgSend_decodeObjectOfClass_forKey_(coder, v6, v5, @"activeStateName");
-    objc_msgSend_setActiveStateName_(v4, v8, v7, v9);
+    objc_msgSend_setActiveStateName_(v4, v8, v7);
   }
 
   return v4;
@@ -127,15 +127,15 @@
 
 - (void)encodeWithCoder:(id)coder
 {
-  if (objc_msgSend_activeStateName(self, a2, coder, v3))
+  if (objc_msgSend_activeStateName(self, a2, coder))
   {
-    active = objc_msgSend_activeStateName(self, v6, v7, v8);
-    objc_msgSend_encodeObject_forKey_(coder, v10, active, @"activeStateName");
+    active = objc_msgSend_activeStateName(self, v5, v6);
+    objc_msgSend_encodeObject_forKey_(coder, v8, active, @"activeStateName");
   }
 
-  v11.receiver = self;
-  v11.super_class = VFXLayerAsset;
-  [(VFXFileAsset *)&v11 encodeWithCoder:coder];
+  v9.receiver = self;
+  v9.super_class = VFXLayerAsset;
+  [(VFXFileAsset *)&v9 encodeWithCoder:coder];
 }
 
 @end

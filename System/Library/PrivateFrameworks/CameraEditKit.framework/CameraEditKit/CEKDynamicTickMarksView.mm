@@ -496,10 +496,10 @@ LABEL_7:
 
         v21 = markCopy;
         [v21 setContentConfiguration:v20];
-        [(CEKDynamicTickMarksView *)self contentTransform];
-        v47 = v50;
-        v48 = v51;
-        v49 = v52;
+        objc_msgSend_contentTransform(self);
+        v47 = v50[0];
+        v48 = v50[1];
+        v49 = v50[2];
         [v21 setTransform:&v47];
         v22 = [(CEKDynamicTickMarksView *)self _colorForTickMarkAtIndex:index selected:selectedCopy isTickEnabled:1];
         [v21 setTintColor:v22];
@@ -521,7 +521,7 @@ LABEL_7:
 
         v21 = markCopy;
         [v21 setImage:v20];
-        [(CEKDynamicTickMarksView *)self contentTransform];
+        objc_msgSend_contentTransform(self);
         v47 = v44;
         v48 = v45;
         v49 = v46;

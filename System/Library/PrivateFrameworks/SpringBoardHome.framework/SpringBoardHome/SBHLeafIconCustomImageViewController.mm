@@ -33,9 +33,9 @@
 - (void)loadView
 {
   icon = [(SBHLeafIconCustomImageViewController *)self icon];
-  iconImageCache = [(SBHLeafIconCustomImageViewController *)self iconImageCache];
+  v3 = objc_msgSend_iconImageCache(self);
   traitCollection = [(SBHLeafIconCustomImageViewController *)self traitCollection];
-  v5 = [iconImageCache imageForIcon:icon compatibleWithTraitCollection:traitCollection options:0];
+  v5 = [v3 imageForIcon:icon compatibleWithTraitCollection:traitCollection options:0];
   v6 = [objc_alloc(MEMORY[0x1E69DCAE0]) initWithImage:v5];
   [(SBHLeafIconCustomImageViewController *)self setView:v6];
 }
@@ -43,9 +43,9 @@
 - (void)updateImage
 {
   icon = [(SBHLeafIconCustomImageViewController *)self icon];
-  iconImageCache = [(SBHLeafIconCustomImageViewController *)self iconImageCache];
+  v3 = objc_msgSend_iconImageCache(self);
   traitCollection = [(SBHLeafIconCustomImageViewController *)self traitCollection];
-  v5 = [iconImageCache imageForIcon:icon compatibleWithTraitCollection:traitCollection options:0];
+  v5 = [v3 imageForIcon:icon compatibleWithTraitCollection:traitCollection options:0];
   imageView = [(SBHLeafIconCustomImageViewController *)self imageView];
   [imageView setImage:v5];
 }

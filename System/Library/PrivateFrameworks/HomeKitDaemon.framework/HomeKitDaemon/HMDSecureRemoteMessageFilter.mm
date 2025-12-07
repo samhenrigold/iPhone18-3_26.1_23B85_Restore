@@ -20,7 +20,7 @@
 
 - (BOOL)acceptMessage:(id)message target:(id)target errorReason:(id *)reason
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   targetCopy = target;
   if (([messageCopy isRemote] & 1) == 0)
@@ -34,10 +34,10 @@
     }
 
     v15 = HMFGetLogIdentifier();
-    v26 = 138543618;
-    v27 = v15;
-    v28 = 2112;
-    v29 = messageCopy;
+    v25 = 138543618;
+    v26 = v15;
+    v27 = 2112;
+    v28 = messageCopy;
     v16 = "%{public}@Accepting local message: %@";
 LABEL_7:
     v17 = v14;
@@ -56,15 +56,15 @@ LABEL_7:
     if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
     {
       v15 = HMFGetLogIdentifier();
-      v26 = 138543618;
-      v27 = v15;
-      v28 = 2112;
-      v29 = messageCopy;
+      v25 = 138543618;
+      v26 = v15;
+      v27 = 2112;
+      v28 = messageCopy;
       v16 = "%{public}@Accepting allowed message: %@";
       v17 = v14;
       v18 = OS_LOG_TYPE_INFO;
 LABEL_8:
-      _os_log_impl(&dword_229538000, v17, v18, v16, &v26, 0x16u);
+      _os_log_impl(&dword_229538000, v17, v18, v16, &v25, 0x16u);
     }
 
 LABEL_9:
@@ -85,30 +85,30 @@ LABEL_9:
     }
 
     v15 = HMFGetLogIdentifier();
-    v26 = 138543618;
-    v27 = v15;
-    v28 = 2112;
-    v29 = messageCopy;
+    v25 = 138543618;
+    v26 = v15;
+    v27 = 2112;
+    v28 = messageCopy;
     v16 = "%{public}@Accepting secure remote message: %@";
     goto LABEL_7;
   }
 
   if (reason)
   {
-    v22 = objc_autoreleasePoolPush();
+    v21 = objc_autoreleasePoolPush();
     selfCopy4 = self;
-    v24 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
+    v23 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
     {
-      v25 = HMFGetLogIdentifier();
-      v26 = 138543618;
-      v27 = v25;
-      v28 = 2112;
-      v29 = messageCopy;
-      _os_log_impl(&dword_229538000, v24, OS_LOG_TYPE_INFO, "%{public}@Rejecting insecure remote message: %@", &v26, 0x16u);
+      v24 = HMFGetLogIdentifier();
+      v25 = 138543618;
+      v26 = v24;
+      v27 = 2112;
+      v28 = messageCopy;
+      _os_log_impl(&dword_229538000, v23, OS_LOG_TYPE_INFO, "%{public}@Rejecting insecure remote message: %@", &v25, 0x16u);
     }
 
-    objc_autoreleasePoolPop(v22);
+    objc_autoreleasePoolPop(v21);
     [MEMORY[0x277CCA9B8] hmErrorWithCode:17];
     *reason = v19 = 0;
   }
@@ -120,7 +120,6 @@ LABEL_9:
 
 LABEL_10:
 
-  v20 = *MEMORY[0x277D85DE8];
   return v19;
 }
 
@@ -140,27 +139,24 @@ LABEL_10:
 
 void __49__HMDSecureRemoteMessageFilter_isAllowedMessage___block_invoke()
 {
-  v5[5] = *MEMORY[0x277D85DE8];
+  v4[5] = *MEMORY[0x277D85DE8];
   v0 = MEMORY[0x277CBEB98];
-  v5[0] = @"kAccessHomeInviteRequestKey";
-  v5[1] = @"kUpdateHomeInvitationStateInternalRequestKey";
-  v5[2] = @"kDismissBulletinInternalRequestKey";
-  v5[3] = @"kDismissDialogInternalRequestKey";
-  v5[4] = @"kKeyTransferAgentKey";
-  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:5];
+  v4[0] = @"kAccessHomeInviteRequestKey";
+  v4[1] = @"kUpdateHomeInvitationStateInternalRequestKey";
+  v4[2] = @"kDismissBulletinInternalRequestKey";
+  v4[3] = @"kDismissDialogInternalRequestKey";
+  v4[4] = @"kKeyTransferAgentKey";
+  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:5];
   v2 = [v0 setWithArray:v1];
   v3 = isAllowedMessage___allowedMessages;
   isAllowedMessage___allowedMessages = v2;
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void __43__HMDSecureRemoteMessageFilter_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v21_131799;
-  logCategory__hmf_once_v21_131799 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v21_131799;
+  logCategory__hmf_once_v21_131799 = v0;
 }
 
 @end

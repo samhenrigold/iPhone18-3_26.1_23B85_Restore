@@ -15,7 +15,7 @@
 - (_LSDAppProtectionClient)initWithXPCConnection:(id)connection
 {
   connectionCopy = connection;
-  v5 = getAppProtectionServiceQueue();
+  v5 = getAppProtectionServiceQueue(connectionCopy);
   [connectionCopy _setQueue:v5];
 
   v8.receiver = self;
@@ -27,21 +27,86 @@
 
 - (void)setHiddenApplications:(id)applications completion:(id)completion
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   applicationsCopy = applications;
   completionCopy = completion;
-  _LSAssertRunningInServer("[_LSDAppProtectionClient setHiddenApplications:completion:]");
+  _LSAssertRunningInServer("[_LSDAppProtectionClient setHiddenApplications:completion:]", v8);
+  v9 = MEMORY[0x1E695DF90];
+  v10 = +[_LSDAppProtectionAccessManager sharedInstance];
+  v26 = 0;
+  v11 = [v10 readFromDBWithError:&v26];
+  v12 = v26;
+  v13 = [v9 dictionaryWithDictionary:v11];
+
+  if (v12)
+  {
+    v15 = _LSAppProtectionLog(v14);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    {
+      [_LSDAppProtectionClient setHiddenApplications:completion:];
+    }
+
+    completionCopy[2](completionCopy, v12);
+  }
+
+  else
+  {
+    v16 = [v13 objectForKey:@"hiddenBundleIDs"];
+    v24 = 0;
+    v25 = 0;
+    computeAddedAndRemovedBundleIDs(&v25, &v24, v16, applicationsCopy);
+    v17 = v25;
+    v18 = v24;
+    v19 = _LSAppProtectionLog(v18);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+    {
+      -[_LSDAppProtectionClient setHiddenApplications:completion:].cold.2(v27, [v17 count], objc_msgSend(v18, "count"));
+    }
+
+    [v13 setObject:applicationsCopy forKey:@"hiddenBundleIDs"];
+    v20 = +[_LSDAppProtectionAccessManager sharedInstance];
+    v12 = [v20 writeToDB:v13];
+
+    if (v12)
+    {
+      v22 = _LSAppProtectionLog(v21);
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+      {
+        [_LSDAppProtectionClient setHiddenApplications:completion:];
+      }
+
+      completionCopy[2](completionCopy, v12);
+    }
+
+    else
+    {
+      v23 = 0;
+      notifyLSObservers(v17, v18, 1, &v23);
+      v12 = v23;
+      [(_LSDAppProtectionClient *)self sendPluginNotificationsFor:v17 notification:@"com.apple.LaunchServices.pluginsunregistered"];
+      [(_LSDAppProtectionClient *)self sendPluginNotificationsFor:v18 notification:@"com.apple.LaunchServices.pluginsregistered"];
+      completionCopy[2](completionCopy, v12);
+    }
+  }
+}
+
+- (void)setLockedApplications:(id)applications completion:(id)completion
+{
+  v27 = *MEMORY[0x1E69E9840];
+  applicationsCopy = applications;
+  completionCopy = completion;
+  _LSAssertRunningInServer("[_LSDAppProtectionClient setLockedApplications:completion:]", v7);
   v8 = MEMORY[0x1E695DF90];
   v9 = +[_LSDAppProtectionAccessManager sharedInstance];
-  v24 = 0;
-  v10 = [v9 readFromDBWithError:&v24];
-  v11 = v24;
+  v25 = 0;
+  v10 = [v9 readFromDBWithError:&v25];
+  v11 = v25;
   v12 = [v8 dictionaryWithDictionary:v10];
 
   if (v11)
   {
-    v13 = _LSAppProtectionLog();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v14 = _LSAppProtectionLog(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       [_LSDAppProtectionClient setHiddenApplications:completion:];
     }
@@ -51,26 +116,26 @@
 
   else
   {
-    v14 = [v12 objectForKey:@"hiddenBundleIDs"];
-    v22 = 0;
+    v15 = [v12 objectForKey:@"lockedBundleIDs"];
     v23 = 0;
-    computeAddedAndRemovedBundleIDs(&v23, &v22, v14, applicationsCopy);
-    v15 = v23;
-    v16 = v22;
-    v17 = _LSAppProtectionLog();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+    v24 = 0;
+    computeAddedAndRemovedBundleIDs(&v24, &v23, v15, applicationsCopy);
+    v16 = v24;
+    v17 = v23;
+    v18 = _LSAppProtectionLog(v17);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
     {
-      -[_LSDAppProtectionClient setHiddenApplications:completion:].cold.2(v25, [v15 count], objc_msgSend(v16, "count"));
+      -[_LSDAppProtectionClient setLockedApplications:completion:].cold.2(v26, [v16 count], objc_msgSend(v17, "count"));
     }
 
-    [v12 setObject:applicationsCopy forKey:@"hiddenBundleIDs"];
-    v18 = +[_LSDAppProtectionAccessManager sharedInstance];
-    v11 = [v18 writeToDB:v12];
+    [v12 setObject:applicationsCopy forKey:@"lockedBundleIDs"];
+    v19 = +[_LSDAppProtectionAccessManager sharedInstance];
+    v11 = [v19 writeToDB:v12];
 
     if (v11)
     {
-      v19 = _LSAppProtectionLog();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+      v21 = _LSAppProtectionLog(v20);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
       {
         [_LSDAppProtectionClient setHiddenApplications:completion:];
       }
@@ -80,128 +145,59 @@
 
     else
     {
-      v21 = 0;
-      notifyLSObservers(v15, v16, 1, &v21);
-      v11 = v21;
-      [(_LSDAppProtectionClient *)self sendPluginNotificationsFor:v15 notification:@"com.apple.LaunchServices.pluginsunregistered"];
-      [(_LSDAppProtectionClient *)self sendPluginNotificationsFor:v16 notification:@"com.apple.LaunchServices.pluginsregistered"];
+      v22 = 0;
+      notifyLSObservers(v16, v17, 0, &v22);
+      v11 = v22;
       completionCopy[2](completionCopy, v11);
     }
   }
-
-  v20 = *MEMORY[0x1E69E9840];
-}
-
-- (void)setLockedApplications:(id)applications completion:(id)completion
-{
-  v25 = *MEMORY[0x1E69E9840];
-  applicationsCopy = applications;
-  completionCopy = completion;
-  _LSAssertRunningInServer("[_LSDAppProtectionClient setLockedApplications:completion:]");
-  v7 = MEMORY[0x1E695DF90];
-  v8 = +[_LSDAppProtectionAccessManager sharedInstance];
-  v23 = 0;
-  v9 = [v8 readFromDBWithError:&v23];
-  v10 = v23;
-  v11 = [v7 dictionaryWithDictionary:v9];
-
-  if (v10)
-  {
-    v12 = _LSAppProtectionLog();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
-    {
-      [_LSDAppProtectionClient setHiddenApplications:completion:];
-    }
-
-    completionCopy[2](completionCopy, v10);
-  }
-
-  else
-  {
-    v13 = [v11 objectForKey:@"lockedBundleIDs"];
-    v21 = 0;
-    v22 = 0;
-    computeAddedAndRemovedBundleIDs(&v22, &v21, v13, applicationsCopy);
-    v14 = v22;
-    v15 = v21;
-    v16 = _LSAppProtectionLog();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
-    {
-      -[_LSDAppProtectionClient setLockedApplications:completion:].cold.2(v24, [v14 count], objc_msgSend(v15, "count"));
-    }
-
-    [v11 setObject:applicationsCopy forKey:@"lockedBundleIDs"];
-    v17 = +[_LSDAppProtectionAccessManager sharedInstance];
-    v10 = [v17 writeToDB:v11];
-
-    if (v10)
-    {
-      v18 = _LSAppProtectionLog();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
-      {
-        [_LSDAppProtectionClient setHiddenApplications:completion:];
-      }
-
-      completionCopy[2](completionCopy, v10);
-    }
-
-    else
-    {
-      v20 = 0;
-      notifyLSObservers(v14, v15, 0, &v20);
-      v10 = v20;
-      completionCopy[2](completionCopy, v10);
-    }
-  }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 + (void)cleanupDeletedApplication:(id)application
 {
   applicationCopy = application;
-  _LSAssertRunningInServer("+[_LSDAppProtectionClient cleanupDeletedApplication:]");
-  v4 = MEMORY[0x1E695DF90];
-  v5 = +[_LSDAppProtectionAccessManager sharedInstance];
-  v18 = 0;
-  v6 = [v5 readFromDBWithError:&v18];
-  v7 = v18;
-  v8 = [v4 dictionaryWithDictionary:v6];
+  _LSAssertRunningInServer("+[_LSDAppProtectionClient cleanupDeletedApplication:]", v4);
+  v5 = MEMORY[0x1E695DF90];
+  v6 = +[_LSDAppProtectionAccessManager sharedInstance];
+  v21 = 0;
+  v7 = [v6 readFromDBWithError:&v21];
+  v8 = v21;
+  v9 = [v5 dictionaryWithDictionary:v7];
 
-  if (!v7)
+  if (!v8)
   {
-    v9 = [v8 objectForKey:@"lockedBundleIDs"];
-    v10 = [v9 ls_caseInsensitiveContainsString:applicationCopy];
-    if (v10)
+    v11 = [v9 objectForKey:@"lockedBundleIDs"];
+    v12 = [v11 ls_caseInsensitiveContainsString:applicationCopy];
+    if (v12)
     {
       applicationCopy = [MEMORY[0x1E696AE18] predicateWithFormat:@"SELF !=[c] %@", applicationCopy];
-      v12 = [v9 filteredArrayUsingPredicate:applicationCopy];
-      [v8 setObject:v12 forKey:@"lockedBundleIDs"];
+      v14 = [v11 filteredArrayUsingPredicate:applicationCopy];
+      [v9 setObject:v14 forKey:@"lockedBundleIDs"];
     }
 
-    v13 = [v8 objectForKey:@"hiddenBundleIDs"];
-    if ([v13 ls_caseInsensitiveContainsString:applicationCopy])
+    v15 = [v9 objectForKey:@"hiddenBundleIDs"];
+    if ([v15 ls_caseInsensitiveContainsString:applicationCopy])
     {
       applicationCopy2 = [MEMORY[0x1E696AE18] predicateWithFormat:@"SELF !=[c] %@", applicationCopy];
-      v15 = [v13 filteredArrayUsingPredicate:applicationCopy2];
-      [v8 setObject:v15 forKey:@"hiddenBundleIDs"];
+      v17 = [v15 filteredArrayUsingPredicate:applicationCopy2];
+      [v9 setObject:v17 forKey:@"hiddenBundleIDs"];
     }
 
-    else if (!v10)
+    else if (!v12)
     {
-      v7 = 0;
+      v8 = 0;
 LABEL_14:
 
       goto LABEL_15;
     }
 
-    v16 = +[_LSDAppProtectionAccessManager sharedInstance];
-    v7 = [v16 writeToDB:v8];
+    v18 = +[_LSDAppProtectionAccessManager sharedInstance];
+    v8 = [v18 writeToDB:v9];
 
-    if (v7)
+    if (v8)
     {
-      v17 = _LSAppProtectionLog();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+      v20 = _LSAppProtectionLog(v19);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
         +[_LSDAppProtectionClient cleanupDeletedApplication:];
       }
@@ -210,8 +206,8 @@ LABEL_14:
     goto LABEL_14;
   }
 
-  v9 = _LSAppProtectionLog();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+  v11 = _LSAppProtectionLog(v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
   {
     +[_LSDAppProtectionClient cleanupDeletedApplication:];
   }
@@ -221,7 +217,7 @@ LABEL_15:
 
 + (id)hiddenApplicationsForLSDUseOnly
 {
-  _LSAssertRunningInServer("+[_LSDAppProtectionClient hiddenApplicationsForLSDUseOnly]");
+  _LSAssertRunningInServer("+[_LSDAppProtectionClient hiddenApplicationsForLSDUseOnly]", a2);
   v2 = +[_LSDAppProtectionAccessManager sharedInstance];
   v3 = [v2 readFromDBWithError:0];
   v4 = [v3 objectForKey:@"hiddenBundleIDs"];
@@ -243,7 +239,7 @@ LABEL_15:
 
 + (id)lockedApplicationsForLSDUseOnly
 {
-  _LSAssertRunningInServer("+[_LSDAppProtectionClient lockedApplicationsForLSDUseOnly]");
+  _LSAssertRunningInServer("+[_LSDAppProtectionClient lockedApplicationsForLSDUseOnly]", a2);
   v2 = +[_LSDAppProtectionAccessManager sharedInstance];
   v3 = [v2 readFromDBWithError:0];
   v4 = [v3 objectForKey:@"lockedBundleIDs"];
@@ -266,17 +262,17 @@ LABEL_15:
 - (void)getHiddenApplicationsWithCompletion:(id)completion
 {
   completionCopy = completion;
-  _LSAssertRunningInServer("[_LSDAppProtectionClient getHiddenApplicationsWithCompletion:]");
-  v3 = +[_LSDAppProtectionClient hiddenApplicationsForLSDUseOnly];
-  completionCopy[2](completionCopy, v3);
+  _LSAssertRunningInServer("[_LSDAppProtectionClient getHiddenApplicationsWithCompletion:]", v3);
+  v4 = +[_LSDAppProtectionClient hiddenApplicationsForLSDUseOnly];
+  completionCopy[2](completionCopy, v4);
 }
 
 - (void)getLockedApplicationsWithCompletion:(id)completion
 {
   completionCopy = completion;
-  _LSAssertRunningInServer("[_LSDAppProtectionClient getLockedApplicationsWithCompletion:]");
-  v3 = +[_LSDAppProtectionClient lockedApplicationsForLSDUseOnly];
-  completionCopy[2](completionCopy, v3);
+  _LSAssertRunningInServer("[_LSDAppProtectionClient getLockedApplicationsWithCompletion:]", v3);
+  v4 = +[_LSDAppProtectionClient lockedApplicationsForLSDUseOnly];
+  completionCopy[2](completionCopy, v4);
 }
 
 - (void)sendPluginNotificationsFor:(id)for notification:(id)notification
@@ -297,38 +293,6 @@ LABEL_15:
     v13 = notificationCopy;
     [(LSDBExecutionContext *)v8 performAsyncRead:v10];
   }
-}
-
-- (void)setHiddenApplications:completion:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_4_0();
-  OUTLINED_FUNCTION_0_7(&dword_18162D000, v0, v1, "Error opening appProtectionStoreFile error: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)setHiddenApplications:completion:.cold.3()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_4_0();
-  OUTLINED_FUNCTION_0_7(&dword_18162D000, v0, v1, "Error writing to appProtectionStoreFile error: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-+ (void)cleanupDeletedApplication:.cold.1()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_4_0();
-  OUTLINED_FUNCTION_1_0(&dword_18162D000, v0, v1, "Error opening appProtectionStoreFile error: %{public}@ while cleaning up deleted app %{private}@");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-+ (void)cleanupDeletedApplication:.cold.2()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_4_0();
-  OUTLINED_FUNCTION_1_0(&dword_18162D000, v0, v1, "Error writing to appProtectionStoreFile error: %{public}@ while cleaning up deleted app %{private}@");
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 @end

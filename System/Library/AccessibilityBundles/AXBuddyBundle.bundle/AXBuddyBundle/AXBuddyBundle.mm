@@ -23,9 +23,9 @@ id sub_13A8()
   return v2;
 }
 
-void sub_1478(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1478(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -76,7 +76,7 @@ Class sub_16D0(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -96,7 +96,6 @@ LABEL_4:
 
 uint64_t sub_1814(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_118A8 = result;
   return result;
@@ -208,9 +207,9 @@ id sub_336C()
   return v2;
 }
 
-void sub_343C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_343C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -239,7 +238,7 @@ Class sub_3580(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -259,7 +258,6 @@ LABEL_4:
 
 uint64_t sub_36C4(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_118B8 = result;
   return result;
@@ -274,16 +272,16 @@ id AXBuddyBundleLocString(void *a1)
   return v3;
 }
 
-id AXSettingsBundle()
+id AXSettingsBundle(uint64_t a1)
 {
   if (qword_118C8 != -1)
   {
     sub_56E0();
   }
 
-  v1 = qword_118C0;
+  v2 = qword_118C0;
 
-  return v1;
+  return v2;
 }
 
 void sub_3818(id a1)
@@ -298,7 +296,7 @@ id settingsLocString(void *a1, void *a2)
 {
   v3 = a2;
   v4 = a1;
-  v5 = AXSettingsBundle();
+  v5 = AXSettingsBundle(v4);
   v6 = [v5 localizedStringForKey:v4 value:v4 table:v3];
 
   return v6;
@@ -329,9 +327,9 @@ id sub_3BD8()
   return v2;
 }
 
-void sub_3CA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_3CA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -360,7 +358,7 @@ Class sub_3E68(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -380,7 +378,6 @@ LABEL_4:
 
 uint64_t sub_3FAC(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_118D8 = result;
   return result;
@@ -411,9 +408,9 @@ id sub_4A24()
   return v2;
 }
 
-void sub_4AF4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_4AF4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -442,7 +439,7 @@ Class sub_5488(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -462,7 +459,6 @@ LABEL_4:
 
 uint64_t sub_55CC(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_118E8 = result;
   return result;

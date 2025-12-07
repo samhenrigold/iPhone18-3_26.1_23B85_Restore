@@ -73,89 +73,89 @@
 
 - (_LXLexicon)appNameLexiconForLocale:(const char *)locale
 {
-  v38[2] = *MEMORY[0x277D85DE8];
-  MEMORY[0x26D6C0670](&v36, locale);
-  if (std::__hash_table<std::__hash_value_type<KB::String,std::shared_ptr<KB::AddressBookTrieLoader>>,std::__unordered_map_hasher<KB::String,std::__hash_value_type<KB::String,std::shared_ptr<KB::AddressBookTrieLoader>>,std::hash<KB::String>,std::equal_to<KB::String>,true>,std::__unordered_map_equal<KB::String,std::__hash_value_type<KB::String,std::shared_ptr<KB::AddressBookTrieLoader>>,std::equal_to<KB::String>,std::hash<KB::String>,true>,std::allocator<std::__hash_value_type<KB::String,std::shared_ptr<KB::AddressBookTrieLoader>>>>::find<KB::String>(self->_appNameLexicons, &v36))
+  v40[2] = *MEMORY[0x277D85DE8];
+  MEMORY[0x26D6C0670](&v38, locale);
+  if (std::__hash_table<std::__hash_value_type<KB::String,std::shared_ptr<KB::AddressBookTrieLoader>>,std::__unordered_map_hasher<KB::String,std::__hash_value_type<KB::String,std::shared_ptr<KB::AddressBookTrieLoader>>,std::hash<KB::String>,std::equal_to<KB::String>,true>,std::__unordered_map_equal<KB::String,std::__hash_value_type<KB::String,std::shared_ptr<KB::AddressBookTrieLoader>>,std::equal_to<KB::String>,std::hash<KB::String>,true>,std::allocator<std::__hash_value_type<KB::String,std::shared_ptr<KB::AddressBookTrieLoader>>>>::find<KB::String>(self->_appNameLexicons, &v38, v4))
   {
     goto LABEL_36;
   }
 
-  v4 = v37;
-  if (!v37)
+  v6 = v39;
+  if (!v39)
   {
-    v4 = v38;
+    v6 = v40;
   }
 
-  if (v36)
+  if (v38)
   {
-    v5 = v4;
+    v7 = v6;
   }
 
   else
   {
-    v5 = "";
+    v7 = "";
   }
 
-  v25 = [MEMORY[0x277CCACA8] stringWithUTF8String:v5];
-  v6 = UIKeyboardStaticUnigramsFile();
-  KB::utf8_string(v35, v6, v7);
+  v27 = [MEMORY[0x277CCACA8] stringWithUTF8String:v7];
+  v8 = UIKeyboardStaticUnigramsFile();
+  KB::utf8_string(v37, v8, v9);
 
-  v8 = [MEMORY[0x277D6FE48] inputModeWithIdentifier:v25];
-  v9 = UIKeyboardDeltaLexiconPathForInputMode();
-  KB::utf8_string(v34, v9, v10);
+  v10 = [MEMORY[0x277D6FE48] inputModeWithIdentifier:v27];
+  v11 = UIKeyboardDeltaLexiconPathForInputMode();
+  KB::utf8_string(v36, v11, v12);
 
-  MEMORY[0x26D6C0680](v33, &v36);
-  MEMORY[0x26D6C0680](v32, v35);
-  MEMORY[0x26D6C0680](v31, v34);
+  MEMORY[0x26D6C0680](v35, &v38);
+  MEMORY[0x26D6C0680](v34, v37);
+  MEMORY[0x26D6C0680](v33, v36);
   KB::AppTrieLoader::create();
-  KB::String::~String(v31);
-  KB::String::~String(v32);
   KB::String::~String(v33);
+  KB::String::~String(v34);
+  KB::String::~String(v35);
   appNameLexicons = self->_appNameLexicons;
-  MEMORY[0x26D6C0680](&v27, &v36);
-  v30 = v26;
-  if (*(&v26 + 1))
+  MEMORY[0x26D6C0680](&v29, &v38);
+  v32 = v28;
+  if (*(&v28 + 1))
   {
-    atomic_fetch_add_explicit((*(&v26 + 1) + 8), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((*(&v28 + 1) + 8), 1uLL, memory_order_relaxed);
   }
 
-  if (v28)
+  if (v30)
   {
-    v12 = v28;
+    v14 = v30;
   }
 
   else
   {
-    v12 = &v29;
+    v14 = &v31;
   }
 
-  v13 = KB::String::hash(v12, v27);
-  v14 = v13;
-  v15 = appNameLexicons[1];
-  if (!v15)
+  v15 = KB::String::hash(v14, v29);
+  v16 = v15;
+  v17 = appNameLexicons[1];
+  if (!v17)
   {
     goto LABEL_30;
   }
 
-  v16 = vcnt_s8(v15);
-  v16.i16[0] = vaddlv_u8(v16);
-  v17 = v16.u32[0];
-  if (v16.u32[0] > 1uLL)
+  v18 = vcnt_s8(v17);
+  v18.i16[0] = vaddlv_u8(v18);
+  v19 = v18.u32[0];
+  if (v18.u32[0] > 1uLL)
   {
-    v18 = v13;
-    if (v15 <= v13)
+    v20 = v15;
+    if (v17 <= v15)
     {
-      v18 = v13 % v15;
+      v20 = v15 % v17;
     }
   }
 
   else
   {
-    v18 = (v15 - 1) & v13;
+    v20 = (v17 - 1) & v15;
   }
 
-  v19 = *(*appNameLexicons + 8 * v18);
-  if (!v19 || (v20 = *v19) == 0)
+  v21 = *(*appNameLexicons + 8 * v20);
+  if (!v21 || (v22 = *v21) == 0)
   {
 LABEL_30:
     operator new();
@@ -163,160 +163,160 @@ LABEL_30:
 
   while (1)
   {
-    v21 = v20[1];
-    if (v21 == v14)
+    v23 = v22[1];
+    if (v23 == v16)
     {
       break;
     }
 
-    if (v17 > 1)
+    if (v19 > 1)
     {
-      if (v21 >= v15)
+      if (v23 >= v17)
       {
-        v21 %= v15;
+        v23 %= v17;
       }
     }
 
     else
     {
-      v21 &= v15 - 1;
+      v23 &= v17 - 1;
     }
 
-    if (v21 != v18)
+    if (v23 != v20)
     {
       goto LABEL_30;
     }
 
 LABEL_29:
-    v20 = *v20;
-    if (!v20)
+    v22 = *v22;
+    if (!v22)
     {
       goto LABEL_30;
     }
   }
 
-  if (v20 + 2 != &v27 && (KB::String::equal((v20 + 2), &v27) & 1) == 0)
+  if (v22 + 2 != &v29 && (KB::String::equal((v22 + 2), &v29) & 1) == 0)
   {
     goto LABEL_29;
   }
 
-  if (*(&v30 + 1))
+  if (*(&v32 + 1))
   {
-    std::__shared_weak_count::__release_shared[abi:nn200100](*(&v30 + 1));
+    std::__shared_weak_count::__release_shared[abi:nn200100](*(&v32 + 1));
   }
 
-  KB::String::~String(&v27);
-  if (*(&v26 + 1))
+  KB::String::~String(&v29);
+  if (*(&v28 + 1))
   {
-    std::__shared_weak_count::__release_shared[abi:nn200100](*(&v26 + 1));
+    std::__shared_weak_count::__release_shared[abi:nn200100](*(&v28 + 1));
   }
 
-  KB::String::~String(v34);
-  KB::String::~String(v35);
+  KB::String::~String(v36);
+  KB::String::~String(v37);
 
 LABEL_36:
-  v22 = std::__hash_table<std::__hash_value_type<KB::String,std::shared_ptr<KB::AddressBookTrieLoader>>,std::__unordered_map_hasher<KB::String,std::__hash_value_type<KB::String,std::shared_ptr<KB::AddressBookTrieLoader>>,std::hash<KB::String>,std::equal_to<KB::String>,true>,std::__unordered_map_equal<KB::String,std::__hash_value_type<KB::String,std::shared_ptr<KB::AddressBookTrieLoader>>,std::equal_to<KB::String>,std::hash<KB::String>,true>,std::allocator<std::__hash_value_type<KB::String,std::shared_ptr<KB::AddressBookTrieLoader>>>>::find<KB::String>(self->_appNameLexicons, &v36);
-  if (!v22)
+  v24 = std::__hash_table<std::__hash_value_type<KB::String,std::shared_ptr<KB::AddressBookTrieLoader>>,std::__unordered_map_hasher<KB::String,std::__hash_value_type<KB::String,std::shared_ptr<KB::AddressBookTrieLoader>>,std::hash<KB::String>,std::equal_to<KB::String>,true>,std::__unordered_map_equal<KB::String,std::__hash_value_type<KB::String,std::shared_ptr<KB::AddressBookTrieLoader>>,std::equal_to<KB::String>,std::hash<KB::String>,true>,std::allocator<std::__hash_value_type<KB::String,std::shared_ptr<KB::AddressBookTrieLoader>>>>::find<KB::String>(self->_appNameLexicons, &v38, v5);
+  if (!v24)
   {
     abort();
   }
 
-  (*(*v22[6] + 16))(&v27);
-  v23 = *v27;
-  if (v28)
+  (*(*v24[6] + 16))(&v29);
+  v25 = *v29;
+  if (v30)
   {
-    std::__shared_weak_count::__release_shared[abi:nn200100](v28);
+    std::__shared_weak_count::__release_shared[abi:nn200100](v30);
   }
 
-  KB::String::~String(&v36);
-  return v23;
+  KB::String::~String(&v38);
+  return v25;
 }
 
 - (_LXLexicon)addressBookLexiconForLocale:(const char *)locale
 {
-  v38[2] = *MEMORY[0x277D85DE8];
-  MEMORY[0x26D6C0670](&v36, locale);
-  if (std::__hash_table<std::__hash_value_type<KB::String,std::shared_ptr<KB::AddressBookTrieLoader>>,std::__unordered_map_hasher<KB::String,std::__hash_value_type<KB::String,std::shared_ptr<KB::AddressBookTrieLoader>>,std::hash<KB::String>,std::equal_to<KB::String>,true>,std::__unordered_map_equal<KB::String,std::__hash_value_type<KB::String,std::shared_ptr<KB::AddressBookTrieLoader>>,std::equal_to<KB::String>,std::hash<KB::String>,true>,std::allocator<std::__hash_value_type<KB::String,std::shared_ptr<KB::AddressBookTrieLoader>>>>::find<KB::String>(self->_addressBookLexicons, &v36))
+  v40[2] = *MEMORY[0x277D85DE8];
+  MEMORY[0x26D6C0670](&v38, locale);
+  if (std::__hash_table<std::__hash_value_type<KB::String,std::shared_ptr<KB::AddressBookTrieLoader>>,std::__unordered_map_hasher<KB::String,std::__hash_value_type<KB::String,std::shared_ptr<KB::AddressBookTrieLoader>>,std::hash<KB::String>,std::equal_to<KB::String>,true>,std::__unordered_map_equal<KB::String,std::__hash_value_type<KB::String,std::shared_ptr<KB::AddressBookTrieLoader>>,std::equal_to<KB::String>,std::hash<KB::String>,true>,std::allocator<std::__hash_value_type<KB::String,std::shared_ptr<KB::AddressBookTrieLoader>>>>::find<KB::String>(self->_addressBookLexicons, &v38, v4))
   {
     goto LABEL_36;
   }
 
-  v4 = v37;
-  if (!v37)
+  v6 = v39;
+  if (!v39)
   {
-    v4 = v38;
+    v6 = v40;
   }
 
-  if (v36)
+  if (v38)
   {
-    v5 = v4;
+    v7 = v6;
   }
 
   else
   {
-    v5 = "";
+    v7 = "";
   }
 
-  v25 = [MEMORY[0x277CCACA8] stringWithUTF8String:v5];
-  v6 = UIKeyboardStaticUnigramsFile();
-  KB::utf8_string(v35, v6, v7);
+  v27 = [MEMORY[0x277CCACA8] stringWithUTF8String:v7];
+  v8 = UIKeyboardStaticUnigramsFile();
+  KB::utf8_string(v37, v8, v9);
 
-  v8 = [MEMORY[0x277D6FE48] inputModeWithIdentifier:v25];
-  v9 = UIKeyboardDeltaLexiconPathForInputMode();
-  KB::utf8_string(v34, v9, v10);
+  v10 = [MEMORY[0x277D6FE48] inputModeWithIdentifier:v27];
+  v11 = UIKeyboardDeltaLexiconPathForInputMode();
+  KB::utf8_string(v36, v11, v12);
 
-  MEMORY[0x26D6C0680](v33, &v36);
-  MEMORY[0x26D6C0680](v32, v35);
-  MEMORY[0x26D6C0680](v31, v34);
+  MEMORY[0x26D6C0680](v35, &v38);
+  MEMORY[0x26D6C0680](v34, v37);
+  MEMORY[0x26D6C0680](v33, v36);
   KB::AddressBookTrieLoader::create();
-  KB::String::~String(v31);
-  KB::String::~String(v32);
   KB::String::~String(v33);
+  KB::String::~String(v34);
+  KB::String::~String(v35);
   addressBookLexicons = self->_addressBookLexicons;
-  MEMORY[0x26D6C0680](&v27, &v36);
-  v30 = v26;
-  if (*(&v26 + 1))
+  MEMORY[0x26D6C0680](&v29, &v38);
+  v32 = v28;
+  if (*(&v28 + 1))
   {
-    atomic_fetch_add_explicit((*(&v26 + 1) + 8), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((*(&v28 + 1) + 8), 1uLL, memory_order_relaxed);
   }
 
-  if (v28)
+  if (v30)
   {
-    v12 = v28;
+    v14 = v30;
   }
 
   else
   {
-    v12 = &v29;
+    v14 = &v31;
   }
 
-  v13 = KB::String::hash(v12, v27);
-  v14 = v13;
-  v15 = addressBookLexicons[1];
-  if (!v15)
+  v15 = KB::String::hash(v14, v29);
+  v16 = v15;
+  v17 = addressBookLexicons[1];
+  if (!v17)
   {
     goto LABEL_30;
   }
 
-  v16 = vcnt_s8(v15);
-  v16.i16[0] = vaddlv_u8(v16);
-  v17 = v16.u32[0];
-  if (v16.u32[0] > 1uLL)
+  v18 = vcnt_s8(v17);
+  v18.i16[0] = vaddlv_u8(v18);
+  v19 = v18.u32[0];
+  if (v18.u32[0] > 1uLL)
   {
-    v18 = v13;
-    if (v15 <= v13)
+    v20 = v15;
+    if (v17 <= v15)
     {
-      v18 = v13 % v15;
+      v20 = v15 % v17;
     }
   }
 
   else
   {
-    v18 = (v15 - 1) & v13;
+    v20 = (v17 - 1) & v15;
   }
 
-  v19 = *(*addressBookLexicons + 8 * v18);
-  if (!v19 || (v20 = *v19) == 0)
+  v21 = *(*addressBookLexicons + 8 * v20);
+  if (!v21 || (v22 = *v21) == 0)
   {
 LABEL_30:
     operator new();
@@ -324,73 +324,73 @@ LABEL_30:
 
   while (1)
   {
-    v21 = v20[1];
-    if (v21 == v14)
+    v23 = v22[1];
+    if (v23 == v16)
     {
       break;
     }
 
-    if (v17 > 1)
+    if (v19 > 1)
     {
-      if (v21 >= v15)
+      if (v23 >= v17)
       {
-        v21 %= v15;
+        v23 %= v17;
       }
     }
 
     else
     {
-      v21 &= v15 - 1;
+      v23 &= v17 - 1;
     }
 
-    if (v21 != v18)
+    if (v23 != v20)
     {
       goto LABEL_30;
     }
 
 LABEL_29:
-    v20 = *v20;
-    if (!v20)
+    v22 = *v22;
+    if (!v22)
     {
       goto LABEL_30;
     }
   }
 
-  if (v20 + 2 != &v27 && (KB::String::equal((v20 + 2), &v27) & 1) == 0)
+  if (v22 + 2 != &v29 && (KB::String::equal((v22 + 2), &v29) & 1) == 0)
   {
     goto LABEL_29;
   }
 
-  if (*(&v30 + 1))
+  if (*(&v32 + 1))
   {
-    std::__shared_weak_count::__release_shared[abi:nn200100](*(&v30 + 1));
+    std::__shared_weak_count::__release_shared[abi:nn200100](*(&v32 + 1));
   }
 
-  KB::String::~String(&v27);
-  if (*(&v26 + 1))
+  KB::String::~String(&v29);
+  if (*(&v28 + 1))
   {
-    std::__shared_weak_count::__release_shared[abi:nn200100](*(&v26 + 1));
+    std::__shared_weak_count::__release_shared[abi:nn200100](*(&v28 + 1));
   }
 
-  KB::String::~String(v34);
-  KB::String::~String(v35);
+  KB::String::~String(v36);
+  KB::String::~String(v37);
 
 LABEL_36:
-  v22 = std::__hash_table<std::__hash_value_type<KB::String,std::shared_ptr<KB::AddressBookTrieLoader>>,std::__unordered_map_hasher<KB::String,std::__hash_value_type<KB::String,std::shared_ptr<KB::AddressBookTrieLoader>>,std::hash<KB::String>,std::equal_to<KB::String>,true>,std::__unordered_map_equal<KB::String,std::__hash_value_type<KB::String,std::shared_ptr<KB::AddressBookTrieLoader>>,std::equal_to<KB::String>,std::hash<KB::String>,true>,std::allocator<std::__hash_value_type<KB::String,std::shared_ptr<KB::AddressBookTrieLoader>>>>::find<KB::String>(self->_addressBookLexicons, &v36);
-  if (!v22)
+  v24 = std::__hash_table<std::__hash_value_type<KB::String,std::shared_ptr<KB::AddressBookTrieLoader>>,std::__unordered_map_hasher<KB::String,std::__hash_value_type<KB::String,std::shared_ptr<KB::AddressBookTrieLoader>>,std::hash<KB::String>,std::equal_to<KB::String>,true>,std::__unordered_map_equal<KB::String,std::__hash_value_type<KB::String,std::shared_ptr<KB::AddressBookTrieLoader>>,std::equal_to<KB::String>,std::hash<KB::String>,true>,std::allocator<std::__hash_value_type<KB::String,std::shared_ptr<KB::AddressBookTrieLoader>>>>::find<KB::String>(self->_addressBookLexicons, &v38, v5);
+  if (!v24)
   {
     abort();
   }
 
-  (*(*v22[6] + 16))(&v27);
-  v23 = *v27;
-  if (v28)
+  (*(*v24[6] + 16))(&v29);
+  v25 = *v29;
+  if (v30)
   {
-    std::__shared_weak_count::__release_shared[abi:nn200100](v28);
+    std::__shared_weak_count::__release_shared[abi:nn200100](v30);
   }
 
-  KB::String::~String(&v36);
-  return v23;
+  KB::String::~String(&v38);
+  return v25;
 }
 
 - (BOOL)searchForWordCaseInsensitive:(id)insensitive
@@ -417,75 +417,75 @@ LABEL_36:
     return v11 & 1;
   }
 
-  v15 = 0;
-  v16 = &v15;
-  v17 = 0x2020000000;
-  v18 = 0;
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __68__TITransientLexiconManagerMock_searchHelper_forWord_caseSensitive___block_invoke;
-  v13[3] = &unk_279DA0630;
+  v16 = 0;
+  v17 = &v16;
+  v18 = 0x2020000000;
+  v19 = 0;
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __68__TITransientLexiconManagerMock_searchHelper_forWord_caseSensitive___block_invoke;
+  v14[3] = &unk_279DA0630;
   sensitiveCopy = sensitive;
-  v13[4] = &v15;
-  v13[5] = word;
-  v7 = v13;
-  v24 = 0;
-  v25 = &v24;
-  v26 = 0x2020000000;
+  v14[4] = &v16;
+  v14[5] = word;
+  v7 = v14;
+  v25 = 0;
+  v26 = &v25;
+  v27 = 0x2020000000;
   v8 = getLXLexiconEnumerateEntriesForStringSymbolLoc(void)::ptr;
-  v27 = getLXLexiconEnumerateEntriesForStringSymbolLoc(void)::ptr;
+  v28 = getLXLexiconEnumerateEntriesForStringSymbolLoc(void)::ptr;
   if (!getLXLexiconEnumerateEntriesForStringSymbolLoc(void)::ptr)
   {
-    v19 = MEMORY[0x277D85DD0];
-    v20 = 3221225472;
-    v21 = ___ZL46getLXLexiconEnumerateEntriesForStringSymbolLocv_block_invoke;
-    v22 = &unk_279DA0658;
-    v23 = &v24;
+    v20 = MEMORY[0x277D85DD0];
+    v21 = 3221225472;
+    v22 = ___ZL46getLXLexiconEnumerateEntriesForStringSymbolLocv_block_invoke;
+    v23 = &unk_279DA0658;
+    v24 = &v25;
     v9 = LexiconLibrary();
     v10 = dlsym(v9, "LXLexiconEnumerateEntriesForString");
-    *(v23[1] + 24) = v10;
-    getLXLexiconEnumerateEntriesForStringSymbolLoc(void)::ptr = *(v23[1] + 24);
-    v8 = v25[3];
+    *(v24[1] + 24) = v10;
+    getLXLexiconEnumerateEntriesForStringSymbolLoc(void)::ptr = *(v24[1] + 24);
+    v8 = v26[3];
   }
 
-  _Block_object_dispose(&v24, 8);
+  _Block_object_dispose(&v25, 8);
   if (v8)
   {
     v8(helper, word, v7);
 
-    v11 = *(v16 + 24);
-    _Block_object_dispose(&v15, 8);
+    v11 = *(v17 + 24);
+    _Block_object_dispose(&v16, 8);
     return v11 & 1;
   }
 
-  dlerror();
-  result = abort_report_np();
+  v13 = dlerror();
+  result = abort_report_np("%s", v13);
   __break(1u);
   return result;
 }
 
 void __68__TITransientLexiconManagerMock_searchHelper_forWord_caseSensitive___block_invoke(uint64_t a1, uint64_t a2, _BYTE *a3)
 {
-  v10 = 0;
-  v11 = &v10;
-  v12 = 0x2020000000;
+  v11 = 0;
+  v12 = &v11;
+  v13 = 0x2020000000;
   v6 = getLXEntryCopyStringSymbolLoc(void)::ptr;
-  v13 = getLXEntryCopyStringSymbolLoc(void)::ptr;
+  v14 = getLXEntryCopyStringSymbolLoc(void)::ptr;
   if (!getLXEntryCopyStringSymbolLoc(void)::ptr)
   {
     v7 = LexiconLibrary();
-    v11[3] = dlsym(v7, "LXEntryCopyString");
-    getLXEntryCopyStringSymbolLoc(void)::ptr = v11[3];
-    v6 = v11[3];
+    v12[3] = dlsym(v7, "LXEntryCopyString");
+    getLXEntryCopyStringSymbolLoc(void)::ptr = v12[3];
+    v6 = v12[3];
   }
 
-  _Block_object_dispose(&v10, 8);
+  _Block_object_dispose(&v11, 8);
   if (!v6)
   {
-    dlerror();
-    v9 = abort_report_np();
-    _Block_object_dispose(&v10, 8);
-    _Unwind_Resume(v9);
+    v9 = dlerror();
+    v10 = abort_report_np("%s", v9);
+    _Block_object_dispose(&v11, 8);
+    _Unwind_Resume(v10);
   }
 
   v8 = v6(a2);
@@ -769,40 +769,40 @@ void __68__TITransientLexiconManagerMock_searchHelper_forWord_caseSensitive___bl
 - (void)addEntry:(id)entry toLexicon:(_LXLexicon *)lexicon
 {
   entryCopy = entry;
-  v10 = 0;
-  v11 = &v10;
-  v12 = 0x2020000000;
+  v11 = 0;
+  v12 = &v11;
+  v13 = 0x2020000000;
   v6 = getLXLexiconAddSymbolLoc(void)::ptr;
-  v13 = getLXLexiconAddSymbolLoc(void)::ptr;
+  v14 = getLXLexiconAddSymbolLoc(void)::ptr;
   if (!getLXLexiconAddSymbolLoc(void)::ptr)
   {
     v7 = LexiconLibrary();
-    v11[3] = dlsym(v7, "LXLexiconAdd");
-    getLXLexiconAddSymbolLoc(void)::ptr = v11[3];
-    v6 = v11[3];
+    v12[3] = dlsym(v7, "LXLexiconAdd");
+    getLXLexiconAddSymbolLoc(void)::ptr = v12[3];
+    v6 = v12[3];
   }
 
-  _Block_object_dispose(&v10, 8);
+  _Block_object_dispose(&v11, 8);
   if (!v6)
   {
     goto LABEL_8;
   }
 
   v6(lexicon, entryCopy, 0);
-  v10 = 0;
-  v11 = &v10;
-  v12 = 0x2020000000;
+  v11 = 0;
+  v12 = &v11;
+  v13 = 0x2020000000;
   v8 = getLXLexiconIncrementUsageCountSymbolLoc(void)::ptr;
-  v13 = getLXLexiconIncrementUsageCountSymbolLoc(void)::ptr;
+  v14 = getLXLexiconIncrementUsageCountSymbolLoc(void)::ptr;
   if (!getLXLexiconIncrementUsageCountSymbolLoc(void)::ptr)
   {
     v9 = LexiconLibrary();
-    v11[3] = dlsym(v9, "LXLexiconIncrementUsageCount");
-    getLXLexiconIncrementUsageCountSymbolLoc(void)::ptr = v11[3];
-    v8 = v11[3];
+    v12[3] = dlsym(v9, "LXLexiconIncrementUsageCount");
+    getLXLexiconIncrementUsageCountSymbolLoc(void)::ptr = v12[3];
+    v8 = v12[3];
   }
 
-  _Block_object_dispose(&v10, 8);
+  _Block_object_dispose(&v11, 8);
   if (v8)
   {
     v8(lexicon, entryCopy, 1);
@@ -811,8 +811,8 @@ void __68__TITransientLexiconManagerMock_searchHelper_forWord_caseSensitive___bl
   else
   {
 LABEL_8:
-    dlerror();
-    abort_report_np();
+    v10 = dlerror();
+    abort_report_np("%s", v10);
     __break(1u);
   }
 }
@@ -841,7 +841,7 @@ LABEL_8:
 
   v6 = [v5 length];
   v7 = [v5 length];
-  MEMORY[0x28223BE20]();
+  MEMORY[0x28223BE20](v7);
   v13[0] = [v5 length];
   [v5 getBytes:v11 - ((4 * v6 + 15) & 0xFFFFFFFFFFFFFFF0) maxLength:4 * v6 usedLength:v13 encoding:4 options:0 range:0 remainingRange:{v7, 0}];
   v8 = CFLocaleCreate(0, @"en_US");

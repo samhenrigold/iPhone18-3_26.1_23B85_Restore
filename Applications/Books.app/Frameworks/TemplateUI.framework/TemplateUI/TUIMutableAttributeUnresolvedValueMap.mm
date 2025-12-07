@@ -23,7 +23,7 @@
   else
   {
     v7 = &attributeCopy;
-    *(sub_347B0(&self->super._map.__table_.__bucket_list_.__ptr_, &attributeCopy) + 5) = value;
+    *(sub_347B0(&self->super._map.__table_.__bucket_list_.__ptr_, &attributeCopy, &std::piecewise_construct, &v7) + 5) = value;
   }
 }
 

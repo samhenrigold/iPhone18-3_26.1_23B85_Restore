@@ -25,11 +25,11 @@
 
 - (CRXFHealthDataProvider)initWithDeviceModel:(id)model
 {
-  v30[1] = *MEMORY[0x277D85DE8];
+  v29[1] = *MEMORY[0x277D85DE8];
   modelCopy = model;
-  v29.receiver = self;
-  v29.super_class = CRXFHealthDataProvider;
-  v6 = [(CRXFHealthDataProvider *)&v29 init];
+  v28.receiver = self;
+  v28.super_class = CRXFHealthDataProvider;
+  v6 = [(CRXFHealthDataProvider *)&v28 init];
   v7 = v6;
   if (v6)
   {
@@ -42,9 +42,9 @@
     objc_storeStrong(&v7->_deviceModel, model);
     v12 = [MEMORY[0x277CCAC80] scannerWithString:modelCopy];
     decimalDigitCharacterSet = [MEMORY[0x277CCA900] decimalDigitCharacterSet];
-    v28 = 0;
-    v14 = [v12 scanUpToCharactersFromSet:decimalDigitCharacterSet intoString:&v28];
-    v15 = v28;
+    v27 = 0;
+    v14 = [v12 scanUpToCharactersFromSet:decimalDigitCharacterSet intoString:&v27];
+    v15 = v27;
 
     deviceModel = v15;
     if ((v14 & 1) == 0)
@@ -62,8 +62,8 @@
     v7->_samplePredicate = v19;
 
     v21 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:*MEMORY[0x277CCCD50] ascending:1];
-    v30[0] = v21;
-    v22 = [MEMORY[0x277CBEA60] arrayWithObjects:v30 count:1];
+    v29[0] = v21;
+    v22 = [MEMORY[0x277CBEA60] arrayWithObjects:v29 count:1];
     sortDescriptors = v7->_sortDescriptors;
     v7->_sortDescriptors = v22;
 
@@ -72,13 +72,12 @@
     v7->_healthStore = v24;
   }
 
-  v26 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
 - (id)createPrescriptionWithSphereRight:(double)right cylinderRight:(double)cylinderRight axisRight:(unint64_t)axisRight prismRight:(id)prismRight sphereLeft:(double)left cylinderLeft:(double)cylinderLeft axisLeft:(unint64_t)axisLeft prismLeft:(id)self0 readerRange:(id)self1 accPayload:(id)self2 description:(id)self3 colorCode:(unint64_t)self4 lensTypeCode:(unint64_t)self5 serialNumber:(id)self6 issueDate:(id)self7
 {
-  v79[7] = *MEMORY[0x277D85DE8];
+  v78[7] = *MEMORY[0x277D85DE8];
   rangeCopy = range;
   payloadCopy = payload;
   descriptionCopy = description;
@@ -86,33 +85,33 @@
   v28 = MEMORY[0x277CBEB38];
   deviceModel = self->_deviceModel;
   v30 = *MEMORY[0x277CCE120];
-  v78[0] = *MEMORY[0x277CCE138];
-  v78[1] = v30;
-  v79[0] = deviceModel;
-  v79[1] = payloadCopy;
-  v76 = payloadCopy;
-  v78[2] = *MEMORY[0x277CCE128];
+  v77[0] = *MEMORY[0x277CCE138];
+  v77[1] = v30;
+  v78[0] = deviceModel;
+  v78[1] = payloadCopy;
+  v75 = payloadCopy;
+  v77[2] = *MEMORY[0x277CCE128];
   v31 = MEMORY[0x277CCABB0];
   dateCopy = date;
   prismLeftCopy = prismLeft;
   prismRightCopy = prismRight;
   v33 = [v31 numberWithUnsignedInteger:code];
-  v79[2] = v33;
-  v78[3] = *MEMORY[0x277CCE130];
+  v78[2] = v33;
+  v77[3] = *MEMORY[0x277CCE130];
   v34 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:typeCode];
   v35 = *MEMORY[0x277CCC4A8];
-  v79[3] = v34;
-  v79[4] = descriptionCopy;
-  v75 = descriptionCopy;
+  v78[3] = v34;
+  v78[4] = descriptionCopy;
+  v74 = descriptionCopy;
   v36 = *MEMORY[0x277CCC520];
-  v78[4] = v35;
-  v78[5] = v36;
+  v77[4] = v35;
+  v77[5] = v36;
   uUID = [MEMORY[0x277CCAD78] UUID];
   uUIDString = [uUID UUIDString];
-  v78[6] = *MEMORY[0x277CCC528];
-  v79[5] = uUIDString;
-  v79[6] = &unk_285933BA8;
-  v39 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v79 forKeys:v78 count:7];
+  v77[6] = *MEMORY[0x277CCC528];
+  v78[5] = uUIDString;
+  v78[6] = &unk_285933BA8;
+  v39 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v78 forKeys:v77 count:7];
   v40 = [v28 dictionaryWithDictionary:v39];
 
   if (numberCopy)
@@ -120,7 +119,7 @@
     [v40 setObject:numberCopy forKeyedSubscript:*MEMORY[0x277CCE140]];
   }
 
-  v74 = numberCopy;
+  v73 = numberCopy;
   if (rangeCopy)
   {
     minimum = [rangeCopy minimum];
@@ -150,8 +149,8 @@
     v51 = 0;
   }
 
-  v68 = v51;
-  v70 = v45;
+  v67 = v51;
+  v69 = v45;
   v52 = [objc_alloc(MEMORY[0x277CCD480]) initWithSphere:v45 cylinder:v48 axis:v51 addPower:0 vertexDistance:0 prism:prismRightCopy farPupillaryDistance:0 nearPupillaryDistance:0];
 
   v53 = MEMORY[0x277CCD7E8];
@@ -179,8 +178,6 @@
   v63 = MEMORY[0x277CCD488];
   localDevice = [MEMORY[0x277CCD2E8] localDevice];
   v65 = [v63 prescriptionWithRightEyeSpecification:v52 leftEyeSpecification:v62 dateIssued:dateCopy expirationDate:0 device:localDevice metadata:v40];
-
-  v66 = *MEMORY[0x277D85DE8];
 
   return v65;
 }
@@ -342,39 +339,39 @@
 
 void __74__CRXFHealthDataProvider_listPrescriptionsWithCompletionQueue_completion___block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   v6 = a2;
   v7 = a3;
   v8 = a4;
   v9 = v8;
   if (v7)
   {
-    v27 = v8;
-    v29 = v6;
-    v30 = [MEMORY[0x277CBEB18] array];
+    v26 = v8;
+    v28 = v6;
+    v29 = [MEMORY[0x277CBEB18] array];
+    v36 = 0u;
     v37 = 0u;
     v38 = 0u;
     v39 = 0u;
-    v40 = 0u;
-    v28 = v7;
+    v27 = v7;
     v10 = v7;
-    v11 = [v10 countByEnumeratingWithState:&v37 objects:v41 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v36 objects:v40 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v38;
-      v31 = *MEMORY[0x277CCE138];
+      v13 = *v37;
+      v30 = *MEMORY[0x277CCE138];
       do
       {
         v14 = 0;
         do
         {
-          if (*v38 != v13)
+          if (*v37 != v13)
           {
             objc_enumerationMutation(v10);
           }
 
-          v15 = *(*(&v37 + 1) + 8 * v14);
+          v15 = *(*(&v36 + 1) + 8 * v14);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
@@ -383,12 +380,12 @@ void __74__CRXFHealthDataProvider_listPrescriptionsWithCompletionQueue_completio
             {
               v17 = v16;
               v18 = [v15 metadata];
-              v19 = [v18 objectForKeyedSubscript:v31];
+              v19 = [v18 objectForKeyedSubscript:v30];
               v20 = [v19 hasPrefix:*(*(a1 + 32) + 56)];
 
               if (v20)
               {
-                [v30 addObject:v15];
+                [v29 addObject:v15];
               }
             }
           }
@@ -397,16 +394,16 @@ void __74__CRXFHealthDataProvider_listPrescriptionsWithCompletionQueue_completio
         }
 
         while (v12 != v14);
-        v12 = [v10 countByEnumeratingWithState:&v37 objects:v41 count:16];
+        v12 = [v10 countByEnumeratingWithState:&v36 objects:v40 count:16];
       }
 
       while (v12);
     }
 
-    v7 = v28;
-    v6 = v29;
-    v9 = v27;
-    v21 = v30;
+    v7 = v27;
+    v6 = v28;
+    v9 = v26;
+    v21 = v29;
   }
 
   else
@@ -419,20 +416,18 @@ void __74__CRXFHealthDataProvider_listPrescriptionsWithCompletionQueue_completio
     v21 = 0;
   }
 
-  v33[0] = MEMORY[0x277D85DD0];
-  v33[1] = 3221225472;
-  v33[2] = __74__CRXFHealthDataProvider_listPrescriptionsWithCompletionQueue_completion___block_invoke_2;
-  v33[3] = &unk_278EA0328;
+  v32[0] = MEMORY[0x277D85DD0];
+  v32[1] = 3221225472;
+  v32[2] = __74__CRXFHealthDataProvider_listPrescriptionsWithCompletionQueue_completion___block_invoke_2;
+  v32[3] = &unk_278EA0328;
   v22 = *(a1 + 40);
   v23 = *(a1 + 48);
-  v35 = v9;
-  v36 = v23;
-  v34 = v21;
+  v34 = v9;
+  v35 = v23;
+  v33 = v21;
   v24 = v9;
   v25 = v21;
-  [v22 dispatchAsync:v33];
-
-  v26 = *MEMORY[0x277D85DE8];
+  [v22 dispatchAsync:v32];
 }
 
 - (void)updateWithAddedPrescriptions:(id)prescriptions deletedPrescriptions:(id)deletedPrescriptions completionQueue:(id)queue completion:(id)completion
@@ -514,36 +509,36 @@ void __103__CRXFHealthDataProvider_updateWithAddedPrescriptions_deletedPrescript
 
 void __103__CRXFHealthDataProvider_updateWithAddedPrescriptions_deletedPrescriptions_completionQueue_completion___block_invoke_3(uint64_t a1)
 {
-  v39 = *MEMORY[0x277D85DE8];
-  v18 = [MEMORY[0x277CBEB38] dictionary];
+  v38 = *MEMORY[0x277D85DE8];
+  v17 = [MEMORY[0x277CBEB38] dictionary];
   v2 = [[CRXUDispatchGroup alloc] initWithName:@"HealthSaveGroup"];
-  v29[0] = 0;
-  v29[1] = v29;
-  v29[2] = 0x3032000000;
-  v29[3] = __Block_byref_object_copy_;
-  v29[4] = __Block_byref_object_dispose_;
-  v30 = 0;
+  v28[0] = 0;
+  v28[1] = v28;
+  v28[2] = 0x3032000000;
+  v28[3] = __Block_byref_object_copy_;
+  v28[4] = __Block_byref_object_dispose_;
+  v29 = 0;
+  v24 = 0u;
   v25 = 0u;
   v26 = 0u;
   v27 = 0u;
-  v28 = 0u;
   obj = *(a1 + 32);
-  v3 = [obj countByEnumeratingWithState:&v25 objects:v38 count:16];
+  v3 = [obj countByEnumeratingWithState:&v24 objects:v37 count:16];
   if (v3)
   {
-    v5 = *v26;
+    v5 = *v25;
     *&v4 = 136315650;
-    v16 = v4;
+    v15 = v4;
     do
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v26 != v5)
+        if (*v25 != v5)
         {
           objc_enumerationMutation(obj);
         }
 
-        v7 = *(*(&v25 + 1) + 8 * i);
+        v7 = *(*(&v24 + 1) + 8 * i);
         v8 = [v7 _sourceBundleIdentifier];
         if (!v8)
         {
@@ -555,12 +550,12 @@ void __103__CRXFHealthDataProvider_updateWithAddedPrescriptions_deletedPrescript
         v11 = *(*(a1 + 40) + 8);
         if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
         {
-          *buf = v16;
-          v33 = "[CRXFHealthDataProvider updateWithAddedPrescriptions:deletedPrescriptions:completionQueue:completion:]_block_invoke";
-          v34 = 1024;
-          v35 = 421;
-          v36 = 2114;
-          v37 = v8;
+          *buf = v15;
+          v32 = "[CRXFHealthDataProvider updateWithAddedPrescriptions:deletedPrescriptions:completionQueue:completion:]_block_invoke";
+          v33 = 1024;
+          v34 = 421;
+          v35 = 2114;
+          v36 = v8;
           _os_log_debug_impl(&dword_24732C000, v11, OS_LOG_TYPE_DEBUG, "%s @%d: Prescription to add has source bundle ID: %{public}@", buf, 0x1Cu);
           if (!v8)
           {
@@ -575,50 +570,49 @@ LABEL_13:
           goto LABEL_13;
         }
 
-        v12 = [v18 objectForKeyedSubscript:v8];
+        v12 = [v17 objectForKeyedSubscript:v8];
         if (!v12)
         {
           v12 = objc_alloc_init(MEMORY[0x277CCD4D8]);
           [v12 setSourceBundleIdentifier:v8];
           [v12 resume];
-          [v18 setObject:v12 forKeyedSubscript:v8];
+          [v17 setObject:v12 forKeyedSubscript:v8];
         }
 
 LABEL_14:
         [(CRXUDispatchGroup *)v2 enter];
-        v31 = v7;
-        v13 = [MEMORY[0x277CBEA60] arrayWithObjects:&v31 count:1];
-        v22[0] = MEMORY[0x277D85DD0];
-        v22[1] = 3221225472;
-        v22[2] = __103__CRXFHealthDataProvider_updateWithAddedPrescriptions_deletedPrescriptions_completionQueue_completion___block_invoke_114;
-        v22[3] = &unk_278EA03A0;
-        v24 = v29;
-        v23 = v2;
-        [v12 saveObjects:v13 withCompletion:v22];
+        v30 = v7;
+        v13 = [MEMORY[0x277CBEA60] arrayWithObjects:&v30 count:1];
+        v21[0] = MEMORY[0x277D85DD0];
+        v21[1] = 3221225472;
+        v21[2] = __103__CRXFHealthDataProvider_updateWithAddedPrescriptions_deletedPrescriptions_completionQueue_completion___block_invoke_114;
+        v21[3] = &unk_278EA03A0;
+        v23 = v28;
+        v22 = v2;
+        [v12 saveObjects:v13 withCompletion:v21];
       }
 
-      v3 = [obj countByEnumeratingWithState:&v25 objects:v38 count:16];
+      v3 = [obj countByEnumeratingWithState:&v24 objects:v37 count:16];
     }
 
     while (v3);
   }
 
-  v19[0] = MEMORY[0x277D85DD0];
-  v19[1] = 3221225472;
-  v19[2] = __103__CRXFHealthDataProvider_updateWithAddedPrescriptions_deletedPrescriptions_completionQueue_completion___block_invoke_2_116;
-  v19[3] = &unk_278EA03C8;
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 3221225472;
+  v18[2] = __103__CRXFHealthDataProvider_updateWithAddedPrescriptions_deletedPrescriptions_completionQueue_completion___block_invoke_2_116;
+  v18[3] = &unk_278EA03C8;
   v14 = *(a1 + 48);
-  v20 = *(a1 + 56);
-  v21 = v29;
-  [(CRXUDispatchGroup *)v2 notifyOnQueue:v14 withBlock:v19];
+  v19 = *(a1 + 56);
+  v20 = v28;
+  [(CRXUDispatchGroup *)v2 notifyOnQueue:v14 withBlock:v18];
 
-  _Block_object_dispose(v29, 8);
-  v15 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(v28, 8);
 }
 
 void __103__CRXFHealthDataProvider_updateWithAddedPrescriptions_deletedPrescriptions_completionQueue_completion___block_invoke_114(uint64_t a1, char a2, void *a3)
 {
-  v17[1] = *MEMORY[0x277D85DE8];
+  v16[1] = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = v5;
   if ((a2 & 1) == 0 && !*(*(*(a1 + 40) + 8) + 40))
@@ -626,9 +620,9 @@ void __103__CRXFHealthDataProvider_updateWithAddedPrescriptions_deletedPrescript
     v7 = MEMORY[0x277CCA9B8];
     if (v5)
     {
-      v16 = *MEMORY[0x277CCA7E8];
-      v17[0] = v5;
-      v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:&v16 count:1];
+      v15 = *MEMORY[0x277CCA7E8];
+      v16[0] = v5;
+      v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:&v15 count:1];
       v9 = [v7 crxf_errorWithCode:1 file:"/Library/Caches/com.apple.xbs/Sources/CorePrescription/CorePrescription/Health/CRXFHealthDataProvider.m" line:440 userInfo:v8];
       v10 = *(*(a1 + 40) + 8);
       v11 = *(v10 + 40);
@@ -645,8 +639,6 @@ void __103__CRXFHealthDataProvider_updateWithAddedPrescriptions_deletedPrescript
   }
 
   [*(a1 + 32) leave];
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __103__CRXFHealthDataProvider_updateWithAddedPrescriptions_deletedPrescriptions_completionQueue_completion___block_invoke_3_117(uint64_t a1)
@@ -891,40 +883,34 @@ LABEL_12:
 
 - (void)updatePrescription:(void *)a1 withMetadata:(void *)a2 axisRight:axisLeft:prismRight:prismLeft:.cold.1(void *a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = [a2 _sourceBundleIdentifier];
+  v11 = 136315650;
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_2(&dword_24732C000, v5, v6, "%s @%d: updatePrescription sourceBundleIdentifier: %{public}@", v7, v8, v9, v10, 2u);
-
-  v11 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2(&dword_24732C000, v5, v6, "%s @%d: updatePrescription sourceBundleIdentifier: %{public}@", v7, v8, v9, v10, v11);
 }
 
 - (void)updatePrescription:(void *)a1 withMetadata:(void *)a2 axisRight:axisLeft:prismRight:prismLeft:.cold.2(void *a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = [a2 _sourceBundleIdentifier];
+  v11 = 136315650;
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_2(&dword_24732C000, v5, v6, "%s @%d: sourceBundleID on derived RX set to %{public}@", v7, v8, v9, v10, 2u);
-
-  v11 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2(&dword_24732C000, v5, v6, "%s @%d: sourceBundleID on derived RX set to %{public}@", v7, v8, v9, v10, v11);
 }
 
 void __90__CRXFHealthDataProvider_deletePrescriptionsMatchingPredicate_completionQueue_completion___block_invoke_cold_1(void *a1, uint64_t a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CCABB0];
   v4 = a1;
   v5 = [v3 numberWithUnsignedInteger:a2];
-  v7[0] = 136315650;
+  v6[0] = 136315650;
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_1_0();
-  _os_log_debug_impl(&dword_24732C000, v4, OS_LOG_TYPE_DEBUG, "%s @%d: Deleted %{public}@ HealthKit objects", v7, 0x1Cu);
-
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_24732C000, v4, OS_LOG_TYPE_DEBUG, "%s @%d: Deleted %{public}@ HealthKit objects", v6, 0x1Cu);
 }
 
 @end

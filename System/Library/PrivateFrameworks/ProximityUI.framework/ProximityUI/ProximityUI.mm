@@ -64,7 +64,7 @@ void sub_2613E0348(_Unwind_Exception *a1)
 
 void RoseSyntheticApertureFiltering::PRRoseRangeFilter::addMeasurementWithVIO(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  v59 = *MEMORY[0x277D85DE8];
+  v58 = *MEMORY[0x277D85DE8];
   v6 = *(a1 + 40);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
@@ -75,60 +75,60 @@ void RoseSyntheticApertureFiltering::PRRoseRangeFilter::addMeasurementWithVIO(ui
     v11 = *(a2 + 104);
     v12 = *(a2 + 112);
     *buf = 134219264;
-    v48 = v7;
-    v49 = 2048;
-    v50 = v8;
-    v51 = 2048;
-    v52 = v9;
-    v53 = 2048;
-    v54 = v10;
-    v55 = 2048;
-    v56 = v11;
-    v57 = 2048;
-    v58 = v12;
+    v47 = v7;
+    v48 = 2048;
+    v49 = v8;
+    v50 = 2048;
+    v51 = v9;
+    v52 = 2048;
+    v53 = v10;
+    v54 = 2048;
+    v55 = v11;
+    v56 = 2048;
+    v57 = v12;
     _os_log_impl(&dword_2613DF000, v6, OS_LOG_TYPE_DEFAULT, "Measurement added with VIO: timestamp %3.2f s, range %3.2f m, uncertainty %3.2f m, position [%3.2f, %3.2f, %3.2f] m", buf, 0x3Eu);
   }
 
-  v41 = 0x100000003;
-  v40 = xmmword_261415AA0;
-  v39 = &unk_2873C40E8;
-  v42 = &v43;
-  cnmatrix::FastResize<double>(&v39, 3, 1);
-  cnmatrix::CNMatrixBase<double>::WriteValue(&v39, 0.0);
-  v36 = 0x100000004;
-  v34 = &unk_2873C4170;
-  v35 = xmmword_261415AC0;
-  v37 = &v38;
-  cnmatrix::FastResize<double>(&v34, 4, 1);
-  cnmatrix::CNMatrixBase<double>::WriteValue(&v34, 0.0);
+  v40 = 0x100000003;
+  v39 = xmmword_261415AA0;
+  v38 = &unk_2873C40E8;
+  v41 = &v42;
+  cnmatrix::FastResize<double>(&v38, 3, 1);
+  cnmatrix::CNMatrixBase<double>::WriteValue(&v38, 0.0);
+  v35 = 0x100000004;
+  v33 = &unk_2873C4170;
+  v34 = xmmword_261415AC0;
+  v36 = &v37;
+  cnmatrix::FastResize<double>(&v33, 4, 1);
+  cnmatrix::CNMatrixBase<double>::WriteValue(&v33, 0.0);
   for (i = 0; i != 3; ++i)
   {
     v14 = a2 + 8 * i;
     v15 = *(v14 + 96);
-    *cnmatrix::CNMatrixBase<double>::operator()(&v39, i) = v15;
+    *cnmatrix::CNMatrixBase<double>::operator()(&v38, i) = v15;
     v16 = *(v14 + 120);
-    *cnmatrix::CNMatrixBase<double>::operator()(&v34, i) = v16;
+    *cnmatrix::CNMatrixBase<double>::operator()(&v33, i) = v16;
   }
 
   v17 = *(a2 + 144);
-  *cnmatrix::CNMatrixBase<double>::operator()(&v34, 3u) = v17;
-  RoseSyntheticApertureFiltering::quatn2rot(&v34, buf);
-  v45 = 0x100000003;
-  *&v44[8] = xmmword_261415AA0;
-  *v44 = &unk_2873C40E8;
-  v46[0] = &v46[1];
-  cnmatrix::Multiply<double>(buf, a1 + 112, v44);
-  v31 = 0x100000003;
-  v29 = &unk_2873C40E8;
-  v30 = xmmword_261415AA0;
-  v32 = &v33;
-  cnmatrix::Add<double>(&v39, v44, &v29);
+  *cnmatrix::CNMatrixBase<double>::operator()(&v33, 3) = v17;
+  RoseSyntheticApertureFiltering::quatn2rot(&v33, buf);
+  v44 = 0x100000003;
+  *&v43[8] = xmmword_261415AA0;
+  *v43 = &unk_2873C40E8;
+  v45[0] = &v45[1];
+  cnmatrix::Multiply<double>(buf, a1 + 112, v43);
+  v30 = 0x100000003;
+  v28 = &unk_2873C40E8;
+  v29 = xmmword_261415AA0;
+  v31 = &v32;
+  cnmatrix::Add<double>(&v38, v43, &v28);
   if (*a1)
   {
     v18 = *(a1 + 8);
     if (v18 == 1)
     {
-      RoseSyntheticApertureFiltering::PRRoseRangeFilter::propagateStateWithPose(a1, &v29);
+      RoseSyntheticApertureFiltering::PRRoseRangeFilter::propagateStateWithPose(a1, &v28);
     }
 
     else if (!v18)
@@ -136,12 +136,12 @@ void RoseSyntheticApertureFiltering::PRRoseRangeFilter::addMeasurementWithVIO(ui
       v19 = *(a1 + 40);
       if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
       {
-        *v44 = 0;
-        _os_log_impl(&dword_2613DF000, v19, OS_LOG_TYPE_DEFAULT, "Range filter transitioning from non-VIO to VIO mode", v44, 2u);
+        *v43 = 0;
+        _os_log_impl(&dword_2613DF000, v19, OS_LOG_TYPE_DEFAULT, "Range filter transitioning from non-VIO to VIO mode", v43, 2u);
       }
 
       RoseSyntheticApertureFiltering::PRRoseRangeFilter::propagateStateWithTime(a1, *a2, 0);
-      cnmatrix::CNMatrixBase<double>::operator=(a1 + 48, &v29);
+      cnmatrix::CNMatrixBase<double>::operator=(a1 + 48, &v28);
     }
 
     RoseSyntheticApertureFiltering::PRRoseRangeFilter::measurementUpdate(a1, *(a2 + 8), *(a2 + 16), 0);
@@ -150,18 +150,18 @@ void RoseSyntheticApertureFiltering::PRRoseRangeFilter::addMeasurementWithVIO(ui
   else
   {
     *(a1 + 16) = *(a2 + 8);
-    cnmatrix::CNMatrixBase<double>::operator=(a1 + 48, &v29);
+    cnmatrix::CNMatrixBase<double>::operator=(a1 + 48, &v28);
     *a1 = 1;
     v20 = *(a1 + 40);
     if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
       v21 = *(a1 + 16);
       v22 = *(a1 + 24);
-      *v44 = 134218240;
-      *&v44[4] = v21;
-      *&v44[12] = 2048;
-      *&v44[14] = v22;
-      _os_log_impl(&dword_2613DF000, v20, OS_LOG_TYPE_DEFAULT, "Initializing range filter with VIO: range %f m, uncertainty %f m", v44, 0x16u);
+      *v43 = 134218240;
+      *&v43[4] = v21;
+      *&v43[12] = 2048;
+      *&v43[14] = v22;
+      _os_log_impl(&dword_2613DF000, v20, OS_LOG_TYPE_DEFAULT, "Initializing range filter with VIO: range %f m, uncertainty %f m", v43, 0x16u);
     }
   }
 
@@ -173,27 +173,26 @@ void RoseSyntheticApertureFiltering::PRRoseRangeFilter::addMeasurementWithVIO(ui
   {
     v25 = *(a1 + 16);
     v26 = *(a1 + 24);
-    *v44 = 134218754;
-    *&v44[4] = v23;
-    *&v44[12] = 2048;
-    *&v44[14] = v25;
-    *&v44[22] = 2048;
-    v45 = v26;
-    LOWORD(v46[0]) = 2080;
-    *(v46 + 2) = "YES";
-    _os_log_impl(&dword_2613DF000, v24, OS_LOG_TYPE_DEFAULT, "Filter state after meas with VIO: timestamp %3.2f s, range %3.2f m, uncertainty %3.2f m, with VIO: %s", v44, 0x2Au);
+    *v43 = 134218754;
+    *&v43[4] = v23;
+    *&v43[12] = 2048;
+    *&v43[14] = v25;
+    *&v43[22] = 2048;
+    v44 = v26;
+    LOWORD(v45[0]) = 2080;
+    *(v45 + 2) = "YES";
+    _os_log_impl(&dword_2613DF000, v24, OS_LOG_TYPE_DEFAULT, "Filter state after meas with VIO: timestamp %3.2f s, range %3.2f m, uncertainty %3.2f m, with VIO: %s", v43, 0x2Au);
   }
 
   v27 = *(a1 + 24);
   *a3 = *(a1 + 8);
   *(a3 + 16) = v27;
   *(a3 + 8) = fmax(*(a3 + 8), 0.0);
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 void RoseSyntheticApertureFiltering::PRRoseRangeFilter::propagateStateWithTime(RoseSyntheticApertureFiltering::PRRoseRangeFilter *this, double a2, int a3)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v4 = *(this + 4);
   v5 = a2 - v4;
   if (!a3)
@@ -217,41 +216,39 @@ void RoseSyntheticApertureFiltering::PRRoseRangeFilter::propagateStateWithTime(R
       v9 = "NO";
     }
 
-    v11 = 134218754;
-    v12 = v4;
-    v13 = 2048;
-    v14 = v8;
-    v15 = 2048;
-    v16 = v6;
-    v17 = 2080;
-    v18 = v9;
-    _os_log_impl(&dword_2613DF000, v7, OS_LOG_TYPE_DEFAULT, "Filter state after propagation with time: timestamp %3.2f s, range %3.2f m, uncertainty %3.2f m, with VIO: %s", &v11, 0x2Au);
+    v10 = 134218754;
+    v11 = v4;
+    v12 = 2048;
+    v13 = v8;
+    v14 = 2048;
+    v15 = v6;
+    v16 = 2080;
+    v17 = v9;
+    _os_log_impl(&dword_2613DF000, v7, OS_LOG_TYPE_DEFAULT, "Filter state after propagation with time: timestamp %3.2f s, range %3.2f m, uncertainty %3.2f m, with VIO: %s", &v10, 0x2Au);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void RoseSyntheticApertureFiltering::PRRoseRangeFilter::propagateStateWithPose(uint64_t a1, uint64_t a2)
 {
-  v36[309] = *MEMORY[0x277D85DE8];
-  v21 = 0x100000003;
-  v19 = &unk_2873C40E8;
-  v20 = xmmword_261415AA0;
-  v22 = &v23;
-  cnmatrix::Subtract<double>(a2, a1 + 48, &v19);
-  v31 = 0x100000003;
-  v30 = xmmword_261415AA0;
-  v29 = &unk_2873C40E8;
-  v32 = &v33;
-  v35 = 0x100000134;
+  v35[309] = *MEMORY[0x277D85DE8];
+  v20 = 0x100000003;
+  v18 = &unk_2873C40E8;
+  v19 = xmmword_261415AA0;
+  v21 = &v22;
+  cnmatrix::Subtract<double>(a2, a1 + 48, &v18);
+  v30 = 0x100000003;
+  v29 = xmmword_261415AA0;
+  v28 = &unk_2873C40E8;
+  v31 = &v32;
+  v34 = 0x100000134;
   *&buf[8] = xmmword_261415AD0;
   *buf = &unk_2873C41B8;
-  v36[0] = &v36[1];
-  v26 = 0x100000003;
-  v24 = &unk_2873C40E8;
-  v25 = xmmword_261415AA0;
-  v27 = &v28;
-  cnmatrix::Norm<double>(&v19, &v29, buf, &v24, "2");
+  v35[0] = &v35[1];
+  v25 = 0x100000003;
+  v23 = &unk_2873C40E8;
+  v24 = xmmword_261415AA0;
+  v26 = &v27;
+  cnmatrix::Norm<double>(&v18, &v28, buf, &v23, "2");
   v5 = v4;
   cnmatrix::CNMatrixBase<double>::operator=(a1 + 48, a2);
   v7 = *(a1 + 16);
@@ -311,18 +308,16 @@ void RoseSyntheticApertureFiltering::PRRoseRangeFilter::propagateStateWithPose(u
     *&buf[12] = 2048;
     *&buf[14] = v7;
     *&buf[22] = 2048;
-    v35 = *&v14;
-    LOWORD(v36[0]) = 2080;
-    *(v36 + 2) = v17;
+    v34 = *&v14;
+    LOWORD(v35[0]) = 2080;
+    *(v35 + 2) = v17;
     _os_log_impl(&dword_2613DF000, v15, OS_LOG_TYPE_DEFAULT, "Filter state after propagation with pose: timestamp %3.2f s, range %3.2f m, uncertainty %3.2f m, with VIO: %s", buf, 0x2Au);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void RoseSyntheticApertureFiltering::PRRoseRangeFilter::measurementUpdate(RoseSyntheticApertureFiltering::PRRoseRangeFilter *this, double a2, double a3, char a4)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v7 = a3 * a3;
   v8 = *(this + 2);
   v9 = *(this + 3);
@@ -339,8 +334,8 @@ void RoseSyntheticApertureFiltering::PRRoseRangeFilter::measurementUpdate(RoseSy
         v19 = *(this + 5);
         if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
         {
-          LOWORD(v22) = 0;
-          _os_log_impl(&dword_2613DF000, v19, OS_LOG_TYPE_DEFAULT, "Did not observe a second nLoS->LoS event after the first one - marked as a false event due to packet collision", &v22, 2u);
+          LOWORD(v21) = 0;
+          _os_log_impl(&dword_2613DF000, v19, OS_LOG_TYPE_DEFAULT, "Did not observe a second nLoS->LoS event after the first one - marked as a false event due to packet collision", &v21, 2u);
           v8 = *(this + 2);
           v9 = *(this + 3);
         }
@@ -356,13 +351,13 @@ void RoseSyntheticApertureFiltering::PRRoseRangeFilter::measurementUpdate(RoseSy
       v18 = *(this + 5);
       if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
-        v22 = 134218496;
-        v23 = v8;
-        v24 = 2048;
-        v25 = a2;
-        v26 = 2048;
-        v27 = v12;
-        _os_log_error_impl(&dword_2613DF000, v18, OS_LOG_TYPE_ERROR, "Second nLos->LoS event detected by the range filter: Previous range %f m, Current range %f m, Normalized change %f", &v22, 0x20u);
+        v21 = 134218496;
+        v22 = v8;
+        v23 = 2048;
+        v24 = a2;
+        v25 = 2048;
+        v26 = v12;
+        _os_log_error_impl(&dword_2613DF000, v18, OS_LOG_TYPE_ERROR, "Second nLos->LoS event detected by the range filter: Previous range %f m, Current range %f m, Normalized change %f", &v21, 0x20u);
         v18 = *(this + 5);
       }
 
@@ -370,10 +365,10 @@ void RoseSyntheticApertureFiltering::PRRoseRangeFilter::measurementUpdate(RoseSy
       *(this + 3) = a3;
       if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
-        v22 = 134218240;
-        v23 = a2;
-        v24 = 2048;
-        v25 = a3;
+        v21 = 134218240;
+        v22 = a2;
+        v23 = 2048;
+        v24 = a3;
         v15 = "Re-initializing range filter: range %f m, uncertainty %f m";
         v16 = v18;
         v17 = 22;
@@ -387,13 +382,13 @@ void RoseSyntheticApertureFiltering::PRRoseRangeFilter::measurementUpdate(RoseSy
       v20 = *(this + 5);
       if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
-        v22 = 134218496;
-        v23 = v8;
-        v24 = 2048;
-        v25 = a2;
-        v26 = 2048;
-        v27 = v12;
-        _os_log_error_impl(&dword_2613DF000, v20, OS_LOG_TYPE_ERROR, "Possible nLos->LoS event detected by the range filter: Previous range %f m, Current range %f m, Normalized change %f - not acting yet", &v22, 0x20u);
+        v21 = 134218496;
+        v22 = v8;
+        v23 = 2048;
+        v24 = a2;
+        v25 = 2048;
+        v26 = v12;
+        _os_log_error_impl(&dword_2613DF000, v20, OS_LOG_TYPE_ERROR, "Possible nLos->LoS event detected by the range filter: Previous range %f m, Current range %f m, Normalized change %f - not acting yet", &v21, 0x20u);
       }
     }
   }
@@ -403,13 +398,13 @@ void RoseSyntheticApertureFiltering::PRRoseRangeFilter::measurementUpdate(RoseSy
     v13 = *(this + 5);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      v22 = 134218496;
-      v23 = v8;
-      v24 = 2048;
-      v25 = a2;
-      v26 = 2048;
-      v27 = v12;
-      _os_log_error_impl(&dword_2613DF000, v13, OS_LOG_TYPE_ERROR, "LoS->nLoS event detected by the range filter: Previous range %f m, Current range %f m, Normalized change %f", &v22, 0x20u);
+      v21 = 134218496;
+      v22 = v8;
+      v23 = 2048;
+      v24 = a2;
+      v25 = 2048;
+      v26 = v12;
+      _os_log_error_impl(&dword_2613DF000, v13, OS_LOG_TYPE_ERROR, "LoS->nLoS event detected by the range filter: Previous range %f m, Current range %f m, Normalized change %f", &v21, 0x20u);
     }
 
     if (*(this + 1) == 1)
@@ -418,17 +413,15 @@ void RoseSyntheticApertureFiltering::PRRoseRangeFilter::measurementUpdate(RoseSy
       v14 = *(this + 5);
       if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v22) = 0;
+        LOWORD(v21) = 0;
         v15 = "Did not observe a second nLoS->LoS event after the first one - marked as a false event due to packet collision";
         v16 = v14;
         v17 = 2;
 LABEL_15:
-        _os_log_impl(&dword_2613DF000, v16, OS_LOG_TYPE_DEFAULT, v15, &v22, v17);
+        _os_log_impl(&dword_2613DF000, v16, OS_LOG_TYPE_DEFAULT, v15, &v21, v17);
       }
     }
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 double RoseSyntheticApertureFiltering::PRRoseRangeFilter::getCurrentState@<D0>(RoseSyntheticApertureFiltering::PRRoseRangeFilter *this@<X0>, uint64_t a2@<X8>)
@@ -443,7 +436,7 @@ double RoseSyntheticApertureFiltering::PRRoseRangeFilter::getCurrentState@<D0>(R
 
 void RoseSyntheticApertureFiltering::PRRoseRangeFilter::addMeasurementWithoutVIO(uint64_t a1@<X0>, double *a2@<X1>, int a3@<W2>, int a4@<W3>, uint64_t a5@<X8>)
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   v10 = *(a1 + 40);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
@@ -466,17 +459,17 @@ void RoseSyntheticApertureFiltering::PRRoseRangeFilter::addMeasurementWithoutVIO
       v14 = "NO";
     }
 
-    v34 = 134219010;
-    v35 = v11;
-    v36 = 2048;
-    v37 = v12;
-    v38 = 2048;
-    v39 = v13;
-    v40 = 2080;
-    v41 = v15;
-    v42 = 2080;
-    v43 = v14;
-    _os_log_impl(&dword_2613DF000, v10, OS_LOG_TYPE_DEFAULT, "Measurement added without VIO: timestamp %3.2f s, range %3.2f m, uncertainty %3.2f m, isCompanionMoving %s, isDeviceMoving %s", &v34, 0x34u);
+    v33 = 134219010;
+    v34 = v11;
+    v35 = 2048;
+    v36 = v12;
+    v37 = 2048;
+    v38 = v13;
+    v39 = 2080;
+    v40 = v15;
+    v41 = 2080;
+    v42 = v14;
+    _os_log_impl(&dword_2613DF000, v10, OS_LOG_TYPE_DEFAULT, "Measurement added without VIO: timestamp %3.2f s, range %3.2f m, uncertainty %3.2f m, isCompanionMoving %s, isDeviceMoving %s", &v33, 0x34u);
   }
 
   if (*a1)
@@ -495,13 +488,13 @@ void RoseSyntheticApertureFiltering::PRRoseRangeFilter::addMeasurementWithoutVIO
       v16 = *(a1 + 40);
       if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
-        v17 = a2[1];
+        v17 = *(a2 + 1);
         v18 = *(a2 + 2);
-        v34 = 134218240;
-        v35 = v17;
-        v36 = 2048;
-        v37 = v18;
-        _os_log_impl(&dword_2613DF000, v16, OS_LOG_TYPE_DEFAULT, "Range filter update with stationary companion and device: range %f m, uncertainty %f m", &v34, 0x16u);
+        v33 = 134218240;
+        v34 = v17;
+        v35 = 2048;
+        v36 = v18;
+        _os_log_impl(&dword_2613DF000, v16, OS_LOG_TYPE_DEFAULT, "Range filter update with stationary companion and device: range %f m, uncertainty %f m", &v33, 0x16u);
       }
 
       v19 = a2[1];
@@ -515,7 +508,7 @@ void RoseSyntheticApertureFiltering::PRRoseRangeFilter::addMeasurementWithoutVIO
 
   else
   {
-    v23 = a2[1];
+    v23 = *(a2 + 1);
     *(a1 + 16) = v23;
     v24 = *(a2 + 2);
     *(a1 + 24) = v24;
@@ -523,11 +516,11 @@ void RoseSyntheticApertureFiltering::PRRoseRangeFilter::addMeasurementWithoutVIO
     v25 = *(a1 + 40);
     if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
     {
-      v34 = 134218240;
-      v35 = v23;
-      v36 = 2048;
-      v37 = v24;
-      _os_log_impl(&dword_2613DF000, v25, OS_LOG_TYPE_DEFAULT, "Initializing range filter without VIO: range %f m, uncertainty %f m", &v34, 0x16u);
+      v33 = 134218240;
+      v34 = v23;
+      v35 = 2048;
+      v36 = v24;
+      _os_log_impl(&dword_2613DF000, v25, OS_LOG_TYPE_DEFAULT, "Initializing range filter without VIO: range %f m, uncertainty %f m", &v33, 0x16u);
     }
   }
 
@@ -537,8 +530,8 @@ void RoseSyntheticApertureFiltering::PRRoseRangeFilter::addMeasurementWithoutVIO
   v28 = *(a1 + 40);
   if (v26 == 1 && os_log_type_enabled(*(a1 + 40), OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v34) = 0;
-    _os_log_impl(&dword_2613DF000, v28, OS_LOG_TYPE_DEFAULT, "Range filter transitioning from VIO to non-VIO mode", &v34, 2u);
+    LOWORD(v33) = 0;
+    _os_log_impl(&dword_2613DF000, v28, OS_LOG_TYPE_DEFAULT, "Range filter transitioning from VIO to non-VIO mode", &v33, 2u);
     v28 = *(a1 + 40);
   }
 
@@ -548,22 +541,21 @@ void RoseSyntheticApertureFiltering::PRRoseRangeFilter::addMeasurementWithoutVIO
     v30 = *(a1 + 24);
     v29 = *(a1 + 32);
     v31 = *(a1 + 16);
-    v34 = 134218754;
-    v35 = v29;
-    v36 = 2048;
-    v37 = v31;
-    v38 = 2048;
-    v39 = v30;
-    v40 = 2080;
-    v41 = "NO";
-    _os_log_impl(&dword_2613DF000, v28, OS_LOG_TYPE_DEFAULT, "Filter state after meas without VIO: timestamp %3.2f s, range %3.2f m, uncertainty %3.2f m, with VIO: %s", &v34, 0x2Au);
+    v33 = 134218754;
+    v34 = v29;
+    v35 = 2048;
+    v36 = v31;
+    v37 = 2048;
+    v38 = v30;
+    v39 = 2080;
+    v40 = "NO";
+    _os_log_impl(&dword_2613DF000, v28, OS_LOG_TYPE_DEFAULT, "Filter state after meas without VIO: timestamp %3.2f s, range %3.2f m, uncertainty %3.2f m, with VIO: %s", &v33, 0x2Au);
   }
 
   v32 = *(a1 + 24);
   *a5 = *v27;
   *(a5 + 16) = v32;
   *(a5 + 8) = fmax(*(a5 + 8), 0.0);
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 void cnmatrix::CNMatrix<3u,1u,double>::TransposeDataFootprint(uint64_t a1, char *a2)
@@ -705,7 +697,7 @@ uint64_t cnmatrix::CNMatrixBase<double>::WriteValue(uint64_t result, double a2)
   return result;
 }
 
-uint64_t cnmatrix::CNMatrixBase<double>::operator()(uint64_t a1, unsigned int a2)
+uint64_t cnmatrix::CNMatrixBase<double>::operator()(uint64_t a1, signed int a2)
 {
   v2 = *(a1 + 32);
   if (!v2)
@@ -713,7 +705,7 @@ uint64_t cnmatrix::CNMatrixBase<double>::operator()(uint64_t a1, unsigned int a2
     cnmatrix::CNMatrixBase<double>::operator()();
   }
 
-  if ((a2 & 0x80000000) != 0)
+  if (a2 < 0)
   {
     cnmatrix::CNMatrixBase<double>::operator()();
   }
@@ -765,13 +757,10 @@ double *cnmatrix::Multiply<double>(uint64_t a1, uint64_t a2, uint64_t a3)
   v11 = *(a1 + 32);
   if (v10 > 5)
   {
-    v23 = *(a3 + 8);
-    v22 = *(a3 + 32);
-    v21 = *(a2 + 32);
     return cblas_dgemm_NEWLAPACK();
   }
 
-  else if (v8)
+  if (v8)
   {
     v12 = 0;
     v13 = *(a2 + 32);
@@ -1018,7 +1007,7 @@ float64x2_t cnmatrix::Subtract<double>(uint64_t a1, uint64_t a2, uint64_t a3)
   return result;
 }
 
-void cnmatrix::Norm<double>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, char *__s1)
+void cnmatrix::Norm<double>(uint64_t a1, uint64_t a2, _DWORD *a3, _DWORD *a4, char *__s1)
 {
   if (a1 == a2)
   {
@@ -1050,58 +1039,58 @@ void cnmatrix::Norm<double>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, 
     cnmatrix::Norm<double>();
   }
 
-  v8 = *(a1 + 16);
-  if (*(a2 + 16) < v8)
+  v7 = *(a1 + 16);
+  if (*(a2 + 16) < v7)
   {
     cnmatrix::Norm<double>();
   }
 
-  if (v8)
+  if (v7)
   {
-    v10 = *(a1 + 8);
-    v11 = *__s1;
-    if (v10 == 1 || (v12 = *(a1 + 12), v12 == 1))
+    v9 = *(a1 + 8);
+    v10 = *__s1;
+    if (v9 == 1 || (v11 = *(a1 + 12), v11 == 1))
     {
-      if (v11 == 50)
+      if (v10 == 50)
       {
         if (!__s1[1])
         {
-          v15 = *(a1 + 32);
-          v16 = *v15 * *v15;
-          if (v8 != 1)
+          v12 = *(a1 + 32);
+          v13 = *v12 * *v12;
+          if (v7 != 1)
           {
-            v17 = v15 + 1;
-            v18 = v8 - 1;
+            v14 = v12 + 1;
+            v15 = v7 - 1;
             do
             {
-              v19 = *v17++;
-              v16 = v16 + v19 * v19;
-              --v18;
+              v16 = *v14++;
+              v13 = v13 + v16 * v16;
+              --v15;
             }
 
-            while (v18);
+            while (v15);
           }
 
           return;
         }
       }
 
-      else if (v11 == 49 && !__s1[1])
+      else if (v10 == 49 && !__s1[1])
       {
-        v59 = *(a1 + 32);
-        v60 = fabs(*v59);
-        if (v8 != 1)
+        v56 = *(a1 + 32);
+        v57 = fabs(*v56);
+        if (v7 != 1)
         {
-          v61 = v59 + 1;
-          v62 = v8 - 1;
+          v58 = v56 + 1;
+          v59 = v7 - 1;
           do
           {
-            v63 = *v61++;
-            v60 = v60 + fabs(v63);
-            --v62;
+            v60 = *v58++;
+            v57 = v57 + fabs(v60);
+            --v59;
           }
 
-          while (v62);
+          while (v59);
         }
 
         return;
@@ -1109,174 +1098,171 @@ void cnmatrix::Norm<double>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, 
 
       if (!strcmp(__s1, "inf"))
       {
-        v26 = *(a1 + 32);
-        v27 = fabs(*v26);
-        if (v8 != 1)
+        v23 = *(a1 + 32);
+        v24 = fabs(*v23);
+        if (v7 != 1)
         {
-          v28 = v26 + 1;
-          v29 = v8 - 1;
+          v25 = v23 + 1;
+          v26 = v7 - 1;
           do
           {
-            v30 = *v28++;
-            v31 = fabs(v30);
-            if (v31 > v27)
+            v27 = *v25++;
+            v28 = fabs(v27);
+            if (v28 > v24)
             {
-              v27 = v31;
+              v24 = v28;
             }
 
-            --v29;
+            --v26;
           }
 
-          while (v29);
+          while (v26);
         }
       }
 
       else if (!strcmp(__s1, "-inf"))
       {
-        v43 = *(a1 + 32);
-        v44 = fabs(*v43);
-        if (v8 != 1)
+        v40 = *(a1 + 32);
+        v41 = fabs(*v40);
+        if (v7 != 1)
         {
-          v45 = v43 + 1;
-          v46 = v8 - 1;
+          v42 = v40 + 1;
+          v43 = v7 - 1;
           do
           {
-            v47 = *v45++;
-            v48 = fabs(v47);
-            if (v48 < v44)
+            v44 = *v42++;
+            v45 = fabs(v44);
+            if (v45 < v41)
             {
-              v44 = v48;
+              v41 = v45;
             }
 
-            --v46;
+            --v43;
           }
 
-          while (v46);
+          while (v43);
         }
       }
 
       else
       {
-        v76 = 0.0;
-        if (sscanf(__s1, "%lg", &v76) != 1)
+        v73 = 0.0;
+        if (sscanf(__s1, "%lg", &v73) != 1)
         {
-          cnmatrix::Norm<double>();
+          cnmatrix::Norm<double>(__s1);
         }
 
-        v20 = v76;
-        if (fabs(v76) >= 2.22044605e-16)
+        v17 = v73;
+        if (fabs(v73) >= 2.22044605e-16)
         {
-          v49 = *(a1 + 32);
-          v50 = pow(fabs(*v49), v76);
-          if (v8 != 1)
+          v46 = *(a1 + 32);
+          v47 = pow(fabs(*v46), v73);
+          if (v7 != 1)
           {
-            v51 = v49 + 1;
-            v52 = v8 - 1;
+            v48 = v46 + 1;
+            v49 = v7 - 1;
             do
             {
-              v53 = *v51++;
-              v50 = v50 + pow(fabs(v53), v20);
-              --v52;
+              v50 = *v48++;
+              v47 = v47 + pow(fabs(v50), v17);
+              --v49;
             }
 
-            while (v52);
+            while (v49);
           }
 
-          pow(v50, 1.0 / v20);
+          pow(v47, 1.0 / v17);
         }
       }
 
       return;
     }
 
-    if (v11 == 50)
+    if (v10 == 50)
     {
       if (!__s1[1])
       {
         cnmatrix::SingularValues<double>(a1, a2, a3, a4);
-        v13 = *(a4 + 32);
-LABEL_14:
-        v14 = *v13;
         return;
       }
 
-      goto LABEL_31;
+      goto LABEL_30;
     }
 
-    if (v11 != 49 || __s1[1])
+    if (v10 != 49 || __s1[1])
     {
-LABEL_31:
+LABEL_30:
       if (!strcmp(__s1, "inf"))
       {
-        if (v10)
+        if (v9)
         {
-          v32 = *(a1 + 32);
-          v33 = *(a2 + 32);
-          v34 = v10;
+          v29 = *(a1 + 32);
+          v30 = *(a2 + 32);
+          v31 = v9;
           do
           {
-            v35 = *v32++;
-            *v33++ = fabs(v35);
-            --v34;
+            v32 = *v29++;
+            *v30++ = fabs(v32);
+            --v31;
           }
 
-          while (v34);
+          while (v31);
         }
 
-        if (v12 <= 1)
+        if (v11 <= 1)
         {
-          v37 = *(a2 + 32);
+          v34 = *(a2 + 32);
         }
 
         else
         {
-          v36 = *(a1 + 32);
-          v37 = *(a2 + 32);
-          v38 = 1;
-          v39 = v10;
+          v33 = *(a1 + 32);
+          v34 = *(a2 + 32);
+          v35 = 1;
+          v36 = v9;
           do
           {
-            v40 = v10;
-            v41 = v39;
-            v42 = v37;
-            if (v10)
+            v37 = v9;
+            v38 = v36;
+            v39 = v34;
+            if (v9)
             {
               do
               {
-                *v42 = fabs(*(v36 + 8 * v41)) + *v42;
-                ++v42;
-                ++v41;
-                --v40;
+                *v39 = fabs(*(v33 + 8 * v38)) + *v39;
+                ++v39;
+                ++v38;
+                --v37;
               }
 
-              while (v40);
+              while (v37);
             }
 
-            ++v38;
-            v39 += v10;
+            ++v35;
+            v36 += v9;
           }
 
-          while (v38 != v12);
+          while (v35 != v11);
         }
 
-        v54 = *v37;
-        if (v10 >= 2)
+        v51 = *v34;
+        if (v9 >= 2)
         {
-          v55 = v37 + 1;
-          v56 = v10 - 1;
+          v52 = v34 + 1;
+          v53 = v9 - 1;
           do
           {
-            v57 = *v55++;
-            v58 = v57;
-            if (v57 > v54)
+            v54 = *v52++;
+            v55 = v54;
+            if (v54 > v51)
             {
-              v54 = v58;
+              v51 = v55;
             }
 
-            --v56;
+            --v53;
           }
 
-          while (v56);
+          while (v53);
         }
       }
 
@@ -1284,111 +1270,101 @@ LABEL_31:
       {
         if (strcmp(__s1, "fro"))
         {
-          cnmatrix::Norm<double>();
+          cnmatrix::Norm<double>(__s1);
         }
 
-        v21 = *(a1 + 32);
-        v22 = *v21 * *v21;
-        if (v8 != 1)
+        v18 = *(a1 + 32);
+        v19 = *v18 * *v18;
+        if (v7 != 1)
         {
-          v23 = v21 + 1;
-          v24 = v8 - 1;
+          v20 = v18 + 1;
+          v21 = v7 - 1;
           do
           {
-            v25 = *v23++;
-            v22 = v22 + v25 * v25;
-            --v24;
+            v22 = *v20++;
+            v19 = v19 + v22 * v22;
+            --v21;
           }
 
-          while (v24);
+          while (v21);
         }
       }
 
       return;
     }
 
-    if (!v12)
+    if (v11)
     {
-      v13 = *(a2 + 32);
-      goto LABEL_14;
-    }
-
-    v64 = 0;
-    v65 = *(a1 + 32);
-    v66 = *(a2 + 32);
-    v67 = 1;
-    do
-    {
-      v68 = fabs(*(v65 + 8 * (v10 * v64)));
-      v66[v64] = v68;
-      v69 = v10 - 1;
-      v70 = v67;
-      if (v10 >= 2)
+      v61 = 0;
+      v62 = *(a1 + 32);
+      v63 = *(a2 + 32);
+      v64 = 1;
+      do
       {
-        do
+        v65 = fabs(*(v62 + 8 * (v9 * v61)));
+        v63[v61] = v65;
+        v66 = v9 - 1;
+        v67 = v64;
+        if (v9 >= 2)
         {
-          v68 = v68 + fabs(*(v65 + 8 * v70));
-          v66[v64] = v68;
-          ++v70;
-          --v69;
+          do
+          {
+            v65 = v65 + fabs(*(v62 + 8 * v67));
+            v63[v61] = v65;
+            ++v67;
+            --v66;
+          }
+
+          while (v66);
         }
 
-        while (v69);
+        ++v61;
+        v64 += v9;
       }
 
-      ++v64;
-      v67 += v10;
-    }
-
-    while (v64 != v12);
-    v71 = *v66;
-    v72 = v66 + 1;
-    v73 = v12 - 1;
-    do
-    {
-      v74 = *v72++;
-      v75 = v74;
-      if (v74 > v71)
+      while (v61 != v11);
+      v68 = *v63;
+      v69 = v63 + 1;
+      v70 = v11 - 1;
+      do
       {
-        v71 = v75;
+        v71 = *v69++;
+        v72 = v71;
+        if (v71 > v68)
+        {
+          v68 = v72;
+        }
+
+        --v70;
       }
 
-      --v73;
+      while (v70);
     }
-
-    while (v73);
   }
 }
 
-void cnmatrix::CNMatrix<308u,1u,double>::TransposeDataFootprint(uint64_t a1)
+_DWORD *cnmatrix::SingularValues<double>(_DWORD *a1, _DWORD *a2, uint64_t a3, _DWORD *a4)
 {
-  v3 = *MEMORY[0x277D85DE8];
-  cnmatrix::CNMatrix<3u,1u,double>::TransposeDataFootprint(a1, v2);
-  v1 = *MEMORY[0x277D85DE8];
-}
-
-_DWORD *cnmatrix::SingularValues<double>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  v6 = *(a1 + 8);
-  v5 = *(a1 + 12);
+  v6 = a1[2];
+  v5 = a1[3];
   if (v5 <= v6)
   {
-    v7 = *(a1 + 8);
+    v7 = a1[2];
   }
 
   else
   {
-    v7 = *(a1 + 12);
+    v7 = a1[3];
   }
 
   if (v5 >= v6)
   {
-    v8 = *(a1 + 8);
+    v8 = a1[2];
   }
 
   else
   {
-    v8 = *(a1 + 12);
+    v8 = a1[3];
   }
 
   if (a1 == a2)
@@ -1437,36 +1413,40 @@ _DWORD *cnmatrix::SingularValues<double>(uint64_t a1, uint64_t a2, uint64_t a3, 
     cnmatrix::SingularValues<double>();
   }
 
-  if (*(a2 + 24) < v6)
+  if (a2[6] < v6)
   {
     cnmatrix::SingularValues<double>();
   }
 
-  if (*(a2 + 28) < v5)
+  if (a2[7] < v5)
   {
     cnmatrix::SingularValues<double>();
   }
 
-  if (*(a4 + 24) < v8)
+  if (a4[6] < v8)
   {
     cnmatrix::SingularValues<double>();
   }
 
-  if (!*(a4 + 28))
+  if (!a4[7])
   {
     cnmatrix::SingularValues<double>();
   }
 
   cnmatrix::CNMatrixBase<double>::operator=(a2, a1);
-  v12 = *(a2 + 32);
-  v13 = *(a4 + 32);
-  v14 = *(a3 + 32);
-  v18 = *(a2 + 12);
-  v17 = *(a2 + 8);
-  v15 = dgesvd_NEWLAPACK();
-  if (v11 < **(a3 + 32) && cnprint::CNPrinter::GetLogLevel(v15) <= 1)
+  v12 = a2[2];
+  v13 = a2[3];
+  v20 = 78;
+  v19 = 78;
+  v17 = v13;
+  v18 = v12;
+  v14 = dgesvd_NEWLAPACK();
+  v15 = **(a3 + 32);
+  if (v11 < v15 && cnprint::CNPrinter::GetLogLevel(v14) <= 1)
   {
-    cnprint::CNPrinter::Print();
+    LOWORD(v18) = 4;
+    LOBYTE(v17) = 1;
+    cnprint::CNPrinter::Print(&v18, &v17, "Warning: Svd optimal workspace size %u is greater than provided workspace size %u; performance may suffer.", v15, v11);
   }
 
   cnmatrix::FastResize<double>(a3, *(a3 + 24), *(a3 + 28));
@@ -1680,7 +1660,7 @@ void sub_2613E70E0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-_BYTE *std::string::basic_string[abi:ne200100]<0>(_BYTE *a1, char *__s)
+void *std::string::basic_string[abi:ne200100]<0>(void *a1, char *__s)
 {
   v4 = strlen(__s);
   if (v4 >= 0x7FFFFFFFFFFFFFF8)
@@ -1694,13 +1674,13 @@ _BYTE *std::string::basic_string[abi:ne200100]<0>(_BYTE *a1, char *__s)
     operator new();
   }
 
-  a1[23] = v4;
+  *(a1 + 23) = v4;
   if (v4)
   {
     memmove(a1, __s, v4);
   }
 
-  a1[v5] = 0;
+  *(a1 + v5) = 0;
   return a1;
 }
 
@@ -1776,7 +1756,7 @@ void sub_2613E7310(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 char *PRCommonSerializePrintableState(void *a1, void *a2)
 {
-  v18[1] = *MEMORY[0x277D85DE8];
+  v17[1] = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = a2;
   v5 = objc_autoreleasePoolPush();
@@ -1785,9 +1765,9 @@ char *PRCommonSerializePrintableState(void *a1, void *a2)
   {
     v7 = [MEMORY[0x277CCACA8] stringWithFormat:@"WARNING: statedump too big (%d > %d)", objc_msgSend(v6, "length"), 0x8000];
     v8 = MEMORY[0x277CCAC58];
-    v17 = v3;
-    v18[0] = v7;
-    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:&v17 count:1];
+    v16 = v3;
+    v17[0] = v7;
+    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:&v16 count:1];
     v10 = [v8 dataWithPropertyList:v9 format:200 options:0 error:0];
 
     v6 = v10;
@@ -1804,34 +1784,32 @@ char *PRCommonSerializePrintableState(void *a1, void *a2)
   memcpy(v11 + 200, [v6 bytes], objc_msgSend(v6, "length"));
 
   objc_autoreleasePoolPop(v5);
-  v15 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = a2;
-  v9 = v3;
-  v10[0] = v4;
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+  v8 = v3;
+  v9[0] = v4;
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
   v6 = PRCommonSerializePrintableState(v3, v5);
 
-  v7 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
-void *std::vector<unsigned char>::vector[abi:ne200100](void *result, uint64_t a2)
+uint64_t *std::vector<unsigned char>::vector[abi:ne200100](uint64_t *a1, uint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<unsigned char>::__vallocate[abi:ne200100](result, a2);
+    std::vector<unsigned char>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_2613E76C8(_Unwind_Exception *exception_object)
@@ -1846,7 +1824,7 @@ void sub_2613E76C8(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<unsigned char>::__vallocate[abi:ne200100](uint64_t a1, uint64_t a2)
+void std::vector<unsigned char>::__vallocate[abi:ne200100](uint64_t *a1, uint64_t a2)
 {
   if ((a2 & 0x8000000000000000) == 0)
   {
@@ -2021,16 +1999,16 @@ void RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter::PRRoseS
   operator new();
 }
 
-void sub_2613ECFA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *a9, void **a10, void **a11, void **a12, uint64_t a13, uint64_t a14, void **a15)
+void sub_2613ECFA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *a9, void **a10, void **a11, void **a12, uint64_t a13, uint64_t a14, void *a15)
 {
   *v21 = &unk_2873C4140;
   *v20 = &unk_2873C4140;
-  a15 = (v15 + 720);
+  a15 = v15 + 90;
   std::vector<RoseSyntheticApertureFiltering::InternalRangeMeas>::__destroy_vector::operator()[abi:ne200100](&a15);
-  a15 = (v15 + 696);
+  a15 = v15 + 87;
   std::vector<RoseSyntheticApertureFiltering::InternalAoAMeas>::__destroy_vector::operator()[abi:ne200100](&a15);
   std::vector<RoseSyntheticApertureFiltering::InternalRangeMeas>::__destroy_vector::operator()[abi:ne200100](&a15);
-  boost::circular_buffer<double,std::allocator<double>>::destroy(v15 + 632);
+  boost::circular_buffer<double,std::allocator<double>>::destroy((v15 + 79));
   *v19 = &unk_2873C4140;
   *v18 = &unk_2873C4140;
   *a9 = &unk_2873C4140;
@@ -2040,46 +2018,43 @@ void sub_2613ECFA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   v23 = *a10;
   if (*a10)
   {
-    *(v15 + 120) = v23;
+    v15[15] = v23;
     operator delete(v23);
   }
 
   v24 = *a11;
   if (*a11)
   {
-    *(v15 + 72) = v24;
+    v15[9] = v24;
     operator delete(v24);
   }
 
   v25 = *a12;
   if (*a12)
   {
-    *(v15 + 24) = v25;
+    v15[3] = v25;
     operator delete(v25);
   }
 
   _Unwind_Resume(a1);
 }
 
-void *std::vector<RoseSyntheticApertureFiltering::InternalRangeMeas>::reserve(void *result, unint64_t a2)
+void std::vector<RoseSyntheticApertureFiltering::InternalRangeMeas>::reserve(void **a1, unint64_t a2)
 {
-  if (0x6DB6DB6DB6DB6DB7 * ((result[2] - *result) >> 4) < a2)
+  if (0x6DB6DB6DB6DB6DB7 * ((a1[2] - *a1) >> 4) < a2)
   {
     if (a2 < 0x24924924924924ALL)
     {
-      v2 = result[1] - *result;
-      std::__allocate_at_least[abi:ne200100]<std::allocator<RoseSyntheticApertureFiltering::InternalRangeMeas>>(result, a2);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<RoseSyntheticApertureFiltering::InternalRangeMeas>>(a1, a2);
     }
 
     std::vector<unsigned char>::__throw_length_error[abi:ne200100]();
   }
-
-  return result;
 }
 
-void sub_2613ED1E8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2613ED1E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<RoseSyntheticApertureFiltering::InternalRangeMeas>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -2087,7 +2062,7 @@ void sub_2613ED1E8(_Unwind_Exception *a1, uint64_t a2, ...)
 double *RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter::getCurrentRotatedSolution@<X0>(RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter *this@<X0>, uint64_t a2@<X8>)
 {
   cnmatrix::CNMatrix<3u,3u,double>::CNMatrix(v11, *(this + 81), *(this + 80));
-  cnmatrix::Transpose<double>(this + 312, v11);
+  cnmatrix::Transpose<double>(this + 78, v11);
   v4 = *(this + 18);
   v8 = 0x100000003;
   v6 = &unk_2873C40E8;
@@ -2104,7 +2079,7 @@ double *RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter::getC
 double *RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter::getCurrentRotatedCovariance@<X0>(RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter *this@<X0>, uint64_t a2@<X8>)
 {
   cnmatrix::CNMatrix<3u,3u,double>::CNMatrix(v6, *(this + 81), *(this + 80));
-  cnmatrix::Transpose<double>(this + 312, v6);
+  cnmatrix::Transpose<double>(this + 78, v6);
   cnmatrix::CNMatrix<3u,3u,double>::CNMatrix(v5, *(this + 18) + 128);
   *(a2 + 24) = 0x300000003;
   *a2 = &unk_2873C4240;
@@ -2115,7 +2090,7 @@ double *RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter::getC
 
 double RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter::getBatchOrAoASolution@<D0>(RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter *this@<X0>, uint64_t a2@<X8>)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if (*(this + 934) & 1) != 0 || (*(this + 933))
   {
     goto LABEL_3;
@@ -2123,13 +2098,13 @@ double RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter::getBa
 
   if (*(this + 928) == 1)
   {
-    v7 = *(this + 56);
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v6 = *(this + 56);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = *(this + 76);
-      v11 = 134217984;
-      v12 = v8;
-      _os_log_impl(&dword_2613DF000, v7, OS_LOG_TYPE_DEFAULT, "Returning solution from AoA at %f s", &v11, 0xCu);
+      v7 = *(this + 76);
+      v10 = 134217984;
+      v11 = v7;
+      _os_log_impl(&dword_2613DF000, v6, OS_LOG_TYPE_DEFAULT, "Returning solution from AoA at %f s", &v10, 0xCu);
     }
 
     *a2 = *(this + 6);
@@ -2137,7 +2112,7 @@ double RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter::getBa
     *(a2 + 24) = 0;
     *(a2 + 32) = 0;
     *(a2 + 16) = 0;
-    std::vector<RoseSyntheticApertureFiltering::BatchSolutionParticle>::__init_with_size[abi:ne200100]<RoseSyntheticApertureFiltering::BatchSolutionParticle*,RoseSyntheticApertureFiltering::BatchSolutionParticle*>(a2 + 16, *(this + 8), *(this + 9), 0xCF3CF3CF3CF3CF3DLL * ((*(this + 9) - *(this + 8)) >> 3));
+    std::vector<RoseSyntheticApertureFiltering::BatchSolutionParticle>::__init_with_size[abi:ne200100]<RoseSyntheticApertureFiltering::BatchSolutionParticle*,RoseSyntheticApertureFiltering::BatchSolutionParticle*>((a2 + 16), *(this + 8), *(this + 9), 0xCF3CF3CF3CF3CF3DLL * ((*(this + 9) - *(this + 8)) >> 3));
     v4 = 88;
   }
 
@@ -2151,18 +2126,18 @@ LABEL_3:
       *(a2 + 24) = 0;
       *(a2 + 32) = 0;
       *(a2 + 16) = 0;
-      std::vector<RoseSyntheticApertureFiltering::BatchSolutionParticle>::__init_with_size[abi:ne200100]<RoseSyntheticApertureFiltering::BatchSolutionParticle*,RoseSyntheticApertureFiltering::BatchSolutionParticle*>(a2 + 16, *(this + 2), *(this + 3), 0xCF3CF3CF3CF3CF3DLL * ((*(this + 3) - *(this + 2)) >> 3));
+      std::vector<RoseSyntheticApertureFiltering::BatchSolutionParticle>::__init_with_size[abi:ne200100]<RoseSyntheticApertureFiltering::BatchSolutionParticle*,RoseSyntheticApertureFiltering::BatchSolutionParticle*>((a2 + 16), *(this + 2), *(this + 3), 0xCF3CF3CF3CF3CF3DLL * ((*(this + 3) - *(this + 2)) >> 3));
       v4 = 40;
       goto LABEL_4;
     }
 
-    v9 = *(this + 56);
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v8 = *(this + 56);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = *(this + 107);
-      v11 = 134217984;
-      v12 = v10;
-      _os_log_impl(&dword_2613DF000, v9, OS_LOG_TYPE_DEFAULT, "Returning solution from straight path estimator at %f s", &v11, 0xCu);
+      v9 = *(this + 107);
+      v10 = 134217984;
+      v11 = v9;
+      _os_log_impl(&dword_2613DF000, v8, OS_LOG_TYPE_DEFAULT, "Returning solution from straight path estimator at %f s", &v10, 0xCu);
     }
 
     *a2 = *(this + 12);
@@ -2170,20 +2145,19 @@ LABEL_3:
     *(a2 + 24) = 0;
     *(a2 + 32) = 0;
     *(a2 + 16) = 0;
-    std::vector<RoseSyntheticApertureFiltering::BatchSolutionParticle>::__init_with_size[abi:ne200100]<RoseSyntheticApertureFiltering::BatchSolutionParticle*,RoseSyntheticApertureFiltering::BatchSolutionParticle*>(a2 + 16, *(this + 14), *(this + 15), 0xCF3CF3CF3CF3CF3DLL * ((*(this + 15) - *(this + 14)) >> 3));
+    std::vector<RoseSyntheticApertureFiltering::BatchSolutionParticle>::__init_with_size[abi:ne200100]<RoseSyntheticApertureFiltering::BatchSolutionParticle*,RoseSyntheticApertureFiltering::BatchSolutionParticle*>((a2 + 16), *(this + 14), *(this + 15), 0xCF3CF3CF3CF3CF3DLL * ((*(this + 15) - *(this + 14)) >> 3));
     v4 = 136;
   }
 
 LABEL_4:
   result = *(this + v4);
   *(a2 + 40) = result;
-  v6 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 void RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter::updateCurrentBatchSolution(RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter *this@<X0>, double a2@<D0>, double a3@<D1>, uint64_t a4@<X8>)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   *(this + 29) = a3;
   if (a2 - *(this + 74) <= 10.0 || *(this + 85) == *(this + 84))
   {
@@ -2197,8 +2171,8 @@ void RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter::updateC
         v8 = *(this + 56);
         if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
         {
-          LOWORD(v12) = 0;
-          _os_log_impl(&dword_2613DF000, v8, OS_LOG_TYPE_DEFAULT, "Vertical state changed with the pose update", &v12, 2u);
+          LOWORD(v11) = 0;
+          _os_log_impl(&dword_2613DF000, v8, OS_LOG_TYPE_DEFAULT, "Vertical state changed with the pose update", &v11, 2u);
         }
 
         *(this + 12) = 1;
@@ -2226,17 +2200,16 @@ void RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter::updateC
       v10 = *(this + 56);
       if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
-        v12 = 134218240;
-        v13 = v9;
-        v14 = 2048;
-        v15 = a2;
-        _os_log_impl(&dword_2613DF000, v10, OS_LOG_TYPE_DEFAULT, "AoA Solution from AoA at %f s is no longer valid - current time is %f s", &v12, 0x16u);
+        v11 = 134218240;
+        v12 = v9;
+        v13 = 2048;
+        v14 = a2;
+        _os_log_impl(&dword_2613DF000, v10, OS_LOG_TYPE_DEFAULT, "AoA Solution from AoA at %f s is no longer valid - current time is %f s", &v11, 0x16u);
       }
     }
   }
 
   RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter::getBatchOrAoASolution(this, a4);
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter::reinitFilter(RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter *this)
@@ -2351,8 +2324,8 @@ void RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter::checkVe
     cnmatrix::Subtract<double>(v2, this + 168, &v42);
     v3 = cnmatrix::CNMatrixBase<double>::operator()(&v42, 0);
     v4 = cnmatrix::CNMatrixBase<double>::operator()(&v42, 0);
-    v5 = cnmatrix::CNMatrixBase<double>::operator()(&v42, 2u);
-    if (sqrt(v5 * cnmatrix::CNMatrixBase<double>::operator()(&v42, 2u) + v3 * v4) <= 2.0)
+    v5 = cnmatrix::CNMatrixBase<double>::operator()(&v42, 2);
+    if (sqrt(v5 * cnmatrix::CNMatrixBase<double>::operator()(&v42, 2) + v3 * v4) <= 2.0)
     {
       v6 = *(this + 18);
       v7 = *(this + 19);
@@ -2367,7 +2340,7 @@ LABEL_15:
         while (1)
         {
           v8 = cnmatrix::CNMatrixBase<double>::operator()(v6 + 128, 1, 1);
-          v9 = cnmatrix::CNMatrixBase<double>::operator()(v6, 1u);
+          v9 = cnmatrix::CNMatrixBase<double>::operator()(v6, 1);
           v10 = sqrt(v8);
           v11 = v9 - *(this + 29);
           v12 = v10 + v11;
@@ -2409,10 +2382,10 @@ LABEL_15:
         v38 = &v39;
         cnmatrix::Subtract<double>(v19, v17 + 40, &v35);
         v20 = cnmatrix::CNMatrixBase<double>::operator()(&v35, 0);
-        v21 = cnmatrix::CNMatrixBase<double>::operator()(&v35, 2u);
+        v21 = cnmatrix::CNMatrixBase<double>::operator()(&v35, 2);
         if (sqrt(v21 * v21 + v20 * v20) <= 1.0)
         {
-          v22 = cnmatrix::CNMatrixBase<double>::operator()(&v35, 1u);
+          v22 = cnmatrix::CNMatrixBase<double>::operator()(&v35, 1);
           v23 = __src[1];
           if (__src[1] >= v41)
           {
@@ -2506,50 +2479,50 @@ void sub_2613EDCFC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter::spatialBinning(__int128 **a1@<X1>, uint64_t *a2@<X8>)
+void RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter::spatialBinning(char **a1@<X1>, uint64_t *a2@<X8>)
 {
-  v5 = *a1;
-  v4 = a1[1];
+  v6 = *a1;
+  v5 = a1[1];
   a2[1] = 0;
   a2[2] = 0;
   *a2 = 0;
-  v62 = v5;
-  v63[0] = v5;
-  v6 = v4 - v5;
-  if (v4 == v5 || (v7 = v5 + 7, v65 = v5 + 7, v5 + 7 == v4))
+  v62 = v6;
+  v63[0] = v6;
+  v7 = &v5[-v6];
+  if (v5 == v6 || (v8 = (v6 + 112), v65 = (v6 + 112), (v6 + 112) == v5))
   {
-    v9 = v5;
+    v10 = v6;
     goto LABEL_26;
   }
 
   if (std::_MinmaxElementLessFunc<RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter::spatialBinning(std::vector<RoseSyntheticApertureFiltering::InternalRangeMeas>)::$_0,std::__identity>::operator()[abi:ne200100]<std::__wrap_iter<RoseSyntheticApertureFiltering::InternalRangeMeas const*>>(&v65, &v62))
   {
-    v62 = (v5 + 7);
-    v8 = v5;
+    v62 = (v6 + 112);
+    v9 = v6;
   }
 
   else
   {
-    v63[0] = v5 + 7;
-    v8 = v5 + 7;
-    v7 = v5;
+    v63[0] = (v6 + 112);
+    v9 = (v6 + 112);
+    v8 = v6;
   }
 
-  v9 = v5 + 14;
-  if (v5 + 14 == v4)
+  v10 = (v6 + 224);
+  if ((v6 + 224) == v5)
   {
 LABEL_20:
-    v5 = v8;
-    v9 = v7;
+    v6 = v9;
+    v10 = v8;
     goto LABEL_26;
   }
 
-  v10 = v5 + 21;
+  v11 = v6 + 336;
   while (1)
   {
-    v64 = v10 - 7;
-    v65 = v9 + 7;
-    if (v9 + 7 == v4)
+    v64 = (v11 - 112);
+    v65 = v10 + 7;
+    if (v10 + 7 == v5)
     {
       break;
     }
@@ -2558,13 +2531,13 @@ LABEL_20:
     {
       if (std::_MinmaxElementLessFunc<RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter::spatialBinning(std::vector<RoseSyntheticApertureFiltering::InternalRangeMeas>)::$_0,std::__identity>::operator()[abi:ne200100]<std::__wrap_iter<RoseSyntheticApertureFiltering::InternalRangeMeas const*>>(&v65, &v62))
       {
-        v62 = v10;
-        v7 = v10;
+        v62 = v11;
+        v8 = v11;
       }
 
-      v11 = std::_MinmaxElementLessFunc<RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter::spatialBinning(std::vector<RoseSyntheticApertureFiltering::InternalRangeMeas>)::$_0,std::__identity>::operator()[abi:ne200100]<std::__wrap_iter<RoseSyntheticApertureFiltering::InternalRangeMeas const*>>(&v64, v63);
-      v12 = v9;
-      if (v11)
+      v12 = std::_MinmaxElementLessFunc<RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter::spatialBinning(std::vector<RoseSyntheticApertureFiltering::InternalRangeMeas>)::$_0,std::__identity>::operator()[abi:ne200100]<std::__wrap_iter<RoseSyntheticApertureFiltering::InternalRangeMeas const*>>(&v64, v63);
+      v13 = v10;
+      if (v12)
       {
         goto LABEL_19;
       }
@@ -2574,25 +2547,25 @@ LABEL_20:
     {
       if (std::_MinmaxElementLessFunc<RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter::spatialBinning(std::vector<RoseSyntheticApertureFiltering::InternalRangeMeas>)::$_0,std::__identity>::operator()[abi:ne200100]<std::__wrap_iter<RoseSyntheticApertureFiltering::InternalRangeMeas const*>>(&v64, &v62))
       {
-        v62 = (v10 - 7);
-        v7 = v10 - 7;
+        v62 = (v11 - 112);
+        v8 = (v11 - 112);
       }
 
-      v13 = std::_MinmaxElementLessFunc<RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter::spatialBinning(std::vector<RoseSyntheticApertureFiltering::InternalRangeMeas>)::$_0,std::__identity>::operator()[abi:ne200100]<std::__wrap_iter<RoseSyntheticApertureFiltering::InternalRangeMeas const*>>(&v65, v63);
-      v12 = v10;
-      if (v13)
+      v14 = std::_MinmaxElementLessFunc<RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter::spatialBinning(std::vector<RoseSyntheticApertureFiltering::InternalRangeMeas>)::$_0,std::__identity>::operator()[abi:ne200100]<std::__wrap_iter<RoseSyntheticApertureFiltering::InternalRangeMeas const*>>(&v65, v63);
+      v13 = v11;
+      if (v14)
       {
         goto LABEL_19;
       }
     }
 
-    v63[0] = v12;
-    v8 = v12;
+    v63[0] = v13;
+    v9 = v13;
 LABEL_19:
-    v9 += 14;
-    v65 = v9;
     v10 += 14;
-    if (v9 == v4)
+    v65 = v10;
+    v11 += 224;
+    if (v10 == v5)
     {
       goto LABEL_20;
     }
@@ -2602,69 +2575,69 @@ LABEL_19:
   {
     if (!std::_MinmaxElementLessFunc<RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter::spatialBinning(std::vector<RoseSyntheticApertureFiltering::InternalRangeMeas>)::$_0,std::__identity>::operator()[abi:ne200100]<std::__wrap_iter<RoseSyntheticApertureFiltering::InternalRangeMeas const*>>(&v64, v63))
     {
-      v8 = v10 - 7;
+      v9 = (v11 - 112);
     }
 
-    v9 = v7;
+    v10 = v8;
   }
 
-  v5 = v8;
+  v6 = v9;
 LABEL_26:
-  v14 = cnmatrix::CNMatrixBase<double>::operator()(v9 + 40, 0);
-  v15 = cnmatrix::CNMatrixBase<double>::operator()(v5 + 40, 0);
-  v16 = *a1;
-  v17 = a1[1];
-  v62 = v16;
-  v63[0] = v16;
-  if (v16 == v17)
+  v15 = cnmatrix::CNMatrixBase<double>::operator()(v10 + 40, 0);
+  v16 = cnmatrix::CNMatrixBase<double>::operator()(v6 + 40, 0);
+  v17 = *a1;
+  v18 = a1[1];
+  v62 = v17;
+  v63[0] = v17;
+  if (v17 == v18)
   {
     goto LABEL_48;
   }
 
-  v18 = v16 + 7;
-  v65 = v16 + 7;
-  if (v16 + 7 == v17)
+  v19 = v17 + 112;
+  v65 = (v17 + 112);
+  if ((v17 + 112) == v18)
   {
     goto LABEL_48;
   }
 
   if (std::_MinmaxElementLessFunc<RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter::spatialBinning(std::vector<RoseSyntheticApertureFiltering::InternalRangeMeas>)::$_1,std::__identity>::operator()[abi:ne200100]<std::__wrap_iter<RoseSyntheticApertureFiltering::InternalRangeMeas const*>>(&v65, &v62))
   {
-    v62 = (v16 + 7);
+    v62 = (v17 + 112);
   }
 
   else
   {
-    v63[0] = v16 + 7;
-    v18 = v16;
+    v63[0] = (v17 + 112);
+    v19 = v17;
   }
 
-  if (v16 + 14 == v17)
+  if ((v17 + 224) == v18)
   {
 LABEL_47:
-    v16 = v18;
+    v17 = v19;
     goto LABEL_48;
   }
 
-  v19 = v16 + 21;
-  v16 += 14;
+  v20 = v17 + 336;
+  v17 += 224;
   while (2)
   {
-    v64 = v19 - 7;
-    v65 = v16 + 7;
-    if (v16 + 7 != v17)
+    v64 = (v20 - 112);
+    v65 = (v17 + 112);
+    if ((v17 + 112) != v18)
     {
       if (std::_MinmaxElementLessFunc<RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter::spatialBinning(std::vector<RoseSyntheticApertureFiltering::InternalRangeMeas>)::$_1,std::__identity>::operator()[abi:ne200100]<std::__wrap_iter<RoseSyntheticApertureFiltering::InternalRangeMeas const*>>(&v65, &v64))
       {
         if (std::_MinmaxElementLessFunc<RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter::spatialBinning(std::vector<RoseSyntheticApertureFiltering::InternalRangeMeas>)::$_1,std::__identity>::operator()[abi:ne200100]<std::__wrap_iter<RoseSyntheticApertureFiltering::InternalRangeMeas const*>>(&v65, &v62))
         {
-          v62 = v19;
-          v18 = v19;
+          v62 = v20;
+          v19 = v20;
         }
 
-        v20 = std::_MinmaxElementLessFunc<RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter::spatialBinning(std::vector<RoseSyntheticApertureFiltering::InternalRangeMeas>)::$_1,std::__identity>::operator()[abi:ne200100]<std::__wrap_iter<RoseSyntheticApertureFiltering::InternalRangeMeas const*>>(&v64, v63);
-        v21 = v16;
-        if (v20)
+        v21 = std::_MinmaxElementLessFunc<RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter::spatialBinning(std::vector<RoseSyntheticApertureFiltering::InternalRangeMeas>)::$_1,std::__identity>::operator()[abi:ne200100]<std::__wrap_iter<RoseSyntheticApertureFiltering::InternalRangeMeas const*>>(&v64, v63);
+        v22 = v17;
+        if (v21)
         {
           goto LABEL_43;
         }
@@ -2674,19 +2647,19 @@ LABEL_47:
       {
         if (std::_MinmaxElementLessFunc<RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter::spatialBinning(std::vector<RoseSyntheticApertureFiltering::InternalRangeMeas>)::$_1,std::__identity>::operator()[abi:ne200100]<std::__wrap_iter<RoseSyntheticApertureFiltering::InternalRangeMeas const*>>(&v64, &v62))
         {
-          v62 = (v19 - 7);
-          v18 = v19 - 7;
+          v62 = (v20 - 112);
+          v19 = v20 - 112;
         }
 
-        v22 = std::_MinmaxElementLessFunc<RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter::spatialBinning(std::vector<RoseSyntheticApertureFiltering::InternalRangeMeas>)::$_1,std::__identity>::operator()[abi:ne200100]<std::__wrap_iter<RoseSyntheticApertureFiltering::InternalRangeMeas const*>>(&v65, v63);
-        v21 = v19;
-        if (v22)
+        v23 = std::_MinmaxElementLessFunc<RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter::spatialBinning(std::vector<RoseSyntheticApertureFiltering::InternalRangeMeas>)::$_1,std::__identity>::operator()[abi:ne200100]<std::__wrap_iter<RoseSyntheticApertureFiltering::InternalRangeMeas const*>>(&v65, v63);
+        v22 = v20;
+        if (v23)
         {
 LABEL_43:
-          v16 += 14;
-          v65 = v16;
-          v19 += 14;
-          if (v16 == v17)
+          v17 += 224;
+          v65 = v17;
+          v20 += 224;
+          if (v17 == v18)
           {
             goto LABEL_47;
           }
@@ -2695,7 +2668,7 @@ LABEL_43:
         }
       }
 
-      v63[0] = v21;
+      v63[0] = v22;
       goto LABEL_43;
     }
 
@@ -2709,57 +2682,57 @@ LABEL_43:
   }
 
 LABEL_48:
-  v23 = cnmatrix::CNMatrixBase<double>::operator()(v16 + 40, 1u);
-  v25 = *a1;
-  v24 = a1[1];
-  v62 = v25;
-  v63[0] = v25;
-  if (v25 == v24 || (v26 = v25 + 7, v65 = v25 + 7, v25 + 7 == v24))
+  v24 = cnmatrix::CNMatrixBase<double>::operator()(v17 + 40, 1);
+  v26 = *a1;
+  v25 = a1[1];
+  v62 = v26;
+  v63[0] = v26;
+  if (v26 == v25 || (v27 = (v26 + 112), v65 = (v26 + 112), (v26 + 112) == v25))
   {
-    v28 = v25;
+    v29 = v26;
     goto LABEL_73;
   }
 
   if (std::_MinmaxElementLessFunc<RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter::spatialBinning(std::vector<RoseSyntheticApertureFiltering::InternalRangeMeas>)::$_2,std::__identity>::operator()[abi:ne200100]<std::__wrap_iter<RoseSyntheticApertureFiltering::InternalRangeMeas const*>>(&v65, &v62))
   {
-    v62 = (v25 + 7);
-    v27 = v25;
+    v62 = (v26 + 112);
+    v28 = v26;
   }
 
   else
   {
-    v63[0] = v25 + 7;
-    v27 = v25 + 7;
-    v26 = v25;
+    v63[0] = (v26 + 112);
+    v28 = (v26 + 112);
+    v27 = v26;
   }
 
-  v28 = v25 + 14;
-  if (v25 + 14 == v24)
+  v29 = (v26 + 224);
+  if ((v26 + 224) == v25)
   {
 LABEL_67:
-    v25 = v27;
-    v28 = v26;
+    v26 = v28;
+    v29 = v27;
     goto LABEL_73;
   }
 
-  v29 = v25 + 21;
+  v30 = v26 + 336;
   while (2)
   {
-    v64 = v29 - 7;
-    v65 = v28 + 7;
-    if (v28 + 7 != v24)
+    v64 = (v30 - 112);
+    v65 = v29 + 7;
+    if (v29 + 7 != v25)
     {
       if (std::_MinmaxElementLessFunc<RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter::spatialBinning(std::vector<RoseSyntheticApertureFiltering::InternalRangeMeas>)::$_2,std::__identity>::operator()[abi:ne200100]<std::__wrap_iter<RoseSyntheticApertureFiltering::InternalRangeMeas const*>>(&v65, &v64))
       {
         if (std::_MinmaxElementLessFunc<RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter::spatialBinning(std::vector<RoseSyntheticApertureFiltering::InternalRangeMeas>)::$_2,std::__identity>::operator()[abi:ne200100]<std::__wrap_iter<RoseSyntheticApertureFiltering::InternalRangeMeas const*>>(&v65, &v62))
         {
-          v62 = v29;
-          v26 = v29;
+          v62 = v30;
+          v27 = v30;
         }
 
-        v30 = std::_MinmaxElementLessFunc<RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter::spatialBinning(std::vector<RoseSyntheticApertureFiltering::InternalRangeMeas>)::$_2,std::__identity>::operator()[abi:ne200100]<std::__wrap_iter<RoseSyntheticApertureFiltering::InternalRangeMeas const*>>(&v64, v63);
-        v31 = v28;
-        if (v30)
+        v31 = std::_MinmaxElementLessFunc<RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter::spatialBinning(std::vector<RoseSyntheticApertureFiltering::InternalRangeMeas>)::$_2,std::__identity>::operator()[abi:ne200100]<std::__wrap_iter<RoseSyntheticApertureFiltering::InternalRangeMeas const*>>(&v64, v63);
+        v32 = v29;
+        if (v31)
         {
           goto LABEL_66;
         }
@@ -2769,19 +2742,19 @@ LABEL_67:
       {
         if (std::_MinmaxElementLessFunc<RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter::spatialBinning(std::vector<RoseSyntheticApertureFiltering::InternalRangeMeas>)::$_2,std::__identity>::operator()[abi:ne200100]<std::__wrap_iter<RoseSyntheticApertureFiltering::InternalRangeMeas const*>>(&v64, &v62))
         {
-          v62 = (v29 - 7);
-          v26 = v29 - 7;
+          v62 = (v30 - 112);
+          v27 = (v30 - 112);
         }
 
-        v32 = std::_MinmaxElementLessFunc<RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter::spatialBinning(std::vector<RoseSyntheticApertureFiltering::InternalRangeMeas>)::$_2,std::__identity>::operator()[abi:ne200100]<std::__wrap_iter<RoseSyntheticApertureFiltering::InternalRangeMeas const*>>(&v65, v63);
-        v31 = v29;
-        if (v32)
+        v33 = std::_MinmaxElementLessFunc<RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter::spatialBinning(std::vector<RoseSyntheticApertureFiltering::InternalRangeMeas>)::$_2,std::__identity>::operator()[abi:ne200100]<std::__wrap_iter<RoseSyntheticApertureFiltering::InternalRangeMeas const*>>(&v65, v63);
+        v32 = v30;
+        if (v33)
         {
 LABEL_66:
-          v28 += 14;
-          v65 = v28;
           v29 += 14;
-          if (v28 == v24)
+          v65 = v29;
+          v30 += 224;
+          if (v29 == v25)
           {
             goto LABEL_67;
           }
@@ -2790,8 +2763,8 @@ LABEL_66:
         }
       }
 
-      v63[0] = v31;
-      v27 = v31;
+      v63[0] = v32;
+      v28 = v32;
       goto LABEL_66;
     }
 
@@ -2802,38 +2775,38 @@ LABEL_66:
   {
     if (!std::_MinmaxElementLessFunc<RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter::spatialBinning(std::vector<RoseSyntheticApertureFiltering::InternalRangeMeas>)::$_2,std::__identity>::operator()[abi:ne200100]<std::__wrap_iter<RoseSyntheticApertureFiltering::InternalRangeMeas const*>>(&v64, v63))
     {
-      v27 = v29 - 7;
+      v28 = (v30 - 112);
     }
 
-    v28 = v26;
+    v29 = v27;
   }
 
-  v25 = v27;
+  v26 = v28;
 LABEL_73:
-  v33 = cnmatrix::CNMatrixBase<double>::operator()(v28 + 40, 2u);
-  v34 = cnmatrix::CNMatrixBase<double>::operator()(v25 + 40, 2u);
-  v35 = 0x6DB6DB6DB6DB6DB7 * (v6 >> 4);
+  v34 = cnmatrix::CNMatrixBase<double>::operator()(v29 + 40, 2);
+  v35.n128_f64[0] = cnmatrix::CNMatrixBase<double>::operator()(v26 + 40, 2);
+  v36 = 0x6DB6DB6DB6DB6DB7 * (v7 >> 4);
   v63[0] = 0;
   v63[1] = 0;
   v62 = v63;
-  v36 = v35;
-  if (v35)
+  v37 = v36;
+  if (v36)
   {
-    v37 = 0;
-    v38 = ceil((v15 - v14) * 4.0);
-    v39 = fmaxf(v38, 1.0);
-    v40 = ceil((v34 - v33) * 4.0);
-    v41 = fmaxf(v40, 1.0);
+    v38 = 0;
+    v39 = ceil((v16 - v15) * 4.0);
+    v40 = fmaxf(v39, 1.0);
+    v41 = ceil((v35.n128_f64[0] - v34) * 4.0);
+    v42 = fmaxf(v41, 1.0);
     do
     {
-      v42 = cnmatrix::CNMatrixBase<double>::operator()(&(*a1)[7 * v37 + 2] + 8, 0);
-      v43 = cnmatrix::CNMatrixBase<double>::operator()(&(*a1)[7 * v37 + 2] + 8, 1u);
-      v44 = cnmatrix::CNMatrixBase<double>::operator()(&(*a1)[7 * v37 + 2] + 8, 2u);
-      v45 = ceil((v42 - v14) * 4.0) + -1.0;
+      v43 = cnmatrix::CNMatrixBase<double>::operator()(&(*a1)[112 * v38 + 40], 0);
+      v44 = cnmatrix::CNMatrixBase<double>::operator()(&(*a1)[112 * v38 + 40], 1);
+      v35.n128_f64[0] = cnmatrix::CNMatrixBase<double>::operator()(&(*a1)[112 * v38 + 40], 2);
+      v45 = ceil((v43 - v15) * 4.0) + -1.0;
       v46 = fmaxf(v45, 0.0);
-      v47 = ceil((v43 - v23) * 4.0) + -1.0;
-      *&v44 = ceil((v44 - v33) * 4.0) + -1.0;
-      v48 = v46 + (fmaxf(*&v44, 0.0) + fmaxf(v47, 0.0) * v41) * v39;
+      v47 = ceil((v44 - v24) * 4.0) + -1.0;
+      v35.n128_f32[0] = ceil((v35.n128_f64[0] - v34) * 4.0) + -1.0;
+      v48 = v46 + (fmaxf(v35.n128_f32[0], 0.0) + fmaxf(v47, 0.0) * v42) * v40;
       v49 = v63[0];
       if (!v63[0])
       {
@@ -2851,56 +2824,56 @@ LABEL_73:
           v50 = v49;
         }
 
-        v49 = *(v49 + v53);
+        v49 = v49[v53];
       }
 
       while (v49);
       if (v50 != v63 && v48 >= *(v50 + 7))
       {
-        if (*(&(*a1)[7 * v37] + 1) < *(&(*a1)[7 * *(v50 + 8)] + 1))
+        v35.n128_u64[0] = *&(*a1)[112 * v38 + 8];
+        if (v35.n128_f64[0] < *&(*a1)[112 * *(v50 + 8) + 8])
         {
-          *(v50 + 8) = v37;
+          *(v50 + 8) = v38;
         }
       }
 
       else
       {
 LABEL_83:
-        v66[0] = v48;
-        v66[1] = v37;
-        std::__tree<std::__value_type<unsigned int,unsigned int>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,unsigned int>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,unsigned int>>>::__emplace_unique_key_args<unsigned int,std::pair<unsigned int const,unsigned int>>(&v62, v66);
+        v66 = __PAIR64__(v38, v48);
+        std::__tree<std::__value_type<unsigned int,unsigned int>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,unsigned int>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,unsigned int>>>::__emplace_unique_key_args<unsigned int,std::pair<unsigned int const,unsigned int>>(&v62, &v66, &v66);
       }
 
-      ++v37;
+      ++v38;
     }
 
-    while (v37 != v36);
+    while (v38 != v37);
     v54 = v62;
     if (v62 != v63)
     {
       v55 = a2[1];
       do
       {
-        v56 = &(*a1)[7 * *(v54 + 8)];
+        v56 = &(*a1)[112 * *(v54 + 32)];
         if (v55 >= a2[2])
         {
-          v55 = std::vector<RoseSyntheticApertureFiltering::InternalRangeMeas>::__emplace_back_slow_path<RoseSyntheticApertureFiltering::InternalRangeMeas const&>(a2, &(*a1)[7 * *(v54 + 8)]);
+          v55 = std::vector<RoseSyntheticApertureFiltering::InternalRangeMeas>::__emplace_back_slow_path<RoseSyntheticApertureFiltering::InternalRangeMeas const&>(a2, &(*a1)[112 * *(v54 + 32)]);
         }
 
         else
         {
           v57 = *v56;
-          v58 = *(v56 + 16);
-          *(v55 + 32) = *(v56 + 32);
+          v58 = *(v56 + 1);
+          *(v55 + 32) = *(v56 + 4);
           *v55 = v57;
           *(v55 + 16) = v58;
-          cnmatrix::CNMatrix<3u,1u,double>::CNMatrix(v55 + 40, v56 + 40);
-          *(v55 + 104) = *(v56 + 104);
+          v35 = cnmatrix::CNMatrix<3u,1u,double>::CNMatrix(v55 + 40, (v56 + 40));
+          *(v55 + 104) = *(v56 + 26);
           v55 += 112;
         }
 
         a2[1] = v55;
-        v59 = *(v54 + 1);
+        v59 = *(v54 + 8);
         if (v59)
         {
           do
@@ -2916,7 +2889,7 @@ LABEL_83:
         {
           do
           {
-            v60 = *(v54 + 2);
+            v60 = *(v54 + 16);
             v61 = *v60 == v54;
             v54 = v60;
           }
@@ -2931,17 +2904,17 @@ LABEL_83:
     }
   }
 
-  std::__tree<std::__value_type<unsigned int,unsigned int>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,unsigned int>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,unsigned int>>>::destroy(&v62, v63[0]);
+  std::__tree<std::__value_type<unsigned int,unsigned int>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,unsigned int>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,unsigned int>>>::destroy(&v62, v63[0], v35);
 }
 
-void sub_2613EE3C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_2613EE3C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   std::vector<RoseSyntheticApertureFiltering::InternalRangeMeas>::__destroy_vector::operator()[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-uint64_t std::vector<RoseSyntheticApertureFiltering::InternalRangeMeas>::emplace_back<RoseSyntheticApertureFiltering::InternalRangeMeas const&>(uint64_t *a1, uint64_t a2)
+uint64_t std::vector<RoseSyntheticApertureFiltering::InternalRangeMeas>::emplace_back<RoseSyntheticApertureFiltering::InternalRangeMeas const&>(uint64_t *a1, __int128 *a2)
 {
   v4 = a1[1];
   if (v4 >= a1[2])
@@ -2952,12 +2925,12 @@ uint64_t std::vector<RoseSyntheticApertureFiltering::InternalRangeMeas>::emplace
   else
   {
     v5 = *a2;
-    v6 = *(a2 + 16);
-    *(v4 + 32) = *(a2 + 32);
+    v6 = a2[1];
+    *(v4 + 32) = *(a2 + 4);
     *v4 = v5;
     *(v4 + 16) = v6;
     cnmatrix::CNMatrix<3u,1u,double>::CNMatrix(v4 + 40, a2 + 40);
-    *(v4 + 104) = *(a2 + 104);
+    *(v4 + 104) = *(a2 + 26);
     v7 = v4 + 112;
     a1[1] = v4 + 112;
   }
@@ -3084,17 +3057,17 @@ double RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter::estim
   return *v41;
 }
 
-void RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter::computeStraightPathSolution(RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter *this)
+void RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter::computeStraightPathSolution(void *this)
 {
-  v106[308] = *MEMORY[0x277D85DE8];
-  v1 = *(this + 85);
-  v2 = *(this + 84);
+  v105[308] = *MEMORY[0x277D85DE8];
+  v1 = this[85];
+  v2 = this[84];
   v3 = 0x6DB6DB6DB6DB6DB7 * ((v1 - v2) >> 4);
   if (v3 >= 4)
   {
     v4 = this;
-    v5 = *(this + 91);
-    v6 = *(this + 90);
+    v5 = this[91];
+    v6 = this[90];
     if (v5 != v6)
     {
       v7 = v5 - 72;
@@ -3108,26 +3081,26 @@ void RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter::compute
       while (v5 != v6);
     }
 
-    *(this + 91) = v6;
-    memset(v92, 0, sizeof(v92));
-    std::vector<RoseSyntheticApertureFiltering::InternalRangeMeas>::__init_with_size[abi:ne200100]<RoseSyntheticApertureFiltering::InternalRangeMeas*,RoseSyntheticApertureFiltering::InternalRangeMeas*>(v92, v2, v1, v3);
-    RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter::spatialBinning(v92, buf);
-    v8 = (v4 + 720);
+    this[91] = v6;
+    memset(v91, 0, sizeof(v91));
+    std::vector<RoseSyntheticApertureFiltering::InternalRangeMeas>::__init_with_size[abi:ne200100]<RoseSyntheticApertureFiltering::InternalRangeMeas*,RoseSyntheticApertureFiltering::InternalRangeMeas*>(v91, v2, v1, v3);
+    RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter::spatialBinning(v91, buf);
+    v8 = v4 + 90;
     std::vector<RoseSyntheticApertureFiltering::InternalRangeMeas>::__vdeallocate(v4 + 90);
     *(v4 + 45) = *buf;
-    *(v4 + 92) = *&buf[16];
+    v4[92] = *&buf[16];
     memset(buf, 0, sizeof(buf));
-    v98 = buf;
-    std::vector<RoseSyntheticApertureFiltering::InternalRangeMeas>::__destroy_vector::operator()[abi:ne200100](&v98);
-    v98 = v92;
-    std::vector<RoseSyntheticApertureFiltering::InternalRangeMeas>::__destroy_vector::operator()[abi:ne200100](&v98);
+    v97 = buf;
+    std::vector<RoseSyntheticApertureFiltering::InternalRangeMeas>::__destroy_vector::operator()[abi:ne200100](&v97);
+    v97 = v91;
+    std::vector<RoseSyntheticApertureFiltering::InternalRangeMeas>::__destroy_vector::operator()[abi:ne200100](&v97);
+    v88 = 0;
     v89 = 0;
     v90 = 0;
-    v91 = 0;
-    v9 = *(v4 + 91);
-    if (v9 == *(v4 + 90))
+    v9 = v4[91];
+    if (v9 == v4[90])
     {
-      v27 = *(v4 + 91);
+      v27 = v4[91];
     }
 
     else
@@ -3135,30 +3108,30 @@ void RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter::compute
       v10 = 0;
       v11 = 0;
       v12 = &unk_2873C40E8;
-      v13 = v88;
-      v14 = v102;
-      v9 = *(v4 + 90);
+      v13 = v87;
+      v14 = v101;
+      v9 = v4[90];
       do
       {
-        v15 = *(v4 + 85) - 72;
-        v86 = 0x100000003;
-        v84 = v12;
-        v85 = xmmword_261415AA0;
-        v87 = v13;
-        cnmatrix::Subtract<double>(v9 + v10 * 16 + 40, v15, &v84);
-        v100 = 0x100000003;
-        v99 = xmmword_261415AA0;
-        v98 = &unk_2873C40E8;
-        v101 = v14;
-        v104 = 0x100000134;
+        v15 = v4[85] - 72;
+        v85 = 0x100000003;
+        v83 = v12;
+        v84 = xmmword_261415AA0;
+        v86 = v13;
+        cnmatrix::Subtract<double>(v9 + v10 + 40, v15, &v83);
+        v99 = 0x100000003;
+        v98 = xmmword_261415AA0;
+        v97 = &unk_2873C40E8;
+        v100 = v14;
+        v103 = 0x100000134;
         *&buf[8] = xmmword_261415AD0;
         *buf = &unk_2873C41B8;
-        v105 = v106;
-        v95 = 0x100000003;
-        v94 = xmmword_261415AA0;
-        v93 = &unk_2873C40E8;
-        v96 = v97;
-        cnmatrix::Norm<double>(&v84, &v98, buf, &v93, "2");
+        v104 = v105;
+        v94 = 0x100000003;
+        v93 = xmmword_261415AA0;
+        v92 = &unk_2873C40E8;
+        v95 = v96;
+        cnmatrix::Norm<double>(&v83, &v97, buf, &v92, "2");
         if (v16 < 2.0)
         {
           v17 = v14;
@@ -3166,46 +3139,46 @@ void RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter::compute
           v19 = v12;
           v20 = v4;
           v21 = *v8;
-          v22 = &(*v8)[v10];
-          v23 = v90;
-          if (v90 >= v91)
+          v22 = *v8 + v10;
+          v23 = v89;
+          if (v89 >= v90)
           {
-            v26 = std::vector<RoseSyntheticApertureFiltering::InternalRangeMeas>::__emplace_back_slow_path<RoseSyntheticApertureFiltering::InternalRangeMeas&>(&v89, v22);
+            v26 = std::vector<RoseSyntheticApertureFiltering::InternalRangeMeas>::__emplace_back_slow_path<RoseSyntheticApertureFiltering::InternalRangeMeas&>(&v88, v22);
           }
 
           else
           {
             v24 = *v22;
-            v25 = v22[1];
-            *(v90 + 32) = *(v22 + 4);
+            v25 = *(v22 + 16);
+            *(v89 + 32) = *(v22 + 32);
             *v23 = v24;
             *(v23 + 16) = v25;
             cnmatrix::CNMatrix<3u,1u,double>::CNMatrix(v23 + 40, v22 + 40);
-            *(v23 + 104) = DWORD2(v21[v10 + 6]);
+            *(v23 + 104) = *(v21 + v10 + 104);
             v26 = v23 + 112;
           }
 
           v4 = v20;
-          v90 = v26;
+          v89 = v26;
           v12 = v19;
           v13 = v18;
           v14 = v17;
         }
 
         ++v11;
-        v27 = *(v4 + 91);
-        v9 = *(v4 + 90);
-        v10 += 7;
+        v27 = v4[91];
+        v9 = v4[90];
+        v10 += 112;
       }
 
       while (0x6DB6DB6DB6DB6DB7 * ((v27 - v9) >> 4) > v11);
     }
 
-    if (v8 != &v89)
+    if (v8 != &v88)
     {
-      std::vector<RoseSyntheticApertureFiltering::InternalRangeMeas>::__assign_with_size[abi:ne200100]<RoseSyntheticApertureFiltering::InternalRangeMeas*,RoseSyntheticApertureFiltering::InternalRangeMeas*>(v8, v89, v90, 0x6DB6DB6DB6DB6DB7 * ((v90 - v89) >> 4));
-      v27 = *(v4 + 91);
-      v9 = *(v4 + 90);
+      std::vector<RoseSyntheticApertureFiltering::InternalRangeMeas>::__assign_with_size[abi:ne200100]<RoseSyntheticApertureFiltering::InternalRangeMeas*,RoseSyntheticApertureFiltering::InternalRangeMeas*>(v8, v88, v89, 0x6DB6DB6DB6DB6DB7 * ((v89 - v88) >> 4));
+      v27 = v4[91];
+      v9 = v4[90];
     }
 
     v28 = 0x6DB6DB6DB6DB6DB7 * ((v27 - v9) >> 4);
@@ -3235,88 +3208,88 @@ void RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter::compute
 
       if (v28 >= 5)
       {
-        v70 = v31;
-        v69 = v4;
+        v69 = v31;
+        v68 = v4;
         v32 = 0;
+        v80 = 0;
         v81 = 0;
         v82 = 0;
-        v83 = 0;
+        v77 = 0;
         v78 = 0;
+        v70 = (v28 - 1);
+        v71 = v28 & 0x7FFFFFFF;
+        v74 = v71 - 1;
+        v73 = 112;
         v79 = 0;
-        v71 = (v28 - 1);
-        v72 = v28 & 0x7FFFFFFF;
-        v75 = v72 - 1;
-        v74 = 112;
-        v80 = 0;
         do
         {
-          v73 = v32 + 1;
-          if (v32 + 1 < v72)
+          v72 = v32 + 1;
+          if (v32 + 1 < v71)
           {
-            v33 = v74;
-            v34 = v75;
+            v33 = v73;
+            v34 = v74;
             do
             {
-              v35 = (*v8 + v33);
-              v36 = v35[1];
-              v37 = &(*v8)[7 * v32];
+              v35 = *v8 + v33;
+              v36 = *(v35 + 8);
+              v37 = *v8 + 112 * v32;
               v38 = *(v37 + 8);
               if (vabdd_f64(3.14159265, acos(((v38 + 0.1) * (v38 + 0.1) + (v36 - v38) * (v36 - v38) - (v36 + -0.1) * (v36 + -0.1)) / ((v38 + 0.1) * (v36 - v38 + v36 - v38)))) < 1.22173048)
               {
-                v86 = 0x100000003;
-                v84 = &unk_2873C40E8;
-                v85 = xmmword_261415AA0;
-                v87 = v88;
-                cnmatrix::Subtract<double>(v37 + 40, (v35 + 5), &v84);
-                v100 = 0x100000003;
-                v99 = xmmword_261415AA0;
-                v98 = &unk_2873C40E8;
-                v101 = v102;
-                v104 = 0x100000134;
+                v85 = 0x100000003;
+                v83 = &unk_2873C40E8;
+                v84 = xmmword_261415AA0;
+                v86 = v87;
+                cnmatrix::Subtract<double>(v37 + 40, v35 + 40, &v83);
+                v99 = 0x100000003;
+                v98 = xmmword_261415AA0;
+                v97 = &unk_2873C40E8;
+                v100 = v101;
+                v103 = 0x100000134;
                 *&buf[8] = xmmword_261415AD0;
                 *buf = &unk_2873C41B8;
-                v105 = v106;
-                v95 = 0x100000003;
-                v94 = xmmword_261415AA0;
-                v93 = &unk_2873C40E8;
-                v96 = v97;
-                cnmatrix::Norm<double>(&v84, &v98, buf, &v93, "2");
+                v104 = v105;
+                v94 = 0x100000003;
+                v93 = xmmword_261415AA0;
+                v92 = &unk_2873C40E8;
+                v95 = v96;
+                cnmatrix::Norm<double>(&v83, &v97, buf, &v92, "2");
                 if (vabdd_f64(v39, fmax(v38, v36) - fmin(v38, v36)) < 0.1414)
                 {
-                  v40 = &(*v8)[7 * v32];
+                  v40 = *v8 + 112 * v32;
                   v41 = *v8 + v33;
-                  v86 = 0x100000003;
-                  v84 = &unk_2873C40E8;
-                  v85 = xmmword_261415AA0;
-                  v87 = v88;
-                  cnmatrix::Subtract<double>(v40 + 40, (v41 + 40), &v84);
-                  v100 = 0x100000003;
-                  v99 = xmmword_261415AA0;
-                  v98 = &unk_2873C40E8;
-                  v101 = v102;
-                  v104 = 0x100000134;
+                  v85 = 0x100000003;
+                  v83 = &unk_2873C40E8;
+                  v84 = xmmword_261415AA0;
+                  v86 = v87;
+                  cnmatrix::Subtract<double>(v40 + 40, v41 + 40, &v83);
+                  v99 = 0x100000003;
+                  v98 = xmmword_261415AA0;
+                  v97 = &unk_2873C40E8;
+                  v100 = v101;
+                  v103 = 0x100000134;
                   *&buf[8] = xmmword_261415AD0;
                   *buf = &unk_2873C41B8;
-                  v105 = v106;
-                  v95 = 0x100000003;
-                  v94 = xmmword_261415AA0;
-                  v93 = &unk_2873C40E8;
-                  v96 = v97;
-                  cnmatrix::Norm<double>(&v84, &v98, buf, &v93, "2");
+                  v104 = v105;
+                  v94 = 0x100000003;
+                  v93 = xmmword_261415AA0;
+                  v92 = &unk_2873C40E8;
+                  v95 = v96;
+                  cnmatrix::Norm<double>(&v83, &v97, buf, &v92, "2");
                   if (v42 > 0.25)
                   {
-                    v43 = &(*v8)[7 * v32];
-                    v44 = v82;
-                    if (v82 >= v83)
+                    v43 = *v8 + 112 * v32;
+                    v44 = v81;
+                    if (v81 >= v82)
                     {
-                      v47 = std::vector<RoseSyntheticApertureFiltering::InternalRangeMeas>::__emplace_back_slow_path<RoseSyntheticApertureFiltering::InternalRangeMeas&>(&v81, &(*v8)[7 * v32]);
+                      v47 = std::vector<RoseSyntheticApertureFiltering::InternalRangeMeas>::__emplace_back_slow_path<RoseSyntheticApertureFiltering::InternalRangeMeas&>(&v80, (*v8 + 112 * v32));
                     }
 
                     else
                     {
                       v45 = *v43;
                       v46 = *(v43 + 16);
-                      *(v82 + 32) = *(v43 + 32);
+                      *(v81 + 32) = *(v43 + 32);
                       *v44 = v45;
                       *(v44 + 16) = v46;
                       cnmatrix::CNMatrix<3u,1u,double>::CNMatrix(v44 + 40, v43 + 40);
@@ -3324,20 +3297,20 @@ void RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter::compute
                       v47 = v44 + 112;
                     }
 
-                    v82 = v47;
+                    v81 = v47;
                     v48 = *v8;
-                    v49 = (*v8 + v33);
-                    v50 = v79;
-                    if (v79 >= v80)
+                    v49 = *v8 + v33;
+                    v50 = v78;
+                    if (v78 >= v79)
                     {
-                      v53 = std::vector<RoseSyntheticApertureFiltering::InternalRangeMeas>::__emplace_back_slow_path<RoseSyntheticApertureFiltering::InternalRangeMeas&>(&v78, v49);
+                      v53 = std::vector<RoseSyntheticApertureFiltering::InternalRangeMeas>::__emplace_back_slow_path<RoseSyntheticApertureFiltering::InternalRangeMeas&>(&v77, v49);
                     }
 
                     else
                     {
                       v51 = *v49;
-                      v52 = v49[1];
-                      *(v79 + 32) = *(v49 + 4);
+                      v52 = *(v49 + 16);
+                      *(v78 + 32) = *(v49 + 32);
                       *v50 = v51;
                       *(v50 + 16) = v52;
                       cnmatrix::CNMatrix<3u,1u,double>::CNMatrix(v50 + 40, v49 + 40);
@@ -3345,7 +3318,7 @@ void RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter::compute
                       v53 = v50 + 112;
                     }
 
-                    v79 = v53;
+                    v78 = v53;
                   }
                 }
               }
@@ -3357,46 +3330,46 @@ void RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter::compute
             while (v34);
           }
 
-          v74 += 112;
-          --v75;
+          v73 += 112;
+          --v74;
           ++v32;
         }
 
-        while (v73 != v71);
-        v54 = 0x6DB6DB6DB6DB6DB7 * ((v82 - v81) >> 4);
-        if (v54 > 5 && ((v54 / v70) * 100.0) >= 70.0)
+        while (v72 != v70);
+        v54 = 0x6DB6DB6DB6DB6DB7 * ((v81 - v80) >> 4);
+        if (v54 > 5 && ((v54 / v69) * 100.0) >= 70.0)
         {
-          *(v69 + 929) = 1;
-          *(v69 + 107) = *(v69 + 74);
-          cnmatrix::CNMatrixBase<double>::operator=(v69 + 864, v69 + 168);
-          v55 = *(v69 + 56);
+          *(v68 + 929) = 1;
+          v68[107] = v68[74];
+          cnmatrix::CNMatrixBase<double>::operator=((v68 + 108), (v68 + 21));
+          v55 = v68[56];
           if (os_log_type_enabled(v55, OS_LOG_TYPE_DEFAULT))
           {
-            v56 = *(v69 + 74);
+            v56 = v68[74];
             *buf = 134217984;
             *&buf[4] = v56;
             _os_log_impl(&dword_2613DF000, v55, OS_LOG_TYPE_DEFAULT, "Straight path solution generated at %f s", buf, 0xCu);
           }
 
-          *(v69 + 24) = 5;
-          *(v69 + 100) = 1;
-          *(v69 + 26) = 2;
-          *(v69 + 108) = 0;
-          *(v69 + 17) = 0;
-          memset(v77, 0, sizeof(v77));
-          std::vector<RoseSyntheticApertureFiltering::InternalRangeMeas>::__init_with_size[abi:ne200100]<RoseSyntheticApertureFiltering::InternalRangeMeas*,RoseSyntheticApertureFiltering::InternalRangeMeas*>(v77, v81, v82, 0x6DB6DB6DB6DB6DB7 * ((v82 - v81) >> 4));
+          *(v68 + 24) = 5;
+          *(v68 + 100) = 1;
+          *(v68 + 26) = 2;
+          *(v68 + 108) = 0;
+          v68[17] = 0;
           memset(v76, 0, sizeof(v76));
-          v57 = std::vector<RoseSyntheticApertureFiltering::InternalRangeMeas>::__init_with_size[abi:ne200100]<RoseSyntheticApertureFiltering::InternalRangeMeas*,RoseSyntheticApertureFiltering::InternalRangeMeas*>(v76, v78, v79, 0x6DB6DB6DB6DB6DB7 * ((v79 - v78) >> 4));
-          v58 = RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter::estimateTargetOnStraightPath(v57, v77, v76);
+          std::vector<RoseSyntheticApertureFiltering::InternalRangeMeas>::__init_with_size[abi:ne200100]<RoseSyntheticApertureFiltering::InternalRangeMeas*,RoseSyntheticApertureFiltering::InternalRangeMeas*>(v76, v80, v81, 0x6DB6DB6DB6DB6DB7 * ((v81 - v80) >> 4));
+          memset(v75, 0, sizeof(v75));
+          v57 = std::vector<RoseSyntheticApertureFiltering::InternalRangeMeas>::__init_with_size[abi:ne200100]<RoseSyntheticApertureFiltering::InternalRangeMeas*,RoseSyntheticApertureFiltering::InternalRangeMeas*>(v75, v77, v78, 0x6DB6DB6DB6DB6DB7 * ((v78 - v77) >> 4));
+          v58 = RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter::estimateTargetOnStraightPath(v57, v76, v75);
           v60 = v59;
           v62 = v61;
+          *buf = v75;
+          std::vector<RoseSyntheticApertureFiltering::InternalRangeMeas>::__destroy_vector::operator()[abi:ne200100](buf);
           *buf = v76;
           std::vector<RoseSyntheticApertureFiltering::InternalRangeMeas>::__destroy_vector::operator()[abi:ne200100](buf);
-          *buf = v77;
-          std::vector<RoseSyntheticApertureFiltering::InternalRangeMeas>::__destroy_vector::operator()[abi:ne200100](buf);
-          v63 = *(v69 + 14);
-          *(v69 + 15) = v63;
-          v64 = *(v69 + 16);
+          v63 = v68[14];
+          v68[15] = v63;
+          v64 = v68[16];
           if (v63 >= v64)
           {
             v65 = 0xCF3CF3CF3CF3CF3DLL * ((v64 - v63) >> 3);
@@ -3416,7 +3389,7 @@ void RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter::compute
               v67 = v66;
             }
 
-            std::__allocate_at_least[abi:ne200100]<std::allocator<RoseSyntheticApertureFiltering::BatchSolutionParticle>>(v69 + 112, v67);
+            std::__allocate_at_least[abi:ne200100]<std::allocator<RoseSyntheticApertureFiltering::BatchSolutionParticle>>((v68 + 14), v67);
           }
 
           *v63 = v58;
@@ -3434,24 +3407,22 @@ void RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter::compute
           *(v63 + 136) = 0u;
           *(v63 + 160) = 2;
           *(v63 + 152) = 0;
-          *(v69 + 15) = v63 + 168;
+          v68[15] = v63 + 168;
         }
 
-        *buf = &v78;
+        *buf = &v77;
         std::vector<RoseSyntheticApertureFiltering::InternalRangeMeas>::__destroy_vector::operator()[abi:ne200100](buf);
-        *buf = &v81;
+        *buf = &v80;
         std::vector<RoseSyntheticApertureFiltering::InternalRangeMeas>::__destroy_vector::operator()[abi:ne200100](buf);
       }
     }
 
-    *buf = &v89;
+    *buf = &v88;
     std::vector<RoseSyntheticApertureFiltering::InternalRangeMeas>::__destroy_vector::operator()[abi:ne200100](buf);
   }
-
-  v68 = *MEMORY[0x277D85DE8];
 }
 
-void sub_2613EF3D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, char a31, uint64_t a32, uint64_t a33, char a34, uint64_t a35, uint64_t a36, void **a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, char a45)
+void sub_2613EF3D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, char a31, uint64_t a32, uint64_t a33, char a34, uint64_t a35, uint64_t a36, char *a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, char a45)
 {
   a37 = &a31;
   std::vector<RoseSyntheticApertureFiltering::InternalRangeMeas>::__destroy_vector::operator()[abi:ne200100](&a37);
@@ -3471,7 +3442,7 @@ uint64_t RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter::set
 
 void RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter::addMeasurement(RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter *this@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  v215 = *MEMORY[0x277D85DE8];
+  v214 = *MEMORY[0x277D85DE8];
   if (*(this + 934) == 1)
   {
     *(this + 934) = 0;
@@ -3482,43 +3453,43 @@ void RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter::addMeas
   }
 
   *(this + 29) = *(a2 + 104);
-  v197 = 0x100000003;
-  v196 = xmmword_261415AA0;
-  v195 = &unk_2873C40E8;
-  v198 = &v199;
-  cnmatrix::FastResize<double>(&v195, 3, 1);
-  cnmatrix::CNMatrixBase<double>::WriteValue(&v195, 0.0);
-  v192 = 0x100000004;
-  v191 = xmmword_261415AC0;
-  v190 = &unk_2873C4170;
-  v193 = &v194;
-  cnmatrix::FastResize<double>(&v190, 4, 1);
-  cnmatrix::CNMatrixBase<double>::WriteValue(&v190, 0.0);
+  v196 = 0x100000003;
+  v195 = xmmword_261415AA0;
+  v194 = &unk_2873C40E8;
+  v197 = &v198;
+  cnmatrix::FastResize<double>(&v194, 3, 1);
+  cnmatrix::CNMatrixBase<double>::WriteValue(&v194, 0.0);
+  v191 = 0x100000004;
+  v190 = xmmword_261415AC0;
+  v189 = &unk_2873C4170;
+  v192 = &v193;
+  cnmatrix::FastResize<double>(&v189, 4, 1);
+  cnmatrix::CNMatrixBase<double>::WriteValue(&v189, 0.0);
   for (i = 0; i != 3; ++i)
   {
     v6 = a2 + 8 * i;
     v7 = *(v6 + 96);
-    *cnmatrix::CNMatrixBase<double>::operator()(&v195, i) = v7;
+    *cnmatrix::CNMatrixBase<double>::operator()(&v194, i) = v7;
     v8 = *(v6 + 120);
-    *cnmatrix::CNMatrixBase<double>::operator()(&v190, i) = v8;
+    *cnmatrix::CNMatrixBase<double>::operator()(&v189, i) = v8;
   }
 
   v9 = *(a2 + 144);
-  *cnmatrix::CNMatrixBase<double>::operator()(&v190, 3u) = v9;
-  RoseSyntheticApertureFiltering::quatn2rot(&v190, v189);
+  *cnmatrix::CNMatrixBase<double>::operator()(&v189, 3) = v9;
+  RoseSyntheticApertureFiltering::quatn2rot(&v189, v188);
   buf[3] = 0x100000003;
   *&buf[1] = xmmword_261415AA0;
   buf[0] = &unk_2873C40E8;
-  *&v206 = &v206 + 8;
-  cnmatrix::Multiply<double>(v189, this + 456, buf);
-  v186 = 0x100000003;
-  v185 = xmmword_261415AA0;
-  v184 = &unk_2873C40E8;
-  v187 = &v188;
-  cnmatrix::Add<double>(&v195, buf, &v184);
-  cnmatrix::CNMatrixBase<double>::operator=(this + 168, &v195);
-  cnmatrix::CNMatrixBase<double>::operator=(this + 240, &v190);
-  cnmatrix::CNMatrixBase<double>::operator=(this + 312, v189);
+  *&v205 = &v205 + 8;
+  cnmatrix::Multiply<double>(v188, this + 456, buf);
+  v185 = 0x100000003;
+  v184 = xmmword_261415AA0;
+  v183 = &unk_2873C40E8;
+  v186 = &v187;
+  cnmatrix::Add<double>(&v194, buf, &v183);
+  cnmatrix::CNMatrixBase<double>::operator=(this + 168, &v194);
+  cnmatrix::CNMatrixBase<double>::operator=(this + 240, &v189);
+  cnmatrix::CNMatrixBase<double>::operator=(this + 312, v188);
   v11 = *a2;
   *(this + 74) = *a2;
   if (*(this + 928) == 1)
@@ -3542,48 +3513,20 @@ void RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter::addMeas
 
   if (*(this + 929) == 1)
   {
-    v14 = *(this + 74) - *(this + 107);
-    if (v14 >= 2.0 && (*(this + 54) < 2.0 || *(this + 440) != 1))
+    if ((v14 = *(this + 74) - *(this + 107), v14 >= 2.0) && (*(this + 54) < 2.0 || *(this + 440) != 1) || v14 >= 5.0 && (v156 = 0x100000003, v154 = &unk_2873C40E8, v155 = xmmword_261415AA0, v157 = v158, cnmatrix::Subtract<double>(&v183, this + 864, &v154), *(&v170[1] + 1) = 0x100000003, *(v170 + 8) = xmmword_261415AA0, *&v170[0] = &unk_2873C40E8, *&v171 = &v171 + 8, buf[3] = 0x100000134, *&buf[1] = xmmword_261415AD0, buf[0] = &unk_2873C41B8, *&v205 = &v205 + 8, v161 = 0x100000003, v160 = xmmword_261415AA0, v159 = &unk_2873C40E8, v162 = v163, cnmatrix::Norm<double>(&v154, v170, buf, &v159, "2"), v15 > 1.0))
     {
-      goto LABEL_17;
-    }
-
-    if (v14 >= 5.0)
-    {
-      v157 = 0x100000003;
-      v155 = &unk_2873C40E8;
-      v156 = xmmword_261415AA0;
-      v158 = v159;
-      cnmatrix::Subtract<double>(&v184, this + 864, &v155);
-      *(&v171[1] + 1) = 0x100000003;
-      *(v171 + 8) = xmmword_261415AA0;
-      *&v171[0] = &unk_2873C40E8;
-      *&v172 = &v172 + 8;
-      buf[3] = 0x100000134;
-      *&buf[1] = xmmword_261415AD0;
-      buf[0] = &unk_2873C41B8;
-      *&v206 = &v206 + 8;
-      v162 = 0x100000003;
-      v161 = xmmword_261415AA0;
-      v160 = &unk_2873C40E8;
-      v163 = v164;
-      cnmatrix::Norm<double>(&v155, v171, buf, &v160, "2");
-      if (v15 > 1.0)
+      *(this + 929) = 0;
+      v16 = *(this + 56);
+      v10 = os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT);
+      if (v10)
       {
-LABEL_17:
-        *(this + 929) = 0;
-        v16 = *(this + 56);
-        v10 = os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT);
-        if (v10)
-        {
-          v17 = *(this + 107);
-          v18 = *(this + 74);
-          LODWORD(buf[0]) = 134218240;
-          *(buf + 4) = v17;
-          WORD2(buf[1]) = 2048;
-          *(&buf[1] + 6) = v18;
-          _os_log_impl(&dword_2613DF000, v16, OS_LOG_TYPE_DEFAULT, "Straight path solution at %f s is no longer valid - current time is %f s", buf, 0x16u);
-        }
+        v17 = *(this + 107);
+        v18 = *(this + 74);
+        LODWORD(buf[0]) = 134218240;
+        *(buf + 4) = v17;
+        WORD2(buf[1]) = 2048;
+        *(&buf[1] + 6) = v18;
+        _os_log_impl(&dword_2613DF000, v16, OS_LOG_TYPE_DEFAULT, "Straight path solution at %f s is no longer valid - current time is %f s", buf, 0x16u);
       }
     }
   }
@@ -3603,24 +3546,24 @@ LABEL_17:
   v21 = *(this + 85);
   if (v21 != *(this + 84))
   {
-    v157 = 0x100000003;
-    v155 = &unk_2873C40E8;
-    v156 = xmmword_261415AA0;
-    v158 = v159;
-    cnmatrix::Subtract<double>(&v184, v21 - 72, &v155);
-    *(&v171[1] + 1) = 0x100000003;
-    *(v171 + 8) = xmmword_261415AA0;
-    *&v171[0] = &unk_2873C40E8;
-    *&v172 = &v172 + 8;
+    v156 = 0x100000003;
+    v154 = &unk_2873C40E8;
+    v155 = xmmword_261415AA0;
+    v157 = v158;
+    cnmatrix::Subtract<double>(&v183, v21 - 72, &v154);
+    *(&v170[1] + 1) = 0x100000003;
+    *(v170 + 8) = xmmword_261415AA0;
+    *&v170[0] = &unk_2873C40E8;
+    *&v171 = &v171 + 8;
     buf[3] = 0x100000134;
     *&buf[1] = xmmword_261415AD0;
     buf[0] = &unk_2873C41B8;
-    *&v206 = &v206 + 8;
-    v162 = 0x100000003;
-    v161 = xmmword_261415AA0;
-    v160 = &unk_2873C40E8;
-    v163 = v164;
-    cnmatrix::Norm<double>(&v155, v171, buf, &v160, "2");
+    *&v205 = &v205 + 8;
+    v161 = 0x100000003;
+    v160 = xmmword_261415AA0;
+    v159 = &unk_2873C40E8;
+    v162 = v163;
+    cnmatrix::Norm<double>(&v154, v170, buf, &v159, "2");
     v23 = v22;
     v24 = *(a2 + 8);
     v25 = *(v21 - 104);
@@ -3677,15 +3620,15 @@ LABEL_17:
           *&buf[1] = v65;
           *&buf[2] = v65 / (v63 * v66);
           *&buf[3] = v66;
-          *&v206 = v63;
-          cnmatrix::CNMatrix<3u,1u,double>::CNMatrix(&v206 + 8, &v184);
-          DWORD2(v210) = v67;
-          *(this + 97) = v206;
+          *&v205 = v63;
+          cnmatrix::CNMatrix<3u,1u,double>::CNMatrix(&v205 + 8, &v183);
+          DWORD2(v209) = v67;
+          *(this + 97) = v205;
           v68 = *&buf[2];
           *(this + 744) = *buf;
           *(this + 760) = v68;
-          cnmatrix::CNMatrixBase<double>::operator=(this + 784, &v206 + 8);
-          *(this + 212) = DWORD2(v210);
+          cnmatrix::CNMatrixBase<double>::operator=(this + 784, &v205 + 8);
+          *(this + 212) = DWORD2(v209);
           goto LABEL_137;
         }
 
@@ -3695,33 +3638,33 @@ LABEL_17:
           _os_log_impl(&dword_2613DF000, v33, OS_LOG_TYPE_DEFAULT, "fRangeDropped is true, detected two consecutive nLoS->LoS events", buf, 2u);
         }
 
-        std::vector<RoseSyntheticApertureFiltering::InternalRangeMeas>::emplace_back<RoseSyntheticApertureFiltering::InternalRangeMeas const&>(this + 84, this + 744);
+        std::vector<RoseSyntheticApertureFiltering::InternalRangeMeas>::emplace_back<RoseSyntheticApertureFiltering::InternalRangeMeas const&>(this + 84, (this + 744));
         *(this + 941) = 0;
         __src = 0;
-        v151 = 0uLL;
+        v150 = 0uLL;
         v35 = *(this + 84);
         if (v35 != *(this + 85))
         {
           do
           {
-            v157 = 0x100000003;
-            v155 = &unk_2873C40E8;
-            v156 = xmmword_261415AA0;
-            v158 = v159;
-            cnmatrix::Subtract<double>(&v184, v35 + 40, &v155);
-            *(&v171[1] + 1) = 0x100000003;
-            *(v171 + 8) = xmmword_261415AA0;
-            *&v171[0] = &unk_2873C40E8;
-            *&v172 = &v172 + 8;
+            v156 = 0x100000003;
+            v154 = &unk_2873C40E8;
+            v155 = xmmword_261415AA0;
+            v157 = v158;
+            cnmatrix::Subtract<double>(&v183, v35 + 40, &v154);
+            *(&v170[1] + 1) = 0x100000003;
+            *(v170 + 8) = xmmword_261415AA0;
+            *&v170[0] = &unk_2873C40E8;
+            *&v171 = &v171 + 8;
             buf[3] = 0x100000134;
             *&buf[1] = xmmword_261415AD0;
             buf[0] = &unk_2873C41B8;
-            *&v206 = &v206 + 8;
-            v162 = 0x100000003;
-            v161 = xmmword_261415AA0;
-            v160 = &unk_2873C40E8;
-            v163 = v164;
-            cnmatrix::Norm<double>(&v155, v171, buf, &v160, "2");
+            *&v205 = &v205 + 8;
+            v161 = 0x100000003;
+            v160 = xmmword_261415AA0;
+            v159 = &unk_2873C40E8;
+            v162 = v163;
+            cnmatrix::Norm<double>(&v154, v170, buf, &v159, "2");
             if ((*(v35 + 8) - *(a2 + 8) - v36) / *(a2 + 16) <= 6.0)
             {
               v35 += 112;
@@ -3746,20 +3689,20 @@ LABEL_17:
                   }
                 }
 
-                v42 = v151;
-                if (v151 >= *(&v151 + 1))
+                v42 = v150;
+                if (v150 >= *(&v150 + 1))
                 {
                   v44 = __src;
-                  v45 = v151 - __src;
-                  v46 = (v151 - __src) >> 3;
+                  v45 = v150 - __src;
+                  v46 = (v150 - __src) >> 3;
                   v47 = v46 + 1;
                   if ((v46 + 1) >> 61)
                   {
                     std::vector<unsigned char>::__throw_length_error[abi:ne200100]();
                   }
 
-                  v48 = *(&v151 + 1) - __src;
-                  if ((*(&v151 + 1) - __src) >> 2 > v47)
+                  v48 = *(&v150 + 1) - __src;
+                  if ((*(&v150 + 1) - __src) >> 2 > v47)
                   {
                     v47 = v48 >> 2;
                   }
@@ -3781,7 +3724,7 @@ LABEL_17:
                   memcpy(0, v44, v45);
                   v51 = __src;
                   __src = 0;
-                  v151 = v43;
+                  v150 = v43;
                   if (v51)
                   {
                     operator delete(v51);
@@ -3790,11 +3733,11 @@ LABEL_17:
 
                 else
                 {
-                  *v151 = v39;
+                  *v150 = v39;
                   v43 = v42 + 8;
                 }
 
-                *&v151 = v43;
+                *&v150 = v43;
               }
 
 LABEL_57:
@@ -3870,8 +3813,8 @@ LABEL_57:
           }
 
           while (v35 != v41);
-          v69 = v151;
-          if (v151 != __src)
+          v69 = v150;
+          if (v150 != __src)
           {
             v70 = *(this + 88);
             do
@@ -3949,7 +3892,7 @@ LABEL_57:
         v10 = __src;
         if (__src)
         {
-          *&v151 = __src;
+          *&v150 = __src;
           operator delete(__src);
         }
       }
@@ -4043,9 +3986,9 @@ LABEL_57:
   *&buf[1] = v92;
   *&buf[2] = v92 / (v91 * v93);
   *&buf[3] = v93;
-  *&v206 = v91;
-  cnmatrix::CNMatrix<3u,1u,double>::CNMatrix(&v206 + 8, &v184);
-  DWORD2(v210) = v94;
+  *&v205 = v91;
+  cnmatrix::CNMatrix<3u,1u,double>::CNMatrix(&v205 + 8, &v183);
+  DWORD2(v209) = v94;
   v95 = *(this + 85);
   if (v95 >= *(this + 86))
   {
@@ -4056,11 +3999,11 @@ LABEL_57:
   {
     v96 = *buf;
     v97 = *&buf[2];
-    *(v95 + 32) = v206;
+    *(v95 + 32) = v205;
     *v95 = v96;
     *(v95 + 16) = v97;
-    cnmatrix::CNMatrix<3u,1u,double>::CNMatrix(v95 + 40, &v206 + 8);
-    *(v95 + 104) = DWORD2(v210);
+    cnmatrix::CNMatrix<3u,1u,double>::CNMatrix(v95 + 40, &v205 + 8);
+    *(v95 + 104) = DWORD2(v209);
     v98 = v95 + 112;
     *(this + 85) = v95 + 112;
   }
@@ -4092,8 +4035,8 @@ LABEL_57:
     v105 = *(a2 + 64);
     if ((v105 < 450.0 || v104 < 0.0) && (v105 < 200.0 || v104 < 40.0))
     {
-      v147 = *(this + 56);
-      if (!os_log_type_enabled(v147, OS_LOG_TYPE_DEFAULT))
+      v146 = *(this + 56);
+      if (!os_log_type_enabled(v146, OS_LOG_TYPE_DEFAULT))
       {
         goto LABEL_137;
       }
@@ -4103,7 +4046,7 @@ LABEL_57:
       WORD2(buf[1]) = 2048;
       *(&buf[1] + 6) = v104;
       v101 = "AoA measurement rejected due to low track score (%4.1f) or low sweep angle (%4.1f deg)";
-      v102 = v147;
+      v102 = v146;
       v103 = 22;
 LABEL_117:
       _os_log_impl(&dword_2613DF000, v102, OS_LOG_TYPE_DEFAULT, v101, buf, v103);
@@ -4125,44 +4068,44 @@ LABEL_117:
     buf[3] = 0x100000003;
     *&buf[1] = xmmword_261415AA0;
     buf[0] = &unk_2873C40E8;
-    *&v206 = &v206 + 8;
-    cnmatrix::Multiply<double>(v189, this + 520, buf);
-    *(&v171[1] + 1) = 0x100000003;
-    *(v171 + 8) = xmmword_261415AA0;
-    *&v171[0] = &unk_2873C40E8;
-    *&v172 = &v172 + 8;
-    cnmatrix::Add<double>(&v195, buf, v171);
+    *&v205 = &v205 + 8;
+    cnmatrix::Multiply<double>(v188, this + 520, buf);
+    *(&v170[1] + 1) = 0x100000003;
+    *(v170 + 8) = xmmword_261415AA0;
+    *&v170[0] = &unk_2873C40E8;
+    *&v171 = &v171 + 8;
+    cnmatrix::Add<double>(&v194, buf, v170);
     if ((*(a2 + 88) & 1) == 0)
     {
       std::__throw_bad_optional_access[abi:ne200100]();
     }
 
-    RoseSyntheticApertureFiltering::rangeAzEl2pos(*(a2 + 8), *(a2 + 40) / 180.0 * 3.14159265, *(a2 + 32) / 180.0 * 3.14159265, &v160);
+    RoseSyntheticApertureFiltering::rangeAzEl2pos(&v159, *(a2 + 8), *(a2 + 40) / 180.0 * 3.14159265, *(a2 + 32) / 180.0 * 3.14159265);
     buf[3] = 0x100000003;
     *&buf[1] = xmmword_261415AA0;
     buf[0] = &unk_2873C40E8;
-    *&v206 = &v206 + 8;
-    cnmatrix::Multiply<double>(v189, &v160, buf);
-    v157 = 0x100000003;
-    v155 = &unk_2873C40E8;
-    v156 = xmmword_261415AA0;
-    v158 = v159;
-    cnmatrix::Add<double>(buf, v171, &v155);
+    *&v205 = &v205 + 8;
+    cnmatrix::Multiply<double>(v188, &v159, buf);
+    v156 = 0x100000003;
+    v154 = &unk_2873C40E8;
+    v155 = xmmword_261415AA0;
+    v157 = v158;
+    cnmatrix::Add<double>(buf, v170, &v154);
     v107 = *(this + 56);
     if (os_log_type_enabled(v107, OS_LOG_TYPE_DEFAULT))
     {
       v108 = *(this + 76);
-      v109 = cnmatrix::CNMatrixBase<double>::operator()(&v155, 0);
-      v110 = cnmatrix::CNMatrixBase<double>::operator()(&v155, 1u);
-      v111 = cnmatrix::CNMatrixBase<double>::operator()(&v155, 2u);
+      v109 = cnmatrix::CNMatrixBase<double>::operator()(&v154, 0);
+      v110 = cnmatrix::CNMatrixBase<double>::operator()(&v154, 1);
+      v111 = cnmatrix::CNMatrixBase<double>::operator()(&v154, 2);
       LODWORD(buf[0]) = 134218752;
       *(buf + 4) = v108;
       WORD2(buf[1]) = 2048;
       *(&buf[1] + 6) = v109;
       HIWORD(buf[2]) = 2048;
       *&buf[3] = v110;
-      LOWORD(v206) = 2048;
-      *(&v206 + 2) = v111;
+      LOWORD(v205) = 2048;
+      *(&v205 + 2) = v111;
       _os_log_impl(&dword_2613DF000, v107, OS_LOG_TYPE_DEFAULT, "Solution from AoA is generated at %f s - device pos is [%f, %f, %f] m", buf, 0x2Au);
     }
 
@@ -4172,28 +4115,28 @@ LABEL_117:
     *(this + 14) = 2;
     *(this + 60) = 0;
     *(this + 11) = 0;
-    v212 = 0u;
-    v213 = 0u;
-    v210 = 0u;
     v211 = 0u;
-    v208 = 0u;
+    v212 = 0u;
     v209 = 0u;
-    v206 = 0u;
+    v210 = 0u;
     v207 = 0u;
+    v208 = 0u;
+    v205 = 0u;
+    v206 = 0u;
     memset(buf, 0, sizeof(buf));
     do
     {
-      *&buf[v112] = cnmatrix::CNMatrixBase<double>::operator()(&v155, v112);
+      *&buf[v112] = cnmatrix::CNMatrixBase<double>::operator()(&v154, v112);
       ++v112;
     }
 
     while (v112 != 3);
     buf[3] = 0x3F847AE147AE147CLL;
-    v206 = 0uLL;
-    v207 = xmmword_261415D80;
-    v208 = xmmword_261415D90;
-    *&v209 = 0x3FF0000000000000;
-    LODWORD(v214) = 0;
+    v205 = 0uLL;
+    v206 = xmmword_261415D80;
+    v207 = xmmword_261415D90;
+    *&v208 = 0x3FF0000000000000;
+    LODWORD(v213) = 0;
     v113 = *(this + 8);
     *(this + 9) = v113;
     v114 = *(this + 10);
@@ -4219,17 +4162,17 @@ LABEL_117:
       std::__allocate_at_least[abi:ne200100]<std::allocator<RoseSyntheticApertureFiltering::BatchSolutionParticle>>(this + 64, v117);
     }
 
-    *(v113 + 112) = v211;
-    *(v113 + 128) = v212;
-    *(v113 + 144) = v213;
-    *(v113 + 160) = v214;
-    *(v113 + 48) = v207;
-    *(v113 + 64) = v208;
-    *(v113 + 80) = v209;
-    *(v113 + 96) = v210;
+    *(v113 + 112) = v210;
+    *(v113 + 128) = v211;
+    *(v113 + 144) = v212;
+    *(v113 + 160) = v213;
+    *(v113 + 48) = v206;
+    *(v113 + 64) = v207;
+    *(v113 + 80) = v208;
+    *(v113 + 96) = v209;
     *v113 = *buf;
     *(v113 + 16) = *&buf[2];
-    *(v113 + 32) = v206;
+    *(v113 + 32) = v205;
     *(this + 9) = v113 + 168;
   }
 
@@ -4243,9 +4186,9 @@ LABEL_137:
   v119 = 0x6DB6DB6DB6DB6DB7 * (v118 >> 4);
   if (v119 >= 4 && (*(this + 931) & 1) == 0 && (*(this + 932) & 1) == 0 && *(this + 74) - *(this + 75) >= 0.5)
   {
-    v146 = RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter::batchSolver(this);
-    *(this + 933) = v146;
-    if (v146)
+    v145 = RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter::batchSolver(this);
+    *(this + 933) = v145;
+    if (v145)
     {
       *(this + 75) = *(this + 74);
       RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter::checkVerticalAmbiguityResolution(this);
@@ -4272,17 +4215,17 @@ LABEL_149:
   }
 
 LABEL_150:
-  *v181 = 0;
-  v181[4] = 0;
-  *&v181[8] = 0;
+  *v180 = 0;
+  v180[4] = 0;
+  *&v180[8] = 0;
   __p = 0u;
-  v183 = 0u;
-  v181[12] = 0;
+  v182 = 0u;
+  v180[12] = 0;
   if (*(this + 934) == 1)
   {
     v121 = 6;
 LABEL_152:
-    *v181 = v121;
+    *v180 = v121;
     goto LABEL_153;
   }
 
@@ -4299,13 +4242,13 @@ LABEL_152:
   {
     if (*(this + 932))
     {
-      v123 = *(this + 56);
-      if (os_log_type_enabled(v123, OS_LOG_TYPE_DEFAULT))
+      v122 = *(this + 56);
+      if (os_log_type_enabled(v122, OS_LOG_TYPE_DEFAULT))
       {
-        v124 = *(this + 78);
+        v123 = *(this + 78);
         LODWORD(buf[0]) = 134217984;
-        *(buf + 4) = v124;
-        _os_log_impl(&dword_2613DF000, v123, OS_LOG_TYPE_DEFAULT, "Linear user path length is %4.2f m", buf, 0xCu);
+        *(buf + 4) = v123;
+        _os_log_impl(&dword_2613DF000, v122, OS_LOG_TYPE_DEFAULT, "Linear user path length is %4.2f m", buf, 0xCu);
       }
 
       if (*(this + 78) >= 1.5)
@@ -4327,254 +4270,252 @@ LABEL_152:
       goto LABEL_152;
     }
 
-    *v181 = 5;
-    *&v181[8] = *(this + 234);
-    v181[4] = *&v181[8] == 2;
-    v125 = *(this + 18);
-    for (j = *(this + 19); v125 != j; v125 += 432)
+    *v180 = 5;
+    *&v180[8] = *(this + 234);
+    v180[4] = *&v180[8] == 2;
+    v124 = *(this + 18);
+    for (j = *(this + 19); v124 != j; v124 += 432)
     {
-      v126 = 0;
-      v178 = 0u;
-      v179 = 0u;
-      v176 = 0u;
+      v125 = 0;
       v177 = 0u;
-      v174 = 0u;
+      v178 = 0u;
       v175 = 0u;
-      v172 = 0u;
+      v176 = 0u;
       v173 = 0u;
-      memset(v171, 0, sizeof(v171));
-      LODWORD(v180) = 1;
+      v174 = 0u;
+      v171 = 0u;
+      v172 = 0u;
+      memset(v170, 0, sizeof(v170));
+      LODWORD(v179) = 1;
       do
       {
-        *(v171 + v126) = *cnmatrix::CNMatrixBase<double>::operator()(v125, v126);
-        ++v126;
+        *(v170 + v125) = *cnmatrix::CNMatrixBase<double>::operator()(v124, v125);
+        ++v125;
       }
 
-      while (v126 != 3);
-      *(&v171[1] + 1) = *cnmatrix::CNMatrixBase<double>::operator()(v125 + 128, 0, 0);
-      *&v172 = *cnmatrix::CNMatrixBase<double>::operator()(v125 + 128, 0, 1);
-      *(&v172 + 1) = *cnmatrix::CNMatrixBase<double>::operator()(v125 + 128, 0, 2);
-      *&v173 = *cnmatrix::CNMatrixBase<double>::operator()(v125 + 128, 1, 1);
-      *(&v173 + 1) = *cnmatrix::CNMatrixBase<double>::operator()(v125 + 128, 1, 2);
-      *&v174 = *cnmatrix::CNMatrixBase<double>::operator()(v125 + 128, 2, 2);
-      v127 = *(v125 + 136);
-      if (v127 != *(v125 + 140))
+      while (v125 != 3);
+      *(&v170[1] + 1) = *cnmatrix::CNMatrixBase<double>::operator()(v124 + 128, 0, 0);
+      *&v171 = *cnmatrix::CNMatrixBase<double>::operator()(v124 + 128, 0, 1);
+      *(&v171 + 1) = *cnmatrix::CNMatrixBase<double>::operator()(v124 + 128, 0, 2);
+      *&v172 = *cnmatrix::CNMatrixBase<double>::operator()(v124 + 128, 1, 1);
+      *(&v172 + 1) = *cnmatrix::CNMatrixBase<double>::operator()(v124 + 128, 1, 2);
+      *&v173 = *cnmatrix::CNMatrixBase<double>::operator()(v124 + 128, 2, 2);
+      v126 = *(v124 + 136);
+      if (v126 != *(v124 + 140))
       {
         __assert_rtn("Trace", "cnmatrixbase.h", 4977, "A.NumRows() == A.NumCols()");
       }
 
-      if (v127 < 1)
+      if (v126 < 1)
       {
-        v129 = 0.0;
+        v128 = 0.0;
       }
 
       else
       {
-        v128 = 0;
-        v129 = 0.0;
+        v127 = 0;
+        v128 = 0.0;
         do
         {
-          v129 = v129 + cnmatrix::CNMatrixBase<double>::operator()<int,int>(v125 + 128, v128, v128);
-          ++v128;
+          v128 = v128 + cnmatrix::CNMatrixBase<double>::operator()<int,int>(v124 + 128, v127, v127);
+          ++v127;
         }
 
-        while (v127 != v128);
+        while (v126 != v127);
       }
 
-      v130 = *(v125 + 352);
-      *(&v174 + 1) = sqrt(v129);
-      *&v175 = v130;
-      LODWORD(v180) = *(v125 + 360);
-      v152 = 0x100000003;
+      v129 = *(v124 + 352);
+      *(&v173 + 1) = sqrt(v128);
+      *&v174 = v129;
+      LODWORD(v179) = *(v124 + 360);
+      v151 = 0x100000003;
       __src = &unk_2873C40E8;
-      v151 = xmmword_261415AA0;
-      v153 = v154;
-      cnmatrix::Subtract<double>(v125 + 368, this + 168, &__src);
-      v162 = 0x100000003;
-      v161 = xmmword_261415AA0;
-      v160 = &unk_2873C40E8;
-      v163 = v164;
+      v150 = xmmword_261415AA0;
+      v152 = v153;
+      cnmatrix::Subtract<double>(v124 + 368, this + 168, &__src);
+      v161 = 0x100000003;
+      v160 = xmmword_261415AA0;
+      v159 = &unk_2873C40E8;
+      v162 = v163;
       buf[3] = 0x100000134;
       *&buf[1] = xmmword_261415AD0;
       buf[0] = &unk_2873C41B8;
-      *&v206 = &v206 + 8;
-      v157 = 0x100000003;
-      v155 = &unk_2873C40E8;
-      v156 = xmmword_261415AA0;
-      v158 = v159;
-      cnmatrix::Norm<double>(&__src, &v160, buf, &v155, "2");
-      if (v131 != 0.0)
+      *&v205 = &v205 + 8;
+      v156 = 0x100000003;
+      v154 = &unk_2873C40E8;
+      v155 = xmmword_261415AA0;
+      v157 = v158;
+      cnmatrix::Norm<double>(&__src, &v159, buf, &v154, "2");
+      if (v130 != 0.0)
       {
-        v169 = 0;
         v168 = 0;
-        v170 = 0;
-        memset(v167, 0, sizeof(v167));
+        v167 = 0;
+        v169 = 0;
         memset(v166, 0, sizeof(v166));
-        std::vector<RoseSyntheticApertureFiltering::InternalExpectedRangeMeas>::reserve(&v168, 0x6DB6DB6DB6DB6DB7 * ((*(this + 85) - *(this + 84)) >> 4));
-        cnmatrix::CNMatrixBase<double>::operator=(v125 + 368, this + 168);
+        memset(v165, 0, sizeof(v165));
+        std::vector<RoseSyntheticApertureFiltering::InternalExpectedRangeMeas>::reserve(&v167, 0x6DB6DB6DB6DB6DB7 * ((*(this + 85) - *(this + 84)) >> 4));
+        cnmatrix::CNMatrixBase<double>::operator=(v124 + 368, this + 168);
         buf[3] = 0x100000003;
         *&buf[1] = xmmword_261415AA0;
         buf[0] = &unk_2873C40E8;
-        *&v206 = &v206 + 8;
-        cnmatrix::Subtract<double>(v125, this + 168, buf);
-        RoseSyntheticApertureFiltering::pos2rangeThPhi(buf, v165);
-        cnmatrix::CNMatrixBase<double>::operator=(v125 + 64, v165);
-        RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter::measModelBatchAlt(v132, v165, this + 168, this + 84, v166, &v168, v167);
-        v162 = 0x300000003;
-        v161 = xmmword_261415D50;
-        v160 = &unk_2873C4240;
-        v163 = v164;
-        cnmatrix::FastResize<double>(&v160, 3, 3);
-        cnmatrix::CNMatrixBase<double>::WriteValue(&v160, 0.0);
-        v133 = v168;
-        for (k = v169; v133 != k; v133 += 136)
+        *&v205 = &v205 + 8;
+        cnmatrix::Subtract<double>(v124, this + 168, buf);
+        RoseSyntheticApertureFiltering::pos2rangeThPhi(buf, v164);
+        cnmatrix::CNMatrixBase<double>::operator=(v124 + 64, v164);
+        RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter::measModelBatchAlt(v131, v164, this + 168, this + 84, v165, &v167, v166);
+        v161 = 0x300000003;
+        v160 = xmmword_261415D50;
+        v159 = &unk_2873C4240;
+        v162 = v163;
+        cnmatrix::FastResize<double>(&v159, 3, 3);
+        cnmatrix::CNMatrixBase<double>::WriteValue(&v159, 0.0);
+        v132 = v167;
+        for (k = v168; v132 != k; v132 += 136)
         {
-          v157 = 0x300000003;
-          v155 = &unk_2873C4240;
-          v156 = xmmword_261415D50;
-          v158 = v159;
-          cnmatrix::Multiply<double>(v133 + 72, v133 + 8, &v155);
+          v156 = 0x300000003;
+          v154 = &unk_2873C4240;
+          v155 = xmmword_261415D50;
+          v157 = v158;
+          cnmatrix::Multiply<double>(v132 + 72, v132 + 8, &v154);
           buf[3] = 0x300000003;
           *&buf[1] = xmmword_261415D50;
           buf[0] = &unk_2873C4240;
-          *&v206 = &v206 + 8;
-          cnmatrix::Add<double>(&v160, &v155, buf);
-          cnmatrix::CNMatrixBase<double>::operator=(&v160, buf);
+          *&v205 = &v205 + 8;
+          cnmatrix::Add<double>(&v159, &v154, buf);
+          cnmatrix::CNMatrixBase<double>::operator=(&v159, buf);
         }
 
-        cnmatrix::CNMatrix<3u,3u,double>::CNMatrix(&v155, &v160);
-        v152 = 0x300000003;
+        cnmatrix::CNMatrix<3u,3u,double>::CNMatrix(&v154, &v159);
+        v151 = 0x300000003;
         __src = &unk_2873C4240;
-        v151 = xmmword_261415D50;
-        v153 = v154;
-        v202 = 0x100000003;
-        v201 = xmmword_261415AA0;
-        v200 = &unk_2873C4360;
-        v203 = &v204;
+        v150 = xmmword_261415D50;
+        v152 = v153;
+        v201 = 0x100000003;
+        v200 = xmmword_261415AA0;
+        v199 = &unk_2873C4360;
+        v202 = &v203;
         buf[3] = 0x10000000CLL;
         *&buf[1] = xmmword_261415DA0;
         buf[0] = &unk_2873C43E8;
-        *&v206 = &v206 + 8;
-        cnmatrix::Inv<double>(&v155, &v200, buf, &__src);
-        cnmatrix::CNMatrixBase<double>::operator=(v125 + 240, &__src);
-        buf[0] = v166;
+        *&v205 = &v205 + 8;
+        cnmatrix::Inv<double>(&v154, &v199, buf, &__src);
+        cnmatrix::CNMatrixBase<double>::operator=(v124 + 240, &__src);
+        buf[0] = v165;
         std::vector<RoseSyntheticApertureFiltering::InternalAoAMeas>::__destroy_vector::operator()[abi:ne200100](buf);
-        buf[0] = v167;
+        buf[0] = v166;
         std::vector<RoseSyntheticApertureFiltering::InternalExpectedAoAMeas>::__destroy_vector::operator()[abi:ne200100](buf);
-        buf[0] = &v168;
+        buf[0] = &v167;
         std::vector<RoseSyntheticApertureFiltering::InternalExpectedRangeMeas>::__destroy_vector::operator()[abi:ne200100](buf);
       }
 
-      *(&v175 + 1) = *cnmatrix::CNMatrixBase<double>::operator()(v125 + 64, 0);
-      *&v176 = *cnmatrix::CNMatrixBase<double>::operator()(v125 + 64, 1u);
-      *(&v176 + 1) = *cnmatrix::CNMatrixBase<double>::operator()(v125 + 64, 2u);
-      *&v177 = sqrt(*cnmatrix::CNMatrixBase<double>::operator()(v125 + 240, 0, 0));
-      *(&v177 + 1) = sqrt(*cnmatrix::CNMatrixBase<double>::operator()(v125 + 240, 1, 1));
-      v135 = 0;
-      *&v178 = sqrt(*cnmatrix::CNMatrixBase<double>::operator()(v125 + 240, 2, 2));
+      *(&v174 + 1) = *cnmatrix::CNMatrixBase<double>::operator()(v124 + 64, 0);
+      *&v175 = *cnmatrix::CNMatrixBase<double>::operator()(v124 + 64, 1);
+      *(&v175 + 1) = *cnmatrix::CNMatrixBase<double>::operator()(v124 + 64, 2);
+      *&v176 = sqrt(*cnmatrix::CNMatrixBase<double>::operator()(v124 + 240, 0, 0));
+      *(&v176 + 1) = sqrt(*cnmatrix::CNMatrixBase<double>::operator()(v124 + 240, 1, 1));
+      v134 = 0;
+      *&v177 = sqrt(*cnmatrix::CNMatrixBase<double>::operator()(v124 + 240, 2, 2));
       do
       {
-        *(&v178 + v135 + 1) = *cnmatrix::CNMatrixBase<double>::operator()(v125 + 368, v135);
-        ++v135;
+        *(&v177 + v134 + 1) = *cnmatrix::CNMatrixBase<double>::operator()(v124 + 368, v134);
+        ++v134;
       }
 
-      while (v135 != 3);
-      v136 = *(&__p + 1);
-      if (*(&__p + 1) >= v183)
+      while (v134 != 3);
+      v135 = *(&__p + 1);
+      if (*(&__p + 1) >= v182)
       {
-        v138 = __p;
-        v139 = *(&__p + 1) - __p;
-        v140 = 0xCF3CF3CF3CF3CF3DLL * ((*(&__p + 1) - __p) >> 3);
-        v141 = v140 + 1;
-        if (v140 + 1 > 0x186186186186186)
+        v137 = __p;
+        v138 = *(&__p + 1) - __p;
+        v139 = 0xCF3CF3CF3CF3CF3DLL * ((*(&__p + 1) - __p) >> 3);
+        v140 = v139 + 1;
+        if (v139 + 1 > 0x186186186186186)
         {
           std::vector<unsigned char>::__throw_length_error[abi:ne200100]();
         }
 
-        if (0x9E79E79E79E79E7ALL * ((v183 - __p) >> 3) > v141)
+        if (0x9E79E79E79E79E7ALL * ((v182 - __p) >> 3) > v140)
         {
-          v141 = 0x9E79E79E79E79E7ALL * ((v183 - __p) >> 3);
+          v140 = 0x9E79E79E79E79E7ALL * ((v182 - __p) >> 3);
         }
 
-        if (0xCF3CF3CF3CF3CF3DLL * ((v183 - __p) >> 3) >= 0xC30C30C30C30C3)
+        if (0xCF3CF3CF3CF3CF3DLL * ((v182 - __p) >> 3) >= 0xC30C30C30C30C3)
         {
-          v141 = 0x186186186186186;
+          v140 = 0x186186186186186;
         }
 
-        if (v141)
+        if (v140)
         {
-          std::__allocate_at_least[abi:ne200100]<std::allocator<RoseSyntheticApertureFiltering::BatchSolutionParticle>>(&__p, v141);
+          std::__allocate_at_least[abi:ne200100]<std::allocator<RoseSyntheticApertureFiltering::BatchSolutionParticle>>(&__p, v140);
         }
 
-        v142 = 8 * ((*(&__p + 1) - __p) >> 3);
-        *(v142 + 112) = v177;
-        *(v142 + 128) = v178;
-        *(v142 + 144) = v179;
-        *(v142 + 160) = v180;
-        *(v142 + 48) = v173;
-        *(v142 + 64) = v174;
-        *(v142 + 80) = v175;
-        *(v142 + 96) = v176;
-        *v142 = v171[0];
-        *(v142 + 16) = v171[1];
-        *(v142 + 32) = v172;
-        v137 = 168 * v140 + 168;
-        v143 = v142 - v139;
-        memcpy((v142 - v139), v138, v139);
-        v144 = __p;
-        *&__p = v143;
-        *(&__p + 1) = v137;
-        *&v183 = 0;
-        if (v144)
+        v141 = 8 * ((*(&__p + 1) - __p) >> 3);
+        *(v141 + 112) = v176;
+        *(v141 + 128) = v177;
+        *(v141 + 144) = v178;
+        *(v141 + 160) = v179;
+        *(v141 + 48) = v172;
+        *(v141 + 64) = v173;
+        *(v141 + 80) = v174;
+        *(v141 + 96) = v175;
+        *v141 = v170[0];
+        *(v141 + 16) = v170[1];
+        *(v141 + 32) = v171;
+        v136 = 168 * v139 + 168;
+        v142 = v141 - v138;
+        memcpy((v141 - v138), v137, v138);
+        v143 = __p;
+        *&__p = v142;
+        *(&__p + 1) = v136;
+        *&v182 = 0;
+        if (v143)
         {
-          operator delete(v144);
+          operator delete(v143);
         }
       }
 
       else
       {
-        *(*(&__p + 1) + 112) = v177;
-        *(v136 + 128) = v178;
-        *(v136 + 144) = v179;
-        *(v136 + 160) = v180;
-        *(v136 + 48) = v173;
-        *(v136 + 64) = v174;
-        *(v136 + 80) = v175;
-        *(v136 + 96) = v176;
-        *v136 = v171[0];
-        *(v136 + 16) = v171[1];
-        *(v136 + 32) = v172;
-        v137 = v136 + 168;
+        *(*(&__p + 1) + 112) = v176;
+        *(v135 + 128) = v177;
+        *(v135 + 144) = v178;
+        *(v135 + 160) = v179;
+        *(v135 + 48) = v172;
+        *(v135 + 64) = v173;
+        *(v135 + 80) = v174;
+        *(v135 + 96) = v175;
+        *v135 = v170[0];
+        *(v135 + 16) = v170[1];
+        *(v135 + 32) = v171;
+        v136 = v135 + 168;
       }
 
-      *(&__p + 1) = v137;
-      v145 = *(this + 82);
-      if (v145 == *(this + 79))
+      *(&__p + 1) = v136;
+      v144 = *(this + 82);
+      if (v144 == *(this + 79))
       {
-        v145 = *(this + 80);
+        v144 = *(this + 80);
       }
 
-      *(&v183 + 1) = *(v145 - 8);
+      *(&v182 + 1) = *(v144 - 8);
     }
   }
 
 LABEL_153:
-  *this = *v181;
-  *(this + 5) = *&v181[5];
-  if (v181 != this)
+  *this = *v180;
+  *(this + 5) = *&v180[5];
+  if (v180 != this)
   {
     std::vector<RoseSyntheticApertureFiltering::BatchSolutionParticle>::__assign_with_size[abi:ne200100]<RoseSyntheticApertureFiltering::BatchSolutionParticle*,RoseSyntheticApertureFiltering::BatchSolutionParticle*>(this + 2, __p, *(&__p + 1), 0xCF3CF3CF3CF3CF3DLL * ((*(&__p + 1) - __p) >> 3));
   }
 
-  *(this + 5) = *(&v183 + 1);
+  *(this + 5) = *(&v182 + 1);
   RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter::getBatchOrAoASolution(this, a3);
   if (__p)
   {
     *(&__p + 1) = __p;
     operator delete(__p);
   }
-
-  v122 = *MEMORY[0x277D85DE8];
 }
 
 void RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter::resetFilter(RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter *this)
@@ -4595,65 +4536,72 @@ void RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter::resetFi
 void RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter::checkMotionStateAndObservability(RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter *this)
 {
   v1 = this;
-  v70[226] = *MEMORY[0x277D85DE8];
+  v69[226] = *MEMORY[0x277D85DE8];
   v2 = *(this + 85);
   v3 = *(this + 84);
   v4 = 0x6DB6DB6DB6DB6DB7 * ((v2 - v3) >> 4);
+  v59 = 0;
   v60 = 0;
   v61 = 0;
-  v62 = 0;
-  std::vector<cnmatrix::CNMatrix<2u,1u,double>>::reserve(&v60, v4);
-  v57 = 0x100000002;
-  v56 = xmmword_261415DB0;
-  v55 = &unk_2873C4478;
-  v58 = &v59;
+  std::vector<cnmatrix::CNMatrix<2u,1u,double>>::reserve(&v59, v4);
+  v56 = 0x100000002;
+  v55 = xmmword_261415DB0;
+  v54 = &unk_2873C4478;
+  v57 = &v58;
   v5 = *(v1 + 84);
   v6 = *(v1 + 85);
   while (v5 != v6)
   {
-    v7 = cnmatrix::CNMatrixBase<double>::operator()(v5 + 40, 2u);
-    *cnmatrix::CNMatrixBase<double>::operator()(&v55, 0) = v7;
+    v7 = cnmatrix::CNMatrixBase<double>::operator()(v5 + 40, 2);
+    *cnmatrix::CNMatrixBase<double>::operator()(&v54, 0) = v7;
     v8 = cnmatrix::CNMatrixBase<double>::operator()(v5 + 40, 0);
-    *cnmatrix::CNMatrixBase<double>::operator()(&v55, 1u) = v8;
-    v9 = v61;
-    if (v61 >= v62)
+    *cnmatrix::CNMatrixBase<double>::operator()(&v54, 1) = v8;
+    v9 = v60;
+    if (v60 >= v61)
     {
-      v10 = std::vector<cnmatrix::CNMatrix<2u,1u,double>>::__emplace_back_slow_path<cnmatrix::CNMatrix<2u,1u,double> const&>(&v60, &v55);
+      v10 = std::vector<cnmatrix::CNMatrix<2u,1u,double>>::__emplace_back_slow_path<cnmatrix::CNMatrix<2u,1u,double> const&>(&v59, &v54);
     }
 
     else
     {
-      cnmatrix::CNMatrix<2u,1u,double>::CNMatrix(v61, &v55);
+      cnmatrix::CNMatrix<2u,1u,double>::CNMatrix(v60, &v54);
       v10 = v9 + 56;
     }
 
-    v61 = v10;
+    v60 = v10;
     v5 += 112;
   }
 
-  v52 = 0x100000002;
-  v51 = xmmword_261415DB0;
-  v50 = &unk_2873C4478;
-  v53 = &v54;
-  cnmatrix::FastResize<double>(&v50, 2, 1);
-  cnmatrix::CNMatrixBase<double>::WriteValue(&v50, 0.0);
-  v12 = v60;
-  for (i = v61; v12 != i; v12 += 56)
+  v51 = 0x100000002;
+  v50 = xmmword_261415DB0;
+  v49 = &unk_2873C4478;
+  v52 = &v53;
+  cnmatrix::FastResize<double>(&v49, 2, 1);
+  cnmatrix::CNMatrixBase<double>::WriteValue(&v49, 0.0);
+  v12 = v59;
+  v11 = v60;
+  if (v59 != v60)
   {
-    v68 = 0x100000002;
-    buf[0] = &unk_2873C4478;
-    *&buf[1] = xmmword_261415DB0;
-    v69 = v70;
-    cnmatrix::Add<double>(&v50, v12, buf);
-    cnmatrix::CNMatrixBase<double>::operator=(&v50, buf);
+    do
+    {
+      v67 = 0x100000002;
+      buf[0] = &unk_2873C4478;
+      *&buf[1] = xmmword_261415DB0;
+      v68 = v69;
+      cnmatrix::Add<double>(&v49, v12, buf);
+      cnmatrix::CNMatrixBase<double>::operator=(&v49, buf);
+      v12 += 56;
+    }
+
+    while (v12 != v11);
   }
 
-  v68 = 0x100000002;
+  v67 = 0x100000002;
   *&buf[1] = xmmword_261415DB0;
   buf[0] = &unk_2873C4478;
-  v69 = v70;
-  cnmatrix::Multiply<double>(&v50, buf, 1.0 / v4);
-  cnmatrix::CNMatrixBase<double>::operator=(&v50, buf);
+  v68 = v69;
+  cnmatrix::Multiply<double>(&v49, buf, 1.0 / v4);
+  cnmatrix::CNMatrixBase<double>::operator=(&v49, buf);
   if (v2 == v3)
   {
     LOBYTE(v18) = *(v1 + 931);
@@ -4675,34 +4623,34 @@ void RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter::checkMo
   v16 = 0.0;
   do
   {
-    v68 = 0x100000002;
+    v67 = 0x100000002;
     buf[0] = &unk_2873C4478;
     *&buf[1] = xmmword_261415DB0;
-    v69 = v70;
-    cnmatrix::Subtract<double>(v60 + v14, &v50, buf);
-    cnmatrix::CNMatrixBase<double>::operator=(v60 + v14, buf);
+    v68 = v69;
+    cnmatrix::Subtract<double>(&v59[v14], &v49, buf);
+    cnmatrix::CNMatrixBase<double>::operator=(&v59[v14], buf);
     if (*(v13 + 931) == 1)
     {
-      v47 = 0x100000002;
-      v46 = xmmword_261415DB0;
-      v45 = &unk_2873C4478;
-      v48 = v49;
-      v68 = 0x1000000E1;
+      v46 = 0x100000002;
+      v45 = xmmword_261415DB0;
+      v44 = &unk_2873C4478;
+      v47 = v48;
+      v67 = 0x1000000E1;
       *&buf[1] = xmmword_261415DC0;
       buf[0] = &unk_2873C44C0;
-      v69 = v70;
-      v42 = 0x100000002;
-      v40 = &unk_2873C4478;
-      v41 = xmmword_261415DB0;
-      v43 = v44;
-      cnmatrix::Norm<double>(v60 + v14, &v45, buf, &v40, "2");
+      v68 = v69;
+      v41 = 0x100000002;
+      v39 = &unk_2873C4478;
+      v40 = xmmword_261415DB0;
+      v42 = v43;
+      cnmatrix::Norm<double>(&v59[v14], &v44, buf, &v39, "2");
       if (v17 > v16)
       {
         v16 = v17;
       }
     }
 
-    v14 += 56;
+    v14 += 14;
     --v15;
   }
 
@@ -4732,41 +4680,41 @@ LABEL_25:
   if (*(v13 + 932) == 1)
   {
 LABEL_27:
-    v68 = 0x200000002;
+    v67 = 0x200000002;
     *&buf[1] = xmmword_261415DD0;
     buf[0] = &unk_2873C4508;
-    v69 = v70;
+    v68 = v69;
     cnmatrix::FastResize<double>(buf, 2, 2);
     cnmatrix::CNMatrixBase<double>::WriteValue(buf, 0.0);
-    v21 = v60;
-    for (j = v61; v21 != j; v21 += 56)
+    v21 = v59;
+    for (i = v60; v21 != i; v21 += 14)
     {
-      cnmatrix::CNMatrix<1u,2u,double>::CNMatrix(v39, *(v21 + 12), *(v21 + 8));
-      cnmatrix::Transpose<double>(v21, v39);
-      v42 = 0x200000002;
-      v40 = &unk_2873C4508;
-      v41 = xmmword_261415DD0;
-      v43 = v44;
-      cnmatrix::Multiply<double>(v21, v39, &v40);
-      v47 = 0x200000002;
-      v46 = xmmword_261415DD0;
-      v45 = &unk_2873C4508;
-      v48 = v49;
-      cnmatrix::Add<double>(buf, &v40, &v45);
-      cnmatrix::CNMatrixBase<double>::operator=(buf, &v45);
+      cnmatrix::CNMatrix<1u,2u,double>::CNMatrix(v38, v21[3], v21[2]);
+      cnmatrix::Transpose<double>(v21, v38);
+      v41 = 0x200000002;
+      v39 = &unk_2873C4508;
+      v40 = xmmword_261415DD0;
+      v42 = v43;
+      cnmatrix::Multiply<double>(v21, v38, &v39);
+      v46 = 0x200000002;
+      v45 = xmmword_261415DD0;
+      v44 = &unk_2873C4508;
+      v47 = v48;
+      cnmatrix::Add<double>(buf, &v39, &v44);
+      cnmatrix::CNMatrixBase<double>::operator=(buf, &v44);
     }
 
-    v47 = 0x200000002;
-    v46 = xmmword_261415DD0;
-    v45 = &unk_2873C4508;
-    v48 = v49;
-    v42 = 0x200000002;
-    v40 = &unk_2873C4508;
-    v41 = xmmword_261415DD0;
-    v43 = v44;
-    cnmatrix::Eig<2u,2u,2u,2u,2u,2u,double>(buf, &v45, &v40);
-    v22 = *cnmatrix::CNMatrixBase<double>::operator()(&v40, 0, 0);
-    v23 = cnmatrix::CNMatrixBase<double>::operator()(&v40, 1, 1);
+    v46 = 0x200000002;
+    v45 = xmmword_261415DD0;
+    v44 = &unk_2873C4508;
+    v47 = v48;
+    v41 = 0x200000002;
+    v39 = &unk_2873C4508;
+    v40 = xmmword_261415DD0;
+    v42 = v43;
+    cnmatrix::Eig<2u,2u,2u,2u,2u,2u,double>(buf, &v44, &v39);
+    v22 = *cnmatrix::CNMatrixBase<double>::operator()(&v39, 0, 0);
+    v23 = cnmatrix::CNMatrixBase<double>::operator()(&v39, 1, 1);
     if (*v23 >= v22)
     {
       v24 = v22;
@@ -4777,11 +4725,11 @@ LABEL_27:
       v24 = *v23;
     }
 
-    cnmatrix::CNMatrix<2u,2u,double>::CNMatrix(v39, DWORD1(v46), v46);
-    cnmatrix::Transpose<double>(&v45, v39);
-    v26 = v60;
-    v25 = v61;
-    if (v60 == v61)
+    cnmatrix::CNMatrix<2u,2u,double>::CNMatrix(v38, DWORD1(v45), v45);
+    cnmatrix::Transpose<double>(&v44, v38);
+    v26 = v59;
+    v25 = v60;
+    if (v59 == v60)
     {
       v34 = 0.0;
       v35 = 0.0;
@@ -4795,13 +4743,13 @@ LABEL_27:
       v30 = 0.0;
       do
       {
-        v64 = 0x100000002;
-        *v63 = &unk_2873C4478;
-        *&v63[8] = xmmword_261415DB0;
-        v65 = &v66;
-        cnmatrix::Multiply<double>(v39, v26, v63);
-        v31 = cnmatrix::CNMatrixBase<double>::operator()(v63, 0);
-        v32 = cnmatrix::CNMatrixBase<double>::operator()(v63, 1u);
+        v63 = 0x100000002;
+        *v62 = &unk_2873C4478;
+        *&v62[8] = xmmword_261415DB0;
+        v64 = &v65;
+        cnmatrix::Multiply<double>(v38, v26, v62);
+        v31 = cnmatrix::CNMatrixBase<double>::operator()(v62, 0);
+        v32 = cnmatrix::CNMatrixBase<double>::operator()(v62, 1);
         if (v31 < v27)
         {
           v33 = v31;
@@ -4864,11 +4812,11 @@ LABEL_27:
       v37 = *(v1 + 56);
       if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
       {
-        *v63 = 134218240;
-        *&v63[4] = v24;
-        *&v63[12] = 2048;
-        *&v63[14] = v36;
-        _os_log_impl(&dword_2613DF000, v37, OS_LOG_TYPE_DEFAULT, "Batch filter problem is observable now: smallest eigenvalue is %f, smallest rectangular box dimension is %f m", v63, 0x16u);
+        *v62 = 134218240;
+        *&v62[4] = v24;
+        *&v62[12] = 2048;
+        *&v62[14] = v36;
+        _os_log_impl(&dword_2613DF000, v37, OS_LOG_TYPE_DEFAULT, "Batch filter problem is observable now: smallest eigenvalue is %f, smallest rectangular box dimension is %f m", v62, 0x16u);
       }
 
       *(v1 + 932) = 0;
@@ -4876,12 +4824,11 @@ LABEL_27:
   }
 
 LABEL_56:
-  buf[0] = &v60;
+  buf[0] = &v59;
   std::vector<cnmatrix::CNMatrix<2u,1u,double>>::__destroy_vector::operator()[abi:ne200100](buf);
-  v38 = *MEMORY[0x277D85DE8];
 }
 
-void sub_2613F1DE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void **a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, char a54)
+void sub_2613F1DE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, char *a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, char a54)
 {
   a13 = &a54;
   std::vector<cnmatrix::CNMatrix<2u,1u,double>>::__destroy_vector::operator()[abi:ne200100](&a13);
@@ -4890,16 +4837,16 @@ void sub_2613F1DE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 BOOL RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter::batchSolver(RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter *this)
 {
-  v137[308] = *MEMORY[0x277D85DE8];
+  v136[308] = *MEMORY[0x277D85DE8];
   v1 = *(this + 85);
   v2 = *(this + 84);
   if ((0x6DB6DB6DB6DB6DB7 * ((v1 - v2) >> 4)) >= 4)
   {
-    v127 = 0;
     v126 = 0;
-    v128 = 0;
+    v125 = 0;
+    v127 = 0;
     v4 = *(this + 18);
-    v97 = (this + 144);
+    v96 = (this + 144);
     v5 = *(this + 19);
     if ((*(this + 933) & 1) != 0 || v4 != v5)
     {
@@ -4907,23 +4854,23 @@ BOOL RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter::batchSo
       {
         do
         {
-          std::vector<cnmatrix::CNMatrix<3u,1u,double>>::push_back[abi:ne200100](&v126, v4);
+          std::vector<cnmatrix::CNMatrix<3u,1u,double>>::push_back[abi:ne200100](&v125, v4);
           v4 += 432;
         }
 
         while (v4 != v5);
-        v4 = *v97;
+        v4 = *v96;
       }
 
       cnmatrix::CNMatrix<3u,1u,double>::CNMatrix(buf, v4);
-      cnmatrix::CNMatrix<3u,1u,double>::CNMatrix(&v107, buf);
-      cnmatrix::CNMatrix<3u,1u,double>::CNMatrix(&v102, buf);
-      v8 = *cnmatrix::CNMatrixBase<double>::operator()(&v107, 1u);
-      *cnmatrix::CNMatrixBase<double>::operator()(&v107, 1u) = v8 + 3.0;
-      v9 = *cnmatrix::CNMatrixBase<double>::operator()(&v102, 1u);
-      *cnmatrix::CNMatrixBase<double>::operator()(&v102, 1u) = v9 + -3.0;
-      std::vector<cnmatrix::CNMatrix<3u,1u,double>>::push_back[abi:ne200100](&v126, &v107);
-      std::vector<cnmatrix::CNMatrix<3u,1u,double>>::push_back[abi:ne200100](&v126, &v102);
+      cnmatrix::CNMatrix<3u,1u,double>::CNMatrix(&v106, buf);
+      cnmatrix::CNMatrix<3u,1u,double>::CNMatrix(&v101, buf);
+      v8 = *cnmatrix::CNMatrixBase<double>::operator()(&v106, 1);
+      *cnmatrix::CNMatrixBase<double>::operator()(&v106, 1) = v8 + 3.0;
+      v9 = *cnmatrix::CNMatrixBase<double>::operator()(&v101, 1);
+      *cnmatrix::CNMatrixBase<double>::operator()(&v101, 1) = v9 + -3.0;
+      std::vector<cnmatrix::CNMatrix<3u,1u,double>>::push_back[abi:ne200100](&v125, &v106);
+      std::vector<cnmatrix::CNMatrix<3u,1u,double>>::push_back[abi:ne200100](&v125, &v101);
     }
 
     else
@@ -4952,23 +4899,23 @@ BOOL RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter::batchSo
       cnmatrix::CNMatrix<3u,1u,double>::CNMatrix(buf, v2 + 40);
       for (j = 0; j != 3; ++j)
       {
-        cnmatrix::CNMatrix<3u,1u,double>::CNMatrix(&v107, buf);
-        cnmatrix::CNMatrix<3u,1u,double>::CNMatrix(&v102, buf);
-        v12 = *cnmatrix::CNMatrixBase<double>::operator()(&v107, j);
-        *cnmatrix::CNMatrixBase<double>::operator()(&v107, j) = v10 + v12;
-        v13 = *cnmatrix::CNMatrixBase<double>::operator()(&v102, j);
-        *cnmatrix::CNMatrixBase<double>::operator()(&v102, j) = v13 - v10;
-        std::vector<cnmatrix::CNMatrix<3u,1u,double>>::push_back[abi:ne200100](&v126, &v107);
-        std::vector<cnmatrix::CNMatrix<3u,1u,double>>::push_back[abi:ne200100](&v126, &v102);
+        cnmatrix::CNMatrix<3u,1u,double>::CNMatrix(&v106, buf);
+        cnmatrix::CNMatrix<3u,1u,double>::CNMatrix(&v101, buf);
+        v12 = *cnmatrix::CNMatrixBase<double>::operator()(&v106, j);
+        *cnmatrix::CNMatrixBase<double>::operator()(&v106, j) = v10 + v12;
+        v13 = *cnmatrix::CNMatrixBase<double>::operator()(&v101, j);
+        *cnmatrix::CNMatrixBase<double>::operator()(&v101, j) = v13 - v10;
+        std::vector<cnmatrix::CNMatrix<3u,1u,double>>::push_back[abi:ne200100](&v125, &v106);
+        std::vector<cnmatrix::CNMatrix<3u,1u,double>>::push_back[abi:ne200100](&v125, &v101);
       }
     }
 
+    v122 = 0;
     v123 = 0;
     v124 = 0;
-    v125 = 0;
-    v14 = v126;
-    v15 = v127;
-    if (v126 == v127)
+    v14 = v125;
+    v15 = v126;
+    if (v125 == v126)
     {
       v18 = 0;
     }
@@ -4977,27 +4924,27 @@ BOOL RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter::batchSo
     {
       do
       {
-        v107 = 0;
-        v108 = 0uLL;
-        RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter::initializeFilterWithGuess(this, v14, this + 672, &v107, buf);
-        std::vector<RoseSyntheticApertureFiltering::FilterInitializationResult>::push_back[abi:ne200100](&v123, buf);
-        v137[26] = &unk_2873C4140;
-        v137[12] = &unk_2873C4140;
-        v137[4] = &unk_2873C4140;
+        v106 = 0;
+        v107 = 0uLL;
+        RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter::initializeFilterWithGuess(this, v14, this + 672, &v106, buf);
+        std::vector<RoseSyntheticApertureFiltering::FilterInitializationResult>::push_back[abi:ne200100](&v122, buf);
+        v136[26] = &unk_2873C4140;
+        v136[12] = &unk_2873C4140;
+        v136[4] = &unk_2873C4140;
         *&buf[8] = &unk_2873C4140;
-        v102 = &v107;
-        std::vector<RoseSyntheticApertureFiltering::InternalAoAMeas>::__destroy_vector::operator()[abi:ne200100](&v102);
+        v101 = &v106;
+        std::vector<RoseSyntheticApertureFiltering::InternalAoAMeas>::__destroy_vector::operator()[abi:ne200100](&v101);
         v14 += 64;
       }
 
       while (v14 != v15);
-      v17 = v123;
-      v16 = v124;
+      v17 = v122;
+      v16 = v123;
       while (1)
       {
-        if (v17 == v124)
+        if (v17 == v123)
         {
-          v18 = v124;
+          v18 = v123;
           goto LABEL_36;
         }
 
@@ -5006,10 +4953,10 @@ BOOL RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter::batchSo
           break;
         }
 
-        v17 += 376;
+        v17 += 47;
       }
 
-      if (v17 == v124 || v17 + 376 == v124)
+      if (v17 == v123 || v17 + 47 == v123)
       {
         v18 = v17;
       }
@@ -5022,18 +4969,18 @@ BOOL RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter::batchSo
           if (*(v17 + 376) == 1)
           {
             *v18 = 1;
-            cnmatrix::CNMatrixBase<double>::operator=(v18 + 8, v17 + 384);
-            cnmatrix::CNMatrixBase<double>::operator=(v18 + 72, v17 + 448);
-            cnmatrix::CNMatrixBase<double>::operator=(v18 + 136, v17 + 512);
-            cnmatrix::CNMatrixBase<double>::operator=(v18 + 248, v17 + 624);
-            v19 = *(v17 + 736);
-            *(v18 + 368) = *(v17 + 744);
-            *(v18 + 360) = v19;
-            v18 += 376;
+            cnmatrix::CNMatrixBase<double>::operator=((v18 + 1), (v17 + 48));
+            cnmatrix::CNMatrixBase<double>::operator=((v18 + 9), (v17 + 56));
+            cnmatrix::CNMatrixBase<double>::operator=((v18 + 17), (v17 + 64));
+            cnmatrix::CNMatrixBase<double>::operator=((v18 + 31), (v17 + 78));
+            v19 = *(v17 + 92);
+            *(v18 + 92) = *(v17 + 186);
+            *(v18 + 45) = v19;
+            v18 += 47;
           }
 
-          v20 = v17 + 752;
-          v17 += 376;
+          v20 = v17 + 94;
+          v17 += 47;
         }
 
         while (v20 != v16);
@@ -5041,9 +4988,9 @@ BOOL RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter::batchSo
     }
 
 LABEL_36:
-    std::vector<RoseSyntheticApertureFiltering::FilterInitializationResult>::erase(&v123, v18, v124);
-    v22 = 126 - 2 * __clz(0x51B3BEA3677D46CFLL * ((v124 - v123) >> 3));
-    if (v124 == v123)
+    std::vector<RoseSyntheticApertureFiltering::FilterInitializationResult>::erase(&v122, v18, v123);
+    v22 = 126 - 2 * __clz(0x51B3BEA3677D46CFLL * (v123 - v122));
+    if (v123 == v122)
     {
       v23 = 0;
     }
@@ -5053,10 +5000,10 @@ LABEL_36:
       v23 = v22;
     }
 
-    std::__introsort<std::_ClassicAlgPolicy,RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter::batchSolver(void)::$_2 &,RoseSyntheticApertureFiltering::FilterInitializationResult *,false>(v123, v124, v23, 1, v21);
-    if (v123 != v124)
+    std::__introsort<std::_ClassicAlgPolicy,RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter::batchSolver(void)::$_2 &,RoseSyntheticApertureFiltering::FilterInitializationResult *,false>(v122, v123, v23, 1, v21);
+    if (v122 != v123)
     {
-      *buf = sqrt(*(v123 + 360) / ((0x6DB6DB6DB6DB6DB7 * ((*(this + 85) - *(this + 84)) >> 4)) + -3.0));
+      *buf = sqrt(v122[45] / ((0x6DB6DB6DB6DB6DB7 * ((*(this + 85) - *(this + 84)) >> 4)) + -3.0));
       boost::circular_buffer<double,std::allocator<double>>::push_back_impl<double &&>(this + 79, buf);
       v24 = *(this + 82);
       v25 = *(this + 79);
@@ -5091,91 +5038,93 @@ LABEL_36:
         goto LABEL_138;
       }
 
+      v119 = 0;
       v120 = 0;
       v121 = 0;
-      v122 = 0;
-      std::vector<RoseSyntheticApertureFiltering::FilterInitializationResult>::push_back[abi:ne200100](&v120, v123);
-      v28 = v123;
-      if ((0x51B3BEA3677D46CFLL * ((v124 - v123) >> 3)) >= 2)
+      std::vector<RoseSyntheticApertureFiltering::FilterInitializationResult>::push_back[abi:ne200100](&v119, v122);
+      v29 = v122;
+      if ((0x51B3BEA3677D46CFLL * (v123 - v122)) >= 2)
       {
-        v29 = 1;
+        v30 = 1;
+        *&v28 = 0x100000134;
         do
         {
-          v30 = v120;
-          v31 = v121;
-          if (v121 == v120)
+          v31 = v119;
+          v32 = v120;
+          if (v120 == v119)
           {
             goto LABEL_53;
           }
 
-          v32 = 0;
-          v33 = 1;
+          v33 = 0;
+          v34 = 1;
           do
           {
-            v34 = 0x51B3BEA3677D46CFLL * ((v31 - v30) >> 3);
-            v35 = v30 + 376 * v32 + 8;
-            while (!v33)
+            v35 = 0x51B3BEA3677D46CFLL * ((v32 - v31) >> 3);
+            v36 = v31 + 376 * v33 + 8;
+            while (!v34)
             {
-              v33 = 0;
-              ++v32;
-              v35 += 376;
-              if (v34 <= v32)
+              v34 = 0;
+              ++v33;
+              v36 += 376;
+              if (v35 <= v33)
               {
                 goto LABEL_55;
               }
             }
 
-            v117 = 0x100000003;
-            v116 = xmmword_261415AA0;
-            v115 = &unk_2873C40E8;
-            v118 = v119;
-            cnmatrix::Subtract<double>(v123 + 376 * v29 + 8, v35, &v115);
-            v109 = 0x100000003;
-            v108 = xmmword_261415AA0;
-            v107 = &unk_2873C40E8;
-            v110 = v111;
-            v135 = 0x100000134;
+            v116 = 0x100000003;
+            v115 = xmmword_261415AA0;
+            v114 = &unk_2873C40E8;
+            v117 = v118;
+            cnmatrix::Subtract<double>(&v122[47 * v30 + 1], v36, &v114);
+            v108 = 0x100000003;
+            v107 = xmmword_261415AA0;
+            v106 = &unk_2873C40E8;
+            v109 = v110;
+            v134 = 0x100000134;
             *&buf[8] = xmmword_261415AD0;
             *buf = &unk_2873C41B8;
-            v136 = v137;
-            v104 = 0x100000003;
-            v102 = &unk_2873C40E8;
-            v103 = xmmword_261415AA0;
-            v105 = v106;
-            cnmatrix::Norm<double>(&v115, &v107, buf, &v102, "2");
-            v33 = v36 > 0.1;
-            v30 = v120;
-            v31 = v121;
-            ++v32;
+            v135 = v136;
+            v103 = 0x100000003;
+            v101 = &unk_2873C40E8;
+            v102 = xmmword_261415AA0;
+            v104 = v105;
+            cnmatrix::Norm<double>(&v114, &v106, buf, &v101, "2");
+            v34 = v28 > 0.1;
+            v31 = v119;
+            v32 = v120;
+            ++v33;
           }
 
-          while (0x51B3BEA3677D46CFLL * ((v121 - v120) >> 3) > v32);
-          v28 = v123;
-          if (v36 > 0.1)
+          while (0x51B3BEA3677D46CFLL * ((v120 - v119) >> 3) > v33);
+          v29 = v122;
+          if (v28 > 0.1)
           {
 LABEL_53:
-            if (exp(*(v30 + 360) - *(v28 + 376 * v29 + 360)) > 0.01)
+            v28 = exp(*(v31 + 360) - v29[47 * v30 + 45]);
+            if (v28 > 0.01)
             {
-              std::vector<RoseSyntheticApertureFiltering::FilterInitializationResult>::push_back[abi:ne200100](&v120, v28 + 376 * v29);
+              std::vector<RoseSyntheticApertureFiltering::FilterInitializationResult>::push_back[abi:ne200100](&v119, &v29[47 * v30]);
 LABEL_55:
-              v28 = v123;
+              v29 = v122;
             }
           }
 
-          ++v29;
+          ++v30;
         }
 
-        while (0x51B3BEA3677D46CFLL * ((v124 - v28) >> 3) > v29);
+        while (0x51B3BEA3677D46CFLL * (v123 - v29) > v30);
       }
 
-      v38 = v120;
-      v37 = v121;
-      if ((0x51B3BEA3677D46CFLL * ((v121 - v120) >> 3)) <= 1)
+      v38 = v119;
+      v37 = v120;
+      if ((0x51B3BEA3677D46CFLL * ((v120 - v119) >> 3)) <= 1)
       {
         goto LABEL_74;
       }
 
-      v39 = exp(-*(v120 + 360));
+      v39 = exp(-*(v119 + 360));
       v40 = 0.0;
       if (v38 != v37)
       {
@@ -5190,12 +5139,13 @@ LABEL_55:
       }
 
       v42 = v39 / v40;
-      if (v42 >= 0.9 || (v43 = cnmatrix::CNMatrixBase<double>::operator()(v38 + 72, 1u), v38 = v120, v37 = v121, (0x51B3BEA3677D46CFLL * ((v121 - v120) >> 3)) < 2))
+      v28 = 0.9;
+      if (v42 >= 0.9 || (v43 = cnmatrix::CNMatrixBase<double>::operator()(v38 + 72, 1), v38 = v119, v37 = v120, (0x51B3BEA3677D46CFLL * ((v120 - v119) >> 3)) < 2))
       {
 LABEL_74:
+        v111 = 0;
         v112 = 0;
         v113 = 0;
-        v114 = 0;
         if (v38 == v37)
         {
           v57 = 0;
@@ -5206,18 +5156,18 @@ LABEL_74:
         {
           do
           {
-            RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter::checkFoVBatch(v38 + 8, this + 696, &v107);
-            if (v107 == v108)
+            RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter::checkFoVBatch(v38 + 8, this + 87, &v106);
+            if (v106 == v107)
             {
-              std::vector<RoseSyntheticApertureFiltering::FilterInitializationResult>::push_back[abi:ne200100](&v112, v38);
+              std::vector<RoseSyntheticApertureFiltering::FilterInitializationResult>::push_back[abi:ne200100](&v111, v38);
             }
 
             else
             {
-              RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter::initializeFilterWithGuess(this, v38 + 8, this + 672, &v107, buf);
-              v52 = v107;
-              v53 = v108;
-              if (v107 == v108)
+              RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter::initializeFilterWithGuess(this, v38 + 8, this + 672, &v106, buf);
+              v52 = v106;
+              v53 = v107;
+              if (v106 == v107)
               {
                 goto LABEL_85;
               }
@@ -5257,17 +5207,17 @@ LABEL_85:
               }
 
 LABEL_88:
-              std::vector<RoseSyntheticApertureFiltering::FilterInitializationResult>::push_back[abi:ne200100](&v112, v55);
+              std::vector<RoseSyntheticApertureFiltering::FilterInitializationResult>::push_back[abi:ne200100](&v111, v55);
             }
 
-            *buf = &v107;
+            *buf = &v106;
             std::vector<RoseSyntheticApertureFiltering::InternalAoAMeas>::__destroy_vector::operator()[abi:ne200100](buf);
             v38 += 376;
           }
 
           while (v38 != v37);
-          v56 = v112;
-          v57 = v113;
+          v56 = v111;
+          v57 = v112;
         }
       }
 
@@ -5278,64 +5228,65 @@ LABEL_88:
         v46 = 448;
         while (1)
         {
-          v47 = cnmatrix::CNMatrixBase<double>::operator()(v38 + v46, 1u);
+          v47 = cnmatrix::CNMatrixBase<double>::operator()(v38 + v46, 1);
           v48 = fmod(*v47 - v44 + 3.14159265, 6.28318531);
           if (v48 < 0.0)
           {
             v48 = v48 + 6.28318531;
           }
 
-          v49 = fabs(v48 + -3.14159265);
+          v28 = v48 + -3.14159265;
+          v49 = fabs(v28);
           if (v49 > 0.392699082)
           {
             break;
           }
 
           ++v45;
-          v38 = v120;
-          v37 = v121;
+          v38 = v119;
+          v37 = v120;
           v46 += 376;
-          if (0x51B3BEA3677D46CFLL * ((v121 - v120) >> 3) <= v45)
+          if (0x51B3BEA3677D46CFLL * ((v120 - v119) >> 3) <= v45)
           {
             goto LABEL_74;
           }
         }
 
-        v92 = *(this + 56);
-        if (os_log_type_enabled(v92, OS_LOG_TYPE_DEFAULT))
+        v91 = *(this + 56);
+        if (os_log_type_enabled(v91, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 134218240;
           *&buf[4] = v42;
           *&buf[12] = 2048;
           *&buf[14] = v49;
-          _os_log_impl(&dword_2613DF000, v92, OS_LOG_TYPE_DEFAULT, "Batch filter clearing solutions since the best one has a low weight (%f) and the horizontal angle difference to a secondary solution is too high (%f)", buf, 0x16u);
+          _os_log_impl(&dword_2613DF000, v91, OS_LOG_TYPE_DEFAULT, "Batch filter clearing solutions since the best one has a low weight (%f) and the horizontal angle difference to a secondary solution is too high (%f)", buf, 0x16u);
         }
 
-        v93 = v120;
-        if (v121 != v120)
+        v92 = v119;
+        if (v120 != v119)
         {
-          v94 = v121 - 46;
-          v95 = v121 - 46;
+          v93 = v120 - 46;
+          v94 = v120 - 46;
           do
           {
-            v95[30] = &unk_2873C4140;
-            v95[16] = &unk_2873C4140;
-            v95[8] = &unk_2873C4140;
-            *v95 = &unk_2873C4140;
-            v96 = v95 - 1;
-            v95 -= 47;
+            v94[30] = &unk_2873C4140;
+            v94[16] = &unk_2873C4140;
+            v94[8] = &unk_2873C4140;
+            *v94 = &unk_2873C4140;
+            v95 = v94 - 1;
             v94 -= 47;
+            v93 -= 47;
           }
 
-          while (v96 != v93);
+          while (v95 != v92);
         }
 
         v57 = 0;
         v56 = 0;
-        v121 = v93;
+        v120 = v92;
+        v111 = 0;
         v112 = 0;
         v113 = 0;
-        v114 = 0;
       }
 
       v58 = 126 - 2 * __clz(0x51B3BEA3677D46CFLL * ((v57 - v56) >> 3));
@@ -5349,49 +5300,49 @@ LABEL_88:
         v59 = v58;
       }
 
-      std::__introsort<std::_ClassicAlgPolicy,RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter::batchSolver(void)::$_3 &,RoseSyntheticApertureFiltering::FilterInitializationResult *,false>(v56, v57, v59, 1);
-      v60 = v112;
-      if (v112 != v113)
+      std::__introsort<std::_ClassicAlgPolicy,RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter::batchSolver(void)::$_3 &,RoseSyntheticApertureFiltering::FilterInitializationResult *,false>(v56, v57, v59, 1, v28);
+      v60 = v111;
+      if (v111 != v112)
       {
         v61 = xmmword_261415D50;
         v62 = xmmword_261415AA0;
         v63 = xmmword_261415DA0;
         do
         {
-          v109 = 0x300000003;
-          v107 = &unk_2873C4240;
-          v108 = v61;
-          v110 = v111;
-          v104 = 0x100000003;
-          v102 = &unk_2873C4360;
-          v103 = v62;
-          v105 = v106;
-          v135 = 0x10000000CLL;
+          v108 = 0x300000003;
+          v106 = &unk_2873C4240;
+          v107 = v61;
+          v109 = v110;
+          v103 = 0x100000003;
+          v101 = &unk_2873C4360;
+          v102 = v62;
+          v104 = v105;
+          v134 = 0x10000000CLL;
           *buf = &unk_2873C43E8;
           *&buf[8] = v63;
-          v136 = v137;
-          cnmatrix::Inv<double>(v60 + 248, &v102, buf, &v107);
-          v64 = *cnmatrix::CNMatrixBase<double>::operator()(&v107, 1, 1);
-          v104 = 0x300000003;
-          v102 = &unk_2873C4240;
-          v103 = xmmword_261415D50;
-          v105 = v106;
-          v117 = 0x100000003;
-          v116 = xmmword_261415AA0;
-          v115 = &unk_2873C4360;
-          v118 = v119;
-          v135 = 0x10000000CLL;
+          v135 = v136;
+          cnmatrix::Inv<double>((v60 + 248), &v101, buf, &v106);
+          v64 = *cnmatrix::CNMatrixBase<double>::operator()(&v106, 1, 1);
+          v103 = 0x300000003;
+          v101 = &unk_2873C4240;
+          v102 = xmmword_261415D50;
+          v104 = v105;
+          v116 = 0x100000003;
+          v115 = xmmword_261415AA0;
+          v114 = &unk_2873C4360;
+          v117 = v118;
+          v134 = 0x10000000CLL;
           *&buf[8] = xmmword_261415DA0;
           *buf = &unk_2873C43E8;
-          v136 = v137;
-          cnmatrix::Inv<double>(v60 + 136, &v115, buf, &v102);
-          v65 = v103;
-          if (v103 != DWORD1(v103))
+          v135 = v136;
+          cnmatrix::Inv<double>((v60 + 136), &v114, buf, &v101);
+          v65 = v102;
+          if (v102 != DWORD1(v102))
           {
             __assert_rtn("Trace", "cnmatrixbase.h", 4977, "A.NumRows() == A.NumCols()");
           }
 
-          if (v103 < 1)
+          if (v102 < 1)
           {
             v67 = 0.0;
           }
@@ -5402,7 +5353,7 @@ LABEL_88:
             v67 = 0.0;
             do
             {
-              v67 = v67 + cnmatrix::CNMatrixBase<double>::operator()<int,int>(&v102, v66, v66);
+              v67 = v67 + cnmatrix::CNMatrixBase<double>::operator()<int,int>(&v101, v66, v66);
               ++v66;
             }
 
@@ -5412,7 +5363,7 @@ LABEL_88:
           if (sqrt(v64) * 180.0 / 3.14159265 <= *(this + 122) || v67 <= *(this + 121))
           {
             v60 += 376;
-            v68 = v113;
+            v68 = v112;
             v61 = xmmword_261415D50;
             v62 = xmmword_261415AA0;
             v63 = xmmword_261415DA0;
@@ -5420,50 +5371,50 @@ LABEL_88:
 
           else
           {
-            std::__move_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100]<RoseSyntheticApertureFiltering::FilterInitializationResult *,RoseSyntheticApertureFiltering::FilterInitializationResult *,RoseSyntheticApertureFiltering::FilterInitializationResult *>(buf, v60 + 376, v113, v60);
+            std::__move_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100]<RoseSyntheticApertureFiltering::FilterInitializationResult *,RoseSyntheticApertureFiltering::FilterInitializationResult *,RoseSyntheticApertureFiltering::FilterInitializationResult *>(buf, v60 + 376, v112, v60);
             v61 = xmmword_261415D50;
             v62 = xmmword_261415AA0;
             v63 = xmmword_261415DA0;
-            if (v113 != v68)
+            if (v112 != v68)
             {
-              v69 = v113 - 368;
-              v70 = (v113 - 368);
+              v69 = v112 - 46;
+              v70 = v112 - 46;
               do
               {
-                v70[30] = &unk_2873C4140;
-                v70[16] = &unk_2873C4140;
-                v70[8] = &unk_2873C4140;
+                *(v70 + 30) = &unk_2873C4140;
+                *(v70 + 16) = &unk_2873C4140;
+                *(v70 + 8) = &unk_2873C4140;
                 *v70 = &unk_2873C4140;
                 v71 = v70 - 1;
                 v70 -= 47;
-                v69 -= 376;
+                v69 -= 47;
               }
 
               while (v71 != v68);
             }
 
-            v113 = v68;
+            v112 = v68;
           }
         }
 
         while (v60 != v68);
-        if (v112 != v68)
+        if (v111 != v68)
         {
+          v98 = 0;
           v99 = 0;
           v100 = 0;
-          v101 = 0;
-          std::vector<RoseSyntheticApertureFiltering::FilterInitializationResult>::push_back[abi:ne200100](&v99, v112);
-          v72 = v112;
-          v73 = *(v112 + 360);
+          std::vector<RoseSyntheticApertureFiltering::FilterInitializationResult>::push_back[abi:ne200100](&v98, v111);
+          v72 = v111;
+          v73 = *(v111 + 360);
           v74 = xmmword_261415AA0;
-          if ((0x51B3BEA3677D46CFLL * ((v113 - v112) >> 3)) >= 2)
+          if ((0x51B3BEA3677D46CFLL * ((v112 - v111) >> 3)) >= 2)
           {
             v75 = 1;
             do
             {
-              v76 = v99;
-              v77 = v100;
-              if (v100 == v99)
+              v76 = v98;
+              v77 = v99;
+              if (v99 == v98)
               {
                 goto LABEL_122;
               }
@@ -5481,43 +5432,43 @@ LABEL_88:
                   v81 += 376;
                   if (v80 <= v78)
                   {
-                    v72 = v112;
+                    v72 = v111;
                     goto LABEL_123;
                   }
                 }
 
-                v117 = 0x100000003;
-                v116 = v74;
-                v115 = &unk_2873C40E8;
-                v118 = v119;
-                cnmatrix::Subtract<double>(v112 + 376 * v75 + 8, v81, &v115);
-                v109 = 0x100000003;
-                v108 = xmmword_261415AA0;
-                v107 = &unk_2873C40E8;
-                v110 = v111;
-                v135 = 0x100000134;
+                v116 = 0x100000003;
+                v115 = v74;
+                v114 = &unk_2873C40E8;
+                v117 = v118;
+                cnmatrix::Subtract<double>(v111 + 376 * v75 + 8, v81, &v114);
+                v108 = 0x100000003;
+                v107 = xmmword_261415AA0;
+                v106 = &unk_2873C40E8;
+                v109 = v110;
+                v134 = 0x100000134;
                 *&buf[8] = xmmword_261415AD0;
                 *buf = &unk_2873C41B8;
-                v136 = v137;
-                v104 = 0x100000003;
-                v102 = &unk_2873C40E8;
-                v103 = xmmword_261415AA0;
-                v105 = v106;
-                cnmatrix::Norm<double>(&v115, &v107, buf, &v102, "2");
+                v135 = v136;
+                v103 = 0x100000003;
+                v101 = &unk_2873C40E8;
+                v102 = xmmword_261415AA0;
+                v104 = v105;
+                cnmatrix::Norm<double>(&v114, &v106, buf, &v101, "2");
                 v79 = v82 > 0.1;
-                v76 = v99;
-                v77 = v100;
+                v76 = v98;
+                v77 = v99;
                 ++v78;
                 v74 = xmmword_261415AA0;
               }
 
-              while (0x51B3BEA3677D46CFLL * ((v100 - v99) >> 3) > v78);
-              v72 = v112;
+              while (0x51B3BEA3677D46CFLL * ((v99 - v98) >> 3) > v78);
+              v72 = v111;
               if (v82 > 0.1)
               {
 LABEL_122:
-                std::vector<RoseSyntheticApertureFiltering::FilterInitializationResult>::push_back[abi:ne200100](&v99, v72 + 376 * v75);
-                v72 = v112;
+                std::vector<RoseSyntheticApertureFiltering::FilterInitializationResult>::push_back[abi:ne200100](&v98, v72 + 376 * v75);
+                v72 = v111;
                 v74 = xmmword_261415AA0;
               }
 
@@ -5525,13 +5476,13 @@ LABEL_123:
               ++v75;
             }
 
-            while (0x51B3BEA3677D46CFLL * ((v113 - v72) >> 3) > v75);
+            while (0x51B3BEA3677D46CFLL * ((v112 - v72) >> 3) > v75);
           }
 
-          std::vector<RoseSyntheticApertureFiltering::InternalFilterState>::__base_destruct_at_end[abi:ne200100](v97, *v97);
-          v83 = v99;
-          v84 = v100;
-          if (v99 == v100)
+          std::vector<RoseSyntheticApertureFiltering::InternalFilterState>::__base_destruct_at_end[abi:ne200100](v96, *v96);
+          v83 = v98;
+          v84 = v99;
+          if (v98 == v99)
           {
             v88 = *(this + 19);
             v85 = 0.0;
@@ -5542,46 +5493,46 @@ LABEL_123:
             v85 = 0.0;
             do
             {
-              cnmatrix::CNMatrix<3u,1u,double>::CNMatrix(&v115, v83 + 8);
-              cnmatrix::CNMatrix<3u,1u,double>::CNMatrix(v98, v83 + 72);
-              v109 = 0x300000003;
-              v108 = xmmword_261415D50;
-              v107 = &unk_2873C4240;
-              v110 = v111;
-              v104 = 0x100000003;
-              v102 = &unk_2873C4360;
-              v103 = xmmword_261415AA0;
-              v105 = v106;
-              v135 = 0x10000000CLL;
+              cnmatrix::CNMatrix<3u,1u,double>::CNMatrix(&v114, v83 + 8);
+              cnmatrix::CNMatrix<3u,1u,double>::CNMatrix(v97, v83 + 72);
+              v108 = 0x300000003;
+              v107 = xmmword_261415D50;
+              v106 = &unk_2873C4240;
+              v109 = v110;
+              v103 = 0x100000003;
+              v101 = &unk_2873C4360;
+              v102 = xmmword_261415AA0;
+              v104 = v105;
+              v134 = 0x10000000CLL;
               *&buf[8] = xmmword_261415DA0;
               *buf = &unk_2873C43E8;
-              v136 = v137;
-              cnmatrix::Inv<double>(v83 + 136, &v102, buf, &v107);
-              v104 = 0x300000003;
-              v102 = &unk_2873C4240;
-              v103 = xmmword_261415D50;
-              v105 = v106;
-              v131 = 0x100000003;
-              v130 = xmmword_261415AA0;
-              v129 = &unk_2873C4360;
-              v132 = &v133;
-              v135 = 0x10000000CLL;
+              v135 = v136;
+              cnmatrix::Inv<double>((v83 + 136), &v101, buf, &v106);
+              v103 = 0x300000003;
+              v101 = &unk_2873C4240;
+              v102 = xmmword_261415D50;
+              v104 = v105;
+              v130 = 0x100000003;
+              v129 = xmmword_261415AA0;
+              v128 = &unk_2873C4360;
+              v131 = &v132;
+              v134 = 0x10000000CLL;
               *&buf[8] = xmmword_261415DA0;
               *buf = &unk_2873C43E8;
-              v136 = v137;
-              cnmatrix::Inv<double>(v83 + 248, &v129, buf, &v102);
+              v135 = v136;
+              cnmatrix::Inv<double>((v83 + 248), &v128, buf, &v101);
               v86 = exp(v73 - *(v83 + 360));
               *buf = v86;
-              LODWORD(v129) = *(v83 + 368);
+              LODWORD(v128) = *(v83 + 368);
               v87 = *(this + 19);
               if (v87 >= *(this + 20))
               {
-                v88 = std::vector<RoseSyntheticApertureFiltering::InternalFilterState>::__emplace_back_slow_path<cnmatrix::CNMatrix<3u,1u,double> const&,cnmatrix::CNMatrix<3u,1u,double> const&,cnmatrix::CNMatrix<3u,3u,double> const&,cnmatrix::CNMatrix<3u,3u,double> const&,double &,RoseSyntheticApertureFiltering::BatchSolutionType const&,cnmatrix::CNMatrix<3u,1u,double>&>(v97, &v115, v98, &v107, &v102, buf, &v129, this + 168);
+                v88 = std::vector<RoseSyntheticApertureFiltering::InternalFilterState>::__emplace_back_slow_path<cnmatrix::CNMatrix<3u,1u,double> const&,cnmatrix::CNMatrix<3u,1u,double> const&,cnmatrix::CNMatrix<3u,3u,double> const&,cnmatrix::CNMatrix<3u,3u,double> const&,double &,RoseSyntheticApertureFiltering::BatchSolutionType const&,cnmatrix::CNMatrix<3u,1u,double>&>(v96, &v114, v97, &v106, &v101, buf, &v128, this + 168);
               }
 
               else
               {
-                std::vector<RoseSyntheticApertureFiltering::InternalFilterState>::__construct_one_at_end[abi:ne200100]<cnmatrix::CNMatrix<3u,1u,double> const&,cnmatrix::CNMatrix<3u,1u,double> const&,cnmatrix::CNMatrix<3u,3u,double> const&,cnmatrix::CNMatrix<3u,3u,double> const&,double &,RoseSyntheticApertureFiltering::BatchSolutionType const&,cnmatrix::CNMatrix<3u,1u,double>&>(v97, &v115, v98, &v107, &v102, buf, &v129, this + 168);
+                std::vector<RoseSyntheticApertureFiltering::InternalFilterState>::__construct_one_at_end[abi:ne200100]<cnmatrix::CNMatrix<3u,1u,double> const&,cnmatrix::CNMatrix<3u,1u,double> const&,cnmatrix::CNMatrix<3u,3u,double> const&,cnmatrix::CNMatrix<3u,3u,double> const&,double &,RoseSyntheticApertureFiltering::BatchSolutionType const&,cnmatrix::CNMatrix<3u,1u,double>&>(v96, &v114, v97, &v106, &v101, buf, &v128, this + 168);
                 v88 = v87 + 432;
               }
 
@@ -5593,56 +5544,51 @@ LABEL_123:
             while (v83 != v84);
           }
 
-          for (k = *v97; k != v88; k += 432)
+          for (k = *v96; k != v88; k += 432)
           {
             *(k + 352) = *(k + 352) / v85;
           }
 
-          *buf = &v99;
+          *buf = &v98;
           std::vector<RoseSyntheticApertureFiltering::FilterInitializationResult>::__destroy_vector::operator()[abi:ne200100](buf);
         }
       }
 
-      *buf = &v112;
+      *buf = &v111;
       std::vector<RoseSyntheticApertureFiltering::FilterInitializationResult>::__destroy_vector::operator()[abi:ne200100](buf);
-      *buf = &v120;
+      *buf = &v119;
       std::vector<RoseSyntheticApertureFiltering::FilterInitializationResult>::__destroy_vector::operator()[abi:ne200100](buf);
     }
 
     v7 = *(this + 19) != *(this + 18);
 LABEL_138:
-    *buf = &v123;
+    *buf = &v122;
     std::vector<RoseSyntheticApertureFiltering::FilterInitializationResult>::__destroy_vector::operator()[abi:ne200100](buf);
-    *buf = &v126;
+    *buf = &v125;
     std::vector<cnmatrix::CNMatrix<3u,1u,double>>::__destroy_vector::operator()[abi:ne200100](buf);
-    goto LABEL_139;
+    return v7;
   }
 
-  v7 = 0;
-LABEL_139:
-  v90 = *MEMORY[0x277D85DE8];
-  return v7;
+  return 0;
 }
 
-void sub_2613F31A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, void **a61, uint64_t a62, uint64_t a63)
+void sub_2613F31A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, unint64_t *a61, uint64_t a62, uint64_t a63)
 {
-  a61 = &a69;
+  a61 = &a65;
   std::vector<RoseSyntheticApertureFiltering::FilterInitializationResult>::__destroy_vector::operator()[abi:ne200100](&a61);
-  a61 = &a72;
+  a61 = &a66;
   std::vector<RoseSyntheticApertureFiltering::FilterInitializationResult>::__destroy_vector::operator()[abi:ne200100](&a61);
   a61 = &STACK[0x210];
   std::vector<cnmatrix::CNMatrix<3u,1u,double>>::__destroy_vector::operator()[abi:ne200100](&a61);
   _Unwind_Resume(a1);
 }
 
-void *std::vector<RoseSyntheticApertureFiltering::InternalExpectedRangeMeas>::reserve(void *result, unint64_t a2)
+uint64_t *std::vector<RoseSyntheticApertureFiltering::InternalExpectedRangeMeas>::reserve(uint64_t *result, unint64_t a2)
 {
   if (0xF0F0F0F0F0F0F0F1 * ((result[2] - *result) >> 3) < a2)
   {
     if (a2 < 0x1E1E1E1E1E1E1E2)
     {
-      v2 = result[1] - *result;
-      v3 = result;
       std::__allocate_at_least[abi:ne200100]<std::allocator<RoseSyntheticApertureFiltering::InternalExpectedRangeMeas>>(result, a2);
     }
 
@@ -5652,17 +5598,17 @@ void *std::vector<RoseSyntheticApertureFiltering::InternalExpectedRangeMeas>::re
   return result;
 }
 
-void sub_2613F3418(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2613F3418(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<RoseSyntheticApertureFiltering::InternalExpectedRangeMeas>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter::measModelBatchAlt(uint64_t a1, uint64_t a2, uint64_t a3, double **a4, double **a5, uint64_t a6, uint64_t a7)
+unint64_t RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter::measModelBatchAlt(uint64_t a1, uint64_t a2, uint64_t a3, double **a4, double **a5, uint64_t *a6, uint64_t *a7)
 {
   v11 = *a6;
-  v12 = *(a6 + 8);
+  v12 = a6[1];
   if (*a6 != v12)
   {
     v13 = v12 - 128;
@@ -5675,12 +5621,12 @@ uint64_t RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter::mea
     }
 
     while (v12 != v11);
-    *(a6 + 8) = v11;
+    a6[1] = v11;
     std::vector<RoseSyntheticApertureFiltering::InternalExpectedRangeMeas>::reserve(a6, 0x6DB6DB6DB6DB6DB7 * ((a4[1] - *a4) >> 4));
   }
 
   v14 = *a7;
-  v15 = *(a7 + 8);
+  v15 = a7[1];
   if (*a7 != v15)
   {
     v16 = v15 - 176;
@@ -5693,7 +5639,7 @@ uint64_t RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter::mea
     }
 
     while (v15 != v14);
-    *(a7 + 8) = v14;
+    a7[1] = v14;
     std::vector<RoseSyntheticApertureFiltering::InternalExpectedAoAMeas>::reserve(a7, 0x4EC4EC4EC4EC4EC5 * ((a5[1] - *a5) >> 4));
   }
 
@@ -5752,20 +5698,20 @@ uint64_t RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter::mea
       }
 
       while (v26 != 3);
-      v28 = *(a6 + 8);
-      if (v28 >= *(a6 + 16))
+      v28 = a6[1];
+      if (v28 >= a6[2])
       {
         result = std::vector<RoseSyntheticApertureFiltering::InternalExpectedRangeMeas>::__emplace_back_slow_path<double const&,cnmatrix::CNMatrix<1u,3u,double> const&,cnmatrix::CNMatrix<3u,1u,double> &>(a6, &v65, &v49, &v44);
       }
 
       else
       {
-        RoseSyntheticApertureFiltering::InternalExpectedRangeMeas::InternalExpectedRangeMeas(*(a6 + 8), &v49, &v44, v65);
+        RoseSyntheticApertureFiltering::InternalExpectedRangeMeas::InternalExpectedRangeMeas(a6[1], &v49, &v44, v65);
         result = v28 + 136;
-        *(a6 + 8) = v28 + 136;
+        a6[1] = v28 + 136;
       }
 
-      *(a6 + 8) = result;
+      a6[1] = result;
       v18 += 14;
     }
 
@@ -5804,7 +5750,7 @@ uint64_t RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter::mea
 
       v65 = v34 * (v35 + -3.14159265);
       v36 = v29[2];
-      v54 = v36 - v34 * *cnmatrix::CNMatrixBase<double>::operator()(&v60, 1u);
+      v54 = v36 - v34 * *cnmatrix::CNMatrixBase<double>::operator()(&v60, 1);
       v51 = 0x300000002;
       v49 = &unk_2873C42D0;
       v50 = xmmword_261415DF0;
@@ -5824,20 +5770,20 @@ uint64_t RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter::mea
       }
 
       while (v37 != 3);
-      v40 = *(a7 + 8);
-      if (v40 >= *(a7 + 16))
+      v40 = a7[1];
+      if (v40 >= a7[2])
       {
         result = std::vector<RoseSyntheticApertureFiltering::InternalExpectedAoAMeas>::__emplace_back_slow_path<double const&,double const&,cnmatrix::CNMatrix<2u,3u,double> const&,cnmatrix::CNMatrix<3u,2u,double> &>(a7, &v65, &v54, &v49, &v44);
       }
 
       else
       {
-        RoseSyntheticApertureFiltering::InternalExpectedAoAMeas::InternalExpectedAoAMeas(*(a7 + 8), &v49, &v44, v65, v54);
+        RoseSyntheticApertureFiltering::InternalExpectedAoAMeas::InternalExpectedAoAMeas(a7[1], &v49, &v44, v65, v54);
         result = v40 + 192;
-        *(a7 + 8) = v40 + 192;
+        a7[1] = v40 + 192;
       }
 
-      *(a7 + 8) = result;
+      a7[1] = result;
       v29 += 26;
     }
 
@@ -5866,10 +5812,10 @@ uint64_t std::vector<cnmatrix::CNMatrix<3u,1u,double>>::push_back[abi:ne200100](
   return result;
 }
 
-uint64_t std::vector<RoseSyntheticApertureFiltering::FilterInitializationResult>::push_back[abi:ne200100](uint64_t a1, uint64_t a2)
+uint64_t std::vector<RoseSyntheticApertureFiltering::FilterInitializationResult>::push_back[abi:ne200100](uint64_t *a1, uint64_t a2)
 {
-  v3 = *(a1 + 8);
-  if (v3 >= *(a1 + 16))
+  v3 = a1[1];
+  if (v3 >= a1[2])
   {
     result = std::vector<RoseSyntheticApertureFiltering::FilterInitializationResult>::__emplace_back_slow_path<RoseSyntheticApertureFiltering::FilterInitializationResult>(a1, a2);
   }
@@ -5880,25 +5826,7 @@ uint64_t std::vector<RoseSyntheticApertureFiltering::FilterInitializationResult>
     result = v3 + 376;
   }
 
-  *(a1 + 8) = result;
-  return result;
-}
-
-{
-  v3 = *(a1 + 8);
-  if (v3 >= *(a1 + 16))
-  {
-    result = std::vector<RoseSyntheticApertureFiltering::FilterInitializationResult>::__emplace_back_slow_path<RoseSyntheticApertureFiltering::FilterInitializationResult const&>(a1, a2);
-  }
-
-  else
-  {
-    std::allocator_traits<std::allocator<RoseSyntheticApertureFiltering::FilterInitializationResult>>::construct[abi:ne200100]<RoseSyntheticApertureFiltering::FilterInitializationResult,RoseSyntheticApertureFiltering::FilterInitializationResult const&,0>(a1, *(a1 + 8), a2);
-    result = v3 + 376;
-    *(a1 + 8) = v3 + 376;
-  }
-
-  *(a1 + 8) = result;
+  a1[1] = result;
   return result;
 }
 
@@ -6144,13 +6072,32 @@ uint64_t std::vector<RoseSyntheticApertureFiltering::FilterInitializationResult>
   return a2;
 }
 
-void RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter::checkFoVBatch(uint64_t a1@<X1>, uint64_t a2@<X2>, void *a3@<X8>)
+uint64_t std::vector<RoseSyntheticApertureFiltering::FilterInitializationResult>::push_back[abi:ne200100](uint64_t a1, uint64_t a2)
+{
+  v3 = *(a1 + 8);
+  if (v3 >= *(a1 + 16))
+  {
+    result = std::vector<RoseSyntheticApertureFiltering::FilterInitializationResult>::__emplace_back_slow_path<RoseSyntheticApertureFiltering::FilterInitializationResult const&>(a1, a2);
+  }
+
+  else
+  {
+    std::allocator_traits<std::allocator<RoseSyntheticApertureFiltering::FilterInitializationResult>>::construct[abi:ne200100]<RoseSyntheticApertureFiltering::FilterInitializationResult,RoseSyntheticApertureFiltering::FilterInitializationResult const&,0>(a1, *(a1 + 8), a2);
+    result = v3 + 376;
+    *(a1 + 8) = v3 + 376;
+  }
+
+  *(a1 + 8) = result;
+  return result;
+}
+
+void RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter::checkFoVBatch(uint64_t a1@<X1>, uint64_t *a2@<X2>, uint64_t *a3@<X8>)
 {
   *a3 = 0;
   a3[1] = 0;
   a3[2] = 0;
   v3 = *a2;
-  v4 = *(a2 + 8);
+  v4 = a2[1];
   if (*a2 != v4)
   {
     do
@@ -6167,9 +6114,9 @@ void RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter::checkFo
   }
 }
 
-void sub_2613F47B8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2613F47B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::vector<RoseSyntheticApertureFiltering::InternalAoAMeas>::__destroy_vector::operator()[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -6186,7 +6133,7 @@ BOOL RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter::checkFo
   v7 = xmmword_261415AA0;
   v9 = &v10;
   cnmatrix::Multiply<double>(a2 + 96, &v11, &v6);
-  v3 = cnmatrix::CNMatrixBase<double>::operator()(&v6, 2u);
+  v3 = cnmatrix::CNMatrixBase<double>::operator()(&v6, 2);
   v28 = 0x100000003;
   v26 = &unk_2873C40E8;
   v27 = xmmword_261415AA0;
@@ -6203,9 +6150,9 @@ BOOL RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter::checkFo
   return acos(-v3 / v4) * 180.0 / 3.14159265 <= 60.0;
 }
 
-double RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter::generateGNStep(uint64_t a1, uint64_t a2, uint64_t a3, double **a4, uint64_t a5)
+double RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter::generateGNStep(uint64_t a1, uint64_t a2, double **a3, double **a4, uint64_t a5)
 {
-  v9 = (*(a3 + 8) - *a3) >> 4;
+  v9 = (a3[1] - *a3) >> 4;
   v45 = 0;
   v46 = 0;
   v47 = 0;
@@ -6290,7 +6237,7 @@ double RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter::gener
       v23 = xmmword_261415DB0;
       v25 = v26;
       *cnmatrix::CNMatrixBase<double>::operator()(&v22, 0) = v18;
-      *cnmatrix::CNMatrixBase<double>::operator()(&v22, 1u) = v19;
+      *cnmatrix::CNMatrixBase<double>::operator()(&v22, 1) = v19;
       v29 = 0x100000003;
       v27 = &unk_2873C40E8;
       v28 = xmmword_261415AA0;
@@ -6338,21 +6285,19 @@ double RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter::gener
 
 void sub_2613F4F54(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, char a62, uint64_t a63)
 {
-  a68 = &a62;
-  std::vector<RoseSyntheticApertureFiltering::InternalExpectedAoAMeas>::__destroy_vector::operator()[abi:ne200100](&a68);
-  a68 = &a65;
-  std::vector<RoseSyntheticApertureFiltering::InternalExpectedRangeMeas>::__destroy_vector::operator()[abi:ne200100](&a68);
+  a66 = &a62;
+  std::vector<RoseSyntheticApertureFiltering::InternalExpectedAoAMeas>::__destroy_vector::operator()[abi:ne200100](&a66);
+  a66 = &a65;
+  std::vector<RoseSyntheticApertureFiltering::InternalExpectedRangeMeas>::__destroy_vector::operator()[abi:ne200100](&a66);
   _Unwind_Resume(a1);
 }
 
-void *std::vector<RoseSyntheticApertureFiltering::InternalExpectedAoAMeas>::reserve(void *result, unint64_t a2)
+uint64_t *std::vector<RoseSyntheticApertureFiltering::InternalExpectedAoAMeas>::reserve(uint64_t *result, unint64_t a2)
 {
   if (0xAAAAAAAAAAAAAAABLL * ((result[2] - *result) >> 6) < a2)
   {
     if (a2 < 0x155555555555556)
     {
-      v2 = result[1] - *result;
-      v3 = result;
       std::__allocate_at_least[abi:ne200100]<std::allocator<RoseSyntheticApertureFiltering::InternalExpectedAoAMeas>>(result, a2);
     }
 
@@ -6362,17 +6307,17 @@ void *std::vector<RoseSyntheticApertureFiltering::InternalExpectedAoAMeas>::rese
   return result;
 }
 
-void sub_2613F5090(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2613F5090(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<RoseSyntheticApertureFiltering::InternalExpectedAoAMeas>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
 
-void RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter::measModelBatch(uint64_t a1, uint64_t a2, double **a3, double **a4, uint64_t a5, uint64_t a6)
+void RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter::measModelBatch(uint64_t a1, uint64_t a2, double **a3, double **a4, uint64_t *a5, uint64_t *a6)
 {
   v10 = *a5;
-  v11 = *(a5 + 8);
+  v11 = a5[1];
   if (*a5 != v11)
   {
     v12 = v11 - 128;
@@ -6385,12 +6330,12 @@ void RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter::measMod
     }
 
     while (v11 != v10);
-    *(a5 + 8) = v10;
+    a5[1] = v10;
     std::vector<RoseSyntheticApertureFiltering::InternalExpectedRangeMeas>::reserve(a5, 0x6DB6DB6DB6DB6DB7 * ((a3[1] - *a3) >> 4));
   }
 
   v13 = *a6;
-  v14 = *(a6 + 8);
+  v14 = a6[1];
   if (*a6 != v14)
   {
     v15 = v14 - 176;
@@ -6403,7 +6348,7 @@ void RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter::measMod
     }
 
     while (v14 != v13);
-    *(a6 + 8) = v13;
+    a6[1] = v13;
     std::vector<RoseSyntheticApertureFiltering::InternalExpectedAoAMeas>::reserve(a6, 0x4EC4EC4EC4EC4EC5 * ((a4[1] - *a4) >> 4));
   }
 
@@ -6448,20 +6393,20 @@ void RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter::measMod
       }
 
       while (v24 != 3);
-      v26 = *(a5 + 8);
-      if (v26 >= *(a5 + 16))
+      v26 = a5[1];
+      if (v26 >= a5[2])
       {
         v27 = std::vector<RoseSyntheticApertureFiltering::InternalExpectedRangeMeas>::__emplace_back_slow_path<double const&,cnmatrix::CNMatrix<1u,3u,double> const&,cnmatrix::CNMatrix<3u,1u,double> &>(a5, v64, &v48, &v43);
       }
 
       else
       {
-        RoseSyntheticApertureFiltering::InternalExpectedRangeMeas::InternalExpectedRangeMeas(*(a5 + 8), &v48, &v43, v64[0]);
+        RoseSyntheticApertureFiltering::InternalExpectedRangeMeas::InternalExpectedRangeMeas(a5[1], &v48, &v43, v64[0]);
         v27 = v26 + 136;
-        *(a5 + 8) = v26 + 136;
+        a5[1] = v26 + 136;
       }
 
-      *(a5 + 8) = v27;
+      a5[1] = v27;
       v16 += 14;
     }
 
@@ -6495,7 +6440,7 @@ void RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter::measMod
 
       v64[0] = v33 * (v34 + -3.14159265);
       v35 = v28[2];
-      v53 = v35 - v33 * *cnmatrix::CNMatrixBase<double>::operator()(&v59, 1u);
+      v53 = v35 - v33 * *cnmatrix::CNMatrixBase<double>::operator()(&v59, 1);
       v50 = 0x300000002;
       v48 = &unk_2873C42D0;
       v49 = xmmword_261415DF0;
@@ -6515,20 +6460,20 @@ void RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter::measMod
       }
 
       while (v36 != 3);
-      v39 = *(a6 + 8);
-      if (v39 >= *(a6 + 16))
+      v39 = a6[1];
+      if (v39 >= a6[2])
       {
         v40 = std::vector<RoseSyntheticApertureFiltering::InternalExpectedAoAMeas>::__emplace_back_slow_path<double const&,double const&,cnmatrix::CNMatrix<2u,3u,double> const&,cnmatrix::CNMatrix<3u,2u,double> &>(a6, v64, &v53, &v48, &v43);
       }
 
       else
       {
-        RoseSyntheticApertureFiltering::InternalExpectedAoAMeas::InternalExpectedAoAMeas(*(a6 + 8), &v48, &v43, v64[0], v53);
+        RoseSyntheticApertureFiltering::InternalExpectedAoAMeas::InternalExpectedAoAMeas(a6[1], &v48, &v43, v64[0], v53);
         v40 = v39 + 192;
-        *(a6 + 8) = v39 + 192;
+        a6[1] = v39 + 192;
       }
 
-      *(a6 + 8) = v40;
+      a6[1] = v40;
       v28 += 26;
     }
 
@@ -6536,14 +6481,12 @@ void RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter::measMod
   }
 }
 
-void *std::vector<cnmatrix::CNMatrix<2u,1u,double>>::reserve(void *result, unint64_t a2)
+uint64_t *std::vector<cnmatrix::CNMatrix<2u,1u,double>>::reserve(uint64_t *result, unint64_t a2)
 {
   if (0x6DB6DB6DB6DB6DB7 * ((result[2] - *result) >> 3) < a2)
   {
     if (a2 < 0x492492492492493)
     {
-      v2 = result[1] - *result;
-      v3 = result;
       std::__allocate_at_least[abi:ne200100]<std::allocator<cnmatrix::CNMatrix<2u,1u,double>>>(result, a2);
     }
 
@@ -6553,112 +6496,125 @@ void *std::vector<cnmatrix::CNMatrix<2u,1u,double>>::reserve(void *result, unint
   return result;
 }
 
-void sub_2613F586C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2613F586C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<cnmatrix::CNMatrix<2u,1u,double>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
 
-void cnmatrix::Eig<2u,2u,2u,2u,2u,2u,double>(uint64_t a1, uint64_t a2, uint64_t a3)
+void cnmatrix::Eig<2u,2u,2u,2u,2u,2u,double>(_DWORD *a1, uint64_t a2, uint64_t a3)
 {
-  v32 = 0x200000002;
-  v30 = &unk_2873C4508;
-  v31 = xmmword_261415DD0;
-  v33 = &v34;
-  v27 = 0x200000002;
-  v25 = &unk_2873C4508;
-  v26 = xmmword_261415DD0;
-  v28 = &v29;
-  v22 = 0x200000002;
-  v20 = &unk_2873C4508;
-  v21 = xmmword_261415DD0;
-  v23 = &v24;
-  v17 = 0x100000002;
-  v15 = &unk_2873C4478;
-  v16 = xmmword_261415DB0;
-  v18 = &v19;
-  v12 = 0x200000002;
-  v10 = &unk_2873C4508;
-  v11 = xmmword_261415DD0;
-  v13 = &v14;
-  v7 = 0x1000000A8;
-  v5 = &unk_2873C4598;
-  v6 = xmmword_261415E10;
-  v8 = &v9;
-  cnmatrix::Eig<double>(a1, &v30, a3, &v25, a2, &v20, &v15, &v10, &v5);
-  if (DWORD2(v26))
+  v36 = 0x200000002;
+  v34 = &unk_2873C4508;
+  v35 = xmmword_261415DD0;
+  v37 = &v38;
+  v31 = 0x200000002;
+  v29 = &unk_2873C4508;
+  v30 = xmmword_261415DD0;
+  v32 = &v33;
+  v26 = 0x200000002;
+  v24 = &unk_2873C4508;
+  v25 = xmmword_261415DD0;
+  v27 = &v28;
+  v21 = 0x100000002;
+  v19 = &unk_2873C4478;
+  v20 = xmmword_261415DB0;
+  v22 = &v23;
+  v16 = 0x200000002;
+  v14 = &unk_2873C4508;
+  v15 = xmmword_261415DD0;
+  v17 = &v18;
+  v11 = 0x1000000A8;
+  v9 = &unk_2873C4598;
+  v10 = xmmword_261415E10;
+  v12 = &v13;
+  cnmatrix::Eig<double>(a1, &v34, a3, &v29, a2, &v24, &v19, &v14, &v9);
+  if (DWORD2(v30))
   {
     v3 = 0;
-    while (*cnmatrix::CNMatrixBase<double>::operator()(&v25, v3) == 0.0)
+    while (1)
     {
-      if (++v3 >= DWORD2(v26))
+      v4 = *cnmatrix::CNMatrixBase<double>::operator()(&v29, v3);
+      if (v4 != 0.0)
+      {
+        break;
+      }
+
+      if (++v3 >= DWORD2(v30))
       {
         goto LABEL_6;
       }
     }
 
-    cnprint::CNPrinter::Print();
+    v8 = 4;
+    v7 = 2;
+    cnprint::CNPrinter::Print(&v8, &v7, "Warning: Imaginary parts of complex eigenvalues are being ignored.", v4);
   }
 
 LABEL_6:
-  if (DWORD2(v21))
+  if (DWORD2(v25))
   {
-    v4 = 0;
-    while (*cnmatrix::CNMatrixBase<double>::operator()(&v20, v4) == 0.0)
+    v5 = 0;
+    while (1)
     {
-      if (++v4 >= DWORD2(v21))
+      v6 = *cnmatrix::CNMatrixBase<double>::operator()(&v24, v5);
+      if (v6 != 0.0)
+      {
+        break;
+      }
+
+      if (++v5 >= DWORD2(v25))
       {
         return;
       }
     }
 
-    cnprint::CNPrinter::Print();
+    v8 = 4;
+    v7 = 2;
+    cnprint::CNPrinter::Print(&v8, &v7, "Warning: Imaginary parts of complex eigenvectors are being ignored.", v6);
   }
 }
 
-void *std::vector<double>::reserve(void *result, unint64_t a2)
+void std::vector<double>::reserve(void *a1, unint64_t a2)
 {
-  if (a2 > (result[2] - *result) >> 3)
+  if (a2 > (a1[2] - *a1) >> 3)
   {
     if (!(a2 >> 61))
     {
-      v2 = result[1] - *result;
-      std::__allocate_at_least[abi:ne200100]<std::allocator<unsigned long>>(result, a2);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<unsigned long>>(a1, a2);
     }
 
     std::vector<unsigned char>::__throw_length_error[abi:ne200100]();
   }
-
-  return result;
 }
 
-uint64_t std::vector<RoseSyntheticApertureFiltering::InternalAoAMeas>::push_back[abi:ne200100](uint64_t a1, _OWORD *a2)
+uint64_t std::vector<RoseSyntheticApertureFiltering::InternalAoAMeas>::push_back[abi:ne200100](uint64_t *a1, _OWORD *a2)
 {
-  v3 = *(a1 + 8);
-  if (v3 >= *(a1 + 16))
+  v3 = a1[1];
+  if (v3 >= a1[2])
   {
     result = std::vector<RoseSyntheticApertureFiltering::InternalAoAMeas>::__emplace_back_slow_path<RoseSyntheticApertureFiltering::InternalAoAMeas const&>(a1, a2);
   }
 
   else
   {
-    std::allocator<RoseSyntheticApertureFiltering::InternalAoAMeas>::construct[abi:ne200100]<RoseSyntheticApertureFiltering::InternalAoAMeas,RoseSyntheticApertureFiltering::InternalAoAMeas const&>(a1, *(a1 + 8), a2);
+    std::allocator<RoseSyntheticApertureFiltering::InternalAoAMeas>::construct[abi:ne200100]<RoseSyntheticApertureFiltering::InternalAoAMeas,RoseSyntheticApertureFiltering::InternalAoAMeas const&>(a1, a1[1], a2);
     result = v3 + 208;
-    *(a1 + 8) = v3 + 208;
+    a1[1] = v3 + 208;
   }
 
-  *(a1 + 8) = result;
+  a1[1] = result;
   return result;
 }
 
-void RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter::checkFoVBatchMultiple(uint64_t *a1@<X1>, uint64_t a2@<X2>, void *a3@<X8>)
+void RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter::checkFoVBatchMultiple(uint64_t *a1@<X1>, uint64_t *a2@<X2>, uint64_t *a3@<X8>)
 {
   *a3 = 0;
   a3[1] = 0;
   a3[2] = 0;
   v3 = *a2;
-  v4 = *(a2 + 8);
+  v4 = a2[1];
   if (*a2 != v4)
   {
     do
@@ -6702,14 +6658,14 @@ LABEL_11:
   }
 }
 
-void sub_2613F5CC8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2613F5CC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::vector<RoseSyntheticApertureFiltering::InternalAoAMeas>::__destroy_vector::operator()[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-uint64_t std::vector<RoseSyntheticApertureFiltering::BatchSolutionParticle>::__init_with_size[abi:ne200100]<RoseSyntheticApertureFiltering::BatchSolutionParticle*,RoseSyntheticApertureFiltering::BatchSolutionParticle*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<RoseSyntheticApertureFiltering::BatchSolutionParticle>::__init_with_size[abi:ne200100]<RoseSyntheticApertureFiltering::BatchSolutionParticle*,RoseSyntheticApertureFiltering::BatchSolutionParticle*>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -6731,7 +6687,7 @@ void sub_2613F5D44(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<RoseSyntheticApertureFiltering::BatchSolutionParticle>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<RoseSyntheticApertureFiltering::BatchSolutionParticle>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0x186186186186187)
   {
@@ -6758,7 +6714,7 @@ void std::__throw_bad_array_new_length[abi:ne200100]()
   __cxa_throw(v1, MEMORY[0x277D82778], MEMORY[0x277D82620]);
 }
 
-void *std::vector<RoseSyntheticApertureFiltering::BatchSolutionParticle>::__assign_with_size[abi:ne200100]<RoseSyntheticApertureFiltering::BatchSolutionParticle*,RoseSyntheticApertureFiltering::BatchSolutionParticle*>(void *result, char *__src, char *a3, unint64_t a4)
+uint64_t *std::vector<RoseSyntheticApertureFiltering::BatchSolutionParticle>::__assign_with_size[abi:ne200100]<RoseSyntheticApertureFiltering::BatchSolutionParticle*,RoseSyntheticApertureFiltering::BatchSolutionParticle*>(uint64_t *result, char *__src, char *a3, unint64_t a4)
 {
   v6 = result;
   v7 = result[2];
@@ -6822,77 +6778,68 @@ void *std::vector<RoseSyntheticApertureFiltering::BatchSolutionParticle>::__assi
       v12 = v6[1];
     }
 
-    v15 = a3 - v14;
+    v15 = (a3 - v14);
     if (a3 != v14)
     {
-      result = memmove(v12, v14, v15 - 4);
+      result = memmove(v12, v14, (v15 - 4));
     }
 
-    v16 = &v12[v15];
+    v16 = &v15[v12];
   }
 
   v6[1] = v16;
   return result;
 }
 
-BOOL std::_MinmaxElementLessFunc<RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter::spatialBinning(std::vector<RoseSyntheticApertureFiltering::InternalRangeMeas>)::$_0,std::__identity>::operator()[abi:ne200100]<std::__wrap_iter<RoseSyntheticApertureFiltering::InternalRangeMeas const*>>(__int128 **a1, __int128 **a2)
+BOOL std::_MinmaxElementLessFunc<RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter::spatialBinning(std::vector<RoseSyntheticApertureFiltering::InternalRangeMeas>)::$_0,std::__identity>::operator()[abi:ne200100]<std::__wrap_iter<RoseSyntheticApertureFiltering::InternalRangeMeas const*>>(__int128 **a1, uint64_t *a2)
 {
   v2 = *a1;
   v3 = *a2;
   v4 = **a1;
   v5 = (*a1)[1];
-  v14 = *(*a1 + 4);
-  v12 = v4;
-  v13 = v5;
-  cnmatrix::CNMatrix<3u,1u,double>::CNMatrix(v15, v2 + 40);
-  v15[16] = *(v2 + 26);
-  v10 = *(v3 + 4);
-  v8 = *v3;
-  v9 = v3[1];
-  cnmatrix::CNMatrix<3u,1u,double>::CNMatrix(v11, v3 + 40);
-  v11[16] = *(v3 + 26);
-  v6 = cnmatrix::CNMatrixBase<double>::operator()(v15, 0);
-  return v6 < cnmatrix::CNMatrixBase<double>::operator()(v11, 0);
+  v11 = *(*a1 + 4);
+  v9 = v4;
+  v10 = v5;
+  cnmatrix::CNMatrix<3u,1u,double>::CNMatrix(v12, v2 + 40);
+  v12[16] = *(v2 + 26);
+  cnmatrix::CNMatrix<3u,1u,double>::CNMatrix(v8, v3 + 40);
+  v8[16] = *(v3 + 104);
+  v6 = cnmatrix::CNMatrixBase<double>::operator()(v12, 0);
+  return v6 < cnmatrix::CNMatrixBase<double>::operator()(v8, 0);
 }
 
-BOOL std::_MinmaxElementLessFunc<RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter::spatialBinning(std::vector<RoseSyntheticApertureFiltering::InternalRangeMeas>)::$_1,std::__identity>::operator()[abi:ne200100]<std::__wrap_iter<RoseSyntheticApertureFiltering::InternalRangeMeas const*>>(__int128 **a1, __int128 **a2)
+BOOL std::_MinmaxElementLessFunc<RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter::spatialBinning(std::vector<RoseSyntheticApertureFiltering::InternalRangeMeas>)::$_1,std::__identity>::operator()[abi:ne200100]<std::__wrap_iter<RoseSyntheticApertureFiltering::InternalRangeMeas const*>>(__int128 **a1, uint64_t *a2)
 {
   v2 = *a1;
   v3 = *a2;
   v4 = **a1;
   v5 = (*a1)[1];
-  v14 = *(*a1 + 4);
-  v12 = v4;
-  v13 = v5;
-  cnmatrix::CNMatrix<3u,1u,double>::CNMatrix(v15, v2 + 40);
-  v15[16] = *(v2 + 26);
-  v10 = *(v3 + 4);
-  v8 = *v3;
-  v9 = v3[1];
-  cnmatrix::CNMatrix<3u,1u,double>::CNMatrix(v11, v3 + 40);
-  v11[16] = *(v3 + 26);
-  v6 = cnmatrix::CNMatrixBase<double>::operator()(v15, 1u);
-  return v6 < cnmatrix::CNMatrixBase<double>::operator()(v11, 1u);
+  v11 = *(*a1 + 4);
+  v9 = v4;
+  v10 = v5;
+  cnmatrix::CNMatrix<3u,1u,double>::CNMatrix(v12, v2 + 40);
+  v12[16] = *(v2 + 26);
+  cnmatrix::CNMatrix<3u,1u,double>::CNMatrix(v8, v3 + 40);
+  v8[16] = *(v3 + 104);
+  v6 = cnmatrix::CNMatrixBase<double>::operator()(v12, 1);
+  return v6 < cnmatrix::CNMatrixBase<double>::operator()(v8, 1);
 }
 
-BOOL std::_MinmaxElementLessFunc<RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter::spatialBinning(std::vector<RoseSyntheticApertureFiltering::InternalRangeMeas>)::$_2,std::__identity>::operator()[abi:ne200100]<std::__wrap_iter<RoseSyntheticApertureFiltering::InternalRangeMeas const*>>(__int128 **a1, __int128 **a2)
+BOOL std::_MinmaxElementLessFunc<RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter::spatialBinning(std::vector<RoseSyntheticApertureFiltering::InternalRangeMeas>)::$_2,std::__identity>::operator()[abi:ne200100]<std::__wrap_iter<RoseSyntheticApertureFiltering::InternalRangeMeas const*>>(__int128 **a1, uint64_t *a2)
 {
   v2 = *a1;
   v3 = *a2;
   v4 = **a1;
   v5 = (*a1)[1];
-  v14 = *(*a1 + 4);
-  v12 = v4;
-  v13 = v5;
-  cnmatrix::CNMatrix<3u,1u,double>::CNMatrix(v15, v2 + 40);
-  v15[16] = *(v2 + 26);
-  v10 = *(v3 + 4);
-  v8 = *v3;
-  v9 = v3[1];
-  cnmatrix::CNMatrix<3u,1u,double>::CNMatrix(v11, v3 + 40);
-  v11[16] = *(v3 + 26);
-  v6 = cnmatrix::CNMatrixBase<double>::operator()(v15, 2u);
-  return v6 < cnmatrix::CNMatrixBase<double>::operator()(v11, 2u);
+  v11 = *(*a1 + 4);
+  v9 = v4;
+  v10 = v5;
+  cnmatrix::CNMatrix<3u,1u,double>::CNMatrix(v12, v2 + 40);
+  v12[16] = *(v2 + 26);
+  cnmatrix::CNMatrix<3u,1u,double>::CNMatrix(v8, v3 + 40);
+  v8[16] = *(v3 + 104);
+  v6 = cnmatrix::CNMatrixBase<double>::operator()(v12, 2);
+  return v6 < cnmatrix::CNMatrixBase<double>::operator()(v8, 2);
 }
 
 void std::__throw_bad_optional_access[abi:ne200100]()
@@ -6963,12 +6910,7 @@ double *std::__minmax_element_impl[abi:ne200100]<std::__wrap_iter<double *>,std:
         }
       }
 
-      if (*v7 >= *result)
-      {
-        *v6;
-      }
-
-      else
+      if (*v7 < *result)
       {
         return v7;
       }
@@ -6976,13 +6918,6 @@ double *std::__minmax_element_impl[abi:ne200100]<std::__wrap_iter<double *>,std:
   }
 
   return result;
-}
-
-void cnmatrix::CNMatrix<3u,3u,double>::TransposeDataFootprint(uint64_t a1)
-{
-  v3 = *MEMORY[0x277D85DE8];
-  cnmatrix::CNMatrix<3u,1u,double>::TransposeDataFootprint(a1, v2);
-  v1 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t cnmatrix::CNMatrix<3u,3u,double>::CNMatrix(uint64_t result, unsigned int a2, unsigned int a3)
@@ -7384,14 +7319,14 @@ uint64_t std::__split_buffer<RoseSyntheticApertureFiltering::InternalRangeMeas>:
   return a1;
 }
 
-double *cnmatrix::Transpose<double>(uint64_t a1, _DWORD *a2)
+double *cnmatrix::Transpose<double>(_DWORD *a1, _DWORD *a2)
 {
   if (a1 == a2)
   {
     cnmatrix::Transpose<double>();
   }
 
-  result = cnmatrix::FastResize<double>(a2, *(a1 + 12), *(a1 + 8));
+  result = cnmatrix::FastResize<double>(a2, a1[3], a1[2]);
   v5 = a2[2];
   if (v5)
   {
@@ -7462,7 +7397,7 @@ uint64_t cnmatrix::CNMatrixBase<double>::operator()(uint64_t a1, int a2, int a3)
   return v3 + 8 * v4;
 }
 
-double cnmatrix::CNMatrixBase<double>::operator()(uint64_t a1, unsigned int a2)
+double cnmatrix::CNMatrixBase<double>::operator()(uint64_t a1, signed int a2)
 {
   v2 = *(a1 + 32);
   if (!v2)
@@ -7470,7 +7405,7 @@ double cnmatrix::CNMatrixBase<double>::operator()(uint64_t a1, unsigned int a2)
     cnmatrix::CNMatrixBase<double>::operator()();
   }
 
-  if ((a2 & 0x80000000) != 0)
+  if (a2 < 0)
   {
     cnmatrix::CNMatrixBase<double>::operator()();
   }
@@ -7483,59 +7418,59 @@ double cnmatrix::CNMatrixBase<double>::operator()(uint64_t a1, unsigned int a2)
   return *(v2 + 8 * a2);
 }
 
-void std::__tree<std::__value_type<unsigned int,unsigned int>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,unsigned int>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,unsigned int>>>::destroy(uint64_t a1, void *a2)
+void std::__tree<std::__value_type<unsigned int,unsigned int>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,unsigned int>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,unsigned int>>>::destroy(uint64_t a1, void *a2, __n128 a3)
 {
   if (a2)
   {
-    std::__tree<std::__value_type<unsigned int,unsigned int>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,unsigned int>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,unsigned int>>>::destroy(a1, *a2);
-    std::__tree<std::__value_type<unsigned int,unsigned int>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,unsigned int>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,unsigned int>>>::destroy(a1, a2[1]);
+    std::__tree<std::__value_type<unsigned int,unsigned int>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,unsigned int>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,unsigned int>>>::destroy(a1, *a2, a3);
+    std::__tree<std::__value_type<unsigned int,unsigned int>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,unsigned int>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,unsigned int>>>::destroy(a1, a2[1], v5);
 
     operator delete(a2);
   }
 }
 
-uint64_t *std::__tree<std::__value_type<unsigned int,unsigned int>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,unsigned int>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,unsigned int>>>::__emplace_unique_key_args<unsigned int,std::pair<unsigned int const,unsigned int>>(uint64_t a1, unsigned int *a2)
+uint64_t *std::__tree<std::__value_type<unsigned int,unsigned int>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,unsigned int>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,unsigned int>>>::__emplace_unique_key_args<unsigned int,std::pair<unsigned int const,unsigned int>>(uint64_t a1, unsigned int *a2, void *a3)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v3 = *(a1 + 8);
+  if (!v3)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v4 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = *(v2 + 28);
-      if (v3 >= v5)
+      v5 = v3;
+      v6 = *(v3 + 28);
+      if (v4 >= v6)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v3 = *v5;
+      if (!*v5)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v6 >= v4)
     {
-      return v4;
+      return v5;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v3 = v5[1];
+    if (!v3)
     {
       goto LABEL_8;
     }
   }
 }
 
-uint64_t *std::__tree<std::__value_type<unsigned int,unsigned int>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,unsigned int>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,unsigned int>>>::__insert_node_at(uint64_t **a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
+uint64_t *std::__tree<std::__value_type<unsigned int,unsigned int>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,unsigned int>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,unsigned int>>>::__insert_node_at(uint64_t ***a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
 {
   *a4 = 0;
   a4[1] = 0;
@@ -7561,12 +7496,12 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
     do
     {
       v2 = a2[2];
-      if (v2[3])
+      if (*(v2 + 24))
       {
         break;
       }
 
-      v3 = v2[2];
+      v3 = *(v2 + 16);
       v4 = *v3;
       if (*v3 == v2)
       {
@@ -7580,22 +7515,22 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
 
           else
           {
-            v11 = v2[1];
+            v11 = *(v2 + 8);
             v12 = *v11;
-            v2[1] = *v11;
+            *(v2 + 8) = *v11;
             v13 = v2;
             if (v12)
             {
-              v12[2] = v2;
-              v3 = v2[2];
+              *(v12 + 16) = v2;
+              v3 = *(v2 + 16);
               v13 = *v3;
             }
 
-            v11[2] = v3;
+            *(v11 + 16) = v3;
             v3[v13 != v2] = v11;
             *v11 = v2;
-            v2[2] = v11;
-            v3 = v11[2];
+            *(v2 + 16) = v11;
+            v3 = *(v11 + 16);
             v4 = *v3;
           }
 
@@ -7629,13 +7564,13 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
             if (v14)
             {
               *(v14 + 16) = v2;
-              v3 = v2[2];
+              v3 = *(v2 + 16);
             }
 
             v10[2] = v3;
             v3[*v3 != v2] = v10;
             v10[1] = v2;
-            v2[2] = v10;
+            *(v2 + 16) = v10;
             v3 = v10[2];
           }
 
@@ -7730,14 +7665,14 @@ uint64_t std::vector<RoseSyntheticApertureFiltering::InternalRangeMeas>::__empla
   return v9;
 }
 
-void sub_2613F7160(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2613F7160(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<RoseSyntheticApertureFiltering::InternalRangeMeas>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t std::vector<RoseSyntheticApertureFiltering::InternalRangeMeas>::__init_with_size[abi:ne200100]<RoseSyntheticApertureFiltering::InternalRangeMeas*,RoseSyntheticApertureFiltering::InternalRangeMeas*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<RoseSyntheticApertureFiltering::InternalRangeMeas>::__init_with_size[abi:ne200100]<RoseSyntheticApertureFiltering::InternalRangeMeas*,RoseSyntheticApertureFiltering::InternalRangeMeas*>(uint64_t *result, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -7754,7 +7689,7 @@ void sub_2613F71DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void std::vector<RoseSyntheticApertureFiltering::InternalRangeMeas>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<RoseSyntheticApertureFiltering::InternalRangeMeas>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0x24924924924924ALL)
   {
@@ -7890,14 +7825,14 @@ uint64_t std::vector<RoseSyntheticApertureFiltering::InternalRangeMeas>::__empla
   return v9;
 }
 
-void sub_2613F74CC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2613F74CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<RoseSyntheticApertureFiltering::InternalRangeMeas>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
 
-void std::vector<RoseSyntheticApertureFiltering::InternalRangeMeas>::__assign_with_size[abi:ne200100]<RoseSyntheticApertureFiltering::InternalRangeMeas*,RoseSyntheticApertureFiltering::InternalRangeMeas*>(uint64_t a1, __int128 *a2, uint64_t a3, unint64_t a4)
+void std::vector<RoseSyntheticApertureFiltering::InternalRangeMeas>::__assign_with_size[abi:ne200100]<RoseSyntheticApertureFiltering::InternalRangeMeas*,RoseSyntheticApertureFiltering::InternalRangeMeas*>(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   v6 = a2;
   v8 = *a1;
@@ -7936,14 +7871,14 @@ void std::vector<RoseSyntheticApertureFiltering::InternalRangeMeas>::__assign_wi
       do
       {
         v15 = *v6;
-        v16 = v6[1];
-        *(v8 + 4) = *(v6 + 4);
+        v16 = *(v6 + 16);
+        *(v8 + 4) = *(v6 + 32);
         *v8 = v15;
         *(v8 + 1) = v16;
         cnmatrix::CNMatrixBase<double>::operator=((v8 + 40), v6 + 40);
-        *(v8 + 26) = *(v6 + 26);
+        *(v8 + 26) = *(v6 + 104);
         v8 += 112;
-        v6 += 7;
+        v6 += 112;
       }
 
       while (v6 != a3);
@@ -7974,13 +7909,13 @@ void std::vector<RoseSyntheticApertureFiltering::InternalRangeMeas>::__assign_wi
       do
       {
         v13 = *v6;
-        v14 = v6[1];
-        *(v8 + 4) = *(v6 + 4);
+        v14 = *(v6 + 16);
+        *(v8 + 4) = *(v6 + 32);
         *v8 = v13;
         *(v8 + 1) = v14;
         cnmatrix::CNMatrixBase<double>::operator=((v8 + 40), v6 + 40);
-        *(v8 + 26) = *(v6 + 26);
-        v6 += 7;
+        *(v8 + 26) = *(v6 + 104);
+        v6 += 112;
         v8 += 112;
       }
 
@@ -8079,9 +8014,9 @@ uint64_t std::vector<RoseSyntheticApertureFiltering::InternalRangeMeas>::__empla
   return v9;
 }
 
-void sub_2613F78CC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2613F78CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<RoseSyntheticApertureFiltering::InternalRangeMeas>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -8170,7 +8105,7 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<RoseSyntheticAperture
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-void std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<RoseSyntheticApertureFiltering::InternalExpectedRangeMeas>,RoseSyntheticApertureFiltering::InternalExpectedRangeMeas*>(uint64_t a1, void *a2, void *a3, uint64_t a4)
+void std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<RoseSyntheticApertureFiltering::InternalExpectedRangeMeas>,RoseSyntheticApertureFiltering::InternalExpectedRangeMeas*>(uint64_t result, void *a2, void *a3, uint64_t a4)
 {
   if (a2 != a3)
   {
@@ -8179,7 +8114,7 @@ void std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<RoseSy
     v9 = a2;
     do
     {
-      std::allocator<RoseSyntheticApertureFiltering::InternalExpectedRangeMeas>::construct[abi:ne200100]<RoseSyntheticApertureFiltering::InternalExpectedRangeMeas,RoseSyntheticApertureFiltering::InternalExpectedRangeMeas const&>(a1, (a4 + v8), v9);
+      std::allocator<RoseSyntheticApertureFiltering::InternalExpectedRangeMeas>::construct[abi:ne200100]<RoseSyntheticApertureFiltering::InternalExpectedRangeMeas,RoseSyntheticApertureFiltering::InternalExpectedRangeMeas const&>(result, (a4 + v8), v9);
       v9 += 17;
       v8 += 136;
     }
@@ -8187,13 +8122,13 @@ void std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<RoseSy
     while (v9 != a3);
     if (v6 != a3)
     {
-      v10 = v6 + 9;
+      v10 = v6 + 72;
       do
       {
-        v6[9] = &unk_2873C4140;
-        v6[1] = &unk_2873C4140;
-        v6 += 17;
-        v10 += 17;
+        *(v6 + 72) = &unk_2873C4140;
+        *(v6 + 8) = &unk_2873C4140;
+        v6 += 136;
+        v10 += 136;
       }
 
       while (v6 != a3);
@@ -8213,9 +8148,9 @@ void sub_2613F7B2C(_Unwind_Exception *exception_object)
 
 double std::allocator<RoseSyntheticApertureFiltering::InternalExpectedRangeMeas>::construct[abi:ne200100]<RoseSyntheticApertureFiltering::InternalExpectedRangeMeas,RoseSyntheticApertureFiltering::InternalExpectedRangeMeas const&>(uint64_t a1, void *a2, void *a3)
 {
-  v3 = (a3 + 9);
+  v3 = a3 + 9;
   *a2 = *a3;
-  v4 = (a2 + 9);
+  v4 = a2 + 9;
   cnmatrix::CNMatrix<1u,3u,double>::CNMatrix((a2 + 1), (a3 + 1));
   *&result = cnmatrix::CNMatrix<3u,1u,double>::CNMatrix(v4, v3).n128_u64[0];
   return result;
@@ -8346,7 +8281,7 @@ uint64_t std::__split_buffer<RoseSyntheticApertureFiltering::InternalExpectedRan
   return a1;
 }
 
-cnprint::CNPrinter *cnmatrix::Inv<double>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+cnprint::CNPrinter *cnmatrix::Inv<double>(unsigned int *a1, uint64_t a2, uint64_t a3, unsigned int *a4)
 {
   if (a1 == a3)
   {
@@ -8363,8 +8298,8 @@ cnprint::CNPrinter *cnmatrix::Inv<double>(uint64_t a1, uint64_t a2, uint64_t a3,
     cnmatrix::Inv<double>();
   }
 
-  v7 = *(a1 + 8);
-  if (v7 != *(a1 + 12))
+  v7 = a1[2];
+  if (v7 != a1[3])
   {
     cnmatrix::Inv<double>();
   }
@@ -8379,72 +8314,87 @@ cnprint::CNPrinter *cnmatrix::Inv<double>(uint64_t a1, uint64_t a2, uint64_t a3,
     cnmatrix::Inv<double>();
   }
 
-  if (*(a4 + 24) < v7)
+  if (a4[6] < v7)
   {
     cnmatrix::Inv<double>();
   }
 
-  if (*(a4 + 28) < v7)
+  if (a4[7] < v7)
   {
     cnmatrix::Inv<double>();
   }
 
   cnmatrix::CNMatrixBase<double>::operator=(a4, a1);
-  v8 = *(a4 + 8);
-  v9 = *(a4 + 12);
-  v10 = *(a4 + 32);
-  v11 = *(a4 + 20);
-  v12 = *(a2 + 32);
+  v8 = a4[2];
+  v9 = a4[3];
+  v10 = a4[5];
+  v11 = *(a2 + 32);
+  v24 = a4[3];
+  v25 = v8;
   if (v8 < 1)
   {
-    cnmatrix::Inv<double>();
+    cnmatrix::Inv<double>(-1);
   }
 
-  v13 = 4 * v8;
-  v14 = operator new[](4 * v8, MEMORY[0x277D826F0]);
-  if (!v14)
+  v12 = 4 * v8;
+  v13 = operator new[](4 * v8, MEMORY[0x277D826F0]);
+  if (!v13)
   {
-    cnmatrix::Inv<double>();
+    cnmatrix::Inv<double>(-5);
   }
 
-  v15 = v14;
+  v14 = v13;
   dgetrf_NEWLAPACK();
-  memcpy(v12, v15, v13);
-  MEMORY[0x266701580](v15, 0x1000C8052888210);
-  v16 = *(a3 + 32);
-  v17 = *(a3 + 28) * *(a3 + 24);
-  if (v9 >= 1 && (v18 = 4 * v9, (v19 = operator new[](v18, MEMORY[0x277D826F0])) != 0))
+  memcpy(v11, v14, v12);
+  MEMORY[0x266701580](v14, 0x1000C8052888210);
+  v15 = *(a3 + 28) * *(a3 + 24);
+  v24 = v10;
+  v25 = v9;
+  if (v9 < 1)
   {
-    v20 = v19;
-    memcpy(v19, v12, v18);
-    dgetri_NEWLAPACK();
-    result = MEMORY[0x266701580](v20, 0x1000C8052888210);
-    v22 = 0;
-    v23 = 0;
+    v22 = -1;
+LABEL_16:
+    LOWORD(v25) = 4;
+    LOBYTE(v24) = 5;
+    result = cnprint::CNPrinter::Print(&v25, &v24, "Error using Inv: input argument %d invalid in getri.", -v22);
+    v20 = 1;
+    v21 = 1;
+    goto LABEL_17;
   }
 
-  else
+  v16 = 4 * v9;
+  v17 = operator new[](v16, MEMORY[0x277D826F0]);
+  if (!v17)
   {
-    result = cnprint::CNPrinter::Print();
-    v22 = 1;
-    v23 = 1;
+    v22 = -4;
+    goto LABEL_16;
   }
 
-  if (v17 < **(a3 + 32))
+  v18 = v17;
+  memcpy(v17, v11, v16);
+  dgetri_NEWLAPACK();
+  result = MEMORY[0x266701580](v18, 0x1000C8052888210);
+  v20 = 0;
+  v21 = 0;
+LABEL_17:
+  v23 = **(a3 + 32);
+  if (v15 < v23)
   {
     result = cnprint::CNPrinter::GetLogLevel(result);
     if (result <= 1)
     {
-      result = cnprint::CNPrinter::Print();
+      LOWORD(v25) = 4;
+      LOBYTE(v24) = 1;
+      result = cnprint::CNPrinter::Print(&v25, &v24, "Warning: Inv optimal workspace size %d is greater than provided workspace size %d; performance may suffer.", v23, v15);
     }
   }
 
-  if (v22)
+  if (v20)
   {
     cnmatrix::Inv<double>();
   }
 
-  if (v23)
+  if (v21)
   {
     return cnmatrix::CNMatrixBase<double>::WriteValue(a4, INFINITY);
   }
@@ -8507,13 +8457,6 @@ void cnmatrix::CNMatrix<3u,1u,int>::TransposeDataFootprint(uint64_t a1, char *a2
   }
 }
 
-void cnmatrix::CNMatrix<12u,1u,double>::TransposeDataFootprint(uint64_t a1)
-{
-  v3 = *MEMORY[0x277D85DE8];
-  cnmatrix::CNMatrix<3u,1u,double>::TransposeDataFootprint(a1, v2);
-  v1 = *MEMORY[0x277D85DE8];
-}
-
 void std::vector<cnmatrix::CNMatrix<3u,1u,double>>::__destroy_vector::operator()[abi:ne200100](void ***a1)
 {
   v1 = *a1;
@@ -8524,15 +8467,15 @@ void std::vector<cnmatrix::CNMatrix<3u,1u,double>>::__destroy_vector::operator()
     v5 = **a1;
     if (v4 != v2)
     {
-      v6 = v4 - 64;
-      v7 = v4 - 64;
-      v8 = v4 - 64;
+      v6 = v4 - 8;
+      v7 = v4 - 8;
+      v8 = v4 - 8;
       do
       {
         v9 = *v8;
-        v8 -= 64;
+        v8 -= 8;
         (*v9)(v7);
-        v6 -= 64;
+        v6 -= 8;
         v10 = v7 == v2;
         v7 = v8;
       }
@@ -8579,7 +8522,7 @@ uint64_t std::vector<cnmatrix::CNMatrix<3u,1u,double>>::__emplace_back_slow_path
   }
 
   v14 = 0;
-  v15 = v2 << 6;
+  v15 = (v2 << 6);
   cnmatrix::CNMatrix<3u,1u,double>::CNMatrix(v2 << 6, a2);
   v16 = ((v2 << 6) + 64);
   v8 = a1[1];
@@ -8598,9 +8541,9 @@ uint64_t std::vector<cnmatrix::CNMatrix<3u,1u,double>>::__emplace_back_slow_path
   return v13;
 }
 
-void sub_2613F845C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_2613F845C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<cnmatrix::CNMatrix<3u,1u,double>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -8615,7 +8558,7 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<cnmatrix::CNMatrix<3u
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-void std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<cnmatrix::CNMatrix<3u,1u,double>>,cnmatrix::CNMatrix<3u,1u,double>*>(uint64_t a1, uint64_t a2, void (***a3)(void, __n128), uint64_t a4)
+void std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<cnmatrix::CNMatrix<3u,1u,double>>,cnmatrix::CNMatrix<3u,1u,double>*>(uint64_t a1, void (***a2)(void, __n128), void (***a3)(void, __n128), uint64_t a4)
 {
   if (a2 != a3)
   {
@@ -8625,7 +8568,7 @@ void std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<cnmatr
     do
     {
       v9 = cnmatrix::CNMatrix<3u,1u,double>::CNMatrix(a4 + v7, v8);
-      v8 += 64;
+      v8 += 8;
       v7 += 64;
     }
 
@@ -8711,21 +8654,21 @@ void sub_2613F86D0(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t std::vector<RoseSyntheticApertureFiltering::FilterInitializationResult>::__emplace_back_slow_path<RoseSyntheticApertureFiltering::FilterInitializationResult>(uint64_t a1, uint64_t a2)
+uint64_t std::vector<RoseSyntheticApertureFiltering::FilterInitializationResult>::__emplace_back_slow_path<RoseSyntheticApertureFiltering::FilterInitializationResult>(uint64_t *a1, uint64_t a2)
 {
-  v2 = 0x51B3BEA3677D46CFLL * ((*(a1 + 8) - *a1) >> 3);
+  v2 = 0x51B3BEA3677D46CFLL * ((a1[1] - *a1) >> 3);
   v3 = v2 + 1;
   if ((v2 + 1) > 0xAE4C415C9882B9)
   {
     std::vector<unsigned char>::__throw_length_error[abi:ne200100]();
   }
 
-  if (0xA3677D46CEFA8D9ELL * ((*(a1 + 16) - *a1) >> 3) > v3)
+  if (0xA3677D46CEFA8D9ELL * ((a1[2] - *a1) >> 3) > v3)
   {
-    v3 = 0xA3677D46CEFA8D9ELL * ((*(a1 + 16) - *a1) >> 3);
+    v3 = 0xA3677D46CEFA8D9ELL * ((a1[2] - *a1) >> 3);
   }
 
-  if ((0x51B3BEA3677D46CFLL * ((*(a1 + 16) - *a1) >> 3)) >= 0x572620AE4C415CLL)
+  if ((0x51B3BEA3677D46CFLL * ((a1[2] - *a1) >> 3)) >= 0x572620AE4C415CLL)
   {
     v6 = 0xAE4C415C9882B9;
   }
@@ -8754,14 +8697,14 @@ uint64_t std::vector<RoseSyntheticApertureFiltering::FilterInitializationResult>
   *(v7 + 368) = *(a2 + 368);
   *(v7 + 360) = v8;
   *&v17 = v17 + 376;
-  v9 = *(a1 + 8);
+  v9 = a1[1];
   v10 = v16 + *a1 - v9;
   std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<RoseSyntheticApertureFiltering::FilterInitializationResult>,RoseSyntheticApertureFiltering::FilterInitializationResult*>(a1, *a1, v9, v10);
   v11 = *a1;
   *a1 = v10;
-  v12 = *(a1 + 16);
+  v12 = a1[2];
   v14 = v17;
-  *(a1 + 8) = v17;
+  *(a1 + 1) = v17;
   *&v17 = v11;
   *(&v17 + 1) = v12;
   v15 = v11;
@@ -8770,12 +8713,12 @@ uint64_t std::vector<RoseSyntheticApertureFiltering::FilterInitializationResult>
   return v14;
 }
 
-void sub_2613F88BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_2613F88BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
-  *v6 = &unk_2873C4140;
-  *v5 = &unk_2873C4140;
-  *v4 = &unk_2873C4140;
+  va_start(va, a7);
+  *v9 = &unk_2873C4140;
+  *v8 = &unk_2873C4140;
+  *v7 = &unk_2873C4140;
   std::__split_buffer<RoseSyntheticApertureFiltering::FilterInitializationResult>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -8810,7 +8753,7 @@ uint64_t std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<Ro
     do
     {
       std::allocator_traits<std::allocator<RoseSyntheticApertureFiltering::FilterInitializationResult>>::construct[abi:ne200100]<RoseSyntheticApertureFiltering::FilterInitializationResult,RoseSyntheticApertureFiltering::FilterInitializationResult const&,0>(a1, a4, v7);
-      v7 += 376;
+      v7 += 47;
       a4 = v13 + 376;
       v13 += 376;
     }
@@ -8981,19 +8924,19 @@ uint64_t std::__move_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100]<Rose
   return v6;
 }
 
-double std::__introsort<std::_ClassicAlgPolicy,RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter::batchSolver(void)::$_2 &,RoseSyntheticApertureFiltering::FilterInitializationResult *,false>(uint64_t a1, uint64_t a2, uint64_t a3, char a4, __n128 a5)
+double std::__introsort<std::_ClassicAlgPolicy,RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter::batchSolver(void)::$_2 &,RoseSyntheticApertureFiltering::FilterInitializationResult *,false>(double *a1, double *a2, uint64_t a3, char a4, __n128 a5)
 {
 LABEL_1:
   v8 = a2;
-  v124 = (a2 - 392);
-  v125 = (a2 - 376);
-  v123 = (a2 - 768);
+  v122 = a2 - 49;
+  v123 = (a2 - 47);
+  v121 = a2 - 96;
   v9 = a1;
   while (1)
   {
     a1 = v9;
-    v10 = &v8[-v9];
-    v11 = 0x51B3BEA3677D46CFLL * (&v8[-v9] >> 3);
+    v10 = v8 - v9;
+    v11 = 0x51B3BEA3677D46CFLL * (v8 - v9);
     v12 = v11 - 2;
     if (v11 <= 2)
     {
@@ -9005,8 +8948,8 @@ LABEL_1:
       v8 = a2;
       if (v11 == 2)
       {
-        a5.n128_u64[0] = *(a2 - 16);
-        if (a5.n128_f64[0] >= *(a1 + 360))
+        a5.n128_f64[0] = *(a2 - 2);
+        if (a5.n128_f64[0] >= a1[45])
         {
           return a5.n128_f64[0];
         }
@@ -9014,7 +8957,7 @@ LABEL_1:
 LABEL_110:
         v70 = a1;
 LABEL_111:
-        v71 = (a2 - 376);
+        v71 = a2 - 47;
 LABEL_112:
         std::iter_swap[abi:ne200100]<RoseSyntheticApertureFiltering::FilterInitializationResult *,RoseSyntheticApertureFiltering::FilterInitializationResult *>(v70, v71);
         return a5.n128_f64[0];
@@ -9030,35 +8973,35 @@ LABEL_112:
 
     if (v11 == 4)
     {
-      std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter::batchSolver(void)::$_2 &,RoseSyntheticApertureFiltering::FilterInitializationResult *,0>(a1, a1 + 376, a1 + 752, v125);
+      std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter::batchSolver(void)::$_2 &,RoseSyntheticApertureFiltering::FilterInitializationResult *,0>(a1, (a1 + 47), (a1 + 94), v123);
       return a5.n128_f64[0];
     }
 
     if (v11 == 5)
     {
-      std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter::batchSolver(void)::$_2 &,RoseSyntheticApertureFiltering::FilterInitializationResult *,0>(a1, a1 + 376, a1 + 752, a1 + 1128);
-      a5.n128_u64[0] = *(v8 - 2);
-      if (a5.n128_f64[0] >= *(a1 + 1488))
+      std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter::batchSolver(void)::$_2 &,RoseSyntheticApertureFiltering::FilterInitializationResult *,0>(a1, (a1 + 47), (a1 + 94), (a1 + 141));
+      a5.n128_f64[0] = *(v8 - 2);
+      if (a5.n128_f64[0] >= a1[186])
       {
         return a5.n128_f64[0];
       }
 
-      std::iter_swap[abi:ne200100]<RoseSyntheticApertureFiltering::FilterInitializationResult *,RoseSyntheticApertureFiltering::FilterInitializationResult *>((a1 + 1128), v125);
-      a5.n128_u64[0] = *(a1 + 1488);
-      if (a5.n128_f64[0] >= *(a1 + 1112))
+      std::iter_swap[abi:ne200100]<RoseSyntheticApertureFiltering::FilterInitializationResult *,RoseSyntheticApertureFiltering::FilterInitializationResult *>(a1 + 1128, v123);
+      a5.n128_f64[0] = a1[186];
+      if (a5.n128_f64[0] >= a1[139])
       {
         return a5.n128_f64[0];
       }
 
-      std::iter_swap[abi:ne200100]<RoseSyntheticApertureFiltering::FilterInitializationResult *,RoseSyntheticApertureFiltering::FilterInitializationResult *>((a1 + 752), (a1 + 1128));
-      a5.n128_u64[0] = *(a1 + 1112);
-      if (a5.n128_f64[0] >= *(a1 + 736))
+      std::iter_swap[abi:ne200100]<RoseSyntheticApertureFiltering::FilterInitializationResult *,RoseSyntheticApertureFiltering::FilterInitializationResult *>(a1 + 752, a1 + 1128);
+      a5.n128_f64[0] = a1[139];
+      if (a5.n128_f64[0] >= a1[92])
       {
         return a5.n128_f64[0];
       }
 
-      v67 = (a1 + 376);
-      v68 = (a1 + 752);
+      v67 = (a1 + 47);
+      v68 = a1 + 94;
       goto LABEL_163;
     }
 
@@ -9069,122 +9012,120 @@ LABEL_9:
       {
         if (a1 != v8)
         {
-          v72 = (a1 + 376);
-          if (a1 + 376 != a2)
+          v72 = a1 + 47;
+          if (a1 + 47 != a2)
           {
             v73 = 0;
             v74 = a1;
             do
             {
               v75 = v72;
-              a5.n128_u64[0] = *(v74 + 92);
-              if (a5.n128_f64[0] < *(v74 + 45))
+              a5.n128_f64[0] = v74[92];
+              if (a5.n128_f64[0] < v74[45])
               {
-                v76 = *v72;
-                v135 = *v75;
-                cnmatrix::CNMatrix<3u,1u,double>::CNMatrix(v136, (v74 + 384));
-                cnmatrix::CNMatrix<3u,1u,double>::CNMatrix(v137, (v74 + 448));
-                cnmatrix::CNMatrix<3u,3u,double>::CNMatrix(v138, (v74 + 512));
-                cnmatrix::CNMatrix<3u,3u,double>::CNMatrix(v139, (v74 + 624));
-                v140 = *(v74 + 92);
-                v141 = *(v74 + 186);
-                v77 = v73;
+                v133 = *v72;
+                cnmatrix::CNMatrix<3u,1u,double>::CNMatrix(v134, (v74 + 48));
+                cnmatrix::CNMatrix<3u,1u,double>::CNMatrix(v135, (v74 + 56));
+                cnmatrix::CNMatrix<3u,3u,double>::CNMatrix(v136, (v74 + 64));
+                cnmatrix::CNMatrix<3u,3u,double>::CNMatrix(v137, (v74 + 78));
+                v138 = v74[92];
+                v139 = *(v74 + 186);
+                v76 = v73;
                 while (1)
                 {
-                  v78 = a1 + v77;
-                  *(a1 + v77 + 376) = *(a1 + v77);
-                  cnmatrix::CNMatrixBase<double>::operator=(a1 + v77 + 384, a1 + v77 + 8);
-                  cnmatrix::CNMatrixBase<double>::operator=(v78 + 448, v78 + 72);
-                  cnmatrix::CNMatrixBase<double>::operator=(v78 + 512, v78 + 136);
-                  cnmatrix::CNMatrixBase<double>::operator=(v78 + 624, v78 + 248);
-                  *(v78 + 736) = *(v78 + 360);
-                  *(v78 + 744) = *(v78 + 368);
-                  if (!v77)
+                  v77 = a1 + v76;
+                  *(a1 + v76 + 376) = *(a1 + v76);
+                  cnmatrix::CNMatrixBase<double>::operator=(a1 + v76 + 384, a1 + v76 + 8);
+                  cnmatrix::CNMatrixBase<double>::operator=((v77 + 448), (v77 + 72));
+                  cnmatrix::CNMatrixBase<double>::operator=((v77 + 512), (v77 + 136));
+                  cnmatrix::CNMatrixBase<double>::operator=((v77 + 624), (v77 + 248));
+                  *(v77 + 92) = *(v77 + 45);
+                  *(v77 + 186) = *(v77 + 92);
+                  if (!v76)
                   {
                     break;
                   }
 
-                  v77 -= 376;
-                  if (v140 >= *(v78 - 16))
+                  v76 -= 376;
+                  if (v138 >= *(v77 - 2))
                   {
-                    v79 = (a1 + v77 + 376);
+                    v78 = (a1 + v76 + 376);
                     goto LABEL_124;
                   }
                 }
 
-                v79 = a1;
+                v78 = a1;
 LABEL_124:
-                *v79 = v135;
-                cnmatrix::CNMatrixBase<double>::operator=(v78 + 8, v136);
-                cnmatrix::CNMatrixBase<double>::operator=(v78 + 72, v137);
-                cnmatrix::CNMatrixBase<double>::operator=(v78 + 136, v138);
-                a5.n128_u64[0] = cnmatrix::CNMatrixBase<double>::operator=(v78 + 248, v139).n128_u64[0];
-                v80 = v141;
-                *(v78 + 360) = v140;
-                *(v78 + 368) = v80;
+                *v78 = v133;
+                cnmatrix::CNMatrixBase<double>::operator=((v77 + 8), v134);
+                cnmatrix::CNMatrixBase<double>::operator=((v77 + 72), v135);
+                cnmatrix::CNMatrixBase<double>::operator=((v77 + 136), v136);
+                a5.n128_u64[0] = cnmatrix::CNMatrixBase<double>::operator=((v77 + 248), v137).n128_u64[0];
+                v79 = v139;
+                *(v77 + 45) = v138;
+                *(v77 + 92) = v79;
               }
 
-              v72 = v75 + 376;
+              v72 = v75 + 47;
               v73 += 376;
               v74 = v75;
             }
 
-            while (v75 + 376 != a2);
+            while (v75 + 47 != a2);
           }
         }
       }
 
       else if (a1 != v8)
       {
-        v115 = (a1 + 376);
-        if (a1 + 376 != a2)
+        v114 = a1 + 47;
+        if (a1 + 47 != a2)
         {
-          v116 = a1 - 16;
+          v115 = a1 - 2;
           do
           {
-            v117 = v115;
-            a5.n128_u64[0] = *(a1 + 736);
-            if (a5.n128_f64[0] < *(a1 + 360))
+            v116 = v114;
+            a5.n128_f64[0] = a1[92];
+            if (a5.n128_f64[0] < a1[45])
             {
-              v118 = *v115;
-              v135 = *v117;
-              cnmatrix::CNMatrix<3u,1u,double>::CNMatrix(v136, a1 + 384);
-              cnmatrix::CNMatrix<3u,1u,double>::CNMatrix(v137, a1 + 448);
-              cnmatrix::CNMatrix<3u,3u,double>::CNMatrix(v138, a1 + 512);
-              cnmatrix::CNMatrix<3u,3u,double>::CNMatrix(v139, a1 + 624);
-              v140 = *(a1 + 736);
-              v141 = *(a1 + 744);
-              v119 = v116;
+              v133 = *v114;
+              cnmatrix::CNMatrix<3u,1u,double>::CNMatrix(v134, (a1 + 48));
+              cnmatrix::CNMatrix<3u,1u,double>::CNMatrix(v135, (a1 + 56));
+              cnmatrix::CNMatrix<3u,3u,double>::CNMatrix(v136, (a1 + 64));
+              cnmatrix::CNMatrix<3u,3u,double>::CNMatrix(v137, (a1 + 78));
+              v138 = a1[92];
+              v139 = *(a1 + 186);
+              v117 = v115;
               do
               {
-                *(v119 + 392) = *(v119 + 16);
-                cnmatrix::CNMatrixBase<double>::operator=(v119 + 400, v119 + 24);
-                cnmatrix::CNMatrixBase<double>::operator=(v119 + 464, v119 + 88);
-                cnmatrix::CNMatrixBase<double>::operator=(v119 + 528, v119 + 152);
-                cnmatrix::CNMatrixBase<double>::operator=(v119 + 640, v119 + 264);
-                *(v119 + 760) = *(v119 + 384);
-                *(v119 + 752) = *(v119 + 376);
-                v120 = *v119;
-                v119 -= 376;
+                *(v117 + 392) = *(v117 + 16);
+                cnmatrix::CNMatrixBase<double>::operator=((v117 + 50), (v117 + 3));
+                cnmatrix::CNMatrixBase<double>::operator=((v117 + 58), (v117 + 11));
+                cnmatrix::CNMatrixBase<double>::operator=((v117 + 66), (v117 + 19));
+                cnmatrix::CNMatrixBase<double>::operator=((v117 + 80), (v117 + 33));
+                *(v117 + 190) = *(v117 + 96);
+                v117[94] = v117[47];
+                v118 = *v117;
+                v117 -= 47;
               }
 
-              while (v140 < v120);
-              *(v119 + 392) = v135;
-              cnmatrix::CNMatrixBase<double>::operator=(v119 + 400, v136);
-              cnmatrix::CNMatrixBase<double>::operator=(v119 + 464, v137);
-              cnmatrix::CNMatrixBase<double>::operator=(v119 + 528, v138);
-              a5.n128_u64[0] = cnmatrix::CNMatrixBase<double>::operator=(v119 + 640, v139).n128_u64[0];
-              v121 = v141;
-              *(v119 + 752) = v140;
-              *(v119 + 760) = v121;
+              while (v138 < v118);
+              *(v117 + 392) = v133;
+              cnmatrix::CNMatrixBase<double>::operator=((v117 + 50), v134);
+              cnmatrix::CNMatrixBase<double>::operator=((v117 + 58), v135);
+              cnmatrix::CNMatrixBase<double>::operator=((v117 + 66), v136);
+              a5.n128_u64[0] = cnmatrix::CNMatrixBase<double>::operator=((v117 + 80), v137).n128_u64[0];
+              v119 = v139;
+              v117[94] = v138;
+              *(v117 + 190) = v119;
             }
 
-            v115 = v117 + 376;
-            v116 += 376;
-            a1 = v117;
+            v114 = v116 + 47;
+            v115 += 47;
+            a1 = v116;
           }
 
-          while (v117 + 376 != a2);
+          while (v116 + 47 != a2);
         }
       }
 
@@ -9195,230 +9136,230 @@ LABEL_124:
     {
       if (a1 != v8)
       {
+        v80 = v12 >> 1;
         v81 = v12 >> 1;
-        v82 = v12 >> 1;
         do
         {
-          v83 = v82;
-          if (v81 >= v82)
+          v82 = v81;
+          if (v80 >= v81)
           {
-            v84 = (2 * v82) | 1;
-            v85 = a1 + 376 * v84;
-            if (2 * v82 + 2 < v11 && *(v85 + 360) < *(v85 + 736))
+            v83 = (2 * v81) | 1;
+            v84 = &a1[47 * v83];
+            if (2 * v81 + 2 < v11 && v84[45] < v84[92])
             {
-              v85 += 376;
-              v84 = 2 * v82 + 2;
+              v84 += 47;
+              v83 = 2 * v81 + 2;
             }
 
-            v86 = a1 + 376 * v82;
-            if (*(v85 + 360) >= *(v86 + 360))
+            v85 = &a1[47 * v81];
+            if (v84[45] >= v85[45])
             {
-              v135 = *v86;
-              cnmatrix::CNMatrix<3u,1u,double>::CNMatrix(v136, v86 + 8);
-              cnmatrix::CNMatrix<3u,1u,double>::CNMatrix(v137, v86 + 72);
-              cnmatrix::CNMatrix<3u,3u,double>::CNMatrix(v138, v86 + 136);
-              cnmatrix::CNMatrix<3u,3u,double>::CNMatrix(v139, v86 + 248);
-              v87 = *(v86 + 360);
-              v141 = *(v86 + 368);
-              v140 = v87;
+              v133 = *v85;
+              cnmatrix::CNMatrix<3u,1u,double>::CNMatrix(v134, (v85 + 1));
+              cnmatrix::CNMatrix<3u,1u,double>::CNMatrix(v135, (v85 + 9));
+              cnmatrix::CNMatrix<3u,3u,double>::CNMatrix(v136, (v85 + 17));
+              cnmatrix::CNMatrix<3u,3u,double>::CNMatrix(v137, (v85 + 31));
+              v86 = v85[45];
+              v139 = *(v85 + 92);
+              v138 = v86;
               do
               {
-                v88 = v85;
-                *v86 = *v85;
-                cnmatrix::CNMatrixBase<double>::operator=(v86 + 8, v85 + 8);
-                cnmatrix::CNMatrixBase<double>::operator=(v86 + 72, v85 + 72);
-                cnmatrix::CNMatrixBase<double>::operator=(v86 + 136, v85 + 136);
-                cnmatrix::CNMatrixBase<double>::operator=(v86 + 248, v85 + 248);
-                v89 = *(v85 + 368);
-                *(v86 + 360) = *(v85 + 360);
-                *(v86 + 368) = v89;
-                if (v81 < v84)
+                v87 = v84;
+                *v85 = *v84;
+                cnmatrix::CNMatrixBase<double>::operator=((v85 + 1), (v84 + 1));
+                cnmatrix::CNMatrixBase<double>::operator=((v85 + 9), (v84 + 9));
+                cnmatrix::CNMatrixBase<double>::operator=((v85 + 17), (v84 + 17));
+                cnmatrix::CNMatrixBase<double>::operator=((v85 + 31), (v84 + 31));
+                v88 = *(v84 + 92);
+                v85[45] = v84[45];
+                *(v85 + 92) = v88;
+                if (v80 < v83)
                 {
                   break;
                 }
 
-                v90 = 2 * v84;
-                v84 = (2 * v84) | 1;
-                v85 = a1 + 376 * v84;
-                v91 = v90 + 2;
-                if (v91 < v11 && *(v85 + 360) < *(v85 + 736))
+                v89 = 2 * v83;
+                v83 = (2 * v83) | 1;
+                v84 = &a1[47 * v83];
+                v90 = v89 + 2;
+                if (v90 < v11 && v84[45] < v84[92])
                 {
-                  v85 += 376;
-                  v84 = v91;
+                  v84 += 47;
+                  v83 = v90;
                 }
 
-                v86 = v88;
+                v85 = v87;
               }
 
-              while (*(v85 + 360) >= v140);
-              *v88 = v135;
-              cnmatrix::CNMatrixBase<double>::operator=(v88 + 8, v136);
-              cnmatrix::CNMatrixBase<double>::operator=(v88 + 72, v137);
-              cnmatrix::CNMatrixBase<double>::operator=(v88 + 136, v138);
-              cnmatrix::CNMatrixBase<double>::operator=(v88 + 248, v139);
-              v92 = v141;
-              *(v88 + 360) = v140;
-              *(v88 + 368) = v92;
+              while (v84[45] >= v138);
+              *v87 = v133;
+              cnmatrix::CNMatrixBase<double>::operator=((v87 + 1), v134);
+              cnmatrix::CNMatrixBase<double>::operator=((v87 + 9), v135);
+              cnmatrix::CNMatrixBase<double>::operator=((v87 + 17), v136);
+              cnmatrix::CNMatrixBase<double>::operator=((v87 + 31), v137);
+              v91 = v139;
+              v87[45] = v138;
+              *(v87 + 92) = v91;
             }
           }
 
-          v82 = v83 - 1;
+          v81 = v82 - 1;
         }
 
-        while (v83);
-        v93 = 0x51B3BEA3677D46CFLL * (v10 >> 3);
+        while (v82);
+        v92 = 0x51B3BEA3677D46CFLL * (v10 >> 3);
         do
         {
-          v94 = a2;
-          v128 = *a1;
-          cnmatrix::CNMatrix<3u,1u,double>::CNMatrix(v129, a1 + 8);
-          cnmatrix::CNMatrix<3u,1u,double>::CNMatrix(v130, a1 + 72);
-          cnmatrix::CNMatrix<3u,3u,double>::CNMatrix(v131, a1 + 136);
-          cnmatrix::CNMatrix<3u,3u,double>::CNMatrix(v132, a1 + 248);
-          v95 = 0;
-          v96 = *(a1 + 360);
-          v134 = *(a1 + 368);
-          v133 = v96;
-          v97 = a1;
+          v93 = a2;
+          v126 = *a1;
+          cnmatrix::CNMatrix<3u,1u,double>::CNMatrix(v127, (a1 + 1));
+          cnmatrix::CNMatrix<3u,1u,double>::CNMatrix(v128, (a1 + 9));
+          cnmatrix::CNMatrix<3u,3u,double>::CNMatrix(v129, (a1 + 17));
+          cnmatrix::CNMatrix<3u,3u,double>::CNMatrix(v130, (a1 + 31));
+          v94 = 0;
+          v95 = *(a1 + 45);
+          v132 = *(a1 + 92);
+          v131 = v95;
+          v96 = a1;
           do
           {
-            v98 = v97 + 376 * v95;
-            v99 = v98 + 376;
-            if (2 * v95 + 2 >= v93)
+            v97 = &v96[47 * v94];
+            v98 = v97 + 47;
+            if (2 * v94 + 2 >= v92)
             {
-              v95 = (2 * v95) | 1;
+              v94 = (2 * v94) | 1;
             }
 
             else
             {
-              v100 = *(v98 + 736);
-              v101 = *(v98 + 1112);
-              v102 = v98 + 752;
-              if (v100 >= v101)
+              v99 = v97[92];
+              v100 = v97[139];
+              v101 = v97 + 94;
+              if (v99 >= v100)
               {
-                v95 = (2 * v95) | 1;
+                v94 = (2 * v94) | 1;
               }
 
               else
               {
-                v99 = v102;
-                v95 = 2 * v95 + 2;
+                v98 = v101;
+                v94 = 2 * v94 + 2;
               }
             }
 
-            *v97 = *v99;
-            cnmatrix::CNMatrixBase<double>::operator=(v97 + 8, v99 + 8);
-            cnmatrix::CNMatrixBase<double>::operator=(v97 + 72, v99 + 72);
-            cnmatrix::CNMatrixBase<double>::operator=(v97 + 136, v99 + 136);
-            cnmatrix::CNMatrixBase<double>::operator=(v97 + 248, v99 + 248);
-            v103 = *(v99 + 368);
-            *(v97 + 360) = *(v99 + 360);
-            *(v97 + 368) = v103;
-            v97 = v99;
+            *v96 = *v98;
+            cnmatrix::CNMatrixBase<double>::operator=((v96 + 1), (v98 + 1));
+            cnmatrix::CNMatrixBase<double>::operator=((v96 + 9), (v98 + 9));
+            cnmatrix::CNMatrixBase<double>::operator=((v96 + 17), (v98 + 17));
+            cnmatrix::CNMatrixBase<double>::operator=((v96 + 31), (v98 + 31));
+            v102 = *(v98 + 92);
+            v96[45] = v98[45];
+            *(v96 + 92) = v102;
+            v96 = v98;
           }
 
-          while (v95 <= ((v93 - 2) >> 1));
-          v126 = (v99 + 360);
-          a2 -= 376;
-          if (v99 == v94 - 376)
+          while (v94 <= ((v92 - 2) >> 1));
+          v124 = v98 + 45;
+          a2 -= 47;
+          if (v98 == v93 - 47)
           {
-            *v99 = v128;
-            cnmatrix::CNMatrixBase<double>::operator=(v99 + 8, v129);
-            cnmatrix::CNMatrixBase<double>::operator=(v99 + 72, v130);
-            cnmatrix::CNMatrixBase<double>::operator=(v99 + 136, v131);
-            a5.n128_u64[0] = cnmatrix::CNMatrixBase<double>::operator=(v99 + 248, v132).n128_u64[0];
-            v113 = v134;
-            *v126 = v133;
-            *(v99 + 368) = v113;
+            *v98 = v126;
+            cnmatrix::CNMatrixBase<double>::operator=((v98 + 1), v127);
+            cnmatrix::CNMatrixBase<double>::operator=((v98 + 9), v128);
+            cnmatrix::CNMatrixBase<double>::operator=((v98 + 17), v129);
+            a5.n128_u64[0] = cnmatrix::CNMatrixBase<double>::operator=((v98 + 31), v130).n128_u64[0];
+            v112 = v132;
+            *v124 = v131;
+            *(v98 + 92) = v112;
           }
 
           else
           {
-            *v99 = *(v94 - 376);
-            cnmatrix::CNMatrixBase<double>::operator=(v99 + 8, v94 - 368);
-            cnmatrix::CNMatrixBase<double>::operator=(v99 + 72, v94 - 304);
-            cnmatrix::CNMatrixBase<double>::operator=(v99 + 136, v94 - 240);
-            cnmatrix::CNMatrixBase<double>::operator=(v99 + 248, v94 - 128);
-            v104 = *(v94 - 16);
-            *(v99 + 368) = *(v94 - 8);
-            *v126 = v104;
-            *(v94 - 376) = v128;
-            cnmatrix::CNMatrixBase<double>::operator=(v94 - 368, v129);
-            cnmatrix::CNMatrixBase<double>::operator=(v94 - 304, v130);
-            cnmatrix::CNMatrixBase<double>::operator=(v94 - 240, v131);
-            a5.n128_u64[0] = cnmatrix::CNMatrixBase<double>::operator=(v94 - 128, v132).n128_u64[0];
-            v105 = v134;
-            *(v94 - 16) = v133;
-            *(v94 - 8) = v105;
-            v106 = v99 - a1 + 376;
-            if (v106 >= 377)
+            *v98 = *(v93 - 376);
+            cnmatrix::CNMatrixBase<double>::operator=((v98 + 1), (v93 - 46));
+            cnmatrix::CNMatrixBase<double>::operator=((v98 + 9), (v93 - 38));
+            cnmatrix::CNMatrixBase<double>::operator=((v98 + 17), (v93 - 30));
+            cnmatrix::CNMatrixBase<double>::operator=((v98 + 31), (v93 - 16));
+            v103 = *(v93 - 2);
+            *(v98 + 92) = *(v93 - 2);
+            *v124 = v103;
+            *(v93 - 376) = v126;
+            cnmatrix::CNMatrixBase<double>::operator=((v93 - 46), v127);
+            cnmatrix::CNMatrixBase<double>::operator=((v93 - 38), v128);
+            cnmatrix::CNMatrixBase<double>::operator=((v93 - 30), v129);
+            a5.n128_u64[0] = cnmatrix::CNMatrixBase<double>::operator=((v93 - 16), v130).n128_u64[0];
+            v104 = v132;
+            *(v93 - 2) = v131;
+            *(v93 - 2) = v104;
+            v105 = v98 - a1 + 376;
+            if (v105 >= 377)
             {
-              v107 = (0x51B3BEA3677D46CFLL * (v106 >> 3) - 2) >> 1;
-              v108 = a1 + 376 * v107;
-              a5.n128_u64[0] = *(v108 + 360);
-              if (a5.n128_f64[0] < *v126)
+              v106 = (0x51B3BEA3677D46CFLL * (v105 >> 3) - 2) >> 1;
+              v107 = &a1[47 * v106];
+              a5.n128_f64[0] = v107[45];
+              if (a5.n128_f64[0] < *v124)
               {
-                v135 = *v99;
-                cnmatrix::CNMatrix<3u,1u,double>::CNMatrix(v136, v99 + 8);
-                cnmatrix::CNMatrix<3u,1u,double>::CNMatrix(v137, v99 + 72);
-                cnmatrix::CNMatrix<3u,3u,double>::CNMatrix(v138, v99 + 136);
-                cnmatrix::CNMatrix<3u,3u,double>::CNMatrix(v139, v99 + 248);
-                v109 = *v126;
-                v141 = *(v99 + 368);
-                v140 = v109;
+                v133 = *v98;
+                cnmatrix::CNMatrix<3u,1u,double>::CNMatrix(v134, (v98 + 1));
+                cnmatrix::CNMatrix<3u,1u,double>::CNMatrix(v135, (v98 + 9));
+                cnmatrix::CNMatrix<3u,3u,double>::CNMatrix(v136, (v98 + 17));
+                cnmatrix::CNMatrix<3u,3u,double>::CNMatrix(v137, (v98 + 31));
+                v108 = *v124;
+                v139 = *(v98 + 92);
+                v138 = v108;
                 do
                 {
-                  v110 = v108;
-                  *v99 = *v108;
-                  cnmatrix::CNMatrixBase<double>::operator=(v99 + 8, v108 + 8);
-                  cnmatrix::CNMatrixBase<double>::operator=(v99 + 72, v108 + 72);
-                  cnmatrix::CNMatrixBase<double>::operator=(v99 + 136, v108 + 136);
-                  cnmatrix::CNMatrixBase<double>::operator=(v99 + 248, v108 + 248);
-                  v111 = *(v108 + 368);
-                  *(v99 + 360) = *(v108 + 360);
-                  *(v99 + 368) = v111;
-                  if (!v107)
+                  v109 = v107;
+                  *v98 = *v107;
+                  cnmatrix::CNMatrixBase<double>::operator=((v98 + 1), (v107 + 1));
+                  cnmatrix::CNMatrixBase<double>::operator=((v98 + 9), (v107 + 9));
+                  cnmatrix::CNMatrixBase<double>::operator=((v98 + 17), (v107 + 17));
+                  cnmatrix::CNMatrixBase<double>::operator=((v98 + 31), (v107 + 31));
+                  v110 = *(v107 + 92);
+                  v98[45] = v107[45];
+                  *(v98 + 92) = v110;
+                  if (!v106)
                   {
                     break;
                   }
 
-                  v107 = (v107 - 1) >> 1;
-                  v108 = a1 + 376 * v107;
-                  v99 = v110;
+                  v106 = (v106 - 1) >> 1;
+                  v107 = &a1[47 * v106];
+                  v98 = v109;
                 }
 
-                while (*(v108 + 360) < v140);
-                *v110 = v135;
-                cnmatrix::CNMatrixBase<double>::operator=(v110 + 8, v136);
-                cnmatrix::CNMatrixBase<double>::operator=(v110 + 72, v137);
-                cnmatrix::CNMatrixBase<double>::operator=(v110 + 136, v138);
-                a5.n128_u64[0] = cnmatrix::CNMatrixBase<double>::operator=(v110 + 248, v139).n128_u64[0];
-                v112 = v141;
-                *(v110 + 360) = v140;
-                *(v110 + 368) = v112;
+                while (v107[45] < v138);
+                *v109 = v133;
+                cnmatrix::CNMatrixBase<double>::operator=((v109 + 1), v134);
+                cnmatrix::CNMatrixBase<double>::operator=((v109 + 9), v135);
+                cnmatrix::CNMatrixBase<double>::operator=((v109 + 17), v136);
+                a5.n128_u64[0] = cnmatrix::CNMatrixBase<double>::operator=((v109 + 31), v137).n128_u64[0];
+                v111 = v139;
+                v109[45] = v138;
+                *(v109 + 92) = v111;
               }
             }
           }
         }
 
-        while (v93-- > 2);
+        while (v92-- > 2);
       }
 
       return a5.n128_f64[0];
     }
 
     v13 = v11 >> 1;
-    v14 = a1 + 376 * (v11 >> 1);
+    v14 = &a1[47 * (v11 >> 1)];
     v15 = *(v8 - 2);
     if (v10 >= 0xBC01)
     {
-      v16 = *(v14 + 360);
-      if (v16 >= *(a1 + 360))
+      v16 = v14[45];
+      if (v16 >= a1[45])
       {
         if (v15 < v16)
         {
-          std::iter_swap[abi:ne200100]<RoseSyntheticApertureFiltering::FilterInitializationResult *,RoseSyntheticApertureFiltering::FilterInitializationResult *>(v14, v125);
-          if (*(v14 + 360) < *(a1 + 360))
+          std::iter_swap[abi:ne200100]<RoseSyntheticApertureFiltering::FilterInitializationResult *,RoseSyntheticApertureFiltering::FilterInitializationResult *>(v14, v123);
+          if (v14[45] < a1[45])
           {
             v17 = a1;
             v18 = v14;
@@ -9436,28 +9377,28 @@ LABEL_124:
         }
 
         std::iter_swap[abi:ne200100]<RoseSyntheticApertureFiltering::FilterInitializationResult *,RoseSyntheticApertureFiltering::FilterInitializationResult *>(a1, v14);
-        if (*(v8 - 2) < *(v14 + 360))
+        if (*(v8 - 2) < v14[45])
         {
           v17 = v14;
 LABEL_16:
-          v18 = (a2 - 376);
+          v18 = (a2 - 47);
 LABEL_25:
           std::iter_swap[abi:ne200100]<RoseSyntheticApertureFiltering::FilterInitializationResult *,RoseSyntheticApertureFiltering::FilterInitializationResult *>(v17, v18);
         }
       }
 
-      v22 = a1 + 376 * v13;
-      v23 = v22 - 376;
-      v24 = *(v22 - 16);
-      v25 = *v124;
-      if (v24 >= *(a1 + 736))
+      v22 = &a1[47 * v13];
+      v23 = v22 - 47;
+      v24 = *(v22 - 2);
+      v25 = *v122;
+      if (v24 >= a1[92])
       {
         if (v25 < v24)
         {
-          std::iter_swap[abi:ne200100]<RoseSyntheticApertureFiltering::FilterInitializationResult *,RoseSyntheticApertureFiltering::FilterInitializationResult *>(v23, (a2 - 752));
-          if (*(v23 + 360) < *(a1 + 736))
+          std::iter_swap[abi:ne200100]<RoseSyntheticApertureFiltering::FilterInitializationResult *,RoseSyntheticApertureFiltering::FilterInitializationResult *>(v23, a2 - 752);
+          if (v23[45] < a1[92])
           {
-            v26 = (a1 + 376);
+            v26 = (a1 + 47);
             v27 = v23;
             goto LABEL_37;
           }
@@ -9466,35 +9407,35 @@ LABEL_25:
 
       else
       {
-        v26 = (a1 + 376);
+        v26 = (a1 + 47);
         if (v25 < v24)
         {
           goto LABEL_30;
         }
 
         std::iter_swap[abi:ne200100]<RoseSyntheticApertureFiltering::FilterInitializationResult *,RoseSyntheticApertureFiltering::FilterInitializationResult *>(v26, v23);
-        if (*v124 < *(v23 + 360))
+        if (*v122 < v23[45])
         {
           v26 = v23;
 LABEL_30:
-          v27 = (a2 - 752);
+          v27 = (a2 - 94);
 LABEL_37:
           std::iter_swap[abi:ne200100]<RoseSyntheticApertureFiltering::FilterInitializationResult *,RoseSyntheticApertureFiltering::FilterInitializationResult *>(v26, v27);
         }
       }
 
-      v28 = a1 + 376 * v13;
-      v29 = v28 + 376;
-      v30 = *(v28 + 736);
-      v31 = *v123;
-      if (v30 >= *(a1 + 1112))
+      v28 = &a1[47 * v13];
+      v29 = v28 + 47;
+      v30 = v28[92];
+      v31 = *v121;
+      if (v30 >= a1[139])
       {
         if (v31 < v30)
         {
-          std::iter_swap[abi:ne200100]<RoseSyntheticApertureFiltering::FilterInitializationResult *,RoseSyntheticApertureFiltering::FilterInitializationResult *>(v29, (a2 - 1128));
-          if (*(v29 + 360) < *(a1 + 1112))
+          std::iter_swap[abi:ne200100]<RoseSyntheticApertureFiltering::FilterInitializationResult *,RoseSyntheticApertureFiltering::FilterInitializationResult *>(v29, a2 - 1128);
+          if (v29[45] < a1[139])
           {
-            v32 = (a1 + 752);
+            v32 = (a1 + 94);
             v33 = v29;
             goto LABEL_46;
           }
@@ -9503,31 +9444,31 @@ LABEL_37:
 
       else
       {
-        v32 = (a1 + 752);
+        v32 = (a1 + 94);
         if (v31 < v30)
         {
           goto LABEL_42;
         }
 
         std::iter_swap[abi:ne200100]<RoseSyntheticApertureFiltering::FilterInitializationResult *,RoseSyntheticApertureFiltering::FilterInitializationResult *>(v32, v29);
-        if (*v123 < *(v29 + 360))
+        if (*v121 < v29[45])
         {
           v32 = v29;
 LABEL_42:
-          v33 = (a2 - 1128);
+          v33 = (a2 - 141);
 LABEL_46:
           std::iter_swap[abi:ne200100]<RoseSyntheticApertureFiltering::FilterInitializationResult *,RoseSyntheticApertureFiltering::FilterInitializationResult *>(v32, v33);
         }
       }
 
-      v34 = *(v14 + 360);
-      v35 = *(v29 + 360);
-      if (v34 >= *(v23 + 360))
+      v34 = v14[45];
+      v35 = v29[45];
+      if (v34 >= v23[45])
       {
         if (v35 < v34)
         {
           std::iter_swap[abi:ne200100]<RoseSyntheticApertureFiltering::FilterInitializationResult *,RoseSyntheticApertureFiltering::FilterInitializationResult *>(v14, v29);
-          if (*(v14 + 360) < *(v23 + 360))
+          if (v14[45] < v23[45])
           {
             v36 = v23;
             v37 = v14;
@@ -9545,7 +9486,7 @@ LABEL_46:
         }
 
         std::iter_swap[abi:ne200100]<RoseSyntheticApertureFiltering::FilterInitializationResult *,RoseSyntheticApertureFiltering::FilterInitializationResult *>(v23, v14);
-        if (*(v29 + 360) < *(v14 + 360))
+        if (v29[45] < v14[45])
         {
           v36 = v14;
 LABEL_51:
@@ -9560,16 +9501,16 @@ LABEL_55:
       goto LABEL_57;
     }
 
-    v19 = *(a1 + 360);
-    if (v19 >= *(v14 + 360))
+    v19 = a1[45];
+    if (v19 >= v14[45])
     {
       if (v15 >= v19)
       {
         goto LABEL_58;
       }
 
-      std::iter_swap[abi:ne200100]<RoseSyntheticApertureFiltering::FilterInitializationResult *,RoseSyntheticApertureFiltering::FilterInitializationResult *>(a1, v125);
-      if (*(a1 + 360) >= *(v14 + 360))
+      std::iter_swap[abi:ne200100]<RoseSyntheticApertureFiltering::FilterInitializationResult *,RoseSyntheticApertureFiltering::FilterInitializationResult *>(a1, v123);
+      if (a1[45] >= v14[45])
       {
         goto LABEL_58;
       }
@@ -9584,7 +9525,7 @@ LABEL_55:
       if (v15 >= v19)
       {
         std::iter_swap[abi:ne200100]<RoseSyntheticApertureFiltering::FilterInitializationResult *,RoseSyntheticApertureFiltering::FilterInitializationResult *>(v14, a1);
-        if (*(v8 - 2) >= *(a1 + 360))
+        if (*(v8 - 2) >= a1[45])
         {
           goto LABEL_58;
         }
@@ -9592,42 +9533,42 @@ LABEL_55:
         v20 = a1;
       }
 
-      v21 = (a2 - 376);
+      v21 = a2 - 47;
     }
 
 LABEL_57:
     std::iter_swap[abi:ne200100]<RoseSyntheticApertureFiltering::FilterInitializationResult *,RoseSyntheticApertureFiltering::FilterInitializationResult *>(v20, v21);
 LABEL_58:
     --a3;
-    if ((a4 & 1) != 0 || *(a1 - 16) < *(a1 + 360))
+    if ((a4 & 1) != 0 || *(a1 - 2) < a1[45])
     {
-      v135 = *a1;
-      cnmatrix::CNMatrix<3u,1u,double>::CNMatrix(v136, a1 + 8);
-      cnmatrix::CNMatrix<3u,1u,double>::CNMatrix(v137, a1 + 72);
-      cnmatrix::CNMatrix<3u,3u,double>::CNMatrix(v138, a1 + 136);
-      cnmatrix::CNMatrix<3u,3u,double>::CNMatrix(v139, a1 + 248);
+      v133 = *a1;
+      cnmatrix::CNMatrix<3u,1u,double>::CNMatrix(v134, (a1 + 1));
+      cnmatrix::CNMatrix<3u,1u,double>::CNMatrix(v135, (a1 + 9));
+      cnmatrix::CNMatrix<3u,3u,double>::CNMatrix(v136, (a1 + 17));
+      cnmatrix::CNMatrix<3u,3u,double>::CNMatrix(v137, (a1 + 31));
       v38 = 0;
-      v39 = *(a1 + 360);
-      v141 = *(a1 + 368);
-      v140 = v39;
+      v39 = a1[45];
+      v139 = *(a1 + 92);
+      v138 = v39;
       do
       {
-        v40 = *(a1 + v38 + 736);
-        v38 += 376;
+        v40 = a1[v38 + 92];
+        v38 += 47;
       }
 
-      while (v40 < v140);
-      v41 = a1 + v38;
+      while (v40 < v138);
+      v41 = &a1[v38];
       v42 = v8;
-      if (v38 == 376)
+      if (v38 == 47)
       {
         v45 = a2;
         while (v41 < v45)
         {
-          v43 = (v45 - 376);
-          v46 = *(v45 - 16);
-          v45 -= 376;
-          if (v46 < v140)
+          v43 = v45 - 47;
+          v46 = *(v45 - 2);
+          v45 -= 47;
+          if (v46 < v138)
           {
             goto LABEL_70;
           }
@@ -9640,12 +9581,12 @@ LABEL_58:
       {
         do
         {
-          v43 = v42 - 376;
+          v43 = v42 - 47;
           v44 = *(v42 - 2);
-          v42 -= 376;
+          v42 -= 47;
         }
 
-        while (v44 >= v140);
+        while (v44 >= v138);
       }
 
 LABEL_70:
@@ -9658,44 +9599,44 @@ LABEL_70:
           std::iter_swap[abi:ne200100]<RoseSyntheticApertureFiltering::FilterInitializationResult *,RoseSyntheticApertureFiltering::FilterInitializationResult *>(v9, v47);
           do
           {
-            v48 = *(v9 + 736);
-            v9 += 376;
+            v48 = v9[92];
+            v9 += 47;
           }
 
-          while (v48 < v140);
+          while (v48 < v138);
           do
           {
             v49 = *(v47 - 2);
             v47 -= 376;
           }
 
-          while (v49 >= v140);
+          while (v49 >= v138);
         }
 
         while (v9 < v47);
       }
 
-      v50 = (v9 - 376);
-      if (v9 - 376 != a1)
+      v50 = v9 - 47;
+      if (v9 - 47 != a1)
       {
         *a1 = *v50;
-        cnmatrix::CNMatrixBase<double>::operator=(a1 + 8, v9 - 368);
-        cnmatrix::CNMatrixBase<double>::operator=(a1 + 72, v9 - 304);
-        cnmatrix::CNMatrixBase<double>::operator=(a1 + 136, v9 - 240);
-        cnmatrix::CNMatrixBase<double>::operator=(a1 + 248, v9 - 128);
-        v51 = *(v9 - 8);
-        *(a1 + 360) = *(v9 - 16);
-        *(a1 + 368) = v51;
+        cnmatrix::CNMatrixBase<double>::operator=((a1 + 1), (v9 - 46));
+        cnmatrix::CNMatrixBase<double>::operator=((a1 + 9), (v9 - 38));
+        cnmatrix::CNMatrixBase<double>::operator=((a1 + 17), (v9 - 30));
+        cnmatrix::CNMatrixBase<double>::operator=((a1 + 31), (v9 - 16));
+        v51 = *(v9 - 2);
+        a1[45] = *(v9 - 2);
+        *(a1 + 92) = v51;
       }
 
-      *v50 = v135;
-      cnmatrix::CNMatrixBase<double>::operator=(v9 - 368, v136);
-      cnmatrix::CNMatrixBase<double>::operator=(v9 - 304, v137);
-      cnmatrix::CNMatrixBase<double>::operator=(v9 - 240, v138);
-      a5 = cnmatrix::CNMatrixBase<double>::operator=(v9 - 128, v139);
-      v52 = v141;
-      *(v9 - 16) = v140;
-      *(v9 - 8) = v52;
+      *v50 = v133;
+      cnmatrix::CNMatrixBase<double>::operator=((v9 - 46), v134);
+      cnmatrix::CNMatrixBase<double>::operator=((v9 - 38), v135);
+      cnmatrix::CNMatrixBase<double>::operator=((v9 - 30), v136);
+      a5 = cnmatrix::CNMatrixBase<double>::operator=((v9 - 16), v137);
+      v52 = v139;
+      *(v9 - 2) = v138;
+      *(v9 - 2) = v52;
       v53 = v41 >= v43;
       v8 = a2;
       if (!v53)
@@ -9703,10 +9644,10 @@ LABEL_70:
         goto LABEL_82;
       }
 
-      v54 = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter::batchSolver(void)::$_2 &,RoseSyntheticApertureFiltering::FilterInitializationResult *>(a1, v9 - 376);
+      v54 = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter::batchSolver(void)::$_2 &,RoseSyntheticApertureFiltering::FilterInitializationResult *>(a1, v9 - 47);
       if (std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter::batchSolver(void)::$_2 &,RoseSyntheticApertureFiltering::FilterInitializationResult *>(v9, a2))
       {
-        a2 = v9 - 376;
+        a2 = v9 - 47;
         if (!v54)
         {
           goto LABEL_1;
@@ -9718,24 +9659,24 @@ LABEL_70:
       if (!v54)
       {
 LABEL_82:
-        std::__introsort<std::_ClassicAlgPolicy,RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter::batchSolver(void)::$_2 &,RoseSyntheticApertureFiltering::FilterInitializationResult *,false>(a1, v9 - 376, a3, a4 & 1, a5);
+        a5.n128_f64[0] = std::__introsort<std::_ClassicAlgPolicy,RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter::batchSolver(void)::$_2 &,RoseSyntheticApertureFiltering::FilterInitializationResult *,false>(a1, v9 - 47, a3, a4 & 1, a5);
         a4 = 0;
       }
     }
 
     else
     {
-      v135 = *a1;
-      cnmatrix::CNMatrix<3u,1u,double>::CNMatrix(v136, a1 + 8);
-      cnmatrix::CNMatrix<3u,1u,double>::CNMatrix(v137, a1 + 72);
-      cnmatrix::CNMatrix<3u,3u,double>::CNMatrix(v138, a1 + 136);
-      cnmatrix::CNMatrix<3u,3u,double>::CNMatrix(v139, a1 + 248);
-      v55 = *(a1 + 360);
-      v141 = *(a1 + 368);
-      v140 = v55;
+      v133 = *a1;
+      cnmatrix::CNMatrix<3u,1u,double>::CNMatrix(v134, (a1 + 1));
+      cnmatrix::CNMatrix<3u,1u,double>::CNMatrix(v135, (a1 + 9));
+      cnmatrix::CNMatrix<3u,3u,double>::CNMatrix(v136, (a1 + 17));
+      cnmatrix::CNMatrix<3u,3u,double>::CNMatrix(v137, (a1 + 31));
+      v55 = a1[45];
+      v139 = *(a1 + 92);
+      v138 = v55;
       if (v55 >= *(v8 - 2))
       {
-        v58 = a1 + 376;
+        v58 = a1 + 47;
         do
         {
           v9 = v58;
@@ -9744,11 +9685,11 @@ LABEL_82:
             break;
           }
 
-          v59 = *(v58 + 360);
-          v58 += 376;
+          v59 = v58[45];
+          v58 += 47;
         }
 
-        while (v140 >= v59);
+        while (v138 >= v59);
       }
 
       else
@@ -9756,12 +9697,12 @@ LABEL_82:
         v56 = a1;
         do
         {
-          v9 = v56 + 376;
-          v57 = *(v56 + 736);
-          v56 += 376;
+          v9 = v56 + 47;
+          v57 = v56[92];
+          v56 += 47;
         }
 
-        while (v140 >= v57);
+        while (v138 >= v57);
       }
 
       v60 = v8;
@@ -9769,12 +9710,12 @@ LABEL_82:
       {
         do
         {
-          v60 = v8 - 376;
+          v60 = (v8 - 47);
           v61 = *(v8 - 2);
-          v8 -= 376;
+          v8 -= 47;
         }
 
-        while (v140 < v61);
+        while (v138 < v61);
       }
 
       while (v9 < v60)
@@ -9782,60 +9723,60 @@ LABEL_82:
         std::iter_swap[abi:ne200100]<RoseSyntheticApertureFiltering::FilterInitializationResult *,RoseSyntheticApertureFiltering::FilterInitializationResult *>(v9, v60);
         do
         {
-          v62 = *(v9 + 736);
-          v9 += 376;
+          v62 = v9[92];
+          v9 += 47;
         }
 
-        while (v140 >= v62);
+        while (v138 >= v62);
         do
         {
           v63 = *(v60 - 2);
           v60 -= 376;
         }
 
-        while (v140 < v63);
+        while (v138 < v63);
       }
 
-      v64 = (v9 - 376);
-      if (v9 - 376 != a1)
+      v64 = v9 - 47;
+      if (v9 - 47 != a1)
       {
         *a1 = *v64;
-        cnmatrix::CNMatrixBase<double>::operator=(a1 + 8, v9 - 368);
-        cnmatrix::CNMatrixBase<double>::operator=(a1 + 72, v9 - 304);
-        cnmatrix::CNMatrixBase<double>::operator=(a1 + 136, v9 - 240);
-        cnmatrix::CNMatrixBase<double>::operator=(a1 + 248, v9 - 128);
-        v65 = *(v9 - 8);
-        *(a1 + 360) = *(v9 - 16);
-        *(a1 + 368) = v65;
+        cnmatrix::CNMatrixBase<double>::operator=((a1 + 1), (v9 - 46));
+        cnmatrix::CNMatrixBase<double>::operator=((a1 + 9), (v9 - 38));
+        cnmatrix::CNMatrixBase<double>::operator=((a1 + 17), (v9 - 30));
+        cnmatrix::CNMatrixBase<double>::operator=((a1 + 31), (v9 - 16));
+        v65 = *(v9 - 2);
+        a1[45] = *(v9 - 2);
+        *(a1 + 92) = v65;
       }
 
-      *v64 = v135;
-      cnmatrix::CNMatrixBase<double>::operator=(v9 - 368, v136);
-      cnmatrix::CNMatrixBase<double>::operator=(v9 - 304, v137);
-      cnmatrix::CNMatrixBase<double>::operator=(v9 - 240, v138);
-      a5.n128_u64[0] = cnmatrix::CNMatrixBase<double>::operator=(v9 - 128, v139).n128_u64[0];
+      *v64 = v133;
+      cnmatrix::CNMatrixBase<double>::operator=((v9 - 46), v134);
+      cnmatrix::CNMatrixBase<double>::operator=((v9 - 38), v135);
+      cnmatrix::CNMatrixBase<double>::operator=((v9 - 30), v136);
+      a5.n128_u64[0] = cnmatrix::CNMatrixBase<double>::operator=((v9 - 16), v137).n128_u64[0];
       a4 = 0;
-      v66 = v141;
-      *(v9 - 16) = v140;
-      *(v9 - 8) = v66;
+      v66 = v139;
+      *(v9 - 2) = v138;
+      *(v9 - 2) = v66;
       v8 = a2;
     }
   }
 
-  a5.n128_u64[0] = *(a1 + 736);
+  a5.n128_f64[0] = a1[92];
   v69 = *(v8 - 2);
-  if (a5.n128_f64[0] < *(a1 + 360))
+  if (a5.n128_f64[0] < a1[45])
   {
     if (v69 < a5.n128_f64[0])
     {
       goto LABEL_110;
     }
 
-    std::iter_swap[abi:ne200100]<RoseSyntheticApertureFiltering::FilterInitializationResult *,RoseSyntheticApertureFiltering::FilterInitializationResult *>(a1, (a1 + 376));
-    a5.n128_u64[0] = *(v8 - 2);
-    if (a5.n128_f64[0] < *(a1 + 736))
+    std::iter_swap[abi:ne200100]<RoseSyntheticApertureFiltering::FilterInitializationResult *,RoseSyntheticApertureFiltering::FilterInitializationResult *>(a1, a1 + 376);
+    a5.n128_f64[0] = *(v8 - 2);
+    if (a5.n128_f64[0] < a1[92])
     {
-      v70 = (a1 + 376);
+      v70 = a1 + 47;
       goto LABEL_111;
     }
 
@@ -9847,17 +9788,71 @@ LABEL_82:
     return a5.n128_f64[0];
   }
 
-  v67 = (a1 + 376);
-  v68 = (a2 - 376);
+  v67 = (a1 + 47);
+  v68 = a2 - 47;
 LABEL_163:
   std::iter_swap[abi:ne200100]<RoseSyntheticApertureFiltering::FilterInitializationResult *,RoseSyntheticApertureFiltering::FilterInitializationResult *>(v67, v68);
-  a5.n128_u64[0] = *(a1 + 736);
-  if (a5.n128_f64[0] < *(a1 + 360))
+  a5.n128_f64[0] = a1[92];
+  if (a5.n128_f64[0] < a1[45])
   {
-    v71 = (a1 + 376);
+    v71 = a1 + 47;
     v70 = a1;
     goto LABEL_112;
   }
 
   return a5.n128_f64[0];
+}
+
+void std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter::batchSolver(void)::$_2 &,RoseSyntheticApertureFiltering::FilterInitializationResult *,0>(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v7 = result;
+  v8 = *(a2 + 360);
+  v9 = *(a3 + 360);
+  if (v8 >= *(result + 360))
+  {
+    if (v9 < v8)
+    {
+      std::iter_swap[abi:ne200100]<RoseSyntheticApertureFiltering::FilterInitializationResult *,RoseSyntheticApertureFiltering::FilterInitializationResult *>(a2, a3);
+      if (*(a2 + 360) < *(v7 + 360))
+      {
+        result = v7;
+        v10 = a2;
+        goto LABEL_9;
+      }
+    }
+  }
+
+  else
+  {
+    if (v9 < v8)
+    {
+LABEL_5:
+      v10 = a3;
+LABEL_9:
+      std::iter_swap[abi:ne200100]<RoseSyntheticApertureFiltering::FilterInitializationResult *,RoseSyntheticApertureFiltering::FilterInitializationResult *>(result, v10);
+      goto LABEL_10;
+    }
+
+    std::iter_swap[abi:ne200100]<RoseSyntheticApertureFiltering::FilterInitializationResult *,RoseSyntheticApertureFiltering::FilterInitializationResult *>(result, a2);
+    if (*(a3 + 360) < *(a2 + 360))
+    {
+      result = a2;
+      goto LABEL_5;
+    }
+  }
+
+LABEL_10:
+  if (*(a4 + 360) < *(a3 + 360))
+  {
+    std::iter_swap[abi:ne200100]<RoseSyntheticApertureFiltering::FilterInitializationResult *,RoseSyntheticApertureFiltering::FilterInitializationResult *>(a3, a4);
+    if (*(a3 + 360) < *(a2 + 360))
+    {
+      std::iter_swap[abi:ne200100]<RoseSyntheticApertureFiltering::FilterInitializationResult *,RoseSyntheticApertureFiltering::FilterInitializationResult *>(a2, a3);
+      if (*(a2 + 360) < *(v7 + 360))
+      {
+
+        std::iter_swap[abi:ne200100]<RoseSyntheticApertureFiltering::FilterInitializationResult *,RoseSyntheticApertureFiltering::FilterInitializationResult *>(v7, a2);
+      }
+    }
+  }
 }

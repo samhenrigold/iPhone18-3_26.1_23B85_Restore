@@ -45,26 +45,26 @@
 
 - (void)prepareRepositoryObjects:(id)objects
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   objectsCopy = objects;
-  v5 = [objectsCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [objectsCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
-    v6 = *v13;
+    v6 = *v12;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v13 != v6)
+        if (*v12 != v6)
         {
           objc_enumerationMutation(objectsCopy);
         }
 
-        v8 = *(*(&v12 + 1) + 8 * i);
+        v8 = *(*(&v11 + 1) + 8 * i);
         repository = [v8 repository];
         v10 = repository == 0;
 
@@ -74,13 +74,11 @@
         }
       }
 
-      v5 = [objectsCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v5 = [objectsCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v5);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (id)trampoliningObserverForObserver:(id)observer

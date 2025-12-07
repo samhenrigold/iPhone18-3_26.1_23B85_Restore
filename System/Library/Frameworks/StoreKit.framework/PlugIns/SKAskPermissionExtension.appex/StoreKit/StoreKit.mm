@@ -5,11 +5,11 @@ void sub_100001564(id a1)
   _objc_release_x1();
 }
 
-void sub_1000030FC(uint64_t a1)
+void sub_1000030FC(uint64_t a1, uint64_t a2)
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
   {
-    sub_100004528(a1);
+    sub_100004528();
   }
 }
 
@@ -21,7 +21,7 @@ void sub_100003144(uint64_t a1, void *a2, void *a3)
   {
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
     {
-      sub_1000045A8(a1);
+      sub_1000045A8();
     }
   }
 
@@ -239,10 +239,11 @@ void sub_1000043D4(id a1, NSDictionary *a2, NSError *a3)
   }
 }
 
-void sub_100004478(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100004478(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 void sub_1000044A8(uint64_t a1)
@@ -252,22 +253,24 @@ void sub_1000044A8(uint64_t a1)
   _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "%{public}@ Not registering for unfinished transaction notifications because no bundle ID was available", &v1, 0xCu);
 }
 
-void sub_100004528(uint64_t a1)
-{
-  v1 = *(a1 + 32);
-  sub_10000335C();
-  _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "%{public}@: Error in remote proxy getting unfinished transactions: %{public}@", v2, 0x16u);
-}
-
-void sub_1000045A8(uint64_t a1)
-{
-  v1 = *(a1 + 32);
-  sub_10000335C();
-  _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "%{public}@: Error getting unfinished transactions: %{public}@", v2, 0x16u);
-}
-
 void sub_10000463C(void *a1)
 {
   v1 = [a1 productType];
-  sub_100004478(&_mh_execute_header, &_os_log_default, v2, "SKAskPermissionRequestExtension doesn't understand this product type: %{public}@", v3, v4, v5, v6, 2u);
+  LODWORD(v7) = 138543362;
+  *(&v7 + 4) = v1;
+  sub_100004478(&_mh_execute_header, &_os_log_default, v2, "SKAskPermissionRequestExtension doesn't understand this product type: %{public}@", v3, v4, v5, v6, v7, DWORD2(v7));
+}
+
+void sub_1000046C8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = a1;
+  sub_100004478(&_mh_execute_header, &_os_log_default, a3, "Error in StoreKit service - %{public}@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_10000473C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = a1;
+  sub_100004478(&_mh_execute_header, &_os_log_default, a3, "Error processing ask permission result with StoreKit service - %{public}@", a5, a6, a7, a8, v8, DWORD2(v8));
 }

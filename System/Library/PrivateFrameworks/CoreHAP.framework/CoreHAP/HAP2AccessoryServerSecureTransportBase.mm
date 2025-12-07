@@ -31,7 +31,7 @@
 
 - (void)_decryptResponse:(id)response request:(id)request completion:(id)completion
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   responseCopy = response;
   completionCopy = completion;
   requestCopy = request;
@@ -46,9 +46,9 @@
     goto LABEL_9;
   }
 
-  v16 = 0;
-  v12 = [(HAP2AccessoryServerSecureTransportBase *)self decryptData:responseCopy type:0 error:&v16];
-  v13 = v16;
+  v15 = 0;
+  v12 = [(HAP2AccessoryServerSecureTransportBase *)self decryptData:responseCopy type:0 error:&v15];
+  v13 = v15;
   if (v12)
   {
 LABEL_9:
@@ -67,15 +67,13 @@ LABEL_9:
   {
     *buf = 138412546;
     selfCopy = self;
-    v19 = 2112;
-    v20 = v13;
+    v18 = 2112;
+    v19 = v13;
     _os_log_error_impl(&dword_22AADC000, v14, OS_LOG_TYPE_ERROR, "%@ (SecureBase) Failed to decrypt response: %@", buf, 0x16u);
   }
 
   (completionCopy)[2](completionCopy, 0, v13);
 LABEL_10:
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_sendRequest:(id)request completion:(id)completion
@@ -100,7 +98,7 @@ LABEL_10:
 
 void __66__HAP2AccessoryServerSecureTransportBase__sendRequest_completion___block_invoke(id *a1, void *a2, void *a3)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -113,11 +111,11 @@ void __66__HAP2AccessoryServerSecureTransportBase__sendRequest_completion___bloc
     v7 = hap2Log_accessory;
     if (os_log_type_enabled(hap2Log_accessory, OS_LOG_TYPE_ERROR))
     {
-      v11 = a1[4];
+      v10 = a1[4];
       *buf = 138412546;
-      v21 = v11;
-      v22 = 2112;
-      v23 = v6;
+      v20 = v10;
+      v21 = 2112;
+      v22 = v6;
       _os_log_error_impl(&dword_22AADC000, v7, OS_LOG_TYPE_ERROR, "%@ (SecureBase) Failed to send request: %@", buf, 0x16u);
     }
 
@@ -126,32 +124,29 @@ void __66__HAP2AccessoryServerSecureTransportBase__sendRequest_completion___bloc
 
   else
   {
-    v12 = MEMORY[0x277D85DD0];
-    v13 = 3221225472;
-    v14 = __66__HAP2AccessoryServerSecureTransportBase__sendRequest_completion___block_invoke_4;
-    v15 = &unk_2786D66C8;
-    v16 = a1[4];
-    v19 = a1[6];
-    v17 = v5;
-    v18 = a1[5];
-    v8 = MEMORY[0x231885210](&v12);
+    v11 = MEMORY[0x277D85DD0];
+    v12 = 3221225472;
+    v13 = __66__HAP2AccessoryServerSecureTransportBase__sendRequest_completion___block_invoke_4;
+    v14 = &unk_2786D66C8;
+    v15 = a1[4];
+    v18 = a1[6];
+    v16 = v5;
+    v17 = a1[5];
+    v8 = MEMORY[0x231885210](&v11);
     v9 = [a1[4] operationQueue];
     [v9 addConcurrentBlock:v8];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __66__HAP2AccessoryServerSecureTransportBase__sendRequest_completion___block_invoke_4(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   if ([*(a1 + 32) state] == 2)
   {
     v2 = *(a1 + 32);
     v3 = *(a1 + 40);
     v4 = *(a1 + 48);
     v5 = *(a1 + 56);
-    v6 = *MEMORY[0x277D85DE8];
 
     [v2 _decryptResponse:v3 request:v4 completion:v5];
   }
@@ -163,25 +158,23 @@ void __66__HAP2AccessoryServerSecureTransportBase__sendRequest_completion___bloc
       dispatch_once(&hap2LogInitialize_onceToken, &__block_literal_global_1996);
     }
 
-    v7 = hap2Log_accessory;
+    v6 = hap2Log_accessory;
     if (os_log_type_enabled(hap2Log_accessory, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = *(a1 + 32);
-      v11 = 138412290;
-      v12 = v8;
-      _os_log_impl(&dword_22AADC000, v7, OS_LOG_TYPE_DEFAULT, "%@ (SecureBase) No longer open after sending request", &v11, 0xCu);
+      v7 = *(a1 + 32);
+      v9 = 138412290;
+      v10 = v7;
+      _os_log_impl(&dword_22AADC000, v6, OS_LOG_TYPE_DEFAULT, "%@ (SecureBase) No longer open after sending request", &v9, 0xCu);
     }
 
-    v9 = [MEMORY[0x277CCA9B8] hapErrorWithCode:19 description:@"Accessory server transport no longer open after sending request" reason:@"HAP2 Accessory server state != HAP2AccessoryServerTransportStateOpen during completion handler of sendRequest" suggestion:0 underlyingError:0 marker:103];
+    v8 = [MEMORY[0x277CCA9B8] hapErrorWithCode:19 description:@"Accessory server transport no longer open after sending request" reason:@"HAP2 Accessory server state != HAP2AccessoryServerTransportStateOpen during completion handler of sendRequest" suggestion:0 underlyingError:0 marker:103];
     (*(*(a1 + 56) + 16))();
-
-    v10 = *MEMORY[0x277D85DE8];
   }
 }
 
 - (void)_encryptRequest:(id)request completion:(id)completion
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   completionCopy = completion;
   operationQueue = [(HAP2AccessoryServerTransportBase *)self operationQueue];
@@ -196,9 +189,9 @@ void __66__HAP2AccessoryServerSecureTransportBase__sendRequest_completion___bloc
     goto LABEL_5;
   }
 
-  v23 = 0;
-  v11 = [(HAP2AccessoryServerSecureTransportBase *)self encryptData:data error:&v23];
-  v12 = v23;
+  v22 = 0;
+  v11 = [(HAP2AccessoryServerSecureTransportBase *)self encryptData:data error:&v22];
+  v12 = v22;
 
   if (v11)
   {
@@ -232,25 +225,23 @@ LABEL_5:
     dispatch_once(&hap2LogInitialize_onceToken, &__block_literal_global_1996);
   }
 
-  v22 = hap2Log_accessory;
+  v21 = hap2Log_accessory;
   if (os_log_type_enabled(hap2Log_accessory, OS_LOG_TYPE_ERROR))
   {
     *buf = 138412546;
     selfCopy = self;
-    v26 = 2112;
-    v27 = v12;
-    _os_log_error_impl(&dword_22AADC000, v22, OS_LOG_TYPE_ERROR, "%@ (SecureBase) Failed to encrypt request: %@", buf, 0x16u);
+    v25 = 2112;
+    v26 = v12;
+    _os_log_error_impl(&dword_22AADC000, v21, OS_LOG_TYPE_ERROR, "%@ (SecureBase) Failed to encrypt request: %@", buf, 0x16u);
   }
 
   completionCopy[2](completionCopy, 0, v12);
 LABEL_9:
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)transport:(id)transport didReceiveEvent:(id)event
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   transportCopy = transport;
   transport = [(HAP2AccessoryServerSecureTransportBase *)self transport];
@@ -271,30 +262,28 @@ LABEL_9:
       _os_log_debug_impl(&dword_22AADC000, v10, OS_LOG_TYPE_DEBUG, "%@ (SecureBase) Received an event", buf, 0xCu);
     }
 
-    v14 = MEMORY[0x277D85DD0];
-    v15 = 3221225472;
-    v16 = __68__HAP2AccessoryServerSecureTransportBase_transport_didReceiveEvent___block_invoke;
-    v17 = &unk_2786D7050;
+    v13 = MEMORY[0x277D85DD0];
+    v14 = 3221225472;
+    v15 = __68__HAP2AccessoryServerSecureTransportBase_transport_didReceiveEvent___block_invoke;
+    v16 = &unk_2786D7050;
     selfCopy2 = self;
-    v19 = eventCopy;
-    v11 = MEMORY[0x231885210](&v14);
-    v12 = [(HAP2AccessoryServerTransportBase *)self operationQueue:v14];
+    v18 = eventCopy;
+    v11 = MEMORY[0x231885210](&v13);
+    v12 = [(HAP2AccessoryServerTransportBase *)self operationQueue:v13];
     [v12 addBlock:v11];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __68__HAP2AccessoryServerSecureTransportBase_transport_didReceiveEvent___block_invoke(uint64_t a1)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   if ([*(a1 + 32) state] == 2)
   {
     v2 = *(a1 + 32);
     v3 = *(a1 + 40);
-    v21 = 0;
-    v4 = [v2 decryptData:v3 type:1 error:&v21];
-    v5 = v21;
+    v20 = 0;
+    v4 = [v2 decryptData:v3 type:1 error:&v20];
+    v5 = v20;
     if (hap2LogInitialize_onceToken != -1)
     {
       dispatch_once(&hap2LogInitialize_onceToken, &__block_literal_global_1996);
@@ -305,9 +294,9 @@ void __68__HAP2AccessoryServerSecureTransportBase_transport_didReceiveEvent___bl
     {
       if (os_log_type_enabled(hap2Log_accessory, OS_LOG_TYPE_DEBUG))
       {
-        v15 = *(a1 + 32);
+        v14 = *(a1 + 32);
         *buf = 138412290;
-        v23 = v15;
+        v22 = v14;
         _os_log_debug_impl(&dword_22AADC000, v6, OS_LOG_TYPE_DEBUG, "%@ (SecureBase) Successfully decrypted event", buf, 0xCu);
       }
 
@@ -315,26 +304,26 @@ void __68__HAP2AccessoryServerSecureTransportBase_transport_didReceiveEvent___bl
       if (v7)
       {
         v8 = [*(a1 + 32) delegateQueue];
-        v17[0] = MEMORY[0x277D85DD0];
-        v17[1] = 3221225472;
-        v17[2] = __68__HAP2AccessoryServerSecureTransportBase_transport_didReceiveEvent___block_invoke_2;
-        v17[3] = &unk_2786D7078;
+        v16[0] = MEMORY[0x277D85DD0];
+        v16[1] = 3221225472;
+        v16[2] = __68__HAP2AccessoryServerSecureTransportBase_transport_didReceiveEvent___block_invoke_2;
+        v16[3] = &unk_2786D7078;
         v9 = v7;
         v10 = *(a1 + 32);
-        v18 = v9;
-        v19 = v10;
-        v20 = v4;
-        dispatch_async(v8, v17);
+        v17 = v9;
+        v18 = v10;
+        v19 = v4;
+        dispatch_async(v8, v16);
       }
     }
 
     else if (os_log_type_enabled(hap2Log_accessory, OS_LOG_TYPE_ERROR))
     {
-      v16 = *(a1 + 32);
+      v15 = *(a1 + 32);
       *buf = 138412546;
-      v23 = v16;
-      v24 = 2112;
-      v25 = v5;
+      v22 = v15;
+      v23 = 2112;
+      v24 = v5;
       _os_log_error_impl(&dword_22AADC000, v6, OS_LOG_TYPE_ERROR, "%@ (SecureBase) Failed to decrypt event: %@", buf, 0x16u);
     }
   }
@@ -352,19 +341,17 @@ void __68__HAP2AccessoryServerSecureTransportBase_transport_didReceiveEvent___bl
       v12 = *(a1 + 32);
       v13 = v11;
       *buf = 138412546;
-      v23 = v12;
-      v24 = 2048;
-      v25 = [v12 state];
+      v22 = v12;
+      v23 = 2048;
+      v24 = [v12 state];
       _os_log_impl(&dword_22AADC000, v13, OS_LOG_TYPE_INFO, "%@ (SecureBase) Ignoring event while in the wrong state: %lu", buf, 0x16u);
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)transport:(id)transport didChangeState:(unint64_t)state error:(id)error
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   transportCopy = transport;
   transport = [(HAP2AccessoryServerSecureTransportBase *)self transport];
@@ -382,13 +369,13 @@ void __68__HAP2AccessoryServerSecureTransportBase_transport_didReceiveEvent___bl
     {
       if (os_log_type_enabled(hap2Log_accessory, OS_LOG_TYPE_ERROR))
       {
-        v14 = 138412802;
+        v13 = 138412802;
         selfCopy2 = self;
-        v16 = 2048;
+        v15 = 2048;
         stateCopy2 = state;
-        v18 = 2112;
-        v19 = errorCopy;
-        _os_log_error_impl(&dword_22AADC000, v12, OS_LOG_TYPE_ERROR, "%@ (SecureBase) Transport state changed to %lu with error: %@", &v14, 0x20u);
+        v17 = 2112;
+        v18 = errorCopy;
+        _os_log_error_impl(&dword_22AADC000, v12, OS_LOG_TYPE_ERROR, "%@ (SecureBase) Transport state changed to %lu with error: %@", &v13, 0x20u);
       }
 
       if (state == 3 || !state)
@@ -399,15 +386,13 @@ void __68__HAP2AccessoryServerSecureTransportBase_transport_didReceiveEvent___bl
 
     else if (os_log_type_enabled(hap2Log_accessory, OS_LOG_TYPE_INFO))
     {
-      v14 = 138412546;
+      v13 = 138412546;
       selfCopy2 = self;
-      v16 = 2048;
+      v15 = 2048;
       stateCopy2 = state;
-      _os_log_impl(&dword_22AADC000, v12, OS_LOG_TYPE_INFO, "%@ (SecureBase) Transport state changed to %lu", &v14, 0x16u);
+      _os_log_impl(&dword_22AADC000, v12, OS_LOG_TYPE_INFO, "%@ (SecureBase) Transport state changed to %lu", &v13, 0x16u);
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (id)decryptData:(id)data type:(unint64_t)type error:(id *)error
@@ -692,10 +677,7 @@ void __63__HAP2AccessoryServerSecureTransportBase_doOpenWithCompletion___block_i
 
 uint64_t __50__HAP2AccessoryServerSecureTransportBase_delegate__block_invoke(uint64_t a1)
 {
-  WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 56));
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = WeakRetained;
+  *(*(*(a1 + 40) + 8) + 40) = objc_loadWeakRetained((*(a1 + 32) + 56));
 
   return MEMORY[0x2821F96F8]();
 }

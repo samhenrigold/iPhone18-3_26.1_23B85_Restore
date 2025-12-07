@@ -32,8 +32,9 @@
 
 - (void)viewDidAppear:(BOOL)appear
 {
+  appearCopy = appear;
   selfCopy = self;
-  sub_10009568C(appear);
+  sub_10009568C(appearCopy);
 }
 
 - (void)invalidate

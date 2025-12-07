@@ -1237,7 +1237,7 @@ uint64_t __53__NCExpandedPlatterViewController__handleDefaultTap___block_invoke(
   v5 = NCStringForAppearState(v4);
   v6 = NCStringForAppearState(1u);
   OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_1_2(&dword_21E77E000, v7, v8, "%{public}@: Illegal transition attempted from '%{public}@' to '%{public}@' – aborting", v9, v10, v11, v12, v13);
+  OUTLINED_FUNCTION_1_2(&dword_21E77E000, v7, v8, "%{public}@: Illegal transition attempted from '%{public}@' to '%{public}@' – aborting", v9, v10, v11, v12);
 }
 
 - (void)expandedPlatterDidPresent:(uint64_t)a1 .cold.1(uint64_t a1, void *a2)
@@ -1247,7 +1247,7 @@ uint64_t __53__NCExpandedPlatterViewController__handleDefaultTap___block_invoke(
   v5 = NCStringForAppearState(v4);
   v6 = NCStringForAppearState(2u);
   OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_1_2(&dword_21E77E000, v7, v8, "%{public}@: Illegal transition attempted from '%{public}@' to '%{public}@' – aborting", v9, v10, v11, v12, v13);
+  OUTLINED_FUNCTION_1_2(&dword_21E77E000, v7, v8, "%{public}@: Illegal transition attempted from '%{public}@' to '%{public}@' – aborting", v9, v10, v11, v12);
 }
 
 - (void)expandedPlatter:(uint64_t)a1 willDismissWithReason:(void *)a2 .cold.1(uint64_t a1, void *a2)
@@ -1257,7 +1257,7 @@ uint64_t __53__NCExpandedPlatterViewController__handleDefaultTap___block_invoke(
   v5 = NCStringForAppearState(v4);
   v6 = NCStringForAppearState(3u);
   OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_1_2(&dword_21E77E000, v7, v8, "%{public}@: Illegal transition attempted from '%{public}@' to '%{public}@' – aborting", v9, v10, v11, v12, v13);
+  OUTLINED_FUNCTION_1_2(&dword_21E77E000, v7, v8, "%{public}@: Illegal transition attempted from '%{public}@' to '%{public}@' – aborting", v9, v10, v11, v12);
 }
 
 - (void)expandedPlatter:(uint64_t)a1 didDismissWithReason:(void *)a2 .cold.1(uint64_t a1, void *a2)
@@ -1267,7 +1267,7 @@ uint64_t __53__NCExpandedPlatterViewController__handleDefaultTap___block_invoke(
   v5 = NCStringForAppearState(v4);
   v6 = NCStringForAppearState(0);
   OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_1_2(&dword_21E77E000, v7, v8, "%{public}@: Illegal transition attempted from '%{public}@' to '%{public}@' – aborting", v9, v10, v11, v12, v13);
+  OUTLINED_FUNCTION_1_2(&dword_21E77E000, v7, v8, "%{public}@: Illegal transition attempted from '%{public}@' to '%{public}@' – aborting", v9, v10, v11, v12);
 }
 
 @end

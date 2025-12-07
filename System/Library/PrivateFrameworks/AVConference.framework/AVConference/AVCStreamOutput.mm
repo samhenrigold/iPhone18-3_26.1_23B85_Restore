@@ -35,7 +35,7 @@
 
 - (AVCStreamOutput)initWithStreamToken:(int64_t)token delegate:(id)delegate queue:(id)queue error:(id *)error
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   createReceiverQueue = 0;
   MEMORY[0x1E128B580](&dword_1DB56E000, "@:@ AVCStreamOutput-init");
   if (VRTraceGetErrorLogLevelForModule() >= 6)
@@ -55,28 +55,28 @@
       }
 
       *buf = 136316930;
-      v23 = v11;
-      v24 = 2080;
-      v25 = "[AVCStreamOutput initWithStreamToken:delegate:queue:error:]";
-      v26 = 1024;
-      v27 = 122;
-      v28 = 2048;
-      selfCopy = self;
+      v25 = v11;
+      v26 = 2080;
+      v27 = "[AVCStreamOutput initWithStreamToken:delegate:queue:error:]";
+      v28 = 1024;
+      v29 = 122;
       v30 = 2048;
+      selfCopy = self;
+      v32 = 2048;
       tokenCopy = token;
-      v32 = 2112;
-      delegateCopy = delegate;
       v34 = 2112;
-      queueCopy = queue;
+      delegateCopy = delegate;
       v36 = 2112;
-      v37 = v13;
+      queueCopy = queue;
+      v38 = 2112;
+      v39 = v13;
       _os_log_impl(&dword_1DB56E000, v12, OS_LOG_TYPE_DEFAULT, "AVCStreamOutput [%s] %s:%d @:@ AVCStreamOutput-init (%p) streamToken=%ld, delegate=%@, queue=%@, error=%@", buf, 0x4Eu);
     }
   }
 
-  v20.receiver = self;
-  v20.super_class = AVCStreamOutput;
-  v14 = [(AVCStreamOutput *)&v20 init];
+  v22.receiver = self;
+  v22.super_class = AVCStreamOutput;
+  v14 = [(AVCStreamOutput *)&v22 init];
   if (!v14)
   {
     goto LABEL_15;
@@ -106,15 +106,15 @@
 
         if (*(v14 + 14))
         {
-          [VCRemoteVideoManager_DefaultManager() notifyCachedStateForStreamToken:{objc_msgSend(MEMORY[0x1E696AD98], "numberWithInteger:", token)}];
+          [VCRemoteVideoManager_DefaultManager(v16 v17)];
 LABEL_14:
-          v16 = MEMORY[0x1E6960C70];
-          v17 = *MEMORY[0x1E6960C70];
+          v18 = MEMORY[0x1E6960C70];
+          v19 = *MEMORY[0x1E6960C70];
           *(v14 + 5) = *MEMORY[0x1E6960C70];
-          v18 = *(v16 + 16);
-          *(v14 + 12) = v18;
-          *(v14 + 56) = v17;
-          *(v14 + 9) = v18;
+          v20 = *(v18 + 16);
+          *(v14 + 12) = v20;
+          *(v14 + 56) = v19;
+          *(v14 + 9) = v20;
           kdebug_trace();
           *(v14 + 17) = [MEMORY[0x1E6986630] weakObjectHolderWithObject:v14];
           goto LABEL_15;
@@ -158,7 +158,7 @@ LABEL_16:
 
 - (void)dealloc
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   MEMORY[0x1E128B580](&dword_1DB56E000, "@:@ AVCStreamOutput-dealloc");
   if (VRTraceGetErrorLogLevelForModule() >= 6)
   {
@@ -167,12 +167,12 @@ LABEL_16:
     if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315906;
-      v10 = v3;
-      v11 = 2080;
-      v12 = "[AVCStreamOutput dealloc]";
-      v13 = 1024;
-      v14 = 174;
-      v15 = 2048;
+      v11 = v3;
+      v12 = 2080;
+      v13 = "[AVCStreamOutput dealloc]";
+      v14 = 1024;
+      v15 = 174;
+      v16 = 2048;
       selfCopy = self;
       _os_log_impl(&dword_1DB56E000, v4, OS_LOG_TYPE_DEFAULT, "AVCStreamOutput [%s] %s:%d @:@ AVCStreamOutput-dealloc (%p)", buf, 0x26u);
     }
@@ -193,7 +193,7 @@ LABEL_16:
   [(AVCStreamOutput *)self terminateConnection];
   if (self->_receiverQueue)
   {
-    VCRemoteImageQueue_Destroy(&self->_receiverQueue);
+    VCRemoteImageQueue_Destroy(&self->_receiverQueue, v6);
   }
 
   attachments = self->_attachments;
@@ -210,9 +210,9 @@ LABEL_16:
   }
 
   kdebug_trace();
-  v8.receiver = self;
-  v8.super_class = AVCStreamOutput;
-  [(AVCStreamOutput *)&v8 dealloc];
+  v9.receiver = self;
+  v9.super_class = AVCStreamOutput;
+  [(AVCStreamOutput *)&v9 dealloc];
 }
 
 - (BOOL)validateAccess
@@ -1518,7 +1518,7 @@ void __48__AVCStreamOutput_registerBlocksForNotification__block_invoke_80(uint64
 
 - (BOOL)validateAccessWithProcessName:(id)name accessControlPlist:(id)plist
 {
-  v73 = *MEMORY[0x1E69E9840];
+  v69 = *MEMORY[0x1E69E9840];
   if (!plist)
   {
     goto LABEL_36;
@@ -1545,8 +1545,8 @@ LABEL_36:
         return v14;
       }
 
-      *buf = 136315650;
-      v61 = v40;
+      LODWORD(buf) = 136315650;
+      *(&buf + 4) = v40;
       OUTLINED_FUNCTION_4_25();
       OUTLINED_FUNCTION_16_0();
     }
@@ -1576,30 +1576,30 @@ LABEL_36:
         return v14;
       }
 
-      *buf = 136316162;
-      v61 = v47;
+      LODWORD(buf) = 136316162;
+      *(&buf + 4) = v47;
       OUTLINED_FUNCTION_4_25();
-      v63 = 2112;
-      v64 = v39;
-      v65 = 2048;
+      WORD2(v62) = 2112;
+      *(&v62 + 6) = v39;
+      HIWORD(v62) = 2048;
       selfCopy2 = self;
       v41 = &dword_1DB56E000;
       v44 = "AVCStreamOutput [%s] %s:%d %@(%p) Failed to retrieve the allow process name list";
-      v45 = buf;
+      p_buf = &buf;
       v42 = v48;
       v43 = OS_LOG_TYPE_ERROR;
       v46 = 48;
     }
 
-    _os_log_error_impl(v41, v42, v43, v44, v45, v46);
+    _os_log_error_impl(v41, v42, v43, v44, p_buf, v46);
     goto LABEL_36;
   }
 
-  v71 = 0u;
-  v72 = 0u;
-  v69 = 0u;
-  v70 = 0u;
-  v14 = OUTLINED_FUNCTION_2_9(isKindOfClass, v7, v8, v9, v10, v11, v12, v13, v50, v52, v53, v55, v56, name);
+  v67 = 0u;
+  v68 = 0u;
+  v65 = 0u;
+  v66 = 0u;
+  v14 = OUTLINED_FUNCTION_2_9(isKindOfClass, v7, v8, v9, v10, v11, v12, v13, v50, v52, v53, v55, v56, name, buf, *(&buf + 1), v61, v62, *(&v62 + 1), selfCopy2, v64, *(&v64 + 1));
   if (!v14)
   {
     return v14;
@@ -1607,7 +1607,7 @@ LABEL_36:
 
   v16 = v14;
   v17 = &selRef_isLatencySensitiveModeEnabled;
-  v18 = *v70;
+  v18 = *v66;
   *&v15 = 136315906;
   v51 = v15;
   *&v15 = 136316418;
@@ -1618,12 +1618,12 @@ LABEL_36:
     v20 = v17[456];
     do
     {
-      if (*v70 != v18)
+      if (*v66 != v18)
       {
         objc_enumerationMutation(v5);
       }
 
-      v21 = *(*(&v69 + 1) + 8 * v19);
+      v21 = *(*(&v65 + 1) + 8 * v19);
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
@@ -1645,11 +1645,11 @@ LABEL_36:
           ErrorLogLevelForModule = os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR);
           if (ErrorLogLevelForModule)
           {
-            *buf = v51;
-            v61 = v37;
-            v62 = 2080;
+            LODWORD(buf) = v51;
+            *(&buf + 4) = v37;
+            WORD6(buf) = 2080;
             OUTLINED_FUNCTION_3_30();
-            v64 = v21;
+            *(&v62 + 6) = v21;
             v34 = v38;
             v35 = "AVCStreamOutput [%s] %s:%d Unexpected type process name entry=%@. Skipping ...";
             v36 = 38;
@@ -1674,20 +1674,20 @@ LABEL_36:
           ErrorLogLevelForModule = os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR);
           if (ErrorLogLevelForModule)
           {
-            *buf = v54;
-            v61 = v31;
-            v62 = 2080;
+            LODWORD(buf) = v54;
+            *(&buf + 4) = v31;
+            WORD6(buf) = 2080;
             OUTLINED_FUNCTION_3_30();
-            v64 = v30;
-            v65 = 2048;
+            *(&v62 + 6) = v30;
+            HIWORD(v62) = 2048;
             selfCopy2 = self;
-            v67 = v33;
-            v68 = v21;
+            LOWORD(v64) = v33;
+            *(&v64 + 2) = v21;
             v34 = v32;
             v35 = "AVCStreamOutput [%s] %s:%d %@(%p) Unexpected type process name entry=%@. Skipping ...";
             v36 = 58;
 LABEL_22:
-            _os_log_error_impl(&dword_1DB56E000, v34, OS_LOG_TYPE_ERROR, v35, buf, v36);
+            _os_log_error_impl(&dword_1DB56E000, v34, OS_LOG_TYPE_ERROR, v35, &buf, v36);
           }
         }
       }
@@ -1696,7 +1696,7 @@ LABEL_22:
     }
 
     while (v16 != v19);
-    v14 = OUTLINED_FUNCTION_2_9(ErrorLogLevelForModule, v23, v24, v25, v26, v27, v28, v29, v51, *(&v51 + 1), v54, *(&v54 + 1), v57, v59);
+    v14 = OUTLINED_FUNCTION_2_9(ErrorLogLevelForModule, v23, v24, v25, v26, v27, v28, v29, v51, *(&v51 + 1), v54, *(&v54 + 1), v57, v59, buf, *(&buf + 1), v61, v62, *(&v62 + 1), selfCopy2, v64, *(&v64 + 1));
     v16 = v14;
     v17 = &selRef_isLatencySensitiveModeEnabled;
   }

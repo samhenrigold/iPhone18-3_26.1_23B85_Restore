@@ -1,7 +1,9 @@
 @interface PPFeedbackStorage
++ (id)storeTypeDescription:(unsigned __int8)description;
 + (void)logFeedback:(id)feedback domain:(unsigned __int8)domain domainStatus:(unsigned __int8)status inBackground:(BOOL)background;
 - (BOOL)deleteExpiredFeedbackWithShouldContinueBlock:(id)block;
 - (BOOL)processPendingFeedbackWithShouldContinueBlock:(id)block error:(id *)error;
+- (BOOL)storePendingFeedback:(id)feedback storeType:(unsigned __int8)type error:(id *)error;
 - (PPFeedbackStorage)init;
 - (id)locationStore;
 - (id)mappedTopicsPendingFeedbackWithShouldContinueBlock:(id)block;
@@ -209,17 +211,17 @@ id __73__PPFeedbackStorage_processPendingFeedbackWithShouldContinueBlock_error__
 
 void __73__PPFeedbackStorage_processPendingFeedbackWithShouldContinueBlock_error___block_invoke_4(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if ([v3 state] == 1)
   {
     v4 = pp_default_log_handle();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v10 = [v3 error];
-      LODWORD(v11) = 138412290;
-      *(&v11 + 4) = v10;
-      _os_log_error_impl(&dword_23224A000, v4, OS_LOG_TYPE_ERROR, "PPFeedbackStorage: error processing pending feedback: %@", &v11, 0xCu);
+      v9 = [v3 error];
+      LODWORD(v10) = 138412290;
+      *(&v10 + 4) = v9;
+      _os_log_error_impl(&dword_23224A000, v4, OS_LOG_TYPE_ERROR, "PPFeedbackStorage: error processing pending feedback: %@", &v10, 0xCu);
     }
   }
 
@@ -229,89 +231,87 @@ void __73__PPFeedbackStorage_processPendingFeedbackWithShouldContinueBlock_error
   if (v5)
   {
     v8 = *(v5 + 8);
-    *&v11 = MEMORY[0x277D85DD0];
-    *(&v11 + 1) = 3221225472;
-    v12 = __49__PPFeedbackStorage__saveLastProcessedTimestamp___block_invoke;
-    v13 = &unk_278978B68;
-    v14 = v6;
-    [v8 writeTransactionWithClient:7 block:&v11];
+    *&v10 = MEMORY[0x277D85DD0];
+    *(&v10 + 1) = 3221225472;
+    v11 = __49__PPFeedbackStorage__saveLastProcessedTimestamp___block_invoke;
+    v12 = &unk_278978B68;
+    v13 = v6;
+    [v8 writeTransactionWithClient:7 block:&v10];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __73__PPFeedbackStorage_processPendingFeedbackWithShouldContinueBlock_error___block_invoke_144(uint64_t a1, void *a2)
 {
-  v230 = *MEMORY[0x277D85DE8];
+  v229 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v155 = objc_autoreleasePoolPush();
+  v154 = objc_autoreleasePoolPush();
   v4 = *(a1 + 32);
   v5 = [v3 storeType];
-  v156 = a1;
+  v155 = a1;
   v6 = *(a1 + 40);
-  v174 = v3;
-  v172 = v4;
-  v173 = v6;
+  v173 = v3;
+  v171 = v4;
+  v172 = v6;
   if (v4)
   {
-    v207 = 0u;
-    v208 = 0u;
-    v205 = 0u;
     v206 = 0u;
-    obj = [v174 feedbackItems];
-    v7 = [obj countByEnumeratingWithState:&v205 objects:v216 count:16];
+    v207 = 0u;
+    v204 = 0u;
+    v205 = 0u;
+    obj = [v173 feedbackItems];
+    v7 = [obj countByEnumeratingWithState:&v204 objects:v215 count:16];
     if (!v7)
     {
       goto LABEL_42;
     }
 
     v8 = v7;
-    v171 = v173 + 2;
-    v175 = *v206;
+    v170 = v172 + 2;
+    v174 = *v205;
     v9 = @"clientId";
-    v162 = v5;
+    v161 = v5;
     while (1)
     {
       v10 = 0;
-      v166 = v8;
+      v165 = v8;
       do
       {
-        if (*v206 != v175)
+        if (*v205 != v174)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v205 + 1) + 8 * v10);
+        v11 = *(*(&v204 + 1) + 8 * v10);
         v12 = objc_autoreleasePoolPush();
         if (v5 != 3)
         {
           if (v5 == 2)
           {
-            v176 = v12;
-            v177 = v10;
+            v175 = v12;
+            v176 = v10;
             v37 = [v11 itemString];
             v38 = [v11 itemFeedbackType];
-            v179 = v37;
-            v39 = v174;
-            v168 = v173;
-            v40 = [(PPFeedbackStorage *)v172 topicStore];
-            if (v173)
+            v178 = v37;
+            v39 = v173;
+            v167 = v172;
+            v40 = [(PPFeedbackStorage *)v171 topicStore];
+            if (v172)
             {
-              v163 = v40;
+              v162 = v40;
               v41 = [v39 mappingId];
               if (v41)
               {
                 v42 = v41;
                 v43 = v39;
                 v44 = objc_autoreleasePoolPush();
-                v159 = v42;
-                v45 = [v163 unmapMappedTopicIdentifier:v179 mappingIdentifier:v42 error:0];
+                v158 = v42;
+                v45 = [v162 unmapMappedTopicIdentifier:v178 mappingIdentifier:v42 error:0];
                 v46 = [v45 allKeys];
                 v47 = [v46 _pas_mappedArrayWithTransform:&__block_literal_global_215];
 
                 objc_autoreleasePoolPop(v44);
                 v48 = objc_opt_new();
-                v158 = v47;
+                v157 = v47;
                 v49 = [objc_alloc(MEMORY[0x277CBEB98]) initWithArray:v47];
                 [v48 setMatchingTopicIds:v49];
 
@@ -326,16 +326,16 @@ uint64_t __73__PPFeedbackStorage_processPendingFeedbackWithShouldContinueBlock_e
                 [v48 setExcludingSourceBundleIds:v53];
 
                 v54 = objc_opt_new();
-                v202[0] = MEMORY[0x277D85DD0];
-                v202[1] = 3221225472;
-                v202[2] = __101__PPFeedbackStorage__performAttributionForMappedTopic_baseFeedback_feedbackType_shouldContinueBlock___block_invoke_2;
-                v202[3] = &unk_2789771B8;
-                v204 = v168;
+                v201[0] = MEMORY[0x277D85DD0];
+                v201[1] = 3221225472;
+                v201[2] = __101__PPFeedbackStorage__performAttributionForMappedTopic_baseFeedback_feedbackType_shouldContinueBlock___block_invoke_2;
+                v201[3] = &unk_2789771B8;
+                v203 = v167;
                 v55 = v54;
-                v203 = v55;
-                v157 = v48;
-                [v163 iterTopicRecordsWithQuery:v48 error:0 block:v202];
-                v160 = v43;
+                v202 = v55;
+                v156 = v48;
+                [v162 iterTopicRecordsWithQuery:v48 error:0 block:v201];
+                v159 = v43;
                 v56 = [v43 clientIdentifier];
                 v57 = [v56 _pas_stringBackedByUTF8CString];
 
@@ -350,53 +350,53 @@ uint64_t __73__PPFeedbackStorage_processPendingFeedbackWithShouldContinueBlock_e
                 if (v62)
                 {
                   v64 = v62;
-                  v184 = v61;
-                  v187 = v57;
-                  v181 = v38;
+                  v183 = v61;
+                  v186 = v57;
+                  v180 = v38;
                   do
                   {
                     contexta = objc_autoreleasePoolPush();
                     [v61 removeLastObject];
-                    *&v226 = @"algorithm";
-                    v197 = [MEMORY[0x277D3A548] describeAlgorithm:{objc_msgSend(v64, "algorithm")}];
-                    *&buf = v197;
-                    *(&v226 + 1) = @"algorithmEnum";
-                    v193 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v64, "algorithm")}];
-                    *(&buf + 1) = v193;
-                    *&v227 = @"source";
+                    *&v225 = @"algorithm";
+                    v196 = [MEMORY[0x277D3A548] describeAlgorithm:{objc_msgSend(v64, "algorithm")}];
+                    *&buf = v196;
+                    *(&v225 + 1) = @"algorithmEnum";
+                    v192 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v64, "algorithm")}];
+                    *(&buf + 1) = v192;
+                    *&v226 = @"source";
                     v65 = *(v63 + 2808);
-                    v190 = [v64 source];
-                    v66 = [v190 bundleId];
+                    v189 = [v64 source];
+                    v66 = [v189 bundleId];
                     v67 = [v65 filterBundleId:v66];
-                    v210 = v67;
-                    v211 = v57;
-                    *(&v227 + 1) = v59;
-                    *&v228 = @"domain";
+                    v209 = v67;
+                    v210 = v57;
+                    *(&v226 + 1) = v59;
+                    *&v227 = @"domain";
                     v68 = [*(v63 + 2808) stringifyDomain:0];
-                    v212 = v68;
-                    *(&v228 + 1) = @"feedbackType";
+                    v211 = v68;
+                    *(&v227 + 1) = @"feedbackType";
                     v69 = [*(v63 + 2808) stringifyFeedbackType:v38];
-                    v213 = v69;
-                    *&v229 = @"isRemote";
+                    v212 = v69;
+                    *&v228 = @"isRemote";
                     v70 = v59;
                     v71 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(v64, "isLocal") ^ 1}];
-                    v214 = v71;
-                    *(&v229 + 1) = @"feedbackTypeEnum";
+                    v213 = v71;
+                    *(&v228 + 1) = @"feedbackTypeEnum";
                     v72 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v38];
-                    v215 = v72;
-                    [MEMORY[0x277CBEAC0] dictionaryWithObjects:&buf forKeys:&v226 count:8];
+                    v214 = v72;
+                    [MEMORY[0x277CBEAC0] dictionaryWithObjects:&buf forKeys:&v225 count:8];
                     v74 = v73 = v63;
 
                     v59 = v70;
-                    v57 = v187;
+                    v57 = v186;
 
-                    v61 = v184;
+                    v61 = v183;
                     [PPMetricsDispatcher logPayloadForEvent:@"com.apple.proactive.PersonalizationPortrait.FeedbackAttributed" payload:v74 inBackground:1];
 
                     v63 = v73;
-                    v38 = v181;
+                    v38 = v180;
                     objc_autoreleasePoolPop(contexta);
-                    v75 = [v184 lastObject];
+                    v75 = [v183 lastObject];
 
                     v64 = v75;
                   }
@@ -404,17 +404,17 @@ uint64_t __73__PPFeedbackStorage_processPendingFeedbackWithShouldContinueBlock_e
                   while (v75);
                 }
 
-                v5 = v162;
-                v8 = v166;
+                v5 = v161;
+                v8 = v165;
                 v9 = v59;
-                v41 = v159;
-                v39 = v160;
+                v41 = v158;
+                v39 = v159;
               }
 
-              v40 = v163;
+              v40 = v162;
             }
 
-            v76 = v179;
+            v76 = v178;
             goto LABEL_39;
           }
 
@@ -423,17 +423,17 @@ uint64_t __73__PPFeedbackStorage_processPendingFeedbackWithShouldContinueBlock_e
             goto LABEL_40;
           }
 
-          v176 = v12;
-          v177 = v10;
+          v175 = v12;
+          v176 = v10;
           v13 = [v11 itemString];
           v14 = [v11 itemFeedbackType];
           v15 = v13;
-          v16 = v174;
-          v17 = v173;
-          v18 = [(PPFeedbackStorage *)v172 namedEntityStore];
+          v16 = v173;
+          v17 = v172;
+          v18 = [(PPFeedbackStorage *)v171 namedEntityStore];
           v19 = objc_opt_new();
           v20 = objc_autoreleasePoolPush();
-          v178 = v15;
+          v177 = v15;
           v21 = [objc_alloc(MEMORY[0x277CBEB98]) initWithObjects:{v15, 0}];
           objc_autoreleasePoolPop(v20);
           [v19 setMatchingNames:v21];
@@ -447,16 +447,16 @@ uint64_t __73__PPFeedbackStorage_processPendingFeedbackWithShouldContinueBlock_e
           v24 = [PPFeedbackExclusionProvider excludedBundleIdsForClientBundleId:v23 domain:1];
           [v19 setExcludingSourceBundleIds:v24];
 
-          if (v173[2](v17))
+          if (v172[2](v17))
           {
             v25 = [v18 namedEntityRecordsWithQuery:v19 error:0];
             v26 = [v25 firstObject];
 
             if (v26)
             {
-              if ((*v171)(v17))
+              if ((*v170)(v17))
               {
-                v196 = v14;
+                v195 = v14;
                 v27 = MEMORY[0x277D3A420];
                 v28 = [v26 entity];
                 v29 = [v27 describeCategory:{objc_msgSend(v28, "category")}];
@@ -481,40 +481,40 @@ uint64_t __73__PPFeedbackStorage_processPendingFeedbackWithShouldContinueBlock_e
                   context = v29;
                 }
 
-                v195 = objc_autoreleasePoolPush();
-                *&v226 = @"algorithm";
-                v192 = [MEMORY[0x277D3A438] describeAlgorithm:{objc_msgSend(v26, "algorithm")}];
-                *&buf = v192;
-                *(&v226 + 1) = @"algorithmEnum";
-                v189 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v26, "algorithm")}];
-                *(&buf + 1) = v189;
-                *&v227 = @"source";
-                v186 = [v26 source];
-                v183 = [v186 bundleId];
-                v170 = [PPMetricsUtils filterBundleId:v183];
-                v210 = v170;
-                *(&v227 + 1) = @"clientId";
-                v165 = [v16 clientIdentifier];
-                v161 = [v165 _pas_stringBackedByUTF8CString];
-                v211 = v161;
-                *&v228 = @"domain";
+                v194 = objc_autoreleasePoolPush();
+                *&v225 = @"algorithm";
+                v191 = [MEMORY[0x277D3A438] describeAlgorithm:{objc_msgSend(v26, "algorithm")}];
+                *&buf = v191;
+                *(&v225 + 1) = @"algorithmEnum";
+                v188 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v26, "algorithm")}];
+                *(&buf + 1) = v188;
+                *&v226 = @"source";
+                v185 = [v26 source];
+                v182 = [v185 bundleId];
+                v169 = [PPMetricsUtils filterBundleId:v182];
+                v209 = v169;
+                *(&v226 + 1) = @"clientId";
+                v164 = [v16 clientIdentifier];
+                v160 = [v164 _pas_stringBackedByUTF8CString];
+                v210 = v160;
+                *&v227 = @"domain";
                 v96 = [PPMetricsUtils stringifyDomain:1];
-                v212 = v96;
-                *(&v228 + 1) = @"category";
+                v211 = v96;
+                *(&v227 + 1) = @"category";
                 v97 = [context _pas_stringBackedByUTF8CString];
-                v213 = v97;
-                *&v229 = @"feedbackType";
-                v98 = [PPMetricsUtils stringifyFeedbackType:v196];
-                v214 = v98;
-                *(&v229 + 1) = @"feedbackTypeEnum";
-                v99 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v196];
-                v215 = v99;
-                v100 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&buf forKeys:&v226 count:8];
+                v212 = v97;
+                *&v228 = @"feedbackType";
+                v98 = [PPMetricsUtils stringifyFeedbackType:v195];
+                v213 = v98;
+                *(&v228 + 1) = @"feedbackTypeEnum";
+                v99 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v195];
+                v214 = v99;
+                v100 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&buf forKeys:&v225 count:8];
 
-                objc_autoreleasePoolPop(v195);
+                objc_autoreleasePoolPop(v194);
                 [PPMetricsDispatcher logPayloadForEvent:@"com.apple.proactive.PersonalizationPortrait.FeedbackAttributed" payload:v100 inBackground:1];
 
-                v8 = v166;
+                v8 = v165;
                 v95 = context;
                 goto LABEL_36;
               }
@@ -526,31 +526,31 @@ uint64_t __73__PPFeedbackStorage_processPendingFeedbackWithShouldContinueBlock_e
               if (os_log_type_enabled(v95, OS_LOG_TYPE_DEBUG))
               {
                 LODWORD(buf) = 138739971;
-                *(&buf + 4) = v178;
+                *(&buf + 4) = v177;
                 _os_log_debug_impl(&dword_23224A000, v95, OS_LOG_TYPE_DEBUG, "PPFeedbackStorage: unable to attribute feedback for named entity: %{sensitive}@", &buf, 0xCu);
               }
 
 LABEL_36:
             }
 
-            v5 = v162;
+            v5 = v161;
           }
 
-          v76 = v178;
+          v76 = v177;
           v9 = @"clientId";
           goto LABEL_39;
         }
 
-        v176 = v12;
-        v177 = v10;
+        v175 = v12;
+        v176 = v10;
         v77 = [v11 itemString];
         v78 = [v11 itemFeedbackType];
         v79 = v77;
-        v80 = v174;
-        v81 = v173;
-        v82 = [(PPFeedbackStorage *)v172 locationStore];
+        v80 = v173;
+        v81 = v172;
+        v82 = [(PPFeedbackStorage *)v171 locationStore];
         v83 = objc_opt_new();
-        v180 = v79;
+        v179 = v79;
         [v83 setFuzzyMatchingString:v79];
         v84 = [v80 timestamp];
         [v83 setToDate:v84];
@@ -562,50 +562,50 @@ LABEL_36:
         [v83 setExcludingSourceBundleIds:v86];
 
         v9 = @"clientId";
-        v8 = v166;
-        if (v173[2](v81))
+        v8 = v165;
+        if (v172[2](v81))
         {
           v87 = [v82 locationRecordsWithQuery:v83 error:0];
           v88 = [v87 firstObject];
 
           if (v88)
           {
-            if ((*v171)(v81))
+            if ((*v170)(v81))
             {
               contextb = objc_autoreleasePoolPush();
-              *&v226 = @"algorithm";
-              v198 = [MEMORY[0x277D3A3F0] describeAlgorithm:{objc_msgSend(v88, "algorithm")}];
-              *&buf = v198;
-              *(&v226 + 1) = @"algorithmEnum";
-              v194 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:{objc_msgSend(v88, "algorithm")}];
-              *(&buf + 1) = v194;
-              *&v227 = @"source";
-              v191 = [v88 source];
-              v188 = [v191 bundleId];
-              v185 = [PPMetricsUtils filterBundleId:v188];
-              v210 = v185;
-              *(&v227 + 1) = @"clientId";
-              v182 = [v80 clientIdentifier];
-              v169 = [v182 _pas_stringBackedByUTF8CString];
-              v211 = v169;
-              *&v228 = @"domain";
-              v164 = [PPMetricsUtils stringifyDomain:2];
-              v212 = v164;
-              *(&v228 + 1) = @"category";
+              *&v225 = @"algorithm";
+              v197 = [MEMORY[0x277D3A3F0] describeAlgorithm:{objc_msgSend(v88, "algorithm")}];
+              *&buf = v197;
+              *(&v225 + 1) = @"algorithmEnum";
+              v193 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:{objc_msgSend(v88, "algorithm")}];
+              *(&buf + 1) = v193;
+              *&v226 = @"source";
+              v190 = [v88 source];
+              v187 = [v190 bundleId];
+              v184 = [PPMetricsUtils filterBundleId:v187];
+              v209 = v184;
+              *(&v226 + 1) = @"clientId";
+              v181 = [v80 clientIdentifier];
+              v168 = [v181 _pas_stringBackedByUTF8CString];
+              v210 = v168;
+              *&v227 = @"domain";
+              v163 = [PPMetricsUtils stringifyDomain:2];
+              v211 = v163;
+              *(&v227 + 1) = @"category";
               v89 = MEMORY[0x277D3A3D8];
               v90 = [v88 location];
               v91 = [v89 describeCategory:{objc_msgSend(v90, "category")}];
-              v213 = v91;
-              *&v229 = @"feedbackType";
+              v212 = v91;
+              *&v228 = @"feedbackType";
               v92 = [PPMetricsUtils stringifyFeedbackType:v78];
-              v214 = v92;
-              *(&v229 + 1) = @"feedbackTypeEnum";
+              v213 = v92;
+              *(&v228 + 1) = @"feedbackTypeEnum";
               v93 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v78];
-              v215 = v93;
-              v94 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&buf forKeys:&v226 count:8];
+              v214 = v93;
+              v94 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&buf forKeys:&v225 count:8];
 
               v9 = @"clientId";
-              v8 = v166;
+              v8 = v165;
 
               objc_autoreleasePoolPop(contextb);
               [PPMetricsDispatcher logPayloadForEvent:@"com.apple.proactive.PersonalizationPortrait.FeedbackAttributed" payload:v94 inBackground:1];
@@ -619,28 +619,28 @@ LABEL_36:
             if (os_log_type_enabled(v94, OS_LOG_TYPE_DEBUG))
             {
               LODWORD(buf) = 138739971;
-              *(&buf + 4) = v180;
+              *(&buf + 4) = v179;
               _os_log_debug_impl(&dword_23224A000, v94, OS_LOG_TYPE_DEBUG, "PPFeedbackStorage: unable to attribute feedback for location: %{sensitive}@", &buf, 0xCu);
             }
 
 LABEL_29:
           }
 
-          v5 = v162;
+          v5 = v161;
         }
 
-        v76 = v180;
+        v76 = v179;
 LABEL_39:
-        v10 = v177;
+        v10 = v176;
 
-        v12 = v176;
+        v12 = v175;
 LABEL_40:
         objc_autoreleasePoolPop(v12);
         ++v10;
       }
 
       while (v10 != v8);
-      v8 = [obj countByEnumeratingWithState:&v205 objects:v216 count:16];
+      v8 = [obj countByEnumeratingWithState:&v204 objects:v215 count:16];
       if (!v8)
       {
 LABEL_42:
@@ -650,32 +650,32 @@ LABEL_42:
     }
   }
 
-  v101 = [v174 feedbackItems];
+  v101 = [v173 feedbackItems];
   v102 = [v101 mutableCopy];
 
   v103 = v102;
   objc_opt_self();
   v104 = objc_opt_new();
+  v225 = 0u;
   v226 = 0u;
   v227 = 0u;
   v228 = 0u;
-  v229 = 0u;
   v105 = v103;
-  v106 = [v105 countByEnumeratingWithState:&v226 objects:v216 count:16];
+  v106 = [v105 countByEnumeratingWithState:&v225 objects:v215 count:16];
   if (v106)
   {
     v107 = v106;
-    v108 = *v227;
+    v108 = *v226;
     do
     {
       for (i = 0; i != v107; ++i)
       {
-        if (*v227 != v108)
+        if (*v226 != v108)
         {
           objc_enumerationMutation(v105);
         }
 
-        v110 = *(*(&v226 + 1) + 8 * i);
+        v110 = *(*(&v225 + 1) + 8 * i);
         if ([v110 itemFeedbackType] == 5)
         {
           v111 = [v110 itemString];
@@ -683,7 +683,7 @@ LABEL_42:
         }
       }
 
-      v107 = [v105 countByEnumeratingWithState:&v226 objects:v216 count:16];
+      v107 = [v105 countByEnumeratingWithState:&v225 objects:v215 count:16];
     }
 
     while (v107);
@@ -730,45 +730,45 @@ LABEL_57:
     while (v113 > 0);
   }
 
-  v207 = 0u;
-  v208 = 0u;
-  v205 = 0u;
   v206 = 0u;
+  v207 = 0u;
+  v204 = 0u;
+  v205 = 0u;
   v119 = v104;
-  v120 = [v119 countByEnumeratingWithState:&v205 objects:&buf count:16];
+  v120 = [v119 countByEnumeratingWithState:&v204 objects:&buf count:16];
   if (v120)
   {
     v121 = v120;
-    v122 = *v206;
+    v122 = *v205;
     do
     {
       for (j = 0; j != v121; ++j)
       {
-        if (*v206 != v122)
+        if (*v205 != v122)
         {
           objc_enumerationMutation(v119);
         }
 
-        v124 = [objc_alloc(MEMORY[0x277D3A3C0]) initWithItemString:*(*(&v205 + 1) + 8 * j) itemFeedbackType:4];
+        v124 = [objc_alloc(MEMORY[0x277D3A3C0]) initWithItemString:*(*(&v204 + 1) + 8 * j) itemFeedbackType:4];
         [v105 addObject:v124];
       }
 
-      v121 = [v119 countByEnumeratingWithState:&v205 objects:&buf count:16];
+      v121 = [v119 countByEnumeratingWithState:&v204 objects:&buf count:16];
     }
 
     while (v121);
   }
 
   v125 = [PPInternalFeedback alloc];
-  v126 = [v174 timestamp];
-  v127 = [v174 clientIdentifier];
-  v128 = [v174 clientBundleId];
-  v129 = [v174 mappingId];
-  v130 = [v174 storeType];
-  v131 = [v174 build];
+  v126 = [v173 timestamp];
+  v127 = [v173 clientIdentifier];
+  v128 = [v173 clientBundleId];
+  v129 = [v173 mappingId];
+  v130 = [v173 storeType];
+  v131 = [v173 build];
   v132 = [(PPInternalFeedback *)v125 initWithFeedbackItems:v105 timestamp:v126 clientIdentifier:v127 clientBundleId:v128 mappingId:v129 storeType:v130 build:v131];
 
-  v133 = *(v156 + 32);
+  v133 = *(v155 + 32);
   v134 = v132;
   if (v133)
   {
@@ -778,11 +778,11 @@ LABEL_57:
     {
       v137 = [(PPBaseFeedback *)v134 feedbackItems];
       v138 = [v137 count];
-      *v216 = 138412546;
-      v217 = v135;
-      v218 = 2048;
-      v219 = v138;
-      _os_log_impl(&dword_23224A000, v136, OS_LOG_TYPE_DEFAULT, "filterPendingFeedbackItems(%@): Filtering %tu pending items", v216, 0x16u);
+      *v215 = 138412546;
+      v216 = v135;
+      v217 = 2048;
+      v218 = v138;
+      _os_log_impl(&dword_23224A000, v136, OS_LOG_TYPE_DEFAULT, "filterPendingFeedbackItems(%@): Filtering %tu pending items", v215, 0x16u);
     }
 
     v139 = pp_default_log_handle();
@@ -792,17 +792,17 @@ LABEL_57:
       v141 = [(PPBaseFeedback *)v134 clientIdentifier];
       v142 = [(PPBaseFeedback *)v134 clientBundleId];
       v143 = [(PPBaseFeedback *)v134 mappingId];
-      *v216 = 138413314;
-      v217 = v135;
-      v218 = 2112;
-      v219 = v140;
-      v220 = 2112;
-      v221 = v141;
-      v222 = 2112;
-      v223 = v142;
-      v224 = 2112;
-      v225 = v143;
-      _os_log_impl(&dword_23224A000, v139, OS_LOG_TYPE_INFO, "filterPendingFeedbackItems(%@): Filtering items for (%@, %@, %@, %@)", v216, 0x34u);
+      *v215 = 138413314;
+      v216 = v135;
+      v217 = 2112;
+      v218 = v140;
+      v219 = 2112;
+      v220 = v141;
+      v221 = 2112;
+      v222 = v142;
+      v223 = 2112;
+      v224 = v143;
+      _os_log_impl(&dword_23224A000, v139, OS_LOG_TYPE_INFO, "filterPendingFeedbackItems(%@): Filtering items for (%@, %@, %@, %@)", v215, 0x34u);
     }
 
     v144 = [(PPBaseFeedback *)v134 feedbackItems];
@@ -844,9 +844,9 @@ LABEL_98:
           {
 LABEL_93:
             v151 = [objc_opt_class() storeTypeDescription:{-[PPInternalFeedback storeType](v134, "storeType")}];
-            *v216 = 138412290;
-            v217 = v151;
-            _os_log_error_impl(&dword_23224A000, v147, OS_LOG_TYPE_ERROR, "found pending items for unsupported PPStoreType value of %@", v216, 0xCu);
+            *v215 = 138412290;
+            v216 = v151;
+            _os_log_error_impl(&dword_23224A000, v147, OS_LOG_TYPE_ERROR, "found pending items for unsupported PPStoreType value of %@", v215, 0xCu);
           }
         }
 
@@ -896,9 +896,9 @@ LABEL_95:
     if (os_log_type_enabled(v147, OS_LOG_TYPE_FAULT))
     {
       v150 = [(PPInternalFeedback *)v134 storeType];
-      *v216 = 67109120;
-      LODWORD(v217) = v150;
-      _os_log_fault_impl(&dword_23224A000, v147, OS_LOG_TYPE_FAULT, "found pending items for invalid PPStoreType value of %u", v216, 8u);
+      *v215 = 67109120;
+      LODWORD(v216) = v150;
+      _os_log_fault_impl(&dword_23224A000, v147, OS_LOG_TYPE_FAULT, "found pending items for invalid PPStoreType value of %u", v215, 8u);
     }
 
     goto LABEL_99;
@@ -906,10 +906,9 @@ LABEL_95:
 
 LABEL_101:
 
-  v152 = (*(*(v156 + 40) + 16))();
-  objc_autoreleasePoolPop(v155);
+  v152 = (*(*(v155 + 40) + 16))();
+  objc_autoreleasePoolPop(v154);
 
-  v153 = *MEMORY[0x277D85DE8];
   return v152;
 }
 
@@ -989,9 +988,9 @@ id __101__PPFeedbackStorage__performAttributionForMappedTopic_baseFeedback_feedb
   return v6;
 }
 
-uint64_t __49__PPFeedbackStorage__saveLastProcessedTimestamp___block_invoke(uint64_t result, uint64_t a2)
+void *__49__PPFeedbackStorage__saveLastProcessedTimestamp___block_invoke(void *result, uint64_t a2)
 {
-  v2 = *(result + 32);
+  v2 = result[4];
   if (v2)
   {
     return [PPSQLKVStore setNumber:v2 forKey:@"pendingFeedbackProcessedDate" transaction:a2];
@@ -1002,10 +1001,7 @@ uint64_t __49__PPFeedbackStorage__saveLastProcessedTimestamp___block_invoke(uint
 
 uint64_t __44__PPFeedbackStorage__lastProcessedTimestamp__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v3 = [PPSQLKVStore numberForKey:@"pendingFeedbackProcessedDate" transaction:a2];
-  v4 = *(*(a1 + 32) + 8);
-  v5 = *(v4 + 40);
-  *(v4 + 40) = v3;
+  *(*(*(a1 + 32) + 8) + 40) = [PPSQLKVStore numberForKey:@"pendingFeedbackProcessedDate" transaction:a2];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -1060,10 +1056,7 @@ uint64_t __44__PPFeedbackStorage__lastProcessedTimestamp__block_invoke(uint64_t 
 
 uint64_t __72__PPFeedbackStorage_mappedTopicsPendingFeedbackWithShouldContinueBlock___block_invoke(uint64_t a1, void *a2)
 {
-  v3 = [a2 publisherFromStartTime:0.0];
-  v4 = *(*(a1 + 32) + 8);
-  v5 = *(v4 + 40);
-  *(v4 + 40) = v3;
+  *(*(*(a1 + 32) + 8) + 40) = [a2 publisherFromStartTime:0.0];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -1121,7 +1114,7 @@ void __66__PPFeedbackStorage_deleteExpiredFeedbackWithShouldContinueBlock___bloc
 
 void __66__PPFeedbackStorage_deleteExpiredFeedbackWithShouldContinueBlock___block_invoke_2(uint64_t a1, _BYTE *a2, double a3)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   if (((*(*(a1 + 32) + 16))() & 1) == 0)
   {
     *a2 = 1;
@@ -1130,12 +1123,120 @@ void __66__PPFeedbackStorage_deleteExpiredFeedbackWithShouldContinueBlock___bloc
   v5 = pp_default_log_handle();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    v7 = 134217984;
-    v8 = a3;
-    _os_log_debug_impl(&dword_23224A000, v5, OS_LOG_TYPE_DEBUG, "PPFeedbackStorage: deleted feedback from %lf", &v7, 0xCu);
+    v6 = 134217984;
+    v7 = a3;
+    _os_log_debug_impl(&dword_23224A000, v5, OS_LOG_TYPE_DEBUG, "PPFeedbackStorage: deleted feedback from %lf", &v6, 0xCu);
+  }
+}
+
+- (BOOL)storePendingFeedback:(id)feedback storeType:(unsigned __int8)type error:(id *)error
+{
+  typeCopy = type;
+  feedbackCopy = feedback;
+  clientBundleId = [feedbackCopy clientBundleId];
+
+  if (clientBundleId)
+  {
+    [feedbackCopy setStoreType:typeCopy];
+    clientIdentifier = [feedbackCopy clientIdentifier];
+    v10 = [clientIdentifier isEqualToString:@"ICLex"];
+
+    if (v10)
+    {
+      v11 = feedbackCopy;
+      feedbackCopy = v11;
+      if (self)
+      {
+        v32 = 0;
+        v33 = &v32;
+        v34 = 0x3032000000;
+        v35 = __Block_byref_object_copy__20136;
+        v36 = __Block_byref_object_dispose__20137;
+        v37 = 0;
+        lock = self->_lock;
+        *buf = MEMORY[0x277D85DD0];
+        v39 = 3221225472;
+        v40 = __64__PPFeedbackStorage__existingSessionMatchingFeedback_storeType___block_invoke;
+        v41 = &unk_278977010;
+        feedbackCopy = v11;
+        LOBYTE(v44) = typeCopy;
+        v42 = feedbackCopy;
+        v43 = &v32;
+        [(_PASLock *)lock runWithLockAcquired:buf];
+        v13 = v33[5];
+
+        _Block_object_dispose(&v32, 8);
+        if (v13)
+        {
+          v14 = v13;
+          v32 = 0;
+          v33 = &v32;
+          v34 = 0x2020000000;
+          LOBYTE(v35) = 1;
+          Current = CFAbsoluteTimeGetCurrent();
+          v16 = self->_lock;
+          *buf = MEMORY[0x277D85DD0];
+          v39 = 3221225472;
+          v40 = __44__PPFeedbackStorage__removeExistingSession___block_invoke;
+          v41 = &unk_278976F78;
+          v44 = Current + -40.0;
+          v13 = v14;
+          v42 = v13;
+          v43 = &v32;
+          [(_PASLock *)v16 runWithLockAcquired:buf];
+          LODWORD(v16) = *(v33 + 24);
+
+          _Block_object_dispose(&v32, 8);
+          if (v16 == 1)
+          {
+            feedbackItems = [v13 feedbackItems];
+            v29 = [feedbackItems mutableCopy];
+
+            feedbackItems2 = [feedbackCopy feedbackItems];
+            [v29 addObjectsFromArray:feedbackItems2];
+
+            v28 = [PPInternalFeedback alloc];
+            timestamp = [v13 timestamp];
+            clientIdentifier2 = [v13 clientIdentifier];
+            clientBundleId2 = [v13 clientBundleId];
+            mappingId = [v13 mappingId];
+            build = [v13 build];
+            v24 = [(PPInternalFeedback *)v28 initWithFeedbackItems:v29 timestamp:timestamp clientIdentifier:clientIdentifier2 clientBundleId:clientBundleId2 mappingId:mappingId storeType:typeCopy build:build];
+
+            feedbackCopy = v24;
+          }
+        }
+      }
+
+      else
+      {
+
+        v13 = 0;
+      }
+    }
+
+    v25 = self->_lock;
+    v30[0] = MEMORY[0x277D85DD0];
+    v30[1] = 3221225472;
+    v30[2] = __58__PPFeedbackStorage_storePendingFeedback_storeType_error___block_invoke;
+    v30[3] = &unk_278976F28;
+    feedbackCopy = feedbackCopy;
+    v31 = feedbackCopy;
+    [(_PASLock *)v25 runWithLockAcquired:v30];
+    v26 = v31;
   }
 
-  v6 = *MEMORY[0x277D85DE8];
+  else
+  {
+    v26 = pp_default_log_handle();
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 0;
+      _os_log_error_impl(&dword_23224A000, v26, OS_LOG_TYPE_ERROR, "nil clientBundleId in client feedback", buf, 2u);
+    }
+  }
+
+  return clientBundleId != 0;
 }
 
 void __58__PPFeedbackStorage_storePendingFeedback_storeType_error___block_invoke(uint64_t a1, void *a2)
@@ -1251,31 +1352,26 @@ uint64_t __64__PPFeedbackStorage__existingSessionMatchingFeedback_storeType___bl
 
 uint64_t __64__PPFeedbackStorage__existingSessionMatchingFeedback_storeType___block_invoke_118(uint64_t a1, void *a2)
 {
-  v3 = [a2 eventBody];
-  v4 = *(*(a1 + 32) + 8);
-  v5 = *(v4 + 40);
-  *(v4 + 40) = v3;
+  *(*(*(a1 + 32) + 8) + 40) = [a2 eventBody];
 
   return MEMORY[0x2821F96F8]();
 }
 
 void __64__PPFeedbackStorage__existingSessionMatchingFeedback_storeType___block_invoke_3(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = a2;
   if ([v2 state] == 1)
   {
     v3 = pp_default_log_handle();
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      v5 = [v2 error];
-      v6 = 138412290;
-      v7 = v5;
-      _os_log_error_impl(&dword_23224A000, v3, OS_LOG_TYPE_ERROR, "PPFeedbackStorage: error processing sessions, starting a new one. %@", &v6, 0xCu);
+      v4 = [v2 error];
+      v5 = 138412290;
+      v6 = v4;
+      _os_log_error_impl(&dword_23224A000, v3, OS_LOG_TYPE_ERROR, "PPFeedbackStorage: error processing sessions, starting a new one. %@", &v5, 0xCu);
     }
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (PPFeedbackStorage)init
@@ -1331,65 +1427,80 @@ void __64__PPFeedbackStorage__existingSessionMatchingFeedback_storeType___block_
   return selfCopy;
 }
 
++ (id)storeTypeDescription:(unsigned __int8)description
+{
+  if (description >= 8u)
+  {
+    v3 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"INVALID_VALUE_OF_%u", description];
+  }
+
+  else
+  {
+    v3 = off_2789771D8[description];
+  }
+
+  return v3;
+}
+
 + (void)logFeedback:(id)feedback domain:(unsigned __int8)domain domainStatus:(unsigned __int8)status inBackground:(BOOL)background
 {
   domainCopy = domain;
   backgroundCopy = background;
   statusCopy = status;
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   feedbackCopy = feedback;
   clientIdentifier = [feedbackCopy clientIdentifier];
   v8 = [clientIdentifier isEqualToString:@"ICLex"];
 
   if (v8)
   {
-    v42 = 0u;
-    v43 = 0u;
-    v40 = 0u;
     v41 = 0u;
+    v42 = 0u;
+    v39 = 0u;
+    v40 = 0u;
     feedbackItems = [feedbackCopy feedbackItems];
-    context = [feedbackItems countByEnumeratingWithState:&v40 objects:v48 count:16];
+    context = [feedbackItems countByEnumeratingWithState:&v39 objects:v47 count:16];
     if (context)
     {
-      v33 = *v41;
-      v34 = feedbackCopy;
+      v32 = *v40;
+      v33 = feedbackCopy;
       obj = feedbackItems;
       do
       {
         for (i = 0; i != context; i = i + 1)
         {
-          if (*v41 != v33)
+          if (*v40 != v32)
           {
             objc_enumerationMutation(obj);
           }
 
-          v11 = *(*(&v40 + 1) + 8 * i);
+          v11 = *(*(&v39 + 1) + 8 * i);
           v12 = objc_autoreleasePoolPush();
           v13 = objc_autoreleasePoolPush();
-          v46[0] = @"clientId";
-          clientIdentifier2 = [v34 clientIdentifier];
+          v45[0] = @"clientId";
+          clientIdentifier2 = [v33 clientIdentifier];
           _pas_stringBackedByUTF8CString = [clientIdentifier2 _pas_stringBackedByUTF8CString];
-          v47[0] = _pas_stringBackedByUTF8CString;
-          v46[1] = @"mappingId";
-          mappingId = [v34 mappingId];
+          v46[0] = _pas_stringBackedByUTF8CString;
+          v45[1] = @"mappingId";
+          mappingId = [v33 mappingId];
           v17 = mappingId;
           if (!mappingId)
           {
-            v32 = objc_opt_new();
-            v17 = v32;
+            v31 = objc_opt_new();
+            v17 = v31;
           }
 
-          v47[1] = v17;
-          v46[2] = @"type";
+          v46[1] = v17;
+          v45[2] = @"type";
           v18 = +[PPMetricsUtils stringifyFeedbackType:](PPMetricsUtils, "stringifyFeedbackType:", [v11 itemFeedbackType]);
-          v47[2] = v18;
-          v46[3] = @"feedbackDomainStatus";
+          v46[2] = v18;
+          v45[3] = @"feedbackDomainStatus";
           v19 = [PPMetricsUtils stringifyFeedbackDomainStatus:statusCopy];
-          v47[3] = v19;
-          v46[4] = @"domain";
+          v46[3] = v19;
+          v45[4] = @"domain";
           v20 = [PPMetricsUtils stringifyDomain:domainCopy];
-          v47[4] = v20;
-          v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v47 forKeys:v46 count:5];
+          v46[4] = v20;
+          v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v46 forKeys:v45 count:5];
 
           if (!mappingId)
           {
@@ -1402,21 +1513,21 @@ void __64__PPFeedbackStorage__existingSessionMatchingFeedback_storeType___block_
         }
 
         feedbackItems = obj;
-        context = [obj countByEnumeratingWithState:&v40 objects:v48 count:16];
+        context = [obj countByEnumeratingWithState:&v39 objects:v47 count:16];
       }
 
       while (context);
-      feedbackCopy = v34;
+      feedbackCopy = v33;
     }
   }
 
   else
   {
     contexta = objc_autoreleasePoolPush();
-    v44[0] = @"clientId";
+    v43[0] = @"clientId";
     clientIdentifier3 = [feedbackCopy clientIdentifier];
-    v45[0] = clientIdentifier3;
-    v44[1] = @"mappingId";
+    v44[0] = clientIdentifier3;
+    v43[1] = @"mappingId";
     mappingId2 = [feedbackCopy mappingId];
     v24 = mappingId2;
     if (!mappingId2)
@@ -1424,19 +1535,19 @@ void __64__PPFeedbackStorage__existingSessionMatchingFeedback_storeType___block_
       v24 = objc_opt_new();
     }
 
-    v45[1] = v24;
-    v44[2] = @"type";
+    v44[1] = v24;
+    v43[2] = @"type";
     feedbackItems2 = [feedbackCopy feedbackItems];
     firstObject = [feedbackItems2 firstObject];
     v27 = +[PPMetricsUtils stringifyFeedbackType:](PPMetricsUtils, "stringifyFeedbackType:", [firstObject itemFeedbackType]);
-    v45[2] = v27;
-    v44[3] = @"feedbackDomainStatus";
+    v44[2] = v27;
+    v43[3] = @"feedbackDomainStatus";
     v28 = [PPMetricsUtils stringifyFeedbackDomainStatus:statusCopy];
-    v45[3] = v28;
-    v44[4] = @"domain";
+    v44[3] = v28;
+    v43[4] = @"domain";
     v29 = [PPMetricsUtils stringifyDomain:domainCopy];
-    v45[4] = v29;
-    feedbackItems = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v45 forKeys:v44 count:5];
+    v44[4] = v29;
+    feedbackItems = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v44 forKeys:v43 count:5];
 
     if (!mappingId2)
     {
@@ -1445,8 +1556,6 @@ void __64__PPFeedbackStorage__existingSessionMatchingFeedback_storeType___block_
     objc_autoreleasePoolPop(contexta);
     [PPMetricsDispatcher logPayloadForEvent:@"com.apple.proactive.PersonalizationPortrait.FeedbackReceived" payload:feedbackItems inBackground:backgroundCopy];
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 @end

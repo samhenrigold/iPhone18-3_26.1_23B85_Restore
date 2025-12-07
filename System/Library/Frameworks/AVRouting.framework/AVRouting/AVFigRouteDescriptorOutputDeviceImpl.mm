@@ -127,6 +127,7 @@
 - (void)setCarPlayVideoActive:(BOOL)active completionHandler:(id)handler;
 - (void)setDisplayCornerMasks:(id)masks;
 - (void)setMediaRemoteData:(id)data completionHandler:(id)handler;
+- (void)setMuted:(BOOL)muted;
 - (void)setRouteDescriptor:(__CFDictionary *)descriptor;
 - (void)setSecondDisplayEnabled:(BOOL)enabled;
 - (void)setSecondDisplayMode:(id)mode completionHandler:(id)handler;
@@ -138,44 +139,40 @@
 
 @implementation AVFigRouteDescriptorOutputDeviceImpl
 
-uint64_t __61__AVFigRouteDescriptorOutputDeviceImpl_isCarPlayVideoAllowed__block_invoke(void *a1)
+uint64_t __61__AVFigRouteDescriptorOutputDeviceImpl_isCarPlayVideoAllowed__block_invoke(void *a1, uint64_t a2)
 {
-  v2 = *MEMORY[0x1E695E480];
-  v3 = *(a1[5] + 8);
+  v3 = *MEMORY[0x1E695E480];
+  v4 = *(a1[5] + 8);
   CMBaseObject = FigEndpointGetCMBaseObject();
-  VTable = CMBaseObjectGetVTable();
-  v6 = *(*(VTable + 8) + 48);
+  v6 = *(*(CMBaseObjectGetVTable() + 8) + 48);
   if (v6)
   {
-    v7 = *(VTable + 8) + 48;
-    v8 = v6(CMBaseObject, *MEMORY[0x1E6961F98], v2, v3 + 24);
+    v7 = v6(CMBaseObject, *MEMORY[0x1E6961F98], v3, v4 + 24);
   }
 
   else
   {
-    v8 = -12782;
+    v7 = -12782;
   }
 
-  *(*(a1[4] + 8) + 24) = v8;
+  *(*(a1[4] + 8) + 24) = v7;
   result = *(*(a1[4] + 8) + 24);
   if (!result)
   {
-    v10 = *(a1[6] + 8);
-    v11 = FigEndpointGetCMBaseObject();
-    v12 = CMBaseObjectGetVTable();
-    v13 = *(*(v12 + 8) + 48);
-    if (v13)
+    v9 = *(a1[6] + 8);
+    v10 = FigEndpointGetCMBaseObject();
+    v11 = *(*(CMBaseObjectGetVTable() + 8) + 48);
+    if (v11)
     {
-      v14 = *(v12 + 8) + 48;
-      v15 = v13(v11, *MEMORY[0x1E6961F88], v2, v10 + 24);
+      v12 = v11(v10, *MEMORY[0x1E6961F88], v3, v9 + 24);
     }
 
     else
     {
-      v15 = -12782;
+      v12 = -12782;
     }
 
-    *(*(a1[4] + 8) + 24) = v15;
+    *(*(a1[4] + 8) + 24) = v12;
     return *(*(a1[4] + 8) + 24);
   }
 
@@ -184,53 +181,43 @@ uint64_t __61__AVFigRouteDescriptorOutputDeviceImpl_isCarPlayVideoAllowed__block
 
 - (BOOL)isCarPlayVideoAllowed
 {
-  v19 = 0;
-  v20 = &v19;
-  v21 = 0x2020000000;
-  v22 = *MEMORY[0x1E695E4C0];
-  v15 = 0;
-  v16 = &v15;
-  v17 = 0x2020000000;
-  v18 = v22;
+  v16 = 0;
+  v17 = &v16;
+  v18 = 0x2020000000;
+  v19 = *MEMORY[0x1E695E4C0];
+  v12 = 0;
+  v13 = &v12;
+  v14 = 0x2020000000;
+  v15 = v19;
+  v8 = 0;
+  v9 = &v8;
+  v10 = 0x2020000000;
   v11 = 0;
-  v12 = &v11;
-  v13 = 0x2020000000;
-  v14 = 0;
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 3221225472;
-  v10[2] = __61__AVFigRouteDescriptorOutputDeviceImpl_isCarPlayVideoAllowed__block_invoke;
-  v10[3] = &unk_1E794EAE0;
-  v10[4] = &v11;
-  v10[5] = &v15;
-  v10[6] = &v19;
-  v2 = [(AVFigRouteDescriptorOutputDeviceImpl *)self _withEndpoint:v10];
-  *(v12 + 6) = v2;
-  if (v2 || (v4 = *MEMORY[0x1E695E4D0], v5 = v16[3], !FigCFEqual()))
+  v7[0] = MEMORY[0x1E69E9820];
+  v7[1] = 3221225472;
+  v7[2] = __61__AVFigRouteDescriptorOutputDeviceImpl_isCarPlayVideoAllowed__block_invoke;
+  v7[3] = &unk_1E794EAE0;
+  v7[4] = &v8;
+  v7[5] = &v12;
+  v7[6] = &v16;
+  v2 = [(AVFigRouteDescriptorOutputDeviceImpl *)self _withEndpoint:v7];
+  *(v9 + 6) = v2;
+  v3 = !v2 && FigCFEqual() && FigCFEqual() != 0;
+  v4 = v17[3];
+  if (v4)
   {
-    v3 = 0;
+    CFRelease(v4);
   }
 
-  else
+  v5 = v13[3];
+  if (v5)
   {
-    v6 = v20[3];
-    v3 = FigCFEqual() != 0;
+    CFRelease(v5);
   }
 
-  v7 = v20[3];
-  if (v7)
-  {
-    CFRelease(v7);
-  }
-
-  v8 = v16[3];
-  if (v8)
-  {
-    CFRelease(v8);
-  }
-
-  _Block_object_dispose(&v11, 8);
-  _Block_object_dispose(&v15, 8);
-  _Block_object_dispose(&v19, 8);
+  _Block_object_dispose(&v8, 8);
+  _Block_object_dispose(&v12, 8);
+  _Block_object_dispose(&v16, 8);
   return v3;
 }
 
@@ -321,12 +308,10 @@ uint64_t __61__AVFigRouteDescriptorOutputDeviceImpl_isCarPlayVideoAllowed__block
 
 - (__CFDictionary)routeDescriptor
 {
-  routeDescriptionRWLock = self->_routeDescriptionRWLock;
   FigReadWriteLockLockForRead();
-  v4 = self->_routeDescriptor;
-  v5 = self->_routeDescriptionRWLock;
+  v3 = self->_routeDescriptor;
   FigReadWriteLockUnlockForRead();
-  return v4;
+  return v3;
 }
 
 - (unint64_t)deviceFeatures
@@ -394,7 +379,6 @@ uint64_t __61__AVFigRouteDescriptorOutputDeviceImpl_isCarPlayVideoAllowed__block
 - (BOOL)canBeGroupLeader
 {
   [(AVFigRouteDescriptorOutputDeviceImpl *)self routeDescriptor];
-  v2 = *MEMORY[0x1E69AF120];
   FigCFDictionaryGetBooleanIfPresent();
   return 0;
 }
@@ -402,7 +386,6 @@ uint64_t __61__AVFigRouteDescriptorOutputDeviceImpl_isCarPlayVideoAllowed__block
 - (BOOL)canRelayCommunicationChannel
 {
   [(AVFigRouteDescriptorOutputDeviceImpl *)self routeDescriptor];
-  v2 = *MEMORY[0x1E69AF1E8];
   FigCFDictionaryGetBooleanIfPresent();
   return 0;
 }
@@ -418,7 +401,6 @@ uint64_t __61__AVFigRouteDescriptorOutputDeviceImpl_isCarPlayVideoAllowed__block
 - (BOOL)canBeGrouped
 {
   [(AVFigRouteDescriptorOutputDeviceImpl *)self routeDescriptor];
-  v2 = *MEMORY[0x1E69AF108];
   FigCFDictionaryGetBooleanIfPresent();
   return 0;
 }
@@ -426,7 +408,6 @@ uint64_t __61__AVFigRouteDescriptorOutputDeviceImpl_isCarPlayVideoAllowed__block
 - (BOOL)isGroupLeader
 {
   [(AVFigRouteDescriptorOutputDeviceImpl *)self routeDescriptor];
-  v2 = *MEMORY[0x1E69AF100];
   FigCFDictionaryGetBooleanIfPresent();
   return 0;
 }
@@ -439,23 +420,21 @@ uint64_t __61__AVFigRouteDescriptorOutputDeviceImpl_isCarPlayVideoAllowed__block
     return 0;
   }
 
-  v9 = 0;
+  v7 = 0;
   v3 = [(AVFigRouteDescriptorOutputDeviceImpl *)self ID];
-  VTable = CMBaseObjectGetVTable();
-  v5 = *(*(VTable + 16) + 88);
-  if (v5)
+  v4 = *(*(CMBaseObjectGetVTable() + 16) + 88);
+  if (v4)
   {
-    v6 = *(VTable + 16) + 88;
-    v5(volumeController, v3, &v9);
-    v7 = v9;
+    v4(volumeController, v3, &v7);
+    v5 = v7;
   }
 
   else
   {
-    v7 = 0;
+    v5 = 0;
   }
 
-  return AVOutputDeviceVolumeControlTypeFromFigType(v7);
+  return AVOutputDeviceVolumeControlTypeFromFigType(v5);
 }
 
 - (int64_t)HAPConformance
@@ -539,14 +518,15 @@ uint64_t __61__AVFigRouteDescriptorOutputDeviceImpl_isCarPlayVideoAllowed__block
 {
   routeDescriptor = [(AVFigRouteDescriptorOutputDeviceImpl *)self routeDescriptor];
   CFDictionaryGetValue(routeDescriptor, *MEMORY[0x1E69AF078]);
-  v3 = *MEMORY[0x1E69AF220];
   if (FigCFEqual())
   {
     return 2;
   }
 
-  v5 = *MEMORY[0x1E69AF218];
-  return FigCFEqual() != 0;
+  else
+  {
+    return FigCFEqual() != 0;
+  }
 }
 
 - (int64_t)configuredClusterSize
@@ -576,7 +556,6 @@ uint64_t __61__AVFigRouteDescriptorOutputDeviceImpl_isCarPlayVideoAllowed__block
 - (BOOL)producesLowFidelityAudio
 {
   [(AVFigRouteDescriptorOutputDeviceImpl *)self routeDescriptor];
-  v2 = *MEMORY[0x1E69AF118];
   FigCFDictionaryGetBooleanIfPresent();
   return 0;
 }
@@ -592,7 +571,6 @@ uint64_t __61__AVFigRouteDescriptorOutputDeviceImpl_isCarPlayVideoAllowed__block
 - (BOOL)isClusterLeader
 {
   [(AVFigRouteDescriptorOutputDeviceImpl *)self routeDescriptor];
-  v2 = *MEMORY[0x1E69AF0E8];
   FigCFDictionaryGetBooleanIfPresent();
   return 0;
 }
@@ -803,7 +781,6 @@ LABEL_3:
 - (BOOL)groupContainsGroupLeader
 {
   [(AVFigRouteDescriptorOutputDeviceImpl *)self routeDescriptor];
-  v2 = *MEMORY[0x1E69AF0B0];
   FigCFDictionaryGetBooleanIfPresent();
   return 0;
 }
@@ -818,7 +795,6 @@ LABEL_3:
 - (BOOL)participatesInGroupPlayback
 {
   [(AVFigRouteDescriptorOutputDeviceImpl *)self routeDescriptor];
-  v2 = *MEMORY[0x1E69AF128];
   FigCFDictionaryGetBooleanIfPresent();
   return 1;
 }
@@ -846,7 +822,6 @@ LABEL_3:
 
 - (void)setRouteDescriptor:(__CFDictionary *)descriptor
 {
-  routeDescriptionRWLock = self->_routeDescriptionRWLock;
   FigReadWriteLockLockForWrite();
   routeDescriptor = self->_routeDescriptor;
   self->_routeDescriptor = descriptor;
@@ -860,54 +835,49 @@ LABEL_3:
     CFRelease(routeDescriptor);
   }
 
-  v7 = self->_routeDescriptionRWLock;
+  routeDescriptionRWLock = self->_routeDescriptionRWLock;
 
-  MEMORY[0x1EEDBDA98](v7);
+  MEMORY[0x1EEDBDA98](routeDescriptionRWLock);
 }
 
 - (BOOL)isEligibleToBePredictedOutputDevice
 {
   [(AVFigRouteDescriptorOutputDeviceImpl *)self routeDescriptor];
-  v2 = *MEMORY[0x1E69AF038];
   FigCFDictionaryGetBooleanIfPresent();
   return 0;
 }
 
 - (BOOL)isCarPlayVideoActive
 {
-  v8 = 0;
-  v9 = &v8;
-  v10 = 0x2020000000;
-  v11 = *MEMORY[0x1E695E4C0];
-  v7[0] = MEMORY[0x1E69E9820];
-  v7[1] = 3221225472;
-  v7[2] = __60__AVFigRouteDescriptorOutputDeviceImpl_isCarPlayVideoActive__block_invoke;
-  v7[3] = &unk_1E794EAB8;
-  v7[4] = &v8;
-  [(AVFigRouteDescriptorOutputDeviceImpl *)self _withEndpoint:v7];
-  v2 = v9[3];
-  v3 = *MEMORY[0x1E695E4D0];
-  v4 = FigCFEqual();
-  v5 = v9[3];
-  if (v5)
+  v6 = 0;
+  v7 = &v6;
+  v8 = 0x2020000000;
+  v9 = *MEMORY[0x1E695E4C0];
+  v5[0] = MEMORY[0x1E69E9820];
+  v5[1] = 3221225472;
+  v5[2] = __60__AVFigRouteDescriptorOutputDeviceImpl_isCarPlayVideoActive__block_invoke;
+  v5[3] = &unk_1E794EAB8;
+  v5[4] = &v6;
+  [(AVFigRouteDescriptorOutputDeviceImpl *)self _withEndpoint:v5];
+  v2 = FigCFEqual();
+  v3 = v7[3];
+  if (v3)
   {
-    CFRelease(v5);
+    CFRelease(v3);
   }
 
-  _Block_object_dispose(&v8, 8);
-  return v4 != 0;
+  _Block_object_dispose(&v6, 8);
+  return v2 != 0;
 }
 
-uint64_t __60__AVFigRouteDescriptorOutputDeviceImpl_isCarPlayVideoActive__block_invoke(uint64_t a1)
+uint64_t __60__AVFigRouteDescriptorOutputDeviceImpl_isCarPlayVideoActive__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v1 = *(*(a1 + 32) + 8);
+  v2 = *(*(a1 + 32) + 8);
   CMBaseObject = FigEndpointGetCMBaseObject();
-  VTable = CMBaseObjectGetVTable();
-  v4 = *(*(VTable + 8) + 48);
+  v4 = *(*(CMBaseObjectGetVTable() + 8) + 48);
   if (v4)
   {
-    v5 = *(VTable + 8) + 48;
-    v4(CMBaseObject, *MEMORY[0x1E6962188], *MEMORY[0x1E695E480], v1 + 24);
+    v4(CMBaseObject, *MEMORY[0x1E6962188], *MEMORY[0x1E695E480], v2 + 24);
   }
 
   return 0;
@@ -915,49 +885,45 @@ uint64_t __60__AVFigRouteDescriptorOutputDeviceImpl_isCarPlayVideoActive__block_
 
 - (int64_t)mediaSessionStatus
 {
-  v9 = 0;
-  v10 = &v9;
-  v11 = 0x2020000000;
-  v12 = *MEMORY[0x1E695E4C0];
-  v8[0] = MEMORY[0x1E69E9820];
-  v8[1] = 3221225472;
-  v8[2] = __58__AVFigRouteDescriptorOutputDeviceImpl_mediaSessionStatus__block_invoke;
-  v8[3] = &unk_1E794EAB8;
-  v8[4] = &v9;
-  [(AVFigRouteDescriptorOutputDeviceImpl *)self _withEndpoint:v8];
-  v2 = v10[3];
-  v3 = *MEMORY[0x1E695E4D0];
-  v4 = FigCFEqual();
-  v5 = v10[3];
-  if (v5)
+  v7 = 0;
+  v8 = &v7;
+  v9 = 0x2020000000;
+  v10 = *MEMORY[0x1E695E4C0];
+  v6[0] = MEMORY[0x1E69E9820];
+  v6[1] = 3221225472;
+  v6[2] = __58__AVFigRouteDescriptorOutputDeviceImpl_mediaSessionStatus__block_invoke;
+  v6[3] = &unk_1E794EAB8;
+  v6[4] = &v7;
+  [(AVFigRouteDescriptorOutputDeviceImpl *)self _withEndpoint:v6];
+  v2 = FigCFEqual();
+  v3 = v8[3];
+  if (v3)
   {
-    CFRelease(v5);
+    CFRelease(v3);
   }
 
-  if (v4)
+  if (v2)
   {
-    v6 = 2;
+    v4 = 2;
   }
 
   else
   {
-    v6 = 1;
+    v4 = 1;
   }
 
-  _Block_object_dispose(&v9, 8);
-  return v6;
+  _Block_object_dispose(&v7, 8);
+  return v4;
 }
 
-uint64_t __58__AVFigRouteDescriptorOutputDeviceImpl_mediaSessionStatus__block_invoke(uint64_t a1)
+uint64_t __58__AVFigRouteDescriptorOutputDeviceImpl_mediaSessionStatus__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v1 = *(*(a1 + 32) + 8);
+  v2 = *(*(a1 + 32) + 8);
   CMBaseObject = FigEndpointGetCMBaseObject();
-  VTable = CMBaseObjectGetVTable();
-  v4 = *(*(VTable + 8) + 48);
+  v4 = *(*(CMBaseObjectGetVTable() + 8) + 48);
   if (v4)
   {
-    v5 = *(VTable + 8) + 48;
-    v4(CMBaseObject, @"IsAnyAirPlayCapableVideoSessionActive", *MEMORY[0x1E695E480], v1 + 24);
+    v4(CMBaseObject, @"IsAnyAirPlayCapableVideoSessionActive", *MEMORY[0x1E695E480], v2 + 24);
   }
 
   return 0;
@@ -1005,7 +971,7 @@ uint64_t __58__AVFigRouteDescriptorOutputDeviceImpl_mediaSessionStatus__block_in
 
   else
   {
-    v10 = AVLocalizedErrorWithUnderlyingOSStatus(-12786, 0);
+    v10 = AVLocalizedErrorWithUnderlyingOSStatus(4294954510, 0);
     v11 = *(handler + 2);
     handlerCopy2 = handler;
   }
@@ -1055,7 +1021,6 @@ uint64_t __80__AVFigRouteDescriptorOutputDeviceImpl_setCarPlayVideoActive_comple
     CFRelease(cf[0]);
   }
 
-  v9 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
@@ -1138,7 +1103,7 @@ uint64_t __80__AVFigRouteDescriptorOutputDeviceImpl_setCarPlayVideoActive_comple
 
   else if (error)
   {
-    v10 = AVLocalizedErrorWithUnderlyingOSStatus(-11862, 0);
+    v10 = AVLocalizedErrorWithUnderlyingOSStatus(4294955434, 0);
     result = 0;
     *error = v10;
   }
@@ -1151,31 +1116,29 @@ uint64_t __80__AVFigRouteDescriptorOutputDeviceImpl_setCarPlayVideoActive_comple
   return result;
 }
 
-uint64_t __78__AVFigRouteDescriptorOutputDeviceImpl_setConversationDetectionEnabled_error___block_invoke(uint64_t a1)
+uint64_t __78__AVFigRouteDescriptorOutputDeviceImpl_setConversationDetectionEnabled_error___block_invoke(uint64_t a1, uint64_t a2)
 {
   if (*(a1 + 32))
   {
-    v1 = MEMORY[0x1E695E4D0];
+    v2 = MEMORY[0x1E695E4D0];
   }
 
   else
   {
-    v1 = MEMORY[0x1E695E4C0];
+    v2 = MEMORY[0x1E695E4C0];
   }
 
   CMBaseObject = FigEndpointGetCMBaseObject();
-  VTable = CMBaseObjectGetVTable();
-  v4 = *(*(VTable + 8) + 56);
+  v4 = *(*(CMBaseObjectGetVTable() + 8) + 56);
   if (!v4)
   {
     return 4294954514;
   }
 
-  v5 = *(VTable + 8) + 56;
-  v6 = *MEMORY[0x1E6962058];
-  v7 = *v1;
+  v5 = *MEMORY[0x1E6962058];
+  v6 = *v2;
 
-  return v4(CMBaseObject, v6, v7);
+  return v4(CMBaseObject, v5, v6);
 }
 
 - (void)setSecondDisplayEnabled:(BOOL)enabled
@@ -1277,19 +1240,17 @@ uint64_t __77__AVFigRouteDescriptorOutputDeviceImpl_setMediaRemoteData_completio
 
 - (float)volume
 {
-  v9 = 0.0;
+  v7 = 0.0;
   volumeController = self->_volumeController;
   v3 = 0.0;
   if (volumeController)
   {
     v4 = [(AVFigRouteDescriptorOutputDeviceImpl *)self ID];
-    VTable = CMBaseObjectGetVTable();
-    v6 = *(*(VTable + 16) + 72);
-    if (v6)
+    v5 = *(*(CMBaseObjectGetVTable() + 16) + 72);
+    if (v5)
     {
-      v7 = *(VTable + 16) + 72;
-      v6(volumeController, v4, &v9);
-      return v9;
+      v5(volumeController, v4, &v7);
+      return v7;
     }
   }
 
@@ -1298,7 +1259,7 @@ uint64_t __77__AVFigRouteDescriptorOutputDeviceImpl_setMediaRemoteData_completio
 
 - (void)_mutedDidChangeForEndpointWithID:(__CFString *)d
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   if ([(__CFString *)d isEqual:[(AVFigRouteDescriptorOutputDeviceImpl *)self ID]])
   {
     if (dword_1ED6F6B68)
@@ -1308,15 +1269,13 @@ uint64_t __77__AVFigRouteDescriptorOutputDeviceImpl_setMediaRemoteData_completio
       fig_log_call_emit_and_clean_up_after_send_and_compose();
     }
 
-    [(AVOutputDeviceImplSupport *)[(AVFigRouteDescriptorOutputDeviceImpl *)self implEventListener:v6] outputDeviceImplDidChangeMute:self];
+    [(AVOutputDeviceImplSupport *)[(AVFigRouteDescriptorOutputDeviceImpl *)self implEventListener] outputDeviceImplDidChangeMute:self];
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_canMuteDidChangeForEndpointWithID:(__CFString *)d
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   if ([(__CFString *)d isEqual:[(AVFigRouteDescriptorOutputDeviceImpl *)self ID]])
   {
     if (dword_1ED6F6B68)
@@ -1326,15 +1285,12 @@ uint64_t __77__AVFigRouteDescriptorOutputDeviceImpl_setMediaRemoteData_completio
       fig_log_call_emit_and_clean_up_after_send_and_compose();
     }
 
-    [(AVOutputDeviceImplSupport *)[(AVFigRouteDescriptorOutputDeviceImpl *)self implEventListener:v6] outputDeviceImplCanMuteDidChange:self];
+    [(AVOutputDeviceImplSupport *)[(AVFigRouteDescriptorOutputDeviceImpl *)self implEventListener] outputDeviceImplCanMuteDidChange:self];
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_routeDescriptionDidChange:(__CFDictionary *)change
 {
-  v5 = *MEMORY[0x1E69AF1C0];
   if ([FigCFDictionaryGetValue() isEqual:{-[AVFigRouteDescriptorOutputDeviceImpl ID](self, "ID")}])
   {
 
@@ -1344,66 +1300,61 @@ uint64_t __77__AVFigRouteDescriptorOutputDeviceImpl_setMediaRemoteData_completio
 
 - (void)_handleRouteDescriptionEvent:(__CFString *)event payload:(id)payload
 {
-  v7 = *MEMORY[0x1E69619C0];
   if (FigCFEqual())
   {
 
     [(AVFigRouteDescriptorOutputDeviceImpl *)self _vehicleInformationDidChange:payload];
   }
 
-  else
+  else if (FigCFEqual())
   {
-    v8 = *MEMORY[0x1E69619C8];
-    if (FigCFEqual())
+    if ([(AVFigRouteDescriptorOutputDeviceImpl *)self delegate])
     {
-      if ([(AVFigRouteDescriptorOutputDeviceImpl *)self delegate])
+      [(AVFigRouteDescriptorOutputDeviceImpl *)self delegate];
+      if (objc_opt_respondsToSelector())
       {
-        [(AVFigRouteDescriptorOutputDeviceImpl *)self delegate];
-        if (objc_opt_respondsToSelector())
-        {
-          delegate = [(AVFigRouteDescriptorOutputDeviceImpl *)self delegate];
-          v10 = [objc_msgSend(payload objectForKeyedSubscript:{@"viewAreaIndex", "integerValue"}];
-          v11 = [payload objectForKeyedSubscript:@"adjacentViewAreas"];
-          v12 = [payload objectForKeyedSubscript:@"uuid"];
+        delegate = [(AVFigRouteDescriptorOutputDeviceImpl *)self delegate];
+        v8 = [objc_msgSend(payload objectForKeyedSubscript:{@"viewAreaIndex", "integerValue"}];
+        v9 = [payload objectForKeyedSubscript:@"adjacentViewAreas"];
+        v10 = [payload objectForKeyedSubscript:@"uuid"];
 
-          [(AVOutputDeviceDelegate *)delegate setViewAreaIndex:v10 andAdjacentViewAreas:v11 forScreenID:v12];
-        }
+        [(AVOutputDeviceDelegate *)delegate setViewAreaIndex:v8 andAdjacentViewAreas:v9 forScreenID:v10];
       }
     }
+  }
 
-    else
+  else
+  {
+    v11 = AVOutputDeviceNotificationFromFigNotification(event);
+    if ([v11 isEqual:@"AVOutputDeviceCarPlayTestNotification"])
     {
-      v13 = AVOutputDeviceNotificationFromFigNotification(event);
-      if ([v13 isEqual:@"AVOutputDeviceCarPlayTestNotification"])
-      {
 
-        [(AVFigRouteDescriptorOutputDeviceImpl *)self _carPlayTestNotification:payload];
-      }
+      [(AVFigRouteDescriptorOutputDeviceImpl *)self _carPlayTestNotification:payload];
+    }
 
-      else if ([v13 isEqual:@"AVOutputDeviceiOSUIRequestedNotification"])
-      {
+    else if ([v11 isEqual:@"AVOutputDeviceiOSUIRequestedNotification"])
+    {
 
-        [(AVFigRouteDescriptorOutputDeviceImpl *)self _iOSUIRequestedNotification:payload];
-      }
+      [(AVFigRouteDescriptorOutputDeviceImpl *)self _iOSUIRequestedNotification:payload];
+    }
 
-      else if ([v13 isEqual:@"AVOutputDeviceSiriRequestedNotification"])
-      {
+    else if ([v11 isEqual:@"AVOutputDeviceSiriRequestedNotification"])
+    {
 
-        [(AVFigRouteDescriptorOutputDeviceImpl *)self _siriRequestedNotification:payload];
-      }
+      [(AVFigRouteDescriptorOutputDeviceImpl *)self _siriRequestedNotification:payload];
+    }
 
-      else if ([v13 isEqual:@"AVOutputDeviceUnhandledRemoteEventNotification"])
-      {
+    else if ([v11 isEqual:@"AVOutputDeviceUnhandledRemoteEventNotification"])
+    {
 
-        [(AVFigRouteDescriptorOutputDeviceImpl *)self _unhandledRemoteCommandNotification:payload];
-      }
+      [(AVFigRouteDescriptorOutputDeviceImpl *)self _unhandledRemoteCommandNotification:payload];
+    }
 
-      else if (v13)
-      {
-        implEventListener = [(AVFigRouteDescriptorOutputDeviceImpl *)self implEventListener];
+    else if (v11)
+    {
+      implEventListener = [(AVFigRouteDescriptorOutputDeviceImpl *)self implEventListener];
 
-        [(AVOutputDeviceImplSupport *)implEventListener postNotification:v13 fromImpl:self];
-      }
+      [(AVOutputDeviceImplSupport *)implEventListener postNotification:v11 fromImpl:self];
     }
   }
 }
@@ -1422,8 +1373,7 @@ uint64_t __77__AVFigRouteDescriptorOutputDeviceImpl_setMediaRemoteData_completio
 
 - (void)_carPlayTestNotification:(id)notification
 {
-  [notification objectForKey:*MEMORY[0x1E69624E8]];
-  SiriRequestedActionFromFigAction = AVOutputDeviceGetSiriRequestedActionFromFigAction();
+  SiriRequestedActionFromFigAction = AVOutputDeviceGetSiriRequestedActionFromFigAction([notification objectForKey:*MEMORY[0x1E69624E8]]);
   v6 = [notification objectForKey:*MEMORY[0x1E69624F0]];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   [dictionary setValue:objc_msgSend(MEMORY[0x1E696AD98] forKey:{"numberWithInteger:", SiriRequestedActionFromFigAction), @"AVOutputDeviceSiriRequestedActionKey"}];
@@ -1435,8 +1385,7 @@ uint64_t __77__AVFigRouteDescriptorOutputDeviceImpl_setMediaRemoteData_completio
 
 - (void)_siriRequestedNotification:(id)notification
 {
-  [notification objectForKey:*MEMORY[0x1E69624E8]];
-  SiriRequestedActionFromFigAction = AVOutputDeviceGetSiriRequestedActionFromFigAction();
+  SiriRequestedActionFromFigAction = AVOutputDeviceGetSiriRequestedActionFromFigAction([notification objectForKey:*MEMORY[0x1E69624E8]]);
   v6 = [notification objectForKey:*MEMORY[0x1E69624F0]];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   [dictionary setValue:objc_msgSend(MEMORY[0x1E696AD98] forKey:{"numberWithInteger:", SiriRequestedActionFromFigAction), @"AVOutputDeviceSiriRequestedActionKey"}];
@@ -1478,7 +1427,7 @@ uint64_t __77__AVFigRouteDescriptorOutputDeviceImpl_setMediaRemoteData_completio
 
 - (void)_volumeDidChangeForEndpointWithID:(__CFString *)d
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   if ([(__CFString *)d isEqual:[(AVFigRouteDescriptorOutputDeviceImpl *)self ID]])
   {
     if (dword_1ED6F6B68)
@@ -1488,15 +1437,13 @@ uint64_t __77__AVFigRouteDescriptorOutputDeviceImpl_setMediaRemoteData_completio
       fig_log_call_emit_and_clean_up_after_send_and_compose();
     }
 
-    [(AVOutputDeviceImplSupport *)[(AVFigRouteDescriptorOutputDeviceImpl *)self implEventListener:v6] outputDeviceImplDidChangeVolume:self];
+    [(AVOutputDeviceImplSupport *)[(AVFigRouteDescriptorOutputDeviceImpl *)self implEventListener] outputDeviceImplDidChangeVolume:self];
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_volumeForEndpointDidChange:(__CFString *)change forRoomID:(__CFString *)d
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   if ([(__CFString *)change isEqual:[(AVFigRouteDescriptorOutputDeviceImpl *)self ID]])
   {
     if (dword_1ED6F6B68)
@@ -1506,15 +1453,13 @@ uint64_t __77__AVFigRouteDescriptorOutputDeviceImpl_setMediaRemoteData_completio
       fig_log_call_emit_and_clean_up_after_send_and_compose();
     }
 
-    [(AVOutputDeviceImplSupport *)[(AVFigRouteDescriptorOutputDeviceImpl *)self implEventListener:v8] activatedDeviceClusterMembersDidChangeVolume:self forRoomID:d];
+    [(AVOutputDeviceImplSupport *)[(AVFigRouteDescriptorOutputDeviceImpl *)self implEventListener] activatedDeviceClusterMembersDidChangeVolume:self forRoomID:d];
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)canSetVolume
 {
-  v8 = 0;
+  v6 = 0;
   volumeController = self->_volumeController;
   if (!volumeController)
   {
@@ -1522,21 +1467,19 @@ uint64_t __77__AVFigRouteDescriptorOutputDeviceImpl_setMediaRemoteData_completio
   }
 
   v3 = [(AVFigRouteDescriptorOutputDeviceImpl *)self ID];
-  VTable = CMBaseObjectGetVTable();
-  v5 = *(*(VTable + 16) + 80);
-  if (!v5)
+  v4 = *(*(CMBaseObjectGetVTable() + 16) + 80);
+  if (!v4)
   {
     return 0;
   }
 
-  v6 = *(VTable + 16) + 80;
-  v5(volumeController, v3, &v8);
-  return v8 != 0;
+  v4(volumeController, v3, &v6);
+  return v6 != 0;
 }
 
 - (void)_canSetEndpointVolumeDidChangeForEndpointWithID:(__CFString *)d
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   if ([(__CFString *)d isEqual:[(AVFigRouteDescriptorOutputDeviceImpl *)self ID]])
   {
     if (dword_1ED6F6B68)
@@ -1546,15 +1489,13 @@ uint64_t __77__AVFigRouteDescriptorOutputDeviceImpl_setMediaRemoteData_completio
       fig_log_call_emit_and_clean_up_after_send_and_compose();
     }
 
-    [(AVOutputDeviceImplSupport *)[(AVFigRouteDescriptorOutputDeviceImpl *)self implEventListener:v6] outputDeviceImplDidChangeCanChangeVolume:self];
+    [(AVOutputDeviceImplSupport *)[(AVFigRouteDescriptorOutputDeviceImpl *)self implEventListener] outputDeviceImplDidChangeCanChangeVolume:self];
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_endpointVolumeControlTypeDidChangeForEndpointWithID:(__CFString *)d
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   if ([(__CFString *)d isEqualToString:[(AVFigRouteDescriptorOutputDeviceImpl *)self ID]])
   {
     if (dword_1ED6F6B68)
@@ -1564,15 +1505,13 @@ uint64_t __77__AVFigRouteDescriptorOutputDeviceImpl_setMediaRemoteData_completio
       fig_log_call_emit_and_clean_up_after_send_and_compose();
     }
 
-    [(AVOutputDeviceImplSupport *)[(AVFigRouteDescriptorOutputDeviceImpl *)self implEventListener:v6] outputDeviceImplDidChangeVolumeControlType:self];
+    [(AVOutputDeviceImplSupport *)[(AVFigRouteDescriptorOutputDeviceImpl *)self implEventListener] outputDeviceImplDidChangeVolumeControlType:self];
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setVolume:(float)volume
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   if (self->_volumeController)
   {
     v5 = [(AVFigRouteDescriptorOutputDeviceImpl *)self ID];
@@ -1590,8 +1529,6 @@ uint64_t __77__AVFigRouteDescriptorOutputDeviceImpl_setMediaRemoteData_completio
       v8(volumeController, v5, volume);
     }
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)increaseVolumeByCount:(int64_t)count
@@ -1629,19 +1566,17 @@ uint64_t __77__AVFigRouteDescriptorOutputDeviceImpl_setMediaRemoteData_completio
 
 - (float)volumeForActivatedDeviceClusterMembersWithRoomID:(id)d
 {
-  v11 = 0.0;
+  v9 = 0.0;
   volumeController = self->_volumeController;
   v4 = 0.0;
   if (volumeController)
   {
     v6 = [(AVFigRouteDescriptorOutputDeviceImpl *)self ID];
-    VTable = CMBaseObjectGetVTable();
-    v8 = *(*(VTable + 16) + 216);
-    if (v8)
+    v7 = *(*(CMBaseObjectGetVTable() + 16) + 216);
+    if (v7)
     {
-      v9 = *(VTable + 16) + 216;
-      v8(volumeController, v6, d, &v11);
-      return v11;
+      v7(volumeController, v6, d, &v9);
+      return v9;
     }
   }
 
@@ -1674,10 +1609,21 @@ uint64_t __77__AVFigRouteDescriptorOutputDeviceImpl_setMediaRemoteData_completio
   return AVOutputDeviceImplIsMutedForEndpointID(volumeController, v3);
 }
 
+- (void)setMuted:(BOOL)muted
+{
+  volumeController = self->_volumeController;
+  if (volumeController)
+  {
+    mutedCopy = muted;
+    v5 = [(AVFigRouteDescriptorOutputDeviceImpl *)self ID];
+
+    AVOutputDeviceImplSetMutedForEndpointID(volumeController, v5, mutedCopy);
+  }
+}
+
 - (BOOL)isLogicalDeviceLeader
 {
   [(AVFigRouteDescriptorOutputDeviceImpl *)self routeDescriptor];
-  v2 = *MEMORY[0x1E69AF1F8];
   FigCFDictionaryGetBooleanIfPresent();
   return 0;
 }
@@ -1685,7 +1631,6 @@ uint64_t __77__AVFigRouteDescriptorOutputDeviceImpl_setMediaRemoteData_completio
 - (BOOL)canCommunicateWithAllLogicalDeviceMembers
 {
   [(AVFigRouteDescriptorOutputDeviceImpl *)self routeDescriptor];
-  v2 = *MEMORY[0x1E69AF1F0];
   FigCFDictionaryGetBooleanIfPresent();
   return 1;
 }
@@ -1706,7 +1651,7 @@ uint64_t __77__AVFigRouteDescriptorOutputDeviceImpl_setMediaRemoteData_completio
 
 - (void)configureUsingBlock:(id)block options:(id)options completionHandler:(id)handler
 {
-  v28[19] = *MEMORY[0x1E69E9840];
+  v25[19] = *MEMORY[0x1E69E9840];
   cf = 0;
   v9 = +[AVRoutingGlobalOperationQueue defaultQueue];
   v10 = *MEMORY[0x1E695E480];
@@ -1718,14 +1663,14 @@ uint64_t __77__AVFigRouteDescriptorOutputDeviceImpl_setMediaRemoteData_completio
 
   if (dword_1ED6F6B68)
   {
-    v25 = 0;
+    v22 = 0;
     type = OS_LOG_TYPE_DEFAULT;
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  v13 = [(FigRoutingContextFactory *)self->_routingContextFactory createControlChannelOnlyContextWithAllocator:v10 options:0 context:&cf, v21, v22];
+  v13 = [(FigRoutingContextFactory *)self->_routingContextFactory createControlChannelOnlyContextWithAllocator:v10 options:0 context:&cf];
   if (v13)
   {
     v16 = 0;
@@ -1750,15 +1695,15 @@ uint64_t __77__AVFigRouteDescriptorOutputDeviceImpl_setMediaRemoteData_completio
       v17 = 0;
     }
 
-    v23[0] = MEMORY[0x1E69E9820];
-    v23[1] = 3221225472;
-    v23[2] = __86__AVFigRouteDescriptorOutputDeviceImpl_configureUsingBlock_options_completionHandler___block_invoke;
-    v23[3] = &unk_1E794E840;
-    v23[4] = v16;
-    v23[5] = v14;
-    v23[6] = handler;
-    v23[7] = v17;
-    [(AVRoutingContextSendConfigureDeviceCommandOperation *)v16 setCompletionBlock:v23];
+    v20[0] = MEMORY[0x1E69E9820];
+    v20[1] = 3221225472;
+    v20[2] = __86__AVFigRouteDescriptorOutputDeviceImpl_configureUsingBlock_options_completionHandler___block_invoke;
+    v20[3] = &unk_1E794E840;
+    v20[4] = v16;
+    v20[5] = v14;
+    v20[6] = handler;
+    v20[7] = v17;
+    [(AVRoutingContextSendConfigureDeviceCommandOperation *)v16 setCompletionBlock:v20];
     [v9 enqueueOperation:v14];
     [v9 enqueueOperation:v16];
 LABEL_11:
@@ -1772,9 +1717,9 @@ LABEL_11:
 
   v16 = 0;
 LABEL_12:
-  v27 = *MEMORY[0x1E695E618];
-  v28[0] = @"Failed to create FigRoutingContext";
-  v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v28 forKeys:&v27 count:1];
+  v24 = *MEMORY[0x1E695E618];
+  v25[0] = @"Failed to create FigRoutingContext";
+  v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v25 forKeys:&v24 count:1];
   if (v13)
   {
     v19 = AVLocalizedErrorWithUnderlyingOSStatus(v13, v18);
@@ -1796,13 +1741,10 @@ LABEL_16:
   {
     CFRelease(cf);
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 void __86__AVFigRouteDescriptorOutputDeviceImpl_configureUsingBlock_options_completionHandler___block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) status];
   switch(v2)
   {
@@ -1852,8 +1794,6 @@ void __86__AVFigRouteDescriptorOutputDeviceImpl_configureUsingBlock_options_comp
   {
     CFRelease(v7);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (NSArray)OEMIcons
@@ -1998,9 +1938,9 @@ uint64_t __56__AVFigRouteDescriptorOutputDeviceImpl_outputDeviceHIDs__block_invo
 
 - (int64_t)transportType
 {
-  CFDictionaryGetValue([(AVFigRouteDescriptorOutputDeviceImpl *)self routeDescriptor], @"TransportType");
+  Value = CFDictionaryGetValue([(AVFigRouteDescriptorOutputDeviceImpl *)self routeDescriptor], @"TransportType");
 
-  return AVOutputDeviceTransportTypeFromFigTransportType();
+  return AVOutputDeviceTransportTypeFromFigTransportType(Value);
 }
 
 - (NSData)MFiCertificateSerialNumber
@@ -2166,9 +2106,9 @@ uint64_t __56__AVFigRouteDescriptorOutputDeviceImpl_outputDeviceHIDs__block_invo
 
 - (int64_t)authenticationType
 {
-  CFDictionaryGetValue([(AVFigRouteDescriptorOutputDeviceImpl *)self routeDescriptor], @"AuthenticationType");
+  Value = CFDictionaryGetValue([(AVFigRouteDescriptorOutputDeviceImpl *)self routeDescriptor], @"AuthenticationType");
 
-  return AVOutputDeviceAuthenticationTypeFromFigAuthenticationType();
+  return AVOutputDeviceAuthenticationTypeFromFigAuthenticationType(Value);
 }
 
 - (id)currentScreenViewAreaForScreenID:(id)d
@@ -2405,11 +2345,11 @@ LABEL_20:
 {
   cf[16] = *MEMORY[0x1E69E9840];
   theArray = 0;
-  v39 = 0;
+  v42 = 0;
   if (dword_1ED6F6B68 >= 3)
   {
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-    if (OUTLINED_FUNCTION_5_0(os_log_and_send_and_compose_flags_and_os_log_type, v7, v8, v9, v10, v11, v12, v13, v34, v35, v36, *v37, v37[2], OS_LOG_TYPE_DEFAULT, 0))
+    if (OUTLINED_FUNCTION_5_0(os_log_and_send_and_compose_flags_and_os_log_type, v7, v8, v9, v10, v11, v12, v13, v37, v38, v39, *v40, v40[2], OS_LOG_TYPE_DEFAULT, 0))
     {
       v14 = v3;
     }
@@ -2422,10 +2362,10 @@ LABEL_20:
     if (v14)
     {
       [(AVFigRouteDescriptorOutputDeviceImpl *)self routeDescriptor];
-      v40 = 136315395;
-      v41 = "[AVFigRouteDescriptorOutputDeviceImpl _withEndpoint:]";
+      v43 = 136315395;
+      v44 = "[AVFigRouteDescriptorOutputDeviceImpl _withEndpoint:]";
       OUTLINED_FUNCTION_2_0();
-      OUTLINED_FUNCTION_4_0();
+      OUTLINED_FUNCTION_4_0(v15, v16, cf, v17, &dword_1AB586000, v18, v19, "<<<< AVOutputDevice (FigRouteDescriptor) >>>> %s: Grabbing endpoint for route descriptor %{private}@");
     }
 
     OUTLINED_FUNCTION_1_1();
@@ -2435,16 +2375,15 @@ LABEL_20:
   routingContext = self->_routingContext;
   if (routingContext)
   {
-    v16 = self->_routingContext;
-    v17 = *(*(CMBaseObjectGetVTable() + 16) + 56);
-    if (v17)
+    v21 = *(*(CMBaseObjectGetVTable() + 16) + 56);
+    if (v21)
     {
-      v18 = v17(routingContext, &theArray);
-      if (!v18)
+      v22 = v21(routingContext, &theArray);
+      if (!v22)
       {
-        v19 = 0;
-        v20 = *MEMORY[0x1E69620F8];
-        v21 = *MEMORY[0x1E695E480];
+        v23 = 0;
+        v24 = *MEMORY[0x1E69620F8];
+        v25 = *MEMORY[0x1E695E480];
         while (1)
         {
           Count = theArray;
@@ -2453,45 +2392,24 @@ LABEL_20:
             Count = CFArrayGetCount(theArray);
           }
 
-          if (v19 >= Count)
+          if (v23 >= Count)
           {
             goto LABEL_33;
           }
 
-          ValueAtIndex = CFArrayGetValueAtIndex(theArray, v19);
+          ValueAtIndex = CFArrayGetValueAtIndex(theArray, v23);
           cf[0] = 0;
           CMBaseObject = FigEndpointGetCMBaseObject();
-          v25 = *(*(CMBaseObjectGetVTable() + 8) + 48);
-          if (v25)
+          v29 = *(*(CMBaseObjectGetVTable() + 8) + 48);
+          if (v29)
           {
-            v25(CMBaseObject, v20, v21, cf);
+            v29(CMBaseObject, v24, v25, cf);
           }
 
-          v26 = [(AVFigRouteDescriptorOutputDeviceImpl *)self ID];
-          if ([(NSString *)v26 isEqualToString:cf[0]])
+          v30 = [(AVFigRouteDescriptorOutputDeviceImpl *)self ID];
+          if ([(NSString *)v30 isEqualToString:cf[0]])
           {
-            if (ValueAtIndex)
-            {
-              v30 = CFRetain(ValueAtIndex);
-            }
-
-            else
-            {
-              v30 = 0;
-            }
-
-            v39 = v30;
-            if (cf[0])
-            {
-              CFRelease(cf[0]);
-            }
-
-            if (!v30)
-            {
-              goto LABEL_33;
-            }
-
-            goto LABEL_32;
+            break;
           }
 
           if (cf[0])
@@ -2499,47 +2417,71 @@ LABEL_20:
             CFRelease(cf[0]);
           }
 
-          ++v19;
+          ++v23;
         }
+
+        if (ValueAtIndex)
+        {
+          v34 = CFRetain(ValueAtIndex);
+        }
+
+        else
+        {
+          v34 = 0;
+        }
+
+        v42 = v34;
+        if (cf[0])
+        {
+          CFRelease(cf[0]);
+        }
+
+        if (!v34)
+        {
+LABEL_33:
+          v22 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", qword_1ED6F6B60, 4294949956, "<<<< AVOutputDevice (FigRouteDescriptor) >>>>", 1553);
+          goto LABEL_34;
+        }
+
+        goto LABEL_32;
       }
 
       goto LABEL_34;
     }
 
 LABEL_25:
-    v31 = -12782;
+    v35 = -12782;
     goto LABEL_35;
   }
 
   routeDiscoverer = self->_routeDiscoverer;
   routeDescriptor = [(AVFigRouteDescriptorOutputDeviceImpl *)self routeDescriptor];
-  v29 = *(*(CMBaseObjectGetVTable() + 16) + 8);
-  if (!v29)
+  v33 = *(*(CMBaseObjectGetVTable() + 16) + 8);
+  if (!v33)
   {
     goto LABEL_25;
   }
 
-  v18 = v29(routeDiscoverer, routeDescriptor, &v39);
-  if (!v18)
+  v22 = v33(routeDiscoverer, routeDescriptor, &v42);
+  if (!v22)
   {
-    v30 = v39;
-    if (!v39)
+    v34 = v42;
+    if (v42)
     {
-LABEL_33:
-      v18 = FigSignalErrorAtGM();
+LABEL_32:
+      v22 = (*(endpoint + 2))(endpoint, v34);
       goto LABEL_34;
     }
 
-LABEL_32:
-    v18 = (*(endpoint + 2))(endpoint, v30);
+    v22 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", qword_1ED6F6B60, 4294949956, "<<<< AVOutputDevice (FigRouteDescriptor) >>>>", 1535);
   }
 
 LABEL_34:
-  v31 = v18;
+  v35 = v22;
 LABEL_35:
-  if (v39)
+  if (v42)
   {
-    CFRelease(v39);
+    CFRelease(v42);
   }
 
   if (theArray)
@@ -2547,35 +2489,34 @@ LABEL_35:
     CFRelease(theArray);
   }
 
-  v32 = *MEMORY[0x1E69E9840];
-  return v31;
+  return v35;
 }
 
 - (BOOL)setCurrentBluetoothListeningMode:(id)mode error:(id *)error
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v65 = *MEMORY[0x1E69E9840];
   valuePtr = 0;
   cf = 0;
   if (dword_1ED6F6B68)
   {
-    v8 = OUTLINED_FUNCTION_3_0();
-    if (OUTLINED_FUNCTION_5_0(v8, v9, v10, v11, v12, v13, v14, v15, v29, v30, v31, type, SBYTE2(type), BYTE3(type), SHIDWORD(type)))
+    v12 = OUTLINED_FUNCTION_3_0(self, a2, mode, error, v4, v5, v6, v7, v45, v47, v49, v51, SBYTE2(v51), SBYTE3(v51), SHIDWORD(v51));
+    if (OUTLINED_FUNCTION_5_0(v12, v13, v14, v15, v16, v17, v18, v19, v46, v48, v50, v52, v53, typea, v56))
     {
-      v16 = v4;
+      v20 = v8;
     }
 
     else
     {
-      v16 = v4 & 0xFFFFFFFE;
+      v20 = v8 & 0xFFFFFFFE;
     }
 
-    if (v16)
+    if (v20)
     {
       [(AVFigRouteDescriptorOutputDeviceImpl *)self routeDescriptor];
-      v35 = 136315395;
-      v36 = "[AVFigRouteDescriptorOutputDeviceImpl setCurrentBluetoothListeningMode:error:]";
+      v60 = 136315395;
+      v61 = "[AVFigRouteDescriptorOutputDeviceImpl setCurrentBluetoothListeningMode:error:]";
       OUTLINED_FUNCTION_2_0();
-      OUTLINED_FUNCTION_4_0();
+      OUTLINED_FUNCTION_4_0(v21, v22, v64, v23, &dword_1AB586000, v24, v25, "<<<< AVOutputDevice (FigRouteDescriptor) >>>> %s: Grabbing endpoint for route descriptor %{private}@");
     }
 
     OUTLINED_FUNCTION_1_1();
@@ -2584,45 +2525,46 @@ LABEL_35:
 
   routeDiscoverer = self->_routeDiscoverer;
   routeDescriptor = [(AVFigRouteDescriptorOutputDeviceImpl *)self routeDescriptor];
-  v19 = *(*(CMBaseObjectGetVTable() + 16) + 8);
-  if (v19)
+  v28 = *(*(CMBaseObjectGetVTable() + 16) + 8);
+  if (v28)
   {
-    v20 = v19(routeDiscoverer, routeDescriptor, &cf);
-    if (v20)
+    v29 = v28(routeDiscoverer, routeDescriptor, &cf);
+    if (v29)
     {
-      v24 = v20;
-      v21 = 0;
+      v41 = v29;
+      v38 = 0;
       goto LABEL_19;
     }
 
     if (!cf)
     {
-      v24 = 0;
-      goto LABEL_26;
+      v41 = 0;
+      return v41 == 0;
     }
 
     valuePtr = AVOutputDeviceFigListeningModeForAVFListeningMode(mode);
-    v21 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberSInt32Type, &valuePtr);
+    v30 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberSInt32Type, &valuePtr);
+    v38 = v30;
     if (dword_1ED6F6B68)
     {
-      v22 = OUTLINED_FUNCTION_3_0();
-      if (os_log_type_enabled(v22, BYTE3(type)))
+      v39 = OUTLINED_FUNCTION_3_0(v30, v31, v32, v33, v34, v35, v36, v37, v45, v47, v49, v51, SBYTE2(v51), SBYTE3(v51), SHIDWORD(v51));
+      if (os_log_type_enabled(v39, type))
       {
-        v23 = HIDWORD(type);
+        v40 = v57;
       }
 
       else
       {
-        v23 = HIDWORD(type) & 0xFFFFFFFE;
+        v40 = v57 & 0xFFFFFFFE;
       }
 
-      if (v23)
+      if (v40)
       {
-        v35 = 136315394;
-        v36 = "[AVFigRouteDescriptorOutputDeviceImpl setCurrentBluetoothListeningMode:error:]";
-        v37 = 1024;
-        v38 = valuePtr;
-        _os_log_send_and_compose_impl();
+        v60 = 136315394;
+        v61 = "[AVFigRouteDescriptorOutputDeviceImpl setCurrentBluetoothListeningMode:error:]";
+        v62 = 1024;
+        v63 = valuePtr;
+        _os_log_send_and_compose_impl(v40, 0, v64, 128, &dword_1AB586000, v39, type, "<<<< AVOutputDevice (FigRouteDescriptor) >>>> %s: Setting kFigEndpointProperty_ListeningMode to %d", &v60, 18);
       }
 
       OUTLINED_FUNCTION_1_1();
@@ -2630,41 +2572,38 @@ LABEL_35:
     }
 
     CMBaseObject = FigEndpointGetCMBaseObject();
-    v28 = *(*(CMBaseObjectGetVTable() + 8) + 56);
-    if (v28)
+    v44 = *(*(CMBaseObjectGetVTable() + 8) + 56);
+    if (v44)
     {
-      v24 = v28(CMBaseObject, *MEMORY[0x1E69621A8], v21);
+      v41 = v44(CMBaseObject, *MEMORY[0x1E69621A8], v38);
       goto LABEL_19;
     }
   }
 
   else
   {
-    v21 = 0;
+    v38 = 0;
   }
 
-  v24 = -12782;
+  v41 = -12782;
 LABEL_19:
   if (cf)
   {
     CFRelease(cf);
   }
 
-  if (v21)
+  if (v38)
   {
-    CFRelease(v21);
+    CFRelease(v38);
   }
 
-  if (error && v24)
+  if (error && v41)
   {
-    *error = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A768] code:v24 userInfo:0];
-    v24 = 1;
+    *error = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A768] code:v41 userInfo:0];
+    v41 = 1;
   }
 
-LABEL_26:
-  result = v24 == 0;
-  v26 = *MEMORY[0x1E69E9840];
-  return result;
+  return v41 == 0;
 }
 
 @end

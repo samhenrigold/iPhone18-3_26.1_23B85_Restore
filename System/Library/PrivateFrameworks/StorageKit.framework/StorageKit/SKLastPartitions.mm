@@ -109,18 +109,18 @@ LABEL_11:
 
 + (unint64_t)hfsMinimalSizeForDisk:(id)disk currentSize:(unint64_t *)size
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   diskCopy = disk;
   type = [diskCopy type];
   v7 = [type isEqualToString:kSKDiskTypeHFS[0]];
 
   if (v7)
   {
+    v19 = 0u;
     v20 = 0u;
-    v21 = 0u;
-    v19 = 0;
-    v8 = [SKPartitionTable createMediaRefWithDisk:diskCopy error:&v19];
-    v9 = v19;
+    v18 = 0;
+    v8 = [SKPartitionTable createMediaRefWithDisk:diskCopy error:&v18];
+    v9 = v18;
     if (v8)
     {
       v10 = MKHFSGetResizeLimits();
@@ -130,10 +130,10 @@ LABEL_11:
         getSectorSize = [diskCopy getSectorSize];
         if (size)
         {
-          *size = v20 * getSectorSize;
+          *size = v19 * getSectorSize;
         }
 
-        totalSpace = v21 * getSectorSize;
+        totalSpace = v20 * getSectorSize;
         goto LABEL_14;
       }
 
@@ -141,11 +141,11 @@ LABEL_11:
       if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315650;
-        v23 = "+[SKLastPartitions hfsMinimalSizeForDisk:currentSize:]";
-        v24 = 2112;
-        v25 = diskCopy;
-        v26 = 1024;
-        LODWORD(v27) = v10;
+        v22 = "+[SKLastPartitions hfsMinimalSizeForDisk:currentSize:]";
+        v23 = 2112;
+        v24 = diskCopy;
+        v25 = 1024;
+        LODWORD(v26) = v10;
         v12 = "%s: Failed to get size from %@, %d";
         v13 = v11;
         v14 = 28;
@@ -160,11 +160,11 @@ LABEL_9:
       if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315650;
-        v23 = "+[SKLastPartitions hfsMinimalSizeForDisk:currentSize:]";
-        v24 = 2112;
-        v25 = diskCopy;
-        v26 = 2112;
-        v27 = v9;
+        v22 = "+[SKLastPartitions hfsMinimalSizeForDisk:currentSize:]";
+        v23 = 2112;
+        v24 = diskCopy;
+        v25 = 2112;
+        v26 = v9;
         v12 = "%s: Failed to read media from %@, %@";
         v13 = v11;
         v14 = 32;
@@ -181,7 +181,6 @@ LABEL_14:
   totalSpace = [diskCopy totalSpace];
 LABEL_15:
 
-  v17 = *MEMORY[0x277D85DE8];
   return totalSpace;
 }
 

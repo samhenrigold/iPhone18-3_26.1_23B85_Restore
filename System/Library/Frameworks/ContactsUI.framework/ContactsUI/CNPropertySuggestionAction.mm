@@ -43,7 +43,7 @@
 
   if (v13)
   {
-    _CNUILog("/Library/Caches/com.apple.xbs/Sources/ContactsUI/Framework/CNPropertySuggestionAction.m", 121, 3, @"Error rejecting suggestion: %@", v14, v15, v16, v17, v13);
+    _CNUILog("/Library/Caches/com.apple.xbs/Sources/ContactsUI/Framework/CNPropertySuggestionAction.m", 121, 3u, @"Error rejecting suggestion: %@", v14, v15, v16, v17, v13);
   }
 
   return v13 == 0;
@@ -75,7 +75,7 @@
   v17 = v12;
   if ((v11 & 1) == 0)
   {
-    _CNUILog("/Library/Caches/com.apple.xbs/Sources/ContactsUI/Framework/CNPropertySuggestionAction.m", 101, 3, @"Error confirming or rejecting suggestion: %@", v13, v14, v15, v16, v12);
+    _CNUILog("/Library/Caches/com.apple.xbs/Sources/ContactsUI/Framework/CNPropertySuggestionAction.m", 101, 3u, @"Error confirming or rejecting suggestion: %@", v13, v14, v15, v16, v12);
   }
 
   return v11;
@@ -128,7 +128,7 @@
 
   if (v10)
   {
-    _CNUILog("/Library/Caches/com.apple.xbs/Sources/ContactsUI/Framework/CNPropertySuggestionAction.m", 60, 3, @"Could not get origin for suggested property: %@", v11, v12, v13, v14, v10);
+    _CNUILog("/Library/Caches/com.apple.xbs/Sources/ContactsUI/Framework/CNPropertySuggestionAction.m", 60, 3u, @"Could not get origin for suggested property: %@", v11, v12, v13, v14, v10);
   }
 
   if (v9)

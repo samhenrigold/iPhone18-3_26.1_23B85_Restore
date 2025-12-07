@@ -17,7 +17,6 @@
     v8 = *self->completion;
     if (v8)
     {
-      v9 = *&self->completion[8];
       v8(invalidate);
     }
   }

@@ -226,7 +226,7 @@
     v49 = perfLog();
     if (os_signpost_enabled(v49))
     {
-      *v54 = 0;
+      v54[0] = 0;
       _os_signpost_emit_with_name_impl(&dword_188A29000, v49, OS_SIGNPOST_INTERVAL_BEGIN, 0x33uLL, "recents-bringup", "enableTelemetry=YES", v54, 2u);
     }
 
@@ -909,7 +909,7 @@ LABEL_76:
         [v151 setOverrideDisplayString:0];
         [v233 addObject:v151];
         firstObject = [obja firstObject];
-        LODWORD(representedString2) = [firstObject isEqualToString:v150];
+        LODWORD(representedString2) = objc_msgSend_isEqualToString_(firstObject);
 
         if (representedString2)
         {
@@ -1156,9 +1156,9 @@ void __50__UIKeyboardEmojiCollectionInputView_treeForCell___block_invoke(uint64_
 {
   v7 = [a2 representedString];
   v8 = [*(a1 + 32) emojiString];
-  v9 = [v7 isEqualToString:v8];
+  isEqualToString = objc_msgSend_isEqualToString_(v7);
 
-  if (v9)
+  if (isEqualToString)
   {
     *(*(*(a1 + 40) + 8) + 24) = a3;
     *a4 = 1;
@@ -1168,17 +1168,17 @@ void __50__UIKeyboardEmojiCollectionInputView_treeForCell___block_invoke(uint64_
 - (BOOL)genderEmojiBaseStringNeedVariantSelector:(id)selector
 {
   selectorCopy = selector;
-  if ([selectorCopy isEqualToString:@"⛹"] & 1) != 0 || (objc_msgSend(selectorCopy, "isEqualToString:", @"🏋"))
+  if (objc_msgSend_isEqualToString_(selectorCopy) & 1) != 0 || (objc_msgSend_isEqualToString_(selectorCopy))
   {
-    v4 = 1;
+    isEqualToString = 1;
   }
 
   else
   {
-    v4 = [selectorCopy isEqualToString:@"🕵"];
+    isEqualToString = objc_msgSend_isEqualToString_(selectorCopy);
   }
 
-  return v4;
+  return isEqualToString;
 }
 
 - (id)selectedChildSkinToneEmoji:(id)emoji
@@ -1250,9 +1250,9 @@ void __50__UIKeyboardEmojiCollectionInputView_treeForCell___block_invoke(uint64_
       v22 = [(UIKeyboardEmojiCollectionInputView *)self emojiBaseString:emojiString2];
       emojiString3 = [v11 emojiString];
       v24 = [(UIKeyboardEmojiCollectionInputView *)self emojiBaseString:emojiString3];
-      v25 = [v22 isEqualToString:v24];
+      isEqualToString = objc_msgSend_isEqualToString_(v22);
 
-      if (v25)
+      if (isEqualToString)
       {
         [v19 setEmoji:v11];
         if (os_variant_has_internal_diagnostics())
@@ -1589,7 +1589,7 @@ LABEL_26:
   dispatch_async(MEMORY[0x1E69E96A0], v6);
 }
 
-uint64_t __87__UIKeyboardEmojiCollectionInputView_didTearDownRecentsViewForKeyboardMediaController___block_invoke(uint64_t a1)
+void *__87__UIKeyboardEmojiCollectionInputView_didTearDownRecentsViewForKeyboardMediaController___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 40) shouldRetryFetchingRecents];
   *(*(a1 + 32) + 682) = result;
@@ -3655,7 +3655,7 @@ uint64_t __67__UIKeyboardEmojiCollectionInputView_emojiSearchTextFieldDidReset__
           firstObject = [resultsCopy firstObject];
           searchResults2 = [(UIKeyboardEmojiCollectionInputView *)self searchResults];
           firstObject2 = [searchResults2 firstObject];
-          v21 = [firstObject isEqual:firstObject2] ^ 1;
+          v21 = objc_msgSend_isEqual_(firstObject) ^ 1;
         }
 
         else

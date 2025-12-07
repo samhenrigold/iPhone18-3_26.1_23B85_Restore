@@ -27,17 +27,18 @@
 {
   locationCopy = location;
   storeCopy = store;
-  v10.receiver = self;
-  v10.super_class = EKTravelRouteEstimationController;
-  v8 = [(EKTravelRouteEstimationController *)&v10 init];
+  v12.receiver = self;
+  v12.super_class = EKTravelRouteEstimationController;
+  v8 = [(EKTravelRouteEstimationController *)&v12 init];
+  v10 = v8;
   if (v8)
   {
-    EKUILogInitIfNeeded();
-    [(EKTravelRouteEstimationController *)v8 setDestinationStructuredLocation:locationCopy];
-    objc_storeStrong(&v8->_eventStore, store);
+    EKUILogInitIfNeeded(v8, v9);
+    [(EKTravelRouteEstimationController *)v10 setDestinationStructuredLocation:locationCopy];
+    objc_storeStrong(&v10->_eventStore, store);
   }
 
-  return v8;
+  return v10;
 }
 
 - (void)dealloc

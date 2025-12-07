@@ -39,7 +39,9 @@
 - (void)fetchPointOfInterestAttributesWithIdentifier:(unint64_t)identifier options:(id)options handler:(id)handler;
 - (void)fetchPointOfInterestsAroundCoordinate:(id)coordinate radius:(double)radius options:(id)options handler:(id)handler;
 - (void)fetchPostalAddressForMapItem:(id)item options:(id)options handler:(id)handler;
+- (void)fetchRelatedPlacesMapItemsForGEOMapItem:(id)item relatedPlaceListType:(int)type options:(id)options source:(unint64_t)source handler:(id)handler;
 - (void)fetchRelatedPlacesMapItemsForMapItem:(id)item relatedPlaceListType:(int)type options:(id)options source:(unint64_t)source handler:(id)handler;
+- (void)inferLocalBluePOIWithReferenceLocation:(id)location locations:(id)locations accessPoints:(id)points bluePOITile:(id)tile signalEnv:(int)env refreshAOI:(BOOL)i handler:(id)handler;
 - (void)interruptComputeWithError:(id)error;
 - (void)loadProtobufTileAtPath:(id)path handler:(id)handler;
 - (void)removeTicket:(id)ticket;
@@ -707,6 +709,22 @@ LABEL_9:
       (*(handlerCopy + 2))(handlerCopy, 0, v18);
     }
   }
+}
+
+- (void)fetchRelatedPlacesMapItemsForGEOMapItem:(id)item relatedPlaceListType:(int)type options:(id)options source:(unint64_t)source handler:(id)handler
+{
+  v9 = *&type;
+  v13[0] = _NSConcreteStackBlock;
+  v13[1] = 3221225472;
+  v13[2] = sub_1000704A0;
+  v13[3] = &unk_1000A92C0;
+  selfCopy = self;
+  optionsCopy = options;
+  handlerCopy = handler;
+  sourceCopy = source;
+  v11 = handlerCopy;
+  v12 = optionsCopy;
+  [(RTHelperService *)selfCopy _relatedPlacesMapItemsIdentifiersForGEOMapItem:item relatedPlaceListType:v9 handler:v13];
 }
 
 - (void)_relatedPlacesMapItemsIdentifiersForGEOMapItems:(id)items relatedPlaceListType:(int)type handler:(id)handler
@@ -1689,6 +1707,22 @@ LABEL_25:
   v24 = objc_retainBlock(v26);
   v25 = [NSString stringWithFormat:@"com.apple.%@", v22];
   AnalyticsSendEventLazy();
+}
+
+- (void)inferLocalBluePOIWithReferenceLocation:(id)location locations:(id)locations accessPoints:(id)points bluePOITile:(id)tile signalEnv:(int)env refreshAOI:(BOOL)i handler:(id)handler
+{
+  if (handler)
+  {
+    iCopy = i;
+    v10 = *&env;
+    handlerCopy = handler;
+    tileCopy = tile;
+    pointsCopy = points;
+    locationsCopy = locations;
+    locationCopy = location;
+    v20 = objc_opt_new();
+    [v20 inferLocalBluePOIWithReferenceLocation:locationCopy locations:locationsCopy accessPoints:pointsCopy bluePOITile:tileCopy signalEnv:v10 refreshAOI:iCopy handler:handlerCopy];
+  }
 }
 
 - (void)compileCoreMLModelAtURL:(id)l handler:(id)handler

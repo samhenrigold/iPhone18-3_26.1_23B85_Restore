@@ -82,8 +82,8 @@
       v29 = v9;
       v11 = [pathCopy indexAtPosition:v9];
       v28 = v10;
-      rows = [v10 rows];
-      v26 = [rows objectAtIndexedSubscript:v11];
+      v27 = objc_msgSend_rows(v10);
+      v26 = [v27 objectAtIndexedSubscript:v11];
       tokens = [v26 tokens];
       v33 = 0u;
       v34 = 0u;

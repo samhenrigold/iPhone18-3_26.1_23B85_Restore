@@ -39,10 +39,7 @@
 
 - (void)setLocalizedLabel:(id)label
 {
-  v4 = [label copy];
-  identityAttributesInternal = self->_identityAttributesInternal;
-  v6 = identityAttributesInternal[1];
-  identityAttributesInternal[1] = v4;
+  *(self->_identityAttributesInternal + 1) = [label copy];
 
   MEMORY[0x2821F96F8]();
 }
@@ -56,10 +53,7 @@
 
 - (void)setLocalizedDescription:(id)description
 {
-  v4 = [description copy];
-  identityAttributesInternal = self->_identityAttributesInternal;
-  v6 = identityAttributesInternal[2];
-  identityAttributesInternal[2] = v4;
+  *(self->_identityAttributesInternal + 2) = [description copy];
 
   MEMORY[0x2821F96F8]();
 }
@@ -73,10 +67,7 @@
 
 - (void)setKeySpecifier:(id)specifier
 {
-  v4 = [specifier copy];
-  identityAttributesInternal = self->_identityAttributesInternal;
-  v6 = identityAttributesInternal[3];
-  identityAttributesInternal[3] = v4;
+  *(self->_identityAttributesInternal + 3) = [specifier copy];
 
   MEMORY[0x2821F96F8]();
 }
@@ -90,10 +81,7 @@
 
 - (void)setIdentityName:(id)name
 {
-  v4 = [name copy];
-  identityAttributesInternal = self->_identityAttributesInternal;
-  v6 = identityAttributesInternal[4];
-  identityAttributesInternal[4] = v4;
+  *(self->_identityAttributesInternal + 4) = [name copy];
 
   MEMORY[0x2821F96F8]();
 }

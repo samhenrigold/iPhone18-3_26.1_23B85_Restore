@@ -67,7 +67,7 @@
 
     identifier2 = [v16 identifier];
 
-    LODWORD(v16) = [identifier isEqualToString:identifier2];
+    LODWORD(v16) = objc_msgSend_isEqualToString_(identifier);
     if (v16)
     {
       v18 = objc_alloc(MEMORY[0x1E69ACA90]);
@@ -84,7 +84,7 @@
 
 - (id)parameterStateFromLinkValue:(id)value
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   valueCopy = value;
   value = [valueCopy value];
   if (value)
@@ -111,19 +111,17 @@
     if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       valueType2 = [(WFLinkActionParameterDefinition *)self valueType];
-      v21 = 136315650;
-      v22 = "[WFLinkActionEntityParameterDefinition parameterStateFromLinkValue:]";
-      v23 = 2114;
-      v24 = value;
-      v25 = 2114;
-      v26 = valueType2;
+      v20 = 136315650;
+      v21 = "[WFLinkActionEntityParameterDefinition parameterStateFromLinkValue:]";
+      v22 = 2114;
+      v23 = value;
+      v24 = 2114;
+      v25 = valueType2;
     }
   }
 
   v16 = 0;
 LABEL_8:
-
-  v19 = *MEMORY[0x1E69E9840];
 
   return v16;
 }
@@ -223,13 +221,11 @@ LABEL_8:
 
 - (NSDictionary)parameterDefinitions
 {
-  v7[1] = *MEMORY[0x1E69E9840];
+  v6[1] = *MEMORY[0x1E69E9840];
   wf_placeDescriptorEntityIdentifier = [MEMORY[0x1E69ACA38] wf_placeDescriptorEntityIdentifier];
-  v6 = wf_placeDescriptorEntityIdentifier;
-  v7[0] = objc_opt_class();
-  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:&v6 count:1];
-
-  v4 = *MEMORY[0x1E69E9840];
+  v5 = wf_placeDescriptorEntityIdentifier;
+  v6[0] = objc_opt_class();
+  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:&v5 count:1];
 
   return v3;
 }

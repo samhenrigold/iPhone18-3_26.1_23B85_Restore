@@ -39,11 +39,11 @@
       v14 = @"storeURL";
     }
 
-    v15 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Can't create server - misconfigured server : %@ is nil", v14];
+    v15 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v14);
     goto LABEL_14;
   }
 
-  v11 = [options valueForKey:@"NSXPCStoreEntitlementNames"];
+  v11 = objc_msgSend_valueForKey_(options, a2, @"NSXPCStoreEntitlementNames");
   if (!v11)
   {
     v56[0] = @"application-identifier";
@@ -59,27 +59,27 @@ LABEL_10:
     v12 = v13;
   }
 
-  v16 = [options valueForKey:@"NSXPCStoreServiceName"];
-  v17 = [objc_msgSend(options valueForKey:{@"NSXPCStoreDaemonize", "BOOLValue"}];
-  v18 = v17;
-  if (!v16 && v17)
+  v16 = objc_msgSend_valueForKey_(options);
+  bOOLValue = [objc_msgSend_valueForKey_(options) BOOLValue];
+  v18 = bOOLValue;
+  if (!v16 && bOOLValue)
   {
 
-    v15 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Can't create server - misconfigured server : no service name supplied for daemonized server", v43];
+    v15 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0]);
 LABEL_14:
     [_NSXPCStoreUtilities logMessage:v15 forComponent:?];
-    v19 = 0;
-    goto LABEL_15;
+    return 0;
   }
 
-  v22 = [options valueForKey:@"NSXPCStoreListener"];
-  if (v22 && v16)
+  v21 = objc_msgSend_valueForKey_(options);
+  if (v21 && v16)
   {
-    +[_NSXPCStoreUtilities logMessage:forComponent:](_NSXPCStoreUtilities, [MEMORY[0x1E696AEC0] stringWithFormat:@"Options dictionary contains service name and anonymous listener, defaulting to service name"]);
-    v22 = 0;
+    v22 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0]);
+    [_NSXPCStoreUtilities logMessage:v22 forComponent:?];
+    v21 = 0;
   }
 
-  v44 = v22;
+  v44 = v21;
   v51.receiver = self;
   v51.super_class = NSXPCStoreServer;
   v19 = [(NSXPCStoreServer *)&v51 init];
@@ -91,7 +91,8 @@ LABEL_14:
     v19->_model = modelCopy;
     if (!modelCopy)
     {
-      +[_NSXPCStoreUtilities logMessage:forComponent:](_NSXPCStoreUtilities, [MEMORY[0x1E696AEC0] stringWithFormat:@"Can't create server - unable to load model"]);
+      v43 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0]);
+      [_NSXPCStoreUtilities logMessage:v43 forComponent:?];
       abort();
     }
 
@@ -267,8 +268,6 @@ LABEL_44:
     v19->_cacheIDtoCoordinatorMap = objc_alloc_init(MEMORY[0x1E695DF90]);
   }
 
-LABEL_15:
-  v20 = *MEMORY[0x1E69E9840];
   return v19;
 }
 
@@ -293,7 +292,8 @@ LABEL_15:
       v13 = @"modelURL";
     }
 
-    +[_NSXPCStoreUtilities logMessage:forComponent:](_NSXPCStoreUtilities, [MEMORY[0x1E696AEC0] stringWithFormat:@"Can't create server - misconfigured server : %@ is nil", v13]);
+    v14 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v13);
+    [_NSXPCStoreUtilities logMessage:v14 forComponent:?];
     return 0;
   }
 
@@ -302,7 +302,7 @@ LABEL_15:
 
 - (void)startListening
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   if (+[NSXPCStoreServer debugDefault])
   {
     v3 = objc_autoreleasePoolPush();
@@ -347,7 +347,6 @@ LABEL_15:
   }
 
   [(NSXPCListener *)self->_listener resume];
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)dealloc
@@ -440,7 +439,6 @@ LABEL_8:
         return result;
       }
 
-      v6 = *(v3 + 8);
       if (objc_opt_respondsToSelector())
       {
         [*(v3 + 8) performRecoveryForError:context fromContext:a2];
@@ -574,11 +572,11 @@ void *__47__NSXPCStoreServer_retainedCacheForConnection___block_invoke_84(uint64
 
 - (BOOL)listener:(id)listener shouldAcceptNewConnection:(id)connection
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   v6 = objc_autoreleasePoolPush();
   if (connection)
   {
-    [connection auditToken];
+    objc_msgSend_auditToken(connection);
   }
 
   if (+[NSXPCStoreServer debugDefault])
@@ -652,13 +650,13 @@ LABEL_32:
             selfCopy = self;
             connectionCopy = connection;
             [connection setInterruptionHandler:buf];
-            v34[0] = MEMORY[0x1E69E9820];
-            v34[1] = 3221225472;
-            v34[2] = __47__NSXPCStoreServer_retainedCacheForConnection___block_invoke_84;
-            v34[3] = &unk_1E6EC1600;
-            v34[4] = self;
-            v34[5] = connection;
-            [connection setInvalidationHandler:v34];
+            v35[0] = MEMORY[0x1E69E9820];
+            v35[1] = 3221225472;
+            v35[2] = __47__NSXPCStoreServer_retainedCacheForConnection___block_invoke_84;
+            v35[3] = &unk_1E6EC1600;
+            v35[4] = self;
+            v35[5] = connection;
+            [connection setInvalidationHandler:v35];
           }
 
 LABEL_61:
@@ -682,8 +680,8 @@ LABEL_24:
         {
           v17 = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:v15];
 
-          v34[0] = 0;
-          if ([(NSPersistentStoreCoordinator *)v17 addPersistentStoreWithType:@"SQLite" configuration:0 URL:self->_storeURL options:self->_storeOptions error:v34])
+          v35[0] = 0;
+          if ([(NSPersistentStoreCoordinator *)v17 addPersistentStoreWithType:@"SQLite" configuration:0 URL:self->_storeURL options:self->_storeOptions error:v35])
           {
             objc_autoreleasePoolPop(v16);
             if (v17)
@@ -712,13 +710,13 @@ LABEL_60:
 
           if ([(NSXPCStoreServer *)self errorIsPlausiblyAnSQLiteIssue:?])
           {
-            [(NSXPCStoreServer *)self setupRecoveryForConnectionContext:v34[0] ifNecessary:?];
-            v19 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Can't create coordinator - attempting SQLite recovery"];
+            [(NSXPCStoreServer *)self setupRecoveryForConnectionContext:v35[0] ifNecessary:?];
+            v19 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0]);
           }
 
           else
           {
-            v19 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Can't create coordinator - due to an error - %@", v34[0]];
+            v19 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v35[0]);
           }
 
           [_NSXPCStoreUtilities logMessage:v19 forComponent:?];
@@ -733,7 +731,7 @@ LABEL_60:
               if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
               {
                 *buf = 138412290;
-                *&buf[4] = v34[0];
+                *&buf[4] = v35[0];
                 _os_log_error_impl(&dword_18565F000, v21, OS_LOG_TYPE_ERROR, "CoreData: error: Unable to load store: %@\n", buf, 0xCu);
               }
             }
@@ -744,7 +742,7 @@ LABEL_60:
               if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 138412290;
-                *&buf[4] = v34[0];
+                *&buf[4] = v35[0];
                 _os_log_impl(&dword_18565F000, v24, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Unable to load store: %@\n", buf, 0xCu);
               }
             }
@@ -760,7 +758,7 @@ LABEL_60:
             v25 = 8;
           }
 
-          _NSCoreDataLog_console(v25, "Unable to load store: %@", v34[0]);
+          _NSCoreDataLog_console(v25, "Unable to load store: %@", v35[0]);
           objc_autoreleasePoolPop(v20);
         }
 
@@ -824,7 +822,8 @@ LABEL_60:
 LABEL_62:
   if (![(NSXPCStoreServerPerConnectionCache *)v13 coordinator])
   {
-    +[_NSXPCStoreUtilities logMessage:forComponent:](_NSXPCStoreUtilities, [MEMORY[0x1E696AEC0] stringWithFormat:@"Unable to create stack"]);
+    v32 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0]);
+    [_NSXPCStoreUtilities logMessage:v32 forComponent:?];
 
 LABEL_67:
     v31 = 0;
@@ -838,7 +837,8 @@ LABEL_67:
 
   if (!v29)
   {
-    +[_NSXPCStoreUtilities logMessage:forComponent:](_NSXPCStoreUtilities, [MEMORY[0x1E696AEC0] stringWithFormat:@"Unable to create connection context"]);
+    v33 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0]);
+    [_NSXPCStoreUtilities logMessage:v33 forComponent:?];
     goto LABEL_67;
   }
 
@@ -853,27 +853,26 @@ LABEL_67:
   v31 = 1;
 LABEL_68:
   objc_autoreleasePoolPop(v6);
-  v32 = *MEMORY[0x1E69E9840];
   return v31;
 }
 
 - (void)handleRequest:(id)request reply:(id)reply
 {
-  v45 = *MEMORY[0x1E69E9840];
-  v29 = objc_alloc_init(MEMORY[0x1E696AAC8]);
+  v44 = *MEMORY[0x1E69E9840];
+  v28 = objc_alloc_init(MEMORY[0x1E696AAC8]);
   currentConnection = [MEMORY[0x1E696B0B8] currentConnection];
   v6 = [objc_msgSend(currentConnection "userInfo")];
   v7 = [[NSXPCStoreServerConnectionContext alloc] initWithConnectionInfo:v6];
-  v39 = 0;
-  v40 = &v39;
-  v41 = 0x2020000000;
-  v42 = 0;
-  v33 = 0;
-  v34 = &v33;
-  v35 = 0x3052000000;
-  v36 = __Block_byref_object_copy__0;
-  v37 = __Block_byref_object_dispose__0;
   v38 = 0;
+  v39 = &v38;
+  v40 = 0x2020000000;
+  v41 = 0;
+  v32 = 0;
+  v33 = &v32;
+  v34 = 0x3052000000;
+  v35 = __Block_byref_object_copy__0;
+  v36 = __Block_byref_object_dispose__0;
+  v37 = 0;
   if (+[NSXPCStoreServer debugDefault])
   {
     v8 = objc_autoreleasePoolPush();
@@ -959,13 +958,13 @@ LABEL_68:
   }
 
   v16 = [(NSXPCStoreServerRequestHandlingPolicy *)self->_policy shouldAcceptConnectionsFromClientWithContext:v7];
-  v17 = v40;
-  *(v40 + 24) = v16;
-  v34[5] = 0;
+  v17 = v39;
+  *(v39 + 24) = v16;
+  v33[5] = 0;
   if ((v17[3] & 1) == 0)
   {
-    v18 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Policy rejected connection from client: %@", currentConnection];
-    v34[5] = v18;
+    v18 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], currentConnection);
+    v33[5] = v18;
     [_NSXPCStoreUtilities logMessage:v18 forComponent:?];
   }
 
@@ -1035,8 +1034,8 @@ LABEL_68:
   block[5] = request;
   block[6] = managedObjectContext;
   block[7] = v7;
-  block[12] = &v39;
-  block[13] = &v33;
+  block[12] = &v38;
+  block[13] = &v32;
   block[8] = self;
   block[9] = currentConnection;
   block[10] = persistentStoreCoordinator;
@@ -1054,19 +1053,18 @@ LABEL_68:
   }
 
   _Block_release(v27);
-  [v29 drain];
-  _Block_object_dispose(&v33, 8);
-  _Block_object_dispose(&v39, 8);
-  v28 = *MEMORY[0x1E69E9840];
+  [v28 drain];
+  _Block_object_dispose(&v32, 8);
+  _Block_object_dispose(&v38, 8);
 }
 
 void __40__NSXPCStoreServer_handleRequest_reply___block_invoke(uint64_t a1)
 {
-  v662 = *MEMORY[0x1E69E9840];
-  v598 = objc_alloc_init(MEMORY[0x1E696AAC8]);
+  v657 = *MEMORY[0x1E69E9840];
+  v593 = objc_alloc_init(MEMORY[0x1E696AAC8]);
   self = objc_alloc_init(NSCoreDataXPCMessage);
-  v612 = a1;
-  v613 = 0;
+  v607 = a1;
+  v608 = 0;
   v2 = *(a1 + 32);
   if (v2)
   {
@@ -1084,14 +1082,13 @@ void __40__NSXPCStoreServer_handleRequest_reply___block_invoke(uint64_t a1)
     v4 = 0;
   }
 
-  v5 = [objc_msgSend(objc_msgSend(*(v612 + 48) "persistentStoreCoordinator")];
-  [(NSXPCStoreServerConnectionContext *)*(v612 + 56) setActiveStore:v5];
+  v5 = [objc_msgSend(objc_msgSend(*(v607 + 48) "persistentStoreCoordinator")];
+  [(NSXPCStoreServerConnectionContext *)*(v607 + 56) setActiveStore:v5];
   if (v4 && ([v4 isEqual:{objc_msgSend(v5, "identifier")}] & 1) == 0)
   {
-    *(*(*(v612 + 96) + 8) + 24) = 0;
-    *(*(*(v612 + 104) + 8) + 40) = [MEMORY[0x1E696AEC0] stringWithFormat:@"Token mismatch"];
-    v7 = *(v612 + 64);
-    [_NSXPCStoreUtilities logMessage:*(*(*(v612 + 104) + 8) + 40) forComponent:?];
+    *(*(*(v607 + 96) + 8) + 24) = 0;
+    *(*(*(v607 + 104) + 8) + 40) = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0]);
+    [_NSXPCStoreUtilities logMessage:*(*(*(v607 + 104) + 8) + 40) forComponent:?];
     v6 = 1;
   }
 
@@ -1100,20 +1097,20 @@ void __40__NSXPCStoreServer_handleRequest_reply___block_invoke(uint64_t a1)
     v6 = 0;
   }
 
-  if (*(*(*(v612 + 96) + 8) + 24) != 1)
+  if (*(*(*(v607 + 96) + 8) + 24) != 1)
   {
-    v13 = 0;
+    v12 = 0;
     goto LABEL_1047;
   }
 
-  v8 = *(v612 + 40);
-  v597 = v6;
-  if (!v8)
+  v7 = *(v607 + 40);
+  v592 = v6;
+  if (!v7)
   {
-LABEL_1144:
+LABEL_1141:
     if (+[NSXPCStoreServer debugDefault])
     {
-      v573 = objc_autoreleasePoolPush();
+      v569 = objc_autoreleasePoolPush();
       if (_NSCoreDataIsOSLogEnabled(8))
       {
         if (_pflogging_catastrophic_mode)
@@ -1121,236 +1118,236 @@ LABEL_1144:
           LogStream = _PFLogGetLogStream(1);
           if (os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR))
           {
-            v575 = *(v612 + 40);
-            if (v575)
+            v571 = *(v607 + 40);
+            if (v571)
             {
-              LODWORD(v575) = *(v575 + 8);
+              LODWORD(v571) = *(v571 + 8);
             }
 
-            v576 = *(v612 + 72);
+            v572 = *(v607 + 72);
             *buf = 67109376;
-            *&buf[4] = v575;
+            *&buf[4] = v571;
             *&buf[8] = 2048;
-            *&buf[10] = v576;
+            *&buf[10] = v572;
             _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: error: Illegal input: %u from connection %p\n", buf, 0x12u);
           }
         }
 
         else
         {
-          v577 = _PFLogGetLogStream(8);
-          if (os_log_type_enabled(v577, OS_LOG_TYPE_DEFAULT))
+          v573 = _PFLogGetLogStream(8);
+          if (os_log_type_enabled(v573, OS_LOG_TYPE_DEFAULT))
           {
-            v578 = *(v612 + 40);
-            if (v578)
+            v574 = *(v607 + 40);
+            if (v574)
             {
-              LODWORD(v578) = *(v578 + 8);
+              LODWORD(v574) = *(v574 + 8);
             }
 
-            v579 = *(v612 + 72);
+            v575 = *(v607 + 72);
             *buf = 67109376;
-            *&buf[4] = v578;
+            *&buf[4] = v574;
             *&buf[8] = 2048;
-            *&buf[10] = v579;
-            _os_log_impl(&dword_18565F000, v577, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Illegal input: %u from connection %p\n", buf, 0x12u);
+            *&buf[10] = v575;
+            _os_log_impl(&dword_18565F000, v573, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Illegal input: %u from connection %p\n", buf, 0x12u);
           }
         }
       }
 
-      v580 = *(v612 + 40);
+      v576 = *(v607 + 40);
       if (_pflogging_catastrophic_mode)
       {
-        v581 = 1;
+        v577 = 1;
       }
 
       else
       {
-        v581 = 8;
+        v577 = 8;
       }
 
-      if (v580)
+      if (v576)
       {
-        LODWORD(v580) = *(v580 + 8);
+        LODWORD(v576) = *(v576 + 8);
       }
 
-      _NSCoreDataLog_console(v581, "Illegal input: %u from connection %p", v580, *(v612 + 72));
-      objc_autoreleasePoolPop(v573);
+      _NSCoreDataLog_console(v577, "Illegal input: %u from connection %p", v576, *(v607 + 72));
+      objc_autoreleasePoolPop(v569);
     }
 
-    v13 = 0;
-    v613 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A250] code:134070 userInfo:0];
+    v12 = 0;
+    v608 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A250] code:134070 userInfo:0];
     goto LABEL_1033;
   }
 
-  v9 = v654;
-  switch(*(v8 + 8))
+  v8 = v649;
+  switch(*(v7 + 8))
   {
     case 1:
-      p_superclass = v651;
+      p_superclass = v646;
       if (+[NSXPCStoreServer debugDefault])
       {
-        v11 = objc_autoreleasePoolPush();
+        v10 = objc_autoreleasePoolPush();
         if (_NSCoreDataIsOSLogEnabled(8))
         {
           if (_pflogging_catastrophic_mode)
           {
-            v12 = _PFLogGetLogStream(1);
-            if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+            v11 = _PFLogGetLogStream(1);
+            if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
             {
               *buf = 0;
-              _os_log_error_impl(&dword_18565F000, v12, OS_LOG_TYPE_ERROR, "CoreData: error: Metadata\n", buf, 2u);
+              _os_log_error_impl(&dword_18565F000, v11, OS_LOG_TYPE_ERROR, "CoreData: error: Metadata\n", buf, 2u);
             }
           }
 
           else
           {
-            v126 = _PFLogGetLogStream(8);
-            if (os_log_type_enabled(v126, OS_LOG_TYPE_DEFAULT))
+            v125 = _PFLogGetLogStream(8);
+            if (os_log_type_enabled(v125, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 0;
-              _os_log_impl(&dword_18565F000, v126, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Metadata\n", buf, 2u);
+              _os_log_impl(&dword_18565F000, v125, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Metadata\n", buf, 2u);
             }
           }
         }
 
         if (_pflogging_catastrophic_mode)
         {
-          v127 = 1;
+          v126 = 1;
         }
 
         else
         {
-          v127 = 8;
+          v126 = 8;
         }
 
-        _NSCoreDataLog_console(v127, "Metadata");
-        objc_autoreleasePoolPop(v11);
+        _NSCoreDataLog_console(v126, "Metadata");
+        objc_autoreleasePoolPop(v10);
       }
 
-      if (!*(v612 + 64))
+      if (!*(v607 + 64))
       {
-        goto LABEL_1137;
+        goto LABEL_1134;
       }
 
-      v128 = *(v612 + 56);
-      v129 = objc_autoreleasePoolPush();
-      v130 = [objc_msgSend(v128 "managedObjectContext")];
-      v131 = [objc_msgSend(v130 "persistentStores")];
-      if (!v131)
+      v127 = *(v607 + 56);
+      v128 = objc_autoreleasePoolPush();
+      v129 = [objc_msgSend(v127 "managedObjectContext")];
+      v130 = [objc_msgSend(v129 "persistentStores")];
+      if (!v130)
       {
-        v132 = objc_autoreleasePoolPush();
+        v131 = objc_autoreleasePoolPush();
         _pflogInitialize(8);
         if (_NSCoreDataIsLogEnabled(8) && _pflogging_enable_oslog >= 1)
         {
           if (_pflogging_catastrophic_mode)
           {
-            v133 = _PFLogGetLogStream(1);
-            if (os_log_type_enabled(v133, OS_LOG_TYPE_ERROR))
+            v132 = _PFLogGetLogStream(1);
+            if (os_log_type_enabled(v132, OS_LOG_TYPE_ERROR))
             {
               *buf = 0;
-              _os_log_error_impl(&dword_18565F000, v133, OS_LOG_TYPE_ERROR, "CoreData: error: no store\n", buf, 2u);
+              _os_log_error_impl(&dword_18565F000, v132, OS_LOG_TYPE_ERROR, "CoreData: error: no store\n", buf, 2u);
             }
           }
 
           else
           {
-            v373 = _PFLogGetLogStream(8);
-            if (os_log_type_enabled(v373, OS_LOG_TYPE_DEFAULT))
+            v372 = _PFLogGetLogStream(8);
+            if (os_log_type_enabled(v372, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 0;
-              _os_log_impl(&dword_18565F000, v373, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: no store\n", buf, 2u);
+              _os_log_impl(&dword_18565F000, v372, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: no store\n", buf, 2u);
             }
           }
         }
 
         if (_pflogging_catastrophic_mode)
         {
-          v374 = 1;
+          v373 = 1;
         }
 
         else
         {
-          v374 = 8;
+          v373 = 8;
         }
 
-        _NSCoreDataLog_console(v374, "no store");
-        objc_autoreleasePoolPop(v132);
+        _NSCoreDataLog_console(v373, "no store");
+        objc_autoreleasePoolPop(v131);
       }
 
-      v375 = [v131 metadata];
+      v374 = [v130 metadata];
       if (+[NSXPCStoreServer debugDefault])
       {
-        v376 = objc_autoreleasePoolPush();
+        v375 = objc_autoreleasePoolPush();
         _pflogInitialize(8);
         if (_NSCoreDataIsLogEnabled(8) && _pflogging_enable_oslog >= 1)
         {
           if (_pflogging_catastrophic_mode)
           {
-            v377 = _PFLogGetLogStream(1);
-            if (os_log_type_enabled(v377, OS_LOG_TYPE_ERROR))
+            v376 = _PFLogGetLogStream(1);
+            if (os_log_type_enabled(v376, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412290;
-              *&buf[4] = v375;
-              _os_log_error_impl(&dword_18565F000, v377, OS_LOG_TYPE_ERROR, "CoreData: error: Got metadata %@\n", buf, 0xCu);
+              *&buf[4] = v374;
+              _os_log_error_impl(&dword_18565F000, v376, OS_LOG_TYPE_ERROR, "CoreData: error: Got metadata %@\n", buf, 0xCu);
             }
           }
 
           else
           {
-            v378 = _PFLogGetLogStream(8);
-            if (os_log_type_enabled(v378, OS_LOG_TYPE_DEFAULT))
+            v377 = _PFLogGetLogStream(8);
+            if (os_log_type_enabled(v377, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138412290;
-              *&buf[4] = v375;
-              _os_log_impl(&dword_18565F000, v378, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Got metadata %@\n", buf, 0xCu);
+              *&buf[4] = v374;
+              _os_log_impl(&dword_18565F000, v377, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Got metadata %@\n", buf, 0xCu);
             }
           }
         }
 
         if (_pflogging_catastrophic_mode)
         {
-          v379 = 1;
+          v378 = 1;
         }
 
         else
         {
-          v379 = 8;
+          v378 = 8;
         }
 
-        _NSCoreDataLog_console(v379, "Got metadata %@", v375);
-        objc_autoreleasePoolPop(v376);
+        _NSCoreDataLog_console(v378, "Got metadata %@", v374);
+        objc_autoreleasePoolPop(v375);
       }
 
-      p_super = [v130 managedObjectModel];
-      v659 = 0u;
-      v660 = 0u;
-      v657 = 0u;
-      v658 = 0u;
-      v380 = [p_super countByEnumeratingWithState:&v657 objects:buf count:16];
-      if (!v380)
+      p_super = [v129 managedObjectModel];
+      v654 = 0u;
+      v655 = 0u;
+      v652 = 0u;
+      v653 = 0u;
+      v379 = [p_super countByEnumeratingWithState:&v652 objects:buf count:16];
+      if (!v379)
       {
         goto LABEL_691;
       }
 
-      v9 = *v658;
+      v8 = *v653;
 LABEL_682:
-      v381 = 0;
+      v380 = 0;
       while (1)
       {
-        if (*v658 != v9)
+        if (*v653 != v8)
         {
           objc_enumerationMutation(p_super);
         }
 
-        if (([(NSEntityDescription *)*(*(&v657 + 1) + 8 * v381) _hasAttributesWithFileBackedFutures]& 1) != 0)
+        if (([(NSEntityDescription *)*(*(&v652 + 1) + 8 * v380) _hasAttributesWithFileBackedFutures]& 1) != 0)
         {
           break;
         }
 
-        if (v380 == ++v381)
+        if (v379 == ++v380)
         {
-          v380 = [p_super countByEnumeratingWithState:&v657 objects:buf count:16];
-          if (v380)
+          v379 = [p_super countByEnumeratingWithState:&v652 objects:buf count:16];
+          if (v379)
           {
             goto LABEL_682;
           }
@@ -1359,66 +1356,66 @@ LABEL_682:
         }
       }
 
-      v382 = [v131 fileBackedFuturesDirectory];
-      if (v382)
+      v381 = [v130 fileBackedFuturesDirectory];
+      if (v381)
       {
-        *&v653[0] = @"NSMetadataKey";
-        *(&v653[0] + 1) = @"NSFileBackedFuturePathKey";
-        *v654 = v375;
-        *&v654[8] = v382;
-        v375 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v654 forKeys:v653 count:2];
+        *&v648[0] = @"NSMetadataKey";
+        *(&v648[0] + 1) = @"NSFileBackedFuturePathKey";
+        *v649 = v374;
+        *&v649[8] = v381;
+        v374 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v649 forKeys:v648 count:2];
 LABEL_691:
-        v383 = [MEMORY[0x1E696AE40] dataWithPropertyList:v375 format:200 options:0 error:0];
+        v382 = [MEMORY[0x1E696AE40] dataWithPropertyList:v374 format:200 options:0 error:0];
         if (+[NSXPCStoreServer debugDefault])
         {
-          v384 = objc_autoreleasePoolPush();
+          v383 = objc_autoreleasePoolPush();
           _pflogInitialize(8);
           if (_NSCoreDataIsLogEnabled(8) && _pflogging_enable_oslog >= 1)
           {
             if (_pflogging_catastrophic_mode)
             {
-              v385 = _PFLogGetLogStream(1);
-              if (os_log_type_enabled(v385, OS_LOG_TYPE_ERROR))
+              v384 = _PFLogGetLogStream(1);
+              if (os_log_type_enabled(v384, OS_LOG_TYPE_ERROR))
               {
-                *v651 = 138412290;
-                v652 = v383;
-                _os_log_error_impl(&dword_18565F000, v385, OS_LOG_TYPE_ERROR, "CoreData: error: Which archives to %@\n", v651, 0xCu);
+                *v646 = 138412290;
+                v647 = v382;
+                _os_log_error_impl(&dword_18565F000, v384, OS_LOG_TYPE_ERROR, "CoreData: error: Which archives to %@\n", v646, 0xCu);
               }
             }
 
             else
             {
-              v386 = _PFLogGetLogStream(8);
-              if (os_log_type_enabled(v386, OS_LOG_TYPE_DEFAULT))
+              v385 = _PFLogGetLogStream(8);
+              if (os_log_type_enabled(v385, OS_LOG_TYPE_DEFAULT))
               {
-                *v651 = 138412290;
-                v652 = v383;
-                _os_log_impl(&dword_18565F000, v386, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Which archives to %@\n", v651, 0xCu);
+                *v646 = 138412290;
+                v647 = v382;
+                _os_log_impl(&dword_18565F000, v385, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Which archives to %@\n", v646, 0xCu);
               }
             }
           }
 
           if (_pflogging_catastrophic_mode)
           {
-            v387 = 1;
+            v386 = 1;
           }
 
           else
           {
-            v387 = 8;
+            v386 = 8;
           }
 
-          _NSCoreDataLog_console(v387, "Which archives to %@", v383);
-          objc_autoreleasePoolPop(v384);
+          _NSCoreDataLog_console(v386, "Which archives to %@", v382);
+          objc_autoreleasePoolPop(v383);
         }
 
-        v388 = v383;
-        objc_autoreleasePoolPop(v129);
-        v314 = v383;
+        v387 = v382;
+        objc_autoreleasePoolPop(v128);
+        v313 = v382;
         goto LABEL_1032;
       }
 
-      v236 = objc_autoreleasePoolPush();
+      v235 = objc_autoreleasePoolPush();
       if (_NSCoreDataIsOSLogEnabled(8))
       {
         if (_pflogging_catastrophic_mode)
@@ -1426,8 +1423,8 @@ LABEL_691:
           p_super = _PFLogGetLogStream(1);
           if (os_log_type_enabled(p_super, OS_LOG_TYPE_ERROR))
           {
-            *v654 = 0;
-            _os_log_error_impl(&dword_18565F000, p_super, OS_LOG_TYPE_ERROR, "CoreData: error: what on earth happened?\n", v654, 2u);
+            *v649 = 0;
+            _os_log_error_impl(&dword_18565F000, p_super, OS_LOG_TYPE_ERROR, "CoreData: error: what on earth happened?\n", v649, 2u);
           }
         }
 
@@ -1436,874 +1433,919 @@ LABEL_691:
           p_super = _PFLogGetLogStream(8);
           if (os_log_type_enabled(p_super, OS_LOG_TYPE_DEFAULT))
           {
-            *v654 = 0;
-            _os_log_impl(&dword_18565F000, p_super, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: what on earth happened?\n", v654, 2u);
+            *v649 = 0;
+            _os_log_impl(&dword_18565F000, p_super, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: what on earth happened?\n", v649, 2u);
           }
         }
       }
 
       if (_pflogging_catastrophic_mode)
       {
-        v518 = 1;
+        v516 = 1;
       }
 
       else
       {
-        v518 = 8;
+        v516 = 8;
       }
 
-      _NSCoreDataLog_console(v518, "what on earth happened?");
-      objc_autoreleasePoolPop(v236);
+      _NSCoreDataLog_console(v516, "what on earth happened?");
+      objc_autoreleasePoolPop(v235);
 LABEL_1009:
       __break(1u);
 LABEL_1010:
-      v534 = _PFLogGetLogStream(8);
-      if (os_log_type_enabled(v534, OS_LOG_TYPE_DEFAULT))
+      v532 = _PFLogGetLogStream(8);
+      if (os_log_type_enabled(v532, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
         *&buf[4] = p_super;
-        _os_log_impl(&dword_18565F000, v534, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Reopened generation %@\n", buf, 0xCu);
+        _os_log_impl(&dword_18565F000, v532, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Reopened generation %@\n", buf, 0xCu);
       }
 
       goto LABEL_1012;
     case 2:
       if (+[NSXPCStoreServer debugDefault])
       {
-        v26 = objc_autoreleasePoolPush();
+        v25 = objc_autoreleasePoolPush();
         if (_NSCoreDataIsOSLogEnabled(8))
         {
           if (_pflogging_catastrophic_mode)
           {
-            v27 = _PFLogGetLogStream(1);
-            if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+            v26 = _PFLogGetLogStream(1);
+            if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
             {
               *buf = 0;
-              _os_log_error_impl(&dword_18565F000, v27, OS_LOG_TYPE_ERROR, "CoreData: error: Fetch\n", buf, 2u);
+              _os_log_error_impl(&dword_18565F000, v26, OS_LOG_TYPE_ERROR, "CoreData: error: Fetch\n", buf, 2u);
             }
           }
 
           else
           {
-            v134 = _PFLogGetLogStream(8);
-            if (os_log_type_enabled(v134, OS_LOG_TYPE_DEFAULT))
+            v133 = _PFLogGetLogStream(8);
+            if (os_log_type_enabled(v133, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 0;
-              _os_log_impl(&dword_18565F000, v134, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Fetch\n", buf, 2u);
+              _os_log_impl(&dword_18565F000, v133, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Fetch\n", buf, 2u);
             }
           }
         }
 
         if (_pflogging_catastrophic_mode)
         {
-          v135 = 1;
+          v134 = 1;
         }
 
         else
         {
-          v135 = 8;
+          v134 = 8;
         }
 
-        _NSCoreDataLog_console(v135, "Fetch");
-        objc_autoreleasePoolPop(v26);
+        _NSCoreDataLog_console(v134, "Fetch");
+        objc_autoreleasePoolPop(v25);
       }
 
-      v136 = *(v612 + 40);
-      if (v136)
+      v135 = *(v607 + 40);
+      if (v135)
       {
-        v137 = *(v136 + 24);
+        v136 = *(v135 + 24);
       }
 
       else
       {
-        v137 = 0;
+        v136 = 0;
       }
 
-      v138 = *(v612 + 64);
-      if (!v138)
+      v137 = *(v607 + 64);
+      if (!v137)
       {
-        goto LABEL_1137;
+        goto LABEL_1134;
       }
 
-      v139 = *(v612 + 56);
-      *v654 = 0;
+      v138 = *(v607 + 56);
+      *v649 = 0;
       contextb = objc_alloc_init(MEMORY[0x1E696AAC8]);
-      v140 = MEMORY[0x1E695DFD8];
+      v139 = MEMORY[0x1E695DFD8];
+      v140 = objc_opt_class();
       v141 = objc_opt_class();
       v142 = objc_opt_class();
       v143 = objc_opt_class();
-      v144 = objc_opt_class();
-      v145 = [v140 setWithObjects:{v141, v142, v143, v144, objc_opt_class(), 0}];
-      v146 = [_NSXPCStoreUtilities decodeSecureArchivedData:v137 usingDelegate:v139 classes:v145];
-      if ([v146 count] >= 2 && (v147 = objc_msgSend(v146, "objectAtIndex:", 1)) != 0)
+      v144 = [v139 setWithObjects:{v140, v141, v142, v143, objc_opt_class(), 0}];
+      v145 = [_NSXPCStoreUtilities decodeSecureArchivedData:v136 usingDelegate:v138 classes:v144];
+      if ([v145 count] >= 2 && (v146 = objc_msgSend(v145, "objectAtIndex:", 1)) != 0)
       {
-        v148 = [NSXPCStoreServer unpackQueryGeneration:v147 withContext:v139];
-        v149 = 1;
+        v147 = [NSXPCStoreServer unpackQueryGeneration:v146 withContext:v138];
+        v148 = 1;
       }
 
       else
       {
-        v149 = 0;
         v148 = 0;
+        v147 = 0;
       }
 
-      v150 = +[NSFetchRequest decodeFromXPCArchive:withContext:andPolicy:](NSFetchRequest, "decodeFromXPCArchive:withContext:andPolicy:", [v146 firstObject], v139, *(v138 + 64));
+      v149 = +[NSFetchRequest decodeFromXPCArchive:withContext:andPolicy:](NSFetchRequest, "decodeFromXPCArchive:withContext:andPolicy:", [v145 firstObject], v138, *(v137 + 64));
       if (+[NSXPCStoreServer debugDefault])
       {
-        v151 = objc_autoreleasePoolPush();
+        v150 = objc_autoreleasePoolPush();
         _pflogInitialize(8);
         if (_NSCoreDataIsLogEnabled(8) && _pflogging_enable_oslog >= 1)
         {
           if (_pflogging_catastrophic_mode)
           {
-            v152 = _PFLogGetLogStream(1);
-            if (os_log_type_enabled(v152, OS_LOG_TYPE_ERROR))
+            v151 = _PFLogGetLogStream(1);
+            if (os_log_type_enabled(v151, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412290;
-              *&buf[4] = v150;
-              _os_log_error_impl(&dword_18565F000, v152, OS_LOG_TYPE_ERROR, "CoreData: error: Got a fetch request %@\n", buf, 0xCu);
+              *&buf[4] = v149;
+              _os_log_error_impl(&dword_18565F000, v151, OS_LOG_TYPE_ERROR, "CoreData: error: Got a fetch request %@\n", buf, 0xCu);
             }
           }
 
           else
           {
-            v294 = _PFLogGetLogStream(8);
-            if (os_log_type_enabled(v294, OS_LOG_TYPE_DEFAULT))
+            v293 = _PFLogGetLogStream(8);
+            if (os_log_type_enabled(v293, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138412290;
-              *&buf[4] = v150;
-              _os_log_impl(&dword_18565F000, v294, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Got a fetch request %@\n", buf, 0xCu);
+              *&buf[4] = v149;
+              _os_log_impl(&dword_18565F000, v293, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Got a fetch request %@\n", buf, 0xCu);
             }
           }
         }
 
         if (_pflogging_catastrophic_mode)
         {
-          v295 = 1;
+          v294 = 1;
         }
 
         else
         {
-          v295 = 8;
+          v294 = 8;
         }
 
-        _NSCoreDataLog_console(v295, "Got a fetch request %@", v150);
-        objc_autoreleasePoolPop(v151);
+        _NSCoreDataLog_console(v294, "Got a fetch request %@", v149);
+        objc_autoreleasePoolPop(v150);
       }
 
-      if (v148)
+      if (v147)
       {
-        v296 = 0;
+        v295 = 0;
       }
 
       else
       {
-        v296 = v149;
+        v295 = v148;
       }
 
-      if (v296 == 1 && +[NSXPCStoreServer debugDefault])
+      if (v295 == 1 && +[NSXPCStoreServer debugDefault])
       {
-        v297 = objc_autoreleasePoolPush();
+        v296 = objc_autoreleasePoolPush();
         _pflogInitialize(8);
         if (_NSCoreDataIsLogEnabled(8) && _pflogging_enable_oslog >= 1)
         {
           if (_pflogging_catastrophic_mode)
           {
-            v298 = _PFLogGetLogStream(1);
-            if (os_log_type_enabled(v298, OS_LOG_TYPE_ERROR))
+            v297 = _PFLogGetLogStream(1);
+            if (os_log_type_enabled(v297, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412290;
               *&buf[4] = 0;
-              _os_log_error_impl(&dword_18565F000, v298, OS_LOG_TYPE_ERROR, "CoreData: error: Can't fulfill fetch request: can't find query generation: %@\n", buf, 0xCu);
+              _os_log_error_impl(&dword_18565F000, v297, OS_LOG_TYPE_ERROR, "CoreData: error: Can't fulfill fetch request: can't find query generation: %@\n", buf, 0xCu);
             }
           }
 
           else
           {
-            v428 = _PFLogGetLogStream(8);
-            if (os_log_type_enabled(v428, OS_LOG_TYPE_DEFAULT))
+            v427 = _PFLogGetLogStream(8);
+            if (os_log_type_enabled(v427, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138412290;
               *&buf[4] = 0;
-              _os_log_impl(&dword_18565F000, v428, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Can't fulfill fetch request: can't find query generation: %@\n", buf, 0xCu);
+              _os_log_impl(&dword_18565F000, v427, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Can't fulfill fetch request: can't find query generation: %@\n", buf, 0xCu);
             }
           }
         }
 
         if (_pflogging_catastrophic_mode)
         {
-          v429 = 1;
+          v428 = 1;
         }
 
         else
         {
-          v429 = 8;
+          v428 = 8;
         }
 
-        _NSCoreDataLog_console(v429, "Can't fulfill fetch request: can't find query generation: %@", 0);
-        objc_autoreleasePoolPop(v297);
-        v430 = MEMORY[0x1E696ABC0];
+        _NSCoreDataLog_console(v428, "Can't fulfill fetch request: can't find query generation: %@", 0);
+        objc_autoreleasePoolPop(v296);
+        v429 = MEMORY[0x1E696ABC0];
         *buf = @"unrecognized query generation";
-        *&v657 = @"reason";
-        *(&v657 + 1) = @"generation";
+        *&v652 = @"reason";
+        *(&v652 + 1) = @"generation";
         *&buf[8] = [MEMORY[0x1E695DFB0] null];
-        v431 = [MEMORY[0x1E695DF20] dictionaryWithObjects:buf forKeys:&v657 count:2];
+        v430 = [MEMORY[0x1E695DF20] dictionaryWithObjects:buf forKeys:&v652 count:2];
+        v431 = 0;
         v432 = 0;
-        v433 = 0;
-        *v654 = [v430 errorWithDomain:*MEMORY[0x1E696A250] code:134061 userInfo:v431];
-LABEL_1133:
-        v570 = *v654;
+        *v649 = [v429 errorWithDomain:*MEMORY[0x1E696A250] code:134061 userInfo:v430];
+LABEL_1130:
+        v566 = *v649;
         [contextb drain];
-        v571 = 0;
-        v572 = *v654;
-        if (*v654)
+        v567 = 0;
+        v568 = *v649;
+        if (*v649)
         {
-          v613 = *v654;
+          v608 = *v649;
         }
 
-        if (v432)
+        if (v431)
         {
-          v314 = v433;
+          v313 = v432;
           goto LABEL_1032;
         }
 
-        goto LABEL_1137;
+        goto LABEL_1134;
       }
 
-      v299 = [*(v138 + 64) processRequest:v150 fromClientWithContext:v139 error:v654];
+      v298 = [*(v137 + 64) processRequest:v149 fromClientWithContext:v138 error:v649];
       if (+[NSXPCStoreServer debugDefault])
       {
-        v300 = objc_autoreleasePoolPush();
+        v299 = objc_autoreleasePoolPush();
         _pflogInitialize(8);
         if (_NSCoreDataIsLogEnabled(8) && _pflogging_enable_oslog >= 1)
         {
           if (_pflogging_catastrophic_mode)
           {
-            v301 = _PFLogGetLogStream(1);
-            if (os_log_type_enabled(v301, OS_LOG_TYPE_ERROR))
+            v300 = _PFLogGetLogStream(1);
+            if (os_log_type_enabled(v300, OS_LOG_TYPE_ERROR))
             {
-              if (v299)
+              if (v298)
               {
-                v302 = [v299 count];
+                v301 = [v298 count];
               }
 
               else
               {
-                v302 = 0;
+                v301 = 0;
               }
 
               *buf = 67109376;
-              *&buf[4] = v299 != 0;
+              *&buf[4] = v298 != 0;
               *&buf[8] = 1024;
-              *&buf[10] = v302;
-              _os_log_error_impl(&dword_18565F000, v301, OS_LOG_TYPE_ERROR, "CoreData: error: Which had result %d (%d)\n", buf, 0xEu);
+              *&buf[10] = v301;
+              _os_log_error_impl(&dword_18565F000, v300, OS_LOG_TYPE_ERROR, "CoreData: error: Which had result %d (%d)\n", buf, 0xEu);
             }
           }
 
           else
           {
-            v316 = _PFLogGetLogStream(8);
-            if (os_log_type_enabled(v316, OS_LOG_TYPE_DEFAULT))
+            v315 = _PFLogGetLogStream(8);
+            if (os_log_type_enabled(v315, OS_LOG_TYPE_DEFAULT))
             {
-              if (v299)
+              if (v298)
               {
-                v317 = [v299 count];
+                v316 = [v298 count];
               }
 
               else
               {
-                v317 = 0;
+                v316 = 0;
               }
 
               *buf = 67109376;
-              *&buf[4] = v299 != 0;
+              *&buf[4] = v298 != 0;
               *&buf[8] = 1024;
-              *&buf[10] = v317;
-              _os_log_impl(&dword_18565F000, v316, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Which had result %d (%d)\n", buf, 0xEu);
+              *&buf[10] = v316;
+              _os_log_impl(&dword_18565F000, v315, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Which had result %d (%d)\n", buf, 0xEu);
             }
           }
         }
 
         if (_pflogging_catastrophic_mode)
         {
-          if (v299)
+          if (v298)
           {
-            v550 = [v299 count];
+            v546 = [v298 count];
           }
 
           else
           {
-            v550 = 0;
+            v546 = 0;
           }
 
-          v551 = 1;
+          v547 = 1;
         }
 
         else
         {
-          if (v299)
+          if (v298)
           {
-            v550 = [v299 count];
+            v546 = [v298 count];
           }
 
           else
           {
-            v550 = 0;
+            v546 = 0;
           }
 
-          v551 = 8;
+          v547 = 8;
         }
 
-        _NSCoreDataLog_console(v551, "Which had result %d (%d)", v299 != 0, v550);
-        objc_autoreleasePoolPop(v300);
+        _NSCoreDataLog_console(v547, "Which had result %d (%d)", v298 != 0, v546);
+        objc_autoreleasePoolPop(v299);
       }
 
-      if (v299)
+      if (v298)
       {
-        v552 = [_NSXPCStoreUtilities newSecureArchivedDataWithRootObject:v299];
-        v433 = v552;
+        v548 = [_NSXPCStoreUtilities newSecureArchivedDataWithRootObject:v298];
+        v432 = v548;
         if (+[NSXPCStoreServer debugDefault])
         {
-          v553 = objc_autoreleasePoolPush();
+          v549 = objc_autoreleasePoolPush();
           _pflogInitialize(8);
           if (_NSCoreDataIsLogEnabled(8) && _pflogging_enable_oslog >= 1)
           {
             if (_pflogging_catastrophic_mode)
             {
-              v554 = _PFLogGetLogStream(1);
-              if (os_log_type_enabled(v554, OS_LOG_TYPE_ERROR))
+              v550 = _PFLogGetLogStream(1);
+              if (os_log_type_enabled(v550, OS_LOG_TYPE_ERROR))
               {
-                if (v552)
+                if (v548)
                 {
-                  v555 = [v552 length];
+                  v551 = [v548 length];
                 }
 
                 else
                 {
-                  v555 = 0;
+                  v551 = 0;
                 }
 
                 *buf = 67109376;
-                *&buf[4] = v552 != 0;
+                *&buf[4] = v548 != 0;
                 *&buf[8] = 1024;
-                *&buf[10] = v555;
-                _os_log_error_impl(&dword_18565F000, v554, OS_LOG_TYPE_ERROR, "CoreData: error: Which archived %d (%d)\n", buf, 0xEu);
+                *&buf[10] = v551;
+                _os_log_error_impl(&dword_18565F000, v550, OS_LOG_TYPE_ERROR, "CoreData: error: Which archived %d (%d)\n", buf, 0xEu);
               }
             }
 
             else
             {
-              v559 = _PFLogGetLogStream(8);
-              if (os_log_type_enabled(v559, OS_LOG_TYPE_DEFAULT))
+              v555 = _PFLogGetLogStream(8);
+              if (os_log_type_enabled(v555, OS_LOG_TYPE_DEFAULT))
               {
-                if (v552)
+                if (v548)
                 {
-                  v560 = [v552 length];
+                  v556 = [v548 length];
                 }
 
                 else
                 {
-                  v560 = 0;
+                  v556 = 0;
                 }
 
                 *buf = 67109376;
-                *&buf[4] = v552 != 0;
+                *&buf[4] = v548 != 0;
                 *&buf[8] = 1024;
-                *&buf[10] = v560;
-                _os_log_impl(&dword_18565F000, v559, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Which archived %d (%d)\n", buf, 0xEu);
+                *&buf[10] = v556;
+                _os_log_impl(&dword_18565F000, v555, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Which archived %d (%d)\n", buf, 0xEu);
               }
             }
           }
 
-          v567 = v552 != 0;
+          v563 = v548 != 0;
           if (_pflogging_catastrophic_mode)
           {
-            if (v433)
+            if (v432)
             {
-              v568 = [v433 length];
+              v564 = [v432 length];
             }
 
             else
             {
-              v568 = 0;
+              v564 = 0;
             }
 
-            v569 = 1;
+            v565 = 1;
           }
 
           else
           {
-            if (v433)
+            if (v432)
             {
-              v568 = [v433 length];
+              v564 = [v432 length];
             }
 
             else
             {
-              v568 = 0;
+              v564 = 0;
             }
 
-            v569 = 8;
+            v565 = 8;
           }
 
-          _NSCoreDataLog_console(v569, "Which archived %d (%d)", v567, v568);
-          objc_autoreleasePoolPop(v553);
+          _NSCoreDataLog_console(v565, "Which archived %d (%d)", v563, v564);
+          objc_autoreleasePoolPop(v549);
         }
 
-        goto LABEL_1132;
+        goto LABEL_1129;
       }
 
-      if (*v654)
+      if (*v649)
       {
         if (+[NSXPCStoreServer debugDefault])
         {
-          v556 = objc_autoreleasePoolPush();
+          v552 = objc_autoreleasePoolPush();
           _pflogInitialize(8);
           if (_NSCoreDataIsLogEnabled(8) && _pflogging_enable_oslog >= 1)
           {
             if (_pflogging_catastrophic_mode)
             {
-              v557 = _PFLogGetLogStream(1);
-              if (os_log_type_enabled(v557, OS_LOG_TYPE_ERROR))
+              v553 = _PFLogGetLogStream(1);
+              if (os_log_type_enabled(v553, OS_LOG_TYPE_ERROR))
               {
                 *buf = 138412290;
-                *&buf[4] = *v654;
-                _os_log_error_impl(&dword_18565F000, v557, OS_LOG_TYPE_ERROR, "CoreData: error: Fetch failed returning error %@\n", buf, 0xCu);
+                *&buf[4] = *v649;
+                _os_log_error_impl(&dword_18565F000, v553, OS_LOG_TYPE_ERROR, "CoreData: error: Fetch failed returning error %@\n", buf, 0xCu);
               }
             }
 
             else
             {
-              v561 = _PFLogGetLogStream(8);
-              if (os_log_type_enabled(v561, OS_LOG_TYPE_DEFAULT))
+              v557 = _PFLogGetLogStream(8);
+              if (os_log_type_enabled(v557, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 138412290;
-                *&buf[4] = *v654;
-                _os_log_impl(&dword_18565F000, v561, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Fetch failed returning error %@\n", buf, 0xCu);
+                *&buf[4] = *v649;
+                _os_log_impl(&dword_18565F000, v557, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Fetch failed returning error %@\n", buf, 0xCu);
               }
             }
           }
 
           if (_pflogging_catastrophic_mode)
           {
-            v562 = 1;
+            v558 = 1;
           }
 
           else
           {
-            v562 = 8;
+            v558 = 8;
           }
 
-          _NSCoreDataLog_console(v562, "Fetch failed returning error %@", *v654);
-LABEL_1113:
-          v433 = 0;
-          objc_autoreleasePoolPop(v556);
-          v432 = 1;
-          goto LABEL_1133;
+          _NSCoreDataLog_console(v558, "Fetch failed returning error %@", *v649);
+LABEL_1110:
+          v432 = 0;
+          objc_autoreleasePoolPop(v552);
+          v431 = 1;
+          goto LABEL_1130;
         }
       }
 
       else if (+[NSXPCStoreServer debugDefault])
       {
-        v556 = objc_autoreleasePoolPush();
+        v552 = objc_autoreleasePoolPush();
         _pflogInitialize(8);
         if (_NSCoreDataIsLogEnabled(8) && _pflogging_enable_oslog >= 1)
         {
           if (_pflogging_catastrophic_mode)
           {
-            v558 = _PFLogGetLogStream(1);
-            if (os_log_type_enabled(v558, OS_LOG_TYPE_ERROR))
+            v554 = _PFLogGetLogStream(1);
+            if (os_log_type_enabled(v554, OS_LOG_TYPE_ERROR))
             {
               *buf = 0;
-              _os_log_error_impl(&dword_18565F000, v558, OS_LOG_TYPE_ERROR, "CoreData: error: Fetch failed with no error.\n", buf, 2u);
+              _os_log_error_impl(&dword_18565F000, v554, OS_LOG_TYPE_ERROR, "CoreData: error: Fetch failed with no error.\n", buf, 2u);
             }
           }
 
           else
           {
-            v563 = _PFLogGetLogStream(8);
-            if (os_log_type_enabled(v563, OS_LOG_TYPE_DEFAULT))
+            v559 = _PFLogGetLogStream(8);
+            if (os_log_type_enabled(v559, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 0;
-              _os_log_impl(&dword_18565F000, v563, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Fetch failed with no error.\n", buf, 2u);
+              _os_log_impl(&dword_18565F000, v559, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Fetch failed with no error.\n", buf, 2u);
             }
           }
         }
 
         if (_pflogging_catastrophic_mode)
         {
-          v564 = 1;
+          v560 = 1;
         }
 
         else
         {
-          v564 = 8;
+          v560 = 8;
         }
 
-        _NSCoreDataLog_console(v564, "Fetch failed with no error.");
-        goto LABEL_1113;
+        _NSCoreDataLog_console(v560, "Fetch failed with no error.");
+        goto LABEL_1110;
       }
 
-      v433 = 0;
-LABEL_1132:
-      v432 = 1;
-      goto LABEL_1133;
+      v432 = 0;
+LABEL_1129:
+      v431 = 1;
+      goto LABEL_1130;
     case 3:
       if (+[NSXPCStoreServer debugDefault])
       {
-        v20 = objc_autoreleasePoolPush();
+        v19 = objc_autoreleasePoolPush();
         if (_NSCoreDataIsOSLogEnabled(8))
         {
           if (_pflogging_catastrophic_mode)
           {
-            v21 = _PFLogGetLogStream(1);
-            if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+            v20 = _PFLogGetLogStream(1);
+            if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
             {
               *buf = 0;
-              _os_log_error_impl(&dword_18565F000, v21, OS_LOG_TYPE_ERROR, "CoreData: error: Save\n", buf, 2u);
+              _os_log_error_impl(&dword_18565F000, v20, OS_LOG_TYPE_ERROR, "CoreData: error: Save\n", buf, 2u);
             }
           }
 
           else
           {
-            v81 = _PFLogGetLogStream(8);
-            if (os_log_type_enabled(v81, OS_LOG_TYPE_DEFAULT))
+            v80 = _PFLogGetLogStream(8);
+            if (os_log_type_enabled(v80, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 0;
-              _os_log_impl(&dword_18565F000, v81, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Save\n", buf, 2u);
+              _os_log_impl(&dword_18565F000, v80, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Save\n", buf, 2u);
             }
           }
         }
 
         if (_pflogging_catastrophic_mode)
         {
-          v82 = 1;
+          v81 = 1;
         }
 
         else
         {
-          v82 = 8;
+          v81 = 8;
         }
 
-        _NSCoreDataLog_console(v82, "Save");
-        objc_autoreleasePoolPop(v20);
+        _NSCoreDataLog_console(v81, "Save");
+        objc_autoreleasePoolPop(v19);
       }
 
-      v83 = *(v612 + 40);
-      if (v83)
+      v82 = *(v607 + 40);
+      if (v82)
       {
-        v84 = *(v83 + 24);
+        v83 = *(v82 + 24);
       }
 
       else
       {
-        v84 = 0;
+        v83 = 0;
       }
 
-      v595 = *(v612 + 64);
-      if (!v595)
+      v590 = *(v607 + 64);
+      if (!v590)
       {
-        goto LABEL_1137;
+        goto LABEL_1134;
       }
 
-      v596 = *(v612 + 56);
-      v594 = objc_alloc_init(MEMORY[0x1E696AAC8]);
-      v642 = 0;
-      v85 = [+[_NSXPCStoreUtilities classesForSaveArchive]() setByAddingObjectsFromSet:{objc_msgSend(*(v595 + 64), "allowableClassesForClientWithContext:", v596)}];
-      v86 = [_NSXPCStoreUtilities decodeSecureArchivedData:v84 usingDelegate:v596 classes:v85];
-      v87 = v86;
-      if (!v86)
+      v591 = *(v607 + 56);
+      v589 = objc_alloc_init(MEMORY[0x1E696AAC8]);
+      v637 = 0;
+      v84 = [+[_NSXPCStoreUtilities classesForSaveArchive](_NSXPCStoreUtilities) setByAddingObjectsFromSet:{objc_msgSend(*(v590 + 64), "allowableClassesForClientWithContext:", v591)}];
+      v85 = [_NSXPCStoreUtilities decodeSecureArchivedData:v83 usingDelegate:v591 classes:v84];
+      v86 = v85;
+      if (!v85)
       {
-        v92 = MEMORY[0x1E696ABC0];
-        *&v657 = *MEMORY[0x1E696A588];
-        *buf = [MEMORY[0x1E696AEC0] stringWithFormat:@"Unable to unarchive save request with allowed classes: %@", v85];
-        v93 = [MEMORY[0x1E695DF20] dictionaryWithObjects:buf forKeys:&v657 count:1];
-        v94 = [v92 errorWithDomain:*MEMORY[0x1E696A250] code:134060 userInfo:v93];
+        v91 = MEMORY[0x1E696ABC0];
+        *&v652 = *MEMORY[0x1E696A588];
+        *buf = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v84);
+        v92 = [MEMORY[0x1E695DF20] dictionaryWithObjects:buf forKeys:&v652 count:1];
+        v93 = [v91 errorWithDomain:*MEMORY[0x1E696A250] code:134060 userInfo:v92];
 LABEL_834:
-        v13 = 0;
-        v642 = v94;
+        v12 = 0;
+        v637 = v93;
         goto LABEL_992;
       }
 
-      v88 = [v86 valueForKey:@"NSMetadata"];
-      v89 = [v596 managedObjectContext];
+      v87 = objc_msgSend_valueForKey_(v85);
+      v88 = [v591 managedObjectContext];
       if (+[NSXPCStoreServer debugDefault])
       {
-        v90 = objc_autoreleasePoolPush();
+        v89 = objc_autoreleasePoolPush();
         _pflogInitialize(8);
         if (_NSCoreDataIsLogEnabled(8) && _pflogging_enable_oslog >= 1)
         {
           if (_pflogging_catastrophic_mode)
           {
-            v91 = _PFLogGetLogStream(1);
-            if (os_log_type_enabled(v91, OS_LOG_TYPE_ERROR))
+            v90 = _PFLogGetLogStream(1);
+            if (os_log_type_enabled(v90, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412290;
-              *&buf[4] = v87;
-              _os_log_error_impl(&dword_18565F000, v91, OS_LOG_TYPE_ERROR, "CoreData: error: Got save request: %@\n", buf, 0xCu);
+              *&buf[4] = v86;
+              _os_log_error_impl(&dword_18565F000, v90, OS_LOG_TYPE_ERROR, "CoreData: error: Got save request: %@\n", buf, 0xCu);
             }
           }
 
           else
           {
-            v340 = _PFLogGetLogStream(8);
-            if (os_log_type_enabled(v340, OS_LOG_TYPE_DEFAULT))
+            v339 = _PFLogGetLogStream(8);
+            if (os_log_type_enabled(v339, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138412290;
-              *&buf[4] = v87;
-              _os_log_impl(&dword_18565F000, v340, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Got save request: %@\n", buf, 0xCu);
+              *&buf[4] = v86;
+              _os_log_impl(&dword_18565F000, v339, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Got save request: %@\n", buf, 0xCu);
             }
           }
         }
 
         if (_pflogging_catastrophic_mode)
         {
-          v341 = 1;
+          v340 = 1;
         }
 
         else
         {
-          v341 = 8;
+          v340 = 8;
         }
 
-        _NSCoreDataLog_console(v341, "Got save request: %@", v87);
-        objc_autoreleasePoolPop(v90);
+        _NSCoreDataLog_console(v340, "Got save request: %@", v86);
+        objc_autoreleasePoolPop(v89);
       }
 
-      if (!v88)
+      if (!v87)
       {
         goto LABEL_806;
       }
 
       if (+[NSXPCStoreServer debugDefault])
       {
-        v342 = objc_autoreleasePoolPush();
+        v341 = objc_autoreleasePoolPush();
         _pflogInitialize(8);
         if (_NSCoreDataIsLogEnabled(8) && _pflogging_enable_oslog >= 1)
         {
           if (_pflogging_catastrophic_mode)
           {
-            v343 = _PFLogGetLogStream(1);
-            if (os_log_type_enabled(v343, OS_LOG_TYPE_ERROR))
+            v342 = _PFLogGetLogStream(1);
+            if (os_log_type_enabled(v342, OS_LOG_TYPE_ERROR))
             {
               *buf = 0;
-              _os_log_error_impl(&dword_18565F000, v343, OS_LOG_TYPE_ERROR, "CoreData: error: Updating metadata\n", buf, 2u);
+              _os_log_error_impl(&dword_18565F000, v342, OS_LOG_TYPE_ERROR, "CoreData: error: Updating metadata\n", buf, 2u);
             }
           }
 
           else
           {
-            v434 = _PFLogGetLogStream(8);
-            if (os_log_type_enabled(v434, OS_LOG_TYPE_DEFAULT))
+            v433 = _PFLogGetLogStream(8);
+            if (os_log_type_enabled(v433, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 0;
-              _os_log_impl(&dword_18565F000, v434, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Updating metadata\n", buf, 2u);
+              _os_log_impl(&dword_18565F000, v433, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Updating metadata\n", buf, 2u);
             }
           }
         }
 
         if (_pflogging_catastrophic_mode)
         {
-          v435 = 1;
+          v434 = 1;
         }
 
         else
         {
-          v435 = 8;
+          v434 = 8;
         }
 
-        _NSCoreDataLog_console(v435, "Updating metadata");
-        objc_autoreleasePoolPop(v342);
+        _NSCoreDataLog_console(v434, "Updating metadata");
+        objc_autoreleasePoolPop(v341);
       }
 
-      v436 = *(v595 + 64);
-      if ((objc_opt_respondsToSelector() & 1) != 0 && ([*(v595 + 64) shouldAcceptMetadataChangesFromClientWithContext:v596] & 1) == 0)
+      if ((objc_opt_respondsToSelector() & 1) != 0 && ([*(v590 + 64) shouldAcceptMetadataChangesFromClientWithContext:v591] & 1) == 0)
       {
-        v94 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A250] code:134092 userInfo:0];
+        v93 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A250] code:134092 userInfo:0];
         goto LABEL_834;
       }
 
-      v437 = [v88 mutableCopy];
-      [v437 removeObjectForKey:@"NSStoreUUID"];
-      [v437 removeObjectForKey:@"NSStoreType"];
-      [v437 removeObjectForKey:@"NSStoreModelVersionHashes"];
-      [v437 removeObjectForKey:@"NSStoreModelVersionIdentifiers"];
-      [v437 removeObjectForKey:0x1EF3FD3E8];
-      [v437 removeObjectForKey:0x1EF3FD408];
-      if (v596)
+      v435 = [v87 mutableCopy];
+      [v435 removeObjectForKey:@"NSStoreUUID"];
+      [v435 removeObjectForKey:@"NSStoreType"];
+      [v435 removeObjectForKey:@"NSStoreModelVersionHashes"];
+      [v435 removeObjectForKey:@"NSStoreModelVersionIdentifiers"];
+      [v435 removeObjectForKey:0x1EF3FD3E8];
+      [v435 removeObjectForKey:0x1EF3FD408];
+      if (v591)
       {
-        v438 = v596[4];
+        v436 = v591[4];
       }
 
       else
       {
-        v438 = 0;
+        v436 = 0;
       }
 
-      [v438 setMetadata:v437];
+      [v436 setMetadata:v435];
 
 LABEL_806:
-      v439 = [v87 valueForKey:@"deleted"];
-      v599 = [v87 valueForKey:@"inserted"];
-      contextd = [v87 valueForKey:@"updated"];
-      v440 = [v87 valueForKey:@"locked"];
-      v441 = [MEMORY[0x1E695DF70] array];
-      v640 = 0u;
-      v641 = 0u;
-      v638 = 0u;
-      v639 = 0u;
-      v442 = [v439 countByEnumeratingWithState:&v638 objects:buf count:16];
-      if (v442)
+      v437 = objc_msgSend_valueForKey_(v86);
+      v594 = objc_msgSend_valueForKey_(v86);
+      contextd = objc_msgSend_valueForKey_(v86);
+      v438 = objc_msgSend_valueForKey_(v86);
+      v439 = [MEMORY[0x1E695DF70] array];
+      v635 = 0u;
+      v636 = 0u;
+      v633 = 0u;
+      v634 = 0u;
+      v440 = [v437 countByEnumeratingWithState:&v633 objects:buf count:16];
+      if (v440)
       {
-        v443 = *v639;
+        v441 = *v634;
         do
         {
-          for (i = 0; i != v442; ++i)
+          for (i = 0; i != v440; ++i)
           {
-            if (*v639 != v443)
+            if (*v634 != v441)
             {
-              objc_enumerationMutation(v439);
+              objc_enumerationMutation(v437);
             }
 
-            [v441 addObject:{objc_msgSend(*(*(&v638 + 1) + 8 * i), "objectAtIndex:", 0)}];
+            [v439 addObject:{objc_msgSend(*(*(&v633 + 1) + 8 * i), "objectAtIndex:", 0)}];
           }
 
-          v442 = [v439 countByEnumeratingWithState:&v638 objects:buf count:16];
+          v440 = [v437 countByEnumeratingWithState:&v633 objects:buf count:16];
         }
 
-        while (v442);
+        while (v440);
       }
 
-      v636 = 0u;
-      v637 = 0u;
-      v634 = 0u;
-      v635 = 0u;
-      v445 = [contextd countByEnumeratingWithState:&v634 objects:&v657 count:16];
-      if (v445)
+      v631 = 0u;
+      v632 = 0u;
+      v629 = 0u;
+      v630 = 0u;
+      v443 = [contextd countByEnumeratingWithState:&v629 objects:&v652 count:16];
+      if (v443)
       {
-        v446 = *v635;
+        v444 = *v630;
         do
         {
-          for (j = 0; j != v445; ++j)
+          for (j = 0; j != v443; ++j)
           {
-            if (*v635 != v446)
+            if (*v630 != v444)
             {
               objc_enumerationMutation(contextd);
             }
 
-            [v441 addObject:{objc_msgSend(*(*(&v634 + 1) + 8 * j), "objectAtIndex:", 0)}];
+            [v439 addObject:{objc_msgSend(*(*(&v629 + 1) + 8 * j), "objectAtIndex:", 0)}];
           }
 
-          v445 = [contextd countByEnumeratingWithState:&v634 objects:&v657 count:16];
+          v443 = [contextd countByEnumeratingWithState:&v629 objects:&v652 count:16];
         }
 
-        while (v445);
+        while (v443);
       }
 
-      v632 = 0u;
-      v633 = 0u;
-      v630 = 0u;
-      v631 = 0u;
-      v448 = [v440 countByEnumeratingWithState:&v630 objects:v654 count:16];
-      obj = v439;
-      if (v448)
+      v627 = 0u;
+      v628 = 0u;
+      v625 = 0u;
+      v626 = 0u;
+      v446 = [v438 countByEnumeratingWithState:&v625 objects:v649 count:16];
+      obj = v437;
+      if (v446)
       {
-        v449 = *v631;
+        v447 = *v626;
         do
         {
-          for (k = 0; k != v448; ++k)
+          for (k = 0; k != v446; ++k)
           {
-            if (*v631 != v449)
+            if (*v626 != v447)
             {
-              objc_enumerationMutation(v440);
+              objc_enumerationMutation(v438);
             }
 
-            [v441 addObject:{objc_msgSend(*(*(&v630 + 1) + 8 * k), "objectAtIndex:", 0)}];
+            [v439 addObject:{objc_msgSend(*(*(&v625 + 1) + 8 * k), "objectAtIndex:", 0)}];
           }
 
-          v448 = [v440 countByEnumeratingWithState:&v630 objects:v654 count:16];
+          v446 = [v438 countByEnumeratingWithState:&v625 objects:v649 count:16];
         }
 
-        while (v448);
+        while (v446);
       }
 
-      [_PFRoutines fetchHeterogeneousCollectionByObjectIDs:v441 intoContext:v89];
+      [_PFRoutines fetchHeterogeneousCollectionByObjectIDs:v439 intoContext:v88];
       objc_opt_self();
       if (+[NSXPCStoreServer debugDefault])
       {
-        v451 = objc_autoreleasePoolPush();
+        v449 = objc_autoreleasePoolPush();
         _pflogInitialize(8);
         if (_NSCoreDataIsLogEnabled(8) && _pflogging_enable_oslog >= 1)
         {
           if (_pflogging_catastrophic_mode)
           {
-            v452 = _PFLogGetLogStream(1);
-            if (os_log_type_enabled(v452, OS_LOG_TYPE_ERROR))
+            v450 = _PFLogGetLogStream(1);
+            if (os_log_type_enabled(v450, OS_LOG_TYPE_ERROR))
             {
-              LODWORD(v653[0]) = 138412290;
-              *(v653 + 4) = v440;
-              _os_log_error_impl(&dword_18565F000, v452, OS_LOG_TYPE_ERROR, "CoreData: error: Locking objects :%@\n", v653, 0xCu);
+              LODWORD(v648[0]) = 138412290;
+              *(v648 + 4) = v438;
+              _os_log_error_impl(&dword_18565F000, v450, OS_LOG_TYPE_ERROR, "CoreData: error: Locking objects :%@\n", v648, 0xCu);
             }
           }
 
           else
           {
-            v453 = _PFLogGetLogStream(8);
-            if (os_log_type_enabled(v453, OS_LOG_TYPE_DEFAULT))
+            v451 = _PFLogGetLogStream(8);
+            if (os_log_type_enabled(v451, OS_LOG_TYPE_DEFAULT))
             {
-              LODWORD(v653[0]) = 138412290;
-              *(v653 + 4) = v440;
-              _os_log_impl(&dword_18565F000, v453, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Locking objects :%@\n", v653, 0xCu);
+              LODWORD(v648[0]) = 138412290;
+              *(v648 + 4) = v438;
+              _os_log_impl(&dword_18565F000, v451, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Locking objects :%@\n", v648, 0xCu);
             }
           }
         }
 
         if (_pflogging_catastrophic_mode)
         {
-          v454 = 1;
+          v452 = 1;
         }
 
         else
         {
-          v454 = 8;
+          v452 = 8;
         }
 
-        _NSCoreDataLog_console(v454, "Locking objects :%@", v440);
-        objc_autoreleasePoolPop(v451);
+        _NSCoreDataLog_console(v452, "Locking objects :%@", v438);
+        objc_autoreleasePoolPop(v449);
       }
 
-      v628 = 0u;
-      v629 = 0u;
-      v626 = 0u;
-      v627 = 0u;
-      v455 = [v440 countByEnumeratingWithState:&v626 objects:v653 count:16];
-      if (v455)
+      v623 = 0u;
+      v624 = 0u;
+      v621 = 0u;
+      v622 = 0u;
+      v453 = [v438 countByEnumeratingWithState:&v621 objects:v648 count:16];
+      if (v453)
       {
-        v456 = *v627;
+        v454 = *v622;
         do
         {
-          v457 = 0;
+          v455 = 0;
           do
           {
-            if (*v627 != v456)
+            if (*v622 != v454)
             {
-              objc_enumerationMutation(v440);
+              objc_enumerationMutation(v438);
             }
 
-            v458 = *(*(&v626 + 1) + 8 * v457);
-            v459 = objc_autoreleasePoolPush();
-            v460 = [v458 objectAtIndex:0];
-            if (v89)
+            v456 = *(*(&v621 + 1) + 8 * v455);
+            v457 = objc_autoreleasePoolPush();
+            v458 = [v456 objectAtIndex:0];
+            if (v88)
             {
-              v461 = _PFRetainedObjectIDCore(v89, v460, 0, 1);
+              v459 = _PFRetainedObjectIDCore(v88, v458, 0, 1);
             }
 
             else
             {
-              v461 = 0;
+              v459 = 0;
             }
 
-            [v461 willAccessValueForKey:0];
-            if ([v461 isDeleted])
+            [v459 willAccessValueForKey:0];
+            if ([v459 isDeleted])
+            {
+              if (+[NSXPCStoreServer debugDefault])
+              {
+                v460 = objc_autoreleasePoolPush();
+                _pflogInitialize(8);
+                if (_NSCoreDataIsLogEnabled(8) && _pflogging_enable_oslog >= 1)
+                {
+                  if (_pflogging_catastrophic_mode)
+                  {
+                    v461 = _PFLogGetLogStream(1);
+                    if (os_log_type_enabled(v461, OS_LOG_TYPE_ERROR))
+                    {
+                      *v646 = 138412290;
+                      v647 = v459;
+                      _os_log_error_impl(&dword_18565F000, v461, OS_LOG_TYPE_ERROR, "CoreData: error: Not locking %@ because it's not in the db\n", v646, 0xCu);
+                    }
+                  }
+
+                  else
+                  {
+                    v464 = _PFLogGetLogStream(8);
+                    if (os_log_type_enabled(v464, OS_LOG_TYPE_DEFAULT))
+                    {
+                      *v646 = 138412290;
+                      v647 = v459;
+                      _os_log_impl(&dword_18565F000, v464, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Not locking %@ because it's not in the db\n", v646, 0xCu);
+                    }
+                  }
+                }
+
+                if (_pflogging_catastrophic_mode)
+                {
+                  v465 = 1;
+                }
+
+                else
+                {
+                  v465 = 8;
+                }
+
+                _NSCoreDataLog_console(v465, "Not locking %@ because it's not in the db", v459);
+                objc_autoreleasePoolPop(v460);
+              }
+            }
+
+            else
             {
               if (+[NSXPCStoreServer debugDefault])
               {
@@ -2316,9 +2358,9 @@ LABEL_806:
                     v463 = _PFLogGetLogStream(1);
                     if (os_log_type_enabled(v463, OS_LOG_TYPE_ERROR))
                     {
-                      *v651 = 138412290;
-                      v652 = v461;
-                      _os_log_error_impl(&dword_18565F000, v463, OS_LOG_TYPE_ERROR, "CoreData: error: Not locking %@ because it's not in the db\n", v651, 0xCu);
+                      *v646 = 138412290;
+                      v647 = v459;
+                      _os_log_error_impl(&dword_18565F000, v463, OS_LOG_TYPE_ERROR, "CoreData: error: Locking %@\n", v646, 0xCu);
                     }
                   }
 
@@ -2327,9 +2369,9 @@ LABEL_806:
                     v466 = _PFLogGetLogStream(8);
                     if (os_log_type_enabled(v466, OS_LOG_TYPE_DEFAULT))
                     {
-                      *v651 = 138412290;
-                      v652 = v461;
-                      _os_log_impl(&dword_18565F000, v466, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Not locking %@ because it's not in the db\n", v651, 0xCu);
+                      *v646 = 138412290;
+                      v647 = v459;
+                      _os_log_impl(&dword_18565F000, v466, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Locking %@\n", v646, 0xCu);
                     }
                   }
                 }
@@ -2344,1264 +2386,1206 @@ LABEL_806:
                   v467 = 8;
                 }
 
-                _NSCoreDataLog_console(v467, "Not locking %@ because it's not in the db", v461);
+                _NSCoreDataLog_console(v467, "Locking %@", v459);
                 objc_autoreleasePoolPop(v462);
               }
+
+              [v459 _setVersionReference__:{objc_msgSend(objc_msgSend(v456, "objectAtIndex:", 1), "unsignedIntegerValue")}];
+              [v88 detectConflictsForObject:v459];
             }
 
-            else
-            {
-              if (+[NSXPCStoreServer debugDefault])
-              {
-                v464 = objc_autoreleasePoolPush();
-                _pflogInitialize(8);
-                if (_NSCoreDataIsLogEnabled(8) && _pflogging_enable_oslog >= 1)
-                {
-                  if (_pflogging_catastrophic_mode)
-                  {
-                    v465 = _PFLogGetLogStream(1);
-                    if (os_log_type_enabled(v465, OS_LOG_TYPE_ERROR))
-                    {
-                      *v651 = 138412290;
-                      v652 = v461;
-                      _os_log_error_impl(&dword_18565F000, v465, OS_LOG_TYPE_ERROR, "CoreData: error: Locking %@\n", v651, 0xCu);
-                    }
-                  }
-
-                  else
-                  {
-                    v468 = _PFLogGetLogStream(8);
-                    if (os_log_type_enabled(v468, OS_LOG_TYPE_DEFAULT))
-                    {
-                      *v651 = 138412290;
-                      v652 = v461;
-                      _os_log_impl(&dword_18565F000, v468, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Locking %@\n", v651, 0xCu);
-                    }
-                  }
-                }
-
-                if (_pflogging_catastrophic_mode)
-                {
-                  v469 = 1;
-                }
-
-                else
-                {
-                  v469 = 8;
-                }
-
-                _NSCoreDataLog_console(v469, "Locking %@", v461);
-                objc_autoreleasePoolPop(v464);
-              }
-
-              [v461 _setVersionReference__:{objc_msgSend(objc_msgSend(v458, "objectAtIndex:", 1), "unsignedIntegerValue")}];
-              [v89 detectConflictsForObject:v461];
-            }
-
-            objc_autoreleasePoolPop(v459);
-            ++v457;
+            objc_autoreleasePoolPop(v457);
+            ++v455;
           }
 
-          while (v455 != v457);
-          v470 = [v440 countByEnumeratingWithState:&v626 objects:v653 count:16];
-          v455 = v470;
+          while (v453 != v455);
+          v468 = [v438 countByEnumeratingWithState:&v621 objects:v648 count:16];
+          v453 = v468;
         }
 
-        while (v470);
+        while (v468);
       }
 
-      v624 = 0u;
-      v625 = 0u;
-      v622 = 0u;
-      v623 = 0u;
-      v471 = [obj countByEnumeratingWithState:&v622 objects:v651 count:16];
-      if (!v471)
+      v619 = 0u;
+      v620 = 0u;
+      v617 = 0u;
+      v618 = 0u;
+      v469 = [obj countByEnumeratingWithState:&v617 objects:v646 count:16];
+      if (!v469)
       {
         goto LABEL_916;
       }
 
-      v472 = 0;
-      v473 = 0;
-      v474 = *v623;
-      v604 = *MEMORY[0x1E696A250];
+      v470 = 0;
+      v471 = 0;
+      v472 = *v618;
+      v599 = *MEMORY[0x1E696A250];
       do
       {
-        v475 = 0;
+        v473 = 0;
         do
         {
-          if (*v623 != v474)
+          if (*v618 != v472)
           {
             objc_enumerationMutation(obj);
           }
 
-          v476 = *(*(&v622 + 1) + 8 * v475);
-          v477 = objc_autoreleasePoolPush();
-          v478 = [v476 objectAtIndex:0];
-          v479 = [v478 entity];
-          if (v473 != v479)
+          v474 = *(*(&v617 + 1) + 8 * v473);
+          v475 = objc_autoreleasePoolPush();
+          v476 = [v474 objectAtIndex:0];
+          v477 = [v476 entity];
+          if (v471 != v477)
           {
-            v472 = [*(v595 + 64) restrictingWritePredicateForEntity:v479 fromClientWithContext:v596];
-            v473 = v479;
+            v470 = [*(v590 + 64) restrictingWritePredicateForEntity:v477 fromClientWithContext:v591];
+            v471 = v477;
           }
 
-          if (!v472)
+          if (!v470)
           {
-            v483 = [MEMORY[0x1E696ABC0] errorWithDomain:v604 code:134092 userInfo:0];
+            v481 = [MEMORY[0x1E696ABC0] errorWithDomain:v599 code:134092 userInfo:0];
 LABEL_901:
-            v484 = 0;
-            v642 = v483;
+            v482 = 0;
+            v637 = v481;
             goto LABEL_911;
           }
 
-          if ([MEMORY[0x1E696AE18] predicateWithValue:0] == v472)
+          if ([MEMORY[0x1E696AE18] predicateWithValue:0] == v470)
           {
-            v483 = [MEMORY[0x1E696ABC0] errorWithDomain:v604 code:134030 userInfo:0];
+            v481 = [MEMORY[0x1E696ABC0] errorWithDomain:v599 code:134030 userInfo:0];
             goto LABEL_901;
           }
 
-          if (v89)
+          if (v88)
           {
-            v480 = _PFRetainedObjectIDCore(v89, v478, 0, 1);
+            v478 = _PFRetainedObjectIDCore(v88, v476, 0, 1);
           }
 
           else
           {
-            v480 = 0;
+            v478 = 0;
           }
 
-          [v480 willAccessValueForKey:0];
-          if (([v480 isDeleted] & 1) == 0)
+          [v478 willAccessValueForKey:0];
+          if (([v478 isDeleted] & 1) == 0)
           {
-            [v480 _setVersionReference__:{objc_msgSend(objc_msgSend(v476, "objectAtIndex:", 1), "unsignedIntegerValue")}];
-            [NSXPCStoreServer _populateObject:v480 withValuesFromClient:v476];
-            if ([MEMORY[0x1E696AE18] predicateWithValue:1] != v472 && (objc_msgSend(v472, "evaluateWithObject:", v480) & 1) == 0)
+            [v478 _setVersionReference__:{objc_msgSend(objc_msgSend(v474, "objectAtIndex:", 1), "unsignedIntegerValue")}];
+            [NSXPCStoreServer _populateObject:v478 withValuesFromClient:v474];
+            if ([MEMORY[0x1E696AE18] predicateWithValue:1] != v470 && (objc_msgSend(v470, "evaluateWithObject:", v478) & 1) == 0)
             {
-              v642 = [MEMORY[0x1E696ABC0] errorWithDomain:v604 code:134030 userInfo:0];
+              v637 = [MEMORY[0x1E696ABC0] errorWithDomain:v599 code:134030 userInfo:0];
 
-              v484 = 0;
+              v482 = 0;
               goto LABEL_911;
             }
 
             if (+[NSXPCStoreServer debugDefault])
             {
-              v481 = objc_autoreleasePoolPush();
+              v479 = objc_autoreleasePoolPush();
               _pflogInitialize(8);
               if (_NSCoreDataIsLogEnabled(8) && _pflogging_enable_oslog >= 1)
               {
                 if (_pflogging_catastrophic_mode)
                 {
-                  v482 = _PFLogGetLogStream(1);
-                  if (os_log_type_enabled(v482, OS_LOG_TYPE_ERROR))
+                  v480 = _PFLogGetLogStream(1);
+                  if (os_log_type_enabled(v480, OS_LOG_TYPE_ERROR))
                   {
-                    *v649 = 138412290;
-                    v650 = v480;
-                    _os_log_error_impl(&dword_18565F000, v482, OS_LOG_TYPE_ERROR, "CoreData: error: Deleting object :%@\n", v649, 0xCu);
+                    *v644 = 138412290;
+                    v645 = v478;
+                    _os_log_error_impl(&dword_18565F000, v480, OS_LOG_TYPE_ERROR, "CoreData: error: Deleting object :%@\n", v644, 0xCu);
                   }
                 }
 
                 else
                 {
-                  v485 = _PFLogGetLogStream(8);
-                  if (os_log_type_enabled(v485, OS_LOG_TYPE_DEFAULT))
+                  v483 = _PFLogGetLogStream(8);
+                  if (os_log_type_enabled(v483, OS_LOG_TYPE_DEFAULT))
                   {
-                    *v649 = 138412290;
-                    v650 = v480;
-                    _os_log_impl(&dword_18565F000, v485, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Deleting object :%@\n", v649, 0xCu);
+                    *v644 = 138412290;
+                    v645 = v478;
+                    _os_log_impl(&dword_18565F000, v483, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Deleting object :%@\n", v644, 0xCu);
                   }
                 }
               }
 
               if (_pflogging_catastrophic_mode)
               {
-                v486 = 1;
+                v484 = 1;
               }
 
               else
               {
-                v486 = 8;
+                v484 = 8;
               }
 
-              _NSCoreDataLog_console(v486, "Deleting object :%@", v480);
-              objc_autoreleasePoolPop(v481);
+              _NSCoreDataLog_console(v484, "Deleting object :%@", v478);
+              objc_autoreleasePoolPop(v479);
             }
 
-            [v89 deleteObject:v480];
+            [v88 deleteObject:v478];
           }
 
-          v484 = 1;
+          v482 = 1;
 LABEL_911:
-          objc_autoreleasePoolPop(v477);
-          if (!v484)
+          objc_autoreleasePoolPop(v475);
+          if (!v482)
           {
-            v13 = 0;
+            v12 = 0;
             goto LABEL_992;
           }
 
-          ++v475;
+          ++v473;
         }
 
-        while (v471 != v475);
-        v487 = [obj countByEnumeratingWithState:&v622 objects:v651 count:16];
-        v471 = v487;
+        while (v469 != v473);
+        v485 = [obj countByEnumeratingWithState:&v617 objects:v646 count:16];
+        v469 = v485;
       }
 
-      while (v487);
+      while (v485);
 LABEL_916:
-      v605 = [MEMORY[0x1E695DF70] array];
+      v600 = [MEMORY[0x1E695DF70] array];
       obja = [MEMORY[0x1E695DF70] array];
-      v488 = [MEMORY[0x1E695DF70] array];
-      v620 = 0u;
-      v621 = 0u;
-      v618 = 0u;
-      v619 = 0u;
-      v489 = [v599 countByEnumeratingWithState:&v618 objects:v649 count:16];
-      if (v489)
+      v486 = [MEMORY[0x1E695DF70] array];
+      v615 = 0u;
+      v616 = 0u;
+      v613 = 0u;
+      v614 = 0u;
+      v487 = [v594 countByEnumeratingWithState:&v613 objects:v644 count:16];
+      if (v487)
       {
-        v490 = *v619;
+        v488 = *v614;
         do
         {
-          for (m = 0; m != v489; ++m)
+          for (m = 0; m != v487; ++m)
           {
-            if (*v619 != v490)
+            if (*v614 != v488)
             {
-              objc_enumerationMutation(v599);
+              objc_enumerationMutation(v594);
             }
 
-            v492 = *(*(&v618 + 1) + 8 * m);
-            v493 = objc_autoreleasePoolPush();
-            v494 = [v492 objectAtIndex:0];
-            [v488 addObject:v494];
-            v495 = -[NSManagedObject initWithEntity:insertIntoManagedObjectContext:]([NSManagedObject alloc], "initWithEntity:insertIntoManagedObjectContext:", [v494 entity], v89);
-            [obja addObject:v495];
+            v490 = *(*(&v613 + 1) + 8 * m);
+            v491 = objc_autoreleasePoolPush();
+            v492 = [v490 objectAtIndex:0];
+            [v486 addObject:v492];
+            v493 = -[NSManagedObject initWithEntity:insertIntoManagedObjectContext:]([NSManagedObject alloc], "initWithEntity:insertIntoManagedObjectContext:", [v492 entity], v88);
+            [obja addObject:v493];
             if (+[NSXPCStoreServer debugDefault])
             {
-              v496 = objc_autoreleasePoolPush();
+              v494 = objc_autoreleasePoolPush();
               _pflogInitialize(8);
               if (_NSCoreDataIsLogEnabled(8) && _pflogging_enable_oslog >= 1)
               {
                 if (_pflogging_catastrophic_mode)
                 {
-                  v497 = _PFLogGetLogStream(1);
-                  if (os_log_type_enabled(v497, OS_LOG_TYPE_ERROR))
+                  v495 = _PFLogGetLogStream(1);
+                  if (os_log_type_enabled(v495, OS_LOG_TYPE_ERROR))
                   {
-                    *v647 = 138412290;
-                    v648 = v494;
-                    _os_log_error_impl(&dword_18565F000, v497, OS_LOG_TYPE_ERROR, "CoreData: error: Inserting object with ID %@\n", v647, 0xCu);
+                    *v642 = 138412290;
+                    v643 = v492;
+                    _os_log_error_impl(&dword_18565F000, v495, OS_LOG_TYPE_ERROR, "CoreData: error: Inserting object with ID %@\n", v642, 0xCu);
                   }
                 }
 
                 else
                 {
-                  v498 = _PFLogGetLogStream(8);
-                  if (os_log_type_enabled(v498, OS_LOG_TYPE_DEFAULT))
+                  v496 = _PFLogGetLogStream(8);
+                  if (os_log_type_enabled(v496, OS_LOG_TYPE_DEFAULT))
                   {
-                    *v647 = 138412290;
-                    v648 = v494;
-                    _os_log_impl(&dword_18565F000, v498, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Inserting object with ID %@\n", v647, 0xCu);
+                    *v642 = 138412290;
+                    v643 = v492;
+                    _os_log_impl(&dword_18565F000, v496, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Inserting object with ID %@\n", v642, 0xCu);
                   }
                 }
               }
 
               if (_pflogging_catastrophic_mode)
               {
-                v499 = 1;
+                v497 = 1;
               }
 
               else
               {
-                v499 = 8;
+                v497 = 8;
               }
 
-              _NSCoreDataLog_console(v499, "Inserting object with ID %@", v494);
-              objc_autoreleasePoolPop(v496);
+              _NSCoreDataLog_console(v497, "Inserting object with ID %@", v492);
+              objc_autoreleasePoolPop(v494);
             }
 
-            [v605 addObject:v495];
+            [v600 addObject:v493];
 
-            objc_autoreleasePoolPop(v493);
+            objc_autoreleasePoolPop(v491);
           }
 
-          v489 = [v599 countByEnumeratingWithState:&v618 objects:v649 count:16];
+          v487 = [v594 countByEnumeratingWithState:&v613 objects:v644 count:16];
         }
 
-        while (v489);
+        while (v487);
       }
 
-      v500 = [v605 count];
-      if (v500)
+      v498 = [v600 count];
+      if (v498)
       {
-        for (n = 0; n != v500; ++n)
+        for (n = 0; n != v498; ++n)
         {
-          v502 = objc_autoreleasePoolPush();
-          v503 = [v599 objectAtIndex:n];
-          v504 = [v605 objectAtIndex:n];
-          [v504 _setVersionReference__:{objc_msgSend(objc_msgSend(v503, "objectAtIndex:", 1), "unsignedIntegerValue")}];
-          [NSXPCStoreServer _populateObject:v504 withValuesFromClient:v503];
-          objc_autoreleasePoolPop(v502);
+          v500 = objc_autoreleasePoolPush();
+          v501 = [v594 objectAtIndex:n];
+          v502 = [v600 objectAtIndex:n];
+          [v502 _setVersionReference__:{objc_msgSend(objc_msgSend(v501, "objectAtIndex:", 1), "unsignedIntegerValue")}];
+          [NSXPCStoreServer _populateObject:v502 withValuesFromClient:v501];
+          objc_autoreleasePoolPop(v500);
         }
       }
 
-      v616 = 0u;
-      v617 = 0u;
-      v614 = 0u;
-      v615 = 0u;
-      v505 = [contextd countByEnumeratingWithState:&v614 objects:v647 count:16];
-      if (v505)
+      v611 = 0u;
+      v612 = 0u;
+      v609 = 0u;
+      v610 = 0u;
+      v503 = [contextd countByEnumeratingWithState:&v609 objects:v642 count:16];
+      if (v503)
       {
-        v506 = *v615;
+        v504 = *v610;
         do
         {
-          v507 = 0;
+          v505 = 0;
           do
           {
-            if (*v615 != v506)
+            if (*v610 != v504)
             {
               objc_enumerationMutation(contextd);
             }
 
-            v508 = *(*(&v614 + 1) + 8 * v507);
-            v509 = objc_autoreleasePoolPush();
-            v510 = [v508 objectAtIndex:0];
-            if (v89)
+            v506 = *(*(&v609 + 1) + 8 * v505);
+            v507 = objc_autoreleasePoolPush();
+            v508 = [v506 objectAtIndex:0];
+            if (v88)
             {
-              v511 = _PFRetainedObjectIDCore(v89, v510, 0, 1);
+              v509 = _PFRetainedObjectIDCore(v88, v508, 0, 1);
             }
 
             else
             {
-              v511 = 0;
+              v509 = 0;
             }
 
-            [v511 willAccessValueForKey:0];
-            [v511 _setVersionReference__:{objc_msgSend(objc_msgSend(v508, "objectAtIndex:", 1), "unsignedIntegerValue")}];
-            [NSXPCStoreServer _populateObject:v511 withValuesFromClient:v508];
+            [v509 willAccessValueForKey:0];
+            [v509 _setVersionReference__:{objc_msgSend(objc_msgSend(v506, "objectAtIndex:", 1), "unsignedIntegerValue")}];
+            [NSXPCStoreServer _populateObject:v509 withValuesFromClient:v506];
 
-            objc_autoreleasePoolPop(v509);
-            ++v507;
+            objc_autoreleasePoolPop(v507);
+            ++v505;
           }
 
-          while (v505 != v507);
-          v512 = [contextd countByEnumeratingWithState:&v614 objects:v647 count:16];
-          v505 = v512;
+          while (v503 != v505);
+          v510 = [contextd countByEnumeratingWithState:&v609 objects:v642 count:16];
+          v503 = v510;
         }
 
-        while (v512);
+        while (v510);
       }
 
-      [v89 processPendingChanges];
-      v513 = [(NSManagedObjectContext *)v89 _newSaveRequestForCurrentState];
+      [v88 processPendingChanges];
+      v511 = [(NSManagedObjectContext *)v88 _newSaveRequestForCurrentState];
       if (+[NSXPCStoreServer debugDefault])
       {
-        v514 = objc_autoreleasePoolPush();
+        v512 = objc_autoreleasePoolPush();
         _pflogInitialize(8);
         if (_NSCoreDataIsLogEnabled(8) && _pflogging_enable_oslog >= 1)
         {
           if (_pflogging_catastrophic_mode)
           {
-            v515 = _PFLogGetLogStream(1);
-            if (os_log_type_enabled(v515, OS_LOG_TYPE_ERROR))
+            v513 = _PFLogGetLogStream(1);
+            if (os_log_type_enabled(v513, OS_LOG_TYPE_ERROR))
             {
-              *v643 = 138412290;
-              v644 = v513;
-              _os_log_error_impl(&dword_18565F000, v515, OS_LOG_TYPE_ERROR, "CoreData: error: Made save request: %@\n", v643, 0xCu);
+              *v638 = 138412290;
+              v639 = v511;
+              _os_log_error_impl(&dword_18565F000, v513, OS_LOG_TYPE_ERROR, "CoreData: error: Made save request: %@\n", v638, 0xCu);
             }
           }
 
           else
           {
-            v524 = _PFLogGetLogStream(8);
-            if (os_log_type_enabled(v524, OS_LOG_TYPE_DEFAULT))
+            v522 = _PFLogGetLogStream(8);
+            if (os_log_type_enabled(v522, OS_LOG_TYPE_DEFAULT))
             {
-              *v643 = 138412290;
-              v644 = v513;
-              _os_log_impl(&dword_18565F000, v524, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Made save request: %@\n", v643, 0xCu);
+              *v638 = 138412290;
+              v639 = v511;
+              _os_log_impl(&dword_18565F000, v522, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Made save request: %@\n", v638, 0xCu);
             }
           }
         }
 
         if (_pflogging_catastrophic_mode)
         {
-          v525 = 1;
+          v523 = 1;
         }
 
         else
         {
-          v525 = 8;
+          v523 = 8;
         }
 
-        _NSCoreDataLog_console(v525, "Made save request: %@", v513);
-        objc_autoreleasePoolPop(v514);
+        _NSCoreDataLog_console(v523, "Made save request: %@", v511);
+        objc_autoreleasePoolPop(v512);
       }
 
-      v13 = +[_NSXPCStoreUtilities newSecureArchivedDataWithRootObject:](_NSXPCStoreUtilities, [*(v595 + 64) processRequest:v513 fromClientWithContext:v596 error:&v642]);
+      v12 = +[_NSXPCStoreUtilities newSecureArchivedDataWithRootObject:](_NSXPCStoreUtilities, [*(v590 + 64) processRequest:v511 fromClientWithContext:v591 error:&v637]);
 LABEL_992:
-      v526 = v642;
-      [v594 drain];
-      v527 = v13;
-      v528 = 0;
-      if (v642)
+      v524 = v637;
+      [v589 drain];
+      v525 = v12;
+      v526 = 0;
+      if (v637)
       {
-        v613 = v642;
+        v608 = v637;
       }
 
-      v529 = v642;
+      v527 = v637;
 LABEL_1033:
       if (+[NSXPCStoreServer debugDefault])
       {
-        v539 = objc_autoreleasePoolPush();
+        v537 = objc_autoreleasePoolPush();
         _pflogInitialize(8);
         if (_NSCoreDataIsLogEnabled(8) && _pflogging_enable_oslog >= 1)
         {
           if (_pflogging_catastrophic_mode)
           {
-            v540 = _PFLogGetLogStream(1);
-            if (os_log_type_enabled(v540, OS_LOG_TYPE_ERROR))
+            v538 = _PFLogGetLogStream(1);
+            if (os_log_type_enabled(v538, OS_LOG_TYPE_ERROR))
             {
-              *v643 = 0;
-              _os_log_error_impl(&dword_18565F000, v540, OS_LOG_TYPE_ERROR, "CoreData: error: Done event handler\n", v643, 2u);
+              *v638 = 0;
+              _os_log_error_impl(&dword_18565F000, v538, OS_LOG_TYPE_ERROR, "CoreData: error: Done event handler\n", v638, 2u);
             }
           }
 
           else
           {
-            v541 = _PFLogGetLogStream(8);
-            if (os_log_type_enabled(v541, OS_LOG_TYPE_DEFAULT))
+            v539 = _PFLogGetLogStream(8);
+            if (os_log_type_enabled(v539, OS_LOG_TYPE_DEFAULT))
             {
-              *v643 = 0;
-              _os_log_impl(&dword_18565F000, v541, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Done event handler\n", v643, 2u);
+              *v638 = 0;
+              _os_log_impl(&dword_18565F000, v539, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Done event handler\n", v638, 2u);
             }
           }
         }
 
         if (_pflogging_catastrophic_mode)
         {
-          v542 = 1;
+          v540 = 1;
         }
 
         else
         {
-          v542 = 8;
+          v540 = 8;
         }
 
-        _NSCoreDataLog_console(v542, "Done event handler");
-        objc_autoreleasePoolPop(v539);
+        _NSCoreDataLog_console(v540, "Done event handler");
+        objc_autoreleasePoolPop(v537);
       }
 
-      if (*(*(*(v612 + 96) + 8) + 24))
+      if (*(*(*(v607 + 96) + 8) + 24))
       {
-        v544 = v613;
-        if (v613)
+        v542 = v608;
+        if (v608)
         {
-          if ([(NSXPCStoreServer *)*(v612 + 64) errorIsPlausiblyAnSQLiteIssue:v613])
+          if ([(NSXPCStoreServer *)*(v607 + 64) errorIsPlausiblyAnSQLiteIssue:v608])
           {
-            if ([(NSXPCStoreServer *)*(v612 + 64) setupRecoveryForConnectionContext:v613 ifNecessary:?])
-            {
-              v546 = @"SQLite error on server: %@, recovery being attempted";
-            }
-
-            else
-            {
-              v546 = @"SQLite error on server: %@, no recovery being attempted";
-            }
-
-            *(*(*(v612 + 104) + 8) + 40) = [MEMORY[0x1E696AEC0] stringWithFormat:v546, v613];
-            v547 = *(v612 + 64);
-            [_NSXPCStoreUtilities logMessage:*(*(*(v612 + 104) + 8) + 40) forComponent:?];
+            [(NSXPCStoreServer *)*(v607 + 64) setupRecoveryForConnectionContext:v608 ifNecessary:?];
+            *(*(*(v607 + 104) + 8) + 40) = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v608);
+            [_NSXPCStoreUtilities logMessage:*(*(*(v607 + 104) + 8) + 40) forComponent:?];
           }
 
 LABEL_1049:
-          v545 = 2;
+          v543 = 2;
         }
 
-        else if (v13)
+        else if (v12)
         {
-          v545 = 0;
+          v543 = 0;
         }
 
         else
         {
-          v548 = MEMORY[0x1E696ABC0];
-          v549 = [MEMORY[0x1E695DF20] dictionaryWithObject:@"request failed (no result forKey:{no error)", @"Problem"}];
-          v13 = 0;
-          v613 = [v548 errorWithDomain:*MEMORY[0x1E696A250] code:134070 userInfo:v549];
-          v545 = 8;
+          v544 = MEMORY[0x1E696ABC0];
+          v545 = [MEMORY[0x1E695DF20] dictionaryWithObject:@"request failed (no result forKey:{no error)", @"Problem"}];
+          v12 = 0;
+          v608 = [v544 errorWithDomain:*MEMORY[0x1E696A250] code:134070 userInfo:v545];
+          v543 = 8;
         }
       }
 
       else
       {
-        v6 = v597;
+        v6 = v592;
 LABEL_1047:
-        v543 = *MEMORY[0x1E696A250];
+        v541 = *MEMORY[0x1E696A250];
         if (v6)
         {
-          v613 = [MEMORY[0x1E696ABC0] errorWithDomain:v543 code:134095 userInfo:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObject:forKey:", @"request failed, store identifier mismatch", @"Problem"}];
+          v608 = [MEMORY[0x1E696ABC0] errorWithDomain:v541 code:134095 userInfo:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObject:forKey:", @"request failed, store identifier mismatch", @"Problem"}];
           goto LABEL_1049;
         }
 
-        v613 = [MEMORY[0x1E696ABC0] errorWithDomain:v543 code:134070 userInfo:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObject:forKey:", @"request failed, insufficient permission", @"Problem"}];
-        v545 = 1;
+        v608 = [MEMORY[0x1E696ABC0] errorWithDomain:v541 code:134070 userInfo:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObject:forKey:", @"request failed, insufficient permission", @"Problem"}];
+        v543 = 1;
       }
 
       if (self)
       {
-        self->_messageCode = v545;
-        objc_setProperty_nonatomic(self, v544, v13, 24);
+        self->_messageCode = v543;
+        objc_setProperty_nonatomic(self, v542, v12, 24);
       }
 
-      if (v613)
+      if (v608)
       {
-        v613 = [_NSXPCStoreUtilities newSecureArchivedDataWithRootObject:v613];
+        v608 = [_NSXPCStoreUtilities newSecureArchivedDataWithRootObject:v608];
       }
 
       if (+[NSXPCStoreServer debugDefault])
       {
-        v583 = objc_autoreleasePoolPush();
+        v579 = objc_autoreleasePoolPush();
         _pflogInitialize(8);
         if (_NSCoreDataIsLogEnabled(8) && _pflogging_enable_oslog >= 1)
         {
           if (_pflogging_catastrophic_mode)
           {
-            v584 = _PFLogGetLogStream(1);
-            if (os_log_type_enabled(v584, OS_LOG_TYPE_ERROR))
+            v580 = _PFLogGetLogStream(1);
+            if (os_log_type_enabled(v580, OS_LOG_TYPE_ERROR))
             {
-              *v643 = 134218240;
-              v644 = self;
-              v645 = 2048;
-              v646 = v613;
-              _os_log_error_impl(&dword_18565F000, v584, OS_LOG_TYPE_ERROR, "CoreData: error: Sending reply %p, %p\n", v643, 0x16u);
+              *v638 = 134218240;
+              v639 = self;
+              v640 = 2048;
+              v641 = v608;
+              _os_log_error_impl(&dword_18565F000, v580, OS_LOG_TYPE_ERROR, "CoreData: error: Sending reply %p, %p\n", v638, 0x16u);
             }
           }
 
           else
           {
-            v585 = _PFLogGetLogStream(8);
-            if (os_log_type_enabled(v585, OS_LOG_TYPE_DEFAULT))
+            v581 = _PFLogGetLogStream(8);
+            if (os_log_type_enabled(v581, OS_LOG_TYPE_DEFAULT))
             {
-              *v643 = 134218240;
-              v644 = self;
-              v645 = 2048;
-              v646 = v613;
-              _os_log_impl(&dword_18565F000, v585, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Sending reply %p, %p\n", v643, 0x16u);
+              *v638 = 134218240;
+              v639 = self;
+              v640 = 2048;
+              v641 = v608;
+              _os_log_impl(&dword_18565F000, v581, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Sending reply %p, %p\n", v638, 0x16u);
             }
           }
         }
 
         if (_pflogging_catastrophic_mode)
         {
-          v586 = 1;
+          v582 = 1;
         }
 
         else
         {
-          v586 = 8;
+          v582 = 8;
         }
 
-        _NSCoreDataLog_console(v586, "Sending reply %p, %p", self, v613);
-        objc_autoreleasePoolPop(v583);
+        _NSCoreDataLog_console(v582, "Sending reply %p, %p", self, v608);
+        objc_autoreleasePoolPop(v579);
       }
 
-      v587 = v613;
-      [*(v612 + 48) reset];
+      v583 = v608;
+      [*(v607 + 48) reset];
 
-      [v598 drain];
-      v588 = objc_alloc_init(MEMORY[0x1E696AAC8]);
-      (*(*(v612 + 88) + 16))();
+      [v593 drain];
+      v584 = objc_alloc_init(MEMORY[0x1E696AAC8]);
+      (*(*(v607 + 88) + 16))();
       if (+[NSXPCStoreServer debugDefault])
       {
-        v589 = objc_autoreleasePoolPush();
+        v585 = objc_autoreleasePoolPush();
         _pflogInitialize(8);
         if (_NSCoreDataIsLogEnabled(8) && _pflogging_enable_oslog >= 1)
         {
           if (_pflogging_catastrophic_mode)
           {
-            v590 = _PFLogGetLogStream(1);
-            if (os_log_type_enabled(v590, OS_LOG_TYPE_ERROR))
+            v586 = _PFLogGetLogStream(1);
+            if (os_log_type_enabled(v586, OS_LOG_TYPE_ERROR))
             {
-              *v643 = 0;
-              _os_log_error_impl(&dword_18565F000, v590, OS_LOG_TYPE_ERROR, "CoreData: error: Sent reply\n", v643, 2u);
+              *v638 = 0;
+              _os_log_error_impl(&dword_18565F000, v586, OS_LOG_TYPE_ERROR, "CoreData: error: Sent reply\n", v638, 2u);
             }
           }
 
           else
           {
-            v591 = _PFLogGetLogStream(8);
-            if (os_log_type_enabled(v591, OS_LOG_TYPE_DEFAULT))
+            v587 = _PFLogGetLogStream(8);
+            if (os_log_type_enabled(v587, OS_LOG_TYPE_DEFAULT))
             {
-              *v643 = 0;
-              _os_log_impl(&dword_18565F000, v591, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Sent reply\n", v643, 2u);
+              *v638 = 0;
+              _os_log_impl(&dword_18565F000, v587, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Sent reply\n", v638, 2u);
             }
           }
         }
 
         if (_pflogging_catastrophic_mode)
         {
-          v592 = 1;
+          v588 = 1;
         }
 
         else
         {
-          v592 = 8;
+          v588 = 8;
         }
 
-        _NSCoreDataLog_console(v592, "Sent reply");
-        objc_autoreleasePoolPop(v589);
+        _NSCoreDataLog_console(v588, "Sent reply");
+        objc_autoreleasePoolPop(v585);
       }
 
-      [v588 drain];
-      v613 = 0;
-      v593 = *MEMORY[0x1E69E9840];
+      [v584 drain];
       return;
     case 4:
       if (+[NSXPCStoreServer debugDefault])
       {
-        v36 = objc_autoreleasePoolPush();
+        v35 = objc_autoreleasePoolPush();
         if (_NSCoreDataIsOSLogEnabled(8))
         {
           if (_pflogging_catastrophic_mode)
           {
-            v37 = _PFLogGetLogStream(1);
-            if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
+            v36 = _PFLogGetLogStream(1);
+            if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
             {
               *buf = 0;
-              _os_log_error_impl(&dword_18565F000, v37, OS_LOG_TYPE_ERROR, "CoreData: error: OID\n", buf, 2u);
+              _os_log_error_impl(&dword_18565F000, v36, OS_LOG_TYPE_ERROR, "CoreData: error: OID\n", buf, 2u);
             }
           }
 
           else
           {
-            v187 = _PFLogGetLogStream(8);
-            if (os_log_type_enabled(v187, OS_LOG_TYPE_DEFAULT))
+            v186 = _PFLogGetLogStream(8);
+            if (os_log_type_enabled(v186, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 0;
-              _os_log_impl(&dword_18565F000, v187, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: OID\n", buf, 2u);
+              _os_log_impl(&dword_18565F000, v186, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: OID\n", buf, 2u);
             }
           }
         }
 
         if (_pflogging_catastrophic_mode)
         {
-          v188 = 1;
+          v187 = 1;
         }
 
         else
         {
-          v188 = 8;
+          v187 = 8;
         }
 
-        _NSCoreDataLog_console(v188, "OID");
-        objc_autoreleasePoolPop(v36);
+        _NSCoreDataLog_console(v187, "OID");
+        objc_autoreleasePoolPop(v35);
       }
 
-      v189 = *(v612 + 40);
-      if (v189)
+      v188 = *(v607 + 40);
+      if (v188)
       {
-        v190 = *(v189 + 24);
+        v189 = *(v188 + 24);
       }
 
       else
       {
-        v190 = 0;
+        v189 = 0;
       }
 
-      v191 = *(v612 + 64);
-      if (!v191)
+      v190 = *(v607 + 64);
+      if (!v190)
       {
         goto LABEL_488;
       }
 
-      v192 = *(v612 + 56);
-      v193 = objc_autoreleasePoolPush();
-      v194 = MEMORY[0x1E695DFD8];
+      v191 = *(v607 + 56);
+      v192 = objc_autoreleasePoolPush();
+      v193 = MEMORY[0x1E695DFD8];
+      v194 = objc_opt_class();
       v195 = objc_opt_class();
       v196 = objc_opt_class();
-      v197 = objc_opt_class();
-      v198 = [v194 setWithObjects:{v195, v196, v197, objc_opt_class(), 0}];
-      v199 = [_NSXPCStoreUtilities decodeSecureArchivedData:v190 usingDelegate:v192 classes:v198];
-      v200 = v199;
-      objc_autoreleasePoolPop(v193);
+      v197 = [v193 setWithObjects:{v194, v195, v196, objc_opt_class(), 0}];
+      v198 = [_NSXPCStoreUtilities decodeSecureArchivedData:v189 usingDelegate:v191 classes:v197];
+      v199 = v198;
+      objc_autoreleasePoolPop(v192);
       if (+[NSXPCStoreServer debugDefault])
       {
-        v201 = objc_autoreleasePoolPush();
+        v200 = objc_autoreleasePoolPush();
         _pflogInitialize(8);
         if (_NSCoreDataIsLogEnabled(8) && _pflogging_enable_oslog >= 1)
         {
           if (_pflogging_catastrophic_mode)
           {
-            v202 = _PFLogGetLogStream(1);
-            if (os_log_type_enabled(v202, OS_LOG_TYPE_ERROR))
+            v201 = _PFLogGetLogStream(1);
+            if (os_log_type_enabled(v201, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412290;
-              *&buf[4] = v199;
-              _os_log_error_impl(&dword_18565F000, v202, OS_LOG_TYPE_ERROR, "CoreData: error: Got oid  request for %@\n", buf, 0xCu);
+              *&buf[4] = v198;
+              _os_log_error_impl(&dword_18565F000, v201, OS_LOG_TYPE_ERROR, "CoreData: error: Got oid  request for %@\n", buf, 0xCu);
             }
           }
 
           else
           {
-            v266 = _PFLogGetLogStream(8);
-            if (os_log_type_enabled(v266, OS_LOG_TYPE_DEFAULT))
+            v265 = _PFLogGetLogStream(8);
+            if (os_log_type_enabled(v265, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138412290;
-              *&buf[4] = v199;
-              _os_log_impl(&dword_18565F000, v266, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Got oid  request for %@\n", buf, 0xCu);
+              *&buf[4] = v198;
+              _os_log_impl(&dword_18565F000, v265, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Got oid  request for %@\n", buf, 0xCu);
             }
           }
         }
 
         if (_pflogging_catastrophic_mode)
         {
-          v267 = 1;
+          v266 = 1;
         }
 
         else
         {
-          v267 = 8;
+          v266 = 8;
         }
 
-        _NSCoreDataLog_console(v267, "Got oid  request for %@", v199);
-        objc_autoreleasePoolPop(v201);
+        _NSCoreDataLog_console(v266, "Got oid  request for %@", v198);
+        objc_autoreleasePoolPop(v200);
       }
 
-      v268 = [(NSXPCStoreServerRequestHandlingPolicy *)*(v191 + 64) processObtainRequest:v199 inContext:v192 error:&v613];
+      v267 = [(NSXPCStoreServerRequestHandlingPolicy *)*(v190 + 64) processObtainRequest:v198 inContext:v191 error:&v608];
       if (+[NSXPCStoreServer debugDefault])
       {
-        v269 = objc_autoreleasePoolPush();
+        v268 = objc_autoreleasePoolPush();
         _pflogInitialize(8);
         if (_NSCoreDataIsLogEnabled(8) && _pflogging_enable_oslog >= 1)
         {
           if (_pflogging_catastrophic_mode)
           {
-            v270 = _PFLogGetLogStream(1);
-            if (os_log_type_enabled(v270, OS_LOG_TYPE_ERROR))
+            v269 = _PFLogGetLogStream(1);
+            if (os_log_type_enabled(v269, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412290;
-              *&buf[4] = v268;
-              _os_log_error_impl(&dword_18565F000, v270, OS_LOG_TYPE_ERROR, "CoreData: error: Returning result %@\n", buf, 0xCu);
+              *&buf[4] = v267;
+              _os_log_error_impl(&dword_18565F000, v269, OS_LOG_TYPE_ERROR, "CoreData: error: Returning result %@\n", buf, 0xCu);
             }
           }
 
           else
           {
-            v303 = _PFLogGetLogStream(8);
-            if (os_log_type_enabled(v303, OS_LOG_TYPE_DEFAULT))
+            v302 = _PFLogGetLogStream(8);
+            if (os_log_type_enabled(v302, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138412290;
-              *&buf[4] = v268;
-              _os_log_impl(&dword_18565F000, v303, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Returning result %@\n", buf, 0xCu);
+              *&buf[4] = v267;
+              _os_log_impl(&dword_18565F000, v302, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Returning result %@\n", buf, 0xCu);
             }
           }
         }
 
         if (_pflogging_catastrophic_mode)
         {
-          v304 = 1;
+          v303 = 1;
         }
 
         else
         {
-          v304 = 8;
+          v303 = 8;
         }
 
-        _NSCoreDataLog_console(v304, "Returning result %@", v268);
-        objc_autoreleasePoolPop(v269);
+        _NSCoreDataLog_console(v303, "Returning result %@", v267);
+        objc_autoreleasePoolPop(v268);
       }
 
-      if (!v268)
+      if (!v267)
       {
         goto LABEL_488;
       }
 
-      v305 = [_NSXPCStoreUtilities newSecureArchivedDataWithRootObject:v268];
+      v304 = [_NSXPCStoreUtilities newSecureArchivedDataWithRootObject:v267];
       goto LABEL_1031;
     case 5:
       if (+[NSXPCStoreServer debugDefault])
       {
-        v38 = objc_autoreleasePoolPush();
+        v37 = objc_autoreleasePoolPush();
         if (_NSCoreDataIsOSLogEnabled(8))
         {
           if (_pflogging_catastrophic_mode)
           {
-            v39 = _PFLogGetLogStream(1);
-            if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
+            v38 = _PFLogGetLogStream(1);
+            if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
             {
               *buf = 0;
-              _os_log_error_impl(&dword_18565F000, v39, OS_LOG_TYPE_ERROR, "CoreData: error: Fault\n", buf, 2u);
+              _os_log_error_impl(&dword_18565F000, v38, OS_LOG_TYPE_ERROR, "CoreData: error: Fault\n", buf, 2u);
             }
           }
 
           else
           {
-            v203 = _PFLogGetLogStream(8);
-            if (os_log_type_enabled(v203, OS_LOG_TYPE_DEFAULT))
+            v202 = _PFLogGetLogStream(8);
+            if (os_log_type_enabled(v202, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 0;
-              _os_log_impl(&dword_18565F000, v203, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Fault\n", buf, 2u);
+              _os_log_impl(&dword_18565F000, v202, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Fault\n", buf, 2u);
             }
           }
         }
 
         if (_pflogging_catastrophic_mode)
         {
-          v204 = 1;
+          v203 = 1;
         }
 
         else
         {
-          v204 = 8;
+          v203 = 8;
         }
 
-        _NSCoreDataLog_console(v204, "Fault");
-        objc_autoreleasePoolPop(v38);
+        _NSCoreDataLog_console(v203, "Fault");
+        objc_autoreleasePoolPop(v37);
       }
 
-      v205 = *(v612 + 40);
-      if (v205)
+      v204 = *(v607 + 40);
+      if (v204)
       {
-        v206 = *(v205 + 24);
+        v205 = *(v204 + 24);
       }
 
       else
       {
-        v206 = 0;
+        v205 = 0;
       }
 
-      v207 = *(v612 + 64);
-      if (!v207)
+      v206 = *(v607 + 64);
+      if (!v206)
       {
-        goto LABEL_1137;
+        goto LABEL_1134;
       }
 
-      v208 = *(v612 + 56);
-      *v654 = 0;
+      v207 = *(v607 + 56);
+      *v649 = 0;
       contextc = objc_alloc_init(MEMORY[0x1E696AAC8]);
-      v209 = MEMORY[0x1E695DFD8];
+      v208 = MEMORY[0x1E695DFD8];
+      v209 = objc_opt_class();
       v210 = objc_opt_class();
       v211 = objc_opt_class();
       v212 = objc_opt_class();
-      v213 = objc_opt_class();
-      v214 = [v209 setWithObjects:{v210, v211, v212, v213, objc_opt_class(), 0}];
-      v215 = [_NSXPCStoreUtilities decodeSecureArchivedData:v206 usingDelegate:v208 classes:v214];
-      if ([v215 count] >= 2 && (v216 = objc_msgSend(v215, "objectAtIndex:", 1)) != 0)
+      v213 = [v208 setWithObjects:{v209, v210, v211, v212, objc_opt_class(), 0}];
+      v214 = [_NSXPCStoreUtilities decodeSecureArchivedData:v205 usingDelegate:v207 classes:v213];
+      if ([v214 count] >= 2 && (v215 = objc_msgSend(v214, "objectAtIndex:", 1)) != 0)
       {
-        v217 = [NSXPCStoreServer unpackQueryGeneration:v216 withContext:v208];
-        v218 = 1;
+        v216 = [NSXPCStoreServer unpackQueryGeneration:v215 withContext:v207];
+        v217 = 1;
       }
 
       else
       {
-        v218 = 0;
         v217 = 0;
+        v216 = 0;
       }
 
-      v219 = [v215 firstObject];
+      v218 = [v214 firstObject];
       if (+[NSXPCStoreServer debugDefault])
       {
-        v220 = objc_autoreleasePoolPush();
+        v219 = objc_autoreleasePoolPush();
         _pflogInitialize(8);
         if (_NSCoreDataIsLogEnabled(8) && _pflogging_enable_oslog >= 1)
         {
           if (_pflogging_catastrophic_mode)
           {
-            v221 = _PFLogGetLogStream(1);
-            if (os_log_type_enabled(v221, OS_LOG_TYPE_ERROR))
+            v220 = _PFLogGetLogStream(1);
+            if (os_log_type_enabled(v220, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412290;
-              *&buf[4] = v219;
-              _os_log_error_impl(&dword_18565F000, v221, OS_LOG_TYPE_ERROR, "CoreData: error: Attempting to fire fault for %@\n", buf, 0xCu);
+              *&buf[4] = v218;
+              _os_log_error_impl(&dword_18565F000, v220, OS_LOG_TYPE_ERROR, "CoreData: error: Attempting to fire fault for %@\n", buf, 0xCu);
             }
           }
 
           else
           {
-            v271 = _PFLogGetLogStream(8);
-            if (os_log_type_enabled(v271, OS_LOG_TYPE_DEFAULT))
+            v270 = _PFLogGetLogStream(8);
+            if (os_log_type_enabled(v270, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138412290;
-              *&buf[4] = v219;
-              _os_log_impl(&dword_18565F000, v271, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Attempting to fire fault for %@\n", buf, 0xCu);
+              *&buf[4] = v218;
+              _os_log_impl(&dword_18565F000, v270, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Attempting to fire fault for %@\n", buf, 0xCu);
             }
           }
         }
 
         if (_pflogging_catastrophic_mode)
         {
-          v272 = 1;
+          v271 = 1;
         }
 
         else
         {
-          v272 = 8;
+          v271 = 8;
         }
 
-        _NSCoreDataLog_console(v272, "Attempting to fire fault for %@", v219);
-        objc_autoreleasePoolPop(v220);
+        _NSCoreDataLog_console(v271, "Attempting to fire fault for %@", v218);
+        objc_autoreleasePoolPop(v219);
       }
 
-      if (v217)
+      if (v216)
       {
-        v273 = 0;
+        v272 = 0;
       }
 
       else
       {
-        v273 = v218;
+        v272 = v217;
       }
 
-      if (v273 == 1 && +[NSXPCStoreServer debugDefault])
+      if (v272 == 1 && +[NSXPCStoreServer debugDefault])
       {
-        v274 = objc_autoreleasePoolPush();
+        v273 = objc_autoreleasePoolPush();
         _pflogInitialize(8);
         if (_NSCoreDataIsLogEnabled(8) && _pflogging_enable_oslog >= 1)
         {
           if (_pflogging_catastrophic_mode)
           {
-            v275 = _PFLogGetLogStream(1);
-            if (os_log_type_enabled(v275, OS_LOG_TYPE_ERROR))
+            v274 = _PFLogGetLogStream(1);
+            if (os_log_type_enabled(v274, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412290;
               *&buf[4] = 0;
-              _os_log_error_impl(&dword_18565F000, v275, OS_LOG_TYPE_ERROR, "CoreData: error: Can't fulfill fault request: can't find query generation: %@\n", buf, 0xCu);
+              _os_log_error_impl(&dword_18565F000, v274, OS_LOG_TYPE_ERROR, "CoreData: error: Can't fulfill fault request: can't find query generation: %@\n", buf, 0xCu);
             }
           }
 
           else
           {
-            v414 = _PFLogGetLogStream(8);
-            if (os_log_type_enabled(v414, OS_LOG_TYPE_DEFAULT))
+            v413 = _PFLogGetLogStream(8);
+            if (os_log_type_enabled(v413, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138412290;
               *&buf[4] = 0;
-              _os_log_impl(&dword_18565F000, v414, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Can't fulfill fault request: can't find query generation: %@\n", buf, 0xCu);
+              _os_log_impl(&dword_18565F000, v413, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Can't fulfill fault request: can't find query generation: %@\n", buf, 0xCu);
             }
           }
         }
 
         if (_pflogging_catastrophic_mode)
         {
-          v415 = 1;
+          v414 = 1;
         }
 
         else
         {
-          v415 = 8;
+          v414 = 8;
         }
 
-        _NSCoreDataLog_console(v415, "Can't fulfill fault request: can't find query generation: %@", 0);
-        objc_autoreleasePoolPop(v274);
-        v416 = MEMORY[0x1E696ABC0];
+        _NSCoreDataLog_console(v414, "Can't fulfill fault request: can't find query generation: %@", 0);
+        objc_autoreleasePoolPop(v273);
+        v415 = MEMORY[0x1E696ABC0];
         *buf = @"unrecognized query generation";
-        *&v657 = @"reason";
-        *(&v657 + 1) = @"generation";
-        v417 = [MEMORY[0x1E695DFB0] null];
-        *&v658 = @"target";
-        *&buf[8] = v417;
-        *&buf[16] = v219;
-        v418 = [MEMORY[0x1E695DF20] dictionaryWithObjects:buf forKeys:&v657 count:3];
-        v282 = [v416 errorWithDomain:*MEMORY[0x1E696A250] code:134061 userInfo:v418];
+        *&v652 = @"reason";
+        *(&v652 + 1) = @"generation";
+        v416 = [MEMORY[0x1E695DFB0] null];
+        *&v653 = @"target";
+        *&buf[8] = v416;
+        *&buf[16] = v218;
+        v417 = [MEMORY[0x1E695DF20] dictionaryWithObjects:buf forKeys:&v652 count:3];
+        v281 = [v415 errorWithDomain:*MEMORY[0x1E696A250] code:134061 userInfo:v417];
       }
 
       else
       {
-        v276 = [v208 managedObjectContext];
-        [v276 setStalenessInterval:0.0];
-        v277 = [objc_msgSend(v276 "persistentStoreCoordinator")];
-        if (v277)
+        v275 = [v207 managedObjectContext];
+        [v275 setStalenessInterval:0.0];
+        v276 = [objc_msgSend(v275 "persistentStoreCoordinator")];
+        if (v276)
         {
-          v278 = [*(v207 + 64) processFaultForObjectWithID:v277 fromClientWithContext:v208 error:v654];
-          if (v278)
+          v277 = [*(v206 + 64) processFaultForObjectWithID:v276 fromClientWithContext:v207 error:v649];
+          if (v277)
           {
-            v279 = [_NSXPCStoreUtilities newSecureArchivedDataWithRootObject:v278];
+            v278 = [_NSXPCStoreUtilities newSecureArchivedDataWithRootObject:v277];
           }
 
           else
           {
-            v279 = 0;
+            v278 = 0;
           }
 
-          v283 = 1;
+          v282 = 1;
 LABEL_778:
-          v419 = *v654;
+          v418 = *v649;
           [contextc drain];
-          if (*v654)
+          if (*v649)
           {
-            v613 = *v654;
+            v608 = *v649;
           }
 
-          v420 = *v654;
-          if (v283)
+          v419 = *v649;
+          if (v282)
           {
-            v314 = v279;
+            v313 = v278;
 LABEL_1032:
-            v13 = v314;
+            v12 = v313;
             goto LABEL_1033;
           }
 
-LABEL_1137:
-          v13 = 0;
+LABEL_1134:
+          v12 = 0;
           goto LABEL_1033;
         }
 
-        v280 = MEMORY[0x1E696ABC0];
-        v281 = [MEMORY[0x1E695DF20] dictionaryWithObject:@"missing objectID" forKey:@"reason"];
-        v282 = [v280 errorWithDomain:*MEMORY[0x1E696A250] code:134060 userInfo:v281];
+        v279 = MEMORY[0x1E696ABC0];
+        v280 = [MEMORY[0x1E695DF20] dictionaryWithObject:@"missing objectID" forKey:@"reason"];
+        v281 = [v279 errorWithDomain:*MEMORY[0x1E696A250] code:134060 userInfo:v280];
       }
 
-      v283 = 0;
-      v279 = 0;
-      *v654 = v282;
+      v282 = 0;
+      v278 = 0;
+      *v649 = v281;
       goto LABEL_778;
     case 6:
       if (+[NSXPCStoreServer debugDefault])
       {
-        v22 = objc_autoreleasePoolPush();
+        v21 = objc_autoreleasePoolPush();
         if (_NSCoreDataIsOSLogEnabled(8))
         {
           if (_pflogging_catastrophic_mode)
           {
-            v23 = _PFLogGetLogStream(1);
-            if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+            v22 = _PFLogGetLogStream(1);
+            if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
             {
               *buf = 0;
-              _os_log_error_impl(&dword_18565F000, v23, OS_LOG_TYPE_ERROR, "CoreData: error: Rel fault\n", buf, 2u);
+              _os_log_error_impl(&dword_18565F000, v22, OS_LOG_TYPE_ERROR, "CoreData: error: Rel fault\n", buf, 2u);
             }
           }
 
           else
           {
-            v95 = _PFLogGetLogStream(8);
-            if (os_log_type_enabled(v95, OS_LOG_TYPE_DEFAULT))
+            v94 = _PFLogGetLogStream(8);
+            if (os_log_type_enabled(v94, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 0;
-              _os_log_impl(&dword_18565F000, v95, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Rel fault\n", buf, 2u);
+              _os_log_impl(&dword_18565F000, v94, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Rel fault\n", buf, 2u);
             }
           }
         }
 
         if (_pflogging_catastrophic_mode)
         {
-          v96 = 1;
+          v95 = 1;
         }
 
         else
         {
-          v96 = 8;
+          v95 = 8;
         }
 
-        _NSCoreDataLog_console(v96, "Rel fault");
-        objc_autoreleasePoolPop(v22);
+        _NSCoreDataLog_console(v95, "Rel fault");
+        objc_autoreleasePoolPop(v21);
       }
 
-      v97 = *(v612 + 40);
-      if (v97)
+      v96 = *(v607 + 40);
+      if (v96)
       {
-        v98 = *(v97 + 24);
+        v97 = *(v96 + 24);
       }
 
       else
       {
-        v98 = 0;
+        v97 = 0;
       }
 
-      v602 = *(v612 + 64);
-      if (!v602)
+      v597 = *(v607 + 64);
+      if (!v597)
       {
-        goto LABEL_1137;
+        goto LABEL_1134;
       }
 
-      v99 = *(v612 + 56);
-      *&v653[0] = 0;
+      v98 = *(v607 + 56);
+      *&v648[0] = 0;
       contexta = objc_alloc_init(MEMORY[0x1E696AAC8]);
-      v100 = MEMORY[0x1E695DFD8];
+      v99 = MEMORY[0x1E695DFD8];
+      v100 = objc_opt_class();
       v101 = objc_opt_class();
       v102 = objc_opt_class();
       v103 = objc_opt_class();
       v104 = objc_opt_class();
-      v105 = objc_opt_class();
-      v106 = [v100 setWithObjects:{v101, v102, v103, v104, v105, objc_opt_class(), 0}];
-      v107 = [_NSXPCStoreUtilities decodeSecureArchivedData:v98 usingDelegate:v99 classes:v106];
-      v108 = [v107 firstObject];
-      if ([v107 count] >= 2 && (v109 = objc_msgSend(v107, "objectAtIndex:", 1)) != 0)
+      v105 = [v99 setWithObjects:{v100, v101, v102, v103, v104, objc_opt_class(), 0}];
+      v106 = [_NSXPCStoreUtilities decodeSecureArchivedData:v97 usingDelegate:v98 classes:v105];
+      v107 = [v106 firstObject];
+      if ([v106 count] >= 2 && (v108 = objc_msgSend(v106, "objectAtIndex:", 1)) != 0)
       {
-        v110 = [NSXPCStoreServer unpackQueryGeneration:v109 withContext:v99];
-        v111 = 1;
+        v109 = [NSXPCStoreServer unpackQueryGeneration:v108 withContext:v98];
+        v110 = 1;
       }
 
       else
       {
-        v111 = 0;
         v110 = 0;
+        v109 = 0;
       }
 
       if (+[NSXPCStoreServer debugDefault])
       {
-        v112 = objc_autoreleasePoolPush();
+        v111 = objc_autoreleasePoolPush();
         _pflogInitialize(8);
         if (_NSCoreDataIsLogEnabled(8) && _pflogging_enable_oslog >= 1)
         {
           if (_pflogging_catastrophic_mode)
           {
-            v113 = _PFLogGetLogStream(1);
-            if (os_log_type_enabled(v113, OS_LOG_TYPE_ERROR))
+            v112 = _PFLogGetLogStream(1);
+            if (os_log_type_enabled(v112, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412290;
-              *&buf[4] = v108;
-              _os_log_error_impl(&dword_18565F000, v113, OS_LOG_TYPE_ERROR, "CoreData: error: Got relationship fault request: %@\n", buf, 0xCu);
+              *&buf[4] = v107;
+              _os_log_error_impl(&dword_18565F000, v112, OS_LOG_TYPE_ERROR, "CoreData: error: Got relationship fault request: %@\n", buf, 0xCu);
             }
           }
 
           else
           {
-            v284 = _PFLogGetLogStream(8);
-            if (os_log_type_enabled(v284, OS_LOG_TYPE_DEFAULT))
+            v283 = _PFLogGetLogStream(8);
+            if (os_log_type_enabled(v283, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138412290;
-              *&buf[4] = v108;
-              _os_log_impl(&dword_18565F000, v284, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Got relationship fault request: %@\n", buf, 0xCu);
+              *&buf[4] = v107;
+              _os_log_impl(&dword_18565F000, v283, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Got relationship fault request: %@\n", buf, 0xCu);
             }
           }
         }
 
         if (_pflogging_catastrophic_mode)
         {
-          v285 = 1;
+          v284 = 1;
         }
 
         else
         {
-          v285 = 8;
+          v284 = 8;
         }
 
-        _NSCoreDataLog_console(v285, "Got relationship fault request: %@", v108);
-        objc_autoreleasePoolPop(v112);
+        _NSCoreDataLog_console(v284, "Got relationship fault request: %@", v107);
+        objc_autoreleasePoolPop(v111);
       }
 
-      if (v110)
+      if (v109)
       {
-        v286 = 0;
+        v285 = 0;
       }
 
       else
       {
-        v286 = v111;
+        v285 = v110;
       }
 
-      if (v286 == 1 && +[NSXPCStoreServer debugDefault])
+      if (v285 == 1 && +[NSXPCStoreServer debugDefault])
       {
-        v287 = objc_autoreleasePoolPush();
+        v286 = objc_autoreleasePoolPush();
         _pflogInitialize(8);
         if (_NSCoreDataIsLogEnabled(8) && _pflogging_enable_oslog >= 1)
         {
           if (_pflogging_catastrophic_mode)
           {
-            v288 = _PFLogGetLogStream(1);
-            if (os_log_type_enabled(v288, OS_LOG_TYPE_ERROR))
+            v287 = _PFLogGetLogStream(1);
+            if (os_log_type_enabled(v287, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412290;
               *&buf[4] = 0;
-              _os_log_error_impl(&dword_18565F000, v288, OS_LOG_TYPE_ERROR, "CoreData: error: Can't fulfill relationship fault request: can't find query generation: %@\n", buf, 0xCu);
+              _os_log_error_impl(&dword_18565F000, v287, OS_LOG_TYPE_ERROR, "CoreData: error: Can't fulfill relationship fault request: can't find query generation: %@\n", buf, 0xCu);
             }
           }
 
           else
           {
-            v421 = _PFLogGetLogStream(8);
-            if (os_log_type_enabled(v421, OS_LOG_TYPE_DEFAULT))
+            v420 = _PFLogGetLogStream(8);
+            if (os_log_type_enabled(v420, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138412290;
               *&buf[4] = 0;
-              _os_log_impl(&dword_18565F000, v421, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Can't fulfill relationship fault request: can't find query generation: %@\n", buf, 0xCu);
+              _os_log_impl(&dword_18565F000, v420, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Can't fulfill relationship fault request: can't find query generation: %@\n", buf, 0xCu);
             }
           }
         }
 
         if (_pflogging_catastrophic_mode)
         {
-          v422 = 1;
+          v421 = 1;
         }
 
         else
         {
-          v422 = 8;
+          v421 = 8;
         }
 
-        _NSCoreDataLog_console(v422, "Can't fulfill relationship fault request: can't find query generation: %@", 0);
-        objc_autoreleasePoolPop(v287);
-        v423 = MEMORY[0x1E696ABC0];
+        _NSCoreDataLog_console(v421, "Can't fulfill relationship fault request: can't find query generation: %@", 0);
+        objc_autoreleasePoolPop(v286);
+        v422 = MEMORY[0x1E696ABC0];
         *buf = @"unrecognized query generation";
-        *&v657 = @"reason";
-        *(&v657 + 1) = @"generation";
-        v424 = [MEMORY[0x1E695DFB0] null];
-        *&v658 = @"request";
-        *&buf[8] = v424;
-        *&buf[16] = v108;
-        v425 = [MEMORY[0x1E695DF20] dictionaryWithObjects:buf forKeys:&v657 count:3];
-        v323 = [v423 errorWithDomain:*MEMORY[0x1E696A250] code:134061 userInfo:v425];
+        *&v652 = @"reason";
+        *(&v652 + 1) = @"generation";
+        v423 = [MEMORY[0x1E695DFB0] null];
+        *&v653 = @"request";
+        *&buf[8] = v423;
+        *&buf[16] = v107;
+        v424 = [MEMORY[0x1E695DF20] dictionaryWithObjects:buf forKeys:&v652 count:3];
+        v322 = [v422 errorWithDomain:*MEMORY[0x1E696A250] code:134061 userInfo:v424];
       }
 
       else
       {
-        v289 = [v99 managedObjectContext];
-        [v289 setStalenessInterval:0.0];
-        v290 = [objc_msgSend(v289 "persistentStoreCoordinator")];
-        v291 = [v108 valueForKey:@"relationship"];
+        v288 = [v98 managedObjectContext];
+        [v288 setStalenessInterval:0.0];
+        v289 = [objc_msgSend(v288 "persistentStoreCoordinator")];
+        v290 = objc_msgSend_valueForKey_(v107);
         if (+[NSXPCStoreServer debugDefault])
         {
-          v292 = objc_autoreleasePoolPush();
+          v291 = objc_autoreleasePoolPush();
           _pflogInitialize(8);
           if (_NSCoreDataIsLogEnabled(8) && _pflogging_enable_oslog >= 1)
           {
             if (_pflogging_catastrophic_mode)
             {
-              v293 = _PFLogGetLogStream(1);
-              if (os_log_type_enabled(v293, OS_LOG_TYPE_ERROR))
+              v292 = _PFLogGetLogStream(1);
+              if (os_log_type_enabled(v292, OS_LOG_TYPE_ERROR))
               {
                 *buf = 138412546;
-                *&buf[4] = v290;
+                *&buf[4] = v289;
                 *&buf[12] = 2112;
-                *&buf[14] = v291;
-                _os_log_error_impl(&dword_18565F000, v293, OS_LOG_TYPE_ERROR, "CoreData: error: Attempting to fire fault for %@, %@\n", buf, 0x16u);
+                *&buf[14] = v290;
+                _os_log_error_impl(&dword_18565F000, v292, OS_LOG_TYPE_ERROR, "CoreData: error: Attempting to fire fault for %@, %@\n", buf, 0x16u);
               }
             }
 
             else
             {
-              v318 = _PFLogGetLogStream(8);
-              if (os_log_type_enabled(v318, OS_LOG_TYPE_DEFAULT))
+              v317 = _PFLogGetLogStream(8);
+              if (os_log_type_enabled(v317, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 138412546;
-                *&buf[4] = v290;
+                *&buf[4] = v289;
                 *&buf[12] = 2112;
-                *&buf[14] = v291;
-                _os_log_impl(&dword_18565F000, v318, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Attempting to fire fault for %@, %@\n", buf, 0x16u);
+                *&buf[14] = v290;
+                _os_log_impl(&dword_18565F000, v317, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Attempting to fire fault for %@, %@\n", buf, 0x16u);
               }
             }
           }
 
           if (_pflogging_catastrophic_mode)
           {
-            v319 = 1;
+            v318 = 1;
           }
 
           else
           {
-            v319 = 8;
+            v318 = 8;
           }
 
-          _NSCoreDataLog_console(v319, "Attempting to fire fault for %@, %@", v290, v291);
-          objc_autoreleasePoolPop(v292);
+          _NSCoreDataLog_console(v318, "Attempting to fire fault for %@, %@", v289, v290);
+          objc_autoreleasePoolPop(v291);
         }
 
-        if (v290)
+        if (v289)
         {
-          p_super = [*(v602 + 64) processFaultForRelationshipWithName:v291 onObjectWithID:v290 fromClientWithContext:v99 error:v653];
+          p_super = [*(v597 + 64) processFaultForRelationshipWithName:v290 onObjectWithID:v289 fromClientWithContext:v98 error:v648];
           if (p_super)
           {
-            v603 = v291;
-            v320 = objc_alloc_init(MEMORY[0x1E695DF70]);
+            v598 = v290;
+            v319 = objc_alloc_init(MEMORY[0x1E695DF70]);
             if ([MEMORY[0x1E695DFB0] null] == p_super)
             {
-              [v320 addObject:{objc_msgSend(MEMORY[0x1E695DFB0], "null")}];
+              [v319 addObject:{objc_msgSend(MEMORY[0x1E695DFB0], "null")}];
             }
 
             else
@@ -3614,29 +3598,29 @@ LABEL_1137:
 
               else
               {
-                v659 = 0u;
-                v660 = 0u;
-                v657 = 0u;
-                v658 = 0u;
-                v326 = [p_super countByEnumeratingWithState:&v657 objects:buf count:16];
-                if (v326)
+                v654 = 0u;
+                v655 = 0u;
+                v652 = 0u;
+                v653 = 0u;
+                v325 = [p_super countByEnumeratingWithState:&v652 objects:buf count:16];
+                if (v325)
                 {
-                  v327 = *v658;
+                  v326 = *v653;
                   do
                   {
-                    for (ii = 0; ii != v326; ++ii)
+                    for (ii = 0; ii != v325; ++ii)
                     {
-                      if (*v658 != v327)
+                      if (*v653 != v326)
                       {
                         objc_enumerationMutation(p_super);
                       }
 
-                      v329 = *(*(&v657 + 1) + 8 * ii);
+                      v328 = *(*(&v652 + 1) + 8 * ii);
                       p_superclass = objc_autoreleasePoolPush();
                       objc_opt_class();
                       if ((objc_opt_isKindOfClass() & 1) == 0)
                       {
-                        v236 = objc_autoreleasePoolPush();
+                        v235 = objc_autoreleasePoolPush();
                         _pflogInitialize(8);
                         if (_NSCoreDataIsLogEnabled(8) && _pflogging_enable_oslog >= 1)
                         {
@@ -3645,10 +3629,10 @@ LABEL_1137:
                             p_super = _PFLogGetLogStream(1);
                             if (os_log_type_enabled(p_super, OS_LOG_TYPE_ERROR))
                             {
-                              v519 = objc_opt_class();
-                              *v654 = 138412290;
-                              *&v654[4] = v519;
-                              _os_log_error_impl(&dword_18565F000, p_super, OS_LOG_TYPE_ERROR, "CoreData: error: Wrong in all kinds of ways. Less colloquially, that should be an object ID, but it's an instance of %@ instead\n", v654, 0xCu);
+                              v517 = objc_opt_class();
+                              *v649 = 138412290;
+                              *&v649[4] = v517;
+                              _os_log_error_impl(&dword_18565F000, p_super, OS_LOG_TYPE_ERROR, "CoreData: error: Wrong in all kinds of ways. Less colloquially, that should be an object ID, but it's an instance of %@ instead\n", v649, 0xCu);
                             }
                           }
 
@@ -3657,741 +3641,741 @@ LABEL_1137:
                             p_super = _PFLogGetLogStream(8);
                             if (os_log_type_enabled(p_super, OS_LOG_TYPE_DEFAULT))
                             {
-                              v582 = objc_opt_class();
-                              *v654 = 138412290;
-                              *&v654[4] = v582;
-                              _os_log_impl(&dword_18565F000, p_super, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Wrong in all kinds of ways. Less colloquially, that should be an object ID, but it's an instance of %@ instead\n", v654, 0xCu);
+                              v578 = objc_opt_class();
+                              *v649 = 138412290;
+                              *&v649[4] = v578;
+                              _os_log_impl(&dword_18565F000, p_super, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Wrong in all kinds of ways. Less colloquially, that should be an object ID, but it's an instance of %@ instead\n", v649, 0xCu);
                             }
                           }
                         }
 
                         if (_pflogging_catastrophic_mode)
                         {
-                          v520 = objc_opt_class();
-                          v521 = 1;
+                          v518 = objc_opt_class();
+                          v519 = 1;
                         }
 
                         else
                         {
-                          v520 = objc_opt_class();
-                          v521 = 8;
+                          v518 = objc_opt_class();
+                          v519 = 8;
                         }
 
-                        _NSCoreDataLog_console(v521, "Wrong in all kinds of ways. Less colloquially, that should be an object ID, but it's an instance of %@ instead", v520);
-                        objc_autoreleasePoolPop(v236);
+                        _NSCoreDataLog_console(v519, "Wrong in all kinds of ways. Less colloquially, that should be an object ID, but it's an instance of %@ instead", v518);
+                        objc_autoreleasePoolPop(v235);
                         goto LABEL_1009;
                       }
 
-                      [v320 addObject:{objc_msgSend(v329, "URIRepresentation")}];
+                      [v319 addObject:{objc_msgSend(v328, "URIRepresentation")}];
                       objc_autoreleasePoolPop(p_superclass);
                     }
 
-                    v326 = [p_super countByEnumeratingWithState:&v657 objects:buf count:16];
+                    v325 = [p_super countByEnumeratingWithState:&v652 objects:buf count:16];
                   }
 
-                  while (v326);
+                  while (v325);
                 }
               }
             }
 
             if (+[NSXPCStoreServer debugDefault])
             {
-              v330 = objc_autoreleasePoolPush();
+              v329 = objc_autoreleasePoolPush();
               _pflogInitialize(8);
               if (_NSCoreDataIsLogEnabled(8) && _pflogging_enable_oslog >= 1)
               {
                 if (_pflogging_catastrophic_mode)
                 {
-                  v331 = _PFLogGetLogStream(1);
-                  if (os_log_type_enabled(v331, OS_LOG_TYPE_ERROR))
+                  v330 = _PFLogGetLogStream(1);
+                  if (os_log_type_enabled(v330, OS_LOG_TYPE_ERROR))
                   {
-                    *v654 = 138412802;
-                    *&v654[4] = v290;
-                    *&v654[12] = 2112;
-                    *&v654[14] = v603;
-                    v655 = 2112;
-                    v656 = v320;
-                    _os_log_error_impl(&dword_18565F000, v331, OS_LOG_TYPE_ERROR, "CoreData: error: Fired relationship fault %@ - %@, returning values: %@\n", v654, 0x20u);
+                    *v649 = 138412802;
+                    *&v649[4] = v289;
+                    *&v649[12] = 2112;
+                    *&v649[14] = v598;
+                    v650 = 2112;
+                    v651 = v319;
+                    _os_log_error_impl(&dword_18565F000, v330, OS_LOG_TYPE_ERROR, "CoreData: error: Fired relationship fault %@ - %@, returning values: %@\n", v649, 0x20u);
                   }
                 }
 
                 else
                 {
-                  v522 = _PFLogGetLogStream(8);
-                  if (os_log_type_enabled(v522, OS_LOG_TYPE_DEFAULT))
+                  v520 = _PFLogGetLogStream(8);
+                  if (os_log_type_enabled(v520, OS_LOG_TYPE_DEFAULT))
                   {
-                    *v654 = 138412802;
-                    *&v654[4] = v290;
-                    *&v654[12] = 2112;
-                    *&v654[14] = v603;
-                    v655 = 2112;
-                    v656 = v320;
-                    _os_log_impl(&dword_18565F000, v522, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Fired relationship fault %@ - %@, returning values: %@\n", v654, 0x20u);
+                    *v649 = 138412802;
+                    *&v649[4] = v289;
+                    *&v649[12] = 2112;
+                    *&v649[14] = v598;
+                    v650 = 2112;
+                    v651 = v319;
+                    _os_log_impl(&dword_18565F000, v520, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Fired relationship fault %@ - %@, returning values: %@\n", v649, 0x20u);
                   }
                 }
               }
 
               if (_pflogging_catastrophic_mode)
               {
-                v523 = 1;
+                v521 = 1;
               }
 
               else
               {
-                v523 = 8;
+                v521 = 8;
               }
 
-              _NSCoreDataLog_console(v523, "Fired relationship fault %@ - %@, returning values: %@", v290, v603, v320);
-              objc_autoreleasePoolPop(v330);
+              _NSCoreDataLog_console(v521, "Fired relationship fault %@ - %@, returning values: %@", v289, v598, v319);
+              objc_autoreleasePoolPop(v329);
             }
 
-            v427 = [_NSXPCStoreUtilities newSecureArchivedDataWithRootObject:v320];
+            v426 = [_NSXPCStoreUtilities newSecureArchivedDataWithRootObject:v319];
           }
 
           else
           {
             if (+[NSXPCStoreServer debugDefault])
             {
-              v324 = objc_autoreleasePoolPush();
+              v323 = objc_autoreleasePoolPush();
               _pflogInitialize(8);
               if (_NSCoreDataIsLogEnabled(8) && _pflogging_enable_oslog >= 1)
               {
                 if (_pflogging_catastrophic_mode)
                 {
-                  v325 = _PFLogGetLogStream(1);
-                  if (os_log_type_enabled(v325, OS_LOG_TYPE_ERROR))
+                  v324 = _PFLogGetLogStream(1);
+                  if (os_log_type_enabled(v324, OS_LOG_TYPE_ERROR))
                   {
                     *buf = 138412546;
-                    *&buf[4] = v290;
+                    *&buf[4] = v289;
                     *&buf[12] = 2112;
-                    *&buf[14] = v291;
-                    _os_log_error_impl(&dword_18565F000, v325, OS_LOG_TYPE_ERROR, "CoreData: error: Attempted to fire relationship fault %@ - %@, no such luck\n", buf, 0x16u);
+                    *&buf[14] = v290;
+                    _os_log_error_impl(&dword_18565F000, v324, OS_LOG_TYPE_ERROR, "CoreData: error: Attempted to fire relationship fault %@ - %@, no such luck\n", buf, 0x16u);
                   }
                 }
 
                 else
                 {
-                  v530 = _PFLogGetLogStream(8);
-                  if (os_log_type_enabled(v530, OS_LOG_TYPE_DEFAULT))
+                  v528 = _PFLogGetLogStream(8);
+                  if (os_log_type_enabled(v528, OS_LOG_TYPE_DEFAULT))
                   {
                     *buf = 138412546;
-                    *&buf[4] = v290;
+                    *&buf[4] = v289;
                     *&buf[12] = 2112;
-                    *&buf[14] = v291;
-                    _os_log_impl(&dword_18565F000, v530, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Attempted to fire relationship fault %@ - %@, no such luck\n", buf, 0x16u);
+                    *&buf[14] = v290;
+                    _os_log_impl(&dword_18565F000, v528, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Attempted to fire relationship fault %@ - %@, no such luck\n", buf, 0x16u);
                   }
                 }
               }
 
               if (_pflogging_catastrophic_mode)
               {
-                v531 = 1;
+                v529 = 1;
               }
 
               else
               {
-                v531 = 8;
+                v529 = 8;
               }
 
-              _NSCoreDataLog_console(v531, "Attempted to fire relationship fault %@ - %@, no such luck", v290, v291);
-              objc_autoreleasePoolPop(v324);
+              _NSCoreDataLog_console(v529, "Attempted to fire relationship fault %@ - %@, no such luck", v289, v290);
+              objc_autoreleasePoolPop(v323);
             }
 
-            v427 = 0;
+            v426 = 0;
           }
 
-          v426 = 1;
+          v425 = 1;
 LABEL_1003:
-          v532 = *&v653[0];
+          v530 = *&v648[0];
           [contexta drain];
-          if (*&v653[0])
+          if (*&v648[0])
           {
-            v613 = *&v653[0];
+            v608 = *&v648[0];
           }
 
-          v533 = *&v653[0];
-          if (v426)
+          v531 = *&v648[0];
+          if (v425)
           {
-            v314 = v427;
+            v313 = v426;
             goto LABEL_1032;
           }
 
-          goto LABEL_1137;
+          goto LABEL_1134;
         }
 
-        v321 = MEMORY[0x1E696ABC0];
-        v322 = [MEMORY[0x1E695DF20] dictionaryWithObject:v108 forKey:@"originalRequest"];
-        v323 = [v321 errorWithDomain:*MEMORY[0x1E696A250] code:134060 userInfo:v322];
+        v320 = MEMORY[0x1E696ABC0];
+        v321 = [MEMORY[0x1E695DF20] dictionaryWithObject:v107 forKey:@"originalRequest"];
+        v322 = [v320 errorWithDomain:*MEMORY[0x1E696A250] code:134060 userInfo:v321];
       }
 
+      v425 = 0;
       v426 = 0;
-      v427 = 0;
-      *&v653[0] = v323;
+      *&v648[0] = v322;
       goto LABEL_1003;
     case 7:
       if (+[NSXPCStoreServer debugDefault])
       {
-        v28 = objc_autoreleasePoolPush();
+        v27 = objc_autoreleasePoolPush();
         if (_NSCoreDataIsOSLogEnabled(8))
         {
           if (_pflogging_catastrophic_mode)
           {
-            v29 = _PFLogGetLogStream(1);
-            if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+            v28 = _PFLogGetLogStream(1);
+            if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
             {
               *buf = 0;
-              _os_log_error_impl(&dword_18565F000, v29, OS_LOG_TYPE_ERROR, "CoreData: error: Request notification name\n", buf, 2u);
+              _os_log_error_impl(&dword_18565F000, v28, OS_LOG_TYPE_ERROR, "CoreData: error: Request notification name\n", buf, 2u);
             }
           }
 
           else
           {
-            v153 = _PFLogGetLogStream(8);
-            if (os_log_type_enabled(v153, OS_LOG_TYPE_DEFAULT))
+            v152 = _PFLogGetLogStream(8);
+            if (os_log_type_enabled(v152, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 0;
-              _os_log_impl(&dword_18565F000, v153, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Request notification name\n", buf, 2u);
+              _os_log_impl(&dword_18565F000, v152, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Request notification name\n", buf, 2u);
             }
           }
         }
 
         if (_pflogging_catastrophic_mode)
         {
-          v154 = 1;
+          v153 = 1;
         }
 
         else
         {
-          v154 = 8;
+          v153 = 8;
         }
 
-        _NSCoreDataLog_console(v154, "Request notification name");
-        objc_autoreleasePoolPop(v28);
+        _NSCoreDataLog_console(v153, "Request notification name");
+        objc_autoreleasePoolPop(v27);
       }
 
-      if (!*(v612 + 64))
+      if (!*(v607 + 64))
       {
-        goto LABEL_1137;
+        goto LABEL_1134;
       }
 
-      v155 = *(v612 + 56);
-      v156 = objc_autoreleasePoolPush();
-      v157 = [objc_msgSend(objc_msgSend(objc_msgSend(v155 "managedObjectContext")];
-      if (!v157)
+      v154 = *(v607 + 56);
+      v155 = objc_autoreleasePoolPush();
+      v156 = [objc_msgSend(objc_msgSend(objc_msgSend(v154 "managedObjectContext")];
+      if (!v156)
       {
-        v158 = objc_autoreleasePoolPush();
+        v157 = objc_autoreleasePoolPush();
         _pflogInitialize(8);
         if (_NSCoreDataIsLogEnabled(8) && _pflogging_enable_oslog >= 1)
         {
           if (_pflogging_catastrophic_mode)
           {
-            v159 = _PFLogGetLogStream(1);
-            if (os_log_type_enabled(v159, OS_LOG_TYPE_ERROR))
+            v158 = _PFLogGetLogStream(1);
+            if (os_log_type_enabled(v158, OS_LOG_TYPE_ERROR))
             {
               *buf = 0;
-              _os_log_error_impl(&dword_18565F000, v159, OS_LOG_TYPE_ERROR, "CoreData: error: no store\n", buf, 2u);
+              _os_log_error_impl(&dword_18565F000, v158, OS_LOG_TYPE_ERROR, "CoreData: error: no store\n", buf, 2u);
             }
           }
 
           else
           {
-            v389 = _PFLogGetLogStream(8);
-            if (os_log_type_enabled(v389, OS_LOG_TYPE_DEFAULT))
+            v388 = _PFLogGetLogStream(8);
+            if (os_log_type_enabled(v388, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 0;
-              _os_log_impl(&dword_18565F000, v389, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: no store\n", buf, 2u);
+              _os_log_impl(&dword_18565F000, v388, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: no store\n", buf, 2u);
             }
           }
         }
 
         if (_pflogging_catastrophic_mode)
         {
-          v390 = 1;
+          v389 = 1;
         }
 
         else
         {
-          v390 = 8;
+          v389 = 8;
         }
 
-        _NSCoreDataLog_console(v390, "no store");
-        objc_autoreleasePoolPop(v158);
+        _NSCoreDataLog_console(v389, "no store");
+        objc_autoreleasePoolPop(v157);
       }
 
-      v391 = [_PFRoutines _remoteChangeNotificationNameForStore:v157];
-      *v654 = @"notificationName";
-      *&v657 = v391;
-      v392 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v657 forKeys:v654 count:1];
+      v390 = [_PFRoutines _remoteChangeNotificationNameForStore:v156];
+      *v649 = @"notificationName";
+      *&v652 = v390;
+      v391 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v652 forKeys:v649 count:1];
       if (+[NSXPCStoreServer debugDefault])
       {
-        v393 = objc_autoreleasePoolPush();
+        v392 = objc_autoreleasePoolPush();
         _pflogInitialize(8);
         if (_NSCoreDataIsLogEnabled(8) && _pflogging_enable_oslog >= 1)
         {
           if (_pflogging_catastrophic_mode)
           {
-            v394 = _PFLogGetLogStream(1);
-            if (os_log_type_enabled(v394, OS_LOG_TYPE_ERROR))
+            v393 = _PFLogGetLogStream(1);
+            if (os_log_type_enabled(v393, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412290;
-              *&buf[4] = v392;
-              _os_log_error_impl(&dword_18565F000, v394, OS_LOG_TYPE_ERROR, "CoreData: error: Got pull changes result %@\n", buf, 0xCu);
+              *&buf[4] = v391;
+              _os_log_error_impl(&dword_18565F000, v393, OS_LOG_TYPE_ERROR, "CoreData: error: Got pull changes result %@\n", buf, 0xCu);
             }
           }
 
           else
           {
-            v395 = _PFLogGetLogStream(8);
-            if (os_log_type_enabled(v395, OS_LOG_TYPE_DEFAULT))
+            v394 = _PFLogGetLogStream(8);
+            if (os_log_type_enabled(v394, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138412290;
-              *&buf[4] = v392;
-              _os_log_impl(&dword_18565F000, v395, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Got pull changes result %@\n", buf, 0xCu);
+              *&buf[4] = v391;
+              _os_log_impl(&dword_18565F000, v394, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Got pull changes result %@\n", buf, 0xCu);
             }
           }
         }
 
         if (_pflogging_catastrophic_mode)
         {
-          v396 = 1;
+          v395 = 1;
         }
 
         else
         {
-          v396 = 8;
+          v395 = 8;
         }
 
-        _NSCoreDataLog_console(v396, "Got pull changes result %@", v392);
-        objc_autoreleasePoolPop(v393);
+        _NSCoreDataLog_console(v395, "Got pull changes result %@", v391);
+        objc_autoreleasePoolPop(v392);
       }
 
-      v397 = [_NSXPCStoreUtilities newSecureArchivedDataWithRootObject:v392];
+      v396 = [_NSXPCStoreUtilities newSecureArchivedDataWithRootObject:v391];
       if (+[NSXPCStoreServer debugDefault])
       {
-        v398 = objc_autoreleasePoolPush();
+        v397 = objc_autoreleasePoolPush();
         _pflogInitialize(8);
         if (_NSCoreDataIsLogEnabled(8) && _pflogging_enable_oslog >= 1)
         {
           if (_pflogging_catastrophic_mode)
           {
-            v399 = _PFLogGetLogStream(1);
-            if (os_log_type_enabled(v399, OS_LOG_TYPE_ERROR))
+            v398 = _PFLogGetLogStream(1);
+            if (os_log_type_enabled(v398, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412290;
-              *&buf[4] = v397;
-              _os_log_error_impl(&dword_18565F000, v399, OS_LOG_TYPE_ERROR, "CoreData: error: Which archives to %@\n", buf, 0xCu);
+              *&buf[4] = v396;
+              _os_log_error_impl(&dword_18565F000, v398, OS_LOG_TYPE_ERROR, "CoreData: error: Which archives to %@\n", buf, 0xCu);
             }
           }
 
           else
           {
-            v400 = _PFLogGetLogStream(8);
-            if (os_log_type_enabled(v400, OS_LOG_TYPE_DEFAULT))
+            v399 = _PFLogGetLogStream(8);
+            if (os_log_type_enabled(v399, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138412290;
-              *&buf[4] = v397;
-              _os_log_impl(&dword_18565F000, v400, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Which archives to %@\n", buf, 0xCu);
+              *&buf[4] = v396;
+              _os_log_impl(&dword_18565F000, v399, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Which archives to %@\n", buf, 0xCu);
             }
           }
         }
 
         if (_pflogging_catastrophic_mode)
         {
-          v401 = 1;
+          v400 = 1;
         }
 
         else
         {
-          v401 = 8;
+          v400 = 8;
         }
 
-        _NSCoreDataLog_console(v401, "Which archives to %@", v397);
-        objc_autoreleasePoolPop(v398);
+        _NSCoreDataLog_console(v400, "Which archives to %@", v396);
+        objc_autoreleasePoolPop(v397);
       }
 
-      objc_autoreleasePoolPop(v156);
-      v314 = v397;
+      objc_autoreleasePoolPop(v155);
+      v313 = v396;
       goto LABEL_1032;
     case 9:
       if (+[NSXPCStoreServer debugDefault])
       {
-        v30 = objc_autoreleasePoolPush();
+        v29 = objc_autoreleasePoolPush();
         if (_NSCoreDataIsOSLogEnabled(8))
         {
           if (_pflogging_catastrophic_mode)
           {
-            v31 = _PFLogGetLogStream(1);
-            if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+            v30 = _PFLogGetLogStream(1);
+            if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
             {
               *buf = 0;
-              _os_log_error_impl(&dword_18565F000, v31, OS_LOG_TYPE_ERROR, "CoreData: error: Query generation\n", buf, 2u);
+              _os_log_error_impl(&dword_18565F000, v30, OS_LOG_TYPE_ERROR, "CoreData: error: Query generation\n", buf, 2u);
             }
           }
 
           else
           {
-            v160 = _PFLogGetLogStream(8);
-            if (os_log_type_enabled(v160, OS_LOG_TYPE_DEFAULT))
+            v159 = _PFLogGetLogStream(8);
+            if (os_log_type_enabled(v159, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 0;
-              _os_log_impl(&dword_18565F000, v160, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Query generation\n", buf, 2u);
+              _os_log_impl(&dword_18565F000, v159, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Query generation\n", buf, 2u);
             }
           }
         }
 
         if (_pflogging_catastrophic_mode)
         {
-          v161 = 1;
+          v160 = 1;
         }
 
         else
         {
-          v161 = 8;
+          v160 = 8;
         }
 
-        _NSCoreDataLog_console(v161, "Query generation");
-        objc_autoreleasePoolPop(v30);
+        _NSCoreDataLog_console(v160, "Query generation");
+        objc_autoreleasePoolPop(v29);
       }
 
-      if (!*(v612 + 64))
+      if (!*(v607 + 64))
       {
         goto LABEL_488;
       }
 
-      v162 = *(v612 + 56);
-      v9 = objc_autoreleasePoolPush();
-      v163 = [v162 persistentStoreCoordinator];
-      v164 = [v163 _retainedCurrentQueryGeneration:0];
-      v165 = [objc_msgSend(v163 "persistentStores")];
-      if (!v165)
+      v161 = *(v607 + 56);
+      v8 = objc_autoreleasePoolPush();
+      v162 = [v161 persistentStoreCoordinator];
+      v163 = [v162 _retainedCurrentQueryGeneration:0];
+      v164 = [objc_msgSend(v162 "persistentStores")];
+      if (!v164)
       {
-        v166 = objc_autoreleasePoolPush();
+        v165 = objc_autoreleasePoolPush();
         _pflogInitialize(8);
         if (_NSCoreDataIsLogEnabled(8) && _pflogging_enable_oslog >= 1)
         {
           if (_pflogging_catastrophic_mode)
           {
-            v167 = _PFLogGetLogStream(1);
-            if (os_log_type_enabled(v167, OS_LOG_TYPE_ERROR))
+            v166 = _PFLogGetLogStream(1);
+            if (os_log_type_enabled(v166, OS_LOG_TYPE_ERROR))
             {
               *buf = 0;
-              _os_log_error_impl(&dword_18565F000, v167, OS_LOG_TYPE_ERROR, "CoreData: error: no store\n", buf, 2u);
+              _os_log_error_impl(&dword_18565F000, v166, OS_LOG_TYPE_ERROR, "CoreData: error: no store\n", buf, 2u);
             }
           }
 
           else
           {
-            v402 = _PFLogGetLogStream(8);
-            if (os_log_type_enabled(v402, OS_LOG_TYPE_DEFAULT))
+            v401 = _PFLogGetLogStream(8);
+            if (os_log_type_enabled(v401, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 0;
-              _os_log_impl(&dword_18565F000, v402, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: no store\n", buf, 2u);
+              _os_log_impl(&dword_18565F000, v401, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: no store\n", buf, 2u);
             }
           }
         }
 
         if (_pflogging_catastrophic_mode)
         {
-          v403 = 1;
+          v402 = 1;
         }
 
         else
         {
-          v403 = 8;
+          v402 = 8;
         }
 
-        _NSCoreDataLog_console(v403, "no store");
-        objc_autoreleasePoolPop(v166);
+        _NSCoreDataLog_console(v402, "no store");
+        objc_autoreleasePoolPop(v165);
       }
 
-      v404 = [(_NSQueryGenerationToken *)v164 _generationalComponentForStore:v165];
-      v405 = [NSXPCStoreServer retainedXPCEncodableGenerationTokenForOriginal:v404 inContext:v162];
+      v403 = [(_NSQueryGenerationToken *)v163 _generationalComponentForStore:v164];
+      v404 = [NSXPCStoreServer retainedXPCEncodableGenerationTokenForOriginal:v403 inContext:v161];
       if (+[NSXPCStoreServer debugDefault])
       {
-        v406 = objc_autoreleasePoolPush();
+        v405 = objc_autoreleasePoolPush();
         _pflogInitialize(8);
         if (_NSCoreDataIsLogEnabled(8) && _pflogging_enable_oslog >= 1)
         {
           if (_pflogging_catastrophic_mode)
           {
-            v407 = _PFLogGetLogStream(1);
-            if (os_log_type_enabled(v407, OS_LOG_TYPE_ERROR))
+            v406 = _PFLogGetLogStream(1);
+            if (os_log_type_enabled(v406, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412290;
-              *&buf[4] = v164;
-              _os_log_error_impl(&dword_18565F000, v407, OS_LOG_TYPE_ERROR, "CoreData: error: Got queryGeneration %@\n", buf, 0xCu);
+              *&buf[4] = v163;
+              _os_log_error_impl(&dword_18565F000, v406, OS_LOG_TYPE_ERROR, "CoreData: error: Got queryGeneration %@\n", buf, 0xCu);
             }
           }
 
           else
           {
-            v408 = _PFLogGetLogStream(8);
-            if (os_log_type_enabled(v408, OS_LOG_TYPE_DEFAULT))
+            v407 = _PFLogGetLogStream(8);
+            if (os_log_type_enabled(v407, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138412290;
-              *&buf[4] = v164;
-              _os_log_impl(&dword_18565F000, v408, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Got queryGeneration %@\n", buf, 0xCu);
+              *&buf[4] = v163;
+              _os_log_impl(&dword_18565F000, v407, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Got queryGeneration %@\n", buf, 0xCu);
             }
           }
         }
 
         if (_pflogging_catastrophic_mode)
         {
-          v409 = 1;
+          v408 = 1;
         }
 
         else
         {
-          v409 = 8;
+          v408 = 8;
         }
 
-        _NSCoreDataLog_console(v409, "Got queryGeneration %@", v164);
-        objc_autoreleasePoolPop(v406);
+        _NSCoreDataLog_console(v408, "Got queryGeneration %@", v163);
+        objc_autoreleasePoolPop(v405);
       }
 
-      v305 = [_NSXPCStoreUtilities newSecureArchivedDataWithRootObject:v405];
+      v304 = [_NSXPCStoreUtilities newSecureArchivedDataWithRootObject:v404];
       if (!+[NSXPCStoreServer debugDefault])
       {
         goto LABEL_1030;
       }
 
-      v369 = objc_autoreleasePoolPush();
+      v368 = objc_autoreleasePoolPush();
       _pflogInitialize(8);
       if (_NSCoreDataIsLogEnabled(8) && _pflogging_enable_oslog >= 1)
       {
         if (_pflogging_catastrophic_mode)
         {
-          v410 = _PFLogGetLogStream(1);
-          if (os_log_type_enabled(v410, OS_LOG_TYPE_ERROR))
+          v409 = _PFLogGetLogStream(1);
+          if (os_log_type_enabled(v409, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412290;
-            *&buf[4] = v305;
-            _os_log_error_impl(&dword_18565F000, v410, OS_LOG_TYPE_ERROR, "CoreData: error: Which archives to %@\n", buf, 0xCu);
+            *&buf[4] = v304;
+            _os_log_error_impl(&dword_18565F000, v409, OS_LOG_TYPE_ERROR, "CoreData: error: Which archives to %@\n", buf, 0xCu);
           }
         }
 
         else
         {
-          v411 = _PFLogGetLogStream(8);
-          if (os_log_type_enabled(v411, OS_LOG_TYPE_DEFAULT))
+          v410 = _PFLogGetLogStream(8);
+          if (os_log_type_enabled(v410, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            *&buf[4] = v305;
-            _os_log_impl(&dword_18565F000, v411, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Which archives to %@\n", buf, 0xCu);
+            *&buf[4] = v304;
+            _os_log_impl(&dword_18565F000, v410, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Which archives to %@\n", buf, 0xCu);
           }
         }
       }
 
       if (_pflogging_catastrophic_mode)
       {
-        v372 = 1;
+        v371 = 1;
       }
 
       else
       {
-        v372 = 8;
+        v371 = 8;
       }
 
       goto LABEL_661;
     case 0xALL:
       if (+[NSXPCStoreServer debugDefault])
       {
-        v42 = objc_autoreleasePoolPush();
+        v41 = objc_autoreleasePoolPush();
         if (_NSCoreDataIsOSLogEnabled(8))
         {
           if (_pflogging_catastrophic_mode)
           {
-            v43 = _PFLogGetLogStream(1);
-            if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
+            v42 = _PFLogGetLogStream(1);
+            if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
             {
               *buf = 0;
-              _os_log_error_impl(&dword_18565F000, v43, OS_LOG_TYPE_ERROR, "CoreData: error: Query generation release\n", buf, 2u);
+              _os_log_error_impl(&dword_18565F000, v42, OS_LOG_TYPE_ERROR, "CoreData: error: Query generation release\n", buf, 2u);
             }
           }
 
           else
           {
-            v243 = _PFLogGetLogStream(8);
-            if (os_log_type_enabled(v243, OS_LOG_TYPE_DEFAULT))
+            v242 = _PFLogGetLogStream(8);
+            if (os_log_type_enabled(v242, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 0;
-              _os_log_impl(&dword_18565F000, v243, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Query generation release\n", buf, 2u);
+              _os_log_impl(&dword_18565F000, v242, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Query generation release\n", buf, 2u);
             }
           }
         }
 
         if (_pflogging_catastrophic_mode)
         {
-          v244 = 1;
+          v243 = 1;
         }
 
         else
         {
-          v244 = 8;
+          v243 = 8;
         }
 
-        _NSCoreDataLog_console(v244, "Query generation release");
-        objc_autoreleasePoolPop(v42);
+        _NSCoreDataLog_console(v243, "Query generation release");
+        objc_autoreleasePoolPop(v41);
       }
 
-      v245 = *(v612 + 40);
-      if (v245)
+      v244 = *(v607 + 40);
+      if (v244)
       {
-        v246 = *(v245 + 24);
+        v245 = *(v244 + 24);
       }
 
       else
       {
-        v246 = 0;
+        v245 = 0;
       }
 
-      if (!*(v612 + 64))
+      if (!*(v607 + 64))
       {
         goto LABEL_488;
       }
 
-      v247 = *(v612 + 56);
-      v9 = objc_autoreleasePoolPush();
-      v248 = MEMORY[0x1E695DFD8];
+      v246 = *(v607 + 56);
+      v8 = objc_autoreleasePoolPush();
+      v247 = MEMORY[0x1E695DFD8];
+      v248 = objc_opt_class();
       v249 = objc_opt_class();
-      v250 = objc_opt_class();
-      v251 = [v248 setWithObjects:{v249, v250, objc_opt_class(), 0}];
-      v252 = [_NSXPCStoreUtilities decodeSecureArchivedData:v246 usingDelegate:v247 classes:v251];
-      if (v252)
+      v250 = [v247 setWithObjects:{v248, v249, objc_opt_class(), 0}];
+      v251 = [_NSXPCStoreUtilities decodeSecureArchivedData:v245 usingDelegate:v246 classes:v250];
+      if (v251)
       {
-        -[NSXPCStoreServerPerConnectionCache releaseQueryGenerationForRemoteGeneration:]([v247 cache], *(v252 + 24));
+        -[NSXPCStoreServerPerConnectionCache releaseQueryGenerationForRemoteGeneration:]([v246 cache], *(v251 + 24));
       }
 
       else
       {
-        v253 = objc_autoreleasePoolPush();
+        v252 = objc_autoreleasePoolPush();
         _pflogInitialize(8);
         if (_NSCoreDataIsLogEnabled(8) && _pflogging_enable_oslog >= 1)
         {
           if (_pflogging_catastrophic_mode)
           {
-            v254 = _PFLogGetLogStream(1);
-            if (os_log_type_enabled(v254, OS_LOG_TYPE_ERROR))
+            v253 = _PFLogGetLogStream(1);
+            if (os_log_type_enabled(v253, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412290;
               *&buf[4] = 0;
-              _os_log_error_impl(&dword_18565F000, v254, OS_LOG_TYPE_ERROR, "CoreData: error: Attempting to free nothing (or too many things) %@\n", buf, 0xCu);
+              _os_log_error_impl(&dword_18565F000, v253, OS_LOG_TYPE_ERROR, "CoreData: error: Attempting to free nothing (or too many things) %@\n", buf, 0xCu);
             }
           }
 
           else
           {
-            v412 = _PFLogGetLogStream(8);
-            if (os_log_type_enabled(v412, OS_LOG_TYPE_DEFAULT))
+            v411 = _PFLogGetLogStream(8);
+            if (os_log_type_enabled(v411, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138412290;
               *&buf[4] = 0;
-              _os_log_impl(&dword_18565F000, v412, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Attempting to free nothing (or too many things) %@\n", buf, 0xCu);
+              _os_log_impl(&dword_18565F000, v411, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Attempting to free nothing (or too many things) %@\n", buf, 0xCu);
             }
           }
         }
 
         if (_pflogging_catastrophic_mode)
         {
-          v413 = 1;
+          v412 = 1;
         }
 
         else
         {
-          v413 = 8;
+          v412 = 8;
         }
 
-        _NSCoreDataLog_console(v413, "Attempting to free nothing (or too many things) %@", 0);
-        objc_autoreleasePoolPop(v253);
+        _NSCoreDataLog_console(v412, "Attempting to free nothing (or too many things) %@", 0);
+        objc_autoreleasePoolPop(v252);
       }
 
-      v305 = [_NSXPCStoreUtilities newSecureArchivedDataWithRootObject:?];
+      v304 = [_NSXPCStoreUtilities newSecureArchivedDataWithRootObject:?];
       goto LABEL_1030;
     case 0xBLL:
       if (+[NSXPCStoreServer debugDefault])
       {
-        v40 = objc_autoreleasePoolPush();
+        v39 = objc_autoreleasePoolPush();
         if (_NSCoreDataIsOSLogEnabled(8))
         {
           if (_pflogging_catastrophic_mode)
           {
-            v41 = _PFLogGetLogStream(1);
-            if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
+            v40 = _PFLogGetLogStream(1);
+            if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
             {
               *buf = 0;
-              _os_log_error_impl(&dword_18565F000, v41, OS_LOG_TYPE_ERROR, "CoreData: error: Query generation reopen\n", buf, 2u);
+              _os_log_error_impl(&dword_18565F000, v40, OS_LOG_TYPE_ERROR, "CoreData: error: Query generation reopen\n", buf, 2u);
             }
           }
 
           else
           {
-            v222 = _PFLogGetLogStream(8);
-            if (os_log_type_enabled(v222, OS_LOG_TYPE_DEFAULT))
+            v221 = _PFLogGetLogStream(8);
+            if (os_log_type_enabled(v221, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 0;
-              _os_log_impl(&dword_18565F000, v222, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Query generation reopen\n", buf, 2u);
+              _os_log_impl(&dword_18565F000, v221, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Query generation reopen\n", buf, 2u);
             }
           }
         }
 
         if (_pflogging_catastrophic_mode)
         {
-          v223 = 1;
+          v222 = 1;
         }
 
         else
         {
-          v223 = 8;
+          v222 = 8;
         }
 
-        _NSCoreDataLog_console(v223, "Query generation reopen");
-        objc_autoreleasePoolPop(v40);
+        _NSCoreDataLog_console(v222, "Query generation reopen");
+        objc_autoreleasePoolPop(v39);
       }
 
-      v224 = *(v612 + 40);
-      if (v224)
+      v223 = *(v607 + 40);
+      if (v223)
       {
-        v225 = *(v224 + 24);
+        v224 = *(v223 + 24);
       }
 
       else
       {
-        v225 = 0;
+        v224 = 0;
       }
 
-      if (!*(v612 + 64))
+      if (!*(v607 + 64))
       {
         goto LABEL_488;
       }
 
-      v226 = *(v612 + 56);
-      v9 = objc_autoreleasePoolPush();
+      v225 = *(v607 + 56);
+      v8 = objc_autoreleasePoolPush();
       p_superclass = NSCloudKitMirroringRequestManager.superclass;
-      v227 = MEMORY[0x1E695DFD8];
+      v226 = MEMORY[0x1E695DFD8];
+      v227 = objc_opt_class();
       v228 = objc_opt_class();
-      v229 = objc_opt_class();
-      v230 = [v227 setWithObjects:{v228, v229, objc_opt_class(), 0}];
-      v231 = [_NSXPCStoreUtilities decodeSecureArchivedData:v225 usingDelegate:v226 classes:v230];
-      v232 = v231;
-      if (v231)
+      v229 = [v226 setWithObjects:{v227, v228, objc_opt_class(), 0}];
+      v230 = [_NSXPCStoreUtilities decodeSecureArchivedData:v224 usingDelegate:v225 classes:v229];
+      v231 = v230;
+      if (v230)
       {
-        v233 = *(v231 + 24);
-        v234 = -[NSXPCStoreServerPerConnectionCache localGenerationForRemoteGeneration:]([v226 cache], v233);
-        if (v234)
+        v232 = *(v230 + 24);
+        v233 = -[NSXPCStoreServerPerConnectionCache localGenerationForRemoteGeneration:]([v225 cache], v232);
+        if (v233)
         {
-          p_super = [NSXPCStoreServer retainedXPCEncodableGenerationTokenForOriginal:v234 inContext:v226];
+          p_super = [NSXPCStoreServer retainedXPCEncodableGenerationTokenForOriginal:v233 inContext:v225];
           goto LABEL_1017;
         }
 
-        v238 = -[NSPersistentStoreCoordinator _reopenQueryGenerationWithIdentifier:inStoreWithIdentifier:error:]([v226 persistentStoreCoordinator], v233, objc_msgSend(objc_msgSend(objc_msgSend(objc_msgSend(v226, "persistentStoreCoordinator"), "persistentStores"), "firstObject"), "identifier"), 0);
-        v239 = v238;
-        if (v238)
+        v237 = -[NSPersistentStoreCoordinator _reopenQueryGenerationWithIdentifier:inStoreWithIdentifier:error:]([v225 persistentStoreCoordinator], v232, objc_msgSend(objc_msgSend(objc_msgSend(objc_msgSend(v225, "persistentStoreCoordinator"), "persistentStores"), "firstObject"), "identifier"), 0);
+        v238 = v237;
+        if (v237)
         {
-          v240 = [NSXPCStoreServer retainedXPCEncodableGenerationTokenForOriginal:v238 inContext:v226];
-          p_super = &v240->super;
-          if (v240)
+          v239 = [NSXPCStoreServer retainedXPCEncodableGenerationTokenForOriginal:v237 inContext:v225];
+          p_super = &v239->super;
+          if (v239)
           {
-            isa = v240[3].super.isa;
+            isa = v239[3].super.isa;
           }
 
           else
@@ -4399,13 +4383,13 @@ LABEL_1003:
             isa = 0;
           }
 
-          -[NSXPCStoreServerPerConnectionCache registerQueryGeneration:forRemoteGeneration:]([v226 cache], v239, isa);
+          -[NSXPCStoreServerPerConnectionCache registerQueryGeneration:forRemoteGeneration:]([v225 cache], v238, isa);
           if (!+[NSXPCStoreServer debugDefault])
           {
             goto LABEL_1017;
           }
 
-          v236 = objc_autoreleasePoolPush();
+          v235 = objc_autoreleasePoolPush();
           _pflogInitialize(8);
           if (_NSCoreDataIsLogEnabled(8) && _pflogging_enable_oslog >= 1)
           {
@@ -4414,123 +4398,123 @@ LABEL_1003:
               goto LABEL_1010;
             }
 
-            v242 = _PFLogGetLogStream(1);
-            if (os_log_type_enabled(v242, OS_LOG_TYPE_ERROR))
+            v241 = _PFLogGetLogStream(1);
+            if (os_log_type_enabled(v241, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412290;
               *&buf[4] = p_super;
-              _os_log_error_impl(&dword_18565F000, v242, OS_LOG_TYPE_ERROR, "CoreData: error: Reopened generation %@\n", buf, 0xCu);
+              _os_log_error_impl(&dword_18565F000, v241, OS_LOG_TYPE_ERROR, "CoreData: error: Reopened generation %@\n", buf, 0xCu);
             }
           }
 
 LABEL_1012:
           if (_pflogging_catastrophic_mode)
           {
-            v535 = 1;
+            v533 = 1;
           }
 
           else
           {
-            v535 = 8;
+            v533 = 8;
           }
 
-          _NSCoreDataLog_console(v535, "Reopened generation %@", p_super);
+          _NSCoreDataLog_console(v533, "Reopened generation %@", p_super);
 LABEL_1016:
-          objc_autoreleasePoolPop(v236);
+          objc_autoreleasePoolPop(v235);
 LABEL_1017:
-          v305 = [(_NSXPCStoreUtilities *)p_superclass + 2872 newSecureArchivedDataWithRootObject:?];
+          v304 = [(_NSXPCStoreUtilities *)p_superclass + 2872 newSecureArchivedDataWithRootObject:?];
 
           if (+[NSXPCStoreServer debugDefault])
           {
-            v369 = objc_autoreleasePoolPush();
+            v368 = objc_autoreleasePoolPush();
             _pflogInitialize(8);
             if (_NSCoreDataIsLogEnabled(8) && _pflogging_enable_oslog >= 1)
             {
               if (_pflogging_catastrophic_mode)
               {
-                v536 = _PFLogGetLogStream(1);
-                if (os_log_type_enabled(v536, OS_LOG_TYPE_ERROR))
+                v534 = _PFLogGetLogStream(1);
+                if (os_log_type_enabled(v534, OS_LOG_TYPE_ERROR))
                 {
                   *buf = 138412290;
-                  *&buf[4] = v305;
-                  _os_log_error_impl(&dword_18565F000, v536, OS_LOG_TYPE_ERROR, "CoreData: error: Which archives to %@\n", buf, 0xCu);
+                  *&buf[4] = v304;
+                  _os_log_error_impl(&dword_18565F000, v534, OS_LOG_TYPE_ERROR, "CoreData: error: Which archives to %@\n", buf, 0xCu);
                 }
               }
 
               else
               {
-                v537 = _PFLogGetLogStream(8);
-                if (os_log_type_enabled(v537, OS_LOG_TYPE_DEFAULT))
+                v535 = _PFLogGetLogStream(8);
+                if (os_log_type_enabled(v535, OS_LOG_TYPE_DEFAULT))
                 {
                   *buf = 138412290;
-                  *&buf[4] = v305;
-                  _os_log_impl(&dword_18565F000, v537, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Which archives to %@\n", buf, 0xCu);
+                  *&buf[4] = v304;
+                  _os_log_impl(&dword_18565F000, v535, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Which archives to %@\n", buf, 0xCu);
                 }
               }
             }
 
             if (_pflogging_catastrophic_mode)
             {
-              v538 = 1;
+              v536 = 1;
             }
 
             else
             {
-              v538 = 8;
+              v536 = 8;
             }
 
-            _NSCoreDataLog_console(v538, "Which archives to %@", v305);
+            _NSCoreDataLog_console(v536, "Which archives to %@", v304);
 LABEL_1029:
-            objc_autoreleasePoolPop(v369);
+            objc_autoreleasePoolPop(v368);
           }
 
 LABEL_1030:
-          objc_autoreleasePoolPop(v9);
+          objc_autoreleasePoolPop(v8);
 LABEL_1031:
-          v314 = v305;
+          v313 = v304;
           goto LABEL_1032;
         }
 
         if (+[NSXPCStoreServer debugDefault])
         {
-          v236 = objc_autoreleasePoolPush();
+          v235 = objc_autoreleasePoolPush();
           _pflogInitialize(8);
           if (_NSCoreDataIsLogEnabled(8) && _pflogging_enable_oslog >= 1)
           {
             if (_pflogging_catastrophic_mode)
             {
-              v315 = _PFLogGetLogStream(1);
-              if (os_log_type_enabled(v315, OS_LOG_TYPE_ERROR))
+              v314 = _PFLogGetLogStream(1);
+              if (os_log_type_enabled(v314, OS_LOG_TYPE_ERROR))
               {
                 *buf = 138412290;
-                *&buf[4] = v232;
-                _os_log_error_impl(&dword_18565F000, v315, OS_LOG_TYPE_ERROR, "CoreData: error: Unable to reopen generation %@\n", buf, 0xCu);
+                *&buf[4] = v231;
+                _os_log_error_impl(&dword_18565F000, v314, OS_LOG_TYPE_ERROR, "CoreData: error: Unable to reopen generation %@\n", buf, 0xCu);
               }
             }
 
             else
             {
-              v565 = _PFLogGetLogStream(8);
-              if (os_log_type_enabled(v565, OS_LOG_TYPE_DEFAULT))
+              v561 = _PFLogGetLogStream(8);
+              if (os_log_type_enabled(v561, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 138412290;
-                *&buf[4] = v232;
-                _os_log_impl(&dword_18565F000, v565, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Unable to reopen generation %@\n", buf, 0xCu);
+                *&buf[4] = v231;
+                _os_log_impl(&dword_18565F000, v561, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Unable to reopen generation %@\n", buf, 0xCu);
               }
             }
           }
 
           if (_pflogging_catastrophic_mode)
           {
-            v566 = 1;
+            v562 = 1;
           }
 
           else
           {
-            v566 = 8;
+            v562 = 8;
           }
 
-          _NSCoreDataLog_console(v566, "Unable to reopen generation %@", v232);
+          _NSCoreDataLog_console(v562, "Unable to reopen generation %@", v231);
 LABEL_962:
           p_super = 0;
           goto LABEL_1016;
@@ -4539,44 +4523,44 @@ LABEL_962:
 
       else if (+[NSXPCStoreServer debugDefault])
       {
-        v236 = objc_autoreleasePoolPush();
+        v235 = objc_autoreleasePoolPush();
         _pflogInitialize(8);
         if (_NSCoreDataIsLogEnabled(8) && _pflogging_enable_oslog >= 1)
         {
           if (_pflogging_catastrophic_mode)
           {
-            v237 = _PFLogGetLogStream(1);
-            if (os_log_type_enabled(v237, OS_LOG_TYPE_ERROR))
+            v236 = _PFLogGetLogStream(1);
+            if (os_log_type_enabled(v236, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412290;
               *&buf[4] = 0;
-              _os_log_error_impl(&dword_18565F000, v237, OS_LOG_TYPE_ERROR, "CoreData: error: Bad parameter to reopen generation %@\n", buf, 0xCu);
+              _os_log_error_impl(&dword_18565F000, v236, OS_LOG_TYPE_ERROR, "CoreData: error: Bad parameter to reopen generation %@\n", buf, 0xCu);
             }
           }
 
           else
           {
-            v516 = _PFLogGetLogStream(8);
-            if (os_log_type_enabled(v516, OS_LOG_TYPE_DEFAULT))
+            v514 = _PFLogGetLogStream(8);
+            if (os_log_type_enabled(v514, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138412290;
               *&buf[4] = 0;
-              _os_log_impl(&dword_18565F000, v516, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Bad parameter to reopen generation %@\n", buf, 0xCu);
+              _os_log_impl(&dword_18565F000, v514, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Bad parameter to reopen generation %@\n", buf, 0xCu);
             }
           }
         }
 
         if (_pflogging_catastrophic_mode)
         {
-          v517 = 1;
+          v515 = 1;
         }
 
         else
         {
-          v517 = 8;
+          v515 = 8;
         }
 
-        _NSCoreDataLog_console(v517, "Bad parameter to reopen generation %@", 0);
+        _NSCoreDataLog_console(v515, "Bad parameter to reopen generation %@", 0);
         goto LABEL_962;
       }
 
@@ -4585,1109 +4569,1109 @@ LABEL_962:
     case 0xCLL:
       if (+[NSXPCStoreServer debugDefault])
       {
-        v16 = objc_autoreleasePoolPush();
+        v15 = objc_autoreleasePoolPush();
         if (_NSCoreDataIsOSLogEnabled(8))
         {
           if (_pflogging_catastrophic_mode)
           {
-            v17 = _PFLogGetLogStream(1);
-            if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+            v16 = _PFLogGetLogStream(1);
+            if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
             {
               *buf = 0;
-              _os_log_error_impl(&dword_18565F000, v17, OS_LOG_TYPE_ERROR, "CoreData: error: Batch delete\n", buf, 2u);
+              _os_log_error_impl(&dword_18565F000, v16, OS_LOG_TYPE_ERROR, "CoreData: error: Batch delete\n", buf, 2u);
             }
           }
 
           else
           {
-            v57 = _PFLogGetLogStream(8);
-            if (os_log_type_enabled(v57, OS_LOG_TYPE_DEFAULT))
+            v56 = _PFLogGetLogStream(8);
+            if (os_log_type_enabled(v56, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 0;
-              _os_log_impl(&dword_18565F000, v57, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Batch delete\n", buf, 2u);
+              _os_log_impl(&dword_18565F000, v56, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Batch delete\n", buf, 2u);
             }
           }
         }
 
         if (_pflogging_catastrophic_mode)
         {
-          v58 = 1;
+          v57 = 1;
         }
 
         else
         {
-          v58 = 8;
+          v57 = 8;
         }
 
-        _NSCoreDataLog_console(v58, "Batch delete");
-        objc_autoreleasePoolPop(v16);
+        _NSCoreDataLog_console(v57, "Batch delete");
+        objc_autoreleasePoolPop(v15);
       }
 
-      v59 = *(v612 + 40);
-      if (v59)
+      v58 = *(v607 + 40);
+      if (v58)
       {
-        v60 = *(v59 + 24);
+        v59 = *(v58 + 24);
       }
 
       else
       {
-        v60 = 0;
+        v59 = 0;
       }
 
-      v61 = *(v612 + 64);
-      if (!v61)
+      v60 = *(v607 + 64);
+      if (!v60)
       {
         goto LABEL_488;
       }
 
-      v62 = *(v612 + 56);
-      *&v657 = 0;
-      v63 = objc_autoreleasePoolPush();
-      v64 = [NSBatchDeleteRequest decodeFromXPCArchive:v60 withContext:v62 withPolicy:*(v61 + 64)];
-      if (v64)
+      v61 = *(v607 + 56);
+      *&v652 = 0;
+      v62 = objc_autoreleasePoolPush();
+      v63 = [NSBatchDeleteRequest decodeFromXPCArchive:v59 withContext:v61 withPolicy:*(v60 + 64)];
+      if (v63)
       {
-        v52 = [*(v61 + 64) processRequest:v64 fromClientWithContext:v62 error:&v657];
+        v51 = [*(v60 + 64) processRequest:v63 fromClientWithContext:v61 error:&v652];
         if (+[NSXPCStoreServer debugDefault])
         {
-          v65 = objc_autoreleasePoolPush();
+          v64 = objc_autoreleasePoolPush();
           _pflogInitialize(8);
           if (_NSCoreDataIsLogEnabled(8) && _pflogging_enable_oslog >= 1)
           {
             if (_pflogging_catastrophic_mode)
             {
-              v66 = _PFLogGetLogStream(1);
-              if (os_log_type_enabled(v66, OS_LOG_TYPE_ERROR))
+              v65 = _PFLogGetLogStream(1);
+              if (os_log_type_enabled(v65, OS_LOG_TYPE_ERROR))
               {
                 *buf = 138412290;
-                *&buf[4] = v52;
-                _os_log_error_impl(&dword_18565F000, v66, OS_LOG_TYPE_ERROR, "CoreData: error: Which had result %@\n", buf, 0xCu);
+                *&buf[4] = v51;
+                _os_log_error_impl(&dword_18565F000, v65, OS_LOG_TYPE_ERROR, "CoreData: error: Which had result %@\n", buf, 0xCu);
               }
             }
 
             else
             {
-              v334 = _PFLogGetLogStream(8);
-              if (os_log_type_enabled(v334, OS_LOG_TYPE_DEFAULT))
+              v333 = _PFLogGetLogStream(8);
+              if (os_log_type_enabled(v333, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 138412290;
-                *&buf[4] = v52;
-                _os_log_impl(&dword_18565F000, v334, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Which had result %@\n", buf, 0xCu);
+                *&buf[4] = v51;
+                _os_log_impl(&dword_18565F000, v333, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Which had result %@\n", buf, 0xCu);
               }
             }
           }
 
           if (_pflogging_catastrophic_mode)
           {
-            v335 = 1;
+            v334 = 1;
           }
 
           else
           {
-            v335 = 8;
+            v334 = 8;
           }
 
-          _NSCoreDataLog_console(v335, "Which had result %@", v52);
-          objc_autoreleasePoolPop(v65);
+          _NSCoreDataLog_console(v334, "Which had result %@", v51);
+          objc_autoreleasePoolPop(v64);
         }
 
-        if (v52)
+        if (v51)
         {
-          v52 = +[_NSXPCStoreUtilities newSecureArchivedDataWithRootObject:](_NSXPCStoreUtilities, [v52 result]);
+          v51 = +[_NSXPCStoreUtilities newSecureArchivedDataWithRootObject:](_NSXPCStoreUtilities, [v51 result]);
         }
       }
 
       else
       {
-        v67 = objc_autoreleasePoolPush();
+        v66 = objc_autoreleasePoolPush();
         _pflogInitialize(8);
         if (_NSCoreDataIsLogEnabled(8) && _pflogging_enable_oslog >= 1)
         {
           if (_pflogging_catastrophic_mode)
           {
-            v68 = _PFLogGetLogStream(1);
-            if (os_log_type_enabled(v68, OS_LOG_TYPE_ERROR))
+            v67 = _PFLogGetLogStream(1);
+            if (os_log_type_enabled(v67, OS_LOG_TYPE_ERROR))
             {
               *buf = 0;
-              _os_log_error_impl(&dword_18565F000, v68, OS_LOG_TYPE_ERROR, "CoreData: error: Nil batch delete request\n", buf, 2u);
+              _os_log_error_impl(&dword_18565F000, v67, OS_LOG_TYPE_ERROR, "CoreData: error: Nil batch delete request\n", buf, 2u);
             }
           }
 
           else
           {
-            v350 = _PFLogGetLogStream(8);
-            if (os_log_type_enabled(v350, OS_LOG_TYPE_DEFAULT))
+            v349 = _PFLogGetLogStream(8);
+            if (os_log_type_enabled(v349, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 0;
-              _os_log_impl(&dword_18565F000, v350, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Nil batch delete request\n", buf, 2u);
+              _os_log_impl(&dword_18565F000, v349, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Nil batch delete request\n", buf, 2u);
             }
           }
         }
 
         if (_pflogging_catastrophic_mode)
         {
-          v351 = 1;
+          v350 = 1;
         }
 
         else
         {
-          v351 = 8;
+          v350 = 8;
         }
 
-        _NSCoreDataLog_console(v351, "Nil batch delete request");
-        objc_autoreleasePoolPop(v67);
-        v52 = 0;
+        _NSCoreDataLog_console(v350, "Nil batch delete request");
+        objc_autoreleasePoolPop(v66);
+        v51 = 0;
       }
 
-      v352 = v657;
-      objc_autoreleasePoolPop(v63);
-      if (v657)
+      v351 = v652;
+      objc_autoreleasePoolPop(v62);
+      if (v652)
       {
-        v613 = v657;
+        v608 = v652;
       }
 
       goto LABEL_631;
     case 0xDLL:
       if (+[NSXPCStoreServer debugDefault])
       {
-        v24 = objc_autoreleasePoolPush();
+        v23 = objc_autoreleasePoolPush();
         if (_NSCoreDataIsOSLogEnabled(8))
         {
           if (_pflogging_catastrophic_mode)
           {
-            v25 = _PFLogGetLogStream(1);
-            if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+            v24 = _PFLogGetLogStream(1);
+            if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
             {
               *buf = 0;
-              _os_log_error_impl(&dword_18565F000, v25, OS_LOG_TYPE_ERROR, "CoreData: error: Persistent history\n", buf, 2u);
+              _os_log_error_impl(&dword_18565F000, v24, OS_LOG_TYPE_ERROR, "CoreData: error: Persistent history\n", buf, 2u);
             }
           }
 
           else
           {
-            v114 = _PFLogGetLogStream(8);
-            if (os_log_type_enabled(v114, OS_LOG_TYPE_DEFAULT))
+            v113 = _PFLogGetLogStream(8);
+            if (os_log_type_enabled(v113, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 0;
-              _os_log_impl(&dword_18565F000, v114, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Persistent history\n", buf, 2u);
+              _os_log_impl(&dword_18565F000, v113, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Persistent history\n", buf, 2u);
             }
           }
         }
 
         if (_pflogging_catastrophic_mode)
         {
-          v115 = 1;
+          v114 = 1;
         }
 
         else
         {
-          v115 = 8;
+          v114 = 8;
         }
 
-        _NSCoreDataLog_console(v115, "Persistent history");
-        objc_autoreleasePoolPop(v24);
+        _NSCoreDataLog_console(v114, "Persistent history");
+        objc_autoreleasePoolPop(v23);
       }
 
-      v116 = *(v612 + 40);
-      if (v116)
+      v115 = *(v607 + 40);
+      if (v115)
       {
-        v117 = *(v116 + 24);
+        v116 = *(v115 + 24);
       }
 
       else
       {
-        v117 = 0;
+        v116 = 0;
       }
 
-      v118 = *(v612 + 64);
-      if (!v118)
+      v117 = *(v607 + 64);
+      if (!v117)
       {
         goto LABEL_488;
       }
 
-      v119 = *(v612 + 56);
-      *&v657 = 0;
-      v120 = objc_autoreleasePoolPush();
-      v121 = [NSPersistentHistoryChangeRequest decodeFromXPCArchive:v117 withContext:v119 withPolicy:*(v118 + 64)];
-      if (v121)
+      v118 = *(v607 + 56);
+      *&v652 = 0;
+      v119 = objc_autoreleasePoolPush();
+      v120 = [NSPersistentHistoryChangeRequest decodeFromXPCArchive:v116 withContext:v118 withPolicy:*(v117 + 64)];
+      if (v120)
       {
-        v52 = [*(v118 + 64) processRequest:v121 fromClientWithContext:v119 error:&v657];
+        v51 = [*(v117 + 64) processRequest:v120 fromClientWithContext:v118 error:&v652];
         if (+[NSXPCStoreServer debugDefault])
         {
-          v122 = objc_autoreleasePoolPush();
+          v121 = objc_autoreleasePoolPush();
           _pflogInitialize(8);
           if (_NSCoreDataIsLogEnabled(8) && _pflogging_enable_oslog >= 1)
           {
             if (_pflogging_catastrophic_mode)
             {
-              v123 = _PFLogGetLogStream(1);
-              if (os_log_type_enabled(v123, OS_LOG_TYPE_ERROR))
+              v122 = _PFLogGetLogStream(1);
+              if (os_log_type_enabled(v122, OS_LOG_TYPE_ERROR))
               {
                 *buf = 138412290;
-                *&buf[4] = v52;
-                _os_log_error_impl(&dword_18565F000, v123, OS_LOG_TYPE_ERROR, "CoreData: error: Which had result %@\n", buf, 0xCu);
+                *&buf[4] = v51;
+                _os_log_error_impl(&dword_18565F000, v122, OS_LOG_TYPE_ERROR, "CoreData: error: Which had result %@\n", buf, 0xCu);
               }
             }
 
             else
             {
-              v336 = _PFLogGetLogStream(8);
-              if (os_log_type_enabled(v336, OS_LOG_TYPE_DEFAULT))
+              v335 = _PFLogGetLogStream(8);
+              if (os_log_type_enabled(v335, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 138412290;
-                *&buf[4] = v52;
-                _os_log_impl(&dword_18565F000, v336, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Which had result %@\n", buf, 0xCu);
+                *&buf[4] = v51;
+                _os_log_impl(&dword_18565F000, v335, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Which had result %@\n", buf, 0xCu);
               }
             }
           }
 
           if (_pflogging_catastrophic_mode)
           {
-            v337 = 1;
+            v336 = 1;
           }
 
           else
           {
-            v337 = 8;
+            v336 = 8;
           }
 
-          _NSCoreDataLog_console(v337, "Which had result %@", v52);
-          objc_autoreleasePoolPop(v122);
+          _NSCoreDataLog_console(v336, "Which had result %@", v51);
+          objc_autoreleasePoolPop(v121);
         }
 
-        if (v52)
+        if (v51)
         {
-          v52 = +[_NSXPCStoreUtilities newSecureArchivedDataWithRootObject:](_NSXPCStoreUtilities, [v52 result]);
+          v51 = +[_NSXPCStoreUtilities newSecureArchivedDataWithRootObject:](_NSXPCStoreUtilities, [v51 result]);
         }
       }
 
       else
       {
-        v124 = objc_autoreleasePoolPush();
+        v123 = objc_autoreleasePoolPush();
         _pflogInitialize(8);
         if (_NSCoreDataIsLogEnabled(8) && _pflogging_enable_oslog >= 1)
         {
           if (_pflogging_catastrophic_mode)
           {
-            v125 = _PFLogGetLogStream(1);
-            if (os_log_type_enabled(v125, OS_LOG_TYPE_ERROR))
+            v124 = _PFLogGetLogStream(1);
+            if (os_log_type_enabled(v124, OS_LOG_TYPE_ERROR))
             {
               *buf = 0;
-              _os_log_error_impl(&dword_18565F000, v125, OS_LOG_TYPE_ERROR, "CoreData: error: Nil persistent history request\n", buf, 2u);
+              _os_log_error_impl(&dword_18565F000, v124, OS_LOG_TYPE_ERROR, "CoreData: error: Nil persistent history request\n", buf, 2u);
             }
           }
 
           else
           {
-            v353 = _PFLogGetLogStream(8);
-            if (os_log_type_enabled(v353, OS_LOG_TYPE_DEFAULT))
+            v352 = _PFLogGetLogStream(8);
+            if (os_log_type_enabled(v352, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 0;
-              _os_log_impl(&dword_18565F000, v353, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Nil persistent history request\n", buf, 2u);
+              _os_log_impl(&dword_18565F000, v352, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Nil persistent history request\n", buf, 2u);
             }
           }
         }
 
         if (_pflogging_catastrophic_mode)
         {
-          v354 = 1;
+          v353 = 1;
         }
 
         else
         {
-          v354 = 8;
+          v353 = 8;
         }
 
-        _NSCoreDataLog_console(v354, "Nil persistent history request");
-        objc_autoreleasePoolPop(v124);
-        v52 = 0;
+        _NSCoreDataLog_console(v353, "Nil persistent history request");
+        objc_autoreleasePoolPop(v123);
+        v51 = 0;
       }
 
-      v355 = v657;
-      objc_autoreleasePoolPop(v120);
-      if (v657)
+      v354 = v652;
+      objc_autoreleasePoolPop(v119);
+      if (v652)
       {
-        v613 = v657;
+        v608 = v652;
       }
 
       goto LABEL_631;
     case 0xELL:
       if (+[NSXPCStoreServer debugDefault])
       {
-        v18 = objc_autoreleasePoolPush();
+        v17 = objc_autoreleasePoolPush();
         if (_NSCoreDataIsOSLogEnabled(8))
         {
           if (_pflogging_catastrophic_mode)
           {
-            v19 = _PFLogGetLogStream(1);
-            if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+            v18 = _PFLogGetLogStream(1);
+            if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
             {
               *buf = 0;
-              _os_log_error_impl(&dword_18565F000, v19, OS_LOG_TYPE_ERROR, "CoreData: error: Persistent history token\n", buf, 2u);
+              _os_log_error_impl(&dword_18565F000, v18, OS_LOG_TYPE_ERROR, "CoreData: error: Persistent history token\n", buf, 2u);
             }
           }
 
           else
           {
-            v69 = _PFLogGetLogStream(8);
-            if (os_log_type_enabled(v69, OS_LOG_TYPE_DEFAULT))
+            v68 = _PFLogGetLogStream(8);
+            if (os_log_type_enabled(v68, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 0;
-              _os_log_impl(&dword_18565F000, v69, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Persistent history token\n", buf, 2u);
+              _os_log_impl(&dword_18565F000, v68, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Persistent history token\n", buf, 2u);
             }
           }
         }
 
         if (_pflogging_catastrophic_mode)
         {
-          v70 = 1;
+          v69 = 1;
         }
 
         else
         {
-          v70 = 8;
+          v69 = 8;
         }
 
-        _NSCoreDataLog_console(v70, "Persistent history token");
-        objc_autoreleasePoolPop(v18);
+        _NSCoreDataLog_console(v69, "Persistent history token");
+        objc_autoreleasePoolPop(v17);
       }
 
-      v71 = *(v612 + 40);
-      if (v71)
+      v70 = *(v607 + 40);
+      if (v70)
       {
-        v72 = *(v71 + 24);
+        v71 = *(v70 + 24);
       }
 
       else
       {
-        v72 = 0;
+        v71 = 0;
       }
 
-      if (!*(v612 + 64))
+      if (!*(v607 + 64))
       {
-        goto LABEL_1137;
+        goto LABEL_1134;
       }
 
-      v73 = *(v612 + 56);
+      v72 = *(v607 + 56);
       context = objc_autoreleasePoolPush();
-      v74 = [v73 persistentStoreCoordinator];
-      v75 = MEMORY[0x1E695DFD8];
-      v76 = objc_opt_class();
-      v77 = [v75 setWithObjects:{v76, objc_opt_class(), 0}];
-      v78 = [_NSXPCStoreUtilities decodeSecureArchivedData:v72 usingDelegate:v73 classes:v77];
+      v73 = [v72 persistentStoreCoordinator];
+      v74 = MEMORY[0x1E695DFD8];
+      v75 = objc_opt_class();
+      v76 = [v74 setWithObjects:{v75, objc_opt_class(), 0}];
+      v77 = [_NSXPCStoreUtilities decodeSecureArchivedData:v71 usingDelegate:v72 classes:v76];
       if (+[NSXPCStoreServer debugDefault])
       {
-        v79 = objc_autoreleasePoolPush();
+        v78 = objc_autoreleasePoolPush();
         _pflogInitialize(8);
         if (_NSCoreDataIsLogEnabled(8) && _pflogging_enable_oslog >= 1)
         {
           if (_pflogging_catastrophic_mode)
           {
-            v80 = _PFLogGetLogStream(1);
-            if (os_log_type_enabled(v80, OS_LOG_TYPE_ERROR))
+            v79 = _PFLogGetLogStream(1);
+            if (os_log_type_enabled(v79, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412290;
-              *&buf[4] = v78;
-              _os_log_error_impl(&dword_18565F000, v80, OS_LOG_TYPE_ERROR, "CoreData: error: Server received history token payload - %@\n", buf, 0xCu);
+              *&buf[4] = v77;
+              _os_log_error_impl(&dword_18565F000, v79, OS_LOG_TYPE_ERROR, "CoreData: error: Server received history token payload - %@\n", buf, 0xCu);
             }
           }
 
           else
           {
-            v255 = _PFLogGetLogStream(8);
-            if (os_log_type_enabled(v255, OS_LOG_TYPE_DEFAULT))
+            v254 = _PFLogGetLogStream(8);
+            if (os_log_type_enabled(v254, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138412290;
-              *&buf[4] = v78;
-              _os_log_impl(&dword_18565F000, v255, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Server received history token payload - %@\n", buf, 0xCu);
+              *&buf[4] = v77;
+              _os_log_impl(&dword_18565F000, v254, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Server received history token payload - %@\n", buf, 0xCu);
             }
           }
         }
 
         if (_pflogging_catastrophic_mode)
         {
-          v256 = 1;
+          v255 = 1;
         }
 
         else
         {
-          v256 = 8;
+          v255 = 8;
         }
 
-        _NSCoreDataLog_console(v256, "Server received history token payload - %@", v78);
-        objc_autoreleasePoolPop(v79);
+        _NSCoreDataLog_console(v255, "Server received history token payload - %@", v77);
+        objc_autoreleasePoolPop(v78);
       }
 
-      if (![v78 count])
+      if (![v77 count])
       {
         goto LABEL_394;
       }
 
-      v257 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(v78, "count")}];
-      v659 = 0u;
-      v660 = 0u;
-      v657 = 0u;
-      v658 = 0u;
-      v258 = [v74 persistentStores];
-      v259 = [v258 countByEnumeratingWithState:&v657 objects:buf count:16];
-      if (v259)
+      v256 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(v77, "count")}];
+      v654 = 0u;
+      v655 = 0u;
+      v652 = 0u;
+      v653 = 0u;
+      v257 = [v73 persistentStores];
+      v258 = [v257 countByEnumeratingWithState:&v652 objects:buf count:16];
+      if (v258)
       {
-        v260 = *v658;
+        v259 = *v653;
         do
         {
-          for (jj = 0; jj != v259; ++jj)
+          for (jj = 0; jj != v258; ++jj)
           {
-            if (*v658 != v260)
+            if (*v653 != v259)
             {
-              objc_enumerationMutation(v258);
+              objc_enumerationMutation(v257);
             }
 
-            v262 = *(*(&v657 + 1) + 8 * jj);
-            if ([v78 containsObject:{objc_msgSend(v262, "identifier")}])
+            v261 = *(*(&v652 + 1) + 8 * jj);
+            if ([v77 containsObject:{objc_msgSend(v261, "identifier")}])
             {
-              [v257 addObject:v262];
+              [v256 addObject:v261];
             }
           }
 
-          v259 = [v258 countByEnumeratingWithState:&v657 objects:buf count:16];
+          v258 = [v257 countByEnumeratingWithState:&v652 objects:buf count:16];
         }
 
-        while (v259);
+        while (v258);
       }
 
-      if ([v257 count])
+      if ([v256 count])
       {
-        v263 = [v74 currentPersistentHistoryTokenFromStores:v257];
+        v262 = [v73 currentPersistentHistoryTokenFromStores:v256];
       }
 
       else
       {
 LABEL_394:
-        v263 = 0;
+        v262 = 0;
       }
 
       if (+[NSXPCStoreServer debugDefault])
       {
-        v264 = objc_autoreleasePoolPush();
+        v263 = objc_autoreleasePoolPush();
         _pflogInitialize(8);
         if (_NSCoreDataIsLogEnabled(8) && _pflogging_enable_oslog >= 1)
         {
           if (_pflogging_catastrophic_mode)
           {
-            v265 = _PFLogGetLogStream(1);
-            if (os_log_type_enabled(v265, OS_LOG_TYPE_ERROR))
+            v264 = _PFLogGetLogStream(1);
+            if (os_log_type_enabled(v264, OS_LOG_TYPE_ERROR))
             {
-              *v654 = 138412290;
-              *&v654[4] = v263;
-              _os_log_error_impl(&dword_18565F000, v265, OS_LOG_TYPE_ERROR, "CoreData: error: Server sending back historyToken %@\n", v654, 0xCu);
+              *v649 = 138412290;
+              *&v649[4] = v262;
+              _os_log_error_impl(&dword_18565F000, v264, OS_LOG_TYPE_ERROR, "CoreData: error: Server sending back historyToken %@\n", v649, 0xCu);
             }
           }
 
           else
           {
-            v306 = _PFLogGetLogStream(8);
-            if (os_log_type_enabled(v306, OS_LOG_TYPE_DEFAULT))
+            v305 = _PFLogGetLogStream(8);
+            if (os_log_type_enabled(v305, OS_LOG_TYPE_DEFAULT))
             {
-              *v654 = 138412290;
-              *&v654[4] = v263;
-              _os_log_impl(&dword_18565F000, v306, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Server sending back historyToken %@\n", v654, 0xCu);
+              *v649 = 138412290;
+              *&v649[4] = v262;
+              _os_log_impl(&dword_18565F000, v305, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Server sending back historyToken %@\n", v649, 0xCu);
             }
           }
         }
 
         if (_pflogging_catastrophic_mode)
         {
-          v307 = 1;
+          v306 = 1;
         }
 
         else
         {
-          v307 = 8;
+          v306 = 8;
         }
 
-        _NSCoreDataLog_console(v307, "Server sending back historyToken %@", v263);
-        objc_autoreleasePoolPop(v264);
+        _NSCoreDataLog_console(v306, "Server sending back historyToken %@", v262);
+        objc_autoreleasePoolPop(v263);
       }
 
-      v308 = +[_NSXPCStoreUtilities newSecureArchivedDataWithRootObject:](_NSXPCStoreUtilities, [v263 storeTokens]);
+      v307 = +[_NSXPCStoreUtilities newSecureArchivedDataWithRootObject:](_NSXPCStoreUtilities, [v262 storeTokens]);
       if (+[NSXPCStoreServer debugDefault])
       {
-        v309 = objc_autoreleasePoolPush();
+        v308 = objc_autoreleasePoolPush();
         _pflogInitialize(8);
         if (_NSCoreDataIsLogEnabled(8) && _pflogging_enable_oslog >= 1)
         {
           if (_pflogging_catastrophic_mode)
           {
-            v310 = _PFLogGetLogStream(1);
-            if (os_log_type_enabled(v310, OS_LOG_TYPE_ERROR))
+            v309 = _PFLogGetLogStream(1);
+            if (os_log_type_enabled(v309, OS_LOG_TYPE_ERROR))
             {
-              *v654 = 138412290;
-              *&v654[4] = v308;
-              _os_log_error_impl(&dword_18565F000, v310, OS_LOG_TYPE_ERROR, "CoreData: error: Server historyToken archived to %@\n", v654, 0xCu);
+              *v649 = 138412290;
+              *&v649[4] = v307;
+              _os_log_error_impl(&dword_18565F000, v309, OS_LOG_TYPE_ERROR, "CoreData: error: Server historyToken archived to %@\n", v649, 0xCu);
             }
           }
 
           else
           {
-            v311 = _PFLogGetLogStream(8);
-            if (os_log_type_enabled(v311, OS_LOG_TYPE_DEFAULT))
+            v310 = _PFLogGetLogStream(8);
+            if (os_log_type_enabled(v310, OS_LOG_TYPE_DEFAULT))
             {
-              *v654 = 138412290;
-              *&v654[4] = v308;
-              _os_log_impl(&dword_18565F000, v311, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Server historyToken archived to %@\n", v654, 0xCu);
+              *v649 = 138412290;
+              *&v649[4] = v307;
+              _os_log_impl(&dword_18565F000, v310, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Server historyToken archived to %@\n", v649, 0xCu);
             }
           }
         }
 
         if (_pflogging_catastrophic_mode)
         {
-          v312 = 1;
+          v311 = 1;
         }
 
         else
         {
-          v312 = 8;
+          v311 = 8;
         }
 
-        _NSCoreDataLog_console(v312, "Server historyToken archived to %@", v308);
-        objc_autoreleasePoolPop(v309);
+        _NSCoreDataLog_console(v311, "Server historyToken archived to %@", v307);
+        objc_autoreleasePoolPop(v308);
       }
 
       objc_autoreleasePoolPop(context);
-      v313 = 0;
-      v314 = v308;
+      v312 = 0;
+      v313 = v307;
       goto LABEL_1032;
     case 0xFLL:
       if (+[NSXPCStoreServer debugDefault])
       {
-        v14 = objc_autoreleasePoolPush();
+        v13 = objc_autoreleasePoolPush();
         if (_NSCoreDataIsOSLogEnabled(8))
         {
           if (_pflogging_catastrophic_mode)
           {
-            v15 = _PFLogGetLogStream(1);
-            if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+            v14 = _PFLogGetLogStream(1);
+            if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
             {
               *buf = 0;
-              _os_log_error_impl(&dword_18565F000, v15, OS_LOG_TYPE_ERROR, "CoreData: error: Batch update\n", buf, 2u);
+              _os_log_error_impl(&dword_18565F000, v14, OS_LOG_TYPE_ERROR, "CoreData: error: Batch update\n", buf, 2u);
             }
           }
 
           else
           {
-            v44 = _PFLogGetLogStream(8);
-            if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
+            v43 = _PFLogGetLogStream(8);
+            if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 0;
-              _os_log_impl(&dword_18565F000, v44, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Batch update\n", buf, 2u);
+              _os_log_impl(&dword_18565F000, v43, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Batch update\n", buf, 2u);
             }
           }
         }
 
         if (_pflogging_catastrophic_mode)
         {
-          v45 = 1;
+          v44 = 1;
         }
 
         else
         {
-          v45 = 8;
+          v44 = 8;
         }
 
-        _NSCoreDataLog_console(v45, "Batch update");
-        objc_autoreleasePoolPop(v14);
+        _NSCoreDataLog_console(v44, "Batch update");
+        objc_autoreleasePoolPop(v13);
       }
 
-      v46 = *(v612 + 40);
-      if (v46)
+      v45 = *(v607 + 40);
+      if (v45)
       {
-        v47 = *(v46 + 24);
+        v46 = *(v45 + 24);
       }
 
       else
       {
-        v47 = 0;
+        v46 = 0;
       }
 
-      v48 = *(v612 + 64);
-      if (!v48)
+      v47 = *(v607 + 64);
+      if (!v47)
       {
-        goto LABEL_1137;
+        goto LABEL_1134;
       }
 
-      v49 = *(v612 + 56);
-      *&v657 = 0;
-      v50 = objc_autoreleasePoolPush();
-      v51 = [NSBatchUpdateRequest decodeFromXPCArchive:v47 withContext:v49 withPolicy:*(v48 + 64)];
-      if (v51)
+      v48 = *(v607 + 56);
+      *&v652 = 0;
+      v49 = objc_autoreleasePoolPush();
+      v50 = [NSBatchUpdateRequest decodeFromXPCArchive:v46 withContext:v48 withPolicy:*(v47 + 64)];
+      if (v50)
       {
-        v52 = [*(v48 + 64) processRequest:v51 fromClientWithContext:v49 error:&v657];
+        v51 = [*(v47 + 64) processRequest:v50 fromClientWithContext:v48 error:&v652];
         if (+[NSXPCStoreServer debugDefault])
         {
-          v53 = objc_autoreleasePoolPush();
+          v52 = objc_autoreleasePoolPush();
           _pflogInitialize(8);
           if (_NSCoreDataIsLogEnabled(8) && _pflogging_enable_oslog >= 1)
           {
             if (_pflogging_catastrophic_mode)
             {
-              v54 = _PFLogGetLogStream(1);
-              if (os_log_type_enabled(v54, OS_LOG_TYPE_ERROR))
+              v53 = _PFLogGetLogStream(1);
+              if (os_log_type_enabled(v53, OS_LOG_TYPE_ERROR))
               {
                 *buf = 138412290;
-                *&buf[4] = v52;
-                _os_log_error_impl(&dword_18565F000, v54, OS_LOG_TYPE_ERROR, "CoreData: error: Which had result %@\n", buf, 0xCu);
+                *&buf[4] = v51;
+                _os_log_error_impl(&dword_18565F000, v53, OS_LOG_TYPE_ERROR, "CoreData: error: Which had result %@\n", buf, 0xCu);
               }
             }
 
             else
             {
-              v332 = _PFLogGetLogStream(8);
-              if (os_log_type_enabled(v332, OS_LOG_TYPE_DEFAULT))
+              v331 = _PFLogGetLogStream(8);
+              if (os_log_type_enabled(v331, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 138412290;
-                *&buf[4] = v52;
-                _os_log_impl(&dword_18565F000, v332, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Which had result %@\n", buf, 0xCu);
+                *&buf[4] = v51;
+                _os_log_impl(&dword_18565F000, v331, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Which had result %@\n", buf, 0xCu);
               }
             }
           }
 
           if (_pflogging_catastrophic_mode)
           {
-            v333 = 1;
+            v332 = 1;
           }
 
           else
           {
-            v333 = 8;
+            v332 = 8;
           }
 
-          _NSCoreDataLog_console(v333, "Which had result %@", v52);
-          objc_autoreleasePoolPop(v53);
+          _NSCoreDataLog_console(v332, "Which had result %@", v51);
+          objc_autoreleasePoolPop(v52);
         }
 
-        if (v52)
+        if (v51)
         {
-          v52 = +[_NSXPCStoreUtilities newSecureArchivedDataWithRootObject:](_NSXPCStoreUtilities, [v52 result]);
+          v51 = +[_NSXPCStoreUtilities newSecureArchivedDataWithRootObject:](_NSXPCStoreUtilities, [v51 result]);
         }
       }
 
       else
       {
-        v55 = objc_autoreleasePoolPush();
+        v54 = objc_autoreleasePoolPush();
         _pflogInitialize(8);
         if (_NSCoreDataIsLogEnabled(8) && _pflogging_enable_oslog >= 1)
         {
           if (_pflogging_catastrophic_mode)
           {
-            v56 = _PFLogGetLogStream(1);
-            if (os_log_type_enabled(v56, OS_LOG_TYPE_ERROR))
+            v55 = _PFLogGetLogStream(1);
+            if (os_log_type_enabled(v55, OS_LOG_TYPE_ERROR))
             {
               *buf = 0;
-              _os_log_error_impl(&dword_18565F000, v56, OS_LOG_TYPE_ERROR, "CoreData: error: Nil batch update request\n", buf, 2u);
+              _os_log_error_impl(&dword_18565F000, v55, OS_LOG_TYPE_ERROR, "CoreData: error: Nil batch update request\n", buf, 2u);
             }
           }
 
           else
           {
-            v344 = _PFLogGetLogStream(8);
-            if (os_log_type_enabled(v344, OS_LOG_TYPE_DEFAULT))
+            v343 = _PFLogGetLogStream(8);
+            if (os_log_type_enabled(v343, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 0;
-              _os_log_impl(&dword_18565F000, v344, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Nil batch update request\n", buf, 2u);
+              _os_log_impl(&dword_18565F000, v343, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Nil batch update request\n", buf, 2u);
             }
           }
         }
 
         if (_pflogging_catastrophic_mode)
         {
-          v345 = 1;
+          v344 = 1;
         }
 
         else
         {
-          v345 = 8;
+          v344 = 8;
         }
 
-        _NSCoreDataLog_console(v345, "Nil batch update request");
-        objc_autoreleasePoolPop(v55);
-        v346 = MEMORY[0x1E696ABC0];
-        *v654 = *MEMORY[0x1E696A588];
+        _NSCoreDataLog_console(v344, "Nil batch update request");
+        objc_autoreleasePoolPop(v54);
+        v345 = MEMORY[0x1E696ABC0];
+        *v649 = *MEMORY[0x1E696A588];
         *buf = @"Unable to decode request, ensure policy allows for updated class values";
-        v347 = [MEMORY[0x1E695DF20] dictionaryWithObjects:buf forKeys:v654 count:1];
-        v348 = [v346 errorWithDomain:*MEMORY[0x1E696A250] code:134070 userInfo:v347];
-        v52 = 0;
-        *&v657 = v348;
+        v346 = [MEMORY[0x1E695DF20] dictionaryWithObjects:buf forKeys:v649 count:1];
+        v347 = [v345 errorWithDomain:*MEMORY[0x1E696A250] code:134070 userInfo:v346];
+        v51 = 0;
+        *&v652 = v347;
       }
 
-      v349 = v657;
-      objc_autoreleasePoolPop(v50);
-      if (v657)
+      v348 = v652;
+      objc_autoreleasePoolPop(v49);
+      if (v652)
       {
-        v613 = v657;
+        v608 = v652;
       }
 
       goto LABEL_631;
     case 0x10:
       if (+[NSXPCStoreServer debugDefault])
       {
-        v32 = objc_autoreleasePoolPush();
+        v31 = objc_autoreleasePoolPush();
         if (_NSCoreDataIsOSLogEnabled(8))
         {
           if (_pflogging_catastrophic_mode)
           {
-            v33 = _PFLogGetLogStream(1);
-            if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+            v32 = _PFLogGetLogStream(1);
+            if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
             {
               *buf = 0;
-              _os_log_error_impl(&dword_18565F000, v33, OS_LOG_TYPE_ERROR, "CoreData: error: Batch insert\n", buf, 2u);
+              _os_log_error_impl(&dword_18565F000, v32, OS_LOG_TYPE_ERROR, "CoreData: error: Batch insert\n", buf, 2u);
             }
           }
 
           else
           {
-            v168 = _PFLogGetLogStream(8);
-            if (os_log_type_enabled(v168, OS_LOG_TYPE_DEFAULT))
+            v167 = _PFLogGetLogStream(8);
+            if (os_log_type_enabled(v167, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 0;
-              _os_log_impl(&dword_18565F000, v168, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Batch insert\n", buf, 2u);
+              _os_log_impl(&dword_18565F000, v167, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Batch insert\n", buf, 2u);
             }
           }
         }
 
         if (_pflogging_catastrophic_mode)
         {
-          v169 = 1;
+          v168 = 1;
         }
 
         else
         {
-          v169 = 8;
+          v168 = 8;
         }
 
-        _NSCoreDataLog_console(v169, "Batch insert");
-        objc_autoreleasePoolPop(v32);
+        _NSCoreDataLog_console(v168, "Batch insert");
+        objc_autoreleasePoolPop(v31);
       }
 
-      v170 = *(v612 + 40);
-      if (v170)
+      v169 = *(v607 + 40);
+      if (v169)
       {
-        v171 = *(v170 + 24);
+        v170 = *(v169 + 24);
       }
 
       else
       {
-        v171 = 0;
+        v170 = 0;
       }
 
-      v172 = *(v612 + 64);
-      if (!v172)
+      v171 = *(v607 + 64);
+      if (!v171)
       {
-        goto LABEL_1137;
+        goto LABEL_1134;
       }
 
-      v173 = *(v612 + 56);
-      *&v657 = 0;
-      v174 = objc_autoreleasePoolPush();
-      v175 = [NSBatchInsertRequest decodeFromXPCArchive:v171 withContext:v173 withPolicy:*(v172 + 64)];
-      if (v175)
+      v172 = *(v607 + 56);
+      *&v652 = 0;
+      v173 = objc_autoreleasePoolPush();
+      v174 = [NSBatchInsertRequest decodeFromXPCArchive:v170 withContext:v172 withPolicy:*(v171 + 64)];
+      if (v174)
       {
-        v52 = [*(v172 + 64) processRequest:v175 fromClientWithContext:v173 error:&v657];
+        v51 = [*(v171 + 64) processRequest:v174 fromClientWithContext:v172 error:&v652];
         if (+[NSXPCStoreServer debugDefault])
         {
-          v176 = objc_autoreleasePoolPush();
+          v175 = objc_autoreleasePoolPush();
           _pflogInitialize(8);
           if (_NSCoreDataIsLogEnabled(8) && _pflogging_enable_oslog >= 1)
           {
             if (_pflogging_catastrophic_mode)
             {
-              v177 = _PFLogGetLogStream(1);
-              if (os_log_type_enabled(v177, OS_LOG_TYPE_ERROR))
+              v176 = _PFLogGetLogStream(1);
+              if (os_log_type_enabled(v176, OS_LOG_TYPE_ERROR))
               {
                 *buf = 138412290;
-                *&buf[4] = v52;
-                _os_log_error_impl(&dword_18565F000, v177, OS_LOG_TYPE_ERROR, "CoreData: error: Which had result %@\n", buf, 0xCu);
+                *&buf[4] = v51;
+                _os_log_error_impl(&dword_18565F000, v176, OS_LOG_TYPE_ERROR, "CoreData: error: Which had result %@\n", buf, 0xCu);
               }
             }
 
             else
             {
-              v338 = _PFLogGetLogStream(8);
-              if (os_log_type_enabled(v338, OS_LOG_TYPE_DEFAULT))
+              v337 = _PFLogGetLogStream(8);
+              if (os_log_type_enabled(v337, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 138412290;
-                *&buf[4] = v52;
-                _os_log_impl(&dword_18565F000, v338, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Which had result %@\n", buf, 0xCu);
+                *&buf[4] = v51;
+                _os_log_impl(&dword_18565F000, v337, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Which had result %@\n", buf, 0xCu);
               }
             }
           }
 
           if (_pflogging_catastrophic_mode)
           {
-            v339 = 1;
+            v338 = 1;
           }
 
           else
           {
-            v339 = 8;
+            v338 = 8;
           }
 
-          _NSCoreDataLog_console(v339, "Which had result %@", v52);
-          objc_autoreleasePoolPop(v176);
+          _NSCoreDataLog_console(v338, "Which had result %@", v51);
+          objc_autoreleasePoolPop(v175);
         }
 
-        if (v52)
+        if (v51)
         {
-          v52 = +[_NSXPCStoreUtilities newSecureArchivedDataWithRootObject:](_NSXPCStoreUtilities, [v52 result]);
+          v51 = +[_NSXPCStoreUtilities newSecureArchivedDataWithRootObject:](_NSXPCStoreUtilities, [v51 result]);
         }
       }
 
       else
       {
-        v178 = objc_autoreleasePoolPush();
+        v177 = objc_autoreleasePoolPush();
         _pflogInitialize(8);
         if (_NSCoreDataIsLogEnabled(8) && _pflogging_enable_oslog >= 1)
         {
           if (_pflogging_catastrophic_mode)
           {
-            v179 = _PFLogGetLogStream(1);
-            if (os_log_type_enabled(v179, OS_LOG_TYPE_ERROR))
+            v178 = _PFLogGetLogStream(1);
+            if (os_log_type_enabled(v178, OS_LOG_TYPE_ERROR))
             {
               *buf = 0;
-              _os_log_error_impl(&dword_18565F000, v179, OS_LOG_TYPE_ERROR, "CoreData: error: Nil batch insert request\n", buf, 2u);
+              _os_log_error_impl(&dword_18565F000, v178, OS_LOG_TYPE_ERROR, "CoreData: error: Nil batch insert request\n", buf, 2u);
             }
           }
 
           else
           {
-            v356 = _PFLogGetLogStream(8);
-            if (os_log_type_enabled(v356, OS_LOG_TYPE_DEFAULT))
+            v355 = _PFLogGetLogStream(8);
+            if (os_log_type_enabled(v355, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 0;
-              _os_log_impl(&dword_18565F000, v356, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Nil batch insert request\n", buf, 2u);
+              _os_log_impl(&dword_18565F000, v355, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Nil batch insert request\n", buf, 2u);
             }
           }
         }
 
         if (_pflogging_catastrophic_mode)
         {
-          v357 = 1;
+          v356 = 1;
         }
 
         else
         {
-          v357 = 8;
+          v356 = 8;
         }
 
-        _NSCoreDataLog_console(v357, "Nil batch insert request");
-        objc_autoreleasePoolPop(v178);
-        v358 = MEMORY[0x1E696ABC0];
-        *v654 = *MEMORY[0x1E696A588];
+        _NSCoreDataLog_console(v356, "Nil batch insert request");
+        objc_autoreleasePoolPop(v177);
+        v357 = MEMORY[0x1E696ABC0];
+        *v649 = *MEMORY[0x1E696A588];
         *buf = @"Unable to decode request, ensure policy allows for inserted class values";
-        v359 = [MEMORY[0x1E695DF20] dictionaryWithObjects:buf forKeys:v654 count:1];
-        v360 = [v358 errorWithDomain:*MEMORY[0x1E696A250] code:134070 userInfo:v359];
-        v52 = 0;
-        *&v657 = v360;
+        v358 = [MEMORY[0x1E695DF20] dictionaryWithObjects:buf forKeys:v649 count:1];
+        v359 = [v357 errorWithDomain:*MEMORY[0x1E696A250] code:134070 userInfo:v358];
+        v51 = 0;
+        *&v652 = v359;
       }
 
-      v361 = v657;
-      objc_autoreleasePoolPop(v174);
-      if (v657)
+      v360 = v652;
+      objc_autoreleasePoolPop(v173);
+      if (v652)
       {
-        v613 = v657;
+        v608 = v652;
       }
 
 LABEL_631:
-      v362 = v657;
-      v314 = v52;
+      v361 = v652;
+      v313 = v51;
       goto LABEL_1032;
     case 0x11:
       if (+[NSXPCStoreServer debugDefault])
       {
-        v34 = objc_autoreleasePoolPush();
+        v33 = objc_autoreleasePoolPush();
         if (_NSCoreDataIsOSLogEnabled(8))
         {
           if (_pflogging_catastrophic_mode)
           {
-            v35 = _PFLogGetLogStream(1);
-            if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+            v34 = _PFLogGetLogStream(1);
+            if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
             {
               *buf = 0;
-              _os_log_error_impl(&dword_18565F000, v35, OS_LOG_TYPE_ERROR, "CoreData: error: Query generation active connections\n", buf, 2u);
+              _os_log_error_impl(&dword_18565F000, v34, OS_LOG_TYPE_ERROR, "CoreData: error: Query generation active connections\n", buf, 2u);
             }
           }
 
           else
           {
-            v180 = _PFLogGetLogStream(8);
-            if (os_log_type_enabled(v180, OS_LOG_TYPE_DEFAULT))
+            v179 = _PFLogGetLogStream(8);
+            if (os_log_type_enabled(v179, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 0;
-              _os_log_impl(&dword_18565F000, v180, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Query generation active connections\n", buf, 2u);
+              _os_log_impl(&dword_18565F000, v179, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Query generation active connections\n", buf, 2u);
             }
           }
         }
 
         if (_pflogging_catastrophic_mode)
         {
-          v181 = 1;
+          v180 = 1;
         }
 
         else
         {
-          v181 = 8;
+          v180 = 8;
         }
 
-        _NSCoreDataLog_console(v181, "Query generation active connections");
-        objc_autoreleasePoolPop(v34);
+        _NSCoreDataLog_console(v180, "Query generation active connections");
+        objc_autoreleasePoolPop(v33);
       }
 
-      if (!*(v612 + 64))
+      if (!*(v607 + 64))
       {
 LABEL_488:
-        v13 = 0;
+        v12 = 0;
         goto LABEL_1033;
       }
 
-      v182 = *(v612 + 56);
-      v9 = objc_autoreleasePoolPush();
-      v183 = [objc_msgSend(objc_msgSend(v182 "persistentStoreCoordinator")];
-      if (v183)
+      v181 = *(v607 + 56);
+      v8 = objc_autoreleasePoolPush();
+      v182 = [objc_msgSend(objc_msgSend(v181 "persistentStoreCoordinator")];
+      if (v182)
       {
-        v184 = [MEMORY[0x1E696AD98] numberWithBool:{objc_msgSend(v183, "_hasActiveGenerations")}];
+        v183 = [MEMORY[0x1E696AD98] numberWithBool:{objc_msgSend(v182, "_hasActiveGenerations")}];
       }
 
       else
       {
-        v185 = objc_autoreleasePoolPush();
+        v184 = objc_autoreleasePoolPush();
         _pflogInitialize(8);
         if (_NSCoreDataIsLogEnabled(8) && _pflogging_enable_oslog >= 1)
         {
           if (_pflogging_catastrophic_mode)
           {
-            v186 = _PFLogGetLogStream(1);
-            if (os_log_type_enabled(v186, OS_LOG_TYPE_ERROR))
+            v185 = _PFLogGetLogStream(1);
+            if (os_log_type_enabled(v185, OS_LOG_TYPE_ERROR))
             {
               *buf = 0;
-              _os_log_error_impl(&dword_18565F000, v186, OS_LOG_TYPE_ERROR, "CoreData: error: no store\n", buf, 2u);
+              _os_log_error_impl(&dword_18565F000, v185, OS_LOG_TYPE_ERROR, "CoreData: error: no store\n", buf, 2u);
             }
           }
 
           else
           {
-            v363 = _PFLogGetLogStream(8);
-            if (os_log_type_enabled(v363, OS_LOG_TYPE_DEFAULT))
+            v362 = _PFLogGetLogStream(8);
+            if (os_log_type_enabled(v362, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 0;
-              _os_log_impl(&dword_18565F000, v363, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: no store\n", buf, 2u);
+              _os_log_impl(&dword_18565F000, v362, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: no store\n", buf, 2u);
             }
           }
         }
 
         if (_pflogging_catastrophic_mode)
         {
-          v364 = 1;
+          v363 = 1;
         }
 
         else
         {
-          v364 = 8;
+          v363 = 8;
         }
 
-        _NSCoreDataLog_console(v364, "no store");
-        objc_autoreleasePoolPop(v185);
-        v184 = &unk_1EF435A58;
+        _NSCoreDataLog_console(v363, "no store");
+        objc_autoreleasePoolPop(v184);
+        v183 = &unk_1EF435A58;
       }
 
       if (+[NSXPCStoreServer debugDefault])
       {
-        v365 = objc_autoreleasePoolPush();
+        v364 = objc_autoreleasePoolPush();
         _pflogInitialize(8);
         if (_NSCoreDataIsLogEnabled(8) && _pflogging_enable_oslog >= 1)
         {
           if (_pflogging_catastrophic_mode)
           {
-            v366 = _PFLogGetLogStream(1);
-            if (os_log_type_enabled(v366, OS_LOG_TYPE_ERROR))
+            v365 = _PFLogGetLogStream(1);
+            if (os_log_type_enabled(v365, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412290;
-              *&buf[4] = v184;
-              _os_log_error_impl(&dword_18565F000, v366, OS_LOG_TYPE_ERROR, "CoreData: error: Got active connections %@\n", buf, 0xCu);
+              *&buf[4] = v183;
+              _os_log_error_impl(&dword_18565F000, v365, OS_LOG_TYPE_ERROR, "CoreData: error: Got active connections %@\n", buf, 0xCu);
             }
           }
 
           else
           {
-            v367 = _PFLogGetLogStream(8);
-            if (os_log_type_enabled(v367, OS_LOG_TYPE_DEFAULT))
+            v366 = _PFLogGetLogStream(8);
+            if (os_log_type_enabled(v366, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138412290;
-              *&buf[4] = v184;
-              _os_log_impl(&dword_18565F000, v367, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Got active connections %@\n", buf, 0xCu);
+              *&buf[4] = v183;
+              _os_log_impl(&dword_18565F000, v366, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Got active connections %@\n", buf, 0xCu);
             }
           }
         }
 
         if (_pflogging_catastrophic_mode)
         {
-          v368 = 1;
+          v367 = 1;
         }
 
         else
         {
-          v368 = 8;
+          v367 = 8;
         }
 
-        _NSCoreDataLog_console(v368, "Got active connections %@", v184);
-        objc_autoreleasePoolPop(v365);
+        _NSCoreDataLog_console(v367, "Got active connections %@", v183);
+        objc_autoreleasePoolPop(v364);
       }
 
-      v305 = [_NSXPCStoreUtilities newSecureArchivedDataWithRootObject:v184];
+      v304 = [_NSXPCStoreUtilities newSecureArchivedDataWithRootObject:v183];
       if (!+[NSXPCStoreServer debugDefault])
       {
         goto LABEL_1030;
       }
 
-      v369 = objc_autoreleasePoolPush();
+      v368 = objc_autoreleasePoolPush();
       _pflogInitialize(8);
       if (_NSCoreDataIsLogEnabled(8) && _pflogging_enable_oslog >= 1)
       {
         if (_pflogging_catastrophic_mode)
         {
-          v370 = _PFLogGetLogStream(1);
-          if (os_log_type_enabled(v370, OS_LOG_TYPE_ERROR))
+          v369 = _PFLogGetLogStream(1);
+          if (os_log_type_enabled(v369, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412290;
-            *&buf[4] = v305;
-            _os_log_error_impl(&dword_18565F000, v370, OS_LOG_TYPE_ERROR, "CoreData: error: Which archives to %@\n", buf, 0xCu);
+            *&buf[4] = v304;
+            _os_log_error_impl(&dword_18565F000, v369, OS_LOG_TYPE_ERROR, "CoreData: error: Which archives to %@\n", buf, 0xCu);
           }
         }
 
         else
         {
-          v371 = _PFLogGetLogStream(8);
-          if (os_log_type_enabled(v371, OS_LOG_TYPE_DEFAULT))
+          v370 = _PFLogGetLogStream(8);
+          if (os_log_type_enabled(v370, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            *&buf[4] = v305;
-            _os_log_impl(&dword_18565F000, v371, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Which archives to %@\n", buf, 0xCu);
+            *&buf[4] = v304;
+            _os_log_impl(&dword_18565F000, v370, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Which archives to %@\n", buf, 0xCu);
           }
         }
       }
 
       if (_pflogging_catastrophic_mode)
       {
-        v372 = 1;
+        v371 = 1;
       }
 
       else
       {
-        v372 = 8;
+        v371 = 8;
       }
 
 LABEL_661:
-      _NSCoreDataLog_console(v372, "Which archives to %@", v305);
+      _NSCoreDataLog_console(v371, "Which archives to %@", v304);
       goto LABEL_1029;
     default:
-      goto LABEL_1144;
+      goto LABEL_1141;
   }
 }
 
@@ -5807,7 +5791,7 @@ LABEL_13:
 
 - (NSQueryGenerationToken)unpackQueryGeneration:(uint64_t)generation withContext:(void *)context
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v4 = objc_autoreleasePoolPush();
   if ([@"current" isEqual:generation])
   {
@@ -5853,7 +5837,7 @@ LABEL_13:
   v12 = v5;
   if (v5)
   {
-    v20 = 0;
+    v19 = 0;
     if (([objc_msgSend(context "managedObjectContext")] & 1) == 0 && +[NSXPCStoreServer debugDefault](NSXPCStoreServer, "debugDefault"))
     {
       v13 = objc_autoreleasePoolPush();
@@ -5867,10 +5851,10 @@ LABEL_13:
           {
             *buf = 138412802;
             generationCopy2 = generation;
-            v23 = 2112;
-            v24 = v12;
-            v25 = 2112;
-            v26 = v20;
+            v22 = 2112;
+            v23 = v12;
+            v24 = 2112;
+            v25 = v19;
             _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: error: Failed to set query generation on context: %@ -> %@ (%@)\n", buf, 0x20u);
           }
         }
@@ -5882,10 +5866,10 @@ LABEL_13:
           {
             *buf = 138412802;
             generationCopy2 = generation;
-            v23 = 2112;
-            v24 = v12;
-            v25 = 2112;
-            v26 = v20;
+            v22 = 2112;
+            v23 = v12;
+            v24 = 2112;
+            v25 = v19;
             _os_log_impl(&dword_18565F000, v16, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Failed to set query generation on context: %@ -> %@ (%@)\n", buf, 0x20u);
           }
         }
@@ -5901,36 +5885,33 @@ LABEL_13:
         v17 = 8;
       }
 
-      _NSCoreDataLog_console(v17, "Failed to set query generation on context: %@ -> %@ (%@)", generation, v12, v20);
+      _NSCoreDataLog_console(v17, "Failed to set query generation on context: %@ -> %@ (%@)", generation, v12, v19);
       objc_autoreleasePoolPop(v13);
       v12 = 0;
     }
 
     v18 = v12;
     objc_autoreleasePoolPop(v4);
-    result = v12;
+    return v12;
   }
 
   else
   {
     objc_autoreleasePoolPop(v4);
-    result = 0;
+    return 0;
   }
-
-  v19 = *MEMORY[0x1E69E9840];
-  return result;
 }
 
 - (uint64_t)_populateObject:(void *)object withValuesFromClient:(void *)client
 {
-  v72 = *MEMORY[0x1E69E9840];
+  v71 = *MEMORY[0x1E69E9840];
   v4 = objc_alloc_init(MEMORY[0x1E696AAC8]);
   managedObjectContext = [object managedObjectContext];
   entity = [object entity];
   [object _setVersionReference__:{objc_msgSend(objc_msgSend(client, "objectAtIndex:", 1), "longLongValue")}];
   clientCopy = client;
-  v60 = [client objectAtIndex:2];
-  v52 = v4;
+  v59 = [client objectAtIndex:2];
+  v51 = v4;
   if (entity)
   {
     v7 = entity[14];
@@ -5946,10 +5927,10 @@ LABEL_13:
   v10 = v7[7];
   null = [MEMORY[0x1E695DFB0] null];
   v11 = v9 < v10 + v9;
-  v54 = v8;
+  v53 = v8;
   if (v9 < v10 + v9)
   {
-    v55 = v7;
+    v54 = v7;
     v12 = v8;
     v13 = 0;
     v14 = v10 + 3;
@@ -5959,10 +5940,10 @@ LABEL_13:
     {
       name = [*v16 name];
       v18 = [clientCopy objectAtIndex:v15];
-      if (v18 != v60)
+      if (v18 != v59)
       {
         v19 = v18;
-        v20 = [object valueForKey:name];
+        v20 = objc_msgSend_valueForKey_(object);
         if (v20 != v19 && ([v20 isEqual:v19] & 1) == 0)
         {
           break;
@@ -5971,7 +5952,7 @@ LABEL_13:
 
       if ((v13 & 1) == 0)
       {
-        v21 = [object valueForKey:name];
+        v21 = objc_msgSend_valueForKey_(object);
 LABEL_14:
         [object setValue:v21 forKey:name];
       }
@@ -5981,8 +5962,8 @@ LABEL_14:
       v13 = 1;
       if (!--v10)
       {
-        v8 = v54;
-        v7 = v55;
+        v8 = v53;
+        v7 = v54;
         goto LABEL_18;
       }
     }
@@ -6010,20 +5991,20 @@ LABEL_18:
     goto LABEL_32;
   }
 
-  v56 = v23 + v14;
+  v55 = v23 + v14;
   v24 = (v8 + 8 * v22);
   do
   {
     name2 = [*v24 name];
     v26 = [clientCopy objectAtIndex:v14];
-    if (v26 == v60 || (v27 = v26, v28 = [object valueForKey:name2], v28 == v27) || (objc_msgSend(v28, "isEqual:", v27) & 1) != 0)
+    if (v26 == v59 || (v27 = v26, v28 = objc_msgSend_valueForKey_(object), v28 == v27) || ([v28 isEqual:v27] & 1) != 0)
     {
       if (v11)
       {
         goto LABEL_29;
       }
 
-      v29 = [object valueForKey:name2];
+      v29 = objc_msgSend_valueForKey_(object);
     }
 
     else
@@ -6048,23 +6029,23 @@ LABEL_29:
   }
 
   while (v23);
-  v14 = v56;
+  v14 = v55;
 LABEL_32:
   v32 = v7[14];
   v31 = v7[15];
   if (v32 < v31 + v32)
   {
-    v57 = v31 + v14;
+    v56 = v31 + v14;
     do
     {
       v33 = objc_autoreleasePoolPush();
       name3 = [*(v8 + 8 * v32) name];
       v35 = [clientCopy objectAtIndex:v14];
-      if (v60 == [v35 objectAtIndex:0])
+      if (v59 == [v35 objectAtIndex:0])
       {
         if (!v11)
         {
-          [objectCopy setValue:objc_msgSend(objectCopy forKey:{"valueForKey:", name3), name3}];
+          [objectCopy setValue:objc_msgSend_valueForKey_(objectCopy) forKey:name3];
         }
 
         v11 = 1;
@@ -6074,30 +6055,30 @@ LABEL_32:
       {
         v36 = [v35 objectAtIndex:0];
         v37 = [v35 objectAtIndex:1];
-        v59 = [objectCopy mutableSetValueForKey:name3];
+        v58 = [objectCopy mutableSetValueForKey:name3];
         if ([v36 count])
         {
           v38 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+          v65 = 0u;
           v66 = 0u;
           v67 = 0u;
           v68 = 0u;
-          v69 = 0u;
-          v39 = [v36 countByEnumeratingWithState:&v66 objects:v71 count:16];
+          v39 = [v36 countByEnumeratingWithState:&v65 objects:v70 count:16];
           if (v39)
           {
             v40 = v39;
-            v41 = *v67;
+            v41 = *v66;
             do
             {
               v42 = 0;
               do
               {
-                if (*v67 != v41)
+                if (*v66 != v41)
                 {
                   objc_enumerationMutation(v36);
                 }
 
-                v43 = [managedObjectContext existingObjectWithID:*(*(&v66 + 1) + 8 * v42) error:0];
+                v43 = [managedObjectContext existingObjectWithID:*(*(&v65 + 1) + 8 * v42) error:0];
                 if (v43)
                 {
                   [v38 addObject:v43];
@@ -6107,41 +6088,41 @@ LABEL_32:
               }
 
               while (v40 != v42);
-              v40 = [v36 countByEnumeratingWithState:&v66 objects:v71 count:16];
+              v40 = [v36 countByEnumeratingWithState:&v65 objects:v70 count:16];
             }
 
             while (v40);
           }
 
-          [v59 unionSet:v38];
+          [v58 unionSet:v38];
 
           v11 = 1;
-          v8 = v54;
+          v8 = v53;
         }
 
         if ([v37 count])
         {
           v44 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+          v61 = 0u;
           v62 = 0u;
           v63 = 0u;
           v64 = 0u;
-          v65 = 0u;
-          v45 = [v37 countByEnumeratingWithState:&v62 objects:v70 count:16];
+          v45 = [v37 countByEnumeratingWithState:&v61 objects:v69 count:16];
           if (v45)
           {
             v46 = v45;
-            v47 = *v63;
+            v47 = *v62;
             do
             {
               v48 = 0;
               do
               {
-                if (*v63 != v47)
+                if (*v62 != v47)
                 {
                   objc_enumerationMutation(v37);
                 }
 
-                v49 = [managedObjectContext existingObjectWithID:*(*(&v62 + 1) + 8 * v48) error:0];
+                v49 = [managedObjectContext existingObjectWithID:*(*(&v61 + 1) + 8 * v48) error:0];
                 if (v49)
                 {
                   [v44 addObject:v49];
@@ -6151,16 +6132,16 @@ LABEL_32:
               }
 
               while (v46 != v48);
-              v46 = [v37 countByEnumeratingWithState:&v62 objects:v70 count:16];
+              v46 = [v37 countByEnumeratingWithState:&v61 objects:v69 count:16];
             }
 
             while (v46);
           }
 
-          [v59 minusSet:v44];
+          [v58 minusSet:v44];
 
           v11 = 1;
-          v8 = v54;
+          v8 = v53;
         }
       }
 
@@ -6169,12 +6150,10 @@ LABEL_32:
       ++v32;
     }
 
-    while (v14 != v57);
+    while (v14 != v56);
   }
 
-  result = [v52 drain];
-  v51 = *MEMORY[0x1E69E9840];
-  return result;
+  return [v51 drain];
 }
 
 @end

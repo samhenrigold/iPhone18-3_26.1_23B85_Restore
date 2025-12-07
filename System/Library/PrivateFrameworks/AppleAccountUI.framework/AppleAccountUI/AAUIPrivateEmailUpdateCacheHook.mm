@@ -45,7 +45,7 @@ void __73__AAUIPrivateEmailUpdateCacheHook__removePrivateEmailKey_withCompletion
 {
   v12 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = _AAUILogSystem();
+  v4 = _AAUILogSystem(v3);
   v5 = v4;
   if (v3)
   {

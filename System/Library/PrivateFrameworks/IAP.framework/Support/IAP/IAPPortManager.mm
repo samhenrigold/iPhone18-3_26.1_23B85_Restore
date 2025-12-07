@@ -15,6 +15,7 @@
 - (void)restoreAvailableCurrentFromAcc;
 - (void)setAccessoryPowerModeOnDuringSleep:(BOOL)sleep;
 - (void)setAccessoryPowerState:(int)state;
+- (void)setAvailableCurrentFromAccInMa:(unsigned __int16)ma;
 - (void)setInternalBatteryChargingState:(BOOL)state;
 - (void)setMaxInputCurrentFromAccInMa:(unsigned __int16)ma;
 - (void)setReserveCurrentForAccInMa:(unsigned __int16)ma;
@@ -24,9 +25,9 @@
 
 - (IAPPortManager)initWithService:(unsigned int)service andNotificationPort:(IONotificationPort *)port
 {
-  v16.receiver = self;
-  v16.super_class = IAPPortManager;
-  result = [(IAPPortManager *)&v16 init];
+  v14.receiver = self;
+  v14.super_class = IAPPortManager;
+  result = [(IAPPortManager *)&v14 init];
   v7 = result;
   if (!result)
   {
@@ -69,9 +70,7 @@
           IOServiceClose(connect);
         }
 
-        v13 = [NSNumber alloc];
-        service = v7->_service;
-        result = [v13 initWithInt:IOAccessoryManagerGetPrimaryPort()];
+        result = [[NSNumber alloc] initWithInt:IOAccessoryManagerGetPrimaryPort()];
         if ((&v7->_portNumber & 7) == 0)
         {
           v7->_portNumber = result;
@@ -224,7 +223,6 @@ LABEL_19:
       return self;
     }
 
-    service = self->_service;
     supportsUltraHighPowerMode = IOAccessoryManagerPowerModeIsSupported() != 0;
     selfCopy->_supportsUltraHighPowerMode = supportsUltraHighPowerMode;
   }
@@ -245,7 +243,6 @@ LABEL_19:
       return self;
     }
 
-    service = self->_service;
     supportsPowerModeOnAcrossSleep = IOAccessoryManagerPowerDuringSleepIsSupported() != 0;
     selfCopy->_supportsPowerModeOnAcrossSleep = supportsPowerModeOnAcrossSleep;
   }
@@ -263,7 +260,6 @@ LABEL_19:
 
   else
   {
-    service = self->_service;
     LOBYTE(self) = IOAccessoryManagerGetPowerDuringSleep() != 0;
   }
 
@@ -326,7 +322,6 @@ LABEL_19:
 
   else
   {
-    service = self->_service;
     USBCurrentLimitBase = IOAccessoryManagerGetUSBCurrentLimitBase();
     if (USBCurrentLimitBase == -536870183)
     {
@@ -342,6 +337,67 @@ LABEL_19:
   }
 
   return self;
+}
+
+- (void)setAvailableCurrentFromAccInMa:(unsigned __int16)ma
+{
+  connect = 0;
+  if ((&self->_service & 3) != 0)
+  {
+    goto LABEL_17;
+  }
+
+  maCopy = ma;
+  v5 = IOServiceOpen(self->_service, mach_task_self_, 0, &connect);
+  if (v5)
+  {
+    v6 = 1;
+  }
+
+  else
+  {
+    v6 = connect == 0;
+  }
+
+  if (v6)
+  {
+    NSLog(@"ERROR - %s:%s - %d IOServiceOpen failed %#x\n", "/Library/Caches/com.apple.xbs/Sources/iapd/iapd/IAPPortManager.mm", "[IAPPortManager setAvailableCurrentFromAccInMa:]", 328, v5);
+    return;
+  }
+
+  self->_sendReserveCurrentNotification = 0;
+  v7 = IOAccessoryManagerSetUSBCurrentLimitBase();
+  if (v7)
+  {
+    if (v7 == -536870183)
+    {
+      NSLog(@"INFO - %s:%s - %d IOAccessoryManagerSetUSBCurrentLimitBase not attached %#x\n", "/Library/Caches/com.apple.xbs/Sources/iapd/iapd/IAPPortManager.mm", "[IAPPortManager setAvailableCurrentFromAccInMa:]", 337, 3758097113);
+    }
+
+    else
+    {
+      NSLog(@"ERROR - %s:%s - %d IOAccessoryManagerSetUSBCurrentLimitBase failed %#x\n", "/Library/Caches/com.apple.xbs/Sources/iapd/iapd/IAPPortManager.mm", "[IAPPortManager setAvailableCurrentFromAccInMa:]", 341, v7);
+    }
+
+    goto LABEL_15;
+  }
+
+  v8 = sub_100026FA0([(NSNumber *)[(IAPPortManager *)self portNumber] intValue]);
+  if (v8)
+  {
+    if ((v8 & 7) == 0)
+    {
+      (*(*v8 + 336))(v8, maCopy);
+      goto LABEL_15;
+    }
+
+LABEL_17:
+    __break(0x5516u);
+    return;
+  }
+
+LABEL_15:
+  IOServiceClose(connect);
 }
 
 - (void)restoreAvailableCurrentFromAcc
@@ -402,7 +458,6 @@ LABEL_19:
 
   else
   {
-    service = self->_service;
     USBCurrentLimitOffset = IOAccessoryManagerGetUSBCurrentLimitOffset();
     if (USBCurrentLimitOffset)
     {
@@ -484,7 +539,6 @@ LABEL_19:
 
   else
   {
-    service = self->_service;
     USBCurrentLimitMaximum = IOAccessoryManagerGetUSBCurrentLimitMaximum();
     if (USBCurrentLimitMaximum == -536870160)
     {
@@ -554,16 +608,16 @@ LABEL_19:
     }
   }
 
-  v8 = v7;
-  v9 = sub_100048620();
-  if (!v9 || (v9 & 7) != 0)
+  v9 = v7;
+  v10 = sub_100048620(v7, v8);
+  if (!v10 || (v10 & 7) != 0)
   {
 LABEL_20:
     __break(0x5516u);
     return;
   }
 
-  sub_10004A478(v9, v8, 0);
+  sub_10004A478(v10, v9, 0);
 LABEL_17:
   IOServiceClose(connect);
 }
@@ -624,7 +678,6 @@ LABEL_17:
 
   else
   {
-    service = self->_service;
     LOBYTE(self) = IOAccessoryManagerGetBatteryPackMode() == 0;
   }
 

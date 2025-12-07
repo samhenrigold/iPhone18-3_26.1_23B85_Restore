@@ -13,25 +13,24 @@
 
 + (void)saveBetaEnrollmentTokens:(id)tokens
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   tokensCopy = tokens;
   v5 = +[SDSeedingLogging betaHandle];
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 136446210;
-    v10 = "+[SDPersistence saveBetaEnrollmentTokens:]";
-    _os_log_impl(&dword_22E41E000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}s", &v9, 0xCu);
+    v8 = 136446210;
+    v9 = "+[SDPersistence saveBetaEnrollmentTokens:]";
+    _os_log_impl(&dword_22E41E000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}s", &v8, 0xCu);
   }
 
   v6 = [SDMDMConfiguration defaultConfigurationForSetupAssistantFlowWithTokens:tokensCopy];
 
   v7 = [self saveMDMConfiguration:v6];
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 + (id)betaEnrollmentTokensFromOldLocation
 {
-  v2 = SeedingDefaults();
+  v2 = SeedingDefaults(self);
   v3 = [v2 arrayForKey:@"BetaEnrollmentTokens"];
 
   if (v3)
@@ -58,13 +57,13 @@
 
 + (id)saveMDMConfiguration:(id)configuration
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   configurationCopy = configuration;
   v5 = +[SDSeedingLogging betaHandle];
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446210;
-    v22 = "+[SDPersistence saveMDMConfiguration:]";
+    v21 = "+[SDPersistence saveMDMConfiguration:]";
     _os_log_impl(&dword_22E41E000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}s", buf, 0xCu);
   }
 
@@ -72,9 +71,9 @@
   v6 = [self persistenceDirectory:1];
   if (v6)
   {
-    v20 = 0;
-    v7 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:configurationCopy requiringSecureCoding:1 error:&v20];
-    v8 = v20;
+    v19 = 0;
+    v7 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:configurationCopy requiringSecureCoding:1 error:&v19];
+    v8 = v19;
     if (v8)
     {
       v9 = +[SDSeedingLogging betaHandle];
@@ -90,9 +89,9 @@
     {
       v11 = [v6 URLByAppendingPathComponent:@"MDMConfiguration.plist"];
       path = [v11 path];
-      v19 = 0;
-      [v7 writeToFile:path options:1 error:&v19];
-      v10 = v19;
+      v18 = 0;
+      [v7 writeToFile:path options:1 error:&v18];
+      v10 = v18;
 
       v13 = +[SDSeedingLogging betaHandle];
       v14 = v13;
@@ -112,7 +111,7 @@
         {
           path2 = [v11 path];
           *buf = 138543362;
-          v22 = path2;
+          v21 = path2;
           _os_log_impl(&dword_22E41E000, v14, OS_LOG_TYPE_DEFAULT, "Saved [%{public}@]", buf, 0xCu);
         }
       }
@@ -124,14 +123,12 @@
     v10 = SDGenericError();
   }
 
-  v17 = *MEMORY[0x277D85DE8];
-
   return v10;
 }
 
 + (id)loadMDMConfigurationWithError:(id *)error
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   betaEnrollmentTokensFromOldLocation = [self betaEnrollmentTokensFromOldLocation];
   if ([betaEnrollmentTokensFromOldLocation count])
   {
@@ -139,7 +136,7 @@
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v40 = betaEnrollmentTokensFromOldLocation;
+      v39 = betaEnrollmentTokensFromOldLocation;
       _os_log_impl(&dword_22E41E000, v6, OS_LOG_TYPE_DEFAULT, "Migrating beta enrollment tokens from old path with token: [%{public}@]", buf, 0xCu);
     }
 
@@ -163,9 +160,9 @@
       {
         v15 = MEMORY[0x277CBEA90];
         path2 = [v11 path];
-        v38 = 0;
-        v17 = [v15 dataWithContentsOfFile:path2 options:0 error:&v38];
-        v18 = v38;
+        v37 = 0;
+        v17 = [v15 dataWithContentsOfFile:path2 options:0 error:&v37];
+        v18 = v37;
 
         if (v18)
         {
@@ -189,9 +186,9 @@
 
         else
         {
-          v37 = 0;
-          v21 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClass:objc_opt_class() fromData:v17 error:&v37];
-          v22 = v37;
+          v36 = 0;
+          v21 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClass:objc_opt_class() fromData:v17 error:&v36];
+          v22 = v36;
           if (v22)
           {
             v23 = +[SDSeedingLogging betaHandle];
@@ -255,11 +252,11 @@
               v31 = [tokens count];
               configurationDate = [v21 configurationDate];
               *buf = 136446722;
-              v40 = v35;
-              v41 = 2048;
-              v42 = v31;
-              v43 = 2114;
-              v44 = configurationDate;
+              v39 = v34;
+              v40 = 2048;
+              v41 = v31;
+              v42 = 2114;
+              v43 = configurationDate;
               _os_log_impl(&dword_22E41E000, v28, OS_LOG_TYPE_DEFAULT, "Loaded MDM configuration: [%{public}s] with [%lu] tokens. Config date [%{public}@]", buf, 0x20u);
             }
 
@@ -303,14 +300,12 @@
     }
   }
 
-  v33 = *MEMORY[0x277D85DE8];
-
   return v7;
 }
 
 + (void)deleteBetaEnrollmentTokensFromOldLocations
 {
-  v2 = SeedingDefaults();
+  v2 = SeedingDefaults(self);
   [v2 removeObjectForKey:@"BetaEnrollmentTokens"];
 }
 
@@ -370,17 +365,15 @@ LABEL_13:
 
 void __38__SDPersistence_persistenceDirectory___block_invoke(uint64_t a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = +[SDSeedingLogging betaHandle];
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = [*(a1 + 32) path];
-    v5 = 138543362;
-    v6 = v3;
-    _os_log_impl(&dword_22E41E000, v2, OS_LOG_TYPE_DEFAULT, "Seeding directory [%{public}@]", &v5, 0xCu);
+    v4 = 138543362;
+    v5 = v3;
+    _os_log_impl(&dword_22E41E000, v2, OS_LOG_TYPE_DEFAULT, "Seeding directory [%{public}@]", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 + (id)containerURL
@@ -414,39 +407,13 @@ void __38__SDPersistence_persistenceDirectory___block_invoke(uint64_t a1)
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-+ (void)loadMDMConfigurationWithError:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
 + (void)loadMDMConfigurationWithError:(void *)a1 .cold.2(void *a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = [a1 description];
-  v5 = 138543362;
-  v6 = v3;
-  _os_log_error_impl(&dword_22E41E000, a2, OS_LOG_TYPE_ERROR, "Failed to deserialize MDM configuration object - %{public}@.", &v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
-}
-
-+ (void)loadMDMConfigurationWithError:.cold.3()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-+ (void)persistenceDirectory:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = 138543362;
+  v5 = v3;
+  _os_log_error_impl(&dword_22E41E000, a2, OS_LOG_TYPE_ERROR, "Failed to deserialize MDM configuration object - %{public}@.", &v4, 0xCu);
 }
 
 + (void)persistenceDirectory:.cold.2()

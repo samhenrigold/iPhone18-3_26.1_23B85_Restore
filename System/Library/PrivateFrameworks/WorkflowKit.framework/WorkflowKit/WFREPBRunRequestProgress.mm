@@ -90,9 +90,8 @@
     __assert_rtn("[WFREPBRunRequestProgress writeTo:]", "WFREPBRunRequestProgress.m", 79, "nil != self->_runRequestIdentifier");
   }
 
-  v6 = toCopy;
+  v5 = toCopy;
   PBDataWriterWriteStringField();
-  progress = self->_progress;
   PBDataWriterWriteDoubleField();
 }
 

@@ -4,7 +4,6 @@
 - (BOOL)isEqual:(id)equal;
 - (id)description;
 - (id)initInternalWithFormat:(id)format;
-- (void)disableStream;
 @end
 
 @implementation ATSpatialStreamParameters
@@ -75,13 +74,6 @@ LABEL_10:
   result = _os_crash();
   __break(1u);
   return result;
-}
-
-- (void)disableStream
-{
-  identifier = self->_identifier;
-  self->_identifier = 0;
-  MEMORY[0x1EEE66BB8]();
 }
 
 - (BOOL)enableStreamWithIdentifier:(id)identifier error:(id *)error

@@ -301,54 +301,55 @@ uint64_t __44__MXMOSSignpostProbe__setupProcessingBlocks__block_invoke_4(uint64_
 
 void __44__MXMOSSignpostProbe__setupProcessingBlocks__block_invoke_5(uint64_t a1, void *a2, void *a3)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
+  v8 = v6;
   if (v5)
   {
-    v7 = _MXMGetLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v9 = _MXMGetLog(v6, v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      v20 = 138412290;
-      v21 = v5;
-      _os_log_impl(&dword_258DAA000, v7, OS_LOG_TYPE_ERROR, "Extractor finished due to an error: '%@'.", &v20, 0xCu);
+      v26 = 138412290;
+      v27 = v5;
+      _os_log_impl(&dword_258DAA000, v9, OS_LOG_TYPE_ERROR, "Extractor finished due to an error: '%@'.", &v26, 0xCu);
     }
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v9 = WeakRetained;
+  v12 = WeakRetained;
   if (WeakRetained)
   {
-    v10 = WeakRetained[16];
-    v11 = [WeakRetained filter];
-    v12 = [v10 dataMatchingFilter:v11];
-    v13 = v9[16];
-    v9[16] = v12;
+    v13 = WeakRetained[16];
+    v14 = [WeakRetained filter];
+    v15 = [v13 dataMatchingFilter:v14];
+    v16 = v12[16];
+    v12[16] = v15;
 
-    v14 = v9[15];
-    if (v14)
+    v17 = v12[15];
+    if (v17)
     {
-      dispatch_semaphore_signal(v14);
-      v15 = _MXMGetLog();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+      v18 = dispatch_semaphore_signal(v17);
+      v20 = _MXMGetLog(v18, v19);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
       {
-        LOWORD(v20) = 0;
-        v16 = "Extractor finished and we've signaled the sampling caller.";
+        LOWORD(v26) = 0;
+        v21 = "Extractor finished and we've signaled the sampling caller.";
 LABEL_13:
-        v17 = v15;
-        v18 = OS_LOG_TYPE_DEBUG;
+        v22 = v20;
+        v23 = OS_LOG_TYPE_DEBUG;
         goto LABEL_14;
       }
     }
 
     else
     {
-      [v9 _stopUpdates];
-      v15 = _MXMGetLog();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+      v24 = [v12 _stopUpdates];
+      v20 = _MXMGetLog(v24, v25);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
       {
-        LOWORD(v20) = 0;
-        v16 = "Extractor finished and we've manually stopped updates.";
+        LOWORD(v26) = 0;
+        v21 = "Extractor finished and we've manually stopped updates.";
         goto LABEL_13;
       }
     }
@@ -356,24 +357,22 @@ LABEL_13:
 
   else
   {
-    v15 = _MXMGetLog();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+    v20 = _MXMGetLog(0, v11);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
     {
-      LOWORD(v20) = 0;
-      v16 = "Extractor called processingCompletionBlock but self is nil!";
-      v17 = v15;
-      v18 = OS_LOG_TYPE_INFO;
+      LOWORD(v26) = 0;
+      v21 = "Extractor called processingCompletionBlock but self is nil!";
+      v22 = v20;
+      v23 = OS_LOG_TYPE_INFO;
 LABEL_14:
-      _os_log_impl(&dword_258DAA000, v17, v18, v16, &v20, 2u);
+      _os_log_impl(&dword_258DAA000, v22, v23, v21, &v26, 2u);
     }
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_buildSampleSetWithData:(id)data tag:(id)tag unit:(id)unit attributes:(id)attributes signpostObject:(id)object
 {
-  v67[4] = *MEMORY[0x277D85DE8];
+  v66[4] = *MEMORY[0x277D85DE8];
   dataCopy = data;
   tagCopy = tag;
   unitCopy = unit;
@@ -386,21 +385,21 @@ LABEL_14:
   }
 
   name = [objectCopy name];
-  v61 = [MXMSampleAttribute attributeWithName:@"os_signpost name" stringValue:name];
-  v67[0] = v61;
+  v60 = [MXMSampleAttribute attributeWithName:@"os_signpost name" stringValue:name];
+  v66[0] = v60;
   subsystem = [objectCopy subsystem];
   v15 = [MXMSampleAttribute attributeWithName:@"os_signpost subsystem" stringValue:subsystem];
-  v67[1] = v15;
+  v66[1] = v15;
   category = [objectCopy category];
   v17 = [MXMSampleAttribute attributeWithName:@"os_signpost category" stringValue:category];
-  v67[2] = v17;
+  v66[2] = v17;
   v18 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{objc_msgSend(objectCopy, "signpostId")}];
   v19 = [MXMSampleAttribute attributeWithName:@"os_signpost identifier" numericValue:v18];
-  v67[3] = v19;
-  v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v67 count:4];
-  v60 = v13;
+  v66[3] = v19;
+  v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v66 count:4];
+  v59 = v13;
   v21 = [v13 setByAddingObjectsFromArray:v20];
-  v66 = [v21 mutableCopy];
+  v65 = [v21 mutableCopy];
 
   if (!attributesCopy)
   {
@@ -408,16 +407,16 @@ LABEL_14:
 
   string1Name = [objectCopy string1Name];
 
-  v23 = v66;
+  v23 = v65;
   if (string1Name)
   {
     string1Name2 = [objectCopy string1Name];
     v25 = [MXMSampleAttribute attributeWithName:@"os_signpost telemetry string1 name" stringValue:string1Name2];
-    [v66 addObject:v25];
+    [v65 addObject:v25];
 
     string1Value = [objectCopy string1Value];
     v27 = [MXMSampleAttribute attributeWithName:@"os_signpost telemetry string1 value" stringValue:string1Value];
-    [v66 addObject:v27];
+    [v65 addObject:v27];
   }
 
   string2Name = [objectCopy string2Name];
@@ -426,11 +425,11 @@ LABEL_14:
   {
     string2Name2 = [objectCopy string2Name];
     v30 = [MXMSampleAttribute attributeWithName:@"os_signpost telemetry string2 name" stringValue:string2Name2];
-    [v66 addObject:v30];
+    [v65 addObject:v30];
 
     string2Value = [objectCopy string2Value];
     v32 = [MXMSampleAttribute attributeWithName:@"os_signpost telemetry string2 value" stringValue:string2Value];
-    [v66 addObject:v32];
+    [v65 addObject:v32];
   }
 
   number1Value = [objectCopy number1Value];
@@ -441,11 +440,11 @@ LABEL_14:
     v35 = +[MXMOSSignpostSampleTag telemetryNumber1];
     number1Name = [objectCopy number1Name];
     v37 = [MXMSampleAttribute attributeWithName:@"os_signpost telemetry number1 name" stringValue:number1Name];
-    v38 = [v66 setByAddingObject:v37];
+    v38 = [v65 setByAddingObject:v37];
     v39 = [(MXMSampleSet *)v34 initWithTag:v35 unit:0 attributes:v38];
     [dataCopy appendSet:v39];
 
-    v23 = v66;
+    v23 = v65;
     number1Value2 = [objectCopy number1Value];
     [number1Value2 doubleValue];
     v42 = v41;
@@ -465,7 +464,7 @@ LABEL_14:
     v51 = [(MXMSampleSet *)v46 initWithTag:v47 unit:0 attributes:v50];
     [dataCopy appendSet:v51];
 
-    v23 = v66;
+    v23 = v65;
     number2Value2 = [objectCopy number2Value];
     [number2Value2 doubleValue];
     v54 = v53;
@@ -474,8 +473,6 @@ LABEL_14:
   }
 
   v57 = [(MXMSampleSet *)[MXMMutableSampleSet alloc] initWithTag:tagCopy unit:unitCopy attributes:v23];
-
-  v58 = *MEMORY[0x277D85DE8];
 
   return v57;
 }
@@ -740,37 +737,37 @@ void __88__MXMOSSignpostProbe__addAnimationNumberOfGlitchesToData_fromSignpostAn
 
 - (void)_addAnimationGlitchesTotalDurationToData:(id)data fromSignpostAnimationInterval:(id)interval
 {
-  v55 = *MEMORY[0x277D85DE8];
+  v54 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   intervalCopy = interval;
   v8 = +[MXMOSSignpostSampleTag animationGlitchesTotalDuration];
   milliseconds = [MEMORY[0x277CCADD0] milliseconds];
   v10 = [(MXMOSSignpostProbe *)self _buildSampleSetWithData:dataCopy tag:v8 unit:milliseconds attributes:0 signpostObject:intervalCopy];
 
-  v51 = 0u;
-  v52 = 0u;
-  v49 = 0u;
   v50 = 0u;
+  v51 = 0u;
+  v48 = 0u;
+  v49 = 0u;
   glitches = [intervalCopy glitches];
-  v12 = [glitches countByEnumeratingWithState:&v49 objects:v54 count:16];
+  v12 = [glitches countByEnumeratingWithState:&v48 objects:v53 count:16];
   if (v12)
   {
-    v13 = *v50;
+    v13 = *v49;
     v14 = 0.0;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v50 != v13)
+        if (*v49 != v13)
         {
           objc_enumerationMutation(glitches);
         }
 
-        [*(*(&v49 + 1) + 8 * i) durationMs];
+        [*(*(&v48 + 1) + 8 * i) durationMs];
         v14 = v14 + v16;
       }
 
-      v12 = [glitches countByEnumeratingWithState:&v49 objects:v54 count:16];
+      v12 = [glitches countByEnumeratingWithState:&v48 objects:v53 count:16];
     }
 
     while (v12);
@@ -787,30 +784,30 @@ void __88__MXMOSSignpostProbe__addAnimationNumberOfGlitchesToData_fromSignpostAn
   milliseconds2 = [MEMORY[0x277CCADD0] milliseconds];
   v19 = [(MXMOSSignpostProbe *)self _buildSampleSetWithData:dataCopy tag:v17 unit:milliseconds2 attributes:0 signpostObject:intervalCopy];
 
-  v47 = 0u;
-  v48 = 0u;
-  v45 = 0u;
   v46 = 0u;
+  v47 = 0u;
+  v44 = 0u;
+  v45 = 0u;
   nonFirstFrameGlitches = [intervalCopy nonFirstFrameGlitches];
-  v21 = [nonFirstFrameGlitches countByEnumeratingWithState:&v45 objects:v53 count:16];
+  v21 = [nonFirstFrameGlitches countByEnumeratingWithState:&v44 objects:v52 count:16];
   if (v21)
   {
-    v22 = *v46;
+    v22 = *v45;
     v23 = 0.0;
     do
     {
       for (j = 0; j != v21; ++j)
       {
-        if (*v46 != v22)
+        if (*v45 != v22)
         {
           objc_enumerationMutation(nonFirstFrameGlitches);
         }
 
-        [*(*(&v45 + 1) + 8 * j) durationMs];
+        [*(*(&v44 + 1) + 8 * j) durationMs];
         v23 = v23 + v25;
       }
 
-      v21 = [nonFirstFrameGlitches countByEnumeratingWithState:&v45 objects:v53 count:16];
+      v21 = [nonFirstFrameGlitches countByEnumeratingWithState:&v44 objects:v52 count:16];
     }
 
     while (v21);
@@ -833,62 +830,59 @@ void __88__MXMOSSignpostProbe__addAnimationNumberOfGlitchesToData_fromSignpostAn
   stringValue = [v30 stringValue];
 
   v32 = [intervalCopy contributingPidsForProcessName:stringValue];
-  v41 = 0;
-  v42 = &v41;
-  v43 = 0x2020000000;
-  v44 = 0;
-  v35 = MEMORY[0x277D85DD0];
-  v36 = 3221225472;
-  v37 = __93__MXMOSSignpostProbe__addAnimationGlitchesTotalDurationToData_fromSignpostAnimationInterval___block_invoke;
-  v38 = &unk_2798C97D8;
+  v40 = 0;
+  v41 = &v40;
+  v42 = 0x2020000000;
+  v43 = 0;
+  v34 = MEMORY[0x277D85DD0];
+  v35 = 3221225472;
+  v36 = __93__MXMOSSignpostProbe__addAnimationGlitchesTotalDurationToData_fromSignpostAnimationInterval___block_invoke;
+  v37 = &unk_2798C97D8;
   v33 = intervalCopy;
-  v39 = v33;
-  v40 = &v41;
-  [v32 enumerateIndexesUsingBlock:&v35];
-  [v28 appendDoubleValue:objc_msgSend(v33 timestamp:{"startMachContinuousTime", v35, v36, v37, v38), v42[3]}];
+  v38 = v33;
+  v39 = &v40;
+  [v32 enumerateIndexesUsingBlock:&v34];
+  [v28 appendDoubleValue:objc_msgSend(v33 timestamp:{"startMachContinuousTime", v34, v35, v36, v37), v41[3]}];
   [dataCopy appendSet:v28];
 
-  _Block_object_dispose(&v41, 8);
-  v34 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v40, 8);
 }
 
 void __93__MXMOSSignpostProbe__addAnimationGlitchesTotalDurationToData_fromSignpostAnimationInterval___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277D54FF0] nonFirstFrameContributedGlitches:a2];
   v4 = [*(a1 + 32) overrunIntervals:v3];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
-  v5 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v12;
+    v7 = *v11;
     do
     {
       v8 = 0;
       do
       {
-        if (*v12 != v7)
+        if (*v11 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        [*(*(&v11 + 1) + 8 * v8) durationMs];
+        [*(*(&v10 + 1) + 8 * v8) durationMs];
         *(*(*(a1 + 40) + 8) + 24) = v9 + *(*(*(a1 + 40) + 8) + 24);
         ++v8;
       }
 
       while (v6 != v8);
-      v6 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v6);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_beginUpdates
@@ -909,31 +903,31 @@ void __93__MXMOSSignpostProbe__addAnimationGlitchesTotalDurationToData_fromSignp
 
 - (id)sampleWithTimeout:(double)timeout stopReason:(unint64_t *)reason
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v6 = dispatch_semaphore_create(0);
   finishedProcessingSema = self->_finishedProcessingSema;
   self->_finishedProcessingSema = v6;
 
-  [(MXMOSSignpostProbe *)self _beginUpdates];
-  v8 = _MXMGetLog();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+  _beginUpdates = [(MXMOSSignpostProbe *)self _beginUpdates];
+  v10 = _MXMGetLog(_beginUpdates, v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
     *buf = 134217984;
     timeoutCopy = timeout;
-    _os_log_impl(&dword_258DAA000, v8, OS_LOG_TYPE_DEBUG, "Created finish process semaphore, now waiting up to %f seconds.", buf, 0xCu);
+    _os_log_impl(&dword_258DAA000, v10, OS_LOG_TYPE_DEBUG, "Created finish process semaphore, now waiting up to %f seconds.", buf, 0xCu);
   }
 
-  v9 = self->_finishedProcessingSema;
-  v10 = dispatch_time(0, (timeout * 1000000000.0));
-  v11 = dispatch_semaphore_wait(v9, v10);
-  v12 = _MXMGetLog();
-  v13 = os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG);
-  if (v11)
+  v11 = self->_finishedProcessingSema;
+  v12 = dispatch_time(0, (timeout * 1000000000.0));
+  v13 = dispatch_semaphore_wait(v11, v12);
+  v15 = _MXMGetLog(v13, v14);
+  v16 = os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG);
+  if (v13)
   {
-    if (v13)
+    if (v16)
     {
       *buf = 0;
-      _os_log_impl(&dword_258DAA000, v12, OS_LOG_TYPE_DEBUG, "Failed to stop waiting for stop processing semaphore.", buf, 2u);
+      _os_log_impl(&dword_258DAA000, v15, OS_LOG_TYPE_DEBUG, "Failed to stop waiting for stop processing semaphore.", buf, 2u);
     }
 
     [(SignpostSupportObjectExtractor *)self->_extractor stopProcessing];
@@ -941,18 +935,17 @@ void __93__MXMOSSignpostProbe__addAnimationGlitchesTotalDurationToData_fromSignp
 
   else
   {
-    if (v13)
+    if (v16)
     {
       *buf = 0;
-      _os_log_impl(&dword_258DAA000, v12, OS_LOG_TYPE_DEBUG, "Succesfully waited for stop processing semaphore.", buf, 2u);
+      _os_log_impl(&dword_258DAA000, v15, OS_LOG_TYPE_DEBUG, "Succesfully waited for stop processing semaphore.", buf, 2u);
     }
   }
 
-  v17.receiver = self;
-  v17.super_class = MXMOSSignpostProbe;
-  [(MXMProbe *)&v17 _stopUpdates];
+  v19.receiver = self;
+  v19.super_class = MXMOSSignpostProbe;
+  [(MXMProbe *)&v19 _stopUpdates];
   data = self->_data;
-  v15 = *MEMORY[0x277D85DE8];
 
   return data;
 }

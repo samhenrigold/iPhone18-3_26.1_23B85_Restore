@@ -29,7 +29,7 @@
 
 - (BOOL)chatSuggestVisibilityForBusinessItem:(id)item
 {
-  v65 = *MEMORY[0x277D85DE8];
+  v64 = *MEMORY[0x277D85DE8];
   itemCopy = item;
   if (self)
   {
@@ -76,9 +76,9 @@
     if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v58 = "[BCSChatSuggestController chatSuggestVisibilityForBusinessItem:]";
-      v59 = 2114;
-      v60 = v13;
+      v57 = "[BCSChatSuggestController chatSuggestVisibilityForBusinessItem:]";
+      v58 = 2114;
+      v59 = v13;
       _os_log_impl(&dword_242072000, v16, OS_LOG_TYPE_DEFAULT, "%s Using custom messages identifier for Chat Suggest with visibilityItem:%{public}@", buf, 0x16u);
     }
 
@@ -92,7 +92,7 @@
     if (os_log_type_enabled(businessChatAccount5, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v58 = "[BCSChatSuggestController chatSuggestVisibilityForBusinessItem:]";
+      v57 = "[BCSChatSuggestController chatSuggestVisibilityForBusinessItem:]";
       v24 = "%s Identity Service is nil";
 LABEL_48:
       _os_log_error_impl(&dword_242072000, businessChatAccount5, OS_LOG_TYPE_ERROR, v24, buf, 0xCu);
@@ -111,7 +111,7 @@ LABEL_19:
     if (os_log_type_enabled(businessChatAccount5, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v58 = "[BCSChatSuggestController chatSuggestVisibilityForBusinessItem:]";
+      v57 = "[BCSChatSuggestController chatSuggestVisibilityForBusinessItem:]";
       v24 = "%s BusinessChat account is nil";
       goto LABEL_48;
     }
@@ -137,7 +137,7 @@ LABEL_19:
     if (os_log_type_enabled(businessChatAccount5, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v58 = "[BCSChatSuggestController chatSuggestVisibilityForBusinessItem:]";
+      v57 = "[BCSChatSuggestController chatSuggestVisibilityForBusinessItem:]";
       v24 = "%s Both profileID and loginID have 0 length";
       goto LABEL_48;
     }
@@ -156,9 +156,9 @@ LABEL_21:
     if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v58 = "[BCSChatSuggestController chatSuggestVisibilityForBusinessItem:]";
-      v59 = 2114;
-      v60 = v13;
+      v57 = "[BCSChatSuggestController chatSuggestVisibilityForBusinessItem:]";
+      v58 = 2114;
+      v59 = v13;
       _os_log_impl(&dword_242072000, v31, OS_LOG_TYPE_DEFAULT, "%s Using iCloud DSID identifier for Chat Suggest with visibilityItem:%{public}@", buf, 0x16u);
     }
 
@@ -182,9 +182,9 @@ LABEL_21:
     if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v58 = "[BCSChatSuggestController chatSuggestVisibilityForBusinessItem:]";
-      v59 = 2114;
-      v60 = v13;
+      v57 = "[BCSChatSuggestController chatSuggestVisibilityForBusinessItem:]";
+      v58 = 2114;
+      v59 = v13;
       _os_log_impl(&dword_242072000, v36, OS_LOG_TYPE_DEFAULT, "%s Using SIM phone number identifier for Chat Suggest with visibilityItem:%{public}@", buf, 0x16u);
     }
 
@@ -204,9 +204,9 @@ LABEL_31:
     if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v58 = "[BCSChatSuggestController chatSuggestVisibilityForBusinessItem:]";
-      v59 = 2114;
-      v60 = v13;
+      v57 = "[BCSChatSuggestController chatSuggestVisibilityForBusinessItem:]";
+      v58 = 2114;
+      v59 = v13;
       _os_log_impl(&dword_242072000, v39, OS_LOG_TYPE_DEFAULT, "%s Messages Identifier is valid -- visibilityItem:%{public}@", buf, 0x16u);
     }
   }
@@ -214,7 +214,7 @@ LABEL_31:
   else if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
   {
     *buf = 136315138;
-    v58 = "[BCSChatSuggestController chatSuggestVisibilityForBusinessItem:]";
+    v57 = "[BCSChatSuggestController chatSuggestVisibilityForBusinessItem:]";
     _os_log_error_impl(&dword_242072000, v39, OS_LOG_TYPE_ERROR, "%s Messsages identifier has 0 length", buf, 0xCu);
   }
 
@@ -226,7 +226,7 @@ LABEL_37:
   if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
   {
     v43 = NSStringFromBOOL();
-    v55 = v13;
+    v54 = v13;
     if (self)
     {
       v44 = self->_localeHelper;
@@ -240,8 +240,8 @@ LABEL_37:
     v45 = v44;
     currentLocale3 = [(BCSLocaleHelperProtocol *)v45 currentLocale];
     language2 = [(NSLocale *)currentLocale3 language];
-    v56 = itemCopy;
-    v54 = v15;
+    v55 = itemCopy;
+    v53 = v15;
     if (self)
     {
       v48 = self->_localeHelper;
@@ -256,21 +256,20 @@ LABEL_37:
     currentLocale4 = [(BCSLocaleHelperProtocol *)v49 currentLocale];
     country2 = [(NSLocale *)currentLocale4 country];
     *buf = 136315906;
-    v58 = "[BCSChatSuggestController chatSuggestVisibilityForBusinessItem:]";
-    v59 = 2114;
-    v60 = v43;
-    v61 = 2114;
-    v62 = language2;
-    v63 = 2114;
-    v64 = country2;
+    v57 = "[BCSChatSuggestController chatSuggestVisibilityForBusinessItem:]";
+    v58 = 2114;
+    v59 = v43;
+    v60 = 2114;
+    v61 = language2;
+    v62 = 2114;
+    v63 = country2;
     _os_log_impl(&dword_242072000, v42, OS_LOG_TYPE_DEFAULT, "%s isChatSuggestVisible: %{public}@ device language:%{public}@ device country:%{public}@", buf, 0x2Au);
 
-    v13 = v55;
-    itemCopy = v56;
-    v15 = v54;
+    v13 = v54;
+    itemCopy = v55;
+    v15 = v53;
   }
 
-  v52 = *MEMORY[0x277D85DE8];
   return v41;
 }
 

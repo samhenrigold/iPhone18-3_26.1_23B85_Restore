@@ -16,20 +16,18 @@
 
 + (id)columns
 {
-  v10[5] = *MEMORY[0x1E69E9840];
+  v9[5] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"clientIdentifier" dataType:2 requestOnly:0 fieldNumber:1 protoDataType:13 convertedType:0];
   v3 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"feedbackType" dataType:0 requestOnly:0 fieldNumber:2 protoDataType:4 convertedType:0];
   v4 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"feedbackCreationSecondsSinceReferenceDate" dataType:1 requestOnly:0 fieldNumber:3 protoDataType:0 convertedType:0];
   v5 = [objc_alloc(MEMORY[0x1E698F2D8]) initWithName:@"highlight_json" dataType:5 requestOnly:1 extractBlock:&__block_literal_global_476];
   v6 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"clientVariant" dataType:2 requestOnly:0 fieldNumber:5 protoDataType:13 convertedType:0];
-  v10[0] = v2;
-  v10[1] = v3;
-  v10[2] = v4;
-  v10[3] = v5;
-  v10[4] = v6;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:5];
-
-  v8 = *MEMORY[0x1E69E9840];
+  v9[0] = v2;
+  v9[1] = v3;
+  v9[2] = v4;
+  v9[3] = v5;
+  v9[4] = v6;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:5];
 
   return v7;
 }
@@ -135,7 +133,7 @@ LABEL_17:
 
 - (id)jsonDictionary
 {
-  v26[5] = *MEMORY[0x1E69E9840];
+  v25[5] = *MEMORY[0x1E69E9840];
   clientIdentifier = [(BMMessagesSharedWithYouFeedback *)self clientIdentifier];
   v4 = [MEMORY[0x1E696AD98] numberWithInt:{-[BMMessagesSharedWithYouFeedback feedbackType](self, "feedbackType")}];
   if (![(BMMessagesSharedWithYouFeedback *)self hasFeedbackCreationSecondsSinceReferenceDate]|| ([(BMMessagesSharedWithYouFeedback *)self feedbackCreationSecondsSinceReferenceDate], fabs(v5) == INFINITY))
@@ -155,48 +153,48 @@ LABEL_17:
   jsonDictionary = [highlight jsonDictionary];
 
   clientVariant = [(BMMessagesSharedWithYouFeedback *)self clientVariant];
-  v21 = @"clientIdentifier";
+  v20 = @"clientIdentifier";
   null = clientIdentifier;
   if (!clientIdentifier)
   {
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v19 = null;
-  v26[0] = null;
-  v22 = @"feedbackType";
+  v18 = null;
+  v25[0] = null;
+  v21 = @"feedbackType";
   null2 = v4;
   if (!v4)
   {
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v26[1] = null2;
-  v23 = @"feedbackCreationSecondsSinceReferenceDate";
+  v25[1] = null2;
+  v22 = @"feedbackCreationSecondsSinceReferenceDate";
   null3 = v7;
   if (!v7)
   {
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v26[2] = null3;
-  v24 = @"highlight";
+  v25[2] = null3;
+  v23 = @"highlight";
   null4 = jsonDictionary;
   if (!jsonDictionary)
   {
     null4 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v26[3] = null4;
-  v25 = @"clientVariant";
+  v25[3] = null4;
+  v24 = @"clientVariant";
   null5 = clientVariant;
   if (!clientVariant)
   {
     null5 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v26[4] = null5;
-  v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v26 forKeys:&v21 count:{5, v19}];
+  v25[4] = null5;
+  v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v25 forKeys:&v20 count:{5, v18}];
   if (clientVariant)
   {
     if (jsonDictionary)
@@ -254,14 +252,13 @@ LABEL_19:
 LABEL_27:
 
 LABEL_20:
-  v17 = *MEMORY[0x1E69E9840];
 
   return v16;
 }
 
 - (BMMessagesSharedWithYouFeedback)initWithJSONDictionary:(id)dictionary error:(id *)error
 {
-  v55[1] = *MEMORY[0x1E69E9840];
+  v54[1] = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   v7 = [dictionaryCopy objectForKeyedSubscript:@"clientIdentifier"];
   if (!v7 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
@@ -288,33 +285,33 @@ LABEL_4:
             goto LABEL_44;
           }
 
-          v34 = objc_alloc(MEMORY[0x1E696ABC0]);
+          v33 = objc_alloc(MEMORY[0x1E696ABC0]);
           errorCopy = error;
-          v35 = *MEMORY[0x1E698F240];
-          v52 = *MEMORY[0x1E696A578];
-          v43 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (corresponding to enum value), or NSString (string version of enum)", objc_opt_class(), @"feedbackType"];
-          v53 = v43;
-          v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v53 forKeys:&v52 count:1];
-          v36 = [v34 initWithDomain:v35 code:2 userInfo:v17];
+          v34 = *MEMORY[0x1E698F240];
+          v51 = *MEMORY[0x1E696A578];
+          v42 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (corresponding to enum value), or NSString (string version of enum)", objc_opt_class(), @"feedbackType"];
+          v52 = v42;
+          v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v52 forKeys:&v51 count:1];
+          v35 = [v33 initWithDomain:v34 code:2 userInfo:v17];
           error = 0;
           v16 = 0;
-          *errorCopy = v36;
+          *errorCopy = v35;
           goto LABEL_43;
         }
 
         v10 = [MEMORY[0x1E696AD98] numberWithInt:BMMessagesSharedWithYouFeedbackUnifiedFeedbackTypeFromString(v9)];
       }
 
-      v41 = v10;
+      v40 = v10;
     }
 
     else
     {
-      v41 = 0;
+      v40 = 0;
     }
 
     v17 = [dictionaryCopy objectForKeyedSubscript:@"feedbackCreationSecondsSinceReferenceDate"];
-    v42 = v8;
+    v41 = v8;
     selfCopy = self;
     if (v17 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
     {
@@ -323,33 +320,33 @@ LABEL_4:
       {
         if (!error)
         {
-          v43 = 0;
+          v42 = 0;
           v16 = 0;
-          error = v41;
+          error = v40;
           goto LABEL_43;
         }
 
         v24 = objc_alloc(MEMORY[0x1E696ABC0]);
         v25 = *MEMORY[0x1E698F240];
-        v50 = *MEMORY[0x1E696A578];
+        v49 = *MEMORY[0x1E696A578];
         v18 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"feedbackCreationSecondsSinceReferenceDate"];
-        v51 = v18;
-        v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v51 forKeys:&v50 count:1];
+        v50 = v18;
+        v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v50 forKeys:&v49 count:1];
         v26 = [v24 initWithDomain:v25 code:2 userInfo:v19];
-        v43 = 0;
+        v42 = 0;
         v16 = 0;
         errorCopy2 = error;
-        error = v41;
+        error = v40;
         *errorCopy2 = v26;
         goto LABEL_41;
       }
 
-      v43 = v17;
+      v42 = v17;
     }
 
     else
     {
-      v43 = 0;
+      v42 = 0;
     }
 
     v18 = [dictionaryCopy objectForKeyedSubscript:@"highlight"];
@@ -365,18 +362,18 @@ LABEL_22:
         {
           if (error)
           {
-            v39 = objc_alloc(MEMORY[0x1E696ABC0]);
-            v38 = *MEMORY[0x1E698F240];
-            v46 = *MEMORY[0x1E696A578];
-            v32 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"clientVariant"];
-            v47 = v32;
-            v33 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v47 forKeys:&v46 count:1];
-            *error = [v39 initWithDomain:v38 code:2 userInfo:v33];
+            v38 = objc_alloc(MEMORY[0x1E696ABC0]);
+            v37 = *MEMORY[0x1E698F240];
+            v45 = *MEMORY[0x1E696A578];
+            v31 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"clientVariant"];
+            v46 = v31;
+            v32 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v46 forKeys:&v45 count:1];
+            *error = [v38 initWithDomain:v37 code:2 userInfo:v32];
           }
 
           v21 = 0;
           v16 = 0;
-          error = v41;
+          error = v40;
           goto LABEL_26;
         }
 
@@ -388,8 +385,8 @@ LABEL_22:
         v21 = 0;
       }
 
-      error = v41;
-      v16 = -[BMMessagesSharedWithYouFeedback initWithClientIdentifier:feedbackType:feedbackCreationSecondsSinceReferenceDate:highlight:clientVariant:](selfCopy, "initWithClientIdentifier:feedbackType:feedbackCreationSecondsSinceReferenceDate:highlight:clientVariant:", v42, [v41 intValue], v43, v19, v21);
+      error = v40;
+      v16 = -[BMMessagesSharedWithYouFeedback initWithClientIdentifier:feedbackType:feedbackCreationSecondsSinceReferenceDate:highlight:clientVariant:](selfCopy, "initWithClientIdentifier:feedbackType:feedbackCreationSecondsSinceReferenceDate:highlight:clientVariant:", v41, [v40 intValue], v42, v19, v21);
       selfCopy = v16;
 LABEL_26:
 
@@ -397,7 +394,7 @@ LABEL_41:
 LABEL_42:
 
       self = selfCopy;
-      v8 = v42;
+      v8 = v41;
 LABEL_43:
 
       goto LABEL_44;
@@ -407,9 +404,9 @@ LABEL_43:
     if (objc_opt_isKindOfClass())
     {
       v22 = v18;
-      v45 = 0;
-      v19 = [[BMMessagesSharedWithYouFeedbackRankableSocialHighlight alloc] initWithJSONDictionary:v22 error:&v45];
-      v23 = v45;
+      v44 = 0;
+      v19 = [[BMMessagesSharedWithYouFeedbackRankableSocialHighlight alloc] initWithJSONDictionary:v22 error:&v44];
+      v23 = v44;
       if (!v23)
       {
 
@@ -431,22 +428,22 @@ LABEL_43:
       if (!error)
       {
         v16 = 0;
-        error = v41;
+        error = v40;
         goto LABEL_42;
       }
 
-      v37 = objc_alloc(MEMORY[0x1E696ABC0]);
+      v36 = objc_alloc(MEMORY[0x1E696ABC0]);
       v28 = *MEMORY[0x1E698F240];
-      v48 = *MEMORY[0x1E696A578];
+      v47 = *MEMORY[0x1E696A578];
       v19 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSDictionary", objc_opt_class(), @"highlight"];
-      v49 = v19;
-      v29 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v49 forKeys:&v48 count:1];
-      *error = [v37 initWithDomain:v28 code:2 userInfo:v29];
+      v48 = v19;
+      v29 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v48 forKeys:&v47 count:1];
+      *error = [v36 initWithDomain:v28 code:2 userInfo:v29];
 
       v16 = 0;
     }
 
-    error = v41;
+    error = v40;
     goto LABEL_41;
   }
 
@@ -467,10 +464,10 @@ LABEL_43:
   v11 = objc_alloc(MEMORY[0x1E696ABC0]);
   errorCopy3 = error;
   v13 = *MEMORY[0x1E698F240];
-  v54 = *MEMORY[0x1E696A578];
+  v53 = *MEMORY[0x1E696A578];
   v14 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"clientIdentifier"];
-  v55[0] = v14;
-  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v55 forKeys:&v54 count:1];
+  v54[0] = v14;
+  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v54 forKeys:&v53 count:1];
   v15 = v13;
   error = v14;
   v8 = 0;
@@ -479,7 +476,6 @@ LABEL_43:
 LABEL_44:
 
 LABEL_45:
-  v30 = *MEMORY[0x1E69E9840];
   return v16;
 }
 
@@ -500,11 +496,9 @@ LABEL_45:
     PBDataWriterWriteStringField();
   }
 
-  feedbackType = self->_feedbackType;
   PBDataWriterWriteUint32Field();
   if (self->_hasFeedbackCreationSecondsSinceReferenceDate)
   {
-    feedbackCreationSecondsSinceReferenceDate = self->_feedbackCreationSecondsSinceReferenceDate;
     PBDataWriterWriteDoubleField();
   }
 
@@ -778,31 +772,29 @@ LABEL_53:
 
 + (id)protoFields
 {
-  v10[5] = *MEMORY[0x1E69E9840];
+  v9[5] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"clientIdentifier" number:1 type:13 subMessageClass:0];
   v3 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"feedbackType" number:2 type:4 subMessageClass:{0, v2}];
-  v10[1] = v3;
+  v9[1] = v3;
   v4 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"feedbackCreationSecondsSinceReferenceDate" number:3 type:0 subMessageClass:0];
-  v10[2] = v4;
+  v9[2] = v4;
   v5 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"highlight" number:4 type:14 subMessageClass:objc_opt_class()];
-  v10[3] = v5;
+  v9[3] = v5;
   v6 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"clientVariant" number:5 type:13 subMessageClass:0];
-  v10[4] = v6;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:5];
-
-  v8 = *MEMORY[0x1E69E9840];
+  v9[4] = v6;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:5];
 
   return v7;
 }
 
-id __42__BMMessagesSharedWithYouFeedback_columns__block_invoke(uint64_t a1, void *a2)
+id __42__BMMessagesSharedWithYouFeedback_columns__block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v2 = [a2 eventBodyKeepingBackingData:1];
-  v3 = [v2 highlight];
-  v4 = [v3 jsonDictionary];
-  v5 = BMConvertObjectToJSONString();
+  v3 = [a2 eventBodyKeepingBackingData:1];
+  v4 = [v3 highlight];
+  v5 = [v4 jsonDictionary];
+  v6 = BMConvertObjectToJSONString();
 
-  return v5;
+  return v6;
 }
 
 + (id)eventWithData:(id)data dataVersion:(unsigned int)version

@@ -8,16 +8,16 @@ int main(int argc, const char **argv, const char **envp)
   return 0;
 }
 
-id sub_1000012D8()
+id sub_1000012D8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (qword_100029E70 != -1)
   {
     sub_100013344();
   }
 
-  v1 = qword_100029E68;
+  v5 = qword_100029E68;
 
-  return v1;
+  return v5;
 }
 
 void sub_1000045FC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, id location)
@@ -190,36 +190,36 @@ LABEL_16:
   }
 }
 
-void sub_1000059F4(uint64_t a1)
+void sub_1000059F4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (qword_100029E70 != -1)
   {
     sub_100013344();
   }
 
-  v2 = qword_100029E68;
+  v5 = qword_100029E68;
   if (os_log_type_enabled(qword_100029E68, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(a1 + 32);
-    v4 = *(a1 + 40);
-    v5 = *(a1 + 48);
-    v8 = 136446979;
-    v9 = "[CLEEDMediaServiceItem URLSession:task:didReceiveChallenge:completionHandler:]_block_invoke";
-    v10 = 2114;
-    v11 = v3;
-    v12 = 2114;
-    v13 = v4;
-    v14 = 2113;
-    v15 = v5;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "#EED2EMS,%{public}s, Session:%{public}@, task:%{public}@, challenge:%{private}@", &v8, 0x2Au);
+    v6 = *(a1 + 32);
+    v7 = *(a1 + 40);
+    v8 = *(a1 + 48);
+    v11 = 136446979;
+    v12 = "[CLEEDMediaServiceItem URLSession:task:didReceiveChallenge:completionHandler:]_block_invoke";
+    v13 = 2114;
+    v14 = v6;
+    v15 = 2114;
+    v16 = v7;
+    v17 = 2113;
+    v18 = v8;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "#EED2EMS,%{public}s, Session:%{public}@, task:%{public}@, challenge:%{private}@", &v11, 0x2Au);
   }
 
-  v6 = [CLEEDRequestHelper validateServerCertificateChallenge:*(a1 + 48)];
+  v9 = [CLEEDRequestHelper validateServerCertificateChallenge:*(a1 + 48)];
   (*(*(a1 + 64) + 16))();
-  if (v6 != 1)
+  if (v9 != 1)
   {
-    v7 = [*(a1 + 56) mediaItem];
-    [v7 setServerUploadStatus:v6];
+    v10 = [*(a1 + 56) mediaItem];
+    [v10 setServerUploadStatus:v9];
   }
 }
 
@@ -325,7 +325,7 @@ void sub_1000077B8(uint64_t a1)
 
     if (os_log_type_enabled(qword_100029E68, OS_LOG_TYPE_ERROR))
     {
-      sub_100014904(a1);
+      sub_100014904();
     }
   }
 }
@@ -346,17 +346,7 @@ void sub_100008A84(uint64_t a1)
   {
     v4 = [*(WeakRetained + 22) frontmostCall];
     v5 = v4;
-    if (!v4)
-    {
-      goto LABEL_9;
-    }
-
-    v6 = [v4 callUUID];
-    v7 = [*(a1 + 32) mediaRequest];
-    v8 = [v7 callUUID];
-    v9 = [v6 isEqualToString:v8];
-
-    if (v9)
+    if (v4 && ([v4 callUUID], v6 = objc_claimAutoreleasedReturnValue(), objc_msgSend(*(a1 + 32), "mediaRequest"), v7 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v7, "callUUID"), v8 = objc_claimAutoreleasedReturnValue(), v9 = objc_msgSend(v6, "isEqualToString:", v8), v8, v7, v6, v9))
     {
       if (qword_100029E70 != -1)
       {
@@ -399,7 +389,6 @@ void sub_100008A84(uint64_t a1)
 
     else
     {
-LABEL_9:
       if (qword_100029E70 != -1)
       {
         sub_100013344();
@@ -520,11 +509,12 @@ void sub_100009AA4(uint64_t a1, uint64_t a2)
   }
 }
 
-void sub_10000A0F4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id location, char a21)
+void sub_10000A0F4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id location, ...)
 {
-  objc_destroyWeak((v21 + 56));
+  va_start(va, location);
+  objc_destroyWeak((v20 + 56));
   objc_destroyWeak(&location);
-  _Block_object_dispose(&a21, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -547,9 +537,9 @@ void sub_10000A144(uint64_t a1, void *a2)
       {
         v7 = *(a1 + 32);
         *buf = 136446466;
-        v54 = "[CLEEDMediaService copyMediaItemToStaging:]_block_invoke";
-        v55 = 2114;
-        v56 = v7;
+        v53 = "[CLEEDMediaService copyMediaItemToStaging:]_block_invoke";
+        v54 = 2114;
+        v55 = v7;
         _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "#EED2EMS,%{public}s, copy aborted for mediaItem:%{public}@", buf, 0x16u);
       }
 
@@ -558,7 +548,7 @@ void sub_10000A144(uint64_t a1, void *a2)
 
     else
     {
-      v50 = v3;
+      v49 = v3;
       v8 = +[NSUUID UUID];
       v9 = (a1 + 32);
       [*(a1 + 32) setMediaItemID:v8];
@@ -576,18 +566,18 @@ void sub_10000A144(uint64_t a1, void *a2)
         sub_100013344();
       }
 
-      v3 = v50;
+      v3 = v49;
       v17 = qword_100029E68;
       if (os_log_type_enabled(qword_100029E68, OS_LOG_TYPE_DEBUG))
       {
-        sub_100014F18(v17, v50, v16);
+        sub_100014F18(v17, v49, v16);
       }
 
       v18 = +[NSFileManager defaultManager];
-      v19 = [v50 path];
-      v52 = 0;
-      v20 = [v18 copyItemAtPath:v19 toPath:v16 error:&v52];
-      v21 = v52;
+      v19 = [v49 path];
+      v51 = 0;
+      v20 = [v18 copyItemAtPath:v19 toPath:v16 error:&v51];
+      v21 = v51;
       *(*(*(a1 + 48) + 8) + 24) = v20;
 
       if (v21)
@@ -623,12 +613,12 @@ void sub_10000A144(uint64_t a1, void *a2)
           v28 = +[NSFileManager defaultManager];
           v29 = [*v9 stagingURL];
           v30 = [v29 path];
-          v51 = 0;
-          v31 = [v28 attributesOfItemAtPath:v30 error:&v51];
-          v32 = v51;
+          v50 = 0;
+          v31 = [v28 attributesOfItemAtPath:v30 error:&v50];
+          v32 = v50;
           v33 = [v31 fileSize];
 
-          v49 = v32;
+          v48 = v32;
           if (!v32)
           {
             [*v9 setOriginalSizeBytes:v33];
@@ -639,7 +629,7 @@ void sub_10000A144(uint64_t a1, void *a2)
           if (v34 >= v33)
           {
             [v35 setUploadStatus:1];
-            v3 = v50;
+            v3 = v49;
             v38 = &selRef_createDirectoryAtPath_withIntermediateDirectories_attributes_error_;
             v21 = 0;
           }
@@ -652,7 +642,7 @@ void sub_10000A144(uint64_t a1, void *a2)
             [CLEEDMediaService deleteFileAtPath:v37];
 
             v38 = &selRef_createDirectoryAtPath_withIntermediateDirectories_attributes_error_;
-            v3 = v50;
+            v3 = v49;
             v21 = 0;
             if (qword_100029E70 != -1)
             {
@@ -680,9 +670,9 @@ void sub_10000A144(uint64_t a1, void *a2)
             v45 = [v44 path];
             v46 = [v45 UTF8String];
             *buf = 136446467;
-            v54 = "[CLEEDMediaService copyMediaItemToStaging:]_block_invoke";
-            v55 = 2081;
-            v56 = v46;
+            v53 = "[CLEEDMediaService copyMediaItemToStaging:]_block_invoke";
+            v54 = 2081;
+            v55 = v46;
             _os_log_impl(&_mh_execute_header, v43, OS_LOG_TYPE_DEFAULT, "#EED2EMS,%{public}s, copy to staging successful for mediaItem:%{private}s", buf, 0x16u);
 
             v38 = &selRef_createDirectoryAtPath_withIntermediateDirectories_attributes_error_;
@@ -706,7 +696,6 @@ void sub_10000A144(uint64_t a1, void *a2)
           v38 = &selRef_createDirectoryAtPath_withIntermediateDirectories_attributes_error_;
         }
 
-        v47 = *(a1 + 64);
         if (sandbox_extension_release())
         {
           if (v38[462] != -1)
@@ -714,10 +703,10 @@ void sub_10000A144(uint64_t a1, void *a2)
             sub_100013358();
           }
 
-          v48 = qword_100029E68;
+          v47 = qword_100029E68;
           if (os_log_type_enabled(qword_100029E68, OS_LOG_TYPE_ERROR))
           {
-            sub_100015218(v48);
+            sub_100015218(v47);
           }
         }
       }
@@ -822,7 +811,7 @@ LABEL_16:
     v27 = qword_100029E68;
     if (os_log_type_enabled(qword_100029E68, OS_LOG_TYPE_ERROR))
     {
-      sub_1000153FC((a1 + 32), v27);
+      sub_1000153FC(a1 + 32, v27);
     }
 
     v28 = [*v12 mediaRequest];
@@ -1085,7 +1074,7 @@ void sub_10000D620(uint64_t a1)
 
     if (os_log_type_enabled(qword_100029E68, OS_LOG_TYPE_ERROR))
     {
-      sub_1000156EC(a1);
+      sub_1000156EC();
     }
   }
 }
@@ -1101,9 +1090,9 @@ void sub_10000DF60(uint64_t a1)
   }
 }
 
-void sub_100011F8C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_100011F8C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1115,9 +1104,9 @@ uint64_t sub_100011FB0(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_100013090(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_100013090(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1129,10 +1118,11 @@ void sub_100013220(id a1)
   _objc_release_x1();
 }
 
-void sub_1000132EC(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_1000132EC(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, v9, OS_LOG_TYPE_DEBUG, a4, &a9, 0x16u);
+  _os_log_debug_impl(a1, v8, OS_LOG_TYPE_DEBUG, a4, va, 0x16u);
 }
 
 void sub_100013480(void *a1)
@@ -1140,8 +1130,9 @@ void sub_100013480(void *a1)
   v2 = a1;
   v3 = [sub_10001330C() base64EncodedStringWithOptions:0];
   [v3 UTF8String];
+  v10 = 136446467;
   sub_100013278();
-  sub_1000132EC(&_mh_execute_header, v4, v5, "#EED2EMS,%{public}s, Shared info:%{private}s", v6, v7, v8, v9, 3u);
+  sub_1000132EC(&_mh_execute_header, v4, v5, "#EED2EMS,%{public}s, Shared info:%{private}s", v6, v7, v8, v9, v10);
 }
 
 void sub_1000135A8(void *a1)
@@ -1149,8 +1140,9 @@ void sub_1000135A8(void *a1)
   v2 = a1;
   v3 = [sub_10001330C() base64EncodedStringWithOptions:0];
   [v3 UTF8String];
+  v10 = 136446467;
   sub_100013278();
-  sub_1000132EC(&_mh_execute_header, v4, v5, "#EED2EMS,%{public}s, Device key confirmation tag:%{private}s", v6, v7, v8, v9, 3u);
+  sub_1000132EC(&_mh_execute_header, v4, v5, "#EED2EMS,%{public}s, Device key confirmation tag:%{private}s", v6, v7, v8, v9, v10);
 }
 
 void sub_100013750()
@@ -1217,8 +1209,9 @@ void sub_1000139C0(void *a1)
   v2 = a1;
   v3 = [sub_10001330C() base64EncodedStringWithOptions:0];
   [v3 UTF8String];
+  v10 = 136446467;
   sub_100013278();
-  sub_1000132EC(&_mh_execute_header, v4, v5, "#EED2EMS,%{public}s, Shared info:%{private}s", v6, v7, v8, v9, 3u);
+  sub_1000132EC(&_mh_execute_header, v4, v5, "#EED2EMS,%{public}s, Shared info:%{private}s", v6, v7, v8, v9, v10);
 }
 
 void sub_100013AE8(void *a1)
@@ -1301,20 +1294,20 @@ void sub_100013FE4()
 
 void sub_1000140E0(uint64_t a1, void *a2)
 {
-  v3 = *(a1 + 32);
-  v4 = a2;
-  v5 = [sub_10001330C() delayTimer];
+  v3 = a2;
+  v4 = [sub_10001330C() delayTimer];
   sub_100013264();
   sub_1000132C4();
-  _os_log_error_impl(v6, v7, v8, v9, v10, 0x16u);
+  _os_log_error_impl(v5, v6, v7, v8, v9, 0x16u);
 }
 
 void sub_100014184(void *a1)
 {
   v2 = a1;
   v3 = [sub_10001330C() delayTimer];
+  v10 = 136446466;
   sub_100013264();
-  sub_1000132EC(&_mh_execute_header, v4, v5, "#EED2EMS,%{public}s, cancelling timer[%{public}@]", v6, v7, v8, v9, 2u);
+  sub_1000132EC(&_mh_execute_header, v4, v5, "#EED2EMS,%{public}s, cancelling timer[%{public}@]", v6, v7, v8, v9, v10);
 }
 
 void sub_1000144C8(void *a1, void *a2)
@@ -1379,20 +1372,18 @@ void sub_100014794(uint64_t a1, void *a2)
   _os_log_debug_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEBUG, "#EED2EMS,%{public}s[numRequests:%{public}lu, extendedSessionEnded:%{public}s, totalBytesUploadedInCall:%{public}ld]", &v9, 0x2Au);
 }
 
-void sub_100014904(uint64_t a1)
+void sub_100014904()
 {
-  v1 = *(*(a1 + 32) + 40);
   sub_100013318();
   sub_1000132D4();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void sub_100014988(uint64_t *a1)
+void sub_100014988()
 {
-  v1 = *a1;
   sub_100013318();
   sub_10001332C();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 void sub_100014A08(void *a1)
@@ -1526,16 +1517,15 @@ void sub_100015338(void *a1)
   _os_log_error_impl(v5, v6, v7, v8, v9, 0x16u);
 }
 
-void sub_1000153FC(uint64_t *a1, void *a2)
+void sub_1000153FC(uint64_t a1, void *a2)
 {
-  v3 = *a1;
-  v4 = a2;
-  v5 = [sub_10001330C() mediaItem];
-  v6 = [v5 URL];
-  v7 = [v6 path];
+  v3 = a2;
+  v4 = [sub_10001330C() mediaItem];
+  v5 = [v4 URL];
+  v6 = [v5 path];
   sub_1000132B0();
   sub_1000132C4();
-  _os_log_error_impl(v8, v9, v10, v11, v12, 0x16u);
+  _os_log_error_impl(v7, v8, v9, v10, v11, 0x16u);
 }
 
 void sub_100015548(void *a1)
@@ -1547,12 +1537,11 @@ void sub_100015548(void *a1)
   _os_log_error_impl(v4, v5, v6, v7, v8, 0x16u);
 }
 
-void sub_1000156EC(uint64_t a1)
+void sub_1000156EC()
 {
-  v1 = *(*(a1 + 32) + 136);
   sub_100013318();
   sub_1000132D4();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 void sub_100015770(void *a1)
@@ -1560,8 +1549,9 @@ void sub_100015770(void *a1)
   v2 = a1;
   v3 = [sub_10001330C() mediaRequest];
   v4 = [v3 requestID];
+  v11 = 136446466;
   sub_100013264();
-  sub_1000132EC(&_mh_execute_header, v5, v6, "#EED2EMS,%{public}s, All media items aborted for requestID:%{public}@", v7, v8, v9, v10, 2u);
+  sub_1000132EC(&_mh_execute_header, v5, v6, "#EED2EMS,%{public}s, All media items aborted for requestID:%{public}@", v7, v8, v9, v10, v11);
 }
 
 void sub_100015824(void *a1)
@@ -1569,8 +1559,9 @@ void sub_100015824(void *a1)
   v2 = a1;
   v3 = [sub_10001330C() mediaRequest];
   v4 = [v3 requestID];
+  v11 = 136446466;
   sub_100013264();
-  sub_1000132EC(&_mh_execute_header, v5, v6, "#EED2EMS,%{public}s, All media items delayed for requestID:%{public}@", v7, v8, v9, v10, 2u);
+  sub_1000132EC(&_mh_execute_header, v5, v6, "#EED2EMS,%{public}s, All media items delayed for requestID:%{public}@", v7, v8, v9, v10, v11);
 }
 
 void sub_1000158D8(void *a1)
@@ -1667,14 +1658,14 @@ CGImageDestinationRef sub_100016460(const __CFURL *a1, const __CFString *a2, siz
   return CGImageDestinationCreateWithURL(a1, a2, a3, a4);
 }
 
-BOOL sub_10001648C(CGImageDestinationRef idst, double a2)
+BOOL sub_10001648C(CGImageDestination *a1, double a2)
 {
   if (!atomic_load(&dword_100029E3C))
   {
     sub_100016798(a2);
   }
 
-  return CGImageDestinationFinalize(idst);
+  return CGImageDestinationFinalize(a1);
 }
 
 CFDictionaryRef sub_1000164B8(CGImageSource *a1, size_t a2, const __CFDictionary *a3, double a4)
@@ -1697,24 +1688,24 @@ CGImageSourceRef sub_1000164E4(const __CFURL *a1, const __CFDictionary *a2, doub
   return CGImageSourceCreateWithURL(a1, a2);
 }
 
-size_t sub_100016510(CGImageSourceRef isrc, double a2)
+size_t sub_100016510(CGImageSource *a1, double a2)
 {
   if (!atomic_load(&dword_100029E3C))
   {
     sub_100016798(a2);
   }
 
-  return CGImageSourceGetPrimaryImageIndex(isrc);
+  return CGImageSourceGetPrimaryImageIndex(a1);
 }
 
-CFStringRef sub_10001653C(CGImageSourceRef isrc, double a2)
+CFStringRef sub_10001653C(CGImageSource *a1, double a2)
 {
   if (!atomic_load(&dword_100029E3C))
   {
     sub_100016798(a2);
   }
 
-  return CGImageSourceGetType(isrc);
+  return CGImageSourceGetType(a1);
 }
 
 double sub_100016568(double result)
@@ -1827,42 +1818,42 @@ double sub_1000166D0(double result)
   return result;
 }
 
-double __spoils<X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,Q0,Q1,Q2,Q3,Q4,Q5,Q6,Q7,Q16,Q17,Q18,Q19,Q20,Q21,Q22,Q23,Q24,Q25,Q26,Q27,Q28,Q29,Q30,Q31> sub_1000166F4(double a1)
+double sub_1000166F4(double a1)
 {
   dlopen("/System/Library/Frameworks/BackgroundTasks.framework/BackgroundTasks", 0);
   atomic_store(1u, &dword_100029E38);
   return a1;
 }
 
-double __spoils<X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,Q0,Q1,Q2,Q3,Q4,Q5,Q6,Q7,Q16,Q17,Q18,Q19,Q20,Q21,Q22,Q23,Q24,Q25,Q26,Q27,Q28,Q29,Q30,Q31> sub_100016798(double a1)
+double sub_100016798(double a1)
 {
   dlopen("/System/Library/Frameworks/ImageIO.framework/ImageIO", 0);
   atomic_store(1u, &dword_100029E3C);
   return a1;
 }
 
-double __spoils<X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,Q0,Q1,Q2,Q3,Q4,Q5,Q6,Q7,Q16,Q17,Q18,Q19,Q20,Q21,Q22,Q23,Q24,Q25,Q26,Q27,Q28,Q29,Q30,Q31> sub_10001683C(double a1)
+double sub_10001683C(double a1)
 {
   dlopen("/System/Library/Frameworks/UniformTypeIdentifiers.framework/UniformTypeIdentifiers", 0);
   atomic_store(1u, &dword_100029E40);
   return a1;
 }
 
-double __spoils<X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,Q0,Q1,Q2,Q3,Q4,Q5,Q6,Q7,Q16,Q17,Q18,Q19,Q20,Q21,Q22,Q23,Q24,Q25,Q26,Q27,Q28,Q29,Q30,Q31> sub_1000168E0(double a1)
+double sub_1000168E0(double a1)
 {
   dlopen("/System/Library/PrivateFrameworks/CallHistory.framework/CallHistory", 0);
   atomic_store(1u, &dword_100029E44);
   return a1;
 }
 
-double __spoils<X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,Q0,Q1,Q2,Q3,Q4,Q5,Q6,Q7,Q16,Q17,Q18,Q19,Q20,Q21,Q22,Q23,Q24,Q25,Q26,Q27,Q28,Q29,Q30,Q31> sub_100016984(double a1)
+double sub_100016984(double a1)
 {
   dlopen("/System/Library/PrivateFrameworks/CoreAnalytics.framework/CoreAnalytics", 0);
   atomic_store(1u, &dword_100029E48);
   return a1;
 }
 
-double __spoils<X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,Q0,Q1,Q2,Q3,Q4,Q5,Q6,Q7,Q16,Q17,Q18,Q19,Q20,Q21,Q22,Q23,Q24,Q25,Q26,Q27,Q28,Q29,Q30,Q31> sub_100016A28(double a1)
+double sub_100016A28(double a1)
 {
   dlopen("/System/Library/PrivateFrameworks/TelephonyUtilities.framework/TelephonyUtilities", 0);
   atomic_store(1u, &dword_100029E4C);

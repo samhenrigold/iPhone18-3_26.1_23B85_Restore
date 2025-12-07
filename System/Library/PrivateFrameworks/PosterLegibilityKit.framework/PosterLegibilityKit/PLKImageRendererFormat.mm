@@ -25,14 +25,16 @@
 
 + (id)formatForContextType:(int64_t)type
 {
-  v3 = [[self alloc] initWithScale:type contextType:0 memoryPool:PLKDefaultScreenScale()];
+  v3 = [self alloc];
+  PLKDefaultScreenScale(v3, v4);
+  v5 = [v3 initWithScale:? contextType:? memoryPool:?];
 
-  return v3;
+  return v5;
 }
 
 + (id)formatForContextType:(int64_t)type scale:(double)scale
 {
-  v4 = [[self alloc] initWithScale:type contextType:0 memoryPool:scale];
+  v4 = [[self alloc] initWithScale:? contextType:? memoryPool:?];
 
   return v4;
 }
@@ -40,45 +42,41 @@
 + (id)formatForContextType:(int64_t)type scale:(double)scale memoryPool:(id)pool
 {
   poolCopy = pool;
-  v9 = [[self alloc] initWithScale:type contextType:poolCopy memoryPool:scale];
+  v7 = [[self alloc] initWithScale:? contextType:? memoryPool:?];
 
-  return v9;
+  return v7;
 }
 
 - (PLKImageRendererFormat)initWithScale:(double)scale contextType:(int64_t)type memoryPool:(id)pool
 {
   poolCopy = pool;
-  v13.receiver = self;
-  v13.super_class = PLKImageRendererFormat;
-  v10 = [(UIGraphicsImageRendererFormat *)&v13 init];
-  v11 = v10;
-  if (v10)
+  v12.receiver = self;
+  v12.super_class = PLKImageRendererFormat;
+  v9 = [(UIGraphicsImageRendererFormat *)&v12 init];
+  v10 = v9;
+  if (v9)
   {
-    [(UIGraphicsImageRendererFormat *)v10 setScale:scale];
-    v11->_contextType = type;
-    objc_storeStrong(&v11->_memoryPool, pool);
+    [(UIGraphicsImageRendererFormat *)v9 setScale:?];
+    v10->_contextType = type;
+    objc_storeStrong(&v10->_memoryPool, pool);
     if (type <= 1)
     {
-      v11->_colorSpace = CGColorSpaceCreateDeviceRGB();
+      v10->_colorSpace = CGColorSpaceCreateDeviceRGB();
     }
   }
 
-  return v11;
+  return v10;
 }
 
 + (id)sharedFormatForLegibilityWithMaximumSize:(CGSize)size scale:(double)scale contentType:(int64_t)type legibilityDescriptor:(id)descriptor
 {
-  height = size.height;
-  width = size.width;
   background = [descriptor background];
-  [background sizeForContentSize:{width, height}];
-  v13 = v12;
-  v15 = v14;
+  [background sizeForContentSize:?];
 
-  v16 = [MEMORY[0x277CEC5B0] plk_sharedMemoryPoolForMaxSize:type scale:v13 contextType:{v15, scale}];
-  v17 = [self formatForContextType:type scale:v16 memoryPool:scale];
+  v8 = [MEMORY[0x277CEC5B0] plk_sharedMemoryPoolForMaxSize:? scale:? contextType:?];
+  v9 = [self formatForContextType:? scale:? memoryPool:?];
 
-  return v17;
+  return v9;
 }
 
 @end

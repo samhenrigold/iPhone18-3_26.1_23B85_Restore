@@ -167,7 +167,6 @@ LABEL_7:
   has = self->_has;
   if ((has & 0x10) != 0)
   {
-    year = self->_year;
     PBDataWriterWriteInt64Field();
     has = self->_has;
     if ((has & 8) == 0)
@@ -187,7 +186,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  month = self->_month;
   PBDataWriterWriteInt64Field();
   has = self->_has;
   if ((has & 1) == 0)
@@ -202,7 +200,6 @@ LABEL_4:
   }
 
 LABEL_12:
-  day = self->_day;
   PBDataWriterWriteInt64Field();
   has = self->_has;
   if ((has & 4) == 0)
@@ -217,12 +214,10 @@ LABEL_5:
   }
 
 LABEL_13:
-  hour = self->_hour;
   PBDataWriterWriteInt64Field();
   if ((*&self->_has & 2) != 0)
   {
 LABEL_6:
-    era = self->_era;
     PBDataWriterWriteInt64Field();
   }
 

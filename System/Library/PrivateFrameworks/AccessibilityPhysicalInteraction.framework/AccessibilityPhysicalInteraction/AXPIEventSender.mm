@@ -110,20 +110,20 @@ void __43__AXPIEventSender_sendEventRepresentation___block_invoke(uint64_t a1)
   _Block_object_dispose(v7, 8);
 }
 
-void __37__AXPIEventSender_sendIOHIDEventRef___block_invoke(uint64_t a1)
+void __37__AXPIEventSender_sendIOHIDEventRef___block_invoke(void *a1)
 {
-  if (!*(*(a1 + 32) + 8))
+  if (!*(a1[4] + 8))
   {
-    *(*(a1 + 32) + 8) = IOHIDEventSystemClientCreate();
+    *(a1[4] + 8) = IOHIDEventSystemClientCreate();
   }
 
   IOHIDEventSetSenderID();
   IOHIDEventSystemClientDispatchEvent();
-  v2 = *(*(*(a1 + 40) + 8) + 24);
+  v2 = *(*(a1[5] + 8) + 24);
   if (v2)
   {
     CFRelease(v2);
-    *(*(*(a1 + 40) + 8) + 24) = 0;
+    *(*(a1[5] + 8) + 24) = 0;
   }
 }
 

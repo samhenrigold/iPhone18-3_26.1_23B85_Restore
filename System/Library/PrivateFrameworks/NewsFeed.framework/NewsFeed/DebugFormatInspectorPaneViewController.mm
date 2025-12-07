@@ -18,7 +18,7 @@
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_1D6A6FCB4();
+  sub_1D6A6FCB4(selfCopy, v2);
 }
 
 - (void)viewWillLayoutSubviews

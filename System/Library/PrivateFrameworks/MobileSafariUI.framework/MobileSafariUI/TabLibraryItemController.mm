@@ -63,7 +63,7 @@
 
   v6 = TabLibraryItemController.isEqual(_:)(v8);
 
-  sub_21583F14C(v8, &qword_27CA7E2E0);
+  sub_21583F14C(v8, &qword_27CA7E2E0, &unk_215A969A0);
   return v6 & 1;
 }
 
@@ -94,7 +94,7 @@
   selfCopy = self;
   TabLibraryItemController.accessories.getter();
 
-  sub_2159F7DA8(0, &qword_27CA7E310);
+  sub_2159F7DA8(0, &qword_27CA7E310, 0x277D75240);
   v3 = sub_215A705D0();
 
   return v3;
@@ -102,7 +102,7 @@
 
 - (NSUUID)tabUUID
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27CA7DF80);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27CA7DF80, &unk_215A96D00);
   MEMORY[0x28223BE20](v3 - 8);
   v5 = &v15 - v4;
   selfCopy = self;
@@ -226,7 +226,7 @@
 
 - (NSUUID)UUID
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27CA7DF80);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27CA7DF80, &unk_215A96D00);
   v4 = MEMORY[0x28223BE20](v3 - 8);
   v6 = &v18 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x28223BE20](v4);

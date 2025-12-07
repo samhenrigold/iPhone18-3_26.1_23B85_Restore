@@ -1,7 +1,9 @@
 @interface HPSSpatialProfileSingleStepPearlEnrollView
+- (HPSSpatialProfileSingleStepPearlEnrollView)initWithVideoCaptureSession:(id)session inSheet:(BOOL)sheet squareNeedsPositionLayout:(BOOL)layout;
 - (id)crossHairs;
 - (void)layoutSubviews;
 - (void)setAlpha:(double)alpha;
+- (void)setCameraBlurAmount:(double)amount useShade:(BOOL)shade duration:(double)duration completion:(id)completion;
 @end
 
 @implementation HPSSpatialProfileSingleStepPearlEnrollView
@@ -20,6 +22,63 @@
   }
 
   return enrollmentCustomCrossHairs;
+}
+
+- (HPSSpatialProfileSingleStepPearlEnrollView)initWithVideoCaptureSession:(id)session inSheet:(BOOL)sheet squareNeedsPositionLayout:(BOOL)layout
+{
+  v8.receiver = self;
+  v8.super_class = HPSSpatialProfileSingleStepPearlEnrollView;
+  v5 = [(BKUIPearlEnrollView *)&v8 initWithVideoCaptureSession:session inSheet:sheet squareNeedsPositionLayout:layout];
+  v6 = v5;
+  if (v5)
+  {
+    [(HPSSpatialProfileSingleStepPearlEnrollView *)v5 setPauseBlur:0];
+  }
+
+  return v6;
+}
+
+- (void)setCameraBlurAmount:(double)amount useShade:(BOOL)shade duration:(double)duration completion:(id)completion
+{
+  shadeCopy = shade;
+  v22 = *MEMORY[0x277D85DE8];
+  completionCopy = completion;
+  v11 = sharedBluetoothSettingsLogComponent(completionCopy);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 67109888;
+    pauseBlur = [(HPSSpatialProfileSingleStepPearlEnrollView *)self pauseBlur];
+    v16 = 1024;
+    forceBlur = [(HPSSpatialProfileSingleStepPearlEnrollView *)self forceBlur];
+    v18 = 2048;
+    amountCopy = amount;
+    v20 = 2048;
+    durationCopy = duration;
+    _os_log_impl(&dword_251143000, v11, OS_LOG_TYPE_DEFAULT, "Spatial Profile: Set Camera Blur Blurring paused %d, Blurring forced %d, Requested Blur %f duration = %f ", buf, 0x22u);
+  }
+
+  if (amount == 0.0 && [(HPSSpatialProfileSingleStepPearlEnrollView *)self forceBlur])
+  {
+    LODWORD(shadeCopy) = 0;
+    amount = 15.0;
+  }
+
+  else if (amount == 0.0)
+  {
+    goto LABEL_9;
+  }
+
+  pauseBlur2 = [(HPSSpatialProfileSingleStepPearlEnrollView *)self pauseBlur];
+  shadeCopy = shadeCopy & !pauseBlur2;
+  if (pauseBlur2)
+  {
+    amount = 0.0;
+  }
+
+LABEL_9:
+  v13.receiver = self;
+  v13.super_class = HPSSpatialProfileSingleStepPearlEnrollView;
+  [(BKUIPearlEnrollView *)&v13 setCameraBlurAmount:shadeCopy useShade:completionCopy duration:amount completion:duration];
 }
 
 - (void)layoutSubviews

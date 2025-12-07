@@ -91,12 +91,11 @@ LABEL_14:
 
 - (unint64_t)hash
 {
-  v2 = *&self->_syncMode;
-  v6 = v2;
-  v7 = *&self->_autoHotspotMode;
-  v3 = [(NSDictionary *)self->_OSSpecificAttributes hash];
-  v4 = veorq_s8(v6, v7);
-  return *&veor_s8(*v4.i8, *&vextq_s8(v4, v4, 8uLL)) ^ v3;
+  v5 = *&self->_syncMode;
+  v6 = *&self->_autoHotspotMode;
+  v2 = [(NSDictionary *)self->_OSSpecificAttributes hash];
+  v3 = veorq_s8(v5, v6);
+  return *&veor_s8(*v3.i8, *&vextq_s8(v3, v3, 8uLL)) ^ v2;
 }
 
 - (id)copyWithZone:(_NSZone *)zone

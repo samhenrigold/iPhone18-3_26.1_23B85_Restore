@@ -54,7 +54,7 @@
 - (void)prepareForReuse
 {
   selfCopy = self;
-  sub_21C21C();
+  sub_21C21C(selfCopy, v2);
 }
 
 @end

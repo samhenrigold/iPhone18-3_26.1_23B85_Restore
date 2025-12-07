@@ -12,7 +12,6 @@ uint64_t sub_299BDD3A4()
 
 uint64_t sub_299BDD438()
 {
-  v1 = *(v0 + 24);
 
   return MEMORY[0x2A1C733A0](v0, 32, 7);
 }
@@ -25,7 +24,6 @@ uint64_t sub_299BDD470()
   v4 = (v3 + 16) & ~v3;
   v5 = (*(v2 + 64) + v4 + 7) & 0xFFFFFFFFFFFFFFF8;
   (*(v2 + 8))(v0 + v4, v1);
-  v6 = *(v0 + v5);
   swift_unknownObjectRelease();
 
   return MEMORY[0x2A1C733A0](v0, v5 + 8, v3 | 7);
@@ -81,52 +79,21 @@ uint64_t storeEnumTagSinglePayload for CMTime(uint64_t result, int a2, int a3)
   return result;
 }
 
-uint64_t protocol witness for Hashable.hashValue.getter in conformance CFStringRef()
+uint64_t protocol witness for static Equatable.== infix(_:_:) in conformance CFBooleanRef(uint64_t *a1, uint64_t *a2, uint64_t a3)
 {
-  v1 = *v0;
-  swift_getWitnessTable();
-  return _CFObject.hashValue.getter();
-}
-
-uint64_t protocol witness for Hashable.hash(into:) in conformance CFStringRef()
-{
-  v1 = *v0;
-  swift_getWitnessTable();
-  return _CFObject.hash(into:)();
-}
-
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance CFStringRef()
-{
-  return protocol witness for Hashable._rawHashValue(seed:) in conformance CFStringRef();
-}
-
-{
-  Hasher.init(_seed:)();
-  v1 = *v0;
-  swift_getWitnessTable();
-  _CFObject.hash(into:)();
-  return Hasher._finalize()();
-}
-
-uint64_t protocol witness for static Equatable.== infix(_:_:) in conformance CFBooleanRef(uint64_t *a1, uint64_t *a2)
-{
-  v2 = *a1;
-  v3 = *a2;
   swift_getWitnessTable();
 
   return static _CFObject.== infix(_:_:)();
 }
 
-uint64_t protocol witness for static Equatable.== infix(_:_:) in conformance CFStringRef(uint64_t *a1, uint64_t *a2)
+uint64_t protocol witness for static Equatable.== infix(_:_:) in conformance CFStringRef(uint64_t *a1, uint64_t *a2, uint64_t a3)
 {
-  v2 = *a1;
-  v3 = *a2;
   swift_getWitnessTable();
 
   return static _CFObject.== infix(_:_:)();
 }
 
-uint64_t lazy protocol witness table accessor for type CFStringRef and conformance CFStringRef(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t lazy protocol witness table accessor for type CFStringRef and conformance CFStringRef(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -139,26 +106,20 @@ uint64_t lazy protocol witness table accessor for type CFStringRef and conforman
   return result;
 }
 
-uint64_t protocol witness for Hashable.hashValue.getter in conformance CFBooleanRef()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance CFStringRef(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v1 = *v0;
+  Hasher.init(_seed:)();
   swift_getWitnessTable();
-  return _CFObject.hashValue.getter();
+  _CFObject.hash(into:)();
+  return Hasher._finalize()();
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance CFBooleanRef()
-{
-  v1 = *v0;
-  swift_getWitnessTable();
-  return _CFObject.hash(into:)();
-}
-
-void type metadata accessor for VTMotionEstimationSessionRef(uint64_t a1, unint64_t *a2)
+void type metadata accessor for VTMotionEstimationSessionRef(uint64_t a1, unint64_t *a2, uint64_t a3)
 {
   if (!*a2)
   {
     ForeignTypeMetadata = swift_getForeignTypeMetadata();
-    if (!v4)
+    if (!v5)
     {
       atomic_store(ForeignTypeMetadata, a2);
     }
@@ -362,7 +323,7 @@ LABEL_20:
   return result;
 }
 
-char *specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(char *a1, int64_t a2, char a3)
+char *specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(char *a1, uint64_t a2, uint64_t a3)
 {
   result = specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, *v3);
   *v3 = result;
@@ -621,7 +582,6 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1, uint64_t
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -643,75 +603,70 @@ Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance VTH
   return Hasher._finalize()();
 }
 
-uint64_t VTHDRPerFrameMetadataGenerationSession.__allocating_init(framesPerSecond:hdrFormats:)(uint64_t a1)
+uint64_t VTHDRPerFrameMetadataGenerationSession.__allocating_init(framesPerSecond:hdrFormats:)(uint64_t a1, float a2)
 {
-  v2 = swift_allocObject();
-  VTHDRPerFrameMetadataGenerationSession.init(framesPerSecond:hdrFormats:)(a1);
-  return v2;
+  v4 = swift_allocObject();
+  v5.n128_f32[0] = a2;
+  VTHDRPerFrameMetadataGenerationSession.init(framesPerSecond:hdrFormats:)(a1, v5);
+  return v4;
 }
 
-uint64_t VTHDRPerFrameMetadataGenerationSession.init(framesPerSecond:hdrFormats:)(uint64_t a1)
+uint64_t VTHDRPerFrameMetadataGenerationSession.init(framesPerSecond:hdrFormats:)(uint64_t a1, __n128 a2)
 {
-  v2 = v1;
-  v16 = *MEMORY[0x29EDCA608];
-  if (a1 && (v3 = *(a1 + 16)) != 0)
+  v3 = v2;
+  if (a1 && (v4 = *(a1 + 16)) != 0)
   {
     __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySS_yptGMd, &_ss23_ContiguousArrayStorageCySS_yptGMR);
     inited = swift_initStackObject();
     *(inited + 16) = xmmword_299BE4BE0;
-    v5 = *MEMORY[0x29EDBCF48];
     *(inited + 32) = static String._unconditionallyBridgeFromObjectiveC(_:)();
     *(inited + 40) = v6;
-    v15 = MEMORY[0x29EDCA190];
+    v11 = MEMORY[0x29EDCA190];
     specialized ContiguousArray.reserveCapacity(_:)();
     do
     {
       MEMORY[0x29C2AD920](0x73695679626C6F44, 0xEB000000006E6F69);
       specialized ContiguousArray._makeUniqueAndReserveCapacityIfNotUnique()();
-      v7 = *(v15 + 16);
       specialized ContiguousArray._reserveCapacityAssumingUniqueBuffer(oldCount:)();
       specialized ContiguousArray._appendElementAssumeUniqueAndCapacity(_:newElement:)();
       specialized ContiguousArray._endMutation()();
-      --v3;
+      --v4;
     }
 
-    while (v3);
+    while (v4);
     *(inited + 72) = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySo11CFStringRefaGMd, &_sSaySo11CFStringRefaGMR);
-    *(inited + 48) = v15;
+    *(inited + 48) = v11;
     _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCSS_ypTt0g5Tf4g_n(inited);
     swift_setDeallocating();
     outlined destroy of (String, Any)(inited + 32);
-    v8 = *MEMORY[0x29EDB8ED8];
 
-    v9.super.isa = Dictionary._bridgeToObjectiveC()().super.isa;
+    v7.super.isa = Dictionary._bridgeToObjectiveC()().super.isa;
 
-    v2 = v1;
+    v3 = v2;
   }
 
   else
   {
-    v9.super.isa = 0;
-    v10 = *MEMORY[0x29EDB8ED8];
+    v7.super.isa = 0;
   }
 
-  v11 = VTHDRPerFrameMetadataGenerationSessionCreate();
+  v8 = VTHDRPerFrameMetadataGenerationSessionCreate();
 
   result = noErr.getter();
-  if (v11 == result)
+  if (v8 == result)
   {
     __break(1u);
   }
 
   else
   {
-    v13 = objc_allocWithZone(MEMORY[0x29EDB9FA0]);
-    [v13 initWithDomain:*MEMORY[0x29EDB9EF0] code:v11 userInfo:0];
+    v10 = objc_allocWithZone(MEMORY[0x29EDB9FA0]);
+    [v10 initWithDomain:*MEMORY[0x29EDB9EF0] code:v8 userInfo:0];
     swift_willThrow();
 
     type metadata accessor for VTHDRPerFrameMetadataGenerationSession();
     swift_deallocPartialClassInstance();
-    v14 = *MEMORY[0x29EDCA608];
-    return v2;
+    return v3;
   }
 
   return result;
@@ -719,12 +674,11 @@ uint64_t VTHDRPerFrameMetadataGenerationSession.init(framesPerSecond:hdrFormats:
 
 Swift::Void __swiftcall __spoils<CF,ZF,NF,VF,X0,X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,X21,Q0,Q1,Q2,Q3,Q4,Q5,Q6,Q7,Q16,Q17,Q18,Q19,Q20,Q21,Q22,Q23,Q24,Q25,Q26,Q27,Q28,Q29,Q30,Q31> VTHDRPerFrameMetadataGenerationSession.attachMetadata(to:sceneChange:)(CVBufferRef to, Swift::Bool sceneChange)
 {
-  v3 = *(v2 + 16);
-  v4 = VTHDRPerFrameMetadataGenerationSessionAttachMetadata();
-  if (v4 != noErr.getter())
+  v2 = VTHDRPerFrameMetadataGenerationSessionAttachMetadata();
+  if (v2 != noErr.getter())
   {
-    v5 = objc_allocWithZone(MEMORY[0x29EDB9FA0]);
-    [v5 initWithDomain:*MEMORY[0x29EDB9EF0] code:v4 userInfo:0];
+    v3 = objc_allocWithZone(MEMORY[0x29EDB9FA0]);
+    [v3 initWithDomain:*MEMORY[0x29EDB9EF0] code:v2 userInfo:0];
     swift_willThrow();
   }
 }
@@ -1077,20 +1031,20 @@ LABEL_20:
   return result;
 }
 
-id VTLowLatencyFrameInterpolationParameters.init(sourceFrame:previousFrame:interpolationPhase:destinationFrames:)(void *a1, void *a2, uint64_t a3)
+id VTLowLatencyFrameInterpolationParameters.init(sourceFrame:previousFrame:interpolationPhase:destinationFrames:)(void *a1, void *a2, uint64_t a3, uint64_t a4)
 {
-  v6 = objc_allocWithZone(swift_getObjCClassFromMetadata());
+  v7 = objc_allocWithZone(swift_getObjCClassFromMetadata());
   specialized _arrayForceCast<A, B>(_:)(a3);
 
   type metadata accessor for NSNumber(0, &lazy cache variable for type metadata for NSNumber, 0x29EDBA070);
   isa = Array._bridgeToObjectiveC()().super.isa;
 
   type metadata accessor for NSNumber(0, &lazy cache variable for type metadata for VTFrameProcessorFrame, 0x29EDBCD08);
-  v8 = Array._bridgeToObjectiveC()().super.isa;
+  v9 = Array._bridgeToObjectiveC()().super.isa;
 
-  v9 = [v6 initWithSourceFrame:a1 previousFrame:a2 interpolationPhase:isa destinationFrames:v8];
+  v10 = [v7 initWithSourceFrame:a1 previousFrame:a2 interpolationPhase:isa destinationFrames:v9];
 
-  return v9;
+  return v10;
 }
 
 uint64_t specialized _arrayForceCast<A, B>(_:)(uint64_t a1)
@@ -1099,15 +1053,14 @@ uint64_t specialized _arrayForceCast<A, B>(_:)(uint64_t a1)
   result = MEMORY[0x29EDCA190];
   if (v2)
   {
-    v7 = MEMORY[0x29EDCA190];
+    v5 = MEMORY[0x29EDCA190];
     specialized ContiguousArray.reserveCapacity(_:)();
-    v4 = (a1 + 32);
+    v4 = a1 + 32;
     do
     {
-      v5 = *v4++;
+      v4 += 4;
       Float._bridgeToObjectiveC()();
       specialized ContiguousArray._makeUniqueAndReserveCapacityIfNotUnique()();
-      v6 = *(v7 + 16);
       specialized ContiguousArray._reserveCapacityAssumingUniqueBuffer(oldCount:)();
       specialized ContiguousArray._appendElementAssumeUniqueAndCapacity(_:newElement:)();
       specialized ContiguousArray._endMutation()();
@@ -1115,7 +1068,7 @@ uint64_t specialized _arrayForceCast<A, B>(_:)(uint64_t a1)
     }
 
     while (v2);
-    return v7;
+    return v5;
   }
 
   return result;
@@ -1200,12 +1153,11 @@ LABEL_3:
   return result;
 }
 
-uint64_t type metadata accessor for NSNumber(uint64_t a1, unint64_t *a2, uint64_t *a3)
+uint64_t type metadata accessor for NSNumber(uint64_t a1, unint64_t *a2, void *a3)
 {
   result = *a2;
   if (!*a2)
   {
-    v5 = *a3;
     objc_opt_self();
     result = swift_getObjCClassMetadata();
     atomic_store(result, a2);
@@ -1315,20 +1267,20 @@ LABEL_20:
   return result;
 }
 
-id VTFrameRateConversionParameters.init(sourceFrame:nextFrame:opticalFlow:interpolationPhase:submissionMode:destinationFrames:)(void *a1, void *a2, void *a3, uint64_t a4, uint64_t a5)
+id VTFrameRateConversionParameters.init(sourceFrame:nextFrame:opticalFlow:interpolationPhase:submissionMode:destinationFrames:)(void *a1, void *a2, void *a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  v10 = objc_allocWithZone(swift_getObjCClassFromMetadata());
+  v11 = objc_allocWithZone(swift_getObjCClassFromMetadata());
   specialized _arrayForceCast<A, B>(_:)(a4);
 
   type metadata accessor for NSNumber(0, &lazy cache variable for type metadata for NSNumber, 0x29EDBA070);
   isa = Array._bridgeToObjectiveC()().super.isa;
 
   type metadata accessor for NSNumber(0, &lazy cache variable for type metadata for VTFrameProcessorFrame, 0x29EDBCD08);
-  v12 = Array._bridgeToObjectiveC()().super.isa;
+  v13 = Array._bridgeToObjectiveC()().super.isa;
 
-  v13 = [v10 initWithSourceFrame:a1 nextFrame:a2 opticalFlow:a3 interpolationPhase:isa submissionMode:a5 destinationFrames:v12];
+  v14 = [v11 initWithSourceFrame:a1 nextFrame:a2 opticalFlow:a3 interpolationPhase:isa submissionMode:a5 destinationFrames:v13];
 
-  return v13;
+  return v14;
 }
 
 char *VTFrameRateConversionParameters.interpolationPhase.getter()
@@ -1951,7 +1903,7 @@ uint64_t specialized SetAlgebra<>.init(arrayLiteral:)@<X0>(uint64_t a1@<X0>, _DW
 
 uint64_t VTMotionEstimationSession.__allocating_init(width:height:motionVectorSize:useMultiPassSearch:label:)(uint64_t a1, uint64_t a2, unsigned __int8 *a3, char a4, uint64_t a5, uint64_t a6)
 {
-  v34 = *MEMORY[0x29EDCA608];
+  v32 = *MEMORY[0x29EDCA608];
   v10 = swift_allocObject();
   v11 = *a3;
   __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySo11CFStringRefa_yptGMd, &_ss23_ContiguousArrayStorageCySo11CFStringRefa_yptGMR);
@@ -1999,47 +1951,44 @@ LABEL_14:
       goto LABEL_16;
     }
 
-    v33 = MEMORY[0x29EDC99B0];
-    *&v32 = a5;
-    *(&v32 + 1) = a6;
-    outlined init with take of Any(&v32, v31);
+    v31 = MEMORY[0x29EDC99B0];
+    *&v30 = a5;
+    *(&v30 + 1) = a6;
+    outlined init with take of Any(&v30, v29);
 
     v21 = v20;
     isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    specialized _NativeDictionary.setValue(_:forKey:isUnique:)(v31, v21, isUniquelyReferenced_nonNull_native);
+    specialized _NativeDictionary.setValue(_:forKey:isUnique:)(v29, v21, isUniquelyReferenced_nonNull_native);
   }
 
-  *&v32 = 0;
-  v23 = *MEMORY[0x29EDB8ED8];
+  *&v30 = 0;
   type metadata accessor for CFStringRef(0);
-  _sSo11CFStringRefaABSHSCWlTm_0(&lazy protocol witness table cache variable for type CFStringRef and conformance CFStringRef, type metadata accessor for CFStringRef);
+  _sSo11CFStringRefaABSHSCWlTm_0(&lazy protocol witness table cache variable for type CFStringRef and conformance CFStringRef, type metadata accessor for CFStringRef, &protocol conformance descriptor for CFStringRef);
 
   isa = Dictionary._bridgeToObjectiveC()().super.isa;
 
-  v25 = VTMotionEstimationSessionCreate();
+  v24 = VTMotionEstimationSessionCreate();
 
   result = noErr.getter();
-  if (v25 != result)
+  if (v24 != result)
   {
-    v28 = objc_allocWithZone(MEMORY[0x29EDB9FA0]);
-    [v28 initWithDomain:*MEMORY[0x29EDB9EF0] code:v25 userInfo:0];
+    v27 = objc_allocWithZone(MEMORY[0x29EDB9FA0]);
+    [v27 initWithDomain:*MEMORY[0x29EDB9EF0] code:v24 userInfo:0];
     swift_willThrow();
 
-    v29 = v32;
+    v28 = v30;
 
     swift_deallocPartialClassInstance();
-    goto LABEL_12;
+    return v10;
   }
 
-  if (v32)
+  if (v30)
   {
-    v26 = v32;
+    v25 = v30;
 
-    *(v10 + 16) = v26;
-    v27 = v32;
+    *(v10 + 16) = v25;
+    v26 = v30;
 
-LABEL_12:
-    v30 = *MEMORY[0x29EDCA608];
     return v10;
   }
 
@@ -2048,11 +1997,10 @@ LABEL_16:
   return result;
 }
 
-uint64_t VTMotionEstimationSession.init(width:height:motionVectorSize:useMultiPassSearch:label:)(uint64_t a1, uint64_t a2, unsigned __int8 *a3, char a4, uint64_t a5, uint64_t a6)
+uint64_t VTMotionEstimationSession.init(width:height:motionVectorSize:useMultiPassSearch:label:)(uint64_t a1, unsigned int a2, unsigned __int8 *a3, char a4, uint64_t a5, uint64_t a6)
 {
   v7 = v6;
-  v35 = *MEMORY[0x29EDCA608];
-  v31 = *v7;
+  v32 = *MEMORY[0x29EDCA608];
   v11 = *a3;
   __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySo11CFStringRefa_yptGMd, &_ss23_ContiguousArrayStorageCySo11CFStringRefa_yptGMR);
   inited = swift_initStackObject();
@@ -2099,47 +2047,44 @@ LABEL_14:
       goto LABEL_16;
     }
 
-    v34 = MEMORY[0x29EDC99B0];
-    *&v33 = a5;
-    *(&v33 + 1) = a6;
-    outlined init with take of Any(&v33, v32);
+    v31 = MEMORY[0x29EDC99B0];
+    *&v30 = a5;
+    *(&v30 + 1) = a6;
+    outlined init with take of Any(&v30, v29);
 
     v21 = v20;
     isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    specialized _NativeDictionary.setValue(_:forKey:isUnique:)(v32, v21, isUniquelyReferenced_nonNull_native);
+    specialized _NativeDictionary.setValue(_:forKey:isUnique:)(v29, v21, isUniquelyReferenced_nonNull_native);
   }
 
-  *&v33 = 0;
-  v23 = *MEMORY[0x29EDB8ED8];
+  *&v30 = 0;
   type metadata accessor for CFStringRef(0);
-  _sSo11CFStringRefaABSHSCWlTm_0(&lazy protocol witness table cache variable for type CFStringRef and conformance CFStringRef, type metadata accessor for CFStringRef);
+  _sSo11CFStringRefaABSHSCWlTm_0(&lazy protocol witness table cache variable for type CFStringRef and conformance CFStringRef, type metadata accessor for CFStringRef, &protocol conformance descriptor for CFStringRef);
 
   isa = Dictionary._bridgeToObjectiveC()().super.isa;
 
-  v25 = VTMotionEstimationSessionCreate();
+  v24 = VTMotionEstimationSessionCreate();
 
   result = noErr.getter();
-  if (v25 != result)
+  if (v24 != result)
   {
-    v28 = objc_allocWithZone(MEMORY[0x29EDB9FA0]);
-    [v28 initWithDomain:*MEMORY[0x29EDB9EF0] code:v25 userInfo:0];
+    v27 = objc_allocWithZone(MEMORY[0x29EDB9FA0]);
+    [v27 initWithDomain:*MEMORY[0x29EDB9EF0] code:v24 userInfo:0];
     swift_willThrow();
 
-    v29 = v33;
+    v28 = v30;
 
     swift_deallocPartialClassInstance();
-    goto LABEL_12;
+    return v7;
   }
 
-  if (v33)
+  if (v30)
   {
-    v26 = v33;
+    v25 = v30;
 
-    v7[2] = v26;
-    v27 = v33;
+    *(v7 + 16) = v25;
+    v26 = v30;
 
-LABEL_12:
-    v30 = *MEMORY[0x29EDCA608];
     return v7;
   }
 
@@ -2150,7 +2095,6 @@ LABEL_16:
 
 uint64_t VTMotionEstimationSession.Motion._motionVector.setter(uint64_t a1)
 {
-  v3 = *v1;
 
   *v1 = a1;
   return result;
@@ -2158,43 +2102,39 @@ uint64_t VTMotionEstimationSession.Motion._motionVector.setter(uint64_t a1)
 
 uint64_t VTMotionEstimationSession.label.getter()
 {
-  v5[1] = *MEMORY[0x29EDCA608];
-  v5[0] = 0;
+  v4[1] = *MEMORY[0x29EDCA608];
+  v4[0] = 0;
   if (!*MEMORY[0x29EDBCF50])
   {
     __break(1u);
   }
 
-  VTSessionCopyProperty(v0, *MEMORY[0x29EDBCF50], *MEMORY[0x29EDB8ED8], v5);
-  v1 = v5[0];
-  if (v5[0])
+  VTSessionCopyProperty(v0, *MEMORY[0x29EDBCF50], *MEMORY[0x29EDB8ED8], v4);
+  v1 = v4[0];
+  if (!v4[0])
   {
-    v2 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+    return 0;
   }
 
-  else
-  {
-    v2 = 0;
-  }
+  v2 = static String._unconditionallyBridgeFromObjectiveC(_:)();
 
-  v3 = *MEMORY[0x29EDCA608];
   return v2;
 }
 
 void VTMotionEstimationSession.motionVectorSize.getter(char *a1@<X8>)
 {
   v2 = v1;
-  v8[1] = *MEMORY[0x29EDCA608];
-  v8[0] = 0;
+  v7[1] = *MEMORY[0x29EDCA608];
+  v7[0] = 0;
   if (!*MEMORY[0x29EDBCF58])
   {
     __break(1u);
   }
 
-  VTSessionCopyProperty(v2, *MEMORY[0x29EDBCF58], *MEMORY[0x29EDB8ED8], v8);
-  if (v8[0])
+  VTSessionCopyProperty(v2, *MEMORY[0x29EDBCF58], *MEMORY[0x29EDB8ED8], v7);
+  if (v7[0])
   {
-    v4 = [v8[0] integerValue];
+    v4 = [v7[0] integerValue];
     if (v4 == 16)
     {
       v5 = 0;
@@ -2214,54 +2154,48 @@ LABEL_8:
   [v6 initWithDomain:*MEMORY[0x29EDB9EF0] code:-12903 userInfo:0];
   swift_willThrow();
 LABEL_9:
-
-  v7 = *MEMORY[0x29EDCA608];
 }
 
 uint64_t VTMotionEstimationSession.useMultiPassSearch.getter()
 {
-  v8[1] = *MEMORY[0x29EDCA608];
-  v8[0] = 0;
+  v7[1] = *MEMORY[0x29EDCA608];
+  v7[0] = 0;
   if (!*MEMORY[0x29EDBCF60])
   {
     __break(1u);
   }
 
-  VTSessionCopyProperty(v0, *MEMORY[0x29EDBCF60], *MEMORY[0x29EDB8ED8], v8);
-  v1 = v8[0];
+  VTSessionCopyProperty(v0, *MEMORY[0x29EDBCF60], *MEMORY[0x29EDB8ED8], v7);
+  v1 = v7[0];
   v2 = *MEMORY[0x29EDB8F00];
-  v3 = (v8[0] | *MEMORY[0x29EDB8F00]) == 0;
-  if (v8[0] && v2)
+  v3 = (v7[0] | *MEMORY[0x29EDB8F00]) == 0;
+  if (v7[0] && v2)
   {
     type metadata accessor for CFBooleanRef(0);
-    _sSo11CFStringRefaABSHSCWlTm_0(&lazy protocol witness table cache variable for type CFBooleanRef and conformance CFBooleanRef, type metadata accessor for CFBooleanRef);
+    _sSo11CFStringRefaABSHSCWlTm_0(&lazy protocol witness table cache variable for type CFBooleanRef and conformance CFBooleanRef, type metadata accessor for CFBooleanRef, &protocol conformance descriptor for CFBooleanRef);
     v4 = v2;
     v5 = v1;
     v3 = static _CFObject.== infix(_:_:)();
 
-    v1 = v8[0];
+    v1 = v7[0];
   }
 
-  v6 = *MEMORY[0x29EDCA608];
   return v3 & 1;
 }
 
 uint64_t VTMotionEstimationSession.sourcePixelBufferAttributes.getter()
 {
-  v8 = *MEMORY[0x29EDCA608];
-  v1 = *(v0 + 16);
-  v2 = VTMotionEstimationSessionCopySourcePixelBufferAttributes();
-  if (v2 != noErr.getter())
+  v0 = VTMotionEstimationSessionCopySourcePixelBufferAttributes();
+  if (v0 != noErr.getter())
   {
-    v3 = objc_allocWithZone(MEMORY[0x29EDB9FA0]);
-    v4 = [v3 initWithDomain:*MEMORY[0x29EDB9EF0] code:v2 userInfo:0];
+    v1 = objc_allocWithZone(MEMORY[0x29EDB9FA0]);
+    v2 = [v1 initWithDomain:*MEMORY[0x29EDB9EF0] code:v0 userInfo:0];
     swift_willThrow();
   }
 
-  v5 = MEMORY[0x29EDCA198];
+  v3 = MEMORY[0x29EDCA198];
 
-  v6 = *MEMORY[0x29EDCA608];
-  return v5;
+  return v3;
 }
 
 uint64_t VTMotionEstimationSession.motion(of:comparedTo:flags:)(uint64_t a1, uint64_t a2, uint64_t a3, _DWORD *a4)
@@ -2283,21 +2217,19 @@ uint64_t VTMotionEstimationSession.motion(of:comparedTo:flags:)()
   v3[1] = vextq_s8(v0[2], v0[2], 8uLL);
   v3[2].i64[0] = v2;
   v3[2].i32[2] = v1;
-  v4 = *(MEMORY[0x29EDCA470] + 4);
-  v5 = swift_task_alloc();
-  v0[3].i64[1] = v5;
-  *v5 = v0;
-  v5[1] = VTMotionEstimationSession.motion(of:comparedTo:flags:);
-  v6 = v0[2].i64[1];
-  v7 = v0[1].i64[0];
+  v4 = swift_task_alloc();
+  v0[3].i64[1] = v4;
+  *v4 = v0;
+  v4[1] = VTMotionEstimationSession.motion(of:comparedTo:flags:);
+  v5 = v0[2].i64[1];
+  v6 = v0[1].i64[0];
 
-  return MEMORY[0x2A1C73C78](v7, &async function pointer to partial apply for closure #1 in VTMotionEstimationSession.motion(of:comparedTo:flags:), v3, partial apply for closure #2 in VTMotionEstimationSession.motion(of:comparedTo:flags:), v6, 0, 0, &type metadata for VTMotionEstimationSession.Motion);
+  return MEMORY[0x2A1C73C78](v6, &async function pointer to partial apply for closure #1 in VTMotionEstimationSession.motion(of:comparedTo:flags:), v3, partial apply for closure #2 in VTMotionEstimationSession.motion(of:comparedTo:flags:), v5, 0, 0, &type metadata for VTMotionEstimationSession.Motion);
 }
 
 {
-  v2 = *(*v1 + 56);
-  v3 = *v1;
-  v3[8] = v0;
+  v2 = *v1;
+  *(v2 + 64) = v0;
 
   if (v0)
   {
@@ -2307,11 +2239,10 @@ uint64_t VTMotionEstimationSession.motion(of:comparedTo:flags:)()
 
   else
   {
-    v4 = v3[6];
 
-    v5 = v3[1];
+    v3 = *(v2 + 8);
 
-    return v5();
+    return v3();
   }
 }
 
@@ -2334,20 +2265,18 @@ uint64_t closure #1 in VTMotionEstimationSession.motion(of:comparedTo:flags:)()
   *(v3 + 16) = *(v0 + 24);
   *(v3 + 32) = v2;
   *(v3 + 40) = v1;
-  v4 = *(MEMORY[0x29EDCA478] + 4);
-  v5 = swift_task_alloc();
-  *(v0 + 56) = v5;
-  *v5 = v0;
-  v5[1] = closure #1 in VTMotionEstimationSession.motion(of:comparedTo:flags:);
-  v6 = *(v0 + 16);
+  v4 = swift_task_alloc();
+  *(v0 + 56) = v4;
+  *v4 = v0;
+  v4[1] = closure #1 in VTMotionEstimationSession.motion(of:comparedTo:flags:);
+  v5 = *(v0 + 16);
 
-  return MEMORY[0x2A1C73C80](v6, 0, 0, 0xD00000000000001CLL, 0x8000000299BE5A90, partial apply for closure #1 in closure #1 in VTMotionEstimationSession.motion(of:comparedTo:flags:), v3, &type metadata for VTMotionEstimationSession.Motion);
+  return MEMORY[0x2A1C73C80](v5, 0, 0, 0xD00000000000001CLL, 0x8000000299BE5A90, partial apply for closure #1 in closure #1 in VTMotionEstimationSession.motion(of:comparedTo:flags:), v3, &type metadata for VTMotionEstimationSession.Motion);
 }
 
 {
-  v2 = *(*v1 + 56);
-  v3 = *v1;
-  v3[8] = v0;
+  v2 = *v1;
+  *(v2 + 64) = v0;
 
   if (v0)
   {
@@ -2357,91 +2286,85 @@ uint64_t closure #1 in VTMotionEstimationSession.motion(of:comparedTo:flags:)()
 
   else
   {
-    v4 = v3[6];
 
-    v5 = v3[1];
+    v3 = *(v2 + 8);
 
-    return v5();
+    return v3();
   }
 }
 
 {
-  v1 = v0[6];
 
-  v2 = v0[1];
-  v3 = v0[8];
+  v1 = *(v0 + 8);
 
-  return v2();
+  return v1();
 }
 
-uint64_t closure #1 in closure #1 in VTMotionEstimationSession.motion(of:comparedTo:flags:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, int a5)
+uint64_t closure #1 in closure #1 in VTMotionEstimationSession.motion(of:comparedTo:flags:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, unsigned int a5)
 {
-  v23 = a5;
-  v22[1] = a4;
+  v22 = a5;
+  v21[1] = a4;
   v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCy12VideoToolbox25VTMotionEstimationSessionC6MotionVs5Error_pGMd, &_sScCy12VideoToolbox25VTMotionEstimationSessionC6MotionVs5Error_pGMR);
   v8 = *(v7 - 8);
-  v9 = *(v8 + 64);
-  MEMORY[0x2A1C7C4A8]();
-  v11 = v22 - v10;
-  v22[2] = *(a2 + 16);
+  MEMORY[0x2A1C7C4A8](v7);
+  v10 = v21 - v9;
+  v21[2] = *(a2 + 16);
   KeyPath = swift_getKeyPath();
-  v26 = partial apply for implicit closure #1 in closure #1 in closure #1 in VTMotionEstimationSession.motion(of:comparedTo:flags:);
-  v27 = KeyPath;
+  v25 = partial apply for implicit closure #1 in closure #1 in closure #1 in VTMotionEstimationSession.motion(of:comparedTo:flags:);
+  v26 = KeyPath;
   type metadata accessor for CVBufferRef(0);
 
   _s9CoreVideo21CVReadOnlyPixelBufferC010withUnsafeF0yxxSo11CVBufferRefaKYTXEKRi_zlF();
 
-  v13 = aBlock[8];
-  v14 = swift_getKeyPath();
-  v24 = partial apply for implicit closure #2 in closure #1 in closure #1 in VTMotionEstimationSession.motion(of:comparedTo:flags:);
-  v25 = v14;
+  v12 = aBlock[8];
+  v13 = swift_getKeyPath();
+  v23 = partial apply for implicit closure #2 in closure #1 in closure #1 in VTMotionEstimationSession.motion(of:comparedTo:flags:);
+  v24 = v13;
 
   _s9CoreVideo21CVReadOnlyPixelBufferC010withUnsafeF0yxxSo11CVBufferRefaKYTXEKRi_zlF();
 
-  v15 = aBlock[6];
-  (*(v8 + 16))(v11, a1, v7);
-  v16 = (*(v8 + 80) + 16) & ~*(v8 + 80);
-  v17 = swift_allocObject();
-  (*(v8 + 32))(v17 + v16, v11, v7);
+  v14 = aBlock[6];
+  (*(v8 + 16))(v10, a1, v7);
+  v15 = (*(v8 + 80) + 16) & ~*(v8 + 80);
+  v16 = swift_allocObject();
+  (*(v8 + 32))(v16 + v15, v10, v7);
   aBlock[4] = partial apply for closure #1 in closure #1 in closure #1 in VTMotionEstimationSession.motion(of:comparedTo:flags:);
-  aBlock[5] = v17;
+  aBlock[5] = v16;
   aBlock[0] = MEMORY[0x29EDCA5F8];
   aBlock[1] = 1107296256;
   aBlock[2] = thunk for @escaping @callee_guaranteed (@unowned Int32, @unowned VTMotionEstimationInfoFlags, @guaranteed CFDictionaryRef?, @guaranteed CVBufferRef?) -> ();
   aBlock[3] = &block_descriptor;
-  v18 = _Block_copy(aBlock);
+  v17 = _Block_copy(aBlock);
 
-  v19 = VTMotionEstimationSessionEstimateMotionVectors();
+  v18 = VTMotionEstimationSessionEstimateMotionVectors();
 
-  _Block_release(v18);
+  _Block_release(v17);
   result = noErr.getter();
-  if (v19 != result)
+  if (v18 != result)
   {
-    v21 = objc_allocWithZone(MEMORY[0x29EDB9FA0]);
-    aBlock[0] = [v21 initWithDomain:*MEMORY[0x29EDB9EF0] code:v19 userInfo:0];
+    v20 = objc_allocWithZone(MEMORY[0x29EDB9FA0]);
+    aBlock[0] = [v20 initWithDomain:*MEMORY[0x29EDB9EF0] code:v18 userInfo:0];
     return CheckedContinuation.resume(throwing:)();
   }
 
   return result;
 }
 
-uint64_t implicit closure #1 in closure #1 in closure #1 in VTMotionEstimationSession.motion(of:comparedTo:flags:)(void *a1)
+uint64_t implicit closure #1 in closure #1 in closure #1 in VTMotionEstimationSession.motion(of:comparedTo:flags:)(void *a1, uint64_t a2)
 {
-  v1 = a1;
+  v2 = a1;
   swift_getAtKeyPath();
 
-  return v3;
+  return v4;
 }
 
 uint64_t closure #1 in closure #1 in closure #1 in VTMotionEstimationSession.motion(of:comparedTo:flags:)(int a1, uint64_t a2, uint64_t a3, void *a4)
 {
   if (a4)
   {
-    v5 = type metadata accessor for CVReadOnlyPixelBuffer();
-    v6 = *(v5 + 48);
-    v7 = *(v5 + 52);
+    type metadata accessor for CVReadOnlyPixelBuffer();
     swift_allocObject();
-    v8 = a4;
+    v5 = a4;
     CVReadOnlyPixelBuffer.init(unsafeBuffer:)();
     __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCy12VideoToolbox25VTMotionEstimationSessionC6MotionVs5Error_pGMd, &_sScCy12VideoToolbox25VTMotionEstimationSessionC6MotionVs5Error_pGMR);
     return CheckedContinuation.resume(returning:)();
@@ -2449,8 +2372,8 @@ uint64_t closure #1 in closure #1 in closure #1 in VTMotionEstimationSession.mot
 
   else
   {
-    v11 = objc_allocWithZone(MEMORY[0x29EDB9FA0]);
-    [v11 initWithDomain:*MEMORY[0x29EDB9EF0] code:a1 userInfo:0];
+    v8 = objc_allocWithZone(MEMORY[0x29EDB9FA0]);
+    [v8 initWithDomain:*MEMORY[0x29EDB9EF0] code:a1 userInfo:0];
     __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCy12VideoToolbox25VTMotionEstimationSessionC6MotionVs5Error_pGMd, &_sScCy12VideoToolbox25VTMotionEstimationSessionC6MotionVs5Error_pGMR);
     return CheckedContinuation.resume(throwing:)();
   }
@@ -2458,12 +2381,11 @@ uint64_t closure #1 in closure #1 in closure #1 in VTMotionEstimationSession.mot
 
 void thunk for @escaping @callee_guaranteed (@unowned Int32, @unowned VTMotionEstimationInfoFlags, @guaranteed CFDictionaryRef?, @guaranteed CVBufferRef?) -> ()(uint64_t a1, uint64_t a2, uint64_t a3, void *a4, void *a5)
 {
-  v10 = *(a1 + 32);
-  v9 = *(a1 + 40);
+  v9 = *(a1 + 32);
 
-  v12 = a4;
-  v11 = a5;
-  v10(a2, a3, a4, a5);
+  v11 = a4;
+  v10 = a5;
+  v9(a2, a3, a4, a5);
 }
 
 uint64_t VTMotionEstimationSession.__deallocating_deinit()
@@ -2474,24 +2396,22 @@ uint64_t VTMotionEstimationSession.__deallocating_deinit()
 
 unint64_t specialized __RawDictionaryStorage.find<A>(_:)(uint64_t a1, uint64_t a2)
 {
-  v5 = *(v2 + 40);
   Hasher.init(_seed:)();
   String.hash(into:)();
-  v6 = Hasher._finalize()();
+  v4 = Hasher._finalize()();
 
-  return specialized __RawDictionaryStorage.find<A>(_:hashValue:)(a1, a2, v6);
+  return specialized __RawDictionaryStorage.find<A>(_:hashValue:)(a1, a2, v4);
 }
 
 unint64_t specialized __RawDictionaryStorage.find<A>(_:)(uint64_t a1)
 {
-  v3 = *(v1 + 40);
   Hasher.init(_seed:)();
   type metadata accessor for CFStringRef(0);
-  _sSo11CFStringRefaABSHSCWlTm_0(&lazy protocol witness table cache variable for type CFStringRef and conformance CFStringRef, type metadata accessor for CFStringRef);
+  _sSo11CFStringRefaABSHSCWlTm_0(&lazy protocol witness table cache variable for type CFStringRef and conformance CFStringRef, type metadata accessor for CFStringRef, &protocol conformance descriptor for CFStringRef);
   _CFObject.hash(into:)();
-  v4 = Hasher._finalize()();
+  v2 = Hasher._finalize()();
 
-  return specialized __RawDictionaryStorage.find<A>(_:hashValue:)(a1, v4);
+  return specialized __RawDictionaryStorage.find<A>(_:hashValue:)(a1, v2);
 }
 
 unint64_t specialized __RawDictionaryStorage.find<A>(_:hashValue:)(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -2531,7 +2451,7 @@ unint64_t specialized __RawDictionaryStorage.find<A>(_:hashValue:)(uint64_t a1, 
   {
     v5 = ~v3;
     type metadata accessor for CFStringRef(0);
-    _sSo11CFStringRefaABSHSCWlTm_0(&lazy protocol witness table cache variable for type CFStringRef and conformance CFStringRef, type metadata accessor for CFStringRef);
+    _sSo11CFStringRefaABSHSCWlTm_0(&lazy protocol witness table cache variable for type CFStringRef and conformance CFStringRef, type metadata accessor for CFStringRef, &protocol conformance descriptor for CFStringRef);
     do
     {
       v6 = *(*(v2 + 48) + 8 * v4);
@@ -2551,148 +2471,142 @@ unint64_t specialized __RawDictionaryStorage.find<A>(_:hashValue:)(uint64_t a1, 
   return v4;
 }
 
-uint64_t specialized _NativeDictionary._copyOrMoveAndResize(capacity:moveElements:)(uint64_t a1, char a2)
+uint64_t specialized _NativeDictionary._copyOrMoveAndResize(capacity:moveElements:)(uint64_t a1, uint64_t a2)
 {
   v3 = v2;
+  v4 = a2;
   v5 = *v2;
-  if (*(*v2 + 24) > a1)
-  {
-    v6 = *(*v2 + 24);
-  }
-
   __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySo11CFStringRefaypGMd, &_ss18_DictionaryStorageCySo11CFStringRefaypGMR);
   result = static _DictionaryStorage.resize(original:capacity:move:)();
-  v8 = result;
+  v7 = result;
   if (*(v5 + 16))
   {
-    v33 = v3;
-    v9 = 0;
-    v10 = (v5 + 64);
-    v11 = 1 << *(v5 + 32);
-    if (v11 < 64)
+    v8 = 0;
+    v9 = (v5 + 64);
+    v10 = 1 << *(v5 + 32);
+    if (v10 < 64)
     {
-      v12 = ~(-1 << v11);
+      v11 = ~(-1 << v10);
     }
 
     else
     {
-      v12 = -1;
+      v11 = -1;
     }
 
-    v13 = v12 & *(v5 + 64);
-    v14 = (v11 + 63) >> 6;
-    v15 = result + 64;
-    while (v13)
+    v12 = v11 & *(v5 + 64);
+    v13 = (v10 + 63) >> 6;
+    v14 = result + 64;
+    while (v12)
     {
-      v17 = __clz(__rbit64(v13));
-      v13 &= v13 - 1;
-LABEL_17:
-      v20 = v17 | (v9 << 6);
-      v21 = *(*(v5 + 48) + 8 * v20);
-      v22 = (*(v5 + 56) + 32 * v20);
-      if (a2)
+      v16 = __clz(__rbit64(v12));
+      v12 &= v12 - 1;
+LABEL_15:
+      v19 = v16 | (v8 << 6);
+      v20 = *(*(v5 + 48) + 8 * v19);
+      v21 = (*(v5 + 56) + 32 * v19);
+      if (v4)
       {
-        outlined init with take of Any(v22, v34);
+        outlined init with take of Any(v21, v31);
       }
 
       else
       {
-        outlined init with copy of Any(v22, v34);
-        v23 = v21;
+        outlined init with copy of Any(v21, v31);
+        v22 = v20;
       }
 
-      v24 = *(v8 + 40);
       Hasher.init(_seed:)();
       type metadata accessor for CFStringRef(0);
-      _sSo11CFStringRefaABSHSCWlTm_0(&lazy protocol witness table cache variable for type CFStringRef and conformance CFStringRef, type metadata accessor for CFStringRef);
+      _sSo11CFStringRefaABSHSCWlTm_0(&lazy protocol witness table cache variable for type CFStringRef and conformance CFStringRef, type metadata accessor for CFStringRef, &protocol conformance descriptor for CFStringRef);
       _CFObject.hash(into:)();
       result = Hasher._finalize()();
-      v25 = -1 << *(v8 + 32);
-      v26 = result & ~v25;
-      v27 = v26 >> 6;
-      if (((-1 << v26) & ~*(v15 + 8 * (v26 >> 6))) == 0)
+      v23 = -1 << *(v7 + 32);
+      v24 = result & ~v23;
+      v25 = v24 >> 6;
+      if (((-1 << v24) & ~*(v14 + 8 * (v24 >> 6))) == 0)
       {
-        v28 = 0;
-        v29 = (63 - v25) >> 6;
-        while (++v27 != v29 || (v28 & 1) == 0)
+        v26 = 0;
+        v27 = (63 - v23) >> 6;
+        while (++v25 != v27 || (v26 & 1) == 0)
         {
-          v30 = v27 == v29;
-          if (v27 == v29)
+          v28 = v25 == v27;
+          if (v25 == v27)
           {
-            v27 = 0;
+            v25 = 0;
           }
 
-          v28 |= v30;
-          v31 = *(v15 + 8 * v27);
-          if (v31 != -1)
+          v26 |= v28;
+          v29 = *(v14 + 8 * v25);
+          if (v29 != -1)
           {
-            v16 = __clz(__rbit64(~v31)) + (v27 << 6);
-            goto LABEL_9;
+            v15 = __clz(__rbit64(~v29)) + (v25 << 6);
+            goto LABEL_7;
           }
         }
 
-LABEL_38:
+LABEL_36:
         __break(1u);
         return result;
       }
 
-      v16 = __clz(__rbit64((-1 << v26) & ~*(v15 + 8 * (v26 >> 6)))) | v26 & 0x7FFFFFFFFFFFFFC0;
-LABEL_9:
-      *(v15 + ((v16 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v16;
-      *(*(v8 + 48) + 8 * v16) = v21;
-      result = outlined init with take of Any(v34, (*(v8 + 56) + 32 * v16));
-      ++*(v8 + 16);
+      v15 = __clz(__rbit64((-1 << v24) & ~*(v14 + 8 * (v24 >> 6)))) | v24 & 0x7FFFFFFFFFFFFFC0;
+LABEL_7:
+      *(v14 + ((v15 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v15;
+      *(*(v7 + 48) + 8 * v15) = v20;
+      result = outlined init with take of Any(v31, (*(v7 + 56) + 32 * v15));
+      ++*(v7 + 16);
     }
 
-    v18 = v9;
+    v17 = v8;
     while (1)
     {
-      v9 = v18 + 1;
-      if (__OFADD__(v18, 1))
+      v8 = v17 + 1;
+      if (__OFADD__(v17, 1))
       {
         __break(1u);
-        goto LABEL_38;
+        goto LABEL_36;
       }
 
-      if (v9 >= v14)
+      if (v8 >= v13)
       {
         break;
       }
 
-      v19 = v10[v9];
-      ++v18;
-      if (v19)
+      v18 = v9[v8];
+      ++v17;
+      if (v18)
       {
-        v17 = __clz(__rbit64(v19));
-        v13 = (v19 - 1) & v19;
-        goto LABEL_17;
+        v16 = __clz(__rbit64(v18));
+        v12 = (v18 - 1) & v18;
+        goto LABEL_15;
       }
     }
 
-    if ((a2 & 1) == 0)
+    if ((v4 & 1) == 0)
     {
 
-      v3 = v33;
-      goto LABEL_36;
+      v3 = v2;
+      goto LABEL_34;
     }
 
-    v32 = 1 << *(v5 + 32);
-    v3 = v33;
-    if (v32 >= 64)
+    v30 = 1 << *(v5 + 32);
+    v3 = v2;
+    if (v30 >= 64)
     {
-      bzero((v5 + 64), ((v32 + 63) >> 3) & 0x1FFFFFFFFFFFFFF8);
+      bzero((v5 + 64), ((v30 + 63) >> 3) & 0x1FFFFFFFFFFFFFF8);
     }
 
     else
     {
-      *v10 = -1 << v32;
+      *v9 = -1 << v30;
     }
 
     *(v5 + 16) = 0;
   }
 
-LABEL_36:
-  *v3 = v8;
+LABEL_34:
+  *v3 = v7;
   return result;
 }
 
@@ -2701,7 +2615,7 @@ _OWORD *specialized _NativeDictionary.setValue(_:forKey:isUnique:)(_OWORD *a1, v
   v4 = v3;
   v7 = *v3;
   v8 = specialized __RawDictionaryStorage.find<A>(_:)(a2);
-  v10 = *(v7 + 16);
+  v10 = v7[2];
   v11 = (v9 & 1) == 0;
   v12 = __OFADD__(v10, v11);
   v13 = v10 + v11;
@@ -2712,7 +2626,7 @@ _OWORD *specialized _NativeDictionary.setValue(_:forKey:isUnique:)(_OWORD *a1, v
   }
 
   v14 = v9;
-  v15 = *(v7 + 24);
+  v15 = v7[3];
   if (v15 < v13 || (a3 & 1) == 0)
   {
     if (v15 >= v13 && (a3 & 1) == 0)
@@ -2724,9 +2638,8 @@ _OWORD *specialized _NativeDictionary.setValue(_:forKey:isUnique:)(_OWORD *a1, v
     }
 
     specialized _NativeDictionary._copyOrMoveAndResize(capacity:moveElements:)(v13, a3 & 1);
-    v17 = *v4;
     v8 = specialized __RawDictionaryStorage.find<A>(_:)(a2);
-    if ((v14 & 1) != (v18 & 1))
+    if ((v14 & 1) != (v17 & 1))
     {
 LABEL_16:
       type metadata accessor for CFStringRef(0);
@@ -2737,18 +2650,18 @@ LABEL_16:
   }
 
 LABEL_8:
-  v19 = *v4;
+  v18 = *v4;
   if (v14)
   {
-    v20 = (v19[7] + 32 * v8);
-    __swift_destroy_boxed_opaque_existential_0(v20);
+    v19 = (v18[7] + 32 * v8);
+    __swift_destroy_boxed_opaque_existential_0(v19);
 
-    return outlined init with take of Any(a1, v20);
+    return outlined init with take of Any(a1, v19);
   }
 
   else
   {
-    specialized _NativeDictionary._insert(at:key:value:)(v8, a2, a1, v19);
+    specialized _NativeDictionary._insert(at:key:value:)(v8, a2, a1, v18);
 
     return a2;
   }
@@ -2874,12 +2787,11 @@ uint64_t partial apply for closure #1 in VTMotionEstimationSession.motion(of:com
 
 uint64_t partial apply for closure #1 in VTMotionEstimationSession.motion(of:comparedTo:flags:)()
 {
-  v1 = *(*v0 + 16);
-  v4 = *v0;
+  v3 = *v0;
 
-  v2 = *(v4 + 8);
+  v1 = *(v3 + 8);
 
-  return v2();
+  return v1();
 }
 
 unint64_t lazy protocol witness table accessor for type VTMotionEstimationSession.BlockSize and conformance VTMotionEstimationSession.BlockSize()
@@ -3141,7 +3053,7 @@ uint64_t storeEnumTagSinglePayload for VTMotionEstimationSession.FrameFlags(uint
   return result;
 }
 
-void *__swift_initWithCopy_strong(void *a1, void *a2)
+uint64_t *__swift_initWithCopy_strong(uint64_t *a1, uint64_t *a2)
 {
   *a1 = *a2;
 
@@ -3150,7 +3062,6 @@ void *__swift_initWithCopy_strong(void *a1, void *a2)
 
 uint64_t *__swift_assignWithCopy_strong(uint64_t *a1, uint64_t *a2)
 {
-  v3 = *a1;
   *a1 = *a2;
 
   return a1;
@@ -3158,7 +3069,6 @@ uint64_t *__swift_assignWithCopy_strong(uint64_t *a1, uint64_t *a2)
 
 uint64_t *__swift_assignWithTake_strong(uint64_t *a1, uint64_t *a2)
 {
-  v3 = *a1;
   *a1 = *a2;
 
   return a1;
@@ -3222,16 +3132,14 @@ LABEL_8:
 
 uint64_t _sSo11CVBufferRefaABIeggo_A2Bs5Error_pIegTgrzo_TRTA@<X0>(uint64_t *a1@<X8>)
 {
-  v3 = *(v1 + 16);
-  v4 = *(v1 + 24);
-  result = v3();
+  result = (*(v1 + 16))();
   *a1 = result;
   return result;
 }
 
 uint64_t partial apply for closure #1 in closure #1 in closure #1 in VTMotionEstimationSession.motion(of:comparedTo:flags:)(int a1, uint64_t a2, uint64_t a3, void *a4)
 {
-  v8 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_sScCy12VideoToolbox25VTMotionEstimationSessionC6MotionVs5Error_pGMd, &_sScCy12VideoToolbox25VTMotionEstimationSessionC6MotionVs5Error_pGMR) - 8) + 80);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCy12VideoToolbox25VTMotionEstimationSessionC6MotionVs5Error_pGMd, &_sScCy12VideoToolbox25VTMotionEstimationSessionC6MotionVs5Error_pGMR);
 
   return closure #1 in closure #1 in closure #1 in VTMotionEstimationSession.motion(of:comparedTo:flags:)(a1, a2, a3, a4);
 }
@@ -3243,15 +3151,17 @@ uint64_t block_copy_helper(uint64_t a1, uint64_t a2)
   *(a1 + 40) = v2;
 }
 
-uint64_t __swift_destroy_boxed_opaque_existential_0(uint64_t *a1)
+uint64_t __swift_destroy_boxed_opaque_existential_0(void *a1)
 {
   v1 = *(a1[3] - 8);
-  if ((*(v1 + 82) & 2) == 0)
+  if ((*(v1 + 82) & 2) != 0)
+  {
+  }
+
+  else
   {
     return (*(v1 + 8))();
   }
-
-  v3 = *a1;
 }
 
 uint64_t outlined init with copy of Any(uint64_t a1, uint64_t a2)
@@ -3262,7 +3172,7 @@ uint64_t outlined init with copy of Any(uint64_t a1, uint64_t a2)
   return a2;
 }
 
-uint64_t _sSo11CFStringRefaABSHSCWlTm_0(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t _sSo11CFStringRefaABSHSCWlTm_0(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -3509,18 +3419,17 @@ uint64_t intermediateOutputHandler2 #1 @Sendable (_:_:_:_:_:_:) in VTDecompressi
 
 void thunk for @escaping @callee_guaranteed @Sendable (@unowned Int32, @unowned VTDecodeInfoFlags, @guaranteed CVBufferRef?, @guaranteed CMTaggedBufferGroupRef?, @unowned CMTime, @unowned CMTime) -> ()(uint64_t a1, uint64_t a2, unsigned int a3, void *a4, void *a5, uint64_t *a6, uint64_t *a7)
 {
-  v17 = a6[1];
-  v18 = *a6;
+  v16 = a6[1];
+  v17 = *a6;
   v10 = a6[2];
   v12 = *a7;
   v11 = a7[1];
   v13 = a7[2];
   v14 = *(a1 + 32);
-  v15 = *(a1 + 40);
 
-  v19 = a4;
-  v16 = a5;
-  v14(a2, a3, a4, a5, v18, v17, v10, v12, v11, v13);
+  v18 = a4;
+  v15 = a5;
+  v14(a2, a3, a4, a5, v17, v16, v10, v12, v11, v13);
 }
 
 uint64_t block_copy_helper_0(uint64_t a1, uint64_t a2)
@@ -3530,7 +3439,7 @@ uint64_t block_copy_helper_0(uint64_t a1, uint64_t a2)
   *(a1 + 40) = v2;
 }
 
-uint64_t specialized _copyCollectionToContiguousArray<A>(_:)(void *a1)
+char *specialized _copyCollectionToContiguousArray<A>(_:)(void *a1)
 {
   v2 = CMTaggedBufferGroupRef.startIndex.getter();
   v3 = CMTaggedBufferGroupRef.endIndex.getter();
@@ -3561,7 +3470,7 @@ LABEL_12:
       v10 = *(type metadata accessor for CMTaggedBuffer() - 8);
       v11 = (*(v10 + 80) + 32) & ~*(v10 + 80);
       v12 = a1;
-      v13 = specialized Sequence._copySequenceContents(initializing:)(v14, (v9 + v11), v8);
+      v13 = specialized Sequence._copySequenceContents(initializing:)(v14, &v9[v11], v8);
 
       if (v13 == v8)
       {
@@ -3583,13 +3492,12 @@ uint64_t specialized Sequence._copySequenceContents(initializing:)(void (*a1)(ch
 {
   v7 = type metadata accessor for CMTaggedBuffer();
   v8 = *(v7 - 8);
-  v25 = v7;
-  v26 = v8;
-  v9 = *(v8 + 64);
-  v10 = (MEMORY[0x2A1C7C4A8])();
-  v12 = &v23 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x2A1C7C4A8](v10);
-  v14 = &v23 - v13;
+  v24 = v7;
+  v25 = v8;
+  v9 = MEMORY[0x2A1C7C4A8](v7);
+  v11 = &v22 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x2A1C7C4A8](v9);
+  v13 = &v22 - v12;
   result = CMTaggedBufferGroupRef.startIndex.getter();
   if (!a2)
   {
@@ -3611,44 +3519,44 @@ LABEL_16:
     goto LABEL_18;
   }
 
-  v24 = a1;
-  v16 = (v26 + 32);
-  v17 = 1;
+  v23 = a1;
+  v15 = (v25 + 32);
+  v16 = 1;
   while (1)
   {
-    v18 = result;
-    v19 = result + v17 - 1;
-    if (v19 == CMTaggedBufferGroupRef.endIndex.getter())
+    v17 = result;
+    v18 = result + v16 - 1;
+    if (v18 == CMTaggedBufferGroupRef.endIndex.getter())
     {
-      a3 = v17 - 1;
-      result = v17 - 1 + v18;
+      a3 = v16 - 1;
+      result = v16 - 1 + v17;
 LABEL_15:
-      a1 = v24;
+      a1 = v23;
       goto LABEL_16;
     }
 
     CMTaggedBufferGroupRef.subscript.getter();
-    v20 = CMTaggedBufferGroupRef.startIndex.getter();
+    v19 = CMTaggedBufferGroupRef.startIndex.getter();
     result = CMTaggedBufferGroupRef.endIndex.getter();
-    if (v19 < v20 || v19 >= result)
+    if (v18 < v19 || v18 >= result)
     {
       break;
     }
 
-    a1 = *v16;
-    v21 = v25;
-    (*v16)(v14, v12, v25);
-    a1(a2, v14, v21);
-    if (a3 == v17)
+    a1 = *v15;
+    v20 = v24;
+    (*v15)(v13, v11, v24);
+    a1(a2, v13, v20);
+    if (a3 == v16)
     {
-      result = v18 + v17;
+      result = v17 + v16;
       goto LABEL_15;
     }
 
-    a2 += *(v26 + 72);
-    v22 = __OFADD__(v17++, 1);
-    result = v18;
-    if (v22)
+    a2 += *(v25 + 72);
+    v21 = __OFADD__(v16++, 1);
+    result = v17;
+    if (v21)
     {
       __break(1u);
       goto LABEL_12;
@@ -3661,7 +3569,7 @@ LABEL_18:
   return result;
 }
 
-size_t _ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_SitcfC9CoreMedia08CMTaggedC0V_Tt1gq5(uint64_t a1, uint64_t a2)
+void *_ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_SitcfC9CoreMedia08CMTaggedC0V_Tt1gq5(uint64_t a1, uint64_t a2)
 {
   if (a2 <= a1)
   {
@@ -3686,7 +3594,7 @@ size_t _ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi
   result = _swift_stdlib_malloc_size(v7);
   if (v5)
   {
-    if (result - v6 != 0x8000000000000000 || v5 != -1)
+    if ((result - v6) != 0x8000000000000000 || v5 != -1)
     {
       v7[2] = a1;
       v7[3] = 2 * ((result - v6) / v5);
@@ -3705,17 +3613,8 @@ size_t _ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi
 
 uint64_t VTFrameProcessorFrame.ReadOnlyFrame.frame.setter(uint64_t a1)
 {
-  v3 = *v1;
 
   *v1 = a1;
-  return result;
-}
-
-uint64_t VTFrameProcessorFrame.ReadOnlyFrame.timeStamp.getter()
-{
-  result = v0[1];
-  v2 = v0[2];
-  v3 = v0[3];
   return result;
 }
 
@@ -3840,11 +3739,10 @@ uint64_t VTCompressionSessionEncodeMultiImageFrame(_:taggedBuffers:presentationT
 
 void thunk for @escaping @callee_guaranteed @Sendable (@unowned Int32, @unowned VTEncodeInfoFlags, @guaranteed CMSampleBufferRef?) -> ()(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
 {
-  v8 = *(a1 + 32);
-  v7 = *(a1 + 40);
+  v7 = *(a1 + 32);
 
-  v9 = a4;
-  v8(a2, a3, a4);
+  v8 = a4;
+  v7(a2, a3, a4);
 }
 
 uint64_t block_copy_helper_1(uint64_t a1, uint64_t a2)
@@ -3856,10 +3754,9 @@ uint64_t block_copy_helper_1(uint64_t a1, uint64_t a2)
 
 uint64_t VTFrameProcessor.process(parameters:)(uint64_t a1)
 {
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScs12ContinuationV15BufferingPolicyOySo21VTFrameProcessorFrameC12VideoToolboxE08ReadOnlyF0Vs5Error_p__GMd, &_sScs12ContinuationV15BufferingPolicyOySo21VTFrameProcessorFrameC12VideoToolboxE08ReadOnlyF0Vs5Error_p__GMR);
-  v3 = *(v2 - 8);
-  v4 = *(v3 + 64);
-  MEMORY[0x2A1C7C4A8](v2);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScs12ContinuationV15BufferingPolicyOySo21VTFrameProcessorFrameC12VideoToolboxE08ReadOnlyF0Vs5Error_p__GMd, &_sScs12ContinuationV15BufferingPolicyOySo21VTFrameProcessorFrameC12VideoToolboxE08ReadOnlyF0Vs5Error_p__GMR);
+  v4 = *(v3 - 8);
+  MEMORY[0x2A1C7C4A8](v3);
   v6 = v18 - v5;
   v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScs12ContinuationVySo21VTFrameProcessorFrameC12VideoToolboxE08ReadOnlyD0Vs5Error_p_GMd, &_sScs12ContinuationVySo21VTFrameProcessorFrameC12VideoToolboxE08ReadOnlyD0Vs5Error_p_GMR);
   v8 = *(v7 - 8);
@@ -3868,9 +3765,9 @@ uint64_t VTFrameProcessor.process(parameters:)(uint64_t a1)
   v11 = v18 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x2A1C7C4A8](v10);
   v13 = v18 - v12;
-  (*(v3 + 104))(v6, *MEMORY[0x29EDCA3F8], v2);
+  (*(v4 + 104))(v6, *MEMORY[0x29EDCA3F8], v3);
   static AsyncThrowingStream.makeStream<>(of:throwing:bufferingPolicy:)();
-  (*(v3 + 8))(v6, v2);
+  (*(v4 + 8))(v6, v3);
   (*(v8 + 16))(v11, v13, v7);
   v14 = (*(v8 + 80) + 16) & ~*(v8 + 80);
   v15 = swift_allocObject();
@@ -3890,48 +3787,45 @@ uint64_t VTFrameProcessor.process(parameters:)(uint64_t a1)
   return (*(v8 + 8))(v13, v7);
 }
 
-void closure #1 in VTFrameProcessor.process(parameters:)(uint64_t a1, uint64_t a2, unint64_t a3, uint64_t a4, char a5, void *a6)
+void closure #1 in VTFrameProcessor.process(parameters:)(uint64_t a1, uint64_t a2, unint64_t a3, uint64_t a4, char a5, void *a6, uint64_t a7, uint64_t a8)
 {
-  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScs12ContinuationV11YieldResultOySo21VTFrameProcessorFrameC12VideoToolboxE08ReadOnlyF0Vs5Error_p__GMd, &_sScs12ContinuationV11YieldResultOySo21VTFrameProcessorFrameC12VideoToolboxE08ReadOnlyF0Vs5Error_p__GMR);
-  v12 = *(v11 - 8);
-  v13 = *(v12 + 64);
-  v14 = MEMORY[0x2A1C7C4A8](v11);
-  v16 = &v24 - v15;
+  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScs12ContinuationV11YieldResultOySo21VTFrameProcessorFrameC12VideoToolboxE08ReadOnlyF0Vs5Error_p__GMd, &_sScs12ContinuationV11YieldResultOySo21VTFrameProcessorFrameC12VideoToolboxE08ReadOnlyF0Vs5Error_p__GMR);
+  v14 = *(v13 - 8);
+  v15 = MEMORY[0x2A1C7C4A8](v13);
+  v17 = &v22 - v16;
   if (a6)
   {
-    v28 = a6;
-    v17 = a6;
+    v26 = a6;
+    v18 = a6;
     __swift_instantiateConcreteTypeFromMangledNameV2(&_sScs12ContinuationVySo21VTFrameProcessorFrameC12VideoToolboxE08ReadOnlyD0Vs5Error_p_GMd, &_sScs12ContinuationVySo21VTFrameProcessorFrameC12VideoToolboxE08ReadOnlyD0Vs5Error_p_GMR);
     AsyncThrowingStream.Continuation.finish(throwing:)();
   }
 
   else
   {
-    v27 = v14;
+    v25 = v15;
     swift_getObjectType();
-    v18 = VTFrameProcessorParameters.destinationFrame(at:)();
-    if (v18)
+    v19 = VTFrameProcessorParameters.destinationFrame(at:)();
+    if (v19)
     {
-      v19 = v18;
-      v25 = HIDWORD(a3);
-      v20 = [v18 buffer];
-      v21 = type metadata accessor for CVReadOnlyPixelBuffer();
-      v22 = *(v21 + 48);
-      v23 = *(v21 + 52);
+      v20 = v19;
+      v23 = HIDWORD(a3);
+      v21 = [v19 buffer];
+      type metadata accessor for CVReadOnlyPixelBuffer();
       swift_allocObject();
-      v26 = v20;
-      v28 = CVReadOnlyPixelBuffer.init(unsafeBuffer:)();
-      v29 = a2;
-      v30 = a3;
-      v31 = v25;
-      v32 = a4;
+      v24 = v21;
+      v26 = CVReadOnlyPixelBuffer.init(unsafeBuffer:)();
+      v27 = a2;
+      v28 = a3;
+      v29 = v23;
+      v30 = a4;
 
       __swift_instantiateConcreteTypeFromMangledNameV2(&_sScs12ContinuationVySo21VTFrameProcessorFrameC12VideoToolboxE08ReadOnlyD0Vs5Error_p_GMd, &_sScs12ContinuationVySo21VTFrameProcessorFrameC12VideoToolboxE08ReadOnlyD0Vs5Error_p_GMR);
       AsyncThrowingStream.Continuation.yield(_:)();
-      (*(v12 + 8))(v16, v27);
+      (*(v14 + 8))(v17, v25);
       if (a5)
       {
-        v28 = 0;
+        v26 = 0;
         AsyncThrowingStream.Continuation.finish(throwing:)();
       }
 
@@ -3945,9 +3839,10 @@ void closure #1 in VTFrameProcessor.process(parameters:)(uint64_t a1, uint64_t a
 void partial apply for closure #1 in VTFrameProcessor.process(parameters:)(uint64_t a1, uint64_t a2, unint64_t a3, uint64_t a4, char a5, void *a6)
 {
   v13 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_sScs12ContinuationVySo21VTFrameProcessorFrameC12VideoToolboxE08ReadOnlyD0Vs5Error_p_GMd, &_sScs12ContinuationVySo21VTFrameProcessorFrameC12VideoToolboxE08ReadOnlyD0Vs5Error_p_GMR) - 8);
-  v14 = *(v6 + ((*(v13 + 64) + ((*(v13 + 80) + 16) & ~*(v13 + 80)) + 7) & 0xFFFFFFFFFFFFFFF8));
+  v14 = (*(v13 + 80) + 16) & ~*(v13 + 80);
+  v15 = *(v6 + ((*(v13 + 64) + v14 + 7) & 0xFFFFFFFFFFFFFFF8));
 
-  closure #1 in VTFrameProcessor.process(parameters:)(a1, a2, a3, a4, a5, a6);
+  closure #1 in VTFrameProcessor.process(parameters:)(a1, a2, a3, a4, a5, a6, v6 + v14, v15);
 }
 
 void *VTFrameProcessorParameters.destinationFrame(at:)()
@@ -4041,12 +3936,11 @@ uint64_t thunk for @escaping @callee_guaranteed (@guaranteed VTFrameProcessorPar
   v8 = *a3;
   v9 = a3[1];
   v10 = a3[2];
-  v12 = *(a1 + 32);
-  v11 = *(a1 + 40);
+  v11 = *(a1 + 32);
 
   swift_unknownObjectRetain();
-  v13 = a5;
-  v12(a2, v8, v9, v10, a4, a5);
+  v12 = a5;
+  v11(a2, v8, v9, v10, a4, a5);
 
   return swift_unknownObjectRelease();
 }
@@ -4144,7 +4038,6 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameAbstractV2(uint64_t *a1, 
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContextInMetadataState2();
     *a1 = result;
   }

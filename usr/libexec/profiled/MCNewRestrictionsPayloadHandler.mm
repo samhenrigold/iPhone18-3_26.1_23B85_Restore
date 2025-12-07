@@ -23,7 +23,7 @@
   if ([MCRestrictionManager restrictedBoolForFeature:MCFeatureManagedWriteUnmanagedContactsAllowed withRestrictionsDictionary:restrictions]== 1)
   {
 LABEL_12:
-    mCCopyAsPrimaryError = +[MCInstaller notInstalledByMDMError];
+    v22 = +[MCInstaller notInstalledByMDMError];
     goto LABEL_37;
   }
 
@@ -54,7 +54,7 @@ LABEL_2:
       v62 = v15;
       v32 = v31 = error;
       v33 = [NSError MCErrorWithDomain:v30 code:3002 descriptionArray:v32 errorType:MCErrorTypeFatal, v13, 0];
-      mCCopyAsPrimaryError = [v33 MCCopyAsPrimaryError];
+      v22 = objc_msgSend_MCCopyAsPrimaryError(v33);
 
       error = v31;
       v15 = v62;
@@ -72,7 +72,7 @@ LABEL_2:
         v18 = v15;
         v20 = v19 = error;
         v21 = [NSError MCErrorWithDomain:v17 code:3003 descriptionArray:v20 errorType:MCErrorTypeFatal, v13, 0];
-        mCCopyAsPrimaryError = [v21 MCCopyAsPrimaryError];
+        v22 = objc_msgSend_MCCopyAsPrimaryError(v21);
 
         v16 = v65;
         error = v19;
@@ -92,7 +92,7 @@ LABEL_2:
           v28 = v26;
           v24 = v25;
           v29 = [NSError MCErrorWithDomain:v28 code:3003 descriptionArray:v27 errorType:MCErrorTypeFatal, v13, 0];
-          mCCopyAsPrimaryError = [v29 MCCopyAsPrimaryError];
+          v22 = objc_msgSend_MCCopyAsPrimaryError(v29);
 
           v16 = v65;
         }
@@ -104,8 +104,8 @@ LABEL_2:
           v67 = 0u;
           v68 = 0u;
           v27 = v69 = 0u;
-          mCCopyAsPrimaryError = [v27 countByEnumeratingWithState:&v66 objects:v74 count:16];
-          if (mCCopyAsPrimaryError)
+          v22 = [v27 countByEnumeratingWithState:&v66 objects:v74 count:16];
+          if (v22)
           {
             v57 = optionsCopy;
             v58 = v24;
@@ -113,7 +113,7 @@ LABEL_2:
             v34 = *v67;
             while (2)
             {
-              for (i = 0; i != mCCopyAsPrimaryError; i = i + 1)
+              for (i = 0; i != v22; i = i + 1)
               {
                 if (*v67 != v34)
                 {
@@ -127,14 +127,14 @@ LABEL_2:
                   v38 = MCRestrictionsErrorDomain;
                   v39 = MCErrorArray();
                   v40 = [NSError MCErrorWithDomain:v38 code:3004 descriptionArray:v39 errorType:MCErrorTypeFatal, v13, 0];
-                  mCCopyAsPrimaryError = [v40 MCCopyAsPrimaryError];
+                  v22 = objc_msgSend_MCCopyAsPrimaryError(v40);
 
                   goto LABEL_28;
                 }
               }
 
-              mCCopyAsPrimaryError = [v27 countByEnumeratingWithState:&v66 objects:v74 count:16];
-              if (mCCopyAsPrimaryError)
+              v22 = [v27 countByEnumeratingWithState:&v66 objects:v74 count:16];
+              if (v22)
               {
                 continue;
               }
@@ -155,10 +155,10 @@ LABEL_28:
             v41 = MCRestrictionsErrorDomain;
             v42 = MCErrorArray();
             v43 = [NSError MCErrorWithDomain:v41 code:3004 descriptionArray:v42 errorType:MCErrorTypeFatal, v13, 0];
-            mCCopyAsPrimaryError2 = [v43 MCCopyAsPrimaryError];
+            v64 = objc_msgSend_MCCopyAsPrimaryError(v43);
 
             v24 = v59;
-            mCCopyAsPrimaryError = mCCopyAsPrimaryError2;
+            v22 = v64;
             v16 = v65;
           }
         }
@@ -170,17 +170,17 @@ LABEL_28:
 
   else
   {
-    mCCopyAsPrimaryError = 0;
+    v22 = 0;
   }
 
 LABEL_37:
-  if (mCCopyAsPrimaryError)
+  if (v22)
   {
     v44 = MCInstallationErrorDomain;
     payload2 = [(MCNewPayloadHandler *)self payload];
     friendlyName = [payload2 friendlyName];
     v47 = MCErrorArray();
-    v48 = [NSError MCErrorWithDomain:v44 code:4001 descriptionArray:v47 underlyingError:mCCopyAsPrimaryError errorType:MCErrorTypeFatal, friendlyName, 0];
+    v48 = [NSError MCErrorWithDomain:v44 code:4001 descriptionArray:v47 underlyingError:v22 errorType:MCErrorTypeFatal, friendlyName, 0];
 
     if (error)
     {
@@ -203,7 +203,7 @@ LABEL_37:
     }
   }
 
-  return mCCopyAsPrimaryError == 0;
+  return v22 == 0;
 }
 
 - (BOOL)isInstalled

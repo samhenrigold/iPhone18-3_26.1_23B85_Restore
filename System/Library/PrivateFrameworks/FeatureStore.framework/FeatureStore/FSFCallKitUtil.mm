@@ -42,33 +42,33 @@ uint64_t __32__FSFCallKitUtil_sharedInstance__block_invoke()
 
 - (BOOL)isOnCall
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
+  v7 = 0u;
   v8 = 0u;
   v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
   calls = [(CXCallObserver *)self->_callCenter calls];
-  v3 = [calls countByEnumeratingWithState:&v8 objects:v12 count:16];
+  v3 = [calls countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v3)
   {
-    v4 = *v9;
+    v4 = *v8;
     while (2)
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v9 != v4)
+        if (*v8 != v4)
         {
           objc_enumerationMutation(calls);
         }
 
-        if (![*(*(&v8 + 1) + 8 * i) hasEnded])
+        if (![*(*(&v7 + 1) + 8 * i) hasEnded])
         {
           LOBYTE(v3) = 1;
           goto LABEL_11;
         }
       }
 
-      v3 = [calls countByEnumeratingWithState:&v8 objects:v12 count:16];
+      v3 = [calls countByEnumeratingWithState:&v7 objects:v11 count:16];
       if (v3)
       {
         continue;
@@ -80,7 +80,6 @@ uint64_t __32__FSFCallKitUtil_sharedInstance__block_invoke()
 
 LABEL_11:
 
-  v6 = *MEMORY[0x277D85DE8];
   return v3;
 }
 

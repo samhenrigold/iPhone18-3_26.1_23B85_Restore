@@ -226,7 +226,7 @@
   [actionMenuShutterButton setUserInteractionEnabled:0];
   [actionMenuShutterButton sizeToFit];
   v16 = objc_alloc(MEMORY[0x1E696AAB0]);
-  v17 = CKFrameworkBundle();
+  v17 = CKFrameworkBundle(v16);
   v18 = [v17 localizedStringForKey:@"PHOTO" value:&stru_1F04268F8 table:@"ChatKit"];
   v19 = [v16 initWithString:v18 attributes:v14];
 
@@ -241,7 +241,7 @@
   [actionMenuShutterButton2 setUserInteractionEnabled:0];
   [actionMenuShutterButton2 sizeToFit];
   v23 = objc_alloc(MEMORY[0x1E696AAB0]);
-  v24 = CKFrameworkBundle();
+  v24 = CKFrameworkBundle(v23);
   v25 = [v24 localizedStringForKey:@"VIDEO" value:&stru_1F04268F8 table:@"ChatKit"];
   v45 = v14;
   v26 = [v23 initWithString:v25 attributes:v14];
@@ -387,7 +387,7 @@ void __56__CKVideoMessageRecordingViewController__animateVideoIn__block_invoke(u
   [v1 setAlpha:1.0];
 }
 
-uint64_t __56__CKVideoMessageRecordingViewController__animateVideoIn__block_invoke_2(uint64_t a1)
+void *__56__CKVideoMessageRecordingViewController__animateVideoIn__block_invoke_2(uint64_t a1)
 {
   result = [*(a1 + 32) recording];
   if ((result & 1) == 0)

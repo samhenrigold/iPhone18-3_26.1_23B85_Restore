@@ -61,24 +61,7 @@
   infoCopy = info;
   v7 = infoCopy;
   v8 = 0.0;
-  if (!infoCopy)
-  {
-    goto LABEL_5;
-  }
-
-  v9 = kVTEIExclaveSignalIntensity;
-  v10 = [infoCopy objectForKeyedSubscript:kVTEIExclaveSignalIntensity];
-  if (!v10)
-  {
-    goto LABEL_5;
-  }
-
-  v11 = v10;
-  v12 = [v7 objectForKeyedSubscript:v9];
-  objc_opt_class();
-  isKindOfClass = objc_opt_isKindOfClass();
-
-  if (isKindOfClass)
+  if (infoCopy && (v9 = kVTEIExclaveSignalIntensity, [infoCopy objectForKeyedSubscript:kVTEIExclaveSignalIntensity], (v10 = objc_claimAutoreleasedReturnValue()) != 0) && (v11 = v10, objc_msgSend(v7, "objectForKeyedSubscript:", v9), v12 = objc_claimAutoreleasedReturnValue(), objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), v12, v11, (isKindOfClass & 1) != 0))
   {
     v14 = [v7 objectForKeyedSubscript:v9];
     [v14 doubleValue];
@@ -90,7 +73,6 @@
 
   else
   {
-LABEL_5:
     v16 = 0;
     v17 = 0;
   }

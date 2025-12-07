@@ -113,7 +113,7 @@
       result = objc_opt_class();
       if (result)
       {
-        result = [(CAColorMatrix *)result lightHighlightedColorMatrix];
+        result = objc_msgSend_lightHighlightedColorMatrix(result);
         goto LABEL_13;
       }
     }
@@ -123,7 +123,7 @@
       result = objc_opt_class();
       if (result)
       {
-        result = [(CAColorMatrix *)result lightDefaultColorMatrix];
+        result = objc_msgSend_lightDefaultColorMatrix(result);
         goto LABEL_13;
       }
     }
@@ -142,7 +142,7 @@ LABEL_12:
     result = objc_opt_class();
     if (result)
     {
-      result = [(CAColorMatrix *)result darkDefaultColorMatrix];
+      result = objc_msgSend_darkDefaultColorMatrix(result);
       goto LABEL_13;
     }
 
@@ -155,7 +155,7 @@ LABEL_12:
     goto LABEL_12;
   }
 
-  result = [(CAColorMatrix *)result darkHighlightedColorMatrix];
+  result = objc_msgSend_darkHighlightedColorMatrix(result);
 LABEL_13:
   *&retstr->var8 = v10;
   *&retstr->var12 = v11;
@@ -171,7 +171,7 @@ LABEL_13:
   v3 = [MEMORY[0x277CD9EA0] filterWithType:*MEMORY[0x277CDA2C0]];
   [v3 setName:@"colorMatrix"];
   v4 = MEMORY[0x277CCAE60];
-  [(SBTopAffordanceDotView *)self _effectiveColorMatrix];
+  objc_msgSend__effectiveColorMatrix(self);
   v5 = [v4 valueWithCAColorMatrix:&v8];
   [v3 setValue:v5 forKey:*MEMORY[0x277CDA440]];
 
@@ -185,7 +185,7 @@ LABEL_13:
 {
   _backdropLayer = [(SBTopAffordanceDotView *)self _backdropLayer];
   v4 = MEMORY[0x277CCAE60];
-  [(SBTopAffordanceDotView *)self _effectiveColorMatrix];
+  objc_msgSend__effectiveColorMatrix(self);
   v5 = [v4 valueWithCAColorMatrix:&v6];
   [_backdropLayer setValue:v5 forKeyPath:@"filters.colorMatrix.inputColorMatrix"];
 }

@@ -296,7 +296,7 @@ LABEL_58:
   [locationCopy latitude];
   v78[0] = v11;
   v78[1] = v12;
-  [(RTLocalPolygonalBluePOIResolver *)self polygonFromGEOBluePOIAOIPolygon:polygonCopy];
+  objc_msgSend_polygonFromGEOBluePOIAOIPolygon_(self);
   v72[0] = 0;
   v72[1] = 0;
   v73 = 0;
@@ -635,7 +635,7 @@ LABEL_82:
       v70 = xmmword_100092550;
       memset(v68, 0, sizeof(v68));
       LOBYTE(__p) = 0;
-      sub_1000013E8(v78, v68, &v71);
+      sub_1000013E8(v78, v68, &v71, &v69, 0x3FF0000000000000, &__p);
     }
 
     v23 = 0.9999;

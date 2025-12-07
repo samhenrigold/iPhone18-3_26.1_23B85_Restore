@@ -11,10 +11,10 @@ void __SKEState_Create_block_invoke(uint64_t a1)
   v3 = *(a1 + 40);
   if (v2)
   {
-    SecKeyExchangeNodeCreateAsResponder(v2, *(v3 + 96), 0, 0, @"responder", &cf, &v4, v3 + 104);
+    SecKeyExchangeNodeCreateAsResponder(v2, *(v3 + 96), 0, 0, @"responder", &cf, &v4, (v3 + 104));
   }
 
-  SecKeyExchangeNodeCreateAsInitiator(*(v3 + 96), 0, 0, @"initiator", @"responder", 0, &cf, v3 + 104);
+  SecKeyExchangeNodeCreateAsInitiator(*(v3 + 96), 0, 0, @"initiator", @"responder", 0, &cf, (v3 + 104));
 }
 
 uint64_t __SKEState_CopyBlob_block_invoke(uint64_t a1)

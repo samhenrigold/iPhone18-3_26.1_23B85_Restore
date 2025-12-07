@@ -711,7 +711,7 @@ LABEL_16:
     defaultTraits = [v6 defaultTraits];
   }
 
-  [(MKLocalSearchCompleter *)self region];
+  objc_msgSend_region(self);
   if (fabs(v8) >= 0.00000000999999994 || fabs(v7) >= 0.00000000999999994)
   {
     v9 = [MEMORY[0x1E69A2200] _mapkit_mapRegionForCoordinateRegion:?];

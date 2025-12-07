@@ -6,7 +6,7 @@
 
 - (void)server:(id)server didReceiveRequest:(id)request response:(id)response
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   responseCopy = response;
   v6 = objc_alloc_init(MEMORY[0x277CBEB38]);
   selfCopy = self;
@@ -31,31 +31,31 @@
 
   v14 = objc_alloc_init(MKWiFiDevice);
   currentNetwork = [(MKWiFiDevice *)v14 currentNetwork];
+  v30 = 0u;
   v31 = 0u;
   v32 = 0u;
   v33 = 0u;
-  v34 = 0u;
   allKeys = [currentNetwork allKeys];
-  v17 = [allKeys countByEnumeratingWithState:&v31 objects:v35 count:16];
+  v17 = [allKeys countByEnumeratingWithState:&v30 objects:v34 count:16];
   if (v17)
   {
     v18 = v17;
-    v19 = *v32;
+    v19 = *v31;
     do
     {
       for (i = 0; i != v18; ++i)
       {
-        if (*v32 != v19)
+        if (*v31 != v19)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v21 = *(*(&v31 + 1) + 8 * i);
+        v21 = *(*(&v30 + 1) + 8 * i);
         v22 = [currentNetwork objectForKeyedSubscript:v21];
         [v6 setObject:v22 forKey:v21];
       }
 
-      v18 = [allKeys countByEnumeratingWithState:&v31 objects:v35 count:16];
+      v18 = [allKeys countByEnumeratingWithState:&v30 objects:v34 count:16];
     }
 
     while (v18);
@@ -64,9 +64,9 @@
   v23 = [MEMORY[0x277CCABB0] numberWithInteger:selfCopy->_preferredChannel];
   [v6 setObject:v23 forKey:@"ap1"];
 
-  v30 = 0;
-  v24 = [MEMORY[0x277CCAAA0] dataWithJSONObject:v6 options:0 error:&v30];
-  v25 = v30;
+  v29 = 0;
+  v24 = [MEMORY[0x277CCAAA0] dataWithJSONObject:v6 options:0 error:&v29];
+  v25 = v29;
   if (v25)
   {
     v26 = +[MKLog log];
@@ -77,8 +77,6 @@
   }
 
   [responseCopy setBody:v24];
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 @end

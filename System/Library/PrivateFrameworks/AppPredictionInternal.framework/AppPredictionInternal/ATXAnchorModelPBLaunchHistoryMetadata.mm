@@ -231,7 +231,6 @@ LABEL_9:
   has = self->_has;
   if ((has & 0x10) != 0)
   {
-    launchesInLast2Hours = self->_launchesInLast2Hours;
     PBDataWriterWriteUint32Field();
     has = self->_has;
     if ((has & 0x40) == 0)
@@ -251,7 +250,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  launchesInLast7Days = self->_launchesInLast7Days;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 2) == 0)
@@ -266,7 +264,6 @@ LABEL_4:
   }
 
 LABEL_14:
-  launchesInLast14Days = self->_launchesInLast14Days;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 8) == 0)
@@ -281,7 +278,6 @@ LABEL_5:
   }
 
 LABEL_15:
-  launchesInLast28Days = self->_launchesInLast28Days;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 1) == 0)
@@ -296,7 +292,6 @@ LABEL_6:
   }
 
 LABEL_16:
-  launchesInLast12Hours = self->_launchesInLast12Hours;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 4) == 0)
@@ -311,12 +306,10 @@ LABEL_7:
   }
 
 LABEL_17:
-  launchesInLast24Hours = self->_launchesInLast24Hours;
   PBDataWriterWriteUint32Field();
   if ((*&self->_has & 0x20) != 0)
   {
 LABEL_8:
-    launchesInLast48Hours = self->_launchesInLast48Hours;
     PBDataWriterWriteUint32Field();
   }
 

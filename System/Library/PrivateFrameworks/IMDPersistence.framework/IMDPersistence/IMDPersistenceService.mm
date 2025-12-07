@@ -45,7 +45,7 @@
 - (IMDPersistenceService)initWithListener:(id)listener
 {
   listenerCopy = listener;
-  v4 = sub_1B7C85AF8();
+  v4 = sub_1B7C85AF8(listenerCopy);
 
   return v4;
 }

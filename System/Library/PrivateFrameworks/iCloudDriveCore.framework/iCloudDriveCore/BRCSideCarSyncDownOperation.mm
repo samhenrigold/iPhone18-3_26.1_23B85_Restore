@@ -70,11 +70,10 @@ void __42__BRCSideCarSyncDownOperation__createZone__block_invoke(uint64_t a1, vo
 
 - (void)_createSyncDownOperation
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
   selfCopy = self;
-  _os_log_debug_impl(&dword_223E7A000, a2, OS_LOG_TYPE_DEBUG, "[DEBUG] This is a periodic sync%@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_223E7A000, a2, OS_LOG_TYPE_DEBUG, "[DEBUG] This is a periodic sync%@", &v2, 0xCu);
 }
 
 void __55__BRCSideCarSyncDownOperation__createSyncDownOperation__block_invoke(uint64_t a1, void *a2)
@@ -180,20 +179,20 @@ uint64_t __55__BRCSideCarSyncDownOperation__createSyncDownOperation__block_invok
   return [v11 removeAllObjects];
 }
 
-uint64_t __55__BRCSideCarSyncDownOperation__createSyncDownOperation__block_invoke_2(uint64_t result, uint64_t a2, void *a3, void *a4, uint64_t a5, uint64_t a6)
+void *__55__BRCSideCarSyncDownOperation__createSyncDownOperation__block_invoke_2(void *result, uint64_t a2, void *a3, void *a4, uint64_t a5, uint64_t a6)
 {
   if (!a6)
   {
     v8 = result;
-    v9 = *(result + 40);
-    v10 = *(*(result + 32) + 512);
+    v9 = result[5];
+    v10 = *(result[4] + 512);
     v11 = a4;
     v12 = a3;
     v13 = [v9 allValues];
-    [v10 saveChangedRecords:v13 deletedRecords:*(v8 + 48) serverChangeToken:v12 clientChangeToken:v11];
+    [v10 saveChangedRecords:v13 deletedRecords:v8[6] serverChangeToken:v12 clientChangeToken:v11];
 
-    [*(v8 + 40) removeAllObjects];
-    v14 = *(v8 + 48);
+    [v8[5] removeAllObjects];
+    v14 = v8[6];
 
     return [v14 removeAllObjects];
   }
@@ -236,18 +235,15 @@ void __55__BRCSideCarSyncDownOperation__createSyncDownOperation__block_invoke_3(
 
 void __55__BRCSideCarSyncDownOperation__createSyncDownOperation__block_invoke_cold_1(void *a1, uint64_t a2, NSObject *a3)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v5 = [a1 recordType];
   OUTLINED_FUNCTION_1_0();
-  v8 = a2;
-  _os_log_debug_impl(&dword_223E7A000, a3, OS_LOG_TYPE_DEBUG, "[DEBUG] Ignoring record of unknown type %@%@", v7, 0x16u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  v7 = a2;
+  _os_log_debug_impl(&dword_223E7A000, a3, OS_LOG_TYPE_DEBUG, "[DEBUG] Ignoring record of unknown type %@%@", v6, 0x16u);
 }
 
 void __55__BRCSideCarSyncDownOperation__createSyncDownOperation__block_invoke_cold_2()
 {
-  v11 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
@@ -255,15 +251,12 @@ void __55__BRCSideCarSyncDownOperation__createSyncDownOperation__block_invoke_co
   if (OUTLINED_FUNCTION_5(v2))
   {
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_0(&dword_223E7A000, v4, v5, "[CRIT] Assertion failed: ![deletedRecordIDs containsObject:record.recordID]%@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v3, v4, "[CRIT] Assertion failed: ![deletedRecordIDs containsObject:record.recordID]%@", v5, v6, v7, v8);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 void __55__BRCSideCarSyncDownOperation__createSyncDownOperation__block_invoke_cold_3()
 {
-  v11 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
@@ -271,23 +264,12 @@ void __55__BRCSideCarSyncDownOperation__createSyncDownOperation__block_invoke_co
   if (OUTLINED_FUNCTION_5(v2))
   {
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_0(&dword_223E7A000, v4, v5, "[CRIT] Assertion failed: sideCarRecordsByRecordID[record.recordID] == nil%@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v3, v4, "[CRIT] Assertion failed: sideCarRecordsByRecordID[record.recordID] == nil%@", v5, v6, v7, v8);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
-}
-
-void __55__BRCSideCarSyncDownOperation__createSyncDownOperation__block_invoke_13_cold_1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_4(&dword_223E7A000, v0, v1, "[DEBUG] Ignoring record of unknown type %@%@");
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 void __55__BRCSideCarSyncDownOperation__createSyncDownOperation__block_invoke_13_cold_2()
 {
-  v11 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
@@ -295,15 +277,12 @@ void __55__BRCSideCarSyncDownOperation__createSyncDownOperation__block_invoke_13
   if (OUTLINED_FUNCTION_5(v2))
   {
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_0(&dword_223E7A000, v4, v5, "[CRIT] Assertion failed: ![deletedRecordIDs containsObject:recordID]%@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v3, v4, "[CRIT] Assertion failed: ![deletedRecordIDs containsObject:recordID]%@", v5, v6, v7, v8);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 void __55__BRCSideCarSyncDownOperation__createSyncDownOperation__block_invoke_13_cold_3()
 {
-  v11 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
@@ -311,18 +290,8 @@ void __55__BRCSideCarSyncDownOperation__createSyncDownOperation__block_invoke_13
   if (OUTLINED_FUNCTION_5(v2))
   {
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_0(&dword_223E7A000, v4, v5, "[CRIT] Assertion failed: sideCarRecordsByRecordID[recordID] == nil%@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v3, v4, "[CRIT] Assertion failed: sideCarRecordsByRecordID[recordID] == nil%@", v5, v6, v7, v8);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
-}
-
-void __55__BRCSideCarSyncDownOperation__createSyncDownOperation__block_invoke_3_cold_1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_4(&dword_223E7A000, v0, v1, "[DEBUG] Finished syncing down side cars - %@%@");
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 @end

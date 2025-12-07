@@ -7,23 +7,23 @@
 
 - (id)fetchRowFromStatement:(sqlite3_stmt *)statement skip:(BOOL *)skip updatedSequence:(unint64_t *)sequence error:(id *)error
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   v11 = MEMORY[0x277CBEB38];
   columns = [(HMBLocalZoneQueryResultFilter *)self columns];
   v13 = [v11 dictionaryWithCapacity:{objc_msgSend(columns, "count")}];
 
   *sequence = sqlite3_column_int64(statement, 0);
   columns2 = [(HMBLocalZoneQueryResultFilter *)self columns];
-  v25 = MEMORY[0x277D85DD0];
-  v26 = 3221225472;
-  v27 = __82__HMBLocalZoneQueryResultFilter_fetchRowFromStatement_skip_updatedSequence_error___block_invoke;
-  v28 = &unk_2786E1350;
+  v24 = MEMORY[0x277D85DD0];
+  v25 = 3221225472;
+  v26 = __82__HMBLocalZoneQueryResultFilter_fetchRowFromStatement_skip_updatedSequence_error___block_invoke;
+  v27 = &unk_2786E1350;
   statementCopy = statement;
   v15 = v13;
-  v29 = v15;
-  [columns2 hmf_enumerateWithAutoreleasePoolUsingBlock:&v25];
+  v28 = v15;
+  [columns2 hmf_enumerateWithAutoreleasePoolUsingBlock:&v24];
 
-  v16 = [(HMBLocalZoneQueryResultFilter *)self filter:v25];
+  v16 = [(HMBLocalZoneQueryResultFilter *)self filter:v24];
   v17 = (v16)[2](v16, v15);
 
   if (v17)
@@ -46,9 +46,9 @@
     {
       v22 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v32 = v22;
-      v33 = 2048;
-      v34 = v17;
+      v31 = v22;
+      v32 = 2048;
+      v33 = v17;
       _os_log_impl(&dword_22AD27000, v21, OS_LOG_TYPE_ERROR, "%{public}@Unknown filter result received: %lu", buf, 0x16u);
     }
 
@@ -73,8 +73,6 @@ LABEL_10:
   }
 
 LABEL_11:
-
-  v23 = *MEMORY[0x277D85DE8];
 
   return v18;
 }

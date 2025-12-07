@@ -11,16 +11,15 @@
   {
     if (!((0xAAAAAAAAAAAAAAABLL * ((v3 - *string) >> 3)) >> 61))
     {
-      v4 = 0x5555555555555558 * ((v3 - *string) >> 3);
       operator new();
     }
 
     sub_10000FC84();
   }
 
-  v5 = [NSArray arrayWithObjects:"arrayWithObjects:count:" count:?];
+  v4 = [NSArray arrayWithObjects:"arrayWithObjects:count:" count:?];
 
-  return v5;
+  return v4;
 }
 
 @end

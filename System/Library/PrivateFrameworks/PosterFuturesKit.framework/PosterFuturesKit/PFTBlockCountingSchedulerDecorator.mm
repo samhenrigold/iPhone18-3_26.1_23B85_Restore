@@ -64,25 +64,24 @@ uint64_t __44__PFTBlockCountingSchedulerDecorator_os_log__block_invoke()
 
 - (void)blockBecamePending
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = *a2;
   v4 = *(self + 24);
   v5 = *(self + 32);
-  v7 = 134218752;
+  v6 = 134218752;
   selfCopy = self;
-  v9 = 2048;
-  v10 = v3;
-  v11 = 2048;
-  v12 = v4;
-  v13 = 2048;
-  v14 = v5;
-  _os_log_debug_impl(&dword_25ED8F000, log, OS_LOG_TYPE_DEBUG, "Scheduler %p has new pending block (%lu pending, %lu active, %lu completed)", &v7, 0x2Au);
-  v6 = *MEMORY[0x277D85DE8];
+  v8 = 2048;
+  v9 = v3;
+  v10 = 2048;
+  v11 = v4;
+  v12 = 2048;
+  v13 = v5;
+  _os_log_debug_impl(&dword_25ED8F000, log, OS_LOG_TYPE_DEBUG, "Scheduler %p has new pending block (%lu pending, %lu active, %lu completed)", &v6, 0x2Au);
 }
 
 - (void)blockBecameActive
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   *&selfCopy->_pendingBlockCount = vaddq_s64(*&selfCopy->_pendingBlockCount, xmmword_25EDA92D0);
@@ -92,24 +91,23 @@ uint64_t __44__PFTBlockCountingSchedulerDecorator_os_log__block_invoke()
     pendingBlockCount = selfCopy->_pendingBlockCount;
     activeBlockCount = selfCopy->_activeBlockCount;
     completedBlockCount = selfCopy->_completedBlockCount;
-    v8 = 134218752;
-    v9 = selfCopy;
-    v10 = 2048;
-    v11 = pendingBlockCount;
-    v12 = 2048;
-    v13 = activeBlockCount;
-    v14 = 2048;
-    v15 = completedBlockCount;
-    _os_log_debug_impl(&dword_25ED8F000, os_log, OS_LOG_TYPE_DEBUG, "Scheduler %p has new active block (%lu pending, %lu active, %lu completed)", &v8, 0x2Au);
+    v7 = 134218752;
+    v8 = selfCopy;
+    v9 = 2048;
+    v10 = pendingBlockCount;
+    v11 = 2048;
+    v12 = activeBlockCount;
+    v13 = 2048;
+    v14 = completedBlockCount;
+    _os_log_debug_impl(&dword_25ED8F000, os_log, OS_LOG_TYPE_DEBUG, "Scheduler %p has new active block (%lu pending, %lu active, %lu completed)", &v7, 0x2Au);
   }
 
   objc_sync_exit(selfCopy);
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)blockBecameCompleted
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   *&selfCopy->_activeBlockCount = vaddq_s64(*&selfCopy->_activeBlockCount, xmmword_25EDA92D0);
@@ -119,19 +117,18 @@ uint64_t __44__PFTBlockCountingSchedulerDecorator_os_log__block_invoke()
     pendingBlockCount = selfCopy->_pendingBlockCount;
     activeBlockCount = selfCopy->_activeBlockCount;
     completedBlockCount = selfCopy->_completedBlockCount;
-    v8 = 134218752;
-    v9 = selfCopy;
-    v10 = 2048;
-    v11 = pendingBlockCount;
-    v12 = 2048;
-    v13 = activeBlockCount;
-    v14 = 2048;
-    v15 = completedBlockCount;
-    _os_log_debug_impl(&dword_25ED8F000, os_log, OS_LOG_TYPE_DEBUG, "Scheduler %p has new completed block (%lu pending, %lu active, %lu completed)", &v8, 0x2Au);
+    v7 = 134218752;
+    v8 = selfCopy;
+    v9 = 2048;
+    v10 = pendingBlockCount;
+    v11 = 2048;
+    v12 = activeBlockCount;
+    v13 = 2048;
+    v14 = completedBlockCount;
+    _os_log_debug_impl(&dword_25ED8F000, os_log, OS_LOG_TYPE_DEBUG, "Scheduler %p has new completed block (%lu pending, %lu active, %lu completed)", &v7, 0x2Au);
   }
 
   objc_sync_exit(selfCopy);
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)performBlock:(id)block

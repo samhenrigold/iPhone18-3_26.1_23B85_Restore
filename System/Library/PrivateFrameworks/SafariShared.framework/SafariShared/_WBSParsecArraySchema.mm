@@ -26,18 +26,18 @@
 
 - (BOOL)_validateChild:(id)child ofParent:(id)parent withParentAssociatedError:(id)error errorHandler:(id)handler
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   childCopy = child;
   parentCopy = parent;
   errorCopy = error;
   handlerCopy = handler;
-  v32.receiver = self;
-  v32.super_class = _WBSParsecArraySchema;
-  if ([(WBSParsecSchema *)&v32 _validateChild:childCopy ofParent:parentCopy withParentAssociatedError:errorCopy errorHandler:handlerCopy])
+  v34.receiver = self;
+  v34.super_class = _WBSParsecArraySchema;
+  if ([(WBSParsecSchema *)&v34 _validateChild:childCopy ofParent:parentCopy withParentAssociatedError:errorCopy errorHandler:handlerCopy])
   {
     associatedError = [(WBSParsecSchema *)self associatedError];
-    v25 = associatedError;
-    v26 = errorCopy;
+    v27 = associatedError;
+    v28 = errorCopy;
     if (associatedError)
     {
       v15 = associatedError;
@@ -49,44 +49,45 @@
     }
 
     v16 = v15;
-    v28 = 0u;
-    v29 = 0u;
     v30 = 0u;
     v31 = 0u;
-    v27 = childCopy;
+    v32 = 0u;
+    v33 = 0u;
+    v29 = childCopy;
     v17 = childCopy;
-    v18 = [v17 countByEnumeratingWithState:&v28 objects:v37 count:16];
+    v18 = [v17 countByEnumeratingWithState:&v30 objects:v39 count:16];
     if (v18)
     {
       v19 = v18;
-      v20 = *v29;
+      v20 = *v31;
       v21 = 1;
       do
       {
         for (i = 0; i != v19; ++i)
         {
-          if (*v29 != v20)
+          if (*v31 != v20)
           {
             objc_enumerationMutation(v17);
           }
 
-          if (![(WBSParsecSchema *)self->_elementSchema _validateChild:*(*(&v28 + 1) + 8 * i) ofParent:v17 withParentAssociatedError:v16 errorHandler:handlerCopy])
+          v23 = [(WBSParsecSchema *)self->_elementSchema _validateChild:*(*(&v30 + 1) + 8 * i) ofParent:v17 withParentAssociatedError:v16 errorHandler:handlerCopy];
+          if ((v23 & 1) == 0)
           {
-            v23 = WBS_LOG_CHANNEL_PREFIXSafariSuggestions();
-            if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+            v25 = WBS_LOG_CHANNEL_PREFIXSafariSuggestions(v23, v24);
+            if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
             {
               *buf = 134349312;
-              v34 = v17;
-              v35 = 2050;
-              v36 = parentCopy;
-              _os_log_error_impl(&dword_1BB6F3000, v23, OS_LOG_TYPE_ERROR, "Array element schema validation failed on child %{public}p of parent %{public}p", buf, 0x16u);
+              v36 = v17;
+              v37 = 2050;
+              v38 = parentCopy;
+              _os_log_error_impl(&dword_1BB6F3000, v25, OS_LOG_TYPE_ERROR, "Array element schema validation failed on child %{public}p of parent %{public}p", buf, 0x16u);
             }
 
             v21 = 0;
           }
         }
 
-        v19 = [v17 countByEnumeratingWithState:&v28 objects:v37 count:16];
+        v19 = [v17 countByEnumeratingWithState:&v30 objects:v39 count:16];
       }
 
       while (v19);
@@ -97,8 +98,8 @@
       v21 = 1;
     }
 
-    errorCopy = v26;
-    childCopy = v27;
+    errorCopy = v28;
+    childCopy = v29;
   }
 
   else

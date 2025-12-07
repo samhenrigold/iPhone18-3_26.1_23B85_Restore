@@ -3,9 +3,18 @@
 - (id)specifiers;
 - (id)stateSpecifierNamed:(id)named isChecked:(BOOL)checked group:(id)group;
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path;
+- (void)viewDidAppear:(BOOL)appear;
 @end
 
 @implementation ICSettingsAutoSortChecklistController
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = ICSettingsAutoSortChecklistController;
+  [(ICSettingsAutoSortChecklistController *)&v4 viewDidAppear:appear];
+  [(ICSettingsAutoSortChecklistController *)self ic_submitNavigationEventForIdentifier:ICSortCheckedItemsPrefIdentifier titleStringKey:@"SORT_CHECKED_ITEMS_SETTINGS" navigationComponents:&off_1EF20];
+}
 
 - (id)specifiers
 {

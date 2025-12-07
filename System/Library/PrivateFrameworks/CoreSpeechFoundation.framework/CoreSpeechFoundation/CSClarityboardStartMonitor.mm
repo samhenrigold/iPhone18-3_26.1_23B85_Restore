@@ -4,6 +4,7 @@
 - (CSClarityboardStartMonitor)init;
 - (void)_didReceiveClarityboardStarted:(BOOL)started;
 - (void)_didReceiveClarityboardStartedInQueue:(BOOL)queue;
+- (void)_notifyObserver:(id)observer withStarted:(BOOL)started;
 - (void)_startMonitoringWithQueue:(id)queue;
 - (void)_stopMonitoring;
 @end
@@ -12,7 +13,7 @@
 
 - (BOOL)_checkClarityBoardStarted
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   out_token = -1;
   notify_register_check("com.apple.ClarityBoard.FinishedStartup", &out_token);
   if (out_token == -1)
@@ -38,14 +39,24 @@
     }
 
     check = 136315394;
-    v9 = "[CSClarityboardStartMonitor _checkClarityBoardStarted]";
-    v10 = 2114;
-    v11 = v4;
+    v8 = "[CSClarityboardStartMonitor _checkClarityBoardStarted]";
+    v9 = 2114;
+    v10 = v4;
     _os_log_impl(&dword_1DDA4B000, v3, OS_LOG_TYPE_DEFAULT, "%s ClarityBoard started = %{public}@", &check, 0x16u);
   }
 
-  v5 = *MEMORY[0x1E69E9840];
   return v2;
+}
+
+- (void)_notifyObserver:(id)observer withStarted:(BOOL)started
+{
+  startedCopy = started;
+  observerCopy = observer;
+  [(CSEventMonitor *)self notifyObserver:observerCopy];
+  if (objc_opt_respondsToSelector())
+  {
+    [observerCopy CSClarityboardStartMonitor:self didReceiveStarted:startedCopy];
+  }
 }
 
 - (void)_didReceiveClarityboardStarted:(BOOL)started
@@ -72,7 +83,7 @@
 
 - (void)_stopMonitoring
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   notifyToken = self->_notifyToken;
   if (notifyToken != -1)
   {
@@ -81,18 +92,16 @@
     v4 = CSLogContextFacilityCoreSpeech;
     if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = 136315138;
-      v7 = "[CSClarityboardStartMonitor _stopMonitoring]";
-      _os_log_impl(&dword_1DDA4B000, v4, OS_LOG_TYPE_DEFAULT, "%s Stop monitoring : Clarityboard start", &v6, 0xCu);
+      v5 = 136315138;
+      v6 = "[CSClarityboardStartMonitor _stopMonitoring]";
+      _os_log_impl(&dword_1DDA4B000, v4, OS_LOG_TYPE_DEFAULT, "%s Stop monitoring : Clarityboard start", &v5, 0xCu);
     }
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_startMonitoringWithQueue:(id)queue
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   queueCopy = queue;
   if (self->_notifyToken == -1)
   {
@@ -106,7 +115,7 @@
     if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v10 = "[CSClarityboardStartMonitor _startMonitoringWithQueue:]";
+      v9 = "[CSClarityboardStartMonitor _startMonitoringWithQueue:]";
       v6 = "%s Start monitoring : ClarityBoard start";
       goto LABEL_6;
     }
@@ -118,7 +127,7 @@
     if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v10 = "[CSClarityboardStartMonitor _startMonitoringWithQueue:]";
+      v9 = "[CSClarityboardStartMonitor _startMonitoringWithQueue:]";
       v6 = "%s Cannot start monitoring ClarityBoard start because it was already started";
 LABEL_6:
       _os_log_impl(&dword_1DDA4B000, v5, OS_LOG_TYPE_DEFAULT, v6, buf, 0xCu);
@@ -126,8 +135,6 @@ LABEL_6:
   }
 
   self->_isClarityBoardStarted = [(CSClarityboardStartMonitor *)self _checkClarityBoardStarted];
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __56__CSClarityboardStartMonitor__startMonitoringWithQueue___block_invoke(uint64_t a1)
@@ -167,9 +174,11 @@ uint64_t __56__CSClarityboardStartMonitor__startMonitoringWithQueue___block_invo
 
 uint64_t __44__CSClarityboardStartMonitor_sharedInstance__block_invoke()
 {
-  sharedInstance__sharedInstance_976 = objc_alloc_init(CSClarityboardStartMonitor);
+  v0 = objc_alloc_init(CSClarityboardStartMonitor);
+  v1 = sharedInstance__sharedInstance_976;
+  sharedInstance__sharedInstance_976 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 @end

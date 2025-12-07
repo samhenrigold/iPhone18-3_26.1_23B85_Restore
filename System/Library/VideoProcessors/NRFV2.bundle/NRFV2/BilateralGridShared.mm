@@ -1,8 +1,34 @@
 @interface BilateralGridShared
 + (id)getSharedInstanceOrRelease:(BOOL)release;
+- (id)getShaders:(id)shaders normalizeGridConfidence:(BOOL)confidence;
 @end
 
 @implementation BilateralGridShared
+
+- (id)getShaders:(id)shaders normalizeGridConfidence:(BOOL)confidence
+{
+  confidenceCopy = confidence;
+  shadersCopy = shaders;
+  shaders = self->_shaders;
+  p_shaders = &self->_shaders;
+  shadersCopy2 = shaders;
+  if (!shadersCopy2)
+  {
+    v10 = [BilateralGridShaders alloc];
+    shadersCopy2 = objc_msgSend_initWithMetal_normalizeGridConfidence_(v10, v11, shadersCopy, confidenceCopy);
+    if (shadersCopy2)
+    {
+      objc_storeStrong(p_shaders, shadersCopy2);
+    }
+
+    else
+    {
+      sub_29587942C();
+    }
+  }
+
+  return shadersCopy2;
+}
 
 + (id)getSharedInstanceOrRelease:(BOOL)release
 {

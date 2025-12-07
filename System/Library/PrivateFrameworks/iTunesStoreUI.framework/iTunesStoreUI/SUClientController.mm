@@ -249,13 +249,13 @@ id __37__SUClientController_clientInterface__block_invoke(uint64_t a1)
   return v6 != 0;
 }
 
-uint64_t __63__SUClientController_composeReviewWithViewController_animated___block_invoke(uint64_t result, int a2)
+void *__63__SUClientController_composeReviewWithViewController_animated___block_invoke(void *result, int a2)
 {
   if (a2)
   {
     v2 = result;
-    v3 = [MEMORY[0x1E69DD258] transitionSafePerformer:*(result + 32)];
-    v4 = *(v2 + 40);
+    v3 = [MEMORY[0x1E69DD258] transitionSafePerformer:result[4]];
+    v4 = v2[5];
 
     return [v3 presentViewController:v4 animated:1 completion:0];
   }
@@ -289,7 +289,7 @@ uint64_t __63__SUClientController_composeReviewWithViewController_animated___blo
   return v3;
 }
 
-uint64_t __52__SUClientController_ignoresExpectedClientsProtocol__block_invoke(uint64_t a1)
+void *__52__SUClientController_ignoresExpectedClientsProtocol__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 16) _ignoresExpectedClientsProtocol];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -1049,29 +1049,35 @@ id __43__SUClientController_viewControllerFactory__block_invoke(uint64_t a1)
   _Block_object_dispose(&v9, 8);
 }
 
-uint64_t __65__SUClientController__applicationDidEnterBackgroundNotification___block_invoke(uint64_t a1)
+void *__65__SUClientController__applicationDidEnterBackgroundNotification___block_invoke(uint64_t a1)
 {
   result = [objc_msgSend(MEMORY[0x1E69DC668] "sharedApplication")];
   *(*(*(a1 + 32) + 8) + 24) = *MEMORY[0x1E69DDBE8];
   return result;
 }
 
-uint64_t __65__SUClientController__applicationDidEnterBackgroundNotification___block_invoke_2(uint64_t a1)
+void *__65__SUClientController__applicationDidEnterBackgroundNotification___block_invoke_2(uint64_t a1)
 {
   v13 = *MEMORY[0x1E69E9840];
   v2 = [MEMORY[0x1E69D4938] sharedConfig];
   v3 = [v2 shouldLog];
   if ([v2 shouldLogToDisk])
   {
-    v4 = v3 | 2;
+    LODWORD(v4) = v3 | 2;
   }
 
   else
   {
-    v4 = v3;
+    LODWORD(v4) = v3;
   }
 
-  if (!os_log_type_enabled([v2 OSLogObject], OS_LOG_TYPE_DEBUG))
+  v5 = [v2 OSLogObject];
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+  {
+    v4 = v4;
+  }
+
+  else
   {
     v4 &= 2u;
   }
@@ -1080,15 +1086,13 @@ uint64_t __65__SUClientController__applicationDidEnterBackgroundNotification___b
   {
     v11 = 138412290;
     v12 = objc_opt_class();
-    LODWORD(v10) = 12;
-    v9 = &v11;
-    v5 = _os_log_send_and_compose_impl();
-    if (v5)
+    v6 = _os_log_send_and_compose_impl(v4, 0, 0, 0, &dword_1C21AF000, v5, 2, "%@: Purging caches to enter background", &v11, 12);
+    if (v6)
     {
-      v6 = v5;
-      v7 = [MEMORY[0x1E696AEC0] stringWithCString:v5 encoding:{4, &v11, v10}];
-      free(v6);
-      v9 = v7;
+      v7 = v6;
+      v8 = [MEMORY[0x1E696AEC0] stringWithCString:v6 encoding:4];
+      free(v7);
+      v10 = v8;
       SSFileLog();
     }
   }
@@ -1132,15 +1136,21 @@ uint64_t __65__SUClientController__applicationDidEnterBackgroundNotification___b
   shouldLog = [mEMORY[0x1E69D4938] shouldLog];
   if ([mEMORY[0x1E69D4938] shouldLogToDisk])
   {
-    v6 = shouldLog | 2;
+    LODWORD(v6) = shouldLog | 2;
   }
 
   else
   {
-    v6 = shouldLog;
+    LODWORD(v6) = shouldLog;
   }
 
-  if (!os_log_type_enabled([mEMORY[0x1E69D4938] OSLogObject], OS_LOG_TYPE_DEBUG))
+  oSLogObject = [mEMORY[0x1E69D4938] OSLogObject];
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
+  {
+    v6 = v6;
+  }
+
+  else
   {
     v6 &= 2u;
   }
@@ -1149,15 +1159,13 @@ uint64_t __65__SUClientController__applicationDidEnterBackgroundNotification___b
   {
     v12 = 138412290;
     v13 = objc_opt_class();
-    LODWORD(v11) = 12;
-    v10 = &v12;
-    v7 = _os_log_send_and_compose_impl();
-    if (v7)
+    v8 = _os_log_send_and_compose_impl(v6, 0, 0, 0, &dword_1C21AF000, oSLogObject, 2, "%@: Removing all cached responses after memory warning", &v12, 12);
+    if (v8)
     {
-      v8 = v7;
-      v9 = [MEMORY[0x1E696AEC0] stringWithCString:v7 encoding:{4, &v12, v11}];
-      free(v8);
-      v10 = v9;
+      v9 = v8;
+      v10 = [MEMORY[0x1E696AEC0] stringWithCString:v8 encoding:4];
+      free(v9);
+      v11 = v10;
       SSFileLog();
     }
   }

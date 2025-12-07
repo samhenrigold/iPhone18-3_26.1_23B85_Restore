@@ -64,7 +64,7 @@
 
 void __71__ASDClaimApplicationsRequest__sendRequestWithOptions_completionBlock___block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
   v3 = *(v2 + 24);
   if (!v3)
@@ -77,8 +77,8 @@ void __71__ASDClaimApplicationsRequest__sendRequestWithOptions_completionBlock__
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v18 = objc_opt_class();
-      v10 = v18;
+      v17 = objc_opt_class();
+      v9 = v17;
       _os_log_error_impl(&dword_1B8220000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "[%@]: Treating as legacy client", buf, 0xCu);
     }
 
@@ -101,24 +101,22 @@ LABEL_7:
     v3 = *(v2 + 24);
   }
 
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 3221225472;
-  v13[2] = __71__ASDClaimApplicationsRequest__sendRequestWithOptions_completionBlock___block_invoke_2;
-  v13[3] = &unk_1E7CDBF60;
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = __71__ASDClaimApplicationsRequest__sendRequestWithOptions_completionBlock___block_invoke_2;
+  v12[3] = &unk_1E7CDBF60;
   v7 = *(a1 + 40);
   v8 = *(a1 + 32);
-  v14 = v7;
-  v15 = v8;
-  v16 = *(a1 + 48);
-  v11[0] = MEMORY[0x1E69E9820];
-  v11[1] = 3221225472;
-  v11[2] = __71__ASDClaimApplicationsRequest__sendRequestWithOptions_completionBlock___block_invoke_6;
-  v11[3] = &unk_1E7CDBAB8;
-  v11[4] = *(a1 + 32);
-  v12 = *(a1 + 48);
-  [v2 _call:v3 run:v13 error:v11];
-
-  v9 = *MEMORY[0x1E69E9840];
+  v13 = v7;
+  v14 = v8;
+  v15 = *(a1 + 48);
+  v10[0] = MEMORY[0x1E69E9820];
+  v10[1] = 3221225472;
+  v10[2] = __71__ASDClaimApplicationsRequest__sendRequestWithOptions_completionBlock___block_invoke_6;
+  v10[3] = &unk_1E7CDBAB8;
+  v10[4] = *(a1 + 32);
+  v11 = *(a1 + 48);
+  [v2 _call:v3 run:v12 error:v10];
 }
 
 void __71__ASDClaimApplicationsRequest__sendRequestWithOptions_completionBlock___block_invoke_2(void *a1, void *a2)

@@ -151,9 +151,9 @@ LABEL_24:
   finalPointCopy = finalPoint;
   initialPointCopy = initialPoint;
   pointCopy = point;
-  v91.receiver = self;
-  v91.super_class = CRLFreehandDrawingToolFillAndLegacyStroke;
-  [(CRLFreehandDrawingToolAbstractPathInsertion *)&v91 performActionWithInputPoint:pointCopy isInitialPoint:initialPointCopy isFinalPoint:finalPointCopy];
+  v98.receiver = self;
+  v98.super_class = CRLFreehandDrawingToolFillAndLegacyStroke;
+  [(CRLFreehandDrawingToolAbstractPathInsertion *)&v98 performActionWithInputPoint:pointCopy isInitialPoint:initialPointCopy isFinalPoint:finalPointCopy];
   [pointCopy unscaledPoint];
   self->_currentUnscaledPoint.x = v9;
   self->_currentUnscaledPoint.y = v10;
@@ -301,76 +301,83 @@ LABEL_24:
     shapeDrawingTimerHelper = self->_shapeDrawingTimerHelper;
     if (pointCopy)
     {
-      [pointCopy PKInputPoint];
+      objc_msgSend_PKInputPoint(pointCopy);
     }
 
     else
     {
-      v90 = 0;
-      v88 = 0u;
+      v97 = 0;
+      v95 = 0u;
+      v96 = 0u;
+      v93 = 0u;
+      v94 = 0u;
+      v91 = 0u;
+      v92 = 0u;
       v89 = 0u;
-      v86 = 0u;
-      v87 = 0u;
-      v84 = 0u;
-      v85 = 0u;
-      v82 = 0u;
-      v83 = 0u;
+      v90 = 0u;
     }
 
-    [(PKShapeDrawingTimerHelper *)shapeDrawingTimerHelper addStrokePoint:&v82 inputPoint:v67, v69];
+    [(PKShapeDrawingTimerHelper *)shapeDrawingTimerHelper addStrokePoint:&v89 inputPoint:v67, v69];
     if ([pointCopy inputType] == 2 && (objc_msgSend(pointCopy, "wasAddedByTouchesEnded") & 1) == 0)
     {
-      v90 = 0;
-      v88 = 0u;
+      v97 = 0;
+      v95 = 0u;
+      v96 = 0u;
+      v93 = 0u;
+      v94 = 0u;
+      v91 = 0u;
+      v92 = 0u;
       v89 = 0u;
-      v86 = 0u;
-      v87 = 0u;
-      v84 = 0u;
-      v85 = 0u;
-      v82 = 0u;
-      v83 = 0u;
+      v90 = 0u;
       v74 = [(CRLFreehandDrawingTool *)self icc];
       freehandDrawingToolkit = [v74 freehandDrawingToolkit];
       if (pointCopy)
       {
-        [pointCopy PKInputPoint];
+        objc_msgSend_PKInputPoint(pointCopy);
       }
 
       else
       {
-        v81 = 0;
-        memset(v80, 0, sizeof(v80));
-      }
-
-      if (freehandDrawingToolkit)
-      {
-        [freehandDrawingToolkit inputPointInPKCanvasViewFromUnscaledSpace:v80];
-      }
-
-      else
-      {
-        v90 = 0;
-        v88 = 0u;
-        v89 = 0u;
+        v88 = 0;
         v86 = 0u;
         v87 = 0u;
         v84 = 0u;
         v85 = 0u;
         v82 = 0u;
         v83 = 0u;
+        v80 = 0u;
+        v81 = 0u;
+      }
+
+      if (freehandDrawingToolkit)
+      {
+        objc_msgSend_inputPointInPKCanvasViewFromUnscaledSpace_(freehandDrawingToolkit);
+      }
+
+      else
+      {
+        v97 = 0;
+        v95 = 0u;
+        v96 = 0u;
+        v93 = 0u;
+        v94 = 0u;
+        v91 = 0u;
+        v92 = 0u;
+        v89 = 0u;
+        v90 = 0u;
       }
 
       v76 = [(CRLFreehandDrawingTool *)self icc];
       freehandDrawingToolkit2 = [v76 freehandDrawingToolkit];
-      v78[6] = v88;
-      v78[7] = v89;
-      v79 = v90;
-      v78[2] = v84;
-      v78[3] = v85;
-      v78[4] = v86;
-      v78[5] = v87;
-      v78[0] = v82;
-      v78[1] = v83;
+      v78[6] = v95;
+      v78[7] = v96;
+      v79 = v97;
+      v78[2] = v91;
+      v78[3] = v92;
+      v78[4] = v93;
+      v78[5] = v94;
+      v78[0] = v89;
+      v78[1] = v90;
       [freehandDrawingToolkit2 updatePencilShadowWithInputPoint:v78];
     }
   }
@@ -560,7 +567,7 @@ LABEL_18:
     v44 = parentItem;
     if (parentItem)
     {
-      [parentItem transformInRoot];
+      objc_msgSend_transformInRoot(parentItem);
     }
 
     else
@@ -1776,7 +1783,7 @@ LABEL_26:
                         v54 = pureGeometryInRoot;
                         if (pureGeometryInRoot)
                         {
-                          [pureGeometryInRoot transform];
+                          objc_msgSend_transform(pureGeometryInRoot);
                         }
 
                         else
@@ -1864,7 +1871,7 @@ LABEL_68:
             v66 = pureGeometryInRoot2;
             if (pureGeometryInRoot2)
             {
-              [pureGeometryInRoot2 transform];
+              objc_msgSend_transform(pureGeometryInRoot2);
             }
 
             else
@@ -2165,7 +2172,7 @@ LABEL_32:
       v50 = pureGeometryInRoot;
       if (pureGeometryInRoot)
       {
-        [pureGeometryInRoot transform];
+        objc_msgSend_transform(pureGeometryInRoot);
       }
 
       else
@@ -2295,7 +2302,7 @@ LABEL_32:
       v82 = geometryInRoot;
       if (geometryInRoot)
       {
-        [geometryInRoot transform];
+        objc_msgSend_transform(geometryInRoot);
       }
 
       else

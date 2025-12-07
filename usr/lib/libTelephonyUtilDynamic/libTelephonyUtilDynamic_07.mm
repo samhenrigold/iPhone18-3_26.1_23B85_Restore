@@ -1,930 +1,3 @@
-void MockHttpRequest::sendResponse(uint64_t a1, uint64_t *a2)
-{
-  __lk.__m_ = *(a1 + 440);
-  *&__lk.__owns_ = 0xAAAAAAAAAAAAAA01;
-  std::mutex::lock(__lk.__m_);
-  v4.__d_.__rep_ = std::chrono::steady_clock::now().__d_.__rep_ + 1000000000;
-  do
-  {
-    v5 = *(a1 + 496);
-    if (v5)
-    {
-      v6 = *(v5 + 8);
-      v7 = *(v5 + 16);
-      if (v6 != v7)
-      {
-        goto LABEL_21;
-      }
-    }
-
-    if (v4.__d_.__rep_ <= std::chrono::steady_clock::now().__d_.__rep_)
-    {
-      break;
-    }
-
-    v8.__d_.__rep_ = v4.__d_.__rep_ - std::chrono::steady_clock::now().__d_.__rep_;
-    if (v8.__d_.__rep_ >= 1)
-    {
-      std::chrono::steady_clock::now();
-      v9.__d_.__rep_ = std::chrono::system_clock::now().__d_.__rep_;
-      if (!v9.__d_.__rep_)
-      {
-        v10 = 0;
-        goto LABEL_16;
-      }
-
-      if (v9.__d_.__rep_ < 1)
-      {
-        if (v9.__d_.__rep_ < 0xFFDF3B645A1CAC09)
-        {
-          v10 = 0x8000000000000000;
-          goto LABEL_16;
-        }
-      }
-
-      else if (v9.__d_.__rep_ > 0x20C49BA5E353F7)
-      {
-        v10 = 0x7FFFFFFFFFFFFFFFLL;
-        goto LABEL_14;
-      }
-
-      v10 = 1000 * v9.__d_.__rep_;
-LABEL_14:
-      if (v10 > (v8.__d_.__rep_ ^ 0x7FFFFFFFFFFFFFFFLL))
-      {
-        v11.__d_.__rep_ = 0x7FFFFFFFFFFFFFFFLL;
-LABEL_17:
-        std::condition_variable::__do_timed_wait((a1 + 448), &__lk, v11);
-        std::chrono::steady_clock::now();
-        continue;
-      }
-
-LABEL_16:
-      v11.__d_.__rep_ = v10 + v8.__d_.__rep_;
-      goto LABEL_17;
-    }
-  }
-
-  while (std::chrono::steady_clock::now().__d_.__rep_ < v4.__d_.__rep_);
-  v5 = *(a1 + 496);
-  if (!v5)
-  {
-    goto LABEL_75;
-  }
-
-  v6 = *(v5 + 8);
-  v7 = *(v5 + 16);
-LABEL_21:
-  if (v6 == v7)
-  {
-LABEL_75:
-    exception = __cxa_allocate_exception(0x10uLL);
-    ctu::EmptyMockCallArgsException::EmptyMockCallArgsException(exception, *(a1 + 432));
-  }
-
-  v12 = *v6;
-  *v6 = 0;
-  v13 = v6 + 1;
-  if (v6 + 1 != v7)
-  {
-    for (i = 0; ; i = *v6)
-    {
-      v6 = v13;
-      *(v13 - 1) = *v13;
-      *v13 = 0;
-      if (i)
-      {
-        dispatch_release(i);
-      }
-
-      v13 = v6 + 1;
-      if (v6 + 1 == v7)
-      {
-        break;
-      }
-    }
-
-    v7 = *(v5 + 16);
-  }
-
-  while (v7 != v6)
-  {
-    v16 = *--v7;
-    v15 = v16;
-    if (v16)
-    {
-      dispatch_release(v15);
-    }
-  }
-
-  *(v5 + 16) = v6;
-  if (__lk.__owns_)
-  {
-    std::mutex::unlock(__lk.__m_);
-  }
-
-  __lk.__m_ = *(a1 + 512);
-  *&__lk.__owns_ = 0xAAAAAAAAAAAAAA01;
-  std::mutex::lock(__lk.__m_);
-  v17.__d_.__rep_ = std::chrono::steady_clock::now().__d_.__rep_ + 1000000000;
-  while (2)
-  {
-    v18 = *(a1 + 568);
-    if (v18)
-    {
-      v20 = *(v18 + 8);
-      v19 = *(v18 + 16);
-      if (v20 != v19)
-      {
-        goto LABEL_54;
-      }
-    }
-
-    if (v17.__d_.__rep_ <= std::chrono::steady_clock::now().__d_.__rep_)
-    {
-      break;
-    }
-
-    v21.__d_.__rep_ = v17.__d_.__rep_ - std::chrono::steady_clock::now().__d_.__rep_;
-    if (v21.__d_.__rep_ >= 1)
-    {
-      std::chrono::steady_clock::now();
-      v22.__d_.__rep_ = std::chrono::system_clock::now().__d_.__rep_;
-      if (v22.__d_.__rep_)
-      {
-        if (v22.__d_.__rep_ < 1)
-        {
-          if (v22.__d_.__rep_ >= 0xFFDF3B645A1CAC09)
-          {
-            goto LABEL_46;
-          }
-
-          v23 = 0x8000000000000000;
-        }
-
-        else
-        {
-          if (v22.__d_.__rep_ > 0x20C49BA5E353F7)
-          {
-            v23 = 0x7FFFFFFFFFFFFFFFLL;
-            goto LABEL_47;
-          }
-
-LABEL_46:
-          v23 = 1000 * v22.__d_.__rep_;
-LABEL_47:
-          if (v23 > (v21.__d_.__rep_ ^ 0x7FFFFFFFFFFFFFFFLL))
-          {
-            v24.__d_.__rep_ = 0x7FFFFFFFFFFFFFFFLL;
-            goto LABEL_50;
-          }
-        }
-      }
-
-      else
-      {
-        v23 = 0;
-      }
-
-      v24.__d_.__rep_ = v23 + v21.__d_.__rep_;
-LABEL_50:
-      std::condition_variable::__do_timed_wait((a1 + 520), &__lk, v24);
-      std::chrono::steady_clock::now();
-    }
-
-    if (std::chrono::steady_clock::now().__d_.__rep_ < v17.__d_.__rep_)
-    {
-      continue;
-    }
-
-    break;
-  }
-
-  v18 = *(a1 + 568);
-  if (!v18)
-  {
-    goto LABEL_76;
-  }
-
-  v20 = *(v18 + 8);
-  v19 = *(v18 + 16);
-LABEL_54:
-  if (v20 == v19)
-  {
-LABEL_76:
-    v33 = __cxa_allocate_exception(0x10uLL);
-    ctu::EmptyMockCallArgsException::EmptyMockCallArgsException(v33, *(a1 + 504));
-  }
-
-  v25 = *v20;
-  *v20 = 0;
-  v26 = v20 + 1;
-  if (v20 + 1 != v19)
-  {
-    for (j = 0; ; j = *v20)
-    {
-      v20 = v26;
-      *(v26 - 1) = *v26;
-      *v26 = 0;
-      if (j)
-      {
-        _Block_release(j);
-      }
-
-      v26 = v20 + 1;
-      if (v20 + 1 == v19)
-      {
-        break;
-      }
-    }
-
-    v19 = *(v18 + 16);
-  }
-
-  while (v19 != v20)
-  {
-    v28 = *--v19;
-    std::__destroy_at[abi:ne200100]<std::tuple<dispatch::block<void({block_pointer})(std::shared_ptr<ctu::Http::HttpResponse>)>>,0>(v28);
-  }
-
-  *(v18 + 16) = v20;
-  if (__lk.__owns_)
-  {
-    std::mutex::unlock(__lk.__m_);
-  }
-
-  if (!v12)
-  {
-    v34 = __cxa_allocate_exception(0x10uLL);
-    std::runtime_error::runtime_error(v34, "Callback queue was never set; can't send response!");
-    goto LABEL_79;
-  }
-
-  if (!v25)
-  {
-    v34 = __cxa_allocate_exception(0x10uLL);
-    std::runtime_error::runtime_error(v34, "Callback functor was never set; can't send response!");
-LABEL_79:
-    __cxa_throw(v34, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
-  }
-
-  block[0] = MEMORY[0x1E69E9820];
-  block[1] = 1174405120;
-  block[2] = ___ZN15MockHttpRequest12sendResponseENSt3__110shared_ptrIN3ctu4Http12HttpResponseEEE_block_invoke;
-  block[3] = &__block_descriptor_tmp_25;
-  v29 = _Block_copy(v25);
-  v31 = *a2;
-  v30 = a2[1];
-  aBlock = v29;
-  v37 = v31;
-  v38 = v30;
-  if (v30)
-  {
-    atomic_fetch_add_explicit(&v30->__shared_owners_, 1uLL, memory_order_relaxed);
-  }
-
-  dispatch_async(v12, block);
-  if (v38)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v38);
-  }
-
-  if (aBlock)
-  {
-    _Block_release(aBlock);
-  }
-
-  _Block_release(v25);
-  dispatch_release(v12);
-}
-
-void sub_1A913FF70(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, std::mutex *a17, char a18)
-{
-  __cxa_free_exception(v19);
-  dispatch_release(v18);
-  _Unwind_Resume(a1);
-}
-
-void ___ZN15MockHttpRequest12sendResponseENSt3__110shared_ptrIN3ctu4Http12HttpResponseEEE_block_invoke(void *a1)
-{
-  v2 = a1[4];
-  v3 = a1[6];
-  v4 = a1[5];
-  v5 = v3;
-  if (v3)
-  {
-    atomic_fetch_add_explicit(&v3->__shared_owners_, 1uLL, memory_order_relaxed);
-  }
-
-  (*(v2 + 16))(v2, &v4);
-  if (v5)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v5);
-  }
-}
-
-void sub_1A9140088(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::__shared_weak_count *a10)
-{
-  if (a10)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](a10);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void MockHttpRequest::registerCallbackQueue(MockHttpRequest *this, dispatch_object_t object)
-{
-  if (object)
-  {
-    dispatch_retain(object);
-  }
-
-  v4 = *(this + 55);
-  std::mutex::lock(v4);
-  if (!*(this + 62))
-  {
-    v5 = operator new(0x58uLL);
-    v5[10] = 0;
-    *(v5 + 3) = 0u;
-    *(v5 + 4) = 0u;
-    *(v5 + 1) = 0u;
-    *(v5 + 2) = 0u;
-    *v5 = 0u;
-    std::unique_ptr<ctu::MockMethodHandler<void,dispatch::queue>>::reset[abi:ne200100](this + 62, v5);
-  }
-
-  std::condition_variable::notify_one((this + 448));
-  v6 = *(this + 62);
-  ++*v6;
-  v8 = v6[2];
-  v7 = v6[3];
-  if (v8 >= v7)
-  {
-    v10 = v6[1];
-    v11 = v8 - v10;
-    v12 = v11 + 1;
-    if ((v11 + 1) >> 61)
-    {
-      std::vector<unsigned char>::__throw_length_error[abi:ne200100]();
-    }
-
-    v13 = v7 - v10;
-    if (v13 >> 2 > v12)
-    {
-      v12 = v13 >> 2;
-    }
-
-    if (v13 >= 0x7FFFFFFFFFFFFFF8)
-    {
-      v14 = 0x1FFFFFFFFFFFFFFFLL;
-    }
-
-    else
-    {
-      v14 = v12;
-    }
-
-    if (v14)
-    {
-      if (v14 >> 61)
-      {
-        std::__throw_bad_array_new_length[abi:ne200100]();
-      }
-
-      v15 = operator new(8 * v14);
-    }
-
-    else
-    {
-      v15 = 0;
-    }
-
-    v16 = &v15[v11];
-    *v16 = object;
-    if (v10 != v8)
-    {
-      v17 = v15;
-      v18 = v10;
-      do
-      {
-        *v17++ = *v18;
-        *v18++ = 0;
-      }
-
-      while (v18 != v8);
-      do
-      {
-        if (*v10)
-        {
-          dispatch_release(*v10);
-        }
-
-        ++v10;
-      }
-
-      while (v10 != v8);
-      v10 = v6[1];
-    }
-
-    v9 = v16 + 1;
-    v6[1] = v15;
-    v6[2] = v16 + 1;
-    v6[3] = &v15[v14];
-    if (v10)
-    {
-      operator delete(v10);
-    }
-  }
-
-  else
-  {
-    *v8 = object;
-    v9 = v8 + 1;
-  }
-
-  v6[2] = v9;
-  v19 = v6[8];
-  while (v19 != v6[9])
-  {
-    v20 = *v19;
-    v21 = v19[1];
-    if (v21)
-    {
-      atomic_fetch_add_explicit(&v21->__shared_owners_, 1uLL, memory_order_relaxed);
-    }
-
-    v22 = (*(*v20 + 32))(v20, v6[2] - 8);
-    if (v22)
-    {
-      v23 = v6[9];
-      if (v19 + 2 == v23)
-      {
-        v27 = v19;
-      }
-
-      else
-      {
-        v24 = v19;
-        do
-        {
-          v25 = *(v24 + 1);
-          v24[2] = 0;
-          v24[3] = 0;
-          v26 = v24[1];
-          *v24 = v25;
-          if (v26)
-          {
-            std::__shared_weak_count::__release_shared[abi:ne200100](v26);
-          }
-
-          v27 = v24 + 2;
-          v28 = v24 + 4;
-          v24 += 2;
-        }
-
-        while (v28 != v23);
-        v23 = v6[9];
-      }
-
-      while (v23 != v27)
-      {
-        v29 = *(v23 - 1);
-        if (v29)
-        {
-          std::__shared_weak_count::__release_shared[abi:ne200100](v29);
-        }
-
-        v23 -= 2;
-      }
-
-      v6[9] = v27;
-      if (!v21)
-      {
-        goto LABEL_46;
-      }
-    }
-
-    else
-    {
-      v19 += 2;
-      if (!v21)
-      {
-        goto LABEL_46;
-      }
-    }
-
-    std::__shared_weak_count::__release_shared[abi:ne200100](v21);
-LABEL_46:
-    if (v22)
-    {
-      break;
-    }
-  }
-
-  v30 = v6[7];
-  if (v30)
-  {
-    (*(*v30 + 48))(v30, v6[2] - 8);
-  }
-
-  std::mutex::unlock(v4);
-}
-
-void sub_1A9140358(_Unwind_Exception *exception_object)
-{
-  if (v1)
-  {
-    dispatch_release(v1);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void MockHttpRequest::registerCompletionCodeblock(uint64_t a1, void *a2)
-{
-  v4 = *(a1 + 512);
-  std::mutex::lock(v4);
-  if (!*(a1 + 568))
-  {
-    v5 = operator new(0x58uLL);
-    v5[10] = 0;
-    *(v5 + 3) = 0u;
-    *(v5 + 4) = 0u;
-    *(v5 + 1) = 0u;
-    *(v5 + 2) = 0u;
-    *v5 = 0u;
-    std::unique_ptr<ctu::MockMethodHandler<void,dispatch::block<void({block_pointer})(std::shared_ptr<ctu::Http::HttpResponse>)>>>::reset[abi:ne200100]((a1 + 568), v5);
-  }
-
-  std::condition_variable::notify_one((a1 + 520));
-  v6 = *(a1 + 568);
-  ++*v6;
-  v7 = v6[2];
-  v8 = v6[3];
-  if (v7 >= v8)
-  {
-    v10 = v6[1];
-    v11 = (v7 - v10) >> 3;
-    if ((v11 + 1) >> 61)
-    {
-      std::vector<unsigned char>::__throw_length_error[abi:ne200100]();
-    }
-
-    v12 = v8 - v10;
-    v13 = v12 >> 2;
-    if (v12 >> 2 <= (v11 + 1))
-    {
-      v13 = v11 + 1;
-    }
-
-    if (v12 >= 0x7FFFFFFFFFFFFFF8)
-    {
-      v14 = 0x1FFFFFFFFFFFFFFFLL;
-    }
-
-    else
-    {
-      v14 = v13;
-    }
-
-    if (v14)
-    {
-      if (v14 >> 61)
-      {
-        std::__throw_bad_array_new_length[abi:ne200100]();
-      }
-
-      v15 = operator new(8 * v14);
-    }
-
-    else
-    {
-      v15 = 0;
-    }
-
-    v16 = &v15[8 * v11];
-    v17 = &v15[8 * v14];
-    std::__tuple_leaf<0ul,dispatch::block<void({block_pointer})(std::shared_ptr<ctu::Http::HttpResponse>)>,false>::__tuple_leaf[abi:ne200100]<void({block_pointer}&)(std::shared_ptr<ctu::Http::HttpResponse>),0>(v16, a2);
-    v9 = v16 + 8;
-    v18 = v6[1];
-    v19 = v6[2];
-    v20 = &v16[v18 - v19];
-    if (v19 != v18)
-    {
-      v21 = v6[1];
-      v22 = v20;
-      do
-      {
-        *v22++ = *v21;
-        *v21++ = 0;
-      }
-
-      while (v21 != v19);
-      do
-      {
-        v23 = *v18++;
-        std::__destroy_at[abi:ne200100]<std::tuple<dispatch::block<void({block_pointer})(std::shared_ptr<ctu::Http::HttpResponse>)>>,0>(v23);
-      }
-
-      while (v18 != v19);
-      v18 = v6[1];
-    }
-
-    v6[1] = v20;
-    v6[2] = v9;
-    v6[3] = v17;
-    if (v18)
-    {
-      operator delete(v18);
-    }
-  }
-
-  else
-  {
-    v9 = std::__tuple_leaf<0ul,dispatch::block<void({block_pointer})(std::shared_ptr<ctu::Http::HttpResponse>)>,false>::__tuple_leaf[abi:ne200100]<void({block_pointer}&)(std::shared_ptr<ctu::Http::HttpResponse>),0>(v7, a2) + 1;
-  }
-
-  v6[2] = v9;
-  v24 = v6[8];
-  while (v24 != v6[9])
-  {
-    v25 = *v24;
-    v26 = v24[1];
-    if (v26)
-    {
-      atomic_fetch_add_explicit(&v26->__shared_owners_, 1uLL, memory_order_relaxed);
-    }
-
-    v27 = (*(*v25 + 32))(v25, v6[2] - 8);
-    if (v27)
-    {
-      v28 = v6[9];
-      if (v24 + 2 == v28)
-      {
-        v32 = v24;
-      }
-
-      else
-      {
-        v29 = v24;
-        do
-        {
-          v30 = *(v29 + 1);
-          v29[2] = 0;
-          v29[3] = 0;
-          v31 = v29[1];
-          *v29 = v30;
-          if (v31)
-          {
-            std::__shared_weak_count::__release_shared[abi:ne200100](v31);
-          }
-
-          v32 = v29 + 2;
-          v33 = v29 + 4;
-          v29 += 2;
-        }
-
-        while (v33 != v28);
-        v28 = v6[9];
-      }
-
-      while (v28 != v32)
-      {
-        v34 = *(v28 - 1);
-        if (v34)
-        {
-          std::__shared_weak_count::__release_shared[abi:ne200100](v34);
-        }
-
-        v28 -= 2;
-      }
-
-      v6[9] = v32;
-      if (!v26)
-      {
-        goto LABEL_42;
-      }
-    }
-
-    else
-    {
-      v24 += 2;
-      if (!v26)
-      {
-        goto LABEL_42;
-      }
-    }
-
-    std::__shared_weak_count::__release_shared[abi:ne200100](v26);
-LABEL_42:
-    if (v27)
-    {
-      break;
-    }
-  }
-
-  v35 = v6[7];
-  if (v35)
-  {
-    (*(*v35 + 48))(v35, v6[2] - 8);
-  }
-
-  std::mutex::unlock(v4);
-}
-
-void MockHttpRequest::registerDataReceiveCodeblock(uint64_t a1, void *a2)
-{
-  v4 = *(a1 + 584);
-  std::mutex::lock(v4);
-  if (!*(a1 + 640))
-  {
-    v5 = operator new(0x58uLL);
-    v5[10] = 0;
-    *(v5 + 3) = 0u;
-    *(v5 + 4) = 0u;
-    *(v5 + 1) = 0u;
-    *(v5 + 2) = 0u;
-    *v5 = 0u;
-    std::unique_ptr<ctu::MockMethodHandler<void,dispatch::block<void({block_pointer})(int,int)>>>::reset[abi:ne200100]((a1 + 640), v5);
-  }
-
-  std::condition_variable::notify_one((a1 + 592));
-  v6 = *(a1 + 640);
-  ++*v6;
-  v7 = v6[2];
-  v8 = v6[3];
-  if (v7 >= v8)
-  {
-    v10 = v6[1];
-    v11 = (v7 - v10) >> 3;
-    if ((v11 + 1) >> 61)
-    {
-      std::vector<unsigned char>::__throw_length_error[abi:ne200100]();
-    }
-
-    v12 = v8 - v10;
-    v13 = v12 >> 2;
-    if (v12 >> 2 <= (v11 + 1))
-    {
-      v13 = v11 + 1;
-    }
-
-    if (v12 >= 0x7FFFFFFFFFFFFFF8)
-    {
-      v14 = 0x1FFFFFFFFFFFFFFFLL;
-    }
-
-    else
-    {
-      v14 = v13;
-    }
-
-    if (v14)
-    {
-      if (v14 >> 61)
-      {
-        std::__throw_bad_array_new_length[abi:ne200100]();
-      }
-
-      v15 = operator new(8 * v14);
-    }
-
-    else
-    {
-      v15 = 0;
-    }
-
-    v16 = &v15[8 * v11];
-    v17 = &v15[8 * v14];
-    std::__tuple_leaf<0ul,dispatch::block<void({block_pointer})(int,int)>,false>::__tuple_leaf[abi:ne200100]<void({block_pointer}&)(int,int),0>(v16, a2);
-    v9 = v16 + 8;
-    v18 = v6[1];
-    v19 = v6[2];
-    v20 = &v16[v18 - v19];
-    if (v19 != v18)
-    {
-      v21 = v6[1];
-      v22 = v20;
-      do
-      {
-        *v22++ = *v21;
-        *v21++ = 0;
-      }
-
-      while (v21 != v19);
-      do
-      {
-        v23 = *v18++;
-        std::__destroy_at[abi:ne200100]<std::tuple<dispatch::block<void({block_pointer})(int,int)>>,0>(v23);
-      }
-
-      while (v18 != v19);
-      v18 = v6[1];
-    }
-
-    v6[1] = v20;
-    v6[2] = v9;
-    v6[3] = v17;
-    if (v18)
-    {
-      operator delete(v18);
-    }
-  }
-
-  else
-  {
-    v9 = std::__tuple_leaf<0ul,dispatch::block<void({block_pointer})(int,int)>,false>::__tuple_leaf[abi:ne200100]<void({block_pointer}&)(int,int),0>(v7, a2) + 1;
-  }
-
-  v6[2] = v9;
-  v24 = v6[8];
-  while (v24 != v6[9])
-  {
-    v25 = *v24;
-    v26 = v24[1];
-    if (v26)
-    {
-      atomic_fetch_add_explicit(&v26->__shared_owners_, 1uLL, memory_order_relaxed);
-    }
-
-    v27 = (*(*v25 + 32))(v25, v6[2] - 8);
-    if (v27)
-    {
-      v28 = v6[9];
-      if (v24 + 2 == v28)
-      {
-        v32 = v24;
-      }
-
-      else
-      {
-        v29 = v24;
-        do
-        {
-          v30 = *(v29 + 1);
-          v29[2] = 0;
-          v29[3] = 0;
-          v31 = v29[1];
-          *v29 = v30;
-          if (v31)
-          {
-            std::__shared_weak_count::__release_shared[abi:ne200100](v31);
-          }
-
-          v32 = v29 + 2;
-          v33 = v29 + 4;
-          v29 += 2;
-        }
-
-        while (v33 != v28);
-        v28 = v6[9];
-      }
-
-      while (v28 != v32)
-      {
-        v34 = *(v28 - 1);
-        if (v34)
-        {
-          std::__shared_weak_count::__release_shared[abi:ne200100](v34);
-        }
-
-        v28 -= 2;
-      }
-
-      v6[9] = v32;
-      if (!v26)
-      {
-        goto LABEL_42;
-      }
-    }
-
-    else
-    {
-      v24 += 2;
-      if (!v26)
-      {
-        goto LABEL_42;
-      }
-    }
-
-    std::__shared_weak_count::__release_shared[abi:ne200100](v26);
-LABEL_42:
-    if (v27)
-    {
-      break;
-    }
-  }
-
-  v35 = v6[7];
-  if (v35)
-  {
-    (*(*v35 + 48))(v35, v6[2] - 8);
-  }
-
-  std::mutex::unlock(v4);
-}
-
 void MockHttpRequest::registerDataSendCodeblock(uint64_t a1, void *a2)
 {
   v4 = *(a1 + 656);
@@ -1290,11 +363,11 @@ LABEL_34:
   std::mutex::unlock(v4);
 }
 
-void sub_1A9140F08(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1A9140F08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<std::tuple<std::string>>::~__split_buffer(va);
-  std::mutex::unlock(v2);
+  std::mutex::unlock(v3);
   _Unwind_Resume(a1);
 }
 
@@ -1507,11 +580,11 @@ LABEL_36:
   std::mutex::unlock(v4);
 }
 
-void sub_1A91412EC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1A91412EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<std::tuple<std::vector<unsigned char>>>::~__split_buffer(va);
-  std::mutex::unlock(v2);
+  std::mutex::unlock(v3);
   _Unwind_Resume(a1);
 }
 
@@ -1727,11 +800,11 @@ LABEL_42:
   std::mutex::unlock(v6);
 }
 
-void sub_1A9141638(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1A9141638(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<std::tuple<std::string,unsigned int>>::~__split_buffer(va);
-  std::mutex::unlock(v2);
+  std::mutex::unlock(v3);
   _Unwind_Resume(a1);
 }
 
@@ -2839,8 +1912,9 @@ LABEL_37:
   std::mutex::unlock(v4);
 }
 
-void MockHttpRequest::setRedirection(MockHttpRequest *this, char a2)
+void MockHttpRequest::setRedirection(MockHttpRequest *this, uint64_t a2)
 {
+  v2 = a2;
   v4 = *(this + 136);
   std::mutex::lock(v4);
   if (!*(this + 143))
@@ -2856,13 +1930,14 @@ void MockHttpRequest::setRedirection(MockHttpRequest *this, char a2)
   }
 
   std::condition_variable::notify_one((this + 1096));
-  ctu::IMockMethodHandler<void,BOOL>::call<BOOL &>(*(this + 143), a2);
+  ctu::IMockMethodHandler<void,BOOL>::call<BOOL &>(*(this + 143), v2);
 
   std::mutex::unlock(v4);
 }
 
-void MockHttpRequest::setSharedConfiguration(MockHttpRequest *this, char a2)
+void MockHttpRequest::setSharedConfiguration(MockHttpRequest *this, uint64_t a2)
 {
+  v2 = a2;
   v4 = *(this + 145);
   std::mutex::lock(v4);
   if (!*(this + 152))
@@ -2878,7 +1953,7 @@ void MockHttpRequest::setSharedConfiguration(MockHttpRequest *this, char a2)
   }
 
   std::condition_variable::notify_one((this + 1168));
-  ctu::IMockMethodHandler<void,BOOL>::call<BOOL &>(*(this + 152), a2);
+  ctu::IMockMethodHandler<void,BOOL>::call<BOOL &>(*(this + 152), v2);
 
   std::mutex::unlock(v4);
 }
@@ -3289,8 +2364,9 @@ LABEL_37:
   std::mutex::unlock(v4);
 }
 
-void MockHttpRequest::setConnectionCacheCellPurgeTimeout(MockHttpRequest *this, int a2)
+void MockHttpRequest::setConnectionCacheCellPurgeTimeout(MockHttpRequest *this, uint64_t a2)
 {
+  v2 = a2;
   v4 = *(this + 190);
   std::mutex::lock(v4);
   if (!*(this + 197))
@@ -3306,13 +2382,14 @@ void MockHttpRequest::setConnectionCacheCellPurgeTimeout(MockHttpRequest *this, 
   }
 
   std::condition_variable::notify_one((this + 1528));
-  ctu::IMockMethodHandler<void,unsigned int>::call<unsigned int &>(*(this + 197), a2);
+  ctu::IMockMethodHandler<void,unsigned int>::call<unsigned int &>(*(this + 197), v2);
 
   std::mutex::unlock(v4);
 }
 
-void MockHttpRequest::setWaitForConnectivityTimeout(MockHttpRequest *this, int a2)
+void MockHttpRequest::setWaitForConnectivityTimeout(MockHttpRequest *this, uint64_t a2)
 {
+  v2 = a2;
   v4 = *(this + 199);
   std::mutex::lock(v4);
   if (!*(this + 206))
@@ -3328,13 +2405,14 @@ void MockHttpRequest::setWaitForConnectivityTimeout(MockHttpRequest *this, int a
   }
 
   std::condition_variable::notify_one((this + 1600));
-  ctu::IMockMethodHandler<void,unsigned int>::call<unsigned int &>(*(this + 206), a2);
+  ctu::IMockMethodHandler<void,unsigned int>::call<unsigned int &>(*(this + 206), v2);
 
   std::mutex::unlock(v4);
 }
 
-void MockHttpRequest::setAllowUltraConstrained(MockHttpRequest *this, char a2)
+void MockHttpRequest::setAllowUltraConstrained(MockHttpRequest *this, uint64_t a2)
 {
+  v2 = a2;
   v4 = *(this + 208);
   std::mutex::lock(v4);
   if (!*(this + 215))
@@ -3350,7 +2428,7 @@ void MockHttpRequest::setAllowUltraConstrained(MockHttpRequest *this, char a2)
   }
 
   std::condition_variable::notify_one((this + 1672));
-  ctu::IMockMethodHandler<void,BOOL>::call<BOOL &>(*(this + 215), a2);
+  ctu::IMockMethodHandler<void,BOOL>::call<BOOL &>(*(this + 215), v2);
 
   std::mutex::unlock(v4);
 }
@@ -3571,8 +2649,9 @@ void MockHttpRequest::setSourceIdentifier(uint64_t a1, __int128 *a2)
   std::mutex::unlock(v4);
 }
 
-void MockHttpRequest::setOnDemand(MockHttpRequest *this, char a2)
+void MockHttpRequest::setOnDemand(MockHttpRequest *this, uint64_t a2)
 {
+  v2 = a2;
   v4 = *(this + 235);
   std::mutex::lock(v4);
   if (!*(this + 242))
@@ -3588,13 +2667,14 @@ void MockHttpRequest::setOnDemand(MockHttpRequest *this, char a2)
   }
 
   std::condition_variable::notify_one((this + 1888));
-  ctu::IMockMethodHandler<void,BOOL>::call<BOOL &>(*(this + 242), a2);
+  ctu::IMockMethodHandler<void,BOOL>::call<BOOL &>(*(this + 242), v2);
 
   std::mutex::unlock(v4);
 }
 
-void MockHttpRequest::setAllowCellularAccess(MockHttpRequest *this, char a2)
+void MockHttpRequest::setAllowCellularAccess(MockHttpRequest *this, uint64_t a2)
 {
+  v2 = a2;
   v4 = *(this + 244);
   std::mutex::lock(v4);
   if (!*(this + 251))
@@ -3610,7 +2690,7 @@ void MockHttpRequest::setAllowCellularAccess(MockHttpRequest *this, char a2)
   }
 
   std::condition_variable::notify_one((this + 1960));
-  ctu::IMockMethodHandler<void,BOOL>::call<BOOL &>(*(this + 251), a2);
+  ctu::IMockMethodHandler<void,BOOL>::call<BOOL &>(*(this + 251), v2);
 
   std::mutex::unlock(v4);
 }
@@ -5213,10 +4293,9 @@ LABEL_34:
   result = a1[7];
   if (result)
   {
-    v24 = a1[2] - 1;
-    v25 = *(*result + 48);
+    v24 = *(*result + 48);
 
-    return v25();
+    return v24();
   }
 
   return result;
@@ -5522,10 +4601,9 @@ LABEL_34:
   result = a1[7];
   if (result)
   {
-    v25 = a1[2] - 1;
-    v26 = *(*result + 48);
+    v25 = *(*result + 48);
 
-    return v26();
+    return v25();
   }
 
   return result;
@@ -5698,9 +4776,9 @@ LABEL_32:
   return result;
 }
 
-void sub_1A9145B90(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1A9145B90(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<std::tuple<std::string>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -5869,10 +4947,9 @@ LABEL_35:
   result = a1[7];
   if (result)
   {
-    v27 = a1[2] - 4;
-    v28 = *(*result + 48);
+    v27 = *(*result + 48);
 
-    return v28();
+    return v27();
   }
 
   return result;
@@ -5912,42 +4989,42 @@ const char *ctu::rest::asString(int a1)
   }
 }
 
-void ctu::rest::createReply(xpc_object_t *this@<X0>, _anonymous_namespace_ *a2@<X8>)
+void ctu::rest::createReply(_anonymous_namespace_ *__return_ptr a1@<X8>, xpc_object_t *this@<X0>)
 {
-  *a2 = 0xAAAAAAAAAAAAAAAALL;
-  *a2 = xpc_null_create();
-  v5 = MEMORY[0x1AC581B70](*this);
-  v6 = MEMORY[0x1E69E9E80];
-  if (v5 == MEMORY[0x1E69E9E80])
+  *a1 = 0xAAAAAAAAAAAAAAAALL;
+  *a1 = xpc_null_create();
+  v4 = MEMORY[0x1AC581B70](*this);
+  v5 = MEMORY[0x1E69E9E80];
+  if (v4 == MEMORY[0x1E69E9E80])
   {
     reply = xpc_dictionary_create_reply(*this);
     if (reply || (reply = xpc_null_create()) != 0)
     {
-      if (MEMORY[0x1AC581B70](reply) == v6)
+      if (MEMORY[0x1AC581B70](reply) == v5)
       {
         xpc_retain(reply);
-        v8 = reply;
+        v7 = reply;
       }
 
       else
       {
-        v8 = xpc_null_create();
+        v7 = xpc_null_create();
       }
     }
 
     else
     {
-      v8 = xpc_null_create();
+      v7 = xpc_null_create();
       reply = 0;
     }
 
-    v9 = xpc_null_create();
-    v10 = *a2;
-    *a2 = v8;
-    xpc_release(v10);
+    v8 = xpc_null_create();
+    v9 = *a1;
+    *a1 = v7;
     xpc_release(v9);
+    xpc_release(v8);
     xpc_release(reply);
-    if (MEMORY[0x1AC581B70](*a2) == v6)
+    if (MEMORY[0x1AC581B70](*a1) == v5)
     {
     }
   }
@@ -5956,7 +5033,7 @@ void ctu::rest::createReply(xpc_object_t *this@<X0>, _anonymous_namespace_ *a2@<
 void ctu::rest::createReplyWithValue(xpc_object_t *a1@<X0>, xpc_object_t *a2@<X1>, _anonymous_namespace_ *a3@<X8>)
 {
   *a3 = 0xAAAAAAAAAAAAAAAALL;
-  ctu::rest::createReply(a1, a3);
+  ctu::rest::createReply(a3, a1);
   if (MEMORY[0x1AC581B70](*a3) == MEMORY[0x1E69E9E80])
   {
     ctu::rest::updateReplyValue(a3, a2);
@@ -5966,69 +5043,69 @@ void ctu::rest::createReplyWithValue(xpc_object_t *a1@<X0>, xpc_object_t *a2@<X1
 void ctu::rest::createPingMessage(void *a1@<X8>)
 {
   *a1 = 0xAAAAAAAAAAAAAAAALL;
-  v3 = xpc_dictionary_create(0, 0, 0);
-  v4 = v3;
-  if (v3)
+  v2 = xpc_dictionary_create(0, 0, 0);
+  v3 = v2;
+  if (v2)
   {
-    *a1 = v3;
+    *a1 = v2;
   }
 
   else
   {
-    v4 = xpc_null_create();
-    *a1 = v4;
-    if (!v4)
+    v3 = xpc_null_create();
+    *a1 = v3;
+    if (!v3)
     {
-      v5 = xpc_null_create();
-      v4 = 0;
+      v4 = xpc_null_create();
+      v3 = 0;
       goto LABEL_8;
     }
   }
 
-  if (MEMORY[0x1AC581B70](v4) == MEMORY[0x1E69E9E80])
+  if (MEMORY[0x1AC581B70](v3) == MEMORY[0x1E69E9E80])
   {
-    xpc_retain(v4);
+    xpc_retain(v3);
     goto LABEL_9;
   }
 
-  v5 = xpc_null_create();
+  v4 = xpc_null_create();
 LABEL_8:
-  *a1 = v5;
+  *a1 = v4;
 LABEL_9:
-  xpc_release(v4);
-  v7 = xpc_string_create("ping");
-  if (!v7)
+  xpc_release(v3);
+  v6 = xpc_string_create("ping");
+  if (!v6)
   {
-    v7 = xpc_null_create();
+    v6 = xpc_null_create();
   }
 
-  v6[0] = a1;
-  v6[1] = "o";
-  xpc::dict::object_proxy::operator=(v6, &v7, &object);
+  v5[0] = a1;
+  v5[1] = "o";
+  xpc::dict::object_proxy::operator=(v5, &v6, &object);
   xpc_release(object);
   object = 0;
-  xpc_release(v7);
+  xpc_release(v6);
 }
 
 void ctu::rest::createAutoReplyValue(xpc_object_t *this@<X0>, void *a2@<X8>)
 {
   object = 0xAAAAAAAAAAAAAAAALL;
-  ctu::rest::createReply(this, &object);
+  ctu::rest::createReply(&object, this);
   if (MEMORY[0x1AC581B70](object) == MEMORY[0x1E69E9E80] && (remote_connection = xpc_dictionary_get_remote_connection(*this)) != 0)
   {
-    v6 = operator new(0x30uLL);
-    v6->__shared_owners_ = 0;
-    v6->__shared_weak_owners_ = 0;
-    v6->__vftable = &unk_1F1CB4EB8;
-    v6[1].__vftable = xpc_null_create();
-    v6[1].__shared_owners_ = remote_connection;
+    v5 = operator new(0x30uLL);
+    v5->__shared_owners_ = 0;
+    v5->__shared_weak_owners_ = 0;
+    v5->__vftable = &unk_1F1CB4EB8;
+    v5[1].__vftable = xpc_null_create();
+    v5[1].__shared_owners_ = remote_connection;
     xpc_retain(remote_connection);
-    v6[1].__shared_weak_owners_ = object;
+    v5[1].__shared_weak_owners_ = object;
     object = xpc_null_create();
-    *a2 = v6 + 1;
-    a2[1] = v6;
-    atomic_fetch_add_explicit(&v6->__shared_owners_, 1uLL, memory_order_relaxed);
-    std::__shared_weak_count::__release_shared[abi:ne200100](v6);
+    *a2 = v5 + 1;
+    a2[1] = v5;
+    atomic_fetch_add_explicit(&v5->__shared_owners_, 1uLL, memory_order_relaxed);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v5);
   }
 
   else
@@ -6040,7 +5117,7 @@ void ctu::rest::createAutoReplyValue(xpc_object_t *this@<X0>, void *a2@<X8>)
   xpc_release(object);
 }
 
-void ctu::rest::RestXpcConnector::create(xpc_object_t *a1@<X0>, uint64_t *a2@<X8>)
+void ctu::rest::RestXpcConnector::create(xpc_object_t *a1@<X0>, void *a2@<X8>)
 {
   if (MEMORY[0x1AC581B70](*a1) == MEMORY[0x1E69E9E68])
   {
@@ -6073,13 +5150,13 @@ uint64_t ctu::rest::RestXpcConnector::RestXpcConnector(uint64_t a1, xpc_object_t
   return a1;
 }
 
-void ctu::rest::RestXpcConnector::~RestXpcConnector(xpc_object_t *this)
+void ctu::rest::RestXpcConnector::~RestXpcConnector(xpc_object_t *this, uint64_t a2)
 {
-  ctu::XpcClientHelper::~XpcClientHelper(this + 9);
-  v2 = this[8];
-  if (v2)
+  ctu::XpcClientHelper::~XpcClientHelper(this + 9, a2);
+  v3 = this[8];
+  if (v3)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v3);
   }
 
   if (*(this + 55) < 0)
@@ -6089,17 +5166,17 @@ void ctu::rest::RestXpcConnector::~RestXpcConnector(xpc_object_t *this)
 
   xpc_release(this[3]);
   this[3] = 0;
-  v3 = this[2];
-  if (v3)
+  v4 = this[2];
+  if (v4)
   {
-    std::__shared_weak_count::__release_weak(v3);
+    std::__shared_weak_count::__release_weak(v4);
   }
 }
 
 {
-  ctu::rest::RestXpcConnector::~RestXpcConnector(this);
+  ctu::rest::RestXpcConnector::~RestXpcConnector(this, a2);
 
-  operator delete(v1);
+  operator delete(v2);
 }
 
 void ctu::rest::RestXpcConnector::disconnect(ctu::rest::RestXpcConnector *this)
@@ -6422,12 +5499,12 @@ void sub_1A9146CCC(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void ctu::rest::RestXpcConnector::handleMessage(uint64_t a1, void *a2)
+void ctu::rest::RestXpcConnector::handleMessage(ctu::rest::RestXpcConnector *a1, void *a2)
 {
-  if (((*(**(a1 + 56) + 16))(*(a1 + 56)) & 1) == 0)
+  if (((*(**(a1 + 7) + 16))(*(a1 + 7)) & 1) == 0)
   {
-    v4 = *(a1 + 64);
-    v6 = *(a1 + 56);
+    v4 = *(a1 + 8);
+    v6 = *(a1 + 7);
     v7 = v4;
     if (v4)
     {
@@ -6457,7 +5534,7 @@ void sub_1A9146DAC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t ctu::rest::RestXpcConnector::visitIfGetMessage<ctu::rest::RestXpcConnector*>(void *a1, uint64_t a2)
+uint64_t ctu::rest::RestXpcConnector::visitIfGetMessage<ctu::rest::RestXpcConnector*>(void *a1, ctu::rest::RestXpcConnector *a2)
 {
   v11 = a1;
   v12 = "o";
@@ -6501,7 +5578,7 @@ BOOL ctu::rest::RestXpcConnector::handlePingOperation(xpc_connection_t *this, co
   }
 
   message[0] = 0xAAAAAAAAAAAAAAAALL;
-  ctu::rest::createReply(a2, message);
+  ctu::rest::createReply(message, a2);
   v6 = MEMORY[0x1AC581B70](message[0]);
   v7 = v6 == MEMORY[0x1E69E9E80];
   if (v6 == MEMORY[0x1E69E9E80])
@@ -6515,7 +5592,7 @@ BOOL ctu::rest::RestXpcConnector::handlePingOperation(xpc_connection_t *this, co
 
 uint64_t ctu::rest::RestXpcConnector::handleGetMessage(uint64_t a1, xpc_object_t *a2, uint64_t a3, uint64_t a4)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v6 = *(a1 + 56);
   v7 = *a2;
   if (*a2)
@@ -6528,9 +5605,9 @@ uint64_t ctu::rest::RestXpcConnector::handleGetMessage(uint64_t a1, xpc_object_t
     v7 = xpc_null_create();
   }
 
-  v13 = 0;
-  v11 = &unk_1F1CB5500;
-  v12 = v7;
+  v12 = 0;
+  v10 = &unk_1F1CB5500;
+  v11 = v7;
   if (v7)
   {
     xpc_retain(v7);
@@ -6538,14 +5615,13 @@ uint64_t ctu::rest::RestXpcConnector::handleGetMessage(uint64_t a1, xpc_object_t
 
   else
   {
-    v12 = xpc_null_create();
+    v11 = xpc_null_create();
   }
 
-  v13 = &v11;
-  v8 = (*(*v6 + 24))(v6, a3, a4, &v11);
-  std::__function::__value_func<void ()(xpc::object)>::~__value_func[abi:ne200100](&v11);
+  v12 = &v10;
+  v8 = (*(*v6 + 24))(v6, a3, a4, &v10);
+  std::__function::__value_func<void ()(xpc::object)>::~__value_func[abi:ne200100](&v10);
   xpc_release(v7);
-  v9 = *MEMORY[0x1E69E9840];
   return v8;
 }
 
@@ -6559,19 +5635,19 @@ void sub_1A91470D8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   __clang_call_terminate(exception_object);
 }
 
-uint64_t *ctu::rest::RestDispatchConnector::create@<X0>(uint64_t *a1@<X8>)
+uint64_t *ctu::rest::RestDispatchConnector::create@<X0>(uint64_t *__return_ptr a1@<X8>)
 {
-  v3 = operator new(0x58uLL);
-  v3[1] = 0;
-  v3[2] = 0;
-  *v3 = &unk_1F1CB6018;
-  v3[3] = &unk_1F1CB6090;
-  *(v3 + 2) = 0u;
-  *(v3 + 3) = 0u;
-  *(v3 + 4) = 0u;
-  v3[10] = 0;
+  v2 = operator new(0x58uLL);
+  v2[1] = 0;
+  v2[2] = 0;
+  *v2 = &unk_1F1CB6018;
+  v2[3] = &unk_1F1CB6090;
+  *(v2 + 2) = 0u;
+  *(v2 + 3) = 0u;
+  *(v2 + 4) = 0u;
+  v2[10] = 0;
 
-  return std::shared_ptr<ctu::rest::RestDispatchConnector>::shared_ptr[abi:ne200100]<ctu::rest::RestDispatchConnector,0>(a1, v3);
+  return std::shared_ptr<ctu::rest::RestDispatchConnector>::shared_ptr[abi:ne200100]<ctu::rest::RestDispatchConnector,0>(a1, v2);
 }
 
 double ctu::rest::RestDispatchConnector::RestDispatchConnector(ctu::rest::RestDispatchConnector *this)
@@ -6680,7 +5756,7 @@ void non-virtual thunk toctu::rest::RestDispatchConnector::~RestDispatchConnecto
 
 void ctu::rest::RestDispatchConnector::flush(ctu::rest::RestDispatchConnector *this, const group *a2)
 {
-  v12[4] = *MEMORY[0x1E69E9840];
+  v11[4] = *MEMORY[0x1E69E9840];
   gr_name = a2->gr_name;
   if (a2->gr_name)
   {
@@ -6690,26 +5766,26 @@ void ctu::rest::RestDispatchConnector::flush(ctu::rest::RestDispatchConnector *t
 
   global_queue = dispatch_get_global_queue(0, 0);
   v5 = global_queue;
-  v11 = global_queue;
+  v10 = global_queue;
   if (global_queue)
   {
     dispatch_retain(global_queue);
   }
 
   v6 = xpc_string_create("");
-  v10 = v6;
+  v9 = v6;
   if (!v6)
   {
     v6 = xpc_null_create();
-    v10 = v6;
+    v9 = v6;
   }
 
   v7 = xpc_string_create("");
-  v9 = v7;
+  v8 = v7;
   if (!v7)
   {
     v7 = xpc_null_create();
-    v9 = v7;
+    v8 = v7;
   }
 
   if (gr_name)
@@ -6718,11 +5794,11 @@ void ctu::rest::RestDispatchConnector::flush(ctu::rest::RestDispatchConnector *t
     dispatch_group_enter(gr_name);
   }
 
-  v12[0] = &unk_1F1CB99E8;
-  v12[1] = gr_name;
-  v12[3] = v12;
-  ctu::rest::RestDispatchConnector::send_with_reply(this, "ping", &v10, &v9, &v11, v12);
-  std::__function::__value_func<void ()(xpc::object)>::~__value_func[abi:ne200100](v12);
+  v11[0] = &unk_1F1CB99E8;
+  v11[1] = gr_name;
+  v11[3] = v11;
+  ctu::rest::RestDispatchConnector::send_with_reply(this, "ping", &v9, &v8, &v10, v11);
+  std::__function::__value_func<void ()(xpc::object)>::~__value_func[abi:ne200100](v11);
   xpc_release(v7);
   xpc_release(v6);
   if (v5)
@@ -6735,8 +5811,6 @@ void ctu::rest::RestDispatchConnector::flush(ctu::rest::RestDispatchConnector *t
     dispatch_group_leave(gr_name);
     dispatch_release(gr_name);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1A91475A4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, uint64_t a12, uint64_t a13, char a14)
@@ -6887,7 +5961,7 @@ void std::__shared_ptr_emplace<ctu::rest::createAutoReplyWithAction(std::functio
   operator delete(v1);
 }
 
-uint64_t *std::shared_ptr<ctu::rest::RestXpcConnector>::shared_ptr[abi:ne200100]<ctu::rest::RestXpcConnector,0>(uint64_t *a1, uint64_t a2)
+void *std::shared_ptr<ctu::rest::RestXpcConnector>::shared_ptr[abi:ne200100]<ctu::rest::RestXpcConnector,0>(void *a1, uint64_t a2)
 {
   *a1 = a2;
   v4 = operator new(0x20uLL);
@@ -6910,12 +5984,12 @@ uint64_t *std::shared_ptr<ctu::rest::RestXpcConnector>::shared_ptr[abi:ne200100]
   return a1;
 }
 
-void sub_1A9147ABC(_Unwind_Exception *exception_object)
+void sub_1A9147ABC(_Unwind_Exception *exception_object, uint64_t a2)
 {
-  if (v1)
+  if (v2)
   {
-    ctu::rest::RestXpcConnector::~RestXpcConnector(v1);
-    operator delete(v3);
+    ctu::rest::RestXpcConnector::~RestXpcConnector(v2, a2);
+    operator delete(v4);
   }
 
   _Unwind_Resume(exception_object);
@@ -6959,14 +6033,14 @@ void std::__shared_ptr_pointer<ctu::rest::RestXpcConnector *,std::shared_ptr<ctu
   operator delete(v1);
 }
 
-void std::__shared_ptr_pointer<ctu::rest::RestXpcConnector *,std::shared_ptr<ctu::rest::RestXpcConnector>::__shared_ptr_default_delete<ctu::rest::RestXpcConnector,ctu::rest::RestXpcConnector>,std::allocator<ctu::rest::RestXpcConnector>>::__on_zero_shared(uint64_t a1)
+void std::__shared_ptr_pointer<ctu::rest::RestXpcConnector *,std::shared_ptr<ctu::rest::RestXpcConnector>::__shared_ptr_default_delete<ctu::rest::RestXpcConnector,ctu::rest::RestXpcConnector>,std::allocator<ctu::rest::RestXpcConnector>>::__on_zero_shared(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 24);
-  if (v1)
+  v2 = *(a1 + 24);
+  if (v2)
   {
-    ctu::rest::RestXpcConnector::~RestXpcConnector(v1);
+    ctu::rest::RestXpcConnector::~RestXpcConnector(v2, a2);
 
-    operator delete(v2);
+    operator delete(v3);
   }
 }
 
@@ -7710,16 +6784,16 @@ void SessionTaskContext::~SessionTaskContext(SessionTaskContext *this)
   }
 }
 
-void std::__tree<std::__value_type<unsigned long,std::shared_ptr<SessionTaskContext>>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,std::shared_ptr<SessionTaskContext>>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,std::shared_ptr<SessionTaskContext>>>>::destroy(void *a1)
+void std::__tree<std::__value_type<unsigned long,std::shared_ptr<SessionTaskContext>>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,std::shared_ptr<SessionTaskContext>>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,std::shared_ptr<SessionTaskContext>>>>::destroy(void *a1, uint64_t a2)
 {
   if (a1)
   {
-    std::__tree<std::__value_type<unsigned long,std::shared_ptr<SessionTaskContext>>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,std::shared_ptr<SessionTaskContext>>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,std::shared_ptr<SessionTaskContext>>>>::destroy(*a1);
-    std::__tree<std::__value_type<unsigned long,std::shared_ptr<SessionTaskContext>>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,std::shared_ptr<SessionTaskContext>>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,std::shared_ptr<SessionTaskContext>>>>::destroy(a1[1]);
-    v2 = a1[6];
-    if (v2)
+    std::__tree<std::__value_type<unsigned long,std::shared_ptr<SessionTaskContext>>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,std::shared_ptr<SessionTaskContext>>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,std::shared_ptr<SessionTaskContext>>>>::destroy(*a1, a2);
+    std::__tree<std::__value_type<unsigned long,std::shared_ptr<SessionTaskContext>>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,std::shared_ptr<SessionTaskContext>>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,std::shared_ptr<SessionTaskContext>>>>::destroy(a1[1], v3);
+    v4 = a1[6];
+    if (v4)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v2);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v4);
     }
 
     operator delete(a1);
@@ -7828,14 +6902,14 @@ double ctu::partition@<D0>(char *a1@<X0>, char *a2@<X1>, void *a3@<X2>, size_t a
     v11 = v19;
     *(a5 + 24) = v16;
     *(a5 + 40) = v17;
-    v12 = (v11 + v9);
+    v12 = v11 + v9;
     if (v12 >= a2)
     {
       v12 = a2;
     }
 
-    v14 = &v12[a1];
-    v15 = (a2 - v12);
+    v14 = &a1[v12];
+    v15 = &a2[-v12];
     ctu::llvm::StringRef::operator std::string(&v14, &v16);
     result = *&v16;
     *(a5 + 48) = v16;
@@ -7845,7 +6919,7 @@ double ctu::partition@<D0>(char *a1@<X0>, char *a2@<X1>, void *a3@<X2>, size_t a
   return result;
 }
 
-uint64_t ctu::split_any@<X0>(uint64_t a1@<X0>, unint64_t a2@<X1>, unsigned __int8 *a3@<X2>, uint64_t a4@<X3>, const void **a5@<X8>)
+unint64_t ctu::split_any@<X0>(uint64_t a1@<X0>, unint64_t a2@<X1>, unsigned __int8 *a3@<X2>, uint64_t a4@<X3>, char **a5@<X8>)
 {
   v31[0] = a1;
   v31[1] = a2;
@@ -7958,7 +7032,7 @@ void sub_1A914A264(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t ctu::split_any_copy@<X0>(uint64_t a1@<X0>, unint64_t a2@<X1>, unsigned __int8 *a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X8>)
+unint64_t ctu::split_any_copy@<X0>(uint64_t a1@<X0>, unint64_t a2@<X1>, unsigned __int8 *a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X8>)
 {
   v25 = a1;
   v26 = a2;
@@ -8066,17 +7140,16 @@ uint64_t ctu::split_any_copy@<X0>(uint64_t a1@<X0>, unint64_t a2@<X1>, unsigned 
   return result;
 }
 
-void sub_1A914A474(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, std::__split_buffer<std::string> *a6, uint64_t a7, ...)
+void sub_1A914A474(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, std::__split_buffer<std::string> *a6, uint64_t a7, uint64_t a8, ...)
 {
-  va_start(va, a7);
+  va_start(va, a8);
   std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
 void ctu::py_escape(unsigned __int8 *a1@<X0>, int a2@<W1>, std::string *a3@<X8>)
 {
-  a3->__r_.__value_.__r.__words[0] = 0;
-  a3->__r_.__value_.__l.__size_ = 0;
+  *&a3->__r_.__value_.__l.__data_ = 0uLL;
   a3->__r_.__value_.__r.__words[2] = 0;
   v6 = a1[23];
   if ((v6 & 0x80u) != 0)
@@ -8176,7 +7249,7 @@ void ctu::py_escape(unsigned __int8 *a1@<X0>, int a2@<W1>, std::string *a3@<X8>)
       {
         std::string::push_back(a3, 92);
         std::string::push_back(a3, 120);
-        ctu::hex0(v13, &__p);
+        ctu::hex0(&__p, v13);
         if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
           p_p = &__p;
@@ -8248,8 +7321,7 @@ void ctu::replace_copy(char *__s@<X1>, uint64_t a2@<X0>, size_t a3@<X2>, uint64_
 
   else
   {
-    *&a6->__r_.__value_.__l.__data_ = *a2;
-    a6->__r_.__value_.__r.__words[2] = *(a2 + 16);
+    *a6 = *a2;
   }
 
   size = v10->__r_.__value_.__l.__size_;
@@ -8364,26 +7436,26 @@ uint64_t std::tuple<std::string,std::string,std::string>::~tuple(uint64_t a1)
 
 void ctu::XpcJetsamAssertion::create_default_global(std::__shared_weak_count_vtbl **a1@<X8>)
 {
-  v3 = operator new(0x30uLL);
-  v3->~__shared_weak_count = 0;
-  v3->~__shared_weak_count_0 = 0;
-  LODWORD(v3->__on_zero_shared) = 0;
-  v3->__on_zero_shared_weak = 0;
-  v3[1].~__shared_weak_count = 0;
-  v3->__get_deleter = 0;
-  *a1 = v3;
-  v4 = operator new(0x20uLL);
-  v4->__shared_weak_owners_ = 0;
-  v4->__shared_owners_ = 0;
-  v4->__vftable = &unk_1F1CB4CF8;
-  v4[1].__vftable = v3;
-  a1[1] = v4;
-  atomic_fetch_add_explicit(&v4->__shared_owners_, 1uLL, memory_order_relaxed);
-  atomic_fetch_add_explicit(&v4->__shared_weak_owners_, 1uLL, memory_order_relaxed);
-  v3->~__shared_weak_count = v3;
-  v3->~__shared_weak_count_0 = v4;
+  v2 = operator new(0x30uLL);
+  v2->~__shared_weak_count = 0;
+  v2->~__shared_weak_count_0 = 0;
+  LODWORD(v2->__on_zero_shared) = 0;
+  v2->__on_zero_shared_weak = 0;
+  v2[1].~__shared_weak_count = 0;
+  v2->__get_deleter = 0;
+  *a1 = v2;
+  v3 = operator new(0x20uLL);
+  *(v3 + 2) = 0;
+  *(v3 + 1) = 0;
+  *v3 = &unk_1F1CB4CF8;
+  *(v3 + 3) = v2;
+  a1[1] = v3;
+  atomic_fetch_add_explicit(v3 + 1, 1uLL, memory_order_relaxed);
+  atomic_fetch_add_explicit(v3 + 2, 1uLL, memory_order_relaxed);
+  v2->~__shared_weak_count = v2;
+  v2->~__shared_weak_count_0 = v3;
 
-  std::__shared_weak_count::__release_shared[abi:ne200100](v4);
+  std::__shared_weak_count::__release_shared[abi:ne200100](v3);
 }
 
 uint64_t ctu::XpcJetsamAssertion::XpcJetsamAssertion(uint64_t this)
@@ -8407,9 +7479,9 @@ uint64_t ctu::XpcJetsamAssertion::XpcJetsamAssertion(uint64_t this)
   return this;
 }
 
-void ctu::XpcJetsamAssertion::createActivity(uint64_t *a1@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
+void ctu::XpcJetsamAssertion::createActivity(uint64_t *a1@<X0>, uint64_t a2@<X1>, std::__shared_weak_count_vtbl **a3@<X8>)
 {
-  v20[2] = *MEMORY[0x1E69E9840];
+  v19[2] = *MEMORY[0x1E69E9840];
   v5 = a1[1];
   if (!v5 || (v7 = *a1, (v8 = std::__shared_weak_count::lock(v5)) == 0))
   {
@@ -8421,16 +7493,16 @@ void ctu::XpcJetsamAssertion::createActivity(uint64_t *a1@<X0>, uint64_t a2@<X1>
   std::__shared_weak_count::__release_shared[abi:ne200100](v8);
   v10 = operator new(0x20uLL);
   v11 = *a2;
-  v20[0] = *(a2 + 8);
-  *(v20 + 7) = *(a2 + 15);
+  v19[0] = *(a2 + 8);
+  *(v19 + 7) = *(a2 + 15);
   v12 = *(a2 + 23);
   *(a2 + 8) = 0;
   *(a2 + 16) = 0;
   *a2 = 0;
-  v13 = v20[0];
+  v13 = v19[0];
   *v10 = v11;
   *(v10 + 1) = v13;
-  *(v10 + 15) = *(v20 + 7);
+  *(v10 + 15) = *(v19 + 7);
   v10[23] = v12;
   if ((v12 & 0x80000000) == 0 || (v14 = v11) != 0)
   {
@@ -8438,8 +7510,8 @@ void ctu::XpcJetsamAssertion::createActivity(uint64_t *a1@<X0>, uint64_t a2@<X1>
   }
 
   *(v10 + 3) = v14;
-  v18 = v7;
-  v19 = v9;
+  v17 = v7;
+  v18 = v9;
   atomic_fetch_add_explicit(&v9->__shared_weak_owners_, 1uLL, memory_order_relaxed);
   v15 = operator new(0x30uLL);
   v15->__shared_weak_owners_ = 0;
@@ -8448,14 +7520,13 @@ void ctu::XpcJetsamAssertion::createActivity(uint64_t *a1@<X0>, uint64_t a2@<X1>
   v15[1].__vftable = v10;
   v15[1].__shared_owners_ = v7;
   v15[1].__shared_weak_owners_ = v9;
-  *&v17 = v10;
-  *(&v17 + 1) = v15;
+  *&v16 = v10;
+  *(&v16 + 1) = v15;
   atomic_fetch_add_explicit(&v15->__shared_weak_owners_, 1uLL, memory_order_relaxed);
-  ctu::XpcJetsamAssertion::addActivity(a1, &v17);
+  ctu::XpcJetsamAssertion::addActivity(a1, &v16);
   std::__shared_weak_count::__release_weak(v15);
   *a3 = v10;
   a3[1] = v15;
-  v16 = *MEMORY[0x1E69E9840];
 
   std::__shared_weak_count::__release_weak(v9);
 }
@@ -8478,7 +7549,7 @@ void ctu::XpcJetsamAssertion::addActivity(uint64_t a1, __int128 *a2)
   v3 = *(a2 + 1);
   if (v3)
   {
-    atomic_fetch_add_explicit(((*(a2 + 8) >> 64) + 16), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((*(a2 + 1) + 16), 1uLL, memory_order_relaxed);
   }
 
   os_unfair_lock_lock((a1 + 16));
@@ -8625,7 +7696,6 @@ void ctu::XpcJetsamAssertion::tidyUp(os_unfair_lock_s *this)
       }
 
       while (v4 != v2);
-      v11 = *&this[6]._os_unfair_lock_opaque;
       v2 = *&this[8]._os_unfair_lock_opaque;
     }
   }
@@ -8634,10 +7704,10 @@ void ctu::XpcJetsamAssertion::tidyUp(os_unfair_lock_s *this)
   {
     while (v2 != v7)
     {
-      v12 = *(v2 - 1);
-      if (v12)
+      v11 = *(v2 - 1);
+      if (v11)
       {
-        std::__shared_weak_count::__release_weak(v12);
+        std::__shared_weak_count::__release_weak(v11);
       }
 
       v2 -= 2;
@@ -9022,7 +8092,7 @@ void **ctu::SharedRef<os_transaction_s,ctu::os::os_retain_functor,ctu::os::os_re
   return a1;
 }
 
-void ctu::ConnectionRestResource::~ConnectionRestResource(ctu::ConnectionRestResource *this)
+void ctu::ConnectionRestResource::~ConnectionRestResource(void **this)
 {
   *this = &unk_1F1CB6AB0;
   boost::container::vector<std::shared_ptr<ctu::RestResourceConnection>,boost::container::new_allocator<std::shared_ptr<ctu::RestResourceConnection>>,void>::~vector(this + 1);
@@ -9196,13 +8266,13 @@ void **ctu::ConnectionRestResource::getAllConnectionsForXpcConnection@<X0>(void 
         {
           v10 = v6[1];
           *v8 = *v6;
-          v8[1] = v10;
+          *(v8 + 1) = v10;
           if (v10)
           {
             atomic_fetch_add_explicit((v10 + 8), 1uLL, memory_order_relaxed);
           }
 
-          v11 = v8 + 2;
+          v11 = v8 + 16;
         }
 
         a3[1] = v11;
@@ -9362,14 +8432,14 @@ uint64_t ctu::ConnectionRestResource::handleRestMessage_POP(ctu::ConnectionRestR
 
 uint64_t ctu::ConnectionRestResource::handleRestMessage_PUSH(ctu::ConnectionRestResource *this, ctu::RestResourceContext *a2, const ctu::PathView *a3)
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
+  v34 = 0xAAAAAAAAAAAAAAAALL;
   v35 = 0xAAAAAAAAAAAAAAAALL;
-  v36 = 0xAAAAAAAAAAAAAAAALL;
-  (**a2)(&v35, a2);
+  (**a2)(&v34, a2);
   v5 = *(this + 1);
   v4 = *(this + 2);
   v6 = &v5[16 * v4];
-  v7 = v36;
+  v7 = v35;
   v8 = v5;
   if (v4)
   {
@@ -9382,7 +8452,7 @@ uint64_t ctu::ConnectionRestResource::handleRestMessage_PUSH(ctu::ConnectionRest
       v12 = *(v11 + 1);
       v13 = v11 + 16;
       v9 += ~(v9 >> 1);
-      if (v12 >= v36)
+      if (v12 >= v35)
       {
         v9 = v10;
       }
@@ -9398,25 +8468,25 @@ uint64_t ctu::ConnectionRestResource::handleRestMessage_PUSH(ctu::ConnectionRest
 
   if (v8 == v6)
   {
-    v14 = v35;
+    v14 = v34;
+    v36 = v34;
     v37 = v35;
-    v38 = v36;
+    v34 = 0;
     v35 = 0;
-    v36 = 0;
   }
 
   else
   {
-    if (v36 >= *(v8 + 1))
+    if (v35 >= *(v8 + 1))
     {
       goto LABEL_45;
     }
 
-    v14 = v35;
+    v14 = v34;
+    v36 = v34;
     v37 = v35;
-    v38 = v36;
+    v34 = 0;
     v35 = 0;
-    v36 = 0;
     if (*(v8 + 1) <= v7)
     {
       v15 = (v6 - v8) >> 4;
@@ -9504,15 +8574,15 @@ LABEL_29:
 LABEL_32:
     if (*(this + 3) == v4)
     {
-      boost::container::vector<std::shared_ptr<ctu::RestResourceConnection>,boost::container::new_allocator<std::shared_ptr<ctu::RestResourceConnection>>,void>::priv_insert_forward_range_no_capacity<boost::container::dtl::insert_emplace_proxy<boost::container::new_allocator<std::shared_ptr<ctu::RestResourceConnection>>,std::shared_ptr<ctu::RestResourceConnection>*,std::shared_ptr<ctu::RestResourceConnection>>>(&v34, this + 8, v5, &v37);
+      boost::container::vector<std::shared_ptr<ctu::RestResourceConnection>,boost::container::new_allocator<std::shared_ptr<ctu::RestResourceConnection>>,void>::priv_insert_forward_range_no_capacity<boost::container::dtl::insert_emplace_proxy<boost::container::new_allocator<std::shared_ptr<ctu::RestResourceConnection>>,std::shared_ptr<ctu::RestResourceConnection>*,std::shared_ptr<ctu::RestResourceConnection>>>(&v33, this + 8, v5, &v36);
     }
 
     else if (v6 == v5)
     {
       *v6 = v14;
       *(v6 + 1) = v7;
+      v36 = 0;
       v37 = 0;
-      v38 = 0;
       *(this + 2) = v4 + 1;
     }
 
@@ -9545,8 +8615,8 @@ LABEL_32:
         while (v28 != v5);
       }
 
+      v36 = 0;
       v37 = 0;
-      v38 = 0;
       v31 = *(v5 + 1);
       *v5 = v14;
       *(v5 + 1) = v7;
@@ -9558,19 +8628,18 @@ LABEL_32:
   }
 
 LABEL_42:
-  if (v38)
+  if (v37)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v38);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v37);
   }
 
-  v7 = v36;
+  v7 = v35;
 LABEL_45:
   if (v7)
   {
     std::__shared_weak_count::__release_shared[abi:ne200100](v7);
   }
 
-  v32 = *MEMORY[0x1E69E9840];
   return 1;
 }
 
@@ -9688,7 +8757,7 @@ void sub_1A914C130(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void *boost::container::vector<std::shared_ptr<ctu::RestResourceConnection>,boost::container::new_allocator<std::shared_ptr<ctu::RestResourceConnection>>,void>::~vector(void *a1)
+void **boost::container::vector<std::shared_ptr<ctu::RestResourceConnection>,boost::container::new_allocator<std::shared_ptr<ctu::RestResourceConnection>>,void>::~vector(void **a1)
 {
   v2 = a1[1];
   if (v2)
@@ -9760,7 +8829,7 @@ LABEL_27:
   v17 = operator new(16 * v11);
   v18 = v17;
   v19 = *a2;
-  v20 = *a2 + 16 * *(a2 + 1);
+  v20 = (*a2 + 16 * *(a2 + 1));
   v21 = v17;
   if (*a2 != a3)
   {
@@ -9822,5 +8891,975 @@ LABEL_27:
   *a2 = v18;
   *(a2 + 1) = v27;
   *(a2 + 2) = v11;
-  *a1 = v18 + a3 - v16;
+  *a1 = a3 + v18 - v16;
+}
+
+std::runtime_error *ctu::EmptyMockCallArgsException::EmptyMockCallArgsException(std::runtime_error *this, const char *a2)
+{
+  v11.__r_.__value_.__r.__words[0] = operator new(0x28uLL);
+  *&v11.__r_.__value_.__r.__words[1] = xmmword_1A9164DC0;
+  strcpy(v11.__r_.__value_.__l.__data_, "EmptyMockCallArgsException for method '");
+  v4 = strlen(a2);
+  v5 = std::string::append(&v11, a2, v4);
+  v6 = *&v5->__r_.__value_.__l.__data_;
+  v12.__r_.__value_.__r.__words[2] = v5->__r_.__value_.__r.__words[2];
+  *&v12.__r_.__value_.__l.__data_ = v6;
+  v5->__r_.__value_.__l.__size_ = 0;
+  v5->__r_.__value_.__r.__words[2] = 0;
+  v5->__r_.__value_.__r.__words[0] = 0;
+  v7 = std::string::append(&v12, "': method appears not to have been called", 0x29uLL);
+  v8 = *&v7->__r_.__value_.__l.__data_;
+  __p.__r_.__value_.__r.__words[2] = v7->__r_.__value_.__r.__words[2];
+  *&__p.__r_.__value_.__l.__data_ = v8;
+  v7->__r_.__value_.__l.__size_ = 0;
+  v7->__r_.__value_.__r.__words[2] = 0;
+  v7->__r_.__value_.__r.__words[0] = 0;
+  if (SHIBYTE(v12.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v12.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v11.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v11.__r_.__value_.__l.__data_);
+  }
+
+  std::runtime_error::runtime_error(this, &__p);
+  if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(__p.__r_.__value_.__l.__data_);
+  }
+
+  this->__vftable = &unk_1F1CB9C48;
+  return this;
+}
+
+void sub_1A914C470(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26)
+{
+  if (a14 < 0)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void ctu::EmptyMockCallArgsException::~EmptyMockCallArgsException(std::runtime_error *this)
+{
+  std::runtime_error::~runtime_error(this);
+
+  operator delete(v1);
+}
+
+uint64_t ctu::LoggerTree::LoggerTree(uint64_t a1, __int128 *a2)
+{
+  *(a1 + 16) = 0u;
+  *(a1 + 32) = 0u;
+  *a1 = 0u;
+  if (*(a2 + 23) < 0)
+  {
+    std::string::__init_copy_ctor_external((a1 + 48), *a2, *(a2 + 1));
+  }
+
+  else
+  {
+    v3 = *a2;
+    *(a1 + 64) = *(a2 + 2);
+    *(a1 + 48) = v3;
+  }
+
+  *(a1 + 72) = 0;
+  *(a1 + 80) = 0;
+  return a1;
+}
+
+void sub_1A914C558(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
+{
+  a10 = v10 + 24;
+  std::vector<std::weak_ptr<ctu::TrackedLogger>>::__destroy_vector::operator()[abi:ne200100](&a10);
+  a10 = v10;
+  std::vector<ctu::LoggerTree>::__destroy_vector::operator()[abi:ne200100](&a10);
+  _Unwind_Resume(a1);
+}
+
+void ctu::LoggerTree::~LoggerTree(ctu::LoggerTree *this)
+{
+  v2 = *(this + 10);
+  *(this + 10) = 0;
+  if (v2)
+  {
+    operator delete(v2);
+  }
+
+  if (*(this + 71) < 0)
+  {
+    operator delete(*(this + 6));
+  }
+
+  v3 = (this + 24);
+  std::vector<std::weak_ptr<ctu::TrackedLogger>>::__destroy_vector::operator()[abi:ne200100](&v3);
+  v3 = this;
+  std::vector<ctu::LoggerTree>::__destroy_vector::operator()[abi:ne200100](&v3);
+}
+
+__n128 ctu::LoggerTree::LoggerTree(__n128 *a1, uint64_t a2)
+{
+  *a1 = 0uLL;
+  a1[1].n128_u64[0] = 0;
+  *a1 = *a2;
+  a1[1].n128_u64[0] = *(a2 + 16);
+  *a2 = 0;
+  *(a2 + 8) = 0;
+  *(a2 + 16) = 0;
+  *(&a1[1] + 8) = 0uLL;
+  a1[2].n128_u64[1] = 0;
+  *(a1 + 24) = *(a2 + 24);
+  a1[2].n128_u64[1] = *(a2 + 40);
+  *(a2 + 24) = 0;
+  *(a2 + 32) = 0;
+  *(a2 + 40) = 0;
+  result = *(a2 + 48);
+  a1[4].n128_u64[0] = *(a2 + 64);
+  a1[3] = result;
+  *(a2 + 56) = 0;
+  *(a2 + 64) = 0;
+  *(a2 + 48) = 0;
+  a1[4].n128_u16[4] = *(a2 + 72);
+  v3 = *(a2 + 80);
+  *(a2 + 80) = 0;
+  a1[5].n128_u64[0] = v3;
+  return result;
+}
+
+char **ctu::LoggerTree::operator=(char **a1, uint64_t a2)
+{
+  v4 = *a1;
+  if (*a1)
+  {
+    v5 = a1[1];
+    v6 = v4;
+    if (v5 != v4)
+    {
+      do
+      {
+        ctu::LoggerTree::~LoggerTree((v5 - 88));
+      }
+
+      while (v5 != v4);
+      v6 = *a1;
+    }
+
+    a1[1] = v4;
+    operator delete(v6);
+    *a1 = 0;
+    a1[1] = 0;
+    a1[2] = 0;
+  }
+
+  *a1 = *a2;
+  a1[2] = *(a2 + 16);
+  *a2 = 0;
+  *(a2 + 8) = 0;
+  *(a2 + 16) = 0;
+  v7 = (a1 + 3);
+  if (a1[3])
+  {
+    std::vector<std::weak_ptr<ctu::TrackedLogger>>::clear[abi:ne200100](a1 + 3);
+    operator delete(*v7);
+    *v7 = 0;
+    a1[4] = 0;
+    a1[5] = 0;
+  }
+
+  *(a1 + 3) = *(a2 + 24);
+  a1[5] = *(a2 + 40);
+  *(a2 + 24) = 0;
+  *(a2 + 32) = 0;
+  *(a2 + 40) = 0;
+  if (*(a1 + 71) < 0)
+  {
+    operator delete(a1[6]);
+  }
+
+  v8 = *(a2 + 48);
+  a1[8] = *(a2 + 64);
+  *(a1 + 3) = v8;
+  *(a2 + 71) = 0;
+  *(a2 + 48) = 0;
+  *(a1 + 36) = *(a2 + 72);
+  v9 = *(a2 + 80);
+  *(a2 + 80) = 0;
+  v10 = a1[10];
+  a1[10] = v9;
+  if (v10)
+  {
+    operator delete(v10);
+  }
+
+  return a1;
+}
+
+uint64_t ctu::LoggerTree::insertAt(uint64_t a1, __int128 *a2, void *a3)
+{
+  v4 = ctu::LoggerTree::getOrCreateFromPath(a1, a2);
+  v5 = v4;
+  v7 = *(v4 + 24);
+  v6 = *(v4 + 32);
+  if (v7 != v6)
+  {
+    v8 = v6 - 2;
+    v9 = *(v4 + 24);
+    while (1)
+    {
+      v10 = v7[1];
+      if (!v10 || *(v10 + 8) == -1)
+      {
+        break;
+      }
+
+      v7 += 2;
+      v9 += 2;
+      if (v7 == v6)
+      {
+        v7 = *(v4 + 32);
+        goto LABEL_25;
+      }
+    }
+
+    if (v7 != v8)
+    {
+      v11 = v8 - v9;
+      v12 = v8;
+      while (1)
+      {
+        v13 = v12[1];
+        if (v13)
+        {
+          if (*(v13 + 8) != -1)
+          {
+            break;
+          }
+        }
+
+        v12 -= 2;
+        v8 -= 2;
+        v11 -= 16;
+        if (v7 == v12)
+        {
+          goto LABEL_25;
+        }
+      }
+
+      v14 = v11 >> 4;
+      v15 = v14 + 1;
+      if (v14 < 3)
+      {
+        v16 = 0;
+        v21 = 0;
+      }
+
+      else
+      {
+        if (v15 >= 0x7FFFFFFFFFFFFFFLL)
+        {
+          v16 = 0x7FFFFFFFFFFFFFFLL;
+        }
+
+        else
+        {
+          v16 = v14 + 1;
+        }
+
+        v17 = MEMORY[0x1E69E5398];
+        while (1)
+        {
+          v18 = operator new(16 * v16, v17);
+          if (v18)
+          {
+            break;
+          }
+
+          v19 = v16 >> 1;
+          v20 = v16 > 1;
+          v16 >>= 1;
+          if (!v20)
+          {
+            v21 = 0;
+            v16 = v19;
+            goto LABEL_23;
+          }
+        }
+
+        v21 = v18;
+      }
+
+LABEL_23:
+      v7 = std::__stable_partition_impl<std::_ClassicAlgPolicy,ctu::LoggerTree::tidyUp(void)::$_0 &,std::__wrap_iter<std::weak_ptr<ctu::TrackedLogger> *>,long,std::pair<std::weak_ptr<ctu::TrackedLogger> *,long>>(v9, v8, v15, v21, v16);
+      if (v21)
+      {
+        operator delete(v21);
+      }
+    }
+  }
+
+LABEL_25:
+  v22 = v5[4];
+  if (v7 == v22)
+  {
+    v7 = v5[4];
+  }
+
+  else
+  {
+    while (v22 != v7)
+    {
+      v23 = *(v22 - 1);
+      if (v23)
+      {
+        std::__shared_weak_count::__release_weak(v23);
+      }
+
+      v22 -= 2;
+    }
+
+    v5[4] = v7;
+  }
+
+  v24 = *a3;
+  v25 = a3[1];
+  if (v25)
+  {
+    atomic_fetch_add_explicit((v25 + 16), 1uLL, memory_order_relaxed);
+    v7 = v5[4];
+  }
+
+  v26 = v5[5];
+  if (v7 >= v26)
+  {
+    v28 = v5[3];
+    v29 = v7 - v28;
+    v30 = (v29 >> 4) + 1;
+    if (v30 >> 60)
+    {
+      std::vector<unsigned char>::__throw_length_error[abi:ne200100]();
+    }
+
+    v31 = v26 - v28;
+    if (v31 >> 3 > v30)
+    {
+      v30 = v31 >> 3;
+    }
+
+    if (v31 >= 0x7FFFFFFFFFFFFFF0)
+    {
+      v32 = 0xFFFFFFFFFFFFFFFLL;
+    }
+
+    else
+    {
+      v32 = v30;
+    }
+
+    if (v32)
+    {
+      v37 = v24;
+      if (v32 >> 60)
+      {
+        std::__throw_bad_array_new_length[abi:ne200100]();
+      }
+
+      v33 = operator new(16 * v32);
+      v24 = v37;
+    }
+
+    else
+    {
+      v33 = 0;
+    }
+
+    v34 = &v33[16 * (v29 >> 4)];
+    *v34 = v24;
+    v27 = (v34 + 16);
+    memcpy(v33, v28, v29);
+    v5[3] = v33;
+    v5[4] = v27;
+    v5[5] = &v33[16 * v32];
+    if (v28)
+    {
+      operator delete(v28);
+    }
+  }
+
+  else
+  {
+    *v7 = v24;
+    v7[1] = v25;
+    v27 = v7 + 2;
+  }
+
+  v5[4] = v27;
+  v35 = *(**a3 + 16);
+
+  return v35();
+}
+
+void sub_1A914CA60(_Unwind_Exception *exception_object)
+{
+  if (v1)
+  {
+    std::__shared_weak_count::__release_weak(v1);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+uint64_t ctu::LoggerTree::getOrCreateFromPath(uint64_t a1, __int128 *a2)
+{
+  *&v3 = 0xAAAAAAAAAAAAAAAALL;
+  *(&v3 + 1) = 0xAAAAAAAAAAAAAAAALL;
+  *__str_16 = v3;
+  *&__str_16[16] = v3;
+  __str = v3;
+  if (*(a2 + 23) < 0)
+  {
+    std::string::__init_copy_ctor_external(&__str, *a2, *(a2 + 1));
+  }
+
+  else
+  {
+    __str = *a2;
+    *__str_16 = *(a2 + 2);
+  }
+
+  std::string::basic_string[abi:ne200100]<0>(&__str_16[8], "");
+  while (1)
+  {
+    v4 = __str_16[7];
+    v5 = __str_16[7];
+    v6 = *(&__str + 1);
+    v7 = __str_16[7] >= 0 ? __str_16[7] : *(&__str + 1);
+    if (!v7)
+    {
+      break;
+    }
+
+    v8 = __str_16[7] >= 0 ? &__str : __str;
+    v9 = memchr(v8, 46, v7);
+    if (!v9)
+    {
+      break;
+    }
+
+    v10 = v9 - v8;
+    if (v10)
+    {
+      if (v10 != -1)
+      {
+        std::string::basic_string(&v69, &__str, v10 + 1, 0xFFFFFFFFFFFFFFFFLL, v82);
+        if ((__str_16[31] & 0x80000000) != 0)
+        {
+          operator delete(*&__str_16[8]);
+        }
+
+        *&__str_16[8] = v69;
+        std::string::resize(&__str, v10, 0);
+        v4 = __str_16[7];
+        v6 = *(&__str + 1);
+        v5 = __str_16[7];
+      }
+
+      break;
+    }
+
+    std::string::erase(&__str, 0, 1uLL);
+  }
+
+  if (v5 < 0)
+  {
+    v4 = v6;
+  }
+
+  if (v4)
+  {
+    v12 = *a1;
+    v11 = *(a1 + 8);
+    if (*a1 != v11)
+    {
+      if (v5 >= 0)
+      {
+        p_str = &__str;
+      }
+
+      else
+      {
+        p_str = __str;
+      }
+
+      v14 = v12 + 48;
+      while (1)
+      {
+        v15 = v14[23];
+        v16 = v15;
+        if ((v15 & 0x80u) != 0)
+        {
+          v15 = *(v14 + 1);
+        }
+
+        if (v15 == v4)
+        {
+          v17 = v16 >= 0 ? v14 : *v14;
+          if (!memcmp(v17, p_str, v4))
+          {
+            break;
+          }
+        }
+
+        v18 = (v14 + 40);
+        v14 += 88;
+        if (v18 == v11)
+        {
+          goto LABEL_35;
+        }
+      }
+
+      v32 = (v14 - 48);
+      if (v14 - 48 != v11)
+      {
+        goto LABEL_90;
+      }
+
+LABEL_35:
+      v19 = 0x2E8BA2E8BA2E8BA3 * ((v11 - v12) >> 3);
+      do
+      {
+        v20 = (v12 + 88 * (v19 >> 1));
+        v21 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v20 + 6, &__str);
+        if (v21 >= 0)
+        {
+          v19 >>= 1;
+        }
+
+        else
+        {
+          v19 += ~(v19 >> 1);
+        }
+
+        if (v21 < 0)
+        {
+          v12 = (v20 + 11);
+        }
+      }
+
+      while (v19);
+      v5 = __str_16[7];
+      v11 = v12;
+    }
+
+    if (v5 < 0)
+    {
+      std::string::__init_copy_ctor_external(&v68, __str, *(&__str + 1));
+    }
+
+    else
+    {
+      *&v68.__r_.__value_.__l.__data_ = __str;
+      v68.__r_.__value_.__r.__words[2] = *__str_16;
+    }
+
+    ctu::LoggerTree::LoggerTree(&v69, &v68);
+    v22 = *(a1 + 8);
+    v23 = *(a1 + 16);
+    if (v22 >= v23)
+    {
+      v27 = *a1;
+      v28 = 0x2E8BA2E8BA2E8BA3 * ((v22 - *a1) >> 3) + 1;
+      if (v28 > 0x2E8BA2E8BA2E8BALL)
+      {
+        std::vector<unsigned char>::__throw_length_error[abi:ne200100]();
+      }
+
+      v29 = 0x2E8BA2E8BA2E8BA3 * ((v23 - v27) >> 3);
+      if (2 * v29 > v28)
+      {
+        v28 = 2 * v29;
+      }
+
+      if (v29 >= 0x1745D1745D1745DLL)
+      {
+        v30 = 0x2E8BA2E8BA2E8BALL;
+      }
+
+      else
+      {
+        v30 = v28;
+      }
+
+      v81 = a1;
+      if (v30)
+      {
+        v30 = std::__allocate_at_least[abi:ne200100]<std::allocator<ctu::LoggerTree>>(v30);
+      }
+
+      else
+      {
+        v31 = 0;
+      }
+
+      v35 = v11 - v27;
+      v36 = v30 + 8 * ((v11 - v27) >> 3);
+      v78 = v30;
+      v79 = v36;
+      *&v80 = v36;
+      *(&v80 + 1) = v30 + 88 * v31;
+      if (0x2E8BA2E8BA2E8BA3 * ((v11 - v27) >> 3) == v31)
+      {
+        if (v35 < 1)
+        {
+          if (v11 == v27)
+          {
+            v39 = 1;
+          }
+
+          else
+          {
+            v39 = 0x5D1745D1745D1746 * ((v11 - v27) >> 3);
+          }
+
+          v82[4] = a1;
+          v40 = std::__allocate_at_least[abi:ne200100]<std::allocator<ctu::LoggerTree>>(v39);
+          v42 = v40;
+          v43 = &v40[88 * (v39 >> 2)];
+          v44 = &v40[88 * v41];
+          v46 = v79;
+          v45 = v80;
+          v47 = v43;
+          v48 = v80 - v79;
+          if (v80 != v79)
+          {
+            v65 = &v40[88 * v41];
+            v47 = &v43[v48];
+            v49 = &v40[88 * (v39 >> 2)];
+            v50 = v79;
+            do
+            {
+              ctu::LoggerTree::LoggerTree(v49, v50);
+              v49 = (v51 + 88);
+              v50 += 88;
+              v48 -= 88;
+            }
+
+            while (v48);
+            v44 = v65;
+          }
+
+          v52 = v78;
+          v53 = *(&v80 + 1);
+          v78 = v42;
+          v79 = v43;
+          v82[0] = v52;
+          v82[1] = v46;
+          *&v80 = v47;
+          *(&v80 + 1) = v44;
+          v82[2] = v45;
+          v82[3] = v53;
+          std::__split_buffer<ctu::LoggerTree>::~__split_buffer(v82);
+          v36 = v80;
+        }
+
+        else
+        {
+          v36 -= 88 * ((0x2E8BA2E8BA2E8BA3 * (v35 >> 3) + 1) >> 1);
+          v79 = v36;
+          *&v80 = v36;
+        }
+      }
+
+      *(v36 + 16) = 0;
+      *(v36 + 24) = 0;
+      *v36 = 0;
+      *(v36 + 8) = 0;
+      *v36 = v69;
+      *&v69.__r_.__value_.__l.__data_ = 0uLL;
+      *(v36 + 32) = 0;
+      *(v36 + 40) = 0;
+      *(v36 + 24) = v70;
+      *(v36 + 40) = v71;
+      v69.__r_.__value_.__r.__words[2] = 0;
+      v70 = 0uLL;
+      v71 = 0;
+      v54 = v72;
+      *(v36 + 64) = v73;
+      *(v36 + 48) = v54;
+      v72 = 0uLL;
+      *(v36 + 72) = v74;
+      v55 = v75;
+      v73 = 0;
+      v75 = 0;
+      *(v36 + 80) = v55;
+      v56 = v79;
+      *&v80 = v80 + 88;
+      std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<ctu::LoggerTree>,ctu::LoggerTree*>(v11, *(a1 + 8), v80);
+      v57 = *a1;
+      v58 = v79;
+      *&v80 = v80 + *(a1 + 8) - v11;
+      *(a1 + 8) = v11;
+      v59 = (v58 + v57 - v11);
+      std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<ctu::LoggerTree>,ctu::LoggerTree*>(v57, v11, v59);
+      v60 = *a1;
+      *a1 = v59;
+      v61 = *(a1 + 16);
+      *(a1 + 8) = v80;
+      *&v80 = v60;
+      *(&v80 + 1) = v61;
+      v78 = v60;
+      v79 = v60;
+      std::__split_buffer<ctu::LoggerTree>::~__split_buffer(&v78);
+      v11 = v56;
+    }
+
+    else
+    {
+      v24 = v11 - v22;
+      if (v11 == v22)
+      {
+        *(v22 + 16) = 0;
+        *(v22 + 24) = 0;
+        *v22 = 0;
+        *(v22 + 8) = 0;
+        *v22 = v69;
+        *&v69.__r_.__value_.__l.__data_ = 0uLL;
+        *(v22 + 32) = 0;
+        *(v22 + 40) = 0;
+        *(v22 + 24) = v70;
+        *(v22 + 40) = v71;
+        v69.__r_.__value_.__r.__words[2] = 0;
+        v70 = 0uLL;
+        v71 = 0;
+        v33 = v72;
+        *(v22 + 64) = v73;
+        *(v22 + 48) = v33;
+        v72 = 0uLL;
+        *(v22 + 72) = v74;
+        v34 = v75;
+        v73 = 0;
+        v75 = 0;
+        *(v22 + 80) = v34;
+        *(a1 + 8) = v22 + 88;
+      }
+
+      else
+      {
+        v25 = (v22 - 88);
+        if (v22 < 0x58)
+        {
+          v26 = *(a1 + 8);
+        }
+
+        else
+        {
+          v26 = v22 + 88;
+          ctu::LoggerTree::LoggerTree(v22, v22 - 88);
+        }
+
+        *(a1 + 8) = v26;
+        if (v22 != (v11 + 88))
+        {
+          v37 = v24 + 88;
+          v38 = v22 - 176;
+          do
+          {
+            ctu::LoggerTree::operator=(v25, v38);
+            v25 -= 11;
+            v38 -= 88;
+            v37 += 88;
+          }
+
+          while (v37);
+        }
+
+        ctu::LoggerTree::operator=(v11, &v69);
+      }
+    }
+
+    ctu::LoggerTree::~LoggerTree(&v69);
+    if (SHIBYTE(v68.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(v68.__r_.__value_.__l.__data_);
+    }
+
+    if (*(a1 + 72))
+    {
+      v62 = *(a1 + 73) == 255;
+    }
+
+    else
+    {
+      v62 = 1;
+    }
+
+    if (v62)
+    {
+      v63 = *(a1 + 73);
+    }
+
+    else
+    {
+      v63 = *(a1 + 72);
+    }
+
+    ctu::LoggerTree::updateParentLogLevel(v11, v63);
+    ctu::LoggerTree::commitConfigUpdate(&v66, v11);
+    if (v67)
+    {
+      std::__shared_weak_count::__release_shared[abi:ne200100](v67);
+    }
+
+    v32 = v11;
+LABEL_90:
+    a1 = ctu::LoggerTree::getOrCreateFromPath(v32, &__str_16[8]);
+  }
+
+  if ((__str_16[31] & 0x80000000) != 0)
+  {
+    operator delete(*&__str_16[8]);
+  }
+
+  if ((__str_16[7] & 0x80000000) != 0)
+  {
+    operator delete(__str);
+  }
+
+  return a1;
+}
+
+void sub_1A914D074(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, __n128 a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *__p, uint64_t a15, int a16, __int16 a17, char a18, char a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, void *a33, uint64_t a34, int a35, __int16 a36, char a37, char a38)
+{
+  std::__split_buffer<ctu::LoggerTree>::~__split_buffer(v38 - 168);
+  ctu::LoggerTree::~LoggerTree(&a21);
+  if (a19 < 0)
+  {
+    operator delete(__p);
+  }
+
+  std::pair<std::string,std::string>::~pair(&a33);
+  _Unwind_Resume(a1);
+}
+
+char *ctu::LoggerTree::updateParentLogLevel(uint64_t a1, int a2)
+{
+  result = *(a1 + 80);
+  v4 = (a1 + 73);
+  if (result)
+  {
+    v4 = result + 1;
+  }
+
+  if (*v4 != a2)
+  {
+    v5 = a2;
+    if (!result)
+    {
+      result = operator new(2uLL);
+      *(a1 + 80) = result;
+      *result = *(a1 + 72);
+    }
+
+    result[1] = v5;
+  }
+
+  return result;
+}
+
+void ctu::LoggerTree::commitConfigUpdate(uint64_t *__return_ptr a1@<X8>, ctu::LoggerTree *this@<X0>)
+{
+  ctu::LoggerTree::commitConfigUpdate_impl(this);
+  v4 = operator new(0x30uLL);
+  v4[3] = 0;
+  v4[1] = 0;
+  v4[2] = 0;
+  *v4 = &unk_1F1CB4F28;
+  v4[4] = 0;
+  v4[5] = 0;
+  std::string::basic_string[abi:ne200100]<0>(__p, "");
+  ctu::LoggerTree::appendLevels(this, __p, v4 + 3);
+  if (v6 < 0)
+  {
+    operator delete(__p[0]);
+  }
+
+  *a1 = (v4 + 3);
+  a1[1] = v4;
+}
+
+void sub_1A914D1EC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
+{
+  if (a15 < 0)
+  {
+    operator delete(__p);
+  }
+
+  std::__shared_weak_count::__release_shared[abi:ne200100](v15);
+  _Unwind_Resume(a1);
+}
+
+void ctu::LoggerTree::updateLogLevels(uint64_t a1, void *a2)
+{
+  if (MEMORY[0x1AC581B70](*a2) == MEMORY[0x1E69E9E80])
+  {
+    v12 = 0;
+    v13 = &v12;
+    v14 = 0x4002000000;
+    v15 = __Block_byref_object_copy_;
+    v18[0] = 0;
+    v18[1] = 0;
+    v16 = __Block_byref_object_dispose_;
+    v17 = v18;
+    v4 = *a2;
+    applier[0] = MEMORY[0x1E69E9820];
+    applier[1] = 1107296256;
+    applier[2] = ___ZN3ctu10LoggerTree15updateLogLevelsEN3xpc4dictE_block_invoke;
+    applier[3] = &__block_descriptor_tmp_28;
+    applier[4] = &v12;
+    xpc_dictionary_apply(v4, applier);
+    v5 = v13[5];
+    v6 = (v13 + 6);
+    if (v5 != (v13 + 6))
+    {
+      do
+      {
+        v7 = ctu::LoggerTree::getOrCreateFromPath(a1, v5 + 2);
+        ctu::LoggerTree::updateLocalLogLevel(v7, *(v5 + 56));
+        v8 = *(v5 + 1);
+        if (v8)
+        {
+          do
+          {
+            v9 = v8;
+            v8 = *v8;
+          }
+
+          while (v8);
+        }
+
+        else
+        {
+          do
+          {
+            v9 = *(v5 + 2);
+            v10 = *v9 == v5;
+            v5 = v9;
+          }
+
+          while (!v10);
+        }
+
+        v5 = v9;
+      }
+
+      while (v9 != v6);
+    }
+
+    _Block_object_dispose(&v12, 8);
+    std::__tree<std::__value_type<std::string,ctu::LogLevel>,std::__map_value_compare<std::string,std::__value_type<std::string,ctu::LogLevel>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ctu::LogLevel>>>::destroy(&v17, v18[0]);
+  }
 }

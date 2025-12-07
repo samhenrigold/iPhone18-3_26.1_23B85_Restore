@@ -26,44 +26,14 @@
 
 - (void)beginEdits
 {
-  if (os_variant_has_internal_content())
-  {
-    if (_os_feature_enabled_impl())
-    {
-      v3 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT);
-      if (v3)
-      {
-        [(SKUITextFieldSettingDescriptionView *)v3 beginEdits:v4];
-      }
-    }
-  }
-
-  textField = self->_textField;
-  if (textField)
-  {
-    [(UITextField *)textField becomeFirstResponder];
-  }
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUITextFieldSettingDescriptionView beginEdits]";
 }
 
 - (void)commitEdits
 {
-  if (os_variant_has_internal_content())
-  {
-    if (_os_feature_enabled_impl())
-    {
-      v3 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT);
-      if (v3)
-      {
-        [(SKUITextFieldSettingDescriptionView *)v3 commitEdits:v4];
-      }
-    }
-  }
-
-  textField = self->_textField;
-  if (textField)
-  {
-    [(UITextField *)textField resignFirstResponder];
-  }
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUITextFieldSettingDescriptionView commitEdits]";
 }
 
 - (void)setEnabled:(BOOL)enabled
@@ -433,8 +403,8 @@ LABEL_7:
   [labelCopy _firstBaselineOffsetFromTop];
   v25 = v24;
 
-  [viewCopy sizeThatFits:{width, 1.0}];
-  SKUIRectByApplyingUserInterfaceLayoutDirectionInRect(x, v23 - v25, width, v26, v15, v17, v19, v21);
+  v26 = [viewCopy sizeThatFits:{width, 1.0}];
+  SKUIRectByApplyingUserInterfaceLayoutDirectionInRect(x, v23 - v25, width, v28, v15, v17, v19, v21, v26, v27);
   [viewCopy setFrame:?];
 }
 
@@ -507,6 +477,36 @@ LABEL_7:
   v13 = v12;
   [(SKUITextFieldSettingDescriptionView *)self bounds];
   [(SKUITextFieldSettingDescriptionView *)self _alignView:viewCopy withBaselineLabel:positionCopy font:v14 offsetX:v11 fitWidth:CGRectGetWidth(v16) - v11 - v13];
+}
+
+- (void)setEnabled:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUITextFieldSettingDescriptionView setEnabled:]";
+}
+
++ (void)prefetchResourcesForSettingDescription:(uint64_t)a3 reason:(uint64_t)a4 context:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUITextFieldSettingDescriptionView prefetchResourcesForSettingDescription:reason:context:]";
+}
+
++ (void)preferredSizeForSettingDescription:(uint64_t)a3 context:(uint64_t)a4 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUITextFieldSettingDescriptionView preferredSizeForSettingDescription:context:]";
+}
+
++ (void)requestLayoutForSettingDescription:(uint64_t)a3 width:(uint64_t)a4 context:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUITextFieldSettingDescriptionView requestLayoutForSettingDescription:width:context:]";
+}
+
++ (void)sizeThatFitsWidth:(uint64_t)a3 settingDescription:(uint64_t)a4 context:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUITextFieldSettingDescriptionView sizeThatFitsWidth:settingDescription:context:]";
 }
 
 @end

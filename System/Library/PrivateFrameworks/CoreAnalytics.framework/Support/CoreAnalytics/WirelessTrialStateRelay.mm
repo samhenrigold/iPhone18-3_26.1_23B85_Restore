@@ -42,7 +42,7 @@
 
 - (void)refreshWirelessTrialIdentifier
 {
-  [(WirelessTrialStateRelay *)self getWirelessTrialIdentifier];
+  objc_msgSend_getWirelessTrialIdentifier(self, a2);
   [(WirelessTrialStateRelay *)self _updateWirelessTrialIdentifier:&__p];
   if (v5 == 1 && v4 < 0)
   {

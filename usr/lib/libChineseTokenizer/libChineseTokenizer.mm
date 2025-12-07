@@ -12,14 +12,14 @@ void zhtok::WordBreaker::WordBreaker(zhtok::WordBreaker *this, const __CFLocale 
   *(this + 8) = 0u;
   *(this + 9) = 0u;
   v2 = MEMORY[0x29C273590](a2);
-  zhtok::UTF8StringFromCFString(v2, v3);
+  zhtok::UTF8StringFromCFString(v2);
 }
 
-void sub_2977378DC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9)
+void sub_2977378DC(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
   if (a9)
   {
-    MEMORY[0x29C2738A0](a9, 0x1000C8077774924);
+    MEMORY[0x29C2738A0](a9, 0x1000C8077774924, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -69,13 +69,11 @@ uint64_t zhtok::WordBreaker::set(zhtok::WordBreaker *this, const unsigned __int1
   utext_openUChars((this + 16), a2, a3, &status);
   if (status < U_ILLEGAL_ARGUMENT_ERROR)
   {
-    v6 = *this;
     ubrk_setUText();
-    v7 = status;
+    v6 = status;
     utext_close(v4);
-    if (v7 <= U_ZERO_ERROR)
+    if (v6 <= U_ZERO_ERROR)
     {
-      v8 = *this;
       *(this + 2) = ubrk_first();
       return 1;
     }
@@ -168,7 +166,7 @@ CFLocaleRef createLocaleForLanguage(int a1)
   return v4;
 }
 
-void zhtok::UTF8StringFromCFString(const __CFString *this, const __CFString *a2)
+void zhtok::UTF8StringFromCFString(const __CFString *this)
 {
   Length = CFStringGetLength(this);
   CFStringGetMaximumSizeForEncoding(Length, 0x8000100u);
@@ -189,7 +187,7 @@ void sub_297737D84(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t zhtok::LatticeWord::clearHypotheses(zhtok::LatticeWord *this)
+zhtok::HypothesisSet *zhtok::LatticeWord::clearHypotheses(zhtok::LatticeWord *this)
 {
   result = *(this + 1);
   if (result)
@@ -200,7 +198,7 @@ uint64_t zhtok::LatticeWord::clearHypotheses(zhtok::LatticeWord *this)
   return result;
 }
 
-uint64_t ChineseTokenizerCreate(const __CFLocale *a1)
+zhtok::ChineseLMTokenizer *ChineseTokenizerCreate(const __CFLocale *a1, unint64_t a2)
 {
   Value = CFLocaleGetValue(a1, *MEMORY[0x29EDB8F70]);
   if (CFStringCompare(Value, @"zh", 0) == kCFCompareEqualTo)
@@ -221,22 +219,22 @@ uint64_t ChineseTokenizerRelease(uint64_t result)
   return result;
 }
 
-void ChineseTokenizerSetString(zhtok::WordLatticeController **this, __CFString *a2, CFRange a3)
+void ChineseTokenizerSetString(zhtok::WordLatticeController **result, const __CFString *a2, CFRange a3)
 {
-  if (this)
+  if (result)
   {
-    zhtok::ChineseLMTokenizer::setString(this, a2, a3);
+    zhtok::ChineseLMTokenizer::setString(result, a2, a3);
   }
 }
 
-zhtok::ChineseLMTokenizer *ChineseTokenizerAdvanceToNextToken(zhtok::ChineseLMTokenizer *this)
+zhtok::ChineseLMTokenizer *ChineseTokenizerAdvanceToNextToken(zhtok::ChineseLMTokenizer *result)
 {
-  if (this)
+  if (result)
   {
-    return zhtok::ChineseLMTokenizer::advanceToNextToken(this);
+    return zhtok::ChineseLMTokenizer::advanceToNextToken(result);
   }
 
-  return this;
+  return result;
 }
 
 zhtok::ChineseLMTokenizer *ChineseTokenizerGetCurrentTokenRange(zhtok::ChineseLMTokenizer *result)
@@ -249,14 +247,14 @@ zhtok::ChineseLMTokenizer *ChineseTokenizerGetCurrentTokenRange(zhtok::ChineseLM
   return result;
 }
 
-zhtok::ChineseLMTokenizer *ChineseTokenizerGoToTokenAtIndex(zhtok::ChineseLMTokenizer *this, uint64_t a2)
+zhtok::ChineseLMTokenizer *ChineseTokenizerGoToTokenAtIndex(zhtok::ChineseLMTokenizer *result, uint64_t a2)
 {
-  if (this)
+  if (result)
   {
-    return zhtok::ChineseLMTokenizer::goToTokenAtIndex(this, a2);
+    return zhtok::ChineseLMTokenizer::goToTokenAtIndex(result, a2);
   }
 
-  return this;
+  return result;
 }
 
 uint64_t ChineseTokenizerSetDynamicLexicon(zhtok::ChineseLMTokenizer *a1, CFArrayRef theArray)
@@ -287,21 +285,21 @@ uint64_t ChineseTokenizerSetDynamicLexicon(zhtok::ChineseLMTokenizer *a1, CFArra
   return v2;
 }
 
-void sub_297737FB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_297737FB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   zhtok::DynamicLexiconBuilder::~DynamicLexiconBuilder(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t ChineseTokenizerSetCustomWordCheckBlock(uint64_t a1, uint64_t a2, void *a3)
+uint64_t ChineseTokenizerSetCustomWordCheckBlock(uint64_t result, uint64_t a2, void *a3)
 {
-  if (a1)
+  if (result)
   {
-    return zhtok::ChineseLMTokenizer::setCustomWordCheckBlock(a1, a2, a3);
+    return zhtok::ChineseLMTokenizer::setCustomWordCheckBlock(result, a2, a3);
   }
 
-  return a1;
+  return result;
 }
 
 uint64_t reportAssertionFailure(const char *a1, int a2, const char *a3, const char *a4)
@@ -322,13 +320,13 @@ uint64_t reportAssertionFailure(const char *a1, int a2, const char *a3, const ch
 
 void reportBacktrace()
 {
-  v14 = *MEMORY[0x29EDCA608];
-  v13 = 0;
-  *v11 = 0u;
-  memset(v12, 0, sizeof(v12));
-  v0 = backtrace(v11, 33);
+  v11 = *MEMORY[0x29EDCA608];
+  v10 = 0;
+  *v8 = 0u;
+  memset(v9, 0, sizeof(v9));
+  v0 = backtrace(v8, 33);
   v1 = (v0 - 2);
-  v2 = backtrace_symbols(v12, v1);
+  v2 = backtrace_symbols(v9, v1);
   if (v2)
   {
     v3 = v2;
@@ -338,33 +336,29 @@ void reportBacktrace()
       v5 = MEMORY[0x29EDCA610];
       do
       {
-        v6 = v3[v4];
-        v7 = v4 + 1;
-        v8 = *v5;
-        v9 = *(v12 + v4);
-        if (v6)
+        v6 = v4 + 1;
+        v7 = *v5;
+        if (v3[v4])
         {
-          fprintf(v8, "%-3d %p %s\n");
+          fprintf(v7, "%-3d %p %s\n");
         }
 
         else
         {
-          fprintf(v8, "%-3d %p\n");
+          fprintf(v7, "%-3d %p\n");
         }
 
-        v4 = v7;
+        v4 = v6;
       }
 
-      while (v1 != v7);
+      while (v1 != v6);
     }
 
     free(v3);
   }
-
-  v10 = *MEMORY[0x29EDCA608];
 }
 
-void zhtok::ChineseLMTokenizer::ChineseLMTokenizer(zhtok::ChineseLMTokenizer *this, const __CFLocale *a2)
+void zhtok::ChineseLMTokenizer::ChineseLMTokenizer(zhtok::ChineseLMTokenizer *this, const __CFLocale *a2, uint64_t a3)
 {
   *this = &unk_2A1E526C8;
   *(this + 1) = 0;
@@ -437,7 +431,7 @@ BOOL zhtok::ChineseLMTokenizer::isValid(zhtok::ChineseLMTokenizer *this, CFStrin
   return result;
 }
 
-void zhtok::ChineseLMTokenizer::setString(zhtok::WordLatticeController **this, __CFString *a2, CFRange a3)
+void zhtok::ChineseLMTokenizer::setString(zhtok::WordLatticeController **this, const __CFString *a2, CFRange a3)
 {
   length = a3.length;
   location = a3.location;
@@ -447,7 +441,7 @@ void zhtok::ChineseLMTokenizer::setString(zhtok::WordLatticeController **this, _
     if (length)
     {
       v7 = CFStringGetLength(a2);
-      if ((location & 0x8000000000000000) == 0 && location + length <= v7)
+      if ((location & 0x8000000000000000) == 0 && length + location <= v7)
       {
         this[1] = CFStringCreateCopy(0, a2);
         this[2] = location;
@@ -463,11 +457,11 @@ void zhtok::ChineseLMTokenizer::setString(zhtok::WordLatticeController **this, _
   }
 }
 
-void sub_29773854C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
+void sub_29773854C(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
   if (a10)
   {
-    MEMORY[0x29C2738A0](a10, 0x1000C80BDFB0063);
+    MEMORY[0x29C2738A0](a10, 0x1000C80BDFB0063, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -493,10 +487,10 @@ uint64_t zhtok::ChineseLMTokenizer::getCurrentTokenRange(zhtok::ChineseLMTokeniz
     return -1;
   }
 
-  v2 = (*(this + 6) + 16 * v1);
-  result = *v2;
-  v4 = v2[1];
-  return result;
+  else
+  {
+    return *(*(this + 6) + 16 * v1);
+  }
 }
 
 BOOL zhtok::ChineseLMTokenizer::goToTokenAtIndex(zhtok::ChineseLMTokenizer *this, uint64_t a2)
@@ -549,20 +543,17 @@ BOOL zhtok::ChineseLMTokenizer::goToTokenAtIndex(zhtok::ChineseLMTokenizer *this
   return 1;
 }
 
-void *std::vector<zhtok::internal::FixedSizedArray<void *>>::reserve(void *result, unint64_t a2)
+void std::vector<zhtok::internal::FixedSizedArray<void *>>::reserve(void *a1, unint64_t a2)
 {
-  if (0x2E8BA2E8BA2E8BA3 * ((result[2] - *result) >> 3) < a2)
+  if (0x2E8BA2E8BA2E8BA3 * ((a1[2] - *a1) >> 3) < a2)
   {
     if (a2 < 0x2E8BA2E8BA2E8BBLL)
     {
-      v2 = result[1] - *result;
-      std::__allocate_at_least[abi:ne200100]<std::allocator<zhtok::internal::FixedSizedArray<void *>>>(result, a2);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<zhtok::internal::FixedSizedArray<void *>>>(a1, a2);
     }
 
     std::vector<zhtok::internal::FixedSizedArray<void *>>::__throw_length_error[abi:ne200100]();
   }
-
-  return result;
 }
 
 void std::__throw_length_error[abi:ne200100](const char *a1)
@@ -596,20 +587,17 @@ void std::__throw_bad_array_new_length[abi:ne200100]()
   __cxa_throw(v1, MEMORY[0x29EDC9488], MEMORY[0x29EDC9370]);
 }
 
-void *std::vector<zhtok::internal::FixedSizedArray<zhtok::LatticeWord *>>::reserve(void *result, unint64_t a2)
+void std::vector<zhtok::internal::FixedSizedArray<zhtok::LatticeWord *>>::reserve(void *a1, unint64_t a2)
 {
-  if (0x2E8BA2E8BA2E8BA3 * ((result[2] - *result) >> 3) < a2)
+  if (0x2E8BA2E8BA2E8BA3 * ((a1[2] - *a1) >> 3) < a2)
   {
     if (a2 < 0x2E8BA2E8BA2E8BBLL)
     {
-      v2 = result[1] - *result;
-      std::__allocate_at_least[abi:ne200100]<std::allocator<zhtok::internal::FixedSizedArray<zhtok::LatticeWord *>>>(result, a2);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<zhtok::internal::FixedSizedArray<zhtok::LatticeWord *>>>(a1, a2);
     }
 
     std::vector<zhtok::internal::FixedSizedArray<void *>>::__throw_length_error[abi:ne200100]();
   }
-
-  return result;
 }
 
 void std::__allocate_at_least[abi:ne200100]<std::allocator<zhtok::internal::FixedSizedArray<zhtok::LatticeWord *>>>(uint64_t a1, unint64_t a2)
@@ -624,16 +612,16 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<zhtok::internal::Fixe
 
 void zhtok::Word::summary(zhtok::Word *this, const __CFString *a2)
 {
-  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](&v6);
+  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](&v5);
   v4 = CFStringCreateWithSubstring(0, a2, *(this + 8));
-  zhtok::UTF8StringFromCFString(v4, v5);
+  zhtok::UTF8StringFromCFString(v4);
 }
 
 void sub_297738C38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, char a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30)
 {
   if (a13)
   {
-    MEMORY[0x29C2738A0](a13, 0x1000C8077774924);
+    MEMORY[0x29C2738A0](a13, 0x1000C8077774924, a3, a4, a5, a6, a7, a8);
   }
 
   std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::~basic_stringstream(&a14, MEMORY[0x29EDC9528]);
@@ -800,16 +788,16 @@ void *std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v
   if (v13[0] == 1)
   {
     v6 = a1 + *(*a1 - 24);
-    v7 = *(v6 + 40);
-    v8 = *(v6 + 8);
-    v9 = *(v6 + 144);
+    v7 = *(v6 + 5);
+    v8 = *(v6 + 2);
+    v9 = *(v6 + 36);
     if (v9 == -1)
     {
       std::ios_base::getloc((a1 + *(*a1 - 24)));
       v10 = std::locale::use_facet(&v14, MEMORY[0x29EDC93D0]);
       v9 = (v10->__vftable[2].~facet_0)(v10, 32);
       std::locale::~locale(&v14);
-      *(v6 + 144) = v9;
+      *(v6 + 36) = v9;
     }
 
     if ((v8 & 0xB0) == 0x20)
@@ -832,9 +820,9 @@ void *std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v
   return a1;
 }
 
-void sub_2977393B4(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, std::locale a12)
+void sub_2977393B4(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, std::locale a12)
 {
-  MEMORY[0x29C273800](&a10);
+  MEMORY[0x29C273800](&a10, a2, a3, a4, a5, a6, a7, a8);
   __cxa_begin_catch(a1);
   std::ios_base::__set_badbit_and_consider_rethrow((v12 + *(*v12 - 24)));
   __cxa_end_catch();
@@ -996,7 +984,6 @@ void zhtok::HypothesisSet::connectPreviousHypotheses(zhtok::HypothesisSet *this,
   v5 = *(a3 + 10);
   if (v5)
   {
-    v9 = this;
     v10 = 0;
     v11 = 0;
     v12 = 1.79769313e308;
@@ -1015,19 +1002,19 @@ void zhtok::HypothesisSet::connectPreviousHypotheses(zhtok::HypothesisSet *this,
           }
 
 LABEL_17:
-          v18 = *(v9 + 10);
+          v18 = *(this + 10);
           if (!v18)
           {
             v19 = (*(*(a5 + 2) + 16))(v12);
-            v20 = *(v9 + 10);
-            *(v9 + v20) = v19;
-            *(v9 + 10) = v20 + 1;
-            *(v9 + 11) = v10;
+            v20 = *(this + 10);
+            *(this + v20) = v19;
+            *(this + 10) = v20 + 1;
+            *(this + 11) = v10;
 
             goto LABEL_21;
           }
 
-          if (*(*v9 + 16) + 1.0 < v12 || v18 >= 0xA && v12 >= *(*(v9 + v18 - 1) + 16))
+          if (*(*this + 16) + 1.0 < v12 || v18 >= 0xA && v12 >= *(*(this + v18 - 1) + 16))
           {
             v19 = v10;
 
@@ -1035,7 +1022,7 @@ LABEL_17:
           }
 
           v21 = (*(*(a5 + 2) + 16))(v12);
-          v22 = *(v9 + 10);
+          v22 = *(this + 10);
           if (!v22)
           {
             v25 = 0;
@@ -1045,11 +1032,11 @@ LABEL_17:
           v23 = 0;
           v24 = 0;
           v25 = 0;
-          v26 = (v9 + 8);
+          v26 = (this + 8);
           v27 = -1;
           while (2)
           {
-            v28 = *(v9 + v23);
+            v28 = *(this + v23);
             v29 = *v28;
             v30 = *v21;
             if (v24)
@@ -1057,7 +1044,7 @@ LABEL_17:
               if (!(v25 & 1 | (v29 != v30)))
               {
                 zhtok::LatticeSessionData::logStatistics(v28);
-                v37 = *(v9 + 10);
+                v37 = *(this + 10);
                 v38 = v37 - 1;
                 if (v23 < v37 - 1)
                 {
@@ -1072,7 +1059,7 @@ LABEL_17:
                   while (v39);
                 }
 
-                *(v9 + 10) = v38;
+                *(this + 10) = v38;
                 return;
               }
 
@@ -1080,7 +1067,7 @@ LABEL_44:
               v24 = 1;
 LABEL_45:
               ++v23;
-              v22 = *(v9 + 10);
+              v22 = *(this + 10);
               ++v26;
               --v27;
               if (v23 >= v22)
@@ -1100,9 +1087,9 @@ LABEL_57:
                 if (v22 != 10 && (v25 & 1) == 0)
                 {
                   zhtok::LatticeSessionData::logStatistics(v21);
-                  v40 = *(v9 + 10);
-                  *(v9 + 10) = v40 + 1;
-                  *(v9 + v40) = v21;
+                  v40 = *(this + 10);
+                  *(this + 10) = v40 + 1;
+                  *(this + v40) = v21;
                   return;
                 }
 
@@ -1130,7 +1117,7 @@ LABEL_21:
             }
 
             zhtok::LatticeSessionData::logStatistics(v28);
-            *(v9 + v23) = v21;
+            *(this + v23) = v21;
             v25 = 1;
           }
 
@@ -1144,14 +1131,14 @@ LABEL_21:
 
             if (v22 == 10)
             {
-              zhtok::LatticeSessionData::logStatistics(*(v9 + 9));
-              v22 = *(v9 + 10) - 1;
+              zhtok::LatticeSessionData::logStatistics(*(this + 9));
+              v22 = *(this + 10) - 1;
             }
 
             v33 = v22 - 1;
             if ((v22 - 1) >= v23)
             {
-              v34 = (v9 + 8 * v22);
+              v34 = (this + 8 * v22);
               v35 = v34;
               do
               {
@@ -1164,14 +1151,14 @@ LABEL_21:
               while (v33 >= v23);
             }
 
-            *(v9 + v23) = v21;
-            *(v9 + 10) = v22 + 1;
+            *(this + v23) = v21;
+            *(this + 10) = v22 + 1;
           }
 
           zhtok::LatticeSessionData::logStatistics(v21);
           if (!v23)
           {
-            *(v9 + 11) = v10;
+            *(this + 11) = v10;
           }
 
           goto LABEL_44;
@@ -1186,7 +1173,7 @@ LABEL_21:
       v17 = zhtok::HypothesisSet::costOfNewHypothesis(this, *(a3 + v11), a2, a5);
       if (v10 && v12 <= v17)
       {
-        this = zhtok::LatticeSessionData::logStatistics(v14);
+        zhtok::LatticeSessionData::logStatistics(v14);
       }
 
       else
@@ -1243,13 +1230,14 @@ void zhtok::DynamicLexiconBuilder::~DynamicLexiconBuilder(zhtok::DynamicLexiconB
   JUMPOUT(0x29C2738C0);
 }
 
-uint64_t zhtok::DynamicLexiconBuilder::build(uint64_t a1, int a2, CFArrayRef theArray, uint64_t a4)
+uint64_t zhtok::DynamicLexiconBuilder::build(zhtok::DynamicLexiconBuilder *a1, uint64_t a2, CFArrayRef theArray, zhtok::TokenizerLexicon **a4)
 {
   if (!theArray)
   {
     return 0;
   }
 
+  v6 = a2;
   Count = CFArrayGetCount(theArray);
   result = 0;
   if (a4)
@@ -1257,10 +1245,10 @@ uint64_t zhtok::DynamicLexiconBuilder::build(uint64_t a1, int a2, CFArrayRef the
     if (Count)
     {
       result = CFDictionaryCreateMutable(*MEMORY[0x29EDB8ED8], 0, MEMORY[0x29EDB9010], MEMORY[0x29EDB9020]);
-      *(a1 + 8) = result;
+      *(a1 + 1) = result;
       if (result)
       {
-        result = zhtok::DynamicLexiconBuilder::registerLanguage(a1, a2);
+        result = zhtok::DynamicLexiconBuilder::registerLanguage(a1, v6);
         if (result)
         {
           result = zhtok::DynamicLexiconBuilder::filterAndRegisterWords(a1, theArray);
@@ -1290,7 +1278,7 @@ uint64_t zhtok::DynamicLexiconBuilder::registerLanguage(uint64_t a1, int a2)
   return v3;
 }
 
-BOOL zhtok::DynamicLexiconBuilder::filterAndRegisterWords(CFMutableDictionaryRef *this, CFArrayRef theArray)
+uint64_t zhtok::DynamicLexiconBuilder::filterAndRegisterWords(CFMutableDictionaryRef *this, CFArrayRef theArray)
 {
   result = 0;
   if (theArray && this[1])
@@ -1309,7 +1297,7 @@ BOOL zhtok::DynamicLexiconBuilder::filterAndRegisterWords(CFMutableDictionaryRef
   return result;
 }
 
-BOOL zhtok::DynamicLexiconBuilder::filter(zhtok::DynamicLexiconBuilder *this, __CFArray *a2, CFArrayRef theArray)
+uint64_t zhtok::DynamicLexiconBuilder::filter(zhtok::DynamicLexiconBuilder *this, __CFArray *a2, CFArrayRef theArray)
 {
   v3 = 0;
   if (a2 && theArray)
@@ -1345,21 +1333,21 @@ BOOL zhtok::DynamicLexiconBuilder::filter(zhtok::DynamicLexiconBuilder *this, __
   return v3;
 }
 
-void zhtok::WordLatticeController::WordLatticeController(uint64_t a1, const __CFLocale *a2)
+void zhtok::WordLatticeController::WordLatticeController(uint64_t a1, const __CFLocale *a2, int a3)
 {
   *a1 = &unk_2A1E52688;
   *(a1 + 8) = languageForLocale(a2);
-  v4 = languageModelBundleNameForLocale(a2);
+  v5 = languageModelBundleNameForLocale(a2);
   Mutable = CFDictionaryCreateMutable(0, 0, MEMORY[0x29EDB9010], MEMORY[0x29EDB9020]);
   CFDictionarySetValue(Mutable, *MEMORY[0x29EDC5790], a2);
-  v6 = *MEMORY[0x29EDB8EF8];
+  v7 = *MEMORY[0x29EDB8EF8];
   CFDictionarySetValue(Mutable, *MEMORY[0x29EDC5730], *MEMORY[0x29EDB8EF8]);
-  CFDictionarySetValue(Mutable, *MEMORY[0x29EDC57B0], v6);
-  CFDictionarySetValue(Mutable, *MEMORY[0x29EDC5740], v4);
+  CFDictionarySetValue(Mutable, *MEMORY[0x29EDC57B0], v7);
+  CFDictionarySetValue(Mutable, *MEMORY[0x29EDC5740], v5);
   CFDictionarySetValue(Mutable, *MEMORY[0x29EDC57A0], *MEMORY[0x29EDB8F00]);
-  v7 = LMLanguageModelCreate();
+  v8 = LMLanguageModelCreate();
   CFRelease(Mutable);
-  *(a1 + 16) = v7;
+  *(a1 + 16) = v8;
   operator new();
 }
 
@@ -1434,7 +1422,7 @@ zhtok::WordBreaker **std::unique_ptr<zhtok::WordBreaker>::~unique_ptr[abi:ne2001
   return a1;
 }
 
-zhtok::LatticeSessionData **std::unique_ptr<zhtok::LatticeSessionData>::~unique_ptr[abi:ne200100](zhtok::LatticeSessionData **a1)
+uint64_t ***std::unique_ptr<zhtok::LatticeSessionData>::~unique_ptr[abi:ne200100](uint64_t ***a1)
 {
   v2 = *a1;
   *a1 = 0;
@@ -1510,7 +1498,7 @@ double zhtok::WordLatticeController::reset(zhtok::WordLatticeController *this)
 {
   v2 = *(this + 6);
   v4 = *v2;
-  v3 = v2[1];
+  v3 = *(v2 + 1);
   zhtok::Lattice::clear(v2);
   if (v3 != v4)
   {
@@ -1566,11 +1554,11 @@ double zhtok::WordLatticeController::reset(zhtok::WordLatticeController *this)
   return result;
 }
 
-void *zhtok::Lattice::clear(void *this)
+void zhtok::Lattice::clear(zhtok::Lattice *this)
 {
   v1 = *this;
-  this[1] = *this;
-  v2 = this[2];
+  *(this + 1) = *this;
+  v2 = *(this + 2);
   if (v1 >= v2)
   {
     v3 = 0x2E8BA2E8BA2E8BA3 * ((v2 - v1) >> 3);
@@ -1594,8 +1582,8 @@ void *zhtok::Lattice::clear(void *this)
   }
 
   *v1 = 0;
-  this[1] = v1 + 11;
-  v6 = this[3];
+  *(this + 1) = v1 + 11;
+  v6 = *(this + 3);
   if (v6)
   {
     v7 = *this;
@@ -1605,8 +1593,6 @@ void *zhtok::Lattice::clear(void *this)
       v7[1] = v6;
     }
   }
-
-  return this;
 }
 
 __n128 zhtok::WordLatticeController::getBestSegmentation(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
@@ -1762,7 +1748,6 @@ void zhtok::WordLatticeController::updateLattice(zhtok::Lattice **this, zhtok::L
 
 void zhtok::Lattice::insert(zhtok::Lattice *this, unint64_t a2, zhtok::LatticeWord *a3)
 {
-  v26 = *MEMORY[0x29EDCA608];
   v5 = *this;
   v6 = *(this + 1);
   for (i = 0x2E8BA2E8BA2E8BA3 * ((v6 - *this) >> 3); i <= a2; i = 0x2E8BA2E8BA2E8BA3 * ((v6 - *this) >> 3))
@@ -1817,11 +1802,11 @@ void zhtok::Lattice::insert(zhtok::Lattice *this, unint64_t a2, zhtok::LatticeWo
     else
     {
       *v6 = 0;
-      *(v6 + 8) = v21;
-      *(v6 + 72) = v25;
-      *(v6 + 56) = v24;
-      *(v6 + 40) = v23;
-      *(v6 + 24) = v22;
+      *(v6 + 8) = v20;
+      *(v6 + 72) = v24;
+      *(v6 + 56) = v23;
+      *(v6 + 40) = v22;
+      *(v6 + 24) = v21;
       v6 += 88;
     }
 
@@ -1836,8 +1821,6 @@ void zhtok::Lattice::insert(zhtok::Lattice *this, unint64_t a2, zhtok::LatticeWo
     *v18 = v19 + 1;
     v18[v19 + 1] = a3;
   }
-
-  v20 = *MEMORY[0x29EDCA608];
 }
 
 void zhtok::WordLatticeController::connectToWordsEndingAtIndex(zhtok::WordLatticeController *this, zhtok::LatticeWord *a2, unint64_t a3, const zhtok::ConnectionContext *a4)
@@ -1887,7 +1870,7 @@ void zhtok::WordLatticeController::connectToWordsEndingAtIndex(zhtok::WordLattic
 LABEL_12:
           if ((*(v12 + 16) & 1) == 0)
           {
-            zhtok::WordLatticeController::connectToWordsEndingAtIndex(this, v12, a3 - *(*v12 + 16));
+            zhtok::WordLatticeController::connectToWordsEndingAtIndex(this, v12, a3 - *(*v12 + 16), a4);
           }
 
           zhtok::WordLatticeController::connectToPreviousWord(this, v12, a2, a4);
@@ -1915,28 +1898,26 @@ LABEL_12:
   }
 }
 
-void zhtok::WordLatticeController::connectToPreviousWord(zhtok::WordLatticeController *this, const zhtok::LatticeWord *a2, zhtok::LatticeWord *a3, const zhtok::ConnectionContext *a4)
+void zhtok::WordLatticeController::connectToPreviousWord(uint64_t this, const zhtok::LatticeWord *a2, zhtok::LatticeWord *a3, const zhtok::ConnectionContext *a4)
 {
   v4 = *(a2 + 1);
   if (v4[10] && *v4)
   {
-    v8 = *a2;
-    v9 = *a3;
-    zhtok::LatticeSessionData::logStatistics(v8);
-    v10 = *(this + 7);
+    zhtok::LatticeSessionData::logStatistics(*a2);
+    v8 = *(this + 56);
 
-    zhtok::LatticeWord::connectPreviousWord(a3, a2, v10);
+    zhtok::LatticeWord::connectPreviousWord(a3, a2, v8);
   }
 }
 
-void zhtok::WordLatticeController::addWord(zhtok::WordLatticeController *this, void *a2, uint64_t a3)
+void zhtok::WordLatticeController::addWord(zhtok::TokenizerLexicon **this, void *a2, uint64_t a3)
 {
-  WordID = zhtok::TokenizerLexicon::getWordID(*(this + 3), a2);
+  WordID = zhtok::TokenizerLexicon::getWordID(this[3], a2);
   if (WordID)
   {
     v7 = WordID;
-    TraversedLength = zhtok::TokenizerLexicon::getTraversedLength(*(this + 3), a2);
-    LatticeWord = zhtok::LatticeSessionData::makeLatticeWord(*(this + 5), 2, v7, a3 - TraversedLength, TraversedLength);
+    TraversedLength = zhtok::TokenizerLexicon::getTraversedLength(this[3], a2);
+    LatticeWord = zhtok::LatticeSessionData::makeLatticeWord(this[5], 2, v7, a3 - TraversedLength, TraversedLength);
 
     zhtok::WordLatticeController::updateLattice(this, LatticeWord);
   }
@@ -2024,13 +2005,13 @@ LABEL_15:
   zhtok::WordLatticeController::updateLattice(this, LatticeWord);
 }
 
-uint64_t zhtok::WordLatticeController::addDynamicWord(zhtok::WordLatticeController *this, void *a2, const unsigned __int16 *a3, const CFRange *a4)
+uint64_t zhtok::WordLatticeController::addDynamicWord(zhtok::TokenizerLexicon **this, void *a2, const unsigned __int16 *a3, const CFRange *a4)
 {
-  HasEntry = zhtok::TokenizerLexicon::cursorHasEntry(*(this + 4), a2);
+  HasEntry = zhtok::TokenizerLexicon::cursorHasEntry(this[4], a2);
   if (HasEntry)
   {
-    WordID = zhtok::TokenizerLexicon::getWordID(*(this + 4), a2);
-    LatticeWord = zhtok::LatticeSessionData::makeLatticeWord(*(this + 5), 3, WordID, a4->location, a4->length);
+    WordID = zhtok::TokenizerLexicon::getWordID(this[4], a2);
+    LatticeWord = zhtok::LatticeSessionData::makeLatticeWord(this[5], 3, WordID, a4->location, a4->length);
     zhtok::WordLatticeController::updateLattice(this, LatticeWord);
   }
 
@@ -2227,28 +2208,27 @@ uint64_t zhtok::WordLatticeController::breakEmojiWords(zhtok::WordLatticeControl
     if (result)
     {
       v6 = *(this + 22);
-      v7 = *(v6 + 2);
+      v7 = *(v6 + 8);
       if (v7 != -1)
       {
-        v8 = *(v6 + 2);
+        v8 = *(v6 + 8);
         do
         {
           if (v7 > v8)
           {
-            v10.location = *(this + 17) + v8;
-            v10.length = v7 - v8;
-            zhtok::WordLatticeController::addNonChineseWord(this, a2, v10);
+            v9.location = *(this + 17) + v8;
+            v9.length = v7 - v8;
+            zhtok::WordLatticeController::addNonChineseWord(this, a2, v9);
             v6 = *(this + 22);
             v8 = v7;
           }
 
-          v9 = *v6;
           v7 = ubrk_next();
-          *(v6 + 2) = v7;
+          *(v6 + 8) = v7;
           v6 = *(this + 22);
         }
 
-        while (*(v6 + 2) != -1);
+        while (*(v6 + 8) != -1);
       }
 
       return 1;
@@ -2310,17 +2290,16 @@ LABEL_11:
 
 void zhtok::WordLatticeController::addComposedCharacteracterInRange(zhtok::WordLatticeController *this, const unsigned __int16 *a2, CFRange a3)
 {
-  v46 = *MEMORY[0x29EDCA608];
-  v40.length = a3.length;
+  v38.length = a3.length;
   v4 = a3.location + a3.length;
   if (*(this + 14) == a3.location + a3.length)
   {
     *(this + 152) = 1;
   }
 
-  v40.location = a3.location;
-  v37 = &a2[a3.location];
-  theChar = *v37;
+  v38.location = a3.location;
+  v35 = &a2[a3.location];
+  theChar = *v35;
   v5 = *(this + 8);
   v6 = *(this + 9);
   v7 = (this + 64);
@@ -2376,11 +2355,11 @@ void zhtok::WordLatticeController::addComposedCharacteracterInRange(zhtok::WordL
     else
     {
       *v6 = 0;
-      *(v6 + 8) = v41;
-      *(v6 + 72) = v45;
-      *(v6 + 56) = v44;
-      *(v6 + 40) = v43;
-      *(v6 + 24) = v42;
+      *(v6 + 8) = v39;
+      *(v6 + 72) = v43;
+      *(v6 + 56) = v42;
+      *(v6 + 40) = v41;
+      *(v6 + 24) = v40;
       v6 += 88;
     }
 
@@ -2388,123 +2367,119 @@ void zhtok::WordLatticeController::addComposedCharacteracterInRange(zhtok::WordL
     v5 = *(this + 8);
   }
 
-  location = v40.location;
+  location = v38.location;
   if (*(this + 23) && zhtok::WordLatticeController::addCustomWordIfFound(this, a2, v4))
   {
-    goto LABEL_60;
+    return;
   }
 
   v19 = *(this + 20);
-  if (!v19 || !CFCharacterSetIsCharacterMember(v19, theChar))
+  if (v19 && CFCharacterSetIsCharacterMember(v19, theChar))
   {
-    v22 = v40.length == 1 && (theChar - 1) < 0xFFu;
-    v23 = *(this + 21);
-    if (v23)
-    {
-      v24 = CFCharacterSetIsCharacterMember(v23, theChar) != 0;
-    }
+    v20 = 0x20000;
+LABEL_57:
+    LatticeWord = zhtok::LatticeSessionData::makeLatticeWord(*(this + 5), v20, 0, location, v38.length);
 
-    else
-    {
-      v24 = 0;
-    }
+    zhtok::WordLatticeController::updateLattice(this, LatticeWord);
+    return;
+  }
 
-    zhtok::WordLatticeController::updateNonChineseTokenRange(this, a2, v40, v22, v24);
-    v25 = zhtok::WordLatticeController::addLatinWords(this, a2, v40, v24);
-    v26 = 0x2E8BA2E8BA2E8BA3 * ((*(this + 9) - *(this + 8)) >> 3) - 1;
-    if (v22)
+  v22 = v38.length == 1 && (theChar - 1) < 0xFFu;
+  v23 = *(this + 21);
+  if (v23)
+  {
+    v24 = CFCharacterSetIsCharacterMember(v23, theChar) != 0;
+  }
+
+  else
+  {
+    v24 = 0;
+  }
+
+  zhtok::WordLatticeController::updateNonChineseTokenRange(this, a2, v38, v22, v24);
+  v25 = zhtok::WordLatticeController::addLatinWords(this, a2, v38, v24);
+  v26 = 0x2E8BA2E8BA2E8BA3 * ((*(this + 9) - *(this + 8)) >> 3) - 1;
+  if (v22)
+  {
+    v27 = v26 < 2 || *(*(this + 9) - 176) == 0;
+    if (zhtok::WordLatticeController::addEmojiWords(this, a2))
     {
-      v27 = v26 < 2 || *(*(this + 9) - 176) == 0;
-      if (zhtok::WordLatticeController::addEmojiWords(this, a2))
+      if (v27)
       {
-        if (v27)
-        {
-          goto LABEL_60;
-        }
-
-        goto LABEL_42;
-      }
-    }
-
-    else
-    {
-      if (zhtok::WordLatticeController::addEmojiWords(this, a2))
-      {
-LABEL_42:
-        v28 = (*v7 + 88 * v40.location);
-        v29 = *v28;
-        if (*v28)
-        {
-          v30 = 0;
-          do
-          {
-            if (*v28 <= v30)
-            {
-              v31 = 0;
-            }
-
-            else
-            {
-              v31 = v28[v30 + 1];
-            }
-
-            zhtok::WordLatticeController::addWord(this, v31, v37, v40.length, v26);
-            ++v30;
-          }
-
-          while (v29 != v30);
-        }
-
-        location = v40.location;
-        if (v40.location < 1)
-        {
-          v32 = 1;
-        }
-
-        else
-        {
-          v32 = v25;
-        }
-
-        if ((v32 & 1) == 0)
-        {
-          zhtok::WordLatticeController::addWord(this, *(*(this + 3) + 16), v37, v40.length, v26);
-        }
-
-        if (v24)
-        {
-          LatticeWord = zhtok::LatticeSessionData::makeLatticeWord(*(this + 5), 0x10000, 0, v40.location, v40.length);
-          zhtok::WordLatticeController::updateLattice(this, LatticeWord);
-        }
-
-        if (*(*(this + 6) + 8) - **(this + 6) < *(this + 9) - *(this + 8))
-        {
-          v20 = 2;
-          goto LABEL_57;
-        }
-
-LABEL_60:
-        v36 = *MEMORY[0x29EDCA608];
         return;
       }
 
-      v27 = 0;
+      goto LABEL_42;
     }
-
-    if (v27 || *(this + 17) != -1)
-    {
-      goto LABEL_60;
-    }
-
-    goto LABEL_42;
   }
 
-  v20 = 0x20000;
-LABEL_57:
-  v34 = zhtok::LatticeSessionData::makeLatticeWord(*(this + 5), v20, 0, location, v40.length);
-  v35 = *MEMORY[0x29EDCA608];
+  else
+  {
+    if (zhtok::WordLatticeController::addEmojiWords(this, a2))
+    {
+      goto LABEL_42;
+    }
 
-  zhtok::WordLatticeController::updateLattice(this, v34);
+    v27 = 0;
+  }
+
+  if (v27 || *(this + 17) != -1)
+  {
+    return;
+  }
+
+LABEL_42:
+  v28 = (*v7 + 88 * v38.location);
+  v29 = *v28;
+  if (*v28)
+  {
+    v30 = 0;
+    do
+    {
+      if (*v28 <= v30)
+      {
+        v31 = 0;
+      }
+
+      else
+      {
+        v31 = v28[v30 + 1];
+      }
+
+      zhtok::WordLatticeController::addWord(this, v31, v35, v38.length, v26);
+      ++v30;
+    }
+
+    while (v29 != v30);
+  }
+
+  location = v38.location;
+  if (v38.location < 1)
+  {
+    v32 = 1;
+  }
+
+  else
+  {
+    v32 = v25;
+  }
+
+  if ((v32 & 1) == 0)
+  {
+    zhtok::WordLatticeController::addWord(this, *(*(this + 3) + 16), v35, v38.length, v26);
+  }
+
+  if (v24)
+  {
+    v33 = zhtok::LatticeSessionData::makeLatticeWord(*(this + 5), 0x10000, 0, v38.location, v38.length);
+    zhtok::WordLatticeController::updateLattice(this, v33);
+  }
+
+  if (*(*(this + 6) + 8) - **(this + 6) < *(this + 9) - *(this + 8))
+  {
+    v20 = 2;
+    goto LABEL_57;
+  }
 }
 
 void zhtok::WordLatticeController::addWord(zhtok::TokenizerLexicon **this, void *a2, const unsigned __int16 *a3, uint64_t a4, uint64_t a5)
@@ -2666,7 +2641,6 @@ uint64_t zhtok::TokenizerLexicon::reset(zhtok::TokenizerLexicon *this)
   if (result)
   {
     LMLexiconResetCursors();
-    v3 = *(this + 1);
     result = LMLexiconGetRootCursor();
     *(this + 2) = result;
   }
@@ -2679,7 +2653,6 @@ uint64_t zhtok::TokenizerLexicon::setLexicon(zhtok::TokenizerLexicon *this, void
   if (*(this + 1))
   {
     LMLexiconResetCursors();
-    v4 = *(this + 1);
     LMLexiconRelease();
   }
 
@@ -2797,7 +2770,7 @@ void zhtok::ObjectPool<zhtok::Hypothesis>::reset(uint64_t a1)
   *(a1 + 32) = 0;
 }
 
-char *___ZN5zhtok18LatticeSessionData14resetSentinelsEv_block_invoke(uint64_t a1)
+double *___ZN5zhtok18LatticeSessionData14resetSentinelsEv_block_invoke(uint64_t a1)
 {
   v1 = *(a1 + 32);
   v2 = **(*v1 + 16);
@@ -2806,7 +2779,7 @@ char *___ZN5zhtok18LatticeSessionData14resetSentinelsEv_block_invoke(uint64_t a1
   return v3;
 }
 
-char *zhtok::LatticeSessionData::makeHypothesis(zhtok::LatticeSessionData *this, const zhtok::Word *a2, double a3, const zhtok::Hypothesis *a4)
+double *zhtok::LatticeSessionData::makeHypothesis(zhtok::LatticeSessionData *this, const zhtok::Word *a2, double a3, const zhtok::Hypothesis *a4)
 {
   v7 = zhtok::ObjectPool<zhtok::Hypothesis>::alloc(this + 16);
   zhtok::Hypothesis::init(v7, a2, a4, a3);
@@ -3307,20 +3280,20 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<zhtok::HypothesisSet 
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-void sub_29773CC08(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
+void sub_29773CC08(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
   if (a10)
   {
-    MEMORY[0x29C2738A0](a10, 0x1000C8077774924);
+    MEMORY[0x29C2738A0](a10, 0x1000C8077774924, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *zhtok::Hypothesis::init(_BYTE *__dst, uint64_t a2, uint64_t a3, double a4)
+double *zhtok::Hypothesis::init(double *__dst, uint64_t a2, uint64_t a3, double a4)
 {
   v5 = __dst;
-  *(__dst + 2) = a4;
+  __dst[2] = a4;
   if (a3)
   {
     v8 = *(a3 + 8);
@@ -3340,26 +3313,19 @@ _BYTE *zhtok::Hypothesis::init(_BYTE *__dst, uint64_t a2, uint64_t a3, double a4
       v9 = v7 + 1;
     }
 
-    v5[8] = v9;
+    *(v5 + 8) = v9;
     *(v5 + 1) = *(a2 + 4);
   }
 
   else
   {
     *(__dst + 3) = a2;
-    *(__dst + 4) = 0;
+    __dst[4] = 0.0;
     *(__dst + 1) = 1;
-    __dst[8] = 1;
+    *(__dst + 8) = 1;
   }
 
   return __dst;
-}
-
-double zhtok::Hypothesis::costOfExtendingToWord(zhtok::Hypothesis *this, unsigned int a2, void *a3)
-{
-  v3 = *(this + 8);
-  LMLanguageModelConditionalProbability();
-  return -v4;
 }
 
 CFStringRef zhtok::Hypothesis::createDescription(zhtok::Hypothesis *this)
@@ -3403,15 +3369,15 @@ CFStringRef zhtok::Hypothesis::createDescription(zhtok::Hypothesis *this)
   return v4;
 }
 
-void sub_29773CF0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, void *__p, uint64_t a7, int a8, __int16 a9, char a10, char a11, char a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, ...)
+void sub_29773CF0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, void *__p, uint64_t a7, int a8, __int16 a9, char a10, char a11, char a12, uint64_t a13, uint64_t a14, uint64_t a15, void *a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, ...)
 {
-  va_start(va, a27);
-  if (a11 < 0)
+  va_start(va, a34);
+  if (SHIBYTE(a18) < 0)
   {
-    operator delete(__p);
+    operator delete(a16);
   }
 
-  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::~basic_stringstream(&a12, MEMORY[0x29EDC9528]);
+  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::~basic_stringstream(&a19, MEMORY[0x29EDC9528]);
   MEMORY[0x29C273880](va);
   _Unwind_Resume(a1);
 }
@@ -3489,7 +3455,6 @@ void sub_29773D120(_Unwind_Exception *exception_object)
 
 BOOL zhtok::Logger::areLoggingTypesEnabled(zhtok::Logger *this, uint64_t a2, int a3)
 {
-  v3 = *this;
   if (a3)
   {
     if (*this)
@@ -3542,12 +3507,11 @@ uint64_t zhtok::Logger::flush(uint64_t this)
 void zhtok::Logger::logErrorMessage(zhtok::Logger *this, const char *a2, ...)
 {
   va_start(va, a2);
-  v5 = *MEMORY[0x29EDCA608];
+  v4 = *MEMORY[0x29EDCA608];
   vsprintf(cStr, a2, va);
-  v3 = CFStringCreateWithCString(0, cStr, 0x8000100u);
+  v2 = CFStringCreateWithCString(0, cStr, 0x8000100u);
   CFLog();
-  CFRelease(v3);
-  v2 = *MEMORY[0x29EDCA608];
+  CFRelease(v2);
 }
 
 void operator delete[]()

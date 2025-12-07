@@ -517,7 +517,7 @@ LABEL_12:
   }
 }
 
-uint64_t __101__MPLibraryKeepLocalStatusObserver_downloadManager_didEnqueueAssetDownloads_didRemoveAssetDownloads___block_invoke(uint64_t a1)
+void *__101__MPLibraryKeepLocalStatusObserver_downloadManager_didEnqueueAssetDownloads_didRemoveAssetDownloads___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _updateActiveDownloadsAllowingDownloadRemoval:0];
   if (result)

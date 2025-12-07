@@ -35,34 +35,34 @@
 
 - (void)clearAllCredentials
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   store = [(ENCredentialStore *)self store];
   allValues = [store allValues];
 
-  v5 = [allValues countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v5 = [allValues countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v12;
+    v7 = *v11;
     do
     {
       v8 = 0;
       do
       {
-        if (*v12 != v7)
+        if (*v11 != v7)
         {
           objc_enumerationMutation(allValues);
         }
 
-        [*(*(&v11 + 1) + 8 * v8++) deleteFromKeychain];
+        [*(*(&v10 + 1) + 8 * v8++) deleteFromKeychain];
       }
 
       while (v6 != v8);
-      v6 = [allValues countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v6 = [allValues countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v6);
@@ -70,8 +70,6 @@
 
   store2 = [(ENCredentialStore *)self store];
   [store2 removeAllObjects];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeCredentials:(id)credentials

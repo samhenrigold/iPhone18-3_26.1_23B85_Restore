@@ -25,18 +25,32 @@
   if (v7)
   {
     v8 = v7;
-    v13[0] = MEMORY[0x277D85DD0];
-    v13[1] = 3221225472;
-    v13[2] = __32__ENArchive_initWithPath_error___block_invoke;
-    v13[3] = &__block_descriptor_40_e5_v8__0l;
-    v13[4] = v7;
-    v9 = MEMORY[0x2383EE560](v13);
+    v14[0] = MEMORY[0x277D85DD0];
+    v14[1] = 3221225472;
+    v14[2] = __32__ENArchive_initWithPath_error___block_invoke;
+    v14[3] = &__block_descriptor_40_e5_v8__0l;
+    v14[4] = v7;
+    v9 = MEMORY[0x2383EE560](v14);
     v10 = open(v8, 0);
-    if ((v10 & 0x80000000) != 0 && (!*__error() || *__error()))
+    if ((v10 & 0x80000000) != 0)
     {
+      if (*__error())
+      {
+        v11 = *__error();
+        if (!v11)
+        {
+          goto LABEL_5;
+        }
+      }
+
+      else
+      {
+        v11 = 4294960596;
+      }
+
       if (error)
       {
-        ENErrorF(2);
+        ENErrorF(2, "open failed: %#m", v11);
         *error = selfCopy = 0;
       }
 
@@ -44,20 +58,22 @@
       {
         selfCopy = 0;
       }
+
+      goto LABEL_6;
     }
 
-    else
-    {
-      self = [(ENArchive *)self initWithFD:v10 error:error];
-      selfCopy = self;
-    }
-
+LABEL_5:
+    self = [(ENArchive *)self initWithFD:v10 error:error];
+    selfCopy = self;
+LABEL_6:
     v9[2](v9);
+
+    goto LABEL_7;
   }
 
-  else if (error)
+  if (error)
   {
-    ENErrorF(2);
+    ENErrorF(2, "realpath failed");
     *error = selfCopy = 0;
   }
 
@@ -65,6 +81,8 @@
   {
     selfCopy = 0;
   }
+
+LABEL_7:
 
   return selfCopy;
 }
@@ -76,47 +94,63 @@
   {
     if (!error)
     {
-      goto LABEL_11;
+      goto LABEL_14;
     }
 
-    goto LABEL_9;
-  }
-
-  v10.receiver = self;
-  v10.super_class = ENArchive;
-  selfCopy = [(ENArchive *)&v10 init];
-  if (!selfCopy)
-  {
-LABEL_11:
-    v8 = 0;
-    goto LABEL_12;
-  }
-
-  v7 = fdopen(d, "rb");
-  if (!v7 && (!*__error() || *__error()))
-  {
-    if (!error)
-    {
-      goto LABEL_11;
-    }
-
-LABEL_9:
-    ENErrorF(2);
-    *error = v8 = 0;
-    goto LABEL_12;
-  }
-
-  selfCopy->_fileHandle = v7;
-  if (![(ENArchive *)selfCopy _openArchiveAndReturnError:error])
-  {
+    ENErrorF(2, "Invalid file descriptor");
     goto LABEL_11;
   }
 
-  selfCopy = selfCopy;
-  v8 = selfCopy;
-LABEL_12:
+  v11.receiver = self;
+  v11.super_class = ENArchive;
+  selfCopy = [(ENArchive *)&v11 init];
+  if (!selfCopy)
+  {
+LABEL_14:
+    v9 = 0;
+    goto LABEL_15;
+  }
 
-  return v8;
+  v7 = fdopen(d, "rb");
+  if (!v7)
+  {
+    if (*__error())
+    {
+      v8 = *__error();
+      if (!v8)
+      {
+        goto LABEL_6;
+      }
+    }
+
+    else
+    {
+      v8 = 4294960596;
+    }
+
+    if (!error)
+    {
+      goto LABEL_14;
+    }
+
+    ENErrorF(2, "fdopen failed: %#m", v8);
+LABEL_11:
+    *error = v9 = 0;
+    goto LABEL_15;
+  }
+
+LABEL_6:
+  selfCopy->_fileHandle = v7;
+  if (![(ENArchive *)selfCopy _openArchiveAndReturnError:error])
+  {
+    goto LABEL_14;
+  }
+
+  selfCopy = selfCopy;
+  v9 = selfCopy;
+LABEL_15:
+
+  return v9;
 }
 
 - (BOOL)_openArchiveAndReturnError:(id *)error
@@ -125,87 +159,101 @@ LABEL_12:
   {
     if (error)
     {
-      v10 = 16;
-      goto LABEL_13;
+      ENErrorF(16, "No file handle");
+      goto LABEL_14;
     }
 
     return 0;
   }
 
-  if (fseeko(self->_fileHandle, 0, 0) && (!*__error() || *__error()))
+  if (!fseeko(self->_fileHandle, 0, 0))
   {
+    goto LABEL_5;
+  }
+
+  if (!*__error())
+  {
+    v5 = 4294960596;
+LABEL_12:
     if (error)
     {
-      v10 = 15;
-LABEL_13:
-      ENErrorF(v10);
-      *error = v8 = 0;
-      return v8;
+      ENErrorF(15, "fseek failed: %#m", v5);
+LABEL_14:
+      *error = v10 = 0;
+      return v10;
     }
 
     return 0;
   }
 
-  v14 = 0;
-  v15 = &v14;
-  v16 = 0x2020000000;
-  v17 = archive_read_new();
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __40__ENArchive__openArchiveAndReturnError___block_invoke;
-  v13[3] = &unk_278A4AF10;
-  v13[4] = &v14;
-  v5 = MEMORY[0x2383EE560](v13);
-  if (!v15[3])
+  v5 = *__error();
+  if (v5)
   {
-    if (error)
-    {
-      v11 = ENErrorF(12);
-LABEL_23:
-      v8 = 0;
-      *error = v11;
-      goto LABEL_9;
-    }
-
-    goto LABEL_24;
+    goto LABEL_12;
   }
 
-  if (archive_read_support_format_zip())
+LABEL_5:
+  v16 = 0;
+  v17 = &v16;
+  v18 = 0x2020000000;
+  v19 = archive_read_new();
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __40__ENArchive__openArchiveAndReturnError___block_invoke;
+  v15[3] = &unk_278A4AF10;
+  v15[4] = &v16;
+  v6 = MEMORY[0x2383EE560](v15);
+  if (!v17[3])
   {
-    if (error)
+    if (!error)
     {
-      goto LABEL_22;
+      goto LABEL_25;
     }
 
-    goto LABEL_24;
-  }
-
-  v6 = v15[3];
-  if (archive_read_open_FILE())
-  {
-    if (error)
-    {
-LABEL_22:
-      v12 = v15[3];
-      archive_error_string();
-      v11 = ENErrorF(15);
-      goto LABEL_23;
-    }
-
+    v12 = ENErrorF(12, "archive_read_new failed");
 LABEL_24:
-    v8 = 0;
+    v10 = 0;
+    *error = v12;
     goto LABEL_9;
   }
 
-  v7 = v15;
-  self->_archive = v15[3];
-  v7[3] = 0;
-  v8 = 1;
-LABEL_9:
-  v5[2](v5);
+  support_format_zip = archive_read_support_format_zip();
+  if (support_format_zip)
+  {
+    if (!error)
+    {
+      goto LABEL_25;
+    }
 
-  _Block_object_dispose(&v14, 8);
-  return v8;
+    v13 = archive_error_string();
+    v12 = ENErrorF(15, "%s failed (%ld): %s", "archive_read_support_format_zip", support_format_zip, v13);
+    goto LABEL_24;
+  }
+
+  open_FILE = archive_read_open_FILE();
+  if (open_FILE)
+  {
+    if (error)
+    {
+      v14 = archive_error_string();
+      v12 = ENErrorF(15, "%s failed (%ld): %s", "archive_read_open_FILE", open_FILE, v14);
+      goto LABEL_24;
+    }
+
+LABEL_25:
+    v10 = 0;
+    goto LABEL_9;
+  }
+
+  v9 = v17;
+  self->_archive = v17[3];
+  v9[3] = 0;
+  v10 = 1;
+LABEL_9:
+  v6[2](v6);
+
+  _Block_object_dispose(&v16, 8);
+  return v10;
 }
 
 uint64_t __40__ENArchive__openArchiveAndReturnError___block_invoke(uint64_t a1)
@@ -237,7 +285,6 @@ uint64_t __40__ENArchive__openArchiveAndReturnError___block_invoke(uint64_t a1)
   fileHandle = self->_fileHandle;
   if (fileHandle)
   {
-    archive = self->_archive;
     if (archive_read_next_header() == 1)
     {
       self->_endOfArchive = 1;
@@ -283,8 +330,8 @@ uint64_t __40__ENArchive__openArchiveAndReturnError___block_invoke(uint64_t a1)
       return 0;
     }
 
-LABEL_10:
-    v5 = ENErrorF(10);
+    ENErrorF(10, "Archive closed");
+    v5 = LABEL_11:;
     v6 = v5;
     result = 0;
     *error = v5;
@@ -298,7 +345,8 @@ LABEL_10:
       return 0;
     }
 
-    goto LABEL_10;
+    ENErrorF(10, "End of archive");
+    goto LABEL_11;
   }
 
   if (self->_entry)
@@ -308,7 +356,8 @@ LABEL_10:
 
   if (error)
   {
-    goto LABEL_10;
+    ENErrorF(10, "No entry");
+    goto LABEL_11;
   }
 
   return 0;
@@ -332,7 +381,7 @@ LABEL_10:
     return 0;
   }
 
-  v9 = ENErrorF(15);
+  v9 = ENErrorF(15, "Read %ld bytes, expected %ld", v7, length);
   v10 = v9;
   result = 0;
   *error = v9;
@@ -352,7 +401,7 @@ LABEL_10:
   {
     if (error)
     {
-      *error = ENErrorF(10);
+      *error = ENErrorF(10, "Archive closed");
     }
 
     return 0;
@@ -363,20 +412,19 @@ LABEL_10:
 {
   if ([(ENArchive *)self _checkEntryAndReturnError:0])
   {
-    entry = self->_entry;
-    v4 = archive_entry_pathname();
-    if (v4)
+    v2 = archive_entry_pathname();
+    if (v2)
     {
-      v4 = [objc_alloc(MEMORY[0x277CCACA8]) initWithUTF8String:v4];
+      v2 = [objc_alloc(MEMORY[0x277CCACA8]) initWithUTF8String:v2];
     }
   }
 
   else
   {
-    v4 = 0;
+    v2 = 0;
   }
 
-  return v4;
+  return v2;
 }
 
 - (unsigned)entryFileType
@@ -399,15 +447,13 @@ LABEL_10:
     return 0;
   }
 
-  archive = self->_archive;
   data = archive_read_data();
   if (data < 0)
   {
     if (error)
     {
-      v10 = self->_archive;
-      archive_error_string();
-      ENErrorF(16);
+      v8 = archive_error_string();
+      ENErrorF(16, "%s failed (%ld): %s", "archive_read_data", data, v8);
       *error = data = 0;
       return data;
     }
@@ -467,7 +513,7 @@ LABEL_15:
       goto LABEL_13;
     }
 
-    ENErrorF(16);
+    ENErrorF(16, "Current entry not found after reset");
     *error = v11 = 0;
   }
 
@@ -484,31 +530,26 @@ LABEL_16:
 
 - (BOOL)skipBytes:(unint64_t)bytes error:(id *)error
 {
-  v12 = *MEMORY[0x277D85DE8];
-  if ([(ENArchive *)self _checkEntryAndReturnError:error])
+  v11 = *MEMORY[0x277D85DE8];
+  if (![(ENArchive *)self _checkEntryAndReturnError:error])
   {
-    bzero(v11, 0x400uLL);
-    do
-    {
-      v7 = bytes == 0;
-      if (!bytes)
-      {
-        break;
-      }
+    return 0;
+  }
 
-      v8 = bytes >= 0x400 ? 1024 : bytes;
-      bytes -= v8;
+  bzero(v10, 0x400uLL);
+  do
+  {
+    v7 = bytes == 0;
+    if (!bytes)
+    {
+      break;
     }
 
-    while ([(ENArchive *)self readDataIntoBuffer:v11 length:v8 error:error]);
+    v8 = bytes >= 0x400 ? 1024 : bytes;
+    bytes -= v8;
   }
 
-  else
-  {
-    v7 = 0;
-  }
-
-  v9 = *MEMORY[0x277D85DE8];
+  while ([(ENArchive *)self readDataIntoBuffer:v10 length:v8 error:error]);
   return v7;
 }
 
@@ -517,7 +558,7 @@ LABEL_16:
   if (result)
   {
     v1 = result;
-    result = ENErrorF(10);
+    result = ENErrorF(10, "Archive closed");
     *v1 = result;
   }
 

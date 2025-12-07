@@ -9,7 +9,7 @@
 {
   y = center.y;
   x = center.x;
-  [(PHTransformableView *)self transform];
+  objc_msgSend_transform(self, a2);
   if (CGAffineTransformIsIdentity(&v7))
   {
     v6.receiver = self;
@@ -24,7 +24,7 @@
   width = frame.size.width;
   y = frame.origin.y;
   x = frame.origin.x;
-  [(PHTransformableView *)self transform];
+  objc_msgSend_transform(self, a2);
   if (CGAffineTransformIsIdentity(&v9))
   {
     v8.receiver = self;

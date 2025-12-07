@@ -116,46 +116,41 @@
   has = self->_has;
   if ((has & 4) != 0)
   {
-    threshold = self->_threshold;
     PBDataWriterWriteUint32Field();
     has = self->_has;
   }
 
   if (has)
   {
-    callDuration = self->_callDuration;
     PBDataWriterWriteUint32Field();
   }
 
   if (self->_sleepStateDurations.count)
   {
-    v7 = 0;
+    v5 = 0;
     do
     {
-      v8 = self->_sleepStateDurations.list[v7];
       PBDataWriterWriteUint32Field();
-      ++v7;
+      ++v5;
     }
 
-    while (v7 < self->_sleepStateDurations.count);
+    while (v5 < self->_sleepStateDurations.count);
   }
 
   if (self->_rxTxDurations.count)
   {
-    v9 = 0;
+    v6 = 0;
     do
     {
-      v10 = self->_rxTxDurations.list[v9];
       PBDataWriterWriteUint32Field();
-      ++v9;
+      ++v6;
     }
 
-    while (v9 < self->_rxTxDurations.count);
+    while (v6 < self->_rxTxDurations.count);
   }
 
   if ((*&self->_has & 2) != 0)
   {
-    powerMicroWatt = self->_powerMicroWatt;
 
     PBDataWriterWriteUint32Field();
   }
@@ -246,7 +241,6 @@
   IsEqual = [equal isMemberOfClass:objc_opt_class()];
   if (IsEqual)
   {
-    v6 = *(equal + 68);
     if ((*&self->_has & 4) != 0)
     {
       if ((*(equal + 68) & 4) == 0 || self->_threshold != *(equal + 16))

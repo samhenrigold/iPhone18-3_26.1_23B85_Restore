@@ -524,7 +524,7 @@ void __46__PKApplyAddBeneficiaryViewController__submit__block_invoke(uint64_t a1
   }
 }
 
-uint64_t __46__PKApplyAddBeneficiaryViewController__submit__block_invoke_2(uint64_t a1, int a2)
+void *__46__PKApplyAddBeneficiaryViewController__submit__block_invoke_2(uint64_t a1, int a2)
 {
   result = [*(a1 + 32) showSpinner:0];
   if (a2)

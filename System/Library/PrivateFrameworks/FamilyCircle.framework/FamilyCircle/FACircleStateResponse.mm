@@ -67,8 +67,8 @@
   v4 = [userInfo objectForKeyedSubscript:@"success"];
   bOOLValue = [v4 BOOLValue];
 
-  v6 = _FALogSystem();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+  v7 = _FALogSystem(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     [(FACircleStateResponse *)self success];
   }
@@ -93,10 +93,10 @@
 
 - (void)success
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   loadSuccess = [self loadSuccess];
   v6 = @"NO";
-  v10 = "[FACircleStateResponse success]";
+  v9 = "[FACircleStateResponse success]";
   if (loadSuccess)
   {
     v7 = @"YES";
@@ -107,18 +107,17 @@
     v7 = @"NO";
   }
 
-  v9 = 136315650;
-  v11 = 2112;
-  v12 = v7;
+  v8 = 136315650;
+  v10 = 2112;
+  v11 = v7;
   if (a2)
   {
     v6 = @"YES";
   }
 
-  v13 = 2112;
-  v14 = v6;
-  _os_log_debug_impl(&dword_1B70B0000, a3, OS_LOG_TYPE_DEBUG, "%s %@ && %@", &v9, 0x20u);
-  v8 = *MEMORY[0x1E69E9840];
+  v12 = 2112;
+  v13 = v6;
+  _os_log_debug_impl(&dword_1B70B0000, a3, OS_LOG_TYPE_DEBUG, "%s %@ && %@", &v8, 0x20u);
 }
 
 @end

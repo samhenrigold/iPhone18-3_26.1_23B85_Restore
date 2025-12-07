@@ -49,15 +49,13 @@ uint64_t __31__DDUICoreAgent_sharedInstance__block_invoke(uint64_t a1)
     _os_log_impl(&dword_230EF9000, v3, OS_LOG_TYPE_DEFAULT, "Starting up DDUICoreAgent {self: %@}", buf, 0xCu);
   }
 
-  v4 = DDUICorePrimaryQueue();
+  v5 = DDUICorePrimaryQueue(v4);
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __22__DDUICoreAgent_start__block_invoke;
   block[3] = &unk_2788F5A68;
   block[4] = self;
-  dispatch_async(v4, block);
-
-  v5 = *MEMORY[0x277D85DE8];
+  dispatch_async(v5, block);
 }
 
 - (void)startNFCServerWithLocalIdentity:(id)identity listenerUUID:(id)d remotePublicKey:(id)key contactID:(id)iD deviceModel:(id)model deviceName:(id)name
@@ -77,7 +75,7 @@ uint64_t __31__DDUICoreAgent_sharedInstance__block_invoke(uint64_t a1)
     _os_log_impl(&dword_230EF9000, v20, OS_LOG_TYPE_DEFAULT, "Starting NFC server {self: %@}", buf, 0xCu);
   }
 
-  v21 = DDUICorePrimaryQueue();
+  v22 = DDUICorePrimaryQueue(v21);
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __111__DDUICoreAgent_startNFCServerWithLocalIdentity_listenerUUID_remotePublicKey_contactID_deviceModel_deviceName___block_invoke;
@@ -89,15 +87,13 @@ uint64_t __31__DDUICoreAgent_sharedInstance__block_invoke(uint64_t a1)
   v33 = iDCopy;
   v34 = modelCopy;
   v35 = nameCopy;
-  v22 = nameCopy;
-  v23 = modelCopy;
-  v24 = iDCopy;
-  v25 = keyCopy;
-  v26 = dCopy;
-  v27 = identityCopy;
-  dispatch_async(v21, block);
-
-  v28 = *MEMORY[0x277D85DE8];
+  v23 = nameCopy;
+  v24 = modelCopy;
+  v25 = iDCopy;
+  v26 = keyCopy;
+  v27 = dCopy;
+  v28 = identityCopy;
+  dispatch_async(v22, block);
 }
 
 void __111__DDUICoreAgent_startNFCServerWithLocalIdentity_listenerUUID_remotePublicKey_contactID_deviceModel_deviceName___block_invoke(id *a1)
@@ -148,15 +144,13 @@ void __111__DDUICoreAgent_startNFCServerWithLocalIdentity_listenerUUID_remotePub
     _os_log_impl(&dword_230EF9000, v3, OS_LOG_TYPE_DEFAULT, "Stopping NFC server {self: %@}", buf, 0xCu);
   }
 
-  v4 = DDUICorePrimaryQueue();
+  v5 = DDUICorePrimaryQueue(v4);
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __30__DDUICoreAgent_stopNFCServer__block_invoke;
   block[3] = &unk_2788F5A68;
   block[4] = self;
-  dispatch_async(v4, block);
-
-  v5 = *MEMORY[0x277D85DE8];
+  dispatch_async(v5, block);
 }
 
 void __30__DDUICoreAgent_stopNFCServer__block_invoke(uint64_t a1)
@@ -182,19 +176,17 @@ void __30__DDUICoreAgent_stopNFCServer__block_invoke(uint64_t a1)
       _os_log_impl(&dword_230EF9000, v3, OS_LOG_TYPE_DEFAULT, "Setup event stream handler {self: %@}", buf, 0xCu);
     }
 
-    v4 = DDUICorePrimaryQueue();
+    v5 = DDUICorePrimaryQueue(v4);
     handler[0] = MEMORY[0x277D85DD0];
     handler[1] = 3221225472;
     handler[2] = __30__DDUICoreAgent__startOnQueue__block_invoke;
     handler[3] = &unk_2788F5AE0;
     handler[4] = self;
-    xpc_set_event_stream_handler("com.apple.rapport.matching", v4, handler);
+    xpc_set_event_stream_handler("com.apple.rapport.matching", v5, handler);
 
-    v5 = +[_DDUIRemoteDisplaySessionHandler sharedInstance];
-    [v5 activateWithCompletion:&__block_literal_global_9];
+    v6 = +[_DDUIRemoteDisplaySessionHandler sharedInstance];
+    [v6 activateWithCompletion:&__block_literal_global_9];
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __30__DDUICoreAgent__startOnQueue__block_invoke(uint64_t a1, void *a2)
@@ -266,7 +258,7 @@ void __30__DDUICoreAgent__startOnQueue__block_invoke_2(uint64_t a1)
 
 - (void)_setupListenerIfNeededWithCompletion:(id)completion
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   v5 = completionCopy;
   if (self->_endpointPairingListener)
@@ -279,12 +271,12 @@ void __30__DDUICoreAgent__startOnQueue__block_invoke_2(uint64_t a1)
 
   else
   {
-    v17[0] = 0;
-    v17[1] = v17;
-    v17[2] = 0x3032000000;
-    v17[3] = __Block_byref_object_copy_;
-    v17[4] = __Block_byref_object_dispose_;
-    v18 = _Block_copy(completionCopy);
+    v16[0] = 0;
+    v16[1] = v16;
+    v16[2] = 0x3032000000;
+    v16[3] = __Block_byref_object_copy_;
+    v16[4] = __Block_byref_object_dispose_;
+    v17 = _Block_copy(completionCopy);
     v6 = [DDUIEndpointPairingListener alloc];
     v7 = DDUIEndpointPairingListeningTransportForOptions(-1);
     v8 = [(DDUIEndpointPairingListener *)v6 initWithTransport:v7];
@@ -296,43 +288,41 @@ void __30__DDUICoreAgent__startOnQueue__block_invoke_2(uint64_t a1)
     {
       v11 = self->_endpointPairingListener;
       *buf = 138412290;
-      v20 = v11;
+      v19 = v11;
       _os_log_impl(&dword_230EF9000, v10, OS_LOG_TYPE_DEFAULT, "setupDDUIListenerIfNeeded, created listener for all available transports {endpointPairingListener: %@}", buf, 0xCu);
     }
 
     v12 = self->_endpointPairingListener;
-    v16[0] = MEMORY[0x277D85DD0];
-    v16[1] = 3221225472;
-    v16[2] = __54__DDUICoreAgent__setupListenerIfNeededWithCompletion___block_invoke;
-    v16[3] = &unk_2788F5B28;
-    v16[4] = v17;
-    v14[4] = v17;
     v15[0] = MEMORY[0x277D85DD0];
     v15[1] = 3221225472;
-    v15[2] = __54__DDUICoreAgent__setupListenerIfNeededWithCompletion___block_invoke_11;
-    v15[3] = &unk_2788F5B50;
-    v15[4] = self;
+    v15[2] = __54__DDUICoreAgent__setupListenerIfNeededWithCompletion___block_invoke;
+    v15[3] = &unk_2788F5B28;
+    v15[4] = v16;
+    v13[4] = v16;
     v14[0] = MEMORY[0x277D85DD0];
     v14[1] = 3221225472;
-    v14[2] = __54__DDUICoreAgent__setupListenerIfNeededWithCompletion___block_invoke_13;
-    v14[3] = &unk_2788F5B78;
-    [(DDUIEndpointPairingListener *)v12 beginListeningWithErrorHandler:v16 pairingHandler:v15 completion:v14];
-    _Block_object_dispose(v17, 8);
+    v14[2] = __54__DDUICoreAgent__setupListenerIfNeededWithCompletion___block_invoke_11;
+    v14[3] = &unk_2788F5B50;
+    v14[4] = self;
+    v13[0] = MEMORY[0x277D85DD0];
+    v13[1] = 3221225472;
+    v13[2] = __54__DDUICoreAgent__setupListenerIfNeededWithCompletion___block_invoke_13;
+    v13[3] = &unk_2788F5B78;
+    [(DDUIEndpointPairingListener *)v12 beginListeningWithErrorHandler:v15 pairingHandler:v14 completion:v13];
+    _Block_object_dispose(v16, 8);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __54__DDUICoreAgent__setupListenerIfNeededWithCompletion___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = os_log_create("com.apple.DeviceDiscoveryUI", "agent");
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 138412290;
-    v10 = v3;
-    _os_log_impl(&dword_230EF9000, v4, OS_LOG_TYPE_DEFAULT, "setupDDUIListenerIfNeeded, received an error {listenError: %@}", &v9, 0xCu);
+    v8 = 138412290;
+    v9 = v3;
+    _os_log_impl(&dword_230EF9000, v4, OS_LOG_TYPE_DEFAULT, "setupDDUIListenerIfNeeded, received an error {listenError: %@}", &v8, 0xCu);
   }
 
   v5 = *(*(a1 + 32) + 8);
@@ -350,26 +340,24 @@ void __54__DDUICoreAgent__setupListenerIfNeededWithCompletion___block_invoke(uin
   }
 
   *(v5 + 40) = 0;
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __54__DDUICoreAgent__setupListenerIfNeededWithCompletion___block_invoke_11(uint64_t a1, void *a2, void *a3)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = os_log_create("com.apple.DeviceDiscoveryUI", "agent");
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = [v5 remoteDevice];
-    v12 = 138412802;
-    v13 = v6;
-    v14 = 2112;
-    v15 = v5;
-    v16 = 2112;
-    v17 = v8;
-    _os_log_impl(&dword_230EF9000, v7, OS_LOG_TYPE_DEFAULT, "setupDDUIListenerIfNeeded, incoming pairing session {pairInitiateMessage: %@, pairingSession: %@ remoteDevice %@}", &v12, 0x20u);
+    v11 = 138412802;
+    v12 = v6;
+    v13 = 2112;
+    v14 = v5;
+    v15 = 2112;
+    v16 = v8;
+    _os_log_impl(&dword_230EF9000, v7, OS_LOG_TYPE_DEFAULT, "setupDDUIListenerIfNeeded, incoming pairing session {pairInitiateMessage: %@, pairingSession: %@ remoteDevice %@}", &v11, 0x20u);
   }
 
   v9 = [v5 sessionType];
@@ -383,8 +371,6 @@ void __54__DDUICoreAgent__setupListenerIfNeededWithCompletion___block_invoke_11(
   {
     [v10 _handleIncomingPairingSession:v5 pairingMessage:v6];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __54__DDUICoreAgent__setupListenerIfNeededWithCompletion___block_invoke_13(uint64_t a1)
@@ -498,7 +484,7 @@ void __62__DDUICoreAgent__handleIncomingPairingSession_pairingMessage___block_in
   v4 = os_log_create("com.apple.DeviceDiscoveryUI", "agent");
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    __62__DDUICoreAgent__handleIncomingPairingSession_pairingMessage___block_invoke_cold_1(a1);
+    __62__DDUICoreAgent__handleIncomingPairingSession_pairingMessage___block_invoke_cold_1();
   }
 
   v5 = *(a1 + 40);
@@ -508,16 +494,16 @@ void __62__DDUICoreAgent__handleIncomingPairingSession_pairingMessage___block_in
 
 void __62__DDUICoreAgent__handleIncomingPairingSession_pairingMessage___block_invoke_17(uint64_t a1, uint64_t a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v4 = os_log_create("com.apple.DeviceDiscoveryUI", "agent");
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 32);
-    v9 = 138412546;
-    v10 = v5;
-    v11 = 1024;
-    v12 = a2;
-    _os_log_impl(&dword_230EF9000, v4, OS_LOG_TYPE_DEFAULT, "incoming pairingSession, finished pairing {pairingSession: %@, result %d}", &v9, 0x12u);
+    v8 = 138412546;
+    v9 = v5;
+    v10 = 1024;
+    v11 = a2;
+    _os_log_impl(&dword_230EF9000, v4, OS_LOG_TYPE_DEFAULT, "incoming pairingSession, finished pairing {pairingSession: %@, result %d}", &v8, 0x12u);
   }
 
   if (a2 == 1)
@@ -526,13 +512,11 @@ void __62__DDUICoreAgent__handleIncomingPairingSession_pairingMessage___block_in
     v7 = [*(a1 + 32) sessionID];
     [v6 cancelMessageWithID:v7];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __62__DDUICoreAgent__handleIncomingPairingSession_pairingMessage___block_invoke_19(uint64_t a1, char a2, void *a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v5 = a3;
   if (!v5 || (a2 & 1) != 0)
   {
@@ -544,16 +528,14 @@ void __62__DDUICoreAgent__handleIncomingPairingSession_pairingMessage___block_in
     v6 = os_log_create("com.apple.DeviceDiscoveryUI", "agent");
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = 138412290;
-      v10 = v5;
-      _os_log_impl(&dword_230EF9000, v6, OS_LOG_TYPE_DEFAULT, "Responding with existing listener UUID %@", &v9, 0xCu);
+      v8 = 138412290;
+      v9 = v5;
+      _os_log_impl(&dword_230EF9000, v6, OS_LOG_TYPE_DEFAULT, "Responding with existing listener UUID %@", &v8, 0xCu);
     }
 
     v7 = [[DDUIPairCompleteMessage alloc] initWithNotificationResult:1 listenerUUID:v5];
     [*(a1 + 32) pairWithMessage:v7];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_showNotificationForPairingSession:(id)session pairingMessage:(id)message
@@ -607,14 +589,14 @@ void __67__DDUICoreAgent__showNotificationForPairingSession_pairingMessage___blo
 
 void __67__DDUICoreAgent__showNotificationForPairingSession_pairingMessage___block_invoke_2(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = os_log_create("com.apple.DeviceDiscoveryUI", "agent");
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 138412290;
-    v11 = v3;
-    _os_log_impl(&dword_230EF9000, v4, OS_LOG_TYPE_DEFAULT, "Received listener uuid %@", &v10, 0xCu);
+    v9 = 138412290;
+    v10 = v3;
+    _os_log_impl(&dword_230EF9000, v4, OS_LOG_TYPE_DEFAULT, "Received listener uuid %@", &v9, 0xCu);
   }
 
   v5 = [DDUIPairCompleteMessage alloc];
@@ -632,8 +614,6 @@ void __67__DDUICoreAgent__showNotificationForPairingSession_pairingMessage___blo
 
   v8 = [(DDUIPairCompleteMessage *)v5 initWithNotificationResult:v6 listenerUUID:v7];
   [*(a1 + 32) pairWithMessage:v8];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (_DDUINotificationManager)notificationManager
@@ -653,24 +633,24 @@ void __67__DDUICoreAgent__showNotificationForPairingSession_pairingMessage___blo
 
 - (void)_handleIncomingContinuityCameraConfirmation:(id)confirmation
 {
-  v58 = *MEMORY[0x277D85DE8];
+  v57 = *MEMORY[0x277D85DE8];
   confirmationCopy = confirmation;
   notificationManager = [(DDUICoreAgent *)self notificationManager];
-  v51[0] = MEMORY[0x277D85DD0];
-  v51[1] = 3221225472;
-  v51[2] = __61__DDUICoreAgent__handleIncomingContinuityCameraConfirmation___block_invoke;
-  v51[3] = &unk_2788F5BA0;
-  v52 = confirmationCopy;
-  v53 = notificationManager;
-  v48[0] = MEMORY[0x277D85DD0];
-  v48[1] = 3221225472;
-  v48[2] = __61__DDUICoreAgent__handleIncomingContinuityCameraConfirmation___block_invoke_24;
-  v48[3] = &unk_2788F5BC8;
-  v6 = v52;
-  v49 = v6;
-  v7 = v53;
-  v50 = v7;
-  [v6 activateWithErrorHandler:v51 completionHandler:v48];
+  v50[0] = MEMORY[0x277D85DD0];
+  v50[1] = 3221225472;
+  v50[2] = __61__DDUICoreAgent__handleIncomingContinuityCameraConfirmation___block_invoke;
+  v50[3] = &unk_2788F5BA0;
+  v51 = confirmationCopy;
+  v52 = notificationManager;
+  v47[0] = MEMORY[0x277D85DD0];
+  v47[1] = 3221225472;
+  v47[2] = __61__DDUICoreAgent__handleIncomingContinuityCameraConfirmation___block_invoke_24;
+  v47[3] = &unk_2788F5BC8;
+  v6 = v51;
+  v48 = v6;
+  v7 = v52;
+  v49 = v7;
+  [v6 activateWithErrorHandler:v50 completionHandler:v47];
   incomingMessage = [v6 incomingMessage];
   v9 = [incomingMessage objectForKeyedSubscript:@"actionType"];
 
@@ -685,9 +665,9 @@ void __67__DDUICoreAgent__showNotificationForPairingSession_pairingMessage___blo
       remoteDevice = [v6 remoteDevice];
       identifier = [remoteDevice identifier];
       *buf = 138412546;
-      v55 = identifier;
-      v56 = 1024;
-      v57 = shouldAutoAcceptCCConfirmation;
+      v54 = identifier;
+      v55 = 1024;
+      v56 = shouldAutoAcceptCCConfirmation;
       _os_log_impl(&dword_230EF9000, v12, OS_LOG_TYPE_DEFAULT, "Incoming continuity camera confirmation request from: %@, shouldByPassConfirmation: %d", buf, 0x12u);
     }
 
@@ -695,14 +675,14 @@ void __67__DDUICoreAgent__showNotificationForPairingSession_pairingMessage___blo
     {
       sessionID = [v6 sessionID];
       remoteDevice2 = [v6 remoteDevice];
-      v46[0] = MEMORY[0x277D85DD0];
-      v46[1] = 3221225472;
-      v46[2] = __61__DDUICoreAgent__handleIncomingContinuityCameraConfirmation___block_invoke_29;
-      v46[3] = &unk_2788F5C68;
-      v47 = v6;
-      [v7 handleContinuityCameraConfirmationWithID:sessionID fromDevice:remoteDevice2 completionHandler:v46];
+      v45[0] = MEMORY[0x277D85DD0];
+      v45[1] = 3221225472;
+      v45[2] = __61__DDUICoreAgent__handleIncomingContinuityCameraConfirmation___block_invoke_29;
+      v45[3] = &unk_2788F5C68;
+      v46 = v6;
+      [v7 handleContinuityCameraConfirmationWithID:sessionID fromDevice:remoteDevice2 completionHandler:v45];
 
-      v19 = v47;
+      v19 = v46;
       goto LABEL_22;
     }
 
@@ -734,9 +714,9 @@ void __67__DDUICoreAgent__showNotificationForPairingSession_pairingMessage___blo
       remoteDevice4 = [v6 remoteDevice];
       identifier3 = [remoteDevice4 identifier];
       *buf = 138412546;
-      v55 = identifier3;
-      v56 = 1024;
-      v57 = shouldAutoAcceptCCConfirmation2;
+      v54 = identifier3;
+      v55 = 1024;
+      v56 = shouldAutoAcceptCCConfirmation2;
       _os_log_impl(&dword_230EF9000, v34, OS_LOG_TYPE_DEFAULT, "Incoming continuity mic-only confirmation request from: %@, shouldByPassConfirmation: %d", buf, 0x12u);
     }
 
@@ -744,14 +724,14 @@ void __67__DDUICoreAgent__showNotificationForPairingSession_pairingMessage___blo
     {
       sessionID3 = [v6 sessionID];
       remoteDevice5 = [v6 remoteDevice];
-      v41[0] = MEMORY[0x277D85DD0];
-      v41[1] = 3221225472;
-      v41[2] = __61__DDUICoreAgent__handleIncomingContinuityCameraConfirmation___block_invoke_37;
-      v41[3] = &unk_2788F5C68;
-      v42 = v6;
-      [v7 handleMicOnlyConfirmationWithID:sessionID3 fromDevice:remoteDevice5 completionHandler:v41];
+      v40[0] = MEMORY[0x277D85DD0];
+      v40[1] = 3221225472;
+      v40[2] = __61__DDUICoreAgent__handleIncomingContinuityCameraConfirmation___block_invoke_37;
+      v40[3] = &unk_2788F5C68;
+      v41 = v6;
+      [v7 handleMicOnlyConfirmationWithID:sessionID3 fromDevice:remoteDevice5 completionHandler:v40];
 
-      v19 = v42;
+      v19 = v41;
       goto LABEL_22;
     }
 
@@ -778,9 +758,9 @@ LABEL_6:
     remoteDevice7 = [v6 remoteDevice];
     identifier5 = [remoteDevice7 identifier];
     *buf = 138412546;
-    v55 = identifier5;
-    v56 = 1024;
-    v57 = v22;
+    v54 = identifier5;
+    v55 = 1024;
+    v56 = v22;
     _os_log_impl(&dword_230EF9000, v23, OS_LOG_TYPE_DEFAULT, "Incoming dedicated continuity camera confirmation request from: %@, shouldByPassConfirmation: %d", buf, 0x12u);
   }
 
@@ -797,19 +777,18 @@ LABEL_6:
 
   else
   {
-    v43[0] = MEMORY[0x277D85DD0];
-    v43[1] = 3221225472;
-    v43[2] = __61__DDUICoreAgent__handleIncomingContinuityCameraConfirmation___block_invoke_33;
-    v43[3] = &unk_2788F5BA0;
-    v44 = v6;
-    v45 = v19;
-    [(DDUIPairCompleteMessage *)v45 presentProxCardForDevice:v27 completion:v43];
+    v42[0] = MEMORY[0x277D85DD0];
+    v42[1] = 3221225472;
+    v42[2] = __61__DDUICoreAgent__handleIncomingContinuityCameraConfirmation___block_invoke_33;
+    v42[3] = &unk_2788F5BA0;
+    v43 = v6;
+    v44 = v19;
+    [(DDUIPairCompleteMessage *)v44 presentProxCardForDevice:v27 completion:v42];
 
-    v29 = v44;
+    v29 = v43;
   }
 
 LABEL_22:
-  v40 = *MEMORY[0x277D85DE8];
 }
 
 void __61__DDUICoreAgent__handleIncomingContinuityCameraConfirmation___block_invoke(uint64_t a1, void *a2)
@@ -818,7 +797,7 @@ void __61__DDUICoreAgent__handleIncomingContinuityCameraConfirmation___block_inv
   v4 = os_log_create("com.apple.DeviceDiscoveryUI", "agent");
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    __62__DDUICoreAgent__handleIncomingPairingSession_pairingMessage___block_invoke_cold_1(a1);
+    __62__DDUICoreAgent__handleIncomingPairingSession_pairingMessage___block_invoke_cold_1();
   }
 
   v5 = *(a1 + 40);
@@ -828,16 +807,16 @@ void __61__DDUICoreAgent__handleIncomingContinuityCameraConfirmation___block_inv
 
 void __61__DDUICoreAgent__handleIncomingContinuityCameraConfirmation___block_invoke_24(uint64_t a1, uint64_t a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v4 = os_log_create("com.apple.DeviceDiscoveryUI", "agent");
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 32);
-    v9 = 138412546;
-    v10 = v5;
-    v11 = 1024;
-    v12 = a2;
-    _os_log_impl(&dword_230EF9000, v4, OS_LOG_TYPE_DEFAULT, "incoming pairingSession, finished pairing {pairingSession: %@, result %d}", &v9, 0x12u);
+    v8 = 138412546;
+    v9 = v5;
+    v10 = 1024;
+    v11 = a2;
+    _os_log_impl(&dword_230EF9000, v4, OS_LOG_TYPE_DEFAULT, "incoming pairingSession, finished pairing {pairingSession: %@, result %d}", &v8, 0x12u);
   }
 
   if (a2 == 1)
@@ -846,8 +825,6 @@ void __61__DDUICoreAgent__handleIncomingContinuityCameraConfirmation___block_inv
     v7 = [*(a1 + 32) sessionID];
     [v6 cancelMessageWithID:v7];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __61__DDUICoreAgent__handleIncomingContinuityCameraConfirmation___block_invoke_29(uint64_t a1, uint64_t a2)
@@ -864,7 +841,7 @@ void __61__DDUICoreAgent__handleIncomingContinuityCameraConfirmation___block_inv
 
 void __61__DDUICoreAgent__handleIncomingContinuityCameraConfirmation___block_invoke_33(uint64_t a1, void *a2)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = os_log_create("com.apple.DeviceDiscoveryUI", "agent");
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
@@ -874,11 +851,11 @@ void __61__DDUICoreAgent__handleIncomingContinuityCameraConfirmation___block_inv
     {
       v6 = [*(a1 + 32) remoteDevice];
       v7 = [v6 identifier];
-      v19 = 138412546;
-      v20 = v7;
-      v21 = 2112;
-      v22 = v3;
-      _os_log_impl(&dword_230EF9000, v4, OS_LOG_TYPE_DEFAULT, "Dedicated camera request from: %@, declined prox card setup: %@", &v19, 0x16u);
+      v18 = 138412546;
+      v19 = v7;
+      v20 = 2112;
+      v21 = v3;
+      _os_log_impl(&dword_230EF9000, v4, OS_LOG_TYPE_DEFAULT, "Dedicated camera request from: %@, declined prox card setup: %@", &v18, 0x16u);
     }
 
     v8 = [[DDUIPairCompleteMessage alloc] initWithNotificationResult:7];
@@ -891,9 +868,9 @@ void __61__DDUICoreAgent__handleIncomingContinuityCameraConfirmation___block_inv
     {
       v10 = [*(a1 + 32) remoteDevice];
       v11 = [v10 identifier];
-      v19 = 138412290;
-      v20 = v11;
-      _os_log_impl(&dword_230EF9000, v4, OS_LOG_TYPE_DEFAULT, "Dedicated camera request from: %@, accepted prox card setup", &v19, 0xCu);
+      v18 = 138412290;
+      v19 = v11;
+      _os_log_impl(&dword_230EF9000, v4, OS_LOG_TYPE_DEFAULT, "Dedicated camera request from: %@, accepted prox card setup", &v18, 0xCu);
     }
 
     v12 = *(a1 + 32);
@@ -911,23 +888,12 @@ void __61__DDUICoreAgent__handleIncomingContinuityCameraConfirmation___block_inv
   }
 
   [*v9 pairWithMessage:v8];
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void __61__DDUICoreAgent__handleIncomingContinuityCameraConfirmation___block_invoke_37(uint64_t a1, uint64_t a2)
 {
   v3 = [[DDUIPairCompleteMessage alloc] initWithNotificationResult:a2];
   [*(a1 + 32) pairWithMessage:v3];
-}
-
-void __62__DDUICoreAgent__handleIncomingPairingSession_pairingMessage___block_invoke_cold_1(uint64_t a1)
-{
-  v5 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_230EF9000, v2, v3, "incoming pairingSession, failed to pair {pairingSession: %@ error %@}");
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 @end

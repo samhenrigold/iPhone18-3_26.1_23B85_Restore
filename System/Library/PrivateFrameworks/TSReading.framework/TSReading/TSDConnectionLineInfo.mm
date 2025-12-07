@@ -116,7 +116,7 @@
   [TSDLayoutController temporaryLayoutControllerForInfos:v8 useInBlock:v9];
 }
 
-uint64_t __65__TSDConnectionLineInfo_computeLayoutInfoGeometry_andPathSource___block_invoke(uint64_t a1, void *a2)
+void *__65__TSDConnectionLineInfo_computeLayoutInfoGeometry_andPathSource___block_invoke(uint64_t a1, void *a2)
 {
   v3 = [a2 layoutForInfo:*(a1 + 32)];
   result = [v3 invalidateConnections];
@@ -141,7 +141,7 @@ uint64_t __65__TSDConnectionLineInfo_computeLayoutInfoGeometry_andPathSource___b
   if (result)
   {
 
-    return [(CGAffineTransform *)result fullTransform];
+    return objc_msgSend_fullTransform(result);
   }
 
   else

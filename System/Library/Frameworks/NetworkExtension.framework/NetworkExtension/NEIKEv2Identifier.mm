@@ -4,6 +4,7 @@
 - (NSString)stringValue;
 - (id)copyShortDescription;
 - (id)copyWithZone:(_NSZone *)zone;
+- (id)descriptionWithIndent:(int)indent options:(unint64_t)options;
 - (id)initWithIdentifierData:(void *)data;
 - (unint64_t)hash;
 @end
@@ -67,7 +68,7 @@
 
 + (NEIKEv2NULLIdentifier)createIdentifierWithType:(void *)type data:
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   typeCopy = type;
   objc_opt_self();
   if (a2 <= 4)
@@ -124,9 +125,9 @@ LABEL_15:
         v25 = ne_log_obj();
         if (os_log_type_enabled(v25, OS_LOG_TYPE_FAULT))
         {
-          *v28 = 136315138;
-          *&v28[4] = "[NEIKEv2AddressIdentifier initWithAddressData:identifierType:]";
-          _os_log_fault_impl(&dword_1BA83C000, v25, OS_LOG_TYPE_FAULT, "%s called with null addressData", v28, 0xCu);
+          *v27 = 136315138;
+          *&v27[4] = "[NEIKEv2AddressIdentifier initWithAddressData:identifierType:]";
+          _os_log_fault_impl(&dword_1BA83C000, v25, OS_LOG_TYPE_FAULT, "%s called with null addressData", v27, 0xCu);
         }
 
         goto LABEL_34;
@@ -134,11 +135,11 @@ LABEL_15:
 
       if (a2 == 5)
       {
-        LODWORD(v29) = 0;
+        LODWORD(v28) = 0;
         if ([v14 length] == 16)
         {
-          *v28 = 7708;
-          v16 = &v28[8];
+          *v27 = 7708;
+          v16 = &v27[8];
           v17 = v15;
           v18 = 16;
           goto LABEL_27;
@@ -155,13 +156,13 @@ LABEL_15:
       {
         if ([v14 length] == 4)
         {
-          *v28 = 528;
-          v16 = &v28[4];
+          *v27 = 528;
+          v16 = &v27[4];
           v17 = v15;
           v18 = 4;
 LABEL_27:
-          [v17 getBytes:v16 length:{v18, *v28}];
-          v22 = [MEMORY[0x1E6977E08] endpointWithAddress:v28];
+          [v17 getBytes:v16 length:{v18, *v27}];
+          v22 = [MEMORY[0x1E6977E08] endpointWithAddress:v27];
           v23 = [(NEIKEv2Identifier *)v13 initWithIdentifierData:v15];
           v24 = v23;
           if (v23)
@@ -181,7 +182,7 @@ LABEL_27:
         {
 LABEL_40:
           *buf = 134217984;
-          v31 = [v15 length];
+          v30 = [v15 length];
           _os_log_error_impl(&dword_1BA83C000, v25, OS_LOG_TYPE_ERROR, "Invalid address length %zu", buf, 0xCu);
         }
       }
@@ -217,7 +218,7 @@ LABEL_36:
         goto LABEL_21;
       }
 
-      *v28 = 0;
+      *v27 = 0;
       v10 = "NULL identifier should not contain data";
       v11 = v9;
       v12 = 2;
@@ -229,13 +230,13 @@ LABEL_20:
   v9 = ne_log_obj();
   if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
   {
-    *v28 = 67109120;
-    *&v28[4] = a2;
+    *v27 = 67109120;
+    *&v27[4] = a2;
     v10 = "Unknown identifier type %u";
     v11 = v9;
     v12 = 8;
 LABEL_39:
-    _os_log_error_impl(&dword_1BA83C000, v11, OS_LOG_TYPE_ERROR, v10, v28, v12);
+    _os_log_error_impl(&dword_1BA83C000, v11, OS_LOG_TYPE_ERROR, v10, v27, v12);
   }
 
 LABEL_21:
@@ -243,7 +244,6 @@ LABEL_21:
   v19 = 0;
 LABEL_37:
 
-  v26 = *MEMORY[0x1E69E9840];
   return v19;
 }
 
@@ -282,6 +282,28 @@ LABEL_37:
   }
 
   return v5;
+}
+
+- (id)descriptionWithIndent:(int)indent options:(unint64_t)options
+{
+  v5 = *&indent;
+  v7 = [objc_alloc(MEMORY[0x1E696AD60]) initWithCapacity:0];
+  typeDescription = [(NEIKEv2Identifier *)self typeDescription];
+  [v7 appendPrettyObject:typeDescription withName:@"Payload Type" andIndent:v5 options:options];
+
+  if ([(NEIKEv2Identifier *)self identifierType]!= 13)
+  {
+    stringValue = [(NEIKEv2Identifier *)self stringValue];
+    if (!stringValue)
+    {
+      identifierData = [(NEIKEv2Identifier *)self identifierData];
+      stringValue = [identifierData base64EncodedStringWithOptions:0];
+    }
+
+    [v7 appendPrettyObject:stringValue withName:@"Value" andIndent:v5 options:options];
+  }
+
+  return v7;
 }
 
 - (id)copyShortDescription

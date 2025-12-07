@@ -20,7 +20,7 @@
 
 void __34__ATXHeuristicActionProducer_init__block_invoke(uint64_t a1)
 {
-  v2 = __atxlog_handle_heuristic();
+  v2 = __atxlog_handle_heuristic(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     *v4 = 0;
@@ -33,7 +33,7 @@ void __34__ATXHeuristicActionProducer_init__block_invoke(uint64_t a1)
 
 - (void)coalescedProduceActions
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __53__ATXHeuristicActionProducer_coalescedProduceActions__block_invoke;
@@ -45,16 +45,13 @@ void __34__ATXHeuristicActionProducer_init__block_invoke(uint64_t a1)
   }
 
   v2 = [ATXHeuristicActionProducer coalescedProduceActions]::_pasExprOnceResult;
-  [v2 runAfterDelaySeconds:0 coalescingBehavior:1.0];
-  v3 = __atxlog_handle_heuristic();
+  v3 = __atxlog_handle_heuristic([v2 runAfterDelaySeconds:0 coalescingBehavior:1.0]);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v7 = 0x3FF0000000000000;
+    v6 = 0x3FF0000000000000;
     _os_log_impl(&dword_2263AA000, v3, OS_LOG_TYPE_DEFAULT, "ATXHeuristicActionProducer triggering coalesced produceActions in %f seconds", buf, 0xCu);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 + (id)sharedInstance
@@ -76,13 +73,12 @@ void __34__ATXHeuristicActionProducer_init__block_invoke(uint64_t a1)
 
 void __44__ATXHeuristicActionProducer_sharedInstance__block_invoke(uint64_t a1)
 {
-  v2 = objc_autoreleasePoolPush();
-  v3 = *(a1 + 32);
-  v4 = objc_opt_new();
-  v5 = +[ATXHeuristicActionProducer sharedInstance]::_pasExprOnceResult;
-  +[ATXHeuristicActionProducer sharedInstance]::_pasExprOnceResult = v4;
+  v1 = objc_autoreleasePoolPush();
+  v2 = objc_opt_new();
+  v3 = +[ATXHeuristicActionProducer sharedInstance]::_pasExprOnceResult;
+  +[ATXHeuristicActionProducer sharedInstance]::_pasExprOnceResult = v2;
 
-  objc_autoreleasePoolPop(v2);
+  objc_autoreleasePoolPop(v1);
 }
 
 - (ATXHeuristicActionProducer)init
@@ -135,7 +131,7 @@ LABEL_6:
 
 uint64_t __63__ATXHeuristicActionProducer_invalidateOnGlobalQueueWithDelay___block_invoke(uint64_t a1)
 {
-  v2 = __atxlog_handle_heuristic();
+  v2 = __atxlog_handle_heuristic(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -229,65 +225,66 @@ void __53__ATXHeuristicActionProducer_coalescedProduceActions__block_invoke(uint
 
 - (id)produceActions
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v57 = *MEMORY[0x277D85DE8];
   sel_getName(a2);
-  v37 = os_transaction_create();
+  v41 = os_transaction_create();
   v3 = objc_opt_new();
   v4 = MEMORY[0x277CE8980];
-  v40 = v3;
+  v44 = v3;
   mEMORY[0x277D41BF8] = [MEMORY[0x277D41BF8] sharedInstance];
-  v38 = [v4 actionsWithLocationManager:mEMORY[0x277D41BF8]];
+  v42 = [v4 actionsWithLocationManager:mEMORY[0x277D41BF8]];
 
-  v6 = __atxlog_handle_heuristic();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = __atxlog_handle_heuristic(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134218242;
-    *&buf[4] = [v38 count];
-    v48 = 2112;
-    v49 = v38;
-    _os_log_impl(&dword_2263AA000, v6, OS_LOG_TYPE_DEFAULT, "Got %tu heuristic predictions: %@", buf, 0x16u);
+    *&buf[4] = [v42 count];
+    v52 = 2112;
+    v53 = v42;
+    _os_log_impl(&dword_2263AA000, v7, OS_LOG_TYPE_DEFAULT, "Got %tu heuristic predictions: %@", buf, 0x16u);
   }
 
-  if (!v38)
+  if (!v42)
   {
-    v31 = MEMORY[0x277CBEBF8];
+    v35 = MEMORY[0x277CBEBF8];
     goto LABEL_33;
   }
 
-  v41 = objc_opt_new();
-  v45 = 0u;
-  v46 = 0u;
-  v43 = 0u;
-  v44 = 0u;
-  obj = v38;
-  v7 = [obj countByEnumeratingWithState:&v43 objects:v52 count:16];
-  if (!v7)
+  v45 = objc_opt_new();
+  v49 = 0u;
+  v50 = 0u;
+  v47 = 0u;
+  v48 = 0u;
+  obj = v42;
+  v8 = [obj countByEnumeratingWithState:&v47 objects:v56 count:16];
+  if (!v8)
   {
     goto LABEL_24;
   }
 
-  v8 = *v44;
-  v9.i32[1] = -1059153344;
-  *v9.i32 = -31337.0;
-  v39 = vdupq_lane_s32(v9, 0);
+  v9 = *v48;
+  v10.i32[1] = -1059153344;
+  *v10.i32 = -31337.0;
+  v43 = vdupq_lane_s32(v10, 0);
   do
   {
-    for (i = 0; i != v7; ++i)
+    for (i = 0; i != v8; ++i)
     {
-      if (*v44 != v8)
+      if (*v48 != v9)
       {
         objc_enumerationMutation(obj);
       }
 
-      v11 = *(*(&v43 + 1) + 8 * i);
-      if ([(ATXHeuristicActionProducer *)self isActionBlacklisted:v11, v37])
+      v12 = *(*(&v47 + 1) + 8 * i);
+      v13 = [(ATXHeuristicActionProducer *)self isActionBlacklisted:v12, v41];
+      if (v13)
       {
-        v12 = __atxlog_handle_heuristic();
-        if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+        v14 = __atxlog_handle_heuristic(v13);
+        if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          *&buf[4] = v11;
-          _os_log_impl(&dword_2263AA000, v12, OS_LOG_TYPE_DEFAULT, "Heuristic action %@ is blacklisted.", buf, 0xCu);
+          *&buf[4] = v12;
+          _os_log_impl(&dword_2263AA000, v14, OS_LOG_TYPE_DEFAULT, "Heuristic action %@ is blacklisted.", buf, 0xCu);
         }
 
 LABEL_21:
@@ -295,121 +292,120 @@ LABEL_21:
         continue;
       }
 
-      if (![(ATXHeuristicActionProducer *)self userAlreadyEngagedWithAction:v11])
+      v15 = [(ATXHeuristicActionProducer *)self userAlreadyEngagedWithAction:v12];
+      if (!v15)
       {
-        v14 = objc_alloc(MEMORY[0x277CEB7F0]);
-        v15 = objc_opt_class();
-        heuristic = [v11 heuristic];
-        [v15 generateScoreForHeuristic:heuristic];
-        *&v17 = v17;
-        v12 = [v14 initWithPredictedItem:v11 score:v17];
+        v17 = objc_alloc(MEMORY[0x277CEB7F0]);
+        v18 = objc_opt_class();
+        heuristic = [v12 heuristic];
+        [v18 generateScoreForHeuristic:heuristic];
+        *&v20 = v20;
+        v14 = [v17 initWithPredictedItem:v12 score:v20];
 
-        v18 = [ATXHeuristicActionProducer actionExperienceForScoredHeuristicAction:v12];
-        [v12 score];
+        v21 = [ATXHeuristicActionProducer actionExperienceForScoredHeuristicAction:v14];
+        [v14 score];
         *buf = @"heuristic";
-        v50 = v19;
-        v20 = 16;
-        v51 = 0;
+        v54 = v22;
+        v23 = 16;
+        v55 = 0;
         do
         {
-          *&buf[v20] = v39;
-          v20 += 16;
+          *&buf[v23] = v43;
+          v23 += 16;
         }
 
-        while (v20 != 3328);
-        heuristic2 = [v11 heuristic];
-        v22 = [heuristic2 isEqualToString:@"bestAppHandoff:unknown"];
+        while (v23 != 3328);
+        heuristic2 = [v12 heuristic];
+        v25 = [heuristic2 isEqualToString:@"bestAppHandoff:unknown"];
 
-        if ((v22 & 1) == 0)
+        if ((v25 & 1) == 0)
         {
-          LOBYTE(v51) = v18 == 2;
-          HIBYTE(v51) = v18 == 1;
+          LOBYTE(v55) = v21 == 2;
+          HIBYTE(v55) = v21 == 1;
         }
 
-        v23 = [[ATXActionResult alloc] initWithScoredAction:v12 predictionItem:buf actionKey:@"heuristic"];
-        [v40 addObject:v23];
-        [v41 addObject:v11];
+        v26 = [[ATXActionResult alloc] initWithScoredAction:v14 predictionItem:buf actionKey:@"heuristic"];
+        [v44 addObject:v26];
+        [v45 addObject:v12];
 
         goto LABEL_21;
       }
 
-      v13 = __atxlog_handle_heuristic();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+      v16 = __atxlog_handle_heuristic(v15);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        *&buf[4] = v11;
-        _os_log_impl(&dword_2263AA000, v13, OS_LOG_TYPE_DEFAULT, "User already engaged with action. Not going to surface action: %@", buf, 0xCu);
+        *&buf[4] = v12;
+        _os_log_impl(&dword_2263AA000, v16, OS_LOG_TYPE_DEFAULT, "User already engaged with action. Not going to surface action: %@", buf, 0xCu);
       }
 
-      [v41 addObject:v11];
+      [v45 addObject:v12];
     }
 
-    v7 = [obj countByEnumeratingWithState:&v43 objects:v52 count:16];
+    v8 = [obj countByEnumeratingWithState:&v47 objects:v56 count:16];
   }
 
-  while (v7);
+  while (v8);
 LABEL_24:
 
-  v24 = __atxlog_handle_heuristic();
-  if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+  v28 = __atxlog_handle_heuristic(v27);
+  if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
   {
-    v25 = [v40 count];
+    v29 = [v44 count];
     *buf = 134218242;
-    *&buf[4] = v25;
-    v48 = 2112;
-    v49 = v40;
-    _os_log_impl(&dword_2263AA000, v24, OS_LOG_TYPE_DEFAULT, "Got %tu action results: %@", buf, 0x16u);
+    *&buf[4] = v29;
+    v52 = 2112;
+    v53 = v44;
+    _os_log_impl(&dword_2263AA000, v28, OS_LOG_TYPE_DEFAULT, "Got %tu action results: %@", buf, 0x16u);
   }
 
-  v26 = ATXSortedActionResults(v40);
-  v27 = +[_ATXGlobals sharedInstance];
-  maxHeuristicAppActionCount = [v27 maxHeuristicAppActionCount];
+  v30 = ATXSortedActionResults(v44);
+  v31 = +[_ATXGlobals sharedInstance];
+  maxHeuristicAppActionCount = [v31 maxHeuristicAppActionCount];
 
-  v29 = [v40 count];
-  if (v29 >= maxHeuristicAppActionCount)
+  v33 = [v44 count];
+  if (v33 >= maxHeuristicAppActionCount)
   {
-    v30 = maxHeuristicAppActionCount;
+    v34 = maxHeuristicAppActionCount;
   }
 
   else
   {
-    v30 = v29;
+    v34 = v33;
   }
 
-  v31 = [v26 subarrayWithRange:{0, v30, v37}];
+  v35 = [v30 subarrayWithRange:{0, v34, v41}];
 
-  v32 = __atxlog_handle_heuristic();
-  if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
+  v37 = __atxlog_handle_heuristic(v36);
+  if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
   {
-    v33 = [v31 count];
+    v38 = [v35 count];
     *buf = 134218242;
-    *&buf[4] = v33;
-    v48 = 2112;
-    v49 = v31;
-    _os_log_impl(&dword_2263AA000, v32, OS_LOG_TYPE_DEFAULT, "Got %tu action results after sorting and filtering: %@", buf, 0x16u);
+    *&buf[4] = v38;
+    v52 = 2112;
+    v53 = v35;
+    _os_log_impl(&dword_2263AA000, v37, OS_LOG_TYPE_DEFAULT, "Got %tu action results after sorting and filtering: %@", buf, 0x16u);
   }
 
   mEMORY[0x277CEB7E0] = [MEMORY[0x277CEB7E0] sharedInstance];
-  [mEMORY[0x277CEB7E0] clearRecentHeuristicEngagementsExceptForActions:v41];
+  [mEMORY[0x277CEB7E0] clearRecentHeuristicEngagementsExceptForActions:v45];
 
-  [ATXActionBlendingUpdater updateBlendingLayerWithHeuristicPredictions:v31];
-  [(ATXHeuristicActionProducer *)self scheduleNextHeuristicRefreshGivenActions:v31];
+  [ATXActionBlendingUpdater updateBlendingLayerWithHeuristicPredictions:v35];
+  [(ATXHeuristicActionProducer *)self scheduleNextHeuristicRefreshGivenActions:v35];
 
 LABEL_33:
-  v35 = *MEMORY[0x277D85DE8];
 
-  return v31;
+  return v35;
 }
 
 + (unint64_t)actionExperienceForScoredHeuristicAction:(id)action
 {
-  v8[1] = *MEMORY[0x277D85DE8];
+  v7[1] = *MEMORY[0x277D85DE8];
   actionCopy = action;
-  v8[0] = actionCopy;
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
+  v7[0] = actionCopy;
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:1];
   v5 = [ATXDisplayCacheLockscreenFilter _getPredictionConfidenceForActions:v4];
 
-  v6 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -438,10 +434,10 @@ LABEL_33:
   v12 = v11;
   [v6 totalLaunches];
   v14 = v13;
-  [v7 totalLaunches];
-  v16 = v15;
-  v17 = __atxlog_handle_heuristic();
-  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+  totalLaunches = [v7 totalLaunches];
+  v17 = v16;
+  v18 = __atxlog_handle_heuristic(totalLaunches);
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
   {
     v24 = 138544386;
     v25 = heuristicCopy;
@@ -452,38 +448,36 @@ LABEL_33:
     v30 = 2048;
     v31 = v14;
     v32 = 2048;
-    v33 = v16;
-    _os_log_impl(&dword_2263AA000, v17, OS_LOG_TYPE_DEFAULT, "Heuristic: %{public}@ confirms: %f rejects: %f total confirms: %f rejects: %f", &v24, 0x34u);
+    v33 = v17;
+    _os_log_impl(&dword_2263AA000, v18, OS_LOG_TYPE_DEFAULT, "Heuristic: %{public}@ confirms: %f rejects: %f total confirms: %f rejects: %f", &v24, 0x34u);
   }
 
   [v4 heuristicsBaseScore];
-  v19 = v18;
-  +[_ATXActionUtils computeNormalizedBetaDistEngagementScoreWithPriorAlpha:priorBeta:confirms:rejects:totalConfirms:totalRejects:](_ATXActionUtils, "computeNormalizedBetaDistEngagementScoreWithPriorAlpha:priorBeta:confirms:rejects:totalConfirms:totalRejects:", [v4 heuristicsEngagementPriorAlpha], objc_msgSend(v4, "heuristicsEngagementPriorBeta"), v10, v12, v14, v16);
-  v21 = v20;
+  v20 = v19;
+  +[_ATXActionUtils computeNormalizedBetaDistEngagementScoreWithPriorAlpha:priorBeta:confirms:rejects:totalConfirms:totalRejects:](_ATXActionUtils, "computeNormalizedBetaDistEngagementScoreWithPriorAlpha:priorBeta:confirms:rejects:totalConfirms:totalRejects:", [v4 heuristicsEngagementPriorAlpha], objc_msgSend(v4, "heuristicsEngagementPriorBeta"), v10, v12, v14, v17);
+  v22 = v21;
 
-  v22 = *MEMORY[0x277D85DE8];
-  return v19 * v21;
+  return v20 * v22;
 }
 
 - (void)scheduleNextHeuristicRefreshGivenActions:(id)actions
 {
   v10 = *MEMORY[0x277D85DE8];
   v4 = [(ATXHeuristicActionProducer *)self firstUpdateDateForActions:actions];
+  v5 = v4;
   if (v4)
   {
-    v5 = __atxlog_handle_heuristic();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = __atxlog_handle_heuristic(v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       v8 = 138412290;
-      v9 = v4;
-      _os_log_impl(&dword_2263AA000, v5, OS_LOG_TYPE_DEFAULT, "Scheduling next ATXHeuristicActionProducer refresh for date: %@", &v8, 0xCu);
+      v9 = v5;
+      _os_log_impl(&dword_2263AA000, v6, OS_LOG_TYPE_DEFAULT, "Scheduling next ATXHeuristicActionProducer refresh for date: %@", &v8, 0xCu);
     }
 
-    v6 = [(ATXHeuristicActionProducer *)self _criteriaForJobOnDate:v4];
-    [(ATXHeuristicActionProducer *)self setUpdateJobForCriteria:v6];
+    v7 = [(ATXHeuristicActionProducer *)self _criteriaForJobOnDate:v5];
+    [(ATXHeuristicActionProducer *)self setUpdateJobForCriteria:v7];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setUpdateJobForCriteria:(id)criteria
@@ -499,62 +493,66 @@ LABEL_33:
 void __54__ATXHeuristicActionProducer_setUpdateJobForCriteria___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  if (xpc_activity_get_state(v3) == 2 && ([MEMORY[0x277D42598] isClassCLocked] & 1) == 0)
+  if (xpc_activity_get_state(v3) == 2)
   {
-    v4 = __atxlog_handle_heuristic();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v4 = [MEMORY[0x277D42598] isClassCLocked];
+    if ((v4 & 1) == 0)
     {
-      *v6 = 0;
-      _os_log_impl(&dword_2263AA000, v4, OS_LOG_TYPE_DEFAULT, "ATXHeuristicActionProducer producing actions due to prescheduled CTS update job.", v6, 2u);
-    }
+      v5 = __atxlog_handle_heuristic(v4);
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+      {
+        *v7 = 0;
+        _os_log_impl(&dword_2263AA000, v5, OS_LOG_TYPE_DEFAULT, "ATXHeuristicActionProducer producing actions due to prescheduled CTS update job.", v7, 2u);
+      }
 
-    v5 = objc_autoreleasePoolPush();
-    [*(a1 + 32) coalescedProduceActions];
-    objc_autoreleasePoolPop(v5);
+      v6 = objc_autoreleasePoolPush();
+      [*(a1 + 32) coalescedProduceActions];
+      objc_autoreleasePoolPop(v6);
+    }
   }
 }
 
 - (id)firstUpdateDateForActions:(id)actions
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   actionsCopy = actions;
-  v27 = 0;
-  v28 = &v27;
-  v29 = 0x3032000000;
-  v30 = __Block_byref_object_copy__39;
-  v31 = __Block_byref_object_dispose__39;
-  v32 = 0;
+  v26 = 0;
+  v27 = &v26;
+  v28 = 0x3032000000;
+  v29 = __Block_byref_object_copy__39;
+  v30 = __Block_byref_object_dispose__39;
+  v31 = 0;
   v3 = objc_opt_new();
   aBlock[0] = MEMORY[0x277D85DD0];
   aBlock[1] = 3221225472;
   aBlock[2] = __56__ATXHeuristicActionProducer_firstUpdateDateForActions___block_invoke;
   aBlock[3] = &unk_27859AF20;
   v4 = v3;
-  v25 = v4;
-  v26 = &v27;
+  v24 = v4;
+  v25 = &v26;
   v5 = _Block_copy(aBlock);
   nextCacheExpirationDate = [MEMORY[0x277CE8980] nextCacheExpirationDate];
   v5[2](v5, nextCacheExpirationDate);
 
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
   v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   v7 = actionsCopy;
-  v8 = [v7 countByEnumeratingWithState:&v20 objects:v33 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v19 objects:v32 count:16];
   if (v8)
   {
-    v9 = *v21;
+    v9 = *v20;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v21 != v9)
+        if (*v20 != v9)
         {
           objc_enumerationMutation(v7);
         }
 
-        scoredAction = [*(*(&v20 + 1) + 8 * i) scoredAction];
+        scoredAction = [*(*(&v19 + 1) + 8 * i) scoredAction];
         predictedItem = [scoredAction predictedItem];
         criteria = [predictedItem criteria];
 
@@ -565,16 +563,14 @@ void __54__ATXHeuristicActionProducer_setUpdateJobForCriteria___block_invoke(uin
         v5[2](v5, endDate);
       }
 
-      v8 = [v7 countByEnumeratingWithState:&v20 objects:v33 count:16];
+      v8 = [v7 countByEnumeratingWithState:&v19 objects:v32 count:16];
     }
 
     while (v8);
   }
 
-  v16 = v28[5];
-  _Block_object_dispose(&v27, 8);
-
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = v27[5];
+  _Block_object_dispose(&v26, 8);
 
   return v16;
 }

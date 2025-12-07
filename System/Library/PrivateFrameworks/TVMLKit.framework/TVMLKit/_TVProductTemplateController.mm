@@ -37,6 +37,7 @@
 - (void)_updateTopHeroImageVisibility:(id)visibility;
 - (void)animationDidStop:(id)stop finished:(BOOL)finished;
 - (void)collectionView:(id)view didEndDisplayingCell:(id)cell forItemAtIndexPath:(id)path;
+- (void)collectionView:(id)view didHighlightItemAtIndexPath:(id)path;
 - (void)collectionView:(id)view willDisplayCell:(id)cell forItemAtIndexPath:(id)path;
 - (void)configureAppearanceTransition;
 - (void)loadView;
@@ -958,6 +959,13 @@ LABEL_21:
   }
 
   return autoHighlightIndexPath;
+}
+
+- (void)collectionView:(id)view didHighlightItemAtIndexPath:(id)path
+{
+  autoHighlightIndexPath = self->_autoHighlightIndexPath;
+  self->_autoHighlightIndexPath = 0;
+  MEMORY[0x2821F96F8](self, autoHighlightIndexPath);
 }
 
 - (void)collectionView:(id)view willDisplayCell:(id)cell forItemAtIndexPath:(id)path
@@ -2561,7 +2569,7 @@ LABEL_10:
         v17 = *(*(&v21 + 1) + 8 * i);
         if (v17)
         {
-          [v17 tv_rowMetricsValue];
+          objc_msgSend_tv_rowMetricsValue(v17);
           v18 = *(&v20 + 1);
         }
 
@@ -2652,7 +2660,7 @@ LABEL_10:
       v26 = v25;
       if (v25)
       {
-        [v25 tv_rowMetricsValue];
+        objc_msgSend_tv_rowMetricsValue(v25);
         v18 = v31;
       }
 

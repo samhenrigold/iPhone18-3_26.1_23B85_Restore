@@ -7,7 +7,7 @@
 
 - (id)propertyListForRadioResponseReturningError:()RadioRequestAdditions unparsedResponseDictionary:
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v6 = [MEMORY[0x277CCAC58] propertyListWithData:self options:0 format:0 error:a3];
   objc_opt_class();
   v7 = 0;
@@ -30,12 +30,12 @@
       v10 = os_log_create("com.apple.amp.radio", "Requests");
       if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
-        v14 = 138412546;
-        v15 = v9;
-        v16 = 2112;
-        v17 = objc_opt_class();
-        v11 = v17;
-        _os_log_impl(&dword_261792000, v10, OS_LOG_TYPE_ERROR, "Error: Unsupported response protocol version: %@ (%@)", &v14, 0x16u);
+        v13 = 138412546;
+        v14 = v9;
+        v15 = 2112;
+        v16 = objc_opt_class();
+        v11 = v16;
+        _os_log_impl(&dword_261792000, v10, OS_LOG_TYPE_ERROR, "Error: Unsupported response protocol version: %@ (%@)", &v13, 0x16u);
       }
 
       if (a3)
@@ -50,8 +50,6 @@
       }
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v7;
 }

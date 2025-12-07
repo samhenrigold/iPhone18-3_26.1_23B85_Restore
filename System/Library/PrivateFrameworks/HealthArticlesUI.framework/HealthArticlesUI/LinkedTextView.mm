@@ -55,9 +55,8 @@
 {
   v8 = sub_25133EFC4();
   v9 = *(v8 - 8);
-  v10 = *(v9 + 64);
-  MEMORY[0x28223BE20](v8, v11);
-  v13 = &v18 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v8);
+  v11 = &v16 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_25133F8F4();
   sub_25133F8E4();
   sub_25133F894();
@@ -69,11 +68,11 @@
   sub_25133EFB4();
   viewCopy = view;
   selfCopy = self;
-  v16 = sub_25131D838();
+  v14 = sub_25131D838();
 
-  (*(v9 + 8))(v13, v8);
+  (*(v9 + 8))(v11, v8);
 
-  return v16 & 1;
+  return v14 & 1;
 }
 
 @end

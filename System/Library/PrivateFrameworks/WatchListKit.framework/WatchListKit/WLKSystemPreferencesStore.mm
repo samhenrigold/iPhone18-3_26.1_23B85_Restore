@@ -28,6 +28,16 @@
 - (void)migrateSportsSpoilersFromDiskIfNeeded:(id)needed;
 - (void)removePostPlayAutoPlayNextVideoPreferences;
 - (void)setAudioLanguageCode:(id)code;
+- (void)setDownloadsCompatibleWithAVAdapter:(BOOL)adapter;
+- (void)setHasAVAdapterEvenBeenConnected:(BOOL)connected;
+- (void)setPostPlayAutoPlayNextVideo:(BOOL)video;
+- (void)setPrivateModeEnabled:(BOOL)enabled;
+- (void)setSportsScoreSpoilersAllowed:(BOOL)allowed;
+- (void)setSubtitleDefaultLanguageEnabledDownload:(BOOL)download;
+- (void)setUpNextLockupsUseCoverArt:(BOOL)art;
+- (void)setUseAutomaticDownloads:(BOOL)downloads;
+- (void)setUseCellularDataDownload:(BOOL)download;
+- (void)setUseCellularDataPlayback:(BOOL)playback;
 @end
 
 @implementation WLKSystemPreferencesStore
@@ -59,48 +69,49 @@ void __46__WLKSystemPreferencesStore_sharedPreferences__block_invoke()
 
 - (WLKSystemPreferencesStore)init
 {
-  v15.receiver = self;
-  v15.super_class = WLKSystemPreferencesStore;
-  v2 = [(WLKSystemPreferencesStore *)&v15 init];
+  v18.receiver = self;
+  v18.super_class = WLKSystemPreferencesStore;
+  v2 = [(WLKSystemPreferencesStore *)&v18 init];
+  v3 = v2;
   if (v2)
   {
-    v3 = WLKSystemLogObject();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = WLKSystemLogObject(v2);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_272A0F000, v3, OS_LOG_TYPE_DEFAULT, "WLKSystemPreferencesStore - init", buf, 2u);
+      _os_log_impl(&dword_272A0F000, v4, OS_LOG_TYPE_DEFAULT, "WLKSystemPreferencesStore - init", buf, 2u);
     }
 
-    v4 = dispatch_queue_create("WLKPreferencesQueue", 0);
-    accessQueue = v2->_accessQueue;
-    v2->_accessQueue = v4;
+    v5 = dispatch_queue_create("WLKPreferencesQueue", 0);
+    accessQueue = v3->_accessQueue;
+    v3->_accessQueue = v5;
 
-    if (WLKIsTVApp())
+    if (WLKIsTVApp(v7, v8))
     {
       standardUserDefaults = [MEMORY[0x277CBEBD0] standardUserDefaults];
-      defaultsAccessor = v2->_defaultsAccessor;
-      v2->_defaultsAccessor = standardUserDefaults;
+      defaultsAccessor = v3->_defaultsAccessor;
+      v3->_defaultsAccessor = standardUserDefaults;
     }
 
     else
     {
-      v8 = objc_alloc(MEMORY[0x277CBEBD0]);
+      v11 = objc_alloc(MEMORY[0x277CBEBD0]);
       defaultsAccessor = WLKTVAppBundleID();
-      v9 = [v8 initWithSuiteName:defaultsAccessor];
-      v10 = v2->_defaultsAccessor;
-      v2->_defaultsAccessor = v9;
+      v12 = [v11 initWithSuiteName:defaultsAccessor];
+      v13 = v3->_defaultsAccessor;
+      v3->_defaultsAccessor = v12;
     }
 
-    v2->_preferencesDidChangeNotificationToken = 0;
+    v3->_preferencesDidChangeNotificationToken = 0;
     handler[0] = MEMORY[0x277D85DD0];
     handler[1] = 3221225472;
     handler[2] = __33__WLKSystemPreferencesStore_init__block_invoke;
     handler[3] = &unk_279E5F5B8;
-    v13 = v2;
-    notify_register_dispatch("com.apple.WatchListKit.WLKPreferencesDidChangeNotification", &v2->_preferencesDidChangeNotificationToken, MEMORY[0x277D85CD0], handler);
+    v16 = v3;
+    notify_register_dispatch("com.apple.WatchListKit.WLKPreferencesDidChangeNotification", &v3->_preferencesDidChangeNotificationToken, MEMORY[0x277D85CD0], handler);
   }
 
-  return v2;
+  return v3;
 }
 
 - (BOOL)useCellularDataPlayback
@@ -194,21 +205,20 @@ void __33__WLKSystemPreferencesStore_init__block_invoke(uint64_t a1)
   v7 = *MEMORY[0x277D85DE8];
   state64 = 0;
   notify_get_state(*(*(a1 + 32) + 8), &state64);
-  if (state64 != getpid())
+  v1 = getpid();
+  if (state64 != v1)
   {
-    v1 = WLKSystemLogObject();
-    if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
+    v2 = WLKSystemLogObject(v1);
+    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
       v6 = @"WLKSettingsDidChangeNotification";
-      _os_log_impl(&dword_272A0F000, v1, OS_LOG_TYPE_DEFAULT, "WLKSystemPreferencesStore - Preferences did change - Firing local notification %@", buf, 0xCu);
+      _os_log_impl(&dword_272A0F000, v2, OS_LOG_TYPE_DEFAULT, "WLKSystemPreferencesStore - Preferences did change - Firing local notification %@", buf, 0xCu);
     }
 
-    v2 = [MEMORY[0x277CCAB98] defaultCenter];
-    [v2 postNotificationName:@"WLKSettingsDidChangeNotification" object:0];
+    v3 = [MEMORY[0x277CCAB98] defaultCenter];
+    [v3 postNotificationName:@"WLKSettingsDidChangeNotification" object:0];
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dealloc
@@ -222,6 +232,30 @@ void __33__WLKSystemPreferencesStore_init__block_invoke(uint64_t a1)
   v4.receiver = self;
   v4.super_class = WLKSystemPreferencesStore;
   [(WLKSystemPreferencesStore *)&v4 dealloc];
+}
+
+- (void)setUseCellularDataPlayback:(BOOL)playback
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithBool:playback];
+  [(WLKSystemPreferencesStore *)self _setPreferencesValue:v4 forKey:@"CellularDataMode"];
+}
+
+- (void)setUseCellularDataDownload:(BOOL)download
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithBool:download];
+  [(WLKSystemPreferencesStore *)self _setPreferencesValue:v4 forKey:@"DownloadUseCellular"];
+}
+
+- (void)setUseAutomaticDownloads:(BOOL)downloads
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithBool:downloads];
+  [(WLKSystemPreferencesStore *)self _setPreferencesValue:v4 forKey:@"AutoDownloads"];
+}
+
+- (void)setSubtitleDefaultLanguageEnabledDownload:(BOOL)download
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithBool:download];
+  [(WLKSystemPreferencesStore *)self _setPreferencesValue:v4 forKey:@"UseDefaultSubtitleLanguages"];
 }
 
 - (void)setAudioLanguageCode:(id)code
@@ -261,12 +295,24 @@ void __33__WLKSystemPreferencesStore_init__block_invoke(uint64_t a1)
   return v4;
 }
 
+- (void)setHasAVAdapterEvenBeenConnected:(BOOL)connected
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithBool:connected];
+  [(WLKSystemPreferencesStore *)self _setPreferencesValue:v4 forKey:@"HasAVAdapterEverBeenConnected"];
+}
+
 - (BOOL)hasAVAdapterEvenBeenConnected
 {
   v2 = [(WLKSystemPreferencesStore *)self _getPreferencesValue:@"HasAVAdapterEverBeenConnected" fallbackValue:MEMORY[0x277CBEC28]];
   bOOLValue = [v2 BOOLValue];
 
   return bOOLValue;
+}
+
+- (void)setDownloadsCompatibleWithAVAdapter:(BOOL)adapter
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithBool:adapter];
+  [(WLKSystemPreferencesStore *)self _setPreferencesValue:v4 forKey:@"DownloadsCompatibleWithAVAdapter"];
 }
 
 - (NSNumber)preferredPlaybackDimensionality
@@ -309,7 +355,13 @@ uint64_t __60__WLKSystemPreferencesStore_preferredPlaybackDimensionality__block_
   v5 = *(v4 + 40);
   *(v4 + 40) = v3;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v3, v5);
+}
+
+- (void)setPrivateModeEnabled:(BOOL)enabled
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithBool:enabled];
+  [(WLKSystemPreferencesStore *)self _setDefaultsValue:v4 key:@"PrivateModeEnabled" syncNPS:0];
 }
 
 - (BOOL)privateModeEnabled
@@ -326,6 +378,12 @@ uint64_t __60__WLKSystemPreferencesStore_preferredPlaybackDimensionality__block_
   return [(NSUserDefaults *)defaultsAccessor BOOLForKey:@"PrivateModeEnabled"];
 }
 
+- (void)setSportsScoreSpoilersAllowed:(BOOL)allowed
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithBool:allowed];
+  [(WLKSystemPreferencesStore *)self _setDefaultsValue:v4 key:@"SportsScoreSpoilersAllowed" syncNPS:1];
+}
+
 - (BOOL)sportsScoreSpoilersAllowed
 {
   v3 = [(NSUserDefaults *)self->_defaultsAccessor objectForKey:@"SportsScoreSpoilersAllowed"];
@@ -340,6 +398,12 @@ uint64_t __60__WLKSystemPreferencesStore_preferredPlaybackDimensionality__block_
   return [(NSUserDefaults *)defaultsAccessor BOOLForKey:@"SportsScoreSpoilersAllowed"];
 }
 
+- (void)setPostPlayAutoPlayNextVideo:(BOOL)video
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithBool:video];
+  [(WLKSystemPreferencesStore *)self _setDefaultsValue:v4 key:@"PostPlayAutoPlayNextVideo" syncNPS:1];
+}
+
 - (BOOL)postPlayAutoPlayNextVideo
 {
   v3 = [(NSUserDefaults *)self->_defaultsAccessor objectForKey:@"PostPlayAutoPlayNextVideo"];
@@ -352,6 +416,12 @@ uint64_t __60__WLKSystemPreferencesStore_preferredPlaybackDimensionality__block_
   defaultsAccessor = self->_defaultsAccessor;
 
   return [(NSUserDefaults *)defaultsAccessor BOOLForKey:@"PostPlayAutoPlayNextVideo"];
+}
+
+- (void)setUpNextLockupsUseCoverArt:(BOOL)art
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithBool:art];
+  [(WLKSystemPreferencesStore *)self _setDefaultsValue:v4 key:@"UpNextLockupsUseCoverArt" syncNPS:0];
 }
 
 - (void)removePostPlayAutoPlayNextVideoPreferences
@@ -416,32 +486,28 @@ void __79__WLKSystemPreferencesStore__publishCrossProcessPreferencesChangedNotif
 
 void __59__WLKSystemPreferencesStore__setDefaultsValue_key_syncNPS___block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
-  [*(*(a1 + 32) + 16) setObject:*(a1 + 40) forKey:*(a1 + 48)];
-  v2 = WLKSystemLogObject();
+  v14 = *MEMORY[0x277D85DE8];
+  v2 = WLKSystemLogObject([*(*(a1 + 32) + 16) setObject:*(a1 + 40) forKey:*(a1 + 48)]);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 40);
     v4 = *(a1 + 48);
     *buf = 138412546;
-    v13 = v3;
-    v14 = 2112;
-    v15 = v4;
+    v11 = v3;
+    v12 = 2112;
+    v13 = v4;
     _os_log_impl(&dword_272A0F000, v2, OS_LOG_TYPE_DEFAULT, "WLKSystemPreferencesStore - set UserDefaults value %@ for key %@", buf, 0x16u);
   }
 
   if (*(a1 + 56) == 1)
   {
-    v5 = *(a1 + 32);
-    v6 = objc_opt_class();
-    v7 = MEMORY[0x277CBEB98];
-    v11 = *(a1 + 48);
-    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:&v11 count:1];
-    v9 = [v7 setWithArray:v8];
-    [v6 _synchronizeSettingsDefaultsForKeys:v9];
+    v5 = objc_opt_class();
+    v6 = MEMORY[0x277CBEB98];
+    v9 = *(a1 + 48);
+    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:&v9 count:1];
+    v8 = [v6 setWithArray:v7];
+    [v5 _synchronizeSettingsDefaultsForKeys:v8];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_setPreferencesValue:(id)value forKey:(id)key
@@ -450,9 +516,9 @@ void __59__WLKSystemPreferencesStore__setDefaultsValue_key_syncNPS___block_invok
   valueCopy = value;
   keyCopy = key;
   CFPreferencesSetAppValue(keyCopy, valueCopy, @"com.apple.videos-preferences");
-  CFPreferencesAppSynchronize(@"com.apple.videos-preferences");
-  v8 = WLKSystemLogObject();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v8 = CFPreferencesAppSynchronize(@"com.apple.videos-preferences");
+  v9 = WLKSystemLogObject(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     v10 = 138412802;
     v11 = valueCopy;
@@ -460,11 +526,10 @@ void __59__WLKSystemPreferencesStore__setDefaultsValue_key_syncNPS___block_invok
     v13 = keyCopy;
     v14 = 2112;
     v15 = @"com.apple.videos-preferences";
-    _os_log_impl(&dword_272A0F000, v8, OS_LOG_TYPE_DEFAULT, "WLKSystemPreferencesStore - set CFPrefs value %@ for key %@ in domain %@", &v10, 0x20u);
+    _os_log_impl(&dword_272A0F000, v9, OS_LOG_TYPE_DEFAULT, "WLKSystemPreferencesStore - set CFPrefs value %@ for key %@ in domain %@", &v10, 0x20u);
   }
 
   [(WLKSystemPreferencesStore *)self _publishCrossProcessPreferencesChangedNotification];
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_getPreferencesValue:(id)value fallbackValue:(id)fallbackValue
@@ -554,7 +619,7 @@ LABEL_5:
 
 void __65__WLKSystemPreferencesStore__synchronizeSettingsDefaultsForKeys___block_invoke(uint64_t a1)
 {
-  v2 = WLKSystemLogObject();
+  v2 = WLKSystemLogObject(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -565,11 +630,11 @@ void __65__WLKSystemPreferencesStore__synchronizeSettingsDefaultsForKeys___block
   v4 = WLKTVAppBundleID();
   [v3 synchronizeUserDefaultsDomain:v4 keys:*(a1 + 32)];
 
-  v5 = WLKSystemLogObject();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = WLKSystemLogObject(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    *v6 = 0;
-    _os_log_impl(&dword_272A0F000, v5, OS_LOG_TYPE_DEFAULT, "WLKSystemPreferencesStore - NPSManager sync end", v6, 2u);
+    *v7 = 0;
+    _os_log_impl(&dword_272A0F000, v6, OS_LOG_TYPE_DEFAULT, "WLKSystemPreferencesStore - NPSManager sync end", v7, 2u);
   }
 }
 

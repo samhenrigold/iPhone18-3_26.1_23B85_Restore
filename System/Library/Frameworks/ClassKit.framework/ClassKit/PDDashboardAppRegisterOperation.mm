@@ -155,21 +155,8 @@
       stats[15] = 1;
     }
 
-    if (![objectCopy hasStatus])
+    if (![objectCopy hasStatus] || (objc_msgSend(objectCopy, "status"), v14 = objc_claimAutoreleasedReturnValue(), sub_100105CA4(v14), v15 = objc_claimAutoreleasedReturnValue(), -[PDEndpointRequestOperation handleServerAlerts:](self, "handleServerAlerts:", v15), v15, v14, objc_msgSend(objectCopy, "status"), v16 = objc_claimAutoreleasedReturnValue(), sub_1001055FC(v16, 0), v17 = objc_claimAutoreleasedReturnValue(), v16, !v17))
     {
-      goto LABEL_16;
-    }
-
-    status = [objectCopy status];
-    v15 = sub_100105CA4(status);
-    [(PDEndpointRequestOperation *)self handleServerAlerts:v15];
-
-    status2 = [objectCopy status];
-    v17 = sub_1001055FC(status2, 0);
-
-    if (!v17)
-    {
-LABEL_16:
       [(PDOperation *)self database];
       v35[0] = _NSConcreteStackBlock;
       v35[1] = 3221225472;
@@ -221,8 +208,8 @@ LABEL_76:
 
     v19 = objc_opt_class();
     v20 = *(*&buf[8] + 40);
-    status3 = [objectCopy status];
-    code = [status3 code];
+    status = [objectCopy status];
+    code = [status code];
     if (code > 299)
     {
       if (code <= 801)
@@ -284,7 +271,7 @@ LABEL_76:
             v23 = @"E_DISALLOWED_EMAIL_DOMAIN";
 LABEL_72:
             v31 = v23;
-            status4 = [objectCopy status];
+            status2 = [objectCopy status];
             *v38 = 138544130;
             v39 = v19;
             v40 = 2114;
@@ -292,7 +279,7 @@ LABEL_72:
             v42 = 2114;
             v43 = v31;
             v44 = 2048;
-            code2 = [status4 code];
+            code2 = [status2 code];
             _os_log_impl(&_mh_execute_header, logSubsystem3, OS_LOG_TYPE_INFO, "%{public}@: %{public}@ Dashboard app register request failed. status: %{public}@ (%ld)", v38, 0x2Au);
 
             goto LABEL_73;

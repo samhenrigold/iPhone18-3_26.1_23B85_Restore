@@ -52,8 +52,9 @@
 
 - (void)uiBridgeServiceDetectedSpeechStart:(BOOL)start
 {
+  startCopy = start;
   selfCopy = self;
-  sub_222E02208(start);
+  sub_222E02208(startCopy);
 }
 
 - (void)uiBridgeServiceDetectedSiriDirectedSpeech
@@ -78,7 +79,7 @@
 {
   progressCopy = progress;
   selfCopy = self;
-  sub_222E0252C();
+  sub_222E0252C(progressCopy);
 }
 
 - (void)uiBridgeServiceDidReceiveTasks:(id)tasks
@@ -93,7 +94,7 @@
 {
   responseCopy = response;
   selfCopy = self;
-  sub_222E02C20();
+  sub_222E02C20(responseCopy);
 }
 
 @end

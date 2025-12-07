@@ -7,11 +7,11 @@
 
 - (MTNumberDeresAction)initWithField:(id)field configDictionary:(id)dictionary
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
-  v24.receiver = self;
-  v24.super_class = MTNumberDeresAction;
-  v7 = [(MTTreatmentAction *)&v24 initWithField:field configDictionary:dictionaryCopy];
+  v23.receiver = self;
+  v23.super_class = MTNumberDeresAction;
+  v7 = [(MTTreatmentAction *)&v23 initWithField:field configDictionary:dictionaryCopy];
   if (v7)
   {
     v8 = [dictionaryCopy objectForKeyedSubscript:@"precision"];
@@ -26,31 +26,31 @@
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v22 = 0u;
-      v23 = 0u;
-      v20 = 0u;
       v21 = 0u;
+      v22 = 0u;
+      v19 = 0u;
+      v20 = 0u;
       v10 = v9;
-      v11 = [v10 countByEnumeratingWithState:&v20 objects:v25 count:16];
+      v11 = [v10 countByEnumeratingWithState:&v19 objects:v24 count:16];
       v9 = v10;
       if (v11)
       {
         v12 = v11;
-        v13 = *v21;
+        v13 = *v20;
         while (2)
         {
           for (i = 0; i != v12; ++i)
           {
-            if (*v21 != v13)
+            if (*v20 != v13)
             {
               objc_enumerationMutation(v10);
             }
 
-            v15 = *(*(&v20 + 1) + 8 * i);
+            v15 = *(*(&v19 + 1) + 8 * i);
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              v16 = [v15 objectForKeyedSubscript:{@"start", v20}];
+              v16 = [v15 objectForKeyedSubscript:{@"start", v19}];
 
               if (v16)
               {
@@ -62,7 +62,7 @@
             goto LABEL_16;
           }
 
-          v12 = [v10 countByEnumeratingWithState:&v20 objects:v25 count:16];
+          v12 = [v10 countByEnumeratingWithState:&v19 objects:v24 count:16];
           if (v12)
           {
             continue;
@@ -81,16 +81,15 @@ LABEL_16:
     }
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
 - (id)performAction:(id)action context:(id)context
 {
-  v23[1] = *MEMORY[0x277D85DE8];
-  v21.receiver = self;
-  v21.super_class = MTNumberDeresAction;
-  v5 = [(MTTreatmentAction *)&v21 performAction:action context:context];
+  v22[1] = *MEMORY[0x277D85DE8];
+  v20.receiver = self;
+  v20.super_class = MTNumberDeresAction;
+  v5 = [(MTTreatmentAction *)&v20 performAction:action context:context];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
@@ -100,9 +99,9 @@ LABEL_16:
       goto LABEL_12;
     }
 
-    v22 = @"start";
-    v23[0] = v5;
-    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:&v22 count:1];
+    v21 = @"start";
+    v22[0] = v5;
+    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:&v21 count:1];
     v8 = [buckets indexOfObject:v7 inSortedRange:0 options:objc_msgSend(buckets usingComparator:{"count"), 1536, &__block_literal_global_6}];
 
     if (v8 && v8 != 0x7FFFFFFFFFFFFFFFLL)
@@ -159,8 +158,6 @@ LABEL_12:
   {
     v13 = 0;
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v13;
 }

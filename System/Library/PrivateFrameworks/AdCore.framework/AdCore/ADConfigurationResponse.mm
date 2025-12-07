@@ -1,5 +1,6 @@
 @interface ADConfigurationResponse
 - (BOOL)isEqual:(id)equal;
+- (id)bannerProxyTypeAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
@@ -45,6 +46,29 @@
   }
 }
 
+- (id)bannerProxyTypeAsString:(int)string
+{
+  if (string)
+  {
+    if (string == 1)
+    {
+      v4 = @"Connect";
+    }
+
+    else
+    {
+      v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+    }
+  }
+
+  else
+  {
+    v4 = @"Legacy";
+  }
+
+  return v4;
+}
+
 - (int)StringAsBannerProxyType:(id)type
 {
   typeCopy = type;
@@ -75,35 +99,35 @@
 
 - (id)dictionaryRepresentation
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   if ([(NSMutableArray *)self->_theConfigurations count])
   {
     v4 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{-[NSMutableArray count](self->_theConfigurations, "count")}];
+    v17 = 0u;
     v18 = 0u;
     v19 = 0u;
     v20 = 0u;
-    v21 = 0u;
     v5 = self->_theConfigurations;
-    v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
+    v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v19;
+      v8 = *v18;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v19 != v8)
+          if (*v18 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          dictionaryRepresentation = [*(*(&v18 + 1) + 8 * i) dictionaryRepresentation];
+          dictionaryRepresentation = [*(*(&v17 + 1) + 8 * i) dictionaryRepresentation];
           [v4 addObject:dictionaryRepresentation];
         }
 
-        v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
+        v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
       }
 
       while (v7);
@@ -154,42 +178,39 @@
     [dictionary setObject:configVersion forKey:@"configVersion"];
   }
 
-  v16 = *MEMORY[0x277D85DE8];
-
   return dictionary;
 }
 
 - (void)writeTo:(id)to
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   toCopy = to;
+  v10 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
-  v15 = 0u;
-  v16 = 0u;
   v5 = self->_theConfigurations;
-  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v14;
+    v8 = *v11;
     do
     {
       v9 = 0;
       do
       {
-        if (*v14 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v13 + 1) + 8 * v9);
         PBDataWriterWriteSubmessage();
         ++v9;
       }
 
       while (v7 != v9);
-      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v7);
@@ -207,7 +228,6 @@
 
   if (*&self->_has)
   {
-    bannerProxyType = self->_bannerProxyType;
     PBDataWriterWriteInt32Field();
   }
 
@@ -215,8 +235,6 @@
   {
     PBDataWriterWriteStringField();
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)copyTo:(id)to
@@ -264,36 +282,36 @@
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v5 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   v6 = self->_theConfigurations;
-  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v21;
+    v9 = *v20;
     do
     {
       v10 = 0;
       do
       {
-        if (*v21 != v9)
+        if (*v20 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = [*(*(&v20 + 1) + 8 * v10) copyWithZone:{zone, v20}];
+        v11 = [*(*(&v19 + 1) + 8 * v10) copyWithZone:{zone, v19}];
         [v5 addTheConfiguration:v11];
 
         ++v10;
       }
 
       while (v8 != v10);
-      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v8);
@@ -313,11 +331,10 @@
     *(v5 + 48) |= 1u;
   }
 
-  v16 = [(NSString *)self->_configVersion copyWithZone:zone, v20];
+  v16 = [(NSString *)self->_configVersion copyWithZone:zone, v19];
   v17 = *(v5 + 16);
   *(v5 + 16) = v16;
 
-  v18 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -356,7 +373,6 @@
     }
   }
 
-  v8 = *(equalCopy + 48);
   if (*&self->_has)
   {
     if ((*(equalCopy + 48) & 1) == 0 || self->_bannerProxyType != *(equalCopy + 2))
@@ -368,24 +384,24 @@
   else if (*(equalCopy + 48))
   {
 LABEL_15:
-    v10 = 0;
+    v9 = 0;
     goto LABEL_16;
   }
 
   configVersion = self->_configVersion;
   if (configVersion | *(equalCopy + 2))
   {
-    v10 = [(NSString *)configVersion isEqual:?];
+    v9 = [(NSString *)configVersion isEqual:?];
   }
 
   else
   {
-    v10 = 1;
+    v9 = 1;
   }
 
 LABEL_16:
 
-  return v10;
+  return v9;
 }
 
 - (unint64_t)hash
@@ -408,31 +424,31 @@ LABEL_16:
 
 - (void)mergeFrom:(id)from
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   fromCopy = from;
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   v5 = *(fromCopy + 3);
-  v6 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v12;
+    v8 = *v11;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v12 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        [(ADConfigurationResponse *)self addTheConfiguration:*(*(&v11 + 1) + 8 * i), v11];
+        [(ADConfigurationResponse *)self addTheConfiguration:*(*(&v10 + 1) + 8 * i), v10];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v7);
@@ -458,8 +474,6 @@ LABEL_16:
   {
     [(ADConfigurationResponse *)self setConfigVersion:?];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -189,10 +189,9 @@ void __59__GKThreadsafeDictionary_objectForKey_objectProducerBlock___block_invok
 
     if (*(*(a1[7] + 8) + 40))
     {
-      v8 = a1[5];
-      v9 = *(a1[4] + 16);
+      v8 = *(a1[4] + 16);
 
-      [v9 setObject:? forKeyedSubscript:?];
+      [v8 setObject:? forKeyedSubscript:?];
     }
   }
 }
@@ -271,10 +270,9 @@ void __70__GKThreadsafeDictionary_objectForKeyWillReplace_objectProducerBlock___
 
       if (*(*(a1[7] + 8) + 40))
       {
-        v14 = a1[5];
-        v15 = *(a1[4] + 16);
+        v14 = *(a1[4] + 16);
 
-        [v15 setObject:? forKeyedSubscript:?];
+        [v14 setObject:? forKeyedSubscript:?];
       }
     }
   }

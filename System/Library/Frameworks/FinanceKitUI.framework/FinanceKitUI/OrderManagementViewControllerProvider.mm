@@ -15,7 +15,7 @@
     swift_task_reportUnexpectedExecutor();
   }
 
-  v2 = objc_allocWithZone(type metadata accessor for OrderManagementViewController());
+  v2 = objc_allocWithZone(type metadata accessor for OrderManagementViewController(0));
   v3 = sub_238669FD0();
 
   return v3;

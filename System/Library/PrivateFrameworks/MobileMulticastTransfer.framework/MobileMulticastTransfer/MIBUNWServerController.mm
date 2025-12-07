@@ -163,7 +163,7 @@ void __203__MIBUNWServerController_initWithPacketProvider_hostAddress_hostPort_n
 
 - (void)_start
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_dispatchQueue);
   if (MIBUOnceToken != -1)
   {
@@ -174,14 +174,13 @@ void __203__MIBUNWServerController_initWithPacketProvider_hostAddress_hostPort_n
   if (os_log_type_enabled(MIBUConnObj, OS_LOG_TYPE_DEFAULT))
   {
     batchSize = self->_batchSize;
-    v6 = 134217984;
-    v7 = batchSize;
-    _os_log_impl(&dword_259B04000, v3, OS_LOG_TYPE_DEFAULT, "Starting server controller with batch size: %lu", &v6, 0xCu);
+    v5 = 134217984;
+    v6 = batchSize;
+    _os_log_impl(&dword_259B04000, v3, OS_LOG_TYPE_DEFAULT, "Starting server controller with batch size: %lu", &v5, 0xCu);
   }
 
   self->_originalBatchSize = self->_batchSize;
   [(MIBUNWServerController *)self _startNANService];
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __32__MIBUNWServerController__start__block_invoke()
@@ -202,7 +201,7 @@ void __32__MIBUNWServerController__start__block_invoke()
 
 - (void)_stopWithReason:(id)reason
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   reasonCopy = reason;
   dispatch_assert_queue_V2(self->_dispatchQueue);
   if (MIBUOnceToken != -1)
@@ -213,9 +212,9 @@ void __32__MIBUNWServerController__start__block_invoke()
   v5 = MIBUConnObj;
   if (os_log_type_enabled(MIBUConnObj, OS_LOG_TYPE_DEFAULT))
   {
-    v17 = 138543362;
-    v18 = reasonCopy;
-    _os_log_impl(&dword_259B04000, v5, OS_LOG_TYPE_DEFAULT, "Stopping server controller with reason: %{public}@", &v17, 0xCu);
+    v16 = 138543362;
+    v17 = reasonCopy;
+    _os_log_impl(&dword_259B04000, v5, OS_LOG_TYPE_DEFAULT, "Stopping server controller with reason: %{public}@", &v16, 0xCu);
   }
 
   [(MIBUNWServerController *)self _tearDownFileSenderLoop];
@@ -260,8 +259,6 @@ void __32__MIBUNWServerController__start__block_invoke()
     v15 = self->_multicastSocket;
     self->_multicastSocket = 0;
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __42__MIBUNWServerController__stopWithReason___block_invoke()
@@ -282,7 +279,6 @@ void __42__MIBUNWServerController__stopWithReason___block_invoke()
 
 - (void)_startTCPListener
 {
-  v5 = *MEMORY[0x277D85DE8];
   if (MIBUOnceToken != -1)
   {
     dispatch_once(&MIBUOnceToken, &__block_literal_global_33_1);
@@ -294,8 +290,6 @@ void __42__MIBUNWServerController__stopWithReason___block_invoke()
     OUTLINED_FUNCTION_3_2();
     _os_log_impl(v0, v1, OS_LOG_TYPE_DEFAULT, v2, v3, 0xCu);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void __43__MIBUNWServerController__startTCPListener__block_invoke()
@@ -348,7 +342,6 @@ void __43__MIBUNWServerController__startTCPListener__block_invoke_31()
 
 - (void)_startNANService
 {
-  v5 = *MEMORY[0x277D85DE8];
   if (MIBUOnceToken != -1)
   {
     dispatch_once(&MIBUOnceToken, &__block_literal_global_39_1);
@@ -358,10 +351,8 @@ void __43__MIBUNWServerController__startTCPListener__block_invoke_31()
   {
     OUTLINED_FUNCTION_2_1();
     OUTLINED_FUNCTION_3_2();
-    _os_log_error_impl(v1, v2, OS_LOG_TYPE_ERROR, v3, v4, 0xCu);
+    _os_log_error_impl(v0, v1, OS_LOG_TYPE_ERROR, v2, v3, 0xCu);
   }
-
-  v0 = *MEMORY[0x277D85DE8];
 }
 
 void __42__MIBUNWServerController__startNANService__block_invoke()
@@ -398,7 +389,6 @@ void __42__MIBUNWServerController__startNANService__block_invoke_37()
 
 - (void)_startMulticast
 {
-  v5 = *MEMORY[0x277D85DE8];
   if (MIBUOnceToken != -1)
   {
     dispatch_once(&MIBUOnceToken, &__block_literal_global_56_0);
@@ -410,8 +400,6 @@ void __42__MIBUNWServerController__startNANService__block_invoke_37()
     OUTLINED_FUNCTION_3_2();
     _os_log_impl(v0, v1, OS_LOG_TYPE_DEFAULT, v2, v3, 0xCu);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void __41__MIBUNWServerController__startMulticast__block_invoke()
@@ -578,7 +566,7 @@ void __46__MIBUNWServerController__setupFileSenderLoop__block_invoke()
 
 - (void)_tearDownFileSenderLoop
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_dispatchQueue);
   if (self->_bandwidthTimer)
   {
@@ -590,8 +578,8 @@ void __46__MIBUNWServerController__setupFileSenderLoop__block_invoke()
     v3 = MIBUConnObj;
     if (os_log_type_enabled(MIBUConnObj, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v8) = 0;
-      _os_log_impl(&dword_259B04000, v3, OS_LOG_TYPE_DEFAULT, "Stopping file sending loop", &v8, 2u);
+      LOWORD(v7) = 0;
+      _os_log_impl(&dword_259B04000, v3, OS_LOG_TYPE_DEFAULT, "Stopping file sending loop", &v7, 2u);
     }
 
     dispatch_source_cancel(self->_bandwidthTimer);
@@ -599,31 +587,30 @@ void __46__MIBUNWServerController__setupFileSenderLoop__block_invoke()
     self->_bandwidthTimer = 0;
 
     [(MIBUNWServerController *)self _calculateEffectiveBandwidth];
-    if (MIBUOnceToken != -1)
+    if (MIBUOnceToken == -1)
+    {
+      v5 = MIBUConnObj;
+      if (!os_log_type_enabled(MIBUConnObj, OS_LOG_TYPE_DEFAULT))
+      {
+        return;
+      }
+    }
+
+    else
     {
       [MIBUNWServerController _tearDownFileSenderLoop];
       v5 = MIBUConnObj;
       if (!os_log_type_enabled(MIBUConnObj, OS_LOG_TYPE_DEFAULT))
       {
-        goto LABEL_9;
+        return;
       }
-
-      goto LABEL_8;
     }
 
-    v5 = MIBUConnObj;
-    if (os_log_type_enabled(MIBUConnObj, OS_LOG_TYPE_DEFAULT))
-    {
-LABEL_8:
-      packetSent = self->_packetSent;
-      v8 = 134217984;
-      v9 = packetSent;
-      _os_log_impl(&dword_259B04000, v5, OS_LOG_TYPE_DEFAULT, "Total packet sent: %lu", &v8, 0xCu);
-    }
+    packetSent = self->_packetSent;
+    v7 = 134217984;
+    v8 = packetSent;
+    _os_log_impl(&dword_259B04000, v5, OS_LOG_TYPE_DEFAULT, "Total packet sent: %lu", &v7, 0xCu);
   }
-
-LABEL_9:
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __49__MIBUNWServerController__tearDownFileSenderLoop__block_invoke()
@@ -660,7 +647,7 @@ void __49__MIBUNWServerController__tearDownFileSenderLoop__block_invoke_68()
 
 - (void)_calculateEffectiveBandwidth
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_dispatchQueue);
   v4 = _MergedGlobals_0;
   v3 = unk_27F9E4620;
@@ -682,28 +669,28 @@ void __49__MIBUNWServerController__tearDownFileSenderLoop__block_invoke_68()
   v11 = MIBUConnObj;
   if (os_log_type_enabled(MIBUConnObj, OS_LOG_TYPE_DEFAULT))
   {
-    v18 = 134220032;
+    v17 = 134220032;
     v13 = self->_packetSent;
     v12 = self->_packetDropped;
-    v19 = fetchIssued - v4;
+    v18 = fetchIssued - v4;
     v14 = self->_packetFetched;
-    v21 = packetSent - v3;
-    v20 = 2048;
-    v22 = 2048;
-    v23 = v7;
-    v24 = 1024;
-    v25 = 5;
-    v26 = 2048;
-    v27 = (8 * (packetSent - v3) * packetSize) / 5000000.0;
-    v28 = 2048;
-    v29 = v14;
-    v30 = 2048;
-    v31 = packetFetched - (packetDropped + packetSent);
-    v32 = 2048;
-    v33 = v12;
-    v34 = 2048;
-    v35 = v13;
-    _os_log_impl(&dword_259B04000, v11, OS_LOG_TYPE_DEFAULT, "Fetch issued: %lu, Packets sent: %lu, dropped: %lu in last %ds; Effective bandwidth: %0.5f Mbps, Total packet fetched: %lu, Total packet in flight: %lu, Total packet dropped: %lu, Total packet sent: %lu", &v18, 0x58u);
+    v20 = packetSent - v3;
+    v19 = 2048;
+    v21 = 2048;
+    v22 = v7;
+    v23 = 1024;
+    v24 = 5;
+    v25 = 2048;
+    v26 = (8 * (packetSent - v3) * packetSize) / 5000000.0;
+    v27 = 2048;
+    v28 = v14;
+    v29 = 2048;
+    v30 = packetFetched - (packetDropped + packetSent);
+    v31 = 2048;
+    v32 = v12;
+    v33 = 2048;
+    v34 = v13;
+    _os_log_impl(&dword_259B04000, v11, OS_LOG_TYPE_DEFAULT, "Fetch issued: %lu, Packets sent: %lu, dropped: %lu in last %ds; Effective bandwidth: %0.5f Mbps, Total packet fetched: %lu, Total packet in flight: %lu, Total packet dropped: %lu, Total packet sent: %lu", &v17, 0x58u);
   }
 
   _packetDropSummary = [(MIBUNWServerController *)self _packetDropSummary];
@@ -717,13 +704,11 @@ void __49__MIBUNWServerController__tearDownFileSenderLoop__block_invoke_68()
     v16 = MIBUConnObj;
     if (os_log_type_enabled(MIBUConnObj, OS_LOG_TYPE_DEFAULT))
     {
-      v18 = 138412290;
-      v19 = _packetDropSummary;
-      _os_log_impl(&dword_259B04000, v16, OS_LOG_TYPE_DEFAULT, "Dropped packets breakdown: %@", &v18, 0xCu);
+      v17 = 138412290;
+      v18 = _packetDropSummary;
+      _os_log_impl(&dword_259B04000, v16, OS_LOG_TYPE_DEFAULT, "Dropped packets breakdown: %@", &v17, 0xCu);
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __54__MIBUNWServerController__calculateEffectiveBandwidth__block_invoke()
@@ -760,34 +745,34 @@ void __54__MIBUNWServerController__calculateEffectiveBandwidth__block_invoke_73(
 
 - (id)_packetDropSummary
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v3 = objc_opt_new();
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v4 = self->_packetDropBreakdown;
-  v5 = [(NSMutableDictionary *)v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v5 = [(NSMutableDictionary *)v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v16;
+    v7 = *v15;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v16 != v7)
+        if (*v15 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v15 + 1) + 8 * i);
+        v9 = *(*(&v14 + 1) + 8 * i);
         v10 = [(NSMutableDictionary *)self->_packetDropBreakdown objectForKey:v9];
-        v11 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@ with errorno %@", v10, v9, v15];
+        v11 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@ with errorno %@", v10, v9, v14];
         [v3 addObject:v11];
       }
 
-      v6 = [(NSMutableDictionary *)v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v6 = [(NSMutableDictionary *)v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v6);
@@ -803,14 +788,12 @@ void __54__MIBUNWServerController__calculateEffectiveBandwidth__block_invoke_73(
     v12 = 0;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
-
   return v12;
 }
 
 - (void)_adjustBatchSizeWithPacketDroppedInLastInterval:(unint64_t)interval
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   batchSize = self->_batchSize;
   if (interval)
   {
@@ -830,11 +813,11 @@ void __54__MIBUNWServerController__calculateEffectiveBandwidth__block_invoke_73(
     if (os_log_type_enabled(MIBUConnObj, OS_LOG_TYPE_DEFAULT))
     {
       v7 = self->_batchSize;
-      v12 = 134217984;
-      v13 = v7;
+      v11 = 134217984;
+      v12 = v7;
       v8 = "Packet dropped, back off with smaller batch size: %lu";
 LABEL_14:
-      _os_log_impl(&dword_259B04000, v6, OS_LOG_TYPE_DEFAULT, v8, &v12, 0xCu);
+      _os_log_impl(&dword_259B04000, v6, OS_LOG_TYPE_DEFAULT, v8, &v11, 0xCu);
     }
   }
 
@@ -856,14 +839,12 @@ LABEL_14:
     if (os_log_type_enabled(MIBUConnObj, OS_LOG_TYPE_DEFAULT))
     {
       v10 = self->_batchSize;
-      v12 = 134217984;
-      v13 = v10;
+      v11 = 134217984;
+      v12 = v10;
       v8 = "No packet dropped, set larger batch size: %lu";
       goto LABEL_14;
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __74__MIBUNWServerController__adjustBatchSizeWithPacketDroppedInLastInterval___block_invoke()
@@ -1032,59 +1013,59 @@ void __73__MIBUNWServerController__handleFetchCompletionWithResult_atEOF_packets
 
 - (void)_sendPackets:(id)packets withCompletion:(id)completion
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   packetsCopy = packets;
   completionCopy = completion;
   dispatch_assert_queue_V2(self->_dispatchQueue);
   v7 = dispatch_group_create();
-  v32[0] = 0;
-  v32[1] = v32;
-  v32[2] = 0x3032000000;
-  v32[3] = __Block_byref_object_copy__1;
-  v32[4] = __Block_byref_object_dispose__1;
-  v33 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v30[0] = 0;
-  v30[1] = v30;
-  v30[2] = 0x2020000000;
-  v31 = 1;
+  v31[0] = 0;
+  v31[1] = v31;
+  v31[2] = 0x3032000000;
+  v31[3] = __Block_byref_object_copy__1;
+  v31[4] = __Block_byref_object_dispose__1;
+  v32 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v29[0] = 0;
+  v29[1] = v29;
+  v29[2] = 0x2020000000;
+  v30 = 1;
+  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
   obj = packetsCopy;
-  v8 = [obj countByEnumeratingWithState:&v26 objects:v34 count:16];
+  v8 = [obj countByEnumeratingWithState:&v25 objects:v33 count:16];
   if (v8)
   {
-    v9 = *v27;
+    v9 = *v26;
     do
     {
       v10 = 0;
       do
       {
-        if (*v27 != v9)
+        if (*v26 != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v26 + 1) + 8 * v10);
+        v11 = *(*(&v25 + 1) + 8 * v10);
         dispatch_group_enter(v7);
         ++self->_packetFetched;
         multicastSocket = self->_multicastSocket;
-        v22[0] = MEMORY[0x277D85DD0];
-        v22[1] = 3221225472;
-        v22[2] = __54__MIBUNWServerController__sendPackets_withCompletion___block_invoke;
-        v22[3] = &unk_2798EBEB8;
-        v24 = v30;
-        v25 = v32;
-        v22[4] = self;
-        v23 = v7;
-        [(MIBUMulticastSocket *)multicastSocket sendPacket:v11 withCompletion:v22];
+        v21[0] = MEMORY[0x277D85DD0];
+        v21[1] = 3221225472;
+        v21[2] = __54__MIBUNWServerController__sendPackets_withCompletion___block_invoke;
+        v21[3] = &unk_2798EBEB8;
+        v23 = v29;
+        v24 = v31;
+        v21[4] = self;
+        v22 = v7;
+        [(MIBUMulticastSocket *)multicastSocket sendPacket:v11 withCompletion:v21];
 
         ++v10;
       }
 
       while (v8 != v10);
-      v8 = [obj countByEnumeratingWithState:&v26 objects:v34 count:16];
+      v8 = [obj countByEnumeratingWithState:&v25 objects:v33 count:16];
     }
 
     while (v8);
@@ -1096,16 +1077,14 @@ void __73__MIBUNWServerController__handleFetchCompletionWithResult_atEOF_packets
   block[2] = __54__MIBUNWServerController__sendPackets_withCompletion___block_invoke_2;
   block[3] = &unk_2798EBEE0;
   block[4] = self;
-  v19 = completionCopy;
-  v20 = v32;
-  v21 = v30;
+  v18 = completionCopy;
+  v19 = v31;
+  v20 = v29;
   v14 = completionCopy;
   dispatch_group_notify(v7, dispatchQueue, block);
 
-  _Block_object_dispose(v30, 8);
-  _Block_object_dispose(v32, 8);
-
-  v15 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(v29, 8);
+  _Block_object_dispose(v31, 8);
 }
 
 void __54__MIBUNWServerController__sendPackets_withCompletion___block_invoke(uint64_t a1, void *a2)
@@ -1131,48 +1110,44 @@ void __54__MIBUNWServerController__sendPackets_withCompletion___block_invoke(uin
 
 uint64_t __54__MIBUNWServerController__sendPackets_withCompletion___block_invoke_2(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
+  v8 = 0u;
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
-  v13 = 0u;
   v2 = *(*(*(a1 + 48) + 8) + 40);
-  v3 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v11;
+    v5 = *v9;
     do
     {
       v6 = 0;
       do
       {
-        if (*v11 != v5)
+        if (*v9 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        [*(a1 + 32) _updatePacketDropBreakdown:{*(*(&v10 + 1) + 8 * v6++), v10}];
+        [*(a1 + 32) _updatePacketDropBreakdown:{*(*(&v8 + 1) + 8 * v6++), v8}];
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v4);
   }
 
-  v7 = *(*(*(a1 + 56) + 8) + 24);
-  result = (*(*(a1 + 40) + 16))();
-  v9 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(*(a1 + 40) + 16))();
 }
 
 - (void)updateClientStatus:(id)status forDevice:(id)device
 {
   statusCopy = status;
   deviceCopy = device;
-  controllerDelegate = self->_controllerDelegate;
   if (objc_opt_respondsToSelector())
   {
     [(MIBUNWServerControllerDelegate *)self->_controllerDelegate serverController:self didReceiveClientDeviceStatus:statusCopy forDevice:deviceCopy];
@@ -1259,7 +1234,7 @@ void __49__MIBUNWServerController_clientListenerDidStart___block_invoke_107()
 
 - (void)clientListenerDidStop:(id)stop withError:(id)error
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   stopCopy = stop;
   errorCopy = error;
   if (self->_tcpListener == stopCopy)
@@ -1272,8 +1247,8 @@ void __49__MIBUNWServerController_clientListenerDidStart___block_invoke_107()
     v8 = MIBUConnObj;
     if (os_log_type_enabled(MIBUConnObj, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = 138543362;
-      v12 = errorCopy;
+      v10 = 138543362;
+      v11 = errorCopy;
       v9 = "TCP listener stopped with error: %{public}@";
       goto LABEL_11;
     }
@@ -1289,15 +1264,13 @@ void __49__MIBUNWServerController_clientListenerDidStart___block_invoke_107()
     v8 = MIBUConnObj;
     if (os_log_type_enabled(MIBUConnObj, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = 138543362;
-      v12 = errorCopy;
+      v10 = 138543362;
+      v11 = errorCopy;
       v9 = "NAN listener stopped with error: %{public}@";
 LABEL_11:
-      _os_log_impl(&dword_259B04000, v8, OS_LOG_TYPE_DEFAULT, v9, &v11, 0xCu);
+      _os_log_impl(&dword_259B04000, v8, OS_LOG_TYPE_DEFAULT, v9, &v10, 0xCu);
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __58__MIBUNWServerController_clientListenerDidStop_withError___block_invoke()
@@ -1352,7 +1325,7 @@ void __58__MIBUNWServerController_clientListenerDidStop_withError___block_invoke
 void *__67__MIBUNWServerController_clientListener_didReceiveNewClientDevice___block_invoke(void *result)
 {
   v1 = result;
-  v16 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v2 = result[4];
   v3 = result[5];
   if (v2 == *(v3 + 48))
@@ -1362,21 +1335,21 @@ void *__67__MIBUNWServerController_clientListener_didReceiveNewClientDevice___bl
       __67__MIBUNWServerController_clientListener_didReceiveNewClientDevice___block_invoke_cold_2();
     }
 
-    v8 = MIBUConnObj;
+    v7 = MIBUConnObj;
     if (os_log_type_enabled(MIBUConnObj, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = v1[5];
-      v10 = v1[6];
-      v12 = 138543618;
+      v8 = v1[5];
+      v9 = v1[6];
+      v10 = 138543618;
+      v11 = v8;
+      v12 = 2114;
       v13 = v9;
-      v14 = 2114;
-      v15 = v10;
-      _os_log_impl(&dword_259B04000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@: Received new TCP unicast client device: %{public}@", &v12, 0x16u);
+      _os_log_impl(&dword_259B04000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@: Received new TCP unicast client device: %{public}@", &v10, 0x16u);
     }
 
     [*(v1[5] + 88) addObject:v1[6]];
     [v1[6] setDelegate:v1[5]];
-    result = [v1[6] bootstrap];
+    return [v1[6] bootstrap];
   }
 
   else if (v2 == *(v3 + 40))
@@ -1391,11 +1364,11 @@ void *__67__MIBUNWServerController_clientListener_didReceiveNewClientDevice___bl
     {
       v5 = v1[5];
       v6 = v1[6];
-      v12 = 138543618;
-      v13 = v5;
-      v14 = 2114;
-      v15 = v6;
-      _os_log_impl(&dword_259B04000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@: Received new NAN unicast client device: %{public}@", &v12, 0x16u);
+      v10 = 138543618;
+      v11 = v5;
+      v12 = 2114;
+      v13 = v6;
+      _os_log_impl(&dword_259B04000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@: Received new NAN unicast client device: %{public}@", &v10, 0x16u);
     }
 
     [*(v1[5] + 80) addObject:v1[6]];
@@ -1404,12 +1377,10 @@ void *__67__MIBUNWServerController_clientListener_didReceiveNewClientDevice___bl
     result = *(v1[5] + 24);
     if (result)
     {
-      v7 = v1[6];
-      result = [result serverController:? didReceiveNewClientDevice:?];
+      return [result serverController:? didReceiveNewClientDevice:?];
     }
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -1461,7 +1432,7 @@ void __67__MIBUNWServerController_clientListener_didReceiveNewClientDevice___blo
 
 void __49__MIBUNWServerController_clientDeviceDidConnect___block_invoke(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   if ([*(*(a1 + 32) + 88) containsObject:*(a1 + 40)])
   {
     if (MIBUOnceToken != -1)
@@ -1475,11 +1446,11 @@ void __49__MIBUNWServerController_clientDeviceDidConnect___block_invoke(uint64_t
       v3 = *(a1 + 40);
       v4 = v2;
       v5 = [v3 clientIPv6Address];
-      v10 = 138543362;
-      v11 = v5;
+      v9 = 138543362;
+      v10 = v5;
       v6 = "TCP device connected: %{public}@";
 LABEL_11:
-      _os_log_impl(&dword_259B04000, v4, OS_LOG_TYPE_DEFAULT, v6, &v10, 0xCu);
+      _os_log_impl(&dword_259B04000, v4, OS_LOG_TYPE_DEFAULT, v6, &v9, 0xCu);
     }
   }
 
@@ -1496,14 +1467,12 @@ LABEL_11:
       v8 = *(a1 + 40);
       v4 = v7;
       v5 = [v8 clientIPv6Address];
-      v10 = 138543362;
-      v11 = v5;
+      v9 = 138543362;
+      v10 = v5;
       v6 = "NAN device connected: %{public}@";
       goto LABEL_11;
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __49__MIBUNWServerController_clientDeviceDidConnect___block_invoke_2()
@@ -1554,7 +1523,7 @@ void __49__MIBUNWServerController_clientDeviceDidConnect___block_invoke_122()
 
 void __52__MIBUNWServerController_clientDeviceDidDisconnect___block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   if ([*(*(a1 + 32) + 88) containsObject:*(a1 + 40)])
   {
     if (MIBUOnceToken != -1)
@@ -1569,7 +1538,7 @@ void __52__MIBUNWServerController_clientDeviceDidDisconnect___block_invoke(uint6
       v4 = v2;
       v5 = [v3 clientSerialNumber];
       *buf = 138543362;
-      v16 = v5;
+      v15 = v5;
       _os_log_impl(&dword_259B04000, v4, OS_LOG_TYPE_DEFAULT, "TCP device disconnected: %{public}@", buf, 0xCu);
     }
   }
@@ -1588,23 +1557,21 @@ void __52__MIBUNWServerController_clientDeviceDidDisconnect___block_invoke(uint6
       v8 = v6;
       v9 = [v7 clientSerialNumber];
       *buf = 138543362;
-      v16 = v9;
+      v15 = v9;
       _os_log_impl(&dword_259B04000, v8, OS_LOG_TYPE_DEFAULT, "NAN device disconnected: %{public}@", buf, 0xCu);
     }
 
     v10 = *(*(a1 + 32) + 64);
     v11 = [*(a1 + 40) clientIPv6Address];
-    v13[0] = MEMORY[0x277D85DD0];
-    v13[1] = 3221225472;
-    v13[2] = __52__MIBUNWServerController_clientDeviceDidDisconnect___block_invoke_130;
-    v13[3] = &unk_2798EBE18;
-    v14 = *(a1 + 40);
-    [v10 terminateDataSessionWithPeer:v11 withCompletion:v13];
+    v12[0] = MEMORY[0x277D85DD0];
+    v12[1] = 3221225472;
+    v12[2] = __52__MIBUNWServerController_clientDeviceDidDisconnect___block_invoke_130;
+    v12[3] = &unk_2798EBE18;
+    v13 = *(a1 + 40);
+    [v10 terminateDataSessionWithPeer:v11 withCompletion:v12];
 
     [*(*(a1 + 32) + 80) removeObject:*(a1 + 40)];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __52__MIBUNWServerController_clientDeviceDidDisconnect___block_invoke_2()
@@ -1696,73 +1663,14 @@ void __52__MIBUNWServerController_clientDeviceDidDisconnect___block_invoke_2_131
 
 void __49__MIBUNWServerController_clientDeviceDidCheckIn___block_invoke(uint64_t a1)
 {
-  v39 = *MEMORY[0x277D85DE8];
-  if ([*(*(a1 + 32) + 88) containsObject:*(a1 + 40)])
+  v38 = *MEMORY[0x277D85DE8];
+  if (![*(*(a1 + 32) + 88) containsObject:*(a1 + 40)])
   {
-    if (MIBUOnceToken != -1)
+    if (![*(*(a1 + 32) + 80) containsObject:*(a1 + 40)])
     {
-      __49__MIBUNWServerController_clientDeviceDidCheckIn___block_invoke_cold_3();
+      return;
     }
 
-    v2 = MIBUConnObj;
-    if (os_log_type_enabled(MIBUConnObj, OS_LOG_TYPE_DEFAULT))
-    {
-      v3 = *(a1 + 40);
-      v4 = v2;
-      v5 = [v3 clientSerialNumber];
-      *buf = 138543362;
-      v34 = v5;
-      _os_log_impl(&dword_259B04000, v4, OS_LOG_TYPE_DEFAULT, "TCP device %{public}@ checked in", buf, 0xCu);
-    }
-
-    v6 = *(*(a1 + 32) + 72);
-    v7 = [*(a1 + 40) clientSerialNumber];
-    v8 = [v6 objectForKey:v7];
-
-    if (v8)
-    {
-      v9 = *(*(a1 + 32) + 72);
-      v10 = [*(a1 + 40) clientSerialNumber];
-      [v9 removeObjectForKey:v10];
-
-      v11 = *(*(a1 + 32) + 64);
-      v31[0] = MEMORY[0x277D85DD0];
-      v31[1] = 3221225472;
-      v31[2] = __49__MIBUNWServerController_clientDeviceDidCheckIn___block_invoke_139;
-      v31[3] = &unk_2798EBE18;
-      v32 = *(a1 + 40);
-      [v11 terminateMulticastSessionWithPeer:v8 withCompletion:v31];
-
-LABEL_26:
-      goto LABEL_27;
-    }
-
-    if (MIBUOnceToken == -1)
-    {
-      v29 = MIBUConnObj;
-      if (!os_log_type_enabled(MIBUConnObj, OS_LOG_TYPE_DEFAULT))
-      {
-        goto LABEL_26;
-      }
-    }
-
-    else
-    {
-      __49__MIBUNWServerController_clientDeviceDidCheckIn___block_invoke_cold_4();
-      v29 = MIBUConnObj;
-      if (!os_log_type_enabled(MIBUConnObj, OS_LOG_TYPE_DEFAULT))
-      {
-        goto LABEL_26;
-      }
-    }
-
-    *buf = 0;
-    _os_log_impl(&dword_259B04000, v29, OS_LOG_TYPE_DEFAULT, "No NAN IPv6 address found for TCP device.", buf, 2u);
-    goto LABEL_26;
-  }
-
-  if ([*(*(a1 + 32) + 80) containsObject:*(a1 + 40)])
-  {
     ++*(*(a1 + 32) + 96);
     if (MIBUOnceToken != -1)
     {
@@ -1779,11 +1687,11 @@ LABEL_26:
       v17 = *(v16 + 96);
       v18 = *(v16 + 264);
       *buf = 138543874;
-      v34 = v15;
-      v35 = 2048;
-      v36 = v17;
-      v37 = 2048;
-      v38 = v18;
+      v33 = v15;
+      v34 = 2048;
+      v35 = v17;
+      v36 = 2048;
+      v37 = v18;
       _os_log_impl(&dword_259B04000, v14, OS_LOG_TYPE_DEFAULT, "NAN device %{public}@ checked in. Total checked in: %lu v.s. Expected client count: %lu", buf, 0x20u);
     }
 
@@ -1811,7 +1719,7 @@ LABEL_26:
       {
 LABEL_22:
         [*(a1 + 40) invalidate];
-        goto LABEL_27;
+        return;
       }
     }
 
@@ -1830,16 +1738,73 @@ LABEL_22:
     v27 = [v25 clientSerialNumber];
     v28 = [*(a1 + 40) clientIPv6Address];
     *buf = 138543618;
-    v34 = v27;
-    v35 = 2114;
-    v36 = v28;
+    v33 = v27;
+    v34 = 2114;
+    v35 = v28;
     _os_log_impl(&dword_259B04000, v26, OS_LOG_TYPE_DEFAULT, "Invalidating NAN unicast connection for device: %{public}@ IPv6 address: %{public}@", buf, 0x16u);
 
     goto LABEL_22;
   }
 
-LABEL_27:
-  v30 = *MEMORY[0x277D85DE8];
+  if (MIBUOnceToken != -1)
+  {
+    __49__MIBUNWServerController_clientDeviceDidCheckIn___block_invoke_cold_3();
+  }
+
+  v2 = MIBUConnObj;
+  if (os_log_type_enabled(MIBUConnObj, OS_LOG_TYPE_DEFAULT))
+  {
+    v3 = *(a1 + 40);
+    v4 = v2;
+    v5 = [v3 clientSerialNumber];
+    *buf = 138543362;
+    v33 = v5;
+    _os_log_impl(&dword_259B04000, v4, OS_LOG_TYPE_DEFAULT, "TCP device %{public}@ checked in", buf, 0xCu);
+  }
+
+  v6 = *(*(a1 + 32) + 72);
+  v7 = [*(a1 + 40) clientSerialNumber];
+  v8 = [v6 objectForKey:v7];
+
+  if (!v8)
+  {
+    if (MIBUOnceToken == -1)
+    {
+      v29 = MIBUConnObj;
+      if (!os_log_type_enabled(MIBUConnObj, OS_LOG_TYPE_DEFAULT))
+      {
+        goto LABEL_26;
+      }
+    }
+
+    else
+    {
+      __49__MIBUNWServerController_clientDeviceDidCheckIn___block_invoke_cold_4();
+      v29 = MIBUConnObj;
+      if (!os_log_type_enabled(MIBUConnObj, OS_LOG_TYPE_DEFAULT))
+      {
+        goto LABEL_26;
+      }
+    }
+
+    *buf = 0;
+    _os_log_impl(&dword_259B04000, v29, OS_LOG_TYPE_DEFAULT, "No NAN IPv6 address found for TCP device.", buf, 2u);
+    goto LABEL_26;
+  }
+
+  v9 = *(*(a1 + 32) + 72);
+  v10 = [*(a1 + 40) clientSerialNumber];
+  [v9 removeObjectForKey:v10];
+
+  v11 = *(*(a1 + 32) + 64);
+  v30[0] = MEMORY[0x277D85DD0];
+  v30[1] = 3221225472;
+  v30[2] = __49__MIBUNWServerController_clientDeviceDidCheckIn___block_invoke_139;
+  v30[3] = &unk_2798EBE18;
+  v31 = *(a1 + 40);
+  [v11 terminateMulticastSessionWithPeer:v8 withCompletion:v30];
+
+LABEL_26:
 }
 
 void __49__MIBUNWServerController_clientDeviceDidCheckIn___block_invoke_2()
@@ -1969,7 +1934,7 @@ void __49__MIBUNWServerController_clientDeviceDidCheckIn___block_invoke_148()
 
 void __72__MIBUNWServerController_clientDevice_didCheckOutWithError_withSummary___block_invoke(uint64_t *a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   if ([*(a1[4] + 88) containsObject:a1[5]])
   {
     if (MIBUOnceToken != -1)
@@ -1984,11 +1949,11 @@ void __72__MIBUNWServerController_clientDevice_didCheckOutWithError_withSummary_
       v4 = v2;
       v5 = [v3 clientSerialNumber];
       v6 = a1[6];
-      v15 = 138543618;
-      v16 = v5;
-      v17 = 2112;
-      v18 = v6;
-      _os_log_impl(&dword_259B04000, v4, OS_LOG_TYPE_DEFAULT, "TCP device %{public}@ checked out with error: %@", &v15, 0x16u);
+      v14 = 138543618;
+      v15 = v5;
+      v16 = 2112;
+      v17 = v6;
+      _os_log_impl(&dword_259B04000, v4, OS_LOG_TYPE_DEFAULT, "TCP device %{public}@ checked out with error: %@", &v14, 0x16u);
     }
 
     v7 = a1[4];
@@ -2019,19 +1984,20 @@ void __72__MIBUNWServerController_clientDevice_didCheckOutWithError_withSummary_
       v10 = a1[5];
       v11 = v9;
       v12 = [v10 clientSerialNumber];
-      v15 = 138543362;
-      v16 = v12;
-      _os_log_impl(&dword_259B04000, v11, OS_LOG_TYPE_DEFAULT, "NAN device %{public}@ checkout out", &v15, 0xCu);
+      v14 = 138543362;
+      v15 = v12;
+      _os_log_impl(&dword_259B04000, v11, OS_LOG_TYPE_DEFAULT, "NAN device %{public}@ checkout out", &v14, 0xCu);
     }
   }
 
   v13 = a1[4];
-  if (*(v13 + 264) && ![*(v13 + 88) count])
+  if (*(v13 + 264))
   {
-    [a1[4] _stopWithReason:@"Client Finished"];
+    if (![*(v13 + 88) count])
+    {
+      [a1[4] _stopWithReason:@"Client Finished"];
+    }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __72__MIBUNWServerController_clientDevice_didCheckOutWithError_withSummary___block_invoke_2()
@@ -2085,14 +2051,13 @@ void __72__MIBUNWServerController_clientDevice_didCheckOutWithError_withSummary_
 
 void __58__MIBUNWServerController_clientDevice_didPingWithPayload___block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   if ([*(*(a1 + 32) + 88) containsObject:*(a1 + 40)])
   {
     v2 = *(a1 + 48);
     v3 = *(a1 + 32);
-    v10 = [*(a1 + 40) clientSerialNumber];
+    v8 = [*(a1 + 40) clientSerialNumber];
     [v3 updateClientStatus:v2 forDevice:?];
-    v4 = *MEMORY[0x277D85DE8];
   }
 
   else
@@ -2102,18 +2067,16 @@ void __58__MIBUNWServerController_clientDevice_didPingWithPayload___block_invoke
       __58__MIBUNWServerController_clientDevice_didPingWithPayload___block_invoke_cold_1();
     }
 
-    v5 = MIBUConnObj;
+    v4 = MIBUConnObj;
     if (os_log_type_enabled(MIBUConnObj, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = *(a1 + 40);
-      v7 = v5;
-      v8 = [v6 clientSerialNumber];
+      v5 = *(a1 + 40);
+      v6 = v4;
+      v7 = [v5 clientSerialNumber];
       *buf = 138543362;
-      v12 = v8;
-      _os_log_impl(&dword_259B04000, v7, OS_LOG_TYPE_DEFAULT, "Ignoring device %{public}@ ping via other channels", buf, 0xCu);
+      v10 = v7;
+      _os_log_impl(&dword_259B04000, v6, OS_LOG_TYPE_DEFAULT, "Ignoring device %{public}@ ping via other channels", buf, 0xCu);
     }
-
-    v9 = *MEMORY[0x277D85DE8];
   }
 }
 
@@ -2190,28 +2153,26 @@ void __66__MIBUNWServerController_nanPublisherDidStop_withError_willRetry___bloc
   dispatch_async(dispatchQueue, v9);
 }
 
-void __63__MIBUNWServerController_nanPublisher_didReceiveData_fromPeer___block_invoke(uint64_t a1)
+void __63__MIBUNWServerController_nanPublisher_didReceiveData_fromPeer___block_invoke(uint64_t a1, uint64_t a2)
 {
   v9 = *MEMORY[0x277D85DE8];
-  v2 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClass:objc_opt_class() fromData:*(a1 + 32) error:0];
+  v3 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClass:objc_opt_class() fromData:*(a1 + 32) error:0];
   if (MIBUOnceToken != -1)
   {
     __63__MIBUNWServerController_nanPublisher_didReceiveData_fromPeer___block_invoke_cold_1();
   }
 
-  v3 = MIBUConnObj;
+  v4 = MIBUConnObj;
   if (os_log_type_enabled(MIBUConnObj, OS_LOG_TYPE_DEFAULT))
   {
     v7 = 138412290;
-    v8 = v2;
-    _os_log_impl(&dword_259B04000, v3, OS_LOG_TYPE_DEFAULT, "NAN publisher received multicast data blob which decodes to: %@", &v7, 0xCu);
+    v8 = v3;
+    _os_log_impl(&dword_259B04000, v4, OS_LOG_TYPE_DEFAULT, "NAN publisher received multicast data blob which decodes to: %@", &v7, 0xCu);
   }
 
-  v4 = *(a1 + 40);
-  v5 = [v2 objectForKey:@"SerialNumber"];
-  [v4 updateClientStatus:v2 forDevice:v5];
-
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *(a1 + 40);
+  v6 = [v3 objectForKey:@"SerialNumber"];
+  [v5 updateClientStatus:v3 forDevice:v6];
 }
 
 void __63__MIBUNWServerController_nanPublisher_didReceiveData_fromPeer___block_invoke_2()
@@ -2232,26 +2193,20 @@ void __63__MIBUNWServerController_nanPublisher_didReceiveData_fromPeer___block_i
 
 void __52__MIBUNWServerController_clientDeviceDidDisconnect___block_invoke_130_cold_2(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = a2;
   v4 = [v2 clientSerialNumber];
   OUTLINED_FUNCTION_1_2();
-  OUTLINED_FUNCTION_4_3(&dword_259B04000, v5, v6, "Failed to terminate NAN data session for device: %{public}@ error: %{public}@", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4_3(&dword_259B04000, v5, v6, "Failed to terminate NAN data session for device: %{public}@ error: %{public}@", v7, v8, v9, v10);
 }
 
 void __49__MIBUNWServerController_clientDeviceDidCheckIn___block_invoke_139_cold_2(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = a2;
   v4 = [v2 clientSerialNumber];
   OUTLINED_FUNCTION_1_2();
-  OUTLINED_FUNCTION_4_3(&dword_259B04000, v5, v6, "Failed to terminate multicast session for device: %{public}@ error: %{public}@", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4_3(&dword_259B04000, v5, v6, "Failed to terminate multicast session for device: %{public}@ error: %{public}@", v7, v8, v9, v10);
 }
 
 @end

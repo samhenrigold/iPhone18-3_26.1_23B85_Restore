@@ -335,10 +335,10 @@ LABEL_23:
 {
   lCopy = l;
   assetCopy = asset;
-  v23 = 0;
-  v24 = &v23;
-  v25 = 0x2020000000;
-  v26 = 0;
+  v25 = 0;
+  v26 = &v25;
+  v27 = 0x2020000000;
+  v28 = 0;
   v7 = lCopy;
   assetID = [assetCopy assetID];
   title = [assetCopy title];
@@ -360,26 +360,26 @@ LABEL_23:
     if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
       *buf = 141558274;
-      v28 = 1752392040;
-      v29 = 2112;
-      v30 = v10;
+      v30 = 1752392040;
+      v31 = 2112;
+      v32 = v10;
       _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_INFO, "[iCloudSync] Warning: setUbiquityMetadataForURL:withLibraryAsset: came without a URL.  Using the libraryAsset url: %{mask.hash}@", buf, 0x16u);
     }
   }
 
   if (v10 && assetID && title)
   {
-    v17[0] = _NSConcreteStackBlock;
-    v17[1] = 3221225472;
-    v17[2] = sub_10015E0C0;
-    v17[3] = &unk_100A08BE8;
-    v21 = &v23;
-    v22 = 0;
-    v18 = assetID;
-    v19 = title;
-    v20 = assetCopy;
-    [NSURL coordinateWritingItemAtURL:v10 options:16 error:&v22 byAccessor:v17];
-    v13 = v22;
+    v19[0] = _NSConcreteStackBlock;
+    v19[1] = 3221225472;
+    v19[2] = sub_10015E0C0;
+    v19[3] = &unk_100A08BE8;
+    v23 = &v25;
+    v24 = 0;
+    v20 = assetID;
+    v21 = title;
+    v22 = assetCopy;
+    [NSURL coordinateWritingItemAtURL:v10 options:16 error:&v24 byAccessor:v19];
+    v13 = v24;
     if (v13)
     {
       v14 = BCUbiquityMetadataHelperLog();
@@ -395,14 +395,14 @@ LABEL_23:
     v13 = BCUbiquityMetadataHelperLog();
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      sub_10079143C();
+      sub_10079143C(v13, v15, v16);
     }
   }
 
-  v15 = *(v24 + 24);
-  _Block_object_dispose(&v23, 8);
+  v17 = *(v26 + 24);
+  _Block_object_dispose(&v25, 8);
 
-  return v15 & 1;
+  return v17 & 1;
 }
 
 - (void)setUbiquityMetadataTitle:(id)title forURL:(id)l
@@ -413,22 +413,22 @@ LABEL_23:
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v14 = titleCopy;
-    v15 = 2112;
-    v16 = lCopy;
+    v16 = titleCopy;
+    v17 = 2112;
+    v18 = lCopy;
     _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "[iCloudSync] setUbiquityMetadataTitle title:%@ url:%@", buf, 0x16u);
   }
 
   if (lCopy)
   {
-    v12 = 0;
-    v10[0] = _NSConcreteStackBlock;
-    v10[1] = 3221225472;
-    v10[2] = sub_10015E674;
-    v10[3] = &unk_100A08C10;
-    v11 = titleCopy;
-    [NSURL coordinateWritingItemAtURL:lCopy options:16 error:&v12 byAccessor:v10];
-    v8 = v12;
+    v14 = 0;
+    v12[0] = _NSConcreteStackBlock;
+    v12[1] = 3221225472;
+    v12[2] = sub_10015E674;
+    v12[3] = &unk_100A08C10;
+    v13 = titleCopy;
+    [NSURL coordinateWritingItemAtURL:lCopy options:16 error:&v14 byAccessor:v12];
+    v8 = v14;
     if (v8)
     {
       v9 = BCUbiquityMetadataHelperLog();
@@ -444,7 +444,7 @@ LABEL_23:
     v8 = BCUbiquityMetadataHelperLog();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      sub_10079143C();
+      sub_10079143C(v8, v10, v11);
     }
   }
 }

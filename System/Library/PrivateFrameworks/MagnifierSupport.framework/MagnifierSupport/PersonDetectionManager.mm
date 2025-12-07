@@ -129,18 +129,18 @@
 
 - (id)getDetectedPersonsFromBuffer:(__CVBuffer *)buffer camera:(id)camera interfaceOrientation:(int64_t)orientation
 {
-  v5 = MEMORY[0x28223BE20](self);
-  v84 = v6;
-  v8 = v7;
-  v9 = v5;
+  MEMORY[0x28223BE20](self, a2, buffer, camera, orientation);
+  v84 = v5;
+  v7 = v6;
+  v9 = v8;
   v94[1] = *MEMORY[0x277D85DE8];
   v81 = v10;
-  if (v8)
+  if (v7)
   {
-    CVPixelBufferLockBaseAddress(v8, 0);
-    BytesPerRow = CVPixelBufferGetBytesPerRow(v8);
-    width = CVPixelBufferGetWidth(v8);
-    height = CVPixelBufferGetHeight(v8);
+    CVPixelBufferLockBaseAddress(v7, 0);
+    BytesPerRow = CVPixelBufferGetBytesPerRow(v7);
+    width = CVPixelBufferGetWidth(v7);
+    height = CVPixelBufferGetHeight(v7);
     v93 = *MEMORY[0x277CC4DE8];
     v94[0] = MEMORY[0x277CBEC10];
     pixelBufferAttributes = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v94 forKeys:&v93 count:1];
@@ -160,7 +160,7 @@
 
     CVPixelBufferLockBaseAddress(v12, 0);
     v14 = CVPixelBufferGetBytesPerRow(*v13);
-    BaseAddress = CVPixelBufferGetBaseAddress(v8);
+    BaseAddress = CVPixelBufferGetBaseAddress(v7);
     v15 = CVPixelBufferGetBaseAddress(*v13);
     v16 = CVPixelBufferGetWidth(*v13);
     v17 = CVPixelBufferGetHeight(*v13);
@@ -174,7 +174,7 @@
         {
           v79 = v14;
           v74 = BytesPerRow;
-          pixelBuffer = v8;
+          pixelBuffer = v7;
           v86 = objc_opt_new();
           v71 = v19;
           v72 = v16;

@@ -34,7 +34,7 @@
           deviceInfo = [v12 deviceInfo];
           idsDeviceUniqueIdentifier = [deviceInfo idsDeviceUniqueIdentifier];
 
-          v15 = [mapCopy objectForKey:idsDeviceUniqueIdentifier];
+          v15 = objc_msgSend_objectForKey_(mapCopy);
           integerValue = [v15 integerValue];
 
           af_validFlowContext = [v12 af_validFlowContext];

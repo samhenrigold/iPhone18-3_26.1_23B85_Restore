@@ -20,7 +20,7 @@
   if (tableView)
   {
     v4 = tableView;
-    sub_22044D56C(0, &qword_27CF58B38);
+    sub_22044D56C(0, &qword_27CF58B38, 0x277D75B48);
     sub_2208919FC();
 
     tableView2 = [v2 tableView];
@@ -45,7 +45,7 @@
 - (void)viewDidAppear:(BOOL)appear
 {
   selfCopy = self;
-  sub_2206C5BF0(appear);
+  sub_2206C5BF0(appear, selfCopy);
 }
 
 - (int64_t)tableView:(id)view numberOfRowsInSection:(int64_t)section
@@ -66,7 +66,7 @@
   sub_22088545C();
   viewCopy = view;
   selfCopy = self;
-  v13 = sub_2206C5F64();
+  v13 = sub_2206C5F64(viewCopy, v10);
 
   (*(v7 + 8))(v10, v6);
 

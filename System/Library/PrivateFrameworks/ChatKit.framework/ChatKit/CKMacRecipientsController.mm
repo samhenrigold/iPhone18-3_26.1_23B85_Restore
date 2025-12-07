@@ -291,14 +291,14 @@ void __37__CKMacRecipientsController_loadView__block_invoke()
   loadView_attributes_0 = v3;
 
   v5 = objc_alloc(MEMORY[0x1E696AAB0]);
-  v6 = CKFrameworkBundle();
+  v6 = CKFrameworkBundle(v5);
   v7 = [v6 localizedStringForKey:@"TO" value:&stru_1F04268F8 table:@"ChatKit"];
   v8 = [v5 initWithString:v7 attributes:loadView_attributes_0];
   v9 = loadView_toText_0;
   loadView_toText_0 = v8;
 
   v10 = objc_alloc(MEMORY[0x1E696AAB0]);
-  v11 = CKFrameworkBundle();
+  v11 = CKFrameworkBundle(v10);
   v12 = [v11 localizedStringForKey:@"No Recipients" value:&stru_1F04268F8 table:@"ChatKit"];
   v13 = [v10 initWithString:v12 attributes:loadView_attributes_0];
   v14 = loadView_placeHolderText_0;

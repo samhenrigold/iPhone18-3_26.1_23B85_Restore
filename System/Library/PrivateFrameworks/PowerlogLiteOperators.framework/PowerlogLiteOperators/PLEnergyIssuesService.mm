@@ -107,7 +107,7 @@
 
 - (void)setAssertionThresholds
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   valueCallBacks = *byte_282B5B5D8;
   v3 = CFDictionaryCreateMutable(*MEMORY[0x277CBECE8], 0, MEMORY[0x277CBF138], &valueCallBacks);
   CFDictionarySetValue(v3, @"Default Limits", [(PLEnergyIssuesService *)self createAssertionThreshold:1800 withAggregateLimit:1800]);
@@ -148,19 +148,19 @@
     if (debugEnabled)
     {
       v6 = objc_opt_class();
-      v19 = MEMORY[0x277D85DD0];
-      v20 = 3221225472;
-      v21 = __47__PLEnergyIssuesService_setAssertionThresholds__block_invoke_120;
-      v22 = &__block_descriptor_40_e5_v8__0lu32l8;
-      v23 = v6;
+      v18 = MEMORY[0x277D85DD0];
+      v19 = 3221225472;
+      v20 = __47__PLEnergyIssuesService_setAssertionThresholds__block_invoke_120;
+      v21 = &__block_descriptor_40_e5_v8__0lu32l8;
+      v22 = v6;
       if (qword_2811F4C38 != -1)
       {
-        dispatch_once(&qword_2811F4C38, &v19);
+        dispatch_once(&qword_2811F4C38, &v18);
       }
 
       if (byte_2811F4C29 == 1)
       {
-        v7 = [MEMORY[0x277CCACA8] stringWithFormat:@"Unsuccessful initialization of thresholds", v19, v20, v21, v22, v23];
+        v7 = [MEMORY[0x277CCACA8] stringWithFormat:@"Unsuccessful initialization of thresholds", v18, v19, v20, v21, v22];
         v8 = MEMORY[0x277D3F178];
         v9 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Services/PLEnergyIssuesService.m"];
         lastPathComponent = [v9 lastPathComponent];
@@ -171,7 +171,7 @@
         if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412290;
-          v27 = v7;
+          v26 = v7;
 LABEL_18:
           _os_log_debug_impl(&dword_21A4C6000, v12, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
           goto LABEL_13;
@@ -208,7 +208,7 @@ LABEL_18:
       if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v27 = v7;
+        v26 = v7;
         goto LABEL_18;
       }
 
@@ -221,18 +221,16 @@ LABEL_13:
     CFDictionaryRemoveAllValues(v3);
     CFRelease(v3);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __47__PLEnergyIssuesService_setAssertionThresholds__block_invoke(uint64_t a1)
+void *__47__PLEnergyIssuesService_setAssertionThresholds__block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   _MergedGlobals_1_31 = result;
   return result;
 }
 
-uint64_t __47__PLEnergyIssuesService_setAssertionThresholds__block_invoke_120(uint64_t a1)
+void *__47__PLEnergyIssuesService_setAssertionThresholds__block_invoke_120(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4C29 = result;
@@ -247,13 +245,13 @@ uint64_t __47__PLEnergyIssuesService_setAssertionThresholds__block_invoke_120(ui
 
 + (id)entryEventIntervalDefinitions
 {
-  v8[1] = *MEMORY[0x277D85DE8];
+  v7[1] = *MEMORY[0x277D85DE8];
   if ([MEMORY[0x277D3F208] internalBuild])
   {
-    v7 = @"UrsaDefinition";
+    v6 = @"UrsaDefinition";
     entryEventIntervalDefinitionsUrsaIssues = [self entryEventIntervalDefinitionsUrsaIssues];
-    v8[0] = entryEventIntervalDefinitionsUrsaIssues;
-    v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:&v7 count:1];
+    v7[0] = entryEventIntervalDefinitionsUrsaIssues;
+    v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
   }
 
   else
@@ -261,128 +259,122 @@ uint64_t __47__PLEnergyIssuesService_setAssertionThresholds__block_invoke_120(ui
     v4 = MEMORY[0x277CBEC10];
   }
 
-  v5 = *MEMORY[0x277D85DE8];
-
   return v4;
 }
 
 + (id)entryEventIntervalDefinitionsUrsaIssues
 {
-  v31[2] = *MEMORY[0x277D85DE8];
-  v30[0] = *MEMORY[0x277D3F4E8];
+  v30[2] = *MEMORY[0x277D85DE8];
+  v29[0] = *MEMORY[0x277D3F4E8];
   v2 = *MEMORY[0x277D3F590];
-  v28[0] = *MEMORY[0x277D3F568];
-  v28[1] = v2;
-  v29[0] = &unk_282C1C448;
-  v29[1] = &unk_282C118C8;
-  v28[2] = *MEMORY[0x277D3F588];
-  v29[2] = &unk_282C1C458;
-  v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:v28 count:3];
-  v31[0] = v25;
-  v30[1] = *MEMORY[0x277D3F540];
-  v26[0] = @"radar";
+  v27[0] = *MEMORY[0x277D3F568];
+  v27[1] = v2;
+  v28[0] = &unk_282C1C448;
+  v28[1] = &unk_282C118C8;
+  v27[2] = *MEMORY[0x277D3F588];
+  v28[2] = &unk_282C1C458;
+  v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:v27 count:3];
+  v30[0] = v24;
+  v29[1] = *MEMORY[0x277D3F540];
+  v25[0] = @"radar";
   mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat = [mEMORY[0x277D3F198] commonTypeDict_IntegerFormat];
-  v27[0] = commonTypeDict_IntegerFormat;
-  v26[1] = @"impact";
+  v26[0] = commonTypeDict_IntegerFormat;
+  v25[1] = @"impact";
   mEMORY[0x277D3F198]2 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat2 = [mEMORY[0x277D3F198]2 commonTypeDict_IntegerFormat];
-  v27[1] = commonTypeDict_IntegerFormat2;
-  v26[2] = @"timestampStart";
+  v26[1] = commonTypeDict_IntegerFormat2;
+  v25[2] = @"timestampStart";
   mEMORY[0x277D3F198]3 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_DateFormat = [mEMORY[0x277D3F198]3 commonTypeDict_DateFormat];
-  v27[2] = commonTypeDict_DateFormat;
-  v26[3] = @"timestampEnd";
+  v26[2] = commonTypeDict_DateFormat;
+  v25[3] = @"timestampEnd";
   mEMORY[0x277D3F198]4 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_DateFormat2 = [mEMORY[0x277D3F198]4 commonTypeDict_DateFormat];
-  v27[3] = commonTypeDict_DateFormat2;
-  v26[4] = @"hitIn";
+  v26[3] = commonTypeDict_DateFormat2;
+  v25[4] = @"hitIn";
   mEMORY[0x277D3F198]5 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_StringFormat = [mEMORY[0x277D3F198]5 commonTypeDict_StringFormat];
-  v27[4] = commonTypeDict_StringFormat;
-  v26[5] = @"fixedIn";
+  v26[4] = commonTypeDict_StringFormat;
+  v25[5] = @"fixedIn";
   mEMORY[0x277D3F198]6 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_StringFormat2 = [mEMORY[0x277D3F198]6 commonTypeDict_StringFormat];
-  v27[5] = commonTypeDict_StringFormat2;
-  v26[6] = @"isCritical";
+  v26[5] = commonTypeDict_StringFormat2;
+  v25[6] = @"isCritical";
   mEMORY[0x277D3F198]7 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_BoolFormat = [mEMORY[0x277D3F198]7 commonTypeDict_BoolFormat];
-  v27[6] = commonTypeDict_BoolFormat;
-  v26[7] = @"timestampInvalid";
+  v26[6] = commonTypeDict_BoolFormat;
+  v25[7] = @"timestampInvalid";
   mEMORY[0x277D3F198]8 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_DateFormat3 = [mEMORY[0x277D3F198]8 commonTypeDict_DateFormat];
-  v27[7] = commonTypeDict_DateFormat3;
-  v26[8] = @"driMessage";
+  v26[7] = commonTypeDict_DateFormat3;
+  v25[8] = @"driMessage";
   mEMORY[0x277D3F198]9 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_StringFormat3 = [mEMORY[0x277D3F198]9 commonTypeDict_StringFormat];
-  v27[8] = commonTypeDict_StringFormat3;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:v26 count:9];
-  v31[1] = v11;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v31 forKeys:v30 count:2];
-
-  v13 = *MEMORY[0x277D85DE8];
+  v26[8] = commonTypeDict_StringFormat3;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:v25 count:9];
+  v30[1] = v11;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:v29 count:2];
 
   return v12;
 }
 
 + (id)entryEventPointDefinitions
 {
-  v9[2] = *MEMORY[0x277D85DE8];
-  v8[0] = @"UrsaSummary";
+  v8[2] = *MEMORY[0x277D85DE8];
+  v7[0] = @"UrsaSummary";
   entryEventPointDefinitionUrsaSummary = [self entryEventPointDefinitionUrsaSummary];
-  v8[1] = @"UrsaInteraction";
-  v9[0] = entryEventPointDefinitionUrsaSummary;
+  v7[1] = @"UrsaInteraction";
+  v8[0] = entryEventPointDefinitionUrsaSummary;
   entryEventPointDefinitionUrsaInteraction = [self entryEventPointDefinitionUrsaInteraction];
-  v9[1] = entryEventPointDefinitionUrsaInteraction;
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:2];
-
-  v6 = *MEMORY[0x277D85DE8];
+  v8[1] = entryEventPointDefinitionUrsaInteraction;
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:2];
 
   return v5;
 }
 
 + (id)entryEventPointDefinitionUrsaSummary
 {
-  v26[2] = *MEMORY[0x277D85DE8];
+  v25[2] = *MEMORY[0x277D85DE8];
   if (+[PLEnergyIssuesService supportsUrsa])
   {
-    v25[0] = *MEMORY[0x277D3F4E8];
-    v23 = *MEMORY[0x277D3F568];
-    v24 = &unk_282C1C468;
-    v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v24 forKeys:&v23 count:1];
-    v26[0] = v20;
-    v25[1] = *MEMORY[0x277D3F540];
-    v21[0] = @"requestId";
+    v24[0] = *MEMORY[0x277D3F4E8];
+    v22 = *MEMORY[0x277D3F568];
+    v23 = &unk_282C1C468;
+    v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v23 forKeys:&v22 count:1];
+    v25[0] = v19;
+    v24[1] = *MEMORY[0x277D3F540];
+    v20[0] = @"requestId";
     mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_StringFormat = [mEMORY[0x277D3F198] commonTypeDict_StringFormat];
-    v22[0] = commonTypeDict_StringFormat;
-    v21[1] = @"countBui";
+    v21[0] = commonTypeDict_StringFormat;
+    v20[1] = @"countBui";
     mEMORY[0x277D3F198]2 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat = [mEMORY[0x277D3F198]2 commonTypeDict_IntegerFormat];
-    v22[1] = commonTypeDict_IntegerFormat;
-    v21[2] = @"countNotification";
+    v21[1] = commonTypeDict_IntegerFormat;
+    v20[2] = @"countNotification";
     mEMORY[0x277D3F198]3 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat2 = [mEMORY[0x277D3F198]3 commonTypeDict_IntegerFormat];
-    v22[2] = commonTypeDict_IntegerFormat2;
-    v21[3] = @"error";
+    v21[2] = commonTypeDict_IntegerFormat2;
+    v20[3] = @"error";
     mEMORY[0x277D3F198]4 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat3 = [mEMORY[0x277D3F198]4 commonTypeDict_IntegerFormat];
-    v22[3] = commonTypeDict_IntegerFormat3;
-    v21[4] = @"peProcess";
+    v21[3] = commonTypeDict_IntegerFormat3;
+    v20[4] = @"peProcess";
     mEMORY[0x277D3F198]5 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_StringFormat2 = [mEMORY[0x277D3F198]5 commonTypeDict_StringFormat];
-    v22[4] = commonTypeDict_StringFormat2;
-    v21[5] = @"peReason";
+    v21[4] = commonTypeDict_StringFormat2;
+    v20[5] = @"peReason";
     mEMORY[0x277D3F198]6 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_StringFormat3 = [mEMORY[0x277D3F198]6 commonTypeDict_StringFormat];
-    v22[5] = commonTypeDict_StringFormat3;
-    v21[6] = @"peFK_ID";
+    v21[5] = commonTypeDict_StringFormat3;
+    v20[6] = @"peFK_ID";
     mEMORY[0x277D3F198]7 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat4 = [mEMORY[0x277D3F198]7 commonTypeDict_IntegerFormat];
-    v22[6] = commonTypeDict_IntegerFormat4;
-    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:v21 count:7];
-    v26[1] = v10;
-    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:v25 count:2];
+    v21[6] = commonTypeDict_IntegerFormat4;
+    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:v20 count:7];
+    v25[1] = v10;
+    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:v24 count:2];
   }
 
   else
@@ -390,45 +382,41 @@ uint64_t __47__PLEnergyIssuesService_setAssertionThresholds__block_invoke_120(ui
     v11 = MEMORY[0x277CBEC10];
   }
 
-  v12 = *MEMORY[0x277D85DE8];
-
   return v11;
 }
 
 + (id)entryEventPointDefinitionUrsaInteraction
 {
-  v18[2] = *MEMORY[0x277D85DE8];
+  v17[2] = *MEMORY[0x277D85DE8];
   if (+[PLEnergyIssuesService supportsUrsa])
   {
-    v17[0] = *MEMORY[0x277D3F4E8];
-    v15 = *MEMORY[0x277D3F568];
-    v16 = &unk_282C1C478;
-    v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v16 forKeys:&v15 count:1];
-    v18[0] = v2;
-    v17[1] = *MEMORY[0x277D3F540];
-    v13[0] = @"source";
+    v16[0] = *MEMORY[0x277D3F4E8];
+    v14 = *MEMORY[0x277D3F568];
+    v15 = &unk_282C1C478;
+    v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v15 forKeys:&v14 count:1];
+    v17[0] = v2;
+    v16[1] = *MEMORY[0x277D3F540];
+    v12[0] = @"source";
     mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_StringFormat = [mEMORY[0x277D3F198] commonTypeDict_StringFormat];
-    v14[0] = commonTypeDict_StringFormat;
-    v13[1] = @"radar";
+    v13[0] = commonTypeDict_StringFormat;
+    v12[1] = @"radar";
     mEMORY[0x277D3F198]2 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat = [mEMORY[0x277D3F198]2 commonTypeDict_IntegerFormat];
-    v14[1] = commonTypeDict_IntegerFormat;
-    v13[2] = @"action";
+    v13[1] = commonTypeDict_IntegerFormat;
+    v12[2] = @"action";
     mEMORY[0x277D3F198]3 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_StringFormat2 = [mEMORY[0x277D3F198]3 commonTypeDict_StringFormat];
-    v14[2] = commonTypeDict_StringFormat2;
-    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:3];
-    v18[1] = v9;
-    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:2];
+    v13[2] = commonTypeDict_StringFormat2;
+    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:3];
+    v17[1] = v9;
+    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:2];
   }
 
   else
   {
     v10 = MEMORY[0x277CBEC10];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -454,14 +442,14 @@ uint64_t __47__PLEnergyIssuesService_setAssertionThresholds__block_invoke_120(ui
 
 - (void)initializeUrsa
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   workQueue = [(PLOperator *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
   [(PLEnergyIssuesService *)self setUrsaStatus:-1];
   if (!+[PLEnergyIssuesService supportsUrsa])
   {
-    goto LABEL_24;
+    return;
   }
 
   v4 = dispatch_semaphore_create(1);
@@ -490,9 +478,9 @@ uint64_t __47__PLEnergyIssuesService_setAssertionThresholds__block_invoke_120(ui
   v13 = PLLogUrsa();
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
-    v31 = 67109120;
-    *v32 = v12;
-    _os_log_impl(&dword_21A4C6000, v13, OS_LOG_TYPE_DEFAULT, "test rack: %d", &v31, 8u);
+    v30 = 67109120;
+    *v31 = v12;
+    _os_log_impl(&dword_21A4C6000, v13, OS_LOG_TYPE_DEFAULT, "test rack: %d", &v30, 8u);
   }
 
   v14 = _os_feature_enabled_impl();
@@ -501,8 +489,8 @@ uint64_t __47__PLEnergyIssuesService_setAssertionThresholds__block_invoke_120(ui
     v15 = PLLogUrsa();
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v31) = 0;
-      _os_log_impl(&dword_21A4C6000, v15, OS_LOG_TYPE_DEFAULT, "Forcing enablement", &v31, 2u);
+      LOWORD(v30) = 0;
+      _os_log_impl(&dword_21A4C6000, v15, OS_LOG_TYPE_DEFAULT, "Forcing enablement", &v30, 2u);
     }
 
     goto LABEL_9;
@@ -514,9 +502,9 @@ LABEL_9:
     v16 = PLLogUrsa();
     if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
-      v31 = 138412290;
-      *v32 = @"enabled";
-      _os_log_impl(&dword_21A4C6000, v16, OS_LOG_TYPE_DEFAULT, "Feature %@", &v31, 0xCu);
+      v30 = 138412290;
+      *v31 = @"enabled";
+      _os_log_impl(&dword_21A4C6000, v16, OS_LOG_TYPE_DEFAULT, "Feature %@", &v30, 0xCu);
     }
 
     v17 = _os_feature_enabled_impl();
@@ -527,11 +515,11 @@ LABEL_9:
       v20 = PLLogUrsa();
       if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
       {
-        v31 = 138412546;
-        *v32 = buildVersion;
-        *&v32[8] = 2112;
-        v33 = v19;
-        _os_log_impl(&dword_21A4C6000, v20, OS_LOG_TYPE_DEFAULT, "overriding build: %@ -> %@", &v31, 0x16u);
+        v30 = 138412546;
+        *v31 = buildVersion;
+        *&v31[8] = 2112;
+        v32 = v19;
+        _os_log_impl(&dword_21A4C6000, v20, OS_LOG_TYPE_DEFAULT, "overriding build: %@ -> %@", &v30, 0x16u);
       }
 
       v21 = v19;
@@ -547,10 +535,10 @@ LABEL_9:
 
     [(PLEnergyIssuesService *)self registerPowerExceptionCallbacks];
     [(PLEnergyIssuesService *)self registerUrsa];
-    LOBYTE(v31) = 0;
-    v27 = [(PLEnergyIssuesService *)self getUrsaTask:&v31];
+    LOBYTE(v30) = 0;
+    v27 = [(PLEnergyIssuesService *)self getUrsaTask:&v30];
     [(PLEnergyIssuesService *)self updateParamsForUrsaTask:v27];
-    if (v31 == 1)
+    if (v30 == 1)
     {
       [(PLEnergyIssuesService *)self submitTask:v27];
     }
@@ -567,23 +555,21 @@ LABEL_9:
 
     [(PLEnergyIssuesService *)self checkUrsaBootArgs];
 
-    goto LABEL_24;
+    return;
   }
 
   v28 = PLLogUrsa();
   if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
   {
     internalBuild = [MEMORY[0x277D3F208] internalBuild];
-    v31 = 67109376;
-    *v32 = internalBuild;
-    *&v32[4] = 1024;
-    *&v32[6] = v12;
-    _os_log_impl(&dword_21A4C6000, v28, OS_LOG_TYPE_DEFAULT, "Feature disabled int=%d adg=%d", &v31, 0xEu);
+    v30 = 67109376;
+    *v31 = internalBuild;
+    *&v31[4] = 1024;
+    *&v31[6] = v12;
+    _os_log_impl(&dword_21A4C6000, v28, OS_LOG_TYPE_DEFAULT, "Feature disabled int=%d adg=%d", &v30, 0xEu);
   }
 
   [(PLEnergyIssuesService *)self deregisterUrsa];
-LABEL_24:
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)buildVersionChanged
@@ -598,17 +584,17 @@ LABEL_24:
 
 void __44__PLEnergyIssuesService_buildVersionChanged__block_invoke()
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v0 = [MEMORY[0x277D3F180] objectForKey:@"kPLBatteryUrsaLastBuildKey"];
   v1 = PLLogUrsa();
   if (os_log_type_enabled(v1, OS_LOG_TYPE_DEBUG))
   {
-    v11 = [MEMORY[0x277D3F258] buildVersion];
-    v12 = 138412546;
-    v13 = v11;
-    v14 = 2112;
-    v15 = v0;
-    _os_log_debug_impl(&dword_21A4C6000, v1, OS_LOG_TYPE_DEBUG, "Checking for update. Current build = %@, last build = %@.", &v12, 0x16u);
+    v10 = [MEMORY[0x277D3F258] buildVersion];
+    v11 = 138412546;
+    v12 = v10;
+    v13 = 2112;
+    v14 = v0;
+    _os_log_debug_impl(&dword_21A4C6000, v1, OS_LOG_TYPE_DEBUG, "Checking for update. Current build = %@, last build = %@.", &v11, 0x16u);
   }
 
   if (!v0)
@@ -643,9 +629,9 @@ LABEL_12:
   v6 = PLLogUrsa();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
-    v12 = 138412290;
-    v13 = v0;
-    _os_log_error_impl(&dword_21A4C6000, v6, OS_LOG_TYPE_ERROR, "Invalid last build type: %@", &v12, 0xCu);
+    v11 = 138412290;
+    v12 = v0;
+    _os_log_error_impl(&dword_21A4C6000, v6, OS_LOG_TYPE_ERROR, "Invalid last build type: %@", &v11, 0xCu);
   }
 
   v7 = MEMORY[0x277D3F180];
@@ -653,7 +639,6 @@ LABEL_12:
   [v7 setObject:v8 forKey:@"kPLBatteryUrsaLastBuildKey" saveToDisk:1];
 
 LABEL_13:
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addUrsaResponders
@@ -679,7 +664,7 @@ LABEL_13:
 
 id __42__PLEnergyIssuesService_addUrsaResponders__block_invoke(uint64_t a1, uint64_t a2, void *a3, void *a4, void *a5)
 {
-  v104 = *MEMORY[0x277D85DE8];
+  v103 = *MEMORY[0x277D85DE8];
   v8 = a3;
   v9 = a4;
   v10 = a5;
@@ -708,22 +693,22 @@ id __42__PLEnergyIssuesService_addUrsaResponders__block_invoke(uint64_t a1, uint
   v13 = [v10 objectForKeyedSubscript:@"flag"];
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v100 = 0x3032000000;
-  v101 = __Block_byref_object_copy__10;
-  v102 = __Block_byref_object_dispose__10;
-  v103 = [MEMORY[0x277CBEB38] dictionary];
-  v93 = 0;
-  v94 = &v93;
-  v95 = 0x3032000000;
-  v96 = __Block_byref_object_copy__10;
-  v97 = __Block_byref_object_dispose__10;
-  v98 = 0;
-  v87 = 0;
-  v88 = &v87;
-  v89 = 0x3032000000;
-  v90 = __Block_byref_object_copy__10;
-  v91 = __Block_byref_object_dispose__10;
-  v92 = dispatch_semaphore_create(0);
+  v99 = 0x3032000000;
+  v100 = __Block_byref_object_copy__10;
+  v101 = __Block_byref_object_dispose__10;
+  v102 = [MEMORY[0x277CBEB38] dictionary];
+  v92 = 0;
+  v93 = &v92;
+  v94 = 0x3032000000;
+  v95 = __Block_byref_object_copy__10;
+  v96 = __Block_byref_object_dispose__10;
+  v97 = 0;
+  v86 = 0;
+  v87 = &v86;
+  v88 = 0x3032000000;
+  v89 = __Block_byref_object_copy__10;
+  v90 = __Block_byref_object_dispose__10;
+  v91 = dispatch_semaphore_create(0);
   v14 = [v10 objectForKeyedSubscript:@"networkPeriodic"];
   v15 = v14 == 0;
 
@@ -799,7 +784,7 @@ id __42__PLEnergyIssuesService_addUrsaResponders__block_invoke(uint64_t a1, uint
             }
           }
 
-          dispatch_semaphore_signal(v88[5]);
+          dispatch_semaphore_signal(v87[5]);
           goto LABEL_25;
         }
 
@@ -853,7 +838,7 @@ id __42__PLEnergyIssuesService_addUrsaResponders__block_invoke(uint64_t a1, uint
         [v28 setObject:v56 forKeyedSubscript:@"timestampEnd"];
 
         [*(a1 + 32) handlePowerException:v28];
-        dispatch_semaphore_signal(v88[5]);
+        dispatch_semaphore_signal(v87[5]);
       }
 
       else
@@ -864,11 +849,11 @@ id __42__PLEnergyIssuesService_addUrsaResponders__block_invoke(uint64_t a1, uint
         block[2] = __42__PLEnergyIssuesService_addUrsaResponders__block_invoke_5;
         block[3] = &unk_278259658;
         block[4] = *(a1 + 32);
-        v75 = v13;
+        v74 = v13;
         dispatch_async(v25, block);
 
         [*(*(&buf + 1) + 40) setObject:@"running periodic" forKeyedSubscript:@"success"];
-        dispatch_semaphore_signal(v88[5]);
+        dispatch_semaphore_signal(v87[5]);
       }
     }
 
@@ -876,53 +861,52 @@ id __42__PLEnergyIssuesService_addUrsaResponders__block_invoke(uint64_t a1, uint
     {
       v20 = [v10 objectForKeyedSubscript:@"networkAdmit"];
       v21 = *(a1 + 32);
-      v76[0] = MEMORY[0x277D85DD0];
-      v76[1] = 3221225472;
-      v76[2] = __42__PLEnergyIssuesService_addUrsaResponders__block_invoke_3;
-      v76[3] = &unk_27825DDA0;
-      v76[4] = v21;
+      v75[0] = MEMORY[0x277D85DD0];
+      v75[1] = 3221225472;
+      v75[2] = __42__PLEnergyIssuesService_addUrsaResponders__block_invoke_3;
+      v75[3] = &unk_27825DDA0;
+      v75[4] = v21;
       v22 = v20;
-      v77 = v22;
-      v78 = v13;
+      v76 = v22;
+      v77 = v13;
       p_buf = &buf;
-      v80 = &v93;
-      v81 = &v87;
-      [v21 executeUrsaClientCallWithBlock:v76];
+      v79 = &v92;
+      v80 = &v86;
+      [v21 executeUrsaClientCallWithBlock:v75];
     }
   }
 
   else
   {
     v16 = *(a1 + 32);
-    v82[0] = MEMORY[0x277D85DD0];
-    v82[1] = 3221225472;
-    v82[2] = __42__PLEnergyIssuesService_addUrsaResponders__block_invoke_277;
-    v82[3] = &unk_27825DD78;
-    v82[4] = v16;
-    v83 = v13;
-    v84 = &buf;
-    v85 = &v93;
-    v86 = &v87;
-    [v16 executeUrsaClientCallWithBlock:v82];
+    v81[0] = MEMORY[0x277D85DD0];
+    v81[1] = 3221225472;
+    v81[2] = __42__PLEnergyIssuesService_addUrsaResponders__block_invoke_277;
+    v81[3] = &unk_27825DD78;
+    v81[4] = v16;
+    v82 = v13;
+    v83 = &buf;
+    v84 = &v92;
+    v85 = &v86;
+    [v16 executeUrsaClientCallWithBlock:v81];
   }
 
 LABEL_25:
-  v70 = v88[5];
+  v70 = v87[5];
   v71 = dispatch_time(0, 60000000000);
   if (dispatch_semaphore_wait(v70, v71))
   {
     [*(*(&buf + 1) + 40) setObject:@"timed out waiting for response" forKeyedSubscript:@"error"];
   }
 
-  [*(*(&buf + 1) + 40) setObject:v94[5] forKeyedSubscript:@"requestUUID"];
+  [*(*(&buf + 1) + 40) setObject:v93[5] forKeyedSubscript:@"requestUUID"];
   v17 = *(*(&buf + 1) + 40);
-  _Block_object_dispose(&v87, 8);
+  _Block_object_dispose(&v86, 8);
 
-  _Block_object_dispose(&v93, 8);
+  _Block_object_dispose(&v92, 8);
   _Block_object_dispose(&buf, 8);
 
 LABEL_28:
-  v72 = *MEMORY[0x277D85DE8];
 
   return v17;
 }
@@ -1003,14 +987,14 @@ uint64_t __42__PLEnergyIssuesService_addUrsaResponders__block_invoke_5(uint64_t 
 
 void __42__PLEnergyIssuesService_addUrsaResponders__block_invoke_6(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v6 = a5;
   v7 = PLLogUrsa();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
-    v11 = 138412290;
-    v12 = v6;
-    _os_log_debug_impl(&dword_21A4C6000, v7, OS_LOG_TYPE_DEBUG, "Payload from Ursa Interaction via XPC: %@", &v11, 0xCu);
+    v10 = 138412290;
+    v11 = v6;
+    _os_log_debug_impl(&dword_21A4C6000, v7, OS_LOG_TYPE_DEBUG, "Payload from Ursa Interaction via XPC: %@", &v10, 0xCu);
   }
 
   if (v6)
@@ -1025,12 +1009,10 @@ void __42__PLEnergyIssuesService_addUrsaResponders__block_invoke_6(uint64_t a1, 
     v8 = PLLogUrsa();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v11) = 0;
-      _os_log_error_impl(&dword_21A4C6000, v8, OS_LOG_TYPE_ERROR, "No payload available", &v11, 2u);
+      LOWORD(v10) = 0;
+      _os_log_error_impl(&dword_21A4C6000, v8, OS_LOG_TYPE_ERROR, "No payload available", &v10, 2u);
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)registerUrsa
@@ -1091,21 +1073,21 @@ void __37__PLEnergyIssuesService_registerUrsa__block_invoke(uint64_t a1, void *a
 
 - (void)submitTask:(id)task
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   taskCopy = task;
   v4 = PLLogUrsa();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     identifier = [taskCopy identifier];
     *buf = 138412290;
-    v15 = identifier;
+    v14 = identifier;
     _os_log_impl(&dword_21A4C6000, v4, OS_LOG_TYPE_DEFAULT, "Submitting task with id, %@...", buf, 0xCu);
   }
 
   mEMORY[0x277CF0808] = [MEMORY[0x277CF0808] sharedScheduler];
-  v13 = 0;
-  v7 = [mEMORY[0x277CF0808] submitTaskRequest:taskCopy error:&v13];
-  v8 = v13;
+  v12 = 0;
+  v7 = [mEMORY[0x277CF0808] submitTaskRequest:taskCopy error:&v12];
+  v8 = v12;
 
   v9 = PLLogUrsa();
   v10 = v9;
@@ -1118,9 +1100,9 @@ void __37__PLEnergyIssuesService_registerUrsa__block_invoke(uint64_t a1, void *a
 
     identifier2 = [taskCopy identifier];
     *buf = 138412546;
-    v15 = identifier2;
-    v16 = 2112;
-    v17 = v8;
+    v14 = identifier2;
+    v15 = 2112;
+    v16 = v8;
     _os_log_error_impl(&dword_21A4C6000, v10, OS_LOG_TYPE_ERROR, "Failed to submit task with id, %@, error: %@", buf, 0x16u);
     goto LABEL_6;
   }
@@ -1129,33 +1111,31 @@ void __37__PLEnergyIssuesService_registerUrsa__block_invoke(uint64_t a1, void *a
   {
     identifier2 = [taskCopy identifier];
     *buf = 138412290;
-    v15 = identifier2;
+    v14 = identifier2;
     _os_log_impl(&dword_21A4C6000, v10, OS_LOG_TYPE_DEFAULT, "Submitted task with id, %@", buf, 0xCu);
 LABEL_6:
   }
 
 LABEL_8:
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateTask:(id)task
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   taskCopy = task;
   v4 = PLLogUrsa();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     identifier = [taskCopy identifier];
     *buf = 138412290;
-    v15 = identifier;
+    v14 = identifier;
     _os_log_impl(&dword_21A4C6000, v4, OS_LOG_TYPE_DEFAULT, "Updating task with id, %@...", buf, 0xCu);
   }
 
   mEMORY[0x277CF0808] = [MEMORY[0x277CF0808] sharedScheduler];
-  v13 = 0;
-  v7 = [mEMORY[0x277CF0808] updateTaskRequest:taskCopy error:&v13];
-  v8 = v13;
+  v12 = 0;
+  v7 = [mEMORY[0x277CF0808] updateTaskRequest:taskCopy error:&v12];
+  v8 = v12;
 
   v9 = PLLogUrsa();
   v10 = v9;
@@ -1168,9 +1148,9 @@ LABEL_8:
 
     identifier2 = [taskCopy identifier];
     *buf = 138412546;
-    v15 = identifier2;
-    v16 = 2112;
-    v17 = v8;
+    v14 = identifier2;
+    v15 = 2112;
+    v16 = v8;
     _os_log_error_impl(&dword_21A4C6000, v10, OS_LOG_TYPE_ERROR, "Failed to update task with id, %@, error: %@", buf, 0x16u);
     goto LABEL_6;
   }
@@ -1179,14 +1159,12 @@ LABEL_8:
   {
     identifier2 = [taskCopy identifier];
     *buf = 138412290;
-    v15 = identifier2;
+    v14 = identifier2;
     _os_log_impl(&dword_21A4C6000, v10, OS_LOG_TYPE_DEFAULT, "Updated task with id, %@ successfully", buf, 0xCu);
 LABEL_6:
   }
 
 LABEL_8:
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)deregisterUrsa
@@ -1227,15 +1205,15 @@ LABEL_8:
 
 - (void)deregister:(id)deregister
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   deregisterCopy = deregister;
   v4 = PLLogUrsa();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     identifier = [deregisterCopy identifier];
-    v13 = 138412290;
-    v14 = identifier;
-    _os_log_impl(&dword_21A4C6000, v4, OS_LOG_TYPE_DEFAULT, "Deregistering task with id, %@...", &v13, 0xCu);
+    v12 = 138412290;
+    v13 = identifier;
+    _os_log_impl(&dword_21A4C6000, v4, OS_LOG_TYPE_DEFAULT, "Deregistering task with id, %@...", &v12, 0xCu);
   }
 
   mEMORY[0x277CF0808] = [MEMORY[0x277CF0808] sharedScheduler];
@@ -1252,24 +1230,22 @@ LABEL_8:
     }
 
     identifier3 = [deregisterCopy identifier];
-    v13 = 138412290;
-    v14 = identifier3;
-    _os_log_error_impl(&dword_21A4C6000, v10, OS_LOG_TYPE_ERROR, "Failed to deregister task with id, %@", &v13, 0xCu);
+    v12 = 138412290;
+    v13 = identifier3;
+    _os_log_error_impl(&dword_21A4C6000, v10, OS_LOG_TYPE_ERROR, "Failed to deregister task with id, %@", &v12, 0xCu);
     goto LABEL_6;
   }
 
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     identifier3 = [deregisterCopy identifier];
-    v13 = 138412290;
-    v14 = identifier3;
-    _os_log_impl(&dword_21A4C6000, v10, OS_LOG_TYPE_DEFAULT, "Deregistered task with id, %@", &v13, 0xCu);
+    v12 = 138412290;
+    v13 = identifier3;
+    _os_log_impl(&dword_21A4C6000, v10, OS_LOG_TYPE_DEFAULT, "Deregistered task with id, %@", &v12, 0xCu);
 LABEL_6:
   }
 
 LABEL_8:
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleUrsaTask:(id)task
@@ -1293,7 +1269,7 @@ void __40__PLEnergyIssuesService_handleUrsaTask___block_invoke(uint64_t a1)
 
 - (void)runPeriodic:(double)periodic withFlag:(id)flag
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   flagCopy = flag;
   if (periodic <= 0.0)
   {
@@ -1306,23 +1282,21 @@ void __40__PLEnergyIssuesService_handleUrsaTask___block_invoke(uint64_t a1)
   {
     *buf = 134218242;
     periodicCopy = periodic;
-    v16 = 2112;
-    v17 = flagCopy;
+    v15 = 2112;
+    v16 = flagCopy;
     _os_log_debug_impl(&dword_21A4C6000, v8, OS_LOG_TYPE_DEBUG, "Running periodic with table update since %.2f %@", buf, 0x16u);
   }
 
   [(PLEnergyIssuesService *)self processExistingEntriesSequentially];
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __46__PLEnergyIssuesService_runPeriodic_withFlag___block_invoke;
-  v11[3] = &unk_27825CFA0;
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __46__PLEnergyIssuesService_runPeriodic_withFlag___block_invoke;
+  v10[3] = &unk_27825CFA0;
   periodicCopy2 = periodic;
-  v11[4] = self;
-  v12 = flagCopy;
+  v10[4] = self;
+  v11 = flagCopy;
   v9 = flagCopy;
-  [(PLEnergyIssuesService *)self executeUrsaClientCallWithBlock:v11];
-
-  v10 = *MEMORY[0x277D85DE8];
+  [(PLEnergyIssuesService *)self executeUrsaClientCallWithBlock:v10];
 }
 
 void __46__PLEnergyIssuesService_runPeriodic_withFlag___block_invoke(uint64_t a1)
@@ -1340,27 +1314,26 @@ void __46__PLEnergyIssuesService_runPeriodic_withFlag___block_invoke(uint64_t a1
 
 - (double)defaultFetchWindow
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   date = [MEMORY[0x277CBEAA8] date];
   v3 = [MEMORY[0x277CBEAA8] nearestMidnightBeforeDate:date];
   v4 = PLLogUrsa();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
-    v9 = 138412290;
-    v10 = v3;
-    _os_log_debug_impl(&dword_21A4C6000, v4, OS_LOG_TYPE_DEBUG, "defaulting to %@", &v9, 0xCu);
+    v8 = 138412290;
+    v9 = v3;
+    _os_log_debug_impl(&dword_21A4C6000, v4, OS_LOG_TYPE_DEBUG, "defaulting to %@", &v8, 0xCu);
   }
 
   [v3 timeIntervalSince1970];
   v6 = v5;
 
-  v7 = *MEMORY[0x277D85DE8];
   return v6 + -86400.0;
 }
 
 - (void)processExistingEntriesSequentially
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   monotonicDate = [MEMORY[0x277CBEAA8] monotonicDate];
   v4 = [monotonicDate dateByAddingTimeInterval:-1209600.0];
 
@@ -1369,42 +1342,42 @@ void __46__PLEnergyIssuesService_runPeriodic_withFlag___block_invoke(uint64_t a1
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v26 = [v5 count];
+    v25 = [v5 count];
     _os_log_impl(&dword_21A4C6000, v6, OS_LOG_TYPE_DEFAULT, "Found %lu existing entries for update", buf, 0xCu);
   }
 
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
   v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   v7 = v5;
-  v8 = [v7 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v21;
+    v10 = *v20;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v21 != v10)
+        if (*v20 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v20 + 1) + 8 * i);
+        v12 = *(*(&v19 + 1) + 8 * i);
         if ([(PLEnergyIssuesService *)self isValidUrsaEntry:v12])
         {
           v13 = [(PLEnergyIssuesService *)self extractProcessNameFromEntry:v12];
-          v17[0] = MEMORY[0x277D85DD0];
-          v17[1] = 3221225472;
-          v17[2] = __59__PLEnergyIssuesService_processExistingEntriesSequentially__block_invoke;
-          v17[3] = &unk_27825D6E8;
-          v17[4] = self;
-          v18 = v13;
-          v19 = v12;
+          v16[0] = MEMORY[0x277D85DD0];
+          v16[1] = 3221225472;
+          v16[2] = __59__PLEnergyIssuesService_processExistingEntriesSequentially__block_invoke;
+          v16[3] = &unk_27825D6E8;
+          v16[4] = self;
+          v17 = v13;
+          v18 = v12;
           v14 = v13;
-          [(PLEnergyIssuesService *)self executeUrsaClientCallWithBlock:v17];
+          [(PLEnergyIssuesService *)self executeUrsaClientCallWithBlock:v16];
         }
 
         else
@@ -1414,19 +1387,17 @@ void __46__PLEnergyIssuesService_runPeriodic_withFlag___block_invoke(uint64_t a1
           {
             dictionary = [v12 dictionary];
             *buf = 138412290;
-            v26 = dictionary;
+            v25 = dictionary;
             _os_log_impl(&dword_21A4C6000, v14, OS_LOG_TYPE_DEFAULT, "Invalid PLEntry. Skipping update for %@", buf, 0xCu);
           }
         }
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v9);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __59__PLEnergyIssuesService_processExistingEntriesSequentially__block_invoke(uint64_t a1)
@@ -1447,7 +1418,7 @@ void __59__PLEnergyIssuesService_processExistingEntriesSequentially__block_invok
 
 void __59__PLEnergyIssuesService_processExistingEntriesSequentially__block_invoke_2(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = a4;
@@ -1455,13 +1426,13 @@ void __59__PLEnergyIssuesService_processExistingEntriesSequentially__block_invok
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     v11 = *(a1 + 32);
-    v17 = 138412802;
-    v18 = v11;
-    v19 = 2112;
-    v20 = v7;
-    v21 = 2112;
-    v22 = v9;
-    _os_log_impl(&dword_21A4C6000, v10, OS_LOG_TYPE_DEFAULT, "Callback for %@ - error:%@ payload:%@", &v17, 0x20u);
+    v16 = 138412802;
+    v17 = v11;
+    v18 = 2112;
+    v19 = v7;
+    v20 = 2112;
+    v21 = v9;
+    _os_log_impl(&dword_21A4C6000, v10, OS_LOG_TYPE_DEFAULT, "Callback for %@ - error:%@ payload:%@", &v16, 0x20u);
   }
 
   if (!v7 && v9)
@@ -1493,17 +1464,15 @@ LABEL_13:
     v12 = PLLogUrsa();
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      v17 = 138412290;
-      v18 = v7;
-      _os_log_error_impl(&dword_21A4C6000, v12, OS_LOG_TYPE_ERROR, "Entry failed with error: %@", &v17, 0xCu);
+      v16 = 138412290;
+      v17 = v7;
+      _os_log_error_impl(&dword_21A4C6000, v12, OS_LOG_TYPE_ERROR, "Entry failed with error: %@", &v16, 0xCu);
     }
 
     goto LABEL_13;
   }
 
 LABEL_14:
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (id)queryExistingUrsaEntries:(id)entries
@@ -1523,8 +1492,8 @@ LABEL_14:
   v13 = [MEMORY[0x277CCACA8] stringWithFormat:@"SELECT MAX(%@) FROM %@ p2 WHERE %@ ", @"timestampEnd", v5, v12];
   v14 = [MEMORY[0x277CCACA8] stringWithFormat:@"SELECT * FROM %@ p1 WHERE %@ AND %@ = (%@) ORDER BY %@ DESC", v5, v11, @"timestampEnd", v13, @"timestampEnd"];;
   mEMORY[0x277D3F2A0] = [MEMORY[0x277D3F2A0] sharedCore];
-  storage = [mEMORY[0x277D3F2A0] storage];
-  v17 = [storage entriesForKey:v5 withQuery:v14];
+  v16 = objc_msgSend_storage(mEMORY[0x277D3F2A0]);
+  v17 = [v16 entriesForKey:v5 withQuery:v14];
 
   return v17;
 }
@@ -1554,7 +1523,7 @@ LABEL_14:
 
 void __96__PLEnergyIssuesService_handlePeriodicTableUpdateCallback_withRequestUUID_withPayload_forEntry___block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = [(PLOperator *)PLEnergyIssuesService entryKeyForType:*MEMORY[0x277D3F5E8] andName:@"UrsaSummary"];
   v3 = [objc_alloc(MEMORY[0x277D3F190]) initWithEntryKey:v2];
   [v3 setObject:*(a1 + 32) forKeyedSubscript:@"requestId"];
@@ -1565,13 +1534,13 @@ void __96__PLEnergyIssuesService_handlePeriodicTableUpdateCallback_withRequestUU
 
   else if (*(a1 + 48) && [*(a1 + 56) shouldUpdateTableFrom:*(a1 + 64) newPayload:?])
   {
-    v6 = PLLogUrsa();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v5 = PLLogUrsa();
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = [*(a1 + 56) extractProcessNameFromEntry:*(a1 + 64)];
-      v8 = 138412290;
-      v9 = v7;
-      _os_log_impl(&dword_21A4C6000, v6, OS_LOG_TYPE_DEFAULT, "handling callback for %@", &v8, 0xCu);
+      v6 = [*(a1 + 56) extractProcessNameFromEntry:*(a1 + 64)];
+      v7 = 138412290;
+      v8 = v6;
+      _os_log_impl(&dword_21A4C6000, v5, OS_LOG_TYPE_DEFAULT, "handling callback for %@", &v7, 0xCu);
     }
 
     [*(a1 + 56) updateExistingTableEntry:*(a1 + 64) withResponsePayload:*(a1 + 48)];
@@ -1580,13 +1549,11 @@ void __96__PLEnergyIssuesService_handlePeriodicTableUpdateCallback_withRequestUU
   [*(a1 + 56) logEntry:v3];
   v4 = [*(a1 + 56) currentUrsaCloudKitTask];
   dispatch_semaphore_signal(v4);
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateExistingTableEntry:(id)entry withResponsePayload:(id)payload
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   entryCopy = entry;
   payloadCopy = payload;
   v8 = [(PLOperator *)PLEnergyIssuesService entryKeyForType:*MEMORY[0x277D3F5D8] andName:@"UrsaDefinition"];
@@ -1625,8 +1592,8 @@ void __96__PLEnergyIssuesService_handlePeriodicTableUpdateCallback_withRequestUU
 
   [(PLOperator *)self logEntry:v9];
   mEMORY[0x277D3F2A0] = [MEMORY[0x277D3F2A0] sharedCore];
-  storage = [mEMORY[0x277D3F2A0] storage];
-  [storage deleteEntryForKey:v8 WithRowID:{objc_msgSend(entryCopy, "entryID")}];
+  v21 = objc_msgSend_storage(mEMORY[0x277D3F2A0]);
+  [v21 deleteEntryForKey:v8 WithRowID:{objc_msgSend(entryCopy, "entryID")}];
 
   v22 = PLLogUrsa();
   if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
@@ -1634,13 +1601,11 @@ void __96__PLEnergyIssuesService_handlePeriodicTableUpdateCallback_withRequestUU
     dictionary = [entryCopy dictionary];
     dictionary2 = [v9 dictionary];
     *buf = 138412546;
-    v27 = dictionary;
-    v28 = 2112;
-    v29 = dictionary2;
+    v26 = dictionary;
+    v27 = 2112;
+    v28 = dictionary2;
     _os_log_impl(&dword_21A4C6000, v22, OS_LOG_TYPE_DEFAULT, "Updated table entry for %@ with new entry %@", buf, 0x16u);
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleUrsaCallback:(id)callback withRequestUUID:(id)d withPayload:(id)payload
@@ -1735,7 +1700,7 @@ LABEL_3:
 - (void)logPowerExceptionTelemetry:(id)telemetry withNotified:(BOOL)notified withRequestUUID:(id)d
 {
   notifiedCopy = notified;
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   telemetryCopy = telemetry;
   dCopy = d;
   v10 = dCopy;
@@ -1751,32 +1716,32 @@ LABEL_3:
     goto LABEL_31;
   }
 
-  v32 = notifiedCopy;
-  v33 = dCopy;
+  v31 = notifiedCopy;
+  v32 = dCopy;
   dictionary = [MEMORY[0x277CBEB38] dictionary];
+  v35 = 0u;
   v36 = 0u;
   v37 = 0u;
   v38 = 0u;
-  v39 = 0u;
   v12 = telemetryCopy;
-  v13 = [v12 countByEnumeratingWithState:&v36 objects:v41 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v35 objects:v40 count:16];
   if (!v13)
   {
     goto LABEL_18;
   }
 
   v14 = v13;
-  v15 = *v37;
+  v15 = *v36;
   do
   {
     for (i = 0; i != v14; ++i)
     {
-      if (*v37 != v15)
+      if (*v36 != v15)
       {
         objc_enumerationMutation(v12);
       }
 
-      v17 = *(*(&v36 + 1) + 8 * i);
+      v17 = *(*(&v35 + 1) + 8 * i);
       v18 = [v12 objectForKeyedSubscript:v17];
       objc_opt_class();
       if (objc_opt_isKindOfClass())
@@ -1818,7 +1783,7 @@ LABEL_3:
 LABEL_16:
     }
 
-    v14 = [v12 countByEnumeratingWithState:&v36 objects:v41 count:16];
+    v14 = [v12 countByEnumeratingWithState:&v35 objects:v40 count:16];
   }
 
   while (v14);
@@ -1831,9 +1796,9 @@ LABEL_18:
     v24 = [dictionary objectForKeyedSubscript:@"admit"];
     v25 = [v24 isEqualToString:@"1"];
 
-    v10 = v33;
+    v10 = v32;
     selfCopy2 = self;
-    v27 = v32;
+    v27 = v31;
     if (v25)
     {
       v28 = @"true";
@@ -1844,9 +1809,9 @@ LABEL_18:
   else
   {
 
-    v10 = v33;
+    v10 = v32;
     selfCopy2 = self;
-    v27 = v32;
+    v27 = v31;
   }
 
   v28 = @"false";
@@ -1868,17 +1833,16 @@ LABEL_25:
     [dictionary setObject:v10 forKeyedSubscript:@"requestUUID"];
   }
 
-  v34[0] = MEMORY[0x277D85DD0];
-  v34[1] = 3221225472;
-  v34[2] = __81__PLEnergyIssuesService_logPowerExceptionTelemetry_withNotified_withRequestUUID___block_invoke;
-  v34[3] = &unk_278259658;
-  v34[4] = selfCopy2;
-  v35 = dictionary;
+  v33[0] = MEMORY[0x277D85DD0];
+  v33[1] = 3221225472;
+  v33[2] = __81__PLEnergyIssuesService_logPowerExceptionTelemetry_withNotified_withRequestUUID___block_invoke;
+  v33[3] = &unk_278259658;
+  v33[4] = selfCopy2;
+  v34 = dictionary;
   v29 = dictionary;
-  [(PLEnergyIssuesService *)selfCopy2 executeUrsaClientCallWithBlock:v34];
+  [(PLEnergyIssuesService *)selfCopy2 executeUrsaClientCallWithBlock:v33];
 
 LABEL_31:
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 void __81__PLEnergyIssuesService_logPowerExceptionTelemetry_withNotified_withRequestUUID___block_invoke(uint64_t a1)
@@ -1895,7 +1859,7 @@ void __81__PLEnergyIssuesService_logPowerExceptionTelemetry_withNotified_withReq
 
 void __81__PLEnergyIssuesService_logPowerExceptionTelemetry_withNotified_withRequestUUID___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = PLLogUrsa();
@@ -1904,25 +1868,23 @@ void __81__PLEnergyIssuesService_logPowerExceptionTelemetry_withNotified_withReq
   {
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v11 = 138412546;
-      v12 = v6;
-      v13 = 2112;
-      v14 = v5;
-      _os_log_error_impl(&dword_21A4C6000, v8, OS_LOG_TYPE_ERROR, "failed to log power exception event <%@>: %@", &v11, 0x16u);
+      v10 = 138412546;
+      v11 = v6;
+      v12 = 2112;
+      v13 = v5;
+      _os_log_error_impl(&dword_21A4C6000, v8, OS_LOG_TYPE_ERROR, "failed to log power exception event <%@>: %@", &v10, 0x16u);
     }
   }
 
   else if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
-    v11 = 138412290;
-    v12 = v6;
-    _os_log_debug_impl(&dword_21A4C6000, v8, OS_LOG_TYPE_DEBUG, "logged power exception event <%@>", &v11, 0xCu);
+    v10 = 138412290;
+    v11 = v6;
+    _os_log_debug_impl(&dword_21A4C6000, v8, OS_LOG_TYPE_DEBUG, "logged power exception event <%@>", &v10, 0xCu);
   }
 
   v9 = [*(a1 + 32) currentUrsaCloudKitTask];
   dispatch_semaphore_signal(v9);
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)requestUrsaNotificationAndLog:(id)log
@@ -1971,22 +1933,22 @@ LABEL_11:
 
 - (BOOL)postUrsaNotification:(id)notification
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   v5 = PLLogUrsa();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v21 = 138412290;
-    v22 = notificationCopy;
-    _os_log_impl(&dword_21A4C6000, v5, OS_LOG_TYPE_DEFAULT, "posting %@", &v21, 0xCu);
+    v20 = 138412290;
+    v21 = notificationCopy;
+    _os_log_impl(&dword_21A4C6000, v5, OS_LOG_TYPE_DEFAULT, "posting %@", &v20, 0xCu);
   }
 
   v6 = [notificationCopy objectForKeyedSubscript:@"admit"];
 
   if (v6)
   {
-    storage = [(PLOperator *)self storage];
-    [storage blockingFlushCachesWithReason:@"ursa-ttr"];
+    v7 = objc_msgSend_storage(self);
+    [v7 blockingFlushCachesWithReason:@"ursa-ttr"];
   }
 
   v8 = PLQueryRegistered();
@@ -1996,12 +1958,12 @@ LABEL_11:
     v14 = PLLogUrsa();
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v21) = 0;
+      LOWORD(v20) = 0;
       v16 = "invalid response";
       v17 = v14;
       v18 = 2;
 LABEL_15:
-      _os_log_error_impl(&dword_21A4C6000, v17, OS_LOG_TYPE_ERROR, v16, &v21, v18);
+      _os_log_error_impl(&dword_21A4C6000, v17, OS_LOG_TYPE_ERROR, v16, &v20, v18);
     }
 
 LABEL_16:
@@ -2018,10 +1980,10 @@ LABEL_16:
   {
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      v21 = 138412546;
-      v22 = notificationCopy;
-      v23 = 2112;
-      v24 = v9;
+      v20 = 138412546;
+      v21 = notificationCopy;
+      v22 = 2112;
+      v23 = v9;
       v16 = "failed to post notification, %@ -> %@";
       v17 = v14;
       v18 = 22;
@@ -2033,23 +1995,22 @@ LABEL_16:
 
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
-    v21 = 138412546;
-    v22 = notificationCopy;
-    v23 = 2112;
-    v24 = v9;
-    _os_log_impl(&dword_21A4C6000, v14, OS_LOG_TYPE_DEFAULT, "posted notification %@ -> %@", &v21, 0x16u);
+    v20 = 138412546;
+    v21 = notificationCopy;
+    v22 = 2112;
+    v23 = v9;
+    _os_log_impl(&dword_21A4C6000, v14, OS_LOG_TYPE_DEFAULT, "posted notification %@ -> %@", &v20, 0x16u);
   }
 
   v15 = 1;
 LABEL_17:
 
-  v19 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
 - (void)writeUrsaNotificationToTable:(id)table
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   tableCopy = table;
   v5 = [(PLOperator *)PLEnergyIssuesService entryKeyForType:*MEMORY[0x277D3F5D8] andName:@"UrsaDefinition"];
   v6 = [objc_alloc(MEMORY[0x277D3F190]) initWithEntryKey:v5];
@@ -2123,14 +2084,12 @@ LABEL_17:
   if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
   {
     dictionary = [v6 dictionary];
-    v25 = 138412546;
-    v26 = @"UrsaDefinition";
-    v27 = 2112;
-    v28 = dictionary;
-    _os_log_impl(&dword_21A4C6000, v22, OS_LOG_TYPE_DEFAULT, "wrote notification data to %@ table: %@", &v25, 0x16u);
+    v24 = 138412546;
+    v25 = @"UrsaDefinition";
+    v26 = 2112;
+    v27 = dictionary;
+    _os_log_impl(&dword_21A4C6000, v22, OS_LOG_TYPE_DEFAULT, "wrote notification data to %@ table: %@", &v24, 0x16u);
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (void)executeUrsaClientCallWithBlock:(id)block
@@ -2162,7 +2121,7 @@ uint64_t __56__PLEnergyIssuesService_executeUrsaClientCallWithBlock___block_invo
 
 - (void)checkUrsaBootArgs
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   if ([MEMORY[0x277D3F258] deviceRebooted])
   {
     v3 = [MEMORY[0x277CBEAC0] dictionaryWithContentsOfFile:*MEMORY[0x277D3F070]];
@@ -2190,19 +2149,19 @@ uint64_t __56__PLEnergyIssuesService_executeUrsaClientCallWithBlock___block_invo
 
       *&buf = 0;
       *(&buf + 1) = &buf;
-      v31 = 0x3032000000;
-      v32 = __Block_byref_object_copy__10;
-      v33 = __Block_byref_object_dispose__10;
-      v34 = 0;
+      v30 = 0x3032000000;
+      v31 = __Block_byref_object_copy__10;
+      v32 = __Block_byref_object_dispose__10;
+      v33 = 0;
       v10 = [v5 objectForKeyedSubscript:@"bootargs"];
-      v20 = MEMORY[0x277D85DD0];
-      v21 = 3221225472;
-      v22 = __42__PLEnergyIssuesService_checkUrsaBootArgs__block_invoke;
-      v23 = &unk_27825DE90;
+      v19 = MEMORY[0x277D85DD0];
+      v20 = 3221225472;
+      v21 = __42__PLEnergyIssuesService_checkUrsaBootArgs__block_invoke;
+      v22 = &unk_27825DE90;
       v11 = v8;
-      v24 = v11;
+      v23 = v11;
       p_buf = &buf;
-      [v10 enumerateKeysAndObjectsUsingBlock:&v20];
+      [v10 enumerateKeysAndObjectsUsingBlock:&v19];
 
       if (*(*(&buf + 1) + 40))
       {
@@ -2210,23 +2169,23 @@ uint64_t __56__PLEnergyIssuesService_executeUrsaClientCallWithBlock___block_invo
         if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
         {
           v13 = *(*(&buf + 1) + 40);
-          *v28 = 138412290;
-          v29 = v13;
-          _os_log_impl(&dword_21A4C6000, v12, OS_LOG_TYPE_DEFAULT, "notifying boot arg %@", v28, 0xCu);
+          *v27 = 138412290;
+          v28 = v13;
+          _os_log_impl(&dword_21A4C6000, v12, OS_LOG_TYPE_DEFAULT, "notifying boot arg %@", v27, 0xCu);
         }
 
-        v14 = [(PLOperator *)PLEnergyIssuesService entryKeyForType:*MEMORY[0x277D3F5E8] andName:@"UrsaSummary", v20, v21, v22, v23];
+        v14 = [(PLOperator *)PLEnergyIssuesService entryKeyForType:*MEMORY[0x277D3F5E8] andName:@"UrsaSummary", v19, v20, v21, v22];
         v15 = [objc_alloc(MEMORY[0x277D3F190]) initWithEntryKey:v14];
         [v15 setObject:@"bootarg" forKeyedSubscript:@"requestId"];
         [v15 setObject:&unk_282C118F8 forKeyedSubscript:@"countNotification"];
         [(PLOperator *)self logEntry:v15];
-        storage = [(PLOperator *)self storage];
-        [storage blockingFlushCachesWithReason:@"ursa"];
+        v16 = objc_msgSend_storage(self);
+        [v16 blockingFlushCachesWithReason:@"ursa"];
 
         v17 = *(*(&buf + 1) + 40);
-        v26 = @"bootarg";
-        v27 = v17;
-        v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v27 forKeys:&v26 count:1];
+        v25 = @"bootarg";
+        v26 = v17;
+        v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v26 forKeys:&v25 count:1];
         [(PLEnergyIssuesService *)self postUrsaNotification:v18];
       }
 
@@ -2253,13 +2212,11 @@ uint64_t __56__PLEnergyIssuesService_executeUrsaClientCallWithBlock___block_invo
       _os_log_impl(&dword_21A4C6000, v4, OS_LOG_TYPE_DEFAULT, "skipping boot arg check", &buf, 2u);
     }
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void __42__PLEnergyIssuesService_checkUrsaBootArgs__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v6 = a2;
   v7 = a3;
   v8 = [*(a1 + 32) objectForKeyedSubscript:v6];
@@ -2280,17 +2237,15 @@ void __42__PLEnergyIssuesService_checkUrsaBootArgs__block_invoke(uint64_t a1, vo
         v14 = PLLogUrsa();
         if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
         {
-          v16 = 138412290;
-          v17 = v6;
-          _os_log_impl(&dword_21A4C6000, v14, OS_LOG_TYPE_INFO, "found boot arg:%@", &v16, 0xCu);
+          v15 = 138412290;
+          v16 = v6;
+          _os_log_impl(&dword_21A4C6000, v14, OS_LOG_TYPE_INFO, "found boot arg:%@", &v15, 0xCu);
         }
 
         objc_storeStrong((*(*(a1 + 40) + 8) + 40), a2);
       }
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)registerPowerExceptionCallbacks
@@ -2370,13 +2325,13 @@ void __56__PLEnergyIssuesService_registerPowerExceptionCallbacks__block_invoke(u
 
 - (void)handlePowerException:(id)exception
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   exceptionCopy = exception;
   v5 = PLLogUrsa();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v53 = exceptionCopy;
+    v52 = exceptionCopy;
     _os_log_impl(&dword_21A4C6000, v5, OS_LOG_TYPE_INFO, "handling PE %@", buf, 0xCu);
   }
 
@@ -2436,7 +2391,7 @@ LABEL_20:
       if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 67109120;
-        LODWORD(v53) = intValue2;
+        LODWORD(v52) = intValue2;
         v10 = "skipping exempt PE due to %d";
         v13 = v9;
         v14 = OS_LOG_TYPE_DEFAULT;
@@ -2452,7 +2407,7 @@ LABEL_21:
     if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v53 = exceptionCopy;
+      v52 = exceptionCopy;
       _os_log_impl(&dword_21A4C6000, v18, OS_LOG_TYPE_INFO, "handling PE entry:%@", buf, 0xCu);
     }
 
@@ -2485,17 +2440,17 @@ LABEL_21:
       v22 = [exceptionCopy objectForKeyedSubscript:@"EstimatedEnergy"];
       unsignedIntValue = [v22 unsignedIntValue];
 
-      v46 = [(PLOperator *)PLEnergyIssuesService entryKeyForType:*MEMORY[0x277D3F5E8] andName:@"UrsaSummary"];
-      v24 = [objc_alloc(MEMORY[0x277D3F190]) initWithEntryKey:v46];
+      v45 = [(PLOperator *)PLEnergyIssuesService entryKeyForType:*MEMORY[0x277D3F5E8] andName:@"UrsaSummary"];
+      v24 = [objc_alloc(MEMORY[0x277D3F190]) initWithEntryKey:v45];
       [v24 setObject:v9 forKeyedSubscript:@"peProcess"];
       [v24 setObject:&unk_282C118E0 forKeyedSubscript:@"countNotification"];
       v25 = [MEMORY[0x277CCABB0] numberWithLongLong:{-[NSObject entryID](exceptionCopy, "entryID")}];
       [v24 setObject:v25 forKeyedSubscript:@"peFK_ID"];
 
       safeguardsManagingClient = [(PLEnergyIssuesService *)self safeguardsManagingClient];
-      v51 = 0;
-      v27 = [safeguardsManagingClient getMitigationPolicy:&v51];
-      v28 = v51;
+      v50 = 0;
+      v27 = [safeguardsManagingClient getMitigationPolicy:&v50];
+      v28 = v50;
       bOOLValue = [v27 BOOLValue];
 
       if (v28)
@@ -2504,7 +2459,7 @@ LABEL_21:
         if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412290;
-          v53 = v28;
+          v52 = v28;
           _os_log_error_impl(&dword_21A4C6000, v30, OS_LOG_TYPE_ERROR, "failed to read mitigation policy: %@", buf, 0xCu);
         }
       }
@@ -2513,7 +2468,7 @@ LABEL_21:
       if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 67109120;
-        LODWORD(v53) = bOOLValue;
+        LODWORD(v52) = bOOLValue;
         _os_log_impl(&dword_21A4C6000, v31, OS_LOG_TYPE_DEFAULT, "mitigations are %d", buf, 8u);
       }
 
@@ -2531,7 +2486,7 @@ LABEL_21:
           if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v53 = v9;
+            v52 = v9;
             _os_log_impl(&dword_21A4C6000, v37, OS_LOG_TYPE_DEFAULT, "notify exception (%@)", buf, 0xCu);
           }
 
@@ -2551,15 +2506,15 @@ LABEL_21:
             v41 = 0;
           }
 
-          v47[0] = MEMORY[0x277D85DD0];
-          v47[1] = 3221225472;
-          v47[2] = __46__PLEnergyIssuesService_handlePowerException___block_invoke;
-          v47[3] = &unk_27825DEB8;
-          v47[4] = self;
-          v48 = v9;
-          v50 = v41;
-          v49 = exceptionCopy;
-          [(PLEnergyIssuesService *)self executeUrsaClientCallWithBlock:v47];
+          v46[0] = MEMORY[0x277D85DD0];
+          v46[1] = 3221225472;
+          v46[2] = __46__PLEnergyIssuesService_handlePowerException___block_invoke;
+          v46[3] = &unk_27825DEB8;
+          v46[4] = self;
+          v47 = v9;
+          v49 = v41;
+          v48 = exceptionCopy;
+          [(PLEnergyIssuesService *)self executeUrsaClientCallWithBlock:v46];
           [v24 setObject:&unk_282C118F8 forKeyedSubscript:@"countNotification"];
         }
 
@@ -2615,8 +2570,6 @@ LABEL_21:
   }
 
 LABEL_56:
-
-  v45 = *MEMORY[0x277D85DE8];
 }
 
 void __46__PLEnergyIssuesService_handlePowerException___block_invoke(uint64_t a1)
@@ -2658,7 +2611,7 @@ void __46__PLEnergyIssuesService_handlePowerException___block_invoke_2(uint64_t 
 
 - (id)insertSystemTime:(id)time fromPLEntry:(id)entry
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   timeCopy = time;
   entryCopy = entry;
   objc_opt_class();
@@ -2668,8 +2621,8 @@ void __46__PLEnergyIssuesService_handlePowerException___block_invoke_2(uint64_t 
     v9 = PLLogUrsa();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v25) = 0;
-      _os_log_error_impl(&dword_21A4C6000, v9, OS_LOG_TYPE_ERROR, "invalid payload for timestamp", &v25, 2u);
+      LOWORD(v24) = 0;
+      _os_log_error_impl(&dword_21A4C6000, v9, OS_LOG_TYPE_ERROR, "invalid payload for timestamp", &v24, 2u);
     }
 
     goto LABEL_16;
@@ -2681,8 +2634,8 @@ void __46__PLEnergyIssuesService_handlePowerException___block_invoke_2(uint64_t 
     v15 = PLLogUrsa();
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v25) = 0;
-      _os_log_error_impl(&dword_21A4C6000, v15, OS_LOG_TYPE_ERROR, "failed to copy payload dictionary", &v25, 2u);
+      LOWORD(v24) = 0;
+      _os_log_error_impl(&dword_21A4C6000, v15, OS_LOG_TYPE_ERROR, "failed to copy payload dictionary", &v24, 2u);
     }
 
     v9 = 0;
@@ -2710,24 +2663,24 @@ LABEL_16:
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
-          v23 = PLLogUrsa();
-          if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+          v22 = PLLogUrsa();
+          if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
           {
-            v25 = 138412290;
-            v26 = v11;
-            _os_log_error_impl(&dword_21A4C6000, v23, OS_LOG_TYPE_ERROR, "violation end time is neither NSNumber nor NSDate: %@", &v25, 0xCu);
+            v24 = 138412290;
+            v25 = v11;
+            _os_log_error_impl(&dword_21A4C6000, v22, OS_LOG_TYPE_ERROR, "violation end time is neither NSNumber nor NSDate: %@", &v24, 0xCu);
           }
 
-          v24 = v9;
+          v23 = v9;
           goto LABEL_31;
         }
 
-        v18 = MEMORY[0x277CBEAA8];
+        v17 = MEMORY[0x277CBEAA8];
         [v11 doubleValue];
-        v12 = [v18 dateWithTimeIntervalSince1970:?];
+        v12 = [v17 dateWithTimeIntervalSince1970:?];
       }
 
-      v19 = v12;
+      v18 = v12;
       convertFromMonotonicToSystem = [v12 convertFromMonotonicToSystem];
       if (convertFromMonotonicToSystem)
       {
@@ -2736,15 +2689,15 @@ LABEL_16:
 
       else
       {
-        v21 = PLLogUrsa();
-        if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+        v20 = PLLogUrsa();
+        if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
         {
-          LOWORD(v25) = 0;
-          _os_log_error_impl(&dword_21A4C6000, v21, OS_LOG_TYPE_ERROR, "failed to convert exception monotonic time to system time", &v25, 2u);
+          LOWORD(v24) = 0;
+          _os_log_error_impl(&dword_21A4C6000, v20, OS_LOG_TYPE_ERROR, "failed to convert exception monotonic time to system time", &v24, 2u);
         }
       }
 
-      v22 = v9;
+      v21 = v9;
 
 LABEL_31:
       v14 = v9;
@@ -2755,22 +2708,20 @@ LABEL_31:
   v13 = PLLogUrsa();
   if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
   {
-    LOWORD(v25) = 0;
-    _os_log_error_impl(&dword_21A4C6000, v13, OS_LOG_TYPE_ERROR, "invalid violation monotonic time for exception", &v25, 2u);
+    LOWORD(v24) = 0;
+    _os_log_error_impl(&dword_21A4C6000, v13, OS_LOG_TYPE_ERROR, "invalid violation monotonic time for exception", &v24, 2u);
   }
 
   v9 = v9;
   v14 = v9;
 LABEL_17:
 
-  v16 = *MEMORY[0x277D85DE8];
-
   return v14;
 }
 
 - (BOOL)isValidUrsaEntry:(id)entry
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   entryCopy = entry;
   v4 = entryCopy;
   if (entryCopy)
@@ -2801,12 +2752,30 @@ LABEL_17:
           objc_opt_class();
           if (objc_opt_isKindOfClass() & 1) != 0 || (objc_opt_class(), (objc_opt_isKindOfClass()))
           {
-            v11 = [v4 objectForKeyedSubscript:@"hitIn"];
-            if (v11 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+            v10 = [v4 objectForKeyedSubscript:@"hitIn"];
+            if (v10 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
             {
-              if ([v11 length])
+              if ([v10 length])
               {
-                v12 = [v4 objectForKeyedSubscript:@"radar"];
+                v11 = [v4 objectForKeyedSubscript:@"radar"];
+                if (v11)
+                {
+                  objc_opt_class();
+                  if ((objc_opt_isKindOfClass() & 1) == 0)
+                  {
+                    v12 = PLLogUrsa();
+                    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+                    {
+                      *buf = 0;
+                      _os_log_error_impl(&dword_21A4C6000, v12, OS_LOG_TYPE_ERROR, "radar present but not NSNumber", buf, 2u);
+                    }
+
+                    v7 = 0;
+                    goto LABEL_62;
+                  }
+                }
+
+                v12 = [v4 objectForKeyedSubscript:@"impact"];
                 if (v12)
                 {
                   objc_opt_class();
@@ -2816,25 +2785,7 @@ LABEL_17:
                     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
                     {
                       *buf = 0;
-                      _os_log_error_impl(&dword_21A4C6000, v13, OS_LOG_TYPE_ERROR, "radar present but not NSNumber", buf, 2u);
-                    }
-
-                    v7 = 0;
-                    goto LABEL_62;
-                  }
-                }
-
-                v13 = [v4 objectForKeyedSubscript:@"impact"];
-                if (v13)
-                {
-                  objc_opt_class();
-                  if ((objc_opt_isKindOfClass() & 1) == 0)
-                  {
-                    v14 = PLLogUrsa();
-                    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
-                    {
-                      *buf = 0;
-                      _os_log_error_impl(&dword_21A4C6000, v14, OS_LOG_TYPE_ERROR, "impact present but not NSNumber", buf, 2u);
+                      _os_log_error_impl(&dword_21A4C6000, v13, OS_LOG_TYPE_ERROR, "impact present but not NSNumber", buf, 2u);
                     }
 
                     v7 = 0;
@@ -2842,31 +2793,31 @@ LABEL_17:
                   }
                 }
 
-                v14 = [v4 objectForKeyedSubscript:@"fixedIn"];
-                if (v14 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
+                v13 = [v4 objectForKeyedSubscript:@"fixedIn"];
+                if (v13 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
                 {
-                  v15 = PLLogUrsa();
-                  if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+                  v14 = PLLogUrsa();
+                  if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
                   {
                     *buf = 0;
-                    _os_log_error_impl(&dword_21A4C6000, v15, OS_LOG_TYPE_ERROR, "fixedInBuild present but not NSString", buf, 2u);
+                    _os_log_error_impl(&dword_21A4C6000, v14, OS_LOG_TYPE_ERROR, "fixedInBuild present but not NSString", buf, 2u);
                   }
                 }
 
                 else
                 {
-                  v15 = [v5 componentsSeparatedByString:@":"];
-                  if ([v15 count]== 2)
+                  v14 = [v5 componentsSeparatedByString:@":"];
+                  if ([v14 count]== 2)
                   {
-                    v16 = [v15 objectAtIndexedSubscript:0];
-                    if ([v16 length])
+                    v15 = [v14 objectAtIndexedSubscript:0];
+                    if ([v15 length])
                     {
-                      v22 = v16;
+                      v21 = v15;
                       v7 = 1;
-                      v17 = [v15 objectAtIndexedSubscript:1];
-                      v21 = [v17 length];
+                      v16 = [v14 objectAtIndexedSubscript:1];
+                      v20 = [v16 length];
 
-                      if (v21)
+                      if (v20)
                       {
 LABEL_60:
 
@@ -2882,12 +2833,12 @@ LABEL_62:
                     }
                   }
 
-                  v20 = PLLogUrsa();
-                  if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+                  v19 = PLLogUrsa();
+                  if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
                   {
                     *buf = 138412290;
-                    v24 = v5;
-                    _os_log_error_impl(&dword_21A4C6000, v20, OS_LOG_TYPE_ERROR, "driMessage format invalid, expected 'action:process' got '%@'", buf, 0xCu);
+                    v23 = v5;
+                    _os_log_error_impl(&dword_21A4C6000, v19, OS_LOG_TYPE_ERROR, "driMessage format invalid, expected 'action:process' got '%@'", buf, 0xCu);
                   }
                 }
 
@@ -2895,23 +2846,23 @@ LABEL_62:
                 goto LABEL_60;
               }
 
-              v12 = PLLogUrsa();
-              if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+              v11 = PLLogUrsa();
+              if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
               {
                 *buf = 0;
-                v19 = "hitInBuild is empty string";
+                v18 = "hitInBuild is empty string";
 LABEL_50:
-                _os_log_error_impl(&dword_21A4C6000, v12, OS_LOG_TYPE_ERROR, v19, buf, 2u);
+                _os_log_error_impl(&dword_21A4C6000, v11, OS_LOG_TYPE_ERROR, v18, buf, 2u);
               }
             }
 
             else
             {
-              v12 = PLLogUrsa();
-              if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+              v11 = PLLogUrsa();
+              if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
               {
                 *buf = 0;
-                v19 = "hitInBuild missing or not a string";
+                v18 = "hitInBuild missing or not a string";
                 goto LABEL_50;
               }
             }
@@ -2925,8 +2876,8 @@ LABEL_40:
             goto LABEL_15;
           }
 
-          v11 = PLLogUrsa();
-          if (!os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+          v10 = PLLogUrsa();
+          if (!os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
           {
 LABEL_38:
             v7 = 0;
@@ -2934,22 +2885,22 @@ LABEL_38:
           }
 
           *buf = 0;
-          v18 = "timestampEnd not NSDate or NSNumber";
+          v17 = "timestampEnd not NSDate or NSNumber";
         }
 
         else
         {
-          v11 = PLLogUrsa();
-          if (!os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+          v10 = PLLogUrsa();
+          if (!os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
           {
             goto LABEL_38;
           }
 
           *buf = 0;
-          v18 = "timestampEnd missing";
+          v17 = "timestampEnd missing";
         }
 
-        _os_log_error_impl(&dword_21A4C6000, v11, OS_LOG_TYPE_ERROR, v18, buf, 2u);
+        _os_log_error_impl(&dword_21A4C6000, v10, OS_LOG_TYPE_ERROR, v17, buf, 2u);
         goto LABEL_38;
       }
     }
@@ -2975,7 +2926,6 @@ LABEL_38:
   v7 = 0;
 LABEL_15:
 
-  v9 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -3066,7 +3016,7 @@ LABEL_15:
 
 void __39__PLEnergyIssuesService_parseBootArgs___block_invoke(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if ([v3 length])
   {
@@ -3093,9 +3043,9 @@ void __39__PLEnergyIssuesService_parseBootArgs___block_invoke(uint64_t a1, void 
           v8 = PLLogUrsa();
           if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
           {
-            v10 = 138412290;
-            v11 = v3;
-            _os_log_error_impl(&dword_21A4C6000, v8, OS_LOG_TYPE_ERROR, "failed to parse %@", &v10, 0xCu);
+            v9 = 138412290;
+            v10 = v3;
+            _os_log_error_impl(&dword_21A4C6000, v8, OS_LOG_TYPE_ERROR, "failed to parse %@", &v9, 0xCu);
           }
         }
       }
@@ -3105,20 +3055,18 @@ void __39__PLEnergyIssuesService_parseBootArgs___block_invoke(uint64_t a1, void 
         v5 = PLLogUrsa();
         if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
         {
-          v10 = 138412290;
-          v11 = v3;
-          _os_log_error_impl(&dword_21A4C6000, v5, OS_LOG_TYPE_ERROR, "failed to parse %@", &v10, 0xCu);
+          v9 = 138412290;
+          v10 = v3;
+          _os_log_error_impl(&dword_21A4C6000, v5, OS_LOG_TYPE_ERROR, "failed to parse %@", &v9, 0xCu);
         }
       }
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 + (id)createIssueEntriesFrom:(id)from forKey:(id)key now:(id)now midnight:(id)midnight
 {
-  v81 = *MEMORY[0x277D85DE8];
+  v80 = *MEMORY[0x277D85DE8];
   fromCopy = from;
   keyCopy = key;
   nowCopy = now;
@@ -3126,13 +3074,13 @@ void __39__PLEnergyIssuesService_parseBootArgs___block_invoke(uint64_t a1, void 
   if (fromCopy)
   {
     array = [MEMORY[0x277CBEB18] array];
+    v73 = 0u;
     v74 = 0u;
     v75 = 0u;
     v76 = 0u;
-    v77 = 0u;
-    v58 = fromCopy;
+    v57 = fromCopy;
     v10 = fromCopy;
-    v11 = [v10 countByEnumeratingWithState:&v74 objects:v80 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v73 objects:v79 count:16];
     if (!v11)
     {
       goto LABEL_51;
@@ -3141,31 +3089,31 @@ void __39__PLEnergyIssuesService_parseBootArgs___block_invoke(uint64_t a1, void 
     v12 = v11;
     v13 = @"radar";
     v14 = @"impact";
-    v64 = *v75;
+    v63 = *v74;
     while (1)
     {
       v15 = 0;
       do
       {
-        if (*v75 != v64)
+        if (*v74 != v63)
         {
           objc_enumerationMutation(v10);
         }
 
-        v16 = *(*(&v74 + 1) + 8 * v15);
-        v17 = [v16 objectForKeyedSubscript:{v13, v58}];
+        v16 = *(*(&v73 + 1) + 8 * v15);
+        v17 = [v16 objectForKeyedSubscript:{v13, v57}];
         v18 = [v16 objectForKeyedSubscript:v14];
-        v71 = [v16 objectForKeyedSubscript:@"timestampStart"];
-        v70 = [v16 objectForKeyedSubscript:@"timestampEnd"];
-        v69 = [v16 objectForKeyedSubscript:@"hitIn"];
-        v68 = [v16 objectForKeyedSubscript:@"fixedIn"];
-        v73 = [v16 objectForKeyedSubscript:@"isCritical"];
-        v67 = [v16 objectForKeyedSubscript:@"timestampInvalid"];
-        v72 = [v16 objectForKeyedSubscript:@"driMessage"];
+        v70 = [v16 objectForKeyedSubscript:@"timestampStart"];
+        v69 = [v16 objectForKeyedSubscript:@"timestampEnd"];
+        v68 = [v16 objectForKeyedSubscript:@"hitIn"];
+        v67 = [v16 objectForKeyedSubscript:@"fixedIn"];
+        v72 = [v16 objectForKeyedSubscript:@"isCritical"];
+        v66 = [v16 objectForKeyedSubscript:@"timestampInvalid"];
+        v71 = [v16 objectForKeyedSubscript:@"driMessage"];
         v19 = [v16 objectForKeyedSubscript:@"notificationMessage"];
-        v65 = v18;
-        v66 = v19;
-        if (!v17 || !v18 || !v71 || !v70 || !v69 || !v68 || !v73 || !v67 || !v72 || !v19)
+        v64 = v18;
+        v65 = v19;
+        if (!v17 || !v18 || !v70 || !v69 || !v68 || !v67 || !v72 || !v66 || !v71 || !v19)
         {
           v29 = PLLogUrsa();
           if (!os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
@@ -3174,7 +3122,7 @@ void __39__PLEnergyIssuesService_parseBootArgs___block_invoke(uint64_t a1, void 
           }
 
           *buf = 138412290;
-          v79 = v16;
+          v78 = v16;
           v37 = v29;
           v38 = "Insufficient information for issue. Given information: %@";
           goto LABEL_49;
@@ -3187,18 +3135,18 @@ void __39__PLEnergyIssuesService_parseBootArgs___block_invoke(uint64_t a1, void 
         }
 
         null2 = [MEMORY[0x277CBEB68] null];
-        if (v73 == null2)
+        if (v72 == null2)
         {
           goto LABEL_27;
         }
 
-        v63 = v17;
+        v62 = v17;
         v22 = v14;
         v23 = v13;
         v24 = v10;
         null3 = [MEMORY[0x277CBEB68] null];
         v26 = null3;
-        if (v72 == null3)
+        if (v71 == null3)
         {
 
           v10 = v24;
@@ -3215,7 +3163,7 @@ LABEL_29:
           }
 
           *buf = 138412290;
-          v79 = v16;
+          v78 = v16;
           v37 = v29;
           v38 = "Null data found in issue: %@";
 LABEL_49:
@@ -3225,28 +3173,28 @@ LABEL_49:
 
         null4 = [MEMORY[0x277CBEB68] null];
 
-        v28 = v66 == null4;
+        v28 = v65 == null4;
         v10 = v24;
         v13 = v23;
         v14 = v22;
-        v17 = v63;
+        v17 = v62;
         if (v28)
         {
           goto LABEL_29;
         }
 
         v29 = [objc_alloc(MEMORY[0x277D3F190]) initWithEntryKey:keyCopy withDate:nowCopy];
-        v30 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:{objc_msgSend(v63, "unsignedIntValue")}];
+        v30 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:{objc_msgSend(v62, "unsignedIntValue")}];
         [v29 setObject:v30 forKeyedSubscript:v13];
 
-        v31 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(v73, "BOOLValue")}];
+        v31 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(v72, "BOOLValue")}];
         [v29 setObject:v31 forKeyedSubscript:@"isCritical"];
 
-        [v29 setObject:v72 forKeyedSubscript:@"driMessage"];
-        [v29 setObject:v66 forKeyedSubscript:@"notificationMessage"];
+        [v29 setObject:v71 forKeyedSubscript:@"driMessage"];
+        [v29 setObject:v65 forKeyedSubscript:@"notificationMessage"];
         null5 = [MEMORY[0x277CBEB68] null];
 
-        if (v67 == null5)
+        if (v66 == null5)
         {
           v34 = 0.0;
 LABEL_33:
@@ -3255,7 +3203,7 @@ LABEL_33:
           goto LABEL_34;
         }
 
-        [v67 doubleValue];
+        [v66 doubleValue];
         v34 = v33;
         if (v33 == 0.0)
         {
@@ -3269,35 +3217,35 @@ LABEL_33:
 LABEL_34:
         null6 = [MEMORY[0x277CBEB68] null];
 
-        if (v65 != null6)
+        if (v64 != null6)
         {
-          v40 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:{objc_msgSend(v65, "unsignedIntValue")}];
+          v40 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:{objc_msgSend(v64, "unsignedIntValue")}];
           [v29 setObject:v40 forKeyedSubscript:v22];
         }
 
         null7 = [MEMORY[0x277CBEB68] null];
 
-        if (v71 != null7)
+        if (v70 != null7)
         {
           v42 = MEMORY[0x277CCABB0];
-          [v71 doubleValue];
+          [v70 doubleValue];
           v43 = [v42 numberWithDouble:?];
           [v29 setObject:v43 forKeyedSubscript:@"timestampStart"];
         }
 
         null8 = [MEMORY[0x277CBEB68] null];
 
-        if (v70 != null8)
+        if (v69 != null8)
         {
           v45 = MEMORY[0x277CCABB0];
-          [v70 doubleValue];
+          [v69 doubleValue];
           v46 = [v45 numberWithDouble:?];
           [v29 setObject:v46 forKeyedSubscript:@"timestampEnd"];
         }
 
         null9 = [MEMORY[0x277CBEB68] null];
 
-        if (v69 != null9)
+        if (v68 != null9)
         {
           v48 = [MEMORY[0x277CCACA8] stringWithString:?];
           [v29 setObject:v48 forKeyedSubscript:@"hitIn"];
@@ -3305,7 +3253,7 @@ LABEL_34:
 
         null10 = [MEMORY[0x277CBEB68] null];
 
-        if (v68 != null10)
+        if (v67 != null10)
         {
           v50 = [MEMORY[0x277CCACA8] stringWithString:?];
           [v29 setObject:v50 forKeyedSubscript:@"fixedIn"];
@@ -3318,20 +3266,20 @@ LABEL_34:
           [array addObject:v29];
         }
 
-        v17 = v63;
+        v17 = v62;
 LABEL_30:
 
         ++v15;
       }
 
       while (v12 != v15);
-      v55 = [v10 countByEnumeratingWithState:&v74 objects:v80 count:16];
+      v55 = [v10 countByEnumeratingWithState:&v73 objects:v79 count:16];
       v12 = v55;
       if (!v55)
       {
 LABEL_51:
 
-        fromCopy = v58;
+        fromCopy = v57;
         goto LABEL_53;
       }
     }
@@ -3339,8 +3287,6 @@ LABEL_51:
 
   array = 0;
 LABEL_53:
-
-  v56 = *MEMORY[0x277D85DE8];
 
   return array;
 }
@@ -3384,9 +3330,10 @@ LABEL_53:
 
 uint64_t __64__PLEnergyIssuesService_shouldPopUpForPowerExceptionForProcess___block_invoke()
 {
-  qword_2811F4C58 = [MEMORY[0x277CBEB98] setWithArray:&unk_282C14B98];
+  v0 = [MEMORY[0x277CBEB98] setWithArray:&unk_282C14B98];
+  qword_2811F4C58 = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0);
 }
 
 + (BOOL)shouldPopUpForPowerException
@@ -3416,17 +3363,17 @@ uint64_t __64__PLEnergyIssuesService_shouldPopUpForPowerExceptionForProcess___bl
 + (BOOL)isTestRackDevice:(id)device withExpGroup:(id)group internalKeyDetected:(BOOL)detected
 {
   detectedCopy = detected;
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   deviceCopy = device;
   if ([group isEqualToString:@"carry"])
   {
     v8 = PLLogUrsa();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v14[0]) = 0;
+      LOWORD(v13[0]) = 0;
       v9 = "carry expGroup detected";
 LABEL_7:
-      _os_log_impl(&dword_21A4C6000, v8, OS_LOG_TYPE_DEFAULT, v9, v14, 2u);
+      _os_log_impl(&dword_21A4C6000, v8, OS_LOG_TYPE_DEFAULT, v9, v13, 2u);
       goto LABEL_8;
     }
 
@@ -3438,7 +3385,7 @@ LABEL_7:
     v8 = PLLogUrsa();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v14[0]) = 0;
+      LOWORD(v13[0]) = 0;
       v9 = "internal key detected";
       goto LABEL_7;
     }
@@ -3448,19 +3395,18 @@ LABEL_8:
     goto LABEL_9;
   }
 
-  v13 = [deviceCopy length];
-  v10 = v13 != 0;
+  v12 = [deviceCopy length];
+  v10 = v12 != 0;
   v8 = PLLogUrsa();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v14[0] = 67109120;
-    v14[1] = v13 != 0;
-    _os_log_impl(&dword_21A4C6000, v8, OS_LOG_TYPE_DEFAULT, "adg set: %d", v14, 8u);
+    v13[0] = 67109120;
+    v13[1] = v12 != 0;
+    _os_log_impl(&dword_21A4C6000, v8, OS_LOG_TYPE_DEFAULT, "adg set: %d", v13, 8u);
   }
 
 LABEL_9:
 
-  v11 = *MEMORY[0x277D85DE8];
   return v10;
 }
 

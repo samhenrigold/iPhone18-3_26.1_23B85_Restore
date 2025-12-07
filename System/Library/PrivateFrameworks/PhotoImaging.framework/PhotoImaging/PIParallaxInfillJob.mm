@@ -6,9 +6,17 @@
 - (PIParallaxInfillJob)initWithRequest:(id)request;
 - (id)result;
 - (id)scalePolicy;
+- (void)cleanUp;
 @end
 
 @implementation PIParallaxInfillJob
+
+- (void)cleanUp
+{
+  infilledImageBuffer = self->_infilledImageBuffer;
+  self->_infilledImageBuffer = 0;
+  MEMORY[0x1EEE66BB8](self, infilledImageBuffer);
+}
 
 - (id)result
 {
@@ -211,7 +219,7 @@ LABEL_25:
     if (segmentationMatte)
     {
       infillRequest3 = [MEMORY[0x1E695F658] imageWithNUImageBuffer:segmentationMatte];
-      [infillRequest3 extent];
+      objc_msgSend_extent(infillRequest3);
       if (v8 >= 1.0 && v9 >= 1.0)
       {
         v14 = v8;
@@ -230,7 +238,7 @@ LABEL_25:
         infillRequest3 = [PISegmentationHelper infillMaskForSegmentationMatte:infillRequest3];
 
         outputImage = [(NURenderJob *)self outputImage];
-        [outputImage extent];
+        objc_msgSend_extent(outputImage);
         if (v21 == v14 && v22 == v15)
         {
           [(PIParallaxInfillJob *)self setMatteImage:infillRequest3];

@@ -35,6 +35,7 @@
 - (void)lastCommunicationLimitsModifcationDateForDSID:(id)d completionHandler:(id)handler;
 - (void)lastModifcationDateForDSID:(id)d completionHandler:(id)handler;
 - (void)loadEncodedSettingsForEncodedUser:(id)user withEncodedDefaults:(id)defaults completion:(id)completion;
+- (void)loadRegionRatingsDataForStorefront:(id)storefront includeUnrated:(BOOL)unrated completionHandler:(id)handler;
 - (void)managingGuardianAppleIDsForLocalUserWithCompletionHandler:(id)handler;
 - (void)needsToSetRestrictionsPasscodeWithReplyHandler:(id)handler;
 - (void)performMigrationFromMCXSettings:(id)settings completionHandler:(id)handler;
@@ -52,7 +53,10 @@
 - (void)screenTimeSyncStateWithCompletionHandler:(id)handler;
 - (void)sendPasscodeActivityToParentsWithReplyHandler:(id)handler;
 - (void)setContactManagementState:(int64_t)state forDSID:(id)d completionHandler:(id)handler;
+- (void)setLocationSharingModificationAllowed:(BOOL)allowed forDSID:(id)d completionHandler:(id)handler;
 - (void)setRestrictionsPasscode:(id)passcode completionHandler:(id)handler;
+- (void)setScreenTimeEnabled:(BOOL)enabled completionHandler:(id)handler;
+- (void)setScreenTimeSyncingEnabled:(BOOL)enabled completionHandler:(id)handler;
 - (void)shouldAllowOneMoreMinuteForBundleIdentifier:(id)identifier replyHandler:(id)handler;
 - (void)shouldAllowOneMoreMinuteForCategoryIdentifier:(id)identifier replyHandler:(id)handler;
 - (void)shouldAllowOneMoreMinuteForWebDomain:(id)domain replyHandler:(id)handler;
@@ -105,6 +109,14 @@
   [stateServer screenTimeStateWithCompletionHandler:handlerCopy];
 }
 
+- (void)setScreenTimeEnabled:(BOOL)enabled completionHandler:(id)handler
+{
+  enabledCopy = enabled;
+  handlerCopy = handler;
+  stateServer = [(STAgentServer *)self stateServer];
+  [stateServer setScreenTimeEnabled:enabledCopy completionHandler:handlerCopy];
+}
+
 - (void)enableScreenTimeForDSID:(id)d completionHandler:(id)handler
 {
   handlerCopy = handler;
@@ -126,6 +138,14 @@
   handlerCopy = handler;
   stateServer = [(STAgentServer *)self stateServer];
   [stateServer screenTimeSyncStateWithCompletionHandler:handlerCopy];
+}
+
+- (void)setScreenTimeSyncingEnabled:(BOOL)enabled completionHandler:(id)handler
+{
+  enabledCopy = enabled;
+  handlerCopy = handler;
+  stateServer = [(STAgentServer *)self stateServer];
+  [stateServer setScreenTimeSyncingEnabled:enabledCopy completionHandler:handlerCopy];
 }
 
 - (void)isContentPrivacyEnabledForDSID:(id)d completionHandler:(id)handler
@@ -237,6 +257,15 @@
   handlerCopy = handler;
   stateServer = [(STAgentServer *)self stateServer];
   [stateServer enableWebContentFilterWithCompletionHandler:handlerCopy];
+}
+
+- (void)loadRegionRatingsDataForStorefront:(id)storefront includeUnrated:(BOOL)unrated completionHandler:(id)handler
+{
+  unratedCopy = unrated;
+  handlerCopy = handler;
+  storefrontCopy = storefront;
+  stateServer = [(STAgentServer *)self stateServer];
+  [stateServer loadRegionRatingsDataForStorefront:storefrontCopy includeUnrated:unratedCopy completionHandler:handlerCopy];
 }
 
 - (void)saveExpressIntroductionSettingsDefaults:(id)defaults completionHandler:(id)handler
@@ -485,6 +514,15 @@
   dCopy = d;
   stateServer = [(STAgentServer *)self stateServer];
   [stateServer isLocationSharingModificationAllowedForDSID:dCopy completionHandler:handlerCopy];
+}
+
+- (void)setLocationSharingModificationAllowed:(BOOL)allowed forDSID:(id)d completionHandler:(id)handler
+{
+  allowedCopy = allowed;
+  handlerCopy = handler;
+  dCopy = d;
+  stateServer = [(STAgentServer *)self stateServer];
+  [stateServer setLocationSharingModificationAllowed:allowedCopy forDSID:dCopy completionHandler:handlerCopy];
 }
 
 - (void)lastCommunicationLimitsModifcationDateForDSID:(id)d completionHandler:(id)handler

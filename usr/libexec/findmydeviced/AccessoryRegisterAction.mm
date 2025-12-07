@@ -3,6 +3,7 @@
 + (id)sharedAccessoryRegisterDigestSerialQueue;
 + (void)cleanupContextForAccessory:(id)accessory;
 + (void)saveAccessoryRegisterDigest:(id)digest forKey:(id)key;
+- (AccessoryRegisterAction)initWithAccount:(id)account accessory:(id)accessory cause:(id)cause force:(BOOL)force serverInteractionController:(id)controller;
 - (BOOL)_registerDeviceWithCause:(id)cause;
 - (BOOL)shouldCancelAction:(id)action;
 - (FMDServerInteractionController)serverInteractionController;
@@ -12,6 +13,29 @@
 @end
 
 @implementation AccessoryRegisterAction
+
+- (AccessoryRegisterAction)initWithAccount:(id)account accessory:(id)accessory cause:(id)cause force:(BOOL)force serverInteractionController:(id)controller
+{
+  forceCopy = force;
+  accountCopy = account;
+  accessoryCopy = accessory;
+  causeCopy = cause;
+  controllerCopy = controller;
+  v19.receiver = self;
+  v19.super_class = AccessoryRegisterAction;
+  v16 = [(AccessoryRegisterAction *)&v19 init];
+  v17 = v16;
+  if (v16)
+  {
+    [(AccessoryRegisterAction *)v16 setAccount:accountCopy];
+    [(AccessoryRegisterAction *)v17 setAccessory:accessoryCopy];
+    [(AccessoryRegisterAction *)v17 setCause:causeCopy];
+    [(AccessoryRegisterAction *)v17 setForce:forceCopy];
+    [(AccessoryRegisterAction *)v17 setServerInteractionController:controllerCopy];
+  }
+
+  return v17;
+}
 
 + (id)sharedAccessoryRegisterDigestSerialQueue
 {
@@ -195,15 +219,16 @@
   v4 = [info fm_flattenedArrayWithParentIndices:&off_1002E88D0];
   if ([v4 count])
   {
-    v11 = 0;
-    v5 = [NSJSONSerialization dataWithJSONObject:v4 options:0 error:&v11];
-    v6 = v11;
+    v12 = 0;
+    v5 = [NSJSONSerialization dataWithJSONObject:v4 options:0 error:&v12];
+    v6 = v12;
+    v7 = v6;
     if (v6)
     {
-      v7 = sub_100002880();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      v8 = sub_100002880(v6);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
-        sub_100227098(self, v6, v7);
+        sub_100227098(self, v7, v8);
       }
     }
   }
@@ -214,14 +239,14 @@
   }
 
   CC_SHA1([v5 bytes], objc_msgSend(v5, "length"), md);
-  v8 = [NSData dataWithBytes:md length:20];
-  v9 = sub_100002880();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+  v9 = [NSData dataWithBytes:md length:20];
+  v10 = sub_100002880(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
-    sub_100227148(v8, v9);
+    sub_100227148(v9, v10);
   }
 
-  return v8;
+  return v9;
 }
 
 + (void)saveAccessoryRegisterDigest:(id)digest forKey:(id)key

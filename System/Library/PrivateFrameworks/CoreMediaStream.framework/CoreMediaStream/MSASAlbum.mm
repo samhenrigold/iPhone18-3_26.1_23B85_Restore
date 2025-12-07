@@ -21,9 +21,9 @@
 {
   selfCopy = self;
   objc_sync_enter(selfCopy);
-  v7.receiver = selfCopy;
-  v7.super_class = MSASAlbum;
-  v3 = [(MSASAlbum *)&v7 description];
+  v6.receiver = selfCopy;
+  v6.super_class = MSASAlbum;
+  v3 = [(MSASAlbum *)&v6 description];
   v4 = [v3 mutableCopy];
 
   if (selfCopy->_GUID)
@@ -35,8 +35,7 @@
   {
     if (selfCopy->_ownerFullName && (os_trace_get_mode() & 0x1000000) != 0)
     {
-      ownerEmail = selfCopy->_ownerEmail;
-      [v4 appendFormat:@" owner: %@ (%@ %@)", selfCopy->_ownerFullName, ownerEmail, selfCopy->_ownerPersonID];
+      [v4 appendFormat:@" owner: %@ (%@ %@)", selfCopy->_ownerFullName, selfCopy->_ownerEmail, selfCopy->_ownerPersonID];
     }
 
     [v4 appendFormat:@" owner is whitelisted: %d", selfCopy->_ownerIsWhitelisted];

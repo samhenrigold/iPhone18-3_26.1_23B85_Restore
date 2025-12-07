@@ -57,7 +57,7 @@
 
 - (id)replayTransaction:(id)transaction stagedTransaction:(id)stagedTransaction
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   transactionCopy = transaction;
   stagedTransactionCopy = stagedTransaction;
   objectChanges = [(HMDCloudTransaction *)self objectChanges];
@@ -66,27 +66,27 @@
   if (stagedTransactionCopy)
   {
     [MEMORY[0x277CBEB18] array];
-    v23 = v22 = v9;
+    v22 = v21 = v9;
+    v23 = 0u;
     v24 = 0u;
     v25 = 0u;
     v26 = 0u;
-    v27 = 0u;
     v10 = v9;
-    v11 = [v10 countByEnumeratingWithState:&v24 objects:v28 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v23 objects:v27 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v25;
+      v13 = *v24;
       do
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v25 != v13)
+          if (*v24 != v13)
           {
             objc_enumerationMutation(v10);
           }
 
-          v15 = *(*(&v24 + 1) + 8 * i);
+          v15 = *(*(&v23 + 1) + 8 * i);
           objectID = [v15 objectID];
           v17 = [transactionCopy changeWithObjectID:objectID];
 
@@ -98,22 +98,20 @@
             [v15 replayChange:v17 stagedChange:v19];
             if ([v15 isDropAndDoNotApply])
             {
-              [v23 addObject:v15];
+              [v22 addObject:v15];
             }
           }
         }
 
-        v12 = [v10 countByEnumeratingWithState:&v24 objects:v28 count:16];
+        v12 = [v10 countByEnumeratingWithState:&v23 objects:v27 count:16];
       }
 
       while (v12);
     }
 
-    [v10 removeObjectsInArray:v23];
-    v9 = v22;
+    [v10 removeObjectsInArray:v22];
+    v9 = v21;
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
@@ -143,39 +141,35 @@
 
 - (void)updateCloudCache
 {
-  v14 = *MEMORY[0x277D85DE8];
-  if ([(HMDCloudTransaction *)self isTemporaryCache])
+  v12 = *MEMORY[0x277D85DE8];
+  if (![(HMDCloudTransaction *)self isTemporaryCache])
   {
-LABEL_6:
-    v7 = *MEMORY[0x277D85DE8];
-    return;
-  }
-
-  if ([(HMDCloudTransaction *)self decryptionFailed])
-  {
-    v3 = objc_autoreleasePoolPush();
-    selfCopy = self;
-    v5 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    if ([(HMDCloudTransaction *)self decryptionFailed])
     {
-      v6 = HMFGetLogIdentifier();
-      *buf = 138543362;
-      v13 = v6;
-      _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_ERROR, "%{public}@Do not update cloud cache for transaction because decryption has failed.", buf, 0xCu);
+      v3 = objc_autoreleasePoolPush();
+      selfCopy = self;
+      v5 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+      {
+        v6 = HMFGetLogIdentifier();
+        *buf = 138543362;
+        v11 = v6;
+        _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_ERROR, "%{public}@Do not update cloud cache for transaction because decryption has failed.", buf, 0xCu);
+      }
+
+      objc_autoreleasePoolPop(v3);
     }
 
-    objc_autoreleasePoolPop(v3);
-    goto LABEL_6;
+    else
+    {
+      cloudZoneChange = [(HMDCloudTransaction *)self cloudZoneChange];
+      [cloudZoneChange flushAllChangesToCache];
+
+      updatedServerChangeToken = [(HMDCloudTransaction *)self updatedServerChangeToken];
+      cloudZone = [(HMDCloudTransaction *)self cloudZone];
+      [cloudZone setServerChangeToken:updatedServerChangeToken];
+    }
   }
-
-  cloudZoneChange = [(HMDCloudTransaction *)self cloudZoneChange];
-  [cloudZoneChange flushAllChangesToCache];
-
-  updatedServerChangeToken = [(HMDCloudTransaction *)self updatedServerChangeToken];
-  cloudZone = [(HMDCloudTransaction *)self cloudZone];
-  [cloudZone setServerChangeToken:updatedServerChangeToken];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setDeleteAsProcessedWithRecordID:(id)d
@@ -222,7 +216,7 @@ LABEL_6:
 
 - (void)loadCloudRecordsAndDetermineDeletesFromCache:(id)cache
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   cacheCopy = cache;
   cloudZoneChange = [(HMDCloudTransaction *)self cloudZoneChange];
 
@@ -234,9 +228,9 @@ LABEL_6:
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       v9 = HMFGetLogIdentifier();
-      v13 = 138543362;
-      v14 = v9;
-      _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_ERROR, "%{public}@Failed to load cached records because cloudZone cannot be not determined", &v13, 0xCu);
+      v12 = 138543362;
+      v13 = v9;
+      _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_ERROR, "%{public}@Failed to load cached records because cloudZone cannot be not determined", &v12, 0xCu);
     }
 
     objc_autoreleasePoolPop(v6);
@@ -246,8 +240,6 @@ LABEL_6:
 
   cloudZoneChange2 = [(HMDCloudTransaction *)self cloudZoneChange];
   [cloudZoneChange2 loadCloudRecordsAndDetermineDeletesFromCache:cacheCopy];
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cachedCloudRecordWithObjectID:(id)d completionHandler:(id)handler

@@ -1236,7 +1236,7 @@ LABEL_2:
     goto LABEL_3;
   }
 
-  v8 = VOSAddressForBTDevice();
+  v8 = VOSAddressForBTDevice(needed);
   v10 = [(NSMutableDictionary *)self->_btAddrDict objectForKey:v8];
   if (v10)
   {
@@ -1812,23 +1812,29 @@ LABEL_15:
 
 - (void)deviceDiscovered:(id)discovered
 {
-  self->_deviceDiscovered = _Block_copy(discovered);
+  v4 = _Block_copy(discovered);
+  deviceDiscovered = self->_deviceDiscovered;
+  self->_deviceDiscovered = v4;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v4, deviceDiscovered);
 }
 
 - (void)deviceRemoved:(id)removed
 {
-  self->_deviceRemoved = _Block_copy(removed);
+  v4 = _Block_copy(removed);
+  deviceRemoved = self->_deviceRemoved;
+  self->_deviceRemoved = v4;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v4, deviceRemoved);
 }
 
 - (void)deviceUpdated:(id)updated
 {
-  self->_deviceUpdated = _Block_copy(updated);
+  v4 = _Block_copy(updated);
+  deviceUpdated = self->_deviceUpdated;
+  self->_deviceUpdated = v4;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v4, deviceUpdated);
 }
 
 - (id)allowedServices
@@ -2014,22 +2020,25 @@ LABEL_11:
 
 - (void)pairingAgent:(id)agent peerDidCompletePairing:(id)pairing
 {
-  v5 = [(AXUIBluetoothHelper *)self deviceForPeripheral:pairing];
-  if (v5)
+  deviceUpdated = [(AXUIBluetoothHelper *)self deviceForPeripheral:pairing];
+  v6 = deviceUpdated;
+  if (deviceUpdated)
   {
-    v8 = v5;
-    [(AXUIBluetoothHelper *)self _peripheralDidCompletePairing:v5];
+    v8 = deviceUpdated;
+    [(AXUIBluetoothHelper *)self _peripheralDidCompletePairing:deviceUpdated];
     defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
     [defaultCenter postNotificationName:@"VOSBluetoothDeviceConnectSuccessNotification" object:v8];
 
+    v6 = v8;
     deviceUpdated = self->_deviceUpdated;
     if (deviceUpdated)
     {
-      deviceUpdated[2](deviceUpdated, v8);
+      deviceUpdated = (*(deviceUpdated + 16))(deviceUpdated, v8);
+      v6 = v8;
     }
   }
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](deviceUpdated, v6);
 }
 
 - (void)pairingAgent:(id)agent peerDidFailToCompletePairing:(id)pairing error:(id)error

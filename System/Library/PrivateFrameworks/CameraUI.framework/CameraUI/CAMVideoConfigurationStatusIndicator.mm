@@ -216,7 +216,7 @@ LABEL_7:
   v46 = 0u;
   v47 = 0u;
   [(CAMVideoConfigurationStatusIndicator *)self _resolutionSize];
-  [CAMVideoConfigurationStatusIndicator _labelGeometryForSize:"_labelGeometryForSize:originX:originY:" originX:? originY:?];
+  objc_msgSend__labelGeometryForSize_originX_originY_(self);
   _resolutionLabel = [(CAMVideoConfigurationStatusIndicator *)self _resolutionLabel];
   v42 = v48;
   v43 = v49;
@@ -242,7 +242,7 @@ LABEL_7:
   v40 = 0u;
   v41 = 0u;
   [(CAMVideoConfigurationStatusIndicator *)self _separatorSize];
-  [CAMVideoConfigurationStatusIndicator _labelGeometryForSize:"_labelGeometryForSize:originX:originY:" originX:? originY:?];
+  objc_msgSend__labelGeometryForSize_originX_originY_(self);
   _separatorLabel = [(CAMVideoConfigurationStatusIndicator *)self _separatorLabel];
   v36 = v42;
   v37 = v43;
@@ -259,7 +259,7 @@ LABEL_7:
   v34 = 0u;
   v35 = 0u;
   [(CAMVideoConfigurationStatusIndicator *)self _framerateSize];
-  [CAMVideoConfigurationStatusIndicator _labelGeometryForSize:"_labelGeometryForSize:originX:originY:" originX:? originY:?];
+  objc_msgSend__labelGeometryForSize_originX_originY_(self);
   _framerateLabel = [(CAMVideoConfigurationStatusIndicator *)self _framerateLabel];
   v30 = v36;
   v31 = v37;

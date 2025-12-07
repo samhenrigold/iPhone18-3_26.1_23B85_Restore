@@ -6,6 +6,7 @@
 - (int)analyzeBouncingOfItem:(id)item withServerItem:(id)serverItem bounceReason:(int)reason;
 - (void)analyzeBouncingOfItem:(id)item withTemplateItem:(id)templateItem;
 - (void)close;
+- (void)handleBounceIncidentDuringApplyWithServerItem:(id)item bounceReason:(int)reason;
 - (void)reportInitialScanItemTypeMismatch:(id)mismatch;
 - (void)startBouncingIncidentBatch;
 - (void)stopBouncingIncidentBatch;
@@ -71,7 +72,7 @@
 
 - (BOOL)analyzeServerBouncingOriginalRecord:(id)record savedRecord:(id)savedRecord
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   recordCopy = record;
   savedRecordCopy = savedRecord;
   recordType = [recordCopy recordType];
@@ -79,13 +80,13 @@
 
   if (v9)
   {
-    v34 = 0;
-    location = 0;
-    v32 = 0;
     v33 = 0;
-    v30 = 0;
+    location = 0;
     v31 = 0;
-    if (![recordCopy deserializeFilename:0 basename:&location bounceno:&v34 extension:&v33 userInfo:0 error:0] || !objc_msgSend(savedRecordCopy, "deserializeFilename:basename:bounceno:extension:userInfo:error:", 0, &v32, &v31, &v30, 0, 0))
+    v32 = 0;
+    v29 = 0;
+    v30 = 0;
+    if (![recordCopy deserializeFilename:0 basename:&location bounceno:&v33 extension:&v32 userInfo:0 error:0] || !objc_msgSend(savedRecordCopy, "deserializeFilename:basename:bounceno:extension:userInfo:error:", 0, &v31, &v30, &v29, 0, 0))
     {
       goto LABEL_21;
     }
@@ -96,57 +97,57 @@
     {
       recordID = [recordCopy recordID];
       *buf = 138414082;
-      v37 = recordID;
-      v38 = 2112;
-      v39 = location;
-      v40 = 2112;
-      v41 = v34;
-      v42 = 2112;
-      v43 = v33;
-      v44 = 2112;
-      v45 = v32;
-      v46 = 2112;
-      v47 = v31;
-      v48 = 2112;
-      v49 = v30;
-      v50 = 2112;
-      v51 = v10;
+      v36 = recordID;
+      v37 = 2112;
+      v38 = location;
+      v39 = 2112;
+      v40 = v33;
+      v41 = 2112;
+      v42 = v32;
+      v43 = 2112;
+      v44 = v31;
+      v45 = 2112;
+      v46 = v30;
+      v47 = 2112;
+      v48 = v29;
+      v49 = 2112;
+      v50 = v10;
       _os_log_debug_impl(&dword_223E7A000, v11, OS_LOG_TYPE_DEBUG, "[DEBUG] RecordID: %@ orig:<baseName: %@ bounceNo: %@ extension: %@> -> saved:<baseName: %@ bounceNo: %@ extension: %@>%@", buf, 0x52u);
     }
 
     v12 = location ? location : &stru_2837504F0;
     objc_storeStrong(&location, v12);
-    v13 = v32 ? v32 : &stru_2837504F0;
-    objc_storeStrong(&v32, v13);
-    v14 = v33 ? v33 : &stru_2837504F0;
-    objc_storeStrong(&v33, v14);
-    v15 = v30 ? v30 : &stru_2837504F0;
-    objc_storeStrong(&v30, v15);
-    if ([location isEqualToString:v32] && objc_msgSend(v33, "isEqualToString:", v30) && (objc_msgSend(v34, "br_isEqualToNumber:", v31) & 1) == 0)
+    v13 = v31 ? v31 : &stru_2837504F0;
+    objc_storeStrong(&v31, v13);
+    v14 = v32 ? v32 : &stru_2837504F0;
+    objc_storeStrong(&v32, v14);
+    v15 = v29 ? v29 : &stru_2837504F0;
+    objc_storeStrong(&v29, v15);
+    if ([location isEqualToString:v31] && objc_msgSend(v32, "isEqualToString:", v29) && (objc_msgSend(v33, "br_isEqualToNumber:", v30) & 1) == 0)
     {
-      v19 = brc_bread_crumbs();
-      v20 = brc_default_log();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+      v18 = brc_bread_crumbs();
+      v19 = brc_default_log();
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
       {
-        [(BRCBouncingAnalyzer *)recordCopy analyzeServerBouncingOriginalRecord:v19 savedRecord:v20];
+        [(BRCBouncingAnalyzer *)recordCopy analyzeServerBouncingOriginalRecord:v18 savedRecord:v19];
       }
 
-      v21 = +[BRCAutoBugCaptureReporter sharedABCReporter];
-      [v21 captureLogsForOperationType:@"SyncHealth" ofSubtype:@"ServerBouncedItem" forError:0];
+      v20 = +[BRCAutoBugCaptureReporter sharedABCReporter];
+      [v20 captureLogsForOperationType:@"SyncHealth" ofSubtype:@"ServerBouncedItem" forError:0];
 
       pluginFields = [recordCopy pluginFields];
-      v23 = [pluginFields objectForKeyedSubscript:@"br_initialItem"];
+      v22 = [pluginFields objectForKeyedSubscript:@"br_initialItem"];
 
-      if (v23)
+      if (v22)
       {
-        v24 = MEMORY[0x277CCACA8];
+        v23 = MEMORY[0x277CCACA8];
         recordID2 = [recordCopy recordID];
-        v26 = [v24 stringWithFormat:@"Item %@ got bounced by server after being set that it is from initial scan", recordID2];
+        v25 = [v23 stringWithFormat:@"Item %@ got bounced by server after being set that it is from initial scan", recordID2];
 
         tapToRadarManager = self->_tapToRadarManager;
         brc_errorRecordBouncedByServer = [MEMORY[0x277CCA9B8] brc_errorRecordBouncedByServer];
         v16 = 1;
-        [(BRCTapToRadarManager *)tapToRadarManager requestTapToRadarWithTitle:@"[Bouncing] Initial scan item got bounced by server" description:v26 keywords:MEMORY[0x277CBEBF8] attachments:MEMORY[0x277CBEBF8] sendFullLog:1 displayReason:@"reimported item got bounced by server" triggerRootCause:brc_errorRecordBouncedByServer additionalDevices:0];
+        [(BRCTapToRadarManager *)tapToRadarManager requestTapToRadarWithTitle:@"[Bouncing] Initial scan item got bounced by server" description:v25 keywords:MEMORY[0x277CBEBF8] attachments:MEMORY[0x277CBEBF8] sendFullLog:1 displayReason:@"reimported item got bounced by server" triggerRootCause:brc_errorRecordBouncedByServer additionalDevices:0];
       }
 
       else
@@ -167,7 +168,6 @@ LABEL_21:
     v16 = 0;
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return v16;
 }
 
@@ -374,9 +374,42 @@ LABEL_21:
 
 - (void)startBouncingIncidentBatch
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2_2(&dword_223E7A000, a2, a3, "[CRIT] Assertion failed: !_bouncingIncidentBatchStarted%@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = self;
+  OUTLINED_FUNCTION_2_2(&dword_223E7A000, a2, a3, "[CRIT] Assertion failed: !_bouncingIncidentBatchStarted%@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)handleBounceIncidentDuringApplyWithServerItem:(id)item bounceReason:(int)reason
+{
+  v4 = *&reason;
+  itemCopy = item;
+  isInternalBuild = [MEMORY[0x277CFAEB0] isInternalBuild];
+  if (v4 && isInternalBuild)
+  {
+    v8 = objc_opt_new();
+    itemID = [itemCopy itemID];
+    [v8 setItemID:itemID];
+
+    [v8 setBounceReason:v4];
+    latestVersion = [itemCopy latestVersion];
+    v11 = [latestVersion lastEditorDeviceDisplayNameWithDBFacade:self->_dbFacade];
+    [v8 setLastEditorDeviceName:v11];
+
+    v12 = self->_bounceIncidentsInBatch;
+    objc_sync_enter(v12);
+    if (!self->_bouncingIncidentBatchStarted)
+    {
+      v13 = brc_bread_crumbs();
+      v14 = brc_default_log();
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
+      {
+        [(BRCBouncingAnalyzer *)v13 handleBounceIncidentDuringApplyWithServerItem:v14 bounceReason:v15, v16, v17, v18, v19, v20];
+      }
+    }
+
+    [(NSMutableArray *)self->_bounceIncidentsInBatch addObject:v8];
+    objc_sync_exit(v12);
+  }
 }
 
 - (void)stopBouncingIncidentBatch
@@ -417,25 +450,23 @@ LABEL_21:
 
 - (void)analyzeServerBouncingOriginalRecord:(NSObject *)a3 savedRecord:.cold.1(void *a1, uint64_t a2, NSObject *a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v6 = [a1 recordID];
   v7 = [a1 pluginFields];
-  v9 = 138412802;
-  v10 = v6;
-  v11 = 2112;
-  v12 = v7;
-  v13 = 2112;
-  v14 = a2;
-  _os_log_debug_impl(&dword_223E7A000, a3, OS_LOG_TYPE_DEBUG, "[DEBUG] Server bounced record %@. Plugin fields: %@%@", &v9, 0x20u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  v8 = 138412802;
+  v9 = v6;
+  v10 = 2112;
+  v11 = v7;
+  v12 = 2112;
+  v13 = a2;
+  _os_log_debug_impl(&dword_223E7A000, a3, OS_LOG_TYPE_DEBUG, "[DEBUG] Server bounced record %@. Plugin fields: %@%@", &v8, 0x20u);
 }
 
 - (void)handleBounceIncidentDuringApplyWithServerItem:(uint64_t)a3 bounceReason:(uint64_t)a4 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2_2(&dword_223E7A000, a2, a3, "[CRIT] Assertion failed: _bouncingIncidentBatchStarted%@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_2_2(&dword_223E7A000, a2, a3, "[CRIT] Assertion failed: _bouncingIncidentBatchStarted%@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

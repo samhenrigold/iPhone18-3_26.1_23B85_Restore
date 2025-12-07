@@ -61,7 +61,7 @@
 
 - (BOOL)validateOperation
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   if (self && self->_context)
   {
     v3 = 1;
@@ -71,16 +71,16 @@
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v7 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"offline ANF fetch operation requires a context"];
-      v9 = 136315906;
-      v10 = "[FCOfflineANFArticlesFetchOperation validateOperation]";
-      v11 = 2080;
-      v12 = "FCOfflineANFArticlesFetchOperation.m";
-      v13 = 1024;
-      v14 = 112;
-      v15 = 2114;
-      v16 = v7;
-      _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v9, 0x26u);
+      v6 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"offline ANF fetch operation requires a context"];
+      v8 = 136315906;
+      v9 = "[FCOfflineANFArticlesFetchOperation validateOperation]";
+      v10 = 2080;
+      v11 = "FCOfflineANFArticlesFetchOperation.m";
+      v12 = 1024;
+      v13 = 112;
+      v14 = 2114;
+      v15 = v6;
+      _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v8, 0x26u);
     }
 
     v3 = 0;
@@ -93,27 +93,25 @@
   if (self->_ANFHelper)
   {
     v4 = 1;
-    goto LABEL_12;
+    return v4 & v3;
   }
 
 LABEL_9:
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v8 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"offline ANF fetch operation requires a flint helper"];
-    v9 = 136315906;
-    v10 = "[FCOfflineANFArticlesFetchOperation validateOperation]";
-    v11 = 2080;
-    v12 = "FCOfflineANFArticlesFetchOperation.m";
-    v13 = 1024;
-    v14 = 116;
-    v15 = 2114;
-    v16 = v8;
-    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v9, 0x26u);
+    v7 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"offline ANF fetch operation requires a flint helper"];
+    v8 = 136315906;
+    v9 = "[FCOfflineANFArticlesFetchOperation validateOperation]";
+    v10 = 2080;
+    v11 = "FCOfflineANFArticlesFetchOperation.m";
+    v12 = 1024;
+    v13 = 116;
+    v14 = 2114;
+    v15 = v7;
+    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v8, 0x26u);
   }
 
   v4 = 0;
-LABEL_12:
-  v5 = *MEMORY[0x1E69E9840];
   return v4 & v3;
 }
 
@@ -184,7 +182,7 @@ LABEL_12:
   _Block_object_dispose(v20, 8);
 }
 
-id __54__FCOfflineANFArticlesFetchOperation_performOperation__block_invoke(uint64_t a1)
+id *__54__FCOfflineANFArticlesFetchOperation_performOperation__block_invoke(uint64_t a1)
 {
   v1 = *(a1 + 32);
   if (v1)
@@ -239,7 +237,7 @@ id __54__FCOfflineANFArticlesFetchOperation_performOperation__block_invoke(uint6
 
 id __54__FCOfflineANFArticlesFetchOperation_performOperation__block_invoke_2(uint64_t a1, void *a2)
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if ([v3 count] == 1)
   {
@@ -268,11 +266,11 @@ id __54__FCOfflineANFArticlesFetchOperation_performOperation__block_invoke_2(uin
       v16 = v14;
       v17 = [v15 shortOperationDescription];
       v18 = [v5 descriptionString];
-      *v28 = 138543618;
-      *&v28[4] = v17;
-      *&v28[12] = 2114;
-      *&v28[14] = v18;
-      _os_log_impl(&dword_1B63EF000, v16, OS_LOG_TYPE_DEFAULT, "%{public}@ will fetch contents of article record: %{public}@", v28, 0x16u);
+      *v27 = 138543618;
+      *&v27[4] = v17;
+      *&v27[12] = 2114;
+      *&v27[14] = v18;
+      _os_log_impl(&dword_1B63EF000, v16, OS_LOG_TYPE_DEFAULT, "%{public}@ will fetch contents of article record: %{public}@", v27, 0x16u);
     }
   }
 
@@ -286,21 +284,19 @@ id __54__FCOfflineANFArticlesFetchOperation_performOperation__block_invoke_2(uin
   if (v22)
   {
     v24 = objc_alloc(MEMORY[0x1E69B68F8]);
-    *v28 = MEMORY[0x1E69E9820];
-    *&v28[8] = 3221225472;
-    *&v28[16] = __75__FCOfflineANFArticlesFetchOperation__promiseThumbnailsFromArticleRecords___block_invoke;
-    v29 = &unk_1E7C3B310;
-    v30 = v23;
-    v31 = v22;
-    v25 = [v24 initWithResolver:v28];
+    *v27 = MEMORY[0x1E69E9820];
+    *&v27[8] = 3221225472;
+    *&v27[16] = __75__FCOfflineANFArticlesFetchOperation__promiseThumbnailsFromArticleRecords___block_invoke;
+    v28 = &unk_1E7C3B310;
+    v29 = v23;
+    v30 = v22;
+    v25 = [v24 initWithResolver:v27];
   }
 
   else
   {
     v25 = 0;
   }
-
-  v26 = *MEMORY[0x1E69E9840];
 
   return v25;
 }
@@ -508,19 +504,17 @@ id __60__FCOfflineANFArticlesFetchOperation__promiseArticleRecords__block_invoke
 
 void __60__FCOfflineANFArticlesFetchOperation__promiseArticleRecords__block_invoke_5(uint64_t a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v2 = FCOperationLog;
   if (os_log_type_enabled(FCOperationLog, OS_LOG_TYPE_ERROR))
   {
-    v4 = *(a1 + 32);
-    v5 = v2;
-    v6 = [v4 shortOperationDescription];
-    v7 = 138543362;
-    v8 = v6;
-    _os_log_error_impl(&dword_1B63EF000, v5, OS_LOG_TYPE_ERROR, "%{public}@ failed to fetch article records", &v7, 0xCu);
+    v3 = *(a1 + 32);
+    v4 = v2;
+    v5 = [v3 shortOperationDescription];
+    v6 = 138543362;
+    v7 = v5;
+    _os_log_error_impl(&dword_1B63EF000, v4, OS_LOG_TYPE_ERROR, "%{public}@ failed to fetch article records", &v6, 0xCu);
   }
-
-  v3 = *MEMORY[0x1E69E9840];
 }
 
 void __67__FCOfflineANFArticlesFetchOperation__promiseFetchedArticleRecords__block_invoke(uint64_t a1, void *a2, void *a3)
@@ -760,7 +754,7 @@ void __67__FCOfflineANFArticlesFetchOperation__promiseFetchedArticleRecords__blo
 
 void __67__FCOfflineANFArticlesFetchOperation__promiseFetchedArticleRecords__block_invoke_6(uint64_t a1)
 {
-  v31[1] = *MEMORY[0x1E69E9840];
+  v30[1] = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) allKeys];
   v3 = [v2 fc_setByTransformingWithBlock:&__block_literal_global_41_2];
 
@@ -775,36 +769,36 @@ void __67__FCOfflineANFArticlesFetchOperation__promiseFetchedArticleRecords__blo
   v7 = [v4 setWithArray:v6];
   v8 = [v7 fc_setByMinusingSet:v3];
 
-  v30 = @"FCErrorMissingObjectsDescriptionsKey";
-  v31[0] = v8;
-  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v31 forKeys:&v30 count:1];
+  v29 = @"FCErrorMissingObjectsDescriptionsKey";
+  v30[0] = v8;
+  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v30 forKeys:&v29 count:1];
   v10 = FCOperationLog;
   if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
   {
-    v16 = [*(a1 + 40) shortOperationDescription];
-    v17 = *(a1 + 56);
-    v18 = *(a1 + 40);
-    if (v18)
+    v15 = [*(a1 + 40) shortOperationDescription];
+    v16 = *(a1 + 56);
+    v17 = *(a1 + 40);
+    if (v17)
     {
-      v19 = *(v18 + 384);
+      v18 = *(v17 + 384);
     }
 
     else
     {
-      v19 = 0;
+      v18 = 0;
     }
 
-    v20 = [v8 allObjects];
-    v21 = [v20 fc_subarrayWithMaxCount:3];
-    v22 = 138544130;
-    v23 = v16;
-    v24 = 2048;
-    v25 = v17;
-    v26 = 2048;
-    v27 = v19;
-    v28 = 2114;
-    v29 = v21;
-    _os_log_error_impl(&dword_1B63EF000, v10, OS_LOG_TYPE_ERROR, "%{public}@ missing too many articles, missing=%lu, max=%lu, sample=%{public}@", &v22, 0x2Au);
+    v19 = [v8 allObjects];
+    v20 = [v19 fc_subarrayWithMaxCount:3];
+    v21 = 138544130;
+    v22 = v15;
+    v23 = 2048;
+    v24 = v16;
+    v25 = 2048;
+    v26 = v18;
+    v27 = 2114;
+    v28 = v20;
+    _os_log_error_impl(&dword_1B63EF000, v10, OS_LOG_TYPE_ERROR, "%{public}@ missing too many articles, missing=%lu, max=%lu, sample=%{public}@", &v21, 0x2Au);
   }
 
   v11 = *(a1 + 40);
@@ -821,8 +815,6 @@ void __67__FCOfflineANFArticlesFetchOperation__promiseFetchedArticleRecords__blo
 
   v14 = v13;
   (*(v12 + 16))(v12, v13);
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 void __67__FCOfflineANFArticlesFetchOperation__promiseFetchedArticleRecords__block_invoke_46(uint64_t a1, void *a2)
@@ -879,7 +871,7 @@ void __67__FCOfflineANFArticlesFetchOperation__promiseFetchedArticleRecords__blo
 
 id __66__FCOfflineANFArticlesFetchOperation__promiseCachedArticleRecords__block_invoke(uint64_t a1)
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   v2 = MEMORY[0x1E695DFD8];
   v3 = [*(a1 + 32) allRecordIDs];
   v4 = [v2 setWithArray:v3];
@@ -901,37 +893,35 @@ id __66__FCOfflineANFArticlesFetchOperation__promiseCachedArticleRecords__block_
   v9 = FCOperationLog;
   if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
   {
-    v15 = [*(a1 + 40) shortOperationDescription];
-    v16 = *(a1 + 40);
-    v17 = *(a1 + 48);
-    if (v16)
+    v14 = [*(a1 + 40) shortOperationDescription];
+    v15 = *(a1 + 40);
+    v16 = *(a1 + 48);
+    if (v15)
     {
-      v18 = *(v16 + 384);
+      v17 = *(v15 + 384);
     }
 
     else
     {
-      v18 = 0;
+      v17 = 0;
     }
 
-    v19 = [v8 allObjects];
-    v20 = [v19 fc_subarrayWithMaxCount:3];
-    v21 = 138544130;
-    v22 = v15;
-    v23 = 2048;
-    v24 = v17;
-    v25 = 2048;
-    v26 = v18;
-    v27 = 2114;
-    v28 = v20;
-    _os_log_error_impl(&dword_1B63EF000, v9, OS_LOG_TYPE_ERROR, "%{public}@ missing too many articles, missing=%lu, max=%lu, sample=%{public}@", &v21, 0x2Au);
+    v18 = [v8 allObjects];
+    v19 = [v18 fc_subarrayWithMaxCount:3];
+    v20 = 138544130;
+    v21 = v14;
+    v22 = 2048;
+    v23 = v16;
+    v24 = 2048;
+    v25 = v17;
+    v26 = 2114;
+    v27 = v19;
+    _os_log_error_impl(&dword_1B63EF000, v9, OS_LOG_TYPE_ERROR, "%{public}@ missing too many articles, missing=%lu, max=%lu, sample=%{public}@", &v20, 0x2Au);
   }
 
   v10 = objc_alloc(MEMORY[0x1E69B68F8]);
   v11 = [MEMORY[0x1E696ABC0] fc_notCachedErrorWithMissingObjects:v8];
   v12 = [v10 initWithError:v11];
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return v12;
 }
@@ -1054,29 +1044,29 @@ void __75__FCOfflineANFArticlesFetchOperation__promiseThumbnailsFromArticleRecor
 
 void __75__FCOfflineANFArticlesFetchOperation__promiseThumbnailsFromArticleRecords___block_invoke_2(uint64_t a1, void *a2)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v3 = a2;
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   obj = *(a1 + 32);
-  v4 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v4 = [obj countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v19;
+    v6 = *v18;
     do
     {
       v7 = 0;
       do
       {
-        if (*v19 != v6)
+        if (*v18 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v18 + 1) + 8 * v7);
+        v8 = *(*(&v17 + 1) + 8 * v7);
         v9 = *(a1 + 40);
         if (v9)
         {
@@ -1099,14 +1089,12 @@ void __75__FCOfflineANFArticlesFetchOperation__promiseThumbnailsFromArticleRecor
       }
 
       while (v5 != v7);
-      v15 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v15 = [obj countByEnumeratingWithState:&v17 objects:v21 count:16];
       v5 = v15;
     }
 
     while (v15);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 void __75__FCOfflineANFArticlesFetchOperation__promiseThumbnailsFromArticleRecords___block_invoke_3(uint64_t a1, double a2)
@@ -1149,39 +1137,35 @@ void __75__FCOfflineANFArticlesFetchOperation__promiseThumbnailsFromArticleRecor
 
 void __75__FCOfflineANFArticlesFetchOperation__promiseThumbnailsFromArticleRecords___block_invoke_5(uint64_t a1)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   if ([*(a1 + 32) status] == 1)
   {
     v2 = MEMORY[0x1E696ABC0];
     v3 = *(a1 + 48);
-    v14 = [*(a1 + 40) errorUserInfo];
+    v12 = [*(a1 + 40) errorUserInfo];
     v4 = [v2 fc_operationCancelledErrorWithAdditionalUserInfo:?];
     (*(v3 + 16))(v3, v4);
-
-    v5 = *MEMORY[0x1E69E9840];
   }
 
   else
   {
-    v6 = FCOperationLog;
+    v5 = FCOperationLog;
     if (os_log_type_enabled(FCOperationLog, OS_LOG_TYPE_ERROR))
     {
-      v10 = *(a1 + 40);
-      v11 = v6;
-      v12 = [v10 shortOperationDescription];
-      v13 = [*(a1 + 32) missingObjectDescriptions];
+      v8 = *(a1 + 40);
+      v9 = v5;
+      v10 = [v8 shortOperationDescription];
+      v11 = [*(a1 + 32) missingObjectDescriptions];
       *buf = 138543618;
-      v16 = v12;
-      v17 = 2114;
-      v18 = v13;
-      _os_log_error_impl(&dword_1B63EF000, v11, OS_LOG_TYPE_ERROR, "%{public}@ failed to fetch thumbnails: %{public}@", buf, 0x16u);
+      v14 = v10;
+      v15 = 2114;
+      v16 = v11;
+      _os_log_error_impl(&dword_1B63EF000, v9, OS_LOG_TYPE_ERROR, "%{public}@ failed to fetch thumbnails: %{public}@", buf, 0x16u);
     }
 
-    v7 = *(a1 + 48);
-    v8 = [*(a1 + 32) error];
-    (*(v7 + 16))(v7, v8);
-
-    v9 = *MEMORY[0x1E69E9840];
+    v6 = *(a1 + 48);
+    v7 = [*(a1 + 32) error];
+    (*(v6 + 16))(v6, v7);
   }
 }
 
@@ -1342,39 +1326,35 @@ void __77__FCOfflineANFArticlesFetchOperation__promiseANFDocumentsFromArticleRec
 
 void __77__FCOfflineANFArticlesFetchOperation__promiseANFDocumentsFromArticleRecords___block_invoke_5(uint64_t a1)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   if ([*(a1 + 32) status] == 1)
   {
     v2 = MEMORY[0x1E696ABC0];
     v3 = *(a1 + 48);
-    v14 = [*(a1 + 40) errorUserInfo];
+    v12 = [*(a1 + 40) errorUserInfo];
     v4 = [v2 fc_operationCancelledErrorWithAdditionalUserInfo:?];
     (*(v3 + 16))(v3, v4);
-
-    v5 = *MEMORY[0x1E69E9840];
   }
 
   else
   {
-    v6 = FCOperationLog;
+    v5 = FCOperationLog;
     if (os_log_type_enabled(FCOperationLog, OS_LOG_TYPE_ERROR))
     {
-      v10 = *(a1 + 40);
-      v11 = v6;
-      v12 = [v10 shortOperationDescription];
-      v13 = [*(a1 + 32) missingObjectDescriptions];
+      v8 = *(a1 + 40);
+      v9 = v5;
+      v10 = [v8 shortOperationDescription];
+      v11 = [*(a1 + 32) missingObjectDescriptions];
       *buf = 138543618;
-      v16 = v12;
-      v17 = 2114;
-      v18 = v13;
-      _os_log_error_impl(&dword_1B63EF000, v11, OS_LOG_TYPE_ERROR, "%{public}@ failed to fetch ANF documents: %{public}@", buf, 0x16u);
+      v14 = v10;
+      v15 = 2114;
+      v16 = v11;
+      _os_log_error_impl(&dword_1B63EF000, v9, OS_LOG_TYPE_ERROR, "%{public}@ failed to fetch ANF documents: %{public}@", buf, 0x16u);
     }
 
-    v7 = *(a1 + 48);
-    v8 = [*(a1 + 32) error];
-    (*(v7 + 16))(v7, v8);
-
-    v9 = *MEMORY[0x1E69E9840];
+    v6 = *(a1 + 48);
+    v7 = [*(a1 + 32) error];
+    (*(v6 + 16))(v6, v7);
   }
 }
 
@@ -1491,68 +1471,68 @@ void __93__FCOfflineANFArticlesFetchOperation__promiseANFResourcesFromArticleRec
 
 void __93__FCOfflineANFArticlesFetchOperation__promiseANFResourcesFromArticleRecords_anfAssetHandles___block_invoke_2(uint64_t a1, void *a2)
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   v3 = a2;
+  v34 = 0u;
   v35 = 0u;
   v36 = 0u;
   v37 = 0u;
-  v38 = 0u;
-  v24 = a1;
+  v23 = a1;
   v4 = *(a1 + 32);
-  v5 = [v4 countByEnumeratingWithState:&v35 objects:v40 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v34 objects:v39 count:16];
   if (v5)
   {
-    v6 = *v36;
+    v6 = *v35;
     do
     {
       v7 = 0;
       do
       {
-        if (*v36 != v6)
+        if (*v35 != v6)
         {
           objc_enumerationMutation(v4);
         }
 
-        v8 = [*(*(&v35 + 1) + 8 * v7) flintFontResourceIDs];
+        v8 = [*(*(&v34 + 1) + 8 * v7) flintFontResourceIDs];
         [v3 fc_safelyAddObjects:v8];
 
         ++v7;
       }
 
       while (v5 != v7);
-      v5 = [v4 countByEnumeratingWithState:&v35 objects:v40 count:16];
+      v5 = [v4 countByEnumeratingWithState:&v34 objects:v39 count:16];
     }
 
     while (v5);
   }
 
-  v33 = 0u;
-  v34 = 0u;
-  v31 = 0u;
   v32 = 0u;
-  v9 = *(v24 + 40);
-  v10 = [v9 countByEnumeratingWithState:&v31 objects:v39 count:16];
+  v33 = 0u;
+  v30 = 0u;
+  v31 = 0u;
+  v9 = *(v23 + 40);
+  v10 = [v9 countByEnumeratingWithState:&v30 objects:v38 count:16];
   if (v10)
   {
-    v11 = *v32;
+    v11 = *v31;
     do
     {
       v12 = 0;
       do
       {
-        if (*v32 != v11)
+        if (*v31 != v11)
         {
           objc_enumerationMutation(v9);
         }
 
-        v13 = *(*(&v31 + 1) + 8 * v12);
+        v13 = *(*(&v30 + 1) + 8 * v12);
         v14 = objc_autoreleasePoolPush();
         v15 = [v13 dataProvider];
         v16 = [v15 data];
 
         if (v16)
         {
-          v17 = *(v24 + 48);
+          v17 = *(v23 + 48);
           if (v17)
           {
             v17 = v17[56];
@@ -1566,28 +1546,28 @@ void __93__FCOfflineANFArticlesFetchOperation__promiseANFResourcesFromArticleRec
             v20 = [v19 nonImageResourceIDs];
             [v3 fc_safelyAddObjects:v20];
 
-            v29[0] = MEMORY[0x1E69E9820];
-            v29[1] = 3221225472;
-            v29[2] = __93__FCOfflineANFArticlesFetchOperation__promiseANFResourcesFromArticleRecords_anfAssetHandles___block_invoke_3;
-            v29[3] = &unk_1E7C3C728;
-            v29[4] = *(v24 + 48);
-            v30 = v19;
-            v21 = __93__FCOfflineANFArticlesFetchOperation__promiseANFResourcesFromArticleRecords_anfAssetHandles___block_invoke_3(v29);
-            v28[0] = 0;
-            v28[1] = v28;
-            v28[2] = 0x2020000000;
-            v28[3] = 0;
-            v25[0] = MEMORY[0x1E69E9820];
-            v25[1] = 3221225472;
-            v25[2] = __93__FCOfflineANFArticlesFetchOperation__promiseANFResourcesFromArticleRecords_anfAssetHandles___block_invoke_65;
-            v25[3] = &unk_1E7C44F88;
-            v22 = *(v24 + 48);
-            v27 = v28;
-            v25[4] = v22;
-            v26 = v3;
-            [v21 enumerateObjectsUsingBlock:v25];
+            v28[0] = MEMORY[0x1E69E9820];
+            v28[1] = 3221225472;
+            v28[2] = __93__FCOfflineANFArticlesFetchOperation__promiseANFResourcesFromArticleRecords_anfAssetHandles___block_invoke_3;
+            v28[3] = &unk_1E7C3C728;
+            v28[4] = *(v23 + 48);
+            v29 = v19;
+            v21 = __93__FCOfflineANFArticlesFetchOperation__promiseANFResourcesFromArticleRecords_anfAssetHandles___block_invoke_3(v28);
+            v27[0] = 0;
+            v27[1] = v27;
+            v27[2] = 0x2020000000;
+            v27[3] = 0;
+            v24[0] = MEMORY[0x1E69E9820];
+            v24[1] = 3221225472;
+            v24[2] = __93__FCOfflineANFArticlesFetchOperation__promiseANFResourcesFromArticleRecords_anfAssetHandles___block_invoke_65;
+            v24[3] = &unk_1E7C44F88;
+            v22 = *(v23 + 48);
+            v26 = v27;
+            v24[4] = v22;
+            v25 = v3;
+            [v21 enumerateObjectsUsingBlock:v24];
 
-            _Block_object_dispose(v28, 8);
+            _Block_object_dispose(v27, 8);
           }
         }
 
@@ -1596,18 +1576,16 @@ void __93__FCOfflineANFArticlesFetchOperation__promiseANFResourcesFromArticleRec
       }
 
       while (v10 != v12);
-      v10 = [v9 countByEnumeratingWithState:&v31 objects:v39 count:16];
+      v10 = [v9 countByEnumeratingWithState:&v30 objects:v38 count:16];
     }
 
     while (v10);
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 id __93__FCOfflineANFArticlesFetchOperation__promiseANFResourcesFromArticleRecords_anfAssetHandles___block_invoke_3(uint64_t a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
   if (v2)
   {
@@ -1627,9 +1605,9 @@ id __93__FCOfflineANFArticlesFetchOperation__promiseANFResourcesFromArticleRecor
       v5 = *(a1 + 32);
       v6 = v4;
       v7 = [v5 shortOperationDescription];
-      v11 = 138543362;
-      v12 = v7;
-      _os_log_impl(&dword_1B63EF000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@ will download the smallest variant of each article image", &v11, 0xCu);
+      v10 = 138543362;
+      v11 = v7;
+      _os_log_impl(&dword_1B63EF000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@ will download the smallest variant of each article image", &v10, 0xCu);
     }
 
     v8 = [*(a1 + 40) smallestImageResourceIDs];
@@ -1639,8 +1617,6 @@ id __93__FCOfflineANFArticlesFetchOperation__promiseANFResourcesFromArticleRecor
   {
     v8 = [*(a1 + 40) optimalImageResourceIDs];
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return v8;
 }
@@ -1682,7 +1658,7 @@ void __93__FCOfflineANFArticlesFetchOperation__promiseANFResourcesFromArticleRec
 
 void __93__FCOfflineANFArticlesFetchOperation__promiseANFResourcesFromArticleRecords_anfAssetHandles___block_invoke_2_66(uint64_t a1)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v2 = FCOperationLog;
   if (os_log_type_enabled(FCOperationLog, OS_LOG_TYPE_DEFAULT))
   {
@@ -1690,15 +1666,14 @@ void __93__FCOfflineANFArticlesFetchOperation__promiseANFResourcesFromArticleRec
     v4 = v2;
     v5 = [v3 shortOperationDescription];
     v6 = *(*(*(a1 + 40) + 8) + 24);
-    v8 = 138543618;
-    v9 = v5;
-    v10 = 2048;
-    v11 = v6;
-    _os_log_impl(&dword_1B63EF000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ will limit the number of article images to %lld", &v8, 0x16u);
+    v7 = 138543618;
+    v8 = v5;
+    v9 = 2048;
+    v10 = v6;
+    _os_log_impl(&dword_1B63EF000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ will limit the number of article images to %lld", &v7, 0x16u);
   }
 
   **(a1 + 48) = 1;
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __93__FCOfflineANFArticlesFetchOperation__promiseANFResourcesFromArticleRecords_anfAssetHandles___block_invoke_70(uint64_t a1, double a2)
@@ -1741,39 +1716,35 @@ void __93__FCOfflineANFArticlesFetchOperation__promiseANFResourcesFromArticleRec
 
 void __93__FCOfflineANFArticlesFetchOperation__promiseANFResourcesFromArticleRecords_anfAssetHandles___block_invoke_3_72(uint64_t a1)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   if ([*(a1 + 32) status] == 1)
   {
     v2 = MEMORY[0x1E696ABC0];
     v3 = *(a1 + 48);
-    v14 = [*(a1 + 40) errorUserInfo];
+    v12 = [*(a1 + 40) errorUserInfo];
     v4 = [v2 fc_operationCancelledErrorWithAdditionalUserInfo:?];
     (*(v3 + 16))(v3, v4);
-
-    v5 = *MEMORY[0x1E69E9840];
   }
 
   else
   {
-    v6 = FCOperationLog;
+    v5 = FCOperationLog;
     if (os_log_type_enabled(FCOperationLog, OS_LOG_TYPE_ERROR))
     {
-      v10 = *(a1 + 40);
-      v11 = v6;
-      v12 = [v10 shortOperationDescription];
-      v13 = [*(a1 + 32) missingObjectDescriptions];
+      v8 = *(a1 + 40);
+      v9 = v5;
+      v10 = [v8 shortOperationDescription];
+      v11 = [*(a1 + 32) missingObjectDescriptions];
       *buf = 138543618;
-      v16 = v12;
-      v17 = 2114;
-      v18 = v13;
-      _os_log_error_impl(&dword_1B63EF000, v11, OS_LOG_TYPE_ERROR, "%{public}@ failed to fetch ANF resources: %{public}@", buf, 0x16u);
+      v14 = v10;
+      v15 = 2114;
+      v16 = v11;
+      _os_log_error_impl(&dword_1B63EF000, v9, OS_LOG_TYPE_ERROR, "%{public}@ failed to fetch ANF resources: %{public}@", buf, 0x16u);
     }
 
-    v7 = *(a1 + 48);
-    v8 = [*(a1 + 32) error];
-    (*(v7 + 16))(v7, v8);
-
-    v9 = *MEMORY[0x1E69E9840];
+    v6 = *(a1 + 48);
+    v7 = [*(a1 + 32) error];
+    (*(v6 + 16))(v6, v7);
   }
 }
 

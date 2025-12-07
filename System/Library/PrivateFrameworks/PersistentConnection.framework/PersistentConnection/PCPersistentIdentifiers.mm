@@ -40,15 +40,14 @@ unsigned __int8 *__47__PCPersistentIdentifiers_hostUniqueIdentifier__block_invok
   data[2] = *MEMORY[0x277D85DE8];
   data[0] = 0;
   data[1] = 0;
-  v4 = 16;
-  if (sysctlbyname("kern.boottime", data, &v4, 0, 0))
+  v3 = 16;
+  if (sysctlbyname("kern.boottime", data, &v3, 0, 0))
   {
     __47__PCPersistentIdentifiers_hostUniqueIdentifier__block_invoke_cold_1(a1);
   }
 
   result = CC_SHA1(data, 0x10u, md);
   hostUniqueIdentifier_hostIdentifier = bswap64(*md);
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 

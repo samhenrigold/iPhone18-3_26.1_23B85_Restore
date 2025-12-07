@@ -55,36 +55,35 @@
 - (void)editor:(PREditor *)editor finalizeWithCompletion:(id)completion
 {
   v7 = sub_100003598(&qword_100042038, &qword_100029D38);
-  v8 = *(*(v7 - 8) + 64);
   __chkstk_darwin(v7 - 8);
-  v10 = &v18 - v9;
-  v11 = _Block_copy(completion);
-  v12 = swift_allocObject();
-  v12[2] = editor;
-  v12[3] = v11;
-  v12[4] = self;
-  v13 = sub_100026B60();
-  (*(*(v13 - 8) + 56))(v10, 1, 1, v13);
+  v9 = &v17 - v8;
+  v10 = _Block_copy(completion);
+  v11 = swift_allocObject();
+  v11[2] = editor;
+  v11[3] = v10;
+  v11[4] = self;
+  v12 = sub_100026B60();
+  (*(*(v12 - 8) + 56))(v9, 1, 1, v12);
+  v13 = swift_allocObject();
+  v13[2] = 0;
+  v13[3] = 0;
+  v13[4] = &unk_100029D48;
+  v13[5] = v11;
   v14 = swift_allocObject();
   v14[2] = 0;
   v14[3] = 0;
-  v14[4] = &unk_100029D48;
-  v14[5] = v12;
-  v15 = swift_allocObject();
-  v15[2] = 0;
-  v15[3] = 0;
-  v15[4] = &unk_100029D58;
-  v15[5] = v14;
+  v14[4] = &unk_100029D58;
+  v14[5] = v13;
   editorCopy = editor;
   selfCopy = self;
-  sub_10001FFA4(0, 0, v10, &unk_100029D68, v15);
+  sub_10001FFA4(0, 0, v9, &unk_100029D68, v14);
 }
 
 - (void)editorDidInvalidate:(id)invalidate
 {
   invalidateCopy = invalidate;
   selfCopy = self;
-  sub_1000217EC();
+  sub_1000217EC(selfCopy);
 }
 
 - (id)looksForEditor:(id)editor
@@ -103,7 +102,7 @@
   *(v5 + 16) = xmmword_100029900;
   editorCopy = editor;
   selfCopy = self;
-  *(v5 + 32) = sub_1000195D0();
+  *(v5 + 32) = sub_1000195D0(editorCopy);
 
   sub_10000B82C(0, &qword_100041F60, UIMenuElement_ptr);
   v8.super.isa = sub_100026B00().super.isa;
@@ -123,7 +122,7 @@
     sub_100003598(&qword_100040F98, &qword_1000293D0);
     v7 = swift_allocObject();
     *(v7 + 16) = xmmword_100029900;
-    *(v7 + 32) = sub_100019B4C();
+    *(v7 + 32) = sub_100019B4C(editorCopy);
 
     sub_10000B82C(0, &qword_100041F60, UIMenuElement_ptr);
     isa = sub_100026B00().super.isa;

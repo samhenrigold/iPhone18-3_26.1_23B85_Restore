@@ -20,41 +20,41 @@
 
 - (void)_accessibilityLoadAccessibilityInformation
 {
-  v22 = *MEMORY[0x29EDCA608];
-  v20.receiver = self;
-  v20.super_class = _TVStackCommonTemplateControllerAccessibility;
-  [(_TVStackCommonTemplateControllerAccessibility *)&v20 _accessibilityLoadAccessibilityInformation];
+  v21 = *MEMORY[0x29EDCA608];
+  v19.receiver = self;
+  v19.super_class = _TVStackCommonTemplateControllerAccessibility;
+  [(_TVStackCommonTemplateControllerAccessibility *)&v19 _accessibilityLoadAccessibilityInformation];
   v3 = [(_TVStackCommonTemplateControllerAccessibility *)self safeValueForKey:@"stackWrappingView"];
-  v19 = 0;
+  v18 = 0;
   objc_opt_class();
   v4 = [v3 safeValueForKey:@"headerSupplementaryViews"];
   v5 = __UIAccessibilityCastAsClass();
 
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v6 = v5;
-  v7 = [v6 countByEnumeratingWithState:&v15 objects:v21 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v14 objects:v20 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v16;
+    v9 = *v15;
     v10 = *MEMORY[0x29EDC7F80];
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v16 != v9)
+        if (*v15 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v12 = *(*(&v15 + 1) + 8 * i);
+        v12 = *(*(&v14 + 1) + 8 * i);
         NSClassFromString(&cfstr_Tvseparatorvie_0.isa);
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
-          v13 = [v12 _accessibilityTextForSubhierarchyIncludingHeaders:0 focusableItems:1 exclusions:{0, v15}];
+          v13 = [v12 _accessibilityTextForSubhierarchyIncludingHeaders:0 focusableItems:1 exclusions:{0, v14}];
           if ([v13 length])
           {
             [v12 setIsAccessibilityElement:1];
@@ -69,13 +69,11 @@
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v15 objects:v21 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v14 objects:v20 count:16];
     }
 
     while (v8);
   }
-
-  v14 = *MEMORY[0x29EDCA608];
 }
 
 - (void)_updateViewSupplementaryViews

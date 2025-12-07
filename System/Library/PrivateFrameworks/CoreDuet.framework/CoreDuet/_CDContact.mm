@@ -45,44 +45,32 @@
       value = [personHandle value];
       v9 = [value length];
 
-      if (!v9)
+      if (!v9 || ([v5 personHandle], v10 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v10, "value"), v11 = objc_claimAutoreleasedReturnValue(), +[_CDContactResolver resolveContactIfPossibleFromContactIdentifierString:](_CDContactResolver, "resolveContactIfPossibleFromContactIdentifierString:", v11), v12 = objc_claimAutoreleasedReturnValue(), v11, v10, objc_msgSend(v12, "identifier"), contactIdentifier2 = objc_claimAutoreleasedReturnValue(), v12, !contactIdentifier2))
       {
-        goto LABEL_5;
-      }
-
-      personHandle2 = [v5 personHandle];
-      value2 = [personHandle2 value];
-      v12 = [_CDContactResolver resolveContactIfPossibleFromContactIdentifierString:value2];
-
-      identifier = [v12 identifier];
-
-      if (!identifier)
-      {
-LABEL_5:
         contactIdentifier = [v5 contactIdentifier];
         v15 = [contactIdentifier length];
 
         if (v15)
         {
-          identifier = [v5 contactIdentifier];
+          contactIdentifier2 = [v5 contactIdentifier];
         }
 
         else
         {
-          identifier = 0;
+          contactIdentifier2 = 0;
         }
       }
 
-      personHandle3 = [v5 personHandle];
-      value3 = [personHandle3 value];
-      v18 = [_CDContactResolver normalizedStringFromContactString:value3];
+      personHandle2 = [v5 personHandle];
+      value2 = [personHandle2 value];
+      v18 = [_CDContactResolver normalizedStringFromContactString:value2];
 
       _stripFZIDPrefix = [v18 _stripFZIDPrefix];
 
       image = [v5 image];
       _uri = [image _uri];
 
-      v34 = identifier;
+      v34 = contactIdentifier2;
       if (_uri)
       {
         _uri2 = [image _uri];
@@ -100,8 +88,8 @@ LABEL_5:
         }
       }
 
-      personHandle4 = [v5 personHandle];
-      type = [personHandle4 type];
+      personHandle3 = [v5 personHandle];
+      type = [personHandle3 type];
       objc_opt_self();
       if (type == 1)
       {
@@ -484,31 +472,20 @@ LABEL_15:
   }
 
   displayName = [(_CDContact *)self displayName];
-  if (!displayName)
+  if (!displayName || (v8 = displayName, -[_CDContact identifier](self, "identifier"), v9 = objc_claimAutoreleasedReturnValue(), -[_CDContact displayName](self, "displayName"), v10 = objc_claimAutoreleasedReturnValue(), v11 = [v9 isEqualToString:v10], v10, v9, v8, v11))
   {
-    goto LABEL_35;
-  }
-
-  v8 = displayName;
-  identifier3 = [(_CDContact *)self identifier];
-  displayName2 = [(_CDContact *)self displayName];
-  v11 = [identifier3 isEqualToString:displayName2];
-
-  if (v11)
-  {
-LABEL_35:
-    displayName3 = [contactCopy displayName];
-    if (displayName3)
+    displayName2 = [contactCopy displayName];
+    if (displayName2)
     {
-      v13 = displayName3;
-      identifier4 = [contactCopy identifier];
-      displayName4 = [contactCopy displayName];
-      v16 = [identifier4 isEqualToString:displayName4];
+      v13 = displayName2;
+      identifier3 = [contactCopy identifier];
+      displayName3 = [contactCopy displayName];
+      v16 = [identifier3 isEqualToString:displayName3];
 
       if ((v16 & 1) == 0)
       {
-        displayName5 = [contactCopy displayName];
-        [(_CDContact *)self setDisplayName:displayName5];
+        displayName4 = [contactCopy displayName];
+        [(_CDContact *)self setDisplayName:displayName4];
       }
     }
   }
@@ -607,7 +584,7 @@ LABEL_27:
 
 - (BOOL)mayContainPrefix:(id)prefix
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   prefixCopy = prefix;
   array = [MEMORY[0x1E695DF70] array];
   identifier = [(_CDContact *)self identifier];
@@ -630,25 +607,25 @@ LABEL_27:
     [array addObjectsFromArray:v13];
   }
 
-  v26 = 0u;
-  v27 = 0u;
-  v24 = 0u;
   v25 = 0u;
+  v26 = 0u;
+  v23 = 0u;
+  v24 = 0u;
   v14 = array;
-  v15 = [v14 countByEnumeratingWithState:&v24 objects:v28 count:16];
+  v15 = [v14 countByEnumeratingWithState:&v23 objects:v27 count:16];
   if (v15)
   {
-    v16 = *v25;
+    v16 = *v24;
     while (2)
     {
       for (i = 0; i != v15; ++i)
       {
-        if (*v25 != v16)
+        if (*v24 != v16)
         {
           objc_enumerationMutation(v14);
         }
 
-        v18 = *(*(&v24 + 1) + 8 * i);
+        v18 = *(*(&v23 + 1) + 8 * i);
         v19 = [v18 length];
         if (v19 >= [prefixCopy length])
         {
@@ -663,7 +640,7 @@ LABEL_27:
         }
       }
 
-      v15 = [v14 countByEnumeratingWithState:&v24 objects:v28 count:16];
+      v15 = [v14 countByEnumeratingWithState:&v23 objects:v27 count:16];
       if (v15)
       {
         continue;
@@ -675,7 +652,6 @@ LABEL_27:
 
 LABEL_16:
 
-  v22 = *MEMORY[0x1E69E9840];
   return v15;
 }
 
@@ -690,7 +666,7 @@ LABEL_16:
 
 + (id)predicateForContactWithPersonId:(id)id personIdType:(unint64_t)type
 {
-  v15[2] = *MEMORY[0x1E69E9840];
+  v14[2] = *MEMORY[0x1E69E9840];
   idCopy = id;
   v6 = MEMORY[0x1E696AE18];
   v7 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:type];
@@ -700,15 +676,13 @@ LABEL_16:
   {
     idCopy = [MEMORY[0x1E696AE18] predicateWithFormat:@"personId == %@", idCopy];
     v10 = MEMORY[0x1E696AB28];
-    v15[0] = v8;
-    v15[1] = idCopy;
-    v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:2];
+    v14[0] = v8;
+    v14[1] = idCopy;
+    v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:2];
     v12 = [v10 andPredicateWithSubpredicates:v11];
 
     v8 = v12;
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return v8;
 }

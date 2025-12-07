@@ -55,14 +55,14 @@
       goto LABEL_12;
     }
 
-    if ([v15 isEqualToString:@"brick"])
+    if (objc_msgSend_isEqualToString_(v15))
     {
       v16 = 1;
     }
 
     else
     {
-      if (![v15 isEqualToString:@"media"])
+      if (!objc_msgSend_isEqualToString_(v15))
       {
         goto LABEL_12;
       }
@@ -430,7 +430,7 @@ LABEL_31:
     v18->_lockups = v19;
 
     v18->_swooshType = type;
-    [(SKUISwooshPageComponent *)v18 _lockupStyleWithLockups:v18->_lockups];
+    objc_msgSend__lockupStyleWithLockups_(v18);
     v18->_lockupStyle.visibleFields = v25;
     *&v18->_lockupStyle.artworkSize = v24;
     v21 = [titleCopy copy];
@@ -603,13 +603,13 @@ LABEL_6:
 - (id)valueForMetricsField:(id)field
 {
   fieldCopy = field;
-  if (([fieldCopy isEqualToString:*MEMORY[0x277D6A4A0]] & 1) != 0 || objc_msgSend(fieldCopy, "isEqualToString:", *MEMORY[0x277D6A4A8]))
+  if ((objc_msgSend_isEqualToString_(fieldCopy) & 1) != 0 || objc_msgSend_isEqualToString_(fieldCopy))
   {
     title = [(SKUISwooshPageComponent *)self title];
     goto LABEL_4;
   }
 
-  if ([fieldCopy isEqualToString:*MEMORY[0x277D6A498]])
+  if (objc_msgSend_isEqualToString_(fieldCopy))
   {
     title = [MEMORY[0x277CCABB0] numberWithInteger:self->_fcKind];
 LABEL_4:
@@ -1289,7 +1289,7 @@ LABEL_7:
   v12 = 0;
   if (lockupCopy)
   {
-    [lockupCopy lockupStyle];
+    objc_msgSend_lockupStyle(lockupCopy);
   }
 
   if ([itemCopy itemKind] == 17)
@@ -1307,6 +1307,42 @@ LABEL_7:
   }
 
   [lockupCopy _setItem:itemCopy];
+}
+
+- (void)initWithCustomPageContext:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUISwooshPageComponent initWithCustomPageContext:]";
+}
+
+- (void)initWithFeaturedContentContext:(uint64_t)a3 kind:(uint64_t)a4 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUISwooshPageComponent initWithFeaturedContentContext:kind:]";
+}
+
+- (void)initWithItemList:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUISwooshPageComponent initWithItemList:]";
+}
+
+- (void)initWithLockups:(uint64_t)a3 swooshType:(uint64_t)a4 title:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUISwooshPageComponent initWithLockups:swooshType:title:]";
+}
+
+- (void)initWithRelatedContentContext:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUISwooshPageComponent initWithRelatedContentContext:]";
+}
+
+- (void)initWithRoomContext:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUISwooshPageComponent initWithRoomContext:]";
 }
 
 @end

@@ -47,8 +47,8 @@
 - (NSSet)recordIDsToOverwrite
 {
   swift_beginAccess();
-  sub_100006370(0, &qword_1019F6E98);
-  sub_10000FDE0(&qword_101A11D70, &qword_1019F6E98);
+  sub_100006370(0, &qword_1019F6E98, CKRecordID_ptr);
+  sub_10000FDE0(&qword_101A11D70, &qword_1019F6E98, CKRecordID_ptr, &protocol conformance descriptor for NSObject);
 
   v2.super.isa = Set._bridgeToObjectiveC()().super.isa;
 
@@ -57,8 +57,8 @@
 
 - (void)setRecordIDsToOverwrite:(id)overwrite
 {
-  sub_100006370(0, &qword_1019F6E98);
-  sub_10000FDE0(&qword_101A11D70, &qword_1019F6E98);
+  sub_100006370(0, &qword_1019F6E98, CKRecordID_ptr);
+  sub_10000FDE0(&qword_101A11D70, &qword_1019F6E98, CKRecordID_ptr, &protocol conformance descriptor for NSObject);
   v4 = static Set._unconditionallyBridgeFromObjectiveC(_:)();
   v5 = OBJC_IVAR____TtC8Freeform17CRLBoardDataStore_recordIDsToOverwrite;
   swift_beginAccess();
@@ -92,7 +92,7 @@
 
 - (void)openDatabaseWithCompletionHandler:(id)handler
 {
-  v5 = sub_1005B981C(&qword_1019FB750);
+  v5 = sub_1005B981C(&qword_1019FB750, &qword_10146F1B0);
   __chkstk_darwin(v5 - 8);
   v7 = &v14 - v6;
   v8 = _Block_copy(handler);
@@ -126,7 +126,7 @@
 
 - (void)closeDatabaseWithCompletionHandler:(id)handler
 {
-  v5 = sub_1005B981C(&qword_1019FB750);
+  v5 = sub_1005B981C(&qword_1019FB750, &qword_10146F1B0);
   __chkstk_darwin(v5 - 8);
   v7 = &v14 - v6;
   v8 = _Block_copy(handler);
@@ -181,7 +181,7 @@
 - (void)upgradeForRdar_119152219
 {
   selfCopy = self;
-  sub_100DE0BD8();
+  sub_100DE0BD8(selfCopy);
 }
 
 - (void)upgradeSyncMetadataToNewFormat_105187224
@@ -229,17 +229,17 @@
 
   selfCopy = self;
   sub_10002E43C(v7, v6);
-  sub_1000C1014(v7);
+  sub_1000C1014(v7, v6);
 }
 
 - (id)fetchZonesNeedingRefetchFor:(unint64_t)for error:(id *)error
 {
   selfCopy = self;
-  sub_1005B981C(&unk_1019F52B0);
+  sub_1005B981C(&unk_1019F52B0, &qword_10146FC90);
   OS_dispatch_queue.sync<A>(execute:)();
 
-  sub_100006370(0, &qword_1019F69D0);
-  sub_10000FDE0(&qword_1019F69D8, &qword_1019F69D0);
+  sub_100006370(0, &qword_1019F69D0, CKRecordZoneID_ptr);
+  sub_10000FDE0(&qword_1019F69D8, &qword_1019F69D0, CKRecordZoneID_ptr, &protocol conformance descriptor for NSObject);
   v5.super.isa = Set._bridgeToObjectiveC()().super.isa;
 
   return v5.super.isa;
@@ -247,7 +247,7 @@
 
 - (void)fetchZonesNeedingRefetchFor:(unint64_t)for completionHandler:(id)handler
 {
-  v7 = sub_1005B981C(&qword_1019FB750);
+  v7 = sub_1005B981C(&qword_1019FB750, &qword_10146F1B0);
   __chkstk_darwin(v7 - 8);
   v9 = &v16 - v8;
   v10 = _Block_copy(handler);
@@ -273,7 +273,7 @@
 
 - (void)addZonesToRefetch:(NSSet *)refetch version:(unint64_t)version completionHandler:(id)handler
 {
-  v9 = sub_1005B981C(&qword_1019FB750);
+  v9 = sub_1005B981C(&qword_1019FB750, &qword_10146F1B0);
   __chkstk_darwin(v9 - 8);
   v11 = &v19 - v10;
   v12 = _Block_copy(handler);
@@ -301,8 +301,8 @@
 
 - (BOOL)_addZonesToRefetch:(id)refetch version:(unint64_t)version error:(id *)error
 {
-  sub_100006370(0, &qword_1019F69D0);
-  sub_10000FDE0(&qword_1019F69D8, &qword_1019F69D0);
+  sub_100006370(0, &qword_1019F69D0, CKRecordZoneID_ptr);
+  sub_10000FDE0(&qword_1019F69D8, &qword_1019F69D0, CKRecordZoneID_ptr, &protocol conformance descriptor for NSObject);
   v7 = static Set._unconditionallyBridgeFromObjectiveC(_:)();
   selfCopy = self;
   sub_100E2863C(v7, version);
@@ -312,7 +312,7 @@
 
 - (void)removeZoneToRefetch:(CKRecordZoneID *)refetch completionHandler:(id)handler
 {
-  v7 = sub_1005B981C(&qword_1019FB750);
+  v7 = sub_1005B981C(&qword_1019FB750, &qword_10146F1B0);
   __chkstk_darwin(v7 - 8);
   v9 = &v17 - v8;
   v10 = _Block_copy(handler);
@@ -339,7 +339,7 @@
 
 - (void)updateRefetchStatusAfterSuccessfulRefetchFor:(CKRecordZoneID *)for completionHandler:(id)handler
 {
-  v7 = sub_1005B981C(&qword_1019FB750);
+  v7 = sub_1005B981C(&qword_1019FB750, &qword_10146F1B0);
   __chkstk_darwin(v7 - 8);
   v9 = &v17 - v8;
   v10 = _Block_copy(handler);
@@ -366,7 +366,7 @@
 
 - (void)addUnsupportedZonesToRefetch:(NSSet *)refetch completionHandler:(id)handler
 {
-  v7 = sub_1005B981C(&qword_1019FB750);
+  v7 = sub_1005B981C(&qword_1019FB750, &qword_10146F1B0);
   __chkstk_darwin(v7 - 8);
   v9 = &v17 - v8;
   v10 = _Block_copy(handler);
@@ -393,8 +393,8 @@
 
 - (BOOL)_addUnsupportedZonesToRefetch:(id)refetch error:(id *)error
 {
-  sub_100006370(0, &qword_1019F69D0);
-  sub_10000FDE0(&qword_1019F69D8, &qword_1019F69D0);
+  sub_100006370(0, &qword_1019F69D0, CKRecordZoneID_ptr);
+  sub_10000FDE0(&qword_1019F69D8, &qword_1019F69D0, CKRecordZoneID_ptr, &protocol conformance descriptor for NSObject);
   v5 = static Set._unconditionallyBridgeFromObjectiveC(_:)();
   selfCopy = self;
   sub_100E2B4E8(v5);
@@ -404,7 +404,7 @@
 
 - (void)removeUnsupportedZoneToRefetch:(CKRecordZoneID *)refetch completionHandler:(id)handler
 {
-  v7 = sub_1005B981C(&qword_1019FB750);
+  v7 = sub_1005B981C(&qword_1019FB750, &qword_10146F1B0);
   __chkstk_darwin(v7 - 8);
   v9 = &v17 - v8;
   v10 = _Block_copy(handler);

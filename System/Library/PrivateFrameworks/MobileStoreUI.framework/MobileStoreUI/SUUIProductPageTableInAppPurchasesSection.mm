@@ -100,10 +100,10 @@
   if (!v7)
   {
     v7 = [(SUUITableViewCell *)[SUUIProductPageInAppPurchaseTableCell alloc] initWithStyle:0 reuseIdentifier:@"IA"];
-    primaryTextColor = [(SUUIColorScheme *)self->_colorScheme primaryTextColor];
-    if (primaryTextColor)
+    v8 = objc_msgSend_primaryTextColor(self->_colorScheme);
+    if (v8)
     {
-      [(SUUITableViewCell *)v7 setBottomBorderColor:primaryTextColor];
+      [(SUUITableViewCell *)v7 setBottomBorderColor:v8];
     }
 
     else
@@ -173,11 +173,11 @@
   }
 
   v7 = self->_headerView;
-  primaryTextColor = [(SUUIColorScheme *)self->_colorScheme primaryTextColor];
-  v10 = primaryTextColor;
-  if (primaryTextColor)
+  v8 = objc_msgSend_primaryTextColor(self->_colorScheme);
+  v10 = v8;
+  if (v8)
   {
-    [(SUUIProductPageTableExpandableHeaderView *)v7 setBottomBorderColor:primaryTextColor];
+    [(SUUIProductPageTableExpandableHeaderView *)v7 setBottomBorderColor:v8];
   }
 
   else

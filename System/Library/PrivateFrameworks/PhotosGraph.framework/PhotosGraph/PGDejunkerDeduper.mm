@@ -32,139 +32,132 @@
 
 - (id)requiredItemsInItems:(id)items options:(id)options containStronglyRequiredItems:(BOOL *)requiredItems
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   loggingConnection = self->_loggingConnection;
   if (os_log_type_enabled(loggingConnection, OS_LOG_TYPE_FAULT))
   {
-    v8 = 136315138;
-    v9 = "[PGDejunkerDeduper requiredItemsInItems:options:containStronglyRequiredItems:]";
-    _os_log_fault_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_FAULT, "%s needs to be implemented by subclass", &v8, 0xCu);
+    v7 = 136315138;
+    v8 = "[PGDejunkerDeduper requiredItemsInItems:options:containStronglyRequiredItems:]";
+    _os_log_fault_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_FAULT, "%s needs to be implemented by subclass", &v7, 0xCu);
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return MEMORY[0x277CBEBF8];
 }
 
 - (id)itemsSortedByScoreWithItems:(id)items options:(id)options
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   loggingConnection = self->_loggingConnection;
   if (os_log_type_enabled(loggingConnection, OS_LOG_TYPE_FAULT))
   {
-    v7 = 136315138;
-    v8 = "[PGDejunkerDeduper itemsSortedByScoreWithItems:options:]";
-    _os_log_fault_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_FAULT, "%s needs to be implemented by subclass", &v7, 0xCu);
+    v6 = 136315138;
+    v7 = "[PGDejunkerDeduper itemsSortedByScoreWithItems:options:]";
+    _os_log_fault_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_FAULT, "%s needs to be implemented by subclass", &v6, 0xCu);
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return MEMORY[0x277CBEBF8];
 }
 
 - (id)featureWithItem:(id)item
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   loggingConnection = self->_loggingConnection;
   if (os_log_type_enabled(loggingConnection, OS_LOG_TYPE_FAULT))
   {
-    v7 = 136315138;
-    v8 = "[PGDejunkerDeduper featureWithItem:]";
-    _os_log_fault_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_FAULT, "%s needs to be implemented by subclass", &v7, 0xCu);
+    v6 = 136315138;
+    v7 = "[PGDejunkerDeduper featureWithItem:]";
+    _os_log_fault_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_FAULT, "%s needs to be implemented by subclass", &v6, 0xCu);
   }
 
   v4 = [[PGDejunkerDeduperFeature alloc] initWithPersonLocalIdentifiers:0 peopleScenes:0 isVideo:0];
-  v5 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
 
 - (id)faceprintByPersonLocalIdentifierByItemIdentifierWithItems:(id)items
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   loggingConnection = self->_loggingConnection;
   if (os_log_type_enabled(loggingConnection, OS_LOG_TYPE_FAULT))
   {
-    v6 = 136315138;
-    v7 = "[PGDejunkerDeduper faceprintByPersonLocalIdentifierByItemIdentifierWithItems:]";
-    _os_log_fault_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_FAULT, "%s needs to be implemented by subclass", &v6, 0xCu);
+    v5 = 136315138;
+    v6 = "[PGDejunkerDeduper faceprintByPersonLocalIdentifierByItemIdentifierWithItems:]";
+    _os_log_fault_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_FAULT, "%s needs to be implemented by subclass", &v5, 0xCu);
   }
 
-  v4 = *MEMORY[0x277D85DE8];
   return MEMORY[0x277CBEC10];
 }
 
 - (id)debugPersonStringForItem:(id)item
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   loggingConnection = self->_loggingConnection;
   if (os_log_type_enabled(loggingConnection, OS_LOG_TYPE_FAULT))
   {
-    v6 = 136315138;
-    v7 = "[PGDejunkerDeduper debugPersonStringForItem:]";
-    _os_log_fault_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_FAULT, "%s needs to be implemented by subclass", &v6, 0xCu);
+    v5 = 136315138;
+    v6 = "[PGDejunkerDeduper debugPersonStringForItem:]";
+    _os_log_fault_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_FAULT, "%s needs to be implemented by subclass", &v5, 0xCu);
   }
 
-  v4 = *MEMORY[0x277D85DE8];
   return &stru_2843F5C58;
 }
 
 - (BOOL)isJunkForItem:(id)item
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   loggingConnection = self->_loggingConnection;
   if (os_log_type_enabled(loggingConnection, OS_LOG_TYPE_FAULT))
   {
-    v6 = 136315138;
-    v7 = "[PGDejunkerDeduper isJunkForItem:]";
-    _os_log_fault_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_FAULT, "%s needs to be implemented by subclass", &v6, 0xCu);
+    v5 = 136315138;
+    v6 = "[PGDejunkerDeduper isJunkForItem:]";
+    _os_log_fault_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_FAULT, "%s needs to be implemented by subclass", &v5, 0xCu);
   }
 
-  v4 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
 - (id)bestItemsInItems:(id)items options:(id)options
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   loggingConnection = self->_loggingConnection;
   if (os_log_type_enabled(loggingConnection, OS_LOG_TYPE_FAULT))
   {
-    v7 = 136315138;
-    v8 = "[PGDejunkerDeduper bestItemsInItems:options:]";
-    _os_log_fault_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_FAULT, "%s needs to be implemented by subclass", &v7, 0xCu);
+    v6 = 136315138;
+    v7 = "[PGDejunkerDeduper bestItemsInItems:options:]";
+    _os_log_fault_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_FAULT, "%s needs to be implemented by subclass", &v6, 0xCu);
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return MEMORY[0x277CBEBF8];
 }
 
 - (id)eligibleItemsInItems:(id)items options:(id)options
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   itemsCopy = items;
   identifiersOfEligibleItems = [options identifiersOfEligibleItems];
   if (identifiersOfEligibleItems)
   {
     v7 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v17 = 0u;
     v18 = 0u;
     v19 = 0u;
     v20 = 0u;
-    v21 = 0u;
     v8 = itemsCopy;
-    v9 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v19;
+      v11 = *v18;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v19 != v11)
+          if (*v18 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          v13 = *(*(&v18 + 1) + 8 * i);
+          v13 = *(*(&v17 + 1) + 8 * i);
           clsIdentifier = [v13 clsIdentifier];
           v15 = [identifiersOfEligibleItems containsObject:clsIdentifier];
 
@@ -174,7 +167,7 @@
           }
         }
 
-        v10 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
       }
 
       while (v10);
@@ -186,37 +179,35 @@
     v7 = itemsCopy;
   }
 
-  v16 = *MEMORY[0x277D85DE8];
-
   return v7;
 }
 
 - (id)itemsByFeatureWithItems:(id)items
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   itemsCopy = items;
   v5 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v6 = itemsCopy;
-  v7 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v17;
+    v9 = *v16;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v17 != v9)
+        if (*v16 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v16 + 1) + 8 * i);
-        v12 = [(PGDejunkerDeduper *)self featureWithItem:v11, v16];
+        v11 = *(*(&v15 + 1) + 8 * i);
+        v12 = [(PGDejunkerDeduper *)self featureWithItem:v11, v15];
         if (v12)
         {
           v13 = [v5 objectForKeyedSubscript:v12];
@@ -230,13 +221,11 @@
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v8);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -261,36 +250,36 @@ uint64_t __46__PGDejunkerDeduper_timeSortedItemsWithItems___block_invoke(uint64_
 
 - (id)bestItemGroupsBasedOnSceneprintsWithItemGroups:(id)groups forSimilarity:(int64_t)similarity options:(id)options
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   optionsCopy = options;
   v8 = [(PGDejunkerDeduper *)self itemsSortedByScoreWithItems:groups options:optionsCopy];
   identifiersOfEligibleItems = [optionsCopy identifiersOfEligibleItems];
-  v31 = optionsCopy;
+  v30 = optionsCopy;
   v10 = [(PGDejunkerDeduper *)self requiredItemsInItems:v8 options:optionsCopy containStronglyRequiredItems:0];
-  v34 = [v10 mutableCopy];
-  v30 = v10;
+  v33 = [v10 mutableCopy];
+  v29 = v10;
   v11 = [MEMORY[0x277CBEB98] setWithArray:v10];
+  v39 = 0u;
   v40 = 0u;
   v41 = 0u;
   v42 = 0u;
-  v43 = 0u;
   obj = v8;
-  v12 = [obj countByEnumeratingWithState:&v40 objects:v45 count:16];
+  v12 = [obj countByEnumeratingWithState:&v39 objects:v44 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v41;
-    v32 = *v41;
+    v14 = *v40;
+    v31 = *v40;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v41 != v14)
+        if (*v40 != v14)
         {
           objc_enumerationMutation(obj);
         }
 
-        v16 = *(*(&v40 + 1) + 8 * i);
+        v16 = *(*(&v39 + 1) + 8 * i);
         if (([v11 containsObject:v16] & 1) == 0)
         {
           if (!identifiersOfEligibleItems || ([v16 clsIdentifier], v17 = objc_claimAutoreleasedReturnValue(), v18 = objc_msgSend(identifiersOfEligibleItems, "containsObject:", v17), v17, v18))
@@ -298,26 +287,26 @@ uint64_t __46__PGDejunkerDeduper_timeSortedItemsWithItems___block_invoke(uint64_
             v19 = v11;
             -[CLSSimilarStacker distanceThresholdForSimilarity:withSimilarityModelVersion:](self->_similarStacker, "distanceThresholdForSimilarity:withSimilarityModelVersion:", similarity, [v16 clsSimilarityModelVersion]);
             v21 = v20;
+            v35 = 0u;
             v36 = 0u;
             v37 = 0u;
             v38 = 0u;
-            v39 = 0u;
-            v22 = v34;
-            v23 = [v22 countByEnumeratingWithState:&v36 objects:v44 count:16];
+            v22 = v33;
+            v23 = [v22 countByEnumeratingWithState:&v35 objects:v43 count:16];
             if (v23)
             {
               v24 = v23;
-              v25 = *v37;
+              v25 = *v36;
               while (2)
               {
                 for (j = 0; j != v24; ++j)
                 {
-                  if (*v37 != v25)
+                  if (*v36 != v25)
                   {
                     objc_enumerationMutation(v22);
                   }
 
-                  [(CLSSimilarStacker *)self->_similarStacker distanceBetweenItem:*(*(&v36 + 1) + 8 * j) andItem:v16];
+                  [(CLSSimilarStacker *)self->_similarStacker distanceBetweenItem:*(*(&v35 + 1) + 8 * j) andItem:v16];
                   if (v27 < v21)
                   {
 
@@ -325,7 +314,7 @@ uint64_t __46__PGDejunkerDeduper_timeSortedItemsWithItems___block_invoke(uint64_
                   }
                 }
 
-                v24 = [v22 countByEnumeratingWithState:&v36 objects:v44 count:16];
+                v24 = [v22 countByEnumeratingWithState:&v35 objects:v43 count:16];
                 if (v24)
                 {
                   continue;
@@ -338,49 +327,47 @@ uint64_t __46__PGDejunkerDeduper_timeSortedItemsWithItems___block_invoke(uint64_
             [v22 addObject:v16];
 LABEL_19:
             v11 = v19;
-            v14 = v32;
+            v14 = v31;
           }
         }
       }
 
-      v13 = [obj countByEnumeratingWithState:&v40 objects:v45 count:16];
+      v13 = [obj countByEnumeratingWithState:&v39 objects:v44 count:16];
     }
 
     while (v13);
   }
 
-  v28 = *MEMORY[0x277D85DE8];
-
-  return v34;
+  return v33;
 }
 
 - (id)bestItemGroupsBasedOnFaceprintsWithItemGroups:(id)groups options:(id)options
 {
-  v115 = *MEMORY[0x277D85DE8];
+  v114 = *MEMORY[0x277D85DE8];
   groupsCopy = groups;
   optionsCopy = options;
   v6 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(groupsCopy, "count")}];
-  v66 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v65 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v105 = 0u;
   v106 = 0u;
   v107 = 0u;
   v108 = 0u;
-  v109 = 0u;
   obj = groupsCopy;
-  v7 = [obj countByEnumeratingWithState:&v106 objects:v114 count:16];
+  v7 = [obj countByEnumeratingWithState:&v105 objects:v113 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v107;
+    v9 = *v106;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v107 != v9)
+        if (*v106 != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v106 + 1) + 8 * i);
+        v11 = *(*(&v105 + 1) + 8 * i);
         if ([v11 count] < 2)
         {
           [v6 addObject:v11];
@@ -390,126 +377,126 @@ LABEL_19:
         {
           v12 = [(PGDejunkerDeduper *)self itemsSortedByScoreWithItems:v11 options:optionsCopy];
           [v6 addObject:v12];
-          [v66 addObjectsFromArray:v12];
+          [v65 addObjectsFromArray:v12];
         }
       }
 
-      v8 = [obj countByEnumeratingWithState:&v106 objects:v114 count:16];
+      v8 = [obj countByEnumeratingWithState:&v105 objects:v113 count:16];
     }
 
     while (v8);
   }
 
-  v85 = [(PGDejunkerDeduper *)self faceprintByPersonLocalIdentifierByItemIdentifierWithItems:v66];
+  v84 = [(PGDejunkerDeduper *)self faceprintByPersonLocalIdentifierByItemIdentifierWithItems:v65];
   [optionsCopy identicalDedupingFaceprintDistance];
   v14 = v13;
   identifiersOfEligibleItems = [optionsCopy identifiersOfEligibleItems];
-  v70 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(obj, "count")}];
+  v69 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(obj, "count")}];
+  v101 = 0u;
   v102 = 0u;
   v103 = 0u;
   v104 = 0u;
-  v105 = 0u;
-  v68 = v6;
-  v16 = [v68 countByEnumeratingWithState:&v102 objects:v113 count:16];
+  v67 = v6;
+  v16 = [v67 countByEnumeratingWithState:&v101 objects:v112 count:16];
   if (v16)
   {
     v17 = v16;
-    v18 = *v103;
-    v74 = identifiersOfEligibleItems;
-    v65 = *v103;
+    v18 = *v102;
+    v73 = identifiersOfEligibleItems;
+    v64 = *v102;
     do
     {
       v19 = 0;
-      v67 = v17;
+      v66 = v17;
       do
       {
-        if (*v103 != v18)
+        if (*v102 != v18)
         {
           v20 = v19;
-          objc_enumerationMutation(v68);
+          objc_enumerationMutation(v67);
           v19 = v20;
         }
 
-        v73 = v19;
-        v21 = *(*(&v102 + 1) + 8 * v19);
+        v72 = v19;
+        v21 = *(*(&v101 + 1) + 8 * v19);
         if ([v21 count] == 1)
         {
           v22 = [(PGDejunkerDeduper *)self eligibleItemsInItems:v21 options:optionsCopy];
           if ([v22 count])
           {
-            [v70 addObject:v22];
+            [v69 addObject:v22];
           }
         }
 
         else
         {
           v23 = [(PGDejunkerDeduper *)self requiredItemsInItems:v21 options:optionsCopy containStronglyRequiredItems:0];
-          v77 = [v23 mutableCopy];
-          v71 = v23;
+          v76 = [v23 mutableCopy];
+          v70 = v23;
           v24 = [MEMORY[0x277CBEB98] setWithArray:v23];
+          v97 = 0u;
           v98 = 0u;
           v99 = 0u;
           v100 = 0u;
-          v101 = 0u;
-          v81 = v21;
-          v25 = [v81 countByEnumeratingWithState:&v98 objects:v112 count:16];
+          v80 = v21;
+          v25 = [v80 countByEnumeratingWithState:&v97 objects:v111 count:16];
           if (v25)
           {
             v26 = v25;
-            v27 = *v99;
-            v75 = *v99;
-            v76 = v24;
+            v27 = *v98;
+            v74 = *v98;
+            v75 = v24;
             do
             {
               v28 = 0;
-              v79 = v26;
+              v78 = v26;
               do
               {
-                if (*v99 != v27)
+                if (*v98 != v27)
                 {
-                  objc_enumerationMutation(v81);
+                  objc_enumerationMutation(v80);
                 }
 
-                v29 = *(*(&v98 + 1) + 8 * v28);
+                v29 = *(*(&v97 + 1) + 8 * v28);
                 if (([v24 containsObject:v29] & 1) == 0)
                 {
                   if (!identifiersOfEligibleItems || ([v29 clsIdentifier], v30 = objc_claimAutoreleasedReturnValue(), v31 = objc_msgSend(identifiersOfEligibleItems, "containsObject:", v30), v30, v31))
                   {
-                    v82 = v28;
+                    v81 = v28;
                     v32 = [(PGDejunkerDeduper *)self featureWithItem:v29];
                     personLocalIdentifiers = [v32 personLocalIdentifiers];
 
                     clsIdentifier = [v29 clsIdentifier];
-                    v34 = [v85 objectForKeyedSubscript:clsIdentifier];
+                    v34 = [v84 objectForKeyedSubscript:clsIdentifier];
 
-                    v80 = v29;
+                    v79 = v29;
                     curationModel = [v29 curationModel];
                     faceModel = [curationModel faceModel];
 
-                    v96 = 0u;
-                    v97 = 0u;
-                    v94 = 0u;
                     v95 = 0u;
-                    v88 = v77;
-                    v37 = [v88 countByEnumeratingWithState:&v94 objects:v111 count:16];
+                    v96 = 0u;
+                    v93 = 0u;
+                    v94 = 0u;
+                    v87 = v76;
+                    v37 = [v87 countByEnumeratingWithState:&v93 objects:v110 count:16];
                     if (v37)
                     {
                       v38 = v37;
-                      v39 = *v95;
-                      v83 = *v95;
-                      v84 = faceModel;
+                      v39 = *v94;
+                      v82 = *v94;
+                      v83 = faceModel;
                       while (2)
                       {
                         v40 = 0;
-                        v86 = v38;
+                        v85 = v38;
                         do
                         {
-                          if (*v95 != v39)
+                          if (*v94 != v39)
                           {
-                            objc_enumerationMutation(v88);
+                            objc_enumerationMutation(v87);
                           }
 
-                          v41 = *(*(&v94 + 1) + 8 * v40);
+                          v41 = *(*(&v93 + 1) + 8 * v40);
                           version = [faceModel version];
                           curationModel2 = [v41 curationModel];
                           faceModel2 = [curationModel2 faceModel];
@@ -518,38 +505,38 @@ LABEL_19:
                           if (version == version2)
                           {
                             clsIdentifier2 = [v41 clsIdentifier];
-                            v47 = [v85 objectForKeyedSubscript:clsIdentifier2];
+                            v47 = [v84 objectForKeyedSubscript:clsIdentifier2];
 
-                            v92 = 0u;
-                            v93 = 0u;
-                            v90 = 0u;
                             v91 = 0u;
+                            v92 = 0u;
+                            v89 = 0u;
+                            v90 = 0u;
                             v48 = personLocalIdentifiers;
-                            v49 = [v48 countByEnumeratingWithState:&v90 objects:v110 count:16];
+                            v49 = [v48 countByEnumeratingWithState:&v89 objects:v109 count:16];
                             if (v49)
                             {
                               v50 = v49;
-                              v51 = *v91;
+                              v51 = *v90;
                               v52 = 0.0;
                               do
                               {
                                 for (j = 0; j != v50; ++j)
                                 {
-                                  if (*v91 != v51)
+                                  if (*v90 != v51)
                                   {
                                     objc_enumerationMutation(v48);
                                   }
 
-                                  v54 = *(*(&v90 + 1) + 8 * j);
+                                  v54 = *(*(&v89 + 1) + 8 * j);
                                   v55 = [v34 objectForKeyedSubscript:v54];
                                   v56 = [v47 objectForKeyedSubscript:v54];
-                                  v89 = 0;
-                                  v57 = [v55 computeDistance:v56 withDistanceFunction:0 error:&v89];
+                                  v88 = 0;
+                                  v57 = [v55 computeDistance:v56 withDistanceFunction:0 error:&v88];
                                   [v57 doubleValue];
                                   v52 = v52 + v58 * v58;
                                 }
 
-                                v50 = [v48 countByEnumeratingWithState:&v90 objects:v110 count:16];
+                                v50 = [v48 countByEnumeratingWithState:&v89 objects:v109 count:16];
                               }
 
                               while (v50);
@@ -562,16 +549,16 @@ LABEL_19:
 
                             v59 = [v48 count];
                             v60 = v14;
-                            faceModel = v84;
+                            faceModel = v83;
                             if (v14 == -1.0)
                             {
-                              distanceNode = [v84 distanceNode];
+                              distanceNode = [v83 distanceNode];
                               [distanceNode operatingPoint];
                               v60 = v62;
                             }
 
-                            v39 = v83;
-                            v38 = v86;
+                            v39 = v82;
+                            v38 = v85;
                             if (sqrt(v52 / v59) < v60)
                             {
 
@@ -583,7 +570,7 @@ LABEL_19:
                         }
 
                         while (v40 != v38);
-                        v38 = [v88 countByEnumeratingWithState:&v94 objects:v111 count:16];
+                        v38 = [v87 countByEnumeratingWithState:&v93 objects:v110 count:16];
                         if (v38)
                         {
                           continue;
@@ -593,14 +580,14 @@ LABEL_19:
                       }
                     }
 
-                    [v88 addObject:v80];
+                    [v87 addObject:v79];
 LABEL_49:
 
-                    identifiersOfEligibleItems = v74;
-                    v27 = v75;
-                    v24 = v76;
-                    v26 = v79;
-                    v28 = v82;
+                    identifiersOfEligibleItems = v73;
+                    v27 = v74;
+                    v24 = v75;
+                    v26 = v78;
+                    v28 = v81;
                   }
                 }
 
@@ -608,72 +595,70 @@ LABEL_49:
               }
 
               while (v28 != v26);
-              v26 = [v81 countByEnumeratingWithState:&v98 objects:v112 count:16];
+              v26 = [v80 countByEnumeratingWithState:&v97 objects:v111 count:16];
             }
 
             while (v26);
           }
 
-          [v70 addObject:v77];
-          v18 = v65;
-          v17 = v67;
-          v22 = v71;
+          [v69 addObject:v76];
+          v18 = v64;
+          v17 = v66;
+          v22 = v70;
         }
 
-        v19 = v73 + 1;
+        v19 = v72 + 1;
       }
 
-      while (v73 + 1 != v17);
-      v17 = [v68 countByEnumeratingWithState:&v102 objects:v113 count:16];
+      while (v72 + 1 != v17);
+      v17 = [v67 countByEnumeratingWithState:&v101 objects:v112 count:16];
     }
 
     while (v17);
   }
 
-  v63 = *MEMORY[0x277D85DE8];
-
-  return v70;
+  return v69;
 }
 
 - (id)splitItemGroupsWithItemGroups:(id)groups maximumNumberOfItemsPerGroup:(unint64_t)group debugInfo:(id)info
 {
-  v55 = *MEMORY[0x277D85DE8];
+  v54 = *MEMORY[0x277D85DE8];
   groupsCopy = groups;
   infoCopy = info;
-  v45 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v44 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v45 = 0u;
   v46 = 0u;
   v47 = 0u;
   v48 = 0u;
-  v49 = 0u;
   obj = groupsCopy;
-  v9 = [obj countByEnumeratingWithState:&v46 objects:v54 count:16];
+  v9 = [obj countByEnumeratingWithState:&v45 objects:v53 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v47;
-    v40 = group - 1;
-    v43 = infoCopy;
+    v11 = *v46;
+    v39 = group - 1;
+    v42 = infoCopy;
     do
     {
       v12 = 0;
-      v41 = v10;
+      v40 = v10;
       do
       {
-        if (*v47 != v11)
+        if (*v46 != v11)
         {
           objc_enumerationMutation(obj);
         }
 
-        v13 = *(*(&v46 + 1) + 8 * v12);
+        v13 = *(*(&v45 + 1) + 8 * v12);
         v14 = [v13 count];
         if (v14 > group)
         {
           v15 = v11;
           groupCopy = group;
-          v17 = (v40 + v14) / group;
+          v17 = (v39 + v14) / group;
           v18 = [(PGDejunkerDeduper *)self timeSortedItemsWithItems:v13];
           v19 = [(PGDejunkerDeduper *)self splitItemGroupsWithTimeSortedItems:v18 numberOfBuckets:v17];
-          [v45 addObjectsFromArray:v19];
+          [v44 addObjectsFromArray:v19];
           loggingConnection = self->_loggingConnection;
           if (os_log_type_enabled(loggingConnection, OS_LOG_TYPE_DEBUG))
           {
@@ -681,9 +666,9 @@ LABEL_49:
             v35 = [obj count];
             v36 = [v19 count];
             *buf = 134218240;
-            v51 = v35;
-            v52 = 2048;
-            v53 = v36;
+            v50 = v35;
+            v51 = 2048;
+            v52 = v36;
             _os_log_debug_impl(&dword_22F0FC000, v34, OS_LOG_TYPE_DEBUG, "DejunkerDeduper: cluster with %lu items, split in %lu", buf, 0x16u);
 
             if (infoCopy)
@@ -696,9 +681,9 @@ LABEL_9:
               [cls_universalDate timeIntervalSinceDate:cls_universalDate2];
               v26 = v25;
 
-              infoCopy = v43;
+              infoCopy = v42;
               v27 = [MEMORY[0x277CCACA8] stringWithFormat:@"%f sec, %lu items, split in %lu", v26, objc_msgSend(v18, "count"), objc_msgSend(v19, "count")];
-              [v43 setState:1 ofCluster:v13 withReason:v27];
+              [v42 setState:1 ofCluster:v13 withReason:v27];
             }
           }
 
@@ -709,11 +694,11 @@ LABEL_9:
 
           group = groupCopy;
           v11 = v15;
-          v10 = v41;
+          v10 = v40;
           goto LABEL_13;
         }
 
-        [v45 addObject:v13];
+        [v44 addObject:v13];
         if (!infoCopy)
         {
           goto LABEL_14;
@@ -727,9 +712,9 @@ LABEL_9:
         [cls_universalDate3 timeIntervalSinceDate:cls_universalDate4];
         v33 = v32;
 
-        infoCopy = v43;
+        infoCopy = v42;
         v19 = [MEMORY[0x277CCACA8] stringWithFormat:@"%f sec, %lu items", v33, objc_msgSend(v13, "count")];
-        [v43 setState:1 ofCluster:v13 withReason:v19];
+        [v42 setState:1 ofCluster:v13 withReason:v19];
 LABEL_13:
 
 LABEL_14:
@@ -737,55 +722,53 @@ LABEL_14:
       }
 
       while (v10 != v12);
-      v37 = [obj countByEnumeratingWithState:&v46 objects:v54 count:16];
+      v37 = [obj countByEnumeratingWithState:&v45 objects:v53 count:16];
       v10 = v37;
     }
 
     while (v37);
   }
 
-  v38 = *MEMORY[0x277D85DE8];
-
-  return v45;
+  return v44;
 }
 
 - (id)splitItemGroupsWithTimeSortedItems:(id)items numberOfBuckets:(unint64_t)buckets
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   itemsCopy = items;
-  v20 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v19 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v6 = [itemsCopy count];
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   obj = itemsCopy;
-  v7 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v7 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v7)
   {
     v8 = v7;
     v9 = 0;
     v10 = 0;
     v11 = 0;
-    v12 = *v23;
+    v12 = *v22;
     do
     {
       v13 = 0;
-      v19 = v10;
+      v18 = v10;
       v14 = buckets * v10;
       do
       {
-        if (*v23 != v12)
+        if (*v22 != v12)
         {
           objc_enumerationMutation(obj);
         }
 
-        v15 = *(*(&v22 + 1) + 8 * v13);
+        v15 = *(*(&v21 + 1) + 8 * v13);
         if (v14 >= v9 * v6)
         {
           v16 = objc_alloc_init(MEMORY[0x277CBEB18]);
 
-          [v20 addObject:v16];
+          [v19 addObject:v16];
           ++v9;
           v11 = v16;
         }
@@ -796,8 +779,8 @@ LABEL_14:
       }
 
       while (v8 != v13);
-      v10 = v19 + v8;
-      v8 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v10 = v18 + v8;
+      v8 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v8);
@@ -808,31 +791,29 @@ LABEL_14:
     v11 = 0;
   }
 
-  v17 = *MEMORY[0x277D85DE8];
-
-  return v20;
+  return v19;
 }
 
 - (id)timeGroupsOfTimeSortedItemsWithTimeSortedItems:(id)items timeInterval:(double)interval maximumTimeGroupExtension:(double)extension
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   itemsCopy = items;
   v9 = objc_alloc_init(MEMORY[0x277CBEB18]);
   aBlock[0] = MEMORY[0x277D85DD0];
   aBlock[1] = 3221225472;
   aBlock[2] = __107__PGDejunkerDeduper_timeGroupsOfTimeSortedItemsWithTimeSortedItems_timeInterval_maximumTimeGroupExtension___block_invoke;
   aBlock[3] = &unk_27887EDC0;
-  v34 = interval * extension;
+  v33 = interval * extension;
   aBlock[4] = self;
   v10 = v9;
-  v33 = v10;
+  v32 = v10;
   v11 = _Block_copy(aBlock);
+  v27 = 0u;
   v28 = 0u;
   v29 = 0u;
   v30 = 0u;
-  v31 = 0u;
   v12 = itemsCopy;
-  v13 = [v12 countByEnumeratingWithState:&v28 objects:v35 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v27 objects:v34 count:16];
   if (!v13)
   {
 
@@ -844,20 +825,20 @@ LABEL_14:
   v14 = v13;
   v15 = 0;
   v16 = 0;
-  v17 = *v29;
-  v27 = v10;
+  v17 = *v28;
+  v26 = v10;
   do
   {
     v18 = 0;
     v19 = v15;
     do
     {
-      if (*v29 != v17)
+      if (*v28 != v17)
       {
         objc_enumerationMutation(v12);
       }
 
-      v20 = *(*(&v28 + 1) + 8 * v18);
+      v20 = *(*(&v27 + 1) + 8 * v18);
       cls_universalDate = [v20 cls_universalDate];
       v15 = cls_universalDate;
       if (!v16)
@@ -885,7 +866,7 @@ LABEL_11:
     }
 
     while (v14 != v18);
-    v14 = [v12 countByEnumeratingWithState:&v28 objects:v35 count:16];
+    v14 = [v12 countByEnumeratingWithState:&v27 objects:v34 count:16];
   }
 
   while (v14);
@@ -895,17 +876,16 @@ LABEL_11:
     v11[2](v11, v16);
   }
 
-  v10 = v27;
+  v10 = v26;
 LABEL_17:
   v24 = v10;
 
-  v25 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
 void __107__PGDejunkerDeduper_timeGroupsOfTimeSortedItemsWithTimeSortedItems_timeInterval_maximumTimeGroupExtension___block_invoke(uint64_t a1, void *a2)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 lastObject];
   v5 = [v4 cls_universalDate];
@@ -925,27 +905,27 @@ void __107__PGDejunkerDeduper_timeGroupsOfTimeSortedItemsWithTimeSortedItems_tim
     v11 = vcvtpd_u64_f64(v9 / v10);
     [*(*(a1 + 32) + 16) setK:v11];
     v12 = [*(*(a1 + 32) + 16) performWithDataset:v3 progressBlock:0];
+    v21 = 0u;
     v22 = 0u;
     v23 = 0u;
     v24 = 0u;
-    v25 = 0u;
-    v13 = [v12 countByEnumeratingWithState:&v22 objects:v30 count:16];
+    v13 = [v12 countByEnumeratingWithState:&v21 objects:v29 count:16];
     if (v13)
     {
       v14 = v13;
-      v15 = *v23;
+      v15 = *v22;
       do
       {
         v16 = 0;
         do
         {
-          if (*v23 != v15)
+          if (*v22 != v15)
           {
             objc_enumerationMutation(v12);
           }
 
           v17 = *(a1 + 32);
-          v18 = [*(*(&v22 + 1) + 8 * v16) objects];
+          v18 = [*(*(&v21 + 1) + 8 * v16) objects];
           v19 = [v17 timeSortedItemsWithItems:v18];
 
           [*(a1 + 40) addObject:v19];
@@ -953,7 +933,7 @@ void __107__PGDejunkerDeduper_timeGroupsOfTimeSortedItemsWithTimeSortedItems_tim
         }
 
         while (v14 != v16);
-        v14 = [v12 countByEnumeratingWithState:&v22 objects:v30 count:16];
+        v14 = [v12 countByEnumeratingWithState:&v21 objects:v29 count:16];
       }
 
       while (v14);
@@ -963,14 +943,12 @@ void __107__PGDejunkerDeduper_timeGroupsOfTimeSortedItemsWithTimeSortedItems_tim
     if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
     {
       *buf = 134218240;
-      v27 = v9;
-      v28 = 2048;
-      v29 = v11;
+      v26 = v9;
+      v27 = 2048;
+      v28 = v11;
       _os_log_debug_impl(&dword_22F0FC000, v20, OS_LOG_TYPE_DEBUG, "DejunkerDeduper: cluster with duration %f, split in %lu", buf, 0x16u);
     }
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (double)semanticalDedupingSimilarityForItemFeature:(id)feature options:(id)options
@@ -1109,7 +1087,7 @@ LABEL_10:
 
 - (id)finalItemsWithItems:(id)items options:(id)options debugInfo:(id)info progressBlock:(id)block
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   itemsCopy = items;
   optionsCopy = options;
   infoCopy = info;
@@ -1120,39 +1098,39 @@ LABEL_10:
   aBlock[3] = &unk_27887ED98;
   selfCopy = self;
   aBlock[4] = self;
-  v42 = optionsCopy;
-  v49 = v42;
-  v39 = v12;
-  v50 = v39;
-  v38 = infoCopy;
-  v51 = v38;
+  v41 = optionsCopy;
+  v48 = v41;
+  v38 = v12;
+  v49 = v38;
+  v37 = infoCopy;
+  v50 = v37;
   v13 = _Block_copy(aBlock);
   v14 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v15 = objc_alloc_init(MEMORY[0x277CBEB58]);
+  v43 = 0u;
   v44 = 0u;
   v45 = 0u;
   v46 = 0u;
-  v47 = 0u;
   obj = itemsCopy;
-  v16 = [obj countByEnumeratingWithState:&v44 objects:v52 count:16];
-  v41 = v13;
+  v16 = [obj countByEnumeratingWithState:&v43 objects:v51 count:16];
+  v40 = v13;
   if (v16)
   {
     v17 = v16;
     v18 = 0;
-    v19 = *v45;
+    v19 = *v44;
     selfCopy2 = self;
     do
     {
       for (i = 0; i != v17; ++i)
       {
         v22 = v18;
-        if (*v45 != v19)
+        if (*v44 != v19)
         {
           objc_enumerationMutation(obj);
         }
 
-        v23 = *(*(&v44 + 1) + 8 * i);
+        v23 = *(*(&v43 + 1) + 8 * i);
         v24 = [(PGDejunkerDeduper *)selfCopy2 featureWithItem:v23];
         if (v22)
         {
@@ -1174,7 +1152,7 @@ LABEL_10:
           v30 = v29;
 
           selfCopy2 = selfCopy;
-          [v42 finalPassTimeInterval];
+          [v41 finalPassTimeInterval];
           if (v30 >= v31)
           {
             goto LABEL_24;
@@ -1182,7 +1160,7 @@ LABEL_10:
 
           [(CLSSimilarStacker *)selfCopy->_similarStacker distanceBetweenItem:v23 andItem:v22];
           v33 = v32;
-          [v42 finalPassDedupingThreshold];
+          [v41 finalPassDedupingThreshold];
           if (v34 < 0.0)
           {
             -[CLSSimilarStacker distanceThresholdForSimilarity:withSimilarityModelVersion:](selfCopy->_similarStacker, "distanceThresholdForSimilarity:withSimilarityModelVersion:", 0, [v23 clsSimilarityModelVersion]);
@@ -1193,7 +1171,7 @@ LABEL_10:
 LABEL_24:
             if ([v14 count])
             {
-              (v41)[2](v41, v14);
+              (v40)[2](v40, v14);
               [v14 removeAllObjects];
               [v15 removeAllObjects];
             }
@@ -1205,7 +1183,7 @@ LABEL_24:
         v18 = v23;
       }
 
-      v17 = [obj countByEnumeratingWithState:&v44 objects:v52 count:16];
+      v17 = [obj countByEnumeratingWithState:&v43 objects:v51 count:16];
     }
 
     while (v17);
@@ -1218,18 +1196,17 @@ LABEL_24:
 
   if ([v14 count])
   {
-    (v41)[2](v41, v14);
+    (v40)[2](v40, v14);
   }
 
-  v35 = v39;
+  v35 = v38;
 
-  v36 = *MEMORY[0x277D85DE8];
-  return v39;
+  return v38;
 }
 
 void __73__PGDejunkerDeduper_finalItemsWithItems_options_debugInfo_progressBlock___block_invoke(id *a1, void *a2)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 count];
   v5 = a1[4];
@@ -1245,25 +1222,25 @@ void __73__PGDejunkerDeduper_finalItemsWithItems_options_debugInfo_progressBlock
     v7 = v6;
     [a1[5] finalPassMaximumTimeGroupExtension];
     v9 = [v5 timeGroupsOfTimeSortedItemsWithTimeSortedItems:v3 timeInterval:v7 maximumTimeGroupExtension:v8];
+    v19 = 0u;
     v20 = 0u;
     v21 = 0u;
     v22 = 0u;
-    v23 = 0u;
-    v10 = [v9 countByEnumeratingWithState:&v20 objects:v24 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v21;
+      v12 = *v20;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v21 != v12)
+          if (*v20 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          v14 = *(*(&v20 + 1) + 8 * i);
+          v14 = *(*(&v19 + 1) + 8 * i);
           v15 = [v14 count];
           v16 = a1[4];
           v17 = a1[5];
@@ -1281,14 +1258,12 @@ void __73__PGDejunkerDeduper_finalItemsWithItems_options_debugInfo_progressBlock
           }
         }
 
-        v11 = [v9 countByEnumeratingWithState:&v20 objects:v24 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
       }
 
       while (v11);
     }
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (id)dejunkedItemsWithItems:(id)items options:(id)options debugInfo:(id)info progressBlock:(id)block
@@ -1377,7 +1352,7 @@ uint64_t __76__PGDejunkerDeduper_dejunkedItemsWithItems_options_debugInfo_progre
 
 - (id)semanticallyDedupedItemsInItems:(id)items options:(id)options debugInfo:(id)info progressBlock:(id)block
 {
-  v95 = *MEMORY[0x277D85DE8];
+  v94 = *MEMORY[0x277D85DE8];
   itemsCopy = items;
   optionsCopy = options;
   infoCopy = info;
@@ -1388,16 +1363,16 @@ uint64_t __76__PGDejunkerDeduper_dejunkedItemsWithItems_options_debugInfo_progre
     Current = CFAbsoluteTimeGetCurrent();
     if (Current >= 0.01)
     {
-      v87 = 0;
-      v12[2](v12, &v87, 0.0);
-      if (v87 == 1)
+      v86 = 0;
+      v12[2](v12, &v86, 0.0);
+      if (v86 == 1)
       {
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
         {
           *buf = 67109378;
-          v92 = 249;
-          v93 = 2080;
-          v94 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Curation/DejunkDedupe/PGDejunkerDeduper.m";
+          v91 = 249;
+          v92 = 2080;
+          v93 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Curation/DejunkDedupe/PGDejunkerDeduper.m";
           _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
         }
 
@@ -1415,7 +1390,7 @@ uint64_t __76__PGDejunkerDeduper_dejunkedItemsWithItems_options_debugInfo_progre
   if (v17)
   {
     v18 = v17;
-    v60 = itemsCopy;
+    v59 = itemsCopy;
     similarStacker = self->_similarStacker;
     [optionsCopy semanticalDedupingThreshold];
     [(CLSSimilarStacker *)similarStacker overrideDistanceThreshold:2 forSimilarity:?];
@@ -1427,50 +1402,50 @@ uint64_t __76__PGDejunkerDeduper_dejunkedItemsWithItems_options_debugInfo_progre
     [(CLSSimilarStacker *)v21 overrideDistanceThreshold:4 forSimilarity:?];
     v22 = objc_alloc_init(MEMORY[0x277CBEB18]);
     maximumNumberOfItemsPerSemanticalCluster = [optionsCopy maximumNumberOfItemsPerSemanticalCluster];
+    v82 = 0u;
     v83 = 0u;
     v84 = 0u;
     v85 = 0u;
-    v86 = 0u;
-    v59 = v16;
+    v58 = v16;
     obj = v16;
-    v61 = [obj countByEnumeratingWithState:&v83 objects:v90 count:16];
-    if (v61)
+    v60 = [obj countByEnumeratingWithState:&v82 objects:v89 count:16];
+    if (v60)
     {
       v24 = 1.0 / v18;
-      v25 = *v84;
+      v25 = *v83;
       v26 = 0.0;
-      v64 = maximumNumberOfItemsPerSemanticalCluster;
-      v65 = v12;
-      v58 = *v84;
+      v63 = maximumNumberOfItemsPerSemanticalCluster;
+      v64 = v12;
+      v57 = *v83;
       while (2)
       {
         v27 = 0;
         do
         {
-          if (*v84 != v25)
+          if (*v83 != v25)
           {
             v28 = v27;
             objc_enumerationMutation(obj);
             v27 = v28;
           }
 
-          v62 = v27;
-          v68 = *(*(&v83 + 1) + 8 * v27);
+          v61 = v27;
+          v67 = *(*(&v82 + 1) + 8 * v27);
           if (v12)
           {
             v29 = CFAbsoluteTimeGetCurrent();
             if (v29 - v13 >= 0.01)
             {
-              v87 = 0;
-              v12[2](v12, &v87, v26);
-              if (v87)
+              v86 = 0;
+              v12[2](v12, &v86, v26);
+              if (v86)
               {
                 if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
                 {
                   *buf = 67109378;
-                  v92 = 276;
-                  v93 = 2080;
-                  v94 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Curation/DejunkDedupe/PGDejunkerDeduper.m";
+                  v91 = 276;
+                  v92 = 2080;
+                  v93 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Curation/DejunkDedupe/PGDejunkerDeduper.m";
                   _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
                 }
 
@@ -1484,10 +1459,10 @@ LABEL_63:
           }
 
           v26 = v24 + v26;
-          v30 = [obj objectForKeyedSubscript:{v68, v58}];
-          if (-[PGDejunkerDeduper shouldPerformSemanticalDedupingForItemFeature:options:](self, "shouldPerformSemanticalDedupingForItemFeature:options:", v68, optionsCopy) && [v30 count] != 1)
+          v30 = [obj objectForKeyedSubscript:{v67, v57}];
+          if (-[PGDejunkerDeduper shouldPerformSemanticalDedupingForItemFeature:options:](self, "shouldPerformSemanticalDedupingForItemFeature:options:", v67, optionsCopy) && [v30 count] != 1)
           {
-            [(PGDejunkerDeduper *)self semanticalDedupingTimeIntervalForItemFeature:v68 options:optionsCopy];
+            [(PGDejunkerDeduper *)self semanticalDedupingTimeIntervalForItemFeature:v67 options:optionsCopy];
             v33 = v32;
             v34 = [(PGDejunkerDeduper *)self timeSortedItemsWithItems:v30];
             [optionsCopy semanticalDedupingMaximumTimeGroupExtension];
@@ -1503,48 +1478,48 @@ LABEL_63:
               v38 = 2;
             }
 
-            v70 = v38;
-            v81 = 0u;
-            v82 = 0u;
-            v79 = 0u;
+            v69 = v38;
             v80 = 0u;
+            v81 = 0u;
+            v78 = 0u;
+            v79 = 0u;
             v31 = v36;
-            v72 = [v31 countByEnumeratingWithState:&v79 objects:v89 count:16];
-            if (v72)
+            v71 = [v31 countByEnumeratingWithState:&v78 objects:v88 count:16];
+            if (v71)
             {
               v39 = v24 / v37;
-              v71 = *v80;
+              v70 = *v79;
               v40 = 0.0;
-              v66 = v31;
-              v67 = v30;
+              v65 = v31;
+              v66 = v30;
               while (2)
               {
                 v41 = 0;
                 v42 = v34;
                 do
                 {
-                  if (*v80 != v71)
+                  if (*v79 != v70)
                   {
                     objc_enumerationMutation(v31);
                   }
 
-                  v34 = *(*(&v79 + 1) + 8 * v41);
+                  v34 = *(*(&v78 + 1) + 8 * v41);
 
                   if (v12)
                   {
                     v43 = CFAbsoluteTimeGetCurrent();
                     if (v43 - v13 >= 0.01)
                     {
-                      v87 = 0;
-                      v12[2](v12, &v87, v26 + v40);
-                      if (v87)
+                      v86 = 0;
+                      v12[2](v12, &v86, v26 + v40);
+                      if (v86)
                       {
                         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
                         {
                           *buf = 67109378;
-                          v92 = 305;
-                          v93 = 2080;
-                          v94 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Curation/DejunkDedupe/PGDejunkerDeduper.m";
+                          v91 = 305;
+                          v92 = 2080;
+                          v93 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Curation/DejunkDedupe/PGDejunkerDeduper.m";
                           _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
                         }
 
@@ -1555,13 +1530,13 @@ LABEL_63:
                     }
                   }
 
-                  v73 = v41;
-                  if ([v34 count] >= v70)
+                  v72 = v41;
+                  if ([v34 count] >= v69)
                   {
-                    [(PGDejunkerDeduper *)self semanticalDedupingSimilarityForItemFeature:v68 options:optionsCopy];
+                    [(PGDejunkerDeduper *)self semanticalDedupingSimilarityForItemFeature:v67 options:optionsCopy];
                     v46 = v45;
                     v47 = [(CLSSimilarStacker *)self->_similarStacker stackSimilarItems:v34 withSimilarity:v45 timestampSupport:0 progressBlock:0];
-                    v69 = v34;
+                    v68 = v34;
                     if (maximumNumberOfItemsPerSemanticalCluster)
                     {
                       v48 = [(PGDejunkerDeduper *)self splitItemGroupsWithItemGroups:v47 maximumNumberOfItemsPerGroup:maximumNumberOfItemsPerSemanticalCluster debugInfo:0];
@@ -1569,26 +1544,26 @@ LABEL_63:
                       v47 = v48;
                     }
 
-                    v77 = 0u;
-                    v78 = 0u;
-                    v75 = 0u;
                     v76 = 0u;
+                    v77 = 0u;
+                    v74 = 0u;
+                    v75 = 0u;
                     v44 = v47;
-                    v49 = [v44 countByEnumeratingWithState:&v75 objects:v88 count:16];
+                    v49 = [v44 countByEnumeratingWithState:&v74 objects:v87 count:16];
                     if (v49)
                     {
                       v50 = v49;
-                      v51 = *v76;
+                      v51 = *v75;
                       do
                       {
                         for (i = 0; i != v50; ++i)
                         {
-                          if (*v76 != v51)
+                          if (*v75 != v51)
                           {
                             objc_enumerationMutation(v44);
                           }
 
-                          v53 = *(*(&v75 + 1) + 8 * i);
+                          v53 = *(*(&v74 + 1) + 8 * i);
                           if ([v53 count] == 1)
                           {
                             v54 = [(PGDejunkerDeduper *)self eligibleItemsInItems:v53 options:optionsCopy];
@@ -1603,17 +1578,17 @@ LABEL_63:
                           }
                         }
 
-                        v50 = [v44 countByEnumeratingWithState:&v75 objects:v88 count:16];
+                        v50 = [v44 countByEnumeratingWithState:&v74 objects:v87 count:16];
                       }
 
                       while (v50);
                     }
 
-                    maximumNumberOfItemsPerSemanticalCluster = v64;
-                    v12 = v65;
-                    v31 = v66;
-                    v30 = v67;
-                    v34 = v69;
+                    maximumNumberOfItemsPerSemanticalCluster = v63;
+                    v12 = v64;
+                    v31 = v65;
+                    v30 = v66;
+                    v34 = v68;
                   }
 
                   else
@@ -1624,13 +1599,13 @@ LABEL_63:
 
                   v40 = v39 + v40;
 
-                  v41 = v73 + 1;
+                  v41 = v72 + 1;
                   v42 = v34;
                 }
 
-                while (v73 + 1 != v72);
-                v72 = [v31 countByEnumeratingWithState:&v79 objects:v89 count:16];
-                if (v72)
+                while (v72 + 1 != v71);
+                v71 = [v31 countByEnumeratingWithState:&v78 objects:v88 count:16];
+                if (v71)
                 {
                   continue;
                 }
@@ -1639,7 +1614,7 @@ LABEL_63:
               }
             }
 
-            v25 = v58;
+            v25 = v57;
           }
 
           else
@@ -1648,12 +1623,12 @@ LABEL_63:
             [v22 addObjectsFromArray:v31];
           }
 
-          v27 = v62 + 1;
+          v27 = v61 + 1;
         }
 
-        while (v62 + 1 != v61);
-        v55 = [obj countByEnumeratingWithState:&v83 objects:v90 count:16];
-        v61 = v55;
+        while (v61 + 1 != v60);
+        v55 = [obj countByEnumeratingWithState:&v82 objects:v89 count:16];
+        v60 = v55;
         if (v55)
         {
           continue;
@@ -1663,14 +1638,14 @@ LABEL_63:
       }
     }
 
-    if (v12 && CFAbsoluteTimeGetCurrent() - v13 >= 0.01 && (v87 = 0, v12[2](v12, &v87, 1.0), v87))
+    if (v12 && CFAbsoluteTimeGetCurrent() - v13 >= 0.01 && (v86 = 0, v12[2](v12, &v86, 1.0), v86))
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
       {
         *buf = 67109378;
-        v92 = 340;
-        v93 = 2080;
-        v94 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Curation/DejunkDedupe/PGDejunkerDeduper.m";
+        v91 = 340;
+        v92 = 2080;
+        v93 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Curation/DejunkDedupe/PGDejunkerDeduper.m";
         _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
       }
 
@@ -1683,8 +1658,8 @@ LABEL_64:
       v15 = [(PGDejunkerDeduper *)self timeSortedItemsWithItems:v22];
     }
 
-    v16 = v59;
-    itemsCopy = v60;
+    v16 = v58;
+    itemsCopy = v59;
   }
 
   else
@@ -1693,35 +1668,34 @@ LABEL_64:
   }
 
 LABEL_68:
-  v56 = *MEMORY[0x277D85DE8];
 
   return v15;
 }
 
 - (id)identicallyDedupedItemsInItems:(id)items options:(id)options debugInfo:(id)info progressBlock:(id)block
 {
-  v133 = *MEMORY[0x277D85DE8];
+  v132 = *MEMORY[0x277D85DE8];
   itemsCopy = items;
   optionsCopy = options;
   infoCopy = info;
   blockCopy = block;
   v14 = 0.0;
-  v92 = _Block_copy(blockCopy);
-  if (v92)
+  v91 = _Block_copy(blockCopy);
+  if (v91)
   {
     Current = CFAbsoluteTimeGetCurrent();
     if (Current >= 0.01)
     {
-      v123 = 0;
-      v92[2](v92, &v123, 0.0);
-      if (v123 == 1)
+      v122 = 0;
+      v91[2](v91, &v122, 0.0);
+      if (v122 == 1)
       {
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
         {
           *buf = 67109378;
-          v130 = 114;
-          v131 = 2080;
-          v132 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Curation/DejunkDedupe/PGDejunkerDeduper.m";
+          v129 = 114;
+          v130 = 2080;
+          v131 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Curation/DejunkDedupe/PGDejunkerDeduper.m";
           _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
         }
 
@@ -1739,9 +1713,9 @@ LABEL_68:
   if (v18)
   {
     v19 = v18;
-    v83 = itemsCopy;
-    v84 = v17;
-    v82 = blockCopy;
+    v82 = itemsCopy;
+    v83 = v17;
+    v81 = blockCopy;
     similarStacker = self->_similarStacker;
     [optionsCopy identicalDedupingThreshold];
     [(CLSSimilarStacker *)similarStacker overrideDistanceThreshold:0 forSimilarity:?];
@@ -1750,54 +1724,54 @@ LABEL_68:
     [(CLSSimilarStacker *)v21 overrideDistanceThreshold:1 forSimilarity:?];
     v22 = objc_alloc_init(MEMORY[0x277CBEB18]);
     maximumNumberOfItemsPerIdenticalCluster = [optionsCopy maximumNumberOfItemsPerIdenticalCluster];
-    v94 = 0;
+    v93 = 0;
     if ([objc_opt_class() useFaceprintsForIdenticalDedupingWithOptions:optionsCopy])
     {
-      v94 = objc_alloc_init(MEMORY[0x277CBEB18]);
+      v93 = objc_alloc_init(MEMORY[0x277CBEB18]);
     }
 
-    v121 = 0u;
-    v122 = 0u;
-    v119 = 0u;
     v120 = 0u;
+    v121 = 0u;
+    v118 = 0u;
+    v119 = 0u;
     obj = v17;
-    v106 = infoCopy;
-    v86 = [obj countByEnumeratingWithState:&v119 objects:v128 count:16];
-    if (v86)
+    v105 = infoCopy;
+    v85 = [obj countByEnumeratingWithState:&v118 objects:v127 count:16];
+    if (v85)
     {
-      v96 = 0;
+      v95 = 0;
       v23 = 1.0 / v19;
-      v24 = v92;
-      v85 = *v120;
+      v24 = v91;
+      v84 = *v119;
       v25 = 0.0;
       while (2)
       {
         v26 = 0;
         do
         {
-          if (*v120 != v85)
+          if (*v119 != v84)
           {
             objc_enumerationMutation(obj);
           }
 
-          v88 = v26;
-          v27 = *(*(&v119 + 1) + 8 * v26);
+          v87 = v26;
+          v27 = *(*(&v118 + 1) + 8 * v26);
           v28 = objc_autoreleasePoolPush();
           if (v24)
           {
             v29 = CFAbsoluteTimeGetCurrent();
             if (v29 - v14 >= 0.01)
             {
-              v123 = 0;
-              v24[2](v24, &v123, v25);
-              if (v123 | v96 & 1)
+              v122 = 0;
+              v24[2](v24, &v122, v25);
+              if (v122 | v95 & 1)
               {
                 if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
                 {
                   *buf = 67109378;
-                  v130 = 142;
-                  v131 = 2080;
-                  v132 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Curation/DejunkDedupe/PGDejunkerDeduper.m";
+                  v129 = 142;
+                  v130 = 2080;
+                  v131 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Curation/DejunkDedupe/PGDejunkerDeduper.m";
                   _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
                 }
 
@@ -1807,21 +1781,21 @@ LABEL_92:
                 goto LABEL_93;
               }
 
-              v96 = 0;
+              v95 = 0;
               v14 = v29;
             }
           }
 
-          v90 = v28;
+          v89 = v28;
           v30 = [obj objectForKeyedSubscript:v27];
           v31 = [(PGDejunkerDeduper *)self timeSortedItemsWithItems:v30];
           v32 = [(PGDejunkerDeduper *)self shouldPerformIdenticalDedupingForItemFeature:v27 options:optionsCopy];
-          v89 = v30;
-          v98 = v32;
+          v88 = v30;
+          v97 = v32;
           if ([v30 count] < 2 || !v32)
           {
-            v127 = v31;
-            [MEMORY[0x277CBEA60] arrayWithObjects:&v127 count:1];
+            v126 = v31;
+            [MEMORY[0x277CBEA60] arrayWithObjects:&v126 count:1];
           }
 
           else
@@ -1835,59 +1809,59 @@ LABEL_92:
           v25 = v23 + v25;
           [infoCopy addClusters:v37 withReason:@"Time Clustering"];
           v38 = [v37 count];
+          v114 = 0u;
           v115 = 0u;
           v116 = 0u;
           v117 = 0u;
-          v118 = 0u;
-          v95 = v37;
-          v100 = [v95 countByEnumeratingWithState:&v115 objects:v126 count:16];
-          if (v100)
+          v94 = v37;
+          v99 = [v94 countByEnumeratingWithState:&v114 objects:v125 count:16];
+          if (v99)
           {
             v39 = v23 / v38;
-            v99 = *v116;
+            v98 = *v115;
             v40 = 0.0;
             v41 = v14;
-            v97 = v27;
+            v96 = v27;
             while (2)
             {
               v42 = 0;
               v43 = v31;
               do
               {
-                if (*v116 != v99)
+                if (*v115 != v98)
                 {
-                  objc_enumerationMutation(v95);
+                  objc_enumerationMutation(v94);
                 }
 
-                v31 = *(*(&v115 + 1) + 8 * v42);
+                v31 = *(*(&v114 + 1) + 8 * v42);
 
-                v103 = v42;
+                v102 = v42;
                 context = objc_autoreleasePoolPush();
                 if (v24)
                 {
                   v14 = CFAbsoluteTimeGetCurrent();
                   if (v14 - v41 >= 0.01)
                   {
-                    v123 = 0;
-                    v24[2](v24, &v123, v25 + v40);
-                    if (v123 | v96 & 1)
+                    v122 = 0;
+                    v24[2](v24, &v122, v25 + v40);
+                    if (v122 | v95 & 1)
                     {
                       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
                       {
                         *buf = 67109378;
-                        v130 = 169;
-                        v131 = 2080;
-                        v132 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Curation/DejunkDedupe/PGDejunkerDeduper.m";
+                        v129 = 169;
+                        v130 = 2080;
+                        v131 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Curation/DejunkDedupe/PGDejunkerDeduper.m";
                         _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
                       }
 
                       objc_autoreleasePoolPop(context);
                       v70 = 0;
-                      v96 = 1;
+                      v95 = 1;
                       goto LABEL_66;
                     }
 
-                    v96 = 0;
+                    v95 = 0;
                     v41 = v14;
                   }
                 }
@@ -1895,7 +1869,7 @@ LABEL_92:
                 if (infoCopy)
                 {
                   firstObject = [v31 firstObject];
-                  v101 = [(PGDejunkerDeduper *)self debugPersonStringForItem:firstObject];
+                  v100 = [(PGDejunkerDeduper *)self debugPersonStringForItem:firstObject];
 
                   lastObject = [v31 lastObject];
                   cls_universalDate = [lastObject cls_universalDate];
@@ -1920,55 +1894,55 @@ LABEL_92:
                     v57 = @"s";
                   }
 
-                  v81 = v55;
-                  v27 = v97;
-                  v101 = [v54 stringWithFormat:@"%.0f sec, %lu item%@: %@", v53, v81, v57, v101];
-                  [infoCopy setState:1 ofCluster:v31 withReason:v101];
+                  v80 = v55;
+                  v27 = v96;
+                  v100 = [v54 stringWithFormat:@"%.0f sec, %lu item%@: %@", v53, v80, v57, v100];
+                  [infoCopy setState:1 ofCluster:v31 withReason:v100];
                 }
 
-                if (v98 && [v31 count] != 1)
+                if (v97 && [v31 count] != 1)
                 {
                   [(PGDejunkerDeduper *)self identicalDedupingSimilarityForItemFeature:v27 options:optionsCopy];
                   v60 = v27;
                   v62 = v61;
                   v59 = [(CLSSimilarStacker *)self->_similarStacker stackSimilarItems:v31 withSimilarity:v61 timestampSupport:0 progressBlock:0];
-                  v102 = [infoCopy debugInfoForCluster:v31];
-                  [v102 setClusters:v59 withReason:@"Similar Stacking"];
-                  if (v94 && [v60 hasPersons])
+                  v101 = [infoCopy debugInfoForCluster:v31];
+                  [v101 setClusters:v59 withReason:@"Similar Stacking"];
+                  if (v93 && [v60 hasPersons])
                   {
-                    [v94 addObjectsFromArray:v59];
+                    [v93 addObjectsFromArray:v59];
                   }
 
                   else
                   {
-                    v93 = v31;
+                    v92 = v31;
                     if (maximumNumberOfItemsPerIdenticalCluster)
                     {
-                      v63 = [(PGDejunkerDeduper *)self splitItemGroupsWithItemGroups:v59 maximumNumberOfItemsPerGroup:maximumNumberOfItemsPerIdenticalCluster debugInfo:v102];
+                      v63 = [(PGDejunkerDeduper *)self splitItemGroupsWithItemGroups:v59 maximumNumberOfItemsPerGroup:maximumNumberOfItemsPerIdenticalCluster debugInfo:v101];
 
                       v59 = v63;
                     }
 
-                    v113 = 0u;
-                    v114 = 0u;
-                    v111 = 0u;
                     v112 = 0u;
+                    v113 = 0u;
+                    v110 = 0u;
+                    v111 = 0u;
                     v59 = v59;
-                    v64 = [v59 countByEnumeratingWithState:&v111 objects:v125 count:16];
+                    v64 = [v59 countByEnumeratingWithState:&v110 objects:v124 count:16];
                     if (v64)
                     {
                       v65 = v64;
-                      v66 = *v112;
+                      v66 = *v111;
                       do
                       {
                         for (i = 0; i != v65; ++i)
                         {
-                          if (*v112 != v66)
+                          if (*v111 != v66)
                           {
                             objc_enumerationMutation(v59);
                           }
 
-                          v68 = *(*(&v111 + 1) + 8 * i);
+                          v68 = *(*(&v110 + 1) + 8 * i);
                           if ([v68 count] == 1)
                           {
                             v69 = [(PGDejunkerDeduper *)self eligibleItemsInItems:v68 options:optionsCopy];
@@ -1979,22 +1953,22 @@ LABEL_92:
                           {
                             v69 = [(PGDejunkerDeduper *)self bestItemGroupsBasedOnSceneprintsWithItemGroups:v68 forSimilarity:v62 options:optionsCopy];
                             [v22 addObjectsFromArray:v69];
-                            [v106 dedupItems:v68 toItems:v69 withDedupingType:1];
+                            [v105 dedupItems:v68 toItems:v69 withDedupingType:1];
                           }
                         }
 
-                        v65 = [v59 countByEnumeratingWithState:&v111 objects:v125 count:16];
+                        v65 = [v59 countByEnumeratingWithState:&v110 objects:v124 count:16];
                       }
 
                       while (v65);
                     }
 
-                    infoCopy = v106;
-                    v24 = v92;
-                    v31 = v93;
+                    infoCopy = v105;
+                    v24 = v91;
+                    v31 = v92;
                   }
 
-                  v27 = v97;
+                  v27 = v96;
                 }
 
                 else
@@ -2006,13 +1980,13 @@ LABEL_92:
                 v40 = v39 + v40;
 
                 objc_autoreleasePoolPop(context);
-                v42 = v103 + 1;
+                v42 = v102 + 1;
                 v43 = v31;
               }
 
-              while (v103 + 1 != v100);
-              v100 = [v95 countByEnumeratingWithState:&v115 objects:v126 count:16];
-              if (v100)
+              while (v102 + 1 != v99);
+              v99 = [v94 countByEnumeratingWithState:&v114 objects:v125 count:16];
+              if (v99)
               {
                 continue;
               }
@@ -2031,18 +2005,18 @@ LABEL_92:
 
 LABEL_66:
 
-          objc_autoreleasePoolPop(v90);
+          objc_autoreleasePoolPop(v89);
           if (!v70)
           {
             goto LABEL_92;
           }
 
-          v26 = v88 + 1;
+          v26 = v87 + 1;
         }
 
-        while (v88 + 1 != v86);
-        v86 = [obj countByEnumeratingWithState:&v119 objects:v128 count:16];
-        if (v86)
+        while (v87 + 1 != v85);
+        v85 = [obj countByEnumeratingWithState:&v118 objects:v127 count:16];
+        if (v85)
         {
           continue;
         }
@@ -2053,62 +2027,62 @@ LABEL_66:
 
     else
     {
-      v96 = 0;
-      v24 = v92;
+      v95 = 0;
+      v24 = v91;
     }
 
-    if ([v94 count])
+    if ([v93 count])
     {
-      [(PGDejunkerDeduper *)self bestItemGroupsBasedOnFaceprintsWithItemGroups:v94 options:optionsCopy];
+      [(PGDejunkerDeduper *)self bestItemGroupsBasedOnFaceprintsWithItemGroups:v93 options:optionsCopy];
+      v106 = 0u;
       v107 = 0u;
       v108 = 0u;
-      v109 = 0u;
-      contexta = v110 = 0u;
-      v71 = [contexta countByEnumeratingWithState:&v107 objects:v124 count:16];
+      contexta = v109 = 0u;
+      v71 = [contexta countByEnumeratingWithState:&v106 objects:v123 count:16];
       if (v71)
       {
         v72 = v71;
         v73 = 0;
-        v74 = *v108;
+        v74 = *v107;
         do
         {
           for (j = 0; j != v72; ++j)
           {
-            if (*v108 != v74)
+            if (*v107 != v74)
             {
               objc_enumerationMutation(contexta);
             }
 
-            v76 = *(*(&v107 + 1) + 8 * j);
-            v77 = [v94 objectAtIndexedSubscript:v73];
+            v76 = *(*(&v106 + 1) + 8 * j);
+            v77 = [v93 objectAtIndexedSubscript:v73];
             v78 = [v77 count];
             if (v78 != [v76 count])
             {
-              [v106 dedupItems:v77 toItems:v76 withDedupingType:1];
+              [v105 dedupItems:v77 toItems:v76 withDedupingType:1];
             }
 
             [v22 addObjectsFromArray:v76];
             ++v73;
           }
 
-          v72 = [contexta countByEnumeratingWithState:&v107 objects:v124 count:16];
+          v72 = [contexta countByEnumeratingWithState:&v106 objects:v123 count:16];
         }
 
         while (v72);
       }
 
-      infoCopy = v106;
-      v24 = v92;
+      infoCopy = v105;
+      v24 = v91;
     }
 
-    if (v24 && CFAbsoluteTimeGetCurrent() - v14 >= 0.01 && (v123 = 0, v24[2](v24, &v123, 1.0), v123 | v96 & 1))
+    if (v24 && CFAbsoluteTimeGetCurrent() - v14 >= 0.01 && (v122 = 0, v24[2](v24, &v122, 1.0), v122 | v95 & 1))
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
       {
         *buf = 67109378;
-        v130 = 241;
-        v131 = 2080;
-        v132 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Curation/DejunkDedupe/PGDejunkerDeduper.m";
+        v129 = 241;
+        v130 = 2080;
+        v131 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Curation/DejunkDedupe/PGDejunkerDeduper.m";
         _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
       }
 
@@ -2121,9 +2095,9 @@ LABEL_93:
       v16 = [(PGDejunkerDeduper *)self timeSortedItemsWithItems:v22];
     }
 
-    blockCopy = v82;
-    itemsCopy = v83;
-    v17 = v84;
+    blockCopy = v81;
+    itemsCopy = v82;
+    v17 = v83;
   }
 
   else
@@ -2132,58 +2106,57 @@ LABEL_93:
   }
 
 LABEL_96:
-  v79 = *MEMORY[0x277D85DE8];
 
   return v16;
 }
 
 - (id)dejunkedDedupedItemsInItems:(id)items options:(id)options debugInfo:(id)info progressBlock:(id)block
 {
-  v78 = *MEMORY[0x277D85DE8];
+  v77 = *MEMORY[0x277D85DE8];
   itemsCopy = items;
   optionsCopy = options;
   infoCopy = info;
   blockCopy = block;
   v12 = _Block_copy(blockCopy);
-  v64 = 0;
-  v65 = &v64;
-  v66 = 0x2020000000;
-  v67 = 0;
-  v60 = 0;
-  v61 = &v60;
-  v62 = 0x2020000000;
   v63 = 0;
-  v37 = infoCopy;
-  if (!v12 || (v13 = CFAbsoluteTimeGetCurrent(), v13 - v61[3] < 0.01) || (v61[3] = v13, v59 = 0, (*(v12 + 2))(v12, &v59, 0.0), v14 = *(v65 + 24) | v59, *(v65 + 24) = v14, (v14 & 1) == 0))
+  v64 = &v63;
+  v65 = 0x2020000000;
+  v66 = 0;
+  v59 = 0;
+  v60 = &v59;
+  v61 = 0x2020000000;
+  v62 = 0;
+  v36 = infoCopy;
+  if (!v12 || (v13 = CFAbsoluteTimeGetCurrent(), v13 - v60[3] < 0.01) || (v60[3] = v13, v58 = 0, (*(v12 + 2))(v12, &v58, 0.0), v14 = *(v64 + 24) | v58, *(v64 + 24) = v14, (v14 & 1) == 0))
   {
     [infoCopy setAgent:@"DejunkerDeduper"];
     v16 = itemsCopy;
     v17 = v16;
     if ([optionsCopy doIdenticalDeduping])
     {
-      v54[0] = MEMORY[0x277D85DD0];
-      v54[1] = 3221225472;
-      v54[2] = __81__PGDejunkerDeduper_dejunkedDedupedItemsInItems_options_debugInfo_progressBlock___block_invoke;
-      v54[3] = &unk_27888A188;
-      v55 = v12;
-      v56 = &v60;
-      v57 = &v64;
-      v58 = 0x3F847AE147AE147BLL;
-      v17 = [(PGDejunkerDeduper *)self identicallyDedupedItemsInItems:v16 options:optionsCopy debugInfo:infoCopy progressBlock:v54];
+      v53[0] = MEMORY[0x277D85DD0];
+      v53[1] = 3221225472;
+      v53[2] = __81__PGDejunkerDeduper_dejunkedDedupedItemsInItems_options_debugInfo_progressBlock___block_invoke;
+      v53[3] = &unk_27888A188;
+      v54 = v12;
+      v55 = &v59;
+      v56 = &v63;
+      v57 = 0x3F847AE147AE147BLL;
+      v17 = [(PGDejunkerDeduper *)self identicallyDedupedItemsInItems:v16 options:optionsCopy debugInfo:infoCopy progressBlock:v53];
 
-      if (*(v65 + 24) == 1)
+      if (*(v64 + 24) == 1)
       {
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
         {
           *buf = 67109378;
-          *v69 = 65;
-          *&v69[4] = 2080;
-          *&v69[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Curation/DejunkDedupe/PGDejunkerDeduper.m";
+          *v68 = 65;
+          *&v68[4] = 2080;
+          *&v68[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Curation/DejunkDedupe/PGDejunkerDeduper.m";
           _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
         }
 
         v15 = MEMORY[0x277CBEBF8];
-        v18 = v55;
+        v18 = v54;
         goto LABEL_45;
       }
     }
@@ -2192,29 +2165,29 @@ LABEL_96:
     v18 = v17;
     if ([optionsCopy doSemanticalDeduping])
     {
-      v49[0] = MEMORY[0x277D85DD0];
-      v49[1] = 3221225472;
-      v49[2] = __81__PGDejunkerDeduper_dejunkedDedupedItemsInItems_options_debugInfo_progressBlock___block_invoke_184;
-      v49[3] = &unk_27888A188;
-      v50 = v12;
-      v51 = &v60;
-      v52 = &v64;
-      v53 = 0x3F847AE147AE147BLL;
-      v18 = [(PGDejunkerDeduper *)self semanticallyDedupedItemsInItems:v17 options:optionsCopy debugInfo:infoCopy progressBlock:v49];
+      v48[0] = MEMORY[0x277D85DD0];
+      v48[1] = 3221225472;
+      v48[2] = __81__PGDejunkerDeduper_dejunkedDedupedItemsInItems_options_debugInfo_progressBlock___block_invoke_184;
+      v48[3] = &unk_27888A188;
+      v49 = v12;
+      v50 = &v59;
+      v51 = &v63;
+      v52 = 0x3F847AE147AE147BLL;
+      v18 = [(PGDejunkerDeduper *)self semanticallyDedupedItemsInItems:v17 options:optionsCopy debugInfo:infoCopy progressBlock:v48];
 
-      if (*(v65 + 24) == 1)
+      if (*(v64 + 24) == 1)
       {
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
         {
           *buf = 67109378;
-          *v69 = 75;
-          *&v69[4] = 2080;
-          *&v69[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Curation/DejunkDedupe/PGDejunkerDeduper.m";
+          *v68 = 75;
+          *&v68[4] = 2080;
+          *&v68[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Curation/DejunkDedupe/PGDejunkerDeduper.m";
           _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
         }
 
         v15 = MEMORY[0x277CBEBF8];
-        v19 = v50;
+        v19 = v49;
         goto LABEL_44;
       }
     }
@@ -2223,29 +2196,29 @@ LABEL_96:
     v19 = v18;
     if ([optionsCopy doDejunk])
     {
-      v44[0] = MEMORY[0x277D85DD0];
-      v44[1] = 3221225472;
-      v44[2] = __81__PGDejunkerDeduper_dejunkedDedupedItemsInItems_options_debugInfo_progressBlock___block_invoke_185;
-      v44[3] = &unk_27888A188;
-      v45 = v12;
-      v46 = &v60;
-      v47 = &v64;
-      v48 = 0x3F847AE147AE147BLL;
-      v19 = [(PGDejunkerDeduper *)self dejunkedItemsWithItems:v18 options:optionsCopy debugInfo:infoCopy progressBlock:v44];
+      v43[0] = MEMORY[0x277D85DD0];
+      v43[1] = 3221225472;
+      v43[2] = __81__PGDejunkerDeduper_dejunkedDedupedItemsInItems_options_debugInfo_progressBlock___block_invoke_185;
+      v43[3] = &unk_27888A188;
+      v44 = v12;
+      v45 = &v59;
+      v46 = &v63;
+      v47 = 0x3F847AE147AE147BLL;
+      v19 = [(PGDejunkerDeduper *)self dejunkedItemsWithItems:v18 options:optionsCopy debugInfo:infoCopy progressBlock:v43];
 
-      if (*(v65 + 24) == 1)
+      if (*(v64 + 24) == 1)
       {
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
         {
           *buf = 67109378;
-          *v69 = 85;
-          *&v69[4] = 2080;
-          *&v69[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Curation/DejunkDedupe/PGDejunkerDeduper.m";
+          *v68 = 85;
+          *&v68[4] = 2080;
+          *&v68[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Curation/DejunkDedupe/PGDejunkerDeduper.m";
           _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
         }
 
         v15 = MEMORY[0x277CBEBF8];
-        v20 = v45;
+        v20 = v44;
         goto LABEL_43;
       }
 
@@ -2261,24 +2234,24 @@ LABEL_96:
     v20 = v19;
     if ([optionsCopy doFinalPass])
     {
-      v39[0] = MEMORY[0x277D85DD0];
-      v39[1] = 3221225472;
-      v39[2] = __81__PGDejunkerDeduper_dejunkedDedupedItemsInItems_options_debugInfo_progressBlock___block_invoke_186;
-      v39[3] = &unk_27888A188;
-      v40 = v12;
-      v41 = &v60;
-      v42 = &v64;
-      v43 = 0x3F847AE147AE147BLL;
-      v20 = [(PGDejunkerDeduper *)self finalItemsWithItems:v19 options:optionsCopy debugInfo:infoCopy progressBlock:v39];
+      v38[0] = MEMORY[0x277D85DD0];
+      v38[1] = 3221225472;
+      v38[2] = __81__PGDejunkerDeduper_dejunkedDedupedItemsInItems_options_debugInfo_progressBlock___block_invoke_186;
+      v38[3] = &unk_27888A188;
+      v39 = v12;
+      v40 = &v59;
+      v41 = &v63;
+      v42 = 0x3F847AE147AE147BLL;
+      v20 = [(PGDejunkerDeduper *)self finalItemsWithItems:v19 options:optionsCopy debugInfo:infoCopy progressBlock:v38];
 
-      if (*(v65 + 24) == 1)
+      if (*(v64 + 24) == 1)
       {
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
         {
           *buf = 67109378;
-          *v69 = 99;
-          *&v69[4] = 2080;
-          *&v69[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Curation/DejunkDedupe/PGDejunkerDeduper.m";
+          *v68 = 99;
+          *&v68[4] = 2080;
+          *&v68[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Curation/DejunkDedupe/PGDejunkerDeduper.m";
           _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
         }
 
@@ -2293,27 +2266,27 @@ LABEL_96:
       firstObject = [v16 firstObject];
       cls_universalDate = [firstObject cls_universalDate];
       v24 = [v23 localizedStringFromDate:cls_universalDate dateStyle:2 timeStyle:0];
-      v33 = [v16 count];
-      v32 = [v17 count];
+      v32 = [v16 count];
+      v31 = [v17 count];
       v25 = [v18 count];
       v26 = [v19 count];
       v27 = [v20 count];
       *buf = 138413570;
-      *v69 = v24;
-      *&v69[8] = 2048;
-      *&v69[10] = v33;
-      v70 = 2048;
-      v71 = v32;
-      v72 = 2048;
-      v73 = v25;
-      v74 = 2048;
-      v75 = v26;
-      v76 = 2048;
-      v77 = v27;
+      *v68 = v24;
+      *&v68[8] = 2048;
+      *&v68[10] = v32;
+      v69 = 2048;
+      v70 = v31;
+      v71 = 2048;
+      v72 = v25;
+      v73 = 2048;
+      v74 = v26;
+      v75 = 2048;
+      v76 = v27;
       _os_log_impl(&dword_22F0FC000, v22, OS_LOG_TYPE_INFO, "DejunkerDeduper: %@: %lu -> %lu -> %lu -> %lu -> %lu", buf, 0x3Eu);
     }
 
-    if (!v12 || (Current = CFAbsoluteTimeGetCurrent(), Current - v61[3] < 0.01) || (v61[3] = Current, v59 = 0, (*(v12 + 2))(v12, &v59, 1.0), v29 = *(v65 + 24) | v59, *(v65 + 24) = v29, (v29 & 1) == 0))
+    if (!v12 || (Current = CFAbsoluteTimeGetCurrent(), Current - v60[3] < 0.01) || (v60[3] = Current, v58 = 0, (*(v12 + 2))(v12, &v58, 1.0), v29 = *(v64 + 24) | v58, *(v64 + 24) = v29, (v29 & 1) == 0))
     {
       v20 = v20;
       v15 = v20;
@@ -2323,9 +2296,9 @@ LABEL_96:
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
     {
       *buf = 67109378;
-      *v69 = 104;
-      *&v69[4] = 2080;
-      *&v69[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Curation/DejunkDedupe/PGDejunkerDeduper.m";
+      *v68 = 104;
+      *&v68[4] = 2080;
+      *&v68[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Curation/DejunkDedupe/PGDejunkerDeduper.m";
       _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
     }
 
@@ -2342,18 +2315,16 @@ LABEL_45:
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
     *buf = 67109378;
-    *v69 = 54;
-    *&v69[4] = 2080;
-    *&v69[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Curation/DejunkDedupe/PGDejunkerDeduper.m";
+    *v68 = 54;
+    *&v68[4] = 2080;
+    *&v68[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Curation/DejunkDedupe/PGDejunkerDeduper.m";
     _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
   }
 
   v15 = MEMORY[0x277CBEBF8];
 LABEL_46:
-  _Block_object_dispose(&v60, 8);
-  _Block_object_dispose(&v64, 8);
-
-  v30 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v59, 8);
+  _Block_object_dispose(&v63, 8);
 
   return v15;
 }
@@ -2679,30 +2650,30 @@ uint64_t __65__PGDejunkerDeduper_PHAsset_itemsSortedByScoreWithItems_options___b
 
 void __87__PGDejunkerDeduper_PHAsset_faceprintByPersonLocalIdentifierByItemIdentifierWithItems___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v29 = *MEMORY[0x277D85DE8];
-  v22 = a2;
+  v28 = *MEMORY[0x277D85DE8];
+  v21 = a2;
   v4 = a3;
   v5 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
   v6 = v4;
-  v7 = [v6 countByEnumeratingWithState:&v24 objects:v28 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v23 objects:v27 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v25;
+    v9 = *v24;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v25 != v9)
+        if (*v24 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v24 + 1) + 8 * i);
+        v11 = *(*(&v23 + 1) + 8 * i);
         v12 = [v11 personLocalIdentifier];
         if (v12)
         {
@@ -2713,8 +2684,8 @@ void __87__PGDejunkerDeduper_PHAsset_faceprintByPersonLocalIdentifierByItemIdent
           if (v15)
           {
             v16 = objc_alloc(MEMORY[0x277CE2CD8]);
-            v23 = 0;
-            v17 = [v16 initWithState:v15 error:&v23];
+            v22 = 0;
+            v17 = [v16 initWithState:v15 error:&v22];
             if (v17)
             {
               [v5 setObject:v17 forKeyedSubscript:v12];
@@ -2723,17 +2694,15 @@ void __87__PGDejunkerDeduper_PHAsset_faceprintByPersonLocalIdentifierByItemIdent
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v24 objects:v28 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v23 objects:v27 count:16];
     }
 
     while (v8);
   }
 
   v18 = *(a1 + 32);
-  v19 = [MEMORY[0x277CD97A8] uuidFromLocalIdentifier:v22];
+  v19 = [MEMORY[0x277CD97A8] uuidFromLocalIdentifier:v21];
   [v18 setObject:v5 forKeyedSubscript:v19];
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 @end

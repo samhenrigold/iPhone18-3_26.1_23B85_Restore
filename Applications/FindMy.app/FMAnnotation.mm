@@ -69,7 +69,7 @@
 
   v6 = sub_10017DE2C(v8);
 
-  sub_100012DF0(v8, &unk_1006B8740);
+  sub_100012DF0(v8, &unk_1006B8740, &unk_100552DA0);
   return v6 & 1;
 }
 

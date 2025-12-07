@@ -19,6 +19,8 @@
 - (void)showRemoteController;
 - (void)unloadRemoteAction;
 - (void)updatePreviewMode;
+- (void)viewWillAppear:(BOOL)appear;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation DDRemoteActionManagerViewController
@@ -29,6 +31,34 @@
   v3.receiver = self;
   v3.super_class = DDRemoteActionManagerViewController;
   [(DDRemoteActionManagerViewController *)&v3 dealloc];
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  self->_shouldDeferPresenting = 1;
+  v3.receiver = self;
+  v3.super_class = DDRemoteActionManagerViewController;
+  [(DDRemoteActionManagerViewController *)&v3 viewWillDisappear:disappear];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  self->_shouldDeferPresenting = 0;
+  p_preferredContentSize = &self->_preferredContentSize;
+  if (self->_preferredContentSize.height != 0.0)
+  {
+    width = p_preferredContentSize->width;
+    if (p_preferredContentSize->width != 0.0)
+    {
+      [(DDRemoteActionManagerViewController *)self setPreferredContentSize:width];
+    }
+  }
+
+  [(DDRemoteActionManagerViewController *)self showRemoteController];
+  v7.receiver = self;
+  v7.super_class = DDRemoteActionManagerViewController;
+  [(DDRemoteActionManagerViewController *)&v7 viewWillAppear:appearCopy];
 }
 
 - (DDRemoteActionManagerViewController)initWithAction:(id)action
@@ -83,10 +113,10 @@
   return v5;
 }
 
-uint64_t __54__DDRemoteActionManagerViewController_initWithAction___block_invoke(uint64_t a1)
+void *__54__DDRemoteActionManagerViewController_initWithAction___block_invoke(uint64_t a1)
 {
   result = *(a1 + 32);
-  if ((*(result + 1072) & 1) == 0 && !*(result + 1016))
+  if ((*(result + 1072) & 1) == 0 && !*(result + 127))
   {
     return [result showLoadingView];
   }
@@ -114,7 +144,7 @@ uint64_t __54__DDRemoteActionManagerViewController_initWithAction___block_invoke
 
 - (void)loadNavigationControllerIfNeeded
 {
-  v30[1] = *MEMORY[0x277D85DE8];
+  v29[1] = *MEMORY[0x277D85DE8];
   if (!self->_menuHeaderReplacesPreview)
   {
     action = [(DDRemoteActionManagerViewController *)self action];
@@ -138,10 +168,10 @@ uint64_t __54__DDRemoteActionManagerViewController_initWithAction___block_invoke
 
       view4 = [(DDRemoteActionManagerViewController *)self view];
       v13 = MEMORY[0x277CCAAD0];
-      v29 = @"nc";
+      v28 = @"nc";
       view5 = [(UINavigationController *)self->_navigationController view];
-      v30[0] = view5;
-      v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:&v29 count:1];
+      v29[0] = view5;
+      v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:&v28 count:1];
       v16 = [v13 constraintsWithVisualFormat:@"H:|[nc]|" options:0 metrics:0 views:v15];
       [view4 addConstraints:v16];
 
@@ -161,8 +191,6 @@ uint64_t __54__DDRemoteActionManagerViewController_initWithAction___block_invoke
       [v27 setActive:1];
     }
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dismissViewController
@@ -174,93 +202,93 @@ uint64_t __54__DDRemoteActionManagerViewController_initWithAction___block_invoke
 
 - (void)loadTitleBarIfNeeded
 {
-  v41[1] = *MEMORY[0x277D85DE8];
-  if (!self->_menuHeaderReplacesPreview && !self->_titleBar && self->_platterTitle)
+  v40[1] = *MEMORY[0x277D85DE8];
+  if (!self->_menuHeaderReplacesPreview && !self->_titleBar)
   {
-    v3 = objc_alloc_init(MEMORY[0x277D75D18]);
-    titleBar = self->_titleBar;
-    self->_titleBar = v3;
+    if (self->_platterTitle)
+    {
+      v3 = objc_alloc_init(MEMORY[0x277D75D18]);
+      titleBar = self->_titleBar;
+      self->_titleBar = v3;
 
-    view = [(DDRemoteActionManagerViewController *)self view];
-    [view addSubview:self->_titleBar];
+      view = [(DDRemoteActionManagerViewController *)self view];
+      [view addSubview:self->_titleBar];
 
-    [(UIView *)self->_titleBar setTranslatesAutoresizingMaskIntoConstraints:0];
-    view2 = [(DDRemoteActionManagerViewController *)self view];
-    v7 = MEMORY[0x277CCAAD0];
-    v8 = self->_titleBar;
-    v40 = @"bar";
-    v41[0] = v8;
-    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v41 forKeys:&v40 count:1];
-    v10 = [v7 constraintsWithVisualFormat:@"H:|[bar]|" options:0 metrics:0 views:v9];
-    [view2 addConstraints:v10];
+      [(UIView *)self->_titleBar setTranslatesAutoresizingMaskIntoConstraints:0];
+      view2 = [(DDRemoteActionManagerViewController *)self view];
+      v7 = MEMORY[0x277CCAAD0];
+      v8 = self->_titleBar;
+      v39 = @"bar";
+      v40[0] = v8;
+      v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v40 forKeys:&v39 count:1];
+      v10 = [v7 constraintsWithVisualFormat:@"H:|[bar]|" options:0 metrics:0 views:v9];
+      [view2 addConstraints:v10];
 
-    view3 = [(DDRemoteActionManagerViewController *)self view];
-    v12 = MEMORY[0x277CCAAD0];
-    v13 = self->_titleBar;
-    v38 = @"bar";
-    v39 = v13;
-    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v39 forKeys:&v38 count:1];
-    v15 = [v12 constraintsWithVisualFormat:@"V:|[bar(46)]" options:0 metrics:0 views:v14];
-    [view3 addConstraints:v15];
+      view3 = [(DDRemoteActionManagerViewController *)self view];
+      v12 = MEMORY[0x277CCAAD0];
+      v13 = self->_titleBar;
+      v37 = @"bar";
+      v38 = v13;
+      v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v38 forKeys:&v37 count:1];
+      v15 = [v12 constraintsWithVisualFormat:@"V:|[bar(46)]" options:0 metrics:0 views:v14];
+      [view3 addConstraints:v15];
 
-    systemBackgroundColor = [MEMORY[0x277D75348] systemBackgroundColor];
-    [(UIView *)self->_titleBar setBackgroundColor:systemBackgroundColor];
+      systemBackgroundColor = [MEMORY[0x277D75348] systemBackgroundColor];
+      [(UIView *)self->_titleBar setBackgroundColor:systemBackgroundColor];
 
-    v17 = objc_alloc_init(MEMORY[0x277D75D18]);
-    [(UIView *)self->_titleBar addSubview:v17];
-    [v17 setTranslatesAutoresizingMaskIntoConstraints:0];
-    v18 = self->_titleBar;
-    v19 = MEMORY[0x277CCAAD0];
-    v36 = @"line";
-    v37 = v17;
-    v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v37 forKeys:&v36 count:1];
-    v21 = [v19 constraintsWithVisualFormat:@"H:|[line]|" options:0 metrics:0 views:v20];
-    [(UIView *)v18 addConstraints:v21];
+      v17 = objc_alloc_init(MEMORY[0x277D75D18]);
+      [(UIView *)self->_titleBar addSubview:v17];
+      [v17 setTranslatesAutoresizingMaskIntoConstraints:0];
+      v18 = self->_titleBar;
+      v19 = MEMORY[0x277CCAAD0];
+      v35 = @"line";
+      v36 = v17;
+      v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v36 forKeys:&v35 count:1];
+      v21 = [v19 constraintsWithVisualFormat:@"H:|[line]|" options:0 metrics:0 views:v20];
+      [(UIView *)v18 addConstraints:v21];
 
-    v22 = self->_titleBar;
-    v23 = MEMORY[0x277CCAAD0];
-    v34 = @"line";
-    v35 = v17;
-    v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v35 forKeys:&v34 count:1];
-    v25 = [v23 constraintsWithVisualFormat:@"V:[line(1)]|" options:0 metrics:0 views:v24];
-    [(UIView *)v22 addConstraints:v25];
+      v22 = self->_titleBar;
+      v23 = MEMORY[0x277CCAAD0];
+      v33 = @"line";
+      v34 = v17;
+      v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v34 forKeys:&v33 count:1];
+      v25 = [v23 constraintsWithVisualFormat:@"V:[line(1)]|" options:0 metrics:0 views:v24];
+      [(UIView *)v22 addConstraints:v25];
 
-    secondarySystemBackgroundColor = [MEMORY[0x277D75348] secondarySystemBackgroundColor];
-    [v17 setBackgroundColor:secondarySystemBackgroundColor];
+      secondarySystemBackgroundColor = [MEMORY[0x277D75348] secondarySystemBackgroundColor];
+      [v17 setBackgroundColor:secondarySystemBackgroundColor];
 
-    v27 = objc_opt_new();
-    [(UIView *)self->_titleBar addSubview:v27];
-    [v27 setTranslatesAutoresizingMaskIntoConstraints:0];
-    v28 = [MEMORY[0x277CCAAD0] constraintWithItem:v27 attribute:9 relatedBy:0 toItem:self->_titleBar attribute:9 multiplier:1.0 constant:0.0];
-    [v28 setActive:1];
+      v27 = objc_opt_new();
+      [(UIView *)self->_titleBar addSubview:v27];
+      [v27 setTranslatesAutoresizingMaskIntoConstraints:0];
+      v28 = [MEMORY[0x277CCAAD0] constraintWithItem:v27 attribute:9 relatedBy:0 toItem:self->_titleBar attribute:9 multiplier:1.0 constant:0.0];
+      [v28 setActive:1];
 
-    v29 = [MEMORY[0x277CCAAD0] constraintWithItem:v27 attribute:7 relatedBy:0 toItem:self->_titleBar attribute:7 multiplier:1.0 constant:-10.0];
-    [v29 setActive:1];
+      v29 = [MEMORY[0x277CCAAD0] constraintWithItem:v27 attribute:7 relatedBy:0 toItem:self->_titleBar attribute:7 multiplier:1.0 constant:-10.0];
+      [v29 setActive:1];
 
-    v30 = [MEMORY[0x277CCAAD0] constraintWithItem:v27 attribute:10 relatedBy:0 toItem:self->_titleBar attribute:10 multiplier:1.0 constant:0.0];
-    [v30 setActive:1];
+      v30 = [MEMORY[0x277CCAAD0] constraintWithItem:v27 attribute:10 relatedBy:0 toItem:self->_titleBar attribute:10 multiplier:1.0 constant:0.0];
+      [v30 setActive:1];
 
-    v31 = [MEMORY[0x277D74300] systemFontOfSize:16.0 weight:*MEMORY[0x277D74420]];
-    [v27 setFont:v31];
+      v31 = [MEMORY[0x277D74300] systemFontOfSize:16.0 weight:*MEMORY[0x277D74420]];
+      [v27 setFont:v31];
 
-    labelColor = [MEMORY[0x277D75348] labelColor];
-    [v27 setTextColor:labelColor];
+      labelColor = [MEMORY[0x277D75348] labelColor];
+      [v27 setTextColor:labelColor];
 
-    [v27 setTextAlignment:1];
-    [v27 setLineBreakMode:4];
-    [v27 setText:self->_platterTitle];
+      [v27 setTextAlignment:1];
+      [v27 setLineBreakMode:4];
+      [v27 setText:self->_platterTitle];
+    }
   }
-
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 - (void)loadRemoteAction
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 138412290;
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 138412290;
   selfCopy = self;
-  _os_log_fault_impl(&dword_21AB70000, MEMORY[0x277D86220], OS_LOG_TYPE_FAULT, "Fail to get DataDetectorsUI ActionsExtension (error %@)", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_fault_impl(&dword_21AB70000, MEMORY[0x277D86220], OS_LOG_TYPE_FAULT, "Fail to get DataDetectorsUI ActionsExtension (error %@)", &v1, 0xCu);
 }
 
 void __55__DDRemoteActionManagerViewController_loadRemoteAction__block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
@@ -334,88 +362,89 @@ void __55__DDRemoteActionManagerViewController_loadRemoteAction__block_invoke_2(
 
 - (void)presentRemoteViewController
 {
-  v31[1] = *MEMORY[0x277D85DE8];
-  if (!self->_navigationController)
+  v30[1] = *MEMORY[0x277D85DE8];
+  if (self->_navigationController)
   {
-    [(DDRemoteActionManagerViewController *)self addChildViewController:self->_remoteViewController];
-    view = [(DDRemoteActionManagerViewController *)self view];
-    view2 = [(DDRemoteActionHostViewController *)self->_remoteViewController view];
-    [view insertSubview:view2 below:self->_hitView];
+    doneButton = [(DDRemoteActionManagerViewController *)self doneButton];
+    navigationItem = [(DDRemoteActionHostViewController *)self->_remoteViewController navigationItem];
+    [navigationItem setRightBarButtonItem:doneButton];
 
-    view3 = [(DDRemoteActionHostViewController *)self->_remoteViewController view];
-    [view3 setTranslatesAutoresizingMaskIntoConstraints:0];
+    [(DDRemoteActionHostViewController *)self->_remoteViewController setTitle:self->_platterTitle];
+    navigationController = self->_navigationController;
+    v30[0] = self->_remoteViewController;
+    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v30 count:1];
+    [(UINavigationController *)navigationController setViewControllers:v6];
 
-    view4 = [(DDRemoteActionManagerViewController *)self view];
-    v17 = MEMORY[0x277CCAAD0];
-    v29 = @"vc";
-    view5 = [(DDRemoteActionHostViewController *)self->_remoteViewController view];
-    v30 = view5;
-    v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v30 forKeys:&v29 count:1];
-    v20 = [v17 constraintsWithVisualFormat:@"H:|[vc]|" options:0 metrics:0 views:v19];
-    [view4 addConstraints:v20];
-
-    if ([(DDRemoteActionManagerViewController *)self previewMode]&& self->_titleBar)
+    if (!self->_titleBar)
     {
-      view6 = [(DDRemoteActionManagerViewController *)self view];
-      titleBar = self->_titleBar;
-      v22 = MEMORY[0x277CCAAD0];
-      v27[1] = @"vc";
-      v28[0] = titleBar;
-      v27[0] = @"titleBar";
-      view7 = [(DDRemoteActionHostViewController *)self->_remoteViewController view];
-      v28[1] = view7;
-      bottomAnchor = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:v27 count:2];
-      v23 = @"V:[titleBar][vc]|";
+      return;
     }
 
-    else
-    {
-      view6 = [(DDRemoteActionManagerViewController *)self view];
-      v22 = MEMORY[0x277CCAAD0];
-      view7 = [(DDRemoteActionHostViewController *)self->_remoteViewController view];
-      v26 = view7;
-      bottomAnchor = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v26 forKeys:&v25 count:1];
-      v23 = @"V:|[vc]|";
-    }
-
-    v12 = [v22 constraintsWithVisualFormat:v23 options:0 metrics:0 views:bottomAnchor];
-    [view6 addConstraints:v12];
-    goto LABEL_11;
-  }
-
-  doneButton = [(DDRemoteActionManagerViewController *)self doneButton];
-  navigationItem = [(DDRemoteActionHostViewController *)self->_remoteViewController navigationItem];
-  [navigationItem setRightBarButtonItem:doneButton];
-
-  [(DDRemoteActionHostViewController *)self->_remoteViewController setTitle:self->_platterTitle];
-  navigationController = self->_navigationController;
-  v31[0] = self->_remoteViewController;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v31 count:1];
-  [(UINavigationController *)navigationController setViewControllers:v6];
-
-  if (self->_titleBar)
-  {
     titleBarBottomConstraint = self->_titleBarBottomConstraint;
     if (titleBarBottomConstraint)
     {
       [(NSLayoutConstraint *)titleBarBottomConstraint setActive:0];
     }
 
-    view6 = [(UINavigationController *)self->_navigationController view];
-    view7 = [view6 topAnchor];
+    view = [(UINavigationController *)self->_navigationController view];
+    topAnchor = [view topAnchor];
     bottomAnchor = [(UIView *)self->_titleBar bottomAnchor];
-    v11 = [view7 constraintEqualToAnchor:bottomAnchor];
+    v11 = [topAnchor constraintEqualToAnchor:bottomAnchor];
     v12 = self->_titleBarBottomConstraint;
     self->_titleBarBottomConstraint = v11;
-LABEL_11:
   }
 
-  v24 = *MEMORY[0x277D85DE8];
+  else
+  {
+    [(DDRemoteActionManagerViewController *)self addChildViewController:self->_remoteViewController];
+    view2 = [(DDRemoteActionManagerViewController *)self view];
+    view3 = [(DDRemoteActionHostViewController *)self->_remoteViewController view];
+    [view2 insertSubview:view3 below:self->_hitView];
+
+    view4 = [(DDRemoteActionHostViewController *)self->_remoteViewController view];
+    [view4 setTranslatesAutoresizingMaskIntoConstraints:0];
+
+    view5 = [(DDRemoteActionManagerViewController *)self view];
+    v17 = MEMORY[0x277CCAAD0];
+    v28 = @"vc";
+    view6 = [(DDRemoteActionHostViewController *)self->_remoteViewController view];
+    v29 = view6;
+    v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v29 forKeys:&v28 count:1];
+    v20 = [v17 constraintsWithVisualFormat:@"H:|[vc]|" options:0 metrics:0 views:v19];
+    [view5 addConstraints:v20];
+
+    if ([(DDRemoteActionManagerViewController *)self previewMode]&& self->_titleBar)
+    {
+      view = [(DDRemoteActionManagerViewController *)self view];
+      titleBar = self->_titleBar;
+      v22 = MEMORY[0x277CCAAD0];
+      v26[1] = @"vc";
+      v27[0] = titleBar;
+      v26[0] = @"titleBar";
+      topAnchor = [(DDRemoteActionHostViewController *)self->_remoteViewController view];
+      v27[1] = topAnchor;
+      bottomAnchor = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:v26 count:2];
+      v23 = @"V:[titleBar][vc]|";
+    }
+
+    else
+    {
+      view = [(DDRemoteActionManagerViewController *)self view];
+      v22 = MEMORY[0x277CCAAD0];
+      topAnchor = [(DDRemoteActionHostViewController *)self->_remoteViewController view];
+      v25 = topAnchor;
+      bottomAnchor = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v25 forKeys:&v24 count:1];
+      v23 = @"V:|[vc]|";
+    }
+
+    v12 = [v22 constraintsWithVisualFormat:v23 options:0 metrics:0 views:bottomAnchor];
+    [view addConstraints:v12];
+  }
 }
 
 - (void)addHitOverlay
 {
-  v21[1] = *MEMORY[0x277D85DE8];
+  v20[1] = *MEMORY[0x277D85DE8];
   if (!self->_hitView)
   {
     v3 = objc_opt_new();
@@ -432,23 +461,21 @@ LABEL_11:
     view2 = [(DDRemoteActionManagerViewController *)self view];
     v8 = MEMORY[0x277CCAAD0];
     v9 = self->_hitView;
-    v20 = @"hitView";
-    v21[0] = v9;
-    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:&v20 count:1];
+    v19 = @"hitView";
+    v20[0] = v9;
+    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:&v19 count:1];
     v11 = [v8 constraintsWithVisualFormat:@"H:|[hitView]|" options:0 metrics:0 views:v10];
     [view2 addConstraints:v11];
 
     view3 = [(DDRemoteActionManagerViewController *)self view];
     v13 = MEMORY[0x277CCAAD0];
     v14 = self->_hitView;
-    v18 = @"hitView";
-    v19 = v14;
-    v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v19 forKeys:&v18 count:1];
+    v17 = @"hitView";
+    v18 = v14;
+    v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v18 forKeys:&v17 count:1];
     v16 = [v13 constraintsWithVisualFormat:@"V:|[hitView]|" options:0 metrics:0 views:v15];
     [view3 addConstraints:v16];
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updatePreviewMode
@@ -539,7 +566,7 @@ LABEL_11:
 
 - (void)showLoadingView
 {
-  v49[1] = *MEMORY[0x277D85DE8];
+  v48[1] = *MEMORY[0x277D85DE8];
   if (!self->_loadingView)
   {
     date = [MEMORY[0x277CBEAA8] date];
@@ -557,22 +584,22 @@ LABEL_11:
     view2 = [(DDRemoteActionManagerViewController *)self view];
     v9 = MEMORY[0x277CCAAD0];
     v10 = self->_loadingView;
-    v48 = @"lv";
-    v49[0] = v10;
-    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v49 forKeys:&v48 count:1];
+    v47 = @"lv";
+    v48[0] = v10;
+    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v48 forKeys:&v47 count:1];
     v12 = [v9 constraintsWithVisualFormat:@"H:|[lv]|" options:0 metrics:0 views:v11];
     [view2 addConstraints:v12];
 
     view3 = [(DDRemoteActionManagerViewController *)self view];
     v14 = MEMORY[0x277CCAAD0];
-    v46 = @"margin";
+    v45 = @"margin";
     controllerVerticalMargin = [(DDRemoteActionManagerViewController *)self controllerVerticalMargin];
-    v47 = controllerVerticalMargin;
-    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v47 forKeys:&v46 count:1];
+    v46 = controllerVerticalMargin;
+    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v46 forKeys:&v45 count:1];
     v17 = self->_loadingView;
-    v44 = @"lv";
-    v45 = v17;
-    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v45 forKeys:&v44 count:1];
+    v43 = @"lv";
+    v44 = v17;
+    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v44 forKeys:&v43 count:1];
     v19 = [v14 constraintsWithVisualFormat:@"V:|-(margin)-[lv]|" options:0 metrics:v16 views:v18];
     [view3 addConstraints:v19];
 
@@ -597,22 +624,22 @@ LABEL_11:
     [v25 setActive:1];
 
     v26 = *MEMORY[0x277D74388];
-    v41[0] = *MEMORY[0x277D74398];
-    v41[1] = v26;
-    v42[0] = &unk_282C2BC68;
-    v42[1] = &unk_282C2BC80;
-    v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v42 forKeys:v41 count:2];
-    v43 = v27;
-    v28 = [MEMORY[0x277CBEA60] arrayWithObjects:&v43 count:1];
+    v40[0] = *MEMORY[0x277D74398];
+    v40[1] = v26;
+    v41[0] = &unk_282C2BC68;
+    v41[1] = &unk_282C2BC80;
+    v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v41 forKeys:v40 count:2];
+    v42 = v27;
+    v28 = [MEMORY[0x277CBEA60] arrayWithObjects:&v42 count:1];
 
     v29 = *MEMORY[0x277D74338];
-    v40[0] = v28;
+    v39[0] = v28;
     v30 = *MEMORY[0x277D74340];
-    v39[0] = v29;
-    v39[1] = v30;
+    v38[0] = v29;
+    v38[1] = v30;
     v31 = _UISystemFontName();
-    v40[1] = v31;
-    v32 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v40 forKeys:v39 count:2];
+    v39[1] = v31;
+    v32 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v39 forKeys:v38 count:2];
 
     v33 = [objc_alloc(MEMORY[0x277D74310]) initWithFontAttributes:v32];
     v34 = [MEMORY[0x277D74300] fontWithDescriptor:v33 size:14.0];
@@ -625,15 +652,13 @@ LABEL_11:
     [v23 setText:v36];
 
     [(UIView *)self->_loadingView setAlpha:0.0];
-    v38[0] = MEMORY[0x277D85DD0];
-    v38[1] = 3221225472;
-    v38[2] = __54__DDRemoteActionManagerViewController_showLoadingView__block_invoke;
-    v38[3] = &unk_278290B50;
-    v38[4] = self;
-    [MEMORY[0x277D75D18] animateWithDuration:v38 animations:0.2];
+    v37[0] = MEMORY[0x277D85DD0];
+    v37[1] = 3221225472;
+    v37[2] = __54__DDRemoteActionManagerViewController_showLoadingView__block_invoke;
+    v37[3] = &unk_278290B50;
+    v37[4] = self;
+    [MEMORY[0x277D75D18] animateWithDuration:v37 animations:0.2];
   }
-
-  v37 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeLoadingViewToShowView:(id)view
@@ -678,7 +703,7 @@ void __67__DDRemoteActionManagerViewController_removeLoadingViewToShowView___blo
 
 - (void)showErrorView
 {
-  v46[1] = *MEMORY[0x277D85DE8];
+  v45[1] = *MEMORY[0x277D85DE8];
   if ([MEMORY[0x277CCACC8] isMainThread])
   {
     v3 = objc_opt_new();
@@ -692,22 +717,22 @@ void __67__DDRemoteActionManagerViewController_removeLoadingViewToShowView___blo
     view2 = [(DDRemoteActionManagerViewController *)self view];
     v7 = MEMORY[0x277CCAAD0];
     v8 = self->_errorView;
-    v45 = @"ev";
-    v46[0] = v8;
-    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v46 forKeys:&v45 count:1];
+    v44 = @"ev";
+    v45[0] = v8;
+    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v45 forKeys:&v44 count:1];
     v10 = [v7 constraintsWithVisualFormat:@"H:|[ev]|" options:0 metrics:0 views:v9];
     [view2 addConstraints:v10];
 
     view3 = [(DDRemoteActionManagerViewController *)self view];
     v12 = MEMORY[0x277CCAAD0];
-    v43 = @"margin";
+    v42 = @"margin";
     controllerVerticalMargin = [(DDRemoteActionManagerViewController *)self controllerVerticalMargin];
-    v44 = controllerVerticalMargin;
-    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v44 forKeys:&v43 count:1];
+    v43 = controllerVerticalMargin;
+    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v43 forKeys:&v42 count:1];
     v15 = self->_errorView;
-    v41 = @"ev";
-    v42 = v15;
-    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v42 forKeys:&v41 count:1];
+    v40 = @"ev";
+    v41 = v15;
+    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v41 forKeys:&v40 count:1];
     v17 = [v12 constraintsWithVisualFormat:@"V:|-(margin)-[ev]|" options:0 metrics:v14 views:v16];
     [view3 addConstraints:v17];
 
@@ -721,22 +746,22 @@ void __67__DDRemoteActionManagerViewController_removeLoadingViewToShowView___blo
     [v20 setActive:1];
 
     v21 = *MEMORY[0x277D74388];
-    v38[0] = *MEMORY[0x277D74398];
-    v38[1] = v21;
-    v39[0] = &unk_282C2BC68;
-    v39[1] = &unk_282C2BC80;
-    v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v39 forKeys:v38 count:2];
-    v40 = v22;
-    v23 = [MEMORY[0x277CBEA60] arrayWithObjects:&v40 count:1];
+    v37[0] = *MEMORY[0x277D74398];
+    v37[1] = v21;
+    v38[0] = &unk_282C2BC68;
+    v38[1] = &unk_282C2BC80;
+    v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v38 forKeys:v37 count:2];
+    v39 = v22;
+    v23 = [MEMORY[0x277CBEA60] arrayWithObjects:&v39 count:1];
 
     v24 = *MEMORY[0x277D74338];
-    v37[0] = v23;
+    v36[0] = v23;
     v25 = *MEMORY[0x277D74340];
-    v36[0] = v24;
-    v36[1] = v25;
+    v35[0] = v24;
+    v35[1] = v25;
     v26 = _UISystemFontName();
-    v37[1] = v26;
-    v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v37 forKeys:v36 count:2];
+    v36[1] = v26;
+    v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v36 forKeys:v35 count:2];
 
     v28 = [objc_alloc(MEMORY[0x277D74310]) initWithFontAttributes:v27];
     v29 = [MEMORY[0x277D74300] fontWithDescriptor:v28 size:14.0];
@@ -756,17 +781,17 @@ void __67__DDRemoteActionManagerViewController_removeLoadingViewToShowView___blo
     else if (self->_remoteViewController)
     {
       [(UIView *)self->_errorView setAlpha:0.0];
-      v33[4] = self;
-      v34[0] = MEMORY[0x277D85DD0];
-      v34[1] = 3221225472;
-      v34[2] = __52__DDRemoteActionManagerViewController_showErrorView__block_invoke_2;
-      v34[3] = &unk_278290B50;
-      v34[4] = self;
+      v32[4] = self;
       v33[0] = MEMORY[0x277D85DD0];
       v33[1] = 3221225472;
-      v33[2] = __52__DDRemoteActionManagerViewController_showErrorView__block_invoke_3;
-      v33[3] = &unk_278290BF0;
-      [MEMORY[0x277D75D18] animateWithDuration:v34 animations:v33 completion:0.2];
+      v33[2] = __52__DDRemoteActionManagerViewController_showErrorView__block_invoke_2;
+      v33[3] = &unk_278290B50;
+      v33[4] = self;
+      v32[0] = MEMORY[0x277D85DD0];
+      v32[1] = 3221225472;
+      v32[2] = __52__DDRemoteActionManagerViewController_showErrorView__block_invoke_3;
+      v32[3] = &unk_278290BF0;
+      [MEMORY[0x277D75D18] animateWithDuration:v33 animations:v32 completion:0.2];
     }
   }
 
@@ -779,8 +804,6 @@ void __67__DDRemoteActionManagerViewController_removeLoadingViewToShowView___blo
     block[4] = self;
     dispatch_sync(MEMORY[0x277D85CD0], block);
   }
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 void __52__DDRemoteActionManagerViewController_showErrorView__block_invoke_2(uint64_t a1)
@@ -792,14 +815,14 @@ void __52__DDRemoteActionManagerViewController_showErrorView__block_invoke_2(uin
 
 void __52__DDRemoteActionManagerViewController_showErrorView__block_invoke_3(uint64_t a1)
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = *(v2 + 1056);
   if (v3)
   {
     v4 = [v2 emptyViewcontroller];
-    v10[0] = v4;
-    v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
+    v9[0] = v4;
+    v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
     [v3 setViewControllers:v5];
 
     v2 = *(a1 + 32);
@@ -812,8 +835,6 @@ void __52__DDRemoteActionManagerViewController_showErrorView__block_invoke_3(uin
   v7 = *(a1 + 32);
   v8 = *(v7 + 992);
   *(v7 + 992) = 0;
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)DDRemoteActionDidTerminateWithError:(id)error

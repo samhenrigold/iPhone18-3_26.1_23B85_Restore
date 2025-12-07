@@ -179,7 +179,7 @@ void sub_7334(uint64_t a1)
 void sub_7374(uint64_t a1, uint64_t a2)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v4 = sub_7478();
+  v4 = sub_7478(WeakRetained);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = [WeakRetained _descriptionForExternalScreenType:a2];
@@ -197,16 +197,16 @@ void sub_7374(uint64_t a1, uint64_t a2)
   }
 }
 
-id sub_7478()
+id sub_7478(uint64_t a1)
 {
   if (qword_28018 != -1)
   {
     sub_124B8();
   }
 
-  v1 = qword_28010;
+  v2 = qword_28010;
 
-  return v1;
+  return v2;
 }
 
 void sub_86E8(uint64_t a1)
@@ -326,11 +326,10 @@ void sub_A4F8(uint64_t a1)
   WeakRetained = objc_loadWeakRetained((a1 + 56));
   if (WeakRetained)
   {
-    v4 = WeakRetained;
+    v3 = WeakRetained;
     NSLog(@"TVSettingsLog - undoing specifier %@ to old value of %@", *(a1 + 32), *(a1 + 40));
-    v3 = *(a1 + 40);
     (*(*(a1 + 48) + 16))();
-    WeakRetained = v4;
+    WeakRetained = v3;
   }
 }
 
@@ -390,36 +389,34 @@ void sub_C2C0(uint64_t a1, char a2)
 void sub_C378(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 48));
-  v16 = WeakRetained;
+  v14 = WeakRetained;
   if ((*(a1 + 56) & 1) == 0)
   {
-    v3 = *(a1 + 32);
-    v4 = [NSBundle bundleForClass:objc_opt_class()];
-    v5 = [v4 localizedStringForKey:@"HOME_SHARING_ERROR_TITLE" value:&stru_21328 table:@"TVSettings"];
-    v6 = [UIAlertController alertControllerWithTitle:v5 message:0 preferredStyle:1];
+    v3 = [NSBundle bundleForClass:objc_opt_class()];
+    v4 = [v3 localizedStringForKey:@"HOME_SHARING_ERROR_TITLE" value:&stru_21328 table:@"TVSettings"];
+    v5 = [UIAlertController alertControllerWithTitle:v4 message:0 preferredStyle:1];
 
-    v7 = *(a1 + 32);
-    v8 = [NSBundle bundleForClass:objc_opt_class()];
-    v9 = [v8 localizedStringForKey:@"OK" value:&stru_21328 table:@"TVSettings"];
-    v10 = [UIAlertAction actionWithTitle:v9 style:0 handler:0];
-    [v6 addAction:v10];
+    v6 = [NSBundle bundleForClass:objc_opt_class()];
+    v7 = [v6 localizedStringForKey:@"OK" value:&stru_21328 table:@"TVSettings"];
+    v8 = [UIAlertAction actionWithTitle:v7 style:0 handler:0];
+    [v5 addAction:v8];
 
-    [*(a1 + 40) presentViewController:v6 animated:1 completion:0];
-    WeakRetained = v16;
+    [*(a1 + 40) presentViewController:v5 animated:1 completion:0];
+    WeakRetained = v14;
   }
 
   [WeakRetained _updateHomeSharingSpecifiersAnimated:1 shouldUpdateUsingTableView:1];
-  v11 = [v16 parentController];
-  if (v11)
+  v9 = [v14 parentController];
+  if (v9)
   {
-    v12 = v11;
-    v13 = [v16 parentController];
-    v14 = objc_opt_respondsToSelector();
+    v10 = v9;
+    v11 = [v14 parentController];
+    v12 = objc_opt_respondsToSelector();
 
-    if (v14)
+    if (v12)
     {
-      v15 = [v16 parentController];
-      [v15 reloadSpecifiers];
+      v13 = [v14 parentController];
+      [v13 reloadSpecifiers];
     }
   }
 }
@@ -510,29 +507,28 @@ uint64_t sub_F7CC(void *a1, void *a2, void *a3)
 {
   v6 = sub_F9B8(&qword_27F08, &qword_16410);
   v7 = *(v6 - 8);
-  v8 = (*(v7 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
   __chkstk_darwin();
-  v10 = &v20 - v9;
-  v11 = swift_allocObject();
-  v11[2] = a1;
-  v11[3] = a2;
-  v11[4] = a3;
+  v9 = &v19 - v8;
+  v10 = swift_allocObject();
+  v10[2] = a1;
+  v10[3] = a2;
+  v10[4] = a3;
   sub_12584();
-  sub_12380(&qword_27F10, &type metadata accessor for PreferencesControllerView);
-  v12 = a1;
-  v13 = a2;
-  v14 = a3;
+  sub_12380(&qword_27F10, &type metadata accessor for PreferencesControllerView, &protocol conformance descriptor for PreferencesControllerView);
+  v11 = a1;
+  v12 = a2;
+  v13 = a3;
   sub_12614();
-  v15 = swift_allocObject();
-  v15[2] = v12;
-  v15[3] = v13;
-  v15[4] = v14;
+  v14 = swift_allocObject();
+  v14[2] = v11;
+  v14[3] = v12;
+  v14[4] = v13;
   sub_10994();
+  v15 = v11;
   v16 = v12;
   v17 = v13;
-  v18 = v14;
   sub_125D4();
-  return (*(v7 + 8))(v10, v6);
+  return (*(v7 + 8))(v9, v6);
 }
 
 uint64_t sub_F9B8(uint64_t *a1, uint64_t *a2)
@@ -540,7 +536,6 @@ uint64_t sub_F9B8(uint64_t *a1, uint64_t *a2)
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -550,9 +545,9 @@ uint64_t sub_F9B8(uint64_t *a1, uint64_t *a2)
 
 uint64_t sub_FA00(uint64_t a1)
 {
-  v2 = *(*(sub_126D4() - 8) + 64);
+  sub_126D4();
   __chkstk_darwin();
-  v3 = *(*(sub_125A4() - 8) + 64);
+  sub_125A4();
   __chkstk_darwin();
   sub_126B4();
   sub_126A4();
@@ -562,8 +557,8 @@ uint64_t sub_FA00(uint64_t a1)
     swift_task_reportUnexpectedExecutor();
   }
 
-  v4 = [objc_allocWithZone(PSSpecifier) init];
-  [v4 setProperty:a1 forKey:PSListControllerCellHighlightingSelectionInvocationRelayKey];
+  v2 = [objc_allocWithZone(PSSpecifier) init];
+  [v2 setProperty:a1 forKey:PSListControllerCellHighlightingSelectionInvocationRelayKey];
   sub_126C4();
   sub_12594();
   sub_12574();
@@ -576,116 +571,105 @@ uint64_t sub_FBB0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a
   v5[27] = a2;
   v5[28] = a3;
   v5[26] = a1;
-  v6 = *(*(sub_126D4() - 8) + 64) + 15;
+  sub_126D4();
   v5[31] = swift_task_alloc();
   v5[32] = swift_task_alloc();
-  v7 = sub_125A4();
-  v5[33] = v7;
-  v8 = *(v7 - 8);
-  v5[34] = v8;
-  v9 = *(v8 + 64) + 15;
+  v6 = sub_125A4();
+  v5[33] = v6;
+  v5[34] = *(v6 - 8);
   v5[35] = swift_task_alloc();
   v5[36] = swift_task_alloc();
-  v10 = sub_F9B8(&qword_27FD0, &qword_166B0);
-  v5[37] = v10;
-  v11 = *(v10 - 8);
-  v5[38] = v11;
-  v12 = *(v11 + 64) + 15;
+  v7 = sub_F9B8(&qword_27FD0, &qword_166B0);
+  v5[37] = v7;
+  v5[38] = *(v7 - 8);
   v5[39] = swift_task_alloc();
-  v13 = *(*(sub_F9B8(&qword_27FD8, &qword_166B8) - 8) + 64) + 15;
+  sub_F9B8(&qword_27FD8, &qword_166B8);
   v5[40] = swift_task_alloc();
-  v14 = sub_12554();
-  v5[41] = v14;
-  v15 = *(v14 - 8);
-  v5[42] = v15;
-  v16 = *(v15 + 64) + 15;
+  v8 = sub_12554();
+  v5[41] = v8;
+  v5[42] = *(v8 - 8);
   v5[43] = swift_task_alloc();
-  v17 = sub_125C4();
-  v5[44] = v17;
-  v18 = *(v17 - 8);
-  v5[45] = v18;
-  v19 = *(v18 + 64) + 15;
+  v9 = sub_125C4();
+  v5[44] = v9;
+  v5[45] = *(v9 - 8);
   v5[46] = swift_task_alloc();
   sub_126B4();
   v5[47] = sub_126A4();
-  v21 = sub_12674();
-  v5[48] = v21;
-  v5[49] = v20;
+  v11 = sub_12674();
+  v5[48] = v11;
+  v5[49] = v10;
 
-  return _swift_task_switch(sub_FE48, v21, v20);
+  return _swift_task_switch(sub_FE48, v11, v10);
 }
 
 uint64_t sub_FE48()
 {
-  v1 = v0[46];
-  v2 = v0[43];
-  v3 = v0[27];
   sub_125E4();
   sub_125F4();
-  v4 = sub_12544();
-  v6 = v5;
+  v1 = sub_12544();
+  v3 = v2;
   sub_12208();
   while (2)
   {
-    v0[50] = v6;
-    v0[51] = v4;
+    v0[50] = v3;
+    v0[51] = v1;
     do
     {
-      v0[18] = v4;
-      v0[19] = v6;
+      v0[18] = v1;
+      v0[19] = v3;
       v0[20] = 0xD000000000000011;
       v0[21] = 0x8000000000018590;
       if ((sub_126F4() & 1) == 0)
       {
-        v17 = v0[38];
-        v16 = v0[39];
-        v18 = v0[37];
-        v19 = v0[28];
+        v14 = v0[38];
+        v13 = v0[39];
+        v15 = v0[37];
+        v16 = v0[28];
         v0[2] = v0;
         v0[3] = sub_10188;
         swift_continuation_init();
-        v0[17] = v18;
-        v20 = sub_1225C(v0 + 14);
+        v0[17] = v15;
+        v17 = sub_1225C(v0 + 14);
         sub_12684();
-        (*(v17 + 32))(v20, v16, v18);
+        (*(v14 + 32))(v17, v13, v15);
         v0[10] = _NSConcreteStackBlock;
         v0[11] = 1107296256;
         v0[12] = sub_10A40;
         v0[13] = &unk_21260;
-        [v19 checkSettingsAndReloadWithCompletion:v0 + 10];
-        (*(v17 + 8))(v20, v18);
-        v13 = (v0 + 2);
+        [v16 checkSettingsAndReloadWithCompletion:v0 + 10];
+        (*(v14 + 8))(v17, v15);
+        v10 = (v0 + 2);
 
-        return _swift_continuation_await(v13);
+        return _swift_continuation_await(v10);
       }
 
-      v7 = v0[40];
-      v0[22] = v4;
-      v0[23] = v6;
+      v4 = v0[40];
+      v0[22] = v1;
+      v0[23] = v3;
       v0[24] = 0xD000000000000011;
       v0[25] = 0x8000000000018590;
-      v8 = sub_12564();
-      (*(*(v8 - 8) + 56))(v7, 1, 1, v8);
+      v5 = sub_12564();
+      (*(*(v5 - 8) + 56))(v4, 1, 1, v5);
 
       sub_126E4();
-      v10 = v9;
-      v12 = v11;
-      sub_123C8(v7);
+      v7 = v6;
+      v9 = v8;
+      sub_123C8(v4);
     }
 
-    while ((v12 & 1) != 0);
-    v14 = HIBYTE(v6) & 0xF;
-    if ((v6 & 0x2000000000000000) == 0)
+    while ((v9 & 1) != 0);
+    v11 = HIBYTE(v3) & 0xF;
+    if ((v3 & 0x2000000000000000) == 0)
     {
-      v14 = v4 & 0xFFFFFFFFFFFFLL;
+      v11 = v1 & 0xFFFFFFFFFFFFLL;
     }
 
-    if (4 * v14 >= v10 >> 14)
+    if (4 * v11 >= v7 >> 14)
     {
       sub_12664();
 
-      v4 = sub_12634();
-      v6 = v15;
+      v1 = sub_12634();
+      v3 = v12;
 
       continue;
     }
@@ -694,14 +678,13 @@ uint64_t sub_FE48()
   }
 
   __break(1u);
-  return _swift_continuation_await(v13);
+  return _swift_continuation_await(v10);
 }
 
 uint64_t sub_10188()
 {
   v1 = *(*v0 + 392);
   v2 = *(*v0 + 384);
-  v3 = *v0;
 
   return _swift_task_switch(sub_10290, v2, v1);
 }
@@ -710,13 +693,12 @@ uint64_t sub_10290()
 {
   v1 = *(v0 + 400);
   v2 = *(v0 + 408);
-  v3 = *(v0 + 376);
 
-  v4 = sub_11A4C();
-  v5 = v4;
-  if (v4 <= 5u)
+  v3 = sub_11A4C(v2, v1);
+  v4 = v3;
+  if (v3 <= 5u)
   {
-    if (v4 - 2 >= 3)
+    if (v3 - 2 >= 3)
     {
       goto LABEL_10;
     }
@@ -724,37 +706,37 @@ uint64_t sub_10290()
 
   else
   {
-    if (v4 > 0x13u)
+    if (v3 > 0x13u)
     {
 LABEL_6:
-      v6 = *(v0 + 240);
-      v48._countAndFlagsBits = sub_10AA0(v4);
-      countAndFlagsBits = v48._countAndFlagsBits;
-      object = v48._object;
-      sub_12654(v48);
+      v5 = *(v0 + 240);
+      v34._countAndFlagsBits = sub_10AA0(v3);
+      countAndFlagsBits = v34._countAndFlagsBits;
+      object = v34._object;
+      sub_12654(v34);
 
-      v9 = sub_12624();
+      v8 = sub_12624();
 
-      [v6 setSpecifierIdentifierToScrollAndSelect:v9];
+      [v5 setSpecifierIdentifierToScrollAndSelect:v8];
 
-      v49._countAndFlagsBits = countAndFlagsBits;
-      v49._object = object;
-      sub_12654(v49);
+      v35._countAndFlagsBits = countAndFlagsBits;
+      v35._object = object;
+      sub_12654(v35);
 LABEL_11:
 
-      v13 = *(v0 + 240);
-      v14 = sub_12624();
+      v11 = *(v0 + 240);
+      v12 = sub_12624();
 
-      [v13 setSpecifierIdentifierToScrollAndHighlight:v14];
+      [v11 setSpecifierIdentifierToScrollAndHighlight:v12];
 
       goto LABEL_16;
     }
 
-    if (((1 << v4) & 0x75700) == 0)
+    if (((1 << v3) & 0x75700) == 0)
     {
-      if (((1 << v4) & 0xA800) == 0)
+      if (((1 << v3) & 0xA800) == 0)
       {
-        if (v4 == 19)
+        if (v3 == 19)
         {
           goto LABEL_16;
         }
@@ -763,86 +745,73 @@ LABEL_11:
       }
 
 LABEL_10:
-      v50._countAndFlagsBits = sub_10AA0(v4);
-      sub_12654(v50);
+      v36._countAndFlagsBits = sub_10AA0(v3);
+      sub_12654(v36);
       goto LABEL_11;
     }
   }
 
-  v10 = sub_10D28(*(v0 + 224), v4);
-  if (v10)
+  v9 = sub_10D28(*(v0 + 224), v3);
+  if (v9)
   {
-    v11 = v10;
-    v12 = *(v0 + 256);
+    v10 = v9;
     sub_126C4();
-    v15 = *(v0 + 368);
-    v16 = *(v0 + 288);
-    v17 = *(v0 + 264);
-    v18 = *(v0 + 272);
-    v19 = *(v0 + 256);
-    v20 = v11;
+    v13 = *(v0 + 288);
+    v14 = *(v0 + 264);
+    v15 = *(v0 + 272);
+    v16 = v10;
     sub_12594();
-    sub_12380(&qword_27FE8, &type metadata accessor for PreferencesControllerRecipe);
+    sub_12380(&qword_27FE8, &type metadata accessor for PreferencesControllerRecipe, &protocol conformance descriptor for PreferencesControllerRecipe);
     sub_125B4();
 
-    (*(v18 + 8))(v16, v17);
+    (*(v15 + 8))(v13, v14);
   }
 
-  if (((1 << v5) & 0xEFFC) == 0)
+  if (((1 << v4) & 0xEFFC) == 0)
   {
-    v21 = sub_10D28(*(v0 + 232), v5);
-    if (!v21)
+    v17 = sub_10D28(*(v0 + 232), v4);
+    if (!v17)
     {
-      v21 = [objc_allocWithZone(PSSpecifier) init];
+      v17 = [objc_allocWithZone(PSSpecifier) init];
     }
 
-    v22 = v21;
-    v24 = *(v0 + 240);
-    v23 = *(v0 + 248);
-    [v21 setProperty:*(v0 + 224) forKey:@"TVSettingsTopLevelSettingsVCKey"];
-    v51._countAndFlagsBits = sub_10AA0(v5);
-    sub_12654(v51);
+    v18 = v17;
+    v19 = *(v0 + 240);
+    [v17 setProperty:*(v0 + 224) forKey:@"TVSettingsTopLevelSettingsVCKey"];
+    v37._countAndFlagsBits = sub_10AA0(v4);
+    sub_12654(v37);
 
-    v25 = sub_12624();
+    v20 = sub_12624();
 
-    [v24 setSpecifierIdentifierToScrollAndHighlight:v25];
+    [v19 setSpecifierIdentifierToScrollAndHighlight:v20];
 
-    [v22 setProperty:v24 forKey:PSListControllerCellHighlightingSelectionInvocationRelayKey];
+    [v18 setProperty:v19 forKey:PSListControllerCellHighlightingSelectionInvocationRelayKey];
     sub_126C4();
-    v26 = *(v0 + 368);
-    v28 = *(v0 + 272);
-    v27 = *(v0 + 280);
-    v29 = *(v0 + 264);
-    v30 = *(v0 + 248);
-    v31 = v22;
+    v22 = *(v0 + 272);
+    v21 = *(v0 + 280);
+    v23 = *(v0 + 264);
+    v24 = v18;
     sub_12594();
-    sub_12380(&qword_27FE8, &type metadata accessor for PreferencesControllerRecipe);
+    sub_12380(&qword_27FE8, &type metadata accessor for PreferencesControllerRecipe, &protocol conformance descriptor for PreferencesControllerRecipe);
     sub_125B4();
 
-    (*(v28 + 8))(v27, v29);
+    (*(v22 + 8))(v21, v23);
   }
 
 LABEL_16:
-  v33 = *(v0 + 360);
-  v32 = *(v0 + 368);
-  v35 = *(v0 + 344);
-  v34 = *(v0 + 352);
-  v36 = *(v0 + 328);
-  v37 = *(v0 + 336);
-  v39 = *(v0 + 312);
-  v38 = *(v0 + 320);
-  v40 = *(v0 + 288);
-  v44 = *(v0 + 280);
-  v45 = *(v0 + 256);
-  v46 = *(v0 + 248);
-  v41 = *(v0 + 208);
+  v26 = *(v0 + 360);
+  v25 = *(v0 + 368);
+  v28 = *(v0 + 344);
+  v27 = *(v0 + 352);
+  v29 = *(v0 + 328);
+  v30 = *(v0 + 336);
   sub_12604();
-  (*(v37 + 8))(v35, v36);
-  (*(v33 + 8))(v32, v34);
+  (*(v30 + 8))(v28, v29);
+  (*(v26 + 8))(v25, v27);
 
-  v42 = *(v0 + 8);
+  v31 = *(v0 + 8);
 
-  return v42();
+  return v31();
 }
 
 uint64_t sub_108D0(uint64_t a1, uint64_t a2)
@@ -876,7 +845,6 @@ uint64_t sub_109F8(uint64_t *a1, uint64_t *a2)
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContextInMetadataState2();
     *a1 = result;
   }
@@ -1135,32 +1103,31 @@ uint64_t sub_1119C()
 {
   v1 = sub_F9B8(&qword_27F08, &qword_16410);
   v2 = *(v1 - 8);
-  v3 = (*(v2 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
   __chkstk_darwin();
-  v5 = &v18 - v4;
-  v6 = *v0;
-  v7 = *(v0 + 8);
-  v8 = *(v0 + 16);
-  v9 = swift_allocObject();
-  v9[2] = v6;
-  v9[3] = v7;
-  v9[4] = v8;
+  v4 = &v17 - v3;
+  v5 = *v0;
+  v6 = *(v0 + 8);
+  v7 = *(v0 + 16);
+  v8 = swift_allocObject();
+  v8[2] = v5;
+  v8[3] = v6;
+  v8[4] = v7;
   sub_12584();
-  sub_12380(&qword_27F10, &type metadata accessor for PreferencesControllerView);
+  sub_12380(&qword_27F10, &type metadata accessor for PreferencesControllerView, &protocol conformance descriptor for PreferencesControllerView);
+  v9 = v5;
   v10 = v6;
   v11 = v7;
-  v12 = v8;
   sub_12614();
-  v13 = swift_allocObject();
-  v13[2] = v10;
-  v13[3] = v11;
-  v13[4] = v12;
+  v12 = swift_allocObject();
+  v12[2] = v9;
+  v12[3] = v10;
+  v12[4] = v11;
   sub_10994();
+  v13 = v9;
   v14 = v10;
   v15 = v11;
-  v16 = v12;
   sub_125D4();
-  return (*(v2 + 8))(v5, v1);
+  return (*(v2 + 8))(v4, v1);
 }
 
 id sub_11384@<X0>(void *a1@<X8>)
@@ -1329,26 +1296,26 @@ Swift::Int sub_11634()
 {
   v1 = *v0;
   sub_12734();
-  sub_11684();
+  sub_11684(v3, v1);
   return sub_12744();
 }
 
-uint64_t sub_11684()
+uint64_t sub_11684(uint64_t a1, unsigned __int8 a2)
 {
   sub_12644();
 }
 
-Swift::Int sub_117B0()
+Swift::Int sub_117B0(uint64_t a1)
 {
-  v1 = *v0;
+  v2 = *v1;
   sub_12734();
-  sub_11684();
+  sub_11684(v4, v2);
   return sub_12744();
 }
 
-uint64_t sub_117F4@<X0>(uint64_t a1@<X0>, _BYTE *a2@<X8>)
+unint64_t sub_117F4@<X0>(uint64_t *a1@<X0>, _BYTE *a2@<X8>)
 {
-  result = sub_11AA0(*a1, *(a1 + 8));
+  result = sub_11AA0(*a1, a1[1]);
   *a2 = result;
   return result;
 }
@@ -1389,27 +1356,25 @@ Swift::Int sub_118D8()
   return sub_12744();
 }
 
-uint64_t sub_1193C()
+uint64_t sub_1193C(uint64_t a1)
 {
-  sub_10AA0(*v0);
+  sub_10AA0(*v1);
   sub_12644();
 }
 
-Swift::Int sub_11990()
+Swift::Int sub_11990(uint64_t a1)
 {
-  v1 = *v0;
+  v2 = *v1;
   sub_12734();
-  sub_10AA0(v1);
+  sub_10AA0(v2);
   sub_12644();
 
   return sub_12744();
 }
 
-uint64_t sub_119F0@<X0>(uint64_t *a1@<X0>, _BYTE *a2@<X8>)
+unint64_t sub_119F0@<X0>(uint64_t *a1@<X0>, _BYTE *a2@<X8>)
 {
-  v4 = *a1;
-  v3 = a1[1];
-  result = sub_11A4C();
+  result = sub_11A4C(*a1, a1[1]);
   *a2 = result;
   return result;
 }
@@ -1422,22 +1387,22 @@ unint64_t sub_11A20@<X0>(unint64_t *a1@<X8>)
   return result;
 }
 
-uint64_t sub_11A4C()
+unint64_t sub_11A4C(uint64_t a1, uint64_t a2)
 {
-  v0 = sub_12724();
+  v2 = sub_12724();
 
-  if (v0 >= 0x13)
+  if (v2 >= 0x13)
   {
     return 19;
   }
 
   else
   {
-    return v0;
+    return v2;
   }
 }
 
-uint64_t sub_11AA0(uint64_t a1, void *a2)
+unint64_t sub_11AA0(uint64_t a1, void *a2)
 {
   v6._countAndFlagsBits = a1;
   v3._rawValue = &off_20E78;
@@ -1909,12 +1874,11 @@ uint64_t sub_12050(uint64_t a1, uint64_t a2)
 
 uint64_t sub_12114()
 {
-  v1 = *(*v0 + 16);
-  v4 = *v0;
+  v3 = *v0;
 
-  v2 = *(v4 + 8);
+  v1 = *(v3 + 8);
 
-  return v2();
+  return v1();
 }
 
 unint64_t sub_12208()
@@ -1948,18 +1912,20 @@ uint64_t sub_122D0(uint64_t a1, uint64_t a2)
   return a2;
 }
 
-uint64_t sub_12334(uint64_t *a1)
+uint64_t sub_12334(void *a1)
 {
   v1 = *(a1[3] - 8);
-  if ((*(v1 + 82) & 2) == 0)
+  if ((*(v1 + 82) & 2) != 0)
+  {
+  }
+
+  else
   {
     return (*(v1 + 8))();
   }
-
-  v3 = *a1;
 }
 
-uint64_t sub_12380(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t sub_12380(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)

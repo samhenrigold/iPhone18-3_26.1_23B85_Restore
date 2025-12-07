@@ -7,6 +7,7 @@
 - (id)_createSessionIdentifier;
 - (id)_getBulkSendSessionForSessionIdentifier:(id)identifier;
 - (id)accessory;
+- (void)_cancelSessionWithIdentifier:(id)identifier reason:(unsigned __int16)reason hadReceivedEof:(BOOL)eof completion:(id)completion;
 - (void)_closeAllSessionsWithError:(id)error;
 - (void)_handleCloseMessage:(id)message;
 - (void)_handleDataMessage:(id)message;
@@ -15,8 +16,12 @@
 - (void)_openSessionForFileType:(id)type reason:(id)reason metadata:(id)metadata queue:(id)queue callback:(id)callback;
 - (void)_pumpMessage:(id)message session:(id)session;
 - (void)_pumpReceiveFailure:(id)failure session:(id)session;
+- (void)_rejectSessionCandidate:(id)candidate status:(unsigned __int16)status;
 - (void)_removeBulkSendSessionForSessionIdentifier:(id)identifier;
 - (void)_sendAckMessageWithIdentifier:(id)identifier completion:(id)completion;
+- (void)_sendCloseMessageWithIdentifier:(id)identifier reason:(unsigned __int16)reason completion:(id)completion;
+- (void)_sendOpenResponseWithRequestHeader:(id)header bulkSendStatus:(unsigned __int16)status;
+- (void)_sendOpenResponseWithRequestHeader:(id)header payload:(id)payload status:(unsigned __int16)status;
 - (void)_sendOpenResponseWithRequestHeader:(id)header streamIdentifier:(id)identifier;
 - (void)_startSessionCandidate:(id)candidate queue:(id)queue callback:(id)callback;
 - (void)addListener:(id)listener fileType:(id)type;
@@ -88,7 +93,7 @@
   if (v10)
   {
     selfCopy = self;
-    v13 = sub_10007FAA0();
+    v13 = sub_10007FAA0(selfCopy);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
     {
       v14 = sub_10007FAFC(selfCopy);
@@ -177,7 +182,7 @@ LABEL_11:
   if ([(DataStreamBulkSendProtocol *)self isActive]!= value)
   {
     selfCopy = self;
-    v5 = sub_10007FAA0();
+    v5 = sub_10007FAA0(selfCopy);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
       v6 = sub_10007FAFC(selfCopy);
@@ -199,7 +204,7 @@ LABEL_11:
 {
   errorCopy = error;
   selfCopy = self;
-  v6 = sub_10007FAA0();
+  v6 = sub_10007FAA0(selfCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     v7 = sub_10007FAFC(selfCopy);
@@ -325,7 +330,7 @@ LABEL_11:
 {
   errorCopy = error;
   selfCopy = self;
-  v7 = sub_10007FAA0();
+  v7 = sub_10007FAA0(selfCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v8 = sub_10007FAFC(selfCopy);
@@ -342,7 +347,7 @@ LABEL_11:
 - (void)dataStreamInitiatedClose:(id)close
 {
   selfCopy = self;
-  v4 = sub_10007FAA0();
+  v4 = sub_10007FAA0(selfCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     v5 = sub_10007FAFC(selfCopy);
@@ -355,7 +360,7 @@ LABEL_11:
 - (void)dataStreamDidClose:(id)close
 {
   selfCopy = self;
-  v4 = sub_10007FAA0();
+  v4 = sub_10007FAA0(selfCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     v5 = sub_10007FAFC(selfCopy);
@@ -370,7 +375,7 @@ LABEL_11:
 - (void)dataStreamDidOpen:(id)open
 {
   selfCopy = self;
-  v4 = sub_10007FAA0();
+  v4 = sub_10007FAA0(selfCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     v5 = sub_10007FAFC(selfCopy);
@@ -427,7 +432,7 @@ LABEL_11:
   if (![(DataStreamBulkSendProtocol *)self isConnected])
   {
     selfCopy2 = self;
-    v11 = sub_10007FAA0();
+    v11 = sub_10007FAA0(selfCopy2);
     if (!os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
 LABEL_7:
@@ -458,7 +463,7 @@ LABEL_6:
     }
 
     selfCopy2 = self;
-    v11 = sub_10007FAA0();
+    v11 = sub_10007FAA0(selfCopy2);
     if (!os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
       goto LABEL_7;
@@ -494,7 +499,7 @@ LABEL_8:
     else
     {
       selfCopy = self;
-      v13 = sub_10007FAA0();
+      v13 = sub_10007FAA0(selfCopy);
       if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
       {
         v14 = sub_10007FAFC(selfCopy);
@@ -567,7 +572,7 @@ LABEL_8:
   headerCopy = header;
   selfCopy = self;
   metadataCopy = metadata;
-  v9 = sub_10007FAA0();
+  v9 = sub_10007FAA0(selfCopy);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
     v10 = sub_10007FAFC(selfCopy);
@@ -593,7 +598,7 @@ LABEL_8:
   v11 = [(DataStreamBulkSendSession *)v9 initWithProtocol:self sessionIdentifier:_createSessionIdentifier queue:queueCopy logIdentifier:logIdentifier];
 
   selfCopy = self;
-  v13 = sub_10007FAA0();
+  v13 = sub_10007FAA0(selfCopy);
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
   {
     v14 = sub_10007FAFC(selfCopy);
@@ -623,6 +628,50 @@ LABEL_8:
   v8 = [NSDictionary dictionaryWithObjects:&identifierCopy forKeys:&v9 count:1];
 
   [(DataStreamBulkSendProtocol *)self _sendOpenResponseWithRequestHeader:headerCopy payload:v8 status:0];
+}
+
+- (void)_sendOpenResponseWithRequestHeader:(id)header bulkSendStatus:(unsigned __int16)status
+{
+  statusCopy = status;
+  v9 = @"status";
+  headerCopy = header;
+  v7 = [NSNumber numberWithUnsignedShort:statusCopy];
+  v10 = v7;
+  v8 = [NSDictionary dictionaryWithObjects:&v10 forKeys:&v9 count:1];
+
+  [(DataStreamBulkSendProtocol *)self _sendOpenResponseWithRequestHeader:headerCopy payload:v8 status:6];
+}
+
+- (void)_sendOpenResponseWithRequestHeader:(id)header payload:(id)payload status:(unsigned __int16)status
+{
+  statusCopy = status;
+  headerCopy = header;
+  payloadCopy = payload;
+  dataStream = [(DataStreamBulkSendProtocol *)self dataStream];
+  if (dataStream)
+  {
+    selfCopy = self;
+    v12 = sub_10007FAA0(selfCopy);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+    {
+      v13 = sub_10007FAFC(selfCopy);
+      v14 = sub_10003DAFC(statusCopy);
+      *buf = 138543874;
+      v17 = v13;
+      v18 = 2112;
+      v19 = v14;
+      v20 = 2048;
+      v21 = statusCopy;
+      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_INFO, "%{public}@Sending open response with status %@ (%ld)", buf, 0x20u);
+    }
+
+    v15[0] = _NSConcreteStackBlock;
+    v15[1] = 3221225472;
+    v15[2] = sub_100046E14;
+    v15[3] = &unk_1002739F0;
+    v15[4] = selfCopy;
+    [dataStream sendResponseForRequestHeader:headerCopy payload:payloadCopy status:statusCopy completion:v15];
+  }
 }
 
 - (id)_createSessionIdentifier
@@ -687,6 +736,13 @@ LABEL_8:
   v19 = v11;
   v20 = callbackCopy;
   dispatch_async(queueCopy, v21);
+}
+
+- (void)_rejectSessionCandidate:(id)candidate status:(unsigned __int16)status
+{
+  statusCopy = status;
+  requestHeader = [candidate requestHeader];
+  [(DataStreamBulkSendProtocol *)self _sendOpenResponseWithRequestHeader:requestHeader bulkSendStatus:statusCopy];
 }
 
 - (id)_getBulkSendSessionForSessionIdentifier:(id)identifier
@@ -765,7 +821,7 @@ LABEL_8:
   if (v17)
   {
     selfCopy = self;
-    v19 = sub_10007FAA0();
+    v19 = sub_10007FAA0(selfCopy);
     if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
     {
       v20 = sub_10007FAFC(selfCopy);
@@ -787,7 +843,7 @@ LABEL_8:
     v22 = [listeners objectForKey:v10];
 
     selfCopy2 = self;
-    v24 = sub_10007FAA0();
+    v24 = sub_10007FAA0(selfCopy2);
     v25 = v24;
     if (v22)
     {
@@ -859,7 +915,7 @@ LABEL_8:
   if (!v7)
   {
     selfCopy = self;
-    v13 = sub_10007FAA0();
+    v13 = sub_10007FAA0(selfCopy);
     if (!os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_21;
@@ -891,7 +947,7 @@ LABEL_20:
 
   v13 = [(DataStreamBulkSendProtocol *)self _getBulkSendSessionForSessionIdentifier:v7];
   selfCopy2 = self;
-  v15 = sub_10007FAA0();
+  v15 = sub_10007FAA0(selfCopy2);
   v16 = v15;
   if (!v13)
   {
@@ -942,7 +998,7 @@ LABEL_21:
   if (!v7)
   {
     selfCopy = self;
-    selfCopy2 = sub_10007FAA0();
+    selfCopy2 = sub_10007FAA0(selfCopy);
     if (!os_log_type_enabled(&selfCopy2->super, OS_LOG_TYPE_ERROR))
     {
 LABEL_12:
@@ -963,7 +1019,7 @@ LABEL_11:
   if (!selfCopy)
   {
     selfCopy2 = self;
-    v10 = sub_10007FAA0();
+    v10 = sub_10007FAA0(selfCopy2);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
       v11 = sub_10007FAFC(selfCopy2);
@@ -1049,7 +1105,7 @@ LABEL_18:
 
 LABEL_15:
   selfCopy = self;
-  v18 = sub_10007FAA0();
+  v18 = sub_10007FAA0(selfCopy);
   if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
   {
     v19 = sub_10007FAFC(selfCopy);
@@ -1070,6 +1126,73 @@ LABEL_19:
   [(DataStreamBulkSendProtocol *)self _removeBulkSendSessionForSessionIdentifier:sessionIdentifier];
 }
 
+- (void)_cancelSessionWithIdentifier:(id)identifier reason:(unsigned __int16)reason hadReceivedEof:(BOOL)eof completion:(id)completion
+{
+  eofCopy = eof;
+  reasonCopy = reason;
+  completionCopy = completion;
+  identifierCopy = identifier;
+  [(DataStreamBulkSendProtocol *)self _removeBulkSendSessionForSessionIdentifier:?];
+  if (reasonCopy || !eofCopy)
+  {
+    [(DataStreamBulkSendProtocol *)self _sendCloseMessageWithIdentifier:identifierCopy reason:reasonCopy completion:completionCopy];
+  }
+
+  else
+  {
+    [(DataStreamBulkSendProtocol *)self _sendAckMessageWithIdentifier:identifierCopy completion:completionCopy];
+  }
+}
+
+- (void)_sendCloseMessageWithIdentifier:(id)identifier reason:(unsigned __int16)reason completion:(id)completion
+{
+  reasonCopy = reason;
+  identifierCopy = identifier;
+  completionCopy = completion;
+  dataStream = [(DataStreamBulkSendProtocol *)self dataStream];
+  if (dataStream)
+  {
+    v25[0] = @"streamId";
+    v25[1] = @"reason";
+    v26[0] = identifierCopy;
+    v11 = [NSNumber numberWithUnsignedShort:reasonCopy];
+    v26[1] = v11;
+    v12 = [NSDictionary dictionaryWithObjects:v26 forKeys:v25 count:2];
+
+    selfCopy = self;
+    v14 = sub_10007FAA0(selfCopy);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+    {
+      v15 = sub_10007FAFC(selfCopy);
+      v19 = 138543874;
+      v20 = v15;
+      v21 = 2112;
+      v22 = identifierCopy;
+      v23 = 1024;
+      v24 = reasonCopy;
+      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_INFO, "%{public}@Sending 'close' for sid=%@ with reason %d", &v19, 0x1Cu);
+    }
+
+    [dataStream sendEventForProtocol:@"dataSend" topic:@"close" payload:v12 completion:completionCopy];
+  }
+
+  else
+  {
+    selfCopy2 = self;
+    v17 = sub_10007FAA0(selfCopy2);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    {
+      v18 = sub_10007FAFC(selfCopy2);
+      v19 = 138543362;
+      v20 = v18;
+      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_ERROR, "%{public}@No data stream found", &v19, 0xCu);
+    }
+
+    v12 = [NSError errorWithDomain:@"DKErrorDomain" code:1 userInfo:0];
+    completionCopy[2](completionCopy, v12);
+  }
+}
+
 - (void)_sendAckMessageWithIdentifier:(id)identifier completion:(id)completion
 {
   identifierCopy = identifier;
@@ -1083,7 +1206,7 @@ LABEL_19:
     v21[1] = &__kCFBooleanTrue;
     v9 = [NSDictionary dictionaryWithObjects:v21 forKeys:v20 count:2];
     selfCopy = self;
-    v11 = sub_10007FAA0();
+    v11 = sub_10007FAA0(selfCopy);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
       v12 = sub_10007FAFC(selfCopy);
@@ -1100,7 +1223,7 @@ LABEL_19:
   else
   {
     selfCopy2 = self;
-    v14 = sub_10007FAA0();
+    v14 = sub_10007FAA0(selfCopy2);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       v15 = sub_10007FAFC(selfCopy2);
@@ -1195,7 +1318,7 @@ LABEL_19:
   [sendCloseEventTimer3 resume];
 
   selfCopy = self;
-  v33 = sub_10007FAA0();
+  v33 = sub_10007FAA0(selfCopy);
   if (os_log_type_enabled(v33, OS_LOG_TYPE_INFO))
   {
     v34 = sub_10007FAFC(selfCopy);
@@ -1262,7 +1385,7 @@ LABEL_19:
         [v13 setHandleOpenRequestResponseTimer:0];
         v16 = selfCopy4;
         selfCopy = self;
-        v18 = sub_10007FAA0();
+        v18 = sub_10007FAA0(selfCopy);
         if (!os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
         {
           goto LABEL_16;
@@ -1284,7 +1407,7 @@ LABEL_19:
         [v13 setSendCloseEventTimer:0];
         v21 = selfCopy4;
         selfCopy2 = self;
-        v18 = sub_10007FAA0();
+        v18 = sub_10007FAA0(selfCopy2);
         if (!os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
         {
           goto LABEL_16;
@@ -1311,7 +1434,7 @@ LABEL_16:
         if ([v24 shouldCloseSessionWithTimeoutReason])
         {
           selfCopy3 = self;
-          v26 = sub_10007FAA0();
+          v26 = sub_10007FAA0(selfCopy3);
           if (!os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
           {
 LABEL_24:
@@ -1351,7 +1474,7 @@ LABEL_10:
 
 LABEL_20:
   selfCopy4 = self;
-  v24 = sub_10007FAA0();
+  v24 = sub_10007FAA0(selfCopy4);
   if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
   {
     v28 = sub_10007FAFC(selfCopy4);

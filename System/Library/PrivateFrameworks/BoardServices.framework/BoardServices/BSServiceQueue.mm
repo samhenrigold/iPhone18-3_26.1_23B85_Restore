@@ -72,142 +72,81 @@
 
 + (id)mainDispatchQueue
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   if (objc_opt_class() != self)
   {
     v4 = NSClassFromString(&cfstr_Fbsserialqueue.isa);
     if (!v4 || v4 != self)
     {
-      v7 = MEMORY[0x1E696AEC0];
-      v8 = NSStringFromSelector(a2);
-      v9 = [v7 stringWithFormat:@"%@ is not available on subclass %@", v8, self];
+      v6 = MEMORY[0x1E696AEC0];
+      v7 = NSStringFromSelector(a2);
+      v8 = [v6 stringWithFormat:@"%@ is not available on subclass %@", v7, self];
 
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
-        v10 = NSStringFromSelector(a2);
-        v11 = objc_opt_class();
-        v12 = NSStringFromClass(v11);
+        v9 = NSStringFromSelector(a2);
+        v10 = objc_opt_class();
+        v11 = NSStringFromClass(v10);
         *buf = 138544642;
-        v15 = v10;
-        v16 = 2114;
-        v17 = v12;
-        v18 = 2048;
+        v14 = v9;
+        v15 = 2114;
+        v16 = v11;
+        v17 = 2048;
         selfCopy = self;
-        v20 = 2114;
-        v21 = @"BSServiceQueue.m";
-        v22 = 1024;
-        v23 = 612;
-        v24 = 2114;
-        v25 = v9;
+        v19 = 2114;
+        v20 = @"BSServiceQueue.m";
+        v21 = 1024;
+        v22 = 612;
+        v23 = 2114;
+        v24 = v8;
         _os_log_error_impl(&dword_19A821000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
       }
 
-      v13 = v9;
-      [v9 UTF8String];
+      v12 = v8;
+      [v8 UTF8String];
       _bs_set_crash_log_message();
       __break(0);
       JUMPOUT(0x19A857850);
     }
   }
 
-  v5 = *MEMORY[0x1E69E9840];
-
   return +[BSServiceDispatchQueue mainQueue];
 }
 
 + (BSServiceQueue)queueWithDispatchQueue:(id)queue
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   queueCopy = queue;
   if (!queueCopy)
   {
-    v18 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"targetQueue"];
+    v17 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"targetQueue"];
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v19 = NSStringFromSelector(a2);
-      v20 = objc_opt_class();
-      v21 = NSStringFromClass(v20);
+      v18 = NSStringFromSelector(a2);
+      v19 = objc_opt_class();
+      v20 = NSStringFromClass(v19);
       *buf = 138544642;
-      v26 = v19;
-      v27 = 2114;
-      v28 = v21;
-      v29 = 2048;
+      v25 = v18;
+      v26 = 2114;
+      v27 = v20;
+      v28 = 2048;
       selfCopy2 = self;
-      v31 = 2114;
-      v32 = @"BSServiceQueue.m";
-      v33 = 1024;
-      v34 = 620;
-      v35 = 2114;
-      v36 = v18;
+      v30 = 2114;
+      v31 = @"BSServiceQueue.m";
+      v32 = 1024;
+      v33 = 620;
+      v34 = 2114;
+      v35 = v17;
       _os_log_error_impl(&dword_19A821000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
     }
 
-    v22 = v18;
-    [v18 UTF8String];
+    v21 = v17;
+    [v17 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x19A857BE8);
   }
 
-  if (objc_opt_class() != self)
-  {
-    v6 = NSClassFromString(&cfstr_Fbsserialqueue.isa);
-    if (!v6 || v6 != self)
-    {
-      v11 = MEMORY[0x1E696AEC0];
-      v12 = NSStringFromSelector(a2);
-      v13 = [v11 stringWithFormat:@"%@ is not available on subclass %@", v12, self];
-
-      if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
-      {
-        v14 = NSStringFromSelector(a2);
-        v15 = objc_opt_class();
-        v16 = NSStringFromClass(v15);
-        *buf = 138544642;
-        v26 = v14;
-        v27 = 2114;
-        v28 = v16;
-        v29 = 2048;
-        selfCopy2 = self;
-        v31 = 2114;
-        v32 = @"BSServiceQueue.m";
-        v33 = 1024;
-        v34 = 624;
-        v35 = 2114;
-        v36 = v13;
-        _os_log_error_impl(&dword_19A821000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
-      }
-
-      v17 = v13;
-      [v13 UTF8String];
-      _bs_set_crash_log_message();
-      __break(0);
-      JUMPOUT(0x19A857AE4);
-    }
-  }
-
-  v7 = [BSServiceDispatchQueue _queueOfDispatchQueue:queueCopy];
-  if (!v7)
-  {
-    block[0] = MEMORY[0x1E69E9820];
-    block[1] = 3221225472;
-    block[2] = __41__BSServiceQueue_queueWithDispatchQueue___block_invoke;
-    block[3] = &unk_1E75205D0;
-    v8 = queueCopy;
-    v24 = v8;
-    dispatch_async(v8, block);
-    v7 = [BSServiceDispatchQueue _queueWithDispatchQueue:v8];
-  }
-
-  v9 = *MEMORY[0x1E69E9840];
-
-  return v7;
-}
-
-+ (BSServiceQueue)queueWithMainRunLoopModes:(id)modes
-{
-  v29 = *MEMORY[0x1E69E9840];
-  modesCopy = modes;
   if (objc_opt_class() != self)
   {
     v6 = NSClassFromString(&cfstr_Fbsserialqueue.isa);
@@ -223,17 +162,17 @@
         v14 = objc_opt_class();
         v15 = NSStringFromClass(v14);
         *buf = 138544642;
-        v18 = v13;
-        v19 = 2114;
-        v20 = v15;
-        v21 = 2048;
-        selfCopy = self;
-        v23 = 2114;
-        v24 = @"BSServiceQueue.m";
-        v25 = 1024;
-        v26 = 642;
-        v27 = 2114;
-        v28 = v12;
+        v25 = v13;
+        v26 = 2114;
+        v27 = v15;
+        v28 = 2048;
+        selfCopy2 = self;
+        v30 = 2114;
+        v31 = @"BSServiceQueue.m";
+        v32 = 1024;
+        v33 = 624;
+        v34 = 2114;
+        v35 = v12;
         _os_log_error_impl(&dword_19A821000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
       }
 
@@ -241,13 +180,68 @@
       [v12 UTF8String];
       _bs_set_crash_log_message();
       __break(0);
+      JUMPOUT(0x19A857AE4);
+    }
+  }
+
+  v7 = [BSServiceDispatchQueue _queueOfDispatchQueue:queueCopy];
+  if (!v7)
+  {
+    block[0] = MEMORY[0x1E69E9820];
+    block[1] = 3221225472;
+    block[2] = __41__BSServiceQueue_queueWithDispatchQueue___block_invoke;
+    block[3] = &unk_1E75205D0;
+    v8 = queueCopy;
+    v23 = v8;
+    dispatch_async(v8, block);
+    v7 = [BSServiceDispatchQueue _queueWithDispatchQueue:v8];
+  }
+
+  return v7;
+}
+
++ (BSServiceQueue)queueWithMainRunLoopModes:(id)modes
+{
+  v28 = *MEMORY[0x1E69E9840];
+  modesCopy = modes;
+  if (objc_opt_class() != self)
+  {
+    v6 = NSClassFromString(&cfstr_Fbsserialqueue.isa);
+    if (!v6 || v6 != self)
+    {
+      v9 = MEMORY[0x1E696AEC0];
+      v10 = NSStringFromSelector(a2);
+      v11 = [v9 stringWithFormat:@"%@ is not available on subclass %@", v10, self];
+
+      if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+      {
+        v12 = NSStringFromSelector(a2);
+        v13 = objc_opt_class();
+        v14 = NSStringFromClass(v13);
+        *buf = 138544642;
+        v17 = v12;
+        v18 = 2114;
+        v19 = v14;
+        v20 = 2048;
+        selfCopy = self;
+        v22 = 2114;
+        v23 = @"BSServiceQueue.m";
+        v24 = 1024;
+        v25 = 642;
+        v26 = 2114;
+        v27 = v11;
+        _os_log_error_impl(&dword_19A821000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
+      }
+
+      v15 = v11;
+      [v11 UTF8String];
+      _bs_set_crash_log_message();
+      __break(0);
       JUMPOUT(0x19A857E54);
     }
   }
 
   v7 = [BSServiceMainRunLoopQueue queueWithModes:modesCopy];
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v7;
 }

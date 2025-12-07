@@ -107,11 +107,9 @@ LABEL_8:
 
 - (NSString)description
 {
-  v3 = objc_alloc(MEMORY[0x277CCACA8]);
-  assetSelector = self->assetSelector;
-  v5 = [v3 initWithFormat:@"<TRIMAAutoAsset | selector:%@ autoAsset:%@>", assetSelector, self->_autoAsset];
+  v2 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"<TRIMAAutoAsset | selector:%@ autoAsset:%@>", self->assetSelector, self->_autoAsset];
 
-  return v5;
+  return v2;
 }
 
 @end

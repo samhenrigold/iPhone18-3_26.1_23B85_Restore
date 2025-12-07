@@ -4,7 +4,7 @@
 
 @implementation PKAppleCashCardView
 
-id *__56__PKAppleCashCardView_initWithDiffuse_metalness_normal___block_invoke(uint64_t *a1, void *a2)
+id *__56__PKAppleCashCardView_initWithDiffuse_metalness_normal___block_invoke(void *a1, void *a2)
 {
   v3 = a2;
   [v3 setColorSpace:PKColorSpaceStandardRGB()];

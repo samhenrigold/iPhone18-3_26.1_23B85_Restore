@@ -199,7 +199,7 @@ void __54__MPModelAlbumKind_kindWithVariants_songKind_options___block_invoke(uin
 
 - (shared_ptr<mlcore::Predicate>)predicateWithBaseProperty:(void *)property
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v5 = 0;
   v6 = 0;
   v7 = 0;
@@ -209,9 +209,9 @@ void __54__MPModelAlbumKind_kindWithVariants_songKind_options___block_invoke(uin
     Property = MPMediaLibraryGetProperty(property, Property);
   }
 
-  v8 = Property;
-  v9 = 1;
-  std::allocate_shared[abi:ne200100]<mlcore::UnaryPredicate<int>,std::allocator<mlcore::UnaryPredicate<int>>,mlcore::ModelProperty<int> *&,mlcore::UnaryOperator,0>();
+  v9 = Property;
+  v10 = 1;
+  std::allocate_shared[abi:ne200100]<mlcore::UnaryPredicate<int>,std::allocator<mlcore::UnaryPredicate<int>>,mlcore::ModelProperty<int> *&,mlcore::UnaryOperator,0>(v8, &v9, &v10);
 }
 
 - (shared_ptr<mlcore::Predicate>)representedSearchScopePredicate
@@ -220,7 +220,7 @@ void __54__MPModelAlbumKind_kindWithVariants_songKind_options___block_invoke(uin
   songKind = [(MPModelAlbumKind *)self songKind];
   if (songKind)
   {
-    [songKind predicateWithBaseProperty:0];
+    objc_msgSend_predicateWithBaseProperty_(songKind);
   }
 
   else
@@ -229,7 +229,7 @@ void __54__MPModelAlbumKind_kindWithVariants_songKind_options___block_invoke(uin
     v5[1] = 0;
   }
 
-  [(MPModelAlbumKind *)self predicateWithBaseProperty:0];
+  objc_msgSend_predicateWithBaseProperty_(self);
   memset(v4, 0, sizeof(v4));
   std::vector<std::shared_ptr<mlcore::Predicate>>::__init_with_size[abi:ne200100]<std::shared_ptr<mlcore::Predicate> const*,std::shared_ptr<mlcore::Predicate> const*>(v4, v5, &v6, 2uLL);
 }

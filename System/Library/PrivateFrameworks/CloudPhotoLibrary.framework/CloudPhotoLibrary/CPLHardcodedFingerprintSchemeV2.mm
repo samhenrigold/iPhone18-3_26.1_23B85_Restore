@@ -8,32 +8,30 @@
 
 - (void)_createSignatureGenerator
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   if (self->_shouldAssertOnFingerprinting)
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v6 = __CPLGenericOSLogDomain();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+      v5 = __CPLGenericOSLogDomain();
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
         selfCopy = self;
-        _os_log_impl(&dword_1DC05A000, v6, OS_LOG_TYPE_ERROR, "Trying to use %@ fingerprinting", buf, 0xCu);
+        _os_log_impl(&dword_1DC05A000, v5, OS_LOG_TYPE_ERROR, "Trying to use %@ fingerprinting", buf, 0xCu);
       }
     }
 
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-    v8 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Framework/Sources/CPLFingerprintScheme.m"];
-    [currentHandler handleFailureInMethod:a2 object:self file:v8 lineNumber:496 description:{@"Trying to use %@ fingerprinting", self}];
+    v7 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Framework/Sources/CPLFingerprintScheme.m"];
+    [currentHandler handleFailureInMethod:a2 object:self file:v7 lineNumber:496 description:{@"Trying to use %@ fingerprinting", self}];
 
     abort();
   }
 
-  v9.receiver = self;
-  v9.super_class = CPLHardcodedFingerprintSchemeV2;
-  result = [(CPLFingerprintSchemeV2 *)&v9 _createSignatureGenerator];
-  v4 = *MEMORY[0x1E69E9840];
-  return result;
+  v8.receiver = self;
+  v8.super_class = CPLHardcodedFingerprintSchemeV2;
+  return [(CPLFingerprintSchemeV2 *)&v8 _createSignatureGenerator];
 }
 
 - (CPLHardcodedFingerprintSchemeV2)init

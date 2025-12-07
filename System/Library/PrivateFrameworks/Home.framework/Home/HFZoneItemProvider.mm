@@ -38,8 +38,8 @@
 - (id)copyWithZone:(_NSZone *)zone
 {
   v4 = objc_alloc(objc_opt_class());
-  home = [(HFZoneItemProvider *)self home];
-  v6 = [v4 initWithHome:home];
+  v5 = objc_msgSend_home(self);
+  v6 = [v4 initWithHome:v5];
 
   return v6;
 }
@@ -53,8 +53,8 @@
   aBlock[3] = &unk_277DF5228;
   objc_copyWeak(&v14, &location);
   v3 = _Block_copy(aBlock);
-  home = [(HFZoneItemProvider *)self home];
-  zones = [home zones];
+  v4 = objc_msgSend_home(self);
+  zones = [v4 zones];
   v6 = [zones copy];
 
   filter = [(HFZoneItemProvider *)self filter];
@@ -78,7 +78,7 @@ HFZoneItem *__33__HFZoneItemProvider_reloadItems__block_invoke(uint64_t a1, void
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v5 = [HFZoneItem alloc];
-  v6 = [WeakRetained home];
+  v6 = objc_msgSend_home(WeakRetained);
   v7 = [(HFZoneItem *)v5 initWithHome:v6 zone:v3];
 
   return v7;

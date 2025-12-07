@@ -22,10 +22,10 @@
 
 - (id)runAction
 {
-  v28 = *MEMORY[0x1E69E9840];
-  v23.receiver = self;
-  v23.super_class = AMSUIWebActionRunnerAction;
-  runAction = [(AMSUIWebAction *)&v23 runAction];
+  v27 = *MEMORY[0x1E69E9840];
+  v22.receiver = self;
+  v22.super_class = AMSUIWebActionRunnerAction;
+  runAction = [(AMSUIWebAction *)&v22 runAction];
   mEMORY[0x1E698C968] = [MEMORY[0x1E698C968] sharedWebUIConfig];
   if (!mEMORY[0x1E698C968])
   {
@@ -38,9 +38,9 @@
     v6 = objc_opt_class();
     v7 = AMSLogKey();
     *buf = 138543618;
-    v25 = v6;
-    v26 = 2114;
-    v27 = v7;
+    v24 = v6;
+    v25 = 2114;
+    v26 = v7;
     _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Deferring action to UIActionRunner", buf, 0x16u);
   }
 
@@ -59,8 +59,6 @@
 
   actionPayload = [(AMSUIWebActionRunnerAction *)self actionPayload];
   v20 = [AMSUIActionRunner handle:actionPayload context:v18];
-
-  v21 = *MEMORY[0x1E69E9840];
 
   return v20;
 }

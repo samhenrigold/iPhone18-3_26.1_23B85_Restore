@@ -1,6 +1,7 @@
 @interface IndoorProtocolProxy
 - (CLIndoorDelegateProtocol)delegate;
 - (IndoorProtocolProxy)initWithDelegate:(id)delegate;
+- (void)indoorAssetDownloadProgress:(float)progress;
 - (void)indoorDidFailWithError:(id)error;
 - (void)indoorDidShutdown:(id)shutdown;
 - (void)indoorDidUpdateToLocation:(id)location fromLocation:(id)fromLocation;
@@ -57,6 +58,16 @@
   if (objc_opt_respondsToSelector())
   {
     objc_msgSend_indoorGivesUpWithLocation_(v8, v9, v10, v11, v12, locationCopy);
+  }
+}
+
+- (void)indoorAssetDownloadProgress:(float)progress
+{
+  v10 = objc_msgSend_delegate(self, a2, *&progress, v3, v4);
+  if (objc_opt_respondsToSelector())
+  {
+    *&v7 = progress;
+    objc_msgSend_indoorAssetDownloadProgress_(v10, v6, v7, v8, v9);
   }
 }
 

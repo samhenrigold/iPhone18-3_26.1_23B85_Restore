@@ -14,14 +14,15 @@
 
 - (void)setHighlighted:(BOOL)highlighted
 {
+  highlightedCopy = highlighted;
   selfCopy = self;
-  sub_456BEC(highlighted);
+  sub_456BEC(highlightedCopy);
 }
 
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_456E38();
+  sub_456E38(selfCopy);
 }
 
 - (CGSize)sizeThatFits:(CGSize)fits

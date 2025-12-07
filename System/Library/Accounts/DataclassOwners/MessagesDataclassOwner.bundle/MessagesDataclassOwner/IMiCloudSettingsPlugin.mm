@@ -4,6 +4,7 @@
 - (BOOL)eligibleToToggleMiCSwitch;
 - (BOOL)performAction:(id)action forAccount:(id)account withChildren:(id)children forDataclass:(id)dataclass withError:(id *)error;
 - (BOOL)purchasedMaxQuotaTier;
+- (BOOL)setCloudEnable:(BOOL)enable;
 - (id)_deviceNameString;
 - (id)actionsForDisablingDataclassOnAccount:(id)account forDataclass:(id)dataclass withError:(id *)error;
 - (id)actionsForEnablingDataclassOnAccount:(id)account forDataclass:(id)dataclass withError:(id *)error;
@@ -420,6 +421,75 @@ LABEL_22:
 
     [(IMiCloudSettingsPlugin *)self setHasSetupListener:1];
   }
+}
+
+- (BOOL)setCloudEnable:(BOOL)enable
+{
+  enableCopy = enable;
+  [(IMiCloudSettingsPlugin *)self _setupIMListener];
+  v5 = +[IMCloudKitHooks sharedInstance];
+  isEnabled = [v5 isEnabled];
+
+  if (isEnabled != enableCopy)
+  {
+    v7 = dispatch_semaphore_create(0);
+    v8 = qword_C640;
+    qword_C640 = v7;
+
+    v9 = dispatch_time(0, 3000000000);
+    v10 = +[NSNotificationCenter defaultCenter];
+    [v10 addObserver:self selector:"setEnabledDidReturned:" name:IMCloudKitHooksSetEnabledReturned object:0];
+
+    v11 = +[IMCloudKitHooks sharedInstance];
+    [v11 setEnabled:enableCopy];
+
+    v12 = dispatch_semaphore_wait(qword_C640, v9);
+    v13 = IMOSLoggingEnabled();
+    if (v12)
+    {
+      if (v13)
+      {
+        v14 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+        {
+          v18 = 67109120;
+          v19 = byte_C630;
+          _os_log_impl(&dword_0, v14, OS_LOG_TYPE_INFO, "Timeout enable_semaphore, didSucceed: %d", &v18, 8u);
+        }
+
+LABEL_15:
+      }
+    }
+
+    else if (v13)
+    {
+      v14 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+      {
+        v18 = 67109120;
+        v19 = byte_C630;
+        _os_log_impl(&dword_0, v14, OS_LOG_TYPE_INFO, "Signal enable_semaphore, didSucceed: %d", &v18, 8u);
+      }
+
+      goto LABEL_15;
+    }
+
+    v16 = byte_C630;
+    return v16 & 1;
+  }
+
+  if (IMOSLoggingEnabled())
+  {
+    v15 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+    {
+      LOWORD(v18) = 0;
+      _os_log_impl(&dword_0, v15, OS_LOG_TYPE_INFO, "setCloudEnable: Did nothing as it was already enabled/disabled", &v18, 2u);
+    }
+  }
+
+  v16 = 1;
+  return v16 & 1;
 }
 
 - (void)performAdditionalStorageRequiredCheck

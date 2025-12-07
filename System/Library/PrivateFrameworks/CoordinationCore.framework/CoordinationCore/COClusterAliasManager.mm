@@ -128,7 +128,7 @@
 
 void __46__COClusterAliasManager_startTrackingCluster___block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) resolvers];
   v3 = [v2 objectForKey:*(a1 + 40)];
 
@@ -139,13 +139,13 @@ void __46__COClusterAliasManager_startTrackingCluster___block_invoke(uint64_t a1
     {
       v5 = *(a1 + 32);
       v6 = *(a1 + 40);
-      v14 = 134218498;
-      v15 = v5;
-      v16 = 2112;
-      v17 = v6;
-      v18 = 2048;
-      v19 = v3;
-      _os_log_debug_impl(&dword_244378000, v4, OS_LOG_TYPE_DEBUG, "%p already tracking %@ with %p", &v14, 0x20u);
+      v13 = 134218498;
+      v14 = v5;
+      v15 = 2112;
+      v16 = v6;
+      v17 = 2048;
+      v18 = v3;
+      _os_log_debug_impl(&dword_244378000, v4, OS_LOG_TYPE_DEBUG, "%p already tracking %@ with %p", &v13, 0x20u);
     }
   }
 
@@ -167,19 +167,17 @@ void __46__COClusterAliasManager_startTrackingCluster___block_invoke(uint64_t a1
     {
       v11 = *(a1 + 32);
       v12 = *(a1 + 40);
-      v14 = 134218498;
-      v15 = v11;
-      v16 = 2112;
-      v17 = v12;
-      v18 = 2048;
-      v19 = v3;
-      _os_log_impl(&dword_244378000, v10, OS_LOG_TYPE_DEFAULT, "%p will track %@ with %p", &v14, 0x20u);
+      v13 = 134218498;
+      v14 = v11;
+      v15 = 2112;
+      v16 = v12;
+      v17 = 2048;
+      v18 = v3;
+      _os_log_impl(&dword_244378000, v10, OS_LOG_TYPE_DEFAULT, "%p will track %@ with %p", &v13, 0x20u);
     }
 
     [v3 activate];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stopTrackingCluster:(id)cluster
@@ -198,7 +196,7 @@ void __46__COClusterAliasManager_startTrackingCluster___block_invoke(uint64_t a1
 
 void __45__COClusterAliasManager_stopTrackingCluster___block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v2 = (a1 + 32);
   v3 = [*(a1 + 32) resolvers];
   v5 = *(a1 + 40);
@@ -213,11 +211,11 @@ void __45__COClusterAliasManager_stopTrackingCluster___block_invoke(uint64_t a1)
     {
       v9 = *v2;
       v10 = *v4;
-      v13 = 134218242;
-      v14 = v9;
-      v15 = 2112;
-      v16 = v10;
-      _os_log_impl(&dword_244378000, v8, OS_LOG_TYPE_DEFAULT, "%p stopping tracking %@", &v13, 0x16u);
+      v12 = 134218242;
+      v13 = v9;
+      v14 = 2112;
+      v15 = v10;
+      _os_log_impl(&dword_244378000, v8, OS_LOG_TYPE_DEFAULT, "%p stopping tracking %@", &v12, 0x16u);
     }
 
     v11 = [*v2 resolvers];
@@ -230,10 +228,8 @@ void __45__COClusterAliasManager_stopTrackingCluster___block_invoke(uint64_t a1)
 
   else if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
-    __45__COClusterAliasManager_stopTrackingCluster___block_invoke_cold_1(v2, v4);
+    __45__COClusterAliasManager_stopTrackingCluster___block_invoke_cold_1();
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)waitForBootstrapOfCluster:(id)cluster withBlock:(id)block
@@ -271,7 +267,7 @@ void __61__COClusterAliasManager_waitForBootstrapOfCluster_withBlock___block_inv
 
 void __61__COClusterAliasManager_waitForBootstrapOfCluster_withBlock___block_invoke_2(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v2 = (a1 + 32);
   v3 = [*(a1 + 32) resolvers];
   v4 = (a1 + 40);
@@ -290,11 +286,11 @@ void __61__COClusterAliasManager_waitForBootstrapOfCluster_withBlock___block_inv
     {
       v7 = *v2;
       v8 = *v4;
-      v10 = 134218242;
-      v11 = v7;
-      v12 = 2112;
-      v13 = v8;
-      _os_log_impl(&dword_244378000, v6, OS_LOG_TYPE_DEFAULT, "%p already bootstrapped Cluster %@, invoking bootstrap block inline", &v10, 0x16u);
+      v9 = 134218242;
+      v10 = v7;
+      v11 = 2112;
+      v12 = v8;
+      _os_log_impl(&dword_244378000, v6, OS_LOG_TYPE_DEFAULT, "%p already bootstrapped Cluster %@, invoking bootstrap block inline", &v9, 0x16u);
     }
   }
 
@@ -303,14 +299,12 @@ void __61__COClusterAliasManager_waitForBootstrapOfCluster_withBlock___block_inv
     v6 = COCoreLogForCategory(13);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      __61__COClusterAliasManager_waitForBootstrapOfCluster_withBlock___block_invoke_2_cold_1(v2, (a1 + 40));
+      __61__COClusterAliasManager_waitForBootstrapOfCluster_withBlock___block_invoke_2_cold_1();
     }
   }
 
   (*(*(a1 + 48) + 16))();
 LABEL_9:
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)resolver:(id)resolver clusterIdentifierChanged:(id)changed
@@ -335,7 +329,7 @@ LABEL_9:
 
 void __59__COClusterAliasManager_resolver_clusterIdentifierChanged___block_invoke(uint64_t a1)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = [*(a1 + 40) resolvers];
   v4 = [v3 objectForKey:*(a1 + 48)];
@@ -346,38 +340,35 @@ void __59__COClusterAliasManager_resolver_clusterIdentifierChanged___block_invok
     v6 = *(a1 + 48);
     v5 = *(a1 + 56);
     v7 = *(a1 + 40);
-    v8 = *MEMORY[0x277D85DE8];
 
     [v7 _updateClusterIdentifier:v5 forCluster:v6];
   }
 
   else
   {
-    v9 = COCoreLogForCategory(13);
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v8 = COCoreLogForCategory(13);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v12 = *(a1 + 48);
-      v11 = *(a1 + 56);
-      v14 = *(a1 + 32);
-      v13 = *(a1 + 40);
-      v15 = 134218754;
-      v16 = v13;
+      v10 = *(a1 + 48);
+      v9 = *(a1 + 56);
+      v12 = *(a1 + 32);
+      v11 = *(a1 + 40);
+      v13 = 134218754;
+      v14 = v11;
+      v15 = 2112;
+      v16 = v9;
       v17 = 2112;
-      v18 = v11;
+      v18 = v10;
       v19 = 2112;
       v20 = v12;
-      v21 = 2112;
-      v22 = v14;
-      _os_log_error_impl(&dword_244378000, v9, OS_LOG_TYPE_ERROR, "%p ignoring change to %@ for %@ from %@", &v15, 0x2Au);
+      _os_log_error_impl(&dword_244378000, v8, OS_LOG_TYPE_ERROR, "%p ignoring change to %@ for %@ from %@", &v13, 0x2Au);
     }
-
-    v10 = *MEMORY[0x277D85DE8];
   }
 }
 
 - (void)_updateClusterIdentifier:(id)identifier forCluster:(id)cluster
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   clusterCopy = cluster;
   dispatchQueue = [(COClusterAliasManager *)self dispatchQueue];
@@ -393,17 +384,17 @@ void __59__COClusterAliasManager_resolver_clusterIdentifierChanged___block_invok
   v14 = COCoreLogForCategory(13);
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
-    v22 = 134219010;
+    v21 = 134219010;
     selfCopy = self;
-    v24 = 2112;
-    v25 = v13;
-    v26 = 2112;
-    v27 = v10;
-    v28 = 2112;
-    v29 = v12;
-    v30 = 2112;
-    v31 = clusterCopy;
-    _os_log_impl(&dword_244378000, v14, OS_LOG_TYPE_DEFAULT, "%p identifier updated to %@ from %@ (pending %@) for %@", &v22, 0x34u);
+    v23 = 2112;
+    v24 = v13;
+    v25 = 2112;
+    v26 = v10;
+    v27 = 2112;
+    v28 = v12;
+    v29 = 2112;
+    v30 = clusterCopy;
+    _os_log_impl(&dword_244378000, v14, OS_LOG_TYPE_DEFAULT, "%p identifier updated to %@ from %@ (pending %@) for %@", &v21, 0x34u);
   }
 
   resolving = [(COClusterAliasManager *)self resolving];
@@ -452,13 +443,11 @@ void __59__COClusterAliasManager_resolver_clusterIdentifierChanged___block_invok
     v19 = [MEMORY[0x277CBEB98] setWithObject:clusterCopy];
     [(COClusterAliasManager *)self _invokeWaitingBlocksForClusters:v19];
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_applyUpdates
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   dispatchQueue = [(COClusterAliasManager *)self dispatchQueue];
   dispatch_assert_queue_V2(dispatchQueue);
 
@@ -474,10 +463,10 @@ void __59__COClusterAliasManager_resolver_clusterIdentifierChanged___block_invok
       stopping2 = [(COClusterAliasManager *)self stopping];
       *buf = 134218498;
       selfCopy3 = self;
-      v29 = 2048;
-      v30 = v5;
-      v31 = 2112;
-      v32 = stopping2;
+      v28 = 2048;
+      v29 = v5;
+      v30 = 2112;
+      v31 = stopping2;
       _os_log_impl(&dword_244378000, v6, OS_LOG_TYPE_DEFAULT, "%p deferring updates, waiting for %lu (%@) to stop", buf, 0x20u);
     }
   }
@@ -496,27 +485,27 @@ void __59__COClusterAliasManager_resolver_clusterIdentifierChanged___block_invok
     [(COClusterAliasManager *)self setIdentifiers:v10];
 
     [(COClusterAliasManager *)self _recomputeAssociations];
-    v24 = 0u;
-    v25 = 0u;
-    v22 = 0u;
     v23 = 0u;
+    v24 = 0u;
+    v21 = 0u;
+    v22 = 0u;
     associations = [(COClusterAliasManager *)self associations];
-    v12 = [associations countByEnumeratingWithState:&v22 objects:v26 count:16];
+    v12 = [associations countByEnumeratingWithState:&v21 objects:v25 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v23;
+      v14 = *v22;
       do
       {
         v15 = 0;
         do
         {
-          if (*v23 != v14)
+          if (*v22 != v14)
           {
             objc_enumerationMutation(associations);
           }
 
-          v16 = *(*(&v22 + 1) + 8 * v15);
+          v16 = *(*(&v21 + 1) + 8 * v15);
           meshes = [(COClusterAliasManager *)self meshes];
           v18 = [meshes objectForKey:v16];
 
@@ -532,7 +521,7 @@ void __59__COClusterAliasManager_resolver_clusterIdentifierChanged___block_invok
         }
 
         while (v13 != v15);
-        v13 = [associations countByEnumeratingWithState:&v22 objects:v26 count:16];
+        v13 = [associations countByEnumeratingWithState:&v21 objects:v25 count:16];
       }
 
       while (v13);
@@ -546,38 +535,36 @@ void __59__COClusterAliasManager_resolver_clusterIdentifierChanged___block_invok
       _os_log_impl(&dword_244378000, v6, OS_LOG_TYPE_DEFAULT, "%p finished applying updates", buf, 0xCu);
     }
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_recomputeAssociations
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   dispatchQueue = [(COClusterAliasManager *)self dispatchQueue];
   dispatch_assert_queue_V2(dispatchQueue);
 
   v4 = objc_alloc_init(MEMORY[0x277CBEB38]);
   selfCopy = self;
   identifiers = [(COClusterAliasManager *)self identifiers];
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
-  v6 = [identifiers countByEnumeratingWithState:&v19 objects:v29 count:16];
+  v6 = [identifiers countByEnumeratingWithState:&v18 objects:v28 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v20;
+    v8 = *v19;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v20 != v8)
+        if (*v19 != v8)
         {
           objc_enumerationMutation(identifiers);
         }
 
-        v10 = *(*(&v19 + 1) + 8 * i);
+        v10 = *(*(&v18 + 1) + 8 * i);
         v11 = [identifiers objectForKey:v10];
         v12 = [v4 objectForKey:v11];
         v13 = [v12 mutableCopy];
@@ -591,7 +578,7 @@ void __59__COClusterAliasManager_resolver_clusterIdentifierChanged___block_invok
         [v4 setObject:v13 forKey:v11];
       }
 
-      v7 = [identifiers countByEnumeratingWithState:&v19 objects:v29 count:16];
+      v7 = [identifiers countByEnumeratingWithState:&v18 objects:v28 count:16];
     }
 
     while (v7);
@@ -604,15 +591,13 @@ void __59__COClusterAliasManager_resolver_clusterIdentifierChanged___block_invok
     v15 = [v4 count];
     v16 = [identifiers count];
     *buf = 134218496;
-    v24 = selfCopy;
-    v25 = 2048;
-    v26 = v15;
-    v27 = 2048;
-    v28 = v16;
+    v23 = selfCopy;
+    v24 = 2048;
+    v25 = v15;
+    v26 = 2048;
+    v27 = v16;
     _os_log_impl(&dword_244378000, v14, OS_LOG_TYPE_DEFAULT, "%p recomputed associations, %lu meshes for %lu Clusters", buf, 0x20u);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_clusterIsBootstrapped:(id)bootstrapped
@@ -661,7 +646,7 @@ void __59__COClusterAliasManager_resolver_clusterIdentifierChanged___block_invok
 
 - (void)_addWaitingBlock:(id)block forCluster:(id)cluster
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   blockCopy = block;
   clusterCopy = cluster;
   dispatchQueue = [(COClusterAliasManager *)self dispatchQueue];
@@ -688,10 +673,10 @@ void __59__COClusterAliasManager_resolver_clusterIdentifierChanged___block_invok
   {
     *buf = 134218498;
     selfCopy = self;
-    v20 = 2048;
-    v21 = [v12 count];
-    v22 = 2112;
-    v23 = clusterCopy;
+    v19 = 2048;
+    v20 = [v12 count];
+    v21 = 2112;
+    v22 = clusterCopy;
     _os_log_impl(&dword_244378000, v14, OS_LOG_TYPE_DEFAULT, "%p now %lu blocks waiting for bootstrap of Cluster %@", buf, 0x20u);
   }
 
@@ -700,13 +685,11 @@ void __59__COClusterAliasManager_resolver_clusterIdentifierChanged___block_invok
 
   [v16 setObject:v12 forKey:clusterCopy];
   [(COClusterAliasManager *)self setWaiting:v16];
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_invokeWaitingBlocksForClusters:(id)clusters
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   clustersCopy = clusters;
   dispatchQueue = [(COClusterAliasManager *)self dispatchQueue];
   dispatch_assert_queue_V2(dispatchQueue);
@@ -715,29 +698,29 @@ void __59__COClusterAliasManager_resolver_clusterIdentifierChanged___block_invok
   v7 = [waiting mutableCopy];
 
   array = [MEMORY[0x277CBEB18] array];
+  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
   v9 = clustersCopy;
-  v10 = [v9 countByEnumeratingWithState:&v26 objects:v36 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v25 objects:v35 count:16];
   if (v10)
   {
     v12 = v10;
-    v13 = *v27;
+    v13 = *v26;
     *&v11 = 134218242;
-    v23 = v11;
+    v22 = v11;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v27 != v13)
+        if (*v26 != v13)
         {
           objc_enumerationMutation(v9);
         }
 
-        v15 = *(*(&v26 + 1) + 8 * i);
-        if ([(COClusterAliasManager *)self _clusterIsBootstrapped:v15, v23])
+        v15 = *(*(&v25 + 1) + 8 * i);
+        if ([(COClusterAliasManager *)self _clusterIsBootstrapped:v15, v22])
         {
           waiting2 = [(COClusterAliasManager *)self waiting];
           v17 = [waiting2 objectForKey:v15];
@@ -750,10 +733,10 @@ void __59__COClusterAliasManager_resolver_clusterIdentifierChanged___block_invok
               v19 = [v17 count];
               *buf = 134218498;
               selfCopy2 = self;
-              v32 = 2048;
-              v33 = v19;
-              v34 = 2112;
-              v35 = v15;
+              v31 = 2048;
+              v32 = v19;
+              v33 = 2112;
+              v34 = v15;
               _os_log_impl(&dword_244378000, v18, OS_LOG_TYPE_DEFAULT, "%p now invoking %lu blocks waiting for bootstrap of Cluster %@", buf, 0x20u);
             }
 
@@ -767,16 +750,16 @@ void __59__COClusterAliasManager_resolver_clusterIdentifierChanged___block_invok
           v17 = COCoreLogForCategory(13);
           if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
           {
-            *buf = v23;
+            *buf = v22;
             selfCopy2 = self;
-            v32 = 2112;
-            v33 = v15;
+            v31 = 2112;
+            v32 = v15;
             _os_log_error_impl(&dword_244378000, v17, OS_LOG_TYPE_ERROR, "%p NOT invoking blocks waiting for bootstrap of Cluster %@, not bootstrapped", buf, 0x16u);
           }
         }
       }
 
-      v12 = [v9 countByEnumeratingWithState:&v26 objects:v36 count:16];
+      v12 = [v9 countByEnumeratingWithState:&v25 objects:v35 count:16];
     }
 
     while (v12);
@@ -788,53 +771,49 @@ void __59__COClusterAliasManager_resolver_clusterIdentifierChanged___block_invok
   block[1] = 3221225472;
   block[2] = __57__COClusterAliasManager__invokeWaitingBlocksForClusters___block_invoke;
   block[3] = &unk_278E15AB8;
-  v25 = array;
+  v24 = array;
   v21 = array;
   dispatch_async(delegateDispatchQueue, block);
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 void __57__COClusterAliasManager__invokeWaitingBlocksForClusters___block_invoke(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
+  v6 = 0u;
   v7 = 0u;
   v8 = 0u;
   v9 = 0u;
-  v10 = 0u;
   v1 = *(a1 + 32);
-  v2 = [v1 countByEnumeratingWithState:&v7 objects:v11 count:16];
+  v2 = [v1 countByEnumeratingWithState:&v6 objects:v10 count:16];
   if (v2)
   {
     v3 = v2;
-    v4 = *v8;
+    v4 = *v7;
     do
     {
       v5 = 0;
       do
       {
-        if (*v8 != v4)
+        if (*v7 != v4)
         {
           objc_enumerationMutation(v1);
         }
 
-        (*(*(*(&v7 + 1) + 8 * v5) + 16))(*(*(&v7 + 1) + 8 * v5));
+        (*(*(*(&v6 + 1) + 8 * v5) + 16))(*(*(&v6 + 1) + 8 * v5));
         ++v5;
       }
 
       while (v3 != v5);
-      v3 = [v1 countByEnumeratingWithState:&v7 objects:v11 count:16];
+      v3 = [v1 countByEnumeratingWithState:&v6 objects:v10 count:16];
     }
 
     while (v3);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_deactivateMeshWithClusterIdentifier:(id)identifier
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   dispatchQueue = [(COClusterAliasManager *)self dispatchQueue];
   dispatch_assert_queue_V2(dispatchQueue);
@@ -865,15 +844,15 @@ void __57__COClusterAliasManager__invokeWaitingBlocksForClusters___block_invoke(
       v12 = COCoreLogForCategory(13);
       if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
-        v17 = 134218754;
+        v16 = 134218754;
         selfCopy2 = self;
-        v19 = 2048;
-        v20 = v8;
-        v21 = 2112;
-        v22 = identifierCopy;
-        v23 = 2048;
-        v24 = [v11 count];
-        _os_log_impl(&dword_244378000, v12, OS_LOG_TYPE_DEFAULT, "%p deactivating %p with %@ (%lu stopping)", &v17, 0x2Au);
+        v18 = 2048;
+        v19 = v8;
+        v20 = 2112;
+        v21 = identifierCopy;
+        v22 = 2048;
+        v23 = [v11 count];
+        _os_log_impl(&dword_244378000, v12, OS_LOG_TYPE_DEFAULT, "%p deactivating %p with %@ (%lu stopping)", &v16, 0x2Au);
       }
 
       starting = [(COClusterAliasManager *)self starting];
@@ -884,13 +863,13 @@ void __57__COClusterAliasManager__invokeWaitingBlocksForClusters___block_invoke(
         v15 = COCoreLogForCategory(13);
         if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
         {
-          v17 = 134218498;
+          v16 = 134218498;
           selfCopy2 = self;
-          v19 = 2048;
-          v20 = v8;
-          v21 = 2112;
-          v22 = identifierCopy;
-          _os_log_debug_impl(&dword_244378000, v15, OS_LOG_TYPE_DEBUG, "%p deferring deactivation of %p with %@", &v17, 0x20u);
+          v18 = 2048;
+          v19 = v8;
+          v20 = 2112;
+          v21 = identifierCopy;
+          _os_log_debug_impl(&dword_244378000, v15, OS_LOG_TYPE_DEBUG, "%p deferring deactivation of %p with %@", &v16, 0x20u);
         }
       }
 
@@ -900,13 +879,11 @@ void __57__COClusterAliasManager__invokeWaitingBlocksForClusters___block_invoke(
       }
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_activateMeshWithClusterIdentifier:(id)identifier forClusters:(id)clusters
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   clustersCopy = clusters;
   dispatchQueue = [(COClusterAliasManager *)self dispatchQueue];
@@ -922,12 +899,12 @@ void __57__COClusterAliasManager__invokeWaitingBlocksForClusters___block_invoke(
     {
       *buf = 134218754;
       selfCopy3 = self;
-      v23 = 2048;
-      v24 = v10;
-      v25 = 2112;
-      v26 = identifierCopy;
-      v27 = 2112;
-      v28 = clustersCopy;
+      v22 = 2048;
+      v23 = v10;
+      v24 = 2112;
+      v25 = identifierCopy;
+      v26 = 2112;
+      v27 = clustersCopy;
       _os_log_impl(&dword_244378000, v11, OS_LOG_TYPE_DEFAULT, "%p found existing %p with %@ for %@ to activate", buf, 0x2Au);
     }
 
@@ -947,25 +924,25 @@ LABEL_6:
     {
       *buf = 134218754;
       selfCopy3 = self;
-      v23 = 2048;
-      v24 = v10;
-      v25 = 2112;
-      v26 = identifierCopy;
-      v27 = 2112;
-      v28 = clustersCopy;
+      v22 = 2048;
+      v23 = v10;
+      v24 = 2112;
+      v25 = identifierCopy;
+      v26 = 2112;
+      v27 = clustersCopy;
       _os_log_impl(&dword_244378000, v14, OS_LOG_TYPE_DEFAULT, "%p activating %p with %@ for %@", buf, 0x2Au);
     }
 
-    v17[0] = MEMORY[0x277D85DD0];
-    v17[1] = 3221225472;
-    v17[2] = __72__COClusterAliasManager__activateMeshWithClusterIdentifier_forClusters___block_invoke;
-    v17[3] = &unk_278E15C88;
-    v17[4] = self;
-    v18 = identifierCopy;
-    v19 = v10;
-    v20 = clustersCopy;
+    v16[0] = MEMORY[0x277D85DD0];
+    v16[1] = 3221225472;
+    v16[2] = __72__COClusterAliasManager__activateMeshWithClusterIdentifier_forClusters___block_invoke;
+    v16[3] = &unk_278E15C88;
+    v16[4] = self;
+    v17 = identifierCopy;
+    v18 = v10;
+    v19 = clustersCopy;
     v15 = v10;
-    [(COClusterAliasManager *)self _delegateNotifyActivatingMesh:v15 withClusterIdentifier:v18 forClusters:v20 completion:v17];
+    [(COClusterAliasManager *)self _delegateNotifyActivatingMesh:v15 withClusterIdentifier:v17 forClusters:v19 completion:v16];
 
     goto LABEL_9;
   }
@@ -975,21 +952,19 @@ LABEL_6:
   {
     *buf = 134218498;
     selfCopy3 = self;
-    v23 = 2112;
-    v24 = identifierCopy;
-    v25 = 2112;
-    v26 = clustersCopy;
+    v22 = 2112;
+    v23 = identifierCopy;
+    v24 = 2112;
+    v25 = clustersCopy;
     _os_log_error_impl(&dword_244378000, v15, OS_LOG_TYPE_ERROR, "%p unable to activate with %@ for %@", buf, 0x20u);
   }
 
 LABEL_9:
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __72__COClusterAliasManager__activateMeshWithClusterIdentifier_forClusters___block_invoke(uint64_t a1)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) starting];
   v3 = [v2 mutableCopy];
 
@@ -1012,29 +987,27 @@ void __72__COClusterAliasManager__activateMeshWithClusterIdentifier_forClusters_
       v8 = *(a1 + 40);
       v9 = *(a1 + 48);
       v10 = *(a1 + 56);
-      v12 = 134219010;
-      v13 = v7;
-      v14 = 2048;
-      v15 = v9;
-      v16 = 2112;
-      v17 = v8;
-      v18 = 2112;
-      v19 = v10;
-      v20 = 2048;
-      v21 = [v3 count];
-      _os_log_impl(&dword_244378000, v6, OS_LOG_TYPE_DEFAULT, "%p starting %p with %@ for %@ (%lu starting)", &v12, 0x34u);
+      v11 = 134219010;
+      v12 = v7;
+      v13 = 2048;
+      v14 = v9;
+      v15 = 2112;
+      v16 = v8;
+      v17 = 2112;
+      v18 = v10;
+      v19 = 2048;
+      v20 = [v3 count];
+      _os_log_impl(&dword_244378000, v6, OS_LOG_TYPE_DEFAULT, "%p starting %p with %@ for %@ (%lu starting)", &v11, 0x34u);
     }
 
     [*(a1 + 48) start];
     [*(a1 + 32) _invokeWaitingBlocksForClusters:*(a1 + 56)];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_prepareNewMeshWithClusterIdentifier:(id)identifier forClusters:(id)clusters
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   clustersCopy = clusters;
   dispatchQueue = [(COClusterAliasManager *)self dispatchQueue];
@@ -1056,12 +1029,12 @@ void __72__COClusterAliasManager__activateMeshWithClusterIdentifier_forClusters_
     {
       *buf = 134218754;
       selfCopy2 = self;
-      v46 = 2048;
-      v47 = _providerRequestMesh;
-      v48 = 2112;
-      v49 = identifierCopy;
-      v50 = 2112;
-      v51 = clustersCopy;
+      v45 = 2048;
+      v46 = _providerRequestMesh;
+      v47 = 2112;
+      v48 = identifierCopy;
+      v49 = 2112;
+      v50 = clustersCopy;
       _os_log_impl(&dword_244378000, v14, OS_LOG_TYPE_DEFAULT, "%p created %p with %@ for %@", buf, 0x2Au);
     }
 
@@ -1071,32 +1044,32 @@ void __72__COClusterAliasManager__activateMeshWithClusterIdentifier_forClusters_
 
     v16 = objc_alloc_init(_COClusterAliasManagerStateTrackingAddOn);
     [(_COClusterAliasManagerStateTrackingAddOn *)v16 setAliasManager:self];
-    v38 = v16;
+    v37 = v16;
     [_providerRequestMesh addAddOn:v16];
     meshes = [(COClusterAliasManager *)self meshes];
-    v37 = meshes;
+    v36 = meshes;
     if ([MEMORY[0x277CFD0B8] isSharedCompanionLinkClientEnabled])
     {
-      v41 = 0u;
-      v42 = 0u;
-      v39 = 0u;
       v40 = 0u;
+      v41 = 0u;
+      v38 = 0u;
+      v39 = 0u;
       allValues = [meshes allValues];
-      v19 = [allValues countByEnumeratingWithState:&v39 objects:v43 count:16];
+      v19 = [allValues countByEnumeratingWithState:&v38 objects:v42 count:16];
       if (v19)
       {
         v20 = v19;
-        v21 = *v40;
+        v21 = *v39;
         while (2)
         {
           for (i = 0; i != v20; ++i)
           {
-            if (*v40 != v21)
+            if (*v39 != v21)
             {
               objc_enumerationMutation(allValues);
             }
 
-            companionLinkClientFactory = [*(*(&v39 + 1) + 8 * i) companionLinkClientFactory];
+            companionLinkClientFactory = [*(*(&v38 + 1) + 8 * i) companionLinkClientFactory];
             if (companionLinkClientFactory)
             {
               v24 = companionLinkClientFactory;
@@ -1105,7 +1078,7 @@ void __72__COClusterAliasManager__activateMeshWithClusterIdentifier_forClusters_
             }
           }
 
-          v20 = [allValues countByEnumeratingWithState:&v39 objects:v43 count:16];
+          v20 = [allValues countByEnumeratingWithState:&v38 objects:v42 count:16];
           if (v20)
           {
             continue;
@@ -1119,7 +1092,7 @@ void __72__COClusterAliasManager__activateMeshWithClusterIdentifier_forClusters_
 LABEL_15:
       [_providerRequestMesh setCompanionLinkClientFactory:v24];
 
-      meshes = v37;
+      meshes = v36;
     }
 
     v25 = [meshes mutableCopy];
@@ -1128,7 +1101,7 @@ LABEL_15:
     v26 = COCoreLogForCategory(13);
     if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
     {
-      v36 = [v25 count];
+      v35 = [v25 count];
       starting = [(COClusterAliasManager *)self starting];
       v28 = configuration;
       v29 = clustersCopy;
@@ -1138,22 +1111,20 @@ LABEL_15:
       v33 = [stopping count];
       *buf = 134218752;
       selfCopy2 = self;
-      v46 = 2048;
-      v47 = v36;
-      v48 = 2048;
-      v49 = v31;
+      v45 = 2048;
+      v46 = v35;
+      v47 = 2048;
+      v48 = v31;
       identifierCopy = v30;
       clustersCopy = v29;
       configuration = v28;
-      v50 = 2048;
-      v51 = v33;
+      v49 = 2048;
+      v50 = v33;
       _os_log_impl(&dword_244378000, v26, OS_LOG_TYPE_DEFAULT, "%p now %lu meshes (%lu starting, %lu stopping)", buf, 0x2Au);
 
-      meshes = v37;
+      meshes = v36;
     }
   }
-
-  v34 = *MEMORY[0x277D85DE8];
 
   return _providerRequestMesh;
 }
@@ -1177,7 +1148,7 @@ LABEL_15:
 
 void __47__COClusterAliasManager_didStopMeshController___block_invoke(uint64_t a1)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) associations];
   v3 = [v2 objectForKey:*(a1 + 40)];
 
@@ -1188,34 +1159,32 @@ void __47__COClusterAliasManager_didStopMeshController___block_invoke(uint64_t a
     v5 = *(a1 + 48);
     v7 = *(a1 + 32);
     *buf = 134218754;
-    v16 = v7;
-    v17 = 2048;
-    v18 = v5;
-    v19 = 2112;
-    v20 = v6;
-    v21 = 2112;
-    v22 = v3;
+    v15 = v7;
+    v16 = 2048;
+    v17 = v5;
+    v18 = 2112;
+    v19 = v6;
+    v20 = 2112;
+    v21 = v3;
     _os_log_impl(&dword_244378000, v4, OS_LOG_TYPE_DEFAULT, "%p deactivating stopped %p with %@ for %@", buf, 0x2Au);
   }
 
   v8 = *(a1 + 40);
   v9 = *(a1 + 48);
   v10 = *(a1 + 32);
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __47__COClusterAliasManager_didStopMeshController___block_invoke_22;
-  v12[3] = &unk_278E15728;
-  v12[4] = v10;
-  v13 = v8;
-  v14 = *(a1 + 48);
-  [v10 _delegateNotifyDeactivatingMesh:v9 withClusterIdentifier:v13 forClusters:v3 completion:v12];
-
-  v11 = *MEMORY[0x277D85DE8];
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __47__COClusterAliasManager_didStopMeshController___block_invoke_22;
+  v11[3] = &unk_278E15728;
+  v11[4] = v10;
+  v12 = v8;
+  v13 = *(a1 + 48);
+  [v10 _delegateNotifyDeactivatingMesh:v9 withClusterIdentifier:v12 forClusters:v3 completion:v11];
 }
 
 void __47__COClusterAliasManager_didStopMeshController___block_invoke_22(uint64_t a1)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) meshes];
   v3 = [v2 mutableCopy];
 
@@ -1234,23 +1203,22 @@ void __47__COClusterAliasManager_didStopMeshController___block_invoke_22(uint64_
     v9 = *(a1 + 32);
     v10 = [v3 count];
     v11 = [*(a1 + 32) starting];
-    v13 = 134219266;
-    v14 = v9;
-    v15 = 2048;
-    v16 = v7;
-    v17 = 2112;
-    v18 = v8;
-    v19 = 2048;
-    v20 = v10;
-    v21 = 2048;
-    v22 = [v11 count];
-    v23 = 2048;
-    v24 = [v5 count];
-    _os_log_impl(&dword_244378000, v6, OS_LOG_TYPE_DEFAULT, "%p removing deactivated %p with %@ (now %lu meshes, %lu starting, %lu stopping)", &v13, 0x3Eu);
+    v12 = 134219266;
+    v13 = v9;
+    v14 = 2048;
+    v15 = v7;
+    v16 = 2112;
+    v17 = v8;
+    v18 = 2048;
+    v19 = v10;
+    v20 = 2048;
+    v21 = [v11 count];
+    v22 = 2048;
+    v23 = [v5 count];
+    _os_log_impl(&dword_244378000, v6, OS_LOG_TYPE_DEFAULT, "%p removing deactivated %p with %@ (now %lu meshes, %lu starting, %lu stopping)", &v12, 0x3Eu);
   }
 
   [*(a1 + 32) _applyUpdates];
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_providerRequestMesh
@@ -1380,72 +1348,72 @@ void __102__COClusterAliasManager__delegateNotifyDeactivatingMesh_withClusterIde
 
 - (id)_labelForClusters:(id)clusters
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   clustersCopy = clusters;
   v4 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v26 = 0u;
   v27 = 0u;
   v28 = 0u;
   v29 = 0u;
-  v30 = 0u;
   v5 = clustersCopy;
-  v6 = [v5 countByEnumeratingWithState:&v27 objects:v33 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v26 objects:v32 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v28;
+    v8 = *v27;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v28 != v8)
+        if (*v27 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        label = [*(*(&v27 + 1) + 8 * i) label];
+        label = [*(*(&v26 + 1) + 8 * i) label];
         [v4 addObject:label];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v27 objects:v33 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v26 objects:v32 count:16];
     }
 
     while (v7);
   }
 
   v11 = *MEMORY[0x277CFCEF0];
-  v32[0] = *MEMORY[0x277CFCEE8];
-  v32[1] = v11;
+  v31[0] = *MEMORY[0x277CFCEE8];
+  v31[1] = v11;
   v12 = *MEMORY[0x277CFCEE0];
-  v32[2] = *MEMORY[0x277CFCED8];
-  v32[3] = v12;
-  [MEMORY[0x277CBEA60] arrayWithObjects:v32 count:4];
+  v31[2] = *MEMORY[0x277CFCED8];
+  v31[3] = v12;
+  [MEMORY[0x277CBEA60] arrayWithObjects:v31 count:4];
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
-  v13 = v26 = 0u;
-  v14 = [v13 countByEnumeratingWithState:&v23 objects:v31 count:16];
+  v13 = v25 = 0u;
+  v14 = [v13 countByEnumeratingWithState:&v22 objects:v30 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v24;
+    v16 = *v23;
 LABEL_10:
     v17 = 0;
     while (1)
     {
-      if (*v24 != v16)
+      if (*v23 != v16)
       {
         objc_enumerationMutation(v13);
       }
 
-      v18 = *(*(&v23 + 1) + 8 * v17);
-      if ([v4 containsObject:{v18, v23}])
+      v18 = *(*(&v22 + 1) + 8 * v17);
+      if ([v4 containsObject:{v18, v22}])
       {
         break;
       }
 
       if (v15 == ++v17)
       {
-        v15 = [v13 countByEnumeratingWithState:&v23 objects:v31 count:16];
+        v15 = [v13 countByEnumeratingWithState:&v22 objects:v30 count:16];
         if (v15)
         {
           goto LABEL_10;
@@ -1468,11 +1436,10 @@ LABEL_10:
 LABEL_16:
   }
 
-  v20 = [v4 sortedArrayUsingSelector:{sel_localizedCaseInsensitiveCompare_, v23}];
+  v20 = [v4 sortedArrayUsingSelector:{sel_localizedCaseInsensitiveCompare_, v22}];
   v19 = [v20 componentsJoinedByString:@"|"];
 
 LABEL_19:
-  v21 = *MEMORY[0x277D85DE8];
 
   return v19;
 }
@@ -1491,35 +1458,14 @@ LABEL_19:
   return WeakRetained;
 }
 
-void __45__COClusterAliasManager_stopTrackingCluster___block_invoke_cold_1(uint64_t *a1, uint64_t *a2)
-{
-  v7 = *MEMORY[0x277D85DE8];
-  v2 = *a1;
-  v3 = *a2;
-  OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_1(&dword_244378000, v4, v5, "%p not tracking %@");
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __61__COClusterAliasManager_waitForBootstrapOfCluster_withBlock___block_invoke_2_cold_1(uint64_t *a1, uint64_t *a2)
-{
-  v7 = *MEMORY[0x277D85DE8];
-  v2 = *a1;
-  v3 = *a2;
-  OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_1(&dword_244378000, v4, v5, "%p no resolver for Cluster %@, invoking bootstrap block inline");
-  v6 = *MEMORY[0x277D85DE8];
-}
-
 - (void)_deactivateMeshWithClusterIdentifier:(os_log_t)log .cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 134218242;
-  v5 = a1;
-  v6 = 2112;
-  v7 = a2;
-  _os_log_debug_impl(&dword_244378000, log, OS_LOG_TYPE_DEBUG, "%p already deactivating %@", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 134218242;
+  v4 = a1;
+  v5 = 2112;
+  v6 = a2;
+  _os_log_debug_impl(&dword_244378000, log, OS_LOG_TYPE_DEBUG, "%p already deactivating %@", &v3, 0x16u);
 }
 
 @end

@@ -72,12 +72,12 @@
 
 - (void)updateBypassParameters
 {
-  v3 = sub_100011660();
-  sub_100185AC0(v3, &v12);
-  sub_10001CB4C(v12, "VO2MaxRetrocomputeMinMeanDelta_Bypass", &self->fShouldBypassMinDelta);
-  if (v13)
+  v3 = sub_100011660(self, a2);
+  sub_100185AC0(v3, &v16);
+  sub_10001CB4C(v16, "VO2MaxRetrocomputeMinMeanDelta_Bypass", &self->fShouldBypassMinDelta, 0xFFFFFFFFLL);
+  if (v17)
   {
-    sub_100008080(v13);
+    sub_100008080(v17);
   }
 
   if (qword_1025D4450 != -1)
@@ -89,22 +89,23 @@
   if (os_log_type_enabled(qword_1025D4458, OS_LOG_TYPE_INFO))
   {
     fShouldBypassMinDelta = self->fShouldBypassMinDelta;
-    LODWORD(v12) = 67240192;
-    HIDWORD(v12) = fShouldBypassMinDelta;
-    _os_log_impl(dword_100000000, v4, OS_LOG_TYPE_INFO, "Updated fShouldBypassMinDelta to %{public}d", &v12, 8u);
+    LODWORD(v16) = 67240192;
+    HIDWORD(v16) = fShouldBypassMinDelta;
+    _os_log_impl(dword_100000000, v4, OS_LOG_TYPE_INFO, "Updated fShouldBypassMinDelta to %{public}d", &v16, 8u);
   }
 
-  if (sub_10000A100(121, 2))
+  v6 = sub_10000A100(121, 2);
+  if (v6)
   {
     sub_1018BE090(&self->fShouldBypassMinDelta);
   }
 
-  v6 = sub_100011660();
-  sub_100185AC0(v6, &v12);
-  sub_10001CB4C(v12, "VO2MaxRetrocomputeMinPrevAlgSampleInterval_Bypass", &self->fShouldBypassPreviousSampleInternal);
-  if (v13)
+  v8 = sub_100011660(v6, v7);
+  sub_100185AC0(v8, &v16);
+  sub_10001CB4C(v16, "VO2MaxRetrocomputeMinPrevAlgSampleInterval_Bypass", &self->fShouldBypassPreviousSampleInternal, 0xFFFFFFFFLL);
+  if (v17)
   {
-    sub_100008080(v13);
+    sub_100008080(v17);
   }
 
   if (qword_1025D4450 != -1)
@@ -112,26 +113,27 @@
     sub_1018BE068();
   }
 
-  v7 = qword_1025D4458;
+  v9 = qword_1025D4458;
   if (os_log_type_enabled(qword_1025D4458, OS_LOG_TYPE_INFO))
   {
     fShouldBypassPreviousSampleInternal = self->fShouldBypassPreviousSampleInternal;
-    LODWORD(v12) = 67240192;
-    HIDWORD(v12) = fShouldBypassPreviousSampleInternal;
-    _os_log_impl(dword_100000000, v7, OS_LOG_TYPE_INFO, "Updated fShouldBypassPreviousSampleInternal to %{public}d", &v12, 8u);
+    LODWORD(v16) = 67240192;
+    HIDWORD(v16) = fShouldBypassPreviousSampleInternal;
+    _os_log_impl(dword_100000000, v9, OS_LOG_TYPE_INFO, "Updated fShouldBypassPreviousSampleInternal to %{public}d", &v16, 8u);
   }
 
-  if (sub_10000A100(121, 2))
+  v11 = sub_10000A100(121, 2);
+  if (v11)
   {
     sub_1018BE18C(&self->fShouldBypassPreviousSampleInternal);
   }
 
-  v9 = sub_100011660();
-  sub_100185AC0(v9, &v12);
-  sub_10001CB4C(v12, "VO2MaxRetrocomputeMinEstimatesUpdatedRatio_Bypass", &self->fShouldBypassMinEstimatesUpdatedRatio);
-  if (v13)
+  v13 = sub_100011660(v11, v12);
+  sub_100185AC0(v13, &v16);
+  sub_10001CB4C(v16, "VO2MaxRetrocomputeMinEstimatesUpdatedRatio_Bypass", &self->fShouldBypassMinEstimatesUpdatedRatio, 0xFFFFFFFFLL);
+  if (v17)
   {
-    sub_100008080(v13);
+    sub_100008080(v17);
   }
 
   if (qword_1025D4450 != -1)
@@ -139,13 +141,13 @@
     sub_1018BE068();
   }
 
-  v10 = qword_1025D4458;
+  v14 = qword_1025D4458;
   if (os_log_type_enabled(qword_1025D4458, OS_LOG_TYPE_INFO))
   {
     fShouldBypassMinEstimatesUpdatedRatio = self->fShouldBypassMinEstimatesUpdatedRatio;
-    LODWORD(v12) = 67240192;
-    HIDWORD(v12) = fShouldBypassMinEstimatesUpdatedRatio;
-    _os_log_impl(dword_100000000, v10, OS_LOG_TYPE_INFO, "Updated fShouldBypassMinEstimatesUpdatedRatio to %{public}d", &v12, 8u);
+    LODWORD(v16) = 67240192;
+    HIDWORD(v16) = fShouldBypassMinEstimatesUpdatedRatio;
+    _os_log_impl(dword_100000000, v14, OS_LOG_TYPE_INFO, "Updated fShouldBypassMinEstimatesUpdatedRatio to %{public}d", &v16, 8u);
   }
 
   if (sub_10000A100(121, 2))
@@ -207,28 +209,32 @@
     _os_log_impl(dword_100000000, v3, OS_LOG_TYPE_DEFAULT, "Starting up CLVO2MaxService", buf, 2u);
   }
 
-  if (sub_10000A100(121, 2))
+  v4 = sub_10000A100(121, 2);
+  if (v4)
   {
     sub_1018BE490();
   }
 
-  sub_10001A3E8();
-  if (sub_10001CF04())
+  v6 = sub_10001A3E8(v4, v5);
+  v8 = sub_10001CF04(v6, v7);
+  if (v8)
   {
     sub_1004E1D6C();
   }
 
-  sub_10001A3E8();
-  if (sub_10071C8FC())
+  v10 = sub_10001A3E8(v8, v9);
+  cntrl = sub_10071C8FC(v10, v11);
+  if (cntrl)
   {
     sub_1008FC5E0(buf);
-    v4 = *buf;
+    v14 = *buf;
     memset(buf, 0, sizeof(buf));
     cntrl = self->fPriorDb.__cntrl_;
-    self->fPriorDb = v4;
+    self->fPriorDb = v14;
     if (cntrl)
     {
       sub_100008080(cntrl);
+      cntrl = *&buf[8];
       if (*&buf[8])
       {
         sub_100008080(*&buf[8]);
@@ -236,8 +242,8 @@
     }
   }
 
-  sub_10001A3E8();
-  if (sub_10001CF04())
+  v15 = sub_10001A3E8(cntrl, v13);
+  if (sub_10001CF04(v15, v16))
   {
     [(CLVO2MaxService *)self registerPriorRepeatingTask];
     [(CLVO2MaxService *)self submitPriorRepeatingTask];
@@ -277,7 +283,7 @@
 
 - (void)registerForRetrocomputeStatusUpdates:(id)updates
 {
-  if (sub_10001CF04())
+  if (sub_10001CF04(self, a2))
   {
     [(NSMutableSet *)[(CLVO2MaxService *)self retrocomputeStatusClients] addObject:updates];
     sub_10000FF38(v12, "com.apple.locationd.VO2MaxService.Retrocompute", 0);
@@ -327,7 +333,7 @@
 
 - (void)unregisterForRetrocomputeStatusUpdates:(id)updates
 {
-  if (sub_10001CF04())
+  if (sub_10001CF04(self, a2))
   {
     retrocomputeStatusClients = [(CLVO2MaxService *)self retrocomputeStatusClients];
 
@@ -442,57 +448,58 @@
 - (void)scheduleRetrocomputePreprocessing
 {
   Current = CFAbsoluteTimeGetCurrent();
-  v4 = sub_100011660();
-  sub_100185AC0(v4, &v14);
-  v13 = 0.0;
-  sub_1000B9370(v14, "VO2MaxRetrocomputeNextPreprocessingTime", &v13);
-  v5 = v13;
-  if (v13 > Current + XPC_ACTIVITY_INTERVAL_1_DAY)
+  v6 = sub_100011660(v4, v5);
+  sub_100185AC0(v6, &v19);
+  v18 = 0.0;
+  sub_1000B9370(v19, "VO2MaxRetrocomputeNextPreprocessingTime", &v18);
+  v7 = v18;
+  if (v18 > Current + XPC_ACTIVITY_INTERVAL_1_DAY)
   {
     if (qword_1025D4450 != -1)
     {
       sub_1018BE068();
     }
 
-    v6 = qword_1025D4458;
+    v8 = qword_1025D4458;
     if (os_log_type_enabled(qword_1025D4458, OS_LOG_TYPE_ERROR))
     {
       *buf = 136446466;
-      v23 = "VO2MaxRetrocomputeNextPreprocessingTime";
-      v24 = 2050;
-      v25 = v13;
-      _os_log_impl(dword_100000000, v6, OS_LOG_TYPE_ERROR, "%{public}s is too far in the future (%{public}.2f). Resetting!", buf, 0x16u);
+      v28 = "VO2MaxRetrocomputeNextPreprocessingTime";
+      v29 = 2050;
+      v30 = v18;
+      _os_log_impl(dword_100000000, v8, OS_LOG_TYPE_ERROR, "%{public}s is too far in the future (%{public}.2f). Resetting!", buf, 0x16u);
     }
 
     if (sub_10000A100(121, 0))
     {
       sub_1018BEA08(buf);
-      v16 = 136446466;
-      v17 = "VO2MaxRetrocomputeNextPreprocessingTime";
-      v18 = 2050;
-      v19 = v13;
-      v11 = _os_log_send_and_compose_impl();
-      sub_100152C7C("Generic", 1, 0, 0, "[CLVO2MaxService scheduleRetrocomputePreprocessing]", "%s\n", v11);
-      if (v11 != buf)
+      v21 = 136446466;
+      v22 = "VO2MaxRetrocomputeNextPreprocessingTime";
+      v23 = 2050;
+      v24 = v18;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, qword_1025D4458, 16, "%{public}s is too far in the future (%{public}.2f). Resetting!", &v21, 22);
+      v15 = v14;
+      sub_100152C7C("Generic", 1, 0, 0, "[CLVO2MaxService scheduleRetrocomputePreprocessing]", "%s\n", v14);
+      if (v15 != buf)
       {
-        free(v11);
+        free(v15);
       }
     }
 
-    sub_1004FA8B8(v14, "VO2MaxRetrocomputeNextPreprocessingTime", 0xFFFFFFFFLL);
-    v13 = 0.0;
-    v5 = 0.0;
+    sub_1004FA8B8(v19, "VO2MaxRetrocomputeNextPreprocessingTime", 0xFFFFFFFFLL);
+    v18 = 0.0;
+    v7 = 0.0;
   }
 
-  v7 = v5 - Current;
-  if (XPC_ACTIVITY_INTERVAL_30_MIN <= v7)
+  v9 = v7 - Current;
+  if (XPC_ACTIVITY_INTERVAL_30_MIN <= v9)
   {
-    v8 = v7;
+    v10 = v9;
   }
 
   else
   {
-    v8 = XPC_ACTIVITY_INTERVAL_30_MIN;
+    v10 = XPC_ACTIVITY_INTERVAL_30_MIN;
   }
 
   if (qword_1025D4450 != -1)
@@ -500,32 +507,34 @@
     sub_1018BE068();
   }
 
-  v9 = qword_1025D4458;
+  v11 = qword_1025D4458;
   if (os_log_type_enabled(qword_1025D4458, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446722;
-    v23 = "com.apple.locationd.VO2Max.RetrocomputePreprocessing";
-    v24 = 2050;
-    v25 = v13;
-    v26 = 2050;
-    v27 = v8;
-    _os_log_impl(dword_100000000, v9, OS_LOG_TYPE_DEFAULT, "%{public}s: Registering XPC Activity with nextPreprocessingTime=(%{public}.2f) and delay=(%{public}lld)", buf, 0x20u);
+    v28 = "com.apple.locationd.VO2Max.RetrocomputePreprocessing";
+    v29 = 2050;
+    v30 = v18;
+    v31 = 2050;
+    v32 = v10;
+    _os_log_impl(dword_100000000, v11, OS_LOG_TYPE_DEFAULT, "%{public}s: Registering XPC Activity with nextPreprocessingTime=(%{public}.2f) and delay=(%{public}lld)", buf, 0x20u);
   }
 
   if (sub_10000A100(121, 2))
   {
     sub_1018BEA08(buf);
-    v16 = 136446722;
-    v17 = "com.apple.locationd.VO2Max.RetrocomputePreprocessing";
-    v18 = 2050;
-    v19 = v13;
-    v20 = 2050;
-    v21 = v8;
-    v10 = _os_log_send_and_compose_impl();
-    sub_100152C7C("Generic", 1, 0, 2, "[CLVO2MaxService scheduleRetrocomputePreprocessing]", "%s\n", v10);
-    if (v10 != buf)
+    v21 = 136446722;
+    v22 = "com.apple.locationd.VO2Max.RetrocomputePreprocessing";
+    v23 = 2050;
+    v24 = v18;
+    v25 = 2050;
+    v26 = v10;
+    LODWORD(v16) = 32;
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, qword_1025D4458, 0, "%{public}s: Registering XPC Activity with nextPreprocessingTime=(%{public}.2f) and delay=(%{public}lld)", &v21, v16);
+    v13 = v12;
+    sub_100152C7C("Generic", 1, 0, 2, "[CLVO2MaxService scheduleRetrocomputePreprocessing]", "%s\n", v12);
+    if (v13 != buf)
     {
-      free(v10);
+      free(v13);
     }
   }
 
@@ -535,18 +544,18 @@
   handler[2] = sub_100556E2C;
   handler[3] = &unk_102450188;
   handler[4] = [objc_msgSend(-[CLVO2MaxService universe](self "universe")];
-  handler[5] = v8;
+  handler[5] = v10;
   xpc_activity_register("com.apple.locationd.VO2Max.RetrocomputePreprocessing", XPC_ACTIVITY_CHECK_IN, handler);
-  if (v15)
+  if (v20)
   {
-    sub_100008080(v15);
+    sub_100008080(v20);
   }
 }
 
 - (void)resetRetrocomputePreProcessingActivity:(id)activity withDelay:(int64_t)delay
 {
   v6 = CFAbsoluteTimeGetCurrent() + delay;
-  v9 = v6;
+  v11 = v6;
   if (qword_1025D4450 != -1)
   {
     sub_1018BE384();
@@ -562,14 +571,15 @@
     _os_log_impl(dword_100000000, v7, OS_LOG_TYPE_DEFAULT, "%{public}s: Resetting next activity time to: %{public}.1f", buf, 0x16u);
   }
 
-  if (sub_10000A100(121, 2))
+  v8 = sub_10000A100(121, 2);
+  if (v8)
   {
     sub_1018BED6C();
   }
 
-  v8 = sub_100011660();
-  sub_100185AC0(v8, buf);
-  sub_100116D68(*buf, "VO2MaxRetrocomputeNextPreprocessingTime", &v9);
+  v10 = sub_100011660(v8, v9);
+  sub_100185AC0(v10, buf);
+  sub_100116D68(*buf, "VO2MaxRetrocomputeNextPreprocessingTime", &v11);
   if (*&buf[8])
   {
     sub_100008080(*&buf[8]);
@@ -651,7 +661,7 @@
 
 - (void)queryVO2MaxRetrocomputeStatusWithReply:(id)reply
 {
-  if (sub_10001CF04())
+  if (sub_10001CF04(self, a2))
   {
     *buf = 0;
     v22 = 0;
@@ -781,6 +791,7 @@
 
 - (unsigned)retrocomputeForSamples:(const void *)samples withRetrocomputeHistory:(VO2MaxRetrocomputeHistory *)history
 {
+  v4 = *samples;
   if (*samples == *(samples + 1))
   {
     if (qword_1025D4450 != -1)
@@ -788,11 +799,11 @@
       sub_1018BE384();
     }
 
-    v34 = qword_1025D4458;
+    v38 = qword_1025D4458;
     if (os_log_type_enabled(qword_1025D4458, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(dword_100000000, v34, OS_LOG_TYPE_DEFAULT, "There are no VO2Max HealthKit samples to retrocompute", buf, 2u);
+      _os_log_impl(dword_100000000, v38, OS_LOG_TYPE_DEFAULT, "There are no VO2Max HealthKit samples to retrocompute", buf, 2u);
     }
 
     if (sub_10000A100(121, 2))
@@ -805,171 +816,183 @@
 
   else
   {
-    v44 = 0;
-    v45 = 0;
-    v46 = 0;
-    v6 = sub_10104516C();
-    sub_101045F44(v6, &v44);
-    v8 = 126 - 2 * __clz(0xCCCCCCCCCCCCCCCDLL * ((v45 - v44) >> 4));
-    if (v45 == v44)
+    v51 = 0;
+    v52 = 0;
+    v53 = 0;
+    var8 = history->var8;
+    if (var8 == 0.0)
     {
-      v9 = 0;
+      var8 = *v4 + -1.0;
+    }
+
+    v8 = sub_10104516C();
+    sub_101045F44(v8, &v51, var8);
+    v10 = 126 - 2 * __clz(0xCCCCCCCCCCCCCCCDLL * ((v52 - v51) >> 4));
+    if (v52 == v51)
+    {
+      v11 = 0;
     }
 
     else
     {
-      v9 = v8;
+      v11 = v10;
     }
 
-    sub_100562214(v44, v45, v9, 1, v7);
-    v11 = v44;
-    v10 = v45;
-    if (v44 == v45)
+    sub_100562214(v51, v52, v11, 1, v9);
+    v13 = v51;
+    v12 = v52;
+    if (v51 == v52)
     {
-      v33 = 0;
-LABEL_43:
-      if (0x8E38E38E38E38E39 * ((*(samples + 1) - *samples) >> 3) > v33)
+      v37 = 0;
+LABEL_45:
+      if (0x8E38E38E38E38E39 * ((*(samples + 1) - *samples) >> 3) > v37)
       {
-        v35 = 72 * v33 + 24;
+        v39 = 72 * v37 + 24;
         do
         {
-          v36 = [[NSUUID alloc] initWithUUIDBytes:*samples + v35];
+          v40 = [[NSUUID alloc] initWithUUIDBytes:*samples + v39];
           if (qword_1025D4450 != -1)
           {
             sub_1018BE068();
           }
 
-          v37 = qword_1025D4458;
+          v41 = qword_1025D4458;
           if (os_log_type_enabled(qword_1025D4458, OS_LOG_TYPE_DEFAULT))
           {
-            uUIDString = [v36 UUIDString];
+            uUIDString = [v40 UUIDString];
             *buf = 138477827;
-            v57 = uUIDString;
-            _os_log_impl(dword_100000000, v37, OS_LOG_TYPE_DEFAULT, "Retrocompute encountered HealthKit sample with no SessionAttributes for sessionId %{private}@", buf, 0xCu);
+            v64 = uUIDString;
+            _os_log_impl(dword_100000000, v41, OS_LOG_TYPE_DEFAULT, "Retrocompute encountered HealthKit sample with no SessionAttributes for sessionId %{private}@", buf, 0xCu);
           }
 
           if (sub_10000A100(121, 2))
           {
             sub_1018BEA08(buf);
-            uUIDString2 = [v36 UUIDString];
-            v65[0].n128_u32[0] = 138477827;
-            *(v65[0].n128_u64 + 4) = uUIDString2;
-            v40 = _os_log_send_and_compose_impl();
-            sub_100152C7C("Generic", 1, 0, 2, "[CLVO2MaxService retrocomputeForSamples:withRetrocomputeHistory:]", "%s\n", v40);
-            if (v40 != buf)
+            v43 = qword_1025D4458;
+            uUIDString2 = [v40 UUIDString];
+            LODWORD(v72[0]) = 138477827;
+            *(v72 + 4) = uUIDString2;
+            LODWORD(v48) = 12;
+            _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, v43, 0, "Retrocompute encountered HealthKit sample with no SessionAttributes for sessionId %{private}@", v72, v48);
+            v46 = v45;
+            sub_100152C7C("Generic", 1, 0, 2, "[CLVO2MaxService retrocomputeForSamples:withRetrocomputeHistory:]", "%s\n", v45);
+            if (v46 != buf)
             {
-              free(v40);
+              free(v46);
             }
           }
 
           ++history->var15;
-          ++v33;
-          v35 += 72;
+          ++v37;
+          v39 += 72;
         }
 
-        while (0x8E38E38E38E38E39 * ((*(samples + 1) - *samples) >> 3) > v33);
+        while (0x8E38E38E38E38E39 * ((*(samples + 1) - *samples) >> 3) > v37);
       }
 
-      v32 = [(CLVO2MaxService *)self updateRetrocomputeHistoryPostProcessing:history];
+      v36 = [(CLVO2MaxService *)self updateRetrocomputeHistoryPostProcessing:history];
     }
 
     else
     {
-      v12 = 0;
-      v42 = v45;
+      v14 = 0;
+      v49 = v52;
       while (1)
       {
-        v65[0] = *v11;
-        v13 = v11[1];
-        v14 = v11[2];
-        v15 = v11[4];
-        v65[3] = v11[3];
-        v65[4] = v15;
-        v65[1] = v13;
-        v65[2] = v14;
-        v62 = 0uLL;
-        *v63 = 0xBFF0000000000000;
-        *&v63[24] = 0;
+        v72[0] = *v13;
+        v15 = v13[1];
+        v16 = v13[2];
+        v17 = v13[4];
+        v72[3] = v13[3];
+        v72[4] = v17;
+        v72[1] = v15;
+        v72[2] = v16;
+        v69 = 0uLL;
+        *v70 = 0xBFF0000000000000;
+        *&v70[24] = 0;
         sub_10000EC00(&__src, "");
-        v16 = [(CLVO2MaxService *)self getIndexInHealthKitSamples:samples forSessionAttributes:v65 withStartIndex:v12];
-        v17 = v16;
-        if ((v16 & 0x80000000) == 0)
+        v18 = [(CLVO2MaxService *)self getIndexInHealthKitSamples:samples forSessionAttributes:v72 withStartIndex:v14];
+        v19 = v18;
+        if ((v18 & 0x80000000) == 0)
         {
-          if (v12 < v16)
+          if (v14 < v18)
           {
-            v18 = 72 * v12;
-            v19 = v16 - v12;
+            v20 = 72 * v14;
+            v21 = v18 - v14;
             do
             {
-              v20 = [[NSUUID alloc] initWithUUIDBytes:*samples + v18 + 24];
+              v22 = [[NSUUID alloc] initWithUUIDBytes:*samples + v20 + 24];
               var4 = history->var4;
-              v22 = var4 > 0.0 && *(*samples + v18) > var4;
+              v24 = var4 > 0.0 && *(*samples + v20) > var4;
               if (qword_1025D4450 != -1)
               {
                 sub_1018BE068();
               }
 
-              v23 = qword_1025D4458;
+              v25 = qword_1025D4458;
               if (os_log_type_enabled(qword_1025D4458, OS_LOG_TYPE_DEFAULT))
               {
-                uUIDString3 = [v20 UUIDString];
-                v25 = *(*samples + v18);
+                uUIDString3 = [v22 UUIDString];
+                v27 = *(*samples + v20);
                 *buf = 138478339;
-                v57 = uUIDString3;
-                v58 = 2049;
-                v59 = v25;
-                v60 = 1026;
-                v61 = v22;
-                _os_log_impl(dword_100000000, v23, OS_LOG_TYPE_DEFAULT, "Retrocompute encountered HealthKit sample with no SessionAttributes for sessionId %{private}@, startTime:%{private}f, isLostEstimate:%{public}d", buf, 0x1Cu);
+                v64 = uUIDString3;
+                v65 = 2049;
+                v66 = v27;
+                v67 = 1026;
+                v68 = v24;
+                _os_log_impl(dword_100000000, v25, OS_LOG_TYPE_DEFAULT, "Retrocompute encountered HealthKit sample with no SessionAttributes for sessionId %{private}@, startTime:%{private}f, isLostEstimate:%{public}d", buf, 0x1Cu);
               }
 
               if (sub_10000A100(121, 2))
               {
                 sub_1018BEA08(buf);
-                uUIDString4 = [v20 UUIDString];
-                v27 = *(*samples + v18);
-                v50 = 138478339;
-                v51 = uUIDString4;
-                v52 = 2049;
-                v53 = v27;
-                v54 = 1026;
-                v55 = v22;
-                v28 = _os_log_send_and_compose_impl();
-                sub_100152C7C("Generic", 1, 0, 2, "[CLVO2MaxService retrocomputeForSamples:withRetrocomputeHistory:]", "%s\n", v28);
-                if (v28 != buf)
+                v28 = qword_1025D4458;
+                uUIDString4 = [v22 UUIDString];
+                v30 = *(*samples + v20);
+                v57 = 138478339;
+                v58 = uUIDString4;
+                v59 = 2049;
+                v60 = v30;
+                v61 = 1026;
+                v62 = v24;
+                LODWORD(v48) = 28;
+                _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, v28, 0, "Retrocompute encountered HealthKit sample with no SessionAttributes for sessionId %{private}@, startTime:%{private}f, isLostEstimate:%{public}d", &v57, v48);
+                v32 = v31;
+                sub_100152C7C("Generic", 1, 0, 2, "[CLVO2MaxService retrocomputeForSamples:withRetrocomputeHistory:]", "%s\n", v31);
+                if (v32 != buf)
                 {
-                  free(v28);
+                  free(v32);
                 }
               }
 
-              if (v22)
+              if (v24)
               {
                 ++history->var14;
-                [(CLVO2MaxService *)self persistLostEstimateToStagingTables:*samples + v18];
+                [(CLVO2MaxService *)self persistLostEstimateToStagingTables:*samples + v20];
               }
 
-              v18 += 72;
-              --v19;
+              v20 += 72;
+              --v21;
             }
 
-            while (v19);
-            LODWORD(v12) = v17;
-            v10 = v42;
+            while (v21);
+            LODWORD(v14) = v19;
+            v12 = v49;
           }
 
-          v29 = *samples + 72 * v17;
-          v30 = *(v29 + 28);
-          v31 = *(v29 + 16);
-          v62 = *v29;
-          *v63 = v31;
-          *&v63[12] = v30;
-          std::string::operator=(&__src, (v29 + 48));
-          v12 = (v12 + 1);
+          v33 = *samples + 72 * v19;
+          v34 = *(v33 + 28);
+          v35 = *(v33 + 16);
+          v69 = *v33;
+          *v70 = v35;
+          *&v70[12] = v34;
+          std::string::operator=(&__src, (v33 + 48));
+          v14 = (v14 + 1);
         }
 
-        v47 = v62;
-        v48[0] = *v63;
-        *(v48 + 12) = *&v63[12];
+        v54 = v69;
+        v55[0] = *v70;
+        *(v55 + 12) = *&v70[12];
         if (SHIBYTE(__src.__r_.__value_.__r.__words[2]) < 0)
         {
           sub_100007244(&__p, __src.__r_.__value_.__l.__data_, __src.__r_.__value_.__l.__size_);
@@ -980,7 +1003,7 @@ LABEL_43:
           __p = __src;
         }
 
-        v32 = [(CLVO2MaxService *)self retrocomputeSession:v65 withHealthKitSample:&v47 withRetrocomputeHistory:history];
+        v36 = [(CLVO2MaxService *)self retrocomputeSession:v72 withHealthKitSample:&v54 withRetrocomputeHistory:history];
         if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
         {
           operator delete(__p.__r_.__value_.__l.__data_);
@@ -991,28 +1014,28 @@ LABEL_43:
           operator delete(__src.__r_.__value_.__l.__data_);
         }
 
-        if (v32)
+        if (v36)
         {
           break;
         }
 
-        v11 += 5;
-        if (v11 == v10)
+        v13 += 5;
+        if (v13 == v12)
         {
-          v33 = v12;
-          goto LABEL_43;
+          v37 = v14;
+          goto LABEL_45;
         }
       }
     }
 
-    if (v44)
+    if (v51)
     {
-      v45 = v44;
-      operator delete(v44);
+      v52 = v51;
+      operator delete(v51);
     }
   }
 
-  return v32;
+  return v36;
 }
 
 - (int)getIndexInHealthKitSamples:(const void *)samples forSessionAttributes:(const VO2MaxSessionAttributes *)attributes withStartIndex:(int)index
@@ -1043,14 +1066,14 @@ LABEL_43:
       sub_1018BE384();
     }
 
-    v16 = qword_1025D4458;
+    v18 = qword_1025D4458;
     if (os_log_type_enabled(qword_1025D4458, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138478083;
       uUIDString = [v11 UUIDString];
-      v20 = 1026;
-      v21 = v5;
-      _os_log_impl(dword_100000000, v16, OS_LOG_TYPE_DEBUG, "CLVO2MaxService::getIndexInHealthKitSamples - index not found for sessionId: %{private}@, startIndex: %{public}d", buf, 0x12u);
+      v28 = 1026;
+      v29 = v5;
+      _os_log_impl(dword_100000000, v18, OS_LOG_TYPE_DEBUG, "CLVO2MaxService::getIndexInHealthKitSamples - index not found for sessionId: %{private}@, startIndex: %{public}d", buf, 0x12u);
     }
 
     if (sub_10000A100(121, 2))
@@ -1075,10 +1098,10 @@ LABEL_43:
     {
       *buf = 138478339;
       uUIDString = [v11 UUIDString];
-      v20 = 1026;
-      v21 = v5;
-      v22 = 2050;
-      v23 = v13;
+      v28 = 1026;
+      v29 = v5;
+      v30 = 2050;
+      v31 = v13;
       _os_log_impl(dword_100000000, v14, OS_LOG_TYPE_DEBUG, "CLVO2MaxService::getIndexInHealthKitSamples - sessionId: %{private}@, startIndex: %{public}d, index: %{public}zu", buf, 0x1Cu);
     }
 
@@ -1090,12 +1113,19 @@ LABEL_43:
         sub_1018BE068();
       }
 
-      [v11 UUIDString];
-      v15 = _os_log_send_and_compose_impl();
-      sub_100152C7C("Generic", 1, 0, 2, "[CLVO2MaxService getIndexInHealthKitSamples:forSessionAttributes:withStartIndex:]", "%s\n", v15);
-      if (v15 != buf)
+      v15 = qword_1025D4458;
+      v20 = 138478339;
+      uUIDString2 = [v11 UUIDString];
+      v22 = 1026;
+      v23 = v5;
+      v24 = 2050;
+      v25 = v13;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, v15, 2, "CLVO2MaxService::getIndexInHealthKitSamples - sessionId: %{private}@, startIndex: %{public}d, index: %{public}zu", &v20, 28);
+      v17 = v16;
+      sub_100152C7C("Generic", 1, 0, 2, "[CLVO2MaxService getIndexInHealthKitSamples:forSessionAttributes:withStartIndex:]", "%s\n", v16);
+      if (v17 != buf)
       {
-        free(v15);
+        free(v17);
       }
     }
   }
@@ -1112,22 +1142,22 @@ LABEL_43:
     *dst = 0;
     *&dst[16] = session->var1;
     dst[24] = session->var6;
-    v105 = 0u;
-    memset(v106, 0, 156);
+    v114 = 0u;
+    memset(v115, 0, 156);
     v9 = *&sample->var0;
     v10 = *&sample->var2;
-    *(v108 + 12) = *&sample->var3[4];
-    v108[0] = v10;
-    v107 = v9;
+    *(v117 + 12) = *&sample->var3[4];
+    v117[0] = v10;
+    v116 = v9;
     if (*(&sample->var5.__rep_.__l + 23) < 0)
     {
-      sub_100007244(&v109, sample->var5.__rep_.__l.__data_, sample->var5.__rep_.__l.__size_);
+      sub_100007244(&v118, sample->var5.__rep_.__l.__data_, sample->var5.__rep_.__l.__size_);
     }
 
     else
     {
-      v109 = *sample->var5.__rep_.__s.__data_;
-      v110 = *(&sample->var5.__rep_.__l + 2);
+      v118 = *sample->var5.__rep_.__s.__data_;
+      v119 = *(&sample->var5.__rep_.__l + 2);
     }
 
     var7 = session->var7;
@@ -1137,44 +1167,12 @@ LABEL_43:
     sub_101110AD0(self->fStagingOutputStore.__ptr_, uu);
     sub_1011109E0(self->fStagingOutputStore.__ptr_, uu);
     sub_101110E6C(self->fStagingOutputStore.__ptr_, uu);
-    sub_10102F350(uu, self->fInputStore.__ptr_, &v75);
-    v72 = 0;
-    v73 = 0;
-    v74 = 0;
+    sub_10102F350(&v84, uu, self->fInputStore.__ptr_);
+    v81 = 0;
+    v82 = 0;
+    v83 = 0;
     v13 = sub_10104516C();
-    if (!sub_101046048(v13, uu, &v72))
-    {
-      if (qword_1025D4450 != -1)
-      {
-        sub_1018BE068();
-      }
-
-      v18 = qword_1025D4458;
-      if (os_log_type_enabled(qword_1025D4458, OS_LOG_TYPE_DEFAULT))
-      {
-        *buf = 0;
-        _os_log_impl(dword_100000000, v18, OS_LOG_TYPE_DEFAULT, "Query for pre-existing session summary for current session failed due to device lock", buf, 2u);
-      }
-
-      if (sub_10000A100(121, 2))
-      {
-        sub_1018BEA08(buf);
-        *out = 0;
-        v62 = _os_log_send_and_compose_impl();
-        sub_100152C7C("Generic", 1, 0, 2, "[CLVO2MaxService retrocomputeSession:withHealthKitSample:withRetrocomputeHistory:]", "%s\n", v62);
-        if (v62 != buf)
-        {
-          free(v62);
-        }
-      }
-
-      v12 = 2;
-      goto LABEL_99;
-    }
-
-    memset(out, 0, 37);
-    uuid_unparse(session->var2, out);
-    if (v72 == v73)
+    if (!sub_101046048(v13, uu, &v81))
     {
       if (qword_1025D4450 != -1)
       {
@@ -1184,9 +1182,42 @@ LABEL_43:
       v19 = qword_1025D4458;
       if (os_log_type_enabled(qword_1025D4458, OS_LOG_TYPE_DEFAULT))
       {
+        *buf = 0;
+        _os_log_impl(dword_100000000, v19, OS_LOG_TYPE_DEFAULT, "Query for pre-existing session summary for current session failed due to device lock", buf, 2u);
+      }
+
+      if (sub_10000A100(121, 2))
+      {
+        sub_1018BEA08(buf);
+        *out = 0;
+        _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, qword_1025D4458, 0, "Query for pre-existing session summary for current session failed due to device lock", out, 2);
+        v69 = v68;
+        sub_100152C7C("Generic", 1, 0, 2, "[CLVO2MaxService retrocomputeSession:withHealthKitSample:withRetrocomputeHistory:]", "%s\n", v68);
+        if (v69 != buf)
+        {
+          free(v69);
+        }
+      }
+
+      v12 = 2;
+      goto LABEL_99;
+    }
+
+    memset(out, 0, 37);
+    uuid_unparse(session->var2, out);
+    if (v81 == v82)
+    {
+      if (qword_1025D4450 != -1)
+      {
+        sub_1018BE068();
+      }
+
+      v20 = qword_1025D4458;
+      if (os_log_type_enabled(qword_1025D4458, OS_LOG_TYPE_DEFAULT))
+      {
         *buf = 136315138;
         *&buf[4] = out;
-        _os_log_impl(dword_100000000, v19, OS_LOG_TYPE_DEFAULT, "Current session summary missing from VO2MaxSummary table, cannot retrocompute for sessionId %s", buf, 0xCu);
+        _os_log_impl(dword_100000000, v20, OS_LOG_TYPE_DEFAULT, "Current session summary missing from VO2MaxSummary table, cannot retrocompute for sessionId %s", buf, 0xCu);
       }
 
       if (!sub_10000A100(121, 2))
@@ -1195,14 +1226,15 @@ LABEL_43:
       }
 
       sub_1018BEA08(buf);
-      LODWORD(v96[0]) = 136315138;
-      *(v96 + 4) = out;
-      v17 = _os_log_send_and_compose_impl();
-      sub_100152C7C("Generic", 1, 0, 2, "[CLVO2MaxService retrocomputeSession:withHealthKitSample:withRetrocomputeHistory:]", "%s\n", v17);
+      LODWORD(v105[0]) = 136315138;
+      *(v105 + 4) = out;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, qword_1025D4458, 0, "Current session summary missing from VO2MaxSummary table, cannot retrocompute for sessionId %s", v105);
+      v18 = v21;
+      sub_100152C7C("Generic", 1, 0, 2, "[CLVO2MaxService retrocomputeSession:withHealthKitSample:withRetrocomputeHistory:]", "%s\n", v21);
       goto LABEL_33;
     }
 
-    if (*(v72 + 46))
+    if (*(v81 + 46))
     {
       if (qword_1025D4450 != -1)
       {
@@ -1212,7 +1244,7 @@ LABEL_43:
       v14 = qword_1025D4458;
       if (os_log_type_enabled(qword_1025D4458, OS_LOG_TYPE_DEFAULT))
       {
-        v15 = *(v72 + 46);
+        v15 = *(v81 + 46);
         *buf = 136315394;
         *&buf[4] = out;
         *&buf[12] = 1024;
@@ -1226,86 +1258,87 @@ LABEL_43:
       }
 
       sub_1018BEA08(buf);
-      v16 = *(v72 + 46);
-      LODWORD(v96[0]) = 136315394;
-      *(v96 + 4) = out;
-      WORD2(v96[1]) = 1024;
-      *(&v96[1] + 6) = v16;
-      v17 = _os_log_send_and_compose_impl();
+      v16 = *(v81 + 46);
+      LODWORD(v105[0]) = 136315394;
+      *(v105 + 4) = out;
+      WORD2(v105[1]) = 1024;
+      *(&v105[1] + 6) = v16;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, qword_1025D4458, 0, "Platform source for sessionId %s is not watchOS, retrocompute is not supported, platform source, %d", v105, 18);
+      v18 = v17;
       sub_100152C7C("Generic", 1, 0, 2, "[CLVO2MaxService retrocomputeSession:withHealthKitSample:withRetrocomputeHistory:]", "%s\n", v17);
 LABEL_33:
-      if (v17 != buf)
+      if (v18 != buf)
       {
-        free(v17);
+        free(v18);
       }
 
 LABEL_91:
-      v77[0] = *dst;
-      *(v77 + 9) = *&dst[9];
-      v79 = 0;
-      v80 = 0;
-      v78 = 0;
-      sub_10056474C(&v78, v105, *(&v105 + 1), 0xAAAAAAAAAAAAAAABLL * ((*(&v105 + 1) - v105) >> 6));
-      v87 = *&v106[104];
-      v88 = *&v106[120];
-      v89 = *&v106[136];
-      v90 = *&v106[152];
-      v83 = *&v106[40];
-      v84 = *&v106[56];
-      v85 = *&v106[72];
-      v86 = *&v106[88];
-      v81 = *&v106[8];
-      v82 = *&v106[24];
-      v91 = v107;
-      v92[0] = v108[0];
-      *(v92 + 12) = *(v108 + 12);
-      if (SHIBYTE(v110) < 0)
+      v86[0] = *dst;
+      *(v86 + 9) = *&dst[9];
+      v88 = 0;
+      v89 = 0;
+      v87 = 0;
+      sub_10056474C(&v87, v114, *(&v114 + 1), 0xAAAAAAAAAAAAAAABLL * ((*(&v114 + 1) - v114) >> 6));
+      v96 = *&v115[104];
+      v97 = *&v115[120];
+      v98 = *&v115[136];
+      v99 = *&v115[152];
+      v92 = *&v115[40];
+      v93 = *&v115[56];
+      v94 = *&v115[72];
+      v95 = *&v115[88];
+      v90 = *&v115[8];
+      v91 = *&v115[24];
+      v100 = v116;
+      v101[0] = v117[0];
+      *(v101 + 12) = *(v117 + 12);
+      if (SHIBYTE(v119) < 0)
       {
-        sub_100007244(&v93, v109, *(&v109 + 1));
+        sub_100007244(&v102, v118, *(&v118 + 1));
       }
 
       else
       {
-        v93 = v109;
-        v94 = v110;
+        v102 = v118;
+        v103 = v119;
       }
 
-      v95 = var7;
-      [(CLVO2MaxService *)self updateRetrocomputeHistory:v5 withResult:v77];
-      if (SHIBYTE(v94) < 0)
+      v104 = var7;
+      [(CLVO2MaxService *)self updateRetrocomputeHistory:v5 withResult:v86];
+      if (SHIBYTE(v103) < 0)
       {
-        operator delete(v93);
+        operator delete(v102);
       }
 
-      if (v78)
+      if (v87)
       {
-        v79 = v78;
-        operator delete(v78);
+        v88 = v87;
+        operator delete(v87);
       }
 
       v12 = 0;
 LABEL_99:
-      if (v72)
+      if (v81)
       {
-        v73 = v72;
-        operator delete(v72);
+        v82 = v81;
+        operator delete(v81);
       }
 
-      if (v75)
+      if (v84)
       {
-        v76 = v75;
-        operator delete(v75);
+        v85 = v84;
+        operator delete(v84);
       }
 
-      if (SHIBYTE(v110) < 0)
+      if (SHIBYTE(v119) < 0)
       {
-        operator delete(v109);
+        operator delete(v118);
       }
 
-      if (v105)
+      if (v114)
       {
-        *(&v105 + 1) = v105;
-        operator delete(v105);
+        *(&v114 + 1) = v114;
+        operator delete(v114);
       }
 
       return v12;
@@ -1313,66 +1346,68 @@ LABEL_99:
 
     __src = 0;
     __dst = 0;
-    v71 = 0;
-    v20 = *&dst[16] + -7776000.0;
+    v80 = 0;
+    v22 = *&dst[16] + -7776000.0;
     if (*(v5 + 32) == 0.0)
     {
-      v21 = sub_10104516C();
-      if (!sub_101046084(v21, &__src, 1))
+      v23 = sub_10104516C();
+      v24 = sub_101046084(v23, &__src, 1, v22, *&dst[16]);
+      if ((v24 & 1) == 0)
       {
         if (qword_1025D4450 != -1)
         {
           sub_1018BE068();
         }
 
-        v22 = qword_1025D4458;
+        v26 = qword_1025D4458;
         if (os_log_type_enabled(qword_1025D4458, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(dword_100000000, v22, OS_LOG_TYPE_DEFAULT, "Query for historical summaries failed due to device lock", buf, 2u);
+          _os_log_impl(dword_100000000, v26, OS_LOG_TYPE_DEFAULT, "Query for historical summaries failed due to device lock", buf, 2u);
         }
 
         if (sub_10000A100(121, 2))
         {
           sub_1018BEA08(buf);
-          LOWORD(v96[0]) = 0;
-          v23 = _os_log_send_and_compose_impl();
-          sub_100152C7C("Generic", 1, 0, 2, "[CLVO2MaxService retrocomputeSession:withHealthKitSample:withRetrocomputeHistory:]", "%s\n", v23);
-          if (v23 != buf)
+          LOWORD(v105[0]) = 0;
+          _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, qword_1025D4458, 0, "Query for historical summaries failed due to device lock", v105, 2);
+          v28 = v27;
+          sub_100152C7C("Generic", 1, 0, 2, "[CLVO2MaxService retrocomputeSession:withHealthKitSample:withRetrocomputeHistory:]", "%s\n", v27);
+          if (v28 != buf)
           {
-            free(v23);
+            free(v28);
           }
         }
 
 LABEL_86:
-        v60 = 0;
+        v66 = 0;
         v12 = 2;
         goto LABEL_88;
       }
 
 LABEL_80:
-      if (v75 != v76)
+      if (v84 != v85)
       {
-        v58 = *(v72 + 8);
-        self->fUserInfo.hrmax = v58;
+        v64 = *(v81 + 8);
+        self->fUserInfo.hrmax = v64;
         self->fUserInfo.betaBlockerUse = session->var6;
-        v65 = ((session->var5 - 82) & 0xFFFFFFF9) == 0;
-        v64 = 1;
-        v59 = sub_100011660();
-        sub_100185AC0(v59, buf);
-        sub_10005BBE4(*buf, "VO2MaxMinPreviousEstimatesForHealthKitWrite", &v64);
+        v74 = ((session->var5 - 82) & 0xFFFFFFF9) == 0;
+        v73 = 1;
+        v65 = sub_100011660(v24, v25);
+        sub_100185AC0(v65, buf);
+        sub_10005BBE4(*buf, "VO2MaxMinPreviousEstimatesForHealthKitWrite", &v73);
         if (*&buf[8])
         {
           sub_100008080(*&buf[8]);
         }
 
         *buf = 0;
-        v96[0] = 0;
+        v105[0] = 0;
         sub_1005651C8();
       }
 
       v12 = 2;
-      v60 = 1;
+      v66 = 1;
 LABEL_88:
       if (__src)
       {
@@ -1380,7 +1415,7 @@ LABEL_88:
         operator delete(__src);
       }
 
-      if ((v60 & 1) == 0)
+      if ((v66 & 1) == 0)
       {
         goto LABEL_99;
       }
@@ -1388,169 +1423,170 @@ LABEL_88:
       goto LABEL_91;
     }
 
-    memset(v96, 0, sizeof(v96));
-    if (sub_101110B20(self->fStagingOutputStore.__ptr_, v96, 1) == 109)
+    memset(v105, 0, sizeof(v105));
+    if (sub_101110B20(self->fStagingOutputStore.__ptr_, v105, 1, *&dst[16] + -7776000.0, *&dst[16]) == 109)
     {
       if (qword_1025D4450 != -1)
       {
         sub_1018BE068();
       }
 
-      v24 = qword_1025D4458;
+      v29 = qword_1025D4458;
       if (os_log_type_enabled(qword_1025D4458, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(dword_100000000, v24, OS_LOG_TYPE_DEFAULT, "Query for staged summaries failed due to device lock", buf, 2u);
+        _os_log_impl(dword_100000000, v29, OS_LOG_TYPE_DEFAULT, "Query for staged summaries failed due to device lock", buf, 2u);
       }
 
       if (sub_10000A100(121, 2))
       {
         sub_1018BEA08(buf);
         LOWORD(__p) = 0;
-        v25 = _os_log_send_and_compose_impl();
-        sub_100152C7C("Generic", 1, 0, 2, "[CLVO2MaxService retrocomputeSession:withHealthKitSample:withRetrocomputeHistory:]", "%s\n", v25);
-        if (v25 != buf)
+        _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, qword_1025D4458, 0, "Query for staged summaries failed due to device lock", &__p, 2);
+        v31 = v30;
+        sub_100152C7C("Generic", 1, 0, 2, "[CLVO2MaxService retrocomputeSession:withHealthKitSample:withRetrocomputeHistory:]", "%s\n", v30);
+        if (v31 != buf)
         {
-          free(v25);
+          free(v31);
         }
       }
     }
 
     else
     {
-      if (v96[0] != v96[1])
+      if (v105[0] != v105[1])
       {
-        v26 = v96[0] + 104;
+        v32 = v105[0] + 104;
         do
         {
           *buf = 0;
-          *&buf[8] = *(v26 - 12);
-          LODWORD(v99) = 0;
+          *&buf[8] = *(v32 - 12);
+          LODWORD(v108) = 0;
           *&buf[16] = 0;
           *&buf[24] = 0;
-          *(&v99 + 1) = *(v26 - 8);
-          *v100 = *(v26 - 7);
-          *&v100[8] = *(v26 - 3);
-          *&v100[24] = *(v26 - 2);
-          *&v100[40] = *(v26 - 1);
-          *&v100[56] = *v26;
-          *&v100[72] = *(v26 + 1);
-          *&v100[88] = *(v26 + 4);
-          *v101 = 0;
-          *&v101[8] = *(v26 + 3);
-          *&v101[24] = *(v26 + 8);
-          *&v102 = *(v26 + 9);
-          DWORD2(v102) = *(v26 + 20);
-          uuid_copy(&buf[20], v26 - 84);
-          v27 = __dst;
-          if (__dst >= v71)
+          *(&v108 + 1) = *(v32 - 8);
+          *v109 = *(v32 - 7);
+          *&v109[8] = *(v32 - 3);
+          *&v109[24] = *(v32 - 2);
+          *&v109[40] = *(v32 - 1);
+          *&v109[56] = *v32;
+          *&v109[72] = *(v32 + 1);
+          *&v109[88] = *(v32 + 4);
+          *v110 = 0;
+          *&v110[8] = *(v32 + 3);
+          *&v110[24] = *(v32 + 8);
+          *&v111 = *(v32 + 9);
+          DWORD2(v111) = *(v32 + 20);
+          uuid_copy(&buf[20], v32 - 84);
+          v33 = __dst;
+          if (__dst >= v80)
           {
-            v38 = __src;
-            v39 = __dst - __src;
-            v40 = 0xAAAAAAAAAAAAAAABLL * ((__dst - __src) >> 6);
-            v41 = v40 + 1;
-            if (v40 + 1 > 0x155555555555555)
+            v44 = __src;
+            v45 = __dst - __src;
+            v46 = 0xAAAAAAAAAAAAAAABLL * ((__dst - __src) >> 6);
+            v47 = v46 + 1;
+            if (v46 + 1 > 0x155555555555555)
             {
               sub_10028C64C();
             }
 
-            if (0x5555555555555556 * ((v71 - __src) >> 6) > v41)
+            if (0x5555555555555556 * ((v80 - __src) >> 6) > v47)
             {
-              v41 = 0x5555555555555556 * ((v71 - __src) >> 6);
+              v47 = 0x5555555555555556 * ((v80 - __src) >> 6);
             }
 
-            if (0xAAAAAAAAAAAAAAABLL * ((v71 - __src) >> 6) >= 0xAAAAAAAAAAAAAALL)
+            if (0xAAAAAAAAAAAAAAABLL * ((v80 - __src) >> 6) >= 0xAAAAAAAAAAAAAALL)
             {
-              v41 = 0x155555555555555;
+              v47 = 0x155555555555555;
             }
 
-            if (v41)
+            if (v47)
             {
-              sub_1005642D8(&__src, v41);
+              sub_1005642D8(&__src, v47);
             }
 
-            v42 = ((__dst - __src) >> 6 << 6);
-            v43 = *buf;
-            v44 = *&buf[16];
-            v45 = *v100;
-            v42[2] = v99;
-            v42[3] = v45;
-            *v42 = v43;
-            v42[1] = v44;
-            v46 = *&v100[16];
-            v47 = *&v100[32];
-            v48 = *&v100[64];
-            v42[6] = *&v100[48];
-            v42[7] = v48;
-            v42[4] = v46;
-            v42[5] = v47;
-            v49 = *&v100[80];
-            v50 = *v101;
-            v51 = v102;
-            v42[10] = *&v101[16];
-            v42[11] = v51;
-            v42[8] = v49;
-            v42[9] = v50;
-            v37 = (192 * v40 + 192);
-            v52 = (192 * v40 - v39);
-            memcpy(v42 - v39, v38, v39);
-            v53 = __src;
-            __src = v52;
-            __dst = v37;
-            v71 = 0;
-            if (v53)
+            v48 = ((__dst - __src) >> 6 << 6);
+            v49 = *buf;
+            v50 = *&buf[16];
+            v51 = *v109;
+            v48[2] = v108;
+            v48[3] = v51;
+            *v48 = v49;
+            v48[1] = v50;
+            v52 = *&v109[16];
+            v53 = *&v109[32];
+            v54 = *&v109[64];
+            v48[6] = *&v109[48];
+            v48[7] = v54;
+            v48[4] = v52;
+            v48[5] = v53;
+            v55 = *&v109[80];
+            v56 = *v110;
+            v57 = v111;
+            v48[10] = *&v110[16];
+            v48[11] = v57;
+            v48[8] = v55;
+            v48[9] = v56;
+            v43 = (192 * v46 + 192);
+            v58 = (192 * v46 - v45);
+            memcpy(v48 - v45, v44, v45);
+            v59 = __src;
+            __src = v58;
+            __dst = v43;
+            v80 = 0;
+            if (v59)
             {
-              operator delete(v53);
+              operator delete(v59);
             }
           }
 
           else
           {
-            v28 = *buf;
-            v29 = *&buf[16];
-            v30 = *v100;
-            *(__dst + 2) = v99;
-            v27[3] = v30;
-            *v27 = v28;
-            v27[1] = v29;
-            v31 = *&v100[16];
-            v32 = *&v100[32];
-            v33 = *&v100[64];
-            v27[6] = *&v100[48];
-            v27[7] = v33;
-            v27[4] = v31;
-            v27[5] = v32;
-            v34 = *&v100[80];
-            v35 = *v101;
-            v36 = v102;
-            v27[10] = *&v101[16];
-            v27[11] = v36;
-            v27[8] = v34;
-            v27[9] = v35;
-            v37 = v27 + 12;
+            v34 = *buf;
+            v35 = *&buf[16];
+            v36 = *v109;
+            *(__dst + 2) = v108;
+            v33[3] = v36;
+            *v33 = v34;
+            v33[1] = v35;
+            v37 = *&v109[16];
+            v38 = *&v109[32];
+            v39 = *&v109[64];
+            v33[6] = *&v109[48];
+            v33[7] = v39;
+            v33[4] = v37;
+            v33[5] = v38;
+            v40 = *&v109[80];
+            v41 = *v110;
+            v42 = v111;
+            v33[10] = *&v110[16];
+            v33[11] = v42;
+            v33[8] = v40;
+            v33[9] = v41;
+            v43 = v33 + 12;
           }
 
-          __dst = v37;
-          v54 = v26 + 88;
-          v26 += 192;
+          __dst = v43;
+          v60 = v32 + 88;
+          v32 += 192;
         }
 
-        while (v54 != v96[1]);
+        while (v60 != v105[1]);
       }
 
-      if (v20 >= *(v5 + 32))
+      if (v22 >= *(v5 + 32))
       {
         goto LABEL_78;
       }
 
       __p = 0;
-      v67 = 0;
-      v68 = 0;
-      v55 = sub_10104516C();
-      v56 = sub_101046084(v55, &__p, 1);
-      if (v56)
+      v76 = 0;
+      v77 = 0;
+      v61 = sub_10104516C();
+      v62 = sub_101046084(v61, &__p, 1, *&dst[16] + -7776000.0, *(v5 + 32));
+      if (v62)
       {
-        sub_100564330(&__src, __dst, __p, v67, 0xAAAAAAAAAAAAAAABLL * ((v67 - __p) >> 6));
+        sub_100564330(&__src, __dst, __p, v76, 0xAAAAAAAAAAAAAAABLL * ((v76 - __p) >> 6));
       }
 
       else
@@ -1560,48 +1596,51 @@ LABEL_88:
           sub_1018BE068();
         }
 
-        v57 = qword_1025D4458;
+        v63 = qword_1025D4458;
         if (os_log_type_enabled(qword_1025D4458, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(dword_100000000, v57, OS_LOG_TYPE_DEFAULT, "Query for historical summaries failed due to device lock", buf, 2u);
+          _os_log_impl(dword_100000000, v63, OS_LOG_TYPE_DEFAULT, "Query for historical summaries failed due to device lock", buf, 2u);
         }
 
         if (sub_10000A100(121, 2))
         {
           sub_1018BEA08(buf);
-          v63 = _os_log_send_and_compose_impl();
-          sub_100152C7C("Generic", 1, 0, 2, "[CLVO2MaxService retrocomputeSession:withHealthKitSample:withRetrocomputeHistory:]", "%s\n", v63);
-          if (v63 != buf)
+          LOWORD(v72) = 0;
+          _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, qword_1025D4458, 0, "Query for historical summaries failed due to device lock", &v72, 2);
+          v71 = v70;
+          sub_100152C7C("Generic", 1, 0, 2, "[CLVO2MaxService retrocomputeSession:withHealthKitSample:withRetrocomputeHistory:]", "%s\n", v70);
+          if (v71 != buf)
           {
-            free(v63);
+            free(v71);
           }
         }
       }
 
       if (__p)
       {
-        v67 = __p;
+        v76 = __p;
         operator delete(__p);
       }
 
-      if (v56)
+      if (v62)
       {
 LABEL_78:
-        if (v96[0])
+        v24 = v105[0];
+        if (v105[0])
         {
-          v96[1] = v96[0];
-          operator delete(v96[0]);
+          v105[1] = v105[0];
+          operator delete(v105[0]);
         }
 
         goto LABEL_80;
       }
     }
 
-    if (v96[0])
+    if (v105[0])
     {
-      v96[1] = v96[0];
-      operator delete(v96[0]);
+      v105[1] = v105[0];
+      operator delete(v105[0]);
     }
 
     goto LABEL_86;
@@ -1787,32 +1826,32 @@ LABEL_78:
     var13 = history->var13;
     var14 = history->var14;
     *buf = 134286595;
-    v31 = v16;
+    v72 = v16;
     self = selfCopy;
-    v32 = 1025;
-    v33 = v17;
-    v34 = 1025;
-    v35 = var3;
-    v36 = 2049;
-    v37 = var8;
-    v38 = 2113;
-    v39 = uUIDString;
-    v40 = 2049;
-    v41 = var4;
-    v42 = 2049;
-    v43 = var6;
-    v44 = 2049;
-    v45 = var7;
-    v46 = 2049;
-    v47 = var10;
-    v48 = 2049;
-    v49 = var11;
-    v50 = 1025;
-    v51 = v26;
-    v52 = 1025;
-    v53 = var13;
-    v54 = 1025;
-    v55 = var14;
+    v73 = 1025;
+    v74 = v17;
+    v75 = 1025;
+    v76 = var3;
+    v77 = 2049;
+    v78 = var8;
+    v79 = 2113;
+    v80 = uUIDString;
+    v81 = 2049;
+    v82 = var4;
+    v83 = 2049;
+    v84 = var6;
+    v85 = 2049;
+    v86 = var7;
+    v87 = 2049;
+    v88 = var10;
+    v89 = 2049;
+    v90 = var11;
+    v91 = 1025;
+    v92 = v26;
+    v93 = 1025;
+    v94 = var13;
+    v95 = 1025;
+    v96 = var14;
     _os_log_impl(dword_100000000, v14, OS_LOG_TYPE_DEFAULT, "Updating VO2MaxRetrocomputeHistory: startTime,%{private}f,algVersion,%{private}d,status,%{private}d,lastSessionTimestamp,%{private}f,lastSessionId,%{private}@,firstSampleDate,%{private}f,lastSampleDate,%{private}f,lastSampleDatePrevAlg,%{private}f,meanDelta,%{private}f,meanPercentileDelta,%{private}f,numUpdatedEstimates,%{private}d,numNewEstimates,%{private}d,numLostEstimates,%{private}d", buf, 0x70u);
   }
 
@@ -1824,12 +1863,52 @@ LABEL_78:
       sub_1018BE068();
     }
 
-    [v13 UUIDString];
-    v29 = _os_log_send_and_compose_impl();
-    sub_100152C7C("Generic", 1, 0, 2, "[CLVO2MaxService updateRetrocomputeHistory:withResult:]", "%s\n", v29);
-    if (v29 != buf)
+    v29 = qword_1025D4458;
+    v30 = history->var1;
+    v31 = history->var2;
+    v32 = history->var3;
+    v33 = history->var8;
+    uUIDString2 = [v13 UUIDString];
+    v35 = history->var4;
+    v36 = history->var6;
+    v37 = history->var7;
+    v38 = history->var10;
+    v39 = history->var11;
+    v40 = history->var12;
+    v41 = history->var13;
+    v42 = history->var14;
+    v45 = 134286595;
+    v46 = v30;
+    v47 = 1025;
+    v48 = v31;
+    v49 = 1025;
+    v50 = v32;
+    v51 = 2049;
+    v52 = v33;
+    v53 = 2113;
+    v54 = uUIDString2;
+    v55 = 2049;
+    v56 = v35;
+    v57 = 2049;
+    v58 = v36;
+    v59 = 2049;
+    v60 = v37;
+    v61 = 2049;
+    v62 = v38;
+    v63 = 2049;
+    v64 = v39;
+    v65 = 1025;
+    v66 = v40;
+    v67 = 1025;
+    v68 = v41;
+    v69 = 1025;
+    v70 = v42;
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, v29, 0, "Updating VO2MaxRetrocomputeHistory: startTime,%{private}f,algVersion,%{private}d,status,%{private}d,lastSessionTimestamp,%{private}f,lastSessionId,%{private}@,firstSampleDate,%{private}f,lastSampleDate,%{private}f,lastSampleDatePrevAlg,%{private}f,meanDelta,%{private}f,meanPercentileDelta,%{private}f,numUpdatedEstimates,%{private}d,numNewEstimates,%{private}d,numLostEstimates,%{private}d", &v45, 112);
+    v44 = v43;
+    sub_100152C7C("Generic", 1, 0, 2, "[CLVO2MaxService updateRetrocomputeHistory:withResult:]", "%s\n", v43);
+    if (v44 != buf)
     {
-      free(v29);
+      free(v44);
     }
   }
 
@@ -1838,253 +1917,256 @@ LABEL_78:
 
 - (unsigned)updateRetrocomputeHistoryPostProcessing:(VO2MaxRetrocomputeHistory *)processing
 {
-  v77 = 0;
-  v78 = 0;
-  v79 = 0;
-  if (sub_101110B2C(self->fStagingOutputStore.__ptr_, &v77) == 100)
+  v85 = 0;
+  v86 = 0;
+  v87 = 0;
+  if (sub_101110B2C(self->fStagingOutputStore.__ptr_, &v85, 0.0) == 100)
   {
-    v74 = 0;
-    v75 = 0;
-    v76 = 0;
-    if (sub_101110B98(self->fStagingOutputStore.__ptr_, &v74) == 100)
+    v82 = 0;
+    v83 = 0;
+    v84 = 0;
+    v5 = sub_101110B98(self->fStagingOutputStore.__ptr_, &v82);
+    if (v5 == 100)
     {
       __src = 0;
-      v72 = 0;
-      v73 = 0;
-      v5 = v78;
-      if (v77 == v78)
+      v80 = 0;
+      v81 = 0;
+      v7 = v86;
+      if (v85 == v86)
       {
         processing->var17 = 0.0;
+        v45 = 0.0;
         v44 = 0.0;
-        v43 = 0.0;
       }
 
       else
       {
-        v6 = 0;
-        v7 = 0;
-        v8 = v77 + 10;
-        v9 = 0.0;
-        v10 = 0.0;
-        v66 = 0.0;
-        v67 = 0.0;
+        v8 = 0;
+        v9 = 0;
+        v10 = v85 + 10;
         v11 = 0.0;
         v12 = 0.0;
+        v74 = 0.0;
+        v75 = 0.0;
+        v13 = 0.0;
+        v14 = 0.0;
         do
         {
-          v13 = *(v8 - 9);
-          *buf = *(v8 - 10);
-          *&buf[16] = v13;
-          v14 = *(v8 - 8);
-          v15 = *(v8 - 7);
-          v16 = *(v8 - 5);
-          v102 = *(v8 - 6);
-          v103 = v16;
-          *v101 = v14;
-          *&v101[16] = v15;
-          v17 = *(v8 - 4);
-          v18 = *(v8 - 3);
-          v19 = *(v8 - 2);
-          *v107 = *(v8 - 2);
-          v105 = v18;
-          v106 = v19;
-          v104 = v17;
-          v20 = *(v8 - 12);
-          v108 = *(v8 - 4);
-          *&v107[4] = v20;
-          if (*(v8 + 23) < 0)
+          v15 = *(v10 - 9);
+          *buf = *(v10 - 10);
+          *&buf[16] = v15;
+          v16 = *(v10 - 8);
+          v17 = *(v10 - 7);
+          v18 = *(v10 - 5);
+          v110 = *(v10 - 6);
+          v111 = v18;
+          *v109 = v16;
+          *&v109[16] = v17;
+          v19 = *(v10 - 4);
+          v20 = *(v10 - 3);
+          v21 = *(v10 - 2);
+          *v115 = *(v10 - 2);
+          v113 = v20;
+          v114 = v21;
+          v112 = v19;
+          v22 = *(v10 - 12);
+          v116 = *(v10 - 4);
+          *&v115[4] = v22;
+          if (*(v10 + 23) < 0)
           {
-            sub_100007244(&__p, *v8, *(v8 + 1));
+            v5 = sub_100007244(&__p, *v10, *(v10 + 1));
           }
 
           else
           {
-            v21 = *v8;
-            v110 = *(v8 + 2);
-            __p = v21;
+            v23 = *v10;
+            v118 = *(v10 + 2);
+            __p = v23;
           }
 
-          v22 = v8 - 10;
-          v23 = *(v8 + 3);
-          v111 = v23;
-          if (v23 <= 0.0)
+          v24 = v10 - 10;
+          v25 = *(v10 + 3);
+          v119 = v25;
+          if (v25 <= 0.0)
           {
-            v29 = v12;
-            v25 = v11;
-            v26 = v10;
-            v27 = v9;
+            v31 = v14;
+            v27 = v13;
+            v28 = v12;
+            v29 = v11;
           }
 
           else
           {
-            v24 = v7 + 1;
-            v25 = 0.0;
-            v26 = 0.0;
-            v27 = v23;
-            if (v7)
+            v26 = v9 + 1;
+            v27 = 0.0;
+            v28 = 0.0;
+            v29 = v25;
+            if (v9)
             {
-              v27 = v9 + (v23 - v9) / v24;
-              v26 = v10 + (v23 - v9) * (v23 - v27);
-              v67 = v26;
+              v29 = v11 + (v25 - v11) / v26;
+              v28 = v12 + (v25 - v11) * (v25 - v29);
+              v75 = v28;
             }
 
-            v28 = v6 + 1;
-            v29 = *v101;
-            if (v6)
+            v30 = v8 + 1;
+            v31 = *v109;
+            if (v8)
             {
-              v29 = v12 + (*v101 - v12) / v28;
-              v25 = v11 + (*v101 - v12) * (*v101 - v29);
-              v66 = v25;
+              v31 = v14 + (*v109 - v14) / v30;
+              v27 = v13 + (*v109 - v14) * (*v109 - v31);
+              v74 = v27;
             }
 
-            v30 = *v101 - v23;
-            v31 = v72;
-            if (v72 >= v73)
+            v32 = *v109 - v25;
+            v33 = v80;
+            if (v80 >= v81)
             {
-              v33 = __src;
-              v34 = v72 - __src;
-              v35 = (v72 - __src) >> 3;
-              v36 = v35 + 1;
-              if ((v35 + 1) >> 61)
+              v35 = __src;
+              v36 = v80 - __src;
+              v37 = (v80 - __src) >> 3;
+              v38 = v37 + 1;
+              if ((v37 + 1) >> 61)
               {
                 sub_10028C64C();
               }
 
-              v37 = v73 - __src;
-              if ((v73 - __src) >> 2 > v36)
+              v39 = v81 - __src;
+              if ((v81 - __src) >> 2 > v38)
               {
-                v36 = v37 >> 2;
+                v38 = v39 >> 2;
               }
 
-              v38 = v37 >= 0x7FFFFFFFFFFFFFF8;
-              v39 = 0x1FFFFFFFFFFFFFFFLL;
-              if (!v38)
+              v40 = v39 >= 0x7FFFFFFFFFFFFFF8;
+              v41 = 0x1FFFFFFFFFFFFFFFLL;
+              if (!v40)
               {
-                v39 = v36;
+                v41 = v38;
               }
 
-              if (v39)
+              if (v41)
               {
-                sub_1000B9708(&__src, v39);
+                sub_1000B9708(&__src, v41);
               }
 
-              *(8 * v35) = v30;
-              v32 = 8 * v35 + 8;
-              memcpy(0, v33, v34);
-              v40 = __src;
+              *(8 * v37) = v32;
+              v34 = 8 * v37 + 8;
+              memcpy(0, v35, v36);
+              v5 = __src;
               __src = 0;
-              v72 = v32;
-              v73 = 0;
-              if (v40)
+              v80 = v34;
+              v81 = 0;
+              if (v5)
               {
-                operator delete(v40);
+                operator delete(v5);
               }
             }
 
             else
             {
-              *v72 = v30;
-              v32 = (v31 + 1);
+              *v80 = v32;
+              v34 = (v33 + 1);
             }
 
-            v72 = v32;
-            v7 = v24;
-            v6 = v28;
+            v80 = v34;
+            v9 = v26;
+            v8 = v30;
           }
 
-          if (SHIBYTE(v110) < 0)
+          if (SHIBYTE(v118) < 0)
           {
             operator delete(__p);
           }
 
-          v8 += 12;
-          v9 = v27;
-          v10 = v26;
-          v11 = v25;
-          v12 = v29;
+          v10 += 12;
+          v11 = v29;
+          v12 = v28;
+          v13 = v27;
+          v14 = v31;
         }
 
-        while (v22 + 12 != v5);
-        v41 = 0.0;
+        while (v24 + 12 != v7);
         v42 = 0.0;
-        if (__src != v72)
-        {
-          v42 = sub_1010BD760(&__src, 90);
-        }
-
-        processing->var17 = v42;
-        if (v6 >= 2)
-        {
-          v41 = v66 / (v6 - 1);
-        }
-
         v43 = 0.0;
-        v44 = sqrt(v41);
-        if (v7 >= 2)
+        if (__src != v80)
         {
-          v43 = v67 / (v7 - 1);
+          v43 = sub_1010BD760(&__src, 90);
+        }
+
+        processing->var17 = v43;
+        if (v8 >= 2)
+        {
+          v42 = v74 / (v8 - 1);
+        }
+
+        v44 = 0.0;
+        v45 = sqrt(v42);
+        if (v9 >= 2)
+        {
+          v44 = v75 / (v9 - 1);
         }
       }
 
-      processing->var18 = v44 - sqrt(v43);
-      v70 = 15552000.0;
-      v48 = sub_100011660();
-      sub_100185AC0(v48, buf);
-      sub_1000B9370(*buf, "VO2MaxRetrocomputeMinPrevAlgSampleInterval", &v70);
+      processing->var18 = v45 - sqrt(v44);
+      v78 = 15552000.0;
+      v49 = sub_100011660(v5, v6);
+      sub_100185AC0(v49, buf);
+      sub_1000B9370(*buf, "VO2MaxRetrocomputeMinPrevAlgSampleInterval", &v78);
+      v51 = *&buf[8];
       if (*&buf[8])
       {
         sub_100008080(*&buf[8]);
       }
 
-      v49 = processing->var7 - processing->var4;
-      if (v49 >= v70 || self->fShouldBypassPreviousSampleInternal)
+      v52 = processing->var7 - processing->var4;
+      if (v52 >= v78 || self->fShouldBypassPreviousSampleInternal)
       {
-        v50 = 0;
+        v53 = 0;
       }
 
       else
       {
         processing->var19 |= 8u;
-        v50 = 1;
+        v53 = 1;
       }
 
-      v69 = 0.9;
-      v51 = sub_100011660();
-      sub_100185AC0(v51, buf);
-      sub_1000B9370(*buf, "VO2MaxRetrocomputeMinEstimatesUpdatedRatio", &v69);
+      v77 = 0.9;
+      v54 = sub_100011660(v51, v50);
+      sub_100185AC0(v54, buf);
+      sub_1000B9370(*buf, "VO2MaxRetrocomputeMinEstimatesUpdatedRatio", &v77);
+      v56 = *&buf[8];
       if (*&buf[8])
       {
         sub_100008080(*&buf[8]);
       }
 
-      v52 = processing->var12 / (processing->var14 + processing->var12 + processing->var15);
-      if (!processing->var3 && v52 < v69 && !self->fShouldBypassMinEstimatesUpdatedRatio)
+      v57 = processing->var12 / (processing->var14 + processing->var12 + processing->var15);
+      if (!processing->var3 && v57 < v77 && !self->fShouldBypassMinEstimatesUpdatedRatio)
       {
         processing->var19 |= 0x10u;
-        v50 = 1;
+        v53 = 1;
       }
 
-      v68 = 1.0;
-      v53 = sub_100011660();
-      sub_100185AC0(v53, buf);
-      sub_1000B9370(*buf, "VO2MaxRetrocomputeMinMeanDelta", &v68);
+      v76 = 1.0;
+      v58 = sub_100011660(v56, v55);
+      sub_100185AC0(v58, buf);
+      sub_1000B9370(*buf, "VO2MaxRetrocomputeMinMeanDelta", &v76);
       if (*&buf[8])
       {
         sub_100008080(*&buf[8]);
       }
 
-      if (!processing->var3 && fabs(processing->var10) < v68 && !self->fShouldBypassMinDelta)
+      if (!processing->var3 && fabs(processing->var10) < v76 && !self->fShouldBypassMinDelta)
       {
         processing->var19 |= 0x20u;
-        v50 = 1;
+        v53 = 1;
       }
 
-      v54 = v74;
-      v55 = v75;
-      if (v74 != v75)
+      v59 = v82;
+      v60 = v83;
+      if (v82 != v83)
       {
         processing->var19 |= 0x40u;
-        v50 = 1;
+        v53 = 1;
       }
 
       if (qword_1025D4450 != -1)
@@ -2092,91 +2174,92 @@ LABEL_78:
         sub_1018BE068();
       }
 
-      v56 = qword_1025D4458;
+      v61 = qword_1025D4458;
       if (os_log_type_enabled(qword_1025D4458, OS_LOG_TYPE_DEFAULT))
       {
         var10 = processing->var10;
         var3 = processing->var3;
         *buf = 134285825;
-        *&buf[4] = v49;
+        *&buf[4] = v52;
         *&buf[12] = 2049;
-        *&buf[14] = v70;
+        *&buf[14] = v78;
         *&buf[22] = 2049;
-        *&buf[24] = v52;
-        *v101 = 2049;
-        *&v101[2] = v69;
-        *&v101[10] = 2049;
-        *&v101[12] = var10;
-        *&v101[20] = 2049;
-        *&v101[22] = v68;
-        *&v101[30] = 1026;
-        LODWORD(v102) = v54 != v55;
-        WORD2(v102) = 1025;
-        *(&v102 + 6) = v50;
-        WORD5(v102) = 1026;
-        HIDWORD(v102) = var3;
-        LOWORD(v103) = 1026;
-        *(&v103 + 2) = v50 ^ 1;
-        _os_log_impl(dword_100000000, v56, OS_LOG_TYPE_DEFAULT, "VO2MaxRetrocomputeHistory data checks: prevAlgSampleInterval,%{private}f,minPrevAlgSampleInterval,%{private}f,estimatesUpdatedRatio,%{private}f,minEstimatesUpdatedRatio,%{private}f,meanDelta,%{private}f,minMeanDelta,%{private}f,badStagingDataExists,%{public}d,failedDataCheck,%{private}d,oldRetrocomputeStatus,%{public}d,newRetrocomputeStatus,%{public}d", buf, 0x56u);
+        *&buf[24] = v57;
+        *v109 = 2049;
+        *&v109[2] = v77;
+        *&v109[10] = 2049;
+        *&v109[12] = var10;
+        *&v109[20] = 2049;
+        *&v109[22] = v76;
+        *&v109[30] = 1026;
+        LODWORD(v110) = v59 != v60;
+        WORD2(v110) = 1025;
+        *(&v110 + 6) = v53;
+        WORD5(v110) = 1026;
+        HIDWORD(v110) = var3;
+        LOWORD(v111) = 1026;
+        *(&v111 + 2) = v53 ^ 1;
+        _os_log_impl(dword_100000000, v61, OS_LOG_TYPE_DEFAULT, "VO2MaxRetrocomputeHistory data checks: prevAlgSampleInterval,%{private}f,minPrevAlgSampleInterval,%{private}f,estimatesUpdatedRatio,%{private}f,minEstimatesUpdatedRatio,%{private}f,meanDelta,%{private}f,minMeanDelta,%{private}f,badStagingDataExists,%{public}d,failedDataCheck,%{private}d,oldRetrocomputeStatus,%{public}d,newRetrocomputeStatus,%{public}d", buf, 0x56u);
       }
 
       if (sub_10000A100(121, 2))
       {
         sub_1018BEA08(buf);
-        v63 = processing->var10;
-        v64 = processing->var3;
-        v80 = 134285825;
-        v81 = v49;
-        v82 = 2049;
-        v83 = v70;
-        v84 = 2049;
-        v85 = v52;
-        v86 = 2049;
-        v87 = v69;
-        v88 = 2049;
-        v89 = v63;
+        v70 = processing->var10;
+        v71 = processing->var3;
+        v88 = 134285825;
+        v89 = v52;
         v90 = 2049;
-        v91 = v68;
-        v92 = 1026;
-        v93 = v54 != v55;
-        v94 = 1025;
-        v95 = v50;
-        v96 = 1026;
-        v97 = v64;
-        v98 = 1026;
-        v99 = v50 ^ 1;
-        v65 = _os_log_send_and_compose_impl();
-        sub_100152C7C("Generic", 1, 0, 2, "[CLVO2MaxService updateRetrocomputeHistoryPostProcessing:]", "%s\n", v65);
-        if (v65 != buf)
+        v91 = v78;
+        v92 = 2049;
+        v93 = v57;
+        v94 = 2049;
+        v95 = v77;
+        v96 = 2049;
+        v97 = v70;
+        v98 = 2049;
+        v99 = v76;
+        v100 = 1026;
+        v101 = v59 != v60;
+        v102 = 1025;
+        v103 = v53;
+        v104 = 1026;
+        v105 = v71;
+        v106 = 1026;
+        v107 = v53 ^ 1;
+        _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, qword_1025D4458, 0, "VO2MaxRetrocomputeHistory data checks: prevAlgSampleInterval,%{private}f,minPrevAlgSampleInterval,%{private}f,estimatesUpdatedRatio,%{private}f,minEstimatesUpdatedRatio,%{private}f,meanDelta,%{private}f,minMeanDelta,%{private}f,badStagingDataExists,%{public}d,failedDataCheck,%{private}d,oldRetrocomputeStatus,%{public}d,newRetrocomputeStatus,%{public}d", &v88, 86);
+        v73 = v72;
+        sub_100152C7C("Generic", 1, 0, 2, "[CLVO2MaxService updateRetrocomputeHistoryPostProcessing:]", "%s\n", v72);
+        if (v73 != buf)
         {
-          free(v65);
+          free(v73);
         }
       }
 
       if (processing->var3 == 1)
       {
-        v59 = 1;
+        v64 = 1;
       }
 
       else
       {
-        v59 = v50;
+        v64 = v53;
       }
 
-      if ((v59 & 1) == 0)
+      if ((v64 & 1) == 0)
       {
         processing->var20 = CFAbsoluteTimeGetCurrent();
       }
 
-      processing->var3 = v50 ^ 1;
+      processing->var3 = v53 ^ 1;
       sub_1007B855C(self->fRetrocomputeDb.__ptr_, processing, processing->var0);
       if (__src)
       {
-        v72 = __src;
+        v80 = __src;
         operator delete(__src);
       }
 
-      v46 = 0;
+      v47 = 0;
     }
 
     else
@@ -2186,29 +2269,30 @@ LABEL_78:
         sub_1018BE068();
       }
 
-      v47 = qword_1025D4458;
+      v48 = qword_1025D4458;
       if (os_log_type_enabled(qword_1025D4458, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(dword_100000000, v47, OS_LOG_TYPE_DEFAULT, "Unable to check for bad staging data due to device lock", buf, 2u);
+        _os_log_impl(dword_100000000, v48, OS_LOG_TYPE_DEFAULT, "Unable to check for bad staging data due to device lock", buf, 2u);
       }
 
       if (sub_10000A100(121, 2))
       {
         sub_1018BEA08(buf);
-        LOWORD(v80) = 0;
-        v62 = _os_log_send_and_compose_impl();
-        sub_100152C7C("Generic", 1, 0, 2, "[CLVO2MaxService updateRetrocomputeHistoryPostProcessing:]", "%s\n", v62);
-        if (v62 != buf)
+        LOWORD(v88) = 0;
+        _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, qword_1025D4458, 0, "Unable to check for bad staging data due to device lock", &v88, 2);
+        v69 = v68;
+        sub_100152C7C("Generic", 1, 0, 2, "[CLVO2MaxService updateRetrocomputeHistoryPostProcessing:]", "%s\n", v68);
+        if (v69 != buf)
         {
-          free(v62);
+          free(v69);
         }
       }
 
-      v46 = 2;
+      v47 = 2;
     }
 
-    *buf = &v74;
+    *buf = &v82;
     sub_1005648F0(buf);
   }
 
@@ -2219,38 +2303,39 @@ LABEL_78:
       sub_1018BE068();
     }
 
-    v45 = qword_1025D4458;
+    v46 = qword_1025D4458;
     if (os_log_type_enabled(qword_1025D4458, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(dword_100000000, v45, OS_LOG_TYPE_DEFAULT, "Unable to query for staging output due to device lock", buf, 2u);
+      _os_log_impl(dword_100000000, v46, OS_LOG_TYPE_DEFAULT, "Unable to query for staging output due to device lock", buf, 2u);
     }
 
     if (sub_10000A100(121, 2))
     {
       sub_1018BEA08(buf);
-      LOWORD(v80) = 0;
-      v61 = _os_log_send_and_compose_impl();
-      sub_100152C7C("Generic", 1, 0, 2, "[CLVO2MaxService updateRetrocomputeHistoryPostProcessing:]", "%s\n", v61);
-      if (v61 != buf)
+      LOWORD(v88) = 0;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, qword_1025D4458, 0, "Unable to query for staging output due to device lock", &v88, 2);
+      v67 = v66;
+      sub_100152C7C("Generic", 1, 0, 2, "[CLVO2MaxService updateRetrocomputeHistoryPostProcessing:]", "%s\n", v66);
+      if (v67 != buf)
       {
-        free(v61);
+        free(v67);
       }
     }
 
-    v46 = 2;
+    v47 = 2;
   }
 
-  *buf = &v77;
+  *buf = &v85;
   sub_1005648F0(buf);
-  return v46;
+  return v47;
 }
 
 - (void)triggerRetrocomputeWithReply:(id)reply
 {
-  if (sub_10001CF04())
+  if (sub_10001CF04(self, a2))
   {
-    sub_10000FF38(v23, "com.apple.locationd.VO2MaxService.Retrocompute", 0);
+    sub_10000FF38(v27, "com.apple.locationd.VO2MaxService.Retrocompute", 0);
     self->fTriggerRetrocomputeInProgress = 1;
     if (qword_1025D4450 != -1)
     {
@@ -2267,12 +2352,13 @@ LABEL_78:
     if (sub_10000A100(121, 2))
     {
       sub_1018BEA08(buf);
-      LOWORD(v30) = 0;
-      v20 = _os_log_send_and_compose_impl();
+      LOWORD(v34[0]) = 0;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, qword_1025D4458, 0, "Retrocompute triggered", v34, 2);
+      v21 = v20;
       sub_100152C7C("Generic", 1, 0, 2, "[CLVO2MaxService triggerRetrocomputeWithReply:]", "%s\n", v20);
-      if (v20 != buf)
+      if (v21 != buf)
       {
-        free(v20);
+        free(v21);
       }
     }
 
@@ -2282,7 +2368,7 @@ LABEL_78:
     self->fDeleteHealthKitSamplesSuccess = 0;
     self->fDeleteHealthKitSamplesAttempts = 0;
     sub_10055CAE4(&self->fPendingHealthKitWrites);
-    v6 = sub_101110B2C(self->fStagingOutputStore.__ptr_, &self->fPendingHealthKitWrites);
+    v6 = sub_101110B2C(self->fStagingOutputStore.__ptr_, &self->fPendingHealthKitWrites, 0.0);
     if (v6 == 100)
     {
       (*(reply + 2))(reply, 100);
@@ -2290,25 +2376,25 @@ LABEL_78:
       if (self->fPendingHealthKitWrites.__begin_ != end)
       {
         v8 = *end[-1].var1;
-        v24[0] = *(&end[-2].var22.__rep_.__l + 1);
-        v24[1] = v8;
+        v28[0] = *(&end[-2].var22.__rep_.__l + 1);
+        v28[1] = v8;
         v9 = *&end[-1].var2;
         v10 = *&end[-1].var4;
         v11 = *end[-1].var8;
-        v24[4] = *&end[-1].var6;
-        v24[5] = v11;
-        v24[2] = v9;
-        v24[3] = v10;
+        v28[4] = *&end[-1].var6;
+        v28[5] = v11;
+        v28[2] = v9;
+        v28[3] = v10;
         v12 = *&end[-1].var9;
         v13 = *&end[-1].var11;
         v14 = *&end[-1].var15;
-        *v25 = end[-1].var17;
-        v24[7] = v13;
-        v24[8] = v14;
-        v24[6] = v12;
+        *v29 = end[-1].var17;
+        v28[7] = v13;
+        v28[8] = v14;
+        v28[6] = v12;
         v15 = *(&end[-1].var17 + 4);
         var19 = end[-1].var19;
-        *&v25[4] = v15;
+        *&v29[4] = v15;
         if (end[-1].var22.__rep_.__s.__data_[15] < 0)
         {
           sub_100007244(&__p, *&end[-1].var20, end[-1].var22.__rep_.__l.__data_);
@@ -2321,8 +2407,8 @@ LABEL_78:
           __p = v16;
         }
 
-        v29 = *(&end[-1].var22.__rep_.__l + 2);
-        [(CLVO2MaxService *)self saveStagingOutputToHealthKit:v24 activity:0];
+        v33 = *(&end[-1].var22.__rep_.__l + 2);
+        [(CLVO2MaxService *)self saveStagingOutputToHealthKit:v28 activity:0];
         if (SHIBYTE(size) < 0)
         {
           operator delete(__p);
@@ -2346,12 +2432,14 @@ LABEL_78:
       if (sub_10000A100(121, 2))
       {
         sub_1018BEA08(buf);
-        LOWORD(v30) = 0;
-        v22 = _os_log_send_and_compose_impl();
-        sub_100152C7C("Generic", 1, 0, 2, "[CLVO2MaxService triggerRetrocomputeWithReply:]", "%s\n", v22);
-        if (v22 != buf)
+        LOWORD(v34[0]) = 0;
+        LODWORD(v26) = 2;
+        _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, qword_1025D4458, 0, "No staging data found", v34, v26);
+        v25 = v24;
+        sub_100152C7C("Generic", 1, 0, 2, "[CLVO2MaxService triggerRetrocomputeWithReply:]", "%s\n", v24);
+        if (v25 != buf)
         {
-          free(v22);
+          free(v25);
         }
       }
 
@@ -2370,20 +2458,21 @@ LABEL_78:
       if (os_log_type_enabled(qword_1025D4458, OS_LOG_TYPE_ERROR))
       {
         *buf = 67109120;
-        v33 = v6;
+        v36 = v6;
         _os_log_impl(dword_100000000, v18, OS_LOG_TYPE_ERROR, "Unable to query for staging output: %d", buf, 8u);
       }
 
       if (sub_10000A100(121, 0))
       {
         sub_1018BEA08(buf);
-        v30 = 67109120;
-        v31 = v6;
-        v21 = _os_log_send_and_compose_impl();
-        sub_100152C7C("Generic", 1, 0, 0, "[CLVO2MaxService triggerRetrocomputeWithReply:]", "%s\n", v21);
-        if (v21 != buf)
+        v34[0] = 67109120;
+        v34[1] = v6;
+        _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, qword_1025D4458, 16, "Unable to query for staging output: %d", v34);
+        v23 = v22;
+        sub_100152C7C("Generic", 1, 0, 0, "[CLVO2MaxService triggerRetrocomputeWithReply:]", "%s\n", v22);
+        if (v23 != buf)
         {
-          free(v21);
+          free(v23);
         }
       }
 
@@ -2393,7 +2482,7 @@ LABEL_78:
 
     self->fTriggerRetrocomputeInProgress = 0;
 LABEL_34:
-    sub_10001A420(v23);
+    sub_10001A420(v27);
     return;
   }
 
@@ -2556,25 +2645,25 @@ LABEL_17:
     else
     {
       v15 = *&v14[-2].var0;
-      v28[0] = *&v14[-3].var22.__rep_.__l.__size_;
-      v28[1] = v15;
+      v29[0] = *&v14[-3].var22.__rep_.__l.__size_;
+      v29[1] = v15;
       v16 = *&v14[-2].var1[8];
       v17 = *&v14[-2].var3;
       v18 = *&v14[-2].var7;
-      v28[4] = *&v14[-2].var5;
-      v28[5] = v18;
-      v28[2] = v16;
-      v28[3] = v17;
+      v29[4] = *&v14[-2].var5;
+      v29[5] = v18;
+      v29[2] = v16;
+      v29[3] = v17;
       v19 = *&v14[-2].var8[8];
       v20 = *&v14[-2].var10;
       v21 = *&v14[-2].var14;
-      *v29 = v14[-2].var16;
-      v28[7] = v20;
-      v28[8] = v21;
-      v28[6] = v19;
+      *v30 = v14[-2].var16;
+      v29[7] = v20;
+      v29[8] = v21;
+      v29[6] = v19;
       v22 = *(&v14[-2].var16 + 4);
-      v30 = BYTE4(v14[-2].var17);
-      *&v29[4] = v22;
+      v31 = BYTE4(v14[-2].var17);
+      *&v30[4] = v22;
       if (v14[-2].var22.__rep_.__s.__data_[7] < 0)
       {
         sub_100007244(&__p, *&v14[-2].var18, *&v14[-2].var20);
@@ -2588,7 +2677,7 @@ LABEL_17:
       }
 
       size = v14[-2].var22.__rep_.__l.__size_;
-      [(CLVO2MaxService *)self saveStagingOutputToHealthKit:v28 activity:activity];
+      [(CLVO2MaxService *)self saveStagingOutputToHealthKit:v29 activity:activity];
       if (SHIBYTE(data) < 0)
       {
         operator delete(__p);
@@ -2620,10 +2709,10 @@ LABEL_17:
 
       *buf = 134349569;
       timeCopy = *&v11;
-      v42 = 2049;
+      v43 = 2049;
       timeCopy2 = time;
-      v44 = 2049;
-      v45 = v12;
+      v45 = 2049;
+      v46 = v12;
       _os_log_impl(dword_100000000, v9, OS_LOG_TYPE_ERROR, "Will retry retrocompute trigger due to unexpected state. fPendingHealthKitWrites count: %{public}lu, expected sample startTime: %{private}f, actual sample startTime: %{private}f", buf, 0x20u);
     }
 
@@ -2647,17 +2736,18 @@ LABEL_17:
         v26 = *&v24[-1].var1[8];
       }
 
-      v34 = 134349569;
-      v35 = v25;
-      v36 = 2049;
+      v35 = 134349569;
+      v36 = v25;
+      v37 = 2049;
       timeCopy3 = time;
-      v38 = 2049;
-      v39 = v26;
-      v27 = _os_log_send_and_compose_impl();
+      v39 = 2049;
+      v40 = v26;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, qword_1025D4458, 16, "Will retry retrocompute trigger due to unexpected state. fPendingHealthKitWrites count: %{public}lu, expected sample startTime: %{private}f, actual sample startTime: %{private}f", &v35, 32);
+      v28 = v27;
       sub_100152C7C("Generic", 1, 0, 0, "[CLVO2MaxService onRetrocomputeHealthKitSampleSavedWithStartTime:activity:]", "%s\n", v27);
-      if (v27 != buf)
+      if (v28 != buf)
       {
-        free(v27);
+        free(v28);
       }
     }
 
@@ -2688,7 +2778,7 @@ LABEL_17:
 
 - (void)promoteStagingData:(id)data
 {
-  v5 = sub_101110B28(self->fStagingOutputStore.__ptr_, a2);
+  v5 = sub_101110B28(self->fStagingOutputStore.__ptr_);
   if (v5 != 100)
   {
     v6 = v5;
@@ -2831,16 +2921,16 @@ LABEL_10:
 
 - (void)handleRetryTriggerRetrocompute:(id)retrocompute
 {
-  sub_10000FF38(v17, "com.apple.locationd.VO2MaxService.Retrocompute", 0);
-  v29[0] = 0;
-  v29[1] = 0;
-  v30 = 4;
-  v35[4] = 0.0;
-  v31 = 0u;
-  memset(v32, 0, sizeof(v32));
-  v33 = 0u;
-  v34 = 0u;
-  memset(v35, 0, 28);
+  sub_10000FF38(v23, "com.apple.locationd.VO2MaxService.Retrocompute", 0);
+  v35[0] = 0;
+  v35[1] = 0;
+  v36 = 4;
+  v41[4] = 0.0;
+  v37 = 0u;
+  memset(v38, 0, sizeof(v38));
+  v39 = 0u;
+  v40 = 0u;
+  memset(v41, 0, 28);
   if (self->fUpdateRetrocomputedDataSuccess)
   {
     if (qword_1025D4450 != -1)
@@ -2861,10 +2951,11 @@ LABEL_10:
     }
 
     sub_1018BEA08(buf);
-    LOWORD(v21) = 0;
-    v13 = _os_log_send_and_compose_impl();
+    LOWORD(v27) = 0;
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, qword_1025D4458, 0, "Retrying retrocompute trigger already succeeded, cancelling activity", &v27, 2);
+    v14 = v13;
     sub_100152C7C("Generic", 1, 0, 2, "[CLVO2MaxService handleRetryTriggerRetrocompute:]", "%s\n", v13);
-    if (v13 == buf)
+    if (v14 == buf)
     {
       goto LABEL_7;
     }
@@ -2872,7 +2963,7 @@ LABEL_10:
     goto LABEL_49;
   }
 
-  if (sub_1007B8870(self->fRetrocomputeDb.__ptr_, 4, v29) == 109)
+  if (sub_1007B8870(self->fRetrocomputeDb.__ptr_, 4, v35) == 109)
   {
     if (qword_1025D4450 != -1)
     {
@@ -2892,10 +2983,11 @@ LABEL_10:
     }
 
     sub_1018BEA08(buf);
-    LOWORD(v21) = 0;
-    v14 = _os_log_send_and_compose_impl();
-    sub_100152C7C("Generic", 1, 0, 0, "[CLVO2MaxService handleRetryTriggerRetrocompute:]", "%s\n", v14);
-    if (v14 == buf)
+    LOWORD(v27) = 0;
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, qword_1025D4458, 16, "Unable to query for retrocompute history due to device lock", &v27, 2);
+    v16 = v15;
+    sub_100152C7C("Generic", 1, 0, 0, "[CLVO2MaxService handleRetryTriggerRetrocompute:]", "%s\n", v15);
+    if (v16 == buf)
     {
       goto LABEL_15;
     }
@@ -2903,7 +2995,7 @@ LABEL_10:
     goto LABEL_51;
   }
 
-  if (v31 != 2)
+  if (v37 != 2)
   {
     if (qword_1025D4450 != -1)
     {
@@ -2914,9 +3006,9 @@ LABEL_10:
     if (os_log_type_enabled(qword_1025D4458, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67240448;
-      v26 = v31;
-      v27 = 1026;
-      v28 = v30;
+      v32 = v37;
+      v33 = 1026;
+      v34 = v36;
       _os_log_impl(dword_100000000, v8, OS_LOG_TYPE_DEFAULT, "Will not attempt to retry retrocompute trigger, status: %{public}d, algVersion: %{public}d", buf, 0xEu);
     }
 
@@ -2926,19 +3018,20 @@ LABEL_10:
     }
 
     sub_1018BEA08(buf);
-    v21 = 67240448;
-    v22 = v31;
-    v23 = 1026;
-    v24 = v30;
-    v13 = _os_log_send_and_compose_impl();
-    sub_100152C7C("Generic", 1, 0, 2, "[CLVO2MaxService handleRetryTriggerRetrocompute:]", "%s\n", v13);
-    if (v13 == buf)
+    v27 = 67240448;
+    v28 = v37;
+    v29 = 1026;
+    v30 = v36;
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, qword_1025D4458, 0, "Will not attempt to retry retrocompute trigger, status: %{public}d, algVersion: %{public}d", &v27, 14);
+    v14 = v17;
+    sub_100152C7C("Generic", 1, 0, 2, "[CLVO2MaxService handleRetryTriggerRetrocompute:]", "%s\n", v17);
+    if (v14 == buf)
     {
       goto LABEL_7;
     }
 
 LABEL_49:
-    free(v13);
+    free(v14);
 LABEL_7:
     [(CLVO2MaxService *)self markXpcActivityDone:retrocompute];
     xpc_activity_unregister("com.apple.locationd.VO2Max.RetrocomputeRetryTrigger");
@@ -2964,20 +3057,21 @@ LABEL_8:
     if (sub_10000A100(121, 2))
     {
       sub_1018BEA08(buf);
-      LOWORD(v21) = 0;
-      v15 = _os_log_send_and_compose_impl();
-      sub_100152C7C("Generic", 1, 0, 2, "[CLVO2MaxService handleRetryTriggerRetrocompute:]", "%s\n", v15);
-      if (v15 != buf)
+      LOWORD(v27) = 0;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, qword_1025D4458, 0, "Giving up attempting to retry retrocompute trigger", &v27, 2);
+      v19 = v18;
+      sub_100152C7C("Generic", 1, 0, 2, "[CLVO2MaxService handleRetryTriggerRetrocompute:]", "%s\n", v18);
+      if (v19 != buf)
       {
-        free(v15);
+        free(v19);
       }
     }
 
     [(CLVO2MaxService *)self markXpcActivityDone:retrocompute];
     xpc_activity_unregister("com.apple.locationd.VO2Max.RetrocomputeRetryHealthKitDelete");
-    if (v35[0] == 0.0)
+    if (v41[0] == 0.0)
     {
-      [(CLVO2MaxService *)self updateRetrocomputeStatus:1 unavailableReasons:0, v35[0]];
+      [(CLVO2MaxService *)self updateRetrocomputeStatus:1 unavailableReasons:0, v41[0]];
     }
 
     goto LABEL_8;
@@ -2998,12 +3092,13 @@ LABEL_8:
   if (sub_10000A100(121, 2))
   {
     sub_1018BEA08(buf);
-    LOWORD(v21) = 0;
-    v16 = _os_log_send_and_compose_impl();
-    sub_100152C7C("Generic", 1, 0, 2, "[CLVO2MaxService handleRetryTriggerRetrocompute:]", "%s\n", v16);
-    if (v16 != buf)
+    LOWORD(v27) = 0;
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, qword_1025D4458, 0, "Retrying retrocompute trigger", &v27, 2);
+    v21 = v20;
+    sub_100152C7C("Generic", 1, 0, 2, "[CLVO2MaxService handleRetryTriggerRetrocompute:]", "%s\n", v20);
+    if (v21 != buf)
     {
-      free(v16);
+      free(v21);
     }
   }
 
@@ -3011,7 +3106,7 @@ LABEL_8:
   self->fDeleteHealthKitSamplesSuccess = 0;
   self->fDeleteHealthKitSamplesAttempts = 0;
   sub_10055CAE4(&self->fPendingHealthKitWrites);
-  v10 = sub_101110B2C(self->fStagingOutputStore.__ptr_, &self->fPendingHealthKitWrites);
+  v10 = sub_101110B2C(self->fStagingOutputStore.__ptr_, &self->fPendingHealthKitWrites, v41[0]);
   if (v10 != 100)
   {
     if (qword_1025D4450 != -1)
@@ -3023,7 +3118,7 @@ LABEL_8:
     if (os_log_type_enabled(qword_1025D4458, OS_LOG_TYPE_ERROR))
     {
       *buf = 67109120;
-      v26 = v10;
+      v32 = v10;
       _os_log_impl(dword_100000000, v12, OS_LOG_TYPE_ERROR, "Unable to query for staging output: %d", buf, 8u);
     }
 
@@ -3033,17 +3128,18 @@ LABEL_8:
     }
 
     sub_1018BEA08(buf);
-    v21 = 67109120;
-    v22 = v10;
-    v14 = _os_log_send_and_compose_impl();
-    sub_100152C7C("Generic", 1, 0, 0, "[CLVO2MaxService handleRetryTriggerRetrocompute:]", "%s\n", v14);
-    if (v14 == buf)
+    v27 = 67109120;
+    v28 = v10;
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, qword_1025D4458, 16, "Unable to query for staging output: %d", &v27);
+    v16 = v22;
+    sub_100152C7C("Generic", 1, 0, 0, "[CLVO2MaxService handleRetryTriggerRetrocompute:]", "%s\n", v22);
+    if (v16 == buf)
     {
       goto LABEL_15;
     }
 
 LABEL_51:
-    free(v14);
+    free(v16);
 LABEL_15:
     [(CLVO2MaxService *)self markXpcActivityDone:retrocompute];
     goto LABEL_16;
@@ -3057,16 +3153,16 @@ LABEL_15:
 
   else
   {
-    sub_100564858(v18, (&end[-2].var22.__rep_.__l + 1));
-    [(CLVO2MaxService *)self saveStagingOutputToHealthKit:v18 activity:retrocompute];
-    if (v20 < 0)
+    sub_100564858(v24, (&end[-2].var22.__rep_.__l + 1));
+    [(CLVO2MaxService *)self saveStagingOutputToHealthKit:v24 activity:retrocompute];
+    if (v26 < 0)
     {
       operator delete(__p);
     }
   }
 
 LABEL_16:
-  sub_10001A420(v17);
+  sub_10001A420(v23);
 }
 
 - (void)deleteHealthKitSamples:(BOOL)samples
@@ -3089,12 +3185,12 @@ LABEL_16:
     sub_1018C06C0();
   }
 
-  v14 = 0;
-  v15 = 0;
   v16 = 0;
-  if (sub_101110E74(self->fStagingOutputStore.__ptr_, &v14) == 100)
+  v17 = 0;
+  v18 = 0;
+  if (sub_101110E74(self->fStagingOutputStore.__ptr_, &v16) == 100)
   {
-    if (v14 == v15)
+    if (v16 == v17)
     {
       if (qword_1025D4450 != -1)
       {
@@ -3111,12 +3207,13 @@ LABEL_16:
       if (sub_10000A100(121, 2))
       {
         sub_1018BEA08(buf);
-        v13 = 0;
-        v9 = _os_log_send_and_compose_impl();
-        sub_100152C7C("Generic", 1, 0, 2, "[CLVO2MaxService deleteHealthKitSamples:]", "%s\n", v9);
-        if (v9 != buf)
+        v15 = 0;
+        _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, qword_1025D4458, 1, "No sessions to delete from HKHealthStore", &v15, 2);
+        v11 = v10;
+        sub_100152C7C("Generic", 1, 0, 2, "[CLVO2MaxService deleteHealthKitSamples:]", "%s\n", v10);
+        if (v11 != buf)
         {
-          free(v9);
+          free(v11);
         }
       }
     }
@@ -3124,13 +3221,13 @@ LABEL_16:
     else
     {
       __p = 0;
-      v11 = 0;
-      v12 = 0;
-      sub_100564944(&__p, v14, v15, (v15 - v14) >> 5);
+      v13 = 0;
+      v14 = 0;
+      sub_100564944(&__p, v16, v17, (v17 - v16) >> 5);
       [(CLVO2MaxService *)self deleteSessionsFromHealthKit:&__p withRetry:samplesCopy];
       if (__p)
       {
-        v11 = __p;
+        v13 = __p;
         operator delete(__p);
       }
     }
@@ -3153,12 +3250,13 @@ LABEL_16:
     if (sub_10000A100(121, 2))
     {
       sub_1018BEA08(buf);
-      v13 = 0;
-      v8 = _os_log_send_and_compose_impl();
+      v15 = 0;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, qword_1025D4458, 1, "Unable to fetch sessions without estimates", &v15, 2);
+      v9 = v8;
       sub_100152C7C("Generic", 1, 0, 2, "[CLVO2MaxService deleteHealthKitSamples:]", "%s\n", v8);
-      if (v8 != buf)
+      if (v9 != buf)
       {
-        free(v8);
+        free(v9);
       }
     }
 
@@ -3168,10 +3266,10 @@ LABEL_16:
     }
   }
 
-  if (v14)
+  if (v16)
   {
-    v15 = v14;
-    operator delete(v14);
+    v17 = v16;
+    operator delete(v16);
   }
 }
 
@@ -3413,56 +3511,49 @@ LABEL_22:
 
 - (void)updateRetrocomputeStatus:(int)status unavailableReasons:(unsigned int)reasons
 {
-  v25[0] = 0;
-  v25[1] = 0;
-  v26 = 4;
-  v32 = 0;
-  v27 = 0u;
-  memset(v28, 0, sizeof(v28));
-  v29 = 0u;
-  v30 = 0u;
-  memset(v31, 0, 28);
-  if (sub_1007B8870(self->fRetrocomputeDb.__ptr_, 4, v25) == 100)
+  v20[0] = 0;
+  v20[1] = 0;
+  v21 = 4;
+  v27 = 0;
+  v22 = 0u;
+  memset(v23, 0, sizeof(v23));
+  v24 = 0u;
+  v25 = 0u;
+  memset(v26, 0, 28);
+  if (sub_1007B8870(self->fRetrocomputeDb.__ptr_, 4, v20) == 100)
   {
-    v7 = v27;
-    LODWORD(v27) = status;
-    DWORD2(v31[1]) = reasons;
-    sub_1007B855C(self->fRetrocomputeDb.__ptr_, v25, v25[0]);
+    v7 = v22;
+    LODWORD(v22) = status;
+    DWORD2(v26[1]) = reasons;
+    sub_1007B855C(self->fRetrocomputeDb.__ptr_, v20, v20[0]);
     if (v7 != status)
     {
       v8 = [NSDate alloc];
-      v9 = [v8 initWithTimeIntervalSinceReferenceDate:*(&v27 + 4)];
+      v9 = [v8 initWithTimeIntervalSinceReferenceDate:*(&v22 + 4)];
       v10 = [NSDate alloc];
-      v11 = [v10 initWithTimeIntervalSinceReferenceDate:*&v28[1]];
+      v11 = [v10 initWithTimeIntervalSinceReferenceDate:*&v23[1]];
       v12 = [NSNumber alloc];
-      v13 = [v12 initWithDouble:*&v29];
-      v14 = [[CMVO2MaxRetrocomputeState alloc] initWithStatus:v27 startDate:v9 endDate:v11 meanDelta:v13];
-      v20 = 0u;
-      v21 = 0u;
-      v22 = 0u;
-      v23 = 0u;
+      v13 = [v12 initWithDouble:*&v24];
+      v14 = [[CMVO2MaxRetrocomputeState alloc] initWithStatus:v22 startDate:v9 endDate:v11 meanDelta:v13];
       retrocomputeStatusClients = [(CLVO2MaxService *)self retrocomputeStatusClients];
-      v16 = [(NSMutableSet *)retrocomputeStatusClients countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v16 = objc_msgSend_countByEnumeratingWithState_objects_count_(retrocomputeStatusClients);
       if (v16)
       {
         v17 = v16;
-        v18 = *v21;
+        v18 = MEMORY[0];
         do
         {
-          v19 = 0;
-          do
+          for (i = 0; i != v17; i = i + 1)
           {
-            if (*v21 != v18)
+            if (MEMORY[0] != v18)
             {
               objc_enumerationMutation(retrocomputeStatusClients);
             }
 
-            [*(*(&v20 + 1) + 8 * v19) onRetrocomputeStatusUpdate:v14];
-            v19 = v19 + 1;
+            [*(8 * i) onRetrocomputeStatusUpdate:v14];
           }
 
-          while (v17 != v19);
-          v17 = [(NSMutableSet *)retrocomputeStatusClients countByEnumeratingWithState:&v20 objects:v24 count:16];
+          v17 = objc_msgSend_countByEnumeratingWithState_objects_count_(retrocomputeStatusClients);
         }
 
         while (v17);
@@ -3522,21 +3613,21 @@ LABEL_22:
       v11 = p_fOriginalBodyMetrics->heightM;
       v12 = p_fOriginalBodyMetrics->weightKG;
       *buf = 67176449;
-      v17 = biologicalSex;
-      v18 = 2049;
-      v19 = age;
-      v20 = 2049;
-      v21 = heightM;
-      v22 = 2049;
-      v23 = weightKG;
-      v24 = 1025;
-      v25 = v9;
-      v26 = 2049;
-      v27 = v10;
-      v28 = 2049;
-      v29 = v11;
-      v30 = 2049;
-      v31 = v12;
+      v41 = biologicalSex;
+      v42 = 2049;
+      v43 = age;
+      v44 = 2049;
+      v45 = heightM;
+      v46 = 2049;
+      v47 = weightKG;
+      v48 = 1025;
+      v49 = v9;
+      v50 = 2049;
+      v51 = v10;
+      v52 = 2049;
+      v53 = v11;
+      v54 = 2049;
+      v55 = v12;
       _os_log_impl(dword_100000000, v4, OS_LOG_TYPE_DEFAULT, "Significant change in BodyMetrics during pre-processing. Original values -- biologicalSex: %{private}d, age: %{private}f, height: %{private}f, weight: %{private}f\n\nCurrent values -- biologicalSex: %{private}d, age: %{private}f, height: %{private}f, weight: %{private}f", buf, 0x4Au);
     }
 
@@ -3549,11 +3640,36 @@ LABEL_22:
         sub_1018BE068();
       }
 
-      v14 = _os_log_send_and_compose_impl();
-      sub_100152C7C("Generic", 1, 0, 2, "[CLVO2MaxService validateBodyMetrics]", "%s\n", v14);
-      if (v14 != buf)
+      v14 = p_fUserInfo->biologicalSex;
+      v15 = p_fUserInfo->age;
+      v16 = p_fUserInfo->heightM;
+      v17 = p_fUserInfo->weightKG;
+      v18 = p_fOriginalBodyMetrics->biologicalSex;
+      v19 = p_fOriginalBodyMetrics->age;
+      v20 = p_fOriginalBodyMetrics->heightM;
+      v21 = p_fOriginalBodyMetrics->weightKG;
+      v25[0] = 67176449;
+      v25[1] = v14;
+      v26 = 2049;
+      v27 = v15;
+      v28 = 2049;
+      v29 = v16;
+      v30 = 2049;
+      v31 = v17;
+      v32 = 1025;
+      v33 = v18;
+      v34 = 2049;
+      v35 = v19;
+      v36 = 2049;
+      v37 = v20;
+      v38 = 2049;
+      v39 = v21;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, qword_1025D4458, 0, "Significant change in BodyMetrics during pre-processing. Original values -- biologicalSex: %{private}d, age: %{private}f, height: %{private}f, weight: %{private}f\n\nCurrent values -- biologicalSex: %{private}d, age: %{private}f, height: %{private}f, weight: %{private}f", v25, 74);
+      v23 = v22;
+      sub_100152C7C("Generic", 1, 0, 2, "[CLVO2MaxService validateBodyMetrics]", "%s\n", v22);
+      if (v23 != buf)
       {
-        free(v14);
+        free(v23);
       }
 
       LOBYTE(v13) = 0;
@@ -3638,29 +3754,29 @@ LABEL_22:
 
 - (void)getLatestVO2MaxValueForBodyMetrics:(const CLBodyMetrics *)metrics sinceTime:(double)time withReply:(id)reply
 {
-  v6 = objc_alloc_init(NSMutableDictionary);
-  v40 = 0;
-  v42 = 0;
-  v44 = 0;
-  v43 = 0;
-  v7 = sub_10104516C();
-  if (sub_101045B90(v7, v39))
+  v7 = objc_alloc_init(NSMutableDictionary);
+  v81 = 0;
+  v83 = 0;
+  v85 = 0;
+  v84 = 0;
+  v8 = sub_10104516C();
+  if (sub_101045B90(v8, v80, time))
   {
-    if (v41 < 10.0 || v41 > 100.0)
+    if (v82 < 10.0 || v82 > 100.0)
     {
       if (qword_1025D4450 != -1)
       {
         sub_1018BE068();
       }
 
-      v9 = qword_1025D4458;
+      v10 = qword_1025D4458;
       if (os_log_type_enabled(qword_1025D4458, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543619;
         *&buf[4] = @"VO2MaxWatchEstimate";
         *&buf[12] = 2049;
-        *&buf[14] = v41;
-        _os_log_impl(dword_100000000, v9, OS_LOG_TYPE_ERROR, "Error: getLatestVO2MaxValueForBodyMetrics out of bounds for key, %{public}@, value, %{private}f", buf, 0x16u);
+        *&buf[14] = v82;
+        _os_log_impl(dword_100000000, v10, OS_LOG_TYPE_ERROR, "Error: getLatestVO2MaxValueForBodyMetrics out of bounds for key, %{public}@, value, %{private}f", buf, 0x16u);
       }
 
       if (sub_10000A100(121, 0))
@@ -3671,20 +3787,20 @@ LABEL_22:
 
     else
     {
-      [v6 setObject:+[NSNumber numberWithDouble:](NSNumber forKey:{"numberWithDouble:", v41), @"VO2MaxWatchEstimate"}];
+      [v7 setObject:+[NSNumber numberWithDouble:](NSNumber forKey:{"numberWithDouble:", v82), @"VO2MaxWatchEstimate"}];
       if (qword_1025D4450 != -1)
       {
         sub_1018BE068();
       }
 
-      v10 = qword_1025D4458;
+      v11 = qword_1025D4458;
       if (os_log_type_enabled(qword_1025D4458, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138543619;
         *&buf[4] = @"VO2MaxWatchEstimate";
         *&buf[12] = 2049;
-        *&buf[14] = v41;
-        _os_log_impl(dword_100000000, v10, OS_LOG_TYPE_DEBUG, "getLatestVO2MaxValueForBodyMetrics key, %{public}@, value, %{private}f", buf, 0x16u);
+        *&buf[14] = v82;
+        _os_log_impl(dword_100000000, v11, OS_LOG_TYPE_DEBUG, "getLatestVO2MaxValueForBodyMetrics key, %{public}@, value, %{private}f", buf, 0x16u);
       }
 
       if (sub_10000A100(121, 2))
@@ -3694,28 +3810,28 @@ LABEL_22:
     }
   }
 
-  v34 = 0;
-  v36 = 0;
-  v38 = 0;
-  v37 = 0;
-  v11 = sub_10104516C();
-  if (sub_101045CAC(v11, v33))
+  v75 = 0;
+  v77 = 0;
+  v79 = 0;
+  v78 = 0;
+  v12 = sub_10104516C();
+  if (sub_101045CAC(v12, v74, time))
   {
-    if (v35 < 10.0 || v35 > 100.0)
+    if (v76 < 10.0 || v76 > 100.0)
     {
       if (qword_1025D4450 != -1)
       {
         sub_1018BE068();
       }
 
-      v13 = qword_1025D4458;
+      v14 = qword_1025D4458;
       if (os_log_type_enabled(qword_1025D4458, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543619;
         *&buf[4] = @"VO2MaxPhoneEstimate";
         *&buf[12] = 2049;
-        *&buf[14] = v35;
-        _os_log_impl(dword_100000000, v13, OS_LOG_TYPE_ERROR, "Error: getLatestVO2MaxValueForBodyMetrics out of bounds for key, %{public}@, value, %{private}f", buf, 0x16u);
+        *&buf[14] = v76;
+        _os_log_impl(dword_100000000, v14, OS_LOG_TYPE_ERROR, "Error: getLatestVO2MaxValueForBodyMetrics out of bounds for key, %{public}@, value, %{private}f", buf, 0x16u);
       }
 
       if (sub_10000A100(121, 0))
@@ -3726,20 +3842,20 @@ LABEL_22:
 
     else
     {
-      [v6 setObject:+[NSNumber numberWithDouble:](NSNumber forKey:{"numberWithDouble:", v35), @"VO2MaxPhoneEstimate"}];
+      [v7 setObject:+[NSNumber numberWithDouble:](NSNumber forKey:{"numberWithDouble:", v76), @"VO2MaxPhoneEstimate"}];
       if (qword_1025D4450 != -1)
       {
         sub_1018BE068();
       }
 
-      v12 = qword_1025D4458;
+      v13 = qword_1025D4458;
       if (os_log_type_enabled(qword_1025D4458, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138543619;
         *&buf[4] = @"VO2MaxPhoneEstimate";
         *&buf[12] = 2049;
-        *&buf[14] = v35;
-        _os_log_impl(dword_100000000, v12, OS_LOG_TYPE_DEBUG, "getLatestVO2MaxValueForBodyMetrics key, %{public}@, value, %{private}f", buf, 0x16u);
+        *&buf[14] = v76;
+        _os_log_impl(dword_100000000, v13, OS_LOG_TYPE_DEBUG, "getLatestVO2MaxValueForBodyMetrics key, %{public}@, value, %{private}f", buf, 0x16u);
       }
 
       if (sub_10000A100(121, 2))
@@ -3752,35 +3868,250 @@ LABEL_22:
   ptr = self->fPriorDb.__ptr_;
   if (ptr)
   {
-    memset(&v30[5], 0, 24);
-    sub_1008FE1C0(ptr);
-  }
-
-  if (metrics)
-  {
-    v15 = *&metrics->vo2max;
-    *buf = *&metrics->gender;
-    *&buf[16] = v15;
-    v32[0] = *&metrics->hronset;
-    *(v32 + 12) = *&metrics->runVo2max;
-    sub_10062AADC(buf);
-    v17 = v16 * 3.5;
-    v18 = v17;
-    if (v17 < 10.0 || v17 > 100.0)
+    v65 = 0;
+    v66 = 0;
+    v67 = 0;
+    sub_1008FE1C0(ptr, &v65);
+    if (0xAAAAAAAAAAAAAAABLL * ((v66 - v65) >> 4) >= 3)
     {
       if (qword_1025D4450 != -1)
       {
         sub_1018BE068();
       }
 
-      v20 = qword_1025D4458;
+      v16 = qword_1025D4458;
+      if (os_log_type_enabled(qword_1025D4458, OS_LOG_TYPE_ERROR))
+      {
+        *buf = 134349056;
+        *&buf[4] = 0xAAAAAAAAAAAAAAABLL * ((v66 - v65) >> 4);
+        _os_log_impl(dword_100000000, v16, OS_LOG_TYPE_ERROR, "Too many priors retrieved from DB (%{public}lu)", buf, 0xCu);
+      }
+
+      if (sub_10000A100(121, 0))
+      {
+        sub_1018BEA08(buf);
+        v68 = 134349056;
+        v69 = (0xAAAAAAAAAAAAAAABLL * ((v66 - v65) >> 4));
+        _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, qword_1025D4458, 16, "Too many priors retrieved from DB (%{public}lu)", &v68, 12);
+        v60 = v59;
+        sub_100152C7C("Generic", 1, 0, 0, "[CLVO2MaxService getLatestVO2MaxValueForBodyMetrics:sinceTime:withReply:]", "%s\n", v59);
+        if (v60 != buf)
+        {
+          free(v60);
+        }
+      }
+    }
+
+    v17 = v65;
+    if (v66 != v65)
+    {
+      v18 = 0;
+      v19 = 0;
+      do
+      {
+        v20 = &v17[v18];
+        if (*&v17[v18 + 8] <= time || *&v17[v18 + 24] != 0)
+        {
+          goto LABEL_64;
+        }
+
+        v22 = v20[2];
+        if (v22 < 10.0 || v22 > 100.0)
+        {
+          if (qword_1025D4450 != -1)
+          {
+            sub_1018BE068();
+          }
+
+          v24 = qword_1025D4458;
+          if (os_log_type_enabled(qword_1025D4458, OS_LOG_TYPE_ERROR))
+          {
+            v25 = *(v20 + 2);
+            *buf = 138543619;
+            *&buf[4] = @"VO2MaxWatchMaxMetsFallback";
+            *&buf[12] = 2049;
+            *&buf[14] = v25;
+            _os_log_impl(dword_100000000, v24, OS_LOG_TYPE_ERROR, "Error: getLatestVO2MaxValueForBodyMetrics out of bounds for key, %{public}@, value, %{private}f", buf, 0x16u);
+          }
+
+          if (sub_10000A100(121, 0))
+          {
+            sub_1018BEA08(buf);
+            v26 = *(v20 + 2);
+            v68 = 138543619;
+            v69 = @"VO2MaxWatchMaxMetsFallback";
+            v70 = 2049;
+            v71 = v26;
+            LODWORD(v61) = 22;
+            _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, qword_1025D4458, 16, "Error: getLatestVO2MaxValueForBodyMetrics out of bounds for key, %{public}@, value, %{private}f", &v68, v61);
+            v28 = v27;
+            sub_100152C7C("Generic", 1, 0, 0, "[CLVO2MaxService getLatestVO2MaxValueForBodyMetrics:sinceTime:withReply:]", "%s\n", v27);
+            goto LABEL_88;
+          }
+        }
+
+        else
+        {
+          [v7 setObject:+[NSNumber numberWithDouble:](NSNumber forKey:{"numberWithDouble:"), @"VO2MaxWatchMaxMetsFallback"}];
+          if (qword_1025D4450 != -1)
+          {
+            sub_1018BE068();
+          }
+
+          v29 = qword_1025D4458;
+          if (os_log_type_enabled(qword_1025D4458, OS_LOG_TYPE_DEBUG))
+          {
+            v30 = *(v20 + 2);
+            *buf = 138543619;
+            *&buf[4] = @"VO2MaxWatchMaxMetsFallback";
+            *&buf[12] = 2049;
+            *&buf[14] = v30;
+            _os_log_impl(dword_100000000, v29, OS_LOG_TYPE_DEBUG, "getLatestVO2MaxValueForBodyMetrics setting key, %{public}@, value, %{private}f", buf, 0x16u);
+          }
+
+          if (sub_10000A100(121, 2))
+          {
+            sub_1018BEA08(buf);
+            v42 = *(v20 + 2);
+            v68 = 138543619;
+            v69 = @"VO2MaxWatchMaxMetsFallback";
+            v70 = 2049;
+            v71 = v42;
+            LODWORD(v61) = 22;
+            _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, qword_1025D4458, 2, "getLatestVO2MaxValueForBodyMetrics setting key, %{public}@, value, %{private}f", &v68, v61);
+            v28 = v43;
+            sub_100152C7C("Generic", 1, 0, 2, "[CLVO2MaxService getLatestVO2MaxValueForBodyMetrics:sinceTime:withReply:]", "%s\n", v43);
+LABEL_88:
+            if (v28 != buf)
+            {
+              free(v28);
+            }
+          }
+        }
+
+LABEL_64:
+        if (v20[1] > time && *(v20 + 6) == 1)
+        {
+          v32 = &v17[v18];
+          v33 = *&v17[v18 + 16];
+          if (v33 < 10.0 || v33 > 100.0)
+          {
+            if (qword_1025D4450 != -1)
+            {
+              sub_1018BE068();
+            }
+
+            v35 = qword_1025D4458;
+            if (os_log_type_enabled(qword_1025D4458, OS_LOG_TYPE_ERROR))
+            {
+              v36 = *(v32 + 2);
+              *buf = 138543619;
+              *&buf[4] = @"VO2MaxMobilityFallback";
+              *&buf[12] = 2049;
+              *&buf[14] = v36;
+              _os_log_impl(dword_100000000, v35, OS_LOG_TYPE_ERROR, "Error: getLatestVO2MaxValueForBodyMetrics out of bounds for key, %{public}@, value, %{private}f", buf, 0x16u);
+            }
+
+            if (!sub_10000A100(121, 0))
+            {
+              goto LABEL_85;
+            }
+
+            sub_1018BEA08(buf);
+            v37 = *(v32 + 2);
+            v68 = 138543619;
+            v69 = @"VO2MaxMobilityFallback";
+            v70 = 2049;
+            v71 = v37;
+            LODWORD(v61) = 22;
+            _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, qword_1025D4458, 16, "Error: getLatestVO2MaxValueForBodyMetrics out of bounds for key, %{public}@, value, %{private}f", &v68, v61);
+            v39 = v38;
+            sub_100152C7C("Generic", 1, 0, 0, "[CLVO2MaxService getLatestVO2MaxValueForBodyMetrics:sinceTime:withReply:]", "%s\n", v38);
+          }
+
+          else
+          {
+            [v7 setObject:+[NSNumber numberWithDouble:](NSNumber forKey:{"numberWithDouble:"), @"VO2MaxMobilityFallback"}];
+            if (qword_1025D4450 != -1)
+            {
+              sub_1018BE068();
+            }
+
+            v40 = qword_1025D4458;
+            if (os_log_type_enabled(qword_1025D4458, OS_LOG_TYPE_DEBUG))
+            {
+              v41 = *(v32 + 2);
+              *buf = 138543619;
+              *&buf[4] = @"VO2MaxMobilityFallback";
+              *&buf[12] = 2049;
+              *&buf[14] = v41;
+              _os_log_impl(dword_100000000, v40, OS_LOG_TYPE_DEBUG, "getLatestVO2MaxValueForBodyMetrics setting key, %{public}@, value, %{private}f", buf, 0x16u);
+            }
+
+            if (!sub_10000A100(121, 2))
+            {
+              goto LABEL_85;
+            }
+
+            sub_1018BEA08(buf);
+            v44 = *(v32 + 2);
+            v68 = 138543619;
+            v69 = @"VO2MaxMobilityFallback";
+            v70 = 2049;
+            v71 = v44;
+            LODWORD(v61) = 22;
+            _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, qword_1025D4458, 2, "getLatestVO2MaxValueForBodyMetrics setting key, %{public}@, value, %{private}f", &v68, v61);
+            v39 = v45;
+            sub_100152C7C("Generic", 1, 0, 2, "[CLVO2MaxService getLatestVO2MaxValueForBodyMetrics:sinceTime:withReply:]", "%s\n", v45);
+          }
+
+          if (v39 != buf)
+          {
+            free(v39);
+          }
+        }
+
+LABEL_85:
+        ++v19;
+        v17 = v65;
+        v18 += 48;
+      }
+
+      while (0xAAAAAAAAAAAAAAABLL * ((v66 - v65) >> 4) > v19);
+    }
+
+    if (v17)
+    {
+      v66 = v17;
+      operator delete(v17);
+    }
+  }
+
+  if (metrics)
+  {
+    v46 = *&metrics->vo2max;
+    *buf = *&metrics->gender;
+    *&buf[16] = v46;
+    v73[0] = *&metrics->hronset;
+    *(v73 + 12) = *&metrics->runVo2max;
+    sub_10062AADC(buf);
+    v48 = v47 * 3.5;
+    v49 = v48;
+    if (v48 < 10.0 || v48 > 100.0)
+    {
+      if (qword_1025D4450 != -1)
+      {
+        sub_1018BE068();
+      }
+
+      v51 = qword_1025D4458;
       if (os_log_type_enabled(qword_1025D4458, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543619;
         *&buf[4] = @"VO2MaxJacksonFallback";
         *&buf[12] = 2049;
-        *&buf[14] = v18;
-        _os_log_impl(dword_100000000, v20, OS_LOG_TYPE_ERROR, "Error: getLatestVO2MaxValueForBodyMetrics out of bounds for key, %{public}@, value, %{private}f", buf, 0x16u);
+        *&buf[14] = v49;
+        _os_log_impl(dword_100000000, v51, OS_LOG_TYPE_ERROR, "Error: getLatestVO2MaxValueForBodyMetrics out of bounds for key, %{public}@, value, %{private}f", buf, 0x16u);
       }
 
       if (sub_10000A100(121, 0))
@@ -3791,20 +4122,20 @@ LABEL_22:
 
     else
     {
-      [v6 setObject:+[NSNumber numberWithDouble:](NSNumber forKey:{"numberWithDouble:", v17), @"VO2MaxJacksonFallback"}];
+      [v7 setObject:+[NSNumber numberWithDouble:](NSNumber forKey:{"numberWithDouble:", v48), @"VO2MaxJacksonFallback"}];
       if (qword_1025D4450 != -1)
       {
         sub_1018BE068();
       }
 
-      v21 = qword_1025D4458;
+      v52 = qword_1025D4458;
       if (os_log_type_enabled(qword_1025D4458, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138543619;
         *&buf[4] = @"VO2MaxJacksonFallback";
         *&buf[12] = 2049;
-        *&buf[14] = v18;
-        _os_log_impl(dword_100000000, v21, OS_LOG_TYPE_DEBUG, "getLatestVO2MaxValueForBodyMetrics setting key, %{public}@, value, %{private}f", buf, 0x16u);
+        *&buf[14] = v49;
+        _os_log_impl(dword_100000000, v52, OS_LOG_TYPE_DEBUG, "getLatestVO2MaxValueForBodyMetrics setting key, %{public}@, value, %{private}f", buf, 0x16u);
       }
 
       if (sub_10000A100(121, 2))
@@ -3815,22 +4146,22 @@ LABEL_22:
 
     sub_100D9AB28(metrics, buf);
     CHVO2MaxPrior::estimatePhoneBasedPrior();
-    v23 = v22;
-    if (v22 < 10.0 || v22 > 100.0)
+    v54 = v53;
+    if (v53 < 10.0 || v53 > 100.0)
     {
       if (qword_1025D4450 != -1)
       {
         sub_1018BE068();
       }
 
-      v25 = qword_1025D4458;
+      v56 = qword_1025D4458;
       if (os_log_type_enabled(qword_1025D4458, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543619;
         *&buf[4] = @"VO2MaxDemographicsOnlyFallback";
         *&buf[12] = 2049;
-        *&buf[14] = v23;
-        _os_log_impl(dword_100000000, v25, OS_LOG_TYPE_ERROR, "Error: getLatestVO2MaxValueForBodyMetrics out of bounds for key, %{public}@, value, %{private}f", buf, 0x16u);
+        *&buf[14] = v54;
+        _os_log_impl(dword_100000000, v56, OS_LOG_TYPE_ERROR, "Error: getLatestVO2MaxValueForBodyMetrics out of bounds for key, %{public}@, value, %{private}f", buf, 0x16u);
       }
 
       if (sub_10000A100(121, 0))
@@ -3841,20 +4172,20 @@ LABEL_22:
 
     else
     {
-      [v6 setObject:+[NSNumber numberWithDouble:](NSNumber forKey:{"numberWithDouble:", v22), @"VO2MaxDemographicsOnlyFallback"}];
+      [v7 setObject:+[NSNumber numberWithDouble:](NSNumber forKey:{"numberWithDouble:", v53), @"VO2MaxDemographicsOnlyFallback"}];
       if (qword_1025D4450 != -1)
       {
         sub_1018BE068();
       }
 
-      v24 = qword_1025D4458;
+      v55 = qword_1025D4458;
       if (os_log_type_enabled(qword_1025D4458, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138543619;
         *&buf[4] = @"VO2MaxDemographicsOnlyFallback";
         *&buf[12] = 2049;
-        *&buf[14] = v23;
-        _os_log_impl(dword_100000000, v24, OS_LOG_TYPE_DEBUG, "getLatestVO2MaxValueForBodyMetrics setting key, %{public}@  value, %{private}f", buf, 0x16u);
+        *&buf[14] = v54;
+        _os_log_impl(dword_100000000, v55, OS_LOG_TYPE_DEBUG, "getLatestVO2MaxValueForBodyMetrics setting key, %{public}@  value, %{private}f", buf, 0x16u);
       }
 
       if (sub_10000A100(121, 2))
@@ -3864,24 +4195,24 @@ LABEL_22:
     }
   }
 
-  v26 = [NSMutableString stringWithString:@"getLatestVO2MaxValueForBodyMetrics results:"];
-  v30[0] = _NSConcreteStackBlock;
-  v30[1] = 3221225472;
-  v30[2] = sub_100560ACC;
-  v30[3] = &unk_10245EB08;
-  v30[4] = v26;
-  [v6 enumerateKeysAndObjectsUsingBlock:v30];
+  v57 = [NSMutableString stringWithString:@"getLatestVO2MaxValueForBodyMetrics results:"];
+  v64[0] = _NSConcreteStackBlock;
+  v64[1] = 3221225472;
+  v64[2] = sub_100560ACC;
+  v64[3] = &unk_10245EB08;
+  v64[4] = v57;
+  [v7 enumerateKeysAndObjectsUsingBlock:v64];
   if (qword_1025D4450 != -1)
   {
     sub_1018BE068();
   }
 
-  v27 = qword_1025D4458;
+  v58 = qword_1025D4458;
   if (os_log_type_enabled(qword_1025D4458, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    *&buf[4] = v26;
-    _os_log_impl(dword_100000000, v27, OS_LOG_TYPE_DEFAULT, "%@", buf, 0xCu);
+    *&buf[4] = v57;
+    _os_log_impl(dword_100000000, v58, OS_LOG_TYPE_DEFAULT, "%@", buf, 0xCu);
   }
 
   if (sub_10000A100(121, 2))
@@ -3901,8 +4232,31 @@ LABEL_22:
   if (ptr)
   {
     sub_100560C48(ptr, prior, 0);
-    sub_1008FD864(self->fPriorDb.__ptr_);
-    [objc_msgSend(objc_msgSend(-[CLVO2MaxService universe](self "universe")];
+    v9 = 0;
+    v10 = 0;
+    v11 = 0;
+    sub_1008FD864(self->fPriorDb.__ptr_, prior, &v9);
+    v6 = [objc_msgSend(-[CLVO2MaxService universe](self "universe")];
+    [v6 saveUpdatedPrior:{+[NSString stringWithFormat:](NSString, "stringWithFormat:", @"%f", *&prior->var1)}];
+    v7 = v9;
+    v8 = v10;
+    if (v9 != v10)
+    {
+      do
+      {
+        [v6 deleteRecordIdForPrior:{+[NSString stringWithFormat:](NSString, "stringWithFormat:", @"%f", v7[1])}];
+        v7 += 6;
+      }
+
+      while (v7 != v8);
+      v7 = v9;
+    }
+
+    if (v7)
+    {
+      v10 = v7;
+      operator delete(v7);
+    }
   }
 }
 
@@ -3951,23 +4305,23 @@ LABEL_22:
 
 - (void)handlePriorRepeatingTask:(id)task
 {
-  v9 = 0;
-  v10 = &v9;
-  v11 = 0x2020000000;
-  v12 = 0;
-  v8[0] = _NSConcreteStackBlock;
-  v8[1] = 3221225472;
-  v8[2] = sub_100561244;
-  v8[3] = &unk_10245AE50;
-  v8[4] = &v9;
-  [task setExpirationHandler:v8];
-  [(CLVO2MaxService *)self calculatePrior:v10 + 3];
-  v7 = 0;
-  if (*(v10 + 24) == 1)
+  v10 = 0;
+  v11 = &v10;
+  v12 = 0x2020000000;
+  v13 = 0;
+  v9[0] = _NSConcreteStackBlock;
+  v9[1] = 3221225472;
+  v9[2] = sub_100561244;
+  v9[3] = &unk_10245AE50;
+  v9[4] = &v10;
+  [task setExpirationHandler:v9];
+  [(CLVO2MaxService *)self calculatePrior:v11 + 3];
+  v8 = 0;
+  if (*(v11 + 24) == 1)
   {
-    if ([task setTaskExpiredWithRetryAfter:&v7 error:0.0])
+    if ([task setTaskExpiredWithRetryAfter:&v8 error:0.0])
     {
-      if (v10[3])
+      if (v11[3])
       {
         goto LABEL_11;
       }
@@ -3984,20 +4338,21 @@ LABEL_22:
       if (os_log_type_enabled(qword_1025D4458, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v16 = v7;
+        v17 = v8;
         _os_log_impl(dword_100000000, v5, OS_LOG_TYPE_ERROR, "Failed to expire task with error: %@", buf, 0xCu);
       }
 
       if (sub_10000A100(121, 0))
       {
         sub_1018BEA08(buf);
-        v13 = 138412290;
-        v14 = v7;
-        v6 = _os_log_send_and_compose_impl();
+        v14 = 138412290;
+        v15 = v8;
+        _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, qword_1025D4458, 16, "Failed to expire task with error: %@", &v14, 12);
+        v7 = v6;
         sub_100152C7C("Generic", 1, 0, 0, "[CLVO2MaxService handlePriorRepeatingTask:]", "%s\n", v6);
-        if (v6 != buf)
+        if (v7 != buf)
         {
-          free(v6);
+          free(v7);
         }
       }
     }
@@ -4005,41 +4360,42 @@ LABEL_22:
 
   [task setTaskCompleted];
 LABEL_11:
-  _Block_object_dispose(&v9, 8);
+  _Block_object_dispose(&v10, 8);
 }
 
 - (void)calculatePrior:(BOOL *)prior
 {
-  sub_10000FF38(v17, "VO2MaxService.calcPrior", 0);
-  if (sub_10001CF04())
+  v5 = sub_10000FF38(v24, "VO2MaxService.calcPrior", 0);
+  if (sub_10001CF04(v5, v6))
   {
     if (qword_1025D4450 != -1)
     {
       sub_1018BE068();
     }
 
-    v5 = qword_1025D4458;
+    v7 = qword_1025D4458;
     if (os_log_type_enabled(qword_1025D4458, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(dword_100000000, v5, OS_LOG_TYPE_INFO, "calculatePrior triggered", buf, 2u);
+      _os_log_impl(dword_100000000, v7, OS_LOG_TYPE_INFO, "calculatePrior triggered", buf, 2u);
     }
 
     if (sub_10000A100(121, 2))
     {
       sub_1018BEA08(buf);
       LOWORD(__p) = 0;
-      v12 = _os_log_send_and_compose_impl();
-      sub_100152C7C("Generic", 1, 0, 2, "[CLVO2MaxService calculatePrior:]", "%s\n", v12);
-      if (v12 != buf)
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, qword_1025D4458, 1, "calculatePrior triggered", &__p, 2);
+      v16 = v15;
+      sub_100152C7C("Generic", 1, 0, 2, "[CLVO2MaxService calculatePrior:]", "%s\n", v15);
+      if (v16 != buf)
       {
-        free(v12);
+        free(v16);
       }
     }
 
     __p = 0;
-    v15 = 0;
-    v16 = 0;
+    v22 = 0;
+    v23 = 0;
     sub_101206658(&__p, &self->fPhonePriorDailyInputRecorderDb, &self->fStepCountDb.__ptr_);
     if (prior && *prior)
     {
@@ -4048,39 +4404,42 @@ LABEL_11:
         sub_1018BE068();
       }
 
-      v6 = qword_1025D4458;
+      v8 = qword_1025D4458;
       if (os_log_type_enabled(qword_1025D4458, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
-        _os_log_impl(dword_100000000, v6, OS_LOG_TYPE_INFO, "Asked to interrupt background activity by dasd. Aborting...", buf, 2u);
+        _os_log_impl(dword_100000000, v8, OS_LOG_TYPE_INFO, "Asked to interrupt background activity by dasd. Aborting...", buf, 2u);
       }
 
       if (sub_10000A100(121, 2))
       {
         sub_1018BEA08(buf);
-        v7 = _os_log_send_and_compose_impl();
-        sub_100152C7C("Generic", 1, 0, 2, "[CLVO2MaxService calculatePrior:]", "%s\n", v7);
-        if (v7 != buf)
+        v20[0] = 0;
+        LODWORD(v19) = 2;
+        _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, qword_1025D4458, 1, "Asked to interrupt background activity by dasd. Aborting...", v20, v19);
+        v10 = v9;
+        sub_100152C7C("Generic", 1, 0, 2, "[CLVO2MaxService calculatePrior:]", "%s\n", v9);
+        if (v10 != buf)
         {
-          free(v7);
+          free(v10);
         }
       }
     }
 
     else
     {
-      if (__p != v15)
+      if (__p != v22)
       {
         sub_100D9AB28(&self->fUserInfo, buf);
         CHVO2MaxPrior::estimatePhoneBasedPriorFromDailyInputs();
-        v9 = v8;
+        v12 = v11;
         Current = CFAbsoluteTimeGetCurrent();
         *buf = 0;
-        v19 = Current;
-        v20 = v9;
-        v21 = 1;
-        v22 = 0;
-        v23 = 0;
+        v26 = Current;
+        v27 = v12;
+        v28 = 1;
+        v29 = 0;
+        v30 = 0;
         [(CLVO2MaxService *)self savePrior:buf];
       }
 
@@ -4089,21 +4448,24 @@ LABEL_11:
         sub_1018BE068();
       }
 
-      v11 = qword_1025D4458;
+      v14 = qword_1025D4458;
       if (os_log_type_enabled(qword_1025D4458, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(dword_100000000, v11, OS_LOG_TYPE_DEFAULT, "Aggregating PhonePriorDailyInputHistory", buf, 2u);
+        _os_log_impl(dword_100000000, v14, OS_LOG_TYPE_DEFAULT, "Aggregating PhonePriorDailyInputHistory", buf, 2u);
       }
 
       if (sub_10000A100(121, 2))
       {
         sub_1018BEA08(buf);
-        v13 = _os_log_send_and_compose_impl();
-        sub_100152C7C("Generic", 1, 0, 2, "[CLVO2MaxService calculatePrior:]", "%s\n", v13);
-        if (v13 != buf)
+        v20[0] = 0;
+        LODWORD(v19) = 2;
+        _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, qword_1025D4458, 0, "Aggregating PhonePriorDailyInputHistory", v20, v19);
+        v18 = v17;
+        sub_100152C7C("Generic", 1, 0, 2, "[CLVO2MaxService calculatePrior:]", "%s\n", v17);
+        if (v18 != buf)
         {
-          free(v13);
+          free(v18);
         }
       }
 
@@ -4112,12 +4474,12 @@ LABEL_11:
 
     if (__p)
     {
-      v15 = __p;
+      v22 = __p;
       operator delete(__p);
     }
   }
 
-  sub_10001A420(v17);
+  sub_10001A420(v24);
 }
 
 - (id).cxx_construct

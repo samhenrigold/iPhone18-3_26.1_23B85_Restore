@@ -231,7 +231,7 @@ void __37__WGWidgetPlatterView_setWidgetHost___block_invoke_2(uint64_t a1)
 
 + (double)contentBaselineToBoundsBottomWithWidth:(double)width
 {
-  v4 = _WGMainScreenScale();
+  v4 = _WGMainScreenScale(self, a2);
 
   [(PLPlatterHeaderContentView *)WGPlatterHeaderContentView contentBaselineToBoundsBottomWithWidth:width scale:v4];
   return result;
@@ -736,11 +736,11 @@ LABEL_12:
   y = bounds.origin.y;
   x = bounds.origin.x;
   [(WGWidgetPlatterView *)self _configureHeaderViewsIfNecessary];
-  v12.origin.x = x;
-  v12.origin.y = y;
-  v12.size.width = width;
-  v12.size.height = height;
-  if (CGRectIsEmpty(v12))
+  v14.origin.x = x;
+  v14.origin.y = y;
+  v14.size.width = width;
+  v14.size.height = height;
+  if (CGRectIsEmpty(v14))
   {
     v8 = *MEMORY[0x277CBF3A0];
     v9 = *(MEMORY[0x277CBF3A0] + 8);
@@ -751,8 +751,8 @@ LABEL_12:
   else
   {
     [(PLPlatterHeaderContentView *)self->_headerContentView sizeThatFits:width, height];
-    BSRectWithSize();
-    _WGMainScreenScale();
+    v12 = BSRectWithSize();
+    _WGMainScreenScale(v12, v13);
     UIRectIntegralWithScale();
   }
 

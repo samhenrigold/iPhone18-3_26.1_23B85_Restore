@@ -263,13 +263,13 @@ void __42__AccessoryTimeSyncPlugin__setSystemTime___block_invoke_12(uint64_t a1,
     v15 = *(a1 + 88);
     v16 = *(a1 + 90);
     *buf = 67109888;
-    *v34 = v13;
-    *&v34[4] = 1024;
-    *&v34[6] = v14;
-    LOWORD(v35) = 1024;
-    *(&v35 + 2) = v15;
-    HIWORD(v35) = 1024;
-    *v36 = v16;
+    *v29 = v13;
+    *&v29[4] = 1024;
+    *&v29[6] = v14;
+    LOWORD(v30) = 1024;
+    *(&v30 + 2) = v15;
+    HIWORD(v30) = 1024;
+    *v31 = v16;
     _os_log_impl(&dword_0, &_os_log_default, OS_LOG_TYPE_INFO, "header dispersion: %u.%u header delay: %u.%u", buf, 0x1Au);
   }
 
@@ -277,13 +277,13 @@ void __42__AccessoryTimeSyncPlugin__setSystemTime___block_invoke_12(uint64_t a1,
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_INFO))
   {
     *buf = 134218752;
-    *v34 = v12;
-    *&v34[8] = 2048;
-    v35 = v9;
-    *v36 = 2048;
-    *&v36[2] = a3;
-    v37 = 2048;
-    v38 = v9 + v12 + a3;
+    *v29 = v12;
+    *&v29[8] = 2048;
+    v30 = v9;
+    *v31 = 2048;
+    *&v31[2] = a3;
+    v32 = 2048;
+    v33 = v9 + v12 + a3;
     _os_log_impl(&dword_0, &_os_log_default, OS_LOG_TYPE_INFO, "error: %lf delay: %lf rtcUnc: %lf total: %lf", buf, 0x2Au);
   }
 
@@ -304,7 +304,7 @@ void __42__AccessoryTimeSyncPlugin__setSystemTime___block_invoke_12(uint64_t a1,
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_INFO))
   {
     *buf = 134217984;
-    *v34 = v21;
+    *v29 = v21;
     _os_log_impl(&dword_0, &_os_log_default, OS_LOG_TYPE_INFO, "utcTime: %lf", buf, 0xCu);
   }
 
@@ -335,11 +335,6 @@ void __42__AccessoryTimeSyncPlugin__setSystemTime___block_invoke_12(uint64_t a1,
     __42__AccessoryTimeSyncPlugin__setSystemTime___block_invoke_12_cold_2(v21);
   }
 
-  v30 = *(a1 + 80);
-  v31 = *(a1 + 96);
-  v32 = *(a1 + 112);
-  v29 = *(a1 + 64);
-  v28 = *(a1 + 48);
   AnalyticsSendEventLazy();
   [*(a1 + 32) setSyncState:0];
 }
@@ -964,7 +959,7 @@ LABEL_36:
     }
 
 LABEL_37:
-    [WeakRetained setSyncState:{0, *v29, *&v29[16]}];
+    [WeakRetained setSyncState:{0, *v29, *&v29[8]}];
     goto LABEL_11;
   }
 

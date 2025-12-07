@@ -20,7 +20,7 @@
 {
   finalizationCopy = finalization;
   selfCopy = self;
-  sub_10000B6D8();
+  sub_10000B6D8(finalizationCopy);
   LOBYTE(self) = v6;
 
   return self & 1;
@@ -30,7 +30,7 @@
 {
   invalidateCopy = invalidate;
   selfCopy = self;
-  sub_10000B828();
+  sub_10000B828(invalidateCopy, selfCopy, v5, v6);
 }
 
 - (id)looksForEditor:(id)editor
@@ -57,7 +57,7 @@
 {
   editorCopy = editor;
   selfCopy = self;
-  sub_10000C178();
+  sub_10000C178(editorCopy);
 
   v6 = sub_10002F3D4();
 
@@ -89,7 +89,7 @@
 {
   editorCopy = editor;
   selfCopy = self;
-  sub_10000C9DC();
+  sub_10000C9DC(editorCopy);
   v7 = v6;
 
   return v7;
@@ -99,7 +99,7 @@
 {
   editorCopy = editor;
   selfCopy = self;
-  sub_10000CA54();
+  sub_10000CA54(editorCopy);
   v7 = v6;
 
   return v7;
@@ -121,16 +121,17 @@
 
 - (void)editor:(id)editor depthEffectDisallowedDidChange:(BOOL)change
 {
+  changeCopy = change;
   editorCopy = editor;
   selfCopy = self;
-  sub_10000CCA0();
+  sub_10000CCA0(editorCopy, changeCopy, selfCopy, v7);
 }
 
 - (void)editorDidDelayFinalizationForBackgroundTask:(id)task
 {
   taskCopy = task;
   selfCopy = self;
-  sub_10000CE20();
+  sub_10000CE20(taskCopy, selfCopy, v5, v6);
 }
 
 @end

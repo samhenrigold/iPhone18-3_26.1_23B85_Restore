@@ -912,28 +912,8 @@ LABEL_187:
     bymonthday = [v172 bymonthday];
     v96 = [bymonthday count];
     v184 = bymonthday;
-    if (!bymonthday)
+    if (!bymonthday || (v97 = v96, v96 == 1) && ([bymonthday objectAtIndex:0], v98 = objc_claimAutoreleasedReturnValue(), v99 = objc_msgSend(v98, "integerValue"), v100 = stringCopy, v101 = objc_msgSend(v171, "day"), v98, v24 = v99 == v101, stringCopy = v100, v25 = byday, v24))
     {
-      goto LABEL_116;
-    }
-
-    v97 = v96;
-    if (v96 != 1)
-    {
-      goto LABEL_155;
-    }
-
-    v98 = [bymonthday objectAtIndex:0];
-    integerValue5 = [v98 integerValue];
-    v100 = stringCopy;
-    v101 = [v171 day];
-
-    v24 = integerValue5 == v101;
-    stringCopy = v100;
-    v25 = byday;
-    if (v24)
-    {
-LABEL_116:
       v102 = MEMORY[0x1E696AEC0];
       if (integerValue == 1)
       {
@@ -971,7 +951,6 @@ LABEL_116:
 
     else
     {
-LABEL_155:
       v161 = conciseCopy;
       v157 = stringCopy;
       v159 = dateCopy;
@@ -1749,7 +1728,7 @@ LABEL_10:
 
 + (int64_t)daysTypeForDayArray:(id)array
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   arrayCopy = array;
   v4 = [arrayCopy count];
   switch(v4)
@@ -1773,36 +1752,36 @@ LABEL_10:
       v13 = 1;
       while (1)
       {
-        v31 = 0u;
-        v32 = 0u;
-        v29 = 0u;
         v30 = 0u;
+        v31 = 0u;
+        v28 = 0u;
+        v29 = 0u;
         v14 = arrayCopy;
-        v15 = [v14 countByEnumeratingWithState:&v29 objects:v34 count:16];
+        v15 = [v14 countByEnumeratingWithState:&v28 objects:v33 count:16];
         if (!v15)
         {
           goto LABEL_30;
         }
 
         v16 = v15;
-        v17 = *v30;
+        v17 = *v29;
 LABEL_20:
         v18 = 0;
         while (1)
         {
-          if (*v30 != v17)
+          if (*v29 != v17)
           {
             objc_enumerationMutation(v14);
           }
 
-          if ([*(*(&v29 + 1) + 8 * v18) weekday] == v13)
+          if ([*(*(&v28 + 1) + 8 * v18) weekday] == v13)
           {
             break;
           }
 
           if (v16 == ++v18)
           {
-            v16 = [v14 countByEnumeratingWithState:&v29 objects:v34 count:16];
+            v16 = [v14 countByEnumeratingWithState:&v28 objects:v33 count:16];
             if (v16)
             {
               goto LABEL_20;
@@ -1824,36 +1803,36 @@ LABEL_20:
       v6 = 2;
       while (1)
       {
-        v27 = 0u;
-        v28 = 0u;
-        v25 = 0u;
         v26 = 0u;
+        v27 = 0u;
+        v24 = 0u;
+        v25 = 0u;
         v7 = arrayCopy;
-        v8 = [v7 countByEnumeratingWithState:&v25 objects:v33 count:16];
+        v8 = [v7 countByEnumeratingWithState:&v24 objects:v32 count:16];
         if (!v8)
         {
           break;
         }
 
         v9 = v8;
-        v10 = *v26;
+        v10 = *v25;
 LABEL_7:
         v11 = 0;
         while (1)
         {
-          if (*v26 != v10)
+          if (*v25 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          if ([*(*(&v25 + 1) + 8 * v11) weekday] == v6)
+          if ([*(*(&v24 + 1) + 8 * v11) weekday] == v6)
           {
             break;
           }
 
           if (v9 == ++v11)
           {
-            v9 = [v7 countByEnumeratingWithState:&v25 objects:v33 count:16];
+            v9 = [v7 countByEnumeratingWithState:&v24 objects:v32 count:16];
             if (v9)
             {
               goto LABEL_7;
@@ -1878,7 +1857,6 @@ LABEL_30:
   v5 = 0;
 LABEL_37:
 
-  v23 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

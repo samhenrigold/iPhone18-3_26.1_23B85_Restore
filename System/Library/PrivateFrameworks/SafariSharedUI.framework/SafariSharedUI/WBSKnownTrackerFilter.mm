@@ -11,7 +11,7 @@
   v35 = *MEMORY[0x1E69E9840];
   domainsCopy = domains;
   handlerCopy = handler;
-  if (SharedWebCredentialsLibraryCore())
+  if (SharedWebCredentialsLibraryCore(0))
   {
     get_SWCTrackingDomainInfoClass();
     v8 = objc_opt_respondsToSelector();
@@ -145,30 +145,30 @@ void __80__WBSKnownTrackerFilter_getKnownTrackersFromHighLevelDomains_completion
   safari_safariSharedBundle = [MEMORY[0x1E696AAE8] safari_safariSharedBundle];
   v3 = [safari_safariSharedBundle URLForResource:@"WBSDuckDuckGoTDS" withExtension:@"json"];
 
-  v12 = 0;
-  v4 = [MEMORY[0x1E695DEF0] dataWithContentsOfURL:v3 options:0 error:&v12];
-  v5 = v12;
-  v11 = v5;
-  v6 = [MEMORY[0x1E696ACB0] JSONObjectWithData:v4 options:0 error:&v11];
-  v7 = v11;
+  v14 = 0;
+  v4 = [MEMORY[0x1E695DEF0] dataWithContentsOfURL:v3 options:0 error:&v14];
+  v5 = v14;
+  v13 = v5;
+  v6 = [MEMORY[0x1E696ACB0] JSONObjectWithData:v4 options:0 error:&v13];
+  v7 = v13;
 
   if (v7)
   {
-    v8 = WBS_LOG_CHANNEL_PREFIXPrivacyReport();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v10 = WBS_LOG_CHANNEL_PREFIXPrivacyReport(v8, v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      [(WBSKnownTrackerFilter *)v8 _createKnownTrackersDictionary];
+      [(WBSKnownTrackerFilter *)v10 _createKnownTrackersDictionary];
     }
 
-    v9 = MEMORY[0x1E695E0F8];
+    v11 = MEMORY[0x1E695E0F8];
   }
 
   else
   {
-    v9 = [v6 safari_mapAndFilterKeysAndObjectsUsingBlock:&__block_literal_global_22];
+    v11 = [v6 safari_mapAndFilterKeysAndObjectsUsingBlock:&__block_literal_global_22];
   }
 
-  return v9;
+  return v11;
 }
 
 - (void)_createKnownTrackersDictionary

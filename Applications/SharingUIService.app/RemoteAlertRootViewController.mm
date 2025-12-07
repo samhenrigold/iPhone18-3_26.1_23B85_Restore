@@ -1,6 +1,7 @@
 @interface RemoteAlertRootViewController
 - (_TtC16SharingUIServiceP33_65937B382845EE4CD6EFBB00702BD9F229RemoteAlertRootViewController)initWithCoder:(id)coder;
 - (_TtC16SharingUIServiceP33_65937B382845EE4CD6EFBB00702BD9F229RemoteAlertRootViewController)initWithNibName:(id)name bundle:(id)bundle;
+- (void)dismissViewControllerAnimated:(BOOL)animated completion:(id)completion;
 @end
 
 @implementation RemoteAlertRootViewController
@@ -11,6 +12,44 @@
   result = _assertionFailure(_:_:file:line:flags:)();
   __break(1u);
   return result;
+}
+
+- (void)dismissViewControllerAnimated:(BOOL)animated completion:(id)completion
+{
+  animatedCopy = animated;
+  v6 = _Block_copy(completion);
+  if (v6)
+  {
+    v7 = swift_allocObject();
+    *(v7 + 16) = v6;
+    v6 = sub_10001585C;
+  }
+
+  else
+  {
+    v7 = 0;
+  }
+
+  v8 = swift_allocObject();
+  v8[2] = v6;
+  v8[3] = v7;
+  v8[4] = self;
+  aBlock[4] = sub_1000157E0;
+  aBlock[5] = v8;
+  aBlock[0] = _NSConcreteStackBlock;
+  aBlock[1] = 1107296256;
+  aBlock[2] = sub_100007CB0;
+  aBlock[3] = &unk_10003DD90;
+  v9 = _Block_copy(aBlock);
+  selfCopy = self;
+  sub_100015804(v6, v7);
+
+  v11.receiver = selfCopy;
+  v11.super_class = type metadata accessor for RemoteAlertRootViewController();
+  [(RemoteAlertRootViewController *)&v11 dismissViewControllerAnimated:animatedCopy completion:v9];
+
+  sub_100015814(v6, v7);
+  _Block_release(v9);
 }
 
 - (_TtC16SharingUIServiceP33_65937B382845EE4CD6EFBB00702BD9F229RemoteAlertRootViewController)initWithNibName:(id)name bundle:(id)bundle

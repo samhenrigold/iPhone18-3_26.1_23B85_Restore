@@ -10,43 +10,43 @@
 
 + (id)insertSnapshotData:(id)data transaction:(id)transaction error:(id *)error
 {
-  v26[1] = *MEMORY[0x277D85DE8];
+  v25[1] = *MEMORY[0x277D85DE8];
   dataCopy = data;
   transactionCopy = transaction;
   v10 = [transactionCopy databaseForEntityClass:self];
-  v22 = 0;
-  v23 = &v22;
-  v24 = 0x2020000000;
-  v25 = -1;
-  v20[0] = MEMORY[0x277D85DD0];
-  v20[1] = 3221225472;
-  v20[2] = __66__HDRaceRouteSnapshotEntity_insertSnapshotData_transaction_error___block_invoke;
-  v20[3] = &unk_278614860;
-  v11 = dataCopy;
-  v21 = v11;
+  v21 = 0;
+  v22 = &v21;
+  v23 = 0x2020000000;
+  v24 = -1;
   v19[0] = MEMORY[0x277D85DD0];
   v19[1] = 3221225472;
-  v19[2] = __66__HDRaceRouteSnapshotEntity_insertSnapshotData_transaction_error___block_invoke_2;
-  v19[3] = &unk_278614620;
-  v19[4] = &v22;
-  if ([v10 executeSQL:@"SELECT ROWID FROM RacePreviousRoute_route_snapshot WHERE data = ?" error:error bindingHandler:v20 enumerationHandler:v19])
+  v19[2] = __66__HDRaceRouteSnapshotEntity_insertSnapshotData_transaction_error___block_invoke;
+  v19[3] = &unk_278614860;
+  v11 = dataCopy;
+  v20 = v11;
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 3221225472;
+  v18[2] = __66__HDRaceRouteSnapshotEntity_insertSnapshotData_transaction_error___block_invoke_2;
+  v18[3] = &unk_278614620;
+  v18[4] = &v21;
+  if ([v10 executeSQL:@"SELECT ROWID FROM RacePreviousRoute_route_snapshot WHERE data = ?" error:error bindingHandler:v19 enumerationHandler:v18])
   {
-    if (v23[3] < 0)
+    if (v22[3] < 0)
     {
-      v26[0] = @"data";
-      v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:1];
-      v17[0] = MEMORY[0x277D85DD0];
-      v17[1] = 3221225472;
-      v17[2] = __66__HDRaceRouteSnapshotEntity_insertSnapshotData_transaction_error___block_invoke_3;
-      v17[3] = &unk_278614508;
-      v18 = v11;
-      v13 = [self insertOrReplaceEntity:0 database:v10 properties:v14 error:error bindingHandler:v17];
+      v25[0] = @"data";
+      v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:1];
+      v16[0] = MEMORY[0x277D85DD0];
+      v16[1] = 3221225472;
+      v16[2] = __66__HDRaceRouteSnapshotEntity_insertSnapshotData_transaction_error___block_invoke_3;
+      v16[3] = &unk_278614508;
+      v17 = v11;
+      v13 = [self insertOrReplaceEntity:0 database:v10 properties:v14 error:error bindingHandler:v16];
     }
 
     else
     {
       v12 = [HDRaceRouteSnapshotEntity alloc];
-      v13 = [(HDSQLiteEntity *)v12 initWithPersistentID:v23[3]];
+      v13 = [(HDSQLiteEntity *)v12 initWithPersistentID:v22[3]];
     }
   }
 
@@ -55,8 +55,7 @@
     v13 = 0;
   }
 
-  _Block_object_dispose(&v22, 8);
-  v15 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v21, 8);
 
   return v13;
 }
@@ -77,49 +76,48 @@
 
 - (BOOL)updateSnapshotData:(id)data transaction:(id)transaction error:(id *)error
 {
-  v18[1] = *MEMORY[0x277D85DE8];
+  v17[1] = *MEMORY[0x277D85DE8];
   dataCopy = data;
-  v18[0] = @"data";
+  v17[0] = @"data";
   v9 = MEMORY[0x277CBEA60];
   transactionCopy = transaction;
-  v11 = [v9 arrayWithObjects:v18 count:1];
+  v11 = [v9 arrayWithObjects:v17 count:1];
   v12 = [transactionCopy databaseForEntity:self];
 
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = __66__HDRaceRouteSnapshotEntity_updateSnapshotData_transaction_error___block_invoke;
-  v16[3] = &unk_278614508;
-  v17 = dataCopy;
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __66__HDRaceRouteSnapshotEntity_updateSnapshotData_transaction_error___block_invoke;
+  v15[3] = &unk_278614508;
+  v16 = dataCopy;
   v13 = dataCopy;
-  LOBYTE(error) = [(HDSQLiteEntity *)self updateProperties:v11 database:v12 error:error bindingHandler:v16];
+  LOBYTE(error) = [(HDSQLiteEntity *)self updateProperties:v11 database:v12 error:error bindingHandler:v15];
 
-  v14 = *MEMORY[0x277D85DE8];
   return error;
 }
 
 - (id)snapshotDataWithTransaction:(id)transaction error:(id *)error
 {
-  v19[1] = *MEMORY[0x277D85DE8];
+  v18[1] = *MEMORY[0x277D85DE8];
   transactionCopy = transaction;
-  v13 = 0;
-  v14 = &v13;
-  v15 = 0x3032000000;
-  v16 = __Block_byref_object_copy__199;
-  v17 = __Block_byref_object_dispose__199;
-  v18 = 0;
-  v19[0] = @"data";
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:1];
+  v12 = 0;
+  v13 = &v12;
+  v14 = 0x3032000000;
+  v15 = __Block_byref_object_copy__199;
+  v16 = __Block_byref_object_dispose__199;
+  v17 = 0;
+  v18[0] = @"data";
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:1];
   v7 = [transactionCopy databaseForEntity:self];
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __63__HDRaceRouteSnapshotEntity_snapshotDataWithTransaction_error___block_invoke;
-  v12[3] = &unk_278618B98;
-  v12[4] = &v13;
-  LODWORD(self) = [(HDSQLiteEntity *)self getValuesForProperties:v6 database:v7 handler:v12];
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __63__HDRaceRouteSnapshotEntity_snapshotDataWithTransaction_error___block_invoke;
+  v11[3] = &unk_278618B98;
+  v11[4] = &v12;
+  LODWORD(self) = [(HDSQLiteEntity *)self getValuesForProperties:v6 database:v7 handler:v11];
 
   if (self)
   {
-    v8 = v14[5];
+    v8 = v13[5];
   }
 
   else
@@ -128,21 +126,19 @@
   }
 
   v9 = v8;
-  _Block_object_dispose(&v13, 8);
-
-  v10 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v12, 8);
 
   return v9;
 }
 
-uint64_t __63__HDRaceRouteSnapshotEntity_snapshotDataWithTransaction_error___block_invoke(uint64_t a1)
+uint64_t __63__HDRaceRouteSnapshotEntity_snapshotDataWithTransaction_error___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v2 = HDSQLiteColumnWithNameAsData();
-  v3 = *(*(a1 + 32) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  v4 = HDSQLiteColumnWithNameAsData();
+  v5 = *(*(a1 + 32) + 8);
+  v6 = *(v5 + 40);
+  *(v5 + 40) = v4;
 
-  return MEMORY[0x2821F96F8](v2, v4);
+  return MEMORY[0x2821F96F8](v4, v6);
 }
 
 - (BOOL)deleteDataWithTransaction:(id)transaction error:(id *)error

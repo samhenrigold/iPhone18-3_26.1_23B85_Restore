@@ -15,7 +15,7 @@
   *(&self->super.super.super.isa + OBJC_IVAR____TtC19HealthMedicationsUI32DrugInteractionVisualizationView____lazy_storage___medicationView) = 0;
   *(&self->super.super.super.isa + OBJC_IVAR____TtC19HealthMedicationsUI32DrugInteractionVisualizationView____lazy_storage___imageView) = 0;
   v6.receiver = self;
-  v6.super_class = type metadata accessor for DrugInteractionVisualizationView();
+  v6.super_class = type metadata accessor for DrugInteractionVisualizationView(0);
   return [(DrugInteractionVisualizationView *)&v6 initWithFrame:0.0, 0.0, 0.0, 0.0];
 }
 

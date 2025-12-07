@@ -614,7 +614,7 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  [*(a1 + 40) duration];
+  objc_msgSend_duration(*(a1 + 40));
   [v3 setDuration:?];
   v4 = *(a1 + 32);
   v5 = *(v4 + 32);

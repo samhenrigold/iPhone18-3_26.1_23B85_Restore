@@ -127,14 +127,12 @@
 
 - (id)dictionary
 {
-  v8[1] = *MEMORY[0x1E69E9840];
+  v7[1] = *MEMORY[0x1E69E9840];
   count = self->_count;
   identifier = self->_identifier;
   v3 = [MEMORY[0x1E696AD98] numberWithInteger:count];
-  v8[0] = v3;
-  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:&identifier count:1];
-
-  v5 = *MEMORY[0x1E69E9840];
+  v7[0] = v3;
+  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:&identifier count:1];
 
   return v4;
 }

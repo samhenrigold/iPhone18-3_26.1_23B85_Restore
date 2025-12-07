@@ -38,7 +38,7 @@
 
 void __31__MSKeyValueStore_valueForKey___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v6 = a2;
   v7 = a3;
   if (v7)
@@ -47,11 +47,11 @@ void __31__MSKeyValueStore_valueForKey___block_invoke(uint64_t a1, void *a2, voi
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       v9 = *(a1 + 32);
-      v11 = 138412546;
-      v12 = v9;
-      v13 = 2112;
-      v14 = v7;
-      _os_log_impl(&dword_1D876A000, v8, OS_LOG_TYPE_DEFAULT, "#Warning failed to retrieve value for key '%@' error: %@", &v11, 0x16u);
+      v10 = 138412546;
+      v11 = v9;
+      v12 = 2112;
+      v13 = v7;
+      _os_log_impl(&dword_1D876A000, v8, OS_LOG_TYPE_DEFAULT, "#Warning failed to retrieve value for key '%@' error: %@", &v10, 0x16u);
     }
   }
 
@@ -61,8 +61,6 @@ void __31__MSKeyValueStore_valueForKey___block_invoke(uint64_t a1, void *a2, voi
   }
 
   dispatch_semaphore_signal(*(a1 + 40));
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_valueForKey:(id)key handler:(id)handler
@@ -90,30 +88,30 @@ void __40__MSKeyValueStore__valueForKey_handler___block_invoke(uint64_t a1, void
 
 - (void)_simulateServicesMethod:(id)method arguments:(id)arguments callback:(id)callback
 {
-  v22[4] = *MEMORY[0x1E69E9840];
+  v21[4] = *MEMORY[0x1E69E9840];
   methodCopy = method;
   argumentsCopy = arguments;
   callbackCopy = callback;
   if ([methodCopy isEqualToString:@"MailValueForKey"])
   {
     v11 = [argumentsCopy objectForKey:@"key"];
-    v21[0] = @"SignatureKey";
-    v21[1] = @"UseAccountSignatures";
-    v22[0] = @"Sent from my iPhone Simulator";
-    v22[1] = MEMORY[0x1E695E110];
+    v20[0] = @"SignatureKey";
+    v20[1] = @"UseAccountSignatures";
+    v21[0] = @"Sent from my iPhone Simulator";
+    v21[1] = MEMORY[0x1E695E110];
     v12 = *MEMORY[0x1E699AB90];
-    v21[2] = *MEMORY[0x1E699AB48];
-    v21[3] = v12;
-    v22[2] = MEMORY[0x1E695E110];
-    v22[3] = &unk_1F541F260;
-    v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:v21 count:4];
+    v20[2] = *MEMORY[0x1E699AB48];
+    v20[3] = v12;
+    v21[2] = MEMORY[0x1E695E110];
+    v21[3] = &unk_1F541F260;
+    v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v21 forKeys:v20 count:4];
     v14 = [v13 objectForKeyedSubscript:v11];
     v15 = v14;
     if (v14)
     {
-      v19 = @"value";
-      v20 = v14;
-      v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v20 forKeys:&v19 count:1];
+      v18 = @"value";
+      v19 = v14;
+      v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v19 forKeys:&v18 count:1];
     }
 
     else
@@ -126,12 +124,10 @@ void __40__MSKeyValueStore__valueForKey_handler___block_invoke(uint64_t a1, void
 
   else
   {
-    v18.receiver = self;
-    v18.super_class = MSKeyValueStore;
-    [(MSService *)&v18 _simulateServicesMethod:methodCopy arguments:argumentsCopy callback:callbackCopy];
+    v17.receiver = self;
+    v17.super_class = MSKeyValueStore;
+    [(MSService *)&v17 _simulateServicesMethod:methodCopy arguments:argumentsCopy callback:callbackCopy];
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 @end

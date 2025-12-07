@@ -9,7 +9,7 @@
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_24E14FFCC();
+  sub_24E14FFCC(selfCopy);
 }
 
 - (void)traitCollectionDidChange:(id)change
@@ -22,7 +22,7 @@
 - (void)prepareForReuse
 {
   selfCopy = self;
-  sub_24E1503E8();
+  sub_24E1503E8(selfCopy);
 }
 
 @end

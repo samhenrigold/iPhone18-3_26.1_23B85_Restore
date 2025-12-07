@@ -44,7 +44,7 @@
   return v3;
 }
 
-uint64_t __42__CRKNetworkPowerAssertion_sharedInstance__block_invoke()
+uint64_t __42__CRKNetworkPowerAssertion_sharedInstance__block_invoke(uint64_t a1, uint64_t a2)
 {
   sharedInstance_sharedInstance = objc_opt_new();
 
@@ -59,31 +59,31 @@ uint64_t __42__CRKNetworkPowerAssertion_sharedInstance__block_invoke()
 
 - (void)increment
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if ([(CRKNetworkPowerAssertion *)self count])
   {
     IOPMAssertionRetain(self->mPowerAssertion);
     v3 = [(CRKNetworkPowerAssertion *)self count]+ 1;
     selfCopy2 = self;
 LABEL_3:
-    [(CRKNetworkPowerAssertion *)selfCopy2 setCount:v3];
+    v5 = [(CRKNetworkPowerAssertion *)selfCopy2 setCount:v3];
     goto LABEL_9;
   }
 
   if (CRKIsiOS())
   {
-    v5 = @"PreventUserIdleSystemSleep";
+    v6 = @"PreventUserIdleSystemSleep";
   }
 
   else
   {
-    v5 = @"NetworkClientActive";
+    v6 = @"NetworkClientActive";
   }
 
   name = [(CRKNetworkPowerAssertion *)self name];
-  v7 = IOPMAssertionCreateWithName(v5, 0xFFu, name, &self->mPowerAssertion);
+  v8 = IOPMAssertionCreateWithName(v6, 0xFFu, name, &self->mPowerAssertion);
 
-  if (!v7)
+  if (!v8)
   {
     selfCopy2 = self;
     v3 = 1;
@@ -92,12 +92,12 @@ LABEL_3:
 
   self->mPowerAssertion = 0;
 LABEL_9:
-  v8 = _CRKLogGeneral_10();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v9 = _CRKLogGeneral_10(v5);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 134217984;
-    v10 = [(CRKNetworkPowerAssertion *)self count];
-    _os_log_impl(&dword_243550000, v8, OS_LOG_TYPE_DEFAULT, "Incrementing network power assertion to %ld", &v9, 0xCu);
+    v10 = 134217984;
+    v11 = [(CRKNetworkPowerAssertion *)self count];
+    _os_log_impl(&dword_243550000, v9, OS_LOG_TYPE_DEFAULT, "Incrementing network power assertion to %ld", &v10, 0xCu);
   }
 }
 

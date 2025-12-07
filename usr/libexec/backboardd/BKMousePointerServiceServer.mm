@@ -1,5 +1,6 @@
 @interface BKMousePointerServiceServer
 - (BOOL)_accessStateForReason:(id)reason entitlement:(id)entitlement logEntitlementOnFailure:(BOOL)failure usingBlock:(id)block;
+- (id)_perDisplayClientInfoForCurrentConnectionWithDisplayUUID:(id)d createIfNeeded:(BOOL)needed;
 - (id)_pointerDevicesFromIOHIDServices:(id)services;
 - (id)globalDevicePreferences;
 - (id)globalPointerPosition;
@@ -170,6 +171,39 @@ LABEL_13:
     [v14 invalidate];
     [infoCopy setModelUpdateAssertion:0];
   }
+}
+
+- (id)_perDisplayClientInfoForCurrentConnectionWithDisplayUUID:(id)d createIfNeeded:(BOOL)needed
+{
+  neededCopy = needed;
+  dCopy = d;
+  v7 = +[BSServiceConnection currentContext];
+  v8 = [(BKHIDDomainServiceServer *)self->_server userInfoForConnection:v7];
+  v9 = objc_opt_class();
+  v10 = v8;
+  if (v9)
+  {
+    if (objc_opt_isKindOfClass())
+    {
+      v11 = v10;
+    }
+
+    else
+    {
+      v11 = 0;
+    }
+  }
+
+  else
+  {
+    v11 = 0;
+  }
+
+  v12 = v11;
+
+  v13 = [v12 infoForDisplayUUID:dCopy createIfNeeded:neededCopy];
+
+  return v13;
 }
 
 - (void)_queue_removeConnection:(id)connection

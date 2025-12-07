@@ -8,6 +8,7 @@
 - (id)_supportedInterfaceForXPCConnection;
 - (void)_cancelAllContentTasteRequestHandlers;
 - (void)_postContentTasteChangesForPendingItems;
+- (void)_updateContentTasteForItem:(id)item invalidatingLocalCache:(BOOL)cache configuration:(id)configuration withCompletionHandler:(id)handler;
 - (void)handleContentTasteChangedNotification;
 - (void)handleMusicAppInstalled;
 - (void)handleMusicAppRemoved;
@@ -131,6 +132,39 @@
   v4[3] = &unk_1001DF7A8;
   v4[4] = self;
   [(NSMutableDictionary *)contentTasteRequestHandlerToDSIDMap enumerateKeysAndObjectsUsingBlock:v4];
+}
+
+- (void)_updateContentTasteForItem:(id)item invalidatingLocalCache:(BOOL)cache configuration:(id)configuration withCompletionHandler:(id)handler
+{
+  cacheCopy = cache;
+  itemCopy = item;
+  handlerCopy = handler;
+  accessQueue = self->_accessQueue;
+  configurationCopy = configuration;
+  dispatch_assert_queue_V2(accessQueue);
+  v20 = 0;
+  v14 = [(CloudContentTasteUpdateRequestListener *)self _contentTasteRequestHandlerForConfiguration:configurationCopy outError:&v20];
+
+  v15 = v20;
+  if (v15 || !v14)
+  {
+    if (handlerCopy)
+    {
+      callbackQueue = self->_callbackQueue;
+      block[0] = _NSConcreteStackBlock;
+      block[1] = 3221225472;
+      block[2] = sub_100137DF0;
+      block[3] = &unk_1001DF5A0;
+      v19 = handlerCopy;
+      v18 = v15;
+      dispatch_async(callbackQueue, block);
+    }
+  }
+
+  else
+  {
+    [v14 updateContentTasteForItem:itemCopy invalidatingLocalCache:cacheCopy completionHandler:handlerCopy];
+  }
 }
 
 - (id)_adjustedContentTasteForLibraryEndpoint:(int64_t)endpoint

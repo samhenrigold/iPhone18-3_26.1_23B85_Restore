@@ -3,6 +3,7 @@
 - (ServicePresentationSafariViewController)initWithSafariViewController:(id)controller proxyHandler:(id)handler;
 - (void)_setChildViewController:(id)controller;
 - (void)loadView;
+- (void)viewDidDisappear:(BOOL)disappear;
 @end
 
 @implementation ServicePresentationSafariViewController
@@ -33,6 +34,21 @@
   [v4 setBackgroundColor:v3];
 
   [(ServicePresentationSafariViewController *)self setView:v4];
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v7.receiver = self;
+  v7.super_class = ServicePresentationSafariViewController;
+  [(ServicePresentationSafariViewController *)&v7 viewDidDisappear:disappear];
+  childViewControllers = [(ServicePresentationSafariViewController *)self childViewControllers];
+  firstObject = [childViewControllers firstObject];
+
+  if (!firstObject || ([firstObject isBeingPresented] & 1) == 0)
+  {
+    proxyHandler = [(ServicePresentationSafariViewController *)self proxyHandler];
+    [proxyHandler dismissViewController];
+  }
 }
 
 - (void)_setChildViewController:(id)controller

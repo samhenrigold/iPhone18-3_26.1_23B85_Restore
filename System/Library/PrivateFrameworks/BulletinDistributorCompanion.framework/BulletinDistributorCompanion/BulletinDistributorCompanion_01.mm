@@ -403,10 +403,11 @@ __CFString *_stringForSettingsWillPresentBlockedBy(uint64_t a1)
   return v10;
 }
 
-void sub_242016B34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, char a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29)
+void sub_242016B34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
 {
+  va_start(va, a28);
   _Block_object_dispose(&a25, 8);
-  _Block_object_dispose(&a29, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -417,17 +418,19 @@ uint64_t __Block_byref_object_copy__6(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_24201741C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, char a32)
+void sub_24201741C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, ...)
 {
-  _Block_object_dispose(&a32, 8);
-  _Block_object_dispose((v32 - 160), 8);
+  va_start(va, a31);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v31 - 160), 8);
   _Unwind_Resume(a1);
 }
 
-void OUTLINED_FUNCTION_3(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_3(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x2Au);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0x2Au);
 }
 
 uint64_t __Block_byref_object_copy__7(uint64_t result, uint64_t a2)
@@ -537,16 +540,16 @@ void sub_24201BFF8(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_24201C39C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_24201C39C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_24201D42C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_24201D42C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -711,10 +714,11 @@ void *nilForNSNull(void *a1)
   return v4;
 }
 
-void OUTLINED_FUNCTION_1_2(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_1_2(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x16u);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
 }
 
 uint64_t BLTPBHandleDismissActionRequestReadFrom(uint64_t a1, void *a2)
@@ -837,7 +841,7 @@ LABEL_32:
 void BLTSignificantTimeChanged(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = BLTWorkQueue();
+  v3 = BLTWorkQueue(v2);
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __BLTSignificantTimeChanged_block_invoke;
@@ -850,7 +854,7 @@ void BLTSignificantTimeChanged(uint64_t a1, void *a2)
 void BLTMuteForTodaySectionIdentifiersChanged(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = BLTWorkQueue();
+  v3 = BLTWorkQueue(v2);
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __BLTMuteForTodaySectionIdentifiersChanged_block_invoke;
@@ -877,9 +881,9 @@ id _BLTToday()
   return v2;
 }
 
-void sub_242026A34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_242026A34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -891,23 +895,23 @@ uint64_t __Block_byref_object_copy__9(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_2420273A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_2420273A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_2420275D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_2420275D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 id BBSectionInfoFromBLTPBSectionInfo(void *a1)
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   v1 = a1;
   if (v1)
   {
@@ -1030,30 +1034,30 @@ id BBSectionInfoFromBLTPBSectionInfo(void *a1)
       v17 = [v1 subsections];
       v18 = [v16 arrayWithCapacity:{objc_msgSend(v17, "count")}];
 
-      v39 = 0u;
-      v40 = 0u;
-      v37 = 0u;
       v38 = 0u;
+      v39 = 0u;
+      v36 = 0u;
+      v37 = 0u;
       v19 = [v1 subsections];
-      v20 = [v19 countByEnumeratingWithState:&v37 objects:v41 count:16];
+      v20 = [v19 countByEnumeratingWithState:&v36 objects:v40 count:16];
       if (v20)
       {
         v21 = v20;
-        v22 = *v38;
+        v22 = *v37;
         do
         {
           for (i = 0; i != v21; ++i)
           {
-            if (*v38 != v22)
+            if (*v37 != v22)
             {
               objc_enumerationMutation(v19);
             }
 
-            v24 = BBSectionInfoFromBLTPBSectionInfo(*(*(&v37 + 1) + 8 * i));
+            v24 = BBSectionInfoFromBLTPBSectionInfo(*(*(&v36 + 1) + 8 * i));
             [v18 addObject:v24];
           }
 
-          v21 = [v19 countByEnumeratingWithState:&v37 objects:v41 count:16];
+          v21 = [v19 countByEnumeratingWithState:&v36 objects:v40 count:16];
         }
 
         while (v21);
@@ -1104,14 +1108,12 @@ id BBSectionInfoFromBLTPBSectionInfo(void *a1)
     v2 = 0;
   }
 
-  v35 = *MEMORY[0x277D85DE8];
-
   return v2;
 }
 
 id BBSectionIconFromBLTPBSectionIcon(void *a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v1 = a1;
   v2 = [v1 variants];
   v3 = [v2 count];
@@ -1119,33 +1121,33 @@ id BBSectionIconFromBLTPBSectionIcon(void *a1)
   if (v3)
   {
     v4 = objc_alloc_init(MEMORY[0x277CF3558]);
+    v12 = 0u;
     v13 = 0u;
     v14 = 0u;
     v15 = 0u;
-    v16 = 0u;
     v5 = [v1 variants];
-    v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v14;
+      v8 = *v13;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v14 != v8)
+          if (*v13 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          v10 = [MEMORY[0x277CF3560] sectionIconVariantFromProtobuf:*(*(&v13 + 1) + 8 * i)];
+          v10 = [MEMORY[0x277CF3560] sectionIconVariantFromProtobuf:*(*(&v12 + 1) + 8 * i)];
           if (v10)
           {
             [v4 addVariant:v10];
           }
         }
 
-        v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
       }
 
       while (v7);
@@ -1156,8 +1158,6 @@ id BBSectionIconFromBLTPBSectionIcon(void *a1)
   {
     v4 = 0;
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -1332,47 +1332,47 @@ BLTPBSectionInfo *BLTPBSectionInfoFromBBSectionInfoForDeviceSize(void *a1, uint6
 
     if (!v34)
     {
-      v35 = blt_ids_log();
-      if (os_log_type_enabled(v35, OS_LOG_TYPE_INFO))
+      v36 = blt_ids_log(v35);
+      if (os_log_type_enabled(v36, OS_LOG_TYPE_INFO))
       {
-        v36 = [v3 sectionID];
+        v37 = [v3 sectionID];
         *buf = 138412290;
-        v54 = v36;
-        _os_log_impl(&dword_241FB3000, v35, OS_LOG_TYPE_INFO, "Fetching icons for BBSectionInfo to BLTPBSectionInfo conversion of %@", buf, 0xCu);
+        v54 = v37;
+        _os_log_impl(&dword_241FB3000, v36, OS_LOG_TYPE_INFO, "Fetching icons for BBSectionInfo to BLTPBSectionInfo conversion of %@", buf, 0xCu);
       }
 
-      v37 = [v3 icon];
-      v38 = [v3 sectionID];
-      v39 = BLTPBSectionIconFromBBSectionIconForDeviceSize(v37, v38, a2);
-      [(BLTPBSectionInfo *)v4 setIcon:v39];
+      v38 = [v3 icon];
+      v39 = [v3 sectionID];
+      v40 = BLTPBSectionIconFromBBSectionIconForDeviceSize(v38, v39, a2);
+      [(BLTPBSectionInfo *)v4 setIcon:v40];
     }
 
-    v40 = [v3 sectionInfoSettings];
+    v41 = [v3 sectionInfoSettings];
 
-    if (v40)
+    if (v41)
     {
-      v41 = [v3 sectionInfoSettings];
-      v42 = [v41 blt_protobuf];
-      [(BLTPBSectionInfo *)v4 setSectionInfoSettings:v42];
+      v42 = [v3 sectionInfoSettings];
+      v43 = [v42 blt_protobuf];
+      [(BLTPBSectionInfo *)v4 setSectionInfoSettings:v43];
     }
 
     if ([MEMORY[0x277D2BCC8] activePairedDeviceSupportsAuthorizationExpirationDate])
     {
-      v43 = [v3 authorizationExpirationDate];
+      v44 = [v3 authorizationExpirationDate];
 
-      if (v43)
+      if (v44)
       {
-        v44 = [v3 authorizationExpirationDate];
-        [v44 timeIntervalSince1970];
+        v45 = [v3 authorizationExpirationDate];
+        [v45 timeIntervalSince1970];
         [(BLTPBSectionInfo *)v4 setAuthorizationExpirationDate:?];
       }
 
-      v45 = [v3 lastUserGrantedAuthorizationDate];
+      v46 = [v3 lastUserGrantedAuthorizationDate];
 
-      if (v45)
+      if (v46)
       {
-        v46 = [v3 lastUserGrantedAuthorizationDate];
-        [v46 timeIntervalSince1970];
+        v47 = [v3 lastUserGrantedAuthorizationDate];
+        [v47 timeIntervalSince1970];
         [(BLTPBSectionInfo *)v4 setLastUserGrantedAuthorizationDate:?];
       }
     }
@@ -1383,14 +1383,13 @@ BLTPBSectionInfo *BLTPBSectionInfoFromBBSectionInfoForDeviceSize(void *a1, uint6
     v4 = 0;
   }
 
-  v47 = *MEMORY[0x277D85DE8];
-
   return v4;
 }
 
-BLTPBSectionIcon *BLTPBSectionIconFromBBSectionIconForDeviceSize(void *a1, void *a2, signed int a3)
+BLTPBSectionIcon *BLTPBSectionIconFromBBSectionIconForDeviceSize(void *a1, void *a2, uint64_t a3)
 {
-  v68 = *MEMORY[0x277D85DE8];
+  v3 = a3;
+  v71 = *MEMORY[0x277D85DE8];
   v5 = a1;
   v6 = a2;
   v7 = [MEMORY[0x277D2BCF8] blt_boundedWaitForActivePairedDevice];
@@ -1404,7 +1403,7 @@ BLTPBSectionIcon *BLTPBSectionIconFromBBSectionIconForDeviceSize(void *a1, void 
 
   else
   {
-    v12 = blt_ids_log();
+    v12 = blt_ids_log(0);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       BLTPBSectionIconFromBBSectionIconForDeviceSize_cold_1();
@@ -1418,80 +1417,80 @@ BLTPBSectionIcon *BLTPBSectionIconFromBBSectionIconForDeviceSize(void *a1, void 
 
   if (!v14)
   {
-    v15 = 0;
+    v16 = 0;
     goto LABEL_28;
   }
 
-  v15 = objc_alloc_init(BLTPBSectionIcon);
-  v16 = BLTPBValidSectionIconVariantsForDeviceSize(a3);
-  v17 = blt_ids_log();
-  if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+  v16 = objc_alloc_init(BLTPBSectionIcon);
+  v17 = BLTPBValidSectionIconVariantsForDeviceSize(v3);
+  v18 = blt_ids_log(v17);
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
   {
     BLTPBSectionIconFromBBSectionIconForDeviceSize_cold_2();
   }
 
-  v56 = 0u;
+  v59 = 0u;
+  v60 = 0u;
   v57 = 0u;
-  v54 = 0u;
-  v55 = 0u;
-  v18 = [v5 variants];
-  v19 = [v18 countByEnumeratingWithState:&v54 objects:v67 count:16];
-  if (v19)
+  v58 = 0u;
+  v19 = [v5 variants];
+  v20 = [v19 countByEnumeratingWithState:&v57 objects:v70 count:16];
+  if (v20)
   {
-    v20 = v19;
-    v48 = a3;
-    v50 = v8;
-    v52 = v5;
-    v49 = v6;
-    v21 = *v55;
+    v21 = v20;
+    v51 = v3;
+    v53 = v8;
+    v55 = v5;
+    v52 = v6;
+    v22 = *v58;
     while (2)
     {
-      for (i = 0; i != v20; ++i)
+      for (i = 0; i != v21; ++i)
       {
-        if (*v55 != v21)
+        if (*v58 != v22)
         {
-          objc_enumerationMutation(v18);
+          objc_enumerationMutation(v19);
         }
 
-        v23 = *(*(&v54 + 1) + 8 * i);
-        v24 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(v23, "format")}];
-        v25 = [v16 containsObject:v24];
+        v24 = *(*(&v57 + 1) + 8 * i);
+        v25 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(v24, "format")}];
+        v26 = [v17 containsObject:v25];
 
-        if (v25)
+        if (v26)
         {
-          v26 = [v23 applicationIdentifier];
+          v28 = [v24 applicationIdentifier];
 
-          if (v26)
+          if (v28)
           {
-            v28 = blt_ids_log();
-            if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+            v31 = blt_ids_log(v29);
+            if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
             {
-              BLTPBSectionIconFromBBSectionIconForDeviceSize_cold_4(v23);
+              BLTPBSectionIconFromBBSectionIconForDeviceSize_cold_4(v24);
             }
 
-            v6 = [v23 applicationIdentifier];
+            v6 = [v24 applicationIdentifier];
 
-            v15 = 0;
-            v5 = v52;
+            v16 = 0;
+            v5 = v55;
             goto LABEL_26;
           }
 
-          v27 = [v23 blt_ProtobufWithScale:v11];
-          [(BLTPBSectionIcon *)v15 addVariant:v27];
+          v30 = [v24 blt_ProtobufWithScale:v11];
+          [(BLTPBSectionIcon *)v16 addVariant:v30];
         }
 
         else
         {
-          v27 = blt_ids_log();
-          if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+          v30 = blt_ids_log(v27);
+          if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
           {
-            BLTPBSectionIconFromBBSectionIconForDeviceSize_cold_3(v65, v23, &v66, v27);
+            BLTPBSectionIconFromBBSectionIconForDeviceSize_cold_3(v68, v24, &v69, v30);
           }
         }
       }
 
-      v20 = [v18 countByEnumeratingWithState:&v54 objects:v67 count:16];
-      if (v20)
+      v21 = [v19 countByEnumeratingWithState:&v57 objects:v70 count:16];
+      if (v21)
       {
         continue;
       }
@@ -1499,14 +1498,14 @@ BLTPBSectionIcon *BLTPBSectionIconFromBBSectionIconForDeviceSize(void *a1, void 
       break;
     }
 
-    v5 = v52;
-    v6 = v49;
+    v5 = v55;
+    v6 = v52;
 LABEL_26:
-    v8 = v50;
-    a3 = v48;
+    v8 = v53;
+    v3 = v51;
   }
 
-  if (!v15)
+  if (!v16)
   {
 LABEL_28:
     if (!v6)
@@ -1514,145 +1513,144 @@ LABEL_28:
       goto LABEL_58;
     }
 
-    v29 = blt_ids_log();
-    if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+    v32 = blt_ids_log(v15);
+    if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
     {
       BLTPBSectionIconFromBBSectionIconForDeviceSize_cold_5();
     }
 
-    v51 = v8;
-    v53 = v5;
-    if (a3 <= 4)
+    v54 = v8;
+    v56 = v5;
+    if (v3 <= 4)
     {
-      if (a3 > 2)
+      if (v3 > 2)
       {
-        if (a3 == 3)
+        if (v3 == 3)
         {
-          v64[0] = 0x405B000000000000;
-          v30 = 29.0;
-          v31 = 19;
-          v32 = 9;
-          v33 = 0x4049000000000000;
-          v34 = 16;
+          v67[0] = 0x405B000000000000;
+          v33 = 29.0;
+          v34 = 19;
+          v35 = 9;
+          v36 = 0x4049000000000000;
+          v37 = 16;
           goto LABEL_47;
         }
       }
 
-      else if (a3 >= 2)
+      else if (v3 >= 2)
       {
-        if (a3 == 2)
+        if (v3 == 2)
         {
-          v64[0] = 0x4055800000000000;
-          v30 = 24.0;
-          v31 = 11;
-          v32 = 7;
-          v33 = 0x4044000000000000;
-          v34 = 3;
+          v67[0] = 0x4055800000000000;
+          v33 = 24.0;
+          v34 = 11;
+          v35 = 7;
+          v36 = 0x4044000000000000;
+          v37 = 3;
           goto LABEL_47;
         }
 
         goto LABEL_62;
       }
 
-      v64[0] = 0x4058800000000000;
-      v31 = 13;
-      v30 = 27.5;
-      v32 = 9;
-      v35 = 0x4046000000000000;
+      v67[0] = 0x4058800000000000;
+      v34 = 13;
+      v33 = 27.5;
+      v35 = 9;
+      v38 = 0x4046000000000000;
 LABEL_46:
-      v33 = v35;
-      v34 = 5;
+      v36 = v38;
+      v37 = 5;
       goto LABEL_47;
     }
 
-    if (a3 > 7)
+    if (v3 > 7)
     {
-      if (a3 != 8)
+      if (v3 != 8)
       {
-        if (a3 != 9)
+        if (v3 != 9)
         {
 LABEL_62:
-          v64[0] = 0x4060200000000000;
-          v31 = 28;
-          v30 = 33.0;
-          v32 = 32;
-          v33 = 0x404A400000000000;
-          v34 = 30;
+          v67[0] = 0x4060200000000000;
+          v34 = 28;
+          v33 = 33.0;
+          v35 = 32;
+          v36 = 0x404A400000000000;
+          v37 = 30;
 LABEL_47:
-          v64[1] = v34;
-          v64[2] = v33;
-          v64[3] = v32;
-          *&v64[4] = v30;
-          v64[5] = v31;
-          v15 = objc_opt_new();
+          v67[1] = v37;
+          v67[2] = v36;
+          v67[3] = v35;
+          *&v67[4] = v33;
+          v67[5] = v34;
+          v16 = objc_opt_new();
           for (j = 0; j != 6; j += 2)
           {
-            v37 = BLTPBGetPNGIconDataFromAppIcon(v6, *&v64[j], v11);
-            if (v37)
+            v40 = BLTPBGetPNGIconDataFromAppIcon(v6, *&v67[j], v11);
+            if (v40)
             {
-              v38 = objc_opt_new();
-              [v38 setFormat:LODWORD(v64[j + 1])];
-              [v38 setPrecomposed:1];
-              [v38 setImageData:v37];
-              v39 = blt_ids_log();
-              if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
+              v41 = objc_opt_new();
+              [v41 setFormat:LODWORD(v67[j + 1])];
+              [v41 setPrecomposed:1];
+              v42 = blt_ids_log([v41 setImageData:v40]);
+              if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
               {
-                v40 = v64[j];
-                v41 = [v38 imageData];
-                v42 = [v41 length];
+                v43 = v67[j];
+                v44 = [v41 imageData];
+                v45 = [v44 length];
                 *buf = 138412802;
-                v59 = v6;
-                v60 = 2048;
-                v61 = v40;
-                v62 = 2048;
-                v63 = v42;
-                _os_log_error_impl(&dword_241FB3000, v39, OS_LOG_TYPE_ERROR, "Fetched icon for %@ of size %f with data size %lu", buf, 0x20u);
+                v62 = v6;
+                v63 = 2048;
+                v64 = v43;
+                v65 = 2048;
+                v66 = v45;
+                _os_log_error_impl(&dword_241FB3000, v42, OS_LOG_TYPE_ERROR, "Fetched icon for %@ of size %f with data size %lu", buf, 0x20u);
               }
 
-              [(BLTPBSectionIcon *)v15 addVariant:v38];
+              [(BLTPBSectionIcon *)v16 addVariant:v41];
             }
           }
 
-          v43 = [(BLTPBSectionIcon *)v15 variants];
-          v44 = [v43 count];
+          v46 = [(BLTPBSectionIcon *)v16 variants];
+          v47 = [v46 count];
 
-          if (v44)
+          if (v47)
           {
-            v8 = v51;
-            v5 = v53;
+            v8 = v54;
+            v5 = v56;
           }
 
           else
           {
 
-            v45 = blt_ids_log();
-            v8 = v51;
-            v5 = v53;
-            if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
+            v49 = blt_ids_log(v48);
+            v8 = v54;
+            v5 = v56;
+            if (os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
             {
               BLTPBSectionIconFromBBSectionIconForDeviceSize_cold_6();
             }
 
-            v15 = 0;
+            v16 = 0;
           }
 
           goto LABEL_58;
         }
 
 LABEL_42:
-        v64[0] = 0x405D400000000000;
-        v31 = 21;
-        v30 = 33.0;
-        v32 = 25;
-        v33 = 0x404A400000000000;
-        v34 = 23;
+        v67[0] = 0x405D400000000000;
+        v34 = 21;
+        v33 = 33.0;
+        v35 = 25;
+        v36 = 0x404A400000000000;
+        v37 = 23;
         goto LABEL_47;
       }
     }
 
-    else if (a3 != 5)
+    else if (v3 != 5)
     {
-      if (a3 != 6)
+      if (v3 != 6)
       {
         goto LABEL_62;
       }
@@ -1660,19 +1658,17 @@ LABEL_42:
       goto LABEL_42;
     }
 
-    v64[0] = 0x4058800000000000;
-    v30 = 29.0;
-    v31 = 19;
-    v32 = 9;
-    v35 = 0x4049000000000000;
+    v67[0] = 0x4058800000000000;
+    v33 = 29.0;
+    v34 = 19;
+    v35 = 9;
+    v38 = 0x4049000000000000;
     goto LABEL_46;
   }
 
 LABEL_58:
 
-  v46 = *MEMORY[0x277D85DE8];
-
-  return v15;
+  return v16;
 }
 
 id BLTPBSectionInfoFromBBSectionInfo(void *a1)
@@ -1695,70 +1691,69 @@ id BLTPBDataForSectionIconVariant(void *a1, double a2)
 
   if (!v5)
   {
-    v8 = [v3 bundlePath];
-    if (v8 && (v9 = v8, [v3 imageName], v10 = objc_claimAutoreleasedReturnValue(), v10, v9, v10))
+    v9 = [v3 bundlePath];
+    if (v9 && (v10 = v9, [v3 imageName], v11 = objc_claimAutoreleasedReturnValue(), v11, v10, v11))
     {
-      v11 = MEMORY[0x277CCA8D8];
-      v12 = [v3 bundlePath];
-      v13 = [v11 bundleWithPath:v12];
+      v12 = MEMORY[0x277CCA8D8];
+      v13 = [v3 bundlePath];
+      v14 = [v12 bundleWithPath:v13];
 
-      v14 = MEMORY[0x277D755B8];
-      v15 = [v3 imageName];
-      v16 = [MEMORY[0x277D75C80] traitCollectionWithDisplayScale:a2];
-      v17 = [v14 imageNamed:v15 inBundle:v13 compatibleWithTraitCollection:v16];
+      v15 = MEMORY[0x277D755B8];
+      v16 = [v3 imageName];
+      v17 = [MEMORY[0x277D75C80] traitCollectionWithDisplayScale:a2];
+      v18 = [v15 imageNamed:v16 inBundle:v14 compatibleWithTraitCollection:v17];
 
-      v18 = [MEMORY[0x277CCAB98] defaultCenter];
-      v19 = *MEMORY[0x277D76660];
-      v20 = [MEMORY[0x277D75128] sharedApplication];
-      [v18 postNotificationName:v19 object:v20];
+      v19 = [MEMORY[0x277CCAB98] defaultCenter];
+      v20 = *MEMORY[0x277D76660];
+      v21 = [MEMORY[0x277D75128] sharedApplication];
+      [v19 postNotificationName:v20 object:v21];
 
-      [MEMORY[0x277D75DE0] _clearAllCachedImagesAndAssets];
-      v21 = blt_ids_log();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+      v22 = blt_ids_log([MEMORY[0x277D75DE0] _clearAllCachedImagesAndAssets]);
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
       {
-        BLTPBDataForSectionIconVariant_cold_2(v17, v3);
+        BLTPBDataForSectionIconVariant_cold_2(v18, v3);
       }
 
-      v7 = UIImagePNGRepresentation(v17);
+      v8 = UIImagePNGRepresentation(v18);
     }
 
     else
     {
-      v22 = [v3 imagePath];
+      v23 = [v3 imagePath];
 
-      if (!v22)
+      if (!v23)
       {
-        v7 = 0;
+        v8 = 0;
         goto LABEL_16;
       }
 
-      v23 = MEMORY[0x277D755B8];
-      v24 = [v3 imagePath];
-      v13 = [v23 imageWithContentsOfFile:v24];
+      v24 = MEMORY[0x277D755B8];
+      v25 = [v3 imagePath];
+      v14 = [v24 imageWithContentsOfFile:v25];
 
-      v25 = blt_ids_log();
-      if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+      v27 = blt_ids_log(v26);
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
       {
-        BLTPBDataForSectionIconVariant_cold_3(v13, v3);
+        BLTPBDataForSectionIconVariant_cold_3(v14, v3);
       }
 
-      v7 = UIImagePNGRepresentation(v13);
+      v8 = UIImagePNGRepresentation(v14);
     }
 
     goto LABEL_16;
   }
 
-  v6 = blt_ids_log();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+  v7 = blt_ids_log(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
     BLTPBDataForSectionIconVariant_cold_1();
   }
 
-  v7 = [v3 imageData];
+  v8 = [v3 imageData];
 LABEL_16:
   objc_autoreleasePoolPop(v4);
 
-  return v7;
+  return v8;
 }
 
 id BLTPBGetPNGIconDataFromAppIcon(void *a1, double a2, double a3)
@@ -1776,7 +1771,7 @@ id BLTPBGetPNGIconDataFromAppIcon(void *a1, double a2, double a3)
   v10 = [v7 imageForDescriptor:v8];
   if (!v10)
   {
-    v11 = blt_general_log();
+    v11 = blt_general_log(0);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       BLTPBGetPNGIconDataFromAppIcon_cold_4();
@@ -1786,68 +1781,67 @@ id BLTPBGetPNGIconDataFromAppIcon(void *a1, double a2, double a3)
   }
 
   v11 = v10;
-  if ([v10 placeholder])
+  v12 = [v10 placeholder];
+  if (v12)
   {
-    v12 = blt_general_log();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v13 = blt_general_log(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       BLTPBGetPNGIconDataFromAppIcon_cold_1();
     }
 
-    v13 = [v7 prepareImageForDescriptor:v8];
+    v14 = [v7 prepareImageForDescriptor:v8];
 
-    v11 = v13;
+    v11 = v14;
   }
 
-  v14 = [v11 CGImage];
-  if (!v14)
+  v15 = [v11 CGImage];
+  if (!v15)
   {
-    v19 = blt_general_log();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v20 = blt_general_log(0);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
       BLTPBGetPNGIconDataFromAppIcon_cold_3();
     }
 
 LABEL_14:
-    v17 = 0;
     v18 = 0;
+    v19 = 0;
     goto LABEL_19;
   }
 
-  v15 = [objc_alloc(MEMORY[0x277D755B8]) initWithCGImage:v14 scale:0 orientation:a3];
-  v16 = v15;
-  v17 = v15 != 0;
-  if (v15)
+  v16 = [objc_alloc(MEMORY[0x277D755B8]) initWithCGImage:v15 scale:0 orientation:a3];
+  v17 = v16;
+  v18 = v16 != 0;
+  if (v16)
   {
-    v18 = UIImagePNGRepresentation(v15);
+    v19 = UIImagePNGRepresentation(v16);
   }
 
   else
   {
-    v20 = blt_general_log();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    v21 = blt_general_log(0);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
       BLTPBGetPNGIconDataFromAppIcon_cold_2();
     }
 
-    v18 = 0;
+    v19 = 0;
   }
 
 LABEL_19:
   objc_autoreleasePoolPop(v6);
-  if (v17)
+  if (v18)
   {
-    v21 = v18;
+    v22 = v19;
   }
 
   else
   {
-    v21 = 0;
+    v22 = 0;
   }
 
-  v22 = *MEMORY[0x277D85DE8];
-
-  return v21;
+  return v22;
 }
 
 id BLTPBSectionIconFromBBSectionIcon(void *a1, void *a2)
@@ -1933,7 +1927,7 @@ void sub_24202D00C(_Unwind_Exception *exception_object, int a2)
   if (a2 == 1)
   {
     v3 = objc_begin_catch(exception_object);
-    v4 = blt_general_log();
+    v4 = blt_general_log(v3);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       [(BLTPreviouslySentMessageStore *)v3 initWithMessageStorePath:v2, v4];
@@ -2405,16 +2399,16 @@ LABEL_32:
   return [a2 hasError] ^ 1;
 }
 
-void sub_242030518(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_242030518(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_24203061C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_24203061C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2604,48 +2598,35 @@ LABEL_24:
 
 void _readDataFromFile_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_1();
   _os_log_fault_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void BLTCleanAttachmentsPath_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_241FB3000, a2, OS_LOG_TYPE_ERROR, "Unable to remove attachments dir %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_241FB3000, a2, OS_LOG_TYPE_ERROR, "Unable to remove attachments dir %@", &v2, 0xCu);
 }
 
 void _BLTFileURLWithPath_cold_1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 138412546;
-  v5 = a1;
-  v6 = 2112;
-  v7 = a2;
-  _os_log_error_impl(&dword_241FB3000, log, OS_LOG_TYPE_ERROR, "Could not create %@ error: %@", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 138412546;
+  v4 = a1;
+  v5 = 2112;
+  v6 = a2;
+  _os_log_error_impl(&dword_241FB3000, log, OS_LOG_TYPE_ERROR, "Could not create %@ error: %@", &v3, 0x16u);
 }
 
 void _BLTCaptureBug_cold_2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_241FB3000, a2, OS_LOG_TYPE_ERROR, "Diagnostic Reporter failed to send snapshot for bug %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-void BLTPBSectionIconFromBBSectionIconForDeviceSize_cold_1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_241FB3000, a2, OS_LOG_TYPE_ERROR, "Diagnostic Reporter failed to send snapshot for bug %@", &v2, 0xCu);
 }
 
 void BLTPBSectionIconFromBBSectionIconForDeviceSize_cold_3(uint8_t *a1, void *a2, uint64_t *a3, NSObject *a4)
@@ -2658,77 +2639,58 @@ void BLTPBSectionIconFromBBSectionIconForDeviceSize_cold_3(uint8_t *a1, void *a2
 
 void BLTPBSectionIconFromBBSectionIconForDeviceSize_cold_4(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 applicationIdentifier];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_2_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void BLTPBSectionIconFromBBSectionIconForDeviceSize_cold_5()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void BLTPBSectionIconFromBBSectionIconForDeviceSize_cold_6()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void BLTPBDataForSectionIconVariant_cold_2(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
   v3 = [a2 bundlePath];
-  v10 = [a2 imageName];
+  v9 = [a2 imageName];
   OUTLINED_FUNCTION_2_1();
   _os_log_error_impl(v4, v5, v6, v7, v8, 0x20u);
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void BLTPBDataForSectionIconVariant_cold_3(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v8 = [a2 imagePath];
+  v7 = [a2 imagePath];
   OUTLINED_FUNCTION_2_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void BLTPBGetPNGIconDataFromAppIcon_cold_2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void BLTPBGetPNGIconDataFromAppIcon_cold_3()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void BLTPBGetPNGIconDataFromAppIcon_cold_4()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }

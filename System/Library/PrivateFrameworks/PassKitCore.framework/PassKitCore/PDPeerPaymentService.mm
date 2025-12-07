@@ -174,39 +174,40 @@
   handlerCopy = handler;
   if (handlerCopy)
   {
-    if (([(PKEntitlementWhitelist *)self->_whitelist peerPaymentAllAccess]& 1) != 0)
+    peerPaymentAllAccess = [(PKEntitlementWhitelist *)self->_whitelist peerPaymentAllAccess];
+    if (peerPaymentAllAccess)
     {
       if (proxyCopy)
       {
-        v7 = objc_autoreleasePoolPush();
+        v8 = objc_autoreleasePoolPush();
         sharedPeerPaymentWebService = [(PDPeerPaymentWebServiceCoordinator *)self->_peerPaymentWebServiceCoordinator sharedPeerPaymentWebService];
         context = [sharedPeerPaymentWebService context];
         handlerCopy[2](handlerCopy, context);
 
-        objc_autoreleasePoolPop(v7);
+        objc_autoreleasePoolPop(v8);
       }
 
       else
       {
-        v11 = PDDefaultQueue();
-        v12[0] = _NSConcreteStackBlock;
-        v12[1] = 3221225472;
-        v12[2] = sub_100139140;
-        v12[3] = &unk_10083C820;
-        v12[4] = self;
-        v13 = handlerCopy;
-        dispatch_async(v11, v12);
+        v12 = PDDefaultQueue(peerPaymentAllAccess);
+        v13[0] = _NSConcreteStackBlock;
+        v13[1] = 3221225472;
+        v13[2] = sub_100139140;
+        v13[3] = &unk_10083C820;
+        v13[4] = self;
+        v14 = handlerCopy;
+        dispatch_async(v12, v13);
       }
     }
 
     else
     {
-      v10 = PKLogFacilityTypeGetObject();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      v11 = PKLogFacilityTypeGetObject();
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315138;
-        v15 = "[PDPeerPaymentService usingSynchronousProxy:fetchSharedPeerPaymentWebServiceContextWithHandler:]";
-        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Client is not entitled for method: %s", buf, 0xCu);
+        v16 = "[PDPeerPaymentService usingSynchronousProxy:fetchSharedPeerPaymentWebServiceContextWithHandler:]";
+        _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Client is not entitled for method: %s", buf, 0xCu);
       }
 
       handlerCopy[2](handlerCopy, 0);
@@ -219,42 +220,43 @@
   proxyCopy = proxy;
   contextCopy = context;
   completionCopy = completion;
-  if (([(PKEntitlementWhitelist *)self->_whitelist peerPaymentAllAccess]& 1) != 0)
+  peerPaymentAllAccess = [(PKEntitlementWhitelist *)self->_whitelist peerPaymentAllAccess];
+  if (peerPaymentAllAccess)
   {
     if (proxyCopy)
     {
-      v10 = objc_autoreleasePoolPush();
+      v11 = objc_autoreleasePoolPush();
       [(PDPeerPaymentWebServiceCoordinator *)self->_peerPaymentWebServiceCoordinator updateSharedWebServiceContext:contextCopy];
       if (completionCopy)
       {
         completionCopy[2](completionCopy);
       }
 
-      objc_autoreleasePoolPop(v10);
+      objc_autoreleasePoolPop(v11);
     }
 
     else
     {
-      v12 = PDDefaultQueue();
+      v13 = PDDefaultQueue(peerPaymentAllAccess);
       block[0] = _NSConcreteStackBlock;
       block[1] = 3221225472;
       block[2] = sub_100139380;
       block[3] = &unk_10083D320;
       block[4] = self;
-      v14 = contextCopy;
-      v15 = completionCopy;
-      dispatch_async(v12, block);
+      v15 = contextCopy;
+      v16 = completionCopy;
+      dispatch_async(v13, block);
     }
   }
 
   else
   {
-    v11 = PKLogFacilityTypeGetObject();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v12 = PKLogFacilityTypeGetObject();
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v17 = "[PDPeerPaymentService usingSynchronousProxy:setSharedPeerPaymentWebServiceContext:withCompletion:]";
-      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Client is not entitled for method: %s", buf, 0xCu);
+      v18 = "[PDPeerPaymentService usingSynchronousProxy:setSharedPeerPaymentWebServiceContext:withCompletion:]";
+      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Client is not entitled for method: %s", buf, 0xCu);
     }
 
     if (completionCopy)
@@ -564,33 +566,34 @@
   identifierCopy = identifier;
   bundleIdentifierCopy = bundleIdentifier;
   completionCopy = completion;
-  if ([(PKEntitlementWhitelist *)self->_whitelist peerPaymentAllAccess])
+  peerPaymentAllAccess = [(PKEntitlementWhitelist *)self->_whitelist peerPaymentAllAccess];
+  if (peerPaymentAllAccess)
   {
-    v23 = PDDefaultQueue();
+    v24 = PDDefaultQueue(peerPaymentAllAccess);
     block[0] = _NSConcreteStackBlock;
     block[1] = 3221225472;
     block[2] = sub_10013B34C;
     block[3] = &unk_100848310;
     block[4] = self;
-    v26 = accountCopy;
-    v27 = amountCopy;
+    v27 = accountCopy;
+    v28 = amountCopy;
     stateCopy = state;
-    v28 = addressCopy;
-    v29 = orientationCopy;
-    v30 = identifierCopy;
-    v31 = bundleIdentifierCopy;
-    v32 = completionCopy;
-    dispatch_async(v23, block);
+    v29 = addressCopy;
+    v30 = orientationCopy;
+    v31 = identifierCopy;
+    v32 = bundleIdentifierCopy;
+    v33 = completionCopy;
+    dispatch_async(v24, block);
   }
 
   else
   {
-    v24 = PKLogFacilityTypeGetObject();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+    v25 = PKLogFacilityTypeGetObject();
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v35 = "[PDPeerPaymentService presentRegistrationFlowWithAccount:amount:state:senderAddress:orientation:hostSceneIdentifier:hostSceneBundleIdentifier:completion:]";
-      _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "Client is not entitled for method: %s", buf, 0xCu);
+      v36 = "[PDPeerPaymentService presentRegistrationFlowWithAccount:amount:state:senderAddress:orientation:hostSceneIdentifier:hostSceneBundleIdentifier:completion:]";
+      _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "Client is not entitled for method: %s", buf, 0xCu);
     }
 
     if (completionCopy)
@@ -607,30 +610,31 @@
   dCopy = d;
   orientationCopy = orientation;
   completionCopy = completion;
-  if ([(PKEntitlementWhitelist *)self->_whitelist peerPaymentAllAccess])
+  peerPaymentAllAccess = [(PKEntitlementWhitelist *)self->_whitelist peerPaymentAllAccess];
+  if (peerPaymentAllAccess)
   {
-    v17 = PDDefaultQueue();
-    v19[0] = _NSConcreteStackBlock;
-    v19[1] = 3221225472;
-    v19[2] = sub_10013B654;
-    v19[3] = &unk_10083DD98;
-    v20 = lCopy;
-    v21 = identifierCopy;
+    v18 = PDDefaultQueue(peerPaymentAllAccess);
+    v20[0] = _NSConcreteStackBlock;
+    v20[1] = 3221225472;
+    v20[2] = sub_10013B654;
+    v20[3] = &unk_10083DD98;
+    v21 = lCopy;
+    v22 = identifierCopy;
     selfCopy = self;
-    v23 = dCopy;
-    v24 = orientationCopy;
-    v25 = completionCopy;
-    dispatch_async(v17, v19);
+    v24 = dCopy;
+    v25 = orientationCopy;
+    v26 = completionCopy;
+    dispatch_async(v18, v20);
   }
 
   else
   {
-    v18 = PKLogFacilityTypeGetObject();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+    v19 = PKLogFacilityTypeGetObject();
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v27 = "[PDPeerPaymentService presentPeerPaymentTermsAndConditionsWithTermsURL:termsIdentifier:passUniqueID:orientation:completion:]";
-      _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "Client is not entitled for method: %s", buf, 0xCu);
+      v28 = "[PDPeerPaymentService presentPeerPaymentTermsAndConditionsWithTermsURL:termsIdentifier:passUniqueID:orientation:completion:]";
+      _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "Client is not entitled for method: %s", buf, 0xCu);
     }
 
     if (completionCopy)
@@ -1511,28 +1515,29 @@
 {
   infoCopy = info;
   completionCopy = completion;
-  if ([(PKEntitlementWhitelist *)self->_whitelist peerPaymentAllAccess])
+  peerPaymentAllAccess = [(PKEntitlementWhitelist *)self->_whitelist peerPaymentAllAccess];
+  if (peerPaymentAllAccess)
   {
-    v10 = PDDefaultQueue();
-    v12[0] = _NSConcreteStackBlock;
-    v12[1] = 3221225472;
-    v12[2] = sub_100140944;
-    v12[3] = &unk_10083F918;
-    v12[4] = self;
+    v11 = PDDefaultQueue(peerPaymentAllAccess);
+    v13[0] = _NSConcreteStackBlock;
+    v13[1] = 3221225472;
+    v13[2] = sub_100140944;
+    v13[3] = &unk_10083F918;
+    v13[4] = self;
     hostCopy = host;
-    v13 = infoCopy;
-    v14 = completionCopy;
-    dispatch_async(v10, v12);
+    v14 = infoCopy;
+    v15 = completionCopy;
+    dispatch_async(v11, v13);
   }
 
   else
   {
-    v11 = PKLogFacilityTypeGetObject();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v12 = PKLogFacilityTypeGetObject();
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v17 = "[PDPeerPaymentService presentSenderFlowWithHost:userInfo:completion:]";
-      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Client is not entitled for method: %s", buf, 0xCu);
+      v18 = "[PDPeerPaymentService presentSenderFlowWithHost:userInfo:completion:]";
+      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Client is not entitled for method: %s", buf, 0xCu);
     }
 
     if (completionCopy)
@@ -1546,28 +1551,29 @@
 {
   orientationCopy = orientation;
   completionCopy = completion;
-  if ([(PKEntitlementWhitelist *)self->_whitelist peerPaymentAllAccess])
+  peerPaymentAllAccess = [(PKEntitlementWhitelist *)self->_whitelist peerPaymentAllAccess];
+  if (peerPaymentAllAccess)
   {
-    v10 = PDDefaultQueue();
-    v12[0] = _NSConcreteStackBlock;
-    v12[1] = 3221225472;
-    v12[2] = sub_100140B9C;
-    v12[3] = &unk_10083F918;
-    v12[4] = self;
-    v13 = orientationCopy;
+    v11 = PDDefaultQueue(peerPaymentAllAccess);
+    v13[0] = _NSConcreteStackBlock;
+    v13[1] = 3221225472;
+    v13[2] = sub_100140B9C;
+    v13[3] = &unk_10083F918;
+    v13[4] = self;
+    v14 = orientationCopy;
     hostCopy = host;
-    v14 = completionCopy;
-    dispatch_async(v10, v12);
+    v15 = completionCopy;
+    dispatch_async(v11, v13);
   }
 
   else
   {
-    v11 = PKLogFacilityTypeGetObject();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v12 = PKLogFacilityTypeGetObject();
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v17 = "[PDPeerPaymentService presentReceiverFlowWithOrientation:host:completion:]";
-      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Client is not entitled for method: %s", buf, 0xCu);
+      v18 = "[PDPeerPaymentService presentReceiverFlowWithOrientation:host:completion:]";
+      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Client is not entitled for method: %s", buf, 0xCu);
     }
 
     if (completionCopy)

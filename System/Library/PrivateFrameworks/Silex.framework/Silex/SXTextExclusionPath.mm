@@ -31,9 +31,9 @@
 {
   if (result)
   {
-    v26.receiver = result;
-    v26.super_class = SXTextExclusionPath;
-    result = objc_msgSendSuper2(&v26, sel_init);
+    v23.receiver = result;
+    v23.super_class = SXTextExclusionPath;
+    result = objc_msgSendSuper2(&v23, sel_init, position, rect, insets, a7, a8, a9, a10, a11);
     if (result)
     {
       *(result + 3) = 2;

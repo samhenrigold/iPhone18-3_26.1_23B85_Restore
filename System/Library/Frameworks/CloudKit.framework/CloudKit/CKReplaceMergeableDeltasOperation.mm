@@ -18,7 +18,7 @@
 - (void)setPerReplacementBlock:(id)block
 {
   blockCopy = block;
-  if (__sTestOverridesAvailable[0] == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, v4, v5))
+  if (__sTestOverridesAvailable == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, v4, v5))
   {
     objc_msgSend_raise_format_(MEMORY[0x1E695DF30], v4, *MEMORY[0x1E695D920], @"Callback check triggered");
   }
@@ -49,7 +49,7 @@ LABEL_9:
 
 - (id)perReplacementBlock
 {
-  if (__sTestOverridesAvailable[0] == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, a2, v2))
+  if (__sTestOverridesAvailable == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, a2, v2))
   {
     objc_msgSend_raise_format_(MEMORY[0x1E695DF30], a2, *MEMORY[0x1E695D920], @"Callback check triggered");
   }
@@ -86,7 +86,7 @@ LABEL_9:
 - (void)setReplaceMergeableDeltasCompletionBlock:(id)block
 {
   blockCopy = block;
-  if (__sTestOverridesAvailable[0] == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, v4, v5))
+  if (__sTestOverridesAvailable == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, v4, v5))
   {
     objc_msgSend_raise_format_(MEMORY[0x1E695DF30], v4, *MEMORY[0x1E695D920], @"Callback check triggered");
   }
@@ -117,7 +117,7 @@ LABEL_9:
 
 - (id)replaceMergeableDeltasCompletionBlock
 {
-  if (__sTestOverridesAvailable[0] == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, a2, v2))
+  if (__sTestOverridesAvailable == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, a2, v2))
   {
     objc_msgSend_raise_format_(MEMORY[0x1E695DF30], a2, *MEMORY[0x1E695D920], @"Callback check triggered");
   }
@@ -251,7 +251,7 @@ LABEL_9:
 
 - (void)_finishOnCallbackQueueWithError:(id)error
 {
-  v39[1] = *MEMORY[0x1E69E9840];
+  v38[1] = *MEMORY[0x1E69E9840];
   errorCopy = error;
   if (!errorCopy)
   {
@@ -260,10 +260,10 @@ LABEL_9:
 
     if (v10)
     {
-      v38 = @"CKPartialErrors";
+      v37 = @"CKPartialErrors";
       v11 = objc_msgSend_perValueErrors(self, v4, v5);
-      v39[0] = v11;
-      v13 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v12, v39, &v38, 1);
+      v38[0] = v11;
+      v13 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v12, v38, &v37, 1);
 
       errorCopy = objc_msgSend_errorWithDomain_code_userInfo_format_(CKPrettyError, v14, @"CKInternalErrorDomain", 1011, v13, @"Failed to replace some delta metadata");
     }
@@ -283,13 +283,13 @@ LABEL_9:
   v16 = ck_log_facility_ck;
   if (os_log_type_enabled(ck_log_facility_ck, OS_LOG_TYPE_DEBUG))
   {
-    v25 = v16;
-    v28 = objc_msgSend_operationID(self, v26, v27);
+    v24 = v16;
+    v27 = objc_msgSend_operationID(self, v25, v26);
     *buf = 138543618;
-    v35 = v28;
-    v36 = 2112;
-    v37 = v15;
-    _os_log_debug_impl(&dword_1883EA000, v25, OS_LOG_TYPE_DEBUG, "Operation %{public}@ calling replace mergeable deltas completion block with error: %@", buf, 0x16u);
+    v34 = v27;
+    v35 = 2112;
+    v36 = v15;
+    _os_log_debug_impl(&dword_1883EA000, v24, OS_LOG_TYPE_DEBUG, "Operation %{public}@ calling replace mergeable deltas completion block with error: %@", buf, 0x16u);
   }
 
   v19 = objc_msgSend_replaceMergeableDeltasCompletionBlock(self, v17, v18);
@@ -308,20 +308,18 @@ LABEL_9:
   v23 = ck_log_facility_ck;
   if (os_log_type_enabled(ck_log_facility_ck, OS_LOG_TYPE_DEBUG))
   {
-    v29 = v23;
-    v32 = objc_msgSend_operationID(self, v30, v31);
+    v28 = v23;
+    v31 = objc_msgSend_operationID(self, v29, v30);
     *buf = 138543618;
-    v35 = v32;
-    v36 = 2112;
-    v37 = v15;
-    _os_log_debug_impl(&dword_1883EA000, v29, OS_LOG_TYPE_DEBUG, "Operation %{public}@ finished calling replace mergeable deltas completion block with error: %@", buf, 0x16u);
+    v34 = v31;
+    v35 = 2112;
+    v36 = v15;
+    _os_log_debug_impl(&dword_1883EA000, v28, OS_LOG_TYPE_DEBUG, "Operation %{public}@ finished calling replace mergeable deltas completion block with error: %@", buf, 0x16u);
   }
 
-  v33.receiver = self;
-  v33.super_class = CKReplaceMergeableDeltasOperation;
-  [(CKOperation *)&v33 _finishOnCallbackQueueWithError:v15];
-
-  v24 = *MEMORY[0x1E69E9840];
+  v32.receiver = self;
+  v32.super_class = CKReplaceMergeableDeltasOperation;
+  [(CKOperation *)&v32 _finishOnCallbackQueueWithError:v15];
 }
 
 - (id)activityCreate
@@ -333,7 +331,7 @@ LABEL_9:
 
 - (void)handleCompletedReplaceDeltasRequest:(id)request error:(id)error
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   requestCopy = request;
   v11 = objc_msgSend_CKClientSuitableError(error, v7, v8);
   if (v11)
@@ -351,15 +349,15 @@ LABEL_9:
   v17 = ck_log_facility_ck;
   if (os_log_type_enabled(ck_log_facility_ck, OS_LOG_TYPE_DEBUG))
   {
-    v26 = v17;
-    v29 = objc_msgSend_operationID(self, v27, v28);
-    v34 = 138543874;
-    v35 = v29;
-    v36 = 2112;
-    v37 = requestCopy;
-    v38 = 2112;
-    v39 = v11;
-    _os_log_debug_impl(&dword_1883EA000, v26, OS_LOG_TYPE_DEBUG, "Operation %{public}@ received replace mergeable deltas request callback for %@ with error: %@", &v34, 0x20u);
+    v25 = v17;
+    v28 = objc_msgSend_operationID(self, v26, v27);
+    v33 = 138543874;
+    v34 = v28;
+    v35 = 2112;
+    v36 = requestCopy;
+    v37 = 2112;
+    v38 = v11;
+    _os_log_debug_impl(&dword_1883EA000, v25, OS_LOG_TYPE_DEBUG, "Operation %{public}@ received replace mergeable deltas request callback for %@ with error: %@", &v33, 0x20u);
   }
 
   v20 = objc_msgSend_perReplacementBlock(self, v18, v19);
@@ -378,18 +376,16 @@ LABEL_9:
   v24 = ck_log_facility_ck;
   if (os_log_type_enabled(ck_log_facility_ck, OS_LOG_TYPE_DEBUG))
   {
-    v30 = v24;
-    v33 = objc_msgSend_operationID(self, v31, v32);
-    v34 = 138543874;
-    v35 = v33;
-    v36 = 2112;
-    v37 = requestCopy;
-    v38 = 2112;
-    v39 = v11;
-    _os_log_debug_impl(&dword_1883EA000, v30, OS_LOG_TYPE_DEBUG, "Operation %{public}@ finished replace mergeable deltas request callback for %@ with error: %@", &v34, 0x20u);
+    v29 = v24;
+    v32 = objc_msgSend_operationID(self, v30, v31);
+    v33 = 138543874;
+    v34 = v32;
+    v35 = 2112;
+    v36 = requestCopy;
+    v37 = 2112;
+    v38 = v11;
+    _os_log_debug_impl(&dword_1883EA000, v29, OS_LOG_TYPE_DEBUG, "Operation %{public}@ finished replace mergeable deltas request callback for %@ with error: %@", &v33, 0x20u);
   }
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 @end

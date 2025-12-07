@@ -10,9 +10,9 @@
 - (__n128)initWithIdentifier:(double)identifier transform:(double)transform extent:(double)extent;
 - (float)averageIntensity;
 - (id)description;
-- (uint64_t)updateTransformToCoordinateSpace:(double)space withTimestamp:(double)timestamp;
 - (void)encodeWithCoder:(id)coder;
 - (void)setEnvironmentTexture:(id)texture;
+- (void)updateTransformToCoordinateSpace:(void *)space@<X8> withTimestamp:(double)timestamp@<D0>;
 @end
 
 @implementation AREnvironmentProbeAnchor
@@ -106,11 +106,11 @@
 {
   v9.receiver = self;
   v9.super_class = AREnvironmentProbeAnchor;
-  v6 = [ARAnchor initWithIdentifier:sel_initWithIdentifier_transform_ transform:?];
-  if (v6)
+  extent = [(ARAnchor *)&v9 initWithIdentifier:a2 transform:identifier, transform, extent];
+  if (extent)
   {
     result = a6;
-    *v6->_extent = a6;
+    *extent->_extent = a6;
   }
 
   return result;
@@ -124,8 +124,8 @@
   v11 = 0u;
   v12 = 0u;
   v10 = 0u;
-  convert(plane, &v10);
-  v7 = [(AREnvironmentProbeAnchor *)self initWithIdentifier:identifierCopy transform:*&v10 extent:*&v11, *&v12, *&v13, *vmulq_f32(v14, xmmword_1C25C9220).i64];
+  convert(&v10, plane);
+  v7 = [(AREnvironmentProbeAnchor *)self initWithIdentifier:identifierCopy transform:*v10.i64 extent:*&v11, *&v12, *&v13, *vmulq_f32(v14, xmmword_1C25C9220).i64];
   if (v7)
   {
     v8 = [objc_alloc(MEMORY[0x1E696AFB0]) initWithUUIDBytes:plane];
@@ -144,7 +144,7 @@
   if (name)
   {
     name2 = [(ARAnchor *)self name];
-    [(ARAnchor *)self transform];
+    objc_msgSend_transform(self);
     environmentTexture2 = ARMatrix4x4Description(0, v7, v8, v9, v10);
     environmentTexture = [(AREnvironmentProbeAnchor *)self environmentTexture];
     [(AREnvironmentProbeAnchor *)self extent];
@@ -154,7 +154,7 @@
 
   else
   {
-    [(ARAnchor *)self transform];
+    objc_msgSend_transform(self);
     name2 = ARMatrix4x4Description(0, v16, v17, v18, v19);
     environmentTexture2 = [(AREnvironmentProbeAnchor *)self environmentTexture];
     [(AREnvironmentProbeAnchor *)self extent];
@@ -258,17 +258,17 @@
   return result;
 }
 
-- (uint64_t)updateTransformToCoordinateSpace:(double)space withTimestamp:(double)timestamp
+- (void)updateTransformToCoordinateSpace:(void *)space@<X8> withTimestamp:(double)timestamp@<D0>
 {
-  [self transform];
-  v17 = v9;
-  v18 = v8;
-  v15 = v11;
-  v16 = v10;
-  v21.receiver = self;
-  v21.super_class = AREnvironmentProbeAnchor;
-  [(ARAnchor *)&v21 updateTransformToCoordinateSpace:a2 withTimestamp:space, timestamp, a5, a6];
-  return [self setTransform:{v18, v17, v16, v15}];
+  objc_msgSend_transform(self, a2);
+  v19 = v11;
+  v20 = v10;
+  v17 = v13;
+  v18 = v12;
+  v23.receiver = self;
+  v23.super_class = AREnvironmentProbeAnchor;
+  [(ARAnchor *)&v23 updateTransformToCoordinateSpace:timestamp withTimestamp:a5, a6, a7, a8];
+  return [self setTransform:{v20, v19, v18, v17}];
 }
 
 @end

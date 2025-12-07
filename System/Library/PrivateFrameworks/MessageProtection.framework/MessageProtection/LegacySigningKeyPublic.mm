@@ -35,20 +35,20 @@
 
   if (v13)
   {
-    v14 = [(LegacySigningKeyPublic *)self init];
-    secKeyRef = v14->_secKeyRef;
-    v14->_secKeyRef = v13;
+    v15 = [(LegacySigningKeyPublic *)self init];
+    secKeyRef = v15->_secKeyRef;
+    v15->_secKeyRef = v13;
 
-    self = v14;
+    self = v15;
     selfCopy = self;
   }
 
   else
   {
-    v17 = MessageProtectionLog();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v18 = MessageProtectionLog(v14);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      [LegacySigningKeyPublic initWithData:v17 error:?];
+      [LegacySigningKeyPublic initWithData:v18 error:?];
     }
 
     selfCopy = 0;
@@ -58,19 +58,16 @@
     }
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 
 - (void)initWithData:(CFTypeRef *)a1 error:(NSObject *)a2 .cold.1(CFTypeRef *a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = CFCopyDescription(*a1);
-  v5 = 138412290;
-  v6 = v3;
-  _os_log_error_impl(&dword_22B404000, a2, OS_LOG_TYPE_ERROR, "Failed to initialize a legacy ECDSA key with error: %@.", &v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138412290;
+  v5 = v3;
+  _os_log_error_impl(&dword_22B404000, a2, OS_LOG_TYPE_ERROR, "Failed to initialize a legacy ECDSA key with error: %@.", &v4, 0xCu);
 }
 
 @end

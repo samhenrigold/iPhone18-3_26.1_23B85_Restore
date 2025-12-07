@@ -488,13 +488,12 @@ void __77__FrequentlyVisitedSitesController__associateHistoryToFrequentlyVisited
 
 void __83__FrequentlyVisitedSitesController_openNewRadarProblemURLForFrequentlyVisitedSite___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v5 = *(a1 + 32);
-  v6 = a3;
-  v7 = a2;
-  v9 = [objc_opt_class() newRadarProblemURLWithInformationForProblematicFrequentlyVisitedSite:v7 informationForOtherFrequentlyVisitedSites:v6 inProfile:*(*(a1 + 32) + OBJC_IVAR___WBSFrequentlyVisitedSitesController__profileIdentifier)];
+  v5 = a3;
+  v6 = a2;
+  v8 = [objc_opt_class() newRadarProblemURLWithInformationForProblematicFrequentlyVisitedSite:v6 informationForOtherFrequentlyVisitedSites:v5 inProfile:*(*(a1 + 32) + OBJC_IVAR___WBSFrequentlyVisitedSitesController__profileIdentifier)];
 
-  v8 = +[LSApplicationWorkspace defaultWorkspace];
-  [v8 openURL:v9 withOptions:0];
+  v7 = +[LSApplicationWorkspace defaultWorkspace];
+  [v7 openURL:v8 withOptions:0];
 }
 
 @end

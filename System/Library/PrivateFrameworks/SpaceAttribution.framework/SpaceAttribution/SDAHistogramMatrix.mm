@@ -1,7 +1,9 @@
 @interface SDAHistogramMatrix
 - (SDAHistogramMatrix)init;
 - (void)enumerateBundleHistogram:(id)histogram;
+- (void)getNumAndSizeOfEventsForBundleId:(id)id volType:(int)type residency:(unsigned int)residency reply:(id)reply;
 - (void)print;
+- (void)upsertBundleID:(id)d volType:(int)type urgency:(int)urgency state:(int)state residency:(unsigned int)residency age:(unint64_t)age size:(unint64_t)size nanoSecSinceUpdate:(unint64_t)self0;
 @end
 
 @implementation SDAHistogramMatrix
@@ -62,6 +64,44 @@
   }
 
   _Block_object_dispose(buf, 8);
+}
+
+- (void)upsertBundleID:(id)d volType:(int)type urgency:(int)urgency state:(int)state residency:(unsigned int)residency age:(unint64_t)age size:(unint64_t)size nanoSecSinceUpdate:(unint64_t)self0
+{
+  v11 = *&residency;
+  v12 = *&state;
+  v13 = *&urgency;
+  v14 = *&type;
+  histogram = self->_histogram;
+  dCopy = d;
+  v18 = [(NSMutableDictionary *)histogram objectForKey:dCopy];
+  if (!v18)
+  {
+    v18 = objc_opt_new();
+  }
+
+  v19 = v18;
+  [v18 updateVolType:v14 residency:v11 urgency:v13 state:v12 age:age size:size nanoSecSinceUpdate:update];
+  [(NSMutableDictionary *)self->_histogram setObject:v19 forKey:dCopy];
+}
+
+- (void)getNumAndSizeOfEventsForBundleId:(id)id volType:(int)type residency:(unsigned int)residency reply:(id)reply
+{
+  v6 = *&residency;
+  v7 = *&type;
+  histogram = self->_histogram;
+  replyCopy = reply;
+  v11 = [(NSMutableDictionary *)histogram objectForKey:id];
+  v12 = v11;
+  if (v11)
+  {
+    [v11 getNumAndSizeOfEventsFor:v7 residency:v6 reply:replyCopy];
+  }
+
+  else
+  {
+    (*(replyCopy + 2))(replyCopy, 0, 0, 0, 0);
+  }
 }
 
 @end

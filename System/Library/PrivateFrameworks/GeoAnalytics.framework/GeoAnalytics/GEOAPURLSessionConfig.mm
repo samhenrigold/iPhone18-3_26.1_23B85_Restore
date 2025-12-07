@@ -1,7 +1,49 @@
 @interface GEOAPURLSessionConfig
++ (id)configForURLSessionConfigType:(int)type;
 @end
 
 @implementation GEOAPURLSessionConfig
+
++ (id)configForURLSessionConfigType:(int)type
+{
+  v3 = *&type;
+  v14 = 0;
+  v15 = &v14;
+  v16 = 0x3032000000;
+  v17 = __Block_byref_object_copy__3231;
+  v18 = __Block_byref_object_dispose__3232;
+  v19 = 0;
+  block[0] = MEMORY[0x1E69E9820];
+  block[1] = 3221225472;
+  block[2] = __55__GEOAPURLSessionConfig_configForURLSessionConfigType___block_invoke;
+  block[3] = &unk_1E79595B8;
+  block[4] = &v14;
+  if (configForURLSessionConfigType__onceToken != -1)
+  {
+    dispatch_once(&configForURLSessionConfigType__onceToken, block);
+  }
+
+  v4 = configForURLSessionConfigType__configDict;
+  v5 = [MEMORY[0x1E696AD98] numberWithInt:v3];
+  v6 = [v4 objectForKeyedSubscript:v5];
+  v7 = v15[5];
+  v15[5] = v6;
+
+  v8 = v15[5];
+  if (!v8)
+  {
+    v9 = [configForURLSessionConfigType__configDict objectForKeyedSubscript:&unk_1F2056150];
+    v10 = v15[5];
+    v15[5] = v9;
+
+    v8 = v15[5];
+  }
+
+  v11 = v8;
+  _Block_object_dispose(&v14, 8);
+
+  return v11;
+}
 
 void __55__GEOAPURLSessionConfig_configForURLSessionConfigType___block_invoke(uint64_t a1)
 {

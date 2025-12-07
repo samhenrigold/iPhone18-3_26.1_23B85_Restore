@@ -3,6 +3,7 @@
 - (void)icqActionPresentOptInFlowForOffer:(id)offer withCompletion:(id)completion;
 - (void)icqActionPresentPurchaseFlowForOffer:(id)offer withCompletion:(id)completion;
 - (void)startShowingServerUI:(id)i;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLoad;
 @end
 
@@ -16,6 +17,19 @@
   v3 = +[UIColor clearColor];
   view = [(ICQFollowupViewController_iOS *)self view];
   [view setBackgroundColor:v3];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v5.receiver = self;
+  v5.super_class = ICQFollowupViewController_iOS;
+  [(ICQFollowupViewController_iOS *)&v5 viewDidAppear:appear];
+  v4[0] = _NSConcreteStackBlock;
+  v4[1] = 3221225472;
+  v4[2] = sub_100001098;
+  v4[3] = &unk_1000082C0;
+  v4[4] = self;
+  [(ICQFollowupViewController_iOS *)self startShowingServerUI:v4];
 }
 
 - (void)icqActionPhotosOptimize:(id)optimize

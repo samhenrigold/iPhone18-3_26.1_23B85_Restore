@@ -29,38 +29,36 @@
 - (void)setStreamSuspended:(BOOL)suspended completion:(id)completion
 {
   suspendedCopy = suspended;
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   v8 = SidecarCoreLogSubsystem(OS_LOG_TYPE_ERROR);
   v9 = v8;
   if (v8 && os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
   {
-    v13 = @"false";
+    v12 = @"false";
     if (suspendedCopy)
     {
-      v13 = @"true";
+      v12 = @"true";
     }
 
     *buf = 138543618;
     selfCopy = self;
-    v20 = 2112;
-    v21 = v13;
+    v19 = 2112;
+    v20 = v12;
     _os_log_impl(&dword_26604C000, v9, OS_LOG_TYPE_ERROR, "%{public}@: setting the session suspended (%@)", buf, 0x16u);
   }
 
   v10 = SidecarQueue();
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __48__SidecarSession_setStreamSuspended_completion___block_invoke;
-  v14[3] = &unk_279BC3408;
-  v15 = completionCopy;
-  v16 = a2;
-  v14[4] = self;
-  v17 = suspendedCopy;
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __48__SidecarSession_setStreamSuspended_completion___block_invoke;
+  v13[3] = &unk_279BC3408;
+  v14 = completionCopy;
+  v15 = a2;
+  v13[4] = self;
+  v16 = suspendedCopy;
   v11 = completionCopy;
-  dispatch_async(v10, v14);
-
-  v12 = *MEMORY[0x277D85DE8];
+  dispatch_async(v10, v13);
 }
 
 void __48__SidecarSession_setStreamSuspended_completion___block_invoke(uint64_t a1)
@@ -253,7 +251,7 @@ void __58__SidecarSession_connectWithTransport_reconnectToSession___block_invoke
 
 void __58__SidecarSession_connectWithTransport_reconnectToSession___block_invoke_2(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [*(a1 + 32) delegate];
   v5 = *(a1 + 32);
@@ -276,18 +274,16 @@ void __58__SidecarSession_connectWithTransport_reconnectToSession___block_invoke
       v9 = v8;
       if (v8 && os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
-        v11 = *(a1 + 32);
-        v12 = atomic_load((v11 + 72));
-        v13 = 138543618;
-        v14 = v11;
-        v15 = 2048;
-        v16 = v12;
-        _os_log_impl(&dword_26604C000, v9, OS_LOG_TYPE_ERROR, "%{public}@: set state failed (%ld)", &v13, 0x16u);
+        v10 = *(a1 + 32);
+        v11 = atomic_load((v10 + 72));
+        v12 = 138543618;
+        v13 = v10;
+        v14 = 2048;
+        v15 = v11;
+        _os_log_impl(&dword_26604C000, v9, OS_LOG_TYPE_ERROR, "%{public}@: set state failed (%ld)", &v12, 0x16u);
       }
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_closeWithError:(id)error
@@ -302,17 +298,15 @@ void __58__SidecarSession_connectWithTransport_reconnectToSession___block_invoke
 
 - (id)description
 {
-  v10[2] = *MEMORY[0x277D85DE8];
+  v9[2] = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CCACA8];
   v4 = objc_opt_class();
   v5 = NSStringFromClass(v4);
   uuid = self->_uuid;
-  v10[0] = 0;
-  v10[1] = 0;
-  [(NSUUID *)uuid getUUIDBytes:v10];
-  v7 = [v3 stringWithFormat:@"%@<%lX>", v5, bswap32(v10[0])];
-
-  v8 = *MEMORY[0x277D85DE8];
+  v9[0] = 0;
+  v9[1] = 0;
+  [(NSUUID *)uuid getUUIDBytes:v9];
+  v7 = [v3 stringWithFormat:@"%@<%lX>", v5, bswap32(v9[0])];
 
   return v7;
 }
@@ -369,71 +363,69 @@ void __25__SidecarSession_dealloc__block_invoke(uint64_t a1)
 
 void __25__SidecarSession_dealloc__block_invoke_2(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v2 = a2;
   if (v2)
   {
-    v4 = SidecarCoreLogSubsystem(OS_LOG_TYPE_ERROR);
-    if (v4)
+    v3 = SidecarCoreLogSubsystem(OS_LOG_TYPE_ERROR);
+    if (v3)
     {
-      log = v4;
-      v5 = os_log_type_enabled(v4, OS_LOG_TYPE_ERROR);
-      v4 = log;
-      if (v5)
+      log = v3;
+      v4 = os_log_type_enabled(v3, OS_LOG_TYPE_ERROR);
+      v3 = log;
+      if (v4)
       {
-        v6 = [v2 domain];
-        v7 = [v2 code];
-        v8 = [v2 localizedDescription];
+        v5 = [v2 domain];
+        v6 = [v2 code];
+        v7 = [v2 localizedDescription];
         *buf = 138543875;
-        v11 = v6;
-        v12 = 2048;
-        v13 = v7;
-        v14 = 2113;
-        v15 = v8;
+        v10 = v5;
+        v11 = 2048;
+        v12 = v6;
+        v13 = 2113;
+        v14 = v7;
         _os_log_impl(&dword_26604C000, log, OS_LOG_TYPE_ERROR, "%{public}@ (%ld) %{private}@", buf, 0x20u);
 
-        v4 = log;
+        v3 = log;
       }
     }
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (SidecarSession)initWithService:(id)service device:(id)device
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   serviceCopy = service;
   deviceCopy = device;
-  v19.receiver = self;
-  v19.super_class = SidecarSession;
-  v9 = [(SidecarSession *)&v19 init];
+  v18.receiver = self;
+  v18.super_class = SidecarSession;
+  v9 = [(SidecarSession *)&v18 init];
   v10 = v9;
   if (v9)
   {
     objc_storeStrong(&v9->_device, device);
     objc_storeStrong(&v10->_service, service);
     v11 = v10;
-    v21 = 0;
-    v22 = &v21;
-    v23 = 0x3032000000;
-    v24 = __Block_byref_object_copy__711;
-    v25 = __Block_byref_object_dispose__712;
-    v26 = 0;
-    v20[0] = MEMORY[0x277D85DD0];
-    v20[1] = 3221225472;
-    v20[2] = __SidecarSessionAddToLocalMapTable_block_invoke;
-    v20[3] = &unk_279BC34A0;
-    v20[4] = v11;
-    v20[5] = &v21;
-    SidecarSessionWithMapTable(SidecarMapTableCreateWeak, &__SidecarSessionLocalMapTable, v20);
-    v12 = v22[5];
-    _Block_object_dispose(&v21, 8);
+    v20 = 0;
+    v21 = &v20;
+    v22 = 0x3032000000;
+    v23 = __Block_byref_object_copy__711;
+    v24 = __Block_byref_object_dispose__712;
+    v25 = 0;
+    v19[0] = MEMORY[0x277D85DD0];
+    v19[1] = 3221225472;
+    v19[2] = __SidecarSessionAddToLocalMapTable_block_invoke;
+    v19[3] = &unk_279BC34A0;
+    v19[4] = v11;
+    v19[5] = &v20;
+    SidecarSessionWithMapTable(SidecarMapTableCreateWeak, &__SidecarSessionLocalMapTable, v19);
+    v12 = v21[5];
+    _Block_object_dispose(&v20, 8);
 
+    v20 = 0;
     v21 = 0;
-    v22 = 0;
-    [(NSUUID *)v12 getUUIDBytes:&v21];
-    v11->_handle = bswap32(v21);
+    [(NSUUID *)v12 getUUIDBytes:&v20];
+    v11->_handle = bswap32(v20);
     *(v11 + 64) &= ~1u;
     v13 = dispatch_get_global_queue(21, 0);
     queue = v11->_queue;
@@ -446,19 +438,18 @@ void __25__SidecarSession_dealloc__block_invoke_2(uint64_t a1, void *a2)
     SidecarSessionSetState(v11, 0);
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
 - (SidecarSession)initWithRemote:(id)remote device:(id)device dataLink:(int)link service:(id)service error:(id *)error
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   remoteCopy = remote;
   deviceCopy = device;
   serviceCopy = service;
-  v34.receiver = self;
-  v34.super_class = SidecarSession;
-  v16 = [(SidecarSession *)&v34 init];
+  v33.receiver = self;
+  v33.super_class = SidecarSession;
+  v16 = [(SidecarSession *)&v33 init];
   if (!v16)
   {
 LABEL_8:
@@ -466,10 +457,10 @@ LABEL_8:
     goto LABEL_12;
   }
 
+  v34 = 0;
   v35 = 0;
-  v36 = 0;
-  [remoteCopy getUUIDBytes:&v35];
-  v17 = bswap32(v35);
+  [remoteCopy getUUIDBytes:&v34];
+  v17 = bswap32(v34);
   v18 = [SidecarService serviceWithIdentifier:serviceCopy];
   if (v18)
   {
@@ -501,14 +492,14 @@ LABEL_8:
     v16->_transport = v25;
     objc_storeStrong(&v16->_uuid, remote);
     SidecarSessionSetState(v16, 2);
-    v35 = MEMORY[0x277D85DD0];
-    v36 = 3221225472;
-    v37 = __SidecarSessionAddToRemoteMapTable_block_invoke;
-    v38 = &unk_279BC3478;
-    v39 = v16;
-    v40 = v17;
+    v34 = MEMORY[0x277D85DD0];
+    v35 = 3221225472;
+    v36 = __SidecarSessionAddToRemoteMapTable_block_invoke;
+    v37 = &unk_279BC3478;
+    v38 = v16;
+    v39 = v17;
     v26 = v16;
-    SidecarSessionWithMapTable(SidecarMapTableCreateStrong, &__SidecarSessionRemoteMapTable, &v35);
+    SidecarSessionWithMapTable(SidecarMapTableCreateStrong, &__SidecarSessionRemoteMapTable, &v34);
 
     goto LABEL_8;
   }
@@ -528,41 +519,38 @@ LABEL_8:
   v27 = 0;
 LABEL_12:
 
-  v32 = *MEMORY[0x277D85DE8];
   return v27;
 }
 
 void __63__SidecarSession_initWithRemote_device_dataLink_service_error___block_invoke(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v2 = a2;
   if (v2)
   {
-    v4 = SidecarCoreLogSubsystem(OS_LOG_TYPE_ERROR);
-    if (v4)
+    v3 = SidecarCoreLogSubsystem(OS_LOG_TYPE_ERROR);
+    if (v3)
     {
-      log = v4;
-      v5 = os_log_type_enabled(v4, OS_LOG_TYPE_ERROR);
-      v4 = log;
-      if (v5)
+      log = v3;
+      v4 = os_log_type_enabled(v3, OS_LOG_TYPE_ERROR);
+      v3 = log;
+      if (v4)
       {
-        v6 = [v2 domain];
-        v7 = [v2 code];
-        v8 = [v2 localizedDescription];
+        v5 = [v2 domain];
+        v6 = [v2 code];
+        v7 = [v2 localizedDescription];
         *buf = 138543875;
-        v11 = v6;
-        v12 = 2048;
-        v13 = v7;
-        v14 = 2113;
-        v15 = v8;
+        v10 = v5;
+        v11 = 2048;
+        v12 = v6;
+        v13 = 2113;
+        v14 = v7;
         _os_log_impl(&dword_26604C000, log, OS_LOG_TYPE_ERROR, "%{public}@ (%ld) %{private}@", buf, 0x20u);
 
-        v4 = log;
+        v3 = log;
       }
     }
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (SidecarSession)init

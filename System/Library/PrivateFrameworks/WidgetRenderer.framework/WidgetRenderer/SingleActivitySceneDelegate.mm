@@ -7,7 +7,7 @@
 - (_TtC14WidgetRenderer27SingleActivitySceneDelegate)init
 {
   v3.receiver = self;
-  v3.super_class = type metadata accessor for SingleActivitySceneDelegate();
+  v3.super_class = type metadata accessor for SingleActivitySceneDelegate(0);
   return [(ActivitySceneDelegate *)&v3 init];
 }
 

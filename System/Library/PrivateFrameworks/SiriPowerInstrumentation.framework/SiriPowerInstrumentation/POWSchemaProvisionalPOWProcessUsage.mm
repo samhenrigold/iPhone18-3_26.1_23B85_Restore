@@ -64,7 +64,6 @@
   has = self->_has;
   if (has)
   {
-    cpuCycles = self->_cpuCycles;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 2) == 0)
@@ -84,7 +83,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  cpuInstructions = self->_cpuInstructions;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 4) == 0)
@@ -99,12 +97,10 @@ LABEL_4:
   }
 
 LABEL_11:
-  gpuCycles = self->_gpuCycles;
   PBDataWriterWriteUint64Field();
   if ((*&self->_has & 8) != 0)
   {
 LABEL_5:
-    memoryFootprint = self->_memoryFootprint;
     PBDataWriterWriteUint64Field();
   }
 

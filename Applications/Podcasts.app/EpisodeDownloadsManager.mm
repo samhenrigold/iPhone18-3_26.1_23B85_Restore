@@ -58,7 +58,7 @@
 
   selfCopy = self;
   EpisodeDownloadsManager.restoreDownloadedEpisodes(_:completion:)(v6, v5, v7);
-  sub_1000112B4(v5);
+  sub_1000112B4(v5, v7);
 }
 
 - (void)downloadEpisode:(id)episode isFromSaving:(BOOL)saving
@@ -89,7 +89,7 @@
 
   selfCopy = self;
   EpisodeDownloadsManager.addEpisodeAutoDownloads(_:completion:)(v6, v5, v7);
-  sub_1000112B4(v5);
+  sub_1000112B4(v5, v7);
 }
 
 - (BOOL)resumeOrPauseEpisodeDownloadWithUuid:(id)uuid

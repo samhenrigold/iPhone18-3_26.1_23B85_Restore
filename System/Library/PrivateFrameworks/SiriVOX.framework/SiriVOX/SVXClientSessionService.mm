@@ -28,7 +28,7 @@
 
 - (void)_setCurrentState:(int64_t)state
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v5 = MEMORY[0x277CEF098];
   v6 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
@@ -45,11 +45,11 @@
     }
 
     v9 = v8;
-    v22 = 136315394;
-    v23 = "[SVXClientSessionService _setCurrentState:]";
-    v24 = 2112;
-    v25 = v9;
-    _os_log_impl(&dword_2695B9000, v7, OS_LOG_TYPE_INFO, "%s currentState = %@", &v22, 0x16u);
+    v21 = 136315394;
+    v22 = "[SVXClientSessionService _setCurrentState:]";
+    v23 = 2112;
+    v24 = v9;
+    _os_log_impl(&dword_2695B9000, v7, OS_LOG_TYPE_INFO, "%s currentState = %@", &v21, 0x16u);
   }
 
   currentState = self->_currentState;
@@ -74,11 +74,11 @@
       }
 
       v16 = v15;
-      v22 = 136315394;
-      v23 = "[SVXClientSessionService _setCurrentState:]";
-      v24 = 2112;
-      v25 = v16;
-      _os_log_impl(&dword_2695B9000, v14, OS_LOG_TYPE_INFO, "%s _currentState = %@", &v22, 0x16u);
+      v21 = 136315394;
+      v22 = "[SVXClientSessionService _setCurrentState:]";
+      v23 = 2112;
+      v24 = v16;
+      _os_log_impl(&dword_2695B9000, v14, OS_LOG_TYPE_INFO, "%s _currentState = %@", &v21, 0x16u);
 
       v12 = *v5;
     }
@@ -98,47 +98,43 @@
       }
 
       v19 = v18;
-      v22 = 136315394;
-      v23 = "[SVXClientSessionService _setCurrentState:]";
-      v24 = 2112;
-      v25 = v19;
-      _os_log_impl(&dword_2695B9000, v17, OS_LOG_TYPE_INFO, "%s _currentState = %@", &v22, 0x16u);
+      v21 = 136315394;
+      v22 = "[SVXClientSessionService _setCurrentState:]";
+      v23 = 2112;
+      v24 = v19;
+      _os_log_impl(&dword_2695B9000, v17, OS_LOG_TYPE_INFO, "%s _currentState = %@", &v21, 0x16u);
     }
 
     v20 = objc_loadWeakRetained(&self->_delegate);
     [v20 sessionService:self didChangeStateFrom:currentState to:state];
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)fetchAlarmAndTimerFiringContextWithCompletion:(id)completion
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   v5 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v14 = "[SVXClientSessionService fetchAlarmAndTimerFiringContextWithCompletion:]";
+    v13 = "[SVXClientSessionService fetchAlarmAndTimerFiringContextWithCompletion:]";
     _os_log_impl(&dword_2695B9000, v5, OS_LOG_TYPE_INFO, "%s ", buf, 0xCu);
   }
 
   clientServiceProvider = self->_clientServiceProvider;
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __73__SVXClientSessionService_fetchAlarmAndTimerFiringContextWithCompletion___block_invoke;
-  v11[3] = &unk_279C67DC8;
-  v12 = completionCopy;
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __73__SVXClientSessionService_fetchAlarmAndTimerFiringContextWithCompletion___block_invoke_25;
-  v9[3] = &unk_279C680E0;
-  v10 = v12;
-  v7 = v12;
-  [(SVXClientServiceProviding *)clientServiceProvider getClientServiceUsingBlock:v11 errorHandler:v9];
-
-  v8 = *MEMORY[0x277D85DE8];
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __73__SVXClientSessionService_fetchAlarmAndTimerFiringContextWithCompletion___block_invoke;
+  v10[3] = &unk_279C67DC8;
+  v11 = completionCopy;
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __73__SVXClientSessionService_fetchAlarmAndTimerFiringContextWithCompletion___block_invoke_25;
+  v8[3] = &unk_279C680E0;
+  v9 = v11;
+  v7 = v11;
+  [(SVXClientServiceProviding *)clientServiceProvider getClientServiceUsingBlock:v10 errorHandler:v8];
 }
 
 void __73__SVXClientSessionService_fetchAlarmAndTimerFiringContextWithCompletion___block_invoke(uint64_t a1, void *a2)
@@ -153,16 +149,16 @@ void __73__SVXClientSessionService_fetchAlarmAndTimerFiringContextWithCompletion
 
 void __73__SVXClientSessionService_fetchAlarmAndTimerFiringContextWithCompletion___block_invoke_25(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_ERROR))
   {
-    v7 = 136315394;
-    v8 = "[SVXClientSessionService fetchAlarmAndTimerFiringContextWithCompletion:]_block_invoke";
-    v9 = 2112;
-    v10 = v3;
-    _os_log_error_impl(&dword_2695B9000, v4, OS_LOG_TYPE_ERROR, "%s error = %@", &v7, 0x16u);
+    v6 = 136315394;
+    v7 = "[SVXClientSessionService fetchAlarmAndTimerFiringContextWithCompletion:]_block_invoke";
+    v8 = 2112;
+    v9 = v3;
+    _os_log_error_impl(&dword_2695B9000, v4, OS_LOG_TYPE_ERROR, "%s error = %@", &v6, 0x16u);
   }
 
   v5 = *(a1 + 32);
@@ -170,23 +166,21 @@ void __73__SVXClientSessionService_fetchAlarmAndTimerFiringContextWithCompletion
   {
     (*(v5 + 16))(v5, 0);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __73__SVXClientSessionService_fetchAlarmAndTimerFiringContextWithCompletion___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = MEMORY[0x277CEF098];
   if (v6 && (v8 = *MEMORY[0x277CEF098], os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_ERROR)))
   {
-    v12 = 136315394;
-    v13 = "[SVXClientSessionService fetchAlarmAndTimerFiringContextWithCompletion:]_block_invoke_2";
-    v14 = 2112;
-    v15 = v6;
-    _os_log_error_impl(&dword_2695B9000, v8, OS_LOG_TYPE_ERROR, "%s error = %@", &v12, 0x16u);
+    v11 = 136315394;
+    v12 = "[SVXClientSessionService fetchAlarmAndTimerFiringContextWithCompletion:]_block_invoke_2";
+    v13 = 2112;
+    v14 = v6;
+    _os_log_error_impl(&dword_2695B9000, v8, OS_LOG_TYPE_ERROR, "%s error = %@", &v11, 0x16u);
     if (!v5)
     {
       goto LABEL_6;
@@ -201,11 +195,11 @@ void __73__SVXClientSessionService_fetchAlarmAndTimerFiringContextWithCompletion
   v9 = *v7;
   if (os_log_type_enabled(*v7, OS_LOG_TYPE_INFO))
   {
-    v12 = 136315394;
-    v13 = "[SVXClientSessionService fetchAlarmAndTimerFiringContextWithCompletion:]_block_invoke";
-    v14 = 2112;
-    v15 = v5;
-    _os_log_impl(&dword_2695B9000, v9, OS_LOG_TYPE_INFO, "%s alarmAndTimerFiringContext = %@", &v12, 0x16u);
+    v11 = 136315394;
+    v12 = "[SVXClientSessionService fetchAlarmAndTimerFiringContextWithCompletion:]_block_invoke";
+    v13 = 2112;
+    v14 = v5;
+    _os_log_impl(&dword_2695B9000, v9, OS_LOG_TYPE_INFO, "%s alarmAndTimerFiringContext = %@", &v11, 0x16u);
   }
 
 LABEL_6:
@@ -214,38 +208,34 @@ LABEL_6:
   {
     (*(v10 + 16))(v10, v5);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)fetchStateWithCompletion:(id)completion
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   v5 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v14 = "[SVXClientSessionService fetchStateWithCompletion:]";
+    v13 = "[SVXClientSessionService fetchStateWithCompletion:]";
     _os_log_impl(&dword_2695B9000, v5, OS_LOG_TYPE_INFO, "%s ", buf, 0xCu);
   }
 
   clientServiceProvider = self->_clientServiceProvider;
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __52__SVXClientSessionService_fetchStateWithCompletion___block_invoke;
-  v11[3] = &unk_279C67F98;
-  v11[4] = self;
-  v12 = completionCopy;
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __52__SVXClientSessionService_fetchStateWithCompletion___block_invoke_4;
-  v9[3] = &unk_279C680E0;
-  v10 = v12;
-  v7 = v12;
-  [(SVXClientServiceProviding *)clientServiceProvider getClientServiceUsingBlock:v11 errorHandler:v9];
-
-  v8 = *MEMORY[0x277D85DE8];
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __52__SVXClientSessionService_fetchStateWithCompletion___block_invoke;
+  v10[3] = &unk_279C67F98;
+  v10[4] = self;
+  v11 = completionCopy;
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __52__SVXClientSessionService_fetchStateWithCompletion___block_invoke_4;
+  v8[3] = &unk_279C680E0;
+  v9 = v11;
+  v7 = v11;
+  [(SVXClientServiceProviding *)clientServiceProvider getClientServiceUsingBlock:v10 errorHandler:v8];
 }
 
 void __52__SVXClientSessionService_fetchStateWithCompletion___block_invoke(uint64_t a1, void *a2)
@@ -262,16 +252,16 @@ void __52__SVXClientSessionService_fetchStateWithCompletion___block_invoke(uint6
 
 void __52__SVXClientSessionService_fetchStateWithCompletion___block_invoke_4(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_ERROR))
   {
-    v7 = 136315394;
-    v8 = "[SVXClientSessionService fetchStateWithCompletion:]_block_invoke_4";
-    v9 = 2112;
-    v10 = v3;
-    _os_log_error_impl(&dword_2695B9000, v4, OS_LOG_TYPE_ERROR, "%s error = %@", &v7, 0x16u);
+    v6 = 136315394;
+    v7 = "[SVXClientSessionService fetchStateWithCompletion:]_block_invoke_4";
+    v8 = 2112;
+    v9 = v3;
+    _os_log_error_impl(&dword_2695B9000, v4, OS_LOG_TYPE_ERROR, "%s error = %@", &v6, 0x16u);
   }
 
   v5 = *(a1 + 32);
@@ -279,8 +269,6 @@ void __52__SVXClientSessionService_fetchStateWithCompletion___block_invoke_4(uin
   {
     (*(v5 + 16))(v5, 0);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __52__SVXClientSessionService_fetchStateWithCompletion___block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
@@ -309,10 +297,9 @@ uint64_t __52__SVXClientSessionService_fetchStateWithCompletion___block_invoke_3
   result = *(a1 + 40);
   if (result)
   {
-    v3 = *(a1 + 48);
-    v4 = *(result + 16);
+    v3 = *(result + 16);
 
-    return v4();
+    return v3();
   }
 
   return result;
@@ -367,43 +354,39 @@ void __50__SVXClientSessionService_clientServiceDidChange___block_invoke_3(uint6
 
 void __50__SVXClientSessionService_clientServiceDidChange___block_invoke_20(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_ERROR))
   {
-    v6 = 136315394;
-    v7 = "[SVXClientSessionService clientServiceDidChange:]_block_invoke";
-    v8 = 2112;
-    v9 = v3;
-    _os_log_error_impl(&dword_2695B9000, v4, OS_LOG_TYPE_ERROR, "%s error = %@", &v6, 0x16u);
+    v5 = 136315394;
+    v6 = "[SVXClientSessionService clientServiceDidChange:]_block_invoke";
+    v7 = 2112;
+    v8 = v3;
+    _os_log_error_impl(&dword_2695B9000, v4, OS_LOG_TYPE_ERROR, "%s error = %@", &v5, 0x16u);
   }
 
   (*(*(a1 + 32) + 16))();
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __50__SVXClientSessionService_clientServiceDidChange___block_invoke_4(uint64_t a1, uint64_t a2, void *a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v4 = a3;
   if (v4)
   {
     v5 = *MEMORY[0x277CEF098];
     if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_ERROR))
     {
-      v7 = 136315394;
-      v8 = "[SVXClientSessionService clientServiceDidChange:]_block_invoke_4";
-      v9 = 2112;
-      v10 = v4;
-      _os_log_error_impl(&dword_2695B9000, v5, OS_LOG_TYPE_ERROR, "%s error = %@", &v7, 0x16u);
+      v6 = 136315394;
+      v7 = "[SVXClientSessionService clientServiceDidChange:]_block_invoke_4";
+      v8 = 2112;
+      v9 = v4;
+      _os_log_error_impl(&dword_2695B9000, v5, OS_LOG_TYPE_ERROR, "%s error = %@", &v6, 0x16u);
     }
   }
 
   (*(*(a1 + 32) + 16))();
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __50__SVXClientSessionService_clientServiceDidChange___block_invoke_2(uint64_t a1)
@@ -460,34 +443,32 @@ LABEL_7:
 
 - (void)handleDidResignActiveWithDeactivationContext:(id)context
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   v5 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v12 = "[SVXClientSessionService handleDidResignActiveWithDeactivationContext:]";
-    v13 = 2112;
-    v14 = contextCopy;
+    v11 = "[SVXClientSessionService handleDidResignActiveWithDeactivationContext:]";
+    v12 = 2112;
+    v13 = contextCopy;
     _os_log_impl(&dword_2695B9000, v5, OS_LOG_TYPE_INFO, "%s deactivationContext = %@", buf, 0x16u);
   }
 
   performer = self->_performer;
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __72__SVXClientSessionService_handleDidResignActiveWithDeactivationContext___block_invoke;
-  v9[3] = &unk_279C68FE8;
-  v9[4] = self;
-  v10 = contextCopy;
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __72__SVXClientSessionService_handleDidResignActiveWithDeactivationContext___block_invoke;
+  v8[3] = &unk_279C68FE8;
+  v8[4] = self;
+  v9 = contextCopy;
   v7 = contextCopy;
-  [(SVXPerforming *)performer performBlock:v9];
-
-  v8 = *MEMORY[0x277D85DE8];
+  [(SVXPerforming *)performer performBlock:v8];
 }
 
 void __72__SVXClientSessionService_handleDidResignActiveWithDeactivationContext___block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   if (*(v2 + 24) == 1)
   {
@@ -499,9 +480,9 @@ void __72__SVXClientSessionService_handleDidResignActiveWithDeactivationContext_
     v3 = *MEMORY[0x277CEF098];
     if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_ERROR))
     {
-      v8 = 136315138;
-      v9 = "[SVXClientSessionService handleDidResignActiveWithDeactivationContext:]_block_invoke";
-      _os_log_error_impl(&dword_2695B9000, v3, OS_LOG_TYPE_ERROR, "%s Client session activity state is inactive when end resigning active.", &v8, 0xCu);
+      v7 = 136315138;
+      v8 = "[SVXClientSessionService handleDidResignActiveWithDeactivationContext:]_block_invoke";
+      _os_log_error_impl(&dword_2695B9000, v3, OS_LOG_TYPE_ERROR, "%s Client session activity state is inactive when end resigning active.", &v7, 0xCu);
     }
   }
 
@@ -513,105 +494,98 @@ void __72__SVXClientSessionService_handleDidResignActiveWithDeactivationContext_
     v6 = objc_loadWeakRetained((*(a1 + 32) + 40));
     [v6 sessionService:*(a1 + 32) didResignActiveWithDeactivationContext:*(a1 + 40)];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleWillResignActiveWithOptions:(unint64_t)options duration:(double)duration
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v7 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
   {
     v8 = v7;
     v9 = SVXSessionResignActiveOptionsGetNames(options);
     *buf = 136315650;
-    v14 = "[SVXClientSessionService handleWillResignActiveWithOptions:duration:]";
-    v15 = 2112;
-    v16 = v9;
-    v17 = 2048;
+    v13 = "[SVXClientSessionService handleWillResignActiveWithOptions:duration:]";
+    v14 = 2112;
+    v15 = v9;
+    v16 = 2048;
     durationCopy = duration;
     _os_log_impl(&dword_2695B9000, v8, OS_LOG_TYPE_INFO, "%s options = %@, duration = %f", buf, 0x20u);
   }
 
   performer = self->_performer;
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __70__SVXClientSessionService_handleWillResignActiveWithOptions_duration___block_invoke;
-  v12[3] = &unk_279C68E80;
-  v12[4] = self;
-  v12[5] = options;
-  *&v12[6] = duration;
-  [(SVXPerforming *)performer performBlock:v12];
-  v11 = *MEMORY[0x277D85DE8];
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __70__SVXClientSessionService_handleWillResignActiveWithOptions_duration___block_invoke;
+  v11[3] = &unk_279C68E80;
+  v11[4] = self;
+  v11[5] = options;
+  *&v11[6] = duration;
+  [(SVXPerforming *)performer performBlock:v11];
 }
 
 void __70__SVXClientSessionService_handleWillResignActiveWithOptions_duration___block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   if ((*(v2 + 24) & 1) == 0)
   {
     v3 = *MEMORY[0x277CEF098];
     if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_ERROR))
     {
-      v6 = 136315138;
-      v7 = "[SVXClientSessionService handleWillResignActiveWithOptions:duration:]_block_invoke";
-      _os_log_error_impl(&dword_2695B9000, v3, OS_LOG_TYPE_ERROR, "%s Client session activity state is inactive when begin resigning active.", &v6, 0xCu);
+      v5 = 136315138;
+      v6 = "[SVXClientSessionService handleWillResignActiveWithOptions:duration:]_block_invoke";
+      _os_log_error_impl(&dword_2695B9000, v3, OS_LOG_TYPE_ERROR, "%s Client session activity state is inactive when begin resigning active.", &v5, 0xCu);
       v2 = *(a1 + 32);
     }
   }
 
   WeakRetained = objc_loadWeakRetained((v2 + 40));
   [WeakRetained sessionService:*(a1 + 32) willResignActiveWithOptions:*(a1 + 40) duration:*(a1 + 48)];
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleDidBecomeActiveWithActivationContext:(id)context turnID:(id)d
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   dCopy = d;
   v8 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
   {
     *buf = 136315650;
-    v17 = "[SVXClientSessionService handleDidBecomeActiveWithActivationContext:turnID:]";
-    v18 = 2112;
-    v19 = contextCopy;
-    v20 = 2112;
-    v21 = dCopy;
+    v16 = "[SVXClientSessionService handleDidBecomeActiveWithActivationContext:turnID:]";
+    v17 = 2112;
+    v18 = contextCopy;
+    v19 = 2112;
+    v20 = dCopy;
     _os_log_impl(&dword_2695B9000, v8, OS_LOG_TYPE_INFO, "%s activationContext = %@, turnID = %@", buf, 0x20u);
   }
 
   performer = self->_performer;
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __77__SVXClientSessionService_handleDidBecomeActiveWithActivationContext_turnID___block_invoke;
-  v13[3] = &unk_279C68ED0;
-  v13[4] = self;
-  v14 = contextCopy;
-  v15 = dCopy;
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __77__SVXClientSessionService_handleDidBecomeActiveWithActivationContext_turnID___block_invoke;
+  v12[3] = &unk_279C68ED0;
+  v12[4] = self;
+  v13 = contextCopy;
+  v14 = dCopy;
   v10 = dCopy;
   v11 = contextCopy;
-  [(SVXPerforming *)performer performBlock:v13];
-
-  v12 = *MEMORY[0x277D85DE8];
+  [(SVXPerforming *)performer performBlock:v12];
 }
 
 void __77__SVXClientSessionService_handleDidBecomeActiveWithActivationContext_turnID___block_invoke(void *a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v2 = a1[4];
   if (*(v2 + 24))
   {
     v3 = *MEMORY[0x277CEF098];
     if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_ERROR))
     {
-      v10 = 136315138;
-      v11 = "[SVXClientSessionService handleDidBecomeActiveWithActivationContext:turnID:]_block_invoke";
-      _os_log_error_impl(&dword_2695B9000, v3, OS_LOG_TYPE_ERROR, "%s Client session activity state is active when end becoming active.", &v10, 0xCu);
+      v9 = 136315138;
+      v10 = "[SVXClientSessionService handleDidBecomeActiveWithActivationContext:turnID:]_block_invoke";
+      _os_log_error_impl(&dword_2695B9000, v3, OS_LOG_TYPE_ERROR, "%s Client session activity state is active when end becoming active.", &v9, 0xCu);
     }
   }
 
@@ -628,68 +602,64 @@ void __77__SVXClientSessionService_handleDidBecomeActiveWithActivationContext_tu
   if (v5)
   {
     [v6 sessionService:a1[4] didBecomeActiveWithActivationContext:a1[5] turnID:a1[6]];
-LABEL_9:
-
-    goto LABEL_10;
   }
 
-  v8 = objc_opt_respondsToSelector();
-
-  if (v8)
+  else
   {
+    v8 = objc_opt_respondsToSelector();
+
+    if ((v8 & 1) == 0)
+    {
+      return;
+    }
+
     v7 = objc_loadWeakRetained((a1[4] + 40));
     [v7 sessionService:a1[4] didBecomeActiveWithActivationContext:a1[5]];
-    goto LABEL_9;
   }
-
-LABEL_10:
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleWillBecomeActiveWithActivationContext:(id)context turnID:(id)d
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   dCopy = d;
   v8 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
   {
     *buf = 136315650;
-    v17 = "[SVXClientSessionService handleWillBecomeActiveWithActivationContext:turnID:]";
-    v18 = 2112;
-    v19 = contextCopy;
-    v20 = 2112;
-    v21 = dCopy;
+    v16 = "[SVXClientSessionService handleWillBecomeActiveWithActivationContext:turnID:]";
+    v17 = 2112;
+    v18 = contextCopy;
+    v19 = 2112;
+    v20 = dCopy;
     _os_log_impl(&dword_2695B9000, v8, OS_LOG_TYPE_INFO, "%s activationContext = %@, turnID = %@", buf, 0x20u);
   }
 
   performer = self->_performer;
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __78__SVXClientSessionService_handleWillBecomeActiveWithActivationContext_turnID___block_invoke;
-  v13[3] = &unk_279C68ED0;
-  v13[4] = self;
-  v14 = contextCopy;
-  v15 = dCopy;
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __78__SVXClientSessionService_handleWillBecomeActiveWithActivationContext_turnID___block_invoke;
+  v12[3] = &unk_279C68ED0;
+  v12[4] = self;
+  v13 = contextCopy;
+  v14 = dCopy;
   v10 = dCopy;
   v11 = contextCopy;
-  [(SVXPerforming *)performer performBlock:v13];
-
-  v12 = *MEMORY[0x277D85DE8];
+  [(SVXPerforming *)performer performBlock:v12];
 }
 
 void __78__SVXClientSessionService_handleWillBecomeActiveWithActivationContext_turnID___block_invoke(void *a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v2 = a1[4];
   if (*(v2 + 24) == 1)
   {
     v3 = *MEMORY[0x277CEF098];
     if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_ERROR))
     {
-      v10 = 136315138;
-      v11 = "[SVXClientSessionService handleWillBecomeActiveWithActivationContext:turnID:]_block_invoke";
-      _os_log_error_impl(&dword_2695B9000, v3, OS_LOG_TYPE_ERROR, "%s Client session activity state is active when begin becoming active.", &v10, 0xCu);
+      v9 = 136315138;
+      v10 = "[SVXClientSessionService handleWillBecomeActiveWithActivationContext:turnID:]_block_invoke";
+      _os_log_error_impl(&dword_2695B9000, v3, OS_LOG_TYPE_ERROR, "%s Client session activity state is active when begin becoming active.", &v9, 0xCu);
       v2 = a1[4];
     }
   }
@@ -702,27 +672,25 @@ void __78__SVXClientSessionService_handleWillBecomeActiveWithActivationContext_t
   if (v5)
   {
     [v6 sessionService:a1[4] willBecomeActiveWithActivationContext:a1[5] turnID:a1[6]];
-LABEL_8:
-
-    goto LABEL_9;
   }
 
-  v8 = objc_opt_respondsToSelector();
-
-  if (v8)
+  else
   {
+    v8 = objc_opt_respondsToSelector();
+
+    if ((v8 & 1) == 0)
+    {
+      return;
+    }
+
     v7 = objc_loadWeakRetained((a1[4] + 40));
     [v7 sessionService:a1[4] willBecomeActiveWithActivationContext:a1[5]];
-    goto LABEL_8;
   }
-
-LABEL_9:
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleDidStopSoundWithID:(int64_t)d error:(id)error
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   v7 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
@@ -740,26 +708,24 @@ LABEL_9:
 
     v10 = v9;
     *buf = 136315650;
-    v18 = "[SVXClientSessionService handleDidStopSoundWithID:error:]";
-    v19 = 2112;
-    v20 = v10;
-    v21 = 2112;
-    v22 = errorCopy;
+    v17 = "[SVXClientSessionService handleDidStopSoundWithID:error:]";
+    v18 = 2112;
+    v19 = v10;
+    v20 = 2112;
+    v21 = errorCopy;
     _os_log_impl(&dword_2695B9000, v8, OS_LOG_TYPE_INFO, "%s soundID = %@, error = %@", buf, 0x20u);
   }
 
   performer = self->_performer;
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __58__SVXClientSessionService_handleDidStopSoundWithID_error___block_invoke;
-  v14[3] = &unk_279C68E58;
-  v15 = errorCopy;
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __58__SVXClientSessionService_handleDidStopSoundWithID_error___block_invoke;
+  v13[3] = &unk_279C68E58;
+  v14 = errorCopy;
   dCopy = d;
-  v14[4] = self;
+  v13[4] = self;
   v12 = errorCopy;
-  [(SVXPerforming *)performer performBlock:v14];
-
-  v13 = *MEMORY[0x277D85DE8];
+  [(SVXPerforming *)performer performBlock:v13];
 }
 
 void __58__SVXClientSessionService_handleDidStopSoundWithID_error___block_invoke(void *a1)
@@ -776,7 +742,7 @@ void __58__SVXClientSessionService_handleDidStopSoundWithID_error___block_invoke
 
 - (void)handleDidStartSoundWithID:(int64_t)d
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v5 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
   {
@@ -793,21 +759,20 @@ void __58__SVXClientSessionService_handleDidStopSoundWithID_error___block_invoke
 
     v8 = v7;
     *buf = 136315394;
-    v13 = "[SVXClientSessionService handleDidStartSoundWithID:]";
-    v14 = 2112;
-    v15 = v8;
+    v12 = "[SVXClientSessionService handleDidStartSoundWithID:]";
+    v13 = 2112;
+    v14 = v8;
     _os_log_impl(&dword_2695B9000, v6, OS_LOG_TYPE_INFO, "%s soundID = %@", buf, 0x16u);
   }
 
   performer = self->_performer;
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __53__SVXClientSessionService_handleDidStartSoundWithID___block_invoke;
-  v11[3] = &unk_279C68C68;
-  v11[4] = self;
-  v11[5] = d;
-  [(SVXPerforming *)performer performBlock:v11];
-  v10 = *MEMORY[0x277D85DE8];
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __53__SVXClientSessionService_handleDidStartSoundWithID___block_invoke;
+  v10[3] = &unk_279C68C68;
+  v10[4] = self;
+  v10[5] = d;
+  [(SVXPerforming *)performer performBlock:v10];
 }
 
 void __53__SVXClientSessionService_handleDidStartSoundWithID___block_invoke(uint64_t a1)
@@ -824,7 +789,7 @@ void __53__SVXClientSessionService_handleDidStartSoundWithID___block_invoke(uint
 
 - (void)handleWillStartSoundWithID:(int64_t)d
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v5 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
   {
@@ -841,21 +806,20 @@ void __53__SVXClientSessionService_handleDidStartSoundWithID___block_invoke(uint
 
     v8 = v7;
     *buf = 136315394;
-    v13 = "[SVXClientSessionService handleWillStartSoundWithID:]";
-    v14 = 2112;
-    v15 = v8;
+    v12 = "[SVXClientSessionService handleWillStartSoundWithID:]";
+    v13 = 2112;
+    v14 = v8;
     _os_log_impl(&dword_2695B9000, v6, OS_LOG_TYPE_INFO, "%s soundID = %@", buf, 0x16u);
   }
 
   performer = self->_performer;
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __54__SVXClientSessionService_handleWillStartSoundWithID___block_invoke;
-  v11[3] = &unk_279C68C68;
-  v11[4] = self;
-  v11[5] = d;
-  [(SVXPerforming *)performer performBlock:v11];
-  v10 = *MEMORY[0x277D85DE8];
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __54__SVXClientSessionService_handleWillStartSoundWithID___block_invoke;
+  v10[3] = &unk_279C68C68;
+  v10[4] = self;
+  v10[5] = d;
+  [(SVXPerforming *)performer performBlock:v10];
 }
 
 void __54__SVXClientSessionService_handleWillStartSoundWithID___block_invoke(uint64_t a1)
@@ -872,29 +836,27 @@ void __54__SVXClientSessionService_handleWillStartSoundWithID___block_invoke(uin
 
 - (void)handleWillPresentFeedbackWithDialogIdentifier:(id)identifier
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   v5 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v12 = "[SVXClientSessionService handleWillPresentFeedbackWithDialogIdentifier:]";
-    v13 = 2112;
-    v14 = identifierCopy;
+    v11 = "[SVXClientSessionService handleWillPresentFeedbackWithDialogIdentifier:]";
+    v12 = 2112;
+    v13 = identifierCopy;
     _os_log_impl(&dword_2695B9000, v5, OS_LOG_TYPE_INFO, "%s dialogIdentifier = %@", buf, 0x16u);
   }
 
   performer = self->_performer;
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __73__SVXClientSessionService_handleWillPresentFeedbackWithDialogIdentifier___block_invoke;
-  v9[3] = &unk_279C68FE8;
-  v9[4] = self;
-  v10 = identifierCopy;
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __73__SVXClientSessionService_handleWillPresentFeedbackWithDialogIdentifier___block_invoke;
+  v8[3] = &unk_279C68FE8;
+  v8[4] = self;
+  v9 = identifierCopy;
   v7 = identifierCopy;
-  [(SVXPerforming *)performer performBlock:v9];
-
-  v8 = *MEMORY[0x277D85DE8];
+  [(SVXPerforming *)performer performBlock:v8];
 }
 
 void __73__SVXClientSessionService_handleWillPresentFeedbackWithDialogIdentifier___block_invoke(uint64_t a1)
@@ -905,7 +867,7 @@ void __73__SVXClientSessionService_handleWillPresentFeedbackWithDialogIdentifier
 
 - (void)handleDidChangeStateFrom:(int64_t)from to:(int64_t)to
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v7 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
   {
@@ -933,29 +895,28 @@ void __73__SVXClientSessionService_handleWillPresentFeedbackWithDialogIdentifier
 
     v12 = v11;
     *buf = 136315650;
-    v17 = "[SVXClientSessionService handleDidChangeStateFrom:to:]";
-    v18 = 2112;
-    v19 = v10;
-    v20 = 2112;
-    v21 = v12;
+    v16 = "[SVXClientSessionService handleDidChangeStateFrom:to:]";
+    v17 = 2112;
+    v18 = v10;
+    v19 = 2112;
+    v20 = v12;
     _os_log_impl(&dword_2695B9000, v8, OS_LOG_TYPE_INFO, "%s fromState = %@, toState = %@", buf, 0x20u);
   }
 
   performer = self->_performer;
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __55__SVXClientSessionService_handleDidChangeStateFrom_to___block_invoke;
-  v15[3] = &unk_279C68E80;
-  v15[4] = self;
-  v15[5] = from;
-  v15[6] = to;
-  [(SVXPerforming *)performer performBlock:v15];
-  v14 = *MEMORY[0x277D85DE8];
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __55__SVXClientSessionService_handleDidChangeStateFrom_to___block_invoke;
+  v14[3] = &unk_279C68E80;
+  v14[4] = self;
+  v14[5] = from;
+  v14[6] = to;
+  [(SVXPerforming *)performer performBlock:v14];
 }
 
 uint64_t __55__SVXClientSessionService_handleDidChangeStateFrom_to___block_invoke(void *a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v2 = a1[4];
   v3 = v2[4];
   if (v3 == a1[5])
@@ -976,11 +937,11 @@ uint64_t __55__SVXClientSessionService_handleDidChangeStateFrom_to___block_invok
       }
 
       v8 = v7;
-      v16 = 136315394;
-      v17 = "[SVXClientSessionService handleDidChangeStateFrom:to:]_block_invoke";
-      v18 = 2112;
-      v19 = v8;
-      _os_log_impl(&dword_2695B9000, v6, OS_LOG_TYPE_INFO, "%s _currentState = %@", &v16, 0x16u);
+      v15 = 136315394;
+      v16 = "[SVXClientSessionService handleDidChangeStateFrom:to:]_block_invoke";
+      v17 = 2112;
+      v18 = v8;
+      _os_log_impl(&dword_2695B9000, v6, OS_LOG_TYPE_INFO, "%s _currentState = %@", &v15, 0x16u);
 
       v2 = a1[4];
       v5 = *v4;
@@ -1002,11 +963,11 @@ uint64_t __55__SVXClientSessionService_handleDidChangeStateFrom_to___block_invok
       }
 
       v12 = v11;
-      v16 = 136315394;
-      v17 = "[SVXClientSessionService handleDidChangeStateFrom:to:]_block_invoke";
-      v18 = 2112;
-      v19 = v12;
-      _os_log_impl(&dword_2695B9000, v10, OS_LOG_TYPE_INFO, "%s _currentState = %@", &v16, 0x16u);
+      v15 = 136315394;
+      v16 = "[SVXClientSessionService handleDidChangeStateFrom:to:]_block_invoke";
+      v17 = 2112;
+      v18 = v12;
+      _os_log_impl(&dword_2695B9000, v10, OS_LOG_TYPE_INFO, "%s _currentState = %@", &v15, 0x16u);
     }
 
     WeakRetained = objc_loadWeakRetained((a1[4] + 40));
@@ -1015,14 +976,12 @@ uint64_t __55__SVXClientSessionService_handleDidChangeStateFrom_to___block_invok
     v2 = a1[4];
   }
 
-  result = [v2 _setCurrentState:a1[6]];
-  v15 = *MEMORY[0x277D85DE8];
-  return result;
+  return [v2 _setCurrentState:a1[6]];
 }
 
 - (void)handleWillChangeStateFrom:(int64_t)from to:(int64_t)to
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v7 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
   {
@@ -1050,24 +1009,23 @@ uint64_t __55__SVXClientSessionService_handleDidChangeStateFrom_to___block_invok
 
     v12 = v11;
     *buf = 136315650;
-    v17 = "[SVXClientSessionService handleWillChangeStateFrom:to:]";
-    v18 = 2112;
-    v19 = v10;
-    v20 = 2112;
-    v21 = v12;
+    v16 = "[SVXClientSessionService handleWillChangeStateFrom:to:]";
+    v17 = 2112;
+    v18 = v10;
+    v19 = 2112;
+    v20 = v12;
     _os_log_impl(&dword_2695B9000, v8, OS_LOG_TYPE_INFO, "%s fromState = %@, toState = %@", buf, 0x20u);
   }
 
   performer = self->_performer;
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __56__SVXClientSessionService_handleWillChangeStateFrom_to___block_invoke;
-  v15[3] = &unk_279C68E80;
-  v15[4] = self;
-  v15[5] = from;
-  v15[6] = to;
-  [(SVXPerforming *)performer performBlock:v15];
-  v14 = *MEMORY[0x277D85DE8];
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __56__SVXClientSessionService_handleWillChangeStateFrom_to___block_invoke;
+  v14[3] = &unk_279C68E80;
+  v14[4] = self;
+  v14[5] = from;
+  v14[6] = to;
+  [(SVXPerforming *)performer performBlock:v14];
 }
 
 void __56__SVXClientSessionService_handleWillChangeStateFrom_to___block_invoke(uint64_t a1)

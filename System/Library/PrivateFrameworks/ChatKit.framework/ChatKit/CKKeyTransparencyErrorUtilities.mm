@@ -63,15 +63,15 @@ void __73__CKKeyTransparencyErrorUtilities_showReportToAppleUIFromViewController
   dispatch_async(MEMORY[0x1E69E96A0], v7);
 }
 
-void __73__CKKeyTransparencyErrorUtilities_showReportToAppleUIFromViewController___block_invoke_3()
+void __73__CKKeyTransparencyErrorUtilities_showReportToAppleUIFromViewController___block_invoke_3(uint64_t a1, uint64_t a2)
 {
   if (IMOSLoggingEnabled())
   {
-    v0 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v0, OS_LOG_TYPE_INFO))
+    v2 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
     {
-      *v1 = 0;
-      _os_log_impl(&dword_19020E000, v0, OS_LOG_TYPE_INFO, "Presented Report To Apple KT UI", v1, 2u);
+      *v3 = 0;
+      _os_log_impl(&dword_19020E000, v2, OS_LOG_TYPE_INFO, "Presented Report To Apple KT UI", v3, 2u);
     }
   }
 }
@@ -399,44 +399,45 @@ LABEL_62:
   chatCopy = chat;
   handlerCopy = handler;
   v7 = CKIsRunningInMacCatalyst();
-  if (CKIsRunningInMacCatalyst())
+  v8 = CKIsRunningInMacCatalyst();
+  if (v8)
   {
-    v8 = CKFrameworkBundle();
-    v9 = [v8 localizedStringForKey:@"KT_CLEAR_ARE_YOU_SURE" value:&stru_1F04268F8 table:@"ChatKit-Key-Transparency"];
+    v9 = CKFrameworkBundle(v8);
+    v10 = [v9 localizedStringForKey:@"KT_CLEAR_ARE_YOU_SURE" value:&stru_1F04268F8 table:@"ChatKit-Key-Transparency"];
 
-    v10 = CKFrameworkBundle();
-    v11 = [v10 localizedStringForKey:@"KT_CLEAR_YOU_WILL_SEE_A_MESSAGE" value:&stru_1F04268F8 table:@"ChatKit-Key-Transparency"];
+    v12 = CKFrameworkBundle(v11);
+    v13 = [v12 localizedStringForKey:@"KT_CLEAR_YOU_WILL_SEE_A_MESSAGE" value:&stru_1F04268F8 table:@"ChatKit-Key-Transparency"];
   }
 
   else
   {
-    v11 = 0;
-    v9 = 0;
+    v13 = 0;
+    v10 = 0;
   }
 
-  v12 = [MEMORY[0x1E69DC650] alertControllerWithTitle:v9 message:v11 preferredStyle:v7 != 0];
-  v13 = MEMORY[0x1E69DC648];
-  v14 = CKFrameworkBundle();
-  v15 = [v14 localizedStringForKey:@"KT_CLEAR_WARNING" value:&stru_1F04268F8 table:@"ChatKit-Key-Transparency"];
-  v24[0] = MEMORY[0x1E69E9820];
-  v24[1] = 3221225472;
-  v24[2] = __92__CKKeyTransparencyErrorUtilities_ktClearWarningAlertControllerForChat_confirmationHandler___block_invoke;
-  v24[3] = &unk_1E72F35A0;
-  v25 = chatCopy;
-  v26 = handlerCopy;
-  v16 = handlerCopy;
-  v17 = chatCopy;
-  v18 = [v13 actionWithTitle:v15 style:2 handler:v24];
+  v14 = [MEMORY[0x1E69DC650] alertControllerWithTitle:v10 message:v13 preferredStyle:v7 != 0];
+  v15 = MEMORY[0x1E69DC648];
+  v16 = CKFrameworkBundle(v14);
+  v17 = [v16 localizedStringForKey:@"KT_CLEAR_WARNING" value:&stru_1F04268F8 table:@"ChatKit-Key-Transparency"];
+  v27[0] = MEMORY[0x1E69E9820];
+  v27[1] = 3221225472;
+  v27[2] = __92__CKKeyTransparencyErrorUtilities_ktClearWarningAlertControllerForChat_confirmationHandler___block_invoke;
+  v27[3] = &unk_1E72F35A0;
+  v28 = chatCopy;
+  v29 = handlerCopy;
+  v18 = handlerCopy;
+  v19 = chatCopy;
+  v20 = [v15 actionWithTitle:v17 style:2 handler:v27];
 
-  v19 = MEMORY[0x1E69DC648];
-  v20 = CKFrameworkBundle();
-  v21 = [v20 localizedStringForKey:@"KT_CANCEL" value:&stru_1F04268F8 table:@"ChatKit-Key-Transparency"];
-  v22 = [v19 actionWithTitle:v21 style:1 handler:&__block_literal_global_234_0];
+  v21 = MEMORY[0x1E69DC648];
+  v23 = CKFrameworkBundle(v22);
+  v24 = [v23 localizedStringForKey:@"KT_CANCEL" value:&stru_1F04268F8 table:@"ChatKit-Key-Transparency"];
+  v25 = [v21 actionWithTitle:v24 style:1 handler:&__block_literal_global_234_0];
 
-  [v12 addAction:v18];
-  [v12 addAction:v22];
+  [v14 addAction:v20];
+  [v14 addAction:v25];
 
-  return v12;
+  return v14;
 }
 
 uint64_t __92__CKKeyTransparencyErrorUtilities_ktClearWarningAlertControllerForChat_confirmationHandler___block_invoke(uint64_t a1)

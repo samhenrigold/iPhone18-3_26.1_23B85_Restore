@@ -12,9 +12,9 @@
 {
   metadataCopy = metadata;
   selfCopy = self;
-  v6 = sub_1005F0000();
+  v7 = sub_1005F0000(v6);
 
-  return v6;
+  return v7;
 }
 
 - (id)activityViewControllerPlaceholderItem:(id)item
@@ -38,11 +38,11 @@
   controllerCopy = controller;
   typeCopy = type;
   selfCopy = self;
-  sub_1005F02A4();
+  sub_1005F02A4(v9);
 
-  v9 = String._bridgeToObjectiveC()();
+  v10 = String._bridgeToObjectiveC()();
 
-  return v9;
+  return v10;
 }
 
 - (_TtC5Music30ShareAssetActivityItemProvider)init
